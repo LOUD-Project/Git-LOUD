@@ -1,0 +1,600 @@
+UnitBlueprint {
+
+--[[
+    Abilities = {
+        TargetLocation = {
+            bitmapId = 'skry-target',
+            helpText = 'scry_spy_target',
+        },
+    },
+    SpecialAbilities = { --For FAF Nomads compatibility
+        TargetLocation = {
+            AreaOfEffect = 10,
+            MaxRadius = -1,
+        },
+    },
+--]]
+    
+    AI = {
+        TargetBones = { 
+			'Body',
+			'Turret_Body',
+			'Muzzle',
+			'B_002',
+			'B_005',
+		},
+    },
+    
+    Audio = {
+        FootFallGeneric = Sound {
+            Bank = 'XSL',
+            Cue = 'XSL0401_Move_Step',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        FootFallGenericSeabed = Sound {
+            Bank = 'XSL',
+            Cue = 'XSL0401_Move_UW_Step',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Killed = Sound {
+            Bank = 'XSL',
+            Cue = 'XSL0401_Death',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartMove = Sound {
+            Bank = 'XSL',
+            Cue = 'XSL0401_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StopMove = Sound {
+            Bank = 'XSL',
+            Cue = 'XSL0401_Move_Stop',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'SeraphimSelect',
+            Cue = 'Seraphim_Select_Bot',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+    
+    Buffs = {
+        Regen = {
+            Level1 = 15,
+            Level2 = 30,
+            Level3 = 45,
+            Level4 = 60,
+            Level5 = 75,
+        },
+    },
+    
+    BuildIconSortPriority = 40,
+    
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER4COMMANDER',
+        'SERAPHIM',
+        'MOBILE',
+        'LAND',
+        'DIRECTFIRE',
+        'EXPERIMENTAL',
+        'SNIPER',
+        'NEEDMOBILEBUILD',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'OVERLAYDIRECTFIRE',
+        'DRAGBUILD',
+    },
+    
+    CollisionOffsetY = 1,
+    CollisionOffsetZ = -0.5,
+    
+    Defense = {
+
+        ArmorType = 'Experimental',
+        
+        EconomyThreatLevel = 2000,
+        
+        Health = 21000,
+        MaxHealth = 21000,
+        RegenRate = 10,
+
+        SurfaceThreatLevel = 180,
+    },
+    
+    Description = '<LOC ssl0404_desc>Experimental Sniper Bot',
+    
+    Display = {
+        Abilities = {
+            '<LOC ability_amphibious>Amphibious',
+            '<LOC ability_cloak>Cloaking',
+            '<LOC ability_massive>Massive',
+            '<LOC ability_personalstealth>Personal Stealth',
+            '<LOC ability_deathaoe>Volatile',
+        },
+        
+        AnimationDeath = {
+            {
+                Animation = '/mods/BrewLAN_LOUD/units/ssl0404/ssl0404_adeath01.sca',
+                AnimationRateMax = 3,
+                AnimationRateMin = 3,
+                Weight = 1,
+            },
+        },
+        
+        AnimationWalk = '/mods/BrewLAN_LOUD/units/ssl0404/ssl0404_awalk01.sca',
+        
+        AnimationWalkRate = 3,
+        
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 130,
+                    LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
+                    ShaderName = 'Seraphim',
+                },
+                {
+                    LODCutoff = 256,
+                    LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
+                    ShaderName = 'Seraphim',
+                },
+                {
+                    LODCutoff = 512,
+                    ShaderName = 'Seraphim',
+                },
+            },
+        },
+        
+        MovementEffects = {
+            Land = {
+                Effects = {
+                    {
+                        Bones = {
+                            'E_001',
+                            'E_002',
+                            'E_003',
+                            'E_004',
+                            'E_005',
+                            'E_006',
+                        },
+                        Scale = 1,
+                        Type = 'GroundKickup01',
+                    },
+                },
+                Footfall = {
+                    Bones = {
+                        {
+                            FootBone = 'E_001',
+                            HipBone = 'B_001',
+                            KneeBone = 'C_001',
+                            MaxFootFall = -0.25,
+                            Offset = {
+                                z = 0,
+                            },
+                            Scale = 1.5,
+                            StraightLegs = false,
+                            Type = 'FootFall01',
+                        },
+                        {
+                            FootBone = 'E_002',
+                            HipBone = 'B_002',
+                            KneeBone = 'C_002',
+                            MaxFootFall = -0.25,
+                            Offset = {
+                                z = 0,
+                            },
+                            Scale = 1.5,
+                            StraightLegs = false,
+                            Type = 'FootFall01',
+                        },
+                        {
+                            FootBone = 'E_003',
+                            HipBone = 'B_003',
+                            KneeBone = 'C_003',
+                            MaxFootFall = -0.25,
+                            Offset = {
+                                z = 0,
+                            },
+                            Scale = 1.5,
+                            StraightLegs = false,
+                            Type = 'FootFall01',
+                        },
+                        {
+                            FootBone = 'E_004',
+                            HipBone = 'B_004',
+                            KneeBone = 'C_004',
+                            MaxFootFall = -0.25,
+                            Offset = {
+                                z = 0,
+                            },
+                            Scale = 1.5,
+                            StraightLegs = false,
+                            Type = 'FootFall01',
+                        },
+                        {
+                            FootBone = 'E_005',
+                            HipBone = 'B_005',
+                            KneeBone = 'C_005',
+                            MaxFootFall = -0.25,
+                            Offset = {
+                                z = 0,
+                            },
+                            Scale = 1.5,
+                            StraightLegs = false,
+                            Type = 'FootFall01',
+                        },
+                        {
+                            FootBone = 'E_006',
+                            HipBone = 'B_006',
+                            KneeBone = 'C_006',
+                            MaxFootFall = -0.25,
+                            Offset = {
+                                z = 0,
+                            },
+                            Scale = 1.5,
+                            StraightLegs = false,
+                            Type = 'FootFall01',
+                        },
+                    },
+                    CameraShake = {
+                        Interval = 1,
+                        MaxShakeEpicenter = 0.05125,
+                        MinShakeAtRadius = 0,
+                        Radius = 3,
+                    },
+                    Damage = {
+                        Amount = 500,
+                        DamageFriendly = false,
+                        Radius = 1,
+                        Type = 'ExperimentalFootfall',
+                    },
+                },
+            },
+        },
+        SpawnRandomRotation = true,
+        UniformScale = 0.019,
+    },
+    
+    Economy = {
+        BuildCostEnergy = 480000,
+        BuildCostMass = 23800,
+        BuildTime = 6750,
+        
+        MaintenanceConsumptionPerSecondEnergy = 275,
+    },
+    
+    General = {
+        CapCost = 8,
+        Category = 'Direct Fire',
+        Classification = 'RULEUC_MilitaryVehicle',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = false,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'Seraphim',
+        Icon = 'amph',
+
+        TechLevel = 'RULEUTL_Secret',
+        UnitName = '<LOC ssl0404_name>Sisha-Ah',
+        UnitWeight = 1,
+    },
+    
+    Intel = {
+        Cloak = true,
+        RadarStealth = true,
+        StealthWaitTime = 2,
+        
+        VisionRadius = 40,
+        WaterVisionradius = 40,
+    },
+    
+    Interface = {
+        HelpText = '<LOC ssl0404_desc>Experimental Sniper Bot',
+    },
+    
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 3,
+    LifeBarSize = 6.25,
+    
+    Physics = {
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = true,
+            LAYER_Orbit = false,
+            LAYER_Seabed = true,
+            LAYER_Sub = false,
+            LAYER_Water = false,
+        },
+        DragCoefficient = 0.2,
+        MaxAcceleration = 0.6,
+        MaxBrake = 0.9,
+        MaxSpeed = 2.7,
+        MaxSpeedReverse = 0,
+        MaxSteerForce = 10,
+        MeshExtentsX = 4,
+        MeshExtentsY = 3,
+        MeshExtentsZ = 5,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_Amphibious',
+        SinkLower = true,
+        SkirtOffsetX = -2.5,
+        SkirtOffsetZ = -2.5,
+        SkirtSizeX = 8,
+        SkirtSizeZ = 8,
+        StandUpright = false,
+        TurnRadius = 5,
+        TurnRate = 17,
+    },
+    
+    SelectionSizeX = 4,
+    SelectionSizeZ = 2.5,
+    SelectionCenterOffsetZ = -0.5,
+    SelectionThickness = 0.32,
+    
+    SizeX = 3,
+    SizeY = 2.5,
+    SizeZ = 5,
+    
+    StrategicIconName = 'icon_experimental_land_directfire',
+    StrategicIconSortPriority = 115,
+    
+    Transport = {
+        TransportClass = 5,
+    },
+    
+    Veteran = {
+        Level1 = 35,
+        Level2 = 70,
+        Level3 = 105,
+        Level4 = 140,
+        Level5 = 175,
+    },
+    
+    -- Both weapons now have energy consumption cycles
+    -- that conincide -- RoF entirely controlled by energy cycles
+    -- RoF set at 1 to allow almost immediate fire upon charge complete
+    
+    Weapon = {
+        {
+            AboveWaterFireOnly = true,
+            AboveWaterTargetsOnly = true,
+            AimsStraightOnDisable = true,
+            
+            Audio = {
+                Fire = Sound {
+                    Bank = 'XSL_Weapon',
+                    Cue = 'XSL0401_Exp_Phason_Fire',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                MuzzleChargeStart = Sound {
+                    Bank = 'XSL_Weapon',
+                    Cue = 'XSL0401_Exp_Phason_Charge',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            AutoInitiateAttackCommand = false,
+            
+            BallisticArc = 'RULEUBA_None',
+            
+            BeamCollisionDelay = 0,
+            BeamLifetime = 1,
+            
+            CollideFriendly = false,
+            
+            Damage = 2400,
+            DamageRadius = 0,
+            DamageType = 'ShieldMult0.5',
+            
+            DisplayName = 'Experimental Phason Beam Generator',
+            
+            DoNotCollideList = { 'MISSILE' },
+            
+            EnergyRequired = 24150,         -- a 10.5 second charge cycle before fire
+            EnergyDrainPerSecond = 2300,
+            
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
+                Water = 'Land|Water|Seabed',
+            },
+            FiringTolerance = 2,
+            
+            Label = 'MainGun',
+            
+            MaxRadius = 120,
+            MinRadius = 30,
+            
+            MuzzleChargeDelay = 2.5,        -- 2.5 second charge time before discharge
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            
+            NotExclusive = true,
+            
+            RackBones = {
+                {
+                    MuzzleBones = {'Muzzle'},
+                    RackBone = 'Barrel',
+                },
+            },
+            RackFireTogether = false,
+            RackRecoilDistance = -5,
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+            
+            RangeCategory = 'UWRC_DirectFire',
+            
+            RateOfFire = 1,                 -- RoF controlled by charge
+            
+            SlavedToBody = true,
+            SlavedToBodyArcRange = 30,
+            
+            TargetCheckInterval = 0.5,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'EXPERIMENTAL MOBILE',
+                'TECH3 MOBILE',
+                'STRUCTURE DEFENSE',
+                'SPECIALLOWPRI',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            
+            TurretBoneMuzzle = 'Muzzle',
+            TurretBonePitch = 'Turret_Pitch',
+            TurretBoneYaw = 'Barrel',
+            TurretDualManipulators = false,
+            
+            TurretPitch = 15,
+            TurretPitchRange = 28,
+            TurretPitchSpeed = 28,
+            
+            TurretYaw = 0,
+            TurretYawRange = 35,
+            TurretYawSpeed = 17,
+            
+            Turreted = true,
+            WeaponCategory = 'Direct Fire Experimental',
+        },
+        
+        {
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                BeamLoop = Sound {
+                    Bank = 'XSB_Weapon',
+                    Cue = 'XSB2301_Ultrachromatic_Beam',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                BeamStart = Sound {
+                    Bank = 'XSB_Weapon',
+                    Cue = 'XSB2301_Ultrachromatic_Beam_Start',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                BeamStop = Sound {
+                    Bank = 'XSB_Weapon',
+                    Cue = 'XSB2301_Ultrachromatic_Beam_Stop',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            
+            BallisticArc = 'RULEUBA_None',
+            
+            BeamCollisionDelay = 0.5,
+            
+            BeamLifetime = 2.5,
+            
+            CollideFriendly = false,
+            ContinuousBeam = true,
+            
+            Damage = 1,
+            DamageRadius = 0,
+            DamageType = 'Normal',
+            
+            DisplayName = 'Ultrachromatic Tracer',
+            
+            DoNotCollideList = {'MISSILE'},
+            
+            EnergyRequired = 420,           -- a 12 second charge cycle
+            EnergyDrainPerSecond = 35,
+            
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
+                Water = 'Land|Water|Seabed',
+            },
+            FiringRandomness = 0,
+            FiringTolerance = 2,
+            
+            Label = 'MainTracer',
+            
+            MaxRadius = 120,
+            MinRadius = 30,
+            
+            MuzzleChargeDelay = 1,          -- a 1 second delay before discharge
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            
+            NotExclusive = true,
+            
+            PrefersPrimaryWeaponTarget = true,
+            
+            RackBones = {
+                {
+                    MuzzleBones = {'Muzzle'},
+                    RackBone = 'Barrel',
+                },
+            },
+            RackFireTogether = false,
+            RackRecoilDistance = 0,
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+            
+            RangeCategory = 'UWRC_DirectFire',
+            
+            RateOfFire = 1,
+            
+            SlavedToBody = true,
+            SlavedToBodyArcRange = 30,
+            
+            TargetCheckInterval = 999999999999,
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TurretBoneMuzzle = 'Muzzle',
+            TurretBonePitch = 'Turret_Pitch',
+            TurretBoneYaw = 'Barrel',
+            TurretDualManipulators = false,
+            
+            TurretPitch = 0,
+            TurretPitchRange = 0,
+            TurretPitchSpeed = 0,
+            
+            TurretYaw = 0,
+            TurretYawRange = 0,
+            TurretYawSpeed = 0,
+            
+            Turreted = true,
+            WeaponCategory = 'Direct Fire Experimental',
+        },
+        
+        {
+            Damage = 2600,
+            DamageFriendly = true,
+            DamageRadius = 7,
+            DamageType = 'Normal',
+            DisplayName = 'Death Weapon',
+            DummyWeapon = true,
+            Label = 'DeathWeapon',
+            WeaponCategory = 'Death',
+        },
+    },
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0.1,
+        HealthMult = 0.7,
+        MassMult = 0.7,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = true,
+            Sub = false,
+            Water = false,
+        },
+    },
+}

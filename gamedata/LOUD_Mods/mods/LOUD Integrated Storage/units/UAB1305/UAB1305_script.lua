@@ -11,10 +11,10 @@ UAB1305 = Class(AMassFabricationUnit) {
 		local CreateRotator = CreateRotator
 		local Random = Random
 		
-#        self.RingManip1 = CreateRotator(self, 'B01', 'x', nil, 0, 15, 60)
-#        self.Trash:Add(self.RingManip1)
-#        self.RingManip2 = CreateRotator(self, 'B02', 'x', nil, 0, 15, -60)
-#        self.Trash:Add(self.RingManip2)
+--        self.RingManip1 = CreateRotator(self, 'B01', 'x', nil, 0, 15, 60)
+--        self.Trash:Add(self.RingManip1)
+--        self.RingManip2 = CreateRotator(self, 'B02', 'x', nil, 0, 15, -60)
+--        self.Trash:Add(self.RingManip2)
 
         self.BallManip = CreateRotator(self, 'B03', 'y', nil, 0, 15, 55 + Random(0, 20) * num)
         self.Trash:Add(self.BallManip)

@@ -1,4 +1,9 @@
 UnitBlueprint {
+    AI = {
+        TargetBones = {
+            'Body',
+        },
+    },
 
     Audio = {
         Destroyed = Sound {
@@ -214,11 +219,11 @@ UnitBlueprint {
     SelectionSizeZ = 0.45,
     SelectionThickness = 0.6,
     
-    SizeX = 1.1,
+    SizeX = 1.0,
     SizeY = 0.8,
-    SizeZ = 1.1,
+    SizeZ = 1.0,
     
-    StrategicIconName = 'icon_land2_directfire',
+    StrategicIconName = 'icon_bot2_shield',
     StrategicIconSortPriority = 135,
     
     Transport = {

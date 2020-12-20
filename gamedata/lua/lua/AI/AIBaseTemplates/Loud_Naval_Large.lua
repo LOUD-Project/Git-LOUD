@@ -11,6 +11,7 @@ BaseBuilderTemplate {
 		
 		# Engineers reclaim, repair, assist
 		'Engineer Tasks',
+		'Engineer Tasks - Reclaim Old Structures',        
 		
 		# Engineers Build Factories
         'Engineer Factory Construction - Naval',
@@ -96,7 +97,7 @@ BaseBuilderTemplate {
         if personality == 'loud' then
 			
 			-- must be lots of water on a larger map with a high unit cap
-			if (aiBrain:GetMapWaterRatio() > .20 and ScenarioInfo.size[1] >= 1024) and GetArmyUnitCap(aiBrain.ArmyIndex) > 750 then	--tonumber(ScenarioInfo.Options.UnitCap) > 750 then
+			if (aiBrain:GetMapWaterRatio() > .20 and ScenarioInfo.size[1] >= 1024) and GetArmyUnitCap(aiBrain.ArmyIndex) > 750 then
 				return 100,false
 			end
 			

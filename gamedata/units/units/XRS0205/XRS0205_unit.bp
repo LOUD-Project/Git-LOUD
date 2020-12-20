@@ -30,6 +30,7 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
         'DEFENSIVEBOAT',
+        'OVERLAYCOUNTERINTEL',
     },
 	
     CollisionOffsetY = -0.25,

@@ -25,22 +25,22 @@ UnitBlueprint {
         'BUILTBYTIER3COMMANDER',
         'VISIBLETORECON',
         'RECLAIMABLE',
+		'SHOWQUEUE',
         'OVERLAYSONAR',
         'SORTINTEL',
     },
     CollisionOffsetY = -0.25,
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 4,
-        Health = 2000,
-        MaxHealth = 2000,
-        RegenRate = 2,
+        EconomyThreatLevel = 3,
+        Health = 800,
+        MaxHealth = 800,
+        RegenRate = 0,
     },
     Description = '<LOC xsb3202_desc>Improved Sonar System',
     Display = {
         Abilities = {
-			'Upgradeable to Mobile Sonar',
-			'Stealth Field',
+			'Upgradeable',
         },
         AnimationUpgrade = '/units/uab3202/uab3202_aopen.sca',
 
@@ -68,13 +68,12 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 5400,
-        BuildCostMass = 180,
-        BuildTime = 540,
+        BuildCostEnergy = 3700,
+        BuildCostMass = 120,
+		BuildRate = 15,
+        BuildTime = 360,
 		
-        MaintenanceConsumptionPerSecondEnergy = 125,
-		
-	    BuildRate = 15,
+        MaintenanceConsumptionPerSecondEnergy = 100,
 		
         BuildableCategory = {'xss0305'},
     },
@@ -116,11 +115,9 @@ UnitBlueprint {
     },
     Intel = {
         ShowIntelOnSelect = true,
-		RadarStealthFieldRadius = 10,
-        SonarRadius = 210,
-		SonarStealthFieldRadius = 10,
-        VisionRadius = 22,
-		WaterVisionRadius = 35,
+        SonarRadius = 180,
+        VisionRadius = 30,
+		WaterVisionRadius = 15,
     },
     Interface = {
         HelpText = 'Improved Sonar System',

@@ -710,7 +710,7 @@ function CommonLogic()
 					control.Icon:SetTexture(UIUtil.UIFile('/icons/units/default_icon.dds'))
 					if not BlackopsIcons.EXNoIconLogSpamControl[string.upper(EXunitID)] then
 						-- Log a warning & add unitID to anti-spam table to prevent future warnings when icons update
-						WARN('Blackops Icon Mod: Icon Not Found - '..EXunitID)
+						--WARN('Blackops Icon Mod: Icon Not Found - '..EXunitID)
 						BlackopsIcons.EXNoIconLogSpamControl[string.upper(EXunitID)] = EXunitID
 					end
 				end
@@ -763,7 +763,7 @@ function CommonLogic()
             control:Disable()
             control.StratIcon:SetSolidColor('00000000')
             control:SetSolidColor('00000000')
-#            control.ConsBar:SetAlpha(0, true)
+--            control.ConsBar:SetAlpha(0, true)
             control.BuildKey = nil
 
         elseif type == 'queuestack' or type == 'attachedunit' then
@@ -781,11 +781,11 @@ function CommonLogic()
             control.Icon.Height:Set(48)
             control.Icon.Width:Set(48)
 
-#            if __blueprints[control.Data.id].General.ConstructionBar then
-#                control.ConsBar:SetAlpha(1, true)
-#            else
-#                control.ConsBar:SetAlpha(0, true)
-#            end
+--            if __blueprints[control.Data.id].General.ConstructionBar then
+--                control.ConsBar:SetAlpha(1, true)
+--            else
+--                control.ConsBar:SetAlpha(0, true)
+--            end
 
             control.BuildKey = nil
 
@@ -824,9 +824,9 @@ function CommonLogic()
         LayoutHelpers.AtRightIn(btn.Count, btn, 3)
         btn.Count.Depth:Set(function() return btn.Icon.Depth() + 10 end)
 
-#        btn.ConsBar = Bitmap(btn, UIUtil.UIFile('/icons/units/cons_bar.dds'))
-#        btn.ConsBar:DisableHitTest()
-#        LayoutHelpers.AtCenterIn(btn.ConsBar, btn)
+--        btn.ConsBar = Bitmap(btn, UIUtil.UIFile('/icons/units/cons_bar.dds'))
+--        btn.ConsBar:DisableHitTest()
+--        LayoutHelpers.AtCenterIn(btn.ConsBar, btn)
 
         btn.Glow = Bitmap(btn)
         btn.Glow:SetTexture(UIUtil.UIFile('/game/units_bmp/glow.dds'))
@@ -895,9 +895,9 @@ function CommonLogic()
         LayoutHelpers.AtBottomIn(btn.Count, btn)
         LayoutHelpers.AtRightIn(btn.Count, btn)
 
-#        btn.ConsBar = Bitmap(btn, UIUtil.UIFile('/icons/units/cons_bar.dds'))
-#        btn.ConsBar:DisableHitTest()
-#        LayoutHelpers.AtCenterIn(btn.ConsBar, btn)
+--        btn.ConsBar = Bitmap(btn, UIUtil.UIFile('/icons/units/cons_bar.dds'))
+--        btn.ConsBar:DisableHitTest()
+--        LayoutHelpers.AtCenterIn(btn.ConsBar, btn)
 
         btn.LowFuel = Bitmap(btn)
         btn.LowFuel:SetSolidColor('ffff0000')
@@ -1085,7 +1085,7 @@ function CommonLogic()
             control.Icon.Width:Set(30)
             control.StratIcon:SetSolidColor('00000000')
             control.LowFuel:SetAlpha(0, true)
-#            control.ConsBar:SetAlpha(0, true)
+--            control.ConsBar:SetAlpha(0, true)
             control.LowFuel:SetNeedsFrameUpdate(false)
             control.BuildKey = nil
 
@@ -1108,7 +1108,7 @@ function CommonLogic()
             control.StratIcon:SetSolidColor('00000000')
             control:SetSolidColor('00000000')
             control.LowFuel:SetAlpha(0, true)
-#            control.ConsBar:SetAlpha(0, true)
+--            control.ConsBar:SetAlpha(0, true)
             control.LowFuel:SetNeedsFrameUpdate(false)
             control.BuildKey = nil
 
@@ -1128,7 +1128,7 @@ function CommonLogic()
             control.Count:SetText('')
             control.StratIcon:SetSolidColor('00000000')
             control.LowFuel:SetAlpha(0, true)
-#            control.ConsBar:SetAlpha(0, true)
+--            control.ConsBar:SetAlpha(0, true)
             control.LowFuel:SetNeedsFrameUpdate(false)
             control.BuildKey = nil
 
@@ -1220,7 +1220,7 @@ function CommonLogic()
             control:Enable()
             control.LowFuel:SetAlpha(0, true)
 
-#            control.ConsBar:SetAlpha(0, true)
+--            control.ConsBar:SetAlpha(0, true)
 
             control.LowFuel:SetNeedsFrameUpdate(false)
             
@@ -1257,11 +1257,11 @@ function CommonLogic()
             control:Enable()
             control.LowFuel:SetAlpha(0, true)
 
-#            if __blueprints[control.Data.id].General.ConstructionBar then
-#                control.ConsBar:SetAlpha(1, true)
-#            else
-#                control.ConsBar:SetAlpha(0, true)
-#            end
+--            if __blueprints[control.Data.id].General.ConstructionBar then
+--                control.ConsBar:SetAlpha(1, true)
+--            else
+--                control.ConsBar:SetAlpha(0, true)
+--            end
 
             control.LowFuel:SetNeedsFrameUpdate(false)
 
@@ -1334,11 +1334,11 @@ function CommonLogic()
             control.Icon.Width:Set(48)
             control.LowFuel:SetAlpha(0, true)
 
-#            if __blueprints[control.Data.id].General.ConstructionBar then
-#                control.ConsBar:SetAlpha(1, true)
-#            else
-#                control.ConsBar:SetAlpha(0, true)
-#            end
+--            if __blueprints[control.Data.id].General.ConstructionBar then
+--                control.ConsBar:SetAlpha(1, true)
+--            else
+--                control.ConsBar:SetAlpha(0, true)
+--            end
 
             control.BuildKey = nil
 

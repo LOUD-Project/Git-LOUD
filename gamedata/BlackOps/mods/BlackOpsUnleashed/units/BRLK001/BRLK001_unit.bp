@@ -51,8 +51,8 @@ UnitBlueprint {
     Defense = {
         AirThreatLevel = 30,
         ArmorType = 'Normal',
-        Health = 2500,
-        MaxHealth = 2500,
+        Health = 1800,
+        MaxHealth = 1800,
         RegenRate = 3,
     },
 	

@@ -1,6 +1,6 @@
-# Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
-#
-# Implement import()
+-- Copyright ï¿½ 2005 Gas Powered Games, Inc.  All rights reserved.
+--
+-- Implement import()
 
 
 
@@ -82,8 +82,8 @@ function import(name)
 end
 
 
-# Clear out a module from the table of loaded modules, so that on the next import attempt it will
-# get reloaded from scratch.
+-- Clear out a module from the table of loaded modules, so that on the next import attempt it will
+-- get reloaded from scratch.
 function dirty_module(name, why)
     local m = __modules[name]
     if m then

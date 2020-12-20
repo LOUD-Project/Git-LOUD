@@ -1,4 +1,4 @@
---# Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
+--# Copyright ï¿½ 2005 Gas Powered Games, Inc.  All rights reserved.
 
 --# This is the sim-specific top-level lua initialization file. It is run at initialization time
 --# to set up all lua state for the sim.
@@ -27,24 +27,24 @@
 --# Do global init and set up common global functions
 doscript '/lua/globalInit.lua'
 
-LOG("*DEBUG Mohodata simInit")
+--LOG("*DEBUG Mohodata simInit")
 
 WaitTicks = coroutine.yield
 
-# setup Buff systems
+-- setup Buff systems
 LOG("*AI DEBUG     Setup BUFF system structure")
 doscript '/lua/system/BuffBlueprints.lua'
 
 LOG("*AI DEBUG     Loading Adjacency Buff functions")
-# load adjacency buff functions
+-- load adjacency buff functions
 import('/lua/sim/adjacencybufffunctions.lua')	
 
 LOG("*AI DEBUG     Loading Buff Blueprint Definitions")
-# Load buff definitions
+-- Load buff definitions
 import( '/lua/sim/buffdefinitions.lua')
 
 LOG("*AI DEBUG     Loading Adjacency Buff Definitions")
-# Load Adjacency Buff definitions 
+-- Load Adjacency Buff definitions 
 import('/lua/sim/adjacencybuffs.lua')
 	
 function WaitSeconds(n)
@@ -86,7 +86,7 @@ function OnCreateArmyBrain(index, brain, name, nickname)
     import('/lua/sim/scenarioutilities.lua').InitializeStartLocation(name)
     import('/lua/sim/scenarioutilities.lua').SetPlans(name)
 	
-    LOG(string.format("OnCreateArmyBrain %d %s %s",index,name,nickname))
+    --LOG(string.format("OnCreateArmyBrain %d %s %s",index,name,nickname))
 	
     ArmyBrains[index] = brain
     ArmyBrains[index].Name = name
@@ -152,13 +152,13 @@ function BeginSession()
 			
 					if restrictedCategories == nil then
 					
-						LOG("*AI DEBUG Adding restriction "..repr(cat))
+						--LOG("*AI DEBUG Adding restriction "..repr(cat))
 					
 						restrictedCategories = categories[cat]
 						
 					else
 					
-						LOG("*AI DEBUG Adding restriction "..repr(cat))
+						--LOG("*AI DEBUG Adding restriction "..repr(cat))
 					
 						restrictedCategories = restrictedCategories + categories[cat]
 						
@@ -182,7 +182,7 @@ function BeginSession()
 		
     end
 	
-	LOG("*AI DEBUG FINAL RESTRICTIONS ARE "..repr(buildRestrictions))
+	--LOG("*AI DEBUG FINAL RESTRICTIONS ARE "..repr(buildRestrictions))
 
     if buildRestrictions then
 	
@@ -271,17 +271,17 @@ Prefetcher = CreatePrefetchSet()
 function DefaultPrefetchSet()
     local set = { models = {}, anims = {}, d3d_textures = {} }
 
-#    for k,file in DiskFindFiles('/units/*.scm') do
-#        table.insert(set.models,file)
-#    end
+--    for k,file in DiskFindFiles('/units/*.scm') do
+--        table.insert(set.models,file)
+--    end
 
-#    for k,file in DiskFindFiles('/units/*.sca') do
-#        table.insert(set.anims,file)
-#    end
+--    for k,file in DiskFindFiles('/units/*.sca') do
+--        table.insert(set.anims,file)
+--    end
 
-#    for k,file in DiskFindFiles('/units/*.dds') do
-#        table.insert(set.d3d_textures,file)
-#    end
+--    for k,file in DiskFindFiles('/units/*.dds') do
+--        table.insert(set.d3d_textures,file)
+--    end
 
     return set
 end

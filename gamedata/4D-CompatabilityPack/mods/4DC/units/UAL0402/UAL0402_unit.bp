@@ -6,8 +6,9 @@
 UnitBlueprint {
     AI = {
         TargetBones = {
-            'Left_Leg_B01',
-            'Right_Leg_B01',
+            'Right_Foot',
+			'Left_Leg_B01',
+            'UAL0402',
         },
     },
 	
@@ -322,7 +323,7 @@ UnitBlueprint {
         Level5 = 250,
     },
 	
-	#-- Looks like about 2300 DPS and 1200 DPS Air - plus can stun every 5 seconds
+	---- Looks like about 2300 DPS and 1200 DPS Air - plus can stun every 5 seconds
 	
     Weapon = {
 		
@@ -330,11 +331,7 @@ UnitBlueprint {
 		
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0303_Laser_Intense',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UALWeapon', Cue = 'UAL0303_Laser_Intense', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             BallisticArc = 'RULEUBA_LowArc',
@@ -365,6 +362,8 @@ UnitBlueprint {
             MuzzleVelocityRandom = 3,
             MuzzleVelocityReduceDistance = 50,
             
+            NotExclusive = true,
+            
 			ProjectileId = '/projectiles/ADFQuantumCannon01/ADFQuantumCannon01_proj.bp', 
             ProjectileLifetime = 2.3,
 
@@ -386,7 +385,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 2.0,			#-- 500 DPS
+            RateOfFire = 2.0,			---- 500 DPS
 			
             TargetCheckInterval = 0.2,
             TargetPriorities = {
@@ -476,6 +475,8 @@ UnitBlueprint {
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
+            
+            NotExclusive = true,
 			
             RackBones = {
                 {
@@ -492,7 +493,7 @@ UnitBlueprint {
             
             RangeCategory = 'UWRC_DirectFire',
             
-            RateOfFire = 1,				#-- about 2000 DPS
+            RateOfFire = 1,				---- about 2000 DPS
 			
             TargetCheckInterval = 0.2,
             TargetPriorities = {
@@ -561,6 +562,8 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 44,
+            
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/ADFGraviton01/ADFGraviton01_proj.bp',
             ProjectileLifetime = 1,
@@ -578,7 +581,7 @@ UnitBlueprint {
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
 			
-            RateOfFire = 1.0,			#-- 300 DPS
+            RateOfFire = 1.0,			---- 300 DPS
 			
             TargetCheckInterval = 0.2,
             TargetPriorities = {
@@ -648,6 +651,8 @@ UnitBlueprint {
             MuzzleChargeDelay = 0,
             MuzzleSalvoSize = 3,
             MuzzleVelocity = 33,
+            
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/AAAZealotMissile01/AAAZealotMissile01_proj.bp',
             ProjectileLifetime = 4.5,
@@ -664,13 +669,13 @@ UnitBlueprint {
 
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 3,
+            RackSalvoReloadTime = 3,    -- 3 second reload after firing
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
             
             RangeCategory = 'UWRC_AntiAir',			
             
-            RateOfFire = 1.0,				#-- 3 missiles @ 220 every second = 660 DPS Air
+            RateOfFire = 1.0,				---- 3 missiles @ 220 every second = 660 DPS Air
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -685,7 +690,7 @@ UnitBlueprint {
             Turreted = false,
         },
 		
-		-- Chrono Dampener		# -- will STUN ALL UNITS (even Experimentals) for 2 seconds within 30 radius every 5 seconds
+		-- Chrono Dampener		-- -- will STUN ALL UNITS (even Experimentals) for 2 seconds within 30 radius every 5 seconds
 		
         {
             AboveWaterFireOnly = true,

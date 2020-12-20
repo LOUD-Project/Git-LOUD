@@ -35,7 +35,7 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 3725,		# 10% Energy + 1000% Mass + 5% Health
+        EconomyThreatLevel = 3725,		-- 10% Energy + 1000% Mass + 5% Health
         Health = 14550,
         MaxHealth = 14550,
         RegenRate = 15,
@@ -239,7 +239,7 @@ UnitBlueprint {
 	
     Weapon = {
 	
-		{	#-- this dummy weapon will give a range ring so players can determine proximity for other allied paragons
+		{	---- this dummy weapon will give a range ring so players can determine proximity for other allied paragons
 		
             CollideFriendly = false,
 			
@@ -268,7 +268,7 @@ UnitBlueprint {
             WeaponCategory = 'Direct Fire',
 		},
 		
-		{	#-- this dummy weapon will give a range ring so players can determine proximity for their own paragons
+		{	---- this dummy weapon will give a range ring so players can determine proximity for their own paragons
 		
             CollideFriendly = false,
 			

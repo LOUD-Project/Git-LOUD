@@ -51,7 +51,7 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 490,		# 10% Energy + 2% Health
+        EconomyThreatLevel = 490,		-- 10% Energy + 2% Health
         Health = 9500,
         MaxHealth = 9500,
         RegenRate = 3,
@@ -103,13 +103,15 @@ UnitBlueprint {
 	
     Economy = {
         AdjacentStructureEnergyMod = -7,
-        BuildCostEnergy = 112500,
-        BuildCostMass = 11250,
+        
+        BuildCostEnergy = 110000,
+        BuildCostMass = 10500,
+        
         BuildTime = 15000,
 		
         ProductionPerSecondEnergy = 2300,
-		
-        RebuildBonusIds = {'urb1301'},
+
+		StorageEnergy = 500,           
     },
 	
     Footprint = {
@@ -185,7 +187,7 @@ UnitBlueprint {
 	
     Weapon = {
         {
-            Damage = 6000,
+            Damage = 5000,
             DamageFriendly = true,
             DamageRadius = 12,
             DamageType = 'Normal',

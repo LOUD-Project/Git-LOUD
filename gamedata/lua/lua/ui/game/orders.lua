@@ -25,12 +25,12 @@ controls =
     mfdControl = false,
 }
 
-# positioning controls, don't belong to file
+-- positioning controls, don't belong to file
 local layoutVar = false
 local glowThread = false
 
-# these variables control the number of slots available for orders
-# though they are fixed, the code is written so they could easily be made soft
+-- these variables control the number of slots available for orders
+-- though they are fixed, the code is written so they could easily be made soft
 local numSlots = 12
 local firstAltSlot = 7
 local vertRows = 3
@@ -177,12 +177,12 @@ local function CreateOrderButtonGrid()
 	controls.orderButtonGrid:DeleteAll()
 end
 
-# local logic data
+-- local logic data
 local orderCheckboxMap = false
 local currentSelection = false
 
-# helper function to create order bitmaps
-# note, your bitmaps must be in /game/orders/ and have the standard button naming convention
+-- helper function to create order bitmaps
+-- note, your bitmaps must be in /game/orders/ and have the standard button naming convention
 local function GetOrderBitmapNames(bitmapId)
     if bitmapId == nil then
         LOG("Error - nil bitmap passed to GetOrderBitmapNames")
@@ -199,8 +199,8 @@ local function GetOrderBitmapNames(bitmapId)
         , "UI_Action_MouseDown", "UI_Action_Rollover"   # sets click and rollover cues
 end
 
-# used by most orders, which start and stop a command mode, so they toggle on when pressed
-# and toggle off when done
+-- used by most orders, which start and stop a command mode, so they toggle on when pressed
+-- and toggle off when done
 local function StandardOrderBehavior(self, modifiers)
     # if we're checked, end the current command mode, otherwise start it
     if self:IsChecked() then
@@ -210,7 +210,7 @@ local function StandardOrderBehavior(self, modifiers)
     end
 end
 
-# used by orders that happen immediately and don't change the command mode (ie the stop button)
+-- used by orders that happen immediately and don't change the command mode (ie the stop button)
 local function DockOrderBehavior(self, modifiers)
     if modifiers.Shift then
         IssueDockCommand(false)
@@ -220,13 +220,13 @@ local function DockOrderBehavior(self, modifiers)
     self:SetCheck(false)
 end
 
-# used by orders that happen immediately and don't change the command mode (ie the stop button)
+-- used by orders that happen immediately and don't change the command mode (ie the stop button)
 local function MomentaryOrderBehavior(self, modifiers)
     IssueCommand(GetUnitCommandFromCommandCap(self._order))
     self:SetCheck(false)
 end
 
-# used by things that build weapons, etc
+-- used by things that build weapons, etc
 local function BuildOrderBehavior(self, modifiers)
     if modifiers.Left then
 	    IssueCommand(GetUnitCommandFromCommandCap(self._order))
@@ -257,7 +257,7 @@ local function BuildInitFunction(control, unitList)
     end
 end
 
-# used by subs that can dive/surface
+-- used by subs that can dive/surface
 local function DiveOrderBehavior(self, modifiers)
     if modifiers.Left then
 	    IssueCommand(GetUnitCommandFromCommandCap(self._order))
@@ -339,8 +339,8 @@ function ToggleDiveOrder()
     end
 end
 
-# pause button specific behvior
-# TODO pause button will be moved to construction manager
+-- pause button specific behvior
+-- TODO pause button will be moved to construction manager
 local function PauseOrderBehavior(self, modifiers)
 	Checkbox.OnClick(self)
 	SetPaused(currentSelection, self:IsChecked())
@@ -355,7 +355,7 @@ function TogglePauseState()
     SetPaused(currentSelection, not pauseState)
 end
 
-# some toggleable abilities need reverse semantics.
+-- some toggleable abilities need reverse semantics.
 local function CheckReverseSemantics(scriptBit)
     if scriptBit == 0 then # shields
         return true
@@ -377,7 +377,7 @@ local function AbilityButtonBehavior(self, modifiers)
     end
 end
 
-# generic script button specific behvior
+-- generic script button specific behvior
 local function ScriptButtonOrderBehavior(self, modifiers)
     local state = self:IsChecked()
     if self._mixedIcon then
@@ -707,11 +707,11 @@ local function OverChargeFrame(self, deltaTime)
     end
 end
 
-# sets up an orderInfo for each order that comes in
-# preferredSlot is custom data that is used to determine what slot the order occupies
-# initialStateFunc is a function that gets called once the control is created and allows you to set the initial state of the button
-#      the function should have this declaration: function(checkbox, unitList)
-# extraInfo is used for storing any extra information required in setting up the button
+-- sets up an orderInfo for each order that comes in
+-- preferredSlot is custom data that is used to determine what slot the order occupies
+-- initialStateFunc is a function that gets called once the control is created and allows you to set the initial state of the button
+--      the function should have this declaration: function(checkbox, unitList)
+-- extraInfo is used for storing any extra information required in setting up the button
 local defaultOrdersTable = {
     # Common rules
     RULEUCC_Move = {                helpText = "move",          bitmapId = 'move',                  preferredSlot = 1,  behavior = StandardOrderBehavior,},
@@ -760,7 +760,7 @@ local specialOrdersTable = {
 }
 
 
-# this is a used as a set
+-- this is a used as a set
 local commonOrders = {
     RULEUCC_Move = true,
     RULEUCC_Attack = true,
@@ -890,7 +890,7 @@ local function AddOrder(orderInfo, slot, batchMode)
     return checkbox
 end
 
-# creates the buttons for the common orders, and then disables them if they aren't in the order set
+-- creates the buttons for the common orders, and then disables them if they aren't in the order set
 local function CreateCommonOrders(availableOrders, init)
     for key in commonOrders do
         local orderInfo = standardOrdersTable[key]
@@ -917,10 +917,10 @@ local function CreateCommonOrders(availableOrders, init)
     end
 end
 
-# creates the buttons for the alt orders, placing them as possible
+-- creates the buttons for the alt orders, placing them as possible
 local function CreateAltOrders(availableOrders, availableToggles, units)
-#TODO? it would indeed be easier if the alt orders slot was in the blueprint, but for now try
-#to determine where they go by using preferred slots
+--TODO? it would indeed be easier if the alt orders slot was in the blueprint, but for now try
+--to determine where they go by using preferred slots
 
     --Look for units in the selection that have special ability buttons
     --If any are found, add the ability information to the standard order table

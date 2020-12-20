@@ -1,4 +1,13 @@
 UnitBlueprint {
+    AI = {
+        TargetBones = {
+            'RocketPods',
+            'MainTurret_Yaw',
+            'XRL0403',
+            'Right_Leg01_B02',
+			'NewLeg',
+        },
+    },
 
     Audio = {
 

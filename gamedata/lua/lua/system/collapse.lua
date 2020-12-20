@@ -1,7 +1,7 @@
-# a set of functions that remove objects from tables
-# the function passed in will take the item as input, and return true if it should be removed, false otherwise
+-- a set of functions that remove objects from tables
+-- the function passed in will take the item as input, and return true if it should be removed, false otherwise
 
-# given an array of items, collapses the array by removing destroyed items and shifting them down
+-- given an array of items, collapses the array by removing destroyed items and shifting them down
 
 local LOUDGETN = table.getn
 local LOUDINSERT = table.insert
@@ -25,7 +25,7 @@ function collapseArray(objectArray, isDestroyedFunc)
     end
 end
 
-# given a table of items, collapses the array by removing entries, but not changing keys
+-- given a table of items, collapses the array by removing entries, but not changing keys
 function collapseTable(objectTable, isDestroyedFunc)
     local removeTable = {}
     for k,v in objectTable do

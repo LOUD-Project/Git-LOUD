@@ -1,6 +1,6 @@
-#
-# Terran Sub-Launched Cruise Missile
-#
+--
+-- Terran Sub-Launched Cruise Missile
+--
 local TMissileCruiseSubProjectile = import('/lua/terranprojectiles.lua').TMissileCruiseSubProjectile
 local ForkThread = ForkThread
 local KillThread = KillThread

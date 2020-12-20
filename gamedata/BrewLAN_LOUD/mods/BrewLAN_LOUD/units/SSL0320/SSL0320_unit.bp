@@ -1,4 +1,9 @@
 UnitBlueprint {
+    AI = {
+        TargetBones = {
+            'Turret',
+        },
+    },
     Audio = {
         AmbientMove = Sound {
             Bank = 'XSL',
@@ -63,8 +68,8 @@ UnitBlueprint {
     Defense = {
         AirThreatLevel = 35,
         ArmorType = 'Normal',
-        Health = 2560,
-        MaxHealth = 2560,
+        Health = 2000,
+        MaxHealth = 2000,
         RegenRate = 2,
     },
 	
@@ -250,7 +255,7 @@ UnitBlueprint {
     SelectionSizeZ = 0.8,
     SelectionThickness = 0.5,
 	
-    SizeX = 0.85,
+    SizeX = 0.7,
     SizeY = 0.65,
     SizeZ = 0.85,
 	
@@ -300,6 +305,8 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 60,
+            
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/SIMAntiMissile01/SIMAntiMissile01_proj.bp',
             ProjectileLifetime = 1,
@@ -382,6 +389,8 @@ UnitBlueprint {
             MuzzleSalvoSize = 1,
 			
             MuzzleVelocity = 80,
+            
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/SAALosaareAutoCannon04/SAALosaareAutoCannon04_proj.bp',
             ProjectileLifetime = 0.75,

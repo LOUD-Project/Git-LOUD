@@ -60,7 +60,7 @@ UnitBlueprint {
         'SATELLITE',
         'SATELLITEWITHNOPARENTALSUPERVISION',
         'VISIBLETORECON',
-        'UNTARGETABLE',
+        --'UNTARGETABLE',
         'SORTINTEL',
         'TARGETCHASER',
         'CANNOTUSEAIRSTAGING',

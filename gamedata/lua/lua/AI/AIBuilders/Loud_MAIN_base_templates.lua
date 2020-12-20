@@ -296,7 +296,7 @@ FactoryLayout = {
 }
 
 PowerLayout = {
-# UEF Power Layout
+-- UEF Power Layout
     {
 		{
 			{
@@ -431,7 +431,7 @@ PowerLayout = {
 			{ 13,-23 },
 		},
 	},
-# Aeon Power Layout
+-- Aeon Power Layout
     {
 		{
 			{
@@ -566,7 +566,7 @@ PowerLayout = {
 			{ 13,-23 },
 		},
 	},
-# Cybran Power Layout
+-- Cybran Power Layout
     {
 		{
 			{
@@ -701,7 +701,7 @@ PowerLayout = {
 			{ 13,-23 },
 		},
 	},
-# Seraphim Power Layout
+-- Seraphim Power Layout
     {
 		{
 			{
@@ -1141,7 +1141,7 @@ MassStorageLayout = {
 }
 
 ShieldLayoutInner = {
-# UEF Inner Shield Layout
+-- UEF Inner Shield Layout
     {
 		{
 			{
@@ -1178,7 +1178,7 @@ ShieldLayoutInner = {
 			{ 0, 0 },
 		},
 	},
-# Aeon Inner Shield Layout
+-- Aeon Inner Shield Layout
     {
 		{
 			{
@@ -1215,7 +1215,7 @@ ShieldLayoutInner = {
 			{ 0, 0 },
 		},
 	},
-# Cybran Inner Shield Layout
+-- Cybran Inner Shield Layout
     {
 		{
 			{
@@ -1252,7 +1252,7 @@ ShieldLayoutInner = {
 			{ 0, 0 },
 		},
 	},
-# Seraphim Inner Shield Layout
+-- Seraphim Inner Shield Layout
     {
 		{
 			{
@@ -1293,7 +1293,7 @@ ShieldLayoutInner = {
 }
 
 ShieldLayout = {
-# UEF Shield Layout
+-- UEF Shield Layout
     {
 		{
 			{
@@ -1340,7 +1340,7 @@ ShieldLayout = {
 			{ 28,-37 },
 		},
 	},
-# Aeon Shield Layout
+-- Aeon Shield Layout
     {
 		{
 			{
@@ -1387,7 +1387,7 @@ ShieldLayout = {
 			{ 28,-37 },
 		},
     },
-# Cybran Shield Layout
+-- Cybran Shield Layout
     {
 		{
 			{
@@ -1434,7 +1434,7 @@ ShieldLayout = {
 			{ 28,-37 },
 		},
     },
-# Seraphim Shield Layout
+-- Seraphim Shield Layout
     {
 		{
 			{
@@ -1484,7 +1484,7 @@ ShieldLayout = {
 }
 
 SupportLayout = {
-# UEF Support Layout
+-- UEF Support Layout
     {
 		{{ 'T2RadarJammer'	},
 			{-10,-10 },
@@ -1546,7 +1546,7 @@ SupportLayout = {
             { 17,  5 },
         },
     },
-# Aeon Support Layout
+-- Aeon Support Layout
     {
 		{{'T2RadarJammer'},
 			{-10,-10 },
@@ -1622,7 +1622,7 @@ SupportLayout = {
             { 17,  5 },            
         },
     },
-# Cybran Support Layout
+-- Cybran Support Layout
     {
 		{{'T2RadarJammer'},
 			{-10,-10 },
@@ -1698,7 +1698,7 @@ SupportLayout = {
             { 17,  5 },            
         },
     },
-# Seraphim Support Layout
+-- Seraphim Support Layout
     {
 		{{'T2RadarJammer'},
 			{-10,-10 },
@@ -1777,7 +1777,7 @@ SupportLayout = {
 }
 
 BaseDefenseLayout = {
-# UEF Base Defense Layout
+-- UEF Base Defense Layout
 	{
 		{{'T2GroundDefense','T2AADefense','T2MissileDefense'},
 			{-31, 15 },     -- Left - Forward
@@ -1833,6 +1833,13 @@ BaseDefenseLayout = {
 			{-34,-24 },            
         },
         
+        {{'T3TacticalArtillery'},
+            {-28, 16 },     -- defense box
+            { 28, 16 },
+            {-28,-16 },
+            { 28,-16 },
+        },
+        
 		{{'T3GroundDefense'},
 			{ -5, 35 },     -- the central 8
 			{  5, 35 },
@@ -1843,7 +1850,7 @@ BaseDefenseLayout = {
 			{  5,-35 },
 			{ -5,-35 },
 			
-			{-34, 18 },     -- 8 in defense boxes
+			{-34, 18 },     -- 10 in defense boxes
 			{-21, 35 },
 			{ 21, 35 },
 			{ 34, 18 },
@@ -1851,6 +1858,8 @@ BaseDefenseLayout = {
 			{ 21,-35 },
 			{-21,-35 },
 			{-34,-18 },
+            {-18, 35 },
+            { 18, 35 },
 		},
 		
 		{{'T3AADefense'},
@@ -1884,14 +1893,14 @@ BaseDefenseLayout = {
 		},
         
 		{{ 'T3StrategicMissileDefense' },
-			{ 24.0, 16.0 },
+			{ 24.0, 16.0 },     -- Boxes
 			{-24.0, 16.0 },
 			{ 24.0,-16.0 },
 			{-24.0,-16.0 },
 		},
 
 		{{'T4AADefense'},
-			{-24, 20 },		
+			{-24, 20 },     -- Boxes
 			{ 24, 20 },
 			{-24,-21 },
 			{ 24,-21 },
@@ -1904,7 +1913,7 @@ BaseDefenseLayout = {
 			{ 38,-23 },
 		},
 	},
-# AEON Base Defense Layout
+-- AEON Base Defense Layout
 	{
 		{{'T2GroundDefense','T2AADefense','T2MissileDefense'},
 			{-31, 15 },     -- Left - Forward
@@ -1960,6 +1969,13 @@ BaseDefenseLayout = {
 			{-34,-24 },            
         },
         
+        {{'T3TacticalArtillery'},
+            {-28, 16 },
+            { 28, 16 },
+            {-28,-16 },
+            { 28,-16 },
+        },
+
 		{{'T3GroundDefense'},
 			{ -5, 35 },     -- the central 8
 			{  5, 35 },
@@ -1970,7 +1986,7 @@ BaseDefenseLayout = {
 			{  5,-35 },
 			{ -5,-35 },
 			
-			{-34, 18 },     -- 8 in defense boxes
+			{-34, 18 },     -- 10 in defense boxes
 			{-21, 35 },
 			{ 21, 35 },
 			{ 34, 18 },
@@ -1978,6 +1994,8 @@ BaseDefenseLayout = {
 			{ 21,-35 },
 			{-21,-35 },
 			{-34,-18 },
+            {-18, 35 },
+            { 18, 35 },            
 		},
 		
 		{{'T3AADefense'},
@@ -2031,7 +2049,7 @@ BaseDefenseLayout = {
 			{ 38,-23 },
 		},
 	},
-# CYBRAN Base Defense Layout
+-- CYBRAN Base Defense Layout
 	{
 		{{'T2GroundDefense','T2AADefense','T2MissileDefense'},
 			{-31, 15 },     -- Left - Forward
@@ -2087,6 +2105,13 @@ BaseDefenseLayout = {
 			{-34,-24 },            
         },
         
+        {{'T3TacticalArtillery'},
+            {-28, 16 },
+            { 28, 16 },
+            {-28,-16 },
+            { 28,-16 },
+        },
+
 		{{'T3GroundDefense'},
 			{ -5, 35 },     -- the central 8
 			{  5, 35 },
@@ -2097,7 +2122,7 @@ BaseDefenseLayout = {
 			{  5,-35 },
 			{ -5,-35 },
 			
-			{-34, 18 },     -- 8 in defense boxes
+			{-34, 18 },     -- 10 in defense boxes
 			{-21, 35 },
 			{ 21, 35 },
 			{ 34, 18 },
@@ -2105,6 +2130,8 @@ BaseDefenseLayout = {
 			{ 21,-35 },
 			{-21,-35 },
 			{-34,-18 },
+            {-18, 35 },
+            { 18, 35 },            
 		},
 		
 		{{'T3AADefense'},
@@ -2158,7 +2185,7 @@ BaseDefenseLayout = {
 			{ 38,-23 },
 		},
 	},
-# SERA Base Defense Layout
+-- SERA Base Defense Layout
 	{
 		{{'T2GroundDefense','T2AADefense','T2MissileDefense'},
 			{-31, 15 },     -- Left - Forward
@@ -2214,6 +2241,13 @@ BaseDefenseLayout = {
 			{-34,-24 },            
         },
         
+        {{'T3TacticalArtillery'},
+            {-28, 16 },
+            { 28, 16 },
+            {-28,-16 },
+            { 28,-16 },
+        },
+        
 		{{'T3GroundDefense'},
 			{ -5, 35 },     -- the central 8
 			{  5, 35 },
@@ -2224,7 +2258,7 @@ BaseDefenseLayout = {
 			{  5,-35 },
 			{ -5,-35 },
 			
-			{-34, 18 },     -- 8 in defense boxes
+			{-34, 18 },     -- 10 in defense boxes
 			{-21, 35 },
 			{ 21, 35 },
 			{ 34, 18 },
@@ -2232,6 +2266,8 @@ BaseDefenseLayout = {
 			{ 21,-35 },
 			{-21,-35 },
 			{-34,-18 },
+            {-18, 35 },
+            { 18, 35 },            
 		},
 		
 		{{'T3AADefense'},
@@ -2288,7 +2324,7 @@ BaseDefenseLayout = {
 }	
 
 T3AirStagingComplex = {
-# UEF T3 Air Staging Facility
+-- UEF T3 Air Staging Facility
     {
         {
             {
@@ -2299,7 +2335,7 @@ T3AirStagingComplex = {
             { 0, 0 }, # T3 AirStage
         },
     },
-# Aeon T3 Air Staging Facility
+-- Aeon T3 Air Staging Facility
     {
         {
             {
@@ -2310,7 +2346,7 @@ T3AirStagingComplex = {
             { 0, 0 }, # T3 AirStage
         },
     },
-# Cybran T3 Air Staging Facility
+-- Cybran T3 Air Staging Facility
     {
         {
             {
@@ -2321,7 +2357,7 @@ T3AirStagingComplex = {
             { 0, 0 }, # T3 AirStage
         },
     },
-# Seraphim T3 Air Staging Facility
+-- Seraphim T3 Air Staging Facility
     {
         {
             {
@@ -2335,7 +2371,7 @@ T3AirStagingComplex = {
 }
 
 ResourceFacility = {
-# UEF Resource Facility
+-- UEF Resource Facility
     {
         {{'T3ShieldDefense','T2ShieldDefense'},
 			{ 0,-10 },
@@ -2412,7 +2448,7 @@ ResourceFacility = {
 		},
     },
     
-# Aeon Resource Facility
+-- Aeon Resource Facility
     {
         {
             {
@@ -2508,7 +2544,7 @@ ResourceFacility = {
 			{ -4, 6 },
 		},
     },
-# Cybran Resource Facility
+-- Cybran Resource Facility
     {
         {
             {
@@ -2604,7 +2640,7 @@ ResourceFacility = {
 			{ -4, 6 },
 		},
     },
-# Seraphim Resource Facility
+-- Seraphim Resource Facility
     {
         {
             {
@@ -2703,7 +2739,7 @@ ResourceFacility = {
 }
 
 MassAdjacency = {
-# UEF MassAdjacency
+-- UEF MassAdjacency
     {
         {
             {
@@ -2715,7 +2751,7 @@ MassAdjacency = {
 			{ 0, 2 },
         },
     },
-# Aeon MassAdjacency
+-- Aeon MassAdjacency
     {
         {
             {
@@ -2727,7 +2763,7 @@ MassAdjacency = {
 			{ 0, 2 },
         },
     },
-# Cybran MassAdjacency
+-- Cybran MassAdjacency
     {
         {
             {
@@ -2739,7 +2775,7 @@ MassAdjacency = {
 			{ 0, 2 },
         },
     },
-# Seraphim MassAdjacency
+-- Seraphim MassAdjacency
     {
         {
             {
@@ -2754,7 +2790,7 @@ MassAdjacency = {
 }
 
 MassAdjacencyDefense = {
-# UEF Mass Adjacency Defense
+-- UEF Mass Adjacency Defense
     {
         {
             {
@@ -2795,7 +2831,7 @@ MassAdjacencyDefense = {
 			{ 0,-6 },
 		},
     },
-# Aeon Mass Adjacency Defense
+-- Aeon Mass Adjacency Defense
     {
         {
             {
@@ -2836,7 +2872,7 @@ MassAdjacencyDefense = {
 			{ 0,-6 },
 		},
     },
-# Cybran Mass Adjacency Defense
+-- Cybran Mass Adjacency Defense
     {
         {
             {
@@ -2877,7 +2913,7 @@ MassAdjacencyDefense = {
 			{ 0,-6 },
 		},
     },
-# Seraphim Mass Adjacency Defense
+-- Seraphim Mass Adjacency Defense
     {
         {
             {
@@ -2923,7 +2959,7 @@ MassAdjacencyDefense = {
 
 -- not sure what this gets used by - its original code
 Adjacency2x2 = {
-# UEF Adjacency Building List
+-- UEF Adjacency Building List
     {
         {
         'T1EnergyProduction', 
@@ -2983,7 +3019,7 @@ Adjacency2x2 = {
         { 0,  2, 0 },
         { 0, -2, 0 },
     },
-# Aeon Adjacency Building List
+-- Aeon Adjacency Building List
     {
         {
         'T1EnergyProduction', 
@@ -3043,7 +3079,7 @@ Adjacency2x2 = {
         { 0,  2, 0 },
         { 0, -2, 0 },
     },
-# Cybran Adjacency Building List
+-- Cybran Adjacency Building List
     {
         {
         'T1EnergyProduction', 
@@ -3103,7 +3139,7 @@ Adjacency2x2 = {
         { 0,  2, 0 },
         { 0, -2, 0 },
     },
-# Seraphim Adjacency Building List
+-- Seraphim Adjacency Building List
     {
         {
         'T1EnergyProduction', 
@@ -3168,7 +3204,7 @@ Adjacency2x2 = {
 --[[
 
 T3PowerFacility = {
-# UEF T3 Power Facility
+-- UEF T3 Power Facility
     {
         {
             {
@@ -3243,7 +3279,7 @@ T3PowerFacility = {
 
         },
     },
-# Aeon T3 Power Facility
+-- Aeon T3 Power Facility
     {
         {
             {
@@ -3317,7 +3353,7 @@ T3PowerFacility = {
 			{ 0, 12  },
         },
     },
-# Cybran T3 Power Facility
+-- Cybran T3 Power Facility
     {
         {
             {
@@ -3391,7 +3427,7 @@ T3PowerFacility = {
 			{ 0, 12  },
         },
     },
-# Seraphim T3 Power Facility
+-- Seraphim T3 Power Facility
     {
         {
             {

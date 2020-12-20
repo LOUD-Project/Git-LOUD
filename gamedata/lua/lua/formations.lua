@@ -1,6 +1,6 @@
-#
-# Basic create formation scripts
-#
+--
+-- Basic create formation scripts
+--
 
 SurfaceFormations = {
     'AttackFormation',
@@ -29,7 +29,7 @@ ComboFormations = {
 }
 
 
-#================ LAND DATA ==============#
+--================ LAND DATA ==============#
 
 local LOUDCEIL = math.ceil
 local LOUDCOS = math.cos
@@ -44,17 +44,18 @@ local LOUDSIN = math.sin
 
 local RemainingCategory = { 'RemainingCategory', }
 
-#=== LAND CATEGORIES ===#
-local DirectFire = (( categories.DIRECTFIRE - categories.CONSTRUCTION ) ) * categories.LAND
-local Construction = ( categories.COMMAND + categories.CONSTRUCTION + categories.ENGINEER ) * categories.LAND
-local Artillery = ( categories.ARTILLERY + categories.INDIRECTFIRE - categories.ANTIAIR ) * categories.LAND
+--=== LAND CATEGORIES ===#
 local AntiAir = ( categories.ANTIAIR - ( categories.EXPERIMENTAL + categories.DIRECTFIRE ) ) * categories.LAND
+local Artillery = ( categories.ARTILLERY + categories.INDIRECTFIRE - categories.ANTIAIR ) * categories.LAND
+local Construction = ( categories.COMMAND + categories.CONSTRUCTION + categories.ENGINEER ) * categories.LAND
+local DirectFire = (( categories.DIRECTFIRE - categories.CONSTRUCTION ) ) * categories.LAND
+local ShieldCat = categories.SHIELD + categories.ANTIMISSILE
 local UtilityCat = (( ( categories.RADAR + categories.COUNTERINTELLIGENCE ) - categories.DIRECTFIRE ) + categories.SCOUT) * categories.LAND
-local DFExp = DirectFire * categories.EXPERIMENTAL
---local ShieldCat = categories.uel0307 + categories.ual0307 + categories.xsl0307
-local ShieldCat = categories.SHIELD
 
-#=== TECH LEVEL LAND CATEGORIES ===#
+local DFExp = DirectFire * categories.EXPERIMENTAL
+
+
+--=== TECH LEVEL LAND CATEGORIES ===#
 local LandCategories = {
     Bot1 = (DirectFire * categories.TECH1) * categories.BOT - categories.SCOUT,
     Bot2 = (DirectFire * categories.TECH2) * categories.BOT - categories.SCOUT,
@@ -68,17 +69,11 @@ local LandCategories = {
     Art2 = Artillery * categories.TECH2,
     Art3 = Artillery * (categories.TECH3 + categories.EXPERIMENTAL),
 
-    AA1 = AntiAir * categories.TECH1,
-    AA2 = AntiAir * categories.TECH2,
-    AA3 = AntiAir * (categories.TECH3 + categories.EXPERIMENTAL),
+    AA = AntiAir,
 
-    Com1 = Construction * categories.TECH1,
-    Com2 = Construction * categories.TECH2,
-    Com3 = Construction - (categories.TECH1 + categories.TECH2),
+    Com = Construction,
 
-    Util1 = (UtilityCat * categories.TECH1) + categories.OPERATION,
-    Util2 = UtilityCat * categories.TECH2,
-    Util3 = UtilityCat * categories.TECH3,
+    Util = UtilityCat,
 
     Shields = ShieldCat,		
 
@@ -87,31 +82,29 @@ local LandCategories = {
     RemainingCategory = categories.LAND - ( DirectFire + Construction + Artillery + AntiAir + UtilityCat + DFExp + ShieldCat )
 }
 
-#=== SUB GROUP ORDERING ===#
+--=== SUB GROUP ORDERING ===#
 local Bots = { 'Bot3', 'Bot2', 'Bot1', }
 local Tanks = { 'Tank3', 'Tank2', 'Tank1', }
 local DF = { 'Tank3', 'Bot3', 'Tank2', 'Bot2', 'Tank1', 'Bot1',}
-local Art = { 'Art3', 'Art2', 'Art1', }
-local T1Art = { 'Art1', 'Art2', 'Art3', }
-local AA = { 'AA3', 'AA2', 'AA1', }
-local Util = { 'Util3', 'Util2', 'Util1', }
-local Com = { 'Com3', 'Com2', 'Com1', }
+local Art = { 'Art1', 'Art2', 'Art3', }
+local AA = { 'AA' }
+local Util = { 'Util' }
+local Com = { 'Com' }
 local Shield = { 'Shields' }
 local Experimental = { 'Experimentals', }
 	
-#=== LAND BLOCK TYPES =#
-local DFFirst = { Experimental, DF, T1Art, Art, AA, Shield, Com, Util, RemainingCategory }
+--=== LAND BLOCK TYPES =#
+local DFFirst = { Experimental, DF, Art, AA, Shield, Com, Util, RemainingCategory }
 local TankFirst = { Experimental, Tanks, Bots, Art, AA, Shield, Com, Util, RemainingCategory }
-local ShieldFirst = { Shield, AA, T1Art, Art, DF, Com, Util, RemainingCategory }
-local AAFirst = { AA, DF, T1Art, Art, Shield, Com, Util, RemainingCategory }
+local ShieldFirst = { Shield, AA, Art, DF, Com, Util, RemainingCategory }
+local AAFirst = { AA, DF, Art, Shield, Com, Util, RemainingCategory }
 local ArtFirst = { Art, AA, DF, Shield, Com, Util, RemainingCategory }
-local T1ArtFirst = { T1Art, AA, DF, Art, Shield, Com, Util, RemainingCategory }
-local UtilFirst = { Util, AA, T1Art, DF, Art, Shield, Com, Util, RemainingCategory }
+local UtilFirst = { Util, AA, DF, Art, Shield, Com, Util, RemainingCategory }
 
 
-#=== LAND BLOCKS ===#
+--=== LAND BLOCKS ===#
 
-#=== 3 Wide Attack Block / 6 Units ===#
+--=== 3 Wide Attack Block / 6 Units ===#
 local ThreeWideGrowthFormationBlock = {
     ## first row
     { DFFirst, DFFirst, DFFirst, },
@@ -119,7 +112,7 @@ local ThreeWideGrowthFormationBlock = {
     { DFFirst, DFFirst, DFFirst, },
 }
 
-#=== 4 Wide Attack Block / 16 Units ===#
+--=== 4 Wide Attack Block / 16 Units ===#
 local FourWideGrowthFormationBlock = {
     ## first row
     { DFFirst, DFFirst, DFFirst, DFFirst, },
@@ -131,7 +124,7 @@ local FourWideGrowthFormationBlock = {
     { AAFirst, ArtFirst, ArtFirst, AAFirst,  },
 }
 
-#=== 5 Wide Attack Block/ 25 Units ===#
+--=== 5 Wide Attack Block/ 25 Units ===#
 local FiveWideGrowthFormationBlock = {
     ## first row
     { DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, },
@@ -145,7 +138,7 @@ local FiveWideGrowthFormationBlock = {
     { AAFirst, ArtFirst, DFFirst, ArtFirst, AAFirst, },
 }
 
-#=== 6 Wide Attack Block/ 36 Units ===#
+--=== 6 Wide Attack Block/ 36 Units ===#
 local SixWideGrowthFormationBlock = {
     ## first row
     { DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, },
@@ -161,7 +154,7 @@ local SixWideGrowthFormationBlock = {
     { DFFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, DFFirst, },
 }
 
-#=== 7 Wide Attack Block/ 42 Units ===#
+--=== 7 Wide Attack Block/ 42 Units ===#
 local SevenWideGrowthFormationBlock = {
     ## first row
     { DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, },
@@ -170,14 +163,14 @@ local SevenWideGrowthFormationBlock = {
     ## third row
     { UtilFirst, AAFirst, DFFirst, DFFirst, AAFirst, DFFirst, UtilFirst, },
     ## fourth row
-    { AAFirst, ShieldFirst, AAFirst, T1ArtFirst, ShieldFirst, AAFirst, DFFirst, },
+    { AAFirst, ShieldFirst, AAFirst, ArtFirst, ShieldFirst, AAFirst, DFFirst, },
     ## fifth row
-    { DFFirst, AAFirst, T1ArtFirst, T1ArtFirst, AAFirst, T1ArtFirst, DFFirst, },
+    { DFFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, DFFirst, },
     ## sixth row
     { UtilFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, UtilFirst, },
 }
 
-#=== 8 Wide Attack Block/ 56 Units ===#
+--=== 8 Wide Attack Block/ 56 Units ===#
 local EightWideGrowthFormationBlock = {
     ## first row
     { DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, },
@@ -188,14 +181,14 @@ local EightWideGrowthFormationBlock = {
     ## fourth row
     { DFFirst, AAFirst, ShieldFirst, DFFirst, DFFirst, ShieldFirst, AAFirst, DFFirst, },
     ## fifth row
-    { DFFirst, T1ArtFirst, AAFirst, T1ArtFirst, T1ArtFirst, AAFirst, T1ArtFirst, DFFirst, },
+    { DFFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, DFFirst, },
     ## sixth row
     { UtilFirst, AAFirst, ShieldFirst, ArtFirst, ArtFirst, ShieldFirst, AAFirst, UtilFirst, },
     ## seventh row
     { DFFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, DFFirst, },
 }
 
-#=== 9 Wide Attack Block/ 72 Units ===#
+--=== 9 Wide Attack Block/ 72 Units ===#
 local NineWideGrowthFormationBlock = {
     ## first row
     { DFFirst, DFFirst, DFFirst, DFFirst, UtilFirst, DFFirst, DFFirst, DFFirst, DFFirst, },
@@ -206,16 +199,16 @@ local NineWideGrowthFormationBlock = {
     ## fourth row
     { DFFirst, AAFirst, ShieldFirst, DFFirst, UtilFirst, DFFirst, ShieldFirst, AAFirst, DFFirst, },
     ## fifth row
-    { DFFirst, T1ArtFirst, AAFirst, T1ArtFirst, ShieldFirst, T1ArtFirst, AAFirst, T1ArtFirst, DFFirst, },
+    { DFFirst, ArtFirst, AAFirst, ArtFirst, ShieldFirst, ArtFirst, AAFirst, ArtFirst, DFFirst, },
     ## sixth row
     { UtilFirst, AAFirst, ShieldFirst, ArtFirst, UtilFirst, ArtFirst, ShieldFirst, AAFirst, UtilFirst, },
     ## seventh row
     { DFFirst, ArtFirst, AAFirst, ArtFirst, ShieldFirst, ArtFirst, AAFirst, ArtFirst, DFFirst, },
     ## eighth row
-    { DFFirst, T1ArtFirst, AAFirst, T1ArtFirst, ShieldFirst, T1ArtFirst, AAFirst, T1ArtFirst, DFFirst, },
+    { DFFirst, ArtFirst, AAFirst, ArtFirst, ShieldFirst, ArtFirst, AAFirst, ArtFirst, DFFirst, },
 }
 
-#=== Travelling Block ===#
+--=== Travelling Block ===#
 local TravelSlot = { Experimental, Bots, Tanks, AA, Art, Shield, Util, Com }
 
 local TravelFormationBlock = {
@@ -229,7 +222,7 @@ local TravelFormationBlock = {
     { TravelSlot, TravelSlot, },
 }
 
-#=== 2 Row Attack Block - 8 units wide ===#
+--=== 2 Row Attack Block - 8 units wide ===#
 local TwoRowAttackFormationBlock = {
     ## first row
     { DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst },
@@ -237,7 +230,7 @@ local TwoRowAttackFormationBlock = {
     { UtilFirst, AAFirst, ShieldFirst, ArtFirst, ArtFirst, ShieldFirst, AAFirst, UtilFirst },
 }
 
-#=== 3 Row Attack Block - 10 units wide ===#
+--=== 3 Row Attack Block - 10 units wide ===#
 local ThreeRowAttackFormationBlock = {
     ## first row
     { DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst },
@@ -247,7 +240,7 @@ local ThreeRowAttackFormationBlock = {
     { DFFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, ArtFirst, AAFirst, DFFirst },  
 }
 
-#=== 4 Row Attack Block - 12 units wide ===#
+--=== 4 Row Attack Block - 12 units wide ===#
 local FourRowAttackFormationBlock = {
     ## first row
     { DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst },
@@ -259,7 +252,7 @@ local FourRowAttackFormationBlock = {
     { AAFirst, ShieldFirst, AAFirst, ArtFirst, ShieldFirst, ArtFirst, UtilFirst, ShieldFirst, ArtFirst, AAFirst, ShieldFirst, AAFirst },   
 }
 
-#=== 5 Row Attack Block - 14 units wide ===#
+--=== 5 Row Attack Block - 14 units wide ===#
 local FiveRowAttackFormationBlock = {
     ## first row
     { DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst },
@@ -273,7 +266,7 @@ local FiveRowAttackFormationBlock = {
     { ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst },  
 }
 
-#=== 6 Row Attack Block - 16 units wide ===#
+--=== 6 Row Attack Block - 16 units wide ===#
 local SixRowAttackFormationBlock = {
     ## first row
     { DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst },
@@ -289,7 +282,7 @@ local SixRowAttackFormationBlock = {
     { AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst },  
 }
 
-#=== 7 Row Attack Block - 18 units wide ===#
+--=== 7 Row Attack Block - 18 units wide ===#
 local SevenRowAttackFormationBlock = {
     ## first row
     { DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst },
@@ -307,7 +300,7 @@ local SevenRowAttackFormationBlock = {
     { ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst },  
 }
 
-#=== 8 Row Attack Block - 18 units wide ===#
+--=== 8 Row Attack Block - 18 units wide ===#
 local EightRowAttackFormationBlock = {
     ## first row
     { DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst },
@@ -327,7 +320,7 @@ local EightRowAttackFormationBlock = {
     { AAFirst, ShieldFirst, ArtFirst, AAFirst, ShieldFirst, ArtFirst, AAFirst, ShieldFirst, ArtFirst, ShieldFirst, AAFirst, ArtFirst, ShieldFirst, AAFirst, ArtFirst, ShieldFirst, AAFirst, ArtFirst, ShieldFirst, AAFirst },  
 }
 
-#=== 9 Row Attack Block - 18+ units wide ===#
+--=== 9 Row Attack Block - 18+ units wide ===#
 local NineRowAttackFormationBlock = {
     ## first row
     { DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst },
@@ -347,23 +340,18 @@ local NineRowAttackFormationBlock = {
     { AAFirst, ShieldFirst, ArtFirst, AAFirst, ShieldFirst, ArtFirst, AAFirst, ShieldFirst, ArtFirst, ShieldFirst, AAFirst, ArtFirst, ShieldFirst, AAFirst, ArtFirst, ShieldFirst, AAFirst, ArtFirst, ShieldFirst, AAFirst },  
 }
 
-#================ AIR DATA ===============#
+--================ AIR DATA ===============#
 
-#=== AIR CATEGORIES ===#
+--=== AIR CATEGORIES ===#
 
-local GroundAttackAir = ( categories.AIR * categories.GROUNDATTACK ) - categories.ANTIAIR
-local TransportationAir = categories.AIR * categories.TRANSPORTFOCUS - categories.GROUNDATTACK
-local BomberAir = categories.AIR * categories.BOMBER - categories.ANTINAVY
-local AAAir = categories.AIR * categories.ANTIAIR * categories.HIGHALTAIR
-local AntiNavyAir = categories.AIR * categories.ANTINAVY
-local IntelAir = categories.AIR * ( categories.SCOUT + categories.RADAR )
-local ExperimentalAir = categories.AIR * categories.EXPERIMENTAL - categories.TRANSPORTATION
+local StdAirUnits = categories.AIR - categories.EXPERIMENTAL - categories.TRANSPORTFOCUS + categories.uea0203
+local T4AirUnits = categories.AIR * categories.EXPERIMENTAL - categories.TRANSPORTFOCUS
+local TransportationAir = categories.AIR * categories.TRANSPORTFOCUS
 
-#=== TECH LEVEL AIR CATEGORIES ===#
+
+--=== TECH LEVEL AIR CATEGORIES ===#
 -- this has been greatly simplified
-local AirCategories = {
-    AUnits = categories.AIR - ExperimentalAir,
-    AExper = ExperimentalAir,
+local AirCategories = { StdAirUnits = StdAirUnits, T4AirUnits = T4AirUnits }
 
 --    RemainingCategory = categories.AIR - ( GroundAttackAir + TransportationAir + BomberAir + AAAir + AntiNavyAir + IntelAir + ExperimentalAir )
 --    Ground2 = GroundAttackAir * categories.TECH2,
@@ -376,7 +364,7 @@ local AirCategories = {
 --    AN3 = AntiNavyAir * categories.TECH3,
 --    AIntel2 = IntelAir * categories.TECH2,
 --    AIntel3 = IntelAir * categories.TECH3,
-}
+
 
 local AirTransportCategories = {
     Trans1 = TransportationAir * categories.TECH1,
@@ -386,9 +374,8 @@ local AirTransportCategories = {
 }
 
 
-#=== SUB GROUP ORDERING ===#
-local AirUnits = { 'AUnits'}
-local ExperAir = { 'AExper' }
+--=== SUB GROUP ORDERING ===#
+local AirUnits = { 'StdAirUnits', 'T4AirUnits' }
 local Transports = { 'Trans1', 'Trans2', 'Trans3', 'Trans4', }
 
 --local GroundAttack = {'Ground' }
@@ -398,9 +385,9 @@ local Transports = { 'Trans1', 'Trans2', 'Trans3', 'Trans4', }
 --local Intel = { 'AIntel' }
 --local Remaining = { 'RemainingCategory' }
 
-#=== Air Block Arrangement ===#
+--=== Air Block Arrangement ===#
 
-local ChevronSlot = { AirUnits, ExperAir }
+local ChevronSlot = { AirUnits }
 local TransportSlot = { Transports }
 
 local InitialChevronBlock = {
@@ -419,7 +406,7 @@ local StaggeredChevronBlock = {
 }
 
 
-#=== Transport Formations ===#
+--=== Transport Formations ===#
 local TwoWideTransportGrowthFormation = {
     LineBreak = 1,
     { TransportSlot, TransportSlot, },    
@@ -452,10 +439,10 @@ local FiveWideTransportGrowthFormation = {
 
 
 
-#=========================================#
-#============== NAVAL DATA ===============#
+--=========================================#
+--============== NAVAL DATA ===============#
 
-#=== BASIC GROUPS ===#
+--=== BASIC GROUPS ===#
 
 local LightAttackNaval = categories.LIGHTBOAT
 local FrigateNaval = categories.FRIGATE
@@ -469,7 +456,7 @@ local MobileSonar = categories.MOBILESONAR
 local DefensiveBoat = categories.DEFENSIVEBOAT
 local RemainingNaval = categories.NAVAL - ( LightAttackNaval + FrigateNaval + SubNaval + DestroyerNaval + CruiserNaval + BattleshipNaval + CarrierNaval + DefensiveBoat + MobileSonar)
 
-#### Naval formation blocks #####
+-- Naval formation blocks #####
 
 local NavalSpacing = 1.1
 
@@ -483,7 +470,7 @@ local StandardNavalBlock = {
 }
 --]]
 
-#=== PRIMARY SUB-GROUPS ===#
+--=== PRIMARY SUB-GROUPS ===#
 
 -- surface ships --
 local NavalCategories = {
@@ -506,7 +493,7 @@ local SubmarineCategories = {
 }
 
 
-#=== SUB GROUPS ===#
+--=== SUB GROUPS ===#
 
 local Frigates = { 'FrigateCount', 'LightCount', }
 local Destroyers = { 'DestroyerCount', }
@@ -519,7 +506,7 @@ local Carriers = { 'CarrierCount', }
 local Sonar = {'MobileSonarCount', }
 
 
-#=== UNIT ORDERING ===#
+--=== UNIT ORDERING ===#
 
 local FrigatesOnly = { Frigates }
 local FrigatesFirst = { Frigates, Destroyers, RemainingCategory }
@@ -534,9 +521,9 @@ local SonarOnly = { Sonar, RemainingCategory }
 local SonarFirst = { Sonar, Frigates, Destroyers, Cruisers, Battleships, Carriers, RemainingCategory }
 
 
-#========================================#
-#======= Naval Growth Formations ========#
-#========================================#
+--========================================#
+--======= Naval Growth Formations ========#
+--========================================#
 
 local ThreeNavalGrowthFormation = {
 
@@ -577,9 +564,9 @@ local SevenNavalGrowthFormation = {
 }
 
 
-#============================================#
-#========= Naval Attack Formations ==========#
-#============================================#
+--============================================#
+--========= Naval Attack Formations ==========#
+--============================================#
 
 local FiveWideNavalAttackFormation = {
 
@@ -622,9 +609,9 @@ local NineWideNavalAttackFormation = {
 	
 }
 
-#==============================================#
-#============ Sub Growth Formations ===========#
-#==============================================#
+--==============================================#
+--============ Sub Growth Formations ===========#
+--==============================================#
 
 local ThreeWideSubGrowthFormation = {
 
@@ -665,9 +652,9 @@ local NineWideSubGrowthFormation = {
 
 }
 
-#==============================================#
-#============ Sub Attack Formations ===========#  
-#==============================================#
+--==============================================#
+--============ Sub Attack Formations ===========#  
+--==============================================#
 
 local FiveWideSubAttackFormation = {
 
@@ -696,7 +683,7 @@ local NineWideSubAttackFormation = {
 }
 
 
-#============ Formation Pickers ============#
+--============ Formation Pickers ============#
 function PickBestTravelFormationIndex( typeName, distance )
 
     if typeName == 'AirFormations' then
@@ -718,10 +705,12 @@ function PickBestFinalFormationIndex( typeName, distance )
 end
 
 
-#================ THE GUTS ====================#
-#============ Formation Functions =============#
-#==============================================#
+--================ THE GUTS ====================#
+--============ Formation Functions =============#
+--==============================================#
 function AttackFormation( formationUnits )
+
+    --LOG("*AI DEBUG Attack Formation")
 
     local FormationPos = {}
 
@@ -843,6 +832,8 @@ function AttackFormation( formationUnits )
 end
 
 function GrowthFormation( formationUnits )
+
+    --LOG("*AI DEBUG Growth Formation")
 
     local FormationPos = {}
 
@@ -1278,7 +1269,7 @@ end
 
 
 
-#=========== LAND BLOCK BUILDING =================#
+--=========== LAND BLOCK BUILDING =================#
 function BlockBuilderLand( unitsList, formationBlock, categoryTable, FormationPos, spacing)
 
 	local LOUDFLOOR = math.floor
@@ -1480,12 +1471,7 @@ function BlockBuilderLand( unitsList, formationBlock, categoryTable, FormationPo
 	
 end
 
-
-
-
-
-
-#============ AIR BLOCK BUILDING =============#
+--============ AIR BLOCK BUILDING =============#
 function BlockBuilderAir(unitsList, airBlock, FormationPos)
 
 	local LOUDGETN = table.getn
@@ -1497,9 +1483,9 @@ function BlockBuilderAir(unitsList, airBlock, FormationPos)
     local whichCol = 1
     local chevronPos = 1
     local currRowLen = LOUDGETN(airBlock[whichRow])
+    
     local longestRow = 1
     local longestLength = 0
-    local chevronSize = airBlock.ChevronSize or 5
 	
     while i < numRows do
         if LOUDGETN(airBlock[i]) > longestLength then
@@ -1508,88 +1494,94 @@ function BlockBuilderAir(unitsList, airBlock, FormationPos)
         end
         i = i + 1
     end
+    
+    local chevronSize = airBlock.ChevronSize or 5    
     local chevronType = false
+    
     local formationLength = 0
     
-    local spacing = 1.22
-
-    if unitsList.AExper > 0 then
-        spacing = 1.3
-    end
-    
+    local spacing = 1.15
+ 
     i = 1
     
     local currSlot
     local inserted = false
     local xPos, yPos
-
-    while unitsList.UnitTotal >= i do
-	
-        if chevronPos > chevronSize then
-		
-            chevronPos = 1
-            chevronType = false
-			
-            if whichCol == currRowLen then
-			
-                if whichRow == numRows then
-				
-                    if airBlock.RepeatAllRows then
-                        whichRow = 1
-                        currRowLen = LOUDGETN(airBlock[whichRow])
-                    end
-					
-                else
-                    whichRow = whichRow + 1
-                    currRowLen = LOUDGETN(airBlock[whichRow])
-                end
-				
-                formationLength = formationLength + 1
-                whichCol = 1
-				
-            else
-                whichCol = whichCol + 1
-            end
-        end
-		
-        currSlot = airBlock[whichRow][whichCol]
-        inserted = false
-		
-        for numType, type in currSlot do
+    
+    --LOG("*AI DEBUG unitsList is "..repr(unitsList))
+    --LOG("*AI DEBUG airBlock is "..repr(airBlock))
+    
+    -- loop thru the unittypes found in UnitsList
+    for _, cat in AirUnits do
+    
+        -- we have to reset all the control variables each loop to insure we
+        -- get the 'overlaying' effect we're looking for
+        i = 1
         
-            if inserted then
-                break
-            end
-
-            for numGroup, group in type do
+        whichRow = 1
+        whichCol = 1
+        
+        chevronPos = 1
+        currRowLen = LOUDGETN(airBlock[whichRow])
+        chevronType = false
+        
+        formationLength = 0
+        
+        -- check if there are any in the unit count
+        if unitsList[cat] > 0 then
+        
+            --LOG("*AI DEBUG There are "..unitsList[cat].." "..repr(cat).." units")
+            
+            -- now we can execute the original code -- driven by the number of units in the category
+            -- recylcing the formation each time
+            while unitsList[cat] >= i do
+            
+                -- reset values if we've filled a chevron
+                if chevronPos > chevronSize then
+		
+                    chevronPos = 1
+                    chevronType = false
 			
-                if not airBlock.HomogenousBlocks or chevronType == false or chevronType == type then
+                    if whichCol == currRowLen then
+			
+                        if whichRow == numRows then
 				
-                    if unitsList[group] > 0 then
-
-                        xPos, yPos = GetChevronPosition(chevronPos, whichCol, currRowLen, formationLength)
-						
-                        if airBlock.HomogenousBlocks and not chevronType then
-                            chevronType = type
+                            if airBlock.RepeatAllRows then
+                                whichRow = 1
+                                currRowLen = LOUDGETN(airBlock[whichRow])
+                            end
+					
+                        else
+                            whichRow = whichRow + 1
+                            currRowLen = LOUDGETN(airBlock[whichRow])
                         end
-						
-                        LOUDINSERT(FormationPos, {xPos*spacing, yPos*spacing, AirCategories[group], 0, true})
-						
-                        unitsList[group] = unitsList[group] - 1
-                        inserted = true
-                        i = i + 1
-                        break
+				
+                        formationLength = formationLength + 1
+                        whichCol = 1
+				
+                    else
+                        whichCol = whichCol + 1
                     end
                 end
+		
+                currSlot = airBlock[whichRow][whichCol]
+
+                xPos, yPos = GetChevronPosition(chevronPos, whichCol, currRowLen, formationLength)
+
+                LOUDINSERT(FormationPos, {xPos*spacing, yPos*spacing, AirCategories[cat], 0, true})
+
+                i = i + 1
+		
+                chevronPos = chevronPos + 1
             end
         end
-		
-        chevronPos = chevronPos + 1
-
     end
-	
+    
+    --LOG("*AI DEBUG Formation is "..repr(FormationPos))
+    
     return FormationPos
 end
+
 
 function GetChevronPosition(chevronPos, currCol, currRowLen, formationLen)
 
@@ -1625,10 +1617,7 @@ function GetChevronPosition(chevronPos, currCol, currRowLen, formationLen)
 end
 
 
-
-
-
-#=========== NAVAL UNIT BLOCKS ============#
+--=========== NAVAL UNIT BLOCKS ============#
 function NavalBlocks( unitsList, navyType )
     local Carriers = true
     local Battleships = true
@@ -1791,8 +1780,7 @@ function NavalBlocks( unitsList, navyType )
 end
 
 
-
-#========= UNIT SORTING ==========#
+--========= UNIT SORTING ==========#
 
 -- OK - a great deal of data reduction here 
 -- it was clear that while all these breakdowns of air units
@@ -1801,39 +1789,23 @@ end
 -- data usage and processing
 function CategorizeAirUnits( formationUnits )
 
-    local unitsList = {
-        --Ground1 = 0, Ground2 = 0, Ground3 = 0,
-        --Bomb1 = 0, Bomb2 = 0, Bomb3 = 0,
-        --AA1 = 0, AA2 = 0, AA3 = 0,
-        --AN1 = 0, AN2 = 0, AN3 = 0,
-        --AIntel1 = 0, AIntel2 = 0, AIntel3 = 0,
-        --Ground = 0, Bomb = 0, AA = 0, AN = 0, AIntel = 0,
-        AUnits = 0,
-        AExper = 0,
-        RemainingCategory = 0,
-        UnitTotal = 0,
-    }
+    local unitsList = { StdAirUnits = 0, T4AirUnits = 0, UnitTotal = 0 }
 	
     for i,u in formationUnits do
 	
 		if not u.Dead then
-		
-			for aircat,_ in AirCategories do
 			
-				if LOUDENTITY(AirCategories[aircat], u) then
-				
-					unitsList[aircat] = unitsList[aircat] + 1
-					
-					unitsList.UnitTotal = unitsList.UnitTotal + 1
-					break
-				end
-			end 
-
-			
-		else
-			LOG("*AI DEBUG Dead Air unit in FORMATIONS")
-			formationUnits[i] = nil
+            for subcat,_ in AirCategories do
+            
+                if LOUDENTITY( AirCategories[subcat], u) then
+                
+                    unitsList[subcat] = unitsList[subcat] + 1
+                    unitsList.UnitTotal = unitsList.UnitTotal + 1
+                    break
+                end
+            end
 		end
+        
     end
 
     return unitsList
@@ -1841,10 +1813,7 @@ end
 
 function CategorizeTransportUnits( formationUnits )
 
-    local unitsList = {
-        Trans1 = 0, Trans2 = 0, Trans3 = 0, Trans4 = 0,
-        UnitTotal = 0,
-    }
+    local unitsList = { Trans1 = 0, Trans2 = 0, Trans3 = 0, Trans4 = 0, UnitTotal = 0 }
 	
     for i,u in formationUnits do
 	
@@ -1859,32 +1828,15 @@ function CategorizeTransportUnits( formationUnits )
 					break                               
 				end
 			end			
-			
-		else
-			LOG("*AI DEBUG Dead Air unit in FORMATIONS")
-			formationUnits[i] = nil
 		end
     end
 
     return unitsList
 end
 
+function CategorizeSeaUnits( formationUnits )
 
-function CategorizeSeaUnits( formationUnits)
-
-    local unitsList = {
-        UnitTotal = 0,
-        CarrierCount = 0,
-        BattleshipCount = 0,
-        DestroyerCount = 0,
-        CruiserCount = 0,
-        FrigateCount = 0,
-        LightCount = 0,
-        SubCount = 0,
-        NukeSubCount = 0,
-        MobileSonarCount = 0,
-        RemainingCategory = 0,
-    }
+    local unitsList = { UnitTotal = 0, BattleshipCount = 0, CarrierCount = 0, CruiserCount = 0, DestroyerCount = 0, FrigateCount = 0, LightCount = 0, MobileSonarCount = 0, SubCount = 0, NukeSubCount = 0, RemainingCategory = 0 }
 
     for i,u in formationUnits do
 	
@@ -1895,16 +1847,10 @@ function CategorizeSeaUnits( formationUnits)
 				if LOUDENTITY(NavalCategories[navcat], u) then
 				
 					unitsList[navcat] = unitsList[navcat] + 1
-					
-					if NavalCategories[navcat] == "RemainingCategory" then
-						LOG('*FORMATION DEBUG: Missed unit: ' .. u:GetUnitId())
-					end
-					
 					unitsList.UnitTotal = unitsList.UnitTotal + 1
 					break
 				end
 			end
-
 		
 			-- categorize subs
 			for subcat,_ in SubmarineCategories do
@@ -1912,18 +1858,10 @@ function CategorizeSeaUnits( formationUnits)
 				if LOUDENTITY(SubmarineCategories[subcat], u) then
 				
 					unitsList[subcat] = unitsList[subcat] + 1
-					
-					if SubmarineCategories[subcat] == "RemainingCategory" then
-						LOG('*FORMATION DEBUG: Missed unit: ' .. u:GetUnitId())
-					end 
-					
 					unitsList.UnitTotal = unitsList.UnitTotal + 1
 					break                               
 				end
 			end
-		else
-			LOG("*AI DEBUG Dead Naval unit in FORMATIONS")
-			formationUnits[i] = nil
 		end
     end
 	
@@ -1932,18 +1870,7 @@ end
 
 function CategorizeLandUnits( formationUnits )
 
-    local unitsList = {
-        Bot1 = 0, Bot2 = 0, Bot3 = 0,
-        Tank1 = 0, Tank2 = 0, Tank3 = 0,
-        Art1 = 0, Art2 = 0, Art3 = 0,
-        AA1 = 0, AA2 = 0, AA3 = 0,
-        Com1 = 0, Com2 = 0, Com3 = 0,
-        Util1 = 0, Util2 = 0, Util3 = 0,
-        Shields = 0,
-        Experimentals = 0,
-        UnitTotal = 0,
-        RemainingCategory = 0,
-    }
+    local unitsList = { UnitTotal = 0 }
 	
 	local LOUDENTITY = EntityCategoryContains
 	
@@ -1952,23 +1879,24 @@ function CategorizeLandUnits( formationUnits )
 		if not u.Dead then
 		
 			for landcat,_ in LandCategories do
-			
-				if LOUDENTITY(LandCategories[landcat], u) then
-				
-					unitsList[landcat] = unitsList[landcat] + 1
-					
-					if LandCategories[landcat] == "RemainingCategory" then
-						LOG('*FORMATION DEBUG: Missed unit: ' .. u:GetUnitId())
-					end
-					
-					unitsList.UnitTotal = unitsList.UnitTotal + 1
 
-					break
+				if LOUDENTITY(LandCategories[landcat], u) then
+                
+                    if unitsList[landcat] then
+				
+                        unitsList[landcat] = unitsList[landcat] + 1
+                        unitsList.UnitTotal = unitsList.UnitTotal + 1
+                        break
+                        
+                    else
+
+                        unitsList[landcat] = 1
+                        unitsList.UnitTotal = unitsList.UnitTotal + 1
+                        break
+                    end
+                    
 				end
 			end
-        else
-			LOG("*AI DEBUG Dead Land unit in FORMATIONS")
-			formationUnits[i] = nil
 		end
     end
 

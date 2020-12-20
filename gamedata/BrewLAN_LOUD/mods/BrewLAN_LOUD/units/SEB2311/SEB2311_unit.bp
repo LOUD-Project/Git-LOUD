@@ -1,7 +1,6 @@
 UnitBlueprint {
     AI = {
         TargetBones = {
-            'SEB2311',
             'Front_Turret02',
         },
     },
@@ -26,11 +25,11 @@ UnitBlueprint {
 	
     Buffs = {
         Regen = {
-            Level1 = 2,
-            Level2 = 4,
-            Level3 = 6,
-            Level4 = 8,
-            Level5 = 10,
+            Level1 = 3,
+            Level2 = 6,
+            Level3 = 9,
+            Level4 = 12,
+            Level5 = 15,
         },
 		VisionRadius = {
             Level1 = 2,
@@ -50,12 +49,12 @@ UnitBlueprint {
         'STRUCTURE',
         'DEFENSE',
         'TECH3',
-        'INDIRECTFIRE',
+        'DIRECTFIRE',
         'DRAGBUILD',
         'SIZE4',
         'VISIBLETORECON',
         'RECLAIMABLE',
-        'SHOWATTACKRETICLE',
+        --'SHOWATTACKRETICLE',
         'OVERLAYINDIRECTFIRE',
         'SORTDEFENSE',
     },
@@ -63,9 +62,9 @@ UnitBlueprint {
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 98,
-        Health = 9500,
-        MaxHealth = 9500,
-        RegenRate = 4,
+        Health = 8250,
+        MaxHealth = 8250,
+        RegenRate = 3,
         SurfaceThreatLevel = 130.5,
     },
 	
@@ -99,8 +98,8 @@ UnitBlueprint {
 	
     Economy = {
         BuildCostEnergy = 45000,
-        BuildCostMass = 4250,
-        BuildTime = 4250,
+        BuildCostMass = 4100,
+        BuildTime = 4100,
 		
         RebuildBonusIds = {'seb2311'},
     },
@@ -176,13 +175,14 @@ UnitBlueprint {
         TurnRate = 0,
     },
 
-	SelectionCentreOffsetZ = -0.2,	
+	SelectionCenterOffsetZ = -0.2,
+    
     SelectionSizeX = 1,
     SelectionSizeZ = 1,
-    SelectionThickness = 0.5,
+    SelectionThickness = 0.4,
 	
-    SizeX = 1.5,
-    SizeY = 0.9,
+    SizeX = 1.1,
+    SizeY = 0.7,
     SizeZ = 1.5,
 	
     StrategicIconName = 'icon_structure3_artillery',
@@ -233,26 +233,26 @@ UnitBlueprint {
 			
             DisplayName = 'Gauss Cannon',
 			
-            EnergyDrainPerSecond = 600,
-            EnergyRequired = 1500,
+            EnergyDrainPerSecond = 750,
+            EnergyRequired = 1875,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
             },
 			
-            FiringRandomness = 0.35,
+            FiringRandomness = 0.5,
             FiringTolerance = 1.5,
 			
             Label = 'FrontTurret02',
 			
-            MaxRadius = 100,
+            MaxRadius = 85,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 36,
 			
             ProjectileId = '/projectiles/TDFGauss03/TDFGauss03_proj.bp',
-            ProjectileLifetime = 3.5,
+            ProjectileLifetime = 2.8,
 			
             RackBones = {
                 {
@@ -281,7 +281,8 @@ UnitBlueprint {
                 },
             },
 
-            RackRecoilDistance = -0.25,
+            RackRecoilDistance = -0.4,
+            
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
@@ -290,7 +291,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1.0,	-- 2.5 seconds to charge = 360 DPS
+            RateOfFire = 5,	-- 2.5 seconds to charge = 360 DPS
 			
             TargetCheckInterval = 3,
 			
@@ -313,7 +314,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 29,
+            TurretYawSpeed = 27,
 			
             Turreted = true,
         },

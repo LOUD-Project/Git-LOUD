@@ -5,9 +5,8 @@
 --* Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
 --*****************************************************************************
 
--- options that show up in the team options panel
-teamOptions =
-{
+teamOptions = {
+
     {
         default = 1,
         label = "<LOC lobui_0310>Prebuilt Units",
@@ -108,146 +107,11 @@ teamOptions =
 				key = '100',
 			},
 		},
-	},
+    },
+    
 }
 
 globalOpts = {
-	{   default = 3,
-        label = "AI Multiplier",
-        help = "Set the difficulty multiplier for the AIs.",
-        key = 'AIMult',
-        pref = 'Lobby_AI_Mult',
-        values = {
-            {
-                text = "0.8",
-                help = "AI Difficulty -20% - slower",
-                key = '0.8',
-            },
-            {
-                text = "0.9",
-                help = "AI Difficulty -10% - slow",
-                key = '0.9',
-            },
-            {
-                text = "1.0",
-                help = "Standard",
-                key = '1.0',
-            },
-            {
-                text = "1.05",
-                help = "AI Difficulty +5%",
-                key = '1.05',
-            },
-            {
-                text = "1.075",
-                help = "AI Difficulty +7.5%",
-                key = '1.075',
-            },
-            {
-                text = "1.10",
-                help = "AI Difficulty +10%",
-                key = '1.1',
-            },
-            {
-                text = "1.125",
-                help = "AI Difficulty +12.5%",
-                key = '1.125',
-            },
-            {
-                text = "1.150",
-                help = "AI Difficulty +15%",
-                key = '1.15',
-            },
-            {
-                text = "1.175",
-                help = "AI Difficulty +17.5%",
-                key = '1.175',
-            },
-            {
-                text = "1.200",
-                help = "AI Difficulty +20%",
-                key = '1.2',
-            },
-            {
-                text = "1.225",
-                help = "AI Difficulty +22.5%",
-                key = '1.225',
-            },
-            {   text = "1.250",
-                help = "AI Difficulty +25%",
-                key = '1.25',
-            },
-            {
-                text = "1.300",
-                help = "AI Difficulty +30%",
-                key = '1.3',
-            },
-            {
-                text = "1.325",
-                help = "AI Difficulty +32.5%",
-                key = '1.325',
-            },            
-            {
-                text = "1.35",
-                help = "AI Difficulty +35%",
-                key = '1.35',
-            },
-            {
-                text = "1.375",
-                help = "AI Difficulty +37.5%",
-                key = '1.375',
-            },            
-            {
-                text = "1.40",
-                help = "AI Difficulty +40%",
-                key = '1.4',
-            },
-            {
-                text = "1.50",
-                help = "AI Difficulty +50%",
-                key = '1.5',
-            },
-            {
-                text = "1.60",
-                help = "AI Difficulty +60%",
-                key = '1.6',
-            },            
-            {
-                text = "1.75",
-                help = "AI Difficulty +75%",
-                key = '1.75',
-            },
-            {
-                text = "2.00",
-                help = "AI Difficulty +100%",
-                key = '2.0',
-            },
-
-        },
-	},
-	{   default = 2,
-        label = "AI Unit Cap",
-        help = "Set the Unit Cap limit for the AIs.",
-        key = 'CapCheat',
-        pref = 'Lobby_Cap_Cheat',
-        values = {
-            {
-                text = "Unlimited",
-                help = "AI ignores unit cap",
-                key = 'unlimited',
-            },
-			{
-				text = "Enhanced",
-				help = "AI Unit Cap modified by Difficulty setting",
-				key = 'cheatlevel',
-			},
-            {
-                text = "Normal",
-                help = "AI has same unit cap as humans",
-                key = 'off',
-            },
-        },
-	},
 
     {
         default = 9,
@@ -332,6 +196,11 @@ globalOpts = {
 				key = '2000',
 			},
 			{
+				text = "3000",
+				help = "3000 units per player may be in play",
+				key = '3000',
+			},
+			{
 				text = "4000",
 				help = "4000 units per player may be in play",
 				key = '4000',
@@ -339,68 +208,30 @@ globalOpts = {
         },
     },
 
-    {
-        default = 1,
-        label = "User Spawn/Cheat Menu",
-        help = "Enable spawn/cheat menu",
-        key = 'CheatsEnabled',
-        pref = 'Lobby_Gen_CheatsEnabled',
+    {   default = 2,
+        label = "AI Unit Cap",
+        help = "Set the Unit Cap limit for the AIs.",
+        key = 'CapCheat',
+        pref = 'Lobby_Cap_Cheat',
         values = {
             {
-                text = "<LOC _Off>Off",
-                help = "<LOC lobui_0210>Spawn/Cheat Menu disabled",
-                key = 'false',
+                text = "Unlimited",
+                help = "AI ignores unit cap",
+                key = 'unlimited',
             },
             {
-                text = "<LOC _On>On",
-                help = "<LOC lobui_0211>Spawn/Cheats Menu enabled",
-                key = 'true',
+                text = "Enhanced",
+                help = "AI Unit Cap modified by Difficulty setting",
+                key = 'cheatlevel',
+            },
+            {
+                text = "Normal",
+                help = "AI has same unit cap as humans",
+                key = 'off',
             },
         },
     },
-    {
-        default = 1,
-        label = "<LOC lobui_0291>Civilians",
-        help = "<LOC lobui_0292>Set how civilian units are used",
-        key = 'CivilianAlliance',
-        pref = 'Lobby_Gen_Civilians',
-        values = {
-            {
-                text = "<LOC lobui_0293>Enemy",
-                help = "<LOC lobui_0294>Civilians are enemies of players",
-                key = 'enemy',
-            },
-            {
-                text = "<LOC lobui_0295>Neutral",
-                help = "<LOC lobui_0296>Civilians are neutral to players",
-                key = 'neutral',
-            },
-            {
-                text = "<LOC lobui_0297>None",
-                help = "<LOC lobui_0298>No Civilians on the battlefield",
-                key = 'removed',
-            },
-        },
-    },
-    {
-        default = 1,
-        label = "<LOC lobui_0112>Fog of War",
-        help = "<LOC lobui_0113>Set up how fog of war will be visualized",
-        key = 'FogOfWar',
-        pref = 'Lobby_Gen_Fog',
-        values = {
-            {
-                text = "<LOC lobui_0114>Explored",
-                help = "<LOC lobui_0115>Terrain revealed, but units still need recon data",
-                key = 'explored',
-            },
-            {
-                text = "<LOC lobui_0118>None",
-                help = "<LOC lobui_0119>All terrain and units visible",
-                key = 'none',
-            },
-        },
-    },
+
     {
         default = 3,
         label = "<LOC lobui_0258>Game Speed",
@@ -422,6 +253,25 @@ globalOpts = {
                 text = "<LOC lobui_0264>Adjustable",
                 help = "<LOC lobui_0265>Adjustable in-game",
                 key = 'adjustable',
+            },
+        },
+    },
+    {
+        default = 1,
+        label = "User Spawn/Cheat Menu",
+        help = "Enable spawn/cheat menu",
+        key = 'CheatsEnabled',
+        pref = 'Lobby_Gen_CheatsEnabled',
+        values = {
+            {
+                text = "<LOC _Off>Off",
+                help = "<LOC lobui_0210>Spawn/Cheat Menu disabled",
+                key = 'false',
+            },
+            {
+                text = "<LOC _On>On",
+                help = "<LOC lobui_0211>Spawn/Cheats Menu enabled",
+                key = 'true',
             },
         },
     },
@@ -455,30 +305,6 @@ globalOpts = {
         },
     },
     {
-        default = 1,
-        label = "PreBuilt Missile Option",
-        help = "Options for Missiles (TAC, Nukes & AntiNukes)",
-        key = 'MissileOption',
-        pref = 'Lobby_MissileOption',
-        values = {
-            {
-                text = "Zero",
-                help = "All Counted Missile systems have 0 prebuilt missiles.",
-                key = '0',
-            },
-            {
-                text = "1",
-                help = "All Counted Missile systems have 1 prebuilt missile.",
-                key = '1',
-            },
-            {
-                text = "2",
-                help = "All Counted Missile systems have 2 prebuilt missiles.",
-                key = '2',
-            },
-        },
-    },
-    {
         default = 2,
         label = "User Timeouts",
         help = "The number of timeouts each player can request",
@@ -503,7 +329,6 @@ globalOpts = {
             },
         },
     },
-
     {
         default = 2,
         label = "<LOC lobui_0120>Victory Condition",
@@ -518,7 +343,7 @@ globalOpts = {
 			},
             {
                 text = "<LOC lobui_0124>Supremacy",
-                help = "<LOC lobui_0125>Game ends when all structures, Commanders and engineers are destroyed",
+                help = "<LOC lobui_0125>Game ends when all factory structures, Commanders and engineers are destroyed",
                 key = 'domination',
             },
             {
@@ -584,202 +409,245 @@ globalOpts = {
     },
 
 }
-    
---[[
-	{   default = 5,
-        label = "AIx Cheat Multiplier",
-        help = "Set the resource multiplier for the cheating AIs.",
-        key = 'CheatMult',
-        pref = 'Lobby_Cheat_Mult',
-        values = {
-            {
-                text = "0.8",
-                help = "Resources -20% - slower",
-                key = '0.8',
-            },
-            {
-                text = "0.9",
-                help = "Resources -10% - slow",
-                key = '0.9',
-            },
-            {
-                text = "1.0",
-                help = "Standard Resources",
-                key = '1.0',
-            },
-            {
-                text = "1.05",
-                help = "AIx Resources +5%",
-                key = '1.05',
-            },
-            {
-                text = "1.075",
-                help = "AIx Resources +7.5%",
-                key = '1.075',
-            },
-            {
-                text = "1.10",
-                help = "AIx Resources +10%",
-                key = '1.1',
-            },
-            {
-                text = "1.125",
-                help = "AIx Resources +12.5%",
-                key = '1.125',
-            },
-            {
-                text = "1.150",
-                help = "AIx Resources +15%",
-                key = '1.15',
-            },
-            {
-                text = "1.175",
-                help = "AIx Resources +17.5%",
-                key = '1.175',
-            },
-            {
-                text = "1.200",
-                help = "AIx Resources +20%",
-                key = '1.2',
-            },
-            {
-                text = "1.225",
-                help = "AIx Resources +22.5%",
-                key = '1.225',
-            },
-            {   text = "1.250",
-                help = "AIx Resources +25%",
-                key = '1.25',
-            },
-            {
-                text = "1.300",
-                help = "AIx Resources +30%",
-                key = '1.3',
-            },
-            {
-                text = "1.35",
-                help = "AIx Resources +35%",
-                key = '1.35',
-            },
-            {
-                text = "1.40",
-                help = "AIx Resources +40%",
-                key = '1.4',
-            },
-            {
-                text = "1.50",
-                help = "AIx Resources +50%",
-                key = '1.5',
-            },
-            {
-                text = "1.75",
-                help = "AIx Resources +75%",
-                key = '1.75',
-            },
-            {
-                text = "2.00",
-                help = "AIx Resources +100%",
-                key = '2.0',
-            },
 
-        },
-	},
-	{   default = 5,
-        label = "AIx Build Multiplier",
-        help = "Set the build rate multiplier for the cheating AIs.",
-        key = 'BuildMult',
-        pref = 'Lobby_Build_Mult',
+advGameOptions = {
+
+    {
+        default = 1,
+        label = "<LOC lobui_0291>Civilians",
+        help = "<LOC lobui_0292>Set how civilian units are used",
+        key = 'CivilianAlliance',
+        pref = 'Lobby_Gen_Civilians',
         values = {
             {
-                text = "0.8",
-                help = "AIx Build Rate -20%",
-                key = '0.8',
+                text = "<LOC lobui_0293>Enemy",
+                help = "<LOC lobui_0294>Civilians are enemies of players",
+                key = 'enemy',
             },
             {
-                text = "0.9",
-                help = "AIx Build Rate -10%",
-                key = '0.9',
+                text = "<LOC lobui_0295>Neutral",
+                help = "<LOC lobui_0296>Civilians are neutral to players",
+                key = 'neutral',
             },
             {
-                text = "1.0",
-                help = "AIx Build Rate Normal",
-                key = '1.0',
-            },
-            {
-                text = "1.050",
-                help = "AIx Build Rate +5%",
-                key = '1.05',
-            },
-            {
-                text = "1.075",
-                help = "AIx Build Rate +7.5%",
-                key = '1.075',
-            },
-            {
-                text = "1.10",
-                help = "AIx Build Rate +10%",
-                key = '1.1',
-            },
-            {
-                text = "1.125",
-                help = "AIx Build Rate +12.5%",
-                key = '1.125',
-            },
-            {
-                text = "1.150",
-                help = "AIx Build Rate +15%",
-                key = '1.15',
-            },
-            {
-                text = "1.175",
-                help = "AIx Build Rate +17.5%",
-                key = '1.175',
-            },
-            {
-                text = "1.200",
-                help = "AIx Build Rate +20%",
-                key = '1.2',
-            },
-            {
-                text = "1.225",
-                help = "AIx Build Rate +22.5%",
-                key = '1.225',
-            },
-            {
-                text = "1.250",
-                help = "AIx Build Rate +25%",
-                key = '1.25',
-            },
-            {
-                text = "1.30",
-                help = "AIx Build Rate +30%",
-                key = '1.3',
-            },
-            {
-                text = "1.35",
-                help = "AIx Build Rate +35%",
-                key = '1.35',
-            },
-            {
-                text = "1.40",
-                help = "AIx Build Rate +40%",
-                key = '1.4',
-            },
-            {
-                text = "1.50",
-                help = "AIx Build Rate +50%",
-                key = '1.5',
-            },
-            {
-                text = "1.75",
-                help = "AIx Build Rate +75%",
-                key = '1.75',
-            },
-            {
-                text = "2.00",
-                help = "AIx Build Rate +100%",
-                key = '2.0',
+                text = "<LOC lobui_0297>None",
+                help = "<LOC lobui_0298>No Civilians on the battlefield",
+                key = 'removed',
             },
         },
-	},
---]]
+    },
+    {
+        default = 1,
+        label = "<LOC lobui_0112>Fog of War",
+        help = "<LOC lobui_0113>Set up how fog of war will be visualized",
+        key = 'FogOfWar',
+        pref = 'Lobby_Gen_Fog',
+        values = {
+            {
+                text = "<LOC lobui_0114>Explored",
+                help = "<LOC lobui_0115>Terrain revealed, but units still need recon data",
+                key = 'explored',
+            },
+            {
+                text = "<LOC lobui_0118>None",
+                help = "<LOC lobui_0119>All terrain and units visible",
+                key = 'none',
+            },
+        },
+    },
+    {
+        default = 1,
+        label = "PreBuilt Missile Option",
+        help = "Options for Missiles (TAC, Nukes & AntiNukes)",
+        key = 'MissileOption',
+        pref = 'Lobby_MissileOption',
+        values = {
+            {
+                text = "Zero",
+                help = "All Counted Missile systems have 0 prebuilt missiles.",
+                key = '0',
+            },
+            {
+                text = "1",
+                help = "All Counted Missile systems have 1 prebuilt missile.",
+                key = '1',
+            },
+            {
+                text = "2",
+                help = "All Counted Missile systems have 2 prebuilt missiles.",
+                key = '2',
+            },
+        },
+    },
+
+}
+
+advAIOptions = {
+
+    {
+        default = 2,
+        label = "Feedback Cheat Interval",
+        help = "If an AI is affected by feedback cheating, this is the time period in seconds between possible changes to its cheat multiplier. Increase for better performance.",
+        key = "ACTRatioInterval",
+        pref = 'Lobby_ACT_Ratio_Interval',
+        values = {
+            {
+                text = "15",
+                help = "The AI's cheat multiplier may change every 15 seconds.",
+                key = '15',
+            },
+            {
+                text = "30",
+                help = "The AI's cheat multiplier may change every 30 seconds.",
+                key = '30',
+            },
+            {
+                text = "45",
+                help = "The AI's cheat multiplier may change every 45 seconds.",
+                key = '45',
+            },
+        },
+    },
+    
+    { 
+        default = 1, 
+        label = "Feedback Cheat Scale", 
+        help = "If an AI is affected by feedback cheating, this is the scale which affects the multiplier increase. Mouseover an option for more information.", 
+        key = "ACTRatioScale", 
+        pref = 'Lobby_ACT_Ratio_Scale', 
+        values = { 
+            { 
+                text = "1", 
+                help = "The AI's cheat multiplier will increase by a maximum of 0.5.", 
+                key = "1", 
+            }, 
+            { 
+                text = "2", 
+                help = "The AI's cheat multiplier will increase by a maximum of 1.0.", 
+                key = "2", 
+            }, 
+            { 
+                text = "3", 
+                help = "The AI's cheat multiplier will increase by a maximum of 1.5", 
+                key = "3", 
+            }, 
+        }, 
+    },     
+
+    {
+        default = 1,
+        label = "Timed Cheat Start Delay",
+        help = "If an AI cheats more with time, this is the delay in minutes before any changes start happening.",
+        key = "ACTStartDelay",
+        pref = 'Lobby_ACT_Start_Delay',
+        values = {
+            {
+                text = "0",
+                help = "The AI's cheat multiplier will start right from the start of the game.",
+                key = '0',
+            },        
+            {
+                text = "6",
+                help = "The AI's cheat multiplier will not start changing until 6 minutes have passed.",
+                key = '6',
+            },
+            {
+                text = "10",
+                help = "The AI's cheat multiplier will not start changing until 10 minutes have passed.",
+                key = '10',
+            },
+            {
+                text = "15",
+                help = "The AI's cheat multiplier will not start changing until 15 minutes have passed.",
+                key = '15',
+            },
+        },
+    },
+    {
+        default = 1,
+        label = "Timed Cheat Delay",
+        help = "If an AI cheats more with time, this is the delay in minutes between each difficulty increase.",
+        key = "ACTTimeDelay",
+        pref = 'Lobby_ACT_Time_Delay',
+        values = {
+            {
+                text = "6",
+                help = "The AI's cheat multiplier will change at 6 minute intervals.",
+                key = '6',
+            },
+            {
+                text = "10",
+                help = "The AI's cheat multiplier will change at 10 minute intervals.",
+                key = '10',
+            },
+            {
+                text = "15",
+                help = "The AI's cheat multiplier will change at 15 minute intervals.",
+                key = '15',
+            },
+        },
+    },
+    {
+        default = 4,
+        label = "Timed Cheat Amount",
+        help = "If an AI cheats more with time, this is how much the difficulty increases every interval.",
+        key = "ACTTimeAmount",
+        pref = 'Lobby_ACT_Time_Amount',
+        values = {
+            {
+                text = "-0.02",
+                help = "The AI's cheat multiplier will decrease by 0.02 every interval.",
+                key = '-.02',
+            },          
+            {
+                text = "-0.01",
+                help = "The AI's cheat multiplier will decrease by 0.01 every interval.",
+                key = '-.01',
+            },            
+            {
+                text = "0.01",
+                help = "The AI's cheat multiplier will increase by 0.01 every interval.",
+                key = '0.01',
+            },
+            {
+                text = "0.02",
+                help = "The AI's cheat multiplier will increase by 0.02 every interval.",
+                key = '0.02',
+            },
+            {
+                text = "0.05",
+                help = "The AI's cheat multiplier will increase by 0.05 every interval.",
+                key = '0.05',
+            },
+        },
+    },
+    {
+        default = 3,
+        label = "Timed Cheat Limit",
+        help = "If an AI cheats more with time, its cheat multiplier cannot go higher than the selected number.",
+        key = "ACTTimeCap",
+        pref = 'Lobby_ACT_Time_Cap',
+        values = {
+            {
+                text = "2.0",
+                help = "The AI's cheat multiplier will never go higher than 2.0.",
+                key = '2',
+            },
+            {
+                text = "3.0",
+                help = "The AI's cheat multiplier will never go higher than 3.0.",
+                key = '3',
+            },
+            {
+                text = "4.0",
+                help = "The AI's cheat multiplier will never go higher than 4.0.",
+                key = '4',
+            },
+        },
+    },
+
+}
+
+hiddenOptions = {
+    
+}

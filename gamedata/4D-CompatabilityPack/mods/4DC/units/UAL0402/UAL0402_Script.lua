@@ -55,21 +55,6 @@ UAL0402 = Class(AWalkingLandUnit) {
         'Right_Leg_B01','Left_Leg_B01','ShoulderCannon','Right_Leg_B02','Left_Leg_B02','ArmRight','ArmLeft','ShoulderTurret','Right_Foot','Left_Foot','ShoulderBarrel',
         'WeaponRight','WeaponLeft','BarrelLeft','Missile2','Missile3','Missile1','MuzzleShoulder','MuzzleRight','MuzzleLeft',
     },
-
-    OnKilled = function(self, instigator, type, overkillRatio)
-        AWalkingLandUnit.OnKilled(self, instigator, type, overkillRatio)
-        local wep = self:GetWeaponByLabel('EyeWeapon')
-        local bp = wep:GetBlueprint()
-        if bp.Audio.BeamStop then
-            wep:PlaySound(bp.Audio.BeamStop)
-        end
-        if bp.Audio.BeamLoop and wep.Beams[1].Beam then
-            wep.Beams[1].Beam:SetAmbientSound(nil, nil)
-        end
-        for k, v in wep.Beams do
-            v.Beam:Disable()
-        end     
-    end,
  
     CreateDamageEffects = function(self, bone, Army )
         for k, v in EffectTemplate.AMiasmaField01 do   

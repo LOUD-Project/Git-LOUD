@@ -1,12 +1,12 @@
-#****************************************************************************
-#**
-#**  File     :  /data/projectiles/CIFBrackmanHackPegs01/CIFBrackmanHackPegs01_script.lua
-#**  Author(s):  Greg Kohne
-#**
-#**  Summary  :  Brackman Hack Peg-Pod
-#**
-#**  Copyright © 2007 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+--****************************************************************************
+--**
+--**  File     :  /data/projectiles/CIFBrackmanHackPegs01/CIFBrackmanHackPegs01_script.lua
+--**  Author(s):  Greg Kohne
+--**
+--**  Summary  :  Brackman Hack Peg-Pod
+--**
+--**  Copyright ï¿½ 2007 Gas Powered Games, Inc.  All rights reserved.
+--****************************************************************************
 
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 local CDFBrackmanHackPegProjectile01 = import('/lua/cybranprojectiles.lua').CDFBrackmanHackPegProjectile01

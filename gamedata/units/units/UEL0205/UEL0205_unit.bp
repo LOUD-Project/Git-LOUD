@@ -177,7 +177,7 @@ UnitBlueprint {
 			
             Damage = 36,
             DamageFriendly = false,
-            DamageRadius = 2.5,
+            DamageRadius = 1.6,
             DamageType = 'Normal',
 			
             DetonatesAtTargetHeight = true,
@@ -226,7 +226,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 2,		#-- 144 DPS Air
+            RateOfFire = 2,		---- 144 DPS Air
 			
             TargetCheckInterval = 0.5,
 			

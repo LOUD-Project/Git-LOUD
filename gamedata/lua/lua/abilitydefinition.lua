@@ -1,6 +1,6 @@
-#
-# Ability Definitions
-#
+--
+-- Ability Definitions
+--
 
 abilities = {
 

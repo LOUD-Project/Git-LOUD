@@ -1,14 +1,14 @@
-### Lists the textures and colors used to draw the command graph
-### waypoints and order lines.
-###
-### If any value is not supplied for a particular type of order but
-### there is an 'inherit_from' key, the value is inherited from the
-### order named by the inherit_from key.  If there is no inherit_from
-### key, the 'default' entry is used.
-###
-### Note: because of the way order lines are rendered, they can't use
-### the texture batcher, so having different textures for order lines
-### is very expensive.  Only do it if necessary.
+-- Lists the textures and colors used to draw the command graph
+-- waypoints and order lines.
+--
+-- If any value is not supplied for a particular type of order but
+-- there is an 'inherit_from' key, the value is inherited from the
+-- order named by the inherit_from key.  If there is no inherit_from
+-- key, the 'default' entry is used.
+--
+-- Note: because of the way order lines are rendered, they can't use
+-- the texture batcher, so having different textures for order lines
+-- is very expensive.  Only do it if necessary.
 
 CommandGraphParams = {
 
@@ -33,7 +33,7 @@ CommandGraphParams = {
         arrowhead_cap_offset = -0.1,
     },
 
-### Attack Orders
+-- Attack Orders
     default_AttackColors = {
         orderline_color = '33ff0000',
         orderline_selected_color = 'ddff0000',
@@ -64,7 +64,7 @@ CommandGraphParams = {
         arrowhead_texture = '/textures/ui/common/game/orderline/orderline_arrow04.dds',
     },
 
-### Move Orders
+-- Move Orders
     default_MoveColors = {
         orderline_color = '3300ffff',
         orderline_selected_color = 'dd00ffff',
@@ -89,7 +89,7 @@ CommandGraphParams = {
     },
     UNITCOMMAND_FormPatrol = { inherit_from = 'UNITCOMMAND_Patrol' },
 
-### Transport Orders
+-- Transport Orders
     default_TransportColors = {
         orderline_color = 'aa654bc2',
         orderline_selected_color = 'dd654bc2',
@@ -133,10 +133,10 @@ CommandGraphParams = {
         orderline_selected_color = 'ddffff00',
         orderline_highlight_color = 'ffffff44',
     },
-### Factory Sharing the queue of another factory
+-- Factory Sharing the queue of another factory
     UNITCOMMAND_BuildAssist = { inherit_from = 'default_EngineeringColors' },
 
-### Enginer construction
+-- Enginer construction
     UNITCOMMAND_BuildMobile = {
         inherit_from = 'default_EngineeringColors',
         waypoint_texture = '/textures/ui/common/game/waypoints/repair_btn_up.dds',
@@ -173,7 +173,7 @@ CommandGraphParams = {
         arrowhead_texture = '/textures/ui/common/game/orderline/orderline_arrow04.dds',
     },
 
-### Special Orders
+-- Special Orders
     default_SpecialColors = {
         orderline_color = '3300ff00',
         orderline_selected_color = 'dd00ff00',
@@ -193,8 +193,8 @@ CommandGraphParams = {
     },
 
 
-### These are here if they need to be used in the future
-### They are not displayed right now
+-- These are here if they need to be used in the future
+-- They are not displayed right now
     UNITCOMMAND_Dive = { inherit_from = 'default' },
     UNITCOMMAND_Stop = { inherit_from = 'default' },
     UNITCOMMAND_Land = { inherit_from = 'default' },

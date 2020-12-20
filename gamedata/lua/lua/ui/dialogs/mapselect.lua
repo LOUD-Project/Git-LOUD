@@ -3,7 +3,7 @@
 --* Author: Chris Blackwell
 --* Summary: Dialog to facilitate map selection
 --*
---* Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
+--* Copyright ï¿½ 2005 Gas Powered Games, Inc.  All rights reserved.
 --*****************************************************************************
 
 local UIUtil = import('/lua/ui/uiutil.lua')
@@ -94,7 +94,34 @@ mapFilters = {
         }
     },
 }
+-- CHANGED --
 
+-- used to compute the offset of spawn / mass / hydro markers on the (big) preview
+-- when the map is not square
+local function ComputeNonSquareOffset(width, height)
+    -- determine the largest dimension
+    local largest = width
+    if height > largest then
+        largest = height 
+    end
+
+    -- determine correction factor for uneven dimensions
+    local yOffset = 0
+    local xOffset = 0 
+    if width > height then 
+        local factor = height / width
+        yOffset = 0.5 * factor
+    end
+
+    if width < height then 
+        local factor = width / height
+        xOffset = 0.5 * factor
+    end
+
+    return xOffset, yOffset, largest
+end
+
+-- CHANGED --
 -- Create a filter dropdown and title from the table above
 function CreateFilter(parent, filterData)
     local group = Group(parent)
@@ -188,12 +215,18 @@ local function ShowMapPositions(mapCtrl, scenario)
 
     local mWidth = scenario.size[1]
     local mHeight = scenario.size[2]
-
+    local xOffset, yOffset, largest = ComputeNonSquareOffset(mWidth, mHeight)
+    
     for army, pos in startPos do
+    
         local marker = Bitmap(posGroup, UIUtil.UIFile('/dialogs/mapselect02/commander.dds'))
-        LayoutHelpers.AtLeftTopIn(marker, posGroup, 
-            ((pos[1] / mWidth) * cWidth) - (marker.Width() / 2), 
-            ((pos[2] / mHeight) * cHeight) - (marker.Height() / 2))
+        
+        LayoutHelpers.AtLeftTopIn(
+            marker, 
+            posGroup, 
+            ((xOffset + pos[1] / largest) * cWidth) - (marker.Width() / 2), 
+            ((yOffset + pos[2] / largest) * cHeight) - (marker.Height() / 2)
+        )
     end
 end
 
@@ -485,8 +518,12 @@ function RefreshOptions(skipRefresh, singlePlayer)
     if skipRefresh then
         OptionSource[2] = {title = "<LOC uilobby_0002>Game Options", options = import('/lua/ui/lobby/lobbyoptions.lua').globalOpts}
         OptionSource[1] = {title = "<LOC uilobby_0001>Team Options", options = import('/lua/ui/lobby/lobbyoptions.lua').teamOptions}
-
-        table.sort(OptionSource[2].options, function(a, b) return LOC(a.label) < LOC(b.label) end)
+        OptionSource[4] = {title = "Advanced AI Options", options = import('/lua/ui/lobby/lobbyoptions.lua').advAIOptions}
+        OptionSource[5] = {title = "Advanced Game Options", options = import('/lua/ui/lobby/lobbyoptions.lua').advGameOptions}
+        
+        table.sort(OptionSource[5].options, function(a, b) return LOC(a.label) < LOC(b.label) end)
+        table.sort(OptionSource[4].options, function(a, b) return LOC(a.label) < LOC(b.label) end)
+        -- table.sort(OptionSource[2].options, function(a, b) return LOC(a.label) < LOC(b.label) end)
         table.sort(OptionSource[1].options, function(a, b) return LOC(a.label) < LOC(b.label) end)
     end
     OptionSource[3] = {}
@@ -498,7 +535,7 @@ function RefreshOptions(skipRefresh, singlePlayer)
         if table.getsize(OptionTable.options) > 0 then
             table.insert(Options, {type = 'title', text = OptionTable.title})
             for optionIndex, optionData in OptionTable.options do
-                if not(singlePlayer and optionData.mponly == true) then
+                if not(singlePlayer and optionData.mponly == true) and optionData.key ~= 'GameSpeed' then
                     table.insert(Options, {type = 'option', text = optionData.label, data = optionData})
                 end
             end

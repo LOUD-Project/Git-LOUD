@@ -1,4 +1,13 @@
 UnitBlueprint {
+    AI = {
+        TargetBones = {
+            'Head',
+            'NewTorso',
+            'Right_Leg_B02',
+            'Left_Leg_B04',
+        },
+    },
+	
     Audio = {
         DeathExplosion = Sound {
             Bank = 'UELDestroy',
@@ -291,8 +300,8 @@ UnitBlueprint {
     SelectionSizeZ = 3,
     SelectionThickness = 0.34,
     
-    SizeX = 4.5,
-    SizeY = 6,
+    SizeX = 4.0,
+    SizeY = 5.8,
     SizeZ = 3.5,
     
     StrategicIconName = 'icon_experimental_land_directfire',
@@ -327,7 +336,7 @@ UnitBlueprint {
             
             CollideFriendly = false,
             
-            Damage = 0.1,
+            Damage = 0.01,
             DamageRadius = 0.5,
             DamageType = 'Normal',
             
@@ -408,7 +417,7 @@ UnitBlueprint {
             
             CollideFriendly = false,
             
-            Damage = 0.1,
+            Damage = 0.01,
             DamageRadius = 0.5,
             DamageType = 'Normal',
             

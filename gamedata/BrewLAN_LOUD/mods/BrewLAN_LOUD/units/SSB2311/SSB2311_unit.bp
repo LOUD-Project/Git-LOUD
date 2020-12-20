@@ -3,7 +3,7 @@ UnitBlueprint {
         TargetBones = {
             'Arm_B02',
             'Right_Arm_B03',
-            'Rotor3',
+            'Rotor2',
         },
     },
 	
@@ -173,8 +173,8 @@ UnitBlueprint {
     SelectionSizeZ = 1,
     SelectionThickness = .5,
 	
-    SizeX = 1.4,
-    SizeY = 1.7,
+    SizeX = 1.0,
+    SizeY = 1.8,
     SizeZ = 1.4,
 	
     StrategicIconName = 'icon_structure3_directfire',

@@ -10,22 +10,15 @@ local UIUtil = import('/lua/ui/uiutil.lua')
 local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
 local Bitmap = import('/lua/maui/bitmap.lua').Bitmap
 local Checkbox = import('/lua/maui/checkbox.lua').Checkbox
-local Scrollbar = import('/lua/maui/scrollbar.lua').Scrollbar
-local Text = import('/lua/maui/text.lua').Text
 local MultiLineText = import('/lua/maui/multilinetext.lua').MultiLineText
-local Button = import('/lua/maui/button.lua').Button
 local Group = import('/lua/maui/group.lua').Group
-local MenuCommon = import('/lua/ui/menus/menucommon.lua')
-local MainMenu = import('/lua/ui/menus/main.lua')
 local Mods = import('/lua/mods.lua')
 local Tooltip = import('/lua/ui/game/tooltip.lua')
 local ItemList = import('/lua/maui/itemlist.lua').ItemList
 local Prefs = import('/lua/user/prefs.lua')
 local Edit = import('/lua/maui/edit.lua').Edit
 
-
 local _InternalUpdateStatus
-
 
 -- This function can be called while the ModManager is active, to update changes to the selected mods on the fly.
 -- If called when the ModManger is -not- active, it is a no-op.
@@ -34,7 +27,6 @@ function UpdateClientModStatus(selectedModsFromHost)
         _InternalUpdateStatus(selectedModsFromHost)
     end
 end
-
 
 function ClientModStatus(selectedModsFromHost)
     Mods.ClearCache() -- force reload of mod info to pick up changes on disk
@@ -60,7 +52,6 @@ function ClientModStatus(selectedModsFromHost)
     end
     return r
 end
-
 
 function HostModStatus(availableMods)
     Mods.ClearCache() -- force reload of mod info to pick up changes on disk
@@ -94,7 +85,6 @@ function HostModStatus(availableMods)
     end
     return r
 end
-
 
 function LocalModStatus()
     Mods.ClearCache() -- force reload of mod info to pick up changes on disk
@@ -225,7 +215,7 @@ local function CreateLoadPresetDialog(parent, scrollGroup)
 			local name = presets:GetItem(index)
 			UIUtil.QuickDialog(dialog, "Are you sure you want to delete the preset "..name.."?", 
 				"<LOC _Yes>", function()
-					#table.remove(userPresets, index + 1)
+					-- table.remove(userPresets, index + 1)
 					userPresets[name] = nil
 					Prefs.SetToCurrentProfile('UserPresets', userPresets)
 					fillPresetList()
@@ -331,8 +321,31 @@ local function CreateSavePresetDialog(parent, scrollGroup)
     UIUtil.CreateWorldCover(dialog)
 end
 
+local loudStandard = { 
+    '25D57D85-7D84-27HT-A501-BR3WL4N000079', -- BrewLAN
+    '62e2j64a-53a2-y6sg-32h5-146as555a18u3', -- Total Mayhem
+    '9a9C61C0-1787-10DF-A0AD-BATTLEPACK002', -- Wyvern Battle Pack
+    'ffffffff-6e98-4864-9599-4133236eea7a', -- LOUD Integrated Storage
+    '25D57D85-9JA7-D842-GKG4-ORIGIN0000001', -- BrewLAN Barista
+    'ffffffff-ffff-ffff-ffff-fffffffffffe', -- LOUD Structure Enhancements
+    '454af309-5afb-458b-bf5b-a00000000007', -- 4th Dimension
+    '9e8ea941-c306-4751-b367-a11000000502', -- BlackOps Unleashed
+    'fffffffe-6e98-4864-9599-4133236eea7a', -- LOUD Unit Additions
+    'D000E905-1E97-420D-8ED9-DF083282F59D', -- Sequential Mex Upgrades
+    'HUSSAR-PL-a1e2-c4t4-scfa-ssbmod-v1240', -- Supreme Score Board
+    '9e8ea941-c306-4751-b367-e00000000302', -- BlackOps ACUs
+    'EF3ADDB4-9D34-437F-B1C8-440DAF896802', -- Mass Fab Manager
+    'ffffffff-6f00-4864-9599-4133236eea7a', -- Evenflow
+    '89BF1572-9EA8-11DC-1313-635F56D89591', -- Supreme Economy
+    '2529ea71-93ef-41a6-b552-EXPERICON00005', -- Experimental Icons Overhaul
+}
+
 function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
 
+    local userPresets = Prefs.GetFromCurrentProfile('UserPresets')
+    if not userPresets['LOUD Standard'] then
+        LOG("The LOUD Standard preset is not in this user's Game.prefs. Adding it...")
+    end
     ---------------------------------------------------------------------------
     -- fill in default args
     ---------------------------------------------------------------------------
@@ -363,8 +376,9 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
     end
     
     local dlgLabel = UIUtil.CreateText(panel, "<LOC uimod_0001>Click to select or deselect", 20, 'Arial Bold')
-    LayoutHelpers.AtTopIn(dlgLabel, panel, 80)
-    LayoutHelpers.AtHorizontalCenterIn(dlgLabel, panel)
+    -- LayoutHelpers.AtTopIn(dlgLabel, panel, 80)
+    -- LayoutHelpers.AtHorizontalCenterIn(dlgLabel, panel)
+    LayoutHelpers.AtLeftTopIn(dlgLabel, panel, 30, 75)
 	
     ---------------------------------------------------------------------------
     -- Mod list control
@@ -517,7 +531,7 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
                 exclusiveModSelected = bg
                 bg:Toggle()
                 for index, control in scrollGroup.controlList do
-                    if control != bg and control.active then
+                    if control ~= bg and control.active then
                         control:Toggle()
                     end
                 end
@@ -693,7 +707,7 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
         for index, control in scrollGroup.controlList do
             local uid = control.modInfo.uid
             if not modStatus[uid].cantoggle then
-                if control.active != (selectedModsFromHost[uid] or false) then
+                if control.active ~= (selectedModsFromHost[uid] or false) then
                     control:Toggle()
                 end
             end
@@ -717,7 +731,7 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
             end
         end
 
-        # clear out the module var '_InternalUpdateStatus' to disable background updates
+        -- Clear out the module var '_InternalUpdateStatus' to disable background updates
         _InternalUpdateStatus = nil
 
         if over then
@@ -728,15 +742,30 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
 
         (exitBehavior or Mods.SetSelectedMods)(selectedMods)
     end
+
+    local loudStdBtn = UIUtil.CreateButtonStd(panel, '/widgets/small', "LOUD Standard", 12, 2)
+    -- LayoutHelpers.RightOf(loudStdBtn, saveBtn)
+    LayoutHelpers.AtRightTopIn(loudStdBtn, panel, 30, 75)
+    loudStdBtn.OnClick = function(self, modifiers)
+        local curListed = GetCurrentlyListedMods()
+        for k,v in loudStandard do
+            if not curListed[v].active then
+                curListed[v]:Toggle()
+            end
+        end
+    end
+    Tooltip.AddButtonTooltip(loudStdBtn, 'modmgr_loudstandard')
 	
-    local loadBtn = UIUtil.CreateButtonStd(panel, '/widgets/small', "Load", 12, 2)
-    LayoutHelpers.AtLeftTopIn(loadBtn, panel, 30, 75)
+    local loadBtn = UIUtil.CreateButtonStd(panel, '/widgets/tiny', "Load", 12, 2)
+    LayoutHelpers.LeftOf(loadBtn, loudStdBtn)
+    -- LayoutHelpers.AtLeftTopIn(loadBtn, panel, 30, 75)
     loadBtn.OnClick = function(self, modifiers)
 		CreateLoadPresetDialog(panel, scrollGroup)
     end
 	
-    local saveBtn = UIUtil.CreateButtonStd(panel, '/widgets/small', "Save", 12, 2)
-    LayoutHelpers.AtRightTopIn(saveBtn, panel, 30, 75)
+    local saveBtn = UIUtil.CreateButtonStd(panel, '/widgets/tiny', "Save", 12, 2)
+    LayoutHelpers.LeftOf(saveBtn, loadBtn)
+    -- LayoutHelpers.AtRightTopIn(saveBtn, panel, 30, 75)
     saveBtn.OnClick = function(self, modifiers)
 		CreateSavePresetDialog(panel, scrollGroup)
     end

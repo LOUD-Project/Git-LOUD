@@ -1,12 +1,12 @@
 UnitBlueprint {
+
     AI = {
         TargetBones = {
-            0,
-            'B01',
-            'B02',
-            'B03',
+            'Hat',
+			'Dish',
         },
     },
+
     Audio = {
         AmbientMove = Sound {
             Bank = 'UAL',
@@ -39,122 +39,93 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
-	
+    
     Buffs = {},
-	
+    
     BuildIconSortPriority = 12,
-	
+    
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3FACTORY',
         'AEON',
         'MOBILE',
         'LAND',
-		'AMPHIBIOUS',
+        'AMPHIBIOUS',
+        'HOVER',
         'INTELLIGENCE',
         'TECH3',
         'OMNI',
-        'HOVER',
         'VISIBLETORECON',
         'RECLAIMABLE',
         'OVERLAYOMNI',
         'OVERLAYRADAR',
-		'SORTINTEL',
+        'SORTINTEL',
     },
-	
+    
     Defense = {
         ArmorType = 'Normal',
         EconomyThreatLevel = 65,
         Health = 250,
         MaxHealth = 250,
     },
-	
+    
     Description = '<LOC srl0324_desc>Mobile Sensor Array',
-	
+    
     Display = {
+    
+        AnimationActive = '/mods/BrewLAN/units/SAL0324/SAL0324_aactive.sca',
+        
         Abilities = {
             '<LOC ability_hover>Hover',
             '<LOC ability_omni>Omni Sensor',
             '<LOC ability_radar>Radar',
         },
-		
-        AnimationDeath = {
-            {
-                Animation = '/mods/BrewLAN_LOUD/units/sal0324/sal0324_Adeath.sca',
-                AnimationRateMax = 3.25,
-                AnimationRateMin = 2.75,
-                Weight = 10,
-            },
-        },
-
+        
         BlinkingLights = {
-            {
-                BLBone = 'AttachPoint',
-                BLOffsetX = 0,
-                BLOffsetY = 0,
-                BLOffsetZ = 0,
-                BLScale = 1,
-            },
+            {BLBone = 'Antenna', BLScale = 1},
         },
-		
+        
         BlinkingLightsFx = {
             Green = '/effects/emitters/light_green_03_emit.bp',
             Red = '/effects/emitters/light_red_blinking_02_emit.bp',
         },
-		
+        
         IdleEffects = {
             Land = {
                 Effects = {
                     {
-                        Bones = {
-                            'B01',
-                        },
+                        Bones = {0},
+                        Offset = {0, -0.15, 0},
+                        Scale = 1.15,
+                        Type = 'AeonGroundFX01',
+                    },
+                    {
+                        Bones = {'Antenna'},
                         Type = 'Radar01',
                     },
                 },
             },
         },
-		
+        
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 130,
-                    Scrolling = true,
-                    ShaderName = 'Aeon',
-                    AlbedoName = '/units/uab3104/uab3104_albedo.dds',
-                    NormalsName = '/units/uab3104/uab3104_normalsts.dds',
-                    SpecularName = '/units/uab3104/uab3104_specteam.dds',
-                },
-                {
-                    LODCutoff = 300,
-                    Scrolling = true,
-                    ShaderName = 'Aeon',
-                    AlbedoName = '/units/uab3104/uab3104_lod1_albedo.dds',
-                    NormalsName = '/units/uab3104/uab3104_lod1_normalsts.dds',
-                    SpecularName = '/units/uab3104/uab3104_lod1_specteam.dds',
-                },
+                {LODCutoff = 128, ShaderName = 'Aeon'},
+                {LODCutoff = 256, ShaderName = 'Aeon'},
+                {LODCutoff = 512, ShaderName = 'Aeon'},
             },
         },
-		
+        
         MovementEffects = {
             Land = {
                 Effects = {
                     {
-                        Bones = {
-                            0,
-                        },
+                        Bones = {0},
                         Type = 'GroundKickup01',
                     },
                     {
-                        Bones = {
-                            0,
-                        },
-                        Offset = {
-                            0,
-                            -0.15,
-                            0,
-                        },
+                        Bones = {0},
+                        Offset = {0, -0.15, 0},
                         Scale = 1.15,
                         Type = 'AeonGroundFX01',
                     },
@@ -163,29 +134,30 @@ UnitBlueprint {
             Water = {
                 Effects = {
                     {
-                        Bones = {
-                            0,
-                        },
+                        Bones = {0},
                         Scale = 0.5,
                         Type = 'BackWake',
                     },
                 },
             },
         },
-
-        SpawnRandomRotation = true,
-        UniformScale = 0.225,
+        
+        TransportAnimation = {
+            {Weight = 100, Animation = '/mods/BrewLAN/units/SAL0324/SAL0324_Afold.sca'},
+        },
+        
+        UniformScale = 0.013,
     },
-	
+    
     Economy = {
         BuildCostEnergy = 30000*0.9,
         BuildCostMass = 2400*0.5,
         BuildTime = 5000,
-		
+        
         MaintenanceConsumptionPerSecondEnergy = 2500,
 
     },
-	
+    
     General = {
         Category = 'Intelligence',
         Classification = 'RULEUC_Sensor',
@@ -218,24 +190,23 @@ UnitBlueprint {
         UnitName = '<LOC sal0324_name>Metatron',
         UnitWeight = 1,
     },
-	
+    
     Intel = {
         OmniRadius = 125,
         RadarRadius = 290,
-		ReactivateTime = 5,
         ShowIntelOnSelect = true,
         VisionRadius = 40,
-		WaterVisionRadius = 15,
+        WaterVisionRadius = 15,
     },
-	
+    
     Interface = {
         HelpText = '<LOC srl0324_desc>Mobile Sensor Array',
     },
-	
+    
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.7,
     LifeBarSize = 1.75,
-	
+    
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -248,31 +219,34 @@ UnitBlueprint {
         },
         DragCoefficient = 0.2,
         Elevation = 0.25,
-        MaxAcceleration = 3.5,
-        MaxBrake = 3.5,
-        MaxSpeed = 3.5,
+        MaxAcceleration = 3.3,
+        MaxBrake = 3.3,
+        MaxSpeed = 3.3,
         MaxSpeedReverse = 0,
-        MaxSteerForce = 10,
+        MaxSteerForce = 100,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Hover',
         RotateBodyWhileMoving = true,
         RotateOnSpot = true,
-        RotateOnSpotThreshold = 0.5,
+        RotateOnSpotThreshold = 0.1,
+        TurnFacingRate = 120,
         TurnRadius = 0,
         TurnRate = 120,
+        WobbleFactor = 0.001,
+        WobbleSpeed = 0.001,
     },
 
-    SelectionSizeX = 0.8,
-    SelectionSizeZ = 0.8,
+    SelectionSizeX = 0.75,
+    SelectionSizeZ = 0.65,
     SelectionThickness = 0.5,
-	
-    SizeX = 1.25,
-    SizeY = 2.75,
-    SizeZ = 1.25,
-	
+    
+    SizeX = 0.6,
+    SizeY = 1.5,
+    SizeZ = 1.2,
+    
     StrategicIconName = 'icon_land3_intel',
     StrategicIconSortPriority = 115,
-	
+    
     Transport = {
         TransportClass = 3,
     },

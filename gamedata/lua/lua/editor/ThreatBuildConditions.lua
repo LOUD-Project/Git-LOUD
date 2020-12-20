@@ -47,7 +47,7 @@ function ThreatFurtherThan( aiBrain, locationType, distance, threattype, threatc
 			if v[3] > threatcutoff then
 		
 				if threatdistance <= distance then
-					--LOG("*AI DEBUG "..aiBrain.Nickname.." at "..repr(locationType).." has "..repr(threattype).." threat closer than "..distance.." ("..repr(threatdistance)..")	threat is "..repr(v[3]))
+					--LOG("*AI DEBUG "..aiBrain.Nickname.." at "..repr(locationType).." has "..repr(threattype).." threat closer than "..distance.." ("..repr(threatdistance)..")	threat is "..repr(v[3]).." from position "..repr(v) )
 					return false
 				end
 			end

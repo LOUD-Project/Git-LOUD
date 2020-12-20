@@ -5,13 +5,20 @@ function ExecutePlan(aiBrain)
 	aiBrain.ConstantEval = false
 	
     WaitTicks(5)
+    
+    --LOG("*AI DEBUG "..aiBrain.Nickname.." Assigning Threat to other positions")
 
     -- put some initial threat at all enemy positions
     for k,brain in ArmyBrains do
-        if not brain:IsDefeated() and not IsAlly(aiBrain.ArmyIndex, brain.ArmyIndex) then
+    
+        --LOG("*AI DEBUG Reviewing Brain "..repr(brain.Nickname).." "..repr(brain) )
+        
+        if aiBrain.ArmyIndex != brain.ArmyIndex and brain.Nickname != 'civilian' and (not brain:IsDefeated()) and (not IsAlly(aiBrain.ArmyIndex, brain.ArmyIndex)) then
         
             local place = brain:GetStartVector3f()
             local threatlayer = 'AntiAir'
+            
+            --LOG("*AI DEBUG "..brain.Nickname.." "..brain.BrainType.." enemy found at "..repr(place).." posting Economy threat")
             
             -- assign 500 ecothreat for 10 minutes
 			aiBrain:AssignThreatAtPosition( place, 5000, 0.005, 'Economy' )
@@ -167,20 +174,19 @@ end
 
 function UnitCapWatchThread(aiBrain)
 
-	-- these flags alternate the check so that we only kill groups every 10 minutes
-	-- if we actually killed something in the previous pass
+	-- these flags alternate the check so that we only kill groups every 3 minutes
 	local KillPD = false
 	local KillT1Land = false
 	local KillT1Air = false
 
-	WaitSeconds(3600)
+	WaitSeconds(3000)   -- start 50 minutes into the game
     
     local GetListOfUnits = aiBrain.GetListOfUnits
     local armyindex = aiBrain.ArmyIndex
 	
     while not aiBrain:IsDefeated() do
 	
-        WaitSeconds(300)
+        WaitSeconds(180)   -- every 3 minutes
 		
         if GetArmyUnitCostTotal(armyindex) > 600 then
 		
@@ -196,6 +202,7 @@ function UnitCapWatchThread(aiBrain)
 				end	
 				
 				KillT1Land = true
+                KillT1Air = false
 				
             elseif not KillT1Air then
 			
@@ -209,6 +216,7 @@ function UnitCapWatchThread(aiBrain)
 				end	
 
 				KillT1Air = true
+                KillPD = false
                 
 			elseif not KillPD then
             
@@ -219,15 +227,8 @@ function UnitCapWatchThread(aiBrain)
                 end
 				
                 KillPD = true
-
-            else
-			
-                KillPD = false
-				KillT1Land = false
-				KillT1Air = false
-				
+                KillT1Land = false
             end
         end
     end
-	
 end

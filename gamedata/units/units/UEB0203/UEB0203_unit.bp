@@ -24,6 +24,7 @@ UnitBlueprint {
     },
 	
     BuildIconSortPriority = 31,
+    
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1FACTORY',
@@ -47,7 +48,7 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 390,
+        EconomyThreatLevel = 460,
         Health = 16000,
         MaxHealth = 16000,
         RegenRate = 4,
@@ -81,18 +82,23 @@ UnitBlueprint {
         SpawnRandomRotation = false,
         UniformScale = 0.083,
     },
+    
     Economy = {
         BuildCostEnergy = 9360,
         BuildCostMass = 1521,
-        BuildRate = 35,
-        BuildTime = 2700,
+        
+        BuildRate = 70,
+        BuildTime = 5400,
+        
         BuildableCategory = {
             'BUILTBYTIER2FACTORY UEF MOBILE CONSTRUCTION',
             'BUILTBYTIER2FACTORY UEF STRUCTURE NAVAL',
             'BUILTBYTIER2FACTORY UEF MOBILE NAVAL',
         },
+        
         InitialRallyX = 0,
         InitialRallyZ = 10,
+        
         RebuildBonusIds = {
             'ueb0203',
             'ueb0303',
@@ -100,9 +106,11 @@ UnitBlueprint {
         StorageEnergy = 1000,
 		StorageMass = 100,
     },
+    
     Footprint = {
         MinWaterDepth = 3,
     },
+    
     General = {
         BuildBones = {
             BuildEffectBones = {

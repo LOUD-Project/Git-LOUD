@@ -25,25 +25,241 @@ local defaultEditField = false
 local unselectedCheckboxFile = UIUtil.UIFile('/widgets/rad_un.dds')
 local selectedCheckboxFile = UIUtil.UIFile('/widgets/rad_sel.dds')
 
-local nameFilters = import('/lua/ui/dialogs/createunitfilters.lua').Filters
+local ModListTabs = function()
+    local listicle = {
+        {
+            title = 'Core Game',
+            key = 'vanilla',
+            sortFunc = function(unitID, modloc)
+                return string.sub(__blueprints[unitID].Source, 1, 7) == "/units/"
+            end,
+        }
+    }
 
-local BlackopsIcons = import('/lua/BlackopsIconSearch.lua')
+    for i, mod in __active_mods do
+        if mod.name then
+            local givetab = false
+            local dirlen = string.len(mod.location)
+            for id, bp in __blueprints do
+                if mod.location == string.sub(bp.Source, 1, dirlen) and string.sub(bp.Source, dirlen + 1, dirlen + 1) == "/" then
+                    givetab = true
+                    break
+                end
+            end
+            if givetab then
+                local key = string.gsub(string.lower(mod.name),"%s+", "_")
+                local titleFit = function(name)
+                    local l = 12
+                    if string.len(name) <= l then return name end --If it's short, just gief
+
+                    name = string.gsub(name, "%([^()]*%)", "") --Remove any brackets
+                    name = string.gsub(name, "[ %s]+$", "") --Remove trailing spaces, because I can't be arsed to work out how to do both in one regex
+                    if string.len(name) <= l then return name end
+
+                    local commonlong = { --Shrink some common long words to be recognisble
+                        Additional = 'Add',
+                        Advanced = 'Adv',
+                        Balance = 'Bal',
+                        BlackOps = 'BO',
+                        Command = 'Com',
+                        Commander = 'Cdr',
+                        Commanders = 'Cdrs',
+                        Experiment = 'Exp',
+                        Experimental = 'Exp',
+                        Infrastructure = 'Infr',
+                        Supreme = 'Sup',
+                        Veterancy = 'Vet',
+                    }
+                    for long, short in commonlong do name = string.gsub(name, long, short) end
+                    if string.len(name) <= l then return name end
+
+                    if string.find(string.sub(name, l+1, -1), " ") then -- If there are words that would be entirely cut off, initialise after the first
+                        local fsp = string.find(name, " ")
+                        local name = string.sub(name, 1, fsp) .. string.gsub(string.sub(name, fsp+1, -1), "[a-z]+", "")
+                        if string.len(name) <= l then
+                            return name
+                        else --If it still isn't short enough, just initialise everything.
+                            return string.gsub(name, "[a-z]+", "")
+                        end
+                    else--If there are no spaces after the cutoff, cutoff.
+                        return string.sub(name, 1, l)
+                    end
+                end
+
+                specialFilterControls[key] = mod.location
+                table.insert(listicle, {
+                    title = titleFit(mod.name),
+                    key = key,
+                    sortFunc = function(unitID, modloc)
+                        local modloclen = string.len(modloc)
+                        return modloc == string.sub(__blueprints[unitID].Source, 1, modloclen) and string.sub(__blueprints[unitID].Source, modloclen + 1, modloclen + 1) == "/"
+                    end,
+                })
+            end
+        end
+    end
+    return listicle
+end
+
+local nameFilters = {
+    {
+        title = 'Search',
+        key = 'custominput',
+        sortFunc = function(unitID, text)
+            local bp = __blueprints[unitID]
+            local desc = string.lower(LOC(bp.Description or ''))
+            local name = string.lower(LOC(bp.General.UnitName or ''))
+            text = string.lower(text)
+            return string.find(unitID, text) or string.find(desc, text) or string.find(name, text)
+        end,
+    },
+    {
+        title = 'Faction',
+        key = 'faction',
+        choices = {
+            {
+                title = 'Aeon',
+                key = 'aeon',
+                sortFunc = function(unitID)
+                    return table.find(__blueprints[unitID].Categories, 'AEON') --string.sub(unitID, 2, 2) == 'a'
+                end,
+            },
+            {
+                title = 'UEF',
+                key = 'uef',
+                sortFunc = function(unitID)
+                    return table.find(__blueprints[unitID].Categories, 'UEF') -- string.sub(unitID, 2, 2) == 'e'
+                end,
+            },
+            {
+                title = 'Cybran',
+                key = 'cybran',
+                sortFunc = function(unitID)
+                    return table.find(__blueprints[unitID].Categories, 'CYBRAN') -- string.sub(unitID, 2, 2) == 'r'
+                end,
+            },
+            {
+                title = 'Seraphim',
+                key = 'seraphim',
+                sortFunc = function(unitID)
+                    return table.find(__blueprints[unitID].Categories, 'SERAPHIM') -- string.sub(unitID, 2, 2) == 's'
+                end,
+            },
+        },
+    },
+    {
+        title = 'Source',
+        key = 'mod',
+        choices = ModListTabs(),
+    },
+    {
+        title = 'Type',
+        key = 'type',
+        choices = {
+            {
+                title = 'Land',
+                key = 'land',
+                sortFunc = function(unitID)
+                    local MT = string.lower(__blueprints[unitID].Physics.MotionType or 'no')
+                    return (MT == 'ruleumt_amphibious' or MT == 'ruleumt_hover' or (MT == 'ruleumt_amphibiousfloating' and not table.find(__blueprints[unitID].Categories, 'NAVAL')) or MT == 'ruleumt_land') and not (string.sub(unitID, 3, 3) == 'r' or string.sub(unitID, -3, -1) == 'rnd') -- string.sub(unitID, 3, 3) == 'l'
+                end,
+            },
+            {
+                title = 'Air',
+                key = 'air',
+                sortFunc = function(unitID)
+                    return string.lower(__blueprints[unitID].Physics.MotionType or 'no') == 'ruleumt_air' -- string.sub(unitID, 3, 3) == 'a'
+                end,
+            },
+            {
+                title = 'Naval',
+                key = 'naval',
+                sortFunc = function(unitID)
+                    local MT = string.lower(__blueprints[unitID].Physics.MotionType or 'no')
+                    return MT == 'ruleumt_water' or (MT == 'ruleumt_amphibiousfloating' and not table.find(__blueprints[unitID].Categories, 'LAND')) or MT == 'ruleumt_surfacingsub' -- string.sub(unitID, 3, 3) == 's'
+                end,
+            },
+            {
+                title = 'Base',
+                key = 'base',
+                sortFunc = function(unitID)
+                    return string.lower(__blueprints[unitID].Physics.MotionType or 'no') == 'ruleumt_none' -- string.sub(unitID, 3, 3) == 'b'
+                end,
+            },
+            {
+                title = 'Research',
+                key = 'rnd',
+                sortFunc = function(unitID)
+                    return string.sub(unitID, 3, 3) == 'r' or string.sub(unitID, -3, -1) == 'rnd'
+                end,
+            },
+        },
+    },
+    {
+        title = 'Tech Level',
+        key = 'tech',
+        choices = {
+            {
+                title = 'T1',
+                key = 't1',
+                sortFunc = function(unitID)
+                    return table.find(__blueprints[unitID].Categories, 'TECH1')
+                end,
+            },
+            {
+                title = 'T2',
+                key = 't2',
+                sortFunc = function(unitID)
+                    return table.find(__blueprints[unitID].Categories, 'TECH2')
+                end,
+            },
+            {
+                title = 'T3',
+                key = 't3',
+                sortFunc = function(unitID)
+                    return table.find(__blueprints[unitID].Categories, 'TECH3')
+                end,
+            },
+            {
+                title = 'Exp.',
+                key = 't4',
+                sortFunc = function(unitID)
+                    return table.find(__blueprints[unitID].Categories, 'EXPERIMENTAL')
+                end,
+            },
+        },
+    },
+}
 
 local function getItems()
-    local idlist = EntityCategoryGetUnitList(categories.ALLUNITS)
+    local idlist
+    if categories.UNSPAWNABLE then
+        idlist = EntityCategoryGetUnitList(categories.ALLUNITS - categories.UNSPAWNABLE)
+    else
+        idlist = EntityCategoryGetUnitList(categories.ALLUNITS)
+    end
     table.sort(idlist)
 
     return idlist
 end
 
-local function CreateNameFilter(data)   
+local function CreateNameFilter(data)
     local group = Group(dialog)
     group.Width:Set(dialog.Width)
-    group.Height:Set(30)
-    
+    if data.choices and data.choices[1] and table.getn(data.choices) > 6 then
+        group.Height:Set(30 + math.floor((table.getn(data.choices) - 1)/6) * 25)
+    else
+        group.Height:Set(30)
+    end
+
     group.check = UIUtil.CreateCheckboxStd(group, '/dialogs/check-box_btn/radio')
     LayoutHelpers.AtLeftIn(group.check, group)
-    LayoutHelpers.AtVerticalCenterIn(group.check, group)
+    if data.choices and data.choices[1] and table.getn(data.choices) > 6 then
+        LayoutHelpers.AtTopIn(group.check, group, 2)
+    else
+        LayoutHelpers.AtVerticalCenterIn(group.check, group)
+    end
+
     group.check.key = data.key
     if filterSet[data.key] == nil then
         filterSet[data.key] = {value = false, choices = {}}
@@ -51,11 +267,15 @@ local function CreateNameFilter(data)
     if activeFilters[data.key] == nil then
         activeFilters[data.key] = {}
     end
-    
+
     group.label = UIUtil.CreateText(group, data.title, 14, UIUtil.bodyFont)
     LayoutHelpers.RightOf(group.label, group.check)
-    LayoutHelpers.AtVerticalCenterIn(group.label, group)
-    
+    if data.choices and data.choices[1] and table.getn(data.choices) > 6 then
+        LayoutHelpers.AtTopIn(group.label, group, 7)
+    else
+        LayoutHelpers.AtVerticalCenterIn(group.label, group)
+    end
+
     if data.choices then
         group.items = {}
         for i, v in data.choices do
@@ -63,15 +283,19 @@ local function CreateNameFilter(data)
             group.items[index] = UIUtil.CreateCheckboxStd(group, '/dialogs/toggle_btn/toggle')
             if index == 1 then
                 LayoutHelpers.AtLeftTopIn(group.items[index], group, 95)
-            else
+            elseif index < 7 then
                 LayoutHelpers.RightOf(group.items[index], group.items[index-1])
+            else
+                LayoutHelpers.Below(group.items[index], group.items[index-6])
             end
-            LayoutHelpers.AtVerticalCenterIn(group.items[index], group)
-            
+            if index < 7 then
+                LayoutHelpers.AtTopIn(group.items[index], group)
+            end
+
             group.items[index].label = UIUtil.CreateText(group.items[index], v.title, 10, UIUtil.bodyFont)
             LayoutHelpers.AtCenterIn(group.items[index].label, group.items[index])
             group.items[index].label:DisableHitTest()
-            
+
             group.items[index].sortFunc = v.sortFunc
             group.items[index].filterKey = v.key
             group.items[index].key = data.key
@@ -86,7 +310,7 @@ local function CreateNameFilter(data)
                 elseif activeFilters[self.key][self.filterKey] then
                     local otherChecked = false
                     for _, control in group.items do
-                        if control != self then
+                        if control ~= self then
                             if control:IsChecked() then
                                 otherChecked = true
                                 break
@@ -122,7 +346,7 @@ local function CreateNameFilter(data)
         group.edit.filterKey = data.key
         group.edit.key = data.key
         group.edit.sortFunc = data.sortFunc
-        
+
         group.edit.OnTextChanged = function(self, new, old)
             if new == '' then
                 activeFilters[self.key][self.filterKey] = nil
@@ -138,12 +362,12 @@ local function CreateNameFilter(data)
             end
             RefreshList()
         end
-        
+
         defaultEditField = group.edit
-        
+
         specialFilterControls[data.key] = group.edit
     end
-    
+
     group.check.OnCheck = function(self, checked)
         activeFilterTypes[self.key] = checked
         filterSet[data.key].value = checked
@@ -159,13 +383,13 @@ local function CreateNameFilter(data)
                 v.label:SetColor(labelColor)
             end
         else
-            
+
         end
         group.label:SetColor(labelColor)
         RefreshList()
     end
     group.check:SetCheck(filterSet[data.key].value)
-    
+
     return group
 end
 
@@ -175,17 +399,17 @@ function CreateDialog(x, y)
         dialog = false
         return
     end
-    
+
     CreationList = {}
-    
+
     dialog = Bitmap(GetFrame(0))
     dialog:SetSolidColor('CC000000')
-    dialog.Height:Set(600)
+    dialog.Height:Set(720)
     dialog.Width:Set(600)
     dialog.Left:Set(function() return math.max(math.min(x, GetFrame(0).Right() - dialog.Width()), 0) end)
     dialog.Top:Set(function() return math.max(math.min(y, GetFrame(0).Bottom() - dialog.Height()), 0) end)
     dialog.Depth:Set(GetFrame(0):GetTopmostDepth() + 1)
-    
+
     local cancelBtn = UIUtil.CreateButtonStd(dialog, '/widgets/small', "Cancel", 12)
     LayoutHelpers.AtBottomIn(cancelBtn, dialog)
     LayoutHelpers.AtRightIn(cancelBtn, dialog)
@@ -193,11 +417,11 @@ function CreateDialog(x, y)
         dialog:Destroy()
         dialog = false
     end
-    
+
     local countLabel = UIUtil.CreateText(dialog, 'Count:', 12, UIUtil.bodyFont)
     LayoutHelpers.AtBottomIn(countLabel, dialog,10)
     LayoutHelpers.AtLeftIn(countLabel, dialog, 5)
-    
+
     local count = Edit(dialog)
     count:SetForegroundColor(UIUtil.fontColor)
     count:SetBackgroundColor('ff333333')
@@ -209,7 +433,7 @@ function CreateDialog(x, y)
     count:SetMaxChars(4)
     count:SetText('1')
     LayoutHelpers.RightOf(count, countLabel, 5)
-    
+
     local createBtn = UIUtil.CreateButtonStd(dialog, '/widgets/small', "Create", 12)
     LayoutHelpers.AtBottomIn(createBtn, dialog)
     LayoutHelpers.AtHorizontalCenterIn(createBtn, dialog)
@@ -227,18 +451,18 @@ function CreateDialog(x, y)
         dialog:Destroy()
         dialog = false
     end
-    
+
     local function SetFilters(filterTable)
         for filterGroup, groupControls in filterGroups do
             local key = groupControls.check.key
-            if filterTable[key] != nil then
+            if filterTable[key] ~= nil then
                 LOG('setting key: ', key, ' to: ', filterTable[key].value)
-                if groupControls.check:IsChecked() != filterTable[key].value then
+                if groupControls.check:IsChecked() ~= filterTable[key].value then
                     groupControls.check:SetCheck(filterTable[key].value)
                 end
                 if groupControls.items then
                     for choiceIndex, choiceControl in groupControls.items do
-                        if filterTable[key].choices[choiceControl.filterKey] != nil and choiceControl:IsChecked() != filterTable[key].choices[choiceControl.filterKey] then
+                        if filterTable[key].choices[choiceControl.filterKey] ~= nil and choiceControl:IsChecked() ~= filterTable[key].choices[choiceControl.filterKey] then
                             choiceControl:SetCheck(filterTable[key].choices[choiceControl.filterKey])
                         end
                     end
@@ -249,19 +473,19 @@ function CreateDialog(x, y)
         end
         RefreshList()
     end
-    
+
     local function CreateArmySelectionSlot(parent, index, armyData)
         local group = Bitmap(parent)
         group.Height:Set(30)
         group.Width:Set(function() return parent.Width() / 2 end)
-        
+
         local iconBG = Bitmap(group)
         iconBG.Height:Set(30)
         iconBG.Width:Set(30)
         iconBG:SetSolidColor(armyData.color)
         LayoutHelpers.AtLeftTopIn(iconBG, group)
         iconBG:DisableHitTest()
-        
+
         local icon = Bitmap(iconBG)
         if armyData.civilian then
             icon:SetSolidColor('aaaaaaaa')
@@ -270,7 +494,7 @@ function CreateDialog(x, y)
         end
         LayoutHelpers.FillParent(icon, iconBG)
         icon:DisableHitTest()
-        
+
         local name = UIUtil.CreateText(group, armyData.nickname, 12, UIUtil.bodyFont)
         LayoutHelpers.RightOf(name, icon, 2)
         LayoutHelpers.AtTopIn(name, group)
@@ -280,7 +504,7 @@ function CreateDialog(x, y)
         local army = UIUtil.CreateText(group, armyData.name, 12, UIUtil.bodyFont)
         LayoutHelpers.Below(army, name)
         army:DisableHitTest()
-        
+
         group.HandleEvent = function(self, event)
             if event.Type == 'MouseEnter' then
                 if currentArmy == index then
@@ -312,11 +536,11 @@ function CreateDialog(x, y)
         end
         return group
     end
-    
+
     local armiesGroup = Group(dialog)
     armiesGroup.Width:Set(dialog.Width)
     LayoutHelpers.AtLeftTopIn(armiesGroup, dialog)
-    
+
     armiesGroup.armySlots = {}
     local lowestControl = false
     for index, val in GetArmiesTable().armiesTable do
@@ -335,16 +559,16 @@ function CreateDialog(x, y)
             lowestControl = armiesGroup.armySlots[i]
         end
     end
-    
+
     armiesGroup.Height:Set(function() return lowestControl.Bottom() - armiesGroup.armySlots[1].Top() end)
-    
+
     local filterSetCombo = Combo(dialog, 14, 10, nil, nil, "UI_Tab_Click_01", "UI_Tab_Rollover_01")
     filterSetCombo.Width:Set(250)
     LayoutHelpers.Below(filterSetCombo, armiesGroup, 5)
-    filterSetCombo.OnClick = function(self, index, text, skipUpdate) 
+    filterSetCombo.OnClick = function(self, index, text, skipUpdate)
         SetFilters(self.keyMap[index])
     end
-    
+
     local function RefreshFilterList(defName)
         filterSetCombo:ClearItems()
         filterSetCombo.itemArray = {}
@@ -364,8 +588,8 @@ function CreateDialog(x, y)
             filterSetCombo:AddItems(filterSetCombo.itemArray, default)
         end
     end
-    
-    local saveFilterSet = UIUtil.CreateButton(dialog, 
+
+    local saveFilterSet = UIUtil.CreateButton(dialog,
         '/dialogs/toggle_btn/toggle-d_btn_up.dds',
         '/dialogs/toggle_btn/toggle-d_btn_down.dds',
         '/dialogs/toggle_btn/toggle-d_btn_over.dds',
@@ -383,12 +607,12 @@ function CreateDialog(x, y)
             else
                 newFilterListing[name] = filterSet
             end
-            SetPreference('CreateUnitFilters',newFilterListing) 
+            SetPreference('CreateUnitFilters',newFilterListing)
             RefreshFilterList(name)
         end)
     end
-    
-    local delFilterSet = UIUtil.CreateButton(dialog, 
+
+    local delFilterSet = UIUtil.CreateButton(dialog,
         '/dialogs/toggle_btn/toggle-d_btn_up.dds',
         '/dialogs/toggle_btn/toggle-d_btn_down.dds',
         '/dialogs/toggle_btn/toggle-d_btn_over.dds',
@@ -406,13 +630,13 @@ function CreateDialog(x, y)
             if oldFilterSets[delName] then
                 oldFilterSets[delName] = nil
             end
-            SetPreference('CreateUnitFilters',oldFilterSets) 
+            SetPreference('CreateUnitFilters',oldFilterSets)
             RefreshFilterList()
        end
     end
-    
+
     RefreshFilterList()
-    
+
     filterGroups = {}
     for filtIndex, filter in nameFilters do
         local index = filtIndex
@@ -424,71 +648,45 @@ function CreateDialog(x, y)
             LayoutHelpers.Below(filterGroups[index], filterGroups[index-1])
         end
     end
-    
+
     dialog.unitList = Group(dialog)
     dialog.unitList.Height:Set(function() return createBtn.Top() - filterGroups[table.getn(filterGroups)].Bottom() - 5 end)
     dialog.unitList.Width:Set(function() return dialog.Width() - 40 end)
     LayoutHelpers.Below(dialog.unitList, filterGroups[table.getn(filterGroups)])
     dialog.unitList.top = 0
-    
+
     dialog.unitEntries = {}
-    
+
     UIUtil.CreateVertScrollbarFor(dialog.unitList)
-    
+
     local LineColors = {
         Up = '00000000', Sel_Up = 'ff447744',
         Over = 'ff444444', Sel_Over = 'ff669966',
     }
-    
+
     local mouseover = false
     local function CreateElementMouseover(unitData,x,y)
         if mouseover then mouseover:Destroy() end
         mouseover = Bitmap(dialog)
         mouseover:SetSolidColor('dd115511')
-        
+
         mouseover.img = Bitmap(mouseover)
         mouseover.img.Height:Set(40)
         mouseover.img.Width:Set(40)
         LayoutHelpers.AtLeftTopIn(mouseover.img, mouseover, 2,2)
-        local path = '/icons/units/'..unitData..'_icon.dds'
-		
-		--####################
-		--Exavier Code Block +
-		--####################
-		local EXunitID = unitData
-		if BlackopsIcons.EXIconPathOverwrites[string.upper(EXunitID)] then
-			-- Check manually assigned overwrite table
-			local expath = EXunitID..'_icon.dds'
-			mouseover.img:SetTexture(BlackopsIcons.EXIconTableScanOverwrites(EXunitID) .. expath)
-		elseif BlackopsIcons.EXIconPaths[string.upper(EXunitID)] then
-			-- Check modded icon hun table
-			local expath = EXunitID..'_icon.dds'
-			mouseover.img:SetTexture(BlackopsIcons.EXIconTableScan(EXunitID) .. expath)
-		else
-			-- Check default GPG directories
-			if DiskGetFileInfo(UIUtil.UIFile(path)) then
-				mouseover.img:SetTexture(UIUtil.UIFile(path))
-			else 
-				-- Sets placeholder because no other icon was found
-				mouseover.img:SetTexture(UIUtil.UIFile('/icons/units/default_icon.dds'))
-				if not BlackopsIcons.EXNoIconLogSpamControl[string.upper(EXunitID)] then
-					-- Log a warning & add unitID to anti-spam table to prevent future warnings when icons update
-					WARN('Blackops Icon Mod: Icon Not Found - '..EXunitID)
-					BlackopsIcons.EXNoIconLogSpamControl[string.upper(EXunitID)] = EXunitID
-				end
-			end
-		end
-		--####################
-		--Exavier Code Block -
-		--####################
-        
+        if DiskGetFileInfo(UIUtil.UIFile('/icons/units/'..unitData..'_icon.dds', true)) then
+            mouseover.img:SetTexture(UIUtil.UIFile('/icons/units/'..unitData..'_icon.dds', true))
+        else
+            mouseover.img:SetTexture(UIUtil.UIFile('/icons/units/default_icon.dds'))
+        end
+
         mouseover.name = UIUtil.CreateText(mouseover, __blueprints[unitData].Description, 14, UIUtil.bodyFont)
         LayoutHelpers.RightOf(mouseover.name, mouseover.img, 2)
-        
+
         mouseover.desc = UIUtil.CreateText(mouseover, __blueprints[unitData].General.UnitName or unitData, 14, UIUtil.bodyFont)
         LayoutHelpers.AtLeftIn(mouseover.desc, mouseover, 44)
         LayoutHelpers.AtBottomIn(mouseover.desc, mouseover, 5)
-        
+
         mouseover.Left:Set(x+20)
         mouseover.Top:Set(y+20)
         mouseover.Height:Set(function() return mouseover.img.Height() + 4 end)
@@ -507,7 +705,7 @@ function CreateDialog(x, y)
             mouseover = false
         end
     end
-    
+
     local function CreateUnitElements()
         if dialog.unitEntries then
             for i, v in dialog.unitEntries do
@@ -515,7 +713,7 @@ function CreateDialog(x, y)
             end
             dialog.unitEntries = {}
         end
-        
+
         local function CreateElement(index)
             dialog.unitEntries[index] = Bitmap(dialog.unitList)
             dialog.unitEntries[index].Left:Set(dialog.unitList.Left)
@@ -559,14 +757,14 @@ function CreateDialog(x, y)
                     MoveMouseover(event.MouseX,event.MouseY)
                 end
             end
-                        
+
             dialog.unitEntries[index].id = UIUtil.CreateText(dialog.unitEntries[index], '', 12, UIUtil.bodyFont)
             LayoutHelpers.AtLeftTopIn(dialog.unitEntries[index].id, dialog.unitEntries[index])
         end
-        
+
         CreateElement(1)
         LayoutHelpers.AtTopIn(dialog.unitEntries[1], dialog.unitList)
-            
+
         local index = 2
         while dialog.unitEntries[table.getsize(dialog.unitEntries)].Top() + (2 * dialog.unitEntries[1].Height()) < dialog.unitList.Bottom() do
             CreateElement(index)
@@ -575,13 +773,13 @@ function CreateDialog(x, y)
         end
     end
     CreateUnitElements()
-    
+
     local numLines = function() return table.getsize(dialog.unitEntries) end
-    
+
     local function DataSize()
         return table.getn(UnitList)
     end
-    
+
     -- called when the scrollbar for the control requires data to size itself
     -- GetScrollValues must return 4 values in this order:
     -- rangeMin, rangeMax, visibleMin, visibleMax
@@ -638,7 +836,7 @@ function CreateDialog(x, y)
         end
         --LOG(repr(ObjectiveLogData))
     end
-    
+
     dialog.unitList.HandleEvent = function(control, event)
         if event.Type == 'WheelRotation' then
             local lines = 3
@@ -664,7 +862,11 @@ function RefreshList()
                 for filterIndex, filter in filters do
                     local specialText = ''
                     if specialFilterControls[filterIndex] then
-                        specialText = specialFilterControls[filterIndex]:GetText()
+                        if type(specialFilterControls[filterIndex]) == "string" then
+                            specialText = specialFilterControls[filterIndex]
+                        else
+                            specialText = specialFilterControls[filterIndex]:GetText()
+                        end
                     end
                     if filter(v, specialText) then
                         valid = true
@@ -675,7 +877,7 @@ function RefreshList()
             end
         end
         if allValid then
-            
+
             table.insert(UnitList, {id = v, name = LOC(__blueprints[v].General.UnitName) or '', desc = LOC(__blueprints[v].Description) or ''})
         end
     end
@@ -690,11 +892,11 @@ function NameSet(callback)
     nameDialog = Bitmap(dialog, UIUtil.SkinnableFile('/dialogs/dialog_02/panel_bmp.dds'), "Marker Name Dialog")
     LayoutHelpers.AtCenterIn(nameDialog, GetFrame(0))
     nameDialog.Depth:Set(GetFrame(0):GetTopmostDepth() + 10)
-    
+
     local label = UIUtil.CreateText(nameDialog, "Name your filter set:", 16, UIUtil.buttonFont)
     label.Top:Set(function() return nameDialog.Top() + 30 end)
     label.Left:Set(function() return nameDialog.Left() + 35 end)
-    
+
     local cancelButton = UIUtil.CreateButtonStd(nameDialog, '/widgets02/small', "<LOC _CANCEL>", 12)
     cancelButton.Top:Set(function() return nameDialog.Top() + 112 end)
     cancelButton.Left:Set(function() return nameDialog.Left() + (((nameDialog.Width() / 4) * 1) - (cancelButton.Width() / 2)) end)
@@ -721,7 +923,7 @@ function NameSet(callback)
         nameDialog:Destroy()
         nameDialog = false
     end
-    
+
     nameEdit.OnEnterPressed = function(self, text)
         okButton.OnClick()
     end

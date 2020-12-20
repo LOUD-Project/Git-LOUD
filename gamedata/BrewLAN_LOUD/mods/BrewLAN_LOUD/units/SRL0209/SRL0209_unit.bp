@@ -1,5 +1,10 @@
 UnitBlueprint {
 
+    AI = {
+        TargetBones = {
+            'Turret01_Barrel',
+        },
+    },
     Audio = {
         AmbientMove = Sound {
             Bank = 'URL',
@@ -98,7 +103,7 @@ UnitBlueprint {
         'OVERLAYDIRECTFIRE',
     },
 	
-    CollisionOffsetY = -0.25,
+    CollisionOffsetY = -0.0,
 	
     Defense = {
         ArmorType = 'Normal',
@@ -298,7 +303,7 @@ UnitBlueprint {
     SelectionThickness = 0.85,
 	
     SizeX = 0.7,
-    SizeY = 0.9,
+    SizeY = 0.35,
     SizeZ = 0.6,
 	
     StrategicIconName = 'icon_land2_engineer',

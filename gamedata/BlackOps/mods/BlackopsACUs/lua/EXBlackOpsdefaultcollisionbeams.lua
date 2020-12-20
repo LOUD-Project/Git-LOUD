@@ -1,12 +1,12 @@
-#****************************************************************************
-#**
-#**  File     :  /lua/defaultcollisionbeams.lua
-#**  Author(s):  Gordon Duclos
-#**
-#**  Summary  :  Default definitions collision beams
-#**
-#**  Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+--****************************************************************************
+--**
+--**  File     :  /lua/defaultcollisionbeams.lua
+--**  Author(s):  Gordon Duclos
+--**
+--**  Summary  :  Default definitions collision beams
+--**
+--**  Copyright ï¿½ 2005 Gas Powered Games, Inc.  All rights reserved.
+--****************************************************************************
 
 local CollisionBeam = import('/lua/sim/CollisionBeam.lua').CollisionBeam
 local EffectTemplate = import('/lua/EffectTemplates.lua')
@@ -14,9 +14,9 @@ local Util = import('/lua/utilities.lua')
 local EffectTemplate2 = import('/mods/BlackOpsACUs/lua/EXEffectTemplates.lua')
 local EXEffectTemplate = import('/mods/BlackopsACUs/lua/EXBlackOpsEffectTemplates.lua')
 
-#-----------------------------
-#   Base class that defines supreme commander specific defaults
-#-----------------------------
+-------------------------------
+--   Base class that defines supreme commander specific defaults
+-------------------------------
 SCCollisionBeam = Class(CollisionBeam) {
     FxImpactUnit = EffectTemplate.DefaultProjectileLandUnitImpact,
     FxImpactLand = {},#EffectTemplate.DefaultProjectileLandImpact,

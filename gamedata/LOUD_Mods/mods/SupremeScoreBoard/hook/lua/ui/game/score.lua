@@ -1,7 +1,7 @@
 --  File:    /LUA/modules/UI/game/score.LUA
 --  Author:  Chris Blackwell, HUSSAR
 --  Summary: Supreme Score Board in Game/Replay Sessions (see mod_info.lua for details)
---  Copyright © 2005 Gas Powered Games, Inc. All rights reserved.
+--  Copyright ï¿½ 2005 Gas Powered Games, Inc. All rights reserved.
 --
 --  NOTE:    Contact HUSSAR, in case you are trying to 
 --           implement/port this mod to latest version of FAF patch
@@ -137,7 +137,7 @@ local switchInterval = 10 -- in seconds
 -- initializes Stats to store info about players' armies and aggregated armies (teams)
 function InitializeStats()
 
-    log.Trace('InitializeStats()... '  )
+    --log.Trace('InitializeStats()... '  )
 
     Stats.units  = GetArmyTableUnits() 
     Stats.armies = {} --GetArmiesTable().armiesTable
@@ -152,6 +152,7 @@ function InitializeStats()
     local allArmies = GetArmiesTable().armiesTable
 
     log.Table(sessionInfo, 'sessionInfo') 
+    
     --log.Table(__active_mods, 'active_mods')
     --log.Table(allArmies, 'armies') 
     
@@ -168,6 +169,7 @@ function InitializeStats()
         end
 
         log.Trace('InitializeStats()... info armyID='..armyID..', type='..army.type..', name='..army.nickname)
+        
         --if army.civilian or not army.showScore then continue end
         if not army.civilian and army.showScore then 
             if army.human then
@@ -179,8 +181,10 @@ function InitializeStats()
                 army.namefull  = army.nickname
                 Stats.ai.active = true
             end 
+            
             --log.Table(army, 'army') 
             --log.Trace('InitializeStats()... saving armyID='..armyID)
+            
             army.armyID = armyID
             army.eco    = GetArmyTableEco()
             army.kills  = GetArmyTableKills()
@@ -198,7 +202,8 @@ function InitializeStats()
             Stats.armies[armyID] = army
         end
     end
-    log.Trace('InitializeStats()... armies created'  )
+    
+    --log.Trace('InitializeStats()... armies created'  )
     
     -- deactivate team Stats if team option is unlocked 
     --if (sessionOptions.TeamLock == nil or 
@@ -210,7 +215,9 @@ function InitializeStats()
     -- TODO combine below for loop with above for loop
     -- second, collect info about all teams
     for armyID,army in Stats.armies do 
+    
         --if army.civilian or not army.showScore then continue end
+        
         if not army.civilian and army.showScore then
             local team = CreateTeam(armyID, allArmies) 
             local teamID = 0
@@ -222,6 +229,7 @@ function InitializeStats()
             else
                 -- use negative id for teams
                 teamID = Stats.teamsCount * -1
+                
                 log.Trace('InitializeStats()... saving team='..teamID..' size='..team.members.count)
             
                 team.armyID = teamID -- Stats.teamsCount * -1
@@ -243,19 +251,23 @@ function InitializeStats()
             Stats.armies[armyID].txtColor  = team.txtColor
         end
     end
+    
     log.Trace('InitializeStats()... teams created'  )
     
     --log.Table(Stats.teams, 'teams') 
+    
     Stats.armiesCount = table.getn(Stats.armies)
     Stats.teamsCount  = Stats.teamsCount - 1  
-       
+
     -- activate teams only if we have at least one team with more than 1 player
     -- otherwise, it is redundant to show Stats about teams with just one player in a team
     -- because army lines will show this information 
     Stats.teamsActive = Stats.teamsCount ~= Stats.armiesCount
-      
+
     local isActive = (Stats.teamsActive and "true" or "false")
+    
     log.Trace('InitializeStats()... teamsActive = '..isActive..', teamsCount = '..Stats.teamsCount..', armiesCount = '..Stats.armiesCount)
+    
 --    if Stats.teamsActive then
 --		if not sessionOptions.Quality then
 --            local min = 10000
@@ -553,6 +565,7 @@ local function CanShare(armySource, armyTarget)
        return IsAlly(armySource, armyTarget)
     end
 end
+
 local function SendMessage(text, msgFrom)
     msg = { to = FindClients(), Chat = true }
     msg.text = text
@@ -561,6 +574,7 @@ local function SendMessage(text, msgFrom)
     end
     SessionSendChatMessage(FindClients(), msg)
 end
+
 -- shares resources of current army with specified target army if they are allies
 local function SendResource(armyTarget, mass, energy)
     mass = mass or 0
@@ -593,6 +607,7 @@ local function SendResource(armyTarget, mass, energy)
     end
 
 end
+
 -- shares selected units of current army with specified target army if they are allies
 local function SendUnits(armyTarget, allUnits)
     local armySender = GetFocusArmy()
@@ -620,6 +635,7 @@ local function SendUnits(armyTarget, allUnits)
         SendMessage('sent '..units..' units to \n ' .. armyName .. '' ) 
     end 
 end
+
 local function RequestUnits(armyTarget)
     if CanShare(GetFocusArmy(), armyTarget) then
         local armyName = Stats.armies[armyTarget].nickname
@@ -632,6 +648,7 @@ local function RequestUnits(armyTarget)
         --ReceiveChat(armyName, msg)
     end
 end
+
 local function RequestResource(armyTarget, resource)
     if CanShare(GetFocusArmy(), armyTarget) then
         local armyName = Stats.armies[armyTarget].nickname
@@ -644,6 +661,7 @@ local function RequestResource(armyTarget, resource)
         --ReceiveChat(armyName, msg)
     end
 end  
+
 function CreateArmyLine(armyID, army)
     local group = Group(controls.bgStretch)
     
@@ -962,6 +980,7 @@ function CreateSortFilterForEco(group, ecoType)
     end
     return checkbox        
 end
+
 function CreateSortBoxForUnitsColumn(group, unitType)
     local iconPath = modTextures ..unitType ..'.dds'
     
@@ -985,6 +1004,7 @@ function CreateSortBoxForUnitsColumn(group, unitType)
     end
     return checkbox        
 end
+
 function CreateSortBoxForScoreColumn(group, column, icon, size)
     local iconPath = modTextures..icon
     local checkbox = Checkbox(group,
@@ -1004,6 +1024,7 @@ function CreateSortBoxForScoreColumn(group, column, icon, size)
     end
     return checkbox
 end
+
 function CreateSortBoxForRatingColumn(group, column, icon, size)
     local iconPath = modTextures..icon
     local checkbox = Checkbox(group,
@@ -1022,6 +1043,7 @@ function CreateSortBoxForRatingColumn(group, column, icon, size)
     end
     return checkbox
 end
+
 function CreateSortBoxForNameColumn(group, column, icon, size)
     local iconPath = modTextures..icon
     local checkbox = Checkbox(group,
@@ -1040,6 +1062,7 @@ function CreateSortBoxForNameColumn(group, column, icon, size)
     end
     return checkbox
 end
+
 function CreateSortBoxForTotalColumn(group, column, icon, size)
     local iconPath = modTextures..icon
     local checkbox = Checkbox(group,
@@ -1058,6 +1081,7 @@ function CreateSortBoxForTotalColumn(group, column, icon, size)
     end
     return checkbox
 end
+
 function CreateSortBoxForGenericColumn(group, column, icon, size)
     local iconPath = modTextures..icon
     local checkbox = Checkbox(group,
@@ -1075,6 +1099,7 @@ function CreateSortBoxForGenericColumn(group, column, icon, size)
     end
     return checkbox
 end
+
 -- creates a line with toggles for sorting army/team lines by score, name, mass, energry, etc.
 function CreateSortLine(armyID)
      
@@ -1232,6 +1257,7 @@ function CreateSortLine(armyID)
     
     return sortby
 end
+
 function CreateSeparatorLine(armyID)
     local line = Group(controls.bgStretch)
     line:DisableHitTest(true)
@@ -1259,6 +1285,7 @@ function CreateSeparatorLine(armyID)
     LayoutHelpers.AtVerticalCenterIn(line.bmp, line)
     return line   
 end
+
 function CreateMapLine(armyID)
 
     log.Trace('CreateMapLine()... ') 
@@ -1405,6 +1432,7 @@ function CreateInfoLine(armyID)
         
     return center
 end
+
 function CreateInfoIcon(iconName, parent)
    local icon = Bitmap(parent)
    icon:SetTexture(modTextures..iconName)
@@ -1412,6 +1440,7 @@ function CreateInfoIcon(iconName, parent)
    icon.Width:Set(iconSize)
    return icon
 end
+
 function CreateInfoIconVictory(parent)
 
     local vc = string.lower(sessionOptions.Victory)
@@ -1436,6 +1465,7 @@ function CreateInfoIconVictory(parent)
     Tooltip.AddControlTooltip(icon, { text=tooltipText, body=tooltipBody})
     return icon
 end
+
 function CreateInfoIconRestrictions(parent)
     local restrictions = sessionOptions.RestrictedCategories
     local restrictionCount = 0
@@ -1466,6 +1496,7 @@ function CreateInfoIconRestrictions(parent)
     Tooltip.AddControlTooltip(icon, { text=tooltipText, body=tooltipBody})
     return icon
 end
+
 function CreateInfoIconSharing(parent)
     local tooltipShare = ''
     local tooltipCap = ''
@@ -1498,6 +1529,7 @@ function CreateInfoIconSharing(parent)
     Tooltip.AddControlTooltip(icon, { text=tooltipText, body=tooltipBody} )
     return icon
 end 
+
 function CreateInfoIconAI(parent)
     local tooltipText = str.loc('ai_info')..(Stats.ai.active and ' ON' or ' OFF')
     local tooltipBody = ''
@@ -1550,6 +1582,7 @@ function CreateInfoIconMods(parent)
     Tooltip.AddControlTooltip(icon, { text=tooltipText, body=tooltipBody} )
     return icon
 end
+
 --------------------------------------------------------------------------
 -- Data functions
 --------------------------------------------------------------------------
@@ -1584,6 +1617,7 @@ function GetArmyTableKills()
     
     return kills
 end
+
 function GetArmyTableLoses()
     local loses = {}
     -- loses in units' value
@@ -1602,6 +1636,7 @@ function GetArmyTableLoses()
     
     return loses
 end
+
 function GetArmyTableUnits()
     local units = {}
     -- units built by value
@@ -1619,6 +1654,7 @@ function GetArmyTableUnits()
     units.cap   = 0
     return units
 end
+
 function GetArmyTableEco()
     local eco = {}
     eco.massIncome  = 0
@@ -1632,6 +1668,7 @@ function GetArmyTableEco()
     eco.engyReclaim = 0
     return eco
 end
+
 function GetArmyTableRatio()
     local ratio = {}
     ratio.killsToBuilt = 0  
@@ -1639,6 +1676,7 @@ function GetArmyTableRatio()
     ratio.builtToLoses = 0  
     return ratio
 end
+
 -- Gets HD icons for specified faction ID or defaults to standard icons if faction not found
 function GetArmyIcon(factionID)
         if (factionID == 0)  then return modTextures..'faction_uef.dds'    
@@ -1652,6 +1690,7 @@ function GetArmyIcon(factionID)
         return UIUtil.UIFile(UIUtil.GetArmyIcon(factionID))
     end
 end
+
 function GetActiveUIMods()
     local mods = GetActiveMods()
     local uiMods = {}
@@ -1662,6 +1701,7 @@ function GetActiveUIMods()
 	end
 	return uiMods
 end
+
 function GetActiveSimMods()
     local mods = GetActiveMods()
     local gameMods = {}
@@ -1672,6 +1712,7 @@ function GetActiveSimMods()
 	end
 	return gameMods
 end
+
 function GetActiveMods()
     local activeMods = {}
 	--local mods = import('/lua/mods.lua') 
@@ -1695,6 +1736,7 @@ function GetActiveMods()
 	end
 	return activeMods
 end
+
 -- get army Stats using deep table search, column = Stats.'eco.massIncome'
 function GetStatsForArmyID(armyID, column, useFormatting)
     -- default to army Stats with out formatting
@@ -1709,6 +1751,7 @@ function GetStatsForArmyID(armyID, column, useFormatting)
    
     return GetStatsForArmy(army, column, useFormatting) 
 end
+
 function GetStatsForArmy(army, column, useFormatting)
     -- default to army Stats with formatting
     if useFormatting == nil then useFormatting = true end
@@ -1741,11 +1784,14 @@ function GetStatsForArmy(army, column, useFormatting)
         return val
     end
 end
+
 -- create team for index or player's army
 function CreateTeam(armyIndex, armies)
-    log.Trace('InitializeStats()... creating team for army='..armyIndex)
-     
+
+    log.Trace('InitializeStats()... creating team for ArmyIndex = '..armyIndex)
+
     local team = {} 
+    
     team.key = ''
     team.dead = false
     team.faction = -2 -- used for T symbol
@@ -1762,6 +1808,7 @@ function CreateTeam(armyIndex, armies)
     team.kills = GetArmyTableKills() 
     team.loses = GetArmyTableLoses() 
     team.eco   = GetArmyTableEco() 
+    
 --    team.rating = {}
 --    team.rating.actual = 0
 --    team.rating.rounded = 0
@@ -1773,8 +1820,9 @@ function CreateTeam(armyIndex, armies)
     team.members.ids   = {}
     
 	for armyID,army in armies do 
-        --if army.civilian or armyID == armyIndex then continue end
+    
         if not army.civilian and IsAlly(armyID, armyIndex) then
+        
             log.Trace('InitializeStats()... creating team for army='..armyIndex .. ' allied with '.. armyID)
     
 			-- use first player's color as team's color 
@@ -1788,7 +1836,8 @@ function CreateTeam(armyIndex, armies)
             table.insert(team.colors, army.color)
         end
 	end
-    log.Trace('InitializeStats()... creating team for army='..armyIndex .. ' finished '.. team.key)
+    
+    log.Trace('InitializeStats()... creating team for ArmyIndex = '..armyIndex .. ' finished '.. team.key)
     
     -- assume all players are alive and these values will be updated OnBeat
     team.members.alive   = table.getn(team.members.ids)
@@ -1804,14 +1853,17 @@ function CreateTeam(armyIndex, armies)
     
 	return team
 end
+
 function IsArmyAlive(armyID)
     local armies = GetArmiesTable().armiesTable 
     return IsArmyAlive(armyID, armies)
 end
+
 function IsArmyAlive(armyID, armies)
     local army = armies[armyID]
     return not army.outOfGame
 end
+
 function GetMapData(sessionInfo)
     local map = {}
     --map.name = LOCF("<LOC gamesel_0002>Map: %s", sessionInfo.name)
@@ -1833,7 +1885,9 @@ function GetMapData(sessionInfo)
       
     return map
 end
+
 function GetAiData(sessionInfo)
+
     local options = sessionInfo.Options
     ai = {}
     -- activate AI when there is at least one AI player
@@ -1847,18 +1901,20 @@ function GetAiData(sessionInfo)
     ai.info.income = string.format("%01.1f", ai.cheat.income)
     ai.info.build  = string.format("%01.1f", ai.cheat.build)
     ai.info.omni   = (ai.cheat.omni and 'ON' or 'OFF')
-         
+
     return ai
 end
+
 --------------------------------------------------------------------------
 -- Update functions
 --------------------------------------------------------------------------
 function UpdateRatioFor(army)
-     
+
     local skipAcuUpdates = 5.0
-        
+
     local killsMass = army.kills.mass
     local killsEngy = army.kills.engy
+    
     -- exclude ACU kills for more comparable ratio between players
     if (army.kills.acu > 0) then
         -- there is small delay in sync. between ACU kills and mass kill
@@ -1874,6 +1930,7 @@ function UpdateRatioFor(army)
     
     local losesMass = army.loses.mass
     local losesEngy = army.loses.engy
+    
     -- exclude ACU loses for more comparable ratio between players
     if (army.loses.acu > 0) then
         -- there is small delay in sync. between ACU loses and mass loses
@@ -1886,6 +1943,7 @@ function UpdateRatioFor(army)
             losesEngy = losesEngy + (army.loses.acu * 5000000)
         end
     end
+    
     -- use both mass and energy to calculate player's ratios
     local massBuiltRatio = num.div(killsMass, army.units.mass)
     local engyBuiltRatio = num.div(killsEngy, army.units.engy)
@@ -1894,13 +1952,12 @@ function UpdateRatioFor(army)
     local massLostRatio = num.div(killsMass, losesMass)
     local engyLostRatio = num.div(killsEngy, losesEngy)
     army.ratio.killsToLoses = (massLostRatio + engyLostRatio) / 2.0  
-      
+
     local massRatio = num.div(army.units.mass, losesMass)
     local engyRatio = num.div(army.units.engy, losesEngy)
     army.ratio.builtToLoses = (massRatio + engyRatio) / 2.0  
- 
-    
 end
+
 -- update Stats of a player 
 function UpdatePlayerStats(armyID, armies, scoreData)
     local player = Stats.armies[armyID]
@@ -1916,7 +1973,7 @@ function UpdatePlayerStats(armyID, armies, scoreData)
     if not scoreData.general.score then log.Warning('UpdatePlayerStats scoreData.general.score is nil' ) end
     
     player.dead = armies[armyID].outOfGame --or num.init(scoreData.general.currentunits.count) == 0
-      
+
     -- for dead/alive players, get only some score info 
     player.score = num.init(scoreData.general.score)
     -- get player's eco Stats and initialize it to zero if nil score
@@ -1927,7 +1984,7 @@ function UpdatePlayerStats(armyID, armies, scoreData)
     -- assuming FAF patch added reclaim values to score data
     player.eco.massReclaim  = num.init(scoreData.general.lastReclaimedMass)
     player.eco.engyReclaim  = num.init(scoreData.general.lastReclaimedEnergy)
-     
+
     -- get player's kills Stats from score data and initialize it to zero if they are nil
     player.kills.acu   = num.init(scoreData.units.cdr.kills)
     player.kills.exp   = num.init(scoreData.units.experimental.kills)
@@ -1948,10 +2005,10 @@ function UpdatePlayerStats(armyID, armies, scoreData)
     player.loses.count = num.init(scoreData.general.lost.count)
     player.loses.mass  = num.init(scoreData.general.lost.mass)
     player.loses.engy  = num.init(scoreData.general.lost.energy)
-        
+
     player.units.mass  = num.init(scoreData.general.built.mass)
     player.units.engy  = num.init(scoreData.general.built.energy)
-      
+
     -- dead players have not income and no units
     if player.dead then
         player.eco.massIncome = 0
@@ -2016,6 +2073,7 @@ function UpdatePlayerStats(armyID, armies, scoreData)
     if player.units.air > 0 then Columns.Exists['units.air'] = true end
 
     local team = Stats.teams[player.teamID]
+    
     if team == nil then
         log.Warning('UpdatePlayerStats cannot find a team for player: '..player.nickname )
     else
@@ -2024,6 +2082,7 @@ function UpdatePlayerStats(armyID, armies, scoreData)
     
     return player
 end
+
 -- update Stats a team that has the player
 function UpdateTeamStats(team, player)
    
@@ -2235,6 +2294,7 @@ function UpdateArmyLines(column)
         
     end
 end
+
 -- resets team Stats before updating teams with their team members
 function ResetTeamStats()
     Stats.units  = GetArmyTableUnits() 
@@ -2288,7 +2348,7 @@ function HighlightUI(line, isHighlighted)
        --     line.rating:SetFont(fontMono, fontSize)
        -- end
     end
-     
+
 end
 
 local initalBeats = true
@@ -2517,6 +2577,7 @@ function SwitchColumns(gameTime)
         end
     end
 end
+
 function SortArmyLinesBy(column)
     log.Trace('SortArmyLinesBy '..column..' ...')
     Stats.sortByColumnOld = Stats.sortByColumnNew
@@ -2525,6 +2586,7 @@ function SortArmyLinesBy(column)
     UpdateArmyLines(column)
     SortArmyLines() 
 end
+
 function SortArmyLines()
     --TODO sort army lines based on user selection 
     -- in   Game Session: rating, name, score
@@ -2653,6 +2715,7 @@ function ToggleScoreControl(state)
         end
     end
 end
+
 function Expand()
     if needExpand then
         controls.bg:Show()
@@ -2662,6 +2725,7 @@ function Expand()
         needExpand = false
     end
 end
+
 function Contract()
     if controls.bg then
         if not controls.bg:IsHidden() then

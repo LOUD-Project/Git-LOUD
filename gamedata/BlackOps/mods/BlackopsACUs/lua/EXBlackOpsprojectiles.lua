@@ -1,15 +1,15 @@
-#****************************************************************************
-#**
-#**  File     : /cdimage/lua/modules/BlackOpsprojectiles.lua
-#**  Author(s): Lt_Hawkeye
-#**
-#**  Summary  :
-#**
-#**  Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
-#------------------------------------------------------------------------
-#  Lt_hawkeye's Custom Projectiles
-#------------------------------------------------------------------------
+--****************************************************************************
+--**
+--**  File     : /cdimage/lua/modules/BlackOpsprojectiles.lua
+--**  Author(s): Lt_Hawkeye
+--**
+--**  Summary  :
+--**
+--**  Copyright ï¿½ 2005 Gas Powered Games, Inc.  All rights reserved.
+--****************************************************************************
+--------------------------------------------------------------------------
+--  Lt_hawkeye's Custom Projectiles
+--------------------------------------------------------------------------
 local Projectile = import('/lua/sim/projectile.lua').Projectile
 local DefaultProjectileFile = import('/lua/sim/defaultprojectiles.lua')
 local EmitterProjectile = DefaultProjectileFile.EmitterProjectile
@@ -25,14 +25,14 @@ local DepthCharge = import('/lua/defaultantiprojectile.lua').DepthCharge
 local util = import('/lua/utilities.lua')
 local EXEffectTemplate = import('/mods/BlackopsACUs/lua/EXBlackOpsEffectTemplates.lua')
 
-#---------------------------------------------------------------
-# Null Shell
-#---------------------------------------------------------------
+-----------------------------------------------------------------
+-- Null Shell
+-----------------------------------------------------------------
 EXNullShell = Class(Projectile) {}
 
-#---------------------------------------------------------------
-# PROJECTILE WITH ATTACHED EFFECT EMITTERS
-#---------------------------------------------------------------
+-----------------------------------------------------------------
+-- PROJECTILE WITH ATTACHED EFFECT EMITTERS
+-----------------------------------------------------------------
 EXEmitterProjectile = Class(Projectile) {
     FxTrails = {'/effects/emitters/missile_munition_trail_01_emit.bp',},
     FxTrailScale = 1,
@@ -47,9 +47,9 @@ EXEmitterProjectile = Class(Projectile) {
     end,
 }
 
-#---------------------------------------------------------------
-# BEAM PROJECTILES
-#---------------------------------------------------------------
+-----------------------------------------------------------------
+-- BEAM PROJECTILES
+-----------------------------------------------------------------
 EXSingleBeamProjectile = Class(EXEmitterProjectile) {
 
     BeamName = '/effects/emitters/default_beam_01_emit.bp',
@@ -78,9 +78,9 @@ EXMultiBeamProjectile = Class(EXEmitterProjectile) {
     end,
 }
 
-#---------------------------------------------------------------
-# POLY-TRAIL PROJECTILES
-#---------------------------------------------------------------
+-----------------------------------------------------------------
+-- POLY-TRAIL PROJECTILES
+-----------------------------------------------------------------
 EXSinglePolyTrailProjectile = Class(EXEmitterProjectile) {
 
     PolyTrail = '/effects/emitters/test_missile_trail_emit.bp',
@@ -123,12 +123,12 @@ EXMultiPolyTrailProjectile = Class(EXEmitterProjectile) {
 }
 
 
-#---------------------------------------------------------------
-# COMPOSITE EMITTER PROJECTILES - MULTIPURPOSE PROJECTILES
-# - THAT COMBINES BEAMS, POLYTRAILS, AND NORMAL EMITTERS
-#---------------------------------------------------------------
+-----------------------------------------------------------------
+-- COMPOSITE EMITTER PROJECTILES - MULTIPURPOSE PROJECTILES
+-- - THAT COMBINES BEAMS, POLYTRAILS, AND NORMAL EMITTERS
+-----------------------------------------------------------------
 
-# LIGHTWEIGHT VERSION THAT LIMITS USE TO 1 BEAM, 1 POLYTRAIL, AND STANDARD EMITTERS
+-- LIGHTWEIGHT VERSION THAT LIMITS USE TO 1 BEAM, 1 POLYTRAIL, AND STANDARD EMITTERS
 EXSingleCompositeEmitterProjectile = Class(EXSinglePolyTrailProjectile) {
 
     BeamName = '/effects/emitters/default_beam_01_emit.bp',
@@ -142,7 +142,7 @@ EXSingleCompositeEmitterProjectile = Class(EXSinglePolyTrailProjectile) {
     end,
 }
 
-# HEAVYWEIGHT VERSION, ALLOWS FOR MULTIPLE BEAMS, POLYTRAILS, AND STANDARD EMITTERS
+-- HEAVYWEIGHT VERSION, ALLOWS FOR MULTIPLE BEAMS, POLYTRAILS, AND STANDARD EMITTERS
 EXMultiCompositeEmitterProjectile = Class(EXMultiPolyTrailProjectile) {
 
     Beams = {'/effects/emitters/default_beam_01_emit.bp',},
@@ -160,9 +160,9 @@ EXMultiCompositeEmitterProjectile = Class(EXMultiPolyTrailProjectile) {
     end,
 }
 
-#------------------------------------------------------------------------
-#  UEF ACU Flame Thrower
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--  UEF ACU Flame Thrower
+--------------------------------------------------------------------------
 FlameThrowerProjectile01 = Class(EmitterProjectile) {
     FxTrails = {'/mods/BlackOpsACUs/Effects/Emitters/NapalmTrailFX.bp',},
     FxTrailScale = 0.75,
@@ -183,9 +183,9 @@ FlameThrowerProjectile01 = Class(EmitterProjectile) {
 	FxShieldHitScale = 0.7,
 }
 
-#------------------------------------------------------------------------
-#  UEF ACU Antimatter Cannon
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--  UEF ACU Antimatter Cannon
+--------------------------------------------------------------------------
 UEFACUAntiMatterProjectile01 = Class(EXMultiCompositeEmitterProjectile ) {
     FxTrails = EXEffectTemplate.ACUAntiMatterFx,
 	PolyTrail = EXEffectTemplate.ACUAntiMatterPoly,
@@ -288,9 +288,9 @@ UEFACUAntiMatterProjectile03 = Class(EXMultiCompositeEmitterProjectile ) {
     end,
 }
 
-#------------------------------------------------------------------------
-#  UEF ACU Cluster Missle Pack
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--  UEF ACU Cluster Missle Pack
+--------------------------------------------------------------------------
 UEFACUClusterMIssileProjectile = Class(SinglePolyTrailProjectile) {
     DestroyOnImpact = false,
     FxTrails = EXEffectTemplate.UEFCruiseMissile01Trails,
@@ -316,9 +316,9 @@ UEFACUClusterMIssileProjectile02 = Class(EXEmitterProjectile) {
     FxImpactUnderWater = {},
 }
 
-#------------------------------------------------------------------------
-#  Serephim Quantum Storm
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--  Serephim Quantum Storm
+--------------------------------------------------------------------------
 SeraACUQuantumStormProjectile01 = Class(EmitterProjectile) {
 	FxImpactTrajectoryAligned = false,
     FxTrails = EffectTemplate.SDFExperimentalPhasonProjFXTrails01,
@@ -370,9 +370,9 @@ SeraACUQuantumStormProjectile03 = Class(EmitterProjectile) {
 
 }
 
-#------------------------------------------------------------------------
-#  Serephim Rapid Cannon
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--  Serephim Rapid Cannon
+--------------------------------------------------------------------------
 SeraRapidCannon01Projectile = Class(MultiPolyTrailProjectile) {
     FxImpactNone = EffectTemplate.SDFAireauWeaponHit01,
     FxImpactUnit = EffectTemplate.SDFAireauWeaponHitUnit,
@@ -392,9 +392,9 @@ SeraRapidCannon01Projectile = Class(MultiPolyTrailProjectile) {
 	FxShieldHitScale = 0.7,
 }
 
-#------------------------------------------------------------------------
-#  Serephim Rapid Cannon V2
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--  Serephim Rapid Cannon V2
+--------------------------------------------------------------------------
 SeraRapidCannon01Projectile02 = Class(MultiPolyTrailProjectile) {
     FxImpactNone = EffectTemplate.SDFAireauWeaponHit01,
     FxImpactUnit = EffectTemplate.SDFAireauWeaponHitUnit,
@@ -414,9 +414,9 @@ SeraRapidCannon01Projectile02 = Class(MultiPolyTrailProjectile) {
 	FxShieldHitScale = 0.7,
 }
 
-#------------------------------------------------------------------------
-#  Serephim Rapid Cannon V3
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--  Serephim Rapid Cannon V3
+--------------------------------------------------------------------------
 SeraRapidCannon01Projectile03 = Class(MultiPolyTrailProjectile) {
     FxImpactNone = EffectTemplate.SDFAireauWeaponHit01,
     FxImpactUnit = EffectTemplate.SDFAireauWeaponHitUnit,
@@ -436,9 +436,9 @@ SeraRapidCannon01Projectile03 = Class(MultiPolyTrailProjectile) {
 	FxShieldHitScale = 0.7,
 }
 
-#------------------------------------------------------------------------
-#  Cybran EMP Array Detonation
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--  Cybran EMP Array Detonation
+--------------------------------------------------------------------------
 EXInvisoProectilechild01 = Class(EXMultiCompositeEmitterProjectile ) {
     
     # Hit Effects
@@ -611,9 +611,9 @@ EXInvisoProectile03 = Class(EXInvisoProectilechild03) {
 
 }
 
-#------------------------------------------------------------------------
-#  Serephim Overcharge Projectile
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--  Serephim Overcharge Projectile
+--------------------------------------------------------------------------
 
 SOmegaCannonOverCharge = Class(MultiPolyTrailProjectile) {
 	FxImpactTrajectoryAligned = false,
@@ -632,9 +632,9 @@ SOmegaCannonOverCharge = Class(MultiPolyTrailProjectile) {
     PolyTrailOffset = {0,0,0},
 }
 
-#------------------------------------------------------------------------
-#  UEF Gatling Projectile V3
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--  UEF Gatling Projectile V3
+--------------------------------------------------------------------------
 
 UEFHeavyPlasmaGatlingCannon03 = Class(SinglePolyTrailProjectile) {
     FxImpactTrajectoryAligned = false,
@@ -648,9 +648,9 @@ UEFHeavyPlasmaGatlingCannon03 = Class(SinglePolyTrailProjectile) {
     PolyTrail = EXEffectTemplate.UEFHeavyPlasmaGatlingCannon03PolyTrail,
 }
 
-#------------------------------------------------------------------------
-#  UEF Gattling Projectile V2
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--  UEF Gattling Projectile V2
+--------------------------------------------------------------------------
 
 UEFHeavyPlasmaGatlingCannon01 = Class(SinglePolyTrailProjectile) {
     FxImpactTrajectoryAligned = false,
@@ -664,9 +664,9 @@ UEFHeavyPlasmaGatlingCannon01 = Class(SinglePolyTrailProjectile) {
     PolyTrail = EXEffectTemplate.UEFHeavyPlasmaGatlingCannon01PolyTrail,
 }
 
-#------------------------------------------------------------------------
-#  UEF Gatling Projectile V3
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--  UEF Gatling Projectile V3
+--------------------------------------------------------------------------
 
 UEFHeavyPlasmaGatlingCannon02 = Class(SinglePolyTrailProjectile) {
     FxImpactTrajectoryAligned = false,

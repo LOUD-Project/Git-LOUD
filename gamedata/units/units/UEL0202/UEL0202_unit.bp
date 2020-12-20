@@ -197,7 +197,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
             RangeCategory = 'UWRC_DirectFire',
-            RateOfFire = 0.75,		#-- 2 shells of 35 = 70 every 1.3 seconds = 52 DPS
+            RateOfFire = 0.75,		---- 2 shells of 35 = 70 every 1.3 seconds = 52 DPS
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',

@@ -1,20 +1,20 @@
-#****************************************************************************
-#**
-#**  File     :  /data/projectiles/CIFBrackmanHackPegs02/CIFBrackmanHackPegs02_script.lua
-#** 
-#**  Author(s):  Greg Kohne
-#**
-#**  Summary  :  Brackman Peg Launching Projectile script
-#**
-#**  Copyright © 2007 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+--****************************************************************************
+--**
+--**  File     :  /data/projectiles/CIFBrackmanHackPegs02/CIFBrackmanHackPegs02_script.lua
+--** 
+--**  Author(s):  Greg Kohne
+--**
+--**  Summary  :  Brackman Peg Launching Projectile script
+--**
+--**  Copyright ï¿½ 2007 Gas Powered Games, Inc.  All rights reserved.
+--****************************************************************************
 
 local TargetPos
 local RandomInt = import('/lua/utilities.lua').GetRandomInt
 local RandomFloat = import('/lua/utilities.lua').GetRandomFloat
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 
-###This one should just like be something kind of new compared to the older version
+--This one should just like be something kind of new compared to the older version
 CIFBrackmanHackPegs02 = Class(import('/lua/cybranprojectiles.lua').CDFBrackmanHackPegProjectile02) {
 
     OnImpact = function(self, TargetType, TargetEntity)

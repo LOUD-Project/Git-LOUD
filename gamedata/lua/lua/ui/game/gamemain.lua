@@ -67,6 +67,7 @@ function SetLayout(layout)
     import('/lua/ui/game/construction.lua').SetLayout(layout)
     import('/lua/ui/game/borders.lua').SetLayout(layout)
     import('/lua/ui/game/multifunction.lua').SetLayout(layout)
+    
     if not isReplay then
         import('/lua/ui/game/orders.lua').SetLayout(layout)
     end
@@ -88,7 +89,7 @@ end
 
 function OnFirstUpdate()
     
-    LOG("*AI DEBUG OnFirstUpdate")
+    --LOG("*AI DEBUG OnFirstUpdate")
 
     EnableWorldSounds()
 	
@@ -146,14 +147,16 @@ function OnFirstUpdate()
 			
 			--ConExecute('path_UnreachableTimeoutSearchSteps = 750')
 			
-			ConExecute('ren_ShadowCoeff 2')
-			ConExecute('ren_ShadowSize 2048')
-			ConExecute('ren_ShadowBias 0.0010')
-			ConExecute('ren_BloomGlowCopyScale 2.5')
-			ConExecute('ren_BloomBlurKernelScale 1.1')
-			ConExecute('ren_BloomBlurCount 0')
+			--ConExecute('ren_ShadowCoeff 2')
+			--ConExecute('ren_ShadowSize 2048')
+			--ConExecute('ren_ShadowBias 0.0010')
+			--ConExecute('ren_BloomGlowCopyScale 2.5')
+			--ConExecute('ren_BloomBlurKernelScale 1.1')
+			--ConExecute('ren_BloomBlurCount 0')
 			
 			ConExecute('fog_DistanceFog')
+            
+            ConExecute('d3d_WindowsCursor')
 
         end
     )

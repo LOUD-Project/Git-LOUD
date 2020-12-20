@@ -1,8 +1,8 @@
 ---   /lua/terranunits.lua
-#**  Author(s): John Comes, Dave Tomandl, Gordon Duclos
-#**  Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
+--**  Author(s): John Comes, Dave Tomandl, Gordon Duclos
+--**  Copyright ï¿½ 2005 Gas Powered Games, Inc.  All rights reserved.
 
-# TERRAN DEFAULT UNITS
+-- TERRAN DEFAULT UNITS
 
 local DefaultUnitsFile = import('defaultunits.lua')
 

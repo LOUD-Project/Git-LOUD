@@ -22,7 +22,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+    
     BuildIconSortPriority = 20,
+    
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1ENGINEER',
@@ -43,14 +45,17 @@ UnitBlueprint {
         'SHOWQUEUE',
         'SORTCONSTRUCTION',
     },
+    
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 84,
+        EconomyThreatLevel = 124,
         Health = 2200,
         MaxHealth = 2200,
         RegenRate = 2,
     },
+    
     Description = '<LOC urb0102_desc>Basic Air Factory',
+    
     Display = {
         Abilities = {
             'Upgradeable',
@@ -95,11 +100,14 @@ UnitBlueprint {
         },
         UniformScale = 0.09,
     },
+    
     Economy = {
-        BuildCostEnergy = 2400,
+        BuildCostEnergy = 2500,
         BuildCostMass = 210,
-        BuildRate = 20,
+        
+        BuildRate = 40,
         BuildTime = 300,
+        
         BuildableCategory = {
             'BUILTBYTIER1FACTORY CYBRAN MOBILE CONSTRUCTION',
             'BUILTBYTIER1FACTORY CYBRAN STRUCTURE AIR',
@@ -114,10 +122,12 @@ UnitBlueprint {
         StorageEnergy = 500,
         StorageMass = 50,
     },
+    
     Footprint = {
         SizeX = 5,
         SizeZ = 5,
     },
+    
     General = {
         BuildBones = {
             BuildAttachBone = 'Build_Point',
@@ -177,126 +187,126 @@ UnitBlueprint {
         MotionType = 'RULEUMT_None',
         RaisedPlatforms = {
 
-            # Platform 1
-            # TopLeft Offset From Center
+            -- Platform 1
+            -- TopLeft Offset From Center
             -1.4,
 
-            # x
+            -- x
             -2,
 
-            # z
+            -- z
             0.03,
 
-            # height
-            # TopRight Offset From Center
+            -- height
+            -- TopRight Offset From Center
             1.4,
 
-            # x
+            -- x
             -2,
 
-            # z
+            -- z
             0.03,
 
-            # height
-            # BottomLeft Offset From Center
+            -- height
+            -- BottomLeft Offset From Center
             -1.4,
 
-            # x
+            -- x
             1.6,
 
-            # z
+            -- z
             0.03,
 
-            # height
-            # BottomRight Offset From Center
+            -- height
+            -- BottomRight Offset From Center
             1.4,
 
-            # x
+            -- x
             1.6,
 
-            # z
+            -- z
             0.03,
 
-            # height
-            # Platform 2
-            # TopLeft Offset From Center
+            -- height
+            -- Platform 2
+            -- TopLeft Offset From Center
             -2.3,
 
-            # x
+            -- x
             -2,
 
-            # z
+            -- z
             0,
 
-            # height
-            # TopRight Offset From Center
+            -- height
+            -- TopRight Offset From Center
             -1.4,
 
-            # x
+            -- x
             -2,
 
-            # z
+            -- z
             0.03,
 
-            # height
-            # BottomLeft Offset From Center
+            -- height
+            -- BottomLeft Offset From Center
             -2.3,
 
-            # x
+            -- x
             1.6,
 
-            # z
+            -- z
             0,
 
-            # height
-            # BottomRight Offset From Center
+            -- height
+            -- BottomRight Offset From Center
             -1.4,
 
-            # x
+            -- x
             1.6,
 
-            # z
+            -- z
             0.03,
 
-            # height
-            # Platform 3
-            # TopLeft Offset From Center
+            -- height
+            -- Platform 3
+            -- TopLeft Offset From Center
             1.4,
 
-            # x
+            -- x
             -2,
 
-            # z
+            -- z
             0.03,
 
-            # height
-            # TopRight Offset From Center
+            -- height
+            -- TopRight Offset From Center
             2.4,
 
-            # x
+            -- x
             -2,
 
-            # z
+            -- z
             0,
 
-            # height
-            # BottomLeft Offset From Center
+            -- height
+            -- BottomLeft Offset From Center
             1.4,
 
-            # x
+            -- x
             1.6,
 
-            # z
+            -- z
             0.03,
 
-            # height
-            # BottomRight Offset From Center
+            -- height
+            -- BottomRight Offset From Center
             2.3,
 
-            # x
+            -- x
             1.6,
 
-            # z
+            -- z
             0,
         },
         RollOffPoints = {
@@ -323,7 +333,7 @@ UnitBlueprint {
     SelectionSizeZ = 3,
     SelectionThickness = 0.33,
 
-    # height
+    -- height
     SizeX = 3.5,
     SizeY = 0.75,
     SizeZ = 3.5,

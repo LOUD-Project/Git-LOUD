@@ -78,7 +78,7 @@ function SpawnPing(data)
 			
 		-- other ping events --
 		else
-		
+		--[[
             local Entity = import('/lua/sim/Entity.lua').Entity
 			
             data.Location[2] = data.Location[2]+2
@@ -96,6 +96,7 @@ function SpawnPing(data)
             local animThread = ForkThread(AnimatePingMesh, ping)
 			
             ForkThread(function() WaitSeconds(data.Lifetime) KillThread(animThread) ping:Destroy() end)
+        --]]
         end
 		
 

@@ -1,85 +1,85 @@
-#**************************************************************************** 
-#**  File          :  /lua/CustomAbilities/4D_Holograms/4D_Holograms.lua 
-#** 
-#**  Author        :  Resin_Smoker 
-#** 
-#**  Co-Author(s)  :  Brute51 
-#** 
-#**  Special Thanks:  BulletMagnet, Mooilo, Sorian
-#** 
-#**  Summary       :  HologramEmitter script:  Creates realistic hologram units 
-#**                   UnitHolograms script: Unit class used to create hologram units 
-#** 
-#**  Copyright © 2010 4DC  All rights reserved.
-#**************************************************************************** 
-#** 
-#**  The following is required in the units script for Hologram Emitter 
-#**  This calls into action the hologram scripts for TConstructionUnit 
-#** 
-#**  TConstructionUnit = import('/mods/4DC/lua/CustomAbilities/4D_Holograms/4D_Holograms.lua').HologramEmitter( TConstructionUnit ) 
-#** 
-#**************************************************************************** 
-#** 
-#**  The following is required in the unit blueprints for Advanced Jamming 
-#**  This sets the parimeters of each jamming unit. 
-#** 
-#**  UNIT BP: 
-#** 
-#**    Intel = { 
-#**        Holograms = { 
-#**            DisabledInTransport = true,
-#**            MaxDistance = 32,
-#**            NumT1Engineer = 1,
-#**            NumT2Engineer = 0,            
-#**            NumT1Ground = 0,
-#**            NumT2Ground = 0,                      
-#**            StartEnabled = true,
-#**        }, 
-#**    }, 
-#** 
-#**    ToggleCaps = { 
-#**        # abusing the intel toggle here, so we can use the onintelenabled events 
-#**        RULEUTC_IntelToggle = true,
-#**        # provide for intel toggle so the player can toggle off the view of their own holograms
-#**        RULEUTC_SpecialToggle = true, 
-#**    }, 
-#** 
-#**    OrderOverrides = { 
-#**        # faking the jamming icon 
-#**        RULEUTC_IntelToggle = { 
-#**            bitmapId = 'advanced jamming', 
-#**            helpText = 'toggle_jamming', 
-#**        },
-#**        RULEUTC_SpecialToggle = { 
-#**            bitmapId = 'intel-counter',       
-#**            helpText = 'View Holograms',
-#**        },   
-#**    }, 
-#** 
-#**************************************************************************** 
-#** 
-#**    This script snippet is required to be within the /lua/sim/Units.lua. This is borrowed from the CBFP. It 
-#**    adds a unit event that's fired when the unit is picked up by a transport or when it's dropped from one. 
-#** 
-#**    OnTransportAttach = function(self, attachBone, unit) 
-#**        oldUnit.OnTransportAttach(self, attachBone, unit) 
-#**        unit:OnAttachedToTransport(self) 
-#**    end, 
-#** 
-#**    OnAttachedToTransport = function(self, transport) 
-#**    end, 
-#** 
-#**    OnTransportDetach = function(self, attachBone, unit) 
-#**        oldUnit.OnTransportDetach(self, attachBone, unit) 
-#**        unit:OnDetachedToTransport(self) 
-#**    end, 
-#** 
-#**    OnDetachedToTransport = function(self, transport) 
-#**    end,    
-#** 
-#**************************************************************************** 
+--**************************************************************************** 
+--**  File          :  /lua/CustomAbilities/4D_Holograms/4D_Holograms.lua 
+--** 
+--**  Author        :  Resin_Smoker 
+--** 
+--**  Co-Author(s)  :  Brute51 
+--** 
+--**  Special Thanks:  BulletMagnet, Mooilo, Sorian
+--** 
+--**  Summary       :  HologramEmitter script:  Creates realistic hologram units 
+--**                   UnitHolograms script: Unit class used to create hologram units 
+--** 
+--**  Copyright ï¿½ 2010 4DC  All rights reserved.
+--**************************************************************************** 
+--** 
+--**  The following is required in the units script for Hologram Emitter 
+--**  This calls into action the hologram scripts for TConstructionUnit 
+--** 
+--**  TConstructionUnit = import('/mods/4DC/lua/CustomAbilities/4D_Holograms/4D_Holograms.lua').HologramEmitter( TConstructionUnit ) 
+--** 
+--**************************************************************************** 
+--** 
+--**  The following is required in the unit blueprints for Advanced Jamming 
+--**  This sets the parimeters of each jamming unit. 
+--** 
+--**  UNIT BP: 
+--** 
+--**    Intel = { 
+--**        Holograms = { 
+--**            DisabledInTransport = true,
+--**            MaxDistance = 32,
+--**            NumT1Engineer = 1,
+--**            NumT2Engineer = 0,            
+--**            NumT1Ground = 0,
+--**            NumT2Ground = 0,                      
+--**            StartEnabled = true,
+--**        }, 
+--**    }, 
+--** 
+--**    ToggleCaps = { 
+--**        # abusing the intel toggle here, so we can use the onintelenabled events 
+--**        RULEUTC_IntelToggle = true,
+--**        # provide for intel toggle so the player can toggle off the view of their own holograms
+--**        RULEUTC_SpecialToggle = true, 
+--**    }, 
+--** 
+--**    OrderOverrides = { 
+--**        # faking the jamming icon 
+--**        RULEUTC_IntelToggle = { 
+--**            bitmapId = 'advanced jamming', 
+--**            helpText = 'toggle_jamming', 
+--**        },
+--**        RULEUTC_SpecialToggle = { 
+--**            bitmapId = 'intel-counter',       
+--**            helpText = 'View Holograms',
+--**        },   
+--**    }, 
+--** 
+--**************************************************************************** 
+--** 
+--**    This script snippet is required to be within the /lua/sim/Units.lua. This is borrowed from the CBFP. It 
+--**    adds a unit event that's fired when the unit is picked up by a transport or when it's dropped from one. 
+--** 
+--**    OnTransportAttach = function(self, attachBone, unit) 
+--**        oldUnit.OnTransportAttach(self, attachBone, unit) 
+--**        unit:OnAttachedToTransport(self) 
+--**    end, 
+--** 
+--**    OnAttachedToTransport = function(self, transport) 
+--**    end, 
+--** 
+--**    OnTransportDetach = function(self, attachBone, unit) 
+--**        oldUnit.OnTransportDetach(self, attachBone, unit) 
+--**        unit:OnDetachedToTransport(self) 
+--**    end, 
+--** 
+--**    OnDetachedToTransport = function(self, transport) 
+--**    end,    
+--** 
+--**************************************************************************** 
 
-### Start of HologramEmitter(SuperClass)
+-- Start of HologramEmitter(SuperClass)
 function HologramEmitter(SuperClass) 
     return Class(SuperClass) {
     
@@ -323,9 +323,9 @@ function HologramEmitter(SuperClass)
    end,       
 }
 end 
-### End of HologramEmitter(SuperClass) ###
+-- End of HologramEmitter(SuperClass) ###
 
-### Start of UnitHolograms(SuperClass) ### 
+-- Start of UnitHolograms(SuperClass) ### 
 local RandomFloat = import('/lua/utilities.lua').GetRandomFloat 
 function UnitHolograms(SuperClass) 
     return Class(SuperClass) { 
@@ -507,4 +507,4 @@ function UnitHolograms(SuperClass)
                      
 }
 end 
-### End of UnitHolograms(SuperClass)
+-- End of UnitHolograms(SuperClass)

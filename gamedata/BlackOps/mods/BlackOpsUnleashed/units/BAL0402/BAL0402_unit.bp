@@ -1,4 +1,14 @@
 UnitBlueprint {
+
+    AI = {
+        TargetBones = {
+            'Effect01',
+			'Effect02',
+			'Effect03',
+			'Effect04',
+        },
+    },
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'UALDestroy',
@@ -137,7 +147,7 @@ UnitBlueprint {
     },
 	
     General = {
-		CapCost = 5,
+		CapCost = 7,
         Category = 'Experimental',
         Classification = 'RULEUC_MilitaryShip',
         CommandCaps = {
@@ -237,7 +247,7 @@ UnitBlueprint {
     SizeY = 1.4,
     SizeZ = 5.0,
 	
-    StrategicIconName = 'icon_experimental_land_directfire',
+    StrategicIconName = 'icon_experimental_land_missile',
     StrategicIconSortPriority = 145,
 	
     Veteran = {
@@ -247,6 +257,7 @@ UnitBlueprint {
         Level4 = 100,
         Level5 = 125,
     },
+    
     Weapon = {
 		{
             AboveWaterTargetsOnly = true,
@@ -261,7 +272,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 1000,
-            DamageRadius = 2.5,
+            DamageRadius = 1.8,
             DamageType = 'Normal',
 			
             DisplayName = 'Serpentine Missile',
@@ -275,13 +286,13 @@ UnitBlueprint {
 			
             Label = 'MissileRack',
 			
-            MaxRadius = 128,
-			MinRadius = 12,
+            MaxRadius = 125,
+			MinRadius = 18,
 			
             MuzzleChargeDelay = 0.3,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 9,
-            MuzzleVelocity = 4,
+            MuzzleVelocity = 5,
 			
 			NotExclusive = true,
 			
@@ -311,7 +322,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.1,	# 900 dps
+            RateOfFire = 0.1,	-- 900 dps
             RenderFireClock = true,
 			
             SlavedToBody = false,
@@ -345,7 +356,7 @@ UnitBlueprint {
 			
             Damage = 800,
             DamageFriendly = true,
-            DamageRadius = 2.5,
+            DamageRadius = 2,
             DamageType = 'Normal',
 			
             DisplayName = 'Sonance Artillery',
@@ -366,7 +377,7 @@ UnitBlueprint {
             MuzzleChargeDelay = 0.2,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 28,
+            MuzzleVelocity = 35,
 			
             NotExclusive = true,
 			
@@ -398,7 +409,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.3,	# 480 dps
+            RateOfFire = 0.3,	-- 480 dps
 			
             TargetCheckInterval = 1,
 			
@@ -485,7 +496,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
 
-            RateOfFire = 0.5,	# 300 dps
+            RateOfFire = 0.5,	-- 300 dps
 			
             TargetCheckInterval = 4,
             TargetPriorities = {
@@ -571,7 +582,7 @@ UnitBlueprint {
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
 
-            RateOfFire = 0.5,	# 300 dps
+            RateOfFire = 0.5,	-- 300 dps
 			
             TargetCheckInterval = 4,
             TargetPriorities = {

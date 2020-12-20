@@ -194,15 +194,17 @@ UnitBlueprint {
             'BUILTBYTIER4COMMANDER AEON',
         },
 		
+        MaintenanceConsumptionPerSecondEnergy = 1,
+        
         MaxBuildDistance = 15,
 		
         NaturalProducer = true,
 		
         NeedToFaceTargetToBuild = false,
         ProductionPerSecondEnergy = 20,
-        ProductionPerSecondMass = 1,
+        ProductionPerSecondMass = 2,
 		
-        StorageEnergy = 4000,
+        StorageEnergy = 5000,
         StorageMass = 650,
 		
         TeleportEnergyMod = 0.05978,
@@ -374,9 +376,9 @@ UnitBlueprint {
 		
         EXAssaultEngineering = {
 		
-            BuildCostEnergy = 72000,		#90000
-            BuildCostMass = 7200,		#1800
-            BuildTime = 7200,			#5400
+            BuildCostEnergy = 72000,		--90000
+            BuildCostMass = 7200,		--1800
+            BuildTime = 7200,			--5400
 
             BuildableCategoryAdds = 'BUILTBYTIER3COMMANDER AEON',
             Icon = 'exlce2',
@@ -412,7 +414,7 @@ UnitBlueprint {
 			
         },
 		
-        EXApocolypticEngineering = {
+        EXApocalypticEngineering = {
 		
             BuildCostEnergy = 162000,
             BuildCostMass = 16200,
@@ -421,7 +423,7 @@ UnitBlueprint {
             BuildableCategoryAdds = 'BUILTBYTIER4COMMANDER AEON',
             Icon = 'exlce3',
 			
-            Name = 'Tech 4 Apocolyptic Engineering (T3)',
+            Name = 'Tech 4 Apocalyptic Engineering (T3)',
 			
 			Prerequisite = 'EXAssaultEngineering',
             ShowBones = { 'Combat_Engineering' },
@@ -433,7 +435,7 @@ UnitBlueprint {
 			NewRegenRate = 90,		-- versus 60 of other engineering
         },
 		
-        EXApocolypticEngineeringRemove = {
+        EXApocalypticEngineeringRemove = {
 		
             BuildCostEnergy = 1,
             BuildCostMass = 1,
@@ -445,9 +447,9 @@ UnitBlueprint {
 			
             Name = 'Remove Engineering Suites',
 			
-            Prerequisite = 'EXApocolypticEngineering',
+            Prerequisite = 'EXApocalypticEngineering',
 			FlamerDamageMod = 2,
-            RemoveEnhancements = {'EXApocolypticEngineering','EXApocolypticEngineeringRemove'},
+            RemoveEnhancements = {'EXApocalypticEngineering','EXApocalypticEngineeringRemove'},
             Slot = 'LCH',
         },
 		
@@ -1375,7 +1377,7 @@ UnitBlueprint {
         DragCoefficient = 0.2,
         LayerChangeOffsetHeight = -0.9,
         MaxAcceleration = 1.7,
-        MaxSpeed = 1.5,		#1.7
+        MaxSpeed = 1.5,		--1.7
         MaxSpeedReverse = 0,
         MaxSteerForce = 12,
         MinSpeedPercent = 0,
@@ -1505,8 +1507,11 @@ UnitBlueprint {
                 Seabed = 'Air|Land|Water|Seabed',
                 Water = 'Air|Land|Water|Seabed',
             },
-			
-            FiringTolerance = 2,
+            
+			FiringRandomness = 0.2,
+            FiringRandomnessWhileMoving = 0.4,
+            
+            FiringTolerance = 0.2,
 
             Label = 'RightDisruptor',
 			
@@ -1519,7 +1524,7 @@ UnitBlueprint {
             MuzzleVelocity = 40,
 
             ProjectileId = '/projectiles/ADFQuantumDisruptor01/ADFQuantumDisruptor01_proj.bp',
-			ProjectileLifetime = 2,
+			ProjectileLifetime = 1.5,
 
             RackBones = {
                 {
@@ -1541,6 +1546,8 @@ UnitBlueprint {
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 4,
+            
+            ReTargetOnMiss = true,
 			
 			SlavedToBody = true,
 			SlavedToBodyArcRange = 80,
@@ -1564,16 +1571,16 @@ UnitBlueprint {
             TurretDualManipulators = false,
 			
             TurretPitch = 0,
-            TurretPitchRange = 60,
-            TurretPitchSpeed = 60,
+            TurretPitchRange = 75,
+            TurretPitchSpeed = 45,
 			
             TurretYaw = -35,
-            TurretYawRange = 120,
-            TurretYawSpeed = 45,
+            TurretYawRange = 80,
+            TurretYawSpeed = 40,
 			
             Turreted = true,
 			
-            UseFiringSolutionInsteadOfAimBone = false,
+            UseFiringSolutionInsteadOfAimBone = true,
         },
         {
             AboveWaterFireOnly = true,
@@ -1597,7 +1604,7 @@ UnitBlueprint {
 			
             EnergyChargeForFirstShot = false,
 			
-            EnergyDrainPerSecond = 25000,
+            EnergyDrainPerSecond = 3000,
             EnergyRequired = 30000,
 			
             FireTargetLayerCapsTable = {
@@ -1642,7 +1649,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.1,
+            RateOfFire = 1,         -- rely totally upon the charge cycle now
 			
             SlavedToBody = true,
 			SlavedToBodyArcRange = 80,
@@ -1658,12 +1665,12 @@ UnitBlueprint {
             TurretDualManipulators = false,
 			
             TurretPitch = 0,
-            TurretPitchRange = 60,
-            TurretPitchSpeed = 30,
+            TurretPitchRange = 75,
+            TurretPitchSpeed = 45,
 			
             TurretYaw = -35,
-            TurretYawRange = 120,
-            TurretYawSpeed = 45,
+            TurretYawRange = 80,
+            TurretYawSpeed = 40,
 			
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
@@ -1691,13 +1698,13 @@ UnitBlueprint {
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 0,
 			
-            NukeInnerRingDamage = 14500,	#3500
-            NukeInnerRingRadius = 15,		#30
+            NukeInnerRingDamage = 14500,	--3500
+            NukeInnerRingRadius = 15,		--30
             NukeInnerRingTicks = 5,
             NukeInnerRingTotalTime = 1,
 			
-            NukeOuterRingDamage = 4500,		#500
-            NukeOuterRingRadius = 25,		#40
+            NukeOuterRingDamage = 4500,		--500
+            NukeOuterRingRadius = 25,		--40
             NukeOuterRingTicks = 5,
             NukeOuterRingTotalTime = 4,
 			

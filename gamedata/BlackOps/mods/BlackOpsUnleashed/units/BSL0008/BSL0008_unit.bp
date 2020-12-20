@@ -2,6 +2,9 @@ UnitBlueprint {
     AI = {
 		GuardReturnRadius = 35,
         GuardScanRadius = 30,
+		TargetBones = {
+            'Barrel',
+		},
     },
     Audio = {
         Destroyed = Sound {
@@ -332,7 +335,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.05,		#-- 140 Dps
+            RateOfFire = 0.05,		---- 140 Dps
             RenderFireClock = true,
 			
             SlavedToBody = true,

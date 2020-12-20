@@ -2,6 +2,9 @@ UnitBlueprint {
     AI = {
 		AttackAngle = 42,
         GuardReturnRadius = 60,
+		TargetBones = {
+            'XRS0305',
+		},
     },
 	
     Audio = {
@@ -71,6 +74,7 @@ UnitBlueprint {
         'SUBMERSIBLE',
         'VISIBLETORECON',
         'RECLAIMABLE',
+        'OVERLAYSONAR',
     },
 	
     CollisionOffsetY = -0.25,
@@ -86,7 +90,7 @@ UnitBlueprint {
         TorpRedirectField01 = {
             AttachBone = 'XRS0305',
             Radius = 6,
-            RedirectRateOfFire = 6,	#-- this is not rate of fire but ticks between firing
+            RedirectRateOfFire = 6,	---- this is not rate of fire but ticks between firing
         },
     },
 	
@@ -511,7 +515,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,		#-- 35 DPS 
+            RateOfFire = 1,		---- 35 DPS 
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 135,
@@ -593,7 +597,7 @@ UnitBlueprint {
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
 
-            RateOfFire = 1,	#-- 35 DPS 
+            RateOfFire = 1,	---- 35 DPS 
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 135,

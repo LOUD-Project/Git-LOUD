@@ -57,6 +57,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'NAVALCARRIER',
         'SHOWQUEUE',
+        'OVERLAYRADAR',
     },
 	
     CollisionOffsetY = -0.375,

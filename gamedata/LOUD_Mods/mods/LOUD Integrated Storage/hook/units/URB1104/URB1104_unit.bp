@@ -1,6 +1,6 @@
 UnitBlueprint {
 	Merge = true,
-	BlueprintId = "urb1104", #Cybran T2 Mass Fabricator
+	BlueprintId = "urb1104", --Cybran T2 Mass Fabricator
     Defense = {
         RegenRate = 3,
     },

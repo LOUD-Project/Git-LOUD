@@ -1,6 +1,6 @@
 UnitBlueprint {
 	Merge = true,
-	BlueprintId = "uabssg01", #Aeon T4 Shield
+	BlueprintId = "uabssg01", --Aeon T4 Shield
     Economy = {
         BuildRate = 25,
         BuildableCategory = {

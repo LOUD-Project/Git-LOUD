@@ -81,7 +81,7 @@ function ExistingBasesHaveGreaterThanFactory( aiBrain, basetype, numReq, categor
 			end	
 		end
 	end
-	
+
 	return true
 end
 
@@ -166,6 +166,7 @@ end
 
 function DefensivePointNeedsStructure( aiBrain, locationType, locationRadius, category, markerRadius, unitMax, threatMin, threatMax, threatRings, threatType )
 
+    -- NOTE: This returns true for actual DP markers AND Expansion Marker (as opposed to Large Expansion Marker)
     if AIFindDefensivePointNeedsStructure( aiBrain, locationType, locationRadius, category, markerRadius, unitMax, threatMin, threatMax, threatRings, threatType ) then
         return true
     end
@@ -280,6 +281,10 @@ end
 
 function HaveLessThanUnitsWithCategoryAndAlliance(aiBrain, numReq, testCat, alliance)
 	return GetNumUnitsAroundPoint( aiBrain, testCat, Vector(0,0,0), 999999, alliance ) < numReq
+end
+
+function HaveLessThanUnitsWithCategoryAndAllianceInRange(aiBrain, numReq, testCat, alliance, range)
+	return GetNumUnitsAroundPoint( aiBrain, testCat, Vector(0,0,0), range, alliance ) < numReq
 end
 
 function PoolLess( aiBrain, unitCount, testCat)
@@ -501,7 +506,7 @@ function BelowEngineerCapCheck(aiBrain, locationType, techLevel)
 	local capCheck = aiBrain.BuilderManagers[locationType].BaseSettings.EngineerCount[techLevel]
 
     -- always use the largest value - so even if the cheat level is less than 1 - we'll have the usual number of engineers
-    capCheck = math.max( capCheck, math.floor(capCheck * ( (tonumber(ScenarioInfo.Options.AIMult )) * (tonumber(ScenarioInfo.Options.AIMult )) )) )
+    capCheck = math.max(capCheck, math.floor(capCheck * ((aiBrain.CheatValue) * (aiBrain.CheatValue))))
 
 	if aiBrain.StartingUnitCap > 1000 then
 	
@@ -547,7 +552,7 @@ function AboveEngineerCapCheck(aiBrain, locationType, techLevel)
 	local capCheck = aiBrain.BuilderManagers[locationType].BaseSettings.EngineerCount[techLevel]
     
     -- multiply the engineer limit by the AI multiplier - but insure it's never less than minimum (if multiplier is less than 1)
-    capCheck = math.max( capCheck, math.floor(capCheck * ( (tonumber(ScenarioInfo.Options.AIMult )) * (tonumber(ScenarioInfo.Options.AIMult )) )) )
+    capCheck = math.max( capCheck, math.floor(capCheck * ( (aiBrain.CheatValue) * (aiBrain.CheatValue) )) )
 
 	if aiBrain.StartingUnitCap > 1000 then
 	

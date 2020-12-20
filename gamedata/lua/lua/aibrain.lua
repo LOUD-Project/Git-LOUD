@@ -1,101 +1,157 @@
-######################
-# AIBrain Lua Module
-######################
+--
+-- AIBrain Lua Module
+--
 
 	-- Enable LOUD debugging options
 	LOG("*AI DEBUG Setting LOUD DEBUG & LOG options")
 
-	ScenarioInfo.NameEngineers = false
+
+    
+    --- ENGINEER and FACTORY DEBUGS ---
+
+
+    -- AI Engineers will be named according to the Builder they are running 
+	ScenarioInfo.NameEngineers = true
 	LOG("*AI DEBUG		Name Engineers is "..repr(ScenarioInfo.NameEngineers))
-	
 
-	-- ATTACK PLANS and AI Strength Ratios
-	ScenarioInfo.DisplayAttackPlans = false
-	LOG("*AI DEBUG		Display Attack Plan is "..repr(ScenarioInfo.DisplayAttackPlans))
+    -- engineers will dialog their decisions to the LOG --
+    ScenarioInfo.EngineerDialog = false
+    LOG("*AI DEBUG      Report Engineer Dialog is "..repr(ScenarioInfo.EngineerDialog))
 
-	ScenarioInfo.ReportRatios = false
-	LOG("*AI DEBUG		Report Layer Ratios to Log is "..repr(ScenarioInfo.ReportRatios))
-	
-	-- SHOW AI Bases as Markers on map
-	ScenarioInfo.DisplayBaseNames = false
-	LOG("*AI DEBUG		Display Base Names is "..repr(ScenarioInfo.DisplayBaseNames))
-
-	
-	-- Show what FACTORIES and PLATOONS are running and who is in what platoon
+    -- Factories will be named according to the builder they are currently running --
 	ScenarioInfo.DisplayFactoryBuilds = false
 	LOG("*AI DEBUG		Display Factory Builds is "..repr(ScenarioInfo.DisplayFactoryBuilds))
 
+
+	
+	-- ENGINEER, FACTORY and STRUCTURE UNIT UPGRADES --
+
+    
+    -- Each ACU will dialog Enhancement data and decisions to the LOG
+	ScenarioInfo.ACUEnhanceDialog = false
+	LOG("*AI DEBUG		Report  ACU Enhancement Dialog to Log is "..repr(ScenarioInfo.ACUEnhanceDialog))
+	
+    -- Each SACU will dialog Enhancement data and decisions to the LOG
+	ScenarioInfo.SCUEnhanceDialog = false
+	LOG("*AI DEBUG		Report  SCU Enhancement Dialog to Log is "..repr(ScenarioInfo.SCUEnhanceDialog))
+
+    -- Each FACTORY will dialog Enhancement data and decisions to the LOG
+	ScenarioInfo.FactoryEnhanceDialog = false
+	LOG("*AI DEBUG		Report  Factory Enhancement Dialog to Log is "..repr(ScenarioInfo.FactoryEnhanceDialog))
+
+    -- ALL STRUCTURES THAT UPGRADE - will report upgrade data and decisions to the LOG 
+	ScenarioInfo.StructureUpgradeDialog = false
+	LOG("*AI DEBUG		Report  Structure Upgrade Dialog to Log is "..repr(ScenarioInfo.StructureUpgradeDialog))
+
+
+
+	-- ATTACK PLANS and STRENGTH RATIOS
+
+    
+    -- AI will display the route and goal of his current attack plan
+	ScenarioInfo.DisplayAttackPlans = false
+	LOG("*AI DEBUG		Display Attack Plan is "..repr(ScenarioInfo.DisplayAttackPlans))
+    
+    -- the AttackPlanner will dialog their selection and plotting data and decisions to the LOG
+    ScenarioInfo.AttackPlanDialog = false
+    LOG("*AI DEBUG      Attack Plan Dialog to log is "..repr(ScenarioInfo.AttackPlanDialog))
+
+    -- the Intel thread will dialog calculated LAND,AIR and NAVAL ratios to the LOG file on each Intel Thread cycle
+	ScenarioInfo.ReportRatios = false
+	LOG("*AI DEBUG		Report Layer Ratios to Log is "..repr(ScenarioInfo.ReportRatios))
+
+
+
+    -- INTEL/THREAT DATA -- MONITORS AND DEBUGS --
+
+    
+    -- AI will dialog Intel threat data and decisions to the LOG
+    ScenarioInfo.IntelDialog = false
+    LOG("*AI DEBUG      Report Intel Dialog is "..repr(ScenarioInfo.IntelDialog))
+    
+    -- AI will display color coded and relatively sized rings, on the map, for different types of threat
+    -- the threats that are displayed (not all are) is controlled in PARSEINTELTHREAD
+	ScenarioInfo.DisplayIntelPoints = false
+	LOG("*AI DEBUG		Display Intel Points is "..repr(ScenarioInfo.DisplayIntelPoints))
+
+
+    
+    -- BASES AND BASE THREAT MONITORS --
+
+    
+    -- Each AI base will appear on the map with it's name - while active
+	ScenarioInfo.DisplayBaseNames = false
+	LOG("*AI DEBUG		Display Base Names is "..repr(ScenarioInfo.DisplayBaseNames))
+
+    -- Each AI base will dialog its threat monitor data and decisions to the LOG
+	ScenarioInfo.BaseMonitorDialog = false
+	LOG("*AI DEBUG		Report Base Monitor Dialogs to Log is "..repr(ScenarioInfo.BaseMonitorDialog))
+
+    -- Each AI base will draw a ring indicating the range of the base monitor - each time it checks for threat
+	ScenarioInfo.DisplayBaseMonitors = false
+	LOG("*AI DEBUG		Display Base Monitors is "..repr(ScenarioInfo.DisplayBaseMonitors))
+    
+    -- Each AI base will dialog Distress Responses to alerts raised by the base monitor
+    ScenarioInfo.BaseDistressResponseDialog = false
+    LOG("*AI DEBUG      Report Base Distress Dialogs is "..repr(ScenarioInfo.BaseDistressResponseDialog))
+
+    -- The DeadBaseMonitor will dialog all bases being checked 
+    ScenarioInfo.DeadBaseMonitorDialog = false
+    LOG("*AI DEBUG      Report DeadBaseMonitor Dialog is "..repr(ScenarioInfo.DeadBaseMonitorDialog))
+    
+    -- AI will ping the map with the location of alerts raised by the base monitor
+	ScenarioInfo.DisplayPingAlerts = false
+	LOG("*AI DEBUG		Display Ping Alerts is "..repr(ScenarioInfo.DisplayPingAlerts))
+
+
+	
+    -- BASE PLATOON FORMATION AND PLATOON BEHAVIORS
+
+
+    -- Each Base will dialog its Platoon Formation data and decisions to the LOG (pretty busy)
 	ScenarioInfo.PlatoonDialog = false
 	LOG("*AI DEBUG		Report  Platoon Dialog to Log is "..repr(ScenarioInfo.PlatoonDialog))
-
-	ScenarioInfo.PlatoonMergeDialog = false
-	LOG("*AI DEBUG		Report Platoon Merge actions to log is "..repr(ScenarioInfo.PlatoonMergeDialog))
 	
-	ScenarioInfo.DisplayPlatoonPlans = true
-	LOG("*AI DEBUG		Display Platoon Plans is "..repr(ScenarioInfo.DisplayPlatoonPlans))
-	
+    -- ALL AI units will be named with the platoon (BuilderName) they are in (can be very crowded onscreen)
 	ScenarioInfo.DisplayPlatoonMembership = false
 	LOG("*AI DEBUG		Display Platoon Membership is "..repr(ScenarioInfo.DisplayPlatoonMembership))
+    
+    -- AI will display the platoon (Buildername) over the platoon every few seconds (not crowded but must look closely)
+	ScenarioInfo.DisplayPlatoonPlans = false
+	LOG("*AI DEBUG		Display Platoon Plans is "..repr(ScenarioInfo.DisplayPlatoonPlans))
 
+    -- AI bases and platoons that respond to distress will dialog their data and decisions to the LOG
+	ScenarioInfo.DistressResponseDialog = false
+	LOG("*AI DEBUG		Report Distress Response Dialogs to Log is "..repr(ScenarioInfo.DistressResponseDialog))
+
+    -- AI platoons that MERGE_INTO or MERGE_WITH will dialog their data and decisions to the LOG
+	ScenarioInfo.PlatoonMergeDialog =  false
+	LOG("*AI DEBUG		Report Platoon Merge actions to log is "..repr(ScenarioInfo.PlatoonMergeDialog))
 
     -- TRANSPORT dialogs - report all transport activity to log file (this can be very busy)
 	ScenarioInfo.TransportDialog = false
     LOG("*AI DEBUG      Transport Dialogs to Log is "..repr(ScenarioInfo.TransportDialog))
-
     
-    -- PATHFINDING dialogs - report pathfinding failures to log
+    -- PATHFINDING dialogs - report pathfinding failures to log (useful in debugging poorly marked maps and doing threat evaluation debugging)
     ScenarioInfo.PathFindingDialog = false
     LOG("*AI DEBUG      Pathfinding Dialogs to Log is "..repr(ScenarioInfo.PathFindingDialog))
 
+
+
+    -- HARDCORE NERD DATA - only for those who really need to dig into the guts of how things work
+
     
-	-- JOB PRIORITY dialogs - show the priority values of Eng/Factory/Platoons when they change
+	-- PRIORITY dialogs - Builder priority changes are dialoged to the LOG
 	ScenarioInfo.PriorityDialog = false
 	LOG("*AI DEBUG		Report Priority Changes to Log is "..repr(ScenarioInfo.PriorityDialog))
 
-    
-    -- INSTANCE COUNT dialogs - shows instance counts for tasks as they are used/released
+    -- INSTANCE COUNT dialogs - Instanced Builder count increase/decrease is dialoged to the LOG (very busy)
     ScenarioInfo.InstanceDialog = false
     LOG("*AI DEBUG      Report Instance Counts to Log is "..repr(ScenarioInfo.InstanceDialog))
 
-	
-	-- UNIT BUFF dialog - show units being buffed and de-buffed
+	-- UNIT BUFF dialog - show units being buffed and de-buffed (this can be pretty busy)
 	ScenarioInfo.BuffDialog = false
 	LOG("*AI DEBUG		Buff System Dialogs to Log is "..repr(ScenarioInfo.BuffDialog))
-
-	
-	-- INTEL, BASEMONITORS and DISTRESS RESPONSE dialogs
-    ScenarioInfo.IntelDialog = false
-    LOG("*AI DEBUG      Report Intel Dialog is "..repr(ScenarioInfo.IntelDialog))
-    
-	ScenarioInfo.DisplayIntelPoints = false
-	LOG("*AI DEBUG		Display Intel Points is "..repr(ScenarioInfo.DisplayIntelPoints))
-
-	ScenarioInfo.DisplayPingAlerts = false
-	LOG("*AI DEBUG		Display Ping Alerts is "..repr(ScenarioInfo.DisplayPingAlerts))
-
-	ScenarioInfo.BaseMonitorDialog = false
-	LOG("*AI DEBUG		Report Base Monitor Dialogs to Log is "..repr(ScenarioInfo.BaseMonitorDialog))
-
-	ScenarioInfo.DisplayBaseMonitors = false
-	LOG("*AI DEBUG		Display Base Monitors is "..repr(ScenarioInfo.DisplayBaseMonitors))
-	
-	ScenarioInfo.DistressResponseDialog = false
-	LOG("*AI DEBUG		Report Distress Response Dialogs to Log is "..repr(ScenarioInfo.DistressResponseDialog))
-
-	
-	-- UNIT Upgrades and Enhancement dialogs
-	ScenarioInfo.ACUEnhanceDialog = false
-	LOG("*AI DEBUG		Report  ACU Enhancement Dialog to Log is "..repr(ScenarioInfo.ACUEnhanceDialog))
-	
-	ScenarioInfo.SCUEnhanceDialog = false
-	LOG("*AI DEBUG		Report  SCU Enhancement Dialog to Log is "..repr(ScenarioInfo.SCUEnhanceDialog))
-
-	ScenarioInfo.FactoryEnhanceDialog = false
-	LOG("*AI DEBUG		Report  Factory Enhancement Dialog to Log is "..repr(ScenarioInfo.FactoryEnhanceDialog))
-
-	ScenarioInfo.StructureUpgradeDialog = false
-	LOG("*AI DEBUG		Report  Structure Upgrade Dialog to Log is "..repr(ScenarioInfo.StructureUpgradeDialog))
-
 	
 	-- Projectile, Shield and Weapon dialogs (VERY COSTLY)
 	ScenarioInfo.ProjectileDialog = false
@@ -139,6 +195,36 @@ local CurrentVOPlaying = false
 
 local factions = {'UEF', 'Aeon', 'Cybran', 'Seraphim'}
 
+-- List of AI cheat multipliers to map against per-AI lobby setting
+-- Only for backwards compatibility
+
+local aiMults = {
+    0.8,
+    0.9,
+    1.0,
+    1.05,
+    1.075,
+    1.1,
+    1.125,
+    1.15,
+    1.175,
+    1.2,
+    1.225,
+    1.25,
+    1.275,
+    1.3,
+    1.325,
+    1.35,
+    1.375,
+    1.4,
+    1.45,
+    1.5,
+    1.6,
+    1.75,
+    2.0,
+    2.5
+}
+
 -- VO Timeout and Replay Durations
 
 local VOReplayTime = {
@@ -179,8 +265,6 @@ Marker = function(mType, mposition)
 	return {type=mType, position=mposition}
 	
 end
-
-
 
 function locals()
 
@@ -439,9 +523,7 @@ function CollectCurrentScores()
            ArmyScore[index].resources.energyover = GetArmyStat( brain, "Economy_AccumExcess_Energy", 0.0).Value
 		   
            WaitTicks(braindelay)
-		   
         end
-		
     end
 	
 end
@@ -598,11 +680,21 @@ AIBrain = Class(moho.aibrain_methods) {
         -- all AI are technically 'cheaters' now --
         self.CheatingAI = true
 
-        -- store the cheat value (ie. 1.1 = 10% cheat)
-        self.CheatValue = tonumber(ScenarioInfo.Options.AIMult)
-        
-        LOG("*AI DEBUG Setting Cheat Value to "..repr(self.CheatValue))
+		-- Store the cheat value (ie. 1.1 = 10% cheat)
+		local s = ScenarioInfo.ArmySetup[self.Name].Mult
+		local m
+		if type(s) == "string" then
+			m = tonumber(ScenarioInfo.ArmySetup[self.Name].Mult)
+		else
+			m = aiMults[ScenarioInfo.ArmySetup[self.Name].Mult]
+		end
+		if m then m = math.max(0.1, m) end
+        self.CheatValue = m
+        self.BaseCheat = m
 
+		-- 1 for fixed, 2 for feedback, 3 for time, 4 for both
+		self.Adaptive = ScenarioInfo.ArmySetup[self.Name].ACT
+		
         local civilian = false
         
         for name,data in ScenarioInfo.ArmySetup do
@@ -614,9 +706,9 @@ AIBrain = Class(moho.aibrain_methods) {
 				break
             end
         end
-		
-        if not civilian then
-		
+
+		if not civilian then
+
 			if planName and planName != '' then
 			
 				self.AIPlansList = import(planName).AIPlansList
@@ -633,8 +725,21 @@ AIBrain = Class(moho.aibrain_methods) {
 				
 				-- start the plan
 				ForkThread( self.CurrentPlanScript.ExecutePlan, self )
+
+				-- Start adaptive cheat threads
+				if (self.Adaptive == 2 or self.Adaptive == 4) then
+					self.RatioACT = ForkThread(import('/lua/loudutilities.lua').RatioAdaptiveCheatThread, self)
+				end
+				if (self.Adaptive == 3 or self.Adaptive == 4) then
+					self.TimeACT = ForkThread(import('/lua/loudutilities.lua').TimeAdaptiveCheatThread, self)
+				end
 			end
-		end
+		else
+        
+            -- Civilians are NOT Cheating AI
+            self.CheatingAI = false
+            
+        end
     end,
 
 	OnSpawnPreBuiltUnits = function(self)
@@ -1242,10 +1347,17 @@ AIBrain = Class(moho.aibrain_methods) {
 		
 			BaseName = baseName,
 			BaseType = basetype,
+            
+            -- The CountedBase flag indicates if this base is Production Base(counted)
 			CountedBase = countedbase,
 			
-			-- we set it to 8 so if none of the initial structures last very long we'll kill the base quickly --
-            nofactorycount = 8,						-- keeps track of how many sequential DeadBaseMonitor checks reported 'no factories'
+            -- The nofactorycount value increases every 25 seconds when there are no ENGINEERS OR FACTORIES at a 'counted'(production base)
+            -- This is NOT used for 'non-counted' bases ( all forms of DP) - which only die when ALL structures are destroyed --
+            
+			-- we set it to 2 so if the initial structures don't last we'll kill the base in about 3 minutes 
+            -- otherwise a production base will last upto 4 minutes afetr all ENGINEERS & FACTORIES are destroyed
+            -- in the hope that another engineer will arrive to continue the base operations
+            nofactorycount = 2,						-- keeps track of how many sequential DeadBaseMonitor checks reported 'no factories'
 			
             Position = table.copy(position),		-- stores the location of this base for quick reference
 			
@@ -1641,16 +1753,16 @@ AIBrain = Class(moho.aibrain_methods) {
 			self.T4ThreatFound[v] = false
 		end
 	end,
-#    INTEL TRIGGER SPEC
-#    {
-#        CallbackFunction = <function>,
-#        Type = 'LOS'/'Radar'/'Sonar'/'Omni',
-#        Blip = true/false,
-#        Value = true/false,
-#        Category: blip category to match
-#        OnceOnly: fire onceonly
-#        TargetAIBrain: AI Brain of the army you want it to trigger off of.
-#    },
+--    INTEL TRIGGER SPEC
+--    {
+--        CallbackFunction = <function>,
+--        Type = 'LOS'/'Radar'/'Sonar'/'Omni',
+--        Blip = true/false,
+--        Value = true/false,
+--        Category: blip category to match
+--        OnceOnly: fire onceonly
+--        TargetAIBrain: AI Brain of the army you want it to trigger off of.
+--    },
     SetupArmyIntelTrigger = function(self, triggerSpec)
         LOUDINSERT(self.IntelTriggerList, triggerSpec)
     end,

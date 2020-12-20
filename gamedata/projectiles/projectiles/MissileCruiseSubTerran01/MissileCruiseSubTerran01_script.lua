@@ -1,6 +1,6 @@
-#
-# script for projectile Missile
-#
+--
+-- script for projectile Missile
+--
 local TMissileCruiseSubProjectile = import('/lua/terranprojectiles.lua').TMissileCruiseSubProjectile
 local CreateEmitterAtEntity = CreateEmitterAtEntity
 

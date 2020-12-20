@@ -2,6 +2,10 @@ UnitBlueprint {
     AI = {
         AttackAngle = 60,
         GuardReturnRadius = 130,
+		TargetBones = {
+            'UAS0202',
+            'Turret_Front',
+        },
     },
 	
     Audio = {
@@ -228,9 +232,9 @@ UnitBlueprint {
     SelectionSizeZ = 4,
     SelectionThickness = 0.15,
     
-    SizeX = 1.2,
-    SizeY = 1.6,
-    SizeZ = 4.1,
+    SizeX = 2.2,
+    SizeY = 1.5,
+    SizeZ = 4.5,
     
     StrategicIconName = 'icon_ship3_directfire',
     StrategicIconSortPriority = 155,

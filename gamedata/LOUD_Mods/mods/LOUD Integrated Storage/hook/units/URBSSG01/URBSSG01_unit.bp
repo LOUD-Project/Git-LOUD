@@ -1,6 +1,6 @@
 UnitBlueprint {
 	Merge = true,
-	BlueprintId = "urbssg01", #Cybran T4 Shield
+	BlueprintId = "urbssg01", --Cybran T4 Shield
     Economy = {
         BuildRate = 25,
         BuildableCategory = {

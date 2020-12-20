@@ -1,6 +1,6 @@
-#
-# UEF Subcommander Heavy Plasma bolt
-#
+--
+-- UEF Subcommander Heavy Plasma bolt
+--
 local THeavyPlasmaCannonProjectile = import('/lua/terranprojectiles.lua').THeavyPlasmaCannonProjectile
 local CreateLightParticle = CreateLightParticle
 local CreateEmitterAtEntity = CreateEmitterAtEntity

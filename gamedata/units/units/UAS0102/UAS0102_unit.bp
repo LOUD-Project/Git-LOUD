@@ -234,7 +234,7 @@ UnitBlueprint {
             RackSlavedToTurret = false,
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 2,		#-- 3 times 20 damage = 60 damage twice per second = 120 DPS
+            RateOfFire = 2,		---- 3 times 20 damage = 60 damage twice per second = 120 DPS
 			
             TargetCheckInterval = 0.5,
 			

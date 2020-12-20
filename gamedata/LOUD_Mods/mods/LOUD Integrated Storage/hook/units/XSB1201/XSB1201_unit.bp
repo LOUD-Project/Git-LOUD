@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "xsb1201", #Seraphim T2 Energy
+    BlueprintId = "xsb1201", --Seraphim T2 Energy
     Economy = {
         BuildRate = 15,
         BuildableCategory = {

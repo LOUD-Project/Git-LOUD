@@ -208,6 +208,8 @@ DefaultProjectileWeapon = Class(Weapon) {
 
 	-- passed in the bp data to save the call
     StartEconomyDrain = function(self, bp)
+    
+        --LOG("*AI DEBUG Start Economy Drain "..repr(self.FirstShot).." EconDrain is "..repr(self.EconDrain) )
 	
         if self.FirstShot then return end
 		
@@ -837,7 +839,7 @@ DefaultProjectileWeapon = Class(Weapon) {
 
             self:OnWeaponFired()
 
-            -- Most of the time this will only run once, the only time it doesn't is when racks fire together.
+            -- Most of the time this will only run once per rack, the only time it doesn't is when racks fire together.
             while self.CurrentRackSalvoNumber <= numRackFiring and not self.HaltFireOrdered do
 			
                 local rackInfo = bp.RackBones[self.CurrentRackSalvoNumber]
@@ -845,6 +847,8 @@ DefaultProjectileWeapon = Class(Weapon) {
 				local MuzzlesToBeFired = LOUDGETN(bp.RackBones[self.CurrentRackSalvoNumber].MuzzleBones)
                 local numMuzzlesFiring = bp.MuzzleSalvoSize
 
+                -- this is a highly questionable statement since it always overrides the MuzzleSalvoSize
+                -- IF the number of muzzles is different and the MuzzleSalvoDelay is zero
                 if bp.MuzzleSalvoDelay == 0 then
                     numMuzzlesFiring = MuzzlesToBeFired
                 end

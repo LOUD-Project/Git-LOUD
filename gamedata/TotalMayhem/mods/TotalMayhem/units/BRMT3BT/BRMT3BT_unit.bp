@@ -1,12 +1,15 @@
 UnitBlueprint {
     AI = { 
         GuardScanRadius = 60, 
+       	TargetBones = {
+            'Turret',
+        },
     },
 	
     Audio = {
         Destroyed = Sound {
-            Bank = 'TM_EXPLOSIONS',
-            Cue = 'TANKDEATH',
+            Bank = 'URLDestroy',
+            Cue = 'URL_Destroy_Land',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         StartMove = Sound {
@@ -47,6 +50,8 @@ UnitBlueprint {
         'OVERLAYDIRECTFIRE',
 		'OVERLAYINDIRECTFIRE',
     },
+	
+	CollisionOffsetZ = -0.2,
 	
     Defense = {
         ArmorType = 'Normal',
@@ -149,8 +154,8 @@ UnitBlueprint {
     SelectionThickness = 0.5,
 	
     SizeX = 1.0,
-    SizeY = 0.35,
-    SizeZ = 1.0,
+    SizeY = 0.45,
+    SizeZ = 1.4,
 	
     StrategicIconName = 'icon_land3_directfire',
     StrategicIconSortPriority = 125,
@@ -173,8 +178,8 @@ UnitBlueprint {
 			
             Audio = {
                 Fire = Sound {
-                    Bank = 'TM_CYBRANWEAPONS',
-                    Cue = 'BRMT3BTRLFIRE',
+                    Bank = 'URLWeapon',
+                    Cue = 'URL0402_Missile_Nanite',
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
@@ -208,21 +213,21 @@ UnitBlueprint {
 			
             FiringTolerance = 1,
             FiringRandomness = 1.5,
-			FiringRandomnessWhileMoving = 4.5,
+						FiringRandomnessWhileMoving = 4.5,
 			
             Label = 'rocket',
 			
             MaxRadius = 42,
-			MinRadius = 6,
+						MinRadius = 6,
 			
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 6,
             MuzzleVelocity = 15,
             MuzzleVelocityRandomness = 2.5,
 			
-			NotExclusive = true,
+						NotExclusive = true,
 			
-            ProjectileId = '/mods/TotalMayhem/projectiles/BRMT3BTRLproj/BRMT3BTRLproj_proj.bp',
+            ProjectileId = '/mods/TotalMayhem/projectiles/cybranrocketproj/cybranrocket_proj.bp',
             ProjectileLifetimeUsesMultiplier = 4,
 
             RackBones = {
@@ -260,7 +265,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.10,	# 60dps
+            RateOfFire = 0.10,	-- 60dps
 			RenderFireClock = true,
 			
             TargetCheckInterval = 2,
@@ -295,26 +300,11 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStop = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Stop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'TM_CYBRANWEAPONS',
-                    Cue = 'BRMT3BTFIRE',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
+                Fire = Sound { 
+									Bank = 'TM_CYBRANWEAPONS', 
+									Cue = 'BRMHEAVYTANKFIRE1', 
+									LodCutoff = 'WeaponBig_LodCutoff' 
+								},
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
@@ -342,15 +332,11 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
+                    MuzzleBones = { 'Turret_Muzzle' },
                     RackBone = 'Turret_Barrel',
                 },
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle2',
-                    },
+                    MuzzleBones = { 'Turret_Muzzle2' },
                     RackBone = 'Turret_Barrel2',
                 },
             },
@@ -364,7 +350,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.4,	# 160 dps
+            RateOfFire = 0.4,	-- 160 dps
 			
             TargetCheckInterval = 1.0,
             TargetPriorities = {

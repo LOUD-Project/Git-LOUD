@@ -25,6 +25,6 @@ function CalculateWaypointLineWidth(unitCount)
         lineWidth = 10
     end
 
-#    LOG('lineWidth: ', lineWidth)
+--    LOG('lineWidth: ', lineWidth)
 	return ( lineWidth )
 end

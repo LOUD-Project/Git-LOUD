@@ -2,6 +2,11 @@ UnitBlueprint {
     AI = {
         AttackAngle = 30,
         GuardScanRadius = 50,
+        TargetBones = {
+            'WEL0401',
+            'Center_Turret',
+            'Napalm_Missile_Yaw',
+        },
     },
     
     Audio = {
@@ -324,11 +329,11 @@ UnitBlueprint {
     SelectionSizeZ = 5.25,
     SelectionThickness = 0.34,
     
-    SizeX = 5.5,
-    SizeY = 3,
-    SizeZ = 8,
+    SizeX = 5.2,
+    SizeY = 2.5,
+    SizeZ = 7.5,
     
-    StrategicIconName = 'icon_experimental_land_directfire',
+    StrategicIconName = 'icon_experimental_land_artillery',
     StrategicIconSortPriority = 45,
     
     Transport = {

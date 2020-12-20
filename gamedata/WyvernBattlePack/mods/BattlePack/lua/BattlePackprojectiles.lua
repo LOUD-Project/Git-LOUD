@@ -1,15 +1,15 @@
-#****************************************************************************
-#**
-#**  File     :  /data/lua/cybranprojectiles.lua
-#**  Author(s): John Comes, Gordon Duclos
-#**
-#**  Summary  :
-#**
-#**  Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
-#------------------------------------------------------------------------
-#  CYBRAN PROJECILES SCRIPTS
-#------------------------------------------------------------------------
+--****************************************************************************
+--**
+--**  File     :  /data/lua/cybranprojectiles.lua
+--**  Author(s): John Comes, Gordon Duclos
+--**
+--**  Summary  :
+--**
+--**  Copyright ï¿½ 2005 Gas Powered Games, Inc.  All rights reserved.
+--****************************************************************************
+--------------------------------------------------------------------------
+--  CYBRAN PROJECILES SCRIPTS
+--------------------------------------------------------------------------
 local DefaultProjectileFile = import('/lua/sim/defaultprojectiles.lua')
 local EmitterProjectile = DefaultProjectileFile.EmitterProjectile
 local OnWaterEntryEmitterProjectile = DefaultProjectileFile.OnWaterEntryEmitterProjectile
@@ -47,8 +47,8 @@ ODisintegratorLaserProjectile = Class(MultiPolyTrailProjectile) {
 }
 
 ------------------------------------------------------------------------
-#  TERRAN PHALANX PROJECTILES
-#------------------------------------------------------------------------
+--  TERRAN PHALANX PROJECTILES
+--------------------------------------------------------------------------
 TShellPhalanxProjectile = Class(MultiPolyTrailProjectile) {
     PolyTrails = BattlePackEffectTemplate.TPhalanxGunPolyTrails,
     PolyTrailOffset = EffectTemplate.TPhalanxGunPolyTrailsOffsets,
@@ -61,9 +61,9 @@ TShellPhalanxProjectile = Class(MultiPolyTrailProjectile) {
     FxProjectileHitScale = 0.7,
 }
 
-#------------------------------------------------------------------------
-#  Serephim Overcharge Projectile
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--  Serephim Overcharge Projectile
+--------------------------------------------------------------------------
 
 SOmegaCannonOverCharge = Class(MultiPolyTrailProjectile) {
 	FxImpactTrajectoryAligned = false,
@@ -104,9 +104,9 @@ ExWifeMainProjectile = Class(MultiPolyTrailProjectile) {
     FxUnitHitScale = 3,
 }
 
-#------------------------------------------------------------------------
-#  TERRAN ALTERNATE PLASMA CANNON PROJECTILES
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--  TERRAN ALTERNATE PLASMA CANNON PROJECTILES
+--------------------------------------------------------------------------
 TAlternatePlasmaCannonProjectile = Class(MultiPolyTrailProjectile) {
     FxTrails = EffectTemplate.TPlasmaCannonHeavyMunition,
     RandomPolyTrails = 1,
@@ -116,9 +116,9 @@ TAlternatePlasmaCannonProjectile = Class(MultiPolyTrailProjectile) {
     FxImpactProp = EffectTemplate.TPlasmaCannonHeavyHitUnit01,
     FxImpactLand = EffectTemplate.TPlasmaCannonHeavyHit01,
 }
-#------------------------------------------------------------------------
-#  TERRAN STINGER MISSILES
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--  TERRAN STINGER MISSILES
+--------------------------------------------------------------------------
 StingerMissile = Class(MultiPolyTrailProjectile) {
     FxTrails = {'/mods/BattlePack/effects/emitters/air_move_trail_beam_03_emit.bp',},
     FxTrailOffset = 1,
@@ -132,9 +132,9 @@ StingerMissile = Class(MultiPolyTrailProjectile) {
     FxImpactWater = BattlePackEffectTemplate.UefT3BattletankRocketHit,
 }
 
-#------------------------------------------------------------------------
-#  TERRAN NAPALM MISSILES
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--  TERRAN NAPALM MISSILES
+--------------------------------------------------------------------------
 NapalmMissile = Class(SingleCompositeEmitterProjectile) {
     FxInitial = {},
     TrailDelay = 0,
@@ -162,9 +162,9 @@ NapalmMissile = Class(SingleCompositeEmitterProjectile) {
 	FxImpactWaterScale = 2,
 }
 
-#------------------------------------------------------------------------
-#  NETHER ENERGY BOLT
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--  NETHER ENERGY BOLT
+--------------------------------------------------------------------------
 NEnergy = Class(MultiPolyTrailProjectile) {
 
 FxTrails = {
@@ -181,9 +181,9 @@ FxTrails = {
     FxImpactNone = BattlePackEffectTemplate.NPlasmaProjectileShieldHit01,
 }
 
-#------------------------------------------------------------------------
-# Star Adder Flamethrower
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+-- Star Adder Flamethrower
+--------------------------------------------------------------------------
 
 Flamethrower = Class(EmitterProjectile) {
 
@@ -201,9 +201,9 @@ Flamethrower = Class(EmitterProjectile) {
     FxImpactWater = BattlePackEffectTemplate.NPlasmaFlameThrowerHitWater01,
     FxImpactUnderWater = {},
 }
-#------------------------------------------------------------------------
-# --Star Adder Missiles - Compliments to Burnie for Effects
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+-- --Star Adder Missiles - Compliments to Burnie for Effects
+--------------------------------------------------------------------------
 StarAdderMissiles = Class(MultiPolyTrailProjectile) {
     	FxTrails  = {
             '/mods/BattlePack/effects/emitters/w_u_gau03_p_03_brightglow_emit.bp',
@@ -229,9 +229,9 @@ StarAdderMissiles = Class(MultiPolyTrailProjectile) {
     FxImpactWater = BattlePackEffectTemplate.BattleMech2RocketHit,
     FxWaterHitScale = 1.3,
 }
-#------------------------------------------------------------------------
-# --Star Adder Missiles - Compliments to Burnie for Effects
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+-- --Star Adder Missiles - Compliments to Burnie for Effects
+--------------------------------------------------------------------------
 StarAdderMissilesAir = Class(MultiPolyTrailProjectile) {
     	FxTrails  = {
             '/mods/BattlePack/effects/emitters/w_u_gau03_p_03_brightglow_emit.bp',
@@ -257,9 +257,9 @@ StarAdderMissilesAir = Class(MultiPolyTrailProjectile) {
     FxImpactWater = EffectTemplate.TMissileHit02,
     FxWaterHitScale = 1,
 }
-#------------------------------------------------------------------------
-#  BlackOps Flamethrower Projectile
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+--  BlackOps Flamethrower Projectile
+--------------------------------------------------------------------------
 NapalmProjectile01 = Class(EmitterProjectile) {
     FxTrails = {'/mods/BattlePack/Effects/Emitters/NapalmTrailFX.bp',},
     
@@ -286,9 +286,9 @@ NapalmProjectile02 = Class(EmitterProjectile) {
     FxImpactWater = BattlePackEffectTemplate.FlameThrowerHitWater01,
     FxImpactUnderWater = {},
 }
-#------------------------------------------------------------------------
-# Star Adder MachineGun
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+-- Star Adder MachineGun
+--------------------------------------------------------------------------
 GattlingRound = Class(MultiPolyTrailProjectile) {
     FxTrails = {},
     PolyTrails = EffectTemplate.TGaussCannonPolyTrail,
@@ -300,9 +300,9 @@ GattlingRound = Class(MultiPolyTrailProjectile) {
     FxImpactUnderWater = {},
 }
 
-#------------------------------------------------------------------------
-# Nomad Missile Stuff
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+-- Nomad Missile Stuff
+--------------------------------------------------------------------------
 
 StagedMissile = Class(SingleCompositeEmitterProjectile) {
     # a missile that goes through a few states. Useful to make a missile track or not track a target
@@ -398,9 +398,9 @@ FusionMissile = Class(StagedMissile) {
     end,
 }
 
-#------------------------------------------------------------------------
-# Gravity Cannon 01
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+-- Gravity Cannon 01
+--------------------------------------------------------------------------
 GravityCannon01Projectile = Class(MultiPolyTrailProjectile) {
     FxTrails = BattlePackEffectTemplate.GravityCannonFxTrail,
     PolyTrails = BattlePackEffectTemplate.GravityCannonPolyTrail,
@@ -412,9 +412,9 @@ GravityCannon01Projectile = Class(MultiPolyTrailProjectile) {
     FxImpactUnderWater = {},
 }
 
-#------------------------------------------------------------------------
-# Stingray Cannon
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+-- Stingray Cannon
+--------------------------------------------------------------------------
 
 Stingray = Class(MultiPolyTrailProjectile) {
     FxTrails = BattlePackEffectTemplate.NStingrayFXTrail,
@@ -427,9 +427,9 @@ Stingray = Class(MultiPolyTrailProjectile) {
     FxImpactUnderWater = {},
 }
 
-#------------------------------------------------------------------------
-# Green Stingray Cannon for Rommel
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+-- Green Stingray Cannon for Rommel
+--------------------------------------------------------------------------
 
 Stingray2 = Class(MultiPolyTrailProjectile) {
     FxTrails = BattlePackEffectTemplate.NStingray2FXTrail,
@@ -490,9 +490,9 @@ DragoniteMainCannon = Class(SinglePolyTrailProjectile) {
     end,
 }
 
-#------------------------------------------------------------------------
-# Lightning Cannon Child
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+-- Lightning Cannon Child
+--------------------------------------------------------------------------
 
 SeraHeavyLightningCannonChildProjectile = Class(EmitterProjectile) {
 	FxImpactTrajectoryAligned = false,

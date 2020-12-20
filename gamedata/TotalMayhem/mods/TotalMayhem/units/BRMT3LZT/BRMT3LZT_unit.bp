@@ -2,12 +2,15 @@ UnitBlueprint {
 
     AI = { 
         GuardScanRadius = 15, 
+       	TargetBones = {
+            'Turret',
+        },
     }, 
 	
     Audio = {
         Destroyed = Sound {
-            Bank = 'TM_EXPLOSIONS',
-            Cue = 'TANKDEATH',
+            Bank = 'URLDestroy',
+            Cue = 'URL_Destroy_Land',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         StartMove = Sound {
@@ -197,8 +200,8 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
             Audio = {
                 Fire = Sound {
-                    Bank = 'TM_CYBRANWEAPONS',
-                    Cue = 'CYBRANLASERTANKFIRE',
+                    Bank = 'URLWeapon',
+                    Cue = 'URL0303_Disintegrator',
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
@@ -218,7 +221,7 @@ UnitBlueprint {
             FiringTolerance = 2,
 			
             Label = 'MainGun',
-			LeadTarget = true,
+						LeadTarget = true,
 			
             MaxRadius = 40,
 			
@@ -229,8 +232,8 @@ UnitBlueprint {
 			
             NoPause = true,
 			
-            ProjectileId = '/mods/TotalMayhem/projectiles/BRMT2EPDproj/BRMT2EPDproj_proj.bp',
-			ProjectileLifetime = 0.8,
+            ProjectileId = '/projectiles/CDFLaserDisintegrator02/CDFLaserDisintegrator02_proj.bp',
+						ProjectileLifetime = 0.8,
 
             RackBones = {
                 {
@@ -260,7 +263,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 3,	# 2 Racks = 2 projectiles/3 times per second = 330dps
+            RateOfFire = 3,	-- 2 Racks = 2 projectiles/3 times per second = 330dps
 			
             TargetCheckInterval = 0.2,
 			

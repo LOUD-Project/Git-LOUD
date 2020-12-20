@@ -31,14 +31,14 @@ UnitBlueprint {
     },
     Description = '<LOC xsb5101_desc>Wall Section',
     Display = {
-#        AnimationDeath = {
-#            {
-#                Animation = '/units/xsb5101/xsb5101_ADeath.sca',
-#                AnimationRateMax = 1.5,
-#                AnimationRateMin = 0.5,
-#                Weight = 100,
-#            },
-#        },
+--        AnimationDeath = {
+--            {
+--                Animation = '/units/xsb5101/xsb5101_ADeath.sca',
+--                AnimationRateMax = 1.5,
+--                AnimationRateMin = 0.5,
+--                Weight = 100,
+--            },
+--        },
         DamageEffects = {
             {
                 Bone = 0,

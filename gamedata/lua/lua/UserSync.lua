@@ -29,6 +29,10 @@ local CurrentSimSpeed = 0	-- record the current sim speed rate and use this to d
 -- Here's an opportunity for user side script to examine the Sync table for the new tick
 function OnSync()
 
+    if not tempty(Sync.CameraRequests) then
+        import('/lua/UserCamera.lua').ProcessCameraRequests(Sync.CameraRequests)
+    end
+
     if Sync.RequestingExit then
         ExitGame()
     end

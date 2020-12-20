@@ -192,7 +192,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
-        UnitName = 'MSG Spiderbot',
+        UnitName = 'Cocoon',
         UnitWeight = 1,
     },
     
@@ -242,11 +242,11 @@ UnitBlueprint {
     SelectionSizeZ = 1.2,
     SelectionThickness = 0.4,
     
-    SizeX = 1,
-    SizeY = 1.15,
-    SizeZ = 1.5,
+    SizeX = 0.75,
+    SizeY = 1.0,
+    SizeZ = 1.2,
     
-    StrategicIconName = 'icon_land2_shield',
+    StrategicIconName = 'icon_bot2_shield',
     StrategicIconSortPriority = 125,
     
     Transport = {

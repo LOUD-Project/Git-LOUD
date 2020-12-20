@@ -1,6 +1,6 @@
-#
-# Lobby communications and common services
-#
+--
+-- Lobby communications and common services
+--
 quietTimeout = 16000.0 # milliseconds to wait before booting people
 maxPlayerSlots = 16
 maxConnections = 19 # count doesn't include ourself.
@@ -114,16 +114,17 @@ SteamDiscoveryService = Class(moho.steam_discovery_service_methods) {
 function CreateSteamDiscoveryService()
 
     local service = InternalCreateSteamDiscoveryService(SteamDiscoveryService)
---[[    
-	LOG("*AI DEBUG Methods = "..repr(moho.steam_discovery_service_methods) )
-    LOG("*AI DEBUG Lobby Methods = "..repr(moho.lobby_methods) )
 
+	--LOG("*AI DEBUG Methods = "..repr(moho.steam_discovery_service_methods) )
+    --LOG("*AI DEBUG Lobby Methods = "..repr(moho.lobby_methods) )
+
+--[[
     for k,v in moho do
         LOG("*AI DEBUG Method moho "..repr(k).." "..repr(v))
     end
-	
+
 	LOG("*AI DEBUG All methods "..repr(moho))
---]]	
+--]]
     return service
 	
 end
@@ -141,7 +142,6 @@ LobbyComm = Class(moho.lobby_methods) {
     GameConfigRequested = function(self) end,
     PeerDisconnected = function(self,peerName,uid) end,
     LaunchFailed = function(self,reasonKey) end,
-	
 
     # native void SendData(self, targetID, data)
     # native void BroadcastData(self,data)
@@ -169,6 +169,6 @@ function CreateLobbyComm(protocol, localport, localPlayerName, localPlayerUID, n
 
 	LOG("Creating Lobby Protocol "..repr(protocol).." Port: "..repr(localport).." MaxConnects: "..repr(maxConnections) )
 	
-    return InternalCreateLobby(LobbyComm, protocol, localport, maxConnections, localPlayerName, localPlayerUID, natTraversalProvider)
+    return InternalCreateLobby( LobbyComm, protocol, localport, maxConnections, localPlayerName, localPlayerUID, natTraversalProvider)
 	
 end

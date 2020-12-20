@@ -14,6 +14,7 @@ UnitBlueprint {
             'Front_Right_WakeR',
             'Back_Left_Barrel',
             'Right_Railgun_Turret',
+			'Zapper_Muzzle',
         },
     },
 	
@@ -65,7 +66,8 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
         'BATTLESHIP',
-		'BOMBARDMENT',
+        'BOMBARDMENT',
+        'OVERLAYRADAR','OVERLAYSONAR',
     },
 	
     CollisionOffsetY = -0.8,
@@ -262,7 +264,7 @@ UnitBlueprint {
     SelectionThickness = 0.15,
 	
     SizeX = 5.3,
-    SizeY = 1.8,
+    SizeY = 2.3,
     SizeZ = 10.6,
 	
     StrategicIconName = 'icon_experimental_ship_missile',

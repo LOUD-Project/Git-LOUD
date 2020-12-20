@@ -226,29 +226,29 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_HighArc',
             CollideFriendly = false,
 			
-            Damage = 160,		#-- this is neat - fires one shell - which splits into 6 - and those 6 split into 6 - making 36 projectiles
-            DamageRadius = 2,	#-- even more interesting - if it impacts with shield does not do the last split so only 6 projectiles
+            Damage = 160,		---- this is neat - fires one shell - which splits into 6 - and those 6 split into 6 - making 36 projectiles
+            DamageRadius = 2,	---- even more interesting - if it impacts with shield does not do the last split so only 6 projectiles
 			
             DamageType = 'Normal',
             DisplayName = 'Rapid-Fire Artillery Cannon',
 			
-            EnergyDrainPerSecond = 5500,
-            EnergyRequired = 16500,		#-- a 3 second charge cycle
+            EnergyDrainPerSecond = 4000,
+            EnergyRequired = 18000,		---- a 4.5 second charge cycle
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
 			
-            FiringRandomness = 0.36,
+            FiringRandomness = 0.39,
             FiringTolerance = 0.05,
 			
             Label = 'MainGun',
 			
-            MaxRadius = 2500, #-- original was just over 1000
+            MaxRadius = 2500, ---- original was just over 1000
             MinRadius = 150,
 			
-            MuzzleChargeDelay = 0.5,
+            MuzzleChargeDelay = 0.5,    -- .5 second muzzle delay
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 115,
@@ -275,7 +275,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.2,		#-- every 5 seconds = 1152 DPS
+            RateOfFire = 0.3,		-- every 5 seconds = 1152 DPS -- rate of fire controlled by charge
             RenderFireClock = true,
 			
             TargetCheckInterval = 2,

@@ -1,22 +1,22 @@
-# Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
-#
-# This is the top-level lua initialization file. It is run at initialization time
-# to set up all lua state.
+-- Copyright ï¿½ 2005 Gas Powered Games, Inc.  All rights reserved.
+--
+-- This is the top-level lua initialization file. It is run at initialization time
+-- to set up all lua state.
 
 LOG("*DEBUG Mohodata GlobalInit")
 
-# Uncomment this to turn on allocation tracking, so that memreport() in /lua/system/profile.lua
-# does something useful.
+-- Uncomment this to turn on allocation tracking, so that memreport() in /lua/system/profile.lua
+-- does something useful.
 --debug.trackallocations(true)
 
-# Set up global diskwatch table (you can add callbacks to it to be notified of disk changes)
+-- Set up global diskwatch table (you can add callbacks to it to be notified of disk changes)
 __diskwatch = {}
 
-# Set up custom Lua weirdness
+-- Set up custom Lua weirdness
 doscript '/lua/system/config.lua'
 
 
-# Load system modules
+-- Load system modules
 LOG("*AI DEBUG     Implementing Import")
 doscript '/lua/system/import.lua'
 
@@ -42,32 +42,32 @@ LOG("*AI DEBUG     Loading COLLAPSE functions")
 doscript '/lua/system/collapse.lua'
 
 
-# Classes exported from the engine are in the 'moho' table. But they aren't full
-# classes yet, just lists of exported methods and base classes. Turn them into
-# real classes.
+-- Classes exported from the engine are in the 'moho' table. But they aren't full
+-- classes yet, just lists of exported methods and base classes. Turn them into
+-- real classes.
 for name,cclass in moho do
-    SPEW('C->lua ',name)
+    --SPEW('C->lua ',name)
     ConvertCClassToLuaClass(cclass)
 end
 
 
-# Flag initial loading of blueprints
+-- Flag initial loading of blueprints
 InitialRegistration = true
 
 LOG("*AI DEBUG     Setup Platoon Template Structure")
-# Load Platoon Template systems
+-- Load Platoon Template systems
 doscript '/lua/system/GlobalPlatoonTemplate.lua'
 
 LOG("*AI DEBUG     Setup Builder Template Structure")
-# Load Builder system
+-- Load Builder system
 doscript '/lua/system/GlobalBuilderTemplate.lua'
 
 LOG("*AI DEBUG     Setup Builder Group Structure")
-# Load Builder Group systems
+-- Load Builder Group systems
 doscript '/lua/system/GlobalBuilderGroup.lua'
 
 LOG("*AI DEBUG     Setup BaseBuilder Template Structure")
-# Load Global Base Templates
+-- Load Global Base Templates
 doscript '/lua/system/GlobalBaseTemplate.lua'
 
 InitialRegistration = false

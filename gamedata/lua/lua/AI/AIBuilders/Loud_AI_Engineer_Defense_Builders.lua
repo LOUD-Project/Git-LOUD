@@ -37,6 +37,17 @@ local IsPrimaryBase = function(self,aiBrain,manager)
 	return 10, true
 end
 
+-- this function will remove the builder if this is not a NAVAL map (water - but no naval markers)
+local IsNavalMap = function( self, aiBrain, manager)
+
+    if aiBrain.IsNavalMap then
+        return self.Priority, true
+    end
+    
+    return 0, false
+
+end
+
 ---------------------
 --- THE MAIN BASE ---
 ---------------------
@@ -147,7 +158,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
 			
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 16, categories.STRUCTURE * categories.DIRECTFIRE * categories.TECH3, 15, 42 }},
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 18, categories.STRUCTURE * categories.DIRECTFIRE * categories.TECH3, 15, 42 }},
         },
 		
         BuilderType = { 'T3','SubCommander'},
@@ -242,7 +253,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .80 } },
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 12, categories.ARTILLERY * categories.STRUCTURE, 10, 20 }},			
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 10, categories.ARTILLERY * categories.STRUCTURE * categories.TECH2, 10, 20 }},			
         },
 		
         BuilderType = {'T2','T3'},
@@ -273,7 +284,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
             { LUTL, 'UnitCapCheckLess', { .80 } },
             
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 4, categories.ARTILLERY * categories.STRUCTURE, 15, 42 }},			
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 4, categories.ARTILLERY * categories.STRUCTURE * categories.TECH2, 21, 42 }},			
         },
 		
         BuilderType = {'T2','T3'},
@@ -335,7 +346,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .80 } },
-			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
             
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }}, 
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 4, categories.ANTITELEPORT * categories.STRUCTURE * categories.TECH3 }},
@@ -357,6 +368,40 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         }
     },	
 	
+    Builder {BuilderName = 'T3 Tactical Artillery - Boxes',
+	
+        PlatoonTemplate = 'EngineerBuilderGeneral',
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+        Priority = 750,
+		
+        BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .80 } },
+			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
+            
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }}, 
+            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 4, categories.ARTILLERY * categories.TACTICAL }},
+        },
+		
+        BuilderType = {'T3','SubCommander'},
+		
+        BuilderData = {
+		
+			DesiresAssist = true,
+            NumAssistees = 2,
+
+			Construction = {
+				NearBasePerimeterPoints = true,
+				ThreatMax = 35,				
+
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
+				BaseTemplate = 'BaseDefenseLayout',
+                
+                BuildStructures = {'T3TacticalArtillery'},
+            }
+        }
+    },	
+
 	-- setup so that we always build one
     Builder {BuilderName = 'AntiNuke',
 	
@@ -733,10 +778,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction',
         PlatoonTemplate = 'EngineerBuilderGeneral',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 751,
+        Priority = 850,
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .80 } },
+            
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.AIRSTAGINGPLATFORM }},
         },
 		
@@ -763,6 +809,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction',
     },	
 }
 
+-- this tucks the Airpad in tighter at the back centre of the base - next to the Gate
 BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Small',
     BuildersType = 'EngineerBuilder',
 	
@@ -771,10 +818,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Small',
         PlatoonTemplate = 'EngineerBuilderGeneral',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 751,
+        Priority = 850,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .80 } },
+            { LUTL, 'UnitCapCheckLess', { .95 } },
+            
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.AIRSTAGINGPLATFORM }},
         },
 		
@@ -784,7 +832,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Small',
 			DesiresAssist = false,
 			
 			Construction = {
-				Radius = 40,			
+				Radius = 26,			
                 NearBasePerimeterPoints = true,
 				
 				BasePerimeterOrientation = 'REAR',
@@ -1728,6 +1776,40 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
             }
         }
     },
+    
+    Builder {BuilderName = 'T3 Tactical Artillery - Expansions',
+	
+        PlatoonTemplate = 'EngineerBuilderGeneral',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+        Priority = 750,
+		
+        BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .75 } },
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
+            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 4, categories.ARTILLERY * categories.TACTICAL }},
+        },
+		
+        BuilderType = { 'T3','SubCommander'},
+		
+        BuilderData = {
+			DesiresAssist = true,
+			NumAssistees = 4,
+			
+            Construction = {
+				Radius = 1,			
+				NearBasePerimeterPoints = true,
+				
+				ThreatMax = 60,
+				
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
+				BaseTemplate = 'ExpansionLayout_II',
+				
+                BuildStructures = {'T3TacticalArtillery'},
+            }
+        }
+    },    
 
     Builder {BuilderName = 'AntiNuke - Expansion',
 	
@@ -2447,7 +2529,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval',
             { LUTL, 'UnitCapCheckLess', { .75 } },
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 2500 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 450, 30, 'Naval' }},
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 9, categories.STRUCTURE * categories.ANTINAVY, 50, 85 }},
         },
 		
@@ -2486,10 +2569,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval',
 		PriorityFunction = IsEnemyNavalActive,		
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .75 } },
+            { LUTL, 'UnitCapCheckLess', { .65 } },
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},
-            
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1, 1 }}, 
+
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 450, 30, 'Naval' }},
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 18, categories.STRUCTURE * categories.ANTINAVY * categories.TECH2, 50, 85 }},
         },
 		
@@ -2574,7 +2657,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval',
             { LUTL, 'UnitCapCheckLess', { .75 } },
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
             
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1, 1 }}, 
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
+
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 9, categories.STRUCTURE * categories.ANTIAIR * categories.TECH3, 50, 85 }},
         },
 		
@@ -2730,7 +2814,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
         PlatoonTemplate = 'EngineerBuilderGeneral',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 700,
+        Priority = 751,
 
         BuilderConditions = {
             { LUTL, 'UnitsLessAtLocation', { 'LocationType', 1, categories.STRUCTURE * categories.OVERLAYRADAR * categories.INTELLIGENCE }},
@@ -2762,7 +2846,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
-        Priority = 700,
+        Priority = 750,
 		
 		PriorityFunction = IsPrimaryBase,
 		
@@ -2813,7 +2897,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 700,
+        Priority = 750,
 
         BuilderConditions = {
 			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
@@ -2946,13 +3030,14 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 700,
+        Priority = 750,
 		
         BuilderConditions = {
 			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
             { LUTL, 'UnitCapCheckLess', { .85 } },
 
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
+			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }},
+            
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 2, categories.STRUCTURE * categories.SHIELD, 0, 24 }},
         },
 		
@@ -2982,7 +3067,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 700,
+        Priority = 750,
 		
         BuilderConditions = {
 			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
@@ -3019,7 +3104,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 700,
+        Priority = 750,
 		
         BuilderConditions = {
 			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
@@ -3050,6 +3135,41 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
             }
         }
     },
+    
+    Builder {BuilderName = 'T3 DP STD Tactical Artillery',
+	
+        PlatoonTemplate = 'EngineerBuilderGeneral',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+        Priority = 750,
+		
+        BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .75 } },
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
+            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ARTILLERY * categories.TACTICAL }},
+        },
+		
+        BuilderType = { 'T3','SubCommander'},
+		
+        BuilderData = {
+			DesiresAssist = true,
+			NumAssistees = 4,
+			
+            Construction = {
+				Radius = 1,
+				NearBasePerimeterPoints = true,
+
+				ThreatMax = 60,
+
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
+				BaseTemplate = 'DefensivePointStandard',
+
+                BuildStructures = {'T3TacticalArtillery'},
+            }
+        }
+    },    
+    
 
     Builder {BuilderName = 'T4 DP STD AA Defenses',
 	
@@ -3057,7 +3177,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 700,
+        Priority = 750,
 		
 		PriorityFunction = IsPrimaryBase,
 		
@@ -3095,14 +3215,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 700,
+        Priority = 750,
 		
 		PriorityFunction = IsPrimaryBase,
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
-
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.02, 1.02 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
             
 			-- must have shields here
             { UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 0, categories.STRUCTURE * categories.SHIELD, 0, 24 }},
@@ -3137,11 +3256,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Small',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 700,
+        Priority = 751,
 
         BuilderConditions = {
-            { LUTL, 'UnitsLessAtLocation', { 'LocationType', 1, categories.STRUCTURE * categories.OVERLAYRADAR * categories.INTELLIGENCE }},
             { LUTL, 'UnitCapCheckLess', { .95 } },
+            { LUTL, 'UnitsLessAtLocation', { 'LocationType', 1, categories.STRUCTURE * categories.OVERLAYRADAR * categories.INTELLIGENCE }},
 			
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }}, 			
         },
@@ -3157,7 +3276,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Small',
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'DefensivePointSmall',
                 
-                BuildStructures = {	'T2Radar' }
+                BuildStructures = {
+                    'T2Radar',
+                    'T2MissileDefense',
+                }
             }
         }
     },
@@ -3168,7 +3290,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Small',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 700,
+        Priority = 750,
 
         BuilderConditions = {
 			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
@@ -3190,13 +3312,47 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Small',
 				BaseTemplate = 'DefensivePointSmall',
                 
                 BuildStructures = {
-					'T2RadarJammer',
 					'T2AirStagingPlatform',
 					'T2MissileDefense',
+					'T2RadarJammer',                    
                 }
             }
         }
     },	
+
+    Builder {BuilderName = 'T3 DP SML AA Defenses',
+	
+        PlatoonTemplate = 'EngineerBuilderGeneral',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+        Priority = 750,
+		
+        BuilderConditions = {
+			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
+            { LUTL, 'UnitCapCheckLess', { .85 } },
+
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }}, 
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 4, categories.STRUCTURE * categories.ANTIAIR * categories.TECH3, 0, 24 }},
+        },
+		
+		BuilderType = { 'T3','SubCommander' },
+
+        BuilderData = {
+			DesiresAssist = true,
+			
+            Construction = {
+				NearBasePerimeterPoints = true,
+                
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
+				BaseTemplate = 'DefensivePointSmall',
+                
+                BuildStructures = {
+					'T3AADefense',
+                }
+            }
+        }
+    },
 
     Builder {BuilderName = 'T2 DP SML Shields',
 	
@@ -3204,15 +3360,14 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Small',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 700,
+        Priority = 750,
 		
         BuilderConditions = {
 			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
             { LUTL, 'UnitCapCheckLess', { .85 } },
             
-			--{ TBC, 'ThreatCloserThan', { 'LocationType', 450, 30, 'AntiSurface' }},
-
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
+			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }},
+            
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 1, categories.STRUCTURE * categories.SHIELD, 0, 24 }},
         },
 		
@@ -3232,52 +3387,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Small',
         }
     },
 
-    Builder {BuilderName = 'T3 DP SML AA Defenses',
-	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
-        
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-		
-        Priority = 700,
-		
-        BuilderConditions = {
-			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
-            { LUTL, 'UnitCapCheckLess', { .85 } },
-            
-			--{ TBC, 'ThreatCloserThan', { 'LocationType', 450, 30, 'Air' }},
-
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }}, 
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 4, categories.STRUCTURE * categories.ANTIAIR * categories.TECH3, 0, 24 }},
-        },
-		
-		BuilderType = { 'T3','SubCommander' },
-
-        BuilderData = {
-			DesiresAssist = true,
-			
-            Construction = {
-				NearBasePerimeterPoints = true,
-                
-				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
-				BaseTemplate = 'DefensivePointSmall',
-                
-                BuildStructures = {
-					'T3AADefense',
-                    'T3AADefense',
-					'T3AADefense',
-                    'T3AADefense',
-                }
-            }
-        }
-    },
-
     Builder {BuilderName = 'T3 DP SML Defenses',
 	
         PlatoonTemplate = 'EngineerBuilderGeneral',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 700,
+        Priority = 750,
 		
         BuilderConditions = {
 			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
@@ -3303,11 +3419,45 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Small',
                 
                 BuildStructures = {
                     'T3GroundDefense',
-					'T3GroundDefense',
                 }
             }
         }
     },
+    
+    Builder {BuilderName = 'T3 DP SML Tactical Artillery',
+	
+        PlatoonTemplate = 'EngineerBuilderGeneral',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+        Priority = 750,
+		
+        BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .75 } },
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
+            
+            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ARTILLERY * categories.TACTICAL }},
+        },
+		
+        BuilderType = { 'T3','SubCommander'},
+		
+        BuilderData = {
+			DesiresAssist = true,
+			NumAssistees = 4,
+			
+            Construction = {
+				Radius = 1,
+				NearBasePerimeterPoints = true,
+
+				ThreatMax = 60,
+
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
+				BaseTemplate = 'DefensivePointStandard',
+
+                BuildStructures = {'T3TacticalArtillery'},
+            }
+        }
+    },    
 
     Builder {BuilderName = 'T4 DP SML AA Defenses',
 	
@@ -3315,7 +3465,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Small',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 700,
+        Priority = 750,
 		
 		PriorityFunction = IsPrimaryBase,
 		
@@ -3328,7 +3478,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Small',
             
 			-- must have shields here
             { UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 0, categories.STRUCTURE * categories.SHIELD, 0, 24 }},
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 2, categories.STRUCTURE * categories.ANTIAIR * categories.EXPERIMENTAL, 0, 24 }},
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 1, categories.STRUCTURE * categories.ANTIAIR * categories.EXPERIMENTAL, 0, 24 }},
         },
 		
 		BuilderType = { 'SubCommander' },
@@ -3354,17 +3504,16 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Small',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 700,
+        Priority = 850,
 		
 		PriorityFunction = IsPrimaryBase,
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
+			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
 			
 		    { UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ANTIMISSILE * categories.SILO * categories.STRUCTURE * categories.TECH3 }},			
 
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.02, 1.02 }},
-            
 			-- must have shields here
             { UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 0, categories.STRUCTURE * categories.SHIELD, 0, 24 }},
 			{ UCBC, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, categories.NUKE + categories.ANTIMISSILE - categories.TECH2, 'Enemy' }},
@@ -3400,6 +3549,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval',
 		
         Priority = 760,
 
+		PriorityFunction = IsNavalMap,
+        
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			{ LUTL, 'UnitsLessAtLocation', { 'LocationType', 1, categories.STRUCTURE * categories.OVERLAYSONAR * categories.INTELLIGENCE }},
@@ -3419,7 +3570,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval',
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'NavalDefensivePoint',
 				
-                BuildStructures = {	'T2Sonar' }
+                BuildStructures = {
+                    'T2Sonar',
+                    'T2MissileDefense',
+                }
             }
         }
     },
@@ -3433,7 +3587,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval',
         Priority = 760,
 
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .85 } },
+            { LUTL, 'UnitCapCheckLess', { .95 } },
 
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }}, 
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 1, categories.AIRSTAGINGPLATFORM - categories.MOBILE, 0, 28 }},
@@ -3469,7 +3623,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval',
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .75 } },
 
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }}, 
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }}, 
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 2, categories.STRUCTURE * categories.ANTIAIR * categories.TECH2, 0, 24 }},
         },
 		
@@ -3500,7 +3654,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval',
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .75 } },
 
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }}, 
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }}, 
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 2, categories.STRUCTURE * categories.DEFENSE * categories.DIRECTFIRE, 0, 24 }},
         },
 		
@@ -3526,12 +3680,14 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 650,
+        Priority = 700,
+        
+		PriorityFunction = IsNavalMap,		        
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
 
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }}, 
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }}, 
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 2, categories.STRUCTURE * categories.ANTINAVY * categories.TECH2, 0, 24 }},
         },
 		
@@ -3562,7 +3718,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval',
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
 
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }}, 
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }}, 
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 2, categories.STRUCTURE * categories.ANTIAIR * categories.TECH3, 0, 24 }},
         },
 		
@@ -3593,7 +3749,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval',
         Priority = 900,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .85 } },
+            { LUTL, 'UnitCapCheckLess', { .95 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 50000 }},
             
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.02, 1.02 }},

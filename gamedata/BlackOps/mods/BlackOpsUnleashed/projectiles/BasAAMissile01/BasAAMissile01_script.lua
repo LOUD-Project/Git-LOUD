@@ -1,6 +1,6 @@
-#
-# Terran Anti Air Missile
-#
+--
+-- Terran Anti Air Missile
+--
 CAANanoDartProjectile = import('/lua/cybranprojectiles.lua').CAANanoDartProjectile
 BaaMissile01 = Class(CAANanoDartProjectile)
 {

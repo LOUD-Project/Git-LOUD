@@ -1,9 +1,9 @@
-#*****************************************************************************
-#* File: lua/selfdestruct.lua
-#* Summary: Self destruct sim code
-#*
-#* Copyright © 2008 Gas Powered Games, Inc.  All rights reserved.
-#*****************************************************************************
+--*****************************************************************************
+--* File: lua/selfdestruct.lua
+--* Summary: Self destruct sim code
+--*
+--* Copyright ï¿½ 2008 Gas Powered Games, Inc.  All rights reserved.
+--*****************************************************************************
 
 function ToggleSelfDestruct(data)
     -- supress self destruct in tutorial missions as they screw up the mission end

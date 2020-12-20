@@ -14,6 +14,7 @@ BaseBuilderTemplate {
 		
 		# Engineer Tasks
 		'Engineer Tasks',
+		'Engineer Tasks - Reclaim Old Structures',
 		
 		# Engineers Build Factories
         'Engineer Factory Construction - Naval',
@@ -79,7 +80,7 @@ BaseBuilderTemplate {
 		
 		if personality == 'loud' then
 		
-			if aiBrain:GetMapWaterRatio() <= .10 or GetArmyUnitCap(aiBrain.ArmyIndex) < 650 then	--tonumber(ScenarioInfo.Options.UnitCap) < 750 then
+			if aiBrain:GetMapWaterRatio() <= .10 or GetArmyUnitCap(aiBrain.ArmyIndex) < 650 then
 				return 100, false
 			end
         

@@ -1,6 +1,6 @@
 UnitBlueprint {
 	Merge = true,
-	BlueprintId = "urb1303", #Cybran T3 Mass Fabricator
+	BlueprintId = "urb1303", --Cybran T3 Mass Fabricator
     Economy = {
         BuildRate = 20,
         BuildableCategory = {

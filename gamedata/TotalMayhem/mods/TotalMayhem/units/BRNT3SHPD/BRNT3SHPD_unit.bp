@@ -1,4 +1,11 @@
 UnitBlueprint {
+
+	AI = { 
+		TargetBones = {
+            'Turret',
+        },
+	},
+
     Audio = {
         Destroyed = Sound {
             Bank = 'UELDestroy',
@@ -36,6 +43,7 @@ UnitBlueprint {
 		'EXPERIMENTAL',
         'STRUCTURE',
         'DEFENSE',
+        'SIZE8',
         'DIRECTFIRE',
         'VISIBLETORECON',
         'RECLAIMABLE',
@@ -424,7 +432,7 @@ UnitBlueprint {
             Turreted = true,
         },
 		
-		#-- FRONT LEFT Secondary
+		---- FRONT LEFT Secondary
         {
             AimsStraightOnDisable = true,
             AboveWaterTargetsOnly = true,
@@ -506,7 +514,7 @@ UnitBlueprint {
             Turreted = true,
         },
 		
-		# -- FRONT RIGHT Secondary
+		-- -- FRONT RIGHT Secondary
         {
             AimsStraightOnDisable = true,
             AboveWaterTargetsOnly = true,
@@ -587,7 +595,7 @@ UnitBlueprint {
             Turreted = true,
         },
 		
-		#-- LEFT Secondary 1
+		---- LEFT Secondary 1
         {
             AimsStraightOnDisable = true,
             AboveWaterTargetsOnly = true,
@@ -666,7 +674,7 @@ UnitBlueprint {
             TurretYawSpeed = 90,
             Turreted = true,
         },
-		# -- LEFT Secondary 2
+		-- -- LEFT Secondary 2
         {
             AimsStraightOnDisable = true,
             AboveWaterTargetsOnly = true,
@@ -746,7 +754,7 @@ UnitBlueprint {
             Turreted = true,
         },
 		
-		# -- REAR Secondary 1
+		-- -- REAR Secondary 1
         {
             AimsStraightOnDisable = true,
             AboveWaterTargetsOnly = true,
@@ -825,7 +833,7 @@ UnitBlueprint {
             Turreted = true,
         },
 		
-		#-- REAR Secondary 2
+		---- REAR Secondary 2
         {
             AimsStraightOnDisable = true,
             AboveWaterTargetsOnly = true,
@@ -905,7 +913,7 @@ UnitBlueprint {
             Turreted = true,
         },
 		
-		#-- RIGHT Secondary 1
+		---- RIGHT Secondary 1
         {
             AimsStraightOnDisable = true,
             AboveWaterTargetsOnly = true,
@@ -984,7 +992,7 @@ UnitBlueprint {
             Turreted = true,
         },
 		
-		#-- RIGHT Secondary 2
+		---- RIGHT Secondary 2
         {
             AimsStraightOnDisable = true,
             AboveWaterTargetsOnly = true,
@@ -1063,7 +1071,7 @@ UnitBlueprint {
             Turreted = true,
         },
 		
-		#-- ROOF Mounted SAM Launcher
+		---- ROOF Mounted SAM Launcher
         {
             AlwaysRecheckTarget = true,
             Audio = {

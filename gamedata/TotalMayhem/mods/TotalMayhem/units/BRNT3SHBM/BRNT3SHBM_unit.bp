@@ -1,6 +1,13 @@
 UnitBlueprint {
+
     AI = {
-        TargetBones = { 'Turret','legb3','arm01','shoulder' },
+        TargetBones = { 
+			'Turret',
+			'legb2',
+			'rocketlauncher01',
+			'shoulder', 
+			'Footfall_Right',
+		},
     },
 	
     Audio = {
@@ -231,10 +238,10 @@ UnitBlueprint {
     SelectionThickness = 0.3,
 	
     SizeX = 2.8,
-    SizeY = 4.6,
+    SizeY = 4.4,
     SizeZ = 2.8,
 	
-    StrategicIconName = 'icon_experimental_land_directfire',
+    StrategicIconName = 'icon_experimental_land_missile',
     StrategicIconSortPriority = 116,
 	
     Transport = {
@@ -323,7 +330,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.12,	#-- 8 times 1200 = 9600 Damage every 10 seconds = 960 DPS x 2 = 1920 DPS
+            RateOfFire = 0.12,	---- 8 times 1200 = 9600 Damage every 10 seconds = 960 DPS x 2 = 1920 DPS
 			
             TargetCheckInterval = 1,
             TargetPriorities = {
@@ -459,7 +466,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.50,	# 1600 dps
+            RateOfFire = 0.50,	-- 1600 dps
 			
             SlavedToBody = false,
 			
@@ -539,7 +546,7 @@ UnitBlueprint {
 			
 			NotExclusive = true,
 
-            ProjectileId = '/mods/TotalMayhem/projectiles/BRMT3MLproj/BRMT3MLproj_proj.bp',
+            ProjectileId = '/mods/TotalMayhem/projectiles/BRNT3BTRLproj/BRNT3BTRLproj_proj.bp',
             ProjectileLifetimeUsesMultiplier = 3.5,
 
             RackBones = {
@@ -568,7 +575,7 @@ UnitBlueprint {
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
 
-            RateOfFire = 0.2,	# 800 damage every 5 seconds = 160 dps
+            RateOfFire = 0.2,	-- 800 damage every 5 seconds = 160 dps
 			
             TargetCheckInterval = 2,
             TargetPriorities = {
@@ -638,6 +645,8 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0.2, 
             MuzzleSalvoSize = 2, 
             MuzzleVelocity = 30,
+            
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/TAAMissileFlayer02/TAAMissileFlayer02_proj.bp', 
             ProjectileLifetime = 6, 
@@ -658,7 +667,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 2,			#--- 880 DPS Air
+            RateOfFire = 2,			----- 880 DPS Air
 			
             TargetCheckInterval = 1,
             TargetPriorities = {
@@ -737,7 +746,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.3,	# 264 dps
+            RateOfFire = 0.3,	-- 264 dps
 			
             TargetCheckInterval = 2,
 			

@@ -16,6 +16,7 @@ BaseBuilderTemplate {
 		
 		# Engineer Tasks
 		'Engineer Tasks',
+		'Engineer Tasks - Reclaim Old Structures',
 		
 		# Engineers Build Factories
         'Engineer Factory Construction - Naval',
@@ -89,11 +90,11 @@ BaseBuilderTemplate {
 				return 80, false
 			end
 
-			if aiBrain:GetMapWaterRatio() <= .20 or ScenarioInfo.size[1] <= 1024 or GetArmyUnitCap(aiBrain.ArmyIndex) < 1000 then
+			if aiBrain:GetMapWaterRatio() <= .25 and ScenarioInfo.size[1] <= 1024 or GetArmyUnitCap(aiBrain.ArmyIndex) < 1000 then
 				return 100, false
 			end
 			
-			if (aiBrain:GetMapWaterRatio() > .20 and ScenarioInfo.size[1] >= 1024) and GetArmyUnitCap(aiBrain.ArmyIndex) > 750 then
+			if (aiBrain:GetMapWaterRatio() > .20 and ScenarioInfo.size[1] > 1024) and GetArmyUnitCap(aiBrain.ArmyIndex) > 750 then
 				return 90,false
 			end
 		end

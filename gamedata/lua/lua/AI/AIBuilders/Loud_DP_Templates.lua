@@ -213,6 +213,10 @@ DefensivePointStandard = {
             { 16, 5 },
 			{-16,-6 },
         },
+        {
+            { 'T3TacticalArtillery'	},
+			{-3,-5 },
+        },                
     },
 
 	-- Aeon DP Template Standard
@@ -461,6 +465,10 @@ DefensivePointStandard = {
             },
             { 0, -8 },
         },
+        {
+            { 'T3TacticalArtillery'	},
+			{-3,-5 },
+        },                
     },
 
 	-- Cybran DP Template Standard
@@ -672,6 +680,10 @@ DefensivePointStandard = {
             { 'T3StrategicMissileDefense'	},
             { 0, -8 },
         },
+        {
+            { 'T3TacticalArtillery'	},
+			{-3,-5 },
+        },                
     },
 
 	-- Seraphim DP Template Standard
@@ -883,6 +895,10 @@ DefensivePointStandard = {
             { 'T3StrategicMissileDefense'	},
             { 0, -8 },
         },
+        {
+            { 'T3TacticalArtillery'	},
+			{-3,-5 },
+        },                
     },
 }
 
@@ -898,7 +914,7 @@ DefensivePointSmall = {
             { 0, 0 },
         },
         {
-            { 'T1AirStagingPlatform', 'T2AirStagingPlatform'	},
+            { 'T2AirStagingPlatform'	},
             { 6, 0 },
         },	
         {
@@ -907,14 +923,14 @@ DefensivePointSmall = {
         },
         {
             { 'T2MissileDefense'	},
-            {-4, -4 },
+            { 0, -6 },
         },
         {
             { 'T3AADefense'	},
-            { 6,-6 },
-			{-6,-6 },
-			{-6, 6 },
-			{ 6, 6 },
+            { 7,-7 },
+			{-7,-7 },
+			{-7, 7 },
+			{ 7, 7 },
         },
         {
             { 'T3GroundDefense'	},
@@ -933,6 +949,10 @@ DefensivePointSmall = {
             { 'T3StrategicMissileDefense'	},
 			{ 3, 5 },
         },
+        {
+            { 'T3TacticalArtillery'	},
+			{-3,-5 },
+        },        
     },
 	-- Aeon DP Template Small
 	{
@@ -945,7 +965,7 @@ DefensivePointSmall = {
             { 0, 0 },
         },
         {
-            { 'T1AirStagingPlatform', 'T2AirStagingPlatform'	},
+            { 'T2AirStagingPlatform'	},
             { 6, 0 },
         },	
         {
@@ -954,14 +974,14 @@ DefensivePointSmall = {
         },
         {
             { 'T2MissileDefense'	},
-            {-4, -4 },
+            { 0, -6 },
         },
         {
             { 'T3AADefense'	},
-            { 6,-6 },
-			{-6,-6 },
-			{-6, 6 },
-			{ 6, 6 },
+            { 7,-7 },
+			{-7,-7 },
+			{-7, 7 },
+			{ 7, 7 },
         },
         {
             { 'T3GroundDefense'	},
@@ -980,6 +1000,10 @@ DefensivePointSmall = {
             { 'T3StrategicMissileDefense'	},
 			{ 3, 5 },
         },
+        {
+            { 'T3TacticalArtillery'	},
+			{-3,-5 },
+        },                
     },
 	-- Cybran DP Template Small
 	{
@@ -992,7 +1016,7 @@ DefensivePointSmall = {
             { 0, 0 },
         },
         {
-            { 'T1AirStagingPlatform', 'T2AirStagingPlatform'	},
+            { 'T2AirStagingPlatform'	},
             { 6, 0 },
         },	
         {
@@ -1001,14 +1025,14 @@ DefensivePointSmall = {
         },
         {
             { 'T2MissileDefense'	},
-            {-4, -4 },
+            { 0, -6 },
         },
         {
             { 'T3AADefense'	},
-            { 6,-6 },
-			{-6,-6 },
-			{-6, 6 },
-			{ 6, 6 },
+            { 7,-7 },
+			{-7,-7 },
+			{-7, 7 },
+			{ 7, 7 },
         },
         {
             { 'T3GroundDefense'	},
@@ -1027,6 +1051,10 @@ DefensivePointSmall = {
             { 'T3StrategicMissileDefense'	},
 			{ 3, 5 },
         },
+        {
+            { 'T3TacticalArtillery'	},
+			{-3,-5 },
+        },                
     },
 	-- Seraphim DP Template Small
 	{
@@ -1039,7 +1067,7 @@ DefensivePointSmall = {
             { 0, 0 },
         },
         {
-            { 'T1AirStagingPlatform', 'T2AirStagingPlatform'	},
+            { 'T2AirStagingPlatform'	},
             { 6, 0 },
         },	
         {
@@ -1048,14 +1076,14 @@ DefensivePointSmall = {
         },
         {
             { 'T2MissileDefense'	},
-            {-4, -4 },
+            { 0, -6 },
         },
         {
             { 'T3AADefense'	},
-            { 6,-6 },
-			{-6,-6 },
-			{-6, 6 },
-			{ 6, 6 },
+            { 7,-7 },
+			{-7,-7 },
+			{-7, 7 },
+			{ 7, 7 },
         },
         {
             { 'T3GroundDefense'	},
@@ -1074,12 +1102,16 @@ DefensivePointSmall = {
             { 'T3StrategicMissileDefense'	},
 			{ 3, 5 },
         },
+        {
+            { 'T3TacticalArtillery'	},
+			{-3,-5 },
+        },                
     },
 }
 
 NavalDefensivePoint = {
-# UEF 
-# UEF T2 Naval Perimeter Defense Template
+-- UEF 
+-- UEF T2 Naval Perimeter Defense Template
     {
         {{'T1Sonar','T2Sonar'},
             { 0, 0 },
@@ -1114,7 +1146,7 @@ NavalDefensivePoint = {
 			{ -7, -7 },
         },
     },
-# Aeon T2 Naval Perimeter Defense Template
+-- Aeon T2 Naval Perimeter Defense Template
     {
         {{'T1Sonar','T2Sonar'},
             { 0, 0 },
@@ -1149,7 +1181,7 @@ NavalDefensivePoint = {
 			{ -7, -7 },
         },		
     }, 
-# Cybran T2 Naval Perimeter Defense Template
+-- Cybran T2 Naval Perimeter Defense Template
     {
         {{'T1Sonar','T2Sonar'},
             { 0, 0 },
@@ -1184,7 +1216,7 @@ NavalDefensivePoint = {
 			{ -7, -7 },
         },		
     },
-# Seraphim T2 Naval Perimeter Defense Template
+-- Seraphim T2 Naval Perimeter Defense Template
     {
         {{'T1Sonar','T2Sonar'},
             { 0, 0 },

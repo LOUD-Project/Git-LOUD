@@ -1,6 +1,6 @@
-#
-# Terran Land-Based Cruise Missile
-#
+--
+-- Terran Land-Based Cruise Missile
+--
 local UEFCruiseMissile01Projectile = import('/mods/BlackopsEXUnits/lua/EXBlackOpsprojectiles.lua').UEFCruiseMissile01Projectile
 local Explosion = import('/lua/defaultexplosions.lua')
 

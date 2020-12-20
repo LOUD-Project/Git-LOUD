@@ -354,7 +354,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 3,			#-- 2800 DPS
+            RateOfFire = 3,			---- 2800 DPS
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 90,

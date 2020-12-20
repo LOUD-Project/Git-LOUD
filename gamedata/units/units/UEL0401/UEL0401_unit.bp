@@ -3,11 +3,14 @@ UnitBlueprint {
 
         GuardScanRadius = 50,
 		GuardReturnRadius = 55,
+        
         RefuelingMultiplier = 75,
         RefuelingRepairAmount = 500,
         RepairConsumeEnergy = 5,
         RepairConsumeMass = 0.5,
+        
 		StagingPlatformScanRadius = 200,
+        
         TargetBones = {
             'Bay_Cover',
             'Front_Core',
@@ -86,6 +89,7 @@ UnitBlueprint {
         'EXPERIMENTAL',
 		'INDIRECTFIRE',
         'FACTORY',
+        'AIRSTAGINGPLATFORM',
         'NEEDMOBILEBUILD',
         'VISIBLETORECON',
         'RECLAIMABLE',
@@ -189,10 +193,10 @@ UnitBlueprint {
                     {
                         Bones = {
 
-                            # 'Exhaust_Left01',
+                            -- 'Exhaust_Left01',
                             'Exhaust_Left02',
 
-                            # 'Exhaust_Right01',
+                            -- 'Exhaust_Right01',
                             'Exhaust_Right02',
                         },
                         Type = 'GroundKickup02',
@@ -478,7 +482,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,			#-- 600 DPS
+            RateOfFire = 1,			---- 600 DPS
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -575,7 +579,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 
-            RateOfFire = 1,			#-- 600 DPS
+            RateOfFire = 1,			---- 600 DPS
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -672,7 +676,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 			
-            RateOfFire = 1,		#-- 600 DPS
+            RateOfFire = 1,		---- 600 DPS
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -765,7 +769,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 			
-            RateOfFire = 1,		#-- 600 DPS
+            RateOfFire = 1,		---- 600 DPS
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -843,7 +847,7 @@ UnitBlueprint {
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
 
-            RateOfFire = 3,		#-- 150 DPS
+            RateOfFire = 3,		---- 150 DPS
 			
             TargetCheckInterval = 0.16,
             TargetPriorities = {
@@ -922,7 +926,7 @@ UnitBlueprint {
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
 
-            RateOfFire = 3,			#-- 450 DPS
+            RateOfFire = 3,			---- 450 DPS
 			
             TargetCheckInterval = 0.33,
             TargetPriorities = {
@@ -965,7 +969,7 @@ UnitBlueprint {
 			
             Damage = 76,	-- a 3/4 version of the T2 flak gun
 			DamageFriendly = false,
-			DamageRadius = 2,
+			DamageRadius = 1.6,
             DamageType = 'Normal',
 			
 			DetonatesAtTargetHeight = true,
@@ -1055,7 +1059,7 @@ UnitBlueprint {
             
             Damage = 36,
 			DamageFriendly = false,
-			DamageRadius = 2.0,
+			DamageRadius = 1.6,
             DamageType = 'Normal',
 			
 			DetonatesAtTargetHeight = true,
@@ -1177,7 +1181,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.4,	#-- 440 Damage every 2.5 seconds = 176 DPS Sub
+            RateOfFire = 0.4,	---- 440 Damage every 2.5 seconds = 176 DPS Sub
 			
             TargetCheckInterval = 1,
             TargetPriorities = {

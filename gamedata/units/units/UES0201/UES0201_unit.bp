@@ -51,6 +51,8 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
         'DESTROYER',
+        'OVERLAYRADAR',
+        'OVERLAYSONAR',
     },
 	
     CollisionOffsetY = -0.375,
@@ -458,7 +460,7 @@ UnitBlueprint {
 			
             Damage = 30,
 			DamageFriendly = false,
-			DamageRadius = 2,
+			DamageRadius = 1.6,
 			
 			DetonatesAtTargetHeight = true,
 			
@@ -481,7 +483,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 80,
+            MuzzleVelocity = 72,
 			
             ProjectileId = '/projectiles/TAARailgun01/TAARailgun01_proj.bp',
             ProjectileLifetimeUsesMultiplier = 0.8,

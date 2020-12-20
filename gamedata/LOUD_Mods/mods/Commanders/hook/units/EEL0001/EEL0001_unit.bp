@@ -1,0 +1,299 @@
+UnitBlueprint {
+    Merge = true,
+    BlueprintId = "eel0001", --#UEF ACU
+
+    Defense = {
+
+        Health = 36550,
+        MaxHealth = 36550,
+
+        SurfaceThreatLevel = 90,
+
+    },
+    
+    Economy = {
+
+        MaintenanceConsumptionPerSecondEnergy = 1,
+        MaxBuildDistance = 15,
+
+        ProductionPerSecondMass = 2,
+        
+        StorageEnergy = 5000,
+        StorageMass = 750,
+    },
+    
+    Enhancements = {
+    
+        EXImprovedEngineering = {
+        
+            BuildCostEnergy = 34200,
+            BuildCostMass = 3150,
+            BuildTime = 1755,
+
+        },
+        
+        EXAdvancedEngineering = {
+        
+            BuildCostEnergy = 112500,
+            BuildCostMass = 11250,
+            BuildTime = 11250,
+        },
+        
+        EXExperimentalEngineering = {
+        
+            BuildCostEnergy = 675000,
+            BuildCostMass = 22500,
+            BuildTime = 33750,
+
+        },
+        
+        EXCombatEngineering = {
+        
+            BuildCostEnergy = 19800,
+            BuildCostMass = 1890,
+            BuildTime = 1620,
+
+        },
+        
+        EXAssaultEngineering = {
+        
+            BuildCostEnergy = 64800,
+            BuildCostMass = 6480,
+            BuildTime = 6480,
+
+        },
+        
+        EXApocalypticEngineering = {
+        
+            BuildCostEnergy = 145800,
+            BuildCostMass = 14580,
+            BuildTime = 14580,
+
+        },
+
+    },
+    
+    Intel = {
+
+        OmniRadius = 30,
+
+        RadarStealth = true,
+        SonarStealth = true,
+        
+        VisionRadius = 30,
+        WaterVisionRadius = 30,
+    },
+    
+    Veteran = {
+        Level1 = 30,
+        Level2 = 60,
+        Level3 = 90,
+        Level4 = 120,
+        Level5 = 150,
+
+    },
+    
+    Weapon = {
+    
+        {
+			
+            Damage = 200,
+            DamageRadius = 1,
+            DamageType = 'Normal',
+
+            MaxRadius = 35,
+            MinRadius = 1,
+
+            MuzzleVelocity = 45,
+
+        },
+        
+        {},
+        
+        {},
+        
+        {
+
+            MaxRadius = 25,
+            MinRadius = 1,
+
+            MuzzleVelocity = 20,
+
+            RateOfFire = 4,
+        },
+        
+        {
+
+            Damage = 5,
+            DamageRadius = 2,
+
+            MaxRadius = 35,
+            MinRadius = 1,
+
+            MuzzleVelocity = 20,
+
+            RateOfFire = 4,
+        },
+        
+        {
+
+            Damage = 500,
+
+            MuzzleVelocity = 10,
+
+        },
+        
+        {
+
+            Damage = 750,
+
+            MuzzleVelocity = 10,
+
+        },
+        
+        {
+
+            Damage = 1000,
+
+            MaxRadius = 70,
+            MinRadius = 1,
+
+            MuzzleVelocity = 10,
+
+            ProjectileLifetime = 8,
+
+            RateOfFire = 0.6,
+
+        },
+        
+        {
+
+            Damage = 1000,
+
+            MaxRadius = 45,
+            MinRadius = 1,
+            
+            RateOfFire = 0.3,
+
+        },
+        
+        {
+
+            Damage = 4000,
+            
+            MaxRadius = 45,
+            MinRadius = 1,
+
+            RateOfFire = 0.3,
+
+        },
+        
+        {
+
+            Damage = 12500,
+            
+            MaxRadius = 50,
+            MinRadius = 1,
+
+            RateOfFire = 0.4,
+            
+        },
+        
+        {
+
+            Damage = 100,
+            
+            MaxRadius = 40,
+            MinRadius = 1,
+            
+
+        },
+        
+        {
+
+            Damage = 550,
+            
+            MaxRadius = 45,
+            MinRadius = 1,
+            
+            MuzzleSalvoDelay = 0.2,
+            MuzzleSalvoSize = 10,
+
+        },
+        
+        {
+
+            Damage = 1200,
+            
+            MaxRadius = 50,
+            MinRadius = 1,
+            
+            MuzzleSalvoDelay = 0.2,
+            MuzzleSalvoSize = 10,
+
+            ProjectileLifetimeUsesMultiplier = 1.5,
+
+        },
+        
+        {},
+        
+        {
+
+            Damage = 80,
+
+            MaxRadius = 28,
+            
+            MuzzleSalvoDelay = 0.2,
+            MuzzleSalvoSize = 3,
+
+        },
+        
+        {
+
+            Damage = 80,
+
+            MaxRadius = 28,
+            
+            MuzzleSalvoDelay = 0.2,
+            MuzzleSalvoSize = 3,
+
+        },
+        
+        {
+
+            Damage = 150,
+
+        },
+        
+        {
+
+            Damage = 300,
+            DamageRadius = 3,
+
+            MaxRadius = 100,
+            MinRadius = 30,
+            
+            MuzzleSalvoDelay = 0.4,
+
+            RateOfFire = 0.2,
+
+        },
+        
+        {
+
+            Damage = 500,
+
+            MaxRadius = 100,
+            MinRadius = 30,
+            
+            MuzzleSalvoDelay = 0.3,
+
+            RateOfFire = 0.3,
+            
+            TargetCheckInterval = 0.5,
+
+        },
+        
+        {},
+	},
+}

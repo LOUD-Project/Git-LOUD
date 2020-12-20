@@ -45,17 +45,18 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
         'CRUISER',
+        'OVERLAYRADAR',
     },
 	
     CollisionOffsetY = -0.4,
 	
     Defense = {
-        AirThreatLevel = 40,
+        AirThreatLevel = 32,
         ArmorType = 'Normal',
         Health = 3250,
         MaxHealth = 3250,
         RegenRate = 4,
-        SurfaceThreatLevel = 14,
+        SurfaceThreatLevel = 15,
     },
 	
     Description = '<LOC uas0202_desc>AA Cruiser',
@@ -172,14 +173,18 @@ UnitBlueprint {
         TurnRadius = 20,
         TurnRate = 40,
     },
+    
     SelectionSizeX = 0.8,
     SelectionSizeZ = 3.4,
     SelectionThickness = 0.18,
+    
     SizeX = 1.0,
     SizeY = 1.0,
     SizeZ = 3.5,
+    
     StrategicIconName = 'icon_ship2_antiair',
     StrategicIconSortPriority = 155,
+    
     Veteran = {
         Level1 = 16,
         Level2 = 32,
@@ -187,6 +192,7 @@ UnitBlueprint {
         Level4 = 64,
         Level5 = 80,
     },
+    
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -210,8 +216,8 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 140,
-            DamageRadius = 1,
+            Damage = 150,
+            DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'Dual Quantum Cannon',
@@ -220,8 +226,8 @@ UnitBlueprint {
                 Water = 'Land|Water|Seabed',
             },
 			
-            FiringRandomness = 0.2,
-            FiringTolerance = 2,
+            FiringRandomness = 0.1,
+            FiringTolerance = 0.2,
 			
             Label = 'FrontTurret',
 			
@@ -252,7 +258,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.5,		-- 2 shells of 140 = 280 damage * .5 = 140 DPS Surface
+            RateOfFire = 0.5,		-- 2 shells of 150 = 300 damage * .5 = 150 DPS Surface
 			
             TargetCheckInterval = 1,
 			
@@ -275,7 +281,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 140,
-            TurretYawSpeed = 50,
+            TurretYawSpeed = 55,
 			
             Turreted = true,
         },

@@ -1,12 +1,12 @@
-#****************************************************************************
-#**
-#**  File     :  /lua/defaultantimissile.lua
-#**  Author(s):  Gordon Duclos
-#**
-#**  Summary  :  Default definitions collision beams
-#**
-#**  Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+--****************************************************************************
+--**
+--**  File     :  /lua/defaultantimissile.lua
+--**  Author(s):  Gordon Duclos
+--**
+--**  Summary  :  Default definitions collision beams
+--**
+--**  Copyright ï¿½ 2005 Gas Powered Games, Inc.  All rights reserved.
+--****************************************************************************
 local Entity = import('/lua/sim/Entity.lua').Entity
 local EXEffectTemplate = import('/mods/BlackopsACUs/lua/EXBlackOpsEffectTemplates.lua')
 

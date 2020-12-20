@@ -60,6 +60,8 @@ UnitBlueprint {
         'RECLAIMABLE',
         'FAVORSWATER',
         'DESTROYER',
+        'OVERLAYRADAR',
+        'OVERLAYSONAR',
     },
 	
     CollisionOffsetY = -0.29,
@@ -405,7 +407,7 @@ UnitBlueprint {
 			
             Damage = 18,
 			DamageFriendly = false,
-			DamageRadius = 2,
+			DamageRadius = 1.6,
             DamageType = 'Normal',
 			
 			DetonatesAtTargetHeight = true,
@@ -427,7 +429,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 4,
-            MuzzleVelocity = 77,
+            MuzzleVelocity = 72,
 			
             ProjectileId = '/projectiles/CAABurstCloud01/CAABurstCloud01_proj.bp',
             ProjectileLifetimeUsesMultiplier = 0.8,

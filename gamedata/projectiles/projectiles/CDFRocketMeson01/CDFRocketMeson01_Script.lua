@@ -1,6 +1,6 @@
-#
-# Cybran Dumbfire Rocket "The tadpole"
-#
+--
+-- Cybran Dumbfire Rocket "The tadpole"
+--
 local CRocketProjectile = import('/lua/cybranprojectiles.lua').CRocketProjectile
 local ForkThread = ForkThread
 local WaitSeconds = WaitSeconds

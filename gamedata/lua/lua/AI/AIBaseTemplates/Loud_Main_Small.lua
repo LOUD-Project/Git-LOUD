@@ -17,7 +17,7 @@ BaseBuilderTemplate {
         # Build Economy at this base
         'Engineer Energy Builders',
         'Engineer Mass Builders',
-		'Engineer T4 Economy Construction',        
+		'Engineer T4 Economy Construction - Small Base',        
   
 		# Engineers & Bob build new factories
         'Engineer Factory Construction',
@@ -115,7 +115,7 @@ BaseBuilderTemplate {
     -- IS = Integrated Storage --
 	LOUD_IS_Installed_Builders = {
 
-		'Engineer T4 Economy Defense Construction - LOUD IS',
+		'Engineer T4 Economy Defense Construction - LOUD IS - Small Base',
 		'Engineer Shield Construction - LOUD_IS',
 	},
 	
@@ -123,7 +123,7 @@ BaseBuilderTemplate {
 
 		'Engineer Mass Storage Construction',
 		'Engineer Energy Storage Construction',
-		'Engineer T4 Economy Defense Construction',
+		'Engineer T4 Economy Defense Construction - Small Base',
         'Engineer Shield Construction',
 	},
 
@@ -136,8 +136,8 @@ BaseBuilderTemplate {
             SCU = 12,
         },
         FactoryCount = {
-            LAND = 5,
-            AIR = 4,
+            LAND = 4,
+            AIR = 5,
             SEA = 0,
             GATE = 1,
         },
@@ -162,7 +162,7 @@ BaseBuilderTemplate {
         local mapSizeX, mapSizeZ = GetMapSize()
 
         -- If we're playing on a 5k or 10k map or low pop
-        if (mapSizeX <= 512 or mapSizeZ <= 512) or GetArmyUnitCap(aiBrain.ArmyIndex) < 1000 then 	--tonumber(ScenarioInfo.Options.UnitCap) < 1000 then
+        if (mapSizeX <= 512 or mapSizeZ <= 512) or GetArmyUnitCap(aiBrain.ArmyIndex) < 1000 then
             return 100, 'loud'
 			
         -- If we're playing on a 20k map

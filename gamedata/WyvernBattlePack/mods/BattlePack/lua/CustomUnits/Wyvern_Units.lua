@@ -27,11 +27,11 @@ UnitList = {
     -- Amphibious Units --
     T3Amphibious = {
         UEF = {'wel0304', 75},
-        Cybran = {'wrl0301', 80},
+        Cybran = {'wrl0301', 65},
     },
     
     T3AmphibiousArtillery = {
-        UEF = {'wel0341', 100},
+        UEF = {'wel03041', 100},
     },
 
     -- Naval Units --
@@ -49,12 +49,11 @@ UnitList = {
     },
     
     T4LandExperimental2 = {
-        UEF = {'wel0401', 65 },     -- Wyvern Fatboy
+        UEF = {'wel0401', 90 },     -- Wyvern Fatboy
     },
     
     T4LandExperimental3 = {
 		Aeon = {'wal0401', 60},     -- Universal Collosus        
-        UEF = {'wel1409', 60 },     -- Wyvern Fatboy II
     },
     
     T4LandExperimental4 = {

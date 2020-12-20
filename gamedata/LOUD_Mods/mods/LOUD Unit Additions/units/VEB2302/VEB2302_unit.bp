@@ -1,4 +1,11 @@
 UnitBlueprint {
+    
+	AI = {
+        TargetBones = {
+            'Turret',
+            'Barrel',
+        },
+    },
 
     Audio = {
 	
@@ -112,9 +119,8 @@ UnitBlueprint {
 	
         BuildCostEnergy = 145000,
         BuildCostMass = 13000,
-        BuildTime = 2500,
-		
-        RebuildBonusIds = {'veb2302'},
+        BuildTime = 13000,
+
     },
 	
     General = {
@@ -263,7 +269,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 0.5,	-- 4000 DPS Air
+            RateOfFire = 0.6,	-- 4000 DPS Air - rate controlled by charge
 			
             TargetCheckInterval = 1,
 			

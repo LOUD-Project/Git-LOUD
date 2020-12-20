@@ -8,7 +8,7 @@ PerimeterDefenseTemplates = {
 -- to face the correct direction.
 -- the rotation base value is 0 to 3 (0 = South, 1 = West, 2 = North, 3 = East) as the template rotation code will do that many
 -- transforms on these numbers
-# UEF Perimeter Defense Template
+-- UEF Perimeter Defense Template
     {
         {
             {'T1AADefense'},
@@ -180,7 +180,7 @@ PerimeterDefenseTemplates = {
 			{ -10, -2 },
 		},
     },
-# Aeon Perimeter Defense Template
+-- Aeon Perimeter Defense Template
    {
         {
             {'T1AADefense'},
@@ -352,7 +352,7 @@ PerimeterDefenseTemplates = {
 			{ -10, -2 },
 		},
     },
-# Cybran Perimeter Defense Template
+-- Cybran Perimeter Defense Template
    {
         {
             {'T1AADefense'},
@@ -524,7 +524,7 @@ PerimeterDefenseTemplates = {
 			{ -10, -2 },
 		},
     },
-# Seraphim Perimeter Defense Template
+-- Seraphim Perimeter Defense Template
    {
         {
             {'T1AADefense'},
@@ -703,7 +703,7 @@ PerimeterDefenseTemplates = {
 }
 	
 NavalPerimeterDefenseTemplate = {
-# UEF T2 Naval Perimeter Defense Template
+-- UEF T2 Naval Perimeter Defense Template
     {
         {{'T2Artillery','T2AADefense','T2AADefenseAmphibious'},
 			{-3,-5 },
@@ -728,7 +728,7 @@ NavalPerimeterDefenseTemplate = {
 			{ 0, 0 },
 		},
     },
-# Aeon T2 Naval Perimeter Defense Template
+-- Aeon T2 Naval Perimeter Defense Template
     {
         {{'T2Artillery','T2AADefense','T2AADefenseAmphibious'},
 			{-3,-5 },
@@ -753,7 +753,7 @@ NavalPerimeterDefenseTemplate = {
 			{ 0, 0 },
 		},
     }, 
-# Cybran T2 Naval Perimeter Defense Template
+-- Cybran T2 Naval Perimeter Defense Template
     {
         {{'T2Artillery','T2AADefense','T2AADefenseAmphibious'},
 			{-3,-5 },
@@ -778,7 +778,7 @@ NavalPerimeterDefenseTemplate = {
 			{ 0, 0 },
 		},
     },
-# Seraphim T2 Naval Perimeter Defense Template
+-- Seraphim T2 Naval Perimeter Defense Template
     {
         {{'T2Artillery','T2AADefense','T2AADefenseAmphibious'},
 			{-3,-5 },
@@ -806,7 +806,7 @@ NavalPerimeterDefenseTemplate = {
 }
 
 PerimeterDefenseExpansionTemplates = {
-# UEF Perimeter Defense Expansion
+-- UEF Perimeter Defense Expansion
     {
         {
             {
@@ -856,7 +856,7 @@ PerimeterDefenseExpansionTemplates = {
             { 0, 6, 0 },
         },
     },
-# Aeon Perimeter Defense Expansion
+-- Aeon Perimeter Defense Expansion
     {
         {
             {
@@ -906,7 +906,7 @@ PerimeterDefenseExpansionTemplates = {
             { 0, 6, 0 },
         },
     },
-# Cybran Perimeter Defense Expansion
+-- Cybran Perimeter Defense Expansion
     {
         {
             {
@@ -956,7 +956,7 @@ PerimeterDefenseExpansionTemplates = {
             { 0, 6, 0 },
         },
     },
-# Seraphim Perimeter Defense Expansion
+-- Seraphim Perimeter Defense Expansion
     {
         {
             {

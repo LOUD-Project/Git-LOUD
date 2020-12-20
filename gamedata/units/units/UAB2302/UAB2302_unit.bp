@@ -107,7 +107,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 630000,
         BuildCostMass = 32500,
-        BuildTime = 39500,	#-- was 30K
+        BuildTime = 39500,	---- was 30K
 		
         RebuildBonusIds = { 'uab2302' },
     },
@@ -256,7 +256,7 @@ UnitBlueprint {
                 Water = 'Land|Water|Seabed',
             },
 			
-            FiringRandomness = 0.125,	#--0.375,
+            FiringRandomness = 0.125,	----0.375,
             FiringTolerance = 1.5,
 			
             Label = 'MainGun',
@@ -297,7 +297,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,	#-- 6K damage every 10 seconds = 600 DPS - controlled by energy drain
+            RateOfFire = 1,	---- 6K damage every 10 seconds = 600 DPS - controlled by energy drain
 			
             TargetCheckInterval = 15,
             TargetPriorities = {

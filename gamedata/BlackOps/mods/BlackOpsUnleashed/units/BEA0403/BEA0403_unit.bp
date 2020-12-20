@@ -5,7 +5,7 @@ UnitBlueprint {
 		GuardReturnRadius = 80,
 
         TargetBones = {
-            'BEA0403',
+            'XEA0403',
             'Target_01',
             'Target_02',
             'Target_03',
@@ -238,7 +238,7 @@ UnitBlueprint {
     Weapon = {
 	
 		-- 4 x Ground-Attack Cannon
-		-- Battery #1
+		-- Battery --1
         {
             AboveWaterTargetsOnly = true,		
             AlwaysRecheckTarget = true,
@@ -334,7 +334,7 @@ UnitBlueprint {
             Turreted = true,
         },
 		
-		-- Battery #2
+		-- Battery --2
 		
         {
             AboveWaterTargetsOnly = true,		
@@ -427,7 +427,7 @@ UnitBlueprint {
             Turreted = true,
         },
 		
-		-- Battery #3
+		-- Battery --3
 		
         {
             AboveWaterTargetsOnly = true,		
@@ -521,7 +521,7 @@ UnitBlueprint {
             Turreted = true,
         },
 		
-		-- Battery #4
+		-- Battery --4
 		
         {
             AboveWaterTargetsOnly = true,		
@@ -615,7 +615,7 @@ UnitBlueprint {
         },
 		
 		-- 4x Flak Cannons
-		-- Flak #1
+		-- Flak --1
 		
         {
             AlwaysRecheckTarget = true,
@@ -701,7 +701,7 @@ UnitBlueprint {
 			
             Turreted = true,
         },
-		-- Flak #2
+		-- Flak --2
         {
             AlwaysRecheckTarget = true,
             Audio = {
@@ -783,7 +783,7 @@ UnitBlueprint {
 			
             Turreted = true,
         },
-		-- Flak #3
+		-- Flak --3
         {
             AlwaysRecheckTarget = true,
             Audio = {
@@ -866,7 +866,7 @@ UnitBlueprint {
 			
             Turreted = true,
         },
-		-- Flak #4
+		-- Flak --4
         {
             AlwaysRecheckTarget = true,
             Audio = {
@@ -930,7 +930,7 @@ UnitBlueprint {
                 'HIGHPRIAIR',
                 'AIR MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TrackingRadius = 1.4,
 			
             TurretBoneMuzzle = 'Back_Right_Flak_Muzzle',
@@ -950,7 +950,7 @@ UnitBlueprint {
         },
 		
 		-- 4x AA Gatlings
-		-- Gatling #1
+		-- Gatling --1
 		
         {
             Audio = {
@@ -1010,7 +1010,7 @@ UnitBlueprint {
                 'HIGHPRIAIR',
                 'AIR MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TrackingRadius = 1.4,
             
             TurretBoneMuzzle = 'Front_Left_AAC_Muzzle',
@@ -1032,7 +1032,7 @@ UnitBlueprint {
             WeaponRepackTimeout = 2,
             WeaponUnpacks = true,
         },
-		-- Gatling #2
+		-- Gatling --2
         {
             Audio = {
                 Fire = Sound {
@@ -1090,7 +1090,7 @@ UnitBlueprint {
                 'HIGHPRIAIR',
                 'AIR MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TrackingRadius = 1.4,
             
             TurretBoneMuzzle = 'Front_Right_AAC_Muzzle',
@@ -1112,7 +1112,7 @@ UnitBlueprint {
             WeaponRepackTimeout = 2,
             WeaponUnpacks = true,
         },
-		-- Gatling #3
+		-- Gatling --3
         {
             Audio = {
                 Fire = Sound {
@@ -1169,7 +1169,7 @@ UnitBlueprint {
                 'HIGHPRIAIR',
                 'AIR MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TrackingRadius = 1.4,
             
             TurretBoneMuzzle = 'Back_Left_AAC_Muzzle',
@@ -1191,7 +1191,7 @@ UnitBlueprint {
             WeaponRepackTimeout = 2,
             WeaponUnpacks = true,
         },
-		-- Gatling #4
+		-- Gatling --4
         {
             Audio = {
                 Fire = Sound {
@@ -1250,7 +1250,7 @@ UnitBlueprint {
                 'HIGHPRIAIR',
                 'AIR MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TrackingRadius = 1.4,
             
             TurretBoneMuzzle = 'Back_Right_AAC_Muzzle',

@@ -1,4 +1,4 @@
-#**  File     :  /lua/DefaultBuffField.lua
+--**  File     :  /lua/DefaultBuffField.lua
 
 local BuffField = import('/lua/sim/BuffField.lua').BuffField
 

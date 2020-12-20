@@ -47,7 +47,7 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 800,
+        EconomyThreatLevel = 900,
         Health = 35000,
         MaxHealth = 35000,
         RegenRate = 6,
@@ -80,8 +80,9 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 35100,
         BuildCostMass = 8000,
-        BuildRate = 50,
-        BuildTime = 16000,
+        
+        BuildRate = 100,
+        BuildTime = 32000,
 		
         BuildableCategory = {
             'BUILTBYTIER3FACTORY UEF MOBILE CONSTRUCTION',

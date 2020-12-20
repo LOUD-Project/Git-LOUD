@@ -1,4 +1,4 @@
-#**  File     :  /lua/buildingtemplates.lua
+--**  File     :  /lua/buildingtemplates.lua
 
 -- This file contains all the Platoon Template References for building structures
 -- I have enhanced it to provide additional categories

@@ -5,7 +5,7 @@
 --  Naval Expansion Base
 
 ExpansionLayout = {
-# UEF Expansion Base Layout
+-- UEF Expansion Base Layout
     {
         {
             {
@@ -401,7 +401,7 @@ ExpansionLayout = {
 			{ 15, 7 },
         },
     },
-# Aeon Expansion Base Layout
+-- Aeon Expansion Base Layout
     {
         {
             {
@@ -797,7 +797,7 @@ ExpansionLayout = {
 			{ 15, 7 },
         },
     },
-# Cybran Expansion Base Layout
+-- Cybran Expansion Base Layout
     {
         {
             {
@@ -1193,7 +1193,7 @@ ExpansionLayout = {
 			{ 15, 7 },
         },
     },
-# Seraphim Expansion Base Layout
+-- Seraphim Expansion Base Layout
     {
         {
             {
@@ -1592,7 +1592,7 @@ ExpansionLayout = {
 }
 
 ExpansionLayout_II = {
-# UEF Expansion Base Layout
+-- UEF Expansion Base Layout
     {
         {{'T1LandFactory','T1AirFactory'},
 			{ -8,-16 }, # inner ring 8
@@ -1752,6 +1752,12 @@ ExpansionLayout_II = {
 			{-32, 25 },
 			{ 32, 25 },
 		},
+        {{'T3TacticalArtillery'},
+            { 30, -2 },
+            { 30,  2 },
+            {-30, -2 },
+            {-30,  2 },
+        },
 		{{'T2MissileDefense'},
 			{-34, 25 },
 			{ 34, 25 },
@@ -1785,7 +1791,7 @@ ExpansionLayout_II = {
 			{-15, 30 },
 		},
     },
-# Aeon Expansion Base Layout
+-- Aeon Expansion Base Layout
     {
         {{'T1LandFactory','T1AirFactory'},
 			{ -8,-16 }, # inner ring 8
@@ -1945,6 +1951,12 @@ ExpansionLayout_II = {
 			{-32, 25 },
 			{ 32, 25 },
 		},
+        {{'T3TacticalArtillery'},
+            { 30, -2 },
+            { 30,  2 },
+            {-30, -2 },
+            {-30,  2 },
+        },        
 		{{'T2MissileDefense'},
 			{-34, 25 },
 			{ 34, 25 },
@@ -1979,7 +1991,7 @@ ExpansionLayout_II = {
 		},
     },
 
-# Cybran Expansion Base Layout
+-- Cybran Expansion Base Layout
     {
         {{'T1LandFactory','T1AirFactory'},
 			{ -8,-16 }, # inner ring 8
@@ -2139,6 +2151,12 @@ ExpansionLayout_II = {
 			{-32, 25 },
 			{ 32, 25 },
 		},
+        {{'T3TacticalArtillery'},
+            { 30, -2 },
+            { 30,  2 },
+            {-30, -2 },
+            {-30,  2 },
+        },        
 		{{'T2MissileDefense'},
 			{-34, 25 },
 			{ 34, 25 },
@@ -2173,7 +2191,7 @@ ExpansionLayout_II = {
 		},
     },
 	
-# Seraphim Expansion Base Layout
+-- Seraphim Expansion Base Layout
     {
         {{'T1LandFactory','T1AirFactory'},
 			{ -8,-16 }, # inner ring 8
@@ -2333,6 +2351,12 @@ ExpansionLayout_II = {
 			{-32, 25 },
 			{ 32, 25 },
 		},
+        {{'T3TacticalArtillery'},
+            { 30, -2 },
+            { 30,  2 },
+            {-30, -2 },
+            {-30,  2 },
+        },        
 		{{'T2MissileDefense'},
 			{-34, 25 },
 			{ 34, 25 },
@@ -2369,7 +2393,7 @@ ExpansionLayout_II = {
 }
 
 NavalExpansionBase = {
-# UEF Naval Yard
+-- UEF Naval Yard
     {
         {{'T1SeaFactory','T2SeaFactory','T3SeaFactory'},
 			{  0,-22 },
@@ -2446,7 +2470,7 @@ NavalExpansionBase = {
 			{ 0, 9 },
 		},
     },
-# Aeon Naval Yard
+-- Aeon Naval Yard
     {
         {{'T1SeaFactory','T2SeaFactory','T3SeaFactory'},
 			{  0,-22 },
@@ -2523,7 +2547,7 @@ NavalExpansionBase = {
 			{ 0, 9 },
 		},
     },
-# Cybran Naval Yard
+-- Cybran Naval Yard
     {
         {{'T1SeaFactory','T2SeaFactory','T3SeaFactory'},
 			{  0,-22 },
@@ -2600,7 +2624,7 @@ NavalExpansionBase = {
 			{ 0, 9 },
 		},
     },
-# Seraphim Naval Yard
+-- Seraphim Naval Yard
     {
         {{'T1SeaFactory','T2SeaFactory','T3SeaFactory'},
 			{  0,-22 },

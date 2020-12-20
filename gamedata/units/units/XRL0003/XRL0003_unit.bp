@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     Audio = {
         Destroyed = Sound {
             Bank = 'URLDestroy',
@@ -21,7 +22,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
-    BuildIconSortPriority = 10,
+    
+    BuildIconSortPriority = 20,
+    
     Categories = {
         'SELECTABLE',
         'CYBRAN',
@@ -29,13 +32,13 @@ UnitBlueprint {
         'LAND',
         'TECH3',
         'CONSTRUCTION',
-        --'FACTORY',
         'RALLYPOINT',
         'DRAGBUILD',
         'VISIBLETORECON',
         'RECLAIMABLE',
         'SHOWQUEUE',
     },
+    
     Defense = {
         ArmorType = 'Normal',
         Health = 10,
@@ -43,7 +46,9 @@ UnitBlueprint {
         RegenRate = 0,
         SurfaceThreatLevel = 0,
     },
+    
     Description = '<LOC xrl0003_desc>Crab Egg (Brick)',
+    
     Display = {
         AnimationOpen = '/units/xrl0003/xrl0003_aopen.sca',
         BuildAttachBone = 'AttachPoint',
@@ -66,16 +71,19 @@ UnitBlueprint {
         SpawnRandomRotation = true,
         UniformScale = 0.05,
     },
+    
     Economy = {
-        BuildCostEnergy = 17600,
-        BuildCostMass = 1280,
-        BuildTime = 4800,
+        BuildCostEnergy = 22000,
+        BuildCostMass = 1900,
+        BuildTime = 9500,
         BuildUnit = 'xrl0305',
     },
+    
     Footprint = {
         SizeX = 2,
         SizeZ = 2,
     },
+    
     General = {
         Category = 'Factory',
         Classification = 'RULEUC_Factory',
@@ -99,15 +107,19 @@ UnitBlueprint {
         TechLevel = 'RULEUTL_Secret',
         UnitWeight = 1,
     },
+    
     Intel = {
         VisionRadius = 0,
     },
+    
     Interface = {
         HelpText = 'Crab Egg (Brick)',
     },
+    
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.5,
     LifeBarSize = 1,
+    
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -127,6 +139,7 @@ UnitBlueprint {
         SkirtSizeZ = 1,
         TurnRate = 0,
     },
+    
     SelectionSizeX = 0.65,
     SelectionSizeZ = 0.65,
     SelectionThickness = 0.6,

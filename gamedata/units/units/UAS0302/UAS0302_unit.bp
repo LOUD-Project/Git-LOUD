@@ -51,7 +51,8 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
         'BATTLESHIP',
-		'BOMBARDMENT',
+        'BOMBARDMENT',
+        'OVERLAYRADAR',
     },
 	
     CollisionOffsetY = -1,

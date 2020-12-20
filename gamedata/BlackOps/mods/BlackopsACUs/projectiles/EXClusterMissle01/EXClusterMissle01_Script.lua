@@ -1,6 +1,6 @@
-#
-# Terran Land-Based Cruise Missile
-#
+--
+-- Terran Land-Based Cruise Missile
+--
 local TMissileCruiseProjectile = import('/mods/BlackopsACUs/lua/EXBlackOpsprojectiles.lua').UEFACUClusterMIssileProjectile
 local Explosion = import('/lua/defaultexplosions.lua')
 local EffectTemplate = import('/lua/EffectTemplates.lua')

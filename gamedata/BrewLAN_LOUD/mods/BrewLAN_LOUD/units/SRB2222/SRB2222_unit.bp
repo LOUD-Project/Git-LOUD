@@ -1,6 +1,6 @@
 UnitBlueprint {
     AI = {
-        #Nuke falloff range for build preview.
+        --Nuke falloff range for build preview.
         GuardScanRadius = 40,
         StagingPlatformScanRadius = 40,
     },

@@ -57,9 +57,13 @@ UnitBlueprint {
         SurfaceThreatLevel = 402.5,
     },
 	
-    Description = '<LOC xsl0303_desc>Amphibious Siege Tank',
+    Description = '<LOC xsl0303_desc>Siege Tank',
 	
     Display = {
+        Abilities = {
+			'Amphibious',
+            'Torpedoes',
+		},
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -119,7 +123,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Amphibious Siege Tank',
+        HelpText = 'Siege Tank',
     },
 	
     LifeBarHeight = 0.075,
@@ -312,7 +316,7 @@ UnitBlueprint {
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
 			
-            RateOfFire = 1,		#-- 150 DPS
+            RateOfFire = 1,		---- 150 DPS
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -464,7 +468,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.5,		#-- 105 DPS Sub
+            RateOfFire = 0.5,		---- 105 DPS Sub
 			
             TargetCheckInterval = 2,
 			

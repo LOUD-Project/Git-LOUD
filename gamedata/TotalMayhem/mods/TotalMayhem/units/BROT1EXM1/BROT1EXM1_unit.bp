@@ -1,5 +1,11 @@
 UnitBlueprint {
 
+    AI = { 
+		TargetBones = {
+            'Turret',
+        },
+    }, 
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'TM_EXPLOSIONS',
@@ -162,9 +168,9 @@ UnitBlueprint {
     SelectionSizeZ = 0.9,
     SelectionThickness = 0.3,
 	
-    SizeX = 0.75,
+    SizeX = 0.7,
     SizeY = 1,
-    SizeZ = 0.75,
+    SizeZ = 0.7,
 	
     StrategicIconName = 'icon_bot1_directfire',
     StrategicIconSortPriority = 115,
@@ -251,7 +257,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.6,	# 36dps
+            RateOfFire = 0.6,	-- 36dps
 			
             TargetCheckInterval = 1.0,
 			
@@ -338,7 +344,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
             RangeCategory = 'UWRC_DirectFire',
-            RateOfFire = 2,	# 20dps
+            RateOfFire = 2,	-- 20dps
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -426,7 +432,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.1,	# 15dps
+            RateOfFire = 0.1,	-- 15dps
 			RenderFireClock = true,
 			
             TargetCheckInterval = 2.5,

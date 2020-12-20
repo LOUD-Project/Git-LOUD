@@ -2,6 +2,7 @@ UnitBlueprint {
     AI = {
         GuardReturnRadius = 125,
         GuardScanRadius = 100,
+        TargetBones = { 'Base' },
     },
 	
     Air = {
@@ -206,7 +207,7 @@ UnitBlueprint {
         },
 
         SpawnRandomRotation = true,
-        UniformScale = 0.05,
+        UniformScale = 0.06,
     },
 	
     Economy = {
@@ -375,7 +376,7 @@ UnitBlueprint {
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
 
-            RateOfFire = 0.2,       #-- 1240 * .2 = 248
+            RateOfFire = 0.2,       ---- 1240 * .2 = 248
 			
             TargetCheckInterval = 2.5,
 			

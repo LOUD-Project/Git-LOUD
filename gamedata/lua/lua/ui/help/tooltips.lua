@@ -1,7 +1,8 @@
 Tooltips = {
-    --*******************
-    --** Orders Strings
-    --*******************
+    -- *********************
+    -- *** Orders Strings
+    -- *********************
+
     move = {
         title = "Move",
         description = "",
@@ -30,11 +31,6 @@ Tooltips = {
     mode_hold = {
         title = "Hold Fire",
         description = "Units will not engage enemies",
-        keyID = "mode",
-    },
-    mode_aggressive = {
-        title = "Ground Fire",
-        description = "Units will attack targeted positions rather attack-move",
         keyID = "mode",
     },
     mode_return_fire = {
@@ -306,9 +302,10 @@ Tooltips = {
         description = "",
     },
 
-    --**********************
-    --** Chat Strings
-    --**********************
+    -- *******************
+    -- *** Chat Strings
+    -- *******************
+
     chat_config = {
         title = "Configure Chat",
         description = "Click here to configure various chat options.",
@@ -365,10 +362,6 @@ Tooltips = {
         title = "Reset Chat Window",
         description = "Resets the position and layout of the chat window",
     },
-    minimap_reset = {
-        title = "Reset Minimap Window",
-        description = "Resets the position and layout of the minimap window",
-    },
     toggle_cartographic = {
         title = "Cartographic Mode",
         description = "Display the terrain using a topographic visualization",
@@ -382,9 +375,10 @@ Tooltips = {
         description = "Toggles option and MFD buttons on or off.",
     },
 
-    --**********************
-    --** Economy Strings
-    --**********************
+    -- **********************
+    -- *** Economy Strings
+    -- **********************
+
     mass_rate = {
         title = "Economic Mass Rate",
         description = "Toggle between income-per-second and efficiency rating values",
@@ -414,9 +408,10 @@ Tooltips = {
         description = "Your overall Economic Efficiency",
     },
 
-    --**********************
-    --** Options Strings
-    --**********************
+    -- **********************
+    -- *** Options Strings
+    -- **********************
+
     options_wheel_sensitivity = {
         title = "Zoom Wheel Sensitivity",
         description = "Sets the Zoom Speed when using the Mouse Wheel",
@@ -650,9 +645,23 @@ Tooltips = {
         description = "When on, the UI skin will change to match the faction you are playing",
     },
 
-    --**********************
-    --** Lobby Strings
-    --**********************
+    -- ********************
+    -- *** Mod Manager Strings
+    -- ********************
+
+    modmgr_loudstandard = {
+        title = "Enable LOUD Standard",
+        description = "Turn on the group of mods officially endorsed by the LOUD Development Team as the true LOUD experience.",
+    },
+
+    -- ********************
+    -- *** Lobby Strings
+    -- ********************
+
+    aitype_loud = {
+        title = "LOUD AI",
+        description = "Use LOUD AI - set AI Multiplier for difficulty",
+    },
     Lobby_Advanced = {
         title = "Advanced Options",
         description = "Sets Advanced Options for this Map",
@@ -689,9 +698,25 @@ Tooltips = {
         title = "Back",
         description = "Go Back to the Main Menu",
     },
+    lob_clear_ai = {
+        title = "Clear all AI",
+        description = "Remove all AI from this game",
+    },
     Lobby_Add_AI = {
         title = "Add AI",
         description = "Click here to Add an AI Player",
+    },
+    lob_fill_combo = {
+        title = "Select AI to fill slot with",
+        description = "Choose which AI to use",
+    },
+    lob_fill_open = {
+        title = "Fill empty slots with AI",
+        description = "Fill all empty positions with AI",
+    },
+    lob_set_all_ai_multi = {
+        title = "Set All AI Multipliers",
+        description = "Set the AI cheat multiplier of all AI in this lobby.",
     },
     Lobby_Del_AI = {
         title = "Delete AI",
@@ -749,10 +774,49 @@ Tooltips = {
         title = "Teams",
         description = "Set Teams",
     },
-    Lobby_AI_Mult = {
-        title = "Select AI Difficulty",
-        description = "Set Difficult of AI - affects Resources/Build Speed directly - Health/Intel affected at lower rate.",
+    
+    lob_ai = {
+        title = "AI Settings",
+        description = "Configure this AI's cheat multiplier to make it more or less difficult, or use adaptive cheating for additional difficulty in certain situations.",
     },
+    lob_ai_ping = {
+        title = "Ping/AI Settings",
+        description = "If a human player fills this slot, their ping is shown in this column. If an AI player fills this slot, their cheat settings are shown in this column.",
+    },
+    lob_mult = {
+        title = "AI Cheat Multiplier",
+        description = "Sets how much this AI will cheat. At 1.0, it does not cheat, and higher values increase the cheating; at below 1.0, it is weakened and less difficult.",
+    },
+    lob_act = {
+        title = "Adaptive AI Cheat Multiplier",
+        description = "Allows the AI to dynamically change its cheat multiplier in response to certain factors during the game. Check Advanced AI Options under Game Options for even more settings.",
+    },    
+    
+    Lobby_ACT_Start_Delay = {
+        title = "Timed Cheat Start Delay",
+        description = "If an AI cheats adaptively, this is the delay in minutes before any changes start happening.",
+    },
+    Lobby_ACT_Time_Delay = {
+        title = "Timed Cheat Delay",
+        description = "If an AI cheats more with time, this is the delay in minutes between each difficulty increase.",
+    },
+    Lobby_ACT_Time_Amount = {
+        title = "Timed Cheat Amount",
+        description = "If an AI cheats more with time, this is how much the difficulty increases every interval.",
+    },
+    Lobby_ACT_Time_Cap = {
+        title = "Timed Cheat Limit",
+        description = "If an AI cheats more with time, its cheat multiplier cannot go higher than the selected number.",
+    },
+    Lobby_ACT_Ratio_Interval = {
+        title = "Feedback Cheat Interval",
+        description = "If an AI is affected by feedback cheating, this is the time period in seconds between possible changes to its cheat multiplier. Increase for better performance.",
+    },
+    Lobby_ACT_Ratio_Scale = { 
+        title = "Feedback Cheat Scale", 
+        description = "If an AI is affected by feedback cheating, this is the scale which affects the multiplier increase. Mouseover an option for more information.", 
+    },
+    
     Lobby_Gen_Civilians = {
         title = "Civilians",
         description = "Set civilian unit behavior",
@@ -769,6 +833,7 @@ Tooltips = {
         title = "Removed",
         description = "No civilian units are present",
     },
+    
     Lobby_NoRushOption = {
         title = "No Rush Option",
         description = "Set a time in which players may not expand past their initial starting area",
@@ -789,6 +854,7 @@ Tooltips = {
         title = "20 Minutes",
         description = "You must stay in your starting area for 20 minutes",
     },
+    
     lob_CheatsEnabled_false = {
         title = 'Disable Cheats',
         description = 'Disable all cheat functions',
@@ -797,6 +863,7 @@ Tooltips = {
         title = 'Enable Cheats',
         description = 'Enable cheat functions (reported to all players)',
     },
+    
     lob_FogOfWar_explored = {
         title = 'Explored',
         description = 'Sets Fog of War to Explored',
@@ -809,18 +876,7 @@ Tooltips = {
         title = 'None',
         description = 'No Fog of War',
     },
-    lob_GameSpeed_normal = {
-        title = 'Normal',
-        description = 'Sets the game speed to Normal',
-    },
-    lob_GameSpeed_fast = {
-        title = 'Fast',
-        description = 'Sets the game speed to Fast',
-    },
-    lob_GameSpeed_adjustable = {
-        title = 'Adjustable',
-        description = 'Allows the game speed to be adjusted ingame',
-    },
+    
     Lobby_Gen_DisplayScores = {
         title = "Display Scores",
         description = "Turn the in game display of army scores on or off",
@@ -863,6 +919,15 @@ Tooltips = {
         title = "Team",
         description = "Players with the same Team will start off Allied with each other",
     },
+
+    lob_teams_combo = {
+        title = "Number/Configuration of Teams",
+        description = "Select the number or configuration of teams for this map",
+    },
+    lob_random_teams = {
+        title = "Assign players to teams",
+        description = "Automatically assign players to teams according to configuration",
+    },
     lob_select_map = {
         title = "Game Options",
         description = "Choose a map to play on and adjust game settings",
@@ -887,6 +952,46 @@ Tooltips = {
         title = "Random",
         description = '',
     },
+    lob_random_map = {
+        title = "Randomly choose a map",
+        description = '',
+    },
+    lob_teamsetup_2 = {
+        title = "Two teams",
+        description = "Make 2 teams",
+    },
+    lob_teamsetup_3 = {
+        title = "Three teams",
+        description = "Make 3 teams",
+    },
+    lob_teamsetup_4 = {
+        title = "Four teams",
+        description = "Make 4 teams",
+    },
+    lob_teamsetup_5 = {
+        title = "Five teams",
+        description = "Make 5 teams",
+    },
+    lob_teamsetup_6 = {
+        title = "Six teams",
+        description = "Make 6 teams",
+    },
+    lob_teamsetup_7 = {
+        title = "Seven teams",
+        description = "Make 7 teams",
+    },
+    lob_teamsetup_8 = {
+        title = "Eight teams",
+        description = "Make 8 teams",
+    },
+    lob_teamsetup_TB = {
+        title = "Top to Bottom teams",
+        description = "Make 2 teams from top to bottom",
+    },
+    lob_teamsetup_LR = {
+        title = "Left to Right teams",
+        description = "Make 2 teams from left to right",
+    },    
     lob_team_none = {
         title = 'No Team',
         description = '',
@@ -923,7 +1028,7 @@ Tooltips = {
         title = 'Team 8',
         description = '',
     },
-    
+
     lob_Timeouts_0 = {
         title = 'No Pausing',
         description = 'You will not be able to pause the game',
@@ -936,104 +1041,123 @@ Tooltips = {
         title = 'Unlimited Pausing',
         description = 'You can pause the game at any time',
     },
-    
-	#####################
-	#   AI Multiplier   #
-	#####################
-    
-    ["Lobby_Cheat_Mult"] = {
-        title = "Cheat Multiplyer",
-        description = "Sets the difficulty multiplier for the AI.",
+
+    -- *********************
+    -- *** Adaptive Cheat
+    -- *********************
+
+    lob_act_none = {
+        title = 'No Adaptive Cheating',
+        description = 'The cheat multiplier assigned to the AI in the lobby will persist throughout the entire game.',
     },
-    
-	["lob_AIMult_0.8"] = {
-        title = "0.8",
-        description = "AI Difficulty -20%. - greatly reduced",
-    },	    
-	["lob_AIMult_0.9"] = {
-        title = "0.9",
-        description = "AI Difficulty -10%. - slightly reduced",
-    },	
-	["lob_AIMult_1.0"] = {
-        title = "1.0",
-        description = "AI Normal Difficulty.",
+    lob_act_ratio = {
+        title = 'Feedback Cheat',
+        description = 'The AI will get more difficult as its land army size relative to yours decreases.',
     },
-	["lob_AIMult_1.05"] = {
-        title = "1.05",
-        description = "AI Difficulty +5%",
+    lob_act_time = {
+        title = 'Time-Based Adaptive Cheat',
+        description = 'The AI will get change with time.',
     },
-	["lob_AIMult_1.075"] = {
-        title = "1.075",
-        description = "AI Difficulty +7.5%",
-    },
-	["lob_AIMult_1.1"] = {
-        title = "1.1",
-        description = "AI Difficulty +10%",
-    },
-	["lob_AIMult_1.125"] = {
-        title = "1.125",
-        description = "AI Difficulty +12.5%",
-    },
-	["lob_AIMult_1.15"] = {
-        title = "1.150",
-        description = "AI Difficulty +15%",
-    },
-	["lob_AIMult_1.175"] = {
-        title = "1.175",
-        description = "AI Difficulty +17.5%",
-    },	
-	["lob_AIMult_1.2"] = {
-        title = "1.200",
-        description = "AI Difficulty +20%.",
-    },
-	["lob_AIMult_1.225"] = {
-        title = "1.225",
-        description = "AI Difficulty +22.5%",
-    },	
-	["lob_AIMult_1.25"] = {
-        title = "1.250",
-        description = "AI Difficulty +25%.",
-    },
-	["lob_AIMult_1.3"] = {
-        title = "1.300",
-        description = "AI Difficulty +30%",
-    },
-	["lob_AIMult_1.325"] = {
-        title = "1.325",
-        description = "AI Difficulty +32.5%",
-    },    
-	["lob_AIMult_1.35"] = {
-        title = "1.35",
-        description = "AI Difficulty +35%",
-    },
-	["lob_AIMult_1.375"] = {
-        title = "1.375",
-        description = "AI Difficulty +37.5%",
-    },	
-	["lob_AIMult_1.4"] = {
-        title = "1.40",
-        description = "AI Difficulty +40%",
-    },
-	["lob_AIMult_1.5"] = {
-        title = "1.50",
-        description = "AI Difficulty +50%",
-    },
-	["lob_AIMult_1.6"] = {
-        title = "1.60",
-        description = "AI Difficulty +60%",
-    },    
-	["lob_AIMult_1.75"] = {
-        title = "1.75",
-        description = "AI Difficulty +75%",
-    },
-	["lob_AIMult_2.0"] = {
-        title = "2.00",
-        description = "AI Difficulty +100%",
+    lob_act_both = {
+        title = 'Feedback and Time-Based Adaptive Cheat',
+        description = 'Both adaptive cheat options work on the AI.'
     },
 
-	########################
-	#	Unit Cap Cheat	   #
-	########################
+    ["lob_ACTRatioInterval_15"] = {
+        title = "15",
+        description = "The AI's cheat multiplier may change every 15 seconds."
+    },
+    ["lob_ACTRatioInterval_30"] = {
+        title = "30",
+        description = "The AI's cheat multiplier may change every 30 seconds.",
+    },
+    ["lob_ACTRatioInterval_45"] = {
+        title = "45",
+        description = "The AI's cheat multiplier may change every 45 seconds.",
+    },
+    
+    ["lob_ACTTimeAmount_-.02"] = {
+        title = "-.02",
+        description = "The AI's cheat multiplier will decrease by 0.02 every interval.",
+    },    
+    ["lob_ACTTimeAmount_-.01"] = {
+        title = "-.01",
+        description = "The AI's cheat multiplier will decrease by 0.01 every interval.",
+    },
+    ["lob_ACTTimeAmount_0.01"] = {
+        title = "0.01",
+        description = "The AI's cheat multiplier will increase by 0.01 every interval.",
+    },
+    ["lob_ACTTimeAmount_0.02"] = {
+        title = "0.02",
+        description = "The AI's cheat multiplier will increase by 0.02 every interval.",
+    },
+    ["lob_ACTTimeAmount_0.05"] = {
+        title = "0.05",
+        description = "The AI's cheat multiplier will increase by 0.05 every interval.",
+    },
+
+
+    ["lob_ACTTimeDelay_6"] = {
+        title = "6",
+        description = "The AI's cheat multiplier will change every 6 minutes.",
+    },
+    ["lob_ACTTimeDelay_10"] = {
+        title = "10",
+        description = "The AI's cheat multiplier will change every 10 minutes.",
+    },
+    ["lob_ACTTimeDelay_15"] = {
+        title = "15",
+        description = "The AI's cheat multiplier will change every 15 minutes.",
+    },
+
+    ["lob_ACTTimeCap_2"] = {
+        title = "2.0",
+        description = "The AI's cheat multiplier will never go higher than 2.0."
+    },
+    ["lob_ACTTimeCap_3"] = {
+        title = "3.0",
+        description = "The AI's cheat multiplier will never go higher than 3.0."
+    },
+    ["lob_ACTTimeCap_4"] = {
+        title = "4.0",
+        description = "The AI's cheat multiplier will never go higher than 4.0."
+    },
+
+    ["lob_ACTStartDelay_0"] = {
+        title = "0",
+        description = "The AI's cheat multiplier timer will not start immediately.",
+    },
+    ["lob_ACTStartDelay_6"] = {
+        title = "6",
+        description = "The AI's cheat multiplier will not start changing until 6 minutes have passed.",
+    },
+    ["lob_ACTStartDelay_10"] = {
+        title = "10",
+        description = "The AI's cheat multiplier will not start changing until 10 minutes have passed.",
+    },
+    ["lob_ACTStartDelay_15"] = {
+        title = "15",
+        description = "The AI's cheat multiplier will not start changing until 15 minutes have passed.",
+    },
+    
+    ["lob_ACTRatioScale_1"] = { 
+        title = "1", 
+        description = "The AI's cheat multiplier will increase by a maximum of 0.5.", 
+    }, 
+    ["lob_ACTRatioScale_2"] = { 
+        title = "2", 
+        description = "The AI's cheat multiplier will increase by a maximum of 1.0.", 
+    }, 
+    ["lob_ACTRatioScale_3"] = { 
+        title = "3", 
+        description = "The AI's cheat multiplier will increase by a maximum of 1.5.", 
+    }, 
+ 
+    -- *********************
+    -- *** Unit Cap Cheat
+    -- *********************
+
     ["Lobby_Cap_Cheat"] = {
         title = "Unit Cap Setting",
         description = "Sets if AI players have normal unit caps, enhanced unit caps (by AI multiplier) or an unlimited unit cap.",
@@ -1052,9 +1176,9 @@ Tooltips = {
         description = "AI players have the same unit cap as human players.",
     },	
 
-	#####################################
-	#  Unused Start Location Resources  #
-	#####################################
+    -- *************************************
+	-- ** Unused Start Location Resources
+	-- *************************************
     
 	["Lobby_UnusedResources"] = {
 		title = "Unused Start Locations",
@@ -1090,9 +1214,9 @@ Tooltips = {
 		description = "No start location resources will be kept",
 	},
     
-	#######################
-	#    Missile Options  #
-	#######################
+    -- **********************
+    -- *** Missile Options
+    -- **********************
     
 	["Lobby_MissileOption"] = {
 		title = "Missile Options",
@@ -1112,9 +1236,9 @@ Tooltips = {
 		description = "All Nukes and Antinukes come with two missiles when built",
 	},
 
-    #################
-    #  Unit Limits  #
-    #################
+    -- ******************
+    -- *** Unit Limits
+    -- ******************
     
 	lob_UnitCap_300 = {
         title = "300",
@@ -1183,15 +1307,19 @@ Tooltips = {
 	lob_UnitCap_2000 = {
         title = "2000",
         description = "2000 units per player may be in play.",
-    },    
+    },
+	lob_UnitCap_3000 = {
+        title = "3000",
+        description = "3000 units per player may be in play.",
+    },        
 	lob_UnitCap_4000 = {
 		title = '4000',
 		description = '4000 units per player may be in play.',
 	},
     
-    ########################
-    #  Victory Conditions  #
-    ########################
+    -- *************************
+    -- *** Victory Conditions
+    -- *************************
     
 	lob_Victory_decapitation = {
 		title = "Advanced Assassination",
@@ -1218,7 +1346,6 @@ Tooltips = {
 		description = "Game will end after the time limit",
 	},
 
-
     ['Give Units'] = {
         title = 'Give Units',
         description = '',
@@ -1227,7 +1354,6 @@ Tooltips = {
         title = 'Give Resources',
         description = '',
     },
-
 
     lob_TeamSpawn_random = {
         title = 'Random Spawnpoints',
@@ -1306,9 +1432,10 @@ Tooltips = {
         description = "View what units are allowed to be played in game",
     },
 
-    --**********************
-    --** Profile Strings
-    --**********************
+    -- **********************
+    -- *** Profile Strings
+    -- **********************
+
     Profile_name = {
         title = "Name",
         description = "The Name of this Profile",
@@ -1334,9 +1461,10 @@ Tooltips = {
         description = "All saved Profiles",
     },
 
-    --**********************
-    --** Options Strings
-    --**********************
+    -- **********************
+    -- *** Options Strings
+    -- **********************
+
     exit_menu = {
         title = "Menu",
         description = "Opens the Game Menu",
@@ -1376,9 +1504,9 @@ Tooltips = {
         description = "",
     },
 
-    --**********************
-    --** Construction Manager
-    --**********************
+    -- ***************************
+    -- *** Construction Manager
+    -- ***************************
     construction_tab_t1 = {
         title = "Tech 1",
         description = "",
@@ -1472,9 +1600,9 @@ Tooltips = {
         description = "[Pause/Unpause] the current construction order",
     },
 
-    --**********************
-    --** In Game Replay Manager
-    --**********************
+    -- *****************************
+    -- *** In Game Replay Manager
+    -- *****************************
     esc_return = {
         title = "Return to Game",
         description = "Closes the menu and returns you to the current game",
@@ -1512,9 +1640,10 @@ Tooltips = {
         description = "Continue a Previously Saved Game",
     },
 
-    --**********************
-    --** In Game Replay Manager
-    --**********************
+    -- *****************************
+    -- *** In Game Replay Manager
+    -- *****************************
+
     replay_pause = {
         title = "Pause",
         description = "Pause or Resume the Replay",
@@ -1536,9 +1665,9 @@ Tooltips = {
         description = "Plays the Current Replay from the Beginning",
     },
 
-    --**********************
-    --** Post Game Score Screen
-    --**********************
+    -- *****************************
+    -- *** Post Game Score Screen
+    -- *****************************
     PostScore_Grid = {
         title = "Players",
         description = "Shows the Players and Scores",
@@ -1570,18 +1699,6 @@ Tooltips = {
     PostScore_score = {
         title = "Score",
         description = "Sort by Overall Performance",
-    },
-    PostScore_kills = {
-        title = "Kills",
-        description = "Sort by Units Destroyed",
-    },
-    PostScore_built = {
-        title = "Built",
-        description = "Sort by Structures Built",
-    },
-    PostScore_lost = {
-        title = "Losses",
-        description = "Sort by Units Lost",
     },
     PostScore_cdr = {
         title = "Command Units",
@@ -1672,9 +1789,10 @@ Tooltips = {
         description = "Exit the Score Screen",
     },
 
-    --**********************
-	--** MFD Strings
-    --**********************
+    -- ******************
+	-- *** MFD Strings
+    -- ******************
+
     mfd_military = {
         title = "Strategic Overlay Toggle",
         description = "View weapon and intelligence ranges",
@@ -1748,9 +1866,10 @@ Tooltips = {
         keyID = "ping_marker",
     },
 
-    --**********************
-    --** Misc Strings
-    --**********************
+    -- *******************
+    -- *** Misc Strings
+    -- *******************
+
     infinite_toggle = {
         title = "Infinite Build",
         description = "Toggle infinite construction on/off for current build queue",
@@ -1842,9 +1961,10 @@ Tooltips = {
         description = "",
     },
 
-    --**********************
-    --** Front End Strings
-    --**********************
+    -- ************************
+    -- *** Front End Strings
+    -- ***********************
+
     mainmenu_exit = {
         title = "Exit Game",
         description = "Close Supreme Commander: Forged Alliance",
@@ -1948,9 +2068,10 @@ Tooltips = {
         image = ""
     },
 
-    --**********************
-    --** Restricted Units
-    --**********************
+    -- ***********************
+    -- *** Restricted Units
+    -- ***********************
+
     restricted_units_T1 = {
         title = "No Tech 1",
         description = "Players will not be able to build tech 1 units",
@@ -1991,12 +2112,16 @@ Tooltips = {
 	},
 	restricted_units_air_bombers = {
 		title = "No Air Bombers",
-		description = "Players cannot build any bombers or torpedo bombers",
+		description = "Players cannot build any bombers",
 	},
 	restricted_units_air_gunships = {
 		title = "No Air Gunships",
 		description = "Players cannot build any standard or experimental gunships",
 	},
+    restricted_units_air_torpedobombers = {
+        title = "No Torpedo bombers",
+        description = "Players cannot build any torpedo bombers",
+    },
 	restricted_units_air_transports = {
 		title = "No Air Transports",
 		description = "Players cannot build any standard or experimental transports",
@@ -2048,7 +2173,6 @@ Tooltips = {
         description = "Players will not be able to build support commanders -- NOTE: THIS WILL PREVENT THE BUILDING OF ALMOST ALL EXPERIMENTAL UNITS",
     },
 	
-
     restricted_units_massfab = {
         title = "No Fabrication",
         description = "Players will not be able to build mass fabricators"
@@ -2058,11 +2182,10 @@ Tooltips = {
 		description = "Players will be unable to build standard engineers.",
 	},
 
+    -- ************************
+    -- *** Strategic overlay
+    -- ************************
 
-	
-    --**********************
-    --** Strategic overlay
-    --**********************
     overlay_conditions = {
         title = "Conditional Overlays",
         description = "Toggle all conditional overlays",
@@ -2136,9 +2259,10 @@ Tooltips = {
         description = "Combine all sub-filters into a single overlay",
     },
 
-    --**********************
-    --** Misc
-    --**********************
+    -- ***********
+    -- *** Misc
+    -- ***********
+
     minimap_reset = {
         title = "Reset Minimap",
         description = "Sets the minimap to its default position and size",

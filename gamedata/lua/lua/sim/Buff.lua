@@ -128,10 +128,12 @@ function ApplyBuff(unit, buffName, instigator)
 	end
 
     if def.Affects then
+    
+        local buffcheck = true
 
         for k,v in def.Affects do
 
-			local buffcheck = true
+			buffcheck = true
 
 			-- this new feature allows us to check individual parts of a multi-stage buff
 			-- so that we only store those buffs which actually affect a given unit
@@ -512,20 +514,36 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 
             SetBuildRate( unit, val )
 
+        -- NOTE:  Energy and Mass Storage buffs are borked - the first one will work
+        -- any subsequent one will turn off the previous one before turning on the new one
+        -- as a result - you can have one - but not both - on the same unit - and only one.
+        -- in order to avoid stacking buffs that are no longer working - you should remove
+        -- the previous storage buff before adding another - otherwise they'll stack up in
+        -- the units data, but won't actually be working
+        
 		elseif atype == 'EnergyStorage' then
 			local val = BuffCalculate(unit, buffName, 'EnergyStorage', GetBlueprint(unit).Economy.StorageEnergy or 1)
 
-			LOG("*AI DEBUG Energy Storage value is "..val.." base is "..repr(GetBlueprint(unit).Economy.StorageEnergy) )
+            local brain = unit:GetAIBrain()
+            
+			--LOG("*AI DEBUG Energy Storage value is "..val.." base is "..repr(GetBlueprint(unit).Economy.StorageEnergy) )
 
 			-- the trick here is to know just how much storage there already is - and add to it - can't seem to find that
-			unit:GetAIBrain():GiveStorage('ENERGY',val)
+            -- since atm I only use this on the ACU at the start of the game - it's not a real issue
+			brain:GiveStorage('ENERGY',val)
+            
+            brain:GiveResource('Energy',val)
 
 		elseif atype == 'MassStorage' then
 			local val = BuffCalculate(unit, buffName, 'MassStorage', GetBlueprint(unit).Economy.StorageMass or 1)
+            
+            local brain = unit:GetAIBrain()
 
-			LOG("*AI DEBUG Mass Storage value is "..val.." base is "..repr(GetBlueprint(unit).Economy.StorageMass) )
+			--LOG("*AI DEBUG Mass Storage value is "..val.." base is "..repr(GetBlueprint(unit).Economy.StorageMass) )
 
-			unit:GetAIBrain():GiveStorage('MASS',val)
+			brain:GiveStorage('MASS',val)
+            
+            brain:GiveResource('Mass',val - 1)
 
 
 
@@ -633,8 +651,6 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 				local shield = unit.MyShield
 
 				SetMaxHealth( shield, val * shieldhealth)
-
-				--LOG("*AI DEBUG shield is "..repr(shield) )
 
 				SetShieldRatio( shield.Owner, shield:GetHealth() / shield:GetMaxHealth() )
 
@@ -787,7 +803,6 @@ function BuffCalculate(unit, buffName, affectType, initialVal, initialBool)
 				lowestFloor = v.Floor
 			end
 		end
-	
 	end
 
     -- Adds are calculated first, then the mults.  May want to expand that later.
@@ -808,18 +823,19 @@ function BuffCalculate(unit, buffName, affectType, initialVal, initialBool)
     return returnVal, bool
 end
 
+-- altered to report true/false if Buff was removed --
 function RemoveBuff(unit, buffName, removeAllCounts, instigator)
 
-	if ScenarioInfo.BuffDialog then
-		LOG("*AI DEBUG Removing Buff "..buffName.." from "..repr(unit:GetBlueprint().Description))
-	end
-	
     local def = Buffs[buffName]
 
     local unitBuff = unit.Buffs.BuffTable[def.BuffType][buffName]
 
 	if unitBuff then
 
+        if ScenarioInfo.BuffDialog then
+            LOG("*AI DEBUG Removing Buff "..buffName.." from "..repr(unit:GetBlueprint().Description))
+        end
+	
 		if ScenarioInfo.BuffDialog then
 			LOG("*AI DEBUG before Removing "..buffName.." unit data is "..repr(unit.Buffs) )	
 		end
@@ -884,12 +900,15 @@ function RemoveBuff(unit, buffName, removeAllCounts, instigator)
 
 		BuffAffectUnit(unit, buffName, instigator, true)
 
-	end
+	else
+        return false
+    end
 	
 	if ScenarioInfo.BuffDialog then
 		LOG("*AI DEBUG AFTER Removing "..buffName.." unit data is "..repr(unit.Buffs) )
 	end
-
+    
+    return true
 end
 
 function HasBuff(unit, buffName)

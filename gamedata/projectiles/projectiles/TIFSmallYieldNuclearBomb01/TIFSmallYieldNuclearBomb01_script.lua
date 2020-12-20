@@ -1,6 +1,6 @@
-#
-# UEF Small Yield Nuclear Bomb
-#
+--
+-- UEF Small Yield Nuclear Bomb
+--
 local TIFSmallYieldNuclearBombProjectile = import('/lua/terranprojectiles.lua').TArtilleryAntiMatterProjectile
 
 TIFSmallYieldNuclearBomb01 = Class(TIFSmallYieldNuclearBombProjectile) {

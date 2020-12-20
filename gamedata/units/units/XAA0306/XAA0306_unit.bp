@@ -286,7 +286,7 @@ UnitBlueprint {
 			
 			RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.1,	#-- drops 4 torps every 10 secs - each torp splits into 2 - so 8 * 500 = 4000 every 10 or 400 DPS
+            RateOfFire = 0.1,	---- drops 4 torps every 10 secs - each torp splits into 2 - so 8 * 500 = 4000 every 10 or 400 DPS
 			
             TargetCheckInterval = 1,
             TargetPriorities = {

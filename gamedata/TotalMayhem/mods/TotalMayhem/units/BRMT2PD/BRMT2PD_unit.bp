@@ -1,9 +1,15 @@
 UnitBlueprint {
-
+   
+   AI = { 
+       	TargetBones = {
+            'Turret',
+        },
+    },
+	
     Audio = {
         Destroyed = Sound {
-            Bank = 'TM_EXPLOSIONS',
-            Cue = 'TANKDEATH',
+            Bank = 'URLDestroy',
+            Cue = 'URL_Destroy_Land',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         DoneBeingBuilt = Sound {
@@ -55,8 +61,6 @@ UnitBlueprint {
         'OVERLAYDIRECTFIRE',
         'SORTDEFENSE',
     },
-	
-    CollisionOffsetY = -0.25,
 	
     Defense = {
         ArmorType = 'Structure',
@@ -171,9 +175,11 @@ UnitBlueprint {
     SelectionSizeX = 0.7,
     SelectionSizeZ = 0.7,
     SelectionThickness = 0.55,
-    SizeX = 0.65,
-    SizeY = 1.0,
-    SizeZ = 0.65,
+	
+    SizeX = 0.8,
+    SizeY = 1.1,
+    SizeZ = 1.2,
+	
     StrategicIconName = 'icon_structure2_directfire',
     StrategicIconSortPriority = 200,
 	
@@ -189,25 +195,10 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStop = Sound {
-                    Bank = 'UES',
-                    Cue = 'UES0302_Cannon_Stop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
                 Fire = Sound {
-                    Bank = 'TM_CYBRANWEAPONS',
-                    Cue = 'CYBRANMEDIUMCANNONFX',
-                    LodCutoff = 'WeaponBig_LodCutoff',
+                    Bank = 'UELWeapon',
+                    Cue = 'UEB2301_Cannon',
+                    LodCutoff = 'Weapon_LodCutoff',
                 },
             },
             BallisticArc = 'RULEUBA_LowArc',

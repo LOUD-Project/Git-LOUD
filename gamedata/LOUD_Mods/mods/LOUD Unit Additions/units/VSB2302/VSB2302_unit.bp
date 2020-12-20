@@ -1,5 +1,12 @@
 UnitBlueprint {
-
+    
+	AI = {
+        TargetBones = {
+            'Turret',
+            'Probe2',
+        },
+    },
+	
     Audio = {
 	
         DeathExplosion = Sound {
@@ -56,6 +63,7 @@ UnitBlueprint {
     },
 	
     CollisionOffsetY = -0.25,
+	CollisionOffsetZ = -0.25,
 	
     Defense = {
         AirThreatLevel = 400,
@@ -126,9 +134,6 @@ UnitBlueprint {
         BuildCostEnergy = 145000,
         BuildCostMass = 13000,
         BuildTime = 13000,
-		
-        RebuildBonusIds = {'vsb2302'},
-		
     },
 	
     General = {
@@ -199,8 +204,8 @@ UnitBlueprint {
     SelectionThickness = 0.39,
 	
     SizeX = 2,
-    SizeY = 2,
-    SizeZ = 2,
+    SizeY = 2.5,
+    SizeZ = 2.5,
 	
     StrategicIconName = 'icon_experimental_structure_antiair',
 	
@@ -273,7 +278,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 0.5,
+            RateOfFire = 0.6,       -- rate controlled by charge
 			
             TargetCheckInterval = 1,
 			

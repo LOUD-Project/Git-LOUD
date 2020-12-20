@@ -1,4 +1,11 @@
 UnitBlueprint {
+
+    AI = {
+        TargetBones = {
+            'Pod01',
+        },
+    },
+	
     Audio = {
         Destroyed = Sound {
             Bank = 'UELDestroy',
@@ -39,7 +46,7 @@ UnitBlueprint {
         'SORTDEFENSE',
     },
 	
-    CollisionOffsetY = -0.4,
+    CollisionOffsetY = -0.25,
 	
     Defense = {
         AirThreatLevel = 24,
@@ -153,8 +160,8 @@ UnitBlueprint {
     SelectionThickness = 0.55,
 	
     SizeX = 0.75,
-    SizeY = 1.4,
-    SizeZ = 0.75,
+    SizeY = 2.0,
+    SizeZ = 1.3,
 	
     StrategicIconName = 'icon_structure2_directfire',
     StrategicIconSortPriority = 200,

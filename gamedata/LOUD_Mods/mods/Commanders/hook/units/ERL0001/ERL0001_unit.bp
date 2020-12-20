@@ -1,0 +1,207 @@
+UnitBlueprint {
+
+    Merge = true,
+    
+    BlueprintId = "erl0001", --#Cybran ACU
+
+    Defense = {
+
+        Health = 33000,
+        MaxHealth = 33000,
+
+        SurfaceThreatLevel = 90,
+
+    },
+    
+    Economy = {
+
+        MaintenanceConsumptionPerSecondEnergy = 1,
+        MaxBuildDistance = 15,
+
+        ProductionPerSecondMass = 2,
+        
+        StorageEnergy = 5000,
+        StorageMass = 750,
+
+    },
+    
+    Enhancements = {
+    
+        EXImprovedEngineering = {
+        
+            BuildCostEnergy = 34200,
+            BuildCostMass = 3150,
+            BuildTime = 1755,
+        },
+        
+        EXAdvancedEngineering = {
+        
+            BuildCostEnergy = 112500,
+            BuildCostMass = 11250,
+            BuildTime = 11250,
+
+        },
+        
+        EXExperimentalEngineering = {
+        
+            BuildCostEnergy = 675000,
+            BuildCostMass = 22500,
+            BuildTime = 33750,
+
+        },
+        
+        EXCombatEngineering = {
+        
+            BuildCostEnergy = 19800,
+            BuildCostMass = 1890,
+            BuildTime = 1620,
+
+        },
+        
+        EXAssaultEngineering = {
+        
+            BuildCostEnergy = 64800,
+            BuildCostMass = 6480,
+            BuildTime = 6480,
+
+        },
+        
+        EXApocalypticEngineering = {
+        
+            BuildCostEnergy = 145800,
+            BuildCostMass = 14580,
+            BuildTime = 14580,
+
+        },
+        
+    },        
+
+    Intel = {
+
+        OmniRadius = 30,
+
+        RadarStealth = true,
+        SonarStealth = true,
+        
+        VisionRadius = 30,
+        WaterVisionRadius = 30,
+    },
+    
+    Veteran = {
+        Level1 = 30,
+        Level2 = 60,
+        Level3 = 90,
+        Level4 = 120,
+        Level5 = 150,
+    },
+    
+    Weapon = {
+    
+        {
+            Damage = 100,
+            DamageRadius = 1,
+            
+            MaxRadius = 35,
+        },
+		
+        {},
+		
+        {},
+        
+        {
+            Damage = 10,
+
+            MaxRadius = 25,
+            MinRadius = 1,
+
+            RateOfFire = 0.3,
+        },
+        
+        {
+            Damage = 25,
+
+            MaxRadius = 35,
+            MinRadius = 1,
+
+            RateOfFire = 0.2,
+        },
+        
+        {
+            Damage = 500,
+
+            ProjectileLifetime = 10,
+        },
+        
+        {
+            Damage = 900,
+
+            ProjectileLifetime = 10,
+
+            RateOfFire = 0.6,
+        },
+        
+        {
+            Damage = 1250,
+
+            MaxRadius = 70,
+
+            MuzzleVelocity = 8,
+            ProjectileLifetime = 10,
+
+            RateOfFire = 0.7,
+        },
+        
+        {},
+        
+        {},
+        
+        {},
+        
+        {},
+        
+        {
+            Damage = 400,
+        },
+        
+        {
+            Damage = 1600,
+            MaxRadius = 45,
+        },
+        
+        {
+            Damage = 4500,
+            MaxRadius = 55,
+        },
+        
+        {
+            Damage = 100,
+            MaxRadius = 35,
+        },
+        
+        {
+            Damage = 200,
+            MaxRadius = 45,
+        },
+        
+        {
+            Damage = 500,
+            MaxRadius = 50,
+        },
+        
+        {
+            Damage = 50,
+        },
+        
+        {
+            Damage = 50,
+        },
+        
+        {
+            Damage = 50,
+        },
+        
+        {
+            Damage = 50,
+        },
+    },
+}

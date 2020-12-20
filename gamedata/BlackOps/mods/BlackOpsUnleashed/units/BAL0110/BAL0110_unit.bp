@@ -1,6 +1,10 @@
 UnitBlueprint {
+
 	AI = {
         NeedUnpack = true,
+        TargetBones = {
+            'Barrel',
+        },
     },
 	
     Audio = {
@@ -47,6 +51,8 @@ UnitBlueprint {
 		'OVERLAYRADAR',
     },
 	
+	CollisionOffsetZ = 0.05,
+	
     Defense = {
         ArmorType = 'Normal',
         Health = 75,
@@ -60,7 +66,7 @@ UnitBlueprint {
     Display = {
     	Abilities = {
 			'Radar',
-			'RadarStealth',
+			'Radar Stealth',
             'Deploys to fire',
         },
 		
@@ -170,9 +176,9 @@ UnitBlueprint {
     SelectionSizeZ = 0.3,
     SelectionThickness = 1.2,
 	
-    SizeX = 0.6,
-    SizeY = 0.6,
-    SizeZ = 0.6,
+    SizeX = 0.25,
+    SizeY = 0.35,
+    SizeZ = 0.35,
 	
     StrategicIconName = 'icon_bot1_directfire',
     StrategicIconSortPriority = 135,

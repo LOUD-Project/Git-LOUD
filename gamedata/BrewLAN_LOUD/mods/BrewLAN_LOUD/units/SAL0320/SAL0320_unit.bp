@@ -1,4 +1,13 @@
 UnitBlueprint {
+
+    AI = {
+        TargetBones = {
+            'Pannel_001',
+			'Pannel_002',
+			'Pannel_003',
+        },
+    },
+	
     Audio = {
         AmbientMove = Sound {
             Bank = 'UAL',
@@ -61,8 +70,8 @@ UnitBlueprint {
     Defense = {
         AirThreatLevel = 40,
         ArmorType = 'Normal',
-        Health = 3000,
-        MaxHealth = 3000,
+        Health = 2150,
+        MaxHealth = 2150,
         RegenRate = 2,
     },
 	
@@ -72,7 +81,7 @@ UnitBlueprint {
         Abilities = {
             '<LOC ability_aa>Beam Based AA',
             '<LOC ability_hover>Hover',
-            '<LOC ability_deathaoe>Volitile',
+            '<LOC ability_deathaoe>Volatile',
         },
 
         Mesh = {
@@ -133,7 +142,7 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 15000,
+        BuildCostEnergy = 16500,
         BuildCostMass = 1100,
         BuildTime = 550,
     },
@@ -274,7 +283,7 @@ UnitBlueprint {
             CollideFriendly = false,
             ContinuousBeam = true,
 			
-            Damage = 90,
+            Damage = 90,       -- 360 DPS AIr
             DamageFriendly = false,
             DamageRadius = 0,
             DamageType = 'Normal',
@@ -284,7 +293,7 @@ UnitBlueprint {
             DoNotCollideList = {'MISSILE'},
 			
             EnergyDrainPerSecond = 400,
-            EnergyRequired = 200,
+            EnergyRequired = 240,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Air',
@@ -293,7 +302,7 @@ UnitBlueprint {
 			
             Label = 'AAGun',
 			
-            MaxRadius = 42,
+            MaxRadius = 39,
 			
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0,
@@ -309,17 +318,15 @@ UnitBlueprint {
                     RackBone = 'Muzzle_001',
                 },
             },
-            RackFireTogether = false,
-            RackRecoilDistance = 0,
+
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 			
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 1,
+            RateOfFire = 3,     -- RoF determined by charge - 1 second
 			
 			ReTargetOnMiss = true,
 			
@@ -329,7 +336,6 @@ UnitBlueprint {
                 'AIR EXPERIMENTAL',
                 'BOMBER',
                 'GROUNDATTACK',
-                'TRANSPORTATION',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -339,13 +345,13 @@ UnitBlueprint {
             TurretBoneYaw = 'Lens_001',
             TurretDualManipulators = false,
 			
-            TurretPitch = 35,
+            TurretPitch = 10,
             TurretPitchRange = 80,
             TurretPitchSpeed = 250,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 250,
+            TurretYawSpeed = 75,
 			
             Turreted = true,
 

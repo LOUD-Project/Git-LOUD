@@ -1,12 +1,16 @@
 UnitBlueprint {
+
     AI = {
         TargetBones = {
-            'Turret',
             'Target02',
             'Target03',
+			'F_L_Leg_B01',
+			'F_R_Leg_B01',
+			'Barrel01',
         },
         NeedUnpack = false,
     },
+	
     Audio = {
         DeathExplosion = Sound {
             Bank = 'UALDestroy',
@@ -63,13 +67,14 @@ UnitBlueprint {
         'DRAGBUILD',
     },
 	
-    CollisionOffsetY = -0.25,
+    CollisionOffsetY = 1.25,
+	CollisionOffsetZ = 0.8,
 	
     Defense = {
         ArmorType = 'Experimental',
 		EconomyThreatLevel = 90,
-        Health = 47500,
-        MaxHealth = 47500,
+        Health = 43000,
+        MaxHealth = 43000,
         RegenRate = 12,
         SurfaceThreatLevel = 417.6,
     },
@@ -258,9 +263,9 @@ UnitBlueprint {
     SelectionSizeZ = 3.1,
     SelectionThickness = 0.3,
 	
-    SizeX = 2.8,
-    SizeY = 3.15,
-    SizeZ = 2.8,
+    SizeX = 2.0,
+    SizeY = 1.2,
+    SizeZ = 5.1,
 	
     StrategicIconName = 'icon_experimental_land_directfire',
     StrategicIconSortPriority = 175,
@@ -311,7 +316,7 @@ UnitBlueprint {
 
             Damage = 35,	-- so each muzzle causes about 1050 damage over the 3 second firing cycle
 			
-            DamageRadius = 1.5,
+            DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'Heavy Microwave Laser',
@@ -328,7 +333,7 @@ UnitBlueprint {
             Label = 'MainGun',
             LeadTarget = false,
 			
-            MaxRadius = 115,
+            MaxRadius = 110,
             MinRadius = 35,
 			
             MuzzleChargeDelay = 0,
@@ -366,7 +371,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.07,		# - 10 muzzles * 1050 = 10500 damage + the Boom Weapon = 13500 Damage every 15 seconds = 900 DPS
+            RateOfFire = 0.07,		-- - 10 muzzles * 1050 = 10500 damage + the Boom Weapon = 13500 Damage every 15 seconds = 900 DPS
 
             TargetCheckInterval = 2.5,
             TargetPriorities = {
@@ -425,7 +430,7 @@ UnitBlueprint {
 			
             LeadTarget = false,
 			
-            MaxRadius = 115,
+            MaxRadius = 110,
             MinRadius = 35,
 			
             MuzzleChargeDelay = 2.3,
@@ -486,7 +491,7 @@ UnitBlueprint {
         },
         {
             AboveWaterTargetsOnly = true,
-            Damage = 4500,
+            Damage = 7500,
             DamageFriendly = true,
             DamageRadius = 12,
             DamageType = 'Normal',

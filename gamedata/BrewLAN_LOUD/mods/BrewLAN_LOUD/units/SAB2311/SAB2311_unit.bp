@@ -53,7 +53,7 @@ UnitBlueprint {
         'SORTDEFENSE',
     },
 	
-    CollisionOffsetY = -0.65,
+    CollisionOffsetY = -0.25,
 	
     Defense = {
         ArmorType = 'Structure',
@@ -179,9 +179,9 @@ UnitBlueprint {
     SelectionSizeZ = 1,
     SelectionThickness = 0.5,
 	
-    SizeX = 1.55,
-    SizeY = 1.5,
-    SizeZ = 1.55,
+    SizeX = 1.3,
+    SizeY = 1.0,
+    SizeZ = 1.3,
 	
     StrategicIconName = 'icon_structure3_artillery',
     StrategicIconSortPriority = 205,
@@ -230,8 +230,8 @@ UnitBlueprint {
 			
             DisplayName = 'Oblivion Cannon',
 			
-            EnergyDrainPerSecond = 500,
-            EnergyRequired = 2500,
+            EnergyDrainPerSecond = 700,
+            EnergyRequired = 2800,      -- 4 second charge cycle
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -246,7 +246,7 @@ UnitBlueprint {
             MaxRadius = 128,
 			MinRadius = 14,
 			
-            MuzzleChargeDelay = 1.2,
+            MuzzleChargeDelay = 1,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 28,
@@ -276,7 +276,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,	-- 5 second charge = 360 DPS
+            RateOfFire = 1,	-- 5 second cycle = 360 DPS
 			
             SlavedToBody = false,
 			

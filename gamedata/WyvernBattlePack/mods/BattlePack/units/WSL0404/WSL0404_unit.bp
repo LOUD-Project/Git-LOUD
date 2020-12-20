@@ -1,4 +1,13 @@
 UnitBlueprint {
+    AI = {
+        TargetBones = {
+            'PowerOrb',
+            'PowerOrb_FrontRight',
+            'PowerOrb_Left001',
+            'WSL0404',
+        },
+    },
+	
     Audio = {
         AmbientMove = Sound {
             Bank = 'XSL',
@@ -189,11 +198,11 @@ UnitBlueprint {
     SelectionSizeZ = 2.4,
     SelectionThickness = 0.3,
     
-    SizeX = 3.5,
-    SizeY = 1.4,
+    SizeX = 3.2,
+    SizeY = 1.3,
     SizeZ = 3.5,
     
-    StrategicIconName = 'icon_experimental_land_directfire',
+    StrategicIconName = 'icon_experimental_land_artillery',
     StrategicIconSortPriority = 115,
     
     Transport = {
