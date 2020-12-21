@@ -1430,6 +1430,11 @@ local function TryLaunch(skipNoObserversCheck, skipSandboxCheck, skipTimeLimitCh
         end
     end
 
+    if tonumber(gameInfo.GameOptions['UnitCap']) < 100 then
+        AddChatText("The Unit Cap is too low. Please set it to 100 or higher.")
+        return
+    end
+
     if gameInfo.GameOptions['Victory'] != 'sandbox' then
 	
         local valid = true
