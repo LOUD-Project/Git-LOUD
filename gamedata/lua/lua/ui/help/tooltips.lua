@@ -866,15 +866,11 @@ Tooltips = {
     
     lob_FogOfWar_explored = {
         title = 'Explored',
-        description = 'Sets Fog of War to Explored',
-    },
-    lob_FogOfWar_unexplored = {
-        title = 'Unexplored',
-        description = 'Sets the Fog of War to Unexplored',
+        description = 'The terrain and resource positions are always known; the Fog of War hides enemy units.',
     },
     lob_FogOfWar_none = {
         title = 'None',
-        description = 'No Fog of War',
+        description = 'All players always have vision over the entire map.',
     },
     
     Lobby_Gen_DisplayScores = {
