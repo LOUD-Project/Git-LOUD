@@ -768,6 +768,7 @@ function SetupOptionsPanel(parent, singlePlayer, curOptions)
                 line.edit.OnTextChanged = function(self, newText, oldText)
                     changedOptions[data.data.key] = {value = newText, type = 'edit', pref = data.data.pref}
                 end
+                Tooltip.AddControlTooltip(line, data.data.pref)
                 line.edit:SetText(tostring(curOptions[data.data.key]))
             else
                 if line.edit and not line.edit:IsHidden() then
