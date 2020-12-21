@@ -63,16 +63,16 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
         BuilderConditions = {
 			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},
             
-            { UCBC, 'LocationEngineerNeedsBuildingAssistanceInRange', { 'LocationType', categories.STRUCTURE + categories.EXPERIMENTAL - categories.ENERGYPRODUCTION, categories.ENGINEER, 205 }},
+            { UCBC, 'LocationEngineerNeedsBuildingAssistanceInRange', { 'LocationType', categories.STRUCTURE + categories.EXPERIMENTAL - categories.ENERGYPRODUCTION, categories.ENGINEER, 125 }},
         },
 		
         BuilderData = {
             Assist = {
-				AssistRange = 205,
+				AssistRange = 125,
                 AssisteeType = 'Engineer',
 				AssisteeCategory = categories.ENGINEER,
                 BeingBuiltCategories = { (categories.STRUCTURE + categories.EXPERIMENTAL - categories.ENERGYPRODUCTION) },
-                Time = 180,
+                Time = 150,
             },
         }
     },
@@ -95,16 +95,16 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
         BuilderConditions = {
 			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},
             
-            { UCBC, 'LocationEngineerNeedsBuildingAssistanceInRange', { 'LocationType', categories.LAND * categories.EXPERIMENTAL - categories.ENERGYPRODUCTION, categories.ENGINEER, 205 }},
+            { UCBC, 'LocationEngineerNeedsBuildingAssistanceInRange', { 'LocationType', categories.LAND * categories.EXPERIMENTAL - categories.ENERGYPRODUCTION, categories.ENGINEER, 125 }},
         },
 		
         BuilderData = {
             Assist = {
-				AssistRange = 205,
+				AssistRange = 125,
                 AssisteeType = 'Engineer',
 				AssisteeCategory = categories.ENGINEER,
                 BeingBuiltCategories = { (categories.LAND * categories.EXPERIMENTAL - categories.ENERGYPRODUCTION) },
-                Time = 180,
+                Time = 150,
             },
         }
     },
@@ -127,16 +127,16 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
         BuilderConditions = {
 			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},
             
-            { UCBC, 'LocationEngineerNeedsBuildingAssistanceInRange', { 'LocationType', categories.AIR * categories.EXPERIMENTAL - categories.ENERGYPRODUCTION, categories.ENGINEER, 205 }},
+            { UCBC, 'LocationEngineerNeedsBuildingAssistanceInRange', { 'LocationType', categories.AIR * categories.EXPERIMENTAL - categories.ENERGYPRODUCTION, categories.ENGINEER, 125 }},
         },
 		
         BuilderData = {
             Assist = {
-				AssistRange = 205,
+				AssistRange = 125,
                 AssisteeType = 'Engineer',
 				AssisteeCategory = categories.ENGINEER,
                 BeingBuiltCategories = { (categories.AIR * categories.EXPERIMENTAL - categories.ENERGYPRODUCTION) },
-                Time = 180,
+                Time = 150,
             },
         },
     },
@@ -159,17 +159,17 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
         BuilderConditions = {
 			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},
 
-            { UCBC, 'LocationEngineerNeedsBuildingAssistanceInRange', { 'LocationType', categories.STRUCTURE * categories.ARTILLERY, categories.ENGINEER, 205 }},
+            { UCBC, 'LocationEngineerNeedsBuildingAssistanceInRange', { 'LocationType', categories.STRUCTURE * categories.ARTILLERY, categories.ENGINEER, 125 }},
 
         },
 		
         BuilderData = {
             Assist = {
-				AssistRange = 205,
+				AssistRange = 125,
                 AssisteeType = 'Engineer',
 				AssisteeCategory = categories.ENGINEER,
                 BeingBuiltCategories = { (categories.STRUCTURE * categories.ARTILLERY) },
-                Time = 180,
+                Time = 150,
             },
         },
     },
