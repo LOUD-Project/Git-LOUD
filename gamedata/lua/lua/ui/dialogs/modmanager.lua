@@ -342,10 +342,6 @@ local loudStandard = {
 
 function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
 
-    local userPresets = Prefs.GetFromCurrentProfile('UserPresets')
-    if not userPresets['LOUD Standard'] then
-        LOG("The LOUD Standard preset is not in this user's Game.prefs. Adding it...")
-    end
     ---------------------------------------------------------------------------
     -- fill in default args
     ---------------------------------------------------------------------------
