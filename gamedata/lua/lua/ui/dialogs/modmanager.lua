@@ -780,7 +780,7 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
 	
     local disableBtn = UIUtil.CreateButtonStd(panel, '/scx_menu/small-btn/small', "Disable All", 16, 2)
     LayoutHelpers.AtLeftTopIn(disableBtn, panel, 30, 505)
-	Tooltip.AddButtonTooltip(disableBtn, 'lob_disable_allmods')
+	-- Tooltip.AddButtonTooltip(disableBtn, 'lob_disable_allmods')
     disableBtn.OnClick = function(self, modifiers)
 		for index, control in scrollGroup.controlList do
 			if control.active then
