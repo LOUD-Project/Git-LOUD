@@ -688,7 +688,10 @@ AIBrain = Class(moho.aibrain_methods) {
 		else
 			m = aiMults[ScenarioInfo.ArmySetup[self.Name].Mult]
 		end
-		if m then m = math.max(0.1, 99) end
+        if m then 
+            m = math.max(0.1, m)
+            m = math.min(m, 99)
+        end
         self.CheatValue = m
         self.BaseCheat = m
 
