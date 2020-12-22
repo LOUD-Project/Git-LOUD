@@ -521,30 +521,44 @@ function CreateDialog(selectBehavior, exitBehavior, over, singlePlayer, defaultS
         ResetFilters()
     end
 
-    -- Set list to first item or default
-    local defaultRow
-    if not defaultScenarioName then
-        -- If no true folder at folders[1], call up its scenario
-        -- Otherwise call up its first scenario
-        if not folderMap[1][2] then
-            defaultRow = 0
+    local function SetDefaultScenario()
+        if not defaultScenarioName then
+            -- If no true folder at folders[1], call up its scenario
+            -- Otherwise call up its first scenario
+            if not folderMap[1][2] then
+                return 0
+            else
+                folder[folderMap[1][1]][2] = true
+                return 1
+            end
         else
-            defaultRow = 1
+            local i = -1
+            for _, folder in folders do
+                i = i + 1
+                local s = 0
+                for _, scenario in folder[3] do
+                    s = s + 1
+                    if scenario.file == defaultScenarioName then
+                        if table.getsize(folder[3]) > 1 then
+                            folder[2] = true
+                            PopulateMapList()
+                            return (i + s)
+                        else
+                            return i
+                        end
+                    end
+                end
+                -- Add rows for expanded folders
+                if folder[2] then
+                    i = i + s
+                end
+            end
         end
-    else
-        -- RATODO
-        defaultRow = 0
-        -- local i = 0
-        -- for _, folder in folders do
-        --     for _, scenario in folder[3] do
-        --         if scenario.file == defaultScenarioName then
-        --             defaultRow = i - 1
-        --             break
-        --         end
-        --     end
-        --     i = i + 1
-        -- end
     end
+
+    -- Set list to first item or default
+    local defaultRow = SetDefaultScenario()
+    
     mapList:OnClick(defaultRow, true)
     mapList:ShowItem(defaultRow)
 
