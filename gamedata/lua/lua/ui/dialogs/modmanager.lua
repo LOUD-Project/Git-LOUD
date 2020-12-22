@@ -670,6 +670,18 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
             Tooltip.AddControlTooltip(bg, modStatus[modInfo.uid].tooltip, .2)
         end
 
+        local configFile = DiskFindFiles(bg.modInfo.location, 'config.lua')
+        if table.getsize(configFile) == 1 then
+            local env = {}
+            local ok, result = pcall(doscript, configFile[1], env)
+            if ok then
+                local config = UIUtil.CreateButtonStd(bg, '/lobby/lan-game-lobby/smalltoggle', "Config", 12, 2)
+                LayoutHelpers.LeftOf(config, activecheck, 2)
+                config.OnClick = function(self, modifiers)
+                end
+            end
+        end
+        
         return bg
     end
     
