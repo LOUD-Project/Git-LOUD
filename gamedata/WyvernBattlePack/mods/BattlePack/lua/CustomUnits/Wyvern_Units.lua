@@ -45,7 +45,7 @@ UnitList = {
     T4LandExperimental1 = {
 		Aeon = {'wal4404', 100},     -- Maruda
         UEF = {'wel4404', 100},      -- Star Adder
-		Seraphim = {'wsl0404', 100}, -- Yath-Yen        
+		Seraphim = {'wsl0404', 50}, -- Yath-Yen        
     },
     
     T4LandExperimental2 = {

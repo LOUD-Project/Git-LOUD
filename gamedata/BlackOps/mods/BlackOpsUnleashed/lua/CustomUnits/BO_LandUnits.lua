@@ -47,7 +47,7 @@ UnitList = {
 	
 	T4LandExperimental1 = {
 		Aeon = {'bal0402', 50},				# Genesis Hover Exp	
-		Seraphim = {'bsl0406', 100},		# Exp Protector	
+		Seraphim = {'bsl0406', 15},		# Exp Protector	
 	},
    
 	T4LandExperimental2 = {
