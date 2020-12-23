@@ -667,7 +667,3 @@ advAIOptions = {
     },
 
 }
-
-hiddenOptions = {
-    
-}
