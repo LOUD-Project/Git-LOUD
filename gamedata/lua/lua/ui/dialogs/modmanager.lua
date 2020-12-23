@@ -351,7 +351,7 @@ local function ModConfigDialog(parent, modInfo, config)
     if not newConfig[modInfo.uid] then
         newConfig[modInfo.uid] = {}
         for k, v in config do
-            newConfig[modInfo.uid][v.key] = v.values[v.default].key
+            newConfig[modInfo.uid][v.key] = v.default
         end
     end
 
@@ -442,9 +442,10 @@ local function ModConfigDialog(parent, modInfo, config)
                 line.combo.keyMap[val.key] = index
                 -- tooltipTable[index] = 'lob_'..data.data.key..'_'..val.key
             end
-            line.combo:AddItems(itemArray, 1)
+            local def = newConfig[modInfo.uid][data.key] or 1
+            line.combo:AddItems(itemArray, def)
             line.combo.OnClick = function(self, index, text)
-                newConfig[data.key] = data.values[index]
+                newConfig[data.key] = index
             end
             line.combo.UpdateValue = function(key)
                 line.combo:SetItem(line.combo.keyMap[key])

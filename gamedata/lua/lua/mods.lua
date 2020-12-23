@@ -264,6 +264,9 @@ function AllMods()
     if not _mod_cache then
     
         local allConfigs = Prefs.GetFromCurrentProfile("modConfig")
+        if not allConfigs then
+            allConfigs = {}
+        end
         local r = {}
         
         for i,file in DiskFindFiles('/mods', '*mod_info.lua') do
@@ -277,9 +280,15 @@ function AllMods()
             local env = {}
             local ok, result = pcall(doscript, mod.location..'/config.lua', env)
             if ok then
+                if not allConfigs[mod.uid] then
+                    allConfigs[mod.uid] = {}
+                end
                 mod.config = {}
                 for _, v in env.config do
-                    mod.config[v.key] = allConfigs[mod.uid]
+                    if not allConfigs[mod.uid][v.key] then
+                        allConfigs[mod.uid][v.key] = v.default
+                    end
+                    mod.config[v.key] = allConfigs[mod.uid][v.key]
                 end
             end
         end
