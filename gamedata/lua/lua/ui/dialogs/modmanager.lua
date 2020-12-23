@@ -344,6 +344,17 @@ local loudStandard = {
 }
 
 local function ModConfigDialog(parent, modInfo, config)
+    local newConfig = Prefs.GetFromCurrentProfile("modConfig")
+    if not newConfig then
+        newConfig = {}
+    end
+    if not newConfig[modInfo.uid] then
+        newConfig[modInfo.uid] = {}
+        for k, v in config do
+            newConfig[modInfo.uid][v.key] = v.values[v.default].key
+        end
+    end
+
     local dialog = Bitmap(parent, UIUtil.UIFile('/scx_menu/panel-brd/panel_brd_m.dds'))
     LayoutHelpers.AtCenterIn(dialog, parent)
     LayoutHelpers.DepthOverParent(dialog, parent, 100)
@@ -351,7 +362,7 @@ local function ModConfigDialog(parent, modInfo, config)
     dialog.Height:Set(450)
     dialog.border = import('/lua/ui/lobby/restrictedUnitsDlg.lua').CreateBorder(dialog)
     dialog.brackets = UIUtil.CreateDialogBrackets(dialog, 118, 106, 118, 104)
-    
+
     local title = UIUtil.CreateText(dialog, "Mod Config: "..modInfo.name, 20, UIUtil.titleFont)
     LayoutHelpers.AtTopIn(title, dialog.border.tm, 12)
     LayoutHelpers.AtHorizontalCenterIn(title, dialog)
@@ -378,7 +389,7 @@ local function ModConfigDialog(parent, modInfo, config)
         local itemArray = {}
         combo.keyMap = {}
         local tooltipTable = {}
-        Tooltip.AddComboTooltip(combo, tooltipTable, combo._list)
+        -- Tooltip.AddComboTooltip(combo, tooltipTable, combo._list)
         combo.UpdateValue = function(key)
             combo:SetItem(combo.keyMap[key])
         end
@@ -428,10 +439,16 @@ local function ModConfigDialog(parent, modInfo, config)
             local tooltipTable = {}
             for index, val in data.values do
                 itemArray[index] = val.text
-                -- line.combo.keyMap[val.key] = index
+                line.combo.keyMap[val.key] = index
                 -- tooltipTable[index] = 'lob_'..data.data.key..'_'..val.key
             end
             line.combo:AddItems(itemArray, 1)
+            line.combo.OnClick = function(self, index, text)
+                newConfig[data.key] = data.values[index]
+            end
+            line.combo.UpdateValue = function(key)
+                line.combo:SetItem(line.combo.keyMap[key])
+            end
         end
         for i, v in optionList do
             if config[i + self.top] then
@@ -447,6 +464,7 @@ local function ModConfigDialog(parent, modInfo, config)
     optionContainer:CalcVisible()
 
     okBtn.OnClick = function(self, modifiers)
+        Prefs.SetToCurrentProfile("modConfig", newConfig)
         dialog:Destroy()
     end
 

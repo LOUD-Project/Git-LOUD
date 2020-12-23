@@ -1,92 +1,106 @@
 config = {
 	{
-		selected = 1,
+		default = 1,
 		label = 'Some Setting',
 		key = 'SomeSetting',
 		values = {
 			{
 				text = 'Value 1',
+				key = 'on',
 			},
 			{
 				text = 'Value 2',
+				key = 'off',
 			},
 		},
 	},
 	{
-		selected = 2,
+		default = 2,
 		label = 'Another Setting',
 		key = 'AnotherSetting',
 		values = {
 			{
 				text = 'Value 1',
+				key = 'on',
 			},
 			{
 				text = 'Value 2',
+				key = 'off',
 			},
 		},
 	},
 	{
-		selected = 1,
+		default = 1,
 		label = 'Wow, Another Setting',
 		key = 'WowAnotherSetting',
 		values = {
 			{
 				text = 'Value 1',
+				key = 'on',
 			},
 			{
 				text = 'Value 2',
+				key = 'off',
 			},
 		},
 	},
 	{
-		selected = 2,
+		default = 2,
 		label = 'Yet Another Setting',
 		key = 'YetAnotherSetting',
 		values = {
 			{
 				text = 'Value 1',
+				key = 'on',
 			},
 			{
 				text = 'Value 2',
+				key = 'off',
 			},
 		},
 	},
 	{
-		selected = 1,
+		default = 1,
 		label = 'Nearly The Last Setting',
 		key = 'NearlyLastSetting',
 		values = {
 			{
 				text = 'Value 1',
+				key = 'on',
 			},
 			{
 				text = 'Value 2',
+				key = 'off',
 			},
 		},
 	},
 	{
-		selected = 2,
+		default = 2,
 		label = 'One More Setting',
 		key = 'OneMoreSetting',
 		values = {
 			{
 				text = 'Value 1',
+				key = 'on',
 			},
 			{
 				text = 'Value 2',
+				key = 'off',
 			},
 		},
 	},
 	{
-		selected = 1,
-		label = 'Actually One More Setting',
-		key = 'ActuallyOneMoreSetting',
+		default = 1,
+		label = 'Experimental Resource Storage',
+		key = 'ExpStorage',
 		values = {
 			{
-				text = 'Value 1',
+				text = 'Enabled',
+				key = 'on',
 			},
 			{
-				text = 'Value 2',
+				text = 'Disabled',
+				key = 'off',
 			},
 		},
 	},
