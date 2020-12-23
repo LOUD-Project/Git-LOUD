@@ -2,8 +2,12 @@ UnitList = {
 
     -- Land Units --
 	T2LandDFTank = {
-		Seraphim = {'wsl0205', 80},
-	},
+		Seraphim = {'wsl0205', 50}, --Beshlas
+    },
+    
+    T2AttackTank = {
+        Seraphim = {'wsl0202', 60} -- Onyzum
+    },
 
 	T3LandAA = {
       UEF = {'wel0309', 70},
@@ -11,12 +15,12 @@ UnitList = {
     },
     
     T3ArmoredAssault = {
-        UEF = {'wel0305', 45},
-    	Seraphim = {'wsl0308', 100},
+        UEF = {'wel0305', 15}, -- Pegasus
+    	Seraphim = {'wsl0308', 15}, -- Otheeka
     },
     
     T3LandBot = {
-        UEF = {'wel0302', 50},
+        UEF = {'wel0302', 20}, -- Wrecker
     },
 
     
@@ -26,8 +30,8 @@ UnitList = {
 
     -- Amphibious Units --
     T3Amphibious = {
-        UEF = {'wel0304', 75},
-        Cybran = {'wrl0301', 65},
+        UEF = {'wel0304', 10}, -- Rommel
+        Cybran = {'wrl0301', 50}, -- Sealion
     },
     
     T3AmphibiousArtillery = {
@@ -49,7 +53,7 @@ UnitList = {
     },
     
     T4LandExperimental2 = {
-        UEF = {'wel0401', 90 },     -- Wyvern Fatboy
+        UEF = {'wel0401', 75 },     -- Wyvern Fatboy
     },
     
     T4LandExperimental3 = {
