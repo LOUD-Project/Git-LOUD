@@ -10,6 +10,7 @@ local UIUtil = import('/lua/ui/uiutil.lua')
 local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
 local Bitmap = import('/lua/maui/bitmap.lua').Bitmap
 local Checkbox = import('/lua/maui/checkbox.lua').Checkbox
+local Combo = import('/lua/ui/controls/combo.lua').Combo
 local MultiLineText = import('/lua/maui/multilinetext.lua').MultiLineText
 local Group = import('/lua/maui/group.lua').Group
 local Mods = import('/lua/mods.lua')
@@ -19,6 +20,8 @@ local Prefs = import('/lua/user/prefs.lua')
 local Edit = import('/lua/maui/edit.lua').Edit
 
 local _InternalUpdateStatus
+
+local optionContainer = false
 
 -- This function can be called while the ModManager is active, to update changes to the selected mods on the fly.
 -- If called when the ModManger is -not- active, it is a no-op.
@@ -339,6 +342,121 @@ local loudStandard = {
     '89BF1572-9EA8-11DC-1313-635F56D89591', -- Supreme Economy
     '2529ea71-93ef-41a6-b552-EXPERICON00005', -- Experimental Icons Overhaul
 }
+
+local function ModConfigDialog(parent, modInfo, config)
+    local dialog = Bitmap(parent, UIUtil.UIFile('/scx_menu/panel-brd/panel_brd_m.dds'))
+    LayoutHelpers.AtCenterIn(dialog, parent)
+    LayoutHelpers.DepthOverParent(dialog, parent, 100)
+    dialog.Width:Set(300)
+    dialog.Height:Set(450)
+    dialog.border = import('/lua/ui/lobby/restrictedUnitsDlg.lua').CreateBorder(dialog)
+    dialog.brackets = UIUtil.CreateDialogBrackets(dialog, 118, 106, 118, 104)
+    
+    local title = UIUtil.CreateText(dialog, "Mod Config: "..modInfo.name, 20, UIUtil.titleFont)
+    LayoutHelpers.AtTopIn(title, dialog.border.tm, 12)
+    LayoutHelpers.AtHorizontalCenterIn(title, dialog)
+    local cancelBtn = UIUtil.CreateButtonStd(dialog, '/scx_menu/small-btn/small', "<LOC Cancel>", 16, 2, 0, "UI_Menu_Cancel_02", "UI_Opt_Affirm_Over")
+    LayoutHelpers.Below(cancelBtn, dialog, -16)
+    LayoutHelpers.AtHorizontalCenterIn(cancelBtn, dialog)
+    local okBtn = UIUtil.CreateButtonStd(dialog, '/scx_menu/small-btn/small', "<LOC _Ok>", 16, 2, 0, "UI_Opt_Yes_No", "UI_Opt_Affirm_Over")
+    LayoutHelpers.Below(okBtn, dialog, -20)
+    LayoutHelpers.AtLeftIn(okBtn, dialog, -50)
+    LayoutHelpers.RightOf(cancelBtn, okBtn)
+
+    local optionList = {}
+
+    optionContainer = Group(dialog)
+    optionContainer.Height:Set(dialog.Height)
+    optionContainer.Width:Set(dialog.Width)
+    optionContainer.top = 0
+    LayoutHelpers.AtCenterIn(optionContainer, parent, 4, 4)
+
+    local function CreateOptionCombo(parent, optionData, width)
+        local combo = Combo(parent, nil, nil, nil, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
+        combo.Width:Set(240)
+        combo.Depth:Set(function() return parent.Depth() + 10 end)
+        local itemArray = {}
+        combo.keyMap = {}
+        local tooltipTable = {}
+        Tooltip.AddComboTooltip(combo, tooltipTable, combo._list)
+        combo.UpdateValue = function(key)
+            combo:SetItem(combo.keyMap[key])
+        end
+
+        return combo
+    end
+
+    local function CreateOptionElement(index)
+        optionList[index] = Group(optionContainer)
+        optionList[index].Height:Set(46)
+        optionList[index].Width:Set(optionContainer.Width)
+
+        optionList[index].bg = Bitmap(optionList[index])
+        optionList[index].bg.Depth:Set(optionList[index].Depth)
+        LayoutHelpers.FillParent(optionList[index].bg, optionList[index])
+        optionList[index].bg.Right:Set(function() return optionList[index].Right() - 10 end)
+        
+        optionList[index].text = UIUtil.CreateText(optionContainer, '', 14, "Arial")
+        optionList[index].text:DisableHitTest()
+        LayoutHelpers.AtLeftTopIn(optionList[index].text, optionList[index], 10)
+
+        optionList[index].combo = CreateOptionCombo(optionList[index])
+        LayoutHelpers.AtLeftTopIn(optionList[index].combo, optionList[index], 5, 22)
+    end
+
+    CreateOptionElement(1)
+    LayoutHelpers.AtLeftTopIn(optionList[1], optionContainer)
+
+    local i = 2
+    for _, v in config do
+        CreateOptionElement(i)
+        LayoutHelpers.Below(optionList[i], optionList[i - 1])
+        i = i + 1
+    end
+
+    optionContainer.CalcVisible = function(self)
+        local function SetTextLine(line, data, lineID)
+            line.text:SetText(LOC(data.label))
+            line.text:SetFont(UIUtil.bodyFont, 14)
+            line.text:SetColor(UIUtil.fontColor)
+            line.bg:SetTexture(UIUtil.UIFile('/dialogs/mapselect03/options-panel-bar_bmp.dds'))
+            LayoutHelpers.AtLeftTopIn(line.text, line, 10, 5)
+            line.combo:ClearItems()
+            line.combo:Show()
+            local itemArray = {}
+            line.combo.keyMap = {}
+            local tooltipTable = {}
+            for index, val in data.values do
+                itemArray[index] = val.text
+                -- line.combo.keyMap[val.key] = index
+                -- tooltipTable[index] = 'lob_'..data.data.key..'_'..val.key
+            end
+            line.combo:AddItems(itemArray, 1)
+        end
+        for i, v in optionList do
+            if config[i + self.top] then
+                SetTextLine(v, config[i + self.top], i + self.top)
+            else
+                v.text:SetText('')
+                v.combo:Hide()
+                v.bg:SetSolidColor('00000000')
+            end
+        end
+    end
+
+    optionContainer:CalcVisible()
+
+    okBtn.OnClick = function(self, modifiers)
+        dialog:Destroy()
+    end
+
+    cancelBtn.OnClick = function(self, modifiers)
+        dialog:Destroy()
+    end
+
+    UIUtil.MakeInputModal(dialog, function() okBtn.OnClick(okBtn) end, function() cancelBtn.OnClick(cancelBtn) end)
+    UIUtil.CreateWorldCover(dialog)
+end
 
 function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
 
@@ -670,15 +788,14 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
             Tooltip.AddControlTooltip(bg, modStatus[modInfo.uid].tooltip, .2)
         end
 
-        local configFile = DiskFindFiles(bg.modInfo.location, 'config.lua')
-        if table.getsize(configFile) == 1 then
-            local env = {}
-            local ok, result = pcall(doscript, configFile[1], env)
-            if ok then
-                local config = UIUtil.CreateButtonStd(bg, '/lobby/lan-game-lobby/smalltoggle', "Config", 12, 2)
-                LayoutHelpers.LeftOf(config, activecheck, 2)
-                config.OnClick = function(self, modifiers)
-                end
+        local env = {}
+        local ok, result = pcall(doscript, bg.modInfo.location..'/config.lua', env)
+        if ok then
+            bg.config = env.config
+            local configBtn = UIUtil.CreateButtonStd(bg, '/lobby/lan-game-lobby/smalltoggle', "Config", 12, 2)
+            LayoutHelpers.LeftOf(configBtn, activecheck, 2)
+            configBtn.OnClick = function(self, modifiers)
+                ModConfigDialog(panel, bg.modInfo, bg.config)
             end
         end
         
