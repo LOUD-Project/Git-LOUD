@@ -61,7 +61,7 @@ UnitList = {
     
     T4LandExperimental4 = {
         UEF = {'wel0416', 60 },     -- Dragonite
-        Cybran = {'wrl1466', 60},   -- Star Strider
+        Cybran = {'wrl1466', 60},   -- Storm Strider
     },
 
     -- Air Experimentals --
