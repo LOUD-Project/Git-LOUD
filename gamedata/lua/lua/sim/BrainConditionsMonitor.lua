@@ -154,6 +154,7 @@ BrainConditionsMonitor = Class {
 			aiBrain.CycleTime = GetGameTimeSeconds()
 
 			-- the thread duration is always the number of checked conditions times 2 (minimum of minimumcycletime)
+            -- plus a little extra slack based upon the number of brains
 			self.ThreadWaitDuration = LOUDMAX( LOUDCEIL( (numResults * 2) / 10) + playerfactor + (aiBrain.NumBases * 5), minimumcycletime + aiBrain.NumBases )
             
             --LOG("*AI DEBUG "..aiBrain.Nickname.." Thread Duration for "..aiBrain.NumBases.." bases is "..self.ThreadWaitDuration)
