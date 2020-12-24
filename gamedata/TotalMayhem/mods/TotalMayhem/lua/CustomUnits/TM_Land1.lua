@@ -2,7 +2,7 @@ UnitList = {
    
     T3ArmoredAssault = {
         UEF = {'BRNT3ABB', 50},		-- Ironfist
-        Aeon = {'BROT3HM', 50},		-- Spectre 
+        Aeon = {'BROT3HM', 50},		-- Mogul 
         Cybran = {'BRMT3BM2', 15},	-- Dervish
 		Seraphim = {'BRPT3BOT', 50}, -- Thaam-Thuum
     },
