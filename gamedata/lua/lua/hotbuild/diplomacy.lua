@@ -1,6 +1,9 @@
 local KeyMapper = import('/lua/keymap/keymapper.lua')
 
 function initUserKeyActions()
+
+   --LOG("*AI DEBUG Hotbuild Diplo initUserKeyActions")
+    
     KeyMapper.SetUserKeyAction('give_units_to_ally', {action = "UI_LUA import('/lua/hotbuild/diplomacy.lua').mimc_giveSelectedUnitsToAlly(false)"})
 	KeyMapper.SetUserKeyAction('give_all_units_to_ally', {action = "UI_LUA import('/lua/hotbuild/diplomacy.lua').mimc_giveSelectedUnitsToAlly(true)"})
 	KeyMapper.SetUserKeyAction('give_mass_to_ally', {action = "UI_LUA import('/lua/hotbuild/diplomacy.lua').mimc_giveRessToAlly(50.0, 0.0)"})
@@ -8,11 +11,16 @@ function initUserKeyActions()
 end
 
 function initDefaultKeyMap()
-  initUserKeyActions()
-  local defaultKeyMappings = import('/mods/mimc/defaultKeyMap.lua').mimcDefaultKeyMap
+
+    initUserKeyActions()
+  
+    local defaultKeyMappings = import('/mods/mimc/defaultKeyMap.lua').mimcDefaultKeyMap
+    
+    --LOG("*AI DEBUG Diplo initDefaultKeyMap use "..repr(defaultKeyMappings))
+  
     for pattern, action in defaultKeyMappings do
-    KeyMapper.SetUserKeyMapping(pattern, false, action)
-  end
+        KeyMapper.SetUserKeyMapping(pattern, false, action)
+    end
 end
 
 --function to give units to an allied player

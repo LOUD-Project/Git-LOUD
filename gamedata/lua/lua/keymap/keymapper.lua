@@ -8,6 +8,10 @@
 
 local Prefs = import('/lua/user/prefs.lua')
 
+LOG("*AI DEBUG Loading Keymapper")
+
+
+
 function GetDefaultKeyMap(includeDebugKeys)
     local ret = {}
     local defaultKeyMap = import('defaultKeyMap.lua').defaultKeyMap
@@ -53,22 +57,36 @@ end
 
 function SetUserKeyMapping(key, oldKey, action)
 
+    --LOG("*AI DEBUG keymapper SetUserKeyMapping for "..repr(action) )
+
     local newMap = GetCurrentKeyMap()
+    
     newMap[key] = action
     newMap[oldKey] = nil
+    
     Prefs.SetToCurrentProfile("UserKeyMap", newMap)
 
     -- GAZ UI --
+    -- this retrieves the GAZ debug key maps
     local debugKeyMap = import('defaultKeyMap.lua').debugKeyMap
+    
+    -- and writes them to the profile
 	Prefs.SetToCurrentProfile("UserDebugKeyMap", debugKeyMap)    
 end
 
 function ClearUserKeyMap()
+
+    --LOG("*AI DEBUG keymapper ClearUserKeyMap")
+    
     Prefs.SetToCurrentProfile("UserKeyMap", nil)
     Prefs.SetToCurrentProfile("UserDebugKeyMap", nil)
 end
 
+
 function GetKeyActions(includeDebugKeys)
+
+    --LOG("*AI DEBUG keymapper GetKeyActions - include debug is "..repr(includeDebugKeys))
+    
     local ret = {}
 
     local keyActions = import('keyactions.lua').keyActions
@@ -85,6 +103,7 @@ function GetKeyActions(includeDebugKeys)
     end
 
     local userActions = Prefs.GetFromCurrentProfile("UserKeyActions")
+    
     if userActions != nil then
         for k,v in userActions do
             ret[k] = v
@@ -95,7 +114,11 @@ function GetKeyActions(includeDebugKeys)
 end
 
 function SetUserKeyAction(actionName, actionTable)
+
     local newActions = Prefs.GetFromCurrentProfile("UserKeyActions") or {}
+    
+    --LOG("*AI DEBUG keymapper SetUserKeyActions for "..repr(actionName).." using table "..repr(actionTable))
+    
     newActions[actionName] = actionTable
     Prefs.SetToCurrentProfile("UserKeyActions", newActions)
 end
@@ -106,15 +129,22 @@ end
 
 -- returns keys mapped to actions
 function GetKeyMappings(includeDebugKeys)
+
     local currentKeyMap = GetCurrentKeyMap(includeDebugKeys)
     local keyActions = GetKeyActions(includeDebugKeys)    
     local keyMap = {}
+    
+    --LOG("*AI DEBUG keymapper GetKeyMappings - include debug keys is "..repr(includeDebugKeys))
 
     -- set up default mapping
     for key, action in currentKeyMap do
+    
+        --LOG("*AI DEBUG loading Key Action "..repr(key).." "..repr(action))
+        
         keyMap[key] = keyActions[action]
+        
         if keyMap[key] == nil then
-            WARN("Key action not found " .. action .. " for key " .. key)
+            --WARN("Key action not found " .. action .. " for key " .. key)
         end
     end
     
@@ -123,10 +153,12 @@ end
 
 -- returns action names mapped to keys
 function GetKeyLookup()
+
     local currentKeyMap = GetCurrentKeyMap(true)
     
     -- get default keys
     local ret = {}
+    
     for k,v in currentKeyMap do
         ret[v] = k    
     end
@@ -136,20 +168,26 @@ end
 
 -- returns a table of raw (windows) key codes mapped to key names
 function GetKeyCodeLookup()
+
     local ret = {}
+    
     local keyCodeTable = import('/lua/keymap/keyNames.lua').keyNames
+    
     for k, v in keyCodeTable do
         local codeInt = STR_xtoi(k)
         ret[codeInt] = v
     end
+    
     return ret
 end
 
 -- given a key in string form, checks to see if it's already in the key map
 function IsKeyInMap(key, map)
+
     -- given a key string makes it always ctrl-shift-alt-key for comparison
     -- returns a table with modifier keys extracted
     local function NormalizeKey(inKey)
+    
         local retVal = {}
         local keyNames = import('/lua/keymap/keyNames.lua').keyNames
         local modKeys = {[keyNames['11']] = true, -- ctrl
@@ -158,9 +196,12 @@ function IsKeyInMap(key, map)
                         }
                         
         local startpos = 1
+        
         while startpos do
+        
             local fst, lst = string.find(inKey, "-", startpos)
             local str
+            
             if fst then
                 str = string.sub(inKey, startpos, fst - 1)
                 startpos = lst + 1
@@ -168,18 +209,23 @@ function IsKeyInMap(key, map)
                 str = string.sub(inKey, startpos, string.len(inKey))
                 startpos = nil
             end
+            
             if modKeys[str] then
                 retVal[str] = true
             else
                 retVal["key"] = str
             end
         end
+        
         return retVal
     end
 
-    local compKeyCombo = NormalizeKey(key)    
+    local compKeyCombo = NormalizeKey(key)   
+    
     for keyCombo, action in map do
+    
         local curKeyCombo = NormalizeKey(keyCombo)
+        
         if table.equal(curKeyCombo, compKeyCombo) then
             return true
         end    
