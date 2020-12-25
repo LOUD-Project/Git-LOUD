@@ -1,3 +1,17 @@
+### Release 24-12-2020 ###
+Lua 5.3.33
+Textures 6.2
+
+- Zulan's Hotbuild working again. See https://github.com/LOUD-Project/Git-LOUD/wiki/Zulan's-Hotbuild for more information.
+- Time-based adaptive cheat can now have a lower limit in case it is working in the negative direction.
+- The lobby host can now use a text field to set the default cheat multiplier for newly-added AI. A button can also be used to fill in all AI's cheat multipliers from that text field.
+- WORK-IN-PROGRESS: the lobby should now display the same AI multipliers for clients as well as the host.
+- Lobby settings are now more organized; the most advanced options are in their own category at the bottom.
+- The LOUD standard mod list no longer includes Supreme Commander Music.
+- For stabiltiy, the AI's cheat multiplier can no longer be set higher than 99, even if the user enters in 100 or higher in the lobby text field.
+- Tooltips for the "Fog of War" lobby option are now more descriptive.
+- Large-scale reorganization of AI unit compositions and building priorities.
+
 ### Release 18-12-2020 ###
 Lua 5.3.30
 
