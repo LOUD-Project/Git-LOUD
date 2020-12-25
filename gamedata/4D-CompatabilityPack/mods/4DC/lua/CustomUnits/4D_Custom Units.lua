@@ -34,7 +34,7 @@ UnitList = {
     },
 
 	T3GroundDefense = {
-       	Aeon = {'uab2306', 35},		-- Annihilator
+       	Aeon = {'uab2306', 35},		-- Anachronon
        	Cybran = {'urb2306', 40},	-- Beholder Heavy Microwave Turret
        	UEF = {'ueb2306', 35},		-- Brimstone Heavy PD
    	},

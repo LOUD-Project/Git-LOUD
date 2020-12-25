@@ -61,7 +61,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 73,
     },
 	
-    Description = '<LOC uab2306_desc>Anachronon',
+    Description = '<LOC uab2306_desc>Heavy Point Defense',
 	
     Display = {
         Abilities = {
@@ -130,7 +130,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Anachronon',
+        HelpText = 'Heavy Point Defense',
     },
 	
     LifeBarHeight = 0.1,

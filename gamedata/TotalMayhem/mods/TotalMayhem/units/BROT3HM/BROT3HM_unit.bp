@@ -143,7 +143,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'amph',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = '<LOC brot3hm_name>Spectre',
+        UnitName = '<LOC brot3hm_name>Mogul',
         UnitWeight = 2,
     },
     Intel = {
