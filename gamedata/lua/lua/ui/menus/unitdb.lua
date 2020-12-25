@@ -7,6 +7,16 @@ local Group = import('/lua/maui/group.lua').Group
 local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
 local UIUtil = import('/lua/ui/uiutil.lua')
 
+local dirs = {
+	'/mods/4DC/units',
+	'/mods/BlackOpsUnleashed/units',
+	'/mods/BrewLAN_LOUD/units',
+	'/mods/LOUD Unit Additions/units',
+	'/mods/TotalMayhem/units',
+	'/mods/BattlePack/units',
+	'/units',
+}
+
 allBlueprints = {}
 curBlueprint = {}
 countBPs = 0
@@ -17,8 +27,10 @@ function CreateUnitDB(over, inGame, callback)
 	-- Must plug UnitBlueprint() into engine before running doscript on .bps
 	doscript '/lua/ui/menus/unitdb_bps.lua'
 
-	for _, file in DiskFindFiles('/units', '*_unit.bp') do
-		safecall("UNIT DB: Loading BP "..file, doscript, file)
+	for _, dir in dirs do
+		for _, file in DiskFindFiles(dir, '*_unit.bp') do
+			safecall("UNIT DB: Loading BP "..file, doscript, file)
+		end
 	end
 
 -- Basics
