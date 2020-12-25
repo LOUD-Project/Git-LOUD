@@ -677,6 +677,7 @@ function TimeAdaptiveCheatThread( aiBrain )
 		-- - Multiplicative increase option
 		-- - Use ratios to slow or speed time-based increase
 		aiBrain.CheatValue = aiBrain.CheatValue + cheatincrease
+		SetArmyPoolBuff(aiBrain, aiBrain.CheatValue)
 		if cheatincrease < 0 and aiBrain.CheatValue <= cheatlimit then
 			aiBrain.CheatValue = math.max(cheatlimit, aiBrain.CheatValue)
 			SetArmyPoolBuff(aiBrain, aiBrain.CheatValue)
