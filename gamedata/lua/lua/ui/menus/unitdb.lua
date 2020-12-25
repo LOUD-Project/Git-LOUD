@@ -18,18 +18,25 @@ local dirs = {
 }
 
 allBlueprints = {}
-curBlueprint = {}
+temp = nil
 countBPs = 0
+
+local units = {}
 
 local filters = {}
 
 function CreateUnitDB(over, inGame, callback)
+-- Parse BPs
 	-- Must plug UnitBlueprint() into engine before running doscript on .bps
 	doscript '/lua/ui/menus/unitdb_bps.lua'
 
 	for _, dir in dirs do
-		for _, file in DiskFindFiles(dir, '*_unit.bp') do
+		for i, file in DiskFindFiles(dir, '*_unit.bp') do
+			local id = string.sub(file, string.find(file, '[%a%d]*_unit%.bp$'))
+			id = string.sub(id, 1, string.len(id) - 8)
 			safecall("UNIT DB: Loading BP "..file, doscript, file)
+			allBlueprints[id] = temp
+			units[i] = id
 		end
 	end
 
@@ -59,7 +66,7 @@ function CreateUnitDB(over, inGame, callback)
 	unitDisplay.bg.Depth:Set(unitDisplay.Depth)
 	LayoutHelpers.FillParent(unitDisplay.bg, unitDisplay)
 
-	local displayIcon = Bitmap(unitDisplay, '/textures/ui/common/icons/units/SEL0323_icon.dds')
+	local displayIcon = Bitmap(unitDisplay)
 	LayoutHelpers.AtLeftTopIn(displayIcon, unitDisplay)
 	local displayName = UIUtil.CreateText(unitDisplay, 'Trickshot', 24, "Arial Bold")
 	displayName:DisableHitTest()
@@ -67,12 +74,10 @@ function CreateUnitDB(over, inGame, callback)
 	local displayShortDesc = UIUtil.CreateText(unitDisplay, 'Mobile Non-Ivan Unit', 18, "Arial")
 	displayShortDesc:DisableHitTest()
 	LayoutHelpers.Below(displayShortDesc, displayName)
-	local desc = 'Experimental rapid-fire artillery. Fires drop-pods containing manually constructed land units deep into enemy lines, causing minor impact damage. Drop-pods are launched in a first in last out order.'
 	local displayDesc = UIUtil.CreateTextBox(unitDisplay)
 	LayoutHelpers.Below(displayDesc, displayIcon, 4)
 	displayDesc.Width:Set(unitDisplay.Width)
 	displayDesc.Height:Set(120)
-	UIUtil.SetTextBoxText(displayDesc, desc)
 	displayDesc.OnClick = function(self, row, event)
 		-- Prevent highlighting lines on click
 	end
@@ -81,7 +86,7 @@ function CreateUnitDB(over, inGame, callback)
 
 	local listContainer = Group(panel)
 	listContainer.Height:Set(556)
-	listContainer.Width:Set(260)
+	listContainer.Width:Set(320)
 	listContainer.top = 0
 	LayoutHelpers.RightOf(listContainer, unitDisplay, 48)
 
@@ -94,12 +99,16 @@ function CreateUnitDB(over, inGame, callback)
 		unitList[i].bg = Bitmap(unitList[i])
 		unitList[i].bg.Depth:Set(unitList[i].Depth)
 		LayoutHelpers.FillParent(unitList[i].bg, unitList[i])
+		unitList[i].bg:SetSolidColor('3B4649') -- Same colour as lobby rows in background
 		unitList[i].bg.Right:Set(function() return unitList[i].Right() - 10 end)
-		unitList[i].icon = Bitmap(unitList[i], '/textures/ui/common/icons/units/SEL0323_icon.dds')
+		unitList[i].icon = Bitmap(unitList[i])
 		LayoutHelpers.AtLeftTopIn(unitList[i].icon, unitList[i])
-		unitList[i].text = UIUtil.CreateText(listContainer, 'Some Unit', 14, "Arial")
-		unitList[i].text:DisableHitTest()
-		LayoutHelpers.CenteredRightOf(unitList[i].text, unitList[i].icon, 2)
+		unitList[i].name = UIUtil.CreateText(listContainer, '', 14, UIUtil.bodyFont)
+		LayoutHelpers.RightOf(unitList[i].name, unitList[i].icon, 2)
+		unitList[i].desc = UIUtil.CreateText(listContainer, '', 14, UIUtil.bodyFont)
+		LayoutHelpers.Below(unitList[i].desc, unitList[i].name, 2)
+		unitList[i].id = UIUtil.CreateText(listContainer, '', 14, UIUtil.bodyFont)
+		LayoutHelpers.Below(unitList[i].id, unitList[i].desc, 2)
 	end
 
 	CreateElement(1)
@@ -110,13 +119,69 @@ function CreateUnitDB(over, inGame, callback)
 		LayoutHelpers.Below(unitList[i], unitList[i - 1])
 	end
 
+	local numLines = function() return table.getsize(unitList) end
+
+	local function DataSize()
+		return table.getn(units)
+	end
+
+	listContainer.GetScrollValues = function(self, axis)
+		local size = DataSize()
+		return 0, size, self.top, math.min(self.top + numLines(), size)
+	end
+
+	listContainer.ScrollLines = function(self, axis, delta)
+		self:ScrollSetTop(axis, self.top + math.floor(delta))
+	end
+
+	listContainer.ScrollPages = function(self, axis, delta)
+		self:ScrollSetTop(axis, self.top + math.floor(delta) * numLines())
+	end
+
+	listContainer.ScrollSetTop = function(self, axis, top)
+		top = math.floor(top)
+        if top == self.top then return end
+        local size = DataSize()
+        self.top = math.max(math.min(size - numLines() , top), 0)
+        self:CalcVisible()
+	end
+
+	listContainer.IsScrollable = function(self, axis)
+		return true
+	end
+
+	listContainer.CalcVisible = function(self)
+		for i, v in unitList do
+			if units[i + self.top] then
+				-- LOG("RATS: "..repr(i + self.top)..": "..repr(units[i + self.top])..": "..repr(allBlueprints[units[i + self.top]]))
+				FillLine(v, allBlueprints[units[i + self.top]], i + self.top)
+			else
+				v:Hide()
+			end
+		end
+	end
+
+	listContainer:CalcVisible()
+
+	listContainer.HandleEvent = function(self, event)
+        if event.Type == 'WheelRotation' then
+            local lines = 1
+            if event.WheelRotation > 0 then
+                lines = -1
+            end
+            self:ScrollLines(nil, lines)
+        end
+	end
+
+	UIUtil.CreateVertScrollbarFor(listContainer)
+
 -- Filters section
 
 	local filterContainer = Group(panel)
 	filterContainer.Height:Set(556)
 	filterContainer.Width:Set(260)
 	filterContainer.top = 0
-	LayoutHelpers.RightOf(filterContainer, listContainer, 16)
+	LayoutHelpers.RightOf(filterContainer, listContainer, 32)
 
 	local filterContainerTitle = UIUtil.CreateText(filterContainer, 'Filters', 24, UIUtil.titleFont)
 	LayoutHelpers.AtTopIn(filterContainerTitle, filterContainer)
@@ -140,13 +205,13 @@ function CreateUnitDB(over, inGame, callback)
 	filterNameEdit:ShowBackground(true)
 	filterNameEdit:SetMaxChars(40)
 
+-- Bottom bar buttons: search, reset filters, exit
+
 	local searchBtn = UIUtil.CreateButtonStd(panel, '/scx_menu/small-btn/small', "Search", 16, 2)
 	LayoutHelpers.AtRightTopIn(searchBtn, panel, 30, 644)
 	searchBtn.OnClick = function(self, modifiers)
 		-- ???
 	end
-
--- Bottom bar buttons: search, reset filters, exit
 
 	local resetBtn = UIUtil.CreateButtonStd(panel, '/scx_menu/small-btn/small', "Reset Filters", 16, 2)
 	LayoutHelpers.LeftOf(resetBtn, searchBtn)
@@ -167,4 +232,19 @@ function CreateUnitDB(over, inGame, callback)
 	end
 
 	UIUtil.MakeInputModal(panel, function() exitBtn.OnClick(exitBtn) end)
+end
+
+function FillLine(line, bp, lineID)
+	local n = LOC(bp.General.UnitName) or LOC(bp.Description) or 'Unnamed Unit'
+	line.name:SetText(n)
+	line.desc:SetText(LOC(bp.Description) or 'Unnamed Unit')
+	line.id:SetText(units[lineID])
+	local ico = '/textures/ui/common/icons/units/'..units[lineID]..'_icon.dds'
+	line.icon:SetTexture(ico)
+end
+
+local function Filter()
+	if table.getsize(filters) == 0 then
+		
+	end
 end
