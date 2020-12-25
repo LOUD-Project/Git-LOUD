@@ -1436,7 +1436,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 			
 			AggressiveMove = false,
 			
-			UseFormation = 'GrowthFormation',
+			UseFormation = 'AttackFormation',
         },
     },
 	
@@ -1473,7 +1473,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 			
 			AggressiveMove = true,
 			
-			UseFormation = 'GrowthFormation',
+			UseFormation = 'AttackFormation',
         },
     },
     
@@ -1510,7 +1510,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 			
 			AggressiveMove = false,
 			
-			UseFormation = 'GrowthFormation',
+			UseFormation = 'AttackFormation',
         },
     },
 
