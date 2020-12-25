@@ -2005,6 +2005,10 @@ Tooltips = {
     	title = "Extras",
     	description = "Access additional SupCom content and functionality",
     },
+    mainmenu_unitdb = {
+        title = "LOUD Unit Database",
+        description = "See detailed information about each of the units in the LOUD mod pack",
+    },
     profile = {
         title = "Profile",
         description = "Manage your Profiles",
