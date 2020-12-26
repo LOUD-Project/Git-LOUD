@@ -17,17 +17,18 @@ local dirs = {
 	'/units',
 }
 
-allBlueprints = {}
+allBlueprints = {} -- Map unit IDs to BPs
 temp = nil
 countBPs = 0
 
 local unitDisplay = false
 local listContainer = false
 
-local units = {}
+local units = {} -- Map unit indices to IDs
 local notFiltered = {} -- Units by index which pass filters
 local count = 0 -- Number of units which pass filters
 local last = -1 -- Index of last unit to pass filters
+local noIcon = {} -- Precache ID of units with no icons
 
 local filters = {}
 
@@ -44,6 +45,10 @@ function CreateUnitDB(over, inGame, callback)
 			id = string.sub(id, 1, string.len(id) - 8)
 			safecall("UNIT DB: Loading BP "..file, doscript, file)
 			allBlueprints[id] = temp
+			local ico = '/textures/ui/common/icons/units/'..id..'_icon.dds'
+			if not DiskGetFileInfo(ico) then
+				noIcon[id] = true
+			end
 			units[bpc] = id
 			notFiltered[bpc] = true
 			bpc = bpc + 1
@@ -291,7 +296,11 @@ function FillLine(line, bp, index)
 	line.desc:SetText(LOC(bp.Description) or 'Unnamed Unit')
 	line.id:SetText(units[index])
 	local ico = '/textures/ui/common/icons/units/'..units[index]..'_icon.dds'
-	line.icon:SetTexture(ico)
+	if noIcon[units[index]] then
+		line.icon:SetTexture(UIUtil.UIFile('/icons/units/default_icon.dds'))
+	else
+		line.icon:SetTexture(ico)
+	end
 	line.HandleEvent = function(self, event)
 		if event.Type == 'ButtonPress' or event.Type == 'ButtonDClick' then
 			DisplayUnit(bp, units[index])
@@ -304,7 +313,12 @@ end
 function DisplayUnit(bp, id)
 	unitDisplay.name:SetText(LOC(bp.General.UnitName) or LOC(bp.Description) or 'Unnamed Unit')
 	unitDisplay.shortDesc:SetText(LOC(bp.Description) or 'Unnamed Unit')
-	unitDisplay.icon:SetTexture('/textures/ui/common/icons/units/'..id..'_icon.dds')
+	local ico = '/textures/ui/common/icons/units/'..id..'_icon.dds'
+	if noIcon[id] then
+		unitDisplay.icon:SetTexture(UIUtil.UIFile('/icons/units/default_icon.dds'))
+	else
+		unitDisplay.icon:SetTexture(ico)
+	end
 	local ld = LOC(Description[id]) or 'No description available for this unit.'
 	UIUtil.SetTextBoxText(unitDisplay.longDesc, ld)
 end
