@@ -24,6 +24,7 @@ countBPs = 0
 local unitDisplay = false
 
 local units = {}
+local filtered = {}
 
 local filters = {}
 
@@ -41,6 +42,7 @@ function CreateUnitDB(over, inGame, callback)
 			safecall("UNIT DB: Loading BP "..file, doscript, file)
 			allBlueprints[id] = temp
 			units[i] = id
+			filtered[i] = true
 			i = i + 1
 		end
 	end
@@ -170,12 +172,13 @@ function CreateUnitDB(over, inGame, callback)
 	end
 
 	listContainer.CalcVisible = function(self)
+		local j = self.top
 		for i, v in unitList do
-			if units[i + self.top] then
-				FillLine(v, allBlueprints[units[i + self.top]], i + self.top)
-			else
-				v:Hide()
+			while not filtered[j] do
+				j = j + 1
 			end
+			j = j + 1
+			FillLine(v, allBlueprints[units[j]], j)
 		end
 	end
 
@@ -212,6 +215,7 @@ function CreateUnitDB(over, inGame, callback)
 	local filterNameLabel = UIUtil.CreateText(filterGroupName, 'Name', 14, "Arial")
 	LayoutHelpers.AtLeftIn(filterNameLabel, filterGroupName, 2)
 	LayoutHelpers.AtVerticalCenterIn(filterNameLabel, filterGroupName)
+
 	local filterNameEdit = Edit(filterGroupName)
 	LayoutHelpers.RightOf(filterNameEdit, filterNameLabel, 2)
 	filterNameEdit.Width:Set(160)
@@ -223,12 +227,22 @@ function CreateUnitDB(over, inGame, callback)
 	filterNameEdit:ShowBackground(true)
 	filterNameEdit:SetMaxChars(40)
 
+	filterNameEdit.OnTextChanged = function(self, newText, oldText)
+		if newText == '' then
+			filters['name'] = nil
+		end
+		if not filters['name'] or filters['name'] ~= newText then
+			filters['name'] = newText
+		end
+	end
+
 -- Bottom bar buttons: search, reset filters, exit
 
 	local searchBtn = UIUtil.CreateButtonStd(panel, '/scx_menu/small-btn/small', "Search", 16, 2)
 	LayoutHelpers.AtRightTopIn(searchBtn, panel, 30, 644)
 	searchBtn.OnClick = function(self, modifiers)
-		-- ???
+		Filter()
+		listContainer:CalcVisible()
 	end
 
 	local resetBtn = UIUtil.CreateButtonStd(panel, '/scx_menu/small-btn/small', "Reset Filters", 16, 2)
@@ -252,16 +266,16 @@ function CreateUnitDB(over, inGame, callback)
 	UIUtil.MakeInputModal(panel, function() exitBtn.OnClick(exitBtn) end)
 end
 
-function FillLine(line, bp, lineID)
+function FillLine(line, bp, index)
 	local n = LOC(bp.General.UnitName) or LOC(bp.Description) or 'Unnamed Unit'
 	line.name:SetText(n)
 	line.desc:SetText(LOC(bp.Description) or 'Unnamed Unit')
-	line.id:SetText(units[lineID])
-	local ico = '/textures/ui/common/icons/units/'..units[lineID]..'_icon.dds'
+	line.id:SetText(units[index])
+	local ico = '/textures/ui/common/icons/units/'..units[index]..'_icon.dds'
 	line.icon:SetTexture(ico)
 	line.HandleEvent = function(self, event)
 		if event.Type == 'ButtonPress' or event.Type == 'ButtonDClick' then
-			DisplayUnit(bp, units[lineID])
+			DisplayUnit(bp, units[index])
 			local sound = Sound({Cue = "UI_Mod_Select", Bank = "Interface",})
             PlaySound(sound)
 		end
@@ -276,8 +290,12 @@ function DisplayUnit(bp, id)
 	UIUtil.SetTextBoxText(unitDisplay.longDesc, ld)
 end
 
-local function Filter()
-	if table.getsize(filters) == 0 then
-		
+function Filter()
+	for i, id in units do
+		local bp = allBlueprints[id]
+		filtered[i] = true
+		if filters['name'] and bp.General.Name and not string.find(bp.General.Name, filters['name']) then
+			filtered[i] = false
+		end
 	end
 end
