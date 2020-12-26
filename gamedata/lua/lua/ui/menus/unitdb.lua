@@ -22,9 +22,12 @@ temp = nil
 countBPs = 0
 
 local unitDisplay = false
+local listContainer = false
 
 local units = {}
-local filtered = {}
+local notFiltered = {} -- Units by index which pass filters
+local count = 0 -- Number of units which pass filters
+local last = -1 -- Index of last unit to pass filters
 
 local filters = {}
 
@@ -33,7 +36,7 @@ function CreateUnitDB(over, inGame, callback)
 	-- Must plug UnitBlueprint() into engine before running doscript on .bps
 	doscript '/lua/ui/menus/unitdb_bps.lua'
 
-	local i = 1
+	local bpc = 1
 	for _, dir in dirs do
 		for _, file in DiskFindFiles(dir, '*_unit.bp') do
 			-- RATODO: Certain BrewLAN IDs end with _large or _small
@@ -41,11 +44,14 @@ function CreateUnitDB(over, inGame, callback)
 			id = string.sub(id, 1, string.len(id) - 8)
 			safecall("UNIT DB: Loading BP "..file, doscript, file)
 			allBlueprints[id] = temp
-			units[i] = id
-			filtered[i] = true
-			i = i + 1
+			units[bpc] = id
+			notFiltered[bpc] = true
+			bpc = bpc + 1
 		end
 	end
+
+	last = bpc
+	count = table.getsize(units)
 
 	-- Fetch all unit descriptions
 
@@ -101,7 +107,7 @@ function CreateUnitDB(over, inGame, callback)
 
 -- List of filtered units
 
-	local listContainer = Group(panel)
+	listContainer = Group(panel)
 	listContainer.Height:Set(556)
 	listContainer.Width:Set(320)
 	listContainer.top = 0
@@ -143,7 +149,7 @@ function CreateUnitDB(over, inGame, callback)
 	local numLines = function() return table.getsize(unitList) end
 
 	local function DataSize()
-		return table.getn(units)
+		return count
 	end
 
 	listContainer.GetScrollValues = function(self, axis)
@@ -172,12 +178,24 @@ function CreateUnitDB(over, inGame, callback)
 	end
 
 	listContainer.CalcVisible = function(self)
+		local function ClearRemaining(cur)
+			for l = cur, table.getsize(unitList) do
+				unitList[l].name:SetText('')
+				unitList[l].desc:SetText('')
+				unitList[l].id:SetText('')
+				unitList[l]:Hide()
+			end
+		end
 		local j = self.top
 		for i, v in unitList do
-			while not filtered[j] do
+			j = j + 1
+			while not notFiltered[j] do
+				if j > last then
+					ClearRemaining(i)
+					return
+				end
 				j = j + 1
 			end
-			j = j + 1
 			FillLine(v, allBlueprints[units[j]], j)
 		end
 	end
@@ -267,6 +285,7 @@ function CreateUnitDB(over, inGame, callback)
 end
 
 function FillLine(line, bp, index)
+	line:Show()
 	local n = LOC(bp.General.UnitName) or LOC(bp.Description) or 'Unnamed Unit'
 	line.name:SetText(n)
 	line.desc:SetText(LOC(bp.Description) or 'Unnamed Unit')
@@ -291,11 +310,31 @@ function DisplayUnit(bp, id)
 end
 
 function Filter()
+	local function TryLower(string)
+		if not string then return ''
+		else return string.lower(string) end
+	end
+
+	LOG("UNIT DB: Filtering by: "..repr(filters))
+	listContainer.top = 0
+	count = table.getsize(units)
 	for i, id in units do
 		local bp = allBlueprints[id]
-		filtered[i] = true
-		if filters['name'] and bp.General.Name and not string.find(bp.General.Name, filters['name']) then
-			filtered[i] = false
+		notFiltered[i] = true
+
+		if filters['name'] then
+			local bpN = TryLower(LOC(bp.General.UnitName))
+			filters['name'] = string.lower(filters['name'])
+			if not string.find(bpN, filters['name']) then
+				notFiltered[i] = false
+				count = count - 1
+				continue
+			end
 		end
+
+		-- If unit has passed all filters, it is now the last to have done so
+		last = i
 	end
+
+	LOG("UNIT DB: Unit list filtered down to: "..count)
 end
