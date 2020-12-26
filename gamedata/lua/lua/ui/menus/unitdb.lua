@@ -8,13 +8,13 @@ local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
 local UIUtil = import('/lua/ui/uiutil.lua')
 
 local dirs = {
+	'/units',
 	'/mods/4DC/units',
 	'/mods/BlackOpsUnleashed/units',
 	'/mods/BrewLAN_LOUD/units',
 	'/mods/LOUD Unit Additions/units',
 	'/mods/TotalMayhem/units',
 	'/mods/BattlePack/units',
-	'/units',
 }
 
 allBlueprints = {} -- Map unit IDs to BPs
