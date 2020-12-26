@@ -21,6 +21,8 @@ allBlueprints = {}
 temp = nil
 countBPs = 0
 
+local unitDisplay = false
+
 local units = {}
 
 local filters = {}
@@ -43,6 +45,16 @@ function CreateUnitDB(over, inGame, callback)
 		end
 	end
 
+	-- Fetch all unit descriptions
+
+	doscript '/lua/ui/help/unitdescription.lua'
+	doscript '/mods/BrewLAN_LOUD/hook/lua/ui/help/unitdescription.lua'
+	doscript '/mods/4DC/hook/lua/ui/help/unitdescription.lua'
+	doscript '/mods/BlackOpsUnleashed/hook/lua/ui/help/unitdescription.lua'
+	doscript '/mods/LOUD Unit Additions/hook/lua/ui/help/unitdescription.lua'
+	doscript '/mods/TotalMayhem/hook/lua/ui/help/unitdescription.lua'
+	doscript '/mods/BattlePack/hook/lua/ui/help/unitdescription.lua'
+
 -- Basics
 
 	local parent = over
@@ -60,7 +72,7 @@ function CreateUnitDB(over, inGame, callback)
 
 -- Unit display
 
-	local unitDisplay = Group(panel)
+	unitDisplay = Group(panel)
 	unitDisplay.Height:Set(600)
 	unitDisplay.Width:Set(260)
 	unitDisplay.top = 0
@@ -69,19 +81,19 @@ function CreateUnitDB(over, inGame, callback)
 	unitDisplay.bg.Depth:Set(unitDisplay.Depth)
 	LayoutHelpers.FillParent(unitDisplay.bg, unitDisplay)
 
-	local displayIcon = Bitmap(unitDisplay)
-	LayoutHelpers.AtLeftTopIn(displayIcon, unitDisplay)
-	local displayName = UIUtil.CreateText(unitDisplay, 'Trickshot', 24, "Arial Bold")
-	displayName:DisableHitTest()
-	LayoutHelpers.RightOf(displayName, displayIcon, 6)
-	local displayShortDesc = UIUtil.CreateText(unitDisplay, 'Mobile Non-Ivan Unit', 18, "Arial")
-	displayShortDesc:DisableHitTest()
-	LayoutHelpers.Below(displayShortDesc, displayName)
-	local displayDesc = UIUtil.CreateTextBox(unitDisplay)
-	LayoutHelpers.Below(displayDesc, displayIcon, 4)
-	displayDesc.Width:Set(unitDisplay.Width)
-	displayDesc.Height:Set(120)
-	displayDesc.OnClick = function(self, row, event)
+	unitDisplay.icon = Bitmap(unitDisplay)
+	LayoutHelpers.AtLeftTopIn(unitDisplay.icon, unitDisplay)
+	unitDisplay.name = UIUtil.CreateText(unitDisplay, '', 24, "Arial Bold")
+	unitDisplay.name:DisableHitTest()
+	LayoutHelpers.RightOf(unitDisplay.name, unitDisplay.icon, 6)
+	unitDisplay.shortDesc = UIUtil.CreateText(unitDisplay, '', 18, UIUtil.bodyFont)
+	unitDisplay.shortDesc:DisableHitTest()
+	LayoutHelpers.Below(unitDisplay.shortDesc, unitDisplay.name)
+	unitDisplay.longDesc = UIUtil.CreateTextBox(unitDisplay)
+	LayoutHelpers.Below(unitDisplay.longDesc, unitDisplay.icon, 4)
+	unitDisplay.longDesc.Width:Set(unitDisplay.Width)
+	unitDisplay.longDesc.Height:Set(120)
+	unitDisplay.longDesc.OnClick = function(self, row, event)
 		-- Prevent highlighting lines on click
 	end
 
@@ -112,6 +124,10 @@ function CreateUnitDB(over, inGame, callback)
 		LayoutHelpers.Below(unitList[i].desc, unitList[i].name, 2)
 		unitList[i].id = UIUtil.CreateText(listContainer, '', 14, UIUtil.bodyFont)
 		LayoutHelpers.Below(unitList[i].id, unitList[i].desc, 2)
+		unitList[i].icon:DisableHitTest()
+		unitList[i].name:DisableHitTest()
+		unitList[i].desc:DisableHitTest()
+		unitList[i].id:DisableHitTest()
 	end
 
 	CreateElement(1)
@@ -156,7 +172,6 @@ function CreateUnitDB(over, inGame, callback)
 	listContainer.CalcVisible = function(self)
 		for i, v in unitList do
 			if units[i + self.top] then
-				-- LOG("RATS: "..repr(i + self.top)..": "..repr(units[i + self.top])..": "..repr(allBlueprints[units[i + self.top]]))
 				FillLine(v, allBlueprints[units[i + self.top]], i + self.top)
 			else
 				v:Hide()
@@ -244,6 +259,21 @@ function FillLine(line, bp, lineID)
 	line.id:SetText(units[lineID])
 	local ico = '/textures/ui/common/icons/units/'..units[lineID]..'_icon.dds'
 	line.icon:SetTexture(ico)
+	line.HandleEvent = function(self, event)
+		if event.Type == 'ButtonPress' or event.Type == 'ButtonDClick' then
+			DisplayUnit(bp, units[lineID])
+			local sound = Sound({Cue = "UI_Mod_Select", Bank = "Interface",})
+            PlaySound(sound)
+		end
+	end
+end
+
+function DisplayUnit(bp, id)
+	unitDisplay.name:SetText(LOC(bp.General.UnitName) or LOC(bp.Description) or 'Unnamed Unit')
+	unitDisplay.shortDesc:SetText(LOC(bp.Description) or 'Unnamed Unit')
+	unitDisplay.icon:SetTexture('/textures/ui/common/icons/units/'..id..'_icon.dds')
+	local ld = LOC(Description[id]) or 'No description available for this unit.'
+	UIUtil.SetTextBoxText(unitDisplay.longDesc, ld)
 end
 
 local function Filter()
