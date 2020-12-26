@@ -4,6 +4,7 @@
 local Bitmap = import('/lua/maui/bitmap.lua').Bitmap
 local Edit = import('/lua/maui/edit.lua').Edit
 local Group = import('/lua/maui/group.lua').Group
+local ItemList = import('/lua/maui/itemlist.lua').ItemList
 local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
 local UIUtil = import('/lua/ui/uiutil.lua')
 
@@ -109,6 +110,14 @@ function CreateUnitDB(over, inGame, callback)
 	unitDisplay.longDesc.OnClick = function(self, row, event)
 		-- Prevent highlighting lines on click
 	end
+	unitDisplay.abilities = ItemList(unitDisplay)
+	LayoutHelpers.Below(unitDisplay.abilities, unitDisplay.longDesc, 6)
+	unitDisplay.abilities.Width:Set(unitDisplay.Width)
+	unitDisplay.abilities.Height:Set(120)
+	unitDisplay.abilities.OnClick = function(self, row, event)
+		-- Prevent highlighting lines on click
+	end
+	UIUtil.CreateVertScrollbarFor(unitDisplay.abilities)
 
 -- List of filtered units
 
@@ -321,6 +330,15 @@ function DisplayUnit(bp, id)
 	end
 	local ld = LOC(Description[id]) or 'No description available for this unit.'
 	UIUtil.SetTextBoxText(unitDisplay.longDesc, ld)
+	if bp.Display.Abilities then
+		unitDisplay.abilities:DeleteAllItems()
+		unitDisplay.abilities:Show()
+		for _, a in bp.Display.Abilities do
+			unitDisplay.abilities:AddItem(LOC(a))
+		end
+	else
+		unitDisplay.abilities:Hide()
+	end
 end
 
 function Filter()
