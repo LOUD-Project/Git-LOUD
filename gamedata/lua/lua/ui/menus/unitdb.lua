@@ -134,6 +134,22 @@ function CreateUnitDB(over, inGame, callback)
 	LayoutHelpers.RightOf(unitDisplay.health, unitDisplay.healthIcon, 6)
 	unitDisplay.health:DisableHitTest()
 
+	unitDisplay.massIcon = Bitmap(unitDisplay, UIUtil.UIFile('/game/build-ui/icon-mass_bmp.dds'))
+	LayoutHelpers.Below(unitDisplay.massIcon, unitDisplay.healthIcon, 6)
+	unitDisplay.mass = UIUtil.CreateText(unitDisplay, '', 14, UIUtil.bodyFont)
+	LayoutHelpers.RightOf(unitDisplay.mass, unitDisplay.massIcon, 6)
+	unitDisplay.mass:DisableHitTest()
+	unitDisplay.energyIcon = Bitmap(unitDisplay, UIUtil.UIFile('/game/build-ui/icon-energy_bmp.dds'))
+	LayoutHelpers.RightOf(unitDisplay.energyIcon, unitDisplay.mass, 6)
+	unitDisplay.energy = UIUtil.CreateText(unitDisplay, '', 14, UIUtil.bodyFont)
+	LayoutHelpers.RightOf(unitDisplay.energy, unitDisplay.energyIcon, 6)
+	unitDisplay.energy:DisableHitTest()
+	unitDisplay.capIcon = Bitmap(unitDisplay, UIUtil.UIFile('/dialogs/score-overlay/tank_bmp.dds'))
+	LayoutHelpers.RightOf(unitDisplay.capIcon, unitDisplay.energy, 6)
+	unitDisplay.cap = UIUtil.CreateText(unitDisplay, '', 14, UIUtil.bodyFont)
+	LayoutHelpers.RightOf(unitDisplay.cap, unitDisplay.capIcon, 6)
+	unitDisplay.cap:DisableHitTest()
+
 -- List of filtered units
 
 	listContainer = Group(panel)
@@ -356,7 +372,14 @@ function DisplayUnit(bp, id)
 		unitDisplay.abilities.Height:Set(0)
 		unitDisplay.abilities:Hide()
 	end
-	unitDisplay.health:SetText(bp.Defense.MaxHealth)
+	unitDisplay.health:SetText(tostring(bp.Defense.MaxHealth))
+	unitDisplay.mass:SetText(tostring(bp.Economy.BuildCostMass))
+	unitDisplay.energy:SetText(tostring(bp.Economy.BuildCostEnergy))
+	if bp.General.CapCost then
+		unitDisplay.cap:SetText(tostring(bp.General.CapCost))
+	else
+		unitDisplay.cap:SetText('1')
+	end
 end
 
 function Filter()
