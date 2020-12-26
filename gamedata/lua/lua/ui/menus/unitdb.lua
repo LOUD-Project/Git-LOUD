@@ -33,6 +33,7 @@ function CreateUnitDB(over, inGame, callback)
 	local i = 1
 	for _, dir in dirs do
 		for _, file in DiskFindFiles(dir, '*_unit.bp') do
+			-- RATODO: Certain BrewLAN IDs end with _large or _small
 			local id = string.sub(file, string.find(file, '[%a%d]*_unit%.bp$'))
 			id = string.sub(id, 1, string.len(id) - 8)
 			safecall("UNIT DB: Loading BP "..file, doscript, file)
