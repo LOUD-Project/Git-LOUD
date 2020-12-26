@@ -30,13 +30,15 @@ function CreateUnitDB(over, inGame, callback)
 	-- Must plug UnitBlueprint() into engine before running doscript on .bps
 	doscript '/lua/ui/menus/unitdb_bps.lua'
 
+	local i = 1
 	for _, dir in dirs do
-		for i, file in DiskFindFiles(dir, '*_unit.bp') do
+		for _, file in DiskFindFiles(dir, '*_unit.bp') do
 			local id = string.sub(file, string.find(file, '[%a%d]*_unit%.bp$'))
 			id = string.sub(id, 1, string.len(id) - 8)
 			safecall("UNIT DB: Loading BP "..file, doscript, file)
 			allBlueprints[id] = temp
 			units[i] = id
+			i = i + 1
 		end
 	end
 
