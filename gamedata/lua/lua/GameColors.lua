@@ -26,19 +26,6 @@ GameColors = {
 		"7979A9",		-- Dark Blue-Gray
 		"656565",		-- Dark Gray
 
-		"5C1010",		-- Dark Red
-		"5C4110",		-- Brown
-		"8E6C00",		-- Dark Gold
-		"5C5C10",		-- Dark Yellow
-		"5F9000",		-- Very Dark Lime Green
-		"105C10",		-- Dark Green
-		"3F5F5F",		-- Dark Aqua
-		"10105C",		-- Dark Blue
-		"5C105C",		-- Dark Pink
-		"6F11B7",		-- Dark Purple
-		"555595",		-- Very Dark Blue-Gray
-		"454545",		-- Very Dark Gray
-
 		"FFFFFF",		-- White
 		"000000"		-- Black
     },
@@ -69,19 +56,6 @@ GameColors = {
 		"9161FF",		-- Purple
 		"7979A9",		-- Dark Blue-Gray
 		"656565",		-- Dark Gray
-
-		"5C1010",		-- Dark Red
-		"5C4110",		-- Brown
-		"8E6C00",		-- Dark Gold
-		"5C5C10",		-- Dark Yellow
-		"5F9000",		-- Very Dark Lime Green
-		"105C10",		-- Dark Green
-		"3F5F5F",		-- Dark Aqua
-		"10105C",		-- Dark Blue
-		"5C105C",		-- Dark Pink
-		"6F11B7",		-- Dark Purple
-		"555595",		-- Very Dark Blue-Gray
-		"454545",		-- Very Dark Gray
 
 		"FFFFFF",		-- White
 		"000000"		-- Black
