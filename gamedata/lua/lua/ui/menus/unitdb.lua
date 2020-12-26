@@ -118,6 +118,11 @@ function CreateUnitDB(over, inGame, callback)
 		-- Prevent highlighting lines on click
 	end
 	UIUtil.CreateVertScrollbarFor(unitDisplay.abilities)
+	unitDisplay.healthIcon = Bitmap(unitDisplay, UIUtil.UIFile('/game/build-ui/icon-health_bmp.dds'))
+	LayoutHelpers.Below(unitDisplay.healthIcon, unitDisplay.abilities, 6)
+	unitDisplay.health = UIUtil.CreateText(unitDisplay, '', 14, UIUtil.bodyFont)
+	LayoutHelpers.RightOf(unitDisplay.health, unitDisplay.healthIcon, 6)
+	unitDisplay.health:DisableHitTest()
 
 -- List of filtered units
 
@@ -339,6 +344,7 @@ function DisplayUnit(bp, id)
 	else
 		unitDisplay.abilities:Hide()
 	end
+	unitDisplay.health:SetText(bp.Defense.MaxHealth)
 end
 
 function Filter()
