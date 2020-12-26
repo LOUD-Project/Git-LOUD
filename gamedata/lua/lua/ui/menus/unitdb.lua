@@ -8,6 +8,8 @@ local ItemList = import('/lua/maui/itemlist.lua').ItemList
 local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
 local UIUtil = import('/lua/ui/uiutil.lua')
 
+-- Constants
+
 local dirs = {
 	'/units',
 	'/mods/4DC/units',
@@ -18,20 +20,25 @@ local dirs = {
 	'/mods/BattlePack/units',
 }
 
+local unitDispAbilHeight = 120
+
+-- Backing structures
+
 allBlueprints = {} -- Map unit IDs to BPs
 temp = nil
 countBPs = 0
-
-local unitDisplay = false
-local listContainer = false
 
 local units = {} -- Map unit indices to IDs
 local notFiltered = {} -- Units by index which pass filters
 local count = 0 -- Number of units which pass filters
 local last = -1 -- Index of last unit to pass filters
 local noIcon = {} -- Precache ID of units with no icons
-
 local filters = {}
+
+-- GUI elements
+
+local unitDisplay = false
+local listContainer = false
 
 function CreateUnitDB(over, inGame, callback)
 -- Parse BPs
@@ -103,6 +110,7 @@ function CreateUnitDB(over, inGame, callback)
 	unitDisplay.shortDesc = UIUtil.CreateText(unitDisplay, '', 18, UIUtil.bodyFont)
 	unitDisplay.shortDesc:DisableHitTest()
 	LayoutHelpers.Below(unitDisplay.shortDesc, unitDisplay.name)
+
 	unitDisplay.longDesc = UIUtil.CreateTextBox(unitDisplay)
 	LayoutHelpers.Below(unitDisplay.longDesc, unitDisplay.icon, 4)
 	unitDisplay.longDesc.Width:Set(unitDisplay.Width)
@@ -110,14 +118,16 @@ function CreateUnitDB(over, inGame, callback)
 	unitDisplay.longDesc.OnClick = function(self, row, event)
 		-- Prevent highlighting lines on click
 	end
+
 	unitDisplay.abilities = ItemList(unitDisplay)
 	LayoutHelpers.Below(unitDisplay.abilities, unitDisplay.longDesc, 6)
 	unitDisplay.abilities.Width:Set(unitDisplay.Width)
-	unitDisplay.abilities.Height:Set(120)
+	unitDisplay.abilities.Height:Set(unitDispAbilHeight)
 	unitDisplay.abilities.OnClick = function(self, row, event)
 		-- Prevent highlighting lines on click
 	end
 	UIUtil.CreateVertScrollbarFor(unitDisplay.abilities)
+
 	unitDisplay.healthIcon = Bitmap(unitDisplay, UIUtil.UIFile('/game/build-ui/icon-health_bmp.dds'))
 	LayoutHelpers.Below(unitDisplay.healthIcon, unitDisplay.abilities, 6)
 	unitDisplay.health = UIUtil.CreateText(unitDisplay, '', 14, UIUtil.bodyFont)
@@ -337,11 +347,13 @@ function DisplayUnit(bp, id)
 	UIUtil.SetTextBoxText(unitDisplay.longDesc, ld)
 	if bp.Display.Abilities then
 		unitDisplay.abilities:DeleteAllItems()
+		unitDisplay.abilities.Height:Set(unitDispAbilHeight)
 		unitDisplay.abilities:Show()
 		for _, a in bp.Display.Abilities do
 			unitDisplay.abilities:AddItem(LOC(a))
 		end
 	else
+		unitDisplay.abilities.Height:Set(0)
 		unitDisplay.abilities:Hide()
 	end
 	unitDisplay.health:SetText(bp.Defense.MaxHealth)
