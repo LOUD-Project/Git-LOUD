@@ -53,7 +53,7 @@ allBlueprints = {} -- Map unit IDs to BPs
 temp = nil
 countBPs = 0
 
-local units = {} -- Map unit indices to { ID, origin mod }
+local units = {} -- Map unit indices to ID
 local origin = {} -- Map unit indices to origin mod
 local notFiltered = {} -- Units by index which pass filters
 local count = 0 -- Number of units which pass filters
@@ -406,12 +406,32 @@ function CreateUnitDB(over, inGame, callback)
 		Tooltip.DestroyMouseoverDisplay()
 	end
 
+	-- Type (land, air, naval, base)
+
+	local filterGroupType = Group(filterContainer)
+	filterGroupType.Height:Set(20)
+	filterGroupType.Width:Set(filterContainer.Width)
+	LayoutHelpers.Below(filterGroupType, filterGroupTech)
+	local filterTypeLabel = UIUtil.CreateText(filterGroupType, 'Unit Type', 14, UIUtil.bodyFont)
+	LayoutHelpers.AtLeftIn(filterTypeLabel, filterGroupType)
+	LayoutHelpers.AtVerticalCenterIn(filterTypeLabel, filterGroupType)
+
+	local filterTypeCombo = Combo(filterGroupType, 14, 5, nil, nil,  "UI_Tab_Rollover_01", "UI_Tab_Click_01")
+	filterTypeCombo:AddItems({'All', 'Land', 'Air', 'Naval', 'Base'}, 1)
+	LayoutHelpers.AtRightIn(filterTypeCombo, filterGroupType, 2)
+	LayoutHelpers.AtVerticalCenterIn(filterTypeCombo, filterGroupType)
+	filterTypeCombo.Width:Set(80)
+	filterTypeCombo.OnClick = function(self, index)
+		filters['type'] = index
+		Tooltip.DestroyMouseoverDisplay()
+	end
+
 	-- Origin mod
 
 	local filterGroupOrigin = Group(filterContainer)
 	filterGroupOrigin.Height:Set(20)
 	filterGroupOrigin.Width:Set(filterContainer.Width)
-	LayoutHelpers.Below(filterGroupOrigin, filterGroupTech)
+	LayoutHelpers.Below(filterGroupOrigin, filterGroupType)
 	local filterOriginLabel = UIUtil.CreateText(filterGroupOrigin, 'Mod', 14, UIUtil.bodyFont)
 	LayoutHelpers.AtLeftIn(filterOriginLabel, filterGroupOrigin)
 	LayoutHelpers.AtVerticalCenterIn(filterOriginLabel, filterGroupOrigin)
@@ -455,6 +475,7 @@ function CreateUnitDB(over, inGame, callback)
 		filterFactionCombo:SetItem(1)
 		filterTechCombo:SetItem(1)
 		filterOriginCombo:SetItem(1)
+		filterTypeCombo:SetItem(1)
 		Filter()
 		listContainer:CalcVisible()
 	end
@@ -574,6 +595,24 @@ function Filter()
 			continue
 		end
 
+		-- The order of the type filter needs to be specific.
+		-- Looking for LAND will only remove base units if
+		-- STRUCTURE is handled first.
+		if filters['type'] == 1 then
+			-- Do nothing
+		else
+			local struct = table.find(bp.Categories, 'STRUCTURE')
+			if (filters['type'] == 5 and not struct)
+			or (filters['type'] == 3 and not bp.Physics.BuildOnLayerCaps.LAYER_Air)
+			or (filters['type'] == 2 and (struct or not table.find(bp.Categories, 'LAND')))
+			or (filters['type'] == 4 and (struct or not table.find(bp.Categories, 'NAVAL')))
+			then
+				notFiltered[i] = false
+				count = count - 1
+				continue
+			end
+		end
+
 		if filters['mod'] == 1 then
 			-- Do nothing
 		elseif filters['mod'] ~= origin[i] then
@@ -595,4 +634,5 @@ function ClearFilters()
 	filters['faction'] = 1
 	filters['tech'] = 1
 	filters['mod'] = 1
+	filters['type'] = 1
 end
