@@ -140,6 +140,8 @@ function CreateUnitDB(over, inGame, callback)
 		worldCover = UIUtil.CreateWorldCover(panel)
 	end
 
+	ClearFilters()
+
 -- Unit display
 
 	unitDisplay = Group(panel)
@@ -447,7 +449,14 @@ function CreateUnitDB(over, inGame, callback)
 	LayoutHelpers.LeftOf(resetBtn, searchBtn)
 	resetBtn.OnClick = function(self, modifiers)
 		-- Set all filter fields to defaults
+		ClearFilters()
 		-- Reflect reset in UI
+		filterNameEdit:SetText('')
+		filterFactionCombo:SetItem(1)
+		filterTechCombo:SetItem(1)
+		filterOriginCombo:SetItem(1)
+		Filter()
+		listContainer:CalcVisible()
 	end
 
 	local exitBtn = UIUtil.CreateButtonStd(panel, '/scx_menu/small-btn/small', "Exit", 16, 2)
@@ -458,6 +467,7 @@ function CreateUnitDB(over, inGame, callback)
 		else
 			parent:Destroy()
 		end
+		ClearFilters()
 		callback()
 	end
 
@@ -578,4 +588,11 @@ function Filter()
 		last = i
 	end
 	LOG("UNIT DB: Unit list filtered down to: "..count)
+end
+
+function ClearFilters()
+	filters['name'] = ''
+	filters['faction'] = 1
+	filters['tech'] = 1
+	filters['mod'] = 1
 end
