@@ -2,10 +2,13 @@
 -- Author: Rat Circus
 
 local Bitmap = import('/lua/maui/bitmap.lua').Bitmap
+local BitmapCombo = import('/lua/ui/controls/combo.lua').BitmapCombo
 local Edit = import('/lua/maui/edit.lua').Edit
+local FactionData = import('/lua/factions.lua')
 local Group = import('/lua/maui/group.lua').Group
 local ItemList = import('/lua/maui/itemlist.lua').ItemList
 local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
+local Tooltip = import('/lua/ui/game/tooltip.lua')
 local UIUtil = import('/lua/ui/uiutil.lua')
 
 -- Constants
@@ -21,6 +24,17 @@ local dirs = {
 }
 
 local unitDispAbilHeight = 120
+
+local factionBmps = {}
+local factionTooltips = {}
+
+table.insert(factionBmps, "/faction_icon-sm/random_ico.dds")
+-- RATODO: Tooltip for all faction filter option
+
+for i, tbl in FactionData.Factions do
+	factionBmps[i + 1] = tbl.SmallIcon
+	factionTooltips[i + 1] = tbl.TooltipID
+end
 
 -- Backing structures
 
@@ -272,15 +286,16 @@ function CreateUnitDB(over, inGame, callback)
 	LayoutHelpers.AtHorizontalCenterIn(filterContainerTitle, filterContainer)
 
 	local filterGroupName = Group(filterContainer)
-	filterGroupName.Height:Set(24)
+	filterGroupName.Height:Set(20)
 	filterGroupName.Width:Set(filterContainer.Width)
 	LayoutHelpers.AtLeftTopIn(filterGroupName, filterContainer, 0, 32)
-	local filterNameLabel = UIUtil.CreateText(filterGroupName, 'Name', 14, "Arial")
+	local filterNameLabel = UIUtil.CreateText(filterGroupName, 'Name', 14, UIUtil.bodyFont)
 	LayoutHelpers.AtLeftIn(filterNameLabel, filterGroupName, 2)
 	LayoutHelpers.AtVerticalCenterIn(filterNameLabel, filterGroupName)
 
 	local filterNameEdit = Edit(filterGroupName)
-	LayoutHelpers.RightOf(filterNameEdit, filterNameLabel, 2)
+	LayoutHelpers.AtRightIn(filterNameEdit, filterGroupName, 2)
+	LayoutHelpers.AtVerticalCenterIn(filterNameEdit, filterGroupName)
 	filterNameEdit.Width:Set(160)
 	filterNameEdit.Height:Set(filterGroupName.Height)
 	filterNameEdit:SetFont(UIUtil.bodyFont, 12)
@@ -298,6 +313,26 @@ function CreateUnitDB(over, inGame, callback)
 			filters['name'] = newText
 		end
 	end
+
+	local filterGroupFaction = Group(filterContainer)
+	filterGroupFaction.Height:Set(20)
+	filterGroupFaction.Width:Set(filterContainer.Width)
+	LayoutHelpers.Below(filterGroupFaction, filterGroupName)
+	local filterFactionLabel = UIUtil.CreateText(filterGroupFaction, 'Faction', 14, UIUtil.bodyFont)
+	LayoutHelpers.AtLeftIn(filterFactionLabel, filterGroupFaction)
+	LayoutHelpers.AtVerticalCenterIn(filterFactionLabel, filterGroupFaction)
+
+	local filterFactionCombo = BitmapCombo(filterGroupFaction, factionBmps, table.getn(factionBmps), nil, nil,  "UI_Tab_Rollover_01", "UI_Tab_Click_01")
+	LayoutHelpers.AtRightIn(filterFactionCombo, filterGroupFaction, 2)
+	LayoutHelpers.AtVerticalCenterIn(filterFactionCombo, filterGroupFaction)
+	filterFactionCombo.Width:Set(60)
+	filterFactionCombo.OnClick = function(self, index)
+		-- 1 = All ; 2 = UEF ; 3 = Cybran ; 4 = Aeon ; 5 -> Sera
+		filters['faction'] = index
+		Tooltip.DestroyMouseoverDisplay()
+	end
+
+	Tooltip.AddComboTooltip(filterFactionCombo, factionTooltips)
 
 -- Bottom bar buttons: search, reset filters, exit
 
@@ -403,6 +438,15 @@ function Filter()
 				count = count - 1
 				continue
 			end
+		end
+
+		if (filters['faction'] == 2 and not table.find(bp.Categories, 'UEF')) 
+		or (filters['faction'] == 3 and not table.find(bp.Categories, 'CYBRAN'))
+		or (filters['faction'] == 4 and not table.find(bp.Categories, 'AEON')) 
+		or (filters['faction'] == 5 and not table.find(bp.Categories, 'SERAPHIM'))then
+			notFiltered[i] = false
+			count = count - 1
+			continue
 		end
 
 		-- If unit has passed all filters, it is now the last to have done so
