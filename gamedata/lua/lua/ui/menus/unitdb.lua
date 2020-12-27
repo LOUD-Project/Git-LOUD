@@ -3,6 +3,7 @@
 
 local Bitmap = import('/lua/maui/bitmap.lua').Bitmap
 local BitmapCombo = import('/lua/ui/controls/combo.lua').BitmapCombo
+local Combo = import('/lua/ui/controls/combo.lua').Combo
 local Edit = import('/lua/maui/edit.lua').Edit
 local FactionData = import('/lua/factions.lua')
 local Group = import('/lua/maui/group.lua').Group
@@ -285,6 +286,8 @@ function CreateUnitDB(over, inGame, callback)
 	LayoutHelpers.AtTopIn(filterContainerTitle, filterContainer)
 	LayoutHelpers.AtHorizontalCenterIn(filterContainerTitle, filterContainer)
 
+	-- Name
+
 	local filterGroupName = Group(filterContainer)
 	filterGroupName.Height:Set(20)
 	filterGroupName.Width:Set(filterContainer.Width)
@@ -314,6 +317,8 @@ function CreateUnitDB(over, inGame, callback)
 		end
 	end
 
+	-- Faction
+
 	local filterGroupFaction = Group(filterContainer)
 	filterGroupFaction.Height:Set(20)
 	filterGroupFaction.Width:Set(filterContainer.Width)
@@ -333,6 +338,26 @@ function CreateUnitDB(over, inGame, callback)
 	end
 
 	Tooltip.AddComboTooltip(filterFactionCombo, factionTooltips)
+
+	-- Tech level
+
+	local filterGroupTech = Group(filterContainer)
+	filterGroupTech.Height:Set(20)
+	filterGroupTech.Width:Set(filterContainer.Width)
+	LayoutHelpers.Below(filterGroupTech, filterGroupFaction)
+	local filterTechLabel = UIUtil.CreateText(filterGroupTech, 'Tech Level', 14, UIUtil.bodyFont)
+	LayoutHelpers.AtLeftIn(filterTechLabel, filterGroupTech)
+	LayoutHelpers.AtVerticalCenterIn(filterTechLabel, filterGroupTech)
+
+	local filterTechCombo = Combo(filterGroupTech, 14, 5, nil, nil,  "UI_Tab_Rollover_01", "UI_Tab_Click_01")
+	filterTechCombo:AddItems({'All', 'Tech 1', 'Tech 2', 'Tech 3', 'Experimental'}, 1)
+	LayoutHelpers.AtRightIn(filterTechCombo, filterGroupTech, 2)
+	LayoutHelpers.AtVerticalCenterIn(filterTechCombo, filterGroupTech)
+	filterTechCombo.Width:Set(120)
+	filterTechCombo.OnClick = function(self, index)
+		filters['tech'] = index
+		Tooltip.DestroyMouseoverDisplay()
+	end
 
 -- Bottom bar buttons: search, reset filters, exit
 
@@ -440,10 +465,23 @@ function Filter()
 			end
 		end
 
-		if (filters['faction'] == 2 and not table.find(bp.Categories, 'UEF')) 
+		if filters['faction'] == 1 then
+			-- Do nothing
+		elseif (filters['faction'] == 2 and not table.find(bp.Categories, 'UEF'))
 		or (filters['faction'] == 3 and not table.find(bp.Categories, 'CYBRAN'))
-		or (filters['faction'] == 4 and not table.find(bp.Categories, 'AEON')) 
+		or (filters['faction'] == 4 and not table.find(bp.Categories, 'AEON'))
 		or (filters['faction'] == 5 and not table.find(bp.Categories, 'SERAPHIM'))then
+			notFiltered[i] = false
+			count = count - 1
+			continue
+		end
+
+		if filters['tech'] == 1 then
+			-- Do nothing
+		elseif (filters['tech'] == 2 and not table.find(bp.Categories, 'TECH1'))
+		or (filters['tech'] == 3 and not table.find(bp.Categories, 'TECH2'))
+		or (filters['tech'] == 4 and not table.find(bp.Categories, 'TECH3'))
+		or (filters['tech'] == 5 and not table.find(bp.Categories, 'EXPERIMENTAL'))then
 			notFiltered[i] = false
 			count = count - 1
 			continue
