@@ -324,7 +324,7 @@ function CreateUnitDB(over, inGame, callback)
 
 	UIUtil.CreateVertScrollbarFor(listContainer)
 
--- Filters section
+-- FILTERS: Basics
 
 	local filterContainer = Group(panel)
 	filterContainer.Height:Set(556)
@@ -459,12 +459,157 @@ function CreateUnitDB(over, inGame, callback)
 		Tooltip.DestroyMouseoverDisplay()
 	end
 
+-- FILTERS: Weaponry
+
+	-- Horizontal row to divide fundamental traits from weapons block
+	-- Also, a label
+
+	local weaponsRow = Bitmap(filterContainer)
+	LayoutHelpers.Below(weaponsRow, filterGroupOrigin, 4)
+	weaponsRow.Height:Set(2)
+	weaponsRow.Width:Set(filterContainer.Width() - 8)
+	weaponsRow:SetSolidColor('ADCFCE') -- Same colour as light lines in background
+
+	local weaponsBlockLabel = UIUtil.CreateText(filterContainer, 'Weapons', 20, UIUtil.buttonFont)
+	LayoutHelpers.Below(weaponsBlockLabel, weaponsRow, 4)
+	LayoutHelpers.AtHorizontalCenterIn(weaponsBlockLabel, filterContainer)
+
+	-- Direct fire
+
+	local filterGroupDirectfire = Group(filterContainer)
+	filterGroupDirectfire.Height:Set(20)
+	filterGroupDirectfire.Width:Set(filterContainer.Width)
+	LayoutHelpers.Below(filterGroupDirectfire, weaponsRow, 4 + weaponsBlockLabel.Height())
+	local filterDirectfireLabel = UIUtil.CreateText(filterGroupDirectfire, 'Direct Fire', 14, UIUtil.bodyFont)
+	LayoutHelpers.AtLeftIn(filterDirectfireLabel, filterGroupDirectfire)
+	LayoutHelpers.AtVerticalCenterIn(filterDirectfireLabel, filterGroupDirectfire)
+
+	local filterDirectfireCombo = Combo(filterGroupDirectfire, 14, 3, nil, nil,  "UI_Tab_Rollover_01", "UI_Tab_Click_01")
+	filterDirectfireCombo:AddItems({'Any', 'Yes', 'No'}, 1)
+	LayoutHelpers.AtRightIn(filterDirectfireCombo, filterGroupDirectfire, 2)
+	LayoutHelpers.AtVerticalCenterIn(filterDirectfireCombo, filterGroupDirectfire)
+	filterDirectfireCombo.Width:Set(60)
+	filterDirectfireCombo.OnClick = function(self, index)
+		filters['directfire'] = index
+		Tooltip.DestroyMouseoverDisplay()
+	end
+
+	-- Indirect fire
+
+	local filterGroupIndirectfire = Group(filterContainer)
+	filterGroupIndirectfire.Height:Set(20)
+	filterGroupIndirectfire.Width:Set(filterContainer.Width)
+	LayoutHelpers.Below(filterGroupIndirectfire, filterGroupDirectfire, 2)
+	local filterIndirectfireLabel = UIUtil.CreateText(filterGroupIndirectfire, 'Indirect Fire', 14, UIUtil.bodyFont)
+	LayoutHelpers.AtLeftIn(filterIndirectfireLabel, filterGroupIndirectfire)
+	LayoutHelpers.AtVerticalCenterIn(filterIndirectfireLabel, filterGroupIndirectfire)
+
+	local filterIndirectfireCombo = Combo(filterGroupIndirectfire, 14, 3, nil, nil,  "UI_Tab_Rollover_01", "UI_Tab_Click_01")
+	filterIndirectfireCombo:AddItems({'Any', 'Yes', 'No'}, 1)
+	LayoutHelpers.AtRightIn(filterIndirectfireCombo, filterGroupIndirectfire, 2)
+	LayoutHelpers.AtVerticalCenterIn(filterIndirectfireCombo, filterGroupIndirectfire)
+	filterIndirectfireCombo.Width:Set(60)
+	filterIndirectfireCombo.OnClick = function(self, index)
+		filters['indirectfire'] = index
+		Tooltip.DestroyMouseoverDisplay()
+	end
+
+	-- Anti-air
+
+	local filterGroupAntiair = Group(filterContainer)
+	filterGroupAntiair.Height:Set(20)
+	filterGroupAntiair.Width:Set(filterContainer.Width)
+	LayoutHelpers.Below(filterGroupAntiair, filterGroupIndirectfire, 2)
+	local filterAntiairLabel = UIUtil.CreateText(filterGroupAntiair, 'Anti-Air', 14, UIUtil.bodyFont)
+	LayoutHelpers.AtLeftIn(filterAntiairLabel, filterGroupAntiair)
+	LayoutHelpers.AtVerticalCenterIn(filterAntiairLabel, filterGroupAntiair)
+
+	local filterAntiairCombo = Combo(filterGroupAntiair, 14, 3, nil, nil,  "UI_Tab_Rollover_01", "UI_Tab_Click_01")
+	filterAntiairCombo:AddItems({'Any', 'Yes', 'No'}, 1)
+	LayoutHelpers.AtRightIn(filterAntiairCombo, filterGroupAntiair, 2)
+	LayoutHelpers.AtVerticalCenterIn(filterAntiairCombo, filterGroupAntiair)
+	filterAntiairCombo.Width:Set(60)
+	filterAntiairCombo.OnClick = function(self, index)
+		filters['antiair'] = index
+		Tooltip.DestroyMouseoverDisplay()
+	end
+
+	-- Torpedoes
+
+	local filterGroupTorps = Group(filterContainer)
+	filterGroupTorps.Height:Set(20)
+	filterGroupTorps.Width:Set(filterContainer.Width)
+	LayoutHelpers.Below(filterGroupTorps, filterGroupAntiair, 2)
+	local filterTorpsLabel = UIUtil.CreateText(filterGroupTorps, 'Torpedoes', 14, UIUtil.bodyFont)
+	LayoutHelpers.AtLeftIn(filterTorpsLabel, filterGroupTorps)
+	LayoutHelpers.AtVerticalCenterIn(filterTorpsLabel, filterGroupTorps)
+
+	local filterTorpsCombo = Combo(filterGroupTorps, 14, 3, nil, nil,  "UI_Tab_Rollover_01", "UI_Tab_Click_01")
+	filterTorpsCombo:AddItems({'Any', 'Yes', 'No'}, 1)
+	LayoutHelpers.AtRightIn(filterTorpsCombo, filterGroupTorps, 2)
+	LayoutHelpers.AtVerticalCenterIn(filterTorpsCombo, filterGroupTorps)
+	filterTorpsCombo.Width:Set(60)
+	filterTorpsCombo.OnClick = function(self, index)
+		filters['torpedoes'] = index
+		Tooltip.DestroyMouseoverDisplay()
+	end
+
+	-- Countermeasures
+
+	local filterGroupCounter = Group(filterContainer)
+	filterGroupCounter.Height:Set(20)
+	filterGroupCounter.Width:Set(filterContainer.Width)
+	LayoutHelpers.Below(filterGroupCounter, filterGroupTorps, 2)
+	local filterCounterLabel = UIUtil.CreateText(filterGroupCounter, 'Countermeasures', 14, UIUtil.bodyFont)
+	LayoutHelpers.AtLeftIn(filterCounterLabel, filterGroupCounter)
+	LayoutHelpers.AtVerticalCenterIn(filterCounterLabel, filterGroupCounter)
+
+	local filterCounterCombo = Combo(filterGroupCounter, 14, 3, nil, nil,  "UI_Tab_Rollover_01", "UI_Tab_Click_01")
+	filterCounterCombo:AddItems({'Any', 'Yes', 'No'}, 1)
+	LayoutHelpers.AtRightIn(filterCounterCombo, filterGroupCounter, 2)
+	LayoutHelpers.AtVerticalCenterIn(filterCounterCombo, filterGroupCounter)
+	filterCounterCombo.Width:Set(60)
+	filterCounterCombo.OnClick = function(self, index)
+		filters['countermeasures'] = index
+		Tooltip.DestroyMouseoverDisplay()
+	end
+
+	-- Death weapons
+
+	local filterGroupDeathWeap = Group(filterContainer)
+	filterGroupDeathWeap.Height:Set(20)
+	filterGroupDeathWeap.Width:Set(filterContainer.Width)
+	LayoutHelpers.Below(filterGroupDeathWeap, filterGroupCounter, 2)
+	local filterDeathWeapLabel = UIUtil.CreateText(filterGroupDeathWeap, 'Death Weapon', 14, UIUtil.bodyFont)
+	LayoutHelpers.AtLeftIn(filterDeathWeapLabel, filterGroupDeathWeap)
+	LayoutHelpers.AtVerticalCenterIn(filterDeathWeapLabel, filterGroupDeathWeap)
+
+	local filterDeathWeapCombo = Combo(filterGroupDeathWeap, 14, 4, nil, nil,  "UI_Tab_Rollover_01", "UI_Tab_Click_01")
+	filterDeathWeapCombo:AddItems({'Any', 'Death Explosion', 'Air Crash', 'None'}, 1)
+	LayoutHelpers.AtRightIn(filterDeathWeapCombo, filterGroupDeathWeap, 2)
+	LayoutHelpers.AtVerticalCenterIn(filterDeathWeapCombo, filterGroupDeathWeap)
+	filterDeathWeapCombo.Width:Set(140)
+	filterDeathWeapCombo.OnClick = function(self, index)
+		filters['deathweapon'] = index
+		Tooltip.DestroyMouseoverDisplay()
+	end
+
+-- FILTERS: Miscellaneous
+
+	-- Another horizontal row
+
+	local miscRow = Bitmap(filterContainer)
+	LayoutHelpers.Below(miscRow, filterGroupDeathWeap, 4)
+	miscRow.Height:Set(2)
+	miscRow.Width:Set(filterContainer.Width() - 8)
+	miscRow:SetSolidColor('ADCFCE') -- Same colour as light lines in background
+
 	-- Intel
 
 	local filterGroupIntel = Group(filterContainer)
 	filterGroupIntel.Height:Set(20)
 	filterGroupIntel.Width:Set(filterContainer.Width)
-	LayoutHelpers.Below(filterGroupIntel, filterGroupOrigin)
+	LayoutHelpers.Below(filterGroupIntel, miscRow, 2)
 	local filterIntelLabel = UIUtil.CreateText(filterGroupIntel, 'Intel', 14, UIUtil.bodyFont)
 	LayoutHelpers.AtLeftIn(filterIntelLabel, filterGroupIntel)
 	LayoutHelpers.AtVerticalCenterIn(filterIntelLabel, filterGroupIntel)
@@ -519,6 +664,14 @@ function CreateUnitDB(over, inGame, callback)
 		filterTechCombo:SetItem(1)
 		filterTypeCombo:SetItem(1)
 		filterOriginCombo:SetItem(1)
+
+		filterDirectfireCombo:SetItem(1)
+		filterIndirectfireCombo:SetItem(1)
+		filterAntiairCombo:SetItem(1)
+		filterTorpsCombo:SetItem(1)
+		filterCounterCombo:SetItem(1)
+		filterDeathWeapCombo:SetItem(1)
+
 		filterIntelCombo:SetItem(1)
 		filterStealthCombo:SetItem(1)
 		Filter()
@@ -602,6 +755,14 @@ function Filter()
 
 	first = -1
 
+	local checkWeaps = 
+		filters['directfire'] ~= 1 or
+		filters['indirectfire'] ~= 1 or
+		filters['antiair'] ~= 1 or
+		filters['torpedoes'] ~= 1 or
+		filters['countermeasures'] ~= 1 or
+		filters['deathweapon'] ~= 1
+
 	LOG("UNIT DB: Filtering by: "..repr(filters))
 	listContainer.top = 0
 	count = table.getsize(units)
@@ -664,6 +825,55 @@ function Filter()
 			continue
 		end
 
+		if checkWeaps then
+			local hasDirect = false
+			local hasIndirect = false
+			local hasAA = false
+			local hasTorp = false
+			local hasCounter = false
+			-- 0 is no, 1 is explosion, 2 is air crash
+			local hasDeathWeap = 0
+			
+			-- If no weapons are present, leave all as false
+			if bp.Weapon then
+				for _, v in bp.Weapon do
+					if v.RangeCategory == 'UWRC_DirectFire' then
+						hasDirect = true
+					elseif v.RangeCategory == 'UWRC_IndirectFire' then
+						hasIndirect = true
+					elseif v.RangeCategory == 'UWRC_AntiAir' then
+						hasAA = true
+					elseif v.RangeCategory == 'UWRC_AntiNavy' then
+						hasTorp = true
+					elseif v.RangeCategory == 'UWRC_Countermeasure' then
+						hasCounter = true
+					elseif v.Label == 'DeathImpact' then
+						hasDeathWeap = 2
+					elseif v.WeaponCategory == 'Death' then
+						hasDeathWeap = 1
+					end
+				end
+			end
+
+			if ((filters['directfire'] == 2 and not hasDirect)
+			or (filters['directfire'] == 3 and hasDirect))
+			or ((filters['indirectfire'] == 2 and not hasIndirect)
+			or (filters['indirectfire'] == 3 and hasIndirect))
+			or ((filters['antiair'] == 2 and not hasAA)
+			or (filters['antiair'] == 3 and hasAA))
+			or ((filters['torpedoes'] == 2 and not hasTorp)
+			or (filters['torpedoes'] == 3 and hasTorp))
+			or ((filters['countermeasures'] == 2 and not hasCounter)
+			or (filters['countermeasures'] == 3 and hasCounter))
+			or ((filters['deathweapon'] == 2 and hasDeathWeap ~= 1)
+			or (filters['deathweapon'] == 3 and hasDeathWeap ~= 2)
+			or (filters['deathweapon'] == 4 and hasDeathWeap ~= 0)) then
+				notFiltered[i] = false
+				count = count - 1
+				continue
+			end
+		end
+
 		if filters['intel'] == 1 then
 			-- Do nothing
 		elseif
@@ -704,6 +914,14 @@ function ClearFilters()
 	filters['tech'] = 1
 	filters['type'] = 1
 	filters['mod'] = 1
+
+	filters['directfire'] = 1
+	filters['indirectfire'] = 1
+	filters['antiair'] = 1
+	filters['torpedoes'] = 1
+	filters['countermeasures'] = 1
+	filters['deathweapon'] = 1
+
 	filters['intel'] = 1
 	filters['stealth'] = 1
 end
