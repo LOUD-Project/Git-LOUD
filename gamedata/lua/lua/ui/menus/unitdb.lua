@@ -456,6 +456,46 @@ function CreateUnitDB(over, inGame, callback)
 		Tooltip.DestroyMouseoverDisplay()
 	end
 
+	-- Intel
+
+	local filterGroupIntel = Group(filterContainer)
+	filterGroupIntel.Height:Set(20)
+	filterGroupIntel.Width:Set(filterContainer.Width)
+	LayoutHelpers.Below(filterGroupIntel, filterGroupOrigin)
+	local filterIntelLabel = UIUtil.CreateText(filterGroupIntel, 'Intel', 14, UIUtil.bodyFont)
+	LayoutHelpers.AtLeftIn(filterIntelLabel, filterGroupIntel)
+	LayoutHelpers.AtVerticalCenterIn(filterIntelLabel, filterGroupIntel)
+
+	local filterIntelCombo = Combo(filterGroupIntel, 14, 5, nil, nil,  "UI_Tab_Rollover_01", "UI_Tab_Click_01")
+	filterIntelCombo:AddItems({'Any', 'None', 'Radar', 'Sonar', 'Omni'}, 1)
+	LayoutHelpers.AtRightIn(filterIntelCombo, filterGroupIntel, 2)
+	LayoutHelpers.AtVerticalCenterIn(filterIntelCombo, filterGroupIntel)
+	filterIntelCombo.Width:Set(80)
+	filterIntelCombo.OnClick = function(self, index)
+		filters['intel'] = index
+		Tooltip.DestroyMouseoverDisplay()
+	end
+
+	-- Stealth
+
+	local filterGroupStealth = Group(filterContainer)
+	filterGroupStealth.Height:Set(20)
+	filterGroupStealth.Width:Set(filterContainer.Width)
+	LayoutHelpers.Below(filterGroupStealth, filterGroupIntel)
+	local filterStealthLabel = UIUtil.CreateText(filterGroupStealth, 'Stealth', 14, UIUtil.bodyFont)
+	LayoutHelpers.AtLeftIn(filterStealthLabel, filterGroupStealth)
+	LayoutHelpers.AtVerticalCenterIn(filterStealthLabel, filterGroupStealth)
+
+	local filterStealthCombo = Combo(filterGroupStealth, 14, 5, nil, nil,  "UI_Tab_Rollover_01", "UI_Tab_Click_01")
+	filterStealthCombo:AddItems({'Any', 'None', 'Radar', 'Sonar', 'Cloak'}, 1)
+	LayoutHelpers.AtRightIn(filterStealthCombo, filterGroupStealth, 2)
+	LayoutHelpers.AtVerticalCenterIn(filterStealthCombo, filterGroupStealth)
+	filterStealthCombo.Width:Set(80)
+	filterStealthCombo.OnClick = function(self, index)
+		filters['stealth'] = index
+		Tooltip.DestroyMouseoverDisplay()
+	end
+
 -- Bottom bar buttons: search, reset filters, exit
 
 	local searchBtn = UIUtil.CreateButtonStd(panel, '/scx_menu/small-btn/small', "Search", 16, 2)
@@ -474,8 +514,10 @@ function CreateUnitDB(over, inGame, callback)
 		filterNameEdit:SetText('')
 		filterFactionCombo:SetItem(1)
 		filterTechCombo:SetItem(1)
-		filterOriginCombo:SetItem(1)
 		filterTypeCombo:SetItem(1)
+		filterOriginCombo:SetItem(1)
+		filterIntelCombo:SetItem(1)
+		filterStealthCombo:SetItem(1)
 		Filter()
 		listContainer:CalcVisible()
 	end
@@ -595,9 +637,6 @@ function Filter()
 			continue
 		end
 
-		-- The order of the type filter needs to be specific.
-		-- Looking for LAND will only remove base units if
-		-- STRUCTURE is handled first.
 		if filters['type'] == 1 then
 			-- Do nothing
 		else
@@ -621,6 +660,32 @@ function Filter()
 			continue
 		end
 
+		if filters['intel'] == 1 then
+			-- Do nothing
+		elseif
+		(filters['intel'] == 2 and
+		(bp.Intel.RadarRadius or bp.Intel.SonarRadius or bp.Intel.OmniRadius)) or
+		(filters['intel'] == 3 and not bp.Intel.RadarRadius) or
+		(filters['intel'] == 4 and not bp.Intel.SonarRadius) or
+		(filters['intel'] == 5 and not bp.Intel.OmniRadius) then
+			notFiltered[i] = false
+			count = count - 1
+			continue
+		end
+
+		if filters['stealth'] == 1 then
+			-- Do nothing
+		elseif
+		(filters['stealth'] == 2 and
+		(bp.Intel.RadarStealth or bp.Intel.SonarStealth)) or
+		(filters['stealth'] == 3 and not bp.Intel.RadarStealth) or
+		(filters['stealth'] == 4 and not bp.Intel.SonarStealth) or
+		(filters['stealth'] == 5 and not bp.Intel.Cloak) then
+			notFiltered[i] = false
+			count = count - 1
+			continue
+		end
+
 		-- If unit has passed all filters, it is now the last
 		-- (and might be the first) to have done so
 		if first < 0 then first = i end
@@ -633,6 +698,8 @@ function ClearFilters()
 	filters['name'] = ''
 	filters['faction'] = 1
 	filters['tech'] = 1
-	filters['mod'] = 1
 	filters['type'] = 1
+	filters['mod'] = 1
+	filters['intel'] = 1
+	filters['stealth'] = 1
 end
