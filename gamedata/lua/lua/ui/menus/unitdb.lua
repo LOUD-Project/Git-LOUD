@@ -24,6 +24,16 @@ local dirs = {
 	'/mods/BattlePack/units',
 }
 
+local originMap = {
+	['vanilla'] = 'Vanilla',
+	['4dc'] = '4th Dimension Units',
+	['blackopsunleashed'] = 'BlackOps Unleashed',
+	['brewlan_loud'] = 'BrewLAN LOUD',
+	['loud unit additions'] = 'LOUD Unit Additions',
+	['totalmayhem'] = 'Total Mayhem',
+	['battlepack'] = 'Wyvern Battle Pack',
+}
+
 local unitDispAbilHeight = 120
 
 local factionBmps = {}
@@ -43,7 +53,8 @@ allBlueprints = {} -- Map unit IDs to BPs
 temp = nil
 countBPs = 0
 
-local units = {} -- Map unit indices to IDs
+local units = {} -- Map unit indices to { ID, origin mod }
+local origin = {} -- Map unit indices to origin mod
 local notFiltered = {} -- Units by index which pass filters
 local count = 0 -- Number of units which pass filters
 local first = -1 -- Index of first unit to pass filters
@@ -65,6 +76,12 @@ function CreateUnitDB(over, inGame, callback)
 	for _, dir in dirs do
 		for _, file in DiskFindFiles(dir, '*_unit.bp') do
 			-- RATODO: Certain BrewLAN IDs end with _large or _small
+			local mod = 'vanilla'
+			local x, z = string.find(file, '^/mods/[%s_%w]+/')
+			if x and z then
+				mod = string.sub(file, x, z)
+				mod = string.sub(mod, 7, string.len(mod) - 1)
+			end
 			local id = string.sub(file, string.find(file, '[%a%d]*_unit%.bp$'))
 			id = string.sub(id, 1, string.len(id) - 8)
 			safecall("UNIT DB: Loading BP "..file, doscript, file)
@@ -74,6 +91,22 @@ function CreateUnitDB(over, inGame, callback)
 				noIcon[id] = true
 			end
 			units[bpc] = id
+			-- Make mod origin correspond to an index on the filter combo
+			if mod == 'vanilla' then
+				origin[bpc] = 2
+			elseif mod == '4dc' then
+				origin[bpc] = 3
+			elseif mod == 'blackopsunleashed' then
+				origin[bpc] = 4
+			elseif mod == 'brewlan_loud' then
+				origin[bpc] = 5
+			elseif mod == 'loud unit additions' then
+				origin[bpc] = 6
+			elseif mod == 'totalmayhem' then
+				origin[bpc] = 7
+			elseif mod == 'battlepack' then
+				origin[bpc] = 8
+			end
 			notFiltered[bpc] = true
 			bpc = bpc + 1
 		end
@@ -371,6 +404,36 @@ function CreateUnitDB(over, inGame, callback)
 		Tooltip.DestroyMouseoverDisplay()
 	end
 
+	-- Origin mod
+
+	local filterGroupOrigin = Group(filterContainer)
+	filterGroupOrigin.Height:Set(20)
+	filterGroupOrigin.Width:Set(filterContainer.Width)
+	LayoutHelpers.Below(filterGroupOrigin, filterGroupTech)
+	local filterOriginLabel = UIUtil.CreateText(filterGroupOrigin, 'Mod', 14, UIUtil.bodyFont)
+	LayoutHelpers.AtLeftIn(filterOriginLabel, filterGroupOrigin)
+	LayoutHelpers.AtVerticalCenterIn(filterOriginLabel, filterGroupOrigin)
+
+	local modComboOpts = {
+		'All',
+		'Vanilla',
+		'4th Dimension Units',
+		'BlackOps Unleashed',
+		'BrewLAN LOUD',
+		'LOUD Unit Additions',
+		'Total Mayhem',
+		'Wyvern Battle Pack',
+	}
+	local filterOriginCombo = Combo(filterGroupOrigin, 14, table.getsize(modComboOpts), nil, nil,  "UI_Tab_Rollover_01", "UI_Tab_Click_01")
+	filterOriginCombo:AddItems(modComboOpts, 1)
+	LayoutHelpers.AtRightIn(filterOriginCombo, filterGroupOrigin, 2)
+	LayoutHelpers.AtVerticalCenterIn(filterOriginCombo, filterGroupOrigin)
+	filterOriginCombo.Width:Set(160)
+	filterOriginCombo.OnClick = function(self, index)
+		filters['mod'] = index
+		Tooltip.DestroyMouseoverDisplay()
+	end
+
 -- Bottom bar buttons: search, reset filters, exit
 
 	local searchBtn = UIUtil.CreateButtonStd(panel, '/scx_menu/small-btn/small', "Search", 16, 2)
@@ -484,7 +547,7 @@ function Filter()
 		elseif (filters['faction'] == 2 and not table.find(bp.Categories, 'UEF'))
 		or (filters['faction'] == 3 and not table.find(bp.Categories, 'CYBRAN'))
 		or (filters['faction'] == 4 and not table.find(bp.Categories, 'AEON'))
-		or (filters['faction'] == 5 and not table.find(bp.Categories, 'SERAPHIM'))then
+		or (filters['faction'] == 5 and not table.find(bp.Categories, 'SERAPHIM')) then
 			notFiltered[i] = false
 			count = count - 1
 			continue
@@ -495,7 +558,15 @@ function Filter()
 		elseif (filters['tech'] == 2 and not table.find(bp.Categories, 'TECH1'))
 		or (filters['tech'] == 3 and not table.find(bp.Categories, 'TECH2'))
 		or (filters['tech'] == 4 and not table.find(bp.Categories, 'TECH3'))
-		or (filters['tech'] == 5 and not table.find(bp.Categories, 'EXPERIMENTAL'))then
+		or (filters['tech'] == 5 and not table.find(bp.Categories, 'EXPERIMENTAL')) then
+			notFiltered[i] = false
+			count = count - 1
+			continue
+		end
+
+		if filters['mod'] == 1 then
+			-- Do nothing
+		elseif filters['mod'] ~= origin[i] then
 			notFiltered[i] = false
 			count = count - 1
 			continue
