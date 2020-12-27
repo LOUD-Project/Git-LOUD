@@ -575,10 +575,10 @@ function Filter()
 
 		if filters['faction'] == 1 then
 			-- Do nothing
-		elseif (filters['faction'] == 2 and not table.find(bp.Categories, 'UEF'))
-		or (filters['faction'] == 3 and not table.find(bp.Categories, 'CYBRAN'))
-		or (filters['faction'] == 4 and not table.find(bp.Categories, 'AEON'))
-		or (filters['faction'] == 5 and not table.find(bp.Categories, 'SERAPHIM')) then
+		elseif (filters['faction'] == 2 and bp.General.FactionName ~= 'UEF')
+		or (filters['faction'] == 3 and bp.General.FactionName ~= 'CYBRAN')
+		or (filters['faction'] == 4 and bp.General.FactionName ~= 'AEON')
+		or (filters['faction'] == 5 and bp.General.FactionName ~= 'SERAPHIM') then
 			notFiltered[i] = false
 			count = count - 1
 			continue
