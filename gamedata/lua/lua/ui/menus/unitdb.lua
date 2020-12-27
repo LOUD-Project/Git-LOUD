@@ -229,7 +229,7 @@ function CreateUnitDB(over, inGame, callback)
 		top = math.floor(top)
         if top == self.top then return end
         local size = DataSize()
-        self.top = math.max(math.min(size - numLines() , top), 0)
+		self.top = math.max(math.min(size - numLines(), top), 0)
         self:CalcVisible()
 	end
 
@@ -246,9 +246,20 @@ function CreateUnitDB(over, inGame, callback)
 				unitList[l]:Hide()
 			end
 		end
-		local j = self.top
-		for i, v in unitList do
+		local j = 0
+		-- Move to first unit which passes filter
+		while not notFiltered[j] do
 			j = j + 1
+		end
+		-- Account for scroll bar offset
+		for t = 1, self.top do
+			j = j + 1
+			while not notFiltered[j] do
+				j = j + 1
+			end
+		end
+		for i, v in unitList do
+			-- Skip over filtered units
 			while not notFiltered[j] do
 				if j > last then
 					ClearRemaining(i)
@@ -257,6 +268,7 @@ function CreateUnitDB(over, inGame, callback)
 				j = j + 1
 			end
 			FillLine(v, allBlueprints[units[j]], j)
+			j = j + 1
 		end
 	end
 
