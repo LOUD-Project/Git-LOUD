@@ -46,6 +46,7 @@ countBPs = 0
 local units = {} -- Map unit indices to IDs
 local notFiltered = {} -- Units by index which pass filters
 local count = 0 -- Number of units which pass filters
+local first = -1 -- Index of first unit to pass filters
 local last = -1 -- Index of last unit to pass filters
 local noIcon = {} -- Precache ID of units with no icons
 local filters = {}
@@ -246,11 +247,10 @@ function CreateUnitDB(over, inGame, callback)
 				unitList[l]:Hide()
 			end
 		end
-		local j = 0
-		-- Move to first unit which passes filter
-		while not notFiltered[j] do
-			j = j + 1
-		end
+		local j
+		-- Move to first unit which passes filter if possible
+		if first > 0 then j = first
+		else j = 0 end
 		-- Account for scroll bar offset
 		for t = 1, self.top do
 			j = j + 1
@@ -460,6 +460,8 @@ function Filter()
 		else return string.lower(string) end
 	end
 
+	first = -1
+
 	LOG("UNIT DB: Filtering by: "..repr(filters))
 	listContainer.top = 0
 	count = table.getsize(units)
@@ -499,9 +501,10 @@ function Filter()
 			continue
 		end
 
-		-- If unit has passed all filters, it is now the last to have done so
+		-- If unit has passed all filters, it is now the last
+		-- (and might be the first) to have done so
+		if first < 0 then first = i end
 		last = i
 	end
-
 	LOG("UNIT DB: Unit list filtered down to: "..count)
 end
