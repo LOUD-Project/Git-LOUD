@@ -162,6 +162,9 @@ function CreateUnitDB(over, inGame, callback)
 	unitDisplay.shortDesc:DisableHitTest()
 	LayoutHelpers.Below(unitDisplay.shortDesc, unitDisplay.name)
 
+	unitDisplay.stratIcon = Bitmap(unitDisplay.icon)
+	LayoutHelpers.AtRightTopIn(unitDisplay.stratIcon, unitDisplay.icon)
+
 	unitDisplay.longDesc = UIUtil.CreateTextBox(unitDisplay)
 	LayoutHelpers.Below(unitDisplay.longDesc, unitDisplay.icon, 4)
 	unitDisplay.longDesc.Width:Set(unitDisplay.Width)
@@ -567,6 +570,7 @@ function DisplayUnit(bp, id)
 	else
 		unitDisplay.icon:SetTexture(ico)
 	end
+	unitDisplay.stratIcon:SetTexture(UIUtil.UIFile('/game/strategicicons/'..bp.StrategicIconName..'_rest.dds'))
 	local ld = LOC(Description[id]) or 'No description available for this unit.'
 	UIUtil.SetTextBoxText(unitDisplay.longDesc, ld)
 	if bp.Display.Abilities then
