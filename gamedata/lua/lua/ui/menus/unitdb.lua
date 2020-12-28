@@ -838,8 +838,11 @@ function Filter()
 
 		if filters['name'] then
 			local bpN = TryLower(LOC(bp.General.UnitName))
+			local bpSD = TryLower(LOC(bp.Description))
 			filters['name'] = string.lower(filters['name'])
-			if not string.find(bpN, filters['name']) then
+			if not string.find(bpN, filters['name'])
+			and not string.find(bpSD, filters['name'])
+			then
 				notFiltered[i] = false
 				count = count - 1
 				continue
