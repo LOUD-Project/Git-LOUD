@@ -378,7 +378,7 @@ function CreateUnitDB(over, inGame, callback)
 	LayoutHelpers.AtLeftIn(filterFactionLabel, filterGroupFaction)
 	LayoutHelpers.AtVerticalCenterIn(filterFactionLabel, filterGroupFaction)
 
-	local filterFactionCombo = BitmapCombo(filterGroupFaction, factionBmps, table.getn(factionBmps), nil, nil,  "UI_Tab_Rollover_01", "UI_Tab_Click_01")
+	local filterFactionCombo = BitmapCombo(filterGroupFaction, factionBmps, table.getn(factionBmps), nil, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
 	LayoutHelpers.AtRightIn(filterFactionCombo, filterGroupFaction, 2)
 	LayoutHelpers.AtVerticalCenterIn(filterFactionCombo, filterGroupFaction)
 	filterFactionCombo.Width:Set(60)
@@ -400,7 +400,7 @@ function CreateUnitDB(over, inGame, callback)
 	LayoutHelpers.AtLeftIn(filterTechLabel, filterGroupTech)
 	LayoutHelpers.AtVerticalCenterIn(filterTechLabel, filterGroupTech)
 
-	local filterTechCombo = Combo(filterGroupTech, 14, 5, nil, nil,  "UI_Tab_Rollover_01", "UI_Tab_Click_01")
+	local filterTechCombo = Combo(filterGroupTech, 14, 5, nil, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
 	filterTechCombo:AddItems({'All', 'Tech 1', 'Tech 2', 'Tech 3', 'Experimental'}, 1)
 	LayoutHelpers.AtRightIn(filterTechCombo, filterGroupTech, 2)
 	LayoutHelpers.AtVerticalCenterIn(filterTechCombo, filterGroupTech)
@@ -420,7 +420,7 @@ function CreateUnitDB(over, inGame, callback)
 	LayoutHelpers.AtLeftIn(filterTypeLabel, filterGroupType)
 	LayoutHelpers.AtVerticalCenterIn(filterTypeLabel, filterGroupType)
 
-	local filterTypeCombo = Combo(filterGroupType, 14, 5, nil, nil,  "UI_Tab_Rollover_01", "UI_Tab_Click_01")
+	local filterTypeCombo = Combo(filterGroupType, 14, 5, nil, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
 	filterTypeCombo:AddItems({'All', 'Land', 'Air', 'Naval', 'Base'}, 1)
 	LayoutHelpers.AtRightIn(filterTypeCombo, filterGroupType, 2)
 	LayoutHelpers.AtVerticalCenterIn(filterTypeCombo, filterGroupType)
@@ -450,7 +450,7 @@ function CreateUnitDB(over, inGame, callback)
 		'Total Mayhem',
 		'Wyvern Battle Pack',
 	}
-	local filterOriginCombo = Combo(filterGroupOrigin, 14, table.getsize(modComboOpts), nil, nil,  "UI_Tab_Rollover_01", "UI_Tab_Click_01")
+	local filterOriginCombo = Combo(filterGroupOrigin, 14, table.getsize(modComboOpts), nil, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
 	filterOriginCombo:AddItems(modComboOpts, 1)
 	LayoutHelpers.AtRightIn(filterOriginCombo, filterGroupOrigin, 2)
 	LayoutHelpers.AtVerticalCenterIn(filterOriginCombo, filterGroupOrigin)
@@ -485,7 +485,7 @@ function CreateUnitDB(over, inGame, callback)
 	LayoutHelpers.AtLeftIn(filterDirectfireLabel, filterGroupDirectfire)
 	LayoutHelpers.AtVerticalCenterIn(filterDirectfireLabel, filterGroupDirectfire)
 
-	local filterDirectfireCombo = Combo(filterGroupDirectfire, 14, 3, nil, nil,  "UI_Tab_Rollover_01", "UI_Tab_Click_01")
+	local filterDirectfireCombo = Combo(filterGroupDirectfire, 14, 3, nil, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
 	filterDirectfireCombo:AddItems({'Any', 'Yes', 'No'}, 1)
 	LayoutHelpers.AtRightIn(filterDirectfireCombo, filterGroupDirectfire, 2)
 	LayoutHelpers.AtVerticalCenterIn(filterDirectfireCombo, filterGroupDirectfire)
@@ -505,7 +505,7 @@ function CreateUnitDB(over, inGame, callback)
 	LayoutHelpers.AtLeftIn(filterIndirectfireLabel, filterGroupIndirectfire)
 	LayoutHelpers.AtVerticalCenterIn(filterIndirectfireLabel, filterGroupIndirectfire)
 
-	local filterIndirectfireCombo = Combo(filterGroupIndirectfire, 14, 3, nil, nil,  "UI_Tab_Rollover_01", "UI_Tab_Click_01")
+	local filterIndirectfireCombo = Combo(filterGroupIndirectfire, 14, 3, nil, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
 	filterIndirectfireCombo:AddItems({'Any', 'Yes', 'No'}, 1)
 	LayoutHelpers.AtRightIn(filterIndirectfireCombo, filterGroupIndirectfire, 2)
 	LayoutHelpers.AtVerticalCenterIn(filterIndirectfireCombo, filterGroupIndirectfire)
@@ -525,7 +525,7 @@ function CreateUnitDB(over, inGame, callback)
 	LayoutHelpers.AtLeftIn(filterAntiairLabel, filterGroupAntiair)
 	LayoutHelpers.AtVerticalCenterIn(filterAntiairLabel, filterGroupAntiair)
 
-	local filterAntiairCombo = Combo(filterGroupAntiair, 14, 3, nil, nil,  "UI_Tab_Rollover_01", "UI_Tab_Click_01")
+	local filterAntiairCombo = Combo(filterGroupAntiair, 14, 3, nil, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
 	filterAntiairCombo:AddItems({'Any', 'Yes', 'No'}, 1)
 	LayoutHelpers.AtRightIn(filterAntiairCombo, filterGroupAntiair, 2)
 	LayoutHelpers.AtVerticalCenterIn(filterAntiairCombo, filterGroupAntiair)
@@ -545,7 +545,7 @@ function CreateUnitDB(over, inGame, callback)
 	LayoutHelpers.AtLeftIn(filterTorpsLabel, filterGroupTorps)
 	LayoutHelpers.AtVerticalCenterIn(filterTorpsLabel, filterGroupTorps)
 
-	local filterTorpsCombo = Combo(filterGroupTorps, 14, 3, nil, nil,  "UI_Tab_Rollover_01", "UI_Tab_Click_01")
+	local filterTorpsCombo = Combo(filterGroupTorps, 14, 3, nil, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
 	filterTorpsCombo:AddItems({'Any', 'Yes', 'No'}, 1)
 	LayoutHelpers.AtRightIn(filterTorpsCombo, filterGroupTorps, 2)
 	LayoutHelpers.AtVerticalCenterIn(filterTorpsCombo, filterGroupTorps)
@@ -565,7 +565,7 @@ function CreateUnitDB(over, inGame, callback)
 	LayoutHelpers.AtLeftIn(filterCounterLabel, filterGroupCounter)
 	LayoutHelpers.AtVerticalCenterIn(filterCounterLabel, filterGroupCounter)
 
-	local filterCounterCombo = Combo(filterGroupCounter, 14, 3, nil, nil,  "UI_Tab_Rollover_01", "UI_Tab_Click_01")
+	local filterCounterCombo = Combo(filterGroupCounter, 14, 3, nil, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
 	filterCounterCombo:AddItems({'Any', 'Yes', 'No'}, 1)
 	LayoutHelpers.AtRightIn(filterCounterCombo, filterGroupCounter, 2)
 	LayoutHelpers.AtVerticalCenterIn(filterCounterCombo, filterGroupCounter)
@@ -585,7 +585,7 @@ function CreateUnitDB(over, inGame, callback)
 	LayoutHelpers.AtLeftIn(filterDeathWeapLabel, filterGroupDeathWeap)
 	LayoutHelpers.AtVerticalCenterIn(filterDeathWeapLabel, filterGroupDeathWeap)
 
-	local filterDeathWeapCombo = Combo(filterGroupDeathWeap, 14, 4, nil, nil,  "UI_Tab_Rollover_01", "UI_Tab_Click_01")
+	local filterDeathWeapCombo = Combo(filterGroupDeathWeap, 14, 4, nil, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
 	filterDeathWeapCombo:AddItems({'Any', 'Death Explosion', 'Air Crash', 'None'}, 1)
 	LayoutHelpers.AtRightIn(filterDeathWeapCombo, filterGroupDeathWeap, 2)
 	LayoutHelpers.AtVerticalCenterIn(filterDeathWeapCombo, filterGroupDeathWeap)
@@ -605,17 +605,75 @@ function CreateUnitDB(over, inGame, callback)
 	miscRow.Width:Set(filterContainer.Width() - 8)
 	miscRow:SetSolidColor('ADCFCE') -- Same colour as light lines in background
 
+	-- Amphibious
+
+	local filterGroupAmphib = Group(filterContainer)
+	filterGroupAmphib.Height:Set(20)
+	filterGroupAmphib.Width:Set(filterContainer.Width)
+	LayoutHelpers.Below(filterGroupAmphib, miscRow, 2)
+	local filterAmphibLabel = UIUtil.CreateText(filterGroupAmphib, 'Amphibious', 14, UIUtil.bodyFont)
+	LayoutHelpers.AtLeftIn(filterAmphibLabel, filterGroupAmphib)
+	LayoutHelpers.AtVerticalCenterIn(filterAmphibLabel, filterGroupAmphib)
+
+	local filterAmphibCombo = Combo(filterGroupAmphib, 14, 5, nil, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
+	filterAmphibCombo:AddItems({'Any', 'Yes', 'No'}, 1)
+	LayoutHelpers.AtRightIn(filterAmphibCombo, filterGroupAmphib, 2)
+	LayoutHelpers.AtVerticalCenterIn(filterAmphibCombo, filterGroupAmphib)
+	filterAmphibCombo.Width:Set(80)
+	filterAmphibCombo.OnClick = function(self, index)
+		filters['amphib'] = index
+		Tooltip.DestroyMouseoverDisplay()
+	end
+
+	-- Transport capability
+
+	local filterGroupTransport = Group(filterContainer)
+	filterGroupTransport.Height:Set(20)
+	filterGroupTransport.Width:Set(filterContainer.Width)
+	LayoutHelpers.Below(filterGroupTransport, filterGroupAmphib, 2)
+	local filterTransportLabel = UIUtil.CreateText(filterGroupTransport, 'Transport', 14, UIUtil.bodyFont)
+	LayoutHelpers.AtLeftIn(filterTransportLabel, filterGroupTransport)
+	LayoutHelpers.AtVerticalCenterIn(filterTransportLabel, filterGroupTransport)
+
+	local filterTransportCombo = Combo(filterGroupTransport, 14, 5, nil, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
+	filterTransportCombo:AddItems({'Any', 'Yes', 'No'}, 1)
+	LayoutHelpers.AtRightIn(filterTransportCombo, filterGroupTransport, 2)
+	LayoutHelpers.AtVerticalCenterIn(filterTransportCombo, filterGroupTransport)
+	filterTransportCombo.Width:Set(80)
+	filterTransportCombo.OnClick = function(self, index)
+		filters['transport'] = index
+		Tooltip.DestroyMouseoverDisplay()
+	end
+
+	local filterGroupShield = Group(filterContainer)
+	filterGroupShield.Height:Set(20)
+	filterGroupShield.Width:Set(filterContainer.Width)
+	LayoutHelpers.Below(filterGroupShield, filterGroupTransport, 2)
+	local filterShieldLabel = UIUtil.CreateText(filterGroupShield, 'Shielding', 14, UIUtil.bodyFont)
+	LayoutHelpers.AtLeftIn(filterShieldLabel, filterGroupShield)
+	LayoutHelpers.AtVerticalCenterIn(filterShieldLabel, filterGroupShield)
+
+	local filterShieldCombo = Combo(filterGroupShield, 14, 5, nil, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
+	filterShieldCombo:AddItems({'Any', 'Dome', 'Personal', 'None'}, 1)
+	LayoutHelpers.AtRightIn(filterShieldCombo, filterGroupShield, 2)
+	LayoutHelpers.AtVerticalCenterIn(filterShieldCombo, filterGroupShield)
+	filterShieldCombo.Width:Set(100)
+	filterShieldCombo.OnClick = function(self, index)
+		filters['shield'] = index
+		Tooltip.DestroyMouseoverDisplay()
+	end
+
 	-- Intel
 
 	local filterGroupIntel = Group(filterContainer)
 	filterGroupIntel.Height:Set(20)
 	filterGroupIntel.Width:Set(filterContainer.Width)
-	LayoutHelpers.Below(filterGroupIntel, miscRow, 2)
+	LayoutHelpers.Below(filterGroupIntel, filterGroupShield, 2)
 	local filterIntelLabel = UIUtil.CreateText(filterGroupIntel, 'Intel', 14, UIUtil.bodyFont)
 	LayoutHelpers.AtLeftIn(filterIntelLabel, filterGroupIntel)
 	LayoutHelpers.AtVerticalCenterIn(filterIntelLabel, filterGroupIntel)
 
-	local filterIntelCombo = Combo(filterGroupIntel, 14, 5, nil, nil,  "UI_Tab_Rollover_01", "UI_Tab_Click_01")
+	local filterIntelCombo = Combo(filterGroupIntel, 14, 5, nil, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
 	filterIntelCombo:AddItems({'Any', 'None', 'Radar', 'Sonar', 'Omni'}, 1)
 	LayoutHelpers.AtRightIn(filterIntelCombo, filterGroupIntel, 2)
 	LayoutHelpers.AtVerticalCenterIn(filterIntelCombo, filterGroupIntel)
@@ -673,6 +731,9 @@ function CreateUnitDB(over, inGame, callback)
 		filterCounterCombo:SetItem(1)
 		filterDeathWeapCombo:SetItem(1)
 
+		filterAmphibCombo:SetItem(1)
+		filterTransportCombo:SetItem(1)
+		filterShieldCombo:SetItem(1)
 		filterIntelCombo:SetItem(1)
 		filterStealthCombo:SetItem(1)
 		Filter()
@@ -879,6 +940,40 @@ function Filter()
 			end
 		end
 
+		if (filters['amphib'] == 2 and not table.find(bp.Categories, 'AMPHIBIOUS'))
+		or (filters['amphib'] == 3 and table.find(bp.Categories, 'AMPHIBIOUS'))
+		then
+			notFiltered[i] = false
+			count = count - 1
+			continue
+		end
+
+		if (filters['transport'] == 2 and not (
+			bp.Transport.Class1AttachSize
+			or bp.Transport.Class2AttachSize
+			or bp.Transport.Class3AttachSize))
+		or (filters['transport'] == 3 and (
+			bp.Transport.Class1AttachSize
+			or bp.Transport.Class2AttachSize
+			or bp.Transport.Class3AttachSize))
+		then
+			notFiltered[i] = false
+			count = count - 1
+			continue
+		end
+
+		-- No shield is most common, so handle it first
+		-- RATODO: This does not account for BrewLAN personal shields,
+		-- which are implemented as bubbles but only big enough to be personal
+		if (filters['shield'] == 4 and bp.Defense.Shield)
+		or (filters['shield'] == 3 and (not bp.Defense.Shield or not bp.Defense.Shield.PersonalShield))
+		or (filters['shield'] == 2 and (not bp.Defense.Shield or bp.Defense.Shield.PersonalShield))
+		then
+			notFiltered[i] = false
+			count = count - 1
+			continue
+		end
+
 		if filters['intel'] == 1 then
 			-- Do nothing
 		elseif
@@ -931,6 +1026,9 @@ function ClearFilters()
 	filters['countermeasures'] = 1
 	filters['deathweapon'] = 1
 
+	filters['amphib'] = 1
+	filters['transport'] = 1
+	filters['shield'] = 1
 	filters['intel'] = 1
 	filters['stealth'] = 1
 end
