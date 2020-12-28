@@ -36,7 +36,7 @@ local originMap = {
 
 local unitDispAbilHeight = 120
 
-local factionBmps = {}
+local factionBmps = {} -- Order: All, UEF, Aeon, Cybran, Sera
 local factionTooltips = {}
 
 table.insert(factionBmps, "/faction_icon-sm/random_ico.dds")
@@ -886,9 +886,9 @@ function Filter()
 		if filters['faction'] == 1 then
 			-- Do nothing
 		elseif (filters['faction'] == 2 and bp.General.FactionName ~= 'UEF')
-		or (filters['faction'] == 3 and bp.General.FactionName ~= 'CYBRAN')
-		or (filters['faction'] == 4 and bp.General.FactionName ~= 'AEON')
-		or (filters['faction'] == 5 and bp.General.FactionName ~= 'SERAPHIM') then
+		or (filters['faction'] == 3 and bp.General.FactionName ~= 'Aeon')
+		or (filters['faction'] == 4 and bp.General.FactionName ~= 'Cybran')
+		or (filters['faction'] == 5 and bp.General.FactionName ~= 'Seraphim') then
 			notFiltered[i] = false
 			count = count - 1
 			continue
