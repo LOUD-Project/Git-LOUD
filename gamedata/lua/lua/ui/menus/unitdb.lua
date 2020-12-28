@@ -66,6 +66,7 @@ local filters = {}
 
 local unitDisplay = false
 local listContainer = false
+local resultText = false
 
 function CreateUnitDB(over, inGame, callback)
 -- Parse BPs
@@ -644,7 +645,7 @@ function CreateUnitDB(over, inGame, callback)
 		Tooltip.DestroyMouseoverDisplay()
 	end
 
--- Bottom bar buttons: search, reset filters, exit
+-- Bottom bar controls
 
 	local searchBtn = UIUtil.CreateButtonStd(panel, '/scx_menu/small-btn/small', "Search", 16, 2)
 	LayoutHelpers.AtRightTopIn(searchBtn, panel, 30, 644)
@@ -679,7 +680,7 @@ function CreateUnitDB(over, inGame, callback)
 	end
 
 	local exitBtn = UIUtil.CreateButtonStd(panel, '/scx_menu/small-btn/small', "Exit", 16, 2)
-	LayoutHelpers.AtLeftTopIn(exitBtn, panel, 30, 644)
+	LayoutHelpers.AtLeftTopIn(exitBtn, panel, 36, 644)
 	exitBtn.OnClick = function(self, modifiers)
 		if over then
 			panel:Destroy()
@@ -689,6 +690,10 @@ function CreateUnitDB(over, inGame, callback)
 		ClearFilters()
 		callback()
 	end
+
+	local r = tostring(count).." results found."
+	resultText = UIUtil.CreateText(panel, r, 16, UIUtil.bodyFont)
+	LayoutHelpers.AtLeftTopIn(resultText, panel, exitBtn.Width() + 30, 670)
 
 	UIUtil.MakeInputModal(panel, function() exitBtn.OnClick(exitBtn) end)
 end
@@ -905,7 +910,11 @@ function Filter()
 		if first < 0 then first = i end
 		last = i
 	end
-	LOG("UNIT DB: Unit list filtered down to: "..count)
+
+	local r
+	if count > 1 then r = "results"
+	else r = "result" end
+	resultText:SetText(tostring(count).." "..r.." found.")
 end
 
 function ClearFilters()
