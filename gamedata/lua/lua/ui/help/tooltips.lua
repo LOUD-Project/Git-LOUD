@@ -2192,7 +2192,12 @@ Tooltips = {
 	restricted_units_engineers = {
 		title = "No standard engineers",
 		description = "Players will be unable to build standard engineers.",
-	},
+    },
+
+    restricted_units_altair = {
+        title = "Alternative Air",
+        description = "All air units available, except in Tech 3; Tech 3 air production is limited to air scouts, fighters, and torpedo bombers. Penetration planes and decoy planes are also prohibited.",
+    },
 
     -- ************************
     -- *** Strategic overlay
