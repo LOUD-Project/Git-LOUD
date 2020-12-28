@@ -459,7 +459,7 @@ UnitBlueprint {
             RULEUCC_Transport = false,
         },
         ConstructionBar = true,
-        FactionName = 'SERAPHIM',
+        FactionName = 'Seraphim',
         Icon = 'amph',
         OrderOverrides = {
             RULEUCC_Reclaim = {
