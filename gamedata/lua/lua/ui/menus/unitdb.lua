@@ -903,6 +903,14 @@ function Filter()
 			-- If no weapons are present, leave all as false
 			if bp.Weapon then
 				for _, v in bp.Weapon do
+					-- Ignore dummy weapons
+					if v.Label and
+					(string.find(v.Label, 'Dummy') or
+					string.find(v.Label, 'Painter') or
+					string.find(v.Label, 'Tractor')) then
+						continue
+					end
+
 					if v.RangeCategory == 'UWRC_DirectFire' then
 						hasDirect = true
 					elseif v.RangeCategory == 'UWRC_IndirectFire' then
