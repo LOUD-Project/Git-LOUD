@@ -992,6 +992,7 @@ function SetSlotInfo(slot, playerInfo)
     
     if not playerInfo.Human then
         GUI.slots[slot].mult:Show()
+        GUI.slots[slot].mult:SetText(tostring(playerInfo.Mult))
         GUI.slots[slot].act:Show()
         GUI.slots[slot].act:SetItem(playerInfo.ACT)
     end
@@ -4384,6 +4385,7 @@ function InitLobbyComm(protocol, localPort, desiredPlayerName, localPlayerUID, n
             elseif data.Type == 'SetMult' then
                 
                 GUI.slots[data.Slot].mult.SetText(data.Text)
+                UpdateGame()
             end
         end
     end
