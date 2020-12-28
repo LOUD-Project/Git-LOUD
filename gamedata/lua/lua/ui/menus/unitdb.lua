@@ -1007,7 +1007,7 @@ function Filter()
 	end
 
 	local r
-	if count > 1 then r = "results"
+	if count ~= 1 then r = "results"
 	else r = "result" end
 	resultText:SetText(tostring(count).." "..r.." found.")
 end
