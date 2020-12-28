@@ -189,6 +189,12 @@ function CreateUnitDB(over, inGame, callback)
 	LayoutHelpers.RightOf(unitDisplay.health, unitDisplay.healthIcon, 6)
 	unitDisplay.health:DisableHitTest()
 
+	unitDisplay.capIcon = Bitmap(unitDisplay, UIUtil.UIFile('/dialogs/score-overlay/tank_bmp.dds'))
+	LayoutHelpers.RightOf(unitDisplay.capIcon, unitDisplay.health, 6)
+	unitDisplay.cap = UIUtil.CreateText(unitDisplay, '', 14, UIUtil.bodyFont)
+	LayoutHelpers.RightOf(unitDisplay.cap, unitDisplay.capIcon, 6)
+	unitDisplay.cap:DisableHitTest()
+
 	unitDisplay.massIcon = Bitmap(unitDisplay, UIUtil.UIFile('/game/build-ui/icon-mass_bmp.dds'))
 	LayoutHelpers.Below(unitDisplay.massIcon, unitDisplay.healthIcon, 6)
 	unitDisplay.mass = UIUtil.CreateText(unitDisplay, '', 14, UIUtil.bodyFont)
@@ -199,11 +205,18 @@ function CreateUnitDB(over, inGame, callback)
 	unitDisplay.energy = UIUtil.CreateText(unitDisplay, '', 14, UIUtil.bodyFont)
 	LayoutHelpers.RightOf(unitDisplay.energy, unitDisplay.energyIcon, 6)
 	unitDisplay.energy:DisableHitTest()
-	unitDisplay.capIcon = Bitmap(unitDisplay, UIUtil.UIFile('/dialogs/score-overlay/tank_bmp.dds'))
-	LayoutHelpers.RightOf(unitDisplay.capIcon, unitDisplay.energy, 6)
-	unitDisplay.cap = UIUtil.CreateText(unitDisplay, '', 14, UIUtil.bodyFont)
-	LayoutHelpers.RightOf(unitDisplay.cap, unitDisplay.capIcon, 6)
-	unitDisplay.cap:DisableHitTest()
+	unitDisplay.buildTimeIcon = Bitmap(unitDisplay, UIUtil.UIFile('/game/build-ui/icon-clock_bmp.dds'))
+	LayoutHelpers.RightOf(unitDisplay.buildTimeIcon, unitDisplay.energy, 6)
+	unitDisplay.buildTime = UIUtil.CreateText(unitDisplay, '', 14, UIUtil.bodyFont)
+	LayoutHelpers.RightOf(unitDisplay.buildTime, unitDisplay.buildTimeIcon, 6)
+	unitDisplay.buildTime:DisableHitTest()
+
+	unitDisplay.fuelIcon = Bitmap(unitDisplay, UIUtil.UIFile('/game/unit_view_icons/fuel.dds'))
+	LayoutHelpers.Below(unitDisplay.fuelIcon, unitDisplay.massIcon, 6)
+	unitDisplay.fuelTime = UIUtil.CreateText(unitDisplay, '', 14, UIUtil.bodyFont)
+	LayoutHelpers.RightOf(unitDisplay.fuelTime, unitDisplay.fuelIcon, 6)
+	unitDisplay.fuelTime:DisableHitTest()
+	unitDisplay.fuelIcon:Hide()
 
 -- List of filtered units
 
@@ -803,13 +816,34 @@ function DisplayUnit(bp, id)
 		unitDisplay.abilities.Height:Set(0)
 		unitDisplay.abilities:Hide()
 	end
-	unitDisplay.health:SetText(tostring(bp.Defense.MaxHealth))
-	unitDisplay.mass:SetText(tostring(bp.Economy.BuildCostMass))
-	unitDisplay.energy:SetText(tostring(bp.Economy.BuildCostEnergy))
+	
+	local strHealth = tostring(bp.Defense.MaxHealth)
+	local bpRR = bp.Defense.RegenRate
+	if bpRR and bpRR > 0 then
+		strHealth = strHealth..string.format(" (+%02.f/s)", bpRR)
+	end
+	unitDisplay.health:SetText(strHealth)
 	if bp.General.CapCost then
 		unitDisplay.cap:SetText(tostring(bp.General.CapCost))
 	else
 		unitDisplay.cap:SetText('1')
+	end
+
+	unitDisplay.mass:SetText(tostring(bp.Economy.BuildCostMass))
+	unitDisplay.energy:SetText(tostring(bp.Economy.BuildCostEnergy))
+	local bpBTMins = math.floor((bp.Economy.BuildTime / 10) / 60)
+	local bpBTSecs = math.floor(bp.Economy.BuildTime / 10) - (bpBTMins * 60)
+	unitDisplay.buildTime:SetText(string.format("%02.f:%02.fs", bpBTMins, bpBTSecs))
+
+	local bpFuel = bp.Physics.FuelUseTime
+	if bpFuel then
+		unitDisplay.fuelIcon:Show()
+		local bpFTMins = string.format("%02.f", math.floor(bpFuel / 60))
+		local bpFTSecs = string.format("%02.f", 60 / math.floor(bpFuel / 60))
+		unitDisplay.fuelTime:SetText(bpFTMins..":"..bpFTSecs.."s")
+	else
+		unitDisplay.fuelIcon:Hide()
+		unitDisplay.fuelTime:SetText('')
 	end
 end
 
