@@ -153,12 +153,15 @@ local LuckyDipUnitBag = {
     -- Cybran T4 medium
     {
         'wrl1466', -- Storm Strider
-        'brmt3mcm2', -- MadBolo
         'url0402', -- Monkeylord
     },
     -- Cybran T4 heavy
     {
         'xrl0403', -- Megalith
+        'brmt3mcm2', -- MadBolo
+    },
+    -- Cybran T4 superheavy
+    {
         'wrl0404', -- Megaroach
         'brmt3ava', -- Avalanche
     },
