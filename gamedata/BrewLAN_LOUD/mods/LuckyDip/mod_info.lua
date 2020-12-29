@@ -1,0 +1,10 @@
+name = "Lucky Dip"
+uid = "25D57D85-7D84-27HT-A502-LDIPS0000002"
+version = 0.2
+copyright = "© 2015–2018 Sean Wheeldon"
+description = "For select similar BlackOps and BrewLAN units you get one at random. Requires BlackOps."
+author = "Balthazar"
+selectable = true
+enabled = true
+exclusive = false
+ui_only = false
