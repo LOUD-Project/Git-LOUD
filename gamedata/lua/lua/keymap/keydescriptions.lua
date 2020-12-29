@@ -81,7 +81,7 @@ keyDescriptions = {
     ['select_all_units_of_same_type'] = 'Select all units similar to those selected',
     ['reset_camera'] 		= 'Reset the Camera',
 	
-    # ['build'] = '<LOC key_desc_0061>Silo Build mode',
+    -- ['build'] = '<LOC key_desc_0061>Silo Build mode',
 	
     ['select_engineers'] 	= 'Select all Engineers',
     ['repair'] 				= 'Repair',
@@ -214,7 +214,7 @@ keyDescriptions = {
     ['debug_restart_session'] 		= "Restart the current session using the same parameters",
     ['debug_toggle_flavah'] 		= "Toggle the world flavor text on/off",
     ['debug_ssmode'] 				= 'Toggles Screen Shot mode',
-    ['debug_toggle_pannels'] 		= 'Toggle UI panels on/off',
+    ['debug_toggle_panels'] 		= 'Toggle UI panels on/off',
 }
 
     -- additions from GAZ UI
