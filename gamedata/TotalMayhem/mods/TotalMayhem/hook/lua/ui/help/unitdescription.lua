@@ -1,6 +1,6 @@
 -- TOTAL MAYHEM Unit Descriptions --
 
-Description['brnt3ow']		=	"Light Experimental. The Owens is equipped with radar, rockets & solid AA, making it a cost effective raider and assault support."
+Description['brnt3ow']		=	"The Owens is equipped with radar, rockets & solid AA, making it a cost effective raider and assault support."
 
 Description['brmt1pd']		=	"The Slyfox outranges most T1 units, allowing it to hit first. It's tough, but a slow rate of fire limits its usefulness."
 Description['brmt1expd']	=	"The Pen is the traditional Cybran beam weapon mounted on a solid gimble. Equally capable against air & ground units, the superior range and accuracy is offset by it's high cost"
@@ -18,9 +18,9 @@ Description['brmt3bm2']		= 	"The Dervish is the peak of Cybran bot tech. Speed f
 Description['brmt3bt']		=	"The Mastodon is the most recent Cybran tank effort. While not a Super-heavy, it is economical, well balanced and well armed, and the tank fares well in its class."
 Description['brmt3lzt']		=	"The Trilobyte brings the exceptional railgun of the Anode PD to a mobile platform. Designed to fill the need for amphibious AA support, the weapon is effective in both AA and ground roles, and the Trilobyte moves easily through water."
 Description['brmst3bom']	=	"A modified battleship designed for long range high-arc bombardment rather than direct fire."
-Description['brmt3vul']		=	"Light Experimental. The Vulture is a small but cost effective experimental unit designed along the lines of the Loyalist as a quick raider."
-Description['brmt3mcm']		=	"Medium Experimental. The Madcat is based on the same principles as the Vulture. Featuring a significant rocket barrage, the Madcat can get the drop of most opponents."
-Description['brmt3mcm2']	=	"Medium Experimental. The MadBolo is veritably an up-armoured and up-gunned Madcat. Be wary of its volatility."
+Description['brmt3vul']		=	"The Vulture is a small but cost effective experimental unit designed along the lines of the Loyalist as a quick raider."
+Description['brmt3mcm']		=	"The Madcat is based on the same principles as the Vulture. Featuring a significant rocket barrage, the Madcat can get the drop of most opponents."
+Description['brmt3mcm2']	=	"The MadBolo is veritably an up-armoured and up-gunned Madcat. Be wary of its volatility."
 Description['brmt3ava']		=	"The Avalanche is the largest mobile experimental ever constructed. Essentially a factory like the Megalith, it is ponderously slow, but extremely armored and well-gunned. Capable of surviving a direct strike even by tactical nukes."
 
 Description['brot1bt']		=	"The Hervour is simply a larger Aurora. The same simple but effective configuration in a larger format. Sometimes hampered by its lack of a fully rotating turret."
