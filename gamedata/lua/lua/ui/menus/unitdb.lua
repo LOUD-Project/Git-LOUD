@@ -147,9 +147,9 @@ function CreateUnitDB(over, inGame, callback)
 
 	unitDisplay = Group(panel)
 	unitDisplay.Height:Set(600)
-	unitDisplay.Width:Set(260)
+	unitDisplay.Width:Set(280)
 	unitDisplay.top = 0
-	LayoutHelpers.AtLeftTopIn(unitDisplay, panel, 20, 72)
+	LayoutHelpers.AtLeftTopIn(unitDisplay, panel, 20, 60)
 	unitDisplay.bg = Bitmap(unitDisplay)
 	unitDisplay.bg.Depth:Set(unitDisplay.Depth)
 	LayoutHelpers.FillParent(unitDisplay.bg, unitDisplay)
@@ -222,9 +222,9 @@ function CreateUnitDB(over, inGame, callback)
 
 	listContainer = Group(panel)
 	listContainer.Height:Set(556)
-	listContainer.Width:Set(320)
+	listContainer.Width:Set(328)
 	listContainer.top = 0
-	LayoutHelpers.RightOf(listContainer, unitDisplay, 48)
+	LayoutHelpers.RightOf(listContainer, unitDisplay, 40)
 
 	local unitList = {}
 
@@ -235,10 +235,10 @@ function CreateUnitDB(over, inGame, callback)
 		unitList[i].bg = Bitmap(unitList[i])
 		unitList[i].bg.Depth:Set(unitList[i].Depth)
 		LayoutHelpers.FillParent(unitList[i].bg, unitList[i])
-		unitList[i].bg:SetSolidColor('3B4649') -- Same colour as lobby rows in background
+		unitList[i].bg:SetSolidColor('3B4649') -- Same colour as rows in lobby background
 		unitList[i].bg.Right:Set(function() return unitList[i].Right() - 10 end)
 		unitList[i].icon = Bitmap(unitList[i])
-		LayoutHelpers.AtLeftTopIn(unitList[i].icon, unitList[i])
+		LayoutHelpers.AtLeftTopIn(unitList[i].icon, unitList[i], 4)
 		unitList[i].name = UIUtil.CreateText(listContainer, '', 14, UIUtil.bodyFont)
 		LayoutHelpers.RightOf(unitList[i].name, unitList[i].icon, 2)
 		unitList[i].desc = UIUtil.CreateText(listContainer, '', 14, UIUtil.bodyFont)
@@ -336,7 +336,7 @@ function CreateUnitDB(over, inGame, callback)
         end
 	end
 
-	UIUtil.CreateVertScrollbarFor(listContainer)
+	UIUtil.CreateVertScrollbarFor(listContainer, -16)
 
 -- FILTERS: Basics
 
@@ -344,7 +344,7 @@ function CreateUnitDB(over, inGame, callback)
 	filterContainer.Height:Set(556)
 	filterContainer.Width:Set(260)
 	filterContainer.top = 0
-	LayoutHelpers.RightOf(filterContainer, listContainer, 32)
+	LayoutHelpers.RightOf(filterContainer, listContainer, 30)
 
 	local filterContainerTitle = UIUtil.CreateText(filterContainer, 'Filters', 24, UIUtil.titleFont)
 	LayoutHelpers.AtTopIn(filterContainerTitle, filterContainer)
@@ -357,11 +357,11 @@ function CreateUnitDB(over, inGame, callback)
 	filterGroupName.Width:Set(filterContainer.Width)
 	LayoutHelpers.AtLeftTopIn(filterGroupName, filterContainer, 0, 32)
 	local filterNameLabel = UIUtil.CreateText(filterGroupName, 'Name', 14, UIUtil.bodyFont)
-	LayoutHelpers.AtLeftIn(filterNameLabel, filterGroupName, 2)
+	LayoutHelpers.AtLeftIn(filterNameLabel, filterGroupName)
 	LayoutHelpers.AtVerticalCenterIn(filterNameLabel, filterGroupName)
 
 	local filterNameEdit = Edit(filterGroupName)
-	LayoutHelpers.AtRightIn(filterNameEdit, filterGroupName, 2)
+	LayoutHelpers.AtRightIn(filterNameEdit, filterGroupName, 4)
 	LayoutHelpers.AtVerticalCenterIn(filterNameEdit, filterGroupName)
 	filterNameEdit.Width:Set(160)
 	filterNameEdit.Height:Set(filterGroupName.Height)
@@ -484,7 +484,7 @@ function CreateUnitDB(over, inGame, callback)
 	weaponsRow.Width:Set(filterContainer.Width() - 8)
 	weaponsRow:SetSolidColor('ADCFCE') -- Same colour as light lines in background
 
-	local weaponsBlockLabel = UIUtil.CreateText(filterContainer, 'Weapons', 20, UIUtil.buttonFont)
+	local weaponsBlockLabel = UIUtil.CreateText(filterContainer, 'Weapons', 18, UIUtil.buttonFont)
 	LayoutHelpers.Below(weaponsBlockLabel, weaponsRow, 4)
 	LayoutHelpers.AtHorizontalCenterIn(weaponsBlockLabel, filterContainer)
 
@@ -767,7 +767,7 @@ function CreateUnitDB(over, inGame, callback)
 
 	local r = tostring(count).." results found."
 	resultText = UIUtil.CreateText(panel, r, 16, UIUtil.bodyFont)
-	LayoutHelpers.AtLeftTopIn(resultText, panel, exitBtn.Width() + 30, 670)
+	LayoutHelpers.AtLeftTopIn(resultText, panel, exitBtn.Width() + 40, 670)
 
 	UIUtil.MakeInputModal(panel, function() exitBtn.OnClick(exitBtn) end)
 end
