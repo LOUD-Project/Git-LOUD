@@ -578,11 +578,11 @@ function CreateUnitDB(over, inGame, callback)
 	LayoutHelpers.AtLeftIn(filterCounterLabel, filterGroupCounter)
 	LayoutHelpers.AtVerticalCenterIn(filterCounterLabel, filterGroupCounter)
 
-	local filterCounterCombo = Combo(filterGroupCounter, 14, 3, nil, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
-	filterCounterCombo:AddItems({'Any', 'Yes', 'No'}, 1)
+	local filterCounterCombo = Combo(filterGroupCounter, 14, 5, nil, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
+	filterCounterCombo:AddItems({'Any', 'Torpedo', 'Tactical Missile', 'Strategic Missile', 'None'}, 1)
 	LayoutHelpers.AtRightIn(filterCounterCombo, filterGroupCounter, 2)
 	LayoutHelpers.AtVerticalCenterIn(filterCounterCombo, filterGroupCounter)
-	filterCounterCombo.Width:Set(60)
+	filterCounterCombo.Width:Set(140)
 	filterCounterCombo.OnClick = function(self, index)
 		filters['countermeasures'] = index
 		Tooltip.DestroyMouseoverDisplay()
@@ -933,7 +933,8 @@ function Filter()
 			local hasIndirect = false
 			local hasAA = false
 			local hasTorp = false
-			local hasCounter = false
+			-- 0 is no, 1 is torp, 2 is TMD, 3 is SMD
+			local hasCounter = 0
 			-- 0 is no, 1 is explosion, 2 is air crash
 			local hasDeathWeap = 0
 			
@@ -956,8 +957,12 @@ function Filter()
 						hasAA = true
 					elseif v.RangeCategory == 'UWRC_AntiNavy' then
 						hasTorp = true
-					elseif v.RangeCategory == 'UWRC_Countermeasure' then
-						hasCounter = true
+					elseif v.TargetRestrictOnlyAllow == 'TORPEDO' then
+						hasCounter = 1
+					elseif v.TargetRestrictOnlyAllow == 'TACTICAL MISSILE' then
+						hasCounter = 2
+					elseif v.TargetRestrictOnlyAllow == 'STRATEGIC MISSILE' then
+						hasCounter = 3
 					elseif v.Label == 'DeathImpact' then
 						hasDeathWeap = 2
 					elseif v.WeaponCategory == 'Death' then
@@ -974,8 +979,10 @@ function Filter()
 			or (filters['antiair'] == 3 and hasAA))
 			or ((filters['torpedoes'] == 2 and not hasTorp)
 			or (filters['torpedoes'] == 3 and hasTorp))
-			or ((filters['countermeasures'] == 2 and not hasCounter)
-			or (filters['countermeasures'] == 3 and hasCounter))
+			or ((filters['countermeasures'] == 2 and hasCounter ~= 1)
+			or (filters['countermeasures'] == 3 and hasCounter ~= 2)
+			or (filters['countermeasures'] == 4 and hasCounter ~= 3)
+			or (filters['countermeasures'] == 5 and hasCounter ~= 0))
 			or ((filters['deathweapon'] == 2 and hasDeathWeap ~= 1)
 			or (filters['deathweapon'] == 3 and hasDeathWeap ~= 2)
 			or (filters['deathweapon'] == 4 and hasDeathWeap ~= 0)) then
