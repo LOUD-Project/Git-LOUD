@@ -186,6 +186,7 @@ function CreateUnitDB(over, inGame, callback)
 	unitDisplay.abilities.OnClick = function(self, row, event)
 		-- Prevent highlighting lines on click
 	end
+	unitDisplay.abilities:SetFont(UIUtil.bodyFont, 12)
 	UIUtil.CreateVertScrollbarFor(unitDisplay.abilities)
 
 	unitDisplay.healthIcon = Bitmap(unitDisplay, UIUtil.UIFile('/game/build-ui/icon-health_bmp.dds'))
