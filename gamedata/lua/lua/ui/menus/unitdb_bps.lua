@@ -10,11 +10,12 @@ function UnitBlueprint(bp)
     -- if not bp.Merge then
     --     table.insert(UnitDB.allBlueprints, bp)
     -- end
-    if 
-    table.find(bp.Categories, 'CIVILIAN') or
-    table.find(bp.Categories, 'INSIGNIFICANTUNIT') or
-    table.find(bp.Categories, 'BENIGN') then
-        return
+    for _, v in bp.Categories do
+        if v == 'INSIGNIFICANTUNIT'
+        or v == 'BENIGN'
+        or v == 'CIVILIAN' then
+            return
+        end
     end
     UnitDB.temp = bp
 end
