@@ -839,7 +839,7 @@ function DisplayUnit(bp, id)
 	if bpFuel then
 		unitDisplay.fuelIcon:Show()
 		local bpFTMins = string.format("%02.f", math.floor(bpFuel / 60))
-		local bpFTSecs = string.format("%02.f", 60 / math.floor(bpFuel / 60))
+		local bpFTSecs = string.format("%02.f", math.mod(bpFuel, 60))
 		unitDisplay.fuelTime:SetText(bpFTMins..":"..bpFTSecs.."s")
 	else
 		unitDisplay.fuelIcon:Hide()
