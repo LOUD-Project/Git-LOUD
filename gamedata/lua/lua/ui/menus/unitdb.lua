@@ -25,13 +25,14 @@ local dirs = {
 }
 
 local originMap = {
-	['vanilla'] = 'Vanilla',
-	['4dc'] = '4th Dimension Units',
-	['blackopsunleashed'] = 'BlackOps Unleashed',
-	['brewlan_loud'] = 'BrewLAN LOUD',
-	['loud unit additions'] = 'LOUD Unit Additions',
-	['totalmayhem'] = 'Total Mayhem',
-	['battlepack'] = 'Wyvern Battle Pack',
+	'', -- Dummy value to account for Any in the filter combo
+	'Vanilla',
+	'4th Dimension Units',
+	'BlackOps Unleashed',
+	'BrewLAN LOUD',
+	'LOUD Unit Additions',
+	'Total Mayhem',
+	'Wyvern Battle Pack',
 }
 
 local unitDispAbilHeight = 120
@@ -166,8 +167,12 @@ function CreateUnitDB(over, inGame, callback)
 	unitDisplay.stratIcon = Bitmap(unitDisplay.icon)
 	LayoutHelpers.AtRightTopIn(unitDisplay.stratIcon, unitDisplay.icon)
 
+	-- Origin mod and ID
+	unitDisplay.technicals = UIUtil.CreateText(unitDisplay, '', 14, UIUtil.bodyFont)
+	LayoutHelpers.Below(unitDisplay.technicals, unitDisplay.icon, 4)
+
 	unitDisplay.longDesc = UIUtil.CreateTextBox(unitDisplay)
-	LayoutHelpers.Below(unitDisplay.longDesc, unitDisplay.icon, 4)
+	LayoutHelpers.Below(unitDisplay.longDesc, unitDisplay.technicals, 4)
 	unitDisplay.longDesc.Width:Set(unitDisplay.Width)
 	unitDisplay.longDesc.Height:Set(120)
 	unitDisplay.longDesc.OnClick = function(self, row, event)
@@ -786,14 +791,14 @@ function FillLine(line, bp, index)
 	end
 	line.HandleEvent = function(self, event)
 		if event.Type == 'ButtonPress' or event.Type == 'ButtonDClick' then
-			DisplayUnit(bp, units[index])
+			DisplayUnit(bp, units[index], index)
 			local sound = Sound({Cue = "UI_Mod_Select", Bank = "Interface",})
             PlaySound(sound)
 		end
 	end
 end
 
-function DisplayUnit(bp, id)
+function DisplayUnit(bp, id, index)
 	unitDisplay.name:SetText(LOC(bp.General.UnitName) or LOC(bp.Description) or 'Unnamed Unit')
 	unitDisplay.shortDesc:SetText(LOC(bp.Description) or 'Unnamed Unit')
 	local ico = '/textures/ui/common/icons/units/'..id..'_icon.dds'
@@ -803,6 +808,9 @@ function DisplayUnit(bp, id)
 		unitDisplay.icon:SetTexture(ico)
 	end
 	unitDisplay.stratIcon:SetTexture(UIUtil.UIFile('/game/strategicicons/'..bp.StrategicIconName..'_rest.dds'))
+
+	unitDisplay.technicals:SetText('Mod: '..originMap[origin[index]]..' ('..id..')')
+
 	local ld = LOC(Description[id]) or 'No description available for this unit.'
 	UIUtil.SetTextBoxText(unitDisplay.longDesc, ld)
 	if bp.Display.Abilities then
