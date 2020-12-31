@@ -614,12 +614,32 @@ function CreateUnitDB(over, inGame, callback)
 		Tooltip.DestroyMouseoverDisplay()
 	end
 
+	-- EMP
+
+	local filterGroupEMP = Group(filterContainer)
+	filterGroupEMP.Height:Set(20)
+	filterGroupEMP.Width:Set(filterContainer.Width)
+	LayoutHelpers.Below(filterGroupEMP, filterGroupDeathWeap, 2)
+	local filterEMPLabel = UIUtil.CreateText(filterGroupEMP, 'EMP/Stun Effects', 14, UIUtil.bodyFont)
+	LayoutHelpers.AtLeftIn(filterEMPLabel, filterGroupEMP)
+	LayoutHelpers.AtVerticalCenterIn(filterEMPLabel, filterGroupEMP)
+
+	local filterEMPCombo = Combo(filterGroupEMP, 14, 3, nil, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
+	filterEMPCombo:AddItems({'Any', 'Yes', 'No'}, 1)
+	LayoutHelpers.AtRightIn(filterEMPCombo, filterGroupEMP, 2)
+	LayoutHelpers.AtVerticalCenterIn(filterEMPCombo, filterGroupEMP)
+	filterEMPCombo.Width:Set(60)
+	filterEMPCombo.OnClick = function(self, index)
+		filters['emp'] = index
+		Tooltip.DestroyMouseoverDisplay()
+	end
+
 -- FILTERS: Miscellaneous
 
 	-- Another horizontal row
 
 	local miscRow = Bitmap(filterContainer)
-	LayoutHelpers.Below(miscRow, filterGroupDeathWeap, 4)
+	LayoutHelpers.Below(miscRow, filterGroupEMP, 4)
 	miscRow.Height:Set(2)
 	miscRow.Width:Set(filterContainer.Width() - 8)
 	miscRow:SetSolidColor('ADCFCE') -- Same colour as light lines in background
@@ -749,6 +769,7 @@ function CreateUnitDB(over, inGame, callback)
 		filterTorpsCombo:SetItem(1)
 		filterCounterCombo:SetItem(1)
 		filterDeathWeapCombo:SetItem(1)
+		filterEMPCombo:SetItem(1)
 
 		filterAmphibCombo:SetItem(1)
 		filterTransportCombo:SetItem(1)
@@ -825,7 +846,7 @@ function DisplayUnit(bp, id, index)
 		unitDisplay.abilities.Height:Set(0)
 		unitDisplay.abilities:Hide()
 	end
-	
+
 	local strHealth = tostring(bp.Defense.MaxHealth)
 	local bpRR = bp.Defense.RegenRate
 	if bpRR and bpRR > 0 then
@@ -864,13 +885,14 @@ function Filter()
 
 	first = -1
 
-	local checkWeaps = 
+	local checkWeaps =
 		filters['directfire'] ~= 1 or
 		filters['indirectfire'] ~= 1 or
 		filters['antiair'] ~= 1 or
 		filters['torpedoes'] ~= 1 or
 		filters['countermeasures'] ~= 1 or
-		filters['deathweapon'] ~= 1
+		filters['deathweapon'] ~= 1 or
+		filters['emp'] ~= 1
 
 	LOG("UNIT DB: Filtering by: "..repr(filters))
 	listContainer.top = 0
@@ -946,7 +968,8 @@ function Filter()
 			local hasCounter = 0
 			-- 0 is no, 1 is explosion, 2 is air crash
 			local hasDeathWeap = 0
-			
+			local hasEMP = false
+
 			-- If no weapons are present, leave all as false
 			if bp.Weapon then
 				for _, v in bp.Weapon do
@@ -956,6 +979,17 @@ function Filter()
 					string.find(v.Label, 'Painter') or
 					string.find(v.Label, 'Tractor')) then
 						continue
+					end
+
+					if filters['emp'] ~= 1 then
+						if v.Buffs then
+							for _, b in v.Buffs do
+								if b.BuffType == 'STUN' then
+									hasEMP = true
+									break
+								end
+							end
+						end
 					end
 
 					if v.RangeCategory == 'UWRC_DirectFire' then
@@ -994,7 +1028,9 @@ function Filter()
 			or (filters['countermeasures'] == 5 and hasCounter ~= 0))
 			or ((filters['deathweapon'] == 2 and hasDeathWeap ~= 1)
 			or (filters['deathweapon'] == 3 and hasDeathWeap ~= 2)
-			or (filters['deathweapon'] == 4 and hasDeathWeap ~= 0)) then
+			or (filters['deathweapon'] == 4 and hasDeathWeap ~= 0))
+			or ((filters['emp'] == 2 and not hasEMP)
+			or (filters['emp'] == 3 and hasEMP)) then
 				notFiltered[i] = false
 				count = count - 1
 				continue
@@ -1086,6 +1122,7 @@ function ClearFilters()
 	filters['torpedoes'] = 1
 	filters['countermeasures'] = 1
 	filters['deathweapon'] = 1
+	filters['emp'] = 1
 
 	filters['amphib'] = 1
 	filters['transport'] = 1
