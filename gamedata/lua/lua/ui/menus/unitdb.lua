@@ -342,7 +342,8 @@ function CreateUnitDB(over, inGame, callback)
         end
 	end
 
-	UIUtil.CreateVertScrollbarFor(listContainer, -16)
+	local listScrollbar = UIUtil.CreateVertScrollbarFor(listContainer, -16)
+	listScrollbar.Depth:Set(listScrollbar.Depth() + 20)
 
 -- FILTERS: Basics
 
