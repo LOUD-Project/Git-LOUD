@@ -81,7 +81,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 960,
     },
 	
-    Description = '<LOC brl0401_desc>Basilisk Regenerative Ultra Heavy Assault Mech',
+    Description = '<LOC brl0401_desc>Regenerative Ultra Heavy Assault Mech',
 	
     Display = {
 		Abilities = {
