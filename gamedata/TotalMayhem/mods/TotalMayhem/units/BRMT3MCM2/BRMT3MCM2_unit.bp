@@ -66,7 +66,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 478,
     },
 	
-    Description = '<LOC brmt3mcm2_desc>Experimental Medium Assault Mech',
+    Description = '<LOC brmt3mcm2_desc>Experimental Heavy Assault Mech',
 	
     Display = {
         Abilities = {
@@ -188,7 +188,7 @@ UnitBlueprint {
 		WaterVisionRadius = 21,
     },
     Interface = {
-        HelpText = 'Experimental Medium Assault Mech',
+        HelpText = 'Experimental Heavy Assault Mech',
     },
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.5,

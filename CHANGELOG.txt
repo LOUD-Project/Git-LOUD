@@ -1,3 +1,48 @@
+### Release 24-12-2020 ###
+Lua 5.3.33
+Textures 6.2
+
+- Zulan's Hotbuild working again. See https://github.com/LOUD-Project/Git-LOUD/wiki/Zulan's-Hotbuild for more information.
+- Time-based adaptive cheat can now have a lower limit in case it is working in the negative direction.
+- The lobby host can now use a text field to set the default cheat multiplier for newly-added AI. A button can also be used to fill in all AI's cheat multipliers from that text field.
+- WORK-IN-PROGRESS: the lobby should now display the same AI multipliers for clients as well as the host.
+- Lobby settings are now more organized; the most advanced options are in their own category at the bottom.
+- The LOUD standard mod list no longer includes Supreme Commander Music.
+- For stabiltiy, the AI's cheat multiplier can no longer be set higher than 99, even if the user enters in 100 or higher in the lobby text field.
+- Tooltips for the "Fog of War" lobby option are now more descriptive.
+- Large-scale reorganization of AI unit compositions and building priorities.
+
+### Release 18-12-2020 ###
+Lua 5.3.30
+
+- Automatic call of a console command to fix performance problems related to recent NVIDIA driver updates.
+- AI multipliers can now be set via a text box.
+- Time-based adaptive cheat can now work negatively, allowing an AI to become an easier opponent as the game progresses. This can make for a more potent early game -- when LOUD is normally most vulnerable -- while “levelling out” with players in the middle and later games, when LOUD’s advantages begin to add up.
+- All the most advanced AI lobby options are now in their own category at the bottom of the list.
+- Feedback-based adaptive cheat, when combined with time-based adaptive cheat, now works based on the current actual cheat instead of the cheat which the AI started with.
+- Feedback-based adaptive cheat does not start working until 5 minutes to prevent the AI from gaining a large early advantage due to incomplete intel.
+- New player colours: lime green, blue-grey, and gold.
+- All darkest player colours lightened, along with greys.
+- Maps which use unplayable areas no longer allow visibility or camera movement into these aforementioned areas.
+- All Paragon counterparts now have the same ability list to reduce confusion.
+- Unit rollover detail views now use title case when describing countermeasures in service of consistency.
+- The AI now understands the difference between a map with water - and a map with water that allows naval units.
+- The AI will now expand upon the map more aggressively to be more competitive with rushing players.
+- The Small naval base will take precedence on smaller maps or those with a low percent of water area.
+- AI: Some adjustments to maximum unit counts for various unit types.
+- AI: Bombardment groups will now form at ratios of 1 or greater (down from 1.5)
+- AI: Naval reinforcement requirements lowered slightly.
+- AI: Improved air staging.
+- AI: Improved reaction time of base distress responses.
+- Base Alerts will prevent the Dead Base Monitor from closing a base until the alerts have expired. This was causing a fair number of alert units to get 'stuck' at a base that was closed during an alert.
+- AI pings are somewhat less intrusive.
+- AI: A very minor reduction in how much threat transport platoons will accept.
+- AI: Some adjustment to bomber formations, requirements and targeting conditions, tether ranges, etc.
+- AI: Reduced range on some builders, and decreased or harmonized threat parameters. 
+- AI: ECO requirments for ENG Transfers increased.
+- AI: Resequenced some build conditions and builds.
+- AI: Lowered energy requirements for some tasks, and lowered eco requirements for certain jobs out at DP.
+
 ### Release 11-12-2020 ###
 Lua 5.3.29
 LOUD Mods 5.28
@@ -44,6 +89,7 @@ Textures 6.1
   - Wreckage health multiplier 0.3 -> 0.6.
   - Radar radius increased from 60 to 75.
 
+- All teleport times are now 12 seconds, and energy costs for teleportation have been revised across the board. Strict minimums have been put in place to prevent instant or free teleports.
 - Higher limit on battleships for certain AI naval formations.
 - Higher unit cap thresholds after which the AI will not build airpads or antinuke launchers.
 - AI SACUs are more likely to be drawn to bases without factories than bases which have them already.

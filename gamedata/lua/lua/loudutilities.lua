@@ -657,21 +657,36 @@ function TimeAdaptiveCheatThread( aiBrain )
     local interval = 10 * 60 * tonumber(ScenarioInfo.Options.ACTTimeDelay)
     local cheatincrease = tonumber(ScenarioInfo.Options.ACTTimeAmount)
 	local cheatlimit = tonumber(ScenarioInfo.Options.ACTTimeCap)
+	-- EXAMPLE: If 1.25 is the limit, -.05 is the change, and 1.1 is the base,
+	-- this check prevents mult from getting math.maxed very far upwards to 1.25
+	if cheatincrease < 0 and cheatlimit > aiBrain.BaseCheat then
+		LOG("*AI DEBUG "..aiBrain.Nickname.." negative time ACT: base is below limit. Killing thread...")
+		return
+	end
     
-	LOG("*AI DEBUG "..aiBrain.Nickname.." starting time ACT after "..startdelay.." ticks. Change "..cheatincrease.." every "..interval.." ticks. Upper limit: "..repr(cheatlimit))
+	LOG("*AI DEBUG "..aiBrain.Nickname.." starting time ACT after "..startdelay.." ticks. Change "..cheatincrease.." every "..interval.." ticks. Limit: "..repr(cheatlimit))
 	WaitTicks(startdelay)
     LOG("*AI DEBUG "..aiBrain.Nickname.." time ACT begins")
     
-	while aiBrain.Result ~= "defeat" and aiBrain.CheatValue <= cheatlimit do
-
+	while aiBrain.Result ~= "defeat" do
+		
 		WaitTicks(interval)
 		LOG("*AI DEBUG "..aiBrain.Nickname.." time ACT cycles at "..repr(GetGameTimeSeconds()).." seconds. Mult.: "..repr(aiBrain.CheatValue).." -> "..repr(aiBrain.CheatValue + cheatincrease))
-		-- RATODO
+		-- RATODO: Uveso's ideas
 		-- - Logarithmic increase option
 		-- - Multiplicative increase option
 		-- - Use ratios to slow or speed time-based increase
 		aiBrain.CheatValue = aiBrain.CheatValue + cheatincrease
 		SetArmyPoolBuff(aiBrain, aiBrain.CheatValue)
+		if cheatincrease < 0 and aiBrain.CheatValue <= cheatlimit then
+			aiBrain.CheatValue = math.max(cheatlimit, aiBrain.CheatValue)
+			SetArmyPoolBuff(aiBrain, aiBrain.CheatValue)
+			break
+		elseif cheatincrease > 0 and aiBrain.CheatValue >= cheatlimit then
+			aiBrain.CheatValue = math.min(cheatlimit, aiBrain.CheatValue)
+			SetArmyPoolBuff(aiBrain, aiBrain.CheatValue)
+			break
+		end
 	end
     
 	if (aiBrain.Result == "defeat") then

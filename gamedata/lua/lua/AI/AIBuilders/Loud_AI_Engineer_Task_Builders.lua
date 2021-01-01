@@ -56,7 +56,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 		
         Priority = 750,
 		
-        InstanceCount = 2,
+        InstanceCount = 3,
 		
         BuilderType = { 'SubCommander' },
 		
@@ -88,7 +88,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 		
         Priority = 750,
 		
-        InstanceCount = 2,
+        InstanceCount = 3,
 		
         BuilderType = { 'SubCommander' },
 		
@@ -120,7 +120,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 		
         Priority = 750,
 		
-        InstanceCount = 2,
+        InstanceCount = 3,
 		
         BuilderType = { 'SubCommander' },
 		
@@ -152,7 +152,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 		
         Priority = 750,
 		
-        InstanceCount = 1,
+        InstanceCount = 2,
 		
         BuilderType = { 'SubCommander' },
 		
@@ -723,7 +723,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Active DP',
     },	
 	
     -- or build any locally available extractor
-    Builder {BuilderName = 'Mass Extractor 200 Active DP',
+    Builder {BuilderName = 'Mass Extractor 150 Active DP',
 	 
         PlatoonTemplate = 'EngineerBuilderGeneral',
         
@@ -739,7 +739,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Active DP',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .85 } },
             
-            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 200, -9999, 45, 0, 'AntiSurface', 1 }},
+            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 150, -9999, 40, 0, 'AntiSurface', 1 }},
         },
 		
         BuilderData = {
@@ -747,7 +747,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Active DP',
 				BuildClose = true,	#-- engineer will build on closest mass points to itself
 				LoopBuild = false,	#-- dont repeat this build - just build once then RTB
 				ThreatMin = -9999,
-				ThreatMax = 45,
+				ThreatMax = 40,
 				ThreatRings = 0,
 				ThreatType = 'AntiSurface',
                 BuildStructures = {'T2Resource'},
@@ -827,7 +827,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Active DP',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},			
 			-- we do an eco check just to make sure we're not transferring just because we're in a eco lock
-			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
+			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }},
         },
 		
         BuilderData = {
@@ -877,7 +877,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Active DP',
 			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
 			
 			-- we do an eco check just to make sure we're not transferring just because we're in a eco lock
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }},
             
 			-- check that all the major components are in place
             { UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 0, categories.ANTIMISSILE * categories.SILO * categories.TECH3, 1, 24 }},

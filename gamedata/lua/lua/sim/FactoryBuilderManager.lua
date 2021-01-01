@@ -594,7 +594,7 @@ FactoryBuilderManager = Class(BuilderManager) {
     end,
     
 	-- this function starts with a raw template - ie. T3Engineer and fills it in with the actual unit ID - ie. url0105
-	-- and the other parameters (min qty, max qty, role and formation) required to fill out the template
+	-- and the other parameters (min qty, max qty, squad and formation) required to fill out the template
 	-- this is also where custom units come into play
 	GetFactoryTemplate = function( self, templateName, factory, faction)
 

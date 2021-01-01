@@ -153,7 +153,7 @@ UnitBlueprint {
     SizeY = 0.9,
     SizeZ = 1.2,
     
-    StrategicIconName = 'icon_land3_artillery',
+    StrategicIconName = 'icon_land3_missile',
     StrategicIconSortPriority = 125,
     
     Veteran = {

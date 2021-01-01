@@ -40,7 +40,7 @@ end
 -- This function returns a formatted Fuel time value.
 function LOUD_FuelCheck(aFuelTime)
 	local minutes = LOUDFORMAT("%02.f", LOUDFLOOR(aFuelTime / 60)):gsub("%.?0+$", "")
-	local seconds = LOUDFORMAT("%02.f", LOUDFLOOR(aFuelTime - (aFuelTime / 60) * 60))
+	local seconds = LOUDFORMAT("%02.f", math.mod(aFuelTime, 60))
 	
 	return minutes..":"..seconds.."s"
 end

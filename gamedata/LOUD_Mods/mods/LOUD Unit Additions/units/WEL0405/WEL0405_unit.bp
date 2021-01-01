@@ -82,7 +82,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 1604.4,
     },
 	
-    Description = '<LOC wel0405_desc>Experimental Assault Bot',
+    Description = '<LOC wel0405_desc>Experimental Ultra Heavy Assault Bot',
 	
     Display = {
         Abilities = {
@@ -237,6 +237,10 @@ UnitBlueprint {
 		RadarRadius = 110,
         VisionRadius = 44,
         WaterVisionRadius = 35,
+    },
+
+    Interface = {
+        HelpText = 'Experimental Ultra Heavy Assault Bot',
     },
 	
     LifeBarHeight = 0.32,

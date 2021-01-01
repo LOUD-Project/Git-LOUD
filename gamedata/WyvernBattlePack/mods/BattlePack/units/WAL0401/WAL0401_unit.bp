@@ -82,7 +82,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 737.2,
     },
     
-    Description = 'Experimental Assault Bot',
+    Description = 'Experimental Heavy Assault Bot',
     
     Display = {
         Abilities = {
@@ -212,7 +212,7 @@ UnitBlueprint {
     },
     
     Interface = {
-        HelpText = 'Experimental Assault Bot',
+        HelpText = 'Experimental Heavy Assault Bot',
     },
     
     LifeBarHeight = 0.075,

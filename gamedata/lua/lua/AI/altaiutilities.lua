@@ -2415,7 +2415,7 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
 		
 		if platpos then
 
-			local airthreatMax = counter * 5
+			local airthreatMax = counter * 4.5
 			
 			airthreatMax = airthreatMax + ( airthreatMax * math.log10(counter))
 
@@ -2485,8 +2485,9 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
 					if not v.Dead then
 						v.WatchTravelThread = v:ForkThread(WatchTransportTravel, location, aiBrain)		
 					end
-				end
+                end
 			end
+            
 		end
 	end
 	

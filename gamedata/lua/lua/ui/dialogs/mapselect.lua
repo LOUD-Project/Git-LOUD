@@ -573,9 +573,11 @@ function RefreshOptions(skipRefresh, singlePlayer)
         OptionSource[2] = {title = "<LOC uilobby_0002>Game Options", options = import('/lua/ui/lobby/lobbyoptions.lua').globalOpts}
         OptionSource[1] = {title = "<LOC uilobby_0001>Team Options", options = import('/lua/ui/lobby/lobbyoptions.lua').teamOptions}
         OptionSource[4] = {title = "Advanced AI Options", options = import('/lua/ui/lobby/lobbyoptions.lua').advAIOptions}
+        OptionSource[5] = {title = "Advanced Game Options", options = import('/lua/ui/lobby/lobbyoptions.lua').advGameOptions}
         
+        table.sort(OptionSource[5].options, function(a, b) return LOC(a.label) < LOC(b.label) end)
         table.sort(OptionSource[4].options, function(a, b) return LOC(a.label) < LOC(b.label) end)
-        table.sort(OptionSource[2].options, function(a, b) return LOC(a.label) < LOC(b.label) end)
+        -- table.sort(OptionSource[2].options, function(a, b) return LOC(a.label) < LOC(b.label) end)
         table.sort(OptionSource[1].options, function(a, b) return LOC(a.label) < LOC(b.label) end)
     end
     OptionSource[3] = {}

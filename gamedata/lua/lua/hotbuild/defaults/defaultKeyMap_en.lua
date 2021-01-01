@@ -89,11 +89,10 @@ hotbuildDefaultKeyMap = {
 
   Q = 'patrol',  ['Shift-Q'] = 'shift_patrol',
   A = 'reclaim', ['Shift-A'] = 'shift_reclaim',
-  Tab = 'pause_unit',
-  ---['SGP'] = 'toggle_repeat_build', -- Does unfortunately not work
-  Z = 'toggle_repeat_build',
   
-  Tilde = 'toggle_all', -- ^° on german keyboard
+  Tab = 'pause_unit',
+  
+  Z = 'toggle_repeat_build',
 
   Esc = 'stop',
   F3 = 'escape',

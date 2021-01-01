@@ -2,11 +2,11 @@
 UnitList = {
 
 	T4LandExperimental1 = {
-		Seraphim = {'BRPEXBTBOT', 20},		-- Tha-Yath (bot)
+		Seraphim = {'BRPEXBTBOT', 10},		-- Tha-Yath (bot)
 	},
 	
 	T4LandExperimental2 = {
-		Seraphim = {'BRPEXHVBOT', 20},	-- Athusil
+		Seraphim = {'BRPEXHVBOT', 30},	-- Athusil
 	},
    
     T4LandExperimental3 = {

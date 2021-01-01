@@ -75,7 +75,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 1265.8,
     },
 	
-    Description = '<LOC brnt3shbm_desc>Experimental Battle Mech',
+    Description = '<LOC brnt3shbm_desc>Experimental Heavy Battle Mech',
 	
     Display = {
 	
@@ -187,7 +187,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Mayhem Superiority Mech',
+        HelpText = 'Mayhem Experimental Heavy Battle Mech',
     },
 	
     LifeBarHeight = 0.075,

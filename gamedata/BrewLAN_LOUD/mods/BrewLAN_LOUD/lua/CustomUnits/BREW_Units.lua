@@ -49,7 +49,7 @@ T3LandAA = {
 },
 
 T3Amphibious = {
-	Aeon = {'sal0311', 40},		-- Moldavite
+	Aeon = {'sal0311', 100},		-- Moldavite
 },
 
 T3AmphibiousAA = {
@@ -59,7 +59,7 @@ T3AmphibiousAA = {
 },
 
 T3LandBot = {
-	Seraphim = {'ssl0311', 80},
+	Seraphim = {'ssl0311', 20}, -- Ilshatha
 },
 
 T3MobileMissile = {

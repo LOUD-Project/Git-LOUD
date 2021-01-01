@@ -18,6 +18,8 @@ local Effect = import('/lua/maui/effecthelpers.lua')
 local pathMod = '/lua/hotbuild/'
 local pathTex = pathMod .. 'textures/'
 
+local LOUDINSERT = table.insert
+
 local buildingTab
 
 local upgradeTab = import(pathMod .. 'upgradeTab.lua').upgradeTab
@@ -32,9 +34,14 @@ local cycleLastMaxPos
 local cycleButtons = {}
 
 ---- Non state changing getters
+
+
 function getBuildingTab()
 
+    --LOG("*AI DEBUG Hotbuild getBuildingTab")
+
     local btSource = import(pathMod .. 'buildingTab.lua').buildingTab
+   
     local buildingTab = {}
 
     for name, values in btSource do
@@ -44,22 +51,30 @@ function getBuildingTab()
         for i, value in values do
         
             if (nil ~= __blueprints[value]) then
-                table.insert(buildingTab[name], value)
+            
+                LOUDINSERT(buildingTab[name], value)
+                
             elseif (nil ~= btSource[value]) then
             
                 for i, realValue in btSource[value] do
                 
                     if (nil ~= __blueprints[realValue]) then
-                        table.insert(buildingTab[name], realValue)
+                    
+                        LOUDINSERT(buildingTab[name], realValue)
+                        
                     else
                         LOG("!!!!! Invalid indirect building value " .. value .. " -> " .. realValue)
                     end
                 end
                 
             elseif (value == '_upgrade' or value == '_templates') then
-                table.insert(buildingTab[name], value)
+            
+                LOUDINSERT(buildingTab[name], value)
+                
             else
+            
                 LOG("!!!!! Invalid building value " .. value)
+                
             end
         end
     end
@@ -69,12 +84,16 @@ end
 
 function getKeyDescriptions()
 
+    --LOG("*AI DEBUG Hotbuild getKeyDescriptions")
+    
     local kd = {}
     
     for name, values in getBuildingTab() do
+    
         kd["build_" .. name] = "Build " .. name
         kd["build_" .. name .. "_shift"] = "Build(+shift) " .. name
         kd["build_" .. name .. "_alt"] = "Build(+alt) " .. name
+        
     end
     
     return kd
@@ -82,18 +101,22 @@ end
 
 function getKeyActions()
 
+    --LOG("*AI DEBUG Hotbuild getKeyActions")
+    
     local ka = {}
     local ukaOrder = 10000
     local ukaCategory = "hotbuild"
     
     local bt = getBuildingTab()
+    
+    --LOG("*AI DEBUG Hotbuild getKeyActions bt is "..repr(bt) ) 
 
     -- Hacky way to sort by name
     local btNames = {}
     local btNameIndices = {}
     
     for name, values in bt do
-        table.insert(btNames, name)
+        LOUDINSERT(btNames, name)
     end
     
     table.sort(btNames)
@@ -138,7 +161,7 @@ end
 
 function resetCycle(commandMode, modeData)
 
-    --LOG("ResetCycle cm: " .. repr(commandMode) .. " data: " .. repr(modeData))
+    --LOG("AI DEBUG Hotbuild resetCycle cmdmode: " .. repr(commandMode) .. " data: " .. repr(modeData))
     
     -- Commandmode = false is when a building is built (left click with mouse)
     -- modeData.isCancel = false is when building is aborted by a right click... whyever
@@ -152,6 +175,8 @@ end
 
 ---- Initialize functions
 function init()
+
+    LOG("*AI DEBUG Hotbuild INIT")
 
     enabled = true
     
@@ -167,14 +192,23 @@ function init()
     initCycleMap()
   
     CommandMode.AddEndBehavior(resetCycle)
-    
+
+    -- turns on the Build Item letters --
+    -- which are incorrect at the moment --
+    --import('/lua/ui/game/construction.lua').ShowBuildModeKeys(true)    
+
 end
 
 function initUserKeyActions()
 
     local ka = getKeyActions()
     
+    --LOG("*AI DEBUG Hotbuild initUserKeyActions")
+    
     for key, action in ka do
+    
+        --LOG("*AI DEBUG Hotbuild SetUserKeyAction "..repr(key).." "..repr(action))
+    
         KeyMapper.SetUserKeyAction(key, action)
     end
     
@@ -183,14 +217,21 @@ end
 function initDefaultKeyMap(suffix)
 
     local keyMapFile = pathMod .. "defaults/defaultKeyMap_" .. suffix .. ".lua"
+
+    --LOG("*AI DEBUG Hotbuild initDefaultKeyMap from "..repr(keyMapFile))
+    
     local defaultKeyMappings = import(keyMapFile).hotbuildDefaultKeyMap
     
     for pattern, action in defaultKeyMappings do
         KeyMapper.SetUserKeyMapping(pattern, false, action)
     end
+    
+    initUserKeyActions()
 end
 
 function initCycleButtons(values)
+
+    --LOG("*AI DEBUG Hotbuild initCycleButtons")
 
     local buttonH = 48
     local buttonW = 48
@@ -220,6 +261,8 @@ end
 
 function initCycleMap()
 
+    --LOG("*AI DEBUG Hotbuild initCycleMap")
+    
     cycleMap = Group(GetFrame(0))
 
     cycleMap.Depth:Set(1000) --always on top
@@ -297,11 +340,12 @@ function buildAction(name, modifier)
     if (not enabled) then
     
         init()
+        
         --LOG("BuildAction refused as hotbuild mod is not enabled")
-        return
+        --return
     end
     
-    -- LOG("---> buildAction " .. name .. " modifier: " .. modifier)
+    --LOG("---> buildAction " .. name .. " modifier: " .. modifier)
     
     local selection = GetSelectedUnits()
     
@@ -319,12 +363,11 @@ end
 -- Some of the work here is redundant when cycle_preview is disabled
 function buildActionBuilding(name, modifier)
 
-  -- LOG("BAB " .. name)
-  
     local options = Prefs.GetFromCurrentProfile('options')
+    
     local allValues = buildingTab[name]
     local effectiveValues = {}
-  
+
     if (table.find(allValues, "_templates")) then
         return buildActionTemplate(modifier)
     end
@@ -341,7 +384,7 @@ function buildActionBuilding(name, modifier)
     
         for i2, buildableValue in buildable do
             if value == buildableValue then
-                table.insert(effectiveValues, value)
+                LOUDINSERT(effectiveValues, value)
             end
         end
     end
@@ -411,40 +454,51 @@ end
 
 -- Some of the work here is redundant when cycle_preview is disabled
 function buildActionTemplate(modifier)
-  local options = Prefs.GetFromCurrentProfile('options')
-  -- Reset everything that could be fading or running  
-  -- LOG("BAT")
-  hideCycleMap()
 
-  -- find all avaiable templates
-  local effectiveTemplates = {}
-  local effectiveIcons = {}
-  local allTemplates = Templates.GetTemplates()
-
-  if (not allTemplates) or table.getsize(allTemplates) == 0 then
-    return
-  end
+    local options = Prefs.GetFromCurrentProfile('options')
   
-  local selection = GetSelectedUnits()
-  local availableOrders,  availableToggles, buildableCategories = GetUnitCommandData(selection)
-  local buildableUnits = EntityCategoryGetUnitList(buildableCategories)
-  --Allow all races to build other races templates
-  local currentFaction = selection[1]:GetBlueprint().General.FactionName
-  if options.gui_all_race_templates != 0 and currentFaction then
-    local function ConvertID(BPID)
-      local prefixes = {
-        ["AEON"]     = {"uab", "xab", "dab",},
-        ["UEF"]      = {"ueb", "xeb", "deb",},
-        ["CYBRAN"]   = {"urb", "xrb", "drb",},
-        ["SERAPHIM"] = {"xsb", "usb", "dsb",},
-      }
-      for i, prefix in prefixes[string.upper(currentFaction)] do
-        if table.find(buildableUnits, string.gsub(BPID, "(%a+)(%d+)", prefix .. "%2")) then
-          return string.gsub(BPID, "(%a+)(%d+)", prefix .. "%2")
-        end
-      end
-      return false
+    -- Reset everything that could be fading or running  
+    hideCycleMap()
+
+    -- find all avaiable templates
+    local effectiveTemplates = {}
+    local effectiveIcons = {}
+    local allTemplates = Templates.GetTemplates()
+
+    if (not allTemplates) or table.getsize(allTemplates) == 0 then
+        return
     end
+  
+    local selection = GetSelectedUnits()
+    local availableOrders,  availableToggles, buildableCategories = GetUnitCommandData(selection)
+    local buildableUnits = EntityCategoryGetUnitList(buildableCategories)
+  
+    --Allow all races to build other races templates
+    local currentFaction = selection[1]:GetBlueprint().General.FactionName
+  
+    if options.gui_all_race_templates != 0 and currentFaction then
+
+        local function ConvertID(BPID)
+    
+            local prefixes = {
+                ["AEON"]     = {"uab", "xab", "dab",},
+                ["UEF"]      = {"ueb", "xeb", "deb",},
+                ["CYBRAN"]   = {"urb", "xrb", "drb",},
+                ["SERAPHIM"] = {"xsb", "usb", "dsb",},
+            }
+      
+            for i, prefix in prefixes[string.upper(currentFaction)] do
+      
+                if table.find(buildableUnits, string.gsub(BPID, "(%a+)(%d+)", prefix .. "%2")) then
+                    return string.gsub(BPID, "(%a+)(%d+)", prefix .. "%2")
+                end
+        
+            end
+      
+            return false
+      
+        end
+    
     for templateIndex, template in allTemplates do
       local valid = true
       local converted = false
