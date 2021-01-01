@@ -3209,7 +3209,9 @@ function CreateUI(maxPlayers, useSteam)
         end
 
         GUI.slots[i].mult.OnTextChanged = function(self, newText, oldText)
-            lobbyComm:BroadcastData( { Type = 'SetMult', Slot = i, Text = newText } )
+            if lobbyComm:IsHost() then
+                lobbyComm:BroadcastData( { Type = 'SetMult', Slot = i, Text = newText } )
+            end
         end
         
         -- ACT dropdown
