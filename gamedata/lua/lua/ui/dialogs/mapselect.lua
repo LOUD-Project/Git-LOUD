@@ -766,30 +766,28 @@ function SetupOptionsPanel(parent, singlePlayer, curOptions)
                 line.text:SetColor(UIUtil.fontOverColor)
                 line.bg:SetSolidColor('00000000')
                 line.combo:Hide()
+                line.edit:Hide()
                 LayoutHelpers.AtLeftTopIn(line.text, line, 0, 20)
                 LayoutHelpers.AtHorizontalCenterIn(line.text, line)
             elseif data.type == 'spacer' then
                 line.text:SetText('')
                 line.combo:Hide()
+                line.edit:Hide()
             elseif data.type == 'opt_edit' then
                 line.text:SetText(LOC(data.text))
                 line.text:SetFont(UIUtil.bodyFont, 14)
                 line.text:SetColor(UIUtil.fontColor)
                 line.bg:SetTexture(UIUtil.UIFile('/dialogs/mapselect03/options-panel-bar_bmp.dds'))
                 LayoutHelpers.AtLeftTopIn(line.text, line, 10, 5)
-                if line.combo and not line.combo:IsHidden() then
-                    line.combo:Hide()
-                    line.edit:Show()
-                end
+                line.combo:Hide()
+                line.edit:Show()
                 line.edit.OnTextChanged = function(self, newText, oldText)
                     changedOptions[data.data.key] = {value = newText, type = 'edit', pref = data.data.pref}
                 end
                 Tooltip.AddControlTooltip(line, data.data.pref)
                 line.edit:SetText(tostring(curOptions[data.data.key]))
             else
-                if line.edit and not line.edit:IsHidden() then
-                    line.edit:Hide()
-                end
+                line.edit:Hide()
                 line.text:SetText(LOC(data.text))
                 line.text:SetFont(UIUtil.bodyFont, 14)
                 line.text:SetColor(UIUtil.fontColor)
