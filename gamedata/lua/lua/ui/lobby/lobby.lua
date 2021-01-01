@@ -4477,13 +4477,9 @@ function InitLobbyComm(protocol, localPort, desiredPlayerName, localPlayerUID, n
             SetGameOption(option.key, option.values[defValue].key)
         end
 
-        for index, option in globalOpts do
-            if option.type and option.type == 'edit' then
-                SetGameOption(option.key, Prefs.GetFromCurrentProfile(option.pref) or option.default)
-            else
-                local defValue = Prefs.GetFromCurrentProfile(option.pref) or option.default
-                SetGameOption(option.key,option.values[defValue].key)
-            end
+        for index, option in import('/lua/ui/lobby/lobbyoptions.lua').advAIOptions do
+            local defValue = Prefs.GetFromCurrentProfile(option.pref) or option.default
+            SetGameOption(option.key, option.values[defValue].key)
         end
 
         for index, option in import('/lua/ui/lobby/lobbyoptions.lua').advGameOptions do
