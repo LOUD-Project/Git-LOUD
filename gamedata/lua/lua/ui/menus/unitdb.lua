@@ -903,7 +903,7 @@ function FillLine(line, bp, index)
 	local n = LOC(bp.General.UnitName) or LOC(bp.Description) or 'Unnamed Unit'
 	line.name:SetText(n)
 	line.desc:SetText(LOC(bp.Description) or 'Unnamed Unit')
-	line.id:SetText(units[index])
+	line.id:SetText(string.format('%s (%s)', originMap[origin[index]], units[index]))
 	local ico = '/textures/ui/common/icons/units/'..units[index]..'_icon.dds'
 	if noIcon[units[index]] then
 		line.icon:SetTexture(UIUtil.UIFile('/icons/units/default_icon.dds'))
