@@ -4384,8 +4384,7 @@ function InitLobbyComm(protocol, localPort, desiredPlayerName, localPlayerUID, n
 
             elseif data.Type == 'SetMult' then
                 
-                GUI.slots[data.Slot].mult.SetText(data.Text)
-                UpdateGame()
+                GUI.slots[data.Slot].mult:SetText(data.Text)
             end
         end
     end
