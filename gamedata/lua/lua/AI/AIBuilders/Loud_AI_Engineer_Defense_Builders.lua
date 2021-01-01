@@ -48,6 +48,28 @@ local IsNavalMap = function( self, aiBrain, manager)
 
 end
 
+local IsEnemyCrushingLand = function(self,aiBrain,manager)
+
+    if aiBrain.LandRatio <= 0.9 then
+	
+		return 850, true	
+
+    end
+    
+    return self.Priority,true
+end
+
+local IsEnemyCrushingAir = function(self,aiBrain,manager)
+
+    if aiBrain.AirRatio <= 0.9 then
+	
+		return 850, true	
+
+    end
+    
+    return self.Priority,true
+end
+
 ---------------------
 --- THE MAIN BASE ---
 ---------------------
@@ -120,6 +142,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 		InstanceCount = 2,
 		
         Priority = 751,
+
+        PriorityFunction = IsEnemyCrushingLand,
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .65 } },
@@ -152,6 +176,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 751,
+
+        PriorityFunction = IsEnemyCrushingLand,
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .80 } },
@@ -187,6 +213,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 750,
+
+        PriorityFunction = IsEnemyCrushingAir,
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .65 } },
@@ -217,6 +245,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 750,
+
+        PriorityFunction = IsEnemyCrushingLand,
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .80 } },
@@ -249,6 +279,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 750,
+
+        PriorityFunction = IsEnemyCrushingLand,
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .80 } },
@@ -279,6 +311,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 750,
+
+        PriorityFunction = IsEnemyCrushingLand,
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .80 } },
@@ -309,6 +343,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 750, 
+
+        PriorityFunction = IsEnemyCrushingAir,
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .80 } },
@@ -374,6 +410,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 750,
+
+        PriorityFunction = IsEnemyCrushingLand,
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .80 } },
@@ -470,6 +508,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 750,
+
+        PriorityFunction = IsEnemyCrushingLand,
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .80 } },
@@ -501,7 +541,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         PlatoonTemplate = 'EngineerBuilderGeneral',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
-		Priority = 750,
+        Priority = 750,
+        
+        PriorityFunction = IsEnemyCrushingAir,
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .80 } },
@@ -539,7 +581,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction',
         
         Priority = 800,
 		
-		InstanceCount = 1,
+        InstanceCount = 1,
         
         BuilderConditions = {
 			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
@@ -1029,6 +1071,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 		InstanceCount = 1,
 		
         Priority = 740,
+
+        PriorityFunction = IsEnemyCrushingLand,
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .75 } },
@@ -1069,6 +1113,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 		InstanceCount = 1,
         
         Priority = 740,
+
+        PriorityFunction = IsEnemyCrushingLand,
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .75 } },
@@ -1112,6 +1158,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 		InstanceCount = 2,
 		
         Priority = 750,
+
+        PriorityFunction = IsEnemyCrushingLand,
 		
         BuilderConditions = {
 			{ LUTL, 'UnitCapCheckLess', { .80 } },
@@ -1154,6 +1202,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 		InstanceCount = 2,
 		
         Priority = 750,
+
+        PriorityFunction = IsEnemyCrushingAir,
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .80 } },		
@@ -1193,6 +1243,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 		InstanceCount = 1,
 		
         Priority = 750,
+
+        PriorityFunction = IsEnemyCrushingLand,
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .80 } },
@@ -1233,6 +1285,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 		InstanceCount = 1,
 		
         Priority = 730,
+
+        PriorityFunction = IsEnemyCrushingAir,
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .80 } },
@@ -1273,6 +1327,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 		InstanceCount = 1,
 		
         Priority = 730,
+
+        PriorityFunction = IsEnemyCrushingLand,
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .80 } },
@@ -1353,6 +1409,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 		FactionIndex = 4,
 
         Priority = 730,
+
+        PriorityFunction = IsEnemyCrushingLand,
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .80 } },
@@ -1455,6 +1513,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Picket Li
 		InstanceCount = 1,
         
         Priority = 750,
+
+        PriorityFunction = IsEnemyCrushingAir,
         
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .75 } },
@@ -1593,6 +1653,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 751,
+
+        PriorityFunction = IsEnemyCrushingLand,
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .65 } },
@@ -1623,6 +1685,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 750,
+
+        PriorityFunction = IsEnemyCrushingAir,
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .65 } },
@@ -1653,6 +1717,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 750,
+
+        PriorityFunction = IsEnemyCrushingLand,
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .65 } },
@@ -1683,6 +1749,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 710,
+
+        PriorityFunction = IsEnemyCrushingLand,
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
@@ -1715,6 +1783,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 750, 
+
+        PriorityFunction = IsEnemyCrushingAir,
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
@@ -1750,7 +1820,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 750,
-		
+        
+        PriorityFunction = IsEnemyCrushingLand,
+
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .75 } },
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
@@ -1784,6 +1856,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 750,
+
+        PriorityFunction = IsEnemyCrushingLand,
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .75 } },
@@ -1852,6 +1926,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 750,
+
+        PriorityFunction = IsEnemyCrushingLand,
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
@@ -1886,6 +1962,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 750,
+
+        PriorityFunction = IsEnemyCrushingAir,
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
@@ -2139,6 +2217,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 		InstanceCount = 1,
         
         Priority = 710,
+
+        PriorityFunction = IsEnemyCrushingLand,
         
         BuilderConditions = {
 			{ LUTL, 'LandStrengthRatioLessThan', { 1.1 } },
@@ -2184,6 +2264,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 		InstanceCount = 1,
         
         Priority = 710,
+
+        PriorityFunction = IsEnemyCrushingAir,
         
         BuilderConditions = {
 			{ LUTL, 'AirStrengthRatioLessThan', { 1 }},
@@ -2230,6 +2312,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 		InstanceCount = 1,
         
         Priority = 710,
+
+        PriorityFunction = IsEnemyCrushingLand,
         
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .75 } },
@@ -2268,6 +2352,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
         Priority = 710,
+
+        PriorityFunction = IsEnemyCrushingLand,
         
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .75 } },
@@ -2315,6 +2401,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
         Priority = 710,
+
+        PriorityFunction = IsEnemyCrushingAir,
         
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
