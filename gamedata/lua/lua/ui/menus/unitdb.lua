@@ -3,6 +3,7 @@
 
 local Bitmap = import('/lua/maui/bitmap.lua').Bitmap
 local BitmapCombo = import('/lua/ui/controls/combo.lua').BitmapCombo
+local Checkbox = import('/lua/maui/checkbox.lua').Checkbox
 local Combo = import('/lua/ui/controls/combo.lua').Combo
 local Edit = import('/lua/maui/edit.lua').Edit
 local FactionData = import('/lua/factions.lua')
@@ -14,7 +15,7 @@ local UIUtil = import('/lua/ui/uiutil.lua')
 
 -- Constants
 
-local dirs = {
+local mainDirs = {
 	'/units',
 	'/mods/4DC/units',
 	'/mods/BlackOpsUnleashed/units',
@@ -69,13 +70,35 @@ local unitDisplay = false
 local listContainer = false
 local resultText = false
 
+function ParseMerges(dir)
+	for _, file in DiskFindFiles(dir, '*_unit.bp') do
+		safecall("UNIT DB: Loading BP "..file, doscript, file)
+		local id = temp.BlueprintId
+		if allBlueprints[id] then
+			Merge(allBlueprints[id], temp)
+		else
+			WARN("UNIT DB: No merge possible at ID "..id)
+		end
+	end
+end
+
+function Merge(orig, new)
+	for nk, nv in new do
+		if type(orig[nk]) == 'table' then
+			Merge(orig[nk], nv)
+		else
+			orig[nk] = nv
+		end
+	end
+end
+
 function CreateUnitDB(over, inGame, callback)
 -- Parse BPs
 	-- Must plug UnitBlueprint() into engine before running doscript on .bps
 	doscript '/lua/ui/menus/unitdb_bps.lua'
 
 	local bpc = 1
-	for _, dir in dirs do
+	for _, dir in mainDirs do
 		for _, file in DiskFindFiles(dir, '*_unit.bp') do
 			-- RATODO: Certain BrewLAN IDs end with _large or _small
 			local mod = 'vanilla'
@@ -188,6 +211,7 @@ function CreateUnitDB(over, inGame, callback)
 	end
 	unitDisplay.abilities:SetFont(UIUtil.bodyFont, 12)
 	UIUtil.CreateVertScrollbarFor(unitDisplay.abilities)
+	unitDisplay.abilities:Hide()
 
 	unitDisplay.healthIcon = Bitmap(unitDisplay, UIUtil.UIFile('/game/build-ui/icon-health_bmp.dds'))
 	LayoutHelpers.Below(unitDisplay.healthIcon, unitDisplay.abilities, 6)
@@ -345,13 +369,83 @@ function CreateUnitDB(over, inGame, callback)
 	local listScrollbar = UIUtil.CreateVertScrollbarFor(listContainer, -16)
 	listScrollbar.Depth:Set(listScrollbar.Depth() + 20)
 
+-- Settings
+
+	local settingsContainer = Group(panel)
+	settingsContainer.Height:Set(120)
+	settingsContainer.Width:Set(262)
+	LayoutHelpers.RightOf(settingsContainer, listContainer, 28)
+
+	local settingsContainerTitle = UIUtil.CreateText(settingsContainer, 'Settings', 24, UIUtil.titleFont)
+	LayoutHelpers.AtTopIn(settingsContainerTitle, settingsContainer)
+	LayoutHelpers.AtHorizontalCenterIn(settingsContainerTitle, settingsContainer)
+
+	local settingGroupEvenflow = Group(settingsContainer)
+	settingGroupEvenflow.Height:Set(20)
+	settingGroupEvenflow.Width:Set(settingsContainer.Width)
+	LayoutHelpers.AtLeftTopIn(settingGroupEvenflow, settingsContainer, 0, 32)
+	local settingEvenflowLabel = UIUtil.CreateText(settingGroupEvenflow, 'LOUD EvenFlow', 14, UIUtil.bodyFont)
+	LayoutHelpers.AtLeftIn(settingEvenflowLabel, settingGroupEvenflow)
+	LayoutHelpers.AtVerticalCenterIn(settingEvenflowLabel, settingGroupEvenflow)
+
+	local evenflowCheckbox = UIUtil.CreateCheckboxStd(settingGroupEvenflow, '/dialogs/check-box_btn/radio')
+	LayoutHelpers.AtRightIn(evenflowCheckbox, settingGroupEvenflow)
+	LayoutHelpers.AtVerticalCenterIn(evenflowCheckbox, settingGroupEvenflow)
+	evenflowCheckbox.OnCheck = function(self, checked)
+		ToggleSetting('evenflow', checked)
+	end
+
+	local settingGroupArtillery = Group(settingsContainer)
+	settingGroupArtillery.Height:Set(20)
+	settingGroupArtillery.Width:Set(settingsContainer.Width)
+	LayoutHelpers.Below(settingGroupArtillery, settingGroupEvenflow, 4)
+	local settingArtyLabel = UIUtil.CreateText(settingGroupArtillery, 'Enhanced T4 Artillery', 14, UIUtil.bodyFont)
+	LayoutHelpers.AtLeftIn(settingArtyLabel, settingGroupArtillery)
+	LayoutHelpers.AtVerticalCenterIn(settingArtyLabel, settingGroupArtillery)
+
+	local artyCheckbox = UIUtil.CreateCheckboxStd(settingGroupArtillery, '/dialogs/check-box_btn/radio')
+	LayoutHelpers.AtRightIn(artyCheckbox, settingGroupArtillery)
+	LayoutHelpers.AtVerticalCenterIn(artyCheckbox, settingGroupArtillery)
+	artyCheckbox.OnCheck = function(self, checked)
+		ToggleSetting('artillery', checked)
+	end
+
+	local settingGroupCommanders = Group(settingsContainer)
+	settingGroupCommanders.Height:Set(20)
+	settingGroupCommanders.Width:Set(settingsContainer.Width)
+	LayoutHelpers.Below(settingGroupCommanders, settingGroupArtillery, 4)
+	local settingComLabel = UIUtil.CreateText(settingGroupCommanders, 'Enhanced Commanders', 14, UIUtil.bodyFont)
+	LayoutHelpers.AtLeftIn(settingComLabel, settingGroupCommanders)
+	LayoutHelpers.AtVerticalCenterIn(settingComLabel, settingGroupCommanders)
+
+	local comCheckbox = UIUtil.CreateCheckboxStd(settingGroupCommanders, '/dialogs/check-box_btn/radio')
+	LayoutHelpers.AtRightIn(comCheckbox, settingGroupCommanders)
+	LayoutHelpers.AtVerticalCenterIn(comCheckbox, settingGroupCommanders)
+	comCheckbox.OnCheck = function(self, checked)
+		ToggleSetting('commanders', checked)
+	end
+
+	local settingGroupNukes = Group(settingsContainer)
+	settingGroupNukes.Height:Set(20)
+	settingGroupNukes.Width:Set(settingsContainer.Width)
+	LayoutHelpers.Below(settingGroupNukes, settingGroupCommanders, 4)
+	local settingNukesLabel = UIUtil.CreateText(settingGroupNukes, 'Realistic Nukes', 14, UIUtil.bodyFont)
+	LayoutHelpers.AtLeftIn(settingNukesLabel, settingGroupNukes)
+	LayoutHelpers.AtVerticalCenterIn(settingNukesLabel, settingGroupNukes)
+
+	local nukesCheckbox = UIUtil.CreateCheckboxStd(settingGroupNukes, '/dialogs/check-box_btn/radio')
+	LayoutHelpers.AtRightIn(nukesCheckbox, settingGroupNukes)
+	LayoutHelpers.AtVerticalCenterIn(nukesCheckbox, settingGroupNukes)
+	nukesCheckbox.OnCheck = function(self, checked)
+		ToggleSetting('nukes', checked)
+	end
+
 -- FILTERS: Basics
 
 	local filterContainer = Group(panel)
-	filterContainer.Height:Set(556)
-	filterContainer.Width:Set(260)
-	filterContainer.top = 0
-	LayoutHelpers.RightOf(filterContainer, listContainer, 30)
+	filterContainer.Height:Set(384)
+	filterContainer.Width:Set(262)
+	LayoutHelpers.Below(filterContainer, settingsContainer, 4)
 
 	local filterContainerTitle = UIUtil.CreateText(filterContainer, 'Filters', 24, UIUtil.titleFont)
 	LayoutHelpers.AtTopIn(filterContainerTitle, filterContainer)
@@ -824,6 +918,8 @@ end
 function DisplayUnit(bp, id, index)
 	unitDisplay.name:SetText(LOC(bp.General.UnitName) or LOC(bp.Description) or 'Unnamed Unit')
 	unitDisplay.shortDesc:SetText(LOC(bp.Description) or 'Unnamed Unit')
+	unitDisplay.icon:Show()
+	unitDisplay.stratIcon:Show()
 	local ico = '/textures/ui/common/icons/units/'..id..'_icon.dds'
 	if noIcon[id] then
 		unitDisplay.icon:SetTexture(UIUtil.UIFile('/icons/units/default_icon.dds'))
@@ -876,6 +972,53 @@ function DisplayUnit(bp, id, index)
 		unitDisplay.fuelIcon:Hide()
 		unitDisplay.fuelTime:SetText('')
 	end
+end
+
+function ClearUnitDisplay()
+	unitDisplay.icon:Hide()
+	unitDisplay.stratIcon:Hide()
+	unitDisplay.name:SetText('')
+	unitDisplay.shortDesc:SetText('')
+	unitDisplay.longDesc:SetText('')
+	unitDisplay.technicals:SetText('')
+	unitDisplay.abilities:Hide()
+	unitDisplay.health:SetText('')
+	unitDisplay.cap:SetText('')
+	unitDisplay.mass:SetText('')
+	unitDisplay.energy:SetText('')
+	unitDisplay.buildTime:SetText('')
+	unitDisplay.fuelIcon:Hide()
+	unitDisplay.fuelTime:SetText('')
+end
+
+function ToggleSetting(setting, checked)
+	if checked then
+		if setting == 'evenflow' then
+			-- RATODO: Can't call the actual function in the hook file,
+			-- but this just seems wasteful
+			ApplyEvenflow()
+		elseif setting == 'artillery' then
+			ParseMerges('/mods/Artillery/hook/units')
+		elseif setting == 'commanders' then
+			ParseMerges('/mods/Commanders/hook/units')
+		elseif setting == 'nukes' then
+			ParseMerges('/mods/Realistic Nukes')
+		end
+	else
+		-- Purge and repopulate allBlueprints
+		allBlueprints = {}
+		for _, dir in mainDirs do
+			for _, file in DiskFindFiles(dir, '*_unit.bp') do
+				local id = string.sub(file, string.find(file, '[%a%d]*_unit%.bp$'))
+				id = string.sub(id, 1, string.len(id) - 8)
+				safecall("UNIT DB: Loading BP "..file, doscript, file)
+				allBlueprints[id] = temp
+			end
+		end
+	end
+	Filter()
+	ClearUnitDisplay()
+	listContainer:CalcVisible()
 end
 
 function Filter()
@@ -1131,4 +1274,260 @@ function ClearFilters()
 	filters['shield'] = 1
 	filters['intel'] = 1
 	filters['stealth'] = 1
+end
+
+function ApplyEvenflow()
+	local factory_buildpower_ratio = 4
+
+	for id,bp in allBlueprints do
+		
+		if bp.Categories then
+		
+			local max_mass, max_energy
+			local alt_mass, alt_energy
+	
+			for i, cat in bp.Categories do
+			
+				local reportflag = false
+				
+				local oldtime = 0
+		
+				-- structures --
+				if cat == 'STRUCTURE' then
+		
+					for j, catj in bp.Categories do
+				
+						if catj == 'TECH1' then
+					
+							max_mass = 5
+							max_energy = 50
+			
+							if bp.Economy.BuildTime then
+
+								alt_mass =  bp.Economy.BuildCostMass/max_mass * 5
+								alt_energy = bp.Economy.BuildCostEnergy/max_energy * 5
+							
+								local best_adjust = math.ceil(math.max( 1, alt_mass, alt_energy))
+								
+								if best_adjust != math.ceil(bp.Economy.BuildTime) then
+								
+									oldtime = bp.Economy.BuildTime
+									bp.Economy.BuildTime = best_adjust
+									reportflag = true
+								end
+							end
+						end
+				
+						if catj == 'TECH2' then
+					
+							max_mass = 10
+							max_energy = 100
+						
+							if bp.Economy.BuildTime then
+
+								alt_mass =  bp.Economy.BuildCostMass/max_mass * 10
+								alt_energy = bp.Economy.BuildCostEnergy/max_energy * 10									
+							
+								local best_adjust = math.ceil(math.max( 1, alt_mass, alt_energy))
+								
+								if best_adjust != math.ceil(bp.Economy.BuildTime) then
+								
+									oldtime = bp.Economy.BuildTime
+									bp.Economy.BuildTime = best_adjust
+									reportflag = true
+								end
+							end
+						end
+					
+						if catj == 'TECH3' then
+					
+							max_mass = 15
+							max_energy = 150
+						
+							if bp.Economy.BuildTime then
+
+								alt_mass =  bp.Economy.BuildCostMass/max_mass * 15
+								alt_energy = bp.Economy.BuildCostEnergy/max_energy * 15
+							
+								local best_adjust = math.ceil(math.max( 1, alt_mass, alt_energy))
+								
+								if best_adjust != math.ceil(bp.Economy.BuildTime) then
+
+									oldtime = bp.Economy.BuildTime
+									bp.Economy.BuildTime = best_adjust
+									reportflag = true
+								end
+							end
+						end
+
+						if catj == 'EXPERIMENTAL' then
+					
+							max_mass = 60
+							max_energy = 600
+
+							if bp.Economy.BuildTime then
+							
+								alt_mass =  bp.Economy.BuildCostMass/max_mass * 60
+								alt_energy = bp.Economy.BuildCostEnergy/max_energy * 60
+
+								local best_adjust = math.ceil(math.max( 1, alt_mass, alt_energy))
+
+								if best_adjust != math.ceil(bp.Economy.BuildTime) then
+								
+									oldtime = bp.Economy.BuildTime
+									bp.Economy.BuildTime = best_adjust
+									reportflag = true
+								end
+							end
+						end
+
+						-- factories would have immense self-upgrade speeds without this
+						if catj == 'FACTORY' then
+					
+							-- this is not the best solution for factory upgrades since it doesn't
+							-- quite follow the rules for factory built units - but it's close enough
+							-- and reasonably balanced across the factory types
+							
+							if bp.General.UpgradesFrom != nil then
+								bp.Economy.BuildTime = bp.Economy.BuildTime * 2.75
+							end
+							
+						end
+						
+					end
+
+					-- this covers MOBILE Factories - namely Cybran Eggs - which are structures themselves that produce mobile units
+					if bp.Economy.BuildUnit then
+						bp.Economy.BuildTime = bp.Economy.BuildTime * (1/2) * factory_buildpower_ratio
+					end
+
+				end
+
+				-- units --
+				if cat == 'MOBILE' then		-- ok lets handle all the factory built mobile units and mobile experimentals
+				
+					-- You'll notice that I allow factory built units to build with higher energy limits (scales up thru tiers - 20,30,45)
+					-- this compensates somewhat for the division of their buildpower (in particular for the energy heavy air factories)
+					for j, catj in bp.Categories do
+				
+						if catj == 'TECH1' then
+							
+							local buildpower = 40	-- default T1 factory buildpower
+							
+							max_mass = buildpower / factory_buildpower_ratio
+							max_energy = (buildpower * 20) / factory_buildpower_ratio
+			
+							if bp.Economy.BuildTime then
+
+								alt_mass =  bp.Economy.BuildCostMass/max_mass		-- about 10 mass/second
+								alt_energy = bp.Economy.BuildCostEnergy/max_energy	-- about 200 energy/second
+
+								-- regardless of the mass & energy, a minimum build time of 1 second is required
+								-- or else you get very wierd economy results when building the unit
+								local best_adjust = math.max( 1, alt_mass, alt_energy)
+								
+								--LOG("*AI DEBUG id is "..repr(catj).." "..id.."  alt_mass is "..alt_mass.."  alt_energy is "..alt_energy.." Adjusting Buildtime from "..repr(bp.Economy.BuildTime).." to "..( best_adjust * buildpower ) )
+
+								if math.ceil( best_adjust * buildpower ) != math.ceil(bp.Economy.BuildTime) then
+
+									oldtime = bp.Economy.BuildTime
+									
+									--LOG("*AI DEBUG id is "..repr(catj).." "..id.."  alt_mass is "..alt_mass.."  alt_energy is "..alt_energy.." Adjusting Buildtime from "..repr(bp.Economy.BuildTime).." to "..( best_adjust * buildpower ) )
+									
+									bp.Economy.BuildTime = best_adjust
+								
+									bp.Economy.BuildTime = math.ceil(bp.Economy.BuildTime * buildpower)
+									
+									reportflag = true
+								end
+							end
+						end
+				
+						if catj == 'TECH2' then
+							
+							local buildpower = 70	-- default T2 factory buildpower
+							
+							max_mass = buildpower / factory_buildpower_ratio
+							max_energy = (buildpower * 30) / factory_buildpower_ratio
+						
+							if bp.Economy.BuildTime then
+								
+								alt_mass =  bp.Economy.BuildCostMass/max_mass       -- about 17.5 mass/second
+								alt_energy = bp.Economy.BuildCostEnergy/max_energy  -- about 525 energy/second
+							
+								local best_adjust = math.max( 1, alt_mass, alt_energy)
+								
+								if math.ceil( best_adjust * buildpower ) != math.ceil(bp.Economy.BuildTime) then									
+								
+									oldtime = bp.Economy.BuildTime
+									
+									--LOG("*AI DEBUG id is "..repr(catj).." "..id.."  alt_mass is "..alt_mass.."  alt_energy is "..alt_energy.." Adjusting Buildtime from "..repr(bp.Economy.BuildTime).." to "..( best_adjust * buildpower ) )
+								
+									bp.Economy.BuildTime = best_adjust
+								
+									bp.Economy.BuildTime = math.ceil(bp.Economy.BuildTime * buildpower)
+									
+									reportflag = true
+								end
+							end
+						end
+					
+						if catj == 'TECH3' then
+							
+							local buildpower = 100	-- default T3 factory buildpower
+							
+							max_mass = buildpower / factory_buildpower_ratio            -- about 25 mass/second
+							max_energy = (buildpower * 45) / factory_buildpower_ratio   -- about 1125 energy/second
+						
+							if bp.Economy.BuildTime then
+
+								alt_mass =  bp.Economy.BuildCostMass/max_mass
+								alt_energy = bp.Economy.BuildCostEnergy/max_energy
+							
+								local best_adjust = math.max( 1, alt_mass, alt_energy)
+
+								if math.ceil( best_adjust * buildpower ) != math.ceil(bp.Economy.BuildTime) then
+								
+									oldtime = bp.Economy.BuildTime
+									
+									bp.Economy.BuildTime = best_adjust
+								
+									bp.Economy.BuildTime = math.ceil(bp.Economy.BuildTime * buildpower)
+									
+									reportflag = true
+								end
+							end
+						end
+						
+						-- OK - a small problem here - No factory built experimentals - these will be the SACU built MOBILE units
+						-- as engineers they have remarkable bulidpower rates for mass compared to factories - but lower energy rates
+						-- that are only slightly improved over a T2 factory
+						if catj == 'EXPERIMENTAL' then
+					
+							max_mass = 60
+							max_energy = 600
+
+							if bp.Economy.BuildTime then
+								
+								-- experimental units are not factory built so factory_buildpower_ratio is NO applied (we just use the default SACU buildpower (60)
+								alt_mass =  (bp.Economy.BuildCostMass/max_mass) * 60
+								alt_energy = (bp.Economy.BuildCostEnergy/max_energy) * 60
+							
+								local best_adjust = math.max( 1, alt_mass, alt_energy)
+								
+								if math.ceil( best_adjust ) != math.ceil(bp.Economy.BuildTime) then																		
+
+									oldtime = bp.Economy.BuildTime
+									
+									bp.Economy.BuildTime = math.ceil(best_adjust)
+									
+									reportflag = true
+								end
+							end
+						end
+					end
+				end
+			end
+		end
+	end
 end
