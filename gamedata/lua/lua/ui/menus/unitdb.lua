@@ -19,6 +19,7 @@ local mainDirs = {
 	'/units',
 	'/mods/4DC/units',
 	'/mods/BlackOpsUnleashed/units',
+	'/mods/BlackopsACUs/units',
 	'/mods/BrewLAN_LOUD/units',
 	'/mods/LOUD Unit Additions/units',
 	'/mods/TotalMayhem/units',
@@ -123,14 +124,16 @@ function CreateUnitDB(over, inGame, callback)
 				origin[bpc] = 3
 			elseif mod == 'blackopsunleashed' then
 				origin[bpc] = 4
-			elseif mod == 'brewlan_loud' then
+			elseif mod == 'blackopsacus' then
 				origin[bpc] = 5
-			elseif mod == 'loud unit additions' then
+			elseif mod == 'brewlan_loud' then
 				origin[bpc] = 6
-			elseif mod == 'totalmayhem' then
+			elseif mod == 'loud unit additions' then
 				origin[bpc] = 7
-			elseif mod == 'battlepack' then
+			elseif mod == 'totalmayhem' then
 				origin[bpc] = 8
+			elseif mod == 'battlepack' then
+				origin[bpc] = 9
 			end
 			notFiltered[bpc] = true
 			bpc = bpc + 1
@@ -559,6 +562,7 @@ function CreateUnitDB(over, inGame, callback)
 		'Vanilla',
 		'4th Dimension Units',
 		'BlackOps Unleashed',
+		'BlackOps ACUs',
 		'BrewLAN LOUD',
 		'LOUD Unit Additions',
 		'Total Mayhem',
