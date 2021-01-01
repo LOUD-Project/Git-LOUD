@@ -122,6 +122,7 @@ local localPlayerID = false
 local gameInfo = false
 local pmDialog = false
 local missingModDialog = false
+local colorPicker = false
 
 local hasSupcom = true
 local hasFA = true
@@ -2201,6 +2202,86 @@ function ClearBadMapFlags()
     end
 end
 
+function ShowColorPicker(row, x, y)
+    colorPicker = Bitmap(GUI, UIUtil.UIFile('/dialogs/exit-dialog/panel02_bmp.dds'))
+    colorPicker.Left:Set(x)
+    colorPicker.Top:Set(y)
+    colorPicker.Depth:Set(GUI.Depth() + 20)
+    -- "Color circle (RGB)" distributed under CC BY-SA 4.0 by Sanjay7373 of Wikimedia Commons
+    -- https://creativecommons.org/licenses/by-sa/4.0/deed.en
+    colorPicker.wheel = Bitmap(colorPicker, UIUtil.UIFile('/lobby/colorpicker.dds'))
+    LayoutHelpers.AtTopIn(colorPicker.wheel, colorPicker, 8)
+    LayoutHelpers.AtHorizontalCenterIn(colorPicker.wheel, colorPicker)
+    colorPicker.color = '00000000'
+    colorPicker.wheelCentre = {
+        x = colorPicker.wheel.Left() + (colorPicker.wheel.Width() / 2),
+        y = colorPicker.wheel.Top() + (colorPicker.wheel.Height() / 2),
+    }
+    colorPicker.preview = Bitmap(colorPicker)
+    colorPicker.preview.Width:Set(60)
+    colorPicker.preview.Height:Set(20)
+    LayoutHelpers.Below(colorPicker.preview, colorPicker.wheel, 6)
+    LayoutHelpers.AtHorizontalCenterIn(colorPicker.preview, colorPicker)
+    colorPicker.preview:SetSolidColor(colorPicker.color)
+    colorPicker.wheel.HandleEvent = function(self, event)
+        if event.Type == 'ButtonPress' or event.Type == 'ButtonDClick' then
+            local cX = event.MouseX - colorPicker.wheelCentre.x 
+            local cY = event.MouseY - colorPicker.wheelCentre.y
+            local dist = math.sqrt(math.pow(cX, 2) + math.pow(cY, 2))
+            local vUp = {
+                x = 0,
+                y = -120,
+            }
+            local vE = {
+                x = cX,
+                y = cY,
+            }
+            local angle = math.atan2(vE.y, vE.x) - math.atan2(vUp.y, vUp.x)
+            if angle < 0 then angle = angle + (2 * math.pi) end -- Normalize
+            angle = math.deg(angle)
+            local sat = dist * (1 / 120)
+            local val = 1
+
+            -- https://gist.github.com/GigsD4X/8513963
+            local function HSVToRGB( hue, saturation, value )
+                -- Returns the RGB equivalent of the given HSV-defined color
+                -- (adapted from some code found around the web)
+            
+                -- If it's achromatic, just return the value
+                if saturation == 0 then
+                    return value, value, value;
+                end;
+            
+                -- Get the hue sector
+                local hue_sector = math.floor(hue / 60);
+                local hue_sector_offset = (hue / 60) - hue_sector;
+            
+                local p = value * (1 - saturation);
+                local q = value * (1 - saturation * hue_sector_offset);
+                local t = value * (1 - saturation * (1 - hue_sector_offset));
+            
+                if hue_sector == 0 then
+                    return value, t, p
+                elseif hue_sector == 1 then
+                    return q, value, p
+                elseif hue_sector == 2 then
+                    return p, value, t
+                elseif hue_sector == 3 then
+                    return p, q, value
+                elseif hue_sector == 4 then
+                    return t, p, value
+                elseif hue_sector == 5 then
+                    return value, p, q
+                end
+            end
+
+            local r, g, b = HSVToRGB(angle, sat, val)
+            colorPicker.color = string.format("%02x%02x%02x%02x", 255, r * 255, g * 255, b * 255)
+            colorPicker.preview:SetSolidColor(colorPicker.color)
+        end
+    end
+end
+
 -- create UI won't typically be called directly by another module
 function CreateUI(maxPlayers, useSteam)
 
@@ -2968,6 +3049,7 @@ function CreateUI(maxPlayers, useSteam)
 			self:Hide()
 		end
 
+-- Old colour selection
         GUI.slots[i].color = BitmapCombo(bg, gameColors.PlayerColors, 1, true, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
         LayoutHelpers.AtLeftIn(GUI.slots[i].color, GUI.panel, slotColumnSizes.color.x)
         LayoutHelpers.AtVerticalCenterIn(GUI.slots[i].color, GUI.slots[i])
@@ -3003,6 +3085,23 @@ function CreateUI(maxPlayers, useSteam)
         Tooltip.AddControlTooltip(GUI.slots[i].color, 'lob_color')
         
         GUI.slots[i].color.row = i
+--]]
+--[[ New colour selection
+        GUI.slots[i].color = Bitmap(bg)
+        LayoutHelpers.AtLeftIn(GUI.slots[i].color, GUI.panel, slotColumnSizes.color.x)
+        LayoutHelpers.AtVerticalCenterIn(GUI.slots[i].color, GUI.slots[i])
+        GUI.slots[i].color.Width:Set(slotColumnSizes.color.width)
+        GUI.slots[i].color.Height:Set(14)
+        GUI.slots[i].color.row = i
+
+        GUI.slots[i].color:SetSolidColor('33446699')
+        GUI.slots[i].color.HandleEvent = function(self, event)
+            if event.Type == 'ButtonPress' or event.Type == 'ButtonDClick' then
+                ShowColorPicker(self.row, event.MouseX, event.MouseY)
+                Tooltip.DestroyMouseoverDisplay()
+            end
+        end
+--]]
 
         GUI.slots[i].faction = BitmapCombo(bg, factionBmps, table.getn(factionBmps), nil, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
 		
