@@ -872,8 +872,8 @@ EngineerManager = Class(BuilderManager) {
 
 						-- if we raised a threat -- and don't already have one of this type --
 						-- AlertsTables can now log multiple threats of the same type --
-						-- Let's see what effect this has --
-						if alertraised --[[ and not self.BaseMonitor.AlertsTable[highThreatType] ]] then
+
+						if alertraised and not self.BaseMonitor.AlertsTable[highThreatType] then
 			
 							-- update the BaseMonitors total active alerts
 							self.BaseMonitor.ActiveAlerts = self.BaseMonitor.ActiveAlerts + 1
@@ -954,8 +954,6 @@ EngineerManager = Class(BuilderManager) {
 	-- Sure - this could be modded to have multiple threats of the same kind going on at once,
 	-- but my fear here was having the responding units ping-ponging between two or more threats at once. 
 
-	-- Ping-ponging between two or more threats doesn't look to be an issue of yet.
-	-- but I need to see it in a live situation to study it.
 	BaseMonitorAlertTimeoutLOUD = function( self, aiBrain, pos, baseposition, threattype, distressrange )
 
 		local threshold = self.BaseMonitor.AlertLevel
@@ -1508,7 +1506,7 @@ EngineerManager = Class(BuilderManager) {
 				-- as a base responds to a continued alert I want to gradually slow the response loop
 				-- this allows a base more time to gather additional units before sending them out 
 				-- this will reduce the effect of 'kiting' the AI out of his base by triggering an alert
-				self.BaseMonitor.DistressRepeats = math.min(self.BaseMonitor.DistressRepeats + 1, 6)
+				self.BaseMonitor.DistressRepeats = math.min(self.BaseMonitor.DistressRepeats + 1, 8)
                 
 			else
                 self.BaseMonitor.DistressRepeats = 0
