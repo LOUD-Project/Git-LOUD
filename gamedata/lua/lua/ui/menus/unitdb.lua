@@ -3,7 +3,6 @@
 
 local Bitmap = import('/lua/maui/bitmap.lua').Bitmap
 local BitmapCombo = import('/lua/ui/controls/combo.lua').BitmapCombo
-local Checkbox = import('/lua/maui/checkbox.lua').Checkbox
 local Combo = import('/lua/ui/controls/combo.lua').Combo
 local Edit = import('/lua/maui/edit.lua').Edit
 local FactionData = import('/lua/factions.lua')
@@ -12,6 +11,7 @@ local ItemList = import('/lua/maui/itemlist.lua').ItemList
 local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
 local Tooltip = import('/lua/ui/game/tooltip.lua')
 local UIUtil = import('/lua/ui/uiutil.lua')
+local UVD = import('/lua/ui/game/unitviewDetail.lua')
 
 -- Constants
 
@@ -250,6 +250,18 @@ function CreateUnitDB(over, inGame, callback)
 	LayoutHelpers.RightOf(unitDisplay.fuelTime, unitDisplay.fuelIcon, 6)
 	unitDisplay.fuelTime:DisableHitTest()
 	unitDisplay.fuelIcon:Hide()
+
+	unitDisplay.weaponsLabel = UIUtil.CreateText(unitDisplay, 'Weapons', 18, UIUtil.buttonFont)
+	LayoutHelpers.Below(unitDisplay.weaponsLabel, unitDisplay.fuelIcon, 6)
+	LayoutHelpers.AtHorizontalCenterIn(unitDisplay.weaponsLabel, unitDisplay)
+
+	unitDisplay.weapons = ItemList(unitDisplay)
+	LayoutHelpers.Below(unitDisplay.weapons, unitDisplay.fuelIcon, 32)
+	unitDisplay.weapons.Width:Set(unitDisplay.Width)
+	unitDisplay.weapons.Height:Set(0)
+	unitDisplay.weapons:SetFont(UIUtil.bodyFont, 12)
+	UIUtil.CreateVertScrollbarFor(unitDisplay.weapons)
+	unitDisplay.weapons:Hide()
 
 -- List of filtered units
 
@@ -976,6 +988,316 @@ function DisplayUnit(bp, id, index)
 		unitDisplay.fuelIcon:Hide()
 		unitDisplay.fuelTime:SetText('')
 	end
+
+	if bp.Weapon then
+		unitDisplay.weapons:Show()
+		unitDisplay.weapons:DeleteAllItems()
+		unitDisplay.weapons.Height:Set(120)
+
+		local textLines = {}
+		-- Import PhoenixMT's DPS Calculator script.
+		doscript '/lua/PhxLib.lua'
+
+		-- Used for comparing last weapon checked.
+		local lastWeaponDmg = 0
+		local lastWeaponDPS = 0
+		local lastWeaponPPOF = 0
+		local lastWeaponDoT = 0
+		local lastWeaponDmgRad = 0
+		local lastWeaponMinRad = 0
+		local lastWeaponMaxRad = 0
+		local lastWeaponROF = 0
+		local lastWeaponFF = false
+		local lastWeaponCF = false
+		local lastWeaponTarget = ''
+		local lastWeaponNukeInDmg = 0
+		local lastWeaponNukeInRad = 0
+		local lastWeaponNukeOutDmg = 0
+		local lastWeaponNukeOutRad = 0
+		local weaponText = ""
+
+		-- BuffType.
+		local bType = ""
+		-- Weapon Category is checked to color lines, as well as checked for countermeasure weapons and differentiating the info displayed.
+		local wepCategory = ""
+
+		local dupWeaponCount = 1
+
+		for _, weapon in bp.Weapon do
+			-- Check for DummyWeapon Label (Used by Paragons for Range Rings).
+			if string.find(weapon.Label, 'Dummy')
+			or string.find(weapon.Label, 'Tractor')
+			or string.find(weapon.Label, 'Painter') then
+				continue
+			end
+
+			-- Check for RangeCategories.
+			if weapon.RangeCategory ~= nil then
+				if weapon.RangeCategory == 'UWRC_DirectFire' then
+					wepCategory = "Direct"
+				end
+				if weapon.RangeCategory == 'UWRC_IndirectFire' then
+					wepCategory = "Indirect"
+				end
+				if weapon.RangeCategory == 'UWRC_AntiAir' then
+					wepCategory = "Anti Air"
+				end
+				if weapon.RangeCategory == 'UWRC_AntiNavy' then
+					wepCategory = "Anti Navy"
+				end
+				if weapon.RangeCategory == 'UWRC_Countermeasure' then
+					wepCategory = " Defense"
+				end
+			end
+
+			-- Check for Death weapon labels
+			if string.find(weapon.Label, 'Death') then
+				wepCategory = "Volatile"
+			end
+			if weapon.Label == 'DeathImpact' then
+				wepCategory = "Crash"
+			end
+			if weapon.Label == 'Suicide' then
+				wepCategory = "Suicide"
+			end
+
+			-- These weapons have no RangeCategory, but do have Labels.
+			if weapon.Label == 'Bomb' then
+				wepCategory = "Indirect"
+			end
+			if weapon.Label == 'Torpedo' then
+				wepCategory = "Anti Navy"
+			end
+			if weapon.Label == 'QuantumBeamGeneratorWeapon' then
+				wepCategory = "Direct"
+			end
+			if weapon.Label == 'ChinGun' then
+				wepCategory = "Direct"
+			end
+			if string.find(weapon.Label, 'Melee') then
+				wepCategory = "Melee"
+			end
+
+			-- Check if we're a Nuke weapon by checking our InnerRingDamage, which all Nukes must have.
+			if weapon.NukeInnerRingDamage > 0 then
+				wepCategory = "Nuke"
+			end
+
+			-- Now categories are established, we check which category we ended up using.
+
+			-- Check if it's a death weapon.
+			if wepCategory == "Crash" or wepCategory == "Volatile" or wepCategory == "Suicide" then
+
+				-- Start the weaponText string with the weapon category.
+				weaponText = '> '..wepCategory
+
+				-- Check DamageFriendly and concat.
+				if weapon.CollideFriendly ~= false or weapon.DamageRadius > 0 then
+					weaponText = (weaponText .. " (FF)")
+				end
+
+				-- Concat damage.
+				weaponText = (weaponText .. " { Dmg: " .. UVD.LOUD_ThouCheck(weapon.Damage))
+
+				-- Check DamageRadius and concat.
+				if weapon.DamageRadius > 0 then
+					weaponText = (weaponText .. ", AoE: " .. UVD.LOUD_KiloCheck(weapon.DamageRadius * 20))
+				end
+
+				-- Finish text line.
+				weaponText = (weaponText .. " }")
+
+				-- Insert death weapon text line.
+				table.insert(textLines, weaponText)
+
+			-- Check if it's a nuke weapon.
+			elseif wepCategory == "Nuke" then
+
+				-- Check if this nuke is a Death nuke.
+				if string.find(weapon.Label, "Death") then
+					wepCategory = "Volatile"
+				end
+				weaponText = '> '..wepCategory
+
+				-- Check DamageFriendly and Buffs
+				if weapon.CollideFriendly ~= false or (weapon.NukeInnerRingRadius > 0 and weapon.DamageFriendly ~= false) or weapon.Buffs ~= nil then
+					weaponText = (weaponText .. " (")
+					if weapon.Buffs then
+						for i, buff in weapon.Buffs do
+							bType = buff.BuffType
+							if i == 1 then
+								weaponText = (weaponText .. bType)
+							else
+								weaponText = (weaponText .. ", " .. bType)
+							end
+						end
+					end
+					if weapon.CollideFriendly ~= false or (weapon.NukeInnerRingRadius > 0 and weapon.DamageFriendly ~= false) then
+						if weapon.Buffs then
+							weaponText = (weaponText .. ", FF")
+						else
+							weaponText = (weaponText .. "FF")
+						end
+					end
+					weaponText = (weaponText .. ")")
+				end
+
+				weaponText = (weaponText .. " { Inner Dmg: " .. UVD.LOUD_ThouCheck(weapon.NukeInnerRingDamage) .. ", AoE: " .. UVD.LOUD_KiloCheck(weapon.NukeInnerRingRadius * 20) .. " | Outer Dmg: " .. UVD.LOUD_ThouCheck(weapon.NukeOuterRingDamage) .. ", AoE: " .. UVD.LOUD_KiloCheck(weapon.NukeOuterRingRadius * 20))
+
+				-- Finish text lines.
+				weaponText = (weaponText .. " }")
+
+				if weapon.NukeInnerRingDamage == lastWeaponNukeInDmg and weapon.NukeInnerRingRadius == lastWeaponNukeInRad  and weapon.NukeOuterRingDamage == lastWeaponNukeOutDmg and weapon.NukeOuterRingRadius == lastWeaponNukeOutRad and weapon.DamageFriendly == lastWeaponFF then
+					dupWeaponCount = dupWeaponCount + 1
+					-- Remove the old lines, to insert the new ones with the updated weapon count.
+					table.remove(textLines, table.getn(textLines))
+					table.insert(textLines, string.format("%s (x%d)", weaponText, dupWeaponCount))
+				else
+					dupWeaponCount = 1
+					-- Insert the textLine.
+					table.insert(textLines, weaponText)
+				end
+			else
+				-- Start the weaponText string if we do damage.
+				if weapon.Damage > 0.01 then
+
+					-- Start weaponText string with label and category.
+					weaponText = weapon.DisplayName
+					weaponText = '> '..weaponText..' - '..wepCategory
+
+					-- Check DamageFriendly and Buffs
+					if wepCategory ~= " Defense" and wepCategory ~= "Melee" then
+						if weapon.CollideFriendly ~= false or (weapon.DamageRadius > 0 and weapon.DamageFriendly ~= false) or weapon.Buffs ~= nil then
+							weaponText = (weaponText .. " (")
+							if weapon.Buffs then
+								for i, buff in weapon.Buffs do
+									bType = buff.BuffType
+									if i == 1 then
+										weaponText = (weaponText .. bType)
+									else
+										weaponText = (weaponText .. ", " .. bType)
+									end
+								end
+							end
+							if weapon.CollideFriendly ~= false or (weapon.DamageRadius > 0 and weapon.DamageFriendly ~= false) then
+								if weapon.Buffs then
+									weaponText = (weaponText .. ", FF")
+								else
+									weaponText = (weaponText .. "FF")
+								end
+							end
+							weaponText = (weaponText .. ")")
+						end
+
+						-- Concat Damage. We don't check it here because we already checked it exists to get this far.
+						weaponText = (weaponText .. " { Dmg: " .. UVD.LOUD_ThouCheck(weapon.Damage))
+
+						-- Check PPF and concat.
+						if weapon.ProjectilesPerOnFire > 1 then
+							weaponText = (weaponText .. " (" .. tostring(weapon.ProjectilesPerOnFire) .. " Shots)")
+						end
+
+						-- Check DoTPulses and concat.
+						if weapon.DoTPulses > 0 then
+							weaponText = (weaponText .. " (" .. tostring(weapon.DoTPulses) .. " Hits)")
+						end
+
+						-- Concat DPS, calculated from PhxLib.
+						weaponText = (weaponText .. ", DPS: " .. UVD.LOUD_ThouCheck(math.floor(PhxLib.PhxWeapDPS(weapon).DPS + 0.5)))
+
+						-- Check DamageRadius and concat.
+						if weapon.DamageRadius > 0 then
+							weaponText = (weaponText .. ", AoE: " .. UVD.LOUD_KiloCheck(weapon.DamageRadius * 20))
+						end
+					else
+						if wepCategory == " Defense" then
+							-- Display Countermeasure Targets as the weapon type.
+							if weapon.TargetRestrictOnlyAllow then
+								weaponText = (UVD.LOUD_CaseCheck(weapon.TargetRestrictOnlyAllow) .. wepCategory)
+							end
+
+							-- If a weapon is a Countermeasure, we don't care about its damage or DPS, as it's all very small numbers purely for shooting projectiles.
+							weaponText = (weaponText .. " {")
+
+							-- Show RoF for Countermeasure weapons.
+							if PhxLib.PhxWeapDPS(weapon).RateOfFire > 0 then
+								weaponText = (weaponText .. " RoF: " .. string.format("%.2f", PhxLib.PhxWeapDPS(weapon).RateOfFire) .. "/s"):gsub("%.?0+$", "")
+							end
+						end
+						-- Special case for Melee weapons, only showing Damage.
+						if wepCategory == "Melee" then
+							weaponText = (weaponText .. " { Dmg: " .. UVD.LOUD_ThouCheck(weapon.Damage))
+						end
+					end
+
+					-- Check RateOfFire and concat.
+					--[[(NOTE: Commented out for now. DPS can infer ROF well enough
+					and we have limited real-estate in the rollover box
+					until someone figures out how to extend its width limit.)
+					if PhxLib.PhxWeapDPS(weapon).RateOfFire > 0 then
+						weaponText = (weaponText .. ", RoF: " .. LOUDFORMAT("%.2f", weapon.RateOfFire) .. "/s"):gsub("%.?0+$", "")
+					end
+					--]]
+
+					-- Check Min/Max Radius and concat.
+					if weapon.MaxRadius > 0 then
+						if weapon.MinRadius > 0 then
+							weaponText = (weaponText .. ", Rng: " .. UVD.LOUD_KiloCheck(weapon.MinRadius * 20) .. "-" .. UVD.LOUD_KiloCheck(weapon.MaxRadius * 20))
+						else
+							weaponText = (weaponText .. ", Rng: " .. UVD.LOUD_KiloCheck(weapon.MaxRadius * 20))
+						end
+					end
+
+					-- Finish text line.
+					weaponText = (weaponText .. " }")
+
+					-- Check duplicate weapons. We compare lots of values here,
+					-- any slight difference should be considered a different weapon.
+					if weapon.Damage == lastWeaponDmg and math.floor(PhxLib.PhxWeapDPS(weapon).DPS + 0.5) == lastWeaponDPS
+					and weapon.ProjectilesPerOnFire == lastWeaponPPOF and weapon.DoTPulses == lastWeaponDoT
+					and weapon.DamageRadius == lastWeaponDmgRad and weapon.MinRadius == lastWeaponMinRad
+					and weapon.MaxRadius == lastWeaponMaxRad and weapon.DamageFriendly == lastWeaponFF
+					and PhxLib.PhxWeapDPS(weapon).RateOfFire == lastWeaponROF and weapon.CollideFriendly == lastWeaponCF
+					and weapon.TargetRestrictOnlyAllow == lastWeaponTarget then
+						dupWeaponCount = dupWeaponCount + 1
+						-- Remove the old line, to insert the new one with the updated weapon count.
+						table.remove(textLines, table.getn(textLines))
+						table.insert(textLines, string.format("%s (x%d)", weaponText, dupWeaponCount))
+					else
+						dupWeaponCount = 1
+						-- Insert the textLine.
+						table.insert(textLines, weaponText)
+					end
+				end
+			end
+
+			-- Set lastWeapon stuff.
+			lastWeaponDmg = weapon.Damage
+			lastWeaponDPS = math.floor(PhxLib.PhxWeapDPS(weapon).DPS + 0.5)
+			lastWeaponPPOF = weapon.ProjectilesPerOnFire
+			lastWeaponDoT = weapon.DoTPulses
+			lastWeaponDmgRad = weapon.DamageRadius
+			lastWeaponROF = PhxLib.PhxWeapDPS(weapon).RateOfFire
+			lastWeaponMinRad = weapon.MinRadius
+			lastWeaponMaxRad = weapon.MaxRadius
+			lastWeaponFF = weapon.DamageFriendly
+			lastWeaponCF = weapon.CollideFriendly
+			lastWeaponTarget = weapon.TargetRestrictOnlyAllow
+			lastWeaponNukeInDmg = weapon.NukeInnerRingDamage
+			lastWeaponNukeInRad = weapon.NukeInnerRingRadius
+			lastWeaponNukeOutDmg = weapon.NukeOuterRingDamage
+			lastWeaponNukeOutRad = weapon.NukeOuterRingRadius
+		end
+		for _, tl in textLines do
+			local wrapped = import('/lua/maui/text.lua').WrapText(tl, unitDisplay.weapons.Width(), function(curText) return unitDisplay.weapons:GetStringAdvance(curText) end)
+			for _, line in wrapped do
+				unitDisplay.weapons:AddItem(line)
+			end
+		end
+	else
+		unitDisplay.weapons:Hide()
+		unitDisplay.weapons.Height:Set(0)
+	end
 end
 
 function ClearUnitDisplay()
@@ -1285,77 +1607,77 @@ function ApplyEvenflow()
 	local factory_buildpower_ratio = 4
 
 	for id,bp in allBlueprints do
-		
+
 		if bp.Categories then
-		
+
 			local max_mass, max_energy
 			local alt_mass, alt_energy
-	
+
 			for i, cat in bp.Categories do
-			
+
 				local reportflag = false
-				
+
 				local oldtime = 0
-		
+
 				-- structures --
 				if cat == 'STRUCTURE' then
-		
+
 					for j, catj in bp.Categories do
-				
+
 						if catj == 'TECH1' then
-					
+
 							max_mass = 5
 							max_energy = 50
-			
+
 							if bp.Economy.BuildTime then
 
 								alt_mass =  bp.Economy.BuildCostMass/max_mass * 5
 								alt_energy = bp.Economy.BuildCostEnergy/max_energy * 5
-							
+
 								local best_adjust = math.ceil(math.max( 1, alt_mass, alt_energy))
-								
+
 								if best_adjust != math.ceil(bp.Economy.BuildTime) then
-								
+
 									oldtime = bp.Economy.BuildTime
 									bp.Economy.BuildTime = best_adjust
 									reportflag = true
 								end
 							end
 						end
-				
+
 						if catj == 'TECH2' then
-					
+
 							max_mass = 10
 							max_energy = 100
-						
+
 							if bp.Economy.BuildTime then
 
 								alt_mass =  bp.Economy.BuildCostMass/max_mass * 10
-								alt_energy = bp.Economy.BuildCostEnergy/max_energy * 10									
-							
+								alt_energy = bp.Economy.BuildCostEnergy/max_energy * 10
+
 								local best_adjust = math.ceil(math.max( 1, alt_mass, alt_energy))
-								
+
 								if best_adjust != math.ceil(bp.Economy.BuildTime) then
-								
+
 									oldtime = bp.Economy.BuildTime
 									bp.Economy.BuildTime = best_adjust
 									reportflag = true
 								end
 							end
 						end
-					
+
 						if catj == 'TECH3' then
-					
+
 							max_mass = 15
 							max_energy = 150
-						
+
 							if bp.Economy.BuildTime then
 
 								alt_mass =  bp.Economy.BuildCostMass/max_mass * 15
 								alt_energy = bp.Economy.BuildCostEnergy/max_energy * 15
-							
+
 								local best_adjust = math.ceil(math.max( 1, alt_mass, alt_energy))
-								
+
 								if best_adjust != math.ceil(bp.Economy.BuildTime) then
 
 									oldtime = bp.Economy.BuildTime
@@ -1366,19 +1688,19 @@ function ApplyEvenflow()
 						end
 
 						if catj == 'EXPERIMENTAL' then
-					
+
 							max_mass = 60
 							max_energy = 600
 
 							if bp.Economy.BuildTime then
-							
+
 								alt_mass =  bp.Economy.BuildCostMass/max_mass * 60
 								alt_energy = bp.Economy.BuildCostEnergy/max_energy * 60
 
 								local best_adjust = math.ceil(math.max( 1, alt_mass, alt_energy))
 
 								if best_adjust != math.ceil(bp.Economy.BuildTime) then
-								
+
 									oldtime = bp.Economy.BuildTime
 									bp.Economy.BuildTime = best_adjust
 									reportflag = true
@@ -1388,17 +1710,17 @@ function ApplyEvenflow()
 
 						-- factories would have immense self-upgrade speeds without this
 						if catj == 'FACTORY' then
-					
+
 							-- this is not the best solution for factory upgrades since it doesn't
 							-- quite follow the rules for factory built units - but it's close enough
 							-- and reasonably balanced across the factory types
-							
+
 							if bp.General.UpgradesFrom != nil then
 								bp.Economy.BuildTime = bp.Economy.BuildTime * 2.75
 							end
-							
+
 						end
-						
+
 					end
 
 					-- this covers MOBILE Factories - namely Cybran Eggs - which are structures themselves that produce mobile units
@@ -1410,18 +1732,18 @@ function ApplyEvenflow()
 
 				-- units --
 				if cat == 'MOBILE' then		-- ok lets handle all the factory built mobile units and mobile experimentals
-				
+
 					-- You'll notice that I allow factory built units to build with higher energy limits (scales up thru tiers - 20,30,45)
 					-- this compensates somewhat for the division of their buildpower (in particular for the energy heavy air factories)
 					for j, catj in bp.Categories do
-				
+
 						if catj == 'TECH1' then
-							
+
 							local buildpower = 40	-- default T1 factory buildpower
-							
+
 							max_mass = buildpower / factory_buildpower_ratio
 							max_energy = (buildpower * 20) / factory_buildpower_ratio
-			
+
 							if bp.Economy.BuildTime then
 
 								alt_mass =  bp.Economy.BuildCostMass/max_mass		-- about 10 mass/second
@@ -1430,102 +1752,102 @@ function ApplyEvenflow()
 								-- regardless of the mass & energy, a minimum build time of 1 second is required
 								-- or else you get very wierd economy results when building the unit
 								local best_adjust = math.max( 1, alt_mass, alt_energy)
-								
+
 								--LOG("*AI DEBUG id is "..repr(catj).." "..id.."  alt_mass is "..alt_mass.."  alt_energy is "..alt_energy.." Adjusting Buildtime from "..repr(bp.Economy.BuildTime).." to "..( best_adjust * buildpower ) )
 
 								if math.ceil( best_adjust * buildpower ) != math.ceil(bp.Economy.BuildTime) then
 
 									oldtime = bp.Economy.BuildTime
-									
+
 									--LOG("*AI DEBUG id is "..repr(catj).." "..id.."  alt_mass is "..alt_mass.."  alt_energy is "..alt_energy.." Adjusting Buildtime from "..repr(bp.Economy.BuildTime).." to "..( best_adjust * buildpower ) )
-									
+
 									bp.Economy.BuildTime = best_adjust
-								
+
 									bp.Economy.BuildTime = math.ceil(bp.Economy.BuildTime * buildpower)
-									
+
 									reportflag = true
 								end
 							end
 						end
-				
+
 						if catj == 'TECH2' then
-							
+
 							local buildpower = 70	-- default T2 factory buildpower
-							
+
 							max_mass = buildpower / factory_buildpower_ratio
 							max_energy = (buildpower * 30) / factory_buildpower_ratio
-						
+
 							if bp.Economy.BuildTime then
-								
+
 								alt_mass =  bp.Economy.BuildCostMass/max_mass       -- about 17.5 mass/second
 								alt_energy = bp.Economy.BuildCostEnergy/max_energy  -- about 525 energy/second
-							
+
 								local best_adjust = math.max( 1, alt_mass, alt_energy)
-								
-								if math.ceil( best_adjust * buildpower ) != math.ceil(bp.Economy.BuildTime) then									
-								
+
+								if math.ceil( best_adjust * buildpower ) != math.ceil(bp.Economy.BuildTime) then
+
 									oldtime = bp.Economy.BuildTime
-									
+
 									--LOG("*AI DEBUG id is "..repr(catj).." "..id.."  alt_mass is "..alt_mass.."  alt_energy is "..alt_energy.." Adjusting Buildtime from "..repr(bp.Economy.BuildTime).." to "..( best_adjust * buildpower ) )
-								
+
 									bp.Economy.BuildTime = best_adjust
-								
+
 									bp.Economy.BuildTime = math.ceil(bp.Economy.BuildTime * buildpower)
-									
+
 									reportflag = true
 								end
 							end
 						end
-					
+
 						if catj == 'TECH3' then
-							
+
 							local buildpower = 100	-- default T3 factory buildpower
-							
+
 							max_mass = buildpower / factory_buildpower_ratio            -- about 25 mass/second
 							max_energy = (buildpower * 45) / factory_buildpower_ratio   -- about 1125 energy/second
-						
+
 							if bp.Economy.BuildTime then
 
 								alt_mass =  bp.Economy.BuildCostMass/max_mass
 								alt_energy = bp.Economy.BuildCostEnergy/max_energy
-							
+
 								local best_adjust = math.max( 1, alt_mass, alt_energy)
 
 								if math.ceil( best_adjust * buildpower ) != math.ceil(bp.Economy.BuildTime) then
-								
+
 									oldtime = bp.Economy.BuildTime
-									
+
 									bp.Economy.BuildTime = best_adjust
-								
+
 									bp.Economy.BuildTime = math.ceil(bp.Economy.BuildTime * buildpower)
-									
+
 									reportflag = true
 								end
 							end
 						end
-						
+
 						-- OK - a small problem here - No factory built experimentals - these will be the SACU built MOBILE units
 						-- as engineers they have remarkable bulidpower rates for mass compared to factories - but lower energy rates
 						-- that are only slightly improved over a T2 factory
 						if catj == 'EXPERIMENTAL' then
-					
+
 							max_mass = 60
 							max_energy = 600
 
 							if bp.Economy.BuildTime then
-								
+
 								-- experimental units are not factory built so factory_buildpower_ratio is NO applied (we just use the default SACU buildpower (60)
 								alt_mass =  (bp.Economy.BuildCostMass/max_mass) * 60
 								alt_energy = (bp.Economy.BuildCostEnergy/max_energy) * 60
-							
+
 								local best_adjust = math.max( 1, alt_mass, alt_energy)
-								
-								if math.ceil( best_adjust ) != math.ceil(bp.Economy.BuildTime) then																		
+
+								if math.ceil( best_adjust ) != math.ceil(bp.Economy.BuildTime) then
 
 									oldtime = bp.Economy.BuildTime
-									
+
 									bp.Economy.BuildTime = math.ceil(best_adjust)
-									
+
 									reportflag = true
 								end
 							end
