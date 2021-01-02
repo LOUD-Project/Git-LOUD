@@ -369,8 +369,21 @@ function InitializeArmies()
                 Opponents = Opponents + 1
             end
             
-        end
-    
+		end
+		
+		local color = ScenarioInfo.ArmySetup[self.Name].WheelColor
+		-- Backwards compatibility
+		if color == nil then
+			local playerColors = import('/lua/gamecolors.lua').GameColors.PlayerColors
+			local str = playerColors[self.ArmyIndex]
+			color = {
+				tonumber(string.sub(str, 1, 2), 16),
+				tonumber(string.sub(str, 3, 4), 16),
+				tonumber(string.sub(str, 5, 6), 16)
+			}
+		end
+		SetArmyColor(self.ArmyIndex, color[1], color[2], color[3])
+		
         -- number of Opponents in the game
         self.NumOpponents = Opponents
         
