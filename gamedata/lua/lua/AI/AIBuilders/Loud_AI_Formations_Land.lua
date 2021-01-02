@@ -1747,7 +1747,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
             { LUTL, 'UnitCapCheckLess', { .75 } },
 
 			-- empty mass point within 15km with less than 45 threat 
-			{ EBC, 'CanBuildOnMassAtRange', { 'LocationType', 150, 1000, 0, 75, 1, 'AntiSurface', 1 }},
+			{ EBC, 'CanBuildOnMassAtRange', { 'LocationType', 120, 1000, 0, 75, 1, 'AntiSurface', 1 }},
             
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS) - categories.SCOUT - categories.EXPERIMENTAL }},
         },
