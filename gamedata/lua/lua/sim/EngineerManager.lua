@@ -847,8 +847,8 @@ EngineerManager = Class(BuilderManager) {
 							
 											if threat.Type == 'Experimental' then
 									
-												experimentalsair = GetUnitsAroundPoint( aiBrain, categories.EXPERIMENTAL * categories.AIR, highThreatPos, 90, 'Enemy')
-												experimentalssea = GetUnitsAroundPoint( aiBrain, categories.EXPERIMENTAL * categories.NAVAL, highThreatPos, 90, 'Enemy')
+												experimentalsair = GetUnitsAroundPoint( aiBrain, categories.EXPERIMENTAL * categories.AIR, highThreatPos, 120, 'Enemy')
+												experimentalssea = GetUnitsAroundPoint( aiBrain, categories.EXPERIMENTAL * categories.NAVAL, highThreatPos, 120, 'Enemy')
 										
 												if LOUDGETN(experimentalsair) > 0 then
 													highThreatType = 'Air'
@@ -871,7 +871,9 @@ EngineerManager = Class(BuilderManager) {
 						end
 
 						-- if we raised a threat -- and don't already have one of this type --
-						if alertraised and not self.BaseMonitor.AlertsTable[highThreatType] then
+						-- AlertsTables can now log multiple threats of the same type --
+						-- Let's see what effect this has --
+						if alertraised --[[ and not self.BaseMonitor.AlertsTable[highThreatType] ]] then
 			
 							-- update the BaseMonitors total active alerts
 							self.BaseMonitor.ActiveAlerts = self.BaseMonitor.ActiveAlerts + 1
@@ -951,6 +953,9 @@ EngineerManager = Class(BuilderManager) {
 
 	-- Sure - this could be modded to have multiple threats of the same kind going on at once,
 	-- but my fear here was having the responding units ping-ponging between two or more threats at once. 
+
+	-- Ping-ponging between two or more threats doesn't look to be an issue of yet.
+	-- but I need to see it in a live situation to study it.
 	BaseMonitorAlertTimeoutLOUD = function( self, aiBrain, pos, baseposition, threattype, distressrange )
 
 		local threshold = self.BaseMonitor.AlertLevel
@@ -974,13 +979,13 @@ EngineerManager = Class(BuilderManager) {
         
 			-- look for units of the threattype
 			if threattype == 'Land' then
-				targetUnits = GetUnitsAroundPoint( aiBrain, (categories.MOBILE * categories.LAND), pos, 90, 'Enemy')
+				targetUnits = GetUnitsAroundPoint( aiBrain, (categories.MOBILE * categories.LAND), pos, 120, 'Enemy')
 			
 			elseif threattype == 'Air' then
-				targetUnits = GetUnitsAroundPoint( aiBrain, (categories.AIR * categories.MOBILE), pos, 90, 'Enemy')
+				targetUnits = GetUnitsAroundPoint( aiBrain, (categories.AIR * categories.MOBILE), pos, 120, 'Enemy')
 			
 			elseif threattype == 'Naval' then
-				targetUnits = GetUnitsAroundPoint( aiBrain, categories.NAVAL * categories.MOBILE, pos, 90, 'Enemy')
+				targetUnits = GetUnitsAroundPoint( aiBrain, categories.NAVAL * categories.MOBILE, pos, 120, 'Enemy')
 			end
 
 			x1 = 0
@@ -1258,8 +1263,8 @@ EngineerManager = Class(BuilderManager) {
 								LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASE DISTRESS RESPONSE to "..distressType.." value "..aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSurface' ).." my assets are "..GetThreatOfGroup(grouplnd,'Land'))
 							end
 							
-							-- only send response if we can muster 60% of enemy threat
-							if GetThreatOfGroup(grouplnd,'Land') >= (aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSurface' ) * .65) then
+							-- only send response if we can muster 70% of enemy threat
+							if GetThreatOfGroup(grouplnd,'Land') >= (aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSurface' ) * .70) then
 							
 								-- must have a clear unobstructed path to location --
 								if not CheckBlockingTerrain( baseposition, distressLocation ) then
@@ -1329,8 +1334,8 @@ EngineerManager = Class(BuilderManager) {
 								LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASE DISTRESS RESPONSE to "..enemynavalthreat.." my assets are "..repr(GetThreatOfGroup(groupsea,'Naval') ) )
 							end
 				
-                            -- only send response if we can muster 66% of enemy threat
-							if GetThreatOfGroup(groupsea,'Naval') >= (enemynavalthreat * .66) then  -- (( aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSurface' ) + aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSub') )/1.5) then
+                            -- only send response if we can muster 70% of enemy threat
+							if GetThreatOfGroup(groupsea,'Naval') >= (enemynavalthreat * .70) then  -- (( aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSurface' ) + aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSub') )/1.5) then
 
 								-- Move the naval group to the distress location and then back to the location of the base
 								IssueClearCommands( groupsea )
