@@ -1410,8 +1410,6 @@ local function TryLaunch(skipNoObserversCheck, skipSandboxCheck, skipTimeLimitCh
         elseif not (string.find(v.mult:GetText(), "^%d+%.%d+$") or string.find(v.mult:GetText(), "^%d+$")) then
             AddChatText("Not all AI cheat multipliers are valid (Valid examples: 1, 1.0, 1.225). Can not launch.")
             return
-        else
-            SetPlayerOption(v.mult.row, 'Mult', v.mult:GetText())
         end
     end
 
@@ -1939,7 +1937,7 @@ function HostTryAddPlayer( senderID, slot, requestedPlayerName, human, aiPersona
     gameInfo.PlayerOptions[newSlot].OwnerID = senderID
 	
     gameInfo.PlayerOptions[newSlot].Faction = table.getn(FactionData.Factions) + 1
-    gameInfo.PlayerOptions[newSlot].Mult = 1.0
+    gameInfo.PlayerOptions[newSlot].Mult = '1.0'
     gameInfo.PlayerOptions[newSlot].ACT = 1 -- Neither ACT by default
 
     if requestedTeam then
@@ -3075,7 +3073,11 @@ function CreateUI(maxPlayers, useSteam)
         end
 
         GUI.slots[i].mult.OnLoseKeyboardFocus = function(self)
-            GUI.slots[i].mult:AcquireFocus()
+            SetPlayerOption(self.row, 'Mult', self:GetText())
+        end
+
+        GUI.slots[i].mult.OnEscPressed = function(self, text)
+            return true
         end
         
         GUI.slots[i].mult.OnNonTextKeyPressed = function(self, keyCode)
@@ -3097,12 +3099,6 @@ function CreateUI(maxPlayers, useSteam)
                         self:ClearText()
                     end
                 end
-            end
-        end
-
-        GUI.slots[i].mult.OnTextChanged = function(self, newText, oldText)
-            if lobbyComm:IsHost() then
-                lobbyComm:BroadcastData( { Type = 'SetMult', Slot = i, Text = newText } )
             end
         end
         
@@ -3335,6 +3331,7 @@ function CreateUI(maxPlayers, useSteam)
 					if not gameInfo.ClosedSlots[i] and not gameInfo.PlayerOptions[i] then
                         DoSlotBehavior(i, GUI.fillOpenCombo.slotKeys[index], text)
                         GUI.slots[i].mult:SetText(GUI.fillAIMult:GetText())
+                        SetPlayerOption(i, 'Mult', GUI.slots[i].mult:GetText())
 					end
 				end
 			end
@@ -3462,6 +3459,7 @@ function CreateUI(maxPlayers, useSteam)
 					if not gameInfo.ClosedSlots[i] and not gameInfo.PlayerOptions[i] then
 						DoSlotBehavior(i, GUI.fillOpenCombo.slotKeys[index], text)
                         GUI.slots[i].mult:SetText(GUI.fillAIMult:GetText())
+                        SetPlayerOption(i, 'Mult', GUI.slots[i].mult:GetText())
                     end
 				end
 			end
@@ -4383,10 +4381,6 @@ function InitLobbyComm(protocol, localPort, desiredPlayerName, localPlayerUID, n
                 gameInfo.ClosedSlots[data.Slot] = nil
 
                 UpdateGame()
-
-            elseif data.Type == 'SetMult' then
-                
-                GUI.slots[data.Slot].mult:SetText(data.Text)
             end
         end
     end
