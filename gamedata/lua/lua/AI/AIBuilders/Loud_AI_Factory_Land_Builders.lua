@@ -103,6 +103,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
 		PriorityFunction = First30Minutes,
 
         BuilderConditions = {
+            { LUTL, 'AirStrengthRatioLessThan', { 3 } },
+            
             { UCBC, 'PoolLess', { 4, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
             
             { UCBC, 'HaveLessThanUnitsWithCategory', { 1, categories.FACTORY * categories.LAND - categories.TECH1 }},
@@ -123,7 +125,9 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
 		
         BuilderConditions = {
 		
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},		
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+            
+            { LUTL, 'AirStrengthRatioLessThan', { 3 } },            
 		
 			-- only on 5k-20k maps
 			{ MIBC, 'MapLessThan', { 1028 } },

@@ -48,8 +48,12 @@ local IsNavalMap = function( self, aiBrain, manager)
 
 end
 
+-- These 2 functions need some consideration - as they force the priority up to 850 - which seems like a guess
+-- Review the Engineer Builders priorities, 850 blows pretty much all others out of the water
+-- you may wish to consider that it may override some very important tasks (like reclaim or energy)
+
 -- These 2 New Functions will enable LOUD to quickly buff up his defenses if below a certain ratio
--- This is mostly for the players that rush him but this should also effect how perpared his bases are.
+-- This is mostly for the players that rush him but this should also effect how prepared his bases are.
 local IsEnemyCrushingLand = function(self,aiBrain,manager)
 
     if aiBrain.LandRatio <= 0.9 then
