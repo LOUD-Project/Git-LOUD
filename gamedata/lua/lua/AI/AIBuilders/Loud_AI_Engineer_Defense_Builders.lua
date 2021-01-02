@@ -48,6 +48,8 @@ local IsNavalMap = function( self, aiBrain, manager)
 
 end
 
+-- These 2 New Functions will enable LOUD to quickly buff up his defenses if below a certain ratio
+-- This is mostly for the players that rush him but this should also effect how perpared his bases are.
 local IsEnemyCrushingLand = function(self,aiBrain,manager)
 
     if aiBrain.LandRatio <= 0.9 then

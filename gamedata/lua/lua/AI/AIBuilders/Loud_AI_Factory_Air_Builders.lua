@@ -84,7 +84,7 @@ end
 -- ALL AIR BUILDERS SIT AT 600 PRIORITY except for highneed transports
 -- usually controlled by air ratio and number of factories producing that unit
 
--- December 31, 2020 -- T1 - T2 Bombers were not controlled by the Air Ratio. 
+-- T1 - T2 Bombers were not controlled by the Air Ratio. 
 -- Fighters will now always be produced if we're below a 1.0 Air Ratio.
 
 BuilderGroup {BuilderGroupName = 'Factory Production - Air',

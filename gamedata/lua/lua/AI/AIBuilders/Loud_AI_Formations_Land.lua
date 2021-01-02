@@ -159,7 +159,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
     -- this is the VENTING attack -- no odds required
 	-- primarily looking for fights with units before fixed enemy positions
 	
-	-- December 31, 2020 -- Base Alerts will now stop venting forces from moving out
+	-- Base Alerts will now stop venting forces from moving out
 	-- This will allow LOUD to continue his buildup until HE sees its time to push out
 	-- We do not want to force him out if he feels he can not push himself
     Builder {BuilderName = 'Land Attack - Unit Forced',
