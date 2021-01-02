@@ -77,7 +77,7 @@ end
 BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
     BuildersType = 'EngineerBuilder',
 
-    Builder {BuilderName = 'T1 Base Defense',
+    Builder {BuilderName = 'T1 Base Defense - PD',
 	
         PlatoonTemplate = 'EngineerBuilderGeneral',
         
@@ -126,12 +126,67 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 				
                 BuildStructures = {
 					'T1GroundDefense',
-					'T1AADefense',
 					'T1Artillery',
 				},
             }
         }
     },	
+
+    Builder {BuilderName = 'T1 Base Defense - AA',
+	
+        PlatoonTemplate = 'EngineerBuilderGeneral',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+		InstanceCount = 1,
+		
+        Priority = 700,
+		
+		PriorityFunction = function(self, aiBrain)
+		
+			if self.Priority != 0 then
+
+				-- remove after 30 minutes
+				if aiBrain.CycleTime > 1800 then
+					return 0, false
+				end
+				
+			end
+			
+			return self.Priority
+			
+		end,
+		
+        BuilderConditions = {
+            { EBC, 'GreaterThanEnergyIncome', { 440 }},
+            
+            { LUTL, 'AirStrengthRatioLessThan', { 1 }},
+			
+			-- dont build if we have built any advanced power -- obsolete
+			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION * categories.STRUCTURE * categories.TECH3 }},
+			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 9, categories.DEFENSE * categories.STRUCTURE * categories.DIRECTFIRE, 30, 50}},
+        },
+		
+        BuilderType = { 'T1' },
+		
+        BuilderData = {
+            Construction = {
+				Radius = 36,
+                NearBasePerimeterPoints = true,
+				ThreatMax = 50,
+				
+				BasePerimeterOrientation = 'FRONT',
+				BasePerimeterSelection = true,	-- pick a random point from the 9 FRONT rotations
+
+				BaseTemplateFile = '/lua/ai/aibuilders/loud_perimeter_defense_templates.lua',
+				BaseTemplate = 'PerimeterDefenseTemplates',
+				
+                BuildStructures = {
+					'T1AADefense',
+				},
+            }
+        }
+    },
 
     Builder {BuilderName = 'T2 Base PD - Base Template',
 	
@@ -894,7 +949,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Small',
 BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter',
     BuildersType = 'EngineerBuilder',
 	
-    Builder {BuilderName = 'T1 Perimeter - Small Map',
+    Builder {BuilderName = 'T1 Perimeter PD - Small Map',
 	
         PlatoonTemplate = 'EngineerBuilderGeneral',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
@@ -946,12 +1001,12 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 				BaseTemplateFile = '/lua/ai/aibuilders/loud_perimeter_defense_templates.lua',
 				BaseTemplate = 'PerimeterDefenseTemplates',
 				
-                BuildStructures = {	'T1GroundDefense','T1AADefense','T1Artillery' },
+                BuildStructures = {	'T1GroundDefense','T1Artillery' },
             }
         }
     },
 
-    Builder {BuilderName = 'T1 Perimeter - Large Map',
+    Builder {BuilderName = 'T1 Perimeter PD - Large Map',
 	
         PlatoonTemplate = 'EngineerBuilderGeneral',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
@@ -1003,13 +1058,12 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 				
                 BuildStructures = {
 					'T1GroundDefense',
-					'T1AADefense',
 				},
             }
         }
     },
 	
-    Builder {BuilderName = 'T1 Perimeter AA - Response',
+    Builder {BuilderName = 'T1 Perimeter - AA',
 	
         PlatoonTemplate = 'EngineerBuilderGeneral',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
