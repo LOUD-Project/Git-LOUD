@@ -3279,13 +3279,28 @@ function CreateUI(maxPlayers, useSteam)
         GUI.slots[i].color.Height:Set(14)
         GUI.slots[i].color.row = i
 
+        GUI.slots[i].color.glow = Bitmap(bg)
+        GUI.slots[i].color.glow.Width:Set(function() return GUI.slots[i].color.Width() + 4 end)
+        GUI.slots[i].color.glow.Height:Set(function() return GUI.slots[i].color.Height() + 4 end)
+        LayoutHelpers.AtCenterIn(GUI.slots[i].color.glow, GUI.slots[i].color)
+        GUI.slots[i].color.glow.Depth:Set(function() return GUI.slots[i].color.Depth() - 1 end)
+        GUI.slots[i].color.glow:SetSolidColor('FFFFFFFF')
+        GUI.slots[i].color.glow:Hide()
+        EffectHelpers.Pulse(GUI.slots[i].color.glow)
+
         GUI.slots[i].color:SetSolidColor('33446699')
         GUI.slots[i].color.HandleEvent = function(self, event)
-            if event.Type == 'ButtonPress' or event.Type == 'ButtonDClick' then
+            if event.Type == 'MouseEnter' then
+                self.glow:Show()
+            elseif event.Type == 'MouseExit' then
+                self.glow:Hide()
+            elseif event.Type == 'ButtonPress' or event.Type == 'ButtonDClick' then
                 ShowColorPicker(self.row, event.MouseX, event.MouseY)
                 Tooltip.DestroyMouseoverDisplay()
             end
         end
+
+        Tooltip.AddControlTooltip(GUI.slots[i].color, 'lob_color')
 --]]
 
         GUI.slots[i].faction = BitmapCombo(bg, factionBmps, table.getn(factionBmps), nil, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
