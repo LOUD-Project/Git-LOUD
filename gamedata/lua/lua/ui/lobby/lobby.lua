@@ -3929,9 +3929,6 @@ function RefreshOptionDisplayData(scenarioInfo)
         local option = false
         local mpOnly = false
         for index, optData in globalOpts do
-            if optData.key == 'GameSpeed' then
-                continue
-            end
             if i == optData.key then
                 mpOnly = optData.mponly or false
                 option = {text = optData.label, tooltip = optData.pref}
@@ -4740,17 +4737,21 @@ function InitLobbyComm(protocol, localPort, desiredPlayerName, localPlayerUID, n
         -- Set default lobby values
         for index, option in import('/lua/ui/lobby/lobbyoptions.lua').teamOptions do
             local defValue = Prefs.GetFromCurrentProfile(option.pref) or option.default
-            SetGameOption(option.key, option.values[defValue].key)
+            SetGameOption(option.key,option.values[defValue].key)
         end
 
         for index, option in import('/lua/ui/lobby/lobbyoptions.lua').globalOpts do
-            local defValue = Prefs.GetFromCurrentProfile(option.pref) or option.default
-            SetGameOption(option.key, option.values[defValue].key)
+            if option.type and option.type == 'edit' then
+                SetGameOption(option.key, Prefs.GetFromCurrentProfile(option.pref) or option.default)
+            else
+                local defValue = Prefs.GetFromCurrentProfile(option.pref) or option.default
+                SetGameOption(option.key,option.values[defValue].key)
+            end
         end
 
         for index, option in import('/lua/ui/lobby/lobbyoptions.lua').advAIOptions do
             local defValue = Prefs.GetFromCurrentProfile(option.pref) or option.default
-            SetGameOption(option.key, option.values[defValue].key)
+            SetGameOption(option.key,option.values[defValue].key)
         end
 
         for index, option in import('/lua/ui/lobby/lobbyoptions.lua').advGameOptions do
