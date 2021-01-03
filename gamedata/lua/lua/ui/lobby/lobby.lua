@@ -4292,7 +4292,6 @@ function ShowMapPositions(mapCtrl, scenario, numPlayers)
             GUI.markers[slot].marker:SetSolidColor("ff777777")
         else
             if gameInfo.PlayerOptions[slot] then
-                -- GUI.markers[slot].marker:SetSolidColor(gameColors.PlayerColors[gameInfo.PlayerOptions[slot].PlayerColor])
                 GUI.markers[slot].marker:SetSolidColor(ColorToStr(gameInfo.PlayerOptions[slot].WheelColor))
                 if gameInfo.PlayerOptions[slot].Team == 1 then
                     GUI.markers[slot].teamIndicator:SetSolidColor('00000000')
@@ -5268,7 +5267,7 @@ function NewShowMapPositions(mapCtrl, scenario, numPlayers)
 		
 			if gameInfo.PlayerOptions[slot] then
 			
-				bMP.markers[slot].marker:SetSolidColor(gameColors.PlayerColors[gameInfo.PlayerOptions[slot].WheelColor])
+				bMP.markers[slot].marker:SetSolidColor(ColorToStr(gameInfo.PlayerOptions[slot].WheelColour))
 				
 				if gameInfo.PlayerOptions[slot].Team == 1 then
 				
