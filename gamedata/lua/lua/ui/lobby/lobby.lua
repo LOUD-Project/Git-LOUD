@@ -2235,8 +2235,8 @@ function ClearBadMapFlags()
 end
 
 function ShowColorPicker(row, x, y)
-    -- The following two functions courtesy of 
-    -- https://gist.github.com/GigsD4X/8513963
+-- Helper functions
+-- Credit for converters: https://gist.github.com/GigsD4X/8513963
     local function HSVToRGB(hue, saturation, value)
         -- Returns the RGB equivalent of the given HSV-defined color
         -- (adapted from some code found around the web)
@@ -2310,6 +2310,12 @@ function ShowColorPicker(row, x, y)
         return hue, saturation, value
     end
 
+    -- colorPicker.color is stored as an ARGB string to maintain simplicity
+    -- across this module. Use RGBStr() for values the user sees
+    local function RGBStr()
+        return string.sub(colorPicker.color, 3, 8)
+    end
+-- Core
     colorPicker = Bitmap(GUI, UIUtil.UIFile('/dialogs/exit-dialog/panel02_bmp.dds'))
     colorPicker.Left:Set(x)
     colorPicker.Top:Set(y)
@@ -2352,8 +2358,10 @@ function ShowColorPicker(row, x, y)
             local r, g, b = HSVToRGB(colorPicker.hue, colorPicker.sat, colorPicker.val / 255)
             colorPicker.color = string.format("%02x%02x%02x%02x", 255, r * 255, g * 255, b * 255)
             colorPicker.preview:SetSolidColor(colorPicker.color)
+            colorPicker.readout:SetText(RGBStr())
         end
     end
+-- Value (lightness) slider
     colorPicker.valStatus = StatusBar(colorPicker, 0, 255, false, false,
         UIUtil.UIFile('/slider/slider-back_bmp.dds'),
         UIUtil.UIFile('/slider/slider-back_bmp.dds'), false)
@@ -2370,6 +2378,7 @@ function ShowColorPicker(row, x, y)
         local r, g, b = HSVToRGB(colorPicker.hue, colorPicker.sat, colorPicker.val / 255)
         colorPicker.color = string.format("%02x%02x%02x%02x", 255, r * 255, g * 255, b * 255)
         colorPicker.preview:SetSolidColor(colorPicker.color)
+        colorPicker.readout:SetText(RGBStr())
     end
     colorPicker.valStatus.Top:Set(function() return colorPicker.valSlider.Top() - 10 end)
     colorPicker.valStatus.Left:Set(function() return colorPicker.valSlider.Left() end)
@@ -2379,24 +2388,20 @@ function ShowColorPicker(row, x, y)
     colorPicker.valStatus:SetValue(colorPicker.val)
     LayoutHelpers.Below(colorPicker.preview, colorPicker.valSlider, 12)
     LayoutHelpers.AtHorizontalCenterIn(colorPicker.preview, colorPicker)
+-- Confirm button
     colorPicker.confirm = UIUtil.CreateButtonStd(colorPicker, '/widgets/tiny', "Confirm", 12, 2)
-    LayoutHelpers.AtBottomIn(colorPicker.confirm, colorPicker, 8)
-    LayoutHelpers.AtHorizontalCenterIn(colorPicker.confirm, colorPicker)
+    LayoutHelpers.Below(colorPicker.confirm, colorPicker.valStatus, 8)
     colorPicker.confirm.OnClick = function(self, modifiers)
         Tooltip.DestroyMouseoverDisplay()
         local color = ColorToArray(colorPicker.color)
         if not lobbyComm:IsHost() then
             lobbyComm:SendData(hostID, { Type = 'RequestColor', Color = color, Slot = row } )
             gameInfo.PlayerOptions[row].WheelColor = color
-            -- gameInfo.PlayerOptions[row].FinalColor = colorPicker.color
-            -- gameInfo.PlayerOptions[row].ArmyColor = color
             UpdateGame()
         else
             if IsColorFree(color) then
                 lobbyComm:BroadcastData( { Type = 'SetColor', Color = color, Slot = row } )
                 gameInfo.PlayerOptions[row].WheelColor = color
-                -- gameInfo.PlayerOptions[row].FinalColor = colorPicker.color
-                -- gameInfo.PlayerOptions[row].ArmyColor = color
                 LOG("*AI DEBUG HostCreateUI - Host Set Player Color")
                 UpdateGame()
             else
@@ -2405,6 +2410,59 @@ function ShowColorPicker(row, x, y)
             end
         end
         colorPicker:Hide()
+    end
+-- Readout to tell user hex code
+    colorPicker.readout = UIUtil.CreateText(colorPicker, RGBStr(), 14, UIUtil.bodyFont)
+    LayoutHelpers.Below(colorPicker.readout, colorPicker.preview, 4)
+-- Text I/O
+    colorPicker.edit = Edit(colorPicker)
+    LayoutHelpers.RightOf(colorPicker.edit, colorPicker.preview, 4)
+    colorPicker.edit.Width:Set(80)
+    colorPicker.edit.Height:Set(14)
+    colorPicker.edit:SetFont(UIUtil.bodyFont, 12)
+    colorPicker.edit:SetForegroundColor(UIUtil.fontColor)
+    colorPicker.edit:SetHighlightBackgroundColor('00000000')
+    colorPicker.edit:SetHighlightForegroundColor(UIUtil.fontColor)
+    colorPicker.edit:ShowBackground(true)
+    colorPicker.edit:SetMaxChars(6)
+
+    colorPicker.edit.OnCharPressed = function(self, charcode)
+        -- Forbid non-hex characters
+        if charcode == UIUtil.VK_TAB then
+            return true
+        end
+        if (charcode >= 48 and charcode <= 57)
+        or (charcode >= 65 and charcode <= 70)
+        or (charcode >= 97 and charcode <= 102) then
+            return false
+        end
+        local charLim = self:GetMaxChars()
+        if STR_Utf8Len(self:GetText()) >= charLim then
+            local sound = Sound({Cue = 'UI_Menu_Error_01', Bank = 'Interface',})
+            PlaySound(sound)
+        end
+    end
+
+    colorPicker.edit.OnLoseKeyboardFocus = function(self)
+        colorPicker.edit:AcquireFocus()    
+    end
+    
+    colorPicker.edit.OnEnterPressed = function(self, text)
+        if string.len(text) ~= 6 then
+            return
+        end
+        colorPicker.color = 'FF'..text
+        local c = ColorToArray(colorPicker.color)
+        local r, g, b = RGBToHSV(c[1], c[2], c[3])
+        colorPicker.hue = r
+        colorPicker.sat = g
+        colorPicker.val = b
+        colorPicker.readout:SetText(RGBStr())
+        colorPicker.preview:SetSolidColor(colorPicker.color)
+    end
+
+    colorPicker.edit.OnEscPressed = function(self, text)
+        return true
     end
 end
 
