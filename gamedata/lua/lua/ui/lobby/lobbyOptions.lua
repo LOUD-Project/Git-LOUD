@@ -114,7 +114,7 @@ teamOptions = {
 globalOpts = {
 
     {
-        default = 9,
+        default = '800',
         label = "Unit Cap",
         help = "Set the maximum number of units that can be in play by one player",
         key = 'UnitCap',
