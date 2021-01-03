@@ -22,6 +22,8 @@ local ModManager = import('/lua/ui/dialogs/modmanager.lua')
 local FactionData = import('/lua/factions.lua')
 local Text = import('/lua/maui/text.lua').Text
 local EnhancedLobby = import('/lua/enhancedlobby.lua')
+local Slider = import('/lua/maui/slider.lua').Slider
+local StatusBar = import('/lua/maui/statusbar.lua').StatusBar
 
 local gameColors = import('/lua/gamecolors.lua').GameColors
 local numOpenSlots = LobbyComm.maxPlayerSlots
@@ -2233,6 +2235,81 @@ function ClearBadMapFlags()
 end
 
 function ShowColorPicker(row, x, y)
+    -- The following two functions courtesy of 
+    -- https://gist.github.com/GigsD4X/8513963
+    local function HSVToRGB(hue, saturation, value)
+        -- Returns the RGB equivalent of the given HSV-defined color
+        -- (adapted from some code found around the web)
+    
+        -- If it's achromatic, just return the value
+        if saturation == 0 then
+            return value, value, value;
+        end;
+    
+        -- Get the hue sector
+        local hue_sector = math.floor(hue / 60);
+        local hue_sector_offset = (hue / 60) - hue_sector;
+    
+        local p = value * (1 - saturation);
+        local q = value * (1 - saturation * hue_sector_offset);
+        local t = value * (1 - saturation * (1 - hue_sector_offset));
+    
+        if hue_sector == 0 then
+            return value, t, p
+        elseif hue_sector == 1 then
+            return q, value, p
+        elseif hue_sector == 2 then
+            return p, value, t
+        elseif hue_sector == 3 then
+            return p, q, value
+        elseif hue_sector == 4 then
+            return t, p, value
+        elseif hue_sector == 5 then
+            return value, p, q
+        end
+    end
+
+    -- Note: returns lightness between 0, 255
+    local function RGBToHSV(red, green, blue)
+        -- Returns the HSV equivalent of the given RGB-defined color
+        -- (adapted from some code found around the web)
+    
+        local hue, saturation, value
+    
+        local min_value = math.min(red, green, blue)
+        local max_value = math.max(red, green, blue)
+    
+        value = max_value
+    
+        local value_delta = max_value - min_value
+    
+        -- If the color is not black
+        if max_value ~= 0 then
+            saturation = value_delta / max_value
+    
+        -- If the color is purely black
+        else
+            saturation = 0
+            hue = -1
+            return hue, saturation, value
+        end;
+    
+        if red == max_value then
+            hue = (green - blue) / value_delta
+        elseif green == max_value then
+            hue = 2 + (blue - red) / value_delta
+        else
+            hue = 4 + (red - green) / value_delta
+        end
+    
+        hue = hue * 60
+        if hue < 0 then
+            hue = hue + 360
+        end
+    
+        return hue, saturation, value
+    end
+
     colorPicker = Bitmap(GUI, UIUtil.UIFile('/dialogs/exit-dialog/panel02_bmp.dds'))
     colorPicker.Left:Set(x)
     colorPicker.Top:Set(y)
@@ -2243,7 +2320,10 @@ function ShowColorPicker(row, x, y)
     colorPicker.wheel = Bitmap(colorPicker, UIUtil.UIFile('/lobby/colorpicker.dds'))
     LayoutHelpers.AtTopIn(colorPicker.wheel, colorPicker, 8)
     LayoutHelpers.AtHorizontalCenterIn(colorPicker.wheel, colorPicker)
-    colorPicker.color = ColorToStr(gameInfo.PlayerOptions[row].WheelColor)
+    local c = gameInfo.PlayerOptions[row].WheelColor
+    colorPicker.color = ColorToStr(c)
+    -- H, S, and V are stored as [0..360], [0..1], [0..255], respectively
+    colorPicker.hue, colorPicker.sat, colorPicker.val = RGBToHSV(c[1], c[2], c[3])
     colorPicker.wheelCentre = {
         x = colorPicker.wheel.Left() + (colorPicker.wheel.Width() / 2),
         y = colorPicker.wheel.Top() + (colorPicker.wheel.Height() / 2),
@@ -2251,8 +2331,6 @@ function ShowColorPicker(row, x, y)
     colorPicker.preview = Bitmap(colorPicker)
     colorPicker.preview.Width:Set(60)
     colorPicker.preview.Height:Set(20)
-    LayoutHelpers.Below(colorPicker.preview, colorPicker.wheel, 6)
-    LayoutHelpers.AtHorizontalCenterIn(colorPicker.preview, colorPicker)
     colorPicker.preview:SetSolidColor(colorPicker.color)
     colorPicker.wheel.HandleEvent = function(self, event)
         if event.Type == 'ButtonPress' or event.Type == 'ButtonDClick' then
@@ -2269,48 +2347,38 @@ function ShowColorPicker(row, x, y)
             }
             local angle = math.atan2(vE.y, vE.x) - math.atan2(vUp.y, vUp.x)
             if angle < 0 then angle = angle + (2 * math.pi) end -- Normalize
-            angle = math.deg(angle)
-            local sat = dist * (1 / 120)
-            local val = 1
-
-            -- https://gist.github.com/GigsD4X/8513963
-            local function HSVToRGB( hue, saturation, value )
-                -- Returns the RGB equivalent of the given HSV-defined color
-                -- (adapted from some code found around the web)
-            
-                -- If it's achromatic, just return the value
-                if saturation == 0 then
-                    return value, value, value;
-                end;
-            
-                -- Get the hue sector
-                local hue_sector = math.floor(hue / 60);
-                local hue_sector_offset = (hue / 60) - hue_sector;
-            
-                local p = value * (1 - saturation);
-                local q = value * (1 - saturation * hue_sector_offset);
-                local t = value * (1 - saturation * (1 - hue_sector_offset));
-            
-                if hue_sector == 0 then
-                    return value, t, p
-                elseif hue_sector == 1 then
-                    return q, value, p
-                elseif hue_sector == 2 then
-                    return p, value, t
-                elseif hue_sector == 3 then
-                    return p, q, value
-                elseif hue_sector == 4 then
-                    return t, p, value
-                elseif hue_sector == 5 then
-                    return value, p, q
-                end
-            end
-
-            local r, g, b = HSVToRGB(angle, sat, val)
+            colorPicker.hue = math.deg(angle)
+            colorPicker.sat = dist * (1 / 120)
+            local r, g, b = HSVToRGB(colorPicker.hue, colorPicker.sat, colorPicker.val / 255)
             colorPicker.color = string.format("%02x%02x%02x%02x", 255, r * 255, g * 255, b * 255)
             colorPicker.preview:SetSolidColor(colorPicker.color)
         end
     end
+    colorPicker.valStatus = StatusBar(colorPicker, 0, 255, false, false,
+        UIUtil.UIFile('/slider/slider-back_bmp.dds'),
+        UIUtil.UIFile('/slider/slider-back_bmp.dds'), false)
+    colorPicker.valSlider = Slider(colorPicker, false, 0, 255,
+        UIUtil.UIFile('/slider/slider_btn_up.dds'),
+        UIUtil.UIFile('/slider/slider_btn_over.dds'),
+        UIUtil.UIFile('/slider/slider_btn_down.dds'))
+    colorPicker.valSlider.Top:Set(function() return colorPicker.wheel.Bottom() + 18 end)
+    colorPicker.valSlider.Left:Set(function() return colorPicker.Left() + 16 end)
+    colorPicker.valSlider.Right:Set(function() return colorPicker.Right() - 16 end)
+    colorPicker.valSlider:SetValue(colorPicker.val)
+    colorPicker.valSlider.OnValueChanged = function(self, newValue)
+        colorPicker.val = newValue
+        local r, g, b = HSVToRGB(colorPicker.hue, colorPicker.sat, colorPicker.val / 255)
+        colorPicker.color = string.format("%02x%02x%02x%02x", 255, r * 255, g * 255, b * 255)
+        colorPicker.preview:SetSolidColor(colorPicker.color)
+    end
+    colorPicker.valStatus.Top:Set(function() return colorPicker.valSlider.Top() - 10 end)
+    colorPicker.valStatus.Left:Set(function() return colorPicker.valSlider.Left() end)
+    colorPicker.valStatus.Right:Set(function() return colorPicker.valSlider.Right() end)
+    colorPicker.valStatus.Depth:Set(function() return colorPicker.valSlider.Depth() - 1 end)
+    colorPicker.valStatus:SetRange(0, 255)
+    colorPicker.valStatus:SetValue(colorPicker.val)
+    LayoutHelpers.Below(colorPicker.preview, colorPicker.valSlider, 12)
+    LayoutHelpers.AtHorizontalCenterIn(colorPicker.preview, colorPicker)
     colorPicker.confirm = UIUtil.CreateButtonStd(colorPicker, '/widgets/tiny', "Confirm", 12, 2)
     LayoutHelpers.AtBottomIn(colorPicker.confirm, colorPicker, 8)
     LayoutHelpers.AtHorizontalCenterIn(colorPicker.confirm, colorPicker)
