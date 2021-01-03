@@ -3234,44 +3234,6 @@ function CreateUI(maxPlayers, useSteam)
 			self:Hide()
 		end
 
---[[ Old colour selection
-        GUI.slots[i].color = BitmapCombo(bg, gameColors.WheelColors, 1, true, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
-        LayoutHelpers.AtLeftIn(GUI.slots[i].color, GUI.panel, slotColumnSizes.color.x)
-        LayoutHelpers.AtVerticalCenterIn(GUI.slots[i].color, GUI.slots[i])
-		
-        GUI.slots[i].color.Width:Set(slotColumnSizes.color.width)
-		
-        GUI.slots[i].color.row = i
-		
-        GUI.slots[i].color.OnClick = function(self, index)
-		
-            Tooltip.DestroyMouseoverDisplay()
-			
-            if not lobbyComm:IsHost() then
-                lobbyComm:SendData(hostID, { Type = 'RequestColor', Color = index, Slot = self.row } )
-                gameInfo.PlayerOptions[self.row].WheelColor = index
-                gameInfo.PlayerOptions[self.row].ArmyColor = index
-
-                UpdateGame()
-            else
-                if IsColorFree(index) then
-                    lobbyComm:BroadcastData( { Type = 'SetColor', Color = index, Slot = self.row } )
-                    gameInfo.PlayerOptions[self.row].WheelColor = index
-                    gameInfo.PlayerOptions[self.row].ArmyColor = index
-					LOG("*AI DEBUG HostCreateUI - Host Set Player Color")
-                    UpdateGame()
-                else
-                    self:SetItem( gameInfo.PlayerOptions[self.row].WheelColor )
-                end
-            end
-        end
-		
-        GUI.slots[i].color.OnEvent = GUI.slots[curRow].name.OnEvent
-        Tooltip.AddControlTooltip(GUI.slots[i].color, 'lob_color')
-        
-        GUI.slots[i].color.row = i
---]]
--- New colour selection
         GUI.slots[i].color = Bitmap(bg)
         LayoutHelpers.AtLeftIn(GUI.slots[i].color, GUI.panel, slotColumnSizes.color.x)
         LayoutHelpers.AtVerticalCenterIn(GUI.slots[i].color, GUI.slots[i])
@@ -3288,7 +3250,6 @@ function CreateUI(maxPlayers, useSteam)
         GUI.slots[i].color.glow:Hide()
         EffectHelpers.Pulse(GUI.slots[i].color.glow)
 
-        GUI.slots[i].color:SetSolidColor('33446699')
         GUI.slots[i].color.HandleEvent = function(self, event)
             if event.Type == 'MouseEnter' then
                 self.glow:Show()
@@ -3301,7 +3262,6 @@ function CreateUI(maxPlayers, useSteam)
         end
 
         Tooltip.AddControlTooltip(GUI.slots[i].color, 'lob_color')
---]]
 
         GUI.slots[i].faction = BitmapCombo(bg, factionBmps, table.getn(factionBmps), nil, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
 		
