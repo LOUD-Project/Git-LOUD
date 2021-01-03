@@ -2343,6 +2343,7 @@ function ShowColorPicker(row, x, y)
             local cX = event.MouseX - colorPicker.wheelCentre.x 
             local cY = event.MouseY - colorPicker.wheelCentre.y
             local dist = math.sqrt(math.pow(cX, 2) + math.pow(cY, 2))
+            if dist > 120 then return end -- User has clicked outside wheel
             local vUp = {
                 x = 0,
                 y = -120,
