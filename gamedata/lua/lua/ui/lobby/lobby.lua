@@ -1446,7 +1446,10 @@ local function TryLaunch(skipNoObserversCheck, skipSandboxCheck, skipTimeLimitCh
     end
 
     if tonumber(gameInfo.GameOptions['UnitCap']) < 100 then
-        AddChatText("The Unit Cap is too low. Please set it to 100 or higher.")
+        AddChatText("Unit Cap is too low. Please set it between 100 and 1500.")
+        return
+    elseif tonumber(gameInfo.GameOptions['UnitCap']) > 1500 then
+        AddChatText("Unit Cap is too high. Please set it between 100 and 1500.")
         return
     end
 
