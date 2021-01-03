@@ -11,7 +11,7 @@
 
 
     -- AI Engineers will be named according to the Builder they are running 
-	ScenarioInfo.NameEngineers = true
+	ScenarioInfo.NameEngineers = false
 	LOG("*AI DEBUG		Name Engineers is "..repr(ScenarioInfo.NameEngineers))
 
     -- engineers will dialog their decisions to the LOG --
