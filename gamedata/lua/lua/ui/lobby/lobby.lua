@@ -3251,6 +3251,9 @@ function CreateUI(maxPlayers, useSteam)
         EffectHelpers.Pulse(GUI.slots[i].color.glow)
 
         GUI.slots[i].color.HandleEvent = function(self, event)
+            if not lobbyComm:IsHost() or not IsLocallyOwned(i) then
+                return
+            end
             if event.Type == 'MouseEnter' then
                 self.glow:Show()
             elseif event.Type == 'MouseExit' then
