@@ -1,3 +1,16 @@
+### Release 02-01-2021 ###
+Lua 5.3.34
+
+- The unit mouseover display will now show the correct fuel time, if applicable.
+- The unit restriction “Alternative Air” now has a tooltip to elaborate on what it does.
+- The version of the game and LOUD mod is now displayed at the top left of the main menu and certain other menus.
+- The keybinding menu, under certain conditions, would fail to open. Some of these conditions have been fixed.
+- The textbox showing the AI’s cheat multiplier setting in the lobby now updates properly for all players, not just the host.
+- AI now more cautious of local MEX building.
+- AI will cease ASF construction at 120 ASFs.
+- Tweaks to some AI unit building conditions.
+- More pathfinding footprints for some of the biggest units.
+
 ### Release 24-12-2020 ###
 Lua 5.3.33
 Textures 6.2
