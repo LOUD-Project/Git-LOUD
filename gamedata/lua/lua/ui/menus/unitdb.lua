@@ -30,6 +30,7 @@ local originMap = {
 	'', -- Dummy value to account for Any in the filter combo
 	'Vanilla',
 	'4th Dimension Units',
+	'BlackOps ACUs',
 	'BlackOps Unleashed',
 	'BrewLAN LOUD',
 	'LOUD Unit Additions',
@@ -363,7 +364,8 @@ function CreateUnitDB(over, inGame, callback)
 				unitList[l].name:SetText('')
 				unitList[l].desc:SetText('')
 				unitList[l].id:SetText('')
-				unitList[l]:Hide()
+				unitList[l].backIcon:Hide()
+				unitList[l].icon:Hide()
 			end
 		end
 		local j
