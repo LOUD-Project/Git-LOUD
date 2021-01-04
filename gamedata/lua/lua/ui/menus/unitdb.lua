@@ -970,7 +970,9 @@ function CreateUnitDB(over, inGame, callback)
 		end
 	end
 
-	UIUtil.MakeInputModal(panel, function() exitBtn.OnClick(exitBtn) end)
+	UIUtil.MakeInputModal(panel,
+	function() searchBtn.OnClick(searchBtn) end, 
+	function() exitBtn.OnClick(exitBtn) end)
 end
 
 function FillLine(line, index)
