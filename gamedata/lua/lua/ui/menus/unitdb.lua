@@ -364,7 +364,7 @@ function CreateUnitDB(over, inGame, callback)
 				end
 				j = j + 1
 			end
-			FillLine(v, allBlueprints[units[j]], j)
+			FillLine(v, j)
 			j = j + 1
 		end
 	end
@@ -907,16 +907,61 @@ function CreateUnitDB(over, inGame, callback)
 	resultText = UIUtil.CreateText(panel, r, 16, UIUtil.bodyFont)
 	LayoutHelpers.AtLeftTopIn(resultText, panel, exitBtn.Width() + 40, 670)
 
+	panel.HandleEvent = function(self, event)
+		if event.Type ~= 'KeyDown' then
+			return
+		end
+		LOG("RATS: "..repr(event.KeyCode))
+		if event.KeyCode == 319 then
+			if event.Modifiers.Shift then
+				listContainer:ScrollLines(nil, 10)
+			elseif event.Modifiers.Ctrl then
+				listContainer:ScrollSetTop(nil, count)
+			else
+				listContainer:ScrollLines(nil, 1)
+			end
+		elseif event.KeyCode == 317 then
+			if event.Modifiers.Shift then
+				listContainer:ScrollLines(nil, -10)
+			elseif event.Modifiers.Ctrl then
+				listContainer:ScrollSetTop(nil, 0)
+			else
+				listContainer:ScrollLines(nil, -1)
+			end
+		elseif event.KeyCode == 49 then
+			DisplayUnit(unitList[1].unitIndex)
+		elseif event.KeyCode == 50 then
+			DisplayUnit(unitList[2].unitIndex)
+		elseif event.KeyCode == 51 then
+			DisplayUnit(unitList[3].unitIndex)
+		elseif event.KeyCode == 52 then
+			DisplayUnit(unitList[4].unitIndex)
+		elseif event.KeyCode == 53 then
+			DisplayUnit(unitList[5].unitIndex)
+		elseif event.KeyCode == 54 then
+			DisplayUnit(unitList[6].unitIndex)
+		elseif event.KeyCode == 55 then
+			DisplayUnit(unitList[7].unitIndex)
+		elseif event.KeyCode == 56 then
+			DisplayUnit(unitList[8].unitIndex)
+		elseif event.KeyCode == 57 then
+			DisplayUnit(unitList[9].unitIndex)
+		end
+	end
+
 	UIUtil.MakeInputModal(panel, function() exitBtn.OnClick(exitBtn) end)
 end
 
-function FillLine(line, bp, index)
+function FillLine(line, index)
+	local id = units[index]
+	local bp = allBlueprints[id]
+	line.unitIndex = index
 	line:Show()
 	local n = LOC(bp.General.UnitName) or LOC(bp.Description) or 'Unnamed Unit'
 	line.name:SetText(n)
 	line.desc:SetText(LOC(bp.Description) or 'Unnamed Unit')
-	line.id:SetText(string.format('%s (%s)', originMap[origin[index]], units[index]))
-	local ico = '/textures/ui/common/icons/units/'..units[index]..'_icon.dds'
+	line.id:SetText(string.format('%s (%s)', originMap[origin[index]], id))
+	local ico = '/textures/ui/common/icons/units/'..id..'_icon.dds'
 	if noIcon[units[index]] then
 		line.icon:SetTexture(UIUtil.UIFile('/icons/units/default_icon.dds'))
 	else
@@ -924,14 +969,16 @@ function FillLine(line, bp, index)
 	end
 	line.HandleEvent = function(self, event)
 		if event.Type == 'ButtonPress' or event.Type == 'ButtonDClick' then
-			DisplayUnit(bp, units[index], index)
+			DisplayUnit(index)
 			local sound = Sound({Cue = "UI_Mod_Select", Bank = "Interface",})
             PlaySound(sound)
 		end
 	end
 end
 
-function DisplayUnit(bp, id, index)
+function DisplayUnit(index)
+	local id = units[index]
+	local bp = allBlueprints[id]
 	unitDisplay.name:SetText(LOC(bp.General.UnitName) or LOC(bp.Description) or 'Unnamed Unit')
 	unitDisplay.shortDesc:SetText(LOC(bp.Description) or 'Unnamed Unit')
 	unitDisplay.icon:Show()
