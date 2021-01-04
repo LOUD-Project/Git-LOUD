@@ -223,48 +223,57 @@ function CreateUnitDB(over, inGame, callback)
 	LayoutHelpers.Below(unitDisplay.healthIcon, unitDisplay.abilities, 6)
 	unitDisplay.health = UIUtil.CreateText(unitDisplay, '', 14, UIUtil.bodyFont)
 	LayoutHelpers.RightOf(unitDisplay.health, unitDisplay.healthIcon, 6)
-	unitDisplay.health:DisableHitTest()
+	Tooltip.AddControlTooltip(unitDisplay.healthIcon, 'unitdb_health')
+	Tooltip.AddControlTooltip(unitDisplay.health, 'unitdb_health')
 
 	unitDisplay.shieldIcon = Bitmap(unitDisplay, UIUtil.UIFile('/game/unit_view_icons/shield.dds'))
 	LayoutHelpers.RightOf(unitDisplay.shieldIcon, unitDisplay.health, 6)
 	unitDisplay.shield = UIUtil.CreateText(unitDisplay, '', 14, UIUtil.bodyFont)
 	LayoutHelpers.RightOf(unitDisplay.shield, unitDisplay.shieldIcon, 6)
-	unitDisplay.shield:DisableHitTest()
+	Tooltip.AddControlTooltip(unitDisplay.shieldIcon, 'unitdb_shield')
+	Tooltip.AddControlTooltip(unitDisplay.shield, 'unitdb_shield')
 	unitDisplay.shieldIcon:Hide()
 
 	unitDisplay.capIcon = Bitmap(unitDisplay, UIUtil.UIFile('/dialogs/score-overlay/tank_bmp.dds'))
 	LayoutHelpers.RightOf(unitDisplay.capIcon, unitDisplay.shield, 6)
 	unitDisplay.cap = UIUtil.CreateText(unitDisplay, '', 14, UIUtil.bodyFont)
 	LayoutHelpers.RightOf(unitDisplay.cap, unitDisplay.capIcon, 6)
-	unitDisplay.cap:DisableHitTest()
+	Tooltip.AddControlTooltip(unitDisplay.capIcon, 'unitdb_capcost')
+	Tooltip.AddControlTooltip(unitDisplay.cap, 'unitdb_capcost')
 
 	unitDisplay.massIcon = Bitmap(unitDisplay, UIUtil.UIFile('/game/build-ui/icon-mass_bmp.dds'))
 	LayoutHelpers.Below(unitDisplay.massIcon, unitDisplay.healthIcon, 6)
 	unitDisplay.mass = UIUtil.CreateText(unitDisplay, '', 14, UIUtil.bodyFont)
 	LayoutHelpers.RightOf(unitDisplay.mass, unitDisplay.massIcon, 6)
-	unitDisplay.mass:DisableHitTest()
+	Tooltip.AddControlTooltip(unitDisplay.massIcon, 'unitdb_mass')
+	Tooltip.AddControlTooltip(unitDisplay.mass, 'unitdb_mass')
 	unitDisplay.energyIcon = Bitmap(unitDisplay, UIUtil.UIFile('/game/build-ui/icon-energy_bmp.dds'))
 	LayoutHelpers.RightOf(unitDisplay.energyIcon, unitDisplay.mass, 6)
 	unitDisplay.energy = UIUtil.CreateText(unitDisplay, '', 14, UIUtil.bodyFont)
 	LayoutHelpers.RightOf(unitDisplay.energy, unitDisplay.energyIcon, 6)
-	unitDisplay.energy:DisableHitTest()
+	Tooltip.AddControlTooltip(unitDisplay.energyIcon, 'unitdb_energy')
+	Tooltip.AddControlTooltip(unitDisplay.energy, 'unitdb_energy')
 	unitDisplay.buildTimeIcon = Bitmap(unitDisplay, UIUtil.UIFile('/game/build-ui/icon-clock_bmp.dds'))
 	LayoutHelpers.RightOf(unitDisplay.buildTimeIcon, unitDisplay.energy, 6)
 	unitDisplay.buildTime = UIUtil.CreateText(unitDisplay, '', 14, UIUtil.bodyFont)
 	LayoutHelpers.RightOf(unitDisplay.buildTime, unitDisplay.buildTimeIcon, 6)
-	unitDisplay.buildTime:DisableHitTest()
+	Tooltip.AddControlTooltip(unitDisplay.buildTimeIcon, 'unitdb_buildtime')
+	Tooltip.AddControlTooltip(unitDisplay.buildTime, 'unitdb_buildtime')
 
 	unitDisplay.fuelIcon = Bitmap(unitDisplay, UIUtil.UIFile('/game/unit_view_icons/fuel.dds'))
 	LayoutHelpers.Below(unitDisplay.fuelIcon, unitDisplay.massIcon, 6)
 	unitDisplay.fuelTime = UIUtil.CreateText(unitDisplay, '', 14, UIUtil.bodyFont)
 	LayoutHelpers.RightOf(unitDisplay.fuelTime, unitDisplay.fuelIcon, 6)
-	unitDisplay.fuelTime:DisableHitTest()
+	Tooltip.AddControlTooltip(unitDisplay.fuelIcon, 'unitdb_fuel')
+	Tooltip.AddControlTooltip(unitDisplay.fuelTime, 'unitdb_fuel')
 	unitDisplay.fuelIcon:Hide()
 
 	unitDisplay.buildPowerIcon = Bitmap(unitDisplay, UIUtil.UIFile('/game/unit_view_icons/build.dds'))
 	LayoutHelpers.RightOf(unitDisplay.buildPowerIcon, unitDisplay.fuelIcon, 6)
 	unitDisplay.buildPower = UIUtil.CreateText(unitDisplay, '', 14, UIUtil.bodyFont)
 	LayoutHelpers.RightOf(unitDisplay.buildPower, unitDisplay.buildPowerIcon, 6)
+	Tooltip.AddControlTooltip(unitDisplay.buildPowerIcon, 'unitdb_buildpower')
+	Tooltip.AddControlTooltip(unitDisplay.buildPower, 'unitdb_buildpower')
 	unitDisplay.buildPowerIcon:Hide()
 
 	unitDisplay.weaponsLabel = UIUtil.CreateText(unitDisplay, 'Weapons', 18, UIUtil.buttonFont)
@@ -434,6 +443,8 @@ function CreateUnitDB(over, inGame, callback)
 		ToggleSetting('evenflow', checked)
 	end
 
+	Tooltip.AddControlTooltip(settingGroupEvenflow, 'unitdb_evenflow')
+
 	local settingGroupArtillery = Group(settingsContainer)
 	settingGroupArtillery.Height:Set(20)
 	settingGroupArtillery.Width:Set(settingsContainer.Width)
@@ -448,6 +459,8 @@ function CreateUnitDB(over, inGame, callback)
 	artyCheckbox.OnCheck = function(self, checked)
 		ToggleSetting('artillery', checked)
 	end
+
+	Tooltip.AddControlTooltip(settingGroupArtillery, 'unitdb_artillery')
 
 	local settingGroupCommanders = Group(settingsContainer)
 	settingGroupCommanders.Height:Set(20)
@@ -464,6 +477,8 @@ function CreateUnitDB(over, inGame, callback)
 		ToggleSetting('commanders', checked)
 	end
 
+	Tooltip.AddControlTooltip(settingGroupCommanders, 'unitdb_commanders')
+
 	local settingGroupNukes = Group(settingsContainer)
 	settingGroupNukes.Height:Set(20)
 	settingGroupNukes.Width:Set(settingsContainer.Width)
@@ -478,6 +493,8 @@ function CreateUnitDB(over, inGame, callback)
 	nukesCheckbox.OnCheck = function(self, checked)
 		ToggleSetting('nukes', checked)
 	end
+
+	Tooltip.AddControlTooltip(settingGroupNukes, 'unitdb_nukes')
 
 -- FILTERS: Basics
 
@@ -914,6 +931,7 @@ function CreateUnitDB(over, inGame, callback)
 		Filter()
 		listContainer:CalcVisible()
 	end
+	Tooltip.AddControlTooltip(resetBtn, 'unitdb_reset')
 
 	local exitBtn = UIUtil.CreateButtonStd(panel, '/scx_menu/small-btn/small', "Exit", 16, 2)
 	LayoutHelpers.AtLeftTopIn(exitBtn, panel, 36, 644)
