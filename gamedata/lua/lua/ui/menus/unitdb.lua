@@ -332,7 +332,7 @@ function CreateUnitDB(over, inGame, callback)
 	end
 
 	listContainer.IsScrollable = function(self, axis)
-		return true
+		return count > 9
 	end
 
 	listContainer.CalcVisible = function(self)
