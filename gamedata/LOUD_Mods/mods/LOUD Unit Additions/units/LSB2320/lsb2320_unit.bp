@@ -59,7 +59,7 @@ UnitBlueprint {
         Health = 4800,
         MaxHealth = 4800,
         RegenRate = 3,
-		SurfaceThreatLevel = 318.7,		
+		SurfaceThreatLevel = 45,		
     },
 	
     Description = '<LOC lsb2320_desc>Barrage Artillery',
@@ -244,15 +244,15 @@ UnitBlueprint {
 			
             DisplayName = 'Zthuthaam Cannon',
 			
-            EnergyDrainPerSecond = 450,
-            EnergyRequired = 2250,
+            EnergyDrainPerSecond = 278,     -- 9 second charge
+            EnergyRequired = 2500,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
                 Water = 'Land|Water',
             },
 			
-            FiringRandomness = 1.2,
+            FiringRandomness = 1.25,
             FiringTolerance = 1,
 			
             Label = 'MainGun',
@@ -360,15 +360,15 @@ UnitBlueprint {
 			
             DisplayName = 'Zthuthaam Artillery Cannon',
 			
-            EnergyDrainPerSecond = 450,
-            EnergyRequired = 2250,
+            EnergyDrainPerSecond = 278,
+            EnergyRequired = 2500,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
                 Water = 'Land|Water',
             },
 			
-            FiringRandomness = 1.2,
+            FiringRandomness = 1.25,
             FiringTolerance = 1,
 			
             Label = 'MainGun',
@@ -473,15 +473,15 @@ UnitBlueprint {
 			
             DisplayName = 'Zthuthaam Artillery Cannon',
 			
-            EnergyDrainPerSecond = 450,
-            EnergyRequired = 2250,
+            EnergyDrainPerSecond = 278,
+            EnergyRequired = 2500,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
                 Water = 'Land|Water',
             },
 			
-            FiringRandomness = 1.2,
+            FiringRandomness = 1.25,
             FiringTolerance = 1,
 			
             Label = 'MainGun',

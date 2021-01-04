@@ -271,8 +271,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 200,
-            DamageRadius = 0.5,
-            DamageType = 'Normal',
+            DamageType = 'ShieldMult1.5',
 			
             DisplayName = 'Meson Rocket',
 			
@@ -281,8 +280,8 @@ UnitBlueprint {
                 Water = 'Land|Water|Seabed',
             },
 			
-			FiringRandomness = 0.7,
-            FiringTolerance = 1.5,
+			FiringRandomness = 0.4,
+            FiringTolerance = 1.1,
 			
             Label = 'Rocket',
             LeadTarget = true,

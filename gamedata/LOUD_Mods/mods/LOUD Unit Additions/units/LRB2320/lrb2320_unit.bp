@@ -53,7 +53,7 @@ UnitBlueprint {
         Health = 4800,
         MaxHealth = 4800,
         RegenRate = 6,
-		SurfaceThreatLevel = 295.6,		
+		SurfaceThreatLevel = 40,		
     },
 	
     Description = '<LOC lrb2320_desc>Barrage Artillery',
@@ -200,8 +200,8 @@ UnitBlueprint {
                     },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
-                    Duration = 2.0,
-                    Radius = 2.5,
+                    Duration = 1.5,
+                    Radius = 2,
                     TargetAllow = 'LAND,NAVAL,TECH1,TECH2,TECH3',
                     TargetDisallow = 'EXPERIMENTAL,AIR,COMMAND,WALL',
                 },
@@ -216,15 +216,15 @@ UnitBlueprint {
 			
             DisplayName = 'Resonance Artillery',
 			
-            EnergyDrainPerSecond = 450,
-            EnergyRequired = 2250,
+            EnergyDrainPerSecond = 348, -- 9 second charge
+            EnergyRequired = 3130,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
                 Water = 'Land|Water',
             },
 			
-            FiringRandomness = 1.15,
+            FiringRandomness = 1.25,
             FiringTolerance = 1,
 			
             Label = 'gun',
@@ -307,8 +307,8 @@ UnitBlueprint {
                     },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
-                    Duration = 2.0,
-                    Radius = 2.5,
+                    Duration = 1.5,
+                    Radius = 2,
                     TargetAllow = 'LAND,NAVAL,TECH1,TECH2,TECH3',
                     TargetDisallow = 'EXPERIMENTAL,AIR,COMMAND,WALL',
                 },
@@ -323,15 +323,15 @@ UnitBlueprint {
 			
             DisplayName = 'Resonance Artillery',
 			
-            EnergyDrainPerSecond = 450,
-            EnergyRequired = 2250,
+            EnergyDrainPerSecond = 348,
+            EnergyRequired = 3130,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
                 Water = 'Land|Water',
             },
 			
-            FiringRandomness = 1.15,
+            FiringRandomness = 1.25,
             FiringTolerance = 1,
 			
             Label = 'gun',
@@ -411,8 +411,8 @@ UnitBlueprint {
                     },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
-                    Duration = 2.0,
-                    Radius = 2.5,
+                    Duration = 1.5,
+                    Radius = 2,
                     TargetAllow = 'LAND,NAVAL,TECH1,TECH2,TECH3',
                     TargetDisallow = 'EXPERIMENTAL,AIR,COMMAND,WALL',
                 },
@@ -427,15 +427,15 @@ UnitBlueprint {
 			
             DisplayName = 'Resonance Artillery',
 			
-            EnergyDrainPerSecond = 450,
-            EnergyRequired = 2250,
+            EnergyDrainPerSecond = 348,
+            EnergyRequired = 3130,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
                 Water = 'Land|Water',
             },
 			
-            FiringRandomness = 1.15,
+            FiringRandomness = 1.25,
             FiringTolerance = 1,
 			
             Label = 'gun',

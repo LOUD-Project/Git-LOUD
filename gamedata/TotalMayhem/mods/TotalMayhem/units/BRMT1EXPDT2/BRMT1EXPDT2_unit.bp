@@ -46,6 +46,8 @@ UnitBlueprint {
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1ENGINEER',
+        'BUILTBYTIER2ENGINEER',
+        'BUILTBYTIER3ENGINEER',        
         'BUILTBYCOMMANDER',
         'CYBRAN',
         'STRUCTURE',

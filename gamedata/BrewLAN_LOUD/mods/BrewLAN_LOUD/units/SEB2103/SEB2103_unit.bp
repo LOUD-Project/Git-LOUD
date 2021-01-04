@@ -184,15 +184,16 @@ UnitBlueprint {
             
             CollideFriendly = false,
 			
-            Damage = 300,
+            Damage = 330,                      -- 10% factional bonus
             DamageFriendly = true,
             DamageRadius = 1.5,
-            DamageType = 'Normal',
-			
+            
+            DamageType = 'ShieldMult1.2',       -- partial factional bonus
+
             DisplayName = 'Poker Artillery',
 			
-            EnergyDrainPerSecond = 40,		-- 4 second charge
-            EnergyRequired = 160,
+            EnergyDrainPerSecond = 38,		-- 4 second charge
+            EnergyRequired = 150,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -200,7 +201,7 @@ UnitBlueprint {
             },
 			
             FiringRandomness = 1,
-            FiringTolerance = 0.7,
+            FiringTolerance = 0.3,
 			
             Label = 'MainGun',
 			
@@ -237,6 +238,7 @@ UnitBlueprint {
             TargetCheckInterval = 2,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
+                'SHIELD',
 				'INDIRECTFIRE',
                 'ALLUNITS',
             },

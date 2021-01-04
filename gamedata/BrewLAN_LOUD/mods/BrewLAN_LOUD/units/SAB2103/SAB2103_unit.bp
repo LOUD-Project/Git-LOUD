@@ -181,6 +181,21 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
+            -- factional bonus --
+            Buffs = {
+            	{
+                    Add = {
+                        OnImpact = true,
+                    },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 1,
+                    Radius = 1.5,
+                    TargetAllow = 'LAND,NAVAL,TECH1',
+                    TargetDisallow = 'TECH2,TECH3,EXPERIMENTAL,AIR,COMMAND,WALL',
+                },
+            },
+
             Damage = 60,
             DamageFriendly = true,
             DamageRadius = 1.5,
@@ -191,8 +206,8 @@ UnitBlueprint {
 			DoTPulses = 5,	-- 5 x 60 damage
 			DoTTime = 3,	-- applied over 3 seconds
 			
-            EnergyDrainPerSecond = 30,	-- 4 second charge
-            EnergyRequired = 120,
+            EnergyDrainPerSecond = 38,	-- 4 second charge
+            EnergyRequired = 150,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -200,7 +215,7 @@ UnitBlueprint {
             },
 			
             FiringRandomness = 1,
-            FiringTolerance = 0.7,
+            FiringTolerance = 0.3,
 			
             Label = 'MainGun',
 			
@@ -236,6 +251,8 @@ UnitBlueprint {
             TargetCheckInterval = 3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
+                'SHIELD',
+                'ARTILLERY',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',

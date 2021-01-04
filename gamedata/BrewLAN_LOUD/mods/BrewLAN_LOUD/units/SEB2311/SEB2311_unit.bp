@@ -229,19 +229,22 @@ UnitBlueprint {
             Damage = 900,
 			DamageFriendly = true,
             DamageRadius = 2,
+            
+            DamageType = 'ShieldMult1.15',       -- class bonus
+
             DamageType = 'Normal',
 			
             DisplayName = 'Gauss Cannon',
 			
-            EnergyDrainPerSecond = 750,
-            EnergyRequired = 1875,
+            EnergyDrainPerSecond = 390,     -- 2.5 second charge
+            EnergyRequired = 975,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
             },
 			
-            FiringRandomness = 0.5,
-            FiringTolerance = 1.5,
+            FiringRandomness = 0.75,
+            FiringTolerance = 1.2,
 			
             Label = 'FrontTurret02',
 			
@@ -291,12 +294,13 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 5,	-- 2.5 seconds to charge = 360 DPS
+            RateOfFire = 1,	-- 2.5 seconds to charge = 360 DPS
 			
             TargetCheckInterval = 3,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
+                'SHIELD',
                 'MOBILE',
                 'ALLUNITS',
             },
@@ -314,7 +318,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 27,
+            TurretYawSpeed = 22,
 			
             Turreted = true,
         },

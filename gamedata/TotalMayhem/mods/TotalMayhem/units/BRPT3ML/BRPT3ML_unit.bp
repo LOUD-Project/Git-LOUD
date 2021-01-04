@@ -226,6 +226,7 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             ArtilleryShieldBlocks = true,
+            
             Audio = {
                 BarrelLoop = Sound {
                     Bank = 'UAS',
@@ -243,22 +244,26 @@ UnitBlueprint {
                     LodCutoff = 'WeaponBig_LodCutoff',
                 },
             },
+            
             BallisticArc = 'RULEUBA_HighArc',
             CollideFriendly = false,
 			
             Damage = 125,
             DamageRadius = 2,
-            DamageType = 'ShieldMult0.8',
+            DamageType = 'ShieldMult0.8',       -- unique penalty to this unit --
             DamageFriendly = true,
 			
             DisplayName = 'Light Quarnon Cannon',
-			
+            
+            EnergyRequired = 550,
+            EnergyDrainPerSecond = 250,     -- 2.2 seconds to charge
+				
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
             },
 			
-			FiringRandomnessWhileMoving = 3,
-            FiringRandomness = 1.8,
+			FiringRandomnessWhileMoving = 3.6,
+            FiringRandomness = 1.6,
             FiringTolerance = 2,
 			
             Label = 'FrontTurret',
@@ -267,7 +272,7 @@ UnitBlueprint {
             MinRadius = 25,
 			
             MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0.8,
+            MuzzleSalvoDelay = 0.7,         -- 2.8 seconds to fire
             MuzzleSalvoSize = 4,
             MuzzleVelocity = 23,
 			MuzzleVelocityRandom = 1,
@@ -291,12 +296,12 @@ UnitBlueprint {
 
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 3,	-- 3 second reload after firing salvo 
+            RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
 
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.3,
+            RateOfFire = 1,     -- rate controlled by charge - every 5 seconds
 			
             TargetCheckInterval = 2,
 			
@@ -321,7 +326,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 150,
-            TurretYawSpeed = 28,
+            TurretYawSpeed = 25,
 			
             Turreted = true,
 			

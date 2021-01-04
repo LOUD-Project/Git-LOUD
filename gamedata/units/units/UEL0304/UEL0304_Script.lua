@@ -1,4 +1,3 @@
-
 local TLandUnit = import('/lua/terranunits.lua').TLandUnit
 local TIFArtilleryWeapon = import('/lua/terranweapons.lua').TIFArtilleryWeapon
 

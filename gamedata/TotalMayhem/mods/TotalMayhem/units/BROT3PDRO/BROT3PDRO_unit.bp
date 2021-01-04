@@ -49,12 +49,15 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        Health = 2700,
-        MaxHealth = 2700,
+        Health = 2200,
+        MaxHealth = 2200,
         RegenRate = 2,
+        
         SurfaceThreatLevel = 105.4,
     },
+    
     Description = '<LOC brot3pdro_desc>Plasma Rocket Battery',
+    
     Display = {
         Mesh = {
             IconFadeInZoom = 160,
@@ -69,15 +72,17 @@ UnitBlueprint {
         SpawnRandomRotation = true,
         UniformScale = 0.09,
     },
+    
     Economy = {
-        BuildCostEnergy = 40000,
-        BuildCostMass = 2430,
+        BuildCostEnergy = 38000,
+        BuildCostMass = 3100,
         BuildTime = 2700,
-        RebuildBonusIds = {
-            'BROT3PDRO',
-        },
+        
+        RebuildBonusIds = {'BROT3PDRO'},
     },
+    
     General = {
+        CapCost = 5,
         Category = 'Defense',
         Classification = 'RULEUC_Weapon',
         CommandCaps = {
@@ -101,15 +106,19 @@ UnitBlueprint {
         UnitName = '<LOC brot3pdro_name>Zheela',
         UnitWeight = 1,
     },
+    
     Intel = {
         VisionRadius = 28,
     },
+    
     Interface = {
         HelpText = 'Plasma Rocket Battery',
     },
+    
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.5,
     LifeBarSize = 1.25,
+    
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -134,6 +143,7 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+    
     SelectionSizeX = 1.0,
     SelectionSizeZ = 1.0,
     SelectionThickness = 0.5,
@@ -144,6 +154,7 @@ UnitBlueprint {
 	
     StrategicIconName = 'icon_structure3_directfire',
     StrategicIconSortPriority = 200,
+    
     Veteran = {
         Level1 = 16,
         Level2 = 32,
@@ -151,9 +162,12 @@ UnitBlueprint {
         Level4 = 64,
         Level5 = 80,
     },
+    
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+            ArtilleryShieldBlocks = true,
+            
             Audio = {
                 BarrelStart = Sound {
                     Bank = 'UES',
@@ -166,15 +180,22 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
+            
             BallisticArc = 'RULEUBA_LowArc',
+            
             CollideFriendly = false,
 			
             Damage = 670,
+            DamageFriendly = true,
             DamageRadius = 3.5,
+            
             DamageType = 'Normal',
 			
             DisplayName = 'Rockets',
-			
+            
+            EnergyRequired = 14100,
+            EnergyDrainPerSecond = 1856,     -- 7.6 seconds to charge
+
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
@@ -188,8 +209,8 @@ UnitBlueprint {
             MaxRadius = 100,
             MinRadius = 24,
 			
-            MuzzleChargeDelay = 0.5,
-            MuzzleSalvoDelay = 0.8,
+            MuzzleChargeDelay = 0,
+            MuzzleSalvoDelay = 0.4,     -- firing cycle 2.4 seconds
             MuzzleSalvoSize = 3,
             MuzzleVelocity = 28,
             MuzzleVelocityRandomness = 2.5,
@@ -225,8 +246,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.1,
-			RenderFireClock = true,
+            RateOfFire = 1,     -- 6 x 670 dmg every 10 seconds --
 			
             TargetCheckInterval = 1,
 			
@@ -234,6 +254,8 @@ UnitBlueprint {
                 'EXPERIMENTAL',
                 'STRUCTURE',
                 'SPECIALHIGHPRI',
+                'SHIELD',
+                'ARTILLERY',
                 'MOBILE',
                 'ALLUNITS',
             },

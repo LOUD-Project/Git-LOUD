@@ -114,9 +114,9 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 5994000,
-        BuildCostMass = 299700,
-        BuildTime = 599400,
+        BuildCostEnergy = 3900000,
+        BuildCostMass = 210000,
+        BuildTime = 71000,
     },
 	
     Footprint = {
@@ -228,16 +228,16 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_HighArc',
             CollideFriendly = false,
 			
-            Damage = 2600,
+            Damage = 2000,
             DamageFriendly = true,
-            DamageRadius = 6,
+            DamageRadius = 5,
 			
             DamageType = 'Normal',
 			
             DisplayName = 'Proton Artillery',
 			
-            EnergyDrainPerSecond = 2000,
-            EnergyRequired = 2000,
+            EnergyDrainPerSecond = 8750,    -- 2 Second charge cycle --
+            EnergyRequired = 17500,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -250,7 +250,7 @@ UnitBlueprint {
 			
             LeadTarget = true,
 			
-            MaxRadius = 3200,
+            MaxRadius = 2600,
             MinRadius = 150,
 			
             MuzzleSalvoDelay = 0,
@@ -278,7 +278,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.5,		---- 1300 DPS
+            RateOfFire = 1,		-- controlled by charge -- 1000 DPS
 			
 			RenderFireClock = true,
 			

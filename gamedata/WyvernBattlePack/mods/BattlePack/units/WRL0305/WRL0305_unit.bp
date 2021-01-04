@@ -62,7 +62,7 @@ UnitBlueprint {
 
         Health = 460,
         MaxHealth = 460,
-        RegenRate = 2,
+        RegenRate = 3,
 
         SurfaceThreatLevel = 35.5,
     },
@@ -130,13 +130,14 @@ UnitBlueprint {
     
     Economy = {
         BuildCostEnergy = 19500,
-        BuildCostMass = 900,
+        BuildCostMass = 850,
         BuildTime = 500,
         
-        MaintenanceConsumptionPerSecondEnergy = 25,        
+        MaintenanceConsumptionPerSecondEnergy = 25, -- for stealth
     },
     
     General = {
+        CapCost = 3,
         Category = 'Direct Fire',
         Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
@@ -259,10 +260,13 @@ UnitBlueprint {
             CollideFriendly = false,
             
             Damage = 1800,
-            DamageType = 'ShieldMult0.5',
+            DamageType = 'ShieldMult0.5',       -- class penalty --
             
             DisplayName = 'Disintegrator Pulse Laser',
             
+            EnergyRequired = 465,
+            EnergyDrainPerSecond = 52,     -- 9 seconds to charge
+
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
@@ -273,9 +277,9 @@ UnitBlueprint {
             
             Label = 'MainGun',
             
-            MaxRadius = 70,
+            MaxRadius = 75,
             
-            MuzzleChargeDelay = 1,
+            MuzzleChargeDelay = 1,      -- 1 second delay
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 60,
@@ -302,8 +306,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_DirectFire',
             
-            RateOfFire = 0.1,
-            RenderFireClock = true,
+            RateOfFire = 1,     -- rate controlled by charge -- every 10 seconds -- 180 dps
             
             TargetCheckInterval = 4,
             
@@ -340,7 +343,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.1,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,

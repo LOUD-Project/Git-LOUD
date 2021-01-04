@@ -55,7 +55,7 @@ UnitBlueprint {
         Health = 4800,
         MaxHealth = 4800,
         RegenRate = 2,
-		SurfaceThreatLevel = 234.5,
+		SurfaceThreatLevel = 44,
     },
 	
     Description = '<LOC lab2320_desc>Barrage Artillery',
@@ -203,7 +203,7 @@ UnitBlueprint {
 			
             Damage = 265,
             DamageFriendly = true,
-            DamageRadius = 2.2,
+            DamageRadius = 2,
             DamageType = 'Normal',
 			
             DisplayName = 'Miasma Artillery',
@@ -211,15 +211,15 @@ UnitBlueprint {
             DoTPulses = 5,	-- 5 x 265 damage
             DoTTime = 3,	-- applied over 3 seconds
 
-            EnergyDrainPerSecond = 450,
-            EnergyRequired = 2250,
+            EnergyDrainPerSecond = 195,     -- 9 second charge cycle
+            EnergyRequired = 1750,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
                 Water = 'Land|Water',
             },
 			
-            FiringRandomness = 1.2,
+            FiringRandomness = 1.35,
             FiringTolerance = 0.1,
 			
             Label = 'MainGun',
@@ -295,7 +295,7 @@ UnitBlueprint {
 			
             Damage = 265,
             DamageFriendly = true,
-            DamageRadius = 2.2,
+            DamageRadius = 2,
             DamageType = 'Normal',
 			
             DisplayName = 'Miasma Artillery',
@@ -303,15 +303,15 @@ UnitBlueprint {
             DoTPulses = 5,	-- 5 x 265 damage
             DoTTime = 3,	-- applied over 3 seconds
 
-            EnergyDrainPerSecond = 450,
-            EnergyRequired = 2250,
+            EnergyDrainPerSecond = 195,     -- 9 second charge
+            EnergyRequired = 1750,
 
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
                 Water = 'Land|Water',
             },
 			
-            FiringRandomness = 1.2,
+            FiringRandomness = 1.35,
             FiringTolerance = 0.1,
 			
             Label = 'MainGun',
@@ -386,7 +386,7 @@ UnitBlueprint {
 			
             Damage = 265,
             DamageFriendly = true,
-            DamageRadius = 2.2,
+            DamageRadius = 2,
             DamageType = 'Normal',
 			
             DisplayName = 'Miasma Artillery',
@@ -394,15 +394,15 @@ UnitBlueprint {
             DoTPulses = 5,	-- 5 x 265 damage
             DoTTime = 3,	-- applied over 3 seconds
 
-            EnergyDrainPerSecond = 450,
-            EnergyRequired = 2250,
+            EnergyDrainPerSecond = 195,     -- 9 second charge
+            EnergyRequired = 1750,
 
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
                 Water = 'Land|Water',
             },
 			
-            FiringRandomness = 1.2,
+            FiringRandomness = 1.35,
             FiringTolerance = 0.1,
 			
             Label = 'MainGun',

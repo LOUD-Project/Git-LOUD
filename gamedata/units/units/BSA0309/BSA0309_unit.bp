@@ -338,14 +338,11 @@ UnitBlueprint {
             CollideFriendly = false,
 
             Damage = 25,
-			DamageRadius = 0,
             DamageType = 'Normal',
 
             DisplayName = 'Shleo AA AutoGun',
 
-            FireTargetLayerCapsTable = {
-                Air = 'Air',
-            },
+            FireTargetLayerCapsTable = { Air = 'Air' },
 
 			FiringRandomness = 0.1,
             FiringTolerance = 0,
@@ -357,8 +354,8 @@ UnitBlueprint {
             MaxRadius = 38,
 
             MuzzleSalvoDelay = 0.1,
-            MuzzleSalvoSize = 2,
-            MuzzleVelocity = 85,
+            MuzzleSalvoSize = 3,
+            MuzzleVelocity = 80,
 
             ProjectileId = '/projectiles/SAAShleoAAGatlingGun04/SAAShleoAAGatlingGun04_proj.bp',
 			ProjectileLifetimeUsesMultiplier = 0.6,
@@ -379,7 +376,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_AntiAir',
 
-            RateOfFire = 1.5,	-- 75 DPS Air
+            RateOfFire = 1,	-- 75 DPS Air
 
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -424,9 +421,8 @@ UnitBlueprint {
             DamageType = 'Normal',
 
             DisplayName = 'Shleo AA AutoGun',
-            FireTargetLayerCapsTable = {
-                Air = 'Air',
-            },
+            
+            FireTargetLayerCapsTable = { Air = 'Air' },
 
 			FiringRandomness = 0.1,
             FiringTolerance = 0,
@@ -438,8 +434,8 @@ UnitBlueprint {
             MaxRadius = 38,
 
             MuzzleSalvoDelay = 0.1,
-            MuzzleSalvoSize = 2,
-            MuzzleVelocity = 85,
+            MuzzleSalvoSize = 3,
+            MuzzleVelocity = 80,
 
             ProjectileId = '/projectiles/SAAShleoAAGatlingGun04/SAAShleoAAGatlingGun04_proj.bp',
 			ProjectileLifetimeUsesMultiplier = 0.6,
@@ -458,7 +454,7 @@ UnitBlueprint {
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
 
-            RateOfFire = 1.5,
+            RateOfFire = 1,
 
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -497,14 +493,11 @@ UnitBlueprint {
             CollideFriendly = false,
 
             Damage = 25,
-			DamageRadius = 0,
             DamageType = 'Normal',
 
             DisplayName = 'Shleo AA AutoGun',
 
-            FireTargetLayerCapsTable = {
-                Air = 'Air',
-            },
+            FireTargetLayerCapsTable = { Air = 'Air' },
 
 			FiringRandomness = 0.1,
             FiringTolerance = 0,
@@ -516,8 +509,8 @@ UnitBlueprint {
             MaxRadius = 38,
 
             MuzzleSalvoDelay = 0.1,
-            MuzzleSalvoSize = 2,
-            MuzzleVelocity = 85,
+            MuzzleSalvoSize = 3,
+            MuzzleVelocity = 80,
 
             ProjectileId = '/projectiles/SAAShleoAAGatlingGun04/SAAShleoAAGatlingGun04_proj.bp',
 			ProjectileLifetimeUsesMultiplier = 0.6,
@@ -536,7 +529,7 @@ UnitBlueprint {
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
 
-            RateOfFire = 2,
+            RateOfFire = 1,
 
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -580,9 +573,7 @@ UnitBlueprint {
 
             DisplayName = 'Shleo AA AutoGun',
 
-            FireTargetLayerCapsTable = {
-                Air = 'Air',
-            },
+            FireTargetLayerCapsTable = { Air = 'Air' },
 
 			FiringRandomness = 0.1,
             FiringTolerance = 0,
@@ -594,8 +585,8 @@ UnitBlueprint {
             MaxRadius = 38,
 
             MuzzleSalvoDelay = 0.1,
-            MuzzleSalvoSize = 2,
-            MuzzleVelocity = 85,
+            MuzzleSalvoSize = 3,
+            MuzzleVelocity = 80,
 
             ProjectileId = '/projectiles/SAAShleoAAGatlingGun04/SAAShleoAAGatlingGun04_proj.bp',
             ProjectileLifetimeUsesMultiplier = 0.6,
@@ -614,7 +605,7 @@ UnitBlueprint {
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
 
-            RateOfFire = 1.5,
+            RateOfFire = 1,
 
             TargetCheckInterval = 0.5,
             TargetPriorities = {
