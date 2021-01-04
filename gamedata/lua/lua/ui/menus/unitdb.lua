@@ -224,8 +224,15 @@ function CreateUnitDB(over, inGame, callback)
 	LayoutHelpers.RightOf(unitDisplay.health, unitDisplay.healthIcon, 6)
 	unitDisplay.health:DisableHitTest()
 
+	unitDisplay.shieldIcon = Bitmap(unitDisplay, UIUtil.UIFile('/game/unit_view_icons/shield.dds'))
+	LayoutHelpers.RightOf(unitDisplay.shieldIcon, unitDisplay.health, 6)
+	unitDisplay.shield = UIUtil.CreateText(unitDisplay, '', 14, UIUtil.bodyFont)
+	LayoutHelpers.RightOf(unitDisplay.shield, unitDisplay.shieldIcon, 6)
+	unitDisplay.shield:DisableHitTest()
+	unitDisplay.shieldIcon:Hide()
+
 	unitDisplay.capIcon = Bitmap(unitDisplay, UIUtil.UIFile('/dialogs/score-overlay/tank_bmp.dds'))
-	LayoutHelpers.RightOf(unitDisplay.capIcon, unitDisplay.health, 6)
+	LayoutHelpers.RightOf(unitDisplay.capIcon, unitDisplay.shield, 6)
 	unitDisplay.cap = UIUtil.CreateText(unitDisplay, '', 14, UIUtil.bodyFont)
 	LayoutHelpers.RightOf(unitDisplay.cap, unitDisplay.capIcon, 6)
 	unitDisplay.cap:DisableHitTest()
@@ -252,6 +259,12 @@ function CreateUnitDB(over, inGame, callback)
 	LayoutHelpers.RightOf(unitDisplay.fuelTime, unitDisplay.fuelIcon, 6)
 	unitDisplay.fuelTime:DisableHitTest()
 	unitDisplay.fuelIcon:Hide()
+
+	unitDisplay.buildPowerIcon = Bitmap(unitDisplay, UIUtil.UIFile('/game/unit_view_icons/build.dds'))
+	LayoutHelpers.RightOf(unitDisplay.buildPowerIcon, unitDisplay.fuelIcon, 6)
+	unitDisplay.buildPower = UIUtil.CreateText(unitDisplay, '', 14, UIUtil.bodyFont)
+	LayoutHelpers.RightOf(unitDisplay.buildPower, unitDisplay.buildPowerIcon, 6)
+	unitDisplay.buildPowerIcon:Hide()
 
 	unitDisplay.weaponsLabel = UIUtil.CreateText(unitDisplay, 'Weapons', 18, UIUtil.buttonFont)
 	LayoutHelpers.Below(unitDisplay.weaponsLabel, unitDisplay.fuelIcon, 6)
@@ -1033,6 +1046,13 @@ function DisplayUnit(index)
 		strHealth = strHealth..string.format(" (+%02.f/s)", bpRR)
 	end
 	unitDisplay.health:SetText(strHealth)
+	if bp.Defense.Shield then
+		unitDisplay.shieldIcon:Show()
+		unitDisplay.shield:SetText(tostring(bp.Defense.Shield.ShieldMaxHealth))
+	else
+		unitDisplay.shieldIcon:Hide()
+		unitDisplay.shield:SetText('')
+	end
 	if bp.General.CapCost then
 		unitDisplay.cap:SetText(tostring(bp.General.CapCost))
 	else
@@ -1054,6 +1074,14 @@ function DisplayUnit(index)
 	else
 		unitDisplay.fuelIcon:Hide()
 		unitDisplay.fuelTime:SetText('')
+	end
+
+	if bp.Economy.BuildRate then
+		unitDisplay.buildPowerIcon:Show()
+		unitDisplay.buildPower:SetText(tostring(bp.Economy.BuildRate))
+	else
+		unitDisplay.buildPowerIcon:Hide()
+		unitDisplay.buildPower:SetText('')
 	end
 
 	if bp.Weapon then
