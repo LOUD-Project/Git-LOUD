@@ -181,21 +181,23 @@ function CreateUnitDB(over, inGame, callback)
 	unitDisplay.bg.Depth:Set(unitDisplay.Depth)
 	LayoutHelpers.FillParent(unitDisplay.bg, unitDisplay)
 
+	unitDisplay.backIcon = Bitmap(unitDisplay)
+	LayoutHelpers.AtLeftTopIn(unitDisplay.backIcon, unitDisplay)
 	unitDisplay.icon = Bitmap(unitDisplay)
-	LayoutHelpers.AtLeftTopIn(unitDisplay.icon, unitDisplay)
+	LayoutHelpers.AtCenterIn(unitDisplay.icon, unitDisplay.backIcon)
+	unitDisplay.stratIcon = Bitmap(unitDisplay.icon)
+	LayoutHelpers.AtRightTopIn(unitDisplay.stratIcon, unitDisplay.icon)
+
 	unitDisplay.name = UIUtil.CreateText(unitDisplay, '', 24, "Arial Bold")
 	unitDisplay.name:DisableHitTest()
-	LayoutHelpers.RightOf(unitDisplay.name, unitDisplay.icon, 6)
+	LayoutHelpers.RightOf(unitDisplay.name, unitDisplay.backIcon, 4)
 	unitDisplay.shortDesc = UIUtil.CreateText(unitDisplay, '', 18, UIUtil.bodyFont)
 	unitDisplay.shortDesc:DisableHitTest()
 	LayoutHelpers.Below(unitDisplay.shortDesc, unitDisplay.name)
 
-	unitDisplay.stratIcon = Bitmap(unitDisplay.icon)
-	LayoutHelpers.AtRightTopIn(unitDisplay.stratIcon, unitDisplay.icon)
-
 	-- Origin mod and ID
 	unitDisplay.technicals = UIUtil.CreateText(unitDisplay, '', 14, UIUtil.bodyFont)
-	LayoutHelpers.Below(unitDisplay.technicals, unitDisplay.icon, 4)
+	LayoutHelpers.Below(unitDisplay.technicals, unitDisplay.backIcon, 4)
 
 	unitDisplay.longDesc = UIUtil.CreateTextBox(unitDisplay)
 	LayoutHelpers.Below(unitDisplay.longDesc, unitDisplay.technicals, 4)
@@ -280,12 +282,19 @@ function CreateUnitDB(over, inGame, callback)
 		unitList[i].bg = Bitmap(unitList[i])
 		unitList[i].bg.Depth:Set(unitList[i].Depth)
 		LayoutHelpers.FillParent(unitList[i].bg, unitList[i])
-		unitList[i].bg:SetSolidColor('3B4649') -- Same colour as rows in lobby background
+		if math.mod(i, 2) == 0 then
+			 -- Same colour as rows in lobby background
+			unitList[i].bg:SetSolidColor('3B4649')
+		else
+			unitList[i].bg:SetSolidColor('445258')
+		end
 		unitList[i].bg.Right:Set(function() return unitList[i].Right() - 10 end)
+		unitList[i].backIcon = Bitmap(unitList[i])
+		LayoutHelpers.AtLeftTopIn(unitList[i].backIcon, unitList[i], 4, 1)
 		unitList[i].icon = Bitmap(unitList[i])
-		LayoutHelpers.AtLeftTopIn(unitList[i].icon, unitList[i], 4)
+		LayoutHelpers.AtCenterIn(unitList[i].icon, unitList[i].backIcon)
 		unitList[i].name = UIUtil.CreateText(listContainer, '', 14, UIUtil.bodyFont)
-		LayoutHelpers.RightOf(unitList[i].name, unitList[i].icon, 2)
+		LayoutHelpers.AtLeftTopIn(unitList[i].name, unitList[i], 72, 4)
 		unitList[i].desc = UIUtil.CreateText(listContainer, '', 14, UIUtil.bodyFont)
 		LayoutHelpers.Below(unitList[i].desc, unitList[i].name, 2)
 		unitList[i].id = UIUtil.CreateText(listContainer, '', 14, UIUtil.bodyFont)
@@ -960,6 +969,12 @@ function FillLine(line, index)
 	line.name:SetText(n)
 	line.desc:SetText(LOC(bp.Description) or 'Unnamed Unit')
 	line.id:SetText(string.format('%s (%s)', originMap[origin[index]], id))
+	local validIcons = {land = true, air = true, sea = true, amph = true}
+	if validIcons[bp.General.Icon] then
+        line.backIcon:SetTexture(UIUtil.UIFile('/icons/units/'..bp.General.Icon..'_up.dds'))
+    else
+        line.backIcon:SetTexture(UIUtil.UIFile('/icons/units/land_up.dds'))
+    end
 	local ico = '/textures/ui/common/icons/units/'..id..'_icon.dds'
 	if noIcon[units[index]] then
 		line.icon:SetTexture(UIUtil.UIFile('/icons/units/default_icon.dds'))
@@ -982,6 +997,12 @@ function DisplayUnit(index)
 	unitDisplay.shortDesc:SetText(LOC(bp.Description) or 'Unnamed Unit')
 	unitDisplay.icon:Show()
 	unitDisplay.stratIcon:Show()
+	local validIcons = {land = true, air = true, sea = true, amph = true}
+	if validIcons[bp.General.Icon] then
+        unitDisplay.backIcon:SetTexture(UIUtil.UIFile('/icons/units/'..bp.General.Icon..'_up.dds'))
+    else
+        unitDisplay.backIcon:SetTexture(UIUtil.UIFile('/icons/units/land_up.dds'))
+    end
 	local ico = '/textures/ui/common/icons/units/'..id..'_icon.dds'
 	if noIcon[id] then
 		unitDisplay.icon:SetTexture(UIUtil.UIFile('/icons/units/default_icon.dds'))
