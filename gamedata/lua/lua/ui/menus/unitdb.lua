@@ -911,7 +911,6 @@ function CreateUnitDB(over, inGame, callback)
 		if event.Type ~= 'KeyDown' then
 			return
 		end
-		LOG("RATS: "..repr(event.KeyCode))
 		if event.KeyCode == 319 then
 			if event.Modifiers.Shift then
 				listContainer:ScrollLines(nil, 10)
@@ -1412,7 +1411,6 @@ function Filter()
 		filters['deathweapon'] ~= 1 or
 		filters['emp'] ~= 1
 
-	LOG("UNIT DB: Filtering by: "..repr(filters))
 	listContainer.top = 0
 	count = table.getsize(units)
 	for i, id in units do
