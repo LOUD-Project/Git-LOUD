@@ -48,9 +48,10 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        Health = 2700,
-        MaxHealth = 2700,
-        RegenRate = 2,
+        Health = 2200,
+        MaxHealth = 2200,
+        RegenRate = 3,
+        
         SurfaceThreatLevel = 125.3,
     },
 	
@@ -79,13 +80,14 @@ UnitBlueprint {
 	
     Economy = {
         BuildCostEnergy = 40000,
-        BuildCostMass = 2700,
+        BuildCostMass = 3250,
         BuildTime = 2700,
 		
         RebuildBonusIds = {'BRMT3PDRO'},
     },
 	
     General = {
+        CapCost = 5,
         Category = 'Defense',
         Classification = 'RULEUC_Weapon',
         CommandCaps = {
@@ -168,6 +170,8 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+            ArtilleryShieldBlocks = true,
+            
             Audio = {
                 BarrelLoop = Sound {
                     Bank = 'UES',
@@ -195,6 +199,7 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
+            
             BallisticArc = 'RULEUBA_LowArc',
 			
             Buffs = {
@@ -203,7 +208,7 @@ UnitBlueprint {
                     AppliedToTarget = true,
                     BuffType = 'STUN',
                     Duration = 1.1,
-                    Radius = 2.5,
+                    Radius = 2,
                     TargetAllow = 'ALLUNITS',
                     TargetDisallow = 'EXPERIMENTAL,COMMAND,SUBCOMMANDER,AIR,MISSILE,WALL',
                 },
@@ -212,8 +217,13 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 880,
-            DamageRadius = 3.5,
+            DamageFriendly = true,
+            DamageRadius = 3,
+            
             DamageType = 'Normal',
+            
+            EnergyRequired = 13800,
+            EnergyDrainPerSecond = 1453,     -- 9.5 seconds to charge
 
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -221,17 +231,17 @@ UnitBlueprint {
             },
 			
             FiringTolerance = 1,
-            FiringRandomness = .45,
+            FiringRandomness = .55,
 			
             Label = 'MainGun',
-            MaxRadius = 100,
+            MaxRadius = 105,
             MinRadius = 20,
 			
-            MuzzleChargeDelay = 0.5,
-            MuzzleSalvoDelay = 0.4,
+            MuzzleChargeDelay = 0.1,        -- .1 second muzzle delay
+            MuzzleSalvoDelay = 0.4,         -- 2.4 second firing cycle
 			
             MuzzleSalvoSize = 6,
-            MuzzleVelocity = 29,
+            MuzzleVelocity = 26.5,
             MuzzleVelocityRandomness = 3.5,
 			
             ProjectileId = '/mods/TotalMayhem/projectiles/cybranheavyrocketproj/cybranheavyrocket_proj.bp',
@@ -259,10 +269,9 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 			
-            RangeCategory = 'UWRC_DirectFire',
+            RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.08,	-- 5280 Dmg every 12 seconds = 440 DPS
-			RenderFireClock = true,
+            RateOfFire = 1, 	-- 5280 Dmg every 12 seconds = 440 DPS -- controlled by charge
 			
             TargetCheckInterval = 5,
 			
@@ -270,6 +279,8 @@ UnitBlueprint {
                 'EXPERIMENTAL',
                 'DEFENSE',
                 'SPECIALHIGHPRI',
+                'SHIELD',
+                'ARTILLERY',
                 'TECH2 MOBILE',
                 'TECH1 MOBILE',
                 'TECH3 MOBILE',

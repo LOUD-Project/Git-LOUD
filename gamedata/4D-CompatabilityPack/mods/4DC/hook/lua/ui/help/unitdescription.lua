@@ -1,8 +1,8 @@
 -- 4DC Unit Descriptions --
-    
+
 --- Aeon Units ---
 Description['uaa0206'] = "The Abolisher is an advanced Gunship design equiped with an Ion beam weapon and defensive teleportation system." 
-Description['uab2306'] = "The Annihilator fires ball lightning which can destroy armored units with ease. Its long reload time makes it vulnerable to masses of small units. The weapon needs massive amounts of energy to fire."
+Description['uab2306'] = "The Anachronon fires ball lightning which can destroy armored units with ease. Its long reload time makes it vulnerable to masses of small units. The weapon needs massive amounts of energy to fire."
 Description['ual0108'] = "Artos is a unique early unit with an optional shield enhancement."
 Description['ual0108-ptsg'] = "Upgrades the Artos with a fast recharging personal shield."
 Description['ual0204'] = "Predator is a Sniper Bot with long range, high damage per shot and a long reload time."

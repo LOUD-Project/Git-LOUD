@@ -224,8 +224,8 @@ UnitBlueprint {
 			
             DisplayName = 'Zthuthaam Cannon',
 			
-            EnergyDrainPerSecond = 35,	-- every 8 seconds + 1 second for muzzle charge --
-            EnergyRequired = 275,
+            EnergyDrainPerSecond = 291,	-- every 8 seconds + 1 second for muzzle charge --
+            EnergyRequired = 2325,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -269,15 +269,16 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,
+            RateOfFire = 1,     -- rate controlled by charge
 			
             TargetCheckInterval = 3,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
+                'SHIELD',
+                'ARTILLERY',
 				'STRUCTURE,-WALL',
 				'MOBILE',
-                
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',

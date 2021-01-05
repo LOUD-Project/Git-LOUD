@@ -51,6 +51,7 @@ UnitBlueprint {
         'LAND',
         'TECH3',
         'INDIRECTFIRE',
+        'ARTILLERY',
         'VISIBLETORECON',
         'RECLAIMABLE',
         'OVERLAYINDIRECTFIRE',
@@ -128,6 +129,7 @@ UnitBlueprint {
     },
 	
     General = {
+        CapCost = 3,
         Category = 'Indirect Fire',
         Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
@@ -218,6 +220,8 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             AimsStraightOnDisable = true,
+            ArtilleryShieldBlocks = true,
+            
             Audio = {
                 Fire = Sound {
                     Bank = 'URLWeapon',
@@ -225,6 +229,7 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
+            
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
@@ -235,12 +240,13 @@ UnitBlueprint {
 			
             DisplayName = 'Loa Tactical Missile Barrage',
 			
-			EnergyDrainPerSecond = 80,
-			EnergyRequired = 1760,
+			EnergyDrainPerSecond = 226,
+			EnergyRequired = 2600,      -- 11.5 seconds to charge
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
             },
+            
             FiringRandomness = 3.5,
             FiringTolerance = 30,
 			
@@ -251,7 +257,7 @@ UnitBlueprint {
             MinRadius = 12,
 			
             MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0.5,
+            MuzzleSalvoDelay = 0.5,     -- 10.5 seconds to fire
             MuzzleSalvoSize = 21,
             MuzzleVelocity = 3,
 			
@@ -298,6 +304,8 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
+                'SHIELD',
+                'ARTILLERY',
                 'DEFENSE',
                 'MOBILE',
                 'ALLUNITS',
@@ -326,7 +334,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,

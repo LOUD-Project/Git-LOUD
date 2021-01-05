@@ -218,10 +218,10 @@ UnitBlueprint {
             },
             BallisticArc = 'RULEUBA_HighArc',
 			
-            CameraShakeDuration = 0.5,
-            CameraShakeMax = 1.5,
+            CameraShakeDuration = 0.4,
+            CameraShakeMax = 1.1,
             CameraShakeMin = 0,
-            CameraShakeRadius = 20,
+            CameraShakeRadius = 15,
 			
             CollideFriendly = false,
 			
@@ -232,8 +232,8 @@ UnitBlueprint {
 			
             DisplayName = 'Anti Matter Artillery',
 			
-            EnergyDrainPerSecond = 800,
-            EnergyRequired = 8000,
+            EnergyDrainPerSecond = 2650,
+            EnergyRequired = 26500,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -277,7 +277,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,	---- 5500 every 10 seconds = 550 DPS - controlled entirely by Energy
+            RateOfFire = 1,	---- 4500 every 10 seconds = 450 DPS - controlled entirely by Energy
 
             TargetCheckInterval = 5,
 			

@@ -83,6 +83,10 @@ end
 
 -- ALL AIR BUILDERS SIT AT 600 PRIORITY except for highneed transports
 -- usually controlled by air ratio and number of factories producing that unit
+
+-- T1 - T2 Bombers were not controlled by the Air Ratio. 
+-- Fighters will now always be produced if we're below a 1.0 Air Ratio.
+
 BuilderGroup {BuilderGroupName = 'Factory Production - Air',
     BuildersType = 'FactoryBuilder',
 	
@@ -152,6 +156,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
 		PriorityFunction = HaveLessThanThreeT2AirFactory,
 		
         BuilderConditions = {
+            { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
 			-- stop making them if enemy has T2 AA of any kind
 			{ UCBC, 'HaveLessThanUnitsWithCategoryAndAlliance', { 1, categories.ANTIAIR - categories.TECH1, 'Enemy' }},
         },
@@ -167,6 +172,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
 		PriorityFunction = HaveLessThanThreeT2AirFactory,
 		
         BuilderConditions = {
+            { LUTL, 'AirStrengthRatioLessThan', { 3 } },
 			-- stop making them if enemy has T2 AA of any kind
 			{ UCBC, 'HaveLessThanUnitsWithCategoryAndAlliance', { 1, categories.ANTIAIR - categories.TECH1, 'Enemy' }},
         },
@@ -181,7 +187,9 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
 		
 		PriorityFunction = HaveLessThanThreeT3AirFactory,
 		
-        BuilderConditions = {},
+        BuilderConditions = {
+            { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
+        },
 		
         BuilderType =  {'AirT2','AirT3'},
     },
@@ -193,7 +201,9 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
 		
 		PriorityFunction = HaveLessThanThreeT3AirFactory,
 		
-        BuilderConditions = {},
+        BuilderConditions = {
+            { LUTL, 'AirStrengthRatioLessThan', { 3 } },
+        },
 		
         BuilderType =  {'AirT2','AirT3'},
     },
@@ -234,7 +244,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
 		PriorityFunction = IsEnemyAirActive,
 
         BuilderConditions = {
-            --{ LUTL, 'AirStrengthRatioLessThan', { 3 } },
+            { LUTL, 'HaveLessThanUnitsWithCategory', { 120, categories.HIGHALTAIR * categories.ANTIAIR }},
 			{ LUTL, 'HaveGreaterThanUnitsWithCategory', { 1, categories.FACTORY * categories.AIR * categories.TECH3 }},
             
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 3, categories.HIGHALTAIR * categories.ANTIAIR, categories.AIR * categories.TECH3 }},			
@@ -249,7 +259,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
         Priority = 600,
 		
         BuilderConditions = {
-            --{ LUTL, 'UnitCapCheckLess', { .95 } },
+
             { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
 			{ LUTL, 'HaveGreaterThanUnitsWithCategory', { 2, categories.FACTORY * categories.AIR * categories.TECH3 }},
         },

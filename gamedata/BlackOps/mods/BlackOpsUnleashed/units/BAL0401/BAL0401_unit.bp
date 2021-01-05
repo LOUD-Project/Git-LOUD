@@ -9,6 +9,7 @@ UnitBlueprint {
         },
         NeedUnpack = true,
     },
+    
     Audio = {
         FootFallGeneric = Sound {
             Bank = 'URL',
@@ -103,8 +104,10 @@ UnitBlueprint {
                 Weight = 100,
             },
         },
+        
         AnimationWalk = '/mods/BlackOpsUnleashed/units/BAL0401/BAL0401_AWalk.sca',
         AnimationWalkRate = 1.2,
+        
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -114,6 +117,7 @@ UnitBlueprint {
                 },
             },
         },
+        
         MovementEffects = {
             Land = {
                 Footfall = {
@@ -185,8 +189,8 @@ UnitBlueprint {
 	
     Economy = {
         BuildCostEnergy = 420000,
-        BuildCostMass = 18500,
-        BuildTime = 7000,
+        BuildCostMass = 24500,
+        BuildTime = 8000,
     },
 
     General = {
@@ -240,7 +244,7 @@ UnitBlueprint {
         DragCoefficient = 0.2,
         LayerChangeOffsetHeight = -3,
 		
-        MaxAcceleration = 0.8,
+        MaxAcceleration = 0.52,
         MaxSpeed = 2.6,
         MaxSpeedReverse = 2.6,
 		
@@ -288,11 +292,15 @@ UnitBlueprint {
 		---- Each causes about 2000 Damage on a direct hit - and about 800 if just in radius - cant seem to find
 		---- where these values are controlled
 		---- FOUND it - \BlackOpsUnleashed\effects\Entities\GoldLaserBombEffectController01\GoldLaserBombEffectController01_script.lua
+        -- very similar to a nuke - 2000 inner ring damage >> 650 at maximum radius of 7
 		{
 
             AboveWaterTargetsOnly = true,
             AimsStraightOnDisable = true,
-            AutoInitialAttackCommand = true,
+            ArtilleryShieldBlocks = true,
+            
+            AutoInitiateAttackCommand = true,
+            
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
@@ -304,8 +312,8 @@ UnitBlueprint {
 			
 			DoNotCollideList = { 'MISSILE' },
             
-            EnergyRequired = 1500,
-            EnergyDrainPerSecond = 150,  -- recharge weapon in 10 seconds
+            EnergyRequired = 22500,         -- based on 9 projectiles doing 2000 dmg over radius of 2 - the rest of the AOE we'll just gift for now
+            EnergyDrainPerSecond = 2250,    -- recharge weapon in 10 seconds
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
@@ -352,13 +360,13 @@ UnitBlueprint {
             RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 1,		----  18000 Damage every 16 = 1125 DPS - controlled by energy drain
-			RenderFireClock = true,
 			
             TargetCheckInterval = 5,
-            TargetRestrictDisallow = 'UNTARGETABLE',
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
+                'SHIELD',
+                'ARTILLERY',
                 'MOBILE',
                 'STRUCTURE -WALL',
                 'ALLUNITS -WALL',

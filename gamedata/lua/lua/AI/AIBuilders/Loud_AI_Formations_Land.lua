@@ -157,7 +157,11 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
     BuildersType = 'PlatoonFormBuilder',
     
     -- this is the VENTING attack -- no odds required
-    -- primarily looking for fights with units before fixed enemy positions
+	-- primarily looking for fights with units before fixed enemy positions
+	
+	-- Base Alerts will now stop venting forces from moving out
+	-- This will allow LOUD to continue his buildup until HE sees its time to push out
+	-- We do not want to force him out if he feels he can not push himself
     Builder {BuilderName = 'Land Attack - Unit Forced',
 	
         PlatoonTemplate = 'LandAttackHugeNW',
@@ -175,11 +179,13 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
         BuilderType = 'Any',
 		
         BuilderConditions = {
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
 
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 69, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.EXPERIMENTAL }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
+			--{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
         },
 		
         BuilderData = {
@@ -189,7 +195,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 
 			MergeLimit = 160,	-- controls merging with others - nil = original platoon size
 			
-            PrioritizedCategories = { 'LAND MOBILE','ENGINEER','SHIELD','STRUCTURE'},		# controls target selection
+            PrioritizedCategories = { 'LAND MOBILE','ENGINEER','SHIELD','STRUCTURE -WALL'},		# controls target selection
 			
 			UseFormation = 'AttackFormation',
 			
@@ -229,7 +235,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
             
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 44, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.EXPERIMENTAL}},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
+			--{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
         },
 		
         BuilderData = {
@@ -307,7 +313,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 44, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.EXPERIMENTAL}},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
+			--{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
         },
 		
         BuilderData = {
@@ -371,6 +377,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
         BuilderType = 'Any',
 		
         BuilderConditions = {
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
             
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.9 } },
@@ -380,7 +387,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
             
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 44, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.EXPERIMENTAL}},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
+			--{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
         },
 		
         BuilderData = {
@@ -417,6 +424,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
         BuilderType = 'Any',
 		
         BuilderConditions = {
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
             
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1 } },
@@ -426,7 +434,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
             
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 28, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.EXPERIMENTAL}},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
+			--{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
         },
 		
         BuilderData = {
@@ -667,7 +675,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
     },
 
 	-- attack enemy ANTIAIR STRUCTURES with small groups
-    -- forms when odds are modest(>0.8) 
+    -- forms when odds are modest(>0.7) 
     Builder {BuilderName = 'AA Attack Land',
 	
         PlatoonTemplate = 'T1MassAttack',
@@ -735,8 +743,83 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 			
 			UseFormation = 'AttackFormation',
         },
-    },
+	},
+	
+	-- PD Attack Former -- 
+	-- This Platoon are the counter part to AA Attack Former
+	-- This Platoon hunts for Defenses and Shields 
 
+
+	-- attack enemy DEFENSE STRUCTURES with small groups
+    -- forms when odds are modest(>0.7) 
+    Builder {BuilderName = 'PD Attack Land',
+	
+        PlatoonTemplate = 'T1ArtilleryAttack',
+        
+		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, },
+		
+		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
+		
+        Priority = 800,
+        
+        PriorityFunction = IsPrimaryBase,
+		
+        InstanceCount = 4,
+		
+        BuilderType = 'Any',
+		
+        BuilderConditions = {
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+            { LUTL, 'BaseInLandMode', { 'LocationType' }},
+
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
+            
+			{ TBC, 'ThreatFurtherThan', { 'LocationType', 250, 'Land', 200 }},            
+
+			-- enemy DEFENSE structures within 15km
+			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType', 0, categories.DEFENSE * categories.STRUCTURE * categories.DIRECTFIRE, 1750 }},
+
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.SCOUT - categories.EXPERIMENTAL }},
+        },
+		
+        BuilderData = {
+			PointType = 'Unit',
+			PointCategory = categories.DEFENSE * categories.STRUCTURE,
+			PointSourceSelf = true,
+			PointFaction = 'Enemy',
+			PointRadius = 1750,
+			PointSort = 'Closest',
+			PointMin = 200,
+			PointMax = 1750,
+			
+			StrCategory = categories.STRUCTURE * categories.DEFENSE * categories.DIRECTFIRE,
+			StrRadius = 50,
+			StrTrigger = true,
+			StrMin = 0,
+			StrMax = 4,
+            
+            ThreatMaxRatio = 1,
+			
+			UntCategory = (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.ENGINEER),
+			UntRadius = 60,
+			UntTrigger = true,
+			UntMin = 0,
+			UntMax = 6,
+			
+            PrioritizedCategories = {'SHIELD STRUCTURE', 'DEFENSE STRUCTURE DIRECTFIRE', 'ANTIAIR STRUCTURE', 'ECONOMIC', 'ENGINEER', 'STRUCTURE -WALL', 'LAND MOBILE'},
+			
+			GuardRadius = 80,
+			GuardTimer = 20,
+			
+			MergeLimit = 32,
+			
+			AggressiveMove = true,
+			
+			AllowInWater = false,
+			
+			UseFormation = 'AttackFormation',
+        },
+	},
 }
 
 BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
@@ -761,17 +844,19 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
         BuilderType = 'Any',
 		
         BuilderConditions = {
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+
             { LUTL, 'PoolGreater', { 11, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL }},
 
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 44, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS - categories.EXPERIMENTAL }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
+			--{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
         },
 		
         BuilderData = {
 			MergeLimit = 85,
 			
-            PrioritizedCategories = { 'LAND MOBILE','ENGINEER','SHIELD','STRUCTURE'},		# controls target selection
+            PrioritizedCategories = { 'LAND MOBILE','ENGINEER','SHIELD','STRUCTURE -WALL'},		# controls target selection
 			
 			UseFormation = 'AttackFormation',
 			
@@ -796,13 +881,15 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
         BuilderType = 'Any',
 		
         BuilderConditions = {
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 24, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS - categories.EXPERIMENTAL }},
         },
 		
         BuilderData = {
 			MergeLimit = 50,
 			
-            PrioritizedCategories = { 'LAND MOBILE','ENGINEER','SHIELD','STRUCTURE'},		# controls target selection
+            PrioritizedCategories = { 'LAND MOBILE','ENGINEER','SHIELD','STRUCTURE -WALL'},		# controls target selection
 			
 			UseFormation = 'AttackFormation',
 			
@@ -827,13 +914,15 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
         BuilderType = 'Any',
 		
         BuilderConditions = {
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS - categories.EXPERIMENTAL }},
         },
 		
         BuilderData = {
 			MergeLimit = 25,
 			
-            PrioritizedCategories = { 'LAND MOBILE','ENGINEER','SHIELD','STRUCTURE'},		# controls target selection
+            PrioritizedCategories = { 'LAND MOBILE','ENGINEER','SHIELD','STRUCTURE -WALL'},		# controls target selection
 			
 			UseFormation = 'AttackFormation',
 			
@@ -871,7 +960,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
             
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 44, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.EXPERIMENTAL}},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
+			--{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
         },
 		
         BuilderData = {
@@ -1083,12 +1172,14 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Experimentals',
         BuilderType = 'Any',
 		
 		BuilderConditions = {
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},	
+			
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 10, (categories.LAND * categories.MOBILE * categories.EXPERIMENTAL) - categories.url0401 - categories.INSIGNIFICANTUNIT }},
 		},
 		
         BuilderData = {
 
-            PrioritizedCategories = { 'LAND MOBILE','SHIELD','STRUCTURE','ENGINEER'},		-- controls target selection
+            PrioritizedCategories = { 'LAND MOBILE','SHIELD','STRUCTURE -WALL','ENGINEER'},		-- controls target selection
 			
 			MaxAttackRange = 1500,			-- all targets upto 30k
 			
@@ -1129,12 +1220,14 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Experimentals',
         BuilderType = 'Any',
 		
 		BuilderConditions = {
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},	
+
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 10, (categories.LAND * categories.MOBILE * categories.EXPERIMENTAL) - categories.url0401 - categories.INSIGNIFICANTUNIT }},
 		},
 		
         BuilderData = {
 
-            PrioritizedCategories = { 'ECONOMIC','SHIELD','STRUCTURE','LAND MOBILE','ENGINEER'},		-- controls target selection
+            PrioritizedCategories = { 'ECONOMIC','SHIELD','STRUCTURE -WALL','LAND MOBILE','ENGINEER'},		-- controls target selection
 			
 			MaxAttackRange = 2500,			-- all targets
 			
@@ -1175,6 +1268,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Experimentals',
         BuilderType = 'Any',
 		
 		BuilderConditions = {
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},	
+
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.8 } },
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 10, (categories.LAND * categories.MOBILE * categories.EXPERIMENTAL) - categories.url0401 - categories.INSIGNIFICANTUNIT }},
 		},
@@ -1185,7 +1280,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Experimentals',
 			DistressTypes = 'Land',
 			DistressThreshold = 10,
 			
-            PrioritizedCategories = { 'SHIELD','STRUCTURE','LAND MOBILE','ENGINEER'},		-- controls target selection
+            PrioritizedCategories = { 'SHIELD','STRUCTURE -WALL','LAND MOBILE','ENGINEER'},		-- controls target selection
 			
 			MaxAttackRange = 1500,			-- only process hi-priority targets within 30km
 			
@@ -1225,13 +1320,14 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Experimentals',
         BuilderType = 'Any',
 		
 		BuilderConditions = {
-		
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},	
+
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.8 } },
             
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 10, (categories.LAND * categories.MOBILE * categories.EXPERIMENTAL) - categories.url0401 - categories.INSIGNIFICANTUNIT }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 12, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.EXPERIMENTAL }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
+			--{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
 		
 		},
 		
@@ -1241,7 +1337,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Experimentals',
 			DistressTypes = 'Land',
 			DistressThreshold = 10,
 			
-            PrioritizedCategories = { 'SHIELD','STRUCTURE','LAND MOBILE','ENGINEER'},		-- controls target selection
+            PrioritizedCategories = { 'SHIELD','STRUCTURE -WALL','LAND MOBILE','ENGINEER'},		-- controls target selection
 			
 			MaxAttackRange = 1500,			-- only process hi-priority targets within 30km
 			
@@ -1348,12 +1444,14 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
         BuilderType = 'Any',
 		
 		BuilderConditions = {
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 60, (categories.LAND * categories.AMPHIBIOUS) * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT }},
         },
 		
         BuilderData = {
         
-            PrioritizedCategories = { 'LAND MOBILE','ENGINEER','SHIELD','STRUCTURE'},		# controls target selection
+            PrioritizedCategories = { 'LAND MOBILE','ENGINEER','SHIELD','STRUCTURE -WALL'},		# controls target selection
 			
 			MaxAttackRange = 3000,			-- only process hi-priority targets within 60km
 			
@@ -1361,7 +1459,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 			
 			AggressiveMove = false,
 			
-			UseFormation = 'GrowthFormation',
+			UseFormation = 'AttackFormation',
         },
     },
 	
@@ -1383,6 +1481,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
         BuilderType = 'Any',
 		
 		BuilderConditions = {
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
             
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 40, (categories.LAND * categories.AMPHIBIOUS) * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT }},
@@ -1390,7 +1490,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 		
         BuilderData = {
 		
-            PrioritizedCategories = { 'FACTORY','STRUCTURE','ECONOMIC','DEFENSE','SHIELD','ENGINEER'},		# controls target selection
+            PrioritizedCategories = { 'FACTORY','STRUCTURE -WALL','ECONOMIC','DEFENSE','SHIELD','ENGINEER'},		# controls target selection
 			
 			MaxAttackRange = 1500,			-- only process hi-priority targets within 30km
 			
@@ -1398,7 +1498,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 			
 			AggressiveMove = true,
 			
-			UseFormation = 'GrowthFormation',
+			UseFormation = 'AttackFormation',
         },
     },
     
@@ -1420,6 +1520,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
         BuilderType = 'Any',
 		
         BuilderConditions = {
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.8 } },
             
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 24, (categories.LAND * categories.AMPHIBIOUS) * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT }},
@@ -1427,7 +1529,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 		
         BuilderData = {
 		
-            PrioritizedCategories = { 'FACTORY','STRUCTURE','ECONOMIC','DEFENSE','SHIELD','ENGINEER'},		# controls target selection
+            PrioritizedCategories = { 'FACTORY','STRUCTURE -WALL','ECONOMIC','DEFENSE','SHIELD','ENGINEER'},		# controls target selection
 			
 			MaxAttackRange = 1000,			-- only process hi-priority targets within 20km
 			
@@ -1435,7 +1537,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 			
 			AggressiveMove = false,
 			
-			UseFormation = 'GrowthFormation',
+			UseFormation = 'AttackFormation',
         },
     },
 
@@ -1645,7 +1747,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
             { LUTL, 'UnitCapCheckLess', { .75 } },
 
 			-- empty mass point within 15km with less than 45 threat 
-			{ EBC, 'CanBuildOnMassAtRange', { 'LocationType', 150, 1000, 0, 75, 1, 'AntiSurface', 1 }},
+			{ EBC, 'CanBuildOnMassAtRange', { 'LocationType', 120, 1000, 0, 75, 1, 'AntiSurface', 1 }},
             
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS) - categories.SCOUT - categories.EXPERIMENTAL }},
         },
@@ -1682,7 +1784,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			
             AssistRange = 3,
 			
-            PrioritizedCategories = {'LAND MOBILE','STRUCTURE','ENGINEER'},		-- target selection when at point --
+            PrioritizedCategories = {'LAND MOBILE','STRUCTURE -WALL','ENGINEER'},		-- target selection when at point --
 			
 			GuardRadius = 75,				-- range at which platoon will engage targets
 			GuardTimer = 180,				-- period that platoon will guard the point unless triggers are met
@@ -1760,7 +1862,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			UntMin = 0,
 			UntMax = 15,
 
-            PrioritizedCategories = {'LAND MOBILE','STRUCTURE','ENGINEER'},		# controls target selection
+            PrioritizedCategories = {'LAND MOBILE','STRUCTURE -WALL','ENGINEER'},		# controls target selection
 			
 			AssistRange = 3,
 			
@@ -1841,7 +1943,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			
             AssistRange = 2,
 			
-            PrioritizedCategories = {'LAND MOBILE','STRUCTURE','ENGINEER'},
+            PrioritizedCategories = {'LAND MOBILE','STRUCTURE -WALL','ENGINEER'},
 			
 			GuardRadius = 80,
 			GuardTimer = 450,
@@ -1880,7 +1982,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
             { LUTL, 'PoolGreater', { 6, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL }},
             
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
+			--{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
             
 			-- a DP marker with less than 75 enemy threat
             { UCBC, 'DefensivePointForExpansion', { 'LocationType', 1250, 0, 100, 0, 'AntiSurface' }},
@@ -1919,7 +2021,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			
             AssistRange = 2,
 			
-            PrioritizedCategories = {'LAND MOBILE','STRUCTURE','ENGINEER'},
+            PrioritizedCategories = {'LAND MOBILE','STRUCTURE -WALL','ENGINEER'},
 			
 			GuardRadius = 80,
 			GuardTimer = 480,
@@ -1994,7 +2096,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			
             AssistRange = 2,
 			
-            PrioritizedCategories = {'LAND MOBILE','ECONOMIC', 'STRUCTURE','ENGINEER'},
+            PrioritizedCategories = {'LAND MOBILE','ECONOMIC', 'STRUCTURE -WALL','ENGINEER'},
 			
 			GuardRadius = 80,
 			GuardTimer = 1050,
@@ -2035,7 +2137,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
             { LUTL, 'PoolGreater', { 6, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL }},
             
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
+			--{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
             
             { UCBC, 'StartingPointNeedsStructure', { 'LocationType', 1000, 'STRUCTURE -ECONOMIC', 60, 6, 0, 100, 0, 'AntiSurface' }},
         },
@@ -2073,7 +2175,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			
             AssistRange = 2,
 			
-            PrioritizedCategories = {'LAND MOBILE','STRUCTURE','ENGINEER'},
+            PrioritizedCategories = {'LAND MOBILE','STRUCTURE -WALL','ENGINEER'},
 			
 			GuardRadius = 75,
 			GuardTimer = 900,
@@ -2147,7 +2249,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			
             AssistRange = 2,
 			
-            PrioritizedCategories = {'LAND MOBILE','STRUCTURE','ENGINEER'},		-- controls target selection
+            PrioritizedCategories = {'LAND MOBILE','STRUCTURE -WALL','ENGINEER'},		-- controls target selection
 			
 			GuardRadius = 75,					-- range at which platoon will engage targets
 			GuardTimer = 1050,					-- period that platoon will guard the point 
@@ -2190,7 +2292,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
             { UCBC, 'ExpansionPointNeedsStructure', { 'LocationType', 1250, 'STRUCTURE -ECONOMIC', 75, 6, 0, 100, 0, 'AntiSurface' }},
             
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
+			--{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
         },
 		
         BuilderData = {
@@ -2226,7 +2328,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			
             AssistRange = 2,
 			
-            PrioritizedCategories = {'LAND MOBILE','STRUCTURE','ENGINEER'},
+            PrioritizedCategories = {'LAND MOBILE','STRUCTURE -WALL','ENGINEER'},
 			
 			GuardRadius = 75,				-- range at which platoon will engage targets
 			GuardTimer = 900,				-- period that platoon will guard the point 
@@ -2270,7 +2372,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Base Guards',
         BuilderConditions = { 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},		
             { LUTL, 'UnitCapCheckLess', { .95 } },
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 300, 150, 'Land' }},
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 150, 'Land' }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 14, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS - categories.ENGINEER - categories.EXPERIMENTAL }},
         },
 		
@@ -2283,7 +2385,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Base Guards',
 			
 			Radius = 72,
 			
-			PatrolTime = 300,
+			PatrolTime = 350,
 			PatrolType = true,
         },
     }, 
@@ -2319,7 +2421,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Base Guards',
 			
 			Radius = 72,
 			
-			PatrolTime = 300,
+			PatrolTime = 350,
 			PatrolType = true,
         },
     }, 

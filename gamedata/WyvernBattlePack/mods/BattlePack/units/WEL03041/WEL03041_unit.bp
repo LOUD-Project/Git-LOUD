@@ -74,6 +74,7 @@ UnitBlueprint {
         Abilities = {
             'Amphibious',
             '<LOC ability_deploys>Deploys',
+            'Huge AOE',
         },
         
         AnimationOpen = '/units/UEL0304/uel0304_aactivate.sca',
@@ -95,11 +96,12 @@ UnitBlueprint {
     
     Economy = {
         BuildCostEnergy = 12500,
-        BuildCostMass = 650,
-        BuildTime = 325,
+        BuildCostMass = 800,
+        BuildTime = 400,
     },
     
     General = {
+        CapCost = 2,
         Category = 'Indirect Fire',
         Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
@@ -212,14 +214,18 @@ UnitBlueprint {
             Damage = 700,
             DamageFriendly = true,
             DamageRadius = 4.5,
+            
             DamageType = 'Normal',
             
             DisplayName = 'Anti Matter Artillery',
             
+            EnergyRequired = 4000,
+            EnergyDrainPerSecond = 572,     -- 7 seconds to charge
+
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
             },
-            FiringRandomness = 1,
+            FiringRandomness = 0.7,
             FiringTolerance = 2,
             
             Label = 'MainGun',
@@ -264,14 +270,13 @@ UnitBlueprint {
             
             RangeCategory = 'UWRC_IndirectFire',
             
-            RateOfFire = 0.15,      -- 105 DPS
-            
-            RenderFireClock = true,
-            
+            RateOfFire = 1,     -- controlled by charge - 7 seconds -- 105 DPS
+
             TargetCheckInterval = 1,
             
             TargetPriorities = {
                 'SPECIALHIGHPRI',
+                'SHIELD',
                 'ARTILLERY',
                 'INDIRECTFIRE',
                 'DEFENSE',
@@ -290,7 +295,7 @@ UnitBlueprint {
             
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 32,
+            TurretYawSpeed = 30,
             
             Turreted = true,
 
@@ -305,7 +310,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.2,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,

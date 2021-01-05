@@ -648,16 +648,16 @@ PlatoonTemplate { Name = 'T2LandAmphibTank',
 PlatoonTemplate { Name = 'T2LandAmphibBot',     -- yes - this is the same as above - but is provided so we can enable amphib bots seperate from tanks if needed
     FactionSquads = {
         UEF = {
-            { 'uel0203', 1, 3, 'Attack', 'none' }
+            { 'uel0203', 1, 3, 'Attack', 'none' } -- Riptide
         },
         Aeon = {
-            { 'xal0203', 1, 5, 'Attack', 'none' }
+            { 'xal0203', 1, 5, 'Attack', 'none' } -- Blaze
         },
         Cybran = {
-            { 'url0203', 1, 2, 'Attack', 'none' }
+            { 'url0203', 1, 2, 'Attack', 'none' } -- Wagner
         },
         Seraphim = {
-            { 'xsl0203', 1, 3, 'Attack', 'none' }
+            { 'xsl0203', 1, 3, 'Attack', 'none' } -- Yenzyne
         },
     }
 }

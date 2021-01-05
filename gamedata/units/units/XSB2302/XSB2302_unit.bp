@@ -249,13 +249,14 @@ UnitBlueprint {
 
             Damage = 4250,
             DamageFriendly = true,
-            DamageRadius = 6,
-            DamageType = 'ShieldMult1.4',
+            DamageRadius = 5.2,
+            
+            DamageType = 'ShieldMult1.3',
 
             DisplayName = 'Suthanus Heavy Artillery Cannon',
 
-            EnergyDrainPerSecond = 700,
-            EnergyRequired = 7000,
+            EnergyDrainPerSecond = 2847,        -- 9.5 second charge --
+            EnergyRequired = 27050,
 
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -298,7 +299,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_IndirectFire',
 
-            RateOfFire = 1,	---- 4250 damage every 10 seconds -- 5950 to shields - controlled by energy
+            RateOfFire = 1,	---- 4250 damage every 10 seconds -- controlled by energy
 
             ShieldDamage = 6000,
 

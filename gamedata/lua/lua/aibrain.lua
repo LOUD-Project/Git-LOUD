@@ -88,7 +88,7 @@
 	LOG("*AI DEBUG		Report Base Monitor Dialogs to Log is "..repr(ScenarioInfo.BaseMonitorDialog))
 
     -- Each AI base will draw a ring indicating the range of the base monitor - each time it checks for threat
-	ScenarioInfo.DisplayBaseMonitors = true
+	ScenarioInfo.DisplayBaseMonitors = false
 	LOG("*AI DEBUG		Display Base Monitors is "..repr(ScenarioInfo.DisplayBaseMonitors))
     
     -- Each AI base will dialog Distress Responses to alerts raised by the base monitor
@@ -100,7 +100,7 @@
     LOG("*AI DEBUG      Report DeadBaseMonitor Dialog is "..repr(ScenarioInfo.DeadBaseMonitorDialog))
     
     -- AI will ping the map with the location of alerts raised by the base monitor
-	ScenarioInfo.DisplayPingAlerts = true
+	ScenarioInfo.DisplayPingAlerts = false
 	LOG("*AI DEBUG		Display Ping Alerts is "..repr(ScenarioInfo.DisplayPingAlerts))
 
 
@@ -688,7 +688,10 @@ AIBrain = Class(moho.aibrain_methods) {
 		else
 			m = aiMults[ScenarioInfo.ArmySetup[self.Name].Mult]
 		end
-		if m then m = math.max(0.1, m) end
+        if m then 
+            m = math.max(0.1, m)
+            m = math.min(m, 99)
+        end
         self.CheatValue = m
         self.BaseCheat = m
 
@@ -746,28 +749,60 @@ AIBrain = Class(moho.aibrain_methods) {
 	
         local factionIndex = self.FactionIndex
         local resourceStructures = nil
-        local initialUnits = nil
+        local initialUnits = {}
         local posX, posY = self:GetArmyStartPos()
+        
+        --LOG("*AI DEBUG ScenarioInfo is "..repr(ScenarioInfo))
+        
+        if ScenarioInfo.BOACU_Installed then
+
+            if factionIndex == 1 then
+			
+                initialUnits = { 'EAL0001', 'ERL0001', 'ESL0001' }
+            
+            elseif factionIndex == 2 then
+			
+                initialUnits = { 'ERL0001', 'EEL0001', 'ESL0001' }
+            
+            elseif factionIndex == 3 then
+			
+                initialUnits = { 'EAL0001', 'EEL0001', 'ESL0001' }
+            
+            elseif factionIndex == 4 then
+			
+                initialUnits = { 'EAL0001', 'ERL0001', 'EEL0001' }
+                
+            end
+        
+        end
+        
+        LOG("*AI DEBUG initialUnits is "..repr(initialUnits))
 
         if factionIndex == 1 then
 		
 			resourceStructures = { 'UEB1103', 'UEB1103' }
-			initialUnits = { 'UEB1101','UEB1101' }
+            
+			initialUnits = table.merged(initialUnits,{ 'UEB1101','UEB1101' })
 			
         elseif factionIndex == 2 then
 		
 			resourceStructures = { 'UAB1103', 'UAB1103' }
-			initialUnits = { 'UAB1101','UAB1101' }
+            
+			initialUnits = table.merged(initialUnits,{ 'UAB1101','UAB1101' })
+            
 			
         elseif factionIndex == 3 then
 		
 			resourceStructures = { 'URB1103', 'URB1103' }
-			initialUnits = { 'URB1101','URB1101' }
+            
+			initialUnits = table.merged(initialUnits,{ 'URB1101','URB1101' })
+            
 			
 		elseif factionIndex == 4 then
 		
 			resourceStructures = { 'XSB1103', 'XSB1103' }
-			initialUnits = { 'XSB1101','XSB1101' }
+            
+			initialUnits = table.merged(initialUnits,{ 'XSB1101','XSB1101' })
 			
         end
 

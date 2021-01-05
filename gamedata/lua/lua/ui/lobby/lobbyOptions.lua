@@ -5,9 +5,8 @@
 --* Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
 --*****************************************************************************
 
--- options that show up in the team options panel
-teamOptions =
-{
+teamOptions = {
+
     {
         default = 1,
         label = "<LOC lobui_0310>Prebuilt Units",
@@ -108,36 +107,11 @@ teamOptions =
 				key = '100',
 			},
 		},
-	},
+    },
+    
 }
 
 globalOpts = {
-
-	{   default = 2,
-        label = "AI Unit Cap",
-        help = "Set the Unit Cap limit for the AIs.",
-        key = 'CapCheat',
-        pref = 'Lobby_Cap_Cheat',
-        values = {
-            {
-                text = "Unlimited",
-                help = "AI ignores unit cap",
-                key = 'unlimited',
-            },
-			{
-				text = "Enhanced",
-				help = "AI Unit Cap modified by Difficulty setting",
-				key = 'cheatlevel',
-			},
-            {
-                text = "Normal",
-                help = "AI has same unit cap as humans",
-                key = 'off',
-            },
-        },
-    },
-    
-    -- Non-AI-specific
 
     {
         default = 9,
@@ -234,68 +208,30 @@ globalOpts = {
         },
     },
 
-    {
-        default = 1,
-        label = "User Spawn/Cheat Menu",
-        help = "Enable spawn/cheat menu",
-        key = 'CheatsEnabled',
-        pref = 'Lobby_Gen_CheatsEnabled',
+    {   default = 2,
+        label = "AI Unit Cap",
+        help = "Set the Unit Cap limit for the AIs.",
+        key = 'CapCheat',
+        pref = 'Lobby_Cap_Cheat',
         values = {
             {
-                text = "<LOC _Off>Off",
-                help = "<LOC lobui_0210>Spawn/Cheat Menu disabled",
-                key = 'false',
+                text = "Unlimited",
+                help = "AI ignores unit cap",
+                key = 'unlimited',
             },
             {
-                text = "<LOC _On>On",
-                help = "<LOC lobui_0211>Spawn/Cheats Menu enabled",
-                key = 'true',
+                text = "Enhanced",
+                help = "AI Unit Cap modified by Difficulty setting",
+                key = 'cheatlevel',
+            },
+            {
+                text = "Normal",
+                help = "AI has same unit cap as humans",
+                key = 'off',
             },
         },
     },
-    {
-        default = 1,
-        label = "<LOC lobui_0291>Civilians",
-        help = "<LOC lobui_0292>Set how civilian units are used",
-        key = 'CivilianAlliance',
-        pref = 'Lobby_Gen_Civilians',
-        values = {
-            {
-                text = "<LOC lobui_0293>Enemy",
-                help = "<LOC lobui_0294>Civilians are enemies of players",
-                key = 'enemy',
-            },
-            {
-                text = "<LOC lobui_0295>Neutral",
-                help = "<LOC lobui_0296>Civilians are neutral to players",
-                key = 'neutral',
-            },
-            {
-                text = "<LOC lobui_0297>None",
-                help = "<LOC lobui_0298>No Civilians on the battlefield",
-                key = 'removed',
-            },
-        },
-    },
-    {
-        default = 1,
-        label = "<LOC lobui_0112>Fog of War",
-        help = "<LOC lobui_0113>Set up how fog of war will be visualized",
-        key = 'FogOfWar',
-        pref = 'Lobby_Gen_Fog',
-        values = {
-            {
-                text = "<LOC lobui_0114>Explored",
-                help = "<LOC lobui_0115>Terrain revealed, but units still need recon data",
-                key = 'explored',
-            },
-            {
-                text = "<LOC lobui_0118>None",
-                help = "<LOC lobui_0119>All terrain and units visible",
-                key = 'none',
-            },
-        },
-    },
+
     {
         default = 3,
         label = "<LOC lobui_0258>Game Speed",
@@ -317,6 +253,25 @@ globalOpts = {
                 text = "<LOC lobui_0264>Adjustable",
                 help = "<LOC lobui_0265>Adjustable in-game",
                 key = 'adjustable',
+            },
+        },
+    },
+    {
+        default = 1,
+        label = "User Spawn/Cheat Menu",
+        help = "Enable spawn/cheat menu",
+        key = 'CheatsEnabled',
+        pref = 'Lobby_Gen_CheatsEnabled',
+        values = {
+            {
+                text = "<LOC _Off>Off",
+                help = "<LOC lobui_0210>Spawn/Cheat Menu disabled",
+                key = 'false',
+            },
+            {
+                text = "<LOC _On>On",
+                help = "<LOC lobui_0211>Spawn/Cheats Menu enabled",
+                key = 'true',
             },
         },
     },
@@ -350,30 +305,6 @@ globalOpts = {
         },
     },
     {
-        default = 1,
-        label = "PreBuilt Missile Option",
-        help = "Options for Missiles (TAC, Nukes & AntiNukes)",
-        key = 'MissileOption',
-        pref = 'Lobby_MissileOption',
-        values = {
-            {
-                text = "Zero",
-                help = "All Counted Missile systems have 0 prebuilt missiles.",
-                key = '0',
-            },
-            {
-                text = "1",
-                help = "All Counted Missile systems have 1 prebuilt missile.",
-                key = '1',
-            },
-            {
-                text = "2",
-                help = "All Counted Missile systems have 2 prebuilt missiles.",
-                key = '2',
-            },
-        },
-    },
-    {
         default = 2,
         label = "User Timeouts",
         help = "The number of timeouts each player can request",
@@ -398,7 +329,6 @@ globalOpts = {
             },
         },
     },
-
     {
         default = 2,
         label = "<LOC lobui_0120>Victory Condition",
@@ -475,6 +405,78 @@ globalOpts = {
 				help = "Game ends at 4 Hours or when Commander and all SubCommanders are destroyed",
 				key = '240',
 			},
+        },
+    },
+
+}
+
+advGameOptions = {
+
+    {
+        default = 1,
+        label = "<LOC lobui_0291>Civilians",
+        help = "<LOC lobui_0292>Set how civilian units are used",
+        key = 'CivilianAlliance',
+        pref = 'Lobby_Gen_Civilians',
+        values = {
+            {
+                text = "<LOC lobui_0293>Enemy",
+                help = "<LOC lobui_0294>Civilians are enemies of players",
+                key = 'enemy',
+            },
+            {
+                text = "<LOC lobui_0295>Neutral",
+                help = "<LOC lobui_0296>Civilians are neutral to players",
+                key = 'neutral',
+            },
+            {
+                text = "<LOC lobui_0297>None",
+                help = "<LOC lobui_0298>No Civilians on the battlefield",
+                key = 'removed',
+            },
+        },
+    },
+    {
+        default = 1,
+        label = "<LOC lobui_0112>Fog of War",
+        help = "<LOC lobui_0113>Set up how fog of war will be visualized",
+        key = 'FogOfWar',
+        pref = 'Lobby_Gen_Fog',
+        values = {
+            {
+                text = "<LOC lobui_0114>Explored",
+                help = "<LOC lobui_0115>Terrain revealed, but units still need recon data",
+                key = 'explored',
+            },
+            {
+                text = "<LOC lobui_0118>None",
+                help = "<LOC lobui_0119>All terrain and units visible",
+                key = 'none',
+            },
+        },
+    },
+    {
+        default = 1,
+        label = "PreBuilt Missile Option",
+        help = "Options for Missiles (TAC, Nukes & AntiNukes)",
+        key = 'MissileOption',
+        pref = 'Lobby_MissileOption',
+        values = {
+            {
+                text = "Zero",
+                help = "All Counted Missile systems have 0 prebuilt missiles.",
+                key = '0',
+            },
+            {
+                text = "1",
+                help = "All Counted Missile systems have 1 prebuilt missile.",
+                key = '1',
+            },
+            {
+                text = "2",
+                help = "All Counted Missile systems have 2 prebuilt missiles.",
+                key = '2',
+            },
         },
     },
 
@@ -620,25 +622,45 @@ advAIOptions = {
         },
     },
     {
-        default = 3,
+        default = 5,
         label = "Timed Cheat Limit",
-        help = "If an AI cheats more with time, its cheat multiplier cannot go higher than the selected number.",
+        help = "If an AI's cheat changes with time, it will never pass the selected number.",
         key = "ACTTimeCap",
         pref = 'Lobby_ACT_Time_Cap',
         values = {
             {
+                text = "0.8",
+                help = "The AI's cheat multiplier will never pass 0.8.",
+                key = '0.8',
+            },
+            {
+                text = "1.0",
+                help = "The AI's cheat multiplier will never pass 1.0.",
+                key = '1',
+            },
+            {
+                text = "1.10",
+                help = "The AI's cheat multiplier will never pass 1.10.",
+                key = '1.1',
+            },
+            {
+                text = "1.25",
+                help = "The AI's cheat multiplier will never pass 1.25.",
+                key = '1.25',
+            },
+            {
                 text = "2.0",
-                help = "The AI's cheat multiplier will never go higher than 2.0.",
+                help = "The AI's cheat multiplier will never pass 2.0.",
                 key = '2',
             },
             {
                 text = "3.0",
-                help = "The AI's cheat multiplier will never go higher than 3.0.",
+                help = "The AI's cheat multiplier will never pass 3.0.",
                 key = '3',
             },
             {
                 text = "4.0",
-                help = "The AI's cheat multiplier will never go higher than 4.0.",
+                help = "The AI's cheat multiplier will never pass 4.0.",
                 key = '4',
             },
         },

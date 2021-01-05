@@ -28,7 +28,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .85 } },
-            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 200, -9999, 60, 0, 'AntiSurface', 1 }},
+            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 120, -9999, 60, 0, 'AntiSurface', 1 }},
         },
 		
         BuilderData = {
@@ -65,7 +65,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .85 } },
-            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 200, 1500, -9999, 10, 1, 'AntiSurface', 1 }},
+            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 120, 1500, -9999, 10, 1, 'AntiSurface', 1 }},
         },
 		
         BuilderData = {
@@ -108,7 +108,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
             -- this is likely the only place where I might use this
 			{ LUTL, 'NeedMassPointShare', { .5 } },
             
-            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 200, 1500, -9999, 10, 1, 'AntiSurface', 1 }},
+            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 120, 1500, -9999, 10, 1, 'AntiSurface', 1 }},
         },
 		
         BuilderData = {
@@ -142,7 +142,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .85 } },
-            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 200, 1500, -9999, 10, 1, 'AntiSurface', 1 }},
+            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 120, 1500, -9999, 10, 1, 'AntiSurface', 1 }},
         },
 		
         BuilderData = {
@@ -177,7 +177,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
 
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
-            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 200, -9999, 60, 0, 'AntiSurface', 1 }},
+            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 120, -9999, 60, 0, 'AntiSurface', 1 }},
         },
 		
         BuilderData = {
@@ -213,7 +213,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
 
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
-            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 200, -9999, 60, 0, 'AntiSurface', 1 }},
+            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 120, -9999, 60, 0, 'AntiSurface', 1 }},
         },
 		
         BuilderData = {
@@ -223,7 +223,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
 				BuildClose = true,		-- engineer will build on points closest to itself
 				LoopBuild = false,		-- build and RTB
                 
-				ThreatMax = 45,
+				ThreatMax = 60,
 				ThreatRings = 0,
 				ThreatType = 'AntiSurface',
                 

@@ -236,10 +236,10 @@ UnitBlueprint {
 			
             CollideFriendly = false,
 			
-            Damage = 5000,
+            Damage = 3000,
             DamageFriendly = true,
 			
-            DamageRadius = 4,
+            DamageRadius = 4.5,
 			
             DamageType = 'Normal',
 			
@@ -248,8 +248,8 @@ UnitBlueprint {
             DoTPulses = 2,
             DoTTime = 2,
 			
-            EnergyDrainPerSecond = 800,
-            EnergyRequired = 8000,
+            EnergyDrainPerSecond = 3105,    -- 9.5 second charge
+            EnergyRequired = 29500,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -264,7 +264,7 @@ UnitBlueprint {
             MaxRadius = 900,
             MinRadius = 120,
 			
-            MuzzleChargeDelay = 0.5,
+            MuzzleChargeDelay = 0.5,        -- .5 second delay
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 71,

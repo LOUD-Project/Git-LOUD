@@ -96,6 +96,7 @@ UnitBlueprint {
     },
 	
     General = {
+        CapCost = 2,
         Category = 'Indirect Fire',
         Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
@@ -186,6 +187,7 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
             AimsStraightOnDisable = true,
             ArtilleryShieldBlocks = true,
+            
             Audio = {
                 Fire = Sound {
                     Bank = 'URLWeapon',
@@ -193,19 +195,25 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
+            
             BallisticArc = 'RULEUBA_HighArc',
             CollideFriendly = false,
 			
             Damage = 480,
             DamageFriendly = true,
-            DamageRadius = 6,
-            DamageType = 'ShieldMult1.2',
+            DamageRadius = 5,
+            
+            DamageType = 'ShieldMult1.2',       -- class bonus --
 			
             DisplayName = 'Proton Artillery',
-			
+            
+            EnergyRequired = 3350,
+            EnergyDrainPerSecond = 670,     -- 5 seconds to charge
+				
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
             },
+            
             FiringRandomness = 1,
             FiringTolerance = 2,
 			
@@ -240,12 +248,13 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.2,	-- 96 DPS
-			
-            RenderFireClock = true,
+            RateOfFire = 1,	        -- every 5 seconds by charge = 96 DPS
+
             TargetCheckInterval = 2,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
+                'SHIELD',
+                'ARTILLERY',
                 'DEFENSE',
                 'MOBILE',
                 'ALLUNITS,-WALL',
@@ -277,7 +286,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,

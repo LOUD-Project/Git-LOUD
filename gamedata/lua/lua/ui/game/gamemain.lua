@@ -147,14 +147,16 @@ function OnFirstUpdate()
 			
 			--ConExecute('path_UnreachableTimeoutSearchSteps = 750')
 			
-			ConExecute('ren_ShadowCoeff 2')
-			ConExecute('ren_ShadowSize 2048')
-			ConExecute('ren_ShadowBias 0.0010')
-			ConExecute('ren_BloomGlowCopyScale 2.5')
-			ConExecute('ren_BloomBlurKernelScale 1.1')
-			ConExecute('ren_BloomBlurCount 0')
+			--ConExecute('ren_ShadowCoeff 2')
+			--ConExecute('ren_ShadowSize 2048')
+			--ConExecute('ren_ShadowBias 0.0010')
+			--ConExecute('ren_BloomGlowCopyScale 2.5')
+			--ConExecute('ren_BloomBlurKernelScale 1.1')
+			--ConExecute('ren_BloomBlurCount 0')
 			
 			ConExecute('fog_DistanceFog')
+            
+            ConExecute('d3d_WindowsCursor')
 
         end
     )
@@ -240,7 +242,7 @@ function CreateUI(isReplay)
     -- this feature from GAZ UI - SCU Manager
     import('/lua/gaz_ui/modules/scumanager.lua').Init()
    	import('/lua/gaz_ui/modules/keymapping.lua').Init()
-	
+
 	-- this feature comes from BO Unleashed all credit to original author
 	import('/lua/spreadattack.lua').Init()	
 
@@ -388,7 +390,7 @@ function CreateUI(isReplay)
     if options.gui_render_enemy_lifebars == 1 or options.gui_render_custom_names == 0 then
         import('/lua/gaz_ui/modules/console_commands.lua').Init()
     end
-    
+
 end
 	
 
