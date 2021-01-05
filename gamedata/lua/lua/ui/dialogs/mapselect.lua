@@ -538,7 +538,7 @@ function CreateDialog(selectBehavior, exitBehavior, over, singlePlayer, defaultS
                 local s = 0
                 for _, scenario in folder[3] do
                     s = s + 1
-                    if scenario.file == defaultScenarioName then
+                    if scenario.file == string.lower(defaultScenarioName) then
                         if table.getsize(folder[3]) > 1 then
                             folder[2] = true
                             PopulateMapList()
