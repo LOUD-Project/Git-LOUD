@@ -1341,6 +1341,7 @@ function UpdateAvailableSlots( numAvailStartSpots )
 				
                     GUI.slots[i].closed = false
                     GUI.slots[i]:Show()
+                    GUI.slots[i].color.glow:Hide()
 					
                     if not gameInfo.PlayerOptions[i] then
                         ClearSlotInfo(i)
