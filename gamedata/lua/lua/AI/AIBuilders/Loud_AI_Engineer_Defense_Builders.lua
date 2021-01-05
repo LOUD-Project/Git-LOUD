@@ -58,7 +58,7 @@ local IsEnemyCrushingLand = function(self,aiBrain,manager)
 
     if aiBrain.LandRatio <= 0.9 then
 	
-		return 850, true	
+		return self.Priority + 100, true	
 
     end
     
@@ -69,7 +69,7 @@ local IsEnemyCrushingAir = function(self,aiBrain,manager)
 
     if aiBrain.AirRatio <= 0.9 then
 	
-		return 850, true	
+		return self.Priority + 100, true	
 
     end
     
