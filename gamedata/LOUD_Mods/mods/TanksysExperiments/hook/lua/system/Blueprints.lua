@@ -18,11 +18,12 @@ do
 		
 		-- Itterate through all units.
 		for id, bp in all_bps.Unit do
+			-- Itterate through all weapons on the unit.
 			if bp.Weapon then
 				for i, weapon in bp.Weapon do
 					local sourceRadius = weapon.MaxRadius
 
-					-- Low Arcing weapons which can function as High Arc weapons.
+					-- Low Arc, Indirect-Fire weapons can function as High Arc weapons.
 					if weapon.BallisticArc and weapon.BallisticArc == 'RULEUBA_LowArc' then
 						if weapon.RangeCategory and weapon.RangeCategory == 'UWRC_IndirectFire' then
 							weapon.BallisticArc = 'RULEUBA_HighArc'
@@ -34,12 +35,10 @@ do
 					if weapon.BallisticArc and weapon.BallisticArc == 'RULEUBA_None' then
 						-- Check if this is a Beam weapon or not.
 						if weapon.BeamLifetime then
-							-- Check if this is not a Countermeasure beam.
-							if weapon.RangeCategory and weapon.RangeCategory ~= 'UWRC_Countermeasure' then
-								-- Give beam weapons a small range bump.
-								local newValue = math.floor(sourceRadius * 1.75)
-								weapon.MaxRadius = newValue
-							end
+							-- Give beam weapons a small range bump.
+							local newValue = math.floor(sourceRadius * 1.75)
+							weapon.MaxRadius = newValue
+							
 						-- Weapons must have BeamLifetime defined, or else they aren't beams.
 						else
 							-- We only care about weapons with defined range categories. (This should skip Bombs/Torpedos, which don't)
@@ -50,42 +49,48 @@ do
 									local newValue = math.floor(sourceRadius * 3.5)
 									weapon.MaxRadius = newValue
 									
-									-- Speed up the muzzle velocity of missiles to be much faster.
+									-- Speed up the muzzle velocity of missiles to be launched faster.
+									-- NOTE: This doesn't affect the missile's overall speed as that is handled by the projectile itself.
 									if weapon.MuzzleVelocity then
-										local newValue = math.floor(weapon.MuzzleVelocity * 7)
+										local newValue = math.floor(weapon.MuzzleVelocity * 3)
 										weapon.MuzzleVelocity = newValue
 									end
 								end
+								
 								-- Check if the weapon could be Low Arc. (No Arc, No Beam, Direct Fire)
 								if weapon.RangeCategory == 'UWRC_DirectFire' then
 									-- This weapon has no arc, so give it one.
 									weapon.BallisticArc = 'RULEUBA_LowArc'
 								end
+								
 								-- Check if the weapon is Anti Air.
 								if weapon.RangeCategory == 'UWRC_AntiAir' then
 									-- Give AA weapons a small range bump.
 									local newValue = math.floor(sourceRadius * 2)
 									weapon.MaxRadius = newValue
 									
+									-- Adjust the muzzle velocity.
 									if weapon.MuzzleVelocity then
 										local newValue = math.floor(weapon.MuzzleVelocity * 2)
 										weapon.MuzzleVelocity = newValue
 									end
 								end
+								
+								-- Countermeasure weapons should get a small range buff, so they aren't too powerful but can keep up with faster missiles.
+								if weapon.RangeCategory == 'UWRC_Countermeasure' then
+									local newValue = math.floor(sourceRadius * 1.5)
+									weapon.MaxRadius = newValue
+								end
 							end
 						end
 					end
 					
-					-- Low Arcing weapons which are marked as Indirect Fire could work well as High Arc weapons.
-					--if weapon.BallisticArc and weapon.BallisticArc == 'RULEUBA_LowArc' and weapon.RangeCategory and weapon.RangeCategory == 'UWRC_IndirectFire' then
-					--	weapon.BallisticArc = 'RULEUBA_HighArc'
-					--end
-					
-					-- Low Arcing weapons should, by this point, include all Direct Fire weapons.
+					-- Low Arcing weapons should, by this point, include all Direct Fire weapons not including Beams.
 					if weapon.BallisticArc and weapon.BallisticArc == 'RULEUBA_LowArc' then
 						local newValue = math.floor(sourceRadius * 3)
 						weapon.MaxRadius = newValue
 						
+						-- Adjust the muzzle velocity.
 						if weapon.MuzzleVelocity then
 							local newValue = math.floor(weapon.MuzzleVelocity * 2.5)
 							weapon.MuzzleVelocity = newValue
@@ -104,25 +109,24 @@ do
 							-- Allow Artillery to auto-adjust their muzzle velocity to units within the new range.
 							weapon.MuzzleVelocityReduceDistance = weapon.MaxRadius
 						end
-						
-						--if weapon.MuzzleVelocityReduceDistance then
-						--	local newValue = weapon.MaxRadius
-						--	weapon.MuzzleVelocityReduceDistance = newValue
-						--end
 					end
 					
-					-- Projectile Lifetime gets a bump too, incase projectiles can't make it in the weapon's new range.
+					-- Projectile Lifetime gets a bump too, in-case projectiles can't make it in the weapon's new range.
+					-- TODO: Work out what ProjectileLifetime is measured in and try to adjust it according to a MaxRadius vs MuzzleVelocity calculation.
 					if weapon.ProjectileLifetime and weapon.ProjectileLifetime > 0 then
-						local newValue = math.floor(weapon.ProjectileLifetime * 3)
+						local newValue = math.floor(weapon.ProjectileLifetime * 2)
 						weapon.ProjectileLifetime = newValue
 					end
 				end
 			end
 			
+			-- Check this unit has Intel.
 			if bp.Intel then
+				-- Store the original vision and radar radii.
 				local sourceVision = bp.Intel.VisionRadius or 10
 				local sourceRadar = bp.Intel.RadarRadius
 				
+				-- We adjust the radii depending on the unit's category, with Scouts having the highest adjustment.
 				for i, cat in bp.Categories do
 					-- Vision
 					if sourceVision ~= nil then
@@ -179,7 +183,7 @@ do
 							bp.Physics.MaxSpeed = newValue
 						end
 						if bp.Physics.Lifetime then
-							local newValue = bp.Physics.Lifetime * 3
+							local newValue = bp.Physics.Lifetime * 2
 							bp.Physics.Lifetime = newValue
 						end
 						if bp.Physics.TurnRate then
