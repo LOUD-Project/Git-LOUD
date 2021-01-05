@@ -28,10 +28,10 @@ local mainDirs = {
 
 local originMap = {
 	'', -- Dummy value to account for Any in the filter combo
-	'Vanilla',
+	'Forged Alliance',
 	'4th Dimension Units',
-	'BlackOps ACUs',
 	'BlackOps Unleashed',
+	'BlackOps ACUs',
 	'BrewLAN LOUD',
 	'LOUD Unit Additions',
 	'Total Mayhem',
@@ -174,13 +174,17 @@ function CreateUnitDB(over, inGame, callback)
 -- Unit display
 
 	unitDisplay = Group(panel)
-	unitDisplay.Height:Set(600)
+	unitDisplay.Height:Set(576)
 	unitDisplay.Width:Set(280)
-	unitDisplay.top = 0
 	LayoutHelpers.AtLeftTopIn(unitDisplay, panel, 20, 60)
 	unitDisplay.bg = Bitmap(unitDisplay)
 	unitDisplay.bg.Depth:Set(unitDisplay.Depth)
 	LayoutHelpers.FillParent(unitDisplay.bg, unitDisplay)
+	unitDisplay.bg:SetSolidColor('505358')
+
+	local promptStr = 'Click a unit on the right.'
+	unitDisplay.prompt = UIUtil.CreateText(unitDisplay, promptStr, 14, UIUtil.bodyFont)
+	LayoutHelpers.AtCenterIn(unitDisplay.prompt, unitDisplay)
 
 	unitDisplay.backIcon = Bitmap(unitDisplay)
 	LayoutHelpers.AtLeftTopIn(unitDisplay.backIcon, unitDisplay)
@@ -217,7 +221,6 @@ function CreateUnitDB(over, inGame, callback)
 	end
 	unitDisplay.abilities:SetFont(UIUtil.bodyFont, 12)
 	UIUtil.CreateVertScrollbarFor(unitDisplay.abilities)
-	unitDisplay.abilities:Hide()
 
 	unitDisplay.healthIcon = Bitmap(unitDisplay, UIUtil.UIFile('/game/build-ui/icon-health_bmp.dds'))
 	LayoutHelpers.Below(unitDisplay.healthIcon, unitDisplay.abilities, 6)
@@ -232,7 +235,6 @@ function CreateUnitDB(over, inGame, callback)
 	LayoutHelpers.RightOf(unitDisplay.shield, unitDisplay.shieldIcon, 6)
 	Tooltip.AddControlTooltip(unitDisplay.shieldIcon, 'unitdb_shield')
 	Tooltip.AddControlTooltip(unitDisplay.shield, 'unitdb_shield')
-	unitDisplay.shieldIcon:Hide()
 
 	unitDisplay.capIcon = Bitmap(unitDisplay, UIUtil.UIFile('/dialogs/score-overlay/tank_bmp.dds'))
 	LayoutHelpers.RightOf(unitDisplay.capIcon, unitDisplay.shield, 6)
@@ -266,7 +268,6 @@ function CreateUnitDB(over, inGame, callback)
 	LayoutHelpers.RightOf(unitDisplay.fuelTime, unitDisplay.fuelIcon, 6)
 	Tooltip.AddControlTooltip(unitDisplay.fuelIcon, 'unitdb_fuel')
 	Tooltip.AddControlTooltip(unitDisplay.fuelTime, 'unitdb_fuel')
-	unitDisplay.fuelIcon:Hide()
 
 	unitDisplay.buildPowerIcon = Bitmap(unitDisplay, UIUtil.UIFile('/game/unit_view_icons/build.dds'))
 	LayoutHelpers.RightOf(unitDisplay.buildPowerIcon, unitDisplay.fuelIcon, 6)
@@ -274,7 +275,6 @@ function CreateUnitDB(over, inGame, callback)
 	LayoutHelpers.RightOf(unitDisplay.buildPower, unitDisplay.buildPowerIcon, 6)
 	Tooltip.AddControlTooltip(unitDisplay.buildPowerIcon, 'unitdb_buildpower')
 	Tooltip.AddControlTooltip(unitDisplay.buildPower, 'unitdb_buildpower')
-	unitDisplay.buildPowerIcon:Hide()
 
 	unitDisplay.weaponsLabel = UIUtil.CreateText(unitDisplay, 'Weapons', 18, UIUtil.buttonFont)
 	LayoutHelpers.Below(unitDisplay.weaponsLabel, unitDisplay.fuelIcon, 6)
@@ -286,7 +286,8 @@ function CreateUnitDB(over, inGame, callback)
 	unitDisplay.weapons.Height:Set(0)
 	unitDisplay.weapons:SetFont(UIUtil.bodyFont, 12)
 	UIUtil.CreateVertScrollbarFor(unitDisplay.weapons)
-	unitDisplay.weapons:Hide()
+
+	ClearUnitDisplay()
 
 -- List of filtered units
 
@@ -1026,6 +1027,7 @@ function FillLine(line, index)
 end
 
 function DisplayUnit(index)
+	unitDisplay.prompt:Hide()
 	local id = units[index]
 	local bp = allBlueprints[id]
 	unitDisplay.name:SetText(LOC(bp.General.UnitName) or LOC(bp.Description) or 'Unnamed Unit')
@@ -1048,6 +1050,7 @@ function DisplayUnit(index)
 
 	unitDisplay.technicals:SetText('Mod: '..originMap[origin[index]]..' ('..id..')')
 
+	unitDisplay.longDesc:Show()
 	local ld = LOC(Description[id]) or 'No description available for this unit.'
 	UIUtil.SetTextBoxText(unitDisplay.longDesc, ld)
 	if bp.Display.Abilities then
@@ -1067,6 +1070,7 @@ function DisplayUnit(index)
 	if bpRR and bpRR > 0 then
 		strHealth = strHealth..string.format(" (+%02.f/s)", bpRR)
 	end
+	unitDisplay.healthIcon:Show()
 	unitDisplay.health:SetText(strHealth)
 	if bp.Defense.Shield then
 		unitDisplay.shieldIcon:Show()
@@ -1081,8 +1085,11 @@ function DisplayUnit(index)
 		unitDisplay.cap:SetText('1')
 	end
 
+	unitDisplay.massIcon:Show()
 	unitDisplay.mass:SetText(tostring(bp.Economy.BuildCostMass))
+	unitDisplay.energyIcon:Show()
 	unitDisplay.energy:SetText(tostring(bp.Economy.BuildCostEnergy))
+	unitDisplay.buildTimeIcon:Show()
 	local bpBTMins = math.floor((bp.Economy.BuildTime / 10) / 60)
 	local bpBTSecs = math.floor(bp.Economy.BuildTime / 10) - (bpBTMins * 60)
 	unitDisplay.buildTime:SetText(string.format("%02.f:%02.fs", bpBTMins, bpBTSecs))
@@ -1107,6 +1114,7 @@ function DisplayUnit(index)
 	end
 
 	if bp.Weapon then
+		unitDisplay.weaponsLabel:Show()
 		unitDisplay.weapons:Show()
 		unitDisplay.weapons:DeleteAllItems()
 		unitDisplay.weapons.Height:Set(120)
@@ -1279,7 +1287,7 @@ function DisplayUnit(index)
 				if weapon.Damage > 0.01 then
 
 					-- Start weaponText string with label and category.
-					weaponText = weapon.DisplayName
+					weaponText = weapon.DisplayName or weapon.Label or 'Unnamed Weapon'
 					weaponText = '> '..weaponText..' - '..wepCategory
 
 					-- Check DamageFriendly and Buffs
@@ -1412,27 +1420,45 @@ function DisplayUnit(index)
 			end
 		end
 	else
+		unitDisplay.weaponsLabel:Hide()
 		unitDisplay.weapons:Hide()
 		unitDisplay.weapons.Height:Set(0)
 	end
 end
 
 function ClearUnitDisplay()
+	unitDisplay.backIcon:Hide()
 	unitDisplay.icon:Hide()
 	unitDisplay.stratIcon:Hide()
 	unitDisplay.name:SetText('')
 	unitDisplay.shortDesc:SetText('')
-	UIUtil.SetTextBoxText(unitDisplay.longDesc, '')
+	unitDisplay.longDesc:DeleteAllItems()
+	unitDisplay.longDesc:Hide()
 	unitDisplay.technicals:SetText('')
 	unitDisplay.abilities.Height:Set(0)
 	unitDisplay.abilities:Hide()
+	unitDisplay.healthIcon:Hide()
 	unitDisplay.health:SetText('')
+	unitDisplay.shieldIcon:Hide()
+	unitDisplay.shield:SetText('')
+	unitDisplay.capIcon:Hide()
 	unitDisplay.cap:SetText('')
+	unitDisplay.massIcon:Hide()
 	unitDisplay.mass:SetText('')
+	unitDisplay.energyIcon:Hide()
 	unitDisplay.energy:SetText('')
+	unitDisplay.buildTimeIcon:Hide()
 	unitDisplay.buildTime:SetText('')
+	unitDisplay.buildPowerIcon:Hide()
+	unitDisplay.buildPower:Hide()
 	unitDisplay.fuelIcon:Hide()
 	unitDisplay.fuelTime:SetText('')
+	unitDisplay.weaponsLabel:Hide()
+	unitDisplay.weapons:DeleteAllItems()
+	unitDisplay.weapons.Height:Set(0)
+	unitDisplay.weapons:Hide()
+
+	unitDisplay.prompt:Show()
 end
 
 function ToggleSetting(setting, checked)
