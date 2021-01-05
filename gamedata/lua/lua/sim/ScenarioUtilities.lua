@@ -91,6 +91,8 @@ end
 
 function CreateResources()
 
+    ScenarioInfo.RelocateResources = true
+
 	local memstart = gcinfo()
 	
     local markers = GetMarkers()
@@ -105,7 +107,7 @@ function CreateResources()
 		end
 	end
 	
-	--LOG("*AI DEBUG Start positions are "..repr(Starts))
+	LOG("*AI DEBUG Start positions are "..repr(Starts))
 	
 	local doit_value = tonumber(ScenarioInfo.Options.UnusedResources) or 1
 	
@@ -155,66 +157,74 @@ function CreateResources()
 						-- only 4 points are permitted at a range of 36 - all others will be 55 or greater
 						-- those closer than 37 will be put at 36 from the start - those greater than 37 will be pushed out to 55
 						if doit and VDist2(armyposition[1],armyposition[3], tblData.position[1], tblData.position[3]) > 37 then
+                        
+                            if ScenarioInfo.RelocateResources then
 					
-							LOG("*AI DEBUG Mass Point at distance "..VDist2(armyposition[1],armyposition[3], tblData.position[1], tblData.position[3]).." - Position "..repr(tblData.position).." too close (55) to Start position")
+                                LOG("*AI DEBUG Mass Point at distance "..VDist2(armyposition[1],armyposition[3], tblData.position[1], tblData.position[3]).." - Position "..repr(tblData.position).." too close (55) to Start position")
 						
-							if tblData.position[1] < armyposition[1] then
+                                if tblData.position[1] < armyposition[1] then
 							
-								tblData.position[1] = armyposition[1] - 39
+                                    tblData.position[1] = armyposition[1] - 39
 							
-							elseif tblData.position[1] >= armyposition[1] then
+                                elseif tblData.position[1] >= armyposition[1] then
 						
-								tblData.position[1] = armyposition[1] + 39
+                                    tblData.position[1] = armyposition[1] + 39
 							
-							end
+                                end
 						
-							if tblData.position[3] < armyposition[3] then
+                                if tblData.position[3] < armyposition[3] then
 						
-								tblData.position[3] = armyposition[3] - 39
+                                    tblData.position[3] = armyposition[3] - 39
 							
-							elseif tblData.position[3] >= armyposition[3] then
+                                elseif tblData.position[3] >= armyposition[3] then
 						
-								tblData.position[3] = armyposition[3] + 39
+                                    tblData.position[3] = armyposition[3] + 39
 							
-							end
+                                end
 						
-							tblData.position[2] = GetTerrainHeight( tblData.position[1], tblData.position[3] )
+                                tblData.position[2] = GetTerrainHeight( tblData.position[1], tblData.position[3] )
 						
-							LOG("*AI DEBUG Mass Point moved to "..repr(tblData.position))
+                                LOG("*AI DEBUG Mass Point moved to "..repr(tblData.position))
 							
-							tblData.hint = true
+                                tblData.hint = true
+                            
+                            end
 
 						elseif doit then
+                        
+                            if ScenarioInfo.RelocateResources then
 					
-							LOG("*AI DEBUG Mass Point at distance "..VDist2(armyposition[1],armyposition[3], tblData.position[1], tblData.position[3]).." - Position "..repr(tblData.position).." too near to Start position")
+                                LOG("*AI DEBUG Mass Point at distance "..VDist2(armyposition[1],armyposition[3], tblData.position[1], tblData.position[3]).." - Position "..repr(tblData.position).." too near to Start position")
 						
-							-- fix the X co-ordinate 
-							if tblData.position[1] < armyposition[1] then
+                                -- fix the X co-ordinate 
+                                if tblData.position[1] < armyposition[1] then
 						
-								tblData.position[1] = armyposition[1] - 25
+                                    tblData.position[1] = armyposition[1] - 25
 							
-							elseif tblData.position[1] >= armyposition[1] then
+                                elseif tblData.position[1] >= armyposition[1] then
 						
-								tblData.position[1] = armyposition[1] + 25
+                                    tblData.position[1] = armyposition[1] + 25
 							
-							end
+                                end
 						
-							-- fix the Y co-ordinate
-							if tblData.position[3] < armyposition[3] then
+                                -- fix the Y co-ordinate
+                                if tblData.position[3] < armyposition[3] then
 						
-								tblData.position[3] = armyposition[3] - 25
+                                    tblData.position[3] = armyposition[3] - 25
 							
-							elseif tblData.position[3] >= armyposition[3] then
+                                elseif tblData.position[3] >= armyposition[3] then
 						
-								tblData.position[3] = armyposition[3] + 25
+                                    tblData.position[3] = armyposition[3] + 25
 							
-							end
+                                end
 						
-							tblData.position[2] = GetTerrainHeight( tblData.position[1], tblData.position[3] )
+                                tblData.position[2] = GetTerrainHeight( tblData.position[1], tblData.position[3] )
 						
-							LOG("*AI DEBUG Mass Point moved to "..repr(tblData.position))
+                                LOG("*AI DEBUG Mass Point moved to "..repr(tblData.position))
 							
-							tblData.hint = true
+                                tblData.hint = true
+                                
+                            end
 						
 						end
 						
