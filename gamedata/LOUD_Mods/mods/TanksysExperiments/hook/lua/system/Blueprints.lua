@@ -10,16 +10,35 @@ do
 		return false
 	end
 
+	-- This function takes a weapon's MaxRadius and MuzzleVelocity and returns a new MuzzleVelocity that ensures a weapon can fire at any target within their MaxRadius.
+	local function checkMuzzleVelocity(aMaxRadius, aMuzzleVelocity, isHighArc)
+		-- Muzzle Velocity may be measured in o-grids/second.
+		-- A test with a Low Arc, 60 Radius weapon resulted in a Muzzle Velocity of 18 allowing the unit to fire for the full range. This was determined through manual testing of values.
+		-- A similar test with a Low Arc, 114 Radius weapon resulted in a Muzzle Velocity of 38 allowing the unit to fire for the full range. This value was calculated from "MaxRadius / 3".
+		
+		local newVelocity = aMuzzleVelocity
+		
+		if isHighArc ~= true then
+			if aMuzzleVelocity < (0.34 * aMaxRadius) then
+				newVelocity = math.floor(0.34 * aMaxRadius)
+			end
+		else
+			if aMuzzleVelocity < (2.5 * math.sqrt(aMaxRadius)) then
+				newVelocity = math.floor(2.5 * math.sqrt(aMaxRadius))
+			end
+		end
+		
+		return newVelocity
+	end
 	
 	function ModBlueprints(all_bps)
 		oldModBlueprints(all_bps)
 		
-		-- This test is to experiment with blanket unit changes.
-		
 		-- Itterate through all units.
 		for id, bp in all_bps.Unit do
-			-- Itterate through all weapons on the unit.
+			-- Check for weapons.
 			if bp.Weapon then
+				-- Itterate through all weapons on the unit.
 				for i, weapon in bp.Weapon do
 					local sourceRadius = weapon.MaxRadius
 
@@ -49,12 +68,7 @@ do
 									local newValue = math.floor(sourceRadius * 3.5)
 									weapon.MaxRadius = newValue
 									
-									-- Speed up the muzzle velocity of missiles to be launched faster.
-									-- NOTE: This doesn't affect the missile's overall speed as that is handled by the projectile itself.
-									if weapon.MuzzleVelocity then
-										local newValue = math.floor(weapon.MuzzleVelocity * 3)
-										weapon.MuzzleVelocity = newValue
-									end
+									-- A Missile weapon's muzzle velocity isn't adjusted, as the Projectile over-rides the movement characteristics.
 								end
 								
 								-- Check if the weapon could be Low Arc. (No Arc, No Beam, Direct Fire)
@@ -71,7 +85,7 @@ do
 									
 									-- Adjust the muzzle velocity.
 									if weapon.MuzzleVelocity then
-										local newValue = math.floor(weapon.MuzzleVelocity * 2)
+										local newValue = checkMuzzleVelocity(weapon.MaxRadius, weapon.MuzzleVelocity, false)
 										weapon.MuzzleVelocity = newValue
 									end
 								end
@@ -92,9 +106,10 @@ do
 						
 						-- Adjust the muzzle velocity.
 						if weapon.MuzzleVelocity then
-							local newValue = math.floor(weapon.MuzzleVelocity * 2.5)
+							local newValue = checkMuzzleVelocity(weapon.MaxRadius, weapon.MuzzleVelocity, false)
 							weapon.MuzzleVelocity = newValue
 						end
+						
 					end
 					
 					-- High Arcing weapons are most likely just found on Artillery units.
@@ -102,20 +117,28 @@ do
 						local newValue = math.floor(sourceRadius * 3.5)
 						weapon.MaxRadius = newValue
 						
-						-- Projectiles can be unbelievably slow, this should bump their speeds up and also allow artillery pieces to reach their larger ranges.
+						-- Adjust the muzzle velocity.
 						if weapon.MuzzleVelocity then
-							local newValue = math.floor(weapon.MuzzleVelocity * 2)
+							local newValue = checkMuzzleVelocity(weapon.MaxRadius, weapon.MuzzleVelocity, true)
 							weapon.MuzzleVelocity = newValue
+							
 							-- Allow Artillery to auto-adjust their muzzle velocity to units within the new range.
 							weapon.MuzzleVelocityReduceDistance = weapon.MaxRadius
 						end
+						
+						-- Adjust turret's maximum firing angle. Might look janky but it's necessary for some weapons to fire at their new range.
+						weapon.TurretPitchRange = 90
 					end
 					
 					-- Projectile Lifetime gets a bump too, in-case projectiles can't make it in the weapon's new range.
-					-- TODO: Work out what ProjectileLifetime is measured in and try to adjust it according to a MaxRadius vs MuzzleVelocity calculation.
-					if weapon.ProjectileLifetime and weapon.ProjectileLifetime > 0 then
-						local newValue = math.floor(weapon.ProjectileLifetime * 2)
-						weapon.ProjectileLifetime = newValue
+					-- Projectile Lifetime is measured in seconds, and the ProjectileLifetimeUsesMultiplier field on a weapon will use the calculation Multiplier * (Max Radius/Muzzle Velocity).
+					-- A Lifetime of 0 (on the weapon) reverts the projectile to using the lifetime specified in the Projectile blueprint.
+					if weapon.ProjectileLifetime and weapon.ProjectileLifetime ~= 0 then
+						-- If the ProjectileLifetime isn't high enough to cover MaxRadius/MuzzleVelocity, then we set ProjectileLifetimeUsesMultiplier.
+						if weapon.ProjectileLifetime < (weapon.MaxRadius / weapon.MuzzleVelocity) then
+							-- Using ProjectileLifetimeUsesMultiplier causes ProjectileLifetime to be ignored in favor of the calculation.
+							weapon.ProjectileLifetimeUsesMultiplier = 1
+						end
 					end
 				end
 			end
