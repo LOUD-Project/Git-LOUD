@@ -1084,7 +1084,9 @@ function DisplayUnit(index)
 
 	unitDisplay.capIcon:Show()
 	if bp.General.CapCost then
-		unitDisplay.cap:SetText(string.format("%.1f", bp.General.CapCost))
+		local str = string.format("%.1f", bp.General.CapCost)
+		str = str:gsub("%.?0+$", "")
+		unitDisplay.cap:SetText(str)
 	else
 		unitDisplay.cap:SetText('1')
 	end
@@ -1101,7 +1103,7 @@ function DisplayUnit(index)
 	local bpFuel = bp.Physics.FuelUseTime
 	if bpFuel then
 		unitDisplay.fuelIcon:Show()
-		local bpFTMins = string.format("%02.f", math.floor(bpFuel / 60))
+		local bpFTMins = string.format("%02.f", math.floor(bpFuel / 60)):gsub("%.?0+$", "")
 		local bpFTSecs = string.format("%02.f", math.mod(bpFuel, 60))
 		unitDisplay.fuelTime:SetText(bpFTMins..":"..bpFTSecs.."s")
 	else
