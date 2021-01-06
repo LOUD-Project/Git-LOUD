@@ -5,6 +5,7 @@ UnitBlueprint {
         'LAND',
         'TECH1',
         'VISIBLETORECON',
+		'CIVILIAN',
     },
     CollisionOffsetY = -0.25,
     Defense = {

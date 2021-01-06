@@ -3,6 +3,7 @@ UnitBlueprint {
         'CYBRAN',
         'UNTARGETABLE',
         'FERRYBEACON',
+		'INSIGNIFICANTUNIT',
     },
     CollisionOffsetY = -0.25,
     Defense = {

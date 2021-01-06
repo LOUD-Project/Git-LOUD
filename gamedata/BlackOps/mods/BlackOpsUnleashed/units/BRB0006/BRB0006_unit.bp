@@ -17,6 +17,7 @@ UnitBlueprint {
         'CYBRAN',
         'DEFENSE',
         'ANTITELEPORT',
+		'INSIGNIFICANTUNIT',
     },
 	
     Defense = {

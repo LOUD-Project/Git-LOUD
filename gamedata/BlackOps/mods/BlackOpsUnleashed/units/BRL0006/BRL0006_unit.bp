@@ -27,6 +27,7 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
         'SHOWQUEUE',
+		'INSIGNIFICANTUNIT',
     },
 	
     Defense = {

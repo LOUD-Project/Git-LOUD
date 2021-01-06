@@ -35,6 +35,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'LAND',
         'MOBILE',
+		'CIVILIAN',
     },
     Defense = {
         ArmorType = 'Normal',
