@@ -3409,9 +3409,12 @@ function CreateUI(maxPlayers, useSteam)
         Tooltip.AddButtonTooltip(GUI.setAllAIMultBtn, 'lob_set_all_ai_multi')
 
         GUI.setAllAIMultBtn.OnClick = function(self, modifiers)
-            for i, slot in GUI.slots do
-                if not gameInfo.PlayerOptions[i].Human then
-                    slot.mult:SetText(GUI.fillAIMult:GetText())
+            if not lobbyComm:IsHost() then
+                return
+            end
+            for i, v in gameInfo.PlayerOptions do
+                if not v.Human then
+                    SetPlayerOption(i, 'Mult', GUI.fillAIMult:GetText(), true)
                 end
             end
         end
@@ -3537,9 +3540,12 @@ function CreateUI(maxPlayers, useSteam)
         Tooltip.AddButtonTooltip(GUI.setAllAIMultBtn, 'lob_set_all_ai_multi')
 
         GUI.setAllAIMultBtn.OnClick = function(self, modifiers)
-            for i, slot in GUI.slots do
-                if not gameInfo.PlayerOptions[i].Human then
-                    slot.mult:SetText(GUI.fillAIMult:GetText())
+            if not lobbyComm:IsHost() then
+                return
+            end
+            for i, v in gameInfo.PlayerOptions do
+                if not v.Human then
+                    SetPlayerOption(i, 'Mult', GUI.fillAIMult:GetText(), true)
                 end
             end
         end
