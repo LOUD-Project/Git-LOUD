@@ -54,8 +54,7 @@ end
 -- Backing structures
 
 allBlueprints = {} -- Map unit IDs to BPs
-temp = nil
-countBPs = 0
+temp = false
 
 local units = {} -- Map unit indices to ID
 local origin = {} -- Map unit indices to origin mod
@@ -112,6 +111,9 @@ function CreateUnitDB(over, inGame, callback)
 			local id = string.sub(file, string.find(file, '[%a%d]*_unit%.bp$'))
 			id = string.sub(id, 1, string.len(id) - 8)
 			safecall("UNIT DB: Loading BP "..file, doscript, file)
+			if not temp then
+				continue
+			end
 			allBlueprints[id] = temp
 			local ico = '/textures/ui/common/icons/units/'..id..'_icon.dds'
 			if not DiskGetFileInfo(ico) then
