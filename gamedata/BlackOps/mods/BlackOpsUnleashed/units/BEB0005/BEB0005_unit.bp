@@ -40,6 +40,7 @@ UnitBlueprint {
         'ENGINEERSTATION',
         'OVERLAYMISC',
         'SORTCONSTRUCTION',
+		'INSIGNIFICANTUNIT',
     },
 	
     CollisionOffsetY = -0.25,
