@@ -49,7 +49,7 @@ UnitBlueprint {
         ArmorType = 'Structure',
         Health = 6100,
         MaxHealth = 6100,
-        RegenRate = 6,
+        RegenRate = 8,
         SubThreatLevel = 24,
     },
     Description = '<LOC urb2205_desc>Improved Torpedo Launcher',
