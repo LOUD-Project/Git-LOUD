@@ -1081,8 +1081,10 @@ function DisplayUnit(index)
 		unitDisplay.shieldIcon:Hide()
 		unitDisplay.shield:SetText('')
 	end
+
+	unitDisplay.capIcon:Show()
 	if bp.General.CapCost then
-		unitDisplay.cap:SetText(tostring(bp.General.CapCost))
+		unitDisplay.cap:SetText(string.format("%.1f", bp.General.CapCost))
 	else
 		unitDisplay.cap:SetText('1')
 	end
