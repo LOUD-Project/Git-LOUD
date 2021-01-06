@@ -62,7 +62,7 @@ function CreateUI()
             color = menuFontColorAlt,
         },
         {
-            name = 'LOUD Unit Database',
+            name = 'Unit Database',
             tooltip = 'mainmenu_unitdb',
             action = function() ButtonUnitDB() end,
             color = menuFontColorAlt,

@@ -2065,7 +2065,7 @@ Tooltips = {
     	description = "Access additional SupCom content and functionality",
     },
     mainmenu_unitdb = {
-        title = "LOUD Unit Database",
+        title = "Unit Database",
         description = "See detailed information about each of the units in the LOUD mod pack",
     },
     profile = {
