@@ -382,10 +382,10 @@ local function ModConfigDialog(parent, modInfo, config)
     optionContainer.top = 0
     LayoutHelpers.AtCenterIn(optionContainer, parent, -12)
 
-    local function CreateOptionCombo(parent, optionData, width)
-        local combo = Combo(parent, nil, nil, nil, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
+    local function CreateOptionCombo(list, optionData, width)
+        local combo = Combo(list, nil, nil, nil, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
         combo.Width:Set(240)
-        combo.Depth:Set(function() return parent.Depth() + 10 end)
+        combo.Depth:Set(function() return list.Depth() + 10 end)
         local itemArray = {}
         combo.keyMap = {}
         local tooltipTable = {}
