@@ -344,6 +344,8 @@ local loudStandard = {
 }
 
 local function ModConfigDialog(parent, modInfo, config)
+    table.sort(config, function(a, b) return a.key < b.key end)
+
     local newConfig = Prefs.GetFromCurrentProfile("modConfig")
     if not newConfig then
         newConfig = {}
