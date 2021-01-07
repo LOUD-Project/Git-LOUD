@@ -1,3 +1,5 @@
+-- Author: Rat Circus
+
 T1Land = {
 	key = 'T1Land',
 	values = {

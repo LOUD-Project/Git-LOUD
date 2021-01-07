@@ -1,7 +1,7 @@
 config = {
 	{
 		default = 1,
-		label = 'Enable T1 Land Vehicles',
+		label = 'T1 Land Units',
 		key = 'T1Land',
 		values = {
 			{

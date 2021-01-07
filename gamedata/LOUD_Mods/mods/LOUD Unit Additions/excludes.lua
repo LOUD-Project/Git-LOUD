@@ -1,3 +1,5 @@
+-- Author: Rat Circus
+
 ExpStorage = {
 	key = 'ExpStorage',
 	values = {
