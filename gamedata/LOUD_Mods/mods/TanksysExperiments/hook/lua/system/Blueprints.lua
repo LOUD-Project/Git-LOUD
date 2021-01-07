@@ -16,9 +16,11 @@ do
 		-- A test with a Low Arc, 60 Radius weapon resulted in a Muzzle Velocity of 18 allowing the unit to fire for the full range. This was determined through manual testing of values.
 		-- A similar test with a Low Arc, 114 Radius weapon resulted in a Muzzle Velocity of 38 allowing the unit to fire for the full range. This value was calculated from "MaxRadius / 3".
 		
+		-- Initialise our return to the given MuzzleVelocity.
 		local newVelocity = aMuzzleVelocity
 		
 		if isHighArc ~= true then
+			-- Ensure the weapon has enough MuzzleVelocity to fire at targets anywhere within the MaxRadius.
 			if aMuzzleVelocity < (0.34 * aMaxRadius) then
 				newVelocity = math.floor(0.34 * aMaxRadius)
 			end
@@ -147,24 +149,14 @@ do
 			if bp.Intel then
 				-- Store the original vision and radar radii.
 				local sourceVision = bp.Intel.VisionRadius or 10
-				local sourceRadar = bp.Intel.RadarRadius
+				local sourceRadar = bp.Intel.RadarRadius or nil
 				
-				-- We adjust the radii depending on the unit's category, with Scouts having the highest adjustment.
+				-- We adjust the radii depending on the unit's category, to put an emphasis on scouting.
 				for i, cat in bp.Categories do
 					-- Vision
-					if sourceVision ~= nil then
-						if cat == 'LAND' or cat == 'STRUCTURE' then
-							local newValue = math.floor(sourceVision * 1.75)
-							bp.Intel.VisionRadius = newValue
-						end
-						if cat == 'AIR' or cat == 'NAVAL' then
-							local newValue = math.floor(sourceVision * 2.25)
-							bp.Intel.VisionRadius = newValue
-						end
-						if cat == 'SCOUT' then
-							local newValue = math.floor(sourceVision * 2.75)
-							bp.Intel.VisionRadius = newValue
-						end
+					if cat == 'AIR' or cat == 'SCOUT' then
+						local newValue = math.floor(sourceVision * 2.5)
+						bp.Intel.VisionRadius = newValue
 					end
 					-- Radar
 					if sourceRadar ~= nil then
@@ -177,7 +169,7 @@ do
 							bp.Intel.RadarRadius = newValue
 						end
 						if cat == 'SCOUT' then
-							local newValue = math.floor(sourceRadar * 2.75)
+							local newValue = math.floor(sourceRadar * 2.5)
 							bp.Intel.RadarRadius = newValue
 						end
 					end

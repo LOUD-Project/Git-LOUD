@@ -1,8 +1,8 @@
-name = "(DEV USE ONLY) Tanksy's Experiments"
-uid = "ffffffff-LOUD-DEVb-ONLY-TExperiments"
-version = 1.1
+name = "Tanksy's Experiments: Combat Changes"
+uid = "TANKSYS-EXPERIMENTS-1-COMBAT"
+version = "1.2"
 copyright = "None"
-description = "(This mod shouldn't be seen in release) This mod hosts Tanksy's current blueprint experiments."
+description = "A different combat experience: Up to 3x longer ranged weapons, adjusted ballistics, faster missiles, emphasised scouting and high-arc artillery."
 author = "Tanksy"
 url = ""
 icon = "/mods/LOUD.bmp"
