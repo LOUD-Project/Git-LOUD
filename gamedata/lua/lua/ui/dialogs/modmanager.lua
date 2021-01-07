@@ -445,7 +445,7 @@ local function ModConfigDialog(parent, modInfo, config)
             local def = newConfig[modInfo.uid][data.key] or 1
             line.combo:AddItems(itemArray, def)
             line.combo.OnClick = function(self, index, text)
-                newConfig[data.key] = index
+                newConfig[modInfo.uid][data.key] = index
             end
             line.combo.UpdateValue = function(key)
                 line.combo:SetItem(line.combo.keyMap[key])
@@ -466,6 +466,7 @@ local function ModConfigDialog(parent, modInfo, config)
 
     okBtn.OnClick = function(self, modifiers)
         Prefs.SetToCurrentProfile("modConfig", newConfig)
+        modInfo.config = table.copy(newConfig[modInfo.uid])
         dialog:Destroy()
     end
 

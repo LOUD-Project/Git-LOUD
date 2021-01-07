@@ -1682,6 +1682,23 @@ function AddCustomUnitSupport( aiBrain )
 	
 	--Loop through active mods
 	for i, m in __active_mods do
+
+		local env = {}
+		local excl = {}
+		if m.config then
+			local eOk, eResult = pcall(doscript, m.location..'/excludes.lua', env)
+			if eOk then
+				LOG("Applying mod config exclusions to "..m.name)
+				-- Check every exclusion block to see if modconfig activates it
+				for _, e in env do
+					if m.config[e.key] == 2 then
+						for _, ex in e.values do
+							excl[string.lower(ex)] = true
+						end
+					end
+				end
+			end
+		end
 	
 		if m.name == 'BlackOps Adv Command Units for LOUD' then
 			--LOG("*AI DEBUG BOACU installed")
@@ -1719,6 +1736,10 @@ function AddCustomUnitSupport( aiBrain )
 					-- only add those that are same faction as the AI
 					if fac == aiBrain.FactionName then
 					
+						if excl and entry[1] and excl[string.lower(entry[1])] then
+							continue
+						end
+						
 						if not ScenarioInfo.CustomUnits then
 							ScenarioInfo.CustomUnits = {}
 						end

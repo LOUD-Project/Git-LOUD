@@ -1066,12 +1066,32 @@ function LoadBlueprints()
 	
 	LOG("Loaded "..rcount.." std resources")	
 	
-    for i,m in __active_mods do
-	
+	for i, m in __active_mods do
+		
+		-- If this mod has config files, check if it also has an excludes file 
+		local env = {}
+		local excl = {}
+		local eOk, eResult = pcall(doscript, m.location..'/excludes.lua', env)
+		if m.config and eOk then
+			-- Check every exclusion block to see if modconfig activates it
+			for _, e in env do
+				if m.config[e.key] == 2 then
+					for _, ex in e.values do
+						local path = string.format("%s/units/%s/%s_unit.bp", m.location, ex, ex)
+						excl[string.lower(path)] = true
+					end
+				end
+			end
+		end
+
 		LOG("loading resources from mod at "..m.location)
 		count = 0
 		
-        for k,file in DiskFindFiles(m.location, '*.bp') do
+		for k,file in DiskFindFiles(m.location, '*.bp') do
+			
+			if excl[file] then
+				continue
+			end
 		
             BlueprintLoaderUpdateProgress()
 			

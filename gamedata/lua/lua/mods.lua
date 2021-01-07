@@ -272,10 +272,7 @@ function AllMods()
         for i,file in DiskFindFiles('/mods', '*mod_info.lua') do
         
             local mod = LoadModInfo(file)
-            
-            if mod and (mod.enabled ~= false) then
-                r[mod.uid] = mod
-            end
+
             -- Try getting config
             local env = {}
             local ok, result = pcall(doscript, mod.location..'/config.lua', env)
@@ -290,6 +287,10 @@ function AllMods()
                     end
                     mod.config[v.key] = allConfigs[mod.uid][v.key]
                 end
+            end
+            
+            if mod and (mod.enabled ~= false) then
+                r[mod.uid] = mod
             end
         end
         
