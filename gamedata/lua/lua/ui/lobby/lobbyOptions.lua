@@ -622,32 +622,48 @@ advAIOptions = {
         },
     },
     {
-        default = 3,
+        default = 5,
         label = "Timed Cheat Limit",
-        help = "If an AI cheats more with time, its cheat multiplier cannot go higher than the selected number.",
+        help = "If an AI's cheat changes with time, it will never pass the selected number.",
         key = "ACTTimeCap",
         pref = 'Lobby_ACT_Time_Cap',
         values = {
             {
+                text = "0.8",
+                help = "The AI's cheat multiplier will never pass 0.8.",
+                key = '0.8',
+            },
+            {
+                text = "1.0",
+                help = "The AI's cheat multiplier will never pass 1.0.",
+                key = '1',
+            },
+            {
+                text = "1.10",
+                help = "The AI's cheat multiplier will never pass 1.10.",
+                key = '1.1',
+            },
+            {
+                text = "1.25",
+                help = "The AI's cheat multiplier will never pass 1.25.",
+                key = '1.25',
+            },
+            {
                 text = "2.0",
-                help = "The AI's cheat multiplier will never go higher than 2.0.",
+                help = "The AI's cheat multiplier will never pass 2.0.",
                 key = '2',
             },
             {
                 text = "3.0",
-                help = "The AI's cheat multiplier will never go higher than 3.0.",
+                help = "The AI's cheat multiplier will never pass 3.0.",
                 key = '3',
             },
             {
                 text = "4.0",
-                help = "The AI's cheat multiplier will never go higher than 4.0.",
+                help = "The AI's cheat multiplier will never pass 4.0.",
                 key = '4',
             },
         },
     },
 
-}
-
-hiddenOptions = {
-    
 }

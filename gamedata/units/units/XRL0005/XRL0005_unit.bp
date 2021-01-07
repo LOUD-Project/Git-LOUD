@@ -26,12 +26,12 @@ UnitBlueprint {
         'LAND',
         'TECH3',
         'CONSTRUCTION',
-        --'FACTORY',
         'RALLYPOINT',
         'DRAGBUILD',
         'VISIBLETORECON',
         'RECLAIMABLE',
         'SHOWQUEUE',
+		'INSIGNIFICANTUNIT',
     },
     
     Defense = {

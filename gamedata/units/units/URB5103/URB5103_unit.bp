@@ -6,6 +6,7 @@ UnitBlueprint {
         'SIZE4',
         'TELEPORTBEACON',
         'VISIBLETORECON',
+		'INSIGNIFICANTUNIT',
     },
     CollisionOffsetY = -0.25,
     Defense = {

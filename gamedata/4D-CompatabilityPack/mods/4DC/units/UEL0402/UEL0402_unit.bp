@@ -97,7 +97,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 307.7,
     },
 	
-    Description = '<LOC uel0402_desc>Experimental Assault Mech',
+    Description = '<LOC uel0402_desc>Experimental Light Assault Mech',
 	
     Display = {
 	
@@ -245,7 +245,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Rampage',
+        HelpText = 'Experimental Light Assault Mech',
     },
 	
     LifeBarHeight = 0.075,

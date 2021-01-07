@@ -229,6 +229,11 @@ UnitBlueprint {
         MaintenanceConsumptionPerSecondEnergy = 533,
     },
     
+    Footprint = {
+        SizeX = 8,
+        SizeZ = 8,
+    },
+    
     General = {
         CapCost = 7,
         Category = 'Experimental',
@@ -466,7 +471,7 @@ UnitBlueprint {
             DoTTime = 4, 
             DamageType = 'fire',
             
-            DisplayName = 'Napalm Rockets',
+            DisplayName = 'Napalm Missiles',
             
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',

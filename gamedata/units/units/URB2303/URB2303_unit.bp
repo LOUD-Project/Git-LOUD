@@ -202,8 +202,8 @@ UnitBlueprint {
 			
             DisplayName = 'Resonance Artillery',
 			
-            EnergyDrainPerSecond = 30,	-- fires every 9 seconds --
-            EnergyRequired = 270,
+            EnergyDrainPerSecond = 325,	-- fires every 9 seconds --
+            EnergyRequired = 2925,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -243,14 +243,15 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,
+            RateOfFire = 1,     -- fire controlled by charge
 			
             TargetCheckInterval = 3,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
+                'SHIELD',
+                'ARTILLERY',
                 'DEFENSE',
-                
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',

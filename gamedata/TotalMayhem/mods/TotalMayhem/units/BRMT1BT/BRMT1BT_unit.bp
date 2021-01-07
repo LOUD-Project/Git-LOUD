@@ -109,7 +109,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'amph',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = '<LOC brmt1bt_name>Scarab',
+        UnitName = '<LOC brmt1bt_name>Mite',
         UnitWeight = 1,
     },
 	

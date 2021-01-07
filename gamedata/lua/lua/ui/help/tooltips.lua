@@ -806,7 +806,7 @@ Tooltips = {
     },
     Lobby_ACT_Time_Cap = {
         title = "Timed Cheat Limit",
-        description = "If an AI cheats more with time, its cheat multiplier cannot go higher than the selected number.",
+        description = "If an AI cheats more with time, its cheat multiplier cannot pass the selected number.",
     },
     Lobby_ACT_Ratio_Interval = {
         title = "Feedback Cheat Interval",
@@ -1052,7 +1052,7 @@ Tooltips = {
     },
     lob_act_time = {
         title = 'Time-Based Adaptive Cheat',
-        description = 'The AI will get change with time.',
+        description = "The AI's cheat multiplier will change with time.",
     },
     lob_act_both = {
         title = 'Feedback and Time-Based Adaptive Cheat',
@@ -1107,17 +1107,33 @@ Tooltips = {
         description = "The AI's cheat multiplier will change every 15 minutes.",
     },
 
+    ["lob_ACTTimeCap_0.8"] = {
+        title = "0.8",
+        description = "The AI's cheat multiplier will never pass 0.8."
+    },
+    ["lob_ACTTimeCap_1"] = {
+        title = "1.0",
+        description = "The AI's cheat multiplier will never pass 1.0."
+    },
+    ["lob_ACTTimeCap_1.1"] = {
+        title = "1.1",
+        description = "The AI's cheat multiplier will never pass 1.1."
+    },
+    ["lob_ACTTimeCap_1.25"] = {
+        title = "1.25",
+        description = "The AI's cheat multiplier will never pass 1.25."
+    },
     ["lob_ACTTimeCap_2"] = {
         title = "2.0",
-        description = "The AI's cheat multiplier will never go higher than 2.0."
+        description = "The AI's cheat multiplier will never pass 2.0."
     },
     ["lob_ACTTimeCap_3"] = {
         title = "3.0",
-        description = "The AI's cheat multiplier will never go higher than 3.0."
+        description = "The AI's cheat multiplier will never pass 3.0."
     },
     ["lob_ACTTimeCap_4"] = {
         title = "4.0",
-        description = "The AI's cheat multiplier will never go higher than 4.0."
+        description = "The AI's cheat multiplier will never pass 4.0."
     },
 
     ["lob_ACTStartDelay_0"] = {
@@ -2176,7 +2192,12 @@ Tooltips = {
 	restricted_units_engineers = {
 		title = "No standard engineers",
 		description = "Players will be unable to build standard engineers.",
-	},
+    },
+
+    restricted_units_altair = {
+        title = "Alternative Air",
+        description = "All air units available, except in Tech 3; Tech 3 air production is limited to air scouts, fighters, and torpedo bombers. Penetration planes and decoy planes are also prohibited.",
+    },
 
     -- ************************
     -- *** Strategic overlay

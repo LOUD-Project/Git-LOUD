@@ -27,6 +27,7 @@ SpecFootprints {
     { Name = 'Amphibious2x2',   SizeX=2,  SizeZ=2,  Caps=LAND|SEABED, MaxWaterDepth=40, MaxSlope=0.75, Flags=IgnoreStructures },
     { Name = 'Amphibious3x3',   SizeX=3,  SizeZ=3,  Caps=LAND|SEABED, MaxWaterDepth=40, MaxSlope=0.75, Flags=IgnoreStructures },
     { Name = 'Amphibious6x6',   SizeX=6,  SizeZ=6,  Caps=LAND|SEABED, MaxWaterDepth=40, MaxSlope=0.75, Flags=IgnoreStructures },
+    { Name = 'Amphibious8x8',   SizeX=8,  SizeZ=8,  Caps=LAND|SEABED, MaxWaterDepth=40, MaxSlope=0.75, Flags=IgnoreStructures },    
 
 	{ Name = 'WaterLand0x0',   SizeX=0,  SizeZ=0,  Caps=LAND|WATER, MaxWaterDepth=1, MinWaterDepth=0.1, MaxSlope=0.75, Flags=IgnoreStructures },
     { Name = 'WaterLand1x1',   SizeX=1,  SizeZ=1,  Caps=LAND|WATER, MaxWaterDepth=1, MinWaterDepth=0.1, MaxSlope=0.75, Flags=0 },
@@ -34,7 +35,8 @@ SpecFootprints {
     { Name = 'WaterLand3x3',   SizeX=3,  SizeZ=3,  Caps=LAND|WATER, MaxWaterDepth=5, MinWaterDepth=0, MaxSlope=0.75, Flags=0 },
     { Name = 'WaterLand5x5',   SizeX=5,  SizeZ=5,  Caps=LAND|WATER, MaxWaterDepth=5, MinWaterDepth=0, MaxSlope=0.75, Flags=0 },
     { Name = 'WaterLand6x6',   SizeX=6,  SizeZ=6,  Caps=LAND|WATER, MaxWaterDepth=5, MinWaterDepth=0, MaxSlope=0.75, Flags=IgnoreStructures },
-
+    { Name = 'WaterLand8x8',   SizeX=8,  SizeZ=8,  Caps=LAND|WATER, MaxWaterDepth=5, MinWaterDepth=0, MaxSlope=0.75, Flags=IgnoreStructures },
+    
 	{ Name = 'SurfacingSub0x0',   SizeX=0,  SizeZ=0,  Caps=SUB|WATER, MinWaterDepth=1.5, Flags=IgnoreStructures },
     { Name = 'SurfacingSub2x2',   SizeX=2,  SizeZ=2,  Caps=SUB|WATER, MinWaterDepth=1.5, Flags=0 },
     { Name = 'SurfacingSub3x3',   SizeX=3,  SizeZ=3,  Caps=SUB|WATER, MinWaterDepth=1.5, Flags=0 },

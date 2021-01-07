@@ -1,9 +1,7 @@
 
 UnitList = {
-    
     T3LandBot = {
-        UEF = {'BRNT3BT', 25},	-- Bull
+        UEF = {'BRNT3WT', 10},		-- WarHammer
+        Seraphim = {'BRPT3BT', 15},	-- Hethaamah
     },
-
-
 }

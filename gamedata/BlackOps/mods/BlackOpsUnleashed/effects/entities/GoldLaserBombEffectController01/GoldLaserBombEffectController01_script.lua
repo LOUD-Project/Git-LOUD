@@ -23,7 +23,7 @@ GoldLaserBombEffectController01 = Class(NullShell) {
     NukeInnerRingTicks = 1,
     NukeInnerRingTotalTime = 0,
     NukeOuterRingDamage = 650,
-    NukeOuterRingRadius = 8,
+    NukeOuterRingRadius = 7,
     NukeOuterRingTicks = 1,
     NukeOuterRingTotalTime = 0,
     
@@ -103,7 +103,6 @@ GoldLaserBombEffectController01 = Class(NullShell) {
     end,   
     
     MainBlast = function( self, army )
-		#WaitSeconds(2.5)
 		
         -- Create a light for this thing's flash.
         CreateLightParticle(self, -1, self:GetArmy(), 10, 8, 'flare_lens_add_03', 'ramp_white_07' )
@@ -117,38 +116,11 @@ GoldLaserBombEffectController01 = Class(NullShell) {
         end
         
         self:CreatePlumes()
-        
-        ###self:ShakeCamera( radius, maxShakeEpicenter, minShakeAtRadius, interval )
-        --self:ShakeCamera( 7, 2.5, 0, 0.7 )        
 
-		--WaitSeconds(0.3)
-		
-        --[[
-        
-        # Create explosion dust ring
-        local vx, vy, vz = self:GetVelocity()
-        local num_projectiles = 16        
-        local horizontal_angle = (2*math.pi) / num_projectiles
-        local angleInitial = RandomFloat( 0, horizontal_angle )  
-        local xVec, zVec
-        local offsetMultiple = 2.0
-        local px, pz
-
-        for i = 0, (num_projectiles -1) do            
-            xVec = (math.sin(angleInitial + (i*horizontal_angle)))
-            zVec = (math.cos(angleInitial + (i*horizontal_angle)))
-            px = (offsetMultiple*xVec)
-            pz = (offsetMultiple*zVec)
-            
-            local proj = self:CreateProjectile( GoldLaserBombEffect06, px, 1, pz, xVec, 0, zVec )
-            proj:SetLifetime(2.0)
-            proj:SetVelocity(5.0)
-            proj:SetAcceleration(-5.0)            
-        end
-		]]--
     end,
     
     CreatePlumes = function(self)
+    
         # Create fireball plumes to accentuate the explosive detonation
         local num_projectiles = 12        
         local horizontal_angle = (2*math.pi) / num_projectiles

@@ -38,11 +38,11 @@ UnitBlueprint {
 
     Buffs = {
         Regen = {
-            Level1 = 10,
-            Level2 = 20,
-            Level3 = 30,
-            Level4 = 40,
-            Level5 = 50,
+            Level1 = 3,
+            Level2 = 6,
+            Level3 = 9,
+            Level4 = 12,
+            Level5 = 15,
         },
     },
 
@@ -76,7 +76,7 @@ UnitBlueprint {
         Health = 11525,
         MaxHealth = 11525,
         RegenRate = 3,
-        SurfaceThreatLevel = 0,
+        SurfaceThreatLevel = 100,
     },
 
     Description = 'Experimental Rapid-Fire Artillery',
@@ -124,9 +124,10 @@ UnitBlueprint {
     },
 
     Economy = {
-        BuildCostEnergy = 5994000*1.1,
-        BuildCostMass = 299700*1.1,
-        BuildTime = 99900,
+        BuildCostEnergy = 4150000,
+        BuildCostMass = 185000,
+        
+        BuildTime = 65000,
 
         RebuildBonusIds = { 'ssb2404' },
 
@@ -253,13 +254,14 @@ UnitBlueprint {
 
             Damage = 5000,
             DamageFriendly = true,
-            DamageRadius = 5,
-            DamageType = 'ShieldMult1.2',
+            DamageRadius = 4.5,
+            
+            DamageType = 'ShieldMult1.25',
 
             DisplayName = 'Suthanus Heavy Artillery Cannon',
 
-            EnergyDrainPerSecond = 1200,
-            EnergyRequired = 6000,
+            EnergyDrainPerSecond = 7278,       -- 4.5 second charge --
+            EnergyRequired = 32750,
 
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -272,7 +274,7 @@ UnitBlueprint {
             MaxRadius = 2000,
             MinRadius = 150,
 
-            MuzzleChargeDelay = 0.5,
+            MuzzleChargeDelay = 0.5,        -- .5 second delay
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 112,
@@ -298,11 +300,10 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_IndirectFire',
 
-            RateOfFire = 0.2,	-- controlled by energy cycle
+            RateOfFire = 1,	-- 5 seconds -- controlled by energy cycle
 
-            ShieldDamage = 6000,
-
-            TargetCheckInterval = 8,
+            TargetCheckInterval = 2,
+            
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'DEFENSE',

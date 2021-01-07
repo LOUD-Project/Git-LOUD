@@ -83,7 +83,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 615,
     },
 	
-    Description = '<LOC ual0402_desc>Experimental Assault Bot',
+    Description = '<LOC ual0402_desc>Experimental Medium Assault Bot',
     Display = {
         Abilities = {
             'Amphibious',
@@ -258,7 +258,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Overlord',
+        HelpText = 'Experimental Medium Assault Bot',
     },
 	
     LifeBarHeight = 0.15,

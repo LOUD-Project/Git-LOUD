@@ -221,15 +221,16 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 600,
+            Damage = 300,
             DamageFriendly = true,
             DamageRadius = 1.25,
-            DamageType = 'Normal',
+            
+            DamageType = 'ShieldMult1.3',       -- factional bonus
 			
             DisplayName = 'Thaam-atha Artillery Cannon',
 			
-            EnergyDrainPerSecond = 50,
-            EnergyRequired = 200,
+            EnergyDrainPerSecond = 30,      -- 3.5 second charge
+            EnergyRequired = 105,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -237,14 +238,14 @@ UnitBlueprint {
             },
 			
             FiringRandomness = 0.9,
-            FiringTolerance = 0.5,
+            FiringTolerance = 0.3,
 			
             Label = 'MainGun',
 			
             MaxRadius = 55,
             MinRadius = 5,
 			
-            MuzzleChargeDelay = 0.5,
+            MuzzleChargeDelay = 0.5,        -- 0.5 second muzzle charge
             MuzzleSalvoChargeDelay = 0,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -277,6 +278,7 @@ UnitBlueprint {
             TargetCheckInterval = 5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
+                'SHIELD',
 				'INDIRECTFIRE',
                 'ALLUNITS',
             },

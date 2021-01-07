@@ -1,11 +1,11 @@
 UnitList = {                      
 
     T1LandDFBot = {
-        Aeon = {'UAL0108', 40},     -- Artos, T1 bot
+        Aeon = {'UAL0108', 30},     -- Artos, T1 bot
     },
 	
 	T1LandDFTank = {
-		UEF = {'UEL0108', 60},		-- Crusher, T1 Tank
+		UEF = {'UEL0108', 75},		-- Crusher, T1 Tank
 	},
     
     T1LandAmphibious = {
@@ -21,7 +21,7 @@ UnitList = {
 	},
 
 	T3Amphibious = {
-        Cybran = {'URL0305', 75},   -- Crawfish, T3 Quadraped - amphibious  
+        Cybran = {'URL0305', 50},   -- Crawfish
 	},
 
     T3LandAA = {
@@ -34,9 +34,9 @@ UnitList = {
     },
 
 	T3GroundDefense = {
-       	Aeon = {'uab2306', 35},		#-- Annihilator
-       	Cybran = {'urb2306', 40},	#-- Beholder Heavy Microwave Turret
-       	UEF = {'ueb2306', 35},		#-- Brimstone Heavy PD
+       	Aeon = {'uab2306', 35},		-- Anachronon
+       	Cybran = {'urb2306', 40},	-- Beholder Heavy Microwave Turret
+       	UEF = {'ueb2306', 35},		-- Brimstone Heavy PD
    	},
 
     T4LandExperimental1 = {

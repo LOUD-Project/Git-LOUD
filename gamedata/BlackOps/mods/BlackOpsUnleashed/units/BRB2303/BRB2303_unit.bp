@@ -183,7 +183,8 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
-			
+            
+            -- factional bonus --
             Buffs = {
                 {
                     Add = {
@@ -191,10 +192,10 @@ UnitBlueprint {
                     },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
-                    Duration = 0.5,
+                    Duration = 0.6,
                     Radius = 2,
                     TargetAllow = 'LAND,NAVAL',
-                    TargetDisallow = 'EXPERIMENTAL,AIR,TECH3,COMMAND,WALL',
+                    TargetDisallow = 'TECH3,EXPERIMENTAL,AIR,COMMAND,WALL',
                 },
             },
 			
@@ -202,13 +203,13 @@ UnitBlueprint {
 			
             CollideFriendly = false,
 			
-            Damage = 70,
+            Damage = 80,
             DamageFriendly = false,
-            DamageRadius = 2,
+            DamageRadius = 2,               -- no class bonus --
             DamageType = 'Normal',
 			
-			EnergyDrainPerSecond = 400,
-            EnergyRequired = 200,
+			EnergyDrainPerSecond = 54,      -- 1.5 second charge --
+            EnergyRequired = 80,
 			
             DisplayName = 'Rocket Pack',
 			
@@ -231,7 +232,7 @@ UnitBlueprint {
             MuzzleVelocity = 24,
 			
             ProjectileId = '/mods/BlackOpsUnleashed/projectiles/CybranHailfire04/CybranHailfire04_proj.bp',
-			ProjectileLifetimeUsesMultiplier = 3.5,
+			ProjectileLifetimeUsesMultiplier = 4,
 
             RackBones = {
                 {
@@ -252,10 +253,10 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1.5,			---- 105 DPS
+            RateOfFire = 2,			-- controlled by charge cycle -- 120 DPS
             RenderFireClock = true,
 			
-            TargetCheckInterval = .4,
+            TargetCheckInterval = 1,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'ALLUNITS',

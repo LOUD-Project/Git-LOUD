@@ -87,7 +87,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 1042.8,
     },
 	
-    Description = '<LOC bel0402_desc>Goliath Assault Bot',
+    Description = '<LOC bel0402_desc>Heavy Assault Bot',
 	
     Display = {
 	
@@ -197,7 +197,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Goliath Assault Bot',
+        HelpText = 'Heavy Assault Bot',
     },
 	
     LifeBarHeight = 0.075,
