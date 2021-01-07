@@ -350,7 +350,7 @@ local function ModConfigDialog(parent, modInfo, config)
     end
     if not newConfig[modInfo.uid] then
         newConfig[modInfo.uid] = {}
-        for k, v in config do
+        for _, v in config do
             newConfig[modInfo.uid][v.key] = v.default
         end
     end
@@ -377,10 +377,10 @@ local function ModConfigDialog(parent, modInfo, config)
     local optionList = {}
 
     optionContainer = Group(dialog)
-    optionContainer.Height:Set(dialog.Height)
+    optionContainer.Height:Set(dialog.Height() - 32)
     optionContainer.Width:Set(dialog.Width)
     optionContainer.top = 0
-    LayoutHelpers.AtCenterIn(optionContainer, parent, 4, 4)
+    LayoutHelpers.AtCenterIn(optionContainer, parent, -12)
 
     local function CreateOptionCombo(parent, optionData, width)
         local combo = Combo(parent, nil, nil, nil, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
@@ -406,7 +406,7 @@ local function ModConfigDialog(parent, modInfo, config)
         optionList[index].bg.Depth:Set(optionList[index].Depth)
         LayoutHelpers.FillParent(optionList[index].bg, optionList[index])
         optionList[index].bg.Right:Set(function() return optionList[index].Right() - 10 end)
-        
+
         optionList[index].text = UIUtil.CreateText(optionContainer, '', 14, "Arial")
         optionList[index].text:DisableHitTest()
         LayoutHelpers.AtLeftTopIn(optionList[index].text, optionList[index], 10)
@@ -418,11 +418,48 @@ local function ModConfigDialog(parent, modInfo, config)
     CreateOptionElement(1)
     LayoutHelpers.AtLeftTopIn(optionList[1], optionContainer)
 
-    local i = 2
-    for _, v in config do
+    for i = 2, 9 do
         CreateOptionElement(i)
         LayoutHelpers.Below(optionList[i], optionList[i - 1])
-        i = i + 1
+    end
+
+    local numLines = function() return table.getsize(optionList) end
+
+    local function DataSize()
+        return table.getn(config)
+    end
+
+    -- Called when the scrollbar for the control requires data to size itself
+    -- GetScrollValues must return 4 values in this order:
+    -- rangeMin, rangeMax, visibleMin, visibleMax
+    -- aixs can be "Vert" or "Horz"
+    optionContainer.GetScrollValues = function(self, axis)
+        local size = DataSize()
+        return 0, size, self.top, math.min(self.top + numLines(), size)
+    end
+
+    -- Called when the scrollbar wants to scroll a specific number of lines (negative indicates scroll up)
+    optionContainer.ScrollLines = function(self, axis, delta)
+        self:ScrollSetTop(axis, self.top + math.floor(delta))
+    end
+
+    -- Called when the scrollbar wants to scroll a specific number of pages (negative indicates scroll up)
+    optionContainer.ScrollPages = function(self, axis, delta)
+        self:ScrollSetTop(axis, self.top + math.floor(delta) * numLines())
+    end
+
+    -- Called when the scrollbar wants to set a new visible top line
+    optionContainer.ScrollSetTop = function(self, axis, top)
+        top = math.floor(top)
+        if top == self.top then return end
+        local size = DataSize()
+        self.top = math.max(math.min(size - numLines() , top), 0)
+        self:CalcVisible()
+    end
+
+    -- Called to determine if the control is scrollable on a particular access. Must return true or false.
+    optionContainer.IsScrollable = function(self, axis)
+        return true
     end
 
     optionContainer.CalcVisible = function(self)
@@ -464,6 +501,16 @@ local function ModConfigDialog(parent, modInfo, config)
 
     optionContainer:CalcVisible()
 
+    optionContainer.HandleEvent = function(self, event)
+        if event.Type == 'WheelRotation' then
+            local lines = 1
+            if event.WheelRotation > 0 then
+                lines = -1
+            end
+            self:ScrollLines(nil, lines)
+        end
+    end
+
     okBtn.OnClick = function(self, modifiers)
         Prefs.SetToCurrentProfile("modConfig", newConfig)
         modInfo.config = table.copy(newConfig[modInfo.uid])
@@ -474,6 +521,7 @@ local function ModConfigDialog(parent, modInfo, config)
         dialog:Destroy()
     end
 
+    UIUtil.CreateVertScrollbarFor(optionContainer)
     UIUtil.MakeInputModal(dialog, function() okBtn.OnClick(okBtn) end, function() cancelBtn.OnClick(cancelBtn) end)
     UIUtil.CreateWorldCover(dialog)
 end
