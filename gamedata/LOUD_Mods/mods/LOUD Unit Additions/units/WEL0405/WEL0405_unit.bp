@@ -318,7 +318,10 @@ UnitBlueprint {
             DamageType = 'ShieldMult1.2',
 			
             DisplayName = 'Wave Cannon',
-			
+            
+            EnergyDrainPerSecond = 2286,    
+            EnergyRequired = 3200,          -- 1.4 second energy drain
+
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
@@ -330,7 +333,7 @@ UnitBlueprint {
 			
             MaxRadius = 72,
 			
-            MuzzleChargeDelay = 2,
+            MuzzleChargeDelay = 2,          -- 2 second delay
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 24,
@@ -359,7 +362,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.3,		-- 600 DPS
+            RateOfFire = 1,		-- rate controlled by charge and delay = 3.4 seconds =  588 DPS
 			
             TargetCheckInterval = 1,
             TargetPriorities = {
@@ -412,6 +415,9 @@ UnitBlueprint {
             DamageType = 'ShieldMult1.2',
 			
             DisplayName = 'Wave Cannon',
+            
+            EnergyDrainPerSecond = 2286,    
+            EnergyRequired = 3200,          -- 1.4 second energy drain
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -424,7 +430,7 @@ UnitBlueprint {
 			
             MaxRadius = 72,
 			
-            MuzzleChargeDelay = 2,
+            MuzzleChargeDelay = 2,          -- 2 second delay
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 24,
@@ -451,7 +457,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 
-            RateOfFire = 0.3,	-- 600 DPS
+            RateOfFire = 1,	-- rate controlled by charge and delay = 3.4 seconds = 588 DPS
 			
             TargetCheckInterval = 1,
             TargetPriorities = {
@@ -924,7 +930,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.1,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.6,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

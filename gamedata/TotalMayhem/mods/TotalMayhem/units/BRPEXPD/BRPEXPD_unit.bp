@@ -239,6 +239,9 @@ UnitBlueprint {
             DamageType = 'Normal',
 			
             DisplayName = 'Ultrachromatic Beam Generator',
+
+            EnergyDrainPerSecond = 250,
+            EnergyRequired = 750,
 			
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed|Air',
@@ -249,7 +252,7 @@ UnitBlueprint {
 			
             Label = 'MainWeapon',
 			
-            MaxRadius = 80,
+            MaxRadius = 90,
 			
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0,
@@ -271,7 +274,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.25,		-- 3400 damage every 4 seconds -- 850 DPS
+            RateOfFire = 1,		-- controlled by charge and beam lifetime - 3400 damage every 4 seconds -- 850 DPS
 
             TargetCheckInterval = 0.5,
             TargetPriorities = {

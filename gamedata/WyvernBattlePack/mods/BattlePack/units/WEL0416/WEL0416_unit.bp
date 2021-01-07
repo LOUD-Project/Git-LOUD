@@ -480,7 +480,7 @@ UnitBlueprint {
             CollideFriendly = false,
             
             Damage = 1500,
-            DamageRadius = 4,
+            DamageRadius = 2.5,
             DamageType = 'Normal',
             
             FireTargetLayerCapsTable = {
@@ -567,7 +567,7 @@ UnitBlueprint {
             CollideFriendly = false,
             
             Damage = 1500,
-            DamageRadius = 4,
+            DamageRadius = 2.5,
             DamageType = 'Normal',
             
             FireTargetLayerCapsTable = {
@@ -845,6 +845,9 @@ UnitBlueprint {
             
             DisplayName = 'Wyvern Missiles',
             
+            EnergyDrainPerSecond = 309,
+            EnergyRequired = 2100,          -- 6.8 second energy drain
+
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
@@ -858,7 +861,7 @@ UnitBlueprint {
             MaxRadius = 95,
             MinRadius = 10,
             
-            MuzzleSalvoDelay = 0.2,
+            MuzzleSalvoDelay = 0.2,         -- 3.2 seconds to fire
             MuzzleSalvoSize = 8,
             MuzzleVelocity = 15,
             MuzzleVelocityRandom = 1,
@@ -905,7 +908,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_IndirectFire',
             
-            RateOfFire = 0.1,       -- 16 x 115 = 1840 Damage / 10 = 184 DPS
+            RateOfFire = 1,       -- controlled by charge every 10 seconds - 16 x 115 = 1840 Damage / 10 = 184 DPS
 
             TargetCheckInterval = 2,
             
@@ -935,7 +938,7 @@ UnitBlueprint {
             CollideFriendly = false,
             
             Damage = 300,
-            DamageRadius = 1.5,
+            DamageRadius = 0,
             DamageType = 'Normal',
             
             DisplayName = 'Gauss Cannon',
@@ -1019,7 +1022,7 @@ UnitBlueprint {
             CollideFriendly = false,
             
             Damage = 300,
-            DamageRadius = 1.5,
+            DamageRadius = 0,
             DamageType = 'Normal',
             DisplayName = 'Gauss Cannon',
             
