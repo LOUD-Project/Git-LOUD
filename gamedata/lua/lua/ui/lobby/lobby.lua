@@ -2394,8 +2394,8 @@ function ShowColorPicker(row, x, y)
     LayoutHelpers.Below(colorPicker.preview, colorPicker.valSlider, 12)
     LayoutHelpers.AtHorizontalCenterIn(colorPicker.preview, colorPicker)
 -- Confirm button
-    colorPicker.confirm = UIUtil.CreateButtonStd(colorPicker, '/widgets/tiny', "Confirm", 12, 2)
-    LayoutHelpers.Below(colorPicker.confirm, colorPicker.valStatus, 8)
+    colorPicker.confirm = UIUtil.CreateButtonStd(colorPicker, '/lobby/lan-game-lobby/smalltoggle', "Confirm", 12, 2)
+    LayoutHelpers.LeftOf(colorPicker.confirm, colorPicker.preview, 4)
     colorPicker.confirm.OnClick = function(self, modifiers)
         Tooltip.DestroyMouseoverDisplay()
         local color = ColorToArray(colorPicker.color)
@@ -2414,6 +2414,12 @@ function ShowColorPicker(row, x, y)
                 GUI.slots[row].color:SetSolidColor(colorPicker.color)
             end
         end
+        colorPicker:Hide()
+    end
+    colorPicker.cancel = UIUtil.CreateButtonStd(colorPicker, '/lobby/lan-game-lobby/smalltoggle', "Cancel", 12, 2)
+    LayoutHelpers.Below(colorPicker.cancel, colorPicker.confirm, -4)
+    colorPicker.cancel.OnClick = function(self, modifiers)
+        Tooltip.DestroyMouseoverDisplay()
         colorPicker:Hide()
     end
 -- Readout to tell user hex code
