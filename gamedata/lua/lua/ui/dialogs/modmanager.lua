@@ -343,7 +343,7 @@ local loudStandard = {
     '2529ea71-93ef-41a6-b552-EXPERICON00005', -- Experimental Icons Overhaul
 }
 
-local function ModConfigDialog(parent, modInfo, config)
+local function ModConfigDialog(parent, modInfo, config, modStatus)
     table.sort(config, function(a, b) return a.key < b.key end)
 
     local newConfig = Prefs.GetFromCurrentProfile("modConfig")
@@ -395,7 +395,9 @@ local function ModConfigDialog(parent, modInfo, config)
         combo.UpdateValue = function(key)
             combo:SetItem(combo.keyMap[key])
         end
-
+        if not modStatus.cantoggle then
+            combo:Disable()
+        end
         return combo
     end
 
@@ -861,7 +863,7 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
             local configBtn = UIUtil.CreateButtonStd(bg, '/lobby/lan-game-lobby/smalltoggle', "Config", 12, 2)
             LayoutHelpers.LeftOf(configBtn, activecheck, 2)
             configBtn.OnClick = function(self, modifiers)
-                ModConfigDialog(panel, bg.modInfo, bg.config)
+                ModConfigDialog(panel, bg.modInfo, bg.config, modStatus[bg.modInfo.uid])
             end
         end
         
