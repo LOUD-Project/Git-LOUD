@@ -1,13 +1,16 @@
 -- creates a button that sequentially upgrades mass extractors
-local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
+
 local Button = import('/lua/maui/button.lua').Button
+local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
+local Tooltip = import('/lua/ui/game/tooltip.lua')
 local UIUtil = import('/lua/ui/uiutil.lua')
 
 function CreateButton(parent)
    -- create the button
    local myButton = Button(parent, UIUtil.UIFile('/game/resources/mass_btn_up.dds'), UIUtil.UIFile('/game/resources/mass_btn_down.dds'), UIUtil.UIFile('/game/resources/mass_btn_over.dds'), UIUtil.UIFile('/game/resources/mass_btn_dis.dds'))
-   LayoutHelpers.AtLeftTopIn(myButton, parent, 350, 5)
+   LayoutHelpers.AtLeftTopIn(myButton, parent, 410)
    myButton.Depth:Set(4)
+   Tooltip.AddButtonTooltip(myButton, 'seq_mex_upgrade')
    
    -- onclick handler
    myButton.OnClick = function()
