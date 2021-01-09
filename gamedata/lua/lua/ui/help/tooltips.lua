@@ -568,6 +568,10 @@ Tooltips = {
         title = "Supported Players",
         description = "Sort by the maximum number of Players allowed",
     },
+    map_ai_markers = {
+        title = "AI Markers",
+        description = "Sort by whether this map has been marked for AI use. The AI is not likely to work properly on maps without these.",
+    },
     options_vsync = {
         title = "Vertical Sync",
         description = "Sync to vertical refresh of monitor",
