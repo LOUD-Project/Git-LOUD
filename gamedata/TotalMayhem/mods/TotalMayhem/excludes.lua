@@ -40,6 +40,7 @@ T2Amph = {
 	values = {
 		'brot2asb', -- Amphorak
 		'brnt2bm', -- Banshee
+		'brmt2medm', -- Immortal
 		'brpt2btbot', -- Iltha
 	},
 }
