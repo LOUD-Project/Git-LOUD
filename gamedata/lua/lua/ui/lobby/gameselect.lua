@@ -228,12 +228,6 @@ function CreateUI(over, exitBehavior, useSteam)
 	
     exitButton.HandleEvent = function(self, event)
 	
-        if event.Type == 'MouseEnter' then
-            Tooltip.CreateMouseoverDisplay(self, "mpselect_exit", nil, true)
-        elseif event.Type == 'MouseExit' then
-            Tooltip.DestroyMouseoverDisplay()
-        end
-		
         Button.HandleEvent(self, event)
 		
     end

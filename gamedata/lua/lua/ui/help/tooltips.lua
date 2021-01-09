@@ -2033,9 +2033,9 @@ Tooltips = {
         title = "Create Game",
         description = "Host a new LAN Game",
     },
-    mpselect_exit = {
-        title = "Back",
-        description = "",
+    mpselect_steam_create = {
+        title = "Create Game",
+        description = "Host a new game over internet matchmaking"
     },
     mpselect_serverinfo = {
         title = "Server Information",
