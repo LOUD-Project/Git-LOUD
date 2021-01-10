@@ -1,6 +1,6 @@
 Description = {
 --UEF UNITS
-	--Commanders  
+	--Commanders
 	['uel0001'] = "Houses Commander. Combination barracks and command center. Contains all the blueprints necessary to build a basic army from scratch.",
 	['uel0001-tm'] = "Mounts a tactical cruise missile launcher onto the back of the ACU.",
 	['uel0001-aes'] = "Adds the ability to construct T2 units and increases the ACU's build speed to 30, maximum health by 3K, and regen to 30.",
@@ -14,9 +14,9 @@ Description = {
 	['uel0001-psg'] = "Creates a protective shield around the ACU. Requires Energy to run.",
 	['uel0001-led'] = "Engineering Drone acts as a secondary Engineer. Assists the ACU where applicable.",
 	['uel0001-red'] = "Adds a second Engineering Drone. Requires an initial Engineering Drone.",
-	['uel0001-exles3'] = "Adds the ability to construct T4 units and increases the ACU's build speed to 120, maximum health by 4K, and regen to 60.  Movement speed increased by 10%",
-	
-	--Support Commanders 
+	['uel0001-exles3'] = "Adds the ability to construct T4 units and increases the ACU's build speed to 120, maximum health by 4K, and regen to 60. Movement speed increased by 10%",
+
+	--Support Commanders
 	['uel0301'] = "A multi-purpose construction, repair, capture and reclamation unit with superior build power and access to Experimental blueprints. ",
 	['uel0301-ed'] = "Engineering Drone acts as a secondary Engineer. Assists the SACU where applicable.",
 	['uel0301-psg'] = "Creates a protective shield around the SACU. Requires Energy to run.",
@@ -34,7 +34,7 @@ Description = {
 	['uel0104'] = "Mobile anti-air defense. Effective against low-end enemy air units.",
 	['uel0201'] = "Lightly armored tank. Armed with a single cannon.",
 	['uel0202'] = "Heavy tank. Equipped with reinforced armor and dual cannons.",
-	['uel0203'] = "Amphibious tank. Provides direct-fire support with two riot guns.", 
+	['uel0203'] = "Amphibious tank. Provides direct-fire support with two riot guns.",
 	['uel0111'] = "Heavily armored, mobile tactical missile launcher. Designed to attack at long range.",
 	['uel0205'] = "Mobile AA unit. Armed with flak artillery.",
 	['uel0307'] = "Mobile shield generator.",
@@ -55,13 +55,13 @@ Description = {
 	['uea0104'] = "Armed, mid-level air transport. Equipped with riot guns and AA weapons. Can carry up to 12 units.",
 	['uea0303'] = "High-end air fighter. Designed to engage air units of any type.",
 	['uea0304'] = "High-end strategic bomber. Armed with a small yield nuclear bomb and light AA gun.",
-	['uea0305'] = "Heavy gunship. Armed with two tactical rocket launchers and an AA railgun.", 
+	['uea0305'] = "Heavy gunship. Armed with two tactical rocket launchers and an AA railgun.",
 	['xea0306'] = "Heavy air transport. Features 28 transportation clamps, heavy cannons, missile launchers and a shield generator. Can carry up to 28 units.",
 
 	--SEA
 	['ues0103'] = "Naval support unit. Equipped with a single cannon, AA railgun, radar, sonar and radar jammer.",
 	['ues0203'] = "Low-end attack submarine.",
-	['ues0202'] = "Anti-aircraft naval vessel. Armed with AA missile system, SAM system and tactical missile launcher.", 
+	['ues0202'] = "Anti-aircraft naval vessel. Armed with AA missile system, SAM system and tactical missile launcher.",
 	['ues0201'] = "Mid-level naval unit. Equipped with a torpedo bay, anti-torpedo defense, dual cannons and a single AA weapon.",
 	['ues0302'] = "Shore bombardment and anti-ship vessel. Armed with three heavy cannons, four AA railguns and two anti-missile guns.",
 	['ues0304'] = "Strategic missile submarine. Armed with long-range tactical missiles and a strategic missile launcher.",
@@ -70,7 +70,7 @@ Description = {
 	['xes0205'] = "Naval shield generator. Provides protection for all nearby vessels.",
 	['xes0307'] = "High-end anti-naval vessel. Armed with plasma beams, torpedo systems, anti-missile defenses and anti-torpedo charges.",
 
-	--Buildings 
+	--Buildings
 	['ueb2101'] = "Low-end defensive tower that attacks land- and sea-based units. Does not engage aircraft or submerged units.",
 	['ueb2104'] = "Anti-air tower. Designed to engage low-end aircraft.",
 	['ueb2109'] = "Anti-naval defense system.",
@@ -99,7 +99,7 @@ Description = {
 	['uel0208'] = "Tech 2 amphibious construction, repair, capture and reclamation unit.",
 	['uel0309'] = "Tech 3 amphibious construction, repair, capture and reclamation unit.",
 	['xel0209'] = "Tech 2 amphibious construction, repair, capture and reclamation unit. Armed with a Riot Gun and internal radar and jammer.",
-	['xeb0104'] = "Automatically repairs, reclaims, assists or captures any unit within its operational radius.",   
+	['xeb0104'] = "Automatically repairs, reclaims, assists or captures any unit within its operational radius.",
 	['xeb0204'] = "Automatically repairs, reclaims, assists or captures any unit within its operational radius.",
 
 	--Factories
@@ -135,7 +135,7 @@ Description = {
 
 --CYBRAN UNITS
 	--Commanders
-	['url0001'] = "Houses Commander. Combination barracks and command center. Contains all the blueprints necessary to build a basic army from scratch.",   
+	['url0001'] = "Houses Commander. Combination barracks and command center. Contains all the blueprints necessary to build a basic army from scratch.",
 	['url0001-ras'] = "Increases ACU's resource generation.",
 	['url0001-pcg'] = "Cloaks the ACU from optical sensors and increases maximum health. Can be detected by Omni Sensors. Requires Energy to run.",
 	['url0001-psg'] = "Hides the ACU from radar. Requires Energy to run.",
@@ -145,9 +145,9 @@ Description = {
 	['url0001-acu'] = "Increases main cannon's rate of fire and range. Also increases range of the Molecular Ripper and Overcharge.",
 	['url0001-mlg'] = "ACU can generate a beam laser that sweeps over enemy units.",
 	['url0001-ntt'] = "Equips the ACU with a standard Cybran Nanite torpedo tube and sonar.",
-	['url0001-exles3'] = "Adds the ability to construct T4 units and increases the ACU's build speed to 120, maximum health by 4K, and regen to 65.  Movement speed increased by 10%",
-	
-    --Support Commanders 
+	['url0001-exles3'] = "Adds the ability to construct T4 units and increases the ACU's build speed to 120, maximum health by 4K, and regen to 65. Movement speed increased by 10%",
+
+    --Support Commanders
 	['url0301'] = "A multi-purpose construction, repair, capture and reclamation unit with superior build power and access to Experimental blueprints. ",
 	['url0301-cfs'] = "Cloaks the SACU from optical sensors. Can be detected by Omni Sensors. Requires Energy to run.",
 	['url0301-emp'] = "EMP burst effectively disables enemy units for a few seconds.",
@@ -161,7 +161,7 @@ Description = {
 	--Land units
 	['url0101'] = "Fast, lightly armored reconnaissance vehicle. Equipped with a cloaking field.",
 	['url0106'] = "Lightly armored strike bot. Provides direct-fire support against low-end units.",
-	['url0107'] = "Assault bot. Equipped with two heavy laser autoguns and can self-repair itself.", 
+	['url0107'] = "Assault bot. Equipped with two heavy laser autoguns and can self-repair itself.",
 	['url0103'] = "Versatile mobile artillery unit. Designed to engage enemy units at long range and disable them with an EMP blast.",
 	['url0104'] = "Primary function is anti-air defense. Can be configured to attack land units.",
 	['url0202'] = "Heavy tank. Armed with two cannons.",
@@ -206,7 +206,7 @@ Description = {
 	['urs0302'] = "Direct fire and bombardment naval vessel. Armed with six Proton cannons, dual AA auto-cannons, anti-missile turrets and torpedo tubes.",
 	['urs0303'] = "Aircraft carrier. Can store, transport and repair aircraft. Armed with light AA auto-cannons and an anti-missile turret.",
 	['urs0304'] = "Strategic missile submarine. Armed with a strategic missile launcher, tactical missile launcher and torpedo tubes.",
-	['xrs0204'] = "Mid-level anti-naval unit. Equipped with mobile sonar stealth. Effective against surface vessels and submerged units.", 
+	['xrs0204'] = "Mid-level anti-naval unit. Equipped with mobile sonar stealth. Effective against surface vessels and submerged units.",
 	['xrs0205'] = "Unarmed counter-intelligence vessel. Equipped with stealth field that counters enemy sonar and radar.",
 	['urb2101'] = "Low-end defensive tower that attacks land- and sea-based units. Does not engage aircraft or submerged units.",
 	['urb2104'] = "Anti-air tower. Designed to engage low-end aircraft.",
@@ -269,7 +269,7 @@ Description = {
 	['urb3104'] = "High-end intelligence system. Provides maximum radar and sonar coverage. Counters enemy intelligence systems.",
 
 --AEON UNITS
-	--Commanders  
+	--Commanders
 	['ual0001'] = "Houses Commander. Combination barracks and command center. Contains all the blueprints necessary to build a basic army from scratch.",
 	['ual0001-aes'] = "Adds the ability to construct T2 units and increases the ACU's build speed to 30, maximum health by 3K, and regen to 30.",
 	['ual0001-cd'] = "Creates a Quantum Stasis Field around the ACU. Immobilizes enemy units within its radius. High Energy Consumption.",
@@ -282,9 +282,9 @@ Description = {
 	['ual0001-ptsg'] = "Creates a protective shield around the ACU. Requires Energy to run.",
 	['ual0001-phtsg'] = "Enhances the protective shield around the ACU. Requires Energy to run.",
 	['ual0001-pqt'] = "Adds teleporter. Requires considerable Energy to activate.",
-	['ual0001-exles3'] = "Adds the ability to construct T4 units and increases the ACU's build speed to 120, maximum health by 4K, and regen to 60.  Movement speed increased by 10%",
+	['ual0001-exles3'] = "Adds the ability to construct T4 units and increases the ACU's build speed to 120, maximum health by 4K, and regen to 60. Movement speed increased by 10%",
 
-	-- Support Commanders 
+	-- Support Commanders
 	['ual0301'] = "A multi-purpose construction, repair, capture and reclamation unit with superior build power and access to Experimental blueprints. ",
 	['ual0301-efm'] = "Speeds up all engineering-related functions.",
 	['ual0301-ras'] = "Increases SACU's resource generation.",
@@ -309,7 +309,7 @@ Description = {
 	['ual0304'] = "Slow-moving heavy artillery. Must be stationary to fire.",
 	['ual0401'] = "Sacred assault bot. Incinerates enemy units and structures with Phason laser. Also equipped with tractor beam. Pulls in and crushes mobile enemy units.",
 	['xal0203'] = "Fast, lightly armored tank. Armed with dual, rapid-fire autoguns.",
-	['xal0305'] = "Fast-moving sniper bot. Designed to strike high-value targets from a distance.", 
+	['xal0305'] = "Fast-moving sniper bot. Designed to strike high-value targets from a distance.",
 
 	--Air
 	['uaa0101'] = "Standard air scout.",
@@ -323,7 +323,7 @@ Description = {
 	['uaa0303'] = "High-end air fighter. Designed to engage air units of any type.",
 	['uaa0304'] = "High-end strategic bomber. Armed with a Quark bomb and decoy flares.",
 	['uaa0310'] = "Flying fortress. Armed with Quantum beam generator, AA systems and depth charges. Can store, transport and repair aircraft.",
-	['xaa0202'] = "Mid-level air fighter.  Excellent AA capabilities. Effective against enemy gunships and bombers.",
+	['xaa0202'] = "Mid-level air fighter. Excellent AA capabilities. Effective against enemy gunships and bombers.",
 	['xaa0305'] = "Heavily armored gunship. Armed with quad-light laser and Zealot missiles.",
 	['xaa0306'] = "Torpedo bomber. Designed to engage high-level naval units.",
 
@@ -331,7 +331,7 @@ Description = {
 	['uas0103'] = "Naval support unit. Equipped with a radar, sonar and anti-torpedo charges.",
 	['uas0203'] = "Low-end attack submarine.",
 	['uas0102'] = "Anti-aircraft naval vessel. Armed with AA sonic pulse battery.",
-	['uas0202'] = "Mid-level anti-aircraft naval vessel. Armed with two AA missile launchers, dual-barreled Quantum cannon and tactical missile flares.", 
+	['uas0202'] = "Mid-level anti-aircraft naval vessel. Armed with two AA missile launchers, dual-barreled Quantum cannon and tactical missile flares.",
 	['uas0201'] = "Sub-killer. Equipped with an Oblivion cannon, torpedo tubes, Harmonic depth charges and anti-torpedo charges.",
 	['uas0302'] = "High-end anti-naval vessel. Equipped with three Oblivion cannons and anti-missile flares.",
 	['uas0303'] = "Aircraft carrier. Can store, transport and repair aircraft. Armed with surface-to-air missile launchers.",
@@ -362,7 +362,7 @@ Description = {
 	['xab2307'] = "Rapid-fire artillery system. Provides indirect fire support. Ordinance inflicts light damage across a large area.",
 	['xab3301'] = "Offers line-of-sight to a fixed location on the battlefield.",
 
-   
+
    --Engineers
 	['ual0105'] = "Tech 1 amphibious construction, repair, capture and reclamation unit.",
 	['ual0208'] = "Tech 2 amphibious construction, repair, capture and reclamation unit.",
@@ -389,13 +389,13 @@ Description = {
 	['uab1302'] = "High-end Mass extractor. Must be constructed on Mass deposits. Construct structures next to Mass extractor for adjacency bonus.",
 	['uab1303'] = "High-end Mass fabricator. Requires large amounts of Energy. Construct next to other structures for adjacency bonus.",
 	['uab3101'] = "Radar system with minimal range. Detects and tracks surface and air units.",
-	['uab3102'] = "Sonar system with minimal range. Detects and tracks naval units.", 
+	['uab3102'] = "Sonar system with minimal range. Detects and tracks naval units.",
 	['uab3201'] = "Radar system with moderate range. Detects and tracks surface and air units.",
 	['uab3202'] = "Sonar system with moderate range. Detects and tracks naval units.",
 	['uab4203'] = "Generates stealth field. Hides units and structures within its operational range. Countered by optical and Omni sensors.",
 	['uas0305'] = "Sonar system with exceptional range. Detects and tracks naval units. Equipped with anti-torpedo launchers.",
-	['uab3104'] = "High-end intelligence system. Provides maximum radar and sonar coverage. Counters enemy intelligence systems.", 
-	['xab1401'] = "The peak of mass and energy generation, it draws resources directly from the crust of the planet.  Roughly equal to 10 Mass Fabs and Fusion power plants, this building is highly volatile.  Output will decrease if too many are constructed in any given map area.",
+	['uab3104'] = "High-end intelligence system. Provides maximum radar and sonar coverage. Counters enemy intelligence systems.",
+	['xab1401'] = "The peak of mass and energy generation, it draws resources directly from the crust of the planet. Roughly equal to 10 Mass Fabs and Fusion power plants, this building is highly volatile. Output will decrease if too many are constructed in any given map area.",
 
 --SERAPHIM UNITS
 	--Seraphim Commanders
@@ -407,13 +407,13 @@ Description = {
 	['xsl0001-eras'] = "Requires Resource Allocation System. Further increases ACU's resource generation.",
 	['xsl0001-aes'] = "Adds the ability to construct T2 units and increases the ACU's build speed to 30, maximum health by 3K, and regen to 30.",
 	['xsl0001-ees'] = "Adds the ability to construct T3 units and increases the ACU's build speed to 90, maximum health by 3K, and regen to 45.",
-	['xsl0001-exles3'] = "Adds the ability to construct T4 units and increases the ACU's build speed to 120, maximum health by 4K, and regen to 60.  Movement speed increased by 10%",
+	['xsl0001-exles3'] = "Adds the ability to construct T4 units and increases the ACU's build speed to 120, maximum health by 4K, and regen to 60. Movement speed increased by 10%",
 	['xsl0001-cba'] = "Increases the damage inflicted by ACU's primary weapon. Adds area-of-effect damage.",
 	['xsl0001-nrf'] = "Automatically speeds up the repair speed of nearby units.",
     ['xsl0001-anrf'] = "Further speeds up the repair speed of nearby units. Increases maximum health of nearby units.",
 	['xsl0001-hsa'] = "Increases main cannon's rate of fire and range. Also increases range of Overcharge.",
 	['xsl0001-tml'] = "Mounts a tactical cruise missile launcher onto the back of the ACU.",
-	
+
 	['xsl0301'] = "A multi-purpose construction, repair, capture and reclamation unit with superior build power and access to Experimental blueprints. ",
     ['xsl0301-tmu'] = "Mounts a tactical cruise missile launcher onto the back of the SACU.",
     ['xsl0301-dss'] = "Increases the speed at which the SACU repairs itself. Also increases hit points.",
