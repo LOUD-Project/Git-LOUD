@@ -71,7 +71,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 287,
     },
 	
-    Description = '<LOC xrs0402_desc>Dreadnaught',
+    Description = '<LOC xrs0402_desc>Experimental Heavy Bombardment Ship',
 	
     Display = {
         Abilities = {
@@ -208,7 +208,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Dreadnaught',
+        HelpText = 'Heavy Bombardment Ship',
     },
 	
     LifeBarHeight = 0.075,

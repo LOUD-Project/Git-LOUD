@@ -104,7 +104,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 1263.4,
     },
     
-    Description = 'Abomination Bot',
+    Description = 'Experimental Regenerative Ultra Heavy Assault Mech',
     
     Display = {
         Abilities = {
@@ -253,7 +253,7 @@ UnitBlueprint {
     },
     
     Interface = {
-        HelpText = 'Ultimate Assault Bot',
+        HelpText = 'Ultra Heavy Assault Mech',
     },
     
     LifeBarHeight = 0.2,

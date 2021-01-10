@@ -90,7 +90,7 @@ UnitBlueprint {
         },
     },
     
-    Description = '<LOC sas0401_desc>Experimental Battlecruiser',
+    Description = '<LOC sas0401_desc>Experimental Light Battlecruiser',
     
     Display = {
         Abilities = {
@@ -187,7 +187,7 @@ UnitBlueprint {
     },
     
     Interface = {
-        HelpText = '<LOC sas0401_help>Experimental Battlecruiser',
+        HelpText = '<LOC sas0401_help>Light Battlecruiser',
     },
     
     LifeBarHeight = 0.075,

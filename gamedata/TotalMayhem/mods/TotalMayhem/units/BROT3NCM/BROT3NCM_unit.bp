@@ -70,7 +70,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 592,
     },
 	
-    Description = '<LOC brot3ncm_desc>Experimental Heavy Support Mech',
+    Description = '<LOC brot3ncm_desc>Experimental Heavy Assault Mech',
 	
     Display = {
         Abilities = {
@@ -174,7 +174,7 @@ UnitBlueprint {
     },
     
     Interface = {
-        HelpText = 'Little Jimmy',
+        HelpText = 'Heavy Assault Mech'',
     },
 	
     LifeBarHeight = 0.07,

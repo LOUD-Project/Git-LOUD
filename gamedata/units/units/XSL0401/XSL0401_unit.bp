@@ -82,7 +82,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 618.9,
     },
 	
-    Description = '<LOC xsl0401_desc>Experimental Assault Bot',
+    Description = '<LOC xsl0401_desc>Experimental Heavy Assault Bot',
 	
     Display = {
         Abilities = {
@@ -220,7 +220,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Experimental Assault Bot',
+        HelpText = 'Heavy Assault Bot',
     },
 	
     LifeBarHeight = 0.075,

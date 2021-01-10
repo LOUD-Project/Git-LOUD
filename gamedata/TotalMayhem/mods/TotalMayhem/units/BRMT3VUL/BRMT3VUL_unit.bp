@@ -68,7 +68,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 204.4,
     },
     
-    Description = '<LOC brmt3vul_desc>Light Experimental Mech',
+    Description = '<LOC brmt3vul_desc>Experimental Light Mech',
     
     Display = {
         Abilities = {

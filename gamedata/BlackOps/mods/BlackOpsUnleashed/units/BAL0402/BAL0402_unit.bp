@@ -80,7 +80,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 804.2,
     },
 	
-    Description = '<LOC bal0402_desc>Experimental Assault HoverTank',
+    Description = '<LOC bal0402_desc>Experimental Medium Assault Hover-Tank',
 	
     Display = {
 	
@@ -190,7 +190,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Experimental HoverTank',
+        HelpText = 'Medium Assault Hover-Tank',
     },
 	
     LifeBarHeight = 0.075,

@@ -75,7 +75,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 157.7,
     },
 	
-    Description = '<LOC brnt3ow_desc>Experimental Support Mech',
+    Description = '<LOC brnt3ow_desc>Experimental Light Support Mech',
 	
     Display = {
         Abilities = {
@@ -145,7 +145,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Experimental Support Mech',
+        HelpText = 'Experimental Light Support Mech',
     },
 	
     LifeBarHeight = 0.075,

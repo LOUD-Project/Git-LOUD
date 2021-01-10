@@ -82,7 +82,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 630.1,
     },
 	
-    Description = '<LOC ual0401_desc>Hey! ERNIE is here!!',
+    Description = '<LOC ual0401_desc>Experimental Heavy Assault Bot',
 	
     Display = {
         Abilities = {
@@ -212,7 +212,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Ernie the Assault Bot',
+        HelpText = 'Heavy Assault Bot',
     },
 	
     LifeBarHeight = 0.075,

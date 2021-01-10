@@ -79,7 +79,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 383.3,
     },
 	
-    Description = '<LOC sal0401>Experimental Assault Tank',
+    Description = '<LOC sal0401>Experimental Heavy Siege Tank',
 	
     Display = {
 	
@@ -248,7 +248,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = '<LOC sal0401>Experimental Assault Tank',
+        HelpText = '<LOC sal0401_desc>Heavy Siege Tank',
     },
 	
     LifeBarHeight = 0.075,

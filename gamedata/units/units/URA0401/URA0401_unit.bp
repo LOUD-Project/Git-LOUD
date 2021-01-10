@@ -121,7 +121,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 149,
     },
 	
-    Description = '<LOC ura0401_desc>Experimental Gunship',
+    Description = '<LOC ura0401_desc>Experimental Heavy Gunship',
 	
     Display = {
         Abilities = {
@@ -221,7 +221,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Assault Gunship',
+        HelpText = 'Heavy Gunship',
     },
 	
     LifeBarHeight = 0.075,

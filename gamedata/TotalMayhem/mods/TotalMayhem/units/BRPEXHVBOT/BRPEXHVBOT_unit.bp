@@ -78,7 +78,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 550.8,
     },
 	
-    Description = '<LOC brpexhvbot_desc>Medium Assault Support Bot',
+    Description = '<LOC brpexhvbot_desc>Experimental Medium Assault-Support Bot',
 	
     Display = {
 	
@@ -224,7 +224,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Medium Experimental Assault Support Bot',
+        HelpText = 'Medium Assault-Support Bot',
     },
 	
     LifeBarHeight = 0.15,

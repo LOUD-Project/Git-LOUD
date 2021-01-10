@@ -97,7 +97,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 657.7,
     },
 	
-    Description = '<LOC url0402_desc>Experimental Spiderbot',
+    Description = '<LOC url0402_desc>Experimental Medium Spiderbot',
 	
     Display = {
         Abilities = {
@@ -270,7 +270,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Experimental Spiderbot',
+        HelpText = 'Medium Spiderbot',
     },
 	
     LifeBarHeight = 0.075,

@@ -85,7 +85,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 552.1,
     },
 	
-    Description = '<LOC bal0401_desc>Experimental Siege Weapon',
+    Description = '<LOC bal0401_desc>Experimental Heavy Siege Bot',
 	
     Display = {
         Abilities = {
@@ -224,7 +224,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Experimental Siege Weapon',
+        HelpText = 'Heavy Siege Bot',
     },
 	
     LifeBarHeight = 0.075,

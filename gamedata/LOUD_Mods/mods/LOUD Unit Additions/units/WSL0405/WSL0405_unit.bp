@@ -89,7 +89,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 1421.3,
     },
     
-    Description = '<LOC wsl0405_desc>Experimental Hover Tank',
+    Description = '<LOC wsl0405_desc>Experimental Ultra Heavy Hover Tank',
     
     Display = {
         Abilities = {
@@ -270,7 +270,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Experimental Hover Tank',
+        HelpText = 'Ultra Heavy Hover Tank',
     },
 	
     LifeBarHeight = 0.1,

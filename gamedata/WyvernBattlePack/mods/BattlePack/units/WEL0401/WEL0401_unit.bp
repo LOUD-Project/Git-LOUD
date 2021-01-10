@@ -97,7 +97,7 @@ UnitBlueprint {
         },
     },
     
-    Description = 'Experimental Assault Artillery',
+    Description = 'Experimental Heavy Assault Artillery Platform',
     
     Display = {
         Abilities = {
@@ -280,7 +280,7 @@ UnitBlueprint {
     },
     
     Interface = {
-        HelpText = 'Experimental Assault Artillery',
+        HelpText = 'Heavy Assault Artillery Platform',
     },
     
     LifeBarHeight = 0.075,

@@ -72,7 +72,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 172.3,
     },
 	
-    Description = '<LOC brpexbtbot_desc>Light Experimental AA Battle Bot',
+    Description = '<LOC brpexbtbot_desc>Experimental Light AA Support Mech',
 	
     Display = {
 	
@@ -154,7 +154,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Light Experimental AA Battle Bot',
+        HelpText = 'Light AA Support Mech',
     },
 	
     LifeBarHeight = 0.15,
