@@ -327,7 +327,7 @@ function AINewExpansionBase( aiBrain, baseName, position, engineer, construction
 		if not expansionradius then
 		
 			-- set the expansion base POOL radius according to map size
-			-- should help minimize overlap on maps where baes might be crowded in
+			-- should help minimize overlap on maps where bases might be crowded in
 			expansionradius = math.max(100, (ScenarioInfo.size[1]/16))	#-- should give a value between 100 and 256
 			expansionradius = math.min(expansionradius, 150)	#-- will limit it to 150 maximum for Expansions (MAIN minimum is 200)
 			

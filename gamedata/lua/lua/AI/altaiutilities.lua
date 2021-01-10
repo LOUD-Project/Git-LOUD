@@ -2994,6 +2994,10 @@ end
 -- refreshed position and strength values - May 2019
 function GetHiPriTargetList(aiBrain, location)
 
+    if not location then
+        return {}
+    end
+
 	local VDist2 = VDist2Sq
 	local LOUDCOPY = table.copy
 	local LOUDEQUAL = table.equal
