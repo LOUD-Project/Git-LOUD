@@ -106,8 +106,8 @@ UnitBlueprint {
             'ueb0203',
             'ueb0303',
         },
-        StorageEnergy = 500,
-        StorageMass = 50,
+        StorageEnergy = 600,
+        StorageMass = 60,
     },
     
     Footprint = {

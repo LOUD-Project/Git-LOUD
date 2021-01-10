@@ -94,8 +94,8 @@ UnitBlueprint {
 		
         RebuildBonusIds = {'urb0303'},
 		
-        StorageEnergy = 2000,
-        StorageMass = 200,
+        StorageEnergy = 2400,
+        StorageMass = 240,
     },
 	
     Footprint = {

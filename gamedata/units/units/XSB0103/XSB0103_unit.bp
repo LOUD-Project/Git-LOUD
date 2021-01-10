@@ -117,8 +117,8 @@ UnitBlueprint {
             'xsb0303',
         },
         
-        StorageEnergy = 500,
-        StorageMass = 50,
+        StorageEnergy = 660,
+        StorageMass = 66,
     },
     
     Footprint = {
