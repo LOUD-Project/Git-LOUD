@@ -641,7 +641,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
         Priority = 800,
-		
+
+        PriorityFunction = IsEnemyCrushingLand,
+
         InstanceCount = 1,
         
         BuilderConditions = {
@@ -749,7 +751,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
         Priority = 800,
-		
+
+        PriorityFunction = IsEnemyCrushingLand,
+
 		InstanceCount = 1,
 		
         BuilderConditions = {
@@ -2064,7 +2068,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - Expansions',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
         Priority = 800,
-		
+
+        PriorityFunction = IsEnemyCrushingLand,
+
 		InstanceCount = 1,
         
         BuilderConditions = {
@@ -2152,7 +2158,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - Expansions - LO
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
         Priority = 800,
-		
+
+        PriorityFunction = IsEnemyCrushingLand,
+
 		InstanceCount = 1,
         
         BuilderConditions = {
