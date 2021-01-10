@@ -1,5 +1,6 @@
 local Prefs = import('/lua/user/prefs.lua')
 
+local LINQ = import('/mods/UI-Party/modules/linq.lua')
 local UIP = import('/mods/UI-Party/modules/UI-Party.lua')
 local SettingsUi = import('/mods/UI-Party/modules/settingsUi.lua')
 
@@ -11,7 +12,7 @@ function getSettingDescriptions()
 end
 
 function init()
-	-- settings
+	-- Settings
 	if not savedPrefs then
 		savedPrefs = {}
 	end
@@ -69,36 +70,35 @@ function init()
 		savedPrefs.global = {}
 	end
 
-	local keys = from({})
-	from(settingDescriptions).foreach(function(gk, kv)
-		from(kv.settings).foreach(function(sk, sv)
-
-			-- make defaults
-			keys.addValue(sv.key)
+	local keys = {}
+	for _, kv in settingDescriptions do
+		for _, sv in kv.settings do
+			-- Make defaults
+			table.insert(keys, sv.key)
 			if savedPrefs.global[sv.key] == nil then
 				UIPLOG("Setting default " .. sv.key)
 				savedPrefs.global[sv.key] = sv.default
 			end
 
-			-- add tooltips
+			-- Add tooltips
 			tooltips["UIP_"..sv.key] = {
 				title = sv.name,
 				description = sv.description,
 				keyID = "UIP_"..sv.key,
 			}
-		end)
-	end)
-
-	-- clear old stuff
-	local g = from(savedPrefs.global)
-	g.foreach(function(gk, gv)
-		if not keys.contains(gk) then
-			UIPLOG("Removing old key " .. gk)
-			g.removeKey(gk)
 		end
-	end)
+	end
 
-	-- correct x/y if outside the window
+	-- Clear old stuff
+	local g = savedPrefs.global
+	for gk, _ in g do
+		if not LINQ.Contains(keys, gk) then
+			UIPLOG("Removing old key " .. gk)
+			g[gk] = nil
+		end
+	end
+
+	-- Correct x/y if outside the window
 	if (savedPrefs.global.xOffset < 0 or savedPrefs.global.xOffset > GetFrame(0).Width()) then
 		savedPrefs.global.xOffset = GetFrame(0).Width()/2
 	end

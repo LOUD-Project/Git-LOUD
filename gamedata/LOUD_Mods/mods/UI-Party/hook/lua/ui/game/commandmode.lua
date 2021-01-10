@@ -9,17 +9,17 @@ function OnCommandIssued(command)
 			if target ~= nil and target:IsInCategory("FACTORY") then
 				local units = command.Units
 				local factories = EntityCategoryFilterDown(categories.FACTORY, units)
-				from(factories).foreach(function(k,v) 
+				for _, v in factories do
 					v:ProcessInfo('SetRepeatQueue', 'false')
-				end)
+				end
 			end
-		end	
+		end
 		if command.CommandType == "Stop" then
 			local units = command.Units
 			local factories = EntityCategoryFilterDown(categories.FACTORY, units)
-			from(factories).foreach(function(k,v) 
+			for _, v in factories do
 				v:ProcessInfo('SetRepeatQueue', 'true')
-			end)
+			end
 		end
 	end
 	oldOnCommandIssued(command)

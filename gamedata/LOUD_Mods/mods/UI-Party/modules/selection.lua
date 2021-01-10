@@ -1,13 +1,18 @@
+local LINQ = import('/mods/UI-Party/modules/linq.lua')
+
 function SelectSimilarOnscreenUnits()
 	UIPLOG("Here")
 	local units = GetSelectedUnits()
 	if (units ~= nil) then
-		local blueprints = from(units).select(function(k, u) return u:GetBlueprint(); end).distinct()
+		local blueprints = LINQ.Select(units, function(k, u) return u:GetBlueprint() end)
+		blueprints = LINQ.Distinct(blueprints)
 		local str = ''
-		blueprints.foreach(function(k,v)
+		for _, v in blueprints do
 			str = str .. "+inview " .. v.BlueprintId .. ","
-		end)
-		ConExecute("Ui_SelectByCategory " .. str .. "SOMETHINGUNPOSSIBLE") -- dodgy hack at the end there to
+		end
+		-- Dodgy hack
+		-- ~ Crotalus
+		ConExecute("Ui_SelectByCategory " .. str .. "SOMETHINGUNPOSSIBLE")
 	end
 end
 

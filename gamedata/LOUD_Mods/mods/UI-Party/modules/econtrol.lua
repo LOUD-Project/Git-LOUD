@@ -1,13 +1,12 @@
-local CommonUnits = import('/mods/CommonModTools/units.lua')
-local UnitHelper = import('/mods/ui-party/modules/unitHelper.lua')
-local UIP = import('/mods/UI-Party/modules/UI-Party.lua')
 local Bitmap = import('/lua/maui/bitmap.lua').Bitmap
-local Group = import('/lua/maui/group.lua').Group
-local Text = import('/lua/maui/text.lua').Text
-local UIUtil = import('/lua/ui/uiutil.lua')
 local GameMain = import('/lua/ui/game/gamemain.lua')
+local Group = import('/lua/maui/group.lua').Group
 local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
+local UIUtil = import('/lua/ui/uiutil.lua')
 
+local CommonUnits = import('/mods/CommonModTools/units.lua')
+local LINQ = import('/mods/UI-Party/modules/linq.lua')
+local UIP = import('/mods/UI-Party/modules/UI-Party.lua')
 
 local spendTypes = {
 	PROD = "PROD",
@@ -19,30 +18,31 @@ local workerTypes = {
 	PAUSED = "PAUSED"
 }
 
-local resourceTypes = from( {
+local resourceTypes = {
 	{ name = "Mass", econDataKey = "massConsumed" },
 	{ name = "Energy", econDataKey = "energyConsumed" },
-} )
+}
 
 local unitTypes;
 
 function GetUnitType(unit)
-	local unitType = unitTypes.first( function(k, unitType)
-		return EntityCategoryContains(unitType.category, unit)
-	end )
+	local unitType = nil
+	for _, ut in unitTypes do
+		if EntityCategoryContains(ut.category, unit) then
+			unitType = ut
+			break
+		end
+	end
 
 	if (unitType == nil) then
-		unitType = unitTypes.last()
+		unitType = unitTypes[table.getn(unitTypes)]
 	end
 
 	return unitType
 end
 
-
 function OnUnitBoxClick(self, event, unitBox)
-
 	if event.Type == 'ButtonPress' then
-
 		if event.Modifiers.Ctrl then
 			if event.Modifiers.Right then
 				EnablePaused(unitBox)
@@ -56,23 +56,23 @@ function OnUnitBoxClick(self, event, unitBox)
 				SelectWorkers(unitBox)
 			end
 		end
+--[[
+		if unitBox.workerType == workerTypes.WORKING then
 
-		--if unitBox.workerType == workerTypes.WORKING then
-
---			if event.Modifiers.Right then
---				DisableWorkers(unitBox)
---			else
---				SelectWorkers(unitBox)
---			end
---		elseif unitBox.workerType == workerTypes.PAUSED then
---			if event.Modifiers.Right then
---				EnablePaused(unitBox)
---			else
---				SelectPaused(unitBox)
---			end
---		end
+			if event.Modifiers.Right then
+				DisableWorkers(unitBox)
+			else
+				SelectWorkers(unitBox)
+			end
+		elseif unitBox.workerType == workerTypes.PAUSED then
+			if event.Modifiers.Right then
+				EnablePaused(unitBox)
+			else
+				SelectPaused(unitBox)
+			end
+		end
+--]]
 	end
-
 end
 
 function GetWorkers(unitBox)
@@ -225,10 +225,8 @@ function OnClick(self, event, unitType)
 		selectedUnitType = unitType
 		UpdateSelectedUnitType(selectedUnitType)
 
-
-		local allUnits = from(unitType.prodUnits).concat(from(unitType.maintUnits)).toArray()
-		SelectUnits(allUnits)
-
+		local allUnits = table.concat(unitType.prodUnits, unitType.maintUnits)
+		SelectUnits(LINQ.ToArray(allUnits))
 	end
 
 	if hoverUnitType ~= nil then
@@ -272,26 +270,26 @@ end
 
 function UpdateResourcesUi()
 
-	local units = from(CommonUnits.Get())
+	local units = CommonUnits.Get()
 
-	unitTypes.foreach( function(k, unitType)
-		unitType.prodUnits = { }
-		unitType.maintUnits = { }
-	end )
+	for k, unitType in unitTypes do
+		unitType.prodUnits = {}
+		unitType.maintUnits = {}
+	end
 
-	-- set unittype resource usages to 0
-	resourceTypes.foreach( function(k, rType)
+	-- Set unittype resource usages to 0
+	for _, rType in resourceTypes do
 		rType.usage = 0
 		rType.maintUsage = 0
-		unitTypes.foreach( function(k, unitType)
+		for _, unitType in unitTypes do
 			local unitTypeUsage = unitType.usage[rType.name]
 			unitTypeUsage.usage = 0
 			unitTypeUsage.maintUsage = 0
-		end )
-	end )
+		end
+	end
 
 	-- fill unittype resources with real data
-	units.foreach( function(k, unit)
+	for _, unit in units do
 		local econData = GetEconData(unit)
 		local unitToGetDataFrom = nil
 		local isMaint = false
@@ -308,12 +306,10 @@ function UpdateResourcesUi()
 			isMaint = true
 		end
 
-
-
 		local unitType = GetUnitType(unitToGetDataFrom)
 
 		local unitHasUsage = false
-		resourceTypes.foreach( function(k, rType)
+		for _, rType in resourceTypes do
 			local usage = econData[rType.econDataKey]
 
 			if (usage > 0) then
@@ -327,8 +323,7 @@ function UpdateResourcesUi()
 				end
 				unitHasUsage = true
 			end
-
-		end )
+		end
 
 		if unitHasUsage then
 			if (isMaint) then
@@ -337,16 +332,16 @@ function UpdateResourcesUi()
 				table.insert(unitType.prodUnits, unit)
 			end
 		end
-	end )
+	end
 
 	-- update ui
 	local relayoutRequired = false
-	unitTypes.foreach( function(k, unitType)
+	for _, unitType in unitTypes do
 
 		unitType.typeUi.maintUnitsBox.SetAltOn(table.getn(unitType.pausedMaintUnits) > 0)
 		unitType.typeUi.prodUnitsBox.SetAltOn(table.getn(unitType.pausedProdUnits) > 0)
 
-		resourceTypes.foreach( function(k, rType)
+		for _, rType in resourceTypes do
 			local unitTypeUsage = unitType.usage[rType.name]
 			local rTypeUsageTotal = rType.usage + rType.maintUsage
 
@@ -358,8 +353,6 @@ function UpdateResourcesUi()
 				unitType.typeUi.prodUnitsBox.SetOn(false)
 				unitType.typeUi.maintUnitsBox.SetOn(false)
 			else
-
-
 				local bv = unitTypeUsage.usage
 				local bmv = unitTypeUsage.maintUsage
 				local percentify = true
@@ -399,21 +392,19 @@ function UpdateResourcesUi()
 --				local str = unitTypeUsage.maintUsage
 --				if (str == 0) then str = "" else str = string.format("%10.3f", str) end
 --				unitTypeUsage.maintText:SetText(str)
-
-
 			end
-		end )
-	end )
+		end
+	end
 
 	if relayoutRequired then
 		local y = 0
-		unitTypes.foreach(function(k, unitType)
+		for _, unitType in unitTypes do
 			if not unitType.typeUi.uiRoot:IsHidden() then
 				unitType.typeUi.uiRoot:Top(y)
 				LayoutHelpers.AtTopIn(unitType.typeUi.uiRoot, UIP.econtrol.ui, y)
 				y = y + unitType.typeUi.uiRoot:Height()
 			end
-		end)
+		end
 		UIP.econtrol.ui.Height:Set(y)
 
 	end
@@ -487,29 +478,24 @@ end
 local mexCategories = {}
 
 function UpdateMexesUi()
-
-	from(mexCategories).foreach(function(k, category)
-
+	for _, category in mexCategories do
 		category.units = {};
+	end
 
-	end)
+	local units = CommonUnits.Get()
 
-	local units = from(CommonUnits.Get())
-
-	units.foreach(function(k, unit)
-
+	for _, unit in units do
 		if EntityCategoryContains(categories.MASSEXTRACTION, unit) then
-			for k,category in mexCategories do
+			for _, category in mexCategories do
 				if IsMexCategoryMatch(category, unit) then
 					table.insert(category.units, unit)
 					break;
 				end
 			end
 		end
+	end
 
-	end)
-
-	from(mexCategories).foreach(function(k, category)
+	for _, category in mexCategories do
 
 		local count = table.getn(category.units)
 		local str = ""
@@ -524,18 +510,19 @@ function UpdateMexesUi()
 		if category.ui.pauseIcon then category.ui.pauseIcon:SetAlpha(alpha) end
 
 		local sorted = GetUpgradingUnits(category)
-		for i=1,10 do
+		for i = 1, 10 do
 			local u = sorted[i]
 			SetMexCategoryProgress(category, i, u)
 		end
-
-	end)
-
-
+	end
 end
 
 function GetUpgradingUnits(category)
-	local units = from(category.units).where(function(k,u) return u:GetWorkProgress() < 1 and u:GetWorkProgress() > 0 end).toArray()
+	local units = LINQ.Where(category.units,
+		function(k, u)
+			return u:GetWorkProgress() < 1 and u:GetWorkProgress() > 0 
+		end)
+	units = LINQ.ToArray(units)
 	local sorted = dosort(units, function(u) return u:GetWorkProgress() end)
 	return sorted
 end
@@ -553,7 +540,7 @@ end
 
 function dosort(t, func)
 	local keys = {}
-	for k,v in t do keys[table.getn(keys)+1] = k end
+	for k, _ in t do keys[table.getn(keys) + 1] = k end
 	table.sort(keys, function(a,b) return func(t[a]) > func(t[b]) end)
 	local sorted = {}
 	local i = 1
@@ -621,15 +608,12 @@ function OnMexCategoryUiClick(self, event, category)
 			end
 		else
 			if event.Modifiers.Ctrl then
-
 				local sorted = GetUpgradingUnits(category)
 				local best = sorted[1]
 				SelectUnits({ best })
 			else
-
 				SelectUnits(category.units)
 				UIP.econtrol.ui.textLabel:SetText(category.name)
-
 			end
 		end
 	end
@@ -643,8 +627,6 @@ function OnMexCategoryUiClick(self, event, category)
 end
 
 function CreateMexesUi(uiRoot)
-
-
 	mexCategories = {
 		{ name = "T1 idle", categories = categories.TECH1, isUpgrading = false, isPaused = nil, icon = "icon_structure1_mass" },
 		{ name = "T1 upgrading paused", categories = categories.TECH1, isUpgrading = true, isPaused = true, icon = "icon_structure1_mass" },
@@ -662,7 +644,7 @@ function CreateMexesUi(uiRoot)
 	LayoutHelpers.AtLeftIn(mexRoot, uiRoot, 0)
 	LayoutHelpers.AtTopIn(mexRoot, uiRoot, -72)
 
-	from(mexCategories).foreach(function(k, category)
+	for k, category in mexCategories do
 		local categoryUi = Bitmap(mexRoot)
 		categoryUi.HandleEvent = function(self, event) return OnMexCategoryUiClick(self, event, category) end
 		categoryUi.Width:Set(22)
@@ -673,7 +655,7 @@ function CreateMexesUi(uiRoot)
 		LayoutHelpers.AtTopIn(categoryUi, mexRoot, 0)
 
 		categoryUi.stratIcon = Bitmap(categoryUi)
-		iconName = '/textures/ui/common/game/strategicicons/' .. category.icon .. '_rest.dds'
+		local iconName = '/textures/ui/common/game/strategicicons/' .. category.icon .. '_rest.dds'
 		categoryUi.stratIcon:SetTexture(iconName)
 		categoryUi.stratIcon.Height:Set(categoryUi.stratIcon.BitmapHeight)
 		categoryUi.stratIcon.Width:Set(categoryUi.stratIcon.BitmapWidth)
@@ -713,8 +695,7 @@ function CreateMexesUi(uiRoot)
 
 		categoryUi.bar1s = {}
 		categoryUi.bar2s = {}
-		for i=1,10 do
-
+		for i = 1, 10 do
 			local bar1 = Bitmap(categoryUi)
 			bar1.Width:Set(22)
 			bar1.Height:Set(2)
@@ -731,20 +712,15 @@ function CreateMexesUi(uiRoot)
 
 			table.insert(categoryUi.bar1s, bar1)
 			table.insert(categoryUi.bar2s, bar2)
-
 		end
-
-
 		category.ui = categoryUi
-	end);
-
-
+	end
 end
 
 function buildUi()
 	local a, b = pcall( function()
 		UIP.econtrol = {}
-		unitTypes = from( {
+		unitTypes = {
 			{ name = "T1 Land Units", category = categories.LAND * categories.BUILTBYTIER1FACTORY * categories.MOBILE - categories.ENGINEER, icon = "icon_land1_generic", spacer = 0 },
 			{ name = "T2 Land Units", category = categories.LAND * categories.BUILTBYTIER2FACTORY * categories.MOBILE - categories.ENGINEER, icon = "icon_land2_generic", spacer = 0 },
 
@@ -775,13 +751,13 @@ function buildUi()
 			{ name = "Engineers", category = categories.ENGINEER, icon = "icon_land_engineer", spacer = 20 },
 
 			{ name = "Everything", category = categories.ALLUNITS, icon = "strat_attack_ping", spacer = 0 },
-		} )
+		}
 
-		unitTypes.foreach( function(k, unitType)
+		for _, unitType in unitTypes do
 			unitType.usage = { }
 			unitType.pausedProdUnits = { }
 			unitType.pausedMaintUnits = { }
-		end )
+		end
 
 		local col0 = 0
 		local col1 = col0 + 20
@@ -794,7 +770,6 @@ function buildUi()
 		local col8 = 0
 		local col9 = col8 + 20
 		local col10 = col9 + 105
-
 
 		local dragger = import('/mods/UI-Party/modules/ui.lua').buttons.dragButton
 		local uiRoot = Bitmap(dragger)
@@ -832,7 +807,7 @@ function buildUi()
 	--		CreateText("C", col2+5)
 			CreateText("Resources", col3)
 
-			unitTypes.foreach( function(k, unitType)
+			for _, unitType in unitTypes do
 
 				local typeUi = { }
 				unitType.typeUi = typeUi
@@ -847,7 +822,7 @@ function buildUi()
 				LayoutHelpers.AtTopIn(typeUi.uiRoot, uiRoot, 0)
 
 				typeUi.stratIcon = Bitmap(typeUi.uiRoot)
-				iconName = '/textures/ui/common/game/strategicicons/' .. unitType.icon .. '_rest.dds'
+				local iconName = '/textures/ui/common/game/strategicicons/' .. unitType.icon .. '_rest.dds'
 				typeUi.stratIcon:SetTexture(iconName)
 				typeUi.stratIcon.Height:Set(typeUi.stratIcon.BitmapHeight)
 				typeUi.stratIcon.Width:Set(typeUi.stratIcon.BitmapWidth)
@@ -863,10 +838,8 @@ function buildUi()
 				LayoutHelpers.AtVerticalCenterIn(typeUi.maintUnitsBox.group, typeUi.uiRoot, 0)
 
 				typeUi.Clear = function()
-
 					typeUi.prodUnitsBox.check:Hide()
 					typeUi.maintUnitsBox.check:Hide()
-
 				end
 
 				typeUi.massBar = Bitmap(typeUi.uiRoot)
@@ -885,24 +858,25 @@ function buildUi()
 				LayoutHelpers.AtLeftIn(typeUi.massMaintBar, typeUi.uiRoot, col3)
 				LayoutHelpers.AtTopIn(typeUi.massMaintBar, typeUi.uiRoot, 8)
 
-	--			typeUi.massText = UIUtil.CreateText(typeUi.uiRoot, 'M', 9, UIUtil.bodyFont)
-	--			typeUi.massText.Width:Set(10)
-	--			typeUi.massText.Height:Set(9)
-	--			typeUi.massText:SetNewColor('lime')
-	--			typeUi.massText:DisableHitTest()
-	--			LayoutHelpers.AtLeftIn(typeUi.massText, typeUi.uiRoot, col3)
-	--			LayoutHelpers.AtVerticalCenterIn(typeUi.massText, typeUi.uiRoot)
+--[[
+				typeUi.massText = UIUtil.CreateText(typeUi.uiRoot, 'M', 9, UIUtil.bodyFont)
+				typeUi.massText.Width:Set(10)
+				typeUi.massText.Height:Set(9)
+				typeUi.massText:SetNewColor('lime')
+				typeUi.massText:DisableHitTest()
+				LayoutHelpers.AtLeftIn(typeUi.massText, typeUi.uiRoot, col3)
+				LayoutHelpers.AtVerticalCenterIn(typeUi.massText, typeUi.uiRoot)
 
 
 
-	--			typeUi.massMaintText = UIUtil.CreateText(typeUi.uiRoot, 'M', 9, UIUtil.bodyFont)
-	--			typeUi.massMaintText.Width:Set(10)
-	--			typeUi.massMaintText.Height:Set(9)
-	--			typeUi.massMaintText:SetNewColor('cyan')
-	--			typeUi.massMaintText:DisableHitTest()
-	--			LayoutHelpers.AtLeftIn(typeUi.massMaintText, typeUi.uiRoot, col4)
-	--			LayoutHelpers.AtVerticalCenterIn(typeUi.massMaintText, typeUi.uiRoot)
-
+				typeUi.massMaintText = UIUtil.CreateText(typeUi.uiRoot, 'M', 9, UIUtil.bodyFont)
+				typeUi.massMaintText.Width:Set(10)
+				typeUi.massMaintText.Height:Set(9)
+				typeUi.massMaintText:SetNewColor('cyan')
+				typeUi.massMaintText:DisableHitTest()
+				LayoutHelpers.AtLeftIn(typeUi.massMaintText, typeUi.uiRoot, col4)
+				LayoutHelpers.AtVerticalCenterIn(typeUi.massMaintText, typeUi.uiRoot)
+--]]
 				typeUi.energyBar = Bitmap(typeUi.uiRoot)
 				typeUi.energyBar.Width:Set(10)
 				typeUi.energyBar.Height:Set(1)
@@ -919,21 +893,23 @@ function buildUi()
 				LayoutHelpers.AtLeftIn(typeUi.energyMaintBar, typeUi.uiRoot, col3)
 				LayoutHelpers.AtTopIn(typeUi.energyMaintBar, typeUi.uiRoot, 11)
 
-	--			typeUi.energyText = UIUtil.CreateText(typeUi.uiRoot, 'E', 9, UIUtil.bodyFont)
-	--			typeUi.energyText.Width:Set(10)
-	--			typeUi.energyText.Height:Set(9)
-	--			typeUi.energyText:SetNewColor('yellow')
-	--			typeUi.energyText:DisableHitTest()
-	--			LayoutHelpers.AtLeftIn(typeUi.energyText, typeUi.uiRoot, col5)
-	--			LayoutHelpers.AtVerticalCenterIn(typeUi.energyText, typeUi.uiRoot)
+--[[
+				typeUi.energyText = UIUtil.CreateText(typeUi.uiRoot, 'E', 9, UIUtil.bodyFont)
+				typeUi.energyText.Width:Set(10)
+				typeUi.energyText.Height:Set(9)
+				typeUi.energyText:SetNewColor('yellow')
+				typeUi.energyText:DisableHitTest()
+				LayoutHelpers.AtLeftIn(typeUi.energyText, typeUi.uiRoot, col5)
+				LayoutHelpers.AtVerticalCenterIn(typeUi.energyText, typeUi.uiRoot)
 
-	--			typeUi.energyMaintText = UIUtil.CreateText(typeUi.uiRoot, 'E', 9, UIUtil.bodyFont)
-	--			typeUi.energyMaintText.Width:Set(10)
-	--			typeUi.energyMaintText.Height:Set(9)
-	--			typeUi.energyMaintText:SetNewColor('orange')
-	--			typeUi.energyMaintText:DisableHitTest()
-	--			LayoutHelpers.AtLeftIn(typeUi.energyMaintText, typeUi.uiRoot, col6)
-	--			LayoutHelpers.AtVerticalCenterIn(typeUi.energyMaintText, typeUi.uiRoot)
+				typeUi.energyMaintText = UIUtil.CreateText(typeUi.uiRoot, 'E', 9, UIUtil.bodyFont)
+				typeUi.energyMaintText.Width:Set(10)
+				typeUi.energyMaintText.Height:Set(9)
+				typeUi.energyMaintText:SetNewColor('orange')
+				typeUi.energyMaintText:DisableHitTest()
+				LayoutHelpers.AtLeftIn(typeUi.energyMaintText, typeUi.uiRoot, col6)
+				LayoutHelpers.AtVerticalCenterIn(typeUi.energyMaintText, typeUi.uiRoot)
+--]]
 
 				unitType.usage["Mass"] = {
 					bar = typeUi.massBar,
@@ -954,80 +930,82 @@ function buildUi()
 				typeUi.energyBar:Hide()
 				typeUi.energyMaintBar:Hide()
 
-			end )
+			end
 		end
 
---		local selectedTypeView = Bitmap(uiRoot)
---		uiRoot.selectedTypeView = selectedTypeView
---		selectedTypeView.Width:Set(col10)
---		selectedTypeView.Height:Set(250)
---		LayoutHelpers.AtLeftIn(selectedTypeView, uiRoot, col7)
---		LayoutHelpers.AtTopIn(selectedTypeView, uiRoot, 0)
-		--selectedTypeView:SetSolidColor("aa000000")
+--[[
+		local selectedTypeView = Bitmap(uiRoot)
+		uiRoot.selectedTypeView = selectedTypeView
+		selectedTypeView.Width:Set(col10)
+		selectedTypeView.Height:Set(250)
+		LayoutHelpers.AtLeftIn(selectedTypeView, uiRoot, col7)
+		LayoutHelpers.AtTopIn(selectedTypeView, uiRoot, 0)
+		selectedTypeView:SetSolidColor("aa000000")
 
 
---		selectedTypeView.textLabel = UIUtil.CreateText(selectedTypeView, 'Unit Type', 15, UIUtil.bodyFont)
---		selectedTypeView.textLabel.Width:Set(10)
---		selectedTypeView.textLabel.Height:Set(9)
---		selectedTypeView.textLabel:SetNewColor('white')
---		selectedTypeView.textLabel:DisableHitTest()
---		LayoutHelpers.AtLeftIn(selectedTypeView.textLabel, selectedTypeView, 5)
---		LayoutHelpers.AtTopIn(selectedTypeView.textLabel, selectedTypeView, -31)
+		selectedTypeView.textLabel = UIUtil.CreateText(selectedTypeView, 'Unit Type', 15, UIUtil.bodyFont)
+		selectedTypeView.textLabel.Width:Set(10)
+		selectedTypeView.textLabel.Height:Set(9)
+		selectedTypeView.textLabel:SetNewColor('white')
+		selectedTypeView.textLabel:DisableHitTest()
+		LayoutHelpers.AtLeftIn(selectedTypeView.textLabel, selectedTypeView, 5)
+		LayoutHelpers.AtTopIn(selectedTypeView.textLabel, selectedTypeView, -31)
 
 
---		for i = 0,8 do
+		for i = 0,8 do
 
---			local typeUi = { }
+			local typeUi = { }
 
---			typeUi.uiRoot = Bitmap(selectedTypeView)
---			--typeUi.uiRoot.HandleEvent = function(self, event) return OnClick(self, event, unitType) end
---			typeUi.uiRoot.Width:Set(col10)
---			typeUi.uiRoot.Height:Set(22)
---			typeUi.uiRoot:InternalSetSolidColor('ff000000')
---			LayoutHelpers.AtLeftIn(typeUi.uiRoot, selectedTypeView, 0)
---			LayoutHelpers.AtTopIn(typeUi.uiRoot, selectedTypeView,i*22)
+			typeUi.uiRoot = Bitmap(selectedTypeView)
+			--typeUi.uiRoot.HandleEvent = function(self, event) return OnClick(self, event, unitType) end
+			typeUi.uiRoot.Width:Set(col10)
+			typeUi.uiRoot.Height:Set(22)
+			typeUi.uiRoot:InternalSetSolidColor('ff000000')
+			LayoutHelpers.AtLeftIn(typeUi.uiRoot, selectedTypeView, 0)
+			LayoutHelpers.AtTopIn(typeUi.uiRoot, selectedTypeView,i*22)
 
---			typeUi.stratIcon = Bitmap(typeUi.uiRoot)
---			iconName = '/textures/ui/common/game/strategicicons/icon_land1_generic_rest.dds'
---			typeUi.stratIcon:SetTexture(iconName)
---			typeUi.stratIcon.Height:Set(typeUi.stratIcon.BitmapHeight)
---			typeUi.stratIcon.Width:Set(typeUi.stratIcon.BitmapWidth)
---			LayoutHelpers.AtLeftIn(typeUi.stratIcon, typeUi.uiRoot, col8 + (20-typeUi.stratIcon.Width())/2)
---			LayoutHelpers.AtVerticalCenterIn(typeUi.stratIcon, typeUi.uiRoot, 0)
+			typeUi.stratIcon = Bitmap(typeUi.uiRoot)
+			iconName = '/textures/ui/common/game/strategicicons/icon_land1_generic_rest.dds'
+			typeUi.stratIcon:SetTexture(iconName)
+			typeUi.stratIcon.Height:Set(typeUi.stratIcon.BitmapHeight)
+			typeUi.stratIcon.Width:Set(typeUi.stratIcon.BitmapWidth)
+			LayoutHelpers.AtLeftIn(typeUi.stratIcon, typeUi.uiRoot, col8 + (20-typeUi.stratIcon.Width())/2)
+			LayoutHelpers.AtVerticalCenterIn(typeUi.stratIcon, typeUi.uiRoot, 0)
 
---			typeUi.massBar = Bitmap(typeUi.uiRoot)
---			typeUi.massBar.Width:Set(10)
---			typeUi.massBar.Height:Set(1)
---			typeUi.massBar:InternalSetSolidColor('lime')
---			typeUi.massBar:DisableHitTest()
---			LayoutHelpers.AtLeftIn(typeUi.massBar, typeUi.uiRoot, col9)
---			LayoutHelpers.AtTopIn(typeUi.massBar, typeUi.uiRoot, 6)
+			typeUi.massBar = Bitmap(typeUi.uiRoot)
+			typeUi.massBar.Width:Set(10)
+			typeUi.massBar.Height:Set(1)
+			typeUi.massBar:InternalSetSolidColor('lime')
+			typeUi.massBar:DisableHitTest()
+			LayoutHelpers.AtLeftIn(typeUi.massBar, typeUi.uiRoot, col9)
+			LayoutHelpers.AtTopIn(typeUi.massBar, typeUi.uiRoot, 6)
 
---			typeUi.massMaintBar = Bitmap(typeUi.uiRoot)
---			typeUi.massMaintBar.Width:Set(10)
---			typeUi.massMaintBar.Height:Set(1)
---			typeUi.massMaintBar:InternalSetSolidColor('cyan')
---			typeUi.massMaintBar:DisableHitTest()
---			LayoutHelpers.AtLeftIn(typeUi.massMaintBar, typeUi.uiRoot, col9)
---			LayoutHelpers.AtTopIn(typeUi.massMaintBar, typeUi.uiRoot, 6)
+			typeUi.massMaintBar = Bitmap(typeUi.uiRoot)
+			typeUi.massMaintBar.Width:Set(10)
+			typeUi.massMaintBar.Height:Set(1)
+			typeUi.massMaintBar:InternalSetSolidColor('cyan')
+			typeUi.massMaintBar:DisableHitTest()
+			LayoutHelpers.AtLeftIn(typeUi.massMaintBar, typeUi.uiRoot, col9)
+			LayoutHelpers.AtTopIn(typeUi.massMaintBar, typeUi.uiRoot, 6)
 
---			typeUi.energyBar = Bitmap(typeUi.uiRoot)
---			typeUi.energyBar.Width:Set(10)
---			typeUi.energyBar.Height:Set(1)
---			typeUi.energyBar:InternalSetSolidColor('yellow')
---			typeUi.energyBar:DisableHitTest()
---			LayoutHelpers.AtLeftIn(typeUi.energyBar, typeUi.uiRoot, col9)
---			LayoutHelpers.AtTopIn(typeUi.energyBar, typeUi.uiRoot, 10)
+			typeUi.energyBar = Bitmap(typeUi.uiRoot)
+			typeUi.energyBar.Width:Set(10)
+			typeUi.energyBar.Height:Set(1)
+			typeUi.energyBar:InternalSetSolidColor('yellow')
+			typeUi.energyBar:DisableHitTest()
+			LayoutHelpers.AtLeftIn(typeUi.energyBar, typeUi.uiRoot, col9)
+			LayoutHelpers.AtTopIn(typeUi.energyBar, typeUi.uiRoot, 10)
 
---			typeUi.energyMaintBar = Bitmap(typeUi.uiRoot)
---			typeUi.energyMaintBar.Width:Set(10)
---			typeUi.energyMaintBar.Height:Set(1)
---			typeUi.energyMaintBar:InternalSetSolidColor('orange')
---			typeUi.energyMaintBar:DisableHitTest()
---			LayoutHelpers.AtLeftIn(typeUi.energyMaintBar, typeUi.uiRoot, col9)
---			LayoutHelpers.AtTopIn(typeUi.energyMaintBar, typeUi.uiRoot, 10)
+			typeUi.energyMaintBar = Bitmap(typeUi.uiRoot)
+			typeUi.energyMaintBar.Width:Set(10)
+			typeUi.energyMaintBar.Height:Set(1)
+			typeUi.energyMaintBar:InternalSetSolidColor('orange')
+			typeUi.energyMaintBar:DisableHitTest()
+			LayoutHelpers.AtLeftIn(typeUi.energyMaintBar, typeUi.uiRoot, col9)
+			LayoutHelpers.AtTopIn(typeUi.energyMaintBar, typeUi.uiRoot, 10)
 
---		end
+		end
+--]]
 
 		CreateMexesUi(uiRoot)
 
@@ -1035,8 +1013,7 @@ function buildUi()
 		GameMain.AddBeatFunction(UIP.econtrol.beat)
 
 		DoUpdate()
-
-	end )
+	end)
 
 	if not a then
 		WARN("UI PARTY RESULT: ", a, b)
@@ -1044,19 +1021,15 @@ function buildUi()
 end
 
 function setEnabled(value)
-
-	-- tear down old ui
+	-- Tear down old ui
 	if rawget(UIP, "econtrol") ~= nil then
 		if UIP.econtrol.ui then UIP.econtrol.ui:Destroy() end
 		if UIP.econtrol.beat then GameMain.RemoveBeatFunction(UIP.econtrol.beat) end
 		UIP.econtrol = nil
 	end
 
-	-- build new ui
+	-- Build new ui
 	if value then
 		buildUi()
 	end
 end
-
-
-

@@ -1,5 +1,7 @@
-local UIP = import('/mods/UI-Party/modules/UI-Party.lua')
 local CommonUnits = import('/mods/CommonModTools/units.lua')
+local LINQ = import('/mods/UI-Party/modules/linq.lua')
+local UIP = import('/mods/UI-Party/modules/UI-Party.lua')
+
 local ignoreLocks = false
 
 function IgnoreLocksWhile(a)
@@ -9,21 +11,21 @@ function IgnoreLocksWhile(a)
 end
 
 function SelectAllLockedUnits()
-	local units = from(CommonUnits.Get()).where(function(k,v) return v.locked end).toArray()
+	local units = CommonUnits.Get()
+	units = LINQ.Where(units, function(k, v) return v.locked end)
+	units = LINQ.ToArray(units)
 	SelectUnits(units)
 end
 
 function ToggleSelectedUnitsLock()
-
 	local units = GetSelectedUnits()
 	if units == nil then return end
 
-	local anyLocked = from(units).any(function(k,v) return v.locked end)
+	local anyLocked = units.any(function(k,v) return v.locked end)
 	local newLockState = not anyLocked
-	from(units).foreach(function(k,v)
+	for _, v in units do
 		v.locked = newLockState;
-	end)
-
+	end
 end
 
 local dblClickStart = false
@@ -70,7 +72,7 @@ function OnSelectionChanged(oldSelection, newSelection, added, removed)
 		return false
 	end
 
-	-- prevent inifite recursion
+	-- Prevent inifite recursion
 	if suppress then
 		return false
 	end

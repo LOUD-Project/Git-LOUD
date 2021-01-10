@@ -139,7 +139,13 @@ function Init()
 					if (queue ~= nil) then
 						local firstItem = queue[1]
 						local firstBp = __blueprints[firstItem.id]
-						local firstIsStruct = from(firstBp.Categories).contains("STRUCTURE")
+						local firstIsStruct = nil
+						for _, v in firstBp.Categories do
+							if v == "STRUCTURE" then
+								firstIsStruct = v
+								break
+							end
+						end
 						if (firstIsStruct) then
 							if GetIsPaused({ u }) then
 								return upgrade1
@@ -242,7 +248,7 @@ function OnBeat()
 
 		local units = CommonUnits.Get()
 
-		from(units).foreach(function(k,v)
+		for _, v in units do
 			if v.uip == nil then
 				v.uip = true
 				UnitFound(v)
@@ -263,10 +269,9 @@ function OnBeat()
 				local unitQueue = enhancementQueue[v:GetEntityId()];
 				v.isEnhancing = unitQueue ~= nil and table.getn(unitQueue) > 0
 			end
+		end
 
-		end)
-
-		from(units).foreach(function(k,v)
+		for _, v in units do
 			local e = v:GetGuardedEntity()
 			if e ~= nil then
 				if v:IsInCategory("FACTORY") then e.assistedByF = true
@@ -284,10 +289,10 @@ function OnBeat()
 				f.upgradingFrom = v;
 				end
 			end
-		end)
+		end
 
 		if (UIP.GetSetting("alertUpgradeFinished")) then
-			from(units).foreach(function(k,v)
+			for _, v in units do
 				if v.lastIsUpgradee and not v.isUpgradee and not v:IsDead() then
 					PlaySound(Sound({Bank = 'Interface', Cue = 'UI_Opt_Mini_Button_Over'}))
 					print(UnitHelper.GetUnitName(v) .. " complete")
@@ -296,27 +301,31 @@ function OnBeat()
 					PlaySound(Sound({Bank = 'Interface', Cue = 'UI_Opt_Mini_Button_Over'}))
 					print(UnitHelper.GetUnitName(v) .. " no longer upgrading") -- too hard to work out if complete/cancelled, we only know if there is an upgrade in the queue at al
 				end
-			end)
+			end
 		end
 
 		local newadornmentsVisible = UIP.GetSetting("showAdornments")
 		if adornmentsVisible and not newadornmentsVisible then
-			from(units).foreach(function(k,v)
+			for _, v in units do
 				RemoveAllAdornments(v)
-			end)
+			end
 		end
 		adornmentsVisible = newadornmentsVisible
 
 		if adornmentsVisible then
-			from(units).foreach(function(k,v)
-				if not v.isUpgradee then -- the old fac is overlayed by new fac unit - we dont want to draw icons for new fac until old one dies
+			for _, v in units do
+				-- The old fac is overlayed by new fac unit
+				-- Don't draw icons for new fac until old one dies
+				if not v.isUpgradee then
 					UpdateUnit(v)
 				end
-			end)
+			end
 		end
 
 		if selectedUnits and table.getn(selectedUnits) == 1 then
-			-- return the queue back the way it was. For some reasons this throws errors (without harm) until you deselect and reselect your acu
+			-- Return the queue back the way it was.
+			-- For some reasons this throws errors (without harm)
+			-- until you deselect and reselect your ACU
 			SetCurrentFactoryForQueueDisplay(selectedUnits[1])
 		else
 			ClearCurrentFactoryForQueueDisplay()
@@ -328,14 +337,14 @@ end
 
 function Shutdown()
 	local units = CommonUnits.Get()
-	from(units).foreach(function(k,v)
+	for _, v in units do
 		RemoveAllAdornments(v)
-	end)
+	end
 end
 
 function RemoveAllAdornments(u)
 	local st = u.StateTracker
-	from(trackers).foreach(function(k,v)
+	for _, v in trackers do
 		local entry = st[v.name]
 		if entry.overlay ~= nil then
 			entry.overlay:Hide()
@@ -343,8 +352,7 @@ function RemoveAllAdornments(u)
 			entry.overlay = nil
 		end
 		entry.value = false
-	end)
-
+	end
 end
 
 function UnitFound(u)
@@ -359,9 +367,9 @@ function UnitFound(u)
 
 		local st = {}
 
-		from(trackers).foreach(function(k,v)
+		for _, v in trackers do
 			st[v.name] = { value = false }
-		end)
+		end
 
 		u.StateTracker = st
 		st.group = Group(GetFrame(0))
@@ -382,7 +390,7 @@ function UpdateUnit(u)
 	local st = u.StateTracker
 	local relayoutRequired = false
 
-	from(trackers).foreach(function(k,v)
+	for _, v in trackers do
 		local result = v.testFn(u)
 		if result == nil then result = { val=false } end
 
@@ -407,24 +415,24 @@ function UpdateUnit(u)
 				entry.overlay.Height:Set(result.height)
 			end
 		end
-	end)
+	end
 
 	if relayoutRequired then
 		local offset = 0
-		from(trackers).foreach(function(k,v)
+		for _, v in trackers do
 			local entry = st[v.name]
 			if entry.value ~= false then
 				LayoutHelpers.AtLeftTopIn(entry.overlay, st.group, offset, 0)
 				offset = offset + entry.overlay.Width()
 			end
-		end)
+		end
 	end
 
 end
 
 function UpdateUnitPos(u)
 	local st = u.StateTracker
-	if(not u:IsDead()) then
+	if not u:IsDead() then
 		local worldView = import('/lua/ui/game/worldview.lua').viewLeft
 		local pos1 = u:GetPosition()
 		local posA = worldView:Project(pos1)
@@ -435,11 +443,11 @@ function UpdateUnitPos(u)
 end
 
 function DestroyTracker(u, st)
-	from(trackers).foreach(function(k,v)
+	for k, v in trackers do
 		local entry = st[v.name]
 		if entry.value then
 			entry.overlay:Destroy()
 		end
-	end)
+	end
 	st.group:Destroy()
 end
