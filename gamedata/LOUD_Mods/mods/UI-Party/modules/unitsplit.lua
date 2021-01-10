@@ -93,7 +93,7 @@ function SplitGroups(desiredGroups)
 	while table.getn(groups) < desiredGroups do
 		if not LINQ.Any(priorityUnits) then priorityUnits = GetPriorityUnits(ungroupedUnits) end
 		if not LINQ.Any(priorityUnits) then
-			UIPLOG("Not enough units to make another group'")
+			-- UIPLOG("Not enough units to make another group")
 			break
 		end
 

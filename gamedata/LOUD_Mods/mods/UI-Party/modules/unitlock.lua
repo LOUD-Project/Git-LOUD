@@ -38,9 +38,9 @@ function isDoubleclick(newSelection)
 	-- * the second click contains the same unit
 	if dblClickStart then
 		dblClickEnd = newSelection[dblClickId] ~= nil
-		UIPLOG("End?: " .. tostring(dblClickEnd))
+		-- UIPLOG("End?: " .. tostring(dblClickEnd))
 		if dblClickEnd then
-			UIPLOG("***** double click")
+			-- UIPLOG("***** double click")
 			return true
 		end
 	end
@@ -52,7 +52,7 @@ function isDoubleclick(newSelection)
 			dblClickUnit = newSelection[dblClickId]
 		end
 	end
-	UIPLOG("Start?: " .. tostring(dblClickStart))
+	-- UIPLOG("Start?: " .. tostring(dblClickStart))
 
 	--local diffTime = curTime - lastSelectionTime
 	--if newSelection == lastSelection then
@@ -84,7 +84,7 @@ function OnSelectionChanged(oldSelection, newSelection, added, removed)
 
 		-- if its a double click on an assister, select all fellow assisters
 		if isDoubleclick(newSelection) then
-			UIPLOG("Double click detected")
+			-- UIPLOG("Double click detected")
 
 			local dblClickGuardedUnit = dblClickUnit:GetGuardedEntity()
 			local dblClickLocked = dblClickUnit.locked
@@ -93,11 +93,11 @@ function OnSelectionChanged(oldSelection, newSelection, added, removed)
 
 				local isSame = unit:GetGuardedEntity() == dblClickGuardedUnit and unit.locked == dblClickUnit.locked
 				if isSame then
-					UIPLOG("Found a brother")
+					-- UIPLOG("Found a brother")
 					table.insert(tobeSelected,unit)
 					changesMade = true
 				else
-					UIPLOG("Didn't find a brother")
+					-- UIPLOG("Didn't find a brother")
 				end
 			end
 
@@ -132,7 +132,7 @@ function OnSelectionChanged(oldSelection, newSelection, added, removed)
 	if changesMade then
 		ForkThread(function()
 			suppress = true
-			UIPLOG("--changing")
+			-- UIPLOG("--changing")
 			SelectUnits(tobeSelected)
 			suppress = false
 		end)

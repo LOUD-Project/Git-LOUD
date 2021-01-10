@@ -70,7 +70,6 @@ function InitKeys()
 
 	for i = 2, 10 do
 		order = order + 1
-		-- KeyMapper.SetUserKeyAction('Split selection into '..i..' groups', {action = "UI_Lua import('/mods/UI-Party/modules/unitsplit.lua').SplitGroups("..i..")", category = cat, order = order,})
 		KeyMapper.SetUserKeyAction('uip_split_sel_to_'..i..'_grps', {action = "UI_Lua import('/mods/UI-Party/modules/unitsplit.lua').SplitGroups("..i..")", category = cat, order = order,})
 		keyDescriptions['uip_split_sel_to_'..i..'_grps'] = 'UIP: Split Selection into '..i..' Groups'
 	end

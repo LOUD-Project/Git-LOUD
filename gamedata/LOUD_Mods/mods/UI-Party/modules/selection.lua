@@ -1,7 +1,6 @@
 local LINQ = import('/mods/UI-Party/modules/linq.lua')
 
 function SelectSimilarOnscreenUnits()
-	UIPLOG("Here")
 	local units = GetSelectedUnits()
 	if (units ~= nil) then
 		local blueprints = LINQ.Select(units, function(k, u) return u:GetBlueprint() end)
