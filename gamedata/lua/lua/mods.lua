@@ -283,7 +283,7 @@ function AllMods()
                 mod.config = {}
                 for _, v in env.config do
                     if not allConfigs[mod.uid][v.key] then
-                        allConfigs[mod.uid][v.key] = v.default
+                        allConfigs[mod.uid][v.key] = v.values[v.default].key
                     end
                     mod.config[v.key] = allConfigs[mod.uid][v.key]
                 end

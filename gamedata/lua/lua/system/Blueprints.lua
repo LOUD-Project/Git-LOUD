@@ -1075,7 +1075,7 @@ function LoadBlueprints()
 		if m.config and eOk then
 			-- Check every exclusion block to see if modconfig activates it
 			for _, e in env do
-				if m.config[e.key] == 2 then
+				if m.config[e.key] == 'exclude' then
 					for _, ex in e.values do
 						local path = string.format("%s/units/%s/%s_unit.bp", m.location, ex, ex)
 						excl[string.lower(path)] = true
