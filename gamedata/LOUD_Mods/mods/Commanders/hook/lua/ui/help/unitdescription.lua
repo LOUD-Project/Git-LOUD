@@ -37,10 +37,10 @@ Description['eal0001-exbint3'] = "Farjump Teleporter Subsystem\nWorking with the
 
 Description['eal0001-exbbat1'] = "Maelstrom Generator\nWhile delving through research databanks, the plans for a quantum defense field system were discovered. While harmless to units designed to resist quantum disturbances it is corrosive to everything else.\n\nInstalls Maelstrom Generator"
 Description['eal0001-exbbat2'] = "Distortion Amplifier\nFurther development of the Maelstrom Generator. By adding amplified energy output systems both the range and effect are increased.\n\nMaelstrom DPS & range increased\nInstalls Tactical Missile Defense"
-Description['eal0001-exbbat3'] = "Instability Enhancer\nThe addition of extra focusers and reflectors has allowed increased control over the instabilities that make up the field.  Increases both field coverage and destructive potential.\n\nMaelstrom DPS & range increased"
+Description['eal0001-exbbat3'] = "Instability Enhancer\nThe addition of extra focusers and reflectors has allowed increased control over the instabilities that make up the field. Increases both field coverage and destructive potential.\n\nMaelstrom DPS & range increased"
 
 
---UEF ACU Upgrades  
+--UEF ACU Upgrades
 
 Description['eel0001'] = "<LOC Unit_Description_0303> Houses Commander. Combination barracks and command center. Contains all the blueprints necessary to build a basic army from scratch."
 
