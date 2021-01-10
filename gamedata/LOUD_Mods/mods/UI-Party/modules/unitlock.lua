@@ -21,7 +21,7 @@ function ToggleSelectedUnitsLock()
 	local units = GetSelectedUnits()
 	if units == nil then return end
 
-	local anyLocked = units.any(function(k,v) return v.locked end)
+	local anyLocked = LINQ.Any(units, function(k, v) return v.locked end)
 	local newLockState = not anyLocked
 	for _, v in units do
 		v.locked = newLockState;
