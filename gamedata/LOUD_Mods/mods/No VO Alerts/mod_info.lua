@@ -1,0 +1,13 @@
+name = "No VO Alerts"
+uid = "7be1d5f4-c544-11ea-87d0-noalerts0001"
+version = 0
+copyright = "© 2020"
+description = "Disables the voiceover alerts and pings when experimentals, nuke silos, and ACUs are spotted. Also disables transport ferry route alerts, and MEX under attack alerts."
+author = "Gralzeim, script modified from original by Balthazar"
+selectable = true
+enabled = true
+exclusive = false
+ui_only = false
+conflicts = { }
+before = { }
+after = { }
