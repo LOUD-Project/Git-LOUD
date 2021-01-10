@@ -2407,7 +2407,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Base Guards',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},		
-			{ LUTL, 'AirStrengthRatioLessThan', { 1 }},
+			{ LUTL, 'AirStrengthRatioLessThan', { 1.1 }},
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
         },

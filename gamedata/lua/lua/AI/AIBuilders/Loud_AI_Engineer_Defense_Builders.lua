@@ -166,7 +166,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         BuilderConditions = {
             { EBC, 'GreaterThanEnergyIncome', { 440 }},
             
-            { LUTL, 'AirStrengthRatioLessThan', { 1 }},
+            { LUTL, 'AirStrengthRatioLessThan', { 1.1 }},
 			
 			-- dont build if we have built any advanced power -- obsolete
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION * categories.STRUCTURE * categories.TECH3 }},
@@ -1095,7 +1095,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 		end,
 		
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioLessThan', { 1 }},
+            { LUTL, 'AirStrengthRatioLessThan', { 1.1 }},
 			-- dont have any advanced units
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.STRUCTURE - categories.TECH1 }},
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 18, categories.STRUCTURE * categories.ANTIAIR, 45, 75}},
@@ -2328,7 +2328,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
         PriorityFunction = IsEnemyCrushingAir,
         
         BuilderConditions = {
-			{ LUTL, 'AirStrengthRatioLessThan', { 1 }},
+			{ LUTL, 'AirStrengthRatioLessThan', { 1.1 }},
 			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
             { LUTL, 'UnitCapCheckLess', { .75 } },
 

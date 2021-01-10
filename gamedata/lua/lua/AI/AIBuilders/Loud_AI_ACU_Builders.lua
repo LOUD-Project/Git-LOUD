@@ -542,7 +542,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
 		end,
 		
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioLessThan', { 1 }},
+            { LUTL, 'AirStrengthRatioLessThan', { 1.1 }},
             
 			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},			
 

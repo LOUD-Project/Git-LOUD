@@ -354,7 +354,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 		BuilderType = { 'T2','T3','SubCommander' },
 		
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioLessThan', { 1 } },
+            { LUTL, 'AirStrengthRatioLessThan', { 1.1 } },
             
 			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},
             
