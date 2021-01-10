@@ -108,7 +108,26 @@ teamOptions = {
 			},
 		},
     },
-    
+    {
+        default = 1,
+        label = "Evenly Distributed Random Factions",
+        help = 'Promote a more even spread of factions among players which choose to receive theirs randomly.',
+        key = 'EvenFactions',
+        pref = 'Lobby_Even_Factions',
+        values = {
+            {
+                text = "<LOC lobui_0312>Off",
+                help = "No manipulation of randomness during random faction selection.",
+                key = 'off',
+            },
+            {
+                text = "<LOC lobui_0314>On",
+                help = "Faction randomization will be more evenly spread.",
+                key = 'on',
+            },
+        },
+    },
+
 }
 
 globalOpts = {

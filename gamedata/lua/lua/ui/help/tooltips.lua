@@ -734,6 +734,18 @@ Tooltips = {
         title = "Team Spawn",
         description = "Someone Tell Tanksy What This Does",
     },
+    Lobby_Even_Factions = {
+        title = "Evenly Distributed Random Factions",
+        description = "Promote a more even spread of factions among players which choose to receive theirs randomly.",
+    },
+    lob_EvenFactions_off = {
+        title = "<LOC lobui_0312>Off",
+        description = "No manipulation of randomness during random faction selection.",
+    },
+    lob_EvenFactions_on = {
+        title = "<LOC lobui_0314>On",
+        description = "Faction randomization will be more evenly spread.",
+    },
     Lobby_Gen_ShareResources = {
         title = "Share Resources",
         description = "Determines whether Allies share Resources with each other",
@@ -794,7 +806,7 @@ Tooltips = {
     lob_act = {
         title = "Adaptive AI Cheat Multiplier",
         description = "Allows the AI to dynamically change its cheat multiplier in response to certain factors during the game. Check Advanced AI Options under Game Options for even more settings.",
-    },    
+    },
     
     Lobby_ACT_Start_Delay = {
         title = "Timed Cheat Start Delay",

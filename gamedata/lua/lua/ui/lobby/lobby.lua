@@ -1150,7 +1150,36 @@ local function GetPlayersNotReady()
     return notReady
 end
 
+-- Alternate code path that uses the functions from
+-- Spread.assignments to distribute random players.
+local function AssignSpreadFactions()
+    -- Alternate faction randomization scheme
+    local Spread = import('/lua/ui/lobby/spread.lua')
+
+    local randomFactionID = table.getn(FactionData.Factions) + 1
+    local players = {}
+    for index, player in gameInfo.PlayerOptions do
+        if hasSupcom then
+            players[index] = player.Faction
+        else
+            players[index] = 4
+        end
+    end
+    -- Compute the random assignments based on balanced frequencies
+    local factions = Spread.assignments(players,randomFactionID)
+    for index, faction in pairs(factions) do
+        gameInfo.PlayerOptions[index].Faction = faction
+        LOG("*RandomFactions - Assigned Player:" .. index .. " Faction:" .. faction)
+    end
+    local freqs = Spread.vfreqs(factions)
+    LOG("RandomFactions - Faction -> Frequency: "..repr(freqs))
+end
+
 local function AssignRandomFactions(gameInfo)
+    if gameInfo.GameOptions['EvenFactions'] == 'on' then
+        AssignSpreadFactions()
+        return
+    end
 
     local randomFactionID = table.getn(FactionData.Factions) + 1
 	
@@ -2728,7 +2757,16 @@ function CreateUI(maxPlayers, useSteam)
                 LayoutHelpers.AtRightTopIn(line.value, line, 5, 16)  
                 LayoutHelpers.ResetLeft(line.value)
             end
-            line.text:SetText(LOC(data.text))
+            local wrappedText = import('/lua/maui/text.lua').FitText(LOC(data.text), 
+                170, -- Can't use line.text.Width() here or lobby crashes
+                function(text)
+                    return line.text:GetStringAdvance(text)
+                end)
+            if table.getn(wrappedText) > 1 then
+                line.text:SetText(wrappedText[1]..'...')
+            else
+                line.text:SetText(wrappedText[1])
+            end
             line.value:SetText(LOC(data.value))
             line.value.bg.HandleEvent = Group.HandleEvent
             line.value.bg2.HandleEvent = Bitmap.HandleEvent
