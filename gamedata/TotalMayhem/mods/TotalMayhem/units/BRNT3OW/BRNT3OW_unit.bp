@@ -145,7 +145,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Experimental Light Support Mech',
+        HelpText = 'Light Support Mech',
     },
 	
     LifeBarHeight = 0.075,

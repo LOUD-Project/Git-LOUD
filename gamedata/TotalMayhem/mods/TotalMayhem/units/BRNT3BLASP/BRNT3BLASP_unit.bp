@@ -189,7 +189,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Experimental Medium Assault Mech',
+        HelpText = 'Medium Assault Mech',
     },
 	
     LifeBarHeight = 0.075,

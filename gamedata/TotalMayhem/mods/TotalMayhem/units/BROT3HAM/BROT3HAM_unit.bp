@@ -65,7 +65,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 185.2,
     },
 	
-    Description = '<LOC brot3ham_desc>Experimental Light Mech',
+    Description = '<LOC brot3ham_desc>Experimental Light Battle Mech',
 	
     Display = {
         Abilities = {
@@ -169,7 +169,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Experimental Light Mech',
+        HelpText = 'Light Battle Mech',
     },
 	
     LifeBarHeight = 0.07,
