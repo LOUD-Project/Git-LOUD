@@ -703,6 +703,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
                     end
 
                     wep:ChangeDamage(val)
+                    -- wep.damageTable.DamageAmount = val
                 end
             end
 
