@@ -174,7 +174,7 @@ UnitBlueprint {
     },
     
     Interface = {
-        HelpText = 'Heavy Assault Mech'',
+        HelpText = 'Heavy Assault Mech',
     },
 	
     LifeBarHeight = 0.07,
