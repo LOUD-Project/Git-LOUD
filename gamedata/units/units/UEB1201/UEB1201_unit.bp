@@ -42,8 +42,8 @@ UnitBlueprint {
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 74,		-- 10% Energy + 1% Health
-        Health = 2400,
-        MaxHealth = 2400,
+        Health = 2650,
+        MaxHealth = 2650,
         RegenRate = 1,
     },
     
@@ -126,13 +126,14 @@ UnitBlueprint {
 		
         ProductionPerSecondEnergy = 500,
 		
-		StorageEnergy = 250,
+		StorageEnergy = 400,
     },
 	
     Footprint = {
         SizeX = 3,
         SizeZ = 3,
     },
+    
     General = {
 		CapCost = 2,
         Category = 'Economy',
@@ -157,12 +158,15 @@ UnitBlueprint {
         TechLevel = 'RULEUTL_Advanced',
         UnitWeight = 1,
     },
+    
     Interface = {
         HelpText = 'Improved Power Generator',
     },
+    
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.1,
     LifeBarSize = 3,
+    
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -184,14 +188,18 @@ UnitBlueprint {
         SkirtSizeZ = 6,
         TurnRate = 0,
     },
+    
     SelectionSizeX = 1.8,
     SelectionSizeZ = 1.8,
     SelectionThickness = 0.38,
+    
     SizeX = 2.2,
     SizeY = 0.9,
     SizeZ = 2.2,
+    
     StrategicIconName = 'icon_structure2_energy',
     StrategicIconSortPriority = 245,
+    
     Weapon = {
         {
             Damage = 2000,

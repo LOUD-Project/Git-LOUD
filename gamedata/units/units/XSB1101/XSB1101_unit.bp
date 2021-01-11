@@ -1,5 +1,7 @@
 UnitBlueprint {
+
     Adjacency = 'T1PowerGeneratorAdjacencyBuffs',
+    
     Audio = {
         Destroyed = Sound {
             Bank = 'XSL_Destroy',
@@ -17,7 +19,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+    
     BuildIconSortPriority = 70,
+    
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1ENGINEER',
@@ -35,6 +39,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SORTECONOMY',
     },
+    
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 8,		-- 10% Energy + 1% Health
@@ -42,7 +47,9 @@ UnitBlueprint {
         MaxHealth = 600,
         RegenRate = 0,
     },
+    
     Description = '<LOC xsb1101_desc>Basic Power Generator',
+    
     Display = {
         AnimationDeath = {
             {
@@ -99,17 +106,21 @@ UnitBlueprint {
 
         UniformScale = 0.06,
     },
+    
     Economy = {
         AdjacentStructureEnergyMod = -2,
+        
         BuildCostEnergy = 800,
         BuildCostMass = 100,
         BuildTime = 150,
+        
         ProductionPerSecondEnergy = 20,
-        RebuildBonusIds = {
-            'xsb1101',
-        },
-		StorageEnergy = 50,
+        
+        RebuildBonusIds = {'xsb1101'},
+        
+		StorageEnergy = 100,
     },
+    
     General = {
         Category = 'Economy',
         Classification = 'RULEUC_Resource',
@@ -133,12 +144,15 @@ UnitBlueprint {
         TechLevel = 'RULEUTL_Basic',
         UnitWeight = 1,
     },
+    
     Interface = {
         HelpText = 'Basic Power Generator',
     },
+    
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.55,
     LifeBarSize = 0.9,
+    
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -163,14 +177,18 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+    
     SelectionSizeX = 0.65,
     SelectionSizeZ = 0.65,
     SelectionThickness = 0.6,
+    
     SizeX = 0.75,
     SizeY = 0.5,
     SizeZ = 0.75,
+    
     StrategicIconName = 'icon_structure1_energy',
     StrategicIconSortPriority = 250,
+    
     Weapon = {
         {
             Damage = 250,
@@ -183,11 +201,12 @@ UnitBlueprint {
             WeaponCategory = 'Death',
         },
     },
+    
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,

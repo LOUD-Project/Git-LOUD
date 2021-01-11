@@ -1,5 +1,7 @@
 UnitBlueprint {
+
     Adjacency = 'T3MassFabricatorAdjacencyBuffs',
+    
     Audio = {
         Destroyed = Sound {
             Bank = 'UELDestroy',
@@ -12,7 +14,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+    
     BuildIconSortPriority = 50,
+    
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3ENGINEER',
@@ -29,15 +33,19 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SORTECONOMY',
     },
+    
     CollisionOffsetY = -0.25,
+    
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 420,		-- 1000% MassOutput + 5% Healt
-        Health = 6000,
-        MaxHealth = 6000,
+        Health = 6500,
+        MaxHealth = 6500,
         RegenRate = 1,
     },
+    
     Description = '<LOC ueb1303_desc>Advanced Mass Fabricator',
+    
     Display = {
         Abilities = {
             'Volatile',
@@ -105,13 +113,17 @@ UnitBlueprint {
         UniformScale = 0.35,
     },
     Economy = {
-		CapCost = 4,
         BuildCostEnergy = 90000,
         BuildCostMass = 6050,
         BuildTime = 8500,
+        
         MaintenanceConsumptionPerSecondEnergy = 3600,
+        
         ProductionPerSecondMass = 12,
+        
+		StorageEnergy = 3000,        
     },
+    
     Footprint = {
         SizeX = 3,
         SizeZ = 3,
@@ -144,12 +156,15 @@ UnitBlueprint {
         },
         UnitWeight = 1,
     },
+    
     Interface = {
         HelpText = 'Advanced Mass Fabricator',
     },
+    
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.95,
     LifeBarSize = 2.5,
+    
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -174,14 +189,18 @@ UnitBlueprint {
         SkirtSizeZ = 6,
         TurnRate = 0,
     },
+    
     SelectionSizeX = 1.55,
     SelectionSizeZ = 1.55,
     SelectionThickness = 0.45,
+    
     SizeX = 1.75,
     SizeY = 2.1,
     SizeZ = 1.875,
+    
     StrategicIconName = 'icon_structure3_mass',
     StrategicIconSortPriority = 240,
+    
     Weapon = {
         {
             Damage = 5000,

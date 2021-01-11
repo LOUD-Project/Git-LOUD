@@ -151,6 +151,8 @@ UnitBlueprint {
         MaintenanceConsumptionPerSecondEnergy = 3600,
 		
         ProductionPerSecondMass = 12,
+
+		StorageEnergy = 3600,        
     },
 	
     Footprint = {
