@@ -605,6 +605,7 @@ function UpdateWindow(info)
         -- shield max health and regen rate due to enhancements or other buffs
         
         controls.Buildrate:Hide()
+        controls.BuildrateIcon:Hide()
         controls.shieldText:Hide()
 
 		-- works properly but i've yet to find a good spot to put that data in
@@ -717,8 +718,10 @@ function UpdateWindow(info)
         if info.userUnit != nil and info.userUnit:GetBuildRate() >= 2 then
             controls.Buildrate:SetText(string.format("%d",LOUDFLOOR(info.userUnit:GetBuildRate())))
             controls.Buildrate:Show()
+            controls.BuildrateIcon:Show()
         else
             controls.Buildrate:Hide()
+            controls.BuildrateIcon:Hide()
         end   
 
         controls.SCUType:Hide()
@@ -762,7 +765,7 @@ function CreateUI()
     controls.fuelBar = StatusBar(controls.bg, 0, 1, false, false, nil, nil, true)
     controls.health = UIUtil.CreateText(controls.healthBar, '', 14, UIUtil.bodyFont)
     controls.statGroups = {}
-    for i = 1, 6 do
+    for i = 1, 7 do
         controls.statGroups[i] = {}
         controls.statGroups[i].icon = Bitmap(controls.bg)
         controls.statGroups[i].value = UIUtil.CreateText(controls.statGroups[i].icon, '', 12, UIUtil.bodyFont)
