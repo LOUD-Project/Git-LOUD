@@ -765,7 +765,7 @@ function CreateUI()
     controls.fuelBar = StatusBar(controls.bg, 0, 1, false, false, nil, nil, true)
     controls.health = UIUtil.CreateText(controls.healthBar, '', 14, UIUtil.bodyFont)
     controls.statGroups = {}
-    for i = 1, 7 do
+    for i = 1, 6 do
         controls.statGroups[i] = {}
         controls.statGroups[i].icon = Bitmap(controls.bg)
         controls.statGroups[i].value = UIUtil.CreateText(controls.statGroups[i].icon, '', 12, UIUtil.bodyFont)
