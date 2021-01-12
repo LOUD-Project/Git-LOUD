@@ -22,6 +22,7 @@ local Edit = import('/lua/maui/edit.lua').Edit
 local _InternalUpdateStatus
 
 local optionContainer = false
+local mouseover = false
 
 -- This function can be called while the ModManager is active, to update changes to the selected mods on the fly.
 -- If called when the ModManger is -not- active, it is a no-op.
@@ -324,7 +325,7 @@ local function CreateSavePresetDialog(parent, scrollGroup)
     UIUtil.CreateWorldCover(dialog)
 end
 
-local loudStandard = { 
+local loudStandard = {
     '25D57D85-7D84-27HT-A501-BR3WL4N000079', -- BrewLAN
     '62e2j64a-53a2-y6sg-32h5-146as555a18u3', -- Total Mayhem
     '9a9C61C0-1787-10DF-A0AD-BATTLEPACK002', -- Wyvern Battle Pack
@@ -344,7 +345,7 @@ local loudStandard = {
 }
 
 local function ModConfigDialog(parent, modInfo, config, modStatus)
-    table.sort(config, function(a, b) return a.key < b.key end)
+    -- table.sort(config, function(a, b) return a.key < b.key end)
 
     local newConfig = Prefs.GetFromCurrentProfile("modConfig")
     if not newConfig then
@@ -388,10 +389,7 @@ local function ModConfigDialog(parent, modInfo, config, modStatus)
         local combo = Combo(list, nil, nil, nil, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
         combo.Width:Set(240)
         combo.Depth:Set(function() return list.Depth() + 10 end)
-        local itemArray = {}
         combo.keyMap = {}
-        local tooltipTable = {}
-        -- Tooltip.AddComboTooltip(combo, tooltipTable, combo._list)
         combo.UpdateValue = function(key)
             combo:SetItem(combo.keyMap[key])
         end
@@ -476,12 +474,8 @@ local function ModConfigDialog(parent, modInfo, config, modStatus)
             line.combo:ClearItems()
             line.combo:Show()
             local itemArray = {}
-            -- line.combo.keyMap = {}
-            local tooltipTable = {}
             for index, val in data.values do
                 itemArray[index] = val.text
-                -- line.combo.keyMap[val.key] = index
-                -- tooltipTable[index] = 'lob_'..data.data.key..'_'..val.key
             end
             local def = 1
             for i, v in data.values do
@@ -495,6 +489,18 @@ local function ModConfigDialog(parent, modInfo, config, modStatus)
             end
             line.combo.UpdateValue = function(key)
                 line.combo:SetItem(line.combo.keyMap[key])
+            end
+            line.HandleEvent = function(self, event)
+                if event.Type == 'MouseEnter' then
+                    if not Prefs.GetOption('tooltips') then return end
+                    if mouseover then mouseover:Destroy() mouseover = false end
+                    mouseover = Tooltip.CreateToolTip(line, LOC(data.tooltip))
+                    mouseover.Top:Set(function() return line.Top() + 2 end)
+                    mouseover.Left:Set(function() return line.Right() - 1 end)
+                    mouseover:SetNeedsFrameUpdate(true)
+                elseif event.Type == 'MouseExit' then
+                    if mouseover then mouseover:Destroy() mouseover = false end
+                end
             end
         end
         for i, v in optionList do

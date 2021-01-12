@@ -3,6 +3,7 @@ config = {
 		default = 1,
 		label = 'Experimental Resource Storage',
 		key = 'ExpStorage',
+		tooltip = "Disable to exclude the Experimental Resource Storage building this mod normally adds to each faction.",
 		values = {
 			{
 				text = 'Enabled',
