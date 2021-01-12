@@ -2,6 +2,7 @@
 
 T1Land = {
 	key = 'T1Land',
+	combo = 'T1Land',
 	values = {
 		'brot1bt', -- Hervour
 		'brot1exm1', -- Medusa
@@ -14,6 +15,7 @@ T1Land = {
 
 T1PD = {
 	key = 'T1PD',
+	combo = 'T1PD',
 	values = {
 		'brot1hpd', -- Zpyker
 		'brot1expd', -- Mizura
@@ -28,6 +30,7 @@ T1PD = {
 
 T2Land = {
 	key = 'T2Land',
+	combo = 'T2Land',
 	values = {
 		'bal0206', -- Zealot
 		'brnt2mt', -- Statue
@@ -37,6 +40,7 @@ T2Land = {
 
 T2Amph = {
 	key = 'T2Amph',
+	combo = 'T2Amph',
 	values = {
 		'brot2asb', -- Amphorak
 		'brnt2bm', -- Banshee
@@ -47,6 +51,7 @@ T2Amph = {
 
 T2PD = {
 	key = 'T2PD',
+	combo = 'T2PD',
 	values = {
 		'brot2epd', -- Daelek
 		'brnt2epd', -- Tower Boss
@@ -59,6 +64,7 @@ T2PD = {
 
 T3Land = {
 	key = 'T3Land',
+	combo = 'T3Land',
 	values = {
 		'brnt3bt', -- Bull
 		'brnt3wt', -- Warhammer
@@ -69,6 +75,7 @@ T3Land = {
 
 T3AmphAssault = {
 	key = 'T3AmphAssault',
+	combo = 'T3AmphAssault',
 	values = {
 		'brmt3bm2', -- Dervish
 		'brnt3abb', -- IronFist
@@ -80,6 +87,7 @@ T3AmphAssault = {
 
 T3PD = {
 	key = 'T3PD',
+	combo = 'T3PD',
 	values = {
 		'brmt3pd', -- Triple Threat
 		'brpt3pd', -- Athaamla
@@ -88,6 +96,7 @@ T3PD = {
 
 T4PD = {
 	key = 'T4PD',
+	combo = 'T4PD',
 	values = {
 		'brot3shpd', -- Mothra
 		'brnt3shpd', -- Blockhouse
@@ -97,6 +106,7 @@ T4PD = {
 
 T4Light = {
 	key = 'T4Light',
+	combo = 'T4Light',
 	values = {
 		'brot3shbm', -- Elias
 		'brot3ham', -- Ezriel

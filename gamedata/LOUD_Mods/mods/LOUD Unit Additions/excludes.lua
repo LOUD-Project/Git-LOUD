@@ -2,6 +2,7 @@
 
 ExpStorage = {
 	key = 'ExpStorage',
+	combo = 'ExpStorage',
 	values = {
 		'UAB8765',
 		'UEB8765',

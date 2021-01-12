@@ -10,7 +10,7 @@ config = {
 			},
 			{
 				text = 'Disabled',
-				key = 'exclude',
+				key = 'T1Land',
 			},
 		},
 	},

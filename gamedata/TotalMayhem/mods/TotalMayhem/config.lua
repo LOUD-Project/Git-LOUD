@@ -12,7 +12,7 @@ config = {
 			},
 			{
 				text = 'Disabled',
-				key = 'exclude',
+				key = 'T1Land',
 			},
 		},
 	},
@@ -27,7 +27,7 @@ config = {
 			},
 			{
 				text = 'Disabled',
-				key = 'exclude',
+				key = 'T1PD',
 			},
 		},
 	},
@@ -42,7 +42,7 @@ config = {
 			},
 			{
 				text = 'Disabled',
-				key = 'exclude',
+				key = 'T2Land',
 			},
 		},
 	},
@@ -57,7 +57,7 @@ config = {
 			},
 			{
 				text = 'Disabled',
-				key = 'exclude',
+				key = 'T2Amph',
 			},
 		},
 	},
@@ -72,7 +72,7 @@ config = {
 			},
 			{
 				text = 'Disabled',
-				key = 'exclude',
+				key = 'T2PD',
 			},
 		},
 	},
@@ -87,7 +87,7 @@ config = {
 			},
 			{
 				text = 'Disabled',
-				key = 'exclude',
+				key = 'T3Land',
 			},
 		}
 	},
@@ -102,7 +102,7 @@ config = {
 			},
 			{
 				text = 'Disabled',
-				key = 'exclude',
+				key = 'T3AmphAssault',
 			},
 		}
 	},
@@ -117,7 +117,7 @@ config = {
 			},
 			{
 				text = 'Disabled',
-				key = 'exclude',
+				key = 'T3PD',
 			},
 		},
 	},
@@ -132,7 +132,7 @@ config = {
 			},
 			{
 				text = 'Disabled',
-				key = 'exclude',
+				key = 'T4PD',
 			},
 		},
 	},
@@ -147,7 +147,7 @@ config = {
 			},
 			{
 				text = 'Disabled',
-				key = 'exclude',
+				key = 'T4Light',
 			},
 		},
 	},

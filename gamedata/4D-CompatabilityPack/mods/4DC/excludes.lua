@@ -2,8 +2,9 @@
 
 T1Land = {
 	key = 'T1Land',
+	combo = 'T1Land',
 	values = {
-		'UEL0108',
-		'UAL0108',
+		'uel0108', -- Crusher
+		'ual0108', -- Artos
 	},
 }
