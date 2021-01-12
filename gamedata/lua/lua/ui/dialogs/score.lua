@@ -3,7 +3,7 @@
 --* Author: Chris Blackwell
 --* Summary: Post game score dialog
 --*
---* Copyright © :005 Gas Powered Games, Inc.  All rights reserved.
+--* Copyright ï¿½ :005 Gas Powered Games, Inc.  All rights reserved.
 --*****************************************************************************
 
 local UIUtil = import('/lua/ui/uiutil.lua')
@@ -711,7 +711,7 @@ function CreateSkirmishScreen(victory, showCampaign, operationVictoryTable)
                 if not armyInfo.civilian and armyInfo.showScore then
                     local armyBg = Bitmap(gridGroup, UIUtil.SkinnableFile('/scx_menu/score-victory-defeat/player-back_bmp.dds'))
                     if prev then
-                        LayoutHelpers.Below(armyBg, prev, -5)
+                        LayoutHelpers.Below(armyBg, prev, -10)
                     else
                         LayoutHelpers.AtLeftTopIn(armyBg, gridGroup, -10, 50)
                     end
