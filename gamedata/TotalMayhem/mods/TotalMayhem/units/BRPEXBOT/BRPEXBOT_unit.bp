@@ -241,8 +241,8 @@ UnitBlueprint {
         SkirtOffsetX = -0.5,
         SkirtOffsetZ = -1,
 		
-        SkirtSizeX = 4,
-        SkirtSizeZ = 4,
+        SkirtSizeX = 3,
+        SkirtSizeZ = 3,
 		
         MotionType = 'RULEUMT_Amphibious',
 		

@@ -196,18 +196,18 @@ UnitBlueprint {
         MaxSpeedReverse = 1.0,
         MaxSteerForce = 1000,
         
-        MeshExtentsX = 6.5,
+        MeshExtentsX = 6,
         MeshExtentsY = 1.8,
-        MeshExtentsZ = 6.5,
+        MeshExtentsZ = 6,
         
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Hover',
 		
-        SkirtOffsetX = -2.5,
-        SkirtOffsetZ = -3,
+        SkirtOffsetX = -1,
+        SkirtOffsetZ = -1,
 		
-        SkirtSizeX = 10,
-        SkirtSizeZ = 10,
+        SkirtSizeX = 8,
+        SkirtSizeZ = 8,
 		
         RotateBodyWhileMoving = true,
 

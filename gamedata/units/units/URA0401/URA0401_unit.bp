@@ -240,8 +240,9 @@ UnitBlueprint {
         Elevation = 14,
         MaxSpeed = 9.5,
         MotionType = 'RULEUMT_Air',
-        SkirtOffsetX = -1.5,
-        SkirtOffsetZ = -1.5,
+        
+        SkirtOffsetX = -1,
+        SkirtOffsetZ = -1,
         SkirtSizeX = 8,
         SkirtSizeZ = 8,
     },

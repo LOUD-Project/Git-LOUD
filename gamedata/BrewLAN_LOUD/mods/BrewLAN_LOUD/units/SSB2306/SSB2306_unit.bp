@@ -136,6 +136,11 @@ UnitBlueprint {
 		
         RebuildBonusIds = { 'ssb2306' },
     },
+    
+    Footprint = {
+        SizeX = 1,
+        SizeZ = 1,
+    },
 
     General = {
 		CapCost = 2,

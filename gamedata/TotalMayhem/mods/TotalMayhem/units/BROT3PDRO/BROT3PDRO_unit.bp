@@ -70,7 +70,7 @@ UnitBlueprint {
         },
 
         SpawnRandomRotation = true,
-        UniformScale = 0.09,
+        UniformScale = 0.074,
     },
     
     Economy = {
@@ -130,17 +130,22 @@ UnitBlueprint {
             LAYER_Water = false,
         },
         DragCoefficient = 0.2,
+        
         FlattenSkirt = true,
+        
         MaxSteerForce = 0,
-        MeshExtentsX = 1.5,
+        
+        MeshExtentsX = 1.75,
         MeshExtentsY = 1.15,
-        MeshExtentsZ = 1.5,
+        MeshExtentsZ = 1.0,
+        
         MinSpeedPercent = 0,
+        
         MotionType = 'RULEUMT_None',
-        SkirtOffsetX = -0.5,
-        SkirtOffsetZ = -0.5,
+
         SkirtSizeX = 2,
         SkirtSizeZ = 2,
+        
         TurnRate = 0,
     },
     
@@ -148,9 +153,9 @@ UnitBlueprint {
     SelectionSizeZ = 1.0,
     SelectionThickness = 0.5,
 	
-    SizeX = 2.2,
-    SizeY = 1.4,
-    SizeZ = 1.25,
+    SizeX = 1.85,
+    SizeY = 1.25,
+    SizeZ = 1.05,
 	
     StrategicIconName = 'icon_structure3_directfire',
     StrategicIconSortPriority = 200,
@@ -202,7 +207,7 @@ UnitBlueprint {
             },
 			
             FiringTolerance = 2,
-            FiringRandomness = 0.9,
+            FiringRandomness = 1.0,
 			
             Label = 'MainGun',
 			
@@ -212,8 +217,9 @@ UnitBlueprint {
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0.4,     -- firing cycle 2.4 seconds
             MuzzleSalvoSize = 3,
-            MuzzleVelocity = 28,
-            MuzzleVelocityRandomness = 2.5,
+            MuzzleVelocity = 23,
+            MuzzleVelocityRandom = 2.2,
+            MuzzleVelocityReduceDistance = 100,
 			
             ProjectileId = '/mods/TotalMayhem/projectiles/BROT3PDROproj/BROT3PDROproj_proj.bp',
             ProjectileLifetimeUsesMultiplier = 8,
@@ -276,11 +282,12 @@ UnitBlueprint {
             Turreted = true,
 		},
     },
+    
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.5,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,

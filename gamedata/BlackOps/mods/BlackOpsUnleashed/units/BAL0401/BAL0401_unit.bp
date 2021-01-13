@@ -194,7 +194,7 @@ UnitBlueprint {
     },
 
     General = {
-		CapCost = 7,
+		CapCost = 9,
         Category = 'Direct Fire',
         Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
@@ -259,11 +259,11 @@ UnitBlueprint {
 		
 		StandUpright = true,
 		
-        SkirtOffsetX = 0,
-        SkirtOffsetZ = 0,
+        SkirtOffsetX = -0.50,
+        SkirtOffsetZ = -0.50,
 		
-        SkirtSizeX = 6,
-        SkirtSizeZ = 6,
+        SkirtSizeX = 4,
+        SkirtSizeZ = 4,
 		
         TurnRadius = 5,
         TurnRate = 40,

@@ -208,19 +208,19 @@ UnitBlueprint {
 		
 		LayerChangeOffsetHeight = -3.3,
 		
-        MaxAcceleration = 2.4,
-        MaxBrake = 2.4,
-        MaxSpeed = 2.4,
-        MaxSpeedReverse = 2.4,
+        MaxAcceleration = 0.85,
+        MaxBrake = 2.5,
+        MaxSpeed = 2.5,
+        MaxSpeedReverse = 2.5,
         MaxSteerForce = 15,
 		
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Amphibious',
 		
-        SkirtOffsetX = -1.5,
-        SkirtOffsetZ = -1.5,
-        SkirtSizeX = 5.5,
-        SkirtSizeZ = 5.5,
+        SkirtOffsetX = -1,
+        SkirtOffsetZ = -1,
+        SkirtSizeX = 5,
+        SkirtSizeZ = 5,
 		
 		StandUpright = true,
 		
@@ -229,17 +229,14 @@ UnitBlueprint {
 		
 		WaterSpeedMultiplier = 1.2,
     },
-	
-    SelectionCenterOffsetX = 0,
-    SelectionCenterOffsetZ = -0,
-	
+
     SelectionSizeX = 3,
     SelectionSizeZ = 3,
     SelectionThickness = 0.3,
 	
-    SizeX = 2.8,
+    SizeX = 3.2,
     SizeY = 4.4,
-    SizeZ = 2.8,
+    SizeZ = 3,
 	
     StrategicIconName = 'icon_experimental_land_missile',
     StrategicIconSortPriority = 116,
@@ -882,9 +879,9 @@ UnitBlueprint {
     },
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.2,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,

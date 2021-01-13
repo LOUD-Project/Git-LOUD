@@ -210,7 +210,7 @@ UnitBlueprint {
     },
 	
     Footprint = {
-        MaxSlope = 0.25,
+        MaxSlope = 0.2,
         SizeX = 9,
         SizeZ = 9,
     },
@@ -268,10 +268,10 @@ UnitBlueprint {
         MeshExtentsY = 2,
         MeshExtentsZ = 4,
         MotionType = 'RULEUMT_Air',
-        SkirtOffsetX = -1,
-        SkirtOffsetZ = -0.5,
-        SkirtSizeX = 10,
-        SkirtSizeZ = 10,
+        SkirtOffsetX = -0.5,
+        SkirtOffsetZ = 0,
+        SkirtSizeX = 9,
+        SkirtSizeZ = 9,
     },
 	
     SelectionSizeX = 5.5,
@@ -326,7 +326,7 @@ UnitBlueprint {
             
             EnergyDrainPerSecond = 1950,    -- this would be in addition to the 1000 it already drains - u might think this is excessive - but not even close.
                                             -- According to formula, this weapon should require close to 30k drain to recharge in 10 seconds
-            EnergyRequired = 19500,         -- 10 seconds to charge - 
+            EnergyRequired = 29250,         -- 15 seconds to charge - 
 			
             FireTargetLayerCapsTable = {
                 Air = 'Land|Water|Seabed',

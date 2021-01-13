@@ -221,11 +221,6 @@ UnitBlueprint {
         MaintenanceConsumptionPerSecondEnergy = 711,
     },
 	
-    Footprint = {
-        SizeX = 8,
-        SizeZ = 8,
-    },
-	
     General = {
 		CapCost = 10,
         Category = 'Direct Fire',
@@ -308,9 +303,14 @@ UnitBlueprint {
 		
         RotateBodyWhileMoving = true,
 
-        TurnFacingRate = 45,
+        SkirtOffsetX = -0.5,
+        SkirtOffsetZ = -0.5,
+        SkirtSizeX = 4,
+        SkirtSizeZ = 4,
+        
+        TurnFacingRate = 25,
         TurnRadius = 30,
-        TurnRate = 45,
+        TurnRate = 60,
 		
         WobbleFactor = 0.03,
         WobbleSpeed = 0.01,
