@@ -753,7 +753,7 @@ AIBrain = Class(moho.aibrain_methods) {
         local posX, posY = self:GetArmyStartPos()
         
         --LOG("*AI DEBUG ScenarioInfo is "..repr(ScenarioInfo))
-        
+--[[        
         if ScenarioInfo.BOACU_Installed then
 
             if factionIndex == 1 then
@@ -775,7 +775,7 @@ AIBrain = Class(moho.aibrain_methods) {
             end
         
         end
-        
+--]]        
         LOG("*AI DEBUG initialUnits is "..repr(initialUnits))
 
         if factionIndex == 1 then
