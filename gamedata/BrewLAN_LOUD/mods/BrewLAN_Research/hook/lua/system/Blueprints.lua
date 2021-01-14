@@ -43,11 +43,14 @@ function RNDPrepareScript(all_bps)
                 table.removeByValue(bp.Categories, 'CONSTRUCTIONSORTDOWN')
             end
             -- Harmonise built by commander and built by engineer
+            -- RAT: Don't do this in LOUD yet, maybe make it a research item
+            --[[
             if table.find(bp.Categories, 'BUILTBYCOMMANDER') and not table.find(bp.Categories, 'BUILTBYENGINEER') then
                 table.insert(bp.Categories, 'BUILTBYENGINEER')
             elseif not table.find(bp.Categories, 'BUILTBYCOMMANDER') and table.find(bp.Categories, 'BUILTBYENGINEER') then
                 table.insert(bp.Categories, 'BUILTBYCOMMANDER')
             end
+            --]]
         end
     end
 end
