@@ -8,22 +8,22 @@ ResearchItem = Class(DummyUnit) {
     OnCreate = function(self)
         local bp = self:GetBlueprint()
         DummyUnit.OnCreate(self)
-        --Restrict me, the RND item, to one being built at a time.
+        -- Restrict me, the RND item, to one being built at a time.
         AddBuildRestriction(self:GetArmy(), categories[bp.BlueprintId] )
     end,
 
-    OnStopBeingBuilt = function(self,builder,layer)
+    OnStopBeingBuilt = function(self, builder, layer)
         local bp = self:GetBlueprint()
-        --Enable what we were supposed to allow.
-        if bp.ResearchId == string.lower(bp.ResearchId) then --This wont work for any units without letters in the ID.
+        -- Enable what we were supposed to allow.
+        if bp.ResearchId == string.lower(bp.ResearchId) then -- This won't work for any units without letters in the ID.
             if self:CheckBuildRestrictionsAllow(bp.ResearchId) then
-                RemoveBuildRestriction(self:GetArmy(), categories[bp.ResearchId] )
+                RemoveBuildRestriction(self:GetArmy(), categories[bp.ResearchId])
             else
-                LOG("WARNING: Research item for " .. bp.ResearchId .. " was just completed, however lobby restrictions forbid it. Item shouldn't have been researchable.")
+                WARN("BLRESEARCH: Research item for " .. bp.ResearchId .. " was just completed, however lobby restrictions forbid it. Item shouldn't have been researchable.")
             end
         else -- else we are a category, not a unitID
             RemoveBuildRestriction(self:GetArmy(), (categories[bp.ResearchId] * categories[string.upper(bp.General.FactionName or 'SELECTABLE')]) - categories.RESEARCHLOCKED - categories[bp.BlueprintId] - (self:BuildRestrictionCategories()) )
-            --Unlock the next tech research as well.
+            -- Unlock the next tech research as well.
             if bp.ResearchId == 'RESEARCHLOCKEDTECH1' then
                 RemoveBuildRestriction(self:GetArmy(), categories.TECH2 * categories[string.upper(bp.General.FactionName or 'SELECTABLE')] * categories.CONSTRUCTIONSORTDOWN - (self:BuildRestrictionCategories()) )
             elseif bp.ResearchId == 'TECH2' then
@@ -33,14 +33,14 @@ ResearchItem = Class(DummyUnit) {
             end
         end
 
-        --Tell the manager this is done if we're an AI and presumably have a manager.
+        -- Tell the manager this is done if we're an AI and presumably have a manager.
         local AIBrain = self:GetAIBrain()
         if AIBrain.BrainType ~= 'Human' then
             AIBrain.BrewRND.MarkResearchComplete(AIBrain, bp.BlueprintId)
         end
 
-        --Before the rest, because the rest is Destroy(self)
-        DummyUnit.OnStopBeingBuilt(self,builder,layer)
+        -- Before the rest, because the rest is Destroy(self)
+        DummyUnit.OnStopBeingBuilt(self, builder, layer)
     end,
 
     CheckBuildRestrictionsAllow = function(self, WorkID)
@@ -66,16 +66,16 @@ ResearchItem = Class(DummyUnit) {
     BuildRestrictionCategories = function(self)
         local Restrictions = ScenarioInfo.Options.RestrictedCategories
         if not Restrictions or table.getn(Restrictions) == 0 then
-            --No restrictions
+            -- No restrictions
             return categories.NOTHINGIMPORTANT -- DE NADA
         elseif VersionIsFAF then
-            --FAF restrictions
+            -- FAF restrictions
             local restrictedCategories = categories.NOTHINGIMPORTANT
             for id, bool in Game.GetRestrictions().Global do
                 restrictedCategories = restrictedCategories + categories[id]
-                --Also restrict research items of blocked things.
-                --The there is no easy way to do this the other ways.
-                --So FAF actually functions better here.
+                -- Also restrict research items of blocked things.
+                -- The there is no easy way to do this the other ways.
+                -- So FAF actually functions better here.
                 if __blueprints[id .. 'rnd'] then
                     restrictedCategories = restrictedCategories + categories[id .. 'rnd']
                 end
@@ -95,7 +95,7 @@ ResearchItem = Class(DummyUnit) {
 
     OnKilled = function(self, instigator, type, overKillRatio)
         local bp = self:GetBlueprint()
-        --Allow restarting of me, the RND item, if I was never finished.
+        -- Allow restarting of me, the RND item, if I was never finished.
         if self:GetFractionComplete() < 1 then
             RemoveBuildRestriction(self:GetArmy(), categories[bp.BlueprintId] )
         end
@@ -104,7 +104,7 @@ ResearchItem = Class(DummyUnit) {
 
     OnDestroy = function(self)
         local bp = self:GetBlueprint()
-        --Allow restarting of me, the RND item, if I was never finished. In case of reclaim.
+        -- Allow restarting of me, the RND item, if I was never finished. In case of reclaim.
         if self:GetFractionComplete() < 1 then
             RemoveBuildRestriction(self:GetArmy(), categories[bp.BlueprintId] )
         end
@@ -116,8 +116,10 @@ ResearchItem = Class(DummyUnit) {
 -- Research Center AI
 --------------------------------------------------------------------------------
 local Buff = {}
---Wizardry to make FA buff scripts not break the game on original SupCom.
-if not string.sub(GetVersion(),1,3) == '1.1' or string.sub(GetVersion(),1,3) == '1.0' then Buff = import('/lua/sim/Buff.lua') else Buff.ApplyBuff = function() end end
+-- Wizardry to make FA buff scripts not break the game on original SupCom.
+if not string.sub(GetVersion(),1,3) == '1.1' or string.sub(GetVersion(),1,3) == '1.0' then
+    Buff = import('/lua/sim/Buff.lua') else Buff.ApplyBuff = function() end
+end
 --------------------------------------------------------------------------------
 ResearchFactoryUnit = Class(FactoryUnit) {
 
@@ -125,17 +127,17 @@ ResearchFactoryUnit = Class(FactoryUnit) {
     SetupComplete = true,
 
     OnStopBeingBuilt = function(self, builder, layer)
-        --If we're an AI
+        -- If we're an AI
         local AIBrain = self:GetAIBrain()
         if AIBrain.BrainType ~= 'Human' then
-            self.ResearchThread = self:ForkThread(self.ResearchThread) --Create the research thread
-            self:AICheatsBuffs()                 --CHEAT!
+            self.ResearchThread = self:ForkThread(self.ResearchThread) -- Create the research thread
+            self:AICheatsBuffs() -- CHEAT!
         end
         FactoryUnit.OnStopBeingBuilt(self, builder, layer)
     end,
 
     OnStopBuild = function(self, unitbuilding, order)
-        --Give buff based on what we researched
+        -- Give buff based on what we researched
         if unitbuilding.GetFractionComplete and unitbuilding:GetFractionComplete() == 1 then
             if EntityCategoryContains(categories.EXPERIMENTAL, unitbuilding) then
                 Buff.ApplyBuff(self, 'ResearchItemBuff5')
@@ -152,11 +154,11 @@ ResearchFactoryUnit = Class(FactoryUnit) {
 
     UpgradingState = State(FactoryUnit.UpgradingState) {
         OnStopBuild = function(self, unitbuilding, order)
-            --Pass on buffs to the replacement
+            -- Pass on buffs to the replacement
             if unitbuilding.GetFractionComplete and unitbuilding:GetFractionComplete() == 1 and order == 'Upgrade' then
                 if self.Buffs.BuffTable.RESEARCH then
                     for buff, data in self.Buffs.BuffTable.RESEARCH do
-                        if Buffs[buff] then --Ensure that the data structure is the same as we are expecting.
+                        if Buffs[buff] then -- Ensure that the data structure is the same as we are expecting.
                             for i = 1, (data.Count or 1) do
                                 LOG('Passing on buff: ' .. buff)
                                 Buff.ApplyBuff(unitbuilding, buff)
@@ -197,7 +199,7 @@ ResearchFactoryUnit = Class(FactoryUnit) {
     Research = function(self)
         local AIBrain = self:GetAIBrain()
         local bp = self:GetBlueprint()
-        --Upgrade if we can first
+        -- Upgrade if we can first
         if bp.General.UpgradesTo and __blueprints[bp.General.UpgradesTo] and self:CanBuild(bp.General.UpgradesTo) then
             IssueUpgrade({self}, bp.General.UpgradesTo)
         else
@@ -205,8 +207,8 @@ ResearchFactoryUnit = Class(FactoryUnit) {
         end
     end,
 
-    --Applied OnStopBeingBuilt.
-    --Passed on with the other buffs on upgrade.
+    -- Applied OnStopBeingBuilt.
+    -- Passed on with the other buffs on upgrade.
     AICheatsBuffs = function(self)
         local AIBrain = self:GetAIBrain()
         if AIBrain.CheatEnabled then
@@ -233,7 +235,7 @@ end
 --------------------------------------------------------------------------------
 local WindEnergyMin = false
 local WindEnergyRange = false
---These are defined here so they are global for the turbines, and only 1 has to define it.
+-- These are defined here so they are global for the turbines, and only 1 has to define it.
 WindEnergyCreationUnit = Class(EnergyCreationUnit) {
 
     OnStopBeingBuilt = function(self,builder,layer)
@@ -243,7 +245,7 @@ WindEnergyCreationUnit = Class(EnergyCreationUnit) {
         ------------------------------------------------------------------------
         self:SetProductionPerSecondEnergy(0)
         self.Spinners = {
-            --CreateRotator(unit, bone, axis, [goal], [speed], [accel], [goalspeed])
+            -- CreateRotator(unit, bone, axis, [goal], [speed], [accel], [goalspeed])
             CreateRotator(self, 'Tower', 'z', 0, 5, 1),
             CreateRotator(self, 'Rotors', 'z', nil, 0, 100, 0),
         }
@@ -257,11 +259,11 @@ WindEnergyCreationUnit = Class(EnergyCreationUnit) {
             local min = bp.ProductionPerSecondEnergyMin or 5
             local max = bp.ProductionPerSecondEnergyMax or 30
             if (min + max) / 2 == mean then
-                --Then nothing has messed with the numbers, or something messed with all of them.
+                -- Then nothing has messed with the numbers, or something messed with all of them.
                 WindEnergyMin = min
                 WindEnergyRange = max - min
             else
-                --Something has messed with the numbers, and we should move to match.
+                -- Something has messed with the numbers, and we should move to match.
                 local mult = mean / 17.5
                 WindEnergyMin = min * mult
                 WindEnergyRange = (max - min) * mult
@@ -292,11 +294,12 @@ WindEnergyCreationUnit = Class(EnergyCreationUnit) {
 }
 
 -- Note: Commented out for LOUD as we aren't using Tidal power generators as part of the Research mod.
+--[[
 --------------------------------------------------------------------------------
 -- Tidal generator stuff
 --------------------------------------------------------------------------------
---local GetEstimateMapWaterRatioFromGrid = function(grid)
---    --aibrain:GetMapWaterRatio()
+-- local GetEstimateMapWaterRatioFromGrid = function(grid)
+--    -- aibrain:GetMapWaterRatio()
 --    if not grid then grid = 4 end
 --    local totalgrids = grid * grid
 --    local watergrids = 0
@@ -313,13 +316,13 @@ WindEnergyCreationUnit = Class(EnergyCreationUnit) {
 --        end
 --    end
 --    return watergrids / totalgrids
---end
+-- end
 --
 --------------------------------------------------------------------------------
---local TidalEnergyMin = false
---local TidalEnergyRange = false
---These are defined here so they are global for the turbines, and only 1 has to define it.
---TidalEnergyCreationUnit = Class(EnergyCreationUnit) {
+-- local TidalEnergyMin = false
+-- local TidalEnergyRange = false
+-- These are defined here so they are global for the turbines, and only 1 has to define it.
+-- TidalEnergyCreationUnit = Class(EnergyCreationUnit) {
 --
 --    OnStopBeingBuilt = function(self,builder,layer)
 --        EnergyCreationUnit.OnStopBeingBuilt(self,builder,layer)
@@ -328,7 +331,7 @@ WindEnergyCreationUnit = Class(EnergyCreationUnit) {
 --        ------------------------------------------------------------------------
 --        self:SetProductionPerSecondEnergy(0)
 --        self.Spinners = {
---            --CreateRotator(unit, bone, axis, [goal], [speed], [accel], [goalspeed])
+--            -- CreateRotator(unit, bone, axis, [goal], [speed], [accel], [goalspeed])
 --            CreateRotator(self, 'Rotors', 'z', nil, 0, 100, 0),
 --        }
 --        ------------------------------------------------------------------------
@@ -390,13 +393,13 @@ WindEnergyCreationUnit = Class(EnergyCreationUnit) {
 --------------------------------------------------------------------------------
 -- Scripts for directional anti-AA-missile flares for aircraft
 --------------------------------------------------------------------------------
---local AntiWeapons = import('/lua/defaultantiprojectile.lua')
---local AAFlare = AntiWeapons.AAFlare
---local MissileDetector = AntiWeapons.MissileDetector
+-- local AntiWeapons = import('/lua/defaultantiprojectile.lua')
+-- local AAFlare = AntiWeapons.AAFlare
+-- local MissileDetector = AntiWeapons.MissileDetector
 --------------------------------------------------------------------------------
---local MissileDetectorRadius = {}
+-- local MissileDetectorRadius = {}
 --------------------------------------------------------------------------------
---BaseDirectionalAntiMissileFlare = Class() {
+-- BaseDirectionalAntiMissileFlare = Class() {
 --    CreateMissileDetector = function(self)
 --        local bp = self:GetBlueprint()
 --        local MDbp = bp.Defense.MissileDetector
@@ -424,3 +427,4 @@ WindEnergyCreationUnit = Class(EnergyCreationUnit) {
 --        }
 --    end,
 --}
+--]]

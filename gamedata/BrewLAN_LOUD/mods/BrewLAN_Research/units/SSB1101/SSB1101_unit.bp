@@ -109,7 +109,7 @@ UnitBlueprint {
         BuildCostEnergy = 500,
         BuildCostMass = 30,
         BuildTime = 85,
-        ProductionPerSecondEnergy = 15,--Mean value.
+        ProductionPerSecondEnergy = 15,-- Mean value.
         ProductionPerSecondEnergyMin = 5,
         ProductionPerSecondEnergyMax = 25,
         RebuildBonusIds = {

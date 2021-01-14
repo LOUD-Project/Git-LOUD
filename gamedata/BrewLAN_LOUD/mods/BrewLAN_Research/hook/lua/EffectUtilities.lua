@@ -59,14 +59,15 @@ function IntelDishAnimationThread(self, bones)
                     active,
                 }
             )
-            --CreateRotator(unit, bone, axis, [goal], [speed], [accel], [goalspeed])
+            -- CreateRotator(unit, bone, axis, [goal], [speed], [accel], [goalspeed])
         end
     end
     while true do
-        --LOG(self.Intel)
+        -- LOG(self.Intel)
         if self.Intel then
             for i, v in self.Rotators do
-                if math.random(1,40) < v[4] and v[6] then --v[5] is so individual arrays can be turned off, nil check is for backwards compatibility.
+                 -- v[5] is so individual arrays can be turned off, nil check is for backwards compatibility.
+                if math.random(1,40) < v[4] and v[6] then
                     v[1]:SetGoal(math.random(v[3][1],v[3][2]))
                     v[2]:SetGoal(math.random(v[3][3],v[3][4]))
                     WaitTicks(math.random(1,3))

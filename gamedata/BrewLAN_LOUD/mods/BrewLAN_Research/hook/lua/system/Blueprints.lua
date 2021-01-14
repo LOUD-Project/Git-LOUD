@@ -21,28 +21,28 @@ end
 --------------------------------------------------------------------------------
 function RNDPrepareScript(all_bps)
     for id, bp in all_bps do
-        --Hard link upgrades, instead of soft-category linking, to prevent splurged links
-        --If they don't have a buildable category, we probably don't want to mess with it, and the upgrade tag is probably a mistake. Also make sure the thing exists.
+        -- Hard link upgrades, instead of soft-category linking, to prevent splurged links
+        -- If they don't have a buildable category, we probably don't want to mess with it, and the upgrade tag is probably a mistake. Also make sure the thing exists.
         if bp.General.UpgradesTo and bp.Economy.BuildableCategory and not table.find(bp.Economy.BuildableCategory, bp.General.UpgradesTo) and all_bps[bp.General.UpgradesTo] then
             table.insert(bp.Economy.BuildableCategory, bp.General.UpgradesTo)
             table.remove(all_bps[bp.General.UpgradesTo].Categories, TableFindSubstrings(all_bps[bp.General.UpgradesTo].Categories, 'BUILTBY', 'FACTORY'))
         end
         if bp.Categories and id ~= 'zzz6969' then -- zzz6969 is a cat dump unit for compatibility
-            --Create extended tech 1 restriction and allow the ACU to build them after the research
+            -- Create extended tech 1 restriction and allow the ACU to build them after the research
             if table.find(bp.Categories, 'BUILTBYTIER1ENGINEER') and not table.find(bp.Categories, 'BUILTBYCOMMANDER') then
                 table.insert(bp.Categories, 'RESEARCHLOCKEDTECH1')
                 table.insert(bp.Categories, 'BUILTBYCOMMANDER')
             end
-            --Kill off TEIR N requirements from all build categories
-            --Levels the playing field for tech, so it's handled entirely by the research
+            -- Kill off TIER N requirements from all build categories
+            -- Levels the playing field for tech, so it's handled entirely by the research
             CategoryArrayRemoveTierN(all_bps, bp.Economy.BuildableCategory)
             CategoryArrayRemoveTierN(all_bps, bp.Categories)
-            --Construction sort down on existing units will now cause upgrades to be appearing on a tech level bellow where players will expect.
-            --so it gets removed here. The tech level researches still use them.
+            -- Construction sort down on existing units will now cause upgrades to be appearing on a tech level below where players will expect.
+            -- so it gets removed here. The tech level researches still use them.
             if table.find(bp.Categories, 'CONSTRUCTIONSORTDOWN') then
                 table.removeByValue(bp.Categories, 'CONSTRUCTIONSORTDOWN')
             end
-            --Harmonise built by commander and built by engineer
+            -- Harmonise built by commander and built by engineer
             if table.find(bp.Categories, 'BUILTBYCOMMANDER') and not table.find(bp.Categories, 'BUILTBYENGINEER') then
                 table.insert(bp.Categories, 'BUILTBYENGINEER')
             elseif not table.find(bp.Categories, 'BUILTBYCOMMANDER') and table.find(bp.Categories, 'BUILTBYENGINEER') then
@@ -57,71 +57,71 @@ end
 --------------------------------------------------------------------------------
 function RestrictExistingBlueprints(all_bps)
     local restrict = {
-        --T1 power generators
+        -- T1 power generators
         'ueb1101',
         'uab1101',
         'urb1101',
         'xsb1101',
-		--T1 heavy point defences
+		-- T1 heavy point defences
 		'brnt1hpd', -- UEF AT Defense
 		'brmt1pd', -- Cybran Improved Point Defense
 		'brot1hpd', -- Aeon Enhanced Point Defense
 		'brpt1pd', -- Sera Heavy Point Defense
-		--T1 multi-role point defences
+		-- T1 multi-role point defences
 		'brnt1expd', -- UEF Gatling Defense System
 		'brmt1expd', -- Cybran Microwave PD/AA Defense
 		'brot1expd', -- Aeon Multirole Point Defense
-		--Seraphim don't have a multi-role T1 PD.
-		--T1 Medium Land Factory Units
+		-- Seraphim don't have a multi-role T1 PD.
+		-- T1 Medium Land Factory Units
 		'uel0107', -- UEF Mortar Hovercraft
 		'brmt1bt', -- Cybran Amphibious Tank
 		'brot1bt', -- Aeon Assault Gun
 		'brpt1ht', -- Sera Medium Hovertank
-		--T1 Heavy Land Factory Units
+		-- T1 Heavy Land Factory Units
 		'uel0108', -- UEF Assault Tank
 		'brmt1exm1', -- Cybran Medium Assault Bot
 		'brot1exm1', -- Aeon Assault Bot
 		'brpt1exm1', -- Sera Medium Assault Bot
-		--T1 Extras (Land Factory)
+		-- T1 Extras (Land Factory)
 		'ual0108', -- Aeon Light Assault Walker
 		'bal0110', -- Aeon Light Sniper Bot
 		'brot1mt', -- Aeon Light Tank
 		'brot1ml', -- Aeon Light Rocket Artillery
-		--T1 Bombers
+		-- T1 Bombers
 		'uaa0103',
 		'uea0103',
 		'ura0103',
 		'xsa0103',
-		--T1 Torpedo Bombers
+		-- T1 Torpedo Bombers
 		'saa0106',
 		'sea0106',
 		'sra0106',
 		'ssa0106',
-		--T1 Extras (Air Factory)
+		-- T1 Extras (Air Factory)
 		'xra0105', -- Cybran Light Gunship
-		--T1 Navy
+		-- T1 Navy
 		'uas0102', -- Aeon Attack Boat
-		--T1 Hydrocarbons
+		-- T1 Hydrocarbons
 		'uab1102',
 		'ueb1102',
 		'urb1102',
 		'xsb1102',
-        --T2 power generators
+        -- T2 power generators
         'ueb1201',
         'uab1201',
         'urb1201',
         'xsb1201',
-		--T2 Mass Fabs
+		-- T2 Mass Fabs
 		'uab1104',
 		'ueb1104',
 		'urb1104',
 		'xsb1104',
-		--T2 Hydrocarbons
+		-- T2 Hydrocarbons
 		'bab1202',
 		'beb1202',
 		'brb1202',
 		'bsb1202',
-		--T2 Point Defense
+		-- T2 Point Defense
 		'brnt2pd2', -- UEF Point Defense
 		'brnt2epd', -- UEF Plasma Cannon
 		'beb2303', -- UEF Rapid Light Howitzer
@@ -131,38 +131,38 @@ function RestrictExistingBlueprints(all_bps)
 		'brot2epd', -- Aeon Advanced Multi-role Point Defense
 		'bab2303', -- Aeon Energy Mortar Emplacement
 		'brpt2pd', -- Sera Multirole Improved Point Defense
-		--T2 Tac Missile Launchers
+		-- T2 Tac Missile Launchers
 		'uab2108',
 		'ueb2108',
 		'urb2108',
 		'xsb2108',
-		--T2 Tac Missile Defenses
+		-- T2 Tac Missile Defenses
 		'uab4201',
 		'ueb4201',
 		'urb4201',
 		'xsb4201',
-		--T2 Air Pads
+		-- T2 Air Pads
 		'uab5202',
 		'ueb5202',
 		'urb5202',
 		'xsb5202',
-		--T2 Anti-Teleport
+		-- T2 Anti-Teleport
 		'bab4209',
 		'beb4209',
 		'brb4209',
 		'bsb4209',
-		--T2 Stealth Field
+		-- T2 Stealth Field
 		'uab4203',
 		'ueb4203',
 		'urb4203',
 		'xsb4203',
-		--T2 Land Factory Units
+		-- T2 Land Factory Units
 		'bal0206', -- Aeon Assault Tank
 		'ual0202', -- Aeon Heavy Tank
 		'ual0204', -- Aeon Sniper Bot
 		'brot2asb', -- Aeon Amphib Assault Bot
 		'ual0111', -- Aeon Mobile Missile Launcher
-		--TODO
+		-- TODO
     }
     for i, id in restrict do
         if all_bps[id] then
@@ -175,74 +175,76 @@ end
 --------------------------------------------------------------------------------
 -- Rebalance a few vanilla units
 --------------------------------------------------------------------------------
---function RebalanceExistingBlueprints(all_bps)
---    local t3radars = {
---        uab3104 = 'sab3301',
---        ueb3104 = 'seb3301',
---        urb3104 = 'srb3301',
---        xsb3104 = 'ssb3302',--Forgot the optics tracking facility was already SSB3301
---    }
---    for id, omniID in t3radars do
---        local bp = all_bps[id]
---        local omnibp = all_bps[omniID]
---        if bp and omnibp then
---            if bp.Intel.OmniRadius and bp.Intel.OmniRadius ~= 0 and bp.Economy.MaintenanceConsumptionPerSecondEnergy and bp.Economy.BuildCostEnergy and bp.Economy.BuildCostMass and bp.Economy.BuildTime then
---                --Scale omni radii
---                omnibp.Intel.OmniRadius = bp.Intel.OmniRadius * 1.5
---                bp.Intel.OmniRadius = nil
---
---                --Remove omni categories
---                if bp.Categories and type(bp.Categories) == 'table' then
---                    table.removeByValue(bp.Categories, 'OMNI')
---                    table.removeByValue(bp.Categories, 'OVERLAYOMNI')
---                    if not table.find(bp.Categories, 'RADAR') then
---                        table.insert(bp.Categories, 'RADAR')
---                    end
---                end
---
---                --Remove omni visiual elements
---                if bp.Display.Abilities and type(bp.Display.Abilities) == 'table' then
---                    table.removeByValue(bp.Display.Abilities, 'Omni')
---                    table.removeByValue(bp.Display.Abilities, 'Omni Sensor')
---                    table.removeByValue(bp.Display.Abilities, '<LOC ability_omni>Omni Sensor')
---                end
---                if bp.General.OrderOverrides.RULEUTC_IntelToggle then
---                    bp.General.OrderOverrides.RULEUTC_IntelToggle.bitmapId = 'radar'
---                    bp.General.OrderOverrides.RULEUTC_IntelToggle.helpText = 'toggle_radar'
---                end
---                bp.Description = '<LOC ueb3201_desc>Radar System'
---
---                --Scale health
---                omnibp.Defense.Health = bp.Defense.Health * 5
---                omnibp.Defense.MaxHealth = bp.Defense.MaxHealth * 5
---
---                --Scale costs
---                omnibp.Economy.MaintenanceConsumptionPerSecondEnergy = bp.Economy.MaintenanceConsumptionPerSecondEnergy * 1.5
---                omnibp.Economy.BuildCostEnergy = bp.Economy.BuildCostEnergy * 1.2
---                omnibp.Economy.BuildCostEnergy = bp.Economy.BuildCostEnergy * 1.2
---                omnibp.Economy.BuildTime = bp.Economy.BuildTime * 1.2
---
---                --Adjust costs
---                bp.Economy.MaintenanceConsumptionPerSecondEnergy = bp.Economy.MaintenanceConsumptionPerSecondEnergy * 0.5
---                bp.Economy.BuildCostEnergy = bp.Economy.BuildCostEnergy / 3 * 2
---                bp.Economy.BuildCostMass = bp.Economy.BuildCostMass / 3 * 2
---                bp.Economy.BuildTime = bp.Economy.BuildTime / 3 * 2
---            end
---        end
---    end
---end
+--[[
+function RebalanceExistingBlueprints(all_bps)
+   local t3radars = {
+       uab3104 = 'sab3301',
+       ueb3104 = 'seb3301',
+       urb3104 = 'srb3301',
+       xsb3104 = 'ssb3302',-- Forgot the optics tracking facility was already SSB3301
+   }
+   for id, omniID in t3radars do
+       local bp = all_bps[id]
+       local omnibp = all_bps[omniID]
+       if bp and omnibp then
+           if bp.Intel.OmniRadius and bp.Intel.OmniRadius ~= 0 and bp.Economy.MaintenanceConsumptionPerSecondEnergy and bp.Economy.BuildCostEnergy and bp.Economy.BuildCostMass and bp.Economy.BuildTime then
+               -- Scale omni radii
+               omnibp.Intel.OmniRadius = bp.Intel.OmniRadius * 1.5
+               bp.Intel.OmniRadius = nil
+
+               -- Remove omni categories
+               if bp.Categories and type(bp.Categories) == 'table' then
+                   table.removeByValue(bp.Categories, 'OMNI')
+                   table.removeByValue(bp.Categories, 'OVERLAYOMNI')
+                   if not table.find(bp.Categories, 'RADAR') then
+                       table.insert(bp.Categories, 'RADAR')
+                   end
+               end
+
+               -- Remove omni visiual elements
+               if bp.Display.Abilities and type(bp.Display.Abilities) == 'table' then
+                   table.removeByValue(bp.Display.Abilities, 'Omni')
+                   table.removeByValue(bp.Display.Abilities, 'Omni Sensor')
+                   table.removeByValue(bp.Display.Abilities, '<LOC ability_omni>Omni Sensor')
+               end
+               if bp.General.OrderOverrides.RULEUTC_IntelToggle then
+                   bp.General.OrderOverrides.RULEUTC_IntelToggle.bitmapId = 'radar'
+                   bp.General.OrderOverrides.RULEUTC_IntelToggle.helpText = 'toggle_radar'
+               end
+               bp.Description = '<LOC ueb3201_desc>Radar System'
+
+               -- Scale health
+               omnibp.Defense.Health = bp.Defense.Health * 5
+               omnibp.Defense.MaxHealth = bp.Defense.MaxHealth * 5
+
+               -- Scale costs
+               omnibp.Economy.MaintenanceConsumptionPerSecondEnergy = bp.Economy.MaintenanceConsumptionPerSecondEnergy * 1.5
+               omnibp.Economy.BuildCostEnergy = bp.Economy.BuildCostEnergy * 1.2
+               omnibp.Economy.BuildCostEnergy = bp.Economy.BuildCostEnergy * 1.2
+               omnibp.Economy.BuildTime = bp.Economy.BuildTime * 1.2
+
+               -- Adjust costs
+               bp.Economy.MaintenanceConsumptionPerSecondEnergy = bp.Economy.MaintenanceConsumptionPerSecondEnergy * 0.5
+               bp.Economy.BuildCostEnergy = bp.Economy.BuildCostEnergy / 3 * 2
+               bp.Economy.BuildCostMass = bp.Economy.BuildCostMass / 3 * 2
+               bp.Economy.BuildTime = bp.Economy.BuildTime / 3 * 2
+           end
+       end
+   end
+end
 
 -- Note: Commented out for LOUD as we don't use separate factories for hovercraft.
---------------------------------------------------------------------------------
+-- ------------------------------------------------------------------------------
 -- Create build categories for the amphib/sub/seaplane factories
---------------------------------------------------------------------------------
---function RNDDefineNewFactoryBuildCategories(all_bps)
---    for id, bp in all_bps do
---        if TableFindSubstrings(bp.Categories, 'BUILTBY', 'FACTORY') and (string.upper(bp.Physics.MotionType or 'nope') == 'RULEUMT_HOVER' or string.lower(bp.Physics.MotionType or 'nope') == 'ruleumt_amphibiousfloating') then
---            table.insert(bp.Categories, 'BUILTBYAMPHFACTORY')
---        end
---    end
---end
+-- ------------------------------------------------------------------------------
+function RNDDefineNewFactoryBuildCategories(all_bps)
+   for id, bp in all_bps do
+       if TableFindSubstrings(bp.Categories, 'BUILTBY', 'FACTORY') and (string.upper(bp.Physics.MotionType or 'nope') == 'RULEUMT_HOVER' or string.lower(bp.Physics.MotionType or 'nope') == 'ruleumt_amphibiousfloating') then
+           table.insert(bp.Categories, 'BUILTBYAMPHFACTORY')
+       end
+   end
+end
+--]]
 
 --------------------------------------------------------------------------------
 -- Make some research items
@@ -261,7 +263,9 @@ function GenerateResearchItemBPs(all_bps)
         end
     end
 
-    if tablesize > 10 then -- This is to prevent it from regenerating them during disk watch. It could probably be ~= 1, but I wanted to be safe.
+    -- This is to prevent it from regenerating them during disk watch.
+    -- It could probably be ~= 1, but I wanted to be safe.
+    if tablesize > 10 then
         local techresearch = {
             RESEARCHLOCKEDTECH1 = {
                 techid = 1,
@@ -329,7 +333,7 @@ function GenerateResearchItemBPs(all_bps)
                 RNDGiveCategoriesAndDefineCosts(all_bps, newid, bp)
                 all_bps[newid].Display.BuildMeshBlueprint = '/mods/brewlan_units/brewresearch/meshes/tech'..bp.techid..'_mesh'
                 all_bps[newid].Display.MeshBlueprint = '/mods/brewlan_units/brewresearch/meshes/tech'..bp.techid..'_mesh'
-                --LOG(repr(all_bps[newid]))
+                -- LOG(repr(all_bps[newid]))
             end
         end
     end
@@ -361,7 +365,7 @@ function RNDGenerateBaseResearchItemBlueprint(all_bps, newid, id, bp)
             Abilities = {
                 '<LOC ability_rnd_unlock>Research Unlock',
             },
-            UniformScale = (bp.Display.UniformScale or 0.2) / sizescale, --calculate properly based on footprint size
+            UniformScale = (bp.Display.UniformScale or 0.2) / sizescale, -- calculate properly based on footprint size
         },
         Footprint = {
             SizeX = 2,
@@ -390,7 +394,7 @@ function RNDGenerateBaseResearchItemBlueprint(all_bps, newid, id, bp)
             MeshExtentsX = (bp.Physics.MeshExtentsX or bp.SizeX or sizescale * 2) / sizescale,
             MeshExtentsY = (bp.Physics.MeshExtentsY or bp.SizeY or sizescale) / sizescale,
             MeshExtentsZ = (bp.Physics.MeshExtentsZ or bp.SizeZ or sizescale * 2) / sizescale,
-            --And now some more lies.
+            -- And now some more lies.
             MaxSpeed = 1,
             MotionType = 'RULEUMT_Amphibious',
         },
@@ -406,27 +410,32 @@ end
 
 function RNDGiveCategoriesAndDefineCosts(all_bps, newid, ref)
     local bp = all_bps[newid]
-    for i, v in {'TECH1','TECH2','TECH3','EXPERIMENTAL', 'UEF', 'CYBRAN', 'SERAPHIM', 'AEON', 'SORTSTRATEGIC', 'SORTCONSTRUCTION', 'SORTDEFENSE', 'SORTECONOMY', 'SORTINTEL', 'CONSTRUCTIONSORTDOWN', 'RESEARCHLOCKEDTECH1', 'AIR', 'LAND', 'NAVAL'} do
+    local cats = {
+        'TECH1', 'TECH2', 'TECH3', 'EXPERIMENTAL', 'UEF', 'CYBRAN', 'SERAPHIM', 'AEON',
+        'SORTSTRATEGIC', 'SORTCONSTRUCTION', 'SORTDEFENSE', 'SORTECONOMY', 'SORTINTEL',
+        'CONSTRUCTIONSORTDOWN', 'RESEARCHLOCKEDTECH1', 'AIR', 'LAND', 'NAVAL'
+    }
+    for i, v in cats do
         if table.find(ref.Categories, v) then
-            --If the source has the cat, the research item also needs it.
+            -- If the source has the cat, the research item also needs it.
             table.insert(bp.Categories, v)
             if i < 5 then -- if I is less than 5 we are dealing with T1, T2, T3, or Experimental
-                local CostMults = {1, 1.25, 1.5, 1} --Resource cost multiplier per tech level.
-                local maxOutput = { --Maximum research output of a tech 1
+                local CostMults = {1, 1.25, 1.5, 1} -- Resource cost multiplier per tech level.
+                local maxOutput = { -- Maximum research output of a tech 1
                     {5, 50},
                     {10, 100},
                     {15, 150},
                     {20, 200},
                 }
-                --If we haven't got a pre-defined cost multiplier, then we use the defaults defined in CostMults.
-                --Units should only exist in one of the first four cats, so this shouldn't stack, except for mods that dont count Experimental as == Tech 4
+                -- If we haven't got a pre-defined cost multiplier, then we use the defaults defined in CostMults.
+                -- Units should only exist in one of the first four cats, so this shouldn't stack, except for mods that dont count Experimental as == Tech 4
                 if not (ref.Economy.ResearchMultEnergy or ref.Economy.ResearchMult) then
                     bp.Economy.BuildCostEnergy = bp.Economy.BuildCostEnergy * CostMults[1]
                 end
                 if not (ref.Economy.ResearchMultMass or ref.Economy.ResearchMult) then
                     bp.Economy.BuildCostMass = bp.Economy.BuildCostMass * CostMults[1]
                 end
-                --Research times based on max cost per second instead.
+                -- Research times based on max cost per second instead.
                 bp.Economy.BuildTime = math.floor(math.max(bp.Economy.BuildCostMass / maxOutput[i][1] * 50, bp.Economy.BuildCostEnergy / maxOutput[i][2] * 50 ))
             end
         end
@@ -471,7 +480,7 @@ function TableFindSubstrings(table, string1, string2)
     end
 end
 
---Making unique mesh blueprints was unessessary, but I haven't bothered uncoupling the essential part of this.
+-- Making unique mesh blueprints was unessessary, but I haven't bothered uncoupling the essential part of this.
 function RNDGiveUniqueMeshBlueprints(all_bps, newid, ref)
     local bp = all_bps[newid]
     for i, mesh in {'BuildMeshBlueprint', 'MeshBlueprint'} do
@@ -491,8 +500,8 @@ function RNDGiveUniqueMeshBlueprints(all_bps, newid, ref)
     }
 end
 
---This isn't nessessary for its original purpose, but it doesn't hurt to keep it around
---It's also a mess for cleanup, since it leaves table floating nowhere. Possible memory leak?
+-- This isn't nessessary for its original purpose, but it doesn't hurt to keep it around
+-- It's also a mess for cleanup, since it leaves table floating nowhere. Possible memory leak?
 function CleanupDuplicateArrayKeys(array)
     local original = array
     local new = {}
@@ -516,12 +525,12 @@ function CategoryArrayRemoveTierN(all_bps, table)
 end
 
 function DumpOldBuiltByCategories(all_bps, cat)
-    --This dumping of old categories is so that they remain valid categories, but categories that do nothing when other mods affect and reference them.
+    -- This dumping of old categories is so that they remain valid categories,
+    -- but categories that do nothing when other mods affect and reference them.
     if not all_bps.zzz6969 then all_bps.zzz6969 = {BlueprintId = 'zzz6969',Categories = {'NOTHINGIMPORTANT'}} end
     if all_bps.zzz6969 and not table.find(all_bps.zzz6969.Categories, cat) then
         table.insert(all_bps.zzz6969.Categories, cat)
     end
 end
-
 
 end

@@ -1,9 +1,9 @@
---ISO_639-1_code=ZH
---Translator: 
+-- ISO_639-1_code=ZH
+-- Translator: 
 
 --研究中心
 seb9301_desc="研究中心"
---UEF
+-- UEF
 seb9101_name="泰森校园"
 seb9201_name="萨根校园"
 seb9301_name="霍金校园"
@@ -138,8 +138,8 @@ sab3301_name="海姆达尔"
 ssb3302_name="Selaez"
 Unit_Description_RND_012="传感器阵列。能够识别通过隐身斗篷和目标，并清除干扰光点。"
 
---T3.5先进的轰炸机
---sa0314_desc="侵彻"
+-- T3.5先进的轰炸机
+-- sa0314_desc="侵彻"
 sa0314_desc="侵彻炸弹"
 sea0314_name="蓝瑟"
 saa0314_name="尖叫"
@@ -153,7 +153,7 @@ Unit_Description_RND_023="最高端的远程隐形战略轰炸机。配有炸弹
 --抗SAM和反AAM耀斑
 ability_missiledef="导弹防御系统"
 
---T3.5先进战机
+-- T3.5先进战机
 sa0313_desc="穿透战斗机"
 sea0313_name="雄貓"
 saa0313_name="赫利俄斯"
@@ -164,7 +164,7 @@ Unit_Description_RND_026="最高端的远程隐形战机。配备双螺旋一阵
 Unit_Description_RND_025="最高端的远程隐形战斗机。配备了重粒子炮，反导弹弹。能够狩猎侦察机。"
 --[description]
 
---Ekranoplan运输
+-- Ekranoplan运输
 ss0326_desc="重型运输GEV"
 ses0326_name="КМ66Seamonster"
 srs0326_name="Deltawing"
