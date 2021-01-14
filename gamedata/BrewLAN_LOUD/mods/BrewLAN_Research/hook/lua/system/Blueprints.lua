@@ -22,7 +22,8 @@ end
 function RNDPrepareScript(all_bps)
     for id, bp in all_bps do
         -- Hard link upgrades, instead of soft-category linking, to prevent splurged links
-        -- If they don't have a buildable category, we probably don't want to mess with it, and the upgrade tag is probably a mistake. Also make sure the thing exists.
+        -- If they don't have a buildable category, we probably don't want to mess with it,
+        -- and the upgrade tag is probably a mistake. Also make sure the thing exists.
         if bp.General.UpgradesTo and bp.Economy.BuildableCategory and not table.find(bp.Economy.BuildableCategory, bp.General.UpgradesTo) and all_bps[bp.General.UpgradesTo] then
             table.insert(bp.Economy.BuildableCategory, bp.General.UpgradesTo)
             table.remove(all_bps[bp.General.UpgradesTo].Categories, TableFindSubstrings(all_bps[bp.General.UpgradesTo].Categories, 'BUILTBY', 'FACTORY'))
@@ -37,7 +38,8 @@ function RNDPrepareScript(all_bps)
             -- Levels the playing field for tech, so it's handled entirely by the research
             CategoryArrayRemoveTierN(all_bps, bp.Economy.BuildableCategory)
             CategoryArrayRemoveTierN(all_bps, bp.Categories)
-            -- Construction sort down on existing units will now cause upgrades to be appearing on a tech level below where players will expect.
+            -- Construction sort down on existing units will now cause upgrades 
+            -- to be appearing on a tech level below where players will expect.
             -- so it gets removed here. The tech level researches still use them.
             if table.find(bp.Categories, 'CONSTRUCTIONSORTDOWN') then
                 table.removeByValue(bp.Categories, 'CONSTRUCTIONSORTDOWN')
@@ -60,112 +62,50 @@ end
 --------------------------------------------------------------------------------
 function RestrictExistingBlueprints(all_bps)
     local restrict = {
-        -- T1 power generators
-        'ueb1101',
-        'uab1101',
-        'urb1101',
-        'xsb1101',
+        'ueb1101', 'uab1101', 'urb1101', 'xsb1101', -- T1 power generators
+        'xra0105', -- Jester
 		-- T1 heavy point defences
 		'brnt1hpd', -- UEF AT Defense
 		'brmt1pd', -- Cybran Improved Point Defense
 		'brot1hpd', -- Aeon Enhanced Point Defense
 		'brpt1pd', -- Sera Heavy Point Defense
 		-- T1 multi-role point defences
-		'brnt1expd', -- UEF Gatling Defense System
-		'brmt1expd', -- Cybran Microwave PD/AA Defense
-		'brot1expd', -- Aeon Multirole Point Defense
-		-- Seraphim don't have a multi-role T1 PD.
-		-- T1 Medium Land Factory Units
-		'uel0107', -- UEF Mortar Hovercraft
-		'brmt1bt', -- Cybran Amphibious Tank
-		'brot1bt', -- Aeon Assault Gun
-		'brpt1ht', -- Sera Medium Hovertank
-		-- T1 Heavy Land Factory Units
-		'uel0108', -- UEF Assault Tank
-		'brmt1exm1', -- Cybran Medium Assault Bot
-		'brot1exm1', -- Aeon Assault Bot
-		'brpt1exm1', -- Sera Medium Assault Bot
-		-- T1 Extras (Land Factory)
-		'ual0108', -- Aeon Light Assault Walker
-		'bal0110', -- Aeon Light Sniper Bot
-		'brot1mt', -- Aeon Light Tank
-		'brot1ml', -- Aeon Light Rocket Artillery
-		-- T1 Bombers
-		'uaa0103',
-		'uea0103',
-		'ura0103',
-		'xsa0103',
-		-- T1 Torpedo Bombers
-		'saa0106',
-		'sea0106',
-		'sra0106',
-		'ssa0106',
-		-- T1 Extras (Air Factory)
-		'xra0105', -- Cybran Light Gunship
-		-- T1 Navy
-		'uas0102', -- Aeon Attack Boat
-		-- T1 Hydrocarbons
-		'uab1102',
-		'ueb1102',
-		'urb1102',
-		'xsb1102',
-        -- T2 power generators
-        'ueb1201',
-        'uab1201',
-        'urb1201',
-        'xsb1201',
-		-- T2 Mass Fabs
-		'uab1104',
-		'ueb1104',
-		'urb1104',
-		'xsb1104',
-		-- T2 Hydrocarbons
-		'bab1202',
-		'beb1202',
-		'brb1202',
-		'bsb1202',
+		'brnt1expd', -- Mayor
+		'brmt1expd', -- Pen
+		'brot1expd', -- Mizura
+		-- (Seraphim don't have a multi-role T1 PD.)
+		-- T1 amph
+		'uel0107', -- Caiman
+		'brmt1bt', -- Mite
+		'brot1bt', -- Hervour
+		'brpt1ht', -- Yenshavoh
+		-- T1 heavy land
+		'uel0108', -- Crusher
+		'brmt1exm1', -- Proton
+		'brot1exm1', -- Medusa
+        'brpt1exm1', -- Othazyne
+        'ueb1201', 'uab1201', 'urb1201', 'xsb1201', -- T2 power generators
+		'uab1104', 'ueb1104', 'urb1104', 'xsb1104', -- T2 mass fabs
+		'bab1202', 'beb1202', 'brb1202', 'bsb1202', -- T2 hydrocarbons
 		-- T2 Point Defense
-		'brnt2pd2', -- UEF Point Defense
-		'brnt2epd', -- UEF Plasma Cannon
-		'beb2303', -- UEF Rapid Light Howitzer
-		'brmt2pd', -- Cybran Heavy Point Defense
-		'brmt2epd', -- Cybran Adv. Shielded PD/AA
-		'brb2303', -- Cybran Light Rocket Artillery
-		'brot2epd', -- Aeon Advanced Multi-role Point Defense
-		'bab2303', -- Aeon Energy Mortar Emplacement
-		'brpt2pd', -- Sera Multirole Improved Point Defense
-		-- T2 Tac Missile Launchers
-		'uab2108',
-		'ueb2108',
-		'urb2108',
-		'xsb2108',
-		-- T2 Tac Missile Defenses
-		'uab4201',
-		'ueb4201',
-		'urb4201',
-		'xsb4201',
-		-- T2 Air Pads
-		'uab5202',
-		'ueb5202',
-		'urb5202',
-		'xsb5202',
-		-- T2 Anti-Teleport
-		'bab4209',
-		'beb4209',
-		'brb4209',
-		'bsb4209',
-		-- T2 Stealth Field
-		'uab4203',
-		'ueb4203',
-		'urb4203',
-		'xsb4203',
-		-- T2 Land Factory Units
-		'bal0206', -- Aeon Assault Tank
-		'ual0202', -- Aeon Heavy Tank
-		'ual0204', -- Aeon Sniper Bot
-		'brot2asb', -- Aeon Amphib Assault Bot
-		'ual0111', -- Aeon Mobile Missile Launcher
-		-- TODO
+		'brnt2pd2', -- Angry Ace
+		'brnt2epd', -- Tower Boss
+		'beb2303', -- Hellstorm
+		'brmt2pd', -- Slingshot
+		'brmt2epd', -- Anode
+		'brb2303', -- Squall
+		'brot2epd', -- Daelek
+		'bab2303', -- Archangel
+		'brpt2pd', -- Ve-Us
+		'bab4209', 'beb4209', 'brb4209', 'bsb4209', -- T2 anti-teleport
+        'uab4203', 'ueb4203', 'urb4203', 'xsb4203', -- T2 stealth field
+        -- T3 advanced intel structures
+        'xab3301', -- Eye of Rhianne
+        'seb3303', -- Novax
+        'xrb3301', -- Soothsayer
+        'ssb3301', -- Aezselen
+        -- Exotic experimentals
+        'uab0305', 'ueb0305', 'urb0305', 'xsb0305' -- Quantum teleporters
     }
     for i, id in restrict do
         if all_bps[id] then
