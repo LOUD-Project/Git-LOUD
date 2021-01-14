@@ -527,7 +527,7 @@ function RefreshOptions(skipRefresh, singlePlayer)
         table.sort(OptionSource[1].options, function(a, b) return LOC(a.label) < LOC(b.label) end)
     end
     OptionSource[3] = {}
-    OptionSource[3] = {title = "<LOC lobui_0164>Advanced", options = advOptions or {}}
+    OptionSource[3] = {title = "<LOC lobui_0164>Map Options", options = advOptions or {}}
     
     Options = {}
     
