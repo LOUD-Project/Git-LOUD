@@ -798,7 +798,7 @@ function CreateArmyGroup(strArmy,strGroup,wreckage, balance)
     end
     if wreckage then
         for num, unit in tblResult do
-            unit:CreateWreckageProp()
+            unit:CreateWreckageProp(0, 1800)
             unit:Destroy()
         end
         return
