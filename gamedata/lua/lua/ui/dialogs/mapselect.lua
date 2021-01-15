@@ -659,10 +659,15 @@ function SetupOptionsPanel(parent, singlePlayer, curOptions)
                 line.combo:Hide()
                 LayoutHelpers.AtLeftTopIn(line.text, line, 0, 20)
                 LayoutHelpers.AtHorizontalCenterIn(line.text, line)
-            elseif data.type == 'spacer' then
+            end
+
+            if data.type == 'spacer' then
                 line.text:SetText('')
                 line.combo:Hide()
-            else
+            end
+
+            if data.type == 'option' then 
+
                 line.text:SetText(LOC(data.text))
                 line.text:SetFont(UIUtil.bodyFont, 14)
                 line.text:SetColor(UIUtil.fontColor)
@@ -674,6 +679,8 @@ function SetupOptionsPanel(parent, singlePlayer, curOptions)
                 line.combo.keyMap = {}
                 local tooltipTable = {}
                 for index, val in data.data.values do
+
+
                     itemArray[index] = val.text
                     line.combo.keyMap[val.key] = index
                     tooltipTable[index] = 'lob_'..data.data.key..'_'..val.key
