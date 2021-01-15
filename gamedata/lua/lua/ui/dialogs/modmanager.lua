@@ -43,8 +43,8 @@ function ClientModStatus(selectedModsFromHost)
                 tooltip = nil
             }
         else
-            r[uid] = {
-                checked = (selectedModsFromHost[uid] or false),
+            r[uid] = { 
+                checked = (selectedModsFromHost[uid] or false), 
                 cantoggle = false,
                 tooltip = 'modman_controlled_by_host'
             }
@@ -342,6 +342,8 @@ local loudStandard = {
 
 function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
 
+    LOG("Hi from ModManager.lua!")
+
     ---------------------------------------------------------------------------
     -- fill in default args
     ---------------------------------------------------------------------------
@@ -379,11 +381,11 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
     ---------------------------------------------------------------------------
     -- Mod list control
     ---------------------------------------------------------------------------
-    local numElementsPerPage = 5
+    local numElementsPerPage = 4
     
     local scrollGroup = Group(panel)
     scrollGroup.Width:Set(635)
-    scrollGroup.Height:Set(372)
+    scrollGroup.Height:Set(368)
     
     LayoutHelpers.AtLeftTopIn(scrollGroup, panel, 25, 118)
     UIUtil.CreateVertScrollbarFor(scrollGroup)
@@ -434,7 +436,7 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
                 control.Left:Set(self.Left)
                 local lIndex = index
                 local lControl = control
-                control.Top:Set(function() return self.Top() + ((lIndex - top) * lControl.Height()) end)
+                control.Top:Set(function() return self.Top() + ((lIndex - top) * lControl.Height() + 5) end)
             end
         end
     end
@@ -454,17 +456,18 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
     ---------------------------------------------------------------------------
     local function CreateListElement(parent, modInfo)
         local bg = Bitmap(parent, UIUtil.UIFile('/dialogs/mod_btn/mod-d_btn_up.dds'))
-        bg.Height:Set(function() return parent.Height() / numElementsPerPage  end)
-        bg.Width:Set(parent.Width)
+        bg.Height:Set(90)
+        bg.Width:Set(635)
         bg.modInfo = modInfo
         
+        -- TODO: FIX
         local icon = Bitmap(bg, modInfo.icon)
-        icon.Height:Set(56)
-        icon.Width:Set(56)
-        LayoutHelpers.AtLeftTopIn(icon, bg, 12, 12)
+        icon.Height:Set(70)
+        icon.Width:Set(70)
+        LayoutHelpers.AtLeftTopIn(icon, bg, 10, 10)
         
         local name = UIUtil.CreateText(bg, modInfo.name, 14, UIUtil.bodyFont)
-        LayoutHelpers.AtLeftTopIn(name, bg, 92, 12)
+        LayoutHelpers.AtLeftTopIn(name, bg, 104, 10)
         name:SetDropShadow(true)
         
         local activecheck = Checkbox(bg, 
@@ -474,13 +477,13 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
             UIUtil.UIFile('/dialogs/check-box_btn/radio-s_btn_over.dds'), 
             UIUtil.UIFile('/dialogs/check-box_btn/radio-d_btn_dis.dds'), 
             UIUtil.UIFile('/dialogs/check-box_btn/radio-s_btn_dis.dds'))
-        LayoutHelpers.AtRightTopIn(activecheck, bg, 5, 6)
+        LayoutHelpers.AtRightTopIn(activecheck, bg, 8, 4)
         activecheck:DisableHitTest()
         
         local desc = MultiLineText(bg, UIUtil.bodyFont, 14, UIUtil.fontColor)
-        LayoutHelpers.AtLeftTopIn(desc, bg, 92, 34)
-        desc.Height:Set(40)
-        desc.Width:Set(460)
+        LayoutHelpers.AtLeftTopIn(desc, bg, 102, 30)
+        desc.Height:Set(60)
+        desc.Width:Set(520)
         desc:SetText(modInfo.description)
 
         icon:DisableHitTest()
