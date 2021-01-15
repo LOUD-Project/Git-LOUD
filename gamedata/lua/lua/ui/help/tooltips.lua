@@ -1533,6 +1533,65 @@ Tooltips = {
     },
 
     -- ***************************
+    -- *** Unit Database
+    -- ***************************
+
+    unitdb_reset = {
+        title = "Reset Filters",
+        description = "Sets all filters back to their default values and runs search.",
+    },
+
+    unitdb_health = {
+        title = "Maximum Health",
+        description = "How many hit points this unit has, as well as how many it regenerates per second.",
+    },
+    unitdb_capcost = {
+        title = "Unit Cap Cost",
+        description = "How many points of unit cap must be available to construct this unit. Can be negative.",
+    },
+    unitdb_shield = {
+        title = "Maximum Shield Health",
+        description = "How many hit points this unit's shield has.",
+    },
+    unitdb_mass = {
+        title = "Mass Cost",
+        description = "How much Mass it costs to produce this unit.",
+    },
+    unitdb_energy = {
+        title = "Energy Cost",
+        description = "How much Energy it costs to produce this unit.",
+    },
+    unitdb_buildtime = {
+        title = "Build Time",
+        description = "The baseline time it takes to produce this unit; will be modified by the build-power of the builder.",
+    },
+    unitdb_fuel = {
+        title = "Fuel Time",
+        description = "How many minutes and seconds of fuel this air unit has.",
+    },
+    unitdb_buildpower = {
+        title = "Build Power",
+        description = "How much build power this engineering unit has.",
+    },
+
+    unitdb_evenflow = {
+        title = "LOUD EvenFlow",
+        description = "Whether the effects of the EvenFlow mod are represented in this database.",
+    },
+    unitdb_artillery = {
+        title = "LOUD Enhanced T4 Artillery",
+        description = "Whether the effects of the LOUD Enhanced T4 Artillery mod are represented in this database.",
+    },
+    unitdb_commanders = {
+        title = "LOUD Enhanced Commanders",
+        description = "Whether the effects of the LOUD Enhanced Commanders mod are represented in this database. NOTE: only affects BlackOps ACUs.",
+    },
+    unitdb_nukes = {
+        title = "LOUD Realistic Nukes",
+        description = "Whether the effects of the LOUD Realistic Nukes mod are represented in this database.",
+    },
+
+    -- ***************************
     -- *** Construction Manager
     -- ***************************
     construction_tab_t1 = {
@@ -2020,6 +2079,10 @@ Tooltips = {
     mainmenu_extras = {
     	title = "Extras",
     	description = "Access additional SupCom content and functionality",
+    },
+    mainmenu_unitdb = {
+        title = "Unit Database",
+        description = "See detailed information about each of the units in the LOUD mod pack",
     },
     profile = {
         title = "Profile",
