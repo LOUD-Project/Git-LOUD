@@ -47,7 +47,12 @@ UnitBlueprint {
             LODs = {
                 {
                     LODCutoff = 300,
+                    Scrolling = true,
                     ShaderName = 'Insect',
+                    MeshName = '/mods/BlackOpsUnleashed/units/BRB1202/BRB1202_LOD0.scm',
+                    AlbedoName = '/mods/BlackOpsUnleashed/units/BRB1202/BRB1202_Albedo.dds',
+                    NormalsName = '/mods/BlackOpsUnleashed/units/BRB1202/BRB1202_NormalsTS.dds',
+                    SpecularName = '/mods/BlackOpsUnleashed/units/BRB1202/BRB1202_SpecTeam.dds',
                 },
             },
         },
