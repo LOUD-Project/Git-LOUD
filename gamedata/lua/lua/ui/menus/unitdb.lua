@@ -93,7 +93,7 @@ function Merge(orig, new)
 	end
 end
 
-function CreateUnitDB(over, inGame, callback)
+function CreateUnitDB(over, callback)
 -- Parse BPs
 	-- Must plug UnitBlueprint() into engine before running doscript on .bps
 	doscript '/lua/ui/menus/unitdb_bps.lua'
@@ -166,10 +166,7 @@ function CreateUnitDB(over, inGame, callback)
 	LayoutHelpers.AtTopIn(title, panel, 24)
 	LayoutHelpers.AtHorizontalCenterIn(title, panel)
 	panel.Depth:Set(GetFrame(over:GetRootFrame():GetTargetHead()):GetTopmostDepth() + 1)
-	local worldCover = nil
-	if not inGame then
-		worldCover = UIUtil.CreateWorldCover(panel)
-	end
+	local worldCover = UIUtil.CreateWorldCover(panel)
 
 	ClearFilters()
 
