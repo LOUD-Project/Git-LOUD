@@ -939,12 +939,26 @@ function CreateUnitDB(over, inGame, callback)
 	local exitBtn = UIUtil.CreateButtonStd(panel, '/scx_menu/small-btn/small', "Exit", 16, 2)
 	LayoutHelpers.AtLeftTopIn(exitBtn, panel, 36, 644)
 	exitBtn.OnClick = function(self, modifiers)
+		for i = 1, table.getn(allBlueprints) do
+			allBlueprints[i] = nil
+			units[i] = nil
+			origin[i] = nil
+			notFiltered[i] = nil
+		end
+		for i = 1, table.getn(noIcon) do
+			noIcon[i] = nil
+		end
+		count = 0
+		first = -1
+		last = -1
+		ClearFilters()
 		if over then
 			panel:Destroy()
+			panel = false
 		else
 			parent:Destroy()
+			parent = false
 		end
-		ClearFilters()
 		callback()
 	end
 

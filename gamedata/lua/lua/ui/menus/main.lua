@@ -866,7 +866,7 @@ function CreateUI()
                 MenuShow()
                 SetEscapeHandle(ButtonBack)
             end
-            import('/lua/ui/menus/unitdb.lua').CreateUnitDB(topLevelGroup, false, Callback)
+            import('/lua/ui/menus/unitdb.lua').CreateUnitDB(topLevelGroup, Callback)
         end)
     end
 
