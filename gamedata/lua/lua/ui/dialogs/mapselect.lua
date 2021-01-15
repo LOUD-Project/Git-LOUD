@@ -94,7 +94,6 @@ mapFilters = {
         }
     },
 }
--- CHANGED --
 
 -- used to compute the offset of spawn / mass / hydro markers on the (big) preview
 -- when the map is not square
@@ -121,7 +120,6 @@ local function ComputeNonSquareOffset(width, height)
     return xOffset, yOffset, largest
 end
 
--- CHANGED --
 -- Create a filter dropdown and title from the table above
 function CreateFilter(parent, filterData)
     local group = Group(parent)
@@ -650,51 +648,95 @@ function SetupOptionsPanel(parent, singlePlayer, curOptions)
     end
     -- determines what controls should be visible or not
     OptionContainer.CalcVisible = function(self)
-        local function SetTextLine(line, data, lineID)
-            if data.type == 'title' then
-                line.text:SetText(LOC(data.text))
+        local function SetTextLine(line, element, lineID)
+            if element.type == 'title' then
+                -- header logic
+                line.text:SetText(LOC(element.text))
                 line.text:SetFont(UIUtil.titleFont, 14, 3)
                 line.text:SetColor(UIUtil.fontOverColor)
                 line.bg:SetSolidColor('00000000')
-                line.combo:Hide()
                 LayoutHelpers.AtLeftTopIn(line.text, line, 0, 20)
                 LayoutHelpers.AtHorizontalCenterIn(line.text, line)
-            end
 
-            if data.type == 'spacer' then
-                line.text:SetText('')
+                -- combo logic
                 line.combo:Hide()
             end
 
-            if data.type == 'option' then 
+            if element.type == 'spacer' then
+                -- header logic
+                line.text:SetText('')
 
-                line.text:SetText(LOC(data.text))
+                -- combo logic
+                line.combo:Hide()
+            end
+
+            if element.type == 'option' then 
+                -- header logic
+                line.text:SetText(LOC(element.text))
                 line.text:SetFont(UIUtil.bodyFont, 14)
                 line.text:SetColor(UIUtil.fontColor)
                 line.bg:SetTexture(UIUtil.UIFile('/dialogs/mapselect03/options-panel-bar_bmp.dds'))
                 LayoutHelpers.AtLeftTopIn(line.text, line, 10, 5)
+
+                -- combo logic
+
+                -- clear out previous logic --
                 line.combo:ClearItems()
                 line.combo:Show()
                 local itemArray = {}
                 line.combo.keyMap = {}
-                local tooltipTable = {}
-                for index, val in data.data.values do
 
+                -- resets the functionality and clears out tooltips
+                line.HandleEvent = Group.HandleEvent 
 
+                -- prepare current logic --
+
+                -- official options will have a preference value that can store the option in question,
+                -- if this value is not present then we can assume to use unlocalized tooltips
+                local officialOption = element.data.pref ~= nil and element.data.pref ~= ''
+
+                -- check control box tooltip
+                local controlTooltip = element.data.pref
+                if not officialOption then 
+                    controlTooltip = { text = element.data.label, body = element.data.help }
+                end
+
+                local comboTooltip = {}
+                for index, val in element.data.values do
+                    -- title of the combo
                     itemArray[index] = val.text
+
+                    -- for easy look-up later
                     line.combo.keyMap[val.key] = index
-                    tooltipTable[index] = 'lob_'..data.data.key..'_'..val.key
+
+                    -- tooltip of the combo
+                    if officialOption then 
+                        comboTooltip[index] = 'lob_'..element.data.key..'_'..val.key
+                    else
+                        comboTooltip[index] = { text = val.text, body = val.help }
+                    end
                 end
-                local defValue = changedOptions[data.data.key].index or line.combo.keyMap[curOptions[data.data.key]] or 1
-                line.combo:AddItems(itemArray, defValue)
-                line.combo.OnClick = function(self, index, text)
-                    changedOptions[data.data.key] = {value = data.data.values[index].key, pref = data.data.pref, index = index}
-                end
-                line.HandleEvent = Group.HandleEvent
-                Tooltip.AddControlTooltip(line, data.data.pref)
-                Tooltip.AddComboTooltip(line.combo, tooltipTable, line.combo._list)
+
+                -- we assume the default value of the option is correct here
+                local initialValue = changedOptions[element.data.key].index or 
+                    line.combo.keyMap[curOptions[element.data.key]] or 
+                    element.data.default
+
+                line.combo:AddItems(itemArray, initialValue)
+
+                -- combo tooltips --
+                
+                Tooltip.AddControlTooltip(line, controlTooltip)
+                Tooltip.AddComboTooltip(line.combo, comboTooltip, line.combo._list)
+
+                -- combo functionality --
+
                 line.combo.UpdateValue = function(key)
                     line.combo:SetItem(line.combo.keyMap[key])
+                end
+
+                line.combo.OnClick = function(self, index, text)
+                    changedOptions[element.data.key] = {value = element.data.values[index].key, pref = element.data.pref, index = index}
                 end
             end
         end

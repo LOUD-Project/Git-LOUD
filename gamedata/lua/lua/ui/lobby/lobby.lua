@@ -3816,11 +3816,19 @@ function RefreshOptionDisplayData(scenarioInfo)
         if not option and scenarioInfo.options then
             for index, optData in scenarioInfo.options do
                 if i == optData.key then
-                    option = {text = optData.label, tooltip = optData.pref}
+
+                    -- map options are not considered to be official options
+
+                    -- if data.tooltip then
+                    --     Tooltip.AddControlTooltip(line.value.bg, data.tooltip)
+                    --     Tooltip.AddControlTooltip(line.value.bg2, data.valueTooltip)
+                    -- end
+
+                    option = { text = optData.label, tooltip = { text = optData.label, body = optData.help } }
                     for _, val in optData.values do
                         if val.key == v then
                             option.value = val.text
-                            option.valueTooltip = 'lob_'..optData.key..'_'..val.key
+                            option.valueTooltip = { text = val.text, body = val.help }
                             break
                         end
                     end
