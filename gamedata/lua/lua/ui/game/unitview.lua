@@ -576,7 +576,10 @@ function UpdateWindow(info)
             end
 			
             controls.abilities.Width:Set(maxWidth)
-            controls.abilities.Height:Set(function() return controls.abilityText[1].Height() * table.getsize(controls.abilityText) end)
+            
+            if controls.abilityText[1] then
+                controls.abilities.Height:Set(function() return controls.abilityText[1].Height() * table.getsize(controls.abilityText) end)
+            end    
 			
             if controls.abilities:IsHidden() then
 			

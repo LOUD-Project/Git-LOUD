@@ -5,10 +5,9 @@
 	-- Enable LOUD debugging options
 	LOG("*AI DEBUG Setting LOUD DEBUG & LOG options")
 
-    
+--[[    
     --- ENGINEER and FACTORY DEBUGS ---
 
---[[
 
     -- AI Engineers will be named according to the Builder they are running 
 	ScenarioInfo.NameEngineers = false
@@ -84,7 +83,7 @@
 	LOG("*AI DEBUG		Display Base Names is "..repr(ScenarioInfo.DisplayBaseNames))
 
     -- Each AI base will dialog its threat monitor data and decisions to the LOG
-	ScenarioInfo.BaseMonitorDialog = false
+	ScenarioInfo.BaseMonitorDialog = true
 	LOG("*AI DEBUG		Report Base Monitor Dialogs to Log is "..repr(ScenarioInfo.BaseMonitorDialog))
 
     -- Each AI base will draw a ring indicating the range of the base monitor - each time it checks for threat
