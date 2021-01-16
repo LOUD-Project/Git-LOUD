@@ -363,7 +363,7 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
     panel.brackets = UIUtil.CreateDialogBrackets(panel, 38, 24, 38, 24)
     
     local title = UIUtil.CreateText(panel, LOC("<LOC _Mod_Manager>Mod Manager"), 24)
-    LayoutHelpers.AtTopIn(title, panel, 31)
+    LayoutHelpers.AtTopIn(title, panel, 24)
     LayoutHelpers.AtHorizontalCenterIn(title, panel)
     
     panel.Depth:Set(GetFrame(over:GetRootFrame():GetTargetHead()):GetTopmostDepth() + 1)
@@ -376,18 +376,19 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
     local dlgLabel = UIUtil.CreateText(panel, "<LOC uimod_0001>Click to select or deselect", 20, 'Arial Bold')
     -- LayoutHelpers.AtTopIn(dlgLabel, panel, 80)
     -- LayoutHelpers.AtHorizontalCenterIn(dlgLabel, panel)
-    LayoutHelpers.AtLeftTopIn(dlgLabel, panel, 30, 75)
+    LayoutHelpers.AtLeftTopIn(dlgLabel, panel, 30, 80)
 	
     ---------------------------------------------------------------------------
     -- Mod list control
     ---------------------------------------------------------------------------
-    local numElementsPerPage = 4
+    local numElementsPerPage = 5
     
     local scrollGroup = Group(panel)
     scrollGroup.Width:Set(635)
-    scrollGroup.Height:Set(368)
+    scrollGroup.Height:Set(450)
     
-    LayoutHelpers.AtLeftTopIn(scrollGroup, panel, 25, 118)
+    -- LayoutHelpers.AtLeftTopIn(scrollGroup, panel, 25, 118)
+    LayoutHelpers.AtCenterIn(scrollGroup, panel, -16)
     UIUtil.CreateVertScrollbarFor(scrollGroup)
     
     scrollGroup.controlList = {}
@@ -743,7 +744,6 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
     end
 
     local loudStdBtn = UIUtil.CreateButtonStd(panel, '/widgets/small', "LOUD Standard", 12, 2)
-    -- LayoutHelpers.RightOf(loudStdBtn, saveBtn)
     LayoutHelpers.AtRightTopIn(loudStdBtn, panel, 30, 75)
     loudStdBtn.OnClick = function(self, modifiers)
         local curListed = GetCurrentlyListedMods()
@@ -757,20 +757,18 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
 	
     local loadBtn = UIUtil.CreateButtonStd(panel, '/widgets/tiny', "Load", 12, 2)
     LayoutHelpers.LeftOf(loadBtn, loudStdBtn)
-    -- LayoutHelpers.AtLeftTopIn(loadBtn, panel, 30, 75)
     loadBtn.OnClick = function(self, modifiers)
 		CreateLoadPresetDialog(panel, scrollGroup)
     end
 	
     local saveBtn = UIUtil.CreateButtonStd(panel, '/widgets/tiny', "Save", 12, 2)
     LayoutHelpers.LeftOf(saveBtn, loadBtn)
-    -- LayoutHelpers.AtRightTopIn(saveBtn, panel, 30, 75)
     saveBtn.OnClick = function(self, modifiers)
 		CreateSavePresetDialog(panel, scrollGroup)
     end
 
     local cancelBtn = UIUtil.CreateButtonStd(panel, '/scx_menu/small-btn/small', "<LOC _Cancel>", 16, nil, nil, "UI_Menu_Cancel_02")
-    LayoutHelpers.AtRightTopIn(cancelBtn, panel, 30, 505)
+    LayoutHelpers.AtRightTopIn(cancelBtn, panel, 30, 580)
     cancelBtn.OnClick = function(self, modifiers)
         KillDialog(true)
     end
@@ -782,7 +780,7 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
     end
 	
     local disableBtn = UIUtil.CreateButtonStd(panel, '/scx_menu/small-btn/small', "Disable All", 16, 2)
-    LayoutHelpers.AtLeftTopIn(disableBtn, panel, 30, 505)
+    LayoutHelpers.AtLeftTopIn(disableBtn, panel, 30, 580)
 	-- Tooltip.AddButtonTooltip(disableBtn, 'lob_disable_allmods')
     disableBtn.OnClick = function(self, modifiers)
 		for index, control in scrollGroup.controlList do
