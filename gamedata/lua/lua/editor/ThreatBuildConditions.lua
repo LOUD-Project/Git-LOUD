@@ -6,6 +6,16 @@ function ThreatCloserThan( aiBrain, locationType, distance, threatcutoff, threat
 	
 		local position = aiBrain.BuilderManagers[locationType].Position
 		local threatTable = aiBrain:GetThreatsAroundPosition( position, 12, true, threattype)
+        
+        if threattype == 'Land' and aiBrain.LandRatio > 1.1 then
+        
+            distance = distance * ( 1 / aiBrain.LandRatio )                                 -- threat needs to be closer
+            
+            distance = distance * ( 1 / (1 + math.log10( aiBrain.VeterancyMult )))          -- and our cheat level makes us more tolerant as well
+
+            threatcutoff = threatcutoff * ( aiBrain.LandRatio / 1 )                         -- and threat needs to be larger
+        
+        end
 
 		for _,v in threatTable do
 
@@ -36,12 +46,12 @@ function ThreatFurtherThan( aiBrain, locationType, distance, threattype, threatc
         if threattype == 'Land' and aiBrain.LandRatio > 1.1 then
         
             -- affect the distance with ratio AND AIMult --
-            distance = distance * ( 1 / aiBrain.LandRatio )         -- if we have a high ratio threat needs to be closer to impact us
+            distance = distance * ( 1 / aiBrain.LandRatio )                             -- if we have a high ratio threat needs to be closer to impact us
             
-            distance = distance * ( 1 / (1 + math.log10( aiBrain.VeterancyMult )))        -- and our cheat level makes us more tolerant as well
+            distance = distance * ( 1 / (1 + math.log10( aiBrain.VeterancyMult )))      -- and our cheat level makes us more tolerant as well
             
             -- but the threat is only affected by actual ratio
-            threatcutoff = threatcutoff * aiBrain.LandRatio         -- and the amount of threat needs to be higher as well
+            threatcutoff = threatcutoff * aiBrain.LandRatio                             -- and the amount of threat needs to be higher as well
             
         end
 		
