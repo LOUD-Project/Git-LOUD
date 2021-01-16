@@ -1,3 +1,79 @@
+### Release 15-01-2021 ###
+Lua 5.4
+Units 6.0
+Projectiles 3.0
+Effects 3.0
+LOUD Mods 5.3
+Total Mayhem 6.0
+Wyvern Battle Pack 1.0
+BrewLAN LOUD 0.86
+BlackOps 6.0
+4th Dimension LOUD 4.0
+
+- Unit Database. Under Main Menu -> Extras, this is a screen that allows searching through and reading detailed information on all the units in the LOUD mod pack.
+- BrewLAN RNG: Lucky Dip. A mod by Balthazar which, for each player, restricts the player from building all but one unit of any given type.
+ |--> For example, out of the 4 Tech 3 Anti-Air units the UEF has, a UEF player will only be able to build 1.
+ |--> Currently requires all of the unit mods included with LOUD as standard.
+ |--> The LOUD port of this mod is in an alpha version, and subject to change. Feedback is appreciated as always.
+- The economy of artillery has been overhauled. Energy consumption of artillery weapons is now formulaically derived from their damage and area-of-effect. This results in many weapons consuming more energy.
+- Mild increases to energy storage for almost all energy related buildings, including mass fabricators. Seraphim buildings benefit more from these buffs.
+- The fake UEF Tech 3 Sonar is no longer in the Seraphim unit roster as an upgrade to the Sera T2 Sonar. It has been replaced with BrewLAN's Sera T3 Sonar.
+- Fixed the Superhot (UEF T3 Damage Boost Node) not providing any damage boost.
+- Fix the "Set All AI Cheat" button in the lobby only working visually.
+- Fix some targeting problems with the Aeon ACU when BlackOps ACUs is enabled.
+- All Tech 2 static torpedo defense units have had their health regen buffed to match their mobile naval counterparts.
+- A lobby options now allows the host to decide if random factions are chosen to be more evenly spread between the 4 available choices, rather than truly randomly.
+- Rebalance to the Sisha-Ah (Seraphim Experimental Sniper Bot, from BrewLAN):
+ |--> Cloaking now passively costs 275 energy per second.
+ |--> All veterancy requirements multiplied by 1.4.
+ |--> Damage multiplier versus shields reduced from 0.8 to 0.5.
+ |--> Energy cost per shot increased from 0 to 24150 (drained at 2300 per second), resulting in a 10.5 second charge cycle before firing.
+ |--> Acceleration reduced from 0.8 to 0.6 o-grids per second squared.
+ |--> Maximum speed increased from 2.4 to 2.7 o-grids per second.
+ |--> Maximum brake speed reduced from 2.4 to 0.9 o-grids per second.
+ |--> Turn rate reduced from 20 to 17 degrees per second.
+- Minor adjustments to costs of T1 engineers and factories.
+ |--> T1 Land Fac mass cost 240 -> 250.
+ |--> T1 Air Fac energy cost 2400 -> 2500.
+ |--> T1 engineer mass cost 65 -> 70, energy cost 300 -> 330.
+- Minor adjustments to power generators.
+ |--> Aeon T1 pgen mass cost: 90 -> 100, energy storage 20 -> 50
+ |--> Aeon T2 pgen mass cost: 2250 -> 2200, energy cost 22500 -> 22000, energy storage 50 -> 250, death damage 2500 -> 2000.
+ |--> T3 pgen mass cost: 11250 -> 10500, energy cost 110000 -> 112500, energy storage of 500 added.
+ |--> Aeon T3 pgen death damage 6000 -> 5000. All other T3 pgen death damage 5900 -> 5000.
+- Seraphim T2 Sonar nerfs:
+ |--> Health reduced from 2000 to 800.
+ |--> Health regen rate set to 0 from 2.
+ |--> Build cost reduction; 180 to 120 mass, 5400 to 3700 energy.
+ |--> Sonar radius brought down from 210 to 180.
+ |--> Vision radius increased from 22 to 30.
+ |--> Water vision radius reduced from 35 to 15.
+- Fixed some AI base creation and timing problems.
+- Make AI build more shields when it is losing the land battle.
+- Make AI build more AA when it is losing the air battle.
+- Fixed issues preventing the AI from building any naval bases on 10km x 10km maps.
+- Make the AI keep Tech 2 and Tech 3 production going longer if it is winning the land battle.
+- AI: Some of the threat logic behind alerts and build conditions now factor in AI cheat multiplier, distance, and the AI's land ratio. 
+- A triple wrench icon now indicates the build power statistic in the unit mouseover details.
+- Custom lobby options packaged with maps will show under the header "Map Options" instead of "Advanced".
+- Wreckages spawned at the start of the game will now more consistently despawn after 30 minutes.
+- Adjusted the position of the Sequential Mass Extractor Upgrade button so it can never be underneath the GAZUI Reclaim Window.
+- Massive polish pass to strategic icons. The highlights are:
+ |--> There are now icons for bots which generate shields.
+ |--> Several bots which mistakenly had tank icons now have bot icons.
+ |--> Several experimentals have icons which better reflect their actual weapon loadouts.
+ |--> Absolver (Aeon T3 Shield Disruptor) now uses antishield icon.
+ |--> New set of icons for Seraphim units in the protector line, and for the Sera T2 Restoration Field Generator.
+- Fixed incorrect textures for the Poker (UEF T1 Static Artillery) and Guardian (UEF T3 Anti-Armour PD), both from BrewLAN.
+- Changes to several unit short-descriptions for consistency and better communication of unit weight classes.
+- The MSG Spiderbot (Cybran T2 Mobile Shield Generator) has been renamed to the Cocoon.
+- Name overlap fixes:
+ |--> Scarab (TM, Cybran T1 Amphibious Tank) renamed to Mite to not overlap with Scarab (BrewLAN, Aeon T3 Mobile Antinuke).
+ |--> Spectre (TM, Aeon T3 Siege Mech) renamed to Mogul to not overlap with Specter (Aeon T2 Gunship).
+ |--> Medusa (TM, Aeon T1 Assault Bot) renamed to Bugbear to not overlap with Medusa (Cybran T1 Mobile Artillery).
+- Banshee (TM, UEF T2 Amphibious Assault Bot) no longer makes a nuclear explosion sound when it dies.
+- Fixes to unit descriptions, ability lists, names, icon backgrounds, building skirts (footprints), selection priorities, and selection box offsets.
+
 ### Release 02-01-2021 ###
 Lua 5.3.34
 
@@ -64,40 +140,40 @@ Textures 6.1
 - AI can now have individual cheat multipliers, and can use adaptive cheating in different ways on an individual basis.
 - To facilitate the above changes, the lobby has had a minor appearance makeover to be more compact.
 - A large number of customization options for the adaptive cheat system have been added. You can now set:
-|--> Delay before timed cheat starts working.
-|--> Time in between upticks of timed cheat.
-|--> Amount that cheat increases every uptick under timed cheat.
-|--> Limit of cheat multiplier total increase under timed cheat.
-|--> Interval between possible changes under feedback cheat.
-|--> Scale of possible changes under feedback cheat.
+ |--> Delay before timed cheat starts working.
+ |--> Time in between upticks of timed cheat.
+ |--> Amount that cheat increases every uptick under timed cheat.
+ |--> Limit of cheat multiplier total increase under timed cheat.
+ |--> Interval between possible changes under feedback cheat.
+ |--> Scale of possible changes under feedback cheat.
 - Details on a unit provided on mouseover of its icon have been greatly improved.
-|--> Conversions from metres to kilometres where range values are large enough.
-|--> Physics values are shown in metres per second.
-|--> Fuel time is shown in minutes:seconds.
-|--> Countermeasure readings now display their type, and exclude damage values.
-|--> Better fallbacks for incomplete weapon definitions.
-|--> DPS is now shown.
-|--> Some edge cases fixed concerning EMP and dummy target painting weapons.
+ |--> Conversions from metres to kilometres where range values are large enough.
+ |--> Physics values are shown in metres per second.
+ |--> Fuel time is shown in minutes:seconds.
+ |--> Countermeasure readings now display their type, and exclude damage values.
+ |--> Better fallbacks for incomplete weapon definitions.
+ |--> DPS is now shown.
+ |--> Some edge cases fixed concerning EMP and dummy target painting weapons.
 - Lobby map previews now properly handle non-square maps.
 - New set of more readable player colours.
 - The Ahwassa was incorrectly overperforming when LOUD Integrated Storage was enabled, and has been brought back into line with the rest of the game balance. Users of Integrated Storage will observe the following changes:
-|--> Minor reductions in aerodynamic performance.
-|--> Health 54500 -> 52500.
-|--> Health regen 12 -> 10.
-|--> Energy build cost 895000 -> 1120000.
-|--> Build time 43000 -> 107400.
-|--> Veterancy requirements:
-|--|--> Level 1: 75 -> 90.
-|--|--> Level 2: 150 -> 180.
-|--|--> Level 3: 225 -> 270.
-|--|--> Level 4: 300 -> 360.
-|--|--> Level 5: 375 -> 450.
-|--> Radius of bomb damage 18 -> 14.
-|--> AA autocannon range 45 -> 42.
-|--> Wreckage mass reclaim multiplier 0.6 -> 0.3.
-|--> Wreckage energy reclaim multiplier 0.3 -> 0.05.
-|--> Wreckage health multiplier 0.3 -> 0.6.
-|--> Radar radius increased from 60 to 75.
+ |--> Minor reductions in aerodynamic performance.
+ |--> Health 54500 -> 52500.
+ |--> Health regen 12 -> 10.
+ |--> Energy build cost 895000 -> 1120000.
+ |--> Build time 43000 -> 107400.
+ |--> Veterancy requirements:
+ |-- |--> Level 1: 75 -> 90.
+ |-- |--> Level 2: 150 -> 180.
+ |-- |--> Level 3: 225 -> 270.
+ |-- |--> Level 4: 300 -> 360.
+ |-- |--> Level 5: 375 -> 450.
+ |--> Radius of bomb damage 18 -> 14.
+ |--> AA autocannon range 45 -> 42.
+ |--> Wreckage mass reclaim multiplier 0.6 -> 0.3.
+ |--> Wreckage energy reclaim multiplier 0.3 -> 0.05.
+ |--> Wreckage health multiplier 0.3 -> 0.6.
+ |--> Radar radius increased from 60 to 75.
 - All teleport times are now 12 seconds, and energy costs for teleportation have been revised across the board. Strict minimums have been put in place to prevent instant or free teleports.
 - Higher limit on battleships for certain AI naval formations.
 - Higher unit cap thresholds after which the AI will not build airpads or antinuke launchers.
@@ -119,8 +195,8 @@ Lua 5.3.28
 - AI can now adapt its multiplier in response to certain factors. If the corresponding lobby global option is set to "Time-Based", the AI will increase its multiplier by 0.02 every 6 minutes. If the option is set to "Ratio-Based", all AI will increase their multipliers up to a max of 0.5 based on the relative size of their land army ratio to that of their enemies.
 - New AI multiplier options: 1.45 and 2.5.
 - Two new units:
-|--> Deluge - Aeon Experimental Dreadnought, equipped with a downsized Salvation cannon and personal shield.
-|--> Xiphos - Cybran T3 Interdiction Gunship, equipped with potent weaponry and a rearward anti-missile system.
+ |--> Deluge - Aeon Experimental Dreadnought, equipped with a downsized Salvation cannon and personal shield.
+ |--> Xiphos - Cybran T3 Interdiction Gunship, equipped with potent weaponry and a rearward anti-missile system.
 - The buff system now works on AI on a per-brain basis.
 - Several land and amphibious platoons have received new names to indicate type.
 - Platoon control value and land ratio restriction tweaks.
