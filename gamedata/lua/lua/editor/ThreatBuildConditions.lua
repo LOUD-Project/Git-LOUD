@@ -31,6 +31,19 @@ function ThreatFurtherThan( aiBrain, locationType, distance, threattype, threatc
 	
 		local position = aiBrain.BuilderManagers[locationType].Position
 		local threatTable = aiBrain:GetThreatsAroundPosition( position, 12, true, threattype)
+
+        -- this code makes this function dynamic via LandRatio and AIMult --
+        if threattype == 'Land' and aiBrain.LandRatio > 1.1 then
+        
+            -- affect the distance with ratio AND AIMult --
+            distance = distance * ( 1 / aiBrain.LandRatio )         -- if we have a high ratio threat needs to be closer to impact us
+            
+            distance = distance * ( 1 / (1 + math.log10( aiBrain.VeterancyMult )))        -- and our cheat level makes us more tolerant as well
+            
+            -- but the threat is only affected by actual ratio
+            threatcutoff = threatcutoff * aiBrain.LandRatio         -- and the amount of threat needs to be higher as well
+            
+        end
 		
 		local closest = 9999
 		local value = 0
@@ -47,15 +60,15 @@ function ThreatFurtherThan( aiBrain, locationType, distance, threattype, threatc
 			if v[3] > threatcutoff then
 		
 				if threatdistance <= distance then
-					--LOG("*AI DEBUG "..aiBrain.Nickname.." at "..repr(locationType).." has "..repr(threattype).." threat closer than "..distance.." ("..repr(threatdistance)..")	threat is "..repr(v[3]).." from position "..repr(v) )
+					--LOG("*AI DEBUG "..aiBrain.Nickname.." at "..repr(locationType).." has "..threattype.." threat closer than "..math.floor(distance).." is at ("..math.floor(threatdistance)..")	threat is "..math.floor(v[3]).." trigger ("..math.floor(threatcutoff)..") comes from "..repr(v) )
 					return false
 				end
 			end
 		end
 		
-		--if closest < 9999 then
-			--LOG("*AI DEBUG "..aiBrain.Nickname.." at "..repr(locationType).." reports closest threat above "..threatcutoff.." is at "..closest.." - value is "..value)
-		--end
+		if closest < 9999 then
+			--LOG("*AI DEBUG "..aiBrain.Nickname.." at "..repr(locationType).." reports closest threat is below "..math.floor(threatcutoff).." and/or beyond "..math.floor(distance) )
+		end
 	end
 
     return true

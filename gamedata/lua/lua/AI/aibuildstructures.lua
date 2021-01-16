@@ -356,6 +356,8 @@ function AINewExpansionBase( aiBrain, baseName, position, engineer, construction
 		-- if more than one with highest value - pick randomly
 		local validNames = {}
         
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(engineer.platoonhandle.BuilderName).." using "..repr(constructionData.NearMarkerType).." bases are "..repr(baseValues))
+        
 		for k,v in baseValues do
 		
 			if v.Value == highPri then
@@ -370,7 +372,7 @@ function AINewExpansionBase( aiBrain, baseName, position, engineer, construction
 		if not pick then
         
             if not engineer.Dead then
-                LOG('*AI DEBUG '..aiBrain.Nickname.." yielded no base pick for engineer "..repr(engineer.platoonhandle.BuilderName).." from "..engineer.LocationType )
+                --LOG('*AI DEBUG '..aiBrain.Nickname.." yielded no base pick for engineer "..repr(engineer.platoonhandle.BuilderName).." from "..engineer.LocationType )
             end
 		else
 

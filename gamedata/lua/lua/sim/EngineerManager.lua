@@ -813,7 +813,18 @@ EngineerManager = Class(BuilderManager) {
 							alertrangemod = 100	-- Air threat checks get additional range
 						end
 
-						highThreat = self.BaseMonitor.AlertLevel	-- this sets the threat required to trigger an alert
+                        -- highthreat can now be modified by a ratio or the AIMult --
+						highThreat = self.BaseMonitor.AlertLevel	-- this sets the basic threat required to trigger an alert
+                        
+                        if LoopType == 'Land' and aiBrain.LandRatio > 1 then
+                        
+                            -- mult by current LandRatio
+                            highThreat = highThreat * aiBrain.LandRatio
+                            
+                            -- and again by the base AIMult (carried in VeterancyMult) --
+                            highThreat = highThreat * ( 1 + math.log10( aiBrain.VeterancyMult))
+                        end
+                        
 						highThreatPos = false
 						highThreatType = false
 
