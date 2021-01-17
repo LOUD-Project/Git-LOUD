@@ -1,3 +1,11 @@
+### Patch 16-01-2021 ###
+Lua 5.4.0.1
+
+- Fix ability list box extending to the top of the window.
+- Adjust AI sensitivity to threat, cheat multiplier when considering whether to form a platoon.
+- Make AI base alerts less likely to happen with an AI is currently stronger.
+- Some of the AI's largest platoon templates can now be built while a base alert is active.
+
 ### Release 15-01-2021 ###
 Lua 5.4
 Units 6.0
