@@ -223,6 +223,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+            
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
             
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.9 } },
@@ -844,7 +845,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
         BuilderType = 'Any',
 		
         BuilderConditions = {
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+			--{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
             { LUTL, 'PoolGreater', { 11, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL }},
 
@@ -1172,7 +1173,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Experimentals',
         BuilderType = 'Any',
 		
 		BuilderConditions = {
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},	
+			--{ LUTL, 'NoBaseAlert', { 'LocationType' }},	
 			
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 10, (categories.LAND * categories.MOBILE * categories.EXPERIMENTAL) - categories.url0401 - categories.INSIGNIFICANTUNIT }},
 		},
@@ -1220,7 +1221,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Experimentals',
         BuilderType = 'Any',
 		
 		BuilderConditions = {
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},	
+			--{ LUTL, 'NoBaseAlert', { 'LocationType' }},	
 
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 10, (categories.LAND * categories.MOBILE * categories.EXPERIMENTAL) - categories.url0401 - categories.INSIGNIFICANTUNIT }},
 		},
@@ -1268,7 +1269,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Experimentals',
         BuilderType = 'Any',
 		
 		BuilderConditions = {
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},	
+			--{ LUTL, 'NoBaseAlert', { 'LocationType' }},	
 
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.8 } },
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 10, (categories.LAND * categories.MOBILE * categories.EXPERIMENTAL) - categories.url0401 - categories.INSIGNIFICANTUNIT }},
@@ -1320,7 +1321,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Experimentals',
         BuilderType = 'Any',
 		
 		BuilderConditions = {
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},	
+			--{ LUTL, 'NoBaseAlert', { 'LocationType' }},	
 
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.8 } },
             
@@ -1444,7 +1445,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
         BuilderType = 'Any',
 		
 		BuilderConditions = {
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+			--{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 60, (categories.LAND * categories.AMPHIBIOUS) * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT }},
         },
