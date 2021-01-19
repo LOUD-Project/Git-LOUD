@@ -208,7 +208,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Heavy Bombardment Ship',
+        HelpText = 'Experimental Bombardment Ship',
     },
 	
     LifeBarHeight = 0.075,
