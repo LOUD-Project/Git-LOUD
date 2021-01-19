@@ -9,6 +9,7 @@ local FactionData = import('/lua/factions.lua')
 local Group = import('/lua/maui/group.lua').Group
 local ItemList = import('/lua/maui/itemlist.lua').ItemList
 local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
+local Text = import('/lua/maui/text.lua')
 local Tooltip = import('/lua/ui/game/tooltip.lua')
 local UIUtil = import('/lua/ui/uiutil.lua')
 local UVD = import('/lua/ui/game/unitviewDetail.lua')
@@ -192,12 +193,16 @@ function CreateUnitDB(over, callback)
 	unitDisplay.stratIcon = Bitmap(unitDisplay.icon)
 	LayoutHelpers.AtRightTopIn(unitDisplay.stratIcon, unitDisplay.icon)
 
-	unitDisplay.name = UIUtil.CreateText(unitDisplay, '', 24, "Arial Bold")
+	unitDisplay.name = UIUtil.CreateText(unitDisplay, '', 18, "Arial Bold")
 	unitDisplay.name:DisableHitTest()
 	LayoutHelpers.RightOf(unitDisplay.name, unitDisplay.backIcon, 4)
-	unitDisplay.shortDesc = UIUtil.CreateText(unitDisplay, '', 18, UIUtil.bodyFont)
-	unitDisplay.shortDesc:DisableHitTest()
-	LayoutHelpers.Below(unitDisplay.shortDesc, unitDisplay.name)
+
+	unitDisplay.shortDesc1 = UIUtil.CreateText(unitDisplay, '', 18, UIUtil.bodyFont)
+	unitDisplay.shortDesc1:DisableHitTest()
+	LayoutHelpers.Below(unitDisplay.shortDesc1, unitDisplay.name)
+	unitDisplay.shortDesc2 = UIUtil.CreateText(unitDisplay, '', 18, UIUtil.bodyFont)
+	unitDisplay.shortDesc2:DisableHitTest()
+	LayoutHelpers.Below(unitDisplay.shortDesc2, unitDisplay.shortDesc1)
 
 	-- Origin mod and ID
 	unitDisplay.technicals = UIUtil.CreateText(unitDisplay, '', 14, UIUtil.bodyFont)
@@ -1016,7 +1021,13 @@ function FillLine(line, index)
 	line:Show()
 	local n = LOC(bp.General.UnitName) or LOC(bp.Description) or 'Unnamed Unit'
 	line.name:SetText(n)
-	line.desc:SetText(LOC(bp.Description) or 'Unnamed Unit')
+	local wrappedText = Text.FitText(LOC(bp.Description) or 'Unnamed Unit', 224,
+		function(nt) return line.desc:GetStringAdvance(nt) end)
+		if table.getn(wrappedText) > 1 then
+			line.desc:SetText(wrappedText[1]..'...')
+		else
+			line.desc:SetText(wrappedText[1])
+		end
 	line.id:SetText(string.format('%s (%s)', originMap[origin[index]], id))
 	local validIcons = {land = true, air = true, sea = true, amph = true}
 	if validIcons[bp.General.Icon] then
@@ -1044,7 +1055,22 @@ function DisplayUnit(index)
 	local id = units[index]
 	local bp = allBlueprints[id]
 	unitDisplay.name:SetText(LOC(bp.General.UnitName) or LOC(bp.Description) or 'Unnamed Unit')
-	unitDisplay.shortDesc:SetText(LOC(bp.Description) or 'Unnamed Unit')
+
+	local sd = LOC(bp.Description) or "Unnamed Unit"
+	if table.find(bp.Categories, 'TECH1') then
+		sd = "Tech 1 "..sd
+	elseif table.find(bp.Categories, 'TECH2') then
+		sd = "Tech 2 "..sd
+	elseif table.find(bp.Categories, 'TECH3') then
+		sd = "Tech 3 "..sd
+	end
+	local sdt = Text.WrapText(sd, 240,
+		function(nt) return unitDisplay.shortDesc1:GetStringAdvance(nt) end)
+	unitDisplay.shortDesc1:SetText(sdt[1])
+	if sdt[2] then
+		unitDisplay.shortDesc2:SetText(sdt[2])
+	end
+
 	unitDisplay.icon:Show()
 	unitDisplay.stratIcon:Show()
 	local validIcons = {land = true, air = true, sea = true, amph = true}
@@ -1448,7 +1474,8 @@ function ClearUnitDisplay()
 	unitDisplay.icon:Hide()
 	unitDisplay.stratIcon:Hide()
 	unitDisplay.name:SetText('')
-	unitDisplay.shortDesc:SetText('')
+	unitDisplay.shortDesc1:SetText('')
+	unitDisplay.shortDesc2:SetText('')
 	unitDisplay.longDesc:DeleteAllItems()
 	unitDisplay.longDesc:Hide()
 	unitDisplay.technicals:SetText('')
