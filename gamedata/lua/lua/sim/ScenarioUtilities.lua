@@ -14,10 +14,13 @@ function MarkerToPosition(strMarker)
 end
 
 function AreaToRect(strArea)
+
     local area = ScenarioInfo.Env.Scenario.Areas[strArea]
+    
     if not area then
         error('ERROR: Invalid area name')
     end
+    
     local rectangle = area.rectangle
     return Rect(rectangle[1],rectangle[2],rectangle[3],rectangle[4])
 end
