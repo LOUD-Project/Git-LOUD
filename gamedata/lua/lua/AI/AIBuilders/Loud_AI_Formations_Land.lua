@@ -2284,7 +2284,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         BuilderType = 'Any',
 		
         BuilderConditions = {
-            { LUTL, 'LandStrengthRatioLessThan', { 1 } },
+            { LUTL, 'LandStrengthRatioLessThan', { 1.1 } },
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .85 } },
             
@@ -2293,7 +2293,6 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
             { UCBC, 'ExpansionPointNeedsStructure', { 'LocationType', 1250, 'STRUCTURE -ECONOMIC', 75, 6, 0, 100, 0, 'AntiSurface' }},
             
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL }},
-			--{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
         },
 		
         BuilderData = {
@@ -2384,14 +2383,14 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Base Guards',
 			
 			BasePerimeterOrientation = '',
 			
-			Radius = 72,
+			Radius = 78,
 			
 			PatrolTime = 350,
 			PatrolType = true,
         },
     }, 
     
-    -- AA base patrols appear if our air ratio is below 3
+    -- AA base patrols appear if our air ratio is below 1.5
     Builder {BuilderName = 'Base Guard Patrol - AA',
 	
         PlatoonTemplate = 'BaseGuardAAPatrol',
@@ -2408,7 +2407,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Base Guards',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},		
-			{ LUTL, 'AirStrengthRatioLessThan', { 1.1 }},
+			{ LUTL, 'AirStrengthRatioLessThan', { 1.5 }},
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
         },
