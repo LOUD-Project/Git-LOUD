@@ -2651,8 +2651,14 @@ function AssignTransportToPool( unit, aiBrain )
             if ScenarioInfo.TransportDialog then
                 LOG("*AI DEBUG "..aiBrain.Nickname.." transport "..unit.Sync.id.." Assigned to Transport Pool")
             end
+            
+            if aiBrain.TransportPool then
 
-			AssignUnitsToPlatoon( aiBrain, aiBrain.TransportPool, {unit}, 'Support','')
+                AssignUnitsToPlatoon( aiBrain, aiBrain.TransportPool, {unit}, 'Support','')
+                
+            else
+                return
+            end
             
             unit.InUse = false
             unit.Assigning = false        
