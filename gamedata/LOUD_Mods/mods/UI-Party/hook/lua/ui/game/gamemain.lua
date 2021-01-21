@@ -137,9 +137,10 @@ function AlternateStartSequence()
 		end
 
 		-- select acu & start placing fac
-		WaitSeconds(0)
-		AddSelectUnits(avatars)
-		import('/lua/hotbuild/hotbuild.lua').buildAction('Builders')
+		-- RAT: This building table doesn't exist in our hotbuild
+		-- WaitSeconds(0)
+		-- AddSelectUnits(avatars)
+		-- import('/lua/hotbuild/hotbuild.lua').buildAction('Builders')
 
 	end)
 
