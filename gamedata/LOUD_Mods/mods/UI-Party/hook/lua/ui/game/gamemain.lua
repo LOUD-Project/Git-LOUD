@@ -69,6 +69,11 @@ function OnFirstUpdate()
 		oldOnFirstUpdate()
 	end
 
+	local prefs = import('/mods/UI-Party/modules/settings.lua').getPreferences()
+	if prefs.global['playerColors'] then
+		TeamColorMode(true)
+	end
+
 	UIP.OnFirstUpdate()
 end
 
