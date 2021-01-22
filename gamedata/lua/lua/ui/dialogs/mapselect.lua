@@ -660,17 +660,13 @@ function SetupOptionsPanel(parent, singlePlayer, curOptions)
 
                 -- combo logic
                 line.combo:Hide()
-            end
-
-            if element.type == 'spacer' then
+            elseif element.type == 'spacer' then
                 -- header logic
                 line.text:SetText('')
 
                 -- combo logic
                 line.combo:Hide()
-            end
-
-            if element.type == 'option' then 
+            elseif element.type == 'option' then 
                 -- header logic
                 line.text:SetText(LOC(element.text))
                 line.text:SetFont(UIUtil.bodyFont, 14)
