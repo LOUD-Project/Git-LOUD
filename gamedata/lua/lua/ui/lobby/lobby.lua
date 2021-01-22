@@ -1201,6 +1201,85 @@ local function AssignRandomFactions(gameInfo)
 	
 end
 
+local function AssignDefaultMapOptions(gameInfo)
+
+    local function CheckAndCorrectDefaultOption(option)
+
+        -- assume the option is valid
+        local valid = true
+
+        -- check if it is a number
+        valid = valid and type(option.default) == "number" 
+
+        -- check if it is an integral number
+        valid = valid and math.floor(option.default) == option.default 
+
+        -- check if it is an valid index of the values table
+        valid = valid and option.values[option.default]
+
+        if not valid then 
+
+            -- tell us (the developer) about it
+            WARN("Option " .. option.label .. " has an invalid default (" .. option.default .. "). The default value is the table index, not the actual value.")
+
+            -- try and find the actual index so that the game doesn't crash
+            for k, t in option.values do 
+                -- key-based
+                if t.key == option.default then 
+                    valid = true 
+                    option.default = k 
+                    break 
+                end
+
+                -- value-based 
+                if t == option.default then 
+                    valid = true 
+                    option.default = k
+                    break 
+                end
+            end
+
+            -- we couldn't find the actual index: resetting to 1.
+            if not valid then 
+                option.default = 1 
+                WARN("Option " .. option.label .. " could not retrieve the correct index-based default value. Defaulting to index 1.")
+            end
+        end
+    end
+    
+    local scenarioInfo = MapUtil.LoadScenario(gameInfo.GameOptions.ScenarioFile)
+    if scenarioInfo.options then 
+        for _, option in scenarioInfo.options do 
+            if not gameInfo.GameOptions[option.key] then
+
+                -- ensure the default is sane
+                CheckAndCorrectDefaultOption(option)
+
+                -- When the value data of the option is formatted as:
+                -- values = {
+                --     { text = "Easy", help = "We'll have sufficient time to start building up our defense strategy.", key = 1, },		
+                --     { text = "Normal", help = "There's sufficient time - but we'll need to hurry up.", key = 2, },	
+                --     { text = "Heroic", help = "There's little time - no space for errors.", key = 3, },	
+                --     { text = "Legendary", help = "We're dropped in the middle of it - we knew it was a bad mission when we signed up for it.", key = 4, },
+                -- },	
+                local keyVersion = option.values[option.default].key
+
+                -- When the value data of the option is formatted as:
+                -- values = {
+                --     '1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20'
+                -- }
+                local valueVersion = option.values[option.default]
+
+                -- Expect a key version, fall back on a value version
+                gameInfo.GameOptions[option.key] = keyVersion or valueVersion
+
+                -- Can be removed once this code leaves the develop branch
+                LOG("Loading default map option: " .. tostring (option.key) .. " = " .. tostring (gameInfo.GameOptions[option.key]))
+            end
+        end
+    end
+end
+
 local function AssignRandomStartSpots(gameInfo)
 
     if gameInfo.GameOptions['TeamSpawn'] == 'random' then
@@ -1547,7 +1626,7 @@ local function TryLaunch(skipNoObserversCheck, skipSandboxCheck, skipTimeLimitCh
         AssignRandomFactions(gameInfo)
         AssignRandomStartSpots(gameInfo)
         AssignAINames(gameInfo)
-		
+        
 		LOG("HERE WE GO "..repr( { Options = gameInfo.GameOptions, HostedBy = localPlayerName, PlayerCount = GetPlayerCount(), GameName = gameName }) )
     
         -- Tell everyone else to launch and then launch ourselves.
@@ -3734,11 +3813,19 @@ function RefreshOptionDisplayData(scenarioInfo)
         if not option and scenarioInfo.options then
             for index, optData in scenarioInfo.options do
                 if i == optData.key then
-                    option = {text = optData.label, tooltip = optData.pref}
+
+                    -- map options are not considered to be official options
+
+                    -- if data.tooltip then
+                    --     Tooltip.AddControlTooltip(line.value.bg, data.tooltip)
+                    --     Tooltip.AddControlTooltip(line.value.bg2, data.valueTooltip)
+                    -- end
+
+                    option = { text = optData.label, tooltip = { text = optData.label, body = optData.help } }
                     for _, val in optData.values do
                         if val.key == v then
                             option.value = val.text
-                            option.valueTooltip = 'lob_'..optData.key..'_'..val.key
+                            option.valueTooltip = { text = val.text, body = val.help }
                             break
                         end
                     end
@@ -4547,6 +4634,9 @@ function InitLobbyComm(protocol, localPort, desiredPlayerName, localPlayerUID, n
         CreateUI(LobbyComm.maxPlayerSlots, useSteam)
 		
 		EnhancedLobby.BroadcastAIInfo(lobbyComm:IsHost())
+
+        -- Assign (default) map options if applicable
+        AssignDefaultMapOptions(gameInfo)
 
         UpdateGame()
 
