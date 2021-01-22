@@ -101,7 +101,7 @@ function ApplyBuff(unit, buffName, instigator)
     end
 
 	-- if the unit already has this bufftype then ignore it
-    if def.Stacks == 'IGNORE' and ubt[def.BuffType] and table.getsize(ubt[def.BuffType]) > 0 then
+    if def.Stacks == 'IGNORE' and ubt[def.BuffType] and not table.empty(ubt[def.BuffType]) then
         return
     end
 	

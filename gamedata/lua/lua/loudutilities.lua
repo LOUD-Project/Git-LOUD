@@ -2167,7 +2167,7 @@ function GetBasePerimeterPoints( aiBrain, location, radius, orientation, positio
 
 	local sortedList = {}
 	
-	if table.getsize(locList) == 0 then
+	if table.empty(locList) then
 		return {} 
 	end
 	
