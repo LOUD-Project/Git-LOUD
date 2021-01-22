@@ -1,5 +1,28 @@
+### Release 22-01-2021 ###
+Lua 5.4.02
+Textures 6.3
+LOUD Mods 5.3.01
+
+- User interface improvements courtesy of Jip#4301 and Lohkrim#5559.
+ |--> Mod manager list items can now properly fit 3 lines of description text each.
+ |--> Mod manager list item icons now fit into their box properly.
+ |--> Map-specific options now get defaults assigned as soon as a lobby opens.
+ |--> Map-specific options can now load tooltips from the scenario's own options file.
+ |--> Map-specific options previously fell under the "Advanced" header. This header is now called "Map Options" for clarity.
+- All unit wrecks have 60% of their previous value to reduce penalization for aggressive play.
+- Fix Unit Database (under Main Menu -> Extras) not having a background panel (and thus make it usable).
+- The LOUD Standard button no longer enables Barista, Supreme Economy, Auto Mass Fab Manager and Sequential Mex Upgrade.
+- Made the Sequential Mex Upgrade tooltip more accurate. Thanks to MostLostNoob#6672.
+- AI: Engineers' sensitivity to nearby threat has been tuned. Threat must now be closer (400 <- 450) and larger (75 <- 30) to trigger most defensive land defence builders.
+- AI: Moved the triggers for some engineer functions and several land formations based upon land ratio, keeping them in action a little longer.
+- AI: Small increase in radius of base patrol (was running into the perimeter defenses).
+- AI: Allowing T3 construction to continue to a slightly higher ratio and curbing T3 MML production at an earlier point.
+- AI: A general reduction in the size of reinforcement platoons and the introduction of a SUPPORT reinforcement, to complement the DIRECTFIRE and INDIRECTFIRE platoons.
+- FIX: If civilians are given transports, either as units or wrecks, they are added to the TransportPool.
+- FIX: Some missing LODs and bones from LOUD Integrated Storage have been restored.
+
 ### Patch 16-01-2021 ###
-Lua 5.4.0.1
+Lua 5.4.01
 
 - Fix ability list box extending to the top of the window.
 - Adjust AI sensitivity to threat, cheat multiplier when considering whether to form a platoon.
@@ -64,7 +87,7 @@ BlackOps 6.0
 - AI: Some of the threat logic behind alerts and build conditions now factor in AI cheat multiplier, distance, and the AI's land ratio. 
 - A triple wrench icon now indicates the build power statistic in the unit mouseover details.
 - Custom lobby options packaged with maps will show under the header "Map Options" instead of "Advanced".
-- Wreckages spawned at the start of the game will now more consistently despawn after 30 minutes.
+- Wreckages spawned at the start of the game will now more consistently despawn after 30 minutes. Thanks to Jip#4301.
 - Adjusted the position of the Sequential Mass Extractor Upgrade button so it can never be underneath the GAZUI Reclaim Window.
 - Massive polish pass to strategic icons. The highlights are:
  |--> There are now icons for bots which generate shields.
