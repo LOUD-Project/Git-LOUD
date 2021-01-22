@@ -91,7 +91,7 @@ function Average(tab, selector)
 end
 
 function Concat(tab1, tab2)
-	local result = tab1.copy()
+	local result = table.copy(tab1)
 	for _, tv in tab2 do
 		table.insert(result, tv)
 	end
@@ -102,6 +102,7 @@ function RemoveByValue(tab, value)
 	for k, v in ipairs(tab) do
 		if v == value then
 			table.remove(tab, k)
+			return
 		end
 	end
 	LOG("Value not found: "..repr(tab))
