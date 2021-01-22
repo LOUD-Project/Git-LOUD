@@ -4,9 +4,9 @@ local UIP = import('/mods/UI-Party/modules/UI-Party.lua')
 
 local ignoreLocks = false
 
-function IgnoreLocksWhile(a)
+function IgnoreLocksWhile(callback)
 	ignoreLocks = true
-	a()
+	callback()
 	ignoreLocks = false
 end
 

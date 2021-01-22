@@ -299,7 +299,8 @@ function OnBeat()
 				end
 				if v.lastIsEnhancing and not v.isEnhancing and not v:IsDead() then
 					PlaySound(Sound({Bank = 'Interface', Cue = 'UI_Opt_Mini_Button_Over'}))
-					print(UnitHelper.GetUnitName(v) .. " no longer upgrading") -- too hard to work out if complete/cancelled, we only know if there is an upgrade in the queue at al
+					-- Too hard to work out if complete/cancelled, we only know if there is an upgrade in the queue at all
+					print(UnitHelper.GetUnitName(v) .. " no longer upgrading")
 				end
 			end
 		end

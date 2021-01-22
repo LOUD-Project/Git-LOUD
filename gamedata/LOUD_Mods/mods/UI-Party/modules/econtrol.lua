@@ -145,7 +145,6 @@ function GetIsPausedBySpendType(units, spendType)
 	end
 end
 
-
 function EnablePaused(unitBox)
 	local pauseUnits = GetPaused(unitBox)
 	local unitType = unitBox.unitType
@@ -177,7 +176,9 @@ end
 --Cloak = 8,}
 
 function GetOnValueForScriptBit(i)
-	if i == 0 then return false end -- shield is weird and reversed... you need to set it to false to get it to turn off - unlike everything else
+	-- Shield is weird and reversed...
+	-- you need to set it to false to get it to turn off, unlike everything else
+	if i == 0 then return false end
 	return true
 end
 
@@ -203,13 +204,13 @@ function GetIsUnitAbilityEnabled(units)
 	return false
 end
 
-
 local hoverUnitType = nil
 local selectedUnitType = nil
 
 function OnClick(self, event, unitType)
+	unitType = self.unitType
 	if event.Type == 'MouseExit' then
-	if hoverUnitType ~= nil then
+		if hoverUnitType ~= nil then
 			hoverUnitType.typeUi.uiRoot:InternalSetSolidColor('aa000000')
 		end
 		hoverUnitType = nil
@@ -218,21 +219,20 @@ function OnClick(self, event, unitType)
 		hoverUnitType = unitType
 	end
 	if event.Type == 'ButtonPress' then
-
 		if selectedUnitType ~= nil then
 			selectedUnitType.typeUi.uiRoot:InternalSetSolidColor('aa000000')
 		end
 		selectedUnitType = unitType
 		UpdateSelectedUnitType(selectedUnitType)
 
-		local allUnits = table.concat(unitType.prodUnits, unitType.maintUnits)
+		local allUnits = LINQ.Concat(unitType.prodUnits, unitType.maintUnits)
 		SelectUnits(LINQ.ToArray(allUnits))
 	end
 
 	if hoverUnitType ~= nil then
 		hoverUnitType.typeUi.uiRoot:InternalSetSolidColor('11ffffff')
 	end
-	if selectedUnitType~= nil then
+	if selectedUnitType ~= nil then
 		selectedUnitType.typeUi.uiRoot:InternalSetSolidColor('33ffffff')
 	end
 
@@ -243,7 +243,6 @@ function UpdateSelectedUnitType(selectedUnitType)
 	UIP.econtrol.ui.textLabel:SetText(selectedUnitType.name)
 	--UIP.econtrol.ui.selectedTypeView.textLabel:SetText(selectedUnitType.name)
 end
-
 
 function GetEconData(unit)
 	local mi = unit:GetMissileInfo()
@@ -383,15 +382,15 @@ function UpdateResourcesUi()
 				unitType.typeUi.prodUnitsBox.SetOn(bv > 0)
 				unitType.typeUi.maintUnitsBox.SetOn(bmv > 0)
 
-				-- 		unitTypeUsage.text:SetText(string.format("%4.0f", unitTypeUsage.usage))
+				-- unitTypeUsage.text:SetText(string.format("%4.0f", unitTypeUsage.usage))
 
---				local str = unitTypeUsage.usage
---				if (str == 0) then str = "" else str = string.format("%10.3f", str) end
---				unitTypeUsage.text:SetText(str)
+				-- local str = unitTypeUsage.usage
+				-- if (str == 0) then str = "" else str = string.format("%10.3f", str) end
+				-- unitTypeUsage.text:SetText(str)
 
---				local str = unitTypeUsage.maintUsage
---				if (str == 0) then str = "" else str = string.format("%10.3f", str) end
---				unitTypeUsage.maintText:SetText(str)
+				-- local str = unitTypeUsage.maintUsage
+				-- if (str == 0) then str = "" else str = string.format("%10.3f", str) end
+				-- unitTypeUsage.maintText:SetText(str)
 			end
 		end
 	end
@@ -435,8 +434,6 @@ function UnitBox(typeUi, unitType, spendType, workerType)
 	check.Height:Set(8)
 	LayoutHelpers.AtLeftIn(check, group, 6)
 	LayoutHelpers.AtVerticalCenterIn(check, group, 0)
-
-
 
 	local unitBox = {
 		group = group,
@@ -577,8 +574,9 @@ end
 
 local hoverMexCategoryType
 function OnMexCategoryUiClick(self, event, category)
+	category = self.category
 	if event.Type == 'MouseExit' then
-	if hoverMexCategoryType ~= nil then
+		if hoverMexCategoryType ~= nil then
 			hoverMexCategoryType.ui:InternalSetSolidColor('aa000000')
 		end
 		hoverMexCategoryType = nil
@@ -623,17 +621,16 @@ function OnMexCategoryUiClick(self, event, category)
 	end
 
 	return true
-
 end
 
 function CreateMexesUi(uiRoot)
 	mexCategories = {
-		{ name = "T1 idle", categories = categories.TECH1, isUpgrading = false, isPaused = nil, icon = "icon_structure1_mass" },
-		{ name = "T1 upgrading paused", categories = categories.TECH1, isUpgrading = true, isPaused = true, icon = "icon_structure1_mass" },
-		{ name = "T1 upgrading", categories = categories.TECH1, isUpgrading = true, isPaused = false, icon = "icon_structure1_mass" },
-		{ name = "T2 idle", categories = categories.TECH2, isUpgrading = false, isPaused = nil, icon = "icon_structure2_mass"},
-		{ name = "T2 upgrading paused", categories = categories.TECH2, isUpgrading = true, isPaused = true, icon = "icon_structure2_mass" },
-		{ name = "T2 upgrading", categories = categories.TECH2, isUpgrading = true, isPaused = false, icon = "icon_structure2_mass" },
+		{ name = "T1 Idle", categories = categories.TECH1, isUpgrading = false, isPaused = nil, icon = "icon_structure1_mass" },
+		{ name = "T1 Upgrading Paused", categories = categories.TECH1, isUpgrading = true, isPaused = true, icon = "icon_structure1_mass" },
+		{ name = "T1 Upgrading", categories = categories.TECH1, isUpgrading = true, isPaused = false, icon = "icon_structure1_mass" },
+		{ name = "T2 Idle", categories = categories.TECH2, isUpgrading = false, isPaused = nil, icon = "icon_structure2_mass"},
+		{ name = "T2 Upgrading paused", categories = categories.TECH2, isUpgrading = true, isPaused = true, icon = "icon_structure2_mass" },
+		{ name = "T2 Upgrading", categories = categories.TECH2, isUpgrading = true, isPaused = false, icon = "icon_structure2_mass" },
 		{ name = "T3", categories = categories.TECH3, isUpgrading = false, isPaused = nil, icon = "icon_structure3_mass" },
 	}
 
@@ -646,7 +643,10 @@ function CreateMexesUi(uiRoot)
 
 	for k, category in mexCategories do
 		local categoryUi = Bitmap(mexRoot)
-		categoryUi.HandleEvent = function(self, event) return OnMexCategoryUiClick(self, event, category) end
+		categoryUi.category = category
+		categoryUi.HandleEvent = function(self, event)
+			return OnMexCategoryUiClick(self, event, category)
+		end
 		categoryUi.Width:Set(22)
 		categoryUi.Height:Set(50)
 		categoryUi:InternalSetSolidColor('aa000000')
@@ -738,9 +738,9 @@ function buildUi()
 			{ name = "Sonar", category = categories.STRUCTURE * categories.SONAR + categories.MOBILESONAR, icon = "icon_structure_intel", spacer = 0  },
 			{ name = "Stealth", category = categories.STRUCTURE * categories.COUNTERINTELLIGENCE, icon = "icon_structure_intel", spacer = 20 },
 
-			{ name = "Energy production", category = categories.STRUCTURE * categories.ENERGYPRODUCTION, icon = "icon_structure1_energy", spacer = 0 },
-			{ name = "Mass extraction", category = categories.MASSEXTRACTION + categories.MASSSTORAGE, icon = "icon_structure1_mass", spacer = 0 },
-			{ name = "Mass fabrication", category = categories.STRUCTURE * categories.MASSFABRICATION, icon = "icon_structure1_mass", spacer = 20 },
+			{ name = "Energy Production", category = categories.STRUCTURE * categories.ENERGYPRODUCTION, icon = "icon_structure1_energy", spacer = 0 },
+			{ name = "Mass Extraction", category = categories.MASSEXTRACTION + categories.MASSSTORAGE, icon = "icon_structure1_mass", spacer = 0 },
+			{ name = "Mass Fabrication", category = categories.STRUCTURE * categories.MASSFABRICATION, icon = "icon_structure1_mass", spacer = 20 },
 
 			{ name = "Silos", category = categories.SILO, icon = "icon_structure_missile", spacer = 0 },
 			{ name = "Factories", category = categories.STRUCTURE * categories.FACTORY - categories.GATE, icon = "icon_factory_generic", spacer = 0 },
@@ -813,7 +813,8 @@ function buildUi()
 				unitType.typeUi = typeUi
 
 				typeUi.uiRoot = Bitmap(uiRoot)
-				typeUi.uiRoot.HandleEvent = function(self, event) return OnClick(self, event, unitType) end
+				typeUi.uiRoot.unitType = unitType
+				typeUi.uiRoot.HandleEvent = function(self, event) return OnClick(self, event) end
 				typeUi.uiRoot.Width:Set(col4)
 				typeUi.uiRoot.Height:Set(22)
 				typeUi.uiRoot:InternalSetSolidColor('aa000000')
@@ -877,6 +878,7 @@ function buildUi()
 				LayoutHelpers.AtLeftIn(typeUi.massMaintText, typeUi.uiRoot, col4)
 				LayoutHelpers.AtVerticalCenterIn(typeUi.massMaintText, typeUi.uiRoot)
 --]]
+
 				typeUi.energyBar = Bitmap(typeUi.uiRoot)
 				typeUi.energyBar.Width:Set(10)
 				typeUi.energyBar.Height:Set(1)
@@ -1021,14 +1023,14 @@ function buildUi()
 end
 
 function setEnabled(value)
-	-- Tear down old ui
+	-- Tear down old UI
 	if rawget(UIP, "econtrol") ~= nil then
 		if UIP.econtrol.ui then UIP.econtrol.ui:Destroy() end
 		if UIP.econtrol.beat then GameMain.RemoveBeatFunction(UIP.econtrol.beat) end
 		UIP.econtrol = nil
 	end
 
-	-- Build new ui
+	-- Build new UI
 	if value then
 		buildUi()
 	end
