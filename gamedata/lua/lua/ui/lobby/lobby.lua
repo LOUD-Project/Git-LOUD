@@ -1247,10 +1247,10 @@ local function AssignDefaultMapOptions(gameInfo)
         end
     end
     
-    scenarioInfo = MapUtil.LoadScenario(gameInfo.GameOptions.ScenarioFile)
+    local scenarioInfo = MapUtil.LoadScenario(gameInfo.GameOptions.ScenarioFile)
     if scenarioInfo.options then 
         for _, option in scenarioInfo.options do 
-            if not gameInfo.GameOptions[option.key] then 
+            if not gameInfo.GameOptions[option.key] then
 
                 -- ensure the default is sane
                 CheckAndCorrectDefaultOption(option)
@@ -1626,9 +1626,6 @@ local function TryLaunch(skipNoObserversCheck, skipSandboxCheck, skipTimeLimitCh
         AssignRandomFactions(gameInfo)
         AssignRandomStartSpots(gameInfo)
         AssignAINames(gameInfo)
-
-        -- assign (default) map options if applicable
-        AssignDefaultMapOptions(gameInfo)
         
 		LOG("HERE WE GO "..repr( { Options = gameInfo.GameOptions, HostedBy = localPlayerName, PlayerCount = GetPlayerCount(), GameName = gameName }) )
     
@@ -4637,6 +4634,9 @@ function InitLobbyComm(protocol, localPort, desiredPlayerName, localPlayerUID, n
         CreateUI(LobbyComm.maxPlayerSlots, useSteam)
 		
 		EnhancedLobby.BroadcastAIInfo(lobbyComm:IsHost())
+
+        -- Assign (default) map options if applicable
+        AssignDefaultMapOptions(gameInfo)
 
         UpdateGame()
 
