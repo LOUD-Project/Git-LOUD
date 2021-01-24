@@ -150,16 +150,12 @@ UnitBlueprint {
         
         SkirtOffsetX = -0.5,
         SkirtOffsetZ = -0.5,
-
-        SkirtOffsetX = -0.5,
-        SkirtOffsetZ = -0.5,
         SkirtSizeX = 2,
         SkirtSizeZ = 2,
         
         TurnRate = 0,
     },
     
-<<<<<<< HEAD
     SelectionSizeX = 0.8,
     SelectionSizeZ = 0.8,
     SelectionThickness = 0.6,
@@ -168,16 +164,6 @@ UnitBlueprint {
     SizeY = 1.25,
     SizeZ = 1.05,
 	
-=======
-    SelectionSizeX = 0.65,
-    SelectionSizeZ = 0.65,
-    SelectionThickness = 0.6,
-    
-    SizeX = 0.6,
-    SizeY = 0.85,
-    SizeZ = 0.6,
-
->>>>>>> master
     StrategicIconName = 'icon_structure3_directfire',
     StrategicIconSortPriority = 200,
     
