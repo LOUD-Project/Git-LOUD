@@ -6,19 +6,21 @@
 --* Copyright � 2005 Gas Powered Games, Inc.  All rights reserved.
 --*****************************************************************************
 
-local UIUtil = import('/lua/ui/uiutil.lua')
-local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
 local Bitmap = import('/lua/maui/bitmap.lua').Bitmap
-local Checkbox = import('/lua/maui/checkbox.lua').Checkbox
-local MultiLineText = import('/lua/maui/multilinetext.lua').MultiLineText
-local Group = import('/lua/maui/group.lua').Group
-local Mods = import('/lua/mods.lua')
-local Tooltip = import('/lua/ui/game/tooltip.lua')
-local ItemList = import('/lua/maui/itemlist.lua').ItemList
-local Prefs = import('/lua/user/prefs.lua')
+local Combo = import('/lua/ui/controls/combo.lua').Combo
 local Edit = import('/lua/maui/edit.lua').Edit
+local Group = import('/lua/maui/group.lua').Group
+local ItemList = import('/lua/maui/itemlist.lua').ItemList
+local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
+local Mods = import('/lua/mods.lua')
+local MultiLineText = import('/lua/maui/multilinetext.lua').MultiLineText
+local Prefs = import('/lua/user/prefs.lua')
+local Tooltip = import('/lua/ui/game/tooltip.lua')
+local UIUtil = import('/lua/ui/uiutil.lua')
 
 local _InternalUpdateStatus
+
+local modDetails = false
 
 -- This function can be called while the ModManager is active, to update changes to the selected mods on the fly.
 -- If called when the ModManger is -not- active, it is a no-op.
@@ -43,8 +45,8 @@ function ClientModStatus(selectedModsFromHost)
                 tooltip = nil
             }
         else
-            r[uid] = { 
-                checked = (selectedModsFromHost[uid] or false), 
+            r[uid] = {
+                checked = (selectedModsFromHost[uid] or false),
                 cantoggle = false,
                 tooltip = 'modman_controlled_by_host'
             }
@@ -123,12 +125,12 @@ local function CreateDependsDialog(parent, text, yesFunc)
     LayoutHelpers.Above(backgroundTop, dialog)
     local backgroundBottom = Bitmap(dialog, UIUtil.SkinnableFile('/dialogs/dialog/panel_bmp_b.dds'))
     LayoutHelpers.Below(backgroundBottom, dialog)
-    
+
     local textBox = UIUtil.CreateTextBox(background)
     LayoutHelpers.AtLeftTopIn(textBox, dialog, 30, 5)
     LayoutHelpers.AtRightIn(textBox, dialog, 64)
     LayoutHelpers.AtBottomIn(textBox, dialog, 5)
-    
+
     local yesButton = UIUtil.CreateButtonStd( backgroundBottom, '/widgets/small', "<LOC _Yes>", 12, 0)
     LayoutHelpers.AtLeftIn(yesButton, backgroundBottom, 50)
     LayoutHelpers.AtTopIn(yesButton, backgroundBottom, 20)
@@ -143,14 +145,14 @@ local function CreateDependsDialog(parent, text, yesFunc)
     noButton.OnClick = function(self)
         dialog:Destroy()
     end
-    
+
     LayoutHelpers.AtCenterIn(dialog, parent:GetRootFrame())
     textBox:SetFont(UIUtil.bodyFont, 18)
     UIUtil.SetTextBoxText(textBox, text)
     UIUtil.CreateWorldCover(dialog)
 end
 
-local function CreateLoadPresetDialog(parent, scrollGroup)
+local function CreateLoadPresetDialog(parent, modListChkboxTable)
     local dialog = Group(parent)
 	dialog.Depth:Set(function() return parent.Depth() + 5 end)
     local background = Bitmap(dialog, UIUtil.SkinnableFile('/dialogs/dialog/panel_bmp_m.dds'))
@@ -164,7 +166,7 @@ local function CreateLoadPresetDialog(parent, scrollGroup)
     LayoutHelpers.Above(backgroundTop, dialog)
     local backgroundBottom = Bitmap(dialog, UIUtil.SkinnableFile('/dialogs/dialog/panel_bmp_b.dds'))
     LayoutHelpers.Below(backgroundBottom, dialog)
-    
+
     local presets = ItemList(dialog)
 	presets:SetFont(UIUtil.bodyFont, 16)
 	presets:SetColors(UIUtil.fontColor(), "Black", "Black", "Gainsboro", "Black", "Gainsboro")
@@ -173,9 +175,9 @@ local function CreateLoadPresetDialog(parent, scrollGroup)
     LayoutHelpers.AtRightIn(presets, dialog, 64)
     LayoutHelpers.AtBottomIn(presets, dialog, 5)
 	presetsScroll = UIUtil.CreateVertScrollbarFor(presets)
-	
+
 	local userPresets = Prefs.GetFromCurrentProfile('UserPresets')
-	
+
 	local function fillPresetList()
 		presets:DeleteAllItems()
 		if userPresets then
@@ -184,7 +186,7 @@ local function CreateLoadPresetDialog(parent, scrollGroup)
 			end
 		end
 	end
-	
+
     local yesButton = UIUtil.CreateButtonStd( backgroundBottom, '/widgets/small', "Load", 12, 0)
     LayoutHelpers.AtLeftIn(yesButton, backgroundBottom, 0)
     LayoutHelpers.AtTopIn(yesButton, backgroundBottom, 20)
@@ -192,20 +194,20 @@ local function CreateLoadPresetDialog(parent, scrollGroup)
 		local index = presets:GetSelection()
 		if index and index >= 0 then
 			local name = presets:GetItem(index)
-			local presetMods = userPresets[name]
-			for index, control in scrollGroup.controlList do
-				if presetMods[control.modInfo.uid] and not control.active then
-					control:Toggle()
-				elseif not presetMods[control.modInfo.uid] and control.active then
-					control:Toggle()
-				end
-			end
+            local presetMods = userPresets[name]
+            for _, chkbox in modListChkboxTable do
+                if presetMods[chkbox.modInfo.uid] and not chkbox:IsChecked() then
+                    chkbox:ToggleCheck()
+                elseif not presetMods[chkbox.modInfo.uid] and chkbox:IsChecked() then
+                    chkbox:ToggleCheck()
+                end
+            end
 			dialog:Destroy()
 		else
 			UIUtil.ShowInfoDialog(dialog, "You have not selected a preset to load.", "OK")
 		end
     end
-	
+
     local deleteButton = UIUtil.CreateButtonStd( backgroundBottom, '/widgets/small', "Delete", 12, 0)
     LayoutHelpers.AtCenterIn(deleteButton, backgroundBottom)
     LayoutHelpers.AtTopIn(deleteButton, backgroundBottom, 20)
@@ -213,7 +215,7 @@ local function CreateLoadPresetDialog(parent, scrollGroup)
 		local index = presets:GetSelection()
 		if index and index >= 0 then
 			local name = presets:GetItem(index)
-			UIUtil.QuickDialog(dialog, "Are you sure you want to delete the preset "..name.."?", 
+			UIUtil.QuickDialog(dialog, "Are you sure you want to delete the preset "..name.."?",
 				"<LOC _Yes>", function()
 					-- table.remove(userPresets, index + 1)
 					userPresets[name] = nil
@@ -221,7 +223,7 @@ local function CreateLoadPresetDialog(parent, scrollGroup)
 					fillPresetList()
 				end,
 				"<LOC _No>", nil,
-				nil, nil, 
+				nil, nil,
 				true, {worldCover = false, enterButton = 1, escapeButton = 2})
 		else
 			UIUtil.ShowInfoDialog(dialog, "You have not selected a preset to delete.", "OK")
@@ -234,9 +236,9 @@ local function CreateLoadPresetDialog(parent, scrollGroup)
     noButton.OnClick = function(self)
 		dialog:Destroy()
     end
-    
+
 	fillPresetList()
-		
+
     LayoutHelpers.AtCenterIn(dialog, parent:GetRootFrame())
     UIUtil.CreateWorldCover(dialog)
 end
@@ -255,11 +257,11 @@ local function CreateSavePresetDialog(parent, scrollGroup)
     LayoutHelpers.Above(backgroundTop, dialog)
     local backgroundBottom = Bitmap(dialog, UIUtil.SkinnableFile('/dialogs/dialog/panel_bmp_b.dds'))
     LayoutHelpers.Below(backgroundBottom, dialog)
-	
+
     local title = UIUtil.CreateText(dialog, 'Name your preset', 18)
     LayoutHelpers.AtTopIn(title, dialog, 10)
     LayoutHelpers.AtHorizontalCenterIn(title, dialog)
-    
+
 	local nameEdit = Edit(dialog)
 	nameEdit.Width:Set(function() return background.Width() - 80 end)
 	nameEdit.Height:Set(function() return nameEdit:GetFontHeight() end)
@@ -267,7 +269,7 @@ local function CreateSavePresetDialog(parent, scrollGroup)
     LayoutHelpers.AtHorizontalCenterIn(nameEdit, dialog)
 	UIUtil.SetupEditStd(nameEdit, UIUtil.fontColor, "00569FFF", UIUtil.highlightColor, "880085EF", UIUtil.bodyFont, 18, 30)
 	nameEdit:AcquireFocus()
-    
+
     local yesButton = UIUtil.CreateButtonStd( backgroundBottom, '/widgets/small', "Save", 12, 0)
     LayoutHelpers.AtLeftIn(yesButton, backgroundBottom, 50)
     LayoutHelpers.AtTopIn(yesButton, backgroundBottom, 20)
@@ -281,7 +283,7 @@ local function CreateSavePresetDialog(parent, scrollGroup)
             return
 		elseif presets[name] then
             nameEdit:AbandonFocus()
-            UIUtil.QuickDialog(dialog, "A preset with that name already exists. Do you want to overwrite it?", 
+            UIUtil.QuickDialog(dialog, "A preset with that name already exists. Do you want to overwrite it?",
 				"<LOC _Yes>", function()
 					local selMods = {}
 					for index, control in scrollGroup.controlList do
@@ -294,7 +296,7 @@ local function CreateSavePresetDialog(parent, scrollGroup)
 					nameEdit:AcquireFocus()
 				end,
 				"<LOC _No>", function() nameEdit:AcquireFocus() end,
-				nil, nil, 
+				nil, nil,
 				true, {worldCover = false, enterButton = 1, escapeButton = 2})
 			return
 		else
@@ -316,12 +318,12 @@ local function CreateSavePresetDialog(parent, scrollGroup)
     noButton.OnClick = function(self)
         dialog:Destroy()
     end
-    
+
     LayoutHelpers.AtCenterIn(dialog, parent:GetRootFrame())
     UIUtil.CreateWorldCover(dialog)
 end
 
-local loudStandard = { 
+local loudStandard = {
     '25D57D85-7D84-27HT-A501-BR3WL4N000079', -- BrewLAN
     '62e2j64a-53a2-y6sg-32h5-146as555a18u3', -- Total Mayhem
     '9a9C61C0-1787-10DF-A0AD-BATTLEPACK002', -- Wyvern Battle Pack
@@ -332,113 +334,310 @@ local loudStandard = {
     'fffffffe-6e98-4864-9599-4133236eea7a', -- LOUD Unit Additions
     'HUSSAR-PL-a1e2-c4t4-scfa-ssbmod-v1240', -- Supreme Score Board
     '9e8ea941-c306-4751-b367-e00000000302', -- BlackOps ACUs
-    'ffffffff-6f00-4864-9599-4133236eea7a', -- Evenflow
+    'ffffffff-6f00-4864-9599-4133236eea7a', -- LOUD Evenflow
     '2529ea71-93ef-41a6-b552-EXPERICON00005', -- Experimental Icons Overhaul
 }
 
+local modSchema = {
+    ["Units"] = {
+        '454af309-5afb-458b-bf5b-a00000000007', -- 4th Dimension
+        '9e8ea941-c306-4751-b367-e00000000302', -- BlackOps ACUs
+        '9e8ea941-c306-4751-b367-a11000000502', -- BlackOps Unleashed
+        '25D57D85-7D84-27HT-A501-BR3WL4N000079', -- BrewLAN
+        'fffffffe-6e98-4864-9599-4133236eea7a', -- LOUD Unit Additions
+        '62e2j64a-53a2-y6sg-32h5-146as555a18u3', -- Total Mayhem
+        '9a9C61C0-1787-10DF-A0AD-BATTLEPACK002', -- Wyvern Battle Pack
+    },
+    ["User Interface"] = {
+        '2529ea71-93ef-41a6-b552-EXPERICON00005', -- Experimental Icons Overhaul
+        'EF3ADDB4-9D34-437F-B1C8-440DAF896802', -- Mass Fab Manager
+        'D000E905-1E97-420D-8ED9-DF083282F59D', -- Sequential Mex Upgrade
+        '89BF1572-9EA8-11DC-1313-635F56D89591', -- Supreme Economy
+        'HUSSAR-PL-a1e2-c4t4-scfa-ssbmod-v1240', -- Supreme Score Board
+    },
+    ["Mini-Mods"] = {
+        'ffffffff-6f00-4864-9599-4133236eea7a', -- Evenflow
+        'ffffffff-6e98-4864-9599-4133236eea7a', -- Integrated Storage
+        'ffffffff-ffff-ffff-ffff-fffffffffffe', -- Structure Enhancements
+    },
+    ["Mutators"] = {
+        'ffffffff-9d4e-11dc-8314-0800200c0605', -- Enhanced Commanders
+        'ffffffff-9d4e-11dc-8314-0800200c0702', -- Enhanced Experimental Artillery
+        '25D57D85-7D84-27HT-A502-LDIPS0000002', -- Lucky Dip
+        '0a970b58-533d-11dc-8314-0800200c9a66', -- Realistic Nukes
+        '74A9EAB2-E851-11DB-A1F1-F2C755D89593', -- Resource Rich
+    },
+    ["Miscellaneous"] = {
+        '25D57D85-9JA7-D842-GKG4-ORIGIN0000001', -- BrewLAN Baristas
+        '25D57D85-9JA7-D842-GKG4-DAMAGENO00000', -- BrewLAN Damage Numbers
+        '2529ea71-93ef-41a6-b552-LOGS0000000009', -- BrewLAN Debug Tools
+        '5362BE90-44BE-11DD-A519-83AF56D89593', -- Supreme Commander Music
+    },
+    ["Usermods"] = {},
+}
+
+local modsEnabled = false
+local modStruct = false
+
 function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
 
-    LOG("Hi from ModManager.lua!")
+    ---------------------------------------------------------------------------
+    -- Fill in default args
+    ---------------------------------------------------------------------------
 
-    ---------------------------------------------------------------------------
-    -- fill in default args
-    ---------------------------------------------------------------------------
     modStatus = modStatus or LocalModStatus()
 
     local exclusiveModSelected = nil
 
     ---------------------------------------------------------------------------
-    -- basic layout and operation of dialog
+    -- Basic layout and operation of dialog
     ---------------------------------------------------------------------------
 
 	local parent = over
 
     local panel = Bitmap(parent, UIUtil.UIFile('/scx_menu/mod-manager/panel_bmp.dds'))
     LayoutHelpers.AtCenterIn(panel, parent)
-    
+
     panel.brackets = UIUtil.CreateDialogBrackets(panel, 38, 24, 38, 24)
-    
+
     local title = UIUtil.CreateText(panel, LOC("<LOC _Mod_Manager>Mod Manager"), 24)
     LayoutHelpers.AtTopIn(title, panel, 24)
     LayoutHelpers.AtHorizontalCenterIn(title, panel)
-    
+
     panel.Depth:Set(GetFrame(over:GetRootFrame():GetTargetHead()):GetTopmostDepth() + 1)
-    
+
     local worldCover = nil
     if useCover then
     	worldCover = UIUtil.CreateWorldCover(panel)
     end
-    
+
     local dlgLabel = UIUtil.CreateText(panel, "<LOC uimod_0001>Click to select or deselect", 20, 'Arial Bold')
-    -- LayoutHelpers.AtTopIn(dlgLabel, panel, 80)
-    -- LayoutHelpers.AtHorizontalCenterIn(dlgLabel, panel)
     LayoutHelpers.AtLeftTopIn(dlgLabel, panel, 30, 80)
-	
+
     ---------------------------------------------------------------------------
     -- Mod list control
     ---------------------------------------------------------------------------
-    local numElementsPerPage = 5
-    
-    local scrollGroup = Group(panel)
-    scrollGroup.Width:Set(635)
-    scrollGroup.Height:Set(450)
-    
-    -- LayoutHelpers.AtLeftTopIn(scrollGroup, panel, 25, 118)
-    LayoutHelpers.AtCenterIn(scrollGroup, panel, -16)
-    UIUtil.CreateVertScrollbarFor(scrollGroup)
-    
-    scrollGroup.controlList = {}
-    scrollGroup.top = 1
-    
-    -- called when the scrollbar for the control requires data to size itself
-    -- GetScrollValues must return 4 values in this order:
-    -- rangeMin, rangeMax, visibleMin, visibleMax
-    -- aixs can be "Vert" or "Horz"
-    scrollGroup.GetScrollValues = function(self, axis)
-        return 1, table.getn(self.controlList), self.top, math.min(self.top + numElementsPerPage - 1, table.getn(scrollGroup.controlList))
-    end
 
-    -- called when the scrollbar wants to scroll a specific number of lines (negative indicates scroll up)
-    scrollGroup.ScrollLines = function(self, axis, delta)
-        self:ScrollSetTop(axis, self.top + math.floor(delta))
-    end
-
-    -- called when the scrollbar wants to scroll a specific number of pages (negative indicates scroll up)
-    scrollGroup.ScrollPages = function(self, axis, delta)
-        self:ScrollSetTop(axis, self.top + math.floor(delta) * numElementsPerPage)
-    end
-
-    -- called when the scrollbar wants to set a new visible top line
-    scrollGroup.ScrollSetTop = function(self, axis, top)
-        top = math.floor(top)
-        if top == self.top then return end
-        self.top = math.max(math.min(table.getn(self.controlList) - numElementsPerPage + 1 , top), 1)
-        self:CalcVisible()
-    end
-
-    -- called to determine if the control is scrollable on a particular access. Must return true or false.
-    scrollGroup.IsScrollable = function(self, axis)
-        return true
-    end
-    
-    -- determines what controls should be visible or not, and hide/show appropriately
-    scrollGroup.CalcVisible = function(self)
-        local top = self.top
-        local bottom = self.top + numElementsPerPage
-        for index, control in ipairs(self.controlList) do
-            if index < top or index >= bottom then
-                control:Hide()
-            else
-                control:Show()
-                control.Left:Set(self.Left)
-                local lIndex = index
-                local lControl = control
-                control.Top:Set(function() return self.Top() + ((lIndex - top) * lControl.Height() + 5) end)
+    local function NotInSchema(uidArg)
+        for _, v in modSchema do
+            for i, uid in v do
+                if uidArg == uid then
+                    return true
+                end
             end
         end
+        return false
     end
-    
+
+    local modsEnabled = {}
+    local modStruct = {}
+
+    for key, block in modSchema do
+        modStruct[key] = {}
+        modStruct[key].name = key
+        -- RATODO: Leave some closed by default
+        modStruct[key].open = true
+        modStruct[key].uids = {}
+        for _, uid in block do
+            table.insert(modStruct[key].uids, uid)
+        end
+    end
+
+    local allmods = Mods.AllSelectableMods()
+    local selmods = Mods.GetSelectedMods()
+
+    for _, v in allmods do
+        if NotInSchema(v.uid) then
+            table.insert(modSchema['Usermods'], v.uid)
+        end
+        if selmods[v.uid] then
+            modsEnabled[v.uid] = true
+        else
+            modsEnabled[v.uid] = false
+        end
+    end
+
+    --[[
+    table.sort(modNamesTable, function(a,b)
+			if selmods[a.uid] and selmods[b.uid] then
+				return a.name < b.name
+			elseif selmods[a.uid] or selmods[b.uid] then
+				return selmods[a.uid] or false
+			else
+				return a.name < b.name
+			end
+        end)
+    --]]
+
+    local modListTable = {}
+    local modListContainer = Group(panel)
+    modListContainer.Width:Set(380)
+    modListContainer.Height:Set(460)
+    modListContainer.top = 0
+    LayoutHelpers.AtLeftIn(modListContainer, panel, 28)
+    LayoutHelpers.AtVerticalCenterIn(modListContainer, panel, -15)
+
+    local function CreateModGroup(i)
+        modListTable[i] = Group(modListContainer)
+        local grp = modListTable[i]
+        grp.Height:Set(36)
+        grp.Width:Set(modListContainer.Width())
+        grp.bg = Bitmap(grp)
+        grp.bg.Depth:Set(grp.Depth)
+        LayoutHelpers.FillParent(grp.bg, grp)
+        grp.bg:SetSolidColor('22282B')
+        grp.bg.Right:Set(function() return grp.Right() - 10 end)
+        grp.checkbox = UIUtil.CreateCheckboxStd(grp, '/dialogs/check-box_btn/radio')
+        LayoutHelpers.AtLeftIn(grp.checkbox, grp, 2)
+        LayoutHelpers.AtVerticalCenterIn(grp.checkbox, grp)
+        grp.icon = Bitmap(grp)
+        grp.icon.Width:Set(36)
+        grp.icon.Height:Set(36)
+        LayoutHelpers.CenteredRightOf(grp.icon, grp.checkbox, 2)
+        grp.name = UIUtil.CreateText(grp, '', 18, UIUtil.bodyFont)
+        LayoutHelpers.CenteredRightOf(grp.name, grp.icon, 4)
+        grp.icon:DisableHitTest()
+        grp.name:DisableHitTest()
+    end
+
+    local numElements = 12
+
+    CreateModGroup(1)
+    LayoutHelpers.AtLeftTopIn(modListTable[1], modListContainer)
+
+    for i = 2, numElements do
+        CreateModGroup(i)
+        LayoutHelpers.Below(modListTable[i], modListTable[i - 1], 1)
+    end
+
+    local numLines = function() return table.getsize(modListTable) end
+
+    local function DataSize()
+        local ret = 0
+        for _, block in modStruct do
+            if not block.open then continue
+            else
+                for _, _ in block.uids do
+                    ret = ret + 1
+                end
+            end
+        end
+        return ret
+    end
+
+    modListContainer.GetScrollValues = function(self, axis)
+		local size = DataSize()
+		return 0, size, self.top, math.min(self.top + numLines(), size)
+	end
+
+	modListContainer.ScrollLines = function(self, axis, delta)
+		self:ScrollSetTop(axis, self.top + math.floor(delta))
+	end
+
+	modListContainer.ScrollPages = function(self, axis, delta)
+		self:ScrollSetTop(axis, self.top + math.floor(delta) * numLines())
+	end
+
+	modListContainer.ScrollSetTop = function(self, axis, top)
+		top = math.floor(top)
+        if top == self.top then return end
+        local size = DataSize()
+		self.top = math.max(math.min(size - numLines(), top), 0)
+        self:CalcVisible()
+	end
+
+	modListContainer.IsScrollable = function(self, axis)
+		return true
+	end
+
+    modListContainer.CalcVisible = function(selfMLC)
+        local i = 0
+        local skip = selfMLC.top -- Account for scroll bar offset
+        for _, block in modStruct do
+            -- Skip entire block if scroll bar dictates
+            if not block.open and skip >= 1 then
+                skip = skip - 1
+                continue
+            end
+
+            -- RATODO: If no mods in this block pass all filters, continue
+
+            -- Block is eligible to be displayed
+            -- However, header might get skipped
+            if skip <= 0 then
+                i = i + 1
+                if i > numElements then break end
+                modListTable[i].uid = false
+                modListTable[i].block = block
+                modListTable[i].checkbox:Hide()
+                modListTable[i].icon:Hide()
+                modListTable[i].name:SetNewFont('Arial', 18)
+                modListTable[i].name:SetText(block.name)
+                modListTable[i].HandleEvent = function(self, event)
+                    if event.Type == 'ButtonPress' or event.Type == 'ButtonDClick' then
+                        self.block.open = not self.block.open
+                        selfMLC:CalcVisible()
+                    end
+                end
+            else
+                skip = skip - 1
+            end
+
+            -- Don't add block's contents if it's folded,
+            -- or if all its contents are to be skipped
+            if not block.open then
+                continue
+            elseif skip >= table.getsize(block.uids) then
+                skip = skip - table.getsize(block.uids)
+                continue
+            end
+
+            for _, uid in block.uids do
+                if skip > 0 then
+                    skip = skip - 1
+                    continue
+                end
+                i = i + 1
+                if i > numElements then break end
+                modListTable[i].block = false
+                modListTable[i].uid = uid
+                modListTable[i].checkbox:Show()
+                modListTable[i].checkbox.OnCheck = function(self, checked)
+                    modsEnabled[uid] = checked
+                end
+                modListTable[i].checkbox:SetCheck(modsEnabled[uid])
+                modListTable[i].icon:Show()
+                modListTable[i].icon:SetTexture(allmods[uid].icon)
+                modListTable[i].name:SetNewFont('Arial', 14)
+                modListTable[i].name:SetText(allmods[uid].name)
+                modListTable[i].HandleEvent = function(self, event)
+                    if event.Type == 'ButtonPress' or event.Type == 'ButtonDClick' then
+                        DisplayModDetails(self.uid)
+                        local sound = Sound({Cue = "UI_Mod_Select", Bank = "Interface",})
+                        PlaySound(sound)
+                    end
+                end
+            end
+        end
+	end
+
+	modListContainer:CalcVisible()
+
+	modListContainer.HandleEvent = function(self, event)
+        if event.Type == 'WheelRotation' then
+            local lines = 1
+            if event.WheelRotation > 0 then
+                lines = -1
+            end
+            self:ScrollLines(nil, lines)
+        end
+    end
+
+    local listScrollbar = UIUtil.CreateVertScrollbarFor(modListContainer, -16)
+	listScrollbar.Depth:Set(listScrollbar.Depth() + 20)
+
     -- return all the currently selected controls
+--[[
     local function GetCurrentlyListedMods()
         local ret = nil
         for index, control in scrollGroup.controlList do
@@ -448,287 +647,71 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
         return ret
     end
 
-    ---------------------------------------------------------------------------
-    -- Mod list element
-    ---------------------------------------------------------------------------
-    local function CreateListElement(parent, modInfo)
-        local bg = Bitmap(parent, UIUtil.UIFile('/dialogs/mod_btn/mod-d_btn_up.dds'))
-        bg.Height:Set(90)
-        bg.Width:Set(635)
-        bg.modInfo = modInfo
-        
-        -- TODO: FIX
-        local icon = Bitmap(bg, modInfo.icon)
-        icon.Height:Set(70)
-        icon.Width:Set(70)
-        LayoutHelpers.AtLeftTopIn(icon, bg, 10, 10)
-        
-        local name = UIUtil.CreateText(bg, modInfo.name, 14, UIUtil.bodyFont)
-        LayoutHelpers.AtLeftTopIn(name, bg, 104, 10)
-        name:SetDropShadow(true)
-        
-        local activecheck = Checkbox(bg, 
-            UIUtil.UIFile('/dialogs/check-box_btn/radio-d_btn_up.dds'), 
-            UIUtil.UIFile('/dialogs/check-box_btn/radio-s_btn_up.dds'), 
-            UIUtil.UIFile('/dialogs/check-box_btn/radio-d_btn_over.dds'), 
-            UIUtil.UIFile('/dialogs/check-box_btn/radio-s_btn_over.dds'), 
-            UIUtil.UIFile('/dialogs/check-box_btn/radio-d_btn_dis.dds'), 
-            UIUtil.UIFile('/dialogs/check-box_btn/radio-s_btn_dis.dds'))
-        LayoutHelpers.AtRightTopIn(activecheck, bg, 8, 4)
-        activecheck:DisableHitTest()
-        
-        local desc = MultiLineText(bg, UIUtil.bodyFont, 14, UIUtil.fontColor)
-        LayoutHelpers.AtLeftTopIn(desc, bg, 102, 30)
-        desc.Height:Set(60)
-        desc.Width:Set(520)
-        desc:SetText(modInfo.description)
 
-        icon:DisableHitTest()
-        name:DisableHitTest()
-        desc:DisableHitTest()
-
-        if modStatus[modInfo.uid].checked then
-            activecheck:SetCheck(true)
-			if not modStatus[modInfo.uid].cantoggle then
-				bg:SetTexture(UIUtil.UIFile('/dialogs/mod_btn/mod-t_btn_up.dds'))
-			else
-				bg:SetTexture(UIUtil.UIFile('/dialogs/mod_btn/mod-s_btn_up.dds'))
-			end
-            bg.active = true
-            if IsModExclusive(modInfo.uid) then
-                exclusiveModSelected = bg
-            end
-        else
-            activecheck:SetCheck(false)
-			if not modStatus[modInfo.uid].cantoggle then
-				bg:SetTexture(UIUtil.UIFile('/dialogs/mod_btn/mod-b_btn_up.dds'))
-			else
-				bg:SetTexture(UIUtil.UIFile('/dialogs/mod_btn/mod-d_btn_up.dds'))
-			end
-            bg.active = false
-        end
-
-        bg:Hide()
-        
-        function bg:Toggle()
-            if self.active then
-                activecheck:SetCheck(false)
-                self:SetTexture(UIUtil.UIFile('/dialogs/mod_btn/mod-d_btn_up.dds'))
-                self.active = false
-            else
-                activecheck:SetCheck(true)
-                self:SetTexture(UIUtil.UIFile('/dialogs/mod_btn/mod-s_btn_up.dds'))
-                self.active = true
-            end
-        end
-
-        local function HandleExclusiveClick(bg)
-            local function DoExclusiveBehavior()
-                exclusiveModSelected = bg
-                bg:Toggle()
-                for index, control in scrollGroup.controlList do
-                    if control ~= bg and control.active then
-                        control:Toggle()
-                    end
-                end
-            end
-            
-            UIUtil.QuickDialog(
-                parent, 
-                "<LOC uimod_0010>The mod you have requested is marked as exclusive. If you select this mod, all other mods will be disabled. Do you wish to enable this mod?",
-                "<LOC _Yes>", DoExclusiveBehavior,
-                "<LOC _No>")
-        end
-        
-        local function HandleExclusiveActive(bg, normalClickFunc)
-            UIUtil.QuickDialog(
-                parent,
-                "<LOC uimod_0011>You currently have an exclusive mod selected, do you wish to deselect it?",
-                "<LOC _Yes>", function()
-                    exclusiveModSelected:Toggle()
-                    exclusiveModSelected = nil
-                    normalClickFunc(bg)
-                end,
-                "<LOC _No>")
-        end
-
-        local function HandleNormalClick(bg)
-            if not bg.active then
-                local curListed = GetCurrentlyListedMods()
-                local depends = Mods.GetDependencies(bg.modInfo.uid)
-                
-                if depends.missing then
-                    local boxText = LOC("<LOC uimod_0012>The requested mod can not be enabled as it requires the following mods that you don't currently have installed:\n\n")
-                    for uid, v in depends.missing do
-                        local name
-                        if bg.modInfo.requiresNames and bg.modInfo.requiresNames[uid] then
-                            name = bg.modInfo.requiresNames[uid]
-                        else
-                            name = uid
-                        end
-                        boxText = boxText .. name .. "\n"
-                    end
-                    UIUtil.QuickDialog(parent, boxText, "<LOC _Ok>")
-                else
-                    if depends.requires or depends.conflicts then
-                        local needsRequiredActivated = false
-                        local needsConflictsDisabled = false
-                        
-                        if depends.requires then
-                            for uid, v in depends.requires do
-                                if curListed[uid] and not curListed[uid].active then
-                                    needsRequiredActivated = true
-                                    break
-                                end
-                            end
-                        end
-                        
-                        if depends.conflicts then
-                            for uid, v in depends.conflicts do
-                                if curListed[uid] and curListed[uid].active then
-                                    needsConflictsDisabled = true
-                                    break
-                                end
-                            end
-                        end
-                        
-                        if (needsRequiredActivated == true) or (needsConflictsDisabled == true) then
-                            local allMods = Mods.AllMods()
-                            local boxText = ""
-                            
-                            if needsRequiredActivated == true then
-                                boxText = boxText .. LOC("<LOC uimod_0013>The requested mod requires the following mods be enabled:\n\n")
-                                for uid, v in depends.requires do
-                                    if curListed[uid] and not curListed[uid].active then
-                                        boxText = boxText .. allMods[uid].name .. "\n"
-                                    end
-                                end
-                                boxText = boxText .. "\n"
-                            end
-                            if needsConflictsDisabled == true then
-                                boxText = boxText .. LOC("<LOC uimod_0014>The requested mod requires the following mods be disabled:\n\n")
-                                for uid, v in depends.conflicts do
-                                    if curListed[uid] and curListed[uid].active then
-                                        boxText = boxText .. allMods[uid].name .. "\n"
-                                    end
-                                end
-                                boxText = boxText .. "\n"
-                            end
-                            boxText = boxText .. LOC("<LOC uimod_0015>Would you like to enable the requested mod? Selecting Yes will enable all required mods, and disable all conflicting mods.")
-                            CreateDependsDialog(parent, boxText, function()
-                                bg:Toggle()
-                                if depends.requires then
-                                    for uid, v in depends.requires do
-                                        if curListed[uid] and not curListed[uid].active then
-                                            curListed[uid]:Toggle()
-                                        end
-                                    end
-                                end
-                                if depends.conflicts then
-                                    for uid, v in depends.conflicts do
-                                        if curListed[uid] and curListed[uid].active then
-                                            curListed[uid]:Toggle()
-                                        end
-                                    end
-                                end
-                            end)
-                        else
-                            bg:Toggle()
-                        end                            
-                    else
-                        bg:Toggle()
-                    end
-                end
-            else
-                bg:Toggle()
-            end
-        end
-        
-        bg.HandleEvent = function(self, event)
-            if event.Type == 'ButtonPress' or event.Type == 'ButtonDClick' then
-                if modStatus[modInfo.uid].cantoggle then
-                    if IsModExclusive(modInfo.uid) and not self.active then
-                        HandleExclusiveClick(bg)                                    
-                    else
-                        if exclusiveModSelected then
-                            HandleExclusiveActive(self, HandleNormalClick)
-                        else
-                            HandleNormalClick(self)
-                        end
-                    end
-                end
-                local sound = Sound({Cue = "UI_Mod_Select", Bank = "Interface",})
-                PlaySound(sound)
-            end
-        end
-
-        if modStatus[modInfo.uid].tooltip then
-            Tooltip.AddControlTooltip(bg, modStatus[modInfo.uid].tooltip, .2)
-        end
-
-        return bg
-    end
-    
-    ---------------------------------------------------------------------------
-    -- Mod list element
-    ---------------------------------------------------------------------------
-    local allmods = Mods.AllSelectableMods()
-	local selmods = Mods.GetSelectedMods()
-	
-    local modNamesTable = {}
-    for k,v in allmods do 
-        table.insert(modNamesTable, v)
-    end
-	
-    table.sort(modNamesTable, function(a,b) 
-			if selmods[a.uid] and selmods[b.uid] then
-				return a.name < b.name
-			elseif selmods[a.uid] or selmods[b.uid] then
-				return selmods[a.uid] or false
-			else
-				return a.name < b.name
-			end
-		end)
-	
-    for k,v in modNamesTable do 
-        local uid = v.uid
+    local index = 2
+	for _, v in modNamesTable do
+		local uid = v.uid
         local status = modStatus[uid]
 		if inLobby and uid == "F14E58B6-E7F3-11DD-88AB-418A55D89593" then
 			status.cantoggle = false
 		end
-        table.insert(scrollGroup.controlList, CreateListElement(scrollGroup, allmods[uid], status))
-    end
+        index = index + 1
+	end
 
     _InternalUpdateStatus = function(selectedModsFromHost)
-        for index, control in scrollGroup.controlList do
-            local uid = control.modInfo.uid
+        for i, modInfo in modNamesTable do
+            local uid = modInfo.uid
             if not modStatus[uid].cantoggle then
-                if control.active ~= (selectedModsFromHost[uid] or false) then
-                    control:Toggle()
+                if modListChkboxTable[i]:IsChecked() ~= (selectedModsFromHost[uid] or false) then
+                    modListChkboxTable[i]:ToggleCheck()
                 end
             end
         end
     end
-
-    scrollGroup:CalcVisible()
+--]]
 
     ---------------------------------------------------------------------------
-    -- OK and cancel button behaviors
+    -- Mod details display
+    ---------------------------------------------------------------------------
+
+    modDetails = Group(panel)
+    modDetails.Width:Set(320)
+    modDetails.Height:Set(460)
+    -- LayoutHelpers.AtRightTopIn(modDetails, panel, 16, 180)
+    LayoutHelpers.RightOf(modDetails, modListContainer, 24)
+    modDetails.icon = Bitmap(modDetails)
+    modDetails.icon.Width:Set(70)
+    modDetails.icon.Height:Set(70)
+    LayoutHelpers.AtLeftTopIn(modDetails.icon, modDetails)
+    modDetails.name = UIUtil.CreateText(modDetails, '', 16, UIUtil.titleFont)
+    LayoutHelpers.RightOf(modDetails.name, modDetails.icon, 4)
+    modDetails.author = UIUtil.CreateText(modDetails, '', 14, UIUtil.bodyFont)
+    LayoutHelpers.Below(modDetails.author, modDetails.name, 4)
+    modDetails.desc = MultiLineText(modDetails, UIUtil.bodyFont, 14, UIUtil.fontColor)
+    modDetails.desc.Height:Set(100)
+    modDetails.desc.Width:Set(modDetails.Width())
+    LayoutHelpers.Below(modDetails.desc, modDetails.icon, 8)
+
+    ---------------------------------------------------------------------------
+    -- Misc. button behaviours
     ---------------------------------------------------------------------------
     local function KillDialog(cancel)
         local selectedMods
         if not cancel then
             selectedMods = {}
-            
-            for index, control in scrollGroup.controlList do
-                if control.active then
-                    selectedMods[control.modInfo.uid] = true
+
+            for k, v in modsEnabled do
+                if v then
+                    selectedMods[k] = true
                 end
             end
         end
 
         -- Clear out the module var '_InternalUpdateStatus' to disable background updates
         _InternalUpdateStatus = nil
+
+        modStruct = false
+        modsEnabled = false
 
         if over then
             panel:Destroy()
@@ -742,21 +725,21 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
     local loudStdBtn = UIUtil.CreateButtonStd(panel, '/widgets/small', "LOUD Standard", 12, 2)
     LayoutHelpers.AtRightTopIn(loudStdBtn, panel, 30, 75)
     loudStdBtn.OnClick = function(self, modifiers)
-        local curListed = GetCurrentlyListedMods()
-        for k,v in loudStandard do
-            if not curListed[v].active then
-                curListed[v]:Toggle()
-            end
-        end
+        -- local curListed = GetCurrentlyListedMods()
+        -- for _, v in loudStandard do
+        --     if not curListed[v].active then
+        --         curListed[v]:Toggle()
+        --     end
+        -- end
     end
     Tooltip.AddButtonTooltip(loudStdBtn, 'modmgr_loudstandard')
-	
+
     local loadBtn = UIUtil.CreateButtonStd(panel, '/widgets/tiny', "Load", 12, 2)
     LayoutHelpers.LeftOf(loadBtn, loudStdBtn)
     loadBtn.OnClick = function(self, modifiers)
-		CreateLoadPresetDialog(panel, scrollGroup)
+		CreateLoadPresetDialog(panel, modListChkboxTable)
     end
-	
+
     local saveBtn = UIUtil.CreateButtonStd(panel, '/widgets/tiny', "Save", 12, 2)
     LayoutHelpers.LeftOf(saveBtn, loadBtn)
     saveBtn.OnClick = function(self, modifiers)
@@ -768,23 +751,35 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
     cancelBtn.OnClick = function(self, modifiers)
         KillDialog(true)
     end
-    
+
     local okBtn = UIUtil.CreateButtonStd(panel, '/scx_menu/small-btn/small', "<LOC _Ok>", 16, nil, nil, nil, "UI_Opt_Yes_No")
     LayoutHelpers.LeftOf(okBtn, cancelBtn)
     okBtn.OnClick = function(self, modifiers)
         KillDialog(false)
     end
-	
+
     local disableBtn = UIUtil.CreateButtonStd(panel, '/scx_menu/small-btn/small', "Disable All", 16, 2)
     LayoutHelpers.AtLeftTopIn(disableBtn, panel, 30, 580)
-	-- Tooltip.AddButtonTooltip(disableBtn, 'lob_disable_allmods')
     disableBtn.OnClick = function(self, modifiers)
-		for index, control in scrollGroup.controlList do
-			if control.active then
-				control:Toggle()
-			end
-		end
+        for i, chkbox in modListChkboxTable do
+            if chkbox:IsChecked() then
+                chkbox:ToggleCheck()
+            end
+        end
     end
 
+    local filterCombo = Combo(panel, 14, 10, nil, nil, 'UI_Tab_Click_01', 'UI_Tab_Rollover_01')
+    filterCombo.Width:Set(160)
+    LayoutHelpers.CenteredRightOf(filterCombo, disableBtn, 8)
+
     UIUtil.MakeInputModal(panel, function() okBtn.OnClick(okBtn) end, function() cancelBtn.OnClick(cancelBtn) end)
+end
+
+function DisplayModDetails(uid)
+    local modInfo = Mods.AllSelectableMods()[uid]
+    modDetails.icon:SetTexture(modInfo.icon)
+    -- RATODO: Resize name based on string length
+    modDetails.name:SetText(modInfo.name)
+    modDetails.author:SetText('by '..modInfo.author)
+    modDetails.desc:SetText(modInfo.description)
 end
