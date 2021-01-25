@@ -675,22 +675,30 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
     ---------------------------------------------------------------------------
 
     modDetails = Group(panel)
-    modDetails.Width:Set(320)
+    modDetails.Width:Set(520)
     modDetails.Height:Set(460)
-    -- LayoutHelpers.AtRightTopIn(modDetails, panel, 16, 180)
     LayoutHelpers.RightOf(modDetails, modListContainer, 24)
     modDetails.icon = Bitmap(modDetails)
     modDetails.icon.Width:Set(70)
     modDetails.icon.Height:Set(70)
-    LayoutHelpers.AtLeftTopIn(modDetails.icon, modDetails)
-    modDetails.name = UIUtil.CreateText(modDetails, '', 16, UIUtil.titleFont)
+    LayoutHelpers.AtLeftTopIn(modDetails.icon, modDetails, 4, 4)
+    modDetails.name = UIUtil.CreateText(modDetails, '', 20, UIUtil.titleFont)
+    modDetails.name.Width:Set(320)
     LayoutHelpers.RightOf(modDetails.name, modDetails.icon, 4)
-    modDetails.author = UIUtil.CreateText(modDetails, '', 14, UIUtil.bodyFont)
+    modDetails.author = MultiLineText(modDetails, UIUtil.bodyFont, 14, UIUtil.fontColor)
+    modDetails.author.Width:Set(300)
     LayoutHelpers.Below(modDetails.author, modDetails.name, 4)
+    modDetails.version = UIUtil.CreateText(modDetails, '', 14, UIUtil.bodyFont)
+    LayoutHelpers.Below(modDetails.version, modDetails.author, 2)
     modDetails.desc = MultiLineText(modDetails, UIUtil.bodyFont, 14, UIUtil.fontColor)
-    modDetails.desc.Height:Set(100)
+    modDetails.desc.Height:Set(42)
     modDetails.desc.Width:Set(modDetails.Width())
-    LayoutHelpers.Below(modDetails.desc, modDetails.icon, 8)
+    LayoutHelpers.Below(modDetails.desc, modDetails.icon, 16)
+    modDetails.uiOnly = UIUtil.CreateText(modDetails, '', 14, 'Arial Bold')
+    LayoutHelpers.Below(modDetails.uiOnly, modDetails.desc, 2)
+    modDetails.copyright = UIUtil.CreateText(modDetails, '', 14, UIUtil.bodyFont)
+    LayoutHelpers.AtBottomIn(modDetails.copyright, modDetails)
+    LayoutHelpers.AtLeftIn(modDetails.copyright, modDetails)
 
     ---------------------------------------------------------------------------
     -- Misc. button behaviours
@@ -778,8 +786,21 @@ end
 function DisplayModDetails(uid)
     local modInfo = Mods.AllSelectableMods()[uid]
     modDetails.icon:SetTexture(modInfo.icon)
-    -- RATODO: Resize name based on string length
     modDetails.name:SetText(modInfo.name)
-    modDetails.author:SetText('by '..modInfo.author)
+    -- If the mod's name is still too long,
+    -- it probably needs a brevity check
+    if modDetails.name:GetStringAdvance(modDetails.name:GetText()) > modDetails.name.Width() then
+        modDetails.name:SetFont(UIUtil.titleFont, 16)
+    else
+        modDetails.name:SetFont(UIUtil.titleFont, 20)
+    end
+    modDetails.author:SetText("by "..modInfo.author)
+    modDetails.version:SetText("Version "..modInfo.version)
     modDetails.desc:SetText(modInfo.description)
+    if modInfo.ui_only then
+        modDetails.uiOnly:SetText("UI Mod")
+    else
+        modDetails.uiOnly:SetText("Sim Mod")
+    end
+    modDetails.copyright:SetText(modInfo.copyright)
 end
