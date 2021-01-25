@@ -1,4 +1,4 @@
-name = "V2 FA Sequentially upgrading extractors"
+name = "Sequentially Upgrading Extractors V2"
 uid = "D000E905-1E97-420D-8ED9-DF083282F59D"
 version = 4
 copyright = "Copyright © 2006, Gas Powered Games"
