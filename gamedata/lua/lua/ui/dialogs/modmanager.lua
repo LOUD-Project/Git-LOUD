@@ -515,8 +515,8 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
     local function DataSize()
         local ret = 0
         for _, block in modStruct do
-            if not block.open then continue
-            else
+            ret = ret + 1
+            if block.open then
                 for _, _ in block.uids do
                     ret = ret + 1
                 end
