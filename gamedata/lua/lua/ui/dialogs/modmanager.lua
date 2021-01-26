@@ -114,6 +114,7 @@ end
 
 local function CreateDependsDialog(parent, text, yesFunc)
     local dialog = Group(parent)
+    -- dialog.Depth:Set(function() return parent.Depth() + 5 end)
     local background = Bitmap(dialog, UIUtil.SkinnableFile('/dialogs/dialog/panel_bmp_m.dds'))
     background:SetTiled(true)
     LayoutHelpers.FillParent(background, dialog)
@@ -452,9 +453,6 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
     local selmods = Mods.GetSelectedMods()
 
     for _, v in allmods do
-        if IsModExclusive(v.uid) then
-            exclusiveModSelected = v.uid
-        end
         if not InSchema(v.uid) then
             table.insert(modSchema['Usermods'], v.uid)
         end
@@ -463,9 +461,21 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
         else
             modStatus[v.uid].checked = false
         end
+        if IsModExclusive(v.uid) and modStatus[v.uid].checked then
+            exclusiveModSelected = v.uid
+        end
     end
 
     local modListTable = {}
+
+    local function UpdateModListTable()
+        for _, v in modListTable do
+            if v.uid then
+                v.checkbox:SetCheck(modStatus[v.uid].checked, true)
+            end
+        end
+    end
+
     local modListContainer = Group(panel)
     modListContainer.Width:Set(380)
     modListContainer.Height:Set(455)
@@ -618,21 +628,17 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
                 local function HandleExclusiveClick(line)
                     local function DoExclusiveBehavior()
                         exclusiveModSelected = line.uid
-                        line.checkbox:SetCheck(true, true)
+                        modStatus[line.uid].checked = true
                         for k, _ in modStatus do
                             if k ~= line.uid then
                                 modStatus[k].checked = false
                             end
                         end
-                        for _, v in modListTable do
-                            if v.uid ~= line.uid then
-                                v.checkbox:SetCheck(false, true)
-                            end
-                        end
+                        UpdateModListTable()
                     end
 
                     UIUtil.QuickDialog(
-                        parent,
+                        panel,
                         "<LOC uimod_0010>The mod you have requested is marked as exclusive. If you select this mod, all other mods will be disabled. Do you wish to enable this mod?",
                         "<LOC _Yes>", DoExclusiveBehavior,
                         "<LOC _No>")
@@ -640,23 +646,30 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
 
                 local function HandleExclusiveActive(line, normalClickFunc)
                     UIUtil.QuickDialog(
-                        parent,
+                        panel,
                         "<LOC uimod_0011>You currently have an exclusive mod selected, do you wish to deselect it?",
                         "<LOC _Yes>", function()
                             modStatus[exclusiveModSelected].checked = false
+                            if line.uid == exclusiveModSelected then
+                                line.checkbox:SetCheck(false, true)
+                            else
+                                UpdateModListTable()
+                                normalClickFunc(line)
+                            end
                             exclusiveModSelected = nil
-                            normalClickFunc(line)
                         end,
                         "<LOC _No>")
                 end
 
                 local function HandleNormalClick(line)
-                    if not line.checkbox:IsChecked() then
+                    -- Disabling is easy. Handle it and return
+                    if modStatus[line.uid].checked then
+                        modStatus[line.uid].checked = false
+                        line.checkbox:SetCheck(false, true)
                         return
                     end
 
-                    -- local curListed = GetCurrentlyListedMods()
-                    local depends = Mods.GetDependencies(uid)
+                    local depends = Mods.GetDependencies(line.uid)
                     if depends.missing then
                         local boxText = LOC("<LOC uimod_0012>The requested mod can not be enabled as it requires the following mods that you don't currently have installed:\n\n")
                         for k_uid, _ in depends.missing do
@@ -715,36 +728,35 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
                                     boxText = boxText .. "\n"
                                 end
                                 boxText = boxText .. LOC("<LOC uimod_0015>Would you like to enable the requested mod? Selecting Yes will enable all required mods, and disable all conflicting mods.")
-                                CreateDependsDialog(parent, boxText, function()
-                                    modStatus[uid].checked = not modStatus[uid].checked
+                                CreateDependsDialog(panel, boxText, function()
+                                    modStatus[line.uid].checked = true
                                     if depends.requires then
                                         for k_uid, _ in depends.requires do
                                             if modStatus[k_uid] and not modStatus[k_uid].checked then
-                                                modStatus[k_uid] = not modStatus[uid].checked
+                                                modStatus[k_uid].checked = true
                                             end
                                         end
                                     end
                                     if depends.conflicts then
                                         for k_uid, _ in depends.conflicts do
                                             if modStatus[k_uid] and modStatus[k_uid].checked then
-                                                modStatus[k_uid] = not modStatus[uid].checked
+                                                modStatus[k_uid].checked = false
                                             end
                                         end
                                     end
+                                    UpdateModListTable()
                                 end)
                             end
-                        end
-                    end
-                    for _, v in modListTable do
-                        if v.uid then
-                            v.checkbox:SetCheck(modStatus[v.uid].checked, true)
+                        else
+                            modStatus[line.uid].checked = true
+                            line.checkbox:SetCheck(true, true)
                         end
                     end
                 end
 
-                modListTable[i].checkbox.OnCheck = function(self, checked)
+                modListTable[i].checkbox.OnClick = function(self, modifiers)
                     if modStatus[self:GetParent().uid].cantoggle then
-                        if IsModExclusive(modInfo) and not self:IsChecked() then
+                        if IsModExclusive(modInfo.uid) and not self:IsChecked() then
                             HandleExclusiveClick(self:GetParent())
                         else
                             if exclusiveModSelected then
@@ -754,7 +766,6 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
                             end
                         end
                     end
-                    modStatus[self:GetParent().uid].checked = checked
                 end
                 modListTable[i].folded:SetText('')
                 modListTable[i].checkbox:SetCheck(modStatus[uid].checked, true)
@@ -778,6 +789,8 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
         -- Clear remaining lines if not all need to be filled
         if i < numElements then
             for j = i + 1, numElements do
+                modListTable[j].uid = false
+                modListTable[j].block = false
                 modListTable[j].folded:SetText('')
                 modListTable[j].checkbox:Hide()
                 modListTable[j].icon:Hide()
@@ -817,11 +830,7 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
             local uid = modInfo.uid
             if not modStatus[uid].cantoggle then
                 modStatus[uid].checked = selectedModsFromHost[uid] or false
-                for _, v in modListTable do
-                    if v.uid then
-                        v.checkbox:SetCheck(modStatus[v.uid].checked, true)
-                    end
-                end
+                UpdateModListTable()
             end
         end
     end
@@ -891,11 +900,7 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
         for _, v in loudStandard do
             modStatus[v].checked = true
         end
-        for _, v in modListTable do
-            if v.uid then
-                v.checkbox:SetCheck(modStatus[v.uid].checked, true)
-            end
-        end
+        UpdateModListTable()
     end
     Tooltip.AddButtonTooltip(loudStdBtn, 'modmgr_loudstandard')
 
