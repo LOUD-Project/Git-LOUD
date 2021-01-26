@@ -593,6 +593,17 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
                         self.bg:SetSolidColor('42484B')
                     elseif event.Type == 'ButtonPress' or event.Type == 'ButtonDClick' then
                         self.block.open = not self.block.open
+                        -- Folding causes list shrinkage; better to adjust scrollbar
+                        -- now, since it's jarring if user input causes it
+                        if not self.block.open then
+                            if self.top == 0 then
+                                selfMLC:ScrollLines(nil, 1)
+                                selfMLC:ScrollLines(nil, -1)
+                            else
+                                selfMLC:ScrollLines(nil, -1)
+                                selfMLC:ScrollLines(nil, 1)
+                            end
+                        end
                         local sound = Sound({Bank = 'Interface', Cue = 'UI_Camera_Delete_Position'})
                         PlaySound(sound)
                         selfMLC:CalcVisible()
