@@ -468,10 +468,10 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
     local modListTable = {}
     local modListContainer = Group(panel)
     modListContainer.Width:Set(380)
-    modListContainer.Height:Set(460)
+    modListContainer.Height:Set(455)
     modListContainer.top = 0
     LayoutHelpers.AtLeftIn(modListContainer, panel, 28)
-    LayoutHelpers.AtVerticalCenterIn(modListContainer, panel, -15)
+    LayoutHelpers.AtVerticalCenterIn(modListContainer, panel, -12)
 
     local function CreateModGroup(i)
         modListTable[i] = Group(modListContainer)
@@ -507,7 +507,7 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
 
     for i = 2, numElements do
         CreateModGroup(i)
-        LayoutHelpers.Below(modListTable[i], modListTable[i - 1], 1)
+        LayoutHelpers.Below(modListTable[i], modListTable[i - 1], 2)
     end
 
     local numLines = function() return table.getsize(modListTable) end
@@ -843,8 +843,8 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
     modDetails.uiOnly = UIUtil.CreateText(modDetails, '', 14, 'Arial Bold')
     LayoutHelpers.Below(modDetails.uiOnly, modDetails.desc, 2)
     modDetails.copyright = UIUtil.CreateText(modDetails, '', 14, UIUtil.bodyFont)
-    LayoutHelpers.AtBottomIn(modDetails.copyright, modDetails)
-    LayoutHelpers.AtLeftIn(modDetails.copyright, modDetails)
+    LayoutHelpers.AtBottomIn(modDetails.copyright, modDetails, 4)
+    LayoutHelpers.AtLeftIn(modDetails.copyright, modDetails, 4)
 
     ---------------------------------------------------------------------------
     -- Misc. button behaviours
