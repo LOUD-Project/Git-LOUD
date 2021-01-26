@@ -952,5 +952,5 @@ function DisplayModDetails(uid)
     else
         modDetails.uiOnly:SetText("Sim Mod")
     end
-    modDetails.copyright:SetText(modInfo.copyright)
+    modDetails.copyright:SetText("Copyright: "..modInfo.copyright)
 end
