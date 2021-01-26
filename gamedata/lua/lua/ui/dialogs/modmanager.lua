@@ -870,6 +870,15 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
     LayoutHelpers.Below(modDetails.desc, modDetails.icon, 16)
     modDetails.uiOnly = UIUtil.CreateText(modDetails, '', 14, 'Arial Bold')
     LayoutHelpers.Below(modDetails.uiOnly, modDetails.desc, 2)
+    modDetails.dependsLabel = UIUtil.CreateText(modDetails, 'Requirements', 14, 'Arial')
+    LayoutHelpers.Below(modDetails.dependsLabel, modDetails.uiOnly, 4)
+    modDetails.depends = ItemList(modDetails)
+    modDetails.depends.Height:Set(96)
+    modDetails.depends.Width:Set(modDetails.Width() - 96)
+    LayoutHelpers.Below(modDetails.depends, modDetails.dependsLabel, 4)
+    UIUtil.CreateVertScrollbarFor(modDetails.depends)
+    modDetails.dependsLabel:Hide()
+    modDetails.depends:Hide()
     modDetails.copyright = UIUtil.CreateText(modDetails, '', 14, UIUtil.bodyFont)
     LayoutHelpers.AtBottomIn(modDetails.copyright, modDetails, 4)
     LayoutHelpers.AtLeftIn(modDetails.copyright, modDetails, 4)
@@ -958,7 +967,8 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
 end
 
 function DisplayModDetails(uid)
-    local modInfo = Mods.AllSelectableMods()[uid]
+    local allMods = Mods.AllSelectableMods()
+    local modInfo = allMods[uid]
     modDetails.icon:SetTexture(modInfo.icon)
     modDetails.name:SetText(modInfo.name)
     -- If the mod's name is still too long,
@@ -971,6 +981,17 @@ function DisplayModDetails(uid)
     modDetails.author:SetText("by "..modInfo.author)
     modDetails.version:SetText("Version "..string.format("%.2f", modInfo.version):gsub("%.?0+$", ""))
     modDetails.desc:SetText(modInfo.description)
+    if not table.empty(modInfo.requires) then
+        modDetails.depends:DeleteAllItems()
+        modDetails.dependsLabel:Show()
+        modDetails.depends:Show()
+        for _, v_uid in modInfo.requires do
+            modDetails.depends:AddItem(allMods[v_uid].name or ("Unknown Mod ("..v_uid..")"))
+        end
+    else
+        modDetails.dependsLabel:Hide()
+        modDetails.depends:Hide()
+    end
     if modInfo.ui_only then
         modDetails.uiOnly:SetText("UI Mod")
     else
