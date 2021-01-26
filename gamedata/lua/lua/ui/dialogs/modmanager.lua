@@ -114,7 +114,6 @@ end
 
 local function CreateDependsDialog(parent, text, yesFunc)
     local dialog = Group(parent)
-    -- dialog.Depth:Set(function() return parent.Depth() + 5 end)
     local background = Bitmap(dialog, UIUtil.SkinnableFile('/dialogs/dialog/panel_bmp_m.dds'))
     background:SetTiled(true)
     LayoutHelpers.FillParent(background, dialog)
@@ -492,7 +491,6 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
         grp.bg.Depth:Set(grp.Depth)
         LayoutHelpers.FillParent(grp.bg, grp)
         grp.bg:SetSolidColor('22282B')
-        grp.bg.Right:Set(function() return grp.Right() - 10 end)
         grp.checkbox = UIUtil.CreateCheckboxStd(grp, '/dialogs/check-box_btn/radio')
         LayoutHelpers.AtLeftIn(grp.checkbox, grp, 2)
         LayoutHelpers.AtVerticalCenterIn(grp.checkbox, grp)
@@ -812,8 +810,8 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
         end
     end
 
-    local listScrollbar = UIUtil.CreateVertScrollbarFor(modListContainer, -16)
-	listScrollbar.Depth:Set(listScrollbar.Depth() + 20)
+    local listScrollbar = UIUtil.CreateVertScrollbarFor(modListContainer)
+	listScrollbar.Depth:Set(panel.Depth() + 2)
 
     local index = 2
 	for _, v in allmods do
