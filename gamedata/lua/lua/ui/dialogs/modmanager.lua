@@ -775,6 +775,16 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
                 end
             end
         end
+        -- Clear remaining lines if not all need to be filled
+        if i < numElements then
+            for j = i + 1, numElements do
+                modListTable[j].folded:SetText('')
+                modListTable[j].checkbox:Hide()
+                modListTable[j].icon:Hide()
+                modListTable[j].name:SetText('')
+                modListTable[j].HandleEvent = function(self, event) end
+            end
+        end
 	end
 
 	modListContainer:CalcVisible()
