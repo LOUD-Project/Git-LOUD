@@ -969,7 +969,7 @@ function DisplayModDetails(uid)
         modDetails.name:SetFont(UIUtil.titleFont, 20)
     end
     modDetails.author:SetText("by "..modInfo.author)
-    modDetails.version:SetText("Version "..modInfo.version)
+    modDetails.version:SetText("Version "..string.format("%.2f", modInfo.version):gsub("%.?0+$", ""))
     modDetails.desc:SetText(modInfo.description)
     if modInfo.ui_only then
         modDetails.uiOnly:SetText("UI Mod")
