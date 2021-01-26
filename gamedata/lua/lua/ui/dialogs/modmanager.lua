@@ -879,6 +879,15 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
     UIUtil.CreateVertScrollbarFor(modDetails.depends)
     modDetails.dependsLabel:Hide()
     modDetails.depends:Hide()
+    modDetails.conflictsLabel = UIUtil.CreateText(modDetails, 'Conflicts With', 14, 'Arial')
+    LayoutHelpers.Below(modDetails.conflictsLabel, modDetails.depends, 4)
+    modDetails.conflicts = ItemList(modDetails)
+    modDetails.conflicts.Height:Set(96)
+    modDetails.conflicts.Width:Set(modDetails.Width() - 96)
+    LayoutHelpers.Below(modDetails.conflicts, modDetails.conflictsLabel, 4)
+    UIUtil.CreateVertScrollbarFor(modDetails.conflicts)
+    modDetails.conflictsLabel:Hide()
+    modDetails.conflicts:Hide()
     modDetails.copyright = UIUtil.CreateText(modDetails, '', 14, UIUtil.bodyFont)
     LayoutHelpers.AtBottomIn(modDetails.copyright, modDetails, 4)
     LayoutHelpers.AtLeftIn(modDetails.copyright, modDetails, 4)
@@ -966,6 +975,16 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
     UIUtil.MakeInputModal(panel, function() okBtn.OnClick(okBtn) end, function() cancelBtn.OnClick(cancelBtn) end)
 end
 
+local function GetPossibleConflicts(modInfo, allMods)
+    local ret = {}
+    for _, v_uid in modInfo.conflicts do
+        if allMods[v_uid] then
+            table.insert(ret, allMods[v_uid].name)
+        end
+    end
+    return ret
+end
+
 function DisplayModDetails(uid)
     local allMods = Mods.AllSelectableMods()
     local modInfo = allMods[uid]
@@ -981,16 +1000,28 @@ function DisplayModDetails(uid)
     modDetails.author:SetText("by "..modInfo.author)
     modDetails.version:SetText("Version "..string.format("%.2f", modInfo.version):gsub("%.?0+$", ""))
     modDetails.desc:SetText(modInfo.description)
-    if not table.empty(modInfo.requires) then
+    if modInfo.requires and not table.empty(modInfo.requires) then
         modDetails.depends:DeleteAllItems()
         modDetails.dependsLabel:Show()
         modDetails.depends:Show()
         for _, v_uid in modInfo.requires do
-            modDetails.depends:AddItem(allMods[v_uid].name or ("Unknown Mod ("..v_uid..")"))
+            modDetails.depends:AddItem(allMods[v_uid].name or ("Missing Mod ("..v_uid..")"))
         end
     else
         modDetails.dependsLabel:Hide()
         modDetails.depends:Hide()
+    end
+    local possibleConflicts = GetPossibleConflicts(modInfo, allMods)
+    if modInfo.conflicts and not table.empty(possibleConflicts) then
+        modDetails.conflicts:DeleteAllItems()
+        modDetails.conflictsLabel:Show()
+        modDetails.conflicts:Show()
+        for _, name in possibleConflicts do
+            modDetails.conflicts:AddItem(name)
+        end
+    else
+        modDetails.conflictsLabel:Hide()
+        modDetails.conflicts:Hide()
     end
     if modInfo.ui_only then
         modDetails.uiOnly:SetText("UI Mod")
