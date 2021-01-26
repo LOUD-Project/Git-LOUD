@@ -547,7 +547,7 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
 	end
 
 	modListContainer.IsScrollable = function(self, axis)
-		return true
+		return DataSize() > numElements
 	end
 
     modListContainer.CalcVisible = function(selfMLC)
