@@ -20,6 +20,9 @@ local First30Minutes = function( self,aiBrain )
 end
 
 -- this function turns on the builder when he has T3 ability
+-- this is kind of costly - best if any of those enhancements just flagged the brain
+-- since this is intended to be used just on an ACU - but I think best would be
+-- if the unit itself was flagged - ie. unit.BuildsT3
 local CDRbuildsT3 = function( self, aiBrain, unit )		
 
     if self.Priority == 10 then

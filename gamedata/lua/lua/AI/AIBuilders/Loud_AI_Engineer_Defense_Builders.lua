@@ -52,7 +52,7 @@ end
 -- Review the Engineer Builders priorities, 850 blows pretty much all others out of the water
 -- you may wish to consider that it may override some very important tasks (like reclaim or energy)
 
--- These 2 New Functions will enable LOUD to quickly buff up his defenses if below a certain ratio
+-- These 2 New Functions will enable LOUD to prioritize defenses if land ratio below a certain value
 -- This is mostly for the players that rush him but this should also effect how prepared his bases are.
 local IsEnemyCrushingLand = function(self,aiBrain,manager)
 
@@ -273,7 +273,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 750,
+        Priority = 745,
 
         PriorityFunction = IsEnemyCrushingAir,
 		
@@ -305,7 +305,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 750,
+        Priority = 745,
 
         PriorityFunction = IsEnemyCrushingLand,
 		
@@ -339,7 +339,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 750,
+        Priority = 745,
 
         PriorityFunction = IsEnemyCrushingLand,
 		
@@ -371,7 +371,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 750,
+        Priority = 745,
 
         PriorityFunction = IsEnemyCrushingLand,
 		
@@ -439,7 +439,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         PlatoonTemplate = 'EngineerBuilderGeneral',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 750,
+        Priority = 745,
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .80 } },
@@ -470,7 +470,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         PlatoonTemplate = 'EngineerBuilderGeneral',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 750,
+        Priority = 745,
 
         PriorityFunction = IsEnemyCrushingLand,
 		
@@ -717,7 +717,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction',
         PlatoonTemplate = 'EngineerBuilderGeneral',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
-        Priority = 750,
+        Priority = 745,
 		
 		InstanceCount = 2,
         
@@ -841,7 +841,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Shield Construction',
 		
 		end,
 		
-        Priority = 750,
+        Priority = 745,
 		
         BuilderConditions = {
 			{ LUTL, 'GreaterThanEnergyIncome', { 50000 }},
@@ -1517,7 +1517,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Augmentation - Perimeter',
         
 		InstanceCount = 1,
         
-        Priority = 750,
+        Priority = 745,
 		
         BuilderConditions = {
 			{ LUTL, 'LandStrengthRatioLessThan', { 1.1 } },
@@ -1576,7 +1576,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Picket Li
         
 		InstanceCount = 1,
         
-        Priority = 750,
+        Priority = 745,
 
         PriorityFunction = IsEnemyCrushingAir,
         
@@ -1748,7 +1748,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 750,
+        Priority = 745,
 
         PriorityFunction = IsEnemyCrushingAir,
 		
@@ -1780,7 +1780,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 750,
+        Priority = 745,
 
         PriorityFunction = IsEnemyCrushingLand,
 		
@@ -1846,7 +1846,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 750, 
+        Priority = 745, 
 
         PriorityFunction = IsEnemyCrushingAir,
 		
@@ -1883,7 +1883,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 750,
+        Priority = 745,
         
         PriorityFunction = IsEnemyCrushingLand,
 
@@ -2597,7 +2597,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Expansions',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 750,
+        Priority = 745,
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .75 } },
