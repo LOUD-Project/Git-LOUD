@@ -131,6 +131,8 @@ Builder = Class {
         self.PriorityAltered = false
         
 		if Builders[self.BuilderName].PriorityFunction then
+        
+            LOG("*AI DEBUG reviewing priority function for "..repr(self.BuilderName))
 		
 			local newPri = false
 			local temporary = true

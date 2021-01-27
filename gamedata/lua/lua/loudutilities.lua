@@ -1323,6 +1323,10 @@ function ResetPFMTasks (manager, aiBrain)
 
 	local newtasks = 0
 	local temporary
+    
+    if ScenarioInfo.PriorityDialog then
+        LOG("*AI DEBUG "..aiBrain.Nickname.." "..manager.ManagerType.." "..manager.LocationType.." Resets Any PFM Tasks")
+    end
 
 	for _,b in manager.BuilderData['Any'].Builders do
 
@@ -1333,6 +1337,10 @@ function ResetPFMTasks (manager, aiBrain)
 				local newPri = false
 
 				if Builders[d].PriorityFunction then
+                
+                    --if ScenarioInfo.PriorityDialog then
+                      --  LOG("*AI DEBUG "..aiBrain.Nickname.." "..manager.ManagerType.." "..manager.LocationType.." PriorityFunction for "..b.BuilderName  )
+                    --end
 
 					temporary = true
 
@@ -1347,6 +1355,8 @@ function ResetPFMTasks (manager, aiBrain)
                         end
 
 						manager:SetBuilderPriority(b.BuilderName, newPri, temporary)
+                        
+                        manager.BuilderData['Any'].NeedSort = true
 					end
 				end
 
