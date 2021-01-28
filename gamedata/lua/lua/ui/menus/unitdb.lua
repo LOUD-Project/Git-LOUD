@@ -1561,7 +1561,7 @@ function ApplyEvenflow()
 
 								local best_adjust = math.ceil(math.max( 1, alt_mass, alt_energy))
 
-								if best_adjust != math.ceil(bp.Economy.BuildTime) then
+								if best_adjust ~= math.ceil(bp.Economy.BuildTime) then
 
 									oldtime = bp.Economy.BuildTime
 									bp.Economy.BuildTime = best_adjust
@@ -1582,7 +1582,7 @@ function ApplyEvenflow()
 
 								local best_adjust = math.ceil(math.max( 1, alt_mass, alt_energy))
 
-								if best_adjust != math.ceil(bp.Economy.BuildTime) then
+								if best_adjust ~= math.ceil(bp.Economy.BuildTime) then
 
 									oldtime = bp.Economy.BuildTime
 									bp.Economy.BuildTime = best_adjust
@@ -1603,7 +1603,7 @@ function ApplyEvenflow()
 
 								local best_adjust = math.ceil(math.max( 1, alt_mass, alt_energy))
 
-								if best_adjust != math.ceil(bp.Economy.BuildTime) then
+								if best_adjust ~= math.ceil(bp.Economy.BuildTime) then
 
 									oldtime = bp.Economy.BuildTime
 									bp.Economy.BuildTime = best_adjust
@@ -1624,7 +1624,7 @@ function ApplyEvenflow()
 
 								local best_adjust = math.ceil(math.max( 1, alt_mass, alt_energy))
 
-								if best_adjust != math.ceil(bp.Economy.BuildTime) then
+								if best_adjust ~= math.ceil(bp.Economy.BuildTime) then
 
 									oldtime = bp.Economy.BuildTime
 									bp.Economy.BuildTime = best_adjust
@@ -1640,7 +1640,7 @@ function ApplyEvenflow()
 							-- quite follow the rules for factory built units - but it's close enough
 							-- and reasonably balanced across the factory types
 
-							if bp.General.UpgradesFrom != nil then
+							if bp.General.UpgradesFrom ~= nil then
 								bp.Economy.BuildTime = bp.Economy.BuildTime * 2.75
 							end
 
@@ -1680,7 +1680,7 @@ function ApplyEvenflow()
 
 								--LOG("*AI DEBUG id is "..repr(catj).." "..id.."  alt_mass is "..alt_mass.."  alt_energy is "..alt_energy.." Adjusting Buildtime from "..repr(bp.Economy.BuildTime).." to "..( best_adjust * buildpower ) )
 
-								if math.ceil( best_adjust * buildpower ) != math.ceil(bp.Economy.BuildTime) then
+								if math.ceil( best_adjust * buildpower ) ~= math.ceil(bp.Economy.BuildTime) then
 
 									oldtime = bp.Economy.BuildTime
 
@@ -1709,7 +1709,7 @@ function ApplyEvenflow()
 
 								local best_adjust = math.max( 1, alt_mass, alt_energy)
 
-								if math.ceil( best_adjust * buildpower ) != math.ceil(bp.Economy.BuildTime) then
+								if math.ceil( best_adjust * buildpower ) ~= math.ceil(bp.Economy.BuildTime) then
 
 									oldtime = bp.Economy.BuildTime
 
@@ -1738,7 +1738,7 @@ function ApplyEvenflow()
 
 								local best_adjust = math.max( 1, alt_mass, alt_energy)
 
-								if math.ceil( best_adjust * buildpower ) != math.ceil(bp.Economy.BuildTime) then
+								if math.ceil( best_adjust * buildpower ) ~= math.ceil(bp.Economy.BuildTime) then
 
 									oldtime = bp.Economy.BuildTime
 
@@ -1767,7 +1767,7 @@ function ApplyEvenflow()
 
 								local best_adjust = math.max( 1, alt_mass, alt_energy)
 
-								if math.ceil( best_adjust ) != math.ceil(bp.Economy.BuildTime) then
+								if math.ceil( best_adjust ) ~= math.ceil(bp.Economy.BuildTime) then
 
 									oldtime = bp.Economy.BuildTime
 
