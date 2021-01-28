@@ -205,6 +205,15 @@ local modSchema = {
     ["Usermods"] = {},
 }
 
+local folderOrder = {
+    "Units",
+    "User Interface",
+    "Mini-Mods",
+    "Mutators",
+    "Miscellaneous",
+    "Usermods",
+}
+
 local modStruct = {}
 
 local function CreateLoadPresetDialog(parent, modListTable, modStatus)
@@ -440,7 +449,7 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
     for key, block in modSchema do
         modStruct[key] = {}
         modStruct[key].name = key
-        -- RATODO: Leave some closed by default
+        -- RATODO: Maybe leave some closed by default
         modStruct[key].open = true
         modStruct[key].uids = {}
         for _, uid in block do
@@ -561,7 +570,9 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
     modListContainer.CalcVisible = function(selfMLC)
         local i = 0
         local skip = selfMLC.top -- Account for scroll bar offset
-        for _, block in modStruct do
+        -- for _, block in modStruct do
+        for bi = 1, table.getsize(folderOrder) do
+            local block = modStruct[folderOrder[bi]]
             -- Skip entire block if scroll bar dictates
             if not block.open and skip >= 1 then
                 skip = skip - 1
