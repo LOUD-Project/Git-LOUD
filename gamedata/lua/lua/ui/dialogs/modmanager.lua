@@ -1011,6 +1011,7 @@ function DisplayModDetails(uid)
     modDetails.author:SetText("by "..modInfo.author)
     modDetails.version:SetText("Version "..string.format("%.2f", modInfo.version):gsub("%.?0+$", ""))
     modDetails.desc:SetText(modInfo.description)
+
     if modInfo.requires and not table.empty(modInfo.requires) then
         modDetails.depends:DeleteAllItems()
         modDetails.dependsLabel:Show()
@@ -1022,22 +1023,31 @@ function DisplayModDetails(uid)
         modDetails.dependsLabel:Hide()
         modDetails.depends:Hide()
     end
-    local possibleConflicts = GetPossibleConflicts(modInfo, allMods)
-    if modInfo.conflicts and not table.empty(possibleConflicts) then
-        modDetails.conflicts:DeleteAllItems()
-        modDetails.conflictsLabel:Show()
-        modDetails.conflicts:Show()
-        for _, name in possibleConflicts do
-            modDetails.conflicts:AddItem(name)
+
+    if modInfo.conflicts then
+        local possibleConflicts = GetPossibleConflicts(modInfo, allMods)
+        if not table.empty(possibleConflicts) then
+            modDetails.conflicts:DeleteAllItems()
+            modDetails.conflictsLabel:Show()
+            modDetails.conflicts:Show()
+            for _, name in possibleConflicts do
+                modDetails.conflicts:AddItem(name)
+            end
         end
     else
         modDetails.conflictsLabel:Hide()
         modDetails.conflicts:Hide()
     end
+
     if modInfo.ui_only then
         modDetails.uiOnly:SetText("UI Mod")
     else
         modDetails.uiOnly:SetText("Sim Mod")
     end
-    modDetails.copyright:SetText("Copyright: "..modInfo.copyright)
+
+    if not modInfo.copyright or modInfo.copyright == "" then
+        modDetails.copyright:SetText("Copyright: None")
+    else
+        modDetails.copyright:SetText("Copyright: "..modInfo.copyright)
+    end
 end
