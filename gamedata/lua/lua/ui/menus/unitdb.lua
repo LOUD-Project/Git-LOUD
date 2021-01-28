@@ -512,6 +512,30 @@ function CreateUnitDB(over, callback)
 	LayoutHelpers.AtTopIn(filterContainerTitle, filterContainer)
 	LayoutHelpers.AtHorizontalCenterIn(filterContainerTitle, filterContainer)
 
+	-- Used for everything except name and faction; returns a Group
+	local function MakeFilterCombo(labelText, width, filterKey, items, elementAbove)
+		local filterGroup = Group(filterContainer)
+		filterGroup.Height:Set(20)
+		filterGroup.Width:Set(filterContainer.Width)
+		if elementAbove then
+			LayoutHelpers.Below(filterGroup, elementAbove, 2)
+		end
+		filterGroup.label = UIUtil.CreateText(filterGroup, labelText, 14, UIUtil.bodyFont)
+		filterGroup.label:DisableHitTest()
+		LayoutHelpers.AtLeftIn(filterGroup.label, filterGroup)
+		LayoutHelpers.AtVerticalCenterIn(filterGroup.label, filterGroup)
+		filterGroup.combo = Combo(filterGroup, 14, 5, nil, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
+		filterGroup.combo:AddItems(items, 1)
+		LayoutHelpers.AtRightIn(filterGroup.combo, filterGroup, 2)
+		LayoutHelpers.AtVerticalCenterIn(filterGroup.combo, filterGroup)
+		filterGroup.combo.Width:Set(width)
+		filterGroup.combo.OnClick = function(self, index)
+			filters[filterKey] = index
+			Tooltip.DestroyMouseoverDisplay()
+		end
+		return filterGroup
+	end
+
 	-- Name
 
 	local filterGroupName = Group(filterContainer)
@@ -565,76 +589,22 @@ function CreateUnitDB(over, callback)
 
 	Tooltip.AddComboTooltip(filterFactionCombo, factionTooltips)
 
-	-- Tech level
+	local filterGroups = {}
 
-	local filterGroupTech = Group(filterContainer)
-	filterGroupTech.Height:Set(20)
-	filterGroupTech.Width:Set(filterContainer.Width)
-	LayoutHelpers.Below(filterGroupTech, filterGroupFaction, 2)
-	local filterTechLabel = UIUtil.CreateText(filterGroupTech, 'Tech Level', 14, UIUtil.bodyFont)
-	LayoutHelpers.AtLeftIn(filterTechLabel, filterGroupTech)
-	LayoutHelpers.AtVerticalCenterIn(filterTechLabel, filterGroupTech)
-
-	local filterTechCombo = Combo(filterGroupTech, 14, 5, nil, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
-	filterTechCombo:AddItems({'All', 'Tech 1', 'Tech 2', 'Tech 3', 'Experimental'}, 1)
-	LayoutHelpers.AtRightIn(filterTechCombo, filterGroupTech, 2)
-	LayoutHelpers.AtVerticalCenterIn(filterTechCombo, filterGroupTech)
-	filterTechCombo.Width:Set(120)
-	filterTechCombo.OnClick = function(self, index)
-		filters['tech'] = index
-		Tooltip.DestroyMouseoverDisplay()
-	end
-
-	-- Type (land, air, naval, base)
-
-	local filterGroupType = Group(filterContainer)
-	filterGroupType.Height:Set(20)
-	filterGroupType.Width:Set(filterContainer.Width)
-	LayoutHelpers.Below(filterGroupType, filterGroupTech, 2)
-	local filterTypeLabel = UIUtil.CreateText(filterGroupType, 'Unit Type', 14, UIUtil.bodyFont)
-	LayoutHelpers.AtLeftIn(filterTypeLabel, filterGroupType)
-	LayoutHelpers.AtVerticalCenterIn(filterTypeLabel, filterGroupType)
-
-	local filterTypeCombo = Combo(filterGroupType, 14, 6, nil, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
-	filterTypeCombo:AddItems({'All', 'Land', 'Air', 'Naval', 'Base', 'Commander'}, 1)
-	LayoutHelpers.AtRightIn(filterTypeCombo, filterGroupType, 2)
-	LayoutHelpers.AtVerticalCenterIn(filterTypeCombo, filterGroupType)
-	filterTypeCombo.Width:Set(120)
-	filterTypeCombo.OnClick = function(self, index)
-		filters['type'] = index
-		Tooltip.DestroyMouseoverDisplay()
-	end
-
-	-- Origin mod
-
-	local filterGroupOrigin = Group(filterContainer)
-	filterGroupOrigin.Height:Set(20)
-	filterGroupOrigin.Width:Set(filterContainer.Width)
-	LayoutHelpers.Below(filterGroupOrigin, filterGroupType, 2)
-	local filterOriginLabel = UIUtil.CreateText(filterGroupOrigin, 'Mod', 14, UIUtil.bodyFont)
-	LayoutHelpers.AtLeftIn(filterOriginLabel, filterGroupOrigin)
-	LayoutHelpers.AtVerticalCenterIn(filterOriginLabel, filterGroupOrigin)
-
-	local modComboOpts = {
-		'All',
-		'Vanilla',
-		'4th Dimension Units',
-		'BlackOps Unleashed',
-		'BlackOps ACUs',
-		'BrewLAN LOUD',
-		'LOUD Unit Additions',
-		'Total Mayhem',
-		'Wyvern Battle Pack',
-	}
-	local filterOriginCombo = Combo(filterGroupOrigin, 14, table.getsize(modComboOpts), nil, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
-	filterOriginCombo:AddItems(modComboOpts, 1)
-	LayoutHelpers.AtRightIn(filterOriginCombo, filterGroupOrigin, 2)
-	LayoutHelpers.AtVerticalCenterIn(filterOriginCombo, filterGroupOrigin)
-	filterOriginCombo.Width:Set(160)
-	filterOriginCombo.OnClick = function(self, index)
-		filters['mod'] = index
-		Tooltip.DestroyMouseoverDisplay()
-	end
+	local techFilterItems = { "All", "Tech 1", "Tech 2", "Tech 3", "Experimental"}
+	filterGroups.tech = MakeFilterCombo("Tech Level", 120, 'tech', techFilterItems, filterGroupFaction)
+	local typeFilterItems = { "All", "Land", "Air", "Naval", "Base", "Commander" }
+	filterGroups.type = MakeFilterCombo("Type", 120, 'type', typeFilterItems, filterGroups.tech)
+	local modFilterItems = { "All",
+		"Vanilla",
+		"4th Dimension Units",
+		"BlackOps Unleashed",
+		"BlackOps ACUs",
+		"BrewLAN LOUD",
+		"LOUD Unit Additions",
+		"Total Mayhem",
+		"Wyvern Battle Pack" }
+	filterGroups.origin = MakeFilterCombo("Mod", 160, 'mod', modFilterItems, filterGroups.type)
 
 -- FILTERS: Weaponry
 
@@ -642,7 +612,7 @@ function CreateUnitDB(over, callback)
 	-- Also, a label
 
 	local weaponsRow = Bitmap(filterContainer)
-	LayoutHelpers.Below(weaponsRow, filterGroupOrigin, 4)
+	LayoutHelpers.Below(weaponsRow, filterGroups.origin, 4)
 	weaponsRow.Height:Set(2)
 	weaponsRow.Width:Set(filterContainer.Width() - 8)
 	weaponsRow:SetSolidColor('ADCFCE') -- Same colour as light lines in background
@@ -651,253 +621,37 @@ function CreateUnitDB(over, callback)
 	LayoutHelpers.Below(weaponsBlockLabel, weaponsRow, 4)
 	LayoutHelpers.AtHorizontalCenterIn(weaponsBlockLabel, filterContainer)
 
-	-- Direct fire
-
-	local filterGroupDirectfire = Group(filterContainer)
-	filterGroupDirectfire.Height:Set(20)
-	filterGroupDirectfire.Width:Set(filterContainer.Width)
-	LayoutHelpers.Below(filterGroupDirectfire, weaponsRow, 2 + weaponsBlockLabel.Height())
-	local filterDirectfireLabel = UIUtil.CreateText(filterGroupDirectfire, 'Direct Fire', 14, UIUtil.bodyFont)
-	LayoutHelpers.AtLeftIn(filterDirectfireLabel, filterGroupDirectfire)
-	LayoutHelpers.AtVerticalCenterIn(filterDirectfireLabel, filterGroupDirectfire)
-
-	local filterDirectfireCombo = Combo(filterGroupDirectfire, 14, 3, nil, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
-	filterDirectfireCombo:AddItems({'Any', 'Yes', 'No'}, 1)
-	LayoutHelpers.AtRightIn(filterDirectfireCombo, filterGroupDirectfire, 2)
-	LayoutHelpers.AtVerticalCenterIn(filterDirectfireCombo, filterGroupDirectfire)
-	filterDirectfireCombo.Width:Set(60)
-	filterDirectfireCombo.OnClick = function(self, index)
-		filters['directfire'] = index
-		Tooltip.DestroyMouseoverDisplay()
-	end
-
-	-- Indirect fire
-
-	local filterGroupIndirectfire = Group(filterContainer)
-	filterGroupIndirectfire.Height:Set(20)
-	filterGroupIndirectfire.Width:Set(filterContainer.Width)
-	LayoutHelpers.Below(filterGroupIndirectfire, filterGroupDirectfire, 2)
-	local filterIndirectfireLabel = UIUtil.CreateText(filterGroupIndirectfire, 'Indirect Fire', 14, UIUtil.bodyFont)
-	LayoutHelpers.AtLeftIn(filterIndirectfireLabel, filterGroupIndirectfire)
-	LayoutHelpers.AtVerticalCenterIn(filterIndirectfireLabel, filterGroupIndirectfire)
-
-	local filterIndirectfireCombo = Combo(filterGroupIndirectfire, 14, 3, nil, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
-	filterIndirectfireCombo:AddItems({'Any', 'Yes', 'No'}, 1)
-	LayoutHelpers.AtRightIn(filterIndirectfireCombo, filterGroupIndirectfire, 2)
-	LayoutHelpers.AtVerticalCenterIn(filterIndirectfireCombo, filterGroupIndirectfire)
-	filterIndirectfireCombo.Width:Set(60)
-	filterIndirectfireCombo.OnClick = function(self, index)
-		filters['indirectfire'] = index
-		Tooltip.DestroyMouseoverDisplay()
-	end
-
-	-- Anti-air
-
-	local filterGroupAntiair = Group(filterContainer)
-	filterGroupAntiair.Height:Set(20)
-	filterGroupAntiair.Width:Set(filterContainer.Width)
-	LayoutHelpers.Below(filterGroupAntiair, filterGroupIndirectfire, 2)
-	local filterAntiairLabel = UIUtil.CreateText(filterGroupAntiair, 'Anti-Air', 14, UIUtil.bodyFont)
-	LayoutHelpers.AtLeftIn(filterAntiairLabel, filterGroupAntiair)
-	LayoutHelpers.AtVerticalCenterIn(filterAntiairLabel, filterGroupAntiair)
-
-	local filterAntiairCombo = Combo(filterGroupAntiair, 14, 3, nil, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
-	filterAntiairCombo:AddItems({'Any', 'Yes', 'No'}, 1)
-	LayoutHelpers.AtRightIn(filterAntiairCombo, filterGroupAntiair, 2)
-	LayoutHelpers.AtVerticalCenterIn(filterAntiairCombo, filterGroupAntiair)
-	filterAntiairCombo.Width:Set(60)
-	filterAntiairCombo.OnClick = function(self, index)
-		filters['antiair'] = index
-		Tooltip.DestroyMouseoverDisplay()
-	end
-
-	-- Torpedoes
-
-	local filterGroupTorps = Group(filterContainer)
-	filterGroupTorps.Height:Set(20)
-	filterGroupTorps.Width:Set(filterContainer.Width)
-	LayoutHelpers.Below(filterGroupTorps, filterGroupAntiair, 2)
-	local filterTorpsLabel = UIUtil.CreateText(filterGroupTorps, 'Torpedoes', 14, UIUtil.bodyFont)
-	LayoutHelpers.AtLeftIn(filterTorpsLabel, filterGroupTorps)
-	LayoutHelpers.AtVerticalCenterIn(filterTorpsLabel, filterGroupTorps)
-
-	local filterTorpsCombo = Combo(filterGroupTorps, 14, 3, nil, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
-	filterTorpsCombo:AddItems({'Any', 'Yes', 'No'}, 1)
-	LayoutHelpers.AtRightIn(filterTorpsCombo, filterGroupTorps, 2)
-	LayoutHelpers.AtVerticalCenterIn(filterTorpsCombo, filterGroupTorps)
-	filterTorpsCombo.Width:Set(60)
-	filterTorpsCombo.OnClick = function(self, index)
-		filters['torpedoes'] = index
-		Tooltip.DestroyMouseoverDisplay()
-	end
-
-	-- Countermeasures
-
-	local filterGroupCounter = Group(filterContainer)
-	filterGroupCounter.Height:Set(20)
-	filterGroupCounter.Width:Set(filterContainer.Width)
-	LayoutHelpers.Below(filterGroupCounter, filterGroupTorps, 2)
-	local filterCounterLabel = UIUtil.CreateText(filterGroupCounter, 'Countermeasures', 14, UIUtil.bodyFont)
-	LayoutHelpers.AtLeftIn(filterCounterLabel, filterGroupCounter)
-	LayoutHelpers.AtVerticalCenterIn(filterCounterLabel, filterGroupCounter)
-
-	local filterCounterCombo = Combo(filterGroupCounter, 14, 5, nil, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
-	filterCounterCombo:AddItems({'Any', 'Torpedo', 'Tactical Missile', 'Strategic Missile', 'None'}, 1)
-	LayoutHelpers.AtRightIn(filterCounterCombo, filterGroupCounter, 2)
-	LayoutHelpers.AtVerticalCenterIn(filterCounterCombo, filterGroupCounter)
-	filterCounterCombo.Width:Set(140)
-	filterCounterCombo.OnClick = function(self, index)
-		filters['countermeasures'] = index
-		Tooltip.DestroyMouseoverDisplay()
-	end
-
-	-- Death weapons
-
-	local filterGroupDeathWeap = Group(filterContainer)
-	filterGroupDeathWeap.Height:Set(20)
-	filterGroupDeathWeap.Width:Set(filterContainer.Width)
-	LayoutHelpers.Below(filterGroupDeathWeap, filterGroupCounter, 2)
-	local filterDeathWeapLabel = UIUtil.CreateText(filterGroupDeathWeap, 'Death Weapon', 14, UIUtil.bodyFont)
-	LayoutHelpers.AtLeftIn(filterDeathWeapLabel, filterGroupDeathWeap)
-	LayoutHelpers.AtVerticalCenterIn(filterDeathWeapLabel, filterGroupDeathWeap)
-
-	local filterDeathWeapCombo = Combo(filterGroupDeathWeap, 14, 4, nil, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
-	filterDeathWeapCombo:AddItems({'Any', 'Death Explosion', 'Air Crash', 'None'}, 1)
-	LayoutHelpers.AtRightIn(filterDeathWeapCombo, filterGroupDeathWeap, 2)
-	LayoutHelpers.AtVerticalCenterIn(filterDeathWeapCombo, filterGroupDeathWeap)
-	filterDeathWeapCombo.Width:Set(140)
-	filterDeathWeapCombo.OnClick = function(self, index)
-		filters['deathweapon'] = index
-		Tooltip.DestroyMouseoverDisplay()
-	end
-
-	-- EMP
-
-	local filterGroupEMP = Group(filterContainer)
-	filterGroupEMP.Height:Set(20)
-	filterGroupEMP.Width:Set(filterContainer.Width)
-	LayoutHelpers.Below(filterGroupEMP, filterGroupDeathWeap, 2)
-	local filterEMPLabel = UIUtil.CreateText(filterGroupEMP, 'EMP/Stun Effects', 14, UIUtil.bodyFont)
-	LayoutHelpers.AtLeftIn(filterEMPLabel, filterGroupEMP)
-	LayoutHelpers.AtVerticalCenterIn(filterEMPLabel, filterGroupEMP)
-
-	local filterEMPCombo = Combo(filterGroupEMP, 14, 3, nil, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
-	filterEMPCombo:AddItems({'Any', 'Yes', 'No'}, 1)
-	LayoutHelpers.AtRightIn(filterEMPCombo, filterGroupEMP, 2)
-	LayoutHelpers.AtVerticalCenterIn(filterEMPCombo, filterGroupEMP)
-	filterEMPCombo.Width:Set(60)
-	filterEMPCombo.OnClick = function(self, index)
-		filters['emp'] = index
-		Tooltip.DestroyMouseoverDisplay()
-	end
+	local anyYesNo = { "Any", "Yes", "No" }
+	filterGroups.directFire = MakeFilterCombo("Direct Fire", 60, 'directfire', anyYesNo, nil)
+	LayoutHelpers.Below(filterGroups.directFire, weaponsRow, 2 + weaponsBlockLabel.Height())
+	filterGroups.indirectFire = MakeFilterCombo("Indirect Fire", 60, 'indirectfire', anyYesNo, filterGroups.directFire)
+	filterGroups.antiAir = MakeFilterCombo("Anti-Air", 60, 'antiair', anyYesNo, filterGroups.indirectFire)
+	filterGroups.torps = MakeFilterCombo("Torpedoes", 60, 'torpedoes', anyYesNo, filterGroups.antiAir)
+	local counterFilterItems = { "Any", "Torpedo", "Tactical Missile", "Strategic Missile", "None" }
+	filterGroups.countermeasures = MakeFilterCombo("Countermeasures", 140, 'countermeasures', counterFilterItems, filterGroups.torps)
+	local deathWeapFilterItems = { "Any", "Death Explosion", "Air Crash", "None" }
+	filterGroups.deathWeap = MakeFilterCombo("Death Weapon", 140, 'deathweapon', deathWeapFilterItems, filterGroups.countermeasures)
+	filterGroups.EMP = MakeFilterCombo("EMP/Stun Effects", 60, 'emp', anyYesNo, filterGroups.deathWeap)
 
 -- FILTERS: Miscellaneous
 
 	-- Another horizontal row
 
 	local miscRow = Bitmap(filterContainer)
-	LayoutHelpers.Below(miscRow, filterGroupEMP, 4)
+	LayoutHelpers.Below(miscRow, filterGroups.EMP, 4)
 	miscRow.Height:Set(2)
 	miscRow.Width:Set(filterContainer.Width() - 8)
 	miscRow:SetSolidColor('ADCFCE') -- Same colour as light lines in background
 
-	-- Amphibious
-
-	local filterGroupAmphib = Group(filterContainer)
-	filterGroupAmphib.Height:Set(20)
-	filterGroupAmphib.Width:Set(filterContainer.Width)
-	LayoutHelpers.Below(filterGroupAmphib, miscRow, 4)
-	local filterAmphibLabel = UIUtil.CreateText(filterGroupAmphib, 'Amphibious', 14, UIUtil.bodyFont)
-	LayoutHelpers.AtLeftIn(filterAmphibLabel, filterGroupAmphib)
-	LayoutHelpers.AtVerticalCenterIn(filterAmphibLabel, filterGroupAmphib)
-
-	local filterAmphibCombo = Combo(filterGroupAmphib, 14, 5, nil, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
-	filterAmphibCombo:AddItems({'Any', 'Yes', 'No'}, 1)
-	LayoutHelpers.AtRightIn(filterAmphibCombo, filterGroupAmphib, 2)
-	LayoutHelpers.AtVerticalCenterIn(filterAmphibCombo, filterGroupAmphib)
-	filterAmphibCombo.Width:Set(80)
-	filterAmphibCombo.OnClick = function(self, index)
-		filters['amphib'] = index
-		Tooltip.DestroyMouseoverDisplay()
-	end
-
-	-- Transport capability
-
-	local filterGroupTransport = Group(filterContainer)
-	filterGroupTransport.Height:Set(20)
-	filterGroupTransport.Width:Set(filterContainer.Width)
-	LayoutHelpers.Below(filterGroupTransport, filterGroupAmphib, 2)
-	local filterTransportLabel = UIUtil.CreateText(filterGroupTransport, 'Transport', 14, UIUtil.bodyFont)
-	LayoutHelpers.AtLeftIn(filterTransportLabel, filterGroupTransport)
-	LayoutHelpers.AtVerticalCenterIn(filterTransportLabel, filterGroupTransport)
-
-	local filterTransportCombo = Combo(filterGroupTransport, 14, 5, nil, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
-	filterTransportCombo:AddItems({'Any', 'Yes', 'No'}, 1)
-	LayoutHelpers.AtRightIn(filterTransportCombo, filterGroupTransport, 2)
-	LayoutHelpers.AtVerticalCenterIn(filterTransportCombo, filterGroupTransport)
-	filterTransportCombo.Width:Set(80)
-	filterTransportCombo.OnClick = function(self, index)
-		filters['transport'] = index
-		Tooltip.DestroyMouseoverDisplay()
-	end
-
-	local filterGroupShield = Group(filterContainer)
-	filterGroupShield.Height:Set(20)
-	filterGroupShield.Width:Set(filterContainer.Width)
-	LayoutHelpers.Below(filterGroupShield, filterGroupTransport, 2)
-	local filterShieldLabel = UIUtil.CreateText(filterGroupShield, 'Shielding', 14, UIUtil.bodyFont)
-	LayoutHelpers.AtLeftIn(filterShieldLabel, filterGroupShield)
-	LayoutHelpers.AtVerticalCenterIn(filterShieldLabel, filterGroupShield)
-
-	local filterShieldCombo = Combo(filterGroupShield, 14, 5, nil, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
-	filterShieldCombo:AddItems({'Any', 'Dome', 'Personal', 'None'}, 1)
-	LayoutHelpers.AtRightIn(filterShieldCombo, filterGroupShield, 2)
-	LayoutHelpers.AtVerticalCenterIn(filterShieldCombo, filterGroupShield)
-	filterShieldCombo.Width:Set(100)
-	filterShieldCombo.OnClick = function(self, index)
-		filters['shield'] = index
-		Tooltip.DestroyMouseoverDisplay()
-	end
-
-	-- Intel
-
-	local filterGroupIntel = Group(filterContainer)
-	filterGroupIntel.Height:Set(20)
-	filterGroupIntel.Width:Set(filterContainer.Width)
-	LayoutHelpers.Below(filterGroupIntel, filterGroupShield, 2)
-	local filterIntelLabel = UIUtil.CreateText(filterGroupIntel, 'Intel', 14, UIUtil.bodyFont)
-	LayoutHelpers.AtLeftIn(filterIntelLabel, filterGroupIntel)
-	LayoutHelpers.AtVerticalCenterIn(filterIntelLabel, filterGroupIntel)
-
-	local filterIntelCombo = Combo(filterGroupIntel, 14, 5, nil, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
-	filterIntelCombo:AddItems({'Any', 'None', 'Radar', 'Sonar', 'Omni'}, 1)
-	LayoutHelpers.AtRightIn(filterIntelCombo, filterGroupIntel, 2)
-	LayoutHelpers.AtVerticalCenterIn(filterIntelCombo, filterGroupIntel)
-	filterIntelCombo.Width:Set(80)
-	filterIntelCombo.OnClick = function(self, index)
-		filters['intel'] = index
-		Tooltip.DestroyMouseoverDisplay()
-	end
-
-	-- Stealth
-
-	local filterGroupStealth = Group(filterContainer)
-	filterGroupStealth.Height:Set(20)
-	filterGroupStealth.Width:Set(filterContainer.Width)
-	LayoutHelpers.Below(filterGroupStealth, filterGroupIntel, 2)
-	local filterStealthLabel = UIUtil.CreateText(filterGroupStealth, 'Stealth', 14, UIUtil.bodyFont)
-	LayoutHelpers.AtLeftIn(filterStealthLabel, filterGroupStealth)
-	LayoutHelpers.AtVerticalCenterIn(filterStealthLabel, filterGroupStealth)
-
-	local filterStealthCombo = Combo(filterGroupStealth, 14, 5, nil, nil,  "UI_Tab_Rollover_01", "UI_Tab_Click_01")
-	filterStealthCombo:AddItems({'Any', 'None', 'Radar', 'Sonar', 'Cloak'}, 1)
-	LayoutHelpers.AtRightIn(filterStealthCombo, filterGroupStealth, 2)
-	LayoutHelpers.AtVerticalCenterIn(filterStealthCombo, filterGroupStealth)
-	filterStealthCombo.Width:Set(80)
-	filterStealthCombo.OnClick = function(self, index)
-		filters['stealth'] = index
-		Tooltip.DestroyMouseoverDisplay()
-	end
+	filterGroups.amphib = MakeFilterCombo("Amphibious", 60, 'amphib', anyYesNo, nil)
+	LayoutHelpers.Below(filterGroups.amphib, miscRow, 4)
+	filterGroups.transport = MakeFilterCombo("Transport", 60, 'transport', anyYesNo, filterGroups.amphib)
+	local shieldFilterItems = { "Any", "Dome", "Personal", "None" }
+	filterGroups.shield = MakeFilterCombo("Shielding", 100, 'shield', shieldFilterItems, filterGroups.transport)
+	local intelFilterItems = { "Any", "None", "Radar", "Sonar", "Omni" }
+	filterGroups.intel = MakeFilterCombo("Intel", 80, 'intel', intelFilterItems, filterGroups.shield)
+	local stealthFilterItems = { "Any", "None", "Radar", "Sonar", "Cloak" }
+	filterGroups.stealth = MakeFilterCombo("Stealth", 80, 'stealth', stealthFilterItems, filterGroups.intel)
 
 -- Bottom bar controls
 
@@ -916,23 +670,9 @@ function CreateUnitDB(over, callback)
 		-- Reflect reset in UI
 		filterNameEdit:SetText('')
 		filterFactionCombo:SetItem(1)
-		filterTechCombo:SetItem(1)
-		filterTypeCombo:SetItem(1)
-		filterOriginCombo:SetItem(1)
-
-		filterDirectfireCombo:SetItem(1)
-		filterIndirectfireCombo:SetItem(1)
-		filterAntiairCombo:SetItem(1)
-		filterTorpsCombo:SetItem(1)
-		filterCounterCombo:SetItem(1)
-		filterDeathWeapCombo:SetItem(1)
-		filterEMPCombo:SetItem(1)
-
-		filterAmphibCombo:SetItem(1)
-		filterTransportCombo:SetItem(1)
-		filterShieldCombo:SetItem(1)
-		filterIntelCombo:SetItem(1)
-		filterStealthCombo:SetItem(1)
+		for _, v in filterGroups do
+			v.combo:SetItem(1)
+		end
 		Filter()
 		listContainer:CalcVisible()
 	end
