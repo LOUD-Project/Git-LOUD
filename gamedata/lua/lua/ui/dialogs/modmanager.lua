@@ -673,8 +673,7 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
                         -- Folding causes list shrinkage; better to adjust scrollbar
                         -- now, since it's jarring if user input causes it
                         if not self.block.open then
-                            if self.top == 0 then
-                                selfMLC:ScrollLines(nil, 1)
+                            if self.top <= 1 then
                                 selfMLC:ScrollLines(nil, -1)
                             else
                                 selfMLC:ScrollLines(nil, -1)
