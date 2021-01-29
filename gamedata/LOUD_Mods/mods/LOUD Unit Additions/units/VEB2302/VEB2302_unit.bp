@@ -112,7 +112,7 @@ UnitBlueprint {
                 Width = 6,
             },
         },
-        UniformScale = 0.33,
+        UniformScale = 0.02,
     },
 	
     Economy = {
@@ -254,17 +254,15 @@ UnitBlueprint {
             RackBones = {
                 {
                     MuzzleBones = {
-                        'Turret_Muzzle_Left01',
-                        'Turret_Muzzle_Right01',
-                        'Turret_Muzzle_Left02',
-                        'Turret_Muzzle_Right02',
-                        'Turret_Muzzle_Left03',
-                        'Turret_Muzzle_Right03',
+                        'Turret_Muzzle',
                     },
-                    RackBone = 'Turret_Barrel',
+                    RackBone = 'Turret_Barrel_B01',
+                    TelescopeBone = 'Turret_Barrel_B02',
+                    TelescopeRecoilDistance = -20,
                 },
             },
 
+            RackRecoilDistance = -12,
             RackReloadTimeout = 7,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
@@ -284,8 +282,8 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE, TECH1, TECH2, SATELLITE',
             TrackingRadius = 1.25,
 			
-            TurretBoneMuzzle = 'Turret_Barrel',
-            TurretBonePitch = 'Turret_Barrel',
+            TurretBoneMuzzle = 'Turret_Muzzle',
+            TurretBonePitch = 'Barrel',
             TurretBoneYaw = 'Turret',
             TurretDualManipulators = false,
 			

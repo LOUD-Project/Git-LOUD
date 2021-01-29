@@ -681,47 +681,97 @@ function CommonLogic()
     end
 
     controls.secondaryChoices.SetControlToType = function(control, type)
+
         local function SetIconTextures(control)
-            if DiskGetFileInfo(UIUtil.UIFile('/icons/units/'..control.Data.id..'_icon.dds')) then
-                control.Icon:SetTexture(UIUtil.UIFile('/icons/units/'..control.Data.id..'_icon.dds'))
-            else
-                control.Icon:SetTexture(UIUtil.UIFile('/icons/units/default_icon.dds'))
-            end
+
+            local path = '/icons/units/'..control.Data.id..'_icon.dds'
+
+			local EXunitID = control.Data.id
+
+			if BlackopsIcons.EXIconPathOverwrites[string.upper(EXunitID)] then
+
+				-- Check manually assigned overwrite table
+				local expath = EXunitID..'_icon.dds'
+				control.Icon:SetTexture(BlackopsIcons.EXIconTableScanOverwrites(EXunitID)..expath)
+
+			elseif BlackopsIcons.EXIconPaths[string.upper(EXunitID)] then
+
+				-- Check modded icon hun table
+				local expath = EXunitID..'_icon.dds'
+				control.Icon:SetTexture(BlackopsIcons.EXIconTableScan(EXunitID)..expath)
+
+			else
+
+				-- Check default GPG directories
+				if DiskGetFileInfo(UIUtil.UIFile(path)) then
+					control.Icon:SetTexture(UIUtil.UIFile(path))
+				else
+					-- Sets placeholder because no other icon was found
+					control.Icon:SetTexture(UIUtil.UIFile('/icons/units/default_icon.dds'))
+					if not BlackopsIcons.EXNoIconLogSpamControl[string.upper(EXunitID)] then
+						-- Log a warning & add unitID to anti-spam table to prevent future warnings when icons update
+						--WARN('Blackops Icon Mod: Icon Not Found - '..EXunitID)
+						BlackopsIcons.EXNoIconLogSpamControl[string.upper(EXunitID)] = EXunitID
+					end
+				end
+
+			end
+
             if __blueprints[control.Data.id].StrategicIconName then
+
                 local iconName = __blueprints[control.Data.id].StrategicIconName
+
                 if DiskGetFileInfo('/textures/ui/common/game/strategicicons/'..iconName..'_rest.dds') then
+
+					-- Exavier Possible Later Adjustment
                     control.StratIcon:SetTexture('/textures/ui/common/game/strategicicons/'..iconName..'_rest.dds')
                     control.StratIcon.Height:Set(control.StratIcon.BitmapHeight)
                     control.StratIcon.Width:Set(control.StratIcon.BitmapWidth)
+
                 else
+
                     control.StratIcon:SetSolidColor('ff00ff00')
+
                 end
+
             else
+
                 control.StratIcon:SetSolidColor('00000000')
+
             end
         end
-        
+
         if type == 'spacer' then
+
             if controls.secondaryChoices._vertical then
+
                 control.Icon:SetTexture(UIUtil.UIFile('/game/c-q-e-panel/divider_horizontal_bmp.dds'))
                 control.Width:Set(48)
                 control.Height:Set(20)
+
             else
+
                 control.Icon:SetTexture(UIUtil.UIFile('/game/c-q-e-panel/divider_bmp.dds'))
                 control.Width:Set(20)
                 control.Height:Set(48)
+
             end
+
             control.Icon.Width:Set(control.Icon.BitmapWidth)
             control.Icon.Height:Set(control.Icon.BitmapHeight)
             control.Count:SetText('')
             control:Disable()
             control.StratIcon:SetSolidColor('00000000')
             control:SetSolidColor('00000000')
-            -- control.ConsBar:SetAlpha(0, true)
+--            control.ConsBar:SetAlpha(0, true)
             control.BuildKey = nil
+
         elseif type == 'queuestack' or type == 'attachedunit' then
+
             SetIconTextures(control)
+
             local up, down, over, dis = GetBackgroundTextures(control.Data.id)
+
             control:SetNewTextures(up, down, over, dis)
             control:SetUpAltButtons(down,down,down,down)
             control.tooltipID = LOC(__blueprints[control.Data.id].Description) or 'no description'
@@ -730,35 +780,42 @@ function CommonLogic()
             control.Width:Set(48)
             control.Icon.Height:Set(48)
             control.Icon.Width:Set(48)
-            -- if __blueprints[control.Data.id].General.ConstructionBar then
-                -- control.ConsBar:SetAlpha(1, true)
-            -- else
-                -- control.ConsBar:SetAlpha(0, true)
-            -- end
+
+--            if __blueprints[control.Data.id].General.ConstructionBar then
+--                control.ConsBar:SetAlpha(1, true)
+--            else
+--                control.ConsBar:SetAlpha(0, true)
+--            end
+
             control.BuildKey = nil
-            if control.Data.count > 1 then 
+
+            if control.Data.count > 1 then
                 control.Count:SetText(control.Data.count)
                 control.Count:SetColor('ffffffff')
             else
                 control.Count:SetText('')
             end
+
             control.Icon:Show()
             control:Enable()
+
         end
+
     end
-    
+
     controls.secondaryChoices.CreateElement = function()
+
         local btn = Button(controls.choices)
-        
+
         btn.Icon = Bitmap(btn)
         btn.Icon:DisableHitTest()
         LayoutHelpers.AtCenterIn(btn.Icon, btn)
-        
+
         btn.StratIcon = Bitmap(btn.Icon)
         btn.StratIcon:DisableHitTest()
         LayoutHelpers.AtTopIn(btn.StratIcon, btn.Icon, 4)
         LayoutHelpers.AtLeftIn(btn.StratIcon, btn.Icon, 4)
-        
+
         btn.Count = UIUtil.CreateText(btn.Icon, '', 20, UIUtil.bodyFont)
         btn.Count:SetColor('ffffffff')
         btn.Count:SetDropShadow(true)
@@ -766,20 +823,26 @@ function CommonLogic()
         LayoutHelpers.AtBottomIn(btn.Count, btn, 4)
         LayoutHelpers.AtRightIn(btn.Count, btn, 3)
         btn.Count.Depth:Set(function() return btn.Icon.Depth() + 10 end)
-        
-        -- btn.ConsBar = Bitmap(btn, UIUtil.UIFile('/icons/units/cons_bar.dds'))
-        -- btn.ConsBar:DisableHitTest()
-        -- LayoutHelpers.AtCenterIn(btn.ConsBar, btn)
-        
+
+--        btn.ConsBar = Bitmap(btn, UIUtil.UIFile('/icons/units/cons_bar.dds'))
+--        btn.ConsBar:DisableHitTest()
+--        LayoutHelpers.AtCenterIn(btn.ConsBar, btn)
+
         btn.Glow = Bitmap(btn)
         btn.Glow:SetTexture(UIUtil.UIFile('/game/units_bmp/glow.dds'))
         btn.Glow:DisableHitTest()
+
         LayoutHelpers.FillParent(btn.Glow, btn)
+
         btn.Glow:SetAlpha(0)
         btn.Glow.Incrementing = 1
+
         btn.Glow.OnFrame = function(glow, elapsedTime)
+
             local curAlpha = glow:GetAlpha()
+
             curAlpha = curAlpha + (elapsedTime * glow.Incrementing * GLOW_SPEED)
+
             if curAlpha > UPPER_GLOW_THRESHHOLD then
                 curAlpha = UPPER_GLOW_THRESHHOLD
                 glow.Incrementing = -1
@@ -787,64 +850,78 @@ function CommonLogic()
                 curAlpha = LOWER_GLOW_THRESHHOLD
                 glow.Incrementing = 1
             end
+
             glow:SetAlpha(curAlpha)
+
         end
-        
+
         btn.HandleEvent = function(self, event)
+
             if event.Type == 'MouseEnter' then
                 PlaySound(Sound({Cue = "UI_MFD_Rollover", Bank = "Interface"}))
                 Tooltip.CreateMouseoverDisplay(self, self.tooltipID, nil, false)
             elseif event.Type == 'MouseExit' then
                 Tooltip.DestroyMouseoverDisplay()
             end
+
             return Button.HandleEvent(self, event)
+
         end
-        
+
         btn.OnRolloverEvent = OnRolloverHandler
         btn.OnClick = OnClickHandler
-        
+
         return btn
     end
-    
+
     controls.choices.CreateElement = function()
+
         local btn = Button(controls.choices)
-        
+
         btn.Icon = Bitmap(btn)
         btn.Icon:DisableHitTest()
         LayoutHelpers.AtCenterIn(btn.Icon, btn)
-        
+
         btn.StratIcon = Bitmap(btn.Icon)
         btn.StratIcon:DisableHitTest()
         LayoutHelpers.AtTopIn(btn.StratIcon, btn.Icon, 4)
         LayoutHelpers.AtLeftIn(btn.StratIcon, btn.Icon, 4)
-        
+
         btn.Count = UIUtil.CreateText(btn.Icon, '', 20, UIUtil.bodyFont)
         btn.Count:SetColor('ffffffff')
         btn.Count:SetDropShadow(true)
         btn.Count:DisableHitTest()
+
         LayoutHelpers.AtBottomIn(btn.Count, btn)
         LayoutHelpers.AtRightIn(btn.Count, btn)
-        
-        -- btn.ConsBar = Bitmap(btn, UIUtil.UIFile('/icons/units/cons_bar.dds'))
-        -- btn.ConsBar:DisableHitTest()
-        -- LayoutHelpers.AtCenterIn(btn.ConsBar, btn)
-        
+
+--        btn.ConsBar = Bitmap(btn, UIUtil.UIFile('/icons/units/cons_bar.dds'))
+--        btn.ConsBar:DisableHitTest()
+--        LayoutHelpers.AtCenterIn(btn.ConsBar, btn)
+
         btn.LowFuel = Bitmap(btn)
         btn.LowFuel:SetSolidColor('ffff0000')
         btn.LowFuel:DisableHitTest()
+
         LayoutHelpers.FillParent(btn.LowFuel, btn)
+
         btn.LowFuel:SetAlpha(0)
         btn.LowFuel:DisableHitTest()
         btn.LowFuel.Incrementing = 1
-        
+
         btn.LowFuelIcon = Bitmap(btn.LowFuel, UIUtil.UIFile('/game/unit_view_icons/fuel.dds'))
+
         LayoutHelpers.AtLeftIn(btn.LowFuelIcon, btn, 4)
         LayoutHelpers.AtBottomIn(btn.LowFuelIcon, btn, 4)
+
         btn.LowFuelIcon:DisableHitTest()
-        
+
         btn.LowFuel.OnFrame = function(glow, elapsedTime)
+
             local curAlpha = glow:GetAlpha()
+
             curAlpha = curAlpha + (elapsedTime * glow.Incrementing)
+
             if curAlpha > .4 then
                 curAlpha = .4
                 glow.Incrementing = -1
@@ -852,18 +929,26 @@ function CommonLogic()
                 curAlpha = 0
                 glow.Incrementing = 1
             end
+
             glow:SetAlpha(curAlpha)
+
         end
-        
+
         btn.Glow = Bitmap(btn)
         btn.Glow:SetTexture(UIUtil.UIFile('/game/units_bmp/glow.dds'))
         btn.Glow:DisableHitTest()
+
         LayoutHelpers.FillParent(btn.Glow, btn)
+
         btn.Glow:SetAlpha(0)
         btn.Glow.Incrementing = 1
+
         btn.Glow.OnFrame = function(glow, elapsedTime)
+
             local curAlpha = glow:GetAlpha()
+
             curAlpha = curAlpha + (elapsedTime * glow.Incrementing * GLOW_SPEED)
+
             if curAlpha > UPPER_GLOW_THRESHHOLD then
                 curAlpha = UPPER_GLOW_THRESHHOLD
                 glow.Incrementing = -1
@@ -871,23 +956,31 @@ function CommonLogic()
                 curAlpha = LOWER_GLOW_THRESHHOLD
                 glow.Incrementing = 1
             end
+
             glow:SetAlpha(curAlpha)
         end
-        
+
         btn.HandleEvent = function(self, event)
+
             if event.Type == 'MouseEnter' then
+
                 PlaySound(Sound({Cue = "UI_MFD_Rollover", Bank = "Interface"}))
                 Tooltip.CreateMouseoverDisplay(self, self.tooltipID, nil, false)
+
             elseif event.Type == 'MouseExit' then
+
                 Tooltip.DestroyMouseoverDisplay()
+
             end
+
             return Button.HandleEvent(self, event)
+
         end
-        
+
         btn.OnRolloverEvent = OnRolloverHandler
         btn.OnClick = OnClickHandler
         
-        -- Creating the display area - GAZ UI - template names
+		-- creating the display area - GAZ UI - template names
         btn.Tmplnm = UIUtil.CreateText(btn.Icon, '', 11, UIUtil.bodyFont)
         btn.Tmplnm:SetColor('ffffff00')
         btn.Tmplnm:DisableHitTest()
@@ -897,34 +990,86 @@ function CommonLogic()
         btn.Tmplnm.Depth:Set(function() return btn.Icon.Depth() + 10 end)
 
         return btn
+
     end
-    
+
     controls.choices.SetControlToType = function(control, type)
+
         local function SetIconTextures(control, optID)
+
             local id = optID or control.Data.id
-            if DiskGetFileInfo(UIUtil.UIFile('/icons/units/'..id..'_icon.dds')) then
-                control.Icon:SetTexture(UIUtil.UIFile('/icons/units/'..id..'_icon.dds'))
-            else
-                control.Icon:SetTexture(UIUtil.UIFile('/icons/units/default_icon.dds'))
-            end
+
+            local path = '/icons/units/'..id..'_icon.dds'
+
+			local EXunitID = control.Data.id
+
+			if BlackopsIcons.EXIconPathOverwrites[string.upper(EXunitID)] then
+
+				-- Check manually assigned overwrite table
+				local expath = EXunitID..'_icon.dds'
+				control.Icon:SetTexture(BlackopsIcons.EXIconTableScanOverwrites(EXunitID) .. expath)
+
+			elseif BlackopsIcons.EXIconPaths[string.upper(EXunitID)] then
+
+				-- Check modded icon hun table
+				local expath = EXunitID..'_icon.dds'
+				control.Icon:SetTexture(BlackopsIcons.EXIconTableScan(EXunitID) .. expath)
+
+			else
+				-- Check default GPG directories
+				if DiskGetFileInfo(UIUtil.UIFile(path)) then
+
+					control.Icon:SetTexture(UIUtil.UIFile(path))
+
+				else
+
+					-- Sets placeholder because no other icon was found
+					control.Icon:SetTexture(UIUtil.UIFile('/icons/units/default_icon.dds'))
+
+					if not BlackopsIcons.EXNoIconLogSpamControl[string.upper(EXunitID)] then
+
+						-- Log a warning & add unitID to anti-spam table to prevent future warnings when icons update
+						WARN('Blackops Icon Mod: Icon Not Found - '..EXunitID)
+						BlackopsIcons.EXNoIconLogSpamControl[string.upper(EXunitID)] = EXunitID
+
+					end
+
+				end
+
+			end
+
             if __blueprints[id].StrategicIconName then
+
                 local iconName = __blueprints[id].StrategicIconName
+
                 if DiskGetFileInfo('/textures/ui/common/game/strategicicons/'..iconName..'_rest.dds') then
+
+					-- Exavier Possible Future Adjustment
                     control.StratIcon:SetTexture('/textures/ui/common/game/strategicicons/'..iconName..'_rest.dds')
                     control.StratIcon.Height:Set(control.StratIcon.BitmapHeight)
                     control.StratIcon.Width:Set(control.StratIcon.BitmapWidth)
+
                 else
+
                     control.StratIcon:SetSolidColor('ff00ff00')
+
                 end
+
             else
+
                 control.StratIcon:SetSolidColor('00000000')
+
             end
+
         end
-        
+
+
         if type == 'arrow' then
+
             control.Count:SetText('')
             control:Disable()
             control:SetSolidColor('00000000')
+
             if controls.choices._vertical then
                 control.Icon:SetTexture(UIUtil.UIFile('/game/c-q-e-panel/arrow_vert_bmp.dds'))
                 control.Width:Set(48)
@@ -934,15 +1079,18 @@ function CommonLogic()
                 control.Width:Set(20)
                 control.Height:Set(48)
             end
+
             control.Icon.Depth:Set(function() return control.Depth() + 5 end)
             control.Icon.Height:Set(control.Icon.BitmapHeight)
             control.Icon.Width:Set(30)
             control.StratIcon:SetSolidColor('00000000')
             control.LowFuel:SetAlpha(0, true)
-            -- control.ConsBar:SetAlpha(0, true)
+--            control.ConsBar:SetAlpha(0, true)
             control.LowFuel:SetNeedsFrameUpdate(false)
             control.BuildKey = nil
+
         elseif type == 'spacer' then
+
             if controls.choices._vertical then
                 control.Icon:SetTexture(UIUtil.UIFile('/game/c-q-e-panel/divider_horizontal_bmp.dds'))
                 control.Width:Set(48)
@@ -952,6 +1100,7 @@ function CommonLogic()
                 control.Width:Set(20)
                 control.Height:Set(48)
             end
+
             control.Icon.Width:Set(control.Icon.BitmapWidth)
             control.Icon.Height:Set(control.Icon.BitmapHeight)
             control.Count:SetText('')
@@ -959,10 +1108,12 @@ function CommonLogic()
             control.StratIcon:SetSolidColor('00000000')
             control:SetSolidColor('00000000')
             control.LowFuel:SetAlpha(0, true)
-            -- control.ConsBar:SetAlpha(0, true)
+--            control.ConsBar:SetAlpha(0, true)
             control.LowFuel:SetNeedsFrameUpdate(false)
             control.BuildKey = nil
+
         elseif type == 'enhancement' then
+
             control.Icon:SetSolidColor('00000000')
             control:SetNewTextures(GetEnhancementTextures(control.Data.unitID, control.Data.icon))
             local _,down,over,_,up = GetEnhancementTextures(control.Data.unitID, control.Data.icon)
@@ -977,53 +1128,110 @@ function CommonLogic()
             control.Count:SetText('')
             control.StratIcon:SetSolidColor('00000000')
             control.LowFuel:SetAlpha(0, true)
-            -- control.ConsBar:SetAlpha(0, true)
+--            control.ConsBar:SetAlpha(0, true)
             control.LowFuel:SetNeedsFrameUpdate(false)
             control.BuildKey = nil
+
             if control.Data.Disabled then
+
                 control:Disable()
+
                 if not control.Data.Selected then
                     control.Icon:SetSolidColor('aa000000')
                 end
+
             else
+
                 control:Enable()
+
             end
+
         elseif type == 'templates' then
+
             control.mAltToggledFlag = false
             SetIconTextures(control, control.Data.template.icon)
             control:SetNewTextures(GetBackgroundTextures(control.Data.template.icon))
             control.Height:Set(48)
             control.Width:Set(48)
+
             if control.Data.template.icon then
-                control.Icon:SetTexture('/textures/ui/common/icons/units/'..control.Data.template.icon..'_icon.dds')
+
+                local path = '/textures/ui/common/icons/units/'..control.Data.template.icon..'_icon.dds'
+
+				local EXunitID = control.Data.id
+
+				if BlackopsIcons.EXIconPathOverwrites[string.upper(EXunitID)] then
+
+					-- Check manually assigned overwrite table
+					local expath = EXunitID..'_icon.dds'
+					control.Icon:SetTexture(BlackopsIcons.EXIconTableScanOverwrites(EXunitID) .. expath)
+
+				elseif BlackopsIcons.EXIconPaths[string.upper(EXunitID)] then
+
+					-- Check modded icon hun table
+					local expath = EXunitID..'_icon.dds'
+					control.Icon:SetTexture(BlackopsIcons.EXIconTableScan(EXunitID) .. expath)
+
+				else
+
+					-- Check default GPG directories
+					if DiskGetFileInfo(path) then
+
+						control.Icon:SetTexture(path)
+
+					else
+
+						-- Sets placeholder because no other icon was found
+						control.Icon:SetTexture('/textures/ui/common/icons/units/default_icon.dds')
+
+						if not BlackopsIcons.EXNoIconLogSpamControl[string.upper(EXunitID)] then
+
+							-- Log a warning & add unitID to anti-spam table to prevent future warnings when icons update
+							WARN('Blackops Icon Mod: Icon Not Found - '..EXunitID)
+							BlackopsIcons.EXNoIconLogSpamControl[string.upper(EXunitID)] = EXunitID
+
+						end
+
+					end
+
+				end
+
             else
+
                 control.Icon:SetTexture('/textures/ui/common/icons/units/default_icon.dds')
+
             end
+
             control.Icon.Height:Set(48)
             control.Icon.Width:Set(48)
             control.Icon.Depth:Set(function() return control.Depth() + 1 end)
             control.StratIcon:SetSolidColor('00000000')
             control.tooltipID = control.Data.template.name or 'no description'
             control.BuildKey = control.Data.template.key
-            if showBuildIcons and control.Data.template.key then 
+
+            if showBuildIcons and control.Data.template.key then
                 control.Count:SetText(string.char(control.Data.template.key) or '')
                 control.Count:SetColor('ffff9000')
             else
                 control.Count:SetText('')
             end
+
             control.Icon:Show()
             control:Enable()
             control.LowFuel:SetAlpha(0, true)
-            -- control.ConsBar:SetAlpha(0, true)
-            control.LowFuel:SetNeedsFrameUpdate(false)
 
-            -- The GAZ UI template name
+--            control.ConsBar:SetAlpha(0, true)
+
+            control.LowFuel:SetNeedsFrameUpdate(false)
+            
+			-- the GAZ UI template name
             if 'templates' then
                 control.Tmplnm.Width:Set(48)
                 control.Tmplnm:SetText(string.sub(control.Data.template.name, cutA, cutB))
-            end 
+            end            
 
         elseif type == 'item' then
+
             SetIconTextures(control)
             control:SetNewTextures(GetBackgroundTextures(control.Data.id))
             local _,down = GetBackgroundTextures(control.Data.id)
@@ -1036,33 +1244,45 @@ function CommonLogic()
             control.Icon.Width:Set(48)
             control.Icon.Depth:Set(function() return control.Depth() + 1 end)
             control.BuildKey = nil
-            if showBuildIcons then 
+
+            if showBuildIcons then
                 local unitBuildKeys = BuildMode.GetUnitKeys(sortedOptions.selection[1]:GetBlueprint().BlueprintId, GetCurrentTechTab())
                 control.Count:SetText(unitBuildKeys[control.Data.id] or '')
                 control.Count:SetColor('ffff9000')
             else
                 control.Count:SetText('')
             end
+
             control.Icon:Show()
             control:Enable()
             control.LowFuel:SetAlpha(0, true)
-            -- if __blueprints[control.Data.id].General.ConstructionBar then
-            --     control.ConsBar:SetAlpha(1, true)
-            -- else
-            --     control.ConsBar:SetAlpha(0, true)
-            -- end
+
+--            if __blueprints[control.Data.id].General.ConstructionBar then
+--                control.ConsBar:SetAlpha(1, true)
+--            else
+--                control.ConsBar:SetAlpha(0, true)
+--            end
+
             control.LowFuel:SetNeedsFrameUpdate(false)
+
             if newTechUnits and table.find(newTechUnits, control.Data.id) then
+
                 table.remove(newTechUnits, table.find(newTechUnits, control.Data.id))
+
                 control.NewInd = Bitmap(control, UIUtil.UIFile('/game/selection/selection_brackets_player_highlighted.dds'))
                 control.NewInd.Height:Set(80)
                 control.NewInd.Width:Set(80)
+
                 LayoutHelpers.AtCenterIn(control.NewInd, control)
+
                 control.NewInd:DisableHitTest()
                 control.NewInd.Incrementing = false
                 control.NewInd:SetNeedsFrameUpdate(true)
+
                 control.NewInd.OnFrame = function(ind, delta)
+
                     local newAlpha = ind:GetAlpha() - delta / 5
+
                     if newAlpha < 0 then
                         ind:SetAlpha(0)
                         ind:SetNeedsFrameUpdate(false)
@@ -1070,8 +1290,11 @@ function CommonLogic()
                     else
                         ind:SetAlpha(newAlpha)
                     end
+
                     if ind.Incrementing then
+
                         local newheight = ind.Height() + delta * 100
+
                         if newheight > 80 then
                             ind.Height:Set(80)
                             ind.Width:Set(80)
@@ -1080,8 +1303,11 @@ function CommonLogic()
                             ind.Height:Set(newheight)
                             ind.Width:Set(newheight)
                         end
+
                     else
+
                         local newheight = ind.Height() - delta * 100
+
                         if newheight < 50 then
                             ind.Height:Set(50)
                             ind.Width:Set(50)
@@ -1090,11 +1316,15 @@ function CommonLogic()
                             ind.Height:Set(newheight)
                             ind.Width:Set(newheight)
                         end
+
                     end
                 end
             end
+
         elseif type == 'unitstack' then
+
             SetIconTextures(control)
+
             control:SetNewTextures(GetBackgroundTextures(control.Data.id))
             control.tooltipID = LOC(__blueprints[control.Data.id].Description) or 'no description'
             control.mAltToggledFlag = false
@@ -1103,27 +1333,34 @@ function CommonLogic()
             control.Icon.Height:Set(48)
             control.Icon.Width:Set(48)
             control.LowFuel:SetAlpha(0, true)
-            -- if __blueprints[control.Data.id].General.ConstructionBar then
-                -- control.ConsBar:SetAlpha(1, true)
-            -- else
-                -- control.ConsBar:SetAlpha(0, true)
-            -- end
+
+--            if __blueprints[control.Data.id].General.ConstructionBar then
+--                control.ConsBar:SetAlpha(1, true)
+--            else
+--                control.ConsBar:SetAlpha(0, true)
+--            end
+
             control.BuildKey = nil
+
             if control.Data.lowFuel then
                 control.LowFuel:SetNeedsFrameUpdate(true)
                 control.LowFuelIcon:SetAlpha(1)
             else
                 control.LowFuel:SetNeedsFrameUpdate(false)
             end
-            if LOUDGETN(control.Data.units) > 1 then 
+
+            if LOUDGETN(control.Data.units) > 1 then
                 control.Count:SetText(LOUDGETN(control.Data.units))
                 control.Count:SetColor('ffffffff')
             else
                 control.Count:SetText('')
             end
+
             control.Icon:Show()
             control:Enable()
+
         end
+
     end
 
 end
