@@ -270,7 +270,7 @@ local function CreateLoadPresetDialog(parent, modListTable, modStatus)
             end
             for _, v in modListTable do
                 if v.uid then
-                    v.checkbox:SetCheck(modStatus[v.uid].checked, true)
+                    v:SetVisual(modStatus[v.uid])
                 end
             end
 			dialog:Destroy()
@@ -426,8 +426,10 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
     	worldCover = UIUtil.CreateWorldCover(panel)
     end
 
-    local dlgLabel = UIUtil.CreateText(panel, "<LOC uimod_0001>Click to select or deselect", 20, 'Arial Bold')
-    LayoutHelpers.AtLeftTopIn(dlgLabel, panel, 30, 80)
+    local help1 = UIUtil.CreateText(panel, "Click a row to enable/disable.", 14, UIUtil.bodyFont)
+    LayoutHelpers.AtLeftTopIn(help1, panel, 30, 74)
+    local help2 = UIUtil.CreateText(panel, "Click the > button to see more details.", 14, UIUtil.bodyFont)
+    LayoutHelpers.Below(help2, help1, 2)
 
     ---------------------------------------------------------------------------
     -- Mod list control
@@ -479,7 +481,7 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
     local function UpdateModListTable()
         for _, v in modListTable do
             if v.uid then
-                v.checkbox:SetCheck(modStatus[v.uid].checked, true)
+                v:SetVisual(modStatus[v.uid])
             end
         end
     end
@@ -500,9 +502,16 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
         grp.bg.Depth:Set(grp.Depth)
         LayoutHelpers.FillParent(grp.bg, grp)
         grp.bg:SetSolidColor('22282B')
-        grp.checkbox = UIUtil.CreateCheckboxStd(grp, '/dialogs/check-box_btn/radio')
-        LayoutHelpers.AtLeftIn(grp.checkbox, grp, 2)
-        LayoutHelpers.AtVerticalCenterIn(grp.checkbox, grp)
+        grp.detailButton = UIUtil.CreateButtonStd(grp, '/widgets/64x64', '>', 14)
+        grp.detailButton = UIUtil.CreateButton(grp,
+            '/widgets/large-h_scr/arrow-right_scr_up.dds',
+            '/widgets/large-h_scr/arrow-right_scr_down.dds',
+            '/widgets/large-h_scr/arrow-right_scr_over.dds',
+            '/widgets/large-h_scr/arrow-right_scr_dis.dds')
+        grp.detailButton.Width:Set(math.floor(grp.detailButton.Width() * 0.75))
+        grp.detailButton.Height:Set(math.floor(grp.detailButton.Height() * 0.75))
+        LayoutHelpers.AtRightIn(grp.detailButton, grp, 2)
+        LayoutHelpers.AtVerticalCenterIn(grp.detailButton, grp)
         -- Either '[+]' or '[-]' to indicate folder state
         grp.folded = UIUtil.CreateText(grp, '', 18, 'Arial Bold')
         LayoutHelpers.AtLeftIn(grp.folded, grp, 2)
@@ -510,11 +519,72 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
         grp.icon = Bitmap(grp)
         grp.icon.Width:Set(36)
         grp.icon.Height:Set(36)
-        LayoutHelpers.CenteredRightOf(grp.icon, grp.checkbox, 4)
+        LayoutHelpers.AtLeftIn(grp.icon, grp, 2)
+        LayoutHelpers.AtVerticalCenterIn(grp.icon, grp)
         grp.name = UIUtil.CreateText(grp, '', 18, UIUtil.bodyFont)
+        grp.name:SetDropShadow(true)
         LayoutHelpers.CenteredRightOf(grp.name, grp.icon, 4)
         grp.icon:DisableHitTest()
         grp.name:DisableHitTest()
+        grp.Brighten = function(self)
+            if not self.uid then
+                grp.bg:SetSolidColor('42484B')
+            else
+                local modStatusEntry = modStatus[self.uid]
+                if modStatusEntry.checked then
+                    if modStatusEntry.cantoggle then
+                        grp.bg:SetSolidColor('75A65F') -- Green
+                    else
+                        grp.bg:SetSolidColor('AFAB46') -- Yellow
+                    end
+                else
+                    if modStatusEntry.cantoggle then
+                        grp.bg:SetSolidColor('42484B') -- Black
+                    else
+                        grp.bg:SetSolidColor('882028') -- Red
+                    end
+                end
+            end
+        end
+
+        grp.Darken = function(self)
+            if not self.uid then
+                grp.bg:SetSolidColor('22282B')
+            else
+                local modStatusEntry = modStatus[self.uid]
+                if modStatusEntry.checked then
+                    if modStatusEntry.cantoggle then
+                        grp.bg:SetSolidColor('55863F') -- Green
+                    else
+                        grp.bg:SetSolidColor('8F8B26') -- Yellow
+                    end
+                else
+                    if modStatusEntry.cantoggle then
+                        grp.bg:SetSolidColor('22282B') -- Black
+                    else
+                        grp.bg:SetSolidColor('680008') -- Red
+                    end
+                end
+            end
+        end
+
+        grp.SetVisual = function(self, modStatusEntry)
+            if modStatusEntry == nil then
+                grp.bg:SetSolidColor('22282B')
+            elseif modStatusEntry.checked then
+                if modStatusEntry.cantoggle then
+                    grp.bg:SetSolidColor('55863F') -- Green
+                else
+                    grp.bg:SetSolidColor('8F8B26') -- Yellow
+                end
+            else
+                if modStatusEntry.cantoggle then
+                    grp.bg:SetSolidColor('22282B') -- Black
+                else
+                    grp.bg:SetSolidColor('680008') -- Red
+                end
+            end
+        end
     end
 
     local numElements = 12
@@ -570,7 +640,6 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
     modListContainer.CalcVisible = function(selfMLC)
         local i = 0
         local skip = selfMLC.top -- Account for scroll bar offset
-        -- for _, block in modStruct do
         for bi = 1, table.getsize(folderOrder) do
             local block = modStruct[folderOrder[bi]]
             -- Skip entire block if scroll bar dictates
@@ -579,8 +648,6 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
                 continue
             end
 
-            -- RATODO: If no mods in this block pass all filters, continue
-
             -- Block is eligible to be displayed
             -- However, header might get skipped
             if skip <= 0 then
@@ -588,8 +655,9 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
                 if i > numElements then break end
                 modListTable[i].uid = false
                 modListTable[i].block = block
-                modListTable[i].checkbox:Hide()
+                modListTable[i].detailButton:Hide()
                 modListTable[i].icon:Hide()
+                modListTable[i]:SetVisual(nil)
                 if block.open then
                     modListTable[i].folded:SetText("[-]")
                 else
@@ -599,9 +667,9 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
                 modListTable[i].name:SetText(block.name)
                 modListTable[i].HandleEvent = function(self, event)
                     if event.Type == 'MouseExit' then
-                        self.bg:SetSolidColor('22282B')
+                        self:Darken()
                     elseif event.Type == 'MouseEnter' then
-                        self.bg:SetSolidColor('42484B')
+                        self:Brighten()
                     elseif event.Type == 'ButtonPress' or event.Type == 'ButtonDClick' then
                         self.block.open = not self.block.open
                         -- Folding causes list shrinkage; better to adjust scrollbar
@@ -643,7 +711,7 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
                 modListTable[i].block = false
                 modListTable[i].uid = uid
                 local modInfo = allmods[uid]
-                modListTable[i].checkbox:Show()
+                modListTable[i].detailButton:Show()
 
                 local function HandleExclusiveClick(line)
                     local function DoExclusiveBehavior()
@@ -671,7 +739,7 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
                         "<LOC _Yes>", function()
                             modStatus[exclusiveModSelected].checked = false
                             if line.uid == exclusiveModSelected then
-                                line.checkbox:SetCheck(false, true)
+                                line:SetVisual(modStatus[exclusiveModSelected])
                             else
                                 UpdateModListTable()
                                 normalClickFunc(line)
@@ -685,7 +753,7 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
                     -- Disabling is easy. Handle it and return
                     if modStatus[line.uid].checked then
                         modStatus[line.uid].checked = false
-                        line.checkbox:SetCheck(false, true)
+                        line:SetVisual(modStatus[exclusiveModSelected])
                         return
                     end
 
@@ -769,50 +837,57 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
                             end
                         else
                             modStatus[line.uid].checked = true
-                            line.checkbox:SetCheck(true, true)
+                            line:SetVisual(modStatus[line.uid])
                         end
                     end
                 end
 
-                modListTable[i].checkbox.OnClick = function(self, modifiers)
-                    if modStatus[self:GetParent().uid].cantoggle then
-                        if IsModExclusive(modInfo.uid) and not self:IsChecked() then
-                            HandleExclusiveClick(self:GetParent())
-                        else
-                            if exclusiveModSelected then
-                                HandleExclusiveActive(self:GetParent(), HandleNormalClick)
-                            else
-                                HandleNormalClick(self:GetParent())
-                            end
-                        end
-                    end
-                end
                 modListTable[i].folded:SetText('')
-                modListTable[i].checkbox:SetCheck(modStatus[uid].checked, true)
+                modListTable[i]:SetVisual(modStatus[modListTable[i].uid])
                 modListTable[i].icon:Show()
                 modListTable[i].icon:SetTexture(modInfo.icon)
                 modListTable[i].name:SetNewFont('Arial', 14)
                 modListTable[i].name:SetText(modInfo.name)
                 modListTable[i].HandleEvent = function(self, event)
                     if event.Type == 'MouseExit' then
-                        self.bg:SetSolidColor('22282B')
+                        self:Darken()
                     elseif event.Type == 'MouseEnter' then
-                        self.bg:SetSolidColor('42484B')
-                    elseif event.Type == 'ButtonPress' or event.Type == 'ButtonDClick' then
+                        self:Brighten()
+                    elseif event.Type == 'ButtonPress' then
+                        local sound = Sound({Cue = 'UI_Mini_MouseDown', Bank = 'Interface',})
+                        PlaySound(sound)
+                        if modStatus[self.uid].cantoggle then
+                            if IsModExclusive(modInfo.uid) and not self.enabled then
+                                HandleExclusiveClick(self)
+                            else
+                                if exclusiveModSelected then
+                                    HandleExclusiveActive(self, HandleNormalClick)
+                                else
+                                    HandleNormalClick(self)
+                                end
+                            end
+                        end
+                    elseif event.Type == 'ButtonDClick' then
                         DisplayModDetails(self.uid)
-                        local sound = Sound({Cue = "UI_Mod_Select", Bank = "Interface",})
+                        local sound = Sound({Cue = 'UI_Mod_Select', Bank = 'Interface',})
                         PlaySound(sound)
                     end
+                end
+                modListTable[i].detailButton.OnClick = function(self, modifiers)
+                    DisplayModDetails(self:GetParent().uid)
+                    local sound = Sound({Cue = 'UI_Mod_Select', Bank = 'Interface',})
+                    PlaySound(sound)
                 end
             end
         end
         -- Clear remaining lines if not all need to be filled
         if i < numElements then
             for j = i + 1, numElements do
+                modListTable[j].bg:SetSolidColor('22282B')
                 modListTable[j].uid = false
                 modListTable[j].block = false
                 modListTable[j].folded:SetText('')
-                modListTable[j].checkbox:Hide()
+                modListTable[j].detailButton:Hide()
                 modListTable[j].icon:Hide()
                 modListTable[j].name:SetText('')
                 modListTable[j].HandleEvent = function(self, event) end
@@ -974,14 +1049,10 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
         end
         for _, v in modListTable do
             if v.uid then
-                v.checkbox:SetCheck(false, true)
+                v:SetVisual(modStatus[v.uid])
             end
         end
     end
-
-    local filterCombo = Combo(panel, 14, 10, nil, nil, 'UI_Tab_Click_01', 'UI_Tab_Rollover_01')
-    filterCombo.Width:Set(160)
-    LayoutHelpers.CenteredRightOf(filterCombo, disableBtn, 8)
 
     UIUtil.MakeInputModal(panel, function() okBtn.OnClick(okBtn) end, function() cancelBtn.OnClick(cancelBtn) end)
 end
