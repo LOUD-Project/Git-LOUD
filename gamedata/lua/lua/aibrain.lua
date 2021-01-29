@@ -729,13 +729,8 @@ AIBrain = Class(moho.aibrain_methods) {
 				-- start the plan
 				ForkThread( self.CurrentPlanScript.ExecutePlan, self )
 
-				-- Start adaptive cheat threads
-				if (self.Adaptive == 2 or self.Adaptive == 4) then
-					self.RatioACT = ForkThread(import('/lua/loudutilities.lua').RatioAdaptiveCheatThread, self)
-				end
-				if (self.Adaptive == 3 or self.Adaptive == 4) then
-					self.TimeACT = ForkThread(import('/lua/loudutilities.lua').TimeAdaptiveCheatThread, self)
-				end
+                -- Subscribe to ACT if .Adaptive dictates such
+                import('/lua/loudutilities.lua').SubscribeToACT(self)
 			end
 		else
         

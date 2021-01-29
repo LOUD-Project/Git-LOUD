@@ -362,6 +362,8 @@ end
 
 function InitializeArmies()
 
+    local loudUtils = import('/lua/loudutilities.lua')
+
     ScenarioInfo.biggestTeamSize = 0
     
     local function InitializeSkirmishSystems(self)
@@ -407,13 +409,13 @@ function InitializeArmies()
         end
 
 		-- build table of scout locations and set some starting threat at all enemy locations
-		import('/lua/loudutilities.lua').BuildScoutLocations(self)
+		loudUtils.BuildScoutLocations(self)
 
         -- Create the Condition monitor
         self.ConditionsMonitor = import('/lua/sim/BrainConditionsMonitor.lua').CreateConditionsMonitor(self)
 
         -- Create the Economy Data structures and start Economy monitor thread
-        self:ForkThread1(import('/lua/loudutilities.lua').EconomyMonitor)
+        self:ForkThread1(loudUtils.EconomyMonitor)
 		
         -- Base counters
         self.NumBases = 0
@@ -433,10 +435,10 @@ function InitializeArmies()
 
 		-- set the base radius according to map size -- affects platoon formation radius and base alert radius
 		local mapSizex = ScenarioInfo.size[1]
-		local BuilderRadius = math.max(100, (mapSizex/16))	#-- should give a range between 100 and 256+
-		local BuilderRadius = math.min(BuilderRadius, 140)	#-- and then limit it to no more than 140
+		local BuilderRadius = math.max(100, (mapSizex/16)) -- should give a range between 100 and 256+
+		local BuilderRadius = math.min(BuilderRadius, 140) -- and then limit it to no more than 140
 		
-		local RallyPointRadius = 49		#-- create automatic rally points at 49 from centre
+		local RallyPointRadius = 49	-- create automatic rally points at 49 from centre
 		
 		-- Set the NeedTransports flag -- used when the AI tries to air transport units and cannot find enough transport
 		-- this brings factory platoons online to build more (more than standard)
@@ -448,7 +450,7 @@ function InitializeArmies()
 		self.BaseExpansionUnderway = false
 		
 		-- level AI starting locations
-		--import('/lua/loudutilities.lua').LevelStartBaseArea(self:GetStartVector3f(), RallyPointRadius )
+		--loudUtils.LevelStartBaseArea(self:GetStartVector3f(), RallyPointRadius )
 		
         -- Create the Builder Managers for the MAIN base
         self:AddBuilderManagers(self:GetStartVector3f(), BuilderRadius, 'MAIN', false, RallyPointRadius, true, 'FRONT')
@@ -498,19 +500,19 @@ function InitializeArmies()
 		
 
 		-- Start the Dead Base Monitor
-		self:ForkThread1( import('/lua/loudutilities.lua').DeadBaseMonitor )
+		self:ForkThread1( loudUtils.DeadBaseMonitor )
 		
         -- Start the Enemy Picker
-        self:ForkThread1( import('/lua/loudutilities.lua').PickEnemy )
+        self:ForkThread1( loudUtils.PickEnemy )
 		
 		-- Start the Path Generator
-		self:ForkThread1( import('/lua/loudutilities.lua').PathGeneratorThread )
+		self:ForkThread1( loudUtils.PathGeneratorThread )
 		
         -- start PlatoonDistressMonitor
-        self:ForkThread1( import('/lua/loudutilities.lua').PlatoonDistressMonitor )
+        self:ForkThread1( loudUtils.PlatoonDistressMonitor )
 
 		-- start watching the intel data
-		self:ForkThread1( import('/lua/loudutilities.lua').ParseIntelThread )
+		self:ForkThread1( loudUtils.ParseIntelThread )
 
 		-- record the starting unit cap	
 		-- caps of 1000+ trigger some conditions
@@ -601,7 +603,7 @@ function InitializeArmies()
 			
 			-- if this is an AI (but not civilian)        
             if GetArmyBrain(strArmy).BrainType == 'AI' and (not armyIsCiv) then
-                import('/lua/loudutilities.lua').AddCustomUnitSupport(GetArmyBrain(strArmy))
+                loudUtils.AddCustomUnitSupport(GetArmyBrain(strArmy))
             end
             
             SetArmyEconomy( strArmy, tblData.Economy.mass, tblData.Economy.energy)
@@ -656,7 +658,9 @@ function InitializeArmies()
 				
             end
 		end
-	end	
+    end
+    
+    loudUtils.StartAdaptiveCheatThreads()
     
     return tblGroups
 	
