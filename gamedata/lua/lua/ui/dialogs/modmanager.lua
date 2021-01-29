@@ -751,7 +751,7 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
                     -- Disabling is easy. Handle it and return
                     if modStatus[line.uid].checked then
                         modStatus[line.uid].checked = false
-                        line:SetVisual(modStatus[exclusiveModSelected])
+                        line:SetVisual(modStatus[line.uid])
                         return
                     end
 
@@ -767,7 +767,7 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
                             end
                             boxText = boxText .. name .. "\n"
                         end
-                        UIUtil.QuickDialog(parent, boxText, "<LOC _Ok>")
+                        UIUtil.QuickDialog(line:GetParent(), boxText, "<LOC _Ok>")
                     else
                         if depends.requires or depends.conflicts then
                             local needsRequiredActivated = false
@@ -814,7 +814,7 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
                                     boxText = boxText .. "\n"
                                 end
                                 boxText = boxText .. LOC("<LOC uimod_0015>Would you like to enable the requested mod? Selecting Yes will enable all required mods, and disable all conflicting mods.")
-                                CreateDependsDialog(panel, boxText, function()
+                                CreateDependsDialog(line:GetParent(), boxText, function()
                                     modStatus[line.uid].checked = true
                                     if depends.requires then
                                         for k_uid, _ in depends.requires do
@@ -832,6 +832,9 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
                                     end
                                     UpdateModListTable()
                                 end)
+                            else
+                                modStatus[line.uid].checked = true
+                                line:SetVisual(modStatus[line.uid])
                             end
                         else
                             modStatus[line.uid].checked = true
