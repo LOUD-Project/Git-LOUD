@@ -57,6 +57,7 @@ end
 --      newSelection: What the selection is now
 --      added: Which units were added to the old selection
 --      removed: Which units where removed from the old selection
+local oldOnSelectionChanged = OnSelectionChanged
 function OnSelectionChanged(oldSelection, newSelection, added, removed)
 
     -- Deselect Selens if necessary. Also do work on Hotbuild labels
@@ -96,43 +97,8 @@ function OnSelectionChanged(oldSelection, newSelection, added, removed)
         -- hotkeyLabelsOnSelectionChanged(upgradesTo, isFactory)
     end
 
-    local availableOrders, availableToggles, buildableCategories = GetUnitCommandData(newSelection)
-    local isOldSelection = table.equal(oldSelection, newSelection)
-
-    if not gameUIHidden then
-	
-        if not isReplay then
-		
-            import('/lua/ui/game/orders.lua').SetAvailableOrders(availableOrders, availableToggles, newSelection)
-			
-        end
-		
-        -- todo change the current command mode if no longer available? or set to nil?
-        import('/lua/ui/game/construction.lua').OnSelection(buildableCategories,newSelection,isOldSelection)
-		
-    end
-
-    if not isOldSelection then
-	
-        import('/lua/ui/game/selection.lua').PlaySelectionSound(added)
-        import('/lua/ui/game/rallypoint.lua').OnSelectionChanged(newSelection)
-		
-    end
-	
-	local selUnits = newSelection
-
-    if selUnits and table.getn(selUnits) == 1
-    and import('/lua/gaz_ui/modules/selectedinfo.lua').SelectedOverlayOn then
-    
-        import('/lua/gaz_ui/modules/selectedinfo.lua').ActivateSingleRangeOverlay()
-        
-    else
-		import('/lua/gaz_ui/modules/selectedinfo.lua').DeactivateSingleRangeOverlay()
-        
-	end 
-
+    oldOnSelectionChanged(oldSelection, newSelection, added, removed)
 end
-
 
 local oldCreateUI = CreateUI
 function CreateUI(isReplay) 
