@@ -295,11 +295,13 @@ end
 
 function init()
 	local KeyMapper = import('/lua/keymap/keymapper.lua')
-	KeyMapper.SetUserKeyAction('Toggle Selection Deprioritizer', {
+	KeyMapper.SetUserKeyAction('toggle_select_deprio', {
 		action = "UI_Lua import('/mods/SelectionDeprioritizer/modules/SelectionDeprioritizer.lua').ToggleEnabled()",
 		category = 'Mods',
 		order = 1,
 	})
+	local keyDescriptions = import('/lua/keymap/keydescriptions.lua').keyDescriptions
+	keyDescriptions['toggle_select_deprio'] = "Toggle Selection Deprioritizer"
 end
 
 
