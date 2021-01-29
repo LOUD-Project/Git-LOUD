@@ -178,7 +178,6 @@ local modSchema = {
         '9a9C61C0-1787-10DF-A0AD-BATTLEPACK002', -- Wyvern Battle Pack
     },
     ["User Interface"] = {
-        '2529ea71-93ef-41a6-b552-EXPERICON00005', -- Experimental Icons Overhaul
         'EF3ADDB4-9D34-437F-B1C8-440DAF896802', -- Mass Fab Manager
         'D000E905-1E97-420D-8ED9-DF083282F59D', -- Sequential Mex Upgrade
         '89BF1572-9EA8-11DC-1313-635F56D89591', -- Supreme Economy
@@ -200,6 +199,7 @@ local modSchema = {
         '25D57D85-9JA7-D842-GKG4-ORIGIN0000001', -- BrewLAN Baristas
         '25D57D85-9JA7-D842-GKG4-DAMAGENO00000', -- BrewLAN Damage Numbers
         '2529ea71-93ef-41a6-b552-LOGS0000000009', -- BrewLAN Debug Tools
+        '2529ea71-93ef-41a6-b552-EXPERICON00005', -- Experimental Icons Overhaul
         '5362BE90-44BE-11DD-A519-83AF56D89593', -- Supreme Commander Music
     },
     ["Usermods"] = {},
