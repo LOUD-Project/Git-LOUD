@@ -714,7 +714,7 @@ function CreateUnitDB(over, callback)
 		end
 		if event.KeyCode == 319 then
 			if event.Modifiers.Shift then
-				listContainer:ScrollLines(nil, 10)
+				listContainer:ScrollPages(nil, 1)
 			elseif event.Modifiers.Ctrl then
 				listContainer:ScrollSetTop(nil, count)
 			else
@@ -722,7 +722,7 @@ function CreateUnitDB(over, callback)
 			end
 		elseif event.KeyCode == 317 then
 			if event.Modifiers.Shift then
-				listContainer:ScrollLines(nil, -10)
+				listContainer:ScrollPages(nil, -1)
 			elseif event.Modifiers.Ctrl then
 				listContainer:ScrollSetTop(nil, 0)
 			else
