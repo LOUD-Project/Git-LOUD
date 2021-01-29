@@ -2111,6 +2111,7 @@ end
 -- Now includes code for escorting fighters --
 function AirForceAILOUD( self, aiBrain )
 
+	local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
 	local GetFuelRatio = moho.unit_methods.GetFuelRatio
 	
 	local AIFindTargetInRangeInCategoryWithThreatFromPosition = import('/lua/ai/aiattackutilities.lua').AIFindTargetInRangeInCategoryWithThreatFromPosition
@@ -2214,11 +2215,11 @@ function AirForceAILOUD( self, aiBrain )
     -- notice how the minimum range of the ring is carried forward from the previous iteration 
     local mythreat = 0
     local threatcompare = 'AntiAir'
-    local mult = { 1, 1.75, 2.5 }				-- this multiplies the range of the platoon when searching for targets
+    local mult = { 1, 2, 3 }				-- this multiplies the range of the platoon when searching for targets
 	local difficulty = { .7, 1, 1.2 }   		-- this multiplies the threat of the platoon so that easier targets are selected first
     local minrange = 0
 
-    local rangemult, threatmult, strikerange
+    local Rangemult, Threatmult, strikerange
 	
     while PlatoonExists(aiBrain, self) and (LOUDTIME() - MissionStartTime) <= missiontime do
 
@@ -2300,10 +2301,14 @@ function AirForceAILOUD( self, aiBrain )
 					end					
 
 					if target then
+                        Threatmult = threatmult
 						break
 					end
 
 				end
+
+                -- record Rangemult value for later use --
+                Rangemult = rangemult
 
 				if target then
 					maxrange = searchradius * rangemult
@@ -2311,6 +2316,53 @@ function AirForceAILOUD( self, aiBrain )
 				end
 
                 minrange = searchradius * rangemult
+            end
+            
+            SecondaryAATargets = false
+            AACount = 0
+            SecondaryShieldTargets = false
+            ShieldCount = 0
+            TertiaryTargets = false
+            TertiaryCount = 0
+            
+            if target then
+            
+                -- enemy fighters 
+                SecondaryAATargets = GetUnitsAroundPoint( aiBrain, categories.HIGHALTAIR, targetposition, threatcheckradius, 'Enemy')
+                -- enemy gunships
+                SecondaryShieldTargets = GetUnitsAroundPoint( aiBrain, categories.GROUNDATTACK, targetposition, threatcheckradius, 'Enemy')
+                -- enemy bombers
+                TertiaryTargets = GetUnitsAroundPoint( aiBrain, categories.BOMBER, targetposition, threatcheckradius, 'Enemy')
+                
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." with "..LOUDGETN(self:GetSquadUnits('Attack')).." units has target at "..repr(targetposition))
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." used RangeMult of "..Rangemult.." and Difficulty of "..Threatmult)
+                
+                if LOUDGETN(SecondaryAATargets) > 0 then
+                    AACount = LOUDGETN(SecondaryAATargets)
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." finds "..AACount.." fighters")
+                    
+                else
+                    SecondaryAATargets = false
+                end
+                
+                if LOUDGETN(SecondaryShieldTargets) > 0 then
+                    ShieldCount = LOUDGETN(SecondaryShieldTargets)
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." finds "..ShieldCount.." gunships")
+                    
+                else
+                    SecondaryShieldTargets = false
+                end
+                
+                if LOUDGETN(TertiaryTargets) > 0 then
+                    TertiaryCount = LOUDGETN(TertiaryTargets)
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." finds "..TertiaryCount.." bombers")
+                    
+                else
+                    TertiaryTargets = false
+                end
+
+            else
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." finds no target within strikerange "..searchradius.." X "..Rangemult)
             end
 
 			-- Have a target - plot path to target - Use airthreat vs. mythreat for path
@@ -2320,65 +2372,165 @@ function AirForceAILOUD( self, aiBrain )
 				IssueClearCommands( platoonUnits )
 
 				local path, reason
-				
+
 				local prevposition = LOUDCOPY(GetPlatoonPosition(self))
-				
-                -- if within strikerange go right at it
-				if VDist2( prevposition[1],prevposition[3], targetposition[1],targetposition[3] ) <= strikerange then
 
-					IssueAttack( platoonUnits, target )
+				local paththreat = (oldNumberOfUnitsInPlatoon * 1) + self:CalculatePlatoonThreat('AntiAir', categories.ALLUNITS)
 
+                -- note the use of the ScenarioInfo.MaxMapDimension / 16 - this controls point searching as a function of IMAP size - which is what the air grid should be 
+                path, reason = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, self.MovementLayer, prevposition, targetposition, paththreat, 250 )
 
-                -- otherwise plot a safe path
-				else
-					
-					local paththreat = (oldNumberOfUnitsInPlatoon * 1) + self:CalculatePlatoonThreat('AntiAir', categories.ALLUNITS)
+                if path then
 
-                    path, reason = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, self.MovementLayer, prevposition, targetposition, paththreat, 250 )
+                    local newpath = {}
+                    local pathsize = LOUDGETN(path)
 
-                    if path then
-						
-                        local newpath = {}
-                        local pathsize = LOUDGETN(path)
+                    -- build a newpath that gets the platoon to within strikerange
+                    -- rather than going all the way to target
+                    for waypoint,p in path do
 
-                        for waypoint,p in path do
-						
-                            if waypoint < pathsize and VDist2(p[1],p[3], targetposition[1],targetposition[3]) > strikerange and not DestinationBetweenPoints( targetposition, prevposition, p, 150 ) then
-                            
-                                LOUDINSERT( newpath, p )
-                                
-								prevposition = p
-							else
-                                break
-                            end
+                        if waypoint < pathsize and VDist2(p[1],p[3], targetposition[1],targetposition[3]) > strikerange and not DestinationBetweenPoints( targetposition, prevposition, p, 150 ) then
+
+                            LOUDINSERT( newpath, p )
+
+                            prevposition = p
+						else
+                            break
                         end
-                        
-                        if LOUDGETN(newpath) > 0 then
-
-                            -- move the platoon to within strikerange in formation
-                            self.MoveThread = self:ForkThread( self.MovePlatoon, newpath, 'AttackFormation', false, 75)
-
-                            -- wait for the movement orders to execute --
-                            while PlatoonExists(aiBrain, self) and self.MoveThread and not target.Dead do
-                                WaitTicks(5)
-                            end
-                        end
-                        
-                    else
-                    
-                        target = false
-                        loiter = true
-                        
-                        self:MoveToLocation( self.anchorposition, false)
                     end
-				end
+                    
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." has path "..repr(path))
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." vs using "..repr(newpath))
+
+                    -- if we have a path - versus direct which will have zero path entries --
+                    if LOUDGETN(newpath) > 0 then
+
+                        -- move the platoon to within strikerange in formation
+                        self.MoveThread = self:ForkThread( self.MovePlatoon, newpath, 'AttackFormation', false, 90)
+
+                        -- wait for the movement orders to execute --
+                        while PlatoonExists(aiBrain, self) and self.MoveThread and not target.Dead do
+                            WaitTicks(4)
+                        end
+                    end
+
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." at strikepoint - distance to target "..repr(targetposition).." is "..repr(VDist3(GetPlatoonPosition(self),targetposition)))
+                    
+                    if self.MoveThread then
+                        self:KillMoveThread()
+                    end
+
+                else
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." AirForceAI_LOUD "..self.BuilderName.." could not find a safe path to target at "..repr(targetposition) )
+
+					target = false
+                    loiter = true
+
+                    self:MoveToLocation( self.anchorposition, false )
+                end
+
+                if PlatoonExists(aiBrain, self) and target and not target.Dead then
+
+                    -- we assign 30% of the units to attack fighters first
+                    -- then another 15% of the units to attack gunships and bombers
+                    -- the remaining 30% will attack the primary first
+                    local attackers = self:GetSquadUnits('Attack')
+                    local attackercount = LOUDGETN(attackers)
+                    
+                    local shield = 1
+                    local aa = 1
+                    local tertiary = 1
+                    
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..attackercount.." fighters at strikeposition - targeting")
+                    
+                    local squad = GetPlatoonPosition(self)
+                    
+                    local midpointx = (squad[1]+targetposition[1])/2
+                    local midpointy = (squad[2]+targetposition[2])/2
+                    local midpointz = (squad[3]+targetposition[3])/2
+                    
+					local Direction = import('/lua/utilities.lua').GetDirectionInDegrees( squad, targetposition )
+
+                    -- this gets them moving to a point halfway to the targetposition - hopefully
+                    IssueFormMove( GetPlatoonUnits(self), { midpointx, midpointy, midpointz }, 'AttackFormation', Direction )
+
+                    -- sort the fighters by farthest from target -- we'll send them just ahead of the others to get tighter wave integrity
+                    LOUDSORT( attackers, function (a,b) return VDist3(a:GetPosition(),targetposition) > VDist3(b:GetPosition(),targetposition) end )
+                   
+                    local attackissued = false
+
+                    for key,u in attackers do
+                    
+                        if not u.Dead then
+                        
+                            IssueClearCommands( {u} )
+                            
+                            attackissued = false
+
+                            -- first 15% of attacks go for the gunships
+                            if key < attackercount * .15 and SecondaryShieldTargets then
+                        
+                                if not SecondaryShieldTargets[shield].Dead then
+                                    IssueAttack( {u}, SecondaryShieldTargets[shield] )
+                                    attackissued = true
+                                end
+
+                                if shield >= ShieldCount then
+                                    shield = 1
+                                else
+                                    shield = shield + 1
+                                end 
+                            end
+                        
+                            -- next 30% go for fighters units
+                            if not attackissued and key <= attackercount * .45 and SecondaryAATargets then
+
+                                if not SecondaryAATargets[aa].Dead then
+                                    IssueAttack( {u}, SecondaryAATargets[aa] )
+                                    attackissued = true
+                                end
+                            
+                                if aa >= AACount then
+                                    aa = 1
+                                else
+                                    aa = aa + 1
+                                end
+                            end
+                            
+                            -- next 15% for bomber targets --
+                            if not attackissued and key <= attackercount * .6 and TertiaryTargets then
+                            
+                                if not TertiaryTargets[tertiary].Dead and self:CanAttackTarget('Attack', TertiaryTargets[tertiary]) then
+                                    IssueAttack( {u}, TertiaryTargets[tertiary] )
+                                    
+                                    --LOG("*AI DEBUG Issued attack "..key.." on Tertiary "..tertiary.." "..TertiaryTargets[tertiary]:GetBlueprint().Description)
+                                    
+                                    attackissued = true
+                                end
+                                
+                                if tertiary >= TertiaryCount then
+                                    tertiary = 1
+                                else 
+                                    tertiary = tertiary + 1
+                                end
+                            end
+                        
+                            -- all others go for primary
+                            if not target.Dead and not attackissued then
+
+                                IssueAttack( {u}, target )
+                                attackissued = true
+                            
+                            end
+                    
+                            if attackissued then
+                                WaitTicks(1)
+                            end
+                        end
+                    end
+                end                    
+
 			end
-        end
-        
-        if target and not target.Dead and PlatoonExists(aiBrain,self) then
-        
-            IssueAttack( self:GetSquadUnits('Attack'), target )
-        
         end
 
 		-- Attack until target is dead, beyond maxrange, below 35%, low on fuel or timer
@@ -2391,11 +2543,11 @@ function AirForceAILOUD( self, aiBrain )
 
 			loiter = false
 			
-			WaitTicks(9)
+			WaitTicks(7)
 			
 			if PlatoonExists(aiBrain, self) then
 			
-				attacktimer = attacktimer + 0.9
+				attacktimer = attacktimer + 0.7
 
 				local platooncount = 0
 				local fuellow = false
@@ -2657,7 +2809,6 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
 						break
 					end
 
-                    --WaitTicks(1)
 				end
                 
                 -- record Rangemult value for later use --
