@@ -156,7 +156,7 @@ function OnFirstUpdate()
 			
 			ConExecute('fog_DistanceFog')
             
-            ConExecute('d3d_WindowsCursor')
+            ConExecute('d3d_WindowsCursor true')
 
         end
     )
