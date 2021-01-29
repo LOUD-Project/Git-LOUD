@@ -7,7 +7,6 @@
 --*****************************************************************************
 
 local Bitmap = import('/lua/maui/bitmap.lua').Bitmap
-local Combo = import('/lua/ui/controls/combo.lua').Combo
 local Edit = import('/lua/maui/edit.lua').Edit
 local Group = import('/lua/maui/group.lua').Group
 local ItemList = import('/lua/maui/itemlist.lua').ItemList
@@ -502,7 +501,6 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
         grp.bg.Depth:Set(grp.Depth)
         LayoutHelpers.FillParent(grp.bg, grp)
         grp.bg:SetSolidColor('22282B')
-        grp.detailButton = UIUtil.CreateButtonStd(grp, '/widgets/64x64', '>', 14)
         grp.detailButton = UIUtil.CreateButton(grp,
             '/widgets/large-h_scr/arrow-right_scr_up.dds',
             '/widgets/large-h_scr/arrow-right_scr_down.dds',
@@ -663,7 +661,7 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
                 else
                     modListTable[i].folded:SetText("[+]")
                 end
-                modListTable[i].name:SetNewFont('Arial', 18)
+                modListTable[i].name:SetNewFont('Arial', 20)
                 modListTable[i].name:SetText(block.name)
                 modListTable[i].HandleEvent = function(self, event)
                     if event.Type == 'MouseExit' then
@@ -937,7 +935,7 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
     modDetails = Group(panel)
     modDetails.Width:Set(520)
     modDetails.Height:Set(460)
-    LayoutHelpers.RightOf(modDetails, modListContainer, 24)
+    LayoutHelpers.RightOf(modDetails, modListContainer, 32)
     modDetails.icon = Bitmap(modDetails)
     modDetails.icon.Width:Set(70)
     modDetails.icon.Height:Set(70)
@@ -948,10 +946,8 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
     modDetails.author = MultiLineText(modDetails, UIUtil.bodyFont, 14, UIUtil.fontColor)
     modDetails.author.Width:Set(300)
     LayoutHelpers.Below(modDetails.author, modDetails.name, 4)
-    modDetails.version = UIUtil.CreateText(modDetails, '', 14, UIUtil.bodyFont)
-    LayoutHelpers.Below(modDetails.version, modDetails.author, 2)
     modDetails.desc = MultiLineText(modDetails, UIUtil.bodyFont, 14, UIUtil.fontColor)
-    modDetails.desc.Height:Set(42)
+    modDetails.desc.Height:Set(46)
     modDetails.desc.Width:Set(modDetails.Width())
     LayoutHelpers.Below(modDetails.desc, modDetails.icon, 16)
     modDetails.uiOnly = UIUtil.CreateText(modDetails, '', 14, 'Arial Bold')
@@ -977,6 +973,8 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
     modDetails.copyright = UIUtil.CreateText(modDetails, '', 14, UIUtil.bodyFont)
     LayoutHelpers.AtBottomIn(modDetails.copyright, modDetails, 4)
     LayoutHelpers.AtLeftIn(modDetails.copyright, modDetails, 4)
+    modDetails.version = UIUtil.CreateText(modDetails, '', 14, UIUtil.bodyFont)
+    LayoutHelpers.Above(modDetails.version, modDetails.copyright, 2)
 
     ---------------------------------------------------------------------------
     -- Misc. button behaviours
@@ -1111,9 +1109,9 @@ function DisplayModDetails(uid)
     end
 
     if modInfo.ui_only then
-        modDetails.uiOnly:SetText("UI Mod")
+        modDetails.uiOnly:SetText("UI Mod (Client-Side)")
     else
-        modDetails.uiOnly:SetText("Sim Mod")
+        modDetails.uiOnly:SetText("Sim Mod (Server-Side)")
     end
 
     if not modInfo.copyright or modInfo.copyright == "" then
