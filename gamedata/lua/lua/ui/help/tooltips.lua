@@ -648,6 +648,10 @@ Tooltips = {
         title = "Use Factional UI Skin",
         description = "When on, the UI skin will change to match the faction you are playing",
     },
+    options_land_unit_select_prio = {
+        title = "Land Unit Selection Priority",
+        description = "When on, trying to select both land and air units will select only the land units.",
+    },
 
     -- ********************
     -- *** Mod Manager Strings
