@@ -1,4 +1,4 @@
-name = "UTIL Experimental Icons Overhaul from BrewLAN"
+name = "Experimental Icons Overhaul from BrewLAN"
 uid = "2529ea71-93ef-41a6-b552-EXPERICON00005"
 version = 0.6
 copyright = "� 2015 Sean Wheeldon"
