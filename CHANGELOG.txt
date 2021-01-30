@@ -1,3 +1,32 @@
+### Release 30-01-2021 ###
+Lua 5.4.03
+Textures 6.3.1
+LOUD Mods 5.4
+
+- Mod manager revamp. More list items visible at once, and more detailed information on any given mod. 
+- The lobby now allows players to choose their colours via a colour wheel.
+- The map selection screen now folds maps; different scenarios which use the same terrain will be grouped together.
+- The unit cap lobby option is now a textbox, which can take any number between 350 and 5000.
+- New setting under Options -> Interface: Land Unit Selection Priority.
+ |--> When this function is enabled, trying to select both air and land units will remove air units from the final selection.
+ |--> Holding shift will temporarily disable this function.
+- New mutator mod: Tanksy's Experiments 1: Combat Changes.
+ |--> This mod is for users who want more realistic ranges in their games; unit ranges vary from 2 to 3 times their original values.
+ |--> Changes are also made to muzzle velocities and weapon firing arcs to account for these range differences.
+- Fixed d3d_WindowsCursor getting turned off (and thus bringing back the NVIDIA driver lag bug) every second match started per application session.
+- AI: a revision to how PriorityFunctions are handled by the PlatoonFormManager.
+ |--> Previously, PFM tasks did NOT get PriorityFunction reviews unless the PFM tasks were sorted.
+ |--> This only occured when the primary status of the location changed (not very often).
+ |--> Now - they are processed, inline with the PFM looking for builders to fill.
+- AI: Engineer defense tasks have had their priorities modified.
+- AI: Standard air behavior now gets the same kind of target setup as bombers and gunships, with limited split attack ability.
+ |--> Various tweaks to fighter formations for longer search radius, target priority.
+- Fixed chat text not wrapping properly.
+- Renamed multiple LOUD mini-mods.
+ |--> "Enhanced Commanders" is now "Enhanced Black Ops Commanders" for clarity.
+ |--> "Realistic Nukes" is now "Enhanced Nukes".
+ |--> "Resource Rich" is now "Enhanced Resources".
+
 ### Release 22-01-2021 ###
 Lua 5.4.02
 Textures 6.3
