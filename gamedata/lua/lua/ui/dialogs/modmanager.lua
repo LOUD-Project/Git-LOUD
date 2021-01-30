@@ -193,6 +193,7 @@ local modSchema = {
         '25D57D85-7D84-27HT-A502-LDIPS0000002', -- Lucky Dip
         '0a970b58-533d-11dc-8314-0800200c9a66', -- Realistic Nukes
         '74A9EAB2-E851-11DB-A1F1-F2C755D89593', -- Resource Rich
+        'TANKSYS-EXPERIMENTS-1-COMBAT', -- Tanksy's Experiments: Combat Changes
     },
     ["Miscellaneous"] = {
         '25D57D85-9JA7-D842-GKG4-ORIGIN0000001', -- BrewLAN Baristas
