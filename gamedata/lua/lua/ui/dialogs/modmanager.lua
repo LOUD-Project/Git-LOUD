@@ -217,6 +217,7 @@ local folderOrder = {
 local modStruct = {}
 
 local function CreateLoadPresetDialog(parent, modListTable, modStatus)
+
     local dialog = Group(parent)
 	dialog.Depth:Set(function() return parent.Depth() + 5 end)
     local background = Bitmap(dialog, UIUtil.SkinnableFile('/dialogs/dialog/panel_bmp_m.dds'))
