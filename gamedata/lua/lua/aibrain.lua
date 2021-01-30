@@ -10,7 +10,7 @@
 
 --[[
     -- AI Engineers will be named according to the Builder they are running 
-	ScenarioInfo.NameEngineers = true
+	ScenarioInfo.NameEngineers = false
 	LOG("*AI DEBUG		Name Engineers is "..repr(ScenarioInfo.NameEngineers))
 
     -- engineers will dialog their decisions to the LOG --
@@ -56,7 +56,7 @@
     LOG("*AI DEBUG      Attack Plan Dialog to log is "..repr(ScenarioInfo.AttackPlanDialog))
 
     -- the Intel thread will dialog calculated LAND,AIR and NAVAL ratios to the LOG file on each Intel Thread cycle
-	ScenarioInfo.ReportRatios = true
+	ScenarioInfo.ReportRatios = false
 	LOG("*AI DEBUG		Report Layer Ratios to Log is "..repr(ScenarioInfo.ReportRatios))
 
 
@@ -83,11 +83,11 @@
 	LOG("*AI DEBUG		Display Base Names is "..repr(ScenarioInfo.DisplayBaseNames))
 
     -- Each AI base will dialog its threat monitor data and decisions to the LOG
-	ScenarioInfo.BaseMonitorDialog = true
+	ScenarioInfo.BaseMonitorDialog = false
 	LOG("*AI DEBUG		Report Base Monitor Dialogs to Log is "..repr(ScenarioInfo.BaseMonitorDialog))
 
     -- Each AI base will draw a ring indicating the range of the base monitor - each time it checks for threat
-	ScenarioInfo.DisplayBaseMonitors = true
+	ScenarioInfo.DisplayBaseMonitors = false
 	LOG("*AI DEBUG		Display Base Monitors is "..repr(ScenarioInfo.DisplayBaseMonitors))
     
     -- Each AI base will dialog Distress Responses to alerts raised by the base monitor

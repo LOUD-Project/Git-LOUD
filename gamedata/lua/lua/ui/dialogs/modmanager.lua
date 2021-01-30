@@ -188,12 +188,12 @@ local modSchema = {
         'ffffffff-ffff-ffff-ffff-fffffffffffe', -- Structure Enhancements
     },
     ["Mutators"] = {
-        'ffffffff-9d4e-11dc-8314-0800200c0605', -- Enhanced Commanders
-        'ffffffff-9d4e-11dc-8314-0800200c0702', -- Enhanced Experimental Artillery
+        'ffffffff-9d4e-11dc-8314-0800200c0605', -- Enhanced BO Commanders
+        'ffffffff-9d4e-11dc-8314-0800200c0702', -- Enhanced T4 Artillery
+        '0a970b58-533d-11dc-8314-0800200c9a66', -- Enhanced Nukes
+        '74A9EAB2-E851-11DB-A1F1-F2C755D89593', -- Enhanced Resources
         '25D57D85-7D84-27HT-A502-LDIPS0000002', -- Lucky Dip
-        '0a970b58-533d-11dc-8314-0800200c9a66', -- Realistic Nukes
-        '74A9EAB2-E851-11DB-A1F1-F2C755D89593', -- Resource Rich
-        'TANKSYS-EXPERIMENTS-1-COMBAT', -- Tanksy's Experiments: Combat Changes
+        'TANKSYS-EXPERIMENTS-1-COMBAT',         -- Tanksy's Experiments: Combat Changes
     },
     ["Miscellaneous"] = {
         '25D57D85-9JA7-D842-GKG4-ORIGIN0000001', -- BrewLAN Baristas
