@@ -935,7 +935,7 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
     ---------------------------------------------------------------------------
 
     modDetails = Group(panel)
-    modDetails.Width:Set(520)
+    modDetails.Width:Set(500)
     modDetails.Height:Set(460)
     LayoutHelpers.RightOf(modDetails, modListContainer, 32)
     modDetails.icon = Bitmap(modDetails)
@@ -954,26 +954,18 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
     LayoutHelpers.Below(modDetails.desc, modDetails.icon, 16)
     modDetails.uiOnly = UIUtil.CreateText(modDetails, '', 14, 'Arial Bold')
     LayoutHelpers.Below(modDetails.uiOnly, modDetails.desc, 2)
-    modDetails.dependsLabel = UIUtil.CreateText(modDetails, 'Requirements', 14, 'Arial')
-    LayoutHelpers.Below(modDetails.dependsLabel, modDetails.uiOnly, 4)
-    modDetails.depends = ItemList(modDetails)
-    modDetails.depends.Height:Set(96)
-    modDetails.depends.Width:Set(modDetails.Width() - 96)
-    LayoutHelpers.Below(modDetails.depends, modDetails.dependsLabel, 4)
-    UIUtil.CreateVertScrollbarFor(modDetails.depends)
-    modDetails.dependsLabel:Hide()
-    modDetails.depends:Hide()
-    modDetails.conflictsLabel = UIUtil.CreateText(modDetails, 'Conflicts With', 14, 'Arial')
-    LayoutHelpers.Below(modDetails.conflictsLabel, modDetails.depends, 4)
-    modDetails.conflicts = ItemList(modDetails)
-    modDetails.conflicts.Height:Set(96)
-    modDetails.conflicts.Width:Set(modDetails.Width() - 96)
-    LayoutHelpers.Below(modDetails.conflicts, modDetails.conflictsLabel, 4)
-    UIUtil.CreateVertScrollbarFor(modDetails.conflicts)
-    modDetails.conflictsLabel:Hide()
-    modDetails.conflicts:Hide()
-    modDetails.copyright = UIUtil.CreateText(modDetails, '', 14, UIUtil.bodyFont)
-    LayoutHelpers.AtBottomIn(modDetails.copyright, modDetails, 4)
+
+    modDetails.extras = ItemList(modDetails)
+    modDetails.extras.Height:Set(192)
+    modDetails.extras.Width:Set(modDetails.Width() - 40)
+    LayoutHelpers.Below(modDetails.extras, modDetails.uiOnly, 4)
+    UIUtil.CreateVertScrollbarFor(modDetails.extras)
+    modDetails.extras:Hide()
+
+    modDetails.copyright = MultiLineText(modDetails, UIUtil.bodyFont, 14, UIUtil.fontColor)
+    modDetails.copyright.Width:Set(modDetails.Width())
+    modDetails.copyright.Height:Set(28)
+    LayoutHelpers.AtBottomIn(modDetails.copyright, modDetails, 16)
     LayoutHelpers.AtLeftIn(modDetails.copyright, modDetails, 4)
     modDetails.version = UIUtil.CreateText(modDetails, '', 14, UIUtil.bodyFont)
     LayoutHelpers.Above(modDetails.version, modDetails.copyright, 2)
@@ -1083,37 +1075,48 @@ function DisplayModDetails(uid)
     modDetails.version:SetText("Version "..string.format("%.2f", modInfo.version):gsub("%.?0+$", ""))
     modDetails.desc:SetText(modInfo.description)
 
-    if modInfo.requires and not table.empty(modInfo.requires) then
-        modDetails.depends:DeleteAllItems()
-        modDetails.dependsLabel:Show()
-        modDetails.depends:Show()
-        for _, v_uid in modInfo.requires do
-            modDetails.depends:AddItem(allMods[v_uid].name or ("Missing Mod ("..v_uid..")"))
-        end
+    if modInfo.ui_only then
+        modDetails.uiOnly:SetText("UI Mod (Client-Side)")
     else
-        modDetails.dependsLabel:Hide()
-        modDetails.depends:Hide()
+        modDetails.uiOnly:SetText("Sim Mod (Server-Side)")
+    end
+
+    modDetails.extras:DeleteAllItems()
+    modDetails.extras:Hide()
+
+    if modInfo.requires and not table.empty(modInfo.requires) then
+        modDetails.extras:Show()
+        modDetails.extras:AddItem("Requires:")
+        for _, v_uid in modInfo.requires do
+            modDetails.extras:AddItem(" |--> "..allMods[v_uid].name or ("Missing Mod ("..v_uid..")"))
+        end
     end
 
     if modInfo.conflicts then
         local possibleConflicts = GetPossibleConflicts(modInfo, allMods)
         if not table.empty(possibleConflicts) then
-            modDetails.conflicts:DeleteAllItems()
-            modDetails.conflictsLabel:Show()
-            modDetails.conflicts:Show()
+            modDetails.extras:Show()
+            modDetails.extras:AddItem("Conflicts With:")
             for _, name in possibleConflicts do
-                modDetails.conflicts:AddItem(name)
+                modDetails.extras:AddItem(" |--> "..name)
             end
         end
-    else
-        modDetails.conflictsLabel:Hide()
-        modDetails.conflicts:Hide()
     end
 
-    if modInfo.ui_only then
-        modDetails.uiOnly:SetText("UI Mod (Client-Side)")
-    else
-        modDetails.uiOnly:SetText("Sim Mod (Server-Side)")
+    if modInfo.affects and not table.empty(modInfo.affects) then
+        modDetails.extras:Show()
+        modDetails.extras:AddItem("Affects:")
+        for _, v_uid in modInfo.affects do
+            modDetails.extras:AddItem(" |--> "..allMods[v_uid].name or ("Missing Mod ("..v_uid..")"))
+        end
+    end
+
+    if modInfo.recommends and not table.empty(modInfo.recommends) then
+        modDetails.extras:Show()
+        modDetails.extras:AddItem("Also Recommended:")
+        for _, v_uid in modInfo.recommends do
+            modDetails.extras:AddItem(" |--> "..allMods[v_uid].name or ("Missing Mod ("..v_uid..")"))
+        end
     end
 
     if not modInfo.copyright or modInfo.copyright == "" then
