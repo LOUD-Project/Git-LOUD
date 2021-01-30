@@ -464,7 +464,7 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
 
     for _, v in allmods do
         if not InSchema(v.uid) then
-            table.insert(modSchema['Usermods'], v.uid)
+            table.insert(modStruct['Usermods'].uids, v.uid)
         end
         if selmods[v.uid] then
             modStatus[v.uid].checked = true
