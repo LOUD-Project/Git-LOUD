@@ -4609,7 +4609,6 @@ function InitLobbyComm(protocol, localPort, desiredPlayerName, localPlayerUID, n
                     UpdateGame()
                 else
                     -- Sorry, it's not free. Force the player back to the color we have for him.
-                    AddChatText(string.format("/whisper %s Sorry; that color isn't available.", gameInfo.PlayerOptions[data.Slot].PlayerName))
                     lobbyComm:SendData( data.SenderID, { Type = 'SetColor', Color = gameInfo.PlayerOptions[data.Slot].WheelColor, Slot = data.Slot } )
                 end
 				
@@ -4733,7 +4732,7 @@ function InitLobbyComm(protocol, localPort, desiredPlayerName, localPlayerUID, n
 			
                 gameInfo.PlayerOptions[data.Slot].WheelColor = data.Color
                 -- gameInfo.PlayerOptions[data.Slot].ArmyColor = data.Color
-                gameInfo.PlayerOptions[data.slot].ArmyColor = 1
+                gameInfo.PlayerOptions[data.Slot].ArmyColor = 1
 
                 UpdateGame()
 				
