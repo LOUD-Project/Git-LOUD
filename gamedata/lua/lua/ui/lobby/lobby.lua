@@ -2505,6 +2505,18 @@ function ShowColorPicker(row, x, y)
     colorPicker.confirm.OnClick = function(self, modifiers)
         Tooltip.DestroyMouseoverDisplay()
         local color = ColorToArray(colorPicker.color)
+        -- Try getting colour from edit field if valid
+        local editText = colorPicker.edit:GetText()
+        if string.len(editText) == 6 then
+            colorPicker.color = 'FF'..editText
+            color = ColorToArray(colorPicker.color)
+            local r, g, b = RGBToHSV(color[1], color[2], color[3])
+            colorPicker.hue = r
+            colorPicker.sat = g
+            colorPicker.val = b
+            colorPicker.readout:SetText(RGBStr())
+            colorPicker.preview:SetSolidColor(colorPicker.color)
+        end
         if not lobbyComm:IsHost() then
             lobbyComm:SendData(hostID, { Type = 'RequestColor', Color = color, Slot = row } )
             gameInfo.PlayerOptions[row].WheelColor = color
