@@ -384,8 +384,13 @@ function InitializeArmies()
                 Opponents = Opponents + 1
             end
             
-        end
-    
+		end
+		
+		local color = ScenarioInfo.ArmySetup[self.Name].WheelColor
+		SetArmyColor(self.ArmyIndex, color[1], color[2], color[3])
+		-- Don't need WheelColor anymore, so delete it
+		ScenarioInfo.ArmySetup[self.Name].WheelColor = nil
+		
         -- number of Opponents in the game
         self.NumOpponents = Opponents
         

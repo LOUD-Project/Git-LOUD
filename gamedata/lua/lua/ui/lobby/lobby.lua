@@ -22,6 +22,8 @@ local ModManager = import('/lua/ui/dialogs/modmanager.lua')
 local FactionData = import('/lua/factions.lua')
 local Text = import('/lua/maui/text.lua').Text
 local EnhancedLobby = import('/lua/enhancedlobby.lua')
+local Slider = import('/lua/maui/slider.lua').Slider
+local StatusBar = import('/lua/maui/statusbar.lua').StatusBar
 
 local gameColors = import('/lua/gamecolors.lua').GameColors
 local numOpenSlots = LobbyComm.maxPlayerSlots
@@ -122,6 +124,7 @@ local localPlayerID = false
 local gameInfo = false
 local pmDialog = false
 local missingModDialog = false
+local colorPicker = false
 
 local hasSupcom = true
 local hasFA = true
@@ -372,7 +375,7 @@ local function DoSlotBehavior(slot, key, name)
             local team = false
 			
             if gameInfo.PlayerOptions[slot] then
-                color = gameInfo.PlayerOptions[slot].PlayerColor
+                color = gameInfo.PlayerOptions[slot].WheelColor
                 team = gameInfo.PlayerOptions[slot].Team
                 faction = gameInfo.PlayerOptions[slot].Faction
             end
@@ -816,6 +819,28 @@ function IsObserver(id)
     return FindObserverSlotForID(id) ~= nil
 end
 
+-- Given an RGB colour structure, return a hex ARGB colour string
+function ColorToStr(color)
+    return string.format("FF%02x%02x%02x", color[1], color[2], color[3])
+end
+
+-- Given a hex ARGB or RGB colour string, return an RGB colour structure
+function ColorToArray(color)
+    if string.len(color) == 8 then
+        return {
+            tonumber(string.sub(color, 3, 4), 16),
+            tonumber(string.sub(color, 5, 6), 16),
+            tonumber(string.sub(color, 7, 8), 16)
+        }
+    else
+        return {
+            tonumber(string.sub(color, 1, 2), 16),
+            tonumber(string.sub(color, 3, 4), 16),
+            tonumber(string.sub(color, 5, 6), 16)
+        }
+    end
+end
+
 -- update the data in a player slot
 function SetSlotInfo(slot, playerInfo)
 
@@ -985,7 +1010,7 @@ function SetSlotInfo(slot, playerInfo)
     GUI.slots[slot].faction:SetItem(playerInfo.Faction)
 
     GUI.slots[slot].color:Show()
-    GUI.slots[slot].color:SetItem(playerInfo.PlayerColor)
+    GUI.slots[slot].color:SetSolidColor(ColorToStr(playerInfo.WheelColor))
 
     GUI.slots[slot].team:Show()
     GUI.slots[slot].team:SetItem(playerInfo.Team)
@@ -1025,7 +1050,7 @@ function SetSlotInfo(slot, playerInfo)
 
     if isLocallyOwned and playerInfo.Human then
 	
-        Prefs.SetToCurrentProfile('LastColor', playerInfo.PlayerColor)
+        Prefs.SetToCurrentProfile('LastColor', playerInfo.WheelColor)
         Prefs.SetToCurrentProfile('LastFaction', playerInfo.Faction)
     end
 end
@@ -1097,9 +1122,11 @@ function ClearSlotInfo(slot)
     end
 end
 
-function IsColorFree(colorIndex)
-    for id,player in gameInfo.PlayerOptions do
-        if player.PlayerColor == colorIndex then
+function IsColorFree(color)
+    for _, player in gameInfo.PlayerOptions do
+        if player.WheelColor[1] == color[1]
+        and player.WheelColor[2] == color[2]
+        and player.WheelColor[3] == color[3] then
             return false
         end
     end
@@ -1422,6 +1449,7 @@ function UpdateAvailableSlots( numAvailStartSpots )
 				
                     GUI.slots[i].closed = false
                     GUI.slots[i]:Show()
+                    GUI.slots[i].color.glow:Hide()
 					
                     if not gameInfo.PlayerOptions[i] then
                         ClearSlotInfo(i)
@@ -1493,9 +1521,12 @@ local function TryLaunch(skipNoObserversCheck, skipSandboxCheck, skipTimeLimitCh
     local lastTeam = false
     local allFFA = true
     local moreThanOneTeam = false
-	
+    
+    -- Sanitize colours here so Sim::Create() doesn't fail
     for slot, player in gameInfo.PlayerOptions do
         if player then
+            player.PlayerColor = slot
+            player.ArmyColor = slot
             totalPlayers = totalPlayers + 1
             if player.Human then
                 totalHumanPlayers = totalHumanPlayers + 1
@@ -1519,6 +1550,14 @@ local function TryLaunch(skipNoObserversCheck, skipSandboxCheck, skipTimeLimitCh
             AddChatText("Not all AI cheat multipliers are valid (Valid examples: 1, 1.0, 1.225). Can not launch.")
             return
         end
+    end
+
+    if tonumber(gameInfo.GameOptions['UnitCap']) < 100 then
+        AddChatText("Unit Cap is too low. Please set it between 100 and 1500.")
+        return
+    elseif tonumber(gameInfo.GameOptions['UnitCap']) > 1500 then
+        AddChatText("Unit Cap is too high. Please set it between 100 and 1500.")
+        return
     end
 
     if gameInfo.GameOptions['Victory'] ~= 'sandbox' then
@@ -2057,15 +2096,18 @@ function HostTryAddPlayer( senderID, slot, requestedPlayerName, human, aiPersona
         GUI.slots[newSlot].mult:SetText(GUI.fillAIMult:GetText())
     end
 
-    -- if a color is requested, attempt to use that color if available, otherwise, assign first available
-    gameInfo.PlayerOptions[newSlot].PlayerColor = nil   -- clear out player color first so default color isn't blocked from color free list
+    -- If a color is requested, attempt to use that color if available;
+    -- otherwise, assign first available
+    -- Clear out player color first so default color isn't blocked from color free list
+    gameInfo.PlayerOptions[newSlot].WheelColor = nil
 	
     if requestedColor and IsColorFree(requestedColor) then
-        gameInfo.PlayerOptions[newSlot].PlayerColor = requestedColor
+        gameInfo.PlayerOptions[newSlot].WheelColor = requestedColor
     else
-        for colorIndex,colorVal in gameColors.PlayerColors do
-            if IsColorFree(colorIndex) then
-                gameInfo.PlayerOptions[newSlot].PlayerColor = colorIndex
+        for _, colorStr in gameColors.PlayerColors do
+            local colorArr = ColorToArray(colorStr)
+            if IsColorFree(colorArr) then
+                gameInfo.PlayerOptions[newSlot].WheelColor = colorArr
                 break
             end
         end
@@ -2172,9 +2214,9 @@ function HostConvertObserverToPlayer(senderID, name, fromObserverSlot, toPlayerS
     gameInfo.PlayerOptions[toPlayerSlot] = LobbyComm.GetDefaultPlayerOptions(name)
     gameInfo.PlayerOptions[toPlayerSlot].OwnerID = senderID
 
-    for colorIndex,colorVal in gameColors.PlayerColors do
-        if IsColorFree(colorIndex) then
-            gameInfo.PlayerOptions[toPlayerSlot].PlayerColor = colorIndex
+    for _ , color in gameColors.WheelColors do
+        if IsColorFree(color) then
+            gameInfo.PlayerOptions[toPlayerSlot].WheelColor = color
             break
         end
     end
@@ -2299,6 +2341,245 @@ function ClearBadMapFlags()
 
     for index, observer in gameInfo.Observers do
         observer.BadMap = nil
+    end
+end
+
+function ShowColorPicker(row, x, y)
+-- Helper functions
+-- Credit for converters: https://gist.github.com/GigsD4X/8513963
+    local function HSVToRGB(hue, saturation, value)
+        -- Returns the RGB equivalent of the given HSV-defined color
+        -- (adapted from some code found around the web)
+    
+        -- If it's achromatic, just return the value
+        if saturation == 0 then
+            return value, value, value;
+        end;
+    
+        -- Get the hue sector
+        local hue_sector = math.floor(hue / 60);
+        local hue_sector_offset = (hue / 60) - hue_sector;
+    
+        local p = value * (1 - saturation);
+        local q = value * (1 - saturation * hue_sector_offset);
+        local t = value * (1 - saturation * (1 - hue_sector_offset));
+    
+        if hue_sector == 0 then
+            return value, t, p
+        elseif hue_sector == 1 then
+            return q, value, p
+        elseif hue_sector == 2 then
+            return p, value, t
+        elseif hue_sector == 3 then
+            return p, q, value
+        elseif hue_sector == 4 then
+            return t, p, value
+        elseif hue_sector == 5 then
+            return value, p, q
+        end
+    end
+
+    -- Note: returns lightness between 0, 255
+    local function RGBToHSV(red, green, blue)
+        -- Returns the HSV equivalent of the given RGB-defined color
+        -- (adapted from some code found around the web)
+    
+        local hue, saturation, value
+    
+        local min_value = math.min(red, green, blue)
+        local max_value = math.max(red, green, blue)
+    
+        value = max_value
+    
+        local value_delta = max_value - min_value
+    
+        -- If the color is not black
+        if max_value ~= 0 then
+            saturation = value_delta / max_value
+    
+        -- If the color is purely black
+        else
+            saturation = 0
+            hue = -1
+            return hue, saturation, value
+        end;
+    
+        if red == max_value then
+            hue = (green - blue) / value_delta
+        elseif green == max_value then
+            hue = 2 + (blue - red) / value_delta
+        else
+            hue = 4 + (red - green) / value_delta
+        end
+    
+        hue = hue * 60
+        if hue < 0 then
+            hue = hue + 360
+        end
+    
+        return hue, saturation, value
+    end
+
+    -- colorPicker.color is stored as an ARGB string to maintain simplicity
+    -- across this module. Use RGBStr() for values the user sees
+    local function RGBStr()
+        return string.sub(colorPicker.color, 3, 8)
+    end
+-- Core
+    colorPicker = Bitmap(GUI, UIUtil.UIFile('/dialogs/exit-dialog/panel02_bmp.dds'))
+    colorPicker.Left:Set(x)
+    colorPicker.Top:Set(y)
+    colorPicker.Depth:Set(GUI.Depth() + 20)
+    -- "Color circle (RGB)" distributed under CC BY-SA 4.0
+    -- Author: Sanjay7373, Wikimedia Commons
+    -- https://creativecommons.org/licenses/by-sa/4.0/deed.en
+    colorPicker.wheel = Bitmap(colorPicker, UIUtil.UIFile('/lobby/colorpicker.dds'))
+    LayoutHelpers.AtTopIn(colorPicker.wheel, colorPicker, 8)
+    LayoutHelpers.AtHorizontalCenterIn(colorPicker.wheel, colorPicker)
+    local c = gameInfo.PlayerOptions[row].WheelColor
+    colorPicker.color = ColorToStr(c)
+    -- H, S, and V are stored as [0..360], [0..1], [0..255], respectively
+    colorPicker.hue, colorPicker.sat, colorPicker.val = RGBToHSV(c[1], c[2], c[3])
+    colorPicker.wheelCentre = {
+        x = colorPicker.wheel.Left() + (colorPicker.wheel.Width() / 2),
+        y = colorPicker.wheel.Top() + (colorPicker.wheel.Height() / 2),
+    }
+    colorPicker.preview = Bitmap(colorPicker)
+    colorPicker.preview.Width:Set(60)
+    colorPicker.preview.Height:Set(20)
+    colorPicker.preview:SetSolidColor(colorPicker.color)
+    colorPicker.wheel.HandleEvent = function(self, event)
+        if event.Type == 'ButtonPress' or event.Type == 'ButtonDClick' then
+            local cX = event.MouseX - colorPicker.wheelCentre.x 
+            local cY = event.MouseY - colorPicker.wheelCentre.y
+            local dist = math.sqrt(math.pow(cX, 2) + math.pow(cY, 2))
+            if dist > 120 then return end -- User has clicked outside wheel
+            local vUp = {
+                x = 0,
+                y = -120,
+            }
+            local vE = {
+                x = cX,
+                y = cY,
+            }
+            local angle = math.atan2(vE.y, vE.x) - math.atan2(vUp.y, vUp.x)
+            if angle < 0 then angle = angle + (2 * math.pi) end -- Normalize
+            colorPicker.hue = math.deg(angle)
+            colorPicker.sat = dist * (1 / 120)
+            local r, g, b = HSVToRGB(colorPicker.hue, colorPicker.sat, colorPicker.val / 255)
+            colorPicker.color = string.format("%02x%02x%02x%02x", 255, r * 255, g * 255, b * 255)
+            colorPicker.preview:SetSolidColor(colorPicker.color)
+            colorPicker.readout:SetText(RGBStr())
+        end
+    end
+-- Value (lightness) slider
+    colorPicker.valStatus = StatusBar(colorPicker, 0, 255, false, false,
+        UIUtil.UIFile('/slider/slider-back_bmp.dds'),
+        UIUtil.UIFile('/slider/slider-back_bmp.dds'), false)
+    colorPicker.valSlider = Slider(colorPicker, false, 0, 255,
+        UIUtil.UIFile('/slider/slider_btn_up.dds'),
+        UIUtil.UIFile('/slider/slider_btn_over.dds'),
+        UIUtil.UIFile('/slider/slider_btn_down.dds'))
+    colorPicker.valSlider.Top:Set(function() return colorPicker.wheel.Bottom() + 18 end)
+    colorPicker.valSlider.Left:Set(function() return colorPicker.Left() + 16 end)
+    colorPicker.valSlider.Right:Set(function() return colorPicker.Right() - 16 end)
+    colorPicker.valSlider:SetValue(colorPicker.val)
+    colorPicker.valSlider.OnValueChanged = function(self, newValue)
+        colorPicker.val = newValue
+        local r, g, b = HSVToRGB(colorPicker.hue, colorPicker.sat, colorPicker.val / 255)
+        colorPicker.color = string.format("%02x%02x%02x%02x", 255, r * 255, g * 255, b * 255)
+        colorPicker.preview:SetSolidColor(colorPicker.color)
+        colorPicker.readout:SetText(RGBStr())
+    end
+    colorPicker.valStatus.Top:Set(function() return colorPicker.valSlider.Top() - 10 end)
+    colorPicker.valStatus.Left:Set(function() return colorPicker.valSlider.Left() end)
+    colorPicker.valStatus.Right:Set(function() return colorPicker.valSlider.Right() end)
+    colorPicker.valStatus.Depth:Set(function() return colorPicker.valSlider.Depth() - 1 end)
+    colorPicker.valStatus:SetRange(0, 255)
+    colorPicker.valStatus:SetValue(colorPicker.val)
+    LayoutHelpers.Below(colorPicker.preview, colorPicker.valSlider, 12)
+    LayoutHelpers.AtHorizontalCenterIn(colorPicker.preview, colorPicker)
+-- Confirm button
+    colorPicker.confirm = UIUtil.CreateButtonStd(colorPicker, '/lobby/lan-game-lobby/smalltoggle', "Confirm", 12, 2)
+    LayoutHelpers.LeftOf(colorPicker.confirm, colorPicker.preview, 4)
+    colorPicker.confirm.OnClick = function(self, modifiers)
+        Tooltip.DestroyMouseoverDisplay()
+        local color = ColorToArray(colorPicker.color)
+        if not lobbyComm:IsHost() then
+            lobbyComm:SendData(hostID, { Type = 'RequestColor', Color = color, Slot = row } )
+            gameInfo.PlayerOptions[row].WheelColor = color
+            UpdateGame()
+        else
+            if IsColorFree(color) then
+                lobbyComm:BroadcastData( { Type = 'SetColor', Color = color, Slot = row } )
+                gameInfo.PlayerOptions[row].WheelColor = color
+                LOG("*AI DEBUG HostCreateUI - Host Set Player Color")
+                UpdateGame()
+            else
+                colorPicker.color = ColorToStr(gameInfo.PlayerOptions[row].WheelColor)
+                GUI.slots[row].color:SetSolidColor(colorPicker.color)
+            end
+        end
+        colorPicker:Hide()
+    end
+    colorPicker.cancel = UIUtil.CreateButtonStd(colorPicker, '/lobby/lan-game-lobby/smalltoggle', "Cancel", 12, 2)
+    LayoutHelpers.Below(colorPicker.cancel, colorPicker.confirm, -4)
+    colorPicker.cancel.OnClick = function(self, modifiers)
+        Tooltip.DestroyMouseoverDisplay()
+        colorPicker:Hide()
+    end
+-- Readout to tell user hex code
+    colorPicker.readout = UIUtil.CreateText(colorPicker, RGBStr(), 14, UIUtil.bodyFont)
+    LayoutHelpers.Below(colorPicker.readout, colorPicker.preview, 4)
+-- Text I/O
+    colorPicker.edit = Edit(colorPicker)
+    LayoutHelpers.RightOf(colorPicker.edit, colorPicker.preview, 4)
+    colorPicker.edit.Width:Set(80)
+    colorPicker.edit.Height:Set(14)
+    colorPicker.edit:SetFont(UIUtil.bodyFont, 12)
+    colorPicker.edit:SetForegroundColor(UIUtil.fontColor)
+    colorPicker.edit:SetHighlightBackgroundColor('00000000')
+    colorPicker.edit:SetHighlightForegroundColor(UIUtil.fontColor)
+    colorPicker.edit:ShowBackground(true)
+    colorPicker.edit:SetMaxChars(6)
+
+    colorPicker.edit.OnCharPressed = function(self, charcode)
+        -- Forbid non-hex characters
+        if charcode == UIUtil.VK_TAB then
+            return true
+        end
+        if (charcode >= 48 and charcode <= 57)
+        or (charcode >= 65 and charcode <= 70)
+        or (charcode >= 97 and charcode <= 102) then
+            return false
+        end
+        local charLim = self:GetMaxChars()
+        if STR_Utf8Len(self:GetText()) >= charLim then
+            local sound = Sound({Cue = 'UI_Menu_Error_01', Bank = 'Interface',})
+            PlaySound(sound)
+        end
+    end
+
+    colorPicker.edit.OnLoseKeyboardFocus = function(self)
+        colorPicker.edit:AcquireFocus()    
+    end
+    
+    colorPicker.edit.OnEnterPressed = function(self, text)
+        if string.len(text) ~= 6 then
+            return
+        end
+        colorPicker.color = 'FF'..text
+        local c = ColorToArray(colorPicker.color)
+        local r, g, b = RGBToHSV(c[1], c[2], c[3])
+        colorPicker.hue = r
+        colorPicker.sat = g
+        colorPicker.val = b
+        colorPicker.readout:SetText(RGBStr())
+        colorPicker.preview:SetSolidColor(colorPicker.color)
+    end
+
+    colorPicker.edit.OnEscPressed = function(self, text)
+        return true
     end
 end
 
@@ -2447,9 +2728,13 @@ function CreateUI(maxPlayers, useSteam)
             mapSelectDialog:Destroy()
 			
             GUI.chatEdit:AcquireFocus() 
-			
+            
             for optionKey, data in changedOptions do
-                Prefs.SetToCurrentProfile(data.pref, data.index)
+                if data.type == 'combo' then
+                    Prefs.SetToCurrentProfile(data.pref, data.index)
+                else
+                    Prefs.SetToCurrentProfile(data.pref, data.value)
+                end
                 SetGameOption(optionKey, data.value)
             end
 			
@@ -3074,41 +3359,34 @@ function CreateUI(maxPlayers, useSteam)
 			self:Hide()
 		end
 
-        GUI.slots[i].color = BitmapCombo(bg, gameColors.PlayerColors, 1, true, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
+        GUI.slots[i].color = Bitmap(bg)
         LayoutHelpers.AtLeftIn(GUI.slots[i].color, GUI.panel, slotColumnSizes.color.x)
         LayoutHelpers.AtVerticalCenterIn(GUI.slots[i].color, GUI.slots[i])
-		
         GUI.slots[i].color.Width:Set(slotColumnSizes.color.width)
-		
+        GUI.slots[i].color.Height:Set(14)
         GUI.slots[i].color.row = i
-		
-        GUI.slots[i].color.OnClick = function(self, index)
-		
-            Tooltip.DestroyMouseoverDisplay()
-			
-            if not lobbyComm:IsHost() then
-                lobbyComm:SendData(hostID, { Type = 'RequestColor', Color = index, Slot = self.row } )
-                gameInfo.PlayerOptions[self.row].PlayerColor = index
-                gameInfo.PlayerOptions[self.row].ArmyColor = index
 
-                UpdateGame()
-            else
-                if IsColorFree(index) then
-                    lobbyComm:BroadcastData( { Type = 'SetColor', Color = index, Slot = self.row } )
-                    gameInfo.PlayerOptions[self.row].PlayerColor = index
-                    gameInfo.PlayerOptions[self.row].ArmyColor = index
-					LOG("*AI DEBUG HostCreateUI - Host Set Player Color")
-                    UpdateGame()
-                else
-                    self:SetItem( gameInfo.PlayerOptions[self.row].PlayerColor )
-                end
+        GUI.slots[i].color.glow = Bitmap(bg)
+        GUI.slots[i].color.glow.Width:Set(function() return GUI.slots[i].color.Width() + 4 end)
+        GUI.slots[i].color.glow.Height:Set(function() return GUI.slots[i].color.Height() + 4 end)
+        LayoutHelpers.AtCenterIn(GUI.slots[i].color.glow, GUI.slots[i].color)
+        GUI.slots[i].color.glow.Depth:Set(function() return GUI.slots[i].color.Depth() - 1 end)
+        GUI.slots[i].color.glow:SetSolidColor('FFFFFFFF')
+        GUI.slots[i].color.glow:Hide()
+        EffectHelpers.Pulse(GUI.slots[i].color.glow)
+
+        GUI.slots[i].color.HandleEvent = function(self, event)
+            if event.Type == 'MouseEnter' then
+                self.glow:Show()
+            elseif event.Type == 'MouseExit' then
+                self.glow:Hide()
+            elseif event.Type == 'ButtonPress' or event.Type == 'ButtonDClick' then
+                ShowColorPicker(self.row, event.MouseX, event.MouseY)
+                Tooltip.DestroyMouseoverDisplay()
             end
         end
-		
-        GUI.slots[i].color.OnEvent = GUI.slots[curRow].name.OnEvent
+
         Tooltip.AddControlTooltip(GUI.slots[i].color, 'lob_color')
-        
-        GUI.slots[i].color.row = i
 
         GUI.slots[i].faction = BitmapCombo(bg, factionBmps, table.getn(factionBmps), nil, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
 		
@@ -3779,17 +4057,19 @@ function RefreshOptionDisplayData(scenarioInfo)
         local option = false
         local mpOnly = false
         for index, optData in globalOpts do
-            if optData.key == 'GameSpeed' then
-                continue
-            end
             if i == optData.key then
                 mpOnly = optData.mponly or false
                 option = {text = optData.label, tooltip = optData.pref}
-                for _, val in optData.values do
-                    if val.key == v then
-                        option.value = val.text
-                            option.valueTooltip = 'lob_'..optData.key..'_'..val.key
-                        break
+                if optData.type and optData.type == 'edit' then
+                    option.value = gameInfo.GameOptions[i]
+                    option.valueTooltip = gameInfo.GameOptions[i]
+                else
+                    for _, val in optData.values do
+                        if val.key == v then
+                            option.value = val.text
+                                option.valueTooltip = 'lob_'..optData.key..'_'..val.key
+                            break
+                        end
                     end
                 end
                 break
@@ -4145,7 +4425,7 @@ function ShowMapPositions(mapCtrl, scenario, numPlayers)
             GUI.markers[slot].marker:SetSolidColor("ff777777")
         else
             if gameInfo.PlayerOptions[slot] then
-                GUI.markers[slot].marker:SetSolidColor(gameColors.PlayerColors[gameInfo.PlayerOptions[slot].PlayerColor])
+                GUI.markers[slot].marker:SetSolidColor(ColorToStr(gameInfo.PlayerOptions[slot].WheelColor))
                 if gameInfo.PlayerOptions[slot].Team == 1 then
                     GUI.markers[slot].teamIndicator:SetSolidColor('00000000')
                 else
@@ -4311,13 +4591,14 @@ function InitLobbyComm(protocol, localPort, desiredPlayerName, localPlayerUID, n
 			
                 if IsColorFree(data.Color) then
                     -- Color is available, let everyone else know
-                    gameInfo.PlayerOptions[data.Slot].PlayerColor = data.Color
+                    gameInfo.PlayerOptions[data.Slot].WheelColor = data.Color
                     lobbyComm:BroadcastData( { Type = 'SetColor', Color = data.Color, Slot = data.Slot } )
 
                     UpdateGame()
                 else
                     -- Sorry, it's not free. Force the player back to the color we have for him.
-                    lobbyComm:SendData( data.SenderID, { Type = 'SetColor', Color = gameInfo.PlayerOptions[data.Slot].PlayerColor, Slot = data.Slot } )
+                    AddChatText(string.format("/whisper %s Sorry; that color isn't available."), gameInfo.PlayerOptions[data.Slot].PlayerName)
+                    lobbyComm:SendData( data.SenderID, { Type = 'SetColor', Color = gameInfo.PlayerOptions[data.Slot].WheelColor, Slot = data.Slot } )
                 end
 				
             elseif data.Type == 'GiveLEMInfo' then
@@ -4438,8 +4719,9 @@ function InitLobbyComm(protocol, localPort, desiredPlayerName, localPlayerUID, n
 
             elseif data.Type == 'SetColor' then
 			
-                gameInfo.PlayerOptions[data.Slot].PlayerColor = data.Color
-                gameInfo.PlayerOptions[data.Slot].ArmyColor = data.Color
+                gameInfo.PlayerOptions[data.Slot].WheelColor = data.Color
+                -- gameInfo.PlayerOptions[data.Slot].ArmyColor = data.Color
+                gameInfo.PlayerOptions[data.slot].ArmyColor = 1
 
                 UpdateGame()
 				
@@ -4563,8 +4845,13 @@ function InitLobbyComm(protocol, localPort, desiredPlayerName, localPlayerUID, n
         gameInfo.PlayerOptions[1] = LobbyComm.GetDefaultPlayerOptions(localPlayerName)
         gameInfo.PlayerOptions[1].OwnerID = localPlayerID
         gameInfo.PlayerOptions[1].Human = true
-        gameInfo.PlayerOptions[1].PlayerColor = Prefs.GetFromCurrentProfile('LastColor') or 1
-        gameInfo.PlayerOptions[1].ArmyColor = Prefs.GetFromCurrentProfile('LastColor') or 1
+        gameInfo.PlayerOptions[1].WheelColor = Prefs.GetFromCurrentProfile('LastColor')
+        -- Backwards compatibility
+        if type(gameInfo.PlayerOptions[1].WheelColor) ~= 'table' then
+            gameInfo.PlayerOptions[1].WheelColor = { 255, 0, 0 }
+        end
+        -- gameInfo.PlayerOptions[1].ArmyColor = Prefs.GetFromCurrentProfile('LastColor') or 1
+        gameInfo.PlayerOptions[1].ArmyColor = 1
 		gameInfo.PlayerOptions[1].LEM = EnhancedLobby.GetLEMData() or {}
 
         local requestedFaction = Prefs.GetFromCurrentProfile('LastFaction')
@@ -4582,17 +4869,21 @@ function InitLobbyComm(protocol, localPort, desiredPlayerName, localPlayerUID, n
         -- Set default lobby values
         for index, option in import('/lua/ui/lobby/lobbyoptions.lua').teamOptions do
             local defValue = Prefs.GetFromCurrentProfile(option.pref) or option.default
-            SetGameOption(option.key, option.values[defValue].key)
+            SetGameOption(option.key,option.values[defValue].key)
         end
 
         for index, option in import('/lua/ui/lobby/lobbyoptions.lua').globalOpts do
-            local defValue = Prefs.GetFromCurrentProfile(option.pref) or option.default
-            SetGameOption(option.key, option.values[defValue].key)
+            if option.type and option.type == 'edit' then
+                SetGameOption(option.key, Prefs.GetFromCurrentProfile(option.pref) or option.default)
+            else
+                local defValue = Prefs.GetFromCurrentProfile(option.pref) or option.default
+                SetGameOption(option.key,option.values[defValue].key)
+            end
         end
 
         for index, option in import('/lua/ui/lobby/lobbyoptions.lua').advAIOptions do
             local defValue = Prefs.GetFromCurrentProfile(option.pref) or option.default
-            SetGameOption(option.key, option.values[defValue].key)
+            SetGameOption(option.key,option.values[defValue].key)
         end
 
         for index, option in import('/lua/ui/lobby/lobbyoptions.lua').advGameOptions do
@@ -5112,7 +5403,7 @@ function NewShowMapPositions(mapCtrl, scenario, numPlayers)
 		
 			if gameInfo.PlayerOptions[slot] then
 			
-				bMP.markers[slot].marker:SetSolidColor(gameColors.PlayerColors[gameInfo.PlayerOptions[slot].PlayerColor])
+				bMP.markers[slot].marker:SetSolidColor(ColorToStr(gameInfo.PlayerOptions[slot].WheelColour))
 				
 				if gameInfo.PlayerOptions[slot].Team == 1 then
 				
