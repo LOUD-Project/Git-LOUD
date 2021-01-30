@@ -2433,13 +2433,27 @@ function ShowColorPicker(row, x, y)
     -- "Color circle (RGB)" distributed under CC BY-SA 4.0
     -- Author: Sanjay7373, Wikimedia Commons
     -- https://creativecommons.org/licenses/by-sa/4.0/deed.en
-    colorPicker.wheel = Bitmap(colorPicker, UIUtil.UIFile('/lobby/colorpicker.dds'))
+    colorPicker.wheel = Bitmap(colorPicker, UIUtil.UIFile('/lobby/colorwheel.dds'))
     LayoutHelpers.AtTopIn(colorPicker.wheel, colorPicker, 8)
     LayoutHelpers.AtHorizontalCenterIn(colorPicker.wheel, colorPicker)
+    colorPicker.wheel.Depth:Set(colorPicker.Depth() + 2)
+    -- The overlay backing is to make it look less silly when the overlay
+    -- fades in as a black square around the wheel
+    colorPicker.overlayBack = Bitmap(colorPicker, UIUtil.UIFile('/lobby/colorwheel_back.dds'))
+    colorPicker.overlayBack.Depth:Set(colorPicker.wheel.Depth() - 1)
+    LayoutHelpers.AtCenterIn(colorPicker.overlayBack, colorPicker.wheel)
+    colorPicker.overlayBack:DisableHitTest()
+    colorPicker.overlay = Bitmap(colorPicker)
+    colorPicker.overlay.Width:Set(240)
+    colorPicker.overlay.Height:Set(240)
+    colorPicker.overlay.Depth:Set(colorPicker.wheel.Depth() + 1)
+    colorPicker.overlay:DisableHitTest()
+    LayoutHelpers.AtCenterIn(colorPicker.overlay, colorPicker.wheel)
     local c = gameInfo.PlayerOptions[row].WheelColor
     colorPicker.color = ColorToStr(c)
     -- H, S, and V are stored as [0..360], [0..1], [0..255], respectively
     colorPicker.hue, colorPicker.sat, colorPicker.val = RGBToHSV(c[1], c[2], c[3])
+    colorPicker.overlay:SetSolidColor(string.format("%02x%s", 255 - colorPicker.val, "000000"))
     colorPicker.wheelCentre = {
         x = colorPicker.wheel.Left() + (colorPicker.wheel.Width() / 2),
         y = colorPicker.wheel.Top() + (colorPicker.wheel.Height() / 2),
@@ -2488,6 +2502,7 @@ function ShowColorPicker(row, x, y)
         colorPicker.val = newValue
         local r, g, b = HSVToRGB(colorPicker.hue, colorPicker.sat, colorPicker.val / 255)
         colorPicker.color = string.format("%02x%02x%02x%02x", 255, r * 255, g * 255, b * 255)
+        colorPicker.overlay:SetSolidColor(string.format("%02x", 255 - colorPicker.val)..'000000')
         colorPicker.preview:SetSolidColor(colorPicker.color)
         colorPicker.readout:SetText(RGBStr())
     end
