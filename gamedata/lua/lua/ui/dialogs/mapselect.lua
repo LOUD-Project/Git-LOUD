@@ -658,28 +658,6 @@ function SetupOptionsPanel(parent, singlePlayer, curOptions)
             edit:AcquireFocus()
         end
 
-        edit.OnNonTextKeyPressed = function(self, keyCode)
-            if commandQueue and table.getsize(commandQueue) > 0 then
-                if keyCode == 38 then
-                    if commandQueue[commandQueueIndex + 1] then
-                        commandQueueIndex = commandQueueIndex + 1
-                        self:SetText(commandQueue[commandQueueIndex])
-                    end
-                end
-                if keyCode == 40 then
-                    if commandQueueIndex ~= 1 then
-                        if commandQueue[commandQueueIndex - 1] then
-                            commandQueueIndex = commandQueueIndex - 1
-                            self:SetText(commandQueue[commandQueueIndex])
-                        end
-                    else
-                        commandQueueIndex = 0
-                        self:ClearText()
-                    end
-                end
-            end
-        end
-
         return edit
     end
 
