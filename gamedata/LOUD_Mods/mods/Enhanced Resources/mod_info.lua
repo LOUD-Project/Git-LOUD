@@ -1,7 +1,7 @@
-name = "Resource Rich"
-version = 1.05
+name = "Enhanced Resources"
+version = 1.06
 copyright = "Copyright © 2006, Gas Powered Games"
-description = "Increases resource production by 10%, and decreases unit cost & build time by 10%."
+description = "Increases resource production by 15%, and decreases unit cost & build time by 15%."
 author = "Gas Powered Games"
 url = "http://www.gaspoweredgames.com"
 uid = "74A9EAB2-E851-11DB-A1F1-F2C755D89593"

@@ -39,7 +39,7 @@ UnitBlueprint {
 	
     Display = {
 		Abilities = {
-			'Cusstomizable',
+			'Customizable',
             'Volatile',
         },
         Mesh = {
