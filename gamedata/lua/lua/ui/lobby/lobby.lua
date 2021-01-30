@@ -2104,13 +2104,12 @@ function HostTryAddPlayer( senderID, slot, requestedPlayerName, human, aiPersona
     if requestedColor and IsColorFree(requestedColor) then
         gameInfo.PlayerOptions[newSlot].WheelColor = requestedColor
     else
-        for _, colorStr in gameColors.PlayerColors do
-            local colorArr = ColorToArray(colorStr)
-            if IsColorFree(colorArr) then
-                gameInfo.PlayerOptions[newSlot].WheelColor = colorArr
-                break
-            end
-        end
+        -- Generate a random colour for what's probably an AI
+        gameInfo.PlayerOptions[newSlot].WheelColor = { 
+            math.random(0, 255), 
+            math.random(0, 255), 
+            math.random(0, 255) 
+        }
     end
 
     lobbyComm:BroadcastData( { Type = 'SlotAssigned', Slot = newSlot, Options = gameInfo.PlayerOptions[newSlot] } )
