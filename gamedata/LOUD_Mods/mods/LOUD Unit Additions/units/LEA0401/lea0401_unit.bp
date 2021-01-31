@@ -105,7 +105,7 @@ UnitBlueprint {
         RegenRate = 18,
     },
 	
-    Description = '<LOC lea0401_desc>Experimental Fighter/Bomber',
+    Description = '<LOC lea0401_desc>Experimental Medium Fighter/Bomber',
 	
     Display = {
         Abilities = {
@@ -209,7 +209,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Experimental Fighter Bomber',
+        HelpText = 'Medium Fighter Bomber',
     },
 	
     LifeBarHeight = 0.08,

@@ -1096,16 +1096,16 @@ end
 
 function WrapText(data)
     return import('/lua/maui/text.lua').WrapText(data.text, 
-            function(line)
-                if line == 1 then
-                    return GUI.chatLines[1].Right() - (GUI.chatLines[1].teamColor.Right() + GUI.chatLines[1].name:GetStringAdvance(data.name) + 4)
-                else
-                    return GUI.chatLines[1].Right() - GUI.chatLines[1].nameBG.Right()
-                end
-            end, 
-            function(text) 
-                return GUI.chatLines[1].text:GetStringAdvance(text) 
-            end)
+        function(line)
+            if line == 1 then
+                return GUI.chatLines[1].Right() - (GUI.chatLines[1].teamColor.Right() + GUI.chatLines[1].name:GetStringAdvance(data.name) + 4)
+            else
+                return GUI.chatLines[1].Right() - GUI.chatContainer.scroll.Width() - 24
+            end
+        end, 
+        function(text) 
+            return GUI.chatLines[1].text:GetStringAdvance(text) 
+        end)
 end
 
 function GetArmyData(army)

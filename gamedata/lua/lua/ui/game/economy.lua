@@ -190,7 +190,7 @@ function CreateUI()
         ecostats.Width:Set(80)
         ecostats:DisableHitTest(true)
 
-        local TextLine01 = UIUtil.CreateText(ecostats, 'reclaimed', 10, UIUtil.bodyFont)
+        local TextLine01 = UIUtil.CreateText(ecostats, 'Reclaimed', 10, UIUtil.bodyFont)
         
         LayoutHelpers.CenteredAbove(TextLine01, ecostats, -12)
 

@@ -81,12 +81,13 @@ UnitBlueprint {
         SurfaceThreatLevel = 960,
     },
 	
-    Description = '<LOC brl0401_desc>Regenerative Ultra Heavy Assault Mech',
+    Description = '<LOC brl0401_desc>Regenerative Ultra Heavy Siege Mech',
 	
     Display = {
 		Abilities = {
             'Amphibious',
             'Anti-Air',
+            'Siege Mode (Toggle to Transform into Siege Mode)',
         },
         AnimationDeath = {
             {
@@ -210,7 +211,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Ultra Heavy Assault Mech',
+        HelpText = 'Ultra Heavy Siege Mech',
     },
 	
     LifeBarHeight = 0.08,

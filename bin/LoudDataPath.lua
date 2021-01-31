@@ -29,8 +29,8 @@ mount_dir(InitFileDir .. '\\..\\..\\gamedata\\props.scd', '/')
 mount_dir(InitFileDir .. '\\..\\..\\gamedata\\meshes.scd', '/')
 mount_dir(InitFileDir .. '\\..\\usermods\\*.scd', '/')
 mount_dir(InitFileDir .. '\\..\\usermods', '/mods')
-mount_dir(InitFileDir .. '\\..\\maps', '/maps')
-mount_dir(InitFileDir .. '\\..\\usermaps', '/maps')
+mount_contents(InitFileDir .. '\\..\\maps', '/maps')
+mount_contents(InitFileDir .. '\\..\\usermaps', '/maps')
 mount_dir(InitFileDir .. '\\..\\sounds', '/sounds')
 
 --User mods & maps

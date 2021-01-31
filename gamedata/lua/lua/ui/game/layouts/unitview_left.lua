@@ -151,7 +151,8 @@ function SetLayout()
 -- LayoutHelpers.AtRightTopIn(controls.StorageMass, controls.bg, 145, 55)
     LayoutHelpers.RightOf(controls.statGroups[2].value, controls.statGroups[2].icon, 5)
 -- LayoutHelpers.AtRightTopIn(controls.StorageEnergy, controls.bg, 145, 73)
-    LayoutHelpers.Below(controls.Buildrate, controls.statGroups[2].value,1)    
+    LayoutHelpers.Below(controls.Buildrate, controls.statGroups[2].value,1)
+    LayoutHelpers.LeftOf(controls.BuildrateIcon, controls.Buildrate, 1)
 end
 
 function PositionWindow()

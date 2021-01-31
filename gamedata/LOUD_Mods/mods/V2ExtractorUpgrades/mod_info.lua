@@ -1,8 +1,8 @@
-name = "V2 FA Sequentially upgrading extractors"
+name = "Sequentially Upgrading Extractors V2"
 uid = "D000E905-1E97-420D-8ED9-DF083282F59D"
 version = 4
 copyright = "Copyright © 2006, Gas Powered Games"
-description = "Sequentially upgrades mass extractors and other buildings"
+description = "Sequentially upgrades mass extractors and other buildings."
 author = "uXs norem mgmetal13"
 url = "http://www.eskimo.com/blah"
 icon = "/mods/V2ExtractorUpgrades/Sequentialmexup.png"

@@ -95,7 +95,7 @@ UnitBlueprint {
             RULEUCC_Transport = false,
         },
         FactionName = 'Cybran',
-        Icon = 'amph',
+        Icon = 'land',
         TechLevel = 'RULEUTL_Secret',
         UnitWeight = 1,
     },

@@ -36,7 +36,7 @@ UnitBlueprint {
         KLiftDamping = 6,
 		
         KMove = 0.3,
-        KMoveDamping = 0.5,
+        KMoveDamping = 0.45,
 		
         KRoll = 4,
         KRollDamping = 6,
@@ -143,7 +143,7 @@ UnitBlueprint {
 		
     },
 	
-    Description = '<LOC xsa0402_desc>Experimental Bomber',
+    Description = '<LOC xsa0402_desc>Experimental Heavy Bomber',
 	
     Display = {
 	
@@ -210,7 +210,7 @@ UnitBlueprint {
     },
 	
     Footprint = {
-        MaxSlope = 0.25,
+        MaxSlope = 0.2,
         SizeX = 9,
         SizeZ = 9,
     },
@@ -246,7 +246,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Experimental Bomber',
+        HelpText = 'Heavy Bomber',
     },
 	
     LifeBarHeight = 0.075,
@@ -268,10 +268,10 @@ UnitBlueprint {
         MeshExtentsY = 2,
         MeshExtentsZ = 4,
         MotionType = 'RULEUMT_Air',
-        SkirtOffsetX = -1,
-        SkirtOffsetZ = -0.5,
-        SkirtSizeX = 10,
-        SkirtSizeZ = 10,
+        SkirtOffsetX = -0.5,
+        SkirtOffsetZ = 0,
+        SkirtSizeX = 9,
+        SkirtSizeZ = 9,
     },
 	
     SelectionSizeX = 5.5,
@@ -324,21 +324,22 @@ UnitBlueprint {
 			
             DisplayName = 'Ohwalli Strategic Bomb',
             
-            EnergyDrainPerSecond = 1200,
-            EnergyRequired = 12000,
+            EnergyDrainPerSecond = 1950,    -- this would be in addition to the 1000 it already drains - u might think this is excessive - but not even close.
+                                            -- According to formula, this weapon should require close to 30k drain to recharge in 10 seconds
+            EnergyRequired = 29250,         -- 15 seconds to charge - 
 			
             FireTargetLayerCapsTable = {
                 Air = 'Land|Water|Seabed',
                 Land = 'Land|Water|Seabed',
             },
 			
-            FiringRandomness = 2.3,
-            FiringTolerance = 0.29,
+            FiringRandomness = 2.4,
+            FiringTolerance = 0.275,
 			
 			FixBombTrajectory = true,
 			
 			HeadingArcCenter = 0,
-			HeadingArcRange = 45,
+			HeadingArcRange = 35,
 			
             Label = 'Bomb',
 			
@@ -363,8 +364,7 @@ UnitBlueprint {
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
 
-            RateOfFire = 0.1,
-            RenderFireClock = true,
+            RateOfFire = 1,         -- controlled entirely by charge cycle --
 			
             TargetCheckInterval = 2,
 			

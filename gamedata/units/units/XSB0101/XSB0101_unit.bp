@@ -160,7 +160,7 @@ UnitBlueprint {
     },
     
     Economy = {
-        BuildCostEnergy = 2100,
+        BuildCostEnergy = 2500,
         BuildCostMass = 250,
         
         BuildRate = 40,
@@ -176,8 +176,8 @@ UnitBlueprint {
             'xsb0201',
             'xsb0301',
         },
-        StorageEnergy = 500,
-        StorageMass = 50,
+        StorageEnergy = 660,
+        StorageMass = 66,
     },
     
     Footprint = {

@@ -58,9 +58,7 @@ UnitBlueprint {
     Description = '<LOC ual0304_desc>Mobile Heavy Artillery',
 	
     Display = {
-        Abilities = {
-            '<LOC ability_deploys>Deploys',
-        },
+        Abilities = {},
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {

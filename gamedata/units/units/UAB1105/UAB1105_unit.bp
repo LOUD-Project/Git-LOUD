@@ -1,5 +1,7 @@
 UnitBlueprint {
+
     Adjacency = 'T1EnergyStorageAdjacencyBuffs',
+    
     Audio = {
         Destroyed = Sound {
             Bank = 'UALDestroy',
@@ -12,7 +14,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+    
     BuildIconSortPriority = 80,
+    
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1ENGINEER',
@@ -30,6 +34,7 @@ UnitBlueprint {
 		'SHOWQUEUE',
         'SORTECONOMY',
     },
+    
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 15,		-- .1% Storage + 2% Health
@@ -37,7 +42,9 @@ UnitBlueprint {
         MaxHealth = 500,
         RegenRate = 1,
     },
+    
     Description = '<LOC uab1105_desc>Basic Energy Storage',
+    
     Display = {
         Abilities = {
 			'Adjacency bonuses to Energy Production & Shields',
@@ -62,6 +69,7 @@ UnitBlueprint {
         SpawnRandomRotation = true,
         UniformScale = 0.11,
     },
+    
     Economy = {
         AdjacentEnergyProductionMod = 2,
         BuildCostEnergy = 1200,
@@ -78,8 +86,8 @@ UnitBlueprint {
         },
         StorageEnergy = 3000,
     },
+    
     General = {
-		CapCost = .25,
         Category = 'Economy',
         Classification = 'RULEUC_Resource',
         CommandCaps = {
@@ -98,18 +106,21 @@ UnitBlueprint {
             RULEUCC_Transport = false,
         },
         FactionName = 'Aeon',
-        Icon = 'land',
+        Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Basic',
         UnitWeight = 1,
 		UpgradesTo = 'uab2105',
     },
+    
     Interface = {
         HelpText = 'Basic Energy Storage',
     },
+    
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.35,
     LifeBarSize = 0.9,
+    
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -134,14 +145,18 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+    
     SelectionSizeX = 0.65,
     SelectionSizeZ = 0.65,
     SelectionThickness = 0.6,
+    
     SizeX = 0.8,
     SizeY = 0.4,
     SizeZ = 0.8,
+    
     StrategicIconName = 'icon_structure1_energy',
     StrategicIconSortPriority = 250,
+    
     Weapon = {
         {
             Damage = 1500,

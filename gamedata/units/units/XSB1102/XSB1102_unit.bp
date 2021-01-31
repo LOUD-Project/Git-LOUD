@@ -1,5 +1,7 @@
 UnitBlueprint {
+
     Adjacency = 'HydrocarbonAdjacencyBuffs',
+    
     Audio = {
         Destroyed = Sound {
             Bank = 'XSL_Destroy',
@@ -17,7 +19,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+    
     BuildIconSortPriority = 80,
+    
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1ENGINEER',
@@ -37,7 +41,7 @@ UnitBlueprint {
         'SORTECONOMY',
 		'SHOWQUEUE',
     },
-    CollisionOffsetY = 0,
+
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 26,		-- 10% Energy + 1% Health
@@ -45,7 +49,9 @@ UnitBlueprint {
         MaxHealth = 1600,
         RegenRate = 0,
     },
+    
     Description = '<LOC xsb1102_desc>Basic Hydrocarbon Power Plant',
+    
     Display = {
         LoopingAnimation = '/units/XSB1102/XSB1102_aloop.sca',
         Mesh = {
@@ -90,6 +96,7 @@ UnitBlueprint {
 	
     Economy = {
         AdjacentStructureEnergyMod = -4,
+        
         BuildCostEnergy = 1800,
         BuildCostMass = 270,
 		BuildRate = 10,
@@ -104,12 +111,15 @@ UnitBlueprint {
 			'bsb1202',
 			'bsb1302',
         },
+        
+		StorageEnergy = 300,
     },
 	
     Footprint = {
         SizeX = 3,
         SizeZ = 3,
     },
+    
     General = {
         Category = 'Economy',
         Classification = 'RULEUC_Resource',
@@ -129,18 +139,21 @@ UnitBlueprint {
             RULEUCC_Transport = false,
         },
         FactionName = 'Seraphim',
-        Icon = 'land',
+        Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Basic',
         UnitWeight = 1,
 		UpgradesTo = 'bsb1202',
     },
+    
     Interface = {
         HelpText = 'Basic Hydrocarbon Power Plant',
     },
+    
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.2,
     LifeBarSize = 3,
+    
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -166,19 +179,23 @@ UnitBlueprint {
         SkirtSizeZ = 6,
         TurnRate = 0,
     },
+    
     SelectionSizeX = 1.75,
     SelectionSizeZ = 1.5,
     SelectionThickness = 0.3,
+    
     SizeX = 2.5,
     SizeY = 0.5,
     SizeZ = 1.75,
+    
     StrategicIconName = 'icon_structure1_energy',
     StrategicIconSortPriority = 250,
+    
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,

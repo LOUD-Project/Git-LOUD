@@ -121,7 +121,7 @@ function FitText(text, lineWidth, advanceFunction)
             return lineWidth
         end
     else
-        lineWidthFunc = linWidth
+        lineWidthFunc = linWidth -- RATODO: Is this defined anywhere?
     end
 
     local result = {}

@@ -82,7 +82,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 530.2,
     },
 	
-    Description = '<LOC brnt3blasp_desc>Experimental Medium Mech',
+    Description = '<LOC brnt3blasp_desc>Experimental Medium Assault Mech',
 	
     Display = {
         Abilities = {
@@ -189,7 +189,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Experimental Medium Mech',
+        HelpText = 'Medium Assault Mech',
     },
 	
     LifeBarHeight = 0.075,

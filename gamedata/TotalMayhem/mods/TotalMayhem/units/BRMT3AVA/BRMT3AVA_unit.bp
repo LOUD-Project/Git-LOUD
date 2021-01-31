@@ -87,7 +87,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 2623.3,
     },
 	
-    Description = '<LOC brmt3ava_desc>Experimental Ultraheavy Beetlebot',
+    Description = '<LOC brmt3ava_desc>Experimental Ultra Heavy Assault Beetlebot',
 	
     Display = {
         Abilities = {
@@ -331,7 +331,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Experimental Ultraheavy Beetlebot',
+        HelpText = 'Ultra Heavy Assault Beetlebot',
     },
 	
     LifeBarHeight = 0.075,

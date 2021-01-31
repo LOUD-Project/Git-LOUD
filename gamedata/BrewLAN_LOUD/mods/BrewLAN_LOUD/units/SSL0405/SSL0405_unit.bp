@@ -63,7 +63,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 356,
     },
     
-    Description = '<LOC ssl0405_desc>Experimental Heavy Arthrobot',
+    Description = '<LOC ssl0405_desc>Experimental Ultra Heavy Arthrobot',
     
     Display = {
         Abilities = {
@@ -365,7 +365,7 @@ UnitBlueprint {
     },
     
     Interface = {
-        HelpText = '<LOC xsl0401_help>Experimental Assault Bot',
+        HelpText = '<LOC ssl0405_help>Ultra Heavy Arthrobot',
     },
     
     LifeBarHeight = 0.075,

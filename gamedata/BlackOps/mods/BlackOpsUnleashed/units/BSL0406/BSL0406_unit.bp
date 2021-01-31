@@ -77,7 +77,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 228,
     },
 	
-    Description = '<LOC bsl0406_desc>Experimental Protector Bot',
+    Description = '<LOC bsl0406_desc>Experimental Light Protector Bot',
 	
     Display = {
 	
@@ -176,7 +176,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Experimental Protector Bot',
+        HelpText = 'Light Protector Bot',
     },
 	
     LifeBarHeight = 0.1,

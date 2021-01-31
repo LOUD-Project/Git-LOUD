@@ -76,7 +76,7 @@ UnitList = {
     },
 
     T1LandDFBot = {
-        Aeon = {'BROT1EXM1', 50}, -- Medusa
+        Aeon = {'BROT1EXM1', 50}, -- Bugbear
         Cybran = {'BRMT1EXM1', 50},	-- Proton
 		Seraphim = {'BRPT1EXM1', 50},	-- Othazyne
     },

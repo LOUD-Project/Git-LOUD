@@ -121,7 +121,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 149,
     },
 	
-    Description = '<LOC ura0401_desc>Experimental Gunship',
+    Description = '<LOC ura0401_desc>Experimental Heavy Gunship',
 	
     Display = {
         Abilities = {
@@ -221,7 +221,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Assault Gunship',
+        HelpText = 'Heavy Gunship',
     },
 	
     LifeBarHeight = 0.075,
@@ -240,8 +240,9 @@ UnitBlueprint {
         Elevation = 14,
         MaxSpeed = 9.5,
         MotionType = 'RULEUMT_Air',
-        SkirtOffsetX = -1.5,
-        SkirtOffsetZ = -1.5,
+        
+        SkirtOffsetX = -1,
+        SkirtOffsetZ = -1,
         SkirtSizeX = 8,
         SkirtSizeZ = 8,
     },

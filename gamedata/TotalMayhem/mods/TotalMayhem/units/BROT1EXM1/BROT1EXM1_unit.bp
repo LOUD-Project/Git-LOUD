@@ -120,7 +120,7 @@ UnitBlueprint {
         FactionName = 'Aeon',
         Icon = 'land',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = '<LOC brot1exm1_name>Medusa',
+        UnitName = '<LOC brot1exm1_name>Bugbear',
         UnitWeight = 1,
     },
 	

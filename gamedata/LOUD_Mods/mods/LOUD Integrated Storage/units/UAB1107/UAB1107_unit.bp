@@ -38,19 +38,25 @@ UnitBlueprint {
         Abilities = {
             'Volatile',
         },
-        AnimationOpen = '/units/uab1107/uab1107_AOpen01.sca',
+        AnimationOpen = '/units/UAB1104/UAB1104_AOpen01.sca',
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
                 {
                     LODCutoff = 120,
                     ShaderName = 'Aeon',
+                    MeshName = '/units/UAB1104/UAB1104_LOD0.scm',
+                    AlbedoName = '/units/UAB1104/UAB1104_Albedo.dds',
+                    NormalsName = '/units/UAB1104/UAB1104_NormalsTS.dds',
+                    SpecularName = '/units/UAB1104/UAB1104_SpecTeam.dds',
                 },
                 {
-                    AlbedoName = 'uab1107_lod1_albedo.dds',
                     LODCutoff = 215,
                     ShaderName = 'Aeon',
-                    SpecularName = 'uab1107_lod1_specteam.dds',
+                    MeshName = '/units/UAB1104/UAB1104_LOD1.scm',
+                    AlbedoName = '/units/UAB1104/UAB1104_lod1_Albedo.dds',
+                    NormalsName = '/units/UAB1104/UAB1104_lod1_normalsTS.dds',
+                    SpecularName = '/units/UAB1104/UAB1104_lod1_SpecTeam.dds',
                 },
             },
         },

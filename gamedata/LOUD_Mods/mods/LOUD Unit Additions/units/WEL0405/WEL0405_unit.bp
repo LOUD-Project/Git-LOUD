@@ -262,8 +262,16 @@ UnitBlueprint {
         MeshExtentsY = 6.25,
         MeshExtentsZ = 2.6,
         MotionType = 'RULEUMT_Amphibious',
+        
         RotateOnSpot = false,
+        
+        SkirtOffsetX = -1,
+        SkirtOffsetZ = -1,
+        SkirtSizeX = 5,
+        SkirtSizeZ = 5,
+
         StandUpright = true,
+        
         TurnRate = 40,
 		WaterSpeedMultiplier = 1.1,
     },

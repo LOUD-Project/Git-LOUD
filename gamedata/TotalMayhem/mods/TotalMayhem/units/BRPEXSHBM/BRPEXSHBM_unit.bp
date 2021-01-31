@@ -97,7 +97,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 1393.5,
     },
 	
-    Description = '<LOC brpexshbm_desc>Experimental Artillery Support Bot',
+    Description = '<LOC brpexshbm_desc>Experimental Ultra Heavy Artillery Support Bot',
 	
     Display = {
 	
@@ -340,7 +340,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Experimental Artillery Support Bot',
+        HelpText = 'Ultra Heavy Artillery Support Bot',
     },
 	
     LifeBarHeight = 0.2,
@@ -372,11 +372,11 @@ UnitBlueprint {
 		
         MinSpeedPercent = 0,
 		
-        SkirtOffsetX = -3.5,
-        SkirtOffsetZ = -3.5,
+        SkirtOffsetX = -1,
+        SkirtOffsetZ = -1,
 		
-        SkirtSizeX = 10,
-        SkirtSizeZ = 10,
+        SkirtSizeX = 8,
+        SkirtSizeZ = 8,
 		
         MotionType = 'RULEUMT_Amphibious',
 		

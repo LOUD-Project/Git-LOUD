@@ -167,7 +167,7 @@ UnitBlueprint {
         
         ProductionPerSecondEnergy = 500,
         
-		StorageEnergy = 250,
+		StorageEnergy = 450,
     },
     
     Footprint = {

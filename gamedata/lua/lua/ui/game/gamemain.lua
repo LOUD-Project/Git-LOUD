@@ -156,7 +156,7 @@ function OnFirstUpdate()
 			
 			ConExecute('fog_DistanceFog')
             
-            ConExecute('d3d_WindowsCursor')
+            ConExecute('d3d_WindowsCursor true')
 
         end
     )
@@ -626,6 +626,37 @@ end
 --      added: Which units were added to the old selection
 --      removed: Which units where removed from the old selection
 function OnSelectionChanged(oldSelection, newSelection, added, removed)
+
+    -- Interface option: don't allow air units to get selected alongside land
+    if options.land_unit_select_prio == 1 and not IsKeyDown('Shift') then
+        local selectedLand = false
+        local selectedAir = false
+        -- First check if any land units were selected
+        for _, unit in newSelection do
+            if unit:IsInCategory('LAND') then
+                selectedLand = true
+            end
+            if unit:IsInCategory('AIR') then
+                selectedAir = true
+            end
+        end
+        -- If a land unit is in this selection, trim off air
+        if selectedLand and selectedAir then
+            local temp = {}
+            for _, unit in newSelection do
+                if unit:IsInCategory('LAND') then
+                    table.insert(temp, unit)
+                end
+            end
+            newSelection = temp
+            selectGuard = true
+            ForkThread(function()
+                SelectUnits(newSelection)
+                import('/lua/ui/game/selection.lua').PlaySelectionSound(newSelection)
+            end)
+            return
+        end
+    end
 
     local availableOrders, availableToggles, buildableCategories = GetUnitCommandData(newSelection)
     local isOldSelection = table.equal(oldSelection, newSelection)

@@ -922,7 +922,7 @@ function ModBlueprints(all_blueprints)
 						EnergyMult = 0.3,
 						HealthMult = 0.9,
 						LifeTime = 720,	-- give naval wreckage a lifetime value of 12 minutes
-						MassMult = 0.8,
+						MassMult = 0.6,
 						ReclaimTimeMultiplier = 1,
 						
 						WreckageLayers = {
@@ -945,11 +945,17 @@ function ModBlueprints(all_blueprints)
 			
 				if bp.Wreckage then
 				
-					if not bp.Wreckage.Lifetime then
+					if not bp.Wreckage.LifeTime then
 
-						bp.Wreckage.Liftime = 900
+						bp.Wreckage.LifeTime = 900
 						
 					end
+                    
+                    if bp.Wreckage.MassMult and bp.Wreckage.MassMult > 0.3 then
+                    
+                        bp.Wreckage.MassMult = bp.Wreckage.MassMult * 0.6
+                        
+                    end
 				end
 			end
 		end
@@ -1004,28 +1010,6 @@ function ModBlueprints(all_blueprints)
 			end
 		end
 	end
-
-	-- adjust projectile values
---[[
-    local initialMultFactor = 1.0
-    local turnMultFactor = 1.0
-
-    for id, bp in all_blueprints.Projectile do
-	
-        if bp.Physics.TurnRate then
-            bp.Physics.TurnRate = bp.Physics.TurnRate * turnMultFactor
-        end
-
-        if bp.Physics.MaxSpeed then
-            bp.Physics.MaxSpeed = bp.Physics.MaxSpeed * initialMultFactor
-        end
-		
-        if bp.Physics.Acceleration then
-            bp.Physics.Acceleration = bp.Physics.Acceleration * initialMultFactor
-        end
-		
-    end
---]]
 
 end
 

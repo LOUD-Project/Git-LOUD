@@ -74,7 +74,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 193.1,
     },
 	
-    Description = '<LOC brpextank_desc>Light Experimental Assault Tank',
+    Description = '<LOC brpextank_desc>Experimental Light Assault Tank',
 	
     Display = {
         Abilities = {
@@ -157,7 +157,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Advanced Assault Tank',
+        HelpText = 'Light Assault Tank',
     },
 	
     LifeBarHeight = 0.075,

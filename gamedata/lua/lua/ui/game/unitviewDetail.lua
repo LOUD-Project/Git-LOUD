@@ -6,6 +6,7 @@ local GameCommon = import('/lua/ui/game/gamecommon.lua')
 local ItemList = import('/lua/maui/itemlist.lua').ItemList
 local Prefs = import('/lua/user/prefs.lua')
 local UnitDescriptions = import('/lua/ui/help/unitdescription.lua').Description
+local TitleCase = import('/lua/utilities.lua').LOUD_TitleCase
 
 local __DMSI = import('/mods/Domino_Mod_Support/lua/initialize.lua') or false
 
@@ -17,14 +18,6 @@ local LOUDFLOOR = math.floor
 local LOUDUPPER = string.upper
 local LOUDLOWER = string.lower
 local LOUDSUB = string.sub
-
--- This function ensures the given string is in title case.
-function LOUD_CaseCheck(aString)
-	local function tchelper(first, rest)
-		return first:upper()..rest:lower()
-	end
-	return aString:gsub("(%a)([%w_']*)", tchelper)
-end
 
 -- This function checks and converts Meters to Kilometers if the measurement (in meters) is >= 1000.
 function LOUD_KiloCheck(aMeasurement)
@@ -488,7 +481,7 @@ function WrapAndPlaceText(air, physics, intel, weapons, abilities, text, control
 							if wepCategory == " Defense" then
 								-- Display Countermeasure Targets as the weapon type.
 								if weapon.TargetRestrictOnlyAllow then
-									weaponText = (LOUD_CaseCheck(weapon.TargetRestrictOnlyAllow) .. wepCategory)
+									weaponText = (TitleCase(weapon.TargetRestrictOnlyAllow) .. wepCategory)
 								end
 								
 								-- If a weapon is a Countermeasure, we don't care about its damage or DPS, as it's all very small numbers purely for shooting projectiles.

@@ -160,9 +160,9 @@ UnitBlueprint {
         
         BuildTime = 15000,
         
-        ProductionPerSecondEnergy = 2500,       -- +200 factional bonus
+        ProductionPerSecondEnergy = 2550,       -- +250 factional bonus
         
-		StorageEnergy = 500,           
+		StorageEnergy = 1000,                   -- +150 factional bonus           
     },
     
     Footprint = {
@@ -189,7 +189,7 @@ UnitBlueprint {
             RULEUCC_Transport = false,
         },
         FactionName = 'Seraphim',
-        Icon = 'land',
+        Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
         UnitWeight = 1,
@@ -227,12 +227,15 @@ UnitBlueprint {
         SkirtSizeZ = 8,
         TurnRate = 0,
     },
+    
     SelectionSizeX = 2.75,
     SelectionSizeZ = 2.75,
     SelectionThickness = 0.36,
+    
     SizeX = 4,
     SizeY = 2.75,
     SizeZ = 4,
+    
     StrategicIconName = 'icon_structure3_energy',
     StrategicIconSortPriority = 240,
     

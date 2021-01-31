@@ -7,8 +7,8 @@ UnitBlueprint {
     }, 
     Audio = {
         Killed = Sound {
-            Bank = 'TM_EXPLOSIONS',
-            Cue = 'TMBIGROBOTDEATHFX',
+            Bank = 'UELDestroy',
+            Cue = 'UEL_Destroy_Med_Land',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         StartMove = Sound {
@@ -22,8 +22,8 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
 		Destroyed = Sound {
-			Bank = 'Explosions',
-			Cue = 'UEF_Nuke_Impact',
+			Bank = 'UELDestroy',
+            Cue = 'UEL_Destroy_Huge',
 			LodCutoff = 'UnitMove_LodCutoff',
 		},
     },

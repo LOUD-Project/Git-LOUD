@@ -55,7 +55,7 @@ UnitBlueprint {
     
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 136,
+        EconomyThreatLevel = 150,
         Health = 2800,
         MaxHealth = 2800,
         RegenRate = 0,
@@ -107,7 +107,7 @@ UnitBlueprint {
     },
     
     Economy = {
-        BuildCostEnergy = 2500,
+        BuildCostEnergy = 3000,
         BuildCostMass = 210,
         
         BuildRate = 40,
@@ -124,8 +124,8 @@ UnitBlueprint {
             'ueb0202',
             'ueb0302',
         },
-        StorageEnergy = 500,
-        StorageMass = 50,
+        StorageEnergy = 600,
+        StorageMass = 60,
     },
     
     Footprint = {

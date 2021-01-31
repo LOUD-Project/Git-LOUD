@@ -76,7 +76,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 427.9,
     },
     
-    Description = 'Experimental Mobile Artillery',
+    Description = 'Experimental Light Mobile Artillery',
     
     Display = {
 		Abilities = {
@@ -153,7 +153,7 @@ UnitBlueprint {
     },
     
     Interface = {
-        HelpText = 'Experimental Mobile Artillery',
+        HelpText = 'Light Mobile Artillery',
     },
     
     LifeBarHeight = 0.15,
@@ -186,8 +186,8 @@ UnitBlueprint {
         
         MotionType = 'RULEUMT_Amphibious',
         
-		SkirtOffsetX = 1,
-        SkirtOffsetZ = 1,
+		SkirtOffsetX = -0.5,
+        SkirtOffsetZ = -0.5,
         
         SkirtSizeX = 4,
         SkirtSizeZ = 4,
