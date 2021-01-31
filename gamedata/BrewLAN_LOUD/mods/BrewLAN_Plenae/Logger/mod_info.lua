@@ -1,4 +1,4 @@
-name = "UTIL Debug Tools"
+name = "Debug Tools"
 uid = "2529ea71-93ef-41a6-b552-LOGS0000000009"
 version = 0.9
 copyright = "© 2017–2018 Sean Wheeldon"

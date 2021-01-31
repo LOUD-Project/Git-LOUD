@@ -97,7 +97,7 @@ UnitBlueprint {
         },
     },
     
-    Description = 'Experimental Assault Artillery',
+    Description = 'Experimental Heavy Assault Artillery Platform',
     
     Display = {
         Abilities = {
@@ -229,6 +229,11 @@ UnitBlueprint {
         MaintenanceConsumptionPerSecondEnergy = 533,
     },
     
+    Footprint = {
+        SizeX = 8,
+        SizeZ = 8,
+    },
+    
     General = {
         CapCost = 7,
         Category = 'Experimental',
@@ -275,7 +280,7 @@ UnitBlueprint {
     },
     
     Interface = {
-        HelpText = 'Experimental Assault Artillery',
+        HelpText = 'Heavy Assault Artillery Platform',
     },
     
     LifeBarHeight = 0.075,
@@ -466,7 +471,7 @@ UnitBlueprint {
             DoTTime = 4, 
             DamageType = 'fire',
             
-            DisplayName = 'Napalm Rockets',
+            DisplayName = 'Napalm Missiles',
             
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',

@@ -68,7 +68,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 55,
     },
 	
-    Description = '<LOC xss0403_desc>Experimental AA Cruiser',
+    Description = '<LOC xss0403_desc>Experimental Medium AA Cruiser',
 	
     Display = {
 	
@@ -185,7 +185,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Experimental Cruiser',
+        HelpText = 'Medium AA Cruiser',
     },
 	
     LifeBarHeight = 0.22,

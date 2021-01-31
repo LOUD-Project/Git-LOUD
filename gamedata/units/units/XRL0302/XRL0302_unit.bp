@@ -110,7 +110,7 @@ UnitBlueprint {
             RULEUCC_Transport = false,
         },
         FactionName = 'Cybran',
-        Icon = 'land',
+        Icon = 'amph',
         TechLevel = 'RULEUTL_Basic',
         UnitName = '<LOC xrl0302_name>Fire Beetle',
         UnitWeight = 1,

@@ -5,13 +5,12 @@
 	-- Enable LOUD debugging options
 	LOG("*AI DEBUG Setting LOUD DEBUG & LOG options")
 
-
     
     --- ENGINEER and FACTORY DEBUGS ---
 
-
+--[[
     -- AI Engineers will be named according to the Builder they are running 
-	ScenarioInfo.NameEngineers = true
+	ScenarioInfo.NameEngineers = false
 	LOG("*AI DEBUG		Name Engineers is "..repr(ScenarioInfo.NameEngineers))
 
     -- engineers will dialog their decisions to the LOG --
@@ -117,7 +116,7 @@
 	LOG("*AI DEBUG		Display Platoon Membership is "..repr(ScenarioInfo.DisplayPlatoonMembership))
     
     -- AI will display the platoon (Buildername) over the platoon every few seconds (not crowded but must look closely)
-	ScenarioInfo.DisplayPlatoonPlans = false
+	ScenarioInfo.DisplayPlatoonPlans = true
 	LOG("*AI DEBUG		Display Platoon Plans is "..repr(ScenarioInfo.DisplayPlatoonPlans))
 
     -- AI bases and platoons that respond to distress will dialog their data and decisions to the LOG
@@ -163,6 +162,7 @@
 	ScenarioInfo.WeaponDialog = false
 	LOG("*AI DEBUG		Report  Weapon Dialog to Log is "..repr(ScenarioInfo.WeaponDialog))
 
+--]]
 
 local import = import
 
@@ -729,13 +729,8 @@ AIBrain = Class(moho.aibrain_methods) {
 				-- start the plan
 				ForkThread( self.CurrentPlanScript.ExecutePlan, self )
 
-				-- Start adaptive cheat threads
-				if (self.Adaptive == 2 or self.Adaptive == 4) then
-					self.RatioACT = ForkThread(import('/lua/loudutilities.lua').RatioAdaptiveCheatThread, self)
-				end
-				if (self.Adaptive == 3 or self.Adaptive == 4) then
-					self.TimeACT = ForkThread(import('/lua/loudutilities.lua').TimeAdaptiveCheatThread, self)
-				end
+                -- Subscribe to ACT if .Adaptive dictates such
+                import('/lua/loudutilities.lua').SubscribeToACT(self)
 			end
 		else
         
@@ -753,7 +748,7 @@ AIBrain = Class(moho.aibrain_methods) {
         local posX, posY = self:GetArmyStartPos()
         
         --LOG("*AI DEBUG ScenarioInfo is "..repr(ScenarioInfo))
-        
+--[[        
         if ScenarioInfo.BOACU_Installed then
 
             if factionIndex == 1 then
@@ -775,7 +770,7 @@ AIBrain = Class(moho.aibrain_methods) {
             end
         
         end
-        
+--]]        
         LOG("*AI DEBUG initialUnits is "..repr(initialUnits))
 
         if factionIndex == 1 then

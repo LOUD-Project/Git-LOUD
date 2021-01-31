@@ -211,12 +211,13 @@ UnitBlueprint {
             Damage = 1200,
 			DamageFriendly = true,
             DamageRadius = 2,
-            DamageType = 'Normal',
+            
+            DamageType = 'ShieldMult1.15',       -- class bonus
 			
             DisplayName = 'Sinn Unthe Cannon',
 			
-            EnergyDrainPerSecond = 600,
-            EnergyRequired = 1800,
+            EnergyDrainPerSecond = 687.5,         -- 2 second charge --
+            EnergyRequired = 1375,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -230,7 +231,7 @@ UnitBlueprint {
             MaxRadius = 100,
             MinRadius = 6,
 			
-            MuzzleChargeDelay = 1.0,
+            MuzzleChargeDelay = 1.0,        -- 1 second delay --
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 23,
@@ -262,6 +263,7 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
+                'SHIELD',
                 'MOBILE',
                 'DEFENSE',
                 'ALLUNITS',
@@ -279,7 +281,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 28,
+            TurretYawSpeed = 22,
 			
             Turreted = true,
 			

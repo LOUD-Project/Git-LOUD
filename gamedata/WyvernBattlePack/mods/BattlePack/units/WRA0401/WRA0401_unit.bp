@@ -130,7 +130,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 179,
     },
     
-    Description = '<LOC ura0401_desc>Experimental Gunship',
+    Description = 'Experimental Ultra Heavy Siege-Assault Gunship',
     
     Display = {
         Abilities = {
@@ -212,7 +212,7 @@ UnitBlueprint {
         FactionName = 'Cybran',
         Icon = 'air',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = '<LOC ura0401_name>Soul Ripper II',
+        UnitName = 'Soul Ripper II',
         UnitWeight = 12,
     },
     
@@ -223,7 +223,7 @@ UnitBlueprint {
     },
     
     Interface = {
-        HelpText = '<LOC ura0401_help>Siege Assault Gunship',
+        HelpText = 'Ultra Heavy Siege-Assault Gunship',
     },
     
     LifeBarHeight = 0.075,
@@ -243,10 +243,10 @@ UnitBlueprint {
 
         MaxSpeed = 9.5,
         MotionType = 'RULEUMT_Air',
-        SkirtOffsetX = -1.5,
-        SkirtOffsetZ = -1.5,
-        SkirtSizeX = 8,
-        SkirtSizeZ = 8,
+        SkirtOffsetX = -0.5,
+        SkirtOffsetZ =  0.5,
+        SkirtSizeX = 7,
+        SkirtSizeZ = 7,
     },
     
     SelectionSizeX = 5,
@@ -255,7 +255,7 @@ UnitBlueprint {
   
     SizeX = 5.5,
     SizeY = 3,
-    SizeZ = 7.2,
+    SizeZ = 7,
 
     StrategicIconName = 'icon_experimental_gunship_directfire',
     StrategicIconSortPriority = 65,

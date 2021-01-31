@@ -114,7 +114,7 @@ UnitBlueprint {
             RULEUCC_Transport = false,
         },
         FactionName = 'Seraphim',
-        Icon = 'land',
+        Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC xsb4302_name>Ythisioz',

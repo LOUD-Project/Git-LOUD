@@ -81,7 +81,7 @@ BaseBuilderTemplate {
         if markerType != 'Naval Area' then
             return 0, false
         end
-        
+
         local personality = ScenarioInfo.ArmySetup[aiBrain.Name].AIPersonality
         
         if personality == 'loud' then
@@ -94,7 +94,8 @@ BaseBuilderTemplate {
 				return 100, false
 			end
 			
-			if (aiBrain:GetMapWaterRatio() > .20 and ScenarioInfo.size[1] > 1024) and GetArmyUnitCap(aiBrain.ArmyIndex) > 750 then
+			if (aiBrain:GetMapWaterRatio() > .20 and ScenarioInfo.size[1] >= 512) and GetArmyUnitCap(aiBrain.ArmyIndex) > 750 then
+            
 				return 90,false
 			end
 		end

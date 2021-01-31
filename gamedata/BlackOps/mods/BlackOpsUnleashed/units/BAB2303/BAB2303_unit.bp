@@ -181,6 +181,7 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
 			AimsStraightOnDisable = true,
             ArtilleryShieldBlocks = true,
+            
             Audio = {
                 Fire = Sound {
                     Bank = 'UALWeapon',
@@ -188,30 +189,32 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
+            
             BallisticArc = 'RULEUBA_HighArc',
             CollideFriendly = false,
 			
             Damage = 100,
             DamageFriendly = true,
-            DamageRadius = 2,
+            DamageRadius = 2.5,             -- .5 class bonus
+            
             DamageType = 'Normal',
 			
             DisplayName = 'Miasma Mortar',
 			
-			EnergyDrainPerSecond = 150,
-			EnergyRequired = 600,			---- 4 second draw energy
+			EnergyDrainPerSecond = 362,
+			EnergyRequired = 580,			---- 1.6 second draw energy
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
 			
-            FiringRandomness = 1.5,
+            FiringRandomness = 1.4,
             FiringTolerance = 1,
 			
             Label = 'MainGun',
 			
-            MaxRadius = 65,
+            MaxRadius = 68,
             MinRadius = 15,
 			
             MuzzleSalvoDelay = 0.4,
@@ -262,7 +265,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 28,
+            TurretYawSpeed = 26,
 			
             Turreted = true,
 

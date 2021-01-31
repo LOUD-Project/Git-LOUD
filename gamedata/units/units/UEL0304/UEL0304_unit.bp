@@ -3,6 +3,7 @@ UnitBlueprint {
 		GuardReturnRadius = 35,
         GuardScanRadius = 30,
     },
+    
     Audio = {
         Activate = Sound {
             Bank = 'UEL',
@@ -90,6 +91,7 @@ UnitBlueprint {
     },
 	
     General = {
+        CapCost = 2,
         Category = 'Indirect Fire',
         Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
@@ -112,6 +114,7 @@ UnitBlueprint {
         UnitName = '<LOC uel0304_name>Demolisher',
         UnitWeight = 1,
     },
+    
     Intel = {
         VisionRadius = 28,
     },
@@ -123,6 +126,7 @@ UnitBlueprint {
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.7,
     LifeBarSize = 1.25,
+    
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -148,6 +152,7 @@ UnitBlueprint {
         TurnRadius = 0,
         TurnRate = 75,
     },
+    
     SelectionCenterOffsetX = 0,
     SelectionCenterOffsetZ = -0.05,
     SelectionSizeX = 0.6,
@@ -160,9 +165,11 @@ UnitBlueprint {
     
     StrategicIconName = 'icon_land3_artillery',
     StrategicIconSortPriority = 115,
+    
     Transport = {
         TransportClass = 3,
     },
+    
     Veteran = {
         Level1 = 10,
         Level2 = 20,
@@ -170,6 +177,7 @@ UnitBlueprint {
         Level4 = 40,
         Level5 = 50,
     },
+    
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -194,10 +202,14 @@ UnitBlueprint {
             Damage = 700,
             DamageFriendly = true,
             DamageRadius = 4,
-            DamageType = 'ShieldMult1.2',
+            
+            DamageType = 'ShieldMult1.2',       -- class bonus --
 			
             DisplayName = 'Anti Matter Artillery',
-			
+            
+            EnergyRequired = 3125,
+            EnergyDrainPerSecond = 446,     -- 7 seconds to charge
+				
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
             },
@@ -234,8 +246,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.15, -- 100 DPS
-            RenderFireClock = true,
+            RateOfFire = 1,     -- every 7 seconds - controlled by charge = 100 DPS
 			
             TargetCheckInterval = 1,
 			
@@ -273,7 +284,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.2,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,

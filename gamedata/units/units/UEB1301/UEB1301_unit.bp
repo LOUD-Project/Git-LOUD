@@ -166,7 +166,7 @@ UnitBlueprint {
         
         ProductionPerSecondEnergy = 2300,
 
-		StorageEnergy = 500,        
+		StorageEnergy = 850,        
     },
 	
     Footprint = {
@@ -193,7 +193,7 @@ UnitBlueprint {
             RULEUCC_Transport = false,
         },
         FactionName = 'UEF',
-        Icon = 'land',
+        Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
         UnitWeight = 1,

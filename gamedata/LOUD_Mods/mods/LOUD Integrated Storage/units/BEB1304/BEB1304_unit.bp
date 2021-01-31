@@ -51,7 +51,12 @@ UnitBlueprint {
             LODs = {
                 {
                     LODCutoff = 300,
+                    Scrolling = true,
                     ShaderName = 'Unit',
+                    MeshName = '/mods/BlackOpsUnleashed/units/BEB1202/BEB1202_LOD0.scm',
+                    AlbedoName = '/mods/BlackOpsUnleashed/units/BEB1202/BEB1202_Albedo.dds',
+                    NormalsName = '/mods/BlackOpsUnleashed/units/BEB1202/BEB1202_NormalsTS.dds',
+                    SpecularName = '/mods/BlackOpsUnleashed/units/BEB1202/BEB1202_SpecTeam.dds',
                 },
             },
         },

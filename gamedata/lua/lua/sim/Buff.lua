@@ -101,7 +101,7 @@ function ApplyBuff(unit, buffName, instigator)
     end
 
 	-- if the unit already has this bufftype then ignore it
-    if def.Stacks == 'IGNORE' and ubt[def.BuffType] and table.getsize(ubt[def.BuffType]) > 0 then
+    if def.Stacks == 'IGNORE' and ubt[def.BuffType] and not table.empty(ubt[def.BuffType]) then
         return
     end
 	
@@ -655,7 +655,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 				SetShieldRatio( shield.Owner, shield:GetHealth() / shield:GetMaxHealth() )
 
 				if unit.Sync.id then
-					ForkThread(FloatingEntityText, unit.Sync.id, 'Max Health now '..math.floor( GetMaxHealth(shield) ).." Size is "..math.floor(shield.Size).."  Regen is "..math.floor(shield.RegenRate))
+                    ForkThread(FloatingEntityText, unit.Sync.id, 'Max Health now '..math.floor( GetMaxHealth(shield) or 0 ).." Size is "..math.floor(shield.Size or 0).."  Regen is "..math.floor(shield.RegenRate or 0))
 				end
 
 				if shield.RegenThread then
@@ -703,6 +703,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
                     end
 
                     wep:ChangeDamage(val)
+                    -- wep.damageTable.DamageAmount = val
                 end
             end
 

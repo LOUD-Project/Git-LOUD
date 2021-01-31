@@ -71,7 +71,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 509,
     },
 	
-    Description = '<LOC bsl0401_desc>Experimental Hover Tank',
+    Description = '<LOC bsl0401_desc>Experimental Heavy Hover Tank',
 	
     Display = {
         Abilities = {
@@ -199,7 +199,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Experimental Hover Tank',
+        HelpText = 'Heavy Hover Tank',
     },
 	
     LifeBarHeight = 0.08,
@@ -219,24 +219,33 @@ UnitBlueprint {
         },
         DragCoefficient = 0.2,
 		Elevation = 1,
+        
         MaxAcceleration = 1.2,
         MaxBrake = 3.2,
         MaxSpeed = 3.2,
         MaxSpeedReverse = 2.8,
+        
         MaxSteerForce = 10,
+        
         MeshExtentsX = 2.75,
         MeshExtentsY = 6.75,
         MeshExtentsZ = 3,
+        
         MinSpeedPercent = 0,
+        
         MotionType = 'RULEUMT_Hover',
-        SkirtOffsetX = -0.5,
-        SkirtOffsetZ = -1.5,
+        
+        SkirtOffsetX = 0,
+        SkirtOffsetZ = -1.0,
         SkirtSizeX = 6,
         SkirtSizeZ = 8,
+        
         RotateBodyWhileMoving = true,
+        
 		TurnFacingRate = 40,
         TurnRadius = 0,
         TurnRate = 36,
+        
 		WobbleFactor = 0.03,
         WobbleSpeed = 0.001,
     },

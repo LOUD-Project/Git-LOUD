@@ -92,7 +92,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 961.2,
     },
     
-    Description = 'Assault Roachbot',
+    Description = 'Experimental Ultra Heavy Assault Roachbot',
     
     Display = {
         Abilities = {
@@ -258,7 +258,7 @@ UnitBlueprint {
     },
     
     Interface = {
-        HelpText = 'Assault Roachbot',
+        HelpText = 'Ultra Heavy Assault Roachbot',
     },
     
     LifeBarHeight = 0.075,

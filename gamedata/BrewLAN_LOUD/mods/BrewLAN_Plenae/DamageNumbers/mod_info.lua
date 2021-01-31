@@ -1,4 +1,4 @@
-name = "UTIL Damage Numbers"
+name = "Damage Numbers"
 uid = "25D57D85-9JA7-D842-GKG4-DAMAGENO00000"
 version = 0.0
 copyright = "© 2017–2018 Sean Wheeldon"

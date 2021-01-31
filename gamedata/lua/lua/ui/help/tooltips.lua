@@ -568,6 +568,10 @@ Tooltips = {
         title = "Supported Players",
         description = "Sort by the maximum number of Players allowed",
     },
+    map_ai_markers = {
+        title = "AI Markers",
+        description = "Sort by whether this map has been marked for AI use. The AI is not likely to work properly on maps without these.",
+    },
     options_vsync = {
         title = "Vertical Sync",
         description = "Sync to vertical refresh of monitor",
@@ -643,6 +647,10 @@ Tooltips = {
     options_skin_change_on_start = {
         title = "Use Factional UI Skin",
         description = "When on, the UI skin will change to match the faction you are playing",
+    },
+    options_land_unit_select_prio = {
+        title = "Land Unit Selection Priority",
+        description = "When on, trying to select both land and air units will select only the land units.",
     },
 
     -- ********************
@@ -730,6 +738,18 @@ Tooltips = {
         title = "Team Spawn",
         description = "Someone Tell Tanksy What This Does",
     },
+    Lobby_Even_Factions = {
+        title = "Evenly Distributed Random Factions",
+        description = "Promote a more even spread of factions among players which choose to receive theirs randomly.",
+    },
+    lob_EvenFactions_off = {
+        title = "<LOC lobui_0312>Off",
+        description = "No manipulation of randomness during random faction selection.",
+    },
+    lob_EvenFactions_on = {
+        title = "<LOC lobui_0314>On",
+        description = "Faction randomization will be more evenly spread.",
+    },
     Lobby_Gen_ShareResources = {
         title = "Share Resources",
         description = "Determines whether Allies share Resources with each other",
@@ -790,7 +810,7 @@ Tooltips = {
     lob_act = {
         title = "Adaptive AI Cheat Multiplier",
         description = "Allows the AI to dynamically change its cheat multiplier in response to certain factors during the game. Check Advanced AI Options under Game Options for even more settings.",
-    },    
+    },
     
     Lobby_ACT_Start_Delay = {
         title = "Timed Cheat Start Delay",
@@ -1517,6 +1537,65 @@ Tooltips = {
     },
 
     -- ***************************
+    -- *** Unit Database
+    -- ***************************
+
+    unitdb_reset = {
+        title = "Reset Filters",
+        description = "Sets all filters back to their default values and runs search.",
+    },
+
+    unitdb_health = {
+        title = "Maximum Health",
+        description = "How many hit points this unit has, as well as how many it regenerates per second.",
+    },
+    unitdb_capcost = {
+        title = "Unit Cap Cost",
+        description = "How many points of unit cap must be available to construct this unit. Can be negative.",
+    },
+    unitdb_shield = {
+        title = "Maximum Shield Health",
+        description = "How many hit points this unit's shield has.",
+    },
+    unitdb_mass = {
+        title = "Mass Cost",
+        description = "How much Mass it costs to produce this unit.",
+    },
+    unitdb_energy = {
+        title = "Energy Cost",
+        description = "How much Energy it costs to produce this unit.",
+    },
+    unitdb_buildtime = {
+        title = "Build Time",
+        description = "The baseline time it takes to produce this unit; will be modified by the build-power of the builder.",
+    },
+    unitdb_fuel = {
+        title = "Fuel Time",
+        description = "How many minutes and seconds of fuel this air unit has.",
+    },
+    unitdb_buildpower = {
+        title = "Build Power",
+        description = "How much build power this engineering unit has.",
+    },
+
+    unitdb_evenflow = {
+        title = "LOUD EvenFlow",
+        description = "Whether the effects of the EvenFlow mod are represented in this database.",
+    },
+    unitdb_artillery = {
+        title = "LOUD Enhanced T4 Artillery",
+        description = "Whether the effects of the LOUD Enhanced T4 Artillery mod are represented in this database.",
+    },
+    unitdb_commanders = {
+        title = "LOUD Enhanced Commanders",
+        description = "Whether the effects of the LOUD Enhanced Commanders mod are represented in this database. NOTE: only affects BlackOps ACUs.",
+    },
+    unitdb_nukes = {
+        title = "LOUD Realistic Nukes",
+        description = "Whether the effects of the LOUD Realistic Nukes mod are represented in this database.",
+    },
+
+    -- ***************************
     -- *** Construction Manager
     -- ***************************
     construction_tab_t1 = {
@@ -2005,6 +2084,10 @@ Tooltips = {
     	title = "Extras",
     	description = "Access additional SupCom content and functionality",
     },
+    mainmenu_unitdb = {
+        title = "Unit Database",
+        description = "See detailed information about each of the units in the LOUD mod pack",
+    },
     profile = {
         title = "Profile",
         description = "Manage your Profiles",
@@ -2029,9 +2112,9 @@ Tooltips = {
         title = "Create Game",
         description = "Host a new LAN Game",
     },
-    mpselect_exit = {
-        title = "Back",
-        description = "",
+    mpselect_steam_create = {
+        title = "Create Game",
+        description = "Host a new game over internet matchmaking"
     },
     mpselect_serverinfo = {
         title = "Server Information",

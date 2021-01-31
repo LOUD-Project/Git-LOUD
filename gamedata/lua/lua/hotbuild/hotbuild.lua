@@ -465,7 +465,7 @@ function buildActionTemplate(modifier)
     local effectiveIcons = {}
     local allTemplates = Templates.GetTemplates()
 
-    if (not allTemplates) or table.getsize(allTemplates) == 0 then
+    if (not allTemplates) or table.empty(allTemplates) then
         return
     end
   

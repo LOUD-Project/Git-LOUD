@@ -2,7 +2,9 @@
 --* Author: Chris Blackwell
 --* Summary: Functions for loading maps and map info
 --*
---* Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
+--* Copyright ï¿½ 2006 Gas Powered Games, Inc.  All rights reserved.
+
+local TitleCase = import('/lua/utilities.lua').LOUD_TitleCase
 
 -- this table indicates the order prefixes will be sorted in the map select window
 local defaultPrefixOrder = {
@@ -127,6 +129,48 @@ function EnumerateSkirmishScenarios(nameFilter, sortFunc)
     table.sort(scenarios, function(a, b) return sortFunc(a.name, b.name) end)
 
     return scenarios
+end
+
+-- Returns an array of map folder structures. Specification of this structure:
+-- {
+-- [1] : string (name of folder)
+-- [2] : bool (if folder is open in GUI)
+-- [3] : array of scenario info structures
+-- }
+function EnumerateSkirmishFolders(nameFilter, sortFunc)
+    nameFilter = nameFilter or '*'
+    sortFunc = sortFunc or DefaultScenarioSorter
+
+    local scenFiles = DiskFindFiles('/maps', nameFilter .. '_scenario.lua')
+    local ret = {}
+    local k = 1
+
+    for _, fileName in scenFiles do
+        local scen = LoadScenario(fileName)
+        if IsScenarioPlayable(scen) and scen.type == "skirmish" then
+            -- Trim off filename
+            local i, j = string.find(fileName, '^%/maps%/.+%/')
+            -- Extract map's own directory and title-case it for neatness
+            local folderName = TitleCase(string.sub(fileName, i + 6, j - 1))
+            -- Trim off any version numbers
+            folderName = string.gsub(folderName, "%.[vV]%d+$", "")
+            if not ret[k] then
+                -- If a folder struct has not been created, make one
+                ret[k] = { folderName, false, {} }
+            elseif ret[k][1] == folderName then
+                -- Map belongs in same folder as last map
+                -- Don't do anything but move on to insertion
+            else
+                -- New folder, move on
+                k = k + 1
+                ret[k] = { folderName, false, {} }
+            end
+            table.insert(ret[k][3], scen)
+        end
+    end
+    -- Sort 0-9 A-Z
+    table.sort(ret, function(a, b) return sortFunc(a[1], b[1]) end)
+    return ret
 end
 
 -- given a scenario table, loads the save file and puts all the start positions in a table

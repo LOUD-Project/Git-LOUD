@@ -97,7 +97,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 1393.5,
     },
 	
-    Description = '<LOC brpexshbm_desc>Experimental Artillery Support Bot',
+    Description = '<LOC brpexshbm_desc>Experimental Ultra Heavy Artillery Support Bot',
 	
     Display = {
 	
@@ -340,7 +340,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Experimental Artillery Support Bot',
+        HelpText = 'Ultra Heavy Artillery Support Bot',
     },
 	
     LifeBarHeight = 0.2,
@@ -372,11 +372,11 @@ UnitBlueprint {
 		
         MinSpeedPercent = 0,
 		
-        SkirtOffsetX = -3.5,
-        SkirtOffsetZ = -3.5,
+        SkirtOffsetX = -1,
+        SkirtOffsetZ = -1,
 		
-        SkirtSizeX = 10,
-        SkirtSizeZ = 10,
+        SkirtSizeX = 8,
+        SkirtSizeZ = 8,
 		
         MotionType = 'RULEUMT_Amphibious',
 		
@@ -455,7 +455,10 @@ UnitBlueprint {
             DamageType = 'Normal',
 			
             DisplayName = 'Dual Zthuthaam Cannon',
-			
+            
+            EnergyDrainPerSecond = 2400,    -- a good portion of the energy is produced in the unit
+            EnergyRequired = 1200,          -- .5 second energy drain
+
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
@@ -471,7 +474,7 @@ UnitBlueprint {
             MaxRadius = 120,
             MinRadius = 26,
 			
-            MuzzleChargeDelay = 0.8,
+            MuzzleChargeDelay = 0.6,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 25,
@@ -506,7 +509,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,		-- 1500 DPS Surface
+            RateOfFire = 1,		-- rate controlled by charge and delay = 1.1 seconds =  1500 DPS Surface
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 44,

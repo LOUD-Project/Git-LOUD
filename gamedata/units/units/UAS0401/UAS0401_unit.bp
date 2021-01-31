@@ -110,7 +110,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 180,
     },
 	
-    Description = '<LOC uas0401_desc>Experimental Submarine',
+    Description = '<LOC uas0401_desc>Experimental Heavy Battleship/Submarine',
 	
     Display = {
         Abilities = {
@@ -346,7 +346,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Experimental Submarine',
+        HelpText = 'Experimental Heavy Battleship/Submarine',
     },
 	
     LifeBarHeight = 0.075,

@@ -93,7 +93,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 776.2,
     },
     
-    Description = '<LOC xrl0403_desc>Experimental Mobile Factory',
+    Description = '<LOC xrl0403_desc>Experimental Heavy Assault Megabot',
     
     Display = {
         Abilities = {
@@ -253,7 +253,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Megalith Wants You!',
+        HelpText = 'Heavy Assault Megabot',
     },
 	
     LifeBarHeight = 0.075,

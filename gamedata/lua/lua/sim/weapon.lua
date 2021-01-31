@@ -488,6 +488,10 @@ Weapon = Class(moho.weapon_methods) {
 
     end,
 
+    ChangeDamage = function(self, new)
+        self.damageTable.DamageAmount = new + (self.DamageMod or 0)
+    end,
+
 	-- this event is triggered at the moment that a weapon fires a shell
     CreateProjectileForWeapon = function(self, bone)
 	

@@ -229,8 +229,8 @@ PlatoonTemplate { Name = 'ReinforceAirExperimental',
 
 PlatoonTemplate { Name = 'ReinforceLandPlatoonDirect',
     GlobalSquads = {
-        { categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.ENGINEER - categories.EXPERIMENTAL, 13, 48, 'Attack', 'AttackFormation' },
-		{ categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL, 0, 6, 'Artillery', 'none'},
+        { categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.ENGINEER - categories.EXPERIMENTAL, 5, 15, 'Attack', 'AttackFormation' },
+		{ categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL, 0, 4, 'Artillery', 'none'},
         { categories.LAND * categories.MOBILE * categories.ANTIAIR, 0, 12, 'Guard', 'none'},
 		{ categories.LAND * categories.MOBILE * categories.SHIELD, 0, 3, 'Guard', 'none' },
 		{ categories.LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE, 0, 2, 'Guard', 'none' },
@@ -249,6 +249,16 @@ PlatoonTemplate { Name = 'ReinforceLandPlatoonIndirect',
 	},
 }
 
+PlatoonTemplate { Name = 'ReinforceLandPlatoonSupport',
+    GlobalSquads = {
+		{ categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.ENGINEER - categories.EXPERIMENTAL, 0, 6, 'Attack', 'none'},
+        { categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL, 0, 4, 'Artillery', 'none' },
+        { categories.LAND * categories.MOBILE * categories.ANTIAIR, 4, 12, 'Guard', 'none'},
+		{ categories.LAND * categories.MOBILE * categories.SHIELD, 0, 3, 'Guard', 'none' },
+		{ categories.LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE, 0, 2, 'Guard', 'none' },
+        { (categories.LAND * categories.MOBILE * categories.SCOUT), 0, 2, 'Support', 'none' },
+	},
+}
 
 PlatoonTemplate { Name = 'T1ArtilleryAttack',
     Plan = 'LandForceAILOUD',

@@ -1,10 +1,20 @@
 local TStructureUnit = import('/lua/terranunits.lua').TStructureUnit
 
+local Buff = import('/lua/sim/buff.lua')
+
 SEB5381 = Class(TStructureUnit) {
     --When we're adjacent, try to all all the possible bonuses.
     OnAdjacentTo = function(self, adjacentUnit, triggerUnit)
         if self:IsBeingBuilt() then return end
-        if adjacentUnit:IsBeingBuilt() then return end
+		if adjacentUnit:IsBeingBuilt() then return end
+		-- RAT: Don't apply to a unit with a beam weapon as per Sprouto
+		-- RATODO: Ought to work on units with both beams and non-beam weapons.
+		-- Maybe use damageMod instead.
+		for i = 1, adjacentUnit:GetWeaponCount() do
+			if adjacentUnit:GetWeapon(i):GetBlueprint().BeamCollisionDelay then
+				return
+			end
+		end
         self:CalculateWeaponDamageBuff(adjacentUnit)
         TStructureUnit.OnAdjacentTo(self, adjacentUnit, triggerUnit)
     end,
@@ -15,37 +25,14 @@ SEB5381 = Class(TStructureUnit) {
         TStructureUnit.OnNotAdjacentTo(self, adjacentUnit)
     end,
 
-    CalculateWeaponDamageBuff = function(self, adjacentUnit, remove)
-        for i, v in {4,8,12,16,20} do
-            if EntityCategoryContains(categories['SIZE' .. v], adjacentUnit) then
-                for i = 1, adjacentUnit:GetWeaponCount() do
-                    local wep = adjacentUnit:GetWeapon(i)
-                    local wepbp = wep:GetBlueprint()
-                    local boost = 0.5 / v
-                    if wepbp.BeamCollisionDelay then
-                        --DamageModifiers on a beam weapon is an array, which has all its values multiplied together with Damgage to make DamageAmount
-                        if not wep.DamageModifiers then wep.DamageModifiers = {} end
-                        if not wep.DamageModifiers.BoostNode then wep.DamageModifiers.BoostNode = 1 end
-                        if remove then
-                            wep.DamageModifiers.BoostNode = wep.DamageModifiers.BoostNode - boost
-                        else
-                            wep.DamageModifiers.BoostNode = wep.DamageModifiers.BoostNode + boost
-                        end
-                    else
-                        --DamageMod on projectile weapons is added as-is to Damage to get DamageAmount
-                        if not wep.DamageMod then wep.DamageMod = 0 end
-                        if wepbp.Damage then
-                            if remove then
-                                wep.DamageMod = wep.DamageMod - (wepbp.Damage * boost )
-                            else
-                                wep.DamageMod = wep.DamageMod + (wepbp.Damage * boost )
-                            end
-                        end
-                    end
-                end
-                break
-            end
-        end
+	CalculateWeaponDamageBuff = function(self, adjacentUnit, remove)
+		for _, v in import('/lua/sim/adjacencybuffs.lua')['T3WeaponBoosterDamageAdjacencyBuffs'] do
+			if not remove then
+				Buff.ApplyBuff(adjacentUnit, v, self)
+			else
+				Buff.RemoveBuff(adjacentUnit, v)
+			end
+		end
     end,
 }
 

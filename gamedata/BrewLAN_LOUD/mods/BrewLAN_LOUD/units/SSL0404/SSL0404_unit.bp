@@ -102,7 +102,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 180,
     },
     
-    Description = '<LOC ssl0404_desc>Experimental Sniper Bot',
+    Description = '<LOC ssl0404_desc>Experimental Light Sniper Bot',
     
     Display = {
         Abilities = {
@@ -300,7 +300,7 @@ UnitBlueprint {
     },
     
     Interface = {
-        HelpText = '<LOC ssl0404_desc>Experimental Sniper Bot',
+        HelpText = '<LOC ssl0404_desc>Light Sniper Bot',
     },
     
     LifeBarHeight = 0.075,
@@ -329,10 +329,10 @@ UnitBlueprint {
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Amphibious',
         SinkLower = true,
-        SkirtOffsetX = -2.5,
+        SkirtOffsetX = -1.5,
         SkirtOffsetZ = -2.5,
-        SkirtSizeX = 8,
-        SkirtSizeZ = 8,
+        SkirtSizeX = 6,
+        SkirtSizeZ = 6,
         StandUpright = false,
         TurnRadius = 5,
         TurnRate = 17,

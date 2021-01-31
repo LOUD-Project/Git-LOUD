@@ -315,6 +315,9 @@ UnitBlueprint {
             DamageType = 'ShieldMult1.3',            
 			
             DisplayName = 'Proton Cannon',
+
+            EnergyDrainPerSecond = 1650,
+            EnergyRequired = 1650,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -354,11 +357,12 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,     -- 1500 DPS
+            RateOfFire = 1,     -- 1500 DPS - controlled by energy -- 2 x 750 every second 
 
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
+                'SHIELD',
                 'MOBILE',
                 'ALLUNITS',
             },

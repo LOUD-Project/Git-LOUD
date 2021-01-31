@@ -1011,6 +1011,7 @@ function SetupAICheat(aiBrain, biggestTeamSize)
     LOG("*AI DEBUG "..aiBrain.Nickname.." SetupAICheat for ArmyIndex "..repr(aiBrain.ArmyIndex).." Value "..aiBrain.CheatValue)
 
     -- Veterancy mult is always 1 or higher
+    -- and represents the 'base' Cheat value for this AI --
     aiBrain.VeterancyMult = math.max( 1, aiBrain.CheatValue)
 
 	-- CREATE THE BUFFS THAT WILL BE USED BY THE AI

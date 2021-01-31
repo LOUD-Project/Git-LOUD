@@ -16,7 +16,7 @@
 	Description['wel0309'] = "Mobile SAM. Fires short range AA missiles. Very effective versus gunships, with heavier armor than the Cougar."
     Description['wel0341'] = "The need for artillery in amphibious operations finds its answer in the Walrus."
     Description['wel0401'] = "The Wyvern is a combat refit of the original FatBoy. Remove the factory and add artillery. Designed to provide ranged support for battlegroups."
-	Description['wel0416'] = "Taking a cue from the Cybran Basilisk, Dragonite attempts to bring the same features to the table; lots of weapons, and regenerative.\nPersonal Shield."
+	Description['wel0416'] = "Taking a cue from the Cybran Basilisk, Dragonite attempts to bring the same features to the table; lots of weapons, and regenerative."
 	Description['wel1409'] = "Experimental Tank - The Wyvern version of Fatboy II. Less total firepower - more range."
 	Description['wel1409-sgf'] = "Creates a protective shield around the Fatboy 2. Requires Energy to run."
     Description['wel4404'] = "The Star Adder is a Medium Mech blessed with very good speed, solid firepower, radar, and personal stealth.\nIntended to replace the less successful Rampage"

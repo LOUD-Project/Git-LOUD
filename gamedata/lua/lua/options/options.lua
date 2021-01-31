@@ -546,6 +546,18 @@ options = {
                     inc = 1,
                 },
             },
+            {
+                title = "Land Unit Selection Priority",
+                key = 'land_unit_select_prio',
+                type = 'toggle',
+                default = 0,
+                custom = {
+                    states = {
+                        {text = "<LOC _Off>", key = 0 },
+                        {text = "<LOC _On>", key = 1 },
+                    },
+                },
+            }
         },
     },
     video = {

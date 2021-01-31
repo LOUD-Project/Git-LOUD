@@ -270,7 +270,7 @@ UnitBlueprint {
                     AppliedToTarget = true,
                     BuffType = 'STUN',
                     Duration = 0.9,
-                    Radius = 2,
+                    Radius = 1.5,
                     TargetAllow = 'LAND,NAVAL',
                     TargetDisallow = 'EXPERIMENTAL,COMMAND,STRUCTURE,SUBCOMMANDER,AIR',
                 },

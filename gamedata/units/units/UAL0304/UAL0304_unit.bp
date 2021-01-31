@@ -20,6 +20,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+    
     Buffs = {
         Regen = {
             Level1 = 2,
@@ -29,7 +30,9 @@ UnitBlueprint {
             Level5 = 10,
         },
     },
+    
     BuildIconSortPriority = 30,
+    
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3FACTORY',
@@ -55,9 +58,7 @@ UnitBlueprint {
     Description = '<LOC ual0304_desc>Mobile Heavy Artillery',
 	
     Display = {
-        Abilities = {
-            '<LOC ability_deploys>Deploys',
-        },
+        Abilities = {},
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -86,6 +87,7 @@ UnitBlueprint {
     },
 	
     General = {
+        CapCost = 2,
         Category = 'Indirect Fire',
         Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
@@ -108,15 +110,19 @@ UnitBlueprint {
         UnitName = '<LOC ual0304_name>Serenity',
         UnitWeight = 1,
     },
+    
     Intel = {
         VisionRadius = 28,
     },
+    
     Interface = {
         HelpText = 'Mobile Heavy Artillery',
     },
+    
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.75,
     LifeBarSize = 1.25,
+    
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -143,19 +149,24 @@ UnitBlueprint {
         TurnRadius = 0,
         TurnRate = 75,
     },
+    
     SelectionCenterOffsetX = 0,
     SelectionCenterOffsetZ = -0.2,
     SelectionSizeX = 0.85,
     SelectionSizeZ = 1,
     SelectionThickness = 0.43,
+    
     SizeX = 1,
     SizeY = 0.4,
     SizeZ = 1.5,
+    
     StrategicIconName = 'icon_land3_artillery',
     StrategicIconSortPriority = 115,
+    
     Transport = {
         TransportClass = 3,
     },
+    
     Veteran = {
         Level1 = 10,
         Level2 = 20,
@@ -163,6 +174,7 @@ UnitBlueprint {
         Level4 = 40,
         Level5 = 50,
     },
+    
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -180,17 +192,22 @@ UnitBlueprint {
             Damage = 100,
             DamageFriendly = true,
             DamageRadius = 3,
-            DamageType = 'ShieldMult1.2',
+            
+            DamageType = 'ShieldMult1.2',       -- class bonus --
 			
             DisplayName = 'Sonance Artillery',
 			
             DoTPulses = 10,
             DoTTime = 5,
-			
+            
+            EnergyRequired = 2500,
+            EnergyDrainPerSecond = 250,     -- 10 seconds to charge
+
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
+            
             FiringRandomness = 1,
             FiringTolerance = 2,
 			
@@ -223,12 +240,14 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.1,	-- 100 DPS
-            RenderFireClock = true,
+            RateOfFire = 1,         -- every 10 seconds by charge = 100 DPS
+
 			
             TargetCheckInterval = 1,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
+                'SHIELD',
+                'ARTILLERY',
                 'DEFENSE',
                 'MOBILE',
                 'ALLUNITS',
@@ -247,11 +266,12 @@ UnitBlueprint {
             Turreted = true,
         },
     },
+    
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.1,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,
