@@ -813,6 +813,7 @@ function DisplayUnit(index)
 
 	unitDisplay.icon:Show()
 	unitDisplay.stratIcon:Show()
+	unitDisplay.backIcon:Show()
 	local validIcons = {land = true, air = true, sea = true, amph = true}
 	if validIcons[bp.General.Icon] then
         unitDisplay.backIcon:SetTexture(UIUtil.UIFile('/icons/units/'..bp.General.Icon..'_up.dds'))
