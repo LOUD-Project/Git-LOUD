@@ -527,7 +527,7 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
         grp.name:DisableHitTest()
         grp.Brighten = function(self)
             if not self.uid then
-                grp.bg:SetSolidColor('42484B')
+                grp.bg:SetSolidColor('7E979B')
             else
                 local modStatusEntry = modStatus[self.uid]
                 if modStatusEntry.checked then
@@ -548,7 +548,7 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
 
         grp.Darken = function(self)
             if not self.uid then
-                grp.bg:SetSolidColor('22282B')
+                grp.bg:SetSolidColor('5E777B') -- Folder colour; desatured mid-cyan
             else
                 local modStatusEntry = modStatus[self.uid]
                 if modStatusEntry.checked then
@@ -569,7 +569,7 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
 
         grp.SetVisual = function(self, modStatusEntry)
             if modStatusEntry == nil then
-                grp.bg:SetSolidColor('22282B')
+                grp.bg:SetSolidColor('5E777B') -- Folder colour; desatured mid-cyan
             elseif modStatusEntry.checked then
                 if modStatusEntry.cantoggle then
                     grp.bg:SetSolidColor('55863F') -- Green
