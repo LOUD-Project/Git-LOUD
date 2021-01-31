@@ -1019,7 +1019,7 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
     local saveBtn = UIUtil.CreateButtonStd(panel, '/widgets/tiny', "Save", 12, 2)
     LayoutHelpers.LeftOf(saveBtn, loadBtn)
     saveBtn.OnClick = function(self, modifiers)
-		CreateSavePresetDialog(panel, modListTable)
+		CreateSavePresetDialog(panel, modStatus)
     end
 
     local cancelBtn = UIUtil.CreateButtonStd(panel, '/scx_menu/small-btn/small', "<LOC _Cancel>", 16, nil, nil, "UI_Menu_Cancel_02")
