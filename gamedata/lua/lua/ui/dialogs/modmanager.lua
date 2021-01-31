@@ -451,8 +451,8 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
     for key, block in modSchema do
         modStruct[key] = {}
         modStruct[key].name = key
-        -- RATODO: Maybe leave some closed by default
-        modStruct[key].open = true
+        -- Collapse these two folders by default
+        modStruct[key].open = (key ~= 'Mutators' and key ~= 'Miscellaneous')
         modStruct[key].uids = {}
         for _, uid in block do
             table.insert(modStruct[key].uids, uid)
