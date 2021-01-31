@@ -700,12 +700,19 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
             end
 
             for _, uid in block.uids do
+                -- Prevent complete blow-up if a UID in the schema is illegal
+                if not allmods[uid] then
+                    continue
+                end
+
                 if skip > 0 then
                     skip = skip - 1
                     continue
                 end
+
                 i = i + 1
                 if i > numElements then break end
+
                 modListTable[i].block = false
                 modListTable[i].uid = uid
                 local modInfo = allmods[uid]
