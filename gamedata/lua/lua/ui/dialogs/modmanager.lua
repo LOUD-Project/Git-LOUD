@@ -428,7 +428,7 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
 
     local help1 = UIUtil.CreateText(panel, "Click a row to enable/disable.", 14, UIUtil.bodyFont)
     LayoutHelpers.AtLeftTopIn(help1, panel, 30, 74)
-    local help2 = UIUtil.CreateText(panel, "Click the > button to see more details.", 14, UIUtil.bodyFont)
+    local help2 = UIUtil.CreateText(panel, "Click the > button or right-click on a mod to see more details.", 14, UIUtil.bodyFont)
     LayoutHelpers.Below(help2, help1, 2)
 
     ---------------------------------------------------------------------------
@@ -862,23 +862,25 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
                     elseif event.Type == 'MouseEnter' then
                         self:Brighten()
                     elseif event.Type == 'ButtonPress' then
-                        local sound = Sound({Cue = 'UI_Mini_MouseDown', Bank = 'Interface',})
-                        PlaySound(sound)
-                        if modStatus[self.uid].cantoggle then
-                            if IsModExclusive(modInfo.uid) and not self.enabled then
-                                HandleExclusiveClick(self)
-                            else
-                                if exclusiveModSelected then
-                                    HandleExclusiveActive(self, HandleNormalClick)
+                        if event.Modifiers.Right then
+                            DisplayModDetails(self.uid)
+                            local sound = Sound({Cue = 'UI_Mod_Select', Bank = 'Interface',})
+                            PlaySound(sound)
+                        else
+                            local sound = Sound({Cue = 'UI_Mini_MouseDown', Bank = 'Interface',})
+                            PlaySound(sound)
+                            if modStatus[self.uid].cantoggle then
+                                if IsModExclusive(modInfo.uid) and not self.enabled then
+                                    HandleExclusiveClick(self)
                                 else
-                                    HandleNormalClick(self)
+                                    if exclusiveModSelected then
+                                        HandleExclusiveActive(self, HandleNormalClick)
+                                    else
+                                        HandleNormalClick(self)
+                                    end
                                 end
                             end
                         end
-                    elseif event.Type == 'ButtonDClick' then
-                        DisplayModDetails(self.uid)
-                        local sound = Sound({Cue = 'UI_Mod_Select', Bank = 'Interface',})
-                        PlaySound(sound)
                     end
                 end
                 modListTable[i].detailButton.OnClick = function(self, modifiers)
