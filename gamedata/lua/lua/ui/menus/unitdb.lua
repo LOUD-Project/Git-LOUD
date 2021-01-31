@@ -1053,6 +1053,10 @@ function DisplayUnit(index)
 
 				weaponText = (weaponText .. " { Inner Dmg: " .. UVD.LOUD_ThouCheck(weapon.NukeInnerRingDamage) .. ", AoE: " .. UVD.LOUD_KiloCheck(weapon.NukeInnerRingRadius * 20) .. " | Outer Dmg: " .. UVD.LOUD_ThouCheck(weapon.NukeOuterRingDamage) .. ", AoE: " .. UVD.LOUD_KiloCheck(weapon.NukeOuterRingRadius * 20))
 
+				if weapon.MaxProjectileStorage then
+					weaponText = weaponText .. ", Max Ammo: " .. weapon.MaxProjectileStorage
+				end
+
 				-- Finish text lines.
 				weaponText = (weaponText .. " }")
 
@@ -1155,6 +1159,10 @@ function DisplayUnit(index)
 						else
 							weaponText = (weaponText .. ", Rng: " .. UVD.LOUD_KiloCheck(weapon.MaxRadius * 20))
 						end
+					end
+
+					if weapon.MaxProjectileStorage then
+						weaponText = weaponText .. ", Max Ammo: " .. weapon.MaxProjectileStorage
 					end
 
 					-- Finish text line.
