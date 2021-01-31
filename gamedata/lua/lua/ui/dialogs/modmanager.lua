@@ -397,7 +397,7 @@ local function CreateSavePresetDialog(parent, modStatus)
     UIUtil.CreateWorldCover(dialog)
 end
 
-local function ModConfigDialog(parent, modInfo, config, modStatus)
+local function ModConfigDialog(parent, modInfo, config, modStatusEntry)
     -- table.sort(config, function(a, b) return a.key < b.key end)
 
     local newConfig = Prefs.GetFromCurrentProfile("modConfig")
@@ -446,7 +446,7 @@ local function ModConfigDialog(parent, modInfo, config, modStatus)
         combo.UpdateValue = function(key)
             combo:SetItem(combo.keyMap[key])
         end
-        if not modStatus.cantoggle then
+        if not modStatusEntry.cantoggle then
             combo:Disable()
         end
         return combo
@@ -1337,7 +1337,7 @@ function DisplayModDetails(uid, modStatus)
     if ok then
         modDetails.configBtn:Show()
         modDetails.configBtn.OnClick = function(self, modifiers)
-            ModConfigDialog(modDetails:GetParent(), modInfo, env.config, modStatus)
+            ModConfigDialog(modDetails:GetParent(), modInfo, env.config, modStatus[uid])
         end
     else
         modDetails.configBtn.OnClick = function(self, modifiers) end
