@@ -1,0 +1,3 @@
+Description['seb1401'] = "<LOC Unit_Description_ParagonGame> Generates nearly limitless Energy and Mass. Toggles output to match production demands. If destroyed, resulting explosion is equivalent to the detonation of a strategic weapon."
+Description['srb1401'] = "<LOC Unit_Description_ParagonGame> Generates nearly limitless Energy and Mass. Toggles output to match production demands. If destroyed, resulting explosion is equivalent to the detonation of a strategic weapon."
+Description['ssb1401'] = "<LOC Unit_Description_ParagonGame> Generates nearly limitless Energy and Mass. Toggles output to match production demands. If destroyed, resulting explosion is equivalent to the detonation of a strategic weapon."
