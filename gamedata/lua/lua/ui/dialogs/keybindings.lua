@@ -6,28 +6,27 @@
 --* Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
 --*****************************************************************************
 
-local UIUtil = import('/lua/ui/uiutil.lua')
-local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
-local Group = import('/lua/maui/group.lua').Group
 local Bitmap = import('/lua/maui/bitmap.lua').Bitmap
-local Text = import('/lua/maui/text.lua').Text
+local Group = import('/lua/maui/group.lua').Group
+local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
+local UIUtil = import('/lua/ui/uiutil.lua')
 
-local keydesc = import('/lua/keymap/keydescriptions.lua').keyDescriptions
-local properKeyNames = import('/lua/keymap/properKeyNames.lua').properKeyNames
-local keyNames = import('/lua/keymap/keyNames.lua').keyNames
 local keyCategories = import('/lua/keymap/keycategories.lua').keyCategories
+local keyDesc = import('/lua/keymap/keydescriptions.lua').keyDescriptions
+local keyNames = import('/lua/keymap/keyNames.lua').keyNames
+local properKeyNames = import('/lua/keymap/properKeyNames.lua').properKeyNames
 
-local panel
+local panel = false
 local keyContainer
 local keyTable
 
--- Zulans HotBuild functions
+-- Zulan's HotBuild functions
 local initDefaultKeyMap = import('/lua/hotbuild/hotbuild.lua').initDefaultKeyMap
 
 LOG("Hotbuild --> Loading keydescriptions")
 
 for key, description in import('/lua/hotbuild/hotbuild.lua').getKeyDescriptions() do
-    keydesc[key] = description
+    keyDesc[key] = description
 end
 
 local function initDefaultKeyMap_de()
@@ -196,7 +195,6 @@ local function EditActionKey(parent, action, currentKey)
                 nil, nil,
                 true,
                 {escapeButton = 2, enterButton = 1, worldCover = false})
-
         else
             MapKey()
         end
@@ -226,6 +224,18 @@ function CreateUI()
         for k, v in keyTable do
             if v._selected then
                 EditActionKey(panel, v.action, v.key)
+                break
+            end
+        end
+    end
+
+    local function ClearCurrentSelection()
+        for k, v in keyTable do
+            if v._selected then
+                local Keymapper = import('/lua/keymap/keymapper.lua')
+                Keymapper.ClearUserKeyMapping(v.key, v.action)
+                keyTable = FormatData()
+                keyContainer:CalcVisible()
                 break
             end
         end
@@ -266,6 +276,12 @@ function CreateUI()
         AssignCurrentSelection()
     end
 
+    local deassignKeyButton = UIUtil.CreateButtonStd(panel, "/widgets/small02", "Deassign Key", 12)
+    LayoutHelpers.Below(deassignKeyButton, assignKeyButton, -6)
+    deassignKeyButton.OnClick = function(self, modifiers)
+        ClearCurrentSelection()
+    end
+
     local resetButton = UIUtil.CreateButtonStd(panel, "/widgets/small02", LOC("<LOC key_binding_0004>Reset"), 12)
     LayoutHelpers.RightOf(resetButton, closeButton, 10)
     resetButton.OnClick = function(self, modifiers)
@@ -276,7 +292,6 @@ function CreateUI()
             true,
             {escapeButton = 2, enterButton = 1, worldCover = false})
     end
-
 
     panel.HandleEvent = function(self, event)
         if event.Type == 'KeyDown' then
@@ -393,6 +408,7 @@ function CreateUI()
     keyContainer.IsScrollable = function(self, axis)
         return true
     end
+
     -- determines what controls should be visible or not
     keyContainer.CalcVisible = function(self)
         local function GetEntryColor(lineID, selected)
@@ -440,6 +456,7 @@ function CreateUI()
             end
         end
     end
+
     keyContainer.HandleEvent = function(control, event)
         if event.Type == 'WheelRotation' then
             local lines = 1
@@ -449,10 +466,11 @@ function CreateUI()
             control:ScrollLines(nil, lines)
         end
     end
+
     keyContainer:CalcVisible()
 end
 
---TODO clean up the table names a bit to be more consistent?
+-- TODO clean up the table names a bit to be more consistent?
 function FormatData()
 
     local keyactions = import('/lua/keymap/keymapper.lua').GetKeyActions()
@@ -495,9 +513,9 @@ function FormatData()
 
                 if val1 and val2 then
 
-                    if (not keydesc[val1.desckey] and not keydesc[val2.desckey]) then
+                    if (not keyDesc[val1.desckey] and not keyDesc[val2.desckey]) then
                         return (val1.id >= val2.id)
-                    elseif (keydesc[val1.desckey] >= keydesc[val2.desckey]) then
+                    elseif (keyDesc[val1.desckey] >= keyDesc[val2.desckey]) then
                         return false
                     else
                         return true
@@ -526,7 +544,7 @@ function FormatData()
         for currentval, data in v do
 
             local properKey = formatkeyname(data.key)
-            KeyData[index] = {type = 'entry', text = keydesc[data.desckey], keyDisp = properKey, action = data.desckey, key = data.key}
+            KeyData[index] = {type = 'entry', text = keyDesc[data.desckey], keyDisp = properKey, action = data.desckey, key = data.key}
             index = index + 1
         end
 
@@ -615,4 +633,3 @@ function CreateBorder(parent)
 
     return tbl
 end
-

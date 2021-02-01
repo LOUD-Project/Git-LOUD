@@ -10,8 +10,6 @@ local Prefs = import('/lua/user/prefs.lua')
 
 LOG("*AI DEBUG Loading Keymapper")
 
-
-
 function GetDefaultKeyMap(includeDebugKeys)
     local ret = {}
     local defaultKeyMap = import('defaultKeyMap.lua').defaultKeyMap
@@ -55,6 +53,19 @@ function GetCurrentKeyMap(includeDebugKeys)
     return GetUserKeyMap(includeDebugKeys) or GetDefaultKeyMap(includeDebugKeys)
 end
 
+function ClearUserKeyMapping(key, action)
+    local newMap = GetCurrentKeyMap()
+    newMap[key] = nil
+    Prefs.SetToCurrentProfile("UserKeyMap", newMap)
+
+    -- GAZ UI --
+    -- this retrieves the GAZ debug key maps
+    local debugKeyMap = import('defaultKeyMap.lua').debugKeyMap
+
+    -- and writes them to the profile
+	Prefs.SetToCurrentProfile("UserDebugKeyMap", debugKeyMap)
+end
+
 function SetUserKeyMapping(key, oldKey, action)
 
     --LOG("*AI DEBUG keymapper SetUserKeyMapping for "..repr(action) )
@@ -81,7 +92,6 @@ function ClearUserKeyMap()
     Prefs.SetToCurrentProfile("UserKeyMap", nil)
     Prefs.SetToCurrentProfile("UserDebugKeyMap", nil)
 end
-
 
 function GetKeyActions(includeDebugKeys)
 
@@ -233,4 +243,3 @@ function IsKeyInMap(key, map)
 
     return false
 end
-
