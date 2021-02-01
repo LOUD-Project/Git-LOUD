@@ -191,44 +191,45 @@ function GetKeyCodeLookup()
     return ret
 end
 
--- given a key in string form, checks to see if it's already in the key map
-function IsKeyInMap(key, map)
+-- given a key string makes it always ctrl-shift-alt-key for comparison
+-- returns a table with modifier keys extracted
+local function NormalizeKey(inKey)
 
-    -- given a key string makes it always ctrl-shift-alt-key for comparison
-    -- returns a table with modifier keys extracted
-    local function NormalizeKey(inKey)
+    local retVal = {}
+    local keyNames = import('/lua/keymap/keyNames.lua').keyNames
+    local modKeys = {
+        [keyNames['11']] = true, -- ctrl
+        [keyNames['10']] = true, -- shift
+        [keyNames['12']] = true, -- alt
+    }
 
-        local retVal = {}
-        local keyNames = import('/lua/keymap/keyNames.lua').keyNames
-        local modKeys = {[keyNames['11']] = true, -- ctrl
-                         [keyNames['10']] = true, -- shift
-                         [keyNames['12']] = true, -- alt
-                        }
+    local startpos = 1
 
-        local startpos = 1
+    while startpos do
 
-        while startpos do
+        local fst, lst = string.find(inKey, "-", startpos)
+        local str
 
-            local fst, lst = string.find(inKey, "-", startpos)
-            local str
-
-            if fst then
-                str = string.sub(inKey, startpos, fst - 1)
-                startpos = lst + 1
-            else
-                str = string.sub(inKey, startpos, string.len(inKey))
-                startpos = nil
-            end
-
-            if modKeys[str] then
-                retVal[str] = true
-            else
-                retVal["key"] = str
-            end
+        if fst then
+            str = string.sub(inKey, startpos, fst - 1)
+            startpos = lst + 1
+        else
+            str = string.sub(inKey, startpos, string.len(inKey))
+            startpos = nil
         end
 
-        return retVal
+        if modKeys[str] then
+            retVal[str] = true
+        else
+            retVal["key"] = str
+        end
     end
+
+    return retVal
+end
+
+-- given a key in string form, checks to see if it's already in the key map
+function IsKeyInMap(key, map)
 
     local compKeyCombo = NormalizeKey(key)
 
@@ -242,4 +243,18 @@ function IsKeyInMap(key, map)
     end
 
     return false
+end
+
+-- Given a key in string form, return a string array with the IDs
+-- of all the actions to which it is already mapped.
+function GetActionsByKey(key, map)
+    local ret = {}
+    local compKeyCombo = NormalizeKey(key)
+    for keyCombo, action in map do
+        local curKeyCombo = NormalizeKey(keyCombo)
+        if table.equal(curKeyCombo, compKeyCombo) then
+            table.insert(ret, action)
+        end
+    end
+    return ret
 end

@@ -188,8 +188,20 @@ local function EditActionKey(parent, action, currentKey)
             keyTable = FormatData()
             keyContainer:CalcVisible()
         end
-        if Keymapper.IsKeyInMap(currentKeyPattern, Keymapper.GetCurrentKeyMap()) then
-            UIUtil.QuickDialog(panel, "<LOC key_binding_0006>This key is already mapped to another action, are you sure you want to change it?",
+        local overlaps = Keymapper.GetActionsByKey(currentKeyPattern, Keymapper.GetCurrentKeyMap())
+        -- if Keymapper.IsKeyInMap(currentKeyPattern, Keymapper.GetCurrentKeyMap()) then
+        if table.getsize(overlaps) > 0 then
+            local olDescs = {}
+
+            for i, v in overlaps do
+                table.insert(olDescs, keyDesc[v] or v)
+            end
+
+            local msg = table.concat(olDescs, "\n")
+            msg = "This key is aleady mapped to:\n"..msg
+            msg = msg.."\n Are you sure you want to change it?"
+
+            UIUtil.QuickDialog(panel, msg,
                 "<LOC _Yes>", MapKey,
                 "<LOC _No>", nil,
                 nil, nil,
