@@ -107,7 +107,7 @@ local function EditActionKey(parent, action, currentKey)
     LayoutHelpers.AtTopIn(helpText, background)
     LayoutHelpers.AtHorizontalCenterIn(helpText, background)
 
-    local keyText = UIUtil.CreateText(background, formatkeyname(currentKey), 24)
+    local keyText = UIUtil.CreateText(background, FormatKeyName(currentKey), 24)
     LayoutHelpers.AtTopIn(keyText, background, 40)
     LayoutHelpers.AtHorizontalCenterIn(keyText, background)
 
@@ -600,7 +600,7 @@ function FormatData()
 
         for currentval, data in v do
 
-            local properKey = formatkeyname(data.key)
+            local properKey = FormatKeyName(data.key)
             KeyData[index] = {
                 type = 'entry',
                 text = keyDesc[data.desckey],
@@ -616,7 +616,7 @@ function FormatData()
     return KeyData
 end
 
-function formatkeyname(key)
+function FormatKeyName(key)
 
     if not key then
         return ""

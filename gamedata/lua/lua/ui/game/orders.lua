@@ -111,7 +111,7 @@ function CreateMouseoverDisplay(parent, ID)
 		
             if v == TooltipInfo['Tooltips'][ID]['keyID'] then
 			
-                local properkeyname = import('/lua/ui/dialogs/keybindings.lua').formatkeyname(i)
+                local properkeyname = import('/lua/ui/dialogs/keybindings.lua').FormatKeyName(i)
 				
                 text = LOCF("%s (%s)", text, properkeyname)
 				
