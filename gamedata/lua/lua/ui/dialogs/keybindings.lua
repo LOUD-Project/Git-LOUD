@@ -440,7 +440,7 @@ function CreateUI()
                 line.key:SetText(LOC(data.keyDisp))
                 line.key:SetColor('ffffffff')
                 line.key:SetFont('Arial', 16)
-                line.description:SetText(LOC(data.text or "<LOC key_binding_0001>No action text"))
+                line.description:SetText(LOC(data.text or data.action or "<LOC key_binding_0001>No action text"))
                 line.bg.dataKey = data.key
                 line.bg.dataAction = data.action
                 line.bg.dataIndex = lineID
