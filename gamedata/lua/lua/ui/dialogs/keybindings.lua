@@ -372,7 +372,15 @@ function CreateUI()
     local numLines = function() return table.getsize(keyEntries) end
 
     local function DataSize()
-        return table.getn(keyTable)
+        local ret = 0
+        for _, v in keyTable do
+            if v.type == 'header' and v.folded then
+                ret = ret - v.count
+            else
+                ret = ret + 1
+            end
+        end
+        return ret
     end
 
     -- called when the scrollbar for the control requires data to size itself
@@ -406,7 +414,7 @@ function CreateUI()
 
     -- called to determine if the control is scrollable on a particular access. Must return true or false.
     keyContainer.IsScrollable = function(self, axis)
-        return true
+        return DataSize() < table.getsize(keyEntries)
     end
 
     -- determines what controls should be visible or not
@@ -429,6 +437,24 @@ function CreateUI()
                 line.key:SetFont('Arial Bold', 16)
                 line.key:SetColor('ffe9e45f')
                 line.description:SetText('')
+                line.bg.HandleEvent = function(_, event)
+                    if event.Type == 'ButtonPress' then
+                        data.folded = not data.folded
+                        -- Folding causes list shrinkage; better to adjust scrollbar
+                        -- now, since it's jarring if user input causes it
+                        if data.folded then
+                            if self.top <= 1 then
+                                self:ScrollLines(nil, -1)
+                            else
+                                self:ScrollLines(nil, -1)
+                                self:ScrollLines(nil, 1)
+                            end
+                        end
+                        local sound = Sound({Bank = 'Interface', Cue = 'UI_Camera_Delete_Position'})
+                        PlaySound(sound)
+                        self:CalcVisible()
+                    end
+                end
             elseif data.type == 'spacer' then
                 line.bg:SetSolidColor('00000000')
                 line.key:SetText('')
@@ -446,13 +472,39 @@ function CreateUI()
                 line.bg.dataIndex = lineID
             end
         end
-        for i, v in keyEntries do
-            if keyTable[i + self.top] then
-                SetTextLine(v, keyTable[i + self.top], i + self.top)
-            else
-                v.bg:SetSolidColor('00000000')
-                v.key:SetText('')
-                v.description:SetText('')
+
+        local i = 0
+        local j = 1
+
+        local skip = self.top
+
+        while skip > 0 do
+            local kte = keyTable[j]
+            if kte.type == 'header' and kte.folded then
+                j = j + kte.count
+            end
+            skip = skip - 1
+            j = j + 1
+        end
+
+        while true do
+            local kte = keyTable[j]
+            i = i + 1
+            if i > table.getsize(keyEntries) then break end
+            SetTextLine(keyEntries[i], kte, j)
+            if kte.type == 'header' and kte.folded then
+                j = j + kte.count
+            end
+            j = j + 1
+            if j > table.getsize(keyTable) then break end
+        end
+
+        -- Clear remaining lines if not all need to be filled
+        if i < table.getsize(keyEntries) then
+            for l = i + 1, table.getsize(keyEntries) do
+                keyEntries[l].bg:SetSolidColor('00000000')
+                keyEntries[l].key:SetText('')
+                keyEntries[l].description:SetText('')
             end
         end
     end
@@ -537,14 +589,25 @@ function FormatData()
             index = index + 1
         end
 
-        KeyData[index] = {type = 'header', text = keyCategories[i]}
+        KeyData[index] = {
+            type = 'header',
+            text = keyCategories[i],
+            count = table.getsize(v),
+            folded = false,
+        }
 
         index = index + 1
 
         for currentval, data in v do
 
             local properKey = formatkeyname(data.key)
-            KeyData[index] = {type = 'entry', text = keyDesc[data.desckey], keyDisp = properKey, action = data.desckey, key = data.key}
+            KeyData[index] = {
+                type = 'entry',
+                text = keyDesc[data.desckey],
+                keyDisp = properKey,
+                action = data.desckey,
+                key = data.key
+            }
             index = index + 1
         end
 
