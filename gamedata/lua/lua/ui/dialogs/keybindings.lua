@@ -332,31 +332,7 @@ function CreateUI()
         LayoutHelpers.AtLeftIn(keyEntries[index].description, keyEntries[index].bg, 150)
         LayoutHelpers.AtVerticalCenterIn(keyEntries[index].description, keyEntries[index].bg)
 
-        keyEntries[index].bg.HandleEvent = function(self, event)
-            local eventHandled = false
--- removed keybinding work
-            local function SelectLine()
-                for k, v in keyTable do
-                    if v._selected then
-                        v._selected = nil
-                    end
-                end
-                if keyTable[self.dataIndex].type == 'entry' then
-                    keyTable[self.dataIndex]._selected = true
-                end
-                keyContainer:CalcVisible()
-            end
-
-            if event.Type == 'ButtonPress' then
-                SelectLine()
-                eventHandled = true
-            elseif event.Type == 'ButtonDClick' then
-                SelectLine()
-                eventHandled = true
-            end
-
-            return eventHandled
-        end
+        keyEntries[index].bg.HandleEvent = function(self, event) end
     end
 
     CreateElement(1)
@@ -430,6 +406,33 @@ function CreateUI()
             end
         end
         local function SetTextLine(line, data, lineID)
+
+            local function NonHeaderHandler(selfLine, event)
+                local eventHandled = false
+
+                local function SelectLine()
+                    for k, v in keyTable do
+                        if v._selected then
+                            v._selected = nil
+                        end
+                    end
+                    if keyTable[selfLine.dataIndex].type == 'entry' then
+                        keyTable[selfLine.dataIndex]._selected = true
+                    end
+                    keyContainer:CalcVisible()
+                end
+
+                if event.Type == 'ButtonPress' then
+                    SelectLine()
+                    eventHandled = true
+                elseif event.Type == 'ButtonDClick' then
+                    SelectLine()
+                    eventHandled = true
+                end
+
+                return eventHandled
+            end
+
             if data.type == 'header' then
                 LayoutHelpers.AtHorizontalCenterIn(line.key, keyContainer)
                 line.bg:SetSolidColor('ff506268')
@@ -459,6 +462,7 @@ function CreateUI()
                 line.bg:SetSolidColor('00000000')
                 line.key:SetText('')
                 line.description:SetText('')
+                line.bg.HandleEvent = NonHeaderHandler
             else
                 --LayoutHelpers.AtLeftIn(line.key, line.bg)
                 line.key.Left:Set(function() return math.floor((line.bg.Left() + 70) - (line.key.Width() / 2)) end)
@@ -470,6 +474,7 @@ function CreateUI()
                 line.bg.dataKey = data.key
                 line.bg.dataAction = data.action
                 line.bg.dataIndex = lineID
+                line.bg.HandleEvent = NonHeaderHandler
             end
         end
 
