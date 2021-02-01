@@ -7,6 +7,7 @@
 --*****************************************************************************
 
 local Bitmap = import('/lua/maui/bitmap.lua').Bitmap
+local Edit = import('/lua/maui/edit.lua').Edit
 local Group = import('/lua/maui/group.lua').Group
 local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
 local UIUtil = import('/lua/ui/uiutil.lua')
@@ -280,8 +281,6 @@ function CreateUI()
         panel = false
     end
 
--- removed keybinding work
-
     local assignKeyButton = UIUtil.CreateButtonStd(panel, "/widgets/small02", LOC("<LOC key_binding_0003>Assign Key"), 12)
     LayoutHelpers.LeftOf(assignKeyButton, closeButton, 10)
     assignKeyButton.OnClick = function(self, modifiers)
@@ -303,6 +302,24 @@ function CreateUI()
             nil, nil,
             true,
             {escapeButton = 2, enterButton = 1, worldCover = false})
+    end
+
+    local searchLabel = UIUtil.CreateText(panel, "Search:", 14, UIUtil.bodyFont)
+    LayoutHelpers.Below(searchLabel, resetButton, 2)
+
+    local searchEdit = Edit(panel)
+    LayoutHelpers.RightOf(searchEdit, searchLabel, 2)
+    searchEdit.Width:Set(96)
+    searchEdit.Height:Set(16)
+    searchEdit:SetFont(UIUtil.bodyFont, 14)
+    searchEdit:SetForegroundColor(UIUtil.fontColor)
+    searchEdit:SetHighlightBackgroundColor('00000000')
+    searchEdit:SetHighlightForegroundColor(UIUtil.fontColor)
+	searchEdit:ShowBackground(true)
+    searchEdit:SetMaxChars(40)
+    
+    searchEdit.OnTextChanged = function(self, newText, oldText)
+        keyContainer:CalcVisible()
     end
 
     panel.HandleEvent = function(self, event)
@@ -360,10 +377,14 @@ function CreateUI()
     local numLines = function() return table.getsize(keyEntries) end
 
     local function DataSize()
+        local filter = string.lower(searchEdit:GetText())
         local ret = 0
         for _, v in keyTable do
             if v.type == 'header' and v.folded then
                 ret = ret - v.count
+            elseif filter ~= '' and v.type == 'entry'
+            and not string.find(string.lower(v.text), filter) then
+                -- Do nothing
             else
                 ret = ret + 1
             end
@@ -407,6 +428,8 @@ function CreateUI()
 
     -- determines what controls should be visible or not
     keyContainer.CalcVisible = function(self)
+        local filter = string.lower(searchEdit:GetText())
+
         local function GetEntryColor(lineID, selected)
             if selected then
                 return 'ff880000'
@@ -482,7 +505,7 @@ function CreateUI()
                 line.key:SetText(LOC(data.keyDisp))
                 line.key:SetColor('ffffffff')
                 line.key:SetFont('Arial', 16)
-                line.description:SetText(LOC(data.text or data.action or "<LOC key_binding_0001>No action text"))
+                line.description:SetText(LOC(data.text))
                 line.bg.dataKey = data.key
                 line.bg.dataAction = data.action
                 line.bg.dataIndex = lineID
@@ -506,6 +529,14 @@ function CreateUI()
 
         while true do
             local kte = keyTable[j]
+            -- Skip over filtered keys
+            if filter ~= '' and kte.type == 'entry' then
+                if not string.find(string.lower(kte.text), filter) then
+                    j = j + 1
+                    if j > table.getsize(keyTable) then break end
+                    continue
+                end
+            end
             i = i + 1
             if i > table.getsize(keyEntries) then break end
             SetTextLine(keyEntries[i], kte, j)
@@ -620,7 +651,7 @@ function FormatData()
             local properKey = FormatKeyName(data.key)
             KeyData[index] = {
                 type = 'entry',
-                text = keyDesc[data.desckey],
+                text = keyDesc[data.desckey] or data.desckey or "Unnamed Action",
                 keyDisp = properKey,
                 action = data.desckey,
                 key = data.key
