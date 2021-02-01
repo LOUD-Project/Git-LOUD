@@ -20,6 +20,7 @@ local properKeyNames = import('/lua/keymap/properKeyNames.lua').properKeyNames
 local panel = false
 local keyContainer
 local keyTable
+local dataSize = 0
 
 -- Zulan's HotBuild functions
 local initDefaultKeyMap = import('/lua/hotbuild/hotbuild.lua').initDefaultKeyMap
@@ -317,8 +318,27 @@ function CreateUI()
     searchEdit:SetHighlightForegroundColor(UIUtil.fontColor)
 	searchEdit:ShowBackground(true)
     searchEdit:SetMaxChars(40)
-    
+
+    -- Determine how many keyTable elements can be shown after folds and filters
+    local function CalculateDataSize()
+        dataSize = 0
+        local filter = string.lower(searchEdit:GetText())
+        for _, v in keyTable do
+            if v.type == 'header' and v.folded then
+                dataSize = dataSize - v.count
+            elseif filter ~= '' and v.type == 'entry'
+            and not string.find(string.lower(v.text), filter) then
+                -- Do nothing
+            else
+                dataSize = dataSize + 1
+            end
+        end
+    end
+
+    CalculateDataSize()
+
     searchEdit.OnTextChanged = function(self, newText, oldText)
+        CalculateDataSize()
         keyContainer:CalcVisible()
     end
 
@@ -376,28 +396,12 @@ function CreateUI()
 
     local numLines = function() return table.getsize(keyEntries) end
 
-    local function DataSize()
-        local filter = string.lower(searchEdit:GetText())
-        local ret = 0
-        for _, v in keyTable do
-            if v.type == 'header' and v.folded then
-                ret = ret - v.count
-            elseif filter ~= '' and v.type == 'entry'
-            and not string.find(string.lower(v.text), filter) then
-                -- Do nothing
-            else
-                ret = ret + 1
-            end
-        end
-        return ret
-    end
-
     -- called when the scrollbar for the control requires data to size itself
     -- GetScrollValues must return 4 values in this order:
     -- rangeMin, rangeMax, visibleMin, visibleMax
     -- aixs can be "Vert" or "Horz"
     keyContainer.GetScrollValues = function(self, axis)
-        local size = DataSize()
+        local size = dataSize
         --LOG(size, ":", self.top, ":", math.min(self.top + numLines, size))
         return 0, size, self.top, math.min(self.top + numLines(), size)
     end
@@ -416,14 +420,14 @@ function CreateUI()
     keyContainer.ScrollSetTop = function(self, axis, top)
         top = math.floor(top)
         if top == self.top then return end
-        local size = DataSize()
+        local size = dataSize
         self.top = math.max(math.min(size - numLines() , top), 0)
         self:CalcVisible()
     end
 
     -- called to determine if the control is scrollable on a particular access. Must return true or false.
     keyContainer.IsScrollable = function(self, axis)
-        return DataSize() < table.getsize(keyEntries)
+        return dataSize < table.getsize(keyEntries)
     end
 
     -- determines what controls should be visible or not
@@ -490,6 +494,7 @@ function CreateUI()
                         end
                         local sound = Sound({Bank = 'Interface', Cue = 'UI_Camera_Delete_Position'})
                         PlaySound(sound)
+                        CalculateDataSize()
                         self:CalcVisible()
                     end
                 end
