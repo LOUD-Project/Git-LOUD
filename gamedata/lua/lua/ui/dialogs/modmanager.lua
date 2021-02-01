@@ -429,7 +429,7 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
 
     local help1 = UIUtil.CreateText(panel, "Click a row to enable/disable.", 14, UIUtil.bodyFont)
     LayoutHelpers.AtLeftTopIn(help1, panel, 30, 74)
-    local help2 = UIUtil.CreateText(panel, "Click the > button to see more details.", 14, UIUtil.bodyFont)
+    local help2 = UIUtil.CreateText(panel, "Click the > button or right-click on a mod to see more details.", 14, UIUtil.bodyFont)
     LayoutHelpers.Below(help2, help1, 2)
 
     ---------------------------------------------------------------------------
@@ -452,8 +452,8 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
     for key, block in modSchema do
         modStruct[key] = {}
         modStruct[key].name = key
-        -- RATODO: Maybe leave some closed by default
-        modStruct[key].open = true
+        -- Collapse these two folders by default
+        modStruct[key].open = (key ~= 'Mutators' and key ~= 'Miscellaneous')
         modStruct[key].uids = {}
         for _, uid in block do
             table.insert(modStruct[key].uids, uid)
@@ -528,7 +528,7 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
         grp.name:DisableHitTest()
         grp.Brighten = function(self)
             if not self.uid then
-                grp.bg:SetSolidColor('42484B')
+                grp.bg:SetSolidColor('7E979B')
             else
                 local modStatusEntry = modStatus[self.uid]
                 if modStatusEntry.checked then
@@ -549,7 +549,7 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
 
         grp.Darken = function(self)
             if not self.uid then
-                grp.bg:SetSolidColor('22282B')
+                grp.bg:SetSolidColor('5E777B') -- Folder colour; desatured mid-cyan
             else
                 local modStatusEntry = modStatus[self.uid]
                 if modStatusEntry.checked then
@@ -570,7 +570,7 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
 
         grp.SetVisual = function(self, modStatusEntry)
             if modStatusEntry == nil then
-                grp.bg:SetSolidColor('22282B')
+                grp.bg:SetSolidColor('5E777B') -- Folder colour; desatured mid-cyan
             elseif modStatusEntry.checked then
                 if modStatusEntry.cantoggle then
                     grp.bg:SetSolidColor('55863F') -- Green
@@ -701,12 +701,19 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
             end
 
             for _, uid in block.uids do
+                -- Prevent complete blow-up if a UID in the schema is illegal
+                if not allmods[uid] then
+                    continue
+                end
+
                 if skip > 0 then
                     skip = skip - 1
                     continue
                 end
+
                 i = i + 1
                 if i > numElements then break end
+
                 modListTable[i].block = false
                 modListTable[i].uid = uid
                 local modInfo = allmods[uid]
@@ -856,23 +863,25 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
                     elseif event.Type == 'MouseEnter' then
                         self:Brighten()
                     elseif event.Type == 'ButtonPress' then
-                        local sound = Sound({Cue = 'UI_Mini_MouseDown', Bank = 'Interface',})
-                        PlaySound(sound)
-                        if modStatus[self.uid].cantoggle then
-                            if IsModExclusive(modInfo.uid) and not self.enabled then
-                                HandleExclusiveClick(self)
-                            else
-                                if exclusiveModSelected then
-                                    HandleExclusiveActive(self, HandleNormalClick)
+                        if event.Modifiers.Right then
+                            DisplayModDetails(self.uid)
+                            local sound = Sound({Cue = 'UI_Mod_Select', Bank = 'Interface',})
+                            PlaySound(sound)
+                        else
+                            local sound = Sound({Cue = 'UI_Mini_MouseDown', Bank = 'Interface',})
+                            PlaySound(sound)
+                            if modStatus[self.uid].cantoggle then
+                                if IsModExclusive(modInfo.uid) and not self.enabled then
+                                    HandleExclusiveClick(self)
                                 else
-                                    HandleNormalClick(self)
+                                    if exclusiveModSelected then
+                                        HandleExclusiveActive(self, HandleNormalClick)
+                                    else
+                                        HandleNormalClick(self)
+                                    end
                                 end
                             end
                         end
-                    elseif event.Type == 'ButtonDClick' then
-                        DisplayModDetails(self.uid)
-                        local sound = Sound({Cue = 'UI_Mod_Select', Bank = 'Interface',})
-                        PlaySound(sound)
                     end
                 end
                 modListTable[i].detailButton.OnClick = function(self, modifiers)
@@ -1020,7 +1029,7 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
     local saveBtn = UIUtil.CreateButtonStd(panel, '/widgets/tiny', "Save", 12, 2)
     LayoutHelpers.LeftOf(saveBtn, loadBtn)
     saveBtn.OnClick = function(self, modifiers)
-		CreateSavePresetDialog(panel, modListTable)
+		CreateSavePresetDialog(panel, modStatus)
     end
 
     local cancelBtn = UIUtil.CreateButtonStd(panel, '/scx_menu/small-btn/small', "<LOC _Cancel>", 16, nil, nil, "UI_Menu_Cancel_02")

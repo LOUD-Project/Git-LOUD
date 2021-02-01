@@ -247,17 +247,17 @@ function CreateUnitDB(over, callback)
 	Tooltip.AddControlTooltip(unitDisplay.capIcon, 'unitdb_capcost')
 	Tooltip.AddControlTooltip(unitDisplay.cap, 'unitdb_capcost')
 
-	unitDisplay.massIcon = Bitmap(unitDisplay, UIUtil.UIFile('/game/build-ui/icon-mass_bmp.dds'))
-	LayoutHelpers.Below(unitDisplay.massIcon, unitDisplay.healthIcon, 6)
+	unitDisplay.massCostIcon = Bitmap(unitDisplay, UIUtil.UIFile('/game/build-ui/icon-mass_bmp.dds'))
+	LayoutHelpers.Below(unitDisplay.massCostIcon, unitDisplay.healthIcon, 6)
 	unitDisplay.mass = UIUtil.CreateText(unitDisplay, '', 14, UIUtil.bodyFont)
-	LayoutHelpers.RightOf(unitDisplay.mass, unitDisplay.massIcon, 6)
-	Tooltip.AddControlTooltip(unitDisplay.massIcon, 'unitdb_mass')
+	LayoutHelpers.RightOf(unitDisplay.mass, unitDisplay.massCostIcon, 6)
+	Tooltip.AddControlTooltip(unitDisplay.massCostIcon, 'unitdb_mass')
 	Tooltip.AddControlTooltip(unitDisplay.mass, 'unitdb_mass')
-	unitDisplay.energyIcon = Bitmap(unitDisplay, UIUtil.UIFile('/game/build-ui/icon-energy_bmp.dds'))
-	LayoutHelpers.RightOf(unitDisplay.energyIcon, unitDisplay.mass, 6)
+	unitDisplay.energyCostIcon = Bitmap(unitDisplay, UIUtil.UIFile('/game/build-ui/icon-energy_bmp.dds'))
+	LayoutHelpers.RightOf(unitDisplay.energyCostIcon, unitDisplay.mass, 6)
 	unitDisplay.energy = UIUtil.CreateText(unitDisplay, '', 14, UIUtil.bodyFont)
-	LayoutHelpers.RightOf(unitDisplay.energy, unitDisplay.energyIcon, 6)
-	Tooltip.AddControlTooltip(unitDisplay.energyIcon, 'unitdb_energy')
+	LayoutHelpers.RightOf(unitDisplay.energy, unitDisplay.energyCostIcon, 6)
+	Tooltip.AddControlTooltip(unitDisplay.energyCostIcon, 'unitdb_energy')
 	Tooltip.AddControlTooltip(unitDisplay.energy, 'unitdb_energy')
 	unitDisplay.buildTimeIcon = Bitmap(unitDisplay, UIUtil.UIFile('/game/build-ui/icon-clock_bmp.dds'))
 	LayoutHelpers.RightOf(unitDisplay.buildTimeIcon, unitDisplay.energy, 6)
@@ -267,7 +267,7 @@ function CreateUnitDB(over, callback)
 	Tooltip.AddControlTooltip(unitDisplay.buildTime, 'unitdb_buildtime')
 
 	unitDisplay.fuelIcon = Bitmap(unitDisplay, UIUtil.UIFile('/game/unit_view_icons/fuel.dds'))
-	LayoutHelpers.Below(unitDisplay.fuelIcon, unitDisplay.massIcon, 6)
+	LayoutHelpers.Below(unitDisplay.fuelIcon, unitDisplay.massCostIcon, 6)
 	unitDisplay.fuelTime = UIUtil.CreateText(unitDisplay, '', 14, UIUtil.bodyFont)
 	LayoutHelpers.RightOf(unitDisplay.fuelTime, unitDisplay.fuelIcon, 6)
 	Tooltip.AddControlTooltip(unitDisplay.fuelIcon, 'unitdb_fuel')
@@ -280,12 +280,26 @@ function CreateUnitDB(over, callback)
 	Tooltip.AddControlTooltip(unitDisplay.buildPowerIcon, 'unitdb_buildpower')
 	Tooltip.AddControlTooltip(unitDisplay.buildPower, 'unitdb_buildpower')
 
+	unitDisplay.storageLabel = UIUtil.CreateText(unitDisplay, "Storage:", 14, UIUtil.bodyFont)
+	LayoutHelpers.Below(unitDisplay.storageLabel, unitDisplay.fuelIcon, 6)
+
+	unitDisplay.massStorageIcon = Bitmap(unitDisplay, UIUtil.UIFile('/game/build-ui/icon-mass_bmp.dds'))
+	LayoutHelpers.RightOf(unitDisplay.massStorageIcon, unitDisplay.storageLabel, 6)
+	unitDisplay.massStorage = UIUtil.CreateText(unitDisplay, '', 14, UIUtil.bodyFont)
+	LayoutHelpers.RightOf(unitDisplay.massStorage, unitDisplay.massStorageIcon, 6)
+
+	unitDisplay.energyStorageIcon = Bitmap(unitDisplay, UIUtil.UIFile('/game/build-ui/icon-energy_bmp.dds'))
+	LayoutHelpers.RightOf(unitDisplay.energyStorageIcon, unitDisplay.massStorage, 6)
+	unitDisplay.energyStorage = UIUtil.CreateText(unitDisplay, '', 14, UIUtil.bodyFont)
+	LayoutHelpers.RightOf(unitDisplay.energyStorage, unitDisplay.energyStorageIcon, 6)
+
 	unitDisplay.weaponsLabel = UIUtil.CreateText(unitDisplay, 'Weapons', 18, UIUtil.buttonFont)
-	LayoutHelpers.Below(unitDisplay.weaponsLabel, unitDisplay.fuelIcon, 6)
+	LayoutHelpers.Below(unitDisplay.weaponsLabel, unitDisplay.storageLabel, 6)
 	LayoutHelpers.AtHorizontalCenterIn(unitDisplay.weaponsLabel, unitDisplay)
 
 	unitDisplay.weapons = ItemList(unitDisplay)
-	LayoutHelpers.Below(unitDisplay.weapons, unitDisplay.fuelIcon, 32)
+	LayoutHelpers.Below(unitDisplay.weapons, unitDisplay.weaponsLabel, 2)
+	LayoutHelpers.AtHorizontalCenterIn(unitDisplay.weapons, unitDisplay)
 	unitDisplay.weapons.Width:Set(unitDisplay.Width)
 	unitDisplay.weapons.Height:Set(0)
 	unitDisplay.weapons:SetFont(UIUtil.bodyFont, 12)
@@ -813,6 +827,7 @@ function DisplayUnit(index)
 
 	unitDisplay.icon:Show()
 	unitDisplay.stratIcon:Show()
+	unitDisplay.backIcon:Show()
 	local validIcons = {land = true, air = true, sea = true, amph = true}
 	if validIcons[bp.General.Icon] then
         unitDisplay.backIcon:SetTexture(UIUtil.UIFile('/icons/units/'..bp.General.Icon..'_up.dds'))
@@ -868,9 +883,9 @@ function DisplayUnit(index)
 		unitDisplay.cap:SetText('1')
 	end
 
-	unitDisplay.massIcon:Show()
+	unitDisplay.massCostIcon:Show()
 	unitDisplay.mass:SetText(tostring(bp.Economy.BuildCostMass))
-	unitDisplay.energyIcon:Show()
+	unitDisplay.energyCostIcon:Show()
 	unitDisplay.energy:SetText(tostring(bp.Economy.BuildCostEnergy))
 	unitDisplay.buildTimeIcon:Show()
 	local bpBTMins = math.floor((bp.Economy.BuildTime / 10) / 60)
@@ -894,6 +909,26 @@ function DisplayUnit(index)
 	else
 		unitDisplay.buildPowerIcon:Hide()
 		unitDisplay.buildPower:SetText('')
+	end
+
+	unitDisplay.storageLabel:Hide()
+
+	if bp.Economy.StorageMass then
+		unitDisplay.storageLabel:Show()
+		unitDisplay.massStorageIcon:Show()
+		unitDisplay.massStorage:SetText(tostring(bp.Economy.StorageMass))
+	else
+		unitDisplay.massStorageIcon:Hide()
+		unitDisplay.massStorage:SetText('')
+	end
+
+	if bp.Economy.StorageEnergy then
+		unitDisplay.storageLabel:Show()
+		unitDisplay.energyStorageIcon:Show()
+		unitDisplay.energyStorage:SetText(tostring(bp.Economy.StorageEnergy))
+	else
+		unitDisplay.energyStorageIcon:Hide()
+		unitDisplay.energyStorage:SetText('')
 	end
 
 	if bp.Weapon then
@@ -1052,6 +1087,10 @@ function DisplayUnit(index)
 
 				weaponText = (weaponText .. " { Inner Dmg: " .. UVD.LOUD_ThouCheck(weapon.NukeInnerRingDamage) .. ", AoE: " .. UVD.LOUD_KiloCheck(weapon.NukeInnerRingRadius * 20) .. " | Outer Dmg: " .. UVD.LOUD_ThouCheck(weapon.NukeOuterRingDamage) .. ", AoE: " .. UVD.LOUD_KiloCheck(weapon.NukeOuterRingRadius * 20))
 
+				if weapon.MaxProjectileStorage then
+					weaponText = weaponText .. ", Max Ammo: " .. weapon.MaxProjectileStorage
+				end
+
 				-- Finish text lines.
 				weaponText = (weaponText .. " }")
 
@@ -1121,7 +1160,8 @@ function DisplayUnit(index)
 						if wepCategory == " Defense" then
 							-- Display Countermeasure Targets as the weapon type.
 							if weapon.TargetRestrictOnlyAllow then
-								weaponText = (UVD.LOUD_CaseCheck(weapon.TargetRestrictOnlyAllow) .. wepCategory)
+								local utils = import('/lua/utilities.lua')
+								weaponText = (utils.LOUD_TitleCase(weapon.TargetRestrictOnlyAllow) .. wepCategory)
 							end
 
 							-- If a weapon is a Countermeasure, we don't care about its damage or DPS, as it's all very small numbers purely for shooting projectiles.
@@ -1154,6 +1194,10 @@ function DisplayUnit(index)
 						else
 							weaponText = (weaponText .. ", Rng: " .. UVD.LOUD_KiloCheck(weapon.MaxRadius * 20))
 						end
+					end
+
+					if weapon.MaxProjectileStorage then
+						weaponText = weaponText .. ", Max Ammo: " .. weapon.MaxProjectileStorage
 					end
 
 					-- Finish text line.
@@ -1227,15 +1271,20 @@ function ClearUnitDisplay()
 	unitDisplay.shield:SetText('')
 	unitDisplay.capIcon:Hide()
 	unitDisplay.cap:SetText('')
-	unitDisplay.massIcon:Hide()
+	unitDisplay.massCostIcon:Hide()
 	unitDisplay.mass:SetText('')
-	unitDisplay.energyIcon:Hide()
+	unitDisplay.energyCostIcon:Hide()
 	unitDisplay.energy:SetText('')
 	unitDisplay.buildTimeIcon:Hide()
 	unitDisplay.buildTime:SetText('')
 	unitDisplay.buildPowerIcon:Hide()
 	unitDisplay.fuelIcon:Hide()
 	unitDisplay.fuelTime:SetText('')
+	unitDisplay.storageLabel:Hide()
+	unitDisplay.massStorageIcon:Hide()
+	unitDisplay.massStorage:SetText('')
+	unitDisplay.energyStorageIcon:Hide()
+	unitDisplay.energyStorage:SetText('')
 	unitDisplay.weaponsLabel:Hide()
 	unitDisplay.weapons:DeleteAllItems()
 	unitDisplay.weapons.Height:Set(0)
