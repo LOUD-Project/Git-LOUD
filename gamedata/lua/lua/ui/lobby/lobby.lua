@@ -1945,10 +1945,15 @@ local function UpdateGame()
         gameInfo.GameOptions.MaxSlots = '16'
         
         --LOG("*AI DEBUG Updating Steam Lobby game options with "..repr(gameInfo.GameOptions))
-	
+
+        -- Prevent a crash caused by profiles from before unit cap textbox
+        if type(gameInfo.GameOptions.UnitCap) ~= 'string' then
+            gameInfo.GameOptions.UnitCap = "800"
+        end
+
 		lobbyComm:UpdateSteamLobby(  
         
-            {            
+            {
 				Options = gameInfo.GameOptions,
 				HostedBy = localPlayerName,
                 MaxPlayers = 16,
