@@ -657,6 +657,31 @@ Tooltips = {
     -- *** Mod Manager Strings
     -- ********************
 
+    modmgr_folder_units = {
+        title = "Units",
+        description = "Mods which add new units to the game.",
+    },
+    modmgr_folder_ui = {
+        title = "User Interface",
+        description = "Mods which change the way you control the game without changing the game itself.",
+    },
+    modmgr_folder_mini = {
+        title = "Mini-Mods",
+        description = "Mods which make small but meaningful changes to the game. All are endorsed by the LOUD team.",
+    },
+    modmgr_folder_mut = {
+        title = "Mutators",
+        description = "Mods which change the game in extreme ways. Balance not guaranteed.",
+    },
+    modmgr_folder_misc = {
+        title = "Miscellaneous",
+        description = "Mods which don't fit into any other category.",
+    },
+    modmgr_folder_user = {
+        title = "Usermods",
+        description = "Any mod which you installed into the usermods folder.",
+    },
+
     modmgr_loudstandard = {
         title = "Enable LOUD Standard",
         description = "Turn on the group of mods officially endorsed by the LOUD Development Team as the true LOUD experience.",
