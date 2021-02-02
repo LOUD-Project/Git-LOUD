@@ -214,6 +214,15 @@ local folderOrder = {
     "Usermods",
 }
 
+local folderTooltips = {
+    ["Units"] = 'modmgr_folder_units',
+    ["User Interface"] = 'modmgr_folder_ui',
+    ["Mini-Mods"] = 'modmgr_folder_mini',
+    ["Mutators"] = 'modmgr_folder_mut',
+    ["Miscellaneous"] = 'modmgr_folder_misc',
+    ["Usermods"] = 'modmgr_folder_user',
+}
+
 local modStruct = {}
 
 local function CreateLoadPresetDialog(parent, modListTable, modStatus)
@@ -680,8 +689,10 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
                 modListTable[i].name:SetText(block.name)
                 modListTable[i].HandleEvent = function(self, event)
                     if event.Type == 'MouseExit' then
+                        Tooltip.DestroyMouseoverDisplay()
                         self:Darken()
                     elseif event.Type == 'MouseEnter' then
+                        Tooltip.CreateMouseoverDisplay(self, folderTooltips[self.block.name], 0.25, true)
                         self:Brighten()
                     elseif event.Type == 'ButtonPress' or event.Type == 'ButtonDClick' then
                         self.block.open = not self.block.open
