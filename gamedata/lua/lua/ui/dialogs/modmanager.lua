@@ -449,6 +449,9 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
 
     modStruct = {}
 
+    local allmods = Mods.AllSelectableMods()
+    local selmods = Mods.GetSelectedMods()
+
     for key, block in modSchema do
         modStruct[key] = {}
         modStruct[key].name = key
@@ -456,12 +459,14 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
         modStruct[key].open = (key ~= 'Mutators' and key ~= 'Miscellaneous')
         modStruct[key].uids = {}
         for _, uid in block do
+            -- Prevent complete blow-up if a UID in the schema is illegal
+            if not allmods[uid] then
+                WARN("MOD MANAGER: "..uid.." is in schema, but not installed")
+                continue
+            end
             table.insert(modStruct[key].uids, uid)
         end
     end
-
-    local allmods = Mods.AllSelectableMods()
-    local selmods = Mods.GetSelectedMods()
 
     for _, v in allmods do
         if not InSchema(v.uid) then
@@ -476,6 +481,15 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
             exclusiveModSelected = v.uid
         end
     end
+
+    table.sort(modStruct['Usermods'].uids, function(a, b)
+        if allmods[a].name and allmods[b].name
+        and allmods[a].name ~= allmods[b].name then
+            return allmods[a].name < allmods[b].name
+        else
+            return a > b
+        end
+    end)
 
     local modListTable = {}
 
@@ -701,11 +715,6 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
             end
 
             for _, uid in block.uids do
-                -- Prevent complete blow-up if a UID in the schema is illegal
-                if not allmods[uid] then
-                    continue
-                end
-
                 if skip > 0 then
                     skip = skip - 1
                     continue
