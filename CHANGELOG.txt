@@ -1,3 +1,22 @@
+### Patch 01-02-2021 ###
+Lua 5.4.04
+
+- Fix the mod manager getting stuck on Lucky Dip.
+- Fix crashes when trying to start a multiplayer lobby.
+- A preset saved after the last update would enable no mods when loaded. This has been fixed.
+- The colour picker can no longer be opened when it has already been opened.
+- Unit database improvements:
+	- Show a unit's icon background in its details display.
+	- Show max ammunition count for applicable weapons (e.g. nukes and antinukes).
+	- Show a unit's storage capacities if it has any.
+	- Fix a bug which caused certain weapons not show up.
+- Mod manager improvements:
+	- Give folders their own colour to make them appear more distinct from mods.
+	- Collapse Mutators and Miscellaneous folders by default.
+	- Double-clicking no longer shows mod details (since this tended to happen by accident). Instead, right-clicking does this.
+	- Usermods get sorted alphabetically.
+	- Folders have tooltips to better explain them.
+
 ### Release 30-01-2021 ###
 Lua 5.4.03
 Textures 6.3.1
