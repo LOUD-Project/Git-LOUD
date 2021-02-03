@@ -274,7 +274,7 @@ function CreateUI()
     LayoutHelpers.AtHorizontalCenterIn(title, panel)
 
     local closeButton = UIUtil.CreateButtonStd(panel, "/scx_menu/small-btn/small", LOC("<LOC _Close>"), 14, 2)
-    LayoutHelpers.AtTopIn(closeButton, panel.border.bm, -20)
+    LayoutHelpers.AtTopIn(closeButton, panel.border.bm, -24)
     LayoutHelpers.AtHorizontalCenterIn(closeButton, panel)
     closeButton.OnClick = function(self, modifiers)
 		ConfirmNewKeyMap()
@@ -353,7 +353,7 @@ function CreateUI()
     AddInputCapture(panel)
 
     keyContainer = Group(panel)
-    keyContainer.Height:Set(385)
+    keyContainer.Height:Set(370)
     keyContainer.Width:Set(593)
     keyContainer.top = 0
 
@@ -498,6 +498,7 @@ function CreateUI()
                 return 'ff000000'
             end
         end
+
         local function SetTextLine(line, data, lineID)
             if data.type == 'header' then
                 LayoutHelpers.AtHorizontalCenterIn(line.key, keyContainer)
