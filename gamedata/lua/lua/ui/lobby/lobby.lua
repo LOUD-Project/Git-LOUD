@@ -3263,21 +3263,25 @@ function CreateUI(maxPlayers, useSteam)
     GUI.nameLabel = UIUtil.CreateText(GUI.labelGroup, "<LOC lobui_0213>Player Name", 14, UIUtil.titleFont)
     LayoutHelpers.AtLeftIn(GUI.nameLabel, GUI.panel, slotColumnSizes.player.x)
     LayoutHelpers.AtVerticalCenterIn(GUI.nameLabel, GUI.labelGroup)
+    GUI.nameLabel:SetDropShadow(true)
     Tooltip.AddControlTooltip(GUI.nameLabel, 'lob_slot')
 
     GUI.colorLabel = UIUtil.CreateText(GUI.labelGroup, "<LOC lobui_0214>Color", 14, UIUtil.titleFont)
     LayoutHelpers.AtLeftIn(GUI.colorLabel, GUI.panel, slotColumnSizes.color.x)
     LayoutHelpers.AtVerticalCenterIn(GUI.colorLabel, GUI.labelGroup)
+    GUI.colorLabel:SetDropShadow(true)
     Tooltip.AddControlTooltip(GUI.colorLabel, 'lob_color')
 
     GUI.factionLabel = UIUtil.CreateText(GUI.labelGroup, "<LOC lobui_0215>Faction", 14, UIUtil.titleFont)
     LayoutHelpers.AtLeftIn(GUI.factionLabel, GUI.panel, slotColumnSizes.faction.x)
     LayoutHelpers.AtVerticalCenterIn(GUI.factionLabel, GUI.labelGroup)
+    GUI.factionLabel:SetDropShadow(true)
     Tooltip.AddControlTooltip(GUI.factionLabel, 'lob_faction')
 
     GUI.teamLabel = UIUtil.CreateText(GUI.labelGroup, "<LOC lobui_0216>Team", 14, UIUtil.titleFont)
     LayoutHelpers.AtLeftIn(GUI.teamLabel, GUI.panel, slotColumnSizes.team.x)
     LayoutHelpers.AtVerticalCenterIn(GUI.teamLabel, GUI.labelGroup)
+    GUI.teamLabel:SetDropShadow(true)
     Tooltip.AddControlTooltip(GUI.teamLabel, 'lob_team')
 
 	if handiMod then
@@ -3290,15 +3294,18 @@ function CreateUI(maxPlayers, useSteam)
         GUI.aiPingLabel = UIUtil.CreateText(GUI.labelGroup, "Ping/AI Settings", 14, UIUtil.titleFont)
         LayoutHelpers.AtLeftIn(GUI.aiPingLabel, GUI.panel, slotColumnSizes.mult.x)
         LayoutHelpers.AtVerticalCenterIn(GUI.aiPingLabel, GUI.labelGroup)
+        GUI.aiPingLabel:SetDropShadow(true)
         Tooltip.AddControlTooltip(GUI.aiPingLabel, 'lob_ai_ping')
 
         GUI.readyLabel = UIUtil.CreateText(GUI.labelGroup, "<LOC lobui_0218>Ready", 14, UIUtil.titleFont)
         LayoutHelpers.AtLeftIn(GUI.readyLabel, GUI.panel, slotColumnSizes.ready.x)
+        GUI.readyLabel:SetDropShadow(true)
         LayoutHelpers.AtVerticalCenterIn(GUI.readyLabel, GUI.labelGroup)
     else
         GUI.aiLabel = UIUtil.CreateText(GUI.labelGroup, "AI Settings", 14, UIUtil.titleFont)
         LayoutHelpers.AtLeftIn(GUI.aiLabel, GUI.panel, slotColumnSizes.mult.x)
         LayoutHelpers.AtVerticalCenterIn(GUI.aiLabel, GUI.labelGroup)
+        GUI.aiLabel:SetDropShadow(true)
         Tooltip.AddControlTooltip(GUI.aiLabel, 'lob_ai')
     end
 
