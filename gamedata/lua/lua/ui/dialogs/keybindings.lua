@@ -375,13 +375,67 @@ function CreateUI()
         keyEntries[index].description:SetClipToWidth(true)
         keyEntries[index].description.Width:Set(keyEntries[index].bg.Right() - keyEntries[index].bg.Left() - 150) -- this is not meant to be a lazy var function since the layout is static
 
+        keyEntries[index].folded = UIUtil.CreateText(keyEntries[1].bg, '', 16, "Arial Bold")
+
         keyEntries[index].bg.Height:Set(function() return keyEntries[index].key.Height() + 4 end)
 
         LayoutHelpers.AtVerticalCenterIn(keyEntries[index].key, keyEntries[index].bg)
         LayoutHelpers.AtLeftIn(keyEntries[index].description, keyEntries[index].bg, 150)
         LayoutHelpers.AtVerticalCenterIn(keyEntries[index].description, keyEntries[index].bg)
+        LayoutHelpers.AtLeftIn(keyEntries[index].folded, keyEntries[index].bg, 16)
+        LayoutHelpers.AtVerticalCenterIn(keyEntries[index].folded, keyEntries[index].bg)
 
-        keyEntries[index].bg.HandleEvent = function(self, event) end
+        keyEntries[index].bg.HandleEvent = function(self, event)
+            local data = keyTable[self.dataIndex]
+            if data.type == 'entry' then
+                local eventHandled = false
+
+                local function SelectLine()
+                    for _, v in keyTable do
+                        if v._selected then
+                            v._selected = nil
+                        end
+                    end
+                    data._selected = true
+                    self:GetParent():CalcVisible()
+                end
+
+                if event.Type == 'ButtonPress' then
+                    SelectLine()
+                    eventHandled = true
+                elseif event.Type == 'ButtonDClick' then
+                    SelectLine()
+                    eventHandled = true
+                end
+
+                return eventHandled
+            elseif data.type == 'header' then
+                if event.Type == 'MouseEnter' then
+                    self:SetSolidColor('ff708288')
+                elseif event.Type == 'MouseExit' then
+                    self:SetSolidColor('ff506268')
+                elseif event.Type == 'ButtonPress' then
+                    local parent = self:GetParent()
+                    data.folded = not data.folded
+                    -- Folding causes list shrinkage; better to adjust scrollbar
+                    -- now, since it's jarring if user input causes it
+                    if data.folded then
+                        -- Don't worry about changing fold indicator here
+                        -- It happens in CalcVisible already
+                        if parent.top <= 1 then
+                            parent:ScrollLines(nil, -1)
+                        else
+                            parent:ScrollLines(nil, -1)
+                            parent:ScrollLines(nil, 1)
+                        end
+                    end
+                    local sound = Sound({Bank = 'Interface', Cue = 'UI_Camera_Delete_Position'})
+                    PlaySound(sound)
+                    CalculateDataSize()
+                    parent:CalcVisible()
+                end
+            end -- Spacers need no logic
+        end
     end
 
     CreateElement(1)
@@ -445,33 +499,6 @@ function CreateUI()
             end
         end
         local function SetTextLine(line, data, lineID)
-
-            local function NonHeaderHandler(selfLine, event)
-                local eventHandled = false
-
-                local function SelectLine()
-                    for k, v in keyTable do
-                        if v._selected then
-                            v._selected = nil
-                        end
-                    end
-                    if keyTable[selfLine.dataIndex].type == 'entry' then
-                        keyTable[selfLine.dataIndex]._selected = true
-                    end
-                    keyContainer:CalcVisible()
-                end
-
-                if event.Type == 'ButtonPress' then
-                    SelectLine()
-                    eventHandled = true
-                elseif event.Type == 'ButtonDClick' then
-                    SelectLine()
-                    eventHandled = true
-                end
-
-                return eventHandled
-            end
-
             if data.type == 'header' then
                 LayoutHelpers.AtHorizontalCenterIn(line.key, keyContainer)
                 line.bg:SetSolidColor('ff506268')
@@ -479,30 +506,22 @@ function CreateUI()
                 line.key:SetFont('Arial Bold', 16)
                 line.key:SetColor('ffe9e45f')
                 line.description:SetText('')
-                line.bg.HandleEvent = function(_, event)
-                    if event.Type == 'ButtonPress' then
-                        data.folded = not data.folded
-                        -- Folding causes list shrinkage; better to adjust scrollbar
-                        -- now, since it's jarring if user input causes it
-                        if data.folded then
-                            if self.top <= 1 then
-                                self:ScrollLines(nil, -1)
-                            else
-                                self:ScrollLines(nil, -1)
-                                self:ScrollLines(nil, 1)
-                            end
-                        end
-                        local sound = Sound({Bank = 'Interface', Cue = 'UI_Camera_Delete_Position'})
-                        PlaySound(sound)
-                        CalculateDataSize()
-                        self:CalcVisible()
-                    end
+                if data.folded then
+                    line.folded:SetText("[+]")
+                else
+                    line.folded:SetText("[-]")
                 end
+                line.bg.dataKey = nil
+                line.bg.dataAction = nil
+                line.bg.dataIndex = lineID
             elseif data.type == 'spacer' then
                 line.bg:SetSolidColor('00000000')
                 line.key:SetText('')
                 line.description:SetText('')
-                line.bg.HandleEvent = NonHeaderHandler
+                line.folded:SetText("")
+                line.bg.dataKey = nil
+                line.bg.dataAction = nil
+                line.bg.dataIndex = lineID
             else
                 --LayoutHelpers.AtLeftIn(line.key, line.bg)
                 line.key.Left:Set(function() return math.floor((line.bg.Left() + 70) - (line.key.Width() / 2)) end)
@@ -510,11 +529,11 @@ function CreateUI()
                 line.key:SetText(LOC(data.keyDisp))
                 line.key:SetColor('ffffffff')
                 line.key:SetFont('Arial', 16)
+                line.folded:SetText("")
                 line.description:SetText(LOC(data.text))
                 line.bg.dataKey = data.key
                 line.bg.dataAction = data.action
                 line.bg.dataIndex = lineID
-                line.bg.HandleEvent = NonHeaderHandler
             end
         end
 
