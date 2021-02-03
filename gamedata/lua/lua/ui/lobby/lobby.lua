@@ -2763,10 +2763,10 @@ function CreateUI(maxPlayers, useSteam)
             GUI.chatEdit:AcquireFocus() 
             
             for optionKey, data in changedOptions do
-                if data.type == 'combo' then
-                    Prefs.SetToCurrentProfile(data.pref, data.index)
-                else
+                if data.type and data.type == 'edit' then
                     Prefs.SetToCurrentProfile(data.pref, data.value)
+                else
+                    Prefs.SetToCurrentProfile(data.pref, data.index)
                 end
                 SetGameOption(optionKey, data.value)
             end
