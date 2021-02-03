@@ -576,6 +576,7 @@ function CreateUI()
             for l = i + 1, table.getsize(keyEntries) do
                 keyEntries[l].bg:SetSolidColor('00000000')
                 keyEntries[l].key:SetText('')
+                keyEntries[l].folded:SetText("")
                 keyEntries[l].description:SetText('')
             end
         end
