@@ -3899,7 +3899,7 @@ function CreateUI(maxPlayers, useSteam)
 					if not gameInfo.ClosedSlots[i] and not gameInfo.PlayerOptions[i] then
 						DoSlotBehavior(i, GUI.fillOpenCombo.slotKeys[index], text)
                         GUI.slots[i].mult:SetText(GUI.fillAIMult:GetText())
-                        SetPlayerOption(i, 'Mult', GUI.slots[i].mult:GetText())
+                        SetPlayerOption(i, 'Mult', GUI.slots[i].mult:GetText(), true)
                     end
 				end
 			end
