@@ -3767,10 +3767,13 @@ function CreateUI(maxPlayers, useSteam)
 				for i = 1, LobbyComm.maxPlayerSlots do
 					if not gameInfo.ClosedSlots[i] and not gameInfo.PlayerOptions[i] then
                         DoSlotBehavior(i, GUI.fillOpenCombo.slotKeys[index], text)
-                        GUI.slots[i].mult:SetText(GUI.fillAIMult:GetText())
-                        SetPlayerOption(i, 'Mult', GUI.slots[i].mult:GetText())
+                        -- If the slot was able to be filled, set it up
+                        if gameInfo.PlayerOptions[i] then
+                            GUI.slots[i].mult:SetText(GUI.fillAIMult:GetText())
+                            SetPlayerOption(i, 'Mult', GUI.slots[i].mult:GetText(), true)
+                        end
 					end
-				end
+                end
 			end
         end
 		
@@ -3898,8 +3901,11 @@ function CreateUI(maxPlayers, useSteam)
 				for i = 1, LobbyComm.maxPlayerSlots do
 					if not gameInfo.ClosedSlots[i] and not gameInfo.PlayerOptions[i] then
 						DoSlotBehavior(i, GUI.fillOpenCombo.slotKeys[index], text)
-                        GUI.slots[i].mult:SetText(GUI.fillAIMult:GetText())
-                        SetPlayerOption(i, 'Mult', GUI.slots[i].mult:GetText(), true)
+                        -- If the slot was able to be filled, set it up
+                        if gameInfo.PlayerOptions[i] then
+                            GUI.slots[i].mult:SetText(GUI.fillAIMult:GetText())
+                            SetPlayerOption(i, 'Mult', GUI.slots[i].mult:GetText(), true)
+                        end
                     end
 				end
 			end
