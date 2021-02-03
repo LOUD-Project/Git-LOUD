@@ -53,9 +53,13 @@ function GetCurrentKeyMap(includeDebugKeys)
     return GetUserKeyMap(includeDebugKeys) or GetDefaultKeyMap(includeDebugKeys)
 end
 
-function ClearUserKeyMapping(key, action)
+function ClearUserKeyMapping(key)
     local newMap = GetCurrentKeyMap()
+    local allActions = Prefs.GetFromCurrentProfile("UserKeyActions")
+    local action = newMap[key]
+    IN_RemoveKeyMapTable({[key] = { action = allActions[action].action }})
     newMap[key] = nil
+
     Prefs.SetToCurrentProfile("UserKeyMap", newMap)
 
     -- GAZ UI --

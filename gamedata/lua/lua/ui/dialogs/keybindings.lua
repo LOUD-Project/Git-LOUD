@@ -245,9 +245,9 @@ function CreateUI()
 
     local function ClearCurrentSelection()
         for k, v in keyTable do
-            if v._selected then
+            if v._selected and v.key then
                 local Keymapper = import('/lua/keymap/keymapper.lua')
-                Keymapper.ClearUserKeyMapping(v.key, v.action)
+                Keymapper.ClearUserKeyMapping(v.key)
                 keyTable = FormatData()
                 keyContainer:CalcVisible()
                 break
