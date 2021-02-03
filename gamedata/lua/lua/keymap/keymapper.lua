@@ -122,7 +122,7 @@ function GetKeyActions(includeDebugKeys)
 
     local userActions = Prefs.GetFromCurrentProfile("UserKeyActions")
 
-    if userActions != nil then
+    if userActions ~= nil then
         for k,v in userActions do
             ret[k] = v
         end
