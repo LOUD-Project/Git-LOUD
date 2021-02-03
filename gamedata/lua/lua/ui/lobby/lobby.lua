@@ -5010,7 +5010,11 @@ end
 
 function SetPlayerOption(slot, key, val, override)
     if not IsLocallyOwned(slot) and not override then
-        WARN("Hey you can't set a player option on a slot you don't own.")
+        local lpid = tostring(localPlayerID)
+        local ownerID = tostring(gameInfo.PlayerOptions[slot].OwnerID)
+        WARN(
+            string.format("Illegal SetPlayerOption attempt (%s = %s) by %s on slot %d (%s)",
+            key, val, lpid, slot, ownerID))
         return
     end
 
