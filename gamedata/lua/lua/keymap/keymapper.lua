@@ -77,7 +77,11 @@ function SetUserKeyMapping(key, oldKey, action)
     local newMap = GetCurrentKeyMap()
 
     newMap[key] = action
-    newMap[oldKey] = nil
+    if oldKey then
+        local allActions = Prefs.GetFromCurrentProfile("UserKeyActions")
+        IN_RemoveKeyMapTable({[oldKey] = { action = allActions[action].action }})
+        newMap[oldKey] = nil
+    end
 
     Prefs.SetToCurrentProfile("UserKeyMap", newMap)
 

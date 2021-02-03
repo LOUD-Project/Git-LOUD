@@ -186,12 +186,11 @@ local function EditActionKey(parent, action, currentKey)
         -- check if key is already assigned to something else
         local Keymapper = import('/lua/keymap/keymapper.lua')
         local function MapKey()
-            Keymapper.SetUserKeyMapping(currentKeyPattern, false, action)
+            Keymapper.SetUserKeyMapping(currentKeyPattern, currentKey, action)
             keyTable = FormatData()
             keyContainer:CalcVisible()
         end
         local overlaps = Keymapper.GetActionsByKey(currentKeyPattern, Keymapper.GetCurrentKeyMap())
-        -- if Keymapper.IsKeyInMap(currentKeyPattern, Keymapper.GetCurrentKeyMap()) then
         if table.getsize(overlaps) > 0 then
             local olDescs = {}
 
