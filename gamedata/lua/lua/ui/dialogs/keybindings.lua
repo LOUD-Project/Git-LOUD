@@ -310,7 +310,7 @@ function CreateUI()
 
     local searchEdit = Edit(panel)
     LayoutHelpers.RightOf(searchEdit, searchLabel, 2)
-    searchEdit.Width:Set(96)
+    searchEdit.Width:Set(154)
     searchEdit.Height:Set(16)
     searchEdit:SetFont(UIUtil.bodyFont, 14)
     searchEdit:SetForegroundColor(UIUtil.fontColor)
