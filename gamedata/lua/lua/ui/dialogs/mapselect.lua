@@ -771,7 +771,7 @@ function SetupOptionsPanel(parent, singlePlayer, curOptions)
                     changedOptions[element.data.key] = {value = newText, type = 'edit', pref = element.data.pref}
                 end
                 Tooltip.AddControlTooltip(line, element.data.pref)
-                line.edit:SetText(tostring(curOptions[element.data.key]))
+                line.edit:SetText(tostring(changedOptions[element.data.key].value or curOptions[element.data.key]))
             else
                 line.text:SetText(LOC(element.text))
                 line.text:SetFont(UIUtil.bodyFont, 14)
