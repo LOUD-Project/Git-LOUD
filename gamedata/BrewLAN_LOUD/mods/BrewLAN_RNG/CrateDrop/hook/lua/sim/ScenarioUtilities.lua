@@ -17,7 +17,7 @@ do
             ScenarioInfo.DodecahedronCrate = { }
             ScenarioInfo.DodecahedronCrate.Threads = {}
             local crateNum = math.max(math.log(math.min(ScenarioInfo.size[1],ScenarioInfo.size[2]))/math.log(2) - 6, 1)
-            LOG(crateNum .. " CRATES" .. " " .. ScenarioInfo.size[1] .. " " .. ScenarioInfo.size[2])
+            LOG("CRATEDROP: "..crateNum .. " CRATES" .. " " .. ScenarioInfo.size[1] .. " " .. ScenarioInfo.size[2])
             for i = 1, crateNum do
                 ScenarioInfo.DodecahedronCrate.Threads[i] = ForkThread(crateThread,crateNum)
             end
@@ -77,14 +77,14 @@ do
             --5000 mass
             --------------------------------------------------------------------
             function(Unit, pos)
-                LOG("Dat mass")
+                -- LOG("CRATEDROP: ".."Dat mass")
                 local aiBrain = Unit:GetAIBrain()
                 local mass = aiBrain:GetEconomyStored('MASS')
                 local ratio = aiBrain:GetEconomyStoredRatio('MASS')
                 local storagespace = (mass * (1/ratio) ) - mass
                 if storagespace > 5000 then
                     if math.random(1,10) == 10 then
-                        LOG("JACKPOT")
+                        -- LOG("CRATEDROP: JACKPOT")
                         aiBrain:GiveResource('Mass', storagespace )
                         PhatLewt(Unit, pos,'HAT_Crown')--Bonus jackpot hat
                     else
@@ -100,7 +100,7 @@ do
             --Clone at current health
             --------------------------------------------------------------------
             function(Unit, pos)
-                LOG("Clone")
+                -- LOG("CRATEDROP: Clone")
                 local clone = CreateUnitHPR(Unit:GetBlueprint().BlueprintId, Unit:GetArmy(), pos[1], pos[2], pos[3], 0, math.random(0,360), 0)
                 for kbuff, vbuff in Unit.Buffs.BuffTable do
                     for k, v in vbuff do
@@ -119,7 +119,7 @@ do
             --Random buildable unit
             --------------------------------------------------------------------
             function(Unit, pos)
-                LOG("Random dude")
+                -- LOG("CRATEDROP: Random dude")
                 local clone = CreateUnitHPR(randomBuildable(gatedRandomBuildableType(Unit)), Unit:GetArmy(), pos[1], pos[2], pos[3], 0, math.random(0,360), 0)
                 if clone:GetBlueprint().Description then
                     notificationPingis(pos, Unit:GetArmy(), 'Dude', clone:GetBlueprint().Description )
@@ -131,7 +131,7 @@ do
             --Random buildable mobile engineer
             --------------------------------------------------------------------
             function(Unit, pos)
-                LOG("Engineer")
+                -- LOG("CRATEDROP: Engineer")
                 local clone = CreateUnitHPR(randomBuildable('Engineers'), Unit:GetArmy(), pos[1], pos[2], pos[3], 0, math.random(0,360), 0)
                 if clone:GetBlueprint().Description then
                     notificationPingis(pos, Unit:GetArmy(), 'EngineerDude', clone:GetBlueprint().Description )
@@ -147,7 +147,7 @@ do
             --Double health and heal
             --------------------------------------------------------------------
             function(Unit, pos)
-                LOG("Health buff")
+                -- LOG("CRATEDROP: Health buff")
                 if not Buffs['CrateHealthBuff'] then
                     BuffBlueprint {
                         Name = 'CrateHealthBuff',
@@ -185,7 +185,7 @@ do
                     }
                 end
                 if math.random(1,100) == 100 then
-                    LOG("JACKPOT")
+                    -- LOG("CRATEDROP: JACKPOT")
                     Buff.ApplyBuff(Unit, 'CrayCrateHealthBuff')
                     PhatLewt(Unit, pos,'HAT_Crown')--Bonus jackpot hat
                 else
@@ -197,7 +197,7 @@ do
             --Give larger vis range
             --------------------------------------------------------------------
             function(Unit, pos)
-                LOG("Vision buff")
+                -- LOG("CRATEDROP: Vision buff")
                 if ScenarioInfo.Options.FogOfWar == 'none' then
                     WARN("Vision buff selected while fog of war disabled. Rolling again.")
                     PhatLewt(Unit, pos)
@@ -231,7 +231,7 @@ do
                         }
                     end
                     if math.random(1,100) == 100 then
-                        LOG("JACKPOT")
+                        -- LOG("CRATEDROP: JACKPOT")
                         Buff.ApplyBuff(Unit, 'CrayCrateVisBuff')
                         PhatLewt(Unit, pos,'HAT_Crown')--Bonus jackpot hat
                     else
@@ -244,7 +244,7 @@ do
             --Give larger radar range
             --------------------------------------------------------------------
             function(Unit, pos)
-                LOG("Radar buff")
+                -- LOG("Radar buff")
                 if Unit:GetBlueprint().Intel.RadarRadius > 0 then
                     if not Buffs['CrateRadarBuff'] then
                         BuffBlueprint {
@@ -275,7 +275,7 @@ do
                         }
                     end
                     if math.random(1,100) == 100 then
-                        LOG("JACKPOT")
+                        -- LOG("CRATEDROP: JACKPOT")
                         Buff.ApplyBuff(Unit, 'CrayCrateRadarBuff')
                         PhatLewt(Unit, pos,'HAT_Crown')--Bonus jackpot hat
                     else
@@ -291,7 +291,7 @@ do
             --Give more dakka
             --------------------------------------------------------------------
             function(Unit, pos)
-                LOG("Guns buff")
+                -- LOG("CRATEDROP: Guns buff")
                 local goodtogo = false
                 if Unit:GetBlueprint().Weapon then
                     for i, v in Unit:GetBlueprint().Weapon do
@@ -351,7 +351,7 @@ do
                         }
                     end
                     if math.random(1,100) == 100 then
-                        LOG("JACKPOT")
+                        -- LOG("CRATEDROP: JACKPOT")
                         Buff.ApplyBuff(Unit, 'CrayCrateDamageBuff')
                         PhatLewt(Unit, pos,'HAT_Crown')--Bonus jackpot hat
                     else
@@ -364,7 +364,7 @@ do
             --Give fasterness
             --------------------------------------------------------------------
             function(Unit, pos)
-                LOG("Speed buff")
+                -- LOG("CRATEDROP: Speed buff")
                 if Unit:GetBlueprint().Physics.MotionType == 'RULEUMT_None' then
                     WARN("Unit that can't move rolled speed buff. Rolling again.")
                     PhatLewt(Unit, pos)
@@ -398,7 +398,7 @@ do
                         }
                     end
                     if math.random(1,100) == 100 then
-                        LOG("JACKPOT")
+                        -- LOG("CRATEDROP: JACKPOT")
                         Buff.ApplyBuff(Unit, 'CrayCrateMoveBuff')
                         PhatLewt(Unit, pos,'HAT_Crown')--Bonus jackpot hat
                     else
@@ -411,7 +411,7 @@ do
             --Give fasterness of building
             --------------------------------------------------------------------
             function(Unit, pos)
-                LOG("Build buff")
+                -- LOG("CRATEDROP: Build buff")
                 if Unit:GetBlueprint().Economy.BuildRate > 0 then
                     if not Buffs['CrateEngiBuff'] then
                         BuffBlueprint {
@@ -442,7 +442,7 @@ do
                         }
                     end
                     if math.random(1,100) == 100 then
-                        LOG("JACKPOT")
+                        -- LOG("CRATEDROP: JACKPOT")
                         Buff.ApplyBuff(Unit, 'CrayCrateEngiBuff')
                         PhatLewt(Unit, pos,'HAT_Crown')--Bonus jackpot hat
                     else
@@ -458,7 +458,7 @@ do
             --Veterancy
             --------------------------------------------------------------------
             function(Unit, pos)
-                LOG("Kills")
+                -- LOG("CRATEDROP: Kills")
                 local UnitVet = Unit:GetBlueprint().Veteran
                 if UnitVet and Unit.AddKills then
                     local kchoice = 0
@@ -469,7 +469,7 @@ do
                     local kcurrent = 0
                     for k, v in UnitVet do
                         kcurrent = kcurrent + 1
-                        --LOG(kcurrent .. kchoice)
+                        ---- LOG(kcurrent .. kchoice)
                         if kcurrent == kchoice then
                             Unit:AddKills(v)
                             break
@@ -488,7 +488,7 @@ do
             --------------------------------------------------------------------
             --------------------------------------------------------------------
             function(Unit, pos, noRerollFail)
-                LOG("Hat")
+                -- LOG("CRATEDROP: Hat")
                 local hatTypes = {
                     'HAT_Crown',
                     'HAT_Tophat',
@@ -570,21 +570,21 @@ do
             --Troll log
             --------------------------------------------------------------------
             function(Unit, pos)
-                LOG("YOU GET NOTHING. YOU LOSE. GOOD DAY.")
+                -- LOG("CRATEDROP: YOU GET NOTHING. YOU LOSE. GOOD DAY.")
                 notificationPingis(pos, Unit:GetArmy(), 'Nothing', '<LOC SCORE_0039>Failed' )
             end,
             --------------------------------------------------------------------
             --Troll print
             --------------------------------------------------------------------
             function(Unit, pos)
-                LOG("Cheating message") print(Unit:GetAIBrain().Nickname .. " " .. LOC("<LOC cheating_fragment_0000>is") .. LOC("<LOC cheating_fragment_0002> cheating!")  )
+                -- LOG("CRATEDROP: Cheating message") print(Unit:GetAIBrain().Nickname .. " " .. LOC("<LOC cheating_fragment_0000>is") .. LOC("<LOC cheating_fragment_0002> cheating!")  )
                 notificationPingis(pos, Unit:GetArmy(), 'Bad', '<LOC SCORE_0039>Failed' )
             end,
             --------------------------------------------------------------------
             --Troll bomb
             --------------------------------------------------------------------
             function(Unit, pos)
-                LOG("Explosion")
+                -- LOG("CRATEDROP: Explosion")
                 if __blueprints.xrl0302 then
                     CreateUnitHPR('xrl0302', Unit:GetArmy(), pos[1], pos[2], pos[3], 0, math.random(0,360), 0):GetWeaponByLabel('Suicide'):FireWeapon()
                 else
@@ -597,7 +597,7 @@ do
             --Nemesis dupe
             --------------------------------------------------------------------
             function(Unit, pos)
-                LOG("Evil Twin")
+                -- LOG("CRATEDROP: Evil Twin")
                 local clone = CreateUnitHPR(Unit:GetBlueprint().BlueprintId, randomEnemyBrain(Unit):GetArmyIndex(), pos[1], pos[2], pos[3], 0, math.random(0,360), 0)
                 for kbuff, vbuff in Unit.Buffs.BuffTable do
                     for k, v in vbuff do
@@ -615,7 +615,7 @@ do
             --Random nemesis
             --------------------------------------------------------------------
             function(Unit, pos)
-                LOG("Random Nemesis")
+                -- LOG("CRATEDROP: Random Nemesis")
                 local clone = CreateUnitHPR(randomBuildable(gatedRandomBuildableType(Unit)), randomEnemyBrain(Unit):GetArmyIndex(), pos[1], pos[2], pos[3], 0, math.random(0,360), 0)
                 if clone:GetBlueprint().Description then
                     notificationPingis(pos, Unit:GetArmy(), 'EvilDude', '<LOC lobui_0293>Enemy' .. ' ' .. clone:GetBlueprint().Description )
@@ -627,14 +627,14 @@ do
             --Random warping
             --------------------------------------------------------------------
             function(Unit, pos)
-                LOG("Teleport")
+                -- LOG("CRATEDROP: Teleport")
                 Warp(Unit,getSafePos(Unit:GetPosition()))
                     notificationPingis(pos, Unit:GetArmy(), 'Bad', '<LOC tooltipui0024>Teleport' )
             end,
             --------------------------------------------------------------------
         },
         --{
-        --    function(Unit, pos) LOG(repr(Unit) ) end,
+        --    function(Unit, pos) -- LOG(repr(Unit) ) end,
         --},
     }
     ----------------------------------------------------------------------------
@@ -663,7 +663,7 @@ do
     function arbitraryBrain()
         for i, brain in ArmyBrains do
             if not brain:IsDefeated() and not ArmyIsCivilian(brain:GetArmyIndex()) then
-                --LOG(brain.Nickname)
+                ---- LOG(brain.Nickname)
                 return brain
             end
         end
@@ -693,7 +693,7 @@ do
             'Veterancy',
             'Weapon',
         }
-        --LOG(table.find(pings, ping))
+        ---- LOG(table.find(pings, ping))
         if type(ping) == 'string' and not table.find(pings, ping) or type(ping) ~= 'string' then
             ping = pings[1]
         end
@@ -733,7 +733,7 @@ do
         if positionDummy and IsUnit(positionDummy) then
             local pos = positionDummy:GetPosition()
             positionDummy:Destroy()
-            LOG("Safe teleport location choice attempts " .. tries .. ". Lotation across: " .. pos[1] .. ", down: " .. pos[3] .. "." )
+            -- LOG("CRATEDROP: Safe teleport location choice attempts " .. tries .. ". Lotation across: " .. pos[1] .. ", down: " .. pos[3] .. "." )
             return pos
         else
             if tries < 1000 then
@@ -762,19 +762,19 @@ do
         local unitTypes = {'UnitsT1','UnitsT2orLess','UnitsT3orLess','Units',}
         local chosen
         if EntityCategoryContains(categories.EXPERIMENTAL + categories.TECH3, Unit) then
-            LOG("ANYTHING GOES")
+            -- LOG("CRATEDROP: ANYTHING GOES")
             chosen = unitTypes[math.random(1, 4)]
         elseif EntityCategoryContains(categories.TECH2, Unit) then
-            LOG("Tech 3 or less")
+            -- LOG("CRATEDROP: Tech 3 or less")
             chosen = unitTypes[math.random(1, 3)]
         elseif EntityCategoryContains(categories.TECH1, Unit) then
-            LOG("Tech 2 or less")
+            -- LOG("CRATEDROP: Tech 2 or less")
             chosen = unitTypes[1]
         elseif EntityCategoryContains(categories.COMMAND, Unit) then
-            LOG("Tech 3 or less")
+            -- LOG("CRATEDROP: Tech 3 or less")
             chosen = unitTypes[math.random(1, 3)]
         else
-            LOG("ANYTHING GOES BITCHES")
+            -- LOG("CRATEDROP: ANYTHING GOES BITCHES")
             chosen = unitTypes[math.random(1, table.getn(unitTypes))]
         end
         return chosen
