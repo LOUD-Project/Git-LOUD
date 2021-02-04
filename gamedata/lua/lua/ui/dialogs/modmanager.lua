@@ -234,9 +234,19 @@ local folderOrder = {
     "Usermods",
 }
 
+local folderTooltips = {
+    ["Units"] = 'modmgr_folder_units',
+    ["User Interface"] = 'modmgr_folder_ui',
+    ["Mini-Mods"] = 'modmgr_folder_mini',
+    ["Mutators"] = 'modmgr_folder_mut',
+    ["Miscellaneous"] = 'modmgr_folder_misc',
+    ["Usermods"] = 'modmgr_folder_user',
+}
+
 local modStruct = {}
 
 local function CreateLoadPresetDialog(parent, modListTable, modStatus)
+
     local dialog = Group(parent)
 	dialog.Depth:Set(function() return parent.Depth() + 5 end)
     local background = Bitmap(dialog, UIUtil.SkinnableFile('/dialogs/dialog/panel_bmp_m.dds'))
@@ -448,7 +458,7 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
 
     local help1 = UIUtil.CreateText(panel, "Click a row to enable/disable.", 14, UIUtil.bodyFont)
     LayoutHelpers.AtLeftTopIn(help1, panel, 30, 74)
-    local help2 = UIUtil.CreateText(panel, "Click the > button to see more details.", 14, UIUtil.bodyFont)
+    local help2 = UIUtil.CreateText(panel, "Click the > button or right-click on a mod to see more details.", 14, UIUtil.bodyFont)
     LayoutHelpers.Below(help2, help1, 2)
 
     ---------------------------------------------------------------------------
@@ -468,19 +478,24 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
 
     modStruct = {}
 
+    local allmods = Mods.AllSelectableMods()
+    local selmods = Mods.GetSelectedMods()
+
     for key, block in modSchema do
         modStruct[key] = {}
         modStruct[key].name = key
-        -- RATODO: Maybe leave some closed by default
-        modStruct[key].open = true
+        -- Collapse these two folders by default
+        modStruct[key].open = (key ~= 'Mutators' and key ~= 'Miscellaneous')
         modStruct[key].uids = {}
         for _, uid in block do
+            -- Prevent complete blow-up if a UID in the schema is illegal
+            if not allmods[uid] then
+                WARN("MOD MANAGER: "..uid.." is in schema, but not installed")
+                continue
+            end
             table.insert(modStruct[key].uids, uid)
         end
     end
-
-    local allmods = Mods.AllSelectableMods()
-    local selmods = Mods.GetSelectedMods()
 
     for _, v in allmods do
         if not InSchema(v.uid) then
@@ -495,6 +510,15 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
             exclusiveModSelected = v.uid
         end
     end
+
+    table.sort(modStruct['Usermods'].uids, function(a, b)
+        if allmods[a].name and allmods[b].name
+        and allmods[a].name ~= allmods[b].name then
+            return allmods[a].name < allmods[b].name
+        else
+            return a > b
+        end
+    end)
 
     local modListTable = {}
 
@@ -547,7 +571,7 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
         grp.name:DisableHitTest()
         grp.Brighten = function(self)
             if not self.uid then
-                grp.bg:SetSolidColor('42484B')
+                grp.bg:SetSolidColor('7E979B')
             else
                 local modStatusEntry = modStatus[self.uid]
                 if modStatusEntry.checked then
@@ -568,7 +592,7 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
 
         grp.Darken = function(self)
             if not self.uid then
-                grp.bg:SetSolidColor('22282B')
+                grp.bg:SetSolidColor('5E777B') -- Folder colour; desatured mid-cyan
             else
                 local modStatusEntry = modStatus[self.uid]
                 if modStatusEntry.checked then
@@ -589,7 +613,7 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
 
         grp.SetVisual = function(self, modStatusEntry)
             if modStatusEntry == nil then
-                grp.bg:SetSolidColor('22282B')
+                grp.bg:SetSolidColor('5E777B') -- Folder colour; desatured mid-cyan
             elseif modStatusEntry.checked then
                 if modStatusEntry.cantoggle then
                     grp.bg:SetSolidColor('55863F') -- Green
@@ -686,8 +710,10 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
                 modListTable[i].name:SetText(block.name)
                 modListTable[i].HandleEvent = function(self, event)
                     if event.Type == 'MouseExit' then
+                        Tooltip.DestroyMouseoverDisplay()
                         self:Darken()
                     elseif event.Type == 'MouseEnter' then
+                        Tooltip.CreateMouseoverDisplay(self, folderTooltips[self.block.name], 0.25, true)
                         self:Brighten()
                     elseif event.Type == 'ButtonPress' or event.Type == 'ButtonDClick' then
                         self.block.open = not self.block.open
@@ -720,11 +746,6 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
             end
 
             for _, uid in block.uids do
-                -- Prevent complete blow-up if a UID in the schema is illegal
-                if not allmods[uid] then
-                    continue
-                end
-
                 if skip > 0 then
                     skip = skip - 1
                     continue
@@ -882,23 +903,25 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
                     elseif event.Type == 'MouseEnter' then
                         self:Brighten()
                     elseif event.Type == 'ButtonPress' then
-                        local sound = Sound({Cue = 'UI_Mini_MouseDown', Bank = 'Interface',})
-                        PlaySound(sound)
-                        if modStatus[self.uid].cantoggle then
-                            if IsModExclusive(modInfo.uid) and not self.enabled then
-                                HandleExclusiveClick(self)
-                            else
-                                if exclusiveModSelected then
-                                    HandleExclusiveActive(self, HandleNormalClick)
+                        if event.Modifiers.Right then
+                            DisplayModDetails(self.uid)
+                            local sound = Sound({Cue = 'UI_Mod_Select', Bank = 'Interface',})
+                            PlaySound(sound)
+                        else
+                            local sound = Sound({Cue = 'UI_Mini_MouseDown', Bank = 'Interface',})
+                            PlaySound(sound)
+                            if modStatus[self.uid].cantoggle then
+                                if IsModExclusive(modInfo.uid) and not self.enabled then
+                                    HandleExclusiveClick(self)
                                 else
-                                    HandleNormalClick(self)
+                                    if exclusiveModSelected then
+                                        HandleExclusiveActive(self, HandleNormalClick)
+                                    else
+                                        HandleNormalClick(self)
+                                    end
                                 end
                             end
                         end
-                    elseif event.Type == 'ButtonDClick' then
-                        DisplayModDetails(self.uid)
-                        local sound = Sound({Cue = 'UI_Mod_Select', Bank = 'Interface',})
-                        PlaySound(sound)
                     end
                 end
                 modListTable[i].detailButton.OnClick = function(self, modifiers)

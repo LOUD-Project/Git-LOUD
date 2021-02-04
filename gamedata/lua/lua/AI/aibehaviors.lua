@@ -2334,12 +2334,12 @@ function AirForceAILOUD( self, aiBrain )
                 -- enemy bombers
                 TertiaryTargets = GetUnitsAroundPoint( aiBrain, categories.BOMBER, targetposition, threatcheckradius, 'Enemy')
                 
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." with "..LOUDGETN(self:GetSquadUnits('Attack')).." units has target at "..repr(targetposition))
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." with "..LOUDGETN(self:GetSquadUnits('Attack')).." units has target at "..repr(targetposition))
                 --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." used RangeMult of "..Rangemult.." and Difficulty of "..Threatmult)
                 
                 if LOUDGETN(SecondaryAATargets) > 0 then
                     AACount = LOUDGETN(SecondaryAATargets)
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." finds "..AACount.." fighters")
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." finds "..AACount.." fighters")
                     
                 else
                     SecondaryAATargets = false
@@ -2347,7 +2347,7 @@ function AirForceAILOUD( self, aiBrain )
                 
                 if LOUDGETN(SecondaryShieldTargets) > 0 then
                     ShieldCount = LOUDGETN(SecondaryShieldTargets)
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." finds "..ShieldCount.." gunships")
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." finds "..ShieldCount.." gunships")
                     
                 else
                     SecondaryShieldTargets = false
@@ -2355,7 +2355,7 @@ function AirForceAILOUD( self, aiBrain )
                 
                 if LOUDGETN(TertiaryTargets) > 0 then
                     TertiaryCount = LOUDGETN(TertiaryTargets)
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." finds "..TertiaryCount.." bombers")
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." finds "..TertiaryCount.." bombers")
                     
                 else
                     TertiaryTargets = false
@@ -2414,14 +2414,14 @@ function AirForceAILOUD( self, aiBrain )
                         end
                     end
 
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." at strikepoint - distance to target "..repr(targetposition).." is "..repr(VDist3(GetPlatoonPosition(self),targetposition)))
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." at strikepoint - distance to target "..repr(targetposition).." is "..repr(VDist3(GetPlatoonPosition(self),targetposition)))
                     
                     if self.MoveThread then
                         self:KillMoveThread()
                     end
 
                 else
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." AirForceAI_LOUD "..self.BuilderName.." could not find a safe path to target at "..repr(targetposition) )
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." AirForceAI_LOUD "..self.BuilderName.." could not find a safe path to target at "..repr(targetposition) )
 
 					target = false
                     loiter = true

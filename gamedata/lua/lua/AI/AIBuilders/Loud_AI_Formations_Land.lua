@@ -1732,11 +1732,11 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
 		
-        Priority = 800,
+        Priority = 801,
 		
 		RTBLocation = 'Any',
 		
-        InstanceCount = 1,
+        InstanceCount = 2,
 		
         BuilderType = 'Any',
 		
@@ -1748,7 +1748,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
             { LUTL, 'UnitCapCheckLess', { .75 } },
 
 			-- empty mass point within 15km with less than 45 threat 
-			{ EBC, 'CanBuildOnMassAtRange', { 'LocationType', 120, 1000, 0, 75, 1, 'AntiSurface', 1 }},
+			{ EBC, 'CanBuildOnMassAtRange', { 'LocationType', 120, 500, 0, 75, 1, 'AntiSurface', 1 }},
             
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS) - categories.SCOUT - categories.EXPERIMENTAL }},
         },
@@ -1829,8 +1829,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS) - categories.SCOUT - categories.EXPERIMENTAL }},
             
-			-- we have a mass extractor within 2-15km with less than 4 defense structures 
-            { UCBC, 'MassExtractorInRangeHasLessThanDefense', { 'LocationType', 150, 750, 3, 2.5, 75, 1 }},
+			-- we have a mass extractor within 2-10km with less than 4 defense structures 
+            { UCBC, 'MassExtractorInRangeHasLessThanDefense', { 'LocationType', 150, 500, 3, 2.5, 75, 1 }},
         },
 		
         BuilderData = {

@@ -1,5 +1,97 @@
 local AdjBuffFuncs = import('/lua/sim/adjacencybufffunctions.lua')
 
+-- WEAPON BOOSTERS - from BrewLAN
+-- simplified in LOUD to single bonuses regardless of size
+-- and non-stacking (for now)
+
+T3WeaponBoosterAccuracyAdjacencyBuffs = {
+    'WeaponBoosterAccuracyBonus',
+    'WeaponBoosterRateOfFireTradeOff',
+}
+
+T3WeaponBoosterDamageAdjacencyBuffs = {
+    'WeaponBoosterDamageBonus',
+    'WeaponBoosterEnergyWeaponTradeOff',
+}
+
+BuffBlueprint {
+    Name = 'WeaponBoosterAccuracyBonus',
+    DisplayName = 'WeaponBoosterAccuracyBonus',
+    BuffType = 'ACCURACYBONUS',
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    EntityCategory = 'STRUCTURE',
+    BuffCheckFunction = AdjBuffFuncs.RateOfFireBuffCheck,
+    OnBuffAffect = AdjBuffFuncs.RateOfFireBuffAffect,
+    OnBuffRemove = AdjBuffFuncs.RateOfFireBuffRemove,
+    Affects = {
+        FiringRandomness = {
+            Add = -0.25,    -- decrease firing randomness by 25%
+            Mult = 1.0,
+        },
+    },
+}
+
+
+BuffBlueprint {
+    Name = 'WeaponBoosterRateOfFireTradeOff',
+    DisplayName = 'WeaponBoosterRateOfFireTradeOff',
+    BuffType = 'RATEOFFIREADJACENCY',
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    EntityCategory = 'STRUCTURE',
+    BuffCheckFunction = AdjBuffFuncs.RateOfFireBuffCheck,
+    OnBuffAffect = AdjBuffFuncs.RateOfFireBuffAffect,
+    OnBuffRemove = AdjBuffFuncs.RateOfFireBuffRemove,
+    Affects = {
+        RateOfFire = {
+            Add = 0.025,    -- reduce rate of fire by 2.5%
+            Mult = 1.0,
+        },
+        EnergyWeapon = {
+            Add = 0.025,    -- increase energy consumption by 2.5%
+            Mult = 1,
+        },
+    },
+}
+
+
+BuffBlueprint {
+    Name = 'WeaponBoosterDamageBonus',
+    DisplayName = 'WeaponBoosterDamageBonus',
+    BuffType = 'DAMAGEBONUS',
+    Stacks = 'NEVER',
+    Duration = -1,
+    EntityCategory = 'STRUCTURE',
+    BuffCheckFunction = AdjBuffFuncs.RateOfFireBuffCheck,
+    OnBuffAffect = AdjBuffFuncs.RateOfFireBuffAffect,
+    OnBuffRemove = AdjBuffFuncs.RateOfFireBuffRemove,
+    Affects = {
+        Damage = {
+            Add = 0,
+            Mult = 1.1,     -- add 10% damage
+        },
+    },
+}
+
+BuffBlueprint {
+    Name = 'WeaponBoosterEnergyWeaponTradeOff',
+    DisplayName = 'WeaponBoosterEnergyWeaponTradeOff',
+    BuffType = 'ENERGYWEAPONBONUS',
+    Stacks = 'NEVER',
+    Duration = -1,
+    EntityCategory = 'STRUCTURE',
+    BuffCheckFunction = AdjBuffFuncs.EnergyWeaponBuffCheck,
+    OnBuffAffect = AdjBuffFuncs.EnergyWeaponBuffAffect,
+    OnBuffRemove = AdjBuffFuncs.EnergyWeaponBuffRemove,
+    Affects = {
+        EnergyWeapon = {
+            Add = 0.175,    -- increase energy consumption by 17.5%
+            Mult = 1,
+        },
+    },
+}
+
 -- TIER 1 POWER GEN BUFF TABLE
 -- the effectiveness of T1 Pgens drops off beyone Size20
 
@@ -524,6 +616,9 @@ BuffBlueprint { Name = 'T1PowerRateOfFireBonusSize4',
         },
     },
 }
+
+
+
 
 -- HYDROCARBON POWER GEN BUFF TABLE
 -- T2 Power bonuses drop off beyond Size30
