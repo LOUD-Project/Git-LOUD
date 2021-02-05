@@ -1,3 +1,38 @@
+### Release 05-02-2021 ###
+Lua 5.4.05
+
+- A large number of BrewLAN "mutator" mods have been added to the mod pack.
+ |--> All of these are work-in-progress, so let us know in the Discord or ModDB if anything doesn't work.
+ |--> Many are unbalanced on purpose. Your mileage may vary.
+ |--> The craziest of them can be found under the "Mutators" folder in the mod manager, but some are under "Unofficial Rebalances".
+ |--> There are a total of 16, so for more information on them, read their descriptions from the mod manager.
+- UI Party has been compatibilized for LOUD; its beta release is in this update.
+ |--> Almost all of its settings are off by default.
+- New UI mod: Disperse Move.
+ |--> Give a group of units a queue of move orders, then use a hotkey to distribute the orders among them.
+ |--> Useful to, for example, order several recon planes to fly over a large area.
+- Major upgrades to the keybinding menu (accessed by pressing the F1 key).
+ |--> All categories are now folders.
+ |--> Button to remove a key from an action without changing it to a different key.
+ |--> Search for a key or action by name.
+ |--> Whenever an action was re-bound or unbound, the old key would still work until the game was restarted. This has been fixed.
+ |--> When re-assigning a key, the GUI will now tell you what other action that key is currently bound to.
+ |--> Keybindings with no description will now show their internal ID instead of "No Action Text".
+- Accuracy and Damage Boost Nodes (BrewLAN) cap cost increases: 0.25 -> 1.
+- AI: A new platoon function to monitor platoon size, used to monitor air platoons during combat to affect retreat behaviour.
+- The package "loud_mods.scd" has been split into "loud_units.scd" and "loud_misc.scd".
+ |--> This is so that the units pack files don't have to be updated when changes are made to small mods, such as UI.
+ |--> This has no impact on the user experience or the game.
+- Fix a lobby bug which caused either the lobby to crash, or an infinite loading screen.
+- Fix a bug where the unit cap text box in the lobby would revert back to its previous value when scrolling.
+- Lobby column headers now have text shadows so they're a little easier to read.
+- Mod manager folders are now hidden if they're empty.
+- Tiny improvement to the speed at which the mod manager opens.
+- Reduce some file redundancy in LOUD Structure Enhancements.
+ |--> Since the Advanced Stealth Field Generators added by this mod are upscales of existing units, they no longer have copies of their meshes, textures, and animations.
+ |--> This has no effect on game performance or appearance, except for saving about 8 MB of RAM.
+- Now that BrewLAN Baristas is under the "Miscellaneous" folder, its "UTIL" prefix is redundant, and has been removed.
+
 ### Patch 01-02-2021 ###
 Lua 5.4.04
 
