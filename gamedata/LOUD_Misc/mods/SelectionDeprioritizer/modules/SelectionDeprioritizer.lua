@@ -275,17 +275,6 @@ function Deselect(selection)
 	return selection, changed
 end
 
-function init()
-	local KeyMapper = import('/lua/keymap/keymapper.lua')
-	KeyMapper.SetUserKeyAction('toggle_select_deprio', {
-		action = "UI_Lua import('/mods/SelectionDeprioritizer/modules/SelectionDeprioritizer.lua').ToggleEnabled()",
-		category = 'Mods',
-		order = 1,
-	})
-	local keyDescriptions = import('/lua/keymap/keydescriptions.lua').keyDescriptions
-	keyDescriptions['toggle_select_deprio'] = "Toggle Selection Deprioritizer"
-end
-
 -- if shift do nothing
 -- selection contains mixed domains - filter to one domain
 -- selection contains mix of exotics and regulars - filter to regulars

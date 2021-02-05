@@ -2,11 +2,11 @@ local SelectionDeprioritizer = import('/mods/SelectionDeprioritizer/modules/Sele
 local KeyMapper = import('/lua/keymap/keymapper.lua')
 local Prefs = import('/lua/user/prefs.lua')
 
-local orderCategory = "Mod: Selection Deprioritizer"
+local orderCategory = 'seldeprio'
 local prefsName = "SelectionDeprioritizerSettings"
 local savedPrefs = nil
 
-local exoticBlueprintIds = { 
+local exoticBlueprintIds = {
 
 	"xrl0302", -- fire beetle
 
@@ -55,18 +55,18 @@ local exoticBlueprintIds = {
 	"ues0305" -- SP3 - 3000
 }
 
-local exoticAssistBlueprintIds = { 
+local exoticAssistBlueprintIds = {
     -- t1 scouts
 	"ual0101", --Spirit
 	"url0101", --Mole
 	"xsl0101", --Selen
 	"uel0101", --Snoop
-	
+
     -- mobile shields
     "xsl0307", --Athanah
 	"uel0307", --Parashield
 	"ual0307", --Asylum
-	
+
 	"url0306" --Deceiver
 }
 
@@ -92,11 +92,11 @@ local defaults = {
 function savePreferences()
     Prefs.SetToCurrentProfile(prefsName, savedPrefs)
     Prefs.SavePreferences()
-	
+
 	SelectionDeprioritizer.setSavedPrefs(savedPrefs)
 	SelectionDeprioritizer.setExoticBlueprintIds(exoticBlueprintIds)
 	SelectionDeprioritizer.setExoticAssistBlueprintIds(exoticAssistBlueprintIds)
-	
+
 	-- set current domains categories
 	setting = getByKey(getByKey(defaults, "name", "Filter").settings, "key", "Domains")
 	choice = setting.choices[savedPrefs["Filter"]["Domains"]]
@@ -125,7 +125,7 @@ function toggleSetting(group_name, setting_key)
 	savedPrefs[group_name][setting_key] = not savedPrefs[group_name][setting_key]
 	savePreferences()
 	group = getByKey(defaults, "name", group_name)
-	setting = getByKey(group.settings, "key", setting_key)	
+	setting = getByKey(group.settings, "key", setting_key)
 	print("Toggling ["..setting.name..'] to: '..repr(savedPrefs[group_name][setting_key]))
 end
 
@@ -166,24 +166,24 @@ function init()
             if (savedPrefs[group.name][setting.key] == nil) then
                 savedPrefs[group.name][setting.key] = setting.default
             end
-		
+
 			-- add toggle hotkeys for bool values
 			if setting.type == "bool" then
 				local actionID = 'seldeprio_toggle_'..setting.name
 				addHotkey(
-					actionID, 
-					".toggleSetting('"..group.name.."','"..setting.key.."')", 
+					actionID,
+					".toggleSetting('"..group.name.."','"..setting.key.."')",
 					i * 1000 + j)
 				keyDesc[actionID] = "Sel. Deprio.: Toggle: "..setting.name
 			end
-			
+
 			-- add set + cycle hotkeys for choices
 			if setting.type == "choice" then
 
 				local actionID = 'seldeprio_cycle_'..setting.name
 				addHotkey(
-					actionID, 
-					".cycleChoiceSetting('"..group.name.."','"..setting.key.."')", 
+					actionID,
+					".cycleChoiceSetting('"..group.name.."','"..setting.key.."')",
 					i * 1000 + j * 100)
 				keyDesc[actionID] = "Sel. Deprio.: Cycle: "..setting.name
 

@@ -10,8 +10,9 @@ keyCategories = {
     ['debug'] = "<LOC keymap_category_0088>Debug",
     ['user'] = "<LOC keymap_category_0090>User",
     ['hotbuild'] = "Hotbuilding",
+    ['uip'] = "Mod: UI Party",
+    ['seldeprio'] = "Mod: Selection Deprioritizer",
     ['none'] = "<LOC keymap_category_0089>Unassigned Actions",
-    ['uip'] = "UI Party",
 }
 
 keyCategoryOrder = {
@@ -24,6 +25,7 @@ keyCategoryOrder = {
     'user',
     'hotbuild',
     'uip',
+    'seldeprio',
     'debug',
     'none'
 }
