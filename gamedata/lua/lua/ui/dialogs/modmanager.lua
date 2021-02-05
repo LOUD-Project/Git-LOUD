@@ -183,13 +183,13 @@ local modSchema = {
         '9a9C61C0-1787-10DF-A0AD-BATTLEPACK002', -- Wyvern Battle Pack
     },
     ["User Interface"] = {
-        -- 'Machd6c5-cd5c-4e34-b6cc-11503ed5e2da', -- Disperse Move
+        'Machd6c5-cd5c-4e34-b6cc-11503ed5e2da', -- Disperse Move
         'EF3ADDB4-9D34-437F-B1C8-440DAF896802', -- Mass Fab Manager
         -- 'bc7731b6-1416-11ea-8d71-362b9e155667', -- Selection Depriotizer
         'D000E905-1E97-420D-8ED9-DF083282F59D', -- Sequential Mex Upgrade
         '89BF1572-9EA8-11DC-1313-635F56D89591', -- Supreme Economy
         'HUSSAR-PL-a1e2-c4t4-scfa-ssbmod-v1240', -- Supreme Score Board
-        -- '022E3DB4-9C00-5ED7-9876-4866D316E015', -- UI Party
+        '022E3DB4-9C00-5ED7-9876-4866D316E015', -- UI Party
     },
     ["Official Rebalance"] = {
         'ffffffff-6f00-4864-9599-4133236eea7a', -- Evenflow
@@ -206,28 +206,28 @@ local modSchema = {
         'ffffffff-9d4e-11dc-8314-0800200c0702', -- Enhanced T4 Artillery
         '0a970b58-533d-11dc-8314-0800200c9a66', -- Enhanced Nukes
         '74A9EAB2-E851-11DB-A1F1-F2C755D89593', -- Enhanced Resources
-        -- 'TANKSYS-EXPERIMENTS-1-COMBAT',         -- Tanksy's Experiments: Combat Changes
+        'TANKSYS-EXPERIMENTS-1-COMBAT',         -- Tanksy's Experiments: Combat Changes
         -- BrewLAN
-        -- 'f31a09b5-2b2f-4bb4-aeac-47ab777a7cde', -- Antimass
-        -- '190261d0-4bb0-11e2-bcSC-CITIES000001', -- Cityscapes
-        -- '1a17998a-7355-11e5-8bcf-feff819cdc9f', -- Cost Variance
-        -- 'BREWLANS-a0a7-426d-88f2-CRATESZ00011', -- Crate Drop
-        -- '16678e1e-7fc9-11e5-8bcf-x10health0010', -- Hench AF
-        -- '16678e1e-7fc9-11e5-8bcf-dayofsex0010', -- Invisible War
+        'f31a09b5-2b2f-4bb4-aeac-47ab777a7cde', -- Antimass
+        '190261d0-4bb0-11e2-bcSC-CITIES000001', -- Cityscapes
+        '1a17998a-7355-11e5-8bcf-feff819cdc9f', -- Cost Variance
+        'BREWLANS-a0a7-426d-88f2-CRATESZ00011', -- Crate Drop
+        '16678e1e-7fc9-11e5-8bcf-x10health0010', -- Hench AF
+        '16678e1e-7fc9-11e5-8bcf-dayofsex0010', -- Invisible War
         '25D57D85-7D84-27HT-A502-LDIPS0000002', -- Lucky Dip
-        -- '25D57D85-7D84-27HT-A502-MASSRNG00002', -- Mass Point RNG
-        -- 'BREWLANS-22b4-4936-820e-PARAGON0040', -- Paragon Game
-        -- '25D57D85-7D84-27HT-A502-RPS000000000', -- Rock Paper Scissors
-        -- '16678e1e-7fc9-11e5-8bcf-scathingbe20', -- Scathing Beetles
-        -- 'BREWLANS-a0a7-426d-88f2-SPOMEN00000', -- Spomeniki
-        -- '25D57D85-9JA7-D842-BREW-SUDDEN000001', -- Sudden Death
+        '25D57D85-7D84-27HT-A502-MASSRNG00002', -- Mass Point RNG
+        'BREWLANS-22b4-4936-820e-PARAGON0040', -- Paragon Game
+        '25D57D85-7D84-27HT-A502-RPS000000000', -- Rock Paper Scissors
+        '16678e1e-7fc9-11e5-8bcf-scathingbe20', -- Scathing Beetles
+        'BREWLANS-a0a7-426d-88f2-SPOMEN00000', -- Spomeniki
+        '25D57D85-9JA7-D842-BREW-SUDDEN000001', -- Sudden Death
         -- '25D57D85-7D84-27HT-A502-TECHRND00000', -- Tech Level Randomiser
     },
     ["Miscellaneous"] = {
         '25D57D85-9JA7-D842-GKG4-ORIGIN0000001', -- BrewLAN Baristas
         '25D57D85-9JA7-D842-GKG4-DAMAGENO00000', -- BrewLAN Damage Numbers
         '2529ea71-93ef-41a6-b552-LOGS0000000009', -- BrewLAN Debug Tools
-        -- 'zcbf6277-24e3-437a-b968-Common-v1', -- Common Mod Tools
+        'zcbf6277-24e3-437a-b968-Common-v1', -- Common Mod Tools
         '2529ea71-93ef-41a6-b552-EXPERICON00005', -- Experimental Icons Overhaul
         '5362BE90-44BE-11DD-A519-83AF56D89593', -- Supreme Commander Music
     },
