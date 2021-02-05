@@ -506,6 +506,12 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
         end
     end
 
+    for k, v in modStruct do
+        if table.empty(v.uids) then
+            modStruct[k] = nil
+        end
+    end
+
     table.sort(modStruct['Usermods'].uids, function(a, b)
         if allmods[a].name and allmods[b].name
         and allmods[a].name ~= allmods[b].name then
@@ -680,6 +686,8 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
         local skip = selfMLC.top -- Account for scroll bar offset
         for bi = 1, table.getsize(folderOrder) do
             local block = modStruct[folderOrder[bi]]
+            -- Skip blocks which were empty and removed
+            if not block then continue end
             -- Skip entire block if scroll bar dictates
             if not block.open and skip >= 1 then
                 skip = skip - 1
