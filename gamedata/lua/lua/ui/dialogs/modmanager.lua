@@ -465,21 +465,15 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
     -- Mod list control
     ---------------------------------------------------------------------------
 
-    local function InSchema(uidArg)
-        for _, v in modSchema do
-            for _, uid in v do
-                if uidArg == uid then
-                    return true
-                end
-            end
-        end
-        return false
-    end
-
     modStruct = {}
 
     local allmods = Mods.AllSelectableMods()
     local selmods = Mods.GetSelectedMods()
+
+    local isUsermod = {}
+    for uid, _ in allmods do
+        isUsermod[uid] = true
+    end
 
     for key, block in modSchema do
         modStruct[key] = {}
@@ -494,11 +488,12 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
                 continue
             end
             table.insert(modStruct[key].uids, uid)
+            isUsermod[uid] = false
         end
     end
 
     for _, v in allmods do
-        if not InSchema(v.uid) then
+        if isUsermod[v.uid] then
             table.insert(modStruct['Usermods'].uids, v.uid)
         end
         if selmods[v.uid] then
