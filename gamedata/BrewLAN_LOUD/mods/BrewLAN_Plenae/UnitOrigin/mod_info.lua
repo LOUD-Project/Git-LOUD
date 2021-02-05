@@ -1,4 +1,4 @@
-name = "UTIL Baristas"
+name = "Baristas"
 uid = "25D57D85-9JA7-D842-GKG4-ORIGIN0000001"
 version = 1
 copyright = "© 2017–2018 Sean Wheeldon"
