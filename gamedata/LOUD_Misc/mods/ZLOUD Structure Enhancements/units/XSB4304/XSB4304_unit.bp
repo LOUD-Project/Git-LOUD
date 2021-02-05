@@ -69,14 +69,19 @@ UnitBlueprint {
             LODs = {
                 {
                     LODCutoff = 200,
-                    LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
                     ShaderName = 'Seraphim',
+                    MeshName = '/units/XSB4203/XSB4203_LOD0.scm',
+                    AlbedoName = '/units/XSB4203/XSB4203_Albedo.dds',
+                    NormalsName = '/units/XSB4203/XSB4203_NormalsTS.dds',
+                    SpecularName = '/units/XSB4203/XSB4203_SpecTeam.dds',
                 },
                 {
-                    AlbedoName = 'xsb4203_lod1_albedo.dds',
                     LODCutoff = 300,
                     ShaderName = 'Seraphim',
-                    SpecularName = 'xsb4203_lod1_specteam.dds',
+                    MeshName = '/units/XSB4203/XSB4203_LOD1.scm',
+                    AlbedoName = '/units/XSB4203/XSB4203_lod1_Albedo.dds',
+                    NormalsName = '/units/XSB4203/XSB4203_lod1_normalsTS.dds',
+                    SpecularName = '/units/XSB4203/XSB4203_lod1_SpecTeam.dds',
                 },
             },
         },

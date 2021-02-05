@@ -56,20 +56,26 @@ UnitBlueprint {
 			'Anti Teleport Field',
         },
 		
-        AnimationOpen = '/units/UAB4304/UAB4304_Aopen.sca',
+        AnimationOpen = '/units/UAB4203/UAB4203_Aopen.sca',
 		
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
                 {
-                    LODCutoff = 200,
+                    LODCutoff = 100,
                     ShaderName = 'Aeon',
+                    MeshName = '/units/UAB4203/UAB4203_LOD0.scm',
+                    AlbedoName = '/units/UAB4203/UAB4203_Albedo.dds',
+                    NormalsName = '/units/UAB4203/UAB4203_NormalsTS.dds',
+                    SpecularName = '/units/UAB4203/UAB4203_SpecTeam.dds',
                 },
                 {
-                    AlbedoName = 'uab4304_lod1_albedo.dds',
-                    LODCutoff = 300,
+                    LODCutoff = 215,
                     ShaderName = 'Aeon',
-                    SpecularName = 'uab4304_lod1_specteam.dds',
+                    MeshName = '/units/UAB4203/UAB4203_LOD1.scm',
+                    AlbedoName = '/units/UAB4203/UAB4203_lod1_Albedo.dds',
+                    NormalsName = '/units/UAB4203/UAB4203_lod1_normalsTS.dds',
+                    SpecularName = '/units/UAB4203/UAB4203_lod1_SpecTeam.dds',
                 },
             },
         },
