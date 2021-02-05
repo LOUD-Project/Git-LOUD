@@ -8,7 +8,6 @@ local domainCategories = { "NAVAL", "LAND", "AIR" }
 local exoticBlueprintIds = {} 
 local exoticAssistBlueprintIds = {}
 
-
 local logEnabled = false
 function Log(msg)
 	if logEnabled then
@@ -16,24 +15,19 @@ function Log(msg)
 	end
 end
 
-
 Log("Selection Deprioriziter Initializing..")
-
 
 function setExoticBlueprintIds(ids)
 	exoticBlueprintIds = ids
 end
 
-
 function setExoticAssistBlueprintIds(ids)
 	exoticAssistBlueprintIds = ids
 end
 
-
 function setDomainCategories(cats)
 	domainCategories = cats
 end
-
 
 function setSavedPrefs(prefs, verbose)
 	savedPrefs = prefs
@@ -42,7 +36,6 @@ function setSavedPrefs(prefs, verbose)
 	filterDomains = savedPrefs['General']['filterDomains'] and isEnabled
 	filterExotics = savedPrefs['General']['filterExotics'] and isEnabled
 end
-
 
 function arrayContains(arr, val)
 	for _, v in ipairs(arr) do
@@ -53,7 +46,6 @@ function arrayContains(arr, val)
 	return false
 end
 
-
 function isExotic(unit)
 	local blueprintId = unit:GetBlueprint().BlueprintId
 	local isEx = arrayContains(exoticBlueprintIds, blueprintId)
@@ -61,14 +53,12 @@ function isExotic(unit)
 	return isEx
 end
 
-
 function isExoticAssist(unit)
 	local blueprintId = unit:GetBlueprint().BlueprintId
 	local isExAs = arrayContains(exoticAssistBlueprintIds, blueprintId)
 	Log(blueprintId .. " = " .. tostring(isExAs))
 	return isExAs
 end
-
 
 function isMixedExoticness(units)
 	local exoticFound
@@ -86,12 +76,10 @@ function isMixedExoticness(units)
 	return exoticFound and regularFound
 end
 
-
 function isAssisting(unit)
 	local guardedUnits = unit:GetGuardedEntity()
 	return guardedUnits ~= nil
 end
-
 
 function filterToRegulars(units)
 	local filtered = {}
@@ -112,7 +100,6 @@ function filterToRegulars(units)
 	return filtered, changed
 end
 
-
 function getDomain(unit)	
 	for i, domain in ipairs(domainCategories) do
 		if unit:IsInCategory(domain) then 
@@ -120,7 +107,6 @@ function getDomain(unit)
 		end
 	end
 end
-
 
 function getDomains(units)
 	local domains = {}
@@ -143,7 +129,6 @@ function getDomains(units)
 	return domains
 end
 
-
 function getFirstDomain(domains)
 	for i, domain in ipairs(domainCategories) do
 		if domains[domain] ~= nil then 
@@ -152,7 +137,6 @@ function getFirstDomain(domains)
 	end
 	return nil
 end
-
 
 function filterToDomain(units, requiredDomain)
 	local filtered = {}
@@ -167,7 +151,6 @@ function filterToDomain(units, requiredDomain)
 	end
 	return filtered, changed
 end
-
 
 local dblClickStart = false
 local dblClickUnit = nil
@@ -197,7 +180,6 @@ function isDoubleclick(selection)
 
 	return result
 end
-
 
 function filterToNonAssisters(selection)
 	local changed = false
@@ -249,7 +231,6 @@ function filterToNonAssisters(selection)
 	end
 end
 
-
 function Deselect(selection)
 
 	if IsKeyDown('Shift') then
@@ -292,7 +273,6 @@ function Deselect(selection)
 	return selection, changed
 end
 
-
 function init()
 	local KeyMapper = import('/lua/keymap/keymapper.lua')
 	KeyMapper.SetUserKeyAction('toggle_select_deprio', {
@@ -303,7 +283,6 @@ function init()
 	local keyDescriptions = import('/lua/keymap/keydescriptions.lua').keyDescriptions
 	keyDescriptions['toggle_select_deprio'] = "Toggle Selection Deprioritizer"
 end
-
 
 -- if shift do nothing
 -- selection contains mixed domains - filter to one domain

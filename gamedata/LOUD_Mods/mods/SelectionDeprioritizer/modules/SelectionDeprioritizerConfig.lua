@@ -6,7 +6,6 @@ local orderCategory = "Mod: Selection Deprioritizer"
 local prefsName = "SelectionDeprioritizerSettings"
 local savedPrefs = nil
 
-
 local exoticBlueprintIds = { 
 
 	"xrl0302", -- fire beetle
@@ -56,7 +55,6 @@ local exoticBlueprintIds = {
 	"ues0305" -- SP3 - 3000
 }
 
-
 local exoticAssistBlueprintIds = { 
     -- t1 scouts
 	"ual0101", --Spirit
@@ -72,7 +70,6 @@ local exoticAssistBlueprintIds = {
 	"url0306" --Deceiver
 }
 
-
 local defaults = {
     { name = "General", settings = {
         { key="isEnabled", 			type="bool",	default=true, 	name="Mod is enabled", 		},
@@ -81,7 +78,7 @@ local defaults = {
         { key="filterExotics", 		type="bool",	default=true, 	name="Filter exotics", 		},
     }},
     { name = "Filter", settings = {
-        { key="Domains", 			type="choice",	default=1, 		name="Which domains to filter",	choices = {
+        { key="Domains", 			type="choice",	default=1, 		name="Filtered Domains",	choices = {
 			[1] = { key="NAVAL > LAND  > AIR", 		value = {"NAVAL", "LAND", "AIR"}},
 			[2] = { key="NAVAL > AIR   > LAND", 	value = {"NAVAL", "AIR", "LAND"}},
 			[3] = { key="LAND  > AIR   > NAVAL", 	value = {"LAND", "AIR", "NAVAL"}},
@@ -91,7 +88,6 @@ local defaults = {
 		}},
     }},
 }
-
 
 function savePreferences()
     Prefs.SetToCurrentProfile(prefsName, savedPrefs)
@@ -107,7 +103,6 @@ function savePreferences()
 	SelectionDeprioritizer.setDomainCategories(choice.value)
 end
 
-
 function addHotkey(name, fun_args, order)
 	KeyMapper.SetUserKeyAction(name, {
 		action = "UI_Lua import('/mods/SelectionDeprioritizer/modules/SelectionDeprioritizerConfig.lua')"..fun_args,
@@ -115,7 +110,6 @@ function addHotkey(name, fun_args, order)
 		order = order,
 	})
 end
-
 
 function getByKey(tbl, key_name, key_value)
 	for _, sub_tbl in tbl do
@@ -126,7 +120,6 @@ function getByKey(tbl, key_name, key_value)
 	return {}
 end
 
-
 -- for bool values
 function toggleSetting(group_name, setting_key)
 	savedPrefs[group_name][setting_key] = not savedPrefs[group_name][setting_key]
@@ -135,7 +128,6 @@ function toggleSetting(group_name, setting_key)
 	setting = getByKey(group.settings, "key", setting_key)	
 	print("Toggling ["..setting.name..'] to: '..repr(savedPrefs[group_name][setting_key]))
 end
-
 
 -- for choices
 function cycleChoiceSetting(group_name, setting_key)
@@ -146,7 +138,6 @@ function cycleChoiceSetting(group_name, setting_key)
 	print("Cycling ["..setting.name..'] to: '..repr(choice.key))
 end
 
-
 function setChoiceSetting(group_name, setting_key, choice_value)
 	setting = getByKey(getByKey(defaults, "name", group_name).settings, "key", setting_key)
 	choice = setting.choices[savedPrefs[group_name][setting_key]]
@@ -155,13 +146,11 @@ function setChoiceSetting(group_name, setting_key, choice_value)
 	print("Setting ["..setting.name..'] to: '..repr(choice.key))
 end
 
-
-function setCurrentDomainCats()
-	
-end
-
+function setCurrentDomainCats() end
 
 function init()
+	local keyDesc = import('/lua/keymap/keydescriptions.lua').keyDescriptions
+
     savedPrefs = Prefs.GetFromCurrentProfile(prefsName)
 
     -- create defaults prefs, add previously missing ones
@@ -180,14 +169,31 @@ function init()
 		
 			-- add toggle hotkeys for bool values
 			if setting.type == "bool" then
-				addHotkey('Toggle: '..setting.name, ".toggleSetting('"..group.name.."','"..setting.key.."')", i*1000+j)
+				local actionID = 'seldeprio_toggle_'..setting.name
+				addHotkey(
+					actionID, 
+					".toggleSetting('"..group.name.."','"..setting.key.."')", 
+					i * 1000 + j)
+				keyDesc[actionID] = "Sel. Deprio.: Toggle: "..setting.name
 			end
 			
 			-- add set + cycle hotkeys for choices
 			if setting.type == "choice" then
-				addHotkey('Cycle: '..setting.name, ".cycleChoiceSetting('"..group.name.."','"..setting.key.."')", i*1000+j*100)
+
+				local actionID = 'seldeprio_cycle_'..setting.name
+				addHotkey(
+					actionID, 
+					".cycleChoiceSetting('"..group.name.."','"..setting.key.."')", 
+					i * 1000 + j * 100)
+				keyDesc[actionID] = "Sel. Deprio.: Cycle: "..setting.name
+
 				for k, choice in setting.choices do
-					addHotkey('Set: '..setting.name..' to: '..choice.key, ".setChoiceSetting('"..group.name.."','"..setting.key.."',"..k..")", i*1000+j*100+k)
+					local actionID = 'seldeprio_set_'..setting.name
+					addHotkey(
+						actionID,
+						".setChoiceSetting('"..group.name.."','"..setting.key.."',"..k..")",
+						i * 1000 + j * 100 + k)
+					keyDesc[actionID] = "Sel. Deprio.: Set: "..setting.name.." to: "..choice.key
 				end
 			end
         end
