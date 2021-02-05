@@ -9,13 +9,15 @@ local exoticBlueprintIds = {}
 local exoticAssistBlueprintIds = {}
 
 local logEnabled = false
-function Log(msg)
+function SDLOG(msg)
 	if logEnabled then
-		LOG(msg)
+		LOG("SELDEPRIO: "..msg)
 	end
 end
 
-Log("Selection Deprioriziter Initializing..")
+if logEnabled then
+	LOG("Selection Deprioriziter Initializing..")
+end
 
 function setExoticBlueprintIds(ids)
 	exoticBlueprintIds = ids
@@ -49,14 +51,14 @@ end
 function isExotic(unit)
 	local blueprintId = unit:GetBlueprint().BlueprintId
 	local isEx = arrayContains(exoticBlueprintIds, blueprintId)
-	Log(blueprintId .. " = " .. tostring(isEx))
+	SDLOG(blueprintId .. " = " .. tostring(isEx))
 	return isEx
 end
 
 function isExoticAssist(unit)
 	local blueprintId = unit:GetBlueprint().BlueprintId
 	local isExAs = arrayContains(exoticAssistBlueprintIds, blueprintId)
-	Log(blueprintId .. " = " .. tostring(isExAs))
+	SDLOG(blueprintId .. " = " .. tostring(isExAs))
 	return isExAs
 end
 
@@ -164,7 +166,7 @@ function isDoubleclick(selection)
 		dblClickStart = false
 		for index, unit in selection do
 			if unit == dblClickUnit then
-				Log("Double Click")
+				SDLOG("Double Click")
 				result = true
 			end
 		end
@@ -172,7 +174,7 @@ function isDoubleclick(selection)
 
 	dblClickStart = table.getn(selection) == 1
 	if dblClickStart then
-		Log("Double Click start?")
+		SDLOG("Double Click start?")
 		for index, unit in selection do
 			dblClickUnit = unit
 		end
@@ -187,17 +189,17 @@ function filterToNonAssisters(selection)
 
 	-- if its a double click on an assister, select all fellow assisters
 	if isDoubleclick(selection) and dblClickUnit:GetGuardedEntity() then
-		Log("-- double click detected")
+		SDLOG("-- double click detected")
 
 		for index, unit in selection do
 			local isSame = unit:GetGuardedEntity() == dblClickUnit:GetGuardedEntity()
 
 			if isSame then
-				Log("found a brother")
+				SDLOG("found a brother")
 				table.insert(filtered,unit)
 			else
 				changed = true
-				Log("didnt find brother")
+				SDLOG("didnt find brother")
 			end
 		end
 	else
@@ -206,14 +208,14 @@ function filterToNonAssisters(selection)
 			local allSame = true
 			for index, unit in selection do
 				if unit:GetGuardedEntity() then
-					Log("found assister")
+					SDLOG("found assister")
 					if unit:GetGuardedEntity() != guardedUnit then
 						allSame = false
 					end
 					changed = true
 				else
 					allSame = false
-					Log("not an assister")
+					SDLOG("not an assister")
 					table.insert(filtered,unit)
 				end
 			end
@@ -242,29 +244,29 @@ function Deselect(selection)
 	if filterDomains then 
 		local domains = getDomains(selection)
 		if domains.isMixed then
-			Log("Mixed Domains")
+			SDLOG("Mixed Domains")
 			domain = getFirstDomain(domains)
 			if domain ~= nil then 
-				Log("limit to " .. domain)
+				SDLOG("limit to " .. domain)
 				selection, domainChanged = filterToDomain(selection, domain)
 			end
 		else
-			Log("Not Mixed Domains")
+			SDLOG("Not Mixed Domains")
 		end
 	end
 
 	if filterExotics then
 		local isMixedExotic = isMixedExoticness(selection)
 		if isMixedExotic then
-			Log("Mixed Exotic")
+			SDLOG("Mixed Exotic")
 			selection, exoticChanged = filterToRegulars(selection)
 		else
-			Log("Not Mixed Exotic")
+			SDLOG("Not Mixed Exotic")
 		end
 	end
 
 	if filterAssisters then
-		Log("Filter Assisters")
+		SDLOG("Filter Assisters")
 		selection, assistersChanged = filterToNonAssisters(selection)
 	end
 
