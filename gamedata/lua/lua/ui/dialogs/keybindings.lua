@@ -555,7 +555,8 @@ function CreateUI()
             local kte = keyTable[j]
             -- Skip over filtered keys
             if filter ~= '' and kte.type == 'entry' then
-                if not string.find(string.lower(kte.text), filter) then
+                if not string.find(string.lower(kte.text), filter)
+                and not string.find(string.lower(kte.keyDisp), filter) then
                     j = j + 1
                     if j > table.getsize(keyTable) then break end
                     continue
