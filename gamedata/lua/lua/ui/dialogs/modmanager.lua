@@ -523,14 +523,16 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
         end
     end
 
-    table.sort(modStruct['Usermods'].uids, function(a, b)
-        if allmods[a].name and allmods[b].name
-        and allmods[a].name ~= allmods[b].name then
-            return allmods[a].name < allmods[b].name
-        else
-            return a > b
-        end
-    end)
+    if modStruct['Usermods'] then
+        table.sort(modStruct['Usermods'].uids, function(a, b)
+            if allmods[a].name and allmods[b].name
+            and allmods[a].name ~= allmods[b].name then
+                return allmods[a].name < allmods[b].name
+            else
+                return a > b
+            end
+        end)
+    end
 
     local modListTable = {}
 

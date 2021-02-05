@@ -21,6 +21,7 @@ local panel = false
 local keyContainer
 local keyTable
 local dataSize = 0
+local filterText = ''
 
 -- Zulan's HotBuild functions
 local initDefaultKeyMap = import('/lua/hotbuild/hotbuild.lua').initDefaultKeyMap
@@ -76,6 +77,26 @@ local function ConfirmNewKeyMap()
 	--add option to accept the changes to the key map?
     IN_AddKeyMapTable(import('/lua/keymap/keymapper.lua').GetKeyMappings())
 
+end
+
+-- Determine how many keyTable elements can be shown after folds and filters
+function CalcDataSize()
+    dataSize = 0
+    for _, v in keyTable do
+        if v.type == 'header' then
+            -- If folded, subtract contents
+            if v.folded then
+                dataSize = dataSize - v.count
+            end
+            dataSize = dataSize + 1
+        elseif filterText ~= '' and v.type == 'entry'
+        and not string.find(string.lower(v.text), filterText) then
+            -- Entry is filtered out, don't add 1 here
+        else
+            -- Entries and spacers
+            dataSize = dataSize + 1
+        end
+    end
 end
 
 local function EditActionKey(parent, action, currentKey)
@@ -188,6 +209,7 @@ local function EditActionKey(parent, action, currentKey)
         local function MapKey()
             Keymapper.SetUserKeyMapping(currentKeyPattern, currentKey, action)
             keyTable = FormatData()
+            CalcDataSize()
             keyContainer:CalcVisible()
         end
         local overlaps = Keymapper.GetActionsByKey(currentKeyPattern, Keymapper.GetCurrentKeyMap())
@@ -318,26 +340,11 @@ function CreateUI()
 	searchEdit:ShowBackground(true)
     searchEdit:SetMaxChars(40)
 
-    -- Determine how many keyTable elements can be shown after folds and filters
-    local function CalculateDataSize()
-        dataSize = 0
-        local filter = string.lower(searchEdit:GetText())
-        for _, v in keyTable do
-            if v.type == 'header' and v.folded then
-                dataSize = dataSize - v.count
-            elseif filter ~= '' and v.type == 'entry'
-            and not string.find(string.lower(v.text), filter) then
-                -- Do nothing
-            else
-                dataSize = dataSize + 1
-            end
-        end
-    end
-
-    CalculateDataSize()
+    CalcDataSize()
 
     searchEdit.OnTextChanged = function(self, newText, oldText)
-        CalculateDataSize()
+        filterText = string.lower(newText)
+        CalcDataSize()
         keyContainer:CalcVisible()
     end
 
@@ -430,7 +437,7 @@ function CreateUI()
                     end
                     local sound = Sound({Bank = 'Interface', Cue = 'UI_Camera_Delete_Position'})
                     PlaySound(sound)
-                    CalculateDataSize()
+                    CalcDataSize()
                     parent:CalcVisible()
                 end
             end -- Spacers need no logic
