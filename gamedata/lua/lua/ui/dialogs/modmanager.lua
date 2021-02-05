@@ -490,7 +490,7 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
         for _, uid in block do
             -- Prevent complete blow-up if a UID in the schema is illegal
             if not allmods[uid] then
-                WARN("MOD MANAGER: "..uid.." is in schema, but not installed")
+                WARN("MOD MANAGER: "..uid.." is in schema, but not installed or selectable")
                 continue
             end
             table.insert(modStruct[key].uids, uid)
