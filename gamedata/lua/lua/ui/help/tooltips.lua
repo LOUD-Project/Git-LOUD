@@ -665,9 +665,13 @@ Tooltips = {
         title = "User Interface",
         description = "Mods which change the way you control the game without changing the game itself.",
     },
-    modmgr_folder_mini = {
-        title = "Mini-Mods",
-        description = "Mods which make small but meaningful changes to the game. All are endorsed by the LOUD team.",
+    modmgr_folder_official = {
+        title = "Official Rebalance",
+        description = "Small but meaningful changes to the game. Recommended by the LOUD team for the complete experience.",
+    },
+    modmgr_folder_unofficial = {
+        title = "Unofficial Rebalance",
+        description = "Small but meaningful changes to the game. All are unsupported, but you might prefer them.",
     },
     modmgr_folder_mut = {
         title = "Mutators",

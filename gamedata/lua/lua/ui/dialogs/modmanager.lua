@@ -21,6 +21,12 @@ local _InternalUpdateStatus
 
 local modDetails = false
 
+local DEFAULT_CLOSED_FOLDERS = {
+    "Unofficial Rebalance",
+    "Mutators",
+    "Miscellaneous",
+}
+
 -- This function can be called while the ModManager is active, to update changes to the selected mods on the fly.
 -- If called when the ModManger is -not- active, it is a no-op.
 function UpdateClientModStatus(selectedModsFromHost)
@@ -185,12 +191,15 @@ local modSchema = {
         'HUSSAR-PL-a1e2-c4t4-scfa-ssbmod-v1240', -- Supreme Score Board
         -- '022E3DB4-9C00-5ED7-9876-4866D316E015', -- UI Party
     },
-    ["Mini-Mods"] = {
+    ["Official Rebalance"] = {
         'ffffffff-6f00-4864-9599-4133236eea7a', -- Evenflow
         'ffffffff-6e98-4864-9599-4133236eea7a', -- Integrated Storage
         'ffffffff-ffff-ffff-ffff-fffffffffffe', -- Structure Enhancements
-        -- '16678e1e-7fc9-11e5-8bcf-waterguard10', -- Water Guard
-        -- '25D57D85-9JA7-D842-GKG4-ASJDKG49G8S70', -- Waterlag
+    },
+    ["Unofficial Rebalance"] = {
+        '16678e1e-7fc9-11e5-8bcf-waterguard10', -- Water Guard
+        '25D57D85-9JA7-D842-GKG4-ASJDKG49G8S70', -- Waterlag
+        '16678e1e-7fc9-11e5-8bcf-wreckageA01' -- Wreckage Decay
     },
     ["Mutators"] = {
         'ffffffff-9d4e-11dc-8314-0800200c0605', -- Enhanced BO Commanders
@@ -228,7 +237,8 @@ local modSchema = {
 local folderOrder = {
     "Units",
     "User Interface",
-    "Mini-Mods",
+    "Official Rebalance",
+    "Unofficial Rebalance",
     "Mutators",
     "Miscellaneous",
     "Usermods",
@@ -237,7 +247,8 @@ local folderOrder = {
 local folderTooltips = {
     ["Units"] = 'modmgr_folder_units',
     ["User Interface"] = 'modmgr_folder_ui',
-    ["Mini-Mods"] = 'modmgr_folder_mini',
+    ["Official Rebalance"] = 'modmgr_folder_official',
+    ["Unofficial Rebalance"] = 'modmgr_folder_unofficial',
     ["Mutators"] = 'modmgr_folder_mut',
     ["Miscellaneous"] = 'modmgr_folder_misc',
     ["Usermods"] = 'modmgr_folder_user',
@@ -478,8 +489,8 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
     for key, block in modSchema do
         modStruct[key] = {}
         modStruct[key].name = key
-        -- Collapse these two folders by default
-        modStruct[key].open = (key ~= 'Mutators' and key ~= 'Miscellaneous')
+        -- Collapse certain folders by default
+        modStruct[key].open = not table.find(DEFAULT_CLOSED_FOLDERS, key)
         modStruct[key].uids = {}
         for _, uid in block do
             -- Prevent complete blow-up if a UID in the schema is illegal
