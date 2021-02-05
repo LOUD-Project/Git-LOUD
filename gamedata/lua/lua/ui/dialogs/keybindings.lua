@@ -502,7 +502,7 @@ function CreateUI()
             if data.type == 'header' then
                 LayoutHelpers.AtHorizontalCenterIn(line.key, keyContainer)
                 line.bg:SetSolidColor('ff506268')
-                line.key:SetText(LOC(data.text))
+                line.key:SetText(LOC(data.text) or "None")
                 line.key:SetFont('Arial Bold', 16)
                 line.key:SetColor('ffe9e45f')
                 line.description:SetText('')
