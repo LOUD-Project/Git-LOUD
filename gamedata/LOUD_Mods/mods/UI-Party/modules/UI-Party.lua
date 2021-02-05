@@ -85,10 +85,10 @@ function InitKeys()
 	order = order + 1
 
 	KeyMapper.SetUserKeyAction('uip_sel_next_split_grp_shift', {action = "UI_Lua import('/mods/UI-Party/modules/unitsplit.lua').SelectNextGroup()", category = cat, order = order,})
-	keyDescriptions['uip_sel_prev_split_grp'] = 'UIP: Select Previous Split Group (Shift)'
+	keyDescriptions['uip_sel_next_split_grp_shift'] = 'UIP: Select Next Split Group (Shift)'
 	order = order + 1
 	KeyMapper.SetUserKeyAction('uip_sel_prev_split_grp_shift', {action = "UI_Lua import('/mods/UI-Party/modules/unitsplit.lua').SelectPrevGroup()", category = cat, order = order,})
-	keyDescriptions['uip_sel_prev_split_grp'] = 'UIP: Select Previous Split Group (Shift)'
+	keyDescriptions['uip_sel_prev_split_grp_shift'] = 'UIP: Select Previous Split Group (Shift)'
 	order = order + 1
 
 	KeyMapper.SetUserKeyAction('uip_resel_split_units', {action = "UI_Lua import('/mods/UI-Party/modules/unitsplit.lua').ReselectSplitUnits()", category = cat, order = order,})
@@ -99,13 +99,13 @@ function InitKeys()
 	order = order + 1
 
 	KeyMapper.SetUserKeyAction('uip_clear_q_except_cur_prod', {action = "UI_Lua import('/lua/ui/game/construction.lua').StopAllExceptCurrentProduction()", category = cat, order = order,})
-	keyDescriptions['uip_clear_q_except_cur_prod'] = 'UIP: Clear Queue Except For Current Production'
+	keyDescriptions['uip_clear_q_except_cur_prod'] = 'UIP: Clear Factory Queue Except Current'
 	order = order + 1
 	KeyMapper.SetUserKeyAction('uip_undo_last_q_order', {action = "UI_Lua import('/lua/ui/game/construction.lua').UndoLastQueueOrder()", category = cat, order = order,})
-	keyDescriptions['uip_undo_last_q_order'] = 'UIP: Undo Last Queued Order'
+	keyDescriptions['uip_undo_last_q_order'] = 'UIP: Undo Last Queued Factory Order'
 	order = order + 1
 	KeyMapper.SetUserKeyAction('uip_undo_last_q_order_shift', {action = "UI_Lua import('/lua/ui/game/construction.lua').UndoLastQueueOrder()", category = cat, order = order,})
-	keyDescriptions['uip_undo_last_q_order_shift'] = 'UIP: Undo Last Queued Order (Shift)'
+	keyDescriptions['uip_undo_last_q_order_shift'] = 'UIP: Undo Last Queued Factory Order (Shift)'
 	order = order + 1
 
 	KeyMapper.SetUserKeyAction('uip_select_similar_onscreen_units', {action = "UI_Lua import('/mods/UI-Party/modules/selection.lua').SelectSimilarOnscreenUnits()", category = cat, order = order,})
