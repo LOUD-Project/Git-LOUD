@@ -98,7 +98,7 @@ function SplitGroups(desiredGroups)
 		end
 
 		local avoidancePoints = { avg }
-		if Any(groups) then
+		if LINQ.Any(groups) then
 			avoidancePoints = LINQ.Select(groups, function(k, v) return v.Center end)
 		end
 
@@ -115,15 +115,19 @@ function SplitGroups(desiredGroups)
 	end
 
 	-- SHUNK UNITS INTO GROUPS
-	while Any(ungroupedUnits) do
-		local nextGroups = LINQ.Copy(groups)
+	while LINQ.Any(ungroupedUnits) do
+		local nextGroups = table.copy(groups)
 
-		while Any(ungroupedUnits) and Any(nextGroups) do
+		while LINQ.Any(ungroupedUnits) and LINQ.Any(nextGroups) do
 
-			if not Any(priorityUnits) then priorityUnits = GetPriorityUnits(ungroupedUnits) end
+			if not LINQ.Any(priorityUnits) then
+				priorityUnits = GetPriorityUnits(ungroupedUnits)
+			end
 			local t = FindNearestToGroup(priorityUnits, nextGroups)
 
 			LINQ.RemoveByValue(nextGroups, t.Group)
+			LINQ.RemoveByValue(ungroupedUnits, t.Unit)
+			LINQ.RemoveByValue(priorityUnits, t.Unit)
 
 			table.insert(t.Group.Units, t.Unit)
 			t.Group.Center = GetAveragePoint(t.Group.Units);
@@ -199,7 +203,7 @@ end
 function ReselectSplitUnits()
 	local units = {}
 	for _, v in groups do
-		units = table.concat(units, v.Units)
+		units = LINQ.Concat(units, v.Units)
 	end
 	SetSelectedUnits(LINQ.ToArray(units))
 end
@@ -208,7 +212,7 @@ function ReselectOrderedSplitUnits()
 	local units = {}
 	for _, v in groups do
 		if v.Name <= lastSelectedGroup.Name then
-			units = table.concat(units, v.Units)
+			units = LINQ.Concat(units, v.Units)
 		end
 	end
 	SetSelectedUnits(LINQ.ToArray(units))
