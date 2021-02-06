@@ -1,8 +1,12 @@
+<<<<<<< Updated upstream
 # LOUD Project .gitignore
 # Only for the main repo (https://github.com/LOUD-Project/Git-LOUD)
 # Authors: Tanksy, Sprouto, Balthazar, Rat Circus
 
 # For Adobe Systems file formats
+=======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
 *.ai
 *.tif
 *.psd
@@ -23,6 +27,20 @@ bin/*.png
 bin/*.ini
 bin/*.dat
 bin/*.manifest
+<<<<<<< Updated upstream
+=======
+bin/*.lnk
+
+maps/
+
+*.lnk
+*.ai
+*.tif
+*.psd
+*.ps1
+*.bat
+bin/Loud-Dev\.log
+>>>>>>> Stashed changes
 
 # Log files
 *.log
@@ -31,6 +49,7 @@ bin/*.manifest
 maps/
 Map Editor/
 
+<<<<<<< Updated upstream
 # PhoenixMT's Blueprint Extractor
 !lua_utils/bluePrintExtractor/runme.bat
 lua_utils/bluePrintExtractor/output*.csv
@@ -38,3 +57,57 @@ lua_utils/bluePrintExtractor/output*.csv
 # IDEs/text editors
 .vscode
 .atomignore
+=======
+*.lnk
+=======
+*.ai
+*.tif
+*.psd
+*.ps1
+bin/Loud-Dev\.log
+
+bin/ForgedAlliance\.exe
+
+maps/
+
+*.lnk
+*.ai
+*.tif
+*.psd
+*.ps1
+*.bat
+!lua_utils/bluePrintExtractor/runme.bat
+bin/Loud-Dev\.log
+
+bin/ForgedAlliance\.exe
+
+maps/Betrayal Ocean/
+
+maps/Burial Mounds 80/
+
+maps/Gentlemans Reef 80/
+
+maps/Gentlemans_Reef_80K\.v0001/
+
+maps/Shards 80/
+
+maps/World/World\.scmap
+
+maps/World/
+
+maps/New World/
+
+maps/New_World\.v0001/
+
+maps/
+
+*.lnk
+
+lua_utils/bluePrintExtractor/output_fullSSwThreat.csv
+
+lua_utils/
+>>>>>>> Stashed changes
+
+.vscode
+lua_utils/bluePrintExtractor/output*.csv
+>>>>>>> Stashed changes
