@@ -1586,8 +1586,6 @@ local function TryLaunch(skipNoObserversCheck, skipSandboxCheck, skipTimeLimitCh
                 if string.find(v, pat) then
                     optionValid = true
                     break -- Don't bother with other patterns
-                else
-                    LOG("RATS: pattern "..pat.." failed to match "..v)
                 end
             end
         elseif type(lobbyOptMap[k].valid) == 'string' then

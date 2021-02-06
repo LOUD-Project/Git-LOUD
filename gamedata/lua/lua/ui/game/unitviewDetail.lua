@@ -194,7 +194,7 @@ function ShowEnhancement( bp, bpID, iconID, iconPrefix, userUnit )
 			
 				local tempDesc = LOC(UnitDescriptions[tempDescID])
 				
-				WrapAndPlaceText(nil, nil, nil, nil, nil, tempDesc, View.Description)
+				WrapAndPlaceText(nil, nil, nil, nil, nil, nil, tempDesc, View.Description)
 			else
 				WARN('No description found for unit: ', bpID, ' enhancement: ', iconID)
 				
@@ -228,7 +228,7 @@ function ShowEnhancement( bp, bpID, iconID, iconPrefix, userUnit )
     
 end
 
-function WrapAndPlaceText(air, physics, intel, weapons, abilities, text, control)
+function WrapAndPlaceText(air, physics, intel, weapons, abilities, capCost, text, control)
 	
 	-- Create the table of text to be displayed once populated.
 	local textLines = {}
@@ -608,6 +608,15 @@ function WrapAndPlaceText(air, physics, intel, weapons, abilities, text, control
 		intel_line = table.getn(textLines)
 	end
 
+	-- Unit cap
+	if capCost then
+		local capCostStr = string.format("%.1f", capCost)
+		capCostStr = capCostStr:gsub("%.?0+$", "")
+		table.insert(textLines, "Unit Cap Cost: "..capCostStr)
+	else
+		table.insert(textLines, "Unit Cap Cost: 1")
+	end
+
 	for i, v in textLines do
 	
 		local index = i
@@ -741,7 +750,7 @@ function Show(bp, buildingUnit, bpID)
 		View.HealthStat.Value:SetText(string.format("%d", bp.Defense.MaxHealth))
 
 		if View.Description then
-			WrapAndPlaceText(bp.Air, bp.Physics, bp.Intel, bp.Weapon, bp.Display.Abilities, LOC(UnitDescriptions[bpID]), View.Description)
+			WrapAndPlaceText(bp.Air, bp.Physics, bp.Intel, bp.Weapon, bp.Display.Abilities, bp.General.CapCost, LOC(UnitDescriptions[bpID]), View.Description)
 		end
 		
 		local showShield = false
