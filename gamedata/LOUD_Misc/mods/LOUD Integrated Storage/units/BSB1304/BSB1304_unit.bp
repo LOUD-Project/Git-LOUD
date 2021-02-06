@@ -40,7 +40,7 @@ UnitBlueprint {
     Description = '<LOC bsb1304_desc>Advanced Hydrocarbon Power Plant & Storage',
     Display = {
 		Abilities = {
-			'Cusstomizable',
+			'Customizable',
             'Volatile',
         },	
         LoopingAnimation = '/units/XSB1102/XSB1102_aloop.sca',
@@ -52,10 +52,10 @@ UnitBlueprint {
                     LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
                     Scrolling = true,
                     ShaderName = 'Seraphim',
-                    MeshName = '/mods/BlackOpsUnleashed/units/BSB1202/BSB1202_LOD0.scm',
-                    AlbedoName = '/mods/BlackOpsUnleashed/units/BSB1202/BSB1202_Albedo.dds',
-                    NormalsName = '/mods/BlackOpsUnleashed/units/BSB1202/BSB1202_NormalsTS.dds',
-                    SpecularName = '/mods/BlackOpsUnleashed/units/BSB1202/BSB1202_SpecTeam.dds',
+                    MeshName = '/mods/BlackOpsUnleashed/units/BSB1302/BSB1302_LOD0.scm',
+                    AlbedoName = '/mods/BlackOpsUnleashed/units/BSB1302/BSB1302_Albedo.dds',
+                    NormalsName = '/mods/BlackOpsUnleashed/units/BSB1302/BSB1302_NormalsTS.dds',
+                    SpecularName = '/mods/BlackOpsUnleashed/units/BSB1302/BSB1302_SpecTeam.dds',
                 },
             },
         },
