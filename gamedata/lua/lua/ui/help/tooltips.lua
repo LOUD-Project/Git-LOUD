@@ -855,7 +855,7 @@ Tooltips = {
     },
     Lobby_ACT_Time_Cap = {
         title = "Timed Cheat Limit",
-        description = "If an AI cheats more with time, its cheat multiplier cannot pass the selected number.",
+        description = "If an AI cheats more with time, its cheat multiplier cannot pass the selected number. Can be negative.",
     },
     Lobby_ACT_Ratio_Interval = {
         title = "Feedback Cheat Interval",
@@ -863,7 +863,7 @@ Tooltips = {
     },
     Lobby_ACT_Ratio_Scale = { 
         title = "Feedback Cheat Scale", 
-        description = "If an AI is affected by feedback cheating, this is the scale which affects the multiplier increase. Mouseover an option for more information.", 
+        description = "If an AI is affected by feedback cheating, this is the scale which affects the multiplier increase. At 1, the cheat will increase by a max of 0.5.", 
     },
     
     Lobby_Gen_Civilians = {

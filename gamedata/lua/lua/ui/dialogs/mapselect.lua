@@ -643,8 +643,8 @@ function SetupOptionsPanel(parent, singlePlayer, curOptions)
             if charcode == UIUtil.VK_TAB then
                 return true
             end
-            -- Forbid all characters except digits
-            if charcode >= 58 or charcode <= 47 then
+            -- Forbid all characters except digits, ., and -
+            if charcode == 47 or charcode >= 58 or charcode <= 44 then
                 return true
             end
             local charLim = self:GetMaxChars()
@@ -652,10 +652,6 @@ function SetupOptionsPanel(parent, singlePlayer, curOptions)
                 local sound = Sound({Cue = 'UI_Menu_Error_01', Bank = 'Interface',})
                 PlaySound(sound)
             end
-        end
-
-        edit.OnLoseKeyboardFocus = function(self)
-            edit:AcquireFocus()
         end
 
         return edit
@@ -767,8 +763,12 @@ function SetupOptionsPanel(parent, singlePlayer, curOptions)
                 LayoutHelpers.AtLeftTopIn(line.text, line, 10, 5)
                 line.combo:Hide()
                 line.edit:Show()
-                line.edit.OnTextChanged = function(self, newText, oldText)
-                    changedOptions[element.data.key] = {value = newText, type = 'edit', pref = element.data.pref}
+                line.edit.OnTextChanged = function(_, newText, oldText)
+                    changedOptions[element.data.key] = {
+                        value = newText, 
+                        type = 'edit', 
+                        pref = element.data.pref,
+                    }
                 end
                 Tooltip.AddControlTooltip(line, element.data.pref)
                 line.edit:SetText(tostring(changedOptions[element.data.key].value or curOptions[element.data.key]))
