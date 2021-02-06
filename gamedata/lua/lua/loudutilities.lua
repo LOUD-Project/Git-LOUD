@@ -627,7 +627,7 @@ function RatioAdaptiveCheatThread()
 		end
 
 		WaitTicks(interval)
-		LOG("*AI DEBUG Ratio ACT cycles at "..repr(GetGameTimeSeconds()).." secs.")
+		-- LOG("*AI DEBUG Ratio ACT cycles at "..repr(GetGameTimeSeconds()).." secs.")
 
 		-- If a brain gets unsubscribed during an update, the list of brains is
 		-- compromised, and we must stop immediately and reiterate
@@ -663,7 +663,9 @@ function RatioAdaptiveCheatThread()
 				end
 				
 				if lastUpdate[i] and lastUpdate[i] ~= aiBrain.CheatValue + cheatInc then
-					LOG(aiBrain.Nickname.." new ArmyPoolBuff: "..repr(lastUpdate[i]).." -> "..repr(aiBrain.CheatValue + cheatInc))
+					LOG("*AI DEBUG Ratio ACT: "..aiBrain.Nickname.." new ArmyPoolBuff: "..
+						tostring(lastUpdate[i]).." -> "..
+						tostring(aiBrain.CheatValue + cheatInc))
 					SetArmyPoolBuff(aiBrain, aiBrain.CheatValue + cheatInc)
 					-- Record the value of this update
 					lastUpdate[i] = aiBrain.CheatValue + cheatInc
