@@ -638,6 +638,10 @@ function SetupOptionsPanel(parent, singlePlayer, curOptions)
         edit.Width:Set(240)
         edit.Height:Set(18)
         edit:SetMaxChars(5)
+        edit.default = UIUtil.CreateText(edit, '', 13, 'Arial')
+        edit.default:SetNewColor('888888')
+        LayoutHelpers.AtRightIn(edit.default, edit, 16)
+        LayoutHelpers.AtVerticalCenterIn(edit.default, edit)
 
         edit.OnCharPressed = function(self, charcode)
             if charcode == UIUtil.VK_TAB then
@@ -763,6 +767,7 @@ function SetupOptionsPanel(parent, singlePlayer, curOptions)
                 LayoutHelpers.AtLeftTopIn(line.text, line, 10, 5)
                 line.combo:Hide()
                 line.edit:Show()
+                line.edit.default:SetText("Default: "..element.data.default)
                 line.edit.OnTextChanged = function(_, newText, oldText)
                     changedOptions[element.data.key] = {
                         value = newText, 
