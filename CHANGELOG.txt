@@ -1,3 +1,13 @@
+### Patch 06-02-2021 ###
+Lua 5.4.06
+
+- AI: Revision of threat-driven Naval bases.
+ |--> Avoids building naval bases if threat too near.
+ |--> Naval builders for small maps use different range values in this threat-based assessment.
+ |--> Expansion bases use more threat-driven triggers to suppress construction of certain defensive works.
+ |--> Naval Reinforcement now triggered by lower requirements.
+- AI: Threat Build conditions revised.
+
 ### Release 05-02-2021 ###
 Lua 5.4.05
 
