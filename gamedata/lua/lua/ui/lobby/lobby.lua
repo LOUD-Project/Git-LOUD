@@ -4158,6 +4158,12 @@ function RefreshOptionDisplayData(scenarioInfo)
 
     for _, k in lobbyOptOrder do
         local v = gameInfo.GameOptions[k]
+
+        -- GameOptions might be empty at this moment
+        if not v then
+            continue
+        end
+
         local option = false
         local mpOnly = false
         local optData = lobbyOptMap[k]
