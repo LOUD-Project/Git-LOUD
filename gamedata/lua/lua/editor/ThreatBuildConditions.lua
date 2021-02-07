@@ -1,5 +1,7 @@
 ---  /lua/editor/threatbuildconditions.lua
 
+local LOUDSORT = table.sort
+
 function ThreatCloserThan( aiBrain, locationType, distance, threatcutoff, threattype)
 	
 	if aiBrain.BuilderManagers[locationType].Position then
@@ -20,11 +22,8 @@ function ThreatCloserThan( aiBrain, locationType, distance, threatcutoff, threat
 		for _,v in threatTable do
 
 			if v[3] > threatcutoff then
-			
-				--LOG("*AI DEBUG "..aiBrain.Nickname.." has "..v[3].." "..threattype.." threat within "..distance.." of "..locationType.." - "..VDist2( v[1], v[2], position[1], position[3] ))
 		
 				if VDist2( v[1], v[2], position[1], position[3] ) <= distance then
-					--LOG("*AI DEBUG "..aiBrain.Nickname.." has "..v[3].." "..threattype.." threat closer than "..distance.." of "..locationType.." - "..VDist2( v[1], v[2], position[1], position[3] ))
 					return true
 				end
 			end
@@ -42,6 +41,11 @@ function ThreatFurtherThan( aiBrain, locationType, distance, threattype, threatc
 		local position = aiBrain.BuilderManagers[locationType].Position
 		local threatTable = aiBrain:GetThreatsAroundPosition( position, 12, true, threattype)
 
+        -- sort the table by closest first so we can abort as soon as we pass the distance check
+        LOUDSORT(threatTable, function(a,b) return VDist2Sq(a[1],a[2], position[1],position[3]) < VDist2Sq(b[1],b[2], position[1],position[3]) end)
+        
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." threat table for "..threattype.." is "..repr(threatTable))
+    
         -- this code makes this function dynamic via LandRatio and AIMult --
         if threattype == 'Land' and aiBrain.LandRatio > 1.1 then
         
@@ -54,30 +58,19 @@ function ThreatFurtherThan( aiBrain, locationType, distance, threattype, threatc
             threatcutoff = threatcutoff * aiBrain.LandRatio                             -- and the amount of threat needs to be higher as well
             
         end
-		
-		local closest = 9999
-		local value = 0
 
 		for _,v in threatTable do
 
-			local threatdistance = VDist2( v[1], v[2], position[1], position[3] )
+			if VDist2( v[1],v[2], position[1],position[3] ) < distance then
 			
-			if threatdistance < closest and v[3] > threatcutoff then 
-				closest = threatdistance
-				value = v[3]
-			end
-			
-			if v[3] > threatcutoff then
-		
-				if threatdistance <= distance then
-					--LOG("*AI DEBUG "..aiBrain.Nickname.." at "..repr(locationType).." has "..threattype.." threat closer than "..math.floor(distance).." is at ("..math.floor(threatdistance)..")	threat is "..math.floor(v[3]).." trigger ("..math.floor(threatcutoff)..") comes from "..repr(v) )
+                if v[3] > threatcutoff then
+					--LOG("*AI DEBUG "..aiBrain.Nickname.." at "..repr(locationType).." has "..threattype.." threat closer than "..math.floor(distance).." is at ("..math.floor(VDist2(v[1],v[2], position[1],position[3]))..")	threat is "..math.floor(v[3]).." trigger ("..math.floor(threatcutoff)..") comes from "..repr(v) )
 					return false
 				end
-			end
-		end
-		
-		if closest < 9999 then
-			--LOG("*AI DEBUG "..aiBrain.Nickname.." at "..repr(locationType).." reports closest threat is below "..math.floor(threatcutoff).." and/or beyond "..math.floor(distance) )
+                
+			else
+                break
+            end
 		end
 	end
 

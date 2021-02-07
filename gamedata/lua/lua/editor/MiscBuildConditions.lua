@@ -106,6 +106,6 @@ function MapGreaterThan(aiBrain, size )
 end
 
 function MapLessThan(aiBrain, size )
-	return (ScenarioInfo.size[1] <= size or ScenarioInfo.size[2] <= size)	
+	return (ScenarioInfo.size[1] <= size and ScenarioInfo.size[2] <= size)	
 end
 
