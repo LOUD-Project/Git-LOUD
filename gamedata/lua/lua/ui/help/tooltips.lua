@@ -543,6 +543,18 @@ Tooltips = {
         title = "Hotbuild: Cycle Reset Time",
         description = "Time in milliseconds when Hotbuilds resets your selection to the first option",
     },
+    options_alertcam_mode = {
+        title = "Go-To-Alert Camera Mode",
+        description = "",
+    },
+    options_alertcam_zoom = {
+        title = "Go-To-Alert Camera Move Time",
+        description = "The time over which the camera will zoom into the last alert",
+    },
+    options_alertcam_time = {
+        title = "Go-To-Alert Camera Target Zoom",
+        description = "How far the camera zooms into the last alert",
+    },
     options_gui_detailed_unitview = {
         title = 'Display more Unit Stats',
         description = 'Replaces fuel bar with progress bar, and causes the unitview to always be shown for a 1 unit selection.',
