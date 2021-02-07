@@ -10,7 +10,7 @@
 
 --[[
     -- AI Engineers will be named according to the Builder they are running 
-	ScenarioInfo.NameEngineers = false
+	ScenarioInfo.NameEngineers = true
 	LOG("*AI DEBUG		Name Engineers is "..repr(ScenarioInfo.NameEngineers))
 
     -- engineers will dialog their decisions to the LOG --
@@ -87,7 +87,7 @@
 	LOG("*AI DEBUG		Report Base Monitor Dialogs to Log is "..repr(ScenarioInfo.BaseMonitorDialog))
 
     -- Each AI base will draw a ring indicating the range of the base monitor - each time it checks for threat
-	ScenarioInfo.DisplayBaseMonitors = false
+	ScenarioInfo.DisplayBaseMonitors = true
 	LOG("*AI DEBUG		Display Base Monitors is "..repr(ScenarioInfo.DisplayBaseMonitors))
     
     -- Each AI base will dialog Distress Responses to alerts raised by the base monitor

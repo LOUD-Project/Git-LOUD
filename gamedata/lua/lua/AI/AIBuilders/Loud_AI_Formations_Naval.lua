@@ -951,8 +951,8 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.FRIGATE }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.CRUISER }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.DESTROYER }},
+			--{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.CRUISER }},
+			--{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.DESTROYER }},
         },
 		
         BuilderData = {
