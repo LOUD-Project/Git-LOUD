@@ -619,13 +619,15 @@ advAIOptions = {
     {
         default = '0.02',
         label = "Timed Cheat Amount",
-        help = "If an AI cheats more with time, this is how much the difficulty increases every interval.",
+        help = "If an AI cheats more with time, this is how much the difficulty increases every interval. Can be negative.",
         key = "ACTTimeAmount",
         pref = 'Lobby_ACT_Time_Amount',
         type = 'edit',
         valid = {
             '^%d+$',
             '^%d+%.%d+$',
+            '^%-%d+$',
+            '^%-%d+%.%d+$',
         },
         values = {
             {

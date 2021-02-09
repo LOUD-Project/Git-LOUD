@@ -1277,7 +1277,7 @@ Tooltips = {
     },
     Lobby_ACT_Time_Amount = {
         title = "Timed Cheat Amount",
-        description = "If an AI cheats more with time, this is how much the difficulty increases every interval.",
+        description = "If an AI cheats more with time, this is how much the difficulty increases every interval. Can be negative.",
     },
     Lobby_ACT_Time_Cap = {
         title = "Timed Cheat Limit",
