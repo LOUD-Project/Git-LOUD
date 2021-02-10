@@ -84,6 +84,26 @@ local teamNumbers = {
     "8",
 }
 
+local lobbyOptMap = {}
+local lobbyOptOrder = {}
+
+for _, v in import('/lua/ui/lobby/lobbyoptions.lua').globalOpts do
+    table.insert(lobbyOptOrder, v.key)
+    lobbyOptMap[v.key] = v
+end
+for _, v in import('/lua/ui/lobby/lobbyoptions.lua').teamOptions do
+    table.insert(lobbyOptOrder, v.key)
+    lobbyOptMap[v.key] = v
+end
+for _, v in import('/lua/ui/lobby/lobbyoptions.lua').advAIOptions do
+    table.insert(lobbyOptOrder, v.key)
+    lobbyOptMap[v.key] = v
+end
+for _, v in import('/lua/ui/lobby/lobbyoptions.lua').advGameOptions do
+    table.insert(lobbyOptOrder, v.key)
+    lobbyOptMap[v.key] = v
+end
+
 local function ParseWhisper(params)
 
     local delimStart = string.find(params, ":")
@@ -1552,11 +1572,46 @@ local function TryLaunch(skipNoObserversCheck, skipSandboxCheck, skipTimeLimitCh
         end
     end
 
+    -- Validating edit-based lobby options
+    local canLaunch = true
+    local badOptions = {}
+    
+    for k, v in gameInfo.GameOptions do
+        local optionValid = false
+        if not lobbyOptMap[k].valid then
+            continue
+        end
+        if type(lobbyOptMap[k].valid) == 'table' then
+            for _, pat in lobbyOptMap[k].valid do
+                if string.find(v, pat) then
+                    optionValid = true
+                    break -- Don't bother with other patterns
+                end
+            end
+        elseif type(lobbyOptMap[k].valid) == 'string' then
+            if string.find(v, lobbyOptMap[k].valid) then
+                optionValid = true
+            end
+        end
+        if not optionValid then
+            table.insert(badOptions, lobbyOptMap[k].label)
+            canLaunch = false
+        end
+    end
+
+    if not canLaunch then
+        local str = 
+            "Can't launch. The following settings have invalid values: "..
+            table.concat(badOptions, ", ")
+        AddChatText(str)
+        return
+    end
+
     if tonumber(gameInfo.GameOptions['UnitCap']) < 350 then
         AddChatText("Unit Cap is too low. Please set it between 350 and 5000.")
         return
     elseif tonumber(gameInfo.GameOptions['UnitCap']) > 5000 then
-        AddChatText("Unit Cap is too high. Please set it between 100 and 5000.")
+        AddChatText("Unit Cap is too high. Please set it between 350 and 5000.")
         return
     end
 
@@ -1945,10 +2000,15 @@ local function UpdateGame()
         gameInfo.GameOptions.MaxSlots = '16'
         
         --LOG("*AI DEBUG Updating Steam Lobby game options with "..repr(gameInfo.GameOptions))
-	
+
+        -- Prevent a crash caused by profiles from before unit cap textbox
+        if type(gameInfo.GameOptions.UnitCap) ~= 'string' then
+            gameInfo.GameOptions.UnitCap = "800"
+        end
+
 		lobbyComm:UpdateSteamLobby(  
         
-            {            
+            {
 				Options = gameInfo.GameOptions,
 				HostedBy = localPlayerName,
                 MaxPlayers = 16,
@@ -2758,10 +2818,10 @@ function CreateUI(maxPlayers, useSteam)
             GUI.chatEdit:AcquireFocus() 
             
             for optionKey, data in changedOptions do
-                if data.type == 'combo' then
-                    Prefs.SetToCurrentProfile(data.pref, data.index)
-                else
+                if data.type and data.type == 'edit' then
                     Prefs.SetToCurrentProfile(data.pref, data.value)
+                else
+                    Prefs.SetToCurrentProfile(data.pref, data.index)
                 end
                 SetGameOption(optionKey, data.value)
             end
@@ -3167,6 +3227,7 @@ function CreateUI(maxPlayers, useSteam)
                 Tooltip.AddControlTooltip(line.value.bg2, data.valueTooltip)
             end
         end
+
         for i, v in GUI.OptionDisplay do
             if formattedOptions[i + self.top] then
                 SetTextLine(v, formattedOptions[i + self.top], i + self.top)
@@ -3258,21 +3319,25 @@ function CreateUI(maxPlayers, useSteam)
     GUI.nameLabel = UIUtil.CreateText(GUI.labelGroup, "<LOC lobui_0213>Player Name", 14, UIUtil.titleFont)
     LayoutHelpers.AtLeftIn(GUI.nameLabel, GUI.panel, slotColumnSizes.player.x)
     LayoutHelpers.AtVerticalCenterIn(GUI.nameLabel, GUI.labelGroup)
+    GUI.nameLabel:SetDropShadow(true)
     Tooltip.AddControlTooltip(GUI.nameLabel, 'lob_slot')
 
     GUI.colorLabel = UIUtil.CreateText(GUI.labelGroup, "<LOC lobui_0214>Color", 14, UIUtil.titleFont)
     LayoutHelpers.AtLeftIn(GUI.colorLabel, GUI.panel, slotColumnSizes.color.x)
     LayoutHelpers.AtVerticalCenterIn(GUI.colorLabel, GUI.labelGroup)
+    GUI.colorLabel:SetDropShadow(true)
     Tooltip.AddControlTooltip(GUI.colorLabel, 'lob_color')
 
     GUI.factionLabel = UIUtil.CreateText(GUI.labelGroup, "<LOC lobui_0215>Faction", 14, UIUtil.titleFont)
     LayoutHelpers.AtLeftIn(GUI.factionLabel, GUI.panel, slotColumnSizes.faction.x)
     LayoutHelpers.AtVerticalCenterIn(GUI.factionLabel, GUI.labelGroup)
+    GUI.factionLabel:SetDropShadow(true)
     Tooltip.AddControlTooltip(GUI.factionLabel, 'lob_faction')
 
     GUI.teamLabel = UIUtil.CreateText(GUI.labelGroup, "<LOC lobui_0216>Team", 14, UIUtil.titleFont)
     LayoutHelpers.AtLeftIn(GUI.teamLabel, GUI.panel, slotColumnSizes.team.x)
     LayoutHelpers.AtVerticalCenterIn(GUI.teamLabel, GUI.labelGroup)
+    GUI.teamLabel:SetDropShadow(true)
     Tooltip.AddControlTooltip(GUI.teamLabel, 'lob_team')
 
 	if handiMod then
@@ -3285,15 +3350,18 @@ function CreateUI(maxPlayers, useSteam)
         GUI.aiPingLabel = UIUtil.CreateText(GUI.labelGroup, "Ping/AI Settings", 14, UIUtil.titleFont)
         LayoutHelpers.AtLeftIn(GUI.aiPingLabel, GUI.panel, slotColumnSizes.mult.x)
         LayoutHelpers.AtVerticalCenterIn(GUI.aiPingLabel, GUI.labelGroup)
+        GUI.aiPingLabel:SetDropShadow(true)
         Tooltip.AddControlTooltip(GUI.aiPingLabel, 'lob_ai_ping')
 
         GUI.readyLabel = UIUtil.CreateText(GUI.labelGroup, "<LOC lobui_0218>Ready", 14, UIUtil.titleFont)
         LayoutHelpers.AtLeftIn(GUI.readyLabel, GUI.panel, slotColumnSizes.ready.x)
+        GUI.readyLabel:SetDropShadow(true)
         LayoutHelpers.AtVerticalCenterIn(GUI.readyLabel, GUI.labelGroup)
     else
         GUI.aiLabel = UIUtil.CreateText(GUI.labelGroup, "AI Settings", 14, UIUtil.titleFont)
         LayoutHelpers.AtLeftIn(GUI.aiLabel, GUI.panel, slotColumnSizes.mult.x)
         LayoutHelpers.AtVerticalCenterIn(GUI.aiLabel, GUI.labelGroup)
+        GUI.aiLabel:SetDropShadow(true)
         Tooltip.AddControlTooltip(GUI.aiLabel, 'lob_ai')
     end
 
@@ -3755,10 +3823,13 @@ function CreateUI(maxPlayers, useSteam)
 				for i = 1, LobbyComm.maxPlayerSlots do
 					if not gameInfo.ClosedSlots[i] and not gameInfo.PlayerOptions[i] then
                         DoSlotBehavior(i, GUI.fillOpenCombo.slotKeys[index], text)
-                        GUI.slots[i].mult:SetText(GUI.fillAIMult:GetText())
-                        SetPlayerOption(i, 'Mult', GUI.slots[i].mult:GetText())
+                        -- If the slot was able to be filled, set it up
+                        if gameInfo.PlayerOptions[i] then
+                            GUI.slots[i].mult:SetText(GUI.fillAIMult:GetText())
+                            SetPlayerOption(i, 'Mult', GUI.slots[i].mult:GetText(), true)
+                        end
 					end
-				end
+                end
 			end
         end
 		
@@ -3886,8 +3957,11 @@ function CreateUI(maxPlayers, useSteam)
 				for i = 1, LobbyComm.maxPlayerSlots do
 					if not gameInfo.ClosedSlots[i] and not gameInfo.PlayerOptions[i] then
 						DoSlotBehavior(i, GUI.fillOpenCombo.slotKeys[index], text)
-                        GUI.slots[i].mult:SetText(GUI.fillAIMult:GetText())
-                        SetPlayerOption(i, 'Mult', GUI.slots[i].mult:GetText())
+                        -- If the slot was able to be filled, set it up
+                        if gameInfo.PlayerOptions[i] then
+                            GUI.slots[i].mult:SetText(GUI.fillAIMult:GetText())
+                            SetPlayerOption(i, 'Mult', GUI.slots[i].mult:GetText(), true)
+                        end
                     end
 				end
 			end
@@ -4044,12 +4118,33 @@ function CreateUI(maxPlayers, useSteam)
 end
 
 function RefreshOptionDisplayData(scenarioInfo)
-    local globalOpts = import('/lua/ui/lobby/lobbyoptions.lua').globalOpts
-    local teamOptions = import('/lua/ui/lobby/lobbyoptions.lua').teamOptions
-    local advAIOptions = import('/lua/ui/lobby/lobbyoptions.lua').advAIOptions
-    local advGameOptions = import('/lua/ui/lobby/lobbyoptions.lua').advGameOptions
     formattedOptions = {}
     
+    local modNum = table.getn(Mods.GetGameMods(gameInfo.GameMods))
+    if modNum > 0 then
+        local modStr = '<LOC lobby_0002>%d Mods Enabled'
+        if modNum == 1 then
+            modStr = '<LOC lobby_0004>%d Mod Enabled'
+        end
+        table.insert(formattedOptions, {
+            text = LOCF(modStr, modNum), 
+            value = LOC('<LOC lobby_0003>Check Mod Manager'), 
+            mod = true,
+            tooltip = 'Lobby_Mod_Option',
+            valueTooltip = 'Lobby_Mod_Option'
+        })
+    end
+
+    if gameInfo.GameOptions.RestrictedCategories ~= nil then
+        if table.getn(gameInfo.GameOptions.RestrictedCategories) ~= 0 then
+            table.insert(formattedOptions, {text = LOC("<LOC lobby_0005>Build Restrictions Enabled"), 
+            value = LOC("<LOC lobby_0006>Check Unit Manager"), 
+            mod = true,
+            tooltip = 'Lobby_BuildRestrict_Option',
+            valueTooltip = 'Lobby_BuildRestrict_Option'})
+        end
+    end 
+
     if scenarioInfo then
         table.insert(formattedOptions, {text = '<LOC MAPSEL_0024>', 
             value = LOCF("<LOC map_select_0008>%dkm x %dkm", scenarioInfo.size[1]/50, scenarioInfo.size[2]/50),
@@ -4060,78 +4155,46 @@ function RefreshOptionDisplayData(scenarioInfo)
             tooltip = 'map_select_maxplayers',
             valueTooltip = 'map_select_maxplayers'})
     end
-    local modNum = table.getn(Mods.GetGameMods(gameInfo.GameMods))
-    if modNum > 0 then
-        local modStr = '<LOC lobby_0002>%d Mods Enabled'
-        if modNum == 1 then
-            modStr = '<LOC lobby_0004>%d Mod Enabled'
+
+    for _, k in lobbyOptOrder do
+        local v = gameInfo.GameOptions[k]
+
+        -- GameOptions might be empty at this moment
+        if not v then
+            continue
         end
-        table.insert(formattedOptions, {text = LOCF(modStr, modNum), 
-            value = LOC('<LOC lobby_0003>Check Mod Manager'), 
-            mod = true,
-            tooltip = 'Lobby_Mod_Option',
-            valueTooltip = 'Lobby_Mod_Option'})
-    end
-    
-    if gameInfo.GameOptions.RestrictedCategories ~= nil then
-        if table.getn(gameInfo.GameOptions.RestrictedCategories) ~= 0 then
-            table.insert(formattedOptions, {text = LOC("<LOC lobby_0005>Build Restrictions Enabled"), 
-            value = LOC("<LOC lobby_0006>Check Unit Manager"), 
-            mod = true,
-            tooltip = 'Lobby_BuildRestrict_Option',
-            valueTooltip = 'Lobby_BuildRestrict_Option'})
-        end
-    end 
-    
-    for i, v in gameInfo.GameOptions do
+
         local option = false
         local mpOnly = false
-        for index, optData in globalOpts do
-            if i == optData.key then
-                mpOnly = optData.mponly or false
-                option = {text = optData.label, tooltip = optData.pref}
-                if optData.type and optData.type == 'edit' then
-                    option.value = gameInfo.GameOptions[i]
-                    option.valueTooltip = gameInfo.GameOptions[i]
-                else
-                    for _, val in optData.values do
-                        if val.key == v then
-                            option.value = val.text
-                                option.valueTooltip = 'lob_'..optData.key..'_'..val.key
-                            break
-                        end
+        local optData = lobbyOptMap[k]
+        mpOnly = optData.mponly or false
+        if optData then
+            option = { text = optData.label, tooltip = optData.pref }
+            if optData.type == 'edit' then
+                option.value = gameInfo.GameOptions[k]
+                option.valueTooltip = { 
+                    text = gameInfo.GameOptions[k],
+                    body = ""
+                }
+            else
+                for _, val in optData.values do
+                    if val.key == v then
+                        option.value = val.text
+                        option.valueTooltip = 'lob_'..optData.key..'_'..val.key
+                        break
                     end
-                end
-                break
-            end
-        end
-        if not option then
-            for index, optData in teamOptions do
-                if i == optData.key then
-                    option = {text = optData.label, tooltip = optData.pref}
-                    for _, val in optData.values do
-                        if val.key == v then
-                            option.value = val.text
-                            option.valueTooltip = 'lob_'..optData.key..'_'..val.key
-                            break
-                        end
-                    end
-                    break
                 end
             end
         end
+
         if not option and scenarioInfo.options then
             for index, optData in scenarioInfo.options do
-                if i == optData.key then
-
-                    -- map options are not considered to be official options
-
-                    -- if data.tooltip then
-                    --     Tooltip.AddControlTooltip(line.value.bg, data.tooltip)
-                    --     Tooltip.AddControlTooltip(line.value.bg2, data.valueTooltip)
-                    -- end
-
-                    option = { text = optData.label, tooltip = { text = optData.label, body = optData.help } }
+                if k == optData.key then
+                    -- Map options are not considered to be official options
+                    option = { 
+                        text = optData.label, 
+                        tooltip = { text = optData.label, body = optData.help }
+                    }
                     for _, val in optData.values do
                         if val.key == v then
                             option.value = val.text
@@ -4143,65 +4206,7 @@ function RefreshOptionDisplayData(scenarioInfo)
                 end
             end
         end
-        if option then
-            if not mpOnly or not singlePlayer then
-                table.insert(formattedOptions, option)
-            end
-        end
-    end
-    table.sort(formattedOptions, 
-        function(a, b)
-			if not a.text or not b.text then
-				return false
-            elseif a.mod or b.mod then
-                return a.mod or false
-            else
-                return LOC(a.text) < LOC(b.text) 
-            end
-        end)
-    -- RATODO: Not very elegant way of forcing advanced AI options 
-    -- to bottom of main lobby game options readout
-    for i, v in gameInfo.GameOptions do
-        local option = false
-        local mpOnly = false
-        for index, optData in advAIOptions do
-            if i == optData.key then
-                mpOnly = optData.mponly or false
-                option = {text = optData.label, tooltip = optData.pref}
-                for _, val in optData.values do
-                    if val.key == v then
-                        option.value = val.text
-                            option.valueTooltip = 'lob_'..optData.key..'_'..val.key
-                        break
-                    end
-                end
-                break
-            end
-        end
-        if option then
-            if not mpOnly or not singlePlayer then
-                table.insert(formattedOptions, option)
-            end
-        end
-    end
-    
-    for i, v in gameInfo.GameOptions do
-        local option = false
-        local mpOnly = false
-        for index, optData in advGameOptions do
-            if i == optData.key then
-                mpOnly = optData.mponly or false
-                option = {text = optData.label, tooltip = optData.pref}
-                for _, val in optData.values do
-                    if val.key == v then
-                        option.value = val.text
-                            option.valueTooltip = 'lob_'..optData.key..'_'..val.key
-                        break
-                    end
-                end
-                break
-            end
-        end
+
         if option then
             if not mpOnly or not singlePlayer then
                 table.insert(formattedOptions, option)
@@ -4910,9 +4915,16 @@ function InitLobbyComm(protocol, localPort, desiredPlayerName, localPlayerUID, n
             end
         end
 
+        -- Force game speed to adjustable when hosting starts
+        SetGameOption('GameSpeed', 'adjustable')
+
         for index, option in import('/lua/ui/lobby/lobbyoptions.lua').advAIOptions do
-            local defValue = Prefs.GetFromCurrentProfile(option.pref) or option.default
-            SetGameOption(option.key,option.values[defValue].key)
+            if option.type and option.type == 'edit' then
+                SetGameOption(option.key, Prefs.GetFromCurrentProfile(option.pref) or option.default)
+            else
+                local defValue = Prefs.GetFromCurrentProfile(option.pref) or option.default
+                SetGameOption(option.key,option.values[defValue].key)
+            end
         end
 
         for index, option in import('/lua/ui/lobby/lobbyoptions.lua').advGameOptions do
@@ -5005,7 +5017,11 @@ end
 
 function SetPlayerOption(slot, key, val, override)
     if not IsLocallyOwned(slot) and not override then
-        WARN("Hey you can't set a player option on a slot you don't own.")
+        local lpid = tostring(localPlayerID)
+        local ownerID = tostring(gameInfo.PlayerOptions[slot].OwnerID)
+        WARN(
+            string.format("Illegal SetPlayerOption attempt (%s = %s) by %s on slot %d (%s)",
+            key, val, lpid, slot, ownerID))
         return
     end
 
@@ -5432,7 +5448,7 @@ function NewShowMapPositions(mapCtrl, scenario, numPlayers)
 		
 			if gameInfo.PlayerOptions[slot] then
 			
-				bMP.markers[slot].marker:SetSolidColor(ColorToStr(gameInfo.PlayerOptions[slot].WheelColour))
+				bMP.markers[slot].marker:SetSolidColor(ColorToStr(gameInfo.PlayerOptions[slot].WheelColor))
 				
 				if gameInfo.PlayerOptions[slot].Team == 1 then
 				

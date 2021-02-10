@@ -24,6 +24,12 @@ local optionContainer = false
 local mouseover = false
 local modDetails = false
 
+local DEFAULT_CLOSED_FOLDERS = {
+    "Unofficial Rebalance",
+    "Mutators",
+    "Miscellaneous",
+}
+
 -- This function can be called while the ModManager is active, to update changes to the selected mods on the fly.
 -- If called when the ModManger is -not- active, it is a no-op.
 function UpdateClientModStatus(selectedModsFromHost)
@@ -180,28 +186,52 @@ local modSchema = {
         '9a9C61C0-1787-10DF-A0AD-BATTLEPACK002', -- Wyvern Battle Pack
     },
     ["User Interface"] = {
+        'Machd6c5-cd5c-4e34-b6cc-11503ed5e2da', -- Disperse Move
         'EF3ADDB4-9D34-437F-B1C8-440DAF896802', -- Mass Fab Manager
+        -- 'bc7731b6-1416-11ea-8d71-362b9e155667', -- Selection Depriotizer
         'D000E905-1E97-420D-8ED9-DF083282F59D', -- Sequential Mex Upgrade
         '89BF1572-9EA8-11DC-1313-635F56D89591', -- Supreme Economy
         'HUSSAR-PL-a1e2-c4t4-scfa-ssbmod-v1240', -- Supreme Score Board
+        '022E3DB4-9C00-5ED7-9876-4866D316E015', -- UI Party
     },
-    ["Mini-Mods"] = {
+    ["Official Rebalance"] = {
         'ffffffff-6f00-4864-9599-4133236eea7a', -- Evenflow
         'ffffffff-6e98-4864-9599-4133236eea7a', -- Integrated Storage
         'ffffffff-ffff-ffff-ffff-fffffffffffe', -- Structure Enhancements
+    },
+    ["Unofficial Rebalance"] = {
+        '25D57D85-9JA7-D842-BREW-INTEL00000002', -- BrewLAN: Bletchley Park
+        '16678e1e-7fc9-11e5-8bcf-waterguard10', -- Water Guard
+        '25D57D85-9JA7-D842-GKG4-ASJDKG49G8S70', -- Waterlag
+        '16678e1e-7fc9-11e5-8bcf-wreckageA01' -- Wreckage Decay
     },
     ["Mutators"] = {
         'ffffffff-9d4e-11dc-8314-0800200c0605', -- Enhanced BO Commanders
         'ffffffff-9d4e-11dc-8314-0800200c0702', -- Enhanced T4 Artillery
         '0a970b58-533d-11dc-8314-0800200c9a66', -- Enhanced Nukes
         '74A9EAB2-E851-11DB-A1F1-F2C755D89593', -- Enhanced Resources
-        '25D57D85-7D84-27HT-A502-LDIPS0000002', -- Lucky Dip
         'TANKSYS-EXPERIMENTS-1-COMBAT',         -- Tanksy's Experiments: Combat Changes
+        -- BrewLAN
+        'f31a09b5-2b2f-4bb4-aeac-47ab777a7cde', -- Antimass
+        '190261d0-4bb0-11e2-bcSC-CITIES000001', -- Cityscapes
+        '1a17998a-7355-11e5-8bcf-feff819cdc9f', -- Cost Variance
+        'BREWLANS-a0a7-426d-88f2-CRATESZ00011', -- Crate Drop
+        '16678e1e-7fc9-11e5-8bcf-x10health0010', -- Hench AF
+        '16678e1e-7fc9-11e5-8bcf-dayofsex0010', -- Invisible War
+        '25D57D85-7D84-27HT-A502-LDIPS0000002', -- Lucky Dip
+        '25D57D85-7D84-27HT-A502-MASSRNG00002', -- Mass Point RNG
+        'BREWLANS-22b4-4936-820e-PARAGON0040', -- Paragon Game
+        '25D57D85-7D84-27HT-A502-RPS000000000', -- Rock Paper Scissors
+        '16678e1e-7fc9-11e5-8bcf-scathingbe20', -- Scathing Beetles
+        'BREWLANS-a0a7-426d-88f2-SPOMEN00000', -- Spomeniki
+        '25D57D85-9JA7-D842-BREW-SUDDEN000001', -- Sudden Death
+        -- '25D57D85-7D84-27HT-A502-TECHRND00000', -- Tech Level Randomiser
     },
     ["Miscellaneous"] = {
         '25D57D85-9JA7-D842-GKG4-ORIGIN0000001', -- BrewLAN Baristas
         '25D57D85-9JA7-D842-GKG4-DAMAGENO00000', -- BrewLAN Damage Numbers
         '2529ea71-93ef-41a6-b552-LOGS0000000009', -- BrewLAN Debug Tools
+        'zcbf6277-24e3-437a-b968-Common-v1', -- Common Mod Tools
         '2529ea71-93ef-41a6-b552-EXPERICON00005', -- Experimental Icons Overhaul
         '5362BE90-44BE-11DD-A519-83AF56D89593', -- Supreme Commander Music
     },
@@ -211,15 +241,27 @@ local modSchema = {
 local folderOrder = {
     "Units",
     "User Interface",
-    "Mini-Mods",
+    "Official Rebalance",
+    "Unofficial Rebalance",
     "Mutators",
     "Miscellaneous",
     "Usermods",
 }
 
+local folderTooltips = {
+    ["Units"] = 'modmgr_folder_units',
+    ["User Interface"] = 'modmgr_folder_ui',
+    ["Official Rebalance"] = 'modmgr_folder_official',
+    ["Unofficial Rebalance"] = 'modmgr_folder_unofficial',
+    ["Mutators"] = 'modmgr_folder_mut',
+    ["Miscellaneous"] = 'modmgr_folder_misc',
+    ["Usermods"] = 'modmgr_folder_user',
+}
+
 local modStruct = {}
 
 local function CreateLoadPresetDialog(parent, modListTable, modStatus)
+
     local dialog = Group(parent)
 	dialog.Depth:Set(function() return parent.Depth() + 5 end)
     local background = Bitmap(dialog, UIUtil.SkinnableFile('/dialogs/dialog/panel_bmp_m.dds'))
@@ -617,42 +659,42 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
 
     local help1 = UIUtil.CreateText(panel, "Click a row to enable/disable.", 14, UIUtil.bodyFont)
     LayoutHelpers.AtLeftTopIn(help1, panel, 30, 74)
-    local help2 = UIUtil.CreateText(panel, "Click the > button to see more details.", 14, UIUtil.bodyFont)
+    local help2 = UIUtil.CreateText(panel, "Click the > button or right-click on a mod to see more details.", 14, UIUtil.bodyFont)
     LayoutHelpers.Below(help2, help1, 2)
 
     ---------------------------------------------------------------------------
     -- Mod list control
     ---------------------------------------------------------------------------
 
-    local function InSchema(uidArg)
-        for _, v in modSchema do
-            for _, uid in v do
-                if uidArg == uid then
-                    return true
-                end
-            end
-        end
-        return false
-    end
-
     modStruct = {}
-
-    for key, block in modSchema do
-        modStruct[key] = {}
-        modStruct[key].name = key
-        -- RATODO: Maybe leave some closed by default
-        modStruct[key].open = true
-        modStruct[key].uids = {}
-        for _, uid in block do
-            table.insert(modStruct[key].uids, uid)
-        end
-    end
 
     local allmods = Mods.AllSelectableMods()
     local selmods = Mods.GetSelectedMods()
 
+    local isUsermod = {}
+    for uid, _ in allmods do
+        isUsermod[uid] = true
+    end
+
+    for key, block in modSchema do
+        modStruct[key] = {}
+        modStruct[key].name = key
+        -- Collapse certain folders by default
+        modStruct[key].open = not table.find(DEFAULT_CLOSED_FOLDERS, key)
+        modStruct[key].uids = {}
+        for _, uid in block do
+            -- Prevent complete blow-up if a UID in the schema is illegal
+            if not allmods[uid] then
+                WARN("MOD MANAGER: "..uid.." is in schema, but not installed or selectable")
+                continue
+            end
+            table.insert(modStruct[key].uids, uid)
+            isUsermod[uid] = false
+        end
+    end
+
     for _, v in allmods do
-        if not InSchema(v.uid) then
+        if isUsermod[v.uid] then
             table.insert(modStruct['Usermods'].uids, v.uid)
         end
         if selmods[v.uid] then
@@ -663,6 +705,23 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
         if IsModExclusive(v.uid) and modStatus[v.uid].checked then
             exclusiveModSelected = v.uid
         end
+    end
+
+    for k, v in modStruct do
+        if table.empty(v.uids) then
+            modStruct[k] = nil
+        end
+    end
+
+    if modStruct['Usermods'] then
+        table.sort(modStruct['Usermods'].uids, function(a, b)
+            if allmods[a].name and allmods[b].name
+            and allmods[a].name ~= allmods[b].name then
+                return allmods[a].name < allmods[b].name
+            else
+                return a > b
+            end
+        end)
     end
 
     local modListTable = {}
@@ -716,7 +775,7 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
         grp.name:DisableHitTest()
         grp.Brighten = function(self)
             if not self.uid then
-                grp.bg:SetSolidColor('42484B')
+                grp.bg:SetSolidColor('7E979B')
             else
                 local modStatusEntry = modStatus[self.uid]
                 if modStatusEntry.checked then
@@ -737,7 +796,7 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
 
         grp.Darken = function(self)
             if not self.uid then
-                grp.bg:SetSolidColor('22282B')
+                grp.bg:SetSolidColor('5E777B') -- Folder colour; desatured mid-cyan
             else
                 local modStatusEntry = modStatus[self.uid]
                 if modStatusEntry.checked then
@@ -758,7 +817,7 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
 
         grp.SetVisual = function(self, modStatusEntry)
             if modStatusEntry == nil then
-                grp.bg:SetSolidColor('22282B')
+                grp.bg:SetSolidColor('5E777B') -- Folder colour; desatured mid-cyan
             elseif modStatusEntry.checked then
                 if modStatusEntry.cantoggle then
                     grp.bg:SetSolidColor('55863F') -- Green
@@ -830,6 +889,8 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
         local skip = selfMLC.top -- Account for scroll bar offset
         for bi = 1, table.getsize(folderOrder) do
             local block = modStruct[folderOrder[bi]]
+            -- Skip blocks which were empty and removed
+            if not block then continue end
             -- Skip entire block if scroll bar dictates
             if not block.open and skip >= 1 then
                 skip = skip - 1
@@ -855,8 +916,10 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
                 modListTable[i].name:SetText(block.name)
                 modListTable[i].HandleEvent = function(self, event)
                     if event.Type == 'MouseExit' then
+                        Tooltip.DestroyMouseoverDisplay()
                         self:Darken()
                     elseif event.Type == 'MouseEnter' then
+                        Tooltip.CreateMouseoverDisplay(self, folderTooltips[self.block.name], 0.25, true)
                         self:Brighten()
                     elseif event.Type == 'ButtonPress' or event.Type == 'ButtonDClick' then
                         self.block.open = not self.block.open
@@ -889,11 +952,6 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
             end
 
             for _, uid in block.uids do
-                -- Prevent complete blow-up if a UID in the schema is illegal
-                if not allmods[uid] then
-                    continue
-                end
-
                 if skip > 0 then
                     skip = skip - 1
                     continue
@@ -1051,23 +1109,25 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
                     elseif event.Type == 'MouseEnter' then
                         self:Brighten()
                     elseif event.Type == 'ButtonPress' then
-                        local sound = Sound({Cue = 'UI_Mini_MouseDown', Bank = 'Interface',})
-                        PlaySound(sound)
-                        if modStatus[self.uid].cantoggle then
-                            if IsModExclusive(modInfo.uid) and not self.enabled then
-                                HandleExclusiveClick(self)
-                            else
-                                if exclusiveModSelected then
-                                    HandleExclusiveActive(self, HandleNormalClick)
+                        if event.Modifiers.Right then
+                            DisplayModDetails(self.uid)
+                            local sound = Sound({Cue = 'UI_Mod_Select', Bank = 'Interface',})
+                            PlaySound(sound)
+                        else
+                            local sound = Sound({Cue = 'UI_Mini_MouseDown', Bank = 'Interface',})
+                            PlaySound(sound)
+                            if modStatus[self.uid].cantoggle then
+                                if IsModExclusive(modInfo.uid) and not self.enabled then
+                                    HandleExclusiveClick(self)
                                 else
-                                    HandleNormalClick(self)
+                                    if exclusiveModSelected then
+                                        HandleExclusiveActive(self, HandleNormalClick)
+                                    else
+                                        HandleNormalClick(self)
+                                    end
                                 end
                             end
                         end
-                    elseif event.Type == 'ButtonDClick' then
-                        DisplayModDetails(self.uid, modStatus)
-                        local sound = Sound({Cue = 'UI_Mod_Select', Bank = 'Interface',})
-                        PlaySound(sound)
                     end
                 end
                 modListTable[i].detailButton.OnClick = function(self, modifiers)

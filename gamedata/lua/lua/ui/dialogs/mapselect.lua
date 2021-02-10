@@ -22,8 +22,8 @@ local ModManager = import('/lua/ui/dialogs/modmanager.lua')
 local EnhancedLobby = import('/lua/enhancedlobby.lua')
 
 -- In folderMap, key corresponds to an ItemList row,
--- value[1] corresponds to a folder in folders{}
--- value[2] corresponds to a scenario in folders[x][3]
+-- value.folder corresponds to a folder in folders{}
+-- value.map corresponds to a scenario in folders[x].maps
 local folders = MapUtil.EnumerateSkirmishFolders()
 local folderMap = { {} }
 
@@ -322,10 +322,10 @@ function CreateDialog(selectBehavior, exitBehavior, over, singlePlayer, defaultS
 		end
         doNotRepeatMap = nummapa
         local fold = folders[nummapa]
-        local mapCount = table.getsize(fold[3])
+        local mapCount = table.getsize(fold.maps)
 
         if mapCount == 1 then
-            selectedScenario = fold[3][1]
+            selectedScenario = fold.maps[1]
         else
             -- Random map from folder
             doNotRepeatMap = nil
@@ -443,8 +443,8 @@ function CreateDialog(selectBehavior, exitBehavior, over, singlePlayer, defaultS
     end
     
     function PreloadMap(row)
-        local fold = folders[folderMap[row + 1][1]]
-        local scen = fold[3][folderMap[row + 1][2]]
+        local fold = folders[folderMap[row + 1].folder]
+        local scen = fold.maps[folderMap[row + 1].map]
         if scen == selectedScenario then
             return
         end
@@ -476,9 +476,9 @@ function CreateDialog(selectBehavior, exitBehavior, over, singlePlayer, defaultS
 
     mapList.OnKeySelect = function(self,row)
         -- If this is a true folder, open it and repop the map list
-        local fold = folders[folderMap[row + 1][1]]
-        if table.getsize(fold[3]) > 1 and not folderMap[row + 1][2] then
-            fold[2] = true
+        local fold = folders[folderMap[srow + 1].folder]
+        if table.getsize(fold.maps) > 1 and not folderMap[row + 1].map then
+            fold.open = true
             PopulateMapList()
             return
         end
@@ -490,9 +490,9 @@ function CreateDialog(selectBehavior, exitBehavior, over, singlePlayer, defaultS
     
     mapList.OnClick = function(self, row, noSound)
         -- If this is a true folder, toggle it and repop the map list
-        local fold = folders[folderMap[row + 1][1]]
-        if table.getsize(fold[3]) > 1 and not folderMap[row + 1][2] then
-            fold[2] = not fold[2]
+        local fold = folders[folderMap[row + 1].folder]
+        if table.getsize(fold.maps) > 1 and not folderMap[row + 1].map then
+            fold.open = not fold.open
             PopulateMapList()
             return
         end
@@ -506,16 +506,16 @@ function CreateDialog(selectBehavior, exitBehavior, over, singlePlayer, defaultS
     
     mapList.OnDoubleClick = function(self, row)
         -- If this is a true folder, toggle it and repop the map list
-        local fold = folders[folderMap[row + 1][1]]
-        if table.getsize(fold[3]) > 1 and not folderMap[row + 1][2] then
-            fold[2] = not fold[2]
+        local fold = folders[folderMap[row + 1].folder]
+        if table.getsize(fold.maps) > 1 and not folderMap[row + 1].map then
+            fold.open = not fold.open
             PopulateMapList()
             return
         end
         -- If this is a scenario instead, select it and return to the main lobby
         mapList:SetSelection(row)
         PreloadMap(row)
-        local scen = folders[folderMap[row + 1][1]][3][folderMap[row + 1][2]]
+        local scen = folders[folderMap[row + 1].folder].maps[folderMap[row + 1].map]
         selectedScenario = scen
         selectBehavior(selectedScenario, changedOptions, restrictedCategories)
         ResetFilters()
@@ -525,10 +525,10 @@ function CreateDialog(selectBehavior, exitBehavior, over, singlePlayer, defaultS
         if not defaultScenarioName then
             -- If no true folder at folders[1], call up its scenario
             -- Otherwise call up its first scenario
-            if not folderMap[1][2] then
+            if folderMap[1].map then
                 return 0
             else
-                folder[folderMap[1][1]][2] = true
+                folders[folderMap[1].folder].open = true
                 return 1
             end
         else
@@ -536,11 +536,11 @@ function CreateDialog(selectBehavior, exitBehavior, over, singlePlayer, defaultS
             for _, folder in folders do
                 i = i + 1
                 local s = 0
-                for _, scenario in folder[3] do
+                for _, scenario in folder.maps do
                     s = s + 1
                     if scenario.file == string.lower(defaultScenarioName) then
-                        if table.getsize(folder[3]) > 1 then
-                            folder[2] = true
+                        if table.getsize(folder.maps) > 1 then
+                            folder.open = true
                             PopulateMapList()
                             return (i + s)
                         else
@@ -549,16 +549,24 @@ function CreateDialog(selectBehavior, exitBehavior, over, singlePlayer, defaultS
                     end
                 end
                 -- Add rows for expanded folders
-                if folder[2] then
+                if folder.open then
                     i = i + s
                 end
             end
+        end
+        -- Fallback in case of map deletion
+        LOG("MAPSELECT: Intended default scenario missing; going to first map in list")
+        if folderMap[1].map then
+            return 0
+        else
+            folders[folderMap[1].folder].open = true
+            return 1
         end
     end
 
     -- Set list to first item or default
     local defaultRow = SetDefaultScenario()
-    
+
     mapList:OnClick(defaultRow, true)
     mapList:ShowItem(defaultRow)
 
@@ -589,6 +597,10 @@ function RefreshOptions(skipRefresh, singlePlayer)
         if table.getsize(OptionTable.options) > 0 then
             table.insert(Options, {type = 'title', text = OptionTable.title})
             for optionIndex, optionData in OptionTable.options do
+                if optionData.key == 'GameSpeed' then
+                    continue
+                end
+
                 if optionData.type and optionData.type == 'edit' then
                     table.insert(Options, {type = 'opt_edit', text = optionData.label, data = optionData})
                 elseif not(singlePlayer and optionData.mponly == true) then
@@ -638,13 +650,17 @@ function SetupOptionsPanel(parent, singlePlayer, curOptions)
         edit.Width:Set(240)
         edit.Height:Set(18)
         edit:SetMaxChars(5)
+        edit.default = UIUtil.CreateText(edit, '', 13, 'Arial')
+        edit.default:SetNewColor('888888')
+        LayoutHelpers.AtRightIn(edit.default, edit, 16)
+        LayoutHelpers.AtVerticalCenterIn(edit.default, edit)
 
         edit.OnCharPressed = function(self, charcode)
             if charcode == UIUtil.VK_TAB then
                 return true
             end
-            -- Forbid all characters except digits
-            if charcode >= 58 or charcode <= 47 then
+            -- Forbid all characters except digits, ., and -
+            if charcode == 47 or charcode >= 58 or charcode <= 44 then
                 return true
             end
             local charLim = self:GetMaxChars()
@@ -652,10 +668,6 @@ function SetupOptionsPanel(parent, singlePlayer, curOptions)
                 local sound = Sound({Cue = 'UI_Menu_Error_01', Bank = 'Interface',})
                 PlaySound(sound)
             end
-        end
-
-        edit.OnLoseKeyboardFocus = function(self)
-            edit:AcquireFocus()
         end
 
         return edit
@@ -767,11 +779,16 @@ function SetupOptionsPanel(parent, singlePlayer, curOptions)
                 LayoutHelpers.AtLeftTopIn(line.text, line, 10, 5)
                 line.combo:Hide()
                 line.edit:Show()
-                line.edit.OnTextChanged = function(self, newText, oldText)
-                    changedOptions[element.data.key] = {value = newText, type = 'edit', pref = element.data.pref}
+                line.edit.default:SetText("Default: "..element.data.default)
+                line.edit.OnTextChanged = function(_, newText, oldText)
+                    changedOptions[element.data.key] = {
+                        value = newText, 
+                        type = 'edit', 
+                        pref = element.data.pref,
+                    }
                 end
                 Tooltip.AddControlTooltip(line, element.data.pref)
-                line.edit:SetText(tostring(curOptions[element.data.key]))
+                line.edit:SetText(tostring(changedOptions[element.data.key].value or curOptions[element.data.key]))
             else
                 line.text:SetText(LOC(element.text))
                 line.text:SetFont(UIUtil.bodyFont, 14)
@@ -943,9 +960,9 @@ function PopulateMapList()
     
     for j, folder in folders do
         local filtered = {}
-        local size = table.getsize(folder[3])
+        local size = table.getsize(folder.maps)
         -- Predetermine which maps in the folder get filtered out
-        for s, sceninfo in folder[3] do
+        for s, sceninfo in folder.maps do
             if currentFilters.map_select_supportedplayers ~= 0 and not CompareFunc(table.getsize(sceninfo.Configurations.standard.teams[1].armies), 
             currentFilters.map_select_supportedplayers, currentFilters.map_select_supportedplayers_limiter) and
             not filtered[s] then
@@ -969,12 +986,15 @@ function PopulateMapList()
             continue
         elseif size > 1 then
             -- Map this ItemList row to a folder, but not a scenario
-            folderMap[count] = { j, nil }
-            mapList:AddItem("*** FOLDER: "..folder[1])
+            folderMap[count] = { 
+                folder = j,
+                map = nil 
+            }
+            mapList:AddItem("*** FOLDER: "..folder.name)
             count = count + 1
         end
-        if size == 1 or folder[2] then
-            for i, sceninfo in folder[3] do
+        if size == 1 or folder.open then
+            for i, sceninfo in folder.maps do
                 -- Don't add filtered maps
                 if filtered[i] then
                     continue
@@ -986,13 +1006,16 @@ function PopulateMapList()
                 --     local la = string.lower(__language)
                 --     name = name .. " (" .. EnhancedLobby.VersionLoc(la) .. sceninfo.map_version .. ")"
                 -- end
-                if folder[2] then
+                if folder.open then
                     mapList:AddItem(" |-> "..LOC(name))
                 else
                     mapList:AddItem(LOC(name))
                 end
                 -- Map this ItemList row to a folder and a scenario within
-                folderMap[count] = { j, i }
+                folderMap[count] = { 
+                    folder = j, 
+                    map = i
+                }
                 count = count + 1
             end
         end

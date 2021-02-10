@@ -609,33 +609,42 @@ end
 -- - Azraeelian Angel; adaptation for LOUD
 -- - Sprouto; optimization
 function RatioAdaptiveCheatThread()
+
 	local interval = 10 * tonumber(ScenarioInfo.Options.ACTRatioInterval)
 	local scale = tonumber(ScenarioInfo.Options.ACTRatioScale)
 	local lastUpdate = {}
+    
 	for i, v in ratioACTBrains do
 		table.insert(lastUpdate, 0)
 	end
 	
 	LOG("*AI DEBUG Starting ratio ACT after 5 minutes. Interval: "..repr(interval).." ticks; scale: "..repr(scale))
+    
 	-- Wait 5 minutes first, else earliest land ratios skew results
 	WaitTicks(10 * 60 * 5)
+    
 	LOG("*AI DEBUG Starting ratio ACT now")
 
 	while true do
+    
 		if table.getn(ratioACTBrains) < 1 then
 			break
 		end
 
 		WaitTicks(interval)
-		LOG("*AI DEBUG Ratio ACT cycles at "..repr(GetGameTimeSeconds()).." secs.")
+        
+		--LOG("*AI DEBUG Ratio ACT cycles at "..repr(GetGameTimeSeconds()).." secs.")
 
 		-- If a brain gets unsubscribed during an update, the list of brains is
 		-- compromised, and we must stop immediately and reiterate
 		local broke = false
 
 		local function Iterate()
+        
 			for i = 1, table.getn(ratioACTBrains) do
+            
 				local aiBrain = ratioACTBrains[i]
+                
 				if aiBrain.Result == "defeat" then
 					LOG("*AI DEBUG Unsub "..aiBrain.Nickname.." from ratio ACT: defeated")
 					table.remove(ratioACTBrains, i)
@@ -663,8 +672,11 @@ function RatioAdaptiveCheatThread()
 				end
 				
 				if lastUpdate[i] and lastUpdate[i] ~= aiBrain.CheatValue + cheatInc then
-					LOG(aiBrain.Nickname.." new ArmyPoolBuff: "..repr(lastUpdate[i]).." -> "..repr(aiBrain.CheatValue + cheatInc))
+					LOG("*AI DEBUG Ratio ACT: "..aiBrain.Nickname.." new ArmyPoolBuff: "..
+						tostring(lastUpdate[i]).." -> "..
+						tostring(aiBrain.CheatValue + cheatInc))
 					SetArmyPoolBuff(aiBrain, aiBrain.CheatValue + cheatInc)
+                    
 					-- Record the value of this update
 					lastUpdate[i] = aiBrain.CheatValue + cheatInc
 				end
@@ -672,21 +684,29 @@ function RatioAdaptiveCheatThread()
 		end
 
 		Iterate()
-		if broke then Iterate() end
+        
+		if broke then
+            Iterate()
+        end
+        
 	end
+    
 	LOG("*AI DEBUG No more ratio ACT subscribers. Killing thread")
 end
 
 function TimeAdaptiveCheatThread()
+
 	-- RATODO: Ideas by Uveso and Balthazar
 	-- - Parabola
 	-- - Logarithmic
 	-- - Multiplicative
 	-- - Use ratios to slow or speed time-based increase
+    
 	local startDelay = 10 * 60 * tonumber(ScenarioInfo.Options.ACTStartDelay) + 1
     local interval = 10 * 60 * tonumber(ScenarioInfo.Options.ACTTimeDelay)
     local cheatInc = tonumber(ScenarioInfo.Options.ACTTimeAmount)
 	local cheatLimit = tonumber(ScenarioInfo.Options.ACTTimeCap)
+    
 	-- EXAMPLE: If 1.5 is the limit, -.05 is the change, and 1.1 is the base,
 	-- this check prevents mult from getting math.maxed all the way up to 1.5
 	for i = 1, table.getn(timeACTBrains) do

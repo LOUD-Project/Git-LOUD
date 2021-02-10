@@ -1,7 +1,7 @@
 Tooltips = {
-    -- *********************
-    -- *** Orders Strings
-    -- *********************
+    -- **********************
+    -- *** Orders
+    -- **********************
 
     move = {
         title = "Move",
@@ -99,7 +99,8 @@ Tooltips = {
         description = "Right-click to toggle Auto-Build",
     },
     build_billy_auto = {
-	-- there is no similar line but with "(auto)" in it so using original one and using correct description
+        -- There is no similar line but with "(auto)" in it,
+        -- so using original one and using correct description
         title = "Build Advanced Tactical Missile",
         description = "Auto-Build Enabled",
     },
@@ -233,7 +234,6 @@ Tooltips = {
         title = "Personal Cloak",
         description = "Turn the selected units cloaking on/off",
     },
-
     toggle_generic = {
         title = "<LOC tooltipui0053>Pause Toggle",
         description = "",
@@ -262,17 +262,14 @@ Tooltips = {
         title = "ACU",
         description = "Left-Click to select your ACU. Right-Click to select and zoom to your ACU.",
     },
-
     avatar_Engineer_t1 = {
         title = "Tech 1 Engineers",
         description = "Right-Click to cycle through idle T1 Engineers",
     },
-
     avatar_Engineer_t2 = {
         title = "Tech 2 Engineers",
         description = "Right-Click to cycle through idle T2 Engineers",
     },
-
     avatar_Engineer_t3 = {
         title = "Tech 3 Engineers",
         description = "Right-Click to cycle through idle T3 Engineers",
@@ -302,9 +299,9 @@ Tooltips = {
         description = "",
     },
 
-    -- *******************
-    -- *** Chat Strings
-    -- *******************
+    -- **********************
+    -- *** Chat
+    -- **********************
 
     chat_config = {
         title = "Configure Chat",
@@ -376,7 +373,7 @@ Tooltips = {
     },
 
     -- **********************
-    -- *** Economy Strings
+    -- *** Economy
     -- **********************
 
     mass_rate = {
@@ -409,48 +406,102 @@ Tooltips = {
     },
 
     -- **********************
-    -- *** Options Strings
+    -- *** Profile Strings
+    -- **********************
+
+    Profile_name = {
+        title = "Name",
+        description = "The Name of this Profile",
+    },
+    Profile_create = {
+        title = "Create",
+        description = "Generate a New Profile",
+    },
+    Profile_cancel = {
+        title = "Cancel",
+        description = "Exit this screen without changing Profiles",
+    },
+    Profile_delete = {
+        title = "Delete",
+        description = "Delete the Selected Profile",
+    },
+    Profile_ok = {
+        title = "Ok",
+        description = "Continue with the Selected Profile",
+    },
+    Profile_profilelist = {
+        title = "Profile List",
+        description = "All saved Profiles",
+    },
+
+    -- **********************
+    -- *** Options: Gameplay
     -- **********************
 
     options_wheel_sensitivity = {
         title = "Zoom Wheel Sensitivity",
         description = "Sets the Zoom Speed when using the Mouse Wheel",
     },
-    options_quick_exit = {
-        title = "Quick Exit",
-        description = "When close box or alt-f4 are pressed, no confirmation dialog is shown",
-    },
-    options_help_prompts = {
-        title = "Help Prompts",
-        description = "Toggles display of In-game Help and Tutorial Prompts",
-    },
-    options_mainmenu_bgmovie = {
-        title = "Main Menu Background Movie",
-        description = "Toggles the movie playing in the background of the main menu",
-    },
-    options_reset_help_prompts = {
-        title = "Reset Help Prompts",
-        description = "Sets all In-game Help Prompts as unread",
-    },
-     options_stratview = {
-        title = "Strategic View",
-        description = "Sets whether or not the mini-map is automatically on or off",
-    },
-      options_strat_icons_always_on = {
+    options_strat_icons_always_on = {
         title = "Always Render Strategic Icons",
         description = "Strategic icons are always shown, regardless of zoom distance",
     },
-      options_uvd_format = {
+    options_uvd_format = {
         title = "Construction Tooltip Information",
         description = "Shows full, partial or no description when the unit icon is moused over",
+    },
+    options_econ_warnings = {
+        title = "Economy Warnings",
+        description = "Shows automatic alerts when the economy is performing poorly",
+    },
+    options_display_eta = {
+        title = "Show Waypoint ETAs",
+        description = "Toggles the display of ETA numbers when waypoint lines are visible",
     },
     options_mp_taunt_head_enabled = {
         title = "Multiplayer Taunts",
         description = "Turns taunts on and off in multiplayer",
     },
-    options_dual_mon_edge = {
-        title = "Dual Monitor Screen Edge",
-        description = "Toggles the Edge between 2 Monitors as blocking Mouse Movement or allowing a Cursor Transition",
+    options_screen_edge_pans_main_view = {
+        title = "Screen Edge Pans Main View",
+        description = "Toggles the ability to pan the main map view by moving the mouse to the edge of the screen in full screen mode",
+    },
+    options_arrow_keys_pan_main_view = {
+        title = "Arrow Keys Pan Main View",
+        description = "Toggles the ability to pan the main map view by holding down the arrow keys",
+    },
+    options_keyboard_pan_speed = {
+        title = "Pan Speed",
+        description = "This dictates how fast the map scrolls when pressing the arrow keys or moving your mouse to the edge of the screen",
+    },
+    options_keyboard_pan_accelerate_multiplier = {
+        title = "Accelerated Pan Speed Multiplier",
+        description = "This multiplies the pan speed of camera when the ctrl key is held down",
+    },
+    options_keyboard_rotate_speed = {
+        title = "Keyboard Rotation Speed",
+        description = "This dictates how fast the map rotates",
+    },
+    options_keyboard_rotate_accelerate_multiplier = {
+        title = "Accelerated Keyboard Rotate Speed Multiplier",
+        description = "This multiplies the rotation speed of the camera when the ctrl key is held down",
+    },
+    options_accept_build_templates = {
+        title = "Accept Build Templates",
+        description = "Allows other players to send you build templates over the network",
+    },
+
+    -- **********************
+    -- *** Options: Interface
+    -- **********************
+
+    options_subtitles = {
+        title = "Display Subtitles",
+        description = "Toggles the display of subtitles during movies",
+    },
+    options_world_border = {
+        title = "Display World Border",
+        description = "Toggles the display of the holographic image surrounding the world",
     },
     options_tooltips = {
         title = "Display Tooltips",
@@ -460,25 +511,98 @@ Tooltips = {
         title = "Tooltip Delay",
         description = "Sets the Delay before Tooltips are displayed",
     },
-    options_persistent_built_mode = {
-        title = "Persistent Build Mode",
-        description = "Toggles whether build mode is cancelled after pressing a key for a unit",
+    options_quick_exit = {
+        title = "Quick Exit",
+        description = "When close box or alt-f4 are pressed, no confirmation dialog is shown",
     },
-    options_econ_warnings = {
-        title = "Economy Warnings",
-        description = "Shows automatic alerts when the economy is performing poorly",
+    options_lock_fullscreen_cursor_to_window = {
+        title = "Lock Full Screen Cursor to Window",
+        description = "This will prevent the cursor from going outside of the game window while in full screen mode",
     },
-    options_ui_animation = {
-        title = "UI Animation",
-        description = "Toggles whether or not Interface Animations are shown",
+    options_show_attached_unit_lifebars = {
+        title = "Show Lifebars of Attached Units",
+        description = "Toggle the visibility of lifebars of on screen units (lifebars will still show in tooltip information)",
     },
+    options_skin_change_on_start = {
+        title = "Use Factional UI Skin",
+        description = "When on, the UI skin will change to match the faction you are playing",
+    },
+    options_vo_VisualAlertsMode = {
+        title = "Visual Alerts Mode",
+        description = "",
+    },
+    options_vo_PingSound = {
+        title = "Visual Alert Ping Sound",
+        description = "",
+    },
+    options_hotbuild_cycle_preview = {
+        title = "Hotbuild: Enable Cycle Preview",
+        description = "Show the list of build options assigned to a Hotbuild key when one is pressed",
+    },
+    options_hotbuild_cycle_reset_time = {
+        title = "Hotbuild: Cycle Reset Time",
+        description = "Time in milliseconds when Hotbuilds resets your selection to the first option",
+    },
+    options_alertcam_mode = {
+        title = "Go-To-Alert Camera Mode",
+        description = "",
+    },
+    options_alertcam_zoom = {
+        title = "Go-To-Alert Camera Move Time",
+        description = "The time over which the camera will zoom into the last alert",
+    },
+    options_alertcam_time = {
+        title = "Go-To-Alert Camera Target Zoom",
+        description = "How far the camera zooms into the last alert",
+    },
+    options_gui_detailed_unitview = {
+        title = 'Display more Unit Stats',
+        description = 'Replaces fuel bar with progress bar, and causes the unitview to always be shown for a 1 unit selection.',
+    },
+    options_gui_display_reclaim_totals = {
+        title = 'Display Reclaim Window',
+        description = 'Displays total resources reclaimed all game.',
+    },
+    options_gui_render_custom_names = {
+        title = 'Render Custom Names',
+        description = 'Toggle display of custom names. Enabled by default.',
+    },
+    options_gui_render_enemy_lifebars = {
+        title = 'Render Enemy Lifebars',
+        description = 'Force rendering enemy lifebars. Disabled by default',
+    },
+    options_gui_enhanced_unitrings = {
+        title = 'Single Unit Selected Rings',
+        description = "When a single unit is selected, show that unit's range rings.",
+    },
+    options_gui_zoom_pop_distance = {
+        title = 'GUI Mod',
+        description = 'Adjusts distance to which Zoom Pop zooms to.',
+    },
+    options_land_unit_select_prio = {
+        title = "Land Unit Selection Priority",
+        description = "When on, trying to select both land and air units will select only the land units",
+    },
+
+    -- **********************
+    -- *** Options: Video
+    -- **********************
+
     options_primary_adapter = {
         title = "Primary Adapter",
         description = "Sets the Resolution or Display Mode for the Primary Monitor (1024x768 = fastest)",
     },
+    options_secondary_adapter = {
+        title = "Secondary Adapter",
+        description = "If available on your system, sets the resolution or display mode for the secondary monitor (full screen only)",
+    },
     options_fidelity_presets = {
         title = "Fidelity Presets",
         description = "Preset values for video options (low = fastest)",
+    },
+    options_render_skydome = {
+        title = "Render Sky",
+        description = "Toggles rendering of the sky when the camera is tilted (off = fastest)",
     },
     options_fidelity = {
         title = "Fidelity",
@@ -500,6 +624,19 @@ Tooltips = {
         title = "Level Of Detail",
         description = "Set the rate at which objects LOD out (low = fastest)",
     },
+    options_vsync = {
+        title = "Vertical Sync",
+        description = "Sync to vertical refresh of monitor",
+    },
+    options_bloom_render = {
+        title = "Bloom Render",
+        description = "Toggles a glow type effect that is used on many weapon effects and some UI elements (off = fastest)",
+    },
+
+    -- **********************
+    -- *** Options: Sound
+    -- **********************
+
     options_master_volume = {
         title = "Master Volume",
         description = "Sets the Games overall Volume Level",
@@ -508,14 +645,32 @@ Tooltips = {
         title = "FX Volume",
         description = "<LOC OPTIONS_0059>Sets the Volume of the Game Sound Effects",
     },
-    options_ui_volume = {
-        title = "Interface Volume",
-        description = "Sets the Volume of all Interface Sounds",
+    options_music_volume = {
+        title = "Music Volume",
+        description = "Sets the volume of the ingame music",
     },
     options_vo_volume = {
         title = "VO Volume",
         description = "Sets the Volume of all Voice and Movie Sounds",
     },
+
+    options_help_prompts = {
+        title = "Help Prompts",
+        description = "Toggles display of In-game Help and Tutorial Prompts",
+    },
+    options_mainmenu_bgmovie = {
+        title = "Main Menu Background Movie",
+        description = "Toggles the movie playing in the background of the main menu",
+    },
+    options_reset_help_prompts = {
+        title = "Reset Help Prompts",
+        description = "Sets all In-game Help Prompts as unread",
+    },
+    options_stratview = {
+        title = "Strategic View",
+        description = "Sets whether or not the mini-map is automatically on or off",
+    },
+
     options_credits = {
         title = "Credits",
         description = "View the Game Credits",
@@ -523,22 +678,6 @@ Tooltips = {
     options_eula = {
         title = "EULA",
         description = "View the End-User License Agreement",
-    },
-    options_show_help_prompts_now = {
-        title = "Show Help Now",
-        description = "View Help Prompts",
-    },
-    options_tab_gameplay = {
-        title = "Gameplay",
-        description = "View and adjust Game options",
-    },
-    options_tab_video = {
-        title = "Video",
-        description = "View and adjust Display and Graphic options",
-    },
-    options_tab_sound = {
-        title = "Sound",
-        description = "View and adjust Sound and Volume options",
     },
     options_tab_about = {
         title = "About",
@@ -552,119 +691,48 @@ Tooltips = {
         title = "Reset",
         description = "Restore original Game Settings",
     },
-    map_select_sizeoption = {
-        title = "Map Size",
-        description = "",
-    },
-    map_select_size = {
-        title = "Map Size",
-        description = "Sort by Battlefield size",
-    },
-    map_select_maxplayers = {
-        title = "Supported Players",
-        description = "",
-    },
-    map_select_supportedplayers = {
-        title = "Supported Players",
-        description = "Sort by the maximum number of Players allowed",
-    },
-    map_ai_markers = {
-        title = "AI Markers",
-        description = "Sort by whether this map has been marked for AI use. The AI is not likely to work properly on maps without these.",
-    },
-    options_vsync = {
-        title = "Vertical Sync",
-        description = "Sync to vertical refresh of monitor",
-    },
-    options_subtitles = {
-        title = "Display Subtitles",
-        description = "Toggles the display of subtitles during movies",
-    },
-    options_world_border = {
-        title = "Display World Border",
-        description = "Toggles the display of the holographic image surrounding the world",
-    },
-    options_screen_edge_pans_main_view = {
-        title = "Screen Edge Pans Main View",
-        description = "Toggles the ability to pan the main map view by moving the mouse to the edge of the screen in full screen mode",
-    },
-    options_arrow_keys_pan_main_view = {
-        title = "Arrow Keys Pan Main View",
-        description = "Toggles the ability to pan the main map view by holding down the arrow keys",
-    },
-    options_secondary_adapter = {
-        title = "Secondary Adapter",
-        description = "If available on your system, sets the resolution or display mode for the secondary monitor (full screen only)",
-    },
-    options_keyboard_pan_accelerate_multiplier = {
-        title = "Accelerated Pan Speed Multiplier",
-        description = "This multiplies the pan speed of camera when the ctrl key is held down",
-    },
-    options_keyboard_pan_speed = {
-        title = "Pan Speed",
-        description = "This dictates how fast the map scrolls when pressing the arrow keys or moving your mouse to the edge of the screen",
-    },
-    options_keyboard_rotate_speed = {
-        title = "Keyboard Rotation Speed",
-        description = "This dictates how fast the map rotates",
-    },
-    options_keyboard_rotate_accelerate_multiplier = {
-        title = "Accelerated Keyboard Rotate Speed Multiplier",
-        description = "This multiplies the rotation speed of the camera when the ctrl key is held down",
-    },
-    options_lock_fullscreen_cursor_to_window = {
-        title = "Lock Full Screen Cursor to Window",
-        description = "This will prevent the cursor from going outside of the game window while in full screen mode",
-    },
-    options_kill_confirm = {
-        title = "Confirm Unit Self-Destruction",
-        description = "This will prompt you before issuing the self-destruction order",
-    },
-    options_render_skydome = {
-        title = "Render Sky",
-        description = "Toggles rendering of the sky when the camera is tilted (off = fastest)",
-    },
-    options_bloom_render = {
-        title = "Bloom Render",
-        description = "Toggles a glow type effect that is used on many weapon effects and some UI elements (off = fastest)",
-    },
-    options_use_mydocuments = {
-        title = "Save Games and Replays in My Documents",
-        description = "When on, changes the location where save games and replays get stored (My Documents\\My Games\\Supreme Commander Forged Alliance\\). Note that you will only see save games and replays in the active directory. Also, files saved to the alternate location will not be removed when the game is uninstalled.",
-    },
-    options_display_eta = {
-        title = "Show Waypoint ETAs",
-        description = "Toggles the display of ETA numbers when waypoint lines are visible",
-    },
-    options_accept_build_templates = {
-        title = "Accept Build Templates",
-        description = "Allows other players to send you build templates over the network",
-    },
-    options_show_attached_unit_lifebars = {
-        title = "Show Lifebars of Attached Units",
-        description = "Toggle the visibility of lifebars of on screen units (lifebars will still show in tooltip information)",
-    },
-    options_skin_change_on_start = {
-        title = "Use Factional UI Skin",
-        description = "When on, the UI skin will change to match the faction you are playing",
-    },
-    options_land_unit_select_prio = {
-        title = "Land Unit Selection Priority",
-        description = "When on, trying to select both land and air units will select only the land units.",
-    },
 
-    -- ********************
-    -- *** Mod Manager Strings
-    -- ********************
+    -- **********************
+    -- *** Mod Manager
+    -- **********************
+
+    modmgr_folder_units = {
+        title = "Units",
+        description = "Mods which add new units to the game.",
+    },
+    modmgr_folder_ui = {
+        title = "User Interface",
+        description = "Mods which change the way you control the game without changing the game itself.",
+    },
+    modmgr_folder_official = {
+        title = "Official Rebalance",
+        description = "Small but meaningful changes to the game. Recommended by the LOUD team for the complete experience.",
+    },
+    modmgr_folder_unofficial = {
+        title = "Unofficial Rebalance",
+        description = "Small but meaningful changes to the game. All are unsupported, but you might prefer them.",
+    },
+    modmgr_folder_mut = {
+        title = "Mutators",
+        description = "Mods which change the game in extreme ways. Balance not guaranteed.",
+    },
+    modmgr_folder_misc = {
+        title = "Miscellaneous",
+        description = "Mods which don't fit into any other category.",
+    },
+    modmgr_folder_user = {
+        title = "Usermods",
+        description = "Any mod which you installed into the usermods folder.",
+    },
 
     modmgr_loudstandard = {
         title = "Enable LOUD Standard",
         description = "Turn on the group of mods officially endorsed by the LOUD Development Team as the true LOUD experience.",
     },
 
-    -- ********************
-    -- *** Lobby Strings
-    -- ********************
+    -- **********************
+    -- *** Lobby: General
+    -- **********************
 
     aitype_loud = {
         title = "LOUD AI",
@@ -734,191 +802,31 @@ Tooltips = {
         title = "Kick",
         description = "Click here to Eject this Player from the Game",
     },
-    Lobby_Team_Spawn = {
-        title = "Team Spawn",
-        description = "Someone Tell Tanksy What This Does",
+    lob_select_map = {
+        title = "Game Options",
+        description = "Choose a map to play on and adjust game settings",
     },
-    Lobby_Even_Factions = {
-        title = "Evenly Distributed Random Factions",
-        description = "Promote a more even spread of factions among players which choose to receive theirs randomly.",
+    lob_describe_observers = {
+        title = "Observers",
+        description = "Observers are clients connected to the lobby who will not participate directly in gameplay. Right click an observers name to remove an observer from the lobby.",
     },
-    lob_EvenFactions_off = {
-        title = "<LOC lobui_0312>Off",
-        description = "No manipulation of randomness during random faction selection.",
+    lob_observers_allowed = {
+        title = "Allow Observers",
+        description = "If checked, participants can join the game as an impartial observer (Unchecking this option will boot potential observers from the lobby)",
     },
-    lob_EvenFactions_on = {
-        title = "<LOC lobui_0314>On",
-        description = "Faction randomization will be more evenly spread.",
+    lob_become_observer = {
+        title = "Become Observer",
+        description = "When clicked, a player will become an observer",
     },
-    Lobby_Gen_ShareResources = {
-        title = "Share Resources",
-        description = "Determines whether Allies share Resources with each other",
+    lob_random_map = {
+        title = "Randomly choose a map",
+        description = '',
     },
-    Lobby_Gen_ShareUnits = {
-        title = "Share Units",
-        description = "Specifies how much control Teams have over each others Units",
-    },
-    Lobby_Gen_Deployment = {
-        title = "Deployment",
-        description = "Determines your Starting Forces",
-    },
-    Lobby_Gen_Victory = {
-        title = "Victory Conditions",
-        description = "Victory Conditions",
-    },
-	Lobby_Gen_TimeLimitSetting = {
-		title = "Time Limited Games - Length",
-		description = "How long a time limited game will last",
-	},
-    Lobby_Gen_Fog = {
-        title = "Fog of War",
-        description = "Enable or Disable Fog of War.",
-    },
-    Lobby_Gen_Cap = {
-        title = "Unit Cap",
-        description = "Set individual Army unit limit",
-    },
-    Lobby_Gen_CheatsEnabled = {
-        title = "Cheating",
-        description = "Enable or disable Cheats in the game",
-    },
-    Lobby_Gen_Timeouts = {
-        title = "Timeouts",
-        description = "Set number of Pauses each Player is allowed",
-    },
-    Lobby_Gen_GameSpeed = {
-        title = "Game Speed",
-        description = "Set how quickly the Game runs",
-    },
-    Lobby_Team_Lock = {
-        title = "Teams",
-        description = "Set Teams",
-    },
-    
-    lob_ai = {
-        title = "AI Settings",
-        description = "Configure this AI's cheat multiplier to make it more or less difficult, or use adaptive cheating for additional difficulty in certain situations.",
-    },
-    lob_ai_ping = {
-        title = "Ping/AI Settings",
-        description = "If a human player fills this slot, their ping is shown in this column. If an AI player fills this slot, their cheat settings are shown in this column.",
-    },
-    lob_mult = {
-        title = "AI Cheat Multiplier",
-        description = "Sets how much this AI will cheat. At 1.0, it does not cheat, and higher values increase the cheating; at below 1.0, it is weakened and less difficult.",
-    },
-    lob_act = {
-        title = "Adaptive AI Cheat Multiplier",
-        description = "Allows the AI to dynamically change its cheat multiplier in response to certain factors during the game. Check Advanced AI Options under Game Options for even more settings.",
-    },
-    
-    Lobby_ACT_Start_Delay = {
-        title = "Timed Cheat Start Delay",
-        description = "If an AI cheats adaptively, this is the delay in minutes before any changes start happening.",
-    },
-    Lobby_ACT_Time_Delay = {
-        title = "Timed Cheat Delay",
-        description = "If an AI cheats more with time, this is the delay in minutes between each difficulty increase.",
-    },
-    Lobby_ACT_Time_Amount = {
-        title = "Timed Cheat Amount",
-        description = "If an AI cheats more with time, this is how much the difficulty increases every interval.",
-    },
-    Lobby_ACT_Time_Cap = {
-        title = "Timed Cheat Limit",
-        description = "If an AI cheats more with time, its cheat multiplier cannot pass the selected number.",
-    },
-    Lobby_ACT_Ratio_Interval = {
-        title = "Feedback Cheat Interval",
-        description = "If an AI is affected by feedback cheating, this is the time period in seconds between possible changes to its cheat multiplier. Increase for better performance.",
-    },
-    Lobby_ACT_Ratio_Scale = { 
-        title = "Feedback Cheat Scale", 
-        description = "If an AI is affected by feedback cheating, this is the scale which affects the multiplier increase. Mouseover an option for more information.", 
-    },
-    
-    Lobby_Gen_Civilians = {
-        title = "Civilians",
-        description = "Set civilian unit behavior",
-    },
-    Lob_CivilianAlliance_enemy = {
-        title = "Enemy",
-        description = "Civilian units will attack",
-    },
-    Lob_CivilianAlliance_neutral = {
-        title = "Neutral",
-        description = "Civilian units will ignore other factions",
-    },
-    Lob_CivilianAlliance_removed = {
-        title = "Removed",
-        description = "No civilian units are present",
-    },
-    
-    Lobby_NoRushOption = {
-        title = "No Rush Option",
-        description = "Set a time in which players may not expand past their initial starting area",
-    },
-    lob_NoRushOption_Off = {
-        title = "No Time",
-        description = "You may expand past your starting area immediately",
-    },
-    lob_NoRushOption_5 = {
-        title = "5 Minutes",
-        description = "You must stay in your starting area for 5 minutes",
-    },
-    lob_NoRushOption_10 = {
-        title = "10 Minutes",
-        description = "You must stay in your starting area for 10 minutes",
-    },
-    lob_NoRushOption_20 = {
-        title = "20 Minutes",
-        description = "You must stay in your starting area for 20 minutes",
-    },
-    
-    lob_CheatsEnabled_false = {
-        title = 'Disable Cheats',
-        description = 'Disable all cheat functions',
-    },
-    lob_CheatsEnabled_true = {
-        title = 'Enable Cheats',
-        description = 'Enable cheat functions (reported to all players)',
-    },
-    
-    lob_FogOfWar_explored = {
-        title = 'Explored',
-        description = 'The terrain and resource positions are always known; the Fog of War hides enemy units.',
-    },
-    lob_FogOfWar_none = {
-        title = 'None',
-        description = 'All players always have vision over the entire map.',
-    },
-    
-    Lobby_Gen_DisplayScores = {
-        title = "Display Scores",
-        description = "Turn the in game display of army scores on or off",
-    },
-    lob_DisplayScores_off = {
-        title = "No Scores",
-        description = "No scores will be displayed until the game is over",
-    },
-    lob_DisplayScores_on = {
-        title = "Scores On",
-        description = "The scores are displayed during gameplay",
-    },
-    Lobby_Prebuilt_Units = {
-        title = "Prebuilt Units",
-        description = "Each army will start with a basic prebuilt units",
-        image = ""
-    },
-    lob_PrebuiltUnits_Off = {
-        title = "Off",
-        description = "No prebuilt units",
-    },
-    lob_PrebuiltUnits_On = {
-        title = "On",
-        description = "Prebuilt units are on",
-    },
-    
+
+    -- *********************
+    -- *** Lobby: Column Labels
+    -- *********************
+
     lob_slot = {
         title = "Player Slot",
         description = "Context sensitive menu which allows you to modify the player or AI for a given slot",
@@ -935,18 +843,30 @@ Tooltips = {
         title = "Team",
         description = "Players with the same Team will start off Allied with each other",
     },
+    lob_ai = {
+        title = "AI Settings",
+        description = "Configure this AI's cheat multiplier to make it more or less difficult, or use adaptive cheating for additional difficulty in certain situations.",
+    },
+    lob_ai_ping = {
+        title = "Ping/AI Settings",
+        description = "If a human player fills this slot, their ping is shown in this column. If an AI player fills this slot, their cheat settings are shown in this column.",
+    },
+    lob_mult = {
+        title = "AI Cheat Multiplier",
+        description = "Sets how much this AI will cheat. At 1.0, it does not cheat, and higher values increase the cheating; at below 1.0, it is weakened and less difficult.",
+    },
+    lob_act = {
+        title = "Adaptive AI Cheat Multiplier",
+        description = "Allows the AI to dynamically change its cheat multiplier in response to certain factors during the game. Check Advanced AI Options under Game Options for even more settings.",
+    },
 
-    lob_teams_combo = {
-        title = "Number/Configuration of Teams",
-        description = "Select the number or configuration of teams for this map",
-    },
-    lob_random_teams = {
-        title = "Assign players to teams",
-        description = "Automatically assign players to teams according to configuration",
-    },
-    lob_select_map = {
-        title = "Game Options",
-        description = "Choose a map to play on and adjust game settings",
+    -- *********************
+    -- *** Lobby: Combos
+    -- *********************
+
+    lob_random = {
+        title = "Random",
+        description = '',
     },
     lob_cybran = {
         title = "Cybran",
@@ -964,50 +884,7 @@ Tooltips = {
         title = "Seraphim",
         description = ''
     },
-    lob_random = {
-        title = "Random",
-        description = '',
-    },
-    lob_random_map = {
-        title = "Randomly choose a map",
-        description = '',
-    },
-    lob_teamsetup_2 = {
-        title = "Two teams",
-        description = "Make 2 teams",
-    },
-    lob_teamsetup_3 = {
-        title = "Three teams",
-        description = "Make 3 teams",
-    },
-    lob_teamsetup_4 = {
-        title = "Four teams",
-        description = "Make 4 teams",
-    },
-    lob_teamsetup_5 = {
-        title = "Five teams",
-        description = "Make 5 teams",
-    },
-    lob_teamsetup_6 = {
-        title = "Six teams",
-        description = "Make 6 teams",
-    },
-    lob_teamsetup_7 = {
-        title = "Seven teams",
-        description = "Make 7 teams",
-    },
-    lob_teamsetup_8 = {
-        title = "Eight teams",
-        description = "Make 8 teams",
-    },
-    lob_teamsetup_TB = {
-        title = "Top to Bottom teams",
-        description = "Make 2 teams from top to bottom",
-    },
-    lob_teamsetup_LR = {
-        title = "Left to Right teams",
-        description = "Make 2 teams from left to right",
-    },    
+
     lob_team_none = {
         title = 'No Team',
         description = '',
@@ -1045,23 +922,6 @@ Tooltips = {
         description = '',
     },
 
-    lob_Timeouts_0 = {
-        title = 'No Pausing',
-        description = 'You will not be able to pause the game',
-    },
-    lob_Timeouts_3 = {
-        title = 'Timeouts 3',
-        description = 'You may pause the game 3 times',
-    },
-    ['lob_Timeouts_-1'] = {
-        title = 'Unlimited Pausing',
-        description = 'You can pause the game at any time',
-    },
-
-    -- *********************
-    -- *** Adaptive Cheat
-    -- *********************
-
     lob_act_none = {
         title = 'No Adaptive Cheating',
         description = 'The cheat multiplier assigned to the AI in the lobby will persist throughout the entire game.',
@@ -1079,284 +939,280 @@ Tooltips = {
         description = 'Both adaptive cheat options work on the AI.'
     },
 
-    ["lob_ACTRatioInterval_15"] = {
-        title = "15",
-        description = "The AI's cheat multiplier may change every 15 seconds."
-    },
-    ["lob_ACTRatioInterval_30"] = {
-        title = "30",
-        description = "The AI's cheat multiplier may change every 30 seconds.",
-    },
-    ["lob_ACTRatioInterval_45"] = {
-        title = "45",
-        description = "The AI's cheat multiplier may change every 45 seconds.",
-    },
-    
-    ["lob_ACTTimeAmount_-.02"] = {
-        title = "-.02",
-        description = "The AI's cheat multiplier will decrease by 0.02 every interval.",
-    },    
-    ["lob_ACTTimeAmount_-.01"] = {
-        title = "-.01",
-        description = "The AI's cheat multiplier will decrease by 0.01 every interval.",
-    },
-    ["lob_ACTTimeAmount_0.01"] = {
-        title = "0.01",
-        description = "The AI's cheat multiplier will increase by 0.01 every interval.",
-    },
-    ["lob_ACTTimeAmount_0.02"] = {
-        title = "0.02",
-        description = "The AI's cheat multiplier will increase by 0.02 every interval.",
-    },
-    ["lob_ACTTimeAmount_0.05"] = {
-        title = "0.05",
-        description = "The AI's cheat multiplier will increase by 0.05 every interval.",
-    },
-
-
-    ["lob_ACTTimeDelay_6"] = {
-        title = "6",
-        description = "The AI's cheat multiplier will change every 6 minutes.",
-    },
-    ["lob_ACTTimeDelay_10"] = {
-        title = "10",
-        description = "The AI's cheat multiplier will change every 10 minutes.",
-    },
-    ["lob_ACTTimeDelay_15"] = {
-        title = "15",
-        description = "The AI's cheat multiplier will change every 15 minutes.",
-    },
-
-    ["lob_ACTTimeCap_0.8"] = {
-        title = "0.8",
-        description = "The AI's cheat multiplier will never pass 0.8."
-    },
-    ["lob_ACTTimeCap_1"] = {
-        title = "1.0",
-        description = "The AI's cheat multiplier will never pass 1.0."
-    },
-    ["lob_ACTTimeCap_1.1"] = {
-        title = "1.1",
-        description = "The AI's cheat multiplier will never pass 1.1."
-    },
-    ["lob_ACTTimeCap_1.25"] = {
-        title = "1.25",
-        description = "The AI's cheat multiplier will never pass 1.25."
-    },
-    ["lob_ACTTimeCap_2"] = {
-        title = "2.0",
-        description = "The AI's cheat multiplier will never pass 2.0."
-    },
-    ["lob_ACTTimeCap_3"] = {
-        title = "3.0",
-        description = "The AI's cheat multiplier will never pass 3.0."
-    },
-    ["lob_ACTTimeCap_4"] = {
-        title = "4.0",
-        description = "The AI's cheat multiplier will never pass 4.0."
-    },
-
-    ["lob_ACTStartDelay_0"] = {
-        title = "0",
-        description = "The AI's cheat multiplier timer will not start immediately.",
-    },
-    ["lob_ACTStartDelay_6"] = {
-        title = "6",
-        description = "The AI's cheat multiplier will not start changing until 6 minutes have passed.",
-    },
-    ["lob_ACTStartDelay_10"] = {
-        title = "10",
-        description = "The AI's cheat multiplier will not start changing until 10 minutes have passed.",
-    },
-    ["lob_ACTStartDelay_15"] = {
-        title = "15",
-        description = "The AI's cheat multiplier will not start changing until 15 minutes have passed.",
-    },
-    
-    ["lob_ACTRatioScale_1"] = { 
-        title = "1", 
-        description = "The AI's cheat multiplier will increase by a maximum of 0.5.", 
-    }, 
-    ["lob_ACTRatioScale_2"] = { 
-        title = "2", 
-        description = "The AI's cheat multiplier will increase by a maximum of 1.0.", 
-    }, 
-    ["lob_ACTRatioScale_3"] = { 
-        title = "3", 
-        description = "The AI's cheat multiplier will increase by a maximum of 1.5.", 
-    }, 
- 
     -- *********************
-    -- *** Unit Cap Cheat
+    -- *** Lobby: Auto Team Setup
+    -- *********************
+
+    lob_random_teams = {
+        title = "Assign players to teams",
+        description = "Automatically assign players to teams according to configuration",
+    },
+    lob_teams_combo = {
+        title = "Number/Configuration of Teams",
+        description = "Select the number or configuration of teams for this map",
+    },
+    lob_teamsetup_2 = {
+        title = "Two teams",
+        description = "Make 2 teams",
+    },
+    lob_teamsetup_3 = {
+        title = "Three teams",
+        description = "Make 3 teams",
+    },
+    lob_teamsetup_4 = {
+        title = "Four teams",
+        description = "Make 4 teams",
+    },
+    lob_teamsetup_5 = {
+        title = "Five teams",
+        description = "Make 5 teams",
+    },
+    lob_teamsetup_6 = {
+        title = "Six teams",
+        description = "Make 6 teams",
+    },
+    lob_teamsetup_7 = {
+        title = "Seven teams",
+        description = "Make 7 teams",
+    },
+    lob_teamsetup_8 = {
+        title = "Eight teams",
+        description = "Make 8 teams",
+    },
+    lob_teamsetup_TB = {
+        title = "Top to Bottom teams",
+        description = "Make 2 teams from top to bottom",
+    },
+    lob_teamsetup_LR = {
+        title = "Left to Right teams",
+        description = "Make 2 teams from left to right",
+    },
+
+    -- **********************
+    -- *** Lobby Options: Random Faction Even Spread
+    -- **********************
+
+    Lobby_Even_Factions = {
+        title = "Evenly Distributed Random Factions",
+        description = "Promote a more even spread of factions among players which choose to receive theirs randomly.",
+    },
+    lob_EvenFactions_off = {
+        title = "<LOC lobui_0312>Off",
+        description = "No manipulation of randomness during random faction selection.",
+    },
+    lob_EvenFactions_on = {
+        title = "<LOC lobui_0314>On",
+        description = "Faction randomization will be more evenly spread.",
+    },
+
+    -- **********************
+    -- *** Lobby Options: Prebuilt Units
+    -- **********************
+
+    Lobby_Prebuilt_Units = {
+        title = "Prebuilt Units",
+        description = "Each army will start with a basic prebuilt units",
+        image = ""
+    },
+    lob_PrebuiltUnits_Off = {
+        title = "Off",
+        description = "No prebuilt units",
+    },
+    lob_PrebuiltUnits_On = {
+        title = "On",
+        description = "Prebuilt units are on",
+    },
+
+    -- **********************
+    -- *** Lobby Options: Spawn
+    -- **********************
+
+    Lobby_Team_Spawn = {
+        title = "Team Spawn",
+        description = "<LOC lobui_0089>Determine what positions players spawn on the map",
+    },
+    lob_TeamSpawn_random = {
+        title = 'Random Spawnpoints',
+        description = 'Players do not choose their spawn point',
+    },
+    lob_TeamSpawn_fixed = {
+        title = 'Fixed Spawnpoints',
+        description = "Players' spawnpoints are fixed and chosen",
+    },
+
+    -- **********************
+    -- *** Lobby Options: Teams
+    -- **********************
+
+    Lobby_Team_Lock = {
+        title = "Teams",
+        description = "Set Teams",
+    },
+    lob_TeamLock_locked = {
+        title = 'Lock Teams',
+        description = 'Teams cannot be changed during play',
+    },
+    lob_TeamLock_unlocked = {
+        title = 'Unlock Teams',
+        description = 'Teams can be changed during play',
+    },
+
+    -- **********************
+    -- *** Lobby Options: Unused Start Resources
+    -- **********************
+
+    ["Lobby_UnusedResources"] = {
+        title = "Unused Start Locations",
+        description = "Remove resources near unused Start Locations",
+    },
+    ["lob_UnusedResources_1"] = {
+        title = "Keep All",
+        description = "Keep all resources at unused Start Locations",
+    },
+    ["lob_UnusedResources_2"] = {
+        title = "Keep 50%",
+        description = "50% chance that resources will be kept",
+    },
+    ["lob_UnusedResources_3"] = {
+        title = "Keep 33%",
+        description = "33% chance that resources will be kept",
+    },
+    ["lob_UnusedResources_4"] = {
+        title = "Keep 25%",
+        description = "25% chance that resources will be kept",
+    },
+    ["lob_UnusedResources_5"] = {
+        title = "Keep 20%",
+        description = "20% chance that resources will be kept",
+    },
+    ["lob_UnusedResources_10"] = {
+        title = "Keep 10%",
+        description = "10% chance that resources will be kept",
+    },
+    ["lob_UnusedResources_100"] = {
+        title = "Remove All",
+        description = "No start location resources will be kept",
+    },
+
+    -- **********************
+    -- *** Lobby Options: Unit Cap
+    -- **********************
+
+    Lobby_Gen_Cap = {
+        title = "Unit Cap",
+        description = "Set individual Army unit limit",
+    },
+
+    -- *********************
+    -- *** Lobby Options: AI Unit Cap Cheat
     -- *********************
 
     ["Lobby_Cap_Cheat"] = {
         title = "Unit Cap Setting",
         description = "Sets if AI players have normal unit caps, enhanced unit caps (by AI multiplier) or an unlimited unit cap.",
     },
-    
-	["lob_CapCheat_unlimited"] = {
+
+    ["lob_CapCheat_unlimited"] = {
         title = "Unlimited",
         description = "AI players have no unit limit.",
     },
-	["lob_CapCheat_cheatlevel"] = {
-		title = "Enhanced",
-		description = "AI players get a normal unit cap modified by the AI Multiplier.",
-	},
-	["lob_CapCheat_off"] = {
+    ["lob_CapCheat_cheatlevel"] = {
+        title = "Enhanced",
+        description = "AI players get a normal unit cap modified by the AI Multiplier.",
+    },
+    ["lob_CapCheat_off"] = {
         title = "Off",
         description = "AI players have the same unit cap as human players.",
-    },	
+    },
 
-    -- *************************************
-	-- ** Unused Start Location Resources
-	-- *************************************
-    
-	["Lobby_UnusedResources"] = {
-		title = "Unused Start Locations",
-		description = "Remove resources near unused Start Locations",
-	},
-    
-	["lob_UnusedResources_1"] = {
-		title = "Keep All",
-		description = "Keep all resources at unused Start Locations",
-	},
-	["lob_UnusedResources_2"] = {
-		title = "Keep 50%",
-		description = "50% chance that resources will be kept",
-	},
-	["lob_UnusedResources_3"] = {
-		title = "Keep 33%",
-		description = "33% chance that resources will be kept",
-	},
-	["lob_UnusedResources_4"] = {
-		title = "Keep 25%",
-		description = "25% chance that resources will be kept",
-	},
-	["lob_UnusedResources_5"] = {
-		title = "Keep 20%",
-		description = "20% chance that resources will be kept",
-	},
-	["lob_UnusedResources_10"] = {
-		title = "Keep 10%",
-		description = "10% chance that resources will be kept",
-	},
-	["lob_UnusedResources_100"] = {
-		title = "Remove All",
-		description = "No start location resources will be kept",
-	},
-    
-    -- **********************
-    -- *** Missile Options
-    -- **********************
-    
-	["Lobby_MissileOption"] = {
-		title = "Missile Options",
-		description = "Allow Nukes & Antinukes to have prebuilt missiles",
-	},
-    
-	["lob_MissileOption_0"] = {
-		title = "Empty",
-		description = "All Nukes and Antinukes are empty when built",
-	},
-	["lob_MissileOption_1"] = {
-		title = "One",
-		description = "All Nukes and Antinukes come with one missile when built",
-	},
-	["lob_MissileOption_2"] = {
-		title = "Two",
-		description = "All Nukes and Antinukes come with two missiles when built",
-	},
+    -- *********************
+    -- *** Lobby Options: Game Speed
+    -- *********************
 
-    -- ******************
-    -- *** Unit Limits
-    -- ******************
-    
-	lob_UnitCap_300 = {
-        title = "300",
-        description = "300 units per player may be in play.",
+    Lobby_Gen_GameSpeed = {
+        title = "Game Speed",
+        description = "Set how quickly the Game runs",
     },
-	lob_UnitCap_350 = {
-        title = "350",
-        description = "350 units per player may be in play.",
-    },	
-	lob_UnitCap_400 = {
-        title = "400",
-        description = "400 units per player may be in play.",
+    lob_GameSpeed_adjustable = {
+        title = 'Adjustable',
+        description = 'Allows the game speed to be adjusted ingame',
     },
-	lob_UnitCap_450 = {
-        title = "450",
-        description = "450 units per player may be in play.",
-    },	
-	lob_UnitCap_500 = {
-		title = "500",
-		description = "500 units per player may be in play.",
-	},
-	lob_UnitCap_550 = {
-        title = "550",
-        description = "550 units per player may be in play.",
+
+    -- *********************
+    -- *** Lobby Options: User Spawn/Cheat Menu
+    -- *********************
+
+    Lobby_Gen_CheatsEnabled = {
+        title = "Cheating",
+        description = "Enable or disable Cheats in the game",
     },
-	lob_UnitCap_600 = {
-        title = "600",
-        description = "600 units per player may be in play.",
-    },    
-	lob_UnitCap_650 = {
-        title = "650",
-        description = "650 units per player may be in play.",
+    lob_CheatsEnabled_false = {
+        title = 'Disable Cheats',
+        description = 'Disable all cheat functions',
     },
-	lob_UnitCap_700 = {
-        title = "700",
-        description = "700 units per player may be in play.",
+    lob_CheatsEnabled_true = {
+        title = 'Enable Cheats',
+        description = 'Enable cheat functions (reported to all players)',
     },
-	lob_UnitCap_750 = {
-        title = "750",
-        description = "750 units per player may be in play.",
+
+    -- **********************
+    -- *** Lobby Options: No Rush Option
+    -- **********************
+
+    Lobby_NoRushOption = {
+        title = "No Rush Option",
+        description = "Set a time in which players may not expand past their initial starting area",
     },
-	lob_UnitCap_800 = {
-        title = "800",
-        description = "800 units per player may be in play.",
-    },	
-	lob_UnitCap_850 = {
-		title = "850",
-		description = "850 units per player may be in play.",
-	},
-    lob_UnitCap_900 = {
-        title = "900",
-        description = "900 units per player may be in play.",
+    lob_NoRushOption_Off = {
+        title = "No Time",
+        description = "You may expand past your starting area immediately",
     },
-	lob_UnitCap_1000 = {
-        title = "1000",
-        description = "1000 units per player may be in play.",
+    lob_NoRushOption_5 = {
+        title = "5 Minutes",
+        description = "You must stay in your starting area for 5 minutes",
     },
-	lob_UnitCap_1250 = {
-        title = "1250",
-        description = "1250 units per player may be in play.",
+    lob_NoRushOption_10 = {
+        title = "10 Minutes",
+        description = "You must stay in your starting area for 10 minutes",
     },
-	lob_UnitCap_1500 = {
-        title = "1500",
-        description = "1500 units per player may be in play.",
+    lob_NoRushOption_20 = {
+        title = "20 Minutes",
+        description = "You must stay in your starting area for 20 minutes",
     },
-	lob_UnitCap_2000 = {
-        title = "2000",
-        description = "2000 units per player may be in play.",
+
+    -- **********************
+    -- *** Lobby Options: User Timeouts
+    -- **********************
+
+    Lobby_Gen_Timeouts = {
+        title = "Timeouts",
+        description = "Set number of Pauses each Player is allowed",
     },
-	lob_UnitCap_3000 = {
-        title = "3000",
-        description = "3000 units per player may be in play.",
-    },        
-	lob_UnitCap_4000 = {
-		title = '4000',
-		description = '4000 units per player may be in play.',
-	},
-    
-    -- *************************
-    -- *** Victory Conditions
-    -- *************************
-    
-	lob_Victory_decapitation = {
-		title = "Advanced Assassination",
-		description = "Game will end when all enemy Commanders and Subcommanders are dead",
-	},
+    lob_Timeouts_0 = {
+        title = 'No Pausing',
+        description = 'You will not be able to pause the game',
+    },
+    lob_Timeouts_3 = {
+        title = 'Timeouts 3',
+        description = 'You may pause the game 3 times',
+    },
+    ['lob_Timeouts_-1'] = {
+        title = 'Unlimited Pausing',
+        description = 'You can pause the game at any time',
+    },
+
+    -- **********************
+    -- *** Lobby Options: Victory Condition
+    -- **********************
+
+    Lobby_Gen_Victory = {
+        title = "Victory Conditions",
+        description = "Victory Conditions",
+    },
+    lob_Victory_decapitation = {
+        title = "Advanced Assassination",
+        description = "Game will end when all enemy Commanders and Subcommanders are dead",
+    },
     lob_Victory_demoralization = {
         title = 'Assassination',
         description = 'Destroy the enemy Commander',
@@ -1373,35 +1229,14 @@ Tooltips = {
         title = 'Sandbox',
         description = 'Your only defeat is leaving the game',
     },
-	lob_Victory_timelimit = {
-		title = "Time Limited",
-		description = "Game will end after the time limit",
-	},
 
-    ['Give Units'] = {
-        title = 'Give Units',
-        description = '',
-    },
-    ['Give Resources'] = {
-        title = 'Give Resources',
-        description = '',
-    },
+    -- **********************
+    -- *** Lobby Options: Victory Time Limit
+    -- **********************
 
-    lob_TeamSpawn_random = {
-        title = 'Random Spawnpoints',
-        description = 'Players do not choose their spawn point',
-    },
-    lob_TeamSpawn_fixed = {
-        title = 'Fixed Spawnpoints',
-        description = 'Players spawnpoints are fixed and chosen',
-    },
-    lob_TeamLock_locked = {
-        title = 'Lock Teams',
-        description = 'Teams cannot be changed during play',
-    },
-    lob_TeamLock_unlocked = {
-        title = 'Unlock Teams',
-        description = 'Teams can be changed during play',
+    Lobby_Gen_TimeLimitSetting = {
+        title = "Time Limited Games - Length",
+        description = "How long a time limited game will last",
     },
     lob_TimeLimitSetting_0 = {
         title = 'No Limit',
@@ -1431,17 +1266,43 @@ Tooltips = {
         title = '240 Minutes',
         description = 'Game will end after 4 hours',
     },
-    lob_describe_observers = {
-        title = "Observers",
-        description = "Observers are clients connected to the lobby who will not participate directly in gameplay. Right click an observers name to remove an observer from the lobby.",
+
+    -- **********************
+    -- *** Lobby Options: ACT
+    -- **********************
+
+    Lobby_ACT_Start_Delay = {
+        title = "Timed Cheat Start Delay",
+        description = "If an AI cheats adaptively, this is the delay in minutes before any changes start happening.",
     },
-    lob_observers_allowed = {
-        title = "Allow Observers",
-        description = "If checked, participants can join the game as an impartial observer (Unchecking this option will boot potential observers from the lobby)",
+    Lobby_ACT_Time_Delay = {
+        title = "Timed Cheat Delay",
+        description = "If an AI cheats more with time, this is the delay in minutes between each difficulty increase.",
     },
-    lob_become_observer = {
-        title = "Become Observer",
-        description = "When clicked, a player will become an observer",
+    Lobby_ACT_Time_Amount = {
+        title = "Timed Cheat Amount",
+        description = "If an AI cheats more with time, this is how much the difficulty increases every interval. Can be negative.",
+    },
+    Lobby_ACT_Time_Cap = {
+        title = "Timed Cheat Limit",
+        description = "If an AI cheats more with time, its cheat multiplier cannot pass the selected number. Can be negative.",
+    },
+    Lobby_ACT_Ratio_Interval = {
+        title = "Feedback Cheat Interval",
+        description = "If an AI is affected by feedback cheating, this is the time period in seconds between possible changes to its cheat multiplier. Increase for better performance.",
+    },
+    Lobby_ACT_Ratio_Scale = {
+        title = "Feedback Cheat Scale",
+        description = "If an AI is affected by feedback cheating, this is the scale which affects the multiplier increase. At 1, the cheat will increase by a max of 0.5.",
+    },
+
+    -- **********************
+    -- *** Lobby Options: Civilians
+    -- **********************
+
+    Lobby_Gen_Civilians = {
+        title = "Civilians",
+        description = "Set civilian unit behavior",
     },
     lob_CivilianAlliance_enemy = {
         title = "Enemy",
@@ -1455,6 +1316,70 @@ Tooltips = {
         title = "None",
         description = "Civilians will not be present on the map",
     },
+
+    -- **********************
+    -- *** Lobby Options: Fog of War
+    -- **********************
+
+    Lobby_Gen_Fog = {
+        title = "Fog of War",
+        description = "Enable or Disable Fog of War.",
+    },
+    lob_FogOfWar_explored = {
+        title = 'Explored',
+        description = 'The terrain and resource positions are always known; the Fog of War hides enemy units.',
+    },
+    lob_FogOfWar_none = {
+        title = 'None',
+        description = 'All players always have vision over the entire map.',
+    },
+
+    -- **********************
+    -- *** Lobby Options: Prebuilt Missiles
+    -- **********************
+
+    ["Lobby_MissileOption"] = {
+        title = "Missile Options",
+        description = "Allow Nukes & Antinukes to have prebuilt missiles",
+    },
+    ["lob_MissileOption_0"] = {
+        title = "Empty",
+        description = "All Nukes and Antinukes are empty when built",
+    },
+    ["lob_MissileOption_1"] = {
+        title = "One",
+        description = "All Nukes and Antinukes come with one missile when built",
+    },
+    ["lob_MissileOption_2"] = {
+        title = "Two",
+        description = "All Nukes and Antinukes come with two missiles when built",
+    },
+ 
+    -- **********************
+    -- *** Map Selection
+    -- **********************
+
+    map_select_size = {
+        title = "Map Size",
+        description = "Sort by Battlefield size",
+    },
+    map_select_sizeoption = {
+        title = "Map Size",
+        description = "",
+    },
+    map_select_maxplayers = {
+        title = "Supported Players",
+        description = "",
+    },
+    map_select_supportedplayers = {
+        title = "Supported Players",
+        description = "Sort by the maximum number of Players allowed",
+    },
+    map_ai_markers = {
+        title = "AI Markers",
+        description = "Sort by whether this map has been marked for AI use. The AI is not likely to work properly on maps without these.",
+    },
+
     lob_RestrictedUnits = {
         title = "Unit Manager",
         description = "View and set unit restrictions for this game (The AI may behave unexpectedly with these options set)",
@@ -1465,36 +1390,7 @@ Tooltips = {
     },
 
     -- **********************
-    -- *** Profile Strings
-    -- **********************
-
-    Profile_name = {
-        title = "Name",
-        description = "The Name of this Profile",
-    },
-    Profile_create = {
-        title = "Create",
-        description = "Generate a New Profile",
-    },
-    Profile_cancel = {
-        title = "Cancel",
-        description = "Exit this screen without changing Profiles",
-    },
-    Profile_delete = {
-        title = "Delete",
-        description = "Delete the Selected Profile",
-    },
-    Profile_ok = {
-        title = "Ok",
-        description = "Continue with the Selected Profile",
-    },
-    Profile_profilelist = {
-        title = "Profile List",
-        description = "All saved Profiles",
-    },
-
-    -- **********************
-    -- *** Options Strings
+    -- *** Operation Briefing
     -- **********************
 
     exit_menu = {
@@ -1598,6 +1494,7 @@ Tooltips = {
     -- ***************************
     -- *** Construction Manager
     -- ***************************
+
     construction_tab_t1 = {
         title = "Tech 1",
         description = "",
@@ -1662,10 +1559,10 @@ Tooltips = {
         title = "Enhancements [Right Arm]",
         description = "Enhancements",
     },
-	construction_tab_enhancment_command = {
-		title = "Enhancements [Other]",
-		description = "Enhancements",
-	},
+    construction_tab_enhancment_command = {
+        title = "Enhancements [Other]",
+        description = "Enhancements",
+    },
     construction_tab_attached = {
         title = "Selection and Storage",
         description = "Displays selected and stored or attached units",
@@ -1694,6 +1591,7 @@ Tooltips = {
     -- *****************************
     -- *** In Game Replay Manager
     -- *****************************
+
     esc_return = {
         title = "Return to Game",
         description = "Closes the menu and returns you to the current game",
@@ -1759,6 +1657,7 @@ Tooltips = {
     -- *****************************
     -- *** Post Game Score Screen
     -- *****************************
+
     PostScore_Grid = {
         title = "Players",
         description = "Shows the Players and Scores",
@@ -1881,7 +1780,7 @@ Tooltips = {
     },
 
     -- ******************
-	-- *** MFD Strings
+    -- *** MFD Strings
     -- ******************
 
     mfd_military = {
@@ -1957,10 +1856,311 @@ Tooltips = {
         keyID = "ping_marker",
     },
 
-    -- *******************
-    -- *** Misc Strings
-    -- *******************
+    -- ************************
+    -- *** Front End
+    -- ***********************
 
+    mainmenu_exit = {
+        title = "Exit Game",
+        description = "Close Supreme Commander: Forged Alliance",
+    },
+    mainmenu_mp = {
+        title = "Multiplayer",
+        description = "Join or host a multiplayer game",
+    },
+    mainmenu_skirmish = {
+        title = "Skirmish Mode",
+        description = "Play a quick game against one or more AI Opponents",
+    },
+    mainmenu_replay = {
+        title = "Replay",
+        description = "List and play any available replays",
+    },
+    mainmenu_options = {
+        title = "Options",
+        description = "View and adjust Gameplay, Interface, Video, and Sound options",
+    },
+    mainmenu_mod = {
+        title = "Mod Manager",
+        description = "View, enable and disable all available Mods",
+    },
+    mainmenu_extras = {
+        title = "Extras",
+        description = "Access additional SupCom content and functionality",
+    },
+    mainmenu_unitdb = {
+        title = "Unit Database",
+        description = "See detailed information about each of the units in the LOUD mod pack",
+    },
+    profile = {
+        title = "Profile",
+        description = "Manage your Profiles",
+    },
+    mpselect_observe = {
+        title = "Observe",
+        description = "Watch a Game being played",
+    },
+    mpselect_join = {
+        title = "Join",
+        description = "Play on the Selected Server",
+    },
+    mpselect_lan = {
+        title = "LAN",
+        description = "Host, Join or Observe a LAN Game",
+    },
+    mpselect_connect = {
+        title = "Direct Connect",
+        description = "Join a Game by supplying the IP Address and Port",
+    },
+    mpselect_create = {
+        title = "Create Game",
+        description = "Host a new LAN Game",
+    },
+    mpselect_steam_create = {
+        title = "Create Game",
+        description = "Host a new game over internet matchmaking"
+    },
+    mpselect_serverinfo = {
+        title = "Server Information",
+        description = "Displays the Status of the Currently Selected Server",
+    },
+    mpselect_serverlist = {
+        title = "Server List",
+        description = "Displays available LAN Games",
+    },
+    mpselect_steam = {
+        title = "Steam",
+        description = "Host, Join or Observe games thru the Steam Matchmaking service",
+    },
+    mpselect_name = {
+        title = "Name",
+        description = "Sets your Multiplayer Nickname",
+    },
+    mainmenu_quickcampaign = {
+        title = "Quick Campaign",
+        description = "Launches the most recent saved campaign",
+    },
+    mainmenu_quicklanhost = {
+        title = "Quick LAN",
+        description = "Launches a LAN lobby with your last settings",
+    },
+    mainmenu_quickipconnect = {
+        title = "Direct Connect",
+        description = "Direct connect to another computer using an IP address and port value",
+    },
+    mainmenu_quickskirmishload = {
+        title = "Quick Skirmish Load",
+        description = "Loads the last saved skirmish game",
+    },
+    mainmenu_quickreplay = {
+        title = "Quick Replay",
+        description = "Loads and plays the last saved replay",
+    },
+    modman_controlled_by_host = {
+        title = "Gameplay mod",
+        description = "This mod can only be selected by the game host",
+        image = ""
+    },
+    modman_some_missing = {
+        title = "Gameplay mod",
+        description = "Not all players have this mod",
+        image = ""
+    },
+
+    -- **********************
+    -- *** Unit Restrictions
+    -- **********************
+
+    restricted_units_T1 = {
+        title = "No Tech 1",
+        description = "Players will not be able to build tech 1 units",
+    },
+    restricted_units_T2 = {
+        title = "No Tech 2",
+        description = "Players will not be able to build tech 2 units",
+    },
+    restricted_units_T3 = {
+        title = "No Tech 3",
+        description = "Players will not be able to build tech 3 units",
+    },
+    restricted_units_experimental = {
+        title = "No Experimental",
+        description = "Players will not be able to build experimental units",
+    },
+    restricted_units_naval = {
+        title = "No Naval",
+        description = "Players will not be able to build mobile naval units",
+    },
+    restricted_units_land = {
+        title = "No Land",
+        description = "Players will not be able to build mobile land units",
+    },
+    restricted_units_air = {
+        title = "No Air",
+        description = "Players will not be able to build mobile air units",
+    },
+    restricted_units_air_scouts = {
+        title = "No Air Scouts",
+        description = "Players cannot build scout or spy planes.",
+    },
+    restricted_units_air_fighters = {
+        title = "No Air Fighters",
+        description = "Players cannot build interceptors or other Air to Air aircraft.",
+    },
+    restricted_units_air_bombers = {
+        title = "No Air Bombers",
+        description = "Players cannot build any bombers",
+    },
+    restricted_units_air_gunships = {
+        title = "No Air Gunships",
+        description = "Players cannot build any standard or experimental gunships",
+    },
+    restricted_units_air_torpedobombers = {
+        title = "No Torpedo bombers",
+        description = "Players cannot build any torpedo bombers",
+    },
+    restricted_units_air_transports = {
+        title = "No Air Transports",
+        description = "Players cannot build any standard or experimental transports",
+    },
+    restricted_units_air_experimentals = {
+        title = "No Experimental air units",
+        description = "No Air Experimentals can be built",
+    },
+    restricted_units_tactical = {
+        title = "No Tactical missile structures.",
+        description = "Players will not be able to build T2 and T3 tactical missile launching structures.",
+    },
+    restricted_units_nukes = {
+        title = "No Nukes",
+        description = "Players will not be able to build any nuke launching units - launchers, subs or battleships ",
+    },
+    restricted_units_T3_Tactical_artillery = {
+        title = "No T3 Artillery structures.",
+        description = "Players will not be able to build T3 Tactical (Barrage) artillery.",
+    },
+    restricted_units_T3_Strategic_artillery = {
+        title = "No T3 Strategic Artillery.",
+        description = "Players will not be able to build T3 Strategic artillery.",
+    },
+    restricted_units_exp_artillery = {
+        title = "No Experimental Artillery",
+        description = "Players will not be able to build T4 Experimental (Mavor, Scathis, Yolona Oss, Salvation) artillery.",
+    },
+    restricted_units_bubbles = {
+        title = "No Bubbles",
+        description = "Players will not be able to build mobile shield generators or shield defenses",
+    },
+    restricted_units_intel = {
+        title = "No Intel Structures",
+        description = "Players will not be able to build radar, sonar and omni installations",
+    },
+    restricted_units_supcom = {
+        title = "No Support Commanders",
+        description = "Players will not be able to build support commanders -- NOTE: THIS WILL PREVENT THE BUILDING OF ALMOST ALL EXPERIMENTAL UNITS",
+    },
+    restricted_units_massfab = {
+        title = "No Fabrication",
+        description = "Players will not be able to build mass fabricators"
+    },
+    restricted_units_altair = {
+        title = "Alternative Air",
+        description = "All air units available, except in Tech 3; Tech 3 air production is limited to air scouts, fighters, and torpedo bombers. Penetration planes and decoy planes are also prohibited.",
+    },
+
+    -- ************************
+    -- *** Strategic overlay
+    -- ************************
+
+    overlay_conditions = {
+        title = "Conditional Overlays",
+        description = "Toggle all conditional overlays",
+    },
+    overlay_rollover = {
+        title = "Rollover Range Overlay",
+        description = "Toggle the range overlay of the unit you are mousing over",
+    },
+    overlay_selection = {
+        title = "Selection Range Overlay",
+        description = "Toggle the range overlay of the unit(s) you have selected",
+    },
+    overlay_build_preview = {
+        title = "Build Preview",
+        description = "Toggle the range overlay of the unit you are about to build",
+    },
+    overlay_military = {
+        title = "Military Overlays",
+        description = "Toggle all military overlays ",
+    },
+    overlay_direct_fire = {
+        title = "Direct Fire",
+        description = "Toggle the range overlays of your point defenses, tanks and other direct-fire weaponry ",
+    },
+    overlay_indirect_fire = {
+        title = "Indirect Fire",
+        description = "Toggle the range overlays of your artillery and missile weaponry",
+    },
+    overlay_anti_air = {
+        title = "Anti-Air",
+        description = "Toggle the range overlays of your AA weaponry",
+    },
+    overlay_anti_navy = {
+        title = "Anti-Navy",
+        description = "Toggle the range overlays of your torpedo weaponry",
+    },
+    overlay_defenses = {
+        title = "Countermeasure",
+        description = "Toggle the range overlays of your shields and other countermeasure defenses",
+    },
+    overlay_misc = {
+        title = "Miscellaneous",
+        description = "Toggle the range overlays of your air staging platforms and engineering stations",
+    },
+    overlay_combine_military = {
+        title = "Combine Military",
+        description = "Combine all sub-filters into a single overlay",
+    },
+    overlay_intel = {
+        title = "Intelligence Overlays",
+        description = "Toggle all intelligence overlays ",
+    },
+    overlay_radar = {
+        title = "Radar",
+        description = "Toggle the range overlays of your radar",
+    },
+    overlay_sonar = {
+        title = "Sonar",
+        description = "Toggle the range overlays of your sonar",
+    },
+    overlay_omni = {
+        title = "Omni",
+        description = "Toggle the range overlays of your Omni sensors",
+    },
+    overlay_counter_intel = {
+        title = "Counter-Intelligence",
+        description = "Toggle the range overlays of your stealth and jamming equipment",
+    },
+    overlay_combine_intel = {
+        title = "Combine Intelligence",
+        description = "Combine all sub-filters into a single overlay",
+    },
+
+    -- ***********
+    -- *** Misc.
+    -- ***********
+
+    minimap_reset = {
+        title = "Reset Minimap",
+        description = "Sets the minimap to its default position and size",
+    },
+    no_rush_clock = {
+        title = "No Rush Clock",
+        description = "Displays time remaining in the no rush clock",
+    },
+    save_template = {
+        title = "Save Template",
+        description = "Creates construction template by saving units/structures and their position",
+    },
     infinite_toggle = {
         title = "Infinite Build",
         description = "Toggle infinite construction on/off for current build queue",
@@ -2052,397 +2252,13 @@ Tooltips = {
         description = "",
     },
 
-    -- ************************
-    -- *** Front End Strings
-    -- ***********************
-
-    mainmenu_exit = {
-        title = "Exit Game",
-        description = "Close Supreme Commander: Forged Alliance",
+    ['Give Units'] = {
+        title = 'Give Units',
+        description = '',
     },
-    mainmenu_mp = {
-        title = "Multiplayer",
-        description = "Join or host a multiplayer game",
-    },
-    mainmenu_skirmish = {
-        title = "Skirmish Mode",
-        description = "Play a quick game against one or more AI Opponents",
-    },
-    mainmenu_replay = {
-        title = "Replay",
-        description = "List and play any available replays",
-    },
-    mainmenu_options = {
-        title = "Options",
-        description = "View and adjust Gameplay, Interface, Video, and Sound options",
-    },
-    mainmenu_mod = {
-        title = "Mod Manager",
-        description = "View, enable and disable all available Mods",
-    },
-    mainmenu_extras = {
-    	title = "Extras",
-    	description = "Access additional SupCom content and functionality",
-    },
-    mainmenu_unitdb = {
-        title = "Unit Database",
-        description = "See detailed information about each of the units in the LOUD mod pack",
-    },
-    profile = {
-        title = "Profile",
-        description = "Manage your Profiles",
-    },
-    mpselect_observe = {
-        title = "Observe",
-        description = "Watch a Game being played",
-    },
-    mpselect_join = {
-        title = "Join",
-        description = "Play on the Selected Server",
-    },
-	mpselect_lan = {
-		title = "LAN",
-		description = "Host, Join or Observe a LAN Game",
-	},
-    mpselect_connect = {
-        title = "Direct Connect",
-        description = "Join a Game by supplying the IP Address and Port",
-    },
-    mpselect_create = {
-        title = "Create Game",
-        description = "Host a new LAN Game",
-    },
-    mpselect_steam_create = {
-        title = "Create Game",
-        description = "Host a new game over internet matchmaking"
-    },
-    mpselect_serverinfo = {
-        title = "Server Information",
-        description = "Displays the Status of the Currently Selected Server",
-    },
-    mpselect_serverlist = {
-        title = "Server List",
-        description = "Displays available LAN Games",
-    },
-    mpselect_steam = {
-        title = "Steam",
-        description = "Host, Join or Observe games thru the Steam Matchmaking service",
-    },
-    mpselect_name = {
-        title = "Name",
-        description = "Sets your Multiplayer Nickname",
-    },
-    mainmenu_quickcampaign = {
-        title = "Quick Campaign",
-        description = "Launches the most recent saved campaign",
-    },
-    mainmenu_quicklanhost = {
-        title = "Quick LAN",
-        description = "Launches a LAN lobby with your last settings",
-    },
-    mainmenu_quickipconnect = {
-        title = "Direct Connect",
-        description = "Direct connect to another computer using an IP address and port value",
-    },
-    mainmenu_quickskirmishload = {
-        title = "Quick Skirmish Load",
-        description = "Loads the last saved skirmish game",
-    },
-    mainmenu_quickreplay = {
-        title = "Quick Replay",
-        description = "Loads and plays the last saved replay",
-    },
-    modman_controlled_by_host = {
-        title = "Gameplay mod",
-        description = "This mod can only be selected by the game host",
-        image = ""
-    },
-    modman_some_missing = {
-        title = "Gameplay mod",
-        description = "Not all players have this mod",
-        image = ""
+    ['Give Resources'] = {
+        title = 'Give Resources',
+        description = '',
     },
 
-    -- ***********************
-    -- *** Restricted Units
-    -- ***********************
-
-    restricted_units_T1 = {
-        title = "No Tech 1",
-        description = "Players will not be able to build tech 1 units",
-    },
-    restricted_units_T2 = {
-        title = "No Tech 2",
-        description = "Players will not be able to build tech 2 units",
-    },
-    restricted_units_T3 = {
-        title = "No Tech 3",
-        description = "Players will not be able to build tech 3 units",
-    },
-    restricted_units_experimental = {
-        title = "No Experimental",
-        description = "Players will not be able to build experimental units",
-    },
-    restricted_units_naval = {
-        title = "No Naval",
-        description = "Players will not be able to build mobile naval units",
-    },
-    restricted_units_land = {
-        title = "No Land",
-        description = "Players will not be able to build mobile land units",
-    },
-	
-    restricted_units_air = {
-        title = "No Air",
-        description = "Players will not be able to build mobile air units",
-    },
-	
-	restricted_units_air_scouts = {
-		title = "No Air Scouts",
-		description = "Players cannot build scout or spy planes.",
-	},
-	restricted_units_air_fighters = {
-		title = "No Air Fighters",
-		description = "Players cannot build interceptors or other Air to Air aircraft.",
-	},
-	restricted_units_air_bombers = {
-		title = "No Air Bombers",
-		description = "Players cannot build any bombers",
-	},
-	restricted_units_air_gunships = {
-		title = "No Air Gunships",
-		description = "Players cannot build any standard or experimental gunships",
-	},
-    restricted_units_air_torpedobombers = {
-        title = "No Torpedo bombers",
-        description = "Players cannot build any torpedo bombers",
-    },
-	restricted_units_air_transports = {
-		title = "No Air Transports",
-		description = "Players cannot build any standard or experimental transports",
-	},
-	restricted_units_air_experimentals = {
-		title = "No Experimental air units",
-		description = "No Air Experimentals can be built",
-	},
-	
-	restricted_units_tactical = {
-		title = "No Tactical missile structures.",
-		description = "Players will not be able to build T2 and T3 tactical missile launching structures.",
-	},
-    restricted_units_nukes = {
-        title = "No Nukes",
-        description = "Players will not be able to build any nuke launching units - launchers, subs or battleships ",
-    },
-    
-	restricted_units_T3_Tactical_artillery = {
-		title = "No T3 Artillery structures.",
-		description = "Players will not be able to build T3 Tactical (Barrage) artillery.",
-	},
-    restricted_units_T3_Strategic_artillery = {
-        title = "No T3 Strategic Artillery.",
-        description = "Players will not be able to build T3 Strategic artillery.",
-    },
-	restricted_units_exp_artillery = {
-		title = "No Experimental Artillery",
-		description = "Players will not be able to build T4 Experimental (Mavor, Scathis, Yolona Oss, Salvation) artillery.",
-	},
-
-    restricted_units_gameenders = {
-        title = "No Game Enders",
-        description = "Players will not be able to build certain top-end experimentals, Paragon, Novax, and Yolona Oss",
-    },
-    
-    restricted_units_bubbles = {
-        title = "No Bubbles",
-        description = "Players will not be able to build mobile shield generators or shield defenses",
-    },
-    
-    restricted_units_intel = {
-        title = "No Intel Structures",
-        description = "Players will not be able to build radar, sonar and omni installations",
-    },
-    
-    restricted_units_supcom = {
-        title = "No Support Commanders",
-        description = "Players will not be able to build support commanders -- NOTE: THIS WILL PREVENT THE BUILDING OF ALMOST ALL EXPERIMENTAL UNITS",
-    },
-	
-    restricted_units_massfab = {
-        title = "No Fabrication",
-        description = "Players will not be able to build mass fabricators"
-    },
-	restricted_units_engineers = {
-		title = "No standard engineers",
-		description = "Players will be unable to build standard engineers.",
-    },
-
-    restricted_units_altair = {
-        title = "Alternative Air",
-        description = "All air units available, except in Tech 3; Tech 3 air production is limited to air scouts, fighters, and torpedo bombers. Penetration planes and decoy planes are also prohibited.",
-    },
-
-    -- ************************
-    -- *** Strategic overlay
-    -- ************************
-
-    overlay_conditions = {
-        title = "Conditional Overlays",
-        description = "Toggle all conditional overlays",
-    },
-    overlay_rollover = {
-        title = "Rollover Range Overlay",
-        description = "Toggle the range overlay of the unit you are mousing over",
-    },
-    overlay_selection = {
-        title = "Selection Range Overlay",
-        description = "Toggle the range overlay of the unit(s) you have selected",
-    },
-    overlay_build_preview = {
-        title = "Build Preview",
-        description = "Toggle the range overlay of the unit you are about to build",
-    },
-    overlay_military = {
-        title = "Military Overlays",
-        description = "Toggle all military overlays ",
-    },
-    overlay_direct_fire = {
-        title = "Direct Fire",
-        description = "Toggle the range overlays of your point defenses, tanks and other direct-fire weaponry ",
-    },
-    overlay_indirect_fire = {
-        title = "Indirect Fire",
-        description = "Toggle the range overlays of your artillery and missile weaponry",
-    },
-    overlay_anti_air = {
-        title = "Anti-Air",
-        description = "Toggle the range overlays of your AA weaponry",
-    },
-    overlay_anti_navy = {
-        title = "Anti-Navy",
-        description = "Toggle the range overlays of your torpedo weaponry",
-    },
-    overlay_defenses = {
-        title = "Countermeasure",
-        description = "Toggle the range overlays of your shields and other countermeasure defenses",
-    },
-    overlay_misc = {
-        title = "Miscellaneous",
-        description = "Toggle the range overlays of your air staging platforms and engineering stations",
-    },
-    overlay_combine_military = {
-        title = "Combine Military",
-        description = "Combine all sub-filters into a single overlay",
-    },
-    overlay_intel = {
-        title = "Intelligence Overlays",
-        description = "Toggle all intelligence overlays ",
-    },
-    overlay_radar = {
-        title = "Radar",
-        description = "Toggle the range overlays of your radar",
-    },
-    overlay_sonar = {
-        title = "Sonar",
-        description = "Toggle the range overlays of your sonar",
-    },
-    overlay_omni = {
-        title = "Omni",
-        description = "Toggle the range overlays of your Omni sensors",
-    },
-    overlay_counter_intel = {
-        title = "Counter-Intelligence",
-        description = "Toggle the range overlays of your stealth and jamming equipment",
-    },
-    overlay_combine_intel = {
-        title = "Combine Intelligence",
-        description = "Combine all sub-filters into a single overlay",
-    },
-
-    -- ***********
-    -- *** Misc
-    -- ***********
-
-    minimap_reset = {
-        title = "Reset Minimap",
-        description = "Sets the minimap to its default position and size",
-    },
-    no_rush_clock = {
-        title = "No Rush Clock",
-        description = "Displays time remaining in the no rush clock",
-    },
-    save_template = {
-        title = "Save Template",
-        description = "Creates construction template by saving units/structures and their position",
-    },
-    
 }
-
-    Tooltips.options_gui_template_rotator = {
-        title = 'GUI Mod',
-        description = 'Allows build templates to be rotated with the middle mouse button.',
-    }
-    Tooltips.options_gui_scu_manager = {
-        title = 'GUI Mod',
-        description = 'Allows SCUs to be upgraded automatically or in a single click.',
-    }
-    Tooltips.options_gui_draggable_queue = {
-        title = 'GUI Mod',
-        description = 'Allows factory build queues to be reordered with drag and drop.',
-    }
-    Tooltips.options_gui_idle_engineer_avatars = {
-        title = 'GUI Mod',
-        description = 'Allows middle clicking idle engineer avatars to select all idle engineers on screen.',
-    }
-    Tooltips.options_gui_all_race_templates = {
-        title = 'GUI Mod',
-        description = 'Allows build templates to be used across all 4 factions.',
-    }
-    Tooltips.options_gui_detailed_unitview = {
-        title = 'GUI Mod',
-        description = 'Replaces fuel bar with progress bar, and causes the unitview to always be shown for a 1 unit selection.',
-    }
-    Tooltips.options_gui_enhanced_unitrings = {
-        title = 'GUI Mod',
-        description = 'When a single unit is selected, show that units range rings.',
-    }
-    Tooltips.options_gui_templates_factory = {
-        title = 'GUI Mod',
-        description = 'Allows creation of factory build queue templates.',
-    }
-    Tooltips.options_gui_seperate_idle_builders = {
-        title = 'GUI Mod',
-        description = 'Use a seperate icon for idle Engineers and other builders.',
-    }
-    Tooltips.options_gui_visible_template_names = {
-        title = 'GUI Mod',
-        description = 'Displays template name below template icon.',
-    }
-    Tooltips.options_gui_template_name_cutoff = {
-        title = 'GUI Mod',
-        description = 'The first 7 characters are displayed (default). Number of characters omitted can be customized. (Needs restart for effects to be visible.)',
-    }
-    Tooltips.options_gui_display_reclaim_totals = {
-        title = 'GUI Mod',
-        description = 'Displays resources reclaimed.',
-    }
-    Tooltips.options_gui_render_custom_names = {
-        title = 'GUI Mod',
-        description = 'Toggle display of custom names. Enabled by default.',
-    }
-    Tooltips.options_gui_render_enemy_lifebars = {
-        title = 'GUI Mod',
-        description = 'Force rendering enemy lifebars. Disabled by default',
-    }
-    Tooltips.options_gui_auto_rename_replays = {
-        title = 'GUI Mod',
-        description = 'Auto renames the current Replay once you exit to the Score screen. Enabled by default',
-    }
-    Tooltips.options_gui_improved_unit_deselection = {
-        title = 'GUI Mod',
-        description = 'Reduce the number of selected units by shift(-1) or ctrl(-5) or ctrl+shift(-10) right-click in group selection. Enabled by default',
-    }
-    Tooltips.options_gui_zoom_pop_distance = {
-        title = 'GUI Mod',
-        description = 'Adjusts distance to which Zoom Pop zooms to.',
-    }

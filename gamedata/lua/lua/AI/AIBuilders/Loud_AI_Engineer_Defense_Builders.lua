@@ -345,6 +345,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .80 } },
+            
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 400, 75, 'Land' }},
+
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 10, categories.ARTILLERY * categories.STRUCTURE * categories.TECH2, 10, 20 }},			
         },
@@ -1722,6 +1725,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .65 } },
+            
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 400, 75, 'Land' }},
+
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }}, 
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 16, categories.STRUCTURE * categories.DIRECTFIRE * categories.TECH2, 14, 48 }},
         },
@@ -1786,7 +1792,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .65 } },
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }}, 
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }}, 
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 4, categories.STRUCTURE * categories.ANTIMISSILE * categories.TECH2, 15, 48 }},
         },
 		
@@ -1818,6 +1824,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
+            
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 400, 75, 'Land' }},
+
 			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
             
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }}, 
@@ -1889,6 +1898,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
 
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .75 } },
+            
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 400, 75, 'Land' }},
+
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 12, categories.STRUCTURE * categories.TECH3 * categories.DIRECTFIRE, 15, 48 }},
         },
@@ -1925,6 +1937,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .75 } },
+            
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 400, 75, 'Land' }},
+
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 4, categories.ARTILLERY * categories.TACTICAL }},
         },
@@ -1995,6 +2010,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
+            
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 400, 75, 'Land' }},
+
 			{ LUTL, 'GreaterThanEnergyIncome', { 50000 }},
             
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},

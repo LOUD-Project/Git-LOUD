@@ -205,6 +205,25 @@ Platoon = Class(moho.platoon_methods) {
         self.Trash:Destroy()
     end,
 
+    WatchPlatoonSize = function(self, startsize, triggervalue)
+    
+        local aiBrain = GetBrain(self)
+        local triggerpoint = startsize * triggervalue
+    
+        while PlatoonExists(aiBrain,self) and self.WatchPlatoon do
+
+            if LOUDGETN(self:GetPlatoonUnits()) < triggerpoint then
+
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." Platoon Size trigger")
+                
+                self.WatchPlatoon = nil
+            end
+            
+            WaitTicks(2)
+        end
+
+    end,
+
     -- this is the primary movement method for platoon movement in LOUD
     -- it handles processing the path provided to it by the platoon
     -- moving it one segment at a time

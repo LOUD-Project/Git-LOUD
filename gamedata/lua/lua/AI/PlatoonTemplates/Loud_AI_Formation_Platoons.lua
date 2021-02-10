@@ -853,9 +853,9 @@ PlatoonTemplate { Name = 'SeaAttack Reinforcement',
 	
 		{ categories.MOBILE * categories.NAVAL * categories.CARRIER, 0, 1, 'Support', 'none' },	    		# Carriers
         { categories.BATTLESHIP, 0, 4, 'Attack', 'none' },													# Capital Ships	
-        { categories.DESTROYER, 1, 6, 'Attack', 'none' },													# Destroyers
-        { categories.CRUISER, 1, 5, 'Attack', 'none' },														# Cruisers
-        { categories.FRIGATE, 5, 8, 'Attack', 'none' },														# Frigates
+        { categories.DESTROYER, 0, 6, 'Attack', 'none' },													# Destroyers
+        { categories.CRUISER, 0, 5, 'Attack', 'none' },														# Cruisers
+        { categories.FRIGATE, 3, 6, 'Attack', 'none' },														# Frigates
         { categories.SUBMARINE, 0, 16, 'Attack', 'none' },													# Submarines		
         { categories.DEFENSIVEBOAT, 0, 12, 'Guard', 'none' },												# Shield CounterIntel AA
         { categories.LIGHTBOAT, 0, 12, 'Guard', 'none' },													# UEF Torp Boat

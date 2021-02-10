@@ -131,12 +131,8 @@ function EnumerateSkirmishScenarios(nameFilter, sortFunc)
     return scenarios
 end
 
--- Returns an array of map folder structures. Specification of this structure:
--- {
--- [1] : string (name of folder)
--- [2] : bool (if folder is open in GUI)
--- [3] : array of scenario info structures
--- }
+-- Returns an array of map folder structures.
+-- { name : string, open : bool, maps : table }
 function EnumerateSkirmishFolders(nameFilter, sortFunc)
     nameFilter = nameFilter or '*'
     sortFunc = sortFunc or DefaultScenarioSorter
@@ -156,20 +152,28 @@ function EnumerateSkirmishFolders(nameFilter, sortFunc)
             folderName = string.gsub(folderName, "%.[vV]%d+$", "")
             if not ret[k] then
                 -- If a folder struct has not been created, make one
-                ret[k] = { folderName, false, {} }
-            elseif ret[k][1] == folderName then
+                ret[k] = { 
+                    name = folderName, 
+                    open = false, 
+                    maps = {}
+                }
+            elseif ret[k].name == folderName then
                 -- Map belongs in same folder as last map
                 -- Don't do anything but move on to insertion
             else
                 -- New folder, move on
                 k = k + 1
-                ret[k] = { folderName, false, {} }
+                ret[k] = { 
+                    name = folderName, 
+                    open = false, 
+                    maps = {}
+                }
             end
-            table.insert(ret[k][3], scen)
+            table.insert(ret[k].maps, scen)
         end
     end
     -- Sort 0-9 A-Z
-    table.sort(ret, function(a, b) return sortFunc(a[1], b[1]) end)
+    table.sort(ret, function(a, b) return sortFunc(a.name, b.name) end)
     return ret
 end
 
