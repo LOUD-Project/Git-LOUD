@@ -581,11 +581,16 @@ local function ModConfigDialog(parent, modInfo, config, modStatusEntry)
                 line.combo:SetItem(line.combo.keyMap[key])
             end
 
-            local tooltip = {
+            local lineTooltip = {
                 text = data.label,
-                body = data.tooltip or "",
+                body = data.help or "",
             }
-            Tooltip.AddControlTooltip(line.combo, tooltip)
+            local comboTooltip = {}
+            for i, v in data.values do
+                table.insert(comboTooltip, { text = v.text, body = v.help or "" })
+            end
+            Tooltip.AddControlTooltip(line, lineTooltip)
+            Tooltip.AddComboTooltip(line.combo, comboTooltip)
         end
         for i, v in optionList do
             if config[i + self.top] then
