@@ -1110,7 +1110,7 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
                         self:Brighten()
                     elseif event.Type == 'ButtonPress' then
                         if event.Modifiers.Right then
-                            DisplayModDetails(self.uid)
+                            DisplayModDetails(self.uid, modStatus)
                             local sound = Sound({Cue = 'UI_Mod_Select', Bank = 'Interface',})
                             PlaySound(sound)
                         else
