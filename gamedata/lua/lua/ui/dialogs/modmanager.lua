@@ -438,20 +438,6 @@ local function ModConfigDialog(parent, modInfo, config, modStatusEntry)
     optionContainer.top = 0
     LayoutHelpers.AtCenterIn(optionContainer, parent, -12)
 
-    local function CreateOptionCombo(list, optionData, width)
-        local combo = Combo(list, nil, nil, nil, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
-        combo.Width:Set(240)
-        combo.Depth:Set(function() return list.Depth() + 10 end)
-        combo.keyMap = {}
-        combo.UpdateValue = function(key)
-            combo:SetItem(combo.keyMap[key])
-        end
-        if not modStatusEntry.cantoggle then
-            combo:Disable()
-        end
-        return combo
-    end
-
     local function CreateOptionElement(index)
         optionList[index] = Group(optionContainer)
         optionList[index].Height:Set(46)
@@ -466,7 +452,16 @@ local function ModConfigDialog(parent, modInfo, config, modStatusEntry)
         optionList[index].text:DisableHitTest()
         LayoutHelpers.AtLeftTopIn(optionList[index].text, optionList[index], 10)
 
-        optionList[index].combo = CreateOptionCombo(optionList[index])
+        optionList[index].combo = Combo(optionList[index], nil, nil, nil, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
+        optionList[index].combo.Width:Set(240)
+        optionList[index].combo.Depth:Set(function() return optionList[index].Depth() + 10 end)
+        optionList[index].combo.keyMap = {}
+        optionList[index].combo.UpdateValue = function(key)
+            optionList[index].combo:SetItem(optionList[index].combo.keyMap[key])
+        end
+        if not modStatusEntry.cantoggle then
+            optionList[index].combo:Disable()
+        end
         LayoutHelpers.AtLeftTopIn(optionList[index].combo, optionList[index], 5, 22)
     end
 
