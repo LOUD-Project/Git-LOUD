@@ -1,9 +1,8 @@
-AIOpts = {
-    {   default = 1,
+config = {
+	{   default = 1,
         label = "<LOC CityscapesSpawn_LOB>Cityscapes: Player Slots",
         help = "<LOC CityscapesSpawn_LOB_D>Defines which player spawn locations cities can spawn at.",
         key = 'CityscapesSpawn',
-        pref = 'Cityscapes_Spawn',
         values = {
             {
                 text = "<LOC CityscapesSpawn_LOB_EmptySpots>Empty slots",
@@ -31,7 +30,6 @@ AIOpts = {
         label = "<LOC CityscapesTeam_LOB>Cityscapes: Player Slot Team",
         help = "<LOC CityscapesTeam_LOB_D>Defines the owner of cities spawned in occupied slots, if they exist.",
         key = 'CityscapesTeam',
-        pref = 'Cityscapes_Team',
         values = {
             {
                 text = "<LOC CityscapesTeam_LOB_Civilian>Civilian",
@@ -49,7 +47,6 @@ AIOpts = {
         label = "<LOC CityscapesExpansion_LOB>Cityscapes: Expansion Zones",
         help = "<LOC CityscapesExpansion_LOB_D>Determines if cities spawn at expansion zones markers.",
         key = 'CityscapesExpansion',
-        pref = 'Cityscapes_Expansion',
         values = {
             {
                 text = "<LOC CityscapesExpansion_LOB_Enabled>Enabled",
@@ -67,7 +64,6 @@ AIOpts = {
         label = "<LOC CityscapesLargeExpansion_LOB>Cityscapes: Large Expansion Zones",
         help = "<LOC CityscapesLargeExpansion_LOB_D>Determines if cities spawn at any large expansion zones markers.",
         key = 'CityscapesLargeExpansion',
-        pref = 'Cityscapes_LargeExpansion',
         values = {
             {
                 text = "<LOC CityscapesLargeExpansion_LOB_Enabled>Enabled",
@@ -85,7 +81,6 @@ AIOpts = {
         label = "<LOC CityscapesObjective_LOB>Cityscapes: Objective Markers",
         help = "<LOC CityscapesObjective_LOB_D>Determines if cities spawn at any Objective markers.",
         key = 'CityscapesObjective',
-        pref = 'Cityscapes_Objective',
         values = {
             {
                 text = "<LOC CityscapesObjective_LOB_Enabled>Enabled",

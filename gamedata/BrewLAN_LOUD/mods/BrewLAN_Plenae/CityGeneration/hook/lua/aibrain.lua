@@ -1,16 +1,31 @@
 local oldAIBrain = AIBrain
 
 AIBrain = Class(oldAIBrain) {
+    OnCreateHuman = function(self, planName)
+        oldAIBrain.OnCreateHuman(self, planName)
+        self.GenerateCities(self)
+    end,
+
     OnCreateAI = function(self, planName)
         oldAIBrain.OnCreateAI(self, planName)
-        --this is Line 4947   --sub 4941
+        self.GenerateCities(self)
+    end,
+
+    GenerateCities = function(self)
+        local modConfig = {}
+        for _, v in __active_mods do
+            if v.uid == '190261d0-4bb0-11e2-bcSC-CITIES000001' then
+                modConfig = v.config
+                break
+            end
+        end
 
         -- default if options if not defined
-        local opt = ScenarioInfo.Options.CityscapesSpawn or 'EmptySpots'
-        local opt2 = ScenarioInfo.Options.CityscapesTeam or 'Civilian'
-        local opt3 = ScenarioInfo.Options.CityscapesExpansion or 'Disabled'
-        local opt4 = ScenarioInfo.Options.CityscapesLargeExpansion or 'Enabled'
-        local opt5 = ScenarioInfo.Options.CityscapesObjective or 'Disabled'
+        local opt = modConfig.CityscapesSpawn or 'EmptySpots'
+        local opt2 = modConfig.CityscapesTeam or 'Civilian'
+        local opt3 = modConfig.CityscapesExpansion or 'Disabled'
+        local opt4 = modConfig.CityscapesLargeExpansion or 'Enabled'
+        local opt5 = modConfig.CityscapesObjective or 'Disabled'
 
         if opt ~= 'false' or opt3 == 'Enabled' or opt4 == 'Enabled' or opt5 == 'Enabled' then
 
