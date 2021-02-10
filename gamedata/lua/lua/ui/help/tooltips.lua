@@ -696,6 +696,11 @@ Tooltips = {
     -- *** Mod Manager
     -- **********************
 
+    modmgr_modcfg = {
+        title = "Settings",
+        description = "Configure this mod.",
+    },
+
     modmgr_folder_units = {
         title = "Units",
         description = "Mods which add new units to the game.",

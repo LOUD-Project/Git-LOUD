@@ -755,15 +755,19 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
         grp.bg.Depth:Set(grp.Depth)
         LayoutHelpers.FillParent(grp.bg, grp)
         grp.bg:SetSolidColor('22282B')
-        grp.detailButton = UIUtil.CreateButton(grp,
+        grp.detailBtn = UIUtil.CreateButton(grp,
             '/widgets/large-h_scr/arrow-right_scr_up.dds',
             '/widgets/large-h_scr/arrow-right_scr_down.dds',
             '/widgets/large-h_scr/arrow-right_scr_over.dds',
             '/widgets/large-h_scr/arrow-right_scr_dis.dds')
-        grp.detailButton.Width:Set(math.floor(grp.detailButton.Width() * 0.75))
-        grp.detailButton.Height:Set(math.floor(grp.detailButton.Height() * 0.75))
-        LayoutHelpers.AtRightIn(grp.detailButton, grp, 2)
-        LayoutHelpers.AtVerticalCenterIn(grp.detailButton, grp)
+        grp.detailBtn.Width:Set(math.floor(grp.detailBtn.Width() * 0.75))
+        grp.detailBtn.Height:Set(math.floor(grp.detailBtn.Height() * 0.75))
+        LayoutHelpers.AtRightIn(grp.detailBtn, grp, 2)
+        LayoutHelpers.AtVerticalCenterIn(grp.detailBtn, grp)
+        grp.configBtn = UIUtil.CreateButtonStd(grp, '/dialogs/config_btn/config')
+        Tooltip.AddButtonTooltip(grp.configBtn, 'modmgr_modcfg')
+        LayoutHelpers.LeftOf(grp.configBtn, grp.detailBtn, 4)
+        LayoutHelpers.AtVerticalCenterIn(grp.configBtn, grp)
         -- Either '[+]' or '[-]' to indicate folder state
         grp.folded = UIUtil.CreateText(grp, '', 18, 'Arial Bold')
         LayoutHelpers.AtLeftIn(grp.folded, grp, 2)
@@ -909,7 +913,8 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
                 if i > numElements then break end
                 modListTable[i].uid = false
                 modListTable[i].block = block
-                modListTable[i].detailButton:Hide()
+                modListTable[i].detailBtn:Hide()
+                modListTable[i].configBtn:Hide()
                 modListTable[i].icon:Hide()
                 modListTable[i]:SetVisual(nil)
                 if block.open then
@@ -968,7 +973,7 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
                 modListTable[i].block = false
                 modListTable[i].uid = uid
                 local modInfo = allmods[uid]
-                modListTable[i].detailButton:Show()
+                modListTable[i].detailBtn:Show()
 
                 local function HandleExclusiveClick(line)
                     local function DoExclusiveBehavior()
@@ -1135,10 +1140,21 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
                         end
                     end
                 end
-                modListTable[i].detailButton.OnClick = function(self, modifiers)
+                modListTable[i].detailBtn.OnClick = function(self, modifiers)
                     DisplayModDetails(self:GetParent().uid, modStatus)
                     local sound = Sound({Cue = 'UI_Mod_Select', Bank = 'Interface',})
                     PlaySound(sound)
+                end
+
+                local env = {}
+                local ok, _ = pcall(doscript, modInfo.location..'/config.lua', env)
+                if ok then
+                    modListTable[i].configBtn:Show()
+                    modListTable[i].configBtn.OnClick = function(self, modifiers)
+                        ModConfigDialog(modDetails:GetParent(), modInfo, env.config, modStatus[self:GetParent().uid])
+                    end
+                else
+                    modListTable[i].configBtn:Hide()
                 end
             end
         end
@@ -1149,7 +1165,7 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
                 modListTable[j].uid = false
                 modListTable[j].block = false
                 modListTable[j].folded:SetText('')
-                modListTable[j].detailButton:Hide()
+                modListTable[j].detailBtn:Hide()
                 modListTable[j].icon:Hide()
                 modListTable[j].name:SetText('')
                 modListTable[j].HandleEvent = function(self, event) end
@@ -1227,6 +1243,7 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
     modDetails.configBtn = UIUtil.CreateButtonStd(modDetails, '/lobby/lan-game-lobby/smalltoggle', "Settings", 12, 2)
     LayoutHelpers.Below(modDetails.configBtn, modDetails.extras, 4)
     modDetails.configBtn.OnClick = function(self, modifiers) end
+    Tooltip.AddButtonTooltip(modDetails.configBtn, 'modmgr_modcfg')
     modDetails.configBtn:Hide()
 
     modDetails.copyright = MultiLineText(modDetails, UIUtil.bodyFont, 14, UIUtil.fontColor)
