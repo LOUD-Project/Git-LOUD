@@ -1133,6 +1133,10 @@ Tooltips = {
         title = "Game Speed",
         description = "Set how quickly the Game runs",
     },
+    lob_GameSpeed_adjustable = {
+        title = 'Adjustable',
+        description = 'Allows the game speed to be adjusted ingame',
+    },
 
     -- *********************
     -- *** Lobby Options: User Spawn/Cheat Menu

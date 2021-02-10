@@ -597,6 +597,10 @@ function RefreshOptions(skipRefresh, singlePlayer)
         if table.getsize(OptionTable.options) > 0 then
             table.insert(Options, {type = 'title', text = OptionTable.title})
             for optionIndex, optionData in OptionTable.options do
+                if optionData.key == 'GameSpeed' then
+                    continue
+                end
+
                 if optionData.type and optionData.type == 'edit' then
                     table.insert(Options, {type = 'opt_edit', text = optionData.label, data = optionData})
                 elseif not(singlePlayer and optionData.mponly == true) then

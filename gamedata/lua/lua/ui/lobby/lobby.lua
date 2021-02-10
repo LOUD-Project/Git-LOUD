@@ -4915,6 +4915,9 @@ function InitLobbyComm(protocol, localPort, desiredPlayerName, localPlayerUID, n
             end
         end
 
+        -- Force game speed to adjustable when hosting starts
+        SetGameOption('GameSpeed', 'adjustable')
+
         for index, option in import('/lua/ui/lobby/lobbyoptions.lua').advAIOptions do
             if option.type and option.type == 'edit' then
                 SetGameOption(option.key, Prefs.GetFromCurrentProfile(option.pref) or option.default)
