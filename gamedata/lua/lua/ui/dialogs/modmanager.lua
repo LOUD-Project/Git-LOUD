@@ -538,18 +538,12 @@ local function ModConfigDialog(parent, modInfo, config, modStatusEntry)
             line.combo.UpdateValue = function(key)
                 line.combo:SetItem(line.combo.keyMap[key])
             end
-            line.HandleEvent = function(self, event)
-                if event.Type == 'MouseEnter' then
-                    if not Prefs.GetOption('tooltips') then return end
-                    if mouseover then mouseover:Destroy() mouseover = false end
-                    mouseover = Tooltip.CreateToolTip(line, LOC(data.tooltip))
-                    mouseover.Top:Set(function() return line.Top() + 2 end)
-                    mouseover.Left:Set(function() return line.Right() - 1 end)
-                    mouseover:SetNeedsFrameUpdate(true)
-                elseif event.Type == 'MouseExit' then
-                    if mouseover then mouseover:Destroy() mouseover = false end
-                end
-            end
+
+            local tooltip = {
+                text = data.label,
+                body = data.tooltip or "",
+            }
+            Tooltip.AddControlTooltip(line.combo, tooltip)
         end
         for i, v in optionList do
             if config[i + self.top] then
