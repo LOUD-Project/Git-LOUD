@@ -26,6 +26,7 @@ AIBrain = Class(oldAIBrain) {
         local opt3 = modConfig.CityscapesExpansion or 'Disabled'
         local opt4 = modConfig.CityscapesLargeExpansion or 'Enabled'
         local opt5 = modConfig.CityscapesObjective or 'Disabled'
+        local opt6 = modConfig.CityscapesSize or 'Medium'
 
         if opt ~= 'false' or opt3 == 'Enabled' or opt4 == 'Enabled' or opt5 == 'Enabled' then
 
@@ -70,11 +71,21 @@ AIBrain = Class(oldAIBrain) {
                     OpenStartZones[marker.Name] = marker.Position
                 end
             end
+
+            local radius = {}
+            if opt6 == 'Small' then
+                radius = { 1, 2 }
+            elseif opt6 == 'Medium' then
+                radius = { 2, 4 }
+            else
+                radius = { 6, 12 }
+            end
+
             if table.getsize(OpenStartZones) > 0 then
                 for armyname, MarkerPos in OpenStartZones do
                     local CityFunction, CityData = import('/lua/sim/ScenarioUtilities.lua').GetRandomCityFactionGenerator()
                     if CityFunction and CityData then
-                        self:ForkThread(CityFunction, CityData, table.copy(MarkerPos))
+                        self:ForkThread(CityFunction, CityData, table.copy(MarkerPos), radius)
                     end
                 end
             end

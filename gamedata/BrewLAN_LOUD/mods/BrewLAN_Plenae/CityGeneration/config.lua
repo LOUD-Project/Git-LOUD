@@ -93,5 +93,27 @@ config = {
                 key = 'Disabled',
             },
         }
+    },
+    {   default = 2,
+        label = "<LOC CityscapesSize_LOB>Cityscapes: City Size",
+        help = "<LOC CityscapesSize_LOB_D>Determines how large cities will generate to be. Disproportionately cities in occupied slots.",
+        key = 'CityscapesSize',
+        values = {
+            {
+                text = "<LOC CityscapesSize_LOB_Small>Small",
+                help = "<LOC CityscapesSize_LOB_SmallD>Civilian cities barely extend beyond start location mass points. Recommended for large maps.",
+                key = 'Small',
+            },
+            {
+                text = "<LOC CityscapesSize_LOB_Medium>Medium",
+                help = "<LOC CityscapesSize_LOB_MediumD>Civilian cities generally extend well beyond start location mass points.",
+                key = 'Medium',
+            },
+            {
+                text = "<LOC CityscapesSize_LOB_Large>Large",
+                help = "<LOC CityscapesSize_LOB_LargeD>Civilian cities are huge. Warning: laggy.",
+                key = 'Large',
+            },
+        }
     }
 }
