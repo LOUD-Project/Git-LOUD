@@ -1720,6 +1720,9 @@ local function TryLaunch(skipNoObserversCheck, skipSandboxCheck, skipTimeLimitCh
         AssignRandomFactions(gameInfo)
         AssignRandomStartSpots(gameInfo)
         AssignAINames(gameInfo)
+
+        -- Delete some no-longer-needed data
+        gameInfo.GameOptions.EvenFactions = nil
         
 		LOG("HERE WE GO "..repr( { Options = gameInfo.GameOptions, HostedBy = localPlayerName, PlayerCount = GetPlayerCount(), GameName = gameName }) )
     
