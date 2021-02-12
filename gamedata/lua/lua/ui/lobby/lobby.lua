@@ -1572,10 +1572,19 @@ local function TryLaunch(skipNoObserversCheck, skipSandboxCheck, skipTimeLimitCh
         end
     end
 
-    -- Validating edit-based lobby options
+    -- Sanity check on GameOptions
     local canLaunch = true
     local badOptions = {}
     
+    -- Guard against nils
+    for k, v in lobbyOptMap do
+        if not gameInfo.GameOptions[v.key] then
+            canLaunch = false
+            table.insert(badOptions, LOC(lobbyOptMap[k].label))
+        end
+    end
+    
+    -- Validate edit-based options
     for k, v in gameInfo.GameOptions do
         local optionValid = false
         if not lobbyOptMap[k].valid then
@@ -1594,7 +1603,7 @@ local function TryLaunch(skipNoObserversCheck, skipSandboxCheck, skipTimeLimitCh
             end
         end
         if not optionValid then
-            table.insert(badOptions, lobbyOptMap[k].label)
+            table.insert(badOptions, LOC(lobbyOptMap[k].label))
             canLaunch = false
         end
     end
