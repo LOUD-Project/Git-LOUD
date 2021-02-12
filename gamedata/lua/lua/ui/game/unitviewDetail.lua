@@ -237,6 +237,7 @@ function WrapAndPlaceText(air, physics, intel, weapons, abilities, capCost, text
 	-- but only if there's no Air or Physics on the blueprint.
 	local physics_line = -1
 	local intel_line = -1
+	local cap_line = -1
 	
 	if text ~= nil then
 		textLines = import('/lua/maui/text.lua').WrapText( text, control.Value[1].Width(), function(text) return control.Value[1]:GetStringAdvance(text) end)
@@ -616,6 +617,7 @@ function WrapAndPlaceText(air, physics, intel, weapons, abilities, capCost, text
 	else
 		table.insert(textLines, "Unit Cap Cost: 1")
 	end
+	cap_line = table.getn(textLines)
 
 	for i, v in textLines do
 	
@@ -674,6 +676,9 @@ function WrapAndPlaceText(air, physics, intel, weapons, abilities, capCost, text
 			else
 				control.Value[index]:SetColor('ff909090')
 			end
+		elseif index == cap_line then
+			control.Value[index]:SetColor(UIUtil.fontColor)
+			control.Value[index]:SetFont(UIUtil.bodyFont, 11)
 		else
 			control.Value[index]:SetColor(UIUtil.fontColor)
 			control.Value[index]:SetFont(UIUtil.bodyFont, 12)
