@@ -1062,6 +1062,7 @@ function LoadBlueprints()
 					if not interExcludes[e.mod] then
 						interExcludes[e.mod] = {}
 					end
+					e.always = true
 					table.insert(interExcludes[e.mod], e)
 					-- interExcludes[e.mod] = e
 				end
