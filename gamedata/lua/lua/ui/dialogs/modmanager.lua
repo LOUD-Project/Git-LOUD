@@ -187,6 +187,7 @@ local modSchema = {
     },
     ["User Interface"] = {
         'Machd6c5-cd5c-4e34-b6cc-11503ed5e2da', -- Disperse Move
+        '175542E4-D4F5-11DC-B450-11D755D89593', -- HotStats
         'EF3ADDB4-9D34-437F-B1C8-440DAF896802', -- Mass Fab Manager
         -- 'bc7731b6-1416-11ea-8d71-362b9e155667', -- Selection Depriotizer
         'D000E905-1E97-420D-8ED9-DF083282F59D', -- Sequential Mex Upgrade
