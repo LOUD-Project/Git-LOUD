@@ -713,9 +713,18 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
         end
     end
 
+    -- Empty folders get hidden
+    -- Folders which are closed now but have enabled mods get opened
     for k, v in modStruct do
         if table.empty(v.uids) then
             modStruct[k] = nil
+        else
+            for _, uid in v.uids do
+                if modStatus[uid].checked then
+                    v.open = true
+                    break
+                end
+            end
         end
     end
 
