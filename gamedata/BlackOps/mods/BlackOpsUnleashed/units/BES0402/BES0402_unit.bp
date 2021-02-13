@@ -1598,7 +1598,7 @@ UnitBlueprint {
                 'GROUNDATTACK',
                 'AIR MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE, SATELLITE',
             TrackingRadius = 1.2,
             
             TurretBoneMuzzle = 'Left_AA_Muzzle01',
@@ -1688,7 +1688,7 @@ UnitBlueprint {
                 'GROUNDATTACK',
                 'AIR MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE, SATELLITE',
             TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Left_AA_Muzzle03',
@@ -1778,7 +1778,7 @@ UnitBlueprint {
                 'GROUNDATTACK',
                 'AIR MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE, SATELLITE',
             TrackingRadius = 1.2,
             
             TurretBoneMuzzle = 'Left_AA_Muzzle05',
@@ -1867,7 +1867,7 @@ UnitBlueprint {
                 'GROUNDATTACK',
                 'AIR MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE, SATELLITE',
             TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Left_AA_Muzzle07',
@@ -1955,7 +1955,7 @@ UnitBlueprint {
                 'GROUNDATTACK',
                 'AIR MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE, SATELLITE',
             TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Right_AA_Muzzle01',
@@ -2043,7 +2043,7 @@ UnitBlueprint {
                 'GROUNDATTACK',
                 'AIR MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE, SATELLITE',
             TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Right_AA_Muzzle03',
@@ -2130,7 +2130,7 @@ UnitBlueprint {
                 'GROUNDATTACK',
                 'AIR MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE, SATELLITE',
             TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Right_AA_Muzzle05',
@@ -2216,7 +2216,7 @@ UnitBlueprint {
                 'GROUNDATTACK',
                 'AIR MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE, SATELLITE',
             TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Right_AA_Muzzle07',
