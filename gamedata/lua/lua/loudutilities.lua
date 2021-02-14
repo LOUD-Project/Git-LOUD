@@ -500,7 +500,7 @@ function SpawnWaveThread( aiBrain )
 		end    
 		
 		-- increase the size of the wave each time and vary it with the build cheat level
-		local units = math.floor((wave * 1.5) * aiBrain.CheatValue )
+		local units = math.floor((wave * 1.5) * aiBrain:TotalCheat() )
         -- insure that there is always at least 1 unit (in case of negative multipliers)
         local units = math.max( units, 1 ) 
 		
@@ -567,11 +567,11 @@ function SpawnWaveThread( aiBrain )
 		
 		DisperseUnitsToRallyPoints( aiBrain, coreunits, aiBrain.BuilderManagers['MAIN'].Position, aiBrain.BuilderManagers['MAIN'].RallyPoints )
 		
-		-- decrease the period until the next wave  -- modified by the build cheat level
+		-- decrease the period until the next wave  -- modified by the cheat level
         -- each reduction will be smaller than the last until wave 10 when it becomes the same
         -- initial reduction is 30 seconds + cheat
         -- final   reduction is 12 seconds + cheat
-		spawndelay = spawndelay - ( (30 - ((wave-1)*2) ) * aiBrain.CheatValue )
+		spawndelay = spawndelay - ( (30 - ((wave-1)*2) ) * aiBrain:TotalCheat() )
         
 		--LOG("*AI DEBUG "..aiBrain.Nickname.." gets spawnwave of "..units.." at "..GetGameTimeSeconds().." seconds")
         --LOG("*AI DEBUG "..aiBrain.Nickname.." next spawnwave in "..spawndelay.." seconds")
@@ -587,19 +587,31 @@ function SpawnWaveThread( aiBrain )
 end
 
 function SubscribeToACT(aiBrain)
+	-- Purge unneeded adaptive KVP once it's consumed
 	if aiBrain.Adaptive == 2 or aiBrain.Adaptive == 4 then
 		table.insert(ratioACTBrains, aiBrain)
 	end
 	if aiBrain.Adaptive == 3 or aiBrain.Adaptive == 4 then
 		table.insert(timeACTBrains, aiBrain)
 	end
+	aiBrain.Adaptive = nil
 end
 
 function StartAdaptiveCheatThreads()
 	if table.getn(ratioACTBrains) > 0 then
+		local str = ""
+		for i, v in ratioACTBrains do
+			str = str.."\t"..v.Nickname.."\n"
+		end
+		LOG("*AI DEBUG Forking ratio ACT for:\n"..str)
 		ForkThread(RatioAdaptiveCheatThread)
 	end
 	if table.getn(timeACTBrains) > 0 then
+		local str = ""
+		for i, v in timeACTBrains do
+			str = str.."\t"..v.Nickname.."\n"
+		end
+		LOG("*AI DEBUG Forking time ACT for:\n"..str)
 		ForkThread(TimeAdaptiveCheatThread)
 	end
 end
@@ -609,15 +621,9 @@ end
 -- - Azraeelian Angel; adaptation for LOUD
 -- - Sprouto; optimization
 function RatioAdaptiveCheatThread()
-
 	local interval = 10 * tonumber(ScenarioInfo.Options.ACTRatioInterval)
 	local scale = tonumber(ScenarioInfo.Options.ACTRatioScale)
-	local lastUpdate = {}
-    
-	for i, v in ratioACTBrains do
-		table.insert(lastUpdate, 0)
-	end
-	
+
 	LOG("*AI DEBUG Starting ratio ACT after 5 minutes. Interval: "..repr(interval).." ticks; scale: "..repr(scale))
     
 	-- Wait 5 minutes first, else earliest land ratios skew results
@@ -648,38 +654,36 @@ function RatioAdaptiveCheatThread()
 				if aiBrain.Result == "defeat" then
 					LOG("*AI DEBUG Unsub "..aiBrain.Nickname.." from ratio ACT: defeated")
 					table.remove(ratioACTBrains, i)
-					table.remove(lastUpdate, i)
 					broke = true
 					break
 				end
 
-				local cheatInc = 0
+				LOG("*AI DEBUG Ratio ACT: "..aiBrain.Nickname.." from "..aiBrain:TotalCheat())
+
+				local prev = aiBrain.FeedbackCheat
 
 				-- RATODO: Discuss how to implement all ratios
 				-- Need to consider how much water is on map
 				if aiBrain.LandRatio <= 0.5 then
-					cheatInc = 0.5 * scale
+					aiBrain.FeedbackCheat = 0.5 * scale
 				elseif aiBrain.LandRatio <= 0.6 then
-					cheatInc = 0.4 * scale
+					aiBrain.FeedbackCheat = 0.4 * scale
 				elseif aiBrain.LandRatio <= 0.75 then
-					cheatInc = 0.3 * scale
+					aiBrain.FeedbackCheat = 0.3 * scale
 				elseif aiBrain.LandRatio <= 0.9 then
-					cheatInc = 0.2 * scale
+					aiBrain.FeedbackCheat = 0.2 * scale
 				elseif aiBrain.LandRatio <= 1 then
-					cheatInc = 0.1 * scale
+					aiBrain.FeedbackCheat = 0.1 * scale
 				else
-					cheatInc = 0
+					aiBrain.FeedbackCheat = 0
 				end
-				
-				if lastUpdate[i] and lastUpdate[i] ~= aiBrain.CheatValue + cheatInc then
-					LOG("*AI DEBUG Ratio ACT: "..aiBrain.Nickname.." new ArmyPoolBuff: "..
-						tostring(lastUpdate[i]).." -> "..
-						tostring(aiBrain.CheatValue + cheatInc))
-					SetArmyPoolBuff(aiBrain, aiBrain.CheatValue + cheatInc)
-                    
-					-- Record the value of this update
-					lastUpdate[i] = aiBrain.CheatValue + cheatInc
+
+				-- Don't apply army pool buff if FeedbackCheat didn't change
+				if prev ~= aiBrain.FeedbackCheat then
+					SetArmyPoolBuff(aiBrain, aiBrain:TotalCheat())
 				end
+
+				LOG("*AI DEBUG Ratio ACT: "..aiBrain.Nickname.." to "..aiBrain:TotalCheat())
 			end
 		end
 
@@ -711,7 +715,7 @@ function TimeAdaptiveCheatThread()
 	-- this check prevents mult from getting math.maxed all the way up to 1.5
 	for i = 1, table.getn(timeACTBrains) do
 		local aiBrain = timeACTBrains[i]
-		if cheatInc < 0 and cheatLimit > aiBrain.BaseCheat then
+		if cheatInc < 0 and cheatLimit > aiBrain.CheatValue then
 			LOG("*AI DEBUG "..aiBrain.Nickname.." negative time ACT: base is below limit. Unsubscribing...")
 			table.remove(timeACTBrains, i)
 		end
@@ -735,29 +739,34 @@ function TimeAdaptiveCheatThread()
 		local function Iterate()
 			for i = 1, table.getn(timeACTBrains) do
 				local aiBrain = timeACTBrains[i]
+				-- Between this iteration and last, AI may have been defeated,
+				-- or met/surpassed upper/lower limit. Deal with these cases
 				if aiBrain.Result == "defeat" then
 					LOG("*AI DEBUG Unsub "..aiBrain.Nickname.." from time ACT: defeated")
 					table.remove(timeACTBrains, i)
 					broke = true
 					break
-				elseif cheatInc < 0 and aiBrain.CheatValue <= cheatLimit then
-					LOG("*AI DEBUG Unsub "..aiBrain.Nickname.." from time ACT: limit met")
-					aiBrain.CheatValue = math.max(cheatLimit, aiBrain.CheatValue)
-					SetArmyPoolBuff(aiBrain, aiBrain.CheatValue)
+				elseif cheatInc < 0 and aiBrain:TotalCheat() <= cheatLimit then
+					LOG("*AI DEBUG Unsub "..aiBrain.Nickname.." from time ACT: lower limit met")
+					SetArmyPoolBuff(aiBrain, math.max(cheatLimit, aiBrain:TotalCheat()))
 					table.remove(timeACTBrains, i)
 					broke = true
 					break
-				elseif cheatInc > 0 and aiBrain.CheatValue >= cheatLimit then
-					LOG("*AI DEBUG Unsub "..aiBrain.Nickname.." from time ACT: limit met")
-					aiBrain.CheatValue = math.min(cheatLimit, aiBrain.CheatValue)
-					SetArmyPoolBuff(aiBrain, aiBrain.CheatValue)
+				elseif cheatInc > 0 and aiBrain:TotalCheat() >= cheatLimit then
+					LOG("*AI DEBUG Unsub "..aiBrain.Nickname.." from time ACT: upper limit met")
+					SetArmyPoolBuff(aiBrain, math.min(cheatLimit, aiBrain:TotalCheat()))
 					table.remove(timeACTBrains, i)
 					broke = true
 					break
 				end
-				LOG("*AI DEBUG "..aiBrain.Nickname.." mult "..aiBrain.CheatValue.." -> "..aiBrain.CheatValue + cheatInc)
-				aiBrain.CheatValue = aiBrain.CheatValue + cheatInc
-				SetArmyPoolBuff(aiBrain, aiBrain.CheatValue)
+
+				LOG("*AI DEBUG Time ACT: "..aiBrain.Nickname.." from "..aiBrain:TotalCheat())
+				
+				aiBrain.TimeCheat = aiBrain.TimeCheat + cheatInc
+				
+				SetArmyPoolBuff(aiBrain, aiBrain:TotalCheat())
+				
+				LOG("*AI DEBUG Time ACT: "..aiBrain.Nickname.." to "..aiBrain:TotalCheat())
 			end
 		end
 

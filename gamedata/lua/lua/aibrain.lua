@@ -810,11 +810,17 @@ AIBrain = Class(moho.aibrain_methods) {
             m = math.max(0.1, m)
             m = math.min(m, 99)
         end
-        self.CheatValue = m
-        self.BaseCheat = m
-
+        self.CheatValue = m -- Should never be modified
+        
 		-- 1 for fixed, 2 for feedback, 3 for time, 4 for both
 		self.Adaptive = ScenarioInfo.ArmySetup[self.Name].ACT
+
+        if self.Adaptive == 2 or self.Adaptive == 4 then
+            self.FeedbackCheat = 0
+        end
+        if self.Adaptive == 3 or self.Adaptive == 4 then
+            self.TimeCheat = 0
+        end
 		
         local civilian = false
         
@@ -1599,6 +1605,10 @@ AIBrain = Class(moho.aibrain_methods) {
 	
 		--LOG("*AI DEBUG "..self.Nickname.." OnIntelChange for "..repr(reconType).." blip is "..repr(blip).." val is "..repr(val))
 		
+    end,
+
+    TotalCheat = function(self)
+        return self.CheatValue + (self.FeedbackCheat or 0) + (self.TimeCheat or 0)
     end
 
 }
