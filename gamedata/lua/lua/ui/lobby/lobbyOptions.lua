@@ -660,15 +660,13 @@ advAIOptions = {
     {
         default = '2',
         label = "Timed Cheat Limit",
-        help = "If an AI cheats more with time, its cheat multiplier cannot pass the selected number. Can be negative.",
+        help = "If an AI cheats more with time, its cheat multiplier cannot pass the selected number.",
         key = "ACTTimeCap",
         pref = 'Lobby_ACT_Time_Cap',
         type = 'edit',
         valid = {
             '^%d+$',
             '^%d+%.%d+$',
-            '^%-%d+$',
-            '^%-%d+%.%d+$',
         },
         values = {
             {

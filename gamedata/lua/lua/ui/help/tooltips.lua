@@ -1290,7 +1290,7 @@ Tooltips = {
     },
     Lobby_ACT_Time_Cap = {
         title = "Timed Cheat Limit",
-        description = "If an AI cheats more with time, its cheat multiplier cannot pass the selected number. Can be negative.",
+        description = "If an AI cheats more with time, its cheat multiplier cannot pass the selected number.",
     },
     Lobby_ACT_Ratio_Interval = {
         title = "Feedback Cheat Interval",
