@@ -221,6 +221,7 @@ local modSchema = {
         '16678e1e-7fc9-11e5-8bcf-dayofsex0010', -- Invisible War
         '25D57D85-7D84-27HT-A502-LDIPS0000002', -- Lucky Dip
         '25D57D85-7D84-27HT-A502-MASSRNG00002', -- Mass Point RNG
+        '25D57D85-7D84-27HT-A501-METALWI0000013', -- Metal World
         'BREWLANS-22b4-4936-820e-PARAGON0040', -- Paragon Game
         '25D57D85-7D84-27HT-A502-RPS000000000', -- Rock Paper Scissors
         '16678e1e-7fc9-11e5-8bcf-scathingbe20', -- Scathing Beetles
