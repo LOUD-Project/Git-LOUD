@@ -202,6 +202,7 @@ local modSchema = {
     },
     ["Unofficial Rebalance"] = {
         '25D57D85-9JA7-D842-BREW-INTEL00000002', -- BrewLAN: Bletchley Park
+        '25D57D85-9JA7-LOUD-BREW-RESEARCH00005', -- BrewLAN: Research and Daiquiris
         '16678e1e-7fc9-11e5-8bcf-waterguard10', -- Water Guard
         '25D57D85-9JA7-D842-GKG4-ASJDKG49G8S70', -- Waterlag
         '16678e1e-7fc9-11e5-8bcf-wreckageA01' -- Wreckage Decay
