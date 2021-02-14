@@ -128,7 +128,7 @@ UnitBlueprint {
 
     },
 	
-    Description = '<LOC uel0401_desc>Experimental Mobile Factory',
+    Description = '<LOC uel0401_desc>Experimental Heavy Mobile Artillery Platform',
 	
     Display = {
         Abilities = {
@@ -336,7 +336,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Experimental Mobile Factory',
+        HelpText = 'Heavy Mobile Artillery Platform',
     },
 	
     LifeBarHeight = 0.075,

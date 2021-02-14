@@ -145,7 +145,11 @@ local function HandleKey(key, modifiers)
 end
 
 local function Initialize()
+
     local worldView = import('/lua/ui/game/borders.lua').GetMapGroup(true)
+    
+    LOG("*AI DEBUG Buildmode Initialize")
+    
     trackingMasterControl = Group(worldView)
     trackingMasterControl.Top:Set(1)
     trackingMasterControl.Left:Set(1)
@@ -172,25 +176,38 @@ local function Initialize()
             ToggleBuildMode()
         end
     end
+
 end
 
 local modeID = false
 
 -- turn build mode on and off
 function ToggleBuildMode()
+    
     if trackingMasterControl then
+    
+        --LOG("*AI DEBUG Toggle Build Mode OFF")
+    
         import('/lua/ui/game/construction.lua').ShowBuildModeKeys(false)
+        
         trackingMasterControl:Destroy()
         trackingMasterControl = nil
+        
         if modeID then
             Tabs.RemoveModeText(modeID)
             modeID = false
         end
+        
     elseif GetFocusArmy() != -1 and GetSelectedUnits()[1] and Construction.IsConstructionEnabled() then
+    
         Initialize()
+        
         if not modeID then
             modeID = Tabs.AddModeText("<LOC buildmode_0000>Build Mode")
         end
+        
+        --LOG("*AI DEBUG Toggle Build Mode ON")
+        
         import('/lua/ui/game/construction.lua').ShowBuildModeKeys(true)
     end
 end
@@ -206,6 +223,7 @@ end
 -- given a builder unit and tech level, returns the units there are keys for
 -- techlevel is ignored for units with only upgrades
 function GetUnitKeys(factoryID, techLevel)
+
     local bmdata = import('/lua/ui/game/buildmodedata.lua').buildModeKeys
     
     if not bmdata[factoryID] then
@@ -219,6 +237,7 @@ function GetUnitKeys(factoryID, techLevel)
     end
 
     if techLevel and bmdata[factoryID][techLevel] then
+    
         for key, id in bmdata[factoryID][techLevel] do
             retKeyTable[id] = key
         end

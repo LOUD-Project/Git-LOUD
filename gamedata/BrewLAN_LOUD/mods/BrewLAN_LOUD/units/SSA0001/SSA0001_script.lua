@@ -40,6 +40,14 @@ SSA0001 = Class(SConstructionUnit) {
         end
         SConstructionUnit.OnKilled(self, instigator, type, overkillRatio)
     end,
+
+    OnDestroy = function(self)
+        if self.Parent and not self.Parent:IsDead() then
+            self.Parent:NotifyOfPodDeath(self.PodName)
+            self.Parent = nil
+        end
+        SConstructionUnit.OnDestroy(self)
+    end,
 }
 
 TypeClass = SSA0001

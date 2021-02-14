@@ -1,0 +1,324 @@
+UnitBlueprint {
+	AI = {
+        InitialAutoMode = true,
+		TargetBones = {'Spinner01' },
+    },
+	
+    Audio = {
+        Destroyed = Sound {
+            Bank = 'UALDestroy',
+            Cue = 'UAL_Destroy_Land',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        ShieldOff = Sound {
+            Bank = 'UAL',
+            Cue = 'UAL0307_Shield_Activate',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        ShieldOn = Sound {
+            Bank = 'UAL',
+            Cue = 'UAL0307_Shield_Activate',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartMove = Sound {
+            Bank = 'UAL',
+            Cue = 'UAL0307_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'Aeon_Select_Vehicle',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+	
+    BuildIconSortPriority = 195,
+	
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER4COMMANDER',
+        'AEON',
+        'MOBILE',
+        'LAND',
+		'AMPHIBIOUS',
+		'HOVER',
+        'EXPERIMENTAL',
+        'NEEDMOBILEBUILD',
+        'SILO',
+        'ANTIMISSILE',
+		'ANTITELEPORT',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'DRAGBUILD',
+        'OVERLAYDEFENSE',
+		'OVERLAYRADAR',
+		'OVERLAYOMNI',
+    },
+	
+    Defense = {
+        ArmorType = 'Experimental',
+        Health = 48000,
+        MaxHealth = 48000,
+        RegenRate = 18,
+		NoTeleDistance = 55,
+		
+        Shield = {
+            ImpactEffects = 'AeonShieldHit01',
+            ImpactMesh = '/effects/entities/ShieldSection01/ShieldSection01_mesh',
+            Mesh = '/effects/entities/AeonShield01/AeonShield01_mesh',
+            MeshZ = '/effects/entities/Shield01/Shield01z_mesh',
+            RegenAssistMult = 1000,
+			
+            ShieldEnergyDrainRechargeTime = 10,
+			
+            ShieldMaxHealth = 27500,
+            ShieldRechargeTime = 24,
+            ShieldRegenRate = 286,
+            ShieldRegenStartTime = 1,
+            ShieldSize = 45,
+            ShieldVerticalOffset = -5,
+        },
+        EconomyThreatLevel = 1500,
+		SurfaceThreatLevel = 184.7,
+    },
+	
+    Description = '<LOC ualx401_desc>Experimental Guardian',
+	
+    Display = {
+        Abilities = {
+            'Hover',
+            'Shield Dome',
+            'Omni Radar',
+            'Anti-Teleport field',
+            'Strategic Missile Defense',
+        },
+		
+        IdleEffects = { Land = {}  },
+		
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+				{
+					LODCutoff = 1250,
+					Scrolling = true,
+					SecondaryName = '/units/UALX401/UALX401_secondary.dds',
+					ShaderName = 'AeonCZAR',
+				},
+			},
+		},
+		
+		MovementEffects = {
+			Land = { Effects = {} },
+			Water = { Effects = {} },
+		},
+		
+        SpawnRandomRotation = true,
+        UniformScale = 0.54,
+    },
+	
+    Economy = {
+		BuildCostEnergy = 750000,
+        BuildCostMass = 43500,
+		
+        BuildRate = 1950,
+		
+        BuildTime = 12500,
+		
+        MaintenanceConsumptionPerSecondEnergy = 4750, -- for shield, radar and anti-teleport
+    },
+	
+    General = {
+		CapCost = 10,
+        Category = 'Utility',
+        Classification = 'RULEUC_MilitaryVehicle',
+        CommandCaps = {
+            RULEUCC_Attack = false,
+            RULEUCC_CallTransport = false,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Pause = false,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_SiloBuildTactical = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'Aeon',
+        Icon = 'amph',
+        OrderOverrides = {
+            RULEUTC_ShieldToggle = {
+                bitmapId = 'shield-dome',
+                helpText = 'toggle_shield_dome',
+            },
+        },
+        TechLevel = 'RULEUTL_Secret',
+        ToggleCaps = {
+            RULEUTC_ShieldToggle = true,
+        },
+        UnitName = '<LOC ualx401_name>Angel',
+        UnitWeight = 1,
+    },
+	
+    Intel = {
+        VisionRadius = 50,
+        OmniRadius = 60,
+        RadarRadius = 165,
+        WaterVisionRadius = 20,
+    },
+	
+    Interface = {
+        HelpText = 'Mobile shield, Omni & Anti-nuke',
+    },
+	
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 3.3,
+    LifeBarSize = 6.5,
+	
+    Physics = {
+        BankingSlope = 0.5,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = true,
+            LAYER_Orbit = false,
+            LAYER_Seabed = false,
+            LAYER_Sub = false,
+            LAYER_Water = false,
+        },
+        DragCoefficient = 0.2,
+        Elevation = 0.6,
+        MaxAcceleration = 0.8,
+        MaxBrake = 1.6,
+        MaxSpeed = 2.4,
+        MaxSpeedReverse = 1.0,
+        MaxSteerForce = 1000,
+        
+        MeshExtentsX = 6,
+        MeshExtentsY = 1.8,
+        MeshExtentsZ = 6,
+        
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_Hover',
+		
+        SkirtOffsetX = -1,
+        SkirtOffsetZ = -1,
+		
+        SkirtSizeX = 8,
+        SkirtSizeZ = 8,
+		
+        RotateBodyWhileMoving = true,
+
+        TurnFacingRate = 60,
+        TurnRadius = 5,
+        TurnRate = 30,
+		
+        WobbleFactor = 0.015,
+        WobbleSpeed = 0.001,
+    },
+	
+    SelectionSizeX = 5.8,
+    SelectionSizeZ = 5.8,
+    SelectionThickness = 0.2,
+	
+    SizeX = 6.5,
+    SizeY = 1.7,
+    SizeZ = 6.5,
+	
+    StrategicIconName = 'icon_experimental_land_shield',
+    StrategicIconSortPriority = 125,
+	
+    Transport = {
+        TransportClass = 10,
+    },
+	
+    Weapon = {
+        {
+            AlwaysRecheckTarget = false,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'UALWeapon',
+                    Cue = 'UAB4302_Anti_Missile',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+            CollideFriendly = false,
+            CountedProjectile = true,
+			
+            Damage = 30,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Saint Anti Nuke',
+			
+            EffectiveRadius = 90,
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Air',
+                Water = 'Air',
+            },
+			
+            FiringTolerance = 60,
+			
+            ForceSingleFire = true,
+			
+            InitialProjectileStorage = 0,
+			
+            Label = 'MissileRack',
+			
+            MaxProjectileStorage = 6,
+			
+            MaxRadius = 100,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 90,
+			
+            ProjectileId = '/projectiles/AIMSaintAntiNuke01/AIMSaintAntiNuke01_proj.bp',
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'AntiNuke',
+                    },
+                    RackBone = 'AntiNuke',
+                },
+            },
+
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+
+            RangeCategory = 'UWRC_Countermeasure',
+			
+            RateOfFire = 0.6,
+			
+            TargetCheckInterval = 0.5,
+			
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TargetRestrictOnlyAllow = 'STRATEGIC MISSILE',
+			
+            TargetType = 'RULEWTT_Projectile',
+			
+            TrackingRadius = 1.2,
+            Turreted = false,
+        },
+    },
+    
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0.1,
+        HealthMult = 0.5,
+        MassMult = 0.6,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = false,
+            Sub = false,
+            Water = true,
+        },
+    },
+}

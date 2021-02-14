@@ -1,5 +1,6 @@
 UnitBlueprint {
     Adjacency = 'T1MassFabricatorAdjacencyBuffs',
+    
     Audio = {
         Destroyed = Sound {
             Bank = 'UALDestroy',
@@ -12,7 +13,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+    
     BuildIconSortPriority = 50,
+    
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2ENGINEER',
@@ -31,7 +34,9 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SORTECONOMY',
     },
+    
     CollisionOffsetY = 0,
+    
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 19,		-- 1000% MassOutput + 5% Healt
@@ -39,7 +44,9 @@ UnitBlueprint {
         MaxHealth = 360,
         RegenRate = 0,
     },
+    
     Description = '<LOC uab1104_desc>Mass Fabricator',
+    
     Display = {
         Abilities = {
             'Volatile',
@@ -64,13 +71,17 @@ UnitBlueprint {
         SpawnRandomRotation = true,
         UniformScale = 0.085,
     },
+    
     Economy = {
         BuildCostEnergy = 4000,
         BuildCostMass = 100,
         BuildTime = 500,
         MaintenanceConsumptionPerSecondEnergy = 300,
         ProductionPerSecondMass = 1,
+        
+		StorageEnergy = 300,        
     },
+    
     General = {
         Category = 'Economy',
         Classification = 'RULEUC_Resource',
@@ -98,12 +109,15 @@ UnitBlueprint {
         },
         UnitWeight = 1,
     },
+    
     Interface = {
         HelpText = 'Mass Fabricator',
     },
+    
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.3,
     LifeBarSize = 0.9,
+    
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -128,14 +142,18 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+    
     SelectionSizeX = 0.65,
     SelectionSizeZ = 0.65,
     SelectionThickness = 0.6,
+    
     SizeX = 0.75,
     SizeY = 0.35,
     SizeZ = 0.75,
+    
     StrategicIconName = 'icon_structure2_mass',
     StrategicIconSortPriority = 250,
+    
     Weapon = {
         {
             Damage = 370,

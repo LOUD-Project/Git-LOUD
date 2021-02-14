@@ -210,6 +210,6 @@ debugKeyMap = {
     ['Ctrl-Shift-Alt-C']    = 'debug_collision',
     ['Ctrl-Slash']          = 'debug_pause_single_step',
     ['Ctrl-F10']            = 'debug_restart_session',
-    ['Ctrl-Shift-F1']       = 'debug_toggle_pannels',
+    ['Ctrl-Shift-F1']       = 'debug_toggle_panels',
 }
 

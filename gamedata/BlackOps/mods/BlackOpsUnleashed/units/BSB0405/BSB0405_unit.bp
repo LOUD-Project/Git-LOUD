@@ -244,8 +244,8 @@ UnitBlueprint {
             DamageRadius = 4.5,
             DamageType = 'Normal',
 			
-            EnergyDrainPerSecond = 2000,
-            EnergyRequired = 10000,
+            EnergyDrainPerSecond = 8375,
+            EnergyRequired = 33500,
 			
             DisplayName = 'Phason Beam',
 			
@@ -260,7 +260,7 @@ UnitBlueprint {
             MaxRadius = 90,
             MinRadius = 18,
 			
-            MuzzleChargeDelay = 2.5,
+            MuzzleChargeDelay = 1,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 16,
@@ -291,7 +291,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 10,	-- RoF by energy required -- 6000K every 5 seconds = 1200 DPS
+            RateOfFire = 1,	-- RoF by energy required -- 6000K every 5 seconds = 1200 DPS
 			
             TargetCheckInterval = 2,
             TargetPriorities = {

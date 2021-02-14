@@ -802,18 +802,47 @@ EngineerManager = Class(BuilderManager) {
 		
 					for _,LoopType in { 'Experimental', 'Land', 'Air', 'Naval' } do
 					
-						if ScenarioInfo.BaseMonitorDialog then
-							LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASEMONITOR checks "..repr(LoopType))
-						end
+						--if ScenarioInfo.BaseMonitorDialog then
+							--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASEMONITOR checks "..repr(LoopType))
+						--end
 					
 						alertraised = false
 						alertrangemod = 0
-						
-						if LoopType == 'Air' then
-							alertrangemod = 100	-- Air threat checks get additional range
-						end
 
-						highThreat = self.BaseMonitor.AlertLevel	-- this sets the threat required to trigger an alert
+
+                        -- highthreat can now be modified by a ratio or the AIMult --
+						highThreat = self.BaseMonitor.AlertLevel	-- this sets the basic threat required to trigger an alert
+                        
+                        if LoopType == 'Land' then
+                        
+                            -- mult by current LandRatio
+                            highThreat = highThreat * math.max( 0.8, aiBrain.LandRatio or 1)
+                            
+                            -- and again by the base AIMult (carried in VeterancyMult) --
+                            highThreat = highThreat * ( 1 + math.log10( aiBrain.VeterancyMult))
+                        end
+                        
+                        if LoopType == 'Air' then
+                        
+                            alertrangemod = 60                  -- AIR threats checked at greater range
+                        
+                            highThreat = highThreat * 3         -- AIR threats MUST be thrice the normal size to trigger --
+                        
+                            -- NOTE -- This is an interesting application point since if AirRatio is bad - he'll throw alerts all the time --
+                            highThreat = highThreat * math.max( 0.8, aiBrain.AirRatio or 1)      -- The AirRatio will modify his alert trigger - even down if bad
+                            
+                            highThreat = highThreat * ( 1 + math.log10( aiBrain.VeterancyMult))     -- higher mult means AIR threats must be larger to trigger
+                            
+                        end
+                        
+                        if LoopType == 'Naval' then
+                        
+                            highThreat = highThreat * math.max( 0.8, aiBrain.NavalRatio or 1)
+                            
+                            highThreat = highThreat * ( 1 + math.log10( aiBrain.VeterancyMult))
+                        
+                        end
+                        
 						highThreatPos = false
 						highThreatType = false
 
@@ -835,20 +864,18 @@ EngineerManager = Class(BuilderManager) {
 										-- filter out any threat less than the current highthreat value
 										if threat.Threat > highThreat then
 
-											if ScenarioInfo.BaseMonitorDialog then
-												LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASEMONITOR Found "..repr(LoopType).." threat of "..threat.Threat)
-											end
-									
 											-- signal that an alert has been raised 
 											alertraised = true
-											
+
+                                            -- record the threat and it's position --
 											highThreat = threat.Threat
 											highThreatPos = {threat.Position[1], threat.Position[2], threat.Position[3]}
 							
+                                            -- determine the Type of threat it is
 											if threat.Type == 'Experimental' then
 									
-												experimentalsair = GetUnitsAroundPoint( aiBrain, categories.EXPERIMENTAL * categories.AIR, highThreatPos, 90, 'Enemy')
-												experimentalssea = GetUnitsAroundPoint( aiBrain, categories.EXPERIMENTAL * categories.NAVAL, highThreatPos, 90, 'Enemy')
+												experimentalsair = GetUnitsAroundPoint( aiBrain, categories.EXPERIMENTAL * categories.AIR, highThreatPos, 120, 'Enemy')
+												experimentalssea = GetUnitsAroundPoint( aiBrain, categories.EXPERIMENTAL * categories.NAVAL, highThreatPos, 120, 'Enemy')
 										
 												if LOUDGETN(experimentalsair) > 0 then
 													highThreatType = 'Air'
@@ -871,6 +898,8 @@ EngineerManager = Class(BuilderManager) {
 						end
 
 						-- if we raised a threat -- and don't already have one of this type --
+						-- AlertsTables can now log multiple threats of the same type --
+
 						if alertraised and not self.BaseMonitor.AlertsTable[highThreatType] then
 			
 							-- update the BaseMonitors total active alerts
@@ -886,7 +915,7 @@ EngineerManager = Class(BuilderManager) {
 							aiBrain.BaseAlertSounded = true
 							
 							if ScenarioInfo.BaseMonitorDialog then
-								LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASEMONITOR raises "..highThreatType.." alert of "..highThreat)
+								LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASEMONITOR raises "..highThreatType.." alert of "..math.floor(highThreat).." at position "..repr(highThreatPos))
 							end
 							
 							-- accurately check the threat, launch the response thread, and monitor the threat until its gone
@@ -897,17 +926,26 @@ EngineerManager = Class(BuilderManager) {
 			end
 		end
 
-		if ScenarioInfo.BaseMonitorDialog then
-			LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASEMONITOR starts")
-		end
+		--if ScenarioInfo.BaseMonitorDialog then
+			--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASEMONITOR starts")
+		--end
 	
 		local delay = self.BaseMonitor.BaseMonitorInterval or 4
+        
+        -- using this flag to control appearance of delays so they only appear when they change
+        local lastdelay = 0
 
 		while self.Active do
+        
 			-- at present, this starts at about 8 seconds per cycle since
 			-- we add the normal interval to itself to begin
+            
 			if ScenarioInfo.BaseMonitorDialog then
-				LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASEMONITOR delay is "..repr(self.BaseMonitor.BaseMonitorInterval + delay))
+                if lastdelay != delay then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASEMONITOR delay is "..repr(self.BaseMonitor.BaseMonitorInterval + delay))
+                    
+                    lastdelay = delay
+                end
 			end
 			
 			WaitTicks(( self.BaseMonitor.BaseMonitorInterval + delay ) * 10 )        
@@ -925,12 +963,9 @@ EngineerManager = Class(BuilderManager) {
 		
 			delay = (GetGameTimeSeconds()) - self.BaseMonitor.LastAlertTime
 		
-			delay = LOUDFLOOR(delay/120)	-- delay is increased by 1 second for every 2 minutes since last alert
-			delay = LOUDMIN(delay, 18)	-- delay is capped at 18 additional seconds
-			
-			if ScenarioInfo.BaseMonitorDialog then
-				LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASEMONITOR threat check - waiting "..( self.BaseMonitor.BaseMonitorInterval + delay ) * 10 .." ticks" )
-			end
+			delay = LOUDFLOOR(delay/120)	-- delay is increased by 1 second for every 2 minutes since last alert - might consider 2.5 minutes
+			delay = LOUDMIN(delay, 18)	-- delay is capped at 18 additional seconds -- might consider capping this at 12 if land or air ratio is bad --
+
 		end
 	
 	end,
@@ -951,6 +986,7 @@ EngineerManager = Class(BuilderManager) {
 
 	-- Sure - this could be modded to have multiple threats of the same kind going on at once,
 	-- but my fear here was having the responding units ping-ponging between two or more threats at once. 
+
 	BaseMonitorAlertTimeoutLOUD = function( self, aiBrain, pos, baseposition, threattype, distressrange )
 
 		local threshold = self.BaseMonitor.AlertLevel
@@ -974,13 +1010,13 @@ EngineerManager = Class(BuilderManager) {
         
 			-- look for units of the threattype
 			if threattype == 'Land' then
-				targetUnits = GetUnitsAroundPoint( aiBrain, (categories.MOBILE * categories.LAND), pos, 90, 'Enemy')
+				targetUnits = GetUnitsAroundPoint( aiBrain, (categories.MOBILE * categories.LAND), pos, 120, 'Enemy')
 			
 			elseif threattype == 'Air' then
-				targetUnits = GetUnitsAroundPoint( aiBrain, (categories.AIR * categories.MOBILE), pos, 90, 'Enemy')
+				targetUnits = GetUnitsAroundPoint( aiBrain, (categories.AIR * categories.MOBILE), pos, 120, 'Enemy')
 			
 			elseif threattype == 'Naval' then
-				targetUnits = GetUnitsAroundPoint( aiBrain, categories.NAVAL * categories.MOBILE, pos, 90, 'Enemy')
+				targetUnits = GetUnitsAroundPoint( aiBrain, categories.NAVAL * categories.MOBILE, pos, 120, 'Enemy')
 			end
 
 			x1 = 0
@@ -1056,8 +1092,9 @@ EngineerManager = Class(BuilderManager) {
 				end
 			
 				if ScenarioInfo.BaseMonitorDialog then
-					LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASEMONITOR "..threattype.." threat is "..threat.." - level is "..self.BaseMonitor.AlertLevel.." threat distance is "..VDist2(pos[1],pos[3], baseposition[1],baseposition[3]) )
-					LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASEMONITOR "..threattype.." alert timeout waiting "..self.BaseMonitor.AlertTimeout * 10 )
+					LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASEMONITOR "..threattype.." threat is "..math.floor(threat).." distance is "..math.floor(VDist2(pos[1],pos[3], baseposition[1],baseposition[3])) )
+                    
+					--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASEMONITOR "..threattype.." alert timeout waiting "..self.BaseMonitor.AlertTimeout * 10 )
 				end
 
 				WaitTicks( self.BaseMonitor.AlertTimeout * 10 ) -- before checking this threat again --
@@ -1258,8 +1295,8 @@ EngineerManager = Class(BuilderManager) {
 								LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASE DISTRESS RESPONSE to "..distressType.." value "..aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSurface' ).." my assets are "..GetThreatOfGroup(grouplnd,'Land'))
 							end
 							
-							-- only send response if we can muster 60% of enemy threat
-							if GetThreatOfGroup(grouplnd,'Land') >= (aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSurface' ) * .65) then
+							-- only send response if we can muster 70% of enemy threat
+							if GetThreatOfGroup(grouplnd,'Land') >= (aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSurface' ) * .70) then
 							
 								-- must have a clear unobstructed path to location --
 								if not CheckBlockingTerrain( baseposition, distressLocation ) then
@@ -1329,8 +1366,8 @@ EngineerManager = Class(BuilderManager) {
 								LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASE DISTRESS RESPONSE to "..enemynavalthreat.." my assets are "..repr(GetThreatOfGroup(groupsea,'Naval') ) )
 							end
 				
-                            -- only send response if we can muster 66% of enemy threat
-							if GetThreatOfGroup(groupsea,'Naval') >= (enemynavalthreat * .66) then  -- (( aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSurface' ) + aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSub') )/1.5) then
+                            -- only send response if we can muster 70% of enemy threat
+							if GetThreatOfGroup(groupsea,'Naval') >= (enemynavalthreat * .70) then  -- (( aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSurface' ) + aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSub') )/1.5) then
 
 								-- Move the naval group to the distress location and then back to the location of the base
 								IssueClearCommands( groupsea )
@@ -1503,7 +1540,7 @@ EngineerManager = Class(BuilderManager) {
 				-- as a base responds to a continued alert I want to gradually slow the response loop
 				-- this allows a base more time to gather additional units before sending them out 
 				-- this will reduce the effect of 'kiting' the AI out of his base by triggering an alert
-				self.BaseMonitor.DistressRepeats = math.min(self.BaseMonitor.DistressRepeats + 1, 6)
+				self.BaseMonitor.DistressRepeats = math.min(self.BaseMonitor.DistressRepeats + 1, 8)
                 
 			else
                 self.BaseMonitor.DistressRepeats = 0

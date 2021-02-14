@@ -205,6 +205,25 @@ Platoon = Class(moho.platoon_methods) {
         self.Trash:Destroy()
     end,
 
+    WatchPlatoonSize = function(self, startsize, triggervalue)
+    
+        local aiBrain = GetBrain(self)
+        local triggerpoint = startsize * triggervalue
+    
+        while PlatoonExists(aiBrain,self) and self.WatchPlatoon do
+
+            if LOUDGETN(self:GetPlatoonUnits()) < triggerpoint then
+
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." Platoon Size trigger")
+                
+                self.WatchPlatoon = nil
+            end
+            
+            WaitTicks(2)
+        end
+
+    end,
+
     -- this is the primary movement method for platoon movement in LOUD
     -- it handles processing the path provided to it by the platoon
     -- moving it one segment at a time
@@ -429,7 +448,7 @@ Platoon = Class(moho.platoon_methods) {
 			
 				if GetTerrainHeight(destination[1], destination[3]) < GetSurfaceHeight(destination[1], destination[3]) - 2 then 
 				
-					LOG("*AI DEBUG SendPlatWTrans says Water")
+					LOG("*AI DEBUG SendPlatWTrans says Water for "..repr(destination).." for builder "..repr(self.BuilderName) )
 					return false
 				end
 			end
@@ -6186,33 +6205,28 @@ Platoon = Class(moho.platoon_methods) {
 						--LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." seeking replacement for "..repr(v).." current choice is "..repr(builditem) )
 					
 						replacement = GetTemplateReplacement( v, aiBrain.FactionName, ScenarioInfo.CustomUnits[v][aiBrain.FactionName])
-						
 					end
 					
 					if replacement then
 					
 						builditem = replacement
-						
 					end
-					
-					--LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." building "..repr(v).." with "..repr(builditem))
 
 					if buildFunction(aiBrain, eng, v, cons.BuildClose, relative, builditem, baseListData, reference, cons.NearMarkerType) then
-					
-						did_a_build = true
-						
-					end
 
+                        --LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." building "..repr(v).." with "..repr(builditem))
+
+						did_a_build = true
+
+					end
                 end
-				
             end
-			
         end
         
         if not eng.Dead then
 		
 			if did_a_build then
-			
+
 				if cons.ExpansionBase then
 				
 					local function MonitorNewBaseThread( self, refName, refposition, cons)
@@ -6231,10 +6245,8 @@ Platoon = Class(moho.platoon_methods) {
 	
 						-- loop here until the engineer signals that he's ready to start building
 						while PlatoonExists(aiBrain, self) and not eng.Dead and not eng.NeedsBaseData do
-	
-							--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." waiting for NeedBaseData for "..repr(refposition))
-							
-							WaitTicks(40)
+
+							WaitTicks(15)
 		
 						end
 
@@ -6255,7 +6267,6 @@ Platoon = Class(moho.platoon_methods) {
 					eng.NewExpansion = { refName, {reference[1][1],reference[1][2],reference[1][3]}, cons}
 
 					self.LocationType = refName
-		
 				end
 
 			else
@@ -6268,13 +6279,11 @@ Platoon = Class(moho.platoon_methods) {
 				self.CreationTime = LOUDTIME()	-- forces the job into a delay period
 				
 				return self:SetAIPlan('ReturnToBaseAI',aiBrain)
-				
 			end
 			
 			self:ProcessBuildCommand(eng,false)
 
         end
-
 	end,
 	
     EngineerBuildMassDefenseAdjacencyAI = function( self, aiBrain )
@@ -6881,6 +6890,8 @@ Platoon = Class(moho.platoon_methods) {
 				local prevpoint
 			
 				for wpidx, waypointPath in path do
+                
+                    --LOG("*AI DEBUG "..repr(platoon.BuilderName).." issues move to location "..repr(waypointPath))
 
 					platoon:MoveToLocation( waypointPath, false )
 	
@@ -7053,7 +7064,7 @@ Platoon = Class(moho.platoon_methods) {
 						WaitTicks(6)
 					
 						count = count + 1
-						
+
 					end
 					
 				end
@@ -7067,12 +7078,14 @@ Platoon = Class(moho.platoon_methods) {
 					return false
 					
 				end
+                
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName).." Eng "..eng.Sync.id.." exiting EngineerMoving - waypoint callback is "..repr(platoon.MovingToWaypoint))
 				
 				return not eng.Dead
 				
 			end			
 
-			--LOG("*AI DEBUG buildLocation is "..repr(buildLocation))
+			--LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." buildLocation is "..repr(buildLocation))
 			
 			-- get the engineer moved to the goal --
 			if EngineerMoving( buildLocation, buildItem ) then
@@ -7100,23 +7113,25 @@ Platoon = Class(moho.platoon_methods) {
 						if eng.NewBaseThread then
 
 							local basetaken = false
+                            
+                            WaitTicks(2)     -- new wait to make sure NewBaseThread is established
 
 							-- signal the NewBaseThread that we need the data now
 							eng.NeedsBaseData = true
+                            
+                            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName).." Eng "..eng.Sync.id.." signals need for base data - NewBaseThread is "..repr(eng.NewBaseThread))
 
-							--LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." requesting newbase data ")
-							
 							-- at this point the engineer will get the NewExpansion data back from the NewBaseThread
 							-- in the form of eng.NewExpansion[1] = basename, [2] = 3D position, [3] = the construction data
 							repeat 
 							
 								WaitTicks(10)
-								
+
 							until eng.Dead or not eng.NewBaseThread
 
 							if not eng.Dead then
 							
-								--LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." gets newbase data ")
+								--LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName).." Eng "..eng.Sync.id.." gets newbase data ")
 
 								-- loop thru brains to see if it's been taken by another
 								for _,brain in ArmyBrains do
@@ -7135,7 +7150,7 @@ Platoon = Class(moho.platoon_methods) {
 	
 											basetaken = true
 											
-											WARN("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." "..platoon.BuilderName.." Base already taken "..repr(eng.NewExpansion[1]) )
+											WARN("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName).." Eng "..eng.Sync.id.." "..platoon.BuilderName.." Base already taken "..repr(eng.NewExpansion[1]) )
 											
 											break
 
@@ -7179,7 +7194,7 @@ Platoon = Class(moho.platoon_methods) {
 
 								else
 									
-									WARN("*AI DEBUG "..aiBrain.Nickname.." "..eng.Sync.id.." fails to start new base "..repr(eng.NewExpansion[1]).." at "..repr(eng.NewExpansion[2]))
+									LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName).." Eng "..eng.Sync.id.." failed to start new base "..repr(eng.NewExpansion[1]).." at "..repr(eng.NewExpansion[2]))
 
 									-- clear the expansion data
 									eng.NewExpansion = nil
@@ -7254,7 +7269,7 @@ Platoon = Class(moho.platoon_methods) {
 
 						-- move onto next item to build
 						
-						--LOG("*AI DEBUG Failed to build")
+						--LOG("*AI DEBUG "..repr(self.BuilderName).." Failed to build")
 						
 						self:ProcessBuildCommand( eng,true )
 						
@@ -8500,11 +8515,15 @@ Platoon = Class(moho.platoon_methods) {
 	SetupPlatoonAtWaypointCallbacks = function( platoon, waypoint, distance )
 	
 		platoon.MovingToWaypoint = true
+        
+        --LOG("*AI DEBUG "..platoon.BuilderName.." sets up WaypointCallback")
 		
 		return import('/lua/scenariotriggers.lua').CreatePlatoonToPositionDistanceTrigger( platoon.PlatoonAtWaypoint, platoon, waypoint, distance)
 	end,
 	
 	PlatoonAtWaypoint = function( platoon, params )
+    
+        --LOG("*AI DEBUG "..repr(platoon.BuilderName).." at waypoint")
 	
 		local CmdQ = false
 		

@@ -34,6 +34,9 @@ local GetNumUnitsAroundPoint = moho.aibrain_methods.GetNumUnitsAroundPoint
 local GetEconomyIncome = moho.aibrain_methods.GetEconomyIncome
 local PlatoonCategoryCount = moho.platoon_methods.PlatoonCategoryCount
 
+local timeACTBrains = {}
+local ratioACTBrains = {}
+
 -- static version of function from EBC
 function GreaterThanEnergyIncome(aiBrain, eIncome)
 	return (GetEconomyIncome( aiBrain, 'ENERGY')*10) >= eIncome
@@ -97,7 +100,6 @@ function HaveLessThanUnitsWithCategory(aiBrain, numReq, testCat, idleReq)
     return GetCurrentUnits(aiBrain,testCat) < numReq
 end
 
-
 function UnitCapCheckGreater(aiBrain, percent)
 
 	if aiBrain.IgnoreArmyCaps then
@@ -115,9 +117,6 @@ function UnitCapCheckLess(aiBrain, percent)
 
 	return ( GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) ) < percent 	
 end
-
-
-
 
 -- This routine returns the location of the closest base that has engineers or factories
 function AIFindClosestBuilderManagerPosition( aiBrain, position)
@@ -192,7 +191,6 @@ function AISortScoutingAreas( aiBrain, list )
 	
 end
 
-
 -- if the AI has its share of mass points
 function HasMassPointShare( aiBrain, multiple )
 
@@ -262,7 +260,6 @@ function NeedTeamMassPointShare( aiBrain )
 	return TeamExtractors < TeamNeeded
 end
 
-
 -- a land-based production centre can be in LandMode or not (== AmphibiousMode)
 function BaseInLandMode( aiBrain, locType )
 
@@ -273,7 +270,6 @@ function BaseInAmphibiousMode( aiBrain, locType )
 
     return not aiBrain.BuilderManagers[locType].LandMode
 end
-
 
 -- if there is not a base alert at this location	
 function NoBaseAlert( aiBrain, locType )
@@ -504,7 +500,7 @@ function SpawnWaveThread( aiBrain )
 		end    
 		
 		-- increase the size of the wave each time and vary it with the build cheat level
-		local units = math.floor((wave * 1.5) * aiBrain.CheatValue )
+		local units = math.floor((wave * 1.5) * aiBrain:TotalCheat() )
         -- insure that there is always at least 1 unit (in case of negative multipliers)
         local units = math.max( units, 1 ) 
 		
@@ -571,11 +567,11 @@ function SpawnWaveThread( aiBrain )
 		
 		DisperseUnitsToRallyPoints( aiBrain, coreunits, aiBrain.BuilderManagers['MAIN'].Position, aiBrain.BuilderManagers['MAIN'].RallyPoints )
 		
-		-- decrease the period until the next wave  -- modified by the build cheat level
+		-- decrease the period until the next wave  -- modified by the cheat level
         -- each reduction will be smaller than the last until wave 10 when it becomes the same
         -- initial reduction is 30 seconds + cheat
         -- final   reduction is 12 seconds + cheat
-		spawndelay = spawndelay - ( (30 - ((wave-1)*2) ) * aiBrain.CheatValue )
+		spawndelay = spawndelay - ( (30 - ((wave-1)*2) ) * aiBrain:TotalCheat() )
         
 		--LOG("*AI DEBUG "..aiBrain.Nickname.." gets spawnwave of "..units.." at "..GetGameTimeSeconds().." seconds")
         --LOG("*AI DEBUG "..aiBrain.Nickname.." next spawnwave in "..spawndelay.." seconds")
@@ -590,95 +586,194 @@ function SpawnWaveThread( aiBrain )
 	
 end
 
+function SubscribeToACT(aiBrain)
+	-- Purge unneeded adaptive KVP once it's consumed
+	if aiBrain.Adaptive == 2 or aiBrain.Adaptive == 4 then
+		table.insert(ratioACTBrains, aiBrain)
+	end
+	if aiBrain.Adaptive == 3 or aiBrain.Adaptive == 4 then
+		table.insert(timeACTBrains, aiBrain)
+	end
+	aiBrain.Adaptive = nil
+end
+
+function StartAdaptiveCheatThreads()
+	if table.getn(ratioACTBrains) > 0 then
+		local str = ""
+		for i, v in ratioACTBrains do
+			str = str.."\t"..v.Nickname.."\n"
+		end
+		LOG("*AI DEBUG Forking ratio ACT for:\n"..str)
+		ForkThread(RatioAdaptiveCheatThread)
+	end
+	if table.getn(timeACTBrains) > 0 then
+		local str = ""
+		for i, v in timeACTBrains do
+			str = str.."\t"..v.Nickname.."\n"
+		end
+		LOG("*AI DEBUG Forking time ACT for:\n"..str)
+		ForkThread(TimeAdaptiveCheatThread)
+	end
+end
+
 -- The following 2 functions are courtesy of:
 -- - Uveso (FAF); initial implementation
 -- - Azraeelian Angel; adaptation for LOUD
 -- - Sprouto; optimization
-function RatioAdaptiveCheatThread( aiBrain )
-	
+function RatioAdaptiveCheatThread()
 	local interval = 10 * tonumber(ScenarioInfo.Options.ACTRatioInterval)
-    local scale = tonumber(ScenarioInfo.Options.ACTRatioScale)
-	local lastupdate = aiBrain.CheatValue
-	local cheatincrease = 0
-	
-	LOG("*AI DEBUG "..aiBrain.Nickname.." will start ratio ACT after 5 minutes")
+	local scale = tonumber(ScenarioInfo.Options.ACTRatioScale)
+
+	LOG("*AI DEBUG Starting ratio ACT after 5 minutes. Interval: "..repr(interval).." ticks; scale: "..repr(scale))
+    
 	-- Wait 5 minutes first, else earliest land ratios skew results
 	WaitTicks(10 * 60 * 5)
-	LOG("*AI DEBUG "..aiBrain.Nickname.." starting ratio ACT now. Interval: "..repr(interval).." ticks; scale: "..repr(scale))
+    
+	LOG("*AI DEBUG Starting ratio ACT now")
 
-	while aiBrain.Result ~= "defeat" do
+	while true do
+    
+		if table.getn(ratioACTBrains) < 1 then
+			break
+		end
 
 		WaitTicks(interval)
+        
+		--LOG("*AI DEBUG Ratio ACT cycles at "..repr(GetGameTimeSeconds()).." secs.")
 
-		-- RATODO: Discuss how to implement all ratios
-		-- Need to consider how much water is on map
+		-- If a brain gets unsubscribed during an update, the list of brains is
+		-- compromised, and we must stop immediately and reiterate
+		local broke = false
 
-		if aiBrain.LandRatio <= 0.5 then
-			
-			cheatincrease = .5 * scale
+		local function Iterate()
+        
+			for i = 1, table.getn(ratioACTBrains) do
+            
+				local aiBrain = ratioACTBrains[i]
+                
+				if aiBrain.Result == "defeat" then
+					LOG("*AI DEBUG Unsub "..aiBrain.Nickname.." from ratio ACT: defeated")
+					table.remove(ratioACTBrains, i)
+					broke = true
+					break
+				end
 
-		elseif aiBrain.LandRatio <= 0.6 then
-			
-			cheatincrease = .4 * scale
+				LOG("*AI DEBUG Ratio ACT: "..aiBrain.Nickname.." from "..aiBrain:TotalCheat())
 
-		elseif aiBrain.LandRatio <= 0.75 then
+				local prev = aiBrain.FeedbackCheat
 
-			cheatincrease = .3 * scale
+				-- RATODO: Discuss how to implement all ratios
+				-- Need to consider how much water is on map
+				if aiBrain.LandRatio <= 0.5 then
+					aiBrain.FeedbackCheat = 0.5 * scale
+				elseif aiBrain.LandRatio <= 0.6 then
+					aiBrain.FeedbackCheat = 0.4 * scale
+				elseif aiBrain.LandRatio <= 0.75 then
+					aiBrain.FeedbackCheat = 0.3 * scale
+				elseif aiBrain.LandRatio <= 0.9 then
+					aiBrain.FeedbackCheat = 0.2 * scale
+				elseif aiBrain.LandRatio <= 1 then
+					aiBrain.FeedbackCheat = 0.1 * scale
+				else
+					aiBrain.FeedbackCheat = 0
+				end
 
-		elseif aiBrain.LandRatio <= 0.9 then
-			
-			cheatincrease = .2 * scale
+				-- Don't apply army pool buff if FeedbackCheat didn't change
+				if prev ~= aiBrain.FeedbackCheat then
+					SetArmyPoolBuff(aiBrain, aiBrain:TotalCheat())
+				end
 
-		elseif aiBrain.LandRatio <= 1 then
-
-			cheatincrease = .1 * scale
-
-		else
-
-			cheatincrease = 0
+				LOG("*AI DEBUG Ratio ACT: "..aiBrain.Nickname.." to "..aiBrain:TotalCheat())
+			end
 		end
-		
-		-- If the value has changed since last processed then update
-		if lastupdate and lastupdate ~= aiBrain.CheatValue + cheatincrease then
-		
-			LOG("*AI DEBUG "..aiBrain.Nickname.." ratio ACT cycles at "..repr(GetGameTimeSeconds()).." seconds. Effective mult.: "..repr(lastupdate).." -> "..repr(aiBrain.CheatValue + cheatincrease))
-			SetArmyPoolBuff(aiBrain, aiBrain.CheatValue + cheatincrease)
-			-- Record the value of this update
-			lastupdate = aiBrain.CheatValue + cheatincrease
-		end
+
+		Iterate()
+        
+		if broke then
+            Iterate()
+        end
+        
 	end
     
-	LOG("*AI DEBUG "..aiBrain.Nickname.." ratio ACT closing: defeated")
+	LOG("*AI DEBUG No more ratio ACT subscribers. Killing thread")
 end
 
-function TimeAdaptiveCheatThread( aiBrain )
+function TimeAdaptiveCheatThread()
 
-	local startdelay = 10 * 60 * tonumber(ScenarioInfo.Options.ACTStartDelay) + 1
+	-- RATODO: Ideas by Uveso and Balthazar
+	-- - Parabola
+	-- - Logarithmic
+	-- - Multiplicative
+	-- - Use ratios to slow or speed time-based increase
+    
+	local startDelay = 10 * 60 * tonumber(ScenarioInfo.Options.ACTStartDelay) + 1
     local interval = 10 * 60 * tonumber(ScenarioInfo.Options.ACTTimeDelay)
-    local cheatincrease = tonumber(ScenarioInfo.Options.ACTTimeAmount)
-	local cheatlimit = tonumber(ScenarioInfo.Options.ACTTimeCap)
+    local cheatInc = tonumber(ScenarioInfo.Options.ACTTimeAmount)
+	local cheatLimit = tonumber(ScenarioInfo.Options.ACTTimeCap)
     
-	LOG("*AI DEBUG "..aiBrain.Nickname.." starting time ACT after "..startdelay.." ticks. Change "..cheatincrease.." every "..interval.." ticks. Upper limit: "..repr(cheatlimit))
-	WaitTicks(startdelay)
-    LOG("*AI DEBUG "..aiBrain.Nickname.." time ACT begins")
-    
-	while aiBrain.Result ~= "defeat" and aiBrain.CheatValue <= cheatlimit do
-
+	-- EXAMPLE: If 1.5 is the limit, -.05 is the change, and 1.1 is the base,
+	-- this check prevents mult from getting math.maxed all the way up to 1.5
+	for i = 1, table.getn(timeACTBrains) do
+		local aiBrain = timeACTBrains[i]
+		if cheatInc < 0 and cheatLimit > aiBrain.CheatValue then
+			LOG("*AI DEBUG "..aiBrain.Nickname.." negative time ACT: base is below limit. Unsubscribing...")
+			table.remove(timeACTBrains, i)
+		end
+	end
+	
+	LOG("*AI DEBUG Starting time ACT after "..startDelay.." ticks. Change: "..cheatInc.." per "..interval.." ticks. Limit: "..repr(cheatLimit))
+	WaitTicks(startDelay)
+	LOG("*AI DEBUG Starting time ACT now")
+	
+	while true do
+		if table.getn(timeACTBrains) < 1 then
+			break
+		end
 		WaitTicks(interval)
-		LOG("*AI DEBUG "..aiBrain.Nickname.." time ACT cycles at "..repr(GetGameTimeSeconds()).." seconds. Mult.: "..repr(aiBrain.CheatValue).." -> "..repr(aiBrain.CheatValue + cheatincrease))
-		-- RATODO
-		-- - Logarithmic increase option
-		-- - Multiplicative increase option
-		-- - Use ratios to slow or speed time-based increase
-		aiBrain.CheatValue = aiBrain.CheatValue + cheatincrease
-		SetArmyPoolBuff(aiBrain, aiBrain.CheatValue)
+		LOG("*AI DEBUG Time ACT cycles at "..repr(GetGameTimeSeconds()).." secs")
+
+		-- If a brain gets unsubscribed during an update, the list of brains is
+		-- compromised, and we must stop immediately and reiterate
+		local broke = false
+
+		local function Iterate()
+			for i = 1, table.getn(timeACTBrains) do
+				local aiBrain = timeACTBrains[i]
+				-- Between this iteration and last, AI may have been defeated,
+				-- or met/surpassed upper/lower limit. Deal with these cases
+				if aiBrain.Result == "defeat" then
+					LOG("*AI DEBUG Unsub "..aiBrain.Nickname.." from time ACT: defeated")
+					table.remove(timeACTBrains, i)
+					broke = true
+					break
+				elseif cheatInc < 0 and aiBrain:TotalCheat() <= cheatLimit then
+					LOG("*AI DEBUG Unsub "..aiBrain.Nickname.." from time ACT: lower limit met")
+					SetArmyPoolBuff(aiBrain, math.max(cheatLimit, aiBrain:TotalCheat()))
+					table.remove(timeACTBrains, i)
+					broke = true
+					break
+				elseif cheatInc > 0 and aiBrain:TotalCheat() >= cheatLimit then
+					LOG("*AI DEBUG Unsub "..aiBrain.Nickname.." from time ACT: upper limit met")
+					SetArmyPoolBuff(aiBrain, math.min(cheatLimit, aiBrain:TotalCheat()))
+					table.remove(timeACTBrains, i)
+					broke = true
+					break
+				end
+
+				LOG("*AI DEBUG Time ACT: "..aiBrain.Nickname.." from "..aiBrain:TotalCheat())
+				
+				aiBrain.TimeCheat = aiBrain.TimeCheat + cheatInc
+				
+				SetArmyPoolBuff(aiBrain, aiBrain:TotalCheat())
+				
+				LOG("*AI DEBUG Time ACT: "..aiBrain.Nickname.." to "..aiBrain:TotalCheat())
+			end
+		end
+
+		Iterate()
+		if broke then Iterate() end
 	end
-    
-	if (aiBrain.Result == "defeat") then
-		LOG("*AI DEBUG "..aiBrain.Nickname.." time ACT closing: defeated")
-	else
-		LOG("*AI DEBUG "..aiBrain.Nickname.." time ACT closing: limit met")
-	end
+	LOG("*AI DEBUG No more time ACT subscribers. Killing thread")
 end
 
 function SimulateFactoryBuilt (finishedUnit)
@@ -1308,6 +1403,10 @@ function ResetPFMTasks (manager, aiBrain)
 
 	local newtasks = 0
 	local temporary
+    
+    if ScenarioInfo.PriorityDialog then
+        LOG("*AI DEBUG "..aiBrain.Nickname.." "..manager.ManagerType.." "..manager.LocationType.." Resets Any PFM Tasks")
+    end
 
 	for _,b in manager.BuilderData['Any'].Builders do
 
@@ -1318,6 +1417,10 @@ function ResetPFMTasks (manager, aiBrain)
 				local newPri = false
 
 				if Builders[d].PriorityFunction then
+                
+                    --if ScenarioInfo.PriorityDialog then
+                      --  LOG("*AI DEBUG "..aiBrain.Nickname.." "..manager.ManagerType.." "..manager.LocationType.." PriorityFunction for "..b.BuilderName  )
+                    --end
 
 					temporary = true
 
@@ -1332,6 +1435,8 @@ function ResetPFMTasks (manager, aiBrain)
                         end
 
 						manager:SetBuilderPriority(b.BuilderName, newPri, temporary)
+                        
+                        manager.BuilderData['Any'].NeedSort = true
 					end
 				end
 
@@ -1682,6 +1787,23 @@ function AddCustomUnitSupport( aiBrain )
 	
 	--Loop through active mods
 	for i, m in __active_mods do
+
+		local env = {}
+		local excl = {}
+		if m.config then
+			local eOk, eResult = pcall(doscript, m.location..'/excludes.lua', env)
+			if eOk then
+				LOG("Applying mod config exclusions to "..m.name)
+				-- Check every exclusion block to see if modconfig activates it
+				for _, e in env do
+					if m.config[e.key] == 2 then
+						for _, ex in e.values do
+							excl[string.lower(ex)] = true
+						end
+					end
+				end
+			end
+		end
 	
 		if m.name == 'BlackOps Adv Command Units for LOUD' then
 			--LOG("*AI DEBUG BOACU installed")
@@ -1719,6 +1841,10 @@ function AddCustomUnitSupport( aiBrain )
 					-- only add those that are same faction as the AI
 					if fac == aiBrain.FactionName then
 					
+						if excl and entry[1] and excl[string.lower(entry[1])] then
+							continue
+						end
+						
 						if not ScenarioInfo.CustomUnits then
 							ScenarioInfo.CustomUnits = {}
 						end
@@ -2152,7 +2278,7 @@ function GetBasePerimeterPoints( aiBrain, location, radius, orientation, positio
 
 	local sortedList = {}
 	
-	if table.getsize(locList) == 0 then
+	if table.empty(locList) then
 		return {} 
 	end
 	
@@ -2313,7 +2439,6 @@ function RemoveBaseRallyPoints( aiBrain, basename, basetype, rallypointradius )
 		end
 	end
 end
-
 
 -- the DBM is designed to monitor the status of all Base Managers and shut them down if they are no longer valid
 -- no longer valid means no engineers AND no factories 
@@ -3179,8 +3304,6 @@ end
 -- threat.  I record 80 values (about 80 samples - 8 seconds apart) so that its fairly accurate
 -- taking into account how much intel the AI is actually collecting - see the parseinterval value
 -- to adjust the length of data collection period
-
-
 function ParseIntelThread( aiBrain )
 
 	WaitTicks(Random(1,7))	-- to avoid all the AI running at exactly the same tick
@@ -3310,28 +3433,21 @@ function ParseIntelThread( aiBrain )
 	}
 	--]]
 	
-	local intelChecks = {
+	intelChecks = {
 		-- ThreatType	= {threat min, timeout (-1 = never) in seconds, category for exact pos, parse every x iterations}
 		-- notice the inclusions for Naval with matching exclusions for StructuresNotMex
 		-- note that some categories dont have a dynamic threat threshold - just air,land,naval and structures - since you can only pack so many in a smaller IMAP block
-		Air 			= { 12 * ThresholdMult, 6, categories.AIR - categories.SATELLITE - categories.SCOUT, 1,'ffff0000'},
-		
-		Land 			= { 12 * ThresholdMult, 24, categories.MOBILE - categories.AIR - categories.ANTIAIR - categories.SCOUT, 3,'ff00ff00' },
-        
-		Naval 			= { 12 * ThresholdMult, 24, categories.MOBILE - categories.AIR - categories.ANTIAIR - categories.SCOUT, 3,'ff00a0ff' },
-        
-		Experimental 	= { 50, 24, (categories.EXPERIMENTAL * categories.MOBILE), 4,'ff00fec3'},
-		
-		Commander 		= { 60, 24, categories.COMMAND, 5,'ffffffff' },
-
-		Economy			= { 100, 24, categories.ECONOMIC + categories.FACTORY, 6,'90ff7000' },
-        
-		StructuresNotMex = { 30, 24, categories.STRUCTURE - categories.WALL - categories.ECONOMIC, 4, 'c0ffff00' },
-
-		--Artillery 	= { 60, 35, (categories.ARTILLERY * categories.STRUCTURE - categories.TECH1) + (categories.EXPERIMENTAL * categories.ARTILLERY), 5,'ffffff00' },
-        --AntiAir       = { 12 * ThresholdMult, 10, categories.ANTIAIR, 2, 'ffff00ff'},
-        --AntiSurface   = { 12 * ThresholdMult, 10, categories.ALLUNITS, 4, 'ffff00ff'},
-        --AntiSub       = { 12 * ThresholdMult, 10, categories.ALLUNITS, 5, 'ff0000ff' },
+		Air 			= { 12 * ThresholdMult, 6, categories.AIR - categories.SATELLITE - categories.SCOUT, 1,'ffff0000', false},
+		Land 			= { 12 * ThresholdMult, 24, categories.MOBILE - categories.AIR - categories.ANTIAIR - categories.SCOUT, 3,'ff00ff00', false },
+		Naval 			= { 12 * ThresholdMult, 24, categories.MOBILE - categories.AIR - categories.ANTIAIR - categories.SCOUT, 3,'ff00a0ff', false },
+		Experimental 	= { 50, 24, (categories.EXPERIMENTAL * categories.MOBILE), 4,'ff00fec3', false },
+		Commander 		= { 60, 24, categories.COMMAND, 5,'ffffffff', false },
+		Economy			= { 100, 24, categories.ECONOMIC + categories.FACTORY, 6,'90ff7000', false },
+		StructuresNotMex = { 30, 24, categories.STRUCTURE - categories.WALL - categories.ECONOMIC, 4, 'c0ffff00', false },
+		Artillery 	= { 60, 35, (categories.ARTILLERY * categories.STRUCTURE - categories.TECH1) + (categories.EXPERIMENTAL * categories.ARTILLERY), 5,'ffffff00', false },
+        AntiAir       = { 12 * ThresholdMult, 10, categories.ANTIAIR, 2, 'ffff00ff', false},
+        AntiSurface   = { 12 * ThresholdMult, 10, categories.ALLUNITS, 4, 'ffff00ff', false},
+        AntiSub       = { 12 * ThresholdMult, 10, categories.ALLUNITS, 5, 'ff0000ff', false },
 	}
 
 	local numchecks = 0
@@ -3347,7 +3463,7 @@ function ParseIntelThread( aiBrain )
 	-- Draw HiPri intel data on map - for visual aid - not required but useful for debugging threat assessment
 	if ScenarioInfo.DisplayIntelPoints then
 		if not aiBrain.IntelDebugThread then
-			aiBrain.IntelDebugThread = aiBrain:ForkThread( import('/lua/loudutilities.lua').DrawIntel )
+			aiBrain.IntelDebugThread = aiBrain:ForkThread( DrawIntel )
 		end		
 	end
 	
@@ -3447,6 +3563,10 @@ function ParseIntelThread( aiBrain )
 		-- loop thru each of the threattypes
 		-- but processing only those types marked for this iteration
 		for threatType, vx in intelChecks do
+
+			if not vx[6] then
+				continue
+			end
 
 			if LOUDMOD(iterationcount, vx[4]) == 0 then
 
@@ -3922,7 +4042,6 @@ function ParseIntelThread( aiBrain )
     end
 end
 
-
 -- Sets up all the permanent scouting areas. If playing with fixed starting locations,
 -- also sets up high-priority scouting areas. This function may be called multiple times, but only 
 -- has an effect the first time it is called per brain.
@@ -4104,7 +4223,6 @@ function RemoveBaseMarker( self, baseName, markerid )
 
 	import('/lua/simping.lua').UpdateMarker({Action = 'delete', ID = markerid, Owner = self.ArmyIndex - 1})
 end
-
 
 -- This continually running thread has the AI pick an enemy every 8 minutes
 -- the index of the current enemy is kept on the brain
@@ -4541,6 +4659,73 @@ function CreateAttackPlan( self, enemyPosition )
 	end
 end
 
+function DrawPlanNodes(self)
+	local DC = DrawCircle
+	local DLP = DrawLinePop
+	
+	-- LOG("*AI DEBUG "..self.Nickname.." Drawing Plan "..repr(self.AttackPlan))
+	
+	while self.AttackPlan.Goal do
+	
+		if ( self.ArmyIndex == GetFocusArmy() or ( GetFocusArmy() != -1 and self.ArmyIndex and IsAlly(GetFocusArmy(), self.ArmyIndex)) ) and self.AttackPlan.StagePoints[0] then
+		
+			DC(self.AttackPlan.StagePoints[0], 1, '00ff00')
+			DC(self.AttackPlan.StagePoints[0], 3, '00ff00')
+
+			local lastpoint = self.AttackPlan.StagePoints[0]				
+				local lastpoint = self.AttackPlan.StagePoints[0]				
+			local lastpoint = self.AttackPlan.StagePoints[0]				
+			local lastdraw = lastpoint
+			
+			if self.AttackPlan.StagePoints[0].Path then
+			
+				-- draw the movement path --
+				for _,v in self.AttackPlan.StagePoints[0].Path do
+				
+					DLP( lastdraw, v, '0303ff' )
+					lastdraw = v
+				
+				end
+			end
+			
+			for i = 1, self.AttackPlan.StageCount do
+			
+				DLP( lastpoint, self.AttackPlan.StagePoints[i].Position, 'ffffff')
+				
+				DC( self.AttackPlan.StagePoints[i].Position, 1, 'ff0000')
+				DC( self.AttackPlan.StagePoints[i].Position, 3, 'ff0000')
+				DC( self.AttackPlan.StagePoints[i].Position, 5, 'ffffff')
+
+				lastdraw = lastpoint
+				
+				if self.AttackPlan.StagePoints[i].Path then
+				
+					for _,v in self.AttackPlan.StagePoints[i].Path do
+				
+						DLP( lastdraw,v, '0303ff' )
+						lastdraw = v
+				
+					end
+				end
+				
+				lastpoint = self.AttackPlan.StagePoints[i].Position
+			end
+			
+			DLP( lastpoint, self.AttackPlan.Goal, 'ffffff')
+			
+			lastdraw = lastpoint
+			
+			DC( self.AttackPlan.Goal, 1, 'ff00ff')
+			DC( self.AttackPlan.Goal, 3, '00ff00')
+			DC( self.AttackPlan.Goal, 5, 'ff00ff')
+		end
+		
+		WaitTicks(6)
+	end
+	
+	self.DrawPlanThread = nil
+end
+
 function AttackPlanMonitor(self)
 
     --LOG("*AI DEBUG "..self.Nickname.." starting AttackPlanMonitor to "..repr(self.AttackPlan.Goal))
@@ -4548,79 +4733,13 @@ function AttackPlanMonitor(self)
     local GetThreatsAroundPosition = self.GetThreatsAroundPosition
     local CurrentEnemyIndex = self:GetCurrentEnemy():GetArmyIndex()
 
-	local function DrawPlanNodes()
-	
-		local DC = DrawCircle
-		local DLP = DrawLinePop
-		
-		--LOG("*AI DEBUG "..self.Nickname.." Drawing Plan "..repr(self.AttackPlan))
-		
-		while self.AttackPlan.Goal do
-		
-			if ( self.ArmyIndex == GetFocusArmy() or ( GetFocusArmy() != -1 and self.ArmyIndex and IsAlly(GetFocusArmy(), self.ArmyIndex)) ) and self.AttackPlan.StagePoints[0] then
-			
-				DC(self.AttackPlan.StagePoints[0], 1, '00ff00')
-				DC(self.AttackPlan.StagePoints[0], 3, '00ff00')
-
-				local lastpoint = self.AttackPlan.StagePoints[0]				
-				local lastdraw = lastpoint
-				
-				if self.AttackPlan.StagePoints[0].Path then
-				
-					-- draw the movement path --
-					for _,v in self.AttackPlan.StagePoints[0].Path do
-					
-						DLP( lastdraw, v, '0303ff' )
-						lastdraw = v
-					
-					end
-				end
-				
-				for i = 1, self.AttackPlan.StageCount do
-				
-					DLP( lastpoint, self.AttackPlan.StagePoints[i].Position, 'ffffff')
-					
-					DC( self.AttackPlan.StagePoints[i].Position, 1, 'ff0000')
-					DC( self.AttackPlan.StagePoints[i].Position, 3, 'ff0000')
-					DC( self.AttackPlan.StagePoints[i].Position, 5, 'ffffff')
-
-					lastdraw = lastpoint
-					
-					if self.AttackPlan.StagePoints[i].Path then
-					
-						for _,v in self.AttackPlan.StagePoints[i].Path do
-					
-							DLP( lastdraw,v, '0303ff' )
-							lastdraw = v
-					
-						end
-					end
-					
-					lastpoint = self.AttackPlan.StagePoints[i].Position
-				end
-				
-				DLP( lastpoint, self.AttackPlan.Goal, 'ffffff')
-				
-				lastdraw = lastpoint
-				
-				DC( self.AttackPlan.Goal, 1, 'ff00ff')
-				DC( self.AttackPlan.Goal, 3, '00ff00')
-				DC( self.AttackPlan.Goal, 5, 'ff00ff')
-			end
-			
-			WaitTicks(6)
-		end
-        
-        self.DrawPlanThread = nil
-	end
-
     while self.AttackPlan.Goal do
     
 		-- Draw Attack Plans onscreen (set in InitializeSkirmishSystems or by chat to the AI)
 		if self.AttackPlan and (ScenarioInfo.DisplayAttackPlans or self.DisplayAttackPlans) then
         
             if not self.DrawPlanThread then
-                self.DrawPlanThread = ForkThread( DrawPlanNodes )
+                self.DrawPlanThread = ForkThread( DrawPlanNodes, self )
             end
 		end         
 
@@ -4875,7 +4994,6 @@ function DrawIntel( aiBrain )
 	end
 	
 end
-
 
 --[[
 

@@ -255,23 +255,21 @@ UnitBlueprint {
 			
             Damage = 14000,
             DamageFriendly = true,
-            DamageRadius = 6,
+            DamageRadius = 5,
             DamageType = 'Normal',
 			
             DisplayName = 'Anti Matter Artillery',
-			
-			-- It appears that this was causing some problems with the RoF
-			-- I have removed it and set a constant energy maintenance cost
-            EnergyDrainPerSecond = 5000,
-            EnergyRequired = 35000,		-- fires after an 7 second charge
+            
+            EnergyDrainPerSecond = 19714,
+            EnergyRequired = 138000,		-- fires after a 7 second charge
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
 			
-            FiringRandomness = 0.3,
-            FiringTolerance = 0.5,
+            FiringRandomness = 0.25,
+            FiringTolerance = 0.4,
 			
             Label = 'MainGun',
 			
@@ -307,7 +305,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.125,		-- 1750 DPS
+            RateOfFire = 1,		-- controlled by charge - 7 seconds = 2000
 			
             RenderFireClock = true,
 			

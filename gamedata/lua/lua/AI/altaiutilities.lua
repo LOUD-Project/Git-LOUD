@@ -2651,8 +2651,14 @@ function AssignTransportToPool( unit, aiBrain )
             if ScenarioInfo.TransportDialog then
                 LOG("*AI DEBUG "..aiBrain.Nickname.." transport "..unit.Sync.id.." Assigned to Transport Pool")
             end
+            
+            if aiBrain.TransportPool then
 
-			AssignUnitsToPlatoon( aiBrain, aiBrain.TransportPool, {unit}, 'Support','')
+                AssignUnitsToPlatoon( aiBrain, aiBrain.TransportPool, {unit}, 'Support','')
+                
+            else
+                return
+            end
             
             unit.InUse = false
             unit.Assigning = false        
@@ -2993,6 +2999,10 @@ end
 -- We are basically re-checking the work that was done to put this data into the HiPri list to get
 -- refreshed position and strength values - May 2019
 function GetHiPriTargetList(aiBrain, location)
+
+    if not location then
+        return {}
+    end
 
 	local VDist2 = VDist2Sq
 	local LOUDCOPY = table.copy

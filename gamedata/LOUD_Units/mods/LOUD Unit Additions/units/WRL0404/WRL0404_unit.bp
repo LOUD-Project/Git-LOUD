@@ -1,0 +1,982 @@
+UnitBlueprint {
+
+	AI = {
+        TargetBones = {
+            'UCX0101_Pelvis',
+            'UCX0101_T01_Barrel01',
+            'UUX0111_Tail',
+        },
+    },
+	
+    Audio = {
+        Destroyed = Sound {
+            Bank = 'XRL_Destroy',
+            Cue = 'XRL0403_Death',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartMove = Sound {
+            Bank = 'XRL',
+            Cue = 'XRL0403_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        FootFallGeneric = Sound {
+            Bank = 'URL',
+            Cue = 'URL0402_Move_Footfall',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        FootFallGenericSeabed = Sound {
+            Bank = 'URL',
+            Cue = 'URL0402_Move_UW_Step',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'Cybran_Select_Spider',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+	
+    Buffs = {
+        Regen = {
+            Level1 = 20,
+            Level2 = 30,
+            Level3 = 40,
+            Level4 = 50,
+            Level5 = 60,
+        },
+    },
+	
+    BuildIconSortPriority = 192,
+	
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER4COMMANDER',
+        'CYBRAN',
+        'MOBILE',
+        'LAND',
+		'AMPHIBIOUS',
+        'EXPERIMENTAL',
+        'DIRECTFIRE',
+        'NEEDMOBILEBUILD',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'DRAGBUILD',
+		'OVERLAYRADAR',
+        'OVERLAYOMNI',
+    },
+	
+    CollisionOffsetY = 0.9,
+	
+    Defense = {
+        AirThreatLevel = 102,
+        ArmorType = 'Experimental',
+        Health = 121000,
+        MaxHealth = 121000,
+        RegenRate = 100,
+        SurfaceThreatLevel = 1387.7,
+    },
+	
+    Description = '<LOC wrl0404_desc>Experimental Ultra Heavy Battle Roachbot',
+	
+    Display = {
+        Abilities = {
+            'Amphibious',
+            'Anti-Air',
+            'Massive',
+			'Omni Radar',
+            'Volatile',
+        },
+		
+        AnimationDeath = {
+            {
+                Animation = '/mods/LOUD Unit Additions/units/WRL0404/WRL0404_Adeath01.sca',
+                AnimationRateMax = 0.5,
+                AnimationRateMin = 0.5,
+                Weight = 100,
+            },
+        },
+		
+        AnimationWalk = '/mods/LOUD Unit Additions/units/WRL0404/WRL0404_awalk01.sca',
+        AnimationWalkRate = 0.7,
+		
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 200,
+                    ShaderName = 'Insect',
+                },
+                {
+                    AlbedoName = 'wrl0404_lod1_albedo.dds',
+                    LODCutoff = 400,
+                    ShaderName = 'Insect',
+                    SpecularName = 'wrl0404_lod1_specteam.dds',
+                },
+            },
+        },
+        MovementEffects = {
+            Land = {
+                Footfall = {
+                    Bones = {
+                        {
+                            FootBone = 'UCX0101_LeftAnkle',
+                            HipBone = 'UCX0101_LeftHip',
+                            KneeBone = 'UCX0101_LeftKnee',
+                            MaxFootFall = -0.25,
+                            Offset = {
+                                z = 1,
+                            },
+                            StraightLegs = false,
+                            Type = 'FootFall01',
+                        },
+                        {
+                            FootBone = 'UCX0101_LeftAnkle1',
+                            HipBone = 'UCX0101_LeftHip1',
+                            KneeBone = 'UCX0101_LeftKnee1',
+                            MaxFootFall = -0.25,
+                            Offset = {
+                                z = 1,
+                            },
+                            StraightLegs = false,
+                            Type = 'FootFall01',
+                        },
+                        {
+                            FootBone = 'UCX0101_LeftAnkle2',
+                            HipBone = 'UCX0101_LeftHip2',
+                            KneeBone = 'UCX0101_LeftKnee2',
+                            MaxFootFall = -0.25,
+                            Offset = {
+                                z = 1,
+                            },
+                            StraightLegs = false,
+                            Type = 'FootFall01',
+                        },
+                        {
+                            FootBone = 'UCX0101_RightAnkle',
+                            HipBone = 'UCX0101_RightHip',
+                            KneeBone = 'UCX0101_RightKnee',
+                            MaxFootFall = -0.25,
+                            Offset = {
+                                z = 1,
+                            },
+                            StraightLegs = false,
+                            Type = 'FootFall01',
+                        },
+                        {
+                            FootBone = 'UCX0101_RightAnkle01',
+                            HipBone = 'UCX0101_RightHip01',
+                            KneeBone = 'UCX0101_RightKnee01',
+                            MaxFootFall = -0.25,
+                            Offset = {
+                                z = 1,
+                            },
+                            StraightLegs = false,
+                            Type = 'FootFall01',
+                        },
+                        {
+                            FootBone = 'UCX0101_RightAnkle02',
+                            HipBone = 'UCX0101_RightHip02',
+                            KneeBone = 'UCX0101_RightKnee02',
+                            MaxFootFall = -0.25,
+                            Offset = {
+                                z = 1,
+                            },
+                            StraightLegs = false,
+                            Type = 'FootFall01',
+                        },
+                    },
+                    CameraShake = {
+                        Interval = 0.25,
+                        MaxShakeEpicenter = 0.3,
+                        MinShakeAtRadius = 0,
+                        Radius = 20,
+                    },
+                    Damage = {
+                        Amount = 1500,
+                        DamageFriendly = false,
+                        Radius = 1,
+                        Type = 'ExperimentalFootfall',
+                    },
+                },
+            },
+        },
+
+        SpawnRandomRotation = true,
+        UniformScale = 0.0725,
+    },
+	
+    Economy = {
+        BuildCostEnergy = 999450,
+        BuildCostMass = 88650,
+        BuildTime = 99945,
+    },
+	
+    General = {
+		CapCost = 10,
+        Category = 'Experimental',
+        Classification = 'RULEUC_MilitaryVehicle',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = false,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'Cybran',
+        Icon = 'amph',
+        TechLevel = 'RULEUTL_Secret', 
+        UnitName = '<LOC wrl0404_name>Megaroach',
+        UnitWeight = 1,
+    },
+	
+    Intel = {
+		FreeIntel = true,
+		OmniRadius = 50,
+		RadarRadius = 110,
+        VisionRadius = 46,
+        WaterVisionRadius = 26,
+    },
+	
+    Interface = {
+        HelpText = 'Ultra Heavy Battle Roachbot',
+    },
+    
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 3.25,
+    LifeBarSize = 6,
+    
+    Physics = {
+        BackupDistance = 0,
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = true,
+            LAYER_Orbit = false,
+            LAYER_Seabed = true,
+            LAYER_Sub = false,
+            LAYER_Water = true,
+        },
+        DragCoefficient = 0.2,
+        
+        MaxAcceleration = 0.6,
+        MaxSpeed = 2.4,
+        MaxSpeedReverse = 2.4,
+        
+        MaxSteerForce = 0,
+        MinSpeedPercent = 0,
+        
+        MotionType = 'RULEUMT_Amphibious',
+        
+        SinkLower = true,
+        
+        SkirtOffsetX = -1.5,
+        SkirtOffsetZ = -1.5,
+        SkirtSizeX = 6,
+        SkirtSizeZ = 6,
+        
+        TurnRadius = 5,
+        TurnRate = 28,
+        
+		WaterSpeedMultiplier = 1.1,
+    },
+    
+    SelectionCenterOffsetZ = -0.5,
+    SelectionSizeX = 3.75,
+    SelectionSizeZ = 3.75,
+    SelectionThickness = 0.28,
+    
+    SizeX = 2,
+    SizeY = 2.4,
+    SizeZ = 4.2,
+    
+    StrategicIconName = 'icon_experimental_land_directfire',
+    StrategicIconSortPriority = 45,
+    
+    Transport = {
+        TransportClass = 10,
+    },
+    
+    Veteran = {
+        Level1 = 75,
+        Level2 = 150,
+        Level3 = 225,
+        Level4 = 300,
+        Level5 = 375,
+    },
+    
+    Weapon = {
+        {
+            AboveWaterFireOnly = true,
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                BarrelLoop = Sound {
+                    Bank = 'URS',
+                    Cue = 'URS_Turret_Lrg_Loop',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                BarrelStart = Sound {
+                    Bank = 'URS',
+                    Cue = 'URS_Turret_Lrg_Start',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                Fire = Sound {
+                    Bank = 'XRL_Weapon',
+                    Cue = 'XRL0403_Proton_Cannon',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            AutoInitiateAttackCommand = false,
+			
+            BallisticArc = 'RULEUBA_LowArc',
+			
+            CollideFriendly = false,
+			
+            Damage = 1200,
+            DamageRadius = 2,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Proton Cannon',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
+                Water = 'Land|Water|Seabed',
+            },
+			
+            FiringRandomness = 0.3,
+            FiringRandomnessWhileMoving = 0.6,
+            FiringTolerance = 1,
+			
+            Label = 'MainGun',
+			
+            MaxRadius = 72,
+            MinRadius = 8,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 45,
+			
+            ProjectileId = '/projectiles/CDFProtonCannon05/CDFProtonCannon05_proj.bp',
+            ProjectileLifetime = 2,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'UCX0101_T01_B01_Muzzle01',
+                    },
+                    RackBone = 'UCX0101_T01_Barrel01',
+                },
+            },
+
+            RackRecoilDistance = -1,
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+			
+            RangeCategory = 'UWRC_IndirectFire',
+			
+            RateOfFire = 2,     -- 2400 DPS
+			
+            SlavedToBody = true,
+            SlavedToBodyArcRange = 110,
+			
+            TargetCheckInterval = 0.3,
+			
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'NAVAL MOBILE',
+                'TECH3 MOBILE',
+                'ALLUNITS -WALL',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TrackingRadius = 1.1,
+			
+            TurretBoneMuzzle = 'UCX0101_T01_B01_Muzzle01',
+            TurretBonePitch = 'UCX0101_T01_Barrel01',
+            TurretBoneYaw = 'UCX0101_Turret01',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 45,
+            TurretPitchSpeed = 45,
+			
+            TurretYaw = 0,
+            TurretYawRange = 360,
+            TurretYawSpeed = 50,
+			
+            Turreted = true,
+        },
+        {
+            AboveWaterFireOnly = true,
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                BeamLoop = Sound {
+                    Bank = 'URLWeapon',
+                    Cue = 'URL0402_Beam_Loop',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                BeamStart = Sound {
+                    Bank = 'URLWeapon',
+                    Cue = 'URL0402_Beam_Start',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                BeamStop = Sound {
+                    Bank = 'URLWeapon',
+                    Cue = 'URL0402_Beam_Stop',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                Unpack = Sound {
+                    Bank = 'URLWeapon',
+                    Cue = 'URL0402_Beam_Charge',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+
+            BallisticArc = 'RULEUBA_None',
+			
+            BeamCollisionDelay = 0.1,
+            BeamLifetime = 0.2,
+			
+            CollideFriendly = false,
+			
+            ContinuousBeam = true,
+			
+            Damage = 350,	-- 1400 DPS
+            DamageRadius = 0,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Heavy Microwave Laser',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
+                Water = 'Land|Water|Seabed',
+            },
+			
+            FiringTolerance = 2,
+			
+            HeadingArcCenter = 85,
+            HeadingArcRange = 95,
+			
+            Label = 'RightLaserTurret',
+			
+            MaxRadius = 46,
+            MinRadius = 2,
+			
+            MuzzleSalvoDelay = 0.4,
+            MuzzleSalvoSize = 2,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'UCX0101_T02_Muzzle01',
+						'UCX0101_T02_Muzzle02',
+                    },
+                    RackBone = 'UCX0101_Turret02',
+                },
+            },
+            
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 2,
+			
+            TargetCheckInterval = 0.4,
+            TargetPriorities = {
+                'LAND MOBILE',
+                'ALLUNITS -WALL',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+			
+            TrackingRadius = 1.15,
+			
+            TurretBoneMuzzle = 'UCX0101_Turret02',
+            TurretBonePitch = 'UCX0101_Turret02',
+            TurretBoneYaw = 'UCX0101_Turret02',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 80,
+            TurretPitchSpeed = 360,
+			
+            TurretYaw = 85,
+            TurretYawRange = 95,
+            TurretYawSpeed = 45,
+			
+            Turreted = true,
+        },
+        {
+            AboveWaterFireOnly = true,
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                BeamLoop = Sound {
+                    Bank = 'URLWeapon',
+                    Cue = 'URL0402_Beam_Loop',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                BeamStart = Sound {
+                    Bank = 'URLWeapon',
+                    Cue = 'URL0402_Beam_Start',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                BeamStop = Sound {
+                    Bank = 'URLWeapon',
+                    Cue = 'URL0402_Beam_Stop',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+                Unpack = Sound {
+                    Bank = 'URLWeapon',
+                    Cue = 'URL0402_Beam_Charge',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+            
+            BeamCollisionDelay = 0.1,
+            BeamLifetime = 0.2,
+            
+            CollideFriendly = false,
+            
+            ContinuousBeam = true,
+            
+            Damage = 350,	-- 1400 DPS
+            DamageRadius = 0,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Heavy Microwave Laser',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
+                Water = 'Land|Water|Seabed',
+            },
+            FiringTolerance = 2,
+            
+            HeadingArcCenter = -85,
+            HeadingArcRange = 95,
+            
+            Label = 'LeftLaserTurret',
+            
+            MaxRadius = 46,
+            MinRadius = 2,
+            
+            MuzzleSalvoDelay = 0.4,
+            MuzzleSalvoSize = 2,
+            
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'UCX0101_T03_Muzzle01',
+						'UCX0101_T03_Muzzle02',
+                    },
+                    RackBone = 'UCX0101_Turret03',
+                },
+            },
+
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+
+            RateOfFire = 2,
+            
+            TargetCheckInterval = 0.2,
+            TargetPriorities = {
+                'LAND MOBILE',
+                'ALLUNITS -WALL',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TrackingRadius = 1.15,
+            
+            TurretBoneMuzzle = 'UCX0101_T03_Muzzle01',
+            TurretBonePitch = 'UCX0101_Turret03',
+            TurretBoneYaw = 'UCX0101_Turret03',
+            TurretDualManipulators = false,
+            
+            TurretPitch = 0,
+            TurretPitchRange = 80,
+            TurretPitchSpeed = 360,
+            
+            TurretYaw = 275,
+            TurretYawRange = 95,
+            TurretYawSpeed = 50,
+            
+            Turreted = true,
+        },		
+        {
+            AboveWaterFireOnly = true,
+            AboveWaterTargetsOnly = true,
+            AlwaysRecheckTarget = true,
+			Audio = {
+				Fire = Sound {
+                    Bank = 'URLWeapon',
+                    Cue = 'URB2204_Cannon_Cloud',
+                    LodCutoff = 'Weapon_LodCutoff',
+				},
+			},
+            BallisticArc = 'RULEUBA_None',
+            CannotAttackGround = true,
+            CollideFriendly = false,
+            
+            Damage = 50,	-- 200 DPS Air
+            DamageFriendly = false,
+            DamageRadius = 1.8,
+            DamageType = 'Normal',
+            
+			DetonatesAtTargetHeight = true,
+            
+            DisplayName = 'Electron Flak',
+            
+            FireTargetLayerCapsTable = {
+                Land = 'Air',
+                Seabed = 'Air',
+                Water = 'Air',
+            },
+			FiringRandomness = 0.5,
+            FiringTolerance = 1,
+            
+            Label = 'AAGun1',
+            
+            LeadTarget = true,
+            
+            MaxRadius = 50,
+            
+            MuzzleSalvoDelay = 0.3,
+            MuzzleSalvoSize = 2,
+            MuzzleVelocity = 90,
+            
+            ProjectileId = '/projectiles/CAABurstCloud01/CAABurstCloud01_proj.bp',
+            ProjectileLifetimeUsesMultiplier = 1.0,
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'UCX0101_T04_Muzzle01',
+                    },
+                    RackBone = 'UCX0101_Turret04',
+                },
+            },
+            
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+
+            RangeCategory = 'UWRC_AntiAir',
+            
+            RateOfFire = 2,
+            
+            TargetCheckInterval = 0.3,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'HIGHPRIAIR',
+                'BOMBER',
+                'GROUNDATTACK',
+                'MOBILE',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TargetRestrictOnlyAllow = 'AIR',
+            TrackingRadius = 1.2,
+            
+            TurretBoneMuzzle = 'UCX0101_T04_Muzzle01',
+            TurretBonePitch = 'UCX0101_Turret04',
+            TurretBoneYaw = 'UCX0101_Turret04',
+            TurretDualManipulators = false,
+            
+            TurretPitch = 35,
+            TurretPitchRange = 55,
+            TurretPitchSpeed = 180,
+            
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 120,
+            
+            Turreted = true,
+        },
+        {
+            AboveWaterFireOnly = true,
+            AboveWaterTargetsOnly = true,
+            AlwaysRecheckTarget = true,
+			Audio = {
+				Fire = Sound {
+                    Bank = 'URLWeapon',
+                    Cue = 'URB2204_Cannon_Cloud',
+                    LodCutoff = 'Weapon_LodCutoff',
+				},
+			},
+            BallisticArc = 'RULEUBA_None',
+            CannotAttackGround = true,
+            CollideFriendly = false,
+            
+            Damage = 50,	-- 200 DPS Air
+            DamageFriendly = false,
+            DamageRadius = 1.8,
+            DamageType = 'Normal',
+            
+			DetonatesAtTargetHeight = true,
+            
+            DisplayName = 'Electron Flak',
+            
+            FireTargetLayerCapsTable = {
+                Land = 'Air',
+                Seabed = 'Air',
+                Water = 'Air',
+            },
+			FiringRandomness = 0.5,
+            FiringTolerance = 1,
+            
+            Label = 'AAGun2',
+            
+            LeadTarget = true,
+            
+            MaxRadius = 50,
+            
+            MuzzleSalvoDelay = 0.1,
+            MuzzleSalvoSize = 2,
+            MuzzleVelocity = 90,
+            
+            ProjectileId = '/projectiles/CAABurstCloud01/CAABurstCloud01_proj.bp',
+            ProjectileLifetimeUsesMultiplier = 1.0,
+            
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'UCX0101_T05_Muzzle01',
+                    },
+                    RackBone = 'UCX0101_Turret05',
+                },
+            },
+            
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+
+            RateOfFire = 2,
+            
+            TargetCheckInterval = 0.3,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'HIGHPRIAIR',
+                'BOMBER',
+                'GROUNDATTACK',
+                'MOBILE',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TrackingRadius = 1.4,
+            
+            TurretBoneMuzzle = 'UCX0101_T05_Muzzle01',
+            TurretBonePitch = 'UCX0101_Turret05',
+            TurretBoneYaw = 'UCX0101_Turret05',
+            TurretDualManipulators = false,
+            
+            TurretPitch = 35,
+            TurretPitchRange = 55,
+            TurretPitchSpeed = 180,
+            
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 120,
+            
+            Turreted = true,
+        },
+        {
+            AboveWaterFireOnly = true,
+            AboveWaterTargetsOnly = true,
+            AlwaysRecheckTarget = true,
+			Audio = {
+				Fire = Sound {
+                    Bank = 'URLWeapon',
+                    Cue = 'URB2204_Cannon_Cloud',
+                    LodCutoff = 'Weapon_LodCutoff',
+				},
+			},
+            BallisticArc = 'RULEUBA_None',
+            CannotAttackGround = true,
+            CollideFriendly = false,
+            
+            Damage = 50,	-- 200 DPS Air
+            DamageFriendly = false,
+            DamageRadius = 1.8,
+            DamageType = 'Normal',
+            
+			DetonatesAtTargetHeight = true,
+            
+            DisplayName = 'Electron Flak',
+            
+            FireTargetLayerCapsTable = {
+                Land = 'Air',
+                Seabed = 'Air',
+                Water = 'Air',
+            },
+            FiringRandomness = 0.5,
+            FiringTolerance = 1,
+            
+            Label = 'AAGun3',
+            LeadTarget = true,
+            
+            MaxRadius = 50,
+            
+            MuzzleSalvoDelay = 0.1,
+            MuzzleSalvoSize = 2,
+            MuzzleVelocity = 95,
+            
+            ProjectileId = '/projectiles/CAABurstCloud01/CAABurstCloud01_proj.bp',
+            ProjectileLifetimeUsesMultiplier = 1.0,
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'UCX0101_T06_Muzzle01',
+                    },
+                    RackBone = 'UCX0101_Turret06',
+                },
+            },
+            
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+
+            RateOfFire = 2,
+            
+            TargetCheckInterval = 0.3,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'HIGHPRIAIR',
+                'BOMBER',
+                'GROUNDATTACK',
+                'MOBILE',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TrackingRadius = 1.4,
+            
+            TurretBoneMuzzle = 'UCX0101_T06_Muzzle01',
+            TurretBonePitch = 'UCX0101_Turret06',
+            TurretBoneYaw = 'UCX0101_Turret06',
+            TurretDualManipulators = false,
+            
+            TurretPitch = 35,
+            TurretPitchRange = 55,
+            TurretPitchSpeed = 180,
+            
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 120,
+            
+            Turreted = true,
+        },
+        {
+            AboveWaterFireOnly = true,
+            AboveWaterTargetsOnly = true,
+            AlwaysRecheckTarget = true,
+			Audio = {
+				Fire = Sound {
+                    Bank = 'URLWeapon',
+                    Cue = 'URB2204_Cannon_Cloud',
+                    LodCutoff = 'Weapon_LodCutoff',
+				},
+			},
+            BallisticArc = 'RULEUBA_None',
+            CannotAttackGround = true,
+            CollideFriendly = false,
+            
+            Damage = 50,	-- 200 DPS Air
+            DamageFriendly = false,
+            DamageRadius = 1.6,
+            DamageType = 'Normal',
+            
+			DetonatesAtTargetHeight = true,
+            
+            DisplayName = 'Electron Flak',
+            
+            FireTargetLayerCapsTable = {
+                Land = 'Air',
+                Seabed = 'Air',
+                Water = 'Air',
+            },
+			FiringRandomness = 0.5,
+            FiringTolerance = 1,
+            
+            Label = 'AAGun4',
+            LeadTarget = true,
+            
+            MaxRadius = 50,
+            
+            MuzzleSalvoDelay = 0.1,
+            MuzzleSalvoSize = 2,
+            MuzzleVelocity = 95,
+            
+            ProjectileId = '/projectiles/CAABurstCloud01/CAABurstCloud01_proj.bp',
+            ProjectileLifetimeUsesMultiplier = 1.0,
+            
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'UCX0101_T07_Muzzle01',
+                    },
+                    RackBone = 'UCX0101_Turret07',
+                },
+            },
+            
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+
+            RateOfFire = 2,
+            
+            TargetCheckInterval = 0.3,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'HIGHPRIAIR',
+                'BOMBER',
+                'GROUNDATTACK',
+                'AIR MOBILE',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TrackingRadius = 1.4,
+            
+            TurretBoneMuzzle = 'UCX0101_T07_Muzzle01',
+            TurretBonePitch = 'UCX0101_Turret07',
+            TurretBoneYaw = 'UCX0101_Turret07',
+            TurretDualManipulators = false,
+            
+            TurretPitch = 35,
+            TurretPitchRange = 55,
+            TurretPitchSpeed = 180,
+            
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 120,
+            
+            Turreted = true,
+        },
+		{
+            AboveWaterTargetsOnly = true,
+            Damage = 7800,
+            DamageFriendly = true,
+            DamageRadius = 8,
+            DamageType = 'Normal',
+            DisplayName = 'Megalith Death',
+            DummyWeapon = true,
+            Label = 'MegalithDeath',
+            WeaponCategory = 'Death',
+        },        
+    },
+    
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0,
+        HealthMult = 0.9,
+        MassMult = 0.7,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Land = true,
+            Seabed = true,
+        },
+    },
+}

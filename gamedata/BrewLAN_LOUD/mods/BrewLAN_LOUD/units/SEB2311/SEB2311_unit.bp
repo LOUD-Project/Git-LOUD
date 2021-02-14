@@ -1,10 +1,10 @@
 UnitBlueprint {
     AI = {
         TargetBones = {
+            'SEB2311',
             'Front_Turret02',
         },
     },
-	
     Audio = {
         Destroyed = Sound {
             Bank = 'UELDestroy',
@@ -22,7 +22,6 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
-	
     Buffs = {
         Regen = {
             Level1 = 3,
@@ -37,24 +36,23 @@ UnitBlueprint {
             Level3 = 3,
             Level4 = 4,
             Level5 = 5,
-		},				
+		},
     },
-	
-    BuildIconSortPriority = 275,
-	
+    BuildIconSortPriority = 115,
     Categories = {
+        'PRODUCTBREWLAN',
         'SELECTABLE',
         'BUILTBYTIER3FIELD',
         'UEF',
         'STRUCTURE',
         'DEFENSE',
         'TECH3',
-        'DIRECTFIRE',
+        'INDIRECTFIRE',
         'DRAGBUILD',
         'SIZE4',
         'VISIBLETORECON',
         'RECLAIMABLE',
-        --'SHOWATTACKRETICLE',
+        'SHOWATTACKRETICLE',
         'OVERLAYINDIRECTFIRE',
         'SORTDEFENSE',
     },
@@ -67,22 +65,24 @@ UnitBlueprint {
         RegenRate = 3,
         SurfaceThreatLevel = 130.5,
     },
-	
-    Description = '<LOC sbui2311_desc>Anti-Armor Point Defense',
-	
+    Description = '<LOC seb2311_desc>Anti-Armor Point Defense',
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
                 {
-                    LODCutoff = 200,
+                    LODCutoff = 128,
+                    ShaderName = 'Unit',
+                },
+                {
+                    LODCutoff = 256,
                     ShaderName = 'Unit',
                     AlbedoName = '/units/UES0302/UES0302_albedo.dds',
-                    NormalsName = '/units/UES0302/UES0302_normalsts.dds',
+                    NormalsName = '/units/UES0302/UES0302_normalsTS.dds',
                     SpecularName = '/units/UES0302/UES0302_specteam.dds',
                 },
                 {
-                    LODCutoff = 415,
+                    LODCutoff = 512,
                     ShaderName = 'Unit',
                     AlbedoName = '/units/UES0302/UES0302_lod1_albedo.dds',
                     NormalsName = '/units/UES0302/UES0302_lod1_normalsTS.dds',
@@ -90,25 +90,30 @@ UnitBlueprint {
                 },
             },
         },
-
-        SpawnRandomRotation = true,
-
-        UniformScale = 0.09,
+        Tarmacs = {
+            {
+                Albedo = '/mods/BrewLAN_LOUD/env/Common/decals/Tarmacs/Tar7x_01_albedo.dds',
+                DeathLifetime = 300,
+                FadeOut = 150,
+                Length = 6.4,
+                Normal = '/mods/BrewLAN_LOUD/env/Common/decals/Tarmacs/Tar7x_01_normals.dds',
+                Orientations = {0, 90, 180, 270},
+                RemoveWhenDead = false,
+                Width = 6.4,
+            },
+        },
+        UniformScale = 0.13,
     },
-	
     Economy = {
         BuildCostEnergy = 45000,
         BuildCostMass = 4100,
         BuildTime = 4100,
-		
         RebuildBonusIds = {'seb2311'},
     },
-	
     Footprint = {
-        SizeX = 1,
-        SizeZ = 1,
+        SizeX = 2,
+        SizeZ = 2,
     },
-	
     General = {
 		CapCost = 2,
         Category = 'Defense',
@@ -134,19 +139,17 @@ UnitBlueprint {
         UnitName = '<LOC seb2311_name>Guardian',
         UnitWeight = 1,
     },
-	
     Intel = {
         VisionRadius = 30,
     },
-	
     Interface = {
-        HelpText = '<LOC seb2311_desc>Anti-Armor Point Defense',
+        HelpText = '<LOC sbui2311_desc>Anti-Armor Point Defense',
     },
-	
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.6,
     LifeBarSize = 2.2,
-	
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -160,34 +163,30 @@ UnitBlueprint {
         DragCoefficient = 0.2,
         FlattenSkirt = true,
         MaxSteerForce = 0,
-        MeshExtentsX = 2,
-        MeshExtentsY = 1.5,
-        MeshExtentsZ = 2,
+        MeshExtentsX = 3.1,
+        MeshExtentsY = 1.15,
+        MeshExtentsZ = 3.1,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_None',
-		
+
         SkirtOffsetX = -0.5,
         SkirtOffsetZ = -0.5,
-		
-        SkirtSizeX = 2,
-        SkirtSizeZ = 2,
-		
+        SkirtSizeX = 3,
+        SkirtSizeZ = 3,
         TurnRate = 0,
     },
+	SelectionCenterOffsetZ = -0.4,
+    SelectionSizeX = 1.25,
+    SelectionSizeZ = 1.25,
+    SelectionThickness = 0.48,
 
-	SelectionCenterOffsetZ = -0.2,
-    
-    SelectionSizeX = 1,
-    SelectionSizeZ = 1,
-    SelectionThickness = 0.4,
-	
-    SizeX = 1.1,
-    SizeY = 0.7,
-    SizeZ = 1.5,
-	
+    SizeX = 1.6,
+    SizeY = 1,
+    SizeZ = 1.6,
+
     StrategicIconName = 'icon_structure3_artillery',
     StrategicIconSortPriority = 205,
-	
+
     Veteran = {
         Level1 = 15,
         Level2 = 30,
@@ -195,11 +194,11 @@ UnitBlueprint {
         Level4 = 60,
         Level5 = 75,
     },
-	
+
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
-			
+
             Audio = {
                 BarrelLoop = Sound {
                     Bank = 'UES',
@@ -222,38 +221,40 @@ UnitBlueprint {
                     LodCutoff = 'WeaponBig_LodCutoff',
                 },
             },
-			
+
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
-			
+
             Damage = 900,
 			DamageFriendly = true,
             DamageRadius = 2,
+
+            DamageType = 'ShieldMult1.15',       -- class bonus
             DamageType = 'Normal',
-			
+
             DisplayName = 'Gauss Cannon',
-			
-            EnergyDrainPerSecond = 750,
-            EnergyRequired = 1875,
-			
+
+            EnergyDrainPerSecond = 390,     -- 2.5 second charge
+            EnergyRequired = 975,
+
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
             },
-			
-            FiringRandomness = 0.5,
-            FiringTolerance = 1.5,
-			
+
+            FiringRandomness = 0.75,
+            FiringTolerance = 1.2,
+
             Label = 'FrontTurret02',
-			
+
             MaxRadius = 85,
-			
+
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 36,
-			
+
             ProjectileId = '/projectiles/TDFGauss03/TDFGauss03_proj.bp',
             ProjectileLifetime = 2.8,
-			
+
             RackBones = {
                 {
                     MuzzleBones = {
@@ -281,45 +282,50 @@ UnitBlueprint {
                 },
             },
 
-            RackRecoilDistance = -0.4,
-            
+            RackRecoilDistance = -0.25,
+
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
-			
+
             RangeCategory = 'UWRC_IndirectFire',
-			
-            RateOfFire = 5,	-- 2.5 seconds to charge = 360 DPS
-			
+
+            RateOfFire = 1,	-- 2.5 seconds to charge = 360 DPS
+            SlavedToBody = false,
+
             TargetCheckInterval = 3,
-			
+
             TargetPriorities = {
                 'SPECIALHIGHPRI',
+                'SHIELD',
                 'MOBILE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.15,
-			
+
             TurretBoneMuzzle = 'Front_Turret02_Muzzle02',
             TurretBonePitch = 'Front_Turret02_Barrel02',
             TurretBoneYaw = 'Front_Turret02',
             TurretDualManipulators = false,
-			
+
             TurretPitch = 10,
             TurretPitchRange = 24,
             TurretPitchSpeed = 10,
-			
+
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 27,
-			
+            TurretYawSpeed = 22,
+
             Turreted = true,
+            WeaponCategory = 'Indirect Fire',
+            WeaponRepackTimeout = 0,
+            WeaponUnpacks = false,
         },
     },
-	
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

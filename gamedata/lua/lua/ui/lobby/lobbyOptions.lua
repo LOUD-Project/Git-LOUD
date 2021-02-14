@@ -108,17 +108,38 @@ teamOptions = {
 			},
 		},
     },
-    
+    {
+        default = 1,
+        label = "Evenly Distributed Random Factions",
+        help = 'Promote a more even spread of factions among players which choose to receive theirs randomly.',
+        key = 'EvenFactions',
+        pref = 'Lobby_Even_Factions',
+        values = {
+            {
+                text = "<LOC lobui_0312>Off",
+                help = "No manipulation of randomness during random faction selection.",
+                key = 'off',
+            },
+            {
+                text = "<LOC lobui_0314>On",
+                help = "Faction randomization will be more evenly spread.",
+                key = 'on',
+            },
+        },
+    },
+
 }
 
 globalOpts = {
 
     {
-        default = 9,
+        default = '800',
         label = "Unit Cap",
         help = "Set the maximum number of units that can be in play by one player",
         key = 'UnitCap',
         pref = 'Lobby_Gen_Cap',
+        type = 'edit',
+        valid = '^%d+$',
         values = {
             {
                 text = "400",
@@ -174,7 +195,7 @@ globalOpts = {
                 text = "900",
                 help = "900 units per player may be in play",
                 key = '900',
-            },            
+            },
             {
                 text = "1000",
                 help = "1000 units per player may be in play",
@@ -485,11 +506,13 @@ advGameOptions = {
 advAIOptions = {
 
     {
-        default = 2,
+        default = '30',
         label = "Feedback Cheat Interval",
         help = "If an AI is affected by feedback cheating, this is the time period in seconds between possible changes to its cheat multiplier. Increase for better performance.",
         key = "ACTRatioInterval",
         pref = 'Lobby_ACT_Ratio_Interval',
+        type = 'edit',
+        valid = '^%d+$',
         values = {
             {
                 text = "15",
@@ -508,48 +531,52 @@ advAIOptions = {
             },
         },
     },
-    
-    { 
-        default = 1, 
-        label = "Feedback Cheat Scale", 
-        help = "If an AI is affected by feedback cheating, this is the scale which affects the multiplier increase. Mouseover an option for more information.", 
-        key = "ACTRatioScale", 
-        pref = 'Lobby_ACT_Ratio_Scale', 
-        values = { 
-            { 
-                text = "1", 
-                help = "The AI's cheat multiplier will increase by a maximum of 0.5.", 
-                key = "1", 
-            }, 
-            { 
-                text = "2", 
-                help = "The AI's cheat multiplier will increase by a maximum of 1.0.", 
-                key = "2", 
-            }, 
-            { 
-                text = "3", 
-                help = "The AI's cheat multiplier will increase by a maximum of 1.5", 
-                key = "3", 
-            }, 
-        }, 
-    },     
 
     {
-        default = 1,
+        default = '1',
+        label = "Feedback Cheat Scale",
+        help = "If an AI is affected by feedback cheating, this is the scale which affects the multiplier increase. At 1, the cheat will increase by a max of 0.5.",
+        key = "ACTRatioScale",
+        pref = 'Lobby_ACT_Ratio_Scale',
+        type = 'edit',
+        valid = '^%d+$',
+        values = {
+            {
+                text = "1",
+                help = "The AI's cheat multiplier will increase by a maximum of 0.5.",
+                key = "1",
+            },
+            {
+                text = "2",
+                help = "The AI's cheat multiplier will increase by a maximum of 1.0.",
+                key = "2",
+            },
+            {
+                text = "3",
+                help = "The AI's cheat multiplier will increase by a maximum of 1.5",
+                key = "3",
+            },
+        },
+    },
+
+    {
+        default = '5',
         label = "Timed Cheat Start Delay",
         help = "If an AI cheats more with time, this is the delay in minutes before any changes start happening.",
         key = "ACTStartDelay",
         pref = 'Lobby_ACT_Start_Delay',
+        type = 'edit',
+        valid = '^%d+$',
         values = {
             {
                 text = "0",
                 help = "The AI's cheat multiplier will start right from the start of the game.",
                 key = '0',
-            },        
+            },
             {
-                text = "6",
-                help = "The AI's cheat multiplier will not start changing until 6 minutes have passed.",
-                key = '6',
+                text = "5",
+                help = "The AI's cheat multiplier will not start changing until 5 minutes have passed.",
+                key = '5',
             },
             {
                 text = "10",
@@ -564,11 +591,13 @@ advAIOptions = {
         },
     },
     {
-        default = 1,
+        default = '5',
         label = "Timed Cheat Delay",
         help = "If an AI cheats more with time, this is the delay in minutes between each difficulty increase.",
         key = "ACTTimeDelay",
         pref = 'Lobby_ACT_Time_Delay',
+        type = 'edit',
+        valid = '^%d+$',
         values = {
             {
                 text = "6",
@@ -588,22 +617,29 @@ advAIOptions = {
         },
     },
     {
-        default = 4,
+        default = '0.02',
         label = "Timed Cheat Amount",
-        help = "If an AI cheats more with time, this is how much the difficulty increases every interval.",
+        help = "If an AI cheats more with time, this is how much the difficulty increases every interval. Can be negative.",
         key = "ACTTimeAmount",
         pref = 'Lobby_ACT_Time_Amount',
+        type = 'edit',
+        valid = {
+            '^%d+$',
+            '^%d+%.%d+$',
+            '^%-%d+$',
+            '^%-%d+%.%d+$',
+        },
         values = {
             {
                 text = "-0.02",
                 help = "The AI's cheat multiplier will decrease by 0.02 every interval.",
                 key = '-.02',
-            },          
+            },
             {
                 text = "-0.01",
                 help = "The AI's cheat multiplier will decrease by 0.01 every interval.",
                 key = '-.01',
-            },            
+            },
             {
                 text = "0.01",
                 help = "The AI's cheat multiplier will increase by 0.01 every interval.",
@@ -622,32 +658,53 @@ advAIOptions = {
         },
     },
     {
-        default = 3,
+        default = '2',
         label = "Timed Cheat Limit",
-        help = "If an AI cheats more with time, its cheat multiplier cannot go higher than the selected number.",
+        help = "If an AI cheats more with time, its cheat multiplier cannot pass the selected number.",
         key = "ACTTimeCap",
         pref = 'Lobby_ACT_Time_Cap',
+        type = 'edit',
+        valid = {
+            '^%d+$',
+            '^%d+%.%d+$',
+        },
         values = {
             {
+                text = "0.8",
+                help = "The AI's cheat multiplier will never pass 0.8.",
+                key = '0.8',
+            },
+            {
+                text = "1.0",
+                help = "The AI's cheat multiplier will never pass 1.0.",
+                key = '1',
+            },
+            {
+                text = "1.10",
+                help = "The AI's cheat multiplier will never pass 1.10.",
+                key = '1.1',
+            },
+            {
+                text = "1.25",
+                help = "The AI's cheat multiplier will never pass 1.25.",
+                key = '1.25',
+            },
+            {
                 text = "2.0",
-                help = "The AI's cheat multiplier will never go higher than 2.0.",
+                help = "The AI's cheat multiplier will never pass 2.0.",
                 key = '2',
             },
             {
                 text = "3.0",
-                help = "The AI's cheat multiplier will never go higher than 3.0.",
+                help = "The AI's cheat multiplier will never pass 3.0.",
                 key = '3',
             },
             {
                 text = "4.0",
-                help = "The AI's cheat multiplier will never go higher than 4.0.",
+                help = "The AI's cheat multiplier will never pass 4.0.",
                 key = '4',
             },
         },
     },
 
-}
-
-hiddenOptions = {
-    
 }

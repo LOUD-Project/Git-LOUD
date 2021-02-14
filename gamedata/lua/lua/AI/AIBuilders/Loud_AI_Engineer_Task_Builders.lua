@@ -56,7 +56,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 		
         Priority = 750,
 		
-        InstanceCount = 2,
+        InstanceCount = 3,
 		
         BuilderType = { 'SubCommander' },
 		
@@ -88,7 +88,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 		
         Priority = 750,
 		
-        InstanceCount = 2,
+        InstanceCount = 3,
 		
         BuilderType = { 'SubCommander' },
 		
@@ -120,7 +120,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 		
         Priority = 750,
 		
-        InstanceCount = 2,
+        InstanceCount = 3,
 		
         BuilderType = { 'SubCommander' },
 		
@@ -152,7 +152,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 		
         Priority = 750,
 		
-        InstanceCount = 1,
+        InstanceCount = 2,
 		
         BuilderType = { 'SubCommander' },
 		
@@ -347,14 +347,14 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 		
 		PlatoonAIPlan = 'EngineerAssistAI',
 		
-        Priority = 701,
+        Priority = 750,
 		
 		InstanceCount = 8,
 		
 		BuilderType = { 'T2','T3','SubCommander' },
 		
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioLessThan', { 1 } },
+            { LUTL, 'AirStrengthRatioLessThan', { 1.1 } },
             
 			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},
             
@@ -381,14 +381,14 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 		
 		PlatoonAIPlan = 'EngineerAssistAI',
 		
-        Priority = 701,
+        Priority = 750,
 		
 		InstanceCount = 8,
 		
 		BuilderType = { 'T2','T3','SubCommander' },
 		
         BuilderConditions = {
-            { LUTL, 'LandStrengthRatioLessThan', { 1 } },
+            { LUTL, 'LandStrengthRatioLessThan', { 1.1 } },
             
 			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},
             
@@ -415,7 +415,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 		
 		PlatoonAIPlan = 'EngineerAssistAI',
 		
-        Priority = 700,
+        Priority = 745,
 		
 		InstanceCount = 5,
 		

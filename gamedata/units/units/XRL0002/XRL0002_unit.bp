@@ -34,6 +34,7 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
         'SHOWQUEUE',
+		'INSIGNIFICANTUNIT',
     },
     Defense = {
         ArmorType = 'Normal',
@@ -94,7 +95,7 @@ UnitBlueprint {
             RULEUCC_Transport = false,
         },
         FactionName = 'Cybran',
-        Icon = 'amph',
+        Icon = 'land',
         TechLevel = 'RULEUTL_Secret',
         UnitWeight = 1,
     },

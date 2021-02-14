@@ -16,9 +16,11 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+    
     Buffs = {},
 	
     BuildIconSortPriority = 310,
+    
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2ENGINEER',
@@ -44,7 +46,8 @@ UnitBlueprint {
         ArmorType = 'Structure',
         Health = 6100,
         MaxHealth = 6100,
-        RegenRate = 3,
+        RegenRate = 5,
+        
         SubThreatLevel = 24,
     },
 	
@@ -144,12 +147,15 @@ UnitBlueprint {
         VisionRadius = 30,
         WaterVisionRadius = 40,
     },
+    
     Interface = {
         HelpText = 'Improved Torpedo Launcher',
     },
+    
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.6,
     LifeBarSize = 1.25,
+    
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -174,14 +180,18 @@ UnitBlueprint {
         SkirtSizeZ = 3,
         TurnRate = 0,
     },
+    
     SelectionSizeX = 1,
     SelectionSizeZ = 1,
     SelectionThickness = 0.6,
+    
     SizeX = 1.5,
     SizeY = 2.0,
     SizeZ = 1.5,
+    
     StrategicIconName = 'icon_structure2_antinavy',
     StrategicIconSortPriority = 200,
+    
     Veteran = {
         Level1 = 10,
         Level2 = 20,
@@ -189,6 +199,7 @@ UnitBlueprint {
         Level4 = 40,
         Level5 = 50,
     },
+    
     Weapon = {
         {
             Audio = {

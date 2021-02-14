@@ -101,20 +101,11 @@ SAB4401 = Class(AShieldStructureUnit) {
 
     CreateProjectedShieldBubble = function(self, target)
 	
-        local Bp = self:GetBlueprint()
-		
-        --Define targets shield
-        local spec = Bp.Defense.TargetShield
-        local tBp = target:GetBlueprint()
-		
-        spec.ShieldSize = math.max(tBp.Footprint.SizeX or 0, tBp.Footprint.SizeZ or 0, tBp.SizeX or 0, tBp.SizeX or 0, tBp.SizeY or 0, tBp.SizeZ or 0, tBp.Physics.MeshExtentsX or 0, tBp.Physics.MeshExtentsY or 0, tBp.Physics.MeshExtentsZ or 0) * 1.5
+        -- Create shield
+        target:CreateProjectedShield(__blueprints.sab4401.Defense.TargetShield)
 
-        --Create shield
-        target:CreateProjectedShield(spec)
-
-        --Define self as projector of shield
+        -- Define self as projector of shield
         if not target.Projectors then target.Projectors = {} end
-		
         target.Projectors[self:GetEntityId()] = self
     end,
 

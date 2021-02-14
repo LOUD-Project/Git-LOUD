@@ -752,7 +752,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			
             PrioritizedCategories = { categories.AIR - categories.INTELLIGENCE - categories.TRANSPORTFOCUS },
 			
-			SearchRadius = 40,	
+			SearchRadius = 45,	
 			
             UseFormation = 'AttackFormation',
         },
@@ -791,9 +791,9 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			
             MissionTime = 90,
 			
-            PrioritizedCategories = { categories.AIR * categories.INTELLIGENCE },
+            PrioritizedCategories = { categories.AIR * categories.INTELLIGENCE, categories.TRANSPORTFOCUS },
 			
-			SearchRadius = 45,	
+			SearchRadius = 55,	
 			
             UseFormation = 'AttackFormation',
         },
@@ -832,9 +832,9 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			
             MissionTime = 90,
 			
-            PrioritizedCategories = {categories.AIR * categories.TRANSPORTFOCUS },
+            PrioritizedCategories = { categories.TRANSPORTFOCUS, categories.AIR * categories.INTELLIGENCE },
 			
-			SearchRadius = 45,	
+			SearchRadius = 55,	
 			
             UseFormation = 'AttackFormation',
         },
@@ -878,7 +878,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			
             PrioritizedCategories = { categories.MOBILE * categories.AIR},
 			
-			SearchRadius = 60,
+			SearchRadius = 70,
 			
             UseFormation = 'AttackFormation',
         },
@@ -921,7 +921,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
             
             PrioritizedCategories = { categories.MOBILE * categories.AIR * categories.EXPERIMENTAL, categories.MOBILE * categories.AIR - categories.INTELLIGENCE },
             
-			SearchRadius = 80,
+			SearchRadius = 90,
             
             UseFormation = 'AttackFormation',
         },

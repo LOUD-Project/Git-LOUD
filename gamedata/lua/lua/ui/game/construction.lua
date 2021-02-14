@@ -3215,9 +3215,11 @@ function OnSelection(buildableCategories, selection, isOldSelection)
         else
             controls.constructionTab:Disable()
             if BuildMode.IsInBuildMode() then
-                BuildMode.ToggleBuildMode()
+                BuildMode.ToggleBuildMode()    
             end
         end
+        
+        
 
         sortedOptions.selection = selection
         controls.selectionTab:Enable()

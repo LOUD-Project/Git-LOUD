@@ -69,7 +69,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 384.5,
     },
 	
-    Description = '<LOC brmt3mcm_desc>Experimental Light Assault Mech',
+    Description = '<LOC brmt3mcm_desc>Experimental Medium Assault Mech',
 	
     Display = {
         Abilities = {
@@ -193,7 +193,7 @@ UnitBlueprint {
     },
     
     Interface = {
-        HelpText = 'Experimental Light Assault Mech',
+        HelpText = 'Experimental Medium Assault Mech',
     },
     
     LifeBarHeight = 0.075,
@@ -211,17 +211,23 @@ UnitBlueprint {
             LAYER_Water = false,
         },
         DragCoefficient = 0.2,
+        
         MaxAcceleration = 1.5,
         MaxBrake = 3.0,
         MaxSpeed = 3.0,
         MaxSpeedReverse = 2,
+        
         MaxSteerForce = 10,
+        
         MinSpeedPercent = 0,
+        
         MotionType = 'RULEUMT_Amphibious',
+        
         SkirtOffsetX = -0.5,
         SkirtOffsetZ = -0.5,
-        SkirtSizeX = 4.0,
-        SkirtSizeZ = 4.0,
+        SkirtSizeX = 3.0,
+        SkirtSizeZ = 3.0,
+        
         TurnRadius = 5,
         TurnRate = 35,
     },
@@ -824,9 +830,9 @@ UnitBlueprint {
     },
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.1,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,

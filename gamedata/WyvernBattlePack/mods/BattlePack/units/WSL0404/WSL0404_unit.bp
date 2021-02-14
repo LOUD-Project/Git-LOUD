@@ -56,6 +56,7 @@ UnitBlueprint {
         'LAND',
         'AMPHIBIOUS',
         'INDIRECTFIRE',
+        'ARTILLERY',
         'EXPERIMENTAL',
         'NEEDMOBILEBUILD',
         'VISIBLETORECON',
@@ -65,16 +66,17 @@ UnitBlueprint {
     
     Defense = {
         AirThreatLevel = 14,
+        
         ArmorType = 'Normal',
 
-        Health = 31000,
-        MaxHealth = 31000,
-        RegenRate = 15,
+        Health = 21000,
+        MaxHealth = 21000,
+        RegenRate = 12,
 
         SurfaceThreatLevel = 427.9,
     },
     
-    Description = 'Experimental Mobile Artillery',
+    Description = 'Experimental Light Mobile Artillery',
     
     Display = {
 		Abilities = {
@@ -115,7 +117,7 @@ UnitBlueprint {
     },
     
     Economy = {
-        BuildCostEnergy = 150000,
+        BuildCostEnergy = 165000,
         BuildCostMass = 13500,
         BuildTime = 2500,
     },
@@ -151,7 +153,7 @@ UnitBlueprint {
     },
     
     Interface = {
-        HelpText = 'Experimental Mobile Artillery',
+        HelpText = 'Light Mobile Artillery',
     },
     
     LifeBarHeight = 0.15,
@@ -184,8 +186,8 @@ UnitBlueprint {
         
         MotionType = 'RULEUMT_Amphibious',
         
-		SkirtOffsetX = 1,
-        SkirtOffsetZ = 1,
+		SkirtOffsetX = -0.5,
+        SkirtOffsetZ = -0.5,
         
         SkirtSizeX = 4,
         SkirtSizeZ = 4,
@@ -246,28 +248,28 @@ UnitBlueprint {
             
             Damage = 5000,
             DamageFriendly = true,
-            DamageRadius = 5,
-            DamageType = 'ShieldMult1.2',
+            DamageRadius = 3.5,
+            DamageType = 'ShieldMult1.2',       -- unique bonus --
             
             DisplayName = 'Suthanus Field Mortar',
             
-            EnergyDrainPerSecond = 1000,
-            EnergyRequired = 2500,          -- 2.5 second energy drain
+            EnergyDrainPerSecond = 2143,    -- the E drain for this unit is partly offset by energy being created in the unit
+            EnergyRequired = 7500,          -- 3.5 second energy drain
             
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
-            FiringRandomness = 1.6,
+            FiringRandomness = 1.3,
             FiringTolerance = 2,
             
             Label = 'MainWeapon',
             
-            MaxRadius = 99,
+            MaxRadius = 90,
             MinRadius = 8,
             
-            MuzzleChargeDelay = 2.5,        -- 2.5 second charge delay
+            MuzzleChargeDelay = 1.5,        -- 1.5 second charge delay
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
 			MuzzleVelocity = 22,
@@ -294,7 +296,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_IndirectFire',
             
-            RateOfFire = 1,       -- 5000 / 5 = 1000 DPS
+            RateOfFire = 1,       -- controlled by charge -- 5000 / 5 = 1000 DPS
             
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -501,7 +503,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,

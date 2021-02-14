@@ -208,22 +208,36 @@ UnitBlueprint {
             },
             BallisticArc = 'RULEUBA_HighArc',
 			
-            CameraShakeDuration = 0.5,
-            CameraShakeMax = 1.5,
+            Buffs = {
+            	{
+                    Add = {
+                        OnImpact = true,
+                    },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 2,
+                    Radius = 2.5,
+                    TargetAllow = 'LAND,NAVAL,TECH1,TECH2,TECH3',
+                    TargetDisallow = 'EXPERIMENTAL,AIR,COMMAND,WALL',
+                },
+            },
+
+            CameraShakeDuration = 0.4,
+            CameraShakeMax = 1.2,
             CameraShakeMin = 0,
-            CameraShakeRadius = 20,
+            CameraShakeRadius = 15,
 			
             CollideFriendly = false,
 			
             Damage = 4250,
             DamageFriendly = true,
-            DamageRadius = 6,
+            DamageRadius = 5.2,
             DamageType = 'Normal',
 			
             DisplayName = 'Proton Artillery',
 			
-            EnergyDrainPerSecond = 700,
-            EnergyRequired = 7000,
+            EnergyDrainPerSecond = 2705,        -- 10 second charge --
+            EnergyRequired = 27050,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -265,7 +279,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,	---- 5000 every 10 seconds but large area effect
+            RateOfFire = 1,	---- 4250 every 10 seconds but large area effect
 			
             TargetCheckInterval = 5,
             TargetPriorities = {

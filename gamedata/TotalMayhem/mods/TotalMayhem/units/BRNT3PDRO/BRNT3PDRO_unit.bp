@@ -23,9 +23,11 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+    
     Buffs = {},
 	
     BuildIconSortPriority = 110,
+    
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3ENGINEER',
@@ -42,15 +44,20 @@ UnitBlueprint {
         'OVERLAYDIRECTFIRE',
         'SORTDEFENSE',
     },
+    
     CollisionOffsetY = -0.0,
+    
     Defense = {
         ArmorType = 'Structure',
-        Health = 3000,
-        MaxHealth = 3000,
+        Health = 2500,
+        MaxHealth = 2500,
         RegenRate = 2,
+        
         SurfaceThreatLevel = 106.1,
     },
+    
     Description = '<LOC brnt3pdro_desc>Rocket System',
+    
     Display = {
         Mesh = {
             IconFadeInZoom = 160,
@@ -82,15 +89,17 @@ UnitBlueprint {
         },
         UniformScale = 0.066,
     },
+    
     Economy = {
         BuildCostEnergy = 40000,
-        BuildCostMass = 2700,
+        BuildCostMass = 3250,
         BuildTime = 2700,
-        RebuildBonusIds = {
-            'BRNT3PDRO',
-        },
+        
+        RebuildBonusIds = {'BRNT3PDRO'},
     },
+    
     General = {
+        CapCost = 5,
         Category = 'Defense',
         Classification = 'RULEUC_Weapon',
         CommandCaps = {
@@ -114,15 +123,19 @@ UnitBlueprint {
         UnitName = '<LOC brnt3pdro_name>Rocket Pad',
         UnitWeight = 1,
     },
+    
     Intel = {
         VisionRadius = 28,
     },
+    
     Interface = {
         HelpText = 'Rocket Defense System',
     },
+    
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.5,
     LifeBarSize = 1.25,
+    
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -147,6 +160,7 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+    
     SelectionSizeX = 0.7,
     SelectionSizeZ = 0.7,
     SelectionThickness = 0.55,
@@ -157,6 +171,7 @@ UnitBlueprint {
 	
     StrategicIconName = 'icon_structure3_directfire',
     StrategicIconSortPriority = 200,
+    
     Veteran = {
         Level1 = 16,
         Level2 = 32,
@@ -164,10 +179,13 @@ UnitBlueprint {
         Level4 = 64,
         Level5 = 80,
     },
+    
     Weapon = {
         {
             AimsStraightOnDisable = true,
             AboveWaterTargetsOnly = true,
+            ArtilleryShieldBlocks = true,
+            
             Audio = {
                 BarrelLoop = Sound {
                     Bank = 'UES',
@@ -190,14 +208,20 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
+            
             BallisticArc = 'RULEUBA_LowArc',
+            
             CollideFriendly = false,
 			
             Damage = 1000,
-            DamageRadius = 4,
+            DamageFriendly = true,
+            DamageRadius = 3.5,
             DamageType = 'Normal',
 			
             DisplayName = 'Heavy Rockets',
+            
+            EnergyRequired = 14100,
+            EnergyDrainPerSecond = 1856,     -- 7.6 seconds to charge
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -205,14 +229,14 @@ UnitBlueprint {
             },
 			
             FiringTolerance = 0.5,
-            FiringRandomness = 4,
+            FiringRandomness = 1,
 			
             Label = 'MainGun',
 			
             MaxRadius = 100,
             MinRadius = 24,
 			
-            MuzzleSalvoDelay = 0.8,
+            MuzzleSalvoDelay = 0.6,         -- 2.4 seconds firing cycle
             MuzzleSalvoSize = 4,
             MuzzleVelocity = 23,
             MuzzleVelocityRandom = 2,
@@ -242,8 +266,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.1,	-- 4000 Dmg every 10 = 400 DPS
-			RenderFireClock = true,
+            RateOfFire = 1,	-- 4000 Dmg every 10 = 400 DPS  -- controlled by charge --
 			
             TargetCheckInterval = 2,
             TargetPriorities = {
@@ -265,7 +288,7 @@ UnitBlueprint {
             TurretPitchSpeed = 15,
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 16,
+            TurretYawSpeed = 26,
             Turreted = true,
 
             WeaponRepackTimeout = 1,

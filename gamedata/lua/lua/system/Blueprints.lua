@@ -922,7 +922,7 @@ function ModBlueprints(all_blueprints)
 						EnergyMult = 0.3,
 						HealthMult = 0.9,
 						LifeTime = 720,	-- give naval wreckage a lifetime value of 12 minutes
-						MassMult = 0.8,
+						MassMult = 0.6,
 						ReclaimTimeMultiplier = 1,
 						
 						WreckageLayers = {
@@ -945,11 +945,17 @@ function ModBlueprints(all_blueprints)
 			
 				if bp.Wreckage then
 				
-					if not bp.Wreckage.Lifetime then
+					if not bp.Wreckage.LifeTime then
 
-						bp.Wreckage.Liftime = 900
+						bp.Wreckage.LifeTime = 900
 						
 					end
+                    
+                    if bp.Wreckage.MassMult and bp.Wreckage.MassMult > 0.3 then
+                    
+                        bp.Wreckage.MassMult = bp.Wreckage.MassMult * 0.6
+                        
+                    end
 				end
 			end
 		end
@@ -1005,28 +1011,6 @@ function ModBlueprints(all_blueprints)
 		end
 	end
 
-	-- adjust projectile values
---[[
-    local initialMultFactor = 1.0
-    local turnMultFactor = 1.0
-
-    for id, bp in all_blueprints.Projectile do
-	
-        if bp.Physics.TurnRate then
-            bp.Physics.TurnRate = bp.Physics.TurnRate * turnMultFactor
-        end
-
-        if bp.Physics.MaxSpeed then
-            bp.Physics.MaxSpeed = bp.Physics.MaxSpeed * initialMultFactor
-        end
-		
-        if bp.Physics.Acceleration then
-            bp.Physics.Acceleration = bp.Physics.Acceleration * initialMultFactor
-        end
-		
-    end
---]]
-
 end
 
 
@@ -1066,12 +1050,60 @@ function LoadBlueprints()
 	
 	LOG("Loaded "..rcount.." std resources")	
 	
-    for i,m in __active_mods do
-	
+	local interExcludes = {}
+
+	-- First check for inter-mod exclusions
+	for i, m in __active_mods do
+		local env = {}
+		local eOk, eResult = pcall(doscript, m.location..'/excludes.lua', env)
+		if eOk then
+			for _, e in env do
+				if e.mod then
+					if not interExcludes[e.mod] then
+						interExcludes[e.mod] = {}
+					end
+					e.always = true
+					table.insert(interExcludes[e.mod], e)
+					-- interExcludes[e.mod] = e
+				end
+			end
+		end
+	end
+
+	for i, m in __active_mods do
+		-- If this mod has config files, check if it also has an excludes file 
+		local env = {}
+		local excl = {}
+		local eOk, eResult = pcall(doscript, m.location..'/excludes.lua', env)
+		local interex = interExcludes[m.uid] ~= nil
+		if eOk or interex then
+			if interex then
+				for _, v in interExcludes[m.uid] do
+					table.insert(env, v)
+				end
+			end
+			-- Check every exclusion block to see if modconfig activates it
+			for _, e in env do
+				if e.mod and e.mod ~= m.uid then
+					continue -- Ignore exclusions bound for other mods
+				end
+				if e.key == m.config[e.combo] or e.always then
+					for _, ex in e.values do
+						local path = string.format("%s/units/%s/%s_unit.bp", m.location, ex, ex)
+						excl[string.lower(path)] = true
+					end
+				end
+			end
+		end
+
 		LOG("loading resources from mod at "..m.location)
 		count = 0
 		
-        for k,file in DiskFindFiles(m.location, '*.bp') do
+		for k,file in DiskFindFiles(m.location, '*.bp') do
+			
+			if excl[file] then
+				continue
+			end
 		
             BlueprintLoaderUpdateProgress()
 			

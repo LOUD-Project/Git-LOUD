@@ -576,7 +576,10 @@ function UpdateWindow(info)
             end
 			
             controls.abilities.Width:Set(maxWidth)
-            controls.abilities.Height:Set(function() return controls.abilityText[1].Height() * table.getsize(controls.abilityText) end)
+            
+            if controls.abilityText[1] then
+                controls.abilities.Height:Set(function() return controls.abilityText[1].Height() * table.getsize(controls.abilityText) end)
+            end    
 			
             if controls.abilities:IsHidden() then
 			
@@ -605,6 +608,7 @@ function UpdateWindow(info)
         -- shield max health and regen rate due to enhancements or other buffs
         
         controls.Buildrate:Hide()
+        controls.BuildrateIcon:Hide()
         controls.shieldText:Hide()
 
 		-- works properly but i've yet to find a good spot to put that data in
@@ -717,8 +721,10 @@ function UpdateWindow(info)
         if info.userUnit != nil and info.userUnit:GetBuildRate() >= 2 then
             controls.Buildrate:SetText(string.format("%d",LOUDFLOOR(info.userUnit:GetBuildRate())))
             controls.Buildrate:Show()
+            controls.BuildrateIcon:Show()
         else
             controls.Buildrate:Hide()
+            controls.BuildrateIcon:Hide()
         end   
 
         controls.SCUType:Hide()
@@ -833,6 +839,8 @@ function CreateUI()
     -- expanded unit stats also from GAZ
     controls.shieldText = UIUtil.CreateText(controls.bg, '', 13, UIUtil.bodyFont)
     controls.Buildrate = UIUtil.CreateText(controls.bg, '', 12, UIUtil.bodyFont)
+    controls.Buildrate:SetDropShadow(true)
+    controls.BuildrateIcon = Bitmap(controls.bg, UIUtil.UIFile('/game/unit_view_icons/build.dds'))
 
     -- these are available but not implemented - showing storage values --
 	-- controls.StorageMass = UIUtil.CreateText(controls.bg, '', 12, UIUtil.bodyFont)

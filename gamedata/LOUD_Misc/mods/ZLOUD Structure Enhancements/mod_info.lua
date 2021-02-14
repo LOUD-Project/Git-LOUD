@@ -1,0 +1,17 @@
+name = "LOUD Structure Upgrades"
+uid = "ffffffff-ffff-ffff-ffff-fffffffffffe"
+version = 2.0
+copyright = "None"
+description = "Adds production and defensive enhancements to factories and upgrades to other structures."
+author = "Sprouto"
+url = ""
+icon = "/mods/ZLOUD Structure Enhancements/LOUD_Structure_Enhancements.png"
+selectable = true
+enabled = true
+exclusive = false
+ui_only = false
+requires = { }
+requiresNames = { }
+conflicts = { }
+before = { }
+after = { }

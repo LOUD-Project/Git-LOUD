@@ -1,5 +1,6 @@
 UnitBlueprint {
     Adjacency = 'T1MassStorageAdjacencyBuffs',
+    
     Audio = {
         Destroyed = Sound {
             Bank = 'UALDestroy',
@@ -12,7 +13,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+    
     BuildIconSortPriority = 50,
+    
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1ENGINEER',
@@ -30,6 +33,7 @@ UnitBlueprint {
 		'SHOWQUEUE',
         'SORTECONOMY',
     },
+    
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 21,		-- 1% Storage + 1% Health
@@ -37,7 +41,9 @@ UnitBlueprint {
         MaxHealth = 1600,
         RegenRate = 1,
     },
+    
     Description = '<LOC uab1106_desc>Basic Mass Storage',
+    
     Display = {
         Abilities = {
 			'Adjacency bonuses to Mass Production',
@@ -62,6 +68,7 @@ UnitBlueprint {
 
         UniformScale = 0.12,
     },
+    
     Economy = {
         AdjacentMassProductionMod = 0.25,
         BuildCostEnergy = 1500,
@@ -76,12 +83,13 @@ UnitBlueprint {
         },
         StorageMass = 350,
     },
+    
     Footprint = {
         SizeX = 1,
         SizeZ = 1,
     },
+    
     General = {
-		CapCost = .25,
         Category = 'Economy',
         Classification = 'RULEUC_Resource',
         CommandCaps = {
@@ -100,18 +108,21 @@ UnitBlueprint {
             RULEUCC_Transport = false,
         },
         FactionName = 'Aeon',
-        Icon = 'land',
+        Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Basic',
         UnitWeight = 1,
 		UpgradesTo = 'uab2106',
     },
+    
     Interface = {
         HelpText = 'Basic Mass Storage',
     },
+    
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.35,
     LifeBarSize = 0.9,
+    
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -136,19 +147,23 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+    
     SelectionSizeX = 0.65,
     SelectionSizeZ = 0.65,
     SelectionThickness = 0.6,
+    
     SizeX = 0.85,
     SizeY = 0.5,
     SizeZ = 0.85,
+    
     StrategicIconName = 'icon_structure1_mass',
     StrategicIconSortPriority = 250,
+    
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,

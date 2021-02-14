@@ -79,7 +79,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 417.6,
     },
 	
-    Description = '<LOC bal0403_desc>Experimental Sniper',
+    Description = '<LOC bal0403_desc>Experimental Medium Sniper Bot',
 	
     Display = {
 	
@@ -219,7 +219,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Experimental Sniper',
+        HelpText = 'Medium Sniper Bot',
     },
 	
     LifeBarHeight = 0.075,

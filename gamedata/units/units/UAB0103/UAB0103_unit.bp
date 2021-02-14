@@ -83,8 +83,8 @@ UnitBlueprint {
     },
     
     Economy = {
-        BuildCostEnergy = 1500,
-        BuildCostMass = 300,
+        BuildCostEnergy = 2200,
+        BuildCostMass = 345,
         
         BuildRate = 40,
         BuildTime = 300,
@@ -103,8 +103,8 @@ UnitBlueprint {
             'uab0203',
             'uab0303',
         },
-        StorageEnergy = 500,
-        StorageMass = 50,
+        StorageEnergy = 600,
+        StorageMass = 60,
     },
     
     Footprint = {

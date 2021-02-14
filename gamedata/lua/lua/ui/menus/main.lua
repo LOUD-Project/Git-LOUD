@@ -61,10 +61,12 @@ function CreateUI()
             action = function() ButtonMod() end,
             color = menuFontColorAlt,
         },
-		{
-			name = '',
-			color = menuFontColorAlt,
-		},
+        {
+            name = 'Unit Database',
+            tooltip = 'mainmenu_unitdb',
+            action = function() ButtonUnitDB() end,
+            color = menuFontColorAlt,
+        },
 		{
 			name = '',
 			color = menuFontColorAlt,
@@ -149,15 +151,17 @@ function CreateUI()
     LayoutHelpers.AtTopIn(logo, border)
     logo.Depth:Set(60)
 
-    -- version text
-    local versionText = UIUtil.CreateText(border, GetVersion(), 14, UIUtil.bodyFont)
-    versionText:SetColor('677983')
-    LayoutHelpers.AtRightTopIn(versionText, border, 0, 0)
+    -- Version text
+    local gameVersionText = UIUtil.CreateText(border, "Game Version: "..GetVersion(), 14, UIUtil.bodyFont)
+    gameVersionText:SetColor('677983')
+    LayoutHelpers.AtLeftTopIn(gameVersionText, border, 0, 0)
+    gameVersionText.Depth:Set(border.Depth() + 10)
 
-    local versionTextBG = Bitmap(versionText)
-    versionTextBG:SetSolidColor('ff000000')
-    LayoutHelpers.FillParent(versionTextBG, versionText)
-    versionTextBG.Depth:Set(function() return versionText.Depth() - 1 end)
+    local loudVersion = import('/lua/AI/CustomAIs_v2/ExtrasAI.lua').AI.Version
+    local loudVersionText = UIUtil.CreateText(border, "LOUD Version: "..loudVersion, 14, UIUtil.bodyFont)
+    loudVersionText:SetColor('677983')
+    LayoutHelpers.Below(loudVersionText, gameVersionText)
+    loudVersionText.Depth:Set(border.Depth() + 11)
 
     -- Borders
     local topBorder = Bitmap(logo, UIUtil.UIFile('/scx_menu/main-menu/border-console-top_bmp.dds'))
@@ -856,7 +860,17 @@ function CreateUI()
 		MenuHide(function()
 			import('/lua/ui/menus/eula.lua').CreateEULA(topLevelGroup, function() MenuShow() SetEscapeHandle(ButtonBack) end)
 		end)
-	end
+    end
+
+    function ButtonUnitDB()
+        MenuHide(function()
+            local function Callback()
+                MenuShow()
+                SetEscapeHandle(ButtonBack)
+            end
+            import('/lua/ui/menus/unitdb.lua').CreateUnitDB(topLevelGroup, Callback)
+        end)
+    end
 
 	function ButtonBack()
 		MenuDestroy(function()

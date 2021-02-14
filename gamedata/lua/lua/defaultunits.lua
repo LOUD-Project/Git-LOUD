@@ -561,7 +561,7 @@ StructureUnit = Class(Unit) {
 
         if self.TarmacBag then
 		
-			return true		--(LOUDGETN(self.TarmacBag.Decals) != 0)
+			return true
 			
 		end
 		

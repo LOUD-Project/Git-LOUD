@@ -101,7 +101,7 @@ UnitBlueprint {
             RULEUCC_Transport = false,
         },
         FactionName = 'UEF',
-        Icon = 'land',
+        Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
         UnitName = '<LOC ueb2303_name>Klink Hammer',
@@ -185,8 +185,8 @@ UnitBlueprint {
 			
             DisplayName = 'APDS Artillery',
 			
-            EnergyDrainPerSecond = 30,	-- every 9 seconds --
-            EnergyRequired = 270,
+            EnergyDrainPerSecond = 207,	-- every 9 seconds --
+            EnergyRequired = 1860,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -234,6 +234,8 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
+                'SHIELD',
+                'ARTILLERY',
                 'ALLUNITS -AIR',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',

@@ -298,7 +298,14 @@ seb3303_desc="Observation Satellite Uplink"
 seb3303b_desc="Satellite Launch Complex"
 Unit_Description_BrewLAN_T3B002="Produces and launches recon satellites"
 
-ability_satellite_uplink="Satellite Uplink supports 2 satellites"
+ability_satellite_uplink="Satellite Uplink"
+ability_satellite_cap_0="Satellite Capacity: +0"
+ability_satellite_cap_1="Satellite Capacity: +1"
+ability_satellite_cap_2="Satellite Capacity: +2"
+ability_satellite_cap_3="Satellite Capacity: +3"
+ability_satellite_cap_4="Satellite Capacity: +4"
+ability_satellite_cap_5="Satellite Capacity: +5"
+ability_satellite_cap_inf="Satellite Capacity Unrestricted"
 
 sea0002_desc="Observation Satellite"
 sea0002_name="Burning Star"
@@ -454,6 +461,9 @@ ssa00002_desc="Hologram"
 --------------------------------------------------------------------------------
 -- Experimentals
 --------------------------------------------------------------------------------
+ssl0405_help="Ultra Heavy Arthrobot"
+ssl0405_desc="Experimental Ultra Heavy Arthrobot"
+
 sab4401="Experimental Shield Projector"
 sab4401_name="Pillar of Prominence"
 Unit_Description__BubbleTea_A4_01="Experimental shield projection facility. Generates protective bubbles around each individual structure within its operational radius."
@@ -474,7 +484,8 @@ ssl0403_name="Iyadesu"
 Unit_Description_BrewLAN_T4L001="Experimental amphibious repair, capture, and reclamation unit. Gains the blueprints of units and wreckages by reclaiming them. Can only store 8 blueprints at a time."
 ssa00001_desc="Drone"
 
-sea0401_desc="Experimental AA Gunship"
+sea0401="Experimental Medium AA Gunship"
+sea0401_desc="Medium AA Gunship"
 sea0401_name="AC-500 Centurion"
 Unit_Description_BrewLAN_T4A001="Experimental gunship with extensive anti-air capabilities. Most effective against other gunships."
 
@@ -499,7 +510,8 @@ seb0401="Experimental Factory"
 seb0401_name="Gantry"
 Unit_Description_BrewLAN_T4B004="Experimental multi-purpose factory. Dynamically changes buildable units based on environment. Can be toggled to build aircraft in any environment."
 
-sal0401="Experimental Siege Tank"
+sal0401="Experimental Heavy Siege Tank"
+sal0401_desc="Heavy Siege Tank"
 sal0401_name="Absolution"
 Unit_Description_BrewLAN_T4L002="Experimental hovering siege assault tank. Equipped with a powerful oblivion cannon and tactical missile defenses."
 

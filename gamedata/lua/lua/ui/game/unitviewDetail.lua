@@ -6,6 +6,7 @@ local GameCommon = import('/lua/ui/game/gamecommon.lua')
 local ItemList = import('/lua/maui/itemlist.lua').ItemList
 local Prefs = import('/lua/user/prefs.lua')
 local UnitDescriptions = import('/lua/ui/help/unitdescription.lua').Description
+local TitleCase = import('/lua/utilities.lua').LOUD_TitleCase
 
 local __DMSI = import('/mods/Domino_Mod_Support/lua/initialize.lua') or false
 
@@ -17,14 +18,6 @@ local LOUDFLOOR = math.floor
 local LOUDUPPER = string.upper
 local LOUDLOWER = string.lower
 local LOUDSUB = string.sub
-
--- This function ensures the given string is in title case.
-function LOUD_CaseCheck(aString)
-	local function tchelper(first, rest)
-		return first:upper()..rest:lower()
-	end
-	return aString:gsub("(%a)([%w_']*)", tchelper)
-end
 
 -- This function checks and converts Meters to Kilometers if the measurement (in meters) is >= 1000.
 function LOUD_KiloCheck(aMeasurement)
@@ -47,7 +40,7 @@ end
 -- This function returns a formatted Fuel time value.
 function LOUD_FuelCheck(aFuelTime)
 	local minutes = LOUDFORMAT("%02.f", LOUDFLOOR(aFuelTime / 60)):gsub("%.?0+$", "")
-	local seconds = LOUDFORMAT("%02.f", LOUDFLOOR(aFuelTime - (aFuelTime / 60) * 60))
+	local seconds = LOUDFORMAT("%02.f", math.mod(aFuelTime, 60))
 	
 	return minutes..":"..seconds.."s"
 end
@@ -201,7 +194,7 @@ function ShowEnhancement( bp, bpID, iconID, iconPrefix, userUnit )
 			
 				local tempDesc = LOC(UnitDescriptions[tempDescID])
 				
-				WrapAndPlaceText(nil, nil, nil, nil, nil, tempDesc, View.Description)
+				WrapAndPlaceText(nil, nil, nil, nil, nil, nil, tempDesc, View.Description)
 			else
 				WARN('No description found for unit: ', bpID, ' enhancement: ', iconID)
 				
@@ -235,7 +228,7 @@ function ShowEnhancement( bp, bpID, iconID, iconPrefix, userUnit )
     
 end
 
-function WrapAndPlaceText(air, physics, intel, weapons, abilities, text, control)
+function WrapAndPlaceText(air, physics, intel, weapons, abilities, capCost, text, control)
 	
 	-- Create the table of text to be displayed once populated.
 	local textLines = {}
@@ -244,6 +237,7 @@ function WrapAndPlaceText(air, physics, intel, weapons, abilities, text, control
 	-- but only if there's no Air or Physics on the blueprint.
 	local physics_line = -1
 	local intel_line = -1
+	local cap_line = -1
 	
 	if text ~= nil then
 		textLines = import('/lua/maui/text.lua').WrapText( text, control.Value[1].Width(), function(text) return control.Value[1]:GetStringAdvance(text) end)
@@ -488,7 +482,7 @@ function WrapAndPlaceText(air, physics, intel, weapons, abilities, text, control
 							if wepCategory == " Defense" then
 								-- Display Countermeasure Targets as the weapon type.
 								if weapon.TargetRestrictOnlyAllow then
-									weaponText = (LOUD_CaseCheck(weapon.TargetRestrictOnlyAllow) .. wepCategory)
+									weaponText = (TitleCase(weapon.TargetRestrictOnlyAllow) .. wepCategory)
 								end
 								
 								-- If a weapon is a Countermeasure, we don't care about its damage or DPS, as it's all very small numbers purely for shooting projectiles.
@@ -615,6 +609,16 @@ function WrapAndPlaceText(air, physics, intel, weapons, abilities, text, control
 		intel_line = table.getn(textLines)
 	end
 
+	-- Unit cap
+	if capCost then
+		local capCostStr = string.format("%.1f", capCost)
+		capCostStr = capCostStr:gsub("%.?0+$", "")
+		table.insert(textLines, "Unit Cap Cost: "..capCostStr)
+	else
+		table.insert(textLines, "Unit Cap Cost: 1")
+	end
+	cap_line = table.getn(textLines)
+
 	for i, v in textLines do
 	
 		local index = i
@@ -672,6 +676,9 @@ function WrapAndPlaceText(air, physics, intel, weapons, abilities, text, control
 			else
 				control.Value[index]:SetColor('ff909090')
 			end
+		elseif index == cap_line then
+			control.Value[index]:SetColor(UIUtil.fontColor)
+			control.Value[index]:SetFont(UIUtil.bodyFont, 11)
 		else
 			control.Value[index]:SetColor(UIUtil.fontColor)
 			control.Value[index]:SetFont(UIUtil.bodyFont, 12)
@@ -748,7 +755,7 @@ function Show(bp, buildingUnit, bpID)
 		View.HealthStat.Value:SetText(string.format("%d", bp.Defense.MaxHealth))
 
 		if View.Description then
-			WrapAndPlaceText(bp.Air, bp.Physics, bp.Intel, bp.Weapon, bp.Display.Abilities, LOC(UnitDescriptions[bpID]), View.Description)
+			WrapAndPlaceText(bp.Air, bp.Physics, bp.Intel, bp.Weapon, bp.Display.Abilities, bp.General.CapCost, LOC(UnitDescriptions[bpID]), View.Description)
 		end
 		
 		local showShield = false

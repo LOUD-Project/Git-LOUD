@@ -6,7 +6,7 @@ mod_info.lua file which contains various bits of info:
 
     name = "Happy mod"                          # Name to use for this mod
     version = 123                               # Version number to use for this mod
-    copyright = "Copyright © 2006, Someone"     # Optional copyright info
+    copyright = "Copyright ï¿½ 2006, Someone"     # Optional copyright info
     description = "A long description of happy mod and why it will make you happy"
     author = "Joe"                              # Optional author info
     url = "http://www.gaspoweredgames.com"      # Optional URL to anywhere author likes
@@ -199,6 +199,8 @@ Mod initialization issues
 '
 -------------------------------------------------------------------------------------------------------------------- ]]
 
+local Prefs = import('/lua/user/prefs.lua')
+
 -- Table of all mods found on disk, indexed by id
 local _mod_cache = nil
 
@@ -261,13 +263,33 @@ function AllMods()
 
     if not _mod_cache then
     
+        local allConfigs = Prefs.GetFromCurrentProfile("modConfig")
+        if not allConfigs then
+            allConfigs = {}
+        end
         local r = {}
         
         for i,file in DiskFindFiles('/mods', '*mod_info.lua') do
         
             local mod = LoadModInfo(file)
+
+            -- Try getting config
+            local env = {}
+            local ok, result = pcall(doscript, mod.location..'/config.lua', env)
+            if ok then
+                if not allConfigs[mod.uid] then
+                    allConfigs[mod.uid] = {}
+                end
+                mod.config = {}
+                for _, v in env.config do
+                    if not allConfigs[mod.uid][v.key] then
+                        allConfigs[mod.uid][v.key] = v.values[v.default].key
+                    end
+                    mod.config[v.key] = allConfigs[mod.uid][v.key]
+                end
+            end
             
-            if mod and (mod.enabled != false) then
+            if mod and (mod.enabled ~= false) then
                 r[mod.uid] = mod
             end
         end
@@ -374,7 +396,7 @@ function GetDependencies(uid)
 
         -- check if any other mods list this mod as a conflict
         for id, info in allMods do
-            if id != uid then
+            if id ~= uid then
                 if allMods[id].conflicts then
                     for i, conflict in allMods[id].conflicts do
                         if uid == conflict then

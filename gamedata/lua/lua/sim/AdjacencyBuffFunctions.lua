@@ -2,7 +2,6 @@
 
 local LOUDENTITY = EntityCategoryContains
 local LOUDEMPTY = table.empty
-local LOUDGETN = table.getn
 
 local GetWeapon = moho.unit_methods.GetWeapon
 local GetWeaponCount = moho.unit_methods.GetWeaponCount

@@ -80,7 +80,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 804.2,
     },
 	
-    Description = '<LOC bal0402_desc>Experimental Assault HoverTank',
+    Description = '<LOC bal0402_desc>Experimental Medium Assault Hover-Tank',
 	
     Display = {
 	
@@ -190,7 +190,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Experimental HoverTank',
+        HelpText = 'Medium Assault Hover-Tank',
     },
 	
     LifeBarHeight = 0.075,
@@ -226,10 +226,9 @@ UnitBlueprint {
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Hover',
 		
-		SkirtOffsetX = -0,
         SkirtOffsetZ = -2.2,
-        SkirtSizeX = 2.4,
-        SkirtSizeZ = 5,
+        SkirtSizeX = 3,
+        SkirtSizeZ = 6,
 		
         RotateBodyWhileMoving = true,
         RotateOnSpot = false,
@@ -272,7 +271,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 1000,
-            DamageRadius = 1.8,
+            DamageRadius = 1.4,
             DamageType = 'Normal',
 			
             DisplayName = 'Serpentine Missile',
@@ -290,7 +289,7 @@ UnitBlueprint {
 			MinRadius = 18,
 			
             MuzzleChargeDelay = 0.3,
-            MuzzleSalvoDelay = 0,
+            MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 9,
             MuzzleVelocity = 5,
 			
@@ -456,7 +455,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 600,
-            DamageRadius = 1.5,
+            DamageRadius = 1.3,
             DamageType = 'Normal',
 			
             DisplayName = 'Oblivion Cannon',
@@ -542,7 +541,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 600,
-            DamageRadius = 1.5,
+            DamageRadius = 1.3,
             DamageType = 'Normal',
 			
             DisplayName = 'Oblivion Cannon',
@@ -680,7 +679,7 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
             Damage = 5500,
             DamageFriendly = true,
-            DamageRadius = 7,
+            DamageRadius = 9,
             DamageType = 'Normal',
             DisplayName = 'Collossus Death',
             DummyWeapon = true,
@@ -691,9 +690,9 @@ UnitBlueprint {
 	
 	Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.2,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,

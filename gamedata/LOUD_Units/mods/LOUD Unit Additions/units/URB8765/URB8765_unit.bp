@@ -1,0 +1,244 @@
+UnitBlueprint {
+
+    Adjacency = 'ExperimentalStorageAdjacencyBuff',
+	
+    Audio = {
+        ActiveLoop = Sound {
+            Bank = 'URB',
+            Cue = 'URB1105_Active',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Killed = Sound {
+            Bank = 'Explosions',
+            Cue = 'Cybran_Nuke_Impact',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+        DoneBeingBuilt = Sound {
+            Bank = 'URB',
+            Cue = 'URB1105_Activate',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'Cybran_Select_Resource',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+	
+    BuildIconSortPriority = 110,
+	
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER4COMMANDER',
+        'CYBRAN',
+        'STRUCTURE',
+        'ECONOMIC',
+        'EXPERIMENTAL',
+        'MASSSTORAGE',
+        'ENERGYSTORAGE',
+        'SIZE20',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'SORTECONOMY',
+    },
+	
+    CollisionOffsetY = 0,
+    CollisionOffsetZ = 0.1,
+	
+    Defense = {
+        ArmorType = 'Structure',
+        EconomyThreatLevel = 845,   -- 1% Health + .1% Energy Storage + 1% Mass Storage
+        Health = 7550,
+        MaxHealth = 7550,
+        RegenRate = 18,
+    },
+	
+    Description = '<LOC urb8765_desc>Resource Storage Facility',
+	
+    Display = {
+	
+        Abilities = { 'Volatile' },
+		
+        DamageEffects = {
+            {
+                Bone = 0,
+                OffsetX = 0.25,
+                OffsetY = 1,
+                OffsetZ = 0,
+            },
+            {
+                Bone = 0,
+                OffsetX = -0.25,
+                OffsetY = 1,
+                OffsetZ = 0,
+            },
+        },
+        Mesh = {
+            IconFadeInZoom = 200,
+            LODs = {
+                {
+                    LODCutoff = 225,
+                    Scrolling = true,
+                    ShaderName = 'Insect',
+                    MeshName = '/units/URB1105/URB1105_LOD0.scm',
+                    AlbedoName = '/units/URB1105/URB1105_Albedo.dds',
+                    NormalsName = '/units/URB1105/URB1105_NormalsTS.dds',
+                    SpecularName = '/units/URB1105/URB1105_SpecTeam.dds',
+                },
+                {
+                    LODCutoff = 350,
+                    ShaderName = 'Insect',
+                    MeshName = '/units/URB1105/URB1105_LOD1.scm',
+                    AlbedoName = '/units/URB1105/URB1105_LOD1_Albedo.dds',
+                    NormalsName = '/units/URB1105/URB1105_LOD1_NormalsTS.dds',
+                    SpecularName = '/units/URB1105/URB1105_LOD1_SpecTeam.dds',
+                },
+            },
+        },
+
+        SpawnRandomRotation = true,
+		
+        Tarmacs = {
+            {
+                Albedo = 'Tarmacs/Tar12x_cybran_01_albedo',
+                DeathLifetime = 300,
+                FadeOut = 150,
+                Length = 12,
+                Normal = 'Tarmacs/Tar12x_cybran_01_normals',
+                Orientations = {
+                    0,
+                    90,
+                    180,
+                    270,
+                },
+                RemoveWhenDead = true,
+                Width = 12,
+            },
+        },
+        UniformScale = 0.7,
+    },
+	
+    Economy = {
+	
+        BuildCostEnergy = 600000,
+        BuildCostMass = 35000,
+        BuildTime = 18250,
+
+        StorageMass = 32000,
+        StorageEnergy = 450000,
+    },
+	
+    Footprint = {
+        SizeX = 5,
+        SizeZ = 5,
+    },
+	
+    General = {
+		CapCost = 15,
+        Category = 'Experimental',
+        Classification = 'RULEUC_Resource',
+        CommandCaps = {
+            RULEUCC_Attack = false,
+            RULEUCC_CallTransport = false,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = false,
+            RULEUCC_Move = false,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = false,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = false,
+            RULEUCC_Stop = false,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'Cybran',
+        Icon = 'amph',
+        SelectionPriority = 5,
+        TarmacDecal = 'Tarmacs/tarmac_cybran_8x_albedo',
+        TarmacGlowDecal = 'Tarmacs/tarmac_cybran_8x_glow',
+        TechLevel = 'RULEUTL_Secret',
+        UnitWeight = 1,
+    },
+
+    Interface = {
+        HelpText = 'Resource Storage Facility',
+    },
+	
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 3,
+    LifeBarSize = 4.5,
+	
+    Physics = {
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = true,
+            LAYER_Orbit = false,
+            LAYER_Seabed = true,
+            LAYER_Sub = false,
+            LAYER_Water = false,
+        },
+        DragCoefficient = 0.2,
+        FlattenSkirt = true,
+        MaxSteerForce = 0,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_None',
+        SkirtOffsetX = -1.5,
+        SkirtOffsetZ = -1.5,
+        SkirtSizeX = 8,
+        SkirtSizeZ = 8,
+        TurnRate = 0,
+    },
+	
+    SelectionSizeX = 4,
+    SelectionSizeZ = 4,
+    SelectionThickness = 0.39,
+	
+    SizeX = 4,
+    SizeY = 4,
+    SizeZ = 4,
+	
+    StrategicIconName = 'icon_experimental_structure_mass',
+	
+    StrategicIconSortPriority = 250,
+	
+    Weapon = {
+        {
+            AboveWaterTargetsOnly = true,
+            CollideFriendly = false,
+            Damage = 0,
+            DamageFriendly = true,
+            DamageRadius = 0,
+            DamageType = 'Normal',
+            DisplayName = 'Death Weapon',
+            FireOnDeath = true,
+            FiringTolerance = 2,
+            Label = 'DeathWeapon',
+            MaxRadius = 1,
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 0,
+            NukeInnerRingDamage = 18000,
+            NukeInnerRingRadius = 20,
+            NukeInnerRingTotalTime = 3,
+            NukeOuterRingDamage = 5000,
+            NukeOuterRingRadius = 44,
+            NukeOuterRingTotalTime = 5,
+            ProjectileId = '/projectiles/CIFEMPFluxWarhead02/CIFEMPFluxWarhead02_proj.bp',
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        0,
+                    },
+                    RackBone = 0,
+                },
+            },
+            
+            RateOfFire = 1,
+            TargetCheckInterval = 9999999,
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            Turreted = false,
+	        },
+    },
+
+}

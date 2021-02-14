@@ -234,10 +234,10 @@ BuilderManager = Class {
                     
                     for k,v in self.BuilderData[unit.BuilderType].Builders do
                     
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..v.Location.." "..v.Priority.." "..v.BuilderName)
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.ManagerType.." "..v.Location.." "..v.Priority.." "..v.BuilderName)
                     end
                     
-                    self.BuilderData[unit.BuilderType].displayed = true
+                    --self.BuilderData[unit.BuilderType].displayed = true
                 end
             end
 			
@@ -285,6 +285,10 @@ BuilderManager = Class {
 
 				local newPri = false
 				local temporary = true
+                
+                if ScenarioInfo.PriorityDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.ManagerType.." "..self.LocationType.." PriorityFunction for "..repr(self.BuilderData[unit.BuilderType].Builders[k].BuilderName) )    
+                end
 				
 				newPri,temporary = Builders[TaskList[k].BuilderName]:PriorityFunction( aiBrain, unit )
 
@@ -408,11 +412,15 @@ BuilderManager = Class {
 
 	
         while self.Active do
+    
+            if ScenarioInfo.PriorityDialog then
+                LOG("*AI DEBUG "..brain.Nickname.." "..self.ManagerType.." "..self.LocationType.." Begins cycle")
+            end
         
             -- if this is not a naval base - see if mode should change from Amphibious to Land
             if brain.AttackPlan.Goal and ( not self.LastGoalCheck or not table.equal(self.LastGoalCheck, brain.AttackPlan.Goal) ) and brain.BuilderManagers[self.LocationType].BaseType != 'Sea' then
         
-                local path, reason, landpathlength, pathcost = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( brain, 'AttackPlanner', 'Land', brain.BuilderManagers[self.LocationType].Position, brain.AttackPlan.Goal, 99999, 160 )
+                local path, reason, landpathlength, pathcost = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( brain, 'AttackPlanner', 'Land', brain.BuilderManagers[self.LocationType].Position, brain.AttackPlan.Goal, 999999, 160 )
                 
                 -- IDEALLY - we should evaluate both Land and Amphib paths and choose which is best - 
                 -- but for now - we'll settle for land production if any kind of land connection exists --
@@ -466,12 +474,11 @@ BuilderManager = Class {
 			if PoolGreaterAtLocation( brain, self.LocationType, 0, categories.ALLUNITS - categories.ENGINEER ) then
 		
                 if self.BuilderData['Any'].NeedSort then
-            
-                    local ResetPFMTasks = import('/lua/loudutilities.lua').ResetPFMTasks
-            
-                    -- reset the tasks with Priority Functions at this PFM
-                    ResetPFMTasks( self, brain )
-			
+    
+                    if ScenarioInfo.PriorityDialog then
+                        LOG("*AI DEBUG "..brain.Nickname.." "..self.ManagerType.." "..self.LocationType.." Sorting Any PFM tasks")
+                    end
+
                     LOUDSORT( self.BuilderData['Any'].Builders, function(a,b) return a.Priority > b.Priority end )
 				
                     --LOG("*AI DEBUG "..brain.Nickname.." SORTED "..repr(self.ManagerType).." tasks at "..repr(self.LocationType).." is "..repr(self.BuilderData['Any'].Builders))
@@ -482,13 +489,13 @@ BuilderManager = Class {
                 -- loop thru all the platoon builders
 				for bType,bTypeData in self.BuilderData do
                 
-                    if ScenarioInfo.PlatoonDialog then
-                        LOG("*AI DEBUG "..brain.Nickname.." PFM "..(self.LocationType).." Begins Processing "..repr(bType).." at "..repr(GetGameTimeSeconds()) )
+                    if ScenarioInfo.PlatoonDialog or ScenarioInfo.PriorityDialog then
+                        LOG("*AI DEBUG "..brain.Nickname.." PFM "..(self.LocationType).." Begins Processing "..repr(bType).." at "..repr(GetGameTimeSeconds()).." seconds" )
                     end
 			
 					for _,bData in bTypeData.Builders do
-					
-						if bData.Priority >= 100 then
+
+						if bData.Priority >= 100 and bData.InstancesAvailable > 0 then
 
 							numTested = numTested + 1
 						
@@ -508,13 +515,21 @@ BuilderManager = Class {
                 -- delay the next cycle by 12 seconds (versus waiting the entire duration, which may be too long)
                 duration = 120
             end
-            
-            --LOG("*AI DEBUG "..brain.Nickname.." PFM at "..(self.LocationType).." processed "..numTested.." Builders - ticks used is "..numTicks.." Formed "..numPassed)
-            --LOG("*AI DEBUG "..brain.Nickname.." PFM at "..(self.LocationType).." checked "..conditionscheckedcount.." of "..conditioncounttotal.." conditions this pass - in "..(numTicks/10).." seconds")
-			
+
+            if ScenarioInfo.PriorityDialog then
+                LOG("*AI DEBUG "..brain.Nickname.." "..self.ManagerType.." "..self.LocationType.." processed "..numTested.." Builders - ticks used is "..numTicks.." Formed "..numPassed ) 
+                LOG("*AI DEBUG "..brain.Nickname.." "..self.ManagerType.." "..self.LocationType.." checked "..conditionscheckedcount.." of "..conditioncounttotal.." conditions this pass - in "..(numTicks/10).." seconds")
+            end
+
 			if numTicks < duration then
 				WaitTicks( duration - numTicks )
 			end
+
+            local ResetPFMTasks = import('/lua/loudutilities.lua').ResetPFMTasks
+
+            -- reset the tasks with Priority Functions at this PFM
+            ResetPFMTasks( self, brain )
+
         end
     end,
 	

@@ -1,14 +1,22 @@
+# LOUD Project .gitignore
+# Only for the main repo (https://github.com/LOUD-Project/Git-LOUD)
+# Authors: Tanksy, Sprouto, Balthazar, Rat Circus
+
+# For Adobe Systems file formats
 *.ai
 *.tif
 *.psd
+
+# Windows Shell
 *.ps1
+*.lnk
 
-bin/Loud-Dev\.log
-
+# Executables
 bin/ForgedAlliance\.exe
 bin/SupremeCommander\.exe
-bin/SupComDataPath\.lua
 bin/BsSndRpt\.exe
+bin/SupComDataPath\.lua
+*.bat
 
 bin/*.dll
 bin/*.png
@@ -17,23 +25,34 @@ bin/*.dat
 bin/*.manifest
 bin/*.lnk
 
-maps/
-
 *.lnk
 *.ai
 *.tif
 *.psd
 *.ps1
 *.bat
-!lua_utils/bluePrintExtractor/runme.bat
 bin/Loud-Dev\.log
 
-bin/ForgedAlliance\.exe
+# Log files
+*.log
 
-maps/
-Map Editor/
-
-*.lnk
-
-.vscode
+# PhoenixMT's Blueprint Extractor
+!lua_utils/bluePrintExtractor/runme.bat
 lua_utils/bluePrintExtractor/output*.csv
+
+# IDEs/text editors
+.vscode
+.atomignore
+
+# Maps are not tracked by Git
+Map Editor/
+maps/
+maps/Betrayal Ocean/
+maps/Burial Mounds 80/
+maps/Gentlemans Reef 80/
+maps/Gentlemans_Reef_80K\.v0001/
+maps/Shards 80/
+maps/World/World\.scmap
+maps/World/
+maps/New World/
+maps/New_World\.v0001/

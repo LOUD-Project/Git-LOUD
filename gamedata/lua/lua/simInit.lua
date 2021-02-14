@@ -264,6 +264,7 @@ function OnPostLoad()
     if GetFocusArmy() != -1 then
         Sync.SetAlliedVictory = ArmyBrains[GetFocusArmy()].RequestingAlliedVictory or false
     end
+
 end
 
 Prefetcher = CreatePrefetchSet()

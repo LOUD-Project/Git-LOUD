@@ -72,7 +72,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 416.5,
     },
     
-    Description = '<LOC brpexbot_desc>Medium Experimental Assault Bot',
+    Description = '<LOC brpexbot_desc>Experimental Medium Assault Bot',
 	
     Display = {
         Abilities = {
@@ -206,7 +206,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Medium Experimental Assault Bot',
+        HelpText = 'Medium Assault Bot',
     },
 	
     LifeBarHeight = 0.15,
@@ -241,8 +241,8 @@ UnitBlueprint {
         SkirtOffsetX = -0.5,
         SkirtOffsetZ = -1,
 		
-        SkirtSizeX = 4,
-        SkirtSizeZ = 4,
+        SkirtSizeX = 3,
+        SkirtSizeZ = 3,
 		
         MotionType = 'RULEUMT_Amphibious',
 		

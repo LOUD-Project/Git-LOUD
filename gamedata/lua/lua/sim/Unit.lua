@@ -4957,38 +4957,35 @@ Unit = Class(moho.unit_methods) {
 
 	-- all credit to BrewLAN
     CreateProjectedShield = function(self, shieldSpec)
-	
-        local bp = ALLBPS[self.BlueprintID]
-		
-        local bpShield = shieldSpec or bp.Defense.Shield
+        shieldSpec = shieldSpec or __blueprints.sab4401.Defense.TargetShield
 
-        if bpShield then
-		
+        if shieldSpec then
+
+            local bp = __blueprints[self.BpId] or self:GetBlueprint()
+            local size = math.max(bp.Footprint.SizeX or 0, bp.Footprint.SizeZ or 0, bp.SizeX or 0, bp.SizeX or 0, bp.SizeY or 0, bp.SizeZ or 0, bp.Physics.MeshExtentsX or 0, bp.Physics.MeshExtentsY or 0, bp.Physics.MeshExtentsZ or 0) * 1.414
+
             self:DestroyShield()
-			
-            self.MyShield = ProjectedShield {
+            self.MyShield = ProjectedShield ({
                 Owner = self,
-                Mesh = bpShield.Mesh or '',
-                MeshZ = bpShield.MeshZ or '',
-                ImpactMesh = bpShield.ImpactMesh or '',
-                ImpactEffects = bpShield.ImpactEffects or '',
-                Size = bpShield.ShieldSize or 10,
-                ShieldMaxHealth = bpShield.ShieldMaxHealth or 250,
-                ShieldRechargeTime = bpShield.ShieldRechargeTime or 10,
-                ShieldEnergyDrainRechargeTime = bpShield.ShieldEnergyDrainRechargeTime or 10,
-                ShieldVerticalOffset = bpShield.ShieldVerticalOffset or -1,
-                ShieldRegenRate = bpShield.ShieldRegenRate or 1,
-                ShieldRegenStartTime = bpShield.ShieldRegenStartTime or 5,
-                PassOverkillDamage = bpShield.PassOverkillDamage or false,
-            }
-			
-			self.MyShieldType = 'Shield'
-			
+                Mesh = shieldSpec.Mesh or '',
+                MeshZ = shieldSpec.MeshZ or '',
+                ImpactMesh = shieldSpec.ImpactMesh or '',
+                ImpactEffects = shieldSpec.ImpactEffects or '',
+                Size = size,
+                ShieldSize = size,
+                ShieldMaxHealth = shieldSpec.ShieldMaxHealth or 250,
+                ShieldRechargeTime = shieldSpec.ShieldRechargeTime or 10,
+                ShieldEnergyDrainRechargeTime = shieldSpec.ShieldEnergyDrainRechargeTime or 10,
+                ShieldVerticalOffset = bp.CollisionOffsetY or 0,
+                ShieldRegenRate = shieldSpec.ShieldRegenRate or 1,
+                ShieldRegenStartTime = shieldSpec.ShieldRegenStartTime or 5,
+                PassOverkillDamage = shieldSpec.PassOverkillDamage or false,
+            }, self)
             self:SetFocusEntity(self.MyShield)
             self:EnableShield()
             self.Trash:Add(self.MyShield)
         end
-    end,	
+    end,
 
     OnShieldEnabled = function(self)
 	

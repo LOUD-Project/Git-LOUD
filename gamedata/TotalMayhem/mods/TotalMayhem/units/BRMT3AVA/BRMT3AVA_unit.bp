@@ -87,7 +87,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 2623.3,
     },
 	
-    Description = '<LOC brmt3ava_desc>Experimental Ultraheavy Beetlebot',
+    Description = '<LOC brmt3ava_desc>Experimental Ultra Heavy Assault Beetlebot',
 	
     Display = {
         Abilities = {
@@ -297,7 +297,7 @@ UnitBlueprint {
     },
 	
     General = {
-		CapCost = 12,
+		CapCost = 16,
         Category = 'Experimental',
         Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
@@ -331,7 +331,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Experimental Ultraheavy Beetlebot',
+        HelpText = 'Ultra Heavy Assault Beetlebot',
     },
 	
     LifeBarHeight = 0.075,
@@ -428,7 +428,10 @@ UnitBlueprint {
             Damage = 2000,
             DamageRadius = 3,
             DamageType = 'Normal',
-			
+            
+            EnergyDrainPerSecond = 1600,
+            EnergyRequired = 4000,          -- 2.5 second energy drain
+
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
             },
@@ -471,7 +474,7 @@ UnitBlueprint {
             
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.4,	-- 2400dps
+            RateOfFire = 1,	    -- rate controlled by charge - 2.5 seconds = 3 x 2000 = 6000/2.5 = 2400dps
 			
             TargetCheckInterval = 2,
             TargetPriorities = {
@@ -522,10 +525,14 @@ UnitBlueprint {
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
+            
             Damage = 1500,
-            DamageRadius = 2.5,
+            DamageRadius = 1.5,
             DamageType = 'Normal',
-
+            
+            EnergyDrainPerSecond = 800,
+            EnergyRequired = 1600,          -- 2 second energy drain
+  			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
             },
@@ -567,7 +574,7 @@ UnitBlueprint {
 
             RackSlavedToTurret = true,
 
-            RateOfFire = 0.5,	-- 2250dps
+            RateOfFire = 1,	    -- rate controlled by charge - 2 seconds = 2250dps
 			
             TargetCheckInterval = 2,
             

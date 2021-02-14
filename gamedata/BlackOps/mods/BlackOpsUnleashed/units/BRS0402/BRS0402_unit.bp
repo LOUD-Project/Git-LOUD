@@ -82,7 +82,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 303,
     },
 	
-    Description = '<LOC brs0402_desc>Experimental Dreadnaught',
+    Description = '<LOC brs0402_desc>Experimental Battleship',
 	
     Display = {
         Abilities = {
@@ -225,7 +225,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Experimental Dreadnaught',
+        HelpText = 'Experimental Battleship',
     },
 	
     LifeBarHeight = 0.075,

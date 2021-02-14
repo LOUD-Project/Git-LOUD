@@ -127,7 +127,7 @@ UnitBlueprint {
             RULEUCC_Transport = false,
         },
         FactionName = 'Seraphim',
-        Icon = 'land',
+        Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
         ToggleCaps = {
@@ -181,7 +181,7 @@ UnitBlueprint {
     SizeY = 4,
     SizeZ = 4,
 	
-    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconName = 'icon_experimental_structure_mass',
     StrategicIconSortPriority = 240,
 	
     Weapon = {

@@ -532,7 +532,7 @@ function UpgradeSCU(unit, upgType)
 
 		local upgList = upgradeTable[faction][upgType]
         
-		if table.getsize(upgList) == 0 then
+		if table.empty(upgList) then
 			return
 		end
         

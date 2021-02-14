@@ -1,0 +1,874 @@
+UnitBlueprint {
+
+	AI = {
+        TargetBones = {
+            'Turret_Barrel_Recoil_Muzzle01',
+            'Hover02',
+            'Hover5',
+        },
+    },
+	
+    Audio = {
+        Destroyed = Sound {
+            Bank = 'XSL_Destroy',
+            Cue = 'XSL_Destroy_Land_Lrg',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartMove = Sound {
+            Bank = 'XSL',
+            Cue = 'XSL0303_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StopMove = Sound {
+            Bank = 'XSL',
+            Cue = 'XSL0303_Move_Stop',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'SeraphimSelect',
+            Cue = 'Seraphim_Select_Tank',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+	
+    Buffs = {
+        Regen = {
+            Level1 = 16,
+            Level2 = 32,
+            Level3 = 48,
+            Level4 = 64,
+            Level5 = 80,
+        },
+    },
+	
+    BuildIconSortPriority = 160,
+	
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER4COMMANDER',
+        'SERAPHIM',
+        'MOBILE',
+        'LAND',
+		'AMPHIBIOUS',
+		'HOVER',
+        'DIRECTFIRE',
+        'EXPERIMENTAL',
+        'NEEDMOBILEBUILD',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'OVERLAYRADAR',
+        'OVERLAYMISC',
+        'DRAGBUILD',
+    },
+	
+    CollisionOffsetY = 0,
+	
+    Defense = {
+        AirThreatLevel = 100,
+        ArmorType = 'Experimental',
+        Health = 80000,
+        MaxHealth = 80000,
+        RegenRate = 32,
+		
+        Shield = {
+            ImpactEffects = 'SeraphimShieldHit01',
+            ImpactMesh = '/effects/entities/ShieldSection01/ShieldSection01_mesh',
+            Mesh = '/effects/entities/SeraphimShield01/SeraphimShield01_mesh',
+            MeshZ = '/effects/entities/Shield01/Shield01z_mesh',
+            RegenAssistMult = 60,
+			
+            ShieldEnergyDrainRechargeTime = 5,
+            ShieldMaxHealth = 45000,
+            ShieldRechargeTime = 39,
+            ShieldRegenRate = 288,
+            ShieldRegenStartTime = 1,
+            ShieldSize = 12,
+            ShieldVerticalOffset = -1,
+        },
+		
+        SurfaceThreatLevel = 1421.3,
+    },
+    
+    Description = '<LOC wsl0405_desc>Experimental Ultra Heavy Hover Tank',
+    
+    Display = {
+        Abilities = {
+            'Shield Dome',
+            'Anti-Air',
+            'Hover',
+            'Radar',
+        },
+        IdleEffects = {
+            Land = {
+                Effects = {
+                    {
+                        Bones = {
+                            'XSL0303',
+                        },
+                        Offset = {
+                            0,
+                            -0.1,
+                            0,
+                        },
+                        Type = 'Hover01',
+                    },
+                },
+            },
+            Water = {
+                Effects = {
+                    {
+                        Bones = {
+                            'XSL0303',
+                        },
+                        Offset = {
+                            0,
+                            -0.1,
+                            0,
+                        },
+                        Type = 'Hover01',
+                    },
+                },
+            },
+        },
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 130,
+                    LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
+                    ShaderName = 'Seraphim',
+                },
+                {
+                    AlbedoName = 'WSL0405_lod1_albedo.dds',
+                    LODCutoff = 215,
+                    LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
+                    ShaderName = 'Seraphim',
+                    SpecularName = 'WSL0405_lod1_specteam.dds',
+                },
+            },
+        },
+        MovementEffects = {
+            Land = {
+                Effects = {
+                    {
+                        Bones = {
+                            'XSL0303',
+                        },
+                        Offset = {
+                            0,
+                            -0.1,
+                            0,
+                        },
+                        Type = 'Hover01',
+                    },
+                    {
+                        Bones = {
+                            'Hover5',
+                        },
+                        Offset = {
+                            0,
+                            -0.1,
+                            0,
+                        },
+                        Type = 'Hover01',
+                    },
+                    {
+                        Bones = {
+                            'Hover6',
+                        },
+                        Offset = {
+                            0,
+                            -0.1,
+                            0,
+                        },
+                        Type = 'Hover01',
+                    },
+                },
+            },
+            Water = {
+                Effects = {
+                    {
+                        Bones = {
+                            'XSL0303',
+                        },
+                        Scale = 0.3,
+                        Type = 'BackWake',
+                    },
+                    {
+                        Bones = {
+                            'XSL0303',
+                        },
+                        Offset = {
+                            0,
+                            -0.05,
+                            0,
+                        },
+                        Type = 'Hover01',
+                    },
+                },
+            },
+        },
+		
+        SpawnRandomRotation = true,
+        UniformScale = 0.09,
+    },
+	
+    Economy = {
+        BuildCostEnergy = 1200000,
+        BuildCostMass = 72500,
+        BuildTime = 20000,
+		
+        MaintenanceConsumptionPerSecondEnergy = 711,
+    },
+	
+    General = {
+		CapCost = 10,
+        Category = 'Direct Fire',
+        Classification = 'RULEUC_MilitaryVehicle',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = false,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        FactionName = 'Seraphim',
+        Icon = 'amph',
+        OrderOverrides = {
+            RULEUTC_ShieldToggle = {
+                bitmapId = 'shield-dome',
+                helpText = 'toggle_shield_dome',
+            },
+        },
+        SelectionPriority = 5,
+        TechLevel = 'RULEUTL_Advanced',
+        ToggleCaps = {
+            RULEUTC_ShieldToggle = true,
+        },
+        UnitName = '<LOC wsl0405_name>Echibum',
+        UnitWeight = 1,
+    },
+	
+    Intel = {
+		FreeIntel = true,
+		OmniRadius = 45,
+		RadarRadius = 90,
+        VisionRadius = 40,
+        WaterVisionRadius = 20,
+    },
+	
+    Interface = {
+        HelpText = 'Ultra Heavy Hover Tank',
+    },
+	
+    LifeBarHeight = 0.1,
+    LifeBarOffset = 2,
+    LifeBarSize = 3,
+	
+    Physics = {
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = true,
+            LAYER_Orbit = false,
+            LAYER_Seabed = false,
+            LAYER_Sub = false,
+            LAYER_Water = false,
+        },
+        DragCoefficient = 0.2,
+		
+        Elevation = 0.3,
+		
+        MaxAcceleration = 0.9,
+        MaxBrake = 0.7,
+        MaxSpeed = 2.6,
+		
+        MaxSpeedReverse = 0,
+		
+        MaxSteerForce = 20,
+        MeshExtentsX = 1,
+        MeshExtentsY = 1.25,
+        MeshExtentsZ = 1,
+		
+        MinSpeedPercent = 0,
+		
+        MotionType = 'RULEUMT_Hover',
+		
+        RotateBodyWhileMoving = true,
+
+        SkirtOffsetX = -0.5,
+        SkirtOffsetZ = -0.5,
+        SkirtSizeX = 4,
+        SkirtSizeZ = 4,
+        
+        TurnFacingRate = 25,
+        TurnRadius = 30,
+        TurnRate = 60,
+		
+        WobbleFactor = 0.03,
+        WobbleSpeed = 0.01,
+    },
+	
+    SelectionSizeX = 2.5,
+    SelectionSizeZ = 2.5,
+    SelectionThickness = 0.3,
+	
+    SizeX = 3.0,
+    SizeY = 1.0,
+    SizeZ = 3.3,
+	
+    StrategicIconName = 'icon_experimental_land_directfire',
+    StrategicIconSortPriority = 115,
+	
+    Transport = {
+        CanFireFromTransport = false,
+        TransportClass = 10,
+    },
+	
+    Veteran = {
+        Level1 = 70,
+        Level2 = 140,
+        Level3 = 210,
+        Level4 = 280,
+        Level5 = 350,
+    },
+	
+    Weapon = {
+        {
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'XSL_Weapon',
+                    Cue = 'XSL0303_Bolter',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_LowArc',
+            CollideFriendly = false,
+			
+            Damage = 2200,
+			DamageFriendly = true,
+            DamageRadius = 1.5,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Thau Cannon',
+			
+            FireTargetLayerCapsTable = {
+                Air = 'Land|Water|Seabed',
+                Land = 'Land|Water|Seabed',
+                Water = 'Land|Water|Seabed',
+            },
+            FiringRandomness = 0.2,
+            FiringRandomnessWhileMoving = 0.5,
+            FiringTolerance = 1,
+			
+            Label = 'MainTurret',
+			
+            MaxRadius = 72,
+			MinRadius = 10,
+			
+            MuzzleSalvoDelay = 0.2,
+            MuzzleSalvoSize = 2,
+            MuzzleVelocity = 38,
+			
+            ProjectileId = '/projectiles/SDFTauCannon01/SDFTauCannon01_proj.bp',
+            ProjectileLifetime = 2.1,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Turret_Barrel_Recoil_Muzzle',
+						'Turret_Barrel_Recoil_Muzzle01',
+                    },
+                    RackBone = 'Turret_Barrel_Recoil_Muzzle',
+                },
+            },
+
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+
+            RangeCategory = 'UWRC_IndirectFire',
+			
+            RateOfFire = 0.5,   -- 2 x 2200 = 4400 Damage / 2 = 2200 DPS
+			
+            TargetCheckInterval = 1,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'TECH3 MOBILE',
+                'DEFENSE',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE,WALL',
+            TrackingRadius = 1.15,
+			
+            TurretBoneMuzzle = 'Turret_Barrel_Recoil_Muzzle',
+            TurretBonePitch = 'Turret_Barrel',
+            TurretBoneYaw = 'Turret',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 30,
+            TurretPitchSpeed = 30,
+			
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 42,
+			
+            Turreted = true,
+            UseFiringSolutionInsteadOfAimBone = true,
+        },
+
+        {
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'XSL_Weapon',
+                    Cue = 'XSL0303_Cannon_Thau',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+            CollideFriendly = false,
+			
+            Damage = 300,
+            DamageRadius = 0,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Aire-au Bolter',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Seabed',
+                Water = 'Land|Water|Seabed',
+            },
+            FiringRandomness = 0.2,
+            FiringRandomnessWhileMoving = 0.4,
+            FiringTolerance = 1,
+			
+            HeadingArcCenter = 60,
+            HeadingArcRange = 130,
+			
+            Label = 'RightTurret',
+			
+            MaxRadius = 42,
+			
+            MuzzleSalvoDelay = 0.1,
+            MuzzleSalvoSize = 2,
+            MuzzleVelocity = 50,
+			
+            ProjectileId = '/projectiles/SDFAireauBolter02/SDFAireauBolter02_proj.bp',
+            ProjectileLifetimeUsesMultiplier = 1.1,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Left_Turret_Barrel_Muzzle03',
+                        'Left_Turret_Barrel_Muzzle04',
+                    },
+                    RackBone = 'Turret03',
+                },
+            },
+
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 1,     -- 2 x 300 = 600 DPS
+			
+            TargetCheckInterval = 0.3,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'TECH3 MOBILE',
+                'DEFENSE',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TrackingRadius = 1.15,
+			
+            TurretBoneMuzzle = 'Left_Turret_Barrel_Muzzle03',
+            TurretBonePitch = 'Turret03',
+            TurretBoneYaw = 'Turret03',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 60,
+            TurretPitchSpeed = 90,
+			
+            TurretYaw = 60,
+            TurretYawRange = 130,
+            TurretYawSpeed = 50,
+			
+            Turreted = true,
+            UseFiringSolutionInsteadOfAimBone = false,
+        },
+		
+        {
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'XSL_Weapon',
+                    Cue = 'XSL0303_Cannon_Thau',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+            CollideFriendly = false,
+			
+            Damage = 300,
+            DamageRadius = 0,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Aire-au Bolter',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Seabed',
+                Water = 'Land|Water|Seabed',
+            },
+            FiringRandomness = 0.2,
+            FiringRandomnessWhileMoving = 0.4,            
+            FiringTolerance = 1,
+			
+            HeadingArcCenter = 295,
+            HeadingArcRange = 110,
+			
+            Label = 'LeftTurret',
+			
+            MaxRadius = 42,
+			
+            MuzzleSalvoDelay = 0.1,
+            MuzzleSalvoSize = 2,
+            MuzzleVelocity = 50,
+			
+            ProjectileId = '/projectiles/SDFAireauBolter02/SDFAireauBolter02_proj.bp',
+            ProjectileLifetimeUsesMultiplier = 1.1,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Left_Turret_Barrel_Muzzle01',
+                        'Left_Turret_Barrel_Muzzle02',
+                    },
+                    RackBone = 'Turret01',
+                },
+            },
+
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+
+            RateOfFire = 1,     -- another 600 DPS
+			
+            TargetCheckInterval = 0.3,
+			
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'TECH3 MOBILE',
+                'DEFENSE',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TrackingRadius = 1.15,
+			
+            TurretBoneMuzzle = 'Left_Turret_Barrel_Muzzle01',
+            TurretBonePitch = 'Turret01',
+            TurretBoneYaw = 'Turret01',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 60,
+            TurretPitchSpeed = 90,
+			
+            TurretYaw = 295,
+            TurretYawRange = 110,
+            TurretYawSpeed = 50,
+			
+            Turreted = true,
+            UseFiringSolutionInsteadOfAimBone = false,
+        },
+        {
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'XSL_Weapon',
+                    Cue = 'XSL0303_Cannon_Thau',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+            CollideFriendly = false,
+			
+            Damage = 300,
+            DamageRadius = 0,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Aire-au Bolter',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Seabed',
+                Water = 'Land|Water|Seabed',
+            },
+            FiringRandomness = 0.2,
+            FiringRandomnessWhileMoving = 0.4,            
+            FiringTolerance = 1,
+			
+            HeadingArcCenter = 135,
+            HeadingArcRange = 110,
+			
+            Label = 'RearRightTurret',
+			
+            MaxRadius = 42,
+			
+            MuzzleSalvoDelay = 0.1,
+            MuzzleSalvoSize = 2,
+            MuzzleVelocity = 50,
+			
+            ProjectileId = '/projectiles/SDFAireauBolter02/SDFAireauBolter02_proj.bp',
+            ProjectileLifetimeUsesMultiplier = 1.1,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Left_Turret_Barrel_Muzzle07',
+                        'Left_Turret_Barrel_Muzzle08',
+                    },
+                    RackBone = 'Turret05',
+                },
+            },
+
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+
+            RateOfFire = 1,     -- another 600 DPS
+			
+            TargetCheckInterval = 0.3,
+			
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'TECH3 MOBILE',
+                'DEFENSE',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TrackingRadius = 1.15,
+			
+            TurretBoneMuzzle = 'Left_Turret_Barrel_Muzzle07',
+            TurretBonePitch = 'Turret05',
+            TurretBoneYaw = 'Turret05',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 60,
+            TurretPitchSpeed = 90,
+			
+            TurretYaw = -45,
+            TurretYawRange = 110,
+            TurretYawSpeed = 50,
+			
+            Turreted = true,
+            UseFiringSolutionInsteadOfAimBone = false,
+        },
+        {
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'XSL_Weapon',
+                    Cue = 'XSL0303_Cannon_Thau',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+            CollideFriendly = false,
+			
+            Damage = 300,
+            DamageRadius = 0,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Aire-au Bolter',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Seabed',
+                Water = 'Land|Water|Seabed',
+            },
+            FiringRandomness = 0.2,
+            FiringRandomnessWhileMoving = 0.4,            
+            FiringTolerance = 1,
+			
+            HeadingArcCenter = 235,
+            HeadingArcRange = 120,
+			
+            Label = 'RearLeftTurret',
+			
+            MaxRadius = 42,
+			
+            MuzzleSalvoDelay = 0.1,
+            MuzzleSalvoSize = 2,
+            MuzzleVelocity = 50,
+			
+            ProjectileId = '/projectiles/SDFAireauBolter02/SDFAireauBolter02_proj.bp',
+            ProjectileLifetimeUsesMultiplier = 1.1,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Left_Turret_Barrel_Muzzle05',
+                        'Left_Turret_Barrel_Muzzle06',
+                    },
+                    RackBone = 'Turret04',
+                },
+            },
+
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+
+            RateOfFire = 1,     -- another 600 DPS
+			
+            TargetCheckInterval = 0.3,
+			
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'TECH3 MOBILE',
+                'DEFENSE',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TrackingRadius = 1.15,
+			
+            TurretBoneMuzzle = 'Left_Turret_Barrel_Muzzle05',
+            TurretBonePitch = 'Turret04',
+            TurretBoneYaw = 'Turret04',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 60,
+            TurretPitchSpeed = 90,
+			
+            TurretYaw = 55,
+            TurretYawRange = 120,
+            TurretYawSpeed = 50,
+			
+            Turreted = true,
+            UseFiringSolutionInsteadOfAimBone = false,
+        },
+		
+        {
+            AlwaysRecheckTarget = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'XSB_Weapon',
+                    Cue = 'XSB2104_Shleo_AA_Autogun',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+            CannotAttackGround = true,
+            CollideFriendly = false,
+			
+            Damage = 200,
+            DamageRadius = 1.6,
+            
+            DetonatesAtTargetHeight = true,
+            
+            DamageType = 'Normal',
+			
+            DisplayName = 'Shleo AA AutoGun',
+			
+            FireTargetLayerCapsTable = {
+                Air = 'Air',
+                Land = 'Air',
+                Water = 'Air',
+            },
+            FiringTolerance = 1,
+			
+            Label = 'AAGun',
+            LeadTarget = true,
+			
+            MaxRadius = 48,
+			
+            MuzzleSalvoDelay = 0.1,
+            MuzzleSalvoSize = 2,
+            MuzzleVelocity = 68,
+			
+            ProjectileId = '/projectiles/SAAShleoAAGatlingGun02/SAAShleoAAGatlingGun02_proj.bp',
+            ProjectileLifetimeUsesMultiplier = 1,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'AATurret_Muzzle01',
+                        'AATurret_Muzzle02',
+                    },
+                    RackBone = 'AATurret_Barrel',
+                },
+            },
+
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+
+            RangeCategory = 'UWRC_AntiAir',
+			
+            RateOfFire = 2,     -- 2 x 200 = 400 * 2 = 800 DPS
+			
+            TargetCheckInterval = 0.5,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'HIGHPRIAIR',
+                'BOMBER',
+                'GROUNDATTACK',
+                'AIR MOBILE',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TrackingRadius = 1.3,
+			
+            TurretBoneMuzzle = 'AATurret_Aiming_Bone',
+            TurretBonePitch = 'AATurret_Barrel',
+            TurretBoneYaw = 'AATurret',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 45,
+            TurretPitchRange = 45,
+            TurretPitchSpeed = 180,
+			
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 180,
+			
+            Turreted = true,
+        },
+		
+        {
+            AboveWaterTargetsOnly = true,
+            Damage = 7500,
+            DamageFriendly = true,
+            DamageRadius = 10,
+            DamageType = 'Normal',
+            DisplayName = 'Megalith Death',
+            DummyWeapon = true,
+            Label = 'MegalithDeath',
+        },
+		
+    },
+	
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0,
+        HealthMult = 0.9,
+        MassMult = 0.75,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Land = true,
+            Seabed = true,
+        },
+    },
+}

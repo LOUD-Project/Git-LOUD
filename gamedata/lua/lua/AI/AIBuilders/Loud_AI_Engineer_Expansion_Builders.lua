@@ -4,6 +4,7 @@
 local EBC = '/lua/editor/EconomyBuildConditions.lua'
 local TBC = '/lua/editor/ThreatBuildConditions.lua'
 local UCBC = '/lua/editor/UnitCountBuildConditions.lua'
+local MIBC = '/lua/editor/MiscBuildConditions.lua'
 local LUTL = '/lua/loudutilities.lua'
 
 local MapHasNavalAreas = function( self, aiBrain )
@@ -419,7 +420,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction',
 	-- not go into the water if an enemy is close or if there are no safe areas
 	-- I made use of the 'rings' variable here -- on a 20km map 2 rings is about 2.5km
 	-- I also shortened the search range to about 17km from 20km
-    Builder {BuilderName = 'Naval Base Initial',
+    Builder {BuilderName = 'Naval Base Initial - Large Map',
 	
         PlatoonTemplate = 'EngineerBuilderGeneral',
         
@@ -435,14 +436,16 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction',
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
             
 			{ UCBC, 'NavalBaseCount', { 1, '<' } },
+            
+			{ MIBC, 'MapGreaterThan', { 1024 } },            
 
 			{ EBC, 'MassToFactoryRatioBaseCheck', { 'LocationType', 1.01, 1.03 } },
       
 			-- must have 3+ factories at MAIN
             { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 3, categories.FACTORY * categories.STRUCTURE}},
 			
-			-- can't be a major enemy base within 12km of here
-			{ TBC, 'ThreatFurtherThan', { 'LocationType', 600, 'Economy', 1500 }},
+			-- can't be a major enemy base within 13km of here
+			{ TBC, 'ThreatFurtherThan', { 'LocationType', 650, 'Economy', 200 }},
 			
 			-- find a safe, unused, naval marker within 12km of this base
             { UCBC, 'NavalAreaForExpansion', { 'LocationType', 600, -250, 50, 2, 'AntiSurface' } },
@@ -478,6 +481,68 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction',
             }
         }
     },
+    
+    Builder {BuilderName = 'Naval Base Initial - Small Map',
+	
+        PlatoonTemplate = 'EngineerBuilderGeneral',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+        Priority = 999,
+		
+		PriorityFunction = MapHasNavalAreasButNotEstablished,
+		
+        BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .65 } },
+
+			{ UCBC, 'IsBaseExpansionUnderway', {false} },
+            
+			{ UCBC, 'NavalBaseCount', { 1, '<' } },
+            
+			{ MIBC, 'MapLessThan', { 1028 } },            
+
+			{ EBC, 'MassToFactoryRatioBaseCheck', { 'LocationType', 1.01, 1.03 } },
+      
+			-- must have 3+ factories at MAIN
+            { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 3, categories.FACTORY * categories.STRUCTURE}},
+			
+			-- can't be a major enemy base within 8km of here
+			{ TBC, 'ThreatFurtherThan', { 'LocationType', 400, 'Economy', 200 }},
+			
+			-- find a safe, unused, naval marker within 12km of this base
+            { UCBC, 'NavalAreaForExpansion', { 'LocationType', 600, -250, 50, 2, 'AntiSurface' } },
+        },
+		
+        BuilderType = { 'T2','T3' },
+		
+        BuilderData = {
+            Construction = {
+				CountedBase = true,
+                
+                ExpansionBase = true,
+                ExpansionRadius = 110,
+                
+				RallyPointRadius = 46,
+				
+                NearMarkerType = 'Naval Area',
+                LocationRadius = 600,
+				
+                ThreatMax = 50,
+                ThreatRings = 2,
+                ThreatType = 'AntiSurface',
+				
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
+				BaseTemplate = 'NavalExpansionBase',
+
+                BuildStructures = {
+					'T1SeaFactory',
+					'T2AirStagingPlatform',
+					'T1SeaFactory',
+					'T2Sonar',
+                }
+            }
+        }
+    },    
 }
 
 BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction - Expansions',

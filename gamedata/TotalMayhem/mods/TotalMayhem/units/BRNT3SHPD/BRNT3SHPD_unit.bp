@@ -341,6 +341,9 @@ UnitBlueprint {
             DamageType = 'Normal',
 			
             DisplayName = 'Ionized Plasma Cannon',
+
+            EnergyDrainPerSecond = 2640,
+            EnergyRequired = 6600,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -403,7 +406,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.4,	-- 3600 Damage every 2.5 seconds = 1440 DPS
+            RateOfFire = 1,	-- controlled by charge -- 3600 Damage every 2.5 seconds = 1440 DPS
 			
             TargetCheckInterval = 0.5,
 			

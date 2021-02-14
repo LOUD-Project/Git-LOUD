@@ -281,6 +281,10 @@ function FinishAIChat(data)
 			AISendChat(data.ToArmy, aiBrain.Nickname, 'Available Commands: target <enemy or at will>, current <focus, plan or status>, give me an engineer.')
 			
 		end
+	
+	elseif data.PrintMult then
+
+		AISendChat(data.ToArmy, aiBrain.Nickname, "My cheat multiplier is: "..string.format("%.3f", aiBrain:TotalCheat()))
 		
 	end
 	

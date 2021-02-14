@@ -195,14 +195,18 @@ PlatoonFormManager = Class(BuilderManager) {
 		
 		local CanFormPlatoon = moho.platoon_methods.CanFormPlatoon
 		local FormPlatoon = moho.platoon_methods.FormPlatoon
-		
-		if aiBrain.BuilderManagers[self.LocationType] and builder.InstancesAvailable > 0 then
+
+        if ScenarioInfo.PriorityDialog then
+          	LOG("*AI DEBUG "..aiBrain.Nickname.." PFM "..self.LocationType.." trys to form "..repr(builder.BuilderName) )
+        end
+
+		if aiBrain.BuilderManagers[self.LocationType] then
 		
 			local template = self.GetPlatoonTemplate( self, builder:GetPlatoonTemplate(), aiBrain )
-			
+		
 			if template and self.Location and self.Radius and CanFormPlatoon( aiBrain.ArmyPool, template, 1, self.Location, self.Radius) then
 
-				if ScenarioInfo.PlatoonDialog then
+				if ScenarioInfo.PlatoonDialog or ScenarioInfo.PriorityDialog then
 					LOG("*AI DEBUG "..aiBrain.Nickname.." PFM "..self.LocationType.." forms "..repr(builder.BuilderName).." using "..repr(template[1]))
 				end
 
@@ -273,7 +277,7 @@ PlatoonFormManager = Class(BuilderManager) {
 
 			else
                 --if ScenarioInfo.PlatoonDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." PFM "..self.LocationType.." unable to form platoon "..repr(template))
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." PFM "..self.LocationType.." unable to form platoon "..repr(template[1]))
                 --end
 			end
         end

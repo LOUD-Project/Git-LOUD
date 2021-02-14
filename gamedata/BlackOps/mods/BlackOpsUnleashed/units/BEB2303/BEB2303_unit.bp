@@ -177,25 +177,26 @@ UnitBlueprint {
 			
             Damage = 250,
             DamageFriendly = true,
-            DamageRadius = 2,
+            DamageRadius = 2.5,             -- .5 class bonus
+            
             DamageType = 'Normal',
 			
             DisplayName = 'APDS Artillery',
 			
-            EnergyDrainPerSecond = 125,
-            EnergyRequired = 125,
+            EnergyDrainPerSecond = 120,     -- 2 second charge
+            EnergyRequired = 240,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
 			
-            FiringRandomness = 1.1,
+            FiringRandomness = 1.2,
             FiringTolerance = 1,
 			
             Label = 'MainGun',
 			
-            MaxRadius = 65,
+            MaxRadius = 68,
             MinRadius = 15,
 			
             MuzzleSalvoDelay = 0,
@@ -222,8 +223,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.5,
-            RenderFireClock = true,
+            RateOfFire = 1,       -- 125 DPS -- controlled by charge
 			
             TargetCheckInterval = .5,
             TargetPriorities = {
