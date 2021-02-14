@@ -237,6 +237,7 @@ local modSchema = {
         'eabdfda4-24b5-40dc-8995-LOUD000DEBUG', -- LOUD Debug Tools
         '7be1d5f4-c544-11ea-87d0-noalerts0001', -- No VO Alerts
         '5362BE90-44BE-11DD-A519-83AF56D89593', -- Supreme Commander Music
+        'f31a09b5-2b2f-4bb4-aeac-resource0000001', -- Wonky Resources
     },
     ["Usermods"] = {},
 }
