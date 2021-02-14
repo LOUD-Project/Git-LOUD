@@ -321,6 +321,124 @@ function upvalues()
 	
 end 
 
+function SetAIDebug(data)
+    if type(data.Active) ~= 'boolean' then
+        WARN("SETAIDEBUG: illegal On argument, returning")
+        return
+    end
+
+    LOG("SETAIDEBUG: Call w/ "..repr(data))
+
+    if data.Switch then
+        -- This branch mutates ScenarioInfo directly, so it has to be foolproof.
+        -- Validate everything
+
+        local legalVars = {
+            'NameEngineers',
+            'EngineerDialog',
+            'DisplayFactoryBuilds',
+            'ACUEnhanceDialog',
+            'SCUEnhanceDialog',
+            'FactoryEnhanceDialog',
+            'StructureUpgradeDialog',
+            'DisplayAttackPlans',
+            'AttackPlanDialog',
+            'ReportRatios',
+            'IntelDialog',
+            'DisplayIntelPoints',
+            'DisplayBaseNames',
+            'BaseMonitorDialog',
+            'DisplayBaseMonitors',
+            'BaseDistressResponseDialog',
+            'DeadBaseMonitorDialog',
+            'DisplayPingAlerts',
+            'PlatoonDialog',
+            'DisplayPlatoonMembership',
+            'DisplayPlatoonPlans',
+            'DistressResponseDialog',
+            'PlatoonMergeDialog',
+            'TransportDialog',
+            'PathFindingDialog',
+            'PriorityDialog',
+            'InstanceDialog',
+            'BuffDialog',
+            'ProjectileDialog',
+            'ShieldDialog',
+            'WeaponDialog',
+        }
+
+        if not table.find(legalVars, data.Switch) then
+            WARN("SETAIDEBUG: Illegal Var passed, returning")
+            return
+        end
+
+        ScenarioInfo[data.Switch] = data.Active
+        LOG("SETAIDEBUG: "..repr(data.Switch).." "..repr(data.Active))
+
+        if data.Switch == 'DisplayAttackPlans' then
+            if data.Active then
+                local LoudUtils = import('/lua/loudutilities.lua')
+                for i, brain in ArmyBrains do
+                    if brain.BrainType ~= 'Human' and not brain.DrawPlanThread then
+                        brain.DrawPlanThread = ForkThread(LoudUtils.DrawPlanNodes, brain)
+                    end
+                end
+            else
+                for i, brain in ArmyBrains do
+                    if brain.BrainType ~= 'Human' and brain.DrawPlanThread then
+                        KillThread(brain.DrawPlanThread)
+                        brain.DrawPlanThread = nil
+                    end
+                end
+            end
+        end
+
+        if data.Switch == 'DisplayIntelPoints' then
+            if data.Active then
+                local LoudUtils = import('/lua/loudutilities.lua')
+                for i, brain in ArmyBrains do
+                    if brain.BrainType ~= 'Human' and not brain.IntelDebugThread then
+                        brain.IntelDebugThread = brain:ForkThread(LoudUtils.DrawIntel)
+                    end
+                end
+            else
+                for i, brain in ArmyBrains do
+                    if brain.BrainType ~= 'Human' and brain.IntelDebugThread then
+                        KillThread(brain.IntelDebugThread)
+                        brain.IntelDebugThread = nil
+                    end
+                end
+            end
+        end
+    elseif data.ThreatType then
+        local LoudUtils = import('/lua/loudutilities.lua')
+
+        -- local table
+        -- if data.Table == 1 then
+        --     table = LoudUtils.threatColor
+        -- else
+        --     table = LoudUtils.threatColor2
+        -- end
+
+        -- if data.Active then
+        --     table[data.ThreatType] = data.Color
+        -- else
+        --     table[data.ThreatType] = nil
+        -- end
+
+        if data.Active then
+            LoudUtils.intelChecks[data.ThreatType][6] = true
+        else
+            LoudUtils.intelChecks[data.ThreatType][6] = false
+        end
+        
+        LOG("SETAIDEBUG: "..repr(LoudUtils.intelChecks[data.ThreatType]))
+        -- LOG("SETAIDEBUG: New threatColor tables: ")
+        -- LOG("SETAIDEBUG: 1 -> "..repr(LoudUtils.threatColor))
+        -- LOG("SETAIDEBUG: 2 -> "..repr(LoudUtils.threatColor2))
+    end
+end
+
 -- this is the score keeping thread 
 -- it rotates thru all the brains and fills in each armies score details
 -- the rate of score updating is controlled within

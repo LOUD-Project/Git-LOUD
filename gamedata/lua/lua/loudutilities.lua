@@ -3424,28 +3424,21 @@ function ParseIntelThread( aiBrain )
 	}
 	--]]
 	
-	local intelChecks = {
+	intelChecks = {
 		-- ThreatType	= {threat min, timeout (-1 = never) in seconds, category for exact pos, parse every x iterations}
 		-- notice the inclusions for Naval with matching exclusions for StructuresNotMex
 		-- note that some categories dont have a dynamic threat threshold - just air,land,naval and structures - since you can only pack so many in a smaller IMAP block
-		Air 			= { 12 * ThresholdMult, 6, categories.AIR - categories.SATELLITE - categories.SCOUT, 1,'ffff0000'},
-		
-		Land 			= { 12 * ThresholdMult, 24, categories.MOBILE - categories.AIR - categories.ANTIAIR - categories.SCOUT, 3,'ff00ff00' },
-        
-		Naval 			= { 12 * ThresholdMult, 24, categories.MOBILE - categories.AIR - categories.ANTIAIR - categories.SCOUT, 3,'ff00a0ff' },
-        
-		Experimental 	= { 50, 24, (categories.EXPERIMENTAL * categories.MOBILE), 4,'ff00fec3'},
-		
-		Commander 		= { 60, 24, categories.COMMAND, 5,'ffffffff' },
-
-		Economy			= { 100, 24, categories.ECONOMIC + categories.FACTORY, 6,'90ff7000' },
-        
-		StructuresNotMex = { 30, 24, categories.STRUCTURE - categories.WALL - categories.ECONOMIC, 4, 'c0ffff00' },
-
-		--Artillery 	= { 60, 35, (categories.ARTILLERY * categories.STRUCTURE - categories.TECH1) + (categories.EXPERIMENTAL * categories.ARTILLERY), 5,'ffffff00' },
-        --AntiAir       = { 12 * ThresholdMult, 10, categories.ANTIAIR, 2, 'ffff00ff'},
-        --AntiSurface   = { 12 * ThresholdMult, 10, categories.ALLUNITS, 4, 'ffff00ff'},
-        --AntiSub       = { 12 * ThresholdMult, 10, categories.ALLUNITS, 5, 'ff0000ff' },
+		Air 			= { 12 * ThresholdMult, 6, categories.AIR - categories.SATELLITE - categories.SCOUT, 1,'ffff0000', false},
+		Land 			= { 12 * ThresholdMult, 24, categories.MOBILE - categories.AIR - categories.ANTIAIR - categories.SCOUT, 3,'ff00ff00', false },
+		Naval 			= { 12 * ThresholdMult, 24, categories.MOBILE - categories.AIR - categories.ANTIAIR - categories.SCOUT, 3,'ff00a0ff', false },
+		Experimental 	= { 50, 24, (categories.EXPERIMENTAL * categories.MOBILE), 4,'ff00fec3', false },
+		Commander 		= { 60, 24, categories.COMMAND, 5,'ffffffff', false },
+		Economy			= { 100, 24, categories.ECONOMIC + categories.FACTORY, 6,'90ff7000', false },
+		StructuresNotMex = { 30, 24, categories.STRUCTURE - categories.WALL - categories.ECONOMIC, 4, 'c0ffff00', false },
+		Artillery 	= { 60, 35, (categories.ARTILLERY * categories.STRUCTURE - categories.TECH1) + (categories.EXPERIMENTAL * categories.ARTILLERY), 5,'ffffff00', false },
+        AntiAir       = { 12 * ThresholdMult, 10, categories.ANTIAIR, 2, 'ffff00ff', false},
+        AntiSurface   = { 12 * ThresholdMult, 10, categories.ALLUNITS, 4, 'ffff00ff', false},
+        AntiSub       = { 12 * ThresholdMult, 10, categories.ALLUNITS, 5, 'ff0000ff', false },
 	}
 
 	local numchecks = 0
@@ -3461,7 +3454,7 @@ function ParseIntelThread( aiBrain )
 	-- Draw HiPri intel data on map - for visual aid - not required but useful for debugging threat assessment
 	if ScenarioInfo.DisplayIntelPoints then
 		if not aiBrain.IntelDebugThread then
-			aiBrain.IntelDebugThread = aiBrain:ForkThread( import('/lua/loudutilities.lua').DrawIntel )
+			aiBrain.IntelDebugThread = aiBrain:ForkThread( DrawIntel )
 		end		
 	end
 	
@@ -3561,6 +3554,10 @@ function ParseIntelThread( aiBrain )
 		-- loop thru each of the threattypes
 		-- but processing only those types marked for this iteration
 		for threatType, vx in intelChecks do
+
+			if not vx[6] then
+				continue
+			end
 
 			if LOUDMOD(iterationcount, vx[4]) == 0 then
 
@@ -4653,6 +4650,73 @@ function CreateAttackPlan( self, enemyPosition )
 	end
 end
 
+function DrawPlanNodes(self)
+	local DC = DrawCircle
+	local DLP = DrawLinePop
+	
+	-- LOG("*AI DEBUG "..self.Nickname.." Drawing Plan "..repr(self.AttackPlan))
+	
+	while self.AttackPlan.Goal do
+	
+		if ( self.ArmyIndex == GetFocusArmy() or ( GetFocusArmy() != -1 and self.ArmyIndex and IsAlly(GetFocusArmy(), self.ArmyIndex)) ) and self.AttackPlan.StagePoints[0] then
+		
+			DC(self.AttackPlan.StagePoints[0], 1, '00ff00')
+			DC(self.AttackPlan.StagePoints[0], 3, '00ff00')
+
+			local lastpoint = self.AttackPlan.StagePoints[0]				
+				local lastpoint = self.AttackPlan.StagePoints[0]				
+			local lastpoint = self.AttackPlan.StagePoints[0]				
+			local lastdraw = lastpoint
+			
+			if self.AttackPlan.StagePoints[0].Path then
+			
+				-- draw the movement path --
+				for _,v in self.AttackPlan.StagePoints[0].Path do
+				
+					DLP( lastdraw, v, '0303ff' )
+					lastdraw = v
+				
+				end
+			end
+			
+			for i = 1, self.AttackPlan.StageCount do
+			
+				DLP( lastpoint, self.AttackPlan.StagePoints[i].Position, 'ffffff')
+				
+				DC( self.AttackPlan.StagePoints[i].Position, 1, 'ff0000')
+				DC( self.AttackPlan.StagePoints[i].Position, 3, 'ff0000')
+				DC( self.AttackPlan.StagePoints[i].Position, 5, 'ffffff')
+
+				lastdraw = lastpoint
+				
+				if self.AttackPlan.StagePoints[i].Path then
+				
+					for _,v in self.AttackPlan.StagePoints[i].Path do
+				
+						DLP( lastdraw,v, '0303ff' )
+						lastdraw = v
+				
+					end
+				end
+				
+				lastpoint = self.AttackPlan.StagePoints[i].Position
+			end
+			
+			DLP( lastpoint, self.AttackPlan.Goal, 'ffffff')
+			
+			lastdraw = lastpoint
+			
+			DC( self.AttackPlan.Goal, 1, 'ff00ff')
+			DC( self.AttackPlan.Goal, 3, '00ff00')
+			DC( self.AttackPlan.Goal, 5, 'ff00ff')
+		end
+		
+		WaitTicks(6)
+	end
+	
+	self.DrawPlanThread = nil
+end
+
 function AttackPlanMonitor(self)
 
     --LOG("*AI DEBUG "..self.Nickname.." starting AttackPlanMonitor to "..repr(self.AttackPlan.Goal))
@@ -4660,79 +4724,13 @@ function AttackPlanMonitor(self)
     local GetThreatsAroundPosition = self.GetThreatsAroundPosition
     local CurrentEnemyIndex = self:GetCurrentEnemy():GetArmyIndex()
 
-	local function DrawPlanNodes()
-	
-		local DC = DrawCircle
-		local DLP = DrawLinePop
-		
-		--LOG("*AI DEBUG "..self.Nickname.." Drawing Plan "..repr(self.AttackPlan))
-		
-		while self.AttackPlan.Goal do
-		
-			if ( self.ArmyIndex == GetFocusArmy() or ( GetFocusArmy() != -1 and self.ArmyIndex and IsAlly(GetFocusArmy(), self.ArmyIndex)) ) and self.AttackPlan.StagePoints[0] then
-			
-				DC(self.AttackPlan.StagePoints[0], 1, '00ff00')
-				DC(self.AttackPlan.StagePoints[0], 3, '00ff00')
-
-				local lastpoint = self.AttackPlan.StagePoints[0]				
-				local lastdraw = lastpoint
-				
-				if self.AttackPlan.StagePoints[0].Path then
-				
-					-- draw the movement path --
-					for _,v in self.AttackPlan.StagePoints[0].Path do
-					
-						DLP( lastdraw, v, '0303ff' )
-						lastdraw = v
-					
-					end
-				end
-				
-				for i = 1, self.AttackPlan.StageCount do
-				
-					DLP( lastpoint, self.AttackPlan.StagePoints[i].Position, 'ffffff')
-					
-					DC( self.AttackPlan.StagePoints[i].Position, 1, 'ff0000')
-					DC( self.AttackPlan.StagePoints[i].Position, 3, 'ff0000')
-					DC( self.AttackPlan.StagePoints[i].Position, 5, 'ffffff')
-
-					lastdraw = lastpoint
-					
-					if self.AttackPlan.StagePoints[i].Path then
-					
-						for _,v in self.AttackPlan.StagePoints[i].Path do
-					
-							DLP( lastdraw,v, '0303ff' )
-							lastdraw = v
-					
-						end
-					end
-					
-					lastpoint = self.AttackPlan.StagePoints[i].Position
-				end
-				
-				DLP( lastpoint, self.AttackPlan.Goal, 'ffffff')
-				
-				lastdraw = lastpoint
-				
-				DC( self.AttackPlan.Goal, 1, 'ff00ff')
-				DC( self.AttackPlan.Goal, 3, '00ff00')
-				DC( self.AttackPlan.Goal, 5, 'ff00ff')
-			end
-			
-			WaitTicks(6)
-		end
-        
-        self.DrawPlanThread = nil
-	end
-
     while self.AttackPlan.Goal do
     
 		-- Draw Attack Plans onscreen (set in InitializeSkirmishSystems or by chat to the AI)
 		if self.AttackPlan and (ScenarioInfo.DisplayAttackPlans or self.DisplayAttackPlans) then
         
             if not self.DrawPlanThread then
-                self.DrawPlanThread = ForkThread( DrawPlanNodes )
+                self.DrawPlanThread = ForkThread( DrawPlanNodes, self )
             end
 		end         
 

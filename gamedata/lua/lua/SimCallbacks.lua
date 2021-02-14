@@ -40,6 +40,8 @@ Callbacks.OnPlayerQuery = import('/lua/simplayerquery.lua').OnPlayerQuery
 Callbacks.OnPlayerQueryResult = import('/lua/simplayerquery.lua').OnPlayerQueryResult
 Callbacks.PingGroupClick = import('/lua/simpinggroup.lua').OnClickCallback
 
+Callbacks.SetAIDebug = import('/lua/aibrain.lua').SetAIDebug
+
 Callbacks.NoteSimSpeedChange = function(data)
 	UpdateSimSpeed(data)
 end
