@@ -423,7 +423,7 @@ function TableFindSubstrings(table, string1, string2)
     end
 end
 
--- Making unique mesh blueprints was unessessary, but I haven't bothered uncoupling the essential part of this.
+-- Making unique mesh, so it can be a glowy hologram
 function RNDGiveUniqueMeshBlueprints(all_bps, newid, ref)
     local bp = all_bps[newid]
     for i, mesh in {'BuildMeshBlueprint', 'MeshBlueprint'} do
@@ -432,6 +432,9 @@ function RNDGiveUniqueMeshBlueprints(all_bps, newid, ref)
         if meshbp then
             local dupebp = table.deepcopy(meshbp)
             dupebp.BlueprintId = refid .. 'rnd'
+            for i, lod in dupebp.LODs do
+                dupebp.LODs[i].ShaderName = 'PhalanxEffect'
+            end
             bp.Display[mesh] = dupebp.BlueprintId
             MeshBlueprint(dupebp)
         end
