@@ -649,7 +649,6 @@ function OnSelectionChanged(oldSelection, newSelection, added, removed)
                 end
             end
             newSelection = temp
-            selectGuard = true
             ForkThread(function()
                 SelectUnits(newSelection)
                 import('/lua/ui/game/selection.lua').PlaySelectionSound(newSelection)
