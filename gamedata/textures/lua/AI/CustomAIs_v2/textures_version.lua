@@ -1,4 +1,4 @@
 AI = {
 	Name = "Textures.scd",
-	Version = "LOUD 6.3.1",
+	Version = "LOUD 6.3.2",
 }
