@@ -284,7 +284,7 @@ function FinishAIChat(data)
 	
 	elseif data.PrintMult then
 
-		AISendChat(data.ToArmy, aiBrain.Nickname, "My cheat multiplier is: "..string.format("%.3f", aiBrain:TotalCheat()))
+		AISendChat(data.ToArmy, aiBrain.Nickname, string.format("My cheat multiplier is %.3f.", aiBrain:TotalCheat()))
 		
 	end
 	
