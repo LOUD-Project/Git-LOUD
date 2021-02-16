@@ -5,6 +5,7 @@ copyright = "© 2018 Sean Wheeldon"
 description = "Separates the hardware and software for tech levels, and adds research for unlocking tech tevels and units."
 author = "Balthazar"
 icon = "/mods/BrewLAN_Units/BrewResearch/R&D.png"
+requires = { "25D57D85-7D84-27HT-A501-BR3WL4N000079" }
 selectable = true
 enabled = true
 exclusive = false
