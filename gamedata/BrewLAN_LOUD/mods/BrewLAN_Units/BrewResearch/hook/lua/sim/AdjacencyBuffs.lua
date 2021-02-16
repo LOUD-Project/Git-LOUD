@@ -25,11 +25,9 @@ do
     table.insert(T1WindGeneratorAdjacencyBuffs, 'T1TurbineEnergyProductionBonusSize4')
 end
 
--- Note: Commented out for LOUD as we won't be using the small T2 Generators
 --------------------------------------------------------------------------------
 -- Light tech 2 energy generators
 --------------------------------------------------------------------------------
---[[
 T2LightPowerGeneratorAdjacencyBuffs = {}
 
 do
@@ -133,7 +131,6 @@ do
        end
    end
 end
-]]--
 
 --------------------------------------------------------------------------------
 -- Unused science and manufacturing center buffs.

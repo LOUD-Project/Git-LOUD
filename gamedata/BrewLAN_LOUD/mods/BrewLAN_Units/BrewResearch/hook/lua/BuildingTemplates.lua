@@ -14,11 +14,10 @@ do
 --            'T1EnergyProduction',
 --            {false--[['seb1102']],false--[['sab1102']],false--[['srb1102']],'ssb1102'},
 --        },
--- Note: Commented out for LOUD as we won't use the small T2 Generators
---        {
---            'T2EnergyProduction',
---            {'seb1201','sab1201','srb1201','ssb1201'},
---        },
+       {
+           'T2EnergyProduction',
+           {'seb1201','sab1201','srb1201','ssb1201'},
+       },
     }
     for group, data in inserts do
         for i, id in data[2] do
