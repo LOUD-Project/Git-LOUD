@@ -861,6 +861,15 @@ function ColorToArray(color)
     end
 end
 
+-- RGB array, each in range from 0 to 255
+local function RandomColor()
+    return { 
+        math.random(0, 255), 
+        math.random(0, 255), 
+        math.random(0, 255) 
+    }
+end
+
 -- update the data in a player slot
 function SetSlotInfo(slot, playerInfo)
 
@@ -2144,7 +2153,7 @@ function HostTryAddPlayer( senderID, slot, requestedPlayerName, human, aiPersona
     if newSlot == -1 then
         if human then
 			PrivateChat( senderID, LOC("<LOC lobui_0237>No slots available, attempting to make you an observer"))
-            HostTryAddObserver(senderID, requestedPlayerName)
+            HostTryAddObserver(senderID, requestedPlayerName, requestedColor or RandomColor())
         end
         return
     end
@@ -2177,11 +2186,7 @@ function HostTryAddPlayer( senderID, slot, requestedPlayerName, human, aiPersona
         gameInfo.PlayerOptions[newSlot].WheelColor = requestedColor
     else
         -- Generate a random colour for what's probably an AI
-        gameInfo.PlayerOptions[newSlot].WheelColor = { 
-            math.random(0, 255), 
-            math.random(0, 255), 
-            math.random(0, 255) 
-        }
+        gameInfo.PlayerOptions[newSlot].WheelColor = RandomColor()
     end
 
     lobbyComm:BroadcastData( { Type = 'SlotAssigned', Slot = newSlot, Options = gameInfo.PlayerOptions[newSlot] } )
@@ -2224,7 +2229,7 @@ function HostTryMovePlayer(senderID, currentSlot, requestedSlot)
     UpdateGame()
 end
 
-function HostTryAddObserver( senderID, requestedObserverName )
+function HostTryAddObserver( senderID, requestedObserverName, requestedColor )
 
     local index = 1
     while gameInfo.Observers[index] do
@@ -2233,7 +2238,11 @@ function HostTryAddObserver( senderID, requestedObserverName )
 
     local observerName = lobbyComm:MakeValidPlayerName(senderID,requestedObserverName)
 	
-    gameInfo.Observers[index] = { PlayerName = observerName, OwnerID = senderID }
+    gameInfo.Observers[index] = {
+        PlayerName = observerName,
+        OwnerID = senderID,
+        Color = requestedColor or RandomColor()
+    }
 
     lobbyComm:BroadcastData( { Type = 'ObserverAdded', Slot = index, Options = gameInfo.Observers[index] } )
 	
@@ -2255,7 +2264,13 @@ function HostConvertPlayerToObserver(senderID, name, playerSlot)
         index = index + 1
     end
 
-    gameInfo.Observers[index] = { PlayerName = name, OwnerID = senderID }
+    gameInfo.Observers[index] = {
+        PlayerName = name,
+        OwnerID = senderID,
+        -- Preserve WheelColor in case player switches back from observer;
+        -- they might want their colour back
+        Color = gameInfo.PlayerOptions[playerSlot].WheelColor
+    }
 	
     gameInfo.PlayerOptions[playerSlot] = nil
 	
@@ -2285,12 +2300,7 @@ function HostConvertObserverToPlayer(senderID, name, fromObserverSlot, toPlayerS
     gameInfo.PlayerOptions[toPlayerSlot] = LobbyComm.GetDefaultPlayerOptions(name)
     gameInfo.PlayerOptions[toPlayerSlot].OwnerID = senderID
 
-    for _ , color in gameColors.WheelColors do
-        if IsColorFree(color) then
-            gameInfo.PlayerOptions[toPlayerSlot].WheelColor = color
-            break
-        end
-    end
+    gameInfo.PlayerOptions[toPlayerSlot].WheelColor = gameInfo.Observers[fromObserverSlot].Color or RandomColor()
 
     gameInfo.Observers[fromObserverSlot] = nil
 
@@ -4524,7 +4534,11 @@ function InitLobbyComm(protocol, localPort, desiredPlayerName, localPlayerUID, n
 
         if wantToBeObserver then
             -- Ok, I'm connected to the host. Now request to become an observer
-            lobbyComm:SendData( hostID, { Type = 'AddObserver', RequestedObserverName = localPlayerName, } )
+            lobbyComm:SendData( hostID, {
+                Type = 'AddObserver', 
+                RequestedObserverName = localPlayerName, 
+                RequestedColor = Prefs.GetFromCurrentProfile('LastColor') 
+            })
         else
             -- Ok, I'm connected to the host. Now request to become a player
             local requestedFaction = Prefs.GetFromCurrentProfile('LastFaction')
@@ -4615,7 +4629,7 @@ function InitLobbyComm(protocol, localPort, desiredPlayerName, localPlayerUID, n
             elseif data.Type == 'AddObserver' then
                 -- create empty slot if possible and give it to the observer
                 if gameInfo.GameOptions.AllowObservers then
-                    HostTryAddObserver( data.SenderID, data.RequestedObserverName )
+                    HostTryAddObserver( data.SenderID, data.RequestedObserverName, data.RequestedColor )
                 else
                     lobbyComm:EjectPeer(data.SenderID, 'NoObservers');
                 end
