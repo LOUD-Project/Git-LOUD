@@ -14,6 +14,7 @@ function ModBlueprints(all_blueprints)
 --    RebalanceExistingBlueprints(all_blueprints.Unit)
 --    RNDDefineNewFactoryBuildCategories(all_blueprints.Unit)
     GenerateResearchItemBPs(all_blueprints.Unit)
+    DumpOldBuiltByCategories(all_blueprints.Unit, 'RESEARCHLOCKEDTECH1')
 end
 
 --------------------------------------------------------------------------------
@@ -29,11 +30,16 @@ function RNDPrepareScript(all_bps)
             table.remove(all_bps[bp.General.UpgradesTo].Categories, TableFindSubstrings(all_bps[bp.General.UpgradesTo].Categories, 'BUILTBY', 'FACTORY'))
         end
         if bp.Categories and id ~= 'zzz6969' then -- zzz6969 is a cat dump unit for compatibility
+            -- RAT: We're keeping the LOUD status quo on engineer/ACU capability dynamics.
+            -- Tech 3 sitution is deliberate and stays (for now).
+            -- Tech 1 is on the table, but AI spews to log if it can't build hydros or storage
+            
             -- Create extended tech 1 restriction and allow the ACU to build them after the research
-            if table.find(bp.Categories, 'BUILTBYTIER1ENGINEER') and not table.find(bp.Categories, 'BUILTBYCOMMANDER') then
-                table.insert(bp.Categories, 'RESEARCHLOCKEDTECH1')
-                table.insert(bp.Categories, 'BUILTBYCOMMANDER')
-            end
+            -- if table.find(bp.Categories, 'BUILTBYTIER1ENGINEER') and not table.find(bp.Categories, 'BUILTBYCOMMANDER') then
+                -- table.insert(bp.Categories, 'RESEARCHLOCKEDTECH1')
+                -- table.insert(bp.Categories, 'BUILTBYCOMMANDER')
+            -- end
+
             -- Kill off TIER N requirements from all build categories
             -- Levels the playing field for tech, so it's handled entirely by the research
             CategoryArrayRemoveTierN(all_bps, bp.Economy.BuildableCategory)
@@ -44,8 +50,8 @@ function RNDPrepareScript(all_bps)
             if table.find(bp.Categories, 'CONSTRUCTIONSORTDOWN') then
                 table.removeByValue(bp.Categories, 'CONSTRUCTIONSORTDOWN')
             end
+
             -- Harmonise built by commander and built by engineer
-            -- RAT: Don't do this in LOUD yet, maybe make it a research item
             --[[
             if table.find(bp.Categories, 'BUILTBYCOMMANDER') and not table.find(bp.Categories, 'BUILTBYENGINEER') then
                 table.insert(bp.Categories, 'BUILTBYENGINEER')

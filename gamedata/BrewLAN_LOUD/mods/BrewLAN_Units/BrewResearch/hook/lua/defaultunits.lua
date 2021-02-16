@@ -140,7 +140,7 @@ ResearchFactoryUnit = Class(FactoryUnit) {
         if not self.bpID then
             self.bpID = self:GetBlueprint().BlueprintId
         end
-    end
+    end,
 
     OnStopBeingBuilt = function(self, builder, layer)
         -- If we're an AI

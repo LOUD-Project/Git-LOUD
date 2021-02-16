@@ -5,7 +5,8 @@ do
     local OldCreateInitialArmyGroup = CreateInitialArmyGroup
     function CreateInitialArmyGroup(strArmy, createCommander)
         if createCommander then
-            AddBuildRestriction(strArmy, categories.RESEARCHLOCKED + categories.RESEARCHLOCKEDTECH1 + categories.TECH2 + categories.TECH3 + categories.EXPERIMENTAL)
+            -- AddBuildRestriction(strArmy, categories.RESEARCHLOCKED + categories.RESEARCHLOCKEDTECH1 + categories.TECH2 + categories.TECH3 + categories.EXPERIMENTAL)
+            AddBuildRestriction(strArmy, categories.RESEARCHLOCKED + categories.TECH2 + categories.TECH3 + categories.EXPERIMENTAL)
             local AIBrain = GetArmyBrain(strArmy)
             AIBrain.BrewRND.Init(AIBrain)
         end
