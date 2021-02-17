@@ -314,6 +314,10 @@ function GenerateResearchItemBPs(all_bps)
                 if not bp.General then
                     bp.General = {}
                 end
+                if not bp.Display then
+                    bp.Display = {}
+                end
+                bp.Display.IconName = newid
                 bp.General.FactionName = faction
                 RNDGenerateBaseResearchItemBlueprint(all_bps, newid, id, bp)
                 RNDGiveCategoriesAndDefineCosts(all_bps, newid, bp)
@@ -351,6 +355,7 @@ function RNDGenerateBaseResearchItemBlueprint(all_bps, newid, id, bp)
             Abilities = {
                 '<LOC ability_rnd_unlock>Research Unlock',
             },
+            IconName = bp.Display.IconName,
             UniformScale = (bp.Display.UniformScale or 0.2) / sizescale, -- calculate properly based on footprint size
         },
         Footprint = {
@@ -392,6 +397,9 @@ function RNDGenerateBaseResearchItemBlueprint(all_bps, newid, id, bp)
         Source = bp.Source or all_bps.seb9101.Source,
         StrategicIconName = bp.StrategicIconName,
     }
+    if not all_bps[newid].Display.IconName then
+        all_bps[newid].Display.IconName = id
+    end
 end
 
 function RNDGiveCategoriesAndDefineCosts(all_bps, newid, ref)

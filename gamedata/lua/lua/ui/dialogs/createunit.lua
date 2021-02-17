@@ -674,7 +674,9 @@ function CreateDialog(x, y)
         mouseover.img.Height:Set(40)
         mouseover.img.Width:Set(40)
         LayoutHelpers.AtLeftTopIn(mouseover.img, mouseover, 2,2)
-        if DiskGetFileInfo(UIUtil.UIFile('/icons/units/'..unitData..'_icon.dds', true)) then
+        if __blueprints[unitData].Display.IconName then
+            mouseover.img:SetTexture(UIUtil.UIFile('/icons/units/'..__blueprints[unitData].Display.IconName..'_icon.dds', true))
+        elseif DiskGetFileInfo(UIUtil.UIFile('/icons/units/'..unitData..'_icon.dds', true)) then
             mouseover.img:SetTexture(UIUtil.UIFile('/icons/units/'..unitData..'_icon.dds', true))
         else
             mouseover.img:SetTexture(UIUtil.UIFile('/icons/units/default_icon.dds'))

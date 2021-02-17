@@ -265,7 +265,14 @@ function UpdateWindow(info)
 			if DiskGetFileInfo(path) then
 			
 				controls.icon:SetTexture(path)
-				
+			
+            elseif bp.Display.IconName then
+
+                local path = '/icons/units/'..bp.Display.IconName..'_icon.dds'
+                if DiskGetFileInfo(UIUtil.UIFile(path)) then
+                    controls.icon:SetTexture(UIUtil.UIFile(path))
+                end
+
 			else
 			
 				-- Sets placeholder because no other icon was found
@@ -468,7 +475,14 @@ function UpdateWindow(info)
 				if DiskGetFileInfo(path) then
 				
 					controls.actionIcon:SetTexture(path)
-					
+
+                elseif __blueprints[info.focus.blueprintId].Display.IconName then
+
+                    local path = '/icons/units/'..__blueprints[info.focus.blueprintId].Display.IconName..'_icon.dds'
+                    if DiskGetFileInfo(UIUtil.UIFile(path)) then
+                        controls.actionIcon:SetTexture(UIUtil.UIFile(path))
+                    end
+        
 				else 
 					-- Sets placeholder because no other icon was found
 					controls.actionIcon:SetTexture('/textures/ui/common/game/unit_view_icons/unidentified.dds')
