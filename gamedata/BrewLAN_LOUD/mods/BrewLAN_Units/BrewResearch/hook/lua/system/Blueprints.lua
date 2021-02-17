@@ -134,21 +134,27 @@ function RestrictExistingBlueprints(all_bps)
         'xrb3301', -- Soothsayer
         'ssb3301', -- Aezselen
 
-        'uab0305', 'ueb0305', 'urb0305', 'xsb0305', -- Quantum teleporters
-        'sab4401', 'seb4401', 'ssb4401', -- BrewLAN T4 shields
-        -- The heaviest T4s, so lighter T4s get time to shine
-        'wel0405', -- King Kraptor
-        'uaa0310', -- CZAR
+        -- FA
+        'xab2307', -- Salvation
+        'ueb2401', -- Mavor
+        'url0401', -- Scathis
+        'xsb2401', -- Yolona Oss
+        -- TM
+        'brot3ncm', -- Eliash
         'brnt3shbm', -- Mayhem
-        'wel0416', -- Dragonite
         'brmt3ava', -- Avalanche
+        'brpexshbm', -- Thaez-Atha
+        -- BlackOps
+        'bal0401', -- Inquisitor
+        'bel0402', -- Goliath
         'brl0401', -- Basilisk
-        'ssl0405', -- Suedath-Zmara
         'bsb0405', -- Uttaus-Athellu
-        -- Since Sera have no nuke sub, make them research their T4 battleship
-        'bss0401', -- Hovatha-Hauthu
-        -- Yolona Oss complies with nuke silo treatment
-        'xsb2401',
+        -- LOUD Unit Additions
+        'wel0405', -- King Kraptor
+        'lea0401', -- Lucidity
+        'wrl0404', -- Megaroach
+        'wsl0405', -- Echibum
+        'sab4401', 'seb4401', 'srb4401', 'ssb4401', -- BrewLAN T4 shields
     }
     for i, id in restrict do
         if all_bps[id] then
