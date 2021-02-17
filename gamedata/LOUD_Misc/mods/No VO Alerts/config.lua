@@ -35,7 +35,7 @@ config = {
 		default = 1,
 		label = 'Alert When: Enemy Commander Spotted',
 		key = 'EnemyCom',
-		help = "Whenever an enemy ACU comes into vision, a voiceover alert will play if this is set to enabled enabled.",
+		help = "Whenever an enemy ACU comes into vision, a voiceover alert will play if this is set to enabled.",
 		values = {
 			{
 				text = 'Enabled',
