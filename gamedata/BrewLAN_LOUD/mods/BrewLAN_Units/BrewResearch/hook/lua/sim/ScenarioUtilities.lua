@@ -8,7 +8,6 @@ do
             -- AddBuildRestriction(strArmy, categories.RESEARCHLOCKED + categories.RESEARCHLOCKEDTECH1 + categories.TECH2 + categories.TECH3 + categories.EXPERIMENTAL)
             AddBuildRestriction(strArmy, categories.RESEARCHLOCKED + categories.TECH2 + categories.TECH3 + categories.EXPERIMENTAL)
             local AIBrain = GetArmyBrain(strArmy)
-            AIBrain.BrewRND.Init(AIBrain)
         end
         return OldCreateInitialArmyGroup(strArmy, createCommander)
     end
