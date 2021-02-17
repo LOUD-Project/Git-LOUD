@@ -703,9 +703,14 @@ function CommonLogic()
 			else
 
 				-- Check default GPG directories
-				if DiskGetFileInfo(UIUtil.UIFile(path)) then
+                if __blueprints[control.Data.id].Display.IconName then
+                    path = '/icons/units/'..__blueprints[control.Data.id].Display.IconName..'_icon.dds'
+                    if DiskGetFileInfo(UIUtil.UIFile(path)) then
+                        control.Icon:SetTexture(UIUtil.UIFile(path))
+                    end
+				elseif DiskGetFileInfo(UIUtil.UIFile(path)) then
 					control.Icon:SetTexture(UIUtil.UIFile(path))
-				else
+                else
 					-- Sets placeholder because no other icon was found
 					control.Icon:SetTexture(UIUtil.UIFile('/icons/units/default_icon.dds'))
 					if not BlackopsIcons.EXNoIconLogSpamControl[string.upper(EXunitID)] then
@@ -1017,10 +1022,18 @@ function CommonLogic()
 
 			else
 				-- Check default GPG directories
-				if DiskGetFileInfo(UIUtil.UIFile(path)) then
+
+                if __blueprints[id].Display.IconName then
+                
+                    path = '/icons/units/'..__blueprints[id].Display.IconName..'_icon.dds'
+                    if DiskGetFileInfo(UIUtil.UIFile(path)) then
+                        control.Icon:SetTexture(UIUtil.UIFile(path))
+                    end
+
+				elseif DiskGetFileInfo(UIUtil.UIFile(path)) then
 
 					control.Icon:SetTexture(UIUtil.UIFile(path))
-
+                
 				else
 
 					-- Sets placeholder because no other icon was found
@@ -1178,6 +1191,14 @@ function CommonLogic()
 					if DiskGetFileInfo(path) then
 
 						control.Icon:SetTexture(path)
+
+                    elseif __blueprints[control.Data.id].Display.IconName then
+
+                        -- local token = __blueprints[control.Data.id].Display.IconName
+                        -- path = '/icons/units/'....'_icon.dds'
+                        if DiskGetFileInfo(UIUtil.UIFile('/icons/units/'..__blueprints[control.Data.id].Display.IconName..'_icon.dds')) then
+                            control.Icon:SetTexture(UIUtil.UIFile(path))
+                        end
 
 					else
 

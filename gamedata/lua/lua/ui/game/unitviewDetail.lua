@@ -706,6 +706,8 @@ function Show(bp, buildingUnit, bpID)
 			local foo, iconName = GameCommon.GetCachedUnitIconFileNames(bp)
 			if iconName then
 				View.UnitIcon:SetTexture(iconName)
+			elseif bp.Display.IconName then
+				View.UnitIcon:SetTexture(UIUtil.UIFile('/icons/units/'..bp.Display.IconName..'_icon.dds'))
 			else
 				View.UnitIcon:SetTexture(UIUtil.UIFile('/icons/units/default_icon.dds'))    
 			end
