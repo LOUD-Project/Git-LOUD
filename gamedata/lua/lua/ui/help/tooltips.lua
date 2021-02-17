@@ -298,6 +298,10 @@ Tooltips = {
         title = "Delete",
         description = "",
     },
+    gateway_teleport = {
+        title = "Mass Teleport",
+        description = "Teleport all surrounding units to another Quantum Teleporter under the rally point.",
+    },
 
     -- **********************
     -- *** Chat
