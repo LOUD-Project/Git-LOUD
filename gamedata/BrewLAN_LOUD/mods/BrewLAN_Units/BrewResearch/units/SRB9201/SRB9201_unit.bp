@@ -87,9 +87,6 @@ UnitBlueprint {
                 {
                     LODCutoff = 260,
                     ShaderName = 'Insect',
-                    AlbedoName = '/units/urc1201/urc1201_lod1_albedo.dds',
-                    NormalsName = '/units/urc1201/urc1201_lod1_normalsts.dds',
-                    SpecularName = '/units/urc1201/urc1201_lod1_specteam.dds',
                 },
             },
         },
