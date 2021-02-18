@@ -411,3 +411,4 @@ WindEnergyCreationUnit = Class(EnergyCreationUnit) {
 --        EnergyCreationUnit.OnKilled(self, instigator, type, overKillRatio)
 --    end,
 --}
+]]
