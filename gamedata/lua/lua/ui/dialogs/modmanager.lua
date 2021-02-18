@@ -1163,7 +1163,7 @@ function CreateDialog(over, inLobby, exitBehavior, useCover, modStatus)
 
                 local env = {}
                 local ok, _ = pcall(doscript, modInfo.location..'/config.lua', env)
-                if ok then
+                if ok and env.config and table.getn(env.config) > 0 then
                     modListTable[i].configBtn:Show()
                     modListTable[i].configBtn.OnClick = function(self, modifiers)
                         ModConfigDialog(modDetails:GetParent(), modInfo, env.config, modStatus[self:GetParent().uid])
@@ -1420,7 +1420,7 @@ function DisplayModDetails(uid, modStatus)
 
     local env = {}
     local ok, _ = pcall(doscript, modInfo.location..'/config.lua', env)
-    if ok then
+    if ok and env.config and table.getn(env.config) > 0 then
         modDetails.configBtn:Show()
         modDetails.configBtn.OnClick = function(self, modifiers)
             ModConfigDialog(modDetails:GetParent(), modInfo, env.config, modStatus[uid])

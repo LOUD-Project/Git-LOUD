@@ -1064,7 +1064,6 @@ function LoadBlueprints()
 					end
 					e.always = true
 					table.insert(interExcludes[e.mod], e)
-					-- interExcludes[e.mod] = e
 				end
 			end
 		end

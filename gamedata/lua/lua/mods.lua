@@ -281,11 +281,15 @@ function AllMods()
                     allConfigs[mod.uid] = {}
                 end
                 mod.config = {}
-                for _, v in env.config do
-                    if not allConfigs[mod.uid][v.key] then
-                        allConfigs[mod.uid][v.key] = v.values[v.default].key
+                if env.config and table.getn(env.config) > 0 then
+                    for _, v in env.config do
+                        if not allConfigs[mod.uid][v.key] then
+                            allConfigs[mod.uid][v.key] = v.values[v.default].key
+                        end
+                        mod.config[v.key] = allConfigs[mod.uid][v.key]
                     end
-                    mod.config[v.key] = allConfigs[mod.uid][v.key]
+                else
+                    WARN("Mod "..mod.name.." has an empty or malformed config file")
                 end
             end
             
