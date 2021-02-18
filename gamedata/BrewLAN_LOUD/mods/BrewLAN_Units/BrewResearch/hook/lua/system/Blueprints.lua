@@ -10,10 +10,42 @@ local OldModBlueprints = ModBlueprints
 function ModBlueprints(all_blueprints)
     OldModBlueprints(all_blueprints)
     RNDPrepareScript(all_blueprints.Unit)
-    RestrictExistingBlueprints(all_blueprints.Unit)
+
+    -- Determine if Lucky Dip is active, and if LDip interaction is enabled
+    -- in R&D's mod configs
+    local ldipEnabled = false
+    local ldipConfig = 'off'
+    for _, v in __active_mods do
+        if v.uid == '25D57D85-9JA7-LOUD-BREW-RESEARCH00005' then
+            if v.config['LuckyDip'] == 'on' then
+                ldipConfig = 'on'
+            end
+        elseif v.uid == '25D57D85-7D84-27HT-A502-LDIPS0000002' then
+            ldipEnabled = true
+        end
+    end
+
+    -- Allow user to play R&D with LDip but without normal research locking
+    -- RESEARCHLOCKED needs to be dumped to exist if this is the case
+    if ldipEnabled and ldipConfig == 'no_researchlock' then
+        LOG("R&D: Disabling normal research locks (LuckyDip)")
+        DumpOldBuiltByCategories(all_blueprints,Unit, 'RESEARCHLOCKED')
+    else
+        RestrictExistingBlueprints(all_blueprints.Unit)
+    end
+
 --    RebalanceExistingBlueprints(all_blueprints.Unit)
 --    RNDDefineNewFactoryBuildCategories(all_blueprints.Unit)
     GenerateResearchItemBPs(all_blueprints.Unit)
+
+    -- After generating normal research items, do the same for LDip if
+    -- interaction is taking place
+    if ldipEnabled and ldipConfig ~= 'off' then
+        LOG("R&D: Generating research items for LuckyDip interaction")
+        GenerateLuckyDipBPs(all_blueprints.Unit)
+    end
+
+    -- RESEARCHLOCKEDTECH1 needs to exist somewhere, so dump it
     DumpOldBuiltByCategories(all_blueprints.Unit, 'RESEARCHLOCKEDTECH1')
 end
 
@@ -330,6 +362,26 @@ function GenerateResearchItemBPs(all_bps)
                 all_bps[newid].Display.BuildMeshBlueprint = '/mods/brewlan_units/brewresearch/meshes/tech'..bp.techid..'_mesh'
                 all_bps[newid].Display.MeshBlueprint = '/mods/brewlan_units/brewresearch/meshes/tech'..bp.techid..'_mesh'
                 -- LOG(repr(all_bps[newid]))
+            end
+        end
+    end
+end
+
+--------------------------------------------------------------------------------
+-- All units possibly affected by LuckyDip will need research items
+--------------------------------------------------------------------------------
+function GenerateLuckyDipBPs(all_bps)
+    doscript '/mods/BrewLAN_RNG/LuckyDip/bag.lua'
+    for array, group in LuckyDipUnitBag do
+        for _, id in group do
+            local bp = all_bps[id]
+            if bp then
+                local newid = id .. 'rnd'
+                RNDGenerateBaseResearchItemBlueprint(all_bps, newid, id, bp)
+    
+                RNDGiveCategoriesAndDefineCosts(all_bps, newid, bp)
+                RNDGiveIndicativeAbilities(all_bps, newid, bp)
+                RNDGiveUniqueMeshBlueprints(all_bps, newid, bp)
             end
         end
     end

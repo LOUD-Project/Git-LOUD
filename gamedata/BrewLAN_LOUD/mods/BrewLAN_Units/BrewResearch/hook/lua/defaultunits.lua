@@ -14,16 +14,24 @@ ResearchItem = Class(DummyUnit) {
 
     OnStopBeingBuilt = function(self, builder, layer)
         local bp = self:GetBlueprint()
+        local AIBrain = self:GetAIBrain()
         -- Enable what we were supposed to allow.
         if bp.ResearchId == string.lower(bp.ResearchId) then -- This won't work for any units without letters in the ID.
             if self:CheckBuildRestrictionsAllow(bp.ResearchId) then
                 RemoveBuildRestriction(self:GetArmy(), categories[bp.ResearchId])
             else
-                WARN("BLRESEARCH: Research item for " .. bp.ResearchId .. " was just completed, however lobby restrictions forbid it. Item shouldn't have been researchable.")
+                WARN("R&D: Research item for " .. bp.ResearchId .. " was just completed, however lobby restrictions forbid it. Item shouldn't have been researchable.")
             end
         else -- else we are a category, not a unitID
-            RemoveBuildRestriction(self:GetArmy(), (categories[bp.ResearchId] * categories[string.upper(bp.General.FactionName or 'SELECTABLE')]) - categories.RESEARCHLOCKED - categories[bp.BlueprintId] - (self:BuildRestrictionCategories()) )
-            -- Unlock the next tech research as well.
+            RemoveBuildRestriction(self:GetArmy(), 
+                (categories[bp.ResearchId] * -- E.G. TECH2
+                categories[string.upper(bp.General.FactionName or 'SELECTABLE')]) - -- For this army's faction only
+                categories.RESEARCHLOCKED - categories[bp.BlueprintId] + -- Don't unrestrict units which need to be researched or this tech
+                (AIBrain.LDipUnrestricts[bp.ResearchId] or categories.NOTHINGIMPORTANT) - -- If LDipping, bypass research locking
+                (self:BuildRestrictionCategories() + -- Don't unrestrict if unit restricted by lobby setting
+                (AIBrain.LDipRestricts or categories.NOTHINGIMPORTANT)) ) -- Don't unrestrict unit LDip restricted
+
+            -- Unlock the next tech research as well
             if bp.ResearchId == 'RESEARCHLOCKEDTECH1' then
                 RemoveBuildRestriction(self:GetArmy(), categories.TECH2 * categories[string.upper(bp.General.FactionName or 'SELECTABLE')] * categories.CONSTRUCTIONSORTDOWN - (self:BuildRestrictionCategories()) )
             elseif bp.ResearchId == 'TECH2' then
@@ -34,7 +42,6 @@ ResearchItem = Class(DummyUnit) {
         end
 
         -- Tell the manager this is done if we're an AI and presumably have a manager.
-        local AIBrain = self:GetAIBrain()
         if AIBrain.BrainType ~= 'Human' then
             AIBrain.BrewRND.MarkResearchComplete(AIBrain, bp.BlueprintId)
         end

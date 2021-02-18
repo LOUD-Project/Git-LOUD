@@ -2,12 +2,79 @@
 --   Author:  Sean 'Balthazar' Wheeldon
 --------------------------------------------------------------------------------
 do
+    
+    local function RnDLuckyDipSetup(strArmy, AIBrain)
+        AIBrain.LDipRestricts = categories.NOTHINGIMPORTANT
+        AIBrain.LDipUnrestricts = {
+            TECH1 = categories.NOTHINGIMPORTANT,
+            TECH2 = categories.NOTHINGIMPORTANT,
+            TECH3 = categories.NOTHINGIMPORTANT,
+            EXPERIMENTAL = categories.NOTHINGIMPORTANT,
+        }
+
+        local bag = import('/mods/BrewLAN_RNG/LuckyDip/bag.lua').LuckyDipUnitBag
+        for array, group in bag do
+            local groupchoices = {}
+            for i, v in group do
+                if __blueprints[v] then
+                    table.insert(groupchoices,v)
+                end
+            end
+            if table.getn(groupchoices) > 1 then
+                local winner = math.random(1, table.getn(groupchoices))
+                for i, v in groupchoices do
+                    if i ~= winner then
+                        -- Prevent building this unit, and don't unlock it
+                        -- when a new Tech level is researched, either
+                        AddBuildRestriction(strArmy, categories[v])
+                        AIBrain.LDipRestricts = AIBrain.LDipRestricts + categories[v]
+                    else
+                        -- Don't research lock lucky winner units at tech 1;
+                        -- don't show research items for any lucky winners
+                        if table.find(__blueprints[v].Categories, 'TECH1') then
+                            AIBrain.LDipUnrestricts.TECH1 = AIBrain.LDipUnrestricts.TECH1 + categories[v]
+                        elseif table.find(__blueprints[v].Categories, 'TECH2') then
+                            AIBrain.LDipUnrestricts.TECH2 = AIBrain.LDipUnrestricts.TECH2 + categories[v]
+                        elseif table.find(__blueprints[v].Categories, 'TECH3') then
+                            AIBrain.LDipUnrestricts.TECH3 = AIBrain.LDipUnrestricts.TECH3 + categories[v]
+                        elseif table.find(__blueprints[v].Categories, 'EXPERIMENTAL') then
+                            AIBrain.LDipUnrestricts.EXPERIMENTAL = AIBrain.LDipUnrestricts.EXPERIMENTAL + categories[v]
+                        end
+                        AIBrain.LDipRestricts = AIBrain.LDipRestricts + categories[v..'rnd']
+                        AddBuildRestriction(strArmy, categories[v..'rnd'])
+                    end
+                end
+            end
+        end
+    end
+
     local OldCreateInitialArmyGroup = CreateInitialArmyGroup
     function CreateInitialArmyGroup(strArmy, createCommander)
         if createCommander then
             -- AddBuildRestriction(strArmy, categories.RESEARCHLOCKED + categories.RESEARCHLOCKEDTECH1 + categories.TECH2 + categories.TECH3 + categories.EXPERIMENTAL)
-            AddBuildRestriction(strArmy, categories.RESEARCHLOCKED + categories.TECH2 + categories.TECH3 + categories.EXPERIMENTAL)
             local AIBrain = GetArmyBrain(strArmy)
+
+            -- RAT: Not pretty having to check this for every army, but 
+            -- I'd rather not litter this module with variables
+            local ldipEnabled = false
+            local ldipConfig = false
+            for _, v in __active_mods do
+                if v.uid == '25D57D85-9JA7-LOUD-BREW-RESEARCH00005' then
+                    if v.config['LuckyDip'] == 'on' then
+                        ldipConfig = true
+                    end
+                elseif v.uid == '25D57D85-7D84-27HT-A502-LDIPS0000002' then
+                    ldipEnabled = true
+                end
+            end
+            if ldipEnabled and ldipConfig then
+                LOG("R&D: Applying LuckyDip restrictions")
+                RnDLuckyDipSetup(strArmy, AIBrain)
+            end
+
+            AddBuildRestriction(strArmy, 
+                (categories.RESEARCHLOCKED + categories.TECH2 + categories.TECH3 + categories.EXPERIMENTAL) - 
+                (AIBrain.LDipUnrestricts.TECH1 or categories.NOTHINGIMPORTANT))
         end
         return OldCreateInitialArmyGroup(strArmy, createCommander)
     end
