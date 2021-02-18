@@ -34,8 +34,6 @@ function ModBlueprints(all_blueprints)
         RestrictExistingBlueprints(all_blueprints.Unit)
     end
 
---    RebalanceExistingBlueprints(all_blueprints.Unit)
---    RNDDefineNewFactoryBuildCategories(all_blueprints.Unit)
     GenerateResearchItemBPs(all_blueprints.Unit)
 
     -- After generating normal research items, do the same for LDip if
@@ -194,81 +192,6 @@ function RestrictExistingBlueprints(all_bps)
         end
     end
 end
-
--- Note: Commented out for LOUD as the omni/radar separation doesn't belong here.
---------------------------------------------------------------------------------
--- Rebalance a few vanilla units
---------------------------------------------------------------------------------
---[[
-function RebalanceExistingBlueprints(all_bps)
-   local t3radars = {
-       uab3104 = 'sab3301',
-       ueb3104 = 'seb3301',
-       urb3104 = 'srb3301',
-       xsb3104 = 'ssb3302',-- Forgot the optics tracking facility was already SSB3301
-   }
-   for id, omniID in t3radars do
-       local bp = all_bps[id]
-       local omnibp = all_bps[omniID]
-       if bp and omnibp then
-           if bp.Intel.OmniRadius and bp.Intel.OmniRadius ~= 0 and bp.Economy.MaintenanceConsumptionPerSecondEnergy and bp.Economy.BuildCostEnergy and bp.Economy.BuildCostMass and bp.Economy.BuildTime then
-               -- Scale omni radii
-               omnibp.Intel.OmniRadius = bp.Intel.OmniRadius * 1.5
-               bp.Intel.OmniRadius = nil
-
-               -- Remove omni categories
-               if bp.Categories and type(bp.Categories) == 'table' then
-                   table.removeByValue(bp.Categories, 'OMNI')
-                   table.removeByValue(bp.Categories, 'OVERLAYOMNI')
-                   if not table.find(bp.Categories, 'RADAR') then
-                       table.insert(bp.Categories, 'RADAR')
-                   end
-               end
-
-               -- Remove omni visiual elements
-               if bp.Display.Abilities and type(bp.Display.Abilities) == 'table' then
-                   table.removeByValue(bp.Display.Abilities, 'Omni')
-                   table.removeByValue(bp.Display.Abilities, 'Omni Sensor')
-                   table.removeByValue(bp.Display.Abilities, '<LOC ability_omni>Omni Sensor')
-               end
-               if bp.General.OrderOverrides.RULEUTC_IntelToggle then
-                   bp.General.OrderOverrides.RULEUTC_IntelToggle.bitmapId = 'radar'
-                   bp.General.OrderOverrides.RULEUTC_IntelToggle.helpText = 'toggle_radar'
-               end
-               bp.Description = '<LOC ueb3201_desc>Radar System'
-
-               -- Scale health
-               omnibp.Defense.Health = bp.Defense.Health * 5
-               omnibp.Defense.MaxHealth = bp.Defense.MaxHealth * 5
-
-               -- Scale costs
-               omnibp.Economy.MaintenanceConsumptionPerSecondEnergy = bp.Economy.MaintenanceConsumptionPerSecondEnergy * 1.5
-               omnibp.Economy.BuildCostEnergy = bp.Economy.BuildCostEnergy * 1.2
-               omnibp.Economy.BuildCostEnergy = bp.Economy.BuildCostEnergy * 1.2
-               omnibp.Economy.BuildTime = bp.Economy.BuildTime * 1.2
-
-               -- Adjust costs
-               bp.Economy.MaintenanceConsumptionPerSecondEnergy = bp.Economy.MaintenanceConsumptionPerSecondEnergy * 0.5
-               bp.Economy.BuildCostEnergy = bp.Economy.BuildCostEnergy / 3 * 2
-               bp.Economy.BuildCostMass = bp.Economy.BuildCostMass / 3 * 2
-               bp.Economy.BuildTime = bp.Economy.BuildTime / 3 * 2
-           end
-       end
-   end
-end
-
--- Note: Commented out for LOUD as we don't use separate factories for hovercraft.
--- ------------------------------------------------------------------------------
--- Create build categories for the amphib/sub/seaplane factories
--- ------------------------------------------------------------------------------
-function RNDDefineNewFactoryBuildCategories(all_bps)
-   for id, bp in all_bps do
-       if TableFindSubstrings(bp.Categories, 'BUILTBY', 'FACTORY') and (string.upper(bp.Physics.MotionType or 'nope') == 'RULEUMT_HOVER' or string.lower(bp.Physics.MotionType or 'nope') == 'ruleumt_amphibiousfloating') then
-           table.insert(bp.Categories, 'BUILTBYAMPHFACTORY')
-       end
-   end
-end
---]]
 
 --------------------------------------------------------------------------------
 -- Make some research items
