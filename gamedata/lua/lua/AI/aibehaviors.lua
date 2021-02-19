@@ -2240,9 +2240,7 @@ function AirForceAILOUD( self, aiBrain )
         end
 
         platoonUnits = LOUDCOPY(GetPlatoonUnits(self))
-        
-        -- acquire a target --
-        -- or setup loiter if no target --
+
         if (not target or target.Dead) and PlatoonExists(aiBrain, self) then
 
             -- determine threat values
@@ -2367,7 +2365,6 @@ function AirForceAILOUD( self, aiBrain )
                     local pathsize = LOUDGETN(path)
 
                     -- build a newpath that gets the platoon to within strikerange
-                    -- rather than going all the way to target
                     for waypoint,p in path do
 
                         if waypoint < pathsize and VDist2(p[1],p[3], targetposition[1],targetposition[3]) > strikerange and not DestinationBetweenPoints( targetposition, prevposition, p, 150 ) then
@@ -2391,11 +2388,15 @@ function AirForceAILOUD( self, aiBrain )
 
                         -- wait for the movement orders to execute --
                         while PlatoonExists(aiBrain, self) and self.MoveThread and not target.Dead do
-                            WaitTicks(3)
+                        
+                            WaitTicks(2)
+                            
+                            if target.Dead then
+                                target = false
+                                break
+                            end
                         end
                     end
-
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." at strikepoint - distance to target "..repr(targetposition).." is "..repr(VDist3(GetPlatoonPosition(self),targetposition)))
                     
                     if self.MoveThread then
                         self:KillMoveThread()
@@ -2419,6 +2420,8 @@ function AirForceAILOUD( self, aiBrain )
                     local tertiary = 1
 
                     local squad = GetPlatoonPosition(self)
+                    
+                    targetposition = target:GetPosition()
                     
                     local midpointx = (squad[1]+targetposition[1])/2
                     local midpointy = (squad[2]+targetposition[2])/2
@@ -2515,12 +2518,7 @@ function AirForceAILOUD( self, aiBrain )
 			end
         end
 
-		-- Attack until target is dead, beyond maxrange, below 35%, low on fuel or timer
-
-		-- the attacktimer essentially keeps this run down to 250 seconds
-		-- if you cant reach the target and destroy it then platoon will RTB
-        local attacktimer = 0
-
+		-- Attack until target is dead, beyond maxrange, or retreat
         if target then
         
             self.WatchPlatoon = self:ForkThread( self.WatchPlatoonSize, oldNumberOfUnitsInPlatoon, .4 )
@@ -2539,8 +2537,6 @@ function AirForceAILOUD( self, aiBrain )
 			WaitTicks(7)
 			
 			if PlatoonExists(aiBrain, self) then
-			
-				attacktimer = attacktimer + 0.7
 
 				if GetPlatoonPosition(self) and self.anchorposition then
                 
@@ -2800,39 +2796,21 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
                 
                 if LOUDGETN(SecondaryAATargets) > 0 then
                     AACount = LOUDGETN(SecondaryAATargets)
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." finds "..AACount.." AA")
-                    
-                else
-                    SecondaryAATargets = false
                 end
                 
                 if LOUDGETN(SecondaryShieldTargets) > 0 then
                     ShieldCount = LOUDGETN(SecondaryShieldTargets)
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." finds "..ShieldCount.." Shields")
-                    
-                else
-                    SecondaryShieldTargets = false
                 end
                 
                 if LOUDGETN(TertiaryTargets) > 0 then
                     TertiaryCount = LOUDGETN(TertiaryTargets)
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." finds "..TertiaryCount.." Tertiary targets")
-                    
-                else
-                    TertiaryTargets = false
                 end
 
-            else
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." finds no target within strikerange "..searchradius.." X "..Rangemult)
             end
 
 			-- Have a target - plot path to target - Use airthreat vs. mythreat for path
 			-- use strikerange to determine point from which to switch into attack mode
 			if target and not target.Dead and PlatoonExists(aiBrain, self) then
-
-				IssueClearCommands( platoonUnits )
-                
-                self:SetPlatoonFormationOverride('AttackFormation')
 
 				local path, reason
 
@@ -2840,11 +2818,12 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
 
 				local paththreat = (oldNumberOfUnitsInPlatoon * 1) + self:CalculatePlatoonThreat('AntiAir', categories.ALLUNITS)
 
-                -- note the use of the ScenarioInfo.MaxMapDimension / 16 - this controls point searching as a function of IMAP size - which is what the air grid should be 
                 path, reason = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, self.MovementLayer, prevposition, targetposition, paththreat, 250 )
 
                 if path then
 
+                    IssueClearCommands( platoonUnits )
+                    
                     local newpath = {}
                     local pathsize = LOUDGETN(path)
 
@@ -2873,23 +2852,23 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
 
                         -- wait for the movement orders to execute --
                         while PlatoonExists(aiBrain, self) and self.MoveThread and not target.Dead do
-                            WaitTicks(5)
+                        
+                            WaitTicks(2)
+                            
+                            if target.Dead then
+                                target = false
+                                break
+                            end
                         end
                     end
 
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." at strikepoint - distance to target "..repr(targetposition).." is "..repr(VDist3(GetPlatoonPosition(self),targetposition)))
-                    
                     if self.MoveThread then
                         self:KillMoveThread()
                     end
 
                 else
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." AirForceAI_Bomber_LOUD "..self.BuilderName.." could not find a safe path to target at "..repr(targetposition) )
 
 					target = false
-                    loiter = true
-
-                    self:MoveToLocation( self.anchorposition, false )
                 end
 
                 if PlatoonExists(aiBrain, self) and target and not target.Dead then
@@ -2903,10 +2882,10 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
                     local shield = 1
                     local aa = 1
                     local tertiary = 1
-                    
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..attackercount.." bombers at strikeposition - targeting")
-                    
+
                     local squad = GetPlatoonPosition(self)
+                    
+                    targetposition = target:GetPosition()
                     
                     local midpointx = (squad[1]+targetposition[1])/2
                     local midpointy = (squad[2]+targetposition[2])/2
@@ -2921,6 +2900,7 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
                     LOUDSORT( attackers, function (a,b) return VDist3(a:GetPosition(),targetposition) > VDist3(b:GetPosition(),targetposition) end )
                    
                     local attackissued = false
+                    local attackissuedcount = 0
 
                     for key,u in attackers do
                     
@@ -2936,6 +2916,7 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
                                 if not SecondaryShieldTargets[shield].Dead then
                                     IssueAttack( {u}, SecondaryShieldTargets[shield] )
                                     attackissued = true
+                                    attackissuedcount = attackissuedcount + 1
                                 end
 
                                 if shield >= ShieldCount then
@@ -2951,6 +2932,7 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
                                 if not SecondaryAATargets[aa].Dead then
                                     IssueAttack( {u}, SecondaryAATargets[aa] )
                                     attackissued = true
+                                    attackissuedcount = attackissuedcount + 1
                                 end
                             
                                 if aa >= AACount then
@@ -2965,8 +2947,8 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
                             
                                 if not TertiaryTargets[tertiary].Dead and self:CanAttackTarget('Attack', TertiaryTargets[tertiary]) then
                                     IssueAttack( {u}, TertiaryTargets[tertiary] )
-
                                     attackissued = true
+                                    attackissuedcount = attackissuedcount + 1
                                 end
                                 
                                 if tertiary >= TertiaryCount then
@@ -2981,11 +2963,12 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
 
                                 IssueAttack( {u}, target )
                                 attackissued = true
-                            
+                                attackissuedcount = attackissuedcount + 1
                             end
                     
-                            if attackissued then
+                            if attackissuedcount > 3 then
                                 WaitTicks(1)
+                                attackissuedcount = 0
                             end
                         end
                     end
@@ -2993,12 +2976,7 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
 			end
         end
 
-		-- Attack until target is dead, beyond maxrange, below 35%, low on fuel or timer
-
-		-- the attacktimer essentially keeps this bombing run down to 200 seconds
-		-- if you cant reach the target and destroy it then platoon will RTB
-        local attacktimer = 0
-
+		-- Attack until target is dead, beyond maxrange or retreat
         if target then
         
             self.WatchPlatoon = self:ForkThread( self.WatchPlatoonSize, oldNumberOfUnitsInPlatoon, .5 )
@@ -3014,11 +2992,9 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
 
 			loiter = false
 			
-			WaitTicks(8)
+			WaitTicks(7)
 			
 			if PlatoonExists(aiBrain, self) then
-			
-				attacktimer = attacktimer + 0.8
 
 				if GetPlatoonPosition(self) and self.anchorposition then
 
@@ -3067,7 +3043,7 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
 		-- or we couldn't get to the target - we should 
         -- still be guarding the anchorposition
 		if loiter then
-			WaitTicks(16)
+			WaitTicks(12)
 		end
     end
 
@@ -3185,10 +3161,6 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
         -- merge with other AirForceAILOUD groups with same plan
         if mergelimit and oldNumberOfUnitsInPlatoon < mergelimit then
 
-            --if ScenarioInfo.PlatoonMergeDialog then
-              --  LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." size "..oldNumberOfUnitsInPlatoon.." is trying to Merge - limit "..mergelimit )
-            --end
-
 			if self.MergeWithNearbyPlatoons( self, aiBrain, 'AirForceAI_Gunship_LOUD', 100, false, mergelimit) then
 
 				self:SetPlatoonFormationOverride(PlatoonFormation)
@@ -3204,19 +3176,10 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
 
         if (not target or target.Dead) and PlatoonExists(aiBrain, self) then
 
-            -- determine which threat values to use --
-			-- and the distance to use for direct strikes (no path used)
-            if self.MovementLayer != 'Air' then
-			
-                mythreat = self:CalculatePlatoonThreat('AntiSurface', categories.ALLUNITS)
-                threatcompare = 'AntiSurface'
-				strikerange = 100
-            else
-                mythreat = self:CalculatePlatoonThreat('AntiSurface', categories.ALLUNITS)
-				mythreat = mythreat + self:CalculatePlatoonThreat('AntiAir', categories.ALLUNITS)
-                threatcompare = 'AntiAir'
-				strikerange = 125
-            end
+            mythreat = self:CalculatePlatoonThreat('AntiSurface', categories.ALLUNITS)
+            mythreat = mythreat + self:CalculatePlatoonThreat('AntiAir', categories.ALLUNITS)
+
+			strikerange = 125
 
             if mythreat < 5 then
                 mythreat = 5
@@ -3242,7 +3205,9 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
 				return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 			end
 
+
             local searchradius = math.max(Searchradius, (Searchradius * aiBrain.AirRatio)/aiBrain.OutnumberedRatio )
+
 
             for _,rangemult in mult do
 
@@ -3285,44 +3250,23 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
                 SecondaryShieldTargets = GetUnitsAroundPoint( aiBrain, categories.SHIELD, targetposition, threatcheckradius/2, 'Enemy')
                 TertiaryTargets = GetUnitsAroundPoint( aiBrain, categories.ALLUNITS - categories.ANTIAIR - categories.AIR - categories.SHIELD - categories.WALL, targetposition, threatcheckradius/4, 'Enemy')
                 
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." with "..LOUDGETN(self:GetSquadUnits('Attack')).." gunships has target at "..repr(targetposition))
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." used RangeMult of "..Rangemult.." and Difficulty of "..Threatmult)
-                
                 if LOUDGETN(SecondaryAATargets) > 0 then
                     AACount = LOUDGETN(SecondaryAATargets)
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." finds "..AACount.." AA")
-                    
-                else
-                    SecondaryAATargets = false
                 end
                 
                 if LOUDGETN(SecondaryShieldTargets) > 0 then
                     ShieldCount = LOUDGETN(SecondaryShieldTargets)
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." finds "..ShieldCount.." Shields")
-                    
-                else
-                    SecondaryShieldTargets = false
                 end
                 
                 if LOUDGETN(TertiaryTargets) > 0 then
                     TertiaryCount = LOUDGETN(TertiaryTargets)
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." finds "..TertiaryCount.." Tertiary targets")
-                    
-                else
-                    TertiaryTargets = false
                 end
 
-            else
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." finds no target within strikerange "..searchradius.." X "..Rangemult)
             end
 
 			-- Have a target - plot path to target - Use airthreat vs. mythreat for path
 			-- use strikerange to determine point from which to switch into attack mode
 			if target and not target.Dead and PlatoonExists(aiBrain, self) then
-
-				IssueClearCommands( platoonUnits )
-                
-                self:SetPlatoonFormationOverride('AttackFormation')
 
 				local path, reason
 
@@ -3335,6 +3279,8 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
 
                 if path then
 
+                    IssueClearCommands( platoonUnits )
+                
                     local newpath = {}
                     local pathsize = LOUDGETN(path)
 
@@ -3364,24 +3310,22 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
 
                         -- wait for the movement orders to execute --
                         while PlatoonExists(aiBrain, self) and self.MoveThread and not target.Dead do
-                            WaitTicks(5)
+                            WaitTicks(2)
+                            
+                            if target.Dead then
+                                target = false
+                                break
+                            end
                         end
                         
                     end
 
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." at strikepoint - distance to target "..repr(targetposition).." is "..repr(VDist3(GetPlatoonPosition(self),targetposition)))
-                    
                     if self.MoveThread then
                         self:KillMoveThread()
                     end
-
                 else
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." AirForceAI_Gunship_LOUD "..self.BuilderName.." could not find a safe path to target at "..repr(targetposition) )
 
 					target = false
-                    loiter = true
-
-                    self:MoveToLocation( self.anchorposition, false )
                 end
 
                 if PlatoonExists(aiBrain, self) and target and not target.Dead then
@@ -3395,10 +3339,10 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
                     local shield = 1
                     local aa = 1
                     local tertiary = 1
-                    
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..attackercount.." gunships at strikeposition - targeting")
-                    
+
                     local squad = GetPlatoonPosition(self)
+                    
+                    targetposition = target:GetPosition()
                     
                     local midpointx = (squad[1]+targetposition[1])/2
                     local midpointy = (squad[2]+targetposition[2])/2
@@ -3413,6 +3357,7 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
                     LOUDSORT( attackers, function (a,b) return VDist3(a:GetPosition(),targetposition) > VDist3(b:GetPosition(),targetposition) end )
                     
                     local attackissued = false
+                    local attackissuedcount = 0
 
                     for key,u in attackers do
                     
@@ -3428,6 +3373,7 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
                                 if not SecondaryShieldTargets[shield].Dead then
                                     IssueAttack( {u}, SecondaryShieldTargets[shield] )
                                     attackissued = true
+                                    attackissuedcount = attackissuedcount + 1
                                 end
 
                                 if shield >= ShieldCount then
@@ -3443,6 +3389,7 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
                                 if not SecondaryAATargets[aa].Dead then
                                     IssueAttack( {u}, SecondaryAATargets[aa] )
                                     attackissued = true
+                                    attackissuedcount = attackissuedcount + 1
                                 end
                             
                                 if aa >= AACount then
@@ -3457,8 +3404,8 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
                             
                                 if not TertiaryTargets[tertiary].Dead and self:CanAttackTarget('Attack', TertiaryTargets[tertiary]) then
                                     IssueAttack( {u}, TertiaryTargets[tertiary] )
-
                                     attackissued = true
+                                    attackissuedcount = attackissuedcount + 1
                                 end
                                 
                                 if tertiary >= TertiaryCount then
@@ -3470,14 +3417,14 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
                         
                             -- all others go for primary
                             if not target.Dead and not attackissued then
-
                                 IssueAttack( {u}, target )
                                 attackissued = true
-                            
+                                attackissuedcount = attackissuedcount + 1
                             end
                     
-                            if attackissued then
+                            if attackissuedcount > 3 then
                                 WaitTicks(1)
+                                attackissuedcount = 0
                             end
                         end
                     end
@@ -3485,73 +3432,73 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
 			end
         end
 
-		-- Attack until target is dead, beyond maxrange, below 35%, low on fuel or timer
-
-		-- the attacktimer essentially keeps this attack run down to 300 seconds
-		-- if you cant reach the target and destroy it then platoon will RTB
-        local attacktimer = 0
+		-- Attack until target is dead, beyond maxrange, or retreat
+        if target then
+        
+            self.WatchPlatoon = self:ForkThread( self.WatchPlatoonSize, oldNumberOfUnitsInPlatoon, .4 )
+            
+        else
+            if self.WatchPlatoon then
+                KillThread(self.WatchPlatoon)
+                self.WatchPlatoon = nil
+            end
+        end
 
 		while (target and not target.Dead) and PlatoonExists(aiBrain, self) do
 
 			loiter = false
 			
-			WaitTicks(9)
+			WaitTicks(7)
 			
 			if PlatoonExists(aiBrain, self) then
-			
-				attacktimer = attacktimer + 0.9
 
-				local platooncount = 0
-				local fuellow = false
+                if GetPlatoonPosition(self) and self.anchorposition then
+                
+                    if VDist3( GetPlatoonPosition(self), self.anchorposition ) > maxrange then
 
-				for _,v in platoonUnits do
+                        IssueClearCommands( platoonUnits )
 				
-					if not v.Dead then
+                        target = false
 
-						platooncount = platooncount + 1
-
-					end
-				end
-
-				if platooncount < oldNumberOfUnitsInPlatoon * .4 or fuellow or ((LOUDTIME() - MissionStartTime) > missiontime) or (attacktimer > 300) then
-				
-					IssueClearCommands( platoonUnits )
-				
-					target = false
-                    
-                    self:MoveToLocation( self.anchorposition, false )
-
-					return self:SetAIPlan('ReturnToBaseAI',aiBrain)
-				end
-
-				if PlatoonExists(aiBrain, self) and VDist3( GetPlatoonPosition(self), self.anchorposition ) > maxrange then
-
-					IssueClearCommands( platoonUnits )
-				
-					target = false
-
-					self:MoveToLocation( self.anchorposition, false )
+                        self:MoveToLocation( self.anchorposition, false )
+                    end
 				end
 			end
+            
+            if not self.WatchPlatoon then
+            
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." platoon watch trigger")
+                
+                target = false
+
+                self:MoveToLocation( self.anchorposition, false )
+
+                return self:SetAIPlan('ReturnToBaseAI',aiBrain)                
+            end            
 		end
 
         -- we had a target and target is destroyed
 		if target and PlatoonExists(aiBrain, self) then
-        
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." primary target destroyed")
         
 			target = false
             
             loiter = false
             
             self:MoveToLocation( self.anchorposition, false )
+            
+            if self.WatchPlatoon then
+            
+                KillThread (self.WatchPlatoon)
+                
+                self.WatchPlatoon = nil
+            end
 		end
 
 		-- loiter will be true if we did not find a target
 		-- or we couldn't get to the target - we should 
         -- still be guarding the anchorposition
 		if loiter then
-			WaitTicks(20)
+			WaitTicks(12)
 		end
     end
 
@@ -3669,10 +3616,6 @@ function AirForceAI_Torpedo_LOUD( self, aiBrain )
         -- merge with other AirForceAILOUD groups with same plan
         if mergelimit and oldNumberOfUnitsInPlatoon < mergelimit then
 
-            --if ScenarioInfo.PlatoonMergeDialog then
-              --  LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." size "..oldNumberOfUnitsInPlatoon.." is trying to Merge at range 100 - limit "..mergelimit )
-            --end
-
 			if self.MergeWithNearbyPlatoons( self, aiBrain, 'AirForceAI_Torpedo_LOUD', 100, false, mergelimit) then
 
 				self:SetPlatoonFormationOverride(PlatoonFormation)
@@ -3688,18 +3631,10 @@ function AirForceAI_Torpedo_LOUD( self, aiBrain )
 
         if (not target or target.Dead) and PlatoonExists(aiBrain, self) then
 
-            -- determine which threat values to use --
-			-- and the distance to use for direct strikes (no path used)
-            if self.MovementLayer != 'Air' then
-                mythreat = self:CalculatePlatoonThreat('AntiSurface', categories.ALLUNITS)
-                threatcompare = 'AntiSurface'
-				strikerange = 100
-            else
-                mythreat = self:CalculatePlatoonThreat('AntiSurface', categories.ALLUNITS)
-				mythreat = mythreat + self:CalculatePlatoonThreat('AntiSub', categories.ALLUNITS)
-                threatcompare = 'AntiAir'
-				strikerange = 125
-            end
+            mythreat = self:CalculatePlatoonThreat('AntiSurface', categories.ALLUNITS)
+            mythreat = mythreat + self:CalculatePlatoonThreat('AntiSub', categories.ALLUNITS)
+
+			strikerange = 125
 
             if mythreat < 5 then
                 mythreat = 5
@@ -3713,8 +3648,6 @@ function AirForceAI_Torpedo_LOUD( self, aiBrain )
 				if not loiter then
 
 					IssueClearCommands( platoonUnits )
-                    
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." moves to loiter "..repr(self.anchorposition))
 				
 					self:MoveToLocation( self.anchorposition, false)
 					
@@ -3726,9 +3659,6 @@ function AirForceAI_Torpedo_LOUD( self, aiBrain )
 			else
 				return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 			end
-
-			-- locate a primary target
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." seeking target")
             
             local searchradius = math.max(Searchradius, (Searchradius * aiBrain.AirRatio)/aiBrain.OutnumberedRatio )
             
@@ -3747,7 +3677,6 @@ function AirForceAI_Torpedo_LOUD( self, aiBrain )
 						break
 					end
 
-                    --WaitTicks(1)
 				end
                 
                 -- record Rangemult value for later use --
@@ -3779,39 +3708,23 @@ function AirForceAI_Torpedo_LOUD( self, aiBrain )
                 
                 if LOUDGETN(SecondaryAATargets) > 0 then
                     AACount = LOUDGETN(SecondaryAATargets)
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." finds "..AACount.." AA")
-                    
-                else
-                    SecondaryAATargets = false
                 end
                 
                 if LOUDGETN(SecondaryShieldTargets) > 0 then
                     ShieldCount = LOUDGETN(SecondaryShieldTargets)
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." finds "..ShieldCount.." Shields")
-                    
-                else
-                    SecondaryShieldTargets = false
                 end
                 
                 if LOUDGETN(TertiaryTargets) > 0 then
                     TertiaryCount = LOUDGETN(TertiaryTargets)
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." finds "..TertiaryCount.." Tertiary targets")
-                    
-                else
-                    TertiaryTargets = false
                 end
 
-            else
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." finds no target within strikerange "..searchradius.." X "..Rangemult)
             end
 
 			-- Have a target - plot path to target - Use airthreat vs. mythreat for path
 			-- use strikerange to determine point from which to switch into attack mode
 			if target and not target.Dead and PlatoonExists(aiBrain, self) then
 
-				IssueClearCommands( platoonUnits )
-                
-                self:SetPlatoonFormationOverride('AttackFormation')
+
 
 				local path, reason
 
@@ -3819,11 +3732,12 @@ function AirForceAI_Torpedo_LOUD( self, aiBrain )
 
 				local paththreat = (oldNumberOfUnitsInPlatoon * 1) + self:CalculatePlatoonThreat('AntiAir', categories.ALLUNITS)
 
-                -- note the use of the ScenarioInfo.MaxMapDimension / 16 - this controls point searching as a function of IMAP size - which is what the air grid should be 
                 path, reason = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, self.MovementLayer, prevposition, targetposition, paththreat, 250 )
 
                 if path then
 
+                    IssueClearCommands( platoonUnits )
+                    
                     local newpath = {}
                     local pathsize = LOUDGETN(path)
 
@@ -3852,23 +3766,21 @@ function AirForceAI_Torpedo_LOUD( self, aiBrain )
 
                         -- wait for the movement orders to execute --
                         while PlatoonExists(aiBrain, self) and self.MoveThread and not target.Dead do
-                            WaitTicks(5)
+                            WaitTicks(2)
+                            
+                            if target.Dead then
+                                target = false
+                                break
+                            end
                         end
                     end
 
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." at strikepoint - distance to target "..repr(targetposition).." is "..repr(VDist3(GetPlatoonPosition(self),targetposition)))
-                    
                     if self.MoveThread then
                         self:KillMoveThread()
                     end
-
                 else
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." AirForceAI_Bomber_LOUD "..self.BuilderName.." could not find a safe path to target at "..repr(targetposition) )
 
 					target = false
-                    loiter = true
-
-                    self:MoveToLocation( self.anchorposition, false )
                 end
 
                 if PlatoonExists(aiBrain, self) and target and not target.Dead then
@@ -3882,10 +3794,10 @@ function AirForceAI_Torpedo_LOUD( self, aiBrain )
                     local shield = 1
                     local aa = 1
                     local tertiary = 1
-                    
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..attackercount.." bombers at strikeposition - targeting")
-                    
+
                     local squad = GetPlatoonPosition(self)
+                    
+                    targetposition = target:GetPosition()
                     
                     local midpointx = (squad[1]+targetposition[1])/2
                     local midpointy = (squad[2]+targetposition[2])/2
@@ -3900,6 +3812,7 @@ function AirForceAI_Torpedo_LOUD( self, aiBrain )
                     LOUDSORT( attackers, function (a,b) return VDist3(a:GetPosition(),targetposition) > VDist3(b:GetPosition(),targetposition) end )
                    
                     local attackissued = false
+                    local attackissuedcount = 0
 
                     for key,u in attackers do
                     
@@ -3915,6 +3828,7 @@ function AirForceAI_Torpedo_LOUD( self, aiBrain )
                                 if not SecondaryShieldTargets[shield].Dead then
                                     IssueAttack( {u}, SecondaryShieldTargets[shield] )
                                     attackissued = true
+                                    attackissuedcount = attackissuedcount + 1
                                 end
 
                                 if shield >= ShieldCount then
@@ -3930,6 +3844,7 @@ function AirForceAI_Torpedo_LOUD( self, aiBrain )
                                 if not SecondaryAATargets[aa].Dead then
                                     IssueAttack( {u}, SecondaryAATargets[aa] )
                                     attackissued = true
+                                    attackissuedcount = attackissuedcount + 1
                                 end
                             
                                 if aa >= AACount then
@@ -3944,8 +3859,8 @@ function AirForceAI_Torpedo_LOUD( self, aiBrain )
                             
                                 if not TertiaryTargets[tertiary].Dead and self:CanAttackTarget('Attack', TertiaryTargets[tertiary]) then
                                     IssueAttack( {u}, TertiaryTargets[tertiary] )
-
                                     attackissued = true
+                                    attackissuedcount = attackissuedcount + 1
                                 end
                                 
                                 if tertiary >= TertiaryCount then
@@ -3957,14 +3872,14 @@ function AirForceAI_Torpedo_LOUD( self, aiBrain )
                         
                             -- all others go for primary
                             if not target.Dead and not attackissued then
-
                                 IssueAttack( {u}, target )
                                 attackissued = true
-                            
+                                attackissuedcount = attackissuedcount + 1
                             end
                     
-                            if attackissued then
+                            if attackissuedcount > 3 then
                                 WaitTicks(1)
+                                attackissuedcount = 0
                             end
                         end
                     end
@@ -3972,56 +3887,51 @@ function AirForceAI_Torpedo_LOUD( self, aiBrain )
 			end
         end
 
-		-- Attack until target is dead, beyond maxrange, below 35%, low on fuel or timer
-
-		-- the attacktimer essentially keeps this bombing run down to 200 seconds
-		-- if you cant reach the target and destroy it then platoon will RTB
-        local attacktimer = 0
+		-- Attack until target is dead, beyond maxrange, or retreat
+        if target then
+        
+            self.WatchPlatoon = self:ForkThread( self.WatchPlatoonSize, oldNumberOfUnitsInPlatoon, .5 )
+            
+        else
+            if self.WatchPlatoon then
+                KillThread(self.WatchPlatoon)
+                self.WatchPlatoon = nil
+            end
+        end
 
 		while (target and not target.Dead) and PlatoonExists(aiBrain, self) do
 
 			loiter = false
 			
-			WaitTicks(9)
+			WaitTicks(7)
 			
 			if PlatoonExists(aiBrain, self) then
-			
-				attacktimer = attacktimer + 0.9
 
-				local platooncount = 0
-				local fuellow = false
+                if GetPlatoonPosition(self) and self.anchorposition then
 
-				for _,v in platoonUnits do
+                    if VDist3( GetPlatoonPosition(self), self.anchorposition ) > maxrange then
+
+                        IssueClearCommands( platoonUnits )
 				
-					if not v.Dead then
+                        target = false
 
-						platooncount = platooncount + 1
-
-					end
-				end
-
-				if platooncount < oldNumberOfUnitsInPlatoon * .4 or fuellow or ((LOUDTIME() - MissionStartTime) > missiontime) or (attacktimer > 250) then
-				
-					IssueClearCommands( platoonUnits )
-				
-					target = false
-                    
-                    self:MoveToLocation( self.anchorposition, false )
-
-					return self:SetAIPlan('ReturnToBaseAI',aiBrain)
-				end
-
-				if PlatoonExists(aiBrain, self) and VDist3( GetPlatoonPosition(self), self.anchorposition ) > maxrange then
-
-					IssueClearCommands( platoonUnits )
-				
-					target = false
-
-					self:MoveToLocation( self.anchorposition, false )
+                        self:MoveToLocation( self.anchorposition, false )
+                    end
 				end
 			end
-		end
+            
+            if not self.WatchPlatoon then
+            
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." platoon watch trigger")
+                
+                target = false
 
+                self:MoveToLocation( self.anchorposition, false )
+
+                return self:SetAIPlan('ReturnToBaseAI',aiBrain)                
+            end   
+        end
+        
         -- we had a target and target is destroyed
 		if target and PlatoonExists(aiBrain, self) then
 
@@ -4030,13 +3940,20 @@ function AirForceAI_Torpedo_LOUD( self, aiBrain )
             loiter = false
             
             self:MoveToLocation( self.anchorposition, false )
+            
+            if self.WatchPlatoon then
+            
+                KillThread (self.WatchPlatoon)
+                
+                self.WatchPlatoon = nil
+            end
 		end
 
 		-- loiter will be true if we did not find a target
 		-- or we couldn't get to the target - we should 
         -- still be guarding the anchorposition
 		if loiter then
-			WaitTicks(20)
+			WaitTicks(12)
 		end
     end
 
