@@ -476,10 +476,11 @@ function CreateDialog(selectBehavior, exitBehavior, over, singlePlayer, defaultS
 
     mapList.OnKeySelect = function(self,row)
         -- If this is a true folder, open it and repop the map list
-        local fold = folders[folderMap[srow + 1].folder]
+        local fold = folders[folderMap[row + 1].folder]
         if table.getsize(fold.maps) > 1 and not folderMap[row + 1].map then
             fold.open = true
             PopulateMapList()
+            mapList:SetSelection(row)
             return
         end
         mapList:SetSelection(row)
