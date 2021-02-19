@@ -150,6 +150,8 @@ function EnumerateSkirmishFolders(nameFilter, sortFunc)
             local folderName = TitleCase(string.sub(fileName, i + 6, j - 1))
             -- Trim off any version numbers
             folderName = string.gsub(folderName, "%.[vV]%d+$", "")
+            -- Replace underscores with whitespace
+            folderName = string.gsub(folderName, "_", " ")
             if not ret[k] then
                 -- If a folder struct has not been created, make one
                 ret[k] = { 
