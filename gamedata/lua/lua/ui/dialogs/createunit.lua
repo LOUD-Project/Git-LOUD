@@ -347,6 +347,14 @@ local function CreateNameFilter(data)
         group.edit.key = data.key
         group.edit.sortFunc = data.sortFunc
 
+        group.edit.OnCharPressed = function(self, charcode)
+            -- Forbid [ and ]
+            if charcode == 91 or charcode == 93 then
+                return true
+            end
+            return false
+        end
+
         group.edit.OnTextChanged = function(self, new, old)
             if new == '' then
                 activeFilters[self.key][self.filterKey] = nil
