@@ -200,7 +200,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
         BuilderConditions = { 
 		
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ EBC, 'LessEconEnergyStorageCurrent', { 5000 }},
+			{ EBC, 'LessEconEnergyStorageCurrent', { 5750 }},
 			{ EBC, 'GreaterThanEconStorageCurrent', { 175, 0 }},
 
 			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION - categories.TECH1 }},            
@@ -220,7 +220,46 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
             }
         }
     },
+    
+	-- build mass at higher priority when close
+    Builder {BuilderName = 'CDR - Mass Extractor',
+	
+        PlatoonTemplate = 'CommanderBuilder',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+		PlatoonAIPlan = 'EngineerBuildAI',
+		
+        Priority = 775,
+		
+		PriorityFunction = First30Minutes,
+		
+		BuilderType = { 'Commander' },
 
+        BuilderConditions = {
+        
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+
+            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 60, -9999, 30, 0, 'AntiSurface', 1 }},
+        },
+		
+        BuilderData = {
+		
+            Construction = {
+			
+				BuildClose = false,		-- build on points close to baase
+				LoopBuild = false,		-- don't repeat this build
+
+				ThreatMax = 25,
+				ThreatRings = 0,
+                
+				ThreatType = 'AntiSurface',
+                
+                BuildStructures = { 'T1Resource' }
+            }
+        }
+    },
+ 	
     -- after 30 minutes - initiating more T3 Power and Mass Fabs becomes his 
     -- most important task if those are required
     Builder {BuilderName = 'CDR - T3 Power',
@@ -238,7 +277,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ EBC, 'LessThanEnergyTrend', { 2400 }},
+			{ EBC, 'LessThanEnergyTrend', { 1800 }},
 			{ EBC, 'GreaterThanEconStorageCurrent', { 75, 0 }},
 
 			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION * categories.TECH3 }},            

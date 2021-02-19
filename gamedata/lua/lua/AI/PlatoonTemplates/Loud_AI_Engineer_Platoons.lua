@@ -56,13 +56,6 @@ PlatoonTemplate {Name = 'EngineerReclaimerGeneral',
     },
 }
 
-PlatoonTemplate {Name = 'EngineerUnitReclaimerGeneral',
-	Plan = 'EngineerReclaimUnitAI',
-    GlobalSquads = {
-        { (categories.MOBILE * categories.ENGINEER) + categories.SUBCOMMANDER, 1, 1, 'Support', 'none' },
-    },
-}	
-
 PlatoonTemplate {Name = 'EngineerStructureReclaimerGeneral',
 	Plan = 'EngineerReclaimStructureAI',
     GlobalSquads = {
