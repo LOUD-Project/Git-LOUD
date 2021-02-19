@@ -5,10 +5,10 @@
 	-- Enable LOUD debugging options
 	LOG("*AI DEBUG Setting LOUD DEBUG & LOG options")
 
-    
+--[[    
     --- ENGINEER and FACTORY DEBUGS ---
 
---[[
+
     -- AI Engineers will be named according to the Builder they are running 
 	ScenarioInfo.NameEngineers = true
 	LOG("*AI DEBUG		Name Engineers is "..repr(ScenarioInfo.NameEngineers))
@@ -163,6 +163,7 @@
 	LOG("*AI DEBUG		Report  Weapon Dialog to Log is "..repr(ScenarioInfo.WeaponDialog))
 
 --]]
+
 
 local import = import
 
@@ -373,19 +374,27 @@ function SetAIDebug(data)
         end
 
         ScenarioInfo[data.Switch] = data.Active
-        LOG("SETAIDEBUG: "..repr(data.Switch).." "..repr(data.Active))
+        
+        LOG("SETAIDEBUG: "..repr(data.Switch).." "..repr(ScenarioInfo[data.Switch]))
 
         if data.Switch == 'DisplayAttackPlans' then
+        
             if data.Active then
+            
                 local LoudUtils = import('/lua/loudutilities.lua')
+                
                 for i, brain in ArmyBrains do
-                    if brain.BrainType ~= 'Human' and not brain.DrawPlanThread then
+                
+                    if brain.BrainType == 'AI' and not brain.DrawPlanThread then
                         brain.DrawPlanThread = ForkThread(LoudUtils.DrawPlanNodes, brain)
                     end
                 end
+                
             else
+            
                 for i, brain in ArmyBrains do
-                    if brain.BrainType ~= 'Human' and brain.DrawPlanThread then
+                
+                    if brain.BrainType == 'AI' and brain.DrawPlanThread then
                         KillThread(brain.DrawPlanThread)
                         brain.DrawPlanThread = nil
                     end
@@ -394,23 +403,37 @@ function SetAIDebug(data)
         end
 
         if data.Switch == 'DisplayIntelPoints' then
+        
             if data.Active then
+            
                 local LoudUtils = import('/lua/loudutilities.lua')
+
                 for i, brain in ArmyBrains do
-                    if brain.BrainType ~= 'Human' and not brain.IntelDebugThread then
+                
+                    --LOG("*AI DEBUG "..brain.Nickname.." BrainType is "..repr(brain.BrainType).." Civilian is "..repr(ArmyIsCivilian(brain.ArmyIndex)) )
+                
+                    if brain.BrainType == 'AI' and not ArmyIsCivilian(brain.ArmyIndex) and not brain.IntelDebugThread then
                         brain.IntelDebugThread = brain:ForkThread(LoudUtils.DrawIntel)
                     end
                 end
+                
             else
+            
                 for i, brain in ArmyBrains do
-                    if brain.BrainType ~= 'Human' and brain.IntelDebugThread then
+                
+                    if brain.BrainType == 'AI' and brain.IntelDebugThread then
+                    
+                        --LOG("*AI DEBUG "..brain.Nickname.." DrawIntel thread stopped")
+
                         KillThread(brain.IntelDebugThread)
                         brain.IntelDebugThread = nil
                     end
                 end
             end
         end
+        
     elseif data.ThreatType then
+    
         local LoudUtils = import('/lua/loudutilities.lua')
 
         -- local table

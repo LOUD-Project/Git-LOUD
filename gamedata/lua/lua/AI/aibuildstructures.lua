@@ -18,6 +18,7 @@ end
 
 -- This function is usually used for building items in no particular location but still contained within a base template
 -- The FindPlaceToBuild function usually returns the location closest to the reference point (relativeTo) that is open
+-- Be AWARE - it does not appear to do ANY threat evaluation that I can understand or see working --
 function AIExecuteBuildStructure( aiBrain, engineer, buildingType, closeToBuilder, relative, buildingTemplate, baseTemplate, reference, NearMarkerType)
 
     local whatToBuild = aiBrain:DecideWhatToBuild( engineer, buildingType, buildingTemplate)

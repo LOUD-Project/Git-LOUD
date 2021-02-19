@@ -53,30 +53,30 @@ do
 
 	-- ThreatType = { ARGB value }
 	local THREAT_COLOR = {
-		Commander = 'a0ffffff', -- White
-		Land = 'ff00ff00', -- Green
-		Air = 'ffff0000', -- Red 
-		Naval = 'ff00a0ff', -- Dark Blue
-		Artillery = 'ffffff00', --Yellow
-		AntiAir = 'ffff00ff', -- Bright Red
-		AntiSurface = 'ffff00ff', -- Bright Pink
+		Commander = '90ffffff', -- White
+		Land = '9000ff00', -- Green
+		Air = '80ff0000', -- Red 
+		Naval = 'ff0090ff', -- Dark Blue
+		Artillery = '60ffff00', --Yellow
+		AntiAir = 'e0ff0000', -- Bright Red
+		AntiSurface = 'ffaf000ff', -- Pink
 		AntiSub = 'ff0000ff', -- Light Blue
 		Economy = '90ff7000', -- Gold
-		StructuresNotMex = 'c0ffff00', -- Yellow
+		StructuresNotMex = '90ffff00', -- Yellow
 		Experimental = 'ff00fec3', -- Cyan
 	}
 
 	-- ThreatType = { ARGB value }
 	local THREAT_COLOR_2 = {
-		Commander = 'ff00ffff', -- Cyan
-		Land = 'ffa000ff', -- Purple
-		Air = 'a0ff0096', -- Pink
-		Naval = 'ff0000a0', -- Blueish (again)
-		Artillery = 'fffffc00', -- Yellow
-		Economy = 'a0ffffff', -- White
-		StructuresNotMex = 'ff00ff00', -- Green
-		AntiAir = 'ffff0000', -- Red
-		Experimental = 'ffff0000', -- Red
+		Commander = '90ffffff', -- Cyan
+		Land = '9000ff00', -- Purple
+		Air = '80ff0000', -- Pink
+		Naval = 'ff0090ff', -- Blueish (again)
+		Artillery = '60ffff00', -- Yellow
+		Economy = '90ff7000', -- White
+		StructuresNotMex = '90ffff00', -- Green
+		AntiAir = 'e0ff0000', -- Red
+		Experimental = 'ff00fec3', -- Red
 	}
 
 	local INTEL_CHECKS = {
@@ -94,16 +94,16 @@ do
 	}
 
 	local INTEL_CHECKS_COLORS = {
-		'ffff0000',
-		'ff00ff00',
-		'ff00a0ff',
+		'80ff0000',
+		'9000ff00',
+		'ff0090ff',
 		'ff00fec3',
-		'ffffffff',
+		'90ffffff',
 		'90ff7000',
-		'c0ffff00',
-		'ffffff00',
-		'ffff00ff',
-		'ffff00ff',
+		'90ffff00',
+		'60ffff00',
+		'e0ff0000',
+		'ffaf00ff',
 		'ff0000ff'
 	}
 
@@ -148,13 +148,12 @@ do
 			end
 			
 			local check = UIUtil.CreateCheckboxStd(grp, '/dialogs/check-box_btn/radio')
+            
 			LayoutHelpers.AtRightIn(check, grp)
 			LayoutHelpers.AtVerticalCenterIn(check, grp)
+            
 			check.OnCheck = function(self, checked)
-				SimCallback({
-					Func = 'SetAIDebug', 
-					Args = { Switch = SWITCHES[index], Active = checked }
-				})
+				SimCallback( { Func = 'SetAIDebug', Args = { Switch = SWITCHES[index], Active = checked } } )
 			end
 			
 			return grp
