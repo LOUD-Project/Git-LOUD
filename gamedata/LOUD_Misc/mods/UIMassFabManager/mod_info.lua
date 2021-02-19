@@ -1,4 +1,4 @@
-name = "UI Mass Fab Manager FA"
+name = "Mass Fab Manager FA"
 uid = "EF3ADDB4-9D34-437F-B1C8-440DAF896802"
 version = 4
 copyright = ""
