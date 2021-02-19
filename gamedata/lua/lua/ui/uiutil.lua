@@ -299,7 +299,7 @@ function GUIUIFile(filespec)
         end
     end
 
-    LOG("Warning: Unable to find file ", filespec)
+    LOG("Warning: GUIUIFILE Unable to find file ", filespec)
     -- pass out the final string anyway so resource loader can gracefully fail
     return filespec
 end
@@ -381,10 +381,10 @@ function UIFile(filespec)
 		
     end
 
-    LOG("Warning: Unable to find file "..filespec)
+    --LOG("Warning: UIFILE Unable to find file "..filespec)
 
     -- pass out the final string anyway so resource loader can gracefully fail
-    return filespec
+    return '/textures/ui/common/icons/units/ '   --filespec
 end
 
 --* return the filename as a lazy var function to allow triggering of OnDirty
