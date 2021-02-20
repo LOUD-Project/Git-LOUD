@@ -11,12 +11,6 @@ Textures 6.3.2
  |--> (Be warned: putting cities in "Occupied" start locations tends to break the AI.)
  |--> Choose whether cities in player start locations belong to that player.
  |--> Choose the size of cities ("Small" is recommended for maps over 20x20km to prevent lag).
-- New mod: BrewLAN Research & Daiquiris (R&D for short). An overhaul for Tech levels, meant to draw out the earlier parts of the game and mix up playstyles.
- |--> New Techs now have to be researched at special laboratory buildings, along with the most exotic and powerful units in the mod pack.
- |--> Choose wisely which units you research based on the current situation.
- |--> Factories still get upgraded, but this only improves their construction speed.
- |--> R&D can also interact with Lucky Dip, allowing you to unlock units which have been locked at random using research.
- |--> Lucky Dip integration is very work-in-progress and is likely to have poor performance or unintended side effects.
 - New mod: BrewLAN Bletchley Park. A rebalance which separates Tech 3 Radar and Omni Sensors into two different buildings per faction (except Seraphim).
  |--> This mod also adds the Teatut; a UEF Experimental Mobile Omni Sensor, which works only in one direction at a time.
 - New mod: BrewLAN Metal World.
@@ -42,7 +36,6 @@ Textures 6.3.2
  |--> Has had small increases to the maximum size of its smaller platoons, allowing for larger formations. 
  |--> Will build power generators sooner if absolutely necessary.
  |--> Will be more likely to choose targets in a more aggressive manner.
-- The Novax (UEF Tech 3 Satellite Launch Facility, BrewLAN) no longer automatically builds a first satellite.
 - King Kraptor (Aeon Experimental Abomination Bot) now looks a little bit more "Aeon", thanks to Balthazar.
 - Descriptions for units from LOUD Unit Additions and Integrated Storage have been cleaned up somewhat.
 - Make the lobby colour wheel look a little bit better.
@@ -54,8 +47,6 @@ Textures 6.3.2
 - Fix: Starting location markers in the lobby Map Preview didn't have colours.
 - Fix: The Conquest Class (UEF Experimental Battleship) will no longer try to shoot at satellites with its anti-air guns.
 - Fix: Some maps could not show a minimap or cartographic view. Thanks to code from FAF, this has been resolved.
-- Fix: An Iyadesu/Iaathan (Seraphim Experimental Reconstruction Engineer, Seraphim Experimental Shield Generator, both BrewLAN) exploit has been patched.
- |--> Iyadesu could reclaim the Iaathan while leaving its drones generating shields for no cost.
 - Fix: Arrow key scrolling through the map selection list doesn't reset upon selecting a folder anymore.
 
 ### Patch 06-02-2021 ###
