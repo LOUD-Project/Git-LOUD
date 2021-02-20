@@ -1,3 +1,63 @@
+### Release 19-02-2021 ###
+Lua 5.4.08
+BrewLAN 0.87
+BlackOps 6.0.1
+LOUD Units 1.0.1
+LOUD Misc 5.4.1
+Textures 6.3.2
+
+- BrewLAN Cityscapes now has settings:
+ |--> Choose where cities spawn.
+ |--> (Be warned: putting cities in "Occupied" start locations tends to break the AI.)
+ |--> Choose whether cities in player start locations belong to that player.
+ |--> Choose the size of cities ("Small" is recommended for maps over 20x20km to prevent lag).
+- New mod: BrewLAN Research & Daiquiris (R&D for short). An overhaul for Tech levels, meant to draw out the earlier parts of the game and mix up playstyles.
+ |--> New Techs now have to be researched at special laboratory buildings, along with the most exotic and powerful units in the mod pack.
+ |--> Choose wisely which units you research based on the current situation.
+ |--> Factories still get upgraded, but this only improves their construction speed.
+ |--> R&D can also interact with Lucky Dip, allowing you to unlock units which have been locked at random using research.
+ |--> Lucky Dip integration is very work-in-progress and is likely to have poor performance or unintended side effects.
+- New mod: BrewLAN Bletchley Park. A rebalance which separates Tech 3 Radar and Omni Sensors into two different buildings per faction (except Seraphim).
+ |--> This mod also adds the Teatut; a UEF Experimental Mobile Omni Sensor, which works only in one direction at a time.
+- New mod: BrewLAN Metal World.
+ |--> Another "mutator" mod like those added recently; removes all mass points and allows building mass extractors anywhere.
+- New mod: BrewLAN Wonky Resources.
+ |--> Allows building resource extractors (i.e. mass extractors and hydrocarbon plants) on terrain regardless of roughness.
+ |--> Useful for maps with resource points which previously had too much slope to build on.
+- New mod: No VO Alerts. Choose to disable the following voice-over alerts:
+ |--> Whenever one of your mass extractors gets attacked.
+ |--> Whenever you establish a new ferry route.
+ |--> Whenever an enemy ACU enters your vision.
+- New mod: Beta integration of HotStats by Saya and Zulan.
+ |--> Warning: heavily affects performance. It's recommended that it be used in replays only.
+- Improvements to AI chat commands.
+ |--> If "aimult", "aicheat", or "ailevel" appears in a message to "All", every AI will tell their cheat multiplier.
+ |--> "give me an engineer" has been replaced to only look for the word "engi", and only in whispers.
+- The AI now:
+ |--> Keeps better intel on moving threats.
+ |--> More finely stores positions of threats on maps 40x40km and larger.
+ |--> Better adapts to obstructive terrain when engaging targets.
+ |--> Builds mass extractors using its ACU, but only within the first 5 minutes of a game.
+ |--> Has a new, larger anti-air attack platoon, which replaces "AA Attack Water".
+ |--> Has had small increases to the maximum size of its smaller platoons, allowing for larger formations. 
+ |--> Will build power generators sooner if absolutely necessary.
+ |--> Will be more likely to choose targets in a more aggressive manner.
+- The Novax (UEF Tech 3 Satellite Launch Facility, BrewLAN) no longer automatically builds a first satellite.
+- King Kraptor (Aeon Experimental Abomination Bot) now looks a little bit more "Aeon", thanks to Balthazar.
+- Descriptions for units from LOUD Unit Additions and Integrated Storage have been cleaned up somewhat.
+- Make the lobby colour wheel look a little bit better.
+- The Purifier (Aeon Tech 3 Advanced Tactical Missile Launcher) is working again.
+- Fix: Re-hide "Game Speed" lobby option (it's always "Adjustable" in LOUD).
+- Fix: Ensure proper colour transfer, prevent errors when changing from player to observer in the lobby.
+- Fix: Prevent entering a negative Timed Cheat Limit (this should never have been possible, and would break the game).
+- Fix: Make feedback- and time-based cheating add together properly (timed would briefly override feedback). 
+- Fix: Starting location markers in the lobby Map Preview didn't have colours.
+- Fix: The Conquest Class (UEF Experimental Battleship) will no longer try to shoot at satellites with its anti-air guns.
+- Fix: Some maps could not show a minimap or cartographic view. Thanks to code from FAF, this has been resolved.
+- Fix: An Iyadesu/Iaathan (Seraphim Experimental Reconstruction Engineer, Seraphim Experimental Shield Generator, both BrewLAN) exploit has been patched.
+ |--> Iyadesu could reclaim the Iaathan while leaving its drones generating shields for no cost.
+- Fix: Arrow key scrolling through the map selection list doesn't reset upon selecting a folder anymore.
+
 ### Patch 06-02-2021 ###
 Lua 5.4.06
 
