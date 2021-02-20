@@ -42,19 +42,20 @@ function CanBuildOnMassAtRange(aiBrain, locationType, mindistance, maxdistance, 
 
 		local mlist = {}
 		local counter = 0
+        local position = aiBrain.BuilderManagers[locationType].Position
 	
 		local CanBuildStructureAt = moho.aibrain_methods.CanBuildStructureAt
     
 		for _,v in markerlist do
-			if CanBuildStructureAt( aiBrain, 'ueb1103', v.Position ) then
-				mlist[counter+1] = v
-				counter = counter + 1
-			end
+           
+            if CanBuildStructureAt( aiBrain, 'ueb1103', v.Position ) then
+                mlist[counter+1] = v
+                counter = counter + 1
+            end
 		end
 	
 		if counter > 0 then
 		
-			local position = aiBrain.BuilderManagers[locationType].Position
 			local markerTable = AISortMarkersFromLastPosWithThreatCheck(aiBrain, mlist, maxNum, tMin, tMax, tRings, tType, position)
 			
 			if markerTable and ((mindistance * mindistance) < VDist2Sq( markerTable[1][1], markerTable[1][3], position[1],position[3] ) < (maxdistance*maxdistance)) then

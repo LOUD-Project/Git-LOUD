@@ -10,6 +10,15 @@ local BHVR = '/lua/ai/aibehaviors.lua'
 local LUTL = '/lua/loudutilities.lua'
 
 -- imbedded into the Builder
+local First5Minutes = function( self,aiBrain )
+	
+	if aiBrain.CycleTime > 300 then
+		return 0, false
+	end
+	
+	return self.Priority, true
+end
+
 local First30Minutes = function( self,aiBrain )
 	
 	if aiBrain.CycleTime > 1800 then
@@ -232,7 +241,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
 		
         Priority = 775,
 		
-		PriorityFunction = First30Minutes,
+		PriorityFunction = First5Minutes,
 		
 		BuilderType = { 'Commander' },
 
