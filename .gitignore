@@ -23,15 +23,6 @@ bin/*.png
 bin/*.ini
 bin/*.dat
 bin/*.manifest
-bin/*.lnk
-
-*.lnk
-*.ai
-*.tif
-*.psd
-*.ps1
-*.bat
-bin/Loud-Dev\.log
 
 # Log files
 *.log
