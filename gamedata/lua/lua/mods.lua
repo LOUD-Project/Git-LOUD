@@ -362,12 +362,31 @@ local function GetActiveModsFiltered(filter, selected)
     return r
 end
 
+local function GetActiveConfigsFiltered(filter, selected)
+    if not selected then
+        selected = GetSelectedMods()
+    end
+
+    local all_mods = AllMods()
+    local r = {}
+    for uid, m in sortedpairs(all_mods, ModComp) do
+        if selected[uid] and filter(m) then
+            table.insert(r, m.config)
+        end
+    end
+    return r
+end
+
 function GetUiMods()
     return GetActiveModsFiltered(function(m) return m.ui_only end)
 end
 
 function GetGameMods(selected)
     return GetActiveModsFiltered(function(m) return not m.ui_only end, selected)
+end
+
+function GetSimConfigs(selected)
+    return GetActiveConfigsFiltered(function(m) return not m.ui_only end, selected)
 end
 
 function GetCampaignMods(scenario)

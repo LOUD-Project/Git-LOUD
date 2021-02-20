@@ -1742,10 +1742,21 @@ local function TryLaunch(skipNoObserversCheck, skipSandboxCheck, skipTimeLimitCh
         -- Delete some no-longer-needed data
         gameInfo.GameOptions.EvenFactions = nil
         
-		LOG("HERE WE GO "..repr( { Options = gameInfo.GameOptions, HostedBy = localPlayerName, PlayerCount = GetPlayerCount(), GameName = gameName }) )
+		LOG("HERE WE GO "..repr({ 
+            Options = gameInfo.GameOptions, 
+            HostedBy = localPlayerName, 
+            PlayerCount = GetPlayerCount(), 
+            GameName = gameName
+        }))
     
+        local modConfigs = Mods.GetSimConfigs(gameInfo.GameMods)
+
         -- Tell everyone else to launch and then launch ourselves.
-        lobbyComm:BroadcastData( { Type = 'Launch', GameInfo = gameInfo } )
+        lobbyComm:BroadcastData({
+            Type = 'Launch', 
+            GameInfo = gameInfo, 
+            ModConfigs = modConfigs
+        })
     
         -- set the mods
         gameInfo.GameMods = Mods.GetGameMods(gameInfo.GameMods)
@@ -4811,6 +4822,10 @@ function InitLobbyComm(protocol, localPort, desiredPlayerName, localPlayerUID, n
 			
                 local info = data.GameInfo
                 info.GameMods = Mods.GetGameMods(info.GameMods)
+                for i, config in data.ModConfigs do
+                    info.GameMods[i].config = config
+                end
+                LOG("LOBBY: Client launching with gameInfo: "..repr(info))
                 lobbyComm:LaunchGame(info)
 
             elseif data.Type == 'ClearSlot' then
