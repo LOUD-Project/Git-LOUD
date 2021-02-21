@@ -2343,7 +2343,7 @@ BuffBlueprint { Name = 'T2MassStorageMassProductionBonusSize4',
     OnBuffRemove = AdjBuffFuncs.MassProductionBuffRemove,
     Affects = {
         MassProduction = {
-            Add = 0.16,
+            Add = 0.15,
             Mult = 1.0,
         },
     },
@@ -2397,7 +2397,7 @@ BuffBlueprint { Name = 'T3MassStorageMassProductionBonusSize4',
     OnBuffRemove = AdjBuffFuncs.MassProductionBuffRemove,
     Affects = {
         MassProduction = {
-            Add = 0.2,
+            Add = 0.175,
             Mult = 1.0,
         },
     },
@@ -2460,7 +2460,7 @@ BuffBlueprint { Name = 'ExperimentalMassStorageProductionBonus',
     Affects = {
         MassProduction = {
             Mult = 1.0,
-            Add = 0.24,
+            Add = 0.2,
         },
     },
 }

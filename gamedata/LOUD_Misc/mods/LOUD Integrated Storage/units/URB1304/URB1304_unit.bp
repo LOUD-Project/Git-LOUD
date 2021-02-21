@@ -71,12 +71,10 @@ UnitBlueprint {
 		BuildRate = 20,
         BuildTime = 3200,
 		
-        MaintenanceConsumptionPerSecondEnergy = 200,
+        MaintenanceConsumptionPerSecondEnergy = 240,
         ProductionPerSecondMass = 30,
 		
-        RebuildBonusIds = {
-            'urb1302',
-        },
+        RebuildBonusIds = {'urb1302'},
 		
         StorageMass = 2500,
     },
@@ -139,7 +137,7 @@ UnitBlueprint {
     },
 	
     General = {
-		CapCost = 0,
+		CapCost = 2,
         Category = 'Economy',
         Classification = 'RULEUC_Resource',
         CommandCaps = {

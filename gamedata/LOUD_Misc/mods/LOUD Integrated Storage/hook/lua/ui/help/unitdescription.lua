@@ -13,13 +13,13 @@ Description['bsb1304-Regen'] = "Installs Nano-lathe enhancements to increase rep
 Description['bsb1304-Shield'] = "Installs a custom shield dome into the plant. While not very large, the shield is robust and regnerates quickly.  Does not benefit from any adjacent structures."
 
 -- Upgraded T3 Extractors
-Description['uab1304'] = "Increases output, health, and health regeneration. Adds 2500 mass storage. Eliminates unit cap cost."
+Description['uab1304'] = "Increases output, health, and health regeneration. Cap Cost 2. Adds 2500 mass storage."
 Description['uab1304-Regen'] = "Installs Nano-lathe enhancements to increase repair rate."
-Description['ueb1304'] = "Increases output, health, and health regeneration. Adds 2500 mass storage. Eliminates unit cap cost."
+Description['ueb1304'] = "Increases output, health, and health regeneration. Cap Cost 2. Adds 2500 mass storage."
 Description['ueb1304-Regen'] = "Installs Nano-lathe enhancements to increase repair rate."
-Description['urb1304'] = "Increases output, health, and health regeneration. Adds 2500 mass storage. Eliminates unit cap cost."
+Description['urb1304'] = "Increases output, health, and health regeneration. Cap Cost 2. Adds 2500 mass storage."
 Description['urb1304-Regen'] = "Installs Nano-lathe enhancements to increase repair rate."
-Description['xsb1304'] = "Increases output, health, and health regeneration. Adds 2500 mass storage. Eliminates unit cap cost."
+Description['xsb1304'] = "Increases output, health, and health regeneration. Cap Cost 2. Adds 2500 mass storage."
 Description['xsb1304-Regen'] = "Installs Nano-lathe enhancements to increase repair rate."
 
 -- Upgraded T2 Fabricators
