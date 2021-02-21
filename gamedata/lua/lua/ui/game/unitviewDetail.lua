@@ -240,16 +240,22 @@ function WrapAndPlaceText(air, physics, intel, weapons, abilities, capCost, text
 	local cap_line = -1
 	
 	if text ~= nil then
-		textLines = import('/lua/maui/text.lua').WrapText( text, control.Value[1].Width(), function(text) return control.Value[1]:GetStringAdvance(text) end)
+		textLines = import('/lua/maui/text.lua').WrapText(text, control.Value[1].Width(), function(text) 
+			return control.Value[1]:GetStringAdvance(text) 
+		end)
 	end
-	
+
 	-- Keep a count of the Ability lines.
 	local abilityLines = 0
-	
+
 	-- Check for abilities on the BP.
 	if abilities ~= nil then
-	
+
 		local i = table.getn(abilities)
+
+		if textLines[1] then
+			table.insert(textLines, 1, "")
+		end
 		
 		-- Insert each ability into the textLines table.
 		while abilities[i] do
@@ -261,13 +267,13 @@ function WrapAndPlaceText(air, physics, intel, weapons, abilities, capCost, text
 		abilityLines = table.getsize(abilities)
 	end
 
+	-- Inserts a blank line for readability.
+	table.insert(textLines, "")
+
 	-- Start point of the weapon lines.
 	local weapon_start = table.getn(textLines)
 	
-	if weapons ~= nil then
-		-- Inserts a blank line for spacing.
-		table.insert(textLines, "")
-		
+	if weapons and not table.empty(weapons) then
 		-- Import PhoenixMT's DPS Calculator script.
 		doscript '/lua/PhxLib.lua'
 
@@ -556,7 +562,7 @@ function WrapAndPlaceText(air, physics, intel, weapons, abilities, capCost, text
 	local physicsText = ""
 
 	--Physics info
-	if physics and physics.MotionType ~= 'RULEMT_None' then
+	if physics and physics.MotionType ~= 'RULEUMT_None' then
 		if physics.MotionType == 'RULEUMT_Air' then
 			if air.MaxAirspeed ~= 0 then
 				physicsText = ("Top Speed: " .. LOUD_SpeedCheck(air.MaxAirspeed))
@@ -588,7 +594,7 @@ function WrapAndPlaceText(air, physics, intel, weapons, abilities, capCost, text
 			physics_line = table.getn(textLines)
 		end
 	end
-	
+
 	local intelText = ""
 	
 	-- Intel info
@@ -604,7 +610,9 @@ function WrapAndPlaceText(air, physics, intel, weapons, abilities, capCost, text
 		end
 		
 		-- Insert the intel text into the table.
-		table.insert(textLines, intelText)
+		if intelText ~= "" then
+			table.insert(textLines, intelText)
+		end
 		-- Get the index of the intel text line from the textLines table.
 		intel_line = table.getn(textLines)
 	end
