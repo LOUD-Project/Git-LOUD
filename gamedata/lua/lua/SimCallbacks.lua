@@ -30,6 +30,7 @@ Callbacks.FactionSelection = import('/lua/scenarioframework.lua').OnFactionSelec
 Callbacks.ToggleSelfDestruct = import('/lua/selfdestruct.lua').ToggleSelfDestruct
 Callbacks.MarkerOnScreen = import('/lua/simcameramarkers.lua').MarkerOnScreen
 Callbacks.SimDialogueButtonPress = import('/lua/simdialogue.lua').OnButtonPress
+Callbacks.AreaReclaim = import('/lua/simutils.lua').AreaReclaim
 
 Callbacks.AIChat = import('/lua/ai/sorianutilities.lua').FinishAIChat
 
@@ -45,7 +46,6 @@ Callbacks.SetAIDebug = import('/lua/aibrain.lua').SetAIDebug
 Callbacks.NoteSimSpeedChange = function(data)
 	UpdateSimSpeed(data)
 end
-
 
 function Callbacks.OnMovieFinished(name)
     ScenarioInfo.DialogueFinished[name] = true
@@ -95,7 +95,7 @@ function Callbacks.RemoveSelectedUnits(data)
 		end
 	end
 end
-	
+
 function Callbacks.UpdateSelectedUnits(data)
 
 	if table.getsize(data.NewSelection) > 0 then
@@ -110,6 +110,3 @@ function Callbacks.UpdateSelectedUnits(data)
 		end
 	end
 end
-
-
-
