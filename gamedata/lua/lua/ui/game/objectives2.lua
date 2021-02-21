@@ -11,21 +11,21 @@
 --    targets = { blipId1, Vector(10,10,10), blipId2, ... }   -- objective is a list of target unit(s) and/or location(s)
 -- }
 
-local UIUtil = import('/lua/ui/uiutil.lua')
-local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
-local GameMain = import('/lua/ui/game/gamemain.lua')
-local Group = import('/lua/maui/group.lua').Group
+local Announcement = import('/lua/ui/game/announcement.lua').CreateAnnouncement
+local Bitmap = import('/lua/maui/bitmap.lua').Bitmap
 local Button = import('/lua/maui/button.lua').Button
 local Checkbox = import('/lua/maui/checkbox.lua').Checkbox
-local Movie = import('/lua/maui/movie.lua').Movie
-local Bitmap = import('/lua/maui/bitmap.lua').Bitmap
+local cmdMode = import('/lua/ui/game/commandmode.lua')
 local GameCommon = import('/lua/ui/game/gamecommon.lua')
+local GameMain = import('/lua/ui/game/gamemain.lua')
+local Group = import('/lua/maui/group.lua').Group
+local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
+local Movie = import('/lua/maui/movie.lua').Movie
 local MultiLineText = import('/lua/maui/multilinetext.lua').MultiLineText
 local StatusBar = import('/lua/maui/statusbar.lua').StatusBar
-local Announcement = import('/lua/ui/game/announcement.lua').CreateAnnouncement
-local cmdMode = import('/lua/ui/game/commandmode.lua')
-local UIPing = import('/lua/ui/game/ping.lua')
 local Tooltip = import('/lua/ui/game/tooltip.lua')
+local UIPing = import('/lua/ui/game/ping.lua')
+local UIUtil = import('/lua/ui/uiutil.lua')
 
 local lastUnitWarning = 0
 local unitWarningUsed = false
@@ -202,9 +202,10 @@ function UpdateObjectivesTable(updateTable, onLoad)
         elseif update.updateField == 'target' and update.updateField != 'timer' then
             if controls.objItems[update.tag] then
                 if update.updateData.TargetTag == 1 then
-                    if not controls.objItems[update.tag].ImageLocked and update.updateData.BlueprintId and DiskGetFileInfo('/textures/ui/common/icons/units/'..update.updateData.BlueprintId..'_icon.dds') then
+                    local path, valid = GameCommon.GetUnitIconPath(nil, update.updateData.BlueprintId)
+                    if not controls.objItems[update.tag].ImageLocked and valid then
                         if not onLoad then
-                            controls.objItems[update.tag].icon:SetTexture('/textures/ui/common/icons/units/'..update.updateData.BlueprintId..'_icon.dds')
+                            controls.objItems[update.tag].icon:SetTexture(path)
                             controls.objItems[update.tag].ImageLocked = true
                         end
                     end
@@ -259,8 +260,8 @@ function UpdateObjectiveItems(skipAnnounce)
         elseif table.getsize(data.targets) > 0 then
             local texture = false
             for _, v in data.targets do
-                if v.BlueprintId and DiskGetFileInfo(UIUtil.UIFile('/icons/units/'..v.BlueprintId..'_icon.dds')) then
-                    texture = UIUtil.UIFile('/icons/units/'..v.BlueprintId..'_icon.dds')
+                if v.BlueprintId then
+                    texture = GameCommon.GetUnitIconPath(nil, v.BlueprintId)
                 elseif v.Type == 'Area' then
                     group.ImageLocked = true
                     if data.actionImage and DiskGetFileInfo('/textures/ui/common'..data.actionImage) then
@@ -614,7 +615,7 @@ function AddPingGroups(groupData, onload)
     for groupIndex, pingGroup in groupData do
         local icon = UIUtil.UIFile('/game/orders/guard_btn_up.dds')
         if pingGroup.BlueprintID then
-            icon = GameCommon.GetCachedUnitIconFileNames(__blueprints[pingGroup.BlueprintID])
+            icon = GameCommon.GetUnitIconPath(pingGroup.BlueprintID)
         elseif pingGroup.Type == 'attack' then
             icon = UIUtil.UIFile('/game/orders/attack_btn_up.dds')
         elseif pingGroup.Type == 'move' then

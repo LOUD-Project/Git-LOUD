@@ -54,7 +54,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 10.9,
     },
 	
-    Description = '<LOC bel0211_desc>FlameThrower Vehicle',
+    Description = '<LOC bel0211_desc>Flamethrower Tank',
 	
     Display = {
         Abilities = {
@@ -127,7 +127,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'FlameThrower Vehicle',
+        HelpText = 'Flamethrower Tank',
     },
 	
     LifeBarHeight = 0.075,

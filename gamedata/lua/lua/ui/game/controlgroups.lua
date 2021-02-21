@@ -1,5 +1,5 @@
 --* File: lua/modules/ui/game/controlgroups.lua
---* Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
+--* Copyright ï¿½ 2006 Gas Powered Games, Inc.  All rights reserved.
 
 local UIUtil = import('/lua/ui/uiutil.lua')
 local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
@@ -10,8 +10,6 @@ local Checkbox = import('/lua/maui/checkbox.lua').Checkbox
 local Bitmap = import('/lua/maui/bitmap.lua').Bitmap
 local Selection = import('/lua/ui/game/selection.lua')
 local Tooltip = import('/lua/ui/game/tooltip.lua')
-
-local BlackopsIcons = import('/lua/BlackopsIconSearch.lua')
 
 controls = {
     groups = {},
@@ -116,51 +114,9 @@ function OnSelectionSetChanged(name, units, applied)
                         break
                     end
                 end
-                
-				--####################
-				--Exavier Code Block +
-				--####################
-				
-				local EXunitID = iconID
-				
-				if iconID != '' and BlackopsIcons.EXIconPathOverwrites[string.upper(EXunitID)] then
-				
-					-- Check manually assigned overwrite table
-					local expath = EXunitID..'_icon.dds'
-					self.icon:SetTexture(BlackopsIcons.EXIconTableScanOverwrites(EXunitID) .. expath)
-					
-				elseif iconID != '' and BlackopsIcons.EXIconPaths[string.upper(EXunitID)] then
-				
-					-- Check modded icon hun table
-					local expath = EXunitID..'_icon.dds'
-					self.icon:SetTexture(BlackopsIcons.EXIconTableScan(EXunitID) .. expath)
-					
-				else
-					-- Check default GPG directories
-					if iconID != '' and DiskGetFileInfo('/textures/ui/common/icons/units/'..iconID..'_icon.dds') then
-					
-						self.icon:SetTexture('/textures/ui/common/icons/units/'..iconID..'_icon.dds')
-						
-					else
-					
-						-- Sets placeholder because no other icon was found
-						self.icon:SetTexture(UIUtil.UIFile('/icons/units/default_icon.dds'))
-						
-						if not BlackopsIcons.EXNoIconLogSpamControl[string.upper(EXunitID)] then
-						
-							-- Log a warning & add unitID to anti-spam table to prevent future warnings when icons update
-							--WARN('Blackops Icon Mod: Icon Not Found - '..EXunitID)
-							BlackopsIcons.EXNoIconLogSpamControl[string.upper(EXunitID)] = EXunitID
-							
-						end
-						
-					end
-					
-				end
-				
-				--####################
-				--Exavier Code Block -
-				--####################
+
+                local path = GameCommon.GetUnitIconPath(nil, iconID)
+                self.icon:SetTexture(path)
 				
             else
 			

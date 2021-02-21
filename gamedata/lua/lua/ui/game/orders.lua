@@ -202,7 +202,7 @@ end
 -- used by most orders, which start and stop a command mode, so they toggle on when pressed
 -- and toggle off when done
 local function StandardOrderBehavior(self, modifiers)
-    # if we're checked, end the current command mode, otherwise start it
+    -- if we're checked, end the current command mode, otherwise start it
     if self:IsChecked() then
         import('/lua/ui/game/commandmode.lua').EndCommandMode(true)
     else
@@ -909,7 +909,7 @@ local function CreateCommonOrders(availableOrders, init)
     end
     
     for index, availOrder in availableOrders do
-        if not standardOrdersTable[availOrder] then continue end   # skip any orders we don't have in our table
+        if not standardOrdersTable[availOrder] then continue end -- skip any orders we don't have in our table
         if commonOrders[availOrder] then
             local ck = orderCheckboxMap[availOrder]
             ck:Enable()

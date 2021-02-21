@@ -200,6 +200,42 @@ function SetOfferDraw(data)
     brain.OfferingDraw = data.Value
 end
 
+-- Orders
+
+function AreaReclaim(data, units)
+    local allReclaimables = GetReclaimablesInRect(Rect(
+		data.MousePos[1] - 3, 
+		data.MousePos[3] - 3, 
+		data.MousePos[1] + 3, 
+		data.MousePos[3] + 3))
+	local numRecs = table.getn(allReclaimables)
+	local numUnits = table.getn(units)
+
+	local recArrays = {}
+
+	-- Number of units dictates how many times reclaimables table must be divided
+	for i = 1, numUnits do
+		recArrays[i] = {}
+	end
+
+    -- Loop over units, assigning 1 reclaimable to each
+    -- Iterate over recArrays as many times as needed to assign every reclaimable
+	local j = 1
+	local i, rec = next(allReclaimables, nil)
+	while i do
+		table.insert(recArrays[j], rec)
+        i, rec = next(allReclaimables, i)
+        j = j + 1
+        if j > numUnits then j = 1 end
+	end
+
+    for i, arr in recArrays do
+        for _, rec in arr do
+            IssueReclaim({ units[i] }, rec)
+        end
+    end
+end
+
 
 -- UNIT CAP
 

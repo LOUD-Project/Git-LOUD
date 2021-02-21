@@ -54,6 +54,8 @@ mount_dir(InitFileDir .. '\\..\\gamedata\\LOUD_Units\\lua', '/lua')
 mount_dir(InitFileDir .. '\\..\\gamedata\\TotalMayhem\\lua', '/lua')
 mount_dir(InitFileDir .. '\\..\\gamedata\\BlackOps\\lua', '/lua')
 mount_dir(InitFileDir .. '\\..\\gamedata\\4D-CompatabilityPack\\lua', '/lua')
+mount_dir(InitFileDir .. '\\..\\gamedata\\BrewLAN_LOUD\\lua', '/lua')
+mount_dir(InitFileDir .. '\\..\\gamedata\\WyvernBattlePack\\lua', '/lua')
 --Non Game-data
 mount_contents(InitFileDir .. '\\..\\..\\LOUD\\maps', '/maps')
 mount_contents(InitFileDir .. '\\..\\..\\LOUD\\usermaps', '/maps')

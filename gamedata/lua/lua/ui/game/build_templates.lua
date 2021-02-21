@@ -1,8 +1,9 @@
 -- File: lua/modules/ui/game/build_templates.lua
 -- Author: Ted Snook
 -- Summary: Build Templates UI
--- Copyright © 2007 Gas Powered Games, Inc.  All rights reserved.
+-- Copyright ï¿½ 2007 Gas Powered Games, Inc.  All rights reserved.
 
+local GameCommon = import('/lua/ui/game/gamecommon.lua')
 local Prefs = import('/lua/user/prefs.lua')
 local templates = Prefs.GetFromCurrentProfile('build_templates') or {}
 local UIUtil = import('/lua/ui/uiutil.lua')
@@ -40,7 +41,8 @@ end
 function GetInitialIcon(template)
     for _, entry in template do
         if type(entry) != 'table' then continue end
-        if DiskGetFileInfo('/textures/ui/common/icons/units/'..entry[1]..'_icon.dds') then
+        local _, valid = GameCommon.GetUnitIconPath(nil, entry[1])
+        if valid then
             return entry[1]
         else
             return false
@@ -49,7 +51,11 @@ function GetInitialIcon(template)
 end
 
 function AddTemplate(newTemplate)
-    table.insert(templates, {templateData = newTemplate, name = GetInitialName(newTemplate), icon = GetInitialIcon(newTemplate)})
+    table.insert(templates, {
+        templateData = newTemplate,
+        name = GetInitialName(newTemplate),
+        icon = GetInitialIcon(newTemplate)
+    })
     Prefs.SetToCurrentProfile('build_templates', templates)
 end
 

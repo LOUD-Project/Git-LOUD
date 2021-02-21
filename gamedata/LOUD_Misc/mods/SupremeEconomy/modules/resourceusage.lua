@@ -225,7 +225,7 @@ function UpdateResourceUsage()
 				button.income:SetText("-" .. info.data)
 				
 				-- set the texture that corresponds to the unit
-				local iconName1, iconName2, iconName3, iconName4 = GameCommon.GetCachedUnitIconFileNames(unitWithMostProgress:GetBlueprint())
+				local iconName1 = GameCommon.GetUnitIconPath(unitWithMostProgress:GetBlueprint())
 				
 				button.icon:SetTexture(iconName1)
 				

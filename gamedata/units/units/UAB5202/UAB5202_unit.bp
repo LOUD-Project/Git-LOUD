@@ -61,6 +61,8 @@ UnitBlueprint {
         Abilities = {
 			'Aquatic',
             'Air Staging',
+            'Repairs Aircraft in Vicinity',
+            'Refuels Aircraft in Vicinity',
         },
 		
         Mesh = {

@@ -1,4 +1,4 @@
-
+local GameCommon = import('/lua/ui/game/gamecommon.lua')
 local Prefs = import('/lua/user/prefs.lua')
 local templates = Prefs.GetFromCurrentProfile('build_templates_factory') or {}
 
@@ -22,7 +22,8 @@ end
 function GetInitialIcon(buildQueue)
     for _, entry in buildQueue do
         if type(entry) != 'table' then continue end
-        if DiskGetFileInfo('/textures/ui/common/icons/units/'..entry.id..'_icon.dds') then
+        local _, valid = GameCommon.GetUnitIconPath(nil, entry.id)
+        if valid then
             return entry.id
         else
             return false

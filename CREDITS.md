@@ -4,6 +4,7 @@ If there is no # in a name disambiguation, it is a GitHub handle. Otherwise, it 
 
 ## Mod Authors
 
+- AdmiralZeech - GAZUI
 - Anihilnine - UI Party
 - Brandon Potter - Wyvern Battle Pack
 - Burnie222 - Total Mayhem
@@ -22,10 +23,11 @@ If there is no # in a name disambiguation, it is a GitHub handle. Otherwise, it 
 - partytime - Selection Deprioritizer
 - Resin_Smoker - 4th Dimension
 - Sean "Balthazar" Wheeldon (The-Balthazar) - BrewLAN
-- Stephen "Goom" Evans - Mass Fab Manager FA
+- Shadows - Advanced Strategic Icons
+- Stephen "Goom" Evans - Goom's UI, Mass Fab Manager FA
 - uXs norem mgmetal13 - Sequentially Upgrading Extractors V2
 - Vissroid - 4th Dimension
-- Zulan - HotStats
+- Zulan - Hotbuild, HotStats
 
 ## Community Ambassadors
 
@@ -122,6 +124,8 @@ In approximate chronological order of first contribution.
 	- Default map fix, shield-piercing check fix
 - Willem "Jip" Wijnia (Garanas)
 	- Bug fixes, GUI polish, lobby map options refinement
+- Lohkrim#5559
+	- GUI polish, mod icons
 
 ## Special Thanks
 

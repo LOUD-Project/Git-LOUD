@@ -65,7 +65,7 @@ function AddPingGroups(groupData)
     for groupIndex, pingGroup in groupData do
         local icon = UIUtil.UIFile('/game/orders/guard_btn_up.dds')
         if pingGroup.BlueprintID then
-            icon = GameCommon.GetCachedUnitIconFileNames(__blueprints[pingGroup.BlueprintID])
+            icon = GameCommon.GetUnitIconPath(pingGroup.BlueprintID)
         elseif pingGroup.Type == 'attack' then
             icon = UIUtil.UIFile('/game/orders/attack_btn_up.dds')
         elseif pingGroup.Type == 'move' then

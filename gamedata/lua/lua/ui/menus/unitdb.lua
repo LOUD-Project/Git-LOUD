@@ -109,7 +109,7 @@ function CreateUnitDB(over, callback)
 				mod = string.sub(file, x, z)
 				mod = string.sub(mod, 7, string.len(mod) - 1)
 			end
-			local id = string.sub(file, string.find(file, '[%a%d]*_unit%.bp$'))
+			local id = string.sub(file, string.find(file, '[%a%d_]+_unit%.bp$'))
 			id = string.sub(id, 1, string.len(id) - 8)
 			safecall("UNIT DB: Loading BP "..file, doscript, file)
 			if not temp then
@@ -345,6 +345,16 @@ function CreateUnitDB(over, callback)
 		unitList[i].name:DisableHitTest()
 		unitList[i].desc:DisableHitTest()
 		unitList[i].id:DisableHitTest()
+
+		unitList[i].HandleEvent = function(self, event)
+			if event.Type == 'ButtonPress' or event.Type == 'ButtonDClick' then
+				if self.unitIndex then
+					DisplayUnit(self.unitIndex)
+					local sound = Sound({Cue = "UI_Mod_Select", Bank = "Interface",})
+					PlaySound(sound)
+				end
+			end
+		end
 	end
 
 	CreateElement(1)
@@ -394,6 +404,7 @@ function CreateUnitDB(over, callback)
 				unitList[l].id:SetText('')
 				unitList[l].backIcon:Hide()
 				unitList[l].icon:Hide()
+				unitList[l].unitIndex = nil
 			end
 		end
 		local j
@@ -795,16 +806,13 @@ function FillLine(line, index)
 	else
 		line.icon:SetTexture(ico)
 	end
-	line.HandleEvent = function(self, event)
-		if event.Type == 'ButtonPress' or event.Type == 'ButtonDClick' then
-			DisplayUnit(index)
-			local sound = Sound({Cue = "UI_Mod_Select", Bank = "Interface",})
-            PlaySound(sound)
-		end
-	end
 end
 
 function DisplayUnit(index)
+	if not index then
+		return
+	end
+
 	unitDisplay.prompt:Hide()
 	local id = units[index]
 	local bp = allBlueprints[id]

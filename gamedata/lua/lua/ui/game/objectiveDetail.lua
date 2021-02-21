@@ -492,14 +492,14 @@ function GetTargetImages(data)
         for k,v in data.targets do
             if v.BlueprintId then
                 blueprint = __blueprints[v.BlueprintId]
-                #return GameCommon.GetCachedUnitIconFileNames(blueprint)
+                -- return GameCommon.GetCachedUnitIconFileNames(blueprint)
             elseif v.Type == 'Area' then
                 iconName = UIUtil.UIFile('/game/target-area/target-area_bmp.dds')
-                #return iconName, iconName, iconName, iconName
+                -- return iconName, iconName, iconName, iconName
             end
         end
         if blueprint then
-            return GameCommon.GetCachedUnitIconFileNames(blueprint)
+            return GameCommon.GetUnitIconPath(blueprint)
         elseif iconName then
             return iconName, iconName, iconName, iconName
         end         
