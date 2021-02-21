@@ -1,19 +1,14 @@
 LOG("*AI DEBUG Loading Hotbuild")
 
-local KeyMapper = import('/lua/keymap/keymapper.lua')
-local UIUtil = import('/lua/ui/uiutil.lua')
-local Prefs = import('/lua/user/prefs.lua')
-
-local CommandMode = import('/lua/ui/game/commandmode.lua')
-
-local Templates = import('/lua/ui/game/build_templates.lua')
-
-local Group = import('/lua/maui/group.lua').Group
 local Bitmap = import('/lua/maui/bitmap.lua').Bitmap
-local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
+local CommandMode = import('/lua/ui/game/commandmode.lua')
 local Effect = import('/lua/maui/effecthelpers.lua')
-
-
+local Group = import('/lua/maui/group.lua').Group
+local KeyMapper = import('/lua/keymap/keymapper.lua')
+local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
+local Prefs = import('/lua/user/prefs.lua')
+local Templates = import('/lua/ui/game/build_templates.lua')
+local UIUtil = import('/lua/ui/uiutil.lua')
 
 local pathMod = '/lua/hotbuild/'
 local pathTex = pathMod .. 'textures/'
@@ -34,7 +29,6 @@ local cycleLastMaxPos
 local cycleButtons = {}
 
 ---- Non state changing getters
-
 
 function getBuildingTab()
 
@@ -157,6 +151,7 @@ function getKeyActions()
     
     return ka
 end
+
 ---- End of Non state changing getters
 
 function resetCycle(commandMode, modeData)

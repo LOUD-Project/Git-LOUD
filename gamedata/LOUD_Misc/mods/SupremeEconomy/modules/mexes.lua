@@ -130,7 +130,7 @@ function updateButton(mexTable, button, enableMarker, tooltipText, countBeingBui
 		button.count:SetText(aliveCount)
 		
 		-- set the texture that corresponds to the unit
-		local iconName1, iconName2, iconName3, iconName4 = GameCommon.GetCachedUnitIconFileNames(unitBluePrint)
+		local iconName1 = GameCommon.GetUnitIconPath(unitBluePrint)
 		
 		button.icon:SetTexture(iconName1)
 		

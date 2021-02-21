@@ -4,19 +4,20 @@
 --*
 --* Copyright � 2005 Gas Powered Games, Inc.  All rights reserved.
 
-local UIUtil = import('/lua/ui/uiutil.lua')
-local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
 local Bitmap = import('/lua/maui/bitmap.lua').Bitmap
+local BlackopsIcons = import('/lua/BlackopsIconSearch.lua')
 local Button = import('/lua/maui/button.lua').Button
-local Group = import('/lua/maui/group.lua').Group
 local Checkbox = import('/lua/maui/checkbox.lua').Checkbox
-local StatusBar = import('/lua/maui/statusbar.lua').StatusBar
+local Factions = import('/lua/factions.lua').Factions
 local GameCommon = import('/lua/ui/game/gamecommon.lua')
 local GameMain = import('/lua/ui/game/gamemain.lua')
+local Group = import('/lua/maui/group.lua').Group
+local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
+local Prefs = import('/lua/user/prefs.lua')
+local StatusBar = import('/lua/maui/statusbar.lua').StatusBar
 local ToolTip = import('/lua/ui/game/tooltip.lua')
 local TooltipInfo = import('/lua/ui/help/tooltips.lua').Tooltips
-local Prefs = import('/lua/user/prefs.lua')
-local Factions = import('/lua/factions.lua').Factions
+local UIUtil = import('/lua/ui/uiutil.lua')
 
 controls = {
     avatars = {},
@@ -28,8 +29,6 @@ local recievingBeatUpdate = false
 local currentFaction = GetArmiesTable().armiesTable[GetFocusArmy()].faction
 local expandedCheck = false
 local currentIndex = 1
-
-local BlackopsIcons = import('/lua/BlackopsIconSearch.lua')
 
 function GetEngineerGeneric()
 
@@ -141,43 +140,8 @@ function CreateAvatar(unit)
     bg.icon = Bitmap(bg)
     LayoutHelpers.AtLeftTopIn(bg.icon, bg, 5, 5)
 	
-    local path = '/textures/ui/common/icons/units/'..bg.Blueprint.BlueprintId..'_icon.dds'
-	
-	--####################
-	--Exavier Code Block +
-	--####################
-	local EXunitID = unit:GetBlueprint().BlueprintId
-	
-	if BlackopsIcons.EXIconPathOverwrites[string.upper(EXunitID)] then
-	
-		-- Check manually assigned overwrite table
-		local expath = EXunitID..'_icon.dds'
-		bg.icon:SetTexture(BlackopsIcons.EXIconTableScanOverwrites(EXunitID) .. expath)
-		
-	elseif BlackopsIcons.EXIconPaths[string.upper(EXunitID)] then
-	
-		-- Check modded icon hun table
-		local expath = EXunitID..'_icon.dds'
-		bg.icon:SetTexture(BlackopsIcons.EXIconTableScan(EXunitID) .. expath)
-		
-	else
-		-- Check default GPG directories
-		if DiskGetFileInfo(path) then
-			bg.icon:SetTexture(path)
-		else 
-			-- Sets placeholder because no other icon was found
-			bg.icon:SetTexture(UIUtil.UIFile('/icons/units/default_icon.dds'))
-			if not BlackopsIcons.EXNoIconLogSpamControl[string.upper(EXunitID)] then
-				-- Log a warning & add unitID to anti-spam table to prevent future warnings when icons update
-				--WARN('Blackops Icon Mod: Icon Not Found - '..EXunitID)
-				BlackopsIcons.EXNoIconLogSpamControl[string.upper(EXunitID)] = EXunitID
-			end
-		end
-		
-	end
-	--####################
-	--Exavier Code Block -
-	--####################
+    local path = GameCommon.GetUnitIconPath(bg.Blueprint)
+	bg.icon:SetTexture(path)
 	
     bg.icon.Height:Set(44)
     bg.icon.Width:Set(44)

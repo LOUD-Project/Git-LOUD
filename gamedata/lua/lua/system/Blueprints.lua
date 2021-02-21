@@ -463,6 +463,8 @@ function RegisterAllBlueprints(blueprints)
     RegisterGroup(blueprints.Beam, RegisterBeamBlueprint)
 end
 
+local usermodUnitIcons = {}
+
 -- Hook for mods to manipulate the entire blueprint table
 function ModBlueprints(all_blueprints)
 
@@ -582,7 +584,7 @@ function ModBlueprints(all_blueprints)
 	local speedScale = 0
 	local viewScale = 0
 
-    for id,bp in all_blueprints.Unit do
+    for id, bp in all_blueprints.Unit do
 
 		if bp.AI.GuardReturnRadius then
 			
@@ -903,7 +905,7 @@ function ModBlueprints(all_blueprints)
 
     --LOG("*AI DEBUG Adding NAVAL Wreckage information and setting wreckage lifetime")
 	
-    for id,bp in pairs(all_blueprints.Unit) do				
+    for id, bp in pairs(all_blueprints.Unit) do				
 	
         local cats = {}
 
@@ -965,7 +967,11 @@ function ModBlueprints(all_blueprints)
 
 	local factions = {'UEF', 'Aeon', 'Cybran', 'Aeon'}
 
-	for i,bp in pairs(all_blueprints.Unit) do
+	for i, bp in pairs(all_blueprints.Unit) do
+
+		if usermodUnitIcons[i] then
+			bp.Display.IconPath = usermodUnitIcons[i]
+		end
 		
 		if bp.Categories then
 		
@@ -1011,11 +1017,12 @@ function ModBlueprints(all_blueprints)
 		end
 	end
 
+	usermodUnitIcons = nil
+
 end
 
 
----- Load all blueprints
-
+-- Load all blueprints
 function LoadBlueprints()
 
     LOG('Loading blueprints...')
@@ -1095,13 +1102,27 @@ function LoadBlueprints()
 			end
 		end
 
-		LOG("loading resources from mod at "..m.location)
+		LOG("Loading resources from mod at "..m.location)
 		count = 0
 		
-		for k,file in DiskFindFiles(m.location, '*.bp') do
+		for k, file in DiskFindFiles(m.location, '*.bp') do
 			
 			if excl[file] then
 				continue
+			end
+
+			local i1, i2 = string.find(file, '[%a%d_]+_unit%.bp$')
+			if i1 then
+				local bpID = string.lower(string.sub(file, i1, i2 - 8))
+
+				-- Don't try to find usermod icons for LOUD mod pack units
+				if not DiskGetFileInfo('/textures/ui/common/icons/units/'..bpID..'_icon.dds') then
+					if DiskGetFileInfo(m.location..'/icons/units/'..bpID..'_icon.dds') then
+						usermodUnitIcons[bpID] = m.location..'/icons/units/'..bpID..'_icon.dds'
+					elseif DiskGetFileInfo(m.location..'/textures/ui/common/icons/units/'..bpID..'_icon.dds') then
+						usermodUnitIcons[bpID] = m.location..'/textures/ui/common/icons/units/'..bpID..'_icon.dds'
+					end
+				end
 			end
 		
             BlueprintLoaderUpdateProgress()
@@ -1115,20 +1136,20 @@ function LoadBlueprints()
 			
         end
 		
-		LOG("loaded "..count.." resources from mod at "..m.location)
+		LOG("Loaded "..count.." resources from mod at "..m.location)
 		
     end
 	
 	LOG("Loaded "..mcount.." mod resources")
  
-	LOG("Loaded "..rcount+mcount.." blueprints in total")
+	LOG("Loaded "..rcount + mcount.." blueprints in total")
 
     BlueprintLoaderUpdateProgress()
-    LOG('Extracting mesh blueprints.')
+    LOG('Extracting mesh blueprints...')
     ExtractAllMeshBlueprints()
 
     BlueprintLoaderUpdateProgress()
-    LOG('Modding blueprints.')
+    LOG('Modding blueprints...')
     ModBlueprints(original_blueprints)
 
     BlueprintLoaderUpdateProgress()

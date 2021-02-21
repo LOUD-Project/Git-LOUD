@@ -198,7 +198,7 @@ function CreateUI(isReplay)
         LocGlobals.PlayerName = GetArmiesTable().armiesTable[focusarmy].nickname
     end
 
-    GameCommon.InitializeUnitIconBitmaps(prefetchTable.batch_textures)
+    -- GameCommon.InitializeUnitIconBitmaps(prefetchTable.batch_textures)
 
     gameParent = UIUtil.CreateScreenGroup(GetFrame(0), "GameMain ScreenGroup")
 

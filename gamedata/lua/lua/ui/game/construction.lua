@@ -5,19 +5,22 @@
 
 --LOG("*AI DEBUG Loading Construction.lua")
 
-local UIUtil = import('/lua/ui/uiutil.lua')
-local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
-local Group = import('/lua/maui/group.lua').Group
 local Bitmap = import('/lua/maui/bitmap.lua').Bitmap
-local SpecialGrid = import('/lua/ui/controls/specialgrid.lua').SpecialGrid
-local Checkbox = import('/lua/maui/checkbox.lua').Checkbox
+local BuildMode = import('/lua/ui/game/buildmode.lua')
 local Button = import('/lua/maui/button.lua').Button
+local Checkbox = import('/lua/maui/checkbox.lua').Checkbox
 local Edit = import('/lua/maui/edit.lua').Edit
+local Effect = import('/lua/maui/effecthelpers.lua')
+local EnhanceCommon = import('/lua/enhancementcommon.lua')
+local GameCommon = import('/lua/ui/game/gamecommon.lua')
+local Group = import('/lua/maui/group.lua').Group
+local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
+local Prefs = import('/lua/user/prefs.lua')
+local SpecialGrid = import('/lua/ui/controls/specialgrid.lua').SpecialGrid
 local StatusBar = import('/lua/maui/statusbar.lua').StatusBar
 local Tooltip = import('/lua/ui/game/tooltip.lua')
-local EnhanceCommon = import('/lua/enhancementcommon.lua')
 local Templates = import('/lua/ui/game/build_templates.lua')
-local BuildMode = import('/lua/ui/game/buildmode.lua')
+local UIUtil = import('/lua/ui/uiutil.lua')
 local UnitViewDetail = import('/lua/ui/game/unitviewdetail.lua')
 
 local LOUDGETN = table.getn
@@ -25,14 +28,12 @@ local LOUDINSERT = table.insert
 local LOUDSORT = table.sort
 
 -- these are all from GAZ_UI
-local Prefs = import('/lua/user/prefs.lua')
 local options = Prefs.GetFromCurrentProfile('options')
-local Effect = import('/lua/maui/effecthelpers.lua')
 
 -- GAZ UI template name size	
 local cutA = 1
 local cutB = 8
-	
+
 -- norem
 local TemplatesFactory = import('/lua/gaz_ui/modules/templates_factory.lua')
 local allFactories = false
@@ -55,7 +56,6 @@ local prevBuildables = false
 local prevSelection = false
 local prevBuildCategories = false
 
-    
 gameParent.HandleEvent = function(self, event)
    
 	if event.Type == 'ButtonRelease' then
@@ -70,7 +70,7 @@ local unitGridPages = {
     RULEUTL_Advanced = {Order = 1, Label = "<LOC CONSTRUCT_0001>T2"},
     RULEUTL_Secret = {Order = 2, Label = "<LOC CONSTRUCT_0002>T3"},
     RULEUTL_Experimental = {Order = 3, Label = "<LOC CONSTRUCT_0003>Exp"},
-    RULEUTL_Munition = {Order = 4, Label = "<LOC CONSTRUCT_0004>Munition"},   # note that this doesn't exist yet
+    RULEUTL_Munition = {Order = 4, Label = "<LOC CONSTRUCT_0004>Munition"}, -- note that this doesn't exist yet
 }
 
 -- these are external controls used for positioning, so don't add them to our local control table
@@ -684,43 +684,8 @@ function CommonLogic()
 
         local function SetIconTextures(control)
 
-            local path = '/icons/units/'..control.Data.id..'_icon.dds'
-
-			local EXunitID = control.Data.id
-
-			if BlackopsIcons.EXIconPathOverwrites[string.upper(EXunitID)] then
-
-				-- Check manually assigned overwrite table
-				local expath = EXunitID..'_icon.dds'
-				control.Icon:SetTexture(BlackopsIcons.EXIconTableScanOverwrites(EXunitID)..expath)
-
-			elseif BlackopsIcons.EXIconPaths[string.upper(EXunitID)] then
-
-				-- Check modded icon hun table
-				local expath = EXunitID..'_icon.dds'
-				control.Icon:SetTexture(BlackopsIcons.EXIconTableScan(EXunitID)..expath)
-
-			else
-
-				-- Check default GPG directories
-                if __blueprints[control.Data.id].Display.IconName then
-                    path = '/icons/units/'..__blueprints[control.Data.id].Display.IconName..'_icon.dds'
-                    if DiskGetFileInfo(UIUtil.UIFile(path)) then
-                        control.Icon:SetTexture(UIUtil.UIFile(path))
-                    end
-				elseif DiskGetFileInfo(UIUtil.UIFile(path)) then
-					control.Icon:SetTexture(UIUtil.UIFile(path))
-                else
-					-- Sets placeholder because no other icon was found
-					control.Icon:SetTexture(UIUtil.UIFile('/icons/units/default_icon.dds'))
-					if not BlackopsIcons.EXNoIconLogSpamControl[string.upper(EXunitID)] then
-						-- Log a warning & add unitID to anti-spam table to prevent future warnings when icons update
-						--WARN('Blackops Icon Mod: Icon Not Found - '..EXunitID)
-						BlackopsIcons.EXNoIconLogSpamControl[string.upper(EXunitID)] = EXunitID
-					end
-				end
-
-			end
+            local path = GameCommon.GetUnitIconPath(nil, control.Data.id)
+            control.Icon:SetTexture(path)
 
             if __blueprints[control.Data.id].StrategicIconName then
 
@@ -1004,52 +969,8 @@ function CommonLogic()
 
             local id = optID or control.Data.id
 
-            local path = '/icons/units/'..id..'_icon.dds'
-
-			local EXunitID = control.Data.id
-
-			if BlackopsIcons.EXIconPathOverwrites[string.upper(EXunitID)] then
-
-				-- Check manually assigned overwrite table
-				local expath = EXunitID..'_icon.dds'
-				control.Icon:SetTexture(BlackopsIcons.EXIconTableScanOverwrites(EXunitID) .. expath)
-
-			elseif BlackopsIcons.EXIconPaths[string.upper(EXunitID)] then
-
-				-- Check modded icon hun table
-				local expath = EXunitID..'_icon.dds'
-				control.Icon:SetTexture(BlackopsIcons.EXIconTableScan(EXunitID) .. expath)
-
-			else
-				-- Check default GPG directories
-
-                if __blueprints[id].Display.IconName then
-                
-                    path = '/icons/units/'..__blueprints[id].Display.IconName..'_icon.dds'
-                    if DiskGetFileInfo(UIUtil.UIFile(path)) then
-                        control.Icon:SetTexture(UIUtil.UIFile(path))
-                    end
-
-				elseif DiskGetFileInfo(UIUtil.UIFile(path)) then
-
-					control.Icon:SetTexture(UIUtil.UIFile(path))
-                
-				else
-
-					-- Sets placeholder because no other icon was found
-					control.Icon:SetTexture(UIUtil.UIFile('/icons/units/default_icon.dds'))
-
-					if not BlackopsIcons.EXNoIconLogSpamControl[string.upper(EXunitID)] then
-
-						-- Log a warning & add unitID to anti-spam table to prevent future warnings when icons update
-						WARN('Blackops Icon Mod: Icon Not Found - '..EXunitID)
-						BlackopsIcons.EXNoIconLogSpamControl[string.upper(EXunitID)] = EXunitID
-
-					end
-
-				end
-
-			end
+            local path = GameCommon.GetUnitIconPath(nil, id)
+            control.Icon:SetTexture(path)
 
             if __blueprints[id].StrategicIconName then
 
@@ -1075,7 +996,6 @@ function CommonLogic()
             end
 
         end
-
 
         if type == 'arrow' then
 
@@ -1167,61 +1087,8 @@ function CommonLogic()
             control.Height:Set(48)
             control.Width:Set(48)
 
-            if control.Data.template.icon then
-
-                local path = '/textures/ui/common/icons/units/'..control.Data.template.icon..'_icon.dds'
-
-				local EXunitID = control.Data.id
-
-				if BlackopsIcons.EXIconPathOverwrites[string.upper(EXunitID)] then
-
-					-- Check manually assigned overwrite table
-					local expath = EXunitID..'_icon.dds'
-					control.Icon:SetTexture(BlackopsIcons.EXIconTableScanOverwrites(EXunitID) .. expath)
-
-				elseif BlackopsIcons.EXIconPaths[string.upper(EXunitID)] then
-
-					-- Check modded icon hun table
-					local expath = EXunitID..'_icon.dds'
-					control.Icon:SetTexture(BlackopsIcons.EXIconTableScan(EXunitID) .. expath)
-
-				else
-
-					-- Check default GPG directories
-					if DiskGetFileInfo(path) then
-
-						control.Icon:SetTexture(path)
-
-                    elseif __blueprints[control.Data.id].Display.IconName then
-
-                        -- local token = __blueprints[control.Data.id].Display.IconName
-                        -- path = '/icons/units/'....'_icon.dds'
-                        if DiskGetFileInfo(UIUtil.UIFile('/icons/units/'..__blueprints[control.Data.id].Display.IconName..'_icon.dds')) then
-                            control.Icon:SetTexture(UIUtil.UIFile(path))
-                        end
-
-					else
-
-						-- Sets placeholder because no other icon was found
-						control.Icon:SetTexture('/textures/ui/common/icons/units/default_icon.dds')
-
-						if not BlackopsIcons.EXNoIconLogSpamControl[string.upper(EXunitID)] then
-
-							-- Log a warning & add unitID to anti-spam table to prevent future warnings when icons update
-							WARN('Blackops Icon Mod: Icon Not Found - '..EXunitID)
-							BlackopsIcons.EXNoIconLogSpamControl[string.upper(EXunitID)] = EXunitID
-
-						end
-
-					end
-
-				end
-
-            else
-
-                control.Icon:SetTexture('/textures/ui/common/icons/units/default_icon.dds')
-
-            end
+            local path = GameCommon.GetUnitIconPath(nil, control.Data.template.icon)
+            control.Icon:SetTexture(path)
 
             control.Icon.Height:Set(48)
             control.Icon.Width:Set(48)
@@ -2033,7 +1900,7 @@ function CreateFacTemplateOptionsMenu(button)
                 end
             
                 for iconType, _ in contents do
-                    local bmp = Bitmap(group, '/textures/ui/common/icons/units/'..iconType..'_icon.dds')
+                    local bmp = Bitmap(group, GameCommon.GetUnitIconPath(nil, iconType))
                     bmp.Height:Set(30)
                     bmp.Width:Set(30)
                     bmp.ID = iconType
@@ -2210,7 +2077,7 @@ function CreateTemplateOptionsMenu(button)
                 end
             end
             for iconType, _ in contents do
-                local bmp = Bitmap(group, '/textures/ui/common/icons/units/'..iconType..'_icon.dds')
+                local bmp = Bitmap(group, GameCommon.GetUnitIconPath(nil, iconType))
                 bmp.Height:Set(30)
                 bmp.Width:Set(30)
                 bmp.ID = iconType

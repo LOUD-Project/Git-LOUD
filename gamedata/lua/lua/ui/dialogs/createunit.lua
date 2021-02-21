@@ -1,14 +1,15 @@
+local Bitmap = import('/lua/maui/bitmap.lua').Bitmap
+local Border = import('/lua/maui/border.lua').Border
+local Checkbox = import('/lua/maui/checkbox.lua').Checkbox
+local Combo = import('/lua/ui/controls/combo.lua').Combo
+local Edit = import('/lua/maui/edit.lua').Edit
+local GameCommon = import('/lua/ui/game/gamecommon.lua')
+local Group = import('/lua/maui/group.lua').Group
 local ItemList = import('/lua/maui/itemlist.lua').ItemList
 local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
-local Group = import('/lua/maui/group.lua').Group
-local Text = import('/lua/maui/text.lua').Text
-local Border = import('/lua/maui/border.lua').Border
-local Bitmap = import('/lua/maui/bitmap.lua').Bitmap
-local Checkbox = import('/lua/maui/checkbox.lua').Checkbox
 local RadioGroup = import('/lua/maui/mauiutil.lua').RadioGroup
-local Combo = import('/lua/ui/controls/combo.lua').Combo
+local Text = import('/lua/maui/text.lua').Text
 local UIUtil = import('/lua/ui/uiutil.lua')
-local Edit = import('/lua/maui/edit.lua').Edit
 
 local dialog = false
 local nameDialog = false
@@ -682,13 +683,9 @@ function CreateDialog(x, y)
         mouseover.img.Height:Set(40)
         mouseover.img.Width:Set(40)
         LayoutHelpers.AtLeftTopIn(mouseover.img, mouseover, 2,2)
-        if __blueprints[unitData].Display.IconName then
-            mouseover.img:SetTexture(UIUtil.UIFile('/icons/units/'..__blueprints[unitData].Display.IconName..'_icon.dds', true))
-        elseif DiskGetFileInfo(UIUtil.UIFile('/icons/units/'..unitData..'_icon.dds', true)) then
-            mouseover.img:SetTexture(UIUtil.UIFile('/icons/units/'..unitData..'_icon.dds', true))
-        else
-            mouseover.img:SetTexture(UIUtil.UIFile('/icons/units/default_icon.dds'))
-        end
+
+        local path = GameCommon.GetUnitIconPath(__blueprints[unitData])
+        mouseover.img:SetTexture(path)
 
         mouseover.name = UIUtil.CreateText(mouseover, __blueprints[unitData].Description, 14, UIUtil.bodyFont)
         LayoutHelpers.RightOf(mouseover.name, mouseover.img, 2)

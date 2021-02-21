@@ -137,7 +137,7 @@ function ShowEnhancement( bp, bpID, iconID, iconPrefix, userUnit )
         --LOG("*AI DEBUG ShowEnhancement")
 
 		-- Name / Description
-		View.UnitImg:SetTexture(UIUtil.UIFile(iconPrefix..'_btn_up.dds'))
+		-- View.UnitImg:SetTexture(UIUtil.UIFile(iconPrefix..'_btn_up.dds'))
 
 		LayoutHelpers.AtTopIn(View.UnitShortDesc, View, 10)
 		View.UnitShortDesc:SetFont(UIUtil.bodyFont, 14)
@@ -708,18 +708,6 @@ end
 function Show(bp, buildingUnit, bpID)
 
 	if CheckFormat() then
-	
-		-- Name / Description
-		if false then
-			local foo, iconName = GameCommon.GetCachedUnitIconFileNames(bp)
-			if iconName then
-				View.UnitIcon:SetTexture(iconName)
-			elseif bp.Display.IconName then
-				View.UnitIcon:SetTexture(UIUtil.UIFile('/icons/units/'..bp.Display.IconName..'_icon.dds'))
-			else
-				View.UnitIcon:SetTexture(UIUtil.UIFile('/icons/units/default_icon.dds'))    
-			end
-		end
 		
 		LayoutHelpers.AtTopIn(View.UnitShortDesc, View, 10)
 		View.UnitShortDesc:SetFont(UIUtil.bodyFont, 14)
@@ -775,7 +763,7 @@ function Show(bp, buildingUnit, bpID)
 			View.ShieldStat.Value:SetText(bp.Defense.Shield.ShieldMaxHealth)
 		end
 
-		local iconName = GameCommon.GetCachedUnitIconFileNames(bp)
+		local iconName = GameCommon.GetUnitIconPath(bp)
 		
 		View.UnitImg:SetTexture(iconName)
 		View.UnitImg.Height:Set(46)

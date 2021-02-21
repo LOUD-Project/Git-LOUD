@@ -464,3 +464,12 @@ function GetDependencies(uid)
     return ret
 end
     
+-- Helper function for retrieving a mod's configs
+_G.GetModConfig = function(uid)
+    for _, v in __active_mods do
+        if v.uid == uid then
+            return v.config or false
+        end
+    end
+    return false
+end

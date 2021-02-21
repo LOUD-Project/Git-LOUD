@@ -2,27 +2,24 @@
 --* Author: Chris Blackwell
 --* Summary: Rollover unit view control
 
-local UIUtil = import('/lua/ui/uiutil.lua')
-local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
+local Bitmap = import('/lua/maui/bitmap.lua').Bitmap
+local EnhancementCommon = import('/lua/enhancementcommon.lua')
+local Factions = import('/lua/factions.lua')
 local GameCommon = import('/lua/ui/game/gamecommon.lua')
 local Group = import('/lua/maui/group.lua').Group
-local Bitmap = import('/lua/maui/bitmap.lua').Bitmap
+local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
 local StatusBar = import('/lua/maui/statusbar.lua').StatusBar
+local UIUtil = import('/lua/ui/uiutil.lua')
 local veterancyDefaults = import('/lua/game.lua').VeteranDefault
-local Factions = import('/lua/factions.lua')
 
 local Prefs = import('/lua/user/prefs.lua')
 local options = Prefs.GetFromCurrentProfile('options')
-	
-local LOUDFLOOR = math.floor
 
-local EnhancementCommon = import('/lua/enhancementcommon.lua')
+local LOUDFLOOR = math.floor
 
 local rolloverInfo = false
 local consTrue = false
 local focusBool = false
-
-local BlackopsIcons = import('/lua/BlackopsIconSearch.lua')
 
 controls = {}
 
@@ -243,52 +240,8 @@ function UpdateWindow(info)
     else
 	
         local bp = __blueprints[info.blueprintId]
-        local path = '/textures/ui/common/icons/units/'..info.blueprintId..'_icon.dds'
-
-		local EXunitID = bp.BlueprintId
-		
-		if BlackopsIcons.EXIconPathOverwrites[string.upper(EXunitID)] then
-		
-			-- Check manually assigned overwrite table
-			local expath = EXunitID..'_icon.dds'
-			controls.icon:SetTexture(BlackopsIcons.EXIconTableScanOverwrites(EXunitID) .. expath)
-			
-		elseif BlackopsIcons.EXIconPaths[string.upper(EXunitID)] then
-		
-			-- Check modded icon hun table
-			local expath = EXunitID..'_icon.dds'
-			controls.icon:SetTexture(BlackopsIcons.EXIconTableScan(EXunitID) .. expath)
-			
-		else
-		
-			-- Check default GPG directories
-			if DiskGetFileInfo(path) then
-			
-				controls.icon:SetTexture(path)
-			
-            elseif bp.Display.IconName then
-
-                local path = '/icons/units/'..bp.Display.IconName..'_icon.dds'
-                if DiskGetFileInfo(UIUtil.UIFile(path)) then
-                    controls.icon:SetTexture(UIUtil.UIFile(path))
-                end
-
-			else
-			
-				-- Sets placeholder because no other icon was found
-				controls.icon:SetTexture('/textures/ui/common/game/unit_view_icons/unidentified.dds')
-				
-				if not BlackopsIcons.EXNoIconLogSpamControl[string.upper(EXunitID)] then
-				
-					-- Log a warning & add unitID to anti-spam table to prevent future warnings when icons update
-					WARN('Blackops Icon Mod: Icon Not Found UPDATEWINDOW - '..EXunitID)
-					BlackopsIcons.EXNoIconLogSpamControl[string.upper(EXunitID)] = EXunitID
-					
-				end
-				
-			end
-			
-		end
+        local path = GameCommon.GetUnitIconPath(bp)
+        controls.icon:SetTexture(path)
 
         if DiskGetFileInfo('/textures/ui/common/game/strategicicons/'..bp.StrategicIconName..'_selected.dds') then
 		
@@ -453,52 +406,20 @@ function UpdateWindow(info)
 		
         if info.focus then
 		
-            local path = '/textures/ui/common/icons/units/'..info.focus.blueprintId..'_icon.dds'
+            local path, valid = GameCommon.GetUnitIconPath(__blueprints[info.focus.blueprintId])
+			
+            if valid then
+            
+                controls.actionIcon:SetTexture(path)
 
-			local EXunitID = info.focus.blueprintId
-			
-			if BlackopsIcons.EXIconPathOverwrites[string.upper(EXunitID)] then
-			
-				-- Check manually assigned overwrite table
-				local expath = EXunitID..'_icon.dds'
-				controls.actionIcon:SetTexture(BlackopsIcons.EXIconTableScanOverwrites(EXunitID) .. expath)
-				
-			elseif BlackopsIcons.EXIconPaths[string.upper(EXunitID)] then
-			
-				-- Check modded icon hun table
-				local expath = EXunitID..'_icon.dds'
-				controls.actionIcon:SetTexture(BlackopsIcons.EXIconTableScan(EXunitID) .. expath)
-				
-			else
-			
-				-- Check default GPG directories
-				if DiskGetFileInfo(path) then
-				
-					controls.actionIcon:SetTexture(path)
+            else
 
-                elseif __blueprints[info.focus.blueprintId].Display.IconName then
+                -- Sets placeholder because no other icon was found
+                controls.actionIcon:SetTexture('/textures/ui/common/game/unit_view_icons/unidentified.dds')
+                
+            end
+            
 
-                    local path = '/icons/units/'..__blueprints[info.focus.blueprintId].Display.IconName..'_icon.dds'
-                    if DiskGetFileInfo(UIUtil.UIFile(path)) then
-                        controls.actionIcon:SetTexture(UIUtil.UIFile(path))
-                    end
-        
-				else 
-					-- Sets placeholder because no other icon was found
-					controls.actionIcon:SetTexture('/textures/ui/common/game/unit_view_icons/unidentified.dds')
-					
-					if not BlackopsIcons.EXNoIconLogSpamControl[string.upper(EXunitID)] then
-					
-						-- Log a warning & add unitID to anti-spam table to prevent future warnings when icons update
-						WARN('Blackops Icon Mod: Icon Not Found UPDATEWINDOW2 - '..EXunitID)
-						BlackopsIcons.EXNoIconLogSpamControl[string.upper(EXunitID)] = EXunitID
-						
-					end
-					
-				end
-				
-			end
-		
             if info.focus.health and info.focus.maxHealth then
 			
                 controls.actionText:SetFont(UIUtil.bodyFont, 14)

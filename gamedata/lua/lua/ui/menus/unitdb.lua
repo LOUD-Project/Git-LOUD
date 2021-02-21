@@ -109,7 +109,7 @@ function CreateUnitDB(over, callback)
 				mod = string.sub(file, x, z)
 				mod = string.sub(mod, 7, string.len(mod) - 1)
 			end
-			local id = string.sub(file, string.find(file, '[%a%d]*_unit%.bp$'))
+			local id = string.sub(file, string.find(file, '[%a%d_]+_unit%.bp$'))
 			id = string.sub(id, 1, string.len(id) - 8)
 			safecall("UNIT DB: Loading BP "..file, doscript, file)
 			if not temp then
