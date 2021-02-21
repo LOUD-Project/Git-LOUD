@@ -1115,7 +1115,7 @@ function CommonLogic()
 			-- the GAZ UI template name
             if 'templates' then
                 control.Tmplnm.Width:Set(48)
-                control.Tmplnm:SetText(string.sub(control.Data.template.name, cutA, cutB))
+                control.Tmplnm:SetText(LOC(string.sub(control.Data.template.name, cutA, cutB)))
             end            
 
         elseif type == 'item' then
