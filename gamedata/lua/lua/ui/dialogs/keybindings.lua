@@ -340,6 +340,7 @@ function CreateUI()
 	searchEdit:ShowBackground(true)
     searchEdit:SetMaxChars(40)
 
+    filterText = ''
     CalcDataSize()
 
     searchEdit.OnTextChanged = function(self, newText, oldText)
