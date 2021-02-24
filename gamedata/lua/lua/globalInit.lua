@@ -35,6 +35,8 @@ doscript '/lua/system/trashbag.lua'
 LOG("*AI DEBUG     Localization begins")
 doscript '/lua/system/Localization.lua'
 
+LOG("*DEBUG LUA Version "..import('/lua/AI/CustomAIs_v2/ExtrasAI.lua').AI.Version)
+
 LOG("*AI DEBUG     Creating MULTIEVENT Class")
 doscript '/lua/system/MultiEvent.lua'
 
