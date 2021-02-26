@@ -287,7 +287,6 @@ function AISortMarkersFromLastPosWithThreatCheck(aiBrain, markerlist, maxNumber,
     while LOUDGETN(markerlist) > 0 do
     
         point = markerlist[1].Position    -- get first entry (closest) from MarkerList
-        LOUDREMOVE(markerlist, 1)   -- remove the first entry from MarkerList
         
         if threatCheck then
 		
@@ -307,12 +306,15 @@ function AISortMarkersFromLastPosWithThreatCheck(aiBrain, markerlist, maxNumber,
 			counter = counter + 1
         end
 
-		-- sort the list from the new position
-        LOUDSORT(markerlist, function(a,b) return VDist2Sq(a.Position[1],a.Position[3], point[1],point[3]) < VDist2Sq(b.Position[1],b.Position[3], point[1],point[3]) end)
-		
 		if counter >= maxNumber then
 			break
 		end
+
+        LOUDREMOVE(markerlist, 1)   -- remove the first entry from MarkerList
+        
+		-- sort the list from the new position
+        LOUDSORT(markerlist, function(a,b) return VDist2Sq(a.Position[1],a.Position[3], point[1],point[3]) < VDist2Sq(b.Position[1],b.Position[3], point[1],point[3]) end)
+
     end
 	
 	if counter > 0 then

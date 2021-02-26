@@ -9,6 +9,9 @@ local LOUDINSERT = table.insert
 
 
 function AddToBuildQueue(aiBrain, eng, whatToBuild, buildLocation, relative)
+
+    --LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." adding "..repr(whatToBuild).." at location "..repr(buildLocation))
+    
     LOUDINSERT(eng.EngineerBuildQueue, { whatToBuild, buildLocation } )
 end
 
@@ -19,27 +22,29 @@ end
 -- This function is usually used for building items in no particular location but still contained within a base template
 -- The FindPlaceToBuild function usually returns the location closest to the reference point (relativeTo) that is open
 -- Be AWARE - it does not appear to do ANY threat evaluation that I can understand or see working --
-function AIExecuteBuildStructure( aiBrain, engineer, buildingType, closeToBuilder, relative, buildingTemplate, baseTemplate, reference, NearMarkerType)
+function AIExecuteBuildStructure( aiBrain, engineer, buildingType, closeToBuilder, relative, buildingTemplate, baseTemplate, reference, constructionData)
 
     local whatToBuild = aiBrain:DecideWhatToBuild( engineer, buildingType, buildingTemplate)
 
     if not whatToBuild or engineer.Dead then
+    
+        if not eng.Dead then
 	
-		LOG("*AI DEBUG AIEXBuildStructure "..aiBrain.Nickname.." failed DecideWhatToBuild - "..repr(buildingType).."  template "..repr(buildingTemplate).."  platoon ".. repr(engineer.BuilderName) .." - ".. engineer.Sync.id)
+            LOG("*AI DEBUG AIEXBuildStructure "..aiBrain.Nickname.." failed DecideWhatToBuild - "..repr(buildingType).."  template "..repr(buildingTemplate).."  platoon ".. repr(engineer.BuilderName) .." - ".. engineer.Sync.id)
+            
+        end
 		
         return false
-		
     end
 	
-    local relativeTo = aiBrain.BuilderManagers[engineer.LocationType].Position or false
+    local SourcePosition = aiBrain.BuilderManagers[engineer.LocationType].Position or false
 	
     if closeToBuilder then
-	
-        relativeTo = engineer:GetPosition()
-		
+        SourcePosition = engineer:GetPosition()
     end
 	
     local location = false
+    local relativeLoc = false
 	
     if IsResource(buildingType) then
 	
@@ -49,17 +54,98 @@ function AIExecuteBuildStructure( aiBrain, engineer, buildingType, closeToBuilde
 		-- Most certainly it won't be related to any threat check we do elsewhere in our code - as far as I can tell.
 		-- The biggest result - ENGINEERS GO WANDERING INTO HARMS WAY FREQUENTLY -- I'm going to try various values
 		-- I am now passing along the engineers ThreatMax from his platoon (if it's there)
-        location = aiBrain:FindPlaceToBuild( buildingType, whatToBuild, baseTemplate, relative, engineer, 'Enemy', relativeTo[1], relativeTo[3], engineer.PlatoonHandle.PlatoonData.Construction.ThreatMax or 7.5)	
-		
-		if not location then
-		
-			engineer.PlatoonHandle:SetAIPlan('ReturnToBaseAI', aiBrain)
-			
+        --location = aiBrain:FindPlaceToBuild( buildingType, whatToBuild, baseTemplate, relative, engineer, 'Enemy', SourcePosition[1], SourcePosition[3], constructionData.ThreatMax or 7.5)	
+    
+        local AIUtils = '/lua/ai/aiutilities.lua'
+    
+        --LOG("*AI DEBUG Construction Data for "..repr(buildingType).." is "..repr(constructionData))
+        --LOG("*AI DEBUG Source position is "..repr(SourcePosition))
+        
+        local testunit = 'ueb1102'  -- Hydrocarbon
+        local testtype = 'Hydrocarbon'
+        
+        if buildingType != 'T1HydroCarbon' then
+            testunit = 'ueb1103'    -- Extractor
+            testtype = 'Mass'
+        end
+
+		local markerlist = ScenarioInfo.Env.Scenario.MasterChain[testtype]
+        
+		local mlist = {}
+		local counter = 0
+        
+        local mindistance = constructionData.MinRange or 0
+        local maxdistance = constructionData.MaxRange or 500
+        local tMin = constructionData.ThreatMin or 0
+        local tMax = constructionData.ThreatMax or 10
+        local tRings = constructionData.ThreatRings or 0
+        local tType = constructionData.ThreatType or 'AntiSurface'
+        
+        table.sort( markerlist, function (a,b) return VDist3( a.Position, SourcePosition ) < VDist3( b.Position, SourcePosition ) end )
+
+		local CanBuildStructureAt = moho.aibrain_methods.CanBuildStructureAt
+    
+		for _,v in markerlist do
+            
+            if VDist3( v.Position, SourcePosition ) >= mindistance then
+            
+                if VDist3( v.Position, SourcePosition ) <= maxdistance then
+                
+                    if CanBuildStructureAt( aiBrain, testunit, v.Position ) then
+                        mlist[counter+1] = v
+                        counter = counter + 1
+                    end
+                    
+                end
+                
+            end
+            
 		end
 		
+		if counter > 0 then
+        
+            --LOG("*AI DEBUG Markers in range are "..repr(mlist))
+            
+			local markerTable = import(AIUtils).AISortMarkersFromLastPosWithThreatCheck(aiBrain, mlist, 3, tMin, tMax, tRings, tType, SourcePosition)
+
+			if markerTable then
+            
+                --LOG("*AI DEBUG MarkerTable is "..repr(markerTable))
+                
+				location = table.copy( markerTable[1] )
+            end
+		end	
+
+        -- if no result or out of range - then abort
+		if not location or VDist3( SourcePosition, location ) > constructionData.MaxRange then
+        
+			engineer.PlatoonHandle:SetAIPlan('ReturnToBaseAI', aiBrain)
+            
+            location = false
+            
+		end
+
+        if location then
+ 	
+            relativeLoc = { location[1], 0, location[3] }
+
+            --LOG("*AI DEBUG Distance to location "..repr(location).." is "..repr(VDist3( SourcePosition, location )) )
+
+            relative = false
+        
+            location = {relativeLoc[1],relativeLoc[3]}
+        
+            if constructionData.LoopBuild then
+                -- loop builders have minimum range 
+                -- reduced after first build
+                constructionData.MinRange = 0
+            end
+            
+		end
+        
     else
 	
-        location = aiBrain:FindPlaceToBuild( buildingType, whatToBuild, baseTemplate, relative, engineer, nil, relativeTo[1], relativeTo[3])
+        location = aiBrain:FindPlaceToBuild( buildingType, whatToBuild, baseTemplate, relative, engineer, nil, SourcePosition[1], SourcePosition[3])
 		
     end
 	
@@ -69,7 +155,7 @@ function AIExecuteBuildStructure( aiBrain, engineer, buildingType, closeToBuilde
 		
         if relative then
 		
-            relativeLoc = {relativeLoc[1] + relativeTo[1], relativeLoc[2] + relativeTo[2], relativeLoc[3] + relativeTo[3]}
+            relativeLoc = {relativeLoc[1] + SourcePosition[1], relativeLoc[2] + SourcePosition[2], relativeLoc[3] + SourcePosition[3]}
 			
         end
 
@@ -83,7 +169,7 @@ function AIExecuteBuildStructure( aiBrain, engineer, buildingType, closeToBuilde
 	
 end
 
-function AIBuildBaseTemplate( aiBrain, builder, buildingType , closeToBuilder, relative, buildingTemplate, baseTemplate, reference, NearMarkerType)
+function AIBuildBaseTemplate( aiBrain, builder, buildingType , closeToBuilder, relative, buildingTemplate, baseTemplate, reference, constructionData)
 
     local whatToBuild = aiBrain:DecideWhatToBuild( builder, buildingType, buildingTemplate)
 
@@ -113,7 +199,7 @@ end
 -- a building template can have many bType sections in it -- loop thru all to find a match
 -- each section can be host for multiple buildings -- loop to find match for the type
 -- loop thru all the the possible locations until you find one you can build at
-function AIBuildBaseTemplateOrdered( aiBrain, eng, buildingType, closeToBuilder, relative, buildingTemplate, baseTemplate, reference, NearMarkerType)
+function AIBuildBaseTemplateOrdered( aiBrain, eng, buildingType, closeToBuilder, relative, buildingTemplate, baseTemplate, reference, constructionData)
 
     local whatToBuild = aiBrain:DecideWhatToBuild( eng, buildingType, buildingTemplate)
 
@@ -228,7 +314,7 @@ function AIBuildBaseTemplateFromLocation( baseTemplate, location )
 	
 end
 
-function AIBuildAdjacency( aiBrain, builder, buildingType, closeToBuilder, relative, buildingTemplate, baseTemplate, reference, NearMarkerType)
+function AIBuildAdjacency( aiBrain, builder, buildingType, closeToBuilder, relative, buildingTemplate, baseTemplate, reference, constructionData)
 
     local whatToBuild = aiBrain:DecideWhatToBuild( builder, buildingType, buildingTemplate )
 

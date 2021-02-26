@@ -6163,7 +6163,7 @@ Platoon = Class(moho.platoon_methods) {
 						builditem = replacement
 					end
 
-					if buildFunction(aiBrain, eng, v, cons.BuildClose, relative, builditem, baseListData, reference, cons.NearMarkerType) then
+					if buildFunction(aiBrain, eng, v, cons.BuildClose, relative, builditem, baseListData, reference, cons ) then
 
                         --LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." building "..repr(v).." with "..repr(builditem))
 
@@ -6368,17 +6368,17 @@ Platoon = Class(moho.platoon_methods) {
 							
                             if replacement then
 							
-                                builtsomething = buildFunction(aiBrain, eng, v, closeToBuilder, relative, replacement, baseListData, reference, cons.NearMarkerType)
+                                builtsomething = buildFunction(aiBrain, eng, v, closeToBuilder, relative, replacement, baseListData, reference, cons )
 								
                             else
 							
-                                builtsomething = buildFunction(aiBrain, eng, v, closeToBuilder, relative, buildingTmpl, baseListData, reference, cons.NearMarkerType)
+                                builtsomething = buildFunction(aiBrain, eng, v, closeToBuilder, relative, buildingTmpl, baseListData, reference, cons )
 								
                             end
 							
                         else
 						
-                            builtsomething = buildFunction(aiBrain, eng, v, closeToBuilder, relative, buildingTmpl, baseListData, reference, cons.NearMarkerType)
+                            builtsomething = buildFunction(aiBrain, eng, v, closeToBuilder, relative, buildingTmpl, baseListData, reference, cons )
 							
                         end
 
@@ -6509,7 +6509,7 @@ Platoon = Class(moho.platoon_methods) {
                 for _,v in cons.BuildStructures do
 				
                     if not eng.Dead then
-                        builtsomething = buildFunction(aiBrain, eng, v, closeToBuilder, relative, buildingTmpl, baseListData, reference, cons.NearMarkerType)
+                        builtsomething = buildFunction(aiBrain, eng, v, closeToBuilder, relative, buildingTmpl, baseListData, reference, cons )
                     end
 
                 end
@@ -6557,6 +6557,8 @@ Platoon = Class(moho.platoon_methods) {
 			--LOG("*AI DEBUG Eng "..eng.Sync.id.." build queue is "..repr(eng.EngineerBuildQueue))
 		
             LOUDREMOVE(eng.EngineerBuildQueue, 1)
+            
+            --LOG("*AI DEBUG Eng "..eng.Sync.id.." build queue after remove is "..repr(eng.EngineerBuildQueue).." count is "..repr(LOUDGETN(eng.EngineerBuildQueue)))
 			
         end
 
@@ -6836,7 +6838,6 @@ Platoon = Class(moho.platoon_methods) {
 
 			-- this is a bit different than the MovePlatoon function 
 			local function MoveEngineer( platoon, path )
-			
 		
 				local prevpoint
 			
@@ -6928,7 +6929,7 @@ Platoon = Class(moho.platoon_methods) {
 			-- checking if the site is valid and safe along the way
 			local function EngineerMoving( buildlocation, builditem )
 			
-				--LOG("*AI DEBUG Eng "..eng.Sync.id.." moving")
+				--LOG("*AI DEBUG Eng "..eng.Sync.id.." moving to "..repr(buildlocation) )
 
 				if EngineerThreatened( buildlocation ) then
 				
@@ -7039,7 +7040,7 @@ Platoon = Class(moho.platoon_methods) {
 			--LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." buildLocation is "..repr(buildLocation))
 			
 			-- get the engineer moved to the goal --
-			if EngineerMoving( buildLocation, buildItem ) then
+			if not eng.Dead and EngineerMoving( buildLocation, buildItem ) then
 			
 				if aiBrain:PlatoonExists( platoon ) and not eng.Dead then
 					platoon:Stop()
@@ -8770,7 +8771,7 @@ Platoon = Class(moho.platoon_methods) {
 		end
 
 		-- if there is more than one choice select the one closest to the attack plan goal --
-		if count > 0 and aiBrain.AttackPlan.Goal then
+		if count > 0 and aiBrain.AttackPlan.Goal != nil then
 
 			-- sort the bases by distance to the attack plan goal
 			LOUDSORT( selections, function(a,b) return VDist3Sq( aiBrain.BuilderManagers[a].Position, aiBrain.AttackPlan.Goal ) < VDist3Sq( aiBrain.BuilderManagers[b].Position, aiBrain.AttackPlan.Goal ) end )
