@@ -10,7 +10,7 @@
 
 
     -- AI Engineers will be named according to the Builder they are running 
-	ScenarioInfo.NameEngineers = true
+	ScenarioInfo.NameEngineers = false
 	LOG("*AI DEBUG		Name Engineers is "..repr(ScenarioInfo.NameEngineers))
 
     -- engineers will dialog their decisions to the LOG --
@@ -116,7 +116,7 @@
 	LOG("*AI DEBUG		Display Platoon Membership is "..repr(ScenarioInfo.DisplayPlatoonMembership))
     
     -- AI will display the platoon (Buildername) over the platoon every few seconds (not crowded but must look closely)
-	ScenarioInfo.DisplayPlatoonPlans = true
+	ScenarioInfo.DisplayPlatoonPlans = false
 	LOG("*AI DEBUG		Display Platoon Plans is "..repr(ScenarioInfo.DisplayPlatoonPlans))
 
     -- AI bases and platoons that respond to distress will dialog their data and decisions to the LOG

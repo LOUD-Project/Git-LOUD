@@ -55,56 +55,58 @@ do
 	local THREAT_COLOR = {
 		Commander = '90ffffff', -- White
 		Land = '9000ff00', -- Green
-		Air = '80ff0000', -- Red 
-		Naval = 'ff0090ff', -- Dark Blue
-		Artillery = '60ffff00', --Yellow
+		Air = 'ff76bdff',
+		Naval = 'ff0060ff', -- Dark Blue
 		AntiAir = 'e0ff0000', -- Bright Red
-		AntiSurface = 'ffaf000ff', -- Pink
-		AntiSub = 'ff0000ff', -- Light Blue
 		Economy = '90ff7000', -- Gold
 		StructuresNotMex = '90ffff00', -- Yellow
-		Experimental = 'ff00fec3', -- Cyan
+        
+		--Artillery = '60ffff00', --Yellow        
+		--Experimental = 'ff00fec3', -- Cyan
+		--AntiSurface = 'ffaf000ff', -- Pink
+		--AntiSub = 'ff0000ff', -- Light Blue        
 	}
 
 	-- ThreatType = { ARGB value }
 	local THREAT_COLOR_2 = {
-		Commander = '90ffffff', -- Cyan
+		Air = 'ff76bdff',
 		Land = '9000ff00', -- Purple
-		Air = '80ff0000', -- Pink
-		Naval = 'ff0090ff', -- Blueish (again)
-		Artillery = '60ffff00', -- Yellow
+		Naval = 'ff0060ff', -- Blueish (again)
+		Commander = '90ffffff', -- Cyan
 		Economy = '90ff7000', -- White
 		StructuresNotMex = '90ffff00', -- Green
 		AntiAir = 'e0ff0000', -- Red
-		Experimental = 'ff00fec3', -- Red
+        
+		--Artillery = '60ffff00', -- Yellow        
+		--Experimental = 'ff00fec3', -- Red
 	}
 
 	local INTEL_CHECKS = {
 		'Air',
 		'Land',
 		'Naval',
-		'Experimental',
+--		'Experimental',
 		'Commander',
 		'Economy',
 		'StructuresNotMex',
-		'Artillery',
+--		'Artillery',
         'AntiAir',
-        'AntiSurface',
-        'AntiSub',
+--        'AntiSurface',
+--        'AntiSub',
 	}
 
 	local INTEL_CHECKS_COLORS = {
-		'80ff0000',
+		'ff76bdff',
 		'9000ff00',
-		'ff0090ff',
-		'ff00fec3',
+		'ff0060ff',
+--		'ff00fec3',
 		'90ffffff',
 		'90ff7000',
 		'90ffff00',
-		'60ffff00',
+--		'60ffff00',
 		'e0ff0000',
-		'ffaf00ff',
-		'ff0000ff'
+--		'ffaf00ff',
+--		'ff0000ff'
 	}
 
 	function CreateUI(isReplay)
