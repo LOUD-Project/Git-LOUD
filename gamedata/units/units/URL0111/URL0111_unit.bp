@@ -245,7 +245,7 @@ UnitBlueprint {
             TargetCheckInterval = 3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'STRUCTURE',
+                'STRUCTURE DEFENSE',
                 'MOBILE',
                 'ALLUNITS,-WALL',
             },
