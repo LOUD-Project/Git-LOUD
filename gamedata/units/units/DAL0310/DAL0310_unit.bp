@@ -191,9 +191,9 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
             
-            Damage = 20,
+            Damage = 5,
             DamageRadius = 0,
-            DamageToShields = 100,
+            DamageToShields = 1300,
             DamageType = 'Normal',
             
             DisplayName = 'Shield Disruptor Cannon',
