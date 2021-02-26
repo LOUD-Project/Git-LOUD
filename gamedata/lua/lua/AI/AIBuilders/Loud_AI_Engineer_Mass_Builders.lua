@@ -11,7 +11,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
     BuildersType = 'EngineerBuilder',
 
 	-- build mass at higher priority when close - looping
-    Builder {BuilderName = 'Mass Extractor T1 - 200 - BuildClose',
+    Builder {BuilderName = 'Mass Extractor T1 - 150 - BuildClose',
 	
         PlatoonTemplate = 'EngineerBuilderGeneral',
         
@@ -28,7 +28,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .85 } },
-            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 120, -9999, 60, 0, 'AntiSurface', 1 }},
+            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 150, -9999, 60, 0, 'AntiSurface', 1 }},
         },
 		
         BuilderData = {
@@ -37,6 +37,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
 			
 				BuildClose = true,		-- engineer will build on points closest to itself
 				LoopBuild = true,		-- repeat this build until it fails
+                
+                MaxRange = 150,
 
 				ThreatMax = 60,
 				ThreatRings = 0,
@@ -65,13 +67,16 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .85 } },
-            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 120, 1500, -9999, 10, 1, 'AntiSurface', 1 }},
+            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 150, 1500, -9999, 10, 1, 'AntiSurface', 1 }},
         },
 		
         BuilderData = {
             Construction = {
 				BuildClose = true,		-- engineer will build points closest to itself
 				LoopBuild = true,		-- repeating build until it fails to find a target or dead
+                
+                MinRange = 150,
+                MaxRange = 1500,
 
 				ThreatMax = 10,
 				ThreatRings = 1,
@@ -93,7 +98,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
 		
-        Priority = 745,
+        Priority = 755,
         
         InstanceCount = 1,
 		
@@ -108,13 +113,16 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
             -- this is likely the only place where I might use this
 			{ LUTL, 'NeedMassPointShare', { .5 } },
             
-            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 120, 1500, -9999, 10, 1, 'AntiSurface', 1 }},
+            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 300, 1500, -9999, 10, 1, 'AntiSurface', 1 }},
         },
 		
         BuilderData = {
             Construction = {
 				BuildClose = false,		-- engineer will build points closest to base
 				LoopBuild = true,		-- repeating build until it fails to find a target or dead
+                
+                MinRange = 300,
+                MaxRange = 1500,
 
 				ThreatMax = 10,
 				ThreatRings = 1,
@@ -142,7 +150,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .85 } },
-            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 120, 1500, -9999, 10, 1, 'AntiSurface', 1 }},
+            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 150, 1000, -9999, 10, 1, 'AntiSurface', 1 }},
         },
 		
         BuilderData = {
@@ -150,6 +158,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
             Construction = {
 				BuildClose = false,		-- build on points closest to base
 				LoopBuild = false,
+                
+                MinRange = 150,
+                MaxRange = 1000,
                 
 				ThreatMax = 10,
 				ThreatRings = 1,
@@ -161,7 +172,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
     },
 	
 	-- build mass at higher priority when close - once only
-    Builder {BuilderName = 'Mass Extractor T2 - 200 - BuildClose',
+    Builder {BuilderName = 'Mass Extractor T2 - 150 - BuildClose',
 	
         PlatoonTemplate = 'EngineerBuilderGeneral',
         
@@ -177,7 +188,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
 
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
-            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 120, -9999, 60, 0, 'AntiSurface', 1 }},
+            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 150, -9999, 60, 0, 'AntiSurface', 1 }},
         },
 		
         BuilderData = {
@@ -186,6 +197,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
 			
 				BuildClose = true,		-- engineer will build on points closest to itself
 				LoopBuild = false,		-- build and RTB
+                
+                MaxRange = 150,
 
 				ThreatMax = 60,
 				ThreatRings = 0,
@@ -197,7 +210,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
     },	
 
     -- SACU build T3 MEX at high priority when close - once only
-    Builder {BuilderName = 'Mass Extractor T3 - 200 - BuildClose',
+    Builder {BuilderName = 'Mass Extractor T3 - 150 - BuildClose',
 	
         PlatoonTemplate = 'EngineerBuilderGeneral',
         
@@ -213,7 +226,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
 
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
-            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 120, -9999, 60, 0, 'AntiSurface', 1 }},
+            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 150, -9999, 60, 0, 'AntiSurface', 1 }},
         },
 		
         BuilderData = {
@@ -222,6 +235,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
 			
 				BuildClose = true,		-- engineer will build on points closest to itself
 				LoopBuild = false,		-- build and RTB
+                
+                MaxRange = 150,
                 
 				ThreatMax = 60,
 				ThreatRings = 0,
@@ -299,6 +314,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
             Construction = {
 				BuildClose = true,		-- build on mass points closest to itself
 				LoopBuild = false,		-- dont repeat - just build once then RTB
+                
+                MaxRange = 750,
 
 				ThreatMax = 45,
 				ThreatRings = 0,
@@ -340,6 +357,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Expansions',
             Construction = {
 				BuildClose = true,
 				LoopBuild = true,		-- repeat build until no target or dead
+                
+                MaxRange = 750,
 
 				ThreatMax = 45,
 				ThreatRings = 0,
@@ -377,6 +396,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Expansions',
 		
             Construction = {
 				LoopBuild = false,	#-- repeat build until no target or dead
+                
+                MaxRange = 1500,
 
 				ThreatMax = 10,
 				ThreatRings = 1,
@@ -418,6 +439,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Naval',
         BuilderData = {
             Construction = {
 				LoopBuild = false,	#-- build only once then RTB
+                
+                MaxRange = 750,
 
 				ThreatMax = 45,
 				ThreatRings = 0,

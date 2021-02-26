@@ -159,14 +159,22 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
             { LUTL, 'UnitCapCheckLess', { .65 } },
 			{ LUTL, 'HaveLessThanUnitsWithCategory', { 3, categories.HYDROCARBON }},
 			
-            { EBC, 'CanBuildOnHydroLessThanDistance',  { 'LocationType', 350, -9999, 7.5, 0, 'AntiSurface', 1 }},
+            { EBC, 'CanBuildOnHydroLessThanDistance',  { 'LocationType', 350, -9999, 10, 0, 'AntiSurface', 1 }},
         },
 		
         BuilderType = { 'T1','T2' },
 		
         BuilderData = {
             Construction = {
-                BuildStructures = {'T1HydroCarbon'}
+                BuildStructures = {'T1HydroCarbon'},
+                
+				LoopBuild = false,	#-- build only once then RTB
+                
+                MaxRange = 350,
+
+				ThreatMax = 10,
+				ThreatRings = 0,
+				ThreatType = 'AntiSurface',                
             }
         }
     },	
@@ -233,14 +241,22 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Expansions',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .65 } },
 			
-            { EBC, 'CanBuildOnHydroLessThanDistance',  { 'LocationType', 300, -9999, 7.5, 0, 'AntiSurface', 1 }},
+            { EBC, 'CanBuildOnHydroLessThanDistance',  { 'LocationType', 300, -9999, 10, 0, 'AntiSurface', 1 }},
         },
 		
         BuilderType = { 'T1' },
 		
         BuilderData = {
             Construction = {
-                BuildStructures = { 'T1HydroCarbon' }
+                BuildStructures = { 'T1HydroCarbon' },
+                
+				LoopBuild = false,	#-- build only once then RTB
+                
+                MaxRange = 300,
+
+				ThreatMax = 10,
+				ThreatRings = 0,
+				ThreatType = 'AntiSurface',                
             }
         }
     },    

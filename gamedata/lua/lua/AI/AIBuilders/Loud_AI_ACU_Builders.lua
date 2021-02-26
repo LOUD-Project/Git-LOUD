@@ -258,6 +258,8 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
 			
 				BuildClose = false,		-- build on points close to baase
 				LoopBuild = false,		-- don't repeat this build
+                
+                MaxRange = 60,
 
 				ThreatMax = 25,
 				ThreatRings = 0,
