@@ -2272,6 +2272,15 @@ BuffBlueprint { Name = 'T3EnergyStorageShieldHealthBonusSize16',
     },
 }
 
+
+-- MASS STORAGE Mass Production Buffs used to be linear
+-- so the bonus was consistent no matter what the size of the origin
+-- as long as you lined the entire side
+-- This is no longer true - it's still good but it's diminished with
+-- larger mass producing structures (T3 Mass Fabs, Paragons)
+-- Only the T4 storage is unaffected by this and gets the maximum buff in all cases
+
+
 -- MASS STORAGE
 T1MassStorageAdjacencyBuffs = {
     'T1MassStorageMassProductionBonusSize4',
@@ -2305,7 +2314,7 @@ BuffBlueprint { Name = 'T1MassStorageMassProductionBonusSize12',
     OnBuffRemove = AdjBuffFuncs.MassProductionBuffRemove,
     Affects = {
         MassProduction = {
-            Add = 0.033,
+            Add = 0.03,
             Mult = 1.0,
         },
     },
@@ -2359,7 +2368,7 @@ BuffBlueprint { Name = 'T2MassStorageMassProductionBonusSize12',
     OnBuffRemove = AdjBuffFuncs.MassProductionBuffRemove,
     Affects = {
         MassProduction = {
-            Add = 0.0533,
+            Add = 0.045,
             Mult = 1.0,
         },
     },
@@ -2375,7 +2384,7 @@ BuffBlueprint { Name = 'T2MassStorageMassProductionBonusSize20',
     OnBuffRemove = AdjBuffFuncs.MassProductionBuffRemove,
     Affects = {
         MassProduction = {
-            Add = 0.024,
+            Add = 0.0225,
             Mult = 1.0,
         },
     },
@@ -2413,7 +2422,7 @@ BuffBlueprint { Name = 'T3MassStorageMassProductionBonusSize12',
     OnBuffRemove = AdjBuffFuncs.MassProductionBuffRemove,
     Affects = {
         MassProduction = {
-            Add = 0.0667,
+            Add = 0.0525,
             Mult = 1.0,
         },
     },
@@ -2429,7 +2438,7 @@ BuffBlueprint { Name = 'T3MassStorageMassProductionBonusSize20',
     OnBuffRemove = AdjBuffFuncs.MassProductionBuffRemove,
     Affects = {
         MassProduction = {
-            Add = 0.03,
+            Add = 0.0265,
             Mult = 1.0,
         },
     },
