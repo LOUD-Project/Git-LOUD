@@ -60,16 +60,19 @@ UnitBlueprint {
         SpawnRandomRotation = true,
         UniformScale = 0.15,
     },
+    
     Economy = {
         BuildCostEnergy = 31625,
         BuildCostMass = 4600,
         BuildTime = 2875,
-        MaintenanceConsumptionPerSecondEnergy = 90,
+        
+        MaintenanceConsumptionPerSecondEnergy = 120,
+        
         ProductionPerSecondMass = 18,
-        RebuildBonusIds = {
-            'uab1302',
-        },
+        
+        RebuildBonusIds = {'uab1302'},
     },
+    
     General = {
         Category = 'Economy',
         Classification = 'RULEUC_Resource',

@@ -68,11 +68,13 @@ UnitBlueprint {
         BuildCostMass = 900,
         BuildRate = 15,
         BuildTime = 900,
-        BuildableCategory = {
-            'ueb1302',
-        },
-        MaintenanceConsumptionPerSecondEnergy = 24,
+        
+        BuildableCategory = {'ueb1302'},
+        
+        MaintenanceConsumptionPerSecondEnergy = 42,
+        
         ProductionPerSecondMass = 6,
+        
         RebuildBonusIds = {
             'ueb1202',
             'ueb1302',

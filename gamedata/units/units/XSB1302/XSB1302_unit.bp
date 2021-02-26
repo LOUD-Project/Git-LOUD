@@ -75,16 +75,19 @@ UnitBlueprint {
 
         UniformScale = 0.05,
     },
+    
     Economy = {
         BuildCostEnergy = 31625,
         BuildCostMass = 4600,
         BuildTime = 2875,
-        MaintenanceConsumptionPerSecondEnergy = 90,
+        
+        MaintenanceConsumptionPerSecondEnergy = 120,
+        
         ProductionPerSecondMass = 18,
-        RebuildBonusIds = {
-            'xsb1302',
-        },
+        
+        RebuildBonusIds = {'xsb1302'},
     },
+    
     General = {
         Category = 'Economy',
         Classification = 'RULEUC_Resource',
