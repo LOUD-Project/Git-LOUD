@@ -36,10 +36,10 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Normal',
-        EconomyThreatLevel = 87,		-- BuildRate * 3 + 3% of health
-        Health = 1425,
-        MaxHealth = 1425,
-        RegenRate = 2,
+        EconomyThreatLevel = 45 + 138,		-- BuildRate * 3 + 10% of health
+        Health = 1380,
+        MaxHealth = 1380,
+        RegenRate = 3,
     },
 	
     Description = '<LOC url0309_desc>T3 Engineer',
@@ -69,8 +69,8 @@ UnitBlueprint {
 		
         BuildableCategory = {'BUILTBYTIER3ENGINEER CYBRAN',},
 		
-        StorageEnergy = 200,
-        StorageMass = 20,
+        StorageEnergy = 300,
+        StorageMass = 30,
     },
 	
     General = {

@@ -63,9 +63,9 @@ UnitBlueprint {
     },
     Defense = {
         ArmorType = 'Normal',
-        EconomyThreatLevel = 405,		-- BuildRate + 3% of health
-        Health = 35500,
-        MaxHealth = 35500,
+        EconomyThreatLevel = 180 + 640,		-- BuildRate * 3 + 2% of health
+        Health = 32000,
+        MaxHealth = 32000,
         RegenRate = 38,
         SurfaceThreatLevel = 18,
     },
@@ -126,8 +126,8 @@ UnitBlueprint {
         ProductionPerSecondEnergy = 200,
         ProductionPerSecondMass = 2,
 		
-        StorageEnergy = 500,
-        StorageMass = 100,
+        StorageEnergy = 1000,
+        StorageMass = 200,
     },
     Enhancements = {
         CloakingGenerator = {
@@ -620,9 +620,9 @@ UnitBlueprint {
     },
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.9,
-        HealthMult = 0.9,
-        MassMult = 0.9,
+        EnergyMult = 0.3,
+        HealthMult = 0.3,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,

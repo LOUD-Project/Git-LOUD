@@ -65,7 +65,7 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Normal',
-        EconomyThreatLevel = 370,		-- BuildRate + 1% of health
+        EconomyThreatLevel = 180 + 620,		-- BuildRate * 3 + 2% of health
         Health = 31000,
         MaxHealth = 31000,
 		NoTeleDistance = 35,
@@ -136,8 +136,8 @@ UnitBlueprint {
         SacrificeEnergyMult = 0.9,
         SacrificeMassMult = 0.9,
 		
-        StorageEnergy = 500,
-        StorageMass = 100,
+        StorageEnergy = 1000,
+        StorageMass = 200,
     },
     Enhancements = {
         EngineeringFocusingModule = {
@@ -600,9 +600,9 @@ UnitBlueprint {
     },
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.9,
-        HealthMult = 0.9,
-        MassMult = 0.9,
+        EnergyMult = 0.3,
+        HealthMult = 0.3,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,

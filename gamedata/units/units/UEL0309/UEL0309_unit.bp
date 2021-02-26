@@ -39,10 +39,10 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Normal',
-        EconomyThreatLevel = 90,		-- BuildRate * 3 + 3% of health
+        EconomyThreatLevel = 45 + 150,		-- BuildRate * 3 + 10% of health
         Health = 1500,
         MaxHealth = 1500,
-        RegenRate = 1,
+        RegenRate = 3,
     },
 	
     Description = '<LOC uel0309_desc>T3 Engineer',
@@ -107,8 +107,8 @@ UnitBlueprint {
 		
         BuildableCategory = {'BUILTBYTIER3ENGINEER UEF',},
 		
-        StorageEnergy = 200,
-        StorageMass = 20,
+        StorageEnergy = 300,
+        StorageMass = 30,
     },
 	
     General = {

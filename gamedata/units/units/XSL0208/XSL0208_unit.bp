@@ -44,10 +44,10 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Normal',
-        EconomyThreatLevel = 38,		-- BuildRate * 2 + 3% of health
-        Health = 640,
-        MaxHealth = 640,
-        RegenRate = 1,
+        EconomyThreatLevel = 86,		-- BuildRate * 2 + 10% of health
+        Health = 660,
+        MaxHealth = 660,
+        RegenRate = 2,
     },
 	
     Description = '<LOC xsl0208_desc>T2 Engineer',
@@ -111,8 +111,8 @@ UnitBlueprint {
 		
         NeedToFaceTargetToBuild = true,
 		
-        StorageEnergy = 100,
-        StorageMass = 10,
+        StorageEnergy = 120,
+        StorageMass = 20,
     },
 	
     General = {
