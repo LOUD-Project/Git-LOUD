@@ -1,15 +1,16 @@
 --* File: lua/modules/ui/game/controlgroups.lua
 --* Copyright � 2006 Gas Powered Games, Inc.  All rights reserved.
 
-local UIUtil = import('/lua/ui/uiutil.lua')
-local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
-local GameMain = import('/lua/ui/game/gamemain.lua')
-local Group = import('/lua/maui/group.lua').Group
+local Bitmap = import('/lua/maui/bitmap.lua').Bitmap
 local Button = import('/lua/maui/button.lua').Button
 local Checkbox = import('/lua/maui/checkbox.lua').Checkbox
-local Bitmap = import('/lua/maui/bitmap.lua').Bitmap
+local GameCommon = import('/lua/ui/gamecommon.lua')
+local GameMain = import('/lua/ui/game/gamemain.lua')
+local Group = import('/lua/maui/group.lua').Group
+local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
 local Selection = import('/lua/ui/game/selection.lua')
 local Tooltip = import('/lua/ui/game/tooltip.lua')
+local UIUtil = import('/lua/ui/uiutil.lua')
 
 controls = {
     groups = {},
