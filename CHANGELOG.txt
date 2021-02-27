@@ -1,3 +1,22 @@
+### Release 26-02-2021 ###
+Lua 5.4.09
+LOUD Misc 5.4.2
+
+- Support for unit icons from usermods.
+ |--> It is no longer necessary to have a separate .scd file for these; the game finds them automatically from the mod's folder.
+- New keybind: Reclaim Everything Around Cursor.
+ |--> Gives an order to the currently selected engineers & SACUs to reclaim everything in a square around your cursor.
+- The buff granted by mass storage buildings to mass-producing buildings has been reduced.
+- AI: Engineers will more efficiently seek out mass points to build extractors on.
+- AI: Reworked intel-gathering and threat assessment, for increased performance and smarter planning.
+- Better formatting of the unit details tooltip in construction menus.
+- The AI name "RD Maxon" has been separated into two names, to immortalize these contributors for their own merits.
+- Desync errors caused by BrewLAN Cityscapes have been fixed.
+- Fixed a bug causing units to be displayed when clicking an empty line in the Unit Database.
+- Fixed a bug casuing the keybinding menu to break when closing while the search box had text in it.
+- Fixed names of templates not getting localized if doing do was possible.
+- Waterlag should now work more consistently on any given unit.
+
 ### Release 19-02-2021 ###
 Lua 5.4.08
 BrewLAN 0.87
