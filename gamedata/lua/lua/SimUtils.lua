@@ -204,21 +204,30 @@ end
 
 function AreaReclaim(data, units)
     local allReclaimables = GetReclaimablesInRect(Rect(
-		data.MousePos[1] - 3, 
-		data.MousePos[3] - 3, 
-		data.MousePos[1] + 3, 
-		data.MousePos[3] + 3))
+		data.MousePos[1] - 3.5, 
+		data.MousePos[3] - 3.5, 
+		data.MousePos[1] + 3.5, 
+		data.MousePos[3] + 3.5))
+    if not allReclaimables or table.empty(allReclaimables) then
+        return
+    end
+    -- Don't allow reclaiming of living units so user doesn't reclaim own stuff
+    for i, v in allReclaimables do
+        if v.BlueprintID then
+            allReclaimables[i] = nil
+        end
+    end
 	local numRecs = table.getn(allReclaimables)
 	local numUnits = table.getn(units)
 
 	local recArrays = {}
 
-	-- Number of units dictates how many times reclaimables table must be divided
+	-- Number of reclaimers dictates how many times reclaimables table must be divided
 	for i = 1, numUnits do
 		recArrays[i] = {}
 	end
 
-    -- Loop over units, assigning 1 reclaimable to each
+    -- Loop over reclaimers, assigning 1 reclaimable to each
     -- Iterate over recArrays as many times as needed to assign every reclaimable
 	local j = 1
 	local i, rec = next(allReclaimables, nil)
