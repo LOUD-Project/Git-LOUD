@@ -33,6 +33,7 @@ If there is no # in a name disambiguation, it is a GitHub handle. Otherwise, it 
 
 - Axle#7639
 - Balthazar#6519
+- Dr Sys#1579
 - MostLostNoob#6672
 - Stash#6484
 - Tanksy#8314
