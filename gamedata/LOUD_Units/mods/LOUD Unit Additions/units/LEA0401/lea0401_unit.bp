@@ -213,9 +213,6 @@ UnitBlueprint {
         BuildOnLayerCaps = {
             LAYER_Air = true,
             LAYER_Land = true,
-            LAYER_Orbit = false,
-            LAYER_Seabed = false,
-            LAYER_Sub = false,
             LAYER_Water = true,
         },
         Elevation = 19,

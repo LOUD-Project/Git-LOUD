@@ -252,10 +252,7 @@ UnitBlueprint {
     Physics = {
         BuildOnLayerCaps = {
             LAYER_Air = true,
-            LAYER_Land = false,
-            LAYER_Orbit = false,
             LAYER_Seabed = true,
-            LAYER_Sub = false,
             LAYER_Water = true,
         },
         Elevation = 10.5,

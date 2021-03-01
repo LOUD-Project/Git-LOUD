@@ -351,10 +351,6 @@ UnitBlueprint {
         BackUpDistance = 8,
         BankingSlope = 0,
         BuildOnLayerCaps = {
-            LAYER_Air = false,
-            LAYER_Land = false,
-            LAYER_Orbit = false,
-            LAYER_Seabed = false,
             LAYER_Sub = true,
             LAYER_Water = true,
         },
