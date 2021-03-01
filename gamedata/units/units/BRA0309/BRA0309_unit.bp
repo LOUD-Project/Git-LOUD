@@ -103,7 +103,7 @@ UnitBlueprint {
         Abilities = {
 			'EMP Ground Attack',
             'Anti-Air',
-            'Transports upto 3 T3 units',
+            'Transports up to 3 T3 units',
             'Cloak & Radar Stealth',
         },
 

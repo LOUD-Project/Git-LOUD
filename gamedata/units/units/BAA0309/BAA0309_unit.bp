@@ -109,7 +109,7 @@ UnitBlueprint {
         Abilities = {
 			'2 Ground Attack Autocannon',
             '4 Hi-V AA Guns',
-			'Can Transport upto 8 T3 units',
+			'Can Transport up to 8 T3 units',
 			'Radar & Radar Stealth',
         },
 

@@ -65,8 +65,7 @@ UnitBlueprint {
 	
     Display = {
 		Abilities = {
-			' Rapid Assault Tank',
-			' Rocket Pods with Stun',
+			'Rocket Pods with Stun',
 		},
         Mesh = {
             IconFadeInZoom = 160,

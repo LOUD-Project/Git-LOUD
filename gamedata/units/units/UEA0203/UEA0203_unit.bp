@@ -95,7 +95,7 @@ UnitBlueprint {
     Display = {
 	
         Abilities = {
-            'Can Transport upto 1 T2 unit',
+            'Can Transport up to 1 T2 unit',
         },
 		
         ForcedBuildSpin = 0,

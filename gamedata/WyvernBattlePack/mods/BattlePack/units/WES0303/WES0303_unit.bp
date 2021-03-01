@@ -77,7 +77,7 @@ UnitBlueprint {
             '<LOC ability_aa>Anti-Air',
             '<LOC ability_radar>Radar',
             '<LOC ability_sonar>Sonar',
-			'Torpedos',
+			'<LOC ability_torpedo>Torpedoes',
             '<LOC ability_tacmissiledef>Tactical Missile Defense',
         },
         AnimationDeath = {

@@ -69,7 +69,7 @@ UnitBlueprint {
 	
 		Abilities = {
 			'Aquatic',
-			'Causes damage to upto 4 other units nearby',
+			'Damages up to 4 other units nearby',
 			'Requires Energy',
 		},
 		
