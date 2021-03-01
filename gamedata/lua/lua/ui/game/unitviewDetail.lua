@@ -491,8 +491,9 @@ function WrapAndPlaceText(air, physics, intel, weapons, abilities, capCost, text
 									weaponText = (TitleCase(weapon.TargetRestrictOnlyAllow) .. wepCategory)
 								end
 								
-								-- If a weapon is a Countermeasure, we don't care about its damage or DPS, as it's all very small numbers purely for shooting projectiles.
-								weaponText = (weaponText .. " {")
+								-- If a weapon is a Countermeasure, we don't care about its damage or DPS,
+								-- as it's all very small numbers purely for shooting projectiles.
+								weaponText = (weaponText .. " {"):gsub(",", " ")
 
 								-- Show RoF for Countermeasure weapons.
 								if PhxLib.PhxWeapDPS(weapon).RateOfFire > 0 then
