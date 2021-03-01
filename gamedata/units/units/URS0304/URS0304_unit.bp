@@ -315,7 +315,7 @@ UnitBlueprint {
         DamageRadius = 1.0,
     },
 	
-    StrategicIconName = 'icon_sub3_missile',
+    StrategicIconName = 'icon_sub3_nuke',
     StrategicIconSortPriority = 145,
 	
     Veteran = {
