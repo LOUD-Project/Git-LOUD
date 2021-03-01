@@ -176,7 +176,7 @@ UnitBlueprint {
     SizeY = 1,
     SizeZ = 0.7,
 	
-    StrategicIconName = 'icon_structure3_generic',
+    StrategicIconName = 'icon_node3_cross',
     StrategicIconSortPriority = 250,
 	
     Wreckage = {
