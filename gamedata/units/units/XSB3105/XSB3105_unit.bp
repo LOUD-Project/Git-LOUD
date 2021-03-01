@@ -130,7 +130,7 @@ UnitBlueprint {
     SizeX = 0.9,
     SizeY = 0.9,
     SizeZ = 0.9,
-    StrategicIconName = 'icon_structure3_energy',
+    StrategicIconName = 'icon_node3_energy',
     StrategicIconSortPriority = 250,
     Weapon = {
         {

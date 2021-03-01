@@ -122,7 +122,7 @@ UnitBlueprint {
     SizeY = 0.75,
     SizeZ = 1.0,
 	
-    StrategicIconName = 'icon_structure3_mass',
+    StrategicIconName = 'icon_node3_mass',
     StrategicIconSortPriority = 250,
 	
     Weapon = {
