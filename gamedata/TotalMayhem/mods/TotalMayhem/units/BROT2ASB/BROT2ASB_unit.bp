@@ -61,7 +61,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 15.3,
     },
 	
-    Description = '<LOC brot2asb_desc>Amphib Assault Bot',
+    Description = '<LOC brot2asb_desc>Amphibious Assault Bot',
 	
     Display = {
         Abilities = {
@@ -152,7 +152,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Amphib Assault Bot',
+        HelpText = 'Amphibious Assault Bot',
     },
 	
     LifeBarHeight = 0.075,

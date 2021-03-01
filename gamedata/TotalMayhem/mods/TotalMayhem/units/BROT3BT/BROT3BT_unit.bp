@@ -82,7 +82,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 49.5,
     },
 	
-    Description = '<LOC brot3bt_desc>Amphib Battle Tank',
+    Description = '<LOC brot3bt_desc>Amphibious Battle Tank',
 	
     Display = {
         Abilities = {

@@ -62,7 +62,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 35.9,
     },
 	
-    Description = '<LOC brmt3lzt_desc>Amphib AA/Support',
+    Description = '<LOC brmt3lzt_desc>Amphib. AA/Support Tank',
 	
     Display = {
         Abilities = {

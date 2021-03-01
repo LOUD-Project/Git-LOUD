@@ -68,7 +68,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 84.3,
     },
 	
-    Description = '<LOC brmt3bm2_desc>Adv. Amphib Battle Bot',
+    Description = '<LOC brmt3bm2_desc>Adv. Amphib. Battle Bot',
 	
     Display = {
         Abilities = {
@@ -139,7 +139,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Amphib Battle Mech',
+        HelpText = 'Amphibious Battle Mech',
     },
 	
     LifeBarHeight = 0.075,
