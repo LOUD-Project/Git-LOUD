@@ -223,7 +223,7 @@ UnitBlueprint {
     SizeY = 0.5,
     SizeZ = 0.65,
 	
-    StrategicIconName = 'icon_land2_antimissile',
+    StrategicIconName = 'icon_surface2_antimissile',
     StrategicIconSortPriority = 200,
 	
     Transport = {

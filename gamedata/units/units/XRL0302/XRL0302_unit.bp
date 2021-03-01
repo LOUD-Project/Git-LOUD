@@ -158,7 +158,7 @@ UnitBlueprint {
     SizeY = 0.35,
     SizeZ = 0.55,
 	
-    StrategicIconName = 'icon_land2_bomb',
+    StrategicIconName = 'icon_seabed2_bomb',
     StrategicIconSortPriority = 135,
 	
     Transport = {

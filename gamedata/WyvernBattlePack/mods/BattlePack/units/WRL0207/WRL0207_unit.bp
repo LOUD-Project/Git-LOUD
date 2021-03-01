@@ -239,7 +239,7 @@ UnitBlueprint {
     SizeY = 1.0,
     SizeZ = 1.2,
     
-    StrategicIconName = 'icon_bot2_shield',
+    StrategicIconName = 'icon_land2_shield',
     StrategicIconSortPriority = 125,
     
     Transport = {

@@ -175,7 +175,7 @@ UnitBlueprint {
     SizeY = 0.7,
     SizeZ = 0.6,
 	
-    StrategicIconName = 'icon_bot1_intel',
+    StrategicIconName = 'icon_land1_intel',
     StrategicIconSortPriority = 135,
 	
     Transport = {

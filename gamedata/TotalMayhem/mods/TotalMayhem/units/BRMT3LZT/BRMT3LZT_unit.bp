@@ -174,7 +174,7 @@ UnitBlueprint {
     SizeY = 0.4,
     SizeZ = 1.2,
 	
-    StrategicIconName = 'icon_land3_antiair',
+    StrategicIconName = 'icon_seabed3_antiair',
     StrategicIconSortPriority = 125,
 	
     Veteran = {

@@ -175,7 +175,7 @@ UnitBlueprint {
     SizeY = 0.85,
     SizeZ = 0.8,
 	
-    StrategicIconName = 'icon_bot3_antiair',
+    StrategicIconName = 'icon_land3_antiair',
     StrategicIconSortPriority = 115,
     Transport = {
         CanFireFromTransport = false,

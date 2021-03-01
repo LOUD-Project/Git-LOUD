@@ -227,7 +227,7 @@ UnitBlueprint {
     SizeY = 1.4,
     SizeZ = 0.9,
     
-    StrategicIconName = 'icon_bot3_directfire',
+    StrategicIconName = 'icon_seabed3_directfire',
     StrategicIconSortPriority = 115,
     
     Transport = {

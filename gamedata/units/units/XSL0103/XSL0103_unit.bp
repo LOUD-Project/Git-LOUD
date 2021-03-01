@@ -179,7 +179,7 @@ UnitBlueprint {
     SizeY = 0.35,
     SizeZ = 0.6,
 	
-    StrategicIconName = 'icon_land1_artillery',
+    StrategicIconName = 'icon_surface1_artillery',
     StrategicIconSortPriority = 135,
 	
     Transport = {
