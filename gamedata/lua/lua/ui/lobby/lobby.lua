@@ -1417,6 +1417,55 @@ local function AssignAINames(gameInfo)
     end
 end
 
+local function CalcTotalUnitCap()
+    local ret = 0
+    local unitCap = tonumber(gameInfo.GameOptions.UnitCap) or 750
+    local biggestTeamSize = 0
+
+    local teamSizes = {}
+
+    -- First iterate over all players to get team sizes
+    for slot, player in gameInfo.PlayerOptions do
+        if not player then
+            continue
+        end
+
+        teamSizes[slot] = 1
+        -- Check all other players to see how big this player's team is
+        for _, p in gameInfo.PlayerOptions do
+            if p and p ~= player and p.Team == player.Team then
+                teamSizes[slot] = teamSizes[slot] + 1
+            end
+        end
+        if teamSizes[slot] > biggestTeamSize then
+            biggestTeamSize = teamSizes[slot]
+        end
+    end
+
+    for slot, player in gameInfo.PlayerOptions do
+        if not player then
+            continue
+        end
+
+        if player.Human then
+            ret = ret + unitCap
+        else
+            local playerDiff = (biggestTeamSize or 1) / teamSizes[slot]
+            if gameInfo.GameOptions.CapCheat == 'unlimited' then
+                ret = ret + 99999
+            elseif gameInfo.GameOptions.CapCheat == 'cheatlevel' then
+                local mult = tonumber(player.Mult)
+                local cheatCap = unitCap * mult * (math.max(playerDiff, 1))
+                ret = ret + math.floor(cheatCap)
+            else
+                ret = ret + unitCap
+            end
+        end
+    end
+
+    return ret
+end
+
 -- call this whenever the lobby needs to exit and not go in to the game
 function ReturnToMenu()
 
@@ -3224,7 +3273,12 @@ function CreateUI(maxPlayers, useSteam)
     GUI.OptionContainer.CalcVisible = function(self)
         local function SetTextLine(line, data, lineID)
             if data.mod then
-                line.text:SetColor('ffff7777')
+                line.text:SetColor('ffff7777') -- Mid-red
+                LayoutHelpers.AtHorizontalCenterIn(line.text, line, 5)
+                LayoutHelpers.AtHorizontalCenterIn(line.value, line, 5, 16) 
+                LayoutHelpers.ResetRight(line.value) 
+            elseif data.totalUnitCap then
+                line.text:SetColor('fff5cb42') -- Mid-orange
                 LayoutHelpers.AtHorizontalCenterIn(line.text, line, 5)
                 LayoutHelpers.AtHorizontalCenterIn(line.value, line, 5, 16) 
                 LayoutHelpers.ResetRight(line.value) 
@@ -3552,6 +3606,7 @@ function CreateUI(maxPlayers, useSteam)
         GUI.slots[i].team.OnClick = function(self, index, text)
             Tooltip.DestroyMouseoverDisplay()
             SetPlayerOption(self.row,'Team',index)
+            RefreshOptionDisplayData(MapUtil.LoadScenario(gameInfo.GameOptions.ScenarioFile))
         end
 		
         Tooltip.AddControlTooltip(GUI.slots[i].team, 'lob_team')
@@ -3592,6 +3647,7 @@ function CreateUI(maxPlayers, useSteam)
 
         GUI.slots[i].mult.OnLoseKeyboardFocus = function(self)
             SetPlayerOption(self.row, 'Mult', self:GetText())
+            RefreshOptionDisplayData(MapUtil.LoadScenario(gameInfo.GameOptions.ScenarioFile))
         end
 
         GUI.slots[i].mult.OnEscPressed = function(self, text)
@@ -4180,6 +4236,18 @@ function RefreshOptionDisplayData(scenarioInfo)
             tooltip = 'map_select_maxplayers',
             valueTooltip = 'map_select_maxplayers'})
     end
+
+    local totalUnitCap = CalcTotalUnitCap()
+    table.insert(formattedOptions, {
+        text = "Total Unit Cap",
+        tooltip = {
+            text = "Total Unit Cap",
+            body = "All player and AI unit caps, after increases from cheat multipliers and differences in team size, added together."
+        },
+        totalUnitCap = true,
+        value = tostring(totalUnitCap),
+        valueTooltip = tostring(totalUnitCap),
+    })
 
     for _, k in lobbyOptOrder do
         local v = gameInfo.GameOptions[k]
