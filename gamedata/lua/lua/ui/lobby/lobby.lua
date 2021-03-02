@@ -3606,7 +3606,6 @@ function CreateUI(maxPlayers, useSteam)
         GUI.slots[i].team.OnClick = function(self, index, text)
             Tooltip.DestroyMouseoverDisplay()
             SetPlayerOption(self.row,'Team',index)
-            RefreshOptionDisplayData(MapUtil.LoadScenario(gameInfo.GameOptions.ScenarioFile))
         end
 		
         Tooltip.AddControlTooltip(GUI.slots[i].team, 'lob_team')
@@ -3647,7 +3646,6 @@ function CreateUI(maxPlayers, useSteam)
 
         GUI.slots[i].mult.OnLoseKeyboardFocus = function(self)
             SetPlayerOption(self.row, 'Mult', self:GetText())
-            RefreshOptionDisplayData(MapUtil.LoadScenario(gameInfo.GameOptions.ScenarioFile))
         end
 
         GUI.slots[i].mult.OnEscPressed = function(self, text)
