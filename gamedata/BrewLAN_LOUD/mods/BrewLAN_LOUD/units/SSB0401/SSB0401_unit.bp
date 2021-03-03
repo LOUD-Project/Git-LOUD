@@ -304,7 +304,7 @@ UnitBlueprint {
     SizeY = 14,
     SizeZ = 3,
 
-    StrategicIconName = 'icon_experimental_factory_naval',
+    StrategicIconName = 'icon_factory4_naval',
     StrategicIconSortPriority = 210,
 
     Wreckage = {

@@ -207,7 +207,7 @@ UnitBlueprint {
     SizeX = 3,
     SizeY = 1.2,
     SizeZ = 4,
-    StrategicIconName = 'icon_experimental_generic',
+    StrategicIconName = 'icon_surface4_intel',
     StrategicIconSortPriority = 125,
     Transport = {
         TransportClass = 4,

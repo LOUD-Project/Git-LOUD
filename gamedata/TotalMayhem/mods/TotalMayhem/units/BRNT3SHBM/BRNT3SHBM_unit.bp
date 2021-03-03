@@ -232,7 +232,7 @@ UnitBlueprint {
     SizeY = 4.4,
     SizeZ = 3,
 	
-    StrategicIconName = 'icon_experimental_land_missile',
+    StrategicIconName = 'icon_seabed4_directfire2',
     StrategicIconSortPriority = 116,
 	
     Transport = {

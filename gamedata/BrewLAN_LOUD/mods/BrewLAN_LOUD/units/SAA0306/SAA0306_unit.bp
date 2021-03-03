@@ -274,7 +274,7 @@ UnitBlueprint {
     SizeY = 4,
     SizeZ = 6,
 	
-    StrategicIconName = 'icon_experimental_gunship_transport',
+    StrategicIconName = 'icon_gunship_transport',
     StrategicIconSortPriority = 65,
 	
     Transport = {

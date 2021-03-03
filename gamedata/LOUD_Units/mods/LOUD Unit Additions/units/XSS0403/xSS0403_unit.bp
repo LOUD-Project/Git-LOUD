@@ -218,7 +218,7 @@ UnitBlueprint {
     SizeY = 2.2,
     SizeZ = 7.2,
 	
-    StrategicIconName = 'icon_experimental_ship_antiair',
+    StrategicIconName = 'icon_ship4_antiair',
     StrategicIconSortPriority = 155,
 	
     Veteran = {

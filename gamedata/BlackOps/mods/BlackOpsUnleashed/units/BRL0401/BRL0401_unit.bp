@@ -256,7 +256,7 @@ UnitBlueprint {
     SizeY = 5.8,
     SizeZ = 2.8,
 	
-    StrategicIconName = 'icon_experimental_land_artillery',
+    StrategicIconName = 'icon_seabed4_artillery',
     StrategicIconSortPriority = 115,
 	
     Transport = {

@@ -262,7 +262,7 @@ UnitBlueprint {
     SizeY = 2.3,
     SizeZ = 10.6,
 	
-    StrategicIconName = 'icon_experimental_ship_missile',
+    StrategicIconName = 'icon_ship4_missile',
     StrategicIconSortPriority = 145,
 	
 	-- the LOA missile, when hit by TMD, splits into 3 children

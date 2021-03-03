@@ -393,7 +393,7 @@ UnitBlueprint {
     SizeY = 2.7,
     SizeZ = 6,
 	
-    StrategicIconName = 'icon_experimental_mobilefactory_directfire',
+    StrategicIconName = 'icon_sub4_naval',
     StrategicIconSortPriority = 45,
 	
     Veteran = {

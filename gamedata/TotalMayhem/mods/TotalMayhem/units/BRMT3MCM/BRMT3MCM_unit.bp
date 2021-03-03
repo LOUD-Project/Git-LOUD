@@ -236,7 +236,7 @@ UnitBlueprint {
     SizeY = 3.5,
     SizeZ = 2.2,
     
-    StrategicIconName = 'icon_experimental_land_directfire',
+    StrategicIconName = 'icon_seabed4_directfire',
     StrategicIconSortPriority = 115,
     
     Veteran = {

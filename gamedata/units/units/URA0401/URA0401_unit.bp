@@ -249,7 +249,7 @@ UnitBlueprint {
     SizeY = 3.5,
     SizeZ = 7.2,
 	
-    StrategicIconName = 'icon_experimental_gunship_directfire',
+    StrategicIconName = 'icon_gunship_directfire',
     StrategicIconSortPriority = 65,
 	
     Transport = {

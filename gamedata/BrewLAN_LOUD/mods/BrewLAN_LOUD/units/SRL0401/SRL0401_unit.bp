@@ -344,7 +344,7 @@ UnitBlueprint {
     SizeY = 7,
     SizeZ = 13,
 	
-    StrategicIconName = 'icon_experimental_land_transport',
+    StrategicIconName = 'icon_seabed4_transport',
     StrategicIconSortPriority = 65,
 	
     Transport = {

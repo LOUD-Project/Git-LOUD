@@ -341,7 +341,7 @@ UnitBlueprint {
     SizeY = 2.5,
     SizeZ = 5,
     
-    StrategicIconName = 'icon_experimental_land_sniper',
+    StrategicIconName = 'icon_seabed4_sniper',
     StrategicIconSortPriority = 115,
     
     Transport = {

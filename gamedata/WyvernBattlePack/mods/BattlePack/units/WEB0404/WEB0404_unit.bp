@@ -294,7 +294,7 @@ UnitBlueprint {
     SizeY = 1.5,
     SizeZ = 3.5,
     
-    StrategicIconName = 'icon_experimental_structure_antinavy',
+    StrategicIconName = 'icon_structure4_antinavy',
     StrategicIconSortPriority = 45,
     
     Veteran = {

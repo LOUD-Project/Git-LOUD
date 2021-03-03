@@ -198,7 +198,7 @@ UnitBlueprint {
     SizeY = 2.5,
     SizeZ = 2.5,
 	
-    StrategicIconName = 'icon_experimental_structure_antiair',
+    StrategicIconName = 'icon_structure4_antiair',
 	
     StrategicIconSortPriority = 115,
 	

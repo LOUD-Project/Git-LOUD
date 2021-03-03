@@ -362,7 +362,7 @@ UnitBlueprint {
 
     SizeSphere = 10,
 
-    StrategicIconName = 'icon_experimental_factory_air',
+    StrategicIconName = 'icon_factory4_air',
     StrategicIconSortPriority = 210,
 
     Wreckage = {

@@ -240,7 +240,7 @@ UnitBlueprint {
     SizeY = 1.4,
     SizeZ = 5.0,
 	
-    StrategicIconName = 'icon_experimental_land_missile',
+    StrategicIconName = 'icon_surface4_missile',
     StrategicIconSortPriority = 145,
 	
     Veteran = {
