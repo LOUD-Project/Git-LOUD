@@ -583,6 +583,10 @@ Tooltips = {
         title = 'GUI Mod',
         description = 'Adjusts distance to which Zoom Pop zooms to.',
     },
+    options_cam_reset_behaviour = {
+        title = "Camera Reset Hotkey Behavior",
+        description = 'Choose whether the "Reset the Camera" hotkey fully zooms out only, or toggles between the current zoom level and fully zoomed-out.',
+    },
     options_land_unit_select_prio = {
         title = "Land Unit Selection Priority",
         description = "When on, trying to select both land and air units will select only the land units",
