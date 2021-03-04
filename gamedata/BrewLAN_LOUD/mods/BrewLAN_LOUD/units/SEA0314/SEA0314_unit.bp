@@ -303,7 +303,7 @@ UnitBlueprint {
     SizeY = 0.65,
     SizeZ = 2.4,
 	
-    StrategicIconName = 'icon_bomber3_directfire',
+    StrategicIconName = 'icon_bomber3_missile',
     StrategicIconSortPriority = 55,
 	
     Transport = {
