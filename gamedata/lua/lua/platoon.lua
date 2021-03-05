@@ -2302,8 +2302,8 @@ Platoon = Class(moho.platoon_methods) {
 			end
 			
 			-- SECOND TASK -- TRAVEL TO THE MARKER --
-			-- checking for exit parameters and stuck condition every 8 seconds
-			-- and calling for transport every 32 seconds along the way
+			-- checking for exit parameters and stuck condition every second
+			-- and calling for transport every 30 seconds along the way
 			stuckcount = 0
 			oldplatpos = false
 			calltransport = 0
@@ -2356,8 +2356,8 @@ Platoon = Class(moho.platoon_methods) {
 				
 						stuckcount = stuckcount + 1
 					
-						-- if stuck count > 4 (about 28 seconds) then process out the stuck units
-						if marker and stuckcount > 3 then
+						-- if stuck count > 15 (about 15 seconds) then process out the stuck units
+						if marker and stuckcount > 15 then
 					
 							if self:ProcessStuckPlatoon( marker ) then
 							
@@ -8498,9 +8498,11 @@ Platoon = Class(moho.platoon_methods) {
 		TRIGS.CreatePlatoonToPositionDistanceTrigger( platoon.PlatoonOnFinalStep, platoon, goalposition, distance)
 	end,
 	
-	PlatoonOnFinalStep = function( platoon, params )
+	PlatoonOnFinalStep = function( self, params )
+    
+        local aiBrain = GetBrain(self)
 	
-		LOG("*AI DEBUG Platoon Triggers AtGoal")
+		LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." Platoon Triggers AtGoal params are "..repr(params) )
 	end,
 
     -- will send reinforcement air platoons to randomly selected primary attack base ( Primary Land or Primary Sea )

@@ -6,47 +6,6 @@ local UCBC = '/lua/editor/UnitCountBuildConditions.lua'
 local EBC = '/lua/editor/EconomyBuildConditions.lua'
 local LUTL = '/lua/loudutilities.lua'
 
---[[
-BuilderGroup {BuilderGroupName = 'Engineer Radar Construction',
-    BuildersType = 'EngineerBuilder',
-	
-    Builder {BuilderName = 'Radar Engineer',
-	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
-		
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-		
-        Priority = 700,
-		
-        BuilderType = { 'T1','T2','T3','SubCommander' },
-		
-        BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .85 } },
-            { LUTL, 'UnitsLessAtLocation', { 'LocationType', 1, categories.STRUCTURE * categories.OVERLAYRADAR * categories.INTELLIGENCE }},
-
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
-            { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 2, categories.ENERGYPRODUCTION - categories.TECH1 }},
-
-        },
-		
-        BuilderData = {
-            Construction = {
-                NearBasePerimeterPoints = true,
-                
-				BasePerimeterOrientation = 'FRONT',
-				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
-				BaseTemplate = 'SupportLayout',
-                
-				MaxThreat = 30,
-                
-                BuildStructures = { 'T1Radar' },
-            }
-        }
-    },
-}
-
---]]
-
 BuilderGroup {BuilderGroupName = 'Engineer Radar Construction - Expansions',
     BuildersType = 'EngineerBuilder',
 	

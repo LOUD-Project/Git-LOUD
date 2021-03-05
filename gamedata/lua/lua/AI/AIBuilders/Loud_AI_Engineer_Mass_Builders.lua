@@ -328,6 +328,51 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
 
 }
 
+BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Defensive Point',
+    BuildersType = 'EngineerBuilder',
+
+	-- builds mass if some is available
+    Builder {BuilderName = 'Mass Extractor - 200 - DP',
+	
+        PlatoonTemplate = 'EngineerBuilderGeneral',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
+		
+        Priority = 745,
+        
+        InstanceCount = 1,
+		
+		BuilderType = { 'T2','T3','SubCommander' },
+		
+        BuilderConditions = {
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+            { LUTL, 'UnitCapCheckLess', { .85 } },			
+            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 200, -9999, 35, 0, 'AntiSurface', 1 }},
+        },
+		
+        BuilderData = {
+		
+            Construction = {
+				BuildClose = true,
+				LoopBuild = true,		-- repeat build until no target or dead
+                
+                MaxRange = 200,
+
+				ThreatMax = 35,
+				ThreatRings = 0,
+				ThreatType = 'AntiSurface',
+                
+                BuildStructures = { 'T2Resource' }
+            }
+        }
+    },
+	
+}
+
+
+
 BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Expansions',
     BuildersType = 'EngineerBuilder',
 

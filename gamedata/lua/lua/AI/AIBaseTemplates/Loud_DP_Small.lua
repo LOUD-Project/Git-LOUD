@@ -10,6 +10,8 @@ BaseBuilderTemplate {
 		'Engineer Tasks - Active DP', -- basic reclaim, repair and assist functions
 		
 		'Engineer Defenses DP Small',	-- builds the structures at the active DP
+        
+        'Engineer Mass Builders - Defensive Point',
 
 		-- These allow the Active DP to utilize units
 

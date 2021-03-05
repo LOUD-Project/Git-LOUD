@@ -165,7 +165,7 @@ function LifeThread( aiBrain, cdr )
             
             if mrequested > mincome then
             
-                -- upto 25 (modified by AI mult
+                -- upto 25 (modified by AI mult)
                 mneeded = math.min(25,((mrequested - mincome ) * 10)) * cheatmult
                 
                 GiveResource( aiBrain, 'Mass', mneeded)
@@ -179,7 +179,7 @@ function LifeThread( aiBrain, cdr )
             
             if erequested > eincome then
             
-                -- upto 250 (modified by AI mult
+                -- upto 250 (modified by AI mult)
                 eneeded = math.min(250,((erequested - eincome ) * 10)) * cheatmult
                 
                 GiveResource( aiBrain, 'Energy', eneeded)
@@ -649,6 +649,8 @@ function CDRReturnHome( aiBrain, cdr, Mult )
 		
 		IssueClearCommands( {cdr} )
 		IssueMove( {cdr}, cdr.CDRHome )
+        
+        WaitTicks(75)
 		
 		plat:SetAIPlan('ReturnToBaseAI',aiBrain)
 		
@@ -700,7 +702,7 @@ function CDRHideBehavior( aiBrain, cdr )
 	    
         local category = false
 		
-		local nmaShield = aiBrain:GetNumUnitsAroundPoint( categories.SHIELD, cdr.CDRHome, 80, 'Ally' )
+		local nmaShield = aiBrain:GetNumUnitsAroundPoint( categories.SHIELD, cdr.CDRHome, 100, 'Ally' )
 		local nmaAA = aiBrain:GetNumUnitsAroundPoint( categories.ANTIAIR * categories.DEFENSE, cdr.CDRHome, 80, 'Ally' )
         local nmaDF = aiBrain:GetNumUnitsAroundPoint( categories.DIRECTFIRE, cdr.CDRHome, 80, 'Ally' )
 		
@@ -735,12 +737,12 @@ function CDRHideBehavior( aiBrain, cdr )
 		
             IssueClearCommands( {cdr} )		
 		
-			runSpot = import('/lua/ai/altaiutilities.lua').AIFindDefensiveAreaSorian( aiBrain, cdr, category, 80, runShield )
+			runSpot = import('/lua/ai/altaiutilities.lua').AIFindDefensiveAreaSorian( aiBrain, cdr, category, 100, runShield )
 			
 			IssueClearCommands( {cdr} )
 			IssueMove( {cdr}, runSpot )
 
-            WaitTicks(80)
+            WaitTicks(75)
 		
             plat:SetAIPlan('ReturnToBaseAI',aiBrain)		
         end
@@ -824,7 +826,7 @@ function CDREnhance( self, aiBrain )
 				
 					repeat
 				
-						WaitTicks(100)
+						WaitTicks(75)
 					
 					until not IsUnitState(unit,'Enhancing') or unit.Dead 
 				end
@@ -948,10 +950,7 @@ function AirScoutingAI( self, aiBrain )
 				if PlatoonExists(aiBrain, self) and units then
 		
 					self:Stop()
-		
-					local lastpos = scoutposition
-					local pathSize = LOUDGETN(path)
-			
+
 					for widx,waypointPath in path do
 
                         IssueMove( units, waypointPath)
@@ -972,8 +971,8 @@ function AirScoutingAI( self, aiBrain )
 	
 	local targetArea, vec, mustScoutArea, mustScoutIndex
 
-	-- this basically limits all air scout platoons to about 15 minutes of work -- rather should use MISSIONTIMER from platoondata
-    while PlatoonExists(aiBrain, self) and (LOUDTIME() - self.CreationTime <= 900) do
+	-- this basically limits all air scout platoons to about 20 minutes of work -- rather should use MISSIONTIMER from platoondata
+    while PlatoonExists(aiBrain, self) and (LOUDTIME() - self.CreationTime <= 1200) do
 
 		for _,v in GetPlatoonUnits(self) do
 			if not v.Dead then
@@ -1082,10 +1081,8 @@ function AirScoutingAI( self, aiBrain )
 				aiBrain.IL.LastAirScoutHi = false
 				aiBrain.IL.LastAirScoutHiCount = 0
 			end
-			
-			local prioritylist = aiBrain.IL.LowPri
 
-			for k,v in prioritylist do
+			for k,v in aiBrain.IL.LowPri do
 
                 if IsCurrentlyScouted( v.Position ) then
                     aiBrain.IL.LowPri[k].LastScouted = LOUDTIME()
@@ -6933,32 +6930,6 @@ function AirLandToggleThread(unit, aiBrain)
     end
 end
 
---	Finds the experiemental unit in the platoon (assumes platoons are only experimentals)
---	Assigns any extra experimentals to guard the first
-function GetExperimentalUnit( platoon )
-
-    local unit = nil
-	
-    for _,v in GetPlatoonUnits(platoon) do
-	
-		if not v.Dead and unit then
-		
-			IssueGuard( {v}, unit )
-			
-		end
-		
-        if not v.Dead and not unit then
-		
-            unit = v
-			
-        end
-		
-    end
-	
-    return unit
-	
-end
-
 
 --	Table: SurfacePriorities AKA "Your stuff just got wrecked" priority list.
 --	Provides a list of target priorities an experimental should use when
@@ -6998,13 +6969,6 @@ local SurfacePriorities = {
 
 }
 
--- Sets the experimental's land weapon target priorities to the SurfacePriorities table.
-function AssignExperimentalPriorities( platoon )
-	local experimental = GetExperimentalUnit(platoon)
-	if experimental then
-    	experimental:SetTargetPriorities( SurfacePriorities )
-	end
-end
 
 function AssignArtilleryPriorities( platoon )
 	
@@ -7014,44 +6978,6 @@ function AssignArtilleryPriorities( platoon )
 		end
 	end
 end
-
--- this is an old function - given a base position -- loop thru the SurfacePriorities looking
--- for a target - if there are more than 5 priority targets at the base then return a unit and the base
--- otherwise we return nil ?  Strange....so this basically avoids a base until there are more than 5
--- priority targets at it...
-function WreckBase( self, base )   
-
-	local weaponrange = GetExperimentalUnit(self):GetWeapon(1):GetBlueprint().MaxRadius
-	local aiBrain = self:GetAIBrain()
-	
-    for _, priority in SurfacePriorities do
-	
-        local numUnitsAtBase = 0
-        local notDeadUnit = false
-		
-        local unitsAtBase = aiBrain:GetUnitsAroundPoint(ParseEntityCategory(priority), base.Position, weaponrange - 2, 'Enemy')
-		
-		if unitsAtBase and LOUDGETN(unitsAtBase) > 5 then
-		
-			for _,unit in unitsAtBase do
-				if not unit.Dead then
-					notDeadUnit = unit
-					numUnitsAtBase = numUnitsAtBase + 1
-				end
-			end        
-        
-			if numUnitsAtBase > 5 then
-				return notDeadUnit, base
-			end
-			
-		end
-		
-    end
-	
-	return nil, nil
-	
-end
-
 
 -- Using it's PrioritizeCategories list, loop thru the HiPri list looking for the target
 -- with the most number of targets.
@@ -7343,245 +7269,6 @@ function FindLandExperimentalTargetLOUD( self, aiBrain )
 	
 end
 
---	Goes through the SurfacePriorities table looking for the enemy base (high priority scouting location. See ScoutingAI in platoon.lua) 
---	with the most number of the highest priority targets.
---	Returns:  target unit, target base, else nil
-function FindNavalExperimentalTargetLOUD( self )
-
-    local aiBrain = self:GetAIBrain()
-    local enemyBases = aiBrain.IL.HiPri
-	
-	local mapSizeX = ScenarioInfo.size[1]
-	local mapSizeZ = ScenarioInfo.size[2]
-	local mapsize = LOUDSQUARE( (mapSizeX * mapSizeX) + (mapSizeZ * mapSizeZ) )  # maximum possible distance on this map
-	local myPos = self:GetPlatoonPosition()
-	
-	local enemythreattype = 'AntiSurface'	
-	
-	if self.MovementLayer == 'Air' then
-		enemythreattype = 'AntiAir'
-	end
-	
-	local mythreat = GetThreatOfUnits(self)		--import('/lua/ai/aiattackutilities.lua').GetThreatOfUnits(self)
-	
-    local bestBase = false
-    local bestTotal = 0
-    local bestUnit = false
-   
-    if not aiBrain.IL or not aiBrain.IL.HiPri then
-		LOG("*AI DEBUG FindNavalExperimentalTarget says it has no interest list")
-        return
-    end
-    
-	for _, base in enemyBases do
-	
-		if not LocationInWaterCheck(base.Position) then
-			continue #break
-		end
-	
-		local distance = LOUDV3( myPos, base.Position )
-		local RangeModifier = math.log10( mapsize/distance)
-		
-		local numUnitsAtBase = 0
-		
-		local surfacethreat = 0
-		local airthreat = 0
-		
-		local targetthreat = 0
-		local threatfactor = 0
-		
-		local notDeadUnit = false
-		
-        for _, priority in SurfacePriorities do
-
-            local unitsAtBase = aiBrain:GetUnitsAroundPoint( ParseEntityCategory(priority), base.Position, 60, 'Enemy')
-            
-            for _,unit in unitsAtBase do
-                if not unit.Dead and unit:GetPosition() then
-                    notDeadUnit = unit
-					numUnitsAtBase = numUnitsAtBase + 1
-                end
-            end
-		end
-		
-		targetthreat = 0
-		
-		if self.MovementLayer == 'Air' then
-			targetthreat = base.AirThreat
-		else
-			targetthreat = base.SurThreat
-		end
-		
-		if targetthreat > 1 then
-			threatfactor = mythreat/targetthreat
-		else
-			threatfactor = 10
-		end
-		
-		if threatfactor < .1 then
-			threatfactor = .1
-		elseif threatfactor > 10 then
-			threatfactor = 10
-		end
-		
-		if numUnitsAtBase > 10 then
-			numUnitsAtBase = 10
-		end
-		
-		numUnitsAtBase = (numUnitsAtBase * threatfactor) * RangeModifier
-
-        if numUnitsAtBase > bestTotal then
-            bestBase = base
-            bestTotal = numUnitsAtBase
-            bestUnit = notDeadUnit
-        end
-	end
-
-    if bestBase and bestUnit then
-        return bestUnit, bestBase
-    end
-	
-	return false, false
-	
-end
-
--- Generic experimental AI. Find closest HiPriTarget and go attack it. 
---[[
-function BehemothBehavior(self)   
-
-    local aiBrain = self:GetAIBrain()
-    local experimental = GetExperimentalUnit(self)
-	
-	local markerlist = false
-	local patrolling = false
-	
-	LOG("*AI DEBUG Behemoth Behavior starts")
-	
-    #AssignExperimentalPriorities(self)
-	
-	local targetlist = import('/lua/ai/altaiutilities.lua').GetHiPriTargetList(aiBrain, experimental:GetPosition() )
-	local target = false
-	local targetLocation = false
-    local oldTargetLocation = false
-	local targetvalue = 9999999
-	
-	LOUDSORT(targetlist, function(a,b) return a.Distance < b.Distance end )
-
-	for _, Target in targetlist do
-	
-		if LocationInWaterCheck(Target.Position) then
-			continue # skip water targets
-		end
-
-		local distancefactor = aiBrain.dist_comp/Target.Distance   # makes closer targets more valuable
-		
-		local sthreat = Target.Threats.Sur
-		local ethreat = Target.Threats.Eco
-		local mythreat = GetThreatOfUnits(self)		--import('/lua/ai/aiattackutilities.lua').GetThreatOfUnits(self)
-		
-		if sthreat > mythreat then
-			sthreat = mythreat
-		end
-		if ethreat > mythreat then
-			ethreat = mythreat
-		end
-		
-		local allthreat = sthreat + ethreat
-		
-		local value = LOUDFLOOR( allthreat * distancefactor ) 
-		
-		if value < targetvalue and value > 0 then
-			target = Target
-			targetvalue = value
-			targetLocation = Target.Position
-		end
-	end
-
-    while not experimental.Dead do
-
-        if (targetLocation) and experimental:GetHealthPercent() > .75 then
-		
-            IssueClearCommands({experimental})
-			
-			local path, reason = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, 'Amphibious', self:GetPlatoonPosition(), targetLocation, 150, 200)
-
-			if path then
-				local pathsize = LOUDGETN(path)
-				
-				for waypoint,p in path do
-					if LocationInWaterCheck(p) then
-						self:MoveToLocation( p, false )
-					else
-						self:AggressiveMoveToLocation( p )
-					end
-				end
-			else
-				self:AggressiveMoveToLocation( targetLocation )
-			end
-			
-            IssueAggressiveMove({experimental}, targetLocation) 
-			patrolling = false
-			
-			while LOUDV3( experimental:GetPosition(), targetLocation ) > 10 and not experimental.Dead and experimental:GetHealthPercent() > .42 do
-				WaitTicks(20)
-				pos = experimental:GetPosition()
-			end
-			
-            while not experimental.Dead and experimental:GetHealthPercent() > .42 and WreckBase( self, target ) and not InWaterCheck(self) do
-				LOG("*AI DEBUG Behemoth cleansing target area")
-				WaitTicks(20)
-            end
-		
-        elseif not targetLocation or experimental:GetHealthPercent() <= .75 then
-
-			if not patrolling then
-				IssueClearCommands({experimental})
-				self:ForkThread( self.PlatoonPatrolPointAI, aiBrain )
-				patrolling = true
-				targetLocation = nil
-			end
-		
-			while experimental:GetHealthPercent() <= .85 and not experimental.Dead do
-				WaitTicks(150)
-			end
-		end
-       
-        WaitTicks(50)
-		
-        oldTargetLocation = targetLocation
-		
-		targetlist = import('/lua/ai/altaiutilities.lua').GetHiPriTargetList(aiBrain, experimental:GetPosition() )
-		target = false
-		targetLocation = false
-		targetvalue = 9999999
-	
-		LOUDSORT(targetlist, function(a,b) return a.Distance < b.Distance end )
-
-		for _, Target in targetlist do
-	
-			if LocationInWaterCheck(Target.Position) and self.MovementLayer != 'Air' then
-				continue # skip water targets
-			end
-
-			distancefactor = aiBrain.dist_comp/Target.Distance   # makes closer targets more valuable
-		
-			allthreat = Target.Threats.Sur + Target.Threats.Eco
-		
-			value = LOUDFLOOR( allthreat * distancefactor ) 
-		
-			if value < targetvalue and value > 0 then
-				target = Target
-				targetvalue = value
-				targetLocation = Target.Position
-			end
-		end		
-		
-		if not targetLocation then
-			LOG("*AI DEBUG Behemoth - no target")
-		end
-    end
-end
---]]
 
 -- =======================
 -- CZAR Behaviour - SORIAN
@@ -7784,137 +7471,6 @@ ExpPathToLocation = function(aiBrain, platoon, layer, dest, aggro, markerdist)
 end
 
 
---	Finds the commander first, or a high economic threat that has a lot of units
---  Good for AoE type attacks
---	Returns:  position of best place to attack, nil when nothing found
-function GetHighestThreatClusterLocation( aiBrain, experimental )
-
-    if not aiBrain or not experimental then
-        return nil
-    end
-	
-    if not aiBrain.IL or not aiBrain.IL.HiPri then
-		LOG("*AI DEBUG HighestCluster calling to HighestThreat Economy")
-        return aiBrain:GetHighestThreatPosition( 0, true, 'Economy' )
-    end
-    
-    local position = experimental:GetPosition()
-    local threatlist = aiBrain.IL.HiPri
-	local targetlist = {}
-	
-	local LOUDFLOOR = math.floor
-	local LOUDGETN = table.getn
-	local LOUDV3 = VDist3
-    
-	local GetNumUnitsAroundPoint = moho.aibrain_methods.GetNumUnitsAroundPoint
-    local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
-	local GetBlueprint = moho.entity_methods.GetBlueprint
-	
-    for _,threat in threatlist do
-	
-		local targets = GetUnitsAroundPoint( aiBrain, categories.ALLUNITS - categories.WALL, threat.Position, 64, 'Enemy')
-
-		local airthreat = 0
-		local ecothreat = 0
-		local subthreat = 0
-		local surthreat = 0
-		
-		for _, target in targets do
-			if not target.Dead then
-                local bp = __blueprints[target.BlueprintID].Defense
-				airthreat = airthreat + bp.AirThreatLevel
-				ecothreat = ecothreat + bp.EconomyThreatLevel
-				subthreat = subthreat + bp.SubThreatLevel
-				surthreat = surthreat + bp.SurfaceThreatLevel
-			end
-		end
-		
-		local antinukes = GetNumUnitsAroundPoint( aiBrain, categories.ANTIMISSILE * categories.SILO * categories.TECH3, threat.Position, 90, 'Enemy')
-		
-		local distance = LOUDFLOOR( LOUDV3(position, threat.Position) )
-		
-		local distancefactor = ScenarioInfo.size[1]/distance   -- makes closer targets more valuable
-		
-		local allthreat = ecothreat + subthreat + surthreat + airthreat
-		
-		if allthreat > 0 then
-			value = LOUDFLOOR( (allthreat / ((antinukes * 2) + 1) ) * distancefactor )
-			LOUDINSERT(targetlist, { Position = threat.Position, Value = value, Distance = distance, AirThreat = airthreat, EcoThreat = ecothreat, SubThreat = subthreat, SurThreat = surthreat, Antinukes = LOUDGETN(antinukes), } )
-		end
-		
-    end  
-	
-	if LOUDGETN(targetlist) > 0 then
-		LOUDSORT(targetlist, function(a,b) return a.Value > b.Value end)
-		#LOG("*AI DEBUG Target List reported as " .. repr(targetlist) )
-	end
-	
-    local enemyBases = aiBrain.IL.HiPri
-    local bestBaseThreat = nil
-    local maxBaseThreat = 0
-	
-	#LOG("*AI DEBUG HighestCluster checking highpriority positions")
-	
-    for k,base in enemyBases do
-		#LOG("*AI DEBUG Base reported as " .. repr(base) )
-	
-		local OverallThreat = aiBrain:GetThreatAtPosition( base.Position, 2, true, 'Overall' )
-
-		#LOG("*AI DEBUG Threat " .. k .. " has a value of " .. OverallThreat)
-		
-		local antinukes = GetNumUnitsAroundPoint( aiBrain, categories.ANTIMISSILE * categories.SILO * categories.TECH3, base.Position, 90, 'Enemy')
-
-		local antink = antinukes + 1
-		#LOG("*AI DEBUG Found " .. antink .. " antinukes")			
-		
-		if (OverallThreat / antink ) > maxBaseThreat then
-		
-			maxBaseThreat = OverallThreat / antink
-			bestBaseThreat = base.Position
-			
-		end
-		
-    end
-    
-    if not bestBaseThreat then
-		#LOG("*AI DEBUG HighestCluster finds no bestbase threat")
-		WaitTicks(50)
-        return
-    else
-		#LOG("*AI DEBUG Nuke targeting " .. repr( bestBaseThreat ) )
-	end
-    
-    local maxUnits = -1
-    local maxThreat = 0
-    local bestThreat = 1
-	
-	#LOG("*AI DEBUG Scenario Size reported as " .. ScenarioInfo.size[1])
-    
-    if bestBaseThreat then
-        local bestPos = {0,0,0}
-        local maxUnits = 0
-        local lookAroundTable = {-4,-2,0,2,4}
-        local squareRadius = (ScenarioInfo.size[1] / 16) / LOUDGETN(lookAroundTable)
-		
-        for ix, offsetX in lookAroundTable do
-		
-            for iz, offsetZ in lookAroundTable do
-                local unitsAtLocation = GetUnitsAroundPoint( aiBrain, ParseEntityCategory('ALLUNITS'), {bestBaseThreat[1] + offsetX*squareRadius, 0, bestBaseThreat[3] +offsetZ*squareRadius}, squareRadius, 'Enemy')
-                local numUnits = LOUDGETN(unitsAtLocation)
-				
-                if numUnits > maxUnits then
-				    maxUnits = numUnits
-                    bestPos = LOUDCOPY(unitsAtLocation[1]:GetPosition())
-                end
-            end
-        end
-        
-        if bestPos[1] != 0 and bestPos[3] != 0 then
-            return bestPos
-        end
-    end
-    return nil    
-end
 
 -- returns true if the platoon is presently in the water
 function InWaterCheck(platoon)
@@ -7931,6 +7487,319 @@ end
 
 
 --[[
+
+-- this is an old function - given a base position -- loop thru the SurfacePriorities looking
+-- for a target - if there are more than 5 priority targets at the base then return a unit and the base
+-- otherwise we return nil ?  Strange....so this basically avoids a base until there are more than 5
+-- priority targets at it...
+function WreckBase( self, base )   
+
+	local weaponrange = GetExperimentalUnit(self):GetWeapon(1):GetBlueprint().MaxRadius
+	local aiBrain = self:GetAIBrain()
+	
+    for _, priority in SurfacePriorities do
+	
+        local numUnitsAtBase = 0
+        local notDeadUnit = false
+		
+        local unitsAtBase = aiBrain:GetUnitsAroundPoint(ParseEntityCategory(priority), base.Position, weaponrange - 2, 'Enemy')
+		
+		if unitsAtBase and LOUDGETN(unitsAtBase) > 5 then
+		
+			for _,unit in unitsAtBase do
+				if not unit.Dead then
+					notDeadUnit = unit
+					numUnitsAtBase = numUnitsAtBase + 1
+				end
+			end        
+        
+			if numUnitsAtBase > 5 then
+				return notDeadUnit, base
+			end
+			
+		end
+		
+    end
+	
+	return nil, nil
+	
+end
+
+--	Finds the experiemental unit in the platoon (assumes platoons are only experimentals)
+--	Assigns any extra experimentals to guard the first
+function GetExperimentalUnit( platoon )
+
+    local unit = nil
+	
+    for _,v in GetPlatoonUnits(platoon) do
+	
+		if not v.Dead and unit then
+		
+			IssueGuard( {v}, unit )
+			
+		end
+		
+        if not v.Dead and not unit then
+		
+            unit = v
+			
+        end
+		
+    end
+	
+    return unit
+	
+end
+
+-- Sets the experimental's land weapon target priorities to the SurfacePriorities table.
+function AssignExperimentalPriorities( platoon )
+	local experimental = GetExperimentalUnit(platoon)
+	if experimental then
+    	experimental:SetTargetPriorities( SurfacePriorities )
+	end
+end
+
+-- Generic experimental AI. Find closest HiPriTarget and go attack it. 
+function BehemothBehavior(self)   
+
+    local aiBrain = self:GetAIBrain()
+    local experimental = GetExperimentalUnit(self)
+	
+	local markerlist = false
+	local patrolling = false
+	
+	LOG("*AI DEBUG Behemoth Behavior starts")
+	
+    #AssignExperimentalPriorities(self)
+	
+	local targetlist = import('/lua/ai/altaiutilities.lua').GetHiPriTargetList(aiBrain, experimental:GetPosition() )
+	local target = false
+	local targetLocation = false
+    local oldTargetLocation = false
+	local targetvalue = 9999999
+	
+	LOUDSORT(targetlist, function(a,b) return a.Distance < b.Distance end )
+
+	for _, Target in targetlist do
+	
+		if LocationInWaterCheck(Target.Position) then
+			continue # skip water targets
+		end
+
+		local distancefactor = aiBrain.dist_comp/Target.Distance   # makes closer targets more valuable
+		
+		local sthreat = Target.Threats.Sur
+		local ethreat = Target.Threats.Eco
+		local mythreat = GetThreatOfUnits(self)		--import('/lua/ai/aiattackutilities.lua').GetThreatOfUnits(self)
+		
+		if sthreat > mythreat then
+			sthreat = mythreat
+		end
+		if ethreat > mythreat then
+			ethreat = mythreat
+		end
+		
+		local allthreat = sthreat + ethreat
+		
+		local value = LOUDFLOOR( allthreat * distancefactor ) 
+		
+		if value < targetvalue and value > 0 then
+			target = Target
+			targetvalue = value
+			targetLocation = Target.Position
+		end
+	end
+
+    while not experimental.Dead do
+
+        if (targetLocation) and experimental:GetHealthPercent() > .75 then
+		
+            IssueClearCommands({experimental})
+			
+			local path, reason = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, 'Amphibious', self:GetPlatoonPosition(), targetLocation, 150, 200)
+
+			if path then
+				local pathsize = LOUDGETN(path)
+				
+				for waypoint,p in path do
+					if LocationInWaterCheck(p) then
+						self:MoveToLocation( p, false )
+					else
+						self:AggressiveMoveToLocation( p )
+					end
+				end
+			else
+				self:AggressiveMoveToLocation( targetLocation )
+			end
+			
+            IssueAggressiveMove({experimental}, targetLocation) 
+			patrolling = false
+			
+			while LOUDV3( experimental:GetPosition(), targetLocation ) > 10 and not experimental.Dead and experimental:GetHealthPercent() > .42 do
+				WaitTicks(20)
+				pos = experimental:GetPosition()
+			end
+			
+            while not experimental.Dead and experimental:GetHealthPercent() > .42 and WreckBase( self, target ) and not InWaterCheck(self) do
+				LOG("*AI DEBUG Behemoth cleansing target area")
+				WaitTicks(20)
+            end
+		
+        elseif not targetLocation or experimental:GetHealthPercent() <= .75 then
+
+			if not patrolling then
+				IssueClearCommands({experimental})
+				self:ForkThread( self.PlatoonPatrolPointAI, aiBrain )
+				patrolling = true
+				targetLocation = nil
+			end
+		
+			while experimental:GetHealthPercent() <= .85 and not experimental.Dead do
+				WaitTicks(150)
+			end
+		end
+       
+        WaitTicks(50)
+		
+        oldTargetLocation = targetLocation
+		
+		targetlist = import('/lua/ai/altaiutilities.lua').GetHiPriTargetList(aiBrain, experimental:GetPosition() )
+		target = false
+		targetLocation = false
+		targetvalue = 9999999
+	
+		LOUDSORT(targetlist, function(a,b) return a.Distance < b.Distance end )
+
+		for _, Target in targetlist do
+	
+			if LocationInWaterCheck(Target.Position) and self.MovementLayer != 'Air' then
+				continue # skip water targets
+			end
+
+			distancefactor = aiBrain.dist_comp/Target.Distance   # makes closer targets more valuable
+		
+			allthreat = Target.Threats.Sur + Target.Threats.Eco
+		
+			value = LOUDFLOOR( allthreat * distancefactor ) 
+		
+			if value < targetvalue and value > 0 then
+				target = Target
+				targetvalue = value
+				targetLocation = Target.Position
+			end
+		end		
+		
+		if not targetLocation then
+			LOG("*AI DEBUG Behemoth - no target")
+		end
+    end
+end
+--]]
+
+
+--[[
+--	Goes through the SurfacePriorities table looking for the enemy base (high priority scouting location. See ScoutingAI in platoon.lua) 
+--	with the most number of the highest priority targets.
+--	Returns:  target unit, target base, else nil
+function FindNavalExperimentalTargetLOUD( self )
+
+    local aiBrain = self:GetAIBrain()
+    local enemyBases = aiBrain.IL.HiPri
+	
+	local mapSizeX = ScenarioInfo.size[1]
+	local mapSizeZ = ScenarioInfo.size[2]
+	local mapsize = LOUDSQUARE( (mapSizeX * mapSizeX) + (mapSizeZ * mapSizeZ) )  # maximum possible distance on this map
+	local myPos = self:GetPlatoonPosition()
+	
+	local enemythreattype = 'AntiSurface'	
+	
+	if self.MovementLayer == 'Air' then
+		enemythreattype = 'AntiAir'
+	end
+	
+	local mythreat = GetThreatOfUnits(self)		--import('/lua/ai/aiattackutilities.lua').GetThreatOfUnits(self)
+	
+    local bestBase = false
+    local bestTotal = 0
+    local bestUnit = false
+   
+    if not aiBrain.IL or not aiBrain.IL.HiPri then
+		LOG("*AI DEBUG FindNavalExperimentalTarget says it has no interest list")
+        return
+    end
+    
+	for _, base in enemyBases do
+	
+		if not LocationInWaterCheck(base.Position) then
+			continue #break
+		end
+	
+		local distance = LOUDV3( myPos, base.Position )
+		local RangeModifier = math.log10( mapsize/distance)
+		
+		local numUnitsAtBase = 0
+		
+		local surfacethreat = 0
+		local airthreat = 0
+		
+		local targetthreat = 0
+		local threatfactor = 0
+		
+		local notDeadUnit = false
+		
+        for _, priority in SurfacePriorities do
+
+            local unitsAtBase = aiBrain:GetUnitsAroundPoint( ParseEntityCategory(priority), base.Position, 60, 'Enemy')
+            
+            for _,unit in unitsAtBase do
+                if not unit.Dead and unit:GetPosition() then
+                    notDeadUnit = unit
+					numUnitsAtBase = numUnitsAtBase + 1
+                end
+            end
+		end
+		
+		targetthreat = 0
+		
+		if self.MovementLayer == 'Air' then
+			targetthreat = base.AirThreat
+		else
+			targetthreat = base.SurThreat
+		end
+		
+		if targetthreat > 1 then
+			threatfactor = mythreat/targetthreat
+		else
+			threatfactor = 10
+		end
+		
+		if threatfactor < .1 then
+			threatfactor = .1
+		elseif threatfactor > 10 then
+			threatfactor = 10
+		end
+		
+		if numUnitsAtBase > 10 then
+			numUnitsAtBase = 10
+		end
+		
+		numUnitsAtBase = (numUnitsAtBase * threatfactor) * RangeModifier
+
+        if numUnitsAtBase > bestTotal then
+            bestBase = base
+            bestTotal = numUnitsAtBase
+            bestUnit = notDeadUnit
+        end
+	end
+
+    if bestBase and bestUnit then
+        return bestUnit, bestBase
+    end
+	
+	return false, false
+	
+end
+
 function FatBoyBehavior(self, aiBrain)   
 
     local experimental = GetExperimentalUnit(self)
