@@ -1,3 +1,18 @@
+### Release 05-03-2021 ###
+Lua 5.4.10
+LOUD Misc 5.4.3
+
+- In the lobby, calculate and show how much total unit cap the match will have.
+- Improvements to camera zooming using the keyboard.
+ |--> Zoom In, Zoom Out, and the "Fast" versions of both are no longer unusably slow at high zooms.
+ |--> A setting under Interface, determining if Reset Camera only resets the camera, or toggles between a reset overview and the last camera position.
+- The "Reclaim Everything Around Cursor" keybind now works in a slightly larger rectangle, and won't try to reclaim living units.
+- AI: Let engineers build mass extractors on mass and naval defensive points.
+- AI: Minor numerical tweaks to ACU behaviour and intel parsing.
+- Fix certain unit construction tooltips having a comma between "Tactical" and "Missile".
+- Fix a bug preventing control group icons (right side of screen) from appearing.
+ |--> This also fixes the game failing to load saves with control groups in them.
+
 ### Release 26-02-2021 ###
 Lua 5.4.09
 LOUD Misc 5.4.2
