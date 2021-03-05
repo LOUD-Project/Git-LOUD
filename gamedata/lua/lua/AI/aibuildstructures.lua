@@ -5,13 +5,12 @@ local import = import
 local BaseTemplates = import('/lua/basetemplates.lua').BaseTemplates
 local BuildingTemplates = import('/lua/buildingtemplates.lua').BuildingTemplates
 
+local LOUDGETN = table.getn
 local LOUDINSERT = table.insert
+local LOUDSORT = table.sort
 
 
 function AddToBuildQueue(aiBrain, eng, whatToBuild, buildLocation, relative)
-
-    --LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." adding "..repr(whatToBuild).." at location "..repr(buildLocation))
-    
     LOUDINSERT(eng.EngineerBuildQueue, { whatToBuild, buildLocation } )
 end
 
@@ -57,10 +56,7 @@ function AIExecuteBuildStructure( aiBrain, engineer, buildingType, closeToBuilde
         --location = aiBrain:FindPlaceToBuild( buildingType, whatToBuild, baseTemplate, relative, engineer, 'Enemy', SourcePosition[1], SourcePosition[3], constructionData.ThreatMax or 7.5)	
     
         local AIUtils = '/lua/ai/aiutilities.lua'
-    
-        --LOG("*AI DEBUG Construction Data for "..repr(buildingType).." is "..repr(constructionData))
-        --LOG("*AI DEBUG Source position is "..repr(SourcePosition))
-        
+
         local testunit = 'ueb1102'  -- Hydrocarbon
         local testtype = 'Hydrocarbon'
         
@@ -81,7 +77,7 @@ function AIExecuteBuildStructure( aiBrain, engineer, buildingType, closeToBuilde
         local tRings = constructionData.ThreatRings or 0
         local tType = constructionData.ThreatType or 'AntiSurface'
         
-        table.sort( markerlist, function (a,b) return VDist3( a.Position, SourcePosition ) < VDist3( b.Position, SourcePosition ) end )
+        LOUDSORT( markerlist, function (a,b) return VDist3( a.Position, SourcePosition ) < VDist3( b.Position, SourcePosition ) end )
 
 		local CanBuildStructureAt = moho.aibrain_methods.CanBuildStructureAt
     
@@ -103,16 +99,13 @@ function AIExecuteBuildStructure( aiBrain, engineer, buildingType, closeToBuilde
 		end
 		
 		if counter > 0 then
-        
-            --LOG("*AI DEBUG Markers in range are "..repr(mlist))
             
 			local markerTable = import(AIUtils).AISortMarkersFromLastPosWithThreatCheck(aiBrain, mlist, 3, tMin, tMax, tRings, tType, SourcePosition)
 
 			if markerTable then
-            
-                --LOG("*AI DEBUG MarkerTable is "..repr(markerTable))
-                
-				location = table.copy( markerTable[1] )
+
+                -- pick one of the points randomly
+				location = table.copy( markerTable[ Random(1,LOUDGETN(markerTable)) ] )
             end
 		end	
 
@@ -129,14 +122,13 @@ function AIExecuteBuildStructure( aiBrain, engineer, buildingType, closeToBuilde
  	
             relativeLoc = { location[1], 0, location[3] }
 
-            --LOG("*AI DEBUG Distance to location "..repr(location).." is "..repr(VDist3( SourcePosition, location )) )
-
             relative = false
         
             location = {relativeLoc[1],relativeLoc[3]}
         
             if constructionData.LoopBuild then
-                -- loop builders have minimum range 
+            
+                -- loop builders have minimum range to start with
                 -- reduced after first build
                 constructionData.MinRange = 0
             end
