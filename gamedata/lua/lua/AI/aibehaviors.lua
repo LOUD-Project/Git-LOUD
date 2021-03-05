@@ -649,6 +649,8 @@ function CDRReturnHome( aiBrain, cdr, Mult )
 		
 		IssueClearCommands( {cdr} )
 		IssueMove( {cdr}, cdr.CDRHome )
+        
+        WaitTicks(75)
 		
 		plat:SetAIPlan('ReturnToBaseAI',aiBrain)
 		
@@ -700,7 +702,7 @@ function CDRHideBehavior( aiBrain, cdr )
 	    
         local category = false
 		
-		local nmaShield = aiBrain:GetNumUnitsAroundPoint( categories.SHIELD, cdr.CDRHome, 80, 'Ally' )
+		local nmaShield = aiBrain:GetNumUnitsAroundPoint( categories.SHIELD, cdr.CDRHome, 100, 'Ally' )
 		local nmaAA = aiBrain:GetNumUnitsAroundPoint( categories.ANTIAIR * categories.DEFENSE, cdr.CDRHome, 80, 'Ally' )
         local nmaDF = aiBrain:GetNumUnitsAroundPoint( categories.DIRECTFIRE, cdr.CDRHome, 80, 'Ally' )
 		
@@ -735,12 +737,12 @@ function CDRHideBehavior( aiBrain, cdr )
 		
             IssueClearCommands( {cdr} )		
 		
-			runSpot = import('/lua/ai/altaiutilities.lua').AIFindDefensiveAreaSorian( aiBrain, cdr, category, 80, runShield )
+			runSpot = import('/lua/ai/altaiutilities.lua').AIFindDefensiveAreaSorian( aiBrain, cdr, category, 100, runShield )
 			
 			IssueClearCommands( {cdr} )
 			IssueMove( {cdr}, runSpot )
 
-            WaitTicks(80)
+            WaitTicks(75)
 		
             plat:SetAIPlan('ReturnToBaseAI',aiBrain)		
         end
@@ -824,7 +826,7 @@ function CDREnhance( self, aiBrain )
 				
 					repeat
 				
-						WaitTicks(100)
+						WaitTicks(75)
 					
 					until not IsUnitState(unit,'Enhancing') or unit.Dead 
 				end
@@ -948,10 +950,7 @@ function AirScoutingAI( self, aiBrain )
 				if PlatoonExists(aiBrain, self) and units then
 		
 					self:Stop()
-		
-					local lastpos = scoutposition
-					local pathSize = LOUDGETN(path)
-			
+
 					for widx,waypointPath in path do
 
                         IssueMove( units, waypointPath)
