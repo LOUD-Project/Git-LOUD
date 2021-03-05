@@ -971,8 +971,8 @@ function AirScoutingAI( self, aiBrain )
 	
 	local targetArea, vec, mustScoutArea, mustScoutIndex
 
-	-- this basically limits all air scout platoons to about 15 minutes of work -- rather should use MISSIONTIMER from platoondata
-    while PlatoonExists(aiBrain, self) and (LOUDTIME() - self.CreationTime <= 900) do
+	-- this basically limits all air scout platoons to about 20 minutes of work -- rather should use MISSIONTIMER from platoondata
+    while PlatoonExists(aiBrain, self) and (LOUDTIME() - self.CreationTime <= 1200) do
 
 		for _,v in GetPlatoonUnits(self) do
 			if not v.Dead then
@@ -1081,10 +1081,8 @@ function AirScoutingAI( self, aiBrain )
 				aiBrain.IL.LastAirScoutHi = false
 				aiBrain.IL.LastAirScoutHiCount = 0
 			end
-			
-			local prioritylist = aiBrain.IL.LowPri
 
-			for k,v in prioritylist do
+			for k,v in aiBrain.IL.LowPri do
 
                 if IsCurrentlyScouted( v.Position ) then
                     aiBrain.IL.LowPri[k].LastScouted = LOUDTIME()
