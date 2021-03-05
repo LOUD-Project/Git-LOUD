@@ -2797,6 +2797,8 @@ function ReturnTransportsToPool( aiBrain, units, move )
                 if baseposition then
                     x = baseposition[1]
                     z = baseposition[3]
+                else
+                    return
                 end
 
                 local position = AIUtils.RandomLocation(x,z)

@@ -162,8 +162,6 @@ function FindClosestBaseName( aiBrain, position, allownavalbases, onlynavalbases
 			end
 		end
     end
-    
-    --LOG("*AI DEBUG "..aiBrain.Nickname.." FindClosestBase says "..repr(closest).." from position "..repr(position))
 
     return closest
 end
@@ -171,15 +169,12 @@ end
 -- Sorts the list of scouting areas by time since scouted, and then distance from main base.
 function AISortScoutingAreas( aiBrain, list )
 
-    local MainX = aiBrain.StartPosX
-	local MainZ = aiBrain.StartPosZ
-	
     LOUDSORT( list, function(a,b)	
 	
 		if a.LastScouted and b.LastScouted then
 		
 			if a.LastScouted == b.LastScouted then
-				return VDist2Sq(MainX, MainZ, a.Position[1], a.Position[3]) < VDist2Sq(MainX, MainZ, b.Position[1], b.Position[3])
+				return VDist2Sq(aiBrain.StartPosX, aiBrain.StartPosZ, a.Position[1], a.Position[3]) < VDist2Sq(aiBrain.StartPosX, aiBrain.StartPosZ, b.Position[1], b.Position[3])
 			else
 				return a.LastScouted < b.LastScouted
 			end
@@ -471,7 +466,7 @@ function SpawnWaveThread( aiBrain )
 	
 		local T3AirFacs = aiBrain:GetListOfUnits( categories.AIR * categories.FACTORY * categories.TECH3, false )
 		
-		if table.getn(T3AirFacs) > 0 then
+		if LOUDGETN(T3AirFacs) > 0 then
 		
 			for _,v in T3AirFacs do
 
@@ -493,7 +488,7 @@ function SpawnWaveThread( aiBrain )
 		local T3AirFacs = aiBrain:GetListOfUnits( categories.AIR * categories.FACTORY * categories.TECH3, false )
 	
         -- the spawnwave cannot happen unless a T3 Air Factory is present
-		if table.getn(T3AirFacs) == 0 then
+		if LOUDGETN(T3AirFacs) == 0 then
             LOG("*AI DEBUG "..aiBrain.Nickname.." spawnwave disabled - no factory")
             WaitSeconds(120)
 			continue
@@ -587,33 +582,47 @@ function SpawnWaveThread( aiBrain )
 end
 
 function SubscribeToACT(aiBrain)
+
 	-- Purge unneeded adaptive KVP once it's consumed
 	if aiBrain.Adaptive == 2 or aiBrain.Adaptive == 4 then
 		table.insert(ratioACTBrains, aiBrain)
 	end
+    
 	if aiBrain.Adaptive == 3 or aiBrain.Adaptive == 4 then
 		table.insert(timeACTBrains, aiBrain)
 	end
+    
 	aiBrain.Adaptive = nil
 end
 
 function StartAdaptiveCheatThreads()
-	if table.getn(ratioACTBrains) > 0 then
+
+	if LOUDGETN(ratioACTBrains) > 0 then
+    
 		local str = ""
+        
 		for i, v in ratioACTBrains do
 			str = str.."\t"..v.Nickname.."\n"
 		end
+        
 		LOG("*AI DEBUG Forking ratio ACT for:\n"..str)
+        
 		ForkThread(RatioAdaptiveCheatThread)
 	end
-	if table.getn(timeACTBrains) > 0 then
+    
+	if LOUDGETN(timeACTBrains) > 0 then
+    
 		local str = ""
+        
 		for i, v in timeACTBrains do
 			str = str.."\t"..v.Nickname.."\n"
 		end
+        
 		LOG("*AI DEBUG Forking time ACT for:\n"..str)
+        
 		ForkThread(TimeAdaptiveCheatThread)
 	end
+    
 end
 
 -- The following 2 functions are courtesy of:
@@ -621,6 +630,7 @@ end
 -- - Azraeelian Angel; adaptation for LOUD
 -- - Sprouto; optimization
 function RatioAdaptiveCheatThread()
+
 	local interval = 10 * tonumber(ScenarioInfo.Options.ACTRatioInterval)
 	local scale = tonumber(ScenarioInfo.Options.ACTRatioScale)
 
@@ -633,13 +643,11 @@ function RatioAdaptiveCheatThread()
 
 	while true do
     
-		if table.getn(ratioACTBrains) < 1 then
+		if LOUDGETN(ratioACTBrains) < 1 then
 			break
 		end
 
 		WaitTicks(interval)
-        
-		--LOG("*AI DEBUG Ratio ACT cycles at "..repr(GetGameTimeSeconds()).." secs.")
 
 		-- If a brain gets unsubscribed during an update, the list of brains is
 		-- compromised, and we must stop immediately and reiterate
@@ -647,14 +655,18 @@ function RatioAdaptiveCheatThread()
 
 		local function Iterate()
         
-			for i = 1, table.getn(ratioACTBrains) do
+			for i = 1, LOUDGETN(ratioACTBrains) do
             
 				local aiBrain = ratioACTBrains[i]
                 
 				if aiBrain.Result == "defeat" then
+                
 					LOG("*AI DEBUG Unsub "..aiBrain.Nickname.." from ratio ACT: defeated")
-					table.remove(ratioACTBrains, i)
+                    
+					LOUDREMOVE(ratioACTBrains, i)
+                    
 					broke = true
+                    
 					break
 				end
 
@@ -713,23 +725,33 @@ function TimeAdaptiveCheatThread()
     
 	-- EXAMPLE: If 1.5 is the limit, -.05 is the change, and 1.1 is the base,
 	-- this check prevents mult from getting math.maxed all the way up to 1.5
-	for i = 1, table.getn(timeACTBrains) do
+	for i = 1, LOUDGETN(timeACTBrains) do
+    
 		local aiBrain = timeACTBrains[i]
+        
 		if cheatInc < 0 and cheatLimit > aiBrain.CheatValue then
+        
 			LOG("*AI DEBUG "..aiBrain.Nickname.." negative time ACT: base is below limit. Unsubscribing...")
-			table.remove(timeACTBrains, i)
+            
+			LOUDREMOVE(timeACTBrains, i)
 		end
+        
 	end
 	
 	LOG("*AI DEBUG Starting time ACT after "..startDelay.." ticks. Change: "..cheatInc.." per "..interval.." ticks. Limit: "..repr(cheatLimit))
+    
 	WaitTicks(startDelay)
+    
 	LOG("*AI DEBUG Starting time ACT now")
 	
 	while true do
-		if table.getn(timeACTBrains) < 1 then
+    
+		if LOUDGETN(timeACTBrains) < 1 then
 			break
 		end
+        
 		WaitTicks(interval)
+        
 		LOG("*AI DEBUG Time ACT cycles at "..repr(GetGameTimeSeconds()).." secs")
 
 		-- If a brain gets unsubscribed during an update, the list of brains is
@@ -737,27 +759,44 @@ function TimeAdaptiveCheatThread()
 		local broke = false
 
 		local function Iterate()
-			for i = 1, table.getn(timeACTBrains) do
+        
+			for i = 1, LOUDGETN(timeACTBrains) do
+            
 				local aiBrain = timeACTBrains[i]
+                
 				-- Between this iteration and last, AI may have been defeated,
 				-- or met/surpassed upper/lower limit. Deal with these cases
 				if aiBrain.Result == "defeat" then
+                
 					LOG("*AI DEBUG Unsub "..aiBrain.Nickname.." from time ACT: defeated")
-					table.remove(timeACTBrains, i)
+                    
+					LOUDREMOVE(timeACTBrains, i)
+                    
 					broke = true
 					break
+                    
 				elseif cheatInc < 0 and aiBrain:TotalCheat() <= cheatLimit then
+                
 					LOG("*AI DEBUG Unsub "..aiBrain.Nickname.." from time ACT: lower limit met")
+                    
 					SetArmyPoolBuff(aiBrain, math.max(cheatLimit, aiBrain:TotalCheat()))
-					table.remove(timeACTBrains, i)
+                    
+					LOUDREMOVE(timeACTBrains, i)
+                    
 					broke = true
 					break
+                    
 				elseif cheatInc > 0 and aiBrain:TotalCheat() >= cheatLimit then
+                
 					LOG("*AI DEBUG Unsub "..aiBrain.Nickname.." from time ACT: upper limit met")
+                    
 					SetArmyPoolBuff(aiBrain, math.min(cheatLimit, aiBrain:TotalCheat()))
-					table.remove(timeACTBrains, i)
+                    
+					LOUDREMOVE(timeACTBrains, i)
+                    
 					broke = true
 					break
+                    
 				end
 
 				LOG("*AI DEBUG Time ACT: "..aiBrain.Nickname.." from "..aiBrain:TotalCheat())
@@ -771,8 +810,13 @@ function TimeAdaptiveCheatThread()
 		end
 
 		Iterate()
-		if broke then Iterate() end
+        
+		if broke then
+            Iterate()
+        end
+        
 	end
+    
 	LOG("*AI DEBUG No more time ACT subscribers. Killing thread")
 end
 
@@ -877,20 +921,18 @@ end
 -- to 'stage' units nearer to threat for better response
 function DisperseUnitsToRallyPoints( aiBrain, units, position, rallypointtable, checkposition, checkcount )
 
-    --LOG("*AI DEBUG "..aiBrain.Nickname.." disperses "..table.getn(units).." units to "..repr(checkposition).." "..repr(checkcount).." positions")
-
 	if not rallypointtable then
 
 		local rallypoints = AIGetMarkersAroundLocation(aiBrain, 'Rally Point', position, 90)
 	
-		if table.getn(rallypoints) < 1 then
+		if LOUDGETN(rallypoints) < 1 then
 			rallypoints = AIGetMarkersAroundLocation(aiBrain, 'Naval Rally Point', position, 90)
 		end
 	
 		rallypointtable = {}
 		
 		for _,v in rallypoints do
-			table.insert( rallypointtable, v.Position )
+			LOUDINSERT( rallypointtable, v.Position )
 		end
 	end
 
@@ -899,9 +941,9 @@ function DisperseUnitsToRallyPoints( aiBrain, units, position, rallypointtable, 
         LOUDSORT( rallypointtable, function(a,b) return VDist2Sq(a[1],a[3],checkposition[1],checkposition[3]) < VDist2Sq(b[1],b[3], checkposition[1],checkposition[3]) end )
     end
 
-	if table.getn(rallypointtable) > 0 then
+	if LOUDGETN(rallypointtable) > 0 then
 	
-		local rallycount = table.getn(rallypointtable)
+		local rallycount = LOUDGETN(rallypointtable)
 
         -- if provided use only that number of points
         -- since the table should be sorted, we end up moving only to those
@@ -919,9 +961,9 @@ function DisperseUnitsToRallyPoints( aiBrain, units, position, rallypointtable, 
 		end
         
 	else
+    
 		-- try and catch units being dispersed to what may now be a dead base --
 		-- the idea is to drop them back into an RTB which should find another base
-		--LOG("*AI DEBUG "..aiBrain.Nickname.." DISPERSE FAIL - No rally points at "..repr(position))
 
        	IssueClearCommands( units )
 
@@ -996,9 +1038,7 @@ function SetPrimaryLandAttackBase( aiBrain )
                 path,reason,pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( aiBrain, 'PrimaryBaseFinder','Amphibious',v.Position, goal, 99999, 160)
                 
                 if path then
-                
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..v.BaseName.." finds path to "..repr(goal).." length is "..pathlength)
-                
+
                     Bases[counter+1] = { BaseName = v.BaseName, Distance = pathlength, Position = v.Position, Reason = reason }
                     counter = counter + 1
             
@@ -1006,12 +1046,17 @@ function SetPrimaryLandAttackBase( aiBrain )
                     if v.BaseName == aiBrain.PrimaryLandAttackBase then
                         currentgoaldistance = pathlength
                     end
+                    
                 else
+                
                     --LOG("*AI DEBUG "..aiBrain.Nickname.." "..v.BaseName.." finds no Amphibious path from "..repr(v.position).." to "..repr(goal))
                 end
+                
 			else
+            
                 --LOG("*AI DEBUG "..aiBrain.Nickname.." "..v.BaseName.." ignored. EM is "..repr(v.EngineerManager.Active).." BaseType is "..repr(v.BaseType))
             end
+            
         end
         
         -- if there are no choices then do nothing --
@@ -1021,18 +1066,18 @@ function SetPrimaryLandAttackBase( aiBrain )
         
 		-- sort them by shortest path distance to goal
         LOUDSORT(Bases, function(a,b) return a.Distance < b.Distance end)
-        
-        --LOG("*AI DEBUG "..aiBrain.Nickname.." table of sorted Active Land Bases is "..repr(Bases))      
-        
+
         -- a new base must be 10% closer than the existing one -- or don't change --
         if currentgoaldistance and Bases[1].Distance < (currentgoaldistance * 0.9) then
         
             -- make the closest one the Primary
             Primary = Bases[1].BaseName
+            
+            local builderManager
         
             for k,v in Bases do
 			
-                local builderManager = aiBrain.BuilderManagers[v.BaseName].PlatoonFormManager
+                builderManager = aiBrain.BuilderManagers[v.BaseName].PlatoonFormManager
 
                 -- save the primary base data, reset it's PFM
                 -- reset the Base Monitor to full alert --
@@ -1042,16 +1087,12 @@ function SetPrimaryLandAttackBase( aiBrain )
                     aiBrain.BuilderManagers[v.BaseName].PrimaryLandAttackBase = true
 
                     aiBrain.PrimaryLandAttackBase = builderManager.LocationType
-                    
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(v.BaseName).." Base Monitor Last Alert was "..repr(aiBrain.BuilderManagers[v.BaseName].EngineerManager.BaseMonitor.LastAlertTime).." seconds")
-                    
+
             		aiBrain.BuilderManagers[v.BaseName].EngineerManager.BaseMonitor.LastAlertTime = LOUDFLOOR(GetGameTimeSeconds())
 
                     -- if this is NOT already the current primary Land Attack Base
                     if not aiBrain.LastPrimaryLandAttackBase or aiBrain.LastPrimaryLandAttackBase != aiBrain.PrimaryLandAttackBase then
-					
-                        --LOG("*AI DEBUG "..aiBrain.Nickname.." PFM "..builderManager.LocationType.." Set to Primary LAND Attack Base - PathDistance is "..v.Reason.." "..v.Distance)
-					
+
                         -- reset the tasks with Priority Functions at this PFM
                         builderManager:ForkThread( ResetPFMTasks, aiBrain )
 
@@ -1061,15 +1102,22 @@ function SetPrimaryLandAttackBase( aiBrain )
                         if aiBrain.DeliverStatus then
                             ForkThread( AISendChat, 'allies', ArmyBrains[aiBrain:GetArmyIndex()].Nickname, 'My Primary LAND Base is now '..aiBrain.PrimaryLandAttackBase )
                         end
+                        
                     end
+                    
                 else
+                
                     aiBrain.BuilderManagers[v.BaseName].PrimaryLandAttackBase = false
                     builderManager:ForkThread( ClearOutBase, aiBrain )
+                    
                 end
+                
             end
+            
         else
             --LOG("*AI DEBUG "..aiBrain.Nickname.." Closest base "..Bases[1].BaseName.." Distance is "..repr(Bases[1].Distance).."  VERSUS "..repr(currentgoaldistance))
         end
+        
     end
 	
 end
@@ -1087,6 +1135,7 @@ function GetPrimaryLandAttackBase( aiBrain )
 			LOG("*AI DEBUG Returning search for PLAB "..repr(k) )
             return k, v.Position
         end
+        
     end
     
 	WARN("*AI DEBUG "..aiBrain.Nickname.." has no Primary Land Attack Base")
@@ -1143,11 +1192,13 @@ function SetPrimarySeaAttackBase( aiBrain )
         
             -- make the closest one the Primary
             Primary = Bases[1].BaseName
+            
+            local builderManager
         
             -- iterate thru all existing SEA bases
             for k,v in Bases do 	
 
-                local builderManager = aiBrain.BuilderManagers[v.BaseName].PlatoonFormManager
+                builderManager = aiBrain.BuilderManagers[v.BaseName].PlatoonFormManager
 
                 if v.BaseName == Primary then
 				
@@ -1158,9 +1209,7 @@ function SetPrimarySeaAttackBase( aiBrain )
                     -- if this is NOT already the current primary Sea Attack Base
                     -- save the current position on the brain and notify allies
                     if not aiBrain.LastPrimarySeaAttackBase or aiBrain.LastPrimarySeaAttackBase != aiBrain.PrimarySeaAttackBase then
-					
-                        --LOG("*AI DEBUG "..aiBrain.Nickname.." PFM "..builderManager.LocationType.." Set to Primary SEA ATTACK Base - PathDistance is "..repr(v.Reason).." "..repr(v.Distance))
-					
+
                         -- reset the tasks with Priority Functions at this PFM
                         builderManager:ForkThread( ResetPFMTasks, aiBrain )
                     
@@ -1170,6 +1219,7 @@ function SetPrimarySeaAttackBase( aiBrain )
                         if aiBrain.DeliverStatus then
                             ForkThread( AISendChat, 'allies', ArmyBrains[aiBrain:GetArmyIndex()].Nickname, 'My Primary SEA Base is now '..aiBrain.PrimarySeaAttackBase )
                         end
+                        
                     end
 
                 -- if the location is not the primary
@@ -1179,9 +1229,13 @@ function SetPrimarySeaAttackBase( aiBrain )
                     aiBrain.BuilderManagers[v.BaseName].PrimarySeaAttackBase = false
             
                     builderManager:ForkThread( ClearOutBase, aiBrain )
+                    
                 end
+                
             end
+            
         end
+        
     end
     
 end
@@ -1193,9 +1247,7 @@ function GetPrimarySeaAttackBase( aiBrain )
 		if aiBrain.PrimarySeaAttackBase then
 			return aiBrain.PrimarySeaAttackBase, aiBrain.BuilderManagers[ aiBrain.PrimarySeaAttackBase ].Position
 		end
-	
-		--LOG("*AI DEBUG Searching for Primary Sea Attack Base")
-   
+
 		for k,v in aiBrain.BuilderManagers do
 	
 			if v.PrimarySeaAttackBase then
@@ -1219,8 +1271,6 @@ function ClearOutBase( manager, aiBrain )
     -- the base cannot have any active alerts --
     if aiBrain.BuilderManagers[basename].EngineerManager.BaseMonitor.ActiveAlerts == 0 then
 
-        --LOG("*AI DEBUG "..aiBrain.Nickname.." CLEAROUTBASE "..repr(basename).." running ")
-	
         -- all standard land units but Not experimentals 
         local grouplnd, grouplndcount = GetFreeUnitsAroundPoint( aiBrain, (categories.LAND * categories.MOBILE) - categories.AMPHIBIOUS - categories.COMMAND - categories.ENGINEER - categories.INSIGNIFICANTUNIT, Position, 100 )
 
@@ -1246,6 +1296,7 @@ function ClearOutBase( manager, aiBrain )
             plat:ForkThread( import('/lua/ai/aibehaviors.lua')['BroadcastPlatoonPlan'], aiBrain )
 
             plat:SetAIPlan( 'ReinforceLandAI', aiBrain )
+            
         end
 	
         -- all amphibious land units including experimentals
@@ -1273,6 +1324,7 @@ function ClearOutBase( manager, aiBrain )
             plat:ForkThread( import('/lua/ai/aibehaviors.lua')['BroadcastPlatoonPlan'], aiBrain )
 
             plat:SetAIPlan( 'ReinforceAmphibAI', aiBrain )
+            
         end
 	
         -- all naval units including EXPERIMENTALS excluding MOBILESONAR
@@ -1300,6 +1352,7 @@ function ClearOutBase( manager, aiBrain )
             plat:ForkThread( import('/lua/ai/aibehaviors.lua')['BroadcastPlatoonPlan'], aiBrain )
 
             plat:SetAIPlan( 'ReinforceNavalAI', aiBrain )
+            
         end
 
         -- all fighter units including air scouts
@@ -1322,6 +1375,7 @@ function ClearOutBase( manager, aiBrain )
             plat:ForkThread( import('/lua/ai/aibehaviors.lua')['BroadcastPlatoonPlan'], aiBrain )
 
             plat:SetAIPlan( 'ReinforceAmphibAI', aiBrain )	-- Land or Sea whichever is closest to GOAL
+            
         end
 	
         -- all gunship units including EXPERIMENTAL
@@ -1343,6 +1397,7 @@ function ClearOutBase( manager, aiBrain )
             plat:ForkThread( import('/lua/ai/aibehaviors.lua')['BroadcastPlatoonPlan'], aiBrain )
 
             plat:SetAIPlan( 'ReinforceAmphibAI', aiBrain )	-- Land or Sea whichever is closest
+            
         end	
 
         -- all bomber units including torpedo bombers and EXPERIMENTALS
@@ -1364,6 +1419,7 @@ function ClearOutBase( manager, aiBrain )
             plat:ForkThread( import('/lua/ai/aibehaviors.lua')['BroadcastPlatoonPlan'], aiBrain )
 
             plat:SetAIPlan( 'ReinforceAirAI', aiBrain )	-- either Land or Sea
+            
         end
 
         -- all bomber units including torpedo bombers and EXPERIMENTALS
@@ -1385,6 +1441,7 @@ function ClearOutBase( manager, aiBrain )
             plat:ForkThread( import('/lua/ai/aibehaviors.lua')['BroadcastPlatoonPlan'], aiBrain )
 
             plat:SetAIPlan( 'ReinforceNavalAI', aiBrain )	-- Sea only
+            
         end
         
 
@@ -1401,8 +1458,8 @@ function ResetPFMTasks (manager, aiBrain)
 	-- Review ALL the PFM Builders for PriorityFunction task changes
 	local tasksaltered = 0
 
+    local newpri, temporary
 	local newtasks = 0
-	local temporary
     
     if ScenarioInfo.PriorityDialog then
         LOG("*AI DEBUG "..aiBrain.Nickname.." "..manager.ManagerType.." "..manager.LocationType.." Resets Any PFM Tasks")
@@ -1414,7 +1471,7 @@ function ResetPFMTasks (manager, aiBrain)
 
 			if c == 'BuilderName' then
 
-				local newPri = false
+				newPri = false
 
 				if Builders[d].PriorityFunction then
                 
@@ -1437,15 +1494,20 @@ function ResetPFMTasks (manager, aiBrain)
 						manager:SetBuilderPriority(b.BuilderName, newPri, temporary)
                         
                         manager.BuilderData['Any'].NeedSort = true
+                        
 					end
+                    
 				end
 
 				if (not newPri and b.Priority > 99) or (newPri and newPri > 99) then
 
 					newtasks = newtasks + 1
 				end
+                
 			end
+            
 		end
+        
 	end
 
 	manager.NumBuilders = newtasks	
@@ -2413,9 +2475,12 @@ function SetBaseRallyPoints( aiBrain, basename, basetype, rallypointradius, orie
 	for _,v in GetBasePerimeterPoints( aiBrain, basename, rallypointradius, orientation ) do
 
         if not CheckBlockingTerrain( baseposition, {v[1],v[2],v[3]} ) then
-            table.insert(ScenarioInfo.Env.Scenario.MasterChain[markertype], { Name = markertype, Position = { v[1], v[2], v[3] } } )
-            table.insert(rallypointtable, { v[1], v[2], v[3] }  )
+        
+            LOUDINSERT(ScenarioInfo.Env.Scenario.MasterChain[markertype], { Name = markertype, Position = { v[1], v[2], v[3] } } )
+            LOUDINSERT(rallypointtable, { v[1], v[2], v[3] }  )
+            
         end
+        
 	end
 	
 	return rallypointtable
@@ -2432,12 +2497,17 @@ function RemoveBaseRallyPoints( aiBrain, basename, basetype, rallypointradius )
 	end
 	
 	for _,v in GetBasePerimeterPoints( aiBrain, basename, rallypointradius, 'ALL' ) do
+    
 		for k,r in ScenarioInfo.Env.Scenario.MasterChain[markertype] do
+        
 			if v[1] == r.Position[1] and v[3] == r.Position[3] then
-				table.remove(ScenarioInfo.Env.Scenario.MasterChain[markertype], k )
+				LOUDREMOVE(ScenarioInfo.Env.Scenario.MasterChain[markertype], k )
 			end
+            
 		end
+        
 	end
+    
 end
 
 -- the DBM is designed to monitor the status of all Base Managers and shut them down if they are no longer valid
@@ -2478,10 +2548,7 @@ function DeadBaseMonitor( aiBrain )
 			if not v.CountedBase then
 			
 				structurecount = LOUDGETN(import('/lua/ai/aiutilities.lua').GetOwnUnitsAroundPoint( aiBrain, categories.STRUCTURE - categories.WALL, v.Position, 60))
-                
-                --if ScenarioInfo.DeadBaseMonitorDialog then
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." Base "..repr(v.BaseName).." DBM - structures "..repr(import('/lua/ai/aiutilities.lua').GetOwnUnitsAroundPoint( aiBrain, categories.STRUCTURE - categories.WALL, v.Position, 60)))
-				--end
+
 			end
             
             if ScenarioInfo.DeadBaseMonitorDialog then
@@ -3321,58 +3388,66 @@ function ParseIntelThread( aiBrain )
 	local WaitTicks = coroutine.yield
 
 
-	local maxmapdimension = math.max(ScenarioInfo.size[1],ScenarioInfo.size[2])
+	ScenarioInfo.MaxMapDimension = math.max(ScenarioInfo.size[1],ScenarioInfo.size[2])
 
-    -- set the OgridRadius according to mapsize
+    -- set values according to mapsize
     -- it controls the size of the query when seeking the epicentre of a threat
     -- and the ability to 'merge' two points that might be in the same, or adjacent
     -- IMAP blocks
-    local OgridRadius, IMAPsize, ResolveBlocks, Rings, ThresholdMult
+    local ResolveBlocks, Rings, ThresholdMult
 
-    if maxmapdimension == 256 then
-        OgridRadius = 11.5
-        IMAPSize = 16
+    if ScenarioInfo.MaxMapDimension == 256 then
+    
+        ScenarioInfo.IntelResolution = 11.5
+        ScenarioInfo.IMAPSize = 16
         ResolveBlocks = 0
 		ThresholdMult = .45
 		Rings = 2
-    elseif maxmapdimension == 512 then
-        OgridRadius = 22.5
-        IMAPSize = 32
+        
+    elseif ScenarioInfo.MaxMapDimension == 512 then
+    
+        ScenarioInfo.IntelResolution = 22.5
+        ScenarioInfo.IMAPSize = 32
         ResolveBlocks = 0
 		ThresholdMult = .7
 		Rings = 1
-    elseif maxmapdimension == 1024 then
-        OgridRadius = 45.0
-        IMAPSize = 64
+        
+    elseif ScenarioInfo.MaxMapDimension == 1024 then
+    
+        ScenarioInfo.IntelResolution = 45.0
+        ScenarioInfo.IMAPSize = 64
         ResolveBlocks = 0
 		ThresholdMult = 1
 		Rings = 0
-    elseif maxmapdimension == 2048 then
-        OgridRadius = 89.5
-        IMAPSize = 128
+        
+    elseif ScenarioInfo.MaxMapDimension == 2048 then
+    
+        ScenarioInfo.IntelResolution = 89.5
+        ScenarioInfo.IMAPSize = 128
         ResolveBlocks = 4
 		ThresholdMult = 1.1
 		Rings = 0
+        
     else
-        OgridRadius = 180.0
-        IMAPSize = 256
+    
+        ScenarioInfo.IntelResolution = 180.0
+        ScenarioInfo.IMAPSize = 256
         ResolveBlocks = 16
 		ThresholdMult = 1.66
 		Rings = 0
+        
     end
 
     -- the IMAP is always a rectangle so while OgridRadius is used for the distance
     -- to the corner of the block, IMAPRadius is the nearest distance to the sides
-	local IMAPRadius = IMAPSize * .5
+	local IMAPRadius = ScenarioInfo.IMAPSize * .5
     
     -- points of the same type - closer than this - will be merged
     local mergeradius = ((IMAPRadius/ThresholdMult)/2)
 
 	-- save the current resolution globally - it will be used by other routines to follow moving intel targets
-    ScenarioInfo.IMAPSize = IMAPSize
 	ScenarioInfo.IMAPRadius = IMAPRadius
-	ScenarioInfo.IntelResolution = OgridRadius
-	ScenarioInfo.MaxMapDimension = maxmapdimension
+
 	
     -- when turned on - this function will highlight the IMAP block 
     -- being checked by the loop when there is some threat in it
@@ -3495,14 +3570,9 @@ function ParseIntelThread( aiBrain )
 
     -- take the whole array local 
     local EnemyData = aiBrain.EnemyData
-	
     local EnemyDataCount
-	
     local EnemyDataHistory = EnemyData.History
 
-    local NumOpponents = aiBrain.NumOpponents
-    local NumAllies = aiBrain.NumAllies
-	
 	-- the 3D location of the MAIN base for this AI
 	local HomePosition = aiBrain.BuilderManagers.MAIN.Position
 
@@ -3520,7 +3590,7 @@ function ParseIntelThread( aiBrain )
 
 	-- this moves all the local creation up front so NO locals need to be declared in
 	-- the primary loop - probably doesn't mean much - but I did it anyway
-	local totalThreat, threats, gametime, units, counter, x1,x2,x3, dupe, newpos, newthreat, newtime, myunits, myvalue, realvalue, realcount, bp
+	local totalThreat, threats, gametime, units, counter, x1,x2,x3, dupe, newpos, newthreat, newtime, myunits, myvalue, realvalue, realcount, bp, rebuild
 	local timecheck
     
 	local ALLBPS = __blueprints
@@ -3538,9 +3608,7 @@ function ParseIntelThread( aiBrain )
 
         -- roll the iteration count back to one if it exceeds the maximum number of iterations
         if iterationcount > iterationmax then
-        
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL iteration is "..repr(iterationcount).." Display Intel flag is "..repr(ScenarioInfo.DisplayIntelPoints))
-        
+
             -- Draw HiPri intel data on map - for visual aid - not required but useful for debugging threat assessment
             if ScenarioInfo.DisplayIntelPoints then
             
@@ -3548,7 +3616,7 @@ function ParseIntelThread( aiBrain )
                 
                     LOG("*AI DEBUG "..aiBrain.Nickname.." Starting Intel Debug Thread")
                     
-                    aiBrain.IntelDebugThread = aiBrain:ForkThread( DrawIntel )
+                    aiBrain.IntelDebugThread = aiBrain:ForkThread( DrawIntel, parseinterval )
                 end
                 
             end
@@ -3787,6 +3855,7 @@ function ParseIntelThread( aiBrain )
 											end
 										
 											aiBrain.IL.HiPri[k] = nil
+                                            rebuild = true
 											
 											continue
 										end
@@ -3821,6 +3890,7 @@ function ParseIntelThread( aiBrain )
 
 										-- newthreat is too low 
 										aiBrain.IL.HiPri[k] = nil
+                                        rebuild = true
 									end
                                     
                                 end
@@ -3838,13 +3908,11 @@ function ParseIntelThread( aiBrain )
 							end
                             
 						else
-                        
-                            --LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL "..threatType.." reducing IMAP "..repr(threat).." no units found")
-                        
+
                             -- reduce the existing threat by 75% with a 5% decay - IMAP refreshes every 3 seconds
                             aiBrain:AssignThreatAtPosition( {threat[1],0,threat[2]}, threat[3] * -0.75, 0.05, threatType)                                       
    
-                            -- remove HiPri targets in range --
+                            -- remove or reduce HiPri targets in range --
                             for k,loc in aiBrain.IL.HiPri do
                             
                                 if loc.Type == threatType then
@@ -3852,13 +3920,12 @@ function ParseIntelThread( aiBrain )
                                     if LOUDV2( threat[1],threat[2], loc.Position[1],loc.Position[3] ) <= IMAPRadius then
                                     
                                         if not loc.Permanent then
+                                            rebuild = true
                                             aiBrain.IL.HiPri[k] = nil
                                         else
                                             loc.Threat = loc.Threat * .5
                                         end
-                                        
-                                        continue
-                                        
+
                                     end
                                     
                                 end
@@ -3866,7 +3933,15 @@ function ParseIntelThread( aiBrain )
                             end
                  
                         end
-
+                        
+                        if rebuild then
+                            aiBrain.IL.HiPri = aiBrain:RebuildTable(aiBrain.IL.HiPri)
+                            rebuild = false
+                        end
+                        
+                        WaitTicks(1)
+                        
+                        usedticks = usedticks + 1
 					end
                     
                 end
@@ -3906,6 +3981,7 @@ function ParseIntelThread( aiBrain )
                             if (not t.Permanent) then
                                 -- clear the item
                                 aiBrain.IL.HiPri[s] = nil
+                                rebuild = true
                             else
                                 -- reduce the threat by 50%
                                 t.Threat = t.Threat * .5
@@ -3917,15 +3993,17 @@ function ParseIntelThread( aiBrain )
                     
                 end
                 
-                WaitTicks(5)
+                if rebuild then
+                    aiBrain.IL.HiPri = aiBrain:RebuildTable(aiBrain.IL.HiPri)
+                    rebuild = false
+                end
                 
-                usedticks = usedticks + 5
+                WaitTicks(1)
+                
+                usedticks = usedticks + 1
             end
             
 		end
-
-		-- rebuild to remove nil entries
-		aiBrain.IL.HiPri = aiBrain:RebuildTable(aiBrain.IL.HiPri)
 
 		-- sort it by distance from MAIN -- HOLD IT A SECOND - I know how important MAIN is - but what if we used PRIMARYATTACKBASE ?
 		-- that would shift the HiPri table in a big way !  It would but it might impact a lot of other things like protecting the MAIN position
@@ -3947,7 +4025,7 @@ function ParseIntelThread( aiBrain )
 			
 			WaitTicks(parseinterval - usedticks)
 
-			if parseinterval - usedticks > 40 then
+			if parseinterval - usedticks > 36 then
 			
 				if checkspertick > 1 then
 					checkspertick = checkspertick - 1
@@ -4224,7 +4302,6 @@ function BuildScoutLocations( self )
 		ScenarioInfo.NumMassPoints = LOUDGETN(AIGetMarkerLocations('Mass'))
         
 		LOG("*AI DEBUG Storing Mass Points = "..ScenarioInfo.NumMassPoints)
-		--LOG("*AI DEBUG Number of Players is "..self.Players)
 
 		-- Having handled Starting Locations lets add others to the permanent list
         -- for HiPri
@@ -4864,7 +4941,7 @@ function DrawPath ( origin, path, destination )
 end
 
 -- function to draw HiPri Intel points on the map for debugging - all credit to Sorian
-function DrawIntel( aiBrain )
+function DrawIntel( aiBrain, parseinterval )
 
     local WaitTicks = coroutine.yield
     local DrawC = DrawCircle
@@ -4900,14 +4977,13 @@ function DrawIntel( aiBrain )
 	}	
 	
 	-- this will draw resolved intel data (specific points)
-    -- for about 4.3 seconds
 	local function DrawIntelPoint(position, color, threatamount)
     
         local distmax = math.log10( math.sqrt( threatamount ))
         local surface = GetSurfaceHeight(position[1],position[3])
 
         -- controls display length
-		for i = 0,43 do
+		for i = 0,parseinterval do
         
             -- radiate out from point according to threat intensity
             for distance = .3, distmax, .3 do
@@ -4935,18 +5011,17 @@ function DrawIntel( aiBrain )
 	
 		if aiBrain.ArmyIndex == GetFocusArmy() then
 
-            local inteldata = aiBrain.IL.HiPri
+            --local inteldata = aiBrain.IL.HiPri
             -- inteldata.LastScouted
             -- inteldata.LastUpdate
             -- inteldata.Position
             -- inteldata.Threat
             -- inteldata.Type
             
-            -- display the HiPri positions every 3.5 seconds --
-			for _,v in inteldata do
+            -- display the HiPri positions
+			for _,v in aiBrain.IL.HiPri do
 	
                 -- for any active types in the threatColor table --
-                -- that actually have threat
 				if threatColor[v.Type] and v.Threat > 0 then
 				
 					ForkThread( DrawIntelPoint, v.Position, threatColor[v.Type], v.Threat )
@@ -4956,7 +5031,7 @@ function DrawIntel( aiBrain )
 		    end
 		end
 		
-		WaitTicks(35)
+		WaitTicks(parseinterval)
 		
 	end
 	
