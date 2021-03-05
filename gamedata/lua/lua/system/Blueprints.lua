@@ -615,7 +615,7 @@ function ModBlueprints(all_blueprints)
 		
 		if bp.Economy.MaxBuildDistance and bp.Economy.MaxBuildDistance < 3 then
 		
-			LOG("*AI DEBUG MaxBuildDistance now 3")
+			LOG("*AI DEBUG "..id.." now has MaxBuildDistance of 3")
 			bp.Economy.MaxBuildDistance = 3
 		
 		end
