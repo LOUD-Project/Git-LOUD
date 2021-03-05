@@ -78,6 +78,7 @@ UnitBlueprint {
     
     Display = {
         Abilities = {
+            'Anti-Air',
             'Shield Dome',
         },
         AnimationDeath = {

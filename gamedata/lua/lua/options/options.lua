@@ -547,6 +547,18 @@ options = {
                 },
             },
             {
+                title = "Camera Reset Hotkey Behaviour",
+                key = 'cam_reset_behaviour',
+                type = 'toggle',
+                default = 'reset',
+                custom = {
+                    states = {
+                        { text = "Reset", key = 'reset', },
+                        { text = "Toggle Wide View", key = 'wide_view', },
+                    },
+                },
+            },
+            {
                 title = "Land Unit Selection Priority",
                 key = 'land_unit_select_prio',
                 type = 'toggle',

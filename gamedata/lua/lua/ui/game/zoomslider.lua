@@ -4,9 +4,10 @@
 --*
 --* Copyright � 2005 Gas Powered Games, Inc.  All rights reserved.
 
-local UIUtil = import('/lua/ui/uiutil.lua')
 local Group = import('/lua/maui/group.lua').Group
+local options = import('/lua/user/prefs.lua').GetFromCurrentProfile('options')
 local Slider = import('/lua/maui/slider.lua').Slider
+local UIUtil = import('/lua/ui/uiutil.lua')
 
 local ZOOM_INACTIVITY_TIMEOUT = 15  -- in seconds
 local zoomInactivityTime = 0
@@ -59,15 +60,15 @@ end
 
 function ZoomIn(speed)
     local cam = GetCamera('WorldCamera')
-    local zoomInc = (cam:GetMaxZoom() - cam:GetMinZoom()) * speed
     local curZoom = cam:GetTargetZoom()
+    local zoomInc = curZoom * speed
     cam:SetTargetZoom(math.max(curZoom - zoomInc, cam:GetMinZoom()))
 end
 
 function ZoomOut(speed)
     local cam = GetCamera('WorldCamera')
-    local zoomInc = (cam:GetMaxZoom() - cam:GetMinZoom()) * speed
     local curZoom = cam:GetTargetZoom()
+    local zoomInc = curZoom * speed
     cam:SetTargetZoom(math.min(curZoom + zoomInc, cam:GetMaxZoom()))
 end
 
@@ -110,6 +111,11 @@ function RecallCameraPos()
 end
 
 function ToggleWideView()
+    if options.cam_reset_behaviour == 'reset' then
+        GetCamera('WorldCamera'):Reset()
+        return
+    end
+
     if lastview then
         GetCamera('WorldCamera'):RestoreSettings(lastview)
         lastview = false
