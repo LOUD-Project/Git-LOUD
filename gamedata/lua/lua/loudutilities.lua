@@ -1784,23 +1784,46 @@ end
 -- Ok - a rather significant change here - I've moved all the custom units into global memory - Why ?
 -- Simple - carrying it around on each brain is a waste -  and loading factions that aren't used is also wasteful
 function AddCustomUnitSupport( aiBrain )
+
+	local interExcludes = {}
+
+	-- First check for inter-mod exclusions
+	for i, m in __active_mods do
+		local env = {}
+		local eOk, eResult = pcall(doscript, m.location..'/excludes.lua', env)
+		if eOk then
+			for _, e in env do
+				if e.mod then
+					if not interExcludes[e.mod] then
+						interExcludes[e.mod] = {}
+					end
+					e.always = true
+					table.insert(interExcludes[e.mod], e)
+				end
+			end
+		end
+	end
 	
 	--Loop through active mods
 	for i, m in __active_mods do
 
 		local env = {}
 		local excl = {}
-		if m.config then
-			local eOk, eResult = pcall(doscript, m.location..'/excludes.lua', env)
-			if eOk then
-				LOG("Applying mod config exclusions to "..m.name)
-				-- Check every exclusion block to see if modconfig activates it
-				for _, e in env do
-					if m.config[e.key] == 2 then
-						for _, ex in e.values do
-							excl[string.lower(ex)] = true
-						end
-					end
+		local eOk, eResult = pcall(doscript, m.location..'/excludes.lua', env)
+		-- If there's an inter-mod exclusion set for this mod, add its blocks too
+		if interExcludes[m.uid] then
+			for _, v in interExcludes[m.uid] do
+				table.insert(env, v)
+			end
+		end
+		-- Check every exclusion block to see if modconfig activates it
+		for _, e in env do
+			if e.mod and e.mod ~= m.uid then
+				continue -- Ignore exclusions bound for other mods
+			end
+			if e.key == m.config[e.combo] or e.always then
+				for _, ex in e.values do
+					excl[string.lower(ex)] = true
 				end
 			end
 		end
