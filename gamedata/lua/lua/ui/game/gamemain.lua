@@ -1174,7 +1174,13 @@ end
 function AreaReclaim()
     local mousePos = GetMouseWorldPos()
     local units = GetSelectedUnits()
-    if not units then return end
-    if table.empty(units) then return end
-    SimCallback({ Func = 'AreaReclaim', Args = { MousePos = mousePos } }, true)
+    if not units or table.empty(units) then return end
+    local simCallback = {
+        Func = 'AreaReclaim',
+        Args = {
+            MousePos = mousePos,
+            Size = options.area_reclaim_size,
+        },
+    }
+    SimCallback(simCallback, true)
 end

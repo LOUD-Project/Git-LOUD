@@ -267,6 +267,17 @@ options = {
                     },
                 },
             },
+            {
+                title = "Area Reclaim Rectangle Size",
+                key = 'area_reclaim_size',
+                type = 'slider',
+                default = 1,
+                custom = {
+                    min = 3,
+                    max = 10,
+                    inc = 1,
+                },
+            },
         },
     },
     ui = {

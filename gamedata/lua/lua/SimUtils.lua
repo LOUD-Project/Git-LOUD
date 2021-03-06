@@ -204,10 +204,10 @@ end
 
 function AreaReclaim(data, units)
     local allReclaimables = GetReclaimablesInRect(Rect(
-		data.MousePos[1] - 3.5, 
-		data.MousePos[3] - 3.5, 
-		data.MousePos[1] + 3.5, 
-		data.MousePos[3] + 3.5))
+		data.MousePos[1] - data.Size or 3.5, 
+		data.MousePos[3] - data.Size or 3.5, 
+		data.MousePos[1] + data.Size or 3.5, 
+		data.MousePos[3] + data.Size or 3.5))
     if not allReclaimables or table.empty(allReclaimables) then
         return
     end

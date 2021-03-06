@@ -494,6 +494,10 @@ Tooltips = {
         title = "Accept Build Templates",
         description = "Allows other players to send you build templates over the network",
     },
+    options_area_reclaim_size = {
+        title = "Area Reclaim Rectangle Size",
+        description = "Choose the catchment area of the Reclaim Everything Around Cursor keybind"
+    },
 
     -- **********************
     -- *** Options: Interface
