@@ -539,7 +539,10 @@ advAIOptions = {
         key = "ACTRatioScale",
         pref = 'Lobby_ACT_Ratio_Scale',
         type = 'edit',
-        valid = '^%d+$',
+        valid = {
+            '^%d+$',
+            '^%d+%.%d+$',
+        },
         values = {
             {
                 text = "1",
