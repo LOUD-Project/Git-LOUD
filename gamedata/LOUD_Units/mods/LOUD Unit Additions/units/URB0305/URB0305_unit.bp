@@ -332,7 +332,7 @@ UnitBlueprint {
     SizeY = 2,
     SizeZ = 3.5,
 	
-    StrategicIconName = 'icon_structure3_transport',
+    StrategicIconName = 'icon_experimental_structure_transport',
     StrategicIconSortPriority = 175,
 	
     Transport = {
