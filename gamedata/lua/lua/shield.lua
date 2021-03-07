@@ -191,22 +191,6 @@ Shield = Class(moho.shield_methods,Entity) {
     end,
     
     GetOverkill = function(self,instigator,amount,type)
---[[
-        
-        #-- Like armor damage, first multiply by armor reduction, then apply handicap
-        #-- See SimDamage.cpp (DealDamage function) for how this should work
-		
-        amount = amount * (self.Owner:GetArmorMult(type))
-        amount = amount * ( 1.0 - ArmyGetHandicap(GetArmy(self)) )
-		
-        local finalVal =  amount - GetHealth(self)
-		
-        if finalVal < 0 then
-            finalVal = 0
-        end
-		
-        return finalVal
---]]
     end,    
 
     OnDamage =  function(self,instigator,amount,vector,type)

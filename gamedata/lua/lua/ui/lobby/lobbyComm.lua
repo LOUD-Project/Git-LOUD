@@ -30,40 +30,20 @@ function GetDefaultPlayerOptions(playerName)
 
 	local EnhancedLobby = import('/lua/enhancedlobby.lua')
 	
-	local handicapMod = EnhancedLobby.GetActiveModLocation('F14E58B6-E7F3-11DD-88AB-418A55D89593')
-	
-	if handicapMod then
-	
-		return {
-			Team = 1,
-			PlayerColor = 1,
-			ArmyColor = 1,
-			StartSpot = 1,
-			Handicap = 6,
-			Ready = false,
-			Faction = math.random(1,table.getn(import('/lua/factions.lua').Factions)), --table.getn(import('/lua/factions.lua').Factions) + 1, --max faction + 1 tells lobby to pick random faction
-			PlayerName = playerName or "player",
-			AIPersonality = "",
-			Human = true,
-			Civilian = false,
-		}
-		
-	else
-	
-		return {
-			Team = 1,
-			PlayerColor = 1,
-			ArmyColor = 1,
-			StartSpot = 1,
-			Ready = false,
-			Faction = math.random(1,table.getn(import('/lua/factions.lua').Factions)), --table.getn(import('/lua/factions.lua').Factions) + 1, --max faction + 1 tells lobby to pick random faction
-			PlayerName = playerName or "player",
-			AIPersonality = "",
-			Human = true,
-			Civilian = false,
-		}
-		
-	end
+    return {
+        Team = 1,
+        PlayerColor = 1,
+        ArmyColor = 1,
+        StartSpot = 1,
+        Ready = false,
+        -- max faction + 1 tells lobby to pick random faction
+        --table.getn(import('/lua/factions.lua').Factions) + 1, 
+        Faction = math.random(1,table.getn(import('/lua/factions.lua').Factions)), 
+        PlayerName = playerName or "player",
+        AIPersonality = "",
+        Human = true,
+        Civilian = false,
+    }
 	
 end
 

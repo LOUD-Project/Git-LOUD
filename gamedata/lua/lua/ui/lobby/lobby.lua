@@ -6,31 +6,31 @@
 --* Copyright � 2005 Gas Powered Games, Inc.  All rights reserved.
 --*****************************************************************************
 
-local UIUtil = import('/lua/ui/uiutil.lua')
-local MenuCommon = import('/lua/ui/menus/menucommon.lua')
-local Prefs = import('/lua/user/prefs.lua')
-local MapUtil = import('/lua/ui/maputil.lua')
-local Group = import('/lua/maui/group.lua').Group
-local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
 local Bitmap = import('/lua/maui/bitmap.lua').Bitmap
 local Button = import('/lua/maui/button.lua').Button
 local Edit = import('/lua/maui/edit.lua').Edit
-local LobbyComm = import('/lua/ui/lobby/lobbyComm.lua')
-local Tooltip = import('/lua/ui/game/tooltip.lua')
-local Mods = import('/lua/mods.lua')
-local ModManager = import('/lua/ui/dialogs/modmanager.lua')
-local FactionData = import('/lua/factions.lua')
-local Text = import('/lua/maui/text.lua').Text
+local Group = import('/lua/maui/group.lua').Group
 local EnhancedLobby = import('/lua/enhancedlobby.lua')
+local FactionData = import('/lua/factions.lua')
+local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
+local LobbyComm = import('/lua/ui/lobby/lobbyComm.lua')
+local MapUtil = import('/lua/ui/maputil.lua')
+local MenuCommon = import('/lua/ui/menus/menucommon.lua')
+local ModManager = import('/lua/ui/dialogs/modmanager.lua')
+local Mods = import('/lua/mods.lua')
+local Prefs = import('/lua/user/prefs.lua')
 local Slider = import('/lua/maui/slider.lua').Slider
 local StatusBar = import('/lua/maui/statusbar.lua').StatusBar
+local Text = import('/lua/maui/text.lua').Text
+local Tooltip = import('/lua/ui/game/tooltip.lua')
+local UIUtil = import('/lua/ui/uiutil.lua')
 
 local gameColors = import('/lua/gamecolors.lua').GameColors
 local numOpenSlots = LobbyComm.maxPlayerSlots
-local handicapMod = EnhancedLobby.GetActiveModLocation('F14E58B6-E7F3-11DD-88AB-418A55D89593')
 local formattedOptions = {}
 
-local teamIcons = {'/lobby/team_icons/team_no_icon.dds',
+local teamIcons = {
+    '/lobby/team_icons/team_no_icon.dds',
     '/lobby/team_icons/team_1_icon.dds',
     '/lobby/team_icons/team_2_icon.dds',
     '/lobby/team_icons/team_3_icon.dds',
@@ -38,8 +38,9 @@ local teamIcons = {'/lobby/team_icons/team_no_icon.dds',
     '/lobby/team_icons/team_5_icon.dds',
     '/lobby/team_icons/team_6_icon.dds',
     '/lobby/team_icons/team_7_icon.dds',
-    '/lobby/team_icons/team_8_icon.dds'}
-	
+    '/lobby/team_icons/team_8_icon.dds'
+}
+
 local availableMods = {} -- map from peer ID to set of available mods; each set is a map from "mod id"->true
 local selectedMods = nil
 
@@ -710,7 +711,6 @@ function Reset()
 	fillSlotsSet = false
 	teamSetting = false
     numOpenSlots = LobbyComm.maxPlayerSlots
-	handicapMod = EnhancedLobby.GetActiveModLocation('F14E58B6-E7F3-11DD-88AB-418A55D89593')
     gameInfo = {
         GameOptions = {},
         PlayerOptions = {},
@@ -1051,13 +1051,6 @@ function SetSlotInfo(slot, playerInfo)
         GUI.slots[slot].act:SetItem(playerInfo.ACT)
     end
 
-	if handicapMod then
-	
-		GUI.slots[slot].handicap:Show()
-		GUI.slots[slot].handicap:SetItem(playerInfo.Handicap)
-		
-	end
-
     if GUI.slots[slot].ready then
 	
         if playerInfo.Human then
@@ -1142,9 +1135,6 @@ function ClearSlotInfo(slot)
     GUI.slots[slot].mult:Hide()
     GUI.slots[slot].act:Hide()
 	GUI.slots[slot].Popup:Hide()
-	if handicapMod then
-		GUI.slots[slot].handicap:Hide()
-	end
     GUI.slots[slot].multiSpace:Hide()
     if GUI.slots[slot].pingGroup then
         GUI.slots[slot].pingGroup:Hide()
@@ -2761,24 +2751,6 @@ function CreateUI(maxPlayers, useSteam)
 	
 	local ELobbyVersion = import('/lua/enhancedlobby.lua').GetLEMVersion()
 	
-	local handiMod = import('/lua/enhancedlobby.lua').GetActiveModLocation('F14E58B6-E7F3-11DD-88AB-418A55D89593')
-	
-	local handicapIcons
-	
-	if handiMod then
-		handicapIcons = {'/lobby/handicap_icons/handicap_neg5_icon.dds',
-			'/lobby/handicap_icons/handicap_neg4_icon.dds',
-			'/lobby/handicap_icons/handicap_neg3_icon.dds',
-			'/lobby/handicap_icons/handicap_neg2_icon.dds',
-			'/lobby/handicap_icons/handicap_neg1_icon.dds',
-			'/lobby/handicap_icons/handicap_no_icon.dds',
-			'/lobby/handicap_icons/handicap_1_icon.dds',
-			'/lobby/handicap_icons/handicap_2_icon.dds',
-			'/lobby/handicap_icons/handicap_3_icon.dds',
-			'/lobby/handicap_icons/handicap_4_icon.dds',
-			'/lobby/handicap_icons/handicap_5_icon.dds'}
-	end
-	
     UIUtil.SetCurrentSkin('uef')
     
     if (GUI.connectdialog ~= false) then
@@ -2800,12 +2772,8 @@ function CreateUI(maxPlayers, useSteam)
     ---------------------------------------------------------------------------
     -- Set up main control panels
     ---------------------------------------------------------------------------
-    if singlePlayer and not handiMod then
+    if singlePlayer then
         GUI.panel = Bitmap(GUI, UIUtil.SkinnableFile("/scx_menu/lan-game-lobby/panel-skirmish_bmp.dds"))
-	elseif singlePlayer and handiMod then
-		GUI.panel = Bitmap(GUI, UIUtil.SkinnableFile("/scx_menu/lan-game-lobby/panel-skirmish_bmp_handicap.dds"))
-	elseif not singlePlayer and handiMod then
-		GUI.panel = Bitmap(GUI, UIUtil.SkinnableFile("/scx_menu/lan-game-lobby/panel_bmp_handicap.dds"))
     else
         GUI.panel = Bitmap(GUI, UIUtil.SkinnableFile("/scx_menu/lan-game-lobby/panel_bmp.dds"))
     end
@@ -3364,31 +3332,6 @@ function CreateUI(maxPlayers, useSteam)
         ready = {x = 695, width = 51},
     }
 	
-	if not singlePlayer and handiMod then
-		slotColumnSizes = {
-			LEMindicator = {x = 48, width = 24},
-			player = {x = 80, width = 258},
-			color = {x = 349, width = 59},
-			faction = {x = 417, width = 59},
-			team = {x = 485, width = 60},
-			handicap = {x = 552, width = 62},
-			ping = {x = 624, width = 60},
-			ready = {x = 686, width = 51},
-		}
-	end
-	
-	if singlePlayer and handiMod then
-		slotColumnSizes = {
-			LEMindicator = {x = 48, width = 24},
-			player = {x = 80, width = 326},
-			color = {x = 417, width = 59},
-			faction = {x = 485, width = 59},
-			team = {x = 553, width = 60},
-			handicap = {x = 620, width = 62},
-			ready = {x = 685, width = 51},
-		}
-	end
-
     GUI.labelGroup = Group(GUI.playerPanel)
     GUI.labelGroup.Width:Set(690)
     GUI.labelGroup.Height:Set(20)
@@ -3418,12 +3361,6 @@ function CreateUI(maxPlayers, useSteam)
     LayoutHelpers.AtVerticalCenterIn(GUI.teamLabel, GUI.labelGroup)
     GUI.teamLabel:SetDropShadow(true)
     Tooltip.AddControlTooltip(GUI.teamLabel, 'lob_team')
-
-	if handiMod then
-		GUI.handicapLabel = UIUtil.CreateText(GUI.labelGroup, "Handicap", 14, UIUtil.titleFont)
-		LayoutHelpers.AtLeftIn(GUI.handicapLabel, GUI.panel, slotColumnSizes.handicap.x)
-		LayoutHelpers.AtVerticalCenterIn(GUI.handicapLabel, GUI.labelGroup)
-	end
 
     if not singlePlayer then
         GUI.aiPingLabel = UIUtil.CreateText(GUI.labelGroup, "Ping/AI Settings", 14, UIUtil.titleFont)
@@ -3693,28 +3630,9 @@ function CreateUI(maxPlayers, useSteam)
             'lob_act_none',
             'lob_act_ratio',
             'lob_act_time',
-            'lob_act_both',})
+            'lob_act_both',
+        })
 
-		if handiMod then
-			GUI.slots[i].handicap = BitmapCombo(bg, handicapIcons, 1, false, nil, "UI_Tab_Rollover_01", "UI_Tab_Click_01")
-			
-			LayoutHelpers.AtLeftIn(GUI.slots[i].handicap, GUI.panel, slotColumnSizes.handicap.x)
-			
-			LayoutHelpers.AtVerticalCenterIn(GUI.slots[i].handicap, GUI.slots[i])
-			
-			GUI.slots[i].handicap.Width:Set(slotColumnSizes.handicap.width)
-			
-			GUI.slots[i].handicap.OnClick = function(self, index)
-				SetPlayerOption(self.row,'Handicap',index)
-				Tooltip.DestroyMouseoverDisplay()
-			end
-			
-			-- Tooltip.AddControlTooltip(GUI.slots[i].handicap, 'lob_faction')
-			-- Tooltip.AddComboTooltip(GUI.slots[i].handicap, factionTooltips)
-			GUI.slots[i].handicap.row = i
-			GUI.slots[i].handicap.OnEvent = GUI.slots[curRow].name.OnEvent
-		end
-			
         if not singlePlayer then
             GUI.slots[i].pingGroup = Group(bg)
             GUI.slots[i].pingGroup.Width:Set(slotColumnSizes.ping.width)
@@ -3779,9 +3697,6 @@ function CreateUI(maxPlayers, useSteam)
             GUI.slots[slot].mult:Enable()
             GUI.slots[slot].act:Enable()
         end
-		if handiMod then
-			GUI.slots[slot].handicap:Enable()
-		end
         if GUI.slots[slot].ready then
             GUI.slots[slot].ready:Enable()
         end
@@ -3795,9 +3710,6 @@ function CreateUI(maxPlayers, useSteam)
             GUI.slots[slot].mult:Disable()
             GUI.slots[slot].act:Disable()
         end
-		if handiMod then
-			GUI.slots[slot].handicap:Disable()
-		end
         if GUI.slots[slot].ready and not exceptReady then
             GUI.slots[slot].ready:Disable()
         end
