@@ -2977,7 +2977,7 @@ Unit = Class(moho.unit_methods) {
 				
                 if bpTM[terrainType.Style] then
 				
-                    self:SetMesh(bpTM[terrainType.Style])
+                    self:SetMesh(bpTM[terrainType.Style], true)
                     useTerrainType = true
 					
                 end
