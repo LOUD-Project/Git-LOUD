@@ -4156,7 +4156,10 @@ function RefreshOptionDisplayData(scenarioInfo)
         },
         totalUnitCap = true,
         value = tostring(totalUnitCap),
-        valueTooltip = tostring(totalUnitCap),
+        valueTooltip = {
+            text = tostring(totalUnitCap),
+            body = "",
+        },
     })
 
     for _, k in lobbyOptOrder do
