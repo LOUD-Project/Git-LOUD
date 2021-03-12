@@ -94,8 +94,6 @@ end
 
 function CreateResources()
 
-    ScenarioInfo.RelocateResources = true
-
 	local memstart = gcinfo()
 	
     local markers = GetMarkers()
@@ -161,7 +159,7 @@ function CreateResources()
 						-- those closer than 37 will be put at 36 from the start - those greater than 37 will be pushed out to 55
 						if doit and VDist2(armyposition[1],armyposition[3], tblData.position[1], tblData.position[3]) > 37 then
                         
-                            if ScenarioInfo.RelocateResources then
+                            if ScenarioInfo.Options.RelocateResources == 'on' then
 					
                                 LOG("*AI DEBUG Mass Point at distance "..VDist2(armyposition[1],armyposition[3], tblData.position[1], tblData.position[3]).." - Position "..repr(tblData.position).." too close (55) to Start position")
 						
@@ -195,7 +193,7 @@ function CreateResources()
 
 						elseif doit then
                         
-                            if ScenarioInfo.RelocateResources then
+                            if ScenarioInfo.Options.RelocateResources == 'on' then
 					
                                 LOG("*AI DEBUG Mass Point at distance "..VDist2(armyposition[1],armyposition[3], tblData.position[1], tblData.position[3]).." - Position "..repr(tblData.position).." too near to Start position")
 						
@@ -355,6 +353,8 @@ function CreateResources()
         end
 
     end
+
+    ScenarioInfo.Options.RelocateResources = nil
 	
 	LOG("*AI DEBUG Created Resources and used "..( (gcinfo() - memstart)*1024 ).." bytes")
 	

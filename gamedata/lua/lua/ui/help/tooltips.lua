@@ -1371,6 +1371,23 @@ Tooltips = {
         title = "Two",
         description = "All Nukes and Antinukes come with two missiles when built",
     },
+
+    -- **********************
+    -- *** Lobby Options:Relocate Resources
+    -- **********************
+
+    Lobby_RelocateResources = {
+        title = "Relocate Starting Resources",
+        description = "Move initial mass, hydrocarbon points to fit AI main base. Turning off breaks AI",
+    },
+    lob_RelocateResources_on = {
+        title = 'On',
+        description = "Starting mass and hydrocarbon points get moved away from spawn points",
+    },
+    lob_RelocateResources_off = {
+        title = 'Off',
+        description = "Starting mass and hydrocarbon points don't get moved at all. Breaks AI",
+    },
  
     -- **********************
     -- *** Map Selection
