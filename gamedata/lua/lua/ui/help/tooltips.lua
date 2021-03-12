@@ -1518,11 +1518,11 @@ Tooltips = {
     },
     unitdb_commanders = {
         title = "LOUD Enhanced Commanders",
-        description = "Whether the effects of the LOUD Enhanced Commanders mod are represented in this database. NOTE: only affects BlackOps ACUs.",
+        description = "Whether the effects of the LOUD Enhanced Black Ops Commanders mod are represented in this database.",
     },
     unitdb_nukes = {
-        title = "LOUD Realistic Nukes",
-        description = "Whether the effects of the LOUD Realistic Nukes mod are represented in this database.",
+        title = "LOUD Enhanced Nukes",
+        description = "Whether the effects of the LOUD Enhanced Nukes mod are represented in this database.",
     },
 
     -- ***************************
