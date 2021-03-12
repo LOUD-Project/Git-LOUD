@@ -5,9 +5,9 @@ UnitBlueprint {
             Cue = 'UES0305_Activate',
             LodCutoff = 'UnitMove_LodCutoff',
         },
-        Killed = Sound {
-            Bank = 'UESDestroy',
-            Cue = 'UES0305_Destroy',
+        Destroyed = Sound {
+            Bank = 'UELDestroy',
+            Cue = 'UEB_Destroy_Med_Land',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         StartMove = Sound {
