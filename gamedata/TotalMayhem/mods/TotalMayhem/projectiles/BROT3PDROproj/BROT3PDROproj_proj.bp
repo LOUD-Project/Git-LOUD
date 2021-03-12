@@ -1,13 +1,13 @@
 ProjectileBlueprint {
     Audio = {
         Impact = Sound {
-            Bank = 'TM_EXPLOSIONS',
-            Cue = 'BIGEXPLOSIONSFX',
+            Bank = 'Impacts',
+            Cue = 'AEON_Expl_Med_Impact',
             LodCutoff = 'Weapon_LodCutoff',
         },
         ImpactTerrain = Sound {
-            Bank = 'TM_EXPLOSIONS',
-            Cue = 'BIGEXPLOSIONSFX',
+            Bank = 'Impacts',
+            Cue = 'Impact_Land_Gen_AEON',
             LodCutoff = 'Weapon_LodCutoff',
         },
         ImpactWater = Sound {
