@@ -2077,7 +2077,8 @@ function CreateTemplateOptionsMenu(button)
                 end
             end
             for iconType, _ in contents do
-                local bmp = Bitmap(group, GameCommon.GetUnitIconPath(nil, iconType))
+                local path = GameCommon.GetUnitIconPath(nil, iconType)
+                local bmp = Bitmap(group, path)
                 bmp.Height:Set(30)
                 bmp.Width:Set(30)
                 bmp.ID = iconType
