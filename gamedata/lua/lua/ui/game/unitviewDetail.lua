@@ -165,7 +165,10 @@ function ShowEnhancement( bp, bpID, iconID, iconPrefix, userUnit )
 		
 			time, energy, mass = import('/lua/game.lua').GetConstructEconomyModel(userUnit, bp)
 			time = math.max(time, 1)
-			
+
+			local path = import('/lua/ui/game/construction.lua').GetEnhancementTextures(bpID, iconID)
+			View.UnitImg:SetTexture(path)
+
 			showUpKeep = DisplayResources(bp, time, energy, mass)
 			View.TimeStat.Value:SetFont(UIUtil.bodyFont, 14)
 			View.TimeStat.Value:SetText(string.format("%s", FormatTime(time)))
