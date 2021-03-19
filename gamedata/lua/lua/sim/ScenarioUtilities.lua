@@ -425,6 +425,19 @@ function InitializeArmies()
             return
         end
 
+        if ScenarioInfo.Options.AIResourceSharing == 'off' then
+            self:SetResourceSharing(false)
+        elseif ScenarioInfo.Options.AIResourceSharing == 'aiOnly' then
+            local allPlayersAI = true
+            for i, playerInfo in ArmyBrains do
+                -- If this AI is allied to a human, disable resource sharing
+                if IsAlly(i, self.ArmyIndex) and playerInfo.BrainType == 'Human' then
+                    self:SetResourceSharing(false)
+                    break
+                end
+            end
+        end
+
 		-- build table of scout locations and set some starting threat at all enemy locations
 		loudUtils.BuildScoutLocations(self)
 
@@ -678,6 +691,8 @@ function InitializeArmies()
     end
     
     loudUtils.StartAdaptiveCheatThreads()
+
+    ScenarioInfo.Options.AIResourceSharing = nil
     
     return tblGroups
 	
