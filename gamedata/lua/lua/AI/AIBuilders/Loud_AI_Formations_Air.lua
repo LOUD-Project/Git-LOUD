@@ -284,7 +284,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 		PlatoonAIPlan = 'AttackForceAI_Bomber',		
 		
         Priority = 700,
-        InstanceCount = 4,
+        InstanceCount = 3,
 		
         BuilderConditions = {
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.HIGHALTAIR * categories.BOMBER }},
@@ -303,9 +303,43 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			
             PrioritizedCategories = {categories.ENGINEER, categories.MOBILE - categories.AIR},
 			
-			SearchRadius = 30,	
+			SearchRadius = 40,	
 			
             UseFormation = 'AttackFormation',
+        },
+		
+        BuilderType = 'Any',
+    },
+    
+    -- specifically hunts engineers at long range
+    Builder {BuilderName = 'Hunt Bombers Engineers',
+	
+        PlatoonTemplate = 'BomberAttack Small',
+        
+		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'} },
+
+		PlatoonAIPlan = 'AttackForceAI_Bomber',		
+		
+        Priority = 720,
+        InstanceCount = 1,
+		
+        BuilderConditions = {
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.HIGHALTAIR * categories.BOMBER }},
+        },
+		
+        BuilderData = {
+
+			LocationType = 'LocationType',
+			
+            MergeLimit = false,     -- no merging for this platoon
+			
+            MissionTime = 150,
+			
+            PrioritizedCategories = {categories.ENGINEER},
+			
+			SearchRadius = 200,	
+			
+            UseFormation = 'Growth',
         },
 		
         BuilderType = 'Any',
@@ -375,7 +409,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         BuilderConditions = {
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.HIGHALTAIR * categories.BOMBER }},
 
-			-- enemy targets with 8km
+			-- enemy targets within 8km
 			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType', 0, categories.MASSPRODUCTION + categories.ENGINEER + categories.ECONOMIC, 400 }},            
         },
 		
@@ -392,7 +426,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			
             PrioritizedCategories = { categories.MASSPRODUCTION, categories.ENGINEER, categories.ECONOMIC },
 			
-			SearchRadius = 60,
+			SearchRadius = 75,
 			
             UseFormation = 'AttackFormation',
         },
@@ -439,11 +473,17 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			DistressRange = 220,
 			DistressTypes = 'Land',
 			DistressThreshold = 20,
+            
 			LocationType = 'LocationType',
+            
             MergeLimit = 64,
+            
             MissionTime = 240,
+            
             PrioritizedCategories = {categories.COMMAND, categories.SUBCOMMANDER, categories.SHIELD, categories.MOBILE - categories.AIR, categories.MASSEXTRACTION, categories.FACTORY, categories.ECONOMIC - categories.TECH1},
+            
 			SearchRadius = 125,
+            
             UseFormation = 'AttackFormation',
         },
 		
@@ -631,7 +671,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			LocationType = 'LocationType',
             MergeLimit = 50,
             MissionTime = 400,
-            PrioritizedCategories = { (categories.OPTICS) * categories.STRUCTURE},
+            PrioritizedCategories = { (categories.OPTICS) * categories.STRUCTURE, categories.INTELLIGENCE * categories.STRUCTURE},
 			SearchRadius = 850,
             UseFormation = 'AttackFormation',
         },
