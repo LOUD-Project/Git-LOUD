@@ -550,7 +550,6 @@ advAIOptions = {
             },
         },
     },
-
     {
         default = '1',
         label = "Feedback Cheat Scale",
@@ -725,6 +724,31 @@ advAIOptions = {
                 text = "4.0",
                 help = "The AI's cheat multiplier will never pass 4.0.",
                 key = '4',
+            },
+        },
+    },
+
+    {
+        default = 1,
+        label = "AI Shares Resources",
+        help = "Set if AI players share resources with their allies.",
+        key = 'AIResourceSharing',
+        pref = 'Lobby_AI_Resource_Sharing',
+        values = {
+            {
+                text = "On",
+                help = "AI players will always share resources with their allies.",
+                key = 'on',
+            },
+            {
+                text = "With AI Only",
+                help = "AI players will share resources with allies, but only if all of their allies are also AI.",
+                key = 'aiOnly',
+            },
+            {
+                text = "Off",
+                help = "AI players will never share resources with their allies.",
+                key = 'off',
             },
         },
     },

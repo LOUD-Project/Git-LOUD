@@ -1314,6 +1314,27 @@ Tooltips = {
     },
 
     -- **********************
+    -- *** Lobby Options: AI Resource Sharing
+    -- **********************
+
+    Lobby_AI_Resource_Sharing = {
+        title = "AI Shares Resources",
+        description = "Set if AI players share resources with their allies.",
+    },
+    lob_AIResourceSharing_on = {
+        title = "On",
+        description = "AI players will always share resource with their allies.",
+    },
+    lob_AIResourceSharing_aiOnly = {
+        title = "With AI Only",
+        description = "AI players will share resources with allies, but only if all of their allies are also AI.",
+    },
+    lob_AIResourceSharing_off = {
+        title = "Off",
+        description = "AI players will never share resources with their allies.",
+    },
+
+    -- **********************
     -- *** Lobby Options: Civilians
     -- **********************
 
