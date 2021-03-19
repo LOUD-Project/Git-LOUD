@@ -3543,6 +3543,7 @@ function ParseIntelThread( aiBrain )
         AntiSurface,			-- reports surface threat of ALL units
         AntiSub,				-- reports sub threat of ALL units
         Economy,				-- reports economic threat of ALL units
+        
         Unknown,
 	}
 	--]]
@@ -3552,7 +3553,6 @@ function ParseIntelThread( aiBrain )
 		-- note that some categories dont have a dynamic threat threshold - just air,land,naval and structures - since you can only pack so many in a smaller IMAP block
         
 		Air 			    = { 20 * ThresholdMult, 4.5, categories.AIR - categories.SATELLITE - categories.SCOUT - categories.TRANSPORTFOCUS, 1,'ff76bdff', true},
-        
 		Land 			    = { 10 * ThresholdMult, 13.5, categories.MOBILE - categories.AIR - categories.ANTIAIR - categories.SCOUT, 3,'9000ff00', true },
 		Naval 		    	= { 20 * ThresholdMult, 18, categories.MOBILE - categories.AIR - categories.ANTIAIR - categories.SCOUT, 4,'ff0060ff', true },
         AntiAir             = { 20 * ThresholdMult, 22.5, categories.ANTIAIR - categories.AIR, 5, 'e0ff0000', true},
@@ -3577,7 +3577,6 @@ function ParseIntelThread( aiBrain )
     -- the current iteration value
     local iterationcount = 0 
     local iterationmax = 15
-	
 
     -- Create EnemyData array - stores history of totalthreat by threattype over a period of time
 	-- and the History value controls how much history is kept -- about 450 seconds of history

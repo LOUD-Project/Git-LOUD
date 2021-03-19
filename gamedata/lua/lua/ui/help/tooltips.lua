@@ -1378,15 +1378,15 @@ Tooltips = {
 
     Lobby_RelocateResources = {
         title = "Relocate Starting Resources",
-        description = "Move initial mass, hydrocarbon points to fit AI main base. Turning off breaks AI",
+        description = "Starting mass and hydrocarbon points, at start positions, are relocated to suit AI players.",
     },
     lob_RelocateResources_on = {
         title = 'On',
-        description = "Starting mass and hydrocarbon points get moved away from spawn points",
+        description = "Starting mass and hydrocarbon points, at ALL start positions, are relocated to suit AI players.",
     },
     lob_RelocateResources_off = {
         title = 'Off',
-        description = "Starting mass and hydrocarbon points don't get moved at all. Breaks AI",
+        description = "Starting mass and hydrocarbon points, at AI start positions ONLY, are relocated, to suit AI players.",
     },
  
     -- **********************

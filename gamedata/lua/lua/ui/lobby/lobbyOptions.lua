@@ -503,18 +503,18 @@ advGameOptions = {
     {
         default = 1,
         label = "Relocate Starting Resources",
-        help = "Move initial mass, hydrocarbon points to fit AI base. Turning off breaks AI",
+        help = "Initial mass & hydrocarbon points are relocated to suit AI needs. Turning off can break the AI",
         key = 'RelocateResources',
         pref = 'Lobby_RelocateResources',
         values = {
             {
                 text = 'On',
-                help = "Mass and hydrocarbon points get moved away from spawn points",
+                help = "Mass and hydrocarbon points at ALL starting postions are relocated.",
                 key = 'on',
             },
             {
                 text = 'Off',
-                help = "Mass and hydrocarbon points don't get moved at all. Breaks AI",
+                help = "Mass and hydrocarbon points at AI starting positions ONLY are relocated. Can break the AI",
                 key = 'off',
             },
         }
