@@ -2716,8 +2716,9 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
 
         if (not target or target.Dead) and PlatoonExists(aiBrain, self) then
 
-            mythreat = self:CalculatePlatoonThreat('AntiSurface', categories.ALLUNITS)
-            mythreat = mythreat + self:CalculatePlatoonThreat('AntiAir', categories.ALLUNITS)
+            mythreat = self:CalculatePlatoonThreat('AntiSurface', categories.ALLUNITS) * .33    -- use only 1/3 of surface threat for target search 
+            
+            mythreat = mythreat + self:CalculatePlatoonThreat('AntiAir', categories.ALLUNITS)   -- plus any air threat
 
 			strikerange = 125
             
@@ -3173,8 +3174,8 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
 
         if (not target or target.Dead) and PlatoonExists(aiBrain, self) then
 
-            mythreat = self:CalculatePlatoonThreat('AntiSurface', categories.ALLUNITS)
-            mythreat = mythreat + self:CalculatePlatoonThreat('AntiAir', categories.ALLUNITS)
+            mythreat = self:CalculatePlatoonThreat('AntiSurface', categories.ALLUNITS) * .5     -- use half of surface threat for target search
+            mythreat = mythreat + self:CalculatePlatoonThreat('AntiAir', categories.ALLUNITS)   -- but all of antiair if any
 
 			strikerange = 125
 
