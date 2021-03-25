@@ -17,45 +17,45 @@ UnitBlueprint {
     Air = {
 	
         AutoLandTime = 3.9,
-        BankFactor = 2.8,
+        BankFactor = 2.5,
         
         BankForward = false,
         
-        BreakOffDistance = 90,
+        BreakOffDistance = 60,
         BreakOffIfNearNewTarget = true,
         
-        BreakOffTrigger = 45,
+        BreakOffTrigger = 30,
         
         CanFly = true,
         
         CombatTurnSpeed = 0.8,
         
-        EngageDistance = 70,
+        EngageDistance = 50,
 		
         KLift = 3,
-        KLiftDamping = 6,
+        KLiftDamping = 2.5,
 		
-        KMove = 0.3,
-        KMoveDamping = 0.45,
+        KMove = 1,
+        KMoveDamping = 2,
 		
-        KRoll = 4,
-        KRollDamping = 6,
+        KRoll = 2,
+        KRollDamping = 2,
 		
-        KTurn = 1.25,
-        KTurnDamping = 2.2,
+        KTurn = 0.8,
+        KTurnDamping = 1.2,
 		
-        LiftFactor = 8,
+        LiftFactor = 7,
 		
         MaxAirspeed = 20,
-        MinAirspeed = 16,
+        MinAirspeed = 18,
 		
-        PredictAheadForBombDrop = 8,
+        PredictAheadForBombDrop = 2,
 		
-        StartTurnDistance = 22,
+        StartTurnDistance = 15,
 		
-        TightTurnMultiplier = 1.15,
+        TightTurnMultiplier = 0,
 		
-        TurnSpeed = 0.9,
+        TurnSpeed = 0.65,
 		
         Winged = true,
     },
@@ -322,22 +322,24 @@ UnitBlueprint {
                 Land = 'Land|Water|Seabed',
             },
 			
-            FiringRandomness = 2.4,
+            FiringRandomness = 3,
             FiringTolerance = 0.275,
 			
-			FixBombTrajectory = true,
+			--FixBombTrajectory = true,
 			
 			HeadingArcCenter = 0,
 			HeadingArcRange = 35,
 			
             Label = 'Bomb',
 			
-            MaxRadius = 60,
+            MaxRadius = 90,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 0,
-			
+            
+            NeedToComputeBombDrop = true,			
+            
             ProjectileId = '/projectiles/SBOOhwalliStrategicBomb01/SBOOhwalliStrategicBomb01_proj.bp',
 
             RackBones = {
