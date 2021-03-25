@@ -70,18 +70,15 @@ UnitBlueprint {
 	
     Economy = {
         AdjacentStructureEnergyMod = -5,
+        
         BuildCostEnergy = 125000,
         BuildCostMass = 10800,
 		BuildRate = 20,
         BuildTime = 9000,
 		
-        ProductionPerSecondEnergy = 6750,
+        ProductionPerSecondEnergy = 6100,
         ProductionPerSecondMass = 2,
-		
-        RebuildBonusIds = {
-            'bab1302',
-        },
-		
+
         StorageEnergy = 25000,
     },
 	
@@ -205,7 +202,7 @@ UnitBlueprint {
     },
 	
     General = {
-		CapCost = 0,
+		CapCost = 5,
         Category = 'Economy',
         Classification = 'RULEUC_Resource',
         CommandCaps = {

@@ -1,19 +1,19 @@
 UnitBlueprint {
 	Merge = true,
+    
 	BlueprintId = "bsb1302", --Seraphim T3 Hydrocarbon
+    
     Economy = {
         BuildRate = 20,
         BuildableCategory = {
             'bsb1304',
         },
-        RebuildBonusIds = {
-            'bsb1302',
-            'bsb1304',
-        },
+
         StorageEnergy = 1000,
     },
+    
     General = {
-		CapCost = 4,
+
         CommandCaps = {
             RULEUCC_Pause = true,
             RULEUCC_Stop = true,

@@ -162,7 +162,7 @@ UnitBlueprint {
         SizeZ = 3,
     },
     General = {
-	CapCost = 0,
+        CapCost = 3,
         Category = 'Economy',
         Classification = 'RULEUC_Resource',
         FactionName = 'Seraphim',

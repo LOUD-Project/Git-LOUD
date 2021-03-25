@@ -261,7 +261,7 @@ UnitBlueprint {
     },
 	
     General = {
-		CapCost = 0,
+		CapCost = 4,
         Category = 'Economy',
         Classification = 'RULEUC_Resource',
         CommandCaps = {
