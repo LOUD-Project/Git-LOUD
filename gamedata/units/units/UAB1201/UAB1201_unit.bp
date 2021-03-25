@@ -169,7 +169,7 @@ UnitBlueprint {
     },
     
     General = {
-		CapCost = 2,
+		CapCost = 6,
         Category = 'Economy',
         Classification = 'RULEUC_Resource',
         FactionName = 'Aeon',

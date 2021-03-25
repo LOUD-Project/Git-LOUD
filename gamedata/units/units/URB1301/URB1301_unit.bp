@@ -120,7 +120,7 @@ UnitBlueprint {
     },
 	
     General = {
-		CapCost = 4,
+		CapCost = 12,
         Category = 'Economy',
         Classification = 'RULEUC_Resource',
         FactionName = 'Cybran',
