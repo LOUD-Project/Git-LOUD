@@ -68,7 +68,7 @@ UnitBlueprint {
         BuildCostMass = 4250,
         BuildTime = 5400,
 		
-        ProductionPerSecondEnergy = 4375,
+        ProductionPerSecondEnergy = 4075,
 		
 		EnergyStorage = 250,
     },
@@ -79,7 +79,7 @@ UnitBlueprint {
     },
 	
     General = {
-		CapCost = 3,
+		CapCost = 12,
         Category = 'Economy',
         Classification = 'RULEUC_Resource',
         FactionName = 'Cybran',

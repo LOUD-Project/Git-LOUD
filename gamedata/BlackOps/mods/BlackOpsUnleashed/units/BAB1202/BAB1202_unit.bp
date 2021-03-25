@@ -87,6 +87,7 @@ UnitBlueprint {
 		BuildableCategory = {'bab1302'},
 		
         ProductionPerSecondEnergy = 875,
+        
 		StorageEnergy = 200,
     },
 	
@@ -96,6 +97,7 @@ UnitBlueprint {
     },
 	
     General = {
+        CapCost = 6,
         Category = 'Economy',
         Classification = 'RULEUC_Resource',
         CommandCaps = {

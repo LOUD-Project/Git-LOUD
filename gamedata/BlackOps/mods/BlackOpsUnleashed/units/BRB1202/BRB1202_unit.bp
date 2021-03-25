@@ -87,6 +87,7 @@ UnitBlueprint {
     },
 	
     General = {
+        CapCost = 6,
 		CapCost = 1,
         Category = 'Economy',
         Classification = 'RULEUC_Resource',
