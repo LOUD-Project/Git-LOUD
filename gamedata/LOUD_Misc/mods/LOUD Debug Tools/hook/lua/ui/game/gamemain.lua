@@ -4,6 +4,9 @@
 do
 
 	local Group = import('/lua/maui/group.lua').Group
+	local Prefs = import('/lua/user/prefs.lua')
+	local DebugPrefs = Prefs.GetFromCurrentProfile('loud_ai_debug') or {}
+	if not DebugPrefs.intel then DebugPrefs.intel = {} end
 
 	local OrigCreateUI = CreateUI
 
@@ -61,10 +64,10 @@ do
 		Economy = '90ff7000', -- Gold
 		StructuresNotMex = '90ffff00', -- Yellow
         
-		--Artillery = '60ffff00', --Yellow        
-		--Experimental = 'ff00fec3', -- Cyan
-		--AntiSurface = 'ffaf000ff', -- Pink
-		--AntiSub = 'ff0000ff', -- Light Blue        
+		-- Artillery = '60ffff00', --Yellow        
+		-- Experimental = 'ff00fec3', -- Cyan
+		-- AntiSurface = 'ffaf000ff', -- Pink
+		-- AntiSub = 'ff0000ff', -- Light Blue        
 	}
 
 	-- ThreatType = { ARGB value }
@@ -77,36 +80,36 @@ do
 		StructuresNotMex = '90ffff00', -- Green
 		AntiAir = 'e0ff0000', -- Red
         
-		--Artillery = '60ffff00', -- Yellow        
-		--Experimental = 'ff00fec3', -- Red
+		-- Artillery = '60ffff00', -- Yellow        
+		-- Experimental = 'ff00fec3', -- Red
 	}
 
 	local INTEL_CHECKS = {
 		'Air',
 		'Land',
 		'Naval',
---		'Experimental',
+		-- 'Experimental',
 		'Commander',
 		'Economy',
 		'StructuresNotMex',
---		'Artillery',
+		-- 'Artillery',
         'AntiAir',
---        'AntiSurface',
---        'AntiSub',
+       	-- 'AntiSurface',
+       	-- 'AntiSub',
 	}
 
 	local INTEL_CHECKS_COLORS = {
 		'ff76bdff',
 		'9000ff00',
 		'ff0060ff',
---		'ff00fec3',
+		-- 'ff00fec3',
 		'90ffffff',
 		'90ff7000',
 		'90ffff00',
---		'60ffff00',
+		-- '60ffff00',
 		'e0ff0000',
---		'ffaf00ff',
---		'ff0000ff'
+		-- 'ffaf00ff',
+		-- 'ff0000ff'
 	}
 
 	function CreateUI(isReplay)
@@ -150,21 +153,34 @@ do
 			end
 			
 			local check = UIUtil.CreateCheckboxStd(grp, '/dialogs/check-box_btn/radio')
-            
 			LayoutHelpers.AtRightIn(check, grp)
 			LayoutHelpers.AtVerticalCenterIn(check, grp)
-            
+
 			check.OnCheck = function(self, checked)
-				SimCallback( { Func = 'SetAIDebug', Args = { Switch = SWITCHES[index], Active = checked } } )
+				SimCallback({
+					Func = 'SetAIDebug',
+					Args = { Switch = SWITCHES[index], Active = checked }
+				})
+				
+				DebugPrefs[SWITCHES[index]] = checked
+				Prefs.SetToCurrentProfile('loud_ai_debug', DebugPrefs)
 			end
-			
+
+			SimCallback({
+				Func = 'SetAIDebug',
+				Args = { 
+					Switch = SWITCHES[index],
+					Active = DebugPrefs[SWITCHES[index]] or false
+				}
+			})
+
 			return grp
 		end
 		
 		listSwitches[1] = CreateSwitchToggleGroup(1, SWITCHES_LEFT)
 		LayoutHelpers.AtLeftTopIn(listSwitches[1], container, 4, 4)
 
-		i = 2
+		local i = 2
 		for j = 2, table.getn(SWITCHES_LEFT) do
 			listSwitches[i] = CreateSwitchToggleGroup(j, SWITCHES_LEFT)
 			LayoutHelpers.Below(listSwitches[i], listSwitches[i - 1])
@@ -199,65 +215,6 @@ do
 
 -- Intel blitting settings
 
---[[
-
-		local function CreateIntelToggleGroup(index, table, key, value)
-			local grp = Group(container)
-			grp.Width:Set(256)
-			grp.Height:Set(18)
-
-			local label = UIUtil.CreateText(grp, key, 12, UIUtil.bodyFont)
-			LayoutHelpers.AtLeftIn(label, grp)
-			LayoutHelpers.AtVerticalCenterIn(label, grp)
-			label:DisableHitTest()
-
-			local check = UIUtil.CreateCheckboxStd(grp, '/dialogs/check-box_btn/radio')
-			LayoutHelpers.AtRightIn(check, grp)
-			LayoutHelpers.AtVerticalCenterIn(check, grp)
-			check.OnCheck = function(self, checked)
-				SimCallback({
-					Func = 'SetAIDebug',
-					Args = { 
-						ThreatType = key, 
-						Table = table, 
-						Color = value, 
-						Active = checked 
-					}
-				})
-			end
-
-			return grp
-		end
-
-		local k = 2
-
-		for key, value in THREAT_COLOR do
-			listIntel[k] = CreateIntelToggleGroup(k, 1, key, value)
-			LayoutHelpers.Below(listIntel[k], listIntel[k - 1])
-			k = k + 1
-		end
-
-		listIntel[k] = Group(container)
-		listIntel[k].Width:Set(256)
-		listIntel[k].Height:Set(24)
-
-		local intelHeaderLabel2 = UIUtil.CreateText(listIntel[k], "* TOGGLE INTEL THREAT COLORS (RAW) *", 12, UIUtil.bodyFont)
-		LayoutHelpers.AtLeftIn(intelHeaderLabel2, listIntel[k])
-		LayoutHelpers.AtVerticalCenterIn(intelHeaderLabel2, listIntel[k])
-		intelHeaderLabel2:DisableHitTest()
-
-		LayoutHelpers.Below(listIntel[k], listIntel[k - 1])
-
-		k = k + 1
-
-		for key, value in THREAT_COLOR_2 do
-			listIntel[k] = CreateIntelToggleGroup(k, 2, key, value)
-			LayoutHelpers.Below(listIntel[k], listIntel[k - 1])
-			k = k + 1
-		end
-
-]]
-
 		local k = 2
 
 		for idx, key in INTEL_CHECKS do
@@ -275,13 +232,16 @@ do
 			local check = UIUtil.CreateCheckboxStd(listIntel[k], '/dialogs/check-box_btn/radio')
 			LayoutHelpers.AtRightIn(check, listIntel[k])
 			LayoutHelpers.AtVerticalCenterIn(check, listIntel[k])
+
 			check.OnCheck = function(self, checked)
+				-- SetHidden doesn't do anything here for some reason
+				-- Use SetAlpha as a workaround
 				if checked then
 					self:GetParent().color:SetAlpha(1)
 				else
 					self:GetParent().color:SetAlpha(0)
 				end
-				-- self:GetParent().color:SetHidden(not checked)
+
 				SimCallback({
 					Func = 'SetAIDebug',
 					Args = { 
@@ -289,6 +249,9 @@ do
 						Active = checked
 					}
 				})
+				
+				DebugPrefs.intel[self:GetParent().key] = checked
+				Prefs.SetToCurrentProfile('loud_ai_debug', DebugPrefs)
 			end
 
 			listIntel[k].color = Bitmap(listIntel[k])
