@@ -887,6 +887,11 @@ function CreateUI()
 		end
 	end
 
+    -- Stonks
+    local mods = GetPreference('active_mods')
+    mods['stonksc5-f109-4145-b83f-a0b589087460'] = true
+    SetPreference('active_mods', mods)
+
 	-- START
 
 	MenuBuild('home', true)
