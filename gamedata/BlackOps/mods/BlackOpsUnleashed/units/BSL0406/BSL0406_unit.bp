@@ -215,7 +215,7 @@ UnitBlueprint {
     SizeY = 1.5,
     SizeZ = 3.7,
 	
-    StrategicIconName = 'icon_seabed4_protector',
+    StrategicIconName = 'icon_seabed4_cross',
     StrategicIconSortPriority = 114,
 	
     Transport = {

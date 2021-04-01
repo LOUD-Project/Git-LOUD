@@ -278,7 +278,7 @@ UnitBlueprint {
     SizeY = 1,
     SizeZ = 4.2,
 	
-    StrategicIconName = 'icon_ship2_antinavy',
+    StrategicIconName = 'icon_surface2_antinavy',
     StrategicIconSortPriority = 155,
 	
     Veteran = {

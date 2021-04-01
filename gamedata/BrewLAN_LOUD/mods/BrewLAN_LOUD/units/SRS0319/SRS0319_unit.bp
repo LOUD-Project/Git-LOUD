@@ -378,7 +378,7 @@ UnitBlueprint {
     SizeY = 1,
     SizeZ = 3.5,
 	
-    StrategicIconName = 'icon_ship3_engineer',
+    StrategicIconName = 'icon_surface3_engineer',
     StrategicIconSortPriority = 155,
 	
     Veteran = {
