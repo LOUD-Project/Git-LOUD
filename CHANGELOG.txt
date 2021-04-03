@@ -1,3 +1,9 @@
+### Patch 03-04-2021 ###
+Lua 5.4.12
+
+- AI: Some refinement of air formation target acquisition.
+- Fixed a bug preventing changing of factory queue template icons.
+
 ### Release 19-03-2021 ###
 Lua 5.4.11
 
@@ -16,7 +22,7 @@ Lua 5.4.11
 - Fix: Show the correct icon when examining a choice of enhancement.
 - Fix: Stop the in-lobby Total Unit Cap display from trying to get a non-existent tooltip.
 - Fix: Templates with localization tags were not getting formatted to their actual translation.
-- Fixed a bug preventing changing of template icons.
+- Fixed a bug preventing changing of structure template icons.
 
 ### Release 05-03-2021 ###
 Lua 5.4.10
