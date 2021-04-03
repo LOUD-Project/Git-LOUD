@@ -1781,12 +1781,9 @@ local function TryLaunch(skipNoObserversCheck, skipSandboxCheck, skipTimeLimitCh
         -- Delete some no-longer-needed data
         gameInfo.GameOptions.EvenFactions = nil
         
-		LOG("HERE WE GO "..repr({ 
-            Options = gameInfo.GameOptions, 
-            HostedBy = localPlayerName, 
-            PlayerCount = GetPlayerCount(), 
-            GameName = gameName
-        }))
+		LOG("HERE WE GO "..repr({ Options = gameInfo.GameOptions, HostedBy = localPlayerName, PlayerCount = GetPlayerCount(), GameName = gameName }) )
+        
+        --LOG("*AI DEBUG GAMEINFO IS "..repr(gameInfo) )
     
         local modConfigs = Mods.GetSimConfigs(gameInfo.GameMods)
 
