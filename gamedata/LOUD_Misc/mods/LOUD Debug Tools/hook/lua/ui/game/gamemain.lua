@@ -5,7 +5,11 @@ do
 
 	local Group = import('/lua/maui/group.lua').Group
 	local Prefs = import('/lua/user/prefs.lua')
-	local DebugPrefs = Prefs.GetFromCurrentProfile('loud_ai_debug') or {}
+    
+    __debugprefs = Prefs.GetFromCurrentProfile('loud_ai_debug') or {}
+    
+	local DebugPrefs = __debugprefs  
+    
 	if not DebugPrefs.intel then DebugPrefs.intel = {} end
 
 	local OrigCreateUI = CreateUI
@@ -30,14 +34,14 @@ do
 	}
 
 	local SWITCHES_RIGHT = {
-		"* BASES/BASE THREAT *",
+		"* BASES & DISTRESS ALERTS *",
 		'DisplayBaseNames',
 		'BaseMonitorDialog',
 		'DisplayBaseMonitors',
 		'BaseDistressResponseDialog',
 		'DeadBaseMonitorDialog',
 		'DisplayPingAlerts',
-		"* BASE/PLATOON FORMATION, BEHAVIOURS *",
+		"* PLATOONS *",
 		'PlatoonDialog',
 		'DisplayPlatoonMembership',
 		'DisplayPlatoonPlans',
@@ -113,6 +117,7 @@ do
 	}
 
 	function CreateUI(isReplay)
+
 		OrigCreateUI(isReplay)
 
 		local bg = Bitmap(GetFrame(0))
@@ -137,11 +142,13 @@ do
 		
 		-- Only for SWITCHES, not for intel colours
 		local function CreateSwitchToggleGroup(index, SWITCHES)
+        
 			local grp = Group(container)
 			grp.Width:Set(256)
 			grp.Height:Set(18)
 			
 			local label = UIUtil.CreateText(grp, SWITCHES[index], 12, UIUtil.bodyFont)
+            
 			LayoutHelpers.AtLeftIn(label, grp)
 			LayoutHelpers.AtVerticalCenterIn(label, grp)
 			label:DisableHitTest()
@@ -163,15 +170,13 @@ do
 				})
 				
 				DebugPrefs[SWITCHES[index]] = checked
+                
 				Prefs.SetToCurrentProfile('loud_ai_debug', DebugPrefs)
 			end
 
 			SimCallback({
 				Func = 'SetAIDebug',
-				Args = { 
-					Switch = SWITCHES[index],
-					Active = DebugPrefs[SWITCHES[index]] or false
-				}
+				Args = { Switch = SWITCHES[index], Active = DebugPrefs[SWITCHES[index]] or false }
 			})
 
 			return grp
@@ -191,21 +196,22 @@ do
 		LayoutHelpers.CenteredRightOf(listSwitches[i], listSwitches[1], 4)
 		i = i + 1
 
--- Create intel header next to first header of right-side switches
--- while it's easy to do so
+        -- Create intel header next to first header of right-side switches
+        -- while it's easy to do so
 
 		listIntel[1] = Group(container)
 		listIntel[1].Width:Set(256)
 		listIntel[1].Height:Set(24)
 
 		local intelHeaderLabel1 = UIUtil.CreateText(listIntel[1], "* TOGGLE INTEL THREAT COLORS *", 12, UIUtil.bodyFont)
+        
 		LayoutHelpers.AtLeftIn(intelHeaderLabel1, listIntel[1])
 		LayoutHelpers.AtVerticalCenterIn(intelHeaderLabel1, listIntel[1])
 		intelHeaderLabel1:DisableHitTest()
 
 		LayoutHelpers.CenteredRightOf(listIntel[1], listSwitches[i - 1], 16)
 
--- Populate remainder of right-side switches
+        -- Populate remainder of right-side switches
 
 		for j = 2, table.getn(SWITCHES_RIGHT) do
 			listSwitches[i] = CreateSwitchToggleGroup(j, SWITCHES_RIGHT)
@@ -213,11 +219,12 @@ do
 			i = i + 1
 		end
 
--- Intel blitting settings
+        -- Intel blitting settings
 
 		local k = 2
 
 		for idx, key in INTEL_CHECKS do
+        
 			listIntel[k] = Group(container)
 			listIntel[k].Width:Set(256)
 			listIntel[k].Height:Set(18)
@@ -225,23 +232,26 @@ do
 			listIntel[k].key = key
 
 			local label = UIUtil.CreateText(listIntel[k], key, 12, UIUtil.bodyFont)
+            
 			LayoutHelpers.AtLeftIn(label, listIntel[k])
 			LayoutHelpers.AtVerticalCenterIn(label, listIntel[k])
 			label:DisableHitTest()
 
 			local check = UIUtil.CreateCheckboxStd(listIntel[k], '/dialogs/check-box_btn/radio')
+            
 			LayoutHelpers.AtRightIn(check, listIntel[k])
 			LayoutHelpers.AtVerticalCenterIn(check, listIntel[k])
-
+            
 			check.OnCheck = function(self, checked)
-				-- SetHidden doesn't do anything here for some reason
-				-- Use SetAlpha as a workaround
+            
 				if checked then
 					self:GetParent().color:SetAlpha(1)
 				else
 					self:GetParent().color:SetAlpha(0)
 				end
-
+                
+				-- self:GetParent().color:SetHidden(not checked)
+                
 				SimCallback({
 					Func = 'SetAIDebug',
 					Args = { 
@@ -251,6 +261,7 @@ do
 				})
 				
 				DebugPrefs.intel[self:GetParent().key] = checked
+                
 				Prefs.SetToCurrentProfile('loud_ai_debug', DebugPrefs)
 			end
 
@@ -265,18 +276,19 @@ do
 			k = k + 1
 		end
 		
--- Close button for dialog itself
+        -- Close button for dialog itself
 		
 		local closeBtn = UIUtil.CreateButtonStd(
 			bg, '/lobby/lan-game-lobby/smalltoggle', "Close",
 			12, 2, 0,
 			"UI_Menu_MouseDown", "UI_Menu_Rollover")
 		LayoutHelpers.AtRightTopIn(closeBtn, bg)
+        
 		closeBtn.OnClick = function(self, modifiers)
 			bg:Hide()
 		end
 		
--- Hide dialog, create button left of main menu to toggle it
+        -- Hide dialog, create button left of main menu to toggle it
 		
 		bg:Hide()
 

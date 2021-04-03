@@ -155,14 +155,6 @@ function OnFirstUpdate()
 			ConExecute('fog_DistanceFog')
             
             ConExecute('d3d_WindowsCursor true')
-            
-            if __debugprefs then
-
-                LOG("*AI DEBUG debugprefs are "..repr(__debugprefs))
-                
-                Sync.AIDebug = __debugprefs
-                
-            end
 
         end
     )
