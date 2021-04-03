@@ -790,7 +790,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			
             MissionTime = 90,
 			
-            PrioritizedCategories = { categories.AIR - categories.INTELLIGENCE - categories.TRANSPORTFOCUS },
+            PrioritizedCategories = { categories.AIR - categories.INTELLIGENCE - categories.TRANSPORTFOCUS, categories.TRANSPORTFOCUS },
 			
 			SearchRadius = 45,	
 			
@@ -801,7 +801,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
     },
 
     -- upto 12 ASF for local air defense against Spy Planes
-    Builder {BuilderName = 'Hunt Fighters Defensive - Intel Only',
+    Builder {BuilderName = 'Hunt Fighters Defensive - Intel First',
 	
         PlatoonTemplate = 'FighterAttack Small',
         
@@ -842,7 +842,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
     },
 
     -- upto 12 ASF for local air defense against Transports
-    Builder {BuilderName = 'Hunt Fighters Defensive - Transport Only',
+    Builder {BuilderName = 'Hunt Fighters Defensive - Transport First',
 	
         PlatoonTemplate = 'FighterAttack Small',
         
@@ -916,7 +916,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			
             MissionTime = 150,
 			
-            PrioritizedCategories = { categories.MOBILE * categories.AIR},
+            PrioritizedCategories = { categories.MOBILE * categories.AIR, categories.TRANSPORTFOCUS},
 			
 			SearchRadius = 70,
 			
@@ -959,7 +959,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
             
             MissionTime = 200,
             
-            PrioritizedCategories = { categories.MOBILE * categories.AIR * categories.EXPERIMENTAL, categories.MOBILE * categories.AIR - categories.INTELLIGENCE },
+            PrioritizedCategories = { categories.MOBILE * categories.AIR * categories.EXPERIMENTAL, categories.MOBILE * categories.AIR - categories.INTELLIGENCE, categories.TRANSPORTFOCUS },
             
 			SearchRadius = 90,
             
