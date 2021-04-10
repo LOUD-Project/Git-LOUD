@@ -186,7 +186,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 		
         InstanceCount = 3,
 		
-        BuilderType = { 'T1','T2','T3' },
+        BuilderType = { 'T1','T2','T3','SubCommander' },
 		
         BuilderConditions = {
 			{ EBC, 'LessThanEconMassStorageRatio', { 25 }},
@@ -296,7 +296,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 650,
+        Priority = 660,
 		
         InstanceCount = 3,
 		
@@ -320,9 +320,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 650,
+        Priority = 660,
 		
-        InstanceCount = 3,
+        InstanceCount = 4,
 		
         BuilderType = { 'T1','T2','T3' },
 
@@ -347,11 +347,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 		
 		PlatoonAIPlan = 'EngineerAssistAI',
 		
-        Priority = 750,
+        Priority = 740,
 		
 		InstanceCount = 8,
 		
-		BuilderType = { 'T2','T3','SubCommander' },
+		BuilderType = { 'T3','SubCommander' },
 		
         BuilderConditions = {
             { LUTL, 'AirStrengthRatioLessThan', { 1.1 } },
@@ -381,11 +381,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 		
 		PlatoonAIPlan = 'EngineerAssistAI',
 		
-        Priority = 750,
+        Priority = 740,
 		
 		InstanceCount = 8,
 		
-		BuilderType = { 'T2','T3','SubCommander' },
+		BuilderType = { 'T3','SubCommander' },
 		
         BuilderConditions = {
             { LUTL, 'LandStrengthRatioLessThan', { 1.1 } },
@@ -419,7 +419,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 		
 		InstanceCount = 5,
 		
-		BuilderType = { 'T2','T3','SubCommander' },
+		BuilderType = { 'T3','SubCommander' },
 		
         BuilderConditions = {
 			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},
@@ -449,7 +449,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 		
 		InstanceCount = 6,
 		
-        Priority = 650,
+        Priority = 720,
 		
         BuilderType = { 'T1' },
 		

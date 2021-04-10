@@ -9,15 +9,15 @@ local LUTL = '/lua/loudutilities.lua'
 BuilderGroup {BuilderGroupName = 'Engineer Radar Construction - Expansions',
     BuildersType = 'EngineerBuilder',
 	
-    Builder {BuilderName = 'Radar Engineer Expansion',
+    Builder {BuilderName = 'Radar Engineer - Expansion',
 	
         PlatoonTemplate = 'EngineerBuilderGeneral',
 		
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 800,
+        Priority = 760,
 		
-        BuilderType = { 'T1','T2','T3','SubCommander' },
+        BuilderType = { 'T2' },
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
@@ -35,7 +35,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Radar Construction - Expansions',
 
 				MaxThreat = 30,
                 
-                BuildStructures = { 'T1Radar' },
+                BuildStructures = { 'T2Radar' },
             }
         }
     },

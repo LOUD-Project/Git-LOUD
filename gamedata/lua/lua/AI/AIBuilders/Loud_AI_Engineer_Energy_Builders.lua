@@ -159,7 +159,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
             { LUTL, 'UnitCapCheckLess', { .65 } },
 			{ LUTL, 'HaveLessThanUnitsWithCategory', { 3, categories.HYDROCARBON }},
 			
-            { EBC, 'CanBuildOnHydroLessThanDistance',  { 'LocationType', 350, -9999, 10, 0, 'AntiSurface', 1 }},
+            { EBC, 'CanBuildOnHydroLessThanDistance',  { 'LocationType', 350, -9999, 30, 0, 'AntiSurface', 1 }},
         },
 		
         BuilderType = { 'T1','T2' },
@@ -168,11 +168,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
             Construction = {
                 BuildStructures = {'T1HydroCarbon'},
                 
-				LoopBuild = false,	#-- build only once then RTB
+				LoopBuild = true,
                 
                 MaxRange = 350,
 
-				ThreatMax = 10,
+				ThreatMax = 30,
 				ThreatRings = 0,
 				ThreatType = 'AntiSurface',                
             }
@@ -229,7 +229,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
 BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Expansions',
     BuildersType = 'EngineerBuilder',
    
-    Builder {BuilderName = 'T1 Hydrocarbon Expansion',
+    Builder {BuilderName = 'Hydrocarbon - Expansion',
     
         PlatoonTemplate = 'EngineerBuilderGeneral',
         
@@ -241,10 +241,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Expansions',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .65 } },
 			
-            { EBC, 'CanBuildOnHydroLessThanDistance',  { 'LocationType', 300, -9999, 10, 0, 'AntiSurface', 1 }},
+            { EBC, 'CanBuildOnHydroLessThanDistance',  { 'LocationType', 350, -9999, 30, 0, 'AntiSurface', 1 }},
         },
 		
-        BuilderType = { 'T1' },
+        BuilderType = { 'T2' },
 		
         BuilderData = {
             Construction = {
@@ -252,16 +252,16 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Expansions',
                 
 				LoopBuild = false,	#-- build only once then RTB
                 
-                MaxRange = 300,
+                MaxRange = 350,
 
-				ThreatMax = 10,
+				ThreatMax = 30,
 				ThreatRings = 0,
 				ThreatType = 'AntiSurface',                
             }
         }
     },    
 	
-    Builder {BuilderName = 'T3 Power Expansions Template',
+    Builder {BuilderName = 'T3 Power Template - Expansion',
     
         PlatoonTemplate = 'EngineerBuilderGeneral',
         
