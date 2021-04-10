@@ -76,6 +76,7 @@ function AIExecuteBuildStructure( aiBrain, engineer, buildingType, closeToBuilde
         local tMax = constructionData.ThreatMax or 10
         local tRings = constructionData.ThreatRings or 0
         local tType = constructionData.ThreatType or 'AntiSurface'
+        local maxlist = constructionData.MaxChoices or 1
         
         LOUDSORT( markerlist, function (a,b) return VDist3( a.Position, SourcePosition ) < VDist3( b.Position, SourcePosition ) end )
 
@@ -100,9 +101,11 @@ function AIExecuteBuildStructure( aiBrain, engineer, buildingType, closeToBuilde
 		
 		if counter > 0 then
             
-			local markerTable = import(AIUtils).AISortMarkersFromLastPosWithThreatCheck(aiBrain, mlist, 3, tMin, tMax, tRings, tType, SourcePosition)
+			local markerTable = import(AIUtils).AISortMarkersFromLastPosWithThreatCheck(aiBrain, mlist, maxlist, tMin, tMax, tRings, tType, SourcePosition)
 
 			if markerTable then
+            
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." finds "..LOUDGETN(markerTable).." "..repr(buildingType).." markers")
 
                 -- pick one of the points randomly
 				location = table.copy( markerTable[ Random(1,LOUDGETN(markerTable)) ] )
