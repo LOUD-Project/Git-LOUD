@@ -7,6 +7,15 @@ local UCBC = '/lua/editor/UnitCountBuildConditions.lua'
 local MIBC = '/lua/editor/MiscBuildConditions.lua'
 local LUTL = '/lua/loudutilities.lua'
 
+local OutNumberedFirst10Minutes = function( self,aiBrain )
+	
+	if aiBrain.OutnumberedRatio <= 1 or aiBrain.CycleTime > 600 then
+		return 0, false
+	end
+	
+	return self.Priority, true
+end
+
 local MapHasNavalAreas = function( self, aiBrain )
 
     if table.getn(ScenarioInfo.Env.Scenario.MasterChain['Naval Area']) > 0 then
@@ -115,6 +124,71 @@ BuilderGroup {BuilderGroupName = 'Engineer Land Expansion Construction',
         }
     }, 
 
+   
+    -- Builds land expansion bases at both Start and Expansion points
+    -- when there are nearby empty start locations
+    -- first 10 minutes only
+    Builder {BuilderName = 'Land Expansion Base - Outnumbered',
+	
+        PlatoonTemplate = 'EngineerBuilderGeneral',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+        Priority = 750,
+        
+        PriorityFunction = OutNumberedFirst10Minutes,
+		
+        BuilderConditions = {
+            
+			-- is there an expansion already underway (we use the Instant Version here for accuracy)
+			{ UCBC, 'IsBaseExpansionUnderway', {false} },
+            
+			-- there must be an start/expansion area with no engineers
+            { UCBC, 'BaseAreaForExpansion', { 'LocationType', 1000, -9999, 60, 0, 'AntiSurface' } },
+        },
+		
+        BuilderType = { 'T1' },
+		
+        BuilderData = {
+            Construction = {
+				-- a counted base is included when using ExistingBases functions - otherwise ignored
+				-- this is what allows a base to count or not count against maximum allowed bases
+                -- Counted Bases are typically production centres
+				CountedBase = true,
+                
+				-- this tells the code to start an active base at this location
+                ExpansionBase = true,
+                
+				-- this controls the radius at which this base will draw 'pool' units
+				-- and it forms the basis for the Base Alert radius as well
+                ExpansionRadius = 110,
+                
+				-- this controls the radius for creation of auto-rally points 
+				RallyPointRadius = 40,
+                
+				-- and of course -- the type of markers we're looking for
+                NearMarkerType = 'Large Expansion Area',
+                
+				-- the limit of how far away to include markers when looking for a position
+                LocationRadius = 1000,
+                
+				-- this controls which base layout file to use
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
+				BaseTemplate = 'ExpansionLayout_II',
+                
+				-- these parameters control point selection
+                ThreatMax = 60,
+                ThreatRings = 0,
+                ThreatType = 'AntiSurface',
+				
+				-- what we'll build
+                BuildStructures = {  
+					'T1LandFactory',
+                }               
+            },
+        }
+    }, 
+
 }
 
 BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
@@ -122,7 +196,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
     BuildersType = 'EngineerBuilder',
 
 	-- This builder will start an active DP 
-	Builder {BuilderName = 'Defensive Point Expansion',
+	Builder {BuilderName = 'DP - Expansion',
 	
 		PlatoonTemplate = 'EngineerBuilderGeneral',
         
@@ -178,7 +252,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
 		}
 	},
     
-	Builder {BuilderName = 'Defensive Point Expansion SACU',
+	Builder {BuilderName = 'DP - Expansion SACU',
 	
 		PlatoonTemplate = 'EngineerBuilderGeneral',
         
@@ -236,7 +310,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
 	-- Like above, we want to create an Active DP, but on Start and Expansion areas
 	-- this allows the AI to setup forward positions long before he has the resources to start a full base
 	-- Later on he can convert these 'Active DP' into real bases at his discretion
-    Builder {BuilderName = 'DP - Start & Expansion Areas',
+    Builder {BuilderName = 'DP - Expansion - Start & Expansion Areas',
 	
         PlatoonTemplate = 'EngineerBuilderGeneral',
         
@@ -294,7 +368,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
         }
     },
 
-    Builder {BuilderName = 'DP - Start & Expansion Areas - SACU',
+    Builder {BuilderName = 'DP - Expansion - Start & Expansion Areas - SACU',
 	
         PlatoonTemplate = 'EngineerBuilderGeneral',
         
@@ -357,7 +431,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction - Small'
     BuildersType = 'EngineerBuilder',
 
 	-- This builder will start an active DP 
-	Builder {BuilderName = 'Defensive Point Expansion Small',
+	Builder {BuilderName = 'DP - Expansion Small',
 	
 		PlatoonTemplate = 'EngineerBuilderGeneral',
         
@@ -441,7 +515,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction',
 
 			{ EBC, 'MassToFactoryRatioBaseCheck', { 'LocationType', 1.01, 1.03 } },
       
-			-- must have 3+ factories at MAIN
             { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 3, categories.FACTORY * categories.STRUCTURE}},
 			
 			-- can't be a major enemy base within 13km of here
@@ -503,7 +576,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction',
 
 			{ EBC, 'MassToFactoryRatioBaseCheck', { 'LocationType', 1.01, 1.03 } },
       
-			-- must have 3+ factories at MAIN
             { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 3, categories.FACTORY * categories.STRUCTURE}},
 			
 			-- can't be a major enemy base within 8km of here
