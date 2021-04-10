@@ -96,7 +96,7 @@ end
 
 function GetFromCurrentProfile(fieldName)
 
-    LOG("*AI DEBUG GetFromCurrentProfile "..repr(fieldName))
+    --LOG("*AI DEBUG GetFromCurrentProfile "..repr(fieldName))
     
     local scenario = nil
     local profile = GetCurrentProfile()
@@ -111,7 +111,7 @@ end
 
 function SetToCurrentProfile(fieldName, data)
 
-    LOG("*AI DEBUG SetToCurrentProfile "..repr(fieldName))
+    --LOG("*AI DEBUG SetToCurrentProfile "..repr(fieldName))
     
     local profile = GetPreference('profile')
     

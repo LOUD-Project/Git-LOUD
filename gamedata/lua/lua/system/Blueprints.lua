@@ -494,9 +494,6 @@ function ModBlueprints(all_blueprints)
 
 	--LOG("*AI DEBUG ScenarioInfo data is "..repr( _G ) )
 
-	--LOG("*AI DEBUG Adding SATELLITE restriction to ANTIAIR Weapons - unit must have the UWRC-AntiAir range category in the weapon")
-	--LOG("*AI DEBUG Adjusting ROF,TargetCheckInterval and Energy Drain requirements")
-
 	local ROFadjust = 0.9
 
     for id, bp in all_blueprints.Unit do
@@ -533,7 +530,6 @@ function ModBlueprints(all_blueprints)
 					wep.RateOfFire = wep.RateOfFire * ROFadjust
 					
 					if wep.MuzzleSalvoDelay == nil then
-						--LOG("*AI DEBUG "..id.." has nil for "..repr(wep.Label).." MuzzleSalvoDelay")
 						wep.MuzzleSalvoDelay = 0
 					end
                 end
@@ -575,9 +571,6 @@ function ModBlueprints(all_blueprints)
         end
     end 
 
-	--LOG("*AI DEBUG Capping GuardReturnRadius")
-	--LOG("*AI DEBUG Adjusting View Radius")
-	
 	local capreturnradius = 80
 	
     local econScale = 0
@@ -708,11 +701,12 @@ function ModBlueprints(all_blueprints)
 								bp.Economy.BuildCostMass = bp.Economy.BuildCostMass + (bp.Economy.BuildCostMass * econScale)
 							end
 
-							-- although air units speed is not controlled by this I do it anyways for visual reference in-game.
+							-- air units speed is not controlled by this
 							if bp.Physics.Maxspeed then
 								bp.Physics.MaxSpeed = bp.Physics.MaxSpeed + (bp.Physics.MaxSpeed * speedScale)
 							end
 							
+                            -- this is the one that controls air unit speed
 							if bp.Air.MaxAirspeed then
 								bp.Air.MaxAirspeed = bp.Air.MaxAirspeed + (bp.Air.MaxAirspeed * speedScale)
 							end
@@ -794,9 +788,9 @@ function ModBlueprints(all_blueprints)
 							
 							-- this series of adjustments is designed to give the lower tech mobile land units a little more 'oomph' with
 							-- regards to their T3 counterparts both in the form of Health and Speed
-							local T1_Adjustment = 1.275
-							local T2_Adjustment = 1.120
-							local T3_Adjustment = 1.000
+							local T1_Adjustment = 1.22
+							local T2_Adjustment = 1.12
+							local T3_Adjustment = 1.00
 						
 							for _, cat_mobile in bp.Categories do
 							

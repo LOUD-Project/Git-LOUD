@@ -1032,7 +1032,7 @@ function SetupAICheat(aiBrain, biggestTeamSize)
     -- so this value will always be 0 or negative
     -- put a floor of -0.60 on this -- since we're reaching near zero consumption
     modifier = math.min(0, 1 - aiBrain.CheatValue)
-    modifier = 0.75 * modifier
+    modifier = 0.67 * modifier
     modifier = math.max( -0.60, modifier )
 
 	newbuff.Affects.EnergyMaintenance.Add = modifier
@@ -1146,17 +1146,14 @@ function SetupAICheat(aiBrain, biggestTeamSize)
         }
     end
     
-	-- overall cheat buff -- applied at 40% of the multiplier
+	-- overall cheat buff -- applied at 34% of the multiplier
 	-- alter unit health, shield health and regen rates
-    
-	-- reduce the delay period between upgrades
-    -- and only when multiplier => 1
     newbuff = table.deepcopy(Buffs['CheatALL'])
     
     newbuff.Name = 'CheatALL'..aiBrain.ArmyIndex
 	
 	modifier = math.max( 0, aiBrain.CheatValue - 1.0 )
-	modifier = 0.4 * modifier
+	modifier = 0.34 * modifier
 	modifier = 1.0 + modifier
 
 	newbuff.Affects.MaxHealth.Mult = modifier
@@ -1176,11 +1173,16 @@ function SetupAICheat(aiBrain, biggestTeamSize)
         }
     end
 
+    -- alter the AI's delay between upgrades by 65% of the cheat
+    -- positive cheats will reduce the delay -- negatives will increase the delay
+    modifier = math.max( -0.2, aiBrain.CheatValue - 1.0 )
+    modifier = 0.65 * modifier
+    modifier = 1.0 + modifier
 	
 	-- reduce the waiting period between upgrades by 50% of the AIMult
 	aiBrain.UpgradeIssuedPeriod = math.floor(aiBrain.UpgradeIssuedPeriod * ( 1 / modifier ))
     
-    --LOG("*AI DEBUG "..aiBrain.Nickname.." Upgrade Issued period(delay) is "..aiBrain.UpgradeIssuedPeriod)
+    LOG("*AI DEBUG "..aiBrain.Nickname.." Upgrade Issue Period is "..aiBrain.UpgradeIssuedPeriod)
     
 end
 
@@ -1247,6 +1249,19 @@ end
 
 function SetArmyPoolBuff(aiBrain, AIMult)
 
+    -- alter the AI's delay between upgrades by an additional amount equal to 25% of the AI Mult
+    -- but no reductions (this formula differs from the base calcuation at game start)
+    -- it compounds over time but at a more subtle rate
+    modifier = math.max( 0, AIMult - 1.0 )
+    modifier = 0.25 * modifier
+    modifier = 1.0 + modifier
+	
+	-- reduce the waiting period between upgrades
+	aiBrain.UpgradeIssuedPeriod = math.floor(aiBrain.UpgradeIssuedPeriod * ( 1 / modifier ))
+    
+    LOG("*AI DEBUG "..aiBrain.Nickname.." Upgrade Issue Period is "..aiBrain.UpgradeIssuedPeriod)
+
+
     local ApplyBuff = import('/lua/sim/buff.lua').ApplyBuff
     local RemoveBuff = import('/lua/sim/buff.lua').RemoveBuff
 
@@ -1256,6 +1271,15 @@ function SetArmyPoolBuff(aiBrain, AIMult)
     local buffAffects = buffDef.Affects
 
     buffAffects.BuildRate.Mult = AIMult
+    
+    local modifier = math.min(0, 1 - AIMult)
+    modifier = 0.67 * modifier
+    modifier = math.max( -0.60, modifier )
+
+	buffAffects.EnergyMaintenance.Add = modifier
+	buffAffects.EnergyActive.Add = modifier
+	buffAffects.MassActive.Add = modifier    
+
 
     -- Modify CheatIncome buff
     buffDef = Buffs['CheatIncome'..aiBrain.ArmyIndex]
@@ -1263,6 +1287,33 @@ function SetArmyPoolBuff(aiBrain, AIMult)
 
     buffAffects.EnergyProduction.Mult = AIMult
     buffAffects.MassProduction.Mult = AIMult
+
+    
+    -- Modify CheatIntel buff
+    buffDef = Buffs['CheatIntel'..aiBrain.ArmyIndex]
+    buffAffects = buffDef.Affects
+    
+	buffAffects.VisionRadius.Mult = AIMult
+    buffAffects.WaterVisionRadius.Mult = AIMult
+	buffAffects.RadarRadius.Mult = AIMult
+	buffAffects.OmniRadius.Mult = AIMult
+	buffAffects.SonarRadius.Mult = AIMult
+
+    
+    -- Modify CheatALL buff
+    buffDef = Buffs['CheatALL'..aiBrain.ArmyIndex]
+    buffAffects = buffDef.Affects
+    
+    local modifier = math.max(0, AIMult - 1.0)
+    modifier = 0.34 * modifier
+    modifier = 1.0 + modifier
+
+	buffAffects.MaxHealth.Mult = modifier
+    buffAffects.MaxHealth.DoNoFill = true   -- prevents health from being added upon creation
+	buffAffects.RegenPercent.Mult = modifier
+	buffAffects.ShieldRegeneration.Mult = modifier
+	buffAffects.ShieldHealth.Mult = modifier
+
 
     -- loop thru all the units for this AI --
     if aiBrain.BrainType == 'AI' then
@@ -1282,6 +1333,14 @@ function SetArmyPoolBuff(aiBrain, AIMult)
             
             if RemoveBuff(unit, 'CheatBuildRate'..aiBrain.ArmyIndex, true) then -- true = removeAllCounts
                 ApplyBuff(unit, 'CheatBuildRate'..aiBrain.ArmyIndex)
+            end
+            
+            if RemoveBuff(unit, 'CheatIntel'..aiBrain.ArmyIndex, true) then
+                ApplyBuff(unit, 'CheatIntel'..aiBrain.ArmyIndex)
+            end
+            
+            if RemoveBuff(unit, 'CheatALL'..aiBrain.ArmyIndex, true) then
+                ApplyBuff(unit, 'CheatALL'..aiBrain.ArmyIndex)
             end
         end
     end
