@@ -31,7 +31,7 @@ UnitBlueprint {
 
         LiftFactor = 10,
 
-        MaxAirspeed = 12.5,
+        MaxAirspeed = 13,
 
         StartTurnDistance = 5,
 
@@ -103,7 +103,7 @@ UnitBlueprint {
         Abilities = {
 			'EMP Ground Attack',
             'Anti-Air',
-            'Transports up to 3 T3 units',
+            'Transports 3 T3 units',
             'Cloak & Radar Stealth',
         },
 

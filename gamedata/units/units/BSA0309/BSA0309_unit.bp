@@ -97,19 +97,19 @@ UnitBlueprint {
         SeraLambdaFieldRedirector01 = {
             AttachBone = 'XSA0309',
             Radius = 9,
-            RedirectRateOfFire = 3.0,	-- note: This is NOT the redirections rate of fire but rather how long the redirection process will take so lower values means faster
+            RedirectRateOfFire = 2.7,	-- note: This is NOT the redirections rate of fire but rather how long the redirection process will take so lower values means faster
         },
 
         SeraLambdaFieldDestroyer01 = {
             AttachBone = 'XSA0309',
             Radius = 6,
-            RedirectRateOfFire = 3.5,
+            RedirectRateOfFire = 3.1,
         },
 
         ArmorType = 'Light',
 
-        Health = 6150,
-        MaxHealth = 6150,
+        Health = 5900,
+        MaxHealth = 5900,
         RegenRate = 15,
         SurfaceThreatLevel = 7,
     },

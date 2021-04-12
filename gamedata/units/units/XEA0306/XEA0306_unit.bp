@@ -126,7 +126,7 @@ UnitBlueprint {
             '2 Ground Attack Cannons',
 			'4 SAM Launchers',
             'Shielded',
-            'Transport upto 10 T3 units',
+            'Transport 8 T3 units',
         },
 		
         AnimationLand = '/units/UEA0104/UEA0104_atakeoff01.sca',
