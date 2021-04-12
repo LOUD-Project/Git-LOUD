@@ -221,7 +221,7 @@ UnitBlueprint {
         SkirtOffsetX = -0.2,
         SkirtOffsetZ = -2,
         SkirtSizeX = 2.0,
-        SkirtSizeZ = 10.0,
+        SkirtSizeZ = 12.0,
         MotionType = 'RULEUMT_Water',
         TurnRadius = 25,
         TurnRate = 28,

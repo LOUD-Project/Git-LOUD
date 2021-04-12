@@ -189,8 +189,8 @@ UnitBlueprint {
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Air',
 		
-        SkirtOffsetX = -0.5,
-        SkirtOffsetZ = 1,
+        SkirtOffsetX = 0,
+        SkirtOffsetZ = 2,
 		
         SkirtSizeX = 8.0,
         SkirtSizeZ = 12.0,

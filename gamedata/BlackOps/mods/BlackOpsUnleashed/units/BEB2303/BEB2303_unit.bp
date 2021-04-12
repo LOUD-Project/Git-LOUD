@@ -124,7 +124,7 @@ UnitBlueprint {
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_None',
         SkirtOffsetX = -.5,
-        SkirtOffsetZ = -.5,
+        SkirtOffsetZ = 0,
         SkirtSizeX = 2,
         SkirtSizeZ = 2,
         TurnRate = 0,
