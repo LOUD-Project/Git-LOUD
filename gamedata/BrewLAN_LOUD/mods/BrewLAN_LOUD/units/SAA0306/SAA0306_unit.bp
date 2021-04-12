@@ -32,7 +32,7 @@ UnitBlueprint {
 		
         LiftFactor = 9.5,
 		
-        MaxAirspeed = 13.5,
+        MaxAirspeed = 14,
 		
         StartTurnDistance = 10,
 		
@@ -140,7 +140,7 @@ UnitBlueprint {
             ShieldVerticalOffset = -2,
         },
 		
-        RegenRate = 12,
+        RegenRate = 24,
     },
 	
     Description = '<LOC xea0306_desc>Experimental Air Transport',

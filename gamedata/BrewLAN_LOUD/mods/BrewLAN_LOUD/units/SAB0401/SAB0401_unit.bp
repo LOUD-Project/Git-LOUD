@@ -339,8 +339,8 @@ UnitBlueprint {
             {UnitSpin = 315, X = -5.66, Y = 0, Z = 5.66},
         },
 
-        SkirtOffsetX = -1.5,
-        SkirtOffsetZ = -1.5,
+        SkirtOffsetX = -1,
+        SkirtOffsetZ = -1,
 
         SkirtSizeX = 20,
         SkirtSizeZ = 20,

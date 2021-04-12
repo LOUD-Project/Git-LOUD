@@ -232,7 +232,7 @@ UnitBlueprint {
 			
             ContinuousBeam = true,
 			
-            Damage = 80,	---- 1600 Damage per onfire
+            Damage = 90,	---- 1800 Damage per onfire
             DamageRadius = 0,
 			DamageFriendly = false,
             DamageType = 'Normal',

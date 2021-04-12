@@ -12,6 +12,7 @@ UnitBlueprint {
         'BUILTBYTIER4ENGINEER',
         'EXPERIMENTAL',
         'INTELLIGENCE',
+        'OPTICS',
         'OMNI',
         'SELECTABLE',
         'LAND',

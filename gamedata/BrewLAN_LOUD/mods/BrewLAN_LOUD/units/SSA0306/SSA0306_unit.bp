@@ -32,7 +32,7 @@ UnitBlueprint {
 		
         LiftFactor = 10,
 		
-        MaxAirspeed = 13,
+        MaxAirspeed = 12.5,
 		
         StartTurnDistance = 14,
 		
@@ -90,8 +90,8 @@ UnitBlueprint {
     Defense = {
         AirThreatLevel = 14,
         ArmorType = 'Light',
-        Health = 4300,
-        MaxHealth = 4300,
+        Health = 4100,
+        MaxHealth = 4100,
         RegenRate = 15,
         Shield = {
             ImpactEffects = 'SeraphimShieldHit01',
@@ -101,7 +101,7 @@ UnitBlueprint {
             RegenAssistMult = 60,
             ShieldEnergyDrainRechargeTime = 5,
             ShieldMaxHealth = 3500,
-            ShieldRechargeTime = 15,
+            ShieldRechargeTime = 20,
             ShieldRegenRate = 93,
             ShieldRegenStartTime = 1,
             ShieldSize = 8,
