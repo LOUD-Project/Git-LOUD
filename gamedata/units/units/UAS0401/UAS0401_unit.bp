@@ -96,7 +96,8 @@ UnitBlueprint {
         'PODSTAGINGPLATFORM',
         'SUBMARINE',
         'SHOWQUEUE',
-        'OVERLAYRADAR','OVERLAYSONAR',
+        'OVERLAYRADAR',
+        'OVERLAYSONAR',
     },
 	
     CollisionOffsetY = -0.4,
@@ -429,7 +430,8 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 6000,
-            DamageRadius = 4,
+            DamageFriendly = true,
+            DamageRadius = 3.2,
             DamageType = 'Normal',
 			
             DisplayName = 'Oblivion Cannon',
@@ -453,6 +455,7 @@ UnitBlueprint {
             MuzzleSalvoSize = 1,
 			
             MuzzleVelocity = 42,
+            MuzzleVelocityRandom = 2,
             MuzzleVelocityReduceDistance = 175,
 			
             NotExclusive = true,
@@ -479,6 +482,7 @@ UnitBlueprint {
             RateOfFire = 0.3,		-- 1800 DPS
 			
             SlavedToBody = false,
+            
             TargetCheckInterval = 5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -506,6 +510,8 @@ UnitBlueprint {
             TurretYawSpeed = 30,
 			
             Turreted = true,
+            
+            UseFiringSolutionInsteadOfAimBone = true,
         },
 		
         {
