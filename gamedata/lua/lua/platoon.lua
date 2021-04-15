@@ -2543,6 +2543,8 @@ Platoon = Class(moho.platoon_methods) {
                     
 						units = newunits
 					end
+                    
+                    local scoutradius = (guardRadius/2) - 4
 					
 					if NumberOfUnitsInPlatoon > 0 then
 					
@@ -2555,8 +2557,10 @@ Platoon = Class(moho.platoon_methods) {
 							end
 						
 							if LOUDENTITY( categories.SCOUT, u ) then
+                            
+                                scoutradius = scoutradius + 4
 						
-								local loclist = GetBasePerimeterPoints( aiBrain, marker, guardRadius/2, 'ALL', false, 'Land', true )
+								local loclist = GetBasePerimeterPoints( aiBrain, marker, scoutradius, 'ALL', false, 'Land', true )
 							
 								for k,v in loclist do
 								
@@ -2653,6 +2657,12 @@ Platoon = Class(moho.platoon_methods) {
 							
 							target = false
 							guarding = false
+                            
+                            -- reset guardtime
+                            guardtime = 0
+                            
+                            -- expand the guardRadius by 20%
+                            guardRadius = guardRadius * 1.2
                             
                             --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." completes merge")
                         end
