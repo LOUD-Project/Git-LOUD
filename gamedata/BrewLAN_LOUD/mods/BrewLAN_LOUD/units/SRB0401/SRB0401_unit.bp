@@ -100,7 +100,7 @@ UnitBlueprint {
 
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 2011,
+        EconomyThreatLevel = 2160,  -- 4x buildpower (840) + 4% of HP (1320)
         Health = 33000,
         MaxHealth = 33000,
         RegenRate = 12,
@@ -181,7 +181,7 @@ UnitBlueprint {
             'BUILTBYARTHROLAB'
         },
 
-        RebuildBonusIds = {'srb0401'},
+        --RebuildBonusIds = {'srb0401'},
 
         StorageEnergy = 8000,
         StorageMass = 1000,
@@ -215,7 +215,7 @@ UnitBlueprint {
             },
         },
 
-		CapCost = 15,
+		CapCost = 16,
 
         Category = 'Factory',
         Classification = 'RULEUC_Factory',
