@@ -333,11 +333,11 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			
             MergeLimit = false,     -- no merging for this platoon
 			
-            MissionTime = 150,
+            MissionTime = 140,
 			
-            PrioritizedCategories = {categories.ENGINEER},
+            PrioritizedCategories = {categories.ENGINEER, categories.MASSPRODUCTION - categories.TECH3},
 			
-			SearchRadius = 200,	
+			SearchRadius = 180,	
 			
             UseFormation = 'Growth',
         },
