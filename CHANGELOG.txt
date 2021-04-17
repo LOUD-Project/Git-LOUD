@@ -1,3 +1,17 @@
+### Release 16-04-2021 ###
+Lua 5.4.13
+
+- AI: Cheating buff applied to AI units' health, shields, and regen is now 33% instead of 40%.
+- AI: Economic consumption bonuses, which were at 75% of the cheat value, have also been reduced to 67%.
+- AI: Adaptive cheating now affects intel, health, shields, and regen.
+- AI: Expand guarding, scouting radii whenever platoons are merged.
+- AI: Bomber missions have reduced duration, and lower radius for searching for targets.
+- AI: Fixed using the Continental to only transport 6 Tech 3 units.
+- AI: Reduce chance for engineers to line up to build an extractor at the same mass point.
+- AI: Improved co-operation between engineers.
+- AI: Improved decision-making on when to build base defenses and naval bases.
+- AI: Outnumbered AI will more quickly build bases on unoccupied start locations.
+
 ### Patch 03-04-2021 ###
 Lua 5.4.12
 
