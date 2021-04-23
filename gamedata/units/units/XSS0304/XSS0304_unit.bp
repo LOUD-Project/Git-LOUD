@@ -75,13 +75,16 @@ UnitBlueprint {
     },
 	
     Description = '<LOC xss0304_desc>Submarine Hunter',
+    
     Display = {
         Abilities = {
             'Anti-Air',
             'Sonar',
             'Torpedo Defense',
         },
+        
         CannonOpenAnimation = '/units/xss0304/xss0304_aopen.sca',
+        
         IdleEffects = {
             Sub = {
                 Effects = {
@@ -107,6 +110,7 @@ UnitBlueprint {
                 },
             },
         },
+        
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
