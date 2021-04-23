@@ -2162,7 +2162,10 @@ function AirForceAILOUD( self, aiBrain )
 	local guardunits = self:GetSquadUnits('guard')
 
     if guardunits and LOUDGETN(guardunits) > 0 then
-        guardplatoon = aiBrain:MakePlatoon('GuardPlatoon','none')
+
+        local ident = Random(1,999999)
+
+        guardplatoon = aiBrain:MakePlatoon('GuardPlatoon'..tostring(ident),'none')
         AssignUnitsToPlatoon( aiBrain, guardplatoon, self:GetSquadUnits('guard'), 'Attack', 'none')
 
 		guardplatoon.GuardedPlatoon = self  #-- store the handle of the platoon to be guarded to the guardplatoon
@@ -2649,7 +2652,10 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
 	local guardunits = self:GetSquadUnits('guard')
 
     if guardunits and LOUDGETN(guardunits) > 0 then
-        guardplatoon = aiBrain:MakePlatoon('GuardPlatoon','none')
+    
+        local ident = Random(1,999999)
+
+        guardplatoon = aiBrain:MakePlatoon('GuardPlatoon'..tostring(ident),'none')
         AssignUnitsToPlatoon( aiBrain, guardplatoon, self:GetSquadUnits('guard'), 'Attack', 'none')
 
 		guardplatoon.GuardedPlatoon = self  #-- store the handle of the platoon to be guarded to the guardplatoon
@@ -3107,7 +3113,10 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
 	local guardunits = self:GetSquadUnits('guard')
 
     if guardunits and LOUDGETN(guardunits) > 0 then
-        guardplatoon = aiBrain:MakePlatoon('GuardPlatoon','none')
+    
+        local ident = Random(1,999999)
+
+        guardplatoon = aiBrain:MakePlatoon('GuardPlatoon'..tostring(ident),'none')
         AssignUnitsToPlatoon( aiBrain, guardplatoon, self:GetSquadUnits('guard'), 'Attack', 'none')
 
 		guardplatoon.GuardedPlatoon = self  #-- store the handle of the platoon to be guarded to the guardplatoon
@@ -3562,7 +3571,10 @@ function AirForceAI_Torpedo_LOUD( self, aiBrain )
 	local guardunits = self:GetSquadUnits('guard')
 
     if guardunits and LOUDGETN(guardunits) > 0 then
-        guardplatoon = aiBrain:MakePlatoon('GuardPlatoon','none')
+    
+        local ident = Random(1,999999)
+
+        guardplatoon = aiBrain:MakePlatoon('GuardPlatoon'..tostring(ident),'none')
         AssignUnitsToPlatoon( aiBrain, guardplatoon, self:GetSquadUnits('guard'), 'Attack', 'none')
 
 		guardplatoon.GuardedPlatoon = self  #-- store the handle of the platoon to be guarded to the guardplatoon
@@ -6775,7 +6787,14 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 		unit.Upgrading = true
 		unit.DesiresAssist = true
 		
-		local unitbeingbuilt = unit.UnitBeingBuilt
+        -- inserted this here to be absolutely clear about how to pass along another unit
+		local unitbeingbuilt = GetEntityById(unit.UnitBeingBuilt.Sync.id)
+        
+        -- this was inserted to wait for the upgrade to complete - was originally doing it
+        -- right away but got mysterious results with platoons disbanding and such
+        repeat
+            WaitTicks(2)
+        until unitbeingbuilt.Dead or unitbeingbuilt:GetFractionComplete() == 1
 
         upgradeID = __blueprints[unitbeingbuilt.BlueprintID].General.UpgradesTo or false
 		
@@ -6789,8 +6808,10 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 			unitbeingbuilt.UpgradeThread = unitbeingbuilt:ForkThread( SelfUpgradeThread, faction, aiBrain, masslowtrigger, energylowtrigger, masshightrigger, energyhightrigger, checkrate, initialdelay, bypassecon )
         end
 		
-		-- assign mass extractors to their own platoon 
+		-- assign mass extractors and hydrocarbons to their own platoons otherwise to StructurePool
 		if (not unitbeingbuilt.Dead) and EntityCategoryContains( categories.MASSEXTRACTION, unitbeingbuilt) then
+        
+            local PlatoonCallForHelpAI = import('/lua/platoon.lua').Platoon.PlatoonCallForHelpAI
 	
 			local Mexplatoon = MakePlatoon( aiBrain,'MEXPlatoon'..tostring(unitbeingbuilt.Sync.id), 'none')
 			
@@ -6800,14 +6821,33 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 			
 			AssignUnitsToPlatoon( aiBrain, Mexplatoon, {unitbeingbuilt}, 'Support', 'none' )
 		
-			Mexplatoon:ForkThread( Mexplatoon.PlatoonCallForHelpAI, aiBrain )
+			Mexplatoon:ForkThread( PlatoonCallForHelpAI, aiBrain )
+		
+        
+		elseif	(not unitbeingbuilt.Dead) and EntityCategoryContains( categories.HYDROCARBON, unitbeingbuilt) then
+        
+            local PlatoonCallForHelpAI = import('/lua/platoon.lua').Platoon.PlatoonCallForHelpAI
+	
+			local Mexplatoon = MakePlatoon( aiBrain,'HYDROPlatoon'..tostring(unitbeingbuilt.Sync.id), 'none')
 			
-		elseif (not unitbeingbuilt.Dead) then
+			Mexplatoon.BuilderName = 'HYDROPlatoon'..tostring(unitbeingbuilt.Sync.id)
+			Mexplatoon.MovementLayer = 'Land'
+            Mexplatoon.UsingTransport = true        -- never review this platoon during a merge
+			
+			AssignUnitsToPlatoon( aiBrain, Mexplatoon, {unitbeingbuilt}, 'Support', 'none' )
+		
+			Mexplatoon:ForkThread( PlatoonCallForHelpAI, aiBrain )
+            
+        elseif (not unitbeingbuilt.Dead) then
 
             AssignUnitsToPlatoon( aiBrain, aiBrain.StructurePool, {unitbeingbuilt}, 'Support', 'none' )
 		end
 
         unit.UpgradeThread = nil
+        
+        unit.Dead = true
+        
+        unit.Trash:Destroy()
 	end
 end
 
