@@ -908,6 +908,10 @@ Platoon = Class(moho.platoon_methods) {
         -- a rapid elevation change over a very short distance
 		local function CheckBlockingTerrain( pos, targetPos )
         
+            if platoon.MovementLayer == 'Air' then
+                return false
+            end
+        
             --aiBrain:CheckBlockingTerrain( pos, targetPos, 'none' )
 	
 			-- This gives us the number of approx. 6 ogrid steps in the distance
@@ -929,8 +933,8 @@ Platoon = Class(moho.platoon_methods) {
 					local lastposHeight = GetTerrainHeight( lastpos[1], lastpos[3] )
 					local nextposHeight = GetTerrainHeight( nextpos[1], nextpos[3] )
 					
-					-- if more than 2 ogrids change in height over 6 ogrids distance
-					if math.abs(lastposHeight - nextposHeight) > 2 then
+					-- if more than 3.6 ogrids change in height over 6 ogrids distance
+					if math.abs(lastposHeight - nextposHeight) > 3.6 then
 						
 						-- we are obstructed
 						--LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." for "..platoonLayer.." at "..repr(pos).." to "..repr(targetPos).." Get Closest Safe Path Node OBSTRUCTED ")
@@ -4931,6 +4935,53 @@ Platoon = Class(moho.platoon_methods) {
 		
 		WaitTicks(25)
 
+		-- the intent of this function is to make sure that we don't try and respond over mountains
+		-- and rivers and other serious terrain blockages -- these are generally identified by
+        -- a rapid elevation change over a very short distance
+		local function CheckBlockingTerrain( pos, targetPos )
+        
+            if self.MovementLayer == 'Air' then
+                return false
+            end
+	
+			-- This gives us the number of approx. 6 ogrid steps in the distance
+			local steps = math.floor( VDist2(pos[1], pos[3], targetPos[1], targetPos[3]) / 6 )
+	
+			local xstep = (pos[1] - targetPos[1]) / steps -- how much the X value will change from step to step
+			local ystep = (pos[3] - targetPos[3]) / steps -- how much the Y value will change from step to step
+			
+			local lastpos = {pos[1], 0, pos[3]}
+	
+			-- Iterate thru the number of steps - starting at the pos and adding xstep and ystep to each point
+			for i = 0, steps do
+	
+				if i > 0 then
+		
+					local nextpos = { pos[1] - (xstep * i), 0, pos[3] - (ystep * i)}
+			
+					-- Get height for both points
+                    -- hover units should be using surface height for comparisons
+					local lastposHeight = GetTerrainHeight( lastpos[1], lastpos[3] )
+                    
+                    local InWater = lastposHeight < (GetSurfaceHeight( lastpos[1], lastpos[3] ) - 1)
+                    
+					local nextposHeight = GetTerrainHeight( nextpos[1], nextpos[3] )
+					
+					-- if more than 3.6 ogrids change in height over 6 ogrids distance
+					if math.abs(lastposHeight - nextposHeight) > 3.6 or (InWater and not self.MovementLayer == 'Amphibious') then
+						
+						-- we are obstructed
+						--LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." obstructed by "..(lastposHeight - nextposHeight).." INWATER is "..repr(InWater).." to location "..repr(targetPos) )
+						return true
+					end
+					
+					lastpos = nextpos
+                end
+			end
+	
+			return false
+		end
+	
 		-- this function returns the location of any distress call within range
 		local function PlatoonMonitorDistressLocations( platoon, aibrain, platoonposition, distressrange, distresstype, threatthreshold )
 	

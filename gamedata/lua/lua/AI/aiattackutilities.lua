@@ -624,7 +624,11 @@ function FindTargetInRange( self, aiBrain, squad, maxRange, atkPri, nolayercheck
 		-- the intent of this function is to make sure that we don't try and respond over mountains
 		-- and rivers and other serious terrain blockages -- these are generally identified by
         -- a rapid elevation change over a very short distance
-		local function CheckBlockingTerrain( pos, targetPos )
+		local function CheckBlockingTerrain( pos, targetPos )  
+        
+            if self.MovementLayer == 'Air' then
+                return false
+            end
 	
 			-- This gives us the number of approx. 6 ogrid steps in the distance
 			local steps = math.floor( VDist2(pos[1], pos[3], targetPos[1], targetPos[3]) / 6 )
@@ -648,8 +652,8 @@ function FindTargetInRange( self, aiBrain, squad, maxRange, atkPri, nolayercheck
                     
 					local nextposHeight = GetTerrainHeight( nextpos[1], nextpos[3] )
 					
-					-- if more than 2 ogrids change in height over 6 ogrids distance
-					if math.abs(lastposHeight - nextposHeight) > 2 or InWater then
+					-- if more than 3.6 ogrids change in height over 6 ogrids distance
+					if math.abs(lastposHeight - nextposHeight) > 3.6 or InWater then
 						
 						-- we are obstructed
 						LOG("*AI DEBUG "..aiBrain.Nickname.." LOCAL TARGET OBSTRUCTED ")

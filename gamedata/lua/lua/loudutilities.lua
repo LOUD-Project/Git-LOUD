@@ -2487,8 +2487,8 @@ function SetBaseRallyPoints( aiBrain, basename, basetype, rallypointradius, orie
 				local lastposHeight = GetTerrainHeight( lastpos[1], lastpos[3] )
 				local nextposHeight = GetTerrainHeight( nextpos[1], nextpos[3] )
 
-				-- if more than 2 ogrids change in height over 6 ogrids distance
-				if math.abs(lastposHeight - nextposHeight) > 2 then
+				-- if more than 3.6 ogrids change in height over 6 ogrids distance
+				if math.abs(lastposHeight - nextposHeight) > 3.6 then
 
 					-- we are obstructed
 					LOG("*AI DEBUG "..aiBrain.Nickname.." RALLY POINT OBSTRUCTED ")
