@@ -2554,7 +2554,7 @@ function AirForceAILOUD( self, aiBrain )
             
             if not self.WatchPlatoon then
             
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." platoon watch trigger")
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." platoon watch trigger")
                 
                 target = false
 
@@ -3016,7 +3016,7 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
             
             if not self.WatchPlatoon then
             
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." platoon watch trigger")
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." platoon watch trigger")
                 
                 target = false
 
@@ -3474,7 +3474,7 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
             
             if not self.WatchPlatoon then
             
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." platoon watch trigger")
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." platoon watch trigger")
                 
                 target = false
 
@@ -3932,7 +3932,7 @@ function AirForceAI_Torpedo_LOUD( self, aiBrain )
             
             if not self.WatchPlatoon then
             
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." platoon watch trigger")
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." platoon watch trigger")
                 
                 target = false
 
@@ -6786,6 +6786,8 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 		
 		unit.Upgrading = true
 		unit.DesiresAssist = true
+        
+        WaitTicks(1)
 		
         -- inserted this here to be absolutely clear about how to pass along another unit
 		local unitbeingbuilt = GetEntityById(unit.UnitBeingBuilt.Sync.id)
