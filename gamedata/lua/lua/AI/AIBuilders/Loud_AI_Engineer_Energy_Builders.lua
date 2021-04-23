@@ -101,7 +101,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
             Construction = {
 			
 				NearBasePerimeterPoints = true,
-				ThreatMax = 45,				
+				ThreatMax = 75,				
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'PowerLayout',
