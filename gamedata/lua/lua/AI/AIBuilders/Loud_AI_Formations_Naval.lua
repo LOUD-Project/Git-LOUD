@@ -128,9 +128,10 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
         },
 		
         BuilderData = {
-			DistressRange = 150,
+			DistressRange = 225,
+            DistressReactionTime = 45,
 			DistressTypes = 'Naval',
-			DistressThreshold = 6,
+			DistressThreshold = 8,
 			
 			MissionTime = 1500,		-- 25 minute mission			
 			
@@ -213,7 +214,8 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
         },
 		
         BuilderData = {
-			DistressRange = 200,
+			DistressRange = 225,
+            DistressReactionTime = 45,            
 			DistressTypes = 'Naval',
 			DistressThreshold = 6,
 			
@@ -261,9 +263,10 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
         },
 		
         BuilderData = {
-			DistressRange = 200,
+			DistressRange = 225,
+            DistressReactionTime = 45,            
 			DistressTypes = 'Naval',
-			DistressThreshold = 6,
+			DistressThreshold = 8,
 			
 			MissionTime = 600,		-- 10 minute mission
             SearchRadius = 180,     -- use Prioritized Categories as primary target selection
@@ -309,9 +312,10 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
         },
 		
         BuilderData = {
-			DistressRange = 200,
+			DistressRange = 225,
+            DistressReactionTime = 45,            
 			DistressTypes = 'Naval',
-			DistressThreshold = 6,
+			DistressThreshold = 8,
 
 			MissionTime = 600,		-- 10 minute mission
             SearchRadius = 180,     -- use Prioritized Categories as primary target selection
@@ -356,9 +360,10 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
         },
 		
         BuilderData = {
-			DistressRange = 200,
+			DistressRange = 225,
+            DistressReactionTime = 45,            
 			DistressTypes = 'Naval',
-			DistressThreshold = 6,
+			DistressThreshold = 8,
 			
 			MissionTime = 600,		-- 10 minute mission
             SearchRadius = 180,     -- use Prioritized Categories as primary target selection
@@ -407,6 +412,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderData = {
 			DistressRange = 225,
+            DistressReactionTime = 45,            
 			DistressTypes = 'Naval',
 			DistressThreshold = 12,
 			
@@ -457,6 +463,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
         BuilderData = {
 		
 			DistressRange = 225,
+            DistressReactionTime = 45,            
 			DistressTypes = 'Naval',
 			DistressThreshold = 12,
 			
@@ -507,6 +514,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderData = {
 			DistressRange = 225,
+            DistressReactionTime = 45,            
 			DistressTypes = 'Naval',
 			DistressThreshold = 12,
 			
@@ -556,6 +564,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderData = {
 			DistressRange = 225,
+            DistressReactionTime = 45,            
 			DistressTypes = 'Naval',
 			DistressThreshold = 12,
 			
@@ -608,6 +617,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderData = {
 			DistressRange = 225,
+            DistressReactionTime = 45,            
 			DistressTypes = 'Naval',
 			DistressThreshold = 15,
 			
@@ -658,6 +668,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderData = {
 			DistressRange = 225,
+            DistressReactionTime = 45,            
 			DistressTypes = 'Naval',
 			DistressThreshold = 15,
 			
@@ -709,6 +720,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderData = {
 			DistressRange = 225,
+            DistressReactionTime = 45,            
 			DistressTypes = 'Naval',
 			DistressThreshold = 15,
 			
@@ -759,6 +771,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderData = {
 			DistressRange = 225,
+            DistressReactionTime = 45,            
 			DistressTypes = 'Naval',
 			DistressThreshold = 15,
 			
@@ -867,7 +880,8 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
         BuilderType = 'Any',
 		
         BuilderData = {
-			DistressRange = 160,
+			DistressRange = 180,
+            DistressReactionTime = 45,            
 			DistressTypes = 'Naval',
 			DistressThreshold = 6,
 			
