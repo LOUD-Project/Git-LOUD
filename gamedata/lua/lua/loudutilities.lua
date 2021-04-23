@@ -1276,7 +1276,9 @@ function ClearOutBase( manager, aiBrain )
 
         if grouplndcount > 0 then
 
-            local plat = aiBrain:MakePlatoon('ClearOutLand','none')
+            local ident = Random(1,999999)
+
+            local plat = aiBrain:MakePlatoon('ClearOutLand'..tostring(ident),'none')
 
             plat.BuilderName = 'ClearOutPrimary Land'
             plat.BulderLocation = basename
@@ -1304,7 +1306,9 @@ function ClearOutBase( manager, aiBrain )
 
         if groupamphibcount > 0 then
 
-            local plat = aiBrain:MakePlatoon('ClearOutAmphib','none')
+            local ident = Random(1,999999)
+
+            local plat = aiBrain:MakePlatoon('ClearOutAmphib'..tostring(ident),'none')
 
             plat.BuilderName = 'ClearOutPrimary Amphib'
             plat.BulderLocation = basename
@@ -1332,7 +1336,9 @@ function ClearOutBase( manager, aiBrain )
 
         if groupseacount > 0 then
 
-            local plat = aiBrain:MakePlatoon('ClearOutSea','none')
+            local ident = Random(1,999999)
+
+            local plat = aiBrain:MakePlatoon('ClearOutSea'..tostring(ident),'none')
 
             plat.BuilderName = 'ClearOutPrimary Sea'
             plat.BulderLocation = basename
@@ -1360,7 +1366,9 @@ function ClearOutBase( manager, aiBrain )
 
         if groupaircount > 0 then
 
-            local plat = aiBrain:MakePlatoon('ClearOutFighters','none')
+            local ident = Random(1,999999)
+
+            local plat = aiBrain:MakePlatoon('ClearOutFighters'..tostring(ident),'none')
 
             plat.BuilderName = 'ClearOut Fighters'
             plat.BuilderLocation = basename
@@ -1383,7 +1391,9 @@ function ClearOutBase( manager, aiBrain )
 
         if groupaircount > 0 then
 
-            local plat = aiBrain:MakePlatoon('ClearOutGunships','none')
+            local ident = Random(1,999999)
+
+            local plat = aiBrain:MakePlatoon('ClearOutGunships'..tostring(ident),'none')
 
             plat.BuilderName = 'ClearOut Gunships'
             plat.BuilderLocation = basename
@@ -1405,7 +1415,9 @@ function ClearOutBase( manager, aiBrain )
 
         if groupaircount > 0 then
 
-            local plat = aiBrain:MakePlatoon('ClearOutBombers','none')
+            local ident = Random(1,999999)
+
+            local plat = aiBrain:MakePlatoon('ClearOutBombers'..tostring(ident),'none')
 
             plat.BuilderName = 'ClearOut Bombers'
             plat.BuilderLocation = basename
@@ -1427,7 +1439,9 @@ function ClearOutBase( manager, aiBrain )
 
         if groupaircount > 0 then
 
-            local plat = aiBrain:MakePlatoon('ClearOutTorpedoBombers','none')
+            local ident = Random(1,999999)
+
+            local plat = aiBrain:MakePlatoon('ClearOutTorpedoBombers'..tostring(ident),'none')
 
             plat.BuilderName = 'ClearOut TorpedoBombers'
             plat.BuilderLocation = basename

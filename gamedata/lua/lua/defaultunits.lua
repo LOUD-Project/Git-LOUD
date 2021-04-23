@@ -618,6 +618,7 @@ StructureUnit = Class(Unit) {
 		--local AssignUnitsToPlatoon = moho.aibrain_methods.AssignUnitsToPlatoon
 
 		local SelfUpgradeThread = import('/lua/ai/aibehaviors.lua').SelfUpgradeThread
+        local PlatoonCallForHelpAI = import('/lua/platoon.lua').Platoon.PlatoonCallForHelpAI
 
 		-- factories --
 		if EntityCategoryContains( categories.FACTORY - categories.EXPERIMENTAL, finishedUnit ) then
@@ -643,6 +644,17 @@ StructureUnit = Class(Unit) {
 		-- hydrocarbon --
 		if EntityCategoryContains( categories.HYDROCARBON, finishedUnit ) then
 
+			-- each hydro gets it's own platoon so we can enable PlatoonDistress calls for them
+			local Mexplatoon = aiBrain:MakePlatoon('HYDROPlatoon'..tostring(finishedUnit.Sync.id), 'none')
+
+			Mexplatoon.BuilderName = 'HYDROPlatoon'..tostring(finishedUnit.Sync.id)
+			Mexplatoon.MovementLayer = 'Land'
+            Mexplatoon.UsingTransport = true        -- never review this platoon during a merge
+
+            aiBrain:AssignUnitsToPlatoon( Mexplatoon, {finishedUnit}, 'Support', 'none' )
+
+			Mexplatoon:ForkThread( PlatoonCallForHelpAI, aiBrain )
+
 			if not finishedUnit.UpgradeThread then
 
 				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, 1.010, 1.01, 9999, 1.5, 18, 90, true )
@@ -663,7 +675,7 @@ StructureUnit = Class(Unit) {
 
             aiBrain:AssignUnitsToPlatoon( Mexplatoon, {finishedUnit}, 'Support', 'none' )
 
-			Mexplatoon:ForkThread( Mexplatoon.PlatoonCallForHelpAI, aiBrain )
+			Mexplatoon:ForkThread( PlatoonCallForHelpAI, aiBrain )
 
 			if not finishedUnit.UpgradeThread then
 

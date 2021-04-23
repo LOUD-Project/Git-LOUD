@@ -98,6 +98,14 @@ Platoon = Class(moho.platoon_methods) {
 
 			self:ForkAIThread( self[plan], GetBrain(self) )
         end
+
+		if ScenarioInfo.PlatoonDialog then
+        
+			local aiBrain = GetBrain(self)
+            
+            self:ForkThread( function(self) WaitTicks(1) LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." platoon created ") end)
+		end
+        
     end,
 
     SetPlatoonData = function( self, dataTable)
@@ -166,6 +174,7 @@ Platoon = Class(moho.platoon_methods) {
 					if ScenarioInfo.DisplayPlatoonMembership then
 						v:SetCustomName(repr(self.BuilderName))
 					end
+                    
 				end
 			end
         end
@@ -192,6 +201,7 @@ Platoon = Class(moho.platoon_methods) {
 
 		if ScenarioInfo.PlatoonDialog then
 			local aiBrain = GetBrain(self)
+            LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." platoon destroyed")
 		end
 
         for k, cb in self.EventCallbacks.OnDestroyed do
