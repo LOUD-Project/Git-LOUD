@@ -1953,7 +1953,7 @@ Unit = Class(moho.unit_methods) {
 
 			-- all wreckage now has a lifetime max of 900 seconds --
             -- except starting props or those with an override value
-			prop:ForkThread( LifetimeThread, bp.Wreckage.LifeTime or (overridetime or 900) )
+			prop:ForkThread( LifetimeThread, overridetime or bp.Wreckage.LifeTime or 900 )
 
             TryCopyPose(self,prop,false)
 
