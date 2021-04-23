@@ -291,9 +291,10 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         },
 		
         BuilderData = {
-			DistressRange = 100,
+			DistressRange = 150,
+            DistressReactionTime = 8,
 			DistressTypes = 'Land',
-			DistressThreshold = 5,
+			DistressThreshold = 4,
 			
 			LocationType = 'LocationType',
 			
@@ -368,7 +369,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         },
 		
         BuilderData = {
-			DistressRange = 150,
+			DistressRange = 180,
+            DistressReactionTime = 8,            
 			DistressTypes = 'Land',
 			DistressThreshold = 10,
 			
@@ -414,7 +416,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         },
 		
         BuilderData = {
-			DistressRange = 150,
+			DistressRange = 200,
+            DistressReactionTime = 8,            
 			DistressTypes = 'Land',
 			DistressThreshold = 10,
 			
@@ -471,6 +474,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 		
         BuilderData = {
 			DistressRange = 220,
+            DistressReactionTime = 8,            
 			DistressTypes = 'Land',
 			DistressThreshold = 20,
             
@@ -603,7 +607,6 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         BuilderType = 'Any',        
     },
 
-
     Builder {BuilderName = 'Hunt Bombers - Artillery',
 	
         PlatoonTemplate = 'BomberAttack Super',
@@ -678,7 +681,6 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 		
         BuilderType = 'Any',		
     },
-
 
     Builder {BuilderName = 'Hunt Bombers - Economic Experimental',
 	
@@ -780,7 +782,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         },
 		
         BuilderData = {
-			DistressRange = 120,
+			DistressRange = 140,
+            DistressReactionTime = 8,            
 			DistressTypes = 'Air',
 			DistressThreshold = 4,
 			
@@ -821,7 +824,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         },
 		
         BuilderData = {
-			DistressRange = 120,
+			DistressRange = 150,
+            DistressReactionTime = 8,            
 			DistressTypes = 'Air',
 			DistressThreshold = 4,
 			
@@ -862,7 +866,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         },
 		
         BuilderData = {
-			DistressRange = 120,
+			DistressRange = 160,
+            DistressReactionTime = 8,            
 			DistressTypes = 'Air',
 			DistressThreshold = 4,
 			
@@ -906,7 +911,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         },
 		
         BuilderData = {
-			DistressRange = 140,
+			DistressRange = 180,
+            DistressReactionTime = 8,            
 			DistressTypes = 'Air',
 			DistressThreshold = 8,
 			
@@ -949,7 +955,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         },
 		
         BuilderData = {
-			DistressRange = 200,
+			DistressRange = 220,
+            DistressReactionTime = 8,            
 			DistressTypes = 'Air',
 			DistressThreshold = 12,
             
@@ -992,7 +999,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         },
 		
         BuilderData = {
-			DistressRange = 90,
+			DistressRange = 100,
+            DistressReactionTime = 30,            
 			DistressTypes = 'Land',
 			DistressThreshold = 5,
 			
@@ -1037,7 +1045,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         },
 		
         BuilderData = {
-			DistressRange = 120,
+			DistressRange = 140,
+            DistressReactionTime = 30,            
 			DistressTypes = 'Land',
 			DistressThreshold = 10,
 			
@@ -1083,7 +1092,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         },
 		
         BuilderData = {
-			DistressRange = 165,
+			DistressRange = 185,
+            DistressReactionTime = 30,            
 			DistressTypes = 'Land',
 			DistressThreshold = 9,
 			
@@ -1127,7 +1137,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         },
 		
         BuilderData = {
-			DistressRange = 180,
+			DistressRange = 210,
+            DistressReactionTime = 30,            
 			DistressTypes = 'Land',
 			DistressThreshold = 15,
             
@@ -1666,7 +1677,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
         },
 		
         BuilderData = {
-			DistressRange = 120,
+			DistressRange = 140,
+            DistressReactionTime = 25,            
 			DistressTypes = 'Naval',
 			DistressThreshold = 4,
 			
@@ -1707,7 +1719,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
         },
 		
         BuilderData = {
-			DistressRange = 150,
+			DistressRange = 175,
+            DistressReactionTime = 25,            
 			DistressTypes = 'NaVal',
 			DistressThreshold = 8,
 			
@@ -1748,7 +1761,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
         },
 		
         BuilderData = {
-			DistressRange = 220,
+			DistressRange = 225,
+            DistressReactionTime = 25,            
 			DistressTypes = 'NaVal',
 			DistressThreshold = 8,
 			
@@ -1941,7 +1955,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
         BuilderData = {
             AvoidBases = true,      -- don't seek points with a base managers radius --
 
-			DistressRange = 200,
+			DistressRange = 240,
+            DistressReactionTime = 8,            
 			DistressTypes = 'Air',
 			DistressThreshold = 16,
 			
@@ -2078,7 +2093,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
         BuilderData = {
             AvoidBases = false,      -- we always want our torpedo bombers out there --
             
-			DistressRange = 150,
+			DistressRange = 200,
+            DistressReactionTime = 30,            
 			DistressTypes = 'Naval',
 			DistressThreshold = 8,
             
@@ -2161,7 +2177,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Experimentals',
         },
 		
         BuilderData = {
-			DistressRange = 200,
+			DistressRange = 250,
+            DistressReactionTime = 30,
 			DistressTypes = 'Land',
 			DistressThreshold = 15,
             MergeLimit = 6,
@@ -2202,7 +2219,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Experimentals',
         },
 		
         BuilderData = {
-			DistressRange = 200,
+			DistressRange = 250,
+            DistressReactionTime = 30,            
 			DistressTypes = 'Land',
 			DistressThreshold = 15,
             MergeLimit = 6,
