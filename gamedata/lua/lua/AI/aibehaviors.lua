@@ -6794,6 +6794,7 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
         
         -- this was inserted to wait for the upgrade to complete - was originally doing it
         -- right away but got mysterious results with platoons disbanding and such
+        -- so now we'll wait for it to be completed or die
         repeat
             WaitTicks(2)
         until unitbeingbuilt.Dead or unitbeingbuilt:GetFractionComplete() == 1
@@ -6826,7 +6827,7 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 			Mexplatoon:ForkThread( PlatoonCallForHelpAI, aiBrain )
 		
         
-		elseif	(not unitbeingbuilt.Dead) and EntityCategoryContains( categories.HYDROCARBON, unitbeingbuilt) then
+		elseif (not unitbeingbuilt.Dead) and EntityCategoryContains( categories.HYDROCARBON, unitbeingbuilt) then
         
             local PlatoonCallForHelpAI = import('/lua/platoon.lua').Platoon.PlatoonCallForHelpAI
 	
@@ -6845,11 +6846,11 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
             AssignUnitsToPlatoon( aiBrain, aiBrain.StructurePool, {unitbeingbuilt}, 'Support', 'none' )
 		end
 
-        unit.UpgradeThread = nil
+        KillThread( unit.UpgradeThread )
         
-        unit.Dead = true
+        --unit.Dead = true
         
-        unit.Trash:Destroy()
+        --unit.Trash:Destroy()
 	end
 end
 
