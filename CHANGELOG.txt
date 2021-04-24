@@ -1,3 +1,12 @@
+### Release 23-04-2021 ###
+Lua 5.4.14
+
+- AI: Faster responses when platoons call for help from other platoons.
+- AI: Better checks for when terrain might block unit movement.
+- AI: Higher chances of building torpedo bombers when they would be beneficial.
+- AI: Hydrocarbon plants get units assigned to them and will call for help when under attack.
+- Fixed unit wreckages spawned at game start lasting only 15 minutes instead of the intended 30.
+
 ### Release 16-04-2021 ###
 Lua 5.4.13
 
