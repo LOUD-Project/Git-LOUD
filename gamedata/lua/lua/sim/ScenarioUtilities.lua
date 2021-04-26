@@ -436,6 +436,8 @@ function InitializeArmies()
                     break
                 end
             end
+        else
+            self:SetResourceSharing(true)
         end
 
 		-- build table of scout locations and set some starting threat at all enemy locations
@@ -547,9 +549,6 @@ function InitializeArmies()
 		-- record the starting unit cap	
 		-- caps of 1000+ trigger some conditions
 		self.StartingUnitCap = GetArmyUnitCap(self.ArmyIndex)
-		
-		-- turn on resource sharing
-		self:SetResourceSharing(true)
 		
 		--3+ Teams Unit Cap Fix : Determine team size of current army,
 		-- if it is bigger than what was previously recorded, this is the new
