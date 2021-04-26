@@ -1,6 +1,6 @@
 UnitBlueprint {
 
-    Adjacency = 'T3WeaponBoosterDamageAdjacencyBuffs',
+    -- Adjacency = 'T3WeaponBoosterDamageAdjacencyBuffs',
 	
     Audio = {
         Destroyed = Sound {
