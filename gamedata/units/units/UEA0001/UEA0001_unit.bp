@@ -176,7 +176,7 @@ UnitBlueprint {
     SizeY = 0.5,
     SizeZ = 0.5,
 	
-    StrategicIconName = 'icon_land1_engineer',
+    StrategicIconName = 'icon_gunship_engineer',
     StrategicIconSize = 1,
     StrategicIconSortPriority = 105,
 	
