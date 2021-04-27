@@ -83,6 +83,7 @@ UnitBlueprint {
             '4 x Anti-Air Flak',
             'Radar & Sonar & Tactical Missile Defense',
             'Strategic Missile Defense',
+            '<LOC ability_deathaoe>Volatile',
         },
         AnimationDeath = {
             {
