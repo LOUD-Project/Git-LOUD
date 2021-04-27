@@ -256,6 +256,7 @@ UnitBlueprint {
             TurretYawSpeed = 65,
 			
             Turreted = true,
+            UseFiringSolutionInsteadOfAimBone = true,
         },
     },
 	
