@@ -129,6 +129,9 @@ UnitBlueprint {
                     LODCutoff = 600,
                     LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
                     ShaderName = 'Seraphim',
+                    AlbedoName = '/units/XSS0302/XSS0302_Albedo.dds',
+                    SpecularName = '/units/XSS0302/XSS0302_SpecTeam.dds',
+                    NormalsName = '/units/XSS0302/XSS0302_normalsTS.dds',
                 },
             },
         },
@@ -756,7 +759,7 @@ UnitBlueprint {
             Turreted = true,
         },
 		
-		-- WIERD BEAM THINGS * 4 -- total about 188 DPS
+		-- WEIRD BEAM THINGS * 4 -- total about 188 DPS
 		
         {
             AboveWaterTargetsOnly = true,
