@@ -351,7 +351,7 @@ globalOpts = {
         },
     },
     {
-        default = 2,
+        default = 1,
         label = "<LOC lobui_0120>Victory Condition",
         help = "<LOC lobui_0121>Determines how a victory can be achieved",
         key = 'Victory',
