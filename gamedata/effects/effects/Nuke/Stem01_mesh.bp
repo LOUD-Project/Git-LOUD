@@ -1,9 +1,0 @@
-MeshBlueprint {
-    LODs = {
-        {
-            ShaderName = 'TMeshAdd',
-            LODCutoff = -1.0,
-        },
-    },
-    #UniformScale = 0.15,
-}
