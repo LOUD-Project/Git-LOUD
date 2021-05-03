@@ -19,8 +19,6 @@ UnitBlueprint {
         'SELECTABLE',
         'BUILTBYTIER2FIELD',
         'BUILTBYTIER3FIELD',
-        'BUILTBYTIER2TEAD',
-        'BUILTBYTIER3TEAD',
         'AEON',
         'STRUCTURE',
         'TECH2',
@@ -32,7 +30,6 @@ UnitBlueprint {
 
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 0,
         Health = 80,
         MaxHealth = 80,
         RegenRate = 0.1,
@@ -56,27 +53,14 @@ UnitBlueprint {
             IconFadeInZoom = 130,
             LODs = {
                 {
-                    LODCutoff = 50,
-                    Scrolling = true,
-                    ShaderName = 'Aeon',
-                    --MeshName = '/units/uab1101/uab1101_lod0.scm',
-                    AlbedoName = '/units/uab1101/uab1101_albedo.dds',
-                    NormalsName = '/units/uab1101/uab1101_normalsTS.dds',
-                    SpecularName = '/units/uab1101/uab1101_specteam.dds',
-                },
-                {
                     LODCutoff = 130,
-                    ShaderName = 'Aeon',
-                    MeshName = '/units/uab1101/uab1101_lod1.scm',
-                    AlbedoName = '/units/uab1101/uab1101_lod1_albedo.dds',
-                    NormalsName = '/units/uab1101/uab1101_lod1_normalsTS.dds',
-                    SpecularName = '/units/uab1101/uab1101_lod1_specteam.dds',
-                },
-            },
+                    ShaderName = 'Aeon'
+                }
+            }
         },
 
         SpawnRandomRotation = true,
-        UniformScale = 0.02,
+        UniformScale = 0.035,
     },
 
     DoNotCollideList = {
