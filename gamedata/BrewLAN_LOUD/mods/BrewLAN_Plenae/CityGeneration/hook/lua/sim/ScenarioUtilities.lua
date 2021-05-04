@@ -365,6 +365,9 @@ function CreateSquareBlockCity(AIbrain, FUnits, CityCentrePos, CityRadius)
     -- Places and returns a unit from a bp or a weighted list of bps
     -- expects [string or table] [vector2 pos] [0-3 number]
     local SafeSpawn = function(unitbp, pos, dir)
+        if not unitbp then
+            return
+        end
         while type(unitbp) == 'table' do
             unitbp = ChooseWeightedBp(unitbp)
         end
@@ -498,8 +501,11 @@ function CreateSquareBlockCity(AIbrain, FUnits, CityCentrePos, CityRadius)
     for x, xtable in cityI do
         for y, pos in xtable do
             if type(pos) == 'table' then
+                ----------------------------------------------------------------
+                -- Land stuff
+                ----------------------------------------------------------------
                 if GetTerrainHeight(pos[1], pos[3]) >= GetSurfaceHeight(pos[1], pos[3]) then
-                    -- spawn structures before roads so that we an abort if we fail to make a generator before we've made a mark.
+                    -- spawn structures before roads so that we can abort if we fail to make a generator before we've made a mark.
                     for _, v in Corners(1) do
                         --local position of this structure? centre
                         local cbpos = {pos[1] + v[1]*3, pos[2], pos[3] + v[2]*3}
@@ -622,7 +628,11 @@ function CreateSquareBlockCity(AIbrain, FUnits, CityCentrePos, CityRadius)
                             end
                         end
                     end
-                else
+
+                ----------------------------------------------------------------
+                -- Water stuff
+                ----------------------------------------------------------------
+                elseif FUnits.PierData then
                     local FlattenCeilMapRect = function(x,z,w,h,y)
                         for i = 0, w do
                             for j = 0, h do
@@ -657,8 +667,12 @@ function CreateSquareBlockCity(AIbrain, FUnits, CityCentrePos, CityRadius)
                             if GetTerrainHeight(x,z) == pos[2] + h then
                                 local containers = SafeProp(pierData.Containers, {x, pos[2], z}, (pierDir+1+d)*90)
                                 local ran = math.random()
-                                containers:SetReclaimValues(ran, ran, containers.MassReclaim * ran, containers.EnergyReclaim * ran)
-                                containers:SetMaxReclaimValues(ran, ran, containers.MassReclaim * ran, containers.EnergyReclaim * ran)
+                                if (containers.MassReclaim or containers.MaxMassReclaim) and containers.SetReclaimValues then
+                                    containers:SetReclaimValues(ran, ran, (containers.MassReclaim or containers.MaxMassReclaim) * ran, (containers.EnergyReclaim or containers.MaxEnergyReclaim) * ran)
+                                end
+                                if containers.MaxMassReclaim and containers.SetMaxReclaimValues then
+                                    containers:SetMaxReclaimValues(ran, ran, containers.MaxMassReclaim * ran, containers.MaxEnergyReclaim * ran)
+                                end
                             else
                                 --Flatten the last container location
                                 FlattenMapRect(
