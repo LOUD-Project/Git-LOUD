@@ -89,8 +89,8 @@ GPGrestrictedUnits = {
 	},
 	
     NUKE = {
-        categories = {"uab2305", "ueb2305", "urb2305", "xsb2305", "xsb2401", "uas0304", "ues0304", "urs0304", "xss0302", "uab4302", "ueb4302", "urb4302", "xsb4302", "sal0321", "sel0321", "srl0321", "ssl0321" },
-        name = "<LOC restricted_units_data_0011>No Nukes, Anti-nukes or Nuke submarines",
+        categories = {"uab2305", "ueb2305", "urb2305", "xsb2305", "xsb2401", "uas0304", "urs0304", "uab4302", "ueb4302", "urb4302", "xsb4302", "sal0321", "sel0321", "srl0321", "ssl0321" },
+        name = "<LOC restricted_units_data_0011>No Nukes or Anti-nukes",
         tooltip = "restricted_units_nukes",
     },
 	
