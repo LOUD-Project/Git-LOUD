@@ -119,6 +119,13 @@ UES0304 = Class(TSubUnit) {
             end,
         },
     },
+	
+	OnCreate = function(self)
+        TSubUnit.OnCreate(self)
+        if type(ScenarioInfo.Options.RestrictedCategories) == 'table' and table.find(ScenarioInfo.Options.RestrictedCategories, 'NUKE') then
+            self:SetWeaponEnabledByLabel('NukeMissiles', false)
+        end
+    end,
 }
 
 TypeClass = UES0304
