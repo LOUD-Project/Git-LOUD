@@ -8,12 +8,6 @@ UnitBlueprint {
             helpText = 'scry_spy_target',
         },
     },
-    SpecialAbilities = { --For FAF Nomads compatibility
-        TargetLocation = {
-            AreaOfEffect = 0,
-            MaxRadius = -1,
-        },
-    },
     Audio = {
         AmbientMove = Sound { Bank = 'XEL', Cue = 'XEL0306_Move_Loop',  LodCutoff = 'UnitMove_LodCutoff' },
                Pack = Sound { Bank = 'UEL', Cue = 'UEL0111_Close',      LodCutoff = 'UnitMove_LodCutoff' },
@@ -138,6 +132,10 @@ UnitBlueprint {
         TeleportMassMod = 1,
         TeleportTimeMod = 0.01,
     },
+    Footprint = {
+        SizeX = 6,
+        SizeZ = 6,
+    },
     General = {
         Category = 'Experimental',
         Classification = 'RULEUC_Sensor',
@@ -179,7 +177,6 @@ UnitBlueprint {
     LifeBarSize = 3,
     Physics = {
         BackUpDistance = 4,
-        BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Land = true,
             LAYER_Water = true,
@@ -195,9 +192,7 @@ UnitBlueprint {
         MeshExtentsX = 1,
         MeshExtentsY = 1.5,
         MeshExtentsZ = 1.25,
-        MinSpeedPercent = 0,
         MotionType = 'RULEUMT_AmphibiousFloating',
-        TurnRadius = 0,
         TurnRate = 60,
         DishTurnSpeed = 10,
     },
