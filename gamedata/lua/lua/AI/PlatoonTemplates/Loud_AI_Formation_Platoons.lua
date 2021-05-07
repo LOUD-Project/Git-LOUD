@@ -639,7 +639,7 @@ PlatoonTemplate { Name = 'SeaAttack Small',
 			{ categories.DESTROYER, 1, 6, 'Attack', 'none' },									# Destroyers
 			{ categories.CRUISER, 2, 5, 'Artillery', 'none' },									# Cruisers
 			{ categories.FRIGATE, 5, 12, 'Attack', 'none' },									# Frigates
-			{ categories.SUBMARINE + categories.LIGHTBOAT, 7, 16, 'Attack', 'none' },			# Submarines & Coopers
+			--{ categories.SUBMARINE + categories.LIGHTBOAT, 7, 16, 'Attack', 'none' },			# Submarines & Coopers
 			{ categories.DEFENSIVEBOAT, 1, 1, 'Guard', 'none' },								# UEF Shield
 
         },
@@ -649,7 +649,7 @@ PlatoonTemplate { Name = 'SeaAttack Small',
 			{ categories.DESTROYER, 2, 6, 'Attack', 'none' },									# Destroyers
 			{ categories.CRUISER, 2, 5, 'Attack', 'none' },										# Cruisers
 			{ categories.FRIGATE, 5, 12, 'Attack', 'none' },									# Frigates
-			{ categories.SUBMARINE, 7, 12, 'Artillery', 'none' },								# Submarines
+			--{ categories.SUBMARINE, 7, 12, 'Artillery', 'none' },								# Submarines
 			{ categories.DEFENSIVEBOAT, 6, 6, 'Guard', 'none' },								# T1 Shard AA boat
 		
         },
@@ -659,7 +659,7 @@ PlatoonTemplate { Name = 'SeaAttack Small',
 			{ categories.DESTROYER, 1, 6, 'Attack', 'none' },									# Destroyers
 			{ categories.CRUISER, 2, 5, 'Artillery', 'none' },									# Cruisers
 			{ categories.FRIGATE, 5, 12, 'Attack', 'none' },									# Frigates
-			{ categories.SUBMARINE, 7, 12, 'Artillery', 'none' },								# Submarines
+			--{ categories.SUBMARINE, 7, 12, 'Artillery', 'none' },								# Submarines
 			{ categories.DEFENSIVEBOAT, 1, 1, 'Guard', 'none' },								# Cyb CounterIntel
 			
         },
@@ -669,7 +669,7 @@ PlatoonTemplate { Name = 'SeaAttack Small',
 			{ categories.DESTROYER, 1, 6, 'Artillery', 'none' },								# Destroyers
 			{ categories.CRUISER, 2, 5, 'Attack', 'none' },										# Cruisers
 			{ categories.FRIGATE, 5, 12, 'Attack', 'none' },									# Frigates
-			{ categories.SUBMARINE, 7, 12, 'Artillery', 'none' },								# Submarines
+			--{ categories.SUBMARINE, 7, 12, 'Artillery', 'none' },								# Submarines
 			
         },	
 	
