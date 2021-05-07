@@ -4977,6 +4977,13 @@ Platoon = Class(moho.platoon_methods) {
 			local ystep = (pos[3] - targetPos[3]) / steps -- how much the Y value will change from step to step
 			
 			local lastpos = {pos[1], 0, pos[3]}
+
+            -- alter the function according to layer
+            local terrainfunction = GetTerrainHeight
+            
+            if self.MovementLayer == 'Water' then
+                terrainfunction = GetSurfaceHeight
+            end
 	
 			-- Iterate thru the number of steps - starting at the pos and adding xstep and ystep to each point
 			for i = 0, steps do
@@ -4986,18 +4993,18 @@ Platoon = Class(moho.platoon_methods) {
 					local nextpos = { pos[1] - (xstep * i), 0, pos[3] - (ystep * i)}
 			
 					-- Get height for both points
-                    -- hover units should be using surface height for comparisons
-					local lastposHeight = GetTerrainHeight( lastpos[1], lastpos[3] )
+                    -- hover and naval units should be using surface height for comparisons
+					local lastposHeight = terrainfunction( lastpos[1], lastpos[3] )
                     
                     local InWater = lastposHeight < (GetSurfaceHeight( lastpos[1], lastpos[3] ) - 1)
                     
-					local nextposHeight = GetTerrainHeight( nextpos[1], nextpos[3] )
+					local nextposHeight = terrainfunction( nextpos[1], nextpos[3] )
 					
 					-- if more than 3.6 ogrids change in height over 6 ogrids distance
 					if math.abs(lastposHeight - nextposHeight) > 3.6 or (InWater and not self.MovementLayer == 'Amphibious') then
 						
 						-- we are obstructed
-						--LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." obstructed by "..(lastposHeight - nextposHeight).." INWATER is "..repr(InWater).." to location "..repr(targetPos) )
+						LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." on "..self.MovementLayer.." obstructed by "..(lastposHeight - nextposHeight).." to location "..repr(targetPos).." INWATER is "..repr(InWater) )
 						return true
 					end
 					
@@ -5104,11 +5111,18 @@ Platoon = Class(moho.platoon_methods) {
 										-- is it within my distress response range 
 										if rangetoalert > 5 and rangetoalert < distressrange and not CheckBlockingTerrain( platoonposition, v.Position) then
                                         
-                                            local selfthreat = platoon:CalculatePlatoonThreat('Surface', categories.ALLUNITS)
+                                            local selfthreat = platoon:CalculatePlatoonThreat('Surface', categories.ALLUNITS)  
+
                                             local threat = v.Threat
                                             
                                             if platoon.MovementLayer == 'Air' then
+                                            
+                                                if distresstype == 'Naval' then
+                                                    selfthreat = selfthreat + platoon:CalculatePlatoonThreat('Sub', categories.ALLUNITS)
+                                                end
+                                                
                                                 selfthreat = selfthreat + platoon:CalculatePlatoonThreat('Air', categories.ALLUNITS)
+                                                
                                                 threat = aiBrain:GetThreatAtPosition( v.Position, 0, true, 'AntiAir' )
 
                                                 if threat > (selfthreat * 1.3) then
@@ -5342,11 +5356,15 @@ Platoon = Class(moho.platoon_methods) {
                                                 end
                                             
                                                 threatatPos = GetThreatAtPosition( aiBrain, moveLocation, 0, true, 'AntiSurface')
-                                                artyThreatatPos = GetThreatAtPosition( aiBrain, moveLocation, 0, true, 'Artillery')
-                                                myThreatatPos = GetThreatAtPosition( aiBrain, moveLocation, 0, true, 'Overall', aiBrain.ArmyIndex )
+                                                threatatPos = threatatPos - GetThreatAtPosition( aiBrain, moveLocation, 0, true, 'AntiAir')
+                                                threatatPos = threatatPos - GetThreatAtPosition( aiBrain, moveLocation, 0, true, 'AntiSub')
+                                                
+                                                myThreatatPos = GetThreatAtPosition( aiBrain:GetCurrentEnemy(), moveLocation, 0, true, 'AntiSurface' )
+                                                myThreatatPos = myThreatatPos - GetThreatAtPosition( aiBrain:GetCurrentEnemy(), moveLocation, 0, true, 'AntiAir' )
+                                                myThreatatPos = myThreatatPos - GetThreatAtPosition( aiBrain:GetCurrentEnemy(), moveLocation, 0, true, 'AntiSub' )
                                                 
                                                 if ScenarioInfo.DistressResponseDialog then
-                                                    LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." enemythreat "..(threatatPos+artyThreatatPos).." mine "..self:CalculatePlatoonThreat('Surface', categories.ALLUNITS).." distance to distress is "..repr(VDist3(poscheck,distressLocation)))
+                                                    LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." enemythreat "..(threatatPos).." mine "..myThreatatPos.." distance to distress is "..repr(VDist3(poscheck,distressLocation)))
                                                 end
                                                 
                                             end
@@ -5363,7 +5381,7 @@ Platoon = Class(moho.platoon_methods) {
                                     
                                 end
 								
-							until breakResponse or (not poscheck) or ( cmd and not self:IsCommandsActive(cmd)) or ((threatatPos + artyThreatatPos) <= threatThreshold) or (not self.DistressResponseAIRunning)
+							until breakResponse or (not poscheck) or ( cmd and not self:IsCommandsActive(cmd)) or (threatatPos <= threatThreshold) or (not self.DistressResponseAIRunning)
 
 							if PlatoonExists(aiBrain, self) and self.DistressResponseAIRunning then
 			
