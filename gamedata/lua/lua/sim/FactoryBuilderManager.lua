@@ -353,8 +353,9 @@ FactoryBuilderManager = Class(BuilderManager) {
 		end
         
         -- the cheatvalue directly impacts the triggers --
-        local masstrig = 200 * (1/aiBrain.CheatValue)
-        local enertrig = 2500 * (1/aiBrain.CheatValue)
+        -- for cheats above 1
+        local masstrig = 200 * (1/ math.max(1, aiBrain.CheatValue))
+        local enertrig = 2500 * (1/ math.max(1, aiBrain.CheatValue))
 
 		while (not factory.Dead) and (not factory.Upgrading) and (( GetEconomyStored( aiBrain, 'MASS') < (masstrig - ( (3 - factory.BuildLevel) * 25)) or GetEconomyStored( aiBrain, 'ENERGY') < (enertrig - ( (3 - factory.BuildLevel) * 250))) or (IsUnitState(factory,'Upgrading') or IsUnitState(factory,'Enhancing')))  do
         
