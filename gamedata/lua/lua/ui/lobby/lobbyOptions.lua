@@ -27,7 +27,7 @@ teamOptions = {
         },
     },
     {
-        default = 1,
+        default = 2,
         label = "<LOC lobui_0088>Spawn",
         help = "<LOC lobui_0089>Determine what positions players spawn on the map",
         key = 'TeamSpawn',
