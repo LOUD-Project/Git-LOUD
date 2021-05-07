@@ -214,7 +214,7 @@ function CDROverCharge( aiBrain, cdr )
 		if EM.BaseMonitor.ActiveAlerts > 0 then
 	
 			-- checks for a Land distress alert at this base
-			distressLoc, distressType = EM:BaseMonitorGetDistressLocation( aiBrain, EM.Location, distressRange, 4, 'Land')
+			distressLoc, distressType = EM:BaseMonitorGetDistressLocation( aiBrain, EM.Location, distressRange, 6, 'Land')
 			
 		end
 	
@@ -451,7 +451,7 @@ function CDROverCharge( aiBrain, cdr )
 		
 				if EM.BaseMonitor.ActiveAlerts > 0 then
 					-- rechecks for a Land distress alert at this base
-					distressLoc, distressType = EM:BaseMonitorGetDistressLocation( aiBrain, EM.Location, distressRange, 4, 'Land')
+					distressLoc, distressType = EM:BaseMonitorGetDistressLocation( aiBrain, EM.Location, distressRange, 6, 'Land')
 				end
 
 				-- did Bob die ?
