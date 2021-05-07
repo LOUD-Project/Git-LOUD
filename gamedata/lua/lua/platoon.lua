@@ -5430,7 +5430,7 @@ Platoon = Class(moho.platoon_methods) {
                 
             end
 			
-			WaitTicks(16)
+			WaitTicks(13)
             
         end
         
