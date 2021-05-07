@@ -1665,7 +1665,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
         
 		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'} },
 		
-		PlatoonAddPlans = { 'DistressResponseAI' },
+		PlatoonAddPlans = { 'PlatoonCallForHelpAI', 'DistressResponseAI' },
 		
 		PlatoonAIPlan = 'AttackForceAI_Torpedo',		
 		
@@ -1704,7 +1704,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
         
 		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'} },
 		
-		PlatoonAddPlans = { 'DistressResponseAI' },
+		PlatoonAddPlans = { 'PlatoonCallForHelpAI', 'DistressResponseAI' },
 		
 		PlatoonAIPlan = 'AttackForceAI_Torpedo',
 
@@ -1746,7 +1746,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
         
 		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'} },
 		
-		PlatoonAddPlans = { 'DistressResponseAI' },
+		PlatoonAddPlans = { 'PlatoonCallForHelpAI', 'DistressResponseAI' },
 		
 		PlatoonAIPlan = 'AttackForceAI_Torpedo',
 
@@ -1832,6 +1832,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 		
 		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'} },
 		
+		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
+		
 		PlatoonAIPlan = 'AttackForceAI_Torpedo',
 		
         Priority = 710,
@@ -1911,6 +1913,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 		
 		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, },
 		
+		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
+        
         InstanceCount = 2,
 	
         Priority = 10,
