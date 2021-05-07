@@ -268,7 +268,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
     },
 }
 
--- Torpedo Bombers have been problematic (ie. - generally overproduced)
+-- Torpedo Bombers have been problematic
 -- Just being a water map isn't enough reason to build them - there needs to be a threat
 -- AND importantly, it should only become an issue if the AI is actually playing on the water
 -- When I see an AI with no Naval position building Torpedo Bombers I get disturbed especially
@@ -286,17 +286,12 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Torpedo Bombers',
 		PriorityFunction = IsEnemyNavalActive,
 		
         BuilderConditions = {
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},		
-            { LUTL, 'UnitCapCheckLess', { .95 } },
-			
+
 			-- dont start production until you have at least 2+ T2/T3 factories at location
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},
 
             -- one of the few places where I use a ratio to control the number of units
 			{ UCBC, 'HaveLessThanUnitsAsPercentageOfUnitCap', { 9, categories.ANTINAVY * categories.AIR }},
-            
-            -- never have more than 1 factory building them at this location
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.ANTINAVY * categories.AIR, categories.TECH2 }},
         },
 		
         BuilderType =  {'AirT2','SeaT2'},
@@ -311,15 +306,11 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Torpedo Bombers',
 		PriorityFunction = IsEnemyNavalActive,
 		
         BuilderConditions = {
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},		
-            { LUTL, 'UnitCapCheckLess', { .95 } },
-			
+
 			-- dont produce unless you have 3+ T3 Air factories overall
 			{ LUTL, 'HaveGreaterThanUnitsWithCategory', { 2, categories.FACTORY * categories.AIR * categories.TECH3 }},
 
 			{ UCBC, 'HaveLessThanUnitsAsPercentageOfUnitCap', { 9, categories.ANTINAVY * categories.AIR }},
-            
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.ANTINAVY * categories.AIR, categories.TECH3 }},
         },
 		
         BuilderType =  {'AirT3','SeaT3'},
@@ -335,19 +326,12 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Torpedo Bombers',
 		PriorityFunction = IsEnemyNavalActive,
 		
         BuilderConditions = {
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},		
-            { LUTL, 'UnitCapCheckLess', { .95 } },
-            
+
             { LUTL, 'NavalStrengthRatioLessThan', { 3 } },
 			{ LUTL, 'AirStrengthRatioGreaterThan', { 1 } },            
 			
 			-- dont start production until you have at least 3+ T2/T3 factories at location
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},
-
-            -- one of the few places where I use a ratio to control the number of units
-			{ UCBC, 'HaveLessThanUnitsAsPercentageOfUnitCap', { 9, categories.ANTINAVY * categories.AIR }},
-            
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.ANTINAVY * categories.AIR, categories.TECH2 }},
         },
 		
         BuilderType =  {'AirT2','SeaT2'},
@@ -362,18 +346,12 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Torpedo Bombers',
 		PriorityFunction = IsEnemyNavalActive,
 		
         BuilderConditions = {
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},		
-            { LUTL, 'UnitCapCheckLess', { .95 } },
 
             { LUTL, 'NavalStrengthRatioLessThan', { 3 } },
 			{ LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
 			
 			-- dont produce unless you have 3+ T3 Air factories overall
 			{ LUTL, 'HaveGreaterThanUnitsWithCategory', { 2, categories.FACTORY * categories.AIR * categories.TECH3 }},
-
-			{ UCBC, 'HaveLessThanUnitsAsPercentageOfUnitCap', { 9, categories.ANTINAVY * categories.AIR }},
-            
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.ANTINAVY * categories.AIR, categories.TECH3 }},
         },
 		
         BuilderType =  {'AirT3','SeaT3'},
