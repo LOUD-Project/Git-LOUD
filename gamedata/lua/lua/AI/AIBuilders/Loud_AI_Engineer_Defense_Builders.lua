@@ -231,6 +231,39 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         }
     },
 
+    Builder {BuilderName = 'T2 Base TMD - Base Template',
+	
+        PlatoonTemplate = 'EngineerBuilderGeneral',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+        Priority = 751,
+
+        PriorityFunction = IsEnemyCrushingLand,
+		
+        BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .80 } },
+            
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
+			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 10, categories.STRUCTURE * categories.ANTIMISSILE * categories.TECH2, 14, 42 }},
+        },
+		
+        BuilderType = {'T2','T3'},
+		
+        BuilderData = {
+            Construction = {
+				NearBasePerimeterPoints = true,
+                
+				ThreatMax = 50,				
+				
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
+				BaseTemplate = 'BaseDefenseLayout',
+				
+                BuildStructures = {'T2MissileDefense' },
+            }
+        }
+    },
+
     Builder {BuilderName = 'T3 Base PD - Base Template',
 	
         PlatoonTemplate = 'EngineerBuilderGeneral',
@@ -266,140 +299,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
             }
         }
     },
-
-    Builder {BuilderName = 'T2 Base AA - Base Template',
-	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
-        
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-		
-        Priority = 745,
-
-        PriorityFunction = IsEnemyCrushingAir,
-		
-        BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .65 } },
-            
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 8, categories.STRUCTURE * categories.ANTIAIR, 15, 42 }},
-        },
-		
-        BuilderType = {'T2'},
-		
-        BuilderData = {
-            Construction = {
-				NearBasePerimeterPoints = true,
-				ThreatMax = 50,				
-				
-				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
-				BaseTemplate = 'BaseDefenseLayout',
-				
-                BuildStructures = {'T2AADefense'},
-            }
-        }
-    },
-
-    Builder {BuilderName = 'T2 Base TMD - Base Template',
-	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
-        
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-		
-        Priority = 745,
-
-        PriorityFunction = IsEnemyCrushingLand,
-		
-        BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .80 } },
-            
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
-			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 10, categories.STRUCTURE * categories.ANTIMISSILE * categories.TECH2, 14, 42 }},
-        },
-		
-        BuilderType = {'T2','T3'},
-		
-        BuilderData = {
-            Construction = {
-				NearBasePerimeterPoints = true,
-                
-				ThreatMax = 50,				
-				
-				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
-				BaseTemplate = 'BaseDefenseLayout',
-				
-                BuildStructures = {'T2MissileDefense' },
-            }
-        }
-    },
-
-    -- this artillery is built in the core - not the defense boxes
-    Builder {BuilderName = 'T2 Artillery - Base Template - Core',
-	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
-        
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-		
-        Priority = 745,
-
-        PriorityFunction = IsEnemyCrushingLand,
-		
-        BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .80 } },
-            
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 400, 75, 'Land' }},
-
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 10, categories.ARTILLERY * categories.STRUCTURE * categories.TECH2, 10, 20 }},			
-        },
-		
-        BuilderType = {'T2','T3'},
-		
-        BuilderData = {
-            Construction = {
-				NearBasePerimeterPoints = true,
-				ThreatMax = 50,
-				
-				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
-				BaseTemplate = 'SupportLayout',
-				
-                BuildStructures = {'T2Artillery'},
-            }
-	    }
-    },
-    
-    -- this artillery is built in the defense boxes - not the core
-    Builder {BuilderName = 'T2 Artillery - Base Template - Boxes',
-	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
-        
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-		
-        Priority = 745,
-
-        PriorityFunction = IsEnemyCrushingLand,
-		
-        BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .80 } },
-            
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 4, categories.ARTILLERY * categories.STRUCTURE * categories.TECH2, 21, 42 }},			
-        },
-		
-        BuilderType = {'T2','T3'},
-		
-        BuilderData = {
-            Construction = {
-				NearBasePerimeterPoints = true,
-                
-				ThreatMax = 50,
-				
-				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
-				BaseTemplate = 'BaseDefenseLayout',
-				
-                BuildStructures = {'T2Artillery'},
-            }
-	    }
-    },		
 
     Builder {BuilderName = 'T3 Base AA - Base Template',
 	
@@ -437,6 +336,107 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         }
     },
 	
+    Builder {BuilderName = 'T2 Base AA - Base Template',
+	
+        PlatoonTemplate = 'EngineerBuilderGeneral',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+        Priority = 745,
+
+        PriorityFunction = IsEnemyCrushingAir,
+		
+        BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .65 } },
+            
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 8, categories.STRUCTURE * categories.ANTIAIR, 15, 42 }},
+        },
+		
+        BuilderType = {'T2'},
+		
+        BuilderData = {
+            Construction = {
+				NearBasePerimeterPoints = true,
+				ThreatMax = 50,				
+				
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
+				BaseTemplate = 'BaseDefenseLayout',
+				
+                BuildStructures = {'T2AADefense'},
+            }
+        }
+    },
+    
+    -- this artillery is built in the defense boxes - not the core
+    Builder {BuilderName = 'T2 Artillery - Base Template - Boxes',
+	
+        PlatoonTemplate = 'EngineerBuilderGeneral',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+        Priority = 745,
+
+        PriorityFunction = IsEnemyCrushingLand,
+		
+        BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .80 } },
+            
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 4, categories.ARTILLERY * categories.STRUCTURE * categories.TECH2, 21, 42 }},			
+        },
+		
+        BuilderType = {'T2','T3'},
+		
+        BuilderData = {
+            Construction = {
+				NearBasePerimeterPoints = true,
+                
+				ThreatMax = 50,
+				
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
+				BaseTemplate = 'BaseDefenseLayout',
+				
+                BuildStructures = {'T2Artillery'},
+            }
+	    }
+    },		
+
+    -- this artillery is built in the core - not the defense boxes
+    Builder {BuilderName = 'T2 Artillery - Base Template - Core',
+	
+        PlatoonTemplate = 'EngineerBuilderGeneral',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+        Priority = 745,
+
+        PriorityFunction = IsEnemyCrushingLand,
+		
+        BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .80 } },
+            
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 400, 75, 'Land' }},
+
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 10, categories.ARTILLERY * categories.STRUCTURE * categories.TECH2, 10, 20 }},			
+        },
+		
+        BuilderType = {'T2','T3'},
+		
+        BuilderData = {
+            Construction = {
+				NearBasePerimeterPoints = true,
+				ThreatMax = 50,
+				
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
+				BaseTemplate = 'SupportLayout',
+				
+                BuildStructures = {'T2Artillery'},
+            }
+	    }
+    },
+
     Builder {BuilderName = 'T3 Teleport Jamming',
 	
         PlatoonTemplate = 'EngineerBuilderGeneral',
