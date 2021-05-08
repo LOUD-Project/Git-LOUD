@@ -159,15 +159,12 @@ BSS0401 = Class(SSeaUnit) {
 		
     },
 	
-	OnStopBeingBuilt = function(self)
-	
-		self:HideBone('Pod04', true)
-		self:HideBone('Pod05', true)
-		self:HideBone('Pod06', true)
-
-		SSeaUnit.OnStopBeingBuilt(self)
-		
-	end,
+	OnStopBeingBuilt = function(self, builder, layer)
+        self:HideBone('Pod04', true)
+        self:HideBone('Pod05', true)
+        self:HideBone('Pod06', true)
+        SSeaUnit.OnStopBeingBuilt(self, builder, layer)
+    end,
 
 	OnKilled = function(self, inst, type, okr)
 

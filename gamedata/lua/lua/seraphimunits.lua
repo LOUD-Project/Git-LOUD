@@ -367,7 +367,7 @@ SLandFactoryUnit = Class(FactoryUnit) {
                 self.Rotator1:SetGoal(savedAngle)
                 unitBeingBuilt.Rotator1:SetCurrentAngle(savedAngle)
                 unitBeingBuilt.Rotator1:SetGoal(savedAngle)
-                #freeze the next rotator to 0, since that's where it will be
+                -- freeze the next rotator to 0, since that's where it will be
                 unitBeingBuilt.Rotator2:SetCurrentAngle(0)
                 unitBeingBuilt.Rotator2:SetGoal(0)
             end
@@ -441,14 +441,14 @@ SSeaFactoryUnit = Class(FactoryUnit) {
         local unitid = self:GetBlueprint().General.UpgradesTo
 		
         if unitBeingBuilt:GetUnitId() == unitid and order == 'Upgrade' then
-            --#stop pods that exist in the upgraded unit
+            -- stop pods that exist in the upgraded unit
             local savedAngle
             if (self.Rotator1) then
                 savedAngle = self.Rotator1:GetCurrentAngle()
                 self.Rotator1:SetGoal(savedAngle)
                 unitBeingBuilt.Rotator1:SetCurrentAngle(savedAngle)
                 unitBeingBuilt.Rotator1:SetGoal(savedAngle)
-                --#freeze the next rotator to 0, since that's where it will be
+                -- freeze the next rotator to 0, since that's where it will be
                 unitBeingBuilt.Rotator2:SetCurrentAngle(0)
                 unitBeingBuilt.Rotator2:SetGoal(0)
             end
@@ -469,7 +469,7 @@ SSeaFactoryUnit = Class(FactoryUnit) {
 	
         OnStopBuild = function(self, unitBuilding)
             if unitBuilding:GetFractionComplete() == 1 then
-                --#start halted rotators on upgraded unit
+                -- start halted rotators on upgraded unit
                 if (unitBuilding.Rotator1) then
                     unitBuilding.Rotator1:ClearGoal()
                 end
@@ -485,7 +485,7 @@ SSeaFactoryUnit = Class(FactoryUnit) {
 
         OnFailedToBuild = function(self)
            FactoryUnit.UpgradingState.OnFailedToBuild(self)
-           --# failed to build, so resume rotators
+           -- failed to build, so resume rotators
            if (self.Rotator1) then
                self.Rotator1:ClearGoal()
                self.Rotator1:SetSpeed(5)
@@ -605,7 +605,7 @@ SEnergyBallUnit = Class(SHoverLandUnit) {
                     weapon:SetTargetGround( { location[1] + Random(-20, 20), location[2], location[3] + Random(-20, 20) } )
                 end
 				
-                #-- Wait a tick to let the target update awesomely.
+                -- Wait a tick to let the target update awesomely.
                 WaitTicks(1)
                 self.timeAlive = self.timeAlive + .1
                 weapon:FireWeapon()
@@ -615,7 +615,7 @@ SEnergyBallUnit = Class(SHoverLandUnit) {
                 WaitTicks( reaquireTime * 10)
                 --self:ComputeWaitTime()
 		    end
-		    #ChangeState( self, self.DeathState )
+		    -- ChangeState( self, self.DeathState )
         end,
         
         ComputeWaitTime = function(self)
