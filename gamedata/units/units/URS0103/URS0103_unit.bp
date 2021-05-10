@@ -247,7 +247,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 120,
-            DamageRadius = 1,
+            DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'Proton Cannon',

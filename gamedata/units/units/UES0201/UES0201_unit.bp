@@ -259,7 +259,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 120,
-            DamageRadius = 0.5,
+            DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'Dual Gauss Cannon',
@@ -358,7 +358,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 120,
-            DamageRadius = 0.5,
+            DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'Dual Gauss Cannon',

@@ -267,7 +267,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 600,
-            DamageRadius = 2,
+            DamageRadius = 1.6,
             DamageType = 'Normal',
 			
             DisplayName = 'Quarnon Cannon',
@@ -367,19 +367,26 @@ UnitBlueprint {
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
+            
             Damage = 600,
-            DamageRadius = 2,
+            DamageRadius = 1.6,
             DamageType = 'Normal',
+            
             DisplayName = 'Quarnon Cannon',
+            
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
             },
             FiringRandomness = 0.3,
             FiringTolerance = 2,
+            
             HeadingArcCenter = 0,
             HeadingArcRange = 160,
+            
             Label = 'Turret',
+            
             MaxRadius = 100,
+            
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -418,7 +425,6 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'NAVAL MOBILE',
-                
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -463,7 +469,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 600,
-            DamageRadius = 2,
+            DamageRadius = 1.6,
             DamageType = 'Normal',
 			
             DisplayName = 'Quarnon Cannon',
@@ -699,7 +705,7 @@ UnitBlueprint {
 			
             Damage = 70,
             DamageFriendly = false,
-            DamageRadius = 2,
+            DamageRadius = 1.8,
             DamageType = 'Normal',
 			
             DetonatesAtTargetHeight = true,
@@ -794,7 +800,7 @@ UnitBlueprint {
 			
             Damage = 70,
             DamageFriendly = false,
-            DamageRadius = 2.5,
+            DamageRadius = 2.2,
             DamageType = 'Normal',
             DetonatesAtTargetHeight = true,
 			

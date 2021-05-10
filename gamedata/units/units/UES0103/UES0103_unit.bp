@@ -233,7 +233,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 130,
-            DamageRadius = 0.5,
+            DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'Gauss Cannon',
