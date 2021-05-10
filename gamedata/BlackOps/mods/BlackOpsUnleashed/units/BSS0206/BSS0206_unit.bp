@@ -221,7 +221,7 @@ UnitBlueprint {
 			
             Damage = 550,
             DamageFriendly = true,
-            DamageRadius = 3,
+            DamageRadius = 2,
             DamageType = 'Normal',
 			
             DisplayName = 'Suthanus Artillery',
@@ -306,7 +306,7 @@ UnitBlueprint {
 			
             Damage = 550,
             DamageFriendly = true,
-            DamageRadius = 3,
+            DamageRadius = 2,
 			
             DamageType = 'Normal',
 			
