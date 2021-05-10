@@ -353,7 +353,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 		end
         
         -- the cheatvalue directly impacts the triggers --
-        -- for cheats above 1
+        -- cheats above 1 lower the threshold making building more aggressive
         local masstrig = 200 * (1/ math.max(1, aiBrain.CheatValue))
         local enertrig = 2500 * (1/ math.max(1, aiBrain.CheatValue))
 

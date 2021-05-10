@@ -1015,6 +1015,9 @@ end
 -- attack planner goal and sets the flag on that base
 function SetPrimaryLandAttackBase( aiBrain )
 
+    -- clear any existing base reference
+    aiBrain.PrimaryLandAttackBase = false
+
     if aiBrain.AttackPlan.Goal then
     
         local goal = aiBrain.AttackPlan.Goal
@@ -1124,7 +1127,7 @@ end
 
 function GetPrimaryLandAttackBase( aiBrain )
 
-	if aiBrain.PrimaryLandAttackBase then
+	if aiBrain.PrimaryLandAttackBase and aiBrain.BuilderManagers[ aiBrain.PrimaryLandAttackBase ].Position then
 		return aiBrain.PrimaryLandAttackBase, aiBrain.BuilderManagers[ aiBrain.PrimaryLandAttackBase ].Position
 	end
 
@@ -1145,6 +1148,9 @@ end
 -- This function determines which base is closest to the primary
 -- attack planner goal and sets the flag on that base
 function SetPrimarySeaAttackBase( aiBrain )
+
+    -- clear any existing base reference
+    aiBrain.PrimarySeaAttackBase = false
 
     if aiBrain.AttackPlan.Goal then
     
@@ -1244,7 +1250,7 @@ function GetPrimarySeaAttackBase( aiBrain )
 
 	if aiBrain.IsWaterMap then
 
-		if aiBrain.PrimarySeaAttackBase then
+		if aiBrain.PrimarySeaAttackBase and aiBrain.BuilderManagers[ aiBrain.PrimarySeaAttackBase ].Position then
 			return aiBrain.PrimarySeaAttackBase, aiBrain.BuilderManagers[ aiBrain.PrimarySeaAttackBase ].Position
 		end
 
