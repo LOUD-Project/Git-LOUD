@@ -136,6 +136,8 @@ do
 					-- Projectile Lifetime is measured in seconds, and the ProjectileLifetimeUsesMultiplier field on a weapon will use the calculation Multiplier * (Max Radius/Muzzle Velocity).
 					-- A Lifetime of 0 (on the weapon) reverts the projectile to using the lifetime specified in the Projectile blueprint.
 					if weapon.ProjectileLifetime and weapon.ProjectileLifetime ~= 0 then
+						local newValue = math.floor(weapon.ProjectileLifetime * 3)
+						weapon.ProjectileLifetime = newValue
 						-- If the ProjectileLifetime isn't high enough to cover MaxRadius/MuzzleVelocity, then we set ProjectileLifetimeUsesMultiplier.
 						if weapon.ProjectileLifetime < (weapon.MaxRadius / weapon.MuzzleVelocity) then
 							-- Using ProjectileLifetimeUsesMultiplier causes ProjectileLifetime to be ignored in favor of the calculation.
