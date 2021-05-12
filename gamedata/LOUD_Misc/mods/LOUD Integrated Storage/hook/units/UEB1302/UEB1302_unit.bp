@@ -1,0 +1,46 @@
+UnitBlueprint {
+	Merge = true,
+	BlueprintId = "ueb1302",
+
+    Description = '<LOC ueb1302_desc>Advanced Mass Extractor',
+
+    Economy = {
+        BuildCostEnergy = 31625,
+        BuildCostMass = 4600,
+        BuildRate = 20,
+        BuildTime = 2875,
+		
+        BuildableCategory = {
+            'ueb1304',
+        },
+		
+        MaintenanceConsumptionPerSecondEnergy = 120,
+        ProductionPerSecondMass = 18,
+		
+        RebuildBonusIds = {
+            'ueb1302',
+            'ueb1304',
+        },
+		
+		StorageMass = 360,
+    },
+	
+    General = {
+        Category = 'Economy',
+        Classification = 'RULEUC_Resource',
+        CommandCaps = {
+            RULEUCC_Pause = true,
+            RULEUCC_Stop = true,
+        },
+        FactionName = 'UEF',
+        Icon = 'land',
+        SelectionPriority = 5,
+        TechLevel = 'RULEUTL_Advanced',
+        ToggleCaps = {
+            RULEUTC_ProductionToggle = true,
+        },
+        UnitWeight = 1,
+        UpgradesFrom = 'ueb1202',
+        UpgradesTo = 'ueb1304',
+    },
+}

@@ -1,0 +1,22 @@
+UnitBlueprint {
+	Merge = true,
+	BlueprintId = "uebssg01", --UEF T4 Shield
+    Economy = {
+        BuildRate = 25,
+        BuildableCategory = {
+            'uebssg02',
+        },
+        RebuildBonusIds = {
+            'uebssg01',
+            'uebssg02',
+        },
+    },
+    General = {
+		CapCost = 10,
+        CommandCaps = {
+            RULEUCC_Pause = true,
+            RULEUCC_Stop = true,
+        },
+        UpgradesTo = 'uebssg02',
+    },
+}

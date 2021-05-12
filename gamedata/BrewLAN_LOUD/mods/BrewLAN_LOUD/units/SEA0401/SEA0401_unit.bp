@@ -139,7 +139,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 30,
     },
 
-    Description = '<LOC sea0401_desc>Experimental AA Gunship',
+    Description = '<LOC sea0401>Experimental Medium AA Gunship',
 
     Display = {
         Abilities = {
@@ -254,18 +254,11 @@ UnitBlueprint {
         Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
             RULEUCC_Attack = true,
-            RULEUCC_CallTransport = false,
-            RULEUCC_Capture = false,
-            RULEUCC_Dock = false,
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
-            RULEUCC_Nuke = false,
             RULEUCC_Patrol = true,
-            RULEUCC_Reclaim = false,
-            RULEUCC_Repair = false,
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
-            RULEUCC_Transport = false,
         },
         FactionName = 'UEF',
         Icon = 'air',
@@ -280,7 +273,7 @@ UnitBlueprint {
     },
 
     Interface = {
-        HelpText = '<LOC sea0401_desc>Experimental AA Gunship',
+        HelpText = '<LOC sea0401_desc>Medium AA Gunship',
     },
 
     LifeBarHeight = 0.075,
@@ -290,11 +283,6 @@ UnitBlueprint {
     Physics = {
         BuildOnLayerCaps = {
             LAYER_Air = true,
-            LAYER_Land = false,
-            LAYER_Orbit = false,
-            LAYER_Seabed = false,
-            LAYER_Sub = false,
-            LAYER_Water = false,
         },
 
         Elevation = 20,

@@ -100,7 +100,7 @@ UnitBlueprint {
 
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 2011,
+        EconomyThreatLevel = 2160,  -- 4x buildpower (840) + 4% of HP (1320)
         Health = 33000,
         MaxHealth = 33000,
         RegenRate = 12,
@@ -181,7 +181,7 @@ UnitBlueprint {
             'BUILTBYARTHROLAB'
         },
 
-        RebuildBonusIds = {'srb0401'},
+        --RebuildBonusIds = {'srb0401'},
 
         StorageEnergy = 8000,
         StorageMass = 1000,
@@ -215,24 +215,17 @@ UnitBlueprint {
             },
         },
 
-		CapCost = 15,
+		CapCost = 16,
 
         Category = 'Factory',
         Classification = 'RULEUC_Factory',
         CommandCaps = {
-            RULEUCC_Attack = false,
-            RULEUCC_CallTransport = false,
-            RULEUCC_Capture = false,
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
-            RULEUCC_Nuke = false,
             RULEUCC_Patrol = true,
             RULEUCC_Pause = true,
-            RULEUCC_Reclaim = false,
-            RULEUCC_Repair = false,
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
-            RULEUCC_Transport = false,
         },
         ConstructionBar = true,
         FactionName = 'Cybran',
@@ -258,12 +251,7 @@ UnitBlueprint {
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
-            LAYER_Air = false,
             LAYER_Land = true,
-            LAYER_Orbit = false,
-            LAYER_Seabed = false,
-            LAYER_Sub = false,
-            LAYER_Water = false,
         },
         DragCoefficient = 0.2,
         FlattenSkirt = true,

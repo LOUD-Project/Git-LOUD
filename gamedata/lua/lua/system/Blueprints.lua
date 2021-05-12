@@ -463,6 +463,8 @@ function RegisterAllBlueprints(blueprints)
     RegisterGroup(blueprints.Beam, RegisterBeamBlueprint)
 end
 
+local usermodUnitIcons = {}
+
 -- Hook for mods to manipulate the entire blueprint table
 function ModBlueprints(all_blueprints)
 
@@ -491,9 +493,6 @@ function ModBlueprints(all_blueprints)
 	end
 
 	--LOG("*AI DEBUG ScenarioInfo data is "..repr( _G ) )
-
-	--LOG("*AI DEBUG Adding SATELLITE restriction to ANTIAIR Weapons - unit must have the UWRC-AntiAir range category in the weapon")
-	--LOG("*AI DEBUG Adjusting ROF,TargetCheckInterval and Energy Drain requirements")
 
 	local ROFadjust = 0.9
 
@@ -531,7 +530,6 @@ function ModBlueprints(all_blueprints)
 					wep.RateOfFire = wep.RateOfFire * ROFadjust
 					
 					if wep.MuzzleSalvoDelay == nil then
-						--LOG("*AI DEBUG "..id.." has nil for "..repr(wep.Label).." MuzzleSalvoDelay")
 						wep.MuzzleSalvoDelay = 0
 					end
                 end
@@ -573,16 +571,13 @@ function ModBlueprints(all_blueprints)
         end
     end 
 
-	--LOG("*AI DEBUG Capping GuardReturnRadius")
-	--LOG("*AI DEBUG Adjusting View Radius")
-	
 	local capreturnradius = 80
 	
     local econScale = 0
 	local speedScale = 0
 	local viewScale = 0
 
-    for id,bp in all_blueprints.Unit do
+    for id, bp in all_blueprints.Unit do
 
 		if bp.AI.GuardReturnRadius then
 			
@@ -613,7 +608,7 @@ function ModBlueprints(all_blueprints)
 		
 		if bp.Economy.MaxBuildDistance and bp.Economy.MaxBuildDistance < 3 then
 		
-			LOG("*AI DEBUG MaxBuildDistance now 3")
+			LOG("*AI DEBUG "..id.." now has MaxBuildDistance of 3")
 			bp.Economy.MaxBuildDistance = 3
 		
 		end
@@ -706,11 +701,12 @@ function ModBlueprints(all_blueprints)
 								bp.Economy.BuildCostMass = bp.Economy.BuildCostMass + (bp.Economy.BuildCostMass * econScale)
 							end
 
-							-- although air units speed is not controlled by this I do it anyways for visual reference in-game.
+							-- air units speed is not controlled by this
 							if bp.Physics.Maxspeed then
 								bp.Physics.MaxSpeed = bp.Physics.MaxSpeed + (bp.Physics.MaxSpeed * speedScale)
 							end
 							
+                            -- this is the one that controls air unit speed
 							if bp.Air.MaxAirspeed then
 								bp.Air.MaxAirspeed = bp.Air.MaxAirspeed + (bp.Air.MaxAirspeed * speedScale)
 							end
@@ -792,9 +788,9 @@ function ModBlueprints(all_blueprints)
 							
 							-- this series of adjustments is designed to give the lower tech mobile land units a little more 'oomph' with
 							-- regards to their T3 counterparts both in the form of Health and Speed
-							local T1_Adjustment = 1.275
-							local T2_Adjustment = 1.120
-							local T3_Adjustment = 1.000
+							local T1_Adjustment = 1.22
+							local T2_Adjustment = 1.12
+							local T3_Adjustment = 1.00
 						
 							for _, cat_mobile in bp.Categories do
 							
@@ -903,7 +899,7 @@ function ModBlueprints(all_blueprints)
 
     --LOG("*AI DEBUG Adding NAVAL Wreckage information and setting wreckage lifetime")
 	
-    for id,bp in pairs(all_blueprints.Unit) do				
+    for id, bp in pairs(all_blueprints.Unit) do				
 	
         local cats = {}
 
@@ -922,7 +918,7 @@ function ModBlueprints(all_blueprints)
 						EnergyMult = 0.3,
 						HealthMult = 0.9,
 						LifeTime = 720,	-- give naval wreckage a lifetime value of 12 minutes
-						MassMult = 0.8,
+						MassMult = 0.6,
 						ReclaimTimeMultiplier = 1,
 						
 						WreckageLayers = {
@@ -945,11 +941,17 @@ function ModBlueprints(all_blueprints)
 			
 				if bp.Wreckage then
 				
-					if not bp.Wreckage.Lifetime then
+					if not bp.Wreckage.LifeTime then
 
-						bp.Wreckage.Liftime = 900
+						bp.Wreckage.LifeTime = 900
 						
 					end
+                    
+                    if bp.Wreckage.MassMult and bp.Wreckage.MassMult > 0.3 then
+                    
+                        bp.Wreckage.MassMult = bp.Wreckage.MassMult * 0.6
+                        
+                    end
 				end
 			end
 		end
@@ -959,7 +961,11 @@ function ModBlueprints(all_blueprints)
 
 	local factions = {'UEF', 'Aeon', 'Cybran', 'Aeon'}
 
-	for i,bp in pairs(all_blueprints.Unit) do
+	for i, bp in pairs(all_blueprints.Unit) do
+
+		if usermodUnitIcons[i] then
+			bp.Display.IconPath = usermodUnitIcons[i]
+		end
 		
 		if bp.Categories then
 		
@@ -1005,33 +1011,12 @@ function ModBlueprints(all_blueprints)
 		end
 	end
 
-	-- adjust projectile values
---[[
-    local initialMultFactor = 1.0
-    local turnMultFactor = 1.0
-
-    for id, bp in all_blueprints.Projectile do
-	
-        if bp.Physics.TurnRate then
-            bp.Physics.TurnRate = bp.Physics.TurnRate * turnMultFactor
-        end
-
-        if bp.Physics.MaxSpeed then
-            bp.Physics.MaxSpeed = bp.Physics.MaxSpeed * initialMultFactor
-        end
-		
-        if bp.Physics.Acceleration then
-            bp.Physics.Acceleration = bp.Physics.Acceleration * initialMultFactor
-        end
-		
-    end
---]]
+	usermodUnitIcons = nil
 
 end
 
 
----- Load all blueprints
-
+-- Load all blueprints
 function LoadBlueprints()
 
     LOG('Loading blueprints...')
@@ -1066,12 +1051,71 @@ function LoadBlueprints()
 	
 	LOG("Loaded "..rcount.." std resources")	
 	
-    for i,m in __active_mods do
-	
-		LOG("loading resources from mod at "..m.location)
+	local interExcludes = {}
+
+	-- First check for inter-mod exclusions
+	for i, m in __active_mods do
+		local env = {}
+		local eOk, eResult = pcall(doscript, m.location..'/excludes.lua', env)
+		if eOk then
+			for _, e in env do
+				if e.mod then
+					if not interExcludes[e.mod] then
+						interExcludes[e.mod] = {}
+					end
+					e.always = true
+					table.insert(interExcludes[e.mod], e)
+				end
+			end
+		end
+	end
+
+	for i, m in __active_mods do
+		-- If this mod has an excludes file, add exclusion blocks to env
+		local env = {}
+		local excl = {}
+		local eOk, eResult = pcall(doscript, m.location..'/excludes.lua', env)
+		-- If there's an inter-mod exclusion set for this mod, add its blocks too
+		if interExcludes[m.uid] then
+			for _, v in interExcludes[m.uid] do
+				table.insert(env, v)
+			end
+		end
+		-- Check every exclusion block to see if modconfig activates it
+		for _, e in env do
+			if e.mod and e.mod ~= m.uid then
+				continue -- Ignore exclusions bound for other mods
+			end
+			if e.key == m.config[e.combo] or e.always then
+				for _, ex in e.values do
+					local path = string.format("%s/units/%s/%s_unit.bp", m.location, ex, ex)
+					excl[string.lower(path)] = true
+				end
+			end
+		end
+
+		LOG("Loading resources from mod at "..m.location)
 		count = 0
 		
-        for k,file in DiskFindFiles(m.location, '*.bp') do
+		for k, file in DiskFindFiles(m.location, '*.bp') do
+			
+			if excl[file] then
+				continue
+			end
+
+			local i1, i2 = string.find(file, '[%a%d_]+_unit%.bp$')
+			if i1 then
+				local bpID = string.lower(string.sub(file, i1, i2 - 8))
+
+				-- Don't try to find usermod icons for LOUD mod pack units
+				if not DiskGetFileInfo('/textures/ui/common/icons/units/'..bpID..'_icon.dds') then
+					if DiskGetFileInfo(m.location..'/icons/units/'..bpID..'_icon.dds') then
+						usermodUnitIcons[bpID] = m.location..'/icons/units/'..bpID..'_icon.dds'
+					elseif DiskGetFileInfo(m.location..'/textures/ui/common/icons/units/'..bpID..'_icon.dds') then
+						usermodUnitIcons[bpID] = m.location..'/textures/ui/common/icons/units/'..bpID..'_icon.dds'
+					end
+				end
+			end
 		
             BlueprintLoaderUpdateProgress()
 			
@@ -1084,20 +1128,20 @@ function LoadBlueprints()
 			
         end
 		
-		LOG("loaded "..count.." resources from mod at "..m.location)
+		LOG("Loaded "..count.." resources from mod at "..m.location)
 		
     end
 	
 	LOG("Loaded "..mcount.." mod resources")
  
-	LOG("Loaded "..rcount+mcount.." blueprints in total")
+	LOG("Loaded "..rcount + mcount.." blueprints in total")
 
     BlueprintLoaderUpdateProgress()
-    LOG('Extracting mesh blueprints.')
+    LOG('Extracting mesh blueprints...')
     ExtractAllMeshBlueprints()
 
     BlueprintLoaderUpdateProgress()
-    LOG('Modding blueprints.')
+    LOG('Modding blueprints...')
     ModBlueprints(original_blueprints)
 
     BlueprintLoaderUpdateProgress()

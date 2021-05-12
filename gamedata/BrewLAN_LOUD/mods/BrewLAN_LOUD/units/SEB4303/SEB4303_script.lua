@@ -15,10 +15,10 @@ SEB4303 = Class(TShieldStructureUnit) {
         TShieldStructureUnit.OnStopBeingBuilt(self,builder,layer)
 		
         self.Rotators = {
-            CreateRotator(self, 'Turret001', 'z', 0, 10, 5, 0),
-            CreateRotator(self, 'Turret002', 'z', 0, 10, 5, 0),
-            CreateRotator(self, 'Turret_barrel001', 'x', 0, 10, 5, 0),
-            CreateRotator(self, 'Turret_barrel002', 'x', 0, 10, 5, 0),
+            CreateRotator(self, 'TurretA', 'z', 0, 10, 5, 0),
+            CreateRotator(self, 'TurretB', 'z', 0, 10, 5, 0),
+            CreateRotator(self, 'TurretA_Barrel', 'x', 0, 10, 5, 0),
+            CreateRotator(self, 'TurretB_Barrel', 'x', 0, 10, 5, 0),
         }
 		
         self:ForkThread(

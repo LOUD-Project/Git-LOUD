@@ -2,27 +2,24 @@
 --* Author: Chris Blackwell
 --* Summary: Rollover unit view control
 
-local UIUtil = import('/lua/ui/uiutil.lua')
-local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
+local Bitmap = import('/lua/maui/bitmap.lua').Bitmap
+local EnhancementCommon = import('/lua/enhancementcommon.lua')
+local Factions = import('/lua/factions.lua')
 local GameCommon = import('/lua/ui/game/gamecommon.lua')
 local Group = import('/lua/maui/group.lua').Group
-local Bitmap = import('/lua/maui/bitmap.lua').Bitmap
+local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
 local StatusBar = import('/lua/maui/statusbar.lua').StatusBar
+local UIUtil = import('/lua/ui/uiutil.lua')
 local veterancyDefaults = import('/lua/game.lua').VeteranDefault
-local Factions = import('/lua/factions.lua')
 
 local Prefs = import('/lua/user/prefs.lua')
 local options = Prefs.GetFromCurrentProfile('options')
-	
-local LOUDFLOOR = math.floor
 
-local EnhancementCommon = import('/lua/enhancementcommon.lua')
+local LOUDFLOOR = math.floor
 
 local rolloverInfo = false
 local consTrue = false
 local focusBool = false
-
-local BlackopsIcons = import('/lua/BlackopsIconSearch.lua')
 
 controls = {}
 
@@ -243,45 +240,8 @@ function UpdateWindow(info)
     else
 	
         local bp = __blueprints[info.blueprintId]
-        local path = '/textures/ui/common/icons/units/'..info.blueprintId..'_icon.dds'
-
-		local EXunitID = bp.BlueprintId
-		
-		if BlackopsIcons.EXIconPathOverwrites[string.upper(EXunitID)] then
-		
-			-- Check manually assigned overwrite table
-			local expath = EXunitID..'_icon.dds'
-			controls.icon:SetTexture(BlackopsIcons.EXIconTableScanOverwrites(EXunitID) .. expath)
-			
-		elseif BlackopsIcons.EXIconPaths[string.upper(EXunitID)] then
-		
-			-- Check modded icon hun table
-			local expath = EXunitID..'_icon.dds'
-			controls.icon:SetTexture(BlackopsIcons.EXIconTableScan(EXunitID) .. expath)
-			
-		else
-		
-			-- Check default GPG directories
-			if DiskGetFileInfo(path) then
-			
-				controls.icon:SetTexture(path)
-				
-			else
-			
-				-- Sets placeholder because no other icon was found
-				controls.icon:SetTexture('/textures/ui/common/game/unit_view_icons/unidentified.dds')
-				
-				if not BlackopsIcons.EXNoIconLogSpamControl[string.upper(EXunitID)] then
-				
-					-- Log a warning & add unitID to anti-spam table to prevent future warnings when icons update
-					WARN('Blackops Icon Mod: Icon Not Found UPDATEWINDOW - '..EXunitID)
-					BlackopsIcons.EXNoIconLogSpamControl[string.upper(EXunitID)] = EXunitID
-					
-				end
-				
-			end
-			
-		end
+        local path = GameCommon.GetUnitIconPath(bp)
+        controls.icon:SetTexture(path)
 
         if DiskGetFileInfo('/textures/ui/common/game/strategicicons/'..bp.StrategicIconName..'_selected.dds') then
 		
@@ -446,45 +406,20 @@ function UpdateWindow(info)
 		
         if info.focus then
 		
-            local path = '/textures/ui/common/icons/units/'..info.focus.blueprintId..'_icon.dds'
+            local path, valid = GameCommon.GetUnitIconPath(__blueprints[info.focus.blueprintId])
+			
+            if valid then
+            
+                controls.actionIcon:SetTexture(path)
 
-			local EXunitID = info.focus.blueprintId
-			
-			if BlackopsIcons.EXIconPathOverwrites[string.upper(EXunitID)] then
-			
-				-- Check manually assigned overwrite table
-				local expath = EXunitID..'_icon.dds'
-				controls.actionIcon:SetTexture(BlackopsIcons.EXIconTableScanOverwrites(EXunitID) .. expath)
-				
-			elseif BlackopsIcons.EXIconPaths[string.upper(EXunitID)] then
-			
-				-- Check modded icon hun table
-				local expath = EXunitID..'_icon.dds'
-				controls.actionIcon:SetTexture(BlackopsIcons.EXIconTableScan(EXunitID) .. expath)
-				
-			else
-			
-				-- Check default GPG directories
-				if DiskGetFileInfo(path) then
-				
-					controls.actionIcon:SetTexture(path)
-					
-				else 
-					-- Sets placeholder because no other icon was found
-					controls.actionIcon:SetTexture('/textures/ui/common/game/unit_view_icons/unidentified.dds')
-					
-					if not BlackopsIcons.EXNoIconLogSpamControl[string.upper(EXunitID)] then
-					
-						-- Log a warning & add unitID to anti-spam table to prevent future warnings when icons update
-						WARN('Blackops Icon Mod: Icon Not Found UPDATEWINDOW2 - '..EXunitID)
-						BlackopsIcons.EXNoIconLogSpamControl[string.upper(EXunitID)] = EXunitID
-						
-					end
-					
-				end
-				
-			end
-		
+            else
+
+                -- Sets placeholder because no other icon was found
+                controls.actionIcon:SetTexture('/textures/ui/common/game/unit_view_icons/unidentified.dds')
+                
+            end
+            
+
             if info.focus.health and info.focus.maxHealth then
 			
                 controls.actionText:SetFont(UIUtil.bodyFont, 14)
@@ -576,7 +511,10 @@ function UpdateWindow(info)
             end
 			
             controls.abilities.Width:Set(maxWidth)
-            controls.abilities.Height:Set(function() return controls.abilityText[1].Height() * table.getsize(controls.abilityText) end)
+            
+            if controls.abilityText[1] then
+                controls.abilities.Height:Set(function() return controls.abilityText[1].Height() * table.getsize(controls.abilityText) end)
+            end    
 			
             if controls.abilities:IsHidden() then
 			
@@ -605,6 +543,7 @@ function UpdateWindow(info)
         -- shield max health and regen rate due to enhancements or other buffs
         
         controls.Buildrate:Hide()
+        controls.BuildrateIcon:Hide()
         controls.shieldText:Hide()
 
 		-- works properly but i've yet to find a good spot to put that data in
@@ -717,8 +656,10 @@ function UpdateWindow(info)
         if info.userUnit != nil and info.userUnit:GetBuildRate() >= 2 then
             controls.Buildrate:SetText(string.format("%d",LOUDFLOOR(info.userUnit:GetBuildRate())))
             controls.Buildrate:Show()
+            controls.BuildrateIcon:Show()
         else
             controls.Buildrate:Hide()
+            controls.BuildrateIcon:Hide()
         end   
 
         controls.SCUType:Hide()
@@ -833,6 +774,8 @@ function CreateUI()
     -- expanded unit stats also from GAZ
     controls.shieldText = UIUtil.CreateText(controls.bg, '', 13, UIUtil.bodyFont)
     controls.Buildrate = UIUtil.CreateText(controls.bg, '', 12, UIUtil.bodyFont)
+    controls.Buildrate:SetDropShadow(true)
+    controls.BuildrateIcon = Bitmap(controls.bg, UIUtil.UIFile('/game/unit_view_icons/build.dds'))
 
     -- these are available but not implemented - showing storage values --
 	-- controls.StorageMass = UIUtil.CreateText(controls.bg, '', 12, UIUtil.bodyFont)

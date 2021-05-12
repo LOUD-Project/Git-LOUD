@@ -92,7 +92,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 961.2,
     },
     
-    Description = 'Assault Roachbot',
+    Description = 'Experimental Ultra Heavy Assault Roachbot',
     
     Display = {
         Abilities = {
@@ -230,17 +230,11 @@ UnitBlueprint {
         Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
-            RULEUCC_CallTransport = false,
-            RULEUCC_Capture = false,
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
-            RULEUCC_Nuke = false,
             RULEUCC_Patrol = true,
-            RULEUCC_Reclaim = false,
-            RULEUCC_Repair = false,
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
-            RULEUCC_Transport = false,
         },
         FactionName = 'Cybran',
         Icon = 'amph',
@@ -258,7 +252,7 @@ UnitBlueprint {
     },
     
     Interface = {
-        HelpText = 'Assault Roachbot',
+        HelpText = 'Ultra Heavy Assault Roachbot',
     },
     
     LifeBarHeight = 0.075,
@@ -269,11 +263,8 @@ UnitBlueprint {
         BackupDistance = 10,
         BankingSlope = 0,
         BuildOnLayerCaps = {
-            LAYER_Air = false,
             LAYER_Land = true,
-            LAYER_Orbit = false,
             LAYER_Seabed = true,
-            LAYER_Sub = false,
             LAYER_Water = true,
         },
         DragCoefficient = 0.2,

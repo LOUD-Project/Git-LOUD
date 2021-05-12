@@ -294,7 +294,33 @@ end
 -- this is a rather broad function that fills several flexible needs
 -- it is exclusively used by GuardPoint behaviors
 function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, PointSource, PointRadius, PointSort, PointFaction, DistMin, DistMax, shouldcheckAvoidBases, StrCategory, StrRadius, StrMin, StrMax, UntCategory, UntRadius, UntMin, UntMax, allowinwater, threatmin, threatmax, threattype)
+	
+	local platpos = GetPlatoonPosition(self)
 
+	if not platpos then
+		return false
+	end
+    
+    local ThreatMaxIMAPAdjustment = 1
+    
+    -- maps less than or greater than 20K alter the effect of the ThreatMax value
+    if ScenarioInfo.IMAPSize < 60 then
+    
+        ThreatMaxIMAPAdjustment = 0.8
+        
+    elseif ScenarioInfo.IMAPSize > 120 then
+    
+        ThreatMaxIMAPAdjustment = 1.2
+        
+    elseif ScenarioInfo.IMAPSize > 250 then
+    
+        ThreatMaxIMAPAdjustment = 1.66
+        
+    end
+    
+    -- adjust allowed threat by size of IMAP blocks
+    local threatmax = threatmax * ThreatMaxIMAPAdjustment
+	
 	local AIGetMarkerLocations = import('/lua/ai/aiutilities.lua').AIGetMarkerLocations
 	local GetOwnUnitsAroundPoint = import('/lua/ai/aiutilities.lua').GetOwnUnitsAroundPoint
 	
@@ -359,13 +385,7 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 	local pointlist = {}
 	local positions = {}
 	local counter = 0
-	
-	local platpos = GetPlatoonPosition(self)
 
-	if not platpos then
-		return false
-	end
-	
 	local pos, distance, platdistance
     
     --LOG("*AI DEBUG "..aiBrain.Nickname.." Find Point within "..PointRadius.." from "..repr(PointSource).." for "..self.BuilderName)
@@ -376,7 +396,11 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 		if PointFaction == 'Self' then
 			pointlist = GetOwnUnitsAroundPoint( aiBrain, PointCategory, PointSource, PointRadius )
 		else
-			pointlist = GetUnitsAroundPoint( aiBrain, PointCategory, PointSource, PointRadius, PointFaction )
+            if PointFaction == 'Enemy' then
+                pointlist = GetUnitsAroundPoint( aiBrain, PointCategory, PointSource, PointRadius, 'Enemy' )
+            else
+                pointlist = GetUnitsAroundPoint( aiBrain, PointCategory, PointSource, PointRadius, 'Ally' )
+            end
 		end
  
         -- filter out points by distance from source --
@@ -507,7 +531,10 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 					-- track the position thas was just checked
 					previous = v 	-- to prevent duplicates
 					continue
-				end
+				else
+                    -- record threat at the position
+                    positions[k][6] = threatatpoint
+                end
 			end
 
 			-- structure count check --
@@ -515,6 +542,9 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 			if StrCategory then
 			
 				if self:GuardPointStructureCheck(  aiBrain, v, StrCategory, StrRadius, PointFaction, StrMin, StrMax) then
+                
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." Find Point for "..self.BuilderName.." removes position "..repr(v).." for structures at "..repr(StrRadius).." - max is "..StrMax )
+  
 					positions[k] = nil
 					counter = counter - 1
 					continue
@@ -525,14 +555,16 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 			if UntCategory then
 			
 				if self:GuardPointUnitCheck( aiBrain, v, UntCategory, UntRadius, PointFaction, UntMin, UntMax) then
+                
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." Find Point for "..self.BuilderName.." removes position "..repr(v).." for units at "..repr(UntRadius).." - max is "..UntMax )
+  
 					positions[k] = nil
 					counter = counter - 1
 					continue
-					
 				end
 			end	
 		end
-	else
+	--else
         --LOG("*AI DEBUG "..aiBrain.Nickname.." FindPoint "..self.BuilderName.." - nothing found")
     end 
 
@@ -542,17 +574,26 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 		positions = aiBrain:RebuildTable(positions)
 		
 		if PointSort == 'Closest' then
-		
-			LOUDSORT(positions, function(a,b)	return (a[4]+a[5]) < (b[4]+b[5]) end)
+        
+            -- sort by safest + closest
+            LOUDSORT(positions, function(a,b)   return (a[6]+ (a[4]+a[5])) <  (b[6]+ (b[4]+b[5]))  end)
+
+			--LOUDSORT(positions, function(a,b)	return (a[4]+a[5]) < (b[4]+b[5]) end)
 			
 		elseif PointSort == 'Furthest' then
 		
 			LOUDSORT(positions, function(a,b)	return (a[4]-a[5]) > (b[4]-b[5]) end)
-		end
+		
+        else
+        
+            -- sort by safest + closest
+            LOUDSORT(positions, function(a,b)   return (a[6]+ (a[4]+a[5])) <  (b[6]+ (b[4]+b[5]))  end)
+            
+        end
         
         --LOG("*AI DEBUG "..aiBrain.Nickname.." Find Positions list for "..self.BuilderName.." is "..repr(positions))
 		
-		return positions
+		return {positions[1]}
 	end
 	
 	return false
@@ -583,7 +624,11 @@ function FindTargetInRange( self, aiBrain, squad, maxRange, atkPri, nolayercheck
 		-- the intent of this function is to make sure that we don't try and respond over mountains
 		-- and rivers and other serious terrain blockages -- these are generally identified by
         -- a rapid elevation change over a very short distance
-		local function CheckBlockingTerrain( pos, targetPos )
+		local function CheckBlockingTerrain( pos, targetPos )  
+        
+            if self.MovementLayer == 'Air' then
+                return false
+            end
 	
 			-- This gives us the number of approx. 6 ogrid steps in the distance
 			local steps = math.floor( VDist2(pos[1], pos[3], targetPos[1], targetPos[3]) / 6 )
@@ -602,13 +647,16 @@ function FindTargetInRange( self, aiBrain, squad, maxRange, atkPri, nolayercheck
 			
 					-- Get height for both points
 					local lastposHeight = GetTerrainHeight( lastpos[1], lastpos[3] )
+                    
+                    local InWater = lastposHeight < (GetSurfaceHeight( lastpos[1], lastpos[3] ) - 1)
+                    
 					local nextposHeight = GetTerrainHeight( nextpos[1], nextpos[3] )
 					
-					-- if more than 2 ogrids change in height over 6 ogrids distance
-					if math.abs(lastposHeight - nextposHeight) > 2 then
+					-- if more than 3.6 ogrids change in height over 6 ogrids distance
+					if math.abs(lastposHeight - nextposHeight) > 3.6 or InWater then
 						
 						-- we are obstructed
-						--LOG("*AI DEBUG "..aiBrain.Nickname.." LOCAL TARGET OBSTRUCTED ")
+						LOG("*AI DEBUG "..aiBrain.Nickname.." LOCAL TARGET OBSTRUCTED ")
 						return true
 					end
 					
@@ -791,11 +839,14 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
 								totalshieldvalueattarget = 0
 							
                                 for _,s in enemyshields do
+                                
                                     -- if the shield is On and it covers the target
                                     if s:ShieldIsOn() and VDist2(s:GetPosition()[1],s:GetPosition()[3],unitposition[1],unitposition[3]) < s.MyShield.Size then
                                         enemythreat = enemythreat + (s.MyShield:GetHealth() * .01)	-- threat plus 1% of shield strength
                                     end
+                                    
                                 end
+                                
                             end
 					
 							-- cap low end of threat so we dont chase low value targets

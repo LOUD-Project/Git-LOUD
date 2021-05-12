@@ -1,5 +1,97 @@
 local AdjBuffFuncs = import('/lua/sim/adjacencybufffunctions.lua')
 
+-- WEAPON BOOSTERS - from BrewLAN
+-- simplified in LOUD to single bonuses regardless of size
+-- and non-stacking (for now)
+
+T3WeaponBoosterAccuracyAdjacencyBuffs = {
+    'WeaponBoosterAccuracyBonus',
+    'WeaponBoosterRateOfFireTradeOff',
+}
+
+T3WeaponBoosterDamageAdjacencyBuffs = {
+    'WeaponBoosterDamageBonus',
+    'WeaponBoosterEnergyWeaponTradeOff',
+}
+
+BuffBlueprint {
+    Name = 'WeaponBoosterAccuracyBonus',
+    DisplayName = 'WeaponBoosterAccuracyBonus',
+    BuffType = 'ACCURACYBONUS',
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    EntityCategory = 'STRUCTURE',
+    BuffCheckFunction = AdjBuffFuncs.RateOfFireBuffCheck,
+    OnBuffAffect = AdjBuffFuncs.RateOfFireBuffAffect,
+    OnBuffRemove = AdjBuffFuncs.RateOfFireBuffRemove,
+    Affects = {
+        FiringRandomness = {
+            Add = -0.25,    -- decrease firing randomness by 25%
+            Mult = 1.0,
+        },
+    },
+}
+
+
+BuffBlueprint {
+    Name = 'WeaponBoosterRateOfFireTradeOff',
+    DisplayName = 'WeaponBoosterRateOfFireTradeOff',
+    BuffType = 'RATEOFFIREADJACENCY',
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    EntityCategory = 'STRUCTURE',
+    BuffCheckFunction = AdjBuffFuncs.RateOfFireBuffCheck,
+    OnBuffAffect = AdjBuffFuncs.RateOfFireBuffAffect,
+    OnBuffRemove = AdjBuffFuncs.RateOfFireBuffRemove,
+    Affects = {
+        RateOfFire = {
+            Add = 0.025,    -- reduce rate of fire by 2.5%
+            Mult = 1.0,
+        },
+        EnergyWeapon = {
+            Add = 0.025,    -- increase energy consumption by 2.5%
+            Mult = 1,
+        },
+    },
+}
+
+
+BuffBlueprint {
+    Name = 'WeaponBoosterDamageBonus',
+    DisplayName = 'WeaponBoosterDamageBonus',
+    BuffType = 'DAMAGEBONUS',
+    Stacks = 'NEVER',
+    Duration = -1,
+    EntityCategory = 'STRUCTURE',
+    BuffCheckFunction = AdjBuffFuncs.RateOfFireBuffCheck,
+    OnBuffAffect = AdjBuffFuncs.RateOfFireBuffAffect,
+    OnBuffRemove = AdjBuffFuncs.RateOfFireBuffRemove,
+    Affects = {
+        Damage = {
+            Add = 0,
+            Mult = 1.1,     -- add 10% damage
+        },
+    },
+}
+
+BuffBlueprint {
+    Name = 'WeaponBoosterEnergyWeaponTradeOff',
+    DisplayName = 'WeaponBoosterEnergyWeaponTradeOff',
+    BuffType = 'ENERGYWEAPONBONUS',
+    Stacks = 'NEVER',
+    Duration = -1,
+    EntityCategory = 'STRUCTURE',
+    BuffCheckFunction = AdjBuffFuncs.EnergyWeaponBuffCheck,
+    OnBuffAffect = AdjBuffFuncs.EnergyWeaponBuffAffect,
+    OnBuffRemove = AdjBuffFuncs.EnergyWeaponBuffRemove,
+    Affects = {
+        EnergyWeapon = {
+            Add = 0.175,    -- increase energy consumption by 17.5%
+            Mult = 1,
+        },
+    },
+}
+
 -- TIER 1 POWER GEN BUFF TABLE
 -- the effectiveness of T1 Pgens drops off beyone Size20
 
@@ -524,6 +616,9 @@ BuffBlueprint { Name = 'T1PowerRateOfFireBonusSize4',
         },
     },
 }
+
+
+
 
 -- HYDROCARBON POWER GEN BUFF TABLE
 -- T2 Power bonuses drop off beyond Size30
@@ -2177,6 +2272,15 @@ BuffBlueprint { Name = 'T3EnergyStorageShieldHealthBonusSize16',
     },
 }
 
+
+-- MASS STORAGE Mass Production Buffs used to be linear
+-- so the bonus was consistent no matter what the size of the origin
+-- as long as you lined the entire side
+-- This is no longer true - it's still good but it's diminished with
+-- larger mass producing structures (T3 Mass Fabs, Paragons)
+-- Only the T4 storage is unaffected by this and gets the maximum buff in all cases
+
+
 -- MASS STORAGE
 T1MassStorageAdjacencyBuffs = {
     'T1MassStorageMassProductionBonusSize4',
@@ -2210,7 +2314,7 @@ BuffBlueprint { Name = 'T1MassStorageMassProductionBonusSize12',
     OnBuffRemove = AdjBuffFuncs.MassProductionBuffRemove,
     Affects = {
         MassProduction = {
-            Add = 0.033,
+            Add = 0.03,
             Mult = 1.0,
         },
     },
@@ -2248,7 +2352,7 @@ BuffBlueprint { Name = 'T2MassStorageMassProductionBonusSize4',
     OnBuffRemove = AdjBuffFuncs.MassProductionBuffRemove,
     Affects = {
         MassProduction = {
-            Add = 0.16,
+            Add = 0.15,
             Mult = 1.0,
         },
     },
@@ -2264,7 +2368,7 @@ BuffBlueprint { Name = 'T2MassStorageMassProductionBonusSize12',
     OnBuffRemove = AdjBuffFuncs.MassProductionBuffRemove,
     Affects = {
         MassProduction = {
-            Add = 0.0533,
+            Add = 0.045,
             Mult = 1.0,
         },
     },
@@ -2280,7 +2384,7 @@ BuffBlueprint { Name = 'T2MassStorageMassProductionBonusSize20',
     OnBuffRemove = AdjBuffFuncs.MassProductionBuffRemove,
     Affects = {
         MassProduction = {
-            Add = 0.024,
+            Add = 0.0225,
             Mult = 1.0,
         },
     },
@@ -2302,7 +2406,7 @@ BuffBlueprint { Name = 'T3MassStorageMassProductionBonusSize4',
     OnBuffRemove = AdjBuffFuncs.MassProductionBuffRemove,
     Affects = {
         MassProduction = {
-            Add = 0.2,
+            Add = 0.175,
             Mult = 1.0,
         },
     },
@@ -2318,7 +2422,7 @@ BuffBlueprint { Name = 'T3MassStorageMassProductionBonusSize12',
     OnBuffRemove = AdjBuffFuncs.MassProductionBuffRemove,
     Affects = {
         MassProduction = {
-            Add = 0.0667,
+            Add = 0.0525,
             Mult = 1.0,
         },
     },
@@ -2334,7 +2438,7 @@ BuffBlueprint { Name = 'T3MassStorageMassProductionBonusSize20',
     OnBuffRemove = AdjBuffFuncs.MassProductionBuffRemove,
     Affects = {
         MassProduction = {
-            Add = 0.03,
+            Add = 0.0265,
             Mult = 1.0,
         },
     },
@@ -2365,7 +2469,7 @@ BuffBlueprint { Name = 'ExperimentalMassStorageProductionBonus',
     Affects = {
         MassProduction = {
             Mult = 1.0,
-            Add = 0.24,
+            Add = 0.2,
         },
     },
 }

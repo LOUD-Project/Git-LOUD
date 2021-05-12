@@ -67,7 +67,7 @@ BaseBuilderTemplate {
             T2Value = 14,
             T3Value = 19,
         },
-		RallyPointRadius = 40,
+		RallyPointRadius = 38,
     },
 	
     ExpansionFunction = function(aiBrain, location, markerType)
@@ -75,20 +75,22 @@ BaseBuilderTemplate {
         if markerType != 'Naval Area' then
             return 0, false
         end
-        
+
         local personality = ScenarioInfo.ArmySetup[aiBrain.Name].AIPersonality
 		
 		if personality == 'loud' then
 		
-			if aiBrain:GetMapWaterRatio() <= .10 or GetArmyUnitCap(aiBrain.ArmyIndex) < 650 then
+			if aiBrain:GetMapWaterRatio() <= .10 or GetArmyUnitCap(aiBrain.ArmyIndex) < 650 or ScenarioInfo.size[1] < 1024 then
+
 				return 100, false
 			end
         
 			if aiBrain:GetMapWaterRatio() <= .20 and ScenarioInfo.size[1] <= 1024 then
+            
 				return 90, false
 			end
 		end
-        
+
         return 0, false
     end,
 }

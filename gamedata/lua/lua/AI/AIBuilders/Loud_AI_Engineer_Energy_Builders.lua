@@ -50,7 +50,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
 		
         BuilderConditions = {
 		
-			{ EBC, 'LessEconEnergyStorageCurrent', { 5000 }},
+			{ EBC, 'LessEconEnergyStorageCurrent', { 5750 }},
 			{ EBC, 'GreaterThanEconStorageCurrent', { 75, 0 }},
             
 			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION - categories.TECH1 }},                        
@@ -86,7 +86,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
         
         BuilderConditions = {
         
-			{ EBC, 'LessThanEnergyTrend', { 500 }},
+			{ EBC, 'LessThanEnergyTrend', { 350 }},
             
 			{ UCBC, 'HaveLessThanUnitsWithCategory', { 1, categories.ENERGYPRODUCTION * categories.TECH3 }},
 			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION - categories.TECH1 }},            
@@ -101,7 +101,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
             Construction = {
 			
 				NearBasePerimeterPoints = true,
-				ThreatMax = 35,				
+				ThreatMax = 75,				
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'PowerLayout',
@@ -121,7 +121,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
 
         BuilderConditions = {
         
-			{ EBC, 'LessThanEnergyTrend', { 2400 }},
+			{ EBC, 'LessThanEnergyTrend', { 1800 }},
 
 			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION * categories.TECH3 }},
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 26, (categories.ENERGYPRODUCTION * categories.TECH3) - categories.HYDROCARBON }},
@@ -135,7 +135,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
             Construction = {
 			
 				NearBasePerimeterPoints = true,
-				ThreatMax = 35,				
+				ThreatMax = 55,				
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'PowerLayout',
@@ -159,14 +159,22 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
             { LUTL, 'UnitCapCheckLess', { .65 } },
 			{ LUTL, 'HaveLessThanUnitsWithCategory', { 3, categories.HYDROCARBON }},
 			
-            { EBC, 'CanBuildOnHydroLessThanDistance',  { 'LocationType', 350, -9999, 7.5, 0, 'AntiSurface', 1 }},
+            { EBC, 'CanBuildOnHydroLessThanDistance',  { 'LocationType', 350, -9999, 30, 0, 'AntiSurface', 1 }},
         },
 		
         BuilderType = { 'T1','T2' },
 		
         BuilderData = {
             Construction = {
-                BuildStructures = {'T1HydroCarbon'}
+                BuildStructures = {'T1HydroCarbon'},
+                
+				LoopBuild = true,
+                
+                MaxRange = 350,
+
+				ThreatMax = 30,
+				ThreatRings = 0,
+				ThreatType = 'AntiSurface',                
             }
         }
     },	
@@ -185,7 +193,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ LUTL, 'GreaterThanEnergyIncome', { 50000 }},
 			
-			{ EBC, 'LessThanEnergyTrend', { 2400 }},
+			{ EBC, 'LessThanEnergyTrend', { 1800 }},
 			
 			-- must have much of the inner core power systems complete
             { UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 20, (categories.ENERGYPRODUCTION * categories.TECH3) - categories.HYDROCARBON, 0, 59 }},
@@ -221,7 +229,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
 BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Expansions',
     BuildersType = 'EngineerBuilder',
    
-    Builder {BuilderName = 'T1 Hydrocarbon Expansion',
+    Builder {BuilderName = 'Hydrocarbon - Expansion',
     
         PlatoonTemplate = 'EngineerBuilderGeneral',
         
@@ -233,19 +241,27 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Expansions',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .65 } },
 			
-            { EBC, 'CanBuildOnHydroLessThanDistance',  { 'LocationType', 300, -9999, 7.5, 0, 'AntiSurface', 1 }},
+            { EBC, 'CanBuildOnHydroLessThanDistance',  { 'LocationType', 350, -9999, 30, 0, 'AntiSurface', 1 }},
         },
 		
-        BuilderType = { 'T1' },
+        BuilderType = { 'T2' },
 		
         BuilderData = {
             Construction = {
-                BuildStructures = { 'T1HydroCarbon' }
+                BuildStructures = { 'T1HydroCarbon' },
+                
+				LoopBuild = false,	#-- build only once then RTB
+                
+                MaxRange = 350,
+
+				ThreatMax = 30,
+				ThreatRings = 0,
+				ThreatType = 'AntiSurface',                
             }
         }
     },    
 	
-    Builder {BuilderName = 'T3 Power Expansions Template',
+    Builder {BuilderName = 'T3 Power Template - Expansion',
     
         PlatoonTemplate = 'EngineerBuilderGeneral',
         
@@ -261,7 +277,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Expansions',
             
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
 			
-			{ EBC, 'LessThanEnergyTrend', { 2400 }},
+			{ EBC, 'LessThanEnergyTrend', { 1800 }},
 			-- don't build T3 power if one is already being built somewhere else
 			{ UCBC, 'HaveLessThanUnitsInCategoryBeingBuilt', { 1, categories.ENERGYPRODUCTION * categories.TECH3 }},
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 16, (categories.ENERGYPRODUCTION * categories.TECH3) - categories.HYDROCARBON }},
@@ -309,7 +325,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Naval',
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
 			
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 8, (categories.ENERGYPRODUCTION * categories.TECH3) - categories.HYDROCARBON }},
-			{ EBC, 'LessThanEnergyTrend', { 2400 }},
+			{ EBC, 'LessThanEnergyTrend', { 1800 }},
         },
         
         BuilderData = {

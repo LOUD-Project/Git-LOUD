@@ -89,8 +89,8 @@ GPGrestrictedUnits = {
 	},
 	
     NUKE = {
-        categories = {"uab2305", "ueb2305", "urb2305", "xsb2305", "xsb2401", "uas0304", "ues0304", "urs0304", "xss0302", "uab4302", "ueb4302", "urb4302", "xsb4302", "sal0321", "sel0321", "srl0321", "ssl0321" },
-        name = "<LOC restricted_units_data_0011>No Nukes, Anti-nukes or Nuke submarines",
+        categories = {"uab2305", "ueb2305", "urb2305", "xsb2305", "xsb2401", "uas0304", "urs0304", "uab4302", "ueb4302", "urb4302", "xsb4302", "sal0321", "sel0321", "srl0321", "ssl0321" },
+        name = "<LOC restricted_units_data_0011>No Nukes or Anti-nukes",
         tooltip = "restricted_units_nukes",
     },
 	
@@ -137,7 +137,7 @@ GPGrestrictedUnits = {
     },
 
     ALTAIR = {
-		categories = {"baa0309","bra0309","bsa0309","saa0306","bsa0310","saa0314","sea0314","sra0306","sra0314","ssa0305","ssa0306","ssa0314","uaa0304","uea0304","uea0305","uea0305","ura0304","xaa0305","xea0306","xra0305","xsa0304","brpat3gunship","sea0310","sea0313","sea0314","saa0314","sra0313","sra0314","ssa0314" },
+        categories = {"baa0309","bra0309","bsa0309","saa0306","bsa0310","saa0314","sea0314","sra0306","sra0314","ssa0305","ssa0306","ssa0314","uaa0304","uea0304","uea0305","uea0305","ura0304","xaa0305","xea0306","xra0305","xsa0304","brpat3gunship","sea0310","sra0313","sra0314","sra0315" },
 		name = "Alternative Air: Only T3 Scouts, Fighters, Torpedo Bombers",
 		tooltip = "restricted_units_altair",
     },

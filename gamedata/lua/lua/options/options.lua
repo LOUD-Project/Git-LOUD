@@ -267,6 +267,17 @@ options = {
                     },
                 },
             },
+            {
+                title = "Area Reclaim Rectangle Size",
+                key = 'area_reclaim_size',
+                type = 'slider',
+                default = 1,
+                custom = {
+                    min = 3,
+                    max = 10,
+                    inc = 1,
+                },
+            },
         },
     },
     ui = {
@@ -546,6 +557,30 @@ options = {
                     inc = 1,
                 },
             },
+            {
+                title = "Camera Reset Hotkey Behaviour",
+                key = 'cam_reset_behaviour',
+                type = 'toggle',
+                default = 'reset',
+                custom = {
+                    states = {
+                        { text = "Reset", key = 'reset', },
+                        { text = "Toggle Wide View", key = 'wide_view', },
+                    },
+                },
+            },
+            {
+                title = "Land Unit Selection Priority",
+                key = 'land_unit_select_prio',
+                type = 'toggle',
+                default = 0,
+                custom = {
+                    states = {
+                        {text = "<LOC _Off>", key = 0 },
+                        {text = "<LOC _On>", key = 1 },
+                    },
+                },
+            }
         },
     },
     video = {

@@ -1,0 +1,26 @@
+UnitBlueprint {
+	Merge = true,
+    
+	BlueprintId = "uab1301", 	-- Aeon T3 Energy
+    
+    Economy = {
+        BuildRate = 25,
+        BuildableCategory = {
+            'uab1306',
+        },
+        RebuildBonusIds = {
+            'uab1301',
+            'uab1306',
+        },
+		StorageEnergy = 2500,
+    },
+	
+    General = {
+
+        CommandCaps = {
+            RULEUCC_Pause = true,
+            RULEUCC_Stop = true,
+        },
+        UpgradesTo = 'uab1306',
+    },
+}

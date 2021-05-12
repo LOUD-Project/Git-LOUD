@@ -1,0 +1,22 @@
+UnitBlueprint {
+	Merge = true,
+	BlueprintId = "uab1303", --Aeon T3 Mass Fabricator
+    Economy = {
+        BuildRate = 20,
+        BuildableCategory = {
+            'uab1305',
+        },
+        RebuildBonusIds = {
+            'uab1303',
+            'uab1305',
+        },
+    },
+    General = {
+	CapCost = 4,
+        CommandCaps = {
+            RULEUCC_Pause = true,
+            RULEUCC_Stop = true,
+        },
+        UpgradesTo = 'uab1305',
+    },
+}

@@ -1,0 +1,26 @@
+UnitBlueprint {
+	Merge = true,
+	BlueprintId = "urb1202",
+
+    Economy = {
+
+        MaintenanceConsumptionPerSecondEnergy = 48,
+		
+        RebuildBonusIds = {
+            'urb1202',
+            'urb1302',
+            'urb1304',
+        },
+		StorageMass = 120,
+    },
+	
+    General = {
+
+        CommandCaps = {
+            RULEUCC_Pause = true,
+            RULEUCC_Stop = true,
+        },
+
+    },
+
+}

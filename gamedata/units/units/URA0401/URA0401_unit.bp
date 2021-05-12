@@ -121,7 +121,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 149,
     },
 	
-    Description = '<LOC ura0401_desc>Experimental Gunship',
+    Description = '<LOC ura0401_desc>Experimental Heavy Gunship',
 	
     Display = {
         Abilities = {
@@ -195,17 +195,11 @@ UnitBlueprint {
         Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
             RULEUCC_Attack = true,
-            RULEUCC_CallTransport = false,
-            RULEUCC_Capture = false,
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
-            RULEUCC_Nuke = false,
             RULEUCC_Patrol = true,
-            RULEUCC_Reclaim = false,
-            RULEUCC_Repair = false,
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
-            RULEUCC_Transport = false,
         },
         FactionName = 'Cybran',
         Icon = 'air',
@@ -221,7 +215,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Assault Gunship',
+        HelpText = 'Heavy Gunship',
     },
 	
     LifeBarHeight = 0.075,
@@ -231,17 +225,13 @@ UnitBlueprint {
     Physics = {
         BuildOnLayerCaps = {
             LAYER_Air = true,
-            LAYER_Land = false,
-            LAYER_Orbit = false,
-            LAYER_Seabed = false,
-            LAYER_Sub = false,
-            LAYER_Water = false,
         },
         Elevation = 14,
         MaxSpeed = 9.5,
         MotionType = 'RULEUMT_Air',
-        SkirtOffsetX = -1.5,
-        SkirtOffsetZ = -1.5,
+        
+        SkirtOffsetX = -1,
+        SkirtOffsetZ = -1,
         SkirtSizeX = 8,
         SkirtSizeZ = 8,
     },

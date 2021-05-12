@@ -126,7 +126,7 @@ UnitBlueprint {
             '2 Ground Attack Cannons',
 			'4 SAM Launchers',
             'Shielded',
-            'Transport upto 10 T3 units',
+            'Transport 8 T3 units',
         },
 		
         AnimationLand = '/units/UEA0104/UEA0104_atakeoff01.sca',
@@ -172,14 +172,10 @@ UnitBlueprint {
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
-            RULEUCC_Capture = false,
             RULEUCC_Ferry = true,
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
-            RULEUCC_Nuke = false,
             RULEUCC_Patrol = true,
-            RULEUCC_Reclaim = false,
-            RULEUCC_Repair = false,
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
             RULEUCC_Transport = true,
@@ -221,11 +217,6 @@ UnitBlueprint {
     Physics = {
         BuildOnLayerCaps = {
             LAYER_Air = true,
-            LAYER_Land = false,
-            LAYER_Orbit = false,
-            LAYER_Seabed = false,
-            LAYER_Sub = false,
-            LAYER_Water = false,
         },
         Elevation = 14,
 		

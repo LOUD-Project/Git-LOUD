@@ -6,7 +6,9 @@ UnitBlueprint {
             'Extension04',
         },
     },
+    
     Adjacency = 'HydrocarbonAdjacencyBuffs',
+    
     Audio = {
         Destroyed = Sound {
             Bank = 'UALDestroy',
@@ -19,7 +21,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+    
     BuildIconSortPriority = 70,
+    
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1ENGINEER',
@@ -38,7 +42,9 @@ UnitBlueprint {
         'SORTECONOMY',
 		'SHOWQUEUE',
     },
+    
     CollisionOffsetY = -0.25,
+    
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 26,		-- 10% Energy + 1% Health
@@ -46,7 +52,9 @@ UnitBlueprint {
         MaxHealth = 1600,
         RegenRate = 0,
     },
+    
     Description = '<LOC uab1102_desc>Basic Hydrocarbon Power Plant',
+    
     Display = {
         AnimationPermOpen = '/Units/UAB1102/UAB1102_Aopen.sca',
         Mesh = {
@@ -86,64 +94,63 @@ UnitBlueprint {
         },
         UniformScale = 0.0045,
     },
+    
     Economy = {
         AdjacentStructureEnergyMod = -4,
+        
         BuildCostEnergy = 1800,
         BuildCostMass = 270,
 		BuildRate = 10,
+        
         BuildTime = 500,
+        
         ProductionPerSecondEnergy = 100,
+        
 		BuildableCategory = { 'bab1202', },
+        
         RebuildBonusIds = {
             'uab1102',
 			'bab1202',
 			'bab1302',
         },
+        
+		StorageEnergy = 250,        
     },
+    
     Footprint = {
         SizeX = 3,
         SizeZ = 3,
     },
+    
     General = {
+        CapCost = 3,
         Category = 'Economy',
         Classification = 'RULEUC_Resource',
         CommandCaps = {
-            RULEUCC_Attack = false,
-            RULEUCC_CallTransport = false,
-            RULEUCC_Capture = false,
-            RULEUCC_Guard = false,
-            RULEUCC_Move = false,
-            RULEUCC_Nuke = false,
-            RULEUCC_Patrol = false,
 			RULEUCC_Pause = true,
-            RULEUCC_Reclaim = false,
-            RULEUCC_Repair = false,
-            RULEUCC_RetaliateToggle = false,
             RULEUCC_Stop = true,
-            RULEUCC_Transport = false,
         },
         FactionName = 'Aeon',
-        Icon = 'land',
+        Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Basic',
         UnitWeight = 1,
 		UpgradesTo = 'bab1202',
     },
+    
     Interface = {
         HelpText = 'Basic Hydrocarbon Power Plant',
     },
+    
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.2,
     LifeBarSize = 3,
+    
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
-            LAYER_Air = false,
             LAYER_Land = true,
-            LAYER_Orbit = false,
             LAYER_Seabed = true,
-            LAYER_Sub = false,
-            LAYER_Water = false,
         },
         BuildRestriction = 'RULEUBR_OnHydrocarbonDeposit',
         DragCoefficient = 0.2,
@@ -160,19 +167,23 @@ UnitBlueprint {
         SkirtSizeZ = 6,
         TurnRate = 0,
     },
+    
     SelectionSizeX = 1.9,
     SelectionSizeZ = 1.9,
     SelectionThickness = 0.36,
+    
     SizeX = 1.75,
     SizeY = 2.5,
     SizeZ = 1.75,
+    
     StrategicIconName = 'icon_structure1_energy',
     StrategicIconSortPriority = 250,
+    
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,

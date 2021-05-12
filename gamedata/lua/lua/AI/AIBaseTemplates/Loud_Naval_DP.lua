@@ -15,6 +15,8 @@ BaseBuilderTemplate {
 		'Engineer Tasks - Active DP', -- basic reclaim, repair and assist functions
 		
 		'Engineer T4 Naval Construction - Expansions',
+        
+        'Engineer Mass Builders - Defensive Point',
 
         # ==== DEFENSES ==== #
 		'Engineer Defenses DP Naval',		-- rebuild the DP

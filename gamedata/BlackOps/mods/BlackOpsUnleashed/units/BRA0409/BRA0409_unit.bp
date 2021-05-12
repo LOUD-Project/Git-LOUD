@@ -189,14 +189,10 @@ UnitBlueprint {
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
-            RULEUCC_Capture = false,
             RULEUCC_Ferry = true,
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
-            RULEUCC_Nuke = false,
             RULEUCC_Patrol = true,
-            RULEUCC_Reclaim = false,
-            RULEUCC_Repair = false,
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
 			RULEUCC_Tactical = true,
@@ -230,18 +226,13 @@ UnitBlueprint {
     Physics = {
         BuildOnLayerCaps = {
             LAYER_Air = true,
-            LAYER_Land = false,
-            LAYER_Orbit = false,
-            LAYER_Seabed = false,
-            LAYER_Sub = false,
-            LAYER_Water = false,
         },
         Elevation = 15,
         
-		SkirtOffsetX = 0,
-        SkirtOffsetZ = -6,
-        SkirtSizeX = 5,
-        SkirtSizeZ = 18,
+		SkirtOffsetX = -0.5,
+        SkirtOffsetZ = -4,
+        SkirtSizeX = 7,
+        SkirtSizeZ = 18.5,
         
         MaxSpeed = 0.5,
         MotionType = 'RULEUMT_Air',

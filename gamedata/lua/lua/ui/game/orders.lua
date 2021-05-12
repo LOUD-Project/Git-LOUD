@@ -2,18 +2,18 @@
 -- Author: Chris Blackwell
 -- Summary: Unit orders UI
 
-local UIUtil = import('/lua/ui/uiutil.lua')
-local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
 local Bitmap = import('/lua/maui/bitmap.lua').Bitmap
-local Grid = import('/lua/maui/grid.lua').Grid
 local Checkbox = import('/lua/maui/checkbox.lua').Checkbox
+local CM = import('/lua/ui/game/commandmode.lua')
 local GameCommon = import('/lua/ui/game/gamecommon.lua')
+local Grid = import('/lua/maui/grid.lua').Grid
+local Keymapping = import('/lua/keymap/defaultKeyMap.lua').defaultKeyMap
+local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
+local Prefs = import('/lua/user/prefs.lua')
 local Tooltip = import('/lua/ui/game/tooltip.lua')
 local TooltipInfo = import('/lua/ui/help/tooltips.lua')
-local Prefs = import('/lua/user/prefs.lua')
-local Keymapping = import('/lua/keymap/defaultKeyMap.lua').defaultKeyMap
-local CM = import('/lua/ui/game/commandmode.lua')
 local UIMain = import('/lua/ui/uimain.lua')
+local UIUtil = import('/lua/ui/uiutil.lua')
 
 controls =
 {
@@ -111,7 +111,7 @@ function CreateMouseoverDisplay(parent, ID)
 		
             if v == TooltipInfo['Tooltips'][ID]['keyID'] then
 			
-                local properkeyname = import('/lua/ui/dialogs/keybindings.lua').formatkeyname(i)
+                local properkeyname = import('/lua/ui/dialogs/keybindings.lua').FormatKeyName(i)
 				
                 text = LOCF("%s (%s)", text, properkeyname)
 				
@@ -186,7 +186,7 @@ local currentSelection = false
 local function GetOrderBitmapNames(bitmapId)
     if bitmapId == nil then
         LOG("Error - nil bitmap passed to GetOrderBitmapNames")
-        bitmapId = "basic-empty"    # TODO do I really want to default it?
+        bitmapId = "basic-empty"    -- TODO do I really want to default it?
     end
     
     local button_prefix = "/game/orders/" .. bitmapId .. "_btn_"
@@ -196,13 +196,13 @@ local function GetOrderBitmapNames(bitmapId)
         ,  UIUtil.SkinnableFile(button_prefix .. "over_sel.dds")
         ,  UIUtil.SkinnableFile(button_prefix .. "dis.dds")
         ,  UIUtil.SkinnableFile(button_prefix .. "dis_sel.dds")
-        , "UI_Action_MouseDown", "UI_Action_Rollover"   # sets click and rollover cues
+        , "UI_Action_MouseDown", "UI_Action_Rollover"   -- sets click and rollover cues
 end
 
 -- used by most orders, which start and stop a command mode, so they toggle on when pressed
 -- and toggle off when done
 local function StandardOrderBehavior(self, modifiers)
-    # if we're checked, end the current command mode, otherwise start it
+    -- if we're checked, end the current command mode, otherwise start it
     if self:IsChecked() then
         import('/lua/ui/game/commandmode.lua').EndCommandMode(true)
     else
@@ -357,7 +357,7 @@ end
 
 -- some toggleable abilities need reverse semantics.
 local function CheckReverseSemantics(scriptBit)
-    if scriptBit == 0 then # shields
+    if scriptBit == 0 then -- shields
         return true
     end
     
@@ -713,7 +713,7 @@ end
 --      the function should have this declaration: function(checkbox, unitList)
 -- extraInfo is used for storing any extra information required in setting up the button
 local defaultOrdersTable = {
-    # Common rules
+    -- Common rules
     RULEUCC_Move = {                helpText = "move",          bitmapId = 'move',                  preferredSlot = 1,  behavior = StandardOrderBehavior,},
     RULEUCC_Attack = {              helpText = "attack",        bitmapId = 'attack',                preferredSlot = 2,  behavior = StandardOrderBehavior, },
     RULEUCC_Patrol = {              helpText = "patrol",        bitmapId = 'patrol',                preferredSlot = 3,  behavior = StandardOrderBehavior, },
@@ -721,7 +721,7 @@ local defaultOrdersTable = {
     RULEUCC_Guard = {               helpText = "assist",        bitmapId = 'guard',                 preferredSlot = 5,  behavior = StandardOrderBehavior, },
     RULEUCC_RetaliateToggle = {     helpText = "mode",          bitmapId = 'stand-ground',          preferredSlot = 6,  behavior = RetaliateOrderBehavior,      initialStateFunc = RetaliateInitFunction, },
 
-    # Unit specific rules
+    -- Unit specific rules
     RULEUCC_SiloBuildTactical = {   helpText = "build_tactical",bitmapId = 'silo-build-tactical',   preferredSlot = 7,  behavior = BuildOrderBehavior,          initialStateFunc = BuildInitFunction,},
     RULEUCC_SiloBuildNuke = {       helpText = "build_nuke",    bitmapId = 'silo-build-nuke',       preferredSlot = 7,  behavior = BuildOrderBehavior,          initialStateFunc = BuildInitFunction,},
     RULEUCC_Overcharge = {          helpText = "overcharge",    bitmapId = 'overcharge',            preferredSlot = 7,  behavior = StandardOrderBehavior,       onframe = OverChargeFrame},
@@ -741,7 +741,7 @@ local defaultOrdersTable = {
     DroneL = {              helpText = "drone",        bitmapId = 'unload02',                preferredSlot = 11, behavior = DroneBehavior,initialStateFunc = DroneInit,},
     DroneR = {              helpText = "drone",        bitmapId = 'unload02',                preferredSlot = 11, behavior = DroneBehavior,initialStateFunc = DroneInit,},
 
-    # Unit toggle rules
+    -- Unit toggle rules
     RULEUTC_ShieldToggle = {        helpText = "toggle_shield",     bitmapId = 'shield',                preferredSlot = 7,  behavior = ScriptButtonOrderBehavior,   initialStateFunc = ScriptButtonInitFunction, extraInfo = 0,},
     RULEUTC_WeaponToggle = {        helpText = "toggle_weapon",     bitmapId = 'toggle-weapon',         preferredSlot = 7,  behavior = ScriptButtonOrderBehavior,   initialStateFunc = ScriptButtonInitFunction, extraInfo = 1,},    
     RULEUTC_JammingToggle = {       helpText = "toggle_jamming",    bitmapId = 'jamming',               preferredSlot = 8,  behavior = ScriptButtonOrderBehavior,   initialStateFunc = ScriptButtonInitFunction, extraInfo = 2,},
@@ -788,6 +788,8 @@ OnClick callback is called, self._data will contain this info.
 --]]
 
 local function AddOrder(orderInfo, slot, batchMode)
+    if not slot then return end
+
     batchMode = batchMode or false
     
     local checkbox = Checkbox(controls.orderButtonGrid, GetOrderBitmapNames(orderInfo.bitmapId))
@@ -857,7 +859,7 @@ local function AddOrder(orderInfo, slot, batchMode)
         end
     end
 
-    # set up tooltips
+    -- set up tooltips
     checkbox.HandleEvent = function(self, event)
         if event.Type == 'MouseEnter' then
             if controls.orderGlow then
@@ -880,7 +882,7 @@ local function AddOrder(orderInfo, slot, batchMode)
         Checkbox.HandleEvent(self, event)
     end
 
-    # calculate row and column, remove old item, add new checkbox
+    -- calculate row and column, remove old item, add new checkbox
     local cols, rows = controls.orderButtonGrid:GetDimensions()
     local row = math.ceil(slot / cols)
     local col = math.mod(slot - 1, cols) + 1
@@ -909,7 +911,7 @@ local function CreateCommonOrders(availableOrders, init)
     end
     
     for index, availOrder in availableOrders do
-        if not standardOrdersTable[availOrder] then continue end   # skip any orders we don't have in our table
+        if not standardOrdersTable[availOrder] then continue end -- skip any orders we don't have in our table
         if commonOrders[availOrder] then
             local ck = orderCheckboxMap[availOrder]
             ck:Enable()
@@ -963,8 +965,8 @@ local function CreateAltOrders(availableOrders, availableToggles, units)
         end
     end
     
-    # determine what slots to put alt orders
-    # we first want a table of slots we want to fill, and what orders want to fill them
+    -- determine what slots to put alt orders
+    -- we first want a table of slots we want to fill, and what orders want to fill them
     local desiredSlot = {}
     local usedSpecials = {}
     for index, availOrder in availableOrders do
@@ -1003,18 +1005,18 @@ local function CreateAltOrders(availableOrders, availableToggles, units)
         end
     end
 
-    # now go through that table and determine what doesn't fit and look for slots that are empty
-    # since this is only alt orders, just deal with slots 7-12
+    -- now go through that table and determine what doesn't fit and look for slots that are empty
+    -- since this is only alt orders, just deal with slots 7-12
     local orderInSlot = {}
     
-    # go through first time and add all the first entries to their preferred slot
+    -- go through first time and add all the first entries to their preferred slot
     for slot = firstAltSlot,numSlots do
         if desiredSlot[slot] then
             orderInSlot[slot] = desiredSlot[slot][1]
         end
     end
 
-    # now put any additional entries wherever they will fit
+    -- now put any additional entries wherever they will fit
     for slot = firstAltSlot,numSlots do
         if desiredSlot[slot] and table.getn(desiredSlot[slot]) > 1 then
             for index, item in desiredSlot[slot] do
@@ -1029,26 +1031,28 @@ local function CreateAltOrders(availableOrders, availableToggles, units)
                     end
                     if not foundFreeSlot then
                         WARN("No free slot for order: " .. item)
-                        # could break here, but don't, then you'll know how many extra orders you have
+                        -- could break here, but don't, then you'll know how many extra orders you have
                     end
                 end
             end
         end
     end
 
-    # now map it the other direction so it's order to slot
+    -- now map it the other direction so it's order to slot
     local slotForOrder = {}
     for slot, order in orderInSlot do
         slotForOrder[order] = slot
     end
     --LOG(repr(availableOrders), repr(orderInSlot), repr(slotForOrder))
     
-    # create the alt order buttons
+    -- create the alt order buttons
     for index, availOrder in availableOrders do
-        if not standardOrdersTable[availOrder] then continue end   # skip any orders we don't have in our table
+        if not standardOrdersTable[availOrder] then continue end -- skip any orders we don't have in our table
         if not commonOrders[availOrder] then
             local orderInfo = standardOrdersTable[availOrder] or AbilityInformation[availOrder]
             local orderCheckbox = AddOrder(orderInfo, slotForOrder[availOrder], true)
+
+            if not orderCheckbox then continue end
 
             orderCheckbox._order = availOrder
             
@@ -1073,7 +1077,7 @@ local function CreateAltOrders(availableOrders, availableToggles, units)
     end
 
     for index, availToggle in availableToggles do
-        if not standardOrdersTable[availToggle] then continue end   # skip any orders we don't have in our table
+        if not standardOrdersTable[availToggle] then continue end   -- skip any orders we don't have in our table
         if not commonOrders[availToggle] then
             local orderInfo = standardOrdersTable[availToggle] or AbilityInformation[availToggle]
             local orderCheckbox = AddOrder(orderInfo, slotForOrder[availToggle], true)
@@ -1099,10 +1103,10 @@ end
 
 -- called by gamemain when new orders are available, 
 function SetAvailableOrders(availableOrders, availableToggles, newSelection)
-    # save new selection
-    #LOG('available orders: ', repr(availableOrders))
+    -- save new selection
+    --LOG('available orders: ', repr(availableOrders))
     currentSelection = newSelection
-    # clear existing orders
+    -- clear existing orders
     orderCheckboxMap = {}
     controls.orderButtonGrid:DestroyAllItems(true)
 
@@ -1216,7 +1220,7 @@ end
 function SetLayout(layout)
     layoutVar = layout
 
-    # clear existing orders
+    -- clear existing orders
     orderCheckboxMap = {}
     if controls and controls.orderButtonGrid then
         controls.orderButtonGrid:DeleteAndDestroyAll(true)
@@ -1225,7 +1229,7 @@ function SetLayout(layout)
     CreateControls()
     import(UIUtil.GetLayoutFilename('orders')).SetLayout()
 
-    # created greyed out orders on setup
+    -- created greyed out orders on setup
     CreateCommonOrders({}, true)
 
     --controls.orderButtonGrid:EndBatch()

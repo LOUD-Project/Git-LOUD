@@ -76,7 +76,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 360,
     },
 	
-    Description = '<LOC bes0402_desc>Conquest Dreadnaught',
+    Description = '<LOC bes0402_desc>Experimental Battleship',
 	
     Display = {
         Abilities = {
@@ -173,17 +173,11 @@ UnitBlueprint {
         Classification = 'RULEUC_MilitaryShip',
         CommandCaps = {
             RULEUCC_Attack = true,
-            RULEUCC_CallTransport = false,
-            RULEUCC_Capture = false,
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
-            RULEUCC_Nuke = false,
             RULEUCC_Patrol = true,
-            RULEUCC_Reclaim = false,
-            RULEUCC_Repair = false,
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
-            RULEUCC_Transport = false,
         },
         FactionName = 'UEF',
         Icon = 'sea',
@@ -200,7 +194,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Conquest Dreadnaught',
+        HelpText = 'Experimental Battleship',
     },
 	
     LifeBarHeight = 0.075,
@@ -211,11 +205,6 @@ UnitBlueprint {
         BackUpDistance = 10,
         BankingSlope = 0,
         BuildOnLayerCaps = {
-            LAYER_Air = false,
-            LAYER_Land = false,
-            LAYER_Orbit = false,
-            LAYER_Seabed = false,
-            LAYER_Sub = false,
             LAYER_Water = true,
         },
         CatchUpAcc = 8,
@@ -232,7 +221,7 @@ UnitBlueprint {
         SkirtOffsetX = -0.2,
         SkirtOffsetZ = -2,
         SkirtSizeX = 2.0,
-        SkirtSizeZ = 10.0,
+        SkirtSizeZ = 12.0,
         MotionType = 'RULEUMT_Water',
         TurnRadius = 25,
         TurnRate = 28,
@@ -292,7 +281,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 3000,
-            DamageRadius = 4,
+            DamageRadius = 2.5,
             DamageType = 'Normal',
 			
             DisplayName = 'ZCannon',
@@ -405,7 +394,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 3000,
-            DamageRadius = 4,
+            DamageRadius = 2.5,
             DamageType = 'Normal',
 			
             DisplayName = 'ZCannon',
@@ -519,7 +508,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 3000,
-            DamageRadius = 4,
+            DamageRadius = 2.5,
             DamageType = 'Normal',
 			
             DisplayName = 'ZCannon',
@@ -628,7 +617,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 300,
-            DamageRadius = 2,
+            DamageRadius = 1.5,
             DamageType = 'Normal',
 			
             DisplayName = 'Gauss Cannon',
@@ -744,7 +733,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 300,
-            DamageRadius = 2,
+            DamageRadius = 1.5,
             DamageType = 'Normal',
 			
             DisplayName = 'Gauss Cannon',
@@ -859,7 +848,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 300,
-            DamageRadius = 2,
+            DamageRadius = 1.5,
             DamageType = 'Normal',
 			
             DisplayName = 'Gauss Cannon',
@@ -974,7 +963,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 300,
-            DamageRadius = 2,
+            DamageRadius = 1.5,
             DamageType = 'Normal',
 			
             DisplayName = 'Gauss Cannon',
@@ -1089,7 +1078,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 300,
-            DamageRadius = 2,
+            DamageRadius = 1.5,
             DamageType = 'Normal',
 			
             DisplayName = 'Gauss Cannon',
@@ -1204,7 +1193,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 300,
-            DamageRadius = 2,
+            DamageRadius = 1.5,
             DamageType = 'Normal',
 			
             DisplayName = 'Gauss Cannon',
@@ -1319,7 +1308,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 300,
-            DamageRadius = 2,
+            DamageRadius = 1.5,
             DamageType = 'Normal',
 			
             DisplayName = 'Gauss Cannon',
@@ -1434,7 +1423,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 300,
-            DamageRadius = 2,
+            DamageRadius = 1.5,
             DamageType = 'Normal',
 			
             DisplayName = 'Gauss Cannon',
@@ -1598,7 +1587,7 @@ UnitBlueprint {
                 'GROUNDATTACK',
                 'AIR MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE, SATELLITE',
             TrackingRadius = 1.2,
             
             TurretBoneMuzzle = 'Left_AA_Muzzle01',
@@ -1688,7 +1677,7 @@ UnitBlueprint {
                 'GROUNDATTACK',
                 'AIR MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE, SATELLITE',
             TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Left_AA_Muzzle03',
@@ -1778,7 +1767,7 @@ UnitBlueprint {
                 'GROUNDATTACK',
                 'AIR MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE, SATELLITE',
             TrackingRadius = 1.2,
             
             TurretBoneMuzzle = 'Left_AA_Muzzle05',
@@ -1867,7 +1856,7 @@ UnitBlueprint {
                 'GROUNDATTACK',
                 'AIR MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE, SATELLITE',
             TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Left_AA_Muzzle07',
@@ -1955,7 +1944,7 @@ UnitBlueprint {
                 'GROUNDATTACK',
                 'AIR MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE, SATELLITE',
             TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Right_AA_Muzzle01',
@@ -2043,7 +2032,7 @@ UnitBlueprint {
                 'GROUNDATTACK',
                 'AIR MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE, SATELLITE',
             TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Right_AA_Muzzle03',
@@ -2130,7 +2119,7 @@ UnitBlueprint {
                 'GROUNDATTACK',
                 'AIR MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE, SATELLITE',
             TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Right_AA_Muzzle05',
@@ -2216,7 +2205,7 @@ UnitBlueprint {
                 'GROUNDATTACK',
                 'AIR MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE, SATELLITE',
             TrackingRadius = 1.2,
 			
             TurretBoneMuzzle = 'Right_AA_Muzzle07',

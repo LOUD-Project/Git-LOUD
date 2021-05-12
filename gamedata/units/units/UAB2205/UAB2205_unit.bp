@@ -16,9 +16,11 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+    
     Buffs = {},
 	
     BuildIconSortPriority = 310,
+    
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2ENGINEER',
@@ -44,7 +46,8 @@ UnitBlueprint {
         ArmorType = 'Structure',
         Health = 6100,
         MaxHealth = 6100,
-        RegenRate = 3,
+        RegenRate = 5,
+        
         SubThreatLevel = 24,
     },
 	
@@ -116,17 +119,8 @@ UnitBlueprint {
         Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
-            RULEUCC_CallTransport = false,
-            RULEUCC_Capture = false,
-            RULEUCC_Guard = false,
-            RULEUCC_Move = false,
-            RULEUCC_Nuke = false,
-            RULEUCC_Patrol = false,
-            RULEUCC_Reclaim = false,
-            RULEUCC_Repair = false,
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
-            RULEUCC_Transport = false,
         },
         FactionName = 'Aeon',
         Icon = 'sea',
@@ -144,20 +138,18 @@ UnitBlueprint {
         VisionRadius = 30,
         WaterVisionRadius = 40,
     },
+    
     Interface = {
         HelpText = 'Improved Torpedo Launcher',
     },
+    
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.6,
     LifeBarSize = 1.25,
+    
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
-            LAYER_Air = false,
-            LAYER_Land = false,
-            LAYER_Orbit = false,
-            LAYER_Seabed = false,
-            LAYER_Sub = false,
             LAYER_Water = true,
         },
         DragCoefficient = 0.2,
@@ -174,14 +166,18 @@ UnitBlueprint {
         SkirtSizeZ = 3,
         TurnRate = 0,
     },
+    
     SelectionSizeX = 1,
     SelectionSizeZ = 1,
     SelectionThickness = 0.6,
+    
     SizeX = 1.5,
     SizeY = 2.0,
     SizeZ = 1.5,
+    
     StrategicIconName = 'icon_structure2_antinavy',
     StrategicIconSortPriority = 200,
+    
     Veteran = {
         Level1 = 10,
         Level2 = 20,
@@ -189,6 +185,7 @@ UnitBlueprint {
         Level4 = 40,
         Level5 = 50,
     },
+    
     Weapon = {
         {
             Audio = {

@@ -1,0 +1,18 @@
+UnitBlueprint {
+	Merge = true,
+	BlueprintId = "ueb4301", --UEF T3 Shield
+    Economy = {
+        BuildRate = 20,
+		
+        BuildableCategory = {'ueb4303'},
+		
+        RebuildBonusIds = {'ueb4301','ueb4303'},
+    },
+    General = {
+        CommandCaps = {
+            RULEUCC_Pause = true,
+            RULEUCC_Stop = true,
+        },
+        UpgradesTo = 'ueb4303',
+    },
+}

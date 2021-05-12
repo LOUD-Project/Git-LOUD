@@ -569,10 +569,17 @@ function PlatoonToPositionDistanceTriggerThread( cb, platoon, marker, distance, 
 	
 	local count = 0
 	local distancecheck = distance * distance
-	
+
+    -- hmm..ok - this initial wait really impairs resolving the end of platoon moves
+    -- most notably engineers starting another base
+    -- mostly related to Naval Areas that are VERY close to the start base especially --
+
 	WaitTicks(10)
+
 	
     while PlatoonExists( aiBrain, platoon) do
+    
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName).." cycles "..repr(count).." PlatoonToPositionTriggerThread - MovingToWaypoint is "..repr(platoon.MovingToWaypoint).." Marker is "..repr(marker) )
 	
         if not marker or not platoon.MovingToWaypoint then
 		
@@ -587,6 +594,8 @@ function PlatoonToPositionDistanceTriggerThread( cb, platoon, marker, distance, 
 				return
 				
 			end
+            
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName).." at "..repr(position).." Distance to marker is "..VDist2Sq( position[1], position[3], marker[1], marker[3] ).." distancecheck "..distancecheck)
 
             if VDist2Sq( position[1], position[3], marker[1], marker[3] ) <= distancecheck then
 
@@ -611,8 +620,12 @@ function PlatoonToPositionDistanceTriggerThread( cb, platoon, marker, distance, 
 					if not u.Dead then
 					
 						local unitpos = GetPosition(u)
+                        
+                        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName).." at "..repr(unitpos))
 					
 						if not u:IsUnitState('Moving') then
+                        
+                            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName).." count > 20 - at "..repr(unitpos).." force move to "..repr(marker).." at distance ".. VDist2Sq( unitpos[1], unitpos[3], marker[1], marker[3] ))
 			
 							if VDist2Sq( unitpos[1], unitpos[3], marker[1], marker[3] ) > distancecheck  then
 							
@@ -624,6 +637,8 @@ function PlatoonToPositionDistanceTriggerThread( cb, platoon, marker, distance, 
 						else
 						
 							if VDist2Sq( unitpos[1], unitpos[3], marker[1], marker[3] ) <= distancecheck  then
+                            
+                                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName).." Issued Stop - within distance")
 							
 								IssueStop( {u} )
 								
@@ -637,12 +652,14 @@ function PlatoonToPositionDistanceTriggerThread( cb, platoon, marker, distance, 
 				
 				count = 0
 				
-			end
-			
+			else
+            
+                count = count + 1
+            end
+            
         end
 		
-		count = count + 1
-        WaitTicks(20)
+        WaitTicks(14)
 		
     end
 end

@@ -82,7 +82,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 303,
     },
 	
-    Description = '<LOC brs0402_desc>Experimental Dreadnaught',
+    Description = '<LOC brs0402_desc>Experimental Battleship',
 	
     Display = {
         Abilities = {
@@ -192,14 +192,9 @@ UnitBlueprint {
         Classification = 'RULEUC_MilitaryShip',
         CommandCaps = {
             RULEUCC_Attack = true,
-            RULEUCC_CallTransport = false,
-            RULEUCC_Capture = false,
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
-            RULEUCC_Nuke = false,
             RULEUCC_Patrol = true,
-            RULEUCC_Reclaim = false,
-            RULEUCC_Repair = false,
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
             RULEUCC_Transport = true,
@@ -225,7 +220,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Experimental Dreadnaught',
+        HelpText = 'Experimental Battleship',
     },
 	
     LifeBarHeight = 0.075,
@@ -236,11 +231,6 @@ UnitBlueprint {
         BackUpDistance = 15,
         BankingSlope = 0,
         BuildOnLayerCaps = {
-            LAYER_Air = false,
-            LAYER_Land = false,
-            LAYER_Orbit = false,
-            LAYER_Seabed = false,
-            LAYER_Sub = false,
             LAYER_Water = true,
         },
         CatchUpAcc = 7,
@@ -314,7 +304,7 @@ UnitBlueprint {
 			
             Damage = 500,
             DamageFriendly = true,
-            DamageRadius = 3,
+            DamageRadius = 2.5,
             DamageType = 'Normal',
 			
             DisplayName = 'Loa Tactical Missile',
@@ -464,7 +454,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 1400,
-            DamageRadius = 4,
+            DamageRadius = 2.5,
 			DamageFriendly = true,
             DamageType = 'Normal',
 			
@@ -618,7 +608,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 1400,
-            DamageRadius = 4,
+            DamageRadius = 2.5,
 			DamageFriendly = true,
             DamageType = 'Normal',
 			

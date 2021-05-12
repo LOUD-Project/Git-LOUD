@@ -1,0 +1,282 @@
+UnitBlueprint {
+
+    Adjacency = 'T3MassFabricatorAdjacencyBuffs',
+	
+    Audio = {
+        Destroyed = Sound {
+            Bank = 'UALDestroy',
+            Cue = 'UAB_Destroy_Huge',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'Aeon_Select_Resource',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+	
+    BuildIconSortPriority = 50,
+	
+    Categories = {
+        'SELECTABLE',
+        'AEON',
+        'STRUCTURE',
+        'ECONOMIC',
+        'TECH3',
+        'MASSPRODUCTION',
+        'MASSFABRICATION',
+        'SIZE12',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+    },
+	
+    CollisionOffsetY = -0.25,
+	
+    Defense = {
+        ArmorType = 'Structure',
+        EconomyThreatLevel = 530,	-- 1000% MassOutput + 5% Health
+        Health = 6930,
+        MaxHealth = 6930,
+        RegenRate = 4,
+    },
+	
+    Description = '<LOC uab1305_desc>Advanced Mass Fabricator & Storage',
+	
+    Display = {
+        Abilities = {
+            'Volatile',
+			'Upgradeable',
+        },
+        DamageEffects = {
+            {
+                Bone = 0,
+                OffsetX = 0.55,
+                OffsetY = 1.75,
+                OffsetZ = 0,
+            },
+            {
+                Bone = 0,
+                OffsetX = -0.55,
+                OffsetY = 1.75,
+                OffsetZ = 0,
+            },
+            {
+                Bone = 0,
+                OffsetX = 0,
+                OffsetY = 1.75,
+                OffsetZ = 0.55,
+            },
+            {
+                Bone = 0,
+                OffsetX = 0,
+                OffsetY = 1.75,
+                OffsetZ = -0.55,
+            },
+            {
+                Bone = 0,
+                OffsetX = 0.7,
+                OffsetY = 0.5,
+                OffsetZ = 0.5,
+            },
+            {
+                Bone = 0,
+                OffsetX = -0.7,
+                OffsetY = 0.5,
+                OffsetZ = 0.5,
+            },
+            {
+                Bone = 0,
+                OffsetX = -0.7,
+                OffsetY = 0.5,
+                OffsetZ = -0.5,
+            },
+            {
+                Bone = 0,
+                OffsetX = 0.7,
+                OffsetY = 0.5,
+                OffsetZ = -0.5,
+            },
+        },
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 160,
+                    ShaderName = 'Aeon',
+                    MeshName = '/units/UAB1303/UAB1303_LOD0.scm',
+                    AlbedoName = '/units/UAB1303/UAB1303_Albedo.dds',
+                    NormalsName = '/units/UAB1303/UAB1303_NormalsTS.dds',
+                    SpecularName = '/units/UAB1303/UAB1303_SpecTeam.dds',
+                },
+                {
+                    LODCutoff = 300,
+                    ShaderName = 'Aeon',
+                    MeshName = '/units/UAB1303/UAB1303_LOD1.scm',
+                    AlbedoName = '/units/UAB1303/UAB1303_lod1_Albedo.dds',
+                    NormalsName = '/units/UAB1303/UAB1303_lod1_normalsTS.dds',
+                    SpecularName = '/units/UAB1303/UAB1303_lod1_SpecTeam.dds',
+                },
+            },
+        },
+        SpawnRandomRotation = true,
+        Tarmacs = {
+            {
+                Albedo = 'Tarmacs/Tar8x_aeon_01_albedo',
+                DeathLifetime = 300,
+                FadeOut = 150,
+                Length = 12.8,
+                Normal = 'Tarmacs/Tar8x_aeon_01_normals',
+                Orientations = {
+                    0,
+                    90,
+                    180,
+                    270,
+                },
+                RemoveWhenDead = false,
+                Width = 12.8,
+            },
+        },
+        UniformScale = 0.040,
+    },
+	
+    Economy = {
+        BuildCostEnergy = 55500,
+        BuildCostMass = 7500,
+		BuildRate = 20,
+        BuildTime = 10800,
+		
+        MaintenanceConsumptionPerSecondEnergy = 3600,
+        ProductionPerSecondMass = 18,
+
+        StorageMass = 5000,
+    },
+	
+	Enhancements = {
+	
+		Sequence = {'InstallRegenPackage1'},
+		
+        Slots = {
+            Back = {},
+            LCH = {},
+            RCH = {},		
+			Command = {},
+        },
+		
+		InstallRegenPackage1 = {
+		
+            BuildCostEnergy = 12200,
+            BuildCostMass = 800,
+            BuildTime = 2160,
+			
+            Icon = 'Regen',
+			
+            Name = 'Regen Package 1',
+			
+            Slot = 'LCH',
+			
+            UpgradeEffectBones = {'B04'},
+			UpgradeUnitAmbientBones = {'B04'},
+			
+			NewRegenRate = 12,
+        },
+		
+		InstallRegenPackage2 = {
+		
+            BuildCostEnergy = 12200,
+            BuildCostMass = 800,
+            BuildTime = 2160,
+			
+            Icon = 'Regen',
+
+            Name = 'Regen Package 2',
+            Prerequisite = 'InstallRegenPackage1',			
+			
+            Slot = 'LCH',
+			
+            UpgradeEffectBones = {'B04'},
+			UpgradeUnitAmbientBones = {'B04'},
+			
+            RemoveEnhancements = {
+                'InstallRegenPackage1',
+            },
+			
+			NewRegenRate = 21,
+        },				
+    },
+
+    Footprint = {
+        SizeX = 3,
+        SizeZ = 3,
+    },
+	
+    General = {
+		CapCost = 0,
+        Category = 'Economy',
+        Classification = 'RULEUC_Resource',
+        CommandCaps = {
+            RULEUCC_Stop = true,
+        },
+        FactionName = 'Aeon',
+        Icon = 'land',
+        SelectionPriority = 5,
+        TechLevel = 'RULEUTL_Secret',
+        ToggleCaps = {
+            RULEUTC_ProductionToggle = true,
+        },
+        UnitWeight = 1,
+        UpgradesFrom = 'uab1303',
+    },
+	
+    Interface = {
+        HelpText = 'Adv. Mass Fabricator & Storage',
+    },
+	
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 0.95,
+    LifeBarSize = 2.5,
+	
+    Physics = {
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Land = true,
+            LAYER_Seabed = true,
+        },
+        DragCoefficient = 0.2,
+        FlattenSkirt = false,
+        MaxSteerForce = 0,
+        MeshExtentsX = 3,
+        MeshExtentsY = 3,
+        MeshExtentsZ = 3,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_None',
+        SkirtOffsetX = -1.5,
+        SkirtOffsetZ = -1.5,
+        SkirtSizeX = 6,
+        SkirtSizeZ = 6,
+        TurnRate = 0,
+    },
+	
+    SelectionSizeX = 1.55,
+    SelectionSizeZ = 1.55,
+    SelectionThickness = 0.45,
+	
+    SizeX = 1.9,
+    SizeY = 2,
+    SizeZ = 1.9,
+	
+    StrategicIconName = 'icon_structure3_mass',
+    StrategicIconSortPriority = 240,
+	
+    Weapon = {
+        {
+            Damage = 5000,
+            DamageFriendly = true,
+            DamageRadius = 12,
+            DamageType = 'Normal',
+            DisplayName = 'Death Weapon',
+            DummyWeapon = true,
+            Label = 'DeathWeapon',
+            WeaponCategory = 'Death',
+        },
+    },
+}

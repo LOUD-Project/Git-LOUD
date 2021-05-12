@@ -88,8 +88,6 @@ function SetLayout(layout)
 end
 
 function OnFirstUpdate()
-    
-    --LOG("*AI DEBUG OnFirstUpdate")
 
     EnableWorldSounds()
 	
@@ -156,7 +154,7 @@ function OnFirstUpdate()
 			
 			ConExecute('fog_DistanceFog')
             
-            ConExecute('d3d_WindowsCursor')
+            ConExecute('d3d_WindowsCursor true')
 
         end
     )
@@ -198,7 +196,7 @@ function CreateUI(isReplay)
         LocGlobals.PlayerName = GetArmiesTable().armiesTable[focusarmy].nickname
     end
 
-    GameCommon.InitializeUnitIconBitmaps(prefetchTable.batch_textures)
+    -- GameCommon.InitializeUnitIconBitmaps(prefetchTable.batch_textures)
 
     gameParent = UIUtil.CreateScreenGroup(GetFrame(0), "GameMain ScreenGroup")
 
@@ -626,6 +624,36 @@ end
 --      added: Which units were added to the old selection
 --      removed: Which units where removed from the old selection
 function OnSelectionChanged(oldSelection, newSelection, added, removed)
+
+    -- Interface option: don't allow air units to get selected alongside land
+    if options.land_unit_select_prio == 1 and not IsKeyDown('Shift') then
+        local selectedLand = false
+        local selectedAir = false
+        -- First check if any land units were selected
+        for _, unit in newSelection do
+            if unit:IsInCategory('LAND') then
+                selectedLand = true
+            end
+            if unit:IsInCategory('AIR') then
+                selectedAir = true
+            end
+        end
+        -- If a land unit is in this selection, trim off air
+        if selectedLand and selectedAir then
+            local temp = {}
+            for _, unit in newSelection do
+                if unit:IsInCategory('LAND') then
+                    table.insert(temp, unit)
+                end
+            end
+            newSelection = temp
+            ForkThread(function()
+                SelectUnits(newSelection)
+                import('/lua/ui/game/selection.lua').PlaySelectionSound(newSelection)
+            end)
+            return
+        end
+    end
 
     local availableOrders, availableToggles, buildableCategories = GetUnitCommandData(newSelection)
     local isOldSelection = table.equal(oldSelection, newSelection)
@@ -1068,76 +1096,89 @@ function SimChangeCameraZoom(newMult)
     end
 end
 
-	UnitEventAlerts = function()
-		while true do
-			if UnitData.VOs then
-				if LOUDGETN(UnitData.VOs) > 0 then
-					for _,vo in pairs(UnitData.VOs) do
-						if vo.Text != "EnemyUnitDetected" or (vo.Text == "EnemyUnitDetected" and SessionGetScenarioInfo().Options.FogOfWar != 'none') then
-							if vo.Marker and GetOption('vo_VisualAlertsMode') != 0 then
-								Ping(vo.Marker.type, vo.Marker.position)
-								LastAlertPos = vo.Marker.position
-							end
-							if GetOption('vo_'..vo.Text) != false then
-								PlayVoice(Sound{Bank = vo.Bank, Cue = vo.Cue}, true)
-							end
-						end
-					end
-					UnitData.VOs = {}
-				end
-			end
-			WaitTicks(11)
-		end
-	end
-	
-	GoToLastAlert = function()
-		if LastAlertPos then
-			OriginalPos = GetCamera("WorldCamera"):SaveSettings()
-			ForkThread(function()
-				local cam = GetCamera("WorldCamera")
-				local saved = cam:SaveSettings()
-				local position = LastAlertPos
-				local zoom = GetOption('alertcam_zoom')
-				local closehpr = Vector(saved.Heading , 0.9, 0)
-				local time = GetOption('alertcam_time') + 0.1
-				local mode = GetOption('alertcam_mode')
-				if mode == 1 then
-					local dpos = {}
-					for i,x in pairs(position) do
-						table.insert(dpos, position[i] - 2 * saved.Focus[i])
-					end
-					WARN(repr(saved.Focus))
-					WARN(repr(dpos))
-					WARN(repr(position))
-					local farhpr = Vector(saved.Heading , 1.5, 0)
-					--cam:Reset()
-					local mapview = cam:SaveSettings()
-					--WARN(repr(mapview))
-					--local farhpr = Vector(mapview.Heading , mapview.Pitch, 0)
-					cam:MoveTo(dpos, farhpr, 350, time)
-					WaitTicks(time * 10)
-				end
-				if mode == 5 then
-					cam:Reset()
-					WaitTicks(5)
-				end 
-				if mode == 1 or mode == 2 or mode == 5 then
-					cam:MoveTo(position, closehpr, zoom, time)
-				elseif mode == 3 then
-					cam:SnapTo(position, closehpr, zoom)
-				elseif mode == 4 then
-					cam:Reset()
-				end
-				cam:EnableEaseInOut()
-			end)
-		end
-	end
+UnitEventAlerts = function()
+    while true do
+        if UnitData.VOs then
+            if LOUDGETN(UnitData.VOs) > 0 then
+                for _,vo in pairs(UnitData.VOs) do
+                    if vo.Text != "EnemyUnitDetected" or (vo.Text == "EnemyUnitDetected" and SessionGetScenarioInfo().Options.FogOfWar != 'none') then
+                        if vo.Marker and GetOption('vo_VisualAlertsMode') != 0 then
+                            Ping(vo.Marker.type, vo.Marker.position)
+                            LastAlertPos = vo.Marker.position
+                        end
+                        if GetOption('vo_'..vo.Text) != false then
+                            PlayVoice(Sound{Bank = vo.Bank, Cue = vo.Cue}, true)
+                        end
+                    end
+                end
+                UnitData.VOs = {}
+            end
+        end
+        WaitTicks(11)
+    end
+end
 
-	GoBackToAction = function()
-		local cam = GetCamera("WorldCamera")
-        
-		if OriginalPos then
-            cam:RestoreSettings(OriginalPos)
-		end
-	end
+GoToLastAlert = function()
+    if LastAlertPos then
+        OriginalPos = GetCamera("WorldCamera"):SaveSettings()
+        ForkThread(function()
+            local cam = GetCamera("WorldCamera")
+            local saved = cam:SaveSettings()
+            local position = LastAlertPos
+            local zoom = GetOption('alertcam_zoom')
+            local closehpr = Vector(saved.Heading , 0.9, 0)
+            local time = GetOption('alertcam_time') + 0.1
+            local mode = GetOption('alertcam_mode')
+            if mode == 1 then
+                local dpos = {}
+                for i,x in pairs(position) do
+                    table.insert(dpos, position[i] - 2 * saved.Focus[i])
+                end
+                WARN(repr(saved.Focus))
+                WARN(repr(dpos))
+                WARN(repr(position))
+                local farhpr = Vector(saved.Heading , 1.5, 0)
+                --cam:Reset()
+                local mapview = cam:SaveSettings()
+                --WARN(repr(mapview))
+                --local farhpr = Vector(mapview.Heading , mapview.Pitch, 0)
+                cam:MoveTo(dpos, farhpr, 350, time)
+                WaitTicks(time * 10)
+            end
+            if mode == 5 then
+                cam:Reset()
+                WaitTicks(5)
+            end 
+            if mode == 1 or mode == 2 or mode == 5 then
+                cam:MoveTo(position, closehpr, zoom, time)
+            elseif mode == 3 then
+                cam:SnapTo(position, closehpr, zoom)
+            elseif mode == 4 then
+                cam:Reset()
+            end
+            cam:EnableEaseInOut()
+        end)
+    end
+end
+
+GoBackToAction = function()
+    local cam = GetCamera("WorldCamera")
+    
+    if OriginalPos then
+        cam:RestoreSettings(OriginalPos)
+    end
+end
 	
+function AreaReclaim()
+    local mousePos = GetMouseWorldPos()
+    local units = GetSelectedUnits()
+    if not units or table.empty(units) then return end
+    local simCallback = {
+        Func = 'AreaReclaim',
+        Args = {
+            MousePos = mousePos,
+            Size = options.area_reclaim_size,
+        },
+    }
+    SimCallback(simCallback, true)
+end

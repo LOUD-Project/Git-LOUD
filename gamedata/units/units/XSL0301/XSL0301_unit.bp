@@ -65,9 +65,9 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Normal',
-        EconomyThreatLevel = 370,		-- BuildRate + 1% of health
-        Health = 31000,
-        MaxHealth = 31000,
+        EconomyThreatLevel = 180 + 620,		-- BuildRate *3 + 2% of health
+        Health = 31000 - 6200,
+        MaxHealth = 31000 - 6200,
         RegenRate = 30,
         SurfaceThreatLevel = 25,
     },
@@ -134,10 +134,31 @@ UnitBlueprint {
         ProductionPerSecondMass = 3,
 		
         StorageEnergy = 1000,
-        StorageMass = 100,
+        StorageMass = 200,
     },
 	
     Enhancements = {
+    
+        Slots = {
+            Back = {
+                name = '<LOC _Back>',
+                x = -13,
+                y = -8,
+            },
+            LCH = {
+                name = '<LOC _LCH>',
+                x = 60,
+                y = 50,
+            },
+            RCH = {
+                name = '<LOC _RCH>',
+                x = -16,
+                y = 50,
+            },
+			Command = {
+			},
+        },
+        
         DamageStabilization = {
             BuildCostEnergy = 75000,
             BuildCostMass = 1750,
@@ -158,6 +179,7 @@ UnitBlueprint {
                 'Torso',
             },
         },
+        
         DamageStabilizationRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
@@ -174,6 +196,7 @@ UnitBlueprint {
             },
             Slot = 'LCH',
         },
+        
         EngineeringThroughput = {
             BuildCostEnergy = 65000,
             BuildCostMass = 1750,
@@ -190,6 +213,7 @@ UnitBlueprint {
                 'Torso',
             },
         },
+        
         EngineeringThroughputRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
@@ -203,6 +227,7 @@ UnitBlueprint {
             },
             Slot = 'LCH',
         },
+        
         EnhancedSensors = {
             BuildCostEnergy = 20000,
             BuildCostMass = 1000,
@@ -222,6 +247,7 @@ UnitBlueprint {
                 'Torso',
             },
         },
+        
         EnhancedSensorsRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
@@ -238,6 +264,7 @@ UnitBlueprint {
             },
             Slot = 'Back',
         },
+        
         Missile = {
             BuildCostEnergy = 50000,
             BuildCostMass = 1000,
@@ -255,6 +282,7 @@ UnitBlueprint {
                 'Torso',
             },
         },
+        
         MissileRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
@@ -271,6 +299,7 @@ UnitBlueprint {
             },
             Slot = 'RCH',
         },
+        
         Overcharge = {
             BuildCostEnergy = 270000,
             BuildCostMass = 3500,
@@ -286,6 +315,7 @@ UnitBlueprint {
                 'Torso',
             },
         },
+        
         OverchargeRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
@@ -299,6 +329,7 @@ UnitBlueprint {
             },
             Slot = 'RCH',
         },
+        
         Shield = {
             BuildCostEnergy = 140625,
             BuildCostMass = 1500,
@@ -325,6 +356,7 @@ UnitBlueprint {
                 'Torso',
             },
         },
+        
         ShieldRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
@@ -341,25 +373,7 @@ UnitBlueprint {
             },
             Slot = 'Back',
         },
-        Slots = {
-            Back = {
-                name = '<LOC _Back>',
-                x = -13,
-                y = -8,
-            },
-            LCH = {
-                name = '<LOC _LCH>',
-                x = 60,
-                y = 50,
-            },
-            RCH = {
-                name = '<LOC _RCH>',
-                x = -16,
-                y = 50,
-            },
-			Command = {
-			},
-        },
+
         Teleporter = {
             BuildCostEnergy = 750000,
             BuildCostMass = 7500,
@@ -379,6 +393,7 @@ UnitBlueprint {
                 'Torso',
             },
         },
+        
         TeleporterRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
@@ -400,9 +415,7 @@ UnitBlueprint {
     General = {
         BuildBones = {
             AimBone = 'Left_Arm_Muzzle',
-            BuildEffectBones = {
-                'Left_Arm_Muzzle',
-            },
+            BuildEffectBones = {'Left_Arm_Muzzle'},
             PitchBone = 'Left_Arm',
             YawBone = 'Torso',
         },
@@ -417,14 +430,12 @@ UnitBlueprint {
             RULEUCC_Capture = true,
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
-            RULEUCC_Nuke = false,
             RULEUCC_Patrol = true,
             RULEUCC_Pause = true,
             RULEUCC_Reclaim = true,
             RULEUCC_Repair = true,
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
-            RULEUCC_Transport = false,
         },
         ConstructionBar = true,
         FactionName = 'Seraphim',
@@ -458,12 +469,7 @@ UnitBlueprint {
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
-            LAYER_Air = false,
             LAYER_Land = true,
-            LAYER_Orbit = false,
-            LAYER_Seabed = false,
-            LAYER_Sub = false,
-            LAYER_Water = false,
         },
         DragCoefficient = 0.2,
         LayerChangeOffsetHeight = -0.85,
@@ -521,23 +527,30 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             ChargeDelay = 0.3,
             CollideFriendly = false,
+            
             Damage = 200,
             DamageType = 'Normal',
+            
             DisplayName = 'Light Chronotron Cannon',
+            
             FireTargetLayerCapsTable = {
                 Land = 'Air|Land|Water',
                 Seabed = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
             FiringTolerance = 2,
+            
             Label = 'LightChronatronCannon',
+            
             MaxRadius = 30,
             MinRadius = 1,
+            
             MuzzleChargeDelay = 0.2,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 28,
             MuzzleVelocityReduceDistance = 5,
+            
             ProjectileId = '/projectiles/SDFLightChronatronCannon01/SDFLightChronatronCannon01_proj.bp',
             ProjectileLifetimeUsesMultiplier = 1.15,
 
@@ -556,27 +569,33 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
+            
             RangeCategory = 'UWRC_DirectFire',
+            
             RateOfFire = 1,
+            
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-                
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
+            
             TurretBoneMuzzle = 'Right_Arm_Muzzle',
             TurretBonePitch = 'Right_Arm',
             TurretBoneYaw = 'Torso',
             TurretDualManipulators = false,
+            
             TurretPitch = 0,
             TurretPitchRange = 160,
             TurretPitchSpeed = 90,
+            
             TurretYaw = 0,
             TurretYawRange = 360,
             TurretYawSpeed = 180,
+            
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
         },
@@ -592,29 +611,41 @@ UnitBlueprint {
             },
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
+            
             Damage = 12000,
             DamageFriendly = false,
             DamageRadius = 2.5,
             DamageType = 'Overcharge',
+            
             DisplayName = 'Light Chronotron Overcharge Cannon',
+            
             EnergyChargeForFirstShot = false,
             EnergyDrainPerSecond = 5000,
             EnergyRequired = 5000,
+            
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
+            
             FiringTolerance = 2,
+            
             Label = 'OverCharge',
+            
             ManualFire = true,
+            
             MaxRadius = 28,
+            
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 22,
+            
             OverChargeWeapon = true,
+            
             ProjectileId = '/projectiles/SDFLightChronatronCannon02/SDFLightChronatronCannon02_proj.bp',
             ProjectileLifetimeUsesMultiplier = 1.15,
+            
             RackBones = {
                 {
                     MuzzleBones = {
@@ -630,21 +661,29 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
+            
             RangeCategory = 'UWRC_DirectFire',
+            
             RateOfFire = 0.4,
+            
             SlavedToBody = false,
+            
             TargetCheckInterval = 1,
             TargetRestrictDisallow = 'UNTARGETABLE',
+            
             TurretBoneMuzzle = 'Right_Arm_Muzzle',
             TurretBonePitch = 'Right_Arm',
             TurretBoneYaw = 'Torso',
             TurretDualManipulators = false,
+            
             TurretPitch = 0,
             TurretPitchRange = 60,
             TurretPitchSpeed = 30,
+            
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 90,
+            
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
 
@@ -661,12 +700,16 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
             CountedProjectile = true,
+            
             Damage = 4800,
             DamageFriendly = true,
             DamageRadius = 2,
             DamageType = 'Normal',
+            
             DisplayName = 'Laanse Tactical Missile Launcher',
+            
             EffectiveRadius = 0,
+            
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
@@ -675,15 +718,21 @@ UnitBlueprint {
             },
             FiringTolerance = 5,
 			ForceSingleFire = true,
+            
             Label = 'Missile',
+            
             ManualFire = true,
+            
             MaxProjectileStorage = 1,
+            
             MaxRadius = 196,
             MinRadius = 15,
+            
             MuzzleChargeDelay = 1.5,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 5,
+            
             ProjectileId = '/projectiles/SIFLaanseTacticalMissileSCU/SIFLaanseTacticalMissileSCU_proj.bp',
             ProjectileLifetime = 80,
 
@@ -702,17 +751,21 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
+            
             RangeCategory = 'UWRC_IndirectFire',
+            
             RateOfFire = 1,
+            
             TargetCheckInterval = 5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'DEFENSE',
-                
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
+            
             Turreted = false,
+            
             WeaponCategory = 'Missile',
             WeaponRepackTimeout = 5,
             WeaponUnpacks = true,
@@ -730,10 +783,10 @@ UnitBlueprint {
     },
 	Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.9,
-        HealthMult = 0.9,
-        MassMult = 0.9,
-        ReclaimTimeMultiplier = 1,
+        EnergyMult = 0.3,
+        HealthMult = 0.3,
+        MassMult = 0.3,
+        ReclaimTimeMultiplier = 0.5,
         WreckageLayers = {
             Air = false,
             Land = true,

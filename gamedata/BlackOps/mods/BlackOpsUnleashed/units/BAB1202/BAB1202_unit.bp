@@ -87,6 +87,7 @@ UnitBlueprint {
 		BuildableCategory = {'bab1302'},
 		
         ProductionPerSecondEnergy = 875,
+        
 		StorageEnergy = 200,
     },
 	
@@ -96,22 +97,12 @@ UnitBlueprint {
     },
 	
     General = {
+        CapCost = 6,
         Category = 'Economy',
         Classification = 'RULEUC_Resource',
         CommandCaps = {
-            RULEUCC_Attack = false,
-            RULEUCC_CallTransport = false,
-            RULEUCC_Capture = false,
-            RULEUCC_Guard = false,
-            RULEUCC_Move = false,
-            RULEUCC_Nuke = false,
-            RULEUCC_Patrol = false,
 			RULEUCC_Pause = true,
-            RULEUCC_Reclaim = false,
-            RULEUCC_Repair = false,
-            RULEUCC_RetaliateToggle = false,
             RULEUCC_Stop = true,
-            RULEUCC_Transport = false,
         },
         FactionName = 'Aeon',
         Icon = 'land',
@@ -134,12 +125,8 @@ UnitBlueprint {
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
-            LAYER_Air = false,
             LAYER_Land = true,
-            LAYER_Orbit = false,
             LAYER_Seabed = true,
-            LAYER_Sub = false,
-            LAYER_Water = false,
         },
         BuildRestriction = 'RULEUBR_OnHydrocarbonDeposit',
         DragCoefficient = 0.2,

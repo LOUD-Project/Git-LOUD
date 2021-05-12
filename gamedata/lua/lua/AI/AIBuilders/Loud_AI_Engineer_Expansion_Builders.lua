@@ -4,7 +4,17 @@
 local EBC = '/lua/editor/EconomyBuildConditions.lua'
 local TBC = '/lua/editor/ThreatBuildConditions.lua'
 local UCBC = '/lua/editor/UnitCountBuildConditions.lua'
+local MIBC = '/lua/editor/MiscBuildConditions.lua'
 local LUTL = '/lua/loudutilities.lua'
+
+local OutNumberedFirst10Minutes = function( self,aiBrain )
+	
+	if aiBrain.OutnumberedRatio <= 1 or aiBrain.CycleTime > 600 then
+		return 0, false
+	end
+	
+	return self.Priority, true
+end
 
 local MapHasNavalAreas = function( self, aiBrain )
 
@@ -56,9 +66,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Land Expansion Construction',
             { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 3, categories.FACTORY * categories.STRUCTURE - categories.TECH1}},
             
 			-- must have enough mass input to sustain existing factories and surplus
-			{ EBC, 'MassToFactoryRatioBaseCheck', { 'LocationType', 1.03, 1.03 } },
+			{ EBC, 'MassToFactoryRatioBaseCheck', { 'LocationType', 1.03, 1.02 } },
             
-			-- all other 'counted' land bases must have at least 4 T3 factories
+			-- all other 'counted' land bases must have at least 3 factories
 			{ UCBC, 'ExistingBasesHaveGreaterThanFactory', { 3, 'Land', categories.FACTORY * categories.STRUCTURE * categories.TECH3 }},
             
 			-- there must be an start/expansion area with no engineers
@@ -114,6 +124,71 @@ BuilderGroup {BuilderGroupName = 'Engineer Land Expansion Construction',
         }
     }, 
 
+   
+    -- Builds land expansion bases at both Start and Expansion points
+    -- when there are nearby empty start locations
+    -- first 10 minutes only
+    Builder {BuilderName = 'Land Expansion Base - Outnumbered',
+	
+        PlatoonTemplate = 'EngineerBuilderGeneral',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+        Priority = 750,
+        
+        PriorityFunction = OutNumberedFirst10Minutes,
+		
+        BuilderConditions = {
+            
+			-- is there an expansion already underway (we use the Instant Version here for accuracy)
+			{ UCBC, 'IsBaseExpansionUnderway', {false} },
+            
+			-- there must be an start/expansion area with no engineers
+            { UCBC, 'BaseAreaForExpansion', { 'LocationType', 1000, -9999, 60, 0, 'AntiSurface' } },
+        },
+		
+        BuilderType = { 'T1' },
+		
+        BuilderData = {
+            Construction = {
+				-- a counted base is included when using ExistingBases functions - otherwise ignored
+				-- this is what allows a base to count or not count against maximum allowed bases
+                -- Counted Bases are typically production centres
+				CountedBase = true,
+                
+				-- this tells the code to start an active base at this location
+                ExpansionBase = true,
+                
+				-- this controls the radius at which this base will draw 'pool' units
+				-- and it forms the basis for the Base Alert radius as well
+                ExpansionRadius = 110,
+                
+				-- this controls the radius for creation of auto-rally points 
+				RallyPointRadius = 40,
+                
+				-- and of course -- the type of markers we're looking for
+                NearMarkerType = 'Large Expansion Area',
+                
+				-- the limit of how far away to include markers when looking for a position
+                LocationRadius = 1000,
+                
+				-- this controls which base layout file to use
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
+				BaseTemplate = 'ExpansionLayout_II',
+                
+				-- these parameters control point selection
+                ThreatMax = 60,
+                ThreatRings = 0,
+                ThreatType = 'AntiSurface',
+				
+				-- what we'll build
+                BuildStructures = {  
+					'T1LandFactory',
+                }               
+            },
+        }
+    }, 
+
 }
 
 BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
@@ -121,7 +196,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
     BuildersType = 'EngineerBuilder',
 
 	-- This builder will start an active DP 
-	Builder {BuilderName = 'Defensive Point Expansion',
+	Builder {BuilderName = 'DP - Expansion',
 	
 		PlatoonTemplate = 'EngineerBuilderGeneral',
         
@@ -177,7 +252,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
 		}
 	},
     
-	Builder {BuilderName = 'Defensive Point Expansion SACU',
+	Builder {BuilderName = 'DP - Expansion SACU',
 	
 		PlatoonTemplate = 'EngineerBuilderGeneral',
         
@@ -235,7 +310,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
 	-- Like above, we want to create an Active DP, but on Start and Expansion areas
 	-- this allows the AI to setup forward positions long before he has the resources to start a full base
 	-- Later on he can convert these 'Active DP' into real bases at his discretion
-    Builder {BuilderName = 'DP - Start & Expansion Areas',
+    Builder {BuilderName = 'DP - Expansion - Start & Expansion Areas',
 	
         PlatoonTemplate = 'EngineerBuilderGeneral',
         
@@ -293,7 +368,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
         }
     },
 
-    Builder {BuilderName = 'DP - Start & Expansion Areas - SACU',
+    Builder {BuilderName = 'DP - Expansion - Start & Expansion Areas - SACU',
 	
         PlatoonTemplate = 'EngineerBuilderGeneral',
         
@@ -356,7 +431,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction - Small'
     BuildersType = 'EngineerBuilder',
 
 	-- This builder will start an active DP 
-	Builder {BuilderName = 'Defensive Point Expansion Small',
+	Builder {BuilderName = 'DP - Expansion Small',
 	
 		PlatoonTemplate = 'EngineerBuilderGeneral',
         
@@ -419,7 +494,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction',
 	-- not go into the water if an enemy is close or if there are no safe areas
 	-- I made use of the 'rings' variable here -- on a 20km map 2 rings is about 2.5km
 	-- I also shortened the search range to about 17km from 20km
-    Builder {BuilderName = 'Naval Base Initial',
+    Builder {BuilderName = 'Naval Base Initial - Large Map',
 	
         PlatoonTemplate = 'EngineerBuilderGeneral',
         
@@ -435,14 +510,15 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction',
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
             
 			{ UCBC, 'NavalBaseCount', { 1, '<' } },
+            
+			{ MIBC, 'MapGreaterThan', { 1024 } },            
 
-			{ EBC, 'MassToFactoryRatioBaseCheck', { 'LocationType', 1.01, 1.03 } },
+			{ EBC, 'MassToFactoryRatioBaseCheck', { 'LocationType', 1.01, 1.02 } },
       
-			-- must have 3+ factories at MAIN
-            { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 3, categories.FACTORY * categories.STRUCTURE}},
+            { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 2, categories.FACTORY * categories.STRUCTURE}},
 			
-			-- can't be a major enemy base within 12km of here
-			{ TBC, 'ThreatFurtherThan', { 'LocationType', 600, 'Economy', 1500 }},
+			-- can't be a major enemy base within 13km of here
+			{ TBC, 'ThreatFurtherThan', { 'LocationType', 650, 'Economy', 200 }},
 			
 			-- find a safe, unused, naval marker within 12km of this base
             { UCBC, 'NavalAreaForExpansion', { 'LocationType', 600, -250, 50, 2, 'AntiSurface' } },
@@ -478,6 +554,67 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction',
             }
         }
     },
+    
+    Builder {BuilderName = 'Naval Base Initial - Small Map',
+	
+        PlatoonTemplate = 'EngineerBuilderGeneral',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+        Priority = 999,
+		
+		PriorityFunction = MapHasNavalAreasButNotEstablished,
+		
+        BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .65 } },
+
+			{ UCBC, 'IsBaseExpansionUnderway', {false} },
+            
+			{ UCBC, 'NavalBaseCount', { 1, '<' } },
+            
+			{ MIBC, 'MapLessThan', { 1028 } },            
+
+			{ EBC, 'MassToFactoryRatioBaseCheck', { 'LocationType', 1.01, 1.02 } },
+      
+            { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 2, categories.FACTORY * categories.STRUCTURE}},
+			
+			-- can't be a major enemy base within 8km of here
+			{ TBC, 'ThreatFurtherThan', { 'LocationType', 400, 'Economy', 200 }},
+			
+			-- find a safe, unused, naval marker within 12km of this base
+            { UCBC, 'NavalAreaForExpansion', { 'LocationType', 600, -250, 50, 2, 'AntiSurface' } },
+        },
+		
+        BuilderType = { 'T2','T3' },
+		
+        BuilderData = {
+            Construction = {
+				CountedBase = true,
+                
+                ExpansionBase = true,
+                ExpansionRadius = 110,
+                
+				RallyPointRadius = 46,
+				
+                NearMarkerType = 'Naval Area',
+                LocationRadius = 600,
+				
+                ThreatMax = 50,
+                ThreatRings = 2,
+                ThreatType = 'AntiSurface',
+				
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
+				BaseTemplate = 'NavalExpansionBase',
+
+                BuildStructures = {
+					'T1SeaFactory',
+					'T2AirStagingPlatform',
+					'T1SeaFactory',
+					'T2Sonar',
+                }
+            }
+        }
+    },    
 }
 
 BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction - Expansions',
@@ -505,7 +642,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction - Expans
 			{ UCBC, 'NavalBaseCount', { 0, '>' } },
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
 			
-			{ EBC, 'MassToFactoryRatioBaseCheck', { 'LocationType', 1.03, 1.03 } },
+			{ EBC, 'MassToFactoryRatioBaseCheck', { 'LocationType', 1.03, 1.02 } },
 			
             -- must be 5 T3 yards before we expand
             { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 4, categories.FACTORY * categories.STRUCTURE * categories.TECH3 }},

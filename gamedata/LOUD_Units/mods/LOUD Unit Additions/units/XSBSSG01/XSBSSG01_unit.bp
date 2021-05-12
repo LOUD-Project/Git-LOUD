@@ -1,0 +1,235 @@
+UnitBlueprint {
+
+    Audio = {
+        DeathExplosion = Sound {
+            Bank = 'UALDestroy',
+            Cue = 'UAB_Destroy_Lrg_PreDestroy',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Destroyed = Sound {
+            Bank = 'UALDestroy',
+            Cue = 'UAB_Destroy_Huge',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+	    Killed = Sound {
+            Bank = 'UALDestroy',
+            Cue = 'UAB_Destroy_Huge',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'SeraphimSelect',
+            Cue = 'Seraphim_Select_Structure',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+	
+    BuildIconSortPriority = 60,
+	
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER4COMMANDER',
+        'SERAPHIM',
+        'STRUCTURE',
+        'DEFENSE',
+        'EXPERIMENTAL',
+        'SHIELD',
+        'SIZE16',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'OVERLAYDEFENSE',
+        'SORTSTRATEGIC',
+    },
+	
+    CollisionOffsetY = -0.25,
+	
+    Defense = {
+        ArmorType = 'Structure',
+        EconomyThreatLevel = 1100,
+        Health = 3000,
+        MaxHealth = 3000,
+		RegenRate = 15,
+		
+        Shield = {
+            ImpactEffects = 'SeraphimShieldHit01',
+        	ImpactMesh = '/effects/entities/SquareShields/BoxShieldSection01_mesh',
+        	Mesh = '/effects/entities/SquareShields/SeraphimShield02_mesh',
+        	MeshZ = '/effects/entities/SquareShields/Shield02z_mesh',
+            RegenAssistMult = 10000,
+            ShieldEnergyDrainRechargeTime = 20,
+            ShieldMaxHealth = 38500,
+            ShieldRechargeTime = 39,
+            ShieldRegenRate = 247,
+            ShieldRegenStartTime = 1,
+            ShieldSize = 110,
+            ShieldVerticalOffset = -45,
+        },
+    },
+	
+    Description = '<LOC xsbssg01_desc>Experimental Squareshield',
+	
+    Display = {
+        Abilities = {
+			'Square Shield Dome',
+			'Size not affected by storage',
+        },
+        AnimationDeath = {
+            {
+                Animation = '/units/XSBSSG01/XSBSSG01_ADeath1.sca',
+                AnimationRateMax = 1.5,
+                AnimationRateMin = 0.5,
+                Weight = 100,
+            },
+        },
+        DamageEffects = {
+            {
+                Bone = 0,
+                OffsetX = 1,
+                OffsetY = 2.5,
+                OffsetZ = 0.25,
+            },
+            {
+                Bone = 0,
+                OffsetX = -1,
+                OffsetY = 2.5,
+                OffsetZ = 0.25,
+            },
+        },
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 240,
+                    LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
+                    Scrolling = true,
+                    ShaderName = 'Seraphim',
+                },
+                {
+                    AlbedoName = 'XSBSSG01_lod1_albedo.dds',
+                    LODCutoff = 600,
+                    ShaderName = 'Seraphim',
+                    SpecularName = 'XSBSSG01_lod1_specteam.dds',
+                },
+            },
+        },
+
+        SpawnRandomRotation = true,
+		
+        Tarmacs = {
+            {
+                Albedo = 'Tarmacs/Tar8x_seraphim_01_albedo',
+                DeathLifetime = 300,
+                FadeOut = 300,
+                Length = 16,
+                Normal = 'Tarmacs/Tar8x_seraphim_01_normals',
+                Orientations = {
+                    0,
+                    90,
+                    180,
+                    270,
+                },
+                RemoveWhenDead = true,
+                Width = 16,
+            },
+        },
+        UniformScale = 0.065,
+    },
+	
+    Economy = {
+        BuildCostEnergy = 400000,
+        BuildCostMass = 22258,
+        BuildTime = 18500,
+		
+        MaintenanceConsumptionPerSecondEnergy = 6270,
+		
+        BuildRate = 30,
+		
+        BuildableCategory = {'xsbssg02'},
+		
+        RebuildBonusIds = {'xsbssg01','xsbssg02'},
+    },
+	
+    Footprint = {
+        SizeX = 5,
+        SizeZ = 5,
+    },
+	
+    General = {
+		CapCost = 10,
+        Category = 'Defense',
+        Classification = 'RULEUC_CounterMeasure',
+        CommandCaps = {
+            RULEUCC_Pause = true,
+            RULEUCC_Stop = true,
+        },
+        FactionName = 'Seraphim',
+        Icon = 'land',
+        OrderOverrides = {
+            RULEUTC_ShieldToggle = {
+                bitmapId = 'shield-dome',
+                helpText = 'toggle_shield_dome',
+            },
+        },
+        SelectionPriority = 5,
+        TechLevel = 'RULEUTL_Secret',
+        ToggleCaps = {
+            RULEUTC_ShieldToggle = true,
+        },
+        UnitName = '<LOC xsbssg01_name>Thanatos',
+        UnitWeight = 1,
+        UpgradesTo = 'xsbssg02',
+    },
+
+    Interface = {
+        HelpText = 'Experimental Squareshield',
+    },
+	
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 1.1,
+    LifeBarSize = 3.0,
+	
+    Physics = {
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Land = true,
+        },
+        DragCoefficient = 0.2,
+        FlattenSkirt = true,
+        MaxSteerForce = 0,
+        MeshExtentsX = 6.4,
+        MeshExtentsY = 4.4,
+        MeshExtentsZ = 6.4,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_None',
+        SkirtOffsetX = -1.5,
+        SkirtOffsetZ = -1.5,
+        SkirtSizeX = 8,
+        SkirtSizeZ = 8,
+        TurnRate = 0,
+    },
+	
+    SelectionSizeX = 4.4,
+    SelectionSizeZ = 4.4,
+    SelectionThickness = 0.45,
+	
+    SizeX = 5,
+    SizeY = 5,
+    SizeZ = 5,
+	
+    StrategicIconName = 'icon_experimental_structure_shield',
+    StrategicIconSortPriority = 195,
+	
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0,
+        HealthMult = 0.3,
+        MassMult = 0.3,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = false,
+            Sub = false,
+            Water = false,
+        },
+    },
+}

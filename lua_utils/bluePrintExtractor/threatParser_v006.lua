@@ -201,3 +201,8 @@ for curBPid,curBP in ipairs(allBlueprints) do
 end -- Blueprint for() Loop
 
 io.close(file)
+
+print("****************************************************")
+print("  Threat Parser Complete, starting interactive LUA  ")
+print("                 press CTRL-D to exit")
+print("****************************************************")

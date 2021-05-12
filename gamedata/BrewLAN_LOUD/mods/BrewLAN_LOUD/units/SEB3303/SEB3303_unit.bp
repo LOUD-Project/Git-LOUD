@@ -42,7 +42,8 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            '<LOC ability_satellite_uplink>Satellite Uplink for 2 Satellites',
+            '<LOC ability_satellite_uplink>Satellite Uplink',
+            '<LOC ability_satellite_cap_2>Satellite Capacity: +2',
         },
         BlinkingLights = {
             {
@@ -144,18 +145,8 @@ UnitBlueprint {
         Category = 'Factory',
         Classification = 'RULEUC_Factory',
         CommandCaps = {
-            RULEUCC_Attack = false,
-            RULEUCC_CallTransport = false,
-            RULEUCC_Capture = false,
-            RULEUCC_Guard = false,
             RULEUCC_Move = true,
-            RULEUCC_Nuke = false,
-            RULEUCC_Patrol = false,
-            RULEUCC_Reclaim = false,
-            RULEUCC_Repair = false,
-            RULEUCC_RetaliateToggle = false,
             RULEUCC_Stop = true,
-            RULEUCC_Transport = false,
         },
         ConstructionBar = true,
         FactionName = 'UEF',
@@ -180,12 +171,7 @@ UnitBlueprint {
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
-            LAYER_Air = false,
             LAYER_Land = true,
-            LAYER_Orbit = false,
-            LAYER_Seabed = false,
-            LAYER_Sub = false,
-            LAYER_Water = false,
         },
         DragCoefficient = 0.2,
         FlattenSkirt = true,

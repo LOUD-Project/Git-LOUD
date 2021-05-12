@@ -1,0 +1,21 @@
+UnitBlueprint {
+	Merge = true,
+	BlueprintId = "uab4301", --Aeon T3 Shield
+    Economy = {
+        BuildRate = 20,
+        BuildableCategory = {
+            'uab4303',
+        },
+        RebuildBonusIds = {
+            'uab4301',
+            'uab4303',
+        },
+    },
+    General = {
+        CommandCaps = {
+            RULEUCC_Pause = true,
+            RULEUCC_Stop = true,
+        },
+        UpgradesTo = 'uab4303',
+    },
+}

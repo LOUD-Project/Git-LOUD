@@ -88,7 +88,7 @@ UnitBlueprint {
 	
     Economy = {
         BuildCostEnergy = 35100,
-        BuildCostMass = 8000,
+        BuildCostMass = 8400,
         
         BuildRate = 100,
         BuildTime = 24000,
@@ -104,8 +104,8 @@ UnitBlueprint {
 		
         RebuildBonusIds = {'xsb0303'},
 		
-        StorageEnergy = 2000,
-        StorageMass = 200,
+        StorageEnergy = 2650,
+        StorageMass = 265,
     },
 	
     Footprint = {
@@ -123,19 +123,12 @@ UnitBlueprint {
         Category = 'Factory',
         Classification = 'RULEUC_Factory',
         CommandCaps = {
-            RULEUCC_Attack = false,
-            RULEUCC_CallTransport = false,
-            RULEUCC_Capture = false,
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
-            RULEUCC_Nuke = false,
             RULEUCC_Patrol = true,
             RULEUCC_Pause = true,
-            RULEUCC_Reclaim = false,
-            RULEUCC_Repair = false,
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
-            RULEUCC_Transport = false,
         },
         ConstructionBar = true,
         FactionName = 'Seraphim',

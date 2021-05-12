@@ -227,6 +227,8 @@ DefaultProjectileWeapon = Class(Weapon) {
             if nrgReq > 0 and nrgDrain > 0 then
 			
                 local time = nrgReq / nrgDrain
+                
+                --LOG("*AI DEBUG time is "..repr(time))
 				
                 if time < 0.1 then
                     time = 0.1
@@ -245,6 +247,8 @@ DefaultProjectileWeapon = Class(Weapon) {
 	
 		local bp = bp or GetBlueprint(self)
         local weapNRG = (bp.EnergyRequired or 0) * (self.AdjEnergyMod or 1)
+        
+        --LOG("*AI DEBUG Energy Required is now "..weapNRG)
 		
         if weapNRG < 0 then
             weapNRG = 0

@@ -172,20 +172,13 @@ UnitBlueprint {
         Classification = 'RULEUC_MilitaryShip',
         CommandCaps = {
             RULEUCC_Attack = true,
-            RULEUCC_CallTransport = false,
-            RULEUCC_Capture = false,
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
             RULEUCC_Nuke = true,
             RULEUCC_Patrol = true,
-            RULEUCC_Reclaim = false,
-            RULEUCC_Repair = false,
             RULEUCC_RetaliateToggle = true,
             RULEUCC_SiloBuildNuke = true,
-            RULEUCC_SiloBuildTactical = false,
             RULEUCC_Stop = true,
-            RULEUCC_Tactical = false,
-            RULEUCC_Transport = false,
         },
         FactionName = 'Seraphim',
         Icon = 'sea',
@@ -213,11 +206,6 @@ UnitBlueprint {
         BackUpDistance = 10,
         BankingSlope = 0,
         BuildOnLayerCaps = {
-            LAYER_Air = false,
-            LAYER_Land = false,
-            LAYER_Orbit = false,
-            LAYER_Seabed = false,
-            LAYER_Sub = false,
             LAYER_Water = true,
         },
         CatchUpAcc = 10,
@@ -279,7 +267,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 600,
-            DamageRadius = 2,
+            DamageRadius = 1.6,
             DamageType = 'Normal',
 			
             DisplayName = 'Quarnon Cannon',
@@ -379,19 +367,26 @@ UnitBlueprint {
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
+            
             Damage = 600,
-            DamageRadius = 2,
+            DamageRadius = 1.6,
             DamageType = 'Normal',
+            
             DisplayName = 'Quarnon Cannon',
+            
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
             },
             FiringRandomness = 0.3,
             FiringTolerance = 2,
+            
             HeadingArcCenter = 0,
             HeadingArcRange = 160,
+            
             Label = 'Turret',
+            
             MaxRadius = 100,
+            
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -430,7 +425,6 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'NAVAL MOBILE',
-                
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -475,7 +469,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 600,
-            DamageRadius = 2,
+            DamageRadius = 1.6,
             DamageType = 'Normal',
 			
             DisplayName = 'Quarnon Cannon',
@@ -711,7 +705,7 @@ UnitBlueprint {
 			
             Damage = 70,
             DamageFriendly = false,
-            DamageRadius = 2,
+            DamageRadius = 1.8,
             DamageType = 'Normal',
 			
             DetonatesAtTargetHeight = true,
@@ -806,7 +800,7 @@ UnitBlueprint {
 			
             Damage = 70,
             DamageFriendly = false,
-            DamageRadius = 2.5,
+            DamageRadius = 2.2,
             DamageType = 'Normal',
             DetonatesAtTargetHeight = true,
 			

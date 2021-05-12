@@ -1,0 +1,20 @@
+UnitBlueprint {
+	Merge = true,
+	BlueprintId = "ueb1103",
+
+    Economy = {
+
+        RebuildBonusIds = {
+            'ueb1103',
+            'ueb1202',
+            'ueb1302',
+            'ueb1304',
+        },
+    },
+    General = {
+        CommandCaps = {
+            RULEUCC_Pause = true,
+            RULEUCC_Stop = true,
+        },
+    },
+}

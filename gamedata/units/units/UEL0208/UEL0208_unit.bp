@@ -41,10 +41,10 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Normal',
-        EconomyThreatLevel = 41,		-- BuildRate * 2 + 3% of health
+        EconomyThreatLevel = 93,		-- BuildRate * 2 + 10% of health
         Health = 730,
         MaxHealth = 730,
-        RegenRate = 0,
+        RegenRate = 2,
     },
 	
     Description = '<LOC uel0208_desc>T2 Engineer',
@@ -111,8 +111,8 @@ UnitBlueprint {
 		
 		MaxBuildDistance = 4.1,
 		
-        StorageEnergy = 100,
-        StorageMass = 10,
+        StorageEnergy = 120,
+        StorageMass = 20,
     },
 	
     General = {
@@ -128,19 +128,15 @@ UnitBlueprint {
         Category = 'Construction',
         Classification = 'RULEUC_Engineer',
         CommandCaps = {
-            RULEUCC_Attack = false,
             RULEUCC_CallTransport = true,
             RULEUCC_Capture = true,
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
-            RULEUCC_Nuke = false,
             RULEUCC_Patrol = true,
             RULEUCC_Pause = true,
             RULEUCC_Reclaim = true,
             RULEUCC_Repair = true,
-            RULEUCC_RetaliateToggle = false,
             RULEUCC_Stop = true,
-            RULEUCC_Transport = false,
         },
         ConstructionBar = true,
         FactionName = 'UEF',
@@ -168,11 +164,7 @@ UnitBlueprint {
         BackUpDistance = 4,
         BankingSlope = 0,
         BuildOnLayerCaps = {
-            LAYER_Air = false,
             LAYER_Land = true,
-            LAYER_Orbit = false,
-            LAYER_Seabed = false,
-            LAYER_Sub = false,
             LAYER_Water = true,
         },
         DragCoefficient = 0.2,

@@ -6,12 +6,12 @@
 -- Init our language from prefs. This applies to both front-end and session init; for
 -- the Sim init, the engine sets __language for us.
 
-LOG("*DEBUG Mohodata userInit")
+LOG("*DEBUG Mohodata userInit ")
 
 __language = GetPreference('options_overrides.language', '')
 
 
--- Do global init
+-- load global functions
 doscript '/lua/globalInit.lua'
 
 
@@ -41,4 +41,6 @@ FrontEndData = {}
 
 -- Prefetch user side data
 Prefetcher = CreatePrefetchSet()
+
+LOG("*DEBUG Mohodata userInit Complete ")
 

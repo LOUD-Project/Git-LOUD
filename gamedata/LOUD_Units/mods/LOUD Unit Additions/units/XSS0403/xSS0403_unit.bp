@@ -1,0 +1,568 @@
+UnitBlueprint {
+    AI = {
+        GuardReturnRadius = 130,
+		TargetBones = {
+            'XSS0202',
+			'Projectile01',
+			'Left_Turret01',
+			'Right_Turret01',
+        },
+    },
+	
+    Audio = {
+        AmbientMove = Sound {
+            Bank = 'XSS',
+            Cue = 'XSS0202_Move_Loop',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Killed = Sound {
+            Bank = 'XSS_Destroy',
+            Cue = 'XSS0202_Destroy',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartMove = Sound {
+            Bank = 'XSS',
+            Cue = 'XSS0202_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StopMove = Sound {
+            Bank = 'XSS',
+            Cue = 'XSS0202_Move_Stop',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'SeraphimSelect',
+            Cue = 'Seraphim_Select_Naval',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    
+	},
+	
+    Buffs = {},
+	
+    BuildIconSortPriority = 380,
+	
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER4COMMANDER',
+        'SERAPHIM',
+        'MOBILE',
+        'NAVAL',
+        'EXPERIMENTAL',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'CRUISER',
+		'NEEDMOBILEBUILD',
+        'DRAGBUILD',
+        'OVERLAYRADAR','OVERLAYSONAR','OVERLAYOMNI',
+    },
+	
+    CollisionOffsetY = 0,
+	
+    Defense = {
+        AirThreatLevel = 176,
+        ArmorType = 'Experimental',
+        Health = 59000,
+        MaxHealth = 59000,
+        RegenRate = 20,
+        SurfaceThreatLevel = 55,
+    },
+	
+    Description = '<LOC xss0403_desc>Experimental Medium AA Cruiser',
+	
+    Display = {
+	
+        Abilities = {
+            'Anti-Air',
+            'Omni Radar & Sonar',
+        },
+		
+        AnimationDeath = {
+            {
+                Animation = '/units/XSS0403/XSS0403_adeath01.sca',
+                Weight = 100,
+            },
+            {
+                Animation = '/units/XSS0403/XSS0403_adeath02.sca',
+                Weight = 100,
+            },
+            {
+                Animation = '/units/XSS0403/XSS0403_adeath03.sca',
+                Weight = 100,
+            },
+        },
+        IdleEffects = {
+            Water = {
+                Effects = {
+                    {
+                        Bones = {
+                            'XSS0202',
+                        },
+                        Offset = {
+                            0,
+                            0,
+                            0,
+                        },
+                        Scale = 2,
+                        Type = 'SeaIdle01',
+                    },
+                },
+            },
+        },
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 600,
+                    LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
+                    ShaderName = 'Seraphim',
+                },
+            },
+        },
+        MovementEffects = {
+            Water = {
+                Effects = {
+                    {
+                        Bones = {
+                            'XSS0202',
+                            'Exhaust01',
+                            'Exhaust02',
+                        },
+                        Scale = 1,
+                        Type = 'BackWake',
+                    },
+                },
+            },
+        },
+        SpawnRandomRotation = true,
+        UniformScale = 0.06,
+    },
+	
+    Economy = {
+        BuildCostEnergy = 435000,
+        BuildCostMass = 28250,
+        BuildTime = 43500,
+		
+        MaintenanceConsumptionPerSecondEnergy = 750,
+    },
+	
+	CollisionOffsetY = -1,
+
+    General = {
+		CapCost = 6,
+        Category = 'Construction',
+        Classification = 'RULEUC_Engineer',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Patrol = true,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+        },
+        FactionName = 'Seraphim',
+        Icon = 'sea',
+        TechLevel = 'RULEUTL_Secret',
+        UnitName = '<LOC xss0403_name>Vergra',
+        UnitWeight = 1,
+    },
+	
+    Intel = {
+		OmniRadius = 45,
+        RadarRadius = 165,
+        SonarRadius = 75,
+        VisionRadius = 44,
+        WaterVisionRadius = 18,
+    },
+	
+    Interface = {
+        HelpText = 'Medium AA Cruiser',
+    },
+	
+    LifeBarHeight = 0.22,
+    LifeBarOffset = 7,
+    LifeBarSize = 5,
+	
+    Physics = {
+        BackUpDistance = 5,
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Water = true,
+        },
+        CatchUpAcc = 10,
+        DragCoefficient = 0.2,
+        MaxAcceleration = 1.6,
+        MaxBrake = 3.2,
+        MaxSpeed = 3.8,
+        MaxSpeedReverse = 3,
+        MaxSteerForce = 4,
+        MeshExtentsX = 2,
+        MeshExtentsY = 2,
+        MeshExtentsZ = 6.25,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_Water',
+        TurnRadius = 22,
+        TurnRate = 33,
+    },
+	
+    SelectionSizeX = 2.7,
+    SelectionSizeZ = 8.3,
+    SelectionThickness = 0.13,
+	
+    SizeX = 2.5,
+    SizeY = 2.2,
+    SizeZ = 7.2,
+	
+    StrategicIconName = 'icon_experimental_ship_antiair',
+    StrategicIconSortPriority = 155,
+	
+    Veteran = {
+        Level1 = 75,
+        Level2 = 150,
+        Level3 = 250,
+        Level4 = 350,
+        Level5 = 475,
+    },
+	
+    Weapon = {
+        {
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'XSL_Weapon',
+                    Cue = 'XSL0401_Exp_Phason_Fire',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_LowArc',
+            CollideFriendly = false,
+			
+            Damage = 400,
+            DamageRadius = 2.25,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Suthanus Artillery',
+			
+            FireTargetLayerCapsTable = {
+                Water = 'Land|Water|Seabed',
+            },
+			
+            FiringTolerance = 1,
+            FiringRandomness = 0.3,
+			
+            Label = 'GroundGun',
+			
+            MaxRadius = 110,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 39,
+			
+            ProjectileId = '/projectiles/SIFSuthanusArtilleryShell02/SIFSuthanusArtilleryShell02_proj.bp',
+            ProjectileLifetime = 3.5,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Front_Turret01_Muzzle',
+                    },
+                    RackBone = 'Front_Turret01_Barrel',
+                },
+            },
+
+            RackRecoilDistance = -0.2,
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+			
+            RangeCategory = 'UWRC_DirectFire',
+			
+            RateOfFire = 1.5,		-- 600 DPS
+			
+            TargetCheckInterval = 1,
+            TargetPriorities = {
+                'EXPERIMENTAL',
+                'COMMANDER',
+				'NAVAL',
+                'DEFENSE',
+                'SPECIALHIGHPRI',
+                'ALLUNITS',	
+			},
+            TargetRestrictDisallow = 'UNTARGETABLE,WALL',
+            TrackingRadius = 1.25,
+			
+            TurretBoneMuzzle = 'Front_Turret01_Muzzle',
+            TurretBonePitch = 'Front_Turret01_Barrel',
+            TurretBoneYaw = 'Front_Turret01',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 30,
+            TurretPitchRange = 90,
+            TurretPitchSpeed = 30,
+			
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 28,
+			
+            Turreted = true,
+        },
+        {
+            AlwaysRecheckTarget = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'XSL_Weapon',
+                    Cue = 'XSL0401_SinnUnthe_Fire',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+			
+            CannotAttackGround = true,
+            CollideFriendly = false,
+			
+            Damage = 110,
+            DamageFriendly = false,
+            DamageRadius = 2,
+            DamageType = 'Normal',
+			
+            DetonatesAtTargetHeight = true,
+			
+            DisplayName = 'Losaare AA Cannon',
+			
+            FireTargetLayerCapsTable = {
+                Water = 'Air',
+            },
+			
+            FiringRandomness = 0.3,
+			FiringRandomnessWhileMoving = 0.6,
+			
+            FiringTolerance = 0.2,
+			
+            Label = 'AAGun',
+			LeadTarget = true,
+			
+            MaxRadius = 50,
+			
+            MuzzleSalvoDelay = 0.1,
+            MuzzleSalvoSize = 4,
+            MuzzleVelocity = 72,
+			
+            ProjectileId = '/projectiles/SAALosaareAutoCannon02/SAALosaareAutoCannon02_proj.bp',
+            ProjectileLifetime = 1.2,			
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Left_Turret01_Muzzle01',
+                        'Left_Turret01_Muzzle02',
+                    },
+                    RackBone = 'Left_Turret01_Barrel',
+                },
+            },
+            RackFireTogether = true,
+            RackRecoilDistance = 0,
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = true,
+			
+            RangeCategory = 'UWRC_AntiAir',
+			
+            RateOfFire = 2,			-- 880 DPS
+			RetargetOnMiss = true,
+			
+            TargetCheckInterval = 0.5,
+			
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+				'TORPEDOBOMBER',
+                'BOMBER',
+                'GROUNDATTACK',
+                'MOBILE',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+			TargetRestrictOnlyAllow = 'AIR',
+            TrackingRadius = 1.3,
+			
+            TurretBoneMuzzle = 'Left_Turret01_Muzzle01',
+            TurretBonePitch = 'Left_Turret01_Barrel',
+            TurretBoneYaw = 'Left_Turret01',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 15,
+            TurretPitchRange = 80,
+            TurretPitchSpeed = 36,
+			
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 58,
+			
+            Turreted = true,
+        },
+        {
+            AlwaysRecheckTarget = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'XSS_Weapon',
+                    Cue = 'XSS0202_Olaris_Cannon',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+            CannotAttackGround = true,
+            CollideFriendly = false,
+			
+            Damage = 110,
+			DamageRadius = 2,
+            DamageType = 'Normal',
+
+            DetonatesAtTargetHeight = true,
+			
+            DisplayName = 'Losaare AA Cannon',
+			
+            FireTargetLayerCapsTable = {
+                Water = 'Air',
+            },
+			
+            FiringRandomness = 0.3,
+			FiringRandomnessWhileMoving = 0.6,
+
+            FiringTolerance = 0.3,
+			
+            Label = 'AAGun',
+			LeadTarget = true,
+			
+            MaxRadius = 50,
+			
+            MuzzleSalvoDelay = 0.1,
+            MuzzleSalvoSize = 4,
+            MuzzleVelocity = 72,
+
+            ProjectileId = '/projectiles/SAALosaareAutoCannon02/SAALosaareAutoCannon02_proj.bp',			
+            ProjectileLifetime = 1.2,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Right_Turret01_Muzzle01',
+                        'Right_Turret01_Muzzle02',
+                    },
+                    RackBone = 'Right_Turret01_Barrel01',
+                },
+            },
+            RackFireTogether = true,
+            RackRecoilDistance = 0,
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = true,
+
+            RateOfFire = 2,		-- 880 DPS
+			RetargetOnMiss = true,
+			
+            TargetCheckInterval = 0.5,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+				'TORPEDOBOMBER',
+                'BOMBER',
+                'GROUNDATTACK',
+                'MOBILE',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+			TargetRestrictOnlyAllow = 'AIR',
+            TrackingRadius = 1.3,
+			
+            TurretBoneMuzzle = 'Right_Turret01_Muzzle01',
+            TurretBonePitch = 'Right_Turret01_Barrel01',
+            TurretBoneYaw = 'Right_Turret01',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 15,
+            TurretPitchRange = 80,
+            TurretPitchSpeed = 33,
+			
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 58,
+			
+            Turreted = true,
+        },
+        {
+            Audio = {
+                Fire = Sound {
+                    Bank = 'XSS_Weapon',
+                    Cue = 'XSS0202_Eleathrun_TMD',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+            CollideFriendly = false,
+			
+            Damage = 2,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Ele-athrun Tactical Missile Defense',
+			
+            FireTargetLayerCapsTable = {
+                Water = 'Air',
+            },
+			
+            FiringTolerance = 1,
+			
+            Label = 'TMD',
+			
+            MaxRadius = 30,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 60,
+			
+            ProjectileId = '/projectiles/SIMAntiMissile02/SIMAntiMissile02_proj.bp',
+            ProjectileLifetimeUsesMultiplier = 1,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Front_Turret01_Muzzle',
+                    },
+                    RackBone = 'Front_Turret01_Barrel',
+                },
+            },
+            RackFireTogether = false,
+            RackRecoilDistance = 0,
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+			
+            RangeCategory = 'UWRC_Countermeasure',
+			
+            RateOfFire = 1.1,
+            TargetCheckInterval = 0.4,
+			
+            TargetRestrictDisallow = 'UNTARGETABLE,STRATEGIC',
+            TargetRestrictOnlyAllow = 'TACTICAL,MISSILE',
+			
+            TargetType = 'RULEWTT_Projectile',
+            TrackingRadius = 1.3,
+			
+            TurretBoneMuzzle = 'Front_Turret01_Muzzle',
+            TurretBonePitch = 'Front_Turret01_Barrel',
+            TurretBoneYaw = 'Front_Turret01',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 90,
+            TurretPitchSpeed = 180,
+			
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 130,
+			
+            Turreted = true,
+        },
+    },
+}

@@ -1,0 +1,22 @@
+UnitBlueprint {
+	Merge = true,
+	BlueprintId = "ueb1303", --UEF T3 Mass Fabricator
+    Economy = {
+        BuildRate = 20,
+        BuildableCategory = {
+            'ueb1305',
+        },
+        RebuildBonusIds = {
+            'ueb1303',
+            'ueb1305',
+        },
+    },
+    General = {
+	CapCost = 4,
+        CommandCaps = {
+            RULEUCC_Pause = true,
+            RULEUCC_Stop = true,
+        },
+        UpgradesTo = 'ueb1305',
+    },
+}

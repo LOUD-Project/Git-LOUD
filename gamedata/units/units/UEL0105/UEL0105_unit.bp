@@ -38,14 +38,17 @@ UnitBlueprint {
     },
     CollisionOffsetY = -0.25,
     CollisionOffsetZ = -0.1,
+    
     Defense = {
         ArmorType = 'Normal',
-        EconomyThreatLevel = 9,		-- BuildRate + 3% of health
-        Health = 150,
-        MaxHealth = 150,
+        EconomyThreatLevel = 24,		-- BuildRate * 2 + 10% of health
+        Health = 145,
+        MaxHealth = 145,
         RegenRate = 0,
     },
+    
     Description = '<LOC uel0105_desc>T1 Engineer',
+    
     Display = {
         AnimationBuild = '/units/UEL0105/uel0105_aopen.sca',
         AnimationBuildRate = 5,
@@ -72,14 +75,14 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 330,
-        BuildCostMass = 70,
+        BuildCostEnergy = 400,
+        BuildCostMass = 90,
         BuildRate = 5,
         BuildTime = 325,
 		
         BuildableCategory = {'BUILTBYTIER1ENGINEER UEF',},
 		
-        MaxBuildDistance = 3,
+        MaxBuildDistance = 2.9,
 		
         StorageEnergy = 25,
         StorageMass = 5,
@@ -97,19 +100,15 @@ UnitBlueprint {
         Category = 'Construction',
         Classification = 'RULEUC_Engineer',
         CommandCaps = {
-            RULEUCC_Attack = false,
             RULEUCC_CallTransport = true,
             RULEUCC_Capture = true,
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
-            RULEUCC_Nuke = false,
             RULEUCC_Patrol = true,
             RULEUCC_Pause = true,
             RULEUCC_Reclaim = true,
             RULEUCC_Repair = true,
-            RULEUCC_RetaliateToggle = false,
             RULEUCC_Stop = true,
-            RULEUCC_Transport = false,
         },
         ConstructionBar = true,
         FactionName = 'UEF',
@@ -137,15 +136,11 @@ UnitBlueprint {
         BackUpDistance = 4,
         BankingSlope = 0,
         BuildOnLayerCaps = {
-            LAYER_Air = false,
             LAYER_Land = true,
-            LAYER_Orbit = false,
-            LAYER_Seabed = false,
-            LAYER_Sub = false,
             LAYER_Water = true,
         },
         DragCoefficient = 0.2,
-        MaxAcceleration = 1.7,
+        MaxAcceleration = 1.4,
         MaxBrake = 1.7,
         MaxSpeed = 1.7,
         MaxSpeedReverse = 1.5,

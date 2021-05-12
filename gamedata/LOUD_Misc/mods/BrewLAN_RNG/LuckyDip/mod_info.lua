@@ -1,0 +1,11 @@
+name = "Lucky Dip"
+uid = "25D57D85-7D84-27HT-A502-LDIPS0000002"
+version = 0.2
+copyright = "© 2015–2018 Sean Wheeldon"
+description = "A BrewLAN RNG mutator mod: for select similar LOUD mod-pack units, you get one at random. Does nothing unless at least one of the LOUD Standard unit mods is enabled."
+author = "Balthazar"
+selectable = true
+enabled = true
+exclusive = false
+ui_only = false
+icon = '/mods/BrewLAN_RNG/folder.png'

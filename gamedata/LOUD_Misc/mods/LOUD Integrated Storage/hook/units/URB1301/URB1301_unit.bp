@@ -1,0 +1,25 @@
+UnitBlueprint {
+	Merge = true,
+	BlueprintId = "urb1301", --Cybran T3 Energy
+    Economy = {
+        BuildRate = 25,
+        BuildableCategory = {
+            'urb1306',
+        },
+        RebuildBonusIds = {
+            'urb1301',
+            'urb1306',
+        },
+		StorageEnergy = 2500,		
+
+    },
+	
+    General = {
+
+        CommandCaps = {
+            RULEUCC_Pause = true,
+            RULEUCC_Stop = true,
+        },
+        UpgradesTo = 'urb1306',
+    },
+}

@@ -14,10 +14,13 @@ function MarkerToPosition(strMarker)
 end
 
 function AreaToRect(strArea)
+
     local area = ScenarioInfo.Env.Scenario.Areas[strArea]
+    
     if not area then
         error('ERROR: Invalid area name')
     end
+    
     local rectangle = area.rectangle
     return Rect(rectangle[1],rectangle[2],rectangle[3],rectangle[4])
 end
@@ -97,7 +100,7 @@ function CreateResources()
 	local Armies = ListArmies()
 	local Starts = {}
 	
-	--LOG("*AI DEBUG Armies is "..repr(Armies))
+	LOG("*AI DEBUG Armies is "..repr(ArmyBrains))
 	
 	for x = 1, 16 do
 		if GetMarker('ARMY_'..x) then
@@ -105,11 +108,9 @@ function CreateResources()
 		end
 	end
 	
-	--LOG("*AI DEBUG Start positions are "..repr(Starts))
+	LOG("*AI DEBUG Start positions are "..repr(Starts))
 	
 	local doit_value = tonumber(ScenarioInfo.Options.UnusedResources) or 1
-	
-	--LOG("*AI DEBUG Unused Start Resources value is "..doit_value)
 	
     for i, tblData in pairs(markers) do
 	
@@ -132,6 +133,20 @@ function CreateResources()
 			for x = 1, table.getn(Starts) do
 			
 				local armyposition = MarkerToPosition(Starts[x])
+                
+                local AI = false
+                
+                for _, brain in ArmyBrains do
+                
+                    if brain.Name == Starts[x] then
+                    
+                        if brain.BrainType == 'AI' then
+                        
+                            AI = true
+
+                        end
+                    end
+                end
 				
 				-- if the resource is within 55 of a start position it should be examined for removal
 				if VDist2(armyposition[1],armyposition[3], tblData.position[1], tblData.position[3]) < 55 then
@@ -153,68 +168,76 @@ function CreateResources()
 					
 						-- Give me a log when a mass point is too close to a start position and needs to be moved
 						-- only 4 points are permitted at a range of 36 - all others will be 55 or greater
-						-- those closer than 37 will be put at 36 from the start - those greater than 37 will be pushed out to 55
-						if doit and VDist2(armyposition[1],armyposition[3], tblData.position[1], tblData.position[3]) > 37 then
+						-- those closer than 37.6 will be put at 36 from the start - those greater than 37 will be pushed out to 55
+						if doit and VDist2(armyposition[1],armyposition[3], tblData.position[1], tblData.position[3]) > 37.6 then
+                        
+                            if ScenarioInfo.Options.RelocateResources == 'on' or AI then
 					
-							LOG("*AI DEBUG Mass Point at distance "..VDist2(armyposition[1],armyposition[3], tblData.position[1], tblData.position[3]).." - Position "..repr(tblData.position).." too close (55) to Start position")
+                                --LOG("*AI DEBUG Mass Point at distance "..VDist2(armyposition[1],armyposition[3], tblData.position[1], tblData.position[3]).." - Position "..repr(tblData.position).." too close (55) to Start position")
 						
-							if tblData.position[1] < armyposition[1] then
+                                if tblData.position[1] < armyposition[1] then
 							
-								tblData.position[1] = armyposition[1] - 39
+                                    tblData.position[1] = armyposition[1] - 39
 							
-							elseif tblData.position[1] >= armyposition[1] then
+                                elseif tblData.position[1] >= armyposition[1] then
 						
-								tblData.position[1] = armyposition[1] + 39
+                                    tblData.position[1] = armyposition[1] + 39
 							
-							end
+                                end
 						
-							if tblData.position[3] < armyposition[3] then
+                                if tblData.position[3] < armyposition[3] then
 						
-								tblData.position[3] = armyposition[3] - 39
+                                    tblData.position[3] = armyposition[3] - 39
 							
-							elseif tblData.position[3] >= armyposition[3] then
+                                elseif tblData.position[3] >= armyposition[3] then
 						
-								tblData.position[3] = armyposition[3] + 39
+                                    tblData.position[3] = armyposition[3] + 39
 							
-							end
+                                end
 						
-							tblData.position[2] = GetTerrainHeight( tblData.position[1], tblData.position[3] )
+                                tblData.position[2] = GetTerrainHeight( tblData.position[1], tblData.position[3] )
 						
-							LOG("*AI DEBUG Mass Point moved to "..repr(tblData.position))
+                                LOG("*AI DEBUG Mass Point moved to 55 "..repr(tblData.position))
 							
-							tblData.hint = true
+                                tblData.hint = true
+                            
+                            end
 
 						elseif doit then
+                        
+                            if ScenarioInfo.Options.RelocateResources == 'on' or AI then
 					
-							LOG("*AI DEBUG Mass Point at distance "..VDist2(armyposition[1],armyposition[3], tblData.position[1], tblData.position[3]).." - Position "..repr(tblData.position).." too near to Start position")
+                                --LOG("*AI DEBUG Mass Point at distance "..VDist2(armyposition[1],armyposition[3], tblData.position[1], tblData.position[3]).." - Position "..repr(tblData.position).." too near to Start position")
 						
-							-- fix the X co-ordinate 
-							if tblData.position[1] < armyposition[1] then
+                                -- fix the X co-ordinate 
+                                if tblData.position[1] < armyposition[1] then
 						
-								tblData.position[1] = armyposition[1] - 25
+                                    tblData.position[1] = armyposition[1] - 25
 							
-							elseif tblData.position[1] >= armyposition[1] then
+                                elseif tblData.position[1] >= armyposition[1] then
 						
-								tblData.position[1] = armyposition[1] + 25
+                                    tblData.position[1] = armyposition[1] + 25
 							
-							end
+                                end
 						
-							-- fix the Y co-ordinate
-							if tblData.position[3] < armyposition[3] then
+                                -- fix the Y co-ordinate
+                                if tblData.position[3] < armyposition[3] then
 						
-								tblData.position[3] = armyposition[3] - 25
+                                    tblData.position[3] = armyposition[3] - 25
 							
-							elseif tblData.position[3] >= armyposition[3] then
+                                elseif tblData.position[3] >= armyposition[3] then
 						
-								tblData.position[3] = armyposition[3] + 25
+                                    tblData.position[3] = armyposition[3] + 25
 							
-							end
+                                end
 						
-							tblData.position[2] = GetTerrainHeight( tblData.position[1], tblData.position[3] )
+                                tblData.position[2] = GetTerrainHeight( tblData.position[1], tblData.position[3] )
 						
-							LOG("*AI DEBUG Mass Point moved to "..repr(tblData.position))
+                                LOG("*AI DEBUG Mass Point moved to 35 "..repr(tblData.position))
 							
-							tblData.hint = true
+                                tblData.hint = true
+                                
+                            end
 						
 						end
 						
@@ -342,12 +365,16 @@ function CreateResources()
         end
 
     end
+
+    ScenarioInfo.Options.RelocateResources = nil
 	
 	LOG("*AI DEBUG Created Resources and used "..( (gcinfo() - memstart)*1024 ).." bytes")
 	
 end
 
 function InitializeArmies()
+
+    local loudUtils = import('/lua/loudutilities.lua')
 
     ScenarioInfo.biggestTeamSize = 0
     
@@ -369,8 +396,13 @@ function InitializeArmies()
                 Opponents = Opponents + 1
             end
             
-        end
-    
+		end
+		
+		local color = ScenarioInfo.ArmySetup[self.Name].WheelColor
+		SetArmyColor(self.ArmyIndex, color[1], color[2], color[3])
+		-- Don't need WheelColor anymore, so delete it
+		ScenarioInfo.ArmySetup[self.Name].WheelColor = nil
+		
         -- number of Opponents in the game
         self.NumOpponents = Opponents
         
@@ -393,14 +425,29 @@ function InitializeArmies()
             return
         end
 
+        if ScenarioInfo.Options.AIResourceSharing == 'off' then
+            self:SetResourceSharing(false)
+        elseif ScenarioInfo.Options.AIResourceSharing == 'aiOnly' then
+            local allPlayersAI = true
+            for i, playerInfo in ArmyBrains do
+                -- If this AI is allied to a human, disable resource sharing
+                if IsAlly(i, self.ArmyIndex) and playerInfo.BrainType == 'Human' then
+                    self:SetResourceSharing(false)
+                    break
+                end
+            end
+        else
+            self:SetResourceSharing(true)
+        end
+
 		-- build table of scout locations and set some starting threat at all enemy locations
-		import('/lua/loudutilities.lua').BuildScoutLocations(self)
+		loudUtils.BuildScoutLocations(self)
 
         -- Create the Condition monitor
         self.ConditionsMonitor = import('/lua/sim/BrainConditionsMonitor.lua').CreateConditionsMonitor(self)
 
         -- Create the Economy Data structures and start Economy monitor thread
-        self:ForkThread1(import('/lua/loudutilities.lua').EconomyMonitor)
+        self:ForkThread1(loudUtils.EconomyMonitor)
 		
         -- Base counters
         self.NumBases = 0
@@ -420,10 +467,10 @@ function InitializeArmies()
 
 		-- set the base radius according to map size -- affects platoon formation radius and base alert radius
 		local mapSizex = ScenarioInfo.size[1]
-		local BuilderRadius = math.max(100, (mapSizex/16))	#-- should give a range between 100 and 256+
-		local BuilderRadius = math.min(BuilderRadius, 140)	#-- and then limit it to no more than 140
+		local BuilderRadius = math.max(100, (mapSizex/16)) -- should give a range between 100 and 256+
+		local BuilderRadius = math.min(BuilderRadius, 140) -- and then limit it to no more than 140
 		
-		local RallyPointRadius = 49		#-- create automatic rally points at 49 from centre
+		local RallyPointRadius = 49	-- create automatic rally points at 49 from centre
 		
 		-- Set the NeedTransports flag -- used when the AI tries to air transport units and cannot find enough transport
 		-- this brings factory platoons online to build more (more than standard)
@@ -435,7 +482,7 @@ function InitializeArmies()
 		self.BaseExpansionUnderway = false
 		
 		-- level AI starting locations
-		--import('/lua/loudutilities.lua').LevelStartBaseArea(self:GetStartVector3f(), RallyPointRadius )
+		--loudUtils.LevelStartBaseArea(self:GetStartVector3f(), RallyPointRadius )
 		
         -- Create the Builder Managers for the MAIN base
         self:AddBuilderManagers(self:GetStartVector3f(), BuilderRadius, 'MAIN', false, RallyPointRadius, true, 'FRONT')
@@ -485,26 +532,23 @@ function InitializeArmies()
 		
 
 		-- Start the Dead Base Monitor
-		self:ForkThread1( import('/lua/loudutilities.lua').DeadBaseMonitor )
+		self:ForkThread1( loudUtils.DeadBaseMonitor )
 		
         -- Start the Enemy Picker
-        self:ForkThread1( import('/lua/loudutilities.lua').PickEnemy )
+        self:ForkThread1( loudUtils.PickEnemy )
 		
 		-- Start the Path Generator
-		self:ForkThread1( import('/lua/loudutilities.lua').PathGeneratorThread )
+		self:ForkThread1( loudUtils.PathGeneratorThread )
 		
         -- start PlatoonDistressMonitor
-        self:ForkThread1( import('/lua/loudutilities.lua').PlatoonDistressMonitor )
+        self:ForkThread1( loudUtils.PlatoonDistressMonitor )
 
 		-- start watching the intel data
-		self:ForkThread1( import('/lua/loudutilities.lua').ParseIntelThread )
+		self:ForkThread1( loudUtils.ParseIntelThread )
 
 		-- record the starting unit cap	
 		-- caps of 1000+ trigger some conditions
 		self.StartingUnitCap = GetArmyUnitCap(self.ArmyIndex)
-		
-		-- turn on resource sharing
-		self:SetResourceSharing(true)
 		
 		--3+ Teams Unit Cap Fix : Determine team size of current army,
 		-- if it is bigger than what was previously recorded, this is the new
@@ -588,7 +632,7 @@ function InitializeArmies()
 			
 			-- if this is an AI (but not civilian)        
             if GetArmyBrain(strArmy).BrainType == 'AI' and (not armyIsCiv) then
-                import('/lua/loudutilities.lua').AddCustomUnitSupport(GetArmyBrain(strArmy))
+                loudUtils.AddCustomUnitSupport(GetArmyBrain(strArmy))
             end
             
             SetArmyEconomy( strArmy, tblData.Economy.mass, tblData.Economy.energy)
@@ -643,7 +687,11 @@ function InitializeArmies()
 				
             end
 		end
-	end	
+    end
+    
+    loudUtils.StartAdaptiveCheatThreads()
+
+    ScenarioInfo.Options.AIResourceSharing = nil
     
     return tblGroups
 	
@@ -788,7 +836,7 @@ function CreateArmyGroup(strArmy,strGroup,wreckage, balance)
     end
     if wreckage then
         for num, unit in tblResult do
-            unit:CreateWreckageProp()
+            unit:CreateWreckageProp(0, 1800)
             unit:Destroy()
         end
         return

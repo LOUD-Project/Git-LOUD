@@ -190,7 +190,7 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval',
         },
     },
 
-    Builder {BuilderName = 'T2 Sub - Sera',	-- T1 Submarine - no T2 sub for sera
+    Builder {BuilderName = 'T2 Sub - Sera',
 	
         PlatoonTemplate = 'T2SeaSub',
 		

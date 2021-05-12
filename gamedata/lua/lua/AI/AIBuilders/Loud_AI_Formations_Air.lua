@@ -284,16 +284,17 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 		PlatoonAIPlan = 'AttackForceAI_Bomber',		
 		
         Priority = 700,
-        InstanceCount = 4,
+        InstanceCount = 3,
 		
         BuilderConditions = {
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.HIGHALTAIR * categories.BOMBER }},
         },
 		
         BuilderData = {
-			DistressRange = 100,
+			DistressRange = 150,
+            DistressReactionTime = 8,
 			DistressTypes = 'Land',
-			DistressThreshold = 5,
+			DistressThreshold = 4,
 			
 			LocationType = 'LocationType',
 			
@@ -303,9 +304,43 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			
             PrioritizedCategories = {categories.ENGINEER, categories.MOBILE - categories.AIR},
 			
-			SearchRadius = 30,	
+			SearchRadius = 40,	
 			
             UseFormation = 'AttackFormation',
+        },
+		
+        BuilderType = 'Any',
+    },
+    
+    -- specifically hunts engineers at long range
+    Builder {BuilderName = 'Hunt Bombers Engineers',
+	
+        PlatoonTemplate = 'BomberAttack Small',
+        
+		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'} },
+
+		PlatoonAIPlan = 'AttackForceAI_Bomber',		
+		
+        Priority = 720,
+        InstanceCount = 1,
+		
+        BuilderConditions = {
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.HIGHALTAIR * categories.BOMBER }},
+        },
+		
+        BuilderData = {
+
+			LocationType = 'LocationType',
+			
+            MergeLimit = false,     -- no merging for this platoon
+			
+            MissionTime = 140,
+			
+            PrioritizedCategories = {categories.ENGINEER, categories.MASSPRODUCTION - categories.TECH3},
+			
+			SearchRadius = 180,	
+			
+            UseFormation = 'Growth',
         },
 		
         BuilderType = 'Any',
@@ -334,7 +369,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         },
 		
         BuilderData = {
-			DistressRange = 150,
+			DistressRange = 180,
+            DistressReactionTime = 8,            
 			DistressTypes = 'Land',
 			DistressThreshold = 10,
 			
@@ -375,12 +411,13 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         BuilderConditions = {
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.HIGHALTAIR * categories.BOMBER }},
 
-			-- enemy targets with 8km
+			-- enemy targets within 8km
 			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType', 0, categories.MASSPRODUCTION + categories.ENGINEER + categories.ECONOMIC, 400 }},            
         },
 		
         BuilderData = {
-			DistressRange = 150,
+			DistressRange = 200,
+            DistressReactionTime = 8,            
 			DistressTypes = 'Land',
 			DistressThreshold = 10,
 			
@@ -392,7 +429,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			
             PrioritizedCategories = { categories.MASSPRODUCTION, categories.ENGINEER, categories.ECONOMIC },
 			
-			SearchRadius = 60,
+			SearchRadius = 75,
 			
             UseFormation = 'AttackFormation',
         },
@@ -437,13 +474,20 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 		
         BuilderData = {
 			DistressRange = 220,
+            DistressReactionTime = 8,            
 			DistressTypes = 'Land',
 			DistressThreshold = 20,
+            
 			LocationType = 'LocationType',
+            
             MergeLimit = 64,
+            
             MissionTime = 240,
+            
             PrioritizedCategories = {categories.COMMAND, categories.SUBCOMMANDER, categories.SHIELD, categories.MOBILE - categories.AIR, categories.MASSEXTRACTION, categories.FACTORY, categories.ECONOMIC - categories.TECH1},
+            
 			SearchRadius = 125,
+            
             UseFormation = 'AttackFormation',
         },
 		
@@ -563,7 +607,6 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         BuilderType = 'Any',        
     },
 
-
     Builder {BuilderName = 'Hunt Bombers - Artillery',
 	
         PlatoonTemplate = 'BomberAttack Super',
@@ -631,14 +674,13 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			LocationType = 'LocationType',
             MergeLimit = 50,
             MissionTime = 400,
-            PrioritizedCategories = { (categories.OPTICS) * categories.STRUCTURE},
+            PrioritizedCategories = { (categories.OPTICS) * categories.STRUCTURE, categories.INTELLIGENCE * categories.STRUCTURE},
 			SearchRadius = 850,
             UseFormation = 'AttackFormation',
         },
 		
         BuilderType = 'Any',		
     },
-
 
     Builder {BuilderName = 'Hunt Bombers - Economic Experimental',
 	
@@ -740,7 +782,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         },
 		
         BuilderData = {
-			DistressRange = 120,
+			DistressRange = 140,
+            DistressReactionTime = 8,            
 			DistressTypes = 'Air',
 			DistressThreshold = 4,
 			
@@ -750,9 +793,9 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			
             MissionTime = 90,
 			
-            PrioritizedCategories = { categories.AIR - categories.INTELLIGENCE - categories.TRANSPORTFOCUS },
+            PrioritizedCategories = { categories.AIR - categories.INTELLIGENCE - categories.TRANSPORTFOCUS, categories.TRANSPORTFOCUS },
 			
-			SearchRadius = 40,	
+			SearchRadius = 45,	
 			
             UseFormation = 'AttackFormation',
         },
@@ -761,7 +804,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
     },
 
     -- upto 12 ASF for local air defense against Spy Planes
-    Builder {BuilderName = 'Hunt Fighters Defensive - Intel Only',
+    Builder {BuilderName = 'Hunt Fighters Defensive - Intel First',
 	
         PlatoonTemplate = 'FighterAttack Small',
         
@@ -781,7 +824,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         },
 		
         BuilderData = {
-			DistressRange = 120,
+			DistressRange = 150,
+            DistressReactionTime = 8,            
 			DistressTypes = 'Air',
 			DistressThreshold = 4,
 			
@@ -791,9 +835,9 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			
             MissionTime = 90,
 			
-            PrioritizedCategories = { categories.AIR * categories.INTELLIGENCE },
+            PrioritizedCategories = { categories.AIR * categories.INTELLIGENCE, categories.TRANSPORTFOCUS },
 			
-			SearchRadius = 45,	
+			SearchRadius = 55,	
 			
             UseFormation = 'AttackFormation',
         },
@@ -802,7 +846,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
     },
 
     -- upto 12 ASF for local air defense against Transports
-    Builder {BuilderName = 'Hunt Fighters Defensive - Transport Only',
+    Builder {BuilderName = 'Hunt Fighters Defensive - Transport First',
 	
         PlatoonTemplate = 'FighterAttack Small',
         
@@ -822,7 +866,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         },
 		
         BuilderData = {
-			DistressRange = 120,
+			DistressRange = 160,
+            DistressReactionTime = 8,            
 			DistressTypes = 'Air',
 			DistressThreshold = 4,
 			
@@ -832,9 +877,9 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			
             MissionTime = 90,
 			
-            PrioritizedCategories = {categories.AIR * categories.TRANSPORTFOCUS },
+            PrioritizedCategories = { categories.TRANSPORTFOCUS, categories.AIR * categories.INTELLIGENCE },
 			
-			SearchRadius = 45,	
+			SearchRadius = 55,	
 			
             UseFormation = 'AttackFormation',
         },
@@ -866,7 +911,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         },
 		
         BuilderData = {
-			DistressRange = 140,
+			DistressRange = 180,
+            DistressReactionTime = 8,            
 			DistressTypes = 'Air',
 			DistressThreshold = 8,
 			
@@ -876,9 +922,9 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			
             MissionTime = 150,
 			
-            PrioritizedCategories = { categories.MOBILE * categories.AIR},
+            PrioritizedCategories = { categories.MOBILE * categories.AIR, categories.TRANSPORTFOCUS},
 			
-			SearchRadius = 60,
+			SearchRadius = 70,
 			
             UseFormation = 'AttackFormation',
         },
@@ -909,7 +955,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         },
 		
         BuilderData = {
-			DistressRange = 200,
+			DistressRange = 220,
+            DistressReactionTime = 8,            
 			DistressTypes = 'Air',
 			DistressThreshold = 12,
             
@@ -919,9 +966,9 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
             
             MissionTime = 200,
             
-            PrioritizedCategories = { categories.MOBILE * categories.AIR * categories.EXPERIMENTAL, categories.MOBILE * categories.AIR - categories.INTELLIGENCE },
+            PrioritizedCategories = { categories.MOBILE * categories.AIR * categories.EXPERIMENTAL, categories.MOBILE * categories.AIR - categories.INTELLIGENCE, categories.TRANSPORTFOCUS },
             
-			SearchRadius = 80,
+			SearchRadius = 90,
             
             UseFormation = 'AttackFormation',
         },
@@ -952,7 +999,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         },
 		
         BuilderData = {
-			DistressRange = 90,
+			DistressRange = 100,
+            DistressReactionTime = 30,            
 			DistressTypes = 'Land',
 			DistressThreshold = 5,
 			
@@ -997,7 +1045,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         },
 		
         BuilderData = {
-			DistressRange = 120,
+			DistressRange = 140,
+            DistressReactionTime = 30,            
 			DistressTypes = 'Land',
 			DistressThreshold = 10,
 			
@@ -1043,7 +1092,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         },
 		
         BuilderData = {
-			DistressRange = 165,
+			DistressRange = 185,
+            DistressReactionTime = 30,            
 			DistressTypes = 'Land',
 			DistressThreshold = 9,
 			
@@ -1087,7 +1137,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         },
 		
         BuilderData = {
-			DistressRange = 180,
+			DistressRange = 210,
+            DistressReactionTime = 30,            
 			DistressTypes = 'Land',
 			DistressThreshold = 15,
             
@@ -1614,7 +1665,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
         
 		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'} },
 		
-		PlatoonAddPlans = { 'DistressResponseAI' },
+		PlatoonAddPlans = { 'PlatoonCallForHelpAI', 'DistressResponseAI' },
 		
 		PlatoonAIPlan = 'AttackForceAI_Torpedo',		
 		
@@ -1626,7 +1677,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
         },
 		
         BuilderData = {
-			DistressRange = 120,
+			DistressRange = 140,
+            DistressReactionTime = 25,            
 			DistressTypes = 'Naval',
 			DistressThreshold = 4,
 			
@@ -1652,7 +1704,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
         
 		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'} },
 		
-		PlatoonAddPlans = { 'DistressResponseAI' },
+		PlatoonAddPlans = { 'PlatoonCallForHelpAI', 'DistressResponseAI' },
 		
 		PlatoonAIPlan = 'AttackForceAI_Torpedo',
 
@@ -1667,7 +1719,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
         },
 		
         BuilderData = {
-			DistressRange = 150,
+			DistressRange = 175,
+            DistressReactionTime = 25,            
 			DistressTypes = 'NaVal',
 			DistressThreshold = 8,
 			
@@ -1693,7 +1746,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
         
 		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'} },
 		
-		PlatoonAddPlans = { 'DistressResponseAI' },
+		PlatoonAddPlans = { 'PlatoonCallForHelpAI', 'DistressResponseAI' },
 		
 		PlatoonAIPlan = 'AttackForceAI_Torpedo',
 
@@ -1708,7 +1761,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
         },
 		
         BuilderData = {
-			DistressRange = 220,
+			DistressRange = 225,
+            DistressReactionTime = 25,            
 			DistressTypes = 'NaVal',
 			DistressThreshold = 8,
 			
@@ -1777,6 +1831,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
         PlatoonTemplate = 'TorpedoBomberAttack',
 		
 		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'} },
+		
+		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
 		
 		PlatoonAIPlan = 'AttackForceAI_Torpedo',
 		
@@ -1857,6 +1913,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 		
 		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, },
 		
+		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
+        
         InstanceCount = 2,
 	
         Priority = 10,
@@ -1901,7 +1959,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
         BuilderData = {
             AvoidBases = true,      -- don't seek points with a base managers radius --
 
-			DistressRange = 200,
+			DistressRange = 240,
+            DistressReactionTime = 8,            
 			DistressTypes = 'Air',
 			DistressThreshold = 16,
 			
@@ -2038,7 +2097,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
         BuilderData = {
             AvoidBases = false,      -- we always want our torpedo bombers out there --
             
-			DistressRange = 150,
+			DistressRange = 200,
+            DistressReactionTime = 30,            
 			DistressTypes = 'Naval',
 			DistressThreshold = 8,
             
@@ -2121,7 +2181,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Experimentals',
         },
 		
         BuilderData = {
-			DistressRange = 200,
+			DistressRange = 250,
+            DistressReactionTime = 30,
 			DistressTypes = 'Land',
 			DistressThreshold = 15,
             MergeLimit = 6,
@@ -2162,7 +2223,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Experimentals',
         },
 		
         BuilderData = {
-			DistressRange = 200,
+			DistressRange = 250,
+            DistressReactionTime = 30,            
 			DistressTypes = 'Land',
 			DistressThreshold = 15,
             MergeLimit = 6,

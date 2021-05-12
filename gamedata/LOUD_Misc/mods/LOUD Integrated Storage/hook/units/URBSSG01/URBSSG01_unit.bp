@@ -1,0 +1,22 @@
+UnitBlueprint {
+	Merge = true,
+	BlueprintId = "urbssg01", --Cybran T4 Shield
+    Economy = {
+        BuildRate = 25,
+        BuildableCategory = {
+            'urbssg02',
+        },
+        RebuildBonusIds = {
+            'urbssg01',
+            'urbssg02',
+        },
+    },
+    General = {
+		CapCost = 10,
+        CommandCaps = {
+            RULEUCC_Pause = true,
+            RULEUCC_Stop = true,
+        },
+        UpgradesTo = 'urbssg02',
+    },
+}

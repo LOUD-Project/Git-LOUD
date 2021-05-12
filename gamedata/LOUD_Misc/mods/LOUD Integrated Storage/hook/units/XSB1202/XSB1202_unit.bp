@@ -1,0 +1,25 @@
+UnitBlueprint {
+	Merge = true,
+	BlueprintId = "xsb1202",	-- T2 Mass Extractor
+
+    Economy = {
+	
+        MaintenanceConsumptionPerSecondEnergy = 48,
+		
+        RebuildBonusIds = {
+            'xsb1202',
+            'xsb1302',
+            'xsb1304',
+        },
+		StorageMass = 120,
+    },
+    General = {
+
+        CommandCaps = {
+            RULEUCC_Pause = true,
+            RULEUCC_Stop = true,
+        },
+
+    },
+
+}

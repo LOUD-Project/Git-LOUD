@@ -1,0 +1,21 @@
+UnitBlueprint {
+	Merge = true,
+	BlueprintId = "urb4207", --Cybran T2 ED5 Shield
+    Economy = {
+        BuildRate = 20,
+        BuildableCategory = {
+            'urb4303',
+        },
+        RebuildBonusIds = {
+            'urb4207',
+            'urb4303',
+        },
+    },
+    General = {
+        CommandCaps = {
+            RULEUCC_Pause = true,
+            RULEUCC_Stop = true,
+        },
+        UpgradesTo = 'urb4303',
+    },
+}

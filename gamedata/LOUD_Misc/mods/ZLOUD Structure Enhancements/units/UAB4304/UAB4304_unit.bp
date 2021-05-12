@@ -1,0 +1,209 @@
+UnitBlueprint {
+
+    Audio = {
+        DeathExplosion = Sound {
+            Bank = 'UALDestroy',
+            Cue = 'UAB_Destroy_Lrg_PreDestroy',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Destroyed = Sound {
+            Bank = 'UALDestroy',
+            Cue = 'UAB_Destroy_Huge',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'Aeon_Select_Radar',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+	
+    BuildIconSortPriority = 200,
+	
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER3ENGINEER',
+        'BUILTBYTIER3COMMANDER',
+        'AEON',
+        'STRUCTURE',
+        'TECH3',
+        'COUNTERINTELLIGENCE',
+		'ANTITELEPORT',
+        'SIZE12',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'OVERLAYCOUNTERINTEL',
+        'SORTINTEL',
+    },
+	
+    CollisionOffsetY = -0.25,
+	
+    Defense = {
+        ArmorType = 'Structure',
+        EconomyThreatLevel = 18,
+        Health = 1025,
+        MaxHealth = 1025,
+        RegenRate = 2,
+		NoTeleDistance = 55,
+    },
+	
+    Description = '<LOC uab4304_desc>Adv Stealth Field Generator',
+	
+    Display = {
+        Abilities = {
+			'Aquatic',
+            'Large Stealth Field',
+			'Anti Teleport Field',
+        },
+		
+        AnimationOpen = '/units/UAB4203/UAB4203_Aopen.sca',
+		
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 100,
+                    ShaderName = 'Aeon',
+                    MeshName = '/units/UAB4203/UAB4203_LOD0.scm',
+                    AlbedoName = '/units/UAB4203/UAB4203_Albedo.dds',
+                    NormalsName = '/units/UAB4203/UAB4203_NormalsTS.dds',
+                    SpecularName = '/units/UAB4203/UAB4203_SpecTeam.dds',
+                },
+                {
+                    LODCutoff = 215,
+                    ShaderName = 'Aeon',
+                    MeshName = '/units/UAB4203/UAB4203_LOD1.scm',
+                    AlbedoName = '/units/UAB4203/UAB4203_lod1_Albedo.dds',
+                    NormalsName = '/units/UAB4203/UAB4203_lod1_normalsTS.dds',
+                    SpecularName = '/units/UAB4203/UAB4203_lod1_SpecTeam.dds',
+                },
+            },
+        },
+
+        SpawnRandomRotation = true,
+        Tarmacs = {
+            {
+                Albedo = 'Tarmacs/Tar8x_aeon_01_albedo',
+                DeathLifetime = 300,
+                FadeOut = 150,
+                Length = 12.8,
+                Normal = 'Tarmacs/Tar8x_aeon_01_normals',
+                Orientations = {
+                    0,
+                    90,
+                    180,
+                    270,
+                },
+                RemoveWhenDead = false,
+                Width = 12.8,
+            },
+        },
+        UniformScale = 1.9,
+    },
+	
+    Economy = {
+	
+        BuildCostEnergy = 12000,
+        BuildCostMass = 800,
+        BuildTime = 750,
+		
+        MaintenanceConsumptionPerSecondEnergy = 350,
+		
+        RebuildBonusIds = { 'uab4304' },
+		
+    },
+	
+    Footprint = {
+        SizeX = 3,
+        SizeZ = 3,
+    },
+	
+    General = {
+        Category = 'Intelligence',
+        Classification = 'RULEUC_CounterMeasure',
+        FactionName = 'Aeon',
+        Icon = 'amph',
+        OrderOverrides = {
+            RULEUTC_StealthToggle = {
+                bitmapId = 'stealth-field',
+                helpText = 'toggle_stealth_field',
+            },
+        },
+        SelectionPriority = 5,
+        TechLevel = 'RULEUTL_Advanced',
+        ToggleCaps = {
+            RULEUTC_StealthToggle = true,
+        },
+        UnitName = '<LOC uab4304_name>Shador',
+        UnitWeight = 1,
+		UpgradesFrom = 'uab4203',
+    },
+	
+    Intel = {
+
+        RadarStealthFieldRadius = 38,
+        ReactivateTime = 5,
+		
+        SonarStealthFieldRadius = 38,
+		
+        VisionRadius = 10,
+		WaterVisionRadius = 10,
+		
+    },
+	
+    Interface = {
+        HelpText = 'Adv Stealth Field Generator',
+    },
+	
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 1.2,
+    LifeBarSize = 2.5,
+	
+    Physics = {
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Land = true,
+            LAYER_Water = true,
+        },
+        DragCoefficient = 0.2,
+        FlattenSkirt = true,
+        MaxSteerForce = 0,
+        MeshExtentsX = 3,
+        MeshExtentsY = 1,
+        MeshExtentsZ = 3,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_None',
+        SkirtOffsetX = -1.5,
+        SkirtOffsetZ = -1.5,
+        SkirtSizeX = 6,
+        SkirtSizeZ = 6,
+        TurnRate = 0,
+    },
+	
+    SelectionSizeX = 1.8,
+    SelectionSizeZ = 1.8,
+    SelectionThickness = 0.4,
+	
+    SizeX = 2,
+    SizeY = 2,
+    SizeZ = 2,
+	
+    StrategicIconName = 'icon_structure3_counterintel',
+    StrategicIconSortPriority = 230,
+	
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0,
+        HealthMult = 0.9,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = false,
+            Sub = false,
+            Water = false,
+        },
+    },
+	
+}

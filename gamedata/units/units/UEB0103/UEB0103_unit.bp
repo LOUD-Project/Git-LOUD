@@ -51,7 +51,7 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 156,
+        EconomyThreatLevel = 176,
         Health = 4800,
         MaxHealth = 4800,
         RegenRate = 2,
@@ -86,8 +86,8 @@ UnitBlueprint {
         UniformScale = 0.083,
     },
     Economy = {
-        BuildCostEnergy = 1500,
-        BuildCostMass = 300,
+        BuildCostEnergy = 2200,
+        BuildCostMass = 345,
         
         BuildRate = 40,
         BuildTime = 300,
@@ -106,8 +106,8 @@ UnitBlueprint {
             'ueb0203',
             'ueb0303',
         },
-        StorageEnergy = 500,
-        StorageMass = 50,
+        StorageEnergy = 600,
+        StorageMass = 60,
     },
     
     Footprint = {
@@ -123,19 +123,12 @@ UnitBlueprint {
         Category = 'Factory',
         Classification = 'RULEUC_Factory',
         CommandCaps = {
-            RULEUCC_Attack = false,
-            RULEUCC_CallTransport = false,
-            RULEUCC_Capture = false,
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
-            RULEUCC_Nuke = false,
             RULEUCC_Patrol = true,
             RULEUCC_Pause = true,
-            RULEUCC_Reclaim = false,
-            RULEUCC_Repair = false,
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
-            RULEUCC_Transport = false,
         },
         ConstructionBar = true,
         FactionName = 'UEF',
@@ -157,11 +150,6 @@ UnitBlueprint {
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
-            LAYER_Air = false,
-            LAYER_Land = false,
-            LAYER_Orbit = false,
-            LAYER_Seabed = false,
-            LAYER_Sub = false,
             LAYER_Water = true,
         },
         DragCoefficient = 0.2,
@@ -191,6 +179,10 @@ UnitBlueprint {
         SkirtSizeZ = 12,
         TurnRate = 0,
     },
+    SelectionCenterOffsetZ = -0.6,
+    SelectionMeshScaleX = 0.4,
+    SelectionMeshScaleZ = 0.6,
+    SelectionMeshUseTopAmount = 0.15,
     SelectionSizeX = 2.2,
     SelectionSizeZ = 6.9,
     SelectionThickness = 0.26,

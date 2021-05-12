@@ -73,7 +73,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 275,
     },
 	
-    Description = '<LOC bss0401_desc>Dreadnought',
+    Description = '<LOC bss0401_desc>Experimental Battleship',
 	
     Display = {
         Abilities = {
@@ -83,6 +83,7 @@ UnitBlueprint {
             '4 x Anti-Air Flak',
             'Radar & Sonar & Tactical Missile Defense',
             'Strategic Missile Defense',
+            '<LOC ability_deathaoe>Volatile',
         },
         AnimationDeath = {
             {
@@ -129,6 +130,9 @@ UnitBlueprint {
                     LODCutoff = 600,
                     LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
                     ShaderName = 'Seraphim',
+                    AlbedoName = '/units/XSS0302/XSS0302_Albedo.dds',
+                    SpecularName = '/units/XSS0302/XSS0302_SpecTeam.dds',
+                    NormalsName = '/units/XSS0302/XSS0302_normalsTS.dds',
                 },
             },
         },
@@ -171,20 +175,12 @@ UnitBlueprint {
         Classification = 'RULEUC_MilitaryShip',
         CommandCaps = {
             RULEUCC_Attack = true,
-            RULEUCC_CallTransport = false,
-            RULEUCC_Capture = false,
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
-            RULEUCC_Nuke = false,
             RULEUCC_Patrol = true,
-            RULEUCC_Reclaim = false,
-            RULEUCC_Repair = false,
             RULEUCC_RetaliateToggle = true,
-            RULEUCC_SiloBuildNuke = false,
             RULEUCC_SiloBuildTactical = true,
             RULEUCC_Stop = true,
-            RULEUCC_Tactical = false,
-            RULEUCC_Transport = false,
         },
         FactionName = 'Seraphim',
         Icon = 'sea',
@@ -202,7 +198,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Dreadnought',
+        HelpText = 'Experimental Battleship',
     },
 	
     LifeBarHeight = 0.075,
@@ -213,11 +209,6 @@ UnitBlueprint {
         BackUpDistance = 10,
         BankingSlope = 0,
         BuildOnLayerCaps = {
-            LAYER_Air = false,
-            LAYER_Land = false,
-            LAYER_Orbit = false,
-            LAYER_Seabed = false,
-            LAYER_Sub = false,
             LAYER_Water = true,
         },
         CatchUpAcc = 8,
@@ -769,7 +760,7 @@ UnitBlueprint {
             Turreted = true,
         },
 		
-		-- WIERD BEAM THINGS * 4 -- total about 188 DPS
+		-- WEIRD BEAM THINGS * 4 -- total about 188 DPS
 		
         {
             AboveWaterTargetsOnly = true,

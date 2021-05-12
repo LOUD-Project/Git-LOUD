@@ -1,0 +1,22 @@
+UnitBlueprint {
+	Merge = true,
+	BlueprintId = "urb1303", --Cybran T3 Mass Fabricator
+    Economy = {
+        BuildRate = 20,
+        BuildableCategory = {
+            'urb1305',
+        },
+        RebuildBonusIds = {
+            'urb1303',
+            'urb1305',
+        },
+    },
+    General = {
+	CapCost = 4,
+        CommandCaps = {
+            RULEUCC_Pause = true,
+            RULEUCC_Stop = true,
+        },
+        UpgradesTo = 'urb1305',
+    },
+}

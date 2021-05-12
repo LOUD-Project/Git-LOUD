@@ -1,0 +1,24 @@
+UnitBlueprint {
+	Merge = true,
+	BlueprintId = "xsbssg01", --Seraphim T4 Shield
+	
+    Economy = {
+        BuildRate = 25,
+        BuildableCategory = {
+            'xsbssg02',
+        },
+        RebuildBonusIds = {
+            'xsbssg01',
+            'xsbssg02',
+        },
+    },
+	
+    General = {
+		CapCost = 10,
+        CommandCaps = {
+            RULEUCC_Pause = true,
+            RULEUCC_Stop = true,
+        },
+        UpgradesTo = 'xsbssg02',
+    },
+}

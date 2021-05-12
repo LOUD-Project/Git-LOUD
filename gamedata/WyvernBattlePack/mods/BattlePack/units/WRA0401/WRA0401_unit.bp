@@ -130,7 +130,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 179,
     },
     
-    Description = '<LOC ura0401_desc>Experimental Gunship',
+    Description = 'Experimental Ultra Heavy Siege-Assault Gunship',
     
     Display = {
         Abilities = {
@@ -197,22 +197,16 @@ UnitBlueprint {
         Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
             RULEUCC_Attack = true,
-            RULEUCC_CallTransport = false,
-            RULEUCC_Capture = false,
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
-            RULEUCC_Nuke = false,
             RULEUCC_Patrol = true,
-            RULEUCC_Reclaim = false,
-            RULEUCC_Repair = false,
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
-            RULEUCC_Transport = false,
         },
         FactionName = 'Cybran',
         Icon = 'air',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = '<LOC ura0401_name>Soul Ripper II',
+        UnitName = 'Soul Ripper II',
         UnitWeight = 12,
     },
     
@@ -223,7 +217,7 @@ UnitBlueprint {
     },
     
     Interface = {
-        HelpText = '<LOC ura0401_help>Siege Assault Gunship',
+        HelpText = 'Ultra Heavy Siege-Assault Gunship',
     },
     
     LifeBarHeight = 0.075,
@@ -233,20 +227,15 @@ UnitBlueprint {
     Physics = {
         BuildOnLayerCaps = {
             LAYER_Air = true,
-            LAYER_Land = false,
-            LAYER_Orbit = false,
-            LAYER_Seabed = false,
-            LAYER_Sub = false,
-            LAYER_Water = false,
         },
         Elevation = 14,
 
         MaxSpeed = 9.5,
         MotionType = 'RULEUMT_Air',
-        SkirtOffsetX = -1.5,
-        SkirtOffsetZ = -1.5,
-        SkirtSizeX = 8,
-        SkirtSizeZ = 8,
+        SkirtOffsetX = -0.5,
+        SkirtOffsetZ =  0.5,
+        SkirtSizeX = 7,
+        SkirtSizeZ = 7,
     },
     
     SelectionSizeX = 5,
@@ -255,7 +244,7 @@ UnitBlueprint {
   
     SizeX = 5.5,
     SizeY = 3,
-    SizeZ = 7.2,
+    SizeZ = 7,
 
     StrategicIconName = 'icon_experimental_gunship_directfire',
     StrategicIconSortPriority = 65,

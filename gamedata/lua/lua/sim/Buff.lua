@@ -101,7 +101,7 @@ function ApplyBuff(unit, buffName, instigator)
     end
 
 	-- if the unit already has this bufftype then ignore it
-    if def.Stacks == 'IGNORE' and ubt[def.BuffType] and table.getsize(ubt[def.BuffType]) > 0 then
+    if def.Stacks == 'IGNORE' and ubt[def.BuffType] and not table.empty(ubt[def.BuffType]) then
         return
     end
 	
@@ -584,6 +584,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
                 local wep = unit:GetWeapon(i)
                 if wep:WeaponUsesEnergy() then
                     wep.AdjEnergyMod = val
+                    --LOG("*AI DEBUG EnergyRequired modifier is "..repr(val))
                 end
             end
 
@@ -597,6 +598,8 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 				-- the value returned is always less than 1
 				-- for example the returned value is .9
                 local val = BuffCalculate(unit, buffName, 'RateOfFire', 1)
+                
+                --LOG("*AI DEBUG RoF value is "..repr(val))
 
 				-- Rate of Fire is basically firings per second
 				-- ie. 3 = 3 shots per second
@@ -611,6 +614,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
                 -- and divide into 1 gives you the new Rate of Fire
 				-- ie. 1 / .297 = 3.36
                 wep:ChangeRateOfFire( 1 / ( val * delay ) )
+                
             end
 
 		elseif atype == 'ShieldRegeneration' then
@@ -655,7 +659,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 				SetShieldRatio( shield.Owner, shield:GetHealth() / shield:GetMaxHealth() )
 
 				if unit.Sync.id then
-					ForkThread(FloatingEntityText, unit.Sync.id, 'Max Health now '..math.floor( GetMaxHealth(shield) ).." Size is "..math.floor(shield.Size).."  Regen is "..math.floor(shield.RegenRate))
+                    ForkThread(FloatingEntityText, unit.Sync.id, 'Max Health now '..math.floor( GetMaxHealth(shield) or 0 ).." Size is "..math.floor(shield.Size or 0).."  Regen is "..math.floor(shield.RegenRate or 0))
 				end
 
 				if shield.RegenThread then
@@ -701,8 +705,11 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
                     else
                         val = math.floor(val)
                     end
+                    
+                    LOG("*AI DEBUG Weapon Damage is "..repr(val))
 
                     wep:ChangeDamage(val)
+                    -- wep.damageTable.DamageAmount = val
                 end
             end
 
@@ -716,6 +723,22 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
                 local val = BuffCalculate(unit, buffName, 'DamageRadius', weprad)
 
                 wep:SetDamageRadius(val)
+            end
+            
+        elseif atype == 'FiringRandomness' then
+        
+            for i = 1, unit:GetWeaponCount() do
+            
+                local wep = unit:GetWeapon(i)
+                local wepbp = wep:GetBlueprint()
+                local wepfr = wepbp.FiringRandomness
+
+                local val = BuffCalculate(unit, buffName, 'FiringRandomness', 1)
+
+                --LOG("*AI DEBUG Weapon Randomness is "..repr(wepfr * val))
+                
+                wep:SetFiringRandomness( wepfr * val )
+
             end
 
         elseif atype == 'MaxRadius' then

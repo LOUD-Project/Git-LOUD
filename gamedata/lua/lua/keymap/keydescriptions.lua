@@ -128,6 +128,7 @@ keyDescriptions = {
     ['select_nearest_air_factory'] = 'Select the nearest Air Factory',
     ['select_nearest_naval_factory'] = 'Select the nearest Naval Factory',
     ['toggle_build_mode'] 	= 'Toggles keyboard build command mode on and off',
+    ['area_reclaim'] = 'Reclaim Everything Around Cursor',
 
     ['decrease_game_speed'] = 'Decrease game speed',
     ['increase_game_speed'] = 'Increase game speed',

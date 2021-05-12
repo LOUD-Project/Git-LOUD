@@ -1,0 +1,20 @@
+UnitBlueprint {
+	Merge = true,
+    
+	BlueprintId = "bab1302", --Aeon T3 Hydrocarbon
+    
+    Economy = {
+        BuildRate = 20,
+        BuildableCategory = {'bab1304'},
+
+        StorageEnergy = 1000,
+    },
+    
+    General = {
+        CommandCaps = {
+            RULEUCC_Pause = true,
+            RULEUCC_Stop = true,
+        },
+        UpgradesTo = 'bab1304',
+    },
+}

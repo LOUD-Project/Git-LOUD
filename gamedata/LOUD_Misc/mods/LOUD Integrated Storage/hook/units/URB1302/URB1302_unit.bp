@@ -1,0 +1,44 @@
+UnitBlueprint {
+	Merge = true,
+	BlueprintId = "urb1302",
+
+    Economy = {
+        BuildCostEnergy = 31625,
+        BuildCostMass = 4600,
+        BuildRate = 20,
+        BuildTime = 2875,
+		
+        BuildableCategory = {
+            'urb1304',
+        },
+		
+        MaintenanceConsumptionPerSecondEnergy = 120,
+        ProductionPerSecondMass = 18,
+		
+        RebuildBonusIds = {
+            'urb1302',
+            'urb1304',
+        },
+		
+		StorageMass = 250,
+    },
+	
+    General = {
+        Category = 'Economy',
+        Classification = 'RULEUC_Resource',
+        CommandCaps = {
+            RULEUCC_Pause = true,
+            RULEUCC_Stop = true,
+        },
+        FactionName = 'Cybran',
+        Icon = 'land',
+        SelectionPriority = 5,
+        TechLevel = 'RULEUTL_Advanced',
+        ToggleCaps = {
+            RULEUTC_ProductionToggle = true,
+        },
+        UnitWeight = 1,
+        UpgradesFrom = 'urb1202',
+        UpgradesTo = 'urb1304',
+    },
+}

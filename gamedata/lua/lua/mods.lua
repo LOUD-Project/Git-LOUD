@@ -6,7 +6,7 @@ mod_info.lua file which contains various bits of info:
 
     name = "Happy mod"                          # Name to use for this mod
     version = 123                               # Version number to use for this mod
-    copyright = "Copyright © 2006, Someone"     # Optional copyright info
+    copyright = "Copyright ï¿½ 2006, Someone"     # Optional copyright info
     description = "A long description of happy mod and why it will make you happy"
     author = "Joe"                              # Optional author info
     url = "http://www.gaspoweredgames.com"      # Optional URL to anywhere author likes
@@ -199,6 +199,8 @@ Mod initialization issues
 '
 -------------------------------------------------------------------------------------------------------------------- ]]
 
+local Prefs = import('/lua/user/prefs.lua')
+
 -- Table of all mods found on disk, indexed by id
 local _mod_cache = nil
 
@@ -261,13 +263,37 @@ function AllMods()
 
     if not _mod_cache then
     
+        local allConfigs = Prefs.GetFromCurrentProfile("modConfig")
+        if not allConfigs then
+            allConfigs = {}
+        end
         local r = {}
         
         for i,file in DiskFindFiles('/mods', '*mod_info.lua') do
         
             local mod = LoadModInfo(file)
+
+            -- Try getting config
+            local env = {}
+            local ok, result = pcall(doscript, mod.location..'/config.lua', env)
+            if ok then
+                if not allConfigs[mod.uid] then
+                    allConfigs[mod.uid] = {}
+                end
+                mod.config = {}
+                if env.config and table.getn(env.config) > 0 then
+                    for _, v in env.config do
+                        if not allConfigs[mod.uid][v.key] then
+                            allConfigs[mod.uid][v.key] = v.values[v.default].key
+                        end
+                        mod.config[v.key] = allConfigs[mod.uid][v.key]
+                    end
+                else
+                    WARN("Mod "..mod.name.." has an empty or malformed config file")
+                end
+            end
             
-            if mod and (mod.enabled != false) then
+            if mod and (mod.enabled ~= false) then
                 r[mod.uid] = mod
             end
         end
@@ -336,12 +362,31 @@ local function GetActiveModsFiltered(filter, selected)
     return r
 end
 
+local function GetActiveConfigsFiltered(filter, selected)
+    if not selected then
+        selected = GetSelectedMods()
+    end
+
+    local all_mods = AllMods()
+    local r = {}
+    for uid, m in sortedpairs(all_mods, ModComp) do
+        if selected[uid] and filter(m) then
+            table.insert(r, m.config)
+        end
+    end
+    return r
+end
+
 function GetUiMods()
     return GetActiveModsFiltered(function(m) return m.ui_only end)
 end
 
 function GetGameMods(selected)
     return GetActiveModsFiltered(function(m) return not m.ui_only end, selected)
+end
+
+function GetSimConfigs(selected)
+    return GetActiveConfigsFiltered(function(m) return not m.ui_only end, selected)
 end
 
 function GetCampaignMods(scenario)
@@ -374,7 +419,7 @@ function GetDependencies(uid)
 
         -- check if any other mods list this mod as a conflict
         for id, info in allMods do
-            if id != uid then
+            if id ~= uid then
                 if allMods[id].conflicts then
                     for i, conflict in allMods[id].conflicts do
                         if uid == conflict then
@@ -419,3 +464,12 @@ function GetDependencies(uid)
     return ret
 end
     
+-- Helper function for retrieving a mod's configs
+_G.GetModConfig = function(uid)
+    for _, v in __active_mods do
+        if v.uid == uid then
+            return v.config or false
+        end
+    end
+    return false
+end

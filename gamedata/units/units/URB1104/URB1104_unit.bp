@@ -1,5 +1,7 @@
 UnitBlueprint {
+
     Adjacency = 'T1MassFabricatorAdjacencyBuffs',
+    
     Audio = {
         Destroyed = Sound {
             Bank = 'URLDestroy',
@@ -12,7 +14,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+    
     BuildIconSortPriority = 50,
+    
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2ENGINEER',
@@ -31,7 +35,9 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SORTECONOMY',
     },
+    
     CollisionOffsetY = 0,
+    
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 19,		-- 1000% MassOutput + 5% Healt
@@ -39,7 +45,9 @@ UnitBlueprint {
         MaxHealth = 360,
         RegenRate = 1,
     },
+    
     Description = '<LOC urb1104_desc>Mass Fabricator',
+    
     Display = {
         Abilities = {
             'Volatile',
@@ -64,31 +72,22 @@ UnitBlueprint {
 
         UniformScale = 0.2,
     },
+    
     Economy = {
         BuildCostEnergy = 4000,
         BuildCostMass = 100,
         BuildTime = 500,
+        
         MaintenanceConsumptionPerSecondEnergy = 300,
+        
         ProductionPerSecondMass = 1,
+        
+		StorageEnergy = 300,        
     },
+    
     General = {
         Category = 'Economy',
         Classification = 'RULEUC_Resource',
-        CommandCaps = {
-            RULEUCC_Attack = false,
-            RULEUCC_CallTransport = false,
-            RULEUCC_Capture = false,
-            RULEUCC_Guard = false,
-            RULEUCC_Move = false,
-            RULEUCC_Nuke = false,
-            RULEUCC_Patrol = false,
-            RULEUCC_Pause = false,
-            RULEUCC_Reclaim = false,
-            RULEUCC_Repair = false,
-            RULEUCC_RetaliateToggle = false,
-            RULEUCC_Stop = false,
-            RULEUCC_Transport = false,
-        },
         FactionName = 'Cybran',
         Icon = 'land',
         SelectionPriority = 5,
@@ -98,21 +97,19 @@ UnitBlueprint {
         },
         UnitWeight = 1,
     },
+    
     Interface = {
         HelpText = 'Mass Fabricator',
     },
+    
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.35,
     LifeBarSize = 1,
+    
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
-            LAYER_Air = false,
             LAYER_Land = true,
-            LAYER_Orbit = false,
-            LAYER_Seabed = false,
-            LAYER_Sub = false,
-            LAYER_Water = false,
         },
         DragCoefficient = 0.2,
         FlattenSkirt = true,
@@ -125,14 +122,18 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+    
     SelectionSizeX = 0.65,
     SelectionSizeZ = 0.65,
     SelectionThickness = 0.6,
+    
     SizeX = 0.7,
     SizeY = 0.55,
     SizeZ = 0.7,
+    
     StrategicIconName = 'icon_structure2_mass',
     StrategicIconSortPriority = 250,
+    
     Weapon = {
         {
             Damage = 370,

@@ -247,11 +247,15 @@ end
 
 -- table.getsize(t) returns actual size of a table, including string keys
 function table.getsize(t)
+
     if type(t) != 'table' then return end
+    
     local size = 0
+    
     for k, v in t do
         size = size + 1
     end
+    
     return size
 end
 
@@ -282,8 +286,7 @@ end
 
 -- table.empty(t) returns true if t has no keys/values.
 function table.empty(t)
-    for k,v in t do
-        return false
-    end
-    return true
+
+    return next(t) == nil
+
 end

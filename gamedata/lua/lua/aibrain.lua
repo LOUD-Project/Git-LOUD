@@ -3,10 +3,9 @@
 --
 
 	-- Enable LOUD debugging options
-	LOG("*AI DEBUG Setting LOUD DEBUG & LOG options")
+	LOG("*AI DEBUG Setting LOUD DEBUG & LOG options ")
 
 
-    
     --- ENGINEER and FACTORY DEBUGS ---
 
 
@@ -162,6 +161,7 @@
 	
 	ScenarioInfo.WeaponDialog = false
 	LOG("*AI DEBUG		Report  Weapon Dialog to Log is "..repr(ScenarioInfo.WeaponDialog))
+
 
 
 local import = import
@@ -320,6 +320,147 @@ function upvalues()
 	return variables
 	
 end 
+
+function SetAIDebug(data)
+
+    if type(data.Active) ~= 'boolean' then
+        WARN("SETAIDEBUG: illegal On argument, returning")
+        return
+    end
+
+    LOG("SETAIDEBUG: Call w/ "..repr(data))
+
+    if data.Switch then
+        -- This branch mutates ScenarioInfo directly, so it has to be foolproof.
+        -- Validate everything
+
+        local legalVars = {
+            'NameEngineers',
+            'EngineerDialog',
+            'DisplayFactoryBuilds',
+            'ACUEnhanceDialog',
+            'SCUEnhanceDialog',
+            'FactoryEnhanceDialog',
+            'StructureUpgradeDialog',
+            'DisplayAttackPlans',
+            'AttackPlanDialog',
+            'ReportRatios',
+            'IntelDialog',
+            'DisplayIntelPoints',
+            'DisplayBaseNames',
+            'BaseMonitorDialog',
+            'DisplayBaseMonitors',
+            'BaseDistressResponseDialog',
+            'DeadBaseMonitorDialog',
+            'DisplayPingAlerts',
+            'PlatoonDialog',
+            'DisplayPlatoonMembership',
+            'DisplayPlatoonPlans',
+            'DistressResponseDialog',
+            'PlatoonMergeDialog',
+            'TransportDialog',
+            'PathFindingDialog',
+            'PriorityDialog',
+            'InstanceDialog',
+            'BuffDialog',
+            'ProjectileDialog',
+            'ShieldDialog',
+            'WeaponDialog',
+        }
+
+        if not table.find(legalVars, data.Switch) then
+            WARN("SETAIDEBUG: Illegal Var passed, returning")
+            return
+        end
+
+        ScenarioInfo[data.Switch] = data.Active
+        
+        LOG("SETAIDEBUG: "..repr(data.Switch).." "..repr(ScenarioInfo[data.Switch]))
+
+        if data.Switch == 'DisplayAttackPlans' then
+        
+            if data.Active then
+            
+                local LoudUtils = import('/lua/loudutilities.lua')
+                
+                for i, brain in ArmyBrains do
+                
+                    if brain.BrainType == 'AI' and not brain.DrawPlanThread then
+                        brain.DrawPlanThread = ForkThread(LoudUtils.DrawPlanNodes, brain)
+                    end
+                end
+                
+            else
+            
+                for i, brain in ArmyBrains do
+                
+                    if brain.BrainType == 'AI' and brain.DrawPlanThread then
+                        KillThread(brain.DrawPlanThread)
+                        brain.DrawPlanThread = nil
+                    end
+                end
+            end
+        end
+
+        if data.Switch == 'DisplayIntelPoints' then
+        
+            if data.Active then
+            
+                local LoudUtils = import('/lua/loudutilities.lua')
+
+                for i, brain in ArmyBrains do
+                
+                    --LOG("*AI DEBUG "..brain.Nickname.." BrainType is "..repr(brain.BrainType).." Civilian is "..repr(ArmyIsCivilian(brain.ArmyIndex)) )
+                
+                    if brain.BrainType == 'AI' and not ArmyIsCivilian(brain.ArmyIndex) and not brain.IntelDebugThread then
+                        brain.IntelDebugThread = brain:ForkThread(LoudUtils.DrawIntel)
+                    end
+                end
+                
+            else
+            
+                for i, brain in ArmyBrains do
+                
+                    if brain.BrainType == 'AI' and brain.IntelDebugThread then
+                    
+                        --LOG("*AI DEBUG "..brain.Nickname.." DrawIntel thread stopped")
+
+                        KillThread(brain.IntelDebugThread)
+                        brain.IntelDebugThread = nil
+                    end
+                end
+            end
+        end
+        
+    elseif data.ThreatType then
+    
+        local LoudUtils = import('/lua/loudutilities.lua')
+
+        -- local table
+        -- if data.Table == 1 then
+        --     table = LoudUtils.threatColor
+        -- else
+        --     table = LoudUtils.threatColor2
+        -- end
+
+        -- if data.Active then
+        --     table[data.ThreatType] = data.Color
+        -- else
+        --     table[data.ThreatType] = nil
+        -- end
+
+        if data.Active then
+            LoudUtils.intelChecks[data.ThreatType][6] = true
+        else
+            LoudUtils.intelChecks[data.ThreatType][6] = false
+        end
+        
+        LOG("SETAIDEBUG: "..repr(LoudUtils.intelChecks[data.ThreatType]))
+        -- LOG("SETAIDEBUG: New threatColor tables: ")
+        -- LOG("SETAIDEBUG: 1 -> "..repr(LoudUtils.threatColor))
+        -- LOG("SETAIDEBUG: 2 -> "..repr(LoudUtils.threatColor2))
+    end
+end
 
 -- this is the score keeping thread 
 -- it rotates thru all the brains and fills in each armies score details
@@ -692,11 +833,17 @@ AIBrain = Class(moho.aibrain_methods) {
             m = math.max(0.1, m)
             m = math.min(m, 99)
         end
-        self.CheatValue = m
-        self.BaseCheat = m
-
+        self.CheatValue = m -- Should never be modified
+        
 		-- 1 for fixed, 2 for feedback, 3 for time, 4 for both
 		self.Adaptive = ScenarioInfo.ArmySetup[self.Name].ACT
+
+        if self.Adaptive == 2 or self.Adaptive == 4 then
+            self.FeedbackCheat = 0
+        end
+        if self.Adaptive == 3 or self.Adaptive == 4 then
+            self.TimeCheat = 0
+        end
 		
         local civilian = false
         
@@ -729,13 +876,8 @@ AIBrain = Class(moho.aibrain_methods) {
 				-- start the plan
 				ForkThread( self.CurrentPlanScript.ExecutePlan, self )
 
-				-- Start adaptive cheat threads
-				if (self.Adaptive == 2 or self.Adaptive == 4) then
-					self.RatioACT = ForkThread(import('/lua/loudutilities.lua').RatioAdaptiveCheatThread, self)
-				end
-				if (self.Adaptive == 3 or self.Adaptive == 4) then
-					self.TimeACT = ForkThread(import('/lua/loudutilities.lua').TimeAdaptiveCheatThread, self)
-				end
+                -- Subscribe to ACT if .Adaptive dictates such
+                import('/lua/loudutilities.lua').SubscribeToACT(self)
 			end
 		else
         
@@ -753,7 +895,7 @@ AIBrain = Class(moho.aibrain_methods) {
         local posX, posY = self:GetArmyStartPos()
         
         --LOG("*AI DEBUG ScenarioInfo is "..repr(ScenarioInfo))
-        
+--[[        
         if ScenarioInfo.BOACU_Installed then
 
             if factionIndex == 1 then
@@ -775,7 +917,7 @@ AIBrain = Class(moho.aibrain_methods) {
             end
         
         end
-        
+--]]        
         LOG("*AI DEBUG initialUnits is "..repr(initialUnits))
 
         if factionIndex == 1 then
@@ -1486,6 +1628,10 @@ AIBrain = Class(moho.aibrain_methods) {
 	
 		--LOG("*AI DEBUG "..self.Nickname.." OnIntelChange for "..repr(reconType).." blip is "..repr(blip).." val is "..repr(val))
 		
+    end,
+
+    TotalCheat = function(self)
+        return self.CheatValue + (self.FeedbackCheat or 0) + (self.TimeCheat or 0)
     end
 
 }

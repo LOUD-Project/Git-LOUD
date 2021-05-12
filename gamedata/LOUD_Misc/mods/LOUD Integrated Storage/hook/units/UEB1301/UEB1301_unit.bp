@@ -1,0 +1,26 @@
+UnitBlueprint {
+	Merge = true,
+    
+	BlueprintId = "ueb1301", --UEF T3 Energy
+    
+    Economy = {
+        BuildRate = 25,
+        BuildableCategory = {
+            'ueb1306',
+        },
+        RebuildBonusIds = {
+            'ueb1301',
+            'ueb1306',
+        },
+		StorageEnergy = 2500,
+    },
+	
+    General = {
+
+        CommandCaps = {
+            RULEUCC_Pause = true,
+            RULEUCC_Stop = true,
+        },
+        UpgradesTo = 'ueb1306',
+    },
+}

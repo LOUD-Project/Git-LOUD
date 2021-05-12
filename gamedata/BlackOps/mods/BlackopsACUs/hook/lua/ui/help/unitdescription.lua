@@ -23,7 +23,7 @@ Description['eal0001-exramc2'] = "Advanced Warhead Compression\nThrough advanced
 Description['eal0001-exramc3'] = "Improved Auto Loader\nWhile artillery tends to be very slow firing due to the need to constantly load extremely heavy shells into the system it is possible to increase both weight handling as well as reload speed. This allows for larger warheads to be delivered to the firing systems at an increased rate of speed.\n\n+3252 Miasma Damage\n+40% Miasma Rate of Fire"
 
 Description['eal0001-exrgec1'] = "Phason Beam Cannon\nRather than the standard highly destructive beam cannons that are usually used in combat the aeon have created a light phason beam. This beam randomly rearranges the targets molecular structure causing severe breakdowns in structural integrity.\n\nInstalls Phason Beam Cannon\n200 DPS"
-Description['eal0001-exrgec2'] = "Dual Channel Booster\nThis installed a backup emitter system within the primary that can be alternated preventing system shutdown due to continuous use. This effectively increases the damage output and range of the beam.\n\nPhason Damage  400DPS\n+13 Phason Range\nInstalls Disruptor Jury Rigging"
+Description['eal0001-exrgec2'] = "Dual Channel Booster\nThis installed a backup emitter system within the primary that can be alternated preventing system shutdown due to continuous use. This effectively increases the damage output and range of the beam.\n\nPhason Damage 400DPS\n+13 Phason Range\nInstalls Disruptor Jury Rigging"
 Description['eal0001-exrgec3'] = "Molecular Inducer\nRunning a pulsed current down the beam it is possible to drastically alter the magnetic fields of the molecules being rearranged. This causes hull plating to literally tear itself apart.\n\nPhason Damage 600DPS\n+1 Phason Blast Radius"
 
 Description['eal0001-exbsh1'] = "Shield Battery\nThis is a stander personal shield battery with a first generation direct feed active regeneration system that enhances simple defenses.\n\n+8000 Shield Health\n+50 Active Shield Regen"
@@ -37,10 +37,10 @@ Description['eal0001-exbint3'] = "Farjump Teleporter Subsystem\nWorking with the
 
 Description['eal0001-exbbat1'] = "Maelstrom Generator\nWhile delving through research databanks, the plans for a quantum defense field system were discovered. While harmless to units designed to resist quantum disturbances it is corrosive to everything else.\n\nInstalls Maelstrom Generator\n30 DPS at range of 21"
 Description['eal0001-exbbat2'] = "Distortion Amplifier\nFurther development of the Maelstrom Generator. By adding amplified energy output systems both the range and effect are increased.\n\nMaelstrom DPS increased to 50\nMaelstrom range increased to 28\nInstalls Tactical Missile Defense"
-Description['eal0001-exbbat3'] = "Instability Enhancer\nThe addition of extra focusers and reflectors has allowed increased control over the instabilities that make up the field.  Increases both field coverage and destructive potential.\n\nMaelstrom DPS increased to 75\nMaelstrom Range increased to 36"
+Description['eal0001-exbbat3'] = "Instability Enhancer\nThe addition of extra focusers and reflectors has allowed increased control over the instabilities that make up the field. Increases both field coverage and destructive potential.\n\nMaelstrom DPS increased to 75\nMaelstrom Range increased to 36"
 
 
---UEF ACU Upgrades  
+--UEF ACU Upgrades
 
 Description['eel0001'] = "<LOC Unit_Description_0303> Houses Commander. Combination barracks and command center. Contains all the blueprints necessary to build a basic army from scratch."
 

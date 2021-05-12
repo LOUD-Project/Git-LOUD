@@ -32,7 +32,7 @@ UnitBlueprint {
 		
         LiftFactor = 9.5,
 		
-        MaxAirspeed = 13.5,
+        MaxAirspeed = 14,
 		
         StartTurnDistance = 10,
 		
@@ -140,7 +140,7 @@ UnitBlueprint {
             ShieldVerticalOffset = -2,
         },
 		
-        RegenRate = 12,
+        RegenRate = 24,
     },
 	
     Description = '<LOC xea0306_desc>Experimental Air Transport',
@@ -212,14 +212,10 @@ UnitBlueprint {
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
-            RULEUCC_Capture = false,
             RULEUCC_Ferry = true,
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
-            RULEUCC_Nuke = false,
             RULEUCC_Patrol = true,
-            RULEUCC_Reclaim = false,
-            RULEUCC_Repair = false,
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
             RULEUCC_Transport = true,
@@ -256,10 +252,7 @@ UnitBlueprint {
     Physics = {
         BuildOnLayerCaps = {
             LAYER_Air = true,
-            LAYER_Land = false,
-            LAYER_Orbit = false,
             LAYER_Seabed = true,
-            LAYER_Sub = false,
             LAYER_Water = true,
         },
         Elevation = 10.5,
@@ -278,7 +271,7 @@ UnitBlueprint {
     SizeY = 4,
     SizeZ = 6,
 	
-    StrategicIconName = 'icon_experimental_structure_transport',
+    StrategicIconName = 'icon_experimental_gunship_transport',
     StrategicIconSortPriority = 65,
 	
     Transport = {

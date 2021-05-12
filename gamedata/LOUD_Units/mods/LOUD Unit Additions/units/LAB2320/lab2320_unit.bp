@@ -1,0 +1,470 @@
+UnitBlueprint {
+
+    AI = {
+        TargetBones = {'Turret_Barrel02','Turret' },
+    },
+	
+    Audio = {
+        DeathExplosion = Sound {
+            Bank = 'UALDestroy',
+            Cue = 'UAB_Destroy_Lrg_PreDestroy',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Destroyed = Sound {
+            Bank = 'UALDestroy',
+            Cue = 'UAB_Destroy_Huge',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        DoneBeingBuilt = Sound {
+            Bank = 'UAB',
+            Cue = 'UAB2303_Activate',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'Aeon_Select_Gun',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+	
+	Buffs = {},
+	
+    BuildIconSortPriority = 160,
+	
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER3COMMANDER',
+		'BUILTBYTIER3ENGINEER',
+        'AEON',
+        'STRUCTURE',
+        'TECH3',
+        'TACTICAL',
+        'ARTILLERY',
+        'DRAGBUILD',
+		'SIZE8',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+		'SHOWATTACKRETICLE',
+        'SORTDEFENSE',
+    },
+	
+    CollisionOffsetY = -0.25,
+	
+    Defense = {
+        ArmorType = 'Structure',
+        Health = 4800,
+        MaxHealth = 4800,
+        RegenRate = 2,
+		SurfaceThreatLevel = 44,
+    },
+	
+    Description = '<LOC lab2320_desc>Barrage Artillery',
+	
+    Display = {
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 220,
+                    Scrolling = true,
+                    ShaderName = 'Aeon',
+                },
+            },
+        },
+
+        SpawnRandomRotation = true,
+        Tarmacs = {
+            {
+                Albedo = 'Tarmacs/Tar6x_aeon_01_albedo',
+                DeathLifetime = 300,
+                FadeOut = 150,
+                Length = 12,
+                Normal = 'Tarmacs/Tar6x_aeon_01_normals',
+                Orientations = {
+                    0,
+                    90,
+                    180,
+                    270,
+                },
+                RemoveWhenDead = false,
+                Width = 12,
+            },
+        },
+        UniformScale = 0.018,
+    },
+	
+    Economy = {
+        BuildCostEnergy = 135000,
+        BuildCostMass = 9500,
+        BuildTime = 10500,
+
+    },
+	
+	Footprint = {
+        SizeX = 1,
+        SizeZ = 1,
+    },
+	
+    General = {
+		CapCost = 5,
+        Category = 'Strategic',
+        Classification = 'RULEUC_Weapon',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+        },
+        FactionName = 'Aeon',
+		Icon = 'amph',
+		SelectionPriority = 5,
+        TechLevel = 'RULEUTL_Secret',
+        UnitName = '<LOC lab2320_name>Zion',
+        UnitWeight = 1,
+    },
+	
+    Intel = {
+        VisionRadius = 30,
+    },
+	
+    Interface = {
+        HelpText = 'Barrage Artillery',
+    },
+	
+    LifeBarHeight = 0.09,
+    LifeBarOffset = 0.8,
+    LifeBarSize = 1.25,
+	
+    Physics = {
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Land = true,
+            LAYER_Water = true,
+        },
+        DragCoefficient = 0.2,
+        FlattenSkirt = true,
+        MaxSteerForce = 0,
+        MeshExtentsX = 1.75,
+        MeshExtentsY = 2,
+        MeshExtentsZ = 3,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_None',
+        SkirtOffsetX = -1.5,
+        SkirtOffsetZ = -1.5,
+        SkirtSizeX = 4,
+        SkirtSizeZ = 4,
+        TurnRate = 0,
+    },
+	
+    SelectionSizeX = 1.7,
+    SelectionSizeZ = 2,
+    SelectionThickness = 0.42,
+	
+    SizeX = 1.7,
+    SizeY = 2.3,
+    SizeZ = 1.9,
+	
+    StrategicIconName = 'icon_structure3_artillery',
+    StrategicIconSortPriority = 180,
+	
+    Veteran = {
+        Level1 = 50,
+        Level2 = 100,
+        Level3 = 150,
+        Level4 = 200,
+        Level5 = 250,
+    },
+	
+    Weapon = {
+        {
+            AboveWaterTargetsOnly = true,
+            ArtilleryShieldBlocks = true,
+            Audio = {
+                Fire = Sound {
+                    Bank = 'UALWeapon',
+                    Cue = 'UAB2303_Cannon',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_LowArc',
+            CollideFriendly = false,
+			
+            Damage = 265,
+            DamageFriendly = true,
+            DamageRadius = 2,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Miasma Artillery',
+			
+            DoTPulses = 5,	-- 5 x 265 damage
+            DoTTime = 3,	-- applied over 3 seconds
+
+            EnergyDrainPerSecond = 195,     -- 9 second charge cycle
+            EnergyRequired = 1750,
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water',
+                Water = 'Land|Water',
+            },
+			
+            FiringRandomness = 1.35,
+            FiringTolerance = 0.1,
+			
+            Label = 'MainGun',
+            LeadTarget = true,
+			
+            MaxRadius = 155,
+            MinRadius = 25,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 33,
+			
+            MuzzleVelocityReduceDistance = 175,
+			
+            ProjectileId = '/projectiles/AIFMiasmaShell01/AIFMiasmaShell01_proj.bp',
+			ProjectileLifetime = 12,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Turret_Muzzle',
+                    },
+                    RackBone = 'Turret_Recoil',
+                },
+            },
+
+            RackRecoilDistance = -30,
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+
+            RangeCategory = 'UWRC_IndirectFire',
+			
+            RateOfFire = 1,
+			
+            TargetCheckInterval = 3,
+			
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'SHIELD',
+                'INDIRECTFIRE',
+                'EXPERIMENTAL',
+                'ALLUNITS',
+            },
+			
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TurretBoneMuzzle = 'Turret_Muzzle',
+            TurretBonePitch = 'Turret_Barrel',
+            TurretBoneYaw = 'Turret',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 80,
+            TurretPitchSpeed = 6,
+			
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 6,
+			
+            Turreted = true,
+        },
+		
+		{
+            Audio = {
+                Fire = Sound {
+                    Bank = 'UALWeapon',
+                    Cue = 'UAB2303_Cannon',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_LowArc',
+            CollideFriendly = false,
+			
+            Damage = 265,
+            DamageFriendly = true,
+            DamageRadius = 2,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Miasma Artillery',
+			
+            DoTPulses = 5,	-- 5 x 265 damage
+            DoTTime = 3,	-- applied over 3 seconds
+
+            EnergyDrainPerSecond = 195,     -- 9 second charge
+            EnergyRequired = 1750,
+
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water',
+                Water = 'Land|Water',
+            },
+			
+            FiringRandomness = 1.35,
+            FiringTolerance = 0.1,
+			
+            Label = 'MainGun',
+			
+            LeadTarget = true,
+			
+            MaxRadius = 155,
+            MinRadius = 25,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 33,
+			
+            MuzzleVelocityReduceDistance = 175,
+			
+            ProjectileId = '/projectiles/AIFMiasmaShell01/AIFMiasmaShell01_proj.bp',
+			ProjectileLifetime = 10,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Turret_Muzzle01',
+                    },
+                    RackBone = 'Turret_Recoil01',
+                },
+            },
+
+            RackRecoilDistance = -30,
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+
+            RateOfFire = 1,
+			
+            TargetCheckInterval = 3,
+			
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'SHIELD',
+                'INDIRECTFIRE',
+                'EXPERIMENTAL',
+                'ALLUNITS',
+            },
+
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TurretBoneMuzzle = 'Turret_Muzzle01',
+            TurretBonePitch = 'Turret_Barrel01',
+            TurretBoneYaw = 'Turret',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 5,
+            TurretPitchSpeed = 2,
+			
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 6,
+			
+            Turreted = true,
+        },
+		
+		{
+            Audio = {
+                Fire = Sound {
+                    Bank = 'UALWeapon',
+                    Cue = 'UAB2303_Cannon',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_LowArc',
+            CollideFriendly = false,
+			
+            Damage = 265,
+            DamageFriendly = true,
+            DamageRadius = 2,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Miasma Artillery',
+			
+            DoTPulses = 5,	-- 5 x 265 damage
+            DoTTime = 3,	-- applied over 3 seconds
+
+            EnergyDrainPerSecond = 195,     -- 9 second charge
+            EnergyRequired = 1750,
+
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water',
+                Water = 'Land|Water',
+            },
+			
+            FiringRandomness = 1.35,
+            FiringTolerance = 0.1,
+			
+            Label = 'MainGun',
+			
+            LeadTarget = true,
+			
+            MaxRadius = 155,
+            MinRadius = 25,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 33,
+			
+            MuzzleVelocityReduceDistance = 175,
+			
+            ProjectileId = '/projectiles/AIFMiasmaShell01/AIFMiasmaShell01_proj.bp',
+			ProjectileLifetime = 10,
+			
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Turret_Muzzle02',
+                    },
+                    RackBone = 'Turret_Recoil02',
+                },
+            },
+
+            RackRecoilDistance = -30,
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+
+            RateOfFire = 1,
+			
+            TargetCheckInterval = 3,
+			
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'SHIELD',
+                'INDIRECTFIRE',
+                'EXPERIMENTAL',
+                'ALLUNITS',
+            },
+
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TurretBoneMuzzle = 'Turret_Muzzle02',
+            TurretBonePitch = 'Turret_Barrel02',
+            TurretBoneYaw = 'Turret',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 5,
+            TurretPitchSpeed = 2,
+			
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 6,
+			
+            Turreted = true,
+        },
+		
+    },
+	
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0,
+        HealthMult = 0.5,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = false,
+            Sub = false,
+            Water = false,
+        },
+    },
+}

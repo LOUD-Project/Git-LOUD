@@ -1,0 +1,21 @@
+UnitBlueprint {
+	Merge = true,
+	BlueprintId = "xsb4301", --Seraphim T3 Shield
+    Economy = {
+        BuildRate = 20,
+        BuildableCategory = {
+            'xsb4303',
+        },
+        RebuildBonusIds = {
+            'xsb4301',
+            'xsb4303',
+        },
+    },
+    General = {
+        CommandCaps = {
+            RULEUCC_Pause = true,
+            RULEUCC_Stop = true,
+        },
+        UpgradesTo = 'xsb4303',
+    },
+}

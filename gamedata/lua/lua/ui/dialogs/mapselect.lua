@@ -9,15 +9,11 @@
 local UIUtil = import('/lua/ui/uiutil.lua')
 local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
 local Bitmap = import('/lua/maui/bitmap.lua').Bitmap
+local Edit = import('/lua/maui/edit.lua').Edit
 local ItemList = import('/lua/maui/itemlist.lua').ItemList
-local Scrollbar = import('/lua/maui/scrollbar.lua').Scrollbar
-local Text = import('/lua/maui/text.lua').Text
-local MultiLineText = import('/lua/maui/multilinetext.lua').MultiLineText
-local Button = import('/lua/maui/button.lua').Button
 local Group = import('/lua/maui/group.lua').Group
 local MenuCommon = import('/lua/ui/menus/menucommon.lua')
 local MapPreview = import('/lua/ui/controls/mappreview.lua').MapPreview
-local MainMenu = import('/lua/ui/menus/main.lua')
 local MapUtil = import('/lua/ui/maputil.lua')
 local Mods = import('/lua/mods.lua')
 local Combo = import('/lua/ui/controls/combo.lua').Combo
@@ -25,7 +21,12 @@ local Tooltip = import('/lua/ui/game/tooltip.lua')
 local ModManager = import('/lua/ui/dialogs/modmanager.lua')
 local EnhancedLobby = import('/lua/enhancedlobby.lua')
 
-local scenarios = MapUtil.EnumerateSkirmishScenarios()
+-- In folderMap, key corresponds to an ItemList row,
+-- value.folder corresponds to a folder in folders{}
+-- value.map corresponds to a scenario in folders[x].maps
+local folders = MapUtil.EnumerateSkirmishFolders()
+local folderMap = { {} }
+
 local selectedScenario = false
 local description = false
 local descText = false
@@ -45,7 +46,6 @@ local currentFilters = {
     ['map_select_size_limiter'] = "equal", 
 }
 
-local scenarioKeymap = {}
 local Options = {}
 local OptionSource = {}
 local OptionContainer = false
@@ -94,10 +94,10 @@ mapFilters = {
         }
     },
 }
--- CHANGED --
 
--- used to compute the offset of spawn / mass / hydro markers on the (big) preview
+-- Used to compute the offset of spawn / mass / hydro markers on the (big) preview
 -- when the map is not square
+-- Courtesy of Jip
 local function ComputeNonSquareOffset(width, height)
     -- determine the largest dimension
     local largest = width
@@ -121,7 +121,6 @@ local function ComputeNonSquareOffset(width, height)
     return xOffset, yOffset, largest
 end
 
--- CHANGED --
 -- Create a filter dropdown and title from the table above
 function CreateFilter(parent, filterData)
     local group = Group(parent)
@@ -230,10 +229,8 @@ local function ShowMapPositions(mapCtrl, scenario)
     end
 end
 
-
 function CreateDialog(selectBehavior, exitBehavior, over, singlePlayer, defaultScenarioName, curOptions, availableMods, OnModsChanged)
-
-	-- control layout
+-- Control layout
     local parent = nil
     local background = nil
 	
@@ -313,37 +310,43 @@ function CreateDialog(selectBehavior, exitBehavior, over, singlePlayer, defaultS
 	Tooltip.AddButtonTooltip(randomMapButton, 'lob_random_map')
 	
 	function randomLobbyMap(self)
-		local nummapa
-		nummapa = math.random(1, randMapList)
-		if randMapList >= 2 and nummapa == doNotRepeatMap then
+        local nummapa
+        local folderCount = table.getsize(folders)
+        nummapa = math.random(1, folderCount)
+        
+        -- Random folder
+		if folderCount >= 2 and nummapa == doNotRepeatMap then
 			repeat
-				nummapa = math.random(1, randMapList)
-			until nummapa != doNotRepeatMap
+				nummapa = math.random(1, folderCount)
+			until nummapa ~= doNotRepeatMap
 		end
-		doNotRepeatMap = nummapa			
-		local scen = scenarios[scenarioKeymap[nummapa]]
-		selectedScenario = scen
+        doNotRepeatMap = nummapa
+        local fold = folders[nummapa]
+        local mapCount = table.getsize(fold.maps)
+
+        if mapCount == 1 then
+            selectedScenario = fold.maps[1]
+        else
+            -- Random map from folder
+            doNotRepeatMap = nil
+            nummapa = math.random(1, mapCount)
+            if mapCount >= 2 and nummapa == doNotRepeatMap then
+                repeat
+                    nummapa = math.random(1, mapCount)
+                until nummapa ~= doNotRepeatMap
+            end
+            doNotRepeatMap = nummapa
+            selectedScenario = fold[3][nummapa]
+        end
+
 		selectBehavior(selectedScenario, changedOptions, restrictedCategories)
-		import('/lua/ui/lobby/lobby.lua').PublicChat("("..EnhancedLobby.GetLEMVersion(true)..") Random Map Selected: "..scen.name)
+		import('/lua/ui/lobby/lobby.lua').PublicChat("("..EnhancedLobby.GetLEMVersion(true)..") Random Map Selected: "..selectedScenario.name)
 		ResetFilters()
 	end
 	
-	randomMapButton.OnClick = function(self, modifiers)
-		if randMapList != 0 then
-			#randomLobbyMap(self)
-			nummapa = math.random(1, randMapList)
-			if randMapList >= 2 and nummapa == doNotRepeatMap then
-				repeat
-					nummapa = math.random(1, randMapList)
-				until nummapa != doNotRepeatMap
-			end
-			doNotRepeatMap = nummapa			
-			local scen = scenarios[scenarioKeymap[nummapa]]
-			selectedScenario = scen
-			mapList:SetSelection(nummapa)
-			import('/lua/ui/lobby/lobby.lua').PublicChat("("..EnhancedLobby.GetLEMVersion(true)..") Random Map Selected: "..scen.name)
-			PreloadMap(nummapa)
-		end
+    randomMapButton.OnClick = function(self, modifiers)
+        -- RATODO: Somehow make this respect filters
+		randomLobbyMap(self)
 	end
 
     UIUtil.MakeInputModal(panel)
@@ -417,11 +420,11 @@ function CreateDialog(selectBehavior, exitBehavior, over, singlePlayer, defaultS
         end
     end
 
--- initialize controls
+-- Initialize controls
     PopulateMapList()
     SetupOptionsPanel(panel, singlePlayer, curOptions)
     
---  control behvaior
+-- Control behvaior
     if exitButton then
         exitButton.OnClick = function(self)
             exitBehavior()
@@ -440,7 +443,8 @@ function CreateDialog(selectBehavior, exitBehavior, over, singlePlayer, defaultS
     end
     
     function PreloadMap(row)
-        local scen = scenarios[scenarioKeymap[row+1]]
+        local fold = folders[folderMap[row + 1].folder]
+        local scen = fold.maps[folderMap[row + 1].map]
         if scen == selectedScenario then
             return
         end
@@ -471,6 +475,14 @@ function CreateDialog(selectBehavior, exitBehavior, over, singlePlayer, defaultS
     end
 
     mapList.OnKeySelect = function(self,row)
+        -- If this is a true folder, open it and repop the map list
+        local fold = folders[folderMap[row + 1].folder]
+        if table.getsize(fold.maps) > 1 and not folderMap[row + 1].map then
+            fold.open = true
+            PopulateMapList()
+            mapList:SetSelection(row)
+            return
+        end
         mapList:SetSelection(row)
         PreloadMap(row)
         local sound = Sound({Cue = "UI_Skirmish_Map_Select", Bank = "Interface",})
@@ -478,6 +490,13 @@ function CreateDialog(selectBehavior, exitBehavior, over, singlePlayer, defaultS
     end
     
     mapList.OnClick = function(self, row, noSound)
+        -- If this is a true folder, toggle it and repop the map list
+        local fold = folders[folderMap[row + 1].folder]
+        if table.getsize(fold.maps) > 1 and not folderMap[row + 1].map then
+            fold.open = not fold.open
+            PopulateMapList()
+            return
+        end
         mapList:SetSelection(row)
         PreloadMap(row)
         local sound = Sound({Cue = "UI_Skirmish_Map_Select", Bank = "Interface",})
@@ -487,24 +506,68 @@ function CreateDialog(selectBehavior, exitBehavior, over, singlePlayer, defaultS
     end
     
     mapList.OnDoubleClick = function(self, row)
+        -- If this is a true folder, toggle it and repop the map list
+        local fold = folders[folderMap[row + 1].folder]
+        if table.getsize(fold.maps) > 1 and not folderMap[row + 1].map then
+            fold.open = not fold.open
+            PopulateMapList()
+            return
+        end
+        -- If this is a scenario instead, select it and return to the main lobby
         mapList:SetSelection(row)
         PreloadMap(row)
-        local scen = scenarios[scenarioKeymap[row+1]]
+        local scen = folders[folderMap[row + 1].folder].maps[folderMap[row + 1].map]
         selectedScenario = scen
         selectBehavior(selectedScenario, changedOptions, restrictedCategories)
         ResetFilters()
     end
 
-    -- set list to first item or default
-    defaultRow = 0
-    if defaultScenarioName then
-        for i, scenario in scenarios do
-            if scenario.file == defaultScenarioName then
-                defaultRow = i - 1
-                break
+    local function SetDefaultScenario()
+        if not defaultScenarioName then
+            -- If no true folder at folders[1], call up its scenario
+            -- Otherwise call up its first scenario
+            if folderMap[1].map then
+                return 0
+            else
+                folders[folderMap[1].folder].open = true
+                return 1
+            end
+        else
+            local i = -1
+            for _, folder in folders do
+                i = i + 1
+                local s = 0
+                for _, scenario in folder.maps do
+                    s = s + 1
+                    if scenario.file == string.lower(defaultScenarioName) then
+                        if table.getsize(folder.maps) > 1 then
+                            folder.open = true
+                            PopulateMapList()
+                            return (i + s)
+                        else
+                            return i
+                        end
+                    end
+                end
+                -- Add rows for expanded folders
+                if folder.open then
+                    i = i + s
+                end
             end
         end
+        -- Fallback in case of map deletion
+        LOG("MAPSELECT: Intended default scenario missing; going to first map in list")
+        if folderMap[1].map then
+            return 0
+        else
+            folders[folderMap[1].folder].open = true
+            return 1
+        end
     end
+
+    -- Set list to first item or default
+    local defaultRow = SetDefaultScenario()
+
     mapList:OnClick(defaultRow, true)
     mapList:ShowItem(defaultRow)
 
@@ -527,7 +590,7 @@ function RefreshOptions(skipRefresh, singlePlayer)
         table.sort(OptionSource[1].options, function(a, b) return LOC(a.label) < LOC(b.label) end)
     end
     OptionSource[3] = {}
-    OptionSource[3] = {title = "<LOC lobui_0164>Advanced", options = advOptions or {}}
+    OptionSource[3] = {title = "<LOC lobui_0164>Map Options", options = advOptions or {}}
     
     Options = {}
     
@@ -535,8 +598,14 @@ function RefreshOptions(skipRefresh, singlePlayer)
         if table.getsize(OptionTable.options) > 0 then
             table.insert(Options, {type = 'title', text = OptionTable.title})
             for optionIndex, optionData in OptionTable.options do
-                if not(singlePlayer and optionData.mponly == true) and optionData.key ~= 'GameSpeed' then
-                    table.insert(Options, {type = 'option', text = optionData.label, data = optionData})
+                if optionData.key == 'GameSpeed' then
+                    continue
+                end
+
+                if optionData.type and optionData.type == 'edit' then
+                    table.insert(Options, {type = 'opt_edit', text = optionData.label, data = optionData})
+                elseif not(singlePlayer and optionData.mponly == true) then
+                    table.insert(Options, {type = 'opt_combo', text = optionData.label, data = optionData})
                 end
             end
         end
@@ -577,6 +646,34 @@ function SetupOptionsPanel(parent, singlePlayer, curOptions)
         return combo
     end
     
+    local function CreateOptionEdit(parent, optionData, width)
+        local edit = Edit(parent)
+        edit.Width:Set(240)
+        edit.Height:Set(18)
+        edit:SetMaxChars(5)
+        edit.default = UIUtil.CreateText(edit, '', 13, 'Arial')
+        edit.default:SetNewColor('888888')
+        LayoutHelpers.AtRightIn(edit.default, edit, 16)
+        LayoutHelpers.AtVerticalCenterIn(edit.default, edit)
+
+        edit.OnCharPressed = function(self, charcode)
+            if charcode == UIUtil.VK_TAB then
+                return true
+            end
+            -- Forbid all characters except digits, ., and -
+            if charcode == 47 or charcode >= 58 or charcode <= 44 then
+                return true
+            end
+            local charLim = self:GetMaxChars()
+            if STR_Utf8Len(self:GetText()) >= charLim then
+                local sound = Sound({Cue = 'UI_Menu_Error_01', Bank = 'Interface',})
+                PlaySound(sound)
+            end
+        end
+
+        return edit
+    end
+
     local function CreateOptionElements()
         local function CreateElement(index)
             OptionDisplay[index] = Group(OptionContainer)
@@ -592,13 +689,16 @@ function SetupOptionsPanel(parent, singlePlayer, curOptions)
             OptionDisplay[index].text:DisableHitTest()
             LayoutHelpers.AtLeftTopIn(OptionDisplay[index].text, OptionDisplay[index], 10)
             
+            OptionDisplay[index].edit = CreateOptionEdit(OptionDisplay[index])
+            LayoutHelpers.AtLeftTopIn(OptionDisplay[index].edit, OptionDisplay[index], 5, 22)
+            OptionDisplay[index].edit:Hide()
             OptionDisplay[index].combo = CreateOptionCombo(OptionDisplay[index])
             LayoutHelpers.AtLeftTopIn(OptionDisplay[index].combo, OptionDisplay[index], 5, 22)
         end
         
         CreateElement(1)
         LayoutHelpers.AtLeftTopIn(OptionDisplay[1], OptionContainer)
-            
+        
         local index = 2
         while OptionDisplay[table.getsize(OptionDisplay)].Bottom() + OptionDisplay[1].Height() < OptionContainer.Bottom() do
             CreateElement(index)
@@ -650,44 +750,113 @@ function SetupOptionsPanel(parent, singlePlayer, curOptions)
     end
     -- determines what controls should be visible or not
     OptionContainer.CalcVisible = function(self)
-        local function SetTextLine(line, data, lineID)
-            if data.type == 'title' then
-                line.text:SetText(LOC(data.text))
+        local function SetTextLine(line, element, lineID)
+            if element.type == 'title' then
+                -- header logic
+                line.text:SetText(LOC(element.text))
                 line.text:SetFont(UIUtil.titleFont, 14, 3)
                 line.text:SetColor(UIUtil.fontOverColor)
                 line.bg:SetSolidColor('00000000')
                 line.combo:Hide()
+                line.edit:Hide()
                 LayoutHelpers.AtLeftTopIn(line.text, line, 0, 20)
                 LayoutHelpers.AtHorizontalCenterIn(line.text, line)
-            elseif data.type == 'spacer' then
-                line.text:SetText('')
+
+                -- Options logic
                 line.combo:Hide()
-            else
-                line.text:SetText(LOC(data.text))
+                line.edit:Hide()
+            elseif element.type == 'spacer' then
+                -- header logic
+                line.text:SetText('')
+
+                -- Options logic
+                line.combo:Hide()
+                line.edit:Hide()
+            elseif element.type == 'opt_edit' then
+                line.text:SetText(LOC(element.text))
                 line.text:SetFont(UIUtil.bodyFont, 14)
                 line.text:SetColor(UIUtil.fontColor)
                 line.bg:SetTexture(UIUtil.UIFile('/dialogs/mapselect03/options-panel-bar_bmp.dds'))
                 LayoutHelpers.AtLeftTopIn(line.text, line, 10, 5)
+                line.combo:Hide()
+                line.edit:Show()
+                line.edit.default:SetText("Default: "..element.data.default)
+                line.edit.OnTextChanged = function(_, newText, oldText)
+                    changedOptions[element.data.key] = {
+                        value = newText, 
+                        type = 'edit', 
+                        pref = element.data.pref,
+                    }
+                end
+                Tooltip.AddControlTooltip(line, element.data.pref)
+                line.edit:SetText(tostring(changedOptions[element.data.key].value or curOptions[element.data.key]))
+            else
+                line.text:SetText(LOC(element.text))
+                line.text:SetFont(UIUtil.bodyFont, 14)
+                line.text:SetColor(UIUtil.fontColor)
+                line.bg:SetTexture(UIUtil.UIFile('/dialogs/mapselect03/options-panel-bar_bmp.dds'))
+                LayoutHelpers.AtLeftTopIn(line.text, line, 10, 5)
+
+                -- combo logic
+
+                -- clear out previous logic --
                 line.combo:ClearItems()
+                line.edit:Hide()
                 line.combo:Show()
                 local itemArray = {}
                 line.combo.keyMap = {}
-                local tooltipTable = {}
-                for index, val in data.data.values do
+
+                -- resets the functionality and clears out tooltips
+                line.HandleEvent = Group.HandleEvent 
+
+                -- prepare current logic --
+
+                -- official options will have a preference value that can store the option in question,
+                -- if this value is not present then we can assume to use unlocalized tooltips
+                local officialOption = element.data.pref ~= nil and element.data.pref ~= ''
+
+                -- check control box tooltip
+                local controlTooltip = element.data.pref
+                if not officialOption then 
+                    controlTooltip = { text = element.data.label, body = element.data.help }
+                end
+
+                local comboTooltip = {}
+                for index, val in element.data.values do
+                    -- title of the combo
                     itemArray[index] = val.text
+
+                    -- for easy look-up later
                     line.combo.keyMap[val.key] = index
-                    tooltipTable[index] = 'lob_'..data.data.key..'_'..val.key
+
+                    -- tooltip of the combo
+                    if officialOption then 
+                        comboTooltip[index] = 'lob_'..element.data.key..'_'..val.key
+                    else
+                        comboTooltip[index] = { text = val.text, body = val.help }
+                    end
                 end
-                local defValue = changedOptions[data.data.key].index or line.combo.keyMap[curOptions[data.data.key]] or 1
-                line.combo:AddItems(itemArray, defValue)
-                line.combo.OnClick = function(self, index, text)
-                    changedOptions[data.data.key] = {value = data.data.values[index].key, pref = data.data.pref, index = index}
-                end
-                line.HandleEvent = Group.HandleEvent
-                Tooltip.AddControlTooltip(line, data.data.pref)
-                Tooltip.AddComboTooltip(line.combo, tooltipTable, line.combo._list)
+
+                -- we assume the default value of the option is correct here
+                local initialValue = changedOptions[element.data.key].index or 
+                    line.combo.keyMap[curOptions[element.data.key]] or 
+                    element.data.default
+
+                line.combo:AddItems(itemArray, initialValue)
+
+                -- combo tooltips --
+                
+                Tooltip.AddControlTooltip(line, controlTooltip)
+                Tooltip.AddComboTooltip(line.combo, comboTooltip, line.combo._list)
+
+                -- combo functionality --
+
                 line.combo.UpdateValue = function(key)
                     line.combo:SetItem(line.combo.keyMap[key])
+                end
+
+                line.combo.OnClick = function(self, index, text)
+                    changedOptions[element.data.key] = {value = element.data.values[index].key, pref = element.data.pref, index = index}
                 end
             end
         end
@@ -786,46 +955,72 @@ function SetDescription(scen)
     end
 end
 
-function PopulateMapList() 
-   
+function PopulateMapList()
     mapList:DeleteAllItems()
-	
-    local tempMaps = {}
-    local count = 1
-	
-    for i,sceninfo in scenarios do
-        if currentFilters.map_select_supportedplayers != 0 and not CompareFunc(table.getsize(sceninfo.Configurations.standard.teams[1].armies), 
-		currentFilters.map_select_supportedplayers, currentFilters.map_select_supportedplayers_limiter) then
-			continue
-        end
-		
-        if currentFilters.map_select_size != 0 and not CompareFunc(sceninfo.size[1],
-		currentFilters.map_select_size, currentFilters.map_select_size_limiter) then
-			continue
-        end
-		
-        if currentFilters.map_ai_markers != 0 and
-		not EnhancedLobby.CheckMapHasMarkers(sceninfo) == currentFilters.map_ai_markers then
-			continue
-        end
-		
-		table.insert(tempMaps, sceninfo)
-		scenarioKeymap[count] = i
-		count = count + 1
-    end
-	
-	randMapList = count - 1
+    local count = 1 -- Corresponds to row in mapList
     
-    for i,sceninfo in tempMaps do
-        local name = sceninfo.name
-        if sceninfo.map_version then
-            -- MAINMENU_0009 is "Version :"
-			local la = string.lower(__language)
-			name = name .. " (" .. EnhancedLobby.VersionLoc(la) .. sceninfo.map_version .. ")"
+    for j, folder in folders do
+        local filtered = {}
+        local size = table.getsize(folder.maps)
+        -- Predetermine which maps in the folder get filtered out
+        for s, sceninfo in folder.maps do
+            if currentFilters.map_select_supportedplayers ~= 0 and not CompareFunc(table.getsize(sceninfo.Configurations.standard.teams[1].armies), 
+            currentFilters.map_select_supportedplayers, currentFilters.map_select_supportedplayers_limiter) and
+            not filtered[s] then
+                table.insert(filtered, s, true)
+            end
+            
+            if currentFilters.map_select_size ~= 0 and not CompareFunc(sceninfo.size[1],
+            currentFilters.map_select_size, currentFilters.map_select_size_limiter) and 
+            not filtered[s] then
+                table.insert(filtered, s, true)
+            end
+            
+            if (currentFilters.map_ai_markers == true or currentFilters.map_ai_markers == false) and
+            not EnhancedLobby.CheckMapHasMarkers(sceninfo) == currentFilters.map_ai_markers and
+            not filtered[s] then
+                table.insert(filtered, s, true)
+            end
         end
-        mapList:AddItem(LOC(name))
+        -- Add a folder, but only if it hasn't been entirely filtered out
+        if table.getsize(filtered) == size then
+            continue
+        elseif size > 1 then
+            -- Map this ItemList row to a folder, but not a scenario
+            folderMap[count] = { 
+                folder = j,
+                map = nil 
+            }
+            mapList:AddItem("*** FOLDER: "..folder.name)
+            count = count + 1
+        end
+        if size == 1 or folder.open then
+            for i, sceninfo in folder.maps do
+                -- Don't add filtered maps
+                if filtered[i] then
+                    continue
+                end
+                
+                local name = sceninfo.name
+                -- if sceninfo.map_version then
+                    -- MAINMENU_0009 is "Version :"
+                --     local la = string.lower(__language)
+                --     name = name .. " (" .. EnhancedLobby.VersionLoc(la) .. sceninfo.map_version .. ")"
+                -- end
+                if folder.open then
+                    mapList:AddItem(" |-> "..LOC(name))
+                else
+                    mapList:AddItem(LOC(name))
+                end
+                -- Map this ItemList row to a folder and a scenario within
+                folderMap[count] = { 
+                    folder = j, 
+                    map = i
+                }
+                count = count + 1
+            end
+        end
     end
-	
 end
 
 function CompareFunc(valA, valB, operatorVar)

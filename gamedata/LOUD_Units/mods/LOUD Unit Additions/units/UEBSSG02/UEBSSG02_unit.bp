@@ -1,0 +1,237 @@
+UnitBlueprint {
+
+    Audio = {
+        DeathExplosion = Sound {
+            Bank = 'UALDestroy',
+            Cue = 'UAB_Destroy_Lrg_PreDestroy',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Destroyed = Sound {
+            Bank = 'UALDestroy',
+            Cue = 'UAB_Destroy_Huge',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+	    Killed = Sound {
+            Bank = 'UALDestroy',
+            Cue = 'UAB_Destroy_Huge',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        ShieldOff = Sound {
+            Bank = 'UEB',
+            Cue = 'UEB4301_Activate',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        ShieldOn = Sound {
+            Bank = 'UEB',
+            Cue = 'UEB4301_Activate',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'UEF_Select_Structure',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+	
+    BuildIconSortPriority = 60,
+	
+    Categories = {
+        'SELECTABLE',
+        'UEF',
+        'STRUCTURE',
+        'DEFENSE',
+        'EXPERIMENTAL',
+        'SHIELD',
+        'SIZE16',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'OVERLAYDEFENSE',
+    },
+	
+    CollisionOffsetY = -0.25,
+	
+    Defense = {
+        ArmorType = 'Structure',
+        EconomyThreatLevel = 1200,
+        Health = 4950,
+        MaxHealth = 4950,
+		RegenRate = 15,
+		
+        Shield = {
+            ImpactEffects = 'UEFShieldHit01',
+        	ImpactMesh = '/effects/entities/SquareShields/BoxShieldSection01_mesh',
+        	Mesh = '/effects/entities/SquareShields/UEFShield02_mesh',
+        	MeshZ = '/effects/entities/SquareShields/Shield02z_mesh',
+            RegenAssistMult = 10000,
+            ShieldEnergyDrainRechargeTime = 20,
+            ShieldMaxHealth = 45000,
+            ShieldRechargeTime = 31,
+            ShieldRegenRate = 395,
+            ShieldRegenStartTime = 1,
+            ShieldSize = 110,
+            ShieldVerticalOffset = -43,
+        },
+    },
+	
+    Description = '<LOC uebssg02_desc>Experimental Squareshield & Storage',
+	
+    Display = {
+         DamageEffects = {
+            {
+                Bone = 0,
+                OffsetX = 1.25,
+                OffsetY = 0.75,
+                OffsetZ = 1,
+            },
+            {
+                Bone = 0,
+                OffsetX = -1.25,
+                OffsetY = 0.75,
+                OffsetZ = 1,
+            },
+            {
+                Bone = 0,
+                OffsetX = -1.25,
+                OffsetY = 0.75,
+                OffsetZ = -1,
+            },
+            {
+                Bone = 0,
+                OffsetX = 1.25,
+                OffsetY = 0.75,
+                OffsetZ = -1,
+            },
+        },
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 240,
+                    Scrolling = true,
+                    ShaderName = 'Unit',
+                },
+                {
+                    AlbedoName = 'UEBSSG02_lod1_albedo.dds',
+                    LODCutoff = 600,
+                    ShaderName = 'Unit',
+                    SpecularName = 'UEBSSG02_lod1_specteam.dds',
+                },
+            },
+        },
+
+        SpawnRandomRotation = true,
+		
+        Tarmacs = {
+            {
+                Albedo = 'Tarmacs/Tar12x_01_albedo',
+                FadeOut = 300,
+                Length = 16.8,
+                Normal = 'Tarmacs/Tar12x_01_normals',
+                Orientations = {
+                    0,
+                    90,
+                    180,
+                    270,
+                },
+                RemoveWhenDead = true,
+                Width = 16.8,
+            },
+        },
+        UniformScale = 0.168,
+    },
+	
+    Economy = {
+        BuildCostEnergy = 200000,
+        BuildCostMass = 11456,
+        BuildTime = 19100,
+		
+        MaintenanceConsumptionPerSecondEnergy = 6159,
+		
+        StorageEnergy = 20000,
+    },
+	
+    Footprint = {
+        SizeX = 5,
+        SizeZ = 5,
+    },
+	
+    General = {
+		CapCost = 5,
+        Category = 'Defense',
+        Classification = 'RULEUC_CounterMeasure',
+        FactionName = 'UEF',
+        Icon = 'land',
+        OrderOverrides = {
+            RULEUTC_ShieldToggle = {
+                bitmapId = 'shield-dome',
+                helpText = 'toggle_shield_dome',
+            },
+        },
+        SelectionPriority = 5,
+        TechLevel = 'RULEUTL_Secret',
+        ToggleCaps = {
+            RULEUTC_ShieldToggle = true,
+        },
+        UnitName = '<LOC uebssg02_name>SSD Hope',
+        UnitWeight = 1,
+        UpgradesFrom = 'uebssg01',
+    },
+	
+    Intel = {
+        VisionRadius = 15,
+    },
+	
+    Interface = {
+        HelpText = 'Experimental Squareshield & Storage',
+    },
+	
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 1.25,
+    LifeBarSize = 3,
+	
+    Physics = {
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Land = true,
+        },
+        DragCoefficient = 0.2,
+        FlattenSkirt = true,
+        MaxSteerForce = 0,
+        MeshExtentsX = 9.5,
+        MeshExtentsY = 5.5,
+        MeshExtentsZ = 9.5,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_None',
+        SkirtOffsetX = -1.5,
+        SkirtOffsetZ = -1.5,
+        SkirtSizeX = 8,
+        SkirtSizeZ = 8,
+        TurnRate = 0,
+    },
+	
+    SelectionSizeX = 6.2,
+    SelectionSizeZ = 6.2,
+    SelectionThickness = 0.45,
+	
+    SizeX = 7.6,
+    SizeY = 3,
+    SizeZ = 7.6,
+	
+    StrategicIconName = 'icon_experimental_structure_shield',
+    StrategicIconSortPriority = 195,
+	
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0,
+        HealthMult = 0.3,
+        MassMult = 0.3,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = false,
+            Sub = false,
+            Water = false,
+        },
+    },
+}

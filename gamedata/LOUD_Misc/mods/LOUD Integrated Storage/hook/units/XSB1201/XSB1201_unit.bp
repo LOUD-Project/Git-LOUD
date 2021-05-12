@@ -1,0 +1,26 @@
+UnitBlueprint {
+    Merge = true,
+    
+    BlueprintId = "xsb1201", --Seraphim T2 Energy
+    
+    Economy = {
+        BuildRate = 15,
+        BuildableCategory = {
+            'xsb1203',
+        },
+        RebuildBonusIds = {
+            'xsb1201',
+            'xsb1203',
+        },
+        StorageEnergy = 500,
+    },
+    
+    General = {
+
+        CommandCaps = {
+            RULEUCC_Pause = true,
+            RULEUCC_Stop = true,
+        },
+        UpgradesTo = 'xsb1203',
+    },
+}

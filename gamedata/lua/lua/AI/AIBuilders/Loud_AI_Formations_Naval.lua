@@ -128,9 +128,10 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
         },
 		
         BuilderData = {
-			DistressRange = 150,
+			DistressRange = 200,
+            DistressReactionTime = 45,
 			DistressTypes = 'Naval',
-			DistressThreshold = 6,
+			DistressThreshold = 8,
 			
 			MissionTime = 1500,		-- 25 minute mission			
 			
@@ -208,12 +209,13 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.DESTROYER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, categories.CRUISER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.FRIGATE }},			
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},
+			--{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.DEFENSIVEBOAT }},
         },
 		
         BuilderData = {
-			DistressRange = 200,
+			DistressRange = 225,
+            DistressReactionTime = 45,            
 			DistressTypes = 'Naval',
 			DistressThreshold = 6,
 			
@@ -256,14 +258,15 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, categories.DESTROYER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, categories.CRUISER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.FRIGATE }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},
+			--{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.DEFENSIVEBOAT }},
         },
 		
         BuilderData = {
-			DistressRange = 200,
+			DistressRange = 225,
+            DistressReactionTime = 45,            
 			DistressTypes = 'Naval',
-			DistressThreshold = 6,
+			DistressThreshold = 8,
 			
 			MissionTime = 600,		-- 10 minute mission
             SearchRadius = 180,     -- use Prioritized Categories as primary target selection
@@ -304,14 +307,15 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.DESTROYER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, categories.CRUISER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.FRIGATE }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},			
+			--{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},			
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.DEFENSIVEBOAT }},
         },
 		
         BuilderData = {
-			DistressRange = 200,
+			DistressRange = 225,
+            DistressReactionTime = 45,            
 			DistressTypes = 'Naval',
-			DistressThreshold = 6,
+			DistressThreshold = 8,
 
 			MissionTime = 600,		-- 10 minute mission
             SearchRadius = 180,     -- use Prioritized Categories as primary target selection
@@ -352,13 +356,14 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.DESTROYER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, categories.CRUISER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.FRIGATE }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},
+			--{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},
         },
 		
         BuilderData = {
-			DistressRange = 200,
+			DistressRange = 225,
+            DistressReactionTime = 45,            
 			DistressTypes = 'Naval',
-			DistressThreshold = 6,
+			DistressThreshold = 8,
 			
 			MissionTime = 600,		-- 10 minute mission
             SearchRadius = 180,     -- use Prioritized Categories as primary target selection
@@ -407,6 +412,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderData = {
 			DistressRange = 225,
+            DistressReactionTime = 45,            
 			DistressTypes = 'Naval',
 			DistressThreshold = 12,
 			
@@ -457,6 +463,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
         BuilderData = {
 		
 			DistressRange = 225,
+            DistressReactionTime = 45,            
 			DistressTypes = 'Naval',
 			DistressThreshold = 12,
 			
@@ -507,6 +514,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderData = {
 			DistressRange = 225,
+            DistressReactionTime = 45,            
 			DistressTypes = 'Naval',
 			DistressThreshold = 12,
 			
@@ -556,6 +564,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderData = {
 			DistressRange = 225,
+            DistressReactionTime = 45,            
 			DistressTypes = 'Naval',
 			DistressThreshold = 12,
 			
@@ -608,6 +617,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderData = {
 			DistressRange = 225,
+            DistressReactionTime = 45,            
 			DistressTypes = 'Naval',
 			DistressThreshold = 15,
 			
@@ -658,6 +668,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderData = {
 			DistressRange = 225,
+            DistressReactionTime = 45,            
 			DistressTypes = 'Naval',
 			DistressThreshold = 15,
 			
@@ -709,6 +720,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderData = {
 			DistressRange = 225,
+            DistressReactionTime = 45,            
 			DistressTypes = 'Naval',
 			DistressThreshold = 15,
 			
@@ -759,6 +771,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderData = {
 			DistressRange = 225,
+            DistressReactionTime = 45,            
 			DistressTypes = 'Naval',
 			DistressThreshold = 15,
 			
@@ -866,8 +879,17 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderType = 'Any',
 		
+        BuilderConditions = {
+            { LUTL, 'PoolGreater', { 6, categories.SUBMARINE + categories.xes0102 }},
+
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 35, 'Naval' }},
+
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},
+        },
+		
         BuilderData = {
-			DistressRange = 160,
+			DistressRange = 200,
+            DistressReactionTime = 45,
 			DistressTypes = 'Naval',
 			DistressThreshold = 6,
 			
@@ -878,14 +900,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 			PatrolTime = 240,	-- 4 minutes
 			PatrolType = true,
         },
-		
-        BuilderConditions = {
-            { LUTL, 'PoolGreater', { 6, categories.SUBMARINE + categories.xes0102 }},
 
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 35, 'Naval' }},
-
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},
-        },
     },
 
 --[[	
@@ -951,8 +966,8 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.FRIGATE }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.CRUISER }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.DESTROYER }},
+			--{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.CRUISER }},
+			--{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.DESTROYER }},
         },
 		
         BuilderData = {

@@ -19,7 +19,7 @@ IgnoreStructures = 0x01
 SpecFootprints {
 	{ Name = 'Vehicle0x0',   SizeX=0,  SizeZ=0,  Caps=LAND, MaxWaterDepth=25, MaxSlope=0.75, Flags=IgnoreStructures },
     { Name = 'Vehicle1x1',   SizeX=1,  SizeZ=1,  Caps=LAND, MaxWaterDepth=0.05, MaxSlope=0.75, Flags=0 },
-    { Name = 'Vehicle2x2',   SizeX=2,  SizeZ=2,  Caps=LAND, MaxWaterDepth=0.05, MaxSlope=0.75, Flags=0 },
+    { Name = 'Vehicle2x2',   SizeX=2,  SizeZ=2,  Caps=LAND, MaxWaterDepth=0.05, MaxSlope=0.75, Flags=IgnoreStructures },
     { Name = 'Vehicle5x5',   SizeX=5,  SizeZ=5,  Caps=LAND, MaxWaterDepth=0.05, MaxSlope=0.75, Flags=IgnoreStructures },
 
 	{ Name = 'Amphibious0x0',   SizeX=0,  SizeZ=0,  Caps=LAND|SEABED, MaxWaterDepth=25, MaxSlope=0.75, Flags=IgnoreStructures },

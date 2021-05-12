@@ -44,10 +44,10 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Normal',
-        EconomyThreatLevel = 38,		-- BuildRate * 2 + 3% of health
-        Health = 640,
-        MaxHealth = 640,
-        RegenRate = 1,
+        EconomyThreatLevel = 86,		-- BuildRate * 2 + 10% of health
+        Health = 660,
+        MaxHealth = 660,
+        RegenRate = 2,
     },
 	
     Description = '<LOC xsl0208_desc>T2 Engineer',
@@ -111,8 +111,8 @@ UnitBlueprint {
 		
         NeedToFaceTargetToBuild = true,
 		
-        StorageEnergy = 100,
-        StorageMass = 10,
+        StorageEnergy = 120,
+        StorageMass = 20,
     },
 	
     General = {
@@ -133,19 +133,15 @@ UnitBlueprint {
         Category = 'Construction',
         Classification = 'RULEUC_Engineer',
         CommandCaps = {
-            RULEUCC_Attack = false,
             RULEUCC_CallTransport = true,
             RULEUCC_Capture = true,
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
-            RULEUCC_Nuke = false,
             RULEUCC_Patrol = true,
             RULEUCC_Pause = true,
             RULEUCC_Reclaim = true,
             RULEUCC_Repair = true,
-            RULEUCC_RetaliateToggle = false,
             RULEUCC_Stop = true,
-            RULEUCC_Transport = false,
         },
         ConstructionBar = true,
         FactionName = 'Seraphim',
@@ -172,12 +168,7 @@ UnitBlueprint {
     Physics = {
         BankingSlope = 0.5,
         BuildOnLayerCaps = {
-            LAYER_Air = false,
             LAYER_Land = true,
-            LAYER_Orbit = false,
-            LAYER_Seabed = false,
-            LAYER_Sub = false,
-            LAYER_Water = false,
         },
         DragCoefficient = 0.2,
         Elevation = 0.5,

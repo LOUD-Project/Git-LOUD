@@ -61,10 +61,12 @@ function CreateUI()
             action = function() ButtonMod() end,
             color = menuFontColorAlt,
         },
-		{
-			name = '',
-			color = menuFontColorAlt,
-		},
+        {
+            name = 'Unit Database',
+            tooltip = 'mainmenu_unitdb',
+            action = function() ButtonUnitDB() end,
+            color = menuFontColorAlt,
+        },
 		{
 			name = '',
 			color = menuFontColorAlt,
@@ -858,7 +860,17 @@ function CreateUI()
 		MenuHide(function()
 			import('/lua/ui/menus/eula.lua').CreateEULA(topLevelGroup, function() MenuShow() SetEscapeHandle(ButtonBack) end)
 		end)
-	end
+    end
+
+    function ButtonUnitDB()
+        MenuHide(function()
+            local function Callback()
+                MenuShow()
+                SetEscapeHandle(ButtonBack)
+            end
+            import('/lua/ui/menus/unitdb.lua').CreateUnitDB(topLevelGroup, Callback)
+        end)
+    end
 
 	function ButtonBack()
 		MenuDestroy(function()

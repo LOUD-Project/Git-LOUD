@@ -6,28 +6,30 @@
 --* Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
 --*****************************************************************************
 
-local UIUtil = import('/lua/ui/uiutil.lua')
-local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
-local Group = import('/lua/maui/group.lua').Group
 local Bitmap = import('/lua/maui/bitmap.lua').Bitmap
-local Text = import('/lua/maui/text.lua').Text
+local Edit = import('/lua/maui/edit.lua').Edit
+local Group = import('/lua/maui/group.lua').Group
+local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
+local UIUtil = import('/lua/ui/uiutil.lua')
 
-local keydesc = import('/lua/keymap/keydescriptions.lua').keyDescriptions
-local properKeyNames = import('/lua/keymap/properKeyNames.lua').properKeyNames
-local keyNames = import('/lua/keymap/keyNames.lua').keyNames
 local keyCategories = import('/lua/keymap/keycategories.lua').keyCategories
+local keyDesc = import('/lua/keymap/keydescriptions.lua').keyDescriptions
+local keyNames = import('/lua/keymap/keyNames.lua').keyNames
+local properKeyNames = import('/lua/keymap/properKeyNames.lua').properKeyNames
 
-local panel
+local panel = false
 local keyContainer
 local keyTable
+local dataSize = 0
+local filterText = ''
 
--- Zulans HotBuild functions
+-- Zulan's HotBuild functions
 local initDefaultKeyMap = import('/lua/hotbuild/hotbuild.lua').initDefaultKeyMap
 
 LOG("Hotbuild --> Loading keydescriptions")
 
 for key, description in import('/lua/hotbuild/hotbuild.lua').getKeyDescriptions() do
-    keydesc[key] = description
+    keyDesc[key] = description
 end
 
 local function initDefaultKeyMap_de()
@@ -77,6 +79,26 @@ local function ConfirmNewKeyMap()
 
 end
 
+-- Determine how many keyTable elements can be shown after folds and filters
+function CalcDataSize()
+    dataSize = 0
+    for _, v in keyTable do
+        if v.type == 'header' then
+            -- If folded, subtract contents
+            if v.folded then
+                dataSize = dataSize - v.count
+            end
+            dataSize = dataSize + 1
+        elseif filterText ~= '' and v.type == 'entry'
+        and not string.find(string.lower(v.text), filterText) then
+            -- Entry is filtered out, don't add 1 here
+        else
+            -- Entries and spacers
+            dataSize = dataSize + 1
+        end
+    end
+end
+
 local function EditActionKey(parent, action, currentKey)
     local dialog = Group(parent, "editActionKeyDialog")
     LayoutHelpers.AtCenterIn(dialog, parent)
@@ -108,7 +130,7 @@ local function EditActionKey(parent, action, currentKey)
     LayoutHelpers.AtTopIn(helpText, background)
     LayoutHelpers.AtHorizontalCenterIn(helpText, background)
 
-    local keyText = UIUtil.CreateText(background, formatkeyname(currentKey), 24)
+    local keyText = UIUtil.CreateText(background, FormatKeyName(currentKey), 24)
     LayoutHelpers.AtTopIn(keyText, background, 40)
     LayoutHelpers.AtHorizontalCenterIn(keyText, background)
 
@@ -123,24 +145,24 @@ local function EditActionKey(parent, action, currentKey)
 
     local function AddKey(keyCode, modifiers)
 
-        if keyCodeLookup[keyCode] != nil then
+        if keyCodeLookup[keyCode] ~= nil then
             local ctrl = false
             local alt = false
             local shift = false
 
             local key = keyCodeLookup[keyCode]
 
-            if key != 'Ctrl' then
+            if key ~= 'Ctrl' then
                 if modifiers.Ctrl == true then
                     ctrl = true
                 end
 
-                if key != 'Shift' then
+                if key ~= 'Shift' then
                     if modifiers.Shift == true then
                         shift = true
                     end
 
-                    if key != 'Alt' then
+                    if key ~= 'Alt' then
                         if modifiers.Alt == true then
                             alt = true
                         end
@@ -185,18 +207,29 @@ local function EditActionKey(parent, action, currentKey)
         -- check if key is already assigned to something else
         local Keymapper = import('/lua/keymap/keymapper.lua')
         local function MapKey()
-            Keymapper.SetUserKeyMapping(currentKeyPattern, false, action)
+            Keymapper.SetUserKeyMapping(currentKeyPattern, currentKey, action)
             keyTable = FormatData()
+            CalcDataSize()
             keyContainer:CalcVisible()
         end
-        if Keymapper.IsKeyInMap(currentKeyPattern, Keymapper.GetCurrentKeyMap()) then
-            UIUtil.QuickDialog(panel, "<LOC key_binding_0006>This key is already mapped to another action, are you sure you want to change it?",
+        local overlaps = Keymapper.GetActionsByKey(currentKeyPattern, Keymapper.GetCurrentKeyMap())
+        if table.getsize(overlaps) > 0 then
+            local olDescs = {}
+
+            for i, v in overlaps do
+                table.insert(olDescs, keyDesc[v] or v)
+            end
+
+            local msg = table.concat(olDescs, "\n")
+            msg = "This key is aleady mapped to:\n"..msg
+            msg = msg.."\n Are you sure you want to change it?"
+
+            UIUtil.QuickDialog(panel, msg,
                 "<LOC _Yes>", MapKey,
                 "<LOC _No>", nil,
                 nil, nil,
                 true,
                 {escapeButton = 2, enterButton = 1, worldCover = false})
-
         else
             MapKey()
         end
@@ -231,6 +264,18 @@ function CreateUI()
         end
     end
 
+    local function ClearCurrentSelection()
+        for k, v in keyTable do
+            if v._selected and v.key then
+                local Keymapper = import('/lua/keymap/keymapper.lua')
+                Keymapper.ClearUserKeyMapping(v.key)
+                keyTable = FormatData()
+                keyContainer:CalcVisible()
+                break
+            end
+        end
+    end
+
     panel = Bitmap(GetFrame(0), UIUtil.UIFile('/scx_menu/panel-brd/panel_brd_m.dds'))
     panel.Depth:Set(GetFrame(0):GetTopmostDepth() + 1)
     panel.Height:Set(390)
@@ -250,7 +295,7 @@ function CreateUI()
     LayoutHelpers.AtHorizontalCenterIn(title, panel)
 
     local closeButton = UIUtil.CreateButtonStd(panel, "/scx_menu/small-btn/small", LOC("<LOC _Close>"), 14, 2)
-    LayoutHelpers.AtTopIn(closeButton, panel.border.bm, -20)
+    LayoutHelpers.AtTopIn(closeButton, panel.border.bm, -24)
     LayoutHelpers.AtHorizontalCenterIn(closeButton, panel)
     closeButton.OnClick = function(self, modifiers)
 		ConfirmNewKeyMap()
@@ -258,12 +303,16 @@ function CreateUI()
         panel = false
     end
 
--- removed keybinding work
-
     local assignKeyButton = UIUtil.CreateButtonStd(panel, "/widgets/small02", LOC("<LOC key_binding_0003>Assign Key"), 12)
     LayoutHelpers.LeftOf(assignKeyButton, closeButton, 10)
     assignKeyButton.OnClick = function(self, modifiers)
         AssignCurrentSelection()
+    end
+
+    local deassignKeyButton = UIUtil.CreateButtonStd(panel, "/widgets/small02", "Deassign Key", 12)
+    LayoutHelpers.Below(deassignKeyButton, assignKeyButton, -6)
+    deassignKeyButton.OnClick = function(self, modifiers)
+        ClearCurrentSelection()
     end
 
     local resetButton = UIUtil.CreateButtonStd(panel, "/widgets/small02", LOC("<LOC key_binding_0004>Reset"), 12)
@@ -277,6 +326,28 @@ function CreateUI()
             {escapeButton = 2, enterButton = 1, worldCover = false})
     end
 
+    local searchLabel = UIUtil.CreateText(panel, "Search:", 14, UIUtil.bodyFont)
+    LayoutHelpers.Below(searchLabel, resetButton, 2)
+
+    local searchEdit = Edit(panel)
+    LayoutHelpers.RightOf(searchEdit, searchLabel, 2)
+    searchEdit.Width:Set(154)
+    searchEdit.Height:Set(16)
+    searchEdit:SetFont(UIUtil.bodyFont, 14)
+    searchEdit:SetForegroundColor(UIUtil.fontColor)
+    searchEdit:SetHighlightBackgroundColor('00000000')
+    searchEdit:SetHighlightForegroundColor(UIUtil.fontColor)
+	searchEdit:ShowBackground(true)
+    searchEdit:SetMaxChars(40)
+
+    filterText = ''
+    CalcDataSize()
+
+    searchEdit.OnTextChanged = function(self, newText, oldText)
+        filterText = string.lower(newText)
+        CalcDataSize()
+        keyContainer:CalcVisible()
+    end
 
     panel.HandleEvent = function(self, event)
         if event.Type == 'KeyDown' then
@@ -289,7 +360,7 @@ function CreateUI()
     AddInputCapture(panel)
 
     keyContainer = Group(panel)
-    keyContainer.Height:Set(385)
+    keyContainer.Height:Set(370)
     keyContainer.Width:Set(593)
     keyContainer.top = 0
 
@@ -311,36 +382,66 @@ function CreateUI()
         keyEntries[index].description:SetClipToWidth(true)
         keyEntries[index].description.Width:Set(keyEntries[index].bg.Right() - keyEntries[index].bg.Left() - 150) -- this is not meant to be a lazy var function since the layout is static
 
+        keyEntries[index].folded = UIUtil.CreateText(keyEntries[1].bg, '', 16, "Arial Bold")
+
         keyEntries[index].bg.Height:Set(function() return keyEntries[index].key.Height() + 4 end)
 
         LayoutHelpers.AtVerticalCenterIn(keyEntries[index].key, keyEntries[index].bg)
         LayoutHelpers.AtLeftIn(keyEntries[index].description, keyEntries[index].bg, 150)
         LayoutHelpers.AtVerticalCenterIn(keyEntries[index].description, keyEntries[index].bg)
+        LayoutHelpers.AtLeftIn(keyEntries[index].folded, keyEntries[index].bg, 16)
+        LayoutHelpers.AtVerticalCenterIn(keyEntries[index].folded, keyEntries[index].bg)
 
         keyEntries[index].bg.HandleEvent = function(self, event)
-            local eventHandled = false
--- removed keybinding work
-            local function SelectLine()
-                for k, v in keyTable do
-                    if v._selected then
-                        v._selected = nil
+            local data = keyTable[self.dataIndex]
+            if data.type == 'entry' then
+                local eventHandled = false
+
+                local function SelectLine()
+                    for _, v in keyTable do
+                        if v._selected then
+                            v._selected = nil
+                        end
                     end
+                    data._selected = true
+                    self:GetParent():CalcVisible()
                 end
-                if keyTable[self.dataIndex].type == 'entry' then
-                    keyTable[self.dataIndex]._selected = true
+
+                if event.Type == 'ButtonPress' then
+                    SelectLine()
+                    eventHandled = true
+                elseif event.Type == 'ButtonDClick' then
+                    SelectLine()
+                    eventHandled = true
                 end
-                keyContainer:CalcVisible()
-            end
 
-            if event.Type == 'ButtonPress' then
-                SelectLine()
-                eventHandled = true
-            elseif event.Type == 'ButtonDClick' then
-                SelectLine()
-                eventHandled = true
-            end
-
-            return eventHandled
+                return eventHandled
+            elseif data.type == 'header' then
+                if event.Type == 'MouseEnter' then
+                    self:SetSolidColor('ff708288')
+                elseif event.Type == 'MouseExit' then
+                    self:SetSolidColor('ff506268')
+                elseif event.Type == 'ButtonPress' then
+                    local parent = self:GetParent()
+                    data.folded = not data.folded
+                    -- Folding causes list shrinkage; better to adjust scrollbar
+                    -- now, since it's jarring if user input causes it
+                    if data.folded then
+                        -- Don't worry about changing fold indicator here
+                        -- It happens in CalcVisible already
+                        if parent.top <= 1 then
+                            parent:ScrollLines(nil, -1)
+                        else
+                            parent:ScrollLines(nil, -1)
+                            parent:ScrollLines(nil, 1)
+                        end
+                    end
+                    local sound = Sound({Bank = 'Interface', Cue = 'UI_Camera_Delete_Position'})
+                    PlaySound(sound)
+                    CalcDataSize()
+                    parent:CalcVisible()
+                end
+            end -- Spacers need no logic
         end
     end
 
@@ -356,16 +457,12 @@ function CreateUI()
 
     local numLines = function() return table.getsize(keyEntries) end
 
-    local function DataSize()
-        return table.getn(keyTable)
-    end
-
     -- called when the scrollbar for the control requires data to size itself
     -- GetScrollValues must return 4 values in this order:
     -- rangeMin, rangeMax, visibleMin, visibleMax
     -- aixs can be "Vert" or "Horz"
     keyContainer.GetScrollValues = function(self, axis)
-        local size = DataSize()
+        local size = dataSize
         --LOG(size, ":", self.top, ":", math.min(self.top + numLines, size))
         return 0, size, self.top, math.min(self.top + numLines(), size)
     end
@@ -384,17 +481,20 @@ function CreateUI()
     keyContainer.ScrollSetTop = function(self, axis, top)
         top = math.floor(top)
         if top == self.top then return end
-        local size = DataSize()
+        local size = dataSize
         self.top = math.max(math.min(size - numLines() , top), 0)
         self:CalcVisible()
     end
 
     -- called to determine if the control is scrollable on a particular access. Must return true or false.
     keyContainer.IsScrollable = function(self, axis)
-        return true
+        return dataSize < table.getsize(keyEntries)
     end
+
     -- determines what controls should be visible or not
     keyContainer.CalcVisible = function(self)
+        local filter = string.lower(searchEdit:GetText())
+
         local function GetEntryColor(lineID, selected)
             if selected then
                 return 'ff880000'
@@ -405,18 +505,31 @@ function CreateUI()
                 return 'ff000000'
             end
         end
+
         local function SetTextLine(line, data, lineID)
             if data.type == 'header' then
                 LayoutHelpers.AtHorizontalCenterIn(line.key, keyContainer)
                 line.bg:SetSolidColor('ff506268')
-                line.key:SetText(LOC(data.text))
+                line.key:SetText(LOC(data.text) or "None")
                 line.key:SetFont('Arial Bold', 16)
                 line.key:SetColor('ffe9e45f')
                 line.description:SetText('')
+                if data.folded then
+                    line.folded:SetText("[+]")
+                else
+                    line.folded:SetText("[-]")
+                end
+                line.bg.dataKey = nil
+                line.bg.dataAction = nil
+                line.bg.dataIndex = lineID
             elseif data.type == 'spacer' then
                 line.bg:SetSolidColor('00000000')
                 line.key:SetText('')
                 line.description:SetText('')
+                line.folded:SetText("")
+                line.bg.dataKey = nil
+                line.bg.dataAction = nil
+                line.bg.dataIndex = lineID
             else
                 --LayoutHelpers.AtLeftIn(line.key, line.bg)
                 line.key.Left:Set(function() return math.floor((line.bg.Left() + 70) - (line.key.Width() / 2)) end)
@@ -424,22 +537,60 @@ function CreateUI()
                 line.key:SetText(LOC(data.keyDisp))
                 line.key:SetColor('ffffffff')
                 line.key:SetFont('Arial', 16)
-                line.description:SetText(LOC(data.text or "<LOC key_binding_0001>No action text"))
+                line.folded:SetText("")
+                line.description:SetText(LOC(data.text))
                 line.bg.dataKey = data.key
                 line.bg.dataAction = data.action
                 line.bg.dataIndex = lineID
             end
         end
-        for i, v in keyEntries do
-            if keyTable[i + self.top] then
-                SetTextLine(v, keyTable[i + self.top], i + self.top)
-            else
-                v.bg:SetSolidColor('00000000')
-                v.key:SetText('')
-                v.description:SetText('')
+
+        local i = 0
+        local j = 1
+
+        local skip = self.top
+
+        while skip > 0 do
+            local kte = keyTable[j]
+            if kte.type == 'header' and kte.folded then
+                j = j + kte.count
+            end
+            skip = skip - 1
+            j = j + 1
+        end
+
+        while true do
+            local kte = keyTable[j]
+            -- Skip over filtered keys
+            if filter ~= '' and kte.type == 'entry' then
+                if not string.find(string.lower(kte.text), filter)
+                and not string.find(string.lower(kte.keyDisp), filter) then
+                    j = j + 1
+                    if j > table.getsize(keyTable) then break end
+                    continue
+                end
+            end
+            i = i + 1
+            if i > table.getsize(keyEntries) then break end
+            SetTextLine(keyEntries[i], kte, j)
+            if kte.type == 'header' and kte.folded then
+                j = j + kte.count
+            end
+            j = j + 1
+            if j > table.getsize(keyTable) then break end
+        end
+
+        -- Clear remaining lines if not all need to be filled
+        if i < table.getsize(keyEntries) then
+            for l = i + 1, table.getsize(keyEntries) do
+                keyEntries[l].bg:SetSolidColor('00000000')
+                keyEntries[l].key:SetText('')
+                keyEntries[l].folded:SetText("")
+                keyEntries[l].description:SetText('')
             end
         end
     end
+
     keyContainer.HandleEvent = function(control, event)
         if event.Type == 'WheelRotation' then
             local lines = 1
@@ -449,10 +600,11 @@ function CreateUI()
             control:ScrollLines(nil, lines)
         end
     end
+
     keyContainer:CalcVisible()
 end
 
---TODO clean up the table names a bit to be more consistent?
+-- TODO clean up the table names a bit to be more consistent?
 function FormatData()
 
     local keyactions = import('/lua/keymap/keymapper.lua').GetKeyActions()
@@ -495,9 +647,9 @@ function FormatData()
 
                 if val1 and val2 then
 
-                    if (not keydesc[val1.desckey] and not keydesc[val2.desckey]) then
+                    if (not keyDesc[val1.desckey] and not keyDesc[val2.desckey]) then
                         return (val1.id >= val2.id)
-                    elseif (keydesc[val1.desckey] >= keydesc[val2.desckey]) then
+                    elseif (keyDesc[val1.desckey] >= keyDesc[val2.desckey]) then
                         return false
                     else
                         return true
@@ -514,19 +666,30 @@ function FormatData()
 
     for i, v in retkeys do
 
-        if index != 1 then
+        if index ~= 1 then
             KeyData[index] = {type = 'spacer'}
             index = index + 1
         end
 
-        KeyData[index] = {type = 'header', text = keyCategories[i]}
+        KeyData[index] = {
+            type = 'header',
+            text = keyCategories[i],
+            count = table.getsize(v),
+            folded = false,
+        }
 
         index = index + 1
 
         for currentval, data in v do
 
-            local properKey = formatkeyname(data.key)
-            KeyData[index] = {type = 'entry', text = keydesc[data.desckey], keyDisp = properKey, action = data.desckey, key = data.key}
+            local properKey = FormatKeyName(data.key)
+            KeyData[index] = {
+                type = 'entry',
+                text = keyDesc[data.desckey] or data.desckey or "Unnamed Action",
+                keyDisp = properKey,
+                action = data.desckey,
+                key = data.key
+            }
             index = index + 1
         end
 
@@ -535,7 +698,7 @@ function FormatData()
     return KeyData
 end
 
-function formatkeyname(key)
+function FormatKeyName(key)
 
     if not key then
         return ""
@@ -615,4 +778,3 @@ function CreateBorder(parent)
 
     return tbl
 end
-

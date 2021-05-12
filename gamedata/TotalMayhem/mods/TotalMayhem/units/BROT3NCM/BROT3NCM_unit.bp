@@ -70,7 +70,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 592,
     },
 	
-    Description = '<LOC brot3ncm_desc>Experimental Heavy Support Mech',
+    Description = '<LOC brot3ncm_desc>Experimental Heavy Assault Mech',
 	
     Display = {
         Abilities = {
@@ -147,17 +147,11 @@ UnitBlueprint {
         Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
-            RULEUCC_CallTransport = false,
-            RULEUCC_Capture = false,
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
-            RULEUCC_Nuke = false,
             RULEUCC_Patrol = true,
-            RULEUCC_Reclaim = false,
-            RULEUCC_Repair = false,
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
-            RULEUCC_Transport = false,
         },
         FactionName = 'Aeon',
         Icon = 'amph',
@@ -174,7 +168,7 @@ UnitBlueprint {
     },
     
     Interface = {
-        HelpText = 'Little Jimmy',
+        HelpText = 'Heavy Assault Mech',
     },
 	
     LifeBarHeight = 0.07,
@@ -184,25 +178,28 @@ UnitBlueprint {
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
-            LAYER_Air = false,
             LAYER_Land = true,
-            LAYER_Orbit = false,
             LAYER_Seabed = true,
-            LAYER_Sub = false,
-            LAYER_Water = false,
         },
         DragCoefficient = 0.2,
+        
         MaxAcceleration = 2.5,
         MaxBrake = 2.5,
         MaxSpeed = 2.5,
         MaxSpeedReverse = 2,
+        
         MaxSteerForce = 10,
+        
         MinSpeedPercent = 0,
+        
         MotionType = 'RULEUMT_Amphibious',
+        
         SkirtOffsetX = -0.5,
         SkirtOffsetZ = -0.5,
-        SkirtSizeX = 4,
-        SkirtSizeZ = 4,
+        
+        SkirtSizeX = 3,
+        SkirtSizeZ = 3,
+        
         TurnRadius = 5,
         TurnRate = 29,
     },

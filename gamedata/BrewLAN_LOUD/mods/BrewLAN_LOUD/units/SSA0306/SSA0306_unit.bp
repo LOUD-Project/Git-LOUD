@@ -32,7 +32,7 @@ UnitBlueprint {
 		
         LiftFactor = 10,
 		
-        MaxAirspeed = 13,
+        MaxAirspeed = 12.5,
 		
         StartTurnDistance = 14,
 		
@@ -90,8 +90,8 @@ UnitBlueprint {
     Defense = {
         AirThreatLevel = 14,
         ArmorType = 'Light',
-        Health = 4300,
-        MaxHealth = 4300,
+        Health = 4100,
+        MaxHealth = 4100,
         RegenRate = 15,
         Shield = {
             ImpactEffects = 'SeraphimShieldHit01',
@@ -101,7 +101,7 @@ UnitBlueprint {
             RegenAssistMult = 60,
             ShieldEnergyDrainRechargeTime = 5,
             ShieldMaxHealth = 3500,
-            ShieldRechargeTime = 15,
+            ShieldRechargeTime = 20,
             ShieldRegenRate = 93,
             ShieldRegenStartTime = 1,
             ShieldSize = 8,
@@ -209,14 +209,10 @@ UnitBlueprint {
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
-            RULEUCC_Capture = false,
             RULEUCC_Ferry = true,
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
-            RULEUCC_Nuke = false,
             RULEUCC_Patrol = true,
-            RULEUCC_Reclaim = false,
-            RULEUCC_Repair = false,
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
             RULEUCC_Transport = true,
@@ -258,11 +254,6 @@ UnitBlueprint {
     Physics = {
         BuildOnLayerCaps = {
             LAYER_Air = true,
-            LAYER_Land = false,
-            LAYER_Orbit = false,
-            LAYER_Seabed = false,
-            LAYER_Sub = false,
-            LAYER_Water = false,
         },
         Elevation = 14,
 		

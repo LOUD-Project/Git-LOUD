@@ -1,0 +1,199 @@
+UnitBlueprint {
+    Adjacency = 'T3MassExtractorAdjacencyBuffs',
+    Audio = {
+        Destroyed = Sound {
+            Bank = 'UELDestroy',
+            Cue = 'UEB_Destroy_Huge',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'UEF_Select_Resource',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+    Categories = {
+        'SELECTABLE',
+        'UEF',
+        'STRUCTURE',
+        'ECONOMIC',
+        'TECH3',
+        'MASSPRODUCTION',
+        'MASSEXTRACTION',
+        'SIZE4',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+    },
+    Defense = {
+        ArmorType = 'Structure',
+        EconomyThreatLevel = 798,		-- 1000% MassOutput + 2% Health
+        Health = 9900,
+        MaxHealth = 9900,
+        RegenRate = 3,
+    },
+	
+    Description = '<LOC ueb1304_desc>Advanced Mass Extractor & Storage',
+	
+    Display = {
+        AnimationOpen = '/units/ueb1302/ueb1302_Apump.sca',
+        AnimationUpgrade = '/units/ueb1302/ueb1302_Aupgrade.sca',
+        Mesh = {
+            IconFadeInZoom = 160,
+            LODs = {
+                {
+                    LODCutoff = 150,
+                    ShaderName = 'Unit',
+                    MeshName = '/units/UEB1302/UEB1302_LOD0.scm',
+                    AlbedoName = '/units/UEB1302/UEB1302_Albedo.dds',
+                    NormalsName = '/units/UEB1302/UEB1302_NormalsTS.dds',
+                    SpecularName = '/units/UEB1302/UEB1302_SpecTeam.dds',
+                },
+                {
+                    LODCutoff = 250,
+                    ShaderName = 'Unit',
+                    MeshName = '/units/UEB1302/UEB1302_LOD1.scm',
+                    AlbedoName = '/units/UEB1302/UEB1302_lod1_Albedo.dds',
+                    NormalsName = '/units/UEB1302/UEB1302_lod1_normalsTS.dds',
+                    SpecularName = '/units/UEB1302/UEB1302_lod1_SpecTeam.dds',
+                },
+            },
+        },
+        PlaceholderMeshName = 'UXB0017',
+        SpawnRandomRotation = true,
+        UniformScale = 0.075,
+    },
+	
+    Economy = {
+        BuildCostEnergy = 24000,
+        BuildCostMass = 3200,
+		BuildRate = 20,
+        BuildTime = 3200,
+		
+        MaintenanceConsumptionPerSecondEnergy = 240,
+        ProductionPerSecondMass = 30,
+		
+        RebuildBonusIds = {'ueb1302'},
+		
+        StorageMass = 2500,
+    },
+	
+	Enhancements = {
+	
+		Sequence = {'InstallRegenPackage1','InstallRegenPackage2'},
+		
+        Slots = {
+            Back = {},
+            LCH = {},
+            RCH = {},		
+			Command = {},
+        },
+		
+		InstallRegenPackage1 = {
+		
+            BuildCostEnergy = 4800,
+            BuildCostMass = 640,
+            BuildTime = 1280,
+			
+            Icon = 'Regen',
+			
+            Name = 'Regen Package 1',
+			
+            Slot = 'LCH',
+			
+            UpgradeEffectBones = {'UEB1302',},
+			UpgradeUnitAmbientBones = {'UEB1302'},
+			
+			NewRegenRate = 12,
+        },
+		
+		InstallRegenPackage2 = {
+		
+            BuildCostEnergy = 4800,
+            BuildCostMass = 640,
+            BuildTime = 1280,
+			
+            Icon = 'Regen',
+
+            Name = 'Regen Package 2',
+            Prerequisite = 'InstallRegenPackage1',			
+			
+            Slot = 'LCH',
+			
+            UpgradeEffectBones = {'UEB1302',},
+			UpgradeUnitAmbientBones = {'UEB1302'},
+			
+            RemoveEnhancements = {
+                'InstallRegenPackage1',
+            },
+			
+			NewRegenRate = 22,
+        },				
+    },
+		
+    General = {
+		CapCost = 2,
+        Category = 'Economy',
+        Classification = 'RULEUC_Resource',
+        CommandCaps = {
+            RULEUCC_Stop = true,
+        },
+        FactionName = 'UEF',
+        Icon = 'land',
+        SelectionPriority = 5,
+        TechLevel = 'RULEUTL_Advanced',
+        ToggleCaps = {
+            RULEUTC_ProductionToggle = true,
+        },
+        UnitWeight = 1,
+        UpgradesFrom = 'ueb1302',
+    },
+    Interface = {
+        HelpText = 'Advanced Mass Extractor & Storage',
+    },
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 0.35,
+    LifeBarSize = 1.1,
+    Physics = {
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Land = true,
+            LAYER_Seabed = true,
+        },
+        BuildRestriction = 'RULEUBR_OnMassDeposit',
+        DragCoefficient = 0.2,
+        FlattenSkirt = true,
+        MaxSteerForce = 0,
+        MeshExtentsX = 1.2,
+        MeshExtentsY = 1.35,
+        MeshExtentsZ = 1.2,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_None',
+        SkirtOffsetX = -0.5,
+        SkirtOffsetZ = -0.5,
+        SkirtSizeX = 2,
+        SkirtSizeZ = 2,
+        TurnRate = 0,
+    },
+    SelectionSizeX = 0.65,
+    SelectionSizeZ = 0.65,
+    SelectionThickness = 0.6,
+    SizeX = 0.8,
+    SizeY = 1.6,
+    SizeZ = 0.8,
+    StrategicIconName = 'icon_structure3_mass',
+    StrategicIconSortPriority = 245,
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0,
+        HealthMult = 0.9,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = false,
+            Sub = false,
+            Water = false,
+        },
+    },
+}

@@ -10,37 +10,287 @@ local OldModBlueprints = ModBlueprints
 function ModBlueprints(all_blueprints)
     OldModBlueprints(all_blueprints)
 
-    CheckAllUnitBackgroundImages(all_blueprints.Unit)
-    CheckAllUnitThreatValues(all_blueprints.Unit)
-    CheckCollisionSphereLargeEnoughForMaxSpeed(all_blueprints.Unit)
-    FindUnusedFiles(all_blueprints.Unit)
+    CheckUnitHasCorrectIcon(all_blueprints.Unit)
+
+    --ListAllUnitsNamesDescriptionsForRNN(all_blueprints.Unit)
+    --CheckLOCTags(all_blueprints.Unit)
+    --CheckAllUnitBackgroundImages(all_blueprints.Unit)
+    --CheckAllUnitThreatValues(all_blueprints.Unit)
+    --CheckCollisionSphereLargeEnoughForMaxSpeed(all_blueprints.Unit)
+    --CheckEvenFlowOutliers(all_blueprints.Unit)
+
+    --FindUnusedFiles(all_blueprints.Unit)
+    --CheckWeaponDamage(all_blueprints.Unit)
+
+    --IvanCheckUnitWeight(all_blueprints.Unit)
+end
+
+function ShouldWeLogThis(id, bp)
+    --return units and table.find(units, id)
+    return string.sub(bp.Source, 1, 13) == '/mods/brewlan'
+    --return table.find(bp.Categories, 'SELECTABLE') and (table.find(bp.Categories, 'TECH1') or table.find(bp.Categories, 'TECH2') or table.find(bp.Categories, 'TECH3') or table.find(bp.Categories, 'EXPERIMENTAL') )
+end
+
+function CheckUnitHasCorrectIcon(all_bps)
+    WARN("DO THE ICON CHECK")
+    for id, bp in all_bps do
+        if ShouldWeLogThis(id, bp) and bp.Categories then
+
+            local level = (table.find(bp.Categories, 'EXPERIMENTAL') and 4 or 0)
+            + (table.find(bp.Categories, 'TECH4') and 4 or 0)
+            + (table.find(bp.Categories, 'TECH3') and 3 or 0)
+            + (table.find(bp.Categories, 'TECH2') and 2 or 0)
+            + (table.find(bp.Categories, 'TECH1') and 1 or 0)
+
+            local icon = 'icon_'
+            --[[local part2 = {
+                'experimental',
+
+                'bomber',
+                'fighter',
+                'gunship',
+                'factory',
+                'structure',
+                'ship',
+                'sub',
+                'bot',
+                'land',
+
+                'objective',
+                'strategic',
+
+                'commander',
+                'wall',
+            }]]
+
+            if level < 4 and bp.Physics then
+
+                if table.find(bp.Categories, 'SUBCOMMANDER') or table.find(bp.Categories, 'COMMAND') then
+                    icon = icon..'commander'
+                else
+                    if bp.Physics.MotionType == 'RULEUMT_Air' then
+                        if bp.Air and bp.Air.Winged then
+                            if table.find(bp.Categories, 'BOMBER') or table.find(bp.Categories, 'TORPEDOBOMBER') then
+                                icon = icon..'bomber' else
+                                icon = icon..'fighter' end else
+                            icon = icon..'gunship'
+                        end
+
+                    elseif bp.Physics.MotionType == 'RULEUMT_None' then
+                        if table.find(bp.Categories, 'FACTORY') then
+                            icon = icon..'factory' else
+                            icon = icon..'structure'
+                        end
+
+                    elseif bp.Physics.MotionType == 'RULEUMT_SurfacingSub' then
+                        icon = icon..'sub'
+
+                    elseif bp.Physics.MotionType == 'RULEUMT_Water'
+                    or bp.Physics.MotionType == 'RULEUMT_AmphibiousFloating'
+                    and bp.Physics.AltMotionType == 'RULEUMT_Water' then
+                        icon = icon..'ship'
+
+                    elseif bp.Physics.MotionType == 'RULEUMT_Biped'
+                    or bp.Physics.MotionType == 'RULEUMT_Land'
+                    or bp.Physics.MotionType == 'RULEUMT_Amphibious'
+                    or bp.Physics.MotionType == 'RULEUMT_Hover'
+                    or bp.Physics.MotionType == 'RULEUMT_AmphibiousFloating'
+                    then
+                        if bp.Display and bp.Display.AnimationWalk then
+                            icon = icon..'bot' else
+                            icon = icon..'land'
+                        end
+                    end
+
+                    if level ~= 0 then
+                        icon = icon..level
+                    end
+
+                end
+                icon = icon..'_'
+
+
+                if level ~= 0 and (not (bp.StrategicIconName and string.sub(bp.StrategicIconName, 1, string.len(icon) ) == icon) or not bp.StrategicIconName) then
+                    LOG((bp.General and LOC(bp.General.UnitName or 'Unnamed')).." unit with id: "..id
+                    .." should have an icon starting "..icon.." but has "..(bp.StrategicIconName or 'nil'))
+                end
+            end
+
+
+            --[[local level = (table.find(bp.Categories, 'EXPERIMENTAL') and 4 or 0)
+            + (table.find(bp.Categories, 'TECH4') and 4 or 0)
+            + (table.find(bp.Categories, 'TECH3') and 3 or 0)
+            + (table.find(bp.Categories, 'TECH2') and 2 or 0)
+            + (table.find(bp.Categories, 'TECH1') and 1 or 0)
+            --LOG(level)
+            local message = (bp.General and LOC(bp.General.UnitName or 'Unnamed')).." unit with id: "..id
+            if level > 4 then
+                LOG(message.." has more than one tech level category.")
+            elseif level == 4 then
+                if (bp.StrategicIconName and not string.sub(bp.StrategicIconName, 1, 17) == 'icon_experimental') then
+                    LOG(message.." should have 'icon_experimental_generic' but has "..(bp.StrategicIconName or 'nil'))
+                --elseif bp.StrategicIconName == 'icon_experimental_generic' then
+                --    LOG("We gud")
+                end
+            elseif level ~= 0 then
+                if (bp.StrategicIconName and not string.find(bp.StrategicIconName, tostring(level))) or not bp.StrategicIconName then
+                    LOG(message.." should have an icon with "..tostring(level).." but has "..(bp.StrategicIconName or 'nil'))
+                end
+            end]]
+        end
+    end
+    WARN("DOne")
+end
+
+function IvanCheckUnitWeight(all_bps)
+    for id, bp in all_bps do
+        if ShouldWeLogThis(id, bp) and bp.General.UnitName and table.find(bp.Categories, 'UEF') and table.find(bp.Categories, 'LAND') and table.find(bp.Categories, 'SELECTABLE') and table.find(bp.Categories, 'MOBILE') then
+            LOG((bp.General.UnitName or "nil") ..","..((bp.Defense.MaxHealth or 1) .. ",".. (bp.SizeX or 1) * (bp.SizeY or 1) * (bp.SizeZ or 1)))
+        end
+    end
+end
+
+
+function CheckWeaponDamage(all_bps)
+    local unitsdata = {}
+    for id, bp in all_bps do
+        if ShouldWeLogThis(id, bp) and bp.Weapon then
+            for wi, weap in bp.Weapon do
+                if weap.Damage < 10 then
+                    table.insert(unitsdata, {id, weap.Damage, weap.Label, (weap.TargetType or 'nil')})
+                end
+            end
+        end
+    end
+    LOG(repr(unitsdata))
 end
 
 --------------------------------------------------------------------------------
 -- Logs
 --------------------------------------------------------------------------------
+function CheckLOCTags(all_bps)
+    for id, bp in all_bps do
+        if ShouldWeLogThis(id, bp) then
+            --[[
+            bp.Description
+            bp.General.UnitName
+            ]]
+            local loctable = import('/mods/brewlan/hook/loc/us/strings_db.lua')
+            local name = LOC(bp.General.UnitName)
+            local nameref = LOCref(bp.General.UnitName)
+            local desc = LOC(bp.Description)
+            local descref = LOCref(bp.Description)
+            LOG(id, name, nameref, loctable[nameref], desc, descref, loctable[descref])
+        end
+    end
+end
 
-function ShouldWeLogThis(id, bp)
-    --[[local units = {
-        'sal0320',
-        'uaa0310',
-        'sea0401',
-        'url0203',
-    }
-    return units and table.find(units, id)]]
-    return --[[table.find(bp.Categories, 'SELECTABLE') and]] (table.find(bp.Categories, 'PRODUCTBREWLAN') or table.find(bp.Categories, 'PRODUCTBREWLANTURRETS') or table.find(bp.Categories, 'PRODUCTBREWLANSHIELDS') or table.find(bp.Categories, 'PRODUCTBREWLANRND') or table.find(bp.Categories, 'PRODUCTSPOMENIKI'))
-    --return table.find(bp.Categories, 'SELECTABLE') and (table.find(bp.Categories, 'TECH1') or table.find(bp.Categories, 'TECH2') or table.find(bp.Categories, 'TECH3') or table.find(bp.Categories, 'EXPERIMENTAL') )
+function EvenFlow(all_bps)
+    local brm = 2
+    for id, bp in all_bps do
+        if ShouldWeLogThis(id, bp) and bp.Categories and bp.Economy and bp.Economy.BuildCostEnergy and bp.Economy.BuildCostMass and bp.Economy.BuildTime then
+            local DataTable = {
+                STRUCTURE = {1, 0.1},
+                EXPERIMENTAL = {1, 0.1},
+                TECH1 = {2.5 * brm, brm * 0.125},
+                TECH2 = {2.5 * brm, brm * 0.08928571428571428571428571428572},
+                TECH3 = {2.5 * brm, brm * 0.06578947368421052631578947368421},
+            }
+            local newtime
+            for i, cat in bp.Categories do
+                for Ccat, data in DataTable do
+                    if cat == Ccat then
+                        newtime = math.ceil(math.max( 1, bp.Economy.BuildCostMass * data[1], bp.Economy.BuildCostEnergy * data[2]))
+                        bp.Economy.BuildTime = newtime
+                        if cat == 'STRUCTURE' and brm ~= 1 and bp.Economy.BuildRate and table.find(bp.Categories, 'FACTORY') then
+                            bp.Economy.BuildRate = bp.Economy.BuildRate * brm
+                            for j, catj in bp.Categories do
+                                if catj == 'TECH2' or catj == 'TECH3' then
+                                    bp.Economy.BuildTime = bp.Economy.BuildTime * brm
+                                end
+                            end
+                        end
+                        break
+                    end
+                end
+                if newtime then
+                    break
+                end
+            end
+        end
+    end
+end
+
+function CheckEvenFlowOutliers(all_bps)
+    local Delta = {}
+    local brm = 1
+    for id, bp in all_bps do
+        if ShouldWeLogThis(id, bp) and bp.Categories and bp.Economy and bp.Economy.BuildCostEnergy and bp.Economy.BuildCostMass and bp.Economy.BuildTime then
+            local DataTable = {
+                STRUCTURE = {1, 0.1},
+                EXPERIMENTAL = {1, 0.1},
+                TECH1 = {2.5 * brm, brm * 0.125},
+                TECH2 = {2.5 * brm, brm * 0.08928571428571428571428571428572},
+                TECH3 = {2.5 * brm, brm * 0.06578947368421052631578947368421},
+            }
+            local newtime
+            for i, cat in bp.Categories do
+                for Ccat, data in DataTable do
+                    if cat == Ccat then
+                        newtime = math.ceil(math.max( 1, bp.Economy.BuildCostMass * data[1], bp.Economy.BuildCostEnergy * data[2]))
+                        table.insert(Delta, {id, math.abs(bp.Economy.BuildTime / newtime), bp.Economy.BuildTime, newtime} )
+                        break
+                    end
+                end
+                if newtime then
+                    break
+                end
+            end
+        end
+    end
+    table.sort(Delta, function(a, b) return a[2] > b[2] end)
+    LOG(repr(Delta))
+end
+
+function ListAllUnitsNamesDescriptionsForRNN(all_bps)
+    WARN("RNN LIST THING HERE   ------   SDFGKLHJBSDFLJKHSBDF")
+    for id, bp in all_bps do
+        if ShouldWeLogThis(id, bp) and bp.Weapon and bp.Categories and table.find(bp.Categories, 'SERAPHIM') then
+            local artillery = false
+            for i, weapon in bp.Weapon do
+                if weapon.ArtilleryShieldBlocks then
+                    artillery = true
+                    LOG(weapon.DisplayName)
+                end
+            end
+            if artillery then
+                LOG(bp.General.UnitName)
+            end
+        end
+    end
+    WARN("RNN LIST THING HERE   ------   SDFGKLHJBSDFLJKHSBDF")
+    for tech, ptech in {['TECH1'] = 'Tech 1 ',['TECH2'] = 'Tech 2 ',['TECH3'] = 'Tech 3 ',['EXPERIMENTAL'] = ''} do
+        for id, bp in all_bps do
+            if ShouldWeLogThis(id, bp) and bp.Categories and table.find(bp.Categories, tech) and table.find(bp.Categories, 'SERAPHIM') then
+                if bp.General.UnitName and bp.Description then
+                    LOG(LOC(bp.General.UnitName) .. ': ' .. ptech .. LOC(bp.Description))
+                end
+            end
+        end
+    end
 end
 
 function CheckAllUnitBackgroundImages(all_bps)
     for id, bp in all_bps do
-        CheckUnitHasCorrectIconBackground(id, bp)
+        if ShouldWeLogThis(id, bp) then
+            CheckUnitHasCorrectIconBackground(id, bp)
+        end
     end
 end
 
 function CheckCollisionSphereLargeEnoughForMaxSpeed(all_bps)
     for id, bp in all_bps do
-    	if bp.SizeSphere and bp.Air.MaxAirspeed and ShouldWeLogThis(id, bp) then
+    	if ShouldWeLogThis(id, bp) and bp.SizeSphere and bp.Air.MaxAirspeed then
             local correctMin = bp.Air.MaxAirspeed * 0.095
             if bp.SizeSphere < correctMin then
         		LOG(id ..  " has a size sphere of " .. bp.SizeSphere .. ", but needs at least " .. correctMin)
@@ -356,5 +606,16 @@ function LOC(s)
     end
     return s or 'nil'
 end
+
+function LOCref(s)
+    if type(s) == 'string' and string.sub(s, 1, 4)=='<LOC' then
+        local i = string.find(s,">")
+        if i then
+            s = string.sub(s, 6, i-1)
+        end
+    end
+    return s or 'nil'
+end
+
 
 end

@@ -1,0 +1,195 @@
+UnitBlueprint {
+
+    Audio = {
+        Destroyed = Sound {
+            Bank = 'UELDestroy',
+            Cue = 'UEB_Destroy_Huge',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'Interface',
+            Cue = 'UEF_Select_Structure',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+	
+    BuildIconSortPriority = 60,
+	
+    Categories = {
+        'SELECTABLE',
+        'UEF',
+        'STRUCTURE',
+        'DEFENSE',
+        'TECH3',
+        'SHIELD',
+        'SIZE12',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'OVERLAYDEFENSE',
+    },
+	
+    CollisionOffsetY = -0.25,
+	
+    Defense = {
+        ArmorType = 'Structure',
+        EconomyThreatLevel = 200,
+        Health = 825,
+        MaxHealth = 825,
+        RegenRate = 3,
+        Shield = {
+            ImpactEffects = 'UEFShieldHit01',
+            ImpactMesh = '/effects/entities/ShieldSection01/ShieldSection01_mesh',
+            Mesh = '/effects/entities/Shield01/Shield01_mesh',
+            MeshZ = '/effects/entities/Shield01/Shield01z_mesh',
+            RegenAssistMult = 60,
+            ShieldEnergyDrainRechargeTime = 5,
+            ShieldMaxHealth = 18750,
+            ShieldRechargeTime = 23,
+            ShieldRegenRate = 308,
+            ShieldRegenStartTime = 1,
+            ShieldSize = 56,
+            ShieldVerticalOffset = -6,
+        },
+        SurfaceThreatLevel = 153.2,
+    },
+	
+    Description = '<LOC ueb4303_desc>Heavy Shield Generator & Storage',
+	
+    Display = {
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 200,
+                    ShaderName = 'Unit',
+                    MeshName = '/units/UEB4301/UEB4301_LOD0.scm',
+                    AlbedoName = '/units/UEB4301/UEB4301_Albedo.dds',
+                    NormalsName = '/units/UEB4301/UEB4301_NormalsTS.dds',
+                    SpecularName = '/units/UEB4301/UEB4301_SpecTeam.dds',
+                },
+                {
+                    LODCutoff = 300,
+                    ShaderName = 'Unit',
+                    MeshName = '/units/UEB4301/UEB4301_LOD1.scm',
+                    AlbedoName = '/units/UEB4301/UEB4301_lod1_Albedo.dds',
+                    NormalsName = '/units/UEB4301/UEB4301_lod1_normalsTS.dds',
+                    SpecularName = '/units/UEB4301/UEB4301_lod1_SpecTeam.dds',
+                },
+            },
+        },
+
+        SpawnRandomRotation = true,
+		
+        Tarmacs = {
+            {
+                Albedo = 'Tarmacs/Tar8x_01_albedo',
+                DeathLifetime = 300,
+                FadeOut = 300,
+                Length = 10,
+                Normal = 'Tarmacs/Tar8x_01_normals',
+                Orientations = {
+                    0,
+                    90,
+                    180,
+                    270,
+                },
+                RemoveWhenDead = false,
+                Width = 10,
+            },
+        },
+        UniformScale = 0.48,
+    },
+	
+    Economy = {
+        BuildCostEnergy = 24000,
+        BuildCostMass = 2866,
+        BuildTime = 2400,
+		
+        MaintenanceConsumptionPerSecondEnergy = 1132,
+		
+        RebuildBonusIds = {'UEB4303'},
+		
+        StorageEnergy = 12000,
+    },
+	
+    Footprint = {
+        SizeX = 3,
+        SizeZ = 3,
+    },
+	
+    General = {
+		CapCost = 0,
+        Category = 'Defense',
+        Classification = 'RULEUC_CounterMeasure',
+        FactionName = 'UEF',
+        Icon = 'land',
+        OrderOverrides = {
+            RULEUTC_ShieldToggle = {
+                bitmapId = 'shield-dome',
+                helpText = 'toggle_shield_dome',
+            },
+        },
+        SelectionPriority = 5,
+        TechLevel = 'RULEUTL_Secret',
+        ToggleCaps = {
+            RULEUTC_ShieldToggle = true,
+        },
+        UnitName = '<LOC ueb4303_name>HSD Pulse',
+        UnitWeight = 1,
+        UpgradesFrom = 'ueb4301',
+    },
+	
+    Interface = {
+        HelpText = 'Heavy Shield Generator & Storage',
+    },
+	
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 1.25,
+    LifeBarSize = 3,
+	
+    Physics = {
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Land = true,
+        },
+        DragCoefficient = 0.2,
+        FlattenSkirt = true,
+        MaxSteerForce = 0,
+        MeshExtentsX = 4.25,
+        MeshExtentsY = 4.25,
+        MeshExtentsZ = 4.5,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_None',
+        SkirtOffsetX = -1.5,
+        SkirtOffsetZ = -1.5,
+        SkirtSizeX = 6,
+        SkirtSizeZ = 6,
+        TurnRate = 0,
+    },
+	
+    SelectionSizeX = 1.5,
+    SelectionSizeZ = 1.5,
+    SelectionThickness = 0.45,
+	
+    SizeX = 2,
+    SizeY = 3,
+    SizeZ = 2,
+	
+    StrategicIconName = 'icon_structure3_shield',
+    StrategicIconSortPriority = 195,
+	
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0,
+        HealthMult = 0.9,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = false,
+            Sub = false,
+            Water = false,
+        },
+    },
+}

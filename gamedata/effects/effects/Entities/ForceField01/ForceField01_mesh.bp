@@ -1,9 +1,0 @@
-MeshBlueprint {
-    LODs = {
-        {
-            ShaderName = 'UEFQuantumGate',
-            LODCutoff = 1000,
-        },
-    },
-    SortOrder = 1000,
-}

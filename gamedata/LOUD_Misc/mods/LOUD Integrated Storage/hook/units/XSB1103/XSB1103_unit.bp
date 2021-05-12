@@ -1,0 +1,21 @@
+UnitBlueprint {
+	Merge = true,
+	BlueprintId = "xsb1103",
+
+    Economy = {
+
+        RebuildBonusIds = {
+            'xsb1103',
+            'xsb1202',
+            'xsb1302',
+            'xsb1304',
+        },
+    },
+    General = {
+
+        CommandCaps = {
+            RULEUCC_Pause = true,
+            RULEUCC_Stop = true,
+        },
+    },
+}

@@ -87,7 +87,7 @@ BaseBuilderTemplate {
     },
 	
     ExpansionFunction = function(aiBrain, location, markerType)
-	
+
         if markerType != 'Naval Area' then
             return 0,false
         end
@@ -106,7 +106,7 @@ BaseBuilderTemplate {
 				return 50,false		-- return only 50 should promote the selection of the small naval base
 			end
         end
-        
+
         return 0,false
     end,
 }

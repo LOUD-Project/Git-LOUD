@@ -160,17 +160,11 @@ UnitBlueprint {
         Classification = 'RULEUC_MilitaryShip',
         CommandCaps = {
             RULEUCC_Attack = true,
-            RULEUCC_CallTransport = false,
-            RULEUCC_Capture = false,
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
-            RULEUCC_Nuke = false,
             RULEUCC_Patrol = true,
-            RULEUCC_Reclaim = false,
-            RULEUCC_Repair = false,
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
-            RULEUCC_Transport = false,
         },
         FactionName = 'Cybran',
         Icon = 'sea',
@@ -199,11 +193,6 @@ UnitBlueprint {
         BackUpDistance = 10,
         BankingSlope = 0,
         BuildOnLayerCaps = {
-            LAYER_Air = false,
-            LAYER_Land = false,
-            LAYER_Orbit = false,
-            LAYER_Seabed = false,
-            LAYER_Sub = false,
             LAYER_Water = true,
         },
         CatchUpAcc = 8,
@@ -239,6 +228,7 @@ UnitBlueprint {
     },
 	
     Weapon = {
+        -- Galaxy Cannons
         {
             AboveWaterTargetsOnly = true,
             Audio = {
@@ -362,104 +352,6 @@ UnitBlueprint {
                     LodCutoff = 'WeaponBig_LodCutoff',
                 },
             },
-			
-            BallisticArc = 'RULEUBA_HighArc',
-			
-            CollideFriendly = false,
-			
-            Damage = 450,
-            DamageRadius = 7,
-            DamageType = 'Normal',
-			
-            DisplayName = 'Proton Cannon',
-			
-            FireTargetLayerCapsTable = {
-                Water = 'Land|Water|Seabed',
-            },
-			
-            FiringRandomness = 1.2,
-            FiringTolerance = 2,
-			
-            Label = 'Cannon',
-			
-            MaxRadius = 165,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 2,
-            MuzzleVelocity = 30,
-			
-            ProjectileId = '/mods/TotalMayhem/projectiles/BRMST3BOMproj/BRMST3BOMproj_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 10,
-
-            RackBones = {
-                {
-                    MuzzleBones = {
-                        'Front_Muzzle06',
-                    },
-                    RackBone = 'Front_Turret_Barrel06',
-                },
-                {
-                    MuzzleBones = {
-                        'Front_Muzzle05',
-                    },
-                    RackBone = 'Front_Turret_Barrel05',
-                },
-            },
-            RackFireTogether = true,
-            RackRecoilDistance = -2,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = true,
-			
-            RangeCategory = 'UWRC_IndirectFire',
-			
-            RateOfFire = 0.5,	-- 450 DPS
-			
-            SlavedToBody = false,
-            TargetCheckInterval = 2,
-            TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'ALLUNITS',
-            },
-            TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
-			
-            TurretBoneMuzzle = 'Front_Muzzle06',
-            TurretBonePitch = 'Front_Turret_Barrel06',
-            TurretBoneYaw = 'Front_Turret01',
-            TurretDualManipulators = false,
-			
-            TurretPitch = 20,
-            TurretPitchRange = 90,
-            TurretPitchSpeed = 10,
-			
-            TurretYaw = 0,
-            TurretYawRange = 180,
-            TurretYawSpeed = 35,
-			
-            Turreted = true,
-        },
-        {
-            AboveWaterTargetsOnly = true,
-            Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'URS',
-                    Cue = 'URS_Turret_Lrg_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'URS',
-                    Cue = 'URS_Turret_Lrg_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'URSWeapon',
-                    Cue = 'URS0302_Cannon',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-            },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
@@ -544,6 +436,106 @@ UnitBlueprint {
 			
             Turreted = true,
         },
+        -- Bombardment Cannon
+        {
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                BarrelLoop = Sound {
+                    Bank = 'URS',
+                    Cue = 'URS_Turret_Lrg_Loop',
+                    LodCutoff = 'WeaponBig_LodCutoff',
+                },
+                BarrelStart = Sound {
+                    Bank = 'URS',
+                    Cue = 'URS_Turret_Lrg_Start',
+                    LodCutoff = 'WeaponBig_LodCutoff',
+                },
+                Fire = Sound {
+                    Bank = 'URSWeapon',
+                    Cue = 'URS0302_Cannon',
+                    LodCutoff = 'WeaponBig_LodCutoff',
+                },
+            },
+			
+            BallisticArc = 'RULEUBA_HighArc',
+			
+            CollideFriendly = false,
+			
+            Damage = 450,
+            DamageRadius = 7,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Proton Cannon',
+			
+            FireTargetLayerCapsTable = {
+                Water = 'Land|Water|Seabed',
+            },
+			
+            FiringRandomness = 1.2,
+            FiringTolerance = 2,
+			
+            Label = 'Cannon',
+			
+            MaxRadius = 165,
+			
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 2,
+            MuzzleVelocity = 30,
+			
+            ProjectileId = '/mods/TotalMayhem/projectiles/BRMST3BOMproj/BRMST3BOMproj_proj.bp',
+            ProjectileLifetimeUsesMultiplier = 10,
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Front_Muzzle06',
+                    },
+                    RackBone = 'Front_Turret_Barrel06',
+                },
+                {
+                    MuzzleBones = {
+                        'Front_Muzzle05',
+                    },
+                    RackBone = 'Front_Turret_Barrel05',
+                },
+            },
+            RackFireTogether = true,
+            RackRecoilDistance = -2,
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = true,
+			
+            RangeCategory = 'UWRC_IndirectFire',
+			
+            RateOfFire = 0.5,	-- 450 DPS
+			
+            SlavedToBody = false,
+            TargetCheckInterval = 2,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TrackingRadius = 1.15,
+			
+            TurretBoneMuzzle = 'Front_Muzzle06',
+            TurretBonePitch = 'Front_Turret_Barrel06',
+            TurretBoneYaw = 'Front_Turret01',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 20,
+            TurretPitchRange = 90,
+            TurretPitchSpeed = 10,
+			
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 35,
+			
+            Turreted = true,
+        },
+        -- Autocannons
         {
             AlwaysRecheckTarget = true,
             Audio = {
@@ -787,7 +779,7 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
             TrackingRadius = 1.2,
         },
-		
+		-- TMD
         {
             Audio = {
                 Fire = Sound {

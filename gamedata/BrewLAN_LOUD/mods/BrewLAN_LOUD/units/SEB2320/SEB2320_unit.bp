@@ -53,11 +53,13 @@ UnitBlueprint {
         'SIZE4',
         'VISIBLETORECON',
         'RECLAIMABLE',
+        'SHOWATTACKRETICLE',
+        'OVERLAYDIRECTFIRE',
         'SORTDEFENSE',
+        'RESEARCHLOCKED',
     },
-	
-    CollisionOffsetY = -0.0,
-	
+    CollisionOffsetY = -0.375,
+    CollisionOffsetZ = 0,
     Defense = {
 
         ArmorType = 'Normal',
@@ -67,9 +69,7 @@ UnitBlueprint {
         RegenRate = 3,
         SurfaceThreatLevel = 69.7,
     },
-	
-    Description = '<LOC seb2320_desc>Heavy Beam Point Defense',
-	
+    Description = '<LOC seb2320_desc>Heavy Point Defense',
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -83,8 +83,6 @@ UnitBlueprint {
                 },
             },
         },
-
-        SpawnRandomRotation = false,
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar6x_01_albedo',
@@ -92,47 +90,30 @@ UnitBlueprint {
                 FadeOut = 150,
                 Length = 6.4,
                 Normal = 'Tarmacs/Tar6x_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Orientations = {0, 90, 180, 270},
                 RemoveWhenDead = false,
                 Width = 6.4,
             },
         },
         UniformScale = 0.085,
     },
-	
     Economy = {
         BuildCostEnergy = 16500,
         BuildCostMass = 2300,
         BuildTime = 1750,
     },
-	
     Footprint = {
         SizeX = 1,
         SizeZ = 1,
     },
-	
     General = {
 		CapCost = 2,
         Category = 'Defense',
         Classification = 'RULEUC_Weapon',
         CommandCaps = {
             RULEUCC_Attack = true,
-            RULEUCC_CallTransport = false,
-            RULEUCC_Capture = false,
-            RULEUCC_Guard = false,
-            RULEUCC_Move = false,
-            RULEUCC_Nuke = false,
-            RULEUCC_Patrol = false,
-            RULEUCC_Reclaim = false,
-            RULEUCC_Repair = false,
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
-            RULEUCC_Transport = false,
         },
         FactionName = 'UEF',
         Icon = 'land',
@@ -141,28 +122,19 @@ UnitBlueprint {
         UnitName = '<LOC seb2320_name>Hiro',
         UnitWeight = 1,
     },
-	
     Intel = {
         VisionRadius = 36,
     },
-	
     Interface = {
         HelpText = '<LOC seb2320_desc>Plasma Cannon',
     },
-	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.55,
     LifeBarSize = 1,
-	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
-            LAYER_Air = false,
             LAYER_Land = true,
-            LAYER_Orbit = false,
-            LAYER_Seabed = false,
-            LAYER_Sub = false,
-            LAYER_Water = false,
         },
         DragCoefficient = 0.2,
         FlattenSkirt = true,
@@ -178,18 +150,14 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
-	
     SelectionSizeX = 0.85,
     SelectionSizeZ = 0.85,
     SelectionThickness = 0.48,
-	
-    SizeX = 0.8,
-    SizeY = 0.6,
-    SizeZ = 1.3,
-	
+    SizeX = 1,
+    SizeY = 1,
+    SizeZ = 1,
     StrategicIconName = 'icon_structure3_directfire',
     StrategicIconSortPriority = 145,
-	
     Veteran = {
         Level1 = 16,
         Level2 = 32,
@@ -197,7 +165,6 @@ UnitBlueprint {
         Level4 = 64,
         Level5 = 80,
     },
-	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -211,16 +178,13 @@ UnitBlueprint {
             },
             AutoInitiateAttackCommand = false,
             BallisticArc = 'RULEUBA_None',
-			
             BeamCollisionDelay = 0,
             BeamLifetime = 1,
             CollideFriendly = false,
 			
             Damage = 27,
             DamageType = 'Normal',
-			
-            DisplayName = 'Hiro Plasma Cannon',
-			
+            DisplayName = 'Dual-Barreled Hiro Plasma Cannon',
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
@@ -237,9 +201,7 @@ UnitBlueprint {
             MuzzleChargeDelay = 0.2,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-			
             NeedPrep = true,
-			
             RackBones = {
                 {
                     MuzzleBones = {
@@ -249,45 +211,45 @@ UnitBlueprint {
                     RackBone = 'Back_Turret_Barrel',
                 },
             },
-
+            RackFireTogether = true,
+            RackRecoilDistance = 0,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 0.5,	-- 270 DPS Surface
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 135,
-			
             TargetCheckInterval = 1,
-			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'MOBILE',
+                'NAVAL MOBILE',
+                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.125,
-			
             TurretBoneMuzzle = 'Back_Turret_Muzzle01',
             TurretBonePitch = 'Back_Turret_Barrel',
             TurretBoneYaw = 'Back_Turret',
             TurretDualManipulators = false,
-			
             TurretPitch = 10,
             TurretPitchRange = 35,
             TurretPitchSpeed = 30,
-			
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 40,
 			
             Turreted = true,
+            WeaponCategory = 'Direct Fire',
+            WeaponRepackTimeout = 2,
+            WeaponUnpacks = false,
         },
     },
-	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
@@ -295,11 +257,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

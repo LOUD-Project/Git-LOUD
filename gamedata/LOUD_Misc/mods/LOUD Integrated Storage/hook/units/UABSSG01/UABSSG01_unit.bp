@@ -1,0 +1,22 @@
+UnitBlueprint {
+	Merge = true,
+	BlueprintId = "uabssg01", --Aeon T4 Shield
+    Economy = {
+        BuildRate = 25,
+        BuildableCategory = {
+            'uabssg02',
+        },
+        RebuildBonusIds = {
+            'uabssg01',
+            'uabssg02',
+        },
+    },
+    General = {
+		CapCost = 10,
+        CommandCaps = {
+            RULEUCC_Pause = true,
+            RULEUCC_Stop = true,
+        },
+        UpgradesTo = 'uabssg02',
+    },
+}

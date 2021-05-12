@@ -1,4 +1,4 @@
---LOG("*AI DEBUG Loading LOUD SimSync")
+LOG("*DEBUG Loading LOUD SimSync")
 
 -- The global sync table is copied to the user layer every time the main and sim threads are
 -- synchronized on the sim beat (which is like a tick but happens even when the game is paused)
@@ -72,8 +72,6 @@ end
 -- this function will set a specific SimData field
 function SetSimData(name, param)
 
-	LOG("*AI DEBUG Sim SIMSYNC SetSimSpeed "..repr(name).." "..repr(param))
-	
 	SimData[name] = param
 	
 	SendSimData()
@@ -141,9 +139,11 @@ function RemoveUnitEnhancement(unit, enhancement)
     if SimUnitEnhancements[id][key] then
         SimUnitEnhancements[id][key] = nil
     end
-    if table.getsize(slots) == 0 then
+    
+    if table.empty(slots) then
         SimUnitEnhancements[id] = nil
     end
+    
     SyncUnitEnhancements()
 end
 
@@ -269,3 +269,5 @@ function CreateDialogue(text, buttonText, position)
     return import('/lua/simdialogue.lua').Create(text, buttonText, position)
 end
 
+
+LOG("*DEBUG LOUD SimSync complete")

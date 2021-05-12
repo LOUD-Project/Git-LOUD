@@ -21,16 +21,19 @@ mount_dir(InitFileDir .. '\\..\\..\\fonts', '/fonts')
 mount_dir(InitFileDir .. '\\..\\..\\sounds', '/sounds')
 mount_dir(InitFileDir .. '\\..\\..\\movies', '/movies')
 
---LOUD content
+--Load LOUD content first, and then follow up with any missing vanilla content.
 mount_dir(InitFileDir .. '\\..\\gamedata\\*.scd', '/')
 mount_dir(InitFileDir .. '\\..\\..\\gamedata\\textures.scd', '/')
+mount_dir(InitFileDir .. '\\..\\..\\gamedata\\effects.scd', '/')
+mount_dir(InitFileDir .. '\\..\\..\\gamedata\\projectiles.scd', '/')
 mount_dir(InitFileDir .. '\\..\\..\\gamedata\\env.scd', '/')
 mount_dir(InitFileDir .. '\\..\\..\\gamedata\\props.scd', '/')
 mount_dir(InitFileDir .. '\\..\\..\\gamedata\\meshes.scd', '/')
+
 mount_dir(InitFileDir .. '\\..\\usermods\\*.scd', '/')
 mount_dir(InitFileDir .. '\\..\\usermods', '/mods')
-mount_dir(InitFileDir .. '\\..\\maps', '/maps')
-mount_dir(InitFileDir .. '\\..\\usermaps', '/maps')
+mount_contents(InitFileDir .. '\\..\\maps', '/maps')
+mount_contents(InitFileDir .. '\\..\\usermaps', '/maps')
 mount_dir(InitFileDir .. '\\..\\sounds', '/sounds')
 
 --User mods & maps

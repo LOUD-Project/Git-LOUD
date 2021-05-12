@@ -139,3 +139,36 @@ function SupressShowingWhenRestoringUI(self, hidden)
         end
     end
 end
+
+-- Catch-all function for LOUD standard unit icons, usermod icons, and dynamically-created
+-- blueprints which get assigned existing icons from either.
+-- Arguments have an XOR nil allowance.
+-- Returns a path string (from '/') and false if the path is to a placeholder
+function GetUnitIconPath(blueprint, bpID)
+    if not blueprint then
+        if bpID then
+            blueprint = __blueprints[bpID]
+        else
+            return '/textures/ui/common/icons/units/default_icon.dds', false
+        end
+    end
+
+    -- Don't use UIUtil.UIFile in any of this to skip skinning checks & avoid possible log spam
+    if blueprint.Display.IconPath then
+        -- Assigned during original ModBlueprints(), and contains the complete path
+        return blueprint.Display.IconPath, true
+    elseif blueprint.Display.IconName
+    and DiskGetFileInfo('/textures/ui/common/icons/units/'..blueprint.Display.IconName..'_icon.dds') then
+        -- Assigned to let a blueprint reference another icon from the LOUD standard
+        return '/textures/ui/common/icons/units/'..blueprint.Display.IconName..'_icon.dds', true
+    else
+        -- It's either in the mainline textures folder or it's completely absent.
+        -- In the latter case, use a placeholder
+        local path = '/textures/ui/common/icons/units/'..blueprint.BlueprintId..'_icon.dds', true
+        if DiskGetFileInfo(path) then
+            return path, true
+        else
+            return '/textures/ui/common/icons/units/default_icon.dds', false
+        end
+    end
+end

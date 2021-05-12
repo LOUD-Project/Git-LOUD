@@ -1,0 +1,52 @@
+UnitBlueprint {
+    Categories = {
+        'PRODUCTCRATEDROP',
+        'INVULNERABLE',
+        'EXPERIMENTAL',
+        'BENIGN',
+        'UNSELECTABLE',
+        'UNTARGETABLE',
+    },
+    Defense = {
+        Health = 0,
+        MaxHealth = 0,
+    },
+    Display = {
+        Mesh = {
+            LODs = {
+                {
+                    ShaderName = 'PhalanxEffect',--'CommandFeedback4',
+                    LODCutoff = 500,
+                },
+            },
+        },
+        HideLifebars = true,
+        UniformScale = 0.1,
+    },
+    Intel = {
+        VisionRadius = 0,
+    },
+    General = {
+        CapCost = 0,
+        FactionName = 'None',
+    },
+    Physics = {
+        BuildOnLayerCaps = {
+            LAYER_Air = true,
+        },
+        MotionType = 'RULEUMT_Air',
+        SkirtOffsetX = 0,
+        SkirtOffsetZ = 0,
+        SkirtSizeX = 0,
+        SkirtSizeZ = 0,
+    },
+    ScriptClass = 'CreateDropPing',
+    ScriptModule = '/lua/defaultunits.lua',
+    SelectionSizeX = 0,
+    SelectionSizeZ = 0,
+    SelectionThickness = 0,
+    SizeX = 0,
+    SizeY = 0,
+    SizeZ = 0,
+    SortOrder = 1000,
+}

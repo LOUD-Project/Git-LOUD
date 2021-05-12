@@ -87,7 +87,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 1042.8,
     },
 	
-    Description = '<LOC bel0402_desc>Heavy Assault Bot',
+    Description = '<LOC bel0402_desc>Ultra Heavy Assault Bot',
 	
     Display = {
 	
@@ -169,18 +169,12 @@ UnitBlueprint {
         Category = 'Exerimental',
         CommandCaps = {
             RULEUCC_Attack = true,
-            RULEUCC_CallTransport = false,
-            RULEUCC_Capture = false,
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
-            RULEUCC_Nuke = false,
             RULEUCC_Patrol = true,
             RULEUCC_Pause = true,
-            RULEUCC_Reclaim = false,
-            RULEUCC_Repair = false,
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
-            RULEUCC_Transport = false,
         },
         FactionName = 'UEF',
         Icon = 'amph',
@@ -197,7 +191,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Heavy Assault Bot',
+        HelpText = 'Ultra Heavy Assault Bot',
     },
 	
     LifeBarHeight = 0.075,
@@ -207,11 +201,8 @@ UnitBlueprint {
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
-            LAYER_Air = false,
             LAYER_Land = true,
-            LAYER_Orbit = false,
             LAYER_Seabed = true,
-            LAYER_Sub = false,
             LAYER_Water = true,
         },
         DragCoefficient = 0.2,
@@ -233,10 +224,10 @@ UnitBlueprint {
 		
         StandUpright = true,
 		
-        SkirtOffsetX = -1.5,
-        SkirtOffsetZ = -2,
-        SkirtSizeX = 6,
-        SkirtSizeZ = 6,
+        SkirtOffsetX = -0.5,
+        SkirtOffsetZ = -0.5,
+        SkirtSizeX = 4,
+        SkirtSizeZ = 4,
 		
         TurnRadius = 5,
         TurnRate = 32,
@@ -816,9 +807,9 @@ UnitBlueprint {
     },
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.1,
+        EnergyMult = 0.3,
         HealthMult = 0.2,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,

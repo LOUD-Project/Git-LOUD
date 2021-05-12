@@ -62,7 +62,6 @@ function GetUnitRolloverInfo(unit)
 	info.customName = unit:GetCustomName(unit)
 	info.userUnit = unit
 	info.armyIndex = unit:GetArmy() - 1
---   info.teamColor="ffe80a0a"
 
 	return info
 end

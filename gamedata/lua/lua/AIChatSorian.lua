@@ -129,7 +129,6 @@ function ProcessAIChat(to, from, text)
 	if (to == 'allies' or type(to) == 'number') then
 	
 		for i, v in armies.armiesTable do
-		
 			if not v.human and not v.civilian and IsAlly(i, from) and (to == 'allies' or to == i) then
 			
 				local testtext = string.gsub(text, '%s(.*)', '')
@@ -137,7 +136,11 @@ function ProcessAIChat(to, from, text)
 				
 				aftertext = trim(aftertext)
 				
-				if string.lower(testtext) == 'target' and aftertext != '' then
+				-- If "engi" appears in a whisper, it's almost certainly an engineer request
+				if (to == i) and string.find(text, "engi") then
+					SimCallback({Func = 'AIChat', Args = {Army = i, ToArmy = from, GiveEngineer = true}})
+
+				elseif string.lower(testtext) == 'target' and aftertext != '' then
 				
 					if string.lower(aftertext) == 'at will' then
 						SimCallback({Func = 'AIChat', Args = {Army = i, NewTarget = 'at will'}})
@@ -162,9 +165,6 @@ function ProcessAIChat(to, from, text)
 				elseif string.lower(testtext) == 'current' and aftertext == 'status' then
 					SimCallback({Func = 'AIChat', Args = {Army = i, CurrentStatus = true}})				
 					
-				elseif string.lower(testtext) == 'give' and aftertext == 'me an engineer' and to == i then
-					SimCallback({Func = 'AIChat', Args = {Army = i, ToArmy = from, GiveEngineer = true}})
-					
 				elseif string.lower(testtext) == 'command' and to == i then
 					SimCallback({Func = 'AIChat', Args = {Army = i, ToArmy = from, Command = true, Text = aftertext}})
 					
@@ -174,5 +174,17 @@ function ProcessAIChat(to, from, text)
 				end
 			end
 		end
-	end				
+	elseif to == 'all' then
+		for i, v in armies.armiesTable do
+			-- Sending one of the tokens below to all chat broadcasts a request
+			-- for the AI to reply with its current cheat multiplier
+			if not v.human and not v.civilian and 
+			string.find(text, "aimult") or 
+			string.find(text, "aicheat") or 
+			string.find(text, "ailevel") then
+				SimCallback({Func = 'AIChat', Args= {Army = i, ToArmy = from, PrintMult = true}})
+				continue
+			end
+		end
+	end		
 end

@@ -54,7 +54,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 10.9,
     },
 	
-    Description = '<LOC bel0211_desc>FlameThrower Vehicle',
+    Description = '<LOC bel0211_desc>Flamethrower Tank',
 	
     Display = {
         Abilities = {
@@ -103,17 +103,11 @@ UnitBlueprint {
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
-            RULEUCC_Capture = false,
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
-            RULEUCC_Nuke = false,
             RULEUCC_Patrol = true,
-            RULEUCC_Pause = false,
-            RULEUCC_Reclaim = false,
-            RULEUCC_Repair = false,
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
-            RULEUCC_Transport = false,
         },
         FactionName = 'UEF',
         Icon = 'land',
@@ -127,7 +121,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'FlameThrower Vehicle',
+        HelpText = 'Flamethrower Tank',
     },
 	
     LifeBarHeight = 0.075,
@@ -137,12 +131,7 @@ UnitBlueprint {
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
-            LAYER_Air = false,
             LAYER_Land = true,
-            LAYER_Orbit = false,
-            LAYER_Seabed = false,
-            LAYER_Sub = false,
-            LAYER_Water = false,
         },
         DragCoefficient = 0.2,
         MaxAcceleration = 1.6,

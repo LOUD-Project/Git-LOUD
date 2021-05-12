@@ -24,12 +24,36 @@
 --#   3b. The saved lua state is deserialized
 
 
+LOG("*DEBUG Mohodata simInit ")
+
+
+
+
+
+InitialRegistration = true
+
+
 --# Do global init and set up common global functions
 doscript '/lua/globalInit.lua'
 
---LOG("*DEBUG Mohodata simInit")
-
 WaitTicks = coroutine.yield
+
+
+LOG("*AI DEBUG     Setup Platoon Template Structure")
+-- Load Platoon Template systems
+doscript '/lua/system/GlobalPlatoonTemplate.lua'
+
+LOG("*AI DEBUG     Setup Builder Template Structure")
+-- Load Builder system
+doscript '/lua/system/GlobalBuilderTemplate.lua'
+
+LOG("*AI DEBUG     Setup Builder Group Structure")
+-- Load Builder Group systems
+doscript '/lua/system/GlobalBuilderGroup.lua'
+
+LOG("*AI DEBUG     Setup BaseBuilder Template Structure")
+-- Load Global Base Templates
+doscript '/lua/system/GlobalBaseTemplate.lua'
 
 -- setup Buff systems
 LOG("*AI DEBUG     Setup BUFF system structure")
@@ -46,19 +70,23 @@ import( '/lua/sim/buffdefinitions.lua')
 LOG("*AI DEBUG     Loading Adjacency Buff Definitions")
 -- Load Adjacency Buff definitions 
 import('/lua/sim/adjacencybuffs.lua')
-	
+
+InitialRegistration = false
+    
 function WaitSeconds(n)
     WaitTicks(math.max(1, n * 10))
 end
 
-
 --# Set up the sync table and some globals for use by scenario functions
 doscript '/lua/SimSync.lua'
+
 
 --# SetupSession will be called by the engine after ScenarioInfo is set
 --# but before any armies are created.
 function SetupSession()
 
+    LOG("*AI DEBUG ScenarioInfo is "..repr(ScenarioInfo))
+    
     ArmyBrains = {}
 
 	--# ScenarioInfo.Env is the environment that the save file and scenario script file are loaded into.
@@ -71,9 +99,10 @@ function SetupSession()
 	-- The save file creates a table named "Scenario" in ScenarioInfo.Env,
     -- containing most of the save data. We'll copy it up to a top-level global.
 
-    --LOG('Loading save file: ',ScenarioInfo.save)
+    LOG('Loading save file: ',ScenarioInfo.save)
     doscript(ScenarioInfo.save, ScenarioInfo.Env)
-    --LOG('Loading script file: ',ScenarioInfo.script)
+    
+    LOG('Loading script file: ',ScenarioInfo.script)
     doscript(ScenarioInfo.script, ScenarioInfo.Env)
 	
     ResetSyncTable()
