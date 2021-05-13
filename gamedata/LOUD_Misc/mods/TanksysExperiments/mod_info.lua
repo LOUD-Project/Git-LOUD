@@ -12,6 +12,8 @@ exclusive = false
 ui_only = false
 requires = { }
 requiresNames = { }
-conflicts = { }
+conflicts = {
+	'TANKSYS-EXPERIMENTS-1-COMBAT'
+}
 before = { }
 after = { }
