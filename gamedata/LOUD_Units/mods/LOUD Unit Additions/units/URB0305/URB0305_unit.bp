@@ -70,12 +70,19 @@ UnitBlueprint {
                 {
                     LODCutoff = 200,
                     ShaderName = 'Insect',
+                    AlbedoName = '/units/urb0304/urb0304_Albedo.dds',
+                    MeshName = '/units/urb0304/urb0304_lod0.scm',
+                    NormalsName = '/units/urb0304/urb0304_normalsTS.dds',
+                    SpecularName = '/units/urb0304/urb0304_SpecTeam.dds',
+                    
                 },
                 {
-                    AlbedoName = 'urb0305_lod1_albedo.dds',
                     LODCutoff = 500,
                     ShaderName = 'Insect',
-                    SpecularName = 'urb0305_lod1_specteam.dds',
+                    AlbedoName = '/units/urb0304/urb0304_lod1_albedo.dds',
+                    MeshName = '/units/urb0304/urb0304_lod1.scm',
+                    NormalsName = '/units/urb0304/urb0304_lod1_normalsTS.dds',
+                    SpecularName = '/units/urb0304/urb0304_lod1_specteam.dds',
                 },
             },
         },
