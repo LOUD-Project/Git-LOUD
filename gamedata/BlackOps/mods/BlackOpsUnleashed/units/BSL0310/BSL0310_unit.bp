@@ -64,7 +64,7 @@ UnitBlueprint {
     Display = {
 	
     	Abilities = {
-            'Lambda Destruction Field',
+            'Projectile Nullifier Field',
 			'Tactical Missile Defense',
         },
 		

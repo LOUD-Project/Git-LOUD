@@ -54,14 +54,14 @@ Description['brlk001'] = "Advanced mobile anti-air unit. Utilizing a crude but e
 Description['brlk005'] = "Advanced mobile anti-air unit. Utilizing a crude but effective target painter, the Bouncer can lead its missile salvo even to the fastest advanced aircraft. It can also use its missiles as anti-ground rockets without guidance."
 
 --Seraphim
+
 Description['bsb2402'] = "The Rift can stabilize a connection to the Quantum realm. Once this is done, a Seraphim Commander can summon an endless amount of reinforcements. Each unit summoned draws Energy to sustain itself in this realm. If there is not enough Energy available, summoned units will perish."
 Description['bsb0405'] = "The Lambda Field Generator generates a field to repel or destroy enemy projectiles (not beams). This structure also mounts two Quantum Storm Cannons."
 Description['bsl0106'] = "The Ilhaas sends out signals which force enemy units to think it is a dangerous target. This makes the unit draw enemy fire while its allies fire back."
 Description['bsl0206'] = "The Ula Ilhaas sends out signals which force enemy units to think it is a dangerous target. This makes the unit draw enemy fire while its allies fire back."
 Description['bsl0306'] = "Ultha Ilhaas sends out signals which force enemy units to think it is a dangerous target. This makes the unit draw enemy fire while its allies fire back."
 Description['bsl0406'] = "Seth Ilhaas sends out signals which force enemy units to think it is a dangerous target. This makes the unit draw enemy fire while its allies fire back. Equipped with a regeneration field and radar, making it an important part of any Seraphim assault group."
-Description['bsl0310'] = "After seeing the usefulness of Siege Assault bots, the Seraphim attemped their own design, incorporating a Dual Tau Cannon, Tactical Missile Defense and a Lambda Field Generator. The Ilthysathuum is a very deadly weapon."
-Description['bsa0309'] = "The Vishathal-Atah is an advanced transport with weak armor; it makes up for this with its large carrying capacity, a limited Lambda Field System and its speed."
+Description['bsl0310'] = "After seeing the usefulness of Siege Assault bots, the Seraphim attempted their own design, incorporating a Dual Tau Cannon, Tactical Missile Defense and a Lambda Field Generator to annihilate incoming projectiles."
 Description['bsa0310'] = "Armed with high-yield missiles and a pair of shield disruptors, the Vulthatha-Ioz can take on large groups of enemies and break through even the toughest shields with ease."
 Description['bss0401'] = "High-end naval unit. Armed with 3 heavy Quarnon Cannons, 4 anti-vessel beams and 4 anti-air cannons; this beast made its appearance shortly after the Cybran and UEF coalition forces unleashed the Conquest and SeaDragon against the Seraphim. This vessel also holds 2 experimental cannons, each firing rounds which summon weakened Othuy-like ion storms."
 Description['bss0206'] = "This unit was built for the sole purpose of bombarding fortified bases where the Cruiser or Destroyer proved to be ineffective. Its slow turret speed makes it less effective at hitting fast mobile targets, allowing faster ships to close in and engage."

@@ -65,7 +65,7 @@ UnitBlueprint {
 	
     	Abilities = {
 			'Quantum Powered - dies if run out of power',
-            '1 x Lambda Destruction Field',
+            'Projectile Nullifier Field',
             'Tactical Missile Defense',
         },
 		
