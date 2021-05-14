@@ -83,8 +83,6 @@ function ExecutePlan(aiBrain)
     
     if not aiBrain.BuilderManagers.MAIN.FactoryManager.BuilderList then
 
-        aiBrain:SetResourceSharing(true)
-        
         SetupMainBase(aiBrain)
         
         -- Get units out of pool and assign them to the managers

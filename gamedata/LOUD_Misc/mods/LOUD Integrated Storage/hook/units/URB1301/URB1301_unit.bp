@@ -15,7 +15,7 @@ UnitBlueprint {
     },
 	
     General = {
-		CapCost = 4,
+
         CommandCaps = {
             RULEUCC_Pause = true,
             RULEUCC_Stop = true,

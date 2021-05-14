@@ -83,6 +83,7 @@ UnitBlueprint {
             '4 x Anti-Air Flak',
             'Radar & Sonar & Tactical Missile Defense',
             'Strategic Missile Defense',
+            '<LOC ability_deathaoe>Volatile',
         },
         AnimationDeath = {
             {
@@ -129,6 +130,9 @@ UnitBlueprint {
                     LODCutoff = 600,
                     LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
                     ShaderName = 'Seraphim',
+                    AlbedoName = '/units/XSS0302/XSS0302_Albedo.dds',
+                    SpecularName = '/units/XSS0302/XSS0302_SpecTeam.dds',
+                    NormalsName = '/units/XSS0302/XSS0302_normalsTS.dds',
                 },
             },
         },
@@ -205,11 +209,6 @@ UnitBlueprint {
         BackUpDistance = 10,
         BankingSlope = 0,
         BuildOnLayerCaps = {
-            LAYER_Air = false,
-            LAYER_Land = false,
-            LAYER_Orbit = false,
-            LAYER_Seabed = false,
-            LAYER_Sub = false,
             LAYER_Water = true,
         },
         CatchUpAcc = 8,
@@ -761,7 +760,7 @@ UnitBlueprint {
             Turreted = true,
         },
 		
-		-- WIERD BEAM THINGS * 4 -- total about 188 DPS
+		-- WEIRD BEAM THINGS * 4 -- total about 188 DPS
 		
         {
             AboveWaterTargetsOnly = true,

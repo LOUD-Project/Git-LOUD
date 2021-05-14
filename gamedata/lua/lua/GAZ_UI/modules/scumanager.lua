@@ -598,7 +598,21 @@ function CreateMarker()
     Init()
     
 	if not dialog then
-		dialog = UIUtil.QuickDialog(GetFrame(0), 'Choose your upgrade type',  "Combat", function() PlaceMarker('Combat', position) dialog:Destroy() dialog = false end, "Engineer", function() PlaceMarker('Engineer', position) dialog:Destroy() dialog = false end, nil, nil, false)
+		dialog = UIUtil.QuickDialog(GetFrame(0), 'Choose your upgrade type', 
+		"Combat", function() 
+			PlaceMarker('Combat', position)
+			dialog:Destroy()
+			dialog = false
+		end,
+		"Engineer", function()
+			PlaceMarker('Engineer', position)
+			dialog:Destroy()
+			dialog = false
+		end,
+		"Cancel", function()
+			dialog:Destroy()
+			dialog = false
+		end, false)
 	end
 end
 

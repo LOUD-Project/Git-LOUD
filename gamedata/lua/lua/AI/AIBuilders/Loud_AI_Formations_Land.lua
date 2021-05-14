@@ -1036,6 +1036,10 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
         },
 		
         BuilderData = {
+			DistressRange = 200,
+			DistressTypes = 'Land',
+			DistressThreshold = 4,
+
 			PointType = 'Unit',
 			PointCategory = 'MASSPRODUCTION',
 			PointSourceSelf = true,
@@ -1111,7 +1115,6 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Experimentals',
         BuilderType = 'Any',
 		
 		BuilderConditions = {
-			--{ LUTL, 'NoBaseAlert', { 'LocationType' }},	
 			
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 10, (categories.LAND * categories.MOBILE * categories.EXPERIMENTAL) - categories.url0401 - categories.INSIGNIFICANTUNIT }},
 		},
@@ -1159,7 +1162,6 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Experimentals',
         BuilderType = 'Any',
 		
 		BuilderConditions = {
-			--{ LUTL, 'NoBaseAlert', { 'LocationType' }},	
 
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 10, (categories.LAND * categories.MOBILE * categories.EXPERIMENTAL) - categories.url0401 - categories.INSIGNIFICANTUNIT }},
 		},
@@ -1616,7 +1618,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 		
         BuilderData = {
 		
-			DistressRange = 120,
+			DistressRange = 200,
+            DistressReactionTime = 45,
 			DistressTypes = 'Land',
 			DistressThreshold = 4,
 			
@@ -1690,7 +1693,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         },
 		
         BuilderData = {
-			DistressRange = 175,
+			DistressRange = 200,
+            DistressReactionTime = 40,
 			DistressTypes = 'Land',
 			DistressThreshold = 2,
 			
@@ -1770,7 +1774,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         },
 		
         BuilderData = {
-			DistressRange = 100,
+			DistressRange = 200,
+            DistressReactionTime = 40,
 			DistressTypes = 'Land',
 			DistressThreshold = 2,
 			
@@ -1849,9 +1854,10 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         },
 		
         BuilderData = {
-			DistressRange = 90,
+			DistressRange = 200,
+            DistressReactionTime = 40,
 			DistressTypes = 'Land',
-			DistressThreshold = 8,
+			DistressThreshold = 6,
 			
 			PointType = 'Marker',
 			PointCategory = 'Defensive Point',
@@ -2001,9 +2007,10 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 		
         BuilderData = {
 		
-			DistressRange = 90,
+			DistressRange = 200,
+            DistressReactionTime = 40,
 			DistressTypes = 'Land',
-			DistressThreshold = 10,
+			DistressThreshold = 6,
 			
 			PointType = 'Marker',
 			PointCategory = 'Blank Marker',
@@ -2154,9 +2161,10 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 		
         BuilderData = {
 		
-			DistressRange = 90,
+			DistressRange = 200,
+            DistressReactionTime = 40,
 			DistressTypes = 'Land',
-			DistressThreshold = 10,
+			DistressThreshold = 6,
 			
 			PointType = 'Marker',				-- either Unit or Marker
 			PointCategory = 'Large Expansion Area',
@@ -2287,7 +2295,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Base Guards',
 	BuildersType = 'PlatoonFormBuilder',
 	
 	-- in general - we want base guards before anything else
-    -- but there must be a land threat within 9km of base
+    -- but there must be a land threat within 7km of base
+    -- distress reaction time is very high so responses will carry on well after threat recedes
     Builder {BuilderName = 'Base Guard Patrol',
 	
         PlatoonTemplate = 'BaseGuardMedium',
@@ -2307,12 +2316,13 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Base Guards',
         BuilderConditions = { 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},		
             { LUTL, 'UnitCapCheckLess', { .95 } },
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 150, 'Land' }},
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 10, 'Land' }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 14, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS - categories.ENGINEER - categories.EXPERIMENTAL }},
         },
 		
         BuilderData = {
-			DistressRange = 90,
+			DistressRange = 275,
+            DistressReactionTime = 45,
 			DistressTypes = 'Land',
 			DistressThreshold = 4,
 			
@@ -2320,7 +2330,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Base Guards',
 			
 			Radius = 78,
 			
-			PatrolTime = 350,
+			PatrolTime = 400,
 			PatrolType = true,
         },
     }, 
@@ -2348,7 +2358,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Base Guards',
         },
 		
         BuilderData = {
-			DistressRange = 90,
+			DistressRange = 150,
 			DistressTypes = 'Air',
 			DistressThreshold = 6,
 			

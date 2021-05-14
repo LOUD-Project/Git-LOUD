@@ -149,11 +149,6 @@ UnitBlueprint {
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
-            LAYER_Air = false,
-            LAYER_Land = false,
-            LAYER_Orbit = false,
-            LAYER_Seabed = false,
-            LAYER_Sub = false,
             LAYER_Water = true,
         },
         DragCoefficient = 0.2,
@@ -180,6 +175,10 @@ UnitBlueprint {
         SkirtSizeZ = 12,
         TurnRate = 0,
     },
+    SelectionCenterOffsetZ = -0.6,
+    SelectionMeshScaleX = 0.4,
+    SelectionMeshScaleZ = 0.6,
+    SelectionMeshUseTopAmount = 0.15,
     SelectionSizeX = 2.2,
     SelectionSizeZ = 6.9,
     SelectionThickness = 0.26,

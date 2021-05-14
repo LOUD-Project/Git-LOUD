@@ -27,7 +27,7 @@ teamOptions = {
         },
     },
     {
-        default = 1,
+        default = 2,
         label = "<LOC lobui_0088>Spawn",
         help = "<LOC lobui_0089>Determine what positions players spawn on the map",
         key = 'TeamSpawn',
@@ -351,7 +351,7 @@ globalOpts = {
         },
     },
     {
-        default = 2,
+        default = 1,
         label = "<LOC lobui_0120>Victory Condition",
         help = "<LOC lobui_0121>Determines how a victory can be achieved",
         key = 'Victory',
@@ -500,6 +500,25 @@ advGameOptions = {
             },
         },
     },
+    {
+        default = 1,
+        label = "Relocate Starting Resources",
+        help = "Initial mass & hydrocarbon points are relocated to suit AI needs. Turning off can break the AI",
+        key = 'RelocateResources',
+        pref = 'Lobby_RelocateResources',
+        values = {
+            {
+                text = 'On',
+                help = "Mass and hydrocarbon points at ALL starting postions are relocated.",
+                key = 'on',
+            },
+            {
+                text = 'Off',
+                help = "Mass and hydrocarbon points at AI starting positions ONLY are relocated. Can break the AI",
+                key = 'off',
+            },
+        }
+    },
 
 }
 
@@ -531,7 +550,6 @@ advAIOptions = {
             },
         },
     },
-
     {
         default = '1',
         label = "Feedback Cheat Scale",
@@ -539,7 +557,10 @@ advAIOptions = {
         key = "ACTRatioScale",
         pref = 'Lobby_ACT_Ratio_Scale',
         type = 'edit',
-        valid = '^%d+$',
+        valid = {
+            '^%d+$',
+            '^%d+%.%d+$',
+        },
         values = {
             {
                 text = "1",
@@ -703,6 +724,31 @@ advAIOptions = {
                 text = "4.0",
                 help = "The AI's cheat multiplier will never pass 4.0.",
                 key = '4',
+            },
+        },
+    },
+
+    {
+        default = 1,
+        label = "AI Shares Resources",
+        help = "Set if AI players share resources with their allies.",
+        key = 'AIResourceSharing',
+        pref = 'Lobby_AI_Resource_Sharing',
+        values = {
+            {
+                text = "On",
+                help = "AI players will always share resources with their allies.",
+                key = 'on',
+            },
+            {
+                text = "With AI Only",
+                help = "AI players will share resources with allies, but only if all of their allies are also AI.",
+                key = 'aiOnly',
+            },
+            {
+                text = "Off",
+                help = "AI players will never share resources with their allies.",
+                key = 'off',
             },
         },
     },

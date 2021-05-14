@@ -494,6 +494,10 @@ Tooltips = {
         title = "Accept Build Templates",
         description = "Allows other players to send you build templates over the network",
     },
+    options_area_reclaim_size = {
+        title = "Area Reclaim Rectangle Size",
+        description = "Choose the catchment area of the Reclaim Everything Around Cursor keybind"
+    },
 
     -- **********************
     -- *** Options: Interface
@@ -582,6 +586,10 @@ Tooltips = {
     options_gui_zoom_pop_distance = {
         title = 'GUI Mod',
         description = 'Adjusts distance to which Zoom Pop zooms to.',
+    },
+    options_cam_reset_behaviour = {
+        title = "Camera Reset Hotkey Behavior",
+        description = 'Choose whether the "Reset the Camera" hotkey fully zooms out only, or toggles between the current zoom level and fully zoomed-out.',
     },
     options_land_unit_select_prio = {
         title = "Land Unit Selection Priority",
@@ -1306,6 +1314,27 @@ Tooltips = {
     },
 
     -- **********************
+    -- *** Lobby Options: AI Resource Sharing
+    -- **********************
+
+    Lobby_AI_Resource_Sharing = {
+        title = "AI Shares Resources",
+        description = "Set if AI players share resources with their allies.",
+    },
+    lob_AIResourceSharing_on = {
+        title = "On",
+        description = "AI players will always share resource with their allies.",
+    },
+    lob_AIResourceSharing_aiOnly = {
+        title = "With AI Only",
+        description = "AI players will share resources with allies, but only if all of their allies are also AI.",
+    },
+    lob_AIResourceSharing_off = {
+        title = "Off",
+        description = "AI players will never share resources with their allies.",
+    },
+
+    -- **********************
     -- *** Lobby Options: Civilians
     -- **********************
 
@@ -1362,6 +1391,23 @@ Tooltips = {
     ["lob_MissileOption_2"] = {
         title = "Two",
         description = "All Nukes and Antinukes come with two missiles when built",
+    },
+
+    -- **********************
+    -- *** Lobby Options:Relocate Resources
+    -- **********************
+
+    Lobby_RelocateResources = {
+        title = "Relocate Starting Resources",
+        description = "Starting mass and hydrocarbon points, at start positions, are relocated to suit AI players.",
+    },
+    lob_RelocateResources_on = {
+        title = 'On',
+        description = "Starting mass and hydrocarbon points, at ALL start positions, are relocated to suit AI players.",
+    },
+    lob_RelocateResources_off = {
+        title = 'Off',
+        description = "Starting mass and hydrocarbon points, at AI start positions ONLY, are relocated, to suit AI players.",
     },
  
     -- **********************
@@ -1493,11 +1539,11 @@ Tooltips = {
     },
     unitdb_commanders = {
         title = "LOUD Enhanced Commanders",
-        description = "Whether the effects of the LOUD Enhanced Commanders mod are represented in this database. NOTE: only affects BlackOps ACUs.",
+        description = "Whether the effects of the LOUD Enhanced Black Ops Commanders mod are represented in this database.",
     },
     unitdb_nukes = {
-        title = "LOUD Realistic Nukes",
-        description = "Whether the effects of the LOUD Realistic Nukes mod are represented in this database.",
+        title = "LOUD Enhanced Nukes",
+        description = "Whether the effects of the LOUD Enhanced Nukes mod are represented in this database.",
     },
 
     -- ***************************

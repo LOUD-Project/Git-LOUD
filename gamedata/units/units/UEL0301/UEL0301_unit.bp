@@ -70,8 +70,8 @@ UnitBlueprint {
     Defense = {
         ArmorType = 'Normal',
         EconomyThreatLevel = 180 + 700,		-- BuildRate * 3 + 2% of health
-        Health = 35000,
-        MaxHealth = 35000,
+        Health = 35000 - 7000,
+        MaxHealth = 35000 - 7000,
         RegenRate = 25,
         SurfaceThreatLevel = 65,
     },
@@ -135,6 +135,27 @@ UnitBlueprint {
     },
 	
     Enhancements = {
+
+        Slots = {
+            Back = {
+                name = '<LOC _Back>',
+                x = 5,
+                y = -10,
+            },
+            LCH = {
+                name = '<LOC _LCH>',
+                x = 44,
+                y = 30,
+            },
+            RCH = {
+                name = '<LOC _RCH>',
+                x = -16,
+                y = 50,
+            },
+			Command = {
+			},
+        },
+        
         AdvancedCoolingUpgrade = {
             BuildCostEnergy = 45000,
             BuildCostMass = 1000,
@@ -147,6 +168,7 @@ UnitBlueprint {
                 'UEL0301',
             },
         },
+        
         AdvancedCoolingUpgradeRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
@@ -163,6 +185,7 @@ UnitBlueprint {
             },
             Slot = 'LCH',
         },
+        
         HighExplosiveOrdnance = {
             BuildCostEnergy = 60000,
             BuildCostMass = 1500,
@@ -182,6 +205,7 @@ UnitBlueprint {
                 'UEL0301',
             },
         },
+        
         HighExplosiveOrdnanceRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
@@ -199,6 +223,7 @@ UnitBlueprint {
             },
             Slot = 'RCH',
         },
+        
         Pod = {
             BuildCostEnergy = 2400,
             BuildCostMass = 120,
@@ -213,6 +238,7 @@ UnitBlueprint {
                 'UEL0301',
             },
         },
+        
         PodRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
@@ -226,6 +252,7 @@ UnitBlueprint {
             },
             Slot = 'Back',
         },
+        
         RadarJammer = {
             BuildCostEnergy = 31250,
             BuildCostMass = 1000,
@@ -245,6 +272,7 @@ UnitBlueprint {
                 'UEL0301',
             },
         },
+        
         RadarJammerRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
@@ -261,6 +289,7 @@ UnitBlueprint {
             },
             Slot = 'Back',
         },
+        
         ResourceAllocation = {
             BuildCostEnergy = 72000,
             BuildCostMass = 3675,
@@ -280,6 +309,7 @@ UnitBlueprint {
                 'UEL0301',
             },
         },
+        
         ResourceAllocationRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
@@ -296,6 +326,7 @@ UnitBlueprint {
             },
             Slot = 'RCH',
         },
+        
         SensorRangeEnhancer = {
             BuildCostEnergy = 20000,
             BuildCostMass = 1000,
@@ -315,6 +346,7 @@ UnitBlueprint {
                 'UEL0301',
             },
         },
+        
         SensorRangeEnhancerRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
@@ -331,6 +363,7 @@ UnitBlueprint {
             },
             Slot = 'LCH',
         },
+        
         Shield = {
             BuildCostEnergy = 93750,
             BuildCostMass = 2000,
@@ -362,6 +395,24 @@ UnitBlueprint {
                 'Arm_Left_B01',
             },
         },
+        
+        ShieldRemove = {
+            BuildCostEnergy = 1,
+            BuildCostMass = 1,
+            BuildTime = 0.1,
+            HideBones = {
+                'Jetpack',
+            },
+            Icon = 'psg',
+            Name = '<LOC enhancements_0076>Remove Personal Shield Generator',
+            Prerequisite = 'Shield',
+            RemoveEnhancements = {
+                'Shield',
+                'ShieldRemove',
+            },
+            Slot = 'Back',
+        },
+        
         ShieldGeneratorField = {
             BuildCostEnergy = 210000,
             BuildCostMass = 3000,
@@ -389,6 +440,7 @@ UnitBlueprint {
                 'UEL0301',
             },
         },
+        
         ShieldGeneratorFieldRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
@@ -406,49 +458,13 @@ UnitBlueprint {
             },
             Slot = 'Back',
         },
-        ShieldRemove = {
-            BuildCostEnergy = 1,
-            BuildCostMass = 1,
-            BuildTime = 0.1,
-            HideBones = {
-                'Jetpack',
-            },
-            Icon = 'psg',
-            Name = '<LOC enhancements_0076>Remove Personal Shield Generator',
-            Prerequisite = 'Shield',
-            RemoveEnhancements = {
-                'Shield',
-                'ShieldRemove',
-            },
-            Slot = 'Back',
-        },
-        Slots = {
-            Back = {
-                name = '<LOC _Back>',
-                x = 5,
-                y = -10,
-            },
-            LCH = {
-                name = '<LOC _LCH>',
-                x = 44,
-                y = 30,
-            },
-            RCH = {
-                name = '<LOC _RCH>',
-                x = -16,
-                y = 50,
-            },
-			Command = {
-			},
-        },
     },
 	
     General = {
+    
         BuildBones = {
             AimBone = 'Arm_Right_Build',
-            BuildEffectBones = {
-                'Arm_Right_Build',
-            },
+            BuildEffectBones = {'Arm_Right_Build'},
             PitchBone = 'Arm_Right_B03',
             YawBone = 'Torso',
         },
@@ -501,12 +517,7 @@ UnitBlueprint {
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
-            LAYER_Air = false,
             LAYER_Land = true,
-            LAYER_Orbit = false,
-            LAYER_Seabed = false,
-            LAYER_Sub = false,
-            LAYER_Water = false,
         },
         DragCoefficient = 0.2,
         LayerChangeOffsetHeight = -0.85,
@@ -564,22 +575,29 @@ UnitBlueprint {
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
+            
             Damage = 100,
             DamageRadius = 0,
             DamageType = 'Normal',
+            
             DisplayName = 'Heavy Plasma Cannon',
+            
             FireTargetLayerCapsTable = {
                 Land = 'Air|Land|Water',
                 Seabed = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
             FiringTolerance = 2,
+            
             Label = 'RightHeavyPlasmaCannon',
+            
             MaxRadius = 30,
             MinRadius = 1,
+            
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 25,
+            
             ProjectileId = '/projectiles/TDFPlasmaHeavy03/TDFPlasmaHeavy03_proj.bp',
             ProjectileLifetimeUsesMultiplier = 1.15,
 
@@ -598,8 +616,11 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
+            
             RangeCategory = 'UWRC_DirectFire',
+            
             RateOfFire = 1,
+            
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -609,16 +630,20 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
+            
             TurretBoneMuzzle = 'Arm_Left_Muzzle',
             TurretBonePitch = 'Arm_Left_Barrel01',
             TurretBoneYaw = 'Torso',
             TurretDualManipulators = false,
+            
             TurretPitch = 0,
             TurretPitchRange = 90,
             TurretPitchSpeed = 90,
+            
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 180,
+            
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
 
@@ -641,7 +666,7 @@ UnitBlueprint {
         EnergyMult = 0.3,
         HealthMult = 0.3,
         MassMult = 0.3,
-        ReclaimTimeMultiplier = 1,
+        ReclaimTimeMultiplier = 0.5,
         WreckageLayers = {
             Air = false,
             Land = true,

@@ -1310,9 +1310,9 @@ function ToggleSetting(setting, checked)
 		elseif setting == 'artillery' then
 			ParseMerges('/mods/Artillery/hook/units')
 		elseif setting == 'commanders' then
-			ParseMerges('/mods/Commanders/hook/units')
+			ParseMerges('/mods/Enhanced Commanders/hook/units')
 		elseif setting == 'nukes' then
-			ParseMerges('/mods/Realistic Nukes')
+			ParseMerges('/mods/Enhanced Nukes')
 		end
 	else
 		-- Purge and repopulate allBlueprints

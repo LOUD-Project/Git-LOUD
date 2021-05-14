@@ -961,7 +961,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Construction',
         PlatoonTemplate = 'EngineerBuilderGeneral',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 850,
+        Priority = 845,
 		
 		PriorityFunction = LessThan30MinutesRemain,		
 		
@@ -1095,7 +1095,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Defense Construction',
         PlatoonTemplate = 'EngineerBuilderGeneral',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 850,
+        Priority = 840,
 		
 		PriorityFunction = LessThan30MinutesRemain,		
 		
@@ -1195,7 +1195,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Defense Construction - LOU
         PlatoonTemplate = 'EngineerBuilderGeneral',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 850,
+        Priority = 840,
 
 		PriorityFunction = LessThan30MinutesRemain,		
 		

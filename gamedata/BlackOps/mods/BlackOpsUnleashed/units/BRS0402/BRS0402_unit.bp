@@ -231,11 +231,6 @@ UnitBlueprint {
         BackUpDistance = 15,
         BankingSlope = 0,
         BuildOnLayerCaps = {
-            LAYER_Air = false,
-            LAYER_Land = false,
-            LAYER_Orbit = false,
-            LAYER_Seabed = false,
-            LAYER_Sub = false,
             LAYER_Water = true,
         },
         CatchUpAcc = 7,
@@ -309,7 +304,7 @@ UnitBlueprint {
 			
             Damage = 500,
             DamageFriendly = true,
-            DamageRadius = 3,
+            DamageRadius = 2.5,
             DamageType = 'Normal',
 			
             DisplayName = 'Loa Tactical Missile',
@@ -459,7 +454,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 1400,
-            DamageRadius = 4,
+            DamageRadius = 2.5,
 			DamageFriendly = true,
             DamageType = 'Normal',
 			
@@ -613,7 +608,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 1400,
-            DamageRadius = 4,
+            DamageRadius = 2.5,
 			DamageFriendly = true,
             DamageType = 'Normal',
 			

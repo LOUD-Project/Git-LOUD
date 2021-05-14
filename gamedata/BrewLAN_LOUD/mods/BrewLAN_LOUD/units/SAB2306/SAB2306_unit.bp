@@ -162,12 +162,7 @@ UnitBlueprint {
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
-            LAYER_Air = false,
             LAYER_Land = true,
-            LAYER_Orbit = false,
-            LAYER_Seabed = false,
-            LAYER_Sub = false,
-            LAYER_Water = false,
         },
         DragCoefficient = 0.2,
         FlattenSkirt = true,
@@ -237,7 +232,7 @@ UnitBlueprint {
 			
             ContinuousBeam = true,
 			
-            Damage = 80,	---- 1600 Damage per onfire
+            Damage = 90,	---- 1800 Damage per onfire
             DamageRadius = 0,
 			DamageFriendly = false,
             DamageType = 'Normal',

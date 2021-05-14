@@ -5,9 +5,11 @@
 -- file.  It is loaded into a fresh lua state when a new session is
 -- initialized.
 
-LOG("*DEBUG Mohodata SessionInit")
+LOG("*DEBUG Mohodata SessionInit ")
 
--- Do global init
+InitialRegistration = true
+
+-- start loading UI side --
 doscript '/lua/userInit.lua'
 
 -- Add UI-only mods to the list of mods to use
@@ -15,6 +17,9 @@ for i,m in ipairs(import('/lua/mods.lua').GetUiMods()) do
     table.insert(__active_mods, m)
 end
 
-LOG('Active mods in session: ',repr(__active_mods))
+LOG("*DEBUG Active mods in session: "..repr(__active_mods) )
 
 doscript '/lua/UserSync.lua'
+
+
+LOG("*DEBUG Mohodata SessionInit Complete ")

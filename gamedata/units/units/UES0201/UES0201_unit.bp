@@ -198,11 +198,6 @@ UnitBlueprint {
         BackUpDistance = 5,
         BankingSlope = 0,
         BuildOnLayerCaps = {
-            LAYER_Air = false,
-            LAYER_Land = false,
-            LAYER_Orbit = false,
-            LAYER_Seabed = false,
-            LAYER_Sub = false,
             LAYER_Water = true,
         },
         CatchUpAcc = 10,
@@ -264,7 +259,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 120,
-            DamageRadius = 0.5,
+            DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'Dual Gauss Cannon',
@@ -363,7 +358,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 120,
-            DamageRadius = 0.5,
+            DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'Dual Gauss Cannon',

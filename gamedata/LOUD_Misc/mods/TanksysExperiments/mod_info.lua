@@ -1,4 +1,4 @@
-name = "Tanksy's Experiments: Combat Changes"
+name = "Tanksy's Experiments: Combat Reelism"
 uid = "TANKSYS-EXPERIMENTS-1-COMBAT"
 version = "1.2"
 copyright = "None"
@@ -12,6 +12,8 @@ exclusive = false
 ui_only = false
 requires = { }
 requiresNames = { }
-conflicts = { }
+conflicts = {
+	'TANKSYS-EXPERIMENTS-1-COMBAT'
+}
 before = { }
 after = { }

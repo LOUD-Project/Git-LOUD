@@ -3,7 +3,7 @@
 -- This is the top-level lua initialization file. It is run at initialization time
 -- to set up all lua state.
 
-LOG("*DEBUG Mohodata GlobalInit")
+LOG("*DEBUG Mohodata globalInit")
 
 -- Uncomment this to turn on allocation tracking, so that memreport() in /lua/system/profile.lua
 -- does something useful.
@@ -35,8 +35,6 @@ doscript '/lua/system/trashbag.lua'
 LOG("*AI DEBUG     Localization begins")
 doscript '/lua/system/Localization.lua'
 
-LOG("*DEBUG LUA Version "..import('/lua/AI/CustomAIs_v2/ExtrasAI.lua').AI.Version)
-
 LOG("*AI DEBUG     Creating MULTIEVENT Class")
 doscript '/lua/system/MultiEvent.lua'
 
@@ -52,24 +50,4 @@ for name,cclass in moho do
     ConvertCClassToLuaClass(cclass)
 end
 
-
--- Flag initial loading of blueprints
-InitialRegistration = true
-
-LOG("*AI DEBUG     Setup Platoon Template Structure")
--- Load Platoon Template systems
-doscript '/lua/system/GlobalPlatoonTemplate.lua'
-
-LOG("*AI DEBUG     Setup Builder Template Structure")
--- Load Builder system
-doscript '/lua/system/GlobalBuilderTemplate.lua'
-
-LOG("*AI DEBUG     Setup Builder Group Structure")
--- Load Builder Group systems
-doscript '/lua/system/GlobalBuilderGroup.lua'
-
-LOG("*AI DEBUG     Setup BaseBuilder Template Structure")
--- Load Global Base Templates
-doscript '/lua/system/GlobalBaseTemplate.lua'
-
-InitialRegistration = false
+LOG("*DEBUG Mohodata globalInit Complete")

@@ -168,11 +168,6 @@ UnitBlueprint {
         BackUpDistance = 5,
         BankingSlope = 0,
         BuildOnLayerCaps = {
-            LAYER_Air = false,
-            LAYER_Land = false,
-            LAYER_Orbit = false,
-            LAYER_Seabed = false,
-            LAYER_Sub = false,
             LAYER_Water = true,
         },
         CatchUpAcc = 10,
@@ -226,7 +221,7 @@ UnitBlueprint {
 			
             Damage = 550,
             DamageFriendly = true,
-            DamageRadius = 3,
+            DamageRadius = 2,
             DamageType = 'Normal',
 			
             DisplayName = 'Suthanus Artillery',
@@ -311,7 +306,7 @@ UnitBlueprint {
 			
             Damage = 550,
             DamageFriendly = true,
-            DamageRadius = 3,
+            DamageRadius = 2,
 			
             DamageType = 'Normal',
 			

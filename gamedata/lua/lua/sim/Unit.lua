@@ -1505,23 +1505,27 @@ Unit = Class(moho.unit_methods) {
     end,
     
     OnDamage = function(self, instigator, amount, vector, damageType)
+    
+        local platoon = self.PlatoonHandle
 
-		-- if the unit is in a platoon that exists and that platoon has a CallForHelpAI
+        --LOG("*AI DEBUG "..self:GetAIBrain().Nickname.." "..repr(self:GetBlueprint().Description).." taking damage - platoon is "..repr(self.PlatoonHandle) )
+
+        -- if the unit is in a platoon that exists and that platoon has a CallForHelpAI
 		-- I should probably do this thru a callback but it's much easier to find and work
 		-- with it here until I have it right
-		if self.PlatoonHandle.CallForHelpAI then
-		
+		if platoon.CallForHelpAI then
+        
 			local aiBrain = self:GetAIBrain()
-			local platoon = self.PlatoonHandle
+            
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self:GetBlueprint().Description).." Calling for Help - platoon is "..repr(aiBrain:PlatoonExists(self.PlatoonHandle)) )
 			
-			if (not platoon.UnderAttack) and aiBrain:PlatoonExists( platoon ) then
+			if (not platoon.UnderAttack) and aiBrain:PlatoonExists( self.PlatoonHandle ) then
 			
 				-- turn on the UnderAttack flag and process it
-				platoon:ForkThread(platoon.PlatoonUnderAttack, aiBrain)
+				self.PlatoonHandle:ForkThread( platoon.PlatoonUnderAttack, aiBrain)
 				
 			end
-			
-		end
+        end
 		
         if self.CanTakeDamage then
 		
@@ -1953,7 +1957,7 @@ Unit = Class(moho.unit_methods) {
 
 			-- all wreckage now has a lifetime max of 900 seconds --
             -- except starting props or those with an override value
-			prop:ForkThread( LifetimeThread, bp.Wreckage.LifeTime or (overridetime or 900) )
+			prop:ForkThread( LifetimeThread, overridetime or bp.Wreckage.LifeTime or 900 )
 
             TryCopyPose(self,prop,false)
 
@@ -2977,7 +2981,7 @@ Unit = Class(moho.unit_methods) {
 				
                 if bpTM[terrainType.Style] then
 				
-                    self:SetMesh(bpTM[terrainType.Style])
+                    self:SetMesh(bpTM[terrainType.Style], true)
                     useTerrainType = true
 					
                 end

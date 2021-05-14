@@ -80,9 +80,9 @@ UnitBlueprint {
     
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 2011,
-        Health = 40500,
-        MaxHealth = 40500,
+        EconomyThreatLevel = 2360,      -- 4x buildpower (840) + 4% of HP (1520)
+        Health = 38000,
+        MaxHealth = 38000,
         RegenRate = 10,
     },
     
@@ -170,7 +170,9 @@ UnitBlueprint {
             'BUILTBYEXPERIMENTALFACTORY UEF',
             'BUILTBYGANTRY',
         },
-        RebuildBonusIds = {'seb0401'},
+        
+        --RebuildBonusIds = {'seb0401'},
+        
         StorageEnergy = 8000,
         StorageMass = 1000,
         InitialRallyZ = 28,
@@ -179,7 +181,9 @@ UnitBlueprint {
     Footprint = {SizeX = 15, SizeZ = 15},
     
     General = {
-        CapCost = 15,
+    
+        CapCost = 18,
+        
         BuildBones = {
             BuildEffectBones = {
                 'Muzzle001',
@@ -192,8 +196,11 @@ UnitBlueprint {
                 'Muzzle008',
             },
         },
+        
         Category = 'Factory',
+        
         Classification = 'RULEUC_Factory',
+        
         CommandCaps = {
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
@@ -202,18 +209,22 @@ UnitBlueprint {
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
         },
+        
         ConstructionBar = true,
         FactionName = 'UEF',
         Icon = 'amph',
+        
         ToggleCaps = {
             RULEUTC_WeaponToggle = true,
         },
+        
         OrderOverrides = {
             RULEUTC_WeaponToggle = {
                 bitmapId = 'airsf',
                 helpText = 'buildair',
             },
         },
+        
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC seb0401_name>Gantry',
@@ -234,11 +245,7 @@ UnitBlueprint {
     
     Physics = {
         BuildOnLayerCaps = {
-            LAYER_Air = false,
             LAYER_Land = true,
-            LAYER_Orbit = false,
-            LAYER_Seabed = false,
-            LAYER_Sub = false,
             LAYER_Water = true,
         },
         DragCoefficient = 0.2,

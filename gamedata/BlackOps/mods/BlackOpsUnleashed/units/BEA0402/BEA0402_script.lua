@@ -105,7 +105,7 @@ BEA0402 = Class(TAirUnit) {
 	
 		self.AirPadTable = {}
 		
-		self:ForkThread(self.AirPad)
+		--self:ForkThread(self.AirPad)
 		
         TAirUnit.OnStopBeingBuilt(self,builder,layer)
 		
@@ -174,13 +174,13 @@ BEA0402 = Class(TAirUnit) {
 
 	--Cleans up threads and drones on death
 	OnKilled = function(self, instigator, type, overkillRatio)
-		self:ShowBone('AirPad01', true)
+		--self:ShowBone('AirPad01', true)
 		--self:ShowBone('AirPad02', true)
-		self:ShowBone('AirPad03', true)
+		--self:ShowBone('AirPad03', true)
 		--self:ShowBone('AirPad04', true)
-		self:ShowBone('AirPad05', true)
+		--self:ShowBone('AirPad05', true)
 		--self:ShowBone('AirPad06', true)
-		self:ShowBone('AirPad07', true)
+		--self:ShowBone('AirPad07', true)
 		--self:ShowBone('AirPad08', true)
 
 		if table.getn({self.AirPadTable}) > 0 then

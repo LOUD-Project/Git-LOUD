@@ -67,13 +67,9 @@ UnitBlueprint {
 		BuildRate = 20,
         BuildTime = 9000,
 		
-        ProductionPerSecondEnergy = 6750,	--7435,
+        ProductionPerSecondEnergy = 6100,
         ProductionPerSecondMass = 2,
-		
-        RebuildBonusIds = {
-            'brb1302',
-        },
-		
+
         StorageEnergy = 25000,
     },
 	
@@ -197,7 +193,7 @@ UnitBlueprint {
     },
 	
     General = {
-		CapCost = 0,
+		CapCost = 5,
         Category = 'Economy',
         Classification = 'RULEUC_Resource',
         CommandCaps = {
@@ -219,12 +215,8 @@ UnitBlueprint {
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
-            LAYER_Air = false,
             LAYER_Land = true,
-            LAYER_Orbit = false,
             LAYER_Seabed = true,
-            LAYER_Sub = false,
-            LAYER_Water = false,
         },
         BuildRestriction = 'RULEUBR_OnHydrocarbonDeposit',
         DragCoefficient = 0.2,

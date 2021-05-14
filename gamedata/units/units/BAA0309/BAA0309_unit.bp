@@ -31,7 +31,7 @@ UnitBlueprint {
 
         LiftFactor = 9,
 
-        MaxAirspeed = 14.5,
+        MaxAirspeed = 14,
 
         StartTurnDistance = 5,
 
@@ -109,7 +109,7 @@ UnitBlueprint {
         Abilities = {
 			'2 Ground Attack Autocannon',
             '4 Hi-V AA Guns',
-			'Can Transport up to 8 T3 units',
+			'Transport up to 6 T3 units',
 			'Radar & Radar Stealth',
         },
 
@@ -191,11 +191,6 @@ UnitBlueprint {
     Physics = {
         BuildOnLayerCaps = {
             LAYER_Air = true,
-            LAYER_Land = false,
-            LAYER_Orbit = false,
-            LAYER_Seabed = false,
-            LAYER_Sub = false,
-            LAYER_Water = false,
         },
 		Elevation = 14.0,
 		

@@ -220,6 +220,7 @@ local modSchema = {
         'BREWLANS-a0a7-426d-88f2-CRATESZ00011', -- Crate Drop
         '16678e1e-7fc9-11e5-8bcf-x10health0010', -- Hench AF
         '16678e1e-7fc9-11e5-8bcf-dayofsex0010', -- Invisible War
+        '25D57D85-9JA7-D842-BREW-KNIVES000002', -- Knives
         '25D57D85-7D84-27HT-A502-LDIPS0000002', -- Lucky Dip
         '25D57D85-7D84-27HT-A502-MASSRNG00002', -- Mass Point RNG
         '25D57D85-7D84-27HT-A501-METALWI0000013', -- Metal World
@@ -238,6 +239,7 @@ local modSchema = {
         'Z529ea71-93ef-41a6-b552-STRATICON00010', -- Strategic Icon Overhaul
         'eabdfda4-24b5-40dc-8995-LOUD000DEBUG', -- LOUD Debug Tools
         '7be1d5f4-c544-11ea-87d0-noalerts0001', -- No VO Alerts
+        'stonksc5-f109-4145-b83f-a0b589087460', -- Stonks
         '5362BE90-44BE-11DD-A519-83AF56D89593', -- Supreme Commander Music
         'f31a09b5-2b2f-4bb4-aeac-resource0000001', -- Wonky Resources
     },

@@ -88,7 +88,7 @@ UnitBlueprint {
 
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 2500,
+        EconomyThreatLevel = 2040,  -- 4x buildpower (840) + 4% of HP (1200)
         Health = 30000,
         MaxHealth = 30000,
         RegenRate = 12,
@@ -232,8 +232,8 @@ UnitBlueprint {
     },
 
     Intel = {
-        VisionRadius = 20,
-		WaterVisionRadius = 20,
+        VisionRadius = 26,
+		WaterVisionRadius = 26,
     },
 
     Interface = {
@@ -246,35 +246,19 @@ UnitBlueprint {
 
     Physics = {
         BankingSlope = 0,
-        BuildOnLayerCaps = {
-            LAYER_Air = false,
-            LAYER_Land = false,
-            LAYER_Orbit = false,
-            LAYER_Seabed = true,
-            LAYER_Sub = false,
-            LAYER_Water = false,
-        },
+        BuildOnLayerCaps = { LAYER_Seabed = true },
+        
         DragCoefficient = 0.2,
+        
         MaxSteerForce = 0,
+        
         MeshExtentsX = 14,
         MeshExtentsY = 14,
         MeshExtentsZ = 3,
+        
         MinSpeedPercent = 0,
+        
         MotionType = 'RULEUMT_None',
-
-        --The raised platform is on the surface of the water, not the seabed.
-        --[[RaisedPlatforms = {
-            -- Platform 1
-            -- x    z    height
-            -- TopLeft Offset From Center
-            -13, -13, 1.5,
-            -- TopRight Offset From Center
-            13, -13, 1.5,
-            -- BottomLeft Offset From Center
-            -13, 13, 1.5,
-            -- BottomRight Offset From Center
-            13, 13, 1.5,
-        },]]--
 
         RollOffPoints = {
             {UnitSpin = 0,   X = 0,     Y = 0, Z = 8},

@@ -1170,7 +1170,7 @@ function GetTransports( platoon, aiBrain)
 	-- Returns the number of slots the transport has available
 	-- Originally, this function just counted the number of attachpoint bones of each size on the model
 	-- however, this does not seem to work correctly - ie. UEF T3 Transport
-	-- says it has 12 Large Attachpoints but will only carry 6 large units
+	-- says it has 12 Large Attachpoints but will only carry 8 large units
 	-- so I replaced that with some hardcoded values to improve performance, as each new transport
 	-- unit comes into play, I'll cache those values on the brain so I never have to look them up again
 	-- setup global table to contain Transport values- in this way we always have a reference to them
@@ -1194,7 +1194,7 @@ function GetTransports( platoon, aiBrain)
 			local bones = { Large = 0, Medium = 0, Small = 0,}
 	
 			if EntityCategoryContains( categories.xea0306, unit) then
-				bones.Large = 6
+				bones.Large = 8
 				bones.Medium = 10
 				bones.Small = 24
 
@@ -1270,7 +1270,7 @@ function GetTransports( platoon, aiBrain)
 			-- BO Sera transport
 			elseif bones.Small == 0 and (categories.bsa0309 and EntityCategoryContains( categories.bsa0309, unit)) then
 				bones.Large = 8
-				bones.Medium = 12
+				bones.Medium = 10
 				bones.Small = 28
 
 			-- BrewLAN Seraphim transport
@@ -2797,6 +2797,8 @@ function ReturnTransportsToPool( aiBrain, units, move )
                 if baseposition then
                     x = baseposition[1]
                     z = baseposition[3]
+                else
+                    return
                 end
 
                 local position = AIUtils.RandomLocation(x,z)

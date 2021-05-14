@@ -56,7 +56,8 @@ UnitBlueprint {
         'RECLAIMABLE',
         'BATTLESHIP',
         'BOMBARDMENT',
-        'OVERLAYRADAR','OVERLAYSONAR',
+        'OVERLAYRADAR',
+        'OVERLAYSONAR',
     },
 	
     CollisionOffsetY = -0.375,
@@ -212,14 +213,7 @@ UnitBlueprint {
     Physics = {
         BackUpDistance = 12,
         BankingSlope = 0,
-        BuildOnLayerCaps = {
-            LAYER_Air = false,
-            LAYER_Land = false,
-            LAYER_Orbit = false,
-            LAYER_Seabed = false,
-            LAYER_Sub = false,
-            LAYER_Water = true,
-        },
+        BuildOnLayerCaps = { LAYER_Water = true },
         CatchUpAcc = 8,
         DragCoefficient = 0.2,
         MaxAcceleration = 1,
@@ -227,8 +221,9 @@ UnitBlueprint {
         MaxSpeed = 3.6,
         MaxSpeedReverse = 3,
         MaxSteerForce = 5,
-        SkirtOffsetZ = -2,
-        SkirtSizeX = 2,
+        SkirtOffsetX = 0.5,
+        SkirtOffsetZ = -3,
+        SkirtSizeX = 5,
         SkirtSizeZ = 12,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Water',
@@ -236,8 +231,8 @@ UnitBlueprint {
         TurnRate = 35,
     },
 	
-    SelectionSizeX = 2,
-    SelectionSizeZ = 8,
+    SelectionSizeX = 3,
+    SelectionSizeZ = 9,
     SelectionThickness = 0.18,
 	
     SizeX = 1.9,

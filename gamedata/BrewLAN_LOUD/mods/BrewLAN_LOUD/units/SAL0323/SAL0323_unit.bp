@@ -57,7 +57,6 @@ UnitBlueprint {
         EconomyThreatLevel = 2,
         Health = 480,
         MaxHealth = 480,
-        RegenRate = 0,
     },
 	
     Description = '<LOC sl0323_desc>Mobile Tactical Missile Defense',
@@ -88,21 +87,9 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 100,
-                    Scrolling = true,
-                    ShaderName = 'Aeon',
-                    AlbedoName = '/units/UAB4201/UAB4201_albedo.dds',
-                    NormalsName = '/units/UAB4201/UAB4201_normalsTS.dds',
-                    SpecularName = '/units/UAB4201/UAB4201_specteam.dds',
-                },
-                {
-                    LODCutoff = 215,
-                    ShaderName = 'Aeon',
-                    AlbedoName = '/units/UAB4201/UAB4201_lod1_albedo.dds',
-                    NormalsName = '/units/UAB4201/UAB4201_lod1_normalsTS.dds',
-                    SpecularName = '/units/UAB4201/UAB4201_lod1_specteam.dds',
-                },
+                { LODCutoff = 100, ShaderName = 'Aeon' },
+                { LODCutoff = 200, ShaderName = 'Aeon' },
+                { LODCutoff = 300, ShaderName = 'Aeon' },
             },
         },
         MovementEffects = {
@@ -183,17 +170,13 @@ UnitBlueprint {
     },
 	
     LifeBarHeight = 0.075,
-    LifeBarOffset = 0.35,
+    LifeBarOffset = 0.5,
     LifeBarSize = 0.9,
 	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
-            LAYER_Air = false,
             LAYER_Land = true,
-            LAYER_Orbit = false,
-            LAYER_Seabed = false,
-            LAYER_Sub = false,
             LAYER_Water = true,
         },
         DragCoefficient = 0.2,
@@ -203,9 +186,6 @@ UnitBlueprint {
         MaxSpeed = 3.4,
         MaxSpeedReverse = 0,
         MaxSteerForce = 1000,
-        MeshExtentsX = 1.15,
-        MeshExtentsY = 0.75,
-        MeshExtentsZ = 1.15,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Hover',
         TurnFacingRate = 180,
@@ -215,13 +195,13 @@ UnitBlueprint {
         WobbleSpeed = 0,
     },
 	
-    SelectionSizeX = 0.5,
-    SelectionSizeZ = 0.5,
-    SelectionThickness = 0.45,
+    SelectionSizeX = 0.6,
+    SelectionSizeZ = 0.7,
+    SelectionThickness = 0.6,
 	
-    SizeX = 0.65,
-    SizeY = 0.5,
-    SizeZ = 0.65,
+    SizeX = 0.8,
+    SizeY = 0.4,
+    SizeZ = 1,
 	
     StrategicIconName = 'icon_surface2_antimissile',
     StrategicIconSortPriority = 200,
@@ -280,7 +260,7 @@ UnitBlueprint {
                     MuzzleBones = {
                         'Barrel',
                     },
-                    RackBone = 'Dome',
+                    RackBone = 'Barrel',
                 },
             },
             RackFireTogether = false,
@@ -301,7 +281,7 @@ UnitBlueprint {
             TrackingRadius = 1.35,
 
             WeaponRepackTimeout = 0.8,
-            WeaponUnpackAnimation = '/units/uab4201/uab4201_Aopen.sca',
+            WeaponUnpackAnimation = '/mods/BrewLAN_LOUD/units/sal0323/sal0323_aopen.sca',
             WeaponUnpackAnimationRate = 10,
             WeaponUnpacks = true,
         },

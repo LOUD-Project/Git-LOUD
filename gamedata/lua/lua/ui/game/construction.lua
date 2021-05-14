@@ -1115,7 +1115,7 @@ function CommonLogic()
 			-- the GAZ UI template name
             if 'templates' then
                 control.Tmplnm.Width:Set(48)
-                control.Tmplnm:SetText(LOC(string.sub(control.Data.template.name, cutA, cutB)))
+                control.Tmplnm:SetText(string.sub(LOC(control.Data.template.name), cutA, cutB))
             end            
 
         elseif type == 'item' then
@@ -1900,7 +1900,8 @@ function CreateFacTemplateOptionsMenu(button)
                 end
             
                 for iconType, _ in contents do
-                    local bmp = Bitmap(group, GameCommon.GetUnitIconPath(nil, iconType))
+                    local path = GameCommon.GetUnitIconPath(nil, iconType)
+                    local bmp = Bitmap(group, path)
                     bmp.Height:Set(30)
                     bmp.Width:Set(30)
                     bmp.ID = iconType
@@ -2077,7 +2078,8 @@ function CreateTemplateOptionsMenu(button)
                 end
             end
             for iconType, _ in contents do
-                local bmp = Bitmap(group, GameCommon.GetUnitIconPath(nil, iconType))
+                local path = GameCommon.GetUnitIconPath(nil, iconType)
+                local bmp = Bitmap(group, path)
                 bmp.Height:Set(30)
                 bmp.Width:Set(30)
                 bmp.ID = iconType

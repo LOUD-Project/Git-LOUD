@@ -106,7 +106,7 @@ UnitBlueprint {
 
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 2011,
+        EconomyThreatLevel = 2000,      -- 4x buildpower (840) + 4% of HP (1160)
         Health = 29000,
         MaxHealth = 29000,
         RegenRate = 12,
@@ -233,7 +233,7 @@ UnitBlueprint {
             'BUILTBYIENGINE'
         },
 
-        RebuildBonusIds = { 'sab0401' },
+        --RebuildBonusIds = { 'sab0401' },
 
         StorageEnergy = 8000,
         StorageMass = 1000,
@@ -261,7 +261,7 @@ UnitBlueprint {
             },
         },
 
-		CapCost = 15,
+		CapCost = 16,
 
         Category = 'Factory',
         Classification = 'RULEUC_Factory',
@@ -297,11 +297,7 @@ UnitBlueprint {
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
-            LAYER_Air = false,
             LAYER_Land = true,
-            LAYER_Orbit = false,
-            LAYER_Seabed = false,
-            LAYER_Sub = false,
             LAYER_Water = true,
         },
         DragCoefficient = 0.2,
@@ -343,8 +339,8 @@ UnitBlueprint {
             {UnitSpin = 315, X = -5.66, Y = 0, Z = 5.66},
         },
 
-        SkirtOffsetX = -1.5,
-        SkirtOffsetZ = -1.5,
+        SkirtOffsetX = -1,
+        SkirtOffsetZ = -1,
 
         SkirtSizeX = 20,
         SkirtSizeZ = 20,

@@ -87,6 +87,7 @@ UnitBlueprint {
 		BuildableCategory = {'bab1302'},
 		
         ProductionPerSecondEnergy = 875,
+        
 		StorageEnergy = 200,
     },
 	
@@ -96,6 +97,7 @@ UnitBlueprint {
     },
 	
     General = {
+        CapCost = 6,
         Category = 'Economy',
         Classification = 'RULEUC_Resource',
         CommandCaps = {
@@ -123,12 +125,8 @@ UnitBlueprint {
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
-            LAYER_Air = false,
             LAYER_Land = true,
-            LAYER_Orbit = false,
             LAYER_Seabed = true,
-            LAYER_Sub = false,
-            LAYER_Water = false,
         },
         BuildRestriction = 'RULEUBR_OnHydrocarbonDeposit',
         DragCoefficient = 0.2,

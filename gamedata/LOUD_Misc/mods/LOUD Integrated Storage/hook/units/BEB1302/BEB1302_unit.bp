@@ -1,19 +1,19 @@
 UnitBlueprint {
 	Merge = true,
+    
 	BlueprintId = "beb1302", --UEF T3 Hydrocarbon
+    
     Economy = {
         BuildRate = 20,
         BuildableCategory = {
             'beb1304',
         },
-        RebuildBonusIds = {
-            'beb1302',
-            'beb1304',
-        },
+
         StorageEnergy = 1000,
     },
+    
     General = {
-		CapCost = 4,
+
         CommandCaps = {
             RULEUCC_Pause = true,
             RULEUCC_Stop = true,

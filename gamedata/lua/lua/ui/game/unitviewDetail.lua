@@ -165,7 +165,10 @@ function ShowEnhancement( bp, bpID, iconID, iconPrefix, userUnit )
 		
 			time, energy, mass = import('/lua/game.lua').GetConstructEconomyModel(userUnit, bp)
 			time = math.max(time, 1)
-			
+
+			local path = import('/lua/ui/game/construction.lua').GetEnhancementTextures(bpID, iconID)
+			View.UnitImg:SetTexture(path)
+
 			showUpKeep = DisplayResources(bp, time, energy, mass)
 			View.TimeStat.Value:SetFont(UIUtil.bodyFont, 14)
 			View.TimeStat.Value:SetText(string.format("%s", FormatTime(time)))
@@ -491,8 +494,9 @@ function WrapAndPlaceText(air, physics, intel, weapons, abilities, capCost, text
 									weaponText = (TitleCase(weapon.TargetRestrictOnlyAllow) .. wepCategory)
 								end
 								
-								-- If a weapon is a Countermeasure, we don't care about its damage or DPS, as it's all very small numbers purely for shooting projectiles.
-								weaponText = (weaponText .. " {")
+								-- If a weapon is a Countermeasure, we don't care about its damage or DPS,
+								-- as it's all very small numbers purely for shooting projectiles.
+								weaponText = (weaponText .. " {"):gsub(",", " ")
 
 								-- Show RoF for Countermeasure weapons.
 								if PhxLib.PhxWeapDPS(weapon).RateOfFire > 0 then

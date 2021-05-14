@@ -205,11 +205,6 @@ UnitBlueprint {
         BackUpDistance = 10,
         BankingSlope = 0,
         BuildOnLayerCaps = {
-            LAYER_Air = false,
-            LAYER_Land = false,
-            LAYER_Orbit = false,
-            LAYER_Seabed = false,
-            LAYER_Sub = false,
             LAYER_Water = true,
         },
         CatchUpAcc = 8,
@@ -226,7 +221,7 @@ UnitBlueprint {
         SkirtOffsetX = -0.2,
         SkirtOffsetZ = -2,
         SkirtSizeX = 2.0,
-        SkirtSizeZ = 10.0,
+        SkirtSizeZ = 12.0,
         MotionType = 'RULEUMT_Water',
         TurnRadius = 25,
         TurnRate = 28,
@@ -286,7 +281,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 3000,
-            DamageRadius = 4,
+            DamageRadius = 2.5,
             DamageType = 'Normal',
 			
             DisplayName = 'ZCannon',
@@ -399,7 +394,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 3000,
-            DamageRadius = 4,
+            DamageRadius = 2.5,
             DamageType = 'Normal',
 			
             DisplayName = 'ZCannon',
@@ -513,7 +508,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 3000,
-            DamageRadius = 4,
+            DamageRadius = 2.5,
             DamageType = 'Normal',
 			
             DisplayName = 'ZCannon',
@@ -622,7 +617,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 300,
-            DamageRadius = 2,
+            DamageRadius = 1.5,
             DamageType = 'Normal',
 			
             DisplayName = 'Gauss Cannon',
@@ -738,7 +733,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 300,
-            DamageRadius = 2,
+            DamageRadius = 1.5,
             DamageType = 'Normal',
 			
             DisplayName = 'Gauss Cannon',
@@ -853,7 +848,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 300,
-            DamageRadius = 2,
+            DamageRadius = 1.5,
             DamageType = 'Normal',
 			
             DisplayName = 'Gauss Cannon',
@@ -968,7 +963,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 300,
-            DamageRadius = 2,
+            DamageRadius = 1.5,
             DamageType = 'Normal',
 			
             DisplayName = 'Gauss Cannon',
@@ -1083,7 +1078,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 300,
-            DamageRadius = 2,
+            DamageRadius = 1.5,
             DamageType = 'Normal',
 			
             DisplayName = 'Gauss Cannon',
@@ -1198,7 +1193,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 300,
-            DamageRadius = 2,
+            DamageRadius = 1.5,
             DamageType = 'Normal',
 			
             DisplayName = 'Gauss Cannon',
@@ -1313,7 +1308,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 300,
-            DamageRadius = 2,
+            DamageRadius = 1.5,
             DamageType = 'Normal',
 			
             DisplayName = 'Gauss Cannon',
@@ -1428,7 +1423,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 300,
-            DamageRadius = 2,
+            DamageRadius = 1.5,
             DamageType = 'Normal',
 			
             DisplayName = 'Gauss Cannon',

@@ -3,7 +3,7 @@
 --
 
 	-- Enable LOUD debugging options
-	LOG("*AI DEBUG Setting LOUD DEBUG & LOG options")
+	LOG("*AI DEBUG Setting LOUD DEBUG & LOG options ")
 
 
     --- ENGINEER and FACTORY DEBUGS ---
@@ -322,6 +322,7 @@ function upvalues()
 end 
 
 function SetAIDebug(data)
+
     if type(data.Active) ~= 'boolean' then
         WARN("SETAIDEBUG: illegal On argument, returning")
         return

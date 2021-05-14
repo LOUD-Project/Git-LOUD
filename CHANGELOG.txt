@@ -1,3 +1,67 @@
+### Release 23-04-2021 ###
+Lua 5.4.14
+
+- AI: Faster responses when platoons call for help from other platoons.
+- AI: Better checks for when terrain might block unit movement.
+- AI: Higher chances of building torpedo bombers when they would be beneficial.
+- AI: Hydrocarbon plants get units assigned to them and will call for help when under attack.
+- Fixed unit wreckages spawned at game start lasting only 15 minutes instead of the intended 30.
+
+### Release 16-04-2021 ###
+Lua 5.4.13
+
+- AI: Cheating buff applied to AI units' health, shields, and regen is now 33% instead of 40%.
+- AI: Economic consumption bonuses, which were at 75% of the cheat value, have also been reduced to 67%.
+- AI: Adaptive cheating now affects intel, health, shields, and regen.
+- AI: Expand guarding, scouting radii whenever platoons are merged.
+- AI: Bomber missions have reduced duration, and lower radius for searching for targets.
+- AI: Fixed using the Continental to only transport 6 Tech 3 units.
+- AI: Reduce chance for engineers to line up to build an extractor at the same mass point.
+- AI: Improved co-operation between engineers.
+- AI: Improved decision-making on when to build base defenses and naval bases.
+- AI: Outnumbered AI will more quickly build bases on unoccupied start locations.
+
+### Patch 03-04-2021 ###
+Lua 5.4.12
+
+- AI: Some refinement of air formation target acquisition.
+- Fixed a bug preventing changing of factory queue template icons.
+
+### Release 19-03-2021 ###
+Lua 5.4.11
+
+- New lobby options.
+ |--> Choose whether human players' starting mass points get moved.
+ |--> Choose whether AI will share resources with human allies, or will share resources with allies at all.
+- Slider in Options -> Gameplay for choosing the size of the affected reclaim using the hotkey "Reclaim Everything Around Cursor".
+- Allow lobby option Feedback Cheating Scale to take decimal values for finer control.
+- AI: Added a new bomber hunt formation specifically to target engineers, at long range.
+- AI: A high enough land ratio will now stop most land unit production in favour of experimentals (trigger point moved from 3 to 4).
+- AI: Only use fraction of own AntiSurface threat for bomber/gunship targeting decisions.
+ |--> 1/3 for bombers, 1/2 for gunships.
+ |--> This should make these units more careful in picking targets when their enemy has a heavy anti-air presence.
+- Allow cancelling the creation of auto-upgrade markers (for Support ACUs).
+- The Unit Database now uses the correct names for LOUD's mini-rebalance mods (which were changed at Release 30-01-2021).
+- Fix: Show the correct icon when examining a choice of enhancement.
+- Fix: Stop the in-lobby Total Unit Cap display from trying to get a non-existent tooltip.
+- Fix: Templates with localization tags were not getting formatted to their actual translation.
+- Fixed a bug preventing changing of structure template icons.
+
+### Release 05-03-2021 ###
+Lua 5.4.10
+LOUD Misc 5.4.3
+
+- In the lobby, calculate and show how much total unit cap the match will have.
+- Improvements to camera zooming using the keyboard.
+ |--> Zoom In, Zoom Out, and the "Fast" versions of both are no longer unusably slow at high zooms.
+ |--> A setting under Interface, determining if Reset Camera only resets the camera, or toggles between a reset overview and the last camera position.
+- The "Reclaim Everything Around Cursor" keybind now works in a slightly larger rectangle, and won't try to reclaim living units.
+- AI: Let engineers build mass extractors on mass and naval defensive points.
+- AI: Minor numerical tweaks to ACU behaviour and intel parsing.
+- Fix certain unit construction tooltips having a comma between "Tactical" and "Missile".
+- Fix a bug preventing control group icons (right side of screen) from appearing.
+ |--> This also fixes the game failing to load saves with control groups in them.
+
 ### Release 26-02-2021 ###
 Lua 5.4.09
 LOUD Misc 5.4.2
