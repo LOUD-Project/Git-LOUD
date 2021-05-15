@@ -1,3 +1,197 @@
+### Release 15-05-2021 ###
+Lua 5.4.17
+Units 6.1
+Textures 6.4
+Total Mayhem 6.1
+LOUD Units 1.1
+LOUD Misc 5.5
+BrewLAN LOUD 0.9
+4th Dimension LOUD 4.1
+BlackOps 6.1
+Wyvern Battle Pack 1.1
+
+- Beta release of a strategic icon overhaul by Balthazar. Key features include:
+ |--> New icon shapes for distinguishing land-only units, seaded-travelling units, and hovercraft.
+ |--> The Armored Command Unit and Support Armored Command Units now have different icons.
+ |--> Slightly reduced RAM usage.
+ |--> Fix inconsistencies from the previous strategic icon set, such as the lack of protector icons at large sizes.
+- New mod: BrewLAN Research & Daiquiris.
+ |--> Every faction has research centres used to unlock specific units.
+ |--> Designed to make games last longer and make earlier tech levels more meaningful.
+ |--> Compatible with all of the other LOUD standard unit mods.
+- New mutator mod: BrewLAN Knives. Units lose their default weapons and instead fight with knives.
+ |--> Balance and sanity not guaranteed.
+- The Ace (UEF Tech 3 Strategic Missile Submarine) doesn't get excluded from the game by the "No Nukes" unit restriction; instead, it only has its nuclear weapon disabled.
+- Several small unit rebalances:
+ |--> Absolver (Aeon Tech 3 Shield Disruptor)
+ |-- |--> Main gun damage: 20 -> 5.
+ |-- |--> Percent damage of main gun to shields: 100% -> 1300%.
+ |--> Ilthysathuum (Seraphim Tech 3 Lambda-Equipped Assault Bot)
+ |-- |--> Maximum health: 5400 -> 5100
+ |-- |--> Health regeneration rate (per second): 2.5 -> 2
+ |-- |--> Mass build cost: 1650 -> 1660
+ |-- |--> Energy build cost: 20000 -> 21000
+ |-- |--> Build time: 82.5 seconds -> 83 seconds
+ |-- |--> Energy cost per second of Lambda (projectile destroyer) field: 30 -> 40.
+ |-- |--> For the elite variant, this cost went from 100 -> 110.
+ |--> Thunderhead Class (UEF Tech 1 Frigate)
+ |-- |--> Main gun area-of-effect: 1m -> 0m.
+ |--> Valiant Class (UEF Tech 1 Frigate)
+ |-- |--> Main gun area-of-effect: 1m -> 0m.
+ |--> Summit Class (UEF Tech 3 Battleship)
+ |-- |--> Area-of-effect of all main guns reduced by 1m.
+ |--> Trident Class (Cybran Tech 1 Frigate)
+ |-- |--> Main gun area-of-effect: 1m -> 0m.
+ |--> Hauthuum (Seraphim Tech 3 Battleship)
+ |-- |--> Area-of-effect of main guns: 4m -> 3.2m.
+ |-- |--> All anti-air cannon area-of-effect reduced by 0.4m (one was previously 5m, and another was previously 4m).
+ |--> Conquest Class (UEF Experimental Battleship)
+ |-- |--> All main cannon area-of-effect: 8m -> 5m.
+ |-- |--> All secondary cannon area-of-effect: 4m -> 3m.
+ |--> Seadragon Mk. II (Cybran Experimental Battleship)
+ |-- |--> Tactical missile area-of-effect: 6m -> 2.5m.
+ |-- |--> All main cannon area-of-effect: 8m -> 5m.
+ |--> Zthuzene (Seraphim Tech 2 Bombardment Ship)
+ |-- |--> Artillery cannon area-of-effect: 6m -> 4m.
+ |--> Adjustments to the experimental factories added by BrewLAN:
+ |-- |--> None can be rebuilt from wreckages of themselves anymore.
+ |-- |--> Unit cap cost: 15 -> 16 for the Independence Engine (Aeon) and Arthrolab (Cybran).
+ |-- |--> Unit cap cost: 15 -> 18 for the Gantry (UEF).
+ |-- |--> Max health: 40500 -> 38000 for the Gantry.
+ |-- |--> Vision radius: 20 -> 26 for the Souiya (Seraphim).
+ |--> Support Armored Command Units  (SACUs):
+ |-- |--> 20% maximum health reduction.
+ |-- |--> 50% reduction in time taken to fully reclaim the wreckage of an SACU.
+ |-- |--> Percentage of build cost worth in mass and energy in SACU wreckages: 90% to 30%.
+ |-- |--> Storages for Aeon, Cybran, and Seraphim SACUs changed to 200 mass and 1000 energy.
+ |--> Tempest (Aeon Experimental Battleship)
+ |-- |--> Can now damage friendly units.
+ |-- |--> Main gun area-of-effect: 8m -> 6.4m.
+ |--> Wraith (Aeon Tech 3 Hover Tank)
+ |-- |--> Main gun area-of-effect: 4m -> 1.6m.
+ |-- |--> Main gun yaw range: 25 degress -> 30 degrees.
+ |--> Wyvern (UEF Experimental Assault Artillery)
+ |-- |--> Torpedoes removed.
+ |-- |--> Shield radius: 32m -> 36m.
+ |-- |--> Mass build cost: 27000 -> 27500.
+ |-- |--> Energy build cost: 69500 -> 74500.
+ |-- |--> Build time: 1575 seconds -> 1240 seconds.
+ |-- |--> Unit cap cost: 7 -> 10.
+ |-- |--> Vision radius when underwater: 70m -> 48m.
+ |-- |--> Small reductions to maximum speed, acceleration, brake force, and turn speed.
+ |-- |--> Main cannon area-of-effect: 6.4m -> 5.6m.
+ |--> Minor airspeed reductions to the Illuminate and Vanisher (Heavy Air Transports, Aeon and Cybran).
+ |--> Vishathal-Atah (Seraphim Tech 3 Air Transport)
+ |-- |--> Projectile reflector field cooldown: 0.3s -> 0.27s
+ |-- |--> Projectile nullifier field cooldown: 0.35s -> 0.31s.
+ |-- |--> Maximum health: 6150 -> 5900.
+ |--> Vishuum (Seraphim Tech 3 Air Transport)
+ |-- |--> Shield recharge time: 15s -> 20s.
+ |-- |--> Maximum health: 4300 -> 4100.
+ |-- |--> Small reduction in maximum airspeed.
+ |-- Orbos (Aeon Tech 3 Point Defense)
+ |-- |--> Damage: 80 -> 90.
+ |--> Solaris (Aeon Experimental Air Transport)
+ |-- |--> Small reduction in maximum airspeed.
+ |-- |--> Health regeneration rate per second: 12 -> 24.
+ |--> All Tech 1 engineers:
+ |-- |--> Mass build cost: 70 -> 90.
+ |-- |--> Energy build cost: 330 -> 400.
+ |-- |--> Build range: 6m -> 5.8m.
+ |-- |--> Slightly less maximum acceleration.
+ |--> UEF Tech 1 Engineer:
+ |-- |--> Maximum health: 150 -> 145.
+ |--> Cybran Tech 1 Engineer:
+ |-- |--> Maximum health: 145 -> 130.
+ |--> Aeon Tech 1 Engineer:
+ |-- |--> Maximum health: 120 -> 130.
+ |--> Seraphim Tech 1 Engineer:
+ |-- |--> Maximum health: 125 -> 130.
+ |--> All Tech 2 engineers:
+ |-- |--> Health regeneration rate set to 2 per second.
+ |-- |--> Mass storage increased from 10 to 20.
+ |-- |--> Energy storage increased from 100 to 120.
+ |--> Cybran Tech 2 Engineer:
+ |-- |--> Maximum health: 710 -> 660.
+ |--> Aeon Tech 2 Engineer:
+ |-- |--> Maximum health: 620 -> 660.
+ |--> Seraphim Tech 2 Engineer:
+ |-- |--> Maximum health: 640 -> 660.
+ |--> All Tech 3 engineers:
+ |-- |--> Health regeneration rate set to 3 per second.
+ |-- |--> Mass storage: 20 -> 30.
+ |-- |--> Energy storage: 200 -> 300.
+ |--> Cybran Tech 3 Engineer:
+ |-- |--> Maximum health: 1425 -> 1380.
+ |--> Seraphim Tech 3 Engineer:
+ |-- |--> Maximum health: 1230 -> 1380.
+ |--> All Tech 1 mass extractors:
+ |-- |--> Build power: 10 -> 8.
+ |-- |--> Energy consumption per second: 6 -> 15.
+ |--> All Tech 2 mass extractors:
+ |-- |--> Energy consumption per second: 24 -> 42.
+ |--> All Tech 3 mass extractors:
+ |-- |--> Energy consumption per second: 90 -> 120.
+ |--> All the following unit types have had their unit cap cost multiplied by 3:
+ |-- |--> Tech 2 power generators.
+ |-- |--> Tech 3 power generators.
+ |-- |--> Tech 1 hydrocarbon power plants.
+ |--> All Tech 2 hydrocarbon power plants:
+ |-- |--> Unit cap cost: 0 -> 6.
+ |--> All Tech 3 hydrocarbon power plants:
+ |-- |--> Energy production per second: 4375 -> 4075.
+ |-- |--> Unit cap cost: 3 -> 12.
+ |--> All Advanced Hydrocarbon Power Plant & Storage units (LOUD Integrated Storage)
+ |-- |--> Energy production per second: 6750 -> 6100.
+- The Ahwassa has had its flight stats restored to the state they were in before the 11-12-2020 update.
+ |--> This is, in effect, a substantial buff.
+- The Viper (Cybran Tech 2 Mobile Missile Launcher) should now focus upon defense structures ahead of things like walls and civilian buildings.
+- Structures which generate anti-teleport fields (including advanced stealth field generators) have orange range rings to show the area-of-effect of these fields.
+- The Janus and Corsair (UEF and Cybran's Tech 2 Fighter/Bombers) no longer automatically take off to try to bomb targets.
+- Clarified descriptions for units with Lambda (projectile destruction/reflection) fields.
+- Model and texture improvements to BrewLAN units:
+ |--> Excalibur (UEF Tech 3 Point Defense)
+ |--> Recoil (UEF Tech 3 Static Anti-Artillery Installation)
+ |--> Rupture (Aeon Tech 3 Mobile Tactical Missile Defense)
+ |--> Ravitailler (Cybran Tech 1 Air Staging Pad)
+ |--> Mound, Mountain (Aeon Tech 2 Mine, Aeon Tech 3 Nuclear Mine)
+ |--> Hiro (UEF Tech 3 Static Plasma Cannon, field engineer only)
+- The Apotheosis (UEF Experimental Resource Generator) has an updated normals texture and a fancy tesseract animated visual effect.
+- The Amphorak (Aeon Tech 2 Amphibious Assault Bot) has a less obtrusive death sound.
+- The Zheela's (Aeon Tech 3 Missile Point Defense) rockets now explode less loudly.
+- Some units don't have copied models or textures anymore, saving a little bit of memory and disk space.
+ |--> Hovatha-Hauthu (Seraphim Experimental Battleship)
+ |--> Experimental Quantum Teleporters
+- The Teatut (UEF Experimental Mobile Sensor) now has a smaller footprint for better pathfinding between structures.
+- The Novax (UEF Tech 3 Satellite Launch Facility, BrewLAN) no longer automatically builds a first satellite.
+- UEF naval factories now have a smaller selection box so they don't make it harder to select other units nearby.
+- Made Advanced Assassination the default victory condition.
+- Made "Fixed" the default spawn position lobby option.
+- AI: Streamline production of torpedo bombers.
+- AI: Adjustment to priorities involved in building defensive structures.
+- AI: Torpedo bomber platoons can now call for help from other platoons.
+- AI: Prevent unwanted resource-related AI behaviour when cheat value is below 1.0.
+- AI: Pathfinding now returns more accurate lengths on attack plan paths.
+- AI: Fixed attack planning logic failing if a base was set to be used to attack from but then destroyed immediately afterwards.
+- AI: New building plans for assisting naval factories.
+- AI: Numerous adjustments to the ranges at which land formations will call for backup.
+- Fix: Don't let the AI share resources with allies when lobby options are set to prevent this.
+- Fix: The Metatron (Aeon Tech 3 Mobile Omni Sensor) no longer dies when unloaded from a transport.
+- Fix: Artillery shells no longer disappear before impact when using the Tanksy's Experiments mod.
+- Fix: The Hovatha-Hauthu now changes to army colour shading after it's done being built.
+- Fix: The Vishathal-Atah now has a description even if the BlackOps Unleashed mod is disabled.
+- Fix: The Teatut can no longer be built by Tech 3 engineers.
+- Fix: The Ia-Istle (Seraphim Tech 1 Mobile Anti-Air) was consistently and unintentionally firing over its targets.
+- Fix: The Superhot (UEF Tech 3 Damage Boost Node) was applying its buff once more than it was meant to.
+- Fix: The Aezhou's (Seraphim Tech 3 Mobile Sonar) no longer mistakenly has a UEF icon.
+- Fix: An Iyadesu/Iaathan (Experimental Reconstruction Engineer, Experimental Shield Generator, both Seraphim) exploit has been patched.
+ |--> Iyadesu could reclaim the Iaathan while leaving its drones generating shields for no cost.
+- Fix: Slinks (Cybran Tech 3 Mobile Anti-Air) controlled by AI now uncloak to fire as they should.
+- Fix: The UEF Tech 3 Mobile Sonar wasn't playing a death sound.
+- Fix: The Tempest no longer consistently shoots over its target.
+- All manner of typo, grammar, spelling, punctuation, and clarity fixes to user interface text.
+- Corrections to unit bounding rectangles for better pathfinding.
+
 ### Release 23-04-2021 ###
 Lua 5.4.14
 
@@ -119,7 +313,7 @@ Textures 6.3.2
  |--> Has had small increases to the maximum size of its smaller platoons, allowing for larger formations. 
  |--> Will build power generators sooner if absolutely necessary.
  |--> Will be more likely to choose targets in a more aggressive manner.
-- King Kraptor (Aeon Experimental Abomination Bot) now looks a little bit more "Aeon", thanks to Balthazar.
+- King Kraptor (Aeon Experimental Abomination Bot) w looks a little bit more "Aeon", thanks to Balthazar.
 - Descriptions for units from LOUD Unit Additions and Integrated Storage have been cleaned up somewhat.
 - Make the lobby colour wheel look a little bit better.
 - The Purifier (Aeon Tech 3 Advanced Tactical Missile Launcher) is working again.
