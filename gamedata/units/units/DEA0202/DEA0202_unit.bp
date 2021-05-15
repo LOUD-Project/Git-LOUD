@@ -424,7 +424,7 @@ UnitBlueprint {
                 },
             },
 			
-            AutoInitiateAttackCommand = true,
+            AutoInitiateAttackCommand = false,
 			
             BallisticArc = 'RULEUBA_None',
 			
