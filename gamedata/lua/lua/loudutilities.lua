@@ -1133,7 +1133,7 @@ function SetPrimaryLandAttackBase( aiBrain )
             end
             
         else
-            LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(aiBrain.PrimaryLandAttackBase).." remains the Primary Land Attack Base")
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(aiBrain.PrimaryLandAttackBase).." remains the Primary Land Attack Base")
         end
     end
 	
@@ -1280,7 +1280,7 @@ function SetPrimarySeaAttackBase( aiBrain )
             end
            
         else
-            LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(aiBrain.PrimarySeaAttackBase).." remains the Primary Sea Attack Base")            
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(aiBrain.PrimarySeaAttackBase).." remains the Primary Sea Attack Base")            
         end
     end
     

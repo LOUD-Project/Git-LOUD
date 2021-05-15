@@ -372,7 +372,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
         },
     },
     
-    -- when there is nothing else to do assist AIR factories
+    -- when there is nothing else to do assist LAND factories
     Builder {BuilderName = 'Assist Factory LAND',
 	
         PlatoonTemplate = 'EngineerAssistGeneral',
@@ -406,6 +406,40 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
         },
     },
     
+    -- when there is nothing else to do assist SEA factories
+    Builder {BuilderName = 'Assist Factory SEA',
+	
+        PlatoonTemplate = 'EngineerAssistGeneral',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+		PlatoonAIPlan = 'EngineerAssistAI',
+		
+        Priority = 740,
+		
+		InstanceCount = 8,
+		
+		BuilderType = { 'T3','SubCommander' },
+		
+        BuilderConditions = {
+            { LUTL, 'NavalStrengthRatioLessThan', { 1.1 } },
+            
+			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},
+            
+            { UCBC, 'LocationFactoriesBuildingGreater', { 'LocationType', 0, categories.MOBILE + categories.FACTORY, categories.FACTORY * categories.NAVAL }},
+        },
+		
+        BuilderData = {
+            Assist = {
+				AssistRange = 120,
+				AssisteeType = 'Factory',
+				AssisteeCategory = categories.FACTORY * categories.NAVAL,
+				BeingBuiltCategories = {categories.FACTORY + categories.MOBILE},
+                Time = 90,
+            },
+        },
+    },
+        
     -- when there is nothing else to do assist factories
     Builder {BuilderName = 'Assist Factory',
 	

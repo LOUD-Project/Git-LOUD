@@ -5431,8 +5431,9 @@ Platoon = Class(moho.platoon_methods) {
                         
 					else
                     
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." finds no unit or cannot path to "..repr(distressLocation) )
-                        
+                        if ScenarioInfo.DistressResponseDialog then
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." finds no unit or cannot path to "..repr(distressLocation) )
+                        end
                     end
                     
                 end
