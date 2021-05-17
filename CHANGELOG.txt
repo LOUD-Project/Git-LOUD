@@ -11,7 +11,7 @@ BlackOps 6.1
 Wyvern Battle Pack 1.1
 
 - Beta release of a strategic icon overhaul by Balthazar. Key features include:
- |--> New icon shapes for distinguishing land-only units, seaded-travelling units, and hovercraft.
+ |--> New icon shapes for distinguishing land-only, seabed-travelling, and water-surface-travelling units.
  |--> The Armored Command Unit and Support Armored Command Units now have different icons.
  |--> Slightly reduced RAM usage.
  |--> Fix inconsistencies from the previous strategic icon set, such as the lack of protector icons at large sizes.
@@ -25,7 +25,7 @@ Wyvern Battle Pack 1.1
 - Several small unit rebalances:
  |--> Absolver (Aeon Tech 3 Shield Disruptor)
  |-- |--> Main gun damage: 20 -> 5.
- |-- |--> Percent damage of main gun to shields: 100% -> 1300%.
+ |-- |--> Damage of main gun to shields: 100 -> 1300.
  |--> Ilthysathuum (Seraphim Tech 3 Lambda-Equipped Assault Bot)
  |-- |--> Maximum health: 5400 -> 5100
  |-- |--> Health regeneration rate (per second): 2.5 -> 2
@@ -74,7 +74,7 @@ Wyvern Battle Pack 1.1
  |-- |--> Torpedoes removed.
  |-- |--> Shield radius: 32m -> 36m.
  |-- |--> Mass build cost: 27000 -> 27500.
- |-- |--> Energy build cost: 69500 -> 74500.
+ |-- |--> Energy build cost: 695000 -> 745000.
  |-- |--> Build time: 1575 seconds -> 1240 seconds.
  |-- |--> Unit cap cost: 7 -> 10.
  |-- |--> Vision radius when underwater: 70m -> 48m.
