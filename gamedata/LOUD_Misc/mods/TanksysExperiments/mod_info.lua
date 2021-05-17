@@ -13,7 +13,7 @@ ui_only = false
 requires = { }
 requiresNames = { }
 conflicts = {
-	'TANKSYS-EXPERIMENTS-1-COMBAT'
+	'25D57D85-9JA7-D842-BREW-KNIVES000002'
 }
 before = { }
 after = { }
