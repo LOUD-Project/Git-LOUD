@@ -95,8 +95,8 @@ UnitBlueprint {
         
         EconomyThreatLevel = 300,
         
-        Health = 30000,
-        MaxHealth = 30000,
+        Health = 29000,
+        MaxHealth = 29000,
         RegenRate = 18,
         
         SurfaceThreatLevel = 75,
@@ -390,25 +390,17 @@ UnitBlueprint {
             Slot = 'LCH',
         },
         EXCombatEngineering = {
-            BuildCostEnergy = 22000,
-            BuildCostMass = 2100,
-            BuildTime = 1800,		--1200
+            BuildCostEnergy = 30000,
+            BuildCostMass = 3000,
+            BuildTime = 2200,
             BuildableCategoryAdds = 'BUILTBYTIER2COMMANDER CYBRAN',
             Icon = 'exlce1',
             Name = 'Tech 2 Combat Engineering (T1)',
-            ShowBones = {
-                'Engineering',
-                'Combat_Engineering',
-            },
+            ShowBones = {'Engineering', 'Combat_Engineering' },
             Slot = 'LCH',
-            UpgradeEffectBones = {
-                'Left_Turret',
-                'Turret_Muzzle_01',
-            },
-            UpgradeUnitAmbientBones = {
-                'URL0001',
-            },
-			NewRegenRate = 15,
+            UpgradeEffectBones = {'Left_Turret', 'Turret_Muzzle_01' },
+            UpgradeUnitAmbientBones = {'URL0001'},
+			NewRegenRate = 12,
         },
         EXCombatEngineeringRemove = {
             BuildCostEnergy = 1,
@@ -449,7 +441,7 @@ UnitBlueprint {
             UpgradeUnitAmbientBones = {
                 'URL0001',
             },
-			NewRegenRate = 50,
+			NewRegenRate = 35,
         },
         EXAssaultEngineeringRemove = {
             BuildCostEnergy = 1,
@@ -488,7 +480,7 @@ UnitBlueprint {
             UpgradeUnitAmbientBones = {
                 'URL0001',
             },
-			NewRegenRate = 90,
+			NewRegenRate = 60,
         },
         EXApocalypticEngineeringRemove = {
             BuildCostEnergy = 1,
@@ -1407,7 +1399,7 @@ UnitBlueprint {
         DragCoefficient = 0.2,
         LayerChangeOffsetHeight = -0.95,
         MaxAcceleration = 1.7,
-        MaxSpeed = 1.5,		--1.7
+        MaxSpeed = 1.5,
         MaxSpeedReverse = 0,
         MaxSteerForce = 12,
         MinSpeedPercent = 0,
@@ -1456,7 +1448,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 50,
+            Damage = 40,
             DamageType = 'Normal',
 			
             DisplayName = 'Molecular Ripper Cannon',

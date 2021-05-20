@@ -104,8 +104,8 @@ UnitBlueprint {
         
         EconomyThreatLevel = 300,
         
-        Health = 31500,
-        MaxHealth = 31500,
+        Health = 30500,
+        MaxHealth = 30500,
         RegenRate = 12,
         
         SurfaceThreatLevel = 75,
@@ -397,27 +397,19 @@ UnitBlueprint {
             Slot = 'LCH',
         },
         EXCombatEngineering = {
-            BuildCostEnergy = 22000,
-            BuildCostMass = 2100,
-            BuildTime = 1800,		--1200
+            BuildCostEnergy = 30000,
+            BuildCostMass = 3000,
+            BuildTime = 2200,
             BuildableCategoryAdds = 'BUILTBYTIER2COMMANDER SERAPHIM',
             Icon = 'exlce1',
             Name = 'Tech 2 Combat Engineering (T1)',
             Radius = 15,
 
-            ShowBones = {
-                'Engineering',
-                'Combat_Engineering',
-            },
+            ShowBones = {'Engineering','Combat_Engineering'},
             Slot = 'LCH',
-            UpgradeEffectBones = {
-                'Left_Arm_B02',
-                'Left_Turret_Muzzle',
-            },
-            UpgradeUnitAmbientBones = {
-                'Body',
-            },
-			NewRegenRate = 15,
+            UpgradeEffectBones = {'Left_Arm_B02','Left_Turret_Muzzle'},
+            UpgradeUnitAmbientBones = {'Body'},
+			NewRegenRate = 12,
         },
         EXCombatEngineeringRemove = {
             BuildCostEnergy = 1,
@@ -457,7 +449,7 @@ UnitBlueprint {
             UpgradeUnitAmbientBones = {
                 'Body',
             },
-			NewRegenRate = 50,
+			NewRegenRate = 35,
         },
         EXAssaultEngineeringRemove = {
             BuildCostEnergy = 1,
@@ -496,7 +488,7 @@ UnitBlueprint {
             UpgradeUnitAmbientBones = {
                 'Body',
             },
-			NewRegenRate = 90,
+			NewRegenRate = 60,
         },
         EXApocalypticEngineeringRemove = {
             BuildCostEnergy = 1,
@@ -1393,7 +1385,7 @@ UnitBlueprint {
         DragCoefficient = 0.2,
         LayerChangeOffsetHeight = -0.9,
         MaxAcceleration = 1.7,
-        MaxSpeed = 1.5,		--1.7
+        MaxSpeed = 1.5,
         MaxSpeedReverse = 0,
         MaxSteerForce = 12,
         MinSpeedPercent = 0,
@@ -1446,7 +1438,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 50,
+            Damage = 40,
             DamageType = 'Normal',
 			
             DisplayName = 'Chronotron Cannon',

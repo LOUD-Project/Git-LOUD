@@ -108,8 +108,8 @@ UnitBlueprint {
         ArmorType = 'Commander',
         EconomyThreatLevel = 300,
         
-        Health = 33200,
-        MaxHealth = 33200,
+        Health = 32000,
+        MaxHealth = 32000,
         RegenRate = 10,
         
         SubThreatLevel = 0,
@@ -389,9 +389,9 @@ UnitBlueprint {
         },
 		
         EXCombatEngineering = {
-            BuildCostEnergy = 38000,
-            BuildCostMass = 3500,
-            BuildTime = 1950,
+            BuildCostEnergy = 30000,
+            BuildCostMass = 3000,
+            BuildTime = 2200,
             BuildableCategoryAdds = 'BUILTBYTIER2COMMANDER UEF',
             Icon = 'exlce1',
             Name = 'Tech 2 Combat Engineering (T1)',
@@ -400,7 +400,7 @@ UnitBlueprint {
 			UpgradeEffectBones = {'Left_Upgrade','Left_Upgrade_Muzzle','Left_Arm_Muzzle','Left_Arm_Barrel'},
             UpgradeUnitAmbientBones = {'UEL0001'},
 			
-			NewRegenRate = 30,
+			NewRegenRate = 12,
         },
         EXCombatEngineeringRemove = {
             BuildCostEnergy = 1,
@@ -427,8 +427,9 @@ UnitBlueprint {
 			UpgradeEffectBones = {'Left_Upgrade','Left_Upgrade_Muzzle','Left_Arm_Muzzle','Left_Arm_Barrel'},
             UpgradeUnitAmbientBones = {'UEL0001'},
 			
-			NewRegenRate = 60,
+			NewRegenRate = 35,
         },
+        
         EXAssaultEngineeringRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
@@ -454,8 +455,9 @@ UnitBlueprint {
 			UpgradeEffectBones = {'Left_Upgrade','Left_Upgrade_Muzzle','Left_Arm_Muzzle','Left_Arm_Barrel'},
             UpgradeUnitAmbientBones = {'UEL0001'},
 			
-			NewRegenRate = 90,
+			NewRegenRate = 60,
         },
+        
         EXApocalypticEngineeringRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
@@ -480,6 +482,7 @@ UnitBlueprint {
             UpgradeEffectBones = {'Right_Upgrade','Right_Upgrade_Muzzle','Right_Arm_Muzzle','Right_Arm_Barrel'},
             UpgradeUnitAmbientBones = {'UEL0001'},
         },
+        
         EXZephyrBoosterRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
@@ -505,6 +508,7 @@ UnitBlueprint {
             UpgradeEffectBones = {'Right_Upgrade','Right_Upgrade_Muzzle','Right_Arm_Muzzle','Right_Arm_Barrel'},
             UpgradeUnitAmbientBones = {'UEL0001'},
         },
+        
         EXTorpedoLauncherRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
@@ -531,6 +535,7 @@ UnitBlueprint {
             UpgradeEffectBones = {'Right_Upgrade','Right_Upgrade_Muzzle','Right_Arm_Muzzle','Right_Arm_Barrel'},
             UpgradeUnitAmbientBones = {'UEL0001'},
         },
+        
         EXTorpedoRapidLoaderRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
@@ -557,6 +562,7 @@ UnitBlueprint {
             UpgradeEffectBones = {'Right_Upgrade','Right_Upgrade_Muzzle','Right_Arm_Muzzle','Right_Arm_Barrel'},
             UpgradeUnitAmbientBones = {'UEL0001'},
         },
+        
         EXTorpedoClusterLauncherRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
@@ -583,6 +589,7 @@ UnitBlueprint {
             UpgradeEffectBones = {'Right_Upgrade','Right_Upgrade_Muzzle','Right_Arm_Muzzle','Right_Arm_Barrel'},
             UpgradeUnitAmbientBones = {'UEL0001'},
         },
+        
         EXAntiMatterCannonRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
@@ -610,6 +617,7 @@ UnitBlueprint {
             UpgradeEffectBones = {'Right_Upgrade','Right_Upgrade_Muzzle','Right_Arm_Muzzle','Right_Arm_Barrel'},
             UpgradeUnitAmbientBones = {'UEL0001'},
         },
+        
         EXImprovedContainmentBottleRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
@@ -637,6 +645,7 @@ UnitBlueprint {
             UpgradeEffectBones = {'Right_Upgrade','Right_Upgrade_Muzzle','Right_Arm_Muzzle','Right_Arm_Barrel'},
             UpgradeUnitAmbientBones = {'UEL0001'},
         },		
+        
         EXPowerBoosterRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
@@ -663,6 +672,7 @@ UnitBlueprint {
             UpgradeEffectBones = {'Right_Upgrade','Right_Upgrade_Muzzle','Right_Arm_Muzzle','Right_Arm_Barrel'},
             UpgradeUnitAmbientBones = {'UEL0001'},
         },
+        
         EXGattlingEnergyCannonRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
@@ -1226,7 +1236,7 @@ UnitBlueprint {
         DragCoefficient = 0.2,
         LayerChangeOffsetHeight = -0.95,
         MaxAcceleration = 1.7,
-        MaxSpeed = 1.5,		--1.7
+        MaxSpeed = 1.5,
         MaxSpeedReverse = 0,
         MaxSteerForce = 12,
         MinSpeedPercent = 0,
@@ -1278,7 +1288,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 100,
+            Damage = 80,
             DamageType = 'Normal',
 			
             DisplayName = 'Zephyr Anti Matter Cannon',
