@@ -246,7 +246,7 @@ UnitBlueprint {
 		
         MaintenanceConsumptionPerSecondEnergy = 1,
 
-        MaxBuildDistance = 15,
+        MaxBuildDistance = 14,
         
         NaturalProducer = true,
         
@@ -1399,7 +1399,7 @@ UnitBlueprint {
         DragCoefficient = 0.2,
         LayerChangeOffsetHeight = -0.95,
         MaxAcceleration = 1.7,
-        MaxSpeed = 1.5,
+        MaxSpeed = 1.4,
         MaxSpeedReverse = 0,
         MaxSteerForce = 12,
         MinSpeedPercent = 0,
