@@ -106,7 +106,7 @@ UnitBlueprint {
             RULEUCC_Stop = true,
         },
         FactionName = 'Aeon',
-        Icon = 'land',
+        Icon = 'amph',
         TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC bal0310_name>Wraith',
         UnitWeight = 1,
