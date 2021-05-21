@@ -1734,7 +1734,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			
 			MergeLimit = 20,				-- level to which merging is allowed
 			
-			AggressiveMove = false,
+			AggressiveMove = true,
 			
 			AllowInWater = false,
 			
@@ -1815,7 +1815,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			
 			MergeLimit = 15,				-- unit count at which merging is denied
 			
-			AggressiveMove = false,
+			AggressiveMove = true,
 			
 			AllowInWater = false,
 			

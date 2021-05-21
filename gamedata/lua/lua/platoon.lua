@@ -295,36 +295,84 @@ Platoon = Class(moho.platoon_methods) {
 					local Direction = import('/lua/utilities.lua').GetDirectionInDegrees( prevpoint, waypointPath )
 
 					if AggroMove then
+                    
+                        local Attack = false
+                        local Artillery = false
 
-						if self:GetSquadUnits('Scout') then
+						if self:GetSquadUnits('Scout') and LOUDGETN(self:GetSquadUnits('Scout')) > 0 then
+                        
 							IssueFormMove( self:GetSquadUnits('Scout'), waypointPath, 'BlockFormation', Direction)
+                            
 						end
 					
-						if self:GetSquadUnits('Attack') then
-							IssueFormMove( self:GetSquadUnits('Attack'), waypointPath, 'AttackFormation', Direction)
+						if self:GetSquadUnits('Attack') and LOUDGETN(self:GetSquadUnits('Attack')) > 0 then
+                        
+							IssueFormAggressiveMove( self:GetSquadUnits('Attack'), waypointPath, 'AttackFormation', Direction)
+                            
+                            Attack = true
+                            
 						end
 					
-						if self:GetSquadUnits('Artillery') then
+						if self:GetSquadUnits('Artillery') and LOUDGETN(self:GetSquadUnits('Artillery')) > 0 then
+                        
 							IssueFormAggressiveMove( self:GetSquadUnits('Artillery'), waypointPath, PlatoonFormation, Direction)
+                            
+                            Artillery = true
+                            
 						end
 					
-						if self:GetSquadUnits('Guard') then
-							IssueFormMove( self:GetSquadUnits('Guard'), waypointPath, 'BlockFormation', Direction)
+						if self:GetSquadUnits('Guard') and LOUDGETN(self:GetSquadUnits('Guard')) > 0 then
+                     
+                            if not Artillery and not Attack then
+                            
+                                IssueFormMove( self:GetSquadUnits('Guard'), waypointPath, 'BlockFormation', Direction)
+                                
+                            elseif Artillery then
+                            
+                                --LOG("*AI DEBUG Issuing Guard to Artillery "..repr(self:GetSquadUnits('Artillery')[1]) )
+                                
+                                IssueGuard( self:GetSquadUnits('Guard'), self:GetSquadUnits('Artillery')[1] )
+                                
+                            elseif Attack then
+                            
+                                --LOG("*AI DEBUG Issuing Guard to Attack "..repr(self:GetSquadUnits('Attack')[1]) )
+                                
+                                IssueGuard( self:GetSquadUnits('Guard'), self:GetSquadUnits('Attack')[1] )
+                            
+                            end
+                            
 						end
 					
-						if self:GetSquadUnits('Support') then
-							IssueFormAggressiveMove( self:GetSquadUnits('Support'), waypointPath, 'BlockFormation', Direction)
+						if self:GetSquadUnits('Support') and LOUDGETN(self:GetSquadUnits('Support')) > 0 then
+                        
+                            if not Attack and not Artillery then
+                            
+                                IssueFormAggressiveMove( self:GetSquadUnits('Support'), waypointPath, 'BlockFormation', Direction)
+                                
+                            elseif Attack then
+                            
+                                IssueGuard( self:GetSquadUnits('Support'), self:GetSquadUnits('Attack')[1])
+                                
+                            elseif Artillery then
+                            
+                                IssueGuard( self:GetSquadUnits('Support'), self:GetSquadUnits('Artillery')[1])                            
+                                
+                            end
+                            
 						end
 					
 					else
 			
 						self:MoveToLocation( waypointPath, false )
+                        
 					end
 
 					while self.MovingToWaypoint do
 
 						WaitTicks(10)
+                        
                     end
+                    
 				end
 				
 				IssueClearCommands( GetPlatoonUnits(self))
@@ -2305,6 +2353,7 @@ Platoon = Class(moho.platoon_methods) {
 					if PlatoonExists(aiBrain,self) then
 
 						self.MoveThread = self:ForkThread( self.MovePlatoon, path, PlatoonFormation, bAggroMove)
+                        
 					end
 				
 					if not usedTransports and not self.MoveThread then
@@ -2475,10 +2524,10 @@ Platoon = Class(moho.platoon_methods) {
 						
 							direction = import('/lua/utilities.lua').GetDirectionInDegrees( GetPlatoonPosition(self), targetposition )
 						
-							IssueFormAttack( self:GetSquadUnits('Attack'), target, 'AttackFormation', direction)
+							IssueAggressiveMove( self:GetSquadUnits('Attack'), targetposition, 'AttackFormation', direction)
 						
 							if self:GetSquadUnits('Artillery') then
-								IssueFormAggressiveMove( self:GetSquadUnits('Artillery'),targetposition,'AttackFormation', direction)
+								IssueAggressiveMove( self:GetSquadUnits('Artillery'),targetposition,'AttackFormation', direction)
 							end
 						
 							if self:GetSquadUnits('Guard') then
