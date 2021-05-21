@@ -628,6 +628,7 @@ function InitializeArmies()
 				
                     SetAlliance( iArmy, iEnemy, 'Neutral')
                 end
+                
             end
 			
 			-- if this is an AI (but not civilian)        
@@ -653,6 +654,7 @@ function InitializeArmies()
                 if commander and cdrUnit and ArmyBrains[iArmy].Nickname then
                     cdrUnit:SetCustomName( ArmyBrains[iArmy].Nickname )
                 end
+                
             end
 
             local wreckageGroup = FindUnitGroup('WRECKAGE', ScenarioInfo.Env.Scenario.Armies[strArmy].Units)
@@ -667,8 +669,11 @@ function InitializeArmies()
                     unit:CreateWreckageProp(0, 1800)
                     unit:Destroy()
                 end
+                
             end
+            
         end
+        
     end
     
 	--3+ Teams Unit Cap Fix, setting up the Unit Cap part of SetupAICheat,
@@ -686,7 +691,9 @@ function InitializeArmies()
 				import('/lua/ai/aiutilities.lua').SetupAICheatUnitCap( GetArmyBrain(strArmy), ScenarioInfo.biggestTeamSize )
 				
             end
+            
 		end
+        
     end
     
     loudUtils.StartAdaptiveCheatThreads()
