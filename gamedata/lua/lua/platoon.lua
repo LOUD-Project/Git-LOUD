@@ -2524,10 +2524,10 @@ Platoon = Class(moho.platoon_methods) {
 						
 							direction = import('/lua/utilities.lua').GetDirectionInDegrees( GetPlatoonPosition(self), targetposition )
 						
-							IssueAggressiveMove( self:GetSquadUnits('Attack'), targetposition, 'AttackFormation', direction)
+							IssueAggressiveMove( self:GetSquadUnits('Attack'), targetposition)
 						
 							if self:GetSquadUnits('Artillery') then
-								IssueAggressiveMove( self:GetSquadUnits('Artillery'),targetposition,'AttackFormation', direction)
+								IssueAggressiveMove( self:GetSquadUnits('Artillery'),targetposition)
 							end
 						
 							if self:GetSquadUnits('Guard') then
