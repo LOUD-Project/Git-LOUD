@@ -615,8 +615,6 @@ StructureUnit = Class(Unit) {
 	-- this aids in keeping the army pool smaller and slightly quicker to query
 	LaunchUpgradeThread = function( finishedUnit, aiBrain )
 
-		--local AssignUnitsToPlatoon = moho.aibrain_methods.AssignUnitsToPlatoon
-
 		local SelfUpgradeThread = import('/lua/ai/aibehaviors.lua').SelfUpgradeThread
         local PlatoonCallForHelpAI = import('/lua/platoon.lua').Platoon.PlatoonCallForHelpAI
 
@@ -625,7 +623,7 @@ StructureUnit = Class(Unit) {
 
 			if not finishedUnit.UpgradeThread then
 
-				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, 1.005, 1.01, 9999, 9999, 18, 150, false )
+				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, 1.0075, 1.015, 9999, 9999, 18, 150, false )
 
 			end
 		end
@@ -679,7 +677,7 @@ StructureUnit = Class(Unit) {
 
 			if not finishedUnit.UpgradeThread then
 
-				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, .73, 1.01, 1.5, 9999, 18, 90, true )
+				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, .73, 1.02, 9999, 9999, 18, 90, true )
 
 			end
 
