@@ -1,3 +1,25 @@
+### Patch 21-05-2021 ###
+Lua 5.4.18
+BlackOps 6.1.1
+BrewLAN LOUD 0.9.01
+LOUD Misc 5.5.01
+
+- Small reduction to the maximum speed and build range of BlackOps ACUs.
+- BlackOps ACU enhancement tweaks:
+ |--> Tech 2 Combat Engineering added maximum health: 10000 -> 8000.
+ |--> Tech 2 Combat Engineering added health regeneration: 15 -> 12.
+ |--> Tech 3 Combat Engineering added maximum health: 30000 -> 25000. 
+ |--> Tech 3 Combat Engineering added health regeneration: 50 -> 35.
+ |--> Tech 4 Combat Engineering added maximum health: 60000 -> 40000.
+ |--> Tech 4 Combat Engineering added health regeneration: 90 -> 60.
+- All wreckages now contain 16% less of the original unit's mass worth.
+- All wreckages now take 20% longer to reclaim.
+- AI: Support units (e.g. mobile shields) move more cohesively with platoons.
+- AI: Units will more smartly consider current resources when choosing to self-upgrade.
+- Fix: The "Tanksy's Experiments" mod no longer conflicts with itself.
+- Fix: The Wraith (Aeon Tech 3 Hover Tanky) now has the correct icon background.
+- Fix: BrewLAN's engineering ships can no longer be built at non-naval factories.
+
 ### Release 15-05-2021 ###
 Lua 5.4.17
 Units 6.1
@@ -23,7 +45,7 @@ Wyvern Battle Pack 1.1
  |--> Balance and sanity not guaranteed.
 - The Ace (UEF Tech 3 Strategic Missile Submarine) doesn't get excluded from the game by the "No Nukes" unit restriction; instead, it only has its nuclear weapon disabled.
 - Several small unit rebalances:
- |--> Absolver (Aeon Tech 3 Shield Disruptor)
+ |--> "Absolver" (Aeon Tech 3 Shield Disruptor)
  |-- |--> Main gun damage: 20 -> 5.
  |-- |--> Damage of main gun to shields: 100 -> 1300.
  |--> Ilthysathuum (Seraphim Tech 3 Lambda-Equipped Assault Bot)
