@@ -172,7 +172,7 @@ UnitBlueprint {
         RotateOnSpot = true,
         RotateOnSpotThreshold = 0.5,
         SkirtOffsetX = -1.5,
-        SkirtOffsetZ = -1,
+        SkirtOffsetZ = -1.5,
         SkirtSizeX = 8,
         SkirtSizeZ = 8,
         TurnRadius = 2,
