@@ -192,6 +192,11 @@ UnitBlueprint {
         BuildTime = 20000,
     },
 	
+    Footprint = {
+        SizeX = 4,
+        SizeZ = 4,
+    },
+	
     General = {
 		CapCost = 7,
         Category = 'Direct Fire',
@@ -259,10 +264,10 @@ UnitBlueprint {
         
         RotateOnSpot = false,
         
-        SkirtOffsetX = -1,
-        SkirtOffsetZ = -1,
-        SkirtSizeX = 5,
-        SkirtSizeZ = 5,
+        SkirtOffsetX = -1.5,
+        SkirtOffsetZ = -1.5,
+        SkirtSizeX = 6,
+        SkirtSizeZ = 6,
 
         StandUpright = true,
         
