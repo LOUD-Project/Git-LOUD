@@ -230,7 +230,7 @@ UnitBlueprint {
         Elevation = 15,
         
 		SkirtOffsetX = -0.5,
-        SkirtOffsetZ = -4,
+        SkirtOffsetZ = -4.5,
         SkirtSizeX = 7,
         SkirtSizeZ = 18.5,
         

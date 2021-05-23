@@ -237,11 +237,11 @@ UnitBlueprint {
         MotionType = 'RULEUMT_Amphibious',
         SinkLower = true,
 		
-        SkirtOffsetX = -1.0,
-        SkirtOffsetZ = -1.0,
+        SkirtOffsetX = -1.5,
+        SkirtOffsetZ = -0.5,
 		
-        SkirtSizeX = 5,
-        SkirtSizeZ = 5,
+        SkirtSizeX = 6,
+        SkirtSizeZ = 6,
 		
         TurnRadius = 5,
         TurnRate = 16,

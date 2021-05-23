@@ -173,6 +173,8 @@ UnitBlueprint {
 	
     Footprint = {
         MinWaterDepth = 3,
+		SizeX = 1,
+		SizeZ = 9,
     },	
 	
     General = {
@@ -221,10 +223,10 @@ UnitBlueprint {
         MaxSpeed = 3.6,
         MaxSpeedReverse = 3,
         MaxSteerForce = 5,
-        SkirtOffsetX = 0.5,
-        SkirtOffsetZ = -3,
+        SkirtOffsetX = -0.5,
+        SkirtOffsetZ = -3.5,
         SkirtSizeX = 5,
-        SkirtSizeZ = 12,
+        SkirtSizeZ = 11,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Water',
         TurnRadius = 28,
