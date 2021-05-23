@@ -154,6 +154,11 @@ UnitBlueprint {
         BuildTime = 125000,
     },
 	
+    Footprint = {
+        SizeX = 3,
+        SizeZ = 3,
+    },
+	
     General = {
 		CapCost = 8,
         Category = 'Experimental',
@@ -206,10 +211,10 @@ UnitBlueprint {
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Amphibious',
 		
-        SkirtOffsetX = -1,
-        SkirtOffsetZ = -1,
-        SkirtSizeX = 5,
-        SkirtSizeZ = 5,
+        SkirtOffsetX = -1.5,
+        SkirtOffsetZ = -1.5,
+        SkirtSizeX = 6,
+        SkirtSizeZ = 6,
 		
 		StandUpright = true,
 		
