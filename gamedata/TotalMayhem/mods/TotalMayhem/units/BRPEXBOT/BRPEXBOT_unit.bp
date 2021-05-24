@@ -173,6 +173,11 @@ UnitBlueprint {
         BuildTime = 32000,
     },
     
+    Footprint = {
+        SizeX = 1,
+        SizeZ = 1,
+    },
+	
     General = {
 		CapCost = 5,
         Category = 'Direct Fire',
@@ -227,11 +232,11 @@ UnitBlueprint {
 		
         MinSpeedPercent = 0,
 		
-        SkirtOffsetX = -0.5,
-        SkirtOffsetZ = -1,
+        SkirtOffsetX = -1.5,
+        SkirtOffsetZ = -1.5,
 		
-        SkirtSizeX = 3,
-        SkirtSizeZ = 3,
+        SkirtSizeX = 4,
+        SkirtSizeZ = 4,
 		
         MotionType = 'RULEUMT_Amphibious',
 		

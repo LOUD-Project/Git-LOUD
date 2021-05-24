@@ -172,8 +172,8 @@ UnitBlueprint {
     },
 	
     Footprint = {
-        SizeX = 5,
-        SizeZ = 5,
+        SizeX = 4,
+        SizeZ = 6,
     },
 	
     General = {
@@ -221,6 +221,11 @@ UnitBlueprint {
         MeshExtentsY = 1,
         MeshExtentsZ = 6,
         MotionType = 'RULEUMT_Air',
+		
+		SkirtOffsetX = -1.5,
+        SkirtOffsetZ = -0.5,
+        SkirtSizeX = 7,
+        SkirtSizeZ = 7,
     },
 	
     SelectionSizeX = 4.8,

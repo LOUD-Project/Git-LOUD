@@ -216,8 +216,9 @@ UnitBlueprint {
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Hover',
 		
-        SkirtOffsetZ = -2.2,
-        SkirtSizeX = 3,
+		SkirtOffsetX = -0.5,
+        SkirtOffsetZ = -2.5,
+        SkirtSizeX = 4,
         SkirtSizeZ = 6,
 		
         RotateBodyWhileMoving = true,

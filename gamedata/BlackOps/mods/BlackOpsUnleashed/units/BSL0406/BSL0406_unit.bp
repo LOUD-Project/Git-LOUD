@@ -199,6 +199,11 @@ UnitBlueprint {
 		
 		SinkLower = true,
 		
+        SkirtOffsetX = -1.5,
+        SkirtOffsetZ = -1.5,
+        SkirtSizeX = 6,
+        SkirtSizeZ = 6,
+		
         TurnRadius = 5,
         TurnRate = 45,
     },
