@@ -58,7 +58,7 @@ Wyvern Battle Pack 1.1
  |-- |--> For the elite variant, this cost went from 100 -> 110.
  |--> Thunderhead Class (UEF Tech 1 Frigate)
  |-- |--> Main gun area-of-effect: 1m -> 0m.
- |--> Valiant Class (UEF Tech 1 Frigate)
+ |--> Valiant Class (UEF Tech 2 Destroyer)
  |-- |--> Main gun area-of-effect: 1m -> 0m.
  |--> Summit Class (UEF Tech 3 Battleship)
  |-- |--> Area-of-effect of all main guns reduced by 1m.
