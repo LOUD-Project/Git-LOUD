@@ -109,3 +109,29 @@ function MapLessThan(aiBrain, size )
 	return (ScenarioInfo.size[1] <= size and ScenarioInfo.size[2] <= size)	
 end
 
+function BaseInPlayableArea( aiBrain, locationType )
+
+    if ScenarioInfo.MapData.PlayableRect then
+
+        local PlayableArea = ScenarioInfo.MapData.PlayableRect
+        
+        local managerposition = aiBrain.BuilderManagers[locationType].Position
+
+        if managerposition[1] < PlayableArea[1] or managerposition[1] > PlayableArea[3] then
+ 
+            return false
+            
+        end
+        
+        if managerposition[3] < PlayableArea[2] or managerposition[3] > PlayableArea[4] then
+
+            return false
+            
+        end
+        
+    end
+    
+    return true
+
+end
+

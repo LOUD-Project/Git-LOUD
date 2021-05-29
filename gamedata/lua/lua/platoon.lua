@@ -44,6 +44,7 @@ local AIFindUndefendedBrainTargetInRangeSorian = import('/lua/ai/sorianutilities
 local FindDamagedShield = import('/lua/ai/sorianutilities.lua').FindDamagedShield
 local AISendChat = import('/lua/ai/sorianutilities.lua').AISendChat
 
+local BaseInPlayableArea = import('loudutilities.lua').BaseInPlayableArea
 local FindClosestBaseName = import('loudutilities.lua').FindClosestBaseName
 local GetBasePerimeterPoints = import('/lua/loudutilities.lua').GetBasePerimeterPoints
 local ProcessAirUnits = import('/lua/loudutilities.lua').ProcessAirUnits
@@ -501,6 +502,12 @@ Platoon = Class(moho.platoon_methods) {
         
 	-- Returns -- true if successful, false if couldn't use transports
 	SendPlatoonWithTransportsLOUD = function( self, aiBrain, destination, attempts, bSkipLastMove, platoonpath )
+    
+        -- destination must be in playable areas --
+        if not BaseInPlayableArea(aiBrain, destination) then
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." destination "..repr(destination).." not in playable area")
+            return false
+        end
 
 		if self.MovementLayer == 'Land' or self.MovementLayer == 'Amphibious' then
 		

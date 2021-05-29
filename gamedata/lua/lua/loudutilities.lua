@@ -118,6 +118,32 @@ function UnitCapCheckLess(aiBrain, percent)
 	return ( GetArmyUnitCostTotal(aiBrain.ArmyIndex) / GetArmyUnitCap(aiBrain.ArmyIndex) ) < percent 	
 end
 
+-- static version of function with specific location
+function BaseInPlayableArea( aiBrain, location )
+
+    if ScenarioInfo.MapData.PlayableRect then
+
+        local PlayableArea = ScenarioInfo.MapData.PlayableRect
+        
+        local managerposition = table.copy(location)
+
+        if managerposition[1] < PlayableArea[1] or managerposition[1] > PlayableArea[3] then
+ 
+            return false
+            
+        end
+        
+        if managerposition[3] < PlayableArea[2] or managerposition[3] > PlayableArea[4] then
+
+            return false
+            
+        end
+        
+    end
+    
+    return true
+end
+
 -- This routine returns the location of the closest base that has engineers or factories
 function AIFindClosestBuilderManagerPosition( aiBrain, position)
 
