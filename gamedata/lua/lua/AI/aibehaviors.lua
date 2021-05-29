@@ -384,7 +384,7 @@ function CDROverCharge( aiBrain, cdr )
 						enemyThreat = GetThreatAtPosition( aiBrain, targetPos, 0, true, 'AntiSurface')
 						friendlyThreat = GetThreatAtPosition( target:GetAIBrain(), targetPos, 0, true, 'AntiSurface')
 						
-						LOG("*AI DEBUG Commander "..aiBrain.Nickname.." - threat numbers - enemy "..enemyThreat.." - friendly "..friendlyThreat + cdrThreat)
+						--LOG("*AI DEBUG Commander "..aiBrain.Nickname.." - threat numbers - enemy "..enemyThreat.." - friendly "..friendlyThreat + cdrThreat)
 		
 						if target and (aiBrain:GetEconomyStored('ENERGY') >= weapon.EnergyRequired) and (not target.Dead) and (LOUDV3(cdr:GetPosition(), target:GetPosition()) <= weapRange) then
 						

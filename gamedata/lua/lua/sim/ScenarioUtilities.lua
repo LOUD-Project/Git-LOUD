@@ -100,7 +100,7 @@ function CreateResources()
 	local Armies = ListArmies()
 	local Starts = {}
 	
-	LOG("*AI DEBUG Armies is "..repr(ArmyBrains))
+	--LOG("*AI DEBUG Armies is "..repr(ArmyBrains))
 	
 	for x = 1, 16 do
 		if GetMarker('ARMY_'..x) then
@@ -108,7 +108,7 @@ function CreateResources()
 		end
 	end
 	
-	LOG("*AI DEBUG Start positions are "..repr(Starts))
+	--LOG("*AI DEBUG Start positions are "..repr(Starts))
 	
 	local doit_value = tonumber(ScenarioInfo.Options.UnusedResources) or 1
 	

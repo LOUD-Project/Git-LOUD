@@ -62,6 +62,8 @@ EngineerManager = Class(BuilderManager) {
 		self.ManagerType = 'EM'
         self.Radius = radius
 		self.EngineerList = { Count = 0, }
+        
+        --LOG("*AI DEBUG "..brain.Nickname.." "..repr(self).." ScenarioInfo is "..repr(ScenarioInfo.MapData))
 		
 		for _,v in builderTypes do
 			self:AddBuilderType(v)

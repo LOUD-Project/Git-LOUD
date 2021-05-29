@@ -85,7 +85,7 @@ doscript '/lua/SimSync.lua'
 --# but before any armies are created.
 function SetupSession()
 
-    LOG("*AI DEBUG ScenarioInfo is "..repr(ScenarioInfo))
+    --LOG("*AI DEBUG ScenarioInfo is "..repr(ScenarioInfo))
     
     ArmyBrains = {}
 
@@ -98,13 +98,13 @@ function SetupSession()
     -- Load the scenario save (map markers) and script files
 	-- The save file creates a table named "Scenario" in ScenarioInfo.Env,
     -- containing most of the save data. We'll copy it up to a top-level global.
-
-    LOG('Loading save file: ',ScenarioInfo.save)
-    doscript(ScenarioInfo.save, ScenarioInfo.Env)
     
     LOG('Loading script file: ',ScenarioInfo.script)
     doscript(ScenarioInfo.script, ScenarioInfo.Env)
 	
+    LOG('Loading save file: ',ScenarioInfo.save)
+    doscript(ScenarioInfo.save, ScenarioInfo.Env)
+
     ResetSyncTable()
 end
 
