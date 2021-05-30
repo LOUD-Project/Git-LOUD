@@ -4353,6 +4353,25 @@ function BuildScoutLocations( self )
 		
 		return false
 	end
+    
+    local function PositionInPlayableArea(intelpoint)
+    
+        if ScenarioInfo.MapData.PlayableRect then
+        
+            local PlayableArea = ScenarioInfo.MapData.PlayableRect
+            
+            if intelpoint[1] < PlayableArea[1] or intelpoint[1] > PlayableArea[3] then
+                return false
+            end
+            
+            if intelpoint[3] < PlayableArea[2] or intelpoint[3] > PlayableArea[4] then
+                return false
+            end
+
+        end
+        
+        return true
+    end
 	
     if not self.IL then
 
@@ -4370,7 +4389,8 @@ function BuildScoutLocations( self )
                 local army = ScenarioInfo.ArmySetup['ARMY_' .. i]
 				local startPos = ScenarioInfo.Env.Scenario.MasterChain._MASTERCHAIN_.Markers[army.ArmyName].position
 
-                if army and startPos then
+                -- if occupied and in playable area --
+                if army and startPos and PositionInPlayableArea(startPos) then
 				
 					-- if position has enemy player put into high priority for 20 minutes with initial 500 threat
 					if army.ArmyIndex != myArmy.ArmyIndex and ( not(army.Team == myArmy.Team) or army.Team == 1) then
@@ -4390,7 +4410,7 @@ function BuildScoutLocations( self )
 
             for _,v in positions do
                 -- if position is vacant add to hi priority list permanently
-                if not opponentStarts[v.Name] and not allyStarts[v.Name] then
+                if not opponentStarts[v.Name] and not allyStarts[v.Name] and PositionInPlayableArea(v.Position) then
                     LOUDINSERT(self.IL.HiPri, { Position = {LOUDFLOOR(v.Position[1]), LOUDFLOOR(v.Position[2]), LOUDFLOOR(v.Position[3])}, Type = 'Economy', LastScouted = 0, LastUpdate = 0, Threat = 0, Permanent = true } )
                 end
             end
@@ -4403,7 +4423,7 @@ function BuildScoutLocations( self )
                 local army = ScenarioInfo.ArmySetup['ARMY_' .. i]
                 local startPos = GetMarker('ARMY_' .. i).position
 
-                if army and startPos then
+                if army and startPos and PositionInPlayableArea(startPos) then
 				
 					-- if position has enemy player put into high priority for 15 minutes with initial 300 threat
 					if army.ArmyIndex != myArmy.ArmyIndex and ( not(army.Team == myArmy.Team) or army.Team == 1) then
@@ -4424,7 +4444,7 @@ function BuildScoutLocations( self )
 
 			for _,v in positions do
 
-				if not allyStarts[v.Name] and not IntelPointNearby(v.Position) then
+				if not allyStarts[v.Name] and not IntelPointNearby(v.Position) and PositionInPlayableArea(v.Position) then
 				
 					LOUDINSERT(self.IL.LowPri, { Position = {LOUDFLOOR(v.Position[1]), LOUDFLOOR(v.Position[2]), LOUDFLOOR(v.Position[3])}, Type = 'Economy', LastScouted = 0, LastUpdate = 0, Threat = 0, Permanent = true } )
 				end
@@ -4455,7 +4475,7 @@ function BuildScoutLocations( self )
 
             for _,v in positions do
 			
-                if not IntelPointNearby(v.Position) then
+                if not IntelPointNearby(v.Position) and PositionInPlayableArea(v.Position) then
                     LOUDINSERT(self.IL.HiPri, { Position = {LOUDFLOOR(v.Position[1]), LOUDFLOOR(v.Position[2]), LOUDFLOOR(v.Position[3])}, LastScouted = 0, LastUpdate = 0, Threat = 0, Permanent = true } )
                 end
             end
@@ -4471,7 +4491,7 @@ function BuildScoutLocations( self )
 
             for _,v in positions do
 			
-                if not IntelPointNearby(v.Position) then
+                if not IntelPointNearby(v.Position) and PositionInPlayableArea(v.Position) then
                     LOUDINSERT(self.IL.LowPri, { Position = {LOUDFLOOR(v.Position[1]), LOUDFLOOR(v.Position[2]), LOUDFLOOR(v.Position[3])}, LastScouted = 0, LastUpdate = 0, Threat = 0, Permanent = true } )
                 end
             end
