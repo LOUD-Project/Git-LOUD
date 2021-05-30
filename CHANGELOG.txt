@@ -1,3 +1,25 @@
+### Release 29-05-2021 ###
+Lua 5.4.19
+Total Mayhem 6.1.1
+
+- AI: Don't build transports or defenses if the main bases is outside the area humans can play in.
+- Rebalances to Total Mayhem units:
+ |--> Pavestone (Cybran Tech 3 Mobile Missile Launcher)
+ |-- |--> A 0.1s delay has been added between shots in a salvo.
+ |--> Mayhem (UEF Experimental Heavy Battle Mech)
+ |-- |--> Shoulder missile launcher area-of-effect: 6m -> 5m.
+ |-- |--> Shoulder missile launcher minimum range: 20m -> 30m.
+ |-- |--> Number of missiles in a salvo: 8 -> 4.
+ |-- |--> Heavy cannon area-of-effect: 4m -> 2.4m.
+ |-- |--> Heavy cannon accuracy slightly increased.
+ |-- |--> Heavy cannon velocity slightly decreased.
+ |-- |--> Body missile launcher damage: 100 -> 50.
+ |-- |--> Body missile launcher area-of-effect: 5m -> 3.2m.
+- Fixes to the bounding rectangles on some Total Mayhem units for better pathfinding.
+- Fixes to the grid alignment on some Total Mayhem units.
+ |--> Thanks to Discord user MostLostNoob#6672 for noticing and correcting these problems.
+- Fixes to the targeting of the Mayhem, Pavestone, and Transoma (Aeon Tech 3 Amphibious Battle Tank).
+
 ### Patch 21-05-2021 ###
 Lua 5.4.18
 BlackOps 6.1.1
@@ -45,7 +67,7 @@ Wyvern Battle Pack 1.1
  |--> Balance and sanity not guaranteed.
 - The Ace (UEF Tech 3 Strategic Missile Submarine) doesn't get excluded from the game by the "No Nukes" unit restriction; instead, it only has its nuclear weapon disabled.
 - Several small unit rebalances:
- |--> "Absolver" (Aeon Tech 3 Shield Disruptor)
+ |--> Absolver (Aeon Tech 3 Shield Disruptor)
  |-- |--> Main gun damage: 20 -> 5.
  |-- |--> Damage of main gun to shields: 100 -> 1300.
  |--> Ilthysathuum (Seraphim Tech 3 Lambda-Equipped Assault Bot)
