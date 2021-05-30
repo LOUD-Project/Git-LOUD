@@ -384,7 +384,7 @@ function CDROverCharge( aiBrain, cdr )
 						enemyThreat = GetThreatAtPosition( aiBrain, targetPos, 0, true, 'AntiSurface')
 						friendlyThreat = GetThreatAtPosition( target:GetAIBrain(), targetPos, 0, true, 'AntiSurface')
 						
-						LOG("*AI DEBUG Commander "..aiBrain.Nickname.." - threat numbers - enemy "..enemyThreat.." - friendly "..friendlyThreat + cdrThreat)
+						--LOG("*AI DEBUG Commander "..aiBrain.Nickname.." - threat numbers - enemy "..enemyThreat.." - friendly "..friendlyThreat + cdrThreat)
 		
 						if target and (aiBrain:GetEconomyStored('ENERGY') >= weapon.EnergyRequired) and (not target.Dead) and (LOUDV3(cdr:GetPosition(), target:GetPosition()) <= weapRange) then
 						
@@ -6683,6 +6683,10 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
     local econ = aiBrain.EcoData.OverTime
 	
 	local EnergyStorage, MassStorage
+    
+    -- these two values directly control resource requirements
+    local masslimit = .84
+    local energylimit = .5
 	
 	while ((not unit.Dead) or unit.Sync.id) and upgradeable and not upgradeIssued do
 	
@@ -6695,10 +6699,13 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 
             if (econ.MassEfficiency >= masslowtrigger and econ.EnergyEfficiency >= energylowtrigger)
 				or ((GetEconomyStoredRatio(aiBrain, 'MASS') > .80 and GetEconomyStoredRatio(aiBrain, 'ENERGY') > .80))
-				or (MassStorage > (MassNeeded * .8) and EnergyStorage > (EnergyNeeded * .4 ) ) then
+				or (MassStorage > (MassNeeded * masslimit) and EnergyStorage > (EnergyNeeded * energylimit ) ) then
 				
 				--low_trigger_good = true
 			else
+                if ScenarioInfo.StructureUpgradeDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." "..unit:GetBlueprint().Description.." fails MIN efficiency/storage check")
+                end            
 				continue
 			end
 			
@@ -6706,20 +6713,20 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 				
 				--hi_trigger_good = true
 			else
+                if ScenarioInfo.StructureUpgradeDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." "..unit:GetBlueprint().Description.." fails MAX efficiency/storage check")
+                end            
 				continue
 			end
 
 			-- if not losing too much mass and energy flow is positive -- and energy consumption of the upgraded item is less than our current energytrend
 			-- or we have the amount of mass and energy stored to build this item
-
-			-- we could lighten these restrictions a little bit to allow more aggressive upgrading
-            -- IF we can 
-            -- OR must have 80% of the mass and 40% of the energy to build it
+            -- OR must have 80% of the mass and 50% of the energy to build it
             if ( econ.MassTrend >= MassTrendNeeded and econ.EnergyTrend >= EnergyTrendNeeded and econ.EnergyTrend >= EnergyMaintenance )
-				or ( MassStorage >= (MassNeeded * .8) and EnergyStorage > (EnergyNeeded * .4) )  then
+				or ( MassStorage >= (MassNeeded * masslimit) and EnergyStorage > (EnergyNeeded * energylimit) )  then
 
-				-- we need to have 15% of the resources stored -- some things like MEX can bypass this last check
-				if (MassStorage > ( MassNeeded * .15 * masslowtrigger) and EnergyStorage > ( EnergyNeeded * .15 * energylowtrigger)) or bypassecon then
+				-- we need to have 25% of the resources stored -- some things like MEX can bypass this last check
+				if (MassStorage > ( MassNeeded * .25 * masslowtrigger) and EnergyStorage > ( EnergyNeeded * .25 * energylowtrigger)) or bypassecon then
                     
                     if aiBrain.UpgradeIssued < aiBrain.UpgradeIssuedLimit then
 
@@ -6756,29 +6763,42 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
                         end
                     end
                 end
+                
             else
+            
                 if ScenarioInfo.StructureUpgradeDialog then
+                
                     if not ( econ.MassTrend >= MassTrendNeeded ) then
                         LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." "..unit:GetBlueprint().Description.." FAILS MASS Trend trigger "..econ.MassTrend.." needed "..MassTrendNeeded)
+                        continue
                     end
                     
                     if not ( econ.EnergyTrend >= EnergyTrendNeeded ) then
                         LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." "..unit:GetBlueprint().Description.." FAILS ENER Trend trigger "..econ.EnergyTrend.." needed "..EnergyTrendNeeded)
+                        continue
                     end
                     
                     if not (econ.EnergyTrend >= EnergyMaintenance) then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." "..unit:GetBlueprint().Description.." FAILS Maintenance trigger "..econ.EnergyTrend.." "..EnergyMaintenance)  
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." "..unit:GetBlueprint().Description.." FAILS Maintenance trigger "..econ.EnergyTrend.." needs "..EnergyMaintenance)  
+                        continue
                     end
                     
-                    if not ( MassStorage >= (MassNeeded * .8)) then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." "..unit:GetBlueprint().Description.." FAILS MASS storage trigger "..MassStorage.." needed "..(MassNeeded*.8) )
+                    if not ( MassStorage >= (MassNeeded * masslimit)) then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." "..unit:GetBlueprint().Description.." FAILS MASS storage trigger "..MassStorage.." needed "..(MassNeeded * masslimit) )
+                        continue
                     end
                     
-                    if not (EnergyStorage > (EnergyNeeded * .4)) then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." "..unit:GetBlueprint().Description.." FAILS ENER storage trigger "..EnergyStorage.." needed "..(EnergyNeeded*.4) )
+                    if not (EnergyStorage > (EnergyNeeded * energylimit)) then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." "..unit:GetBlueprint().Description.." FAILS ENER storage trigger "..EnergyStorage.." needed "..(EnergyNeeded * energylimit) )
+                        continue
                     end
+                    
                 end
 			end
+        else
+            if ScenarioInfo.StructureUpgradeDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." "..unit:GetBlueprint().Description.." Upgrade Counter already at max")
+            end
         end
     end
     
@@ -6847,10 +6867,7 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 		end
 
         KillThread( unit.UpgradeThread )
-        
-        --unit.Dead = true
-        
-        --unit.Trash:Destroy()
+
 	end
 end
 

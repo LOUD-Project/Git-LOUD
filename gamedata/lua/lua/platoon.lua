@@ -44,6 +44,7 @@ local AIFindUndefendedBrainTargetInRangeSorian = import('/lua/ai/sorianutilities
 local FindDamagedShield = import('/lua/ai/sorianutilities.lua').FindDamagedShield
 local AISendChat = import('/lua/ai/sorianutilities.lua').AISendChat
 
+local BaseInPlayableArea = import('loudutilities.lua').BaseInPlayableArea
 local FindClosestBaseName = import('loudutilities.lua').FindClosestBaseName
 local GetBasePerimeterPoints = import('/lua/loudutilities.lua').GetBasePerimeterPoints
 local ProcessAirUnits = import('/lua/loudutilities.lua').ProcessAirUnits
@@ -295,36 +296,84 @@ Platoon = Class(moho.platoon_methods) {
 					local Direction = import('/lua/utilities.lua').GetDirectionInDegrees( prevpoint, waypointPath )
 
 					if AggroMove then
+                    
+                        local Attack = false
+                        local Artillery = false
 
-						if self:GetSquadUnits('Scout') then
+						if self:GetSquadUnits('Scout') and LOUDGETN(self:GetSquadUnits('Scout')) > 0 then
+                        
 							IssueFormMove( self:GetSquadUnits('Scout'), waypointPath, 'BlockFormation', Direction)
+                            
 						end
 					
-						if self:GetSquadUnits('Attack') then
-							IssueFormMove( self:GetSquadUnits('Attack'), waypointPath, 'AttackFormation', Direction)
+						if self:GetSquadUnits('Attack') and LOUDGETN(self:GetSquadUnits('Attack')) > 0 then
+                        
+							IssueFormAggressiveMove( self:GetSquadUnits('Attack'), waypointPath, 'AttackFormation', Direction)
+                            
+                            Attack = true
+                            
 						end
 					
-						if self:GetSquadUnits('Artillery') then
+						if self:GetSquadUnits('Artillery') and LOUDGETN(self:GetSquadUnits('Artillery')) > 0 then
+                        
 							IssueFormAggressiveMove( self:GetSquadUnits('Artillery'), waypointPath, PlatoonFormation, Direction)
+                            
+                            Artillery = true
+                            
 						end
 					
-						if self:GetSquadUnits('Guard') then
-							IssueFormMove( self:GetSquadUnits('Guard'), waypointPath, 'BlockFormation', Direction)
+						if self:GetSquadUnits('Guard') and LOUDGETN(self:GetSquadUnits('Guard')) > 0 then
+                     
+                            if not Artillery and not Attack then
+                            
+                                IssueFormMove( self:GetSquadUnits('Guard'), waypointPath, 'BlockFormation', Direction)
+                                
+                            elseif Artillery then
+                            
+                                --LOG("*AI DEBUG Issuing Guard to Artillery "..repr(self:GetSquadUnits('Artillery')[1]) )
+                                
+                                IssueGuard( self:GetSquadUnits('Guard'), self:GetSquadUnits('Artillery')[1] )
+                                
+                            elseif Attack then
+                            
+                                --LOG("*AI DEBUG Issuing Guard to Attack "..repr(self:GetSquadUnits('Attack')[1]) )
+                                
+                                IssueGuard( self:GetSquadUnits('Guard'), self:GetSquadUnits('Attack')[1] )
+                            
+                            end
+                            
 						end
 					
-						if self:GetSquadUnits('Support') then
-							IssueFormAggressiveMove( self:GetSquadUnits('Support'), waypointPath, 'BlockFormation', Direction)
+						if self:GetSquadUnits('Support') and LOUDGETN(self:GetSquadUnits('Support')) > 0 then
+                        
+                            if not Attack and not Artillery then
+                            
+                                IssueFormAggressiveMove( self:GetSquadUnits('Support'), waypointPath, 'BlockFormation', Direction)
+                                
+                            elseif Attack then
+                            
+                                IssueGuard( self:GetSquadUnits('Support'), self:GetSquadUnits('Attack')[1])
+                                
+                            elseif Artillery then
+                            
+                                IssueGuard( self:GetSquadUnits('Support'), self:GetSquadUnits('Artillery')[1])                            
+                                
+                            end
+                            
 						end
 					
 					else
 			
 						self:MoveToLocation( waypointPath, false )
+                        
 					end
 
 					while self.MovingToWaypoint do
 
 						WaitTicks(10)
+                        
                     end
+                    
 				end
 				
 				IssueClearCommands( GetPlatoonUnits(self))
@@ -453,6 +502,12 @@ Platoon = Class(moho.platoon_methods) {
         
 	-- Returns -- true if successful, false if couldn't use transports
 	SendPlatoonWithTransportsLOUD = function( self, aiBrain, destination, attempts, bSkipLastMove, platoonpath )
+    
+        -- destination must be in playable areas --
+        if not BaseInPlayableArea(aiBrain, destination) then
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." destination "..repr(destination).." not in playable area")
+            return false
+        end
 
 		if self.MovementLayer == 'Land' or self.MovementLayer == 'Amphibious' then
 		
@@ -840,7 +895,7 @@ Platoon = Class(moho.platoon_methods) {
 			else
 			
                 if platoon != 'AttackPlanner' or (platoon and platoon.BuilderName != nil) then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName).." Generate Safe Path "..platoonLayer.." had a bad start "..repr(start))
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." Generate Safe Path "..platoonLayer.." had a bad start "..repr(start))
                 end
                 
 				return {destination}, 'Direct', 9999, 0
@@ -911,9 +966,7 @@ Platoon = Class(moho.platoon_methods) {
             if platoon.MovementLayer == 'Air' then
                 return false
             end
-        
-            --aiBrain:CheckBlockingTerrain( pos, targetPos, 'none' )
-	
+
 			-- This gives us the number of approx. 6 ogrid steps in the distance
 			local steps = math.floor( VDist2(pos[1], pos[3], targetPos[1], targetPos[3]) / 6 )
 	
@@ -964,15 +1017,20 @@ Platoon = Class(moho.platoon_methods) {
 				-- traverse the list and make a new list of those with allowable threat and within range
 				-- since the source table is already sorted by range, the output table will be created in a sorted order
 				for nodename,v in markerlist do
-			
+                    
+                    local testdistance = VDist3Sq( v.position, location )
+
 					-- process only those entries within the radius
-					if VDist3Sq( v.position, location ) <= radiuscheck then
+					if testdistance <= radiuscheck then
                     
                         local obstructed = false
                     
                         -- we should do an OBSTRUCTED test here -- but only for land movement --
-                        if platoonLayer == 'Land' or platoonLayer == 'Amphibious' then
-                            obstructed = CheckBlockingTerrain( v.position, location )
+                        if (platoonLayer == 'Land' or platoonLayer == 'Amphibious') then
+                        
+                            if testdistance > (40*40) then
+                                obstructed = CheckBlockingTerrain( v.position, location )
+                            end
                         end
                         
                         if not obstructed then
@@ -991,9 +1049,13 @@ Platoon = Class(moho.platoon_methods) {
 						
                                     return ScenarioInfo.PathGraphs[platoonLayer][v.node], v.node or GetPathGraphs()[platoonLayer][v.node], v.node
                                 end
+
                             end
+                            
                         end
+                        
 					end
+                    
 				end
 			
 				-- resort positions to be closest to goalseek position
@@ -1001,8 +1063,6 @@ Platoon = Class(moho.platoon_methods) {
 				if goalseek then
 					LOUDSORT(positions, function(a,b) return VDist2Sq( a[3][1],a[3][3], goalseek[1],goalseek[3] ) < VDist2Sq( b[3][1],b[3][3], goalseek[1],goalseek[3] ) end)
 				end
-			
-				--LOG("*AI DEBUG Sorted positions for destination "..repr(goalseek).." are "..repr(positions))
 			
 				local bestThreat = (threatallowed * threatmodifier)
 				local bestMarker = positions[1][2]	-- default to the one closest to goal
@@ -1060,7 +1120,8 @@ Platoon = Class(moho.platoon_methods) {
 
 		if not startNode and platoonLayer == 'Amphibious' then
 		
-			--LOG("*AI DEBUG "..aiBrain.Nickname.." GenerateSafePath "..platoon.BuilderName.." "..threatallowed.." fails no safe "..platoonLayer.." startnode within "..MaxMarkerDist.." of "..repr(start).." - trying Land")
+			--LOG("*AI DEBUG "..aiBrain.Nickname.." GenerateSafePath "..repr(platoon.BuilderName or platoon).." "..threatallowed.." fails no safe "..platoonLayer.." startnode within "..MaxMarkerDist.." of "..repr(start).." - trying Land")
+            
 			platoonLayer = 'Land'
 			startNode, startNodeName = GetClosestSafePathNodeInRadiusByLayerLOUD( start, false, destination, 2 )
 			
@@ -1068,7 +1129,8 @@ Platoon = Class(moho.platoon_methods) {
 	
 		if not startNode then
 		
-			--LOG("*AI DEBUG "..aiBrain.Nickname.." GenerateSafePath "..repr(platoon.BuilderName).." "..threatallowed.." finds no safe "..platoonLayer.." startnode within "..MaxMarkerDist.." of "..repr(start).." - failing")
+			--LOG("*AI DEBUG "..aiBrain.Nickname.." GenerateSafePath "..repr(platoon.BuilderName or platoon).." "..threatallowed.." finds no safe "..platoonLayer.." startnode within "..MaxMarkerDist.." of "..repr(start).." - failing")
+            
 			WaitTicks(1)
 			return false, 'NoPath', 0, 0
 			
@@ -1076,28 +1138,27 @@ Platoon = Class(moho.platoon_methods) {
 		
 		if DestinationBetweenPoints( destination, start, startNode.position ) then
 		
-			--LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName).." finds destination between current position and startNode")
-			return {destination}, 'Direct', 0.9, 0
+			--LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." finds destination between current position and startNode")
+            
+			return {destination}, 'Direct', VDist2( start[1],start[3], destination[1],destination[3] ), 0
 			
 		end			
     
 		-- Get the closest safe node at the destination which is cloest to the start
 		local endNode, endNodeName = GetClosestSafePathNodeInRadiusByLayerLOUD( destination, true, false, 1 )
-        
-        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." for "..platoonLayer.." using endNode at "..repr(endNode))
 
 		if not endNode then
 		
-			--LOG("*AI DEBUG "..aiBrain.Nickname.." GenerateSafePath "..repr(platoon.BuilderName).." "..threatallowed.." finds no safe "..platoonLayer.." endnode within "..MaxMarkerDist.." of "..repr(destination).." - failing")
+			--LOG("*AI DEBUG "..aiBrain.Nickname.." GenerateSafePath "..repr(platoon.BuilderName or platoon).." "..threatallowed.." finds no safe "..platoonLayer.." endnode within "..MaxMarkerDist.." of "..repr(destination).." - failing")
+            
 			WaitTicks(1)
 			return false, 'NoPath', 0, 0
 			
 		end
 		
 		if startNodeName == endNodeName then
-		
-			--LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName).." GenerateSafePath has same start and end node "..repr(startNodeName))
-			return {destination}, 'Direct', 1, 0
+
+			return {destination}, 'Direct', VDist2( start[1],start[3], destination[1],destination[3] ), 0
 			
 		end
 		
@@ -1110,17 +1171,14 @@ Platoon = Class(moho.platoon_methods) {
 		-- if the nodes are not in the bad path cache generate a path for them
 		-- Generate the safest path between the start and destination nodes
 		if not BadPath[startNodeName][endNodeName] then
-        
-            --if platoon.BuilderName then
-              --  LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." submits "..platoonLayer.." path request")
-            --end
-			
+
 			-- add the platoons request for a path to the respective path generator for that layer
 			LOUDINSERT(aiBrain.PathRequests[platoonLayer], {
 															Dest = destination,
 															EndNode = endNode,
 															Location = start,
-															Platoon = platoon, 
+															Platoon = platoon,
+                                                            Startlength = pathlength,
 															StartNode = startNode,
 															Stepsize = stepsize,
 															Testpath = testPath,
@@ -1136,9 +1194,7 @@ Platoon = Class(moho.platoon_methods) {
 			
 			-- loop here until reply or 90 seconds
 			while waitcount < 100 do
-            
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName).." waiting on path request "..waitcount)
-                
+
 				WaitTicks(3)
 
 				waitcount = waitcount + 1
@@ -1176,7 +1232,11 @@ Platoon = Class(moho.platoon_methods) {
 			return false, 'NoPath', 0, 0
 		end
 	
-		path[table.getn(path)+1] = destination
+		
+        pathlength = pathlength + VDist3( path[table.getn(path)], destination )
+        
+        path[table.getn(path)+1] = destination
+        
 	
 		return path, 'Pathing', pathlength, pathcost
 	end,	
@@ -2300,6 +2360,7 @@ Platoon = Class(moho.platoon_methods) {
 					if PlatoonExists(aiBrain,self) then
 
 						self.MoveThread = self:ForkThread( self.MovePlatoon, path, PlatoonFormation, bAggroMove)
+                        
 					end
 				
 					if not usedTransports and not self.MoveThread then
@@ -2470,10 +2531,10 @@ Platoon = Class(moho.platoon_methods) {
 						
 							direction = import('/lua/utilities.lua').GetDirectionInDegrees( GetPlatoonPosition(self), targetposition )
 						
-							IssueFormAttack( self:GetSquadUnits('Attack'), target, 'AttackFormation', direction)
+							IssueAggressiveMove( self:GetSquadUnits('Attack'), targetposition)
 						
 							if self:GetSquadUnits('Artillery') then
-								IssueFormAggressiveMove( self:GetSquadUnits('Artillery'),targetposition,'AttackFormation', direction)
+								IssueAggressiveMove( self:GetSquadUnits('Artillery'),targetposition)
 							end
 						
 							if self:GetSquadUnits('Guard') then
@@ -5004,7 +5065,7 @@ Platoon = Class(moho.platoon_methods) {
 					if math.abs(lastposHeight - nextposHeight) > 3.6 or (InWater and not self.MovementLayer == 'Amphibious') then
 						
 						-- we are obstructed
-						LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." on "..self.MovementLayer.." obstructed by "..(lastposHeight - nextposHeight).." to location "..repr(targetPos).." INWATER is "..repr(InWater) )
+						--LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." on "..self.MovementLayer.." obstructed by "..(lastposHeight - nextposHeight).." to location "..repr(targetPos).." from "..repr(pos).." INWATER is "..repr(InWater) )
 						return true
 					end
 					
@@ -5359,12 +5420,16 @@ Platoon = Class(moho.platoon_methods) {
                                                 threatatPos = threatatPos - GetThreatAtPosition( aiBrain, moveLocation, 0, true, 'AntiAir')
                                                 threatatPos = threatatPos - GetThreatAtPosition( aiBrain, moveLocation, 0, true, 'AntiSub')
                                                 
-                                                myThreatatPos = GetThreatAtPosition( aiBrain:GetCurrentEnemy(), moveLocation, 0, true, 'AntiSurface' )
-                                                myThreatatPos = myThreatatPos - GetThreatAtPosition( aiBrain:GetCurrentEnemy(), moveLocation, 0, true, 'AntiAir' )
-                                                myThreatatPos = myThreatatPos - GetThreatAtPosition( aiBrain:GetCurrentEnemy(), moveLocation, 0, true, 'AntiSub' )
+                                                if aiBrain:GetCurrentEnemy() then
+                                                
+                                                    myThreatatPos = GetThreatAtPosition( aiBrain:GetCurrentEnemy(), moveLocation, 0, true, 'AntiSurface' )
+                                                    myThreatatPos = myThreatatPos - GetThreatAtPosition( aiBrain:GetCurrentEnemy(), moveLocation, 0, true, 'AntiAir' )
+                                                    myThreatatPos = myThreatatPos - GetThreatAtPosition( aiBrain:GetCurrentEnemy(), moveLocation, 0, true, 'AntiSub' )
+                                                    
+                                                end
                                                 
                                                 if ScenarioInfo.DistressResponseDialog then
-                                                    LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." enemythreat "..(threatatPos).." mine "..myThreatatPos.." distance to distress is "..repr(VDist3(poscheck,distressLocation)))
+                                                    LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." enemythreat "..(threatatPos).." mine "..repr(myThreatatPos).." distance to distress is "..repr(VDist3(poscheck,distressLocation)))
                                                 end
                                                 
                                             end
@@ -5422,8 +5487,9 @@ Platoon = Class(moho.platoon_methods) {
                         
 					else
                     
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." finds no unit or cannot path to "..repr(distressLocation) )
-                        
+                        if ScenarioInfo.DistressResponseDialog then
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." finds no unit or cannot path to "..repr(distressLocation) )
+                        end
                     end
                     
                 end

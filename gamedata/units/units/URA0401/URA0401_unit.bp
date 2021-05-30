@@ -230,10 +230,10 @@ UnitBlueprint {
         MaxSpeed = 9.5,
         MotionType = 'RULEUMT_Air',
         
-        SkirtOffsetX = -1,
-        SkirtOffsetZ = -1,
-        SkirtSizeX = 8,
-        SkirtSizeZ = 8,
+        SkirtOffsetX = -1.5,
+        SkirtOffsetZ = -1.5,
+        SkirtSizeX = 9,
+        SkirtSizeZ = 9,
     },
 	
     SelectionSizeX = 5,
@@ -244,7 +244,7 @@ UnitBlueprint {
     SizeY = 3.5,
     SizeZ = 7.2,
 	
-    StrategicIconName = 'icon_experimental_gunship_directfire',
+    StrategicIconName = 'icon_gunship4_directfire',
     StrategicIconSortPriority = 65,
 	
     Transport = {

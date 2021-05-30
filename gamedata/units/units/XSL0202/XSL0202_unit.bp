@@ -159,7 +159,7 @@ UnitBlueprint {
     SizeY = 1.1,
     SizeZ = 0.9,
 	
-    StrategicIconName = 'icon_bot2_directfire',
+    StrategicIconName = 'icon_land2_directfire',
     StrategicIconSortPriority = 125,
 	
     Transport = {

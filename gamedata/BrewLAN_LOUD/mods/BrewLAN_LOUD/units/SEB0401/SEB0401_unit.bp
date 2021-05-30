@@ -277,7 +277,7 @@ UnitBlueprint {
     SizeY = 6,
     SizeZ = 16,
     
-    StrategicIconName = 'icon_experimental_factory_land',
+    StrategicIconName = 'icon_factory4_land',
     StrategicIconSortPriority = 210,
     
     Wreckage = {

@@ -261,6 +261,10 @@ UnitBlueprint {
         MeshExtentsY = 1,
         MeshExtentsZ = 4,
         MotionType = 'RULEUMT_Air',
+        SkirtOffsetX = -1.5,
+        SkirtOffsetZ = -1.5,
+        SkirtSizeX = 9,
+        SkirtSizeZ = 9,
     },
 	
     SelectionSizeX = 6,
@@ -271,7 +275,7 @@ UnitBlueprint {
     SizeY = 4,
     SizeZ = 6,
 	
-    StrategicIconName = 'icon_experimental_gunship_transport',
+    StrategicIconName = 'icon_gunship4_transport',
     StrategicIconSortPriority = 65,
 	
     Transport = {

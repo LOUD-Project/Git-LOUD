@@ -295,6 +295,8 @@ UnitBlueprint {
 	
     Footprint = {
         MinWaterDepth = 3,
+        SizeX = 6,
+        SizeZ = 6,
     },	
 	
     General = {
@@ -374,10 +376,10 @@ UnitBlueprint {
         MotionType = 'RULEUMT_SurfacingSub',
         RotateOnSpot = true,
         RotateOnSpotThreshold = 1.1,
-        SkirtOffsetX = -2,
-        SkirtOffsetZ = -2,
-        SkirtSizeX = 8,
-        SkirtSizeZ = 8,
+        SkirtOffsetX = -2.5,
+        SkirtOffsetZ = -2.5,
+        SkirtSizeX = 9,
+        SkirtSizeZ = 9,
         TurnRadius = 12,
         TurnRate = 48,
     },
@@ -390,7 +392,7 @@ UnitBlueprint {
     SizeY = 2.7,
     SizeZ = 6,
 	
-    StrategicIconName = 'icon_experimental_mobilefactory_directfire',
+    StrategicIconName = 'icon_sub4_naval',
     StrategicIconSortPriority = 45,
 	
     Veteran = {

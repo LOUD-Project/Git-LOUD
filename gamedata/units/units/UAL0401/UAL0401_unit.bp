@@ -178,6 +178,11 @@ UnitBlueprint {
         BuildTime = 46000,
     },
 	
+    Footprint = {
+        SizeX = 2,
+        SizeZ = 2,
+    },
+    
     General = {
 		CapCost = 6,
         Category = 'Direct Fire',
@@ -231,9 +236,9 @@ UnitBlueprint {
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Amphibious',
         SkirtOffsetX = -1.5,
-        SkirtOffsetZ = -1.5,
-        SkirtSizeX = 6,
-        SkirtSizeZ = 6,
+        SkirtOffsetZ = -0.5,
+        SkirtSizeX = 5,
+        SkirtSizeZ = 5,
         StandUpright = true,
         TurnRadius = 3,
         TurnRate = 36,
@@ -250,7 +255,7 @@ UnitBlueprint {
     SizeY = 6.5,
     SizeZ = 2.5,
 	
-    StrategicIconName = 'icon_experimental_land_directfire',
+    StrategicIconName = 'icon_seabed4_directfire',
     StrategicIconSortPriority = 115,
 	
     Transport = {

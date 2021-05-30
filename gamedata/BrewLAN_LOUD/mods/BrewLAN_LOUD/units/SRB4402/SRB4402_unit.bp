@@ -214,7 +214,7 @@ UnitBlueprint {
     SizeY = 2.5,
     SizeZ = 2.5,
 	
-    StrategicIconName = 'icon_experimental_structure_counterintel',
+    StrategicIconName = 'icon_structure4_counterintel',
     StrategicIconSortPriority = 200,
 	
     Weapon = {

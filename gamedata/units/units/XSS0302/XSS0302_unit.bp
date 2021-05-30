@@ -232,7 +232,7 @@ UnitBlueprint {
     SizeY = 1.65,
     SizeZ = 8,
 	
-    StrategicIconName = 'icon_ship3_directfire',
+    StrategicIconName = 'icon_ship3_nuke',
     StrategicIconSortPriority = 145,
 	
     Veteran = {

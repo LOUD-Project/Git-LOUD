@@ -915,11 +915,11 @@ BuffBlueprint { Name = 'ACU_T2_Combat_Eng',
             Mult = 1,
         },
         MaxHealth = {
-            Add = 10000,
+            Add = 8000,
             Mult = 1,
         },
         Regen = {
-            Add = 15,
+            Add = 12,
             Mult = 1,
         },
     },
@@ -936,11 +936,11 @@ BuffBlueprint { Name = 'ACU_T3_Combat_Eng',
             Mult = 1,
         },
         MaxHealth = {
-            Add = 30000,
+            Add = 25000,
             Mult = 1.0,
         },
         Regen = {
-            Add = 50,
+            Add = 35,
             Mult = 1,
         },
     },
@@ -957,11 +957,11 @@ BuffBlueprint { Name = 'ACU_T4_Combat_Eng',
             Mult = 1,
         },
         MaxHealth = {
-            Add = 60000,
+            Add = 40000,
             Mult = 1.0,
         },
         Regen = {
-            Add = 90,
+            Add = 60,
             Mult = 1,
         },
 		MoveMult = {
@@ -981,7 +981,7 @@ BuffBlueprint { Name = 'ACU_T4_Combat_Eng',
 -- by contrast, for the regular T3 radar systems, I use a lower 12db gain.   All smaller radar systems
 -- are NOT aligned with this formula but probably should be for conformity sake
 
--- as each pair of antenna come online, I move this gain figure up be 1db - eventually reaching
+-- as each pair of antenna come online, I move this gain figure up by 1db - eventually reaching
 -- a total of 24db linear gain
 
 -- The PanOpticons additional dishes should be though of as 'focusing' agents - with the effectiveness

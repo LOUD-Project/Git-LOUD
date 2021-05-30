@@ -120,6 +120,6 @@ UnitBlueprint {
     SizeX = 0.01,
     SizeY = 0.01,
     SizeZ = 0.01,
-    StrategicIconName = 'icon_bot_generic',
+    StrategicIconName = 'icon_land_generic',
     StrategicIconSortPriority = 207,
 }

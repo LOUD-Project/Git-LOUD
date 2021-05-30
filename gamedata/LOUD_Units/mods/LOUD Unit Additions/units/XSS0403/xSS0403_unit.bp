@@ -148,6 +148,11 @@ UnitBlueprint {
 	
 	CollisionOffsetY = -1,
 
+    Footprint = {
+        SizeX = 1,
+        SizeZ = 6,
+    },
+	
     General = {
 		CapCost = 6,
         Category = 'Construction',
@@ -201,6 +206,13 @@ UnitBlueprint {
         MeshExtentsZ = 6.25,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Water',
+        
+        SkirtOffsetX = -0.5,
+        SkirtOffsetZ = -2.5,
+        SkirtSizeX = 4,
+        SkirtSizeZ = 9,
+
+        
         TurnRadius = 22,
         TurnRate = 33,
     },
@@ -213,7 +225,7 @@ UnitBlueprint {
     SizeY = 2.2,
     SizeZ = 7.2,
 	
-    StrategicIconName = 'icon_experimental_ship_antiair',
+    StrategicIconName = 'icon_ship4_antiair',
     StrategicIconSortPriority = 155,
 	
     Veteran = {

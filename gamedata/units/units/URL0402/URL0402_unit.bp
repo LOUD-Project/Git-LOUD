@@ -226,6 +226,11 @@ UnitBlueprint {
         MaintenanceConsumptionPerSecondEnergy = 250,
     },
 	
+    Footprint = {
+        SizeX = 3,
+        SizeZ = 3,
+    },
+    
     General = {
 		CapCost = 4,
         Category = 'Experimental',
@@ -290,10 +295,10 @@ UnitBlueprint {
 		RotateOnSpot = false,
         SinkLower = true,
         
-        SkirtOffsetX = -1.5,
+        SkirtOffsetX = -2.5,
         SkirtOffsetZ = -1.5,
-        SkirtSizeX = 5,
-        SkirtSizeZ = 5,
+        SkirtSizeX = 8,
+        SkirtSizeZ = 8,
         
         TurnRadius = 5,
         TurnRate = 25,
@@ -310,7 +315,7 @@ UnitBlueprint {
     SizeY = 4,
     SizeZ = 3,
 	
-    StrategicIconName = 'icon_experimental_land_directfire',
+    StrategicIconName = 'icon_seabed4_directfire',
     StrategicIconSortPriority = 45,
 	
     Transport = {

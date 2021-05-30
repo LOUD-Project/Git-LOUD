@@ -249,7 +249,7 @@ UnitBlueprint {
     SizeY = 0.63,
     SizeZ = 3.1,
 	
-    StrategicIconName = 'icon_sub3_missile',
+    StrategicIconName = 'icon_sub3_nuke',
     StrategicIconSortPriority = 145,
 	
     Veteran = {

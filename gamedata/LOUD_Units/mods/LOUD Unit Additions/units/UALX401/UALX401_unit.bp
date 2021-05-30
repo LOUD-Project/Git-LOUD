@@ -127,6 +127,11 @@ UnitBlueprint {
         MaintenanceConsumptionPerSecondEnergy = 4750, -- for shield, radar and anti-teleport
     },
 	
+    Footprint = {
+        SizeX = 5,
+        SizeZ = 5,
+    },
+	
     General = {
 		CapCost = 10,
         Category = 'Utility',
@@ -190,8 +195,8 @@ UnitBlueprint {
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Hover',
 		
-        SkirtOffsetX = -1,
-        SkirtOffsetZ = -1,
+        SkirtOffsetX = -1.5,
+        SkirtOffsetZ = -1.5,
 		
         SkirtSizeX = 8,
         SkirtSizeZ = 8,
@@ -214,7 +219,7 @@ UnitBlueprint {
     SizeY = 1.7,
     SizeZ = 6.5,
 	
-    StrategicIconName = 'icon_experimental_land_shield',
+    StrategicIconName = 'icon_surface4_shield',
     StrategicIconSortPriority = 125,
 	
     Transport = {

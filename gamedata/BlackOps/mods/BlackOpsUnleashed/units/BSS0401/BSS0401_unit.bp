@@ -167,6 +167,8 @@ UnitBlueprint {
 	
     Footprint = {
         MinWaterDepth = 3,
+		SizeX = 2,
+		SizeZ = 11,
     },	
 	
     General = {
@@ -221,9 +223,9 @@ UnitBlueprint {
         MeshExtentsX = 4,
         MeshExtentsY = 2,
         MeshExtentsZ = 11.5,
-        SkirtOffsetX = -0,
-        SkirtOffsetZ = -2.0,
-        SkirtSizeX = 4,
+        SkirtOffsetX = -0.5,
+        SkirtOffsetZ = -3.5,
+        SkirtSizeX = 7,
         SkirtSizeZ = 12,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Water',
@@ -239,7 +241,7 @@ UnitBlueprint {
     SizeY = 1.9,
     SizeZ = 11.8,
 	
-    StrategicIconName = 'icon_experimental_ship_artillery',
+    StrategicIconName = 'icon_ship4_artillery',
     StrategicIconSortPriority = 145,
 	
     Veteran = {

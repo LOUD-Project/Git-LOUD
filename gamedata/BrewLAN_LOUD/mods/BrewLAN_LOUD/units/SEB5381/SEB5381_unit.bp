@@ -162,7 +162,7 @@ UnitBlueprint {
     SizeY = 0.3,
     SizeZ = 1,
 	
-    StrategicIconName = 'icon_structure3_generic',
+    StrategicIconName = 'icon_node3_cross',
     StrategicIconSortPriority = 250,
 	
     Weapon = {

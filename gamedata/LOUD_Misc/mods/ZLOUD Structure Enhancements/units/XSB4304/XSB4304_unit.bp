@@ -191,6 +191,36 @@ UnitBlueprint {
 	
     StrategicIconName = 'icon_structure3_counterintel',
     StrategicIconSortPriority = 230,
+
+    Weapon = {
+        { -- Dummy weapon for visualising area of effect
+		
+            CollideFriendly = false,
+			
+            Damage = 0,
+			
+            FireTargetLayerCapsTable = {
+                Air = 'Land|Water',
+                Land = 'Land|Water',
+                Water = 'Land|Water',
+            },
+            FiringTolerance = 1,
+			
+            Label = 'DummyWeapon',
+			
+            MaxRadius = 55,
+			
+            RateOfFire = 0.1,
+            RangeCategory = 'UWRC_Countermeasure',
+			
+            TargetCheckInterval = 6,
+            TargetPriorities = {
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            WeaponCategory = 'Direct Fire',
+		}
+    },
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',

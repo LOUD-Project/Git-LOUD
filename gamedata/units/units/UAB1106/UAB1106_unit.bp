@@ -140,7 +140,7 @@ UnitBlueprint {
     SizeY = 0.5,
     SizeZ = 0.85,
     
-    StrategicIconName = 'icon_structure1_mass',
+    StrategicIconName = 'icon_node1_mass',
     StrategicIconSortPriority = 250,
     
     Wreckage = {

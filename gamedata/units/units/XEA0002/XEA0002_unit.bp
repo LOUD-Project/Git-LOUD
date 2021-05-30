@@ -110,6 +110,6 @@ UnitBlueprint {
     SizeY = 1,
     SizeZ = 1,
 	
-    StrategicIconName = 'icon_satellite_intel',
+    StrategicIconName = 'icon_satellite3_intel',
     StrategicIconSortPriority = 55,
 }

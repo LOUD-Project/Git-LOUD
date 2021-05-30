@@ -190,7 +190,7 @@ UnitBlueprint {
     SizeY = 0.72,
     SizeZ = 1.6,
 	
-    StrategicIconName = 'icon_land3_directfire',
+    StrategicIconName = 'icon_seabed3_directfire',
     StrategicIconSortPriority = 125,
     Veteran = {
         Level1 = 10,
@@ -320,7 +320,7 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
-            BallisticArc = 'RULEUBA_LowArc',
+            BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
             Damage = 25,
@@ -332,7 +332,8 @@ UnitBlueprint {
                 Land = 'Land|Water',
             },
 			
-            FiringTolerance = 0.5,
+            FiringRandomness = 0.5,
+            FiringTolerance = 0.2,
 			
             Label = 'mgweapon2',
 			
@@ -356,14 +357,11 @@ UnitBlueprint {
                     RackBone = 'mgmuzzle',
                 },
             },
-			
-            
             
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
-            RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -374,26 +372,13 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-
                 'ALLUNITS,-WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
-			
-            TurretBoneDualMuzzle = 'mgmuzzle',
-            TurretBoneDualPitch = 'mgmuzzle',
-            TurretBoneMuzzle = 'mgmuzzle01',
-            TurretBonePitch = 'mgmuzzle01',
-            TurretBoneYaw = 'Turret',
-            TurretDualManipulators = true,
-			
-            TurretPitch = 0,
-            TurretPitchRange = 45,
-            TurretPitchSpeed = 30,
-            TurretYaw = 0,
-            TurretYawRange = 180,
-            TurretYawSpeed = 33,
-            Turreted = true,
+            TrackingRadius = 1,
+
+            UseFiringSolutionInsteadOfAimBone = true,
+
         },
 		{
             AboveWaterTargetsOnly = true,
@@ -467,7 +452,6 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-
                 'ALLUNITS,-WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -477,6 +461,9 @@ UnitBlueprint {
             TurretBoneDualPitch = 'rl01',
             TurretBoneMuzzle = 'rl02',
             TurretBonePitch = 'rl02',
+            
+            TurretBoneAimYaw = 'rl01',
+            
             TurretBoneYaw = 'Turret',
             TurretDualManipulators = true,
 			

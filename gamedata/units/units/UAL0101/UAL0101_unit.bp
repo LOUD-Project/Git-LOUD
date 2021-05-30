@@ -141,7 +141,7 @@ UnitBlueprint {
     SizeX = 0.45,
     SizeY = 0.27,
     SizeZ = 0.54,
-    StrategicIconName = 'icon_land1_intel',
+    StrategicIconName = 'icon_surface1_intel',
     StrategicIconSortPriority = 135,
     Transport = {
         TransportClass = 1,

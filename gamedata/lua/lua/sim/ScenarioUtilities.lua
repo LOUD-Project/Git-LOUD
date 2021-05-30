@@ -100,7 +100,7 @@ function CreateResources()
 	local Armies = ListArmies()
 	local Starts = {}
 	
-	LOG("*AI DEBUG Armies is "..repr(ArmyBrains))
+	--LOG("*AI DEBUG Armies is "..repr(ArmyBrains))
 	
 	for x = 1, 16 do
 		if GetMarker('ARMY_'..x) then
@@ -108,7 +108,7 @@ function CreateResources()
 		end
 	end
 	
-	LOG("*AI DEBUG Start positions are "..repr(Starts))
+	--LOG("*AI DEBUG Start positions are "..repr(Starts))
 	
 	local doit_value = tonumber(ScenarioInfo.Options.UnusedResources) or 1
 	
@@ -628,6 +628,7 @@ function InitializeArmies()
 				
                     SetAlliance( iArmy, iEnemy, 'Neutral')
                 end
+                
             end
 			
 			-- if this is an AI (but not civilian)        
@@ -653,6 +654,7 @@ function InitializeArmies()
                 if commander and cdrUnit and ArmyBrains[iArmy].Nickname then
                     cdrUnit:SetCustomName( ArmyBrains[iArmy].Nickname )
                 end
+                
             end
 
             local wreckageGroup = FindUnitGroup('WRECKAGE', ScenarioInfo.Env.Scenario.Armies[strArmy].Units)
@@ -667,8 +669,11 @@ function InitializeArmies()
                     unit:CreateWreckageProp(0, 1800)
                     unit:Destroy()
                 end
+                
             end
+            
         end
+        
     end
     
 	--3+ Teams Unit Cap Fix, setting up the Unit Cap part of SetupAICheat,
@@ -686,7 +691,9 @@ function InitializeArmies()
 				import('/lua/ai/aiutilities.lua').SetupAICheatUnitCap( GetArmyBrain(strArmy), ScenarioInfo.biggestTeamSize )
 				
             end
+            
 		end
+        
     end
     
     loudUtils.StartAdaptiveCheatThreads()

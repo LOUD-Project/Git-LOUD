@@ -270,10 +270,10 @@ UnitBlueprint {
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Amphibious',
         SinkLower = true,
-        SkirtOffsetX = 0,
+        SkirtOffsetX = -1.5,
         SkirtOffsetZ = -1.5,
-        SkirtSizeX = 5,
-        SkirtSizeZ = 8,
+        SkirtSizeX = 9,
+        SkirtSizeZ = 9,
         TurnRadius = 15,
         TurnRate = 45,
         WaterSpeedMultiplier = 1.25,
@@ -287,7 +287,7 @@ UnitBlueprint {
     SizeY = 3.5,
     SizeZ = 7.3,
 	
-    StrategicIconName = 'icon_experimental_mobilefactory_directfire',
+    StrategicIconName = 'icon_seabed4_land',
     StrategicIconSortPriority = 45,
 	
     Transport = {

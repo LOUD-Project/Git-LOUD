@@ -775,7 +775,9 @@ end
 -- Sets the playable area for an operation to rect size.
 -- this function allows you to use scenarioutilities function AreaToRect for the rectangle.
 function SetPlayableArea( rect, voFlag )
+
 	local function GenerateOffMapAreas()
+    
 		local playablearea = {}
 		local OffMapAreas = {}
 
@@ -784,6 +786,7 @@ function SetPlayableArea( rect, voFlag )
 		else
 			playablearea = {0, 0, ScenarioInfo.size[1], ScenarioInfo.size[2]}
 		end
+        
 		LOG('playable area coordinates are ' .. repr(playablearea))
 
 		local x0 = playablearea[1]
@@ -828,19 +831,29 @@ function SetPlayableArea( rect, voFlag )
 	end
 	
     if (voFlag == nil) then
-         voFlag = true
+        voFlag = true
     end
+    
     if type(rect) == 'string' then
-        rect = ScenarioUtils.AreaToRect(rect)
+
+        local area = ScenarioInfo.Env.Scenario.Areas[rect]
+    
+        if not area then
+            error('ERROR: Invalid area name')
+        end
+    
+        local rectangle = area.rectangle
+        
+        rect = Rect(rectangle[1],rectangle[2],rectangle[3],rectangle[4])    
+
     end
 
+    LOG(string.format('Debug: SetPlayableArea before round : %s,%s %s,%s',rect.x0,rect.y0,rect.x1,rect.y1))
+    
     local x0 = rect.x0 - math.mod(rect.x0 , 4)
     local y0 = rect.y0 - math.mod(rect.y0 , 4)
     local x1 = rect.x1 - math.mod(rect.x1, 4)
     local y1 = rect.y1 - math.mod(rect.y1, 4)
-
-    LOG(string.format('Debug: SetPlayableArea before round : %s,%s %s,%s',rect.x0,rect.y0,rect.x1,rect.y1))
-    LOG(string.format('Debug: SetPlayableArea after round : %s,%s %s,%s',x0,y0,x1,y1))
 
 	if not ScenarioInfo.MapData then
 		ScenarioInfo.MapData = {}
@@ -848,6 +861,8 @@ function SetPlayableArea( rect, voFlag )
 	
     ScenarioInfo.MapData.PlayableRect = {x0,y0,x1,y1}
 	
+    LOG(string.format('Debug: SetPlayableArea after round : %s,%s %s,%s',x0,y0,x1,y1))
+
     rect.x0 = x0
     rect.x1 = x1
     rect.y0 = y0
@@ -861,7 +876,9 @@ function SetPlayableArea( rect, voFlag )
     end
 
     import('/lua/SimSync.lua').SyncPlayableRect(rect)
+    
 	Sync.NewPlayableArea = {x0, y0, x1, y1}
+    
 	ForkThread(GenerateOffMapAreas)
 end
 

@@ -253,7 +253,7 @@ UnitBlueprint {
     SizeY = 2,
     SizeZ = 5,
 	
-    StrategicIconName = 'icon_experimental_factory_artillery',
+    StrategicIconName = 'icon_factory4_artillery',
     StrategicIconSortPriority = 175,
 	
     Veteran = {

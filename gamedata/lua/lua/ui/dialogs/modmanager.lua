@@ -220,6 +220,7 @@ local modSchema = {
         'BREWLANS-a0a7-426d-88f2-CRATESZ00011', -- Crate Drop
         '16678e1e-7fc9-11e5-8bcf-x10health0010', -- Hench AF
         '16678e1e-7fc9-11e5-8bcf-dayofsex0010', -- Invisible War
+        '25D57D85-9JA7-D842-BREW-KNIVES000002', -- Knives
         '25D57D85-7D84-27HT-A502-LDIPS0000002', -- Lucky Dip
         '25D57D85-7D84-27HT-A502-MASSRNG00002', -- Mass Point RNG
         '25D57D85-7D84-27HT-A501-METALWI0000013', -- Metal World
@@ -235,7 +236,7 @@ local modSchema = {
         '25D57D85-9JA7-D842-GKG4-DAMAGENO00000', -- BrewLAN Damage Numbers
         '2529ea71-93ef-41a6-b552-LOGS0000000009', -- BrewLAN Debug Tools
         'zcbf6277-24e3-437a-b968-Common-v1', -- Common Mod Tools
-        '2529ea71-93ef-41a6-b552-EXPERICON00005', -- Experimental Icons Overhaul
+        'Z529ea71-93ef-41a6-b552-STRATICON00010', -- Strategic Icon Overhaul
         'eabdfda4-24b5-40dc-8995-LOUD000DEBUG', -- LOUD Debug Tools
         '7be1d5f4-c544-11ea-87d0-noalerts0001', -- No VO Alerts
         'stonksc5-f109-4145-b83f-a0b589087460', -- Stonks

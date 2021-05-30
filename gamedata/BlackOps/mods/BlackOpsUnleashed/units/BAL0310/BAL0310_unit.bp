@@ -106,7 +106,7 @@ UnitBlueprint {
             RULEUCC_Stop = true,
         },
         FactionName = 'Aeon',
-        Icon = 'land',
+        Icon = 'amph',
         TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC bal0310_name>Wraith',
         UnitWeight = 1,
@@ -150,7 +150,7 @@ UnitBlueprint {
     SizeX = 1.0,
     SizeY = 0.7,
     SizeZ = 1.9,
-    StrategicIconName = 'icon_land3_directfire',
+    StrategicIconName = 'icon_surface3_directfire',
     StrategicIconSortPriority = 115,
     Transport = {
         CanFireFromTransport = false,

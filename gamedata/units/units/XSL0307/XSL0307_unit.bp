@@ -157,7 +157,7 @@ UnitBlueprint {
     SizeX = 0.8,
     SizeY = 0.5,
     SizeZ = 0.8,
-    StrategicIconName = 'icon_land3_shield',
+    StrategicIconName = 'icon_surface3_shield',
     StrategicIconSortPriority = 125,
     Transport = {
         TransportClass = 3,

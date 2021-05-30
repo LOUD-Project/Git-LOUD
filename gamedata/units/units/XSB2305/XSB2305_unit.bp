@@ -204,7 +204,7 @@ UnitBlueprint {
     SizeY = 1,
     SizeZ = 2,
 	
-    StrategicIconName = 'icon_structure3_missile',
+    StrategicIconName = 'icon_structure3_nuke',
     StrategicIconSortPriority = 175,
 	
     Veteran = {

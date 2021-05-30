@@ -178,7 +178,7 @@ UnitBlueprint {
     SizeY = 0.4,
     SizeZ = 0.77,
 	
-    StrategicIconName = 'icon_land3_counterintel',
+    StrategicIconName = 'icon_seabed3_counterintel',
     StrategicIconSortPriority = 125,
 	
     Transport = {

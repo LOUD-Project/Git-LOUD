@@ -379,7 +379,7 @@ UnitBlueprint {
     SizeY = 1.5,
     SizeZ = 8,
 	
-    StrategicIconName = 'icon_experimental_mobilefactory_directfire',
+    StrategicIconName = 'icon_seabed4_land',
     StrategicIconSortPriority = 45,
 	
     Transport = {

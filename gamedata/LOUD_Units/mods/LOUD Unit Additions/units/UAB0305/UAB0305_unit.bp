@@ -113,12 +113,18 @@ UnitBlueprint {
                 {
                     LODCutoff = 200,
                     ShaderName = 'Aeon',
+                    AlbedoName = '/units/uab0304/uab0304_Albedo.dds',
+                    MeshName = '/units/uab0304/uab0304_lod0.scm',
+                    NormalsName = '/units/uab0304/uab0304_normalsTS.dds',
+                    SpecularName = '/units/uab0304/uab0304_SpecTeam.dds',
                 },
                 {
-                    AlbedoName = 'uab0304_lod1_albedo.dds',
                     LODCutoff = 400,
                     ShaderName = 'Aeon',
-                    SpecularName = 'uab0304_lod1_specteam.dds',
+                    AlbedoName = '/units/uab0304/uab0304_lod1_albedo.dds',
+                    MeshName = '/units/uab0304/uab0304_lod1.scm',
+                    NormalsName = '/units/uab0304/uab0304_lod1_normalsTS.dds',
+                    SpecularName = '/units/uab0304/uab0304_lod1_specteam.dds',
                 },
             },
         },
@@ -379,7 +385,7 @@ UnitBlueprint {
     SizeY = 1.5,
     SizeZ = 5,
 	
-    StrategicIconName = 'icon_experimental_structure_transport',
+    StrategicIconName = 'icon_structure4_transport',
     StrategicIconSortPriority = 175,
 	
     Transport = {

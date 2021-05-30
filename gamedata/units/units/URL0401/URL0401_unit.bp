@@ -172,7 +172,7 @@ UnitBlueprint {
         RotateOnSpot = true,
         RotateOnSpotThreshold = 0.5,
         SkirtOffsetX = -1.5,
-        SkirtOffsetZ = -1,
+        SkirtOffsetZ = -1.5,
         SkirtSizeX = 8,
         SkirtSizeZ = 8,
         TurnRadius = 2,
@@ -187,7 +187,7 @@ UnitBlueprint {
     SizeY = 2,
     SizeZ = 7,
 	
-    StrategicIconName = 'icon_experimental_land_artillery',
+    StrategicIconName = 'icon_land4_artillery',
     StrategicIconSortPriority = 115,
 	
     Transport = {

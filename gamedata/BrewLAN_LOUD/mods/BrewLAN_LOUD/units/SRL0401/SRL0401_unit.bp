@@ -324,10 +324,10 @@ UnitBlueprint {
         RotateOnSpot = false,
         RotateOnSpotThreshold = 0.5,
 		
-        SkirtOffsetX = 0,
-        SkirtOffsetZ = -3,
-        SkirtSizeX = 7,
-        SkirtSizeZ = 14,
+        SkirtOffsetX = -0.5,
+        SkirtOffsetZ = -2.5,
+        SkirtSizeX = 9,
+        SkirtSizeZ = 13,
 		
         TurnRadius = 7,
         TurnRate = 30,
@@ -342,7 +342,7 @@ UnitBlueprint {
     SizeY = 7,
     SizeZ = 13,
 	
-    StrategicIconName = 'icon_experimental_land_transport',
+    StrategicIconName = 'icon_seabed4_transport',
     StrategicIconSortPriority = 65,
 	
     Transport = {

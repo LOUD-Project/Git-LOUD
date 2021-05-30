@@ -272,7 +272,7 @@ UnitBlueprint {
     SizeY = 0.7,
     SizeZ = 0.8,
 	
-    StrategicIconName = 'icon_land3_intel',
+    StrategicIconName = 'icon_surface3_intel',
     StrategicIconSortPriority = 125,
 	
     Transport = {

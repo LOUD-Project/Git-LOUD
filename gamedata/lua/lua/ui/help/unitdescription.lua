@@ -451,6 +451,7 @@ Description = {
 	['xsa0303'] = "High-end air fighter. Designed to engage air units of any type.",
 	['xsa0304'] = "High-end strategic bomber. Inflicts excellent single target and area-of-effect damage.",
 	['xsa0402'] = "Massive bomber capable of devastating entire bases. Armed with an experimental strategic bomb and three AA auto-cannons.",
+	['bsa0309'] = "Advanced transport with weak armor; makes up for this with its large carrying capacity, its speed, and Lambda Field Generators for annihilating and deflecting projectiles.",
 
 	--Naval Units
 	['xss0103'] = "Low-end naval unit. Armed with an auto-cannon and AA Gatling gun.",

@@ -172,7 +172,7 @@ UnitBlueprint {
     SizeY = 4,
     SizeZ = 4,
 	
-    StrategicIconName = 'icon_experimental_structure_mass',
+    StrategicIconName = 'icon_structure4_mass',
 	
     StrategicIconSortPriority = 250,
 	

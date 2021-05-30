@@ -104,8 +104,8 @@ UnitBlueprint {
 		
         EconomyThreatLevel = 200,
 		
-        Health = 30500,
-        MaxHealth = 30500,
+        Health = 29500,
+        MaxHealth = 29500,
         RegenRate = 10,
         
         SurfaceThreatLevel = 75,
@@ -196,7 +196,7 @@ UnitBlueprint {
 		
         MaintenanceConsumptionPerSecondEnergy = 1,
         
-        MaxBuildDistance = 15,
+        MaxBuildDistance = 14,
 		
         NaturalProducer = true,
 		
@@ -339,9 +339,9 @@ UnitBlueprint {
 		
         EXCombatEngineering = {
 		
-            BuildCostEnergy = 22000,
-            BuildCostMass = 2100,
-            BuildTime = 1800,
+            BuildCostEnergy = 30000,
+            BuildCostMass = 3000,
+            BuildTime = 2200,
 
             BuildableCategoryAdds = 'BUILTBYTIER2COMMANDER AEON',
             Icon = 'exlce1',
@@ -354,7 +354,7 @@ UnitBlueprint {
             UpgradeEffectBones = {'Left_Turret','Left_Turret_Muzzle'},
             UpgradeUnitAmbientBones = { 'UAL0001' },
 			
-			NewRegenRate = 15,		-- just here so interface can show the value
+			NewRegenRate = 12,
         },
 		
         EXCombatEngineeringRemove = {
@@ -392,7 +392,7 @@ UnitBlueprint {
             UpgradeEffectBones = {'Left_Turret','Left_Turret_Muzzle'},
             UpgradeUnitAmbientBones = { 'UAL0001' },
 			
-			NewRegenRate = 50,		-- just here so interface can show the value
+			NewRegenRate = 35,		-- just here so interface can show the value
         },
 		
         EXAssaultEngineeringRemove = {
@@ -432,7 +432,7 @@ UnitBlueprint {
             UpgradeEffectBones = {'Left_Turret','Left_Turret_Muzzle'},
             UpgradeUnitAmbientBones = { 'UAL0001' },
 			
-			NewRegenRate = 90,		-- versus 60 of other engineering
+			NewRegenRate = 60,
         },
 		
         EXApocalypticEngineeringRemove = {
@@ -458,17 +458,14 @@ UnitBlueprint {
             BuildCostMass = 570,
             BuildTime = 600,
             Icon = 'exrzb1',
+            
             Name = 'Jury Rigged Disruptor (T1)',
+            
 			ZephyrDamageMod = 100,
 			ZephyrRangeMod = 35,
             Slot = 'RCH',
-            UpgradeEffectBones = {
-                'Right_Turret',
-                'Right_Turret_Muzzle',
-            },
-            UpgradeUnitAmbientBones = {
-                'UAL0001',
-            },
+            UpgradeEffectBones = {'Right_Turret','Right_Turret_Muzzle'},
+            UpgradeUnitAmbientBones = {'UAL0001'},
         },
 		
         EXDisruptorrBoosterRemove = {
@@ -476,14 +473,13 @@ UnitBlueprint {
             BuildCostMass = 1,
             BuildTime = 0.1,
             Icon = 'exrzb1',
+            
             Name = 'Remove Jury Rigged Disruptor',
+            
             Prerequisite = 'EXDisruptorrBooster',
 			ZephyrDamageMod = 100,
 			ZephyrRangeMod = 35,
-            RemoveEnhancements = {
-                'EXDisruptorrBooster',
-                'EXDisruptorrBoosterRemove',
-            },
+            RemoveEnhancements = {'EXDisruptorrBooster','EXDisruptorrBoosterRemove'},
             Slot = 'RCH',
         },
 		
@@ -492,38 +488,30 @@ UnitBlueprint {
             BuildCostMass = 1440,
             BuildTime = 4500,
             Icon = 'exrtorp1',
+            
             Name = 'Torpedo Launcher (T2)',
+            
 			ZephyrDamageMod = 100,
 			ZephyrRangeMod = 35,
-            ShowBones = {
-                'Torpedo_Launcher',
-            },
+            ShowBones = {'Torpedo_Launcher'},
             Slot = 'RCH',
-            UpgradeEffectBones = {
-                'Right_Turret',
-                'Right_Turret_Muzzle',
-            },
-            UpgradeUnitAmbientBones = {
-                'UAL0001',
-            },
+            UpgradeEffectBones = {'Right_Turret','Right_Turret_Muzzle'},
+            UpgradeUnitAmbientBones = {'UAL0001'},
         },
 		
         EXTorpedoLauncherRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
-            HideBones = {
-                'Torpedo_Launcher',
-            },
+            HideBones = {'Torpedo_Launcher'},
             Icon = 'exrtorp1',
+            
             Name = 'Remove Torpedo Launcher',
+            
             Prerequisite = 'EXTorpedoLauncher',
 			ZephyrDamageMod = 100,
 			ZephyrRangeMod = 35,
-            RemoveEnhancements = {
-                'EXTorpedoLauncher',
-                'EXTorpedoLauncherRemove',
-            },
+            RemoveEnhancements = {'EXTorpedoLauncher','EXTorpedoLauncherRemove'},
             Slot = 'RCH',
         },
 		
@@ -532,40 +520,31 @@ UnitBlueprint {
             BuildCostMass = 3300,
             BuildTime = 9900,
             Icon = 'exrtorp2',
+            
             Name = 'Improved Reloader (T3)',
+            
 			Prerequisite = 'EXTorpedoLauncher',
 			ZephyrDamageMod = 100,
 			ZephyrRangeMod = 35,
-            ShowBones = {
-                'Torpedo_Launcher',
-            },
+            ShowBones = {'Torpedo_Launcher'},
             Slot = 'RCH',
-            UpgradeEffectBones = {
-                'Right_Turret',
-                'Right_Turret_Muzzle',
-            },
-            UpgradeUnitAmbientBones = {
-                'UAL0001',
-            },
+            UpgradeEffectBones = {'Right_Turret','Right_Turret_Muzzle'},
+            UpgradeUnitAmbientBones = {'UAL0001'},
         },
 		
         EXTorpedoRapidLoaderRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
-            HideBones = {
-                'Torpedo_Launcher',
-            },
+            HideBones = {'Torpedo_Launcher'},
             Icon = 'exrtorp2',
+            
             Name = 'Remove Improved Reloader',
+            
             Prerequisite = 'EXTorpedoRapidLoader',
 			ZephyrDamageMod = 100,
 			ZephyrRangeMod = 35,
-            RemoveEnhancements = {
-                'EXTorpedoLauncher',
-                'EXTorpedoRapidLoader',
-                'EXTorpedoRapidLoaderRemove',
-            },
+            RemoveEnhancements = {'EXTorpedoLauncher','EXTorpedoRapidLoader','EXTorpedoRapidLoaderRemove'},
             Slot = 'RCH',
         },
 		
@@ -574,42 +553,32 @@ UnitBlueprint {
             BuildCostMass = 6300,
             BuildTime = 21600,
             Icon = 'exrtorp3',
+            
             Name = 'Advanced Warheads (T4)',
+            
 			Prerequisite = 'EXTorpedoRapidLoader',
 
 			ZephyrDamageMod = 100,
 			ZephyrRangeMod = 35,
-            ShowBones = {
-                'Torpedo_Launcher',
-            },
+            ShowBones = {'Torpedo_Launcher'},
             Slot = 'RCH',
-            UpgradeEffectBones = {
-                'Right_Turret',
-                'Right_Turret_Muzzle',
-            },
-            UpgradeUnitAmbientBones = {
-                'UAL0001',
-            },
+            UpgradeEffectBones = {'Right_Turret','Right_Turret_Muzzle'},
+            UpgradeUnitAmbientBones = {'UAL0001'},
         },
 		
         EXTorpedoClusterLauncherRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
-            HideBones = {
-                'Torpedo_Launcher',
-            },
+            HideBones = {'Torpedo_Launcher'},
             Icon = 'exrtorp3',
+            
             Name = 'Remove Cluster Launcher',
+            
             Prerequisite = 'EXTorpedoClusterLauncher',
 			ZephyrDamageMod = 100,
 			ZephyrRangeMod = 35,
-            RemoveEnhancements = {
-                'EXTorpedoLauncher',
-                'EXTorpedoRapidLoader',
-                'EXTorpedoClusterLauncher',
-                'EXTorpedoClusterLauncherRemove',
-            },
+            RemoveEnhancements = {'EXTorpedoLauncher','EXTorpedoRapidLoader','EXTorpedoClusterLauncher','EXTorpedoClusterLauncherRemove'},
             Slot = 'RCH',
         },
 		
@@ -618,17 +587,14 @@ UnitBlueprint {
             BuildCostMass = 990,
             BuildTime = 2800,
             Icon = 'exramc1',
+            
             Name = 'Dual Miasma Artillery (T2)',
+            
 			ZephyrDamageMod = 100,
 			ZephyrRangeMod = 35,
             Slot = 'RCH',
-            UpgradeEffectBones = {
-                'Right_Turret',
-                'Right_Turret_Muzzle',
-           },
-            UpgradeUnitAmbientBones = {
-                'UAL0001',
-            },
+            UpgradeEffectBones = {'Right_Turret','Right_Turret_Muzzle'},
+            UpgradeUnitAmbientBones = {'UAL0001',},
         },
 		
         EXArtilleryMiasmaRemove = {
@@ -636,14 +602,13 @@ UnitBlueprint {
             BuildCostMass = 1,
             BuildTime = 0.1,
             Icon = 'exramc1',
+            
             Name = 'Remove Dual Miasma Artillery',
+            
             Prerequisite = 'EXArtilleryMiasma',
 			ZephyrDamageMod = 100,
 			ZephyrRangeMod = 35,
-            RemoveEnhancements = {
-                'EXArtilleryMiasma',
-                'EXArtilleryMiasmaRemove',
-            },
+            RemoveEnhancements = {'EXArtilleryMiasma','EXArtilleryMiasmaRemove'},
             Slot = 'RCH',
         },
 		
@@ -652,18 +617,15 @@ UnitBlueprint {
             BuildCostMass = 1800,
             BuildTime = 5600,
             Icon = 'exramc2',
+            
             Name = 'Advanced Warhead Compression (T3)',
+            
 			Prerequisite = 'EXArtilleryMiasma',
 			ZephyrDamageMod = 100,
 			ZephyrRangeMod = 35,
             Slot = 'RCH',
-            UpgradeEffectBones = {
-                'Right_Turret',
-                'Right_Turret_Muzzle',
-            },
-            UpgradeUnitAmbientBones = {
-                'UAL0001',
-            },
+            UpgradeEffectBones = {'Right_Turret','Right_Turret_Muzzle'},
+            UpgradeUnitAmbientBones = {'UAL0001'},
         },
 		
         EXAdvancedShellsRemove = {
@@ -671,7 +633,9 @@ UnitBlueprint {
             BuildCostMass = 1,
             BuildTime = 0.1,
             Icon = 'exramc2',
+            
             Name = 'Remove Advanced Warhead Compression',
+            
             Prerequisite = 'EXAdvancedShells',
 			ZephyrDamageMod = 100,
 			ZephyrRangeMod = 35,
@@ -688,7 +652,9 @@ UnitBlueprint {
             BuildCostMass = 5400,
             BuildTime = 16200,
             Icon = 'exramc3',
+            
             Name = 'Improved Auto Loader (T4)',
+            
 			Prerequisite = 'EXAdvancedShells',
             NewHealth = 6000,
 			ZephyrDamageMod = 100,
@@ -1369,7 +1335,7 @@ UnitBlueprint {
         DragCoefficient = 0.2,
         LayerChangeOffsetHeight = -0.9,
         MaxAcceleration = 1.7,
-        MaxSpeed = 1.5,		--1.7
+        MaxSpeed = 1.4,
         MaxSpeedReverse = 0,
         MaxSteerForce = 12,
         MinSpeedPercent = 0,
@@ -1488,7 +1454,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 50,
+            Damage = 40,
 			DamageRadius = 0,
             DamageType = 'Normal',
 			

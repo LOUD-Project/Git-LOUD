@@ -167,7 +167,7 @@ UnitBlueprint {
     SizeY = 1.0,
     SizeZ = 1.2,
 	
-    StrategicIconName = 'icon_bot3_protector',
+    StrategicIconName = 'icon_land3_cross',
     StrategicIconSortPriority = 135,
 	
     Transport = {

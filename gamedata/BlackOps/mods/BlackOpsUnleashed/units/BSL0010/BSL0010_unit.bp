@@ -65,7 +65,7 @@ UnitBlueprint {
 	
     	Abilities = {
 			'Quantum Powered - dies if run out of power',
-            '1 x Lambda Destruction Field',
+            'Projectile Nullifier Field',
             'Tactical Missile Defense',
         },
 		
@@ -169,7 +169,7 @@ UnitBlueprint {
     SizeY = 1.25,
     SizeZ = 0.5,
 	
-    StrategicIconName = 'icon_bot3_directfire',
+    StrategicIconName = 'icon_land3_directfire',
     StrategicIconSortPriority = 125,
 	
     Transport = {

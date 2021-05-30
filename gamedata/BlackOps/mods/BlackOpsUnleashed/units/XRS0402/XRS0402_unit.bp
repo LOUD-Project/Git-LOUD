@@ -173,6 +173,8 @@ UnitBlueprint {
 	
     Footprint = {
         MinWaterDepth = 3,
+		SizeX = 1,
+		SizeZ = 9,
     },	
 	
     General = {
@@ -221,10 +223,10 @@ UnitBlueprint {
         MaxSpeed = 3.6,
         MaxSpeedReverse = 3,
         MaxSteerForce = 5,
-        SkirtOffsetX = 0.5,
-        SkirtOffsetZ = -3,
+        SkirtOffsetX = -0.5,
+        SkirtOffsetZ = -3.5,
         SkirtSizeX = 5,
-        SkirtSizeZ = 12,
+        SkirtSizeZ = 11,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Water',
         TurnRadius = 28,
@@ -239,7 +241,7 @@ UnitBlueprint {
     SizeY = 1.55,
     SizeZ = 10.8,
 	
-    StrategicIconName = 'icon_experimental_ship_directfire',
+    StrategicIconName = 'icon_ship4_directfire',
     StrategicIconSortPriority = 145,
 	
     Veteran = {

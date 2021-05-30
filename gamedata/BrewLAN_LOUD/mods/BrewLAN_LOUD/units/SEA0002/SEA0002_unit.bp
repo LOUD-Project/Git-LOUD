@@ -218,6 +218,6 @@ UnitBlueprint {
     SizeY = 2,
     SizeZ = 2,
 	
-    StrategicIconName = 'icon_fighter_intel',
+    StrategicIconName = 'icon_satellite3_intel',
     StrategicIconSortPriority = 55,
 }

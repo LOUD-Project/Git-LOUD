@@ -184,7 +184,7 @@ UnitBlueprint {
     SizeX = 0.8,
     SizeY = 0.6,
     SizeZ = 1.8,
-    StrategicIconName = 'icon_land3_artillery',
+    StrategicIconName = 'icon_land3_sniper',
     StrategicIconSortPriority = 125,
     Transport = {
         CanFireFromTransport = false,

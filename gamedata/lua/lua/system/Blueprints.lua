@@ -469,12 +469,13 @@ local usermodUnitIcons = {}
 function ModBlueprints(all_blueprints)
 
 	-- TODO: move this load to someplace more central so Tanksy and others can use it
-	--Load Phoenix's Helper Library
+	-- Load Phoenix's Helper Library
 	-- This includes primarily functions that calculate DPS and Threat, but also includes
 	-- a set of functions that return clean unit information.
 	-- This method of inclusion loads a single table of info, constants, and functions
 	-- called PhxLib
 	doscript '/lua/PhxLib.lua'
+    
 	--LOG("PhxLib is "..repr(PhxLib))
 
 	-- Used for loading loose files in the Development build, as part of the GitHub Repo.
@@ -607,8 +608,7 @@ function ModBlueprints(all_blueprints)
 		end
 		
 		if bp.Economy.MaxBuildDistance and bp.Economy.MaxBuildDistance < 3 then
-		
-			LOG("*AI DEBUG "..id.." now has MaxBuildDistance of 3")
+
 			bp.Economy.MaxBuildDistance = 3
 		
 		end
@@ -681,6 +681,7 @@ function ModBlueprints(all_blueprints)
 								end
 								
 							end
+                            
 						end						
 					end
 				end
@@ -918,8 +919,8 @@ function ModBlueprints(all_blueprints)
 						EnergyMult = 0.3,
 						HealthMult = 0.9,
 						LifeTime = 720,	-- give naval wreckage a lifetime value of 12 minutes
-						MassMult = 0.6,
-						ReclaimTimeMultiplier = 1,
+						MassMult = 0.5,
+						ReclaimTimeMultiplier = 1.2,
 						
 						WreckageLayers = {
 							Air = false,
@@ -947,9 +948,11 @@ function ModBlueprints(all_blueprints)
 						
 					end
                     
-                    if bp.Wreckage.MassMult and bp.Wreckage.MassMult > 0.3 then
+                    if bp.Wreckage.MassMult and bp.Wreckage.MassMult > 0.2 then
                     
-                        bp.Wreckage.MassMult = bp.Wreckage.MassMult * 0.6
+                        bp.Wreckage.MassMult = bp.Wreckage.MassMult * 0.5
+                        
+                        bp.Wreckage.ReclaimTimeMultiplier = 1.3
                         
                     end
 				end

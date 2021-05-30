@@ -292,8 +292,8 @@ UnitBlueprint {
     },
 	
     Footprint = {
-        SizeX = 5,
-        SizeZ = 5,
+        SizeX = 4,
+        SizeZ = 4,
     },
 	
     General = {
@@ -353,8 +353,8 @@ UnitBlueprint {
 		
 		SinkLower = true,
 		
-        SkirtOffsetX = -3,
-        SkirtOffsetZ = -2,
+        SkirtOffsetX = -4.5,
+        SkirtOffsetZ = -3.5,
 		
         SkirtSizeX = 12,
         SkirtSizeZ = 12,
@@ -375,7 +375,7 @@ UnitBlueprint {
     SizeY = 3.4,
     SizeZ = 7,
 	
-    StrategicIconName = 'icon_experimental_mobilefactory_artillery',
+    StrategicIconName = 'icon_seabed4_directfire2',
     StrategicIconSortPriority = 115,
 	
     Veteran = {

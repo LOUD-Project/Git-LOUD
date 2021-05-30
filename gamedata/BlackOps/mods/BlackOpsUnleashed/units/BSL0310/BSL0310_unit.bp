@@ -53,9 +53,9 @@ UnitBlueprint {
     Defense = {
         ArmorType = 'Normal',
         dontOKControl = true,
-        Health = 5400,
-        MaxHealth = 5400,
-        RegenRate = 2.5,
+        Health = 5100,
+        MaxHealth = 5100,
+        RegenRate = 2,
         SurfaceThreatLevel = 49,
     },
 	
@@ -64,7 +64,7 @@ UnitBlueprint {
     Display = {
 	
     	Abilities = {
-            'Lambda Destruction Field',
+            'Projectile Nullifier Field',
 			'Tactical Missile Defense',
         },
 		
@@ -97,9 +97,9 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 20000,
-        BuildCostMass = 1650,
-        BuildTime = 825,
+        BuildCostEnergy = 21000,
+        BuildCostMass = 1660,
+        BuildTime = 830,
 		
         MaintenanceConsumptionPerSecondEnergy = 40,
     },
@@ -177,7 +177,7 @@ UnitBlueprint {
     SizeY = 1.25,
     SizeZ = 0.5,
 	
-    StrategicIconName = 'icon_bot3_directfire',
+    StrategicIconName = 'icon_land3_directfire',
     StrategicIconSortPriority = 125,
 	
     Transport = {

@@ -153,6 +153,11 @@ UnitBlueprint {
         MaintenanceConsumptionPerSecondEnergy = 1266,
     },
     
+    Footprint = {
+        SizeX = 1,
+        SizeZ = 9,
+    },
+	
     General = {
         CapCost = 6,
         Category = 'Experimental',
@@ -215,10 +220,11 @@ UnitBlueprint {
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Water',
         
-        SkirtOffsetZ = -3,
+        SkirtOffsetX = -0.5,
+		SkirtOffsetZ = -4.5,
         
-        SkirtSizeX = 5.5,
-        SkirtSizeZ = 12,
+        SkirtSizeX = 5,
+        SkirtSizeZ = 13,
         
         TurnRadius = 35,
         TurnRate = 15,
@@ -232,7 +238,7 @@ UnitBlueprint {
     SizeY = 1.5,
     SizeZ = 10.7,
     
-    StrategicIconName = 'icon_experimental_ship_artillery',
+    StrategicIconName = 'icon_ship4_artillery',
     StrategicIconSortPriority = 46,
     
     Veteran = {

@@ -1,5 +1,6 @@
 UnitBlueprint {
     AI = {
+        ShowAssistRangeOnSelect = true,
         TargetBones = {
             'Head',
             'UEL0301',
@@ -544,7 +545,7 @@ UnitBlueprint {
     SizeY = 1.4,
     SizeZ = 0.6,
 	
-    StrategicIconName = 'icon_commander_generic',
+    StrategicIconName = 'icon_subcommander_generic',
     StrategicIconSortPriority = 1,
 	
     Transport = {

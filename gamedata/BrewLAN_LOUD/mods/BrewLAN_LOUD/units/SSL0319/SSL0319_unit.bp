@@ -220,7 +220,7 @@ UnitBlueprint {
     SizeY = 0.5,
     SizeZ = 0.9,
 	
-    StrategicIconName = 'icon_land3_engineer',
+    StrategicIconName = 'icon_seabed3_engineer',
     StrategicIconSortPriority = 125,
 	
     Transport = {
