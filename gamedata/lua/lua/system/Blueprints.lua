@@ -952,7 +952,7 @@ function ModBlueprints(all_blueprints)
                     
                         bp.Wreckage.MassMult = bp.Wreckage.MassMult * 0.5
                         
-                        bp.Wreckage.ReclaimTimeMultiplier = 1.3
+                        bp.Wreckage.ReclaimTimeMultiplier = 1.2
                         
                     end
 				end
