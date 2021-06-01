@@ -4,6 +4,8 @@ UnitBlueprint {
         GuardReturnRadius = 60,
         TargetBones = {
             'URS0302',
+            'Front_Turret',
+            'Back_Turret',
             'Back_Wake',
             'Front_Left_Wake',
             'Front_Right_Wake',
@@ -30,11 +32,11 @@ UnitBlueprint {
 	
     Buffs = {
         Regen = {
-            Level1 = 10,
-            Level2 = 20,
-            Level3 = 30,
-            Level4 = 40,
-            Level5 = 50,
+            Level1 = 24,
+            Level2 = 48,
+            Level3 = 72,
+            Level4 = 96,
+            Level5 = 120,
         },
     },
 	
@@ -52,17 +54,18 @@ UnitBlueprint {
         'RECLAIMABLE',
         'BATTLESHIP',
         'BOMBARDMENT',
-        'OVERLAYRADAR','OVERLAYSONAR',
+        'OVERLAYRADAR',
+        'OVERLAYSONAR',
     },
 	
     CollisionOffsetY = -0.375,
 	
     Defense = {
-        AirThreatLevel = 24,
+        AirThreatLevel = 12,
         ArmorType = 'Normal',
-        Health = 40000,
-        MaxHealth = 40000,
-        RegenRate = 18,
+        Health = 39500,
+        MaxHealth = 39500,
+        RegenRate = 24,
 		SubThreatLevel = 12,
         SurfaceThreatLevel = 52,
     },
@@ -273,7 +276,7 @@ UnitBlueprint {
 			
             Label = 'Cannon',
 			
-            MaxRadius = 110,
+            MaxRadius = 100,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 35,
@@ -314,29 +317,33 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.25,		-- 1050 dmg every 4 seconds = 262 DPS Surface
+            RateOfFire = 0.75,		-- 1050 dmg every 4 seconds = 262 DPS Surface
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 140,
+            
             TargetCheckInterval = 2,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'NAVAL MOBILE',
-                
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.15,
+            
             TurretBoneMuzzle = 'Front_Muzzle02',
             TurretBonePitch = 'Front_Turret_Barrel02',
             TurretBoneYaw = 'Front_Turret',
             TurretDualManipulators = false,
+            
             TurretPitch = 30,
             TurretPitchRange = 45,
             TurretPitchSpeed = 10,
+            
             TurretYaw = 0,
             TurretYawRange = 145,
             TurretYawSpeed = 45,
+            
             Turreted = true,
         },
         {
@@ -376,7 +383,7 @@ UnitBlueprint {
 			
             Label = 'Cannon',
 			
-            MaxRadius = 110,
+            MaxRadius = 100,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 35,
@@ -415,7 +422,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 			
-            RateOfFire = 0.25,		-- 1050 dmg every 4 seconds = 262 DPS Surface
+            RateOfFire = 0.75,		-- 1050 dmg every 4 seconds = 262 DPS Surface
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 130,
@@ -424,7 +431,6 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'NAVAL MOBILE',
-                
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -507,7 +513,7 @@ UnitBlueprint {
             
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 2,		-- 120 DPS Air
+            RateOfFire = 1,		-- 60 DPS Air
             TargetCheckInterval = 0.3,
 			
             TargetPriorities = {
@@ -596,7 +602,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 			
-            RateOfFire = 2,		-- 120 DPS Air
+            RateOfFire = 1,		-- 60 DPS Air
             TargetCheckInterval = 0.3,
 			
             TargetPriorities = {
@@ -605,7 +611,6 @@ UnitBlueprint {
                 'AIR MOBILE BOMBER',
                 'AIR MOBILE GROUNDATTACK',
                 'AIR MOBILE',
-                
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
