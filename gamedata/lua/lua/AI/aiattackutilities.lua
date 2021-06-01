@@ -388,6 +388,25 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 
 	local pos, distance, platdistance
     
+    local function PositionInPlayableArea(intelpoint)
+    
+        if ScenarioInfo.MapData.PlayableRect then
+        
+            local PlayableArea = ScenarioInfo.MapData.PlayableRect
+            
+            if intelpoint[1] < PlayableArea[1] or intelpoint[1] > PlayableArea[3] then
+                return false
+            end
+            
+            if intelpoint[3] < PlayableArea[2] or intelpoint[3] > PlayableArea[4] then
+                return false
+            end
+
+        end
+        
+        return true
+    end
+    
     --LOG("*AI DEBUG "..aiBrain.Nickname.." Find Point within "..PointRadius.." from "..repr(PointSource).." for "..self.BuilderName)
 	
 	-- find positions -- 
@@ -449,31 +468,35 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 				table.sort( pointlist, function(a,b) return LOUDV2(PointSource[1],PointSource[3],a.Position[1],a.Position[3]) < LOUDV2( PointSource[1],PointSource[3],b.Position[1],b.Position[3] ) end)
 				
 				for k,v in pointlist do
+               
+                    -- point must be in Playable Area --
+                    if PositionInPlayableArea(v.Position) then
 				
-					-- calculate the distance to the point from the PointSource
-					distance = LOUDV2( PointSource[1],PointSource[3], v.Position[1],v.Position[3] )
+                        -- calculate the distance to the point from the PointSource
+                        distance = LOUDV2( PointSource[1],PointSource[3], v.Position[1],v.Position[3] )
 					
-					if distance <= DistMax then
+                        if distance <= DistMax then
 					
-						if distance >= DistMin then
+                            if distance >= DistMin then
 					
-							-- check if in range of Allied Base
-							if AvoidsBases( v.Position, shouldcheckAvoidBases, DistMin ) then
+                                -- check if in range of Allied Base
+                                if AvoidsBases( v.Position, shouldcheckAvoidBases, DistMin ) then
 						
-								-- the distance between the platoon and the PointSource
-								platdistance = LOUDV2(platpos[1],platpos[3], v.Position[1],v.Position[3])
+                                    -- the distance between the platoon and the PointSource
+                                    platdistance = LOUDV2(platpos[1],platpos[3], v.Position[1],v.Position[3])
 
-								-- insert it into the list of possible choices --
-								positions[counter+1] = {v.Position[1], v.Position[2], v.Position[3], distance, platdistance }
+                                    -- insert it into the list of possible choices --
+                                    positions[counter+1] = {v.Position[1], v.Position[2], v.Position[3], distance, platdistance }
 							
-								counter = counter + 1
-							end
-						end
-					else
-						break -- beyond max distance stop checking --
-					end
-				end
-			end
+                                    counter = counter + 1
+                                end
+                            end
+                        else
+                            break -- beyond max distance stop checking --
+                        end
+                    end
+                end
+            end
 		else
 			-- using BASE as the pointsource tells us that our present base is inserted into the list - distance is 0
 			-- and it will be the ONLY entry in the point list
