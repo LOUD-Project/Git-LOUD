@@ -121,6 +121,8 @@ In approximate chronological order of first contribution.
 
 - c04spoon (joinr)
 	- Evenly distributed random faction spread
+- MostLostNoob#6672
+	- Numerous unit blueprint corrections
 - PhilipJFry (PhilipJFryFAF)
 	- Default map fix, shield-piercing check fix
 - Willem "Jip" Wijnia (Garanas)
