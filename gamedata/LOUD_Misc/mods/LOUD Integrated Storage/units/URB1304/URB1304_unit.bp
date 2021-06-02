@@ -71,7 +71,8 @@ UnitBlueprint {
 		BuildRate = 20,
         BuildTime = 3200,
 		
-        MaintenanceConsumptionPerSecondEnergy = 240,
+        MaintenanceConsumptionPerSecondEnergy = 288,
+        
         ProductionPerSecondMass = 30,
 		
         RebuildBonusIds = {'urb1302'},

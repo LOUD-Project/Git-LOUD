@@ -66,12 +66,12 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 5400,
         BuildCostMass = 900,
-        BuildRate = 15,
+        BuildRate = 16,
         BuildTime = 900,
         
         BuildableCategory = {'ueb1302'},
         
-        MaintenanceConsumptionPerSecondEnergy = 42,
+        MaintenanceConsumptionPerSecondEnergy = 48,
         
         ProductionPerSecondMass = 6,
         

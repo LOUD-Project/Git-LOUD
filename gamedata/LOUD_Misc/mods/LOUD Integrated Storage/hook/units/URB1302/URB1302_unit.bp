@@ -12,7 +12,8 @@ UnitBlueprint {
             'urb1304',
         },
 		
-        MaintenanceConsumptionPerSecondEnergy = 120,
+        MaintenanceConsumptionPerSecondEnergy = 192,
+        
         ProductionPerSecondMass = 18,
 		
         RebuildBonusIds = {
@@ -20,7 +21,7 @@ UnitBlueprint {
             'urb1304',
         },
 		
-		StorageMass = 250,
+		StorageMass = 360,
     },
 	
     General = {

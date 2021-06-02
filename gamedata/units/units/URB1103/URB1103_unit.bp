@@ -89,7 +89,7 @@ UnitBlueprint {
         
         BuildableCategory = {'urb1202'},
         
-        MaintenanceConsumptionPerSecondEnergy = 15,
+        MaintenanceConsumptionPerSecondEnergy = 12,
         
         ProductionPerSecondMass = 2,
         
