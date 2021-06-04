@@ -649,7 +649,7 @@ BuilderGroup {BuilderGroupName = 'ACU Upgrades LOUD',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ MIBC, 'GreaterThanGameTime', { 210 } },            
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 3, 50, 1.02, 1.04 }},			
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 3, 60, 1.025, 1.04 }},			
 			{ UCBC, 'ACUNeedsUpgrade', { 'AdvancedEngineering' }},
         },
 		
@@ -675,7 +675,7 @@ BuilderGroup {BuilderGroupName = 'ACU Upgrades LOUD',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ MIBC, 'GreaterThanGameTime', { 210 } },            
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 3, 50, 1.02, 1.04 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 3, 60, 1.025, 1.04 }},
 			{ UCBC, 'ACUNeedsUpgrade', { 'EnhancedSensors' }},
         },
 		
@@ -701,7 +701,7 @@ BuilderGroup {BuilderGroupName = 'ACU Upgrades LOUD',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ MIBC, 'GreaterThanGameTime', { 210 } },            
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 3, 50, 1.02, 1.04 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 3, 60, 1.025, 1.04 }},
 			{ UCBC, 'ACUNeedsUpgrade', { 'MicrowaveLaserGenerator' }},
         },
 		
@@ -727,7 +727,7 @@ BuilderGroup {BuilderGroupName = 'ACU Upgrades LOUD',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ MIBC, 'GreaterThanGameTime', { 210 } },            
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 3, 50, 1.02, 1.04 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 3, 60, 1.025, 1.04 }},
 			{ UCBC, 'ACUNeedsUpgrade', { 'RegenAura' }},
         },
 		
@@ -750,7 +750,7 @@ BuilderGroup {BuilderGroupName = 'ACU Upgrades LOUD',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 3, 50, 1.02, 1.04 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 3, 60, 1.025, 1.04 }},
 			{ UCBC, 'ACUNeedsUpgrade', { 'T3Engineering' }},
         },
 		
@@ -799,7 +799,7 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ MIBC, 'GreaterThanGameTime', { 210 } },            
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 3, 50, 1.02, 1.04 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 3, 60, 1.025, 1.04 }},
         },
 		
         Priority = 850,

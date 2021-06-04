@@ -169,7 +169,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Engineers',
             
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 1, categories.MOBILE * categories.ENGINEER * categories.TECH3 }},
             
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.02, 1.02 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 60, 1.02, 1.04 }},
             
             { UCBC, 'AboveEngineerCapCheck', { 'LocationType', 'Tech3' } },
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.MOBILE * categories.ENGINEER }},
@@ -192,7 +192,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Engineers',
             
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 1, categories.SUBCOMMANDER }},
             
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.02, 1.02 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 60, 1.02, 1.04 }},
             
             { UCBC, 'AboveEngineerCapCheck', { 'LocationType', 'SCU' } },
         },
