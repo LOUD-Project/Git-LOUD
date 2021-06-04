@@ -106,7 +106,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Land Construction',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.8 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 60, 1.02, 1.04 }},
         },
 		
         BuilderType = { 'SubCommander' },
@@ -146,7 +146,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Land Construction',
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.9 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
 			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 4, categories.STRUCTURE * categories.SHIELD }},
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 3, 50, 1.02, 1.04 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 3, 60, 1.025, 1.045 }},
         },
 		
         BuilderType = { 'SubCommander' },
@@ -186,7 +186,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Land Construction',
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
 			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 4, categories.STRUCTURE * categories.SHIELD }},
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 3, 50, 1.02, 1.02 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 4, 80, 1.03, 1.05 }},
         },
 		
         BuilderType = { 'SubCommander' },
@@ -267,7 +267,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Land Construction - Expansions',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.8 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 60, 1.02, 1.04 }},
         },
 		
         BuilderType = { 'SubCommander' },
@@ -306,7 +306,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Land Construction - Expansions',
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.9 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
 			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 4, categories.STRUCTURE * categories.SHIELD }},
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 50, 1.02, 1.04 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 3, 60, 1.025, 1.045 }},
         },
 		
         BuilderType = { 'SubCommander' },
@@ -345,7 +345,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Land Construction - Expansions',
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
 			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 6, categories.STRUCTURE * categories.SHIELD }},
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 50, 1.02, 1.04 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 4, 80, 1.03, 1.05 }},
         },
 		
         BuilderType = { 'SubCommander' },
@@ -798,7 +798,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Naval Construction',
 
 			{ LUTL, 'PoolLess', { 6, categories.BATTLESHIP }},			
 			
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 50, 1.02, 1.02 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 60, 1.02, 1.04 }},
 			
         },
 		
@@ -839,7 +839,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Naval Construction',
 
 			{ LUTL, 'PoolLess', { 6, categories.BATTLESHIP }},			
 
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 50, 1.02, 1.02 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 60, 1.02, 1.04 }},
 			
         },
 		
@@ -885,7 +885,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Naval Construction - Expansions',
 
 			{ LUTL, 'PoolLess', { 6, categories.BATTLESHIP }},			
 
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 50, 1.02, 1.02 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 60, 1.02, 1.04 }},
 			
         },
 		
@@ -926,7 +926,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Naval Construction - Expansions',
 
 			{ LUTL, 'PoolLess', { 6, categories.BATTLESHIP }},			
 
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 50, 1.02, 1.02 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 60, 1.02, 1.04 }},
 			
         },
 		
