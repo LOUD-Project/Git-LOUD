@@ -167,7 +167,7 @@ function CreateResources()
 					if not tblData.hint then
 					
 						-- Give me a log when a mass point is too close to a start position and needs to be moved
-						-- only 4 points are permitted at a range of 36 - all others will be 55 or greater
+						-- only 4 points are permitted at a range of 35 - all others will be 55 or greater
 						-- those closer than 37.6 will be put at 36 from the start - those greater than 37 will be pushed out to 55
 						if doit and VDist2(armyposition[1],armyposition[3], tblData.position[1], tblData.position[3]) > 37.6 then
                         

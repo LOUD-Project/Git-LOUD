@@ -178,6 +178,28 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Engineers',
         BuilderType = {'AirT3','LandT3','SeaT3'},
     },
 
+	
+	-- this builder will add SACU above the cap when resources are very high
+    -- and only if there are no idle SACU
+    Builder {BuilderName = 'Sub Commander - Extra',
+    
+        PlatoonTemplate = 'T3LandSubCommander',
+        
+        Priority = 650,
+        
+        BuilderConditions = {
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},        
+            
+			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 1, categories.SUBCOMMANDER }},
+            
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.02, 1.02 }},
+            
+            { UCBC, 'AboveEngineerCapCheck', { 'LocationType', 'SCU' } },
+        },
+        
+        BuilderType = {'Gate'},
+    },
+
 }
 
 --[[

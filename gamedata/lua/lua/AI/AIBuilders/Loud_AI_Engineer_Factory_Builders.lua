@@ -133,7 +133,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction',
         Priority = 800,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .65 } },
+            { LUTL, 'UnitCapCheckLess', { .75 } },
+			{ LUTL, 'LandStrengthRatioLessThan', { 4 } },
 			
             { UCBC, 'FactoryCapCheck', { 'LocationType', 'LAND' }},
 			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 2, categories.LAND * categories.TECH1 }},
@@ -171,7 +172,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction',
         Priority = 801,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .65 } },
+            { LUTL, 'UnitCapCheckLess', { .75 } },
 			
 			{ UCBC, 'FactoryCapCheck', { 'LocationType', 'AIR' }},
 			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 2, categories.AIR * categories.TECH1 }},
