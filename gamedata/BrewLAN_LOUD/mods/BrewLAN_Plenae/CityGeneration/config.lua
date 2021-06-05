@@ -21,7 +21,7 @@ config = {
             },
             {
                 text = "<LOC CityscapesSpawn_LOB_false>No Slots",
-                help = "<LOC CityscapesSpawn_LOB_falseD>Cities won't spawn at player spawn location.",
+                help = "<LOC CityscapesSpawn_LOB_falseD>Cities won't spawn at player spawn locations.",
                 key = 'false',
             },
         },
@@ -96,7 +96,7 @@ config = {
     },
     {   default = 2,
         label = "<LOC CityscapesSize_LOB>Cityscapes: City Size",
-        help = "<LOC CityscapesSize_LOB_D>Determines how large cities will generate to be. Disproportionately cities in occupied slots.",
+        help = "<LOC CityscapesSize_LOB_D>Determines how large cities will generate to be. Disproportionately affects cities in occupied slots.",
         key = 'CityscapesSize',
         values = {
             {
