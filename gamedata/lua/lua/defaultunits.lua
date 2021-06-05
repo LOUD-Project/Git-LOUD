@@ -620,10 +620,21 @@ StructureUnit = Class(Unit) {
 
 		-- factories --
 		if EntityCategoryContains( categories.FACTORY - categories.EXPERIMENTAL, finishedUnit ) then
+        
+            local initialdelay = 150
+            local checkrate = 18
+            
+            -- after 30 minutes factories have NO upgrade delay period
+            -- allowing them to go right into upgrade if conditions permit
+            -- and will check for being able to upgrade at a faster rate
+            if aiBrain.CycleTime > 1800 then
+                initialdelay = 0
+                checkrate = 14
+            end
 
 			if not finishedUnit.UpgradeThread then
 
-				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, 1.0075, 1.015, 9999, 9999, 18, 150, false )
+				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, 1.0075, 1.015, 9999, 9999, checkrate, initialdelay, false )
 
 			end
 		end

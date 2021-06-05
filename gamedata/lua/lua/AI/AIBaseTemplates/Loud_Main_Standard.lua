@@ -129,8 +129,8 @@ BaseBuilderTemplate {
         
 		-- This controls the upper limit on factories at this base
         FactoryCount = {
-            LAND = 7,
-            AIR = 8,
+            LAND = 9,
+            AIR = 9,
             SEA = 0,
             GATE = 1,
         },
