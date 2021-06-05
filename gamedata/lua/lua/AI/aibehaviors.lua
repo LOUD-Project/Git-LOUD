@@ -6688,11 +6688,11 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
     local masslimit = .84
     local energylimit = .5
 	
-	while ((not unit.Dead) or unit.Sync.id) and upgradeable and not upgradeIssued do
+	while ((not unit.Dead) or unit.Sync.id) and upgradeable and (not upgradeIssued) do
 	
 		WaitTicks(checkrate * 10)
 		
-        if aiBrain.UpgradeIssued < aiBrain.UpgradeIssuedLimit then
+        if aiBrain.UpgradeIssued < aiBrain.UpgradeIssuedLimit and (not unit.BeingReclaimed) then
 
 			EnergyStorage = GetEconomyStored( aiBrain, 'ENERGY')
 			MassStorage = GetEconomyStored( aiBrain, 'MASS')
