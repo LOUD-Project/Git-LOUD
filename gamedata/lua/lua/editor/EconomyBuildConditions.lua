@@ -170,6 +170,8 @@ end
 
 function GreaterThanEconEfficiencyOverTime(aiBrain, mEfficiency, eEfficiency)
 
+    --LOG("*AI DEBUG "..aiBrain.Nickname.." Econ Efficiency M "..aiBrain.EcoData['OverTime'].MassEfficiency.."  E "..aiBrain.EcoData['OverTime'].EnergyEfficiency )
+
     return (aiBrain.EcoData['OverTime'].MassEfficiency >= mEfficiency and aiBrain.EcoData['OverTime'].EnergyEfficiency >= eEfficiency)
 end
 

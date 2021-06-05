@@ -6698,7 +6698,7 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 			MassStorage = GetEconomyStored( aiBrain, 'MASS')
 
             if (econ.MassEfficiency >= masslowtrigger and econ.EnergyEfficiency >= energylowtrigger)
-				or ((GetEconomyStoredRatio(aiBrain, 'MASS') > .80 and GetEconomyStoredRatio(aiBrain, 'ENERGY') > .80))
+				or ((GetEconomyStoredRatio(aiBrain, 'MASS') > .76 and GetEconomyStoredRatio(aiBrain, 'ENERGY') > .76))
 				or (MassStorage > (MassNeeded * masslimit) and EnergyStorage > (EnergyNeeded * energylimit ) ) then
 				
 				--low_trigger_good = true
@@ -6732,12 +6732,16 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 
 						if not unit.Dead then
 					
-							-- if upgrade issued and not completely full --
-							if GetEconomyStoredRatio(aiBrain, 'MASS') < 1 or GetEconomyStoredRatio(aiBrain, 'ENERGY') < 1 then
+							-- if an upgrade was issued and resources were not completely full then delay for the full period --
+                            -- otherwise - if full on mass OR energy - use only half the delay period --
+							if GetEconomyStoredRatio(aiBrain, 'MASS') < 1 and GetEconomyStoredRatio(aiBrain, 'ENERGY') < 1 then
                             
 								ForkThread(SelfUpgradeDelay, aiBrain, aiBrain.UpgradeIssuedPeriod)  -- delay the next upgrade by the full amount
+                                
 							else
+                            
                                 ForkThread(SelfUpgradeDelay, aiBrain, aiBrain.UpgradeIssuedPeriod * .5)     -- otherwise halve the delay period
+                                
                             end
 
 							upgradeIssued = true
