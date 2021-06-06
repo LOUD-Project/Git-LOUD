@@ -1,3 +1,49 @@
+### Release 05-06-2021 ###
+Lua 5.4.20
+LOUD Units 1.1.01
+Units 6.1.01
+
+- The 30% increase to reclaim time added in Lua 5.4.18 has been reduced to a 20% increase.
+- Tech 1 Mass Extractor energy consumption per second: 15 -> 12.
+- Tech 2 Mass Extractor energy consumption per second: 42 -> 48.
+- Tech 2 Mass Extractors upgrade a little bit faster.
+- Tech 3 Mass Extractor energy consumption per second: 120 -> 192.
+- Tech 3 Integrated Storage Mass Extractor energy consumption per second: 240 -> 288.
+- The Cybran Tech 3 Mass Extractor, when Integrated Storage is activated, has more mass storage (250 -> 360).
+- Omen Class (Aeon Tech 3 Battleship):
+ |--> Rate of health regeneration added per veterancy level: 5 -> 18.
+ |--> Base health regeneration rate per second: 16 -> 18.
+ |--> Energy build cost: 54000 -> 51300.
+ |--> Main cannon damage: 1000 -> 1050.
+ |--> Main cannon accuracy increased moderately.
+ |--> Main cannon minimum range: 0m -> 20m; maximum range: 200m -> 220m.
+ |--> Main cannon muzzle velocity reduced moderately, and made somewhat random.
+- Summit Class (UEF Tech 3 Battleship):
+ |--> Rate of health regeneration added per veterancy level: 15 -> 20.
+ |--> Front cannons damage: 470 -> 480.
+ |--> Front cannons minimum range: minimum range: 0m -> 10m.
+ |--> Rear cannon (faster, only 1 shell/volley) damage: 900 -> 960.
+ |--> Rear cannon area-of-effect radius: 4m -> 5m.
+ |--> Rear cannon minimum range: 0m -> 8m.
+ |--> Muzzle velocity of all cannons slightly decreased, and made somewhat random.
+ |--> Accuracy of all cannons increased moderately.
+- Galaxy Class (Cybran Tech 3 Battleship):
+ |--> Rate of health regeneration added per veterancy level: 10 -> 24.
+ |--> Maximum health: 40000 -> 39500.
+ |--> Base health regeneration rate per second: 18 -> 24.
+ |--> Main cannon range: 220m -> 200m.
+ |--> Main cannon rate of fire (salvoes per second): 0.25 -> 0.75.
+ |--> Anti-air cannon rate of fire (salvoes per second): 2 -> 1.
+- AI: Don't scout any locations outside the area humans can play in.
+- AI: The main base can expand to include a few more factories.
+- AI: Can now build unlimited Support Armored Command Units if resources are abundant.
+- AI: Higher economic requirements for building of experimental units.
+- AI: More aggressive upgrading of existing units (e.g. factories with LOUD Structure Enhancements).
+- AI: Factories built after 30 minutes no longer have a delay before checking whether to upgrade.
+- AI: Factories check more often to determine if they should upgrade (18 -> 14 seconds).
+- AI: Fix units starting upgrades when they are marked to be reclaimed.
+- Fixes to the grid alignment on some vanilla Forged Alliance units.
+
 ### Release 29-05-2021 ###
 Lua 5.4.19
 Total Mayhem 6.1.1
@@ -35,7 +81,7 @@ LOUD Misc 5.5.01
  |--> Tech 4 Combat Engineering added maximum health: 60000 -> 40000.
  |--> Tech 4 Combat Engineering added health regeneration: 90 -> 60.
 - All wreckages now contain 16% less of the original unit's mass worth.
-- All wreckages now take 20% longer to reclaim.
+- All wreckages now take 30% longer to reclaim.
 - AI: Support units (e.g. mobile shields) move more cohesively with platoons.
 - AI: Units will more smartly consider current resources when choosing to self-upgrade.
 - Fix: The "Tanksy's Experiments" mod no longer conflicts with itself.
@@ -67,7 +113,7 @@ Wyvern Battle Pack 1.1
  |--> Balance and sanity not guaranteed.
 - The Ace (UEF Tech 3 Strategic Missile Submarine) doesn't get excluded from the game by the "No Nukes" unit restriction; instead, it only has its nuclear weapon disabled.
 - Several small unit rebalances:
- |--> "Absolver" (Aeon Tech 3 Shield Disruptor)
+ |--> Absolver (Aeon Tech 3 Shield Disruptor)
  |-- |--> Main gun damage: 20 -> 5.
  |-- |--> Damage of main gun to shields: 100 -> 1300.
  |--> Ilthysathuum (Seraphim Tech 3 Lambda-Equipped Assault Bot)
