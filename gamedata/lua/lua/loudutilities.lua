@@ -2750,8 +2750,9 @@ function DeadBaseMonitor( aiBrain )
 							aiBrain.NumBasesLand = aiBrain.NumBasesLand - 1
 						end
 					
-						aiBrain.NumBases = aiBrain.NumBases - 1
 					end
+                    
+					aiBrain.NumBases = aiBrain.NumBases - 1
 
 					-- remove the visible marker from the map
 					if ScenarioInfo.DisplayBaseNames then
