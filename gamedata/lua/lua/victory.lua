@@ -5,23 +5,23 @@ function CheckVictory(ScenarioInfo)
 	local victoryTime = false
 	
     if ScenarioInfo.Options.Victory == 'demoralization' then
-        -- Assassination - dead commander
+        -- Assassination - Player is defeated when the Commander is destroyed
         categoryCheck = categories.COMMAND
 		
 	elseif ScenarioInfo.Options.Victory == 'decapitation' then
-		-- Advanced Assassination - dead commander and no subcommanders
-		categoryCheck = categories.COMMAND+categories.SUBCOMMANDER
+		-- Advanced Assassination - Player is defeated when the Commander and all Support Commanders are destroyed
+		categoryCheck = categories.COMMAND + categories.SUBCOMMANDER
 		
     elseif ScenarioInfo.Options.Victory == 'domination' then
-        -- You're dead if all structures and engineers are destroyed
-        categoryCheck = categories.STRUCTURE+categories.ENGINEER - categories.WALL
-		
+        -- Supremacy - Player is defeated when all engineers, factories and any unit that can build an engineer are destroyed
+        categoryCheck = categories.ENGINEER + categories.FACTORY + categories.BRMT3AVA + categories.XRL0403 + categories.SSL0403 - categories.CARRIER - categories.RESEARCHCENTRE - categories.UAB0305 - categories.URB0305 - categories.XSB0305 - categories.UEB0305 - categories.SRB5310 - categories.SEB5310 - categories.BSB2402 - categories.SEB3303
+	
     elseif ScenarioInfo.Options.Victory == 'eradication' then
-        -- You're dead if you have no units
-        categoryCheck = categories.ALLUNITS-categories.WALL
+        -- Annihilation - Player is defeated when all structures (except walls) and all units are destroyed
+        categoryCheck = categories.ALLUNITS - categories.WALL
 	
     else
-        -- sandbox -- no victory condition
+        -- Sandbox -- Player is never defeated
         categoryCheck = false
     end
 	

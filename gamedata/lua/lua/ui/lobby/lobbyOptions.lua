@@ -358,28 +358,28 @@ globalOpts = {
         pref = 'Lobby_Gen_Victory',
         values = {
 			{
-				text = "Advanced Assassination",
-				help = "Game ends when Commander and all support Commanders are destroyed",
+				text = "<LOC lobui_0130>Advanced Assassination",
+				help = "<LOC lobui_0131>Player is defeated when the Commander and all Support Commanders are destroyed",
 				key = 'decapitation',
 			},
             {
                 text = "<LOC lobui_0124>Supremacy",
-                help = "<LOC lobui_0125>Game ends when all factory structures, Commanders and engineers are destroyed",
+                help = "<LOC lobui_0125>Player is defeated when all engineers, factories and any unit that can build an engineer are destroyed",
                 key = 'domination',
             },
             {
                 text = "<LOC lobui_0126>Annihilation",
-                help = "<LOC lobui_0127>Game ends when all units are destroyed",
+                help = "<LOC lobui_0127>Player is defeated when all structures (except walls) and all units are destroyed",
                 key = 'eradication',
             },
             {
                 text = "<LOC lobui_0128>Sandbox",
-                help = "<LOC lobui_0129>Game never ends - you must end game manually",
+                help = "<LOC lobui_0129>Player is never defeated",
                 key = 'sandbox',
             },
             {
                 text = "<LOC lobui_0122>Assassination",
-                help = "<LOC lobui_0123>Game ends when the Commander is destroyed",
+                help = "<LOC lobui_0123>Player is defeated when the Commander is destroyed",
                 key = 'demoralization',
             },
         },

@@ -1228,23 +1228,23 @@ Tooltips = {
     },
     lob_Victory_decapitation = {
         title = "Advanced Assassination",
-        description = "Game will end when all enemy Commanders and Subcommanders are dead",
+        description = "Player is defeated when the Commander and all Support Commanders are destroyed",
     },
     lob_Victory_demoralization = {
         title = 'Assassination',
-        description = 'Destroy the enemy Commander',
+        description = 'Player is defeated when the Commander is destroyed',
     },
     lob_Victory_domination = {
         title = 'Supremacy',
-        description = 'Destroy all production structures, engineers and other builders.',
+        description = 'Player is defeated when all engineers, factories and any unit that can build an engineer are destroyed',
     },
     lob_Victory_eradication = {
         title = 'Annihilation',
-        description = 'Destroy all enemy forces',
+        description = 'Player is defeated when all structures (except walls) and all units are destroyed',
     },
     lob_Victory_sandbox = {
         title = 'Sandbox',
-        description = 'Your only defeat is leaving the game',
+        description = 'Player is never defeated',
     },
 
     -- **********************
@@ -2028,99 +2028,99 @@ Tooltips = {
 
     restricted_units_T1 = {
         title = "No Tech 1",
-        description = "Players will not be able to build tech 1 units",
+        description = "Players will not be able to build Tech 1 structures or units",
     },
     restricted_units_T2 = {
         title = "No Tech 2",
-        description = "Players will not be able to build tech 2 units",
+        description = "Players will not be able to build Tech 2 structures or units",
     },
     restricted_units_T3 = {
         title = "No Tech 3",
-        description = "Players will not be able to build tech 3 units",
+        description = "Players will not be able to build Tech 3 structures or units",
     },
     restricted_units_experimental = {
-        title = "No Experimental",
-        description = "Players will not be able to build experimental units",
+        title = "No Experimental/Tech 4",
+        description = "Players will not be able to build Experimental/Tech 4 structures or units",
     },
     restricted_units_naval = {
         title = "No Naval",
-        description = "Players will not be able to build mobile naval units",
+        description = "Players will not be able to build Naval structures or units",
     },
     restricted_units_land = {
         title = "No Land",
-        description = "Players will not be able to build mobile land units",
+        description = "Players will not be able to build Land structures or units",
     },
     restricted_units_air = {
         title = "No Air",
-        description = "Players will not be able to build mobile air units",
+        description = "Players will not be able to build Air units",
     },
     restricted_units_air_scouts = {
         title = "No Air Scouts",
-        description = "Players cannot build scout or spy planes.",
+        description = "Players will not be able to build decoy, recon, scout or spy planes",
     },
     restricted_units_air_fighters = {
         title = "No Air Fighters",
-        description = "Players cannot build interceptors or other Air to Air aircraft.",
+        description = "Players will not be able to build interceptors or other Air-to-Air aircraft",
     },
     restricted_units_air_bombers = {
         title = "No Air Bombers",
-        description = "Players cannot build any bombers",
+        description = "Players will not be able to build any bombers",
     },
     restricted_units_air_gunships = {
         title = "No Air Gunships",
-        description = "Players cannot build any standard or experimental gunships",
+        description = "Players will not be able to build any standard or experimental gunships",
     },
     restricted_units_air_torpedobombers = {
-        title = "No Torpedo bombers",
-        description = "Players cannot build any torpedo bombers",
+        title = "No Torpedo Bombers",
+        description = "Players will not be able to build any torpedo bombers",
     },
     restricted_units_air_transports = {
         title = "No Air Transports",
-        description = "Players cannot build any standard or experimental transports",
+        description = "Players will not be able to build any standard or experimental transports",
     },
     restricted_units_air_experimentals = {
-        title = "No Experimental air units",
-        description = "No Air Experimentals can be built",
+        title = "No Air Experimentals",
+        description = "Players will not be able to build any air experimentals",
     },
-    restricted_units_tactical = {
-        title = "No Tactical missile structures.",
-        description = "Players will not be able to build T2 and T3 tactical missile launching structures.",
+    restricted_units_tml = {
+        title = "No TMLs",
+        description = "Players will not be able to build Tactical Missile Launchers",
     },
     restricted_units_nukes = {
         title = "No Nukes",
-        description = "Players will not be able to build any nuke launching units - launchers, subs or battleships ",
+        description = "Players will not be able to build nuke defences or launchers",
     },
-    restricted_units_T3_Tactical_artillery = {
-        title = "No T3 Artillery structures.",
-        description = "Players will not be able to build T3 Tactical (Barrage) artillery.",
+    restricted_units_T3_tactical_artillery = {
+        title = "No T3 Barrage Artillery",
+        description = "Players will not be able to build T3 Barrage Artillery",
     },
-    restricted_units_T3_Strategic_artillery = {
-        title = "No T3 Strategic Artillery.",
-        description = "Players will not be able to build T3 Strategic artillery.",
+    restricted_units_T3_strategic_artillery = {
+        title = "No T3 Strategic Artillery",
+        description = "Players will not be able to build T3 Strategic Artillery",
     },
     restricted_units_exp_artillery = {
-        title = "No Experimental Artillery",
-        description = "Players will not be able to build T4 Experimental (Mavor, Scathis, Yolona Oss, Salvation) artillery.",
+        title = "No Experimental/T4 Artillery",
+        description = "Players will not be able to build Experimental/T4 Artillery",
     },
-    restricted_units_bubbles = {
-        title = "No Bubbles",
-        description = "Players will not be able to build mobile shield generators or shield defenses",
+    restricted_units_shields = {
+        title = "No Shields",
+        description = "Players will not be able to build mobile or stationary shield generators",
+    },
+    restricted_units_sacu = {
+        title = "No Support Commanders (SACUs)",
+        description = "Players will not be able to build Support Commanders -- NOTE: THIS WILL PREVENT THE BUILDING OF ALMOST ALL EXPERIMENTAL UNITS",
     },
     restricted_units_intel = {
         title = "No Intel Structures",
-        description = "Players will not be able to build radar, sonar and omni installations",
-    },
-    restricted_units_supcom = {
-        title = "No Support Commanders",
-        description = "Players will not be able to build support commanders -- NOTE: THIS WILL PREVENT THE BUILDING OF ALMOST ALL EXPERIMENTAL UNITS",
+        description = "Players will not be able to build Radar, Sonar or Omni installations",
     },
     restricted_units_massfab = {
-        title = "No Fabrication",
-        description = "Players will not be able to build mass fabricators"
+        title = "No Mass Fabrication",
+        description = "Players will not be able to build Mass Fabricators, including Experimental Resource Generators"
     },
     restricted_units_altair = {
-        title = "Alternative Air",
-        description = "All air units available, except in Tech 3; Tech 3 air production is limited to air scouts, fighters, and torpedo bombers. Penetration planes and decoy planes are also prohibited.",
+        title = "T3 Alternative Air Production",
+        description = "T3 air production is limited to spy planes, ASFs and torpedo bombers",
     },
 
     -- ************************
