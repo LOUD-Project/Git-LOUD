@@ -73,9 +73,9 @@ UnitBlueprint {
     Defense = {
         ArmorType = 'Experimental',
 		EconomyThreatLevel = 90,
-        Health = 43000,
-        MaxHealth = 43000,
-        RegenRate = 12,
+        Health = 41000,
+        MaxHealth = 41000,
+        RegenRate = 10,
         SurfaceThreatLevel = 417.6,
     },
 	
@@ -229,8 +229,8 @@ UnitBlueprint {
         },
         DragCoefficient = 0.2,
         LayerChangeOffsetHeight = -3,
-        MaxAcceleration = 0.85,
-        MaxSpeed = 2.3,
+        MaxAcceleration = 0.45,
+        MaxSpeed = 2.4,
         MaxSpeedReverse = 2.3,
         MaxSteerForce = 0,
         MinSpeedPercent = 0,
@@ -313,7 +313,10 @@ UnitBlueprint {
             DisplayName = 'Heavy Microwave Laser',
 			
 			DoNotCollideList = {'MISSILE'},
-			
+            
+            EnergyRequired = 22000,
+            EnergyDrainPerSecond = 2000,    -- recharge weapon in 11 seconds
+
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',

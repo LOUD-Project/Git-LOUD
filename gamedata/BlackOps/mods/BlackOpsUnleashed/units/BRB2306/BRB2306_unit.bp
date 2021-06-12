@@ -193,7 +193,7 @@ UnitBlueprint {
             ContinuousBeam = false,
 			
             Damage = 75,
-            DamageRadius = 1.5,
+            DamageRadius = 0,
             DamageType = 'Normal',
             DisplayName = 'Microwave Beam',
 			
@@ -232,9 +232,9 @@ UnitBlueprint {
             },
 
             RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,	---- 1 second to charge as per script
+            RackSalvoChargeTime = 0,
             RackSalvoFiresAfterCharge = false, 
-            RackSalvoReloadTime = 0, 	---- 2.5 seconds after firing
+            RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
 			
             RangeCategory = 'UWRC_DirectFire',
@@ -253,16 +253,20 @@ UnitBlueprint {
                 'MISSILE',
             },
             TrackingRadius = 1.1,
+            
             TurretBoneMuzzle = 'Muzzle01',
             TurretBonePitch = 'Barrel',
             TurretBoneYaw = 'Turret',
             TurretDualManipulators = false,
+            
             TurretPitch = 0,
             TurretPitchRange = 180,
             TurretPitchSpeed = 120,
+            
             TurretYaw = 0,
             TurretYawRange = 360,
             TurretYawSpeed = 45,
+            
             Turreted = true,
         },
         {
@@ -351,12 +355,15 @@ UnitBlueprint {
             TurretBonePitch = 'Muzzle02',
             TurretBoneYaw = 'Muzzle02',
             TurretDualManipulators = false,
+            
             TurretPitch = 0,
             TurretPitchRange = 360,
             TurretPitchSpeed = 180,
+            
             TurretYaw = 0,
             TurretYawRange = 360,
             TurretYawSpeed = 50,
+            
             Turreted = true,
         },
     },

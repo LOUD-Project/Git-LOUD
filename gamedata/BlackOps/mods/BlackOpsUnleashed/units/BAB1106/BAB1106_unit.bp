@@ -39,7 +39,7 @@ UnitBlueprint {
         EconomyThreatLevel = 108,
         Health = 7200,
         MaxHealth = 7200,
-        RegenRate = 3,
+        RegenRate = 5,
     },
 	
     Description = '<LOC bab1106_desc>Mass & Energy Storage',
@@ -62,13 +62,14 @@ UnitBlueprint {
     Economy = {
         AdjacentMassProductionMod = 0.25,
 		AdjacentEnergyProductionMod = 2,
-        BuildCostEnergy = 14400,
-        BuildCostMass = 2400,
-        BuildTime = 3000,
+        
+        BuildCostEnergy = 13000,
+        BuildCostMass = 2060,
+        BuildTime = 2700,
 		
         RebuildBonusIds = {'bab1106'},
 		
-        StorageMass = 750,
+        StorageMass = 1000,
 		StorageEnergy = 7500,
     },
 	
@@ -78,7 +79,7 @@ UnitBlueprint {
     },
 	
     General = {
-		CapCost = 0.33,
+		CapCost = 0.5,
         Category = 'Economy',
         Classification = 'RULEUC_Resource',
         FactionName = 'Aeon',
@@ -130,9 +131,9 @@ UnitBlueprint {
 	
     Weapon = {
         {
-            Damage = 1500,
+            Damage = 450,
             DamageFriendly = true,
-            DamageRadius = 5,
+            DamageRadius = 3,
             DamageType = 'Normal',
             DisplayName = 'Death Weapon',
             DummyWeapon = true,

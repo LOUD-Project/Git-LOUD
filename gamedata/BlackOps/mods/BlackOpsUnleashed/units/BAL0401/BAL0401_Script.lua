@@ -106,7 +106,7 @@ BAL0401 = Class(AWalkingLandUnit) {
 					
 						WaitTicks( bp.ProjectileIntervalTicks )
 						
-						pos[2] = pos0[2] + 70 or 70
+						pos[2] = pos0[2] + 65 or 65
 						pos[1] = pos0[1] + xadj[i]
 						pos[3] = pos0[3] + zadj[i]
 						

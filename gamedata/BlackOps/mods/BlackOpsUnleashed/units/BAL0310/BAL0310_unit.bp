@@ -52,6 +52,7 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
     },
+    
     Defense = {
         ArmorType = 'Normal',
         Health = 5000,
@@ -111,15 +112,19 @@ UnitBlueprint {
         UnitName = '<LOC bal0310_name>Wraith',
         UnitWeight = 1,
     },
+    
     Intel = {
         VisionRadius = 30,
     },
+    
     Interface = {
         HelpText = 'Heavy Hover Tank',
     },
+    
     LifeBarHeight = 0.08,
     LifeBarOffset = 0.5,
     LifeBarSize = 1,
+    
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -147,15 +152,19 @@ UnitBlueprint {
     SelectionSizeX = 1.0,
     SelectionSizeZ = 1.4,
     SelectionThickness = 0.3,
+    
     SizeX = 1.0,
     SizeY = 0.7,
     SizeZ = 1.9,
+    
     StrategicIconName = 'icon_surface3_directfire',
     StrategicIconSortPriority = 115,
+    
     Transport = {
         CanFireFromTransport = false,
         TransportClass = 3,
     },
+    
     Veteran = {
         Level1 = 10,
         Level2 = 20,
@@ -163,6 +172,7 @@ UnitBlueprint {
         Level4 = 40,
         Level5 = 50,
     },
+    
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
