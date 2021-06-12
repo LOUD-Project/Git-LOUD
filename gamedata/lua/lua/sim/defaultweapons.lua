@@ -907,6 +907,9 @@ DefaultProjectileWeapon = Class(Weapon) {
                     if self.HaltFireOrdered then
                         continue
                     end
+                
+                    self.FirstShot = false
+                    self:StartEconomyDrain(bp)
 					
 					-- create the projectile --
                     self:CreateProjectileAtMuzzle(muzzle)
@@ -943,6 +946,10 @@ DefaultProjectileWeapon = Class(Weapon) {
                         end
                     end
                 end
+     
+                if self.EconDrain then
+                    WaitFor(self.EconDrain)
+                end
                 
                 if bp.CameraShakeRadius or bp.ShipRock or bp.RackRecoilDistance != 0 then
                     self:PlayFxRackReloadSequence(bp)
@@ -953,15 +960,10 @@ DefaultProjectileWeapon = Class(Weapon) {
                     self.CurrentRackSalvoNumber = self.CurrentRackSalvoNumber + 1
                 end
             end
-            
 
 			if bp.Buffs then
 				self:DoOnFireBuffs(bp.Buffs)
 			end
-
-            self.FirstShot = false
-
-            self:StartEconomyDrain(bp)
 
             self.HaltFireOrdered = false
 
@@ -1147,6 +1149,10 @@ DefaultProjectileWeapon = Class(Weapon) {
             self.unit:SetBusy(true)
 			
             local bp = GetBlueprint(self)
+			
+			-- reset the rack count - this is usually done
+            -- in the IdleState --
+            self.CurrentRackSalvoNumber = 1
             
 			if bp.WeaponRepackTimeout then
 				WaitSeconds(bp.WeaponRepackTimeout)
