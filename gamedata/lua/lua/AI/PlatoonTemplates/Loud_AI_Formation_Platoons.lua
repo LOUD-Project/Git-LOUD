@@ -253,7 +253,7 @@ PlatoonTemplate { Name = 'ReinforceLandPlatoonSupport',
     GlobalSquads = {
 		{ categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.ENGINEER - categories.EXPERIMENTAL, 0, 6, 'Attack', 'none'},
         { categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL, 0, 4, 'Artillery', 'none' },
-        { categories.LAND * categories.MOBILE * categories.ANTIAIR, 4, 12, 'Guard', 'none'},
+        { categories.LAND * categories.MOBILE * categories.ANTIAIR, 0, 12, 'Guard', 'none'},
 		{ categories.LAND * categories.MOBILE * categories.SHIELD, 0, 3, 'Support', 'none' },
 		{ categories.LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE, 0, 2, 'Support', 'none' },
         { (categories.LAND * categories.MOBILE * categories.SCOUT), 0, 2, 'Support', 'none' },
@@ -263,7 +263,7 @@ PlatoonTemplate { Name = 'ReinforceLandPlatoonSupport',
 PlatoonTemplate { Name = 'T1ArtilleryAttack',
     Plan = 'LandForceAILOUD',
     GlobalSquads = {
-        { categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL, 5, 15, 'Artillery', 'none' },
+        { categories.LAND * categories.MOBILE * categories.INDIRECTFIRE, 5, 15, 'Artillery', 'none' },
         { categories.LAND * categories.MOBILE * categories.ANTIAIR, 0, 4, 'Guard', 'none' },
 		{ categories.LAND * categories.MOBILE * categories.SHIELD, 0, 1, 'Support', 'none'},
 		{ categories.LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE, 0, 1, 'Support', 'none'},
@@ -329,8 +329,8 @@ PlatoonTemplate { Name = 'T2LandAttack',
 PlatoonTemplate { Name = 'T3LandAttack',
     Plan = 'LandForceAILOUD',
     GlobalSquads = {
-        { (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS) - categories.SCOUT - categories.ENGINEER - categories.EXPERIMENTAL, 40, 72, 'Attack', 'none' },
-		{ categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL, 12, 24, 'Artillery', 'none' },
+        { (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS) - categories.SCOUT - categories.ENGINEER, 40, 72, 'Attack', 'none' },
+		{ categories.LAND * categories.MOBILE * categories.INDIRECTFIRE, 12, 24, 'Artillery', 'none' },
         { categories.LAND * categories.MOBILE * categories.ANTIAIR, 0, 18, 'Guard', 'none' },
 		{ categories.LAND * categories.MOBILE * categories.SHIELD, 0, 10, 'Support', 'none'},
 		{ categories.LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE, 0, 4, 'Guard', 'none'},
@@ -341,26 +341,24 @@ PlatoonTemplate { Name = 'T3LandAttack',
 PlatoonTemplate { Name = 'T3LandAttackNW',
     Plan = 'LandForceAILOUD',
     GlobalSquads = {
-        { categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.ENGINEER - categories.EXPERIMENTAL, 40, 72, 'Attack', 'none' },
-		{ categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL, 12, 24, 'Artillery', 'none' },
+        { categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.ENGINEER, 40, 72, 'Attack', 'none' },
+		{ categories.LAND * categories.MOBILE * categories.INDIRECTFIRE, 12, 24, 'Artillery', 'none' },
         { categories.LAND * categories.MOBILE * categories.ANTIAIR, 0, 18, 'Guard', 'none' },
 		{ categories.LAND * categories.MOBILE * categories.SHIELD, 0, 10, 'Support', 'none'},
 		{ categories.LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE, 0, 5, 'Guard', 'none'},
         { (categories.LAND * categories.MOBILE * categories.SCOUT), 0, 2, 'Support', 'none' },
-		{ (categories.LAND * categories.MOBILE * categories.EXPERIMENTAL) - categories.url0401, 0, 6, 'Attack', 'none' },
     },
 }
 
 PlatoonTemplate { Name = 'LandAttackHugeNW',
     Plan = 'LandForceAILOUD',
     GlobalSquads = {
-        { categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.ENGINEER - categories.EXPERIMENTAL, 70, 100, 'Attack', 'none' },
-		{ categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL, 12, 24, 'Artillery', 'none' },
+        { categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.ENGINEER, 70, 100, 'Attack', 'none' },
+		{ categories.LAND * categories.MOBILE * categories.INDIRECTFIRE, 12, 24, 'Artillery', 'none' },
         { categories.LAND * categories.MOBILE * categories.ANTIAIR, 0, 18, 'Guard', 'none' },
 		{ categories.LAND * categories.MOBILE * categories.SHIELD, 0, 10, 'Support', 'none'},
 		{ categories.LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE, 0, 5, 'Guard', 'none'},
         { (categories.LAND * categories.MOBILE * categories.SCOUT), 0, 2, 'Support', 'none' },
-		{ (categories.LAND * categories.MOBILE * categories.EXPERIMENTAL) - categories.url0401, 0, 10, 'Attack', 'none' },
     },
 }
 
@@ -642,7 +640,6 @@ PlatoonTemplate { Name = 'SeaAttack Small',
 			{ categories.DESTROYER, 1, 6, 'Attack', 'none' },									# Destroyers
 			{ categories.CRUISER, 2, 5, 'Artillery', 'none' },									# Cruisers
 			{ categories.FRIGATE, 5, 12, 'Attack', 'none' },									# Frigates
-			--{ categories.SUBMARINE + categories.LIGHTBOAT, 7, 16, 'Attack', 'none' },			# Submarines & Coopers
 			{ categories.DEFENSIVEBOAT, 1, 1, 'Guard', 'none' },								# UEF Shield
 
         },
@@ -652,7 +649,6 @@ PlatoonTemplate { Name = 'SeaAttack Small',
 			{ categories.DESTROYER, 2, 6, 'Attack', 'none' },									# Destroyers
 			{ categories.CRUISER, 2, 5, 'Attack', 'none' },										# Cruisers
 			{ categories.FRIGATE, 5, 12, 'Attack', 'none' },									# Frigates
-			--{ categories.SUBMARINE, 7, 12, 'Artillery', 'none' },								# Submarines
 			{ categories.DEFENSIVEBOAT, 6, 6, 'Guard', 'none' },								# T1 Shard AA boat
 		
         },
@@ -662,7 +658,6 @@ PlatoonTemplate { Name = 'SeaAttack Small',
 			{ categories.DESTROYER, 1, 6, 'Attack', 'none' },									# Destroyers
 			{ categories.CRUISER, 2, 5, 'Artillery', 'none' },									# Cruisers
 			{ categories.FRIGATE, 5, 12, 'Attack', 'none' },									# Frigates
-			--{ categories.SUBMARINE, 7, 12, 'Artillery', 'none' },								# Submarines
 			{ categories.DEFENSIVEBOAT, 1, 1, 'Guard', 'none' },								# Cyb CounterIntel
 			
         },
@@ -672,7 +667,6 @@ PlatoonTemplate { Name = 'SeaAttack Small',
 			{ categories.DESTROYER, 1, 6, 'Artillery', 'none' },								# Destroyers
 			{ categories.CRUISER, 2, 5, 'Attack', 'none' },										# Cruisers
 			{ categories.FRIGATE, 5, 12, 'Attack', 'none' },									# Frigates
-			--{ categories.SUBMARINE, 7, 12, 'Artillery', 'none' },								# Submarines
 			
         },	
 	
