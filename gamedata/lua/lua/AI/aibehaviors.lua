@@ -3087,7 +3087,7 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
 	local loiter = false
 
     local MissionStartTime = LOUDTIME()
-    local threatcheckradius = 75
+    local threatcheckradius = 70
 	local maxrange = 0						-- this will be set when a target is selected and will be used to keep the platoon from wandering too far
 
     local oldNumberOfUnitsInPlatoon = LOUDGETN(platoonUnits)
@@ -3156,7 +3156,7 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
     local mythreat = 0
     local threatcompare = 'AntiAir'
     local mult = { 1, 2, 3 }				-- this multiplies the range of the platoon when searching for targets
-	local difficulty = { .7, 1, 1.2 }		-- this multiplies the threat of the platoon so that easier targets are selected first
+	local difficulty = { .7, .95, 1.1 }		-- this multiplies the threat of the platoon so that easier targets are selected first
     local minrange = 0
 
     local Rangemult, Threatmult, strikerange
@@ -3374,8 +3374,8 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
                             
                             attackissued = false
 
-                            -- first 20% of attacks go for the shields
-                            if key < attackercount * .2 and SecondaryShieldTargets[shield] then
+                            -- first 25% of attacks go for the shields
+                            if key < attackercount * .25 and SecondaryShieldTargets[shield] then
                         
                                 if not SecondaryShieldTargets[shield].Dead then
                                     IssueAttack( {u}, SecondaryShieldTargets[shield] )
@@ -3390,8 +3390,8 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
                                 end 
                             end
                         
-                            -- next 15% go for AA units
-                            if not attackissued and key <= attackercount * .35 and SecondaryAATargets[aa] then
+                            -- next 20% go for AA units
+                            if not attackissued and key <= attackercount * .45 and SecondaryAATargets[aa] then
 
                                 if not SecondaryAATargets[aa].Dead then
                                     IssueAttack( {u}, SecondaryAATargets[aa] )
@@ -3407,7 +3407,7 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
                             end
                             
                             -- next 15% for tertiary targets --
-                            if not attackissued and key <= attackercount * .5 and TertiaryTargets[tertiary] then
+                            if not attackissued and key <= attackercount * .6 and TertiaryTargets[tertiary] then
                             
                                 if not TertiaryTargets[tertiary].Dead and self:CanAttackTarget('Attack', TertiaryTargets[tertiary]) then
                                     IssueAttack( {u}, TertiaryTargets[tertiary] )
