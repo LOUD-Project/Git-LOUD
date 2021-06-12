@@ -1110,7 +1110,7 @@ function SetPrimaryLandAttackBase( aiBrain )
             -- make this base the Primary
             Primary = Bases[1].BaseName
             
-            LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(Primary).." is now the Primary Land Attack Base")
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(Primary).." is now the Primary Land Attack Base")
             
             -- set the distance trigger
             currentgoaldistance = Bases[1].Distance
@@ -1257,7 +1257,7 @@ function SetPrimarySeaAttackBase( aiBrain )
             -- make the closest one the Primary
             Primary = Bases[1].BaseName
             
-            LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(Primary).." is now the Primary Sea Attack Base")
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(Primary).." is now the Primary Sea Attack Base")
             
             -- set the distance trigger
             currentgoaldistance = Bases[1].Distance

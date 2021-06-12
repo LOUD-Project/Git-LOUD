@@ -1853,7 +1853,7 @@ T2EnergyStorageAdjacencyBuffs = {
 	'T2EnergyStorageShieldHealthBonusSize16',
 }
 
--- Combo building gets T3 Shield Effects but only T2 Resource Adjacency
+-- Combo building gets T3 Shield Effects but only T2 Resource Adjacency and T2 Energy Weapon Bonus
 T3MassEnergyStorageAdjacencyBuffs = {
     'T2EnergyStorageEnergyProductionBonusSize4',
     'T2EnergyStorageEnergyProductionBonusSize12',
@@ -1870,6 +1870,11 @@ T3MassEnergyStorageAdjacencyBuffs = {
 	'T3EnergyStorageShieldHealthBonusSize4',
 	'T3EnergyStorageShieldHealthBonusSize12',
 	'T3EnergyStorageShieldHealthBonusSize16',
+    'T2PowerEnergyWeaponBonusSize4to12',
+}
+
+T3MassEnergyStorageAdjacencyBuffsIS = {
+    'T2PowerEnergyWeaponBonusSize4to12',
 }
 
 BuffBlueprint { Name = 'T2EnergyStorageEnergyProductionBonusSize4',
@@ -2063,6 +2068,7 @@ BuffBlueprint { Name = 'T2EnergyStorageShieldHealthBonusSize16',
         },
     },
 }
+
 
 -- TIER 3 ENERGY STORAGE
 T3EnergyStorageAdjacencyBuffs = {
