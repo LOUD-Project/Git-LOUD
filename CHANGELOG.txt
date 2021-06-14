@@ -1,3 +1,44 @@
+### Release 12-06-2021 ###
+Lua 5.4.21
+BlackOps 6.1.2 
+LOUD Misc 5.5.03
+
+- Interrogater (Aeon Experimental Sniper Bot) rebalances:
+ |--> Maximum health: 43000 -> 41000.
+ |--> Health regeneration rate per second: 12 -> 10.
+ |--> Maximum acceleration reduced by about 50%; maximum speed slightly increased.
+ |--> Energy required to fire: 0 -> 22000 (recharges over 11 seconds).
+- Inquisitor (Aeon Experimental Siege Bot) rebalances:
+ |--> Maximum health: 38500 -> 36500.
+ |--> Health regeneration rate per second: 14 -> 12.
+ |--> Stomp damage area-of-effect: 2m -> 3m.
+ |--> Maximum accelerationreduced by about 30%.
+ |--> Kills required per veterancy level: 25 -> 30.
+ |--> Energy required to fire : 22500 -> 41600 (recharges over 16 instead of 10 seconds).
+- Area-of-effect damage removed from the main beam of the Manticore (Cybran Tech 3 Point Defense).
+- Tech 3 combined storage buildings from BlackOps Unleashed:
+ |--> Now provide modified adjacency buffs when used with LOUD Integrated Storage, instead of no adjacency buff.
+ |--> Note that these buffs are equivalent to the resource and energy weapon buffs from Tech 2 mass and energy storage buildings.
+ |--> Mass storage: 750 -> 1000.
+ |--> Unit cap cost: 0.33 -> 0.5.
+ |--> Death explosion damage: 1500 -> 450.
+ |--> Death explosion radius: 10m -> 6m.
+ |--> Build time: 300 -> 270 seconds.
+ |--> Build costs (mass/energy): 2400/14400 -> 2060/13000 for the Aeon and UEF variants.
+ |--> Health regeneration rate per second:
+ |-- |--> 4 -> 6 for the Cybran variant.
+ |-- |--> 3 -> 5 for non-Cybran variants.
+ |--> Maximum health: 7200 -> 7900 for the UEF variant only.
+- AI: Allow small bases to have 2 extra land and air factories when necessary.
+- AI: Better distribution of spare engineers and Support Armored Command Units between bases.
+- AI: Gunships will be less likely to enter overly dangerous situations.
+- AI: Gunships will be slightly more likely to focus on shields and anti-air units at their primary target.
+- AI: More engineering units can now assist building of energy generation.
+- AI: Reduce delay between building of Tech 3 and Experimental units.
+- AI: Certain Experimental units may now appear in both attack- and artillery-type formations.
+- Fix: The "LOUD Standard" button in the mod manager didn't visually update the mod list.
+- Fix: Units with energy charge cycles were able to almost instantly restart their firing cycle without recharging by changing target.
+
 ### Release 05-06-2021 ###
 Lua 5.4.20
 LOUD Units 1.1.01
