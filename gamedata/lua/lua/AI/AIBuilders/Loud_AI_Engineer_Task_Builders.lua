@@ -685,7 +685,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Transfers',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
             
 			-- we do an eco check just to make sure we're not transferring just because we're in a eco lock
 			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},

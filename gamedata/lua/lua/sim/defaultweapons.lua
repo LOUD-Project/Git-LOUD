@@ -101,7 +101,7 @@ DefaultProjectileWeapon = Class(Weapon) {
 				
 			end
 		else
-			LOG("*AI DEBUG value is "..repr(bp.MuzzleSalvoDelay).." for "..repr(bp).." on unit "..self.BlueprintID)
+			--LOG("*AI DEBUG value is "..repr(bp.MuzzleSalvoDelay).." for "..repr(bp).." on unit "..self.BlueprintID)
 		end
 		
         if bp.EnergyChargeForFirstShot == false then
@@ -153,6 +153,8 @@ DefaultProjectileWeapon = Class(Weapon) {
     end,
 
     CreateProjectileAtMuzzle = function(self, muzzle)
+    
+        --LOG("*AI DEBUG CreateProjectileAtMuzzle")
 	
         local proj = self:CreateProjectileForWeapon(muzzle)
 		
@@ -376,7 +378,9 @@ DefaultProjectileWeapon = Class(Weapon) {
         end
         if self.UnpackAnimator then
             self.UnpackAnimator:SetRate(bp.WeaponUnpackAnimationRate)
+            --LOG("*AI DEBUG Playing Unpack Animation")
             WaitFor(self.UnpackAnimator)
+            --LOG("*AI DEBUG Unpack Animation Complete")
         end
     end,
 
@@ -393,7 +397,9 @@ DefaultProjectileWeapon = Class(Weapon) {
             self.UnpackAnimator:SetRate(-bp.WeaponUnpackAnimationRate)
         end
         if self.UnpackAnimator then
+            --LOG("*AI DEBUG Playing Pack Animation")
             WaitFor(self.UnpackAnimator)
+            --LOG("*AI DEBUG Pack Animation complete")
         end
     end,
 
@@ -812,7 +818,7 @@ DefaultProjectileWeapon = Class(Weapon) {
 
         Main = function(self)
 
-			--LOG("*AI DEBUG Weapon RackSalvo Firing State")
+			--LOG("*AI DEBUG Weapon RackSalvo Firing State for "..repr(self.CurrentRackSalvoNumber) )
 			
             self.unit:SetBusy(true)
 			
@@ -901,6 +907,9 @@ DefaultProjectileWeapon = Class(Weapon) {
                     if self.HaltFireOrdered then
                         continue
                     end
+                
+                    self.FirstShot = false
+                    self:StartEconomyDrain(bp)
 					
 					-- create the projectile --
                     self:CreateProjectileAtMuzzle(muzzle)
@@ -937,6 +946,10 @@ DefaultProjectileWeapon = Class(Weapon) {
                         end
                     end
                 end
+     
+                if self.EconDrain then
+                    WaitFor(self.EconDrain)
+                end
                 
                 if bp.CameraShakeRadius or bp.ShipRock or bp.RackRecoilDistance != 0 then
                     self:PlayFxRackReloadSequence(bp)
@@ -947,15 +960,10 @@ DefaultProjectileWeapon = Class(Weapon) {
                     self.CurrentRackSalvoNumber = self.CurrentRackSalvoNumber + 1
                 end
             end
-            
 
 			if bp.Buffs then
 				self:DoOnFireBuffs(bp.Buffs)
 			end
-
-            self.FirstShot = false
-
-            self:StartEconomyDrain(bp)
 
             self.HaltFireOrdered = false
 
@@ -1141,6 +1149,10 @@ DefaultProjectileWeapon = Class(Weapon) {
             self.unit:SetBusy(true)
 			
             local bp = GetBlueprint(self)
+			
+			-- reset the rack count - this is usually done
+            -- in the IdleState --
+            self.CurrentRackSalvoNumber = 1
             
 			if bp.WeaponRepackTimeout then
 				WaitSeconds(bp.WeaponRepackTimeout)

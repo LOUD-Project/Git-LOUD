@@ -181,17 +181,22 @@ UnitBlueprint {
             LAYER_Seabed = true,
         },
         DragCoefficient = 0.2,
-        MaxAcceleration = 1.3,
-        MaxBrake = 2.6,
-        MaxSpeed = 2.6,
-        MaxSpeedReverse = 2.6,
+        
+        MaxAcceleration = 1.45,
+        MaxBrake = 2.9,
+        MaxSpeed = 2.9,
+        MaxSpeedReverse = 2.9,
+        
         MaxSteerForce = 10,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Amphibious',
+        
         SkirtOffsetX = -.5,
         SkirtOffsetZ = -.5,
+        
         SkirtSizeX = 4,
         SkirtSizeZ = 4,
+        
         TurnRadius = 5,
         TurnRate = 42,
     },

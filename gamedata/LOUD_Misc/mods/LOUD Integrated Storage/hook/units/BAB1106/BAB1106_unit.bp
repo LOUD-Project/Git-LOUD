@@ -2,6 +2,6 @@ UnitBlueprint {
 	Merge = true,
 	BlueprintId = "bab1106",
 	
-    Adjacency = false,
+    Adjacency = 'T3MassEnergyStorageAdjacencyBuffsIS',
 
 }

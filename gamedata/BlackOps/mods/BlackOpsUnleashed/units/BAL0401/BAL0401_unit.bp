@@ -79,9 +79,9 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Experimental',
-        Health = 38500,
-        MaxHealth = 38500,
-        RegenRate = 14,
+        Health = 36500,
+        MaxHealth = 36500,
+        RegenRate = 12,
         SurfaceThreatLevel = 552.1,
     },
 	
@@ -91,6 +91,7 @@ UnitBlueprint {
         Abilities = {
 			'An unusual unit - designed for siege work',
 			'Weapon teleports its shells into orbit above target',
+            'Weapon is blocked/reflected back by Anti-Teleport emitters',
             'Amphibious, Radar Stealth & Volatile',
         },
 		
@@ -167,16 +168,11 @@ UnitBlueprint {
                             Type = 'FootFall01',
                         },
                     },
-                    CameraShake = {
-                        Interval = 0.25,
-                        MaxShakeEpicenter = 0.3,
-                        MinShakeAtRadius = 0,
-                        Radius = 20,
-                    },
+
                     Damage = {
                         Amount = 1000,
                         DamageFriendly = false,
-                        Radius = 1,
+                        Radius = 1.5,
                         Type = 'ExperimentalFootfall',
                     },
                 },
@@ -235,7 +231,7 @@ UnitBlueprint {
         DragCoefficient = 0.2,
         LayerChangeOffsetHeight = -3,
 		
-        MaxAcceleration = 0.52,
+        MaxAcceleration = 0.35,
         MaxSpeed = 2.6,
         MaxSpeedReverse = 2.6,
 		
@@ -272,15 +268,15 @@ UnitBlueprint {
     StrategicIconSortPriority = 175,
 	
     Veteran = {
-        Level1 = 25,
-        Level2 = 50,
-        Level3 = 75,
-        Level4 = 100,
-        Level5 = 125,
+        Level1 = 30,
+        Level2 = 60,
+        Level3 = 90,
+        Level4 = 120,
+        Level5 = 150,
     },
     Weapon = {
-		---- This weapon is just for show - real details are in the script - fires 8 rounds that drop from above
-		---- Each causes about 2000 Damage on a direct hit - and about 800 if just in radius - cant seem to find
+		---- This weapon is just for show - real details are in the script - fires 9 rounds that drop from above
+		---- Each causes about 2000 Damage on a direct hit - and about 600 if just in radius - cant seem to find
 		---- where these values are controlled
 		---- FOUND it - \BlackOpsUnleashed\effects\Entities\GoldLaserBombEffectController01\GoldLaserBombEffectController01_script.lua
         -- very similar to a nuke - 2000 inner ring damage >> 650 at maximum radius of 7
@@ -303,8 +299,8 @@ UnitBlueprint {
 			
 			DoNotCollideList = { 'MISSILE' },
             
-            EnergyRequired = 22500,         -- based on 9 projectiles doing 2000 dmg over radius of 2 - the rest of the AOE we'll just gift for now
-            EnergyDrainPerSecond = 2250,    -- recharge weapon in 10 seconds
+            EnergyRequired = 41600,         -- based on 9 projectiles doing 2000 dmg over median radius of 3.5 - this is VERY low - think of the rest as a gift for now
+            EnergyDrainPerSecond = 2600,    -- recharge weapon in 16 seconds
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
@@ -321,10 +317,10 @@ UnitBlueprint {
 			
             MaxRadius = 130,
 			
-            MuzzleChargeDelay = 0.6,            -- charge of 0.6 seconds
+            MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 10,
+            MuzzleVelocity = 6,
 			
             NotExclusive = true,
 			
@@ -367,9 +363,9 @@ UnitBlueprint {
 
             Turreted = false,
 			
-            WeaponRepackTimeout = 1,
+            WeaponRepackTimeout = 2,
             WeaponUnpackAnimation = '/mods/BlackOpsUnleashed/units/BAL0401/BAL0401_ADeploy01.sca',
-            WeaponUnpackAnimationRate = 1.3,
+            WeaponUnpackAnimationRate = 1.2,
             WeaponUnpackLocksMotion = true,
             WeaponUnpacks = true,
         },

@@ -1551,7 +1551,10 @@ AIBrain = Class(moho.aibrain_methods) {
             PlatoonFormManager = CreatePlatoonFormManager(self, baseName, position, radius),
 			
         }
-
+        
+		-- increment the total number of bases used by this brain
+		self.NumBases = self.NumBases + 1
+        
         -- increment the base counter for production bases (those that have factories)
 		if countedbase then
 		
@@ -1560,9 +1563,7 @@ AIBrain = Class(moho.aibrain_methods) {
 			else
 				self.NumBasesLand = self.NumBasesLand + 1
 			end
-			
-			-- increment the total number of bases used by this brain
-			self.NumBases = self.NumBases + 1
+
 		end
 
 		-- this call will calculate the Rally Point positions for this base

@@ -97,7 +97,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
 		
         BuilderData = {
 			DesiresAssist = true,
-            NumAssistees = 3,
+            NumAssistees = 6,
             Construction = {
 			
 				NearBasePerimeterPoints = true,
@@ -131,7 +131,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
 		
         BuilderData = {
 			DesiresAssist = true,
-            NumAssistees = 5,
+            NumAssistees = 7,
             Construction = {
 			
 				NearBasePerimeterPoints = true,

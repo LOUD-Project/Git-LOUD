@@ -41,7 +41,7 @@ UnitBlueprint {
         EconomyThreatLevel = 100,
         Health = 7200,
         MaxHealth = 7200,
-        RegenRate = 4,
+        RegenRate = 6,
     },
 	
     Description = '<LOC brb1106_desc>Mass & Energy Storage',
@@ -65,20 +65,20 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 14400,
         BuildCostMass = 2400,
-        BuildTime = 3000,
+        BuildTime = 2700,
 		
         RebuildBonusIds = {'brb1106'},
 		
-        StorageMass = 750,
+        StorageMass = 1000,
 		StorageEnergy = 7500,
     },
 	
     General = {
-		CapCost = 0.33,	
+		CapCost = 0.5,	
         Category = 'Economy',
         Classification = 'RULEUC_Resource',
         FactionName = 'Cybran',
-        Icon = 'land',
+        Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Basic',
         UnitWeight = 1,
@@ -123,9 +123,9 @@ UnitBlueprint {
 	
     Weapon = {
         {
-            Damage = 1500,
+            Damage = 450,
             DamageFriendly = true,
-            DamageRadius = 5,
+            DamageRadius = 3,
             DamageType = 'Normal',
             DisplayName = 'Death Weapon',
             DummyWeapon = true,
