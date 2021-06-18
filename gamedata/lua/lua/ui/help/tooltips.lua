@@ -1335,6 +1335,23 @@ Tooltips = {
     },
 
     -- **********************
+    -- *** Lobby Options: AI Faction Colour
+    -- **********************
+
+    Lobby_AI_Faction_Color = {
+        title = "AI Uses Faction Color",
+        description = "Set whether AI players get assigned the color of their faction after the game starts.",
+    },
+    lob_AIFactionColor_off = {
+        title = "Off",
+        description = "AI players will use the colors assigned to them in the lobby.",
+    },
+    lob_AIFactionColor_on = {
+        title = "On",
+        description = "AI players will get assigned their faction's colour after the game starts.",
+    },
+
+    -- **********************
     -- *** Lobby Options: Civilians
     -- **********************
 
@@ -1394,7 +1411,7 @@ Tooltips = {
     },
 
     -- **********************
-    -- *** Lobby Options:Relocate Resources
+    -- *** Lobby Options: Relocate Resources
     -- **********************
 
     Lobby_RelocateResources = {

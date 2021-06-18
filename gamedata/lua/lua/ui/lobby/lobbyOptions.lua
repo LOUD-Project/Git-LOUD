@@ -752,5 +752,25 @@ advAIOptions = {
             },
         },
     },
+    {
+        default = 1,
+        label = "AI Uses Faction Color",
+        help = "Set whether AI players get assigned the color of their faction after the game starts.",
+        key = 'AIFactionColor',
+        pref = 'Lobby_AI_Faction_Color',
+        values = {
+            {
+                text = "Off",
+                help = "AI players will use the colors assigned to them in the lobby.",
+                key = 'off',
+            },
+            {
+                text = "On",
+                help = "AI players will get assigned their faction's colour after the game starts.",
+                key = 'on',
+            },
+        },
+
+    },
 
 }
