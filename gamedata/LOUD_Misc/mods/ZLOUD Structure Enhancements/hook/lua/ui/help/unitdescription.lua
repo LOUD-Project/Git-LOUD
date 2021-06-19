@@ -41,6 +41,7 @@ Description['urb0302-Prod_Imp'] = "Improved Production\nThis engineering enhance
 Description['urb0302-Prod_Adv'] = "Advanced Production\nThis engineering enhancement further increases production speed.\n\nIncreases Build Speed by 60 percent over normal and further increases the self repair capability of the building"
 Description['urb0302-Materiel_Imp'] = "Improved Materiels\nThis enhancement reduces materiel usage by 10% and increases the HP of the structure"
 Description['urb0302-Materiel_Adv'] = "Advanced Materiels\nThis enhancement reduces materiel usage by 20% and energy maintenance drain by 15%\nThe HP of the building is increased further"
+Description['urb0302-Radar_T3'] = "Installs a typical T3 radar package onto the factory"
 Description['urb0302-Shield'] = "Installs a custom Shield Dome into the factory.  While not very large, the shield is robust and regnerates quickly.  Does not benefit from any adjacent structures."
 Description['urb0302'] = "Constructs Tech 3 air units. Highest tech level available.\n\nProduction Enhancements available."
 
