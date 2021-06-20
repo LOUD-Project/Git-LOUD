@@ -24,7 +24,7 @@ GPGrestrictedUnits = {
 	
     EXPERIMENTAL = {
         categories = {"EXPERIMENTAL"},
-        name = "<LOC restricted_units_data_0003>No Experimental",
+        name = "<LOC restricted_units_data_0003>No Experimental/Tech 4",
         tooltip = "restricted_units_experimental",
     },
 	
@@ -41,104 +41,104 @@ GPGrestrictedUnits = {
     },
 	
     AIRSCOUTS = {
-        categories = {"uaa0101","uaa0302","uea0101","uea0302","ura0101","ura0302","xsa0101","xsa0302","sea0201","sra0201","ssa0201","saa0201" },
-        name = "No Air Scouts",
+        categories = {"saa0201", "sea0201", "sea0310", "sra0201", "ssa0201", "uaa0101", "uaa0302", "uea0101", "uea0302", "ura0101", "ura0302", "xsa0101", "xsa0302"},
+        name = "<LOC restricted_units_data_0020>No Air Scouts",
         tooltip = "restricted_units_air_scouts",
     },
 
     AIRFIGHTERS = {
-		categories = {"brpat2figbo","uaa0102","uea0102","ura0102","xsa0102","xaa0202","dea0202","dra0202","xsa0202","uaa0303","uea0303","ura0303","xsa0303","sra0313","sea0313","ssa0313"},
-		name = "No Air Fighters",
+		categories = {"brpat2figbo", "dea0202", "dra0202", "lea0401", "sea0313", "sra0313", "ssa0313", "uaa0102", "uaa0303", "uea0102", "uea0303", "ura0102", "ura0303", "xaa0202", "xsa0102", "xsa0202", "xsa0303"},
+		name = "<LOC restricted_units_data_0021>No Air Fighters",
 		tooltip = "restricted_units_air_fighters",
     },
 	
     AIRBOMBERS = {
 		categories = {"BOMBER"},
-		name = "No Bombers",
+		name = "<LOC restricted_units_data_0022>No Air Bombers",
 		tooltip = "restricted_units_air_bombers",
+    },
+	
+    AIRTORPEDOBOMBERS = {
+        categories = {"TORPEDOBOMBER"},
+        name = "<LOC restricted_units_data_0023>No Torpedo Bombers",
+        tooltip = "restricted_units_air_torpedobombers",
     },
 	
     AIRGUNSHIPS = {
 		categories = {"GROUNDATTACK"},
-		name = "No Air Gunships",
+		name = "<LOC restricted_units_data_0024>No Air Gunships",
 		tooltip = "restricted_units_air_gunships",
     },
     
-    AIRTORPEDOBOMBERS = {
-        categories = {"TORPEDOBOMBER"},
-        name = "No Torpedo Bombers",
-        tooltip = "restricted_units_air_torpedobombers",
-    },
-	
     AIRTRANSPORTS = {
 		categories = {"TRANSPORTFOCUS"},
-		name = "No Air Transports",
+		name = "<LOC restricted_units_data_0025>No Air Transports",
 		tooltip = "restricted_units_air_transports",
     },
 
     AIREXPERIMENTALS = {
-		categories = {"bea0402", "bea0403", "ura0401", "xsa0402", "bra0409", "lea0401", "uaa0310","saa0306","wra0401","sea0401"},
-		name = "No Air Experimentals",
+		categories = {"bea0402", "bea0403", "bra0409", "lea0401", "saa0306", "sea0401", "uaa0310", "ura0401", "wra0401", "xsa0402"},
+		name = "<LOC restricted_units_data_0026>No Air Experimentals",
 		tooltip = "restricted_units_air_experimentals",
     },
 	
 	TACTICALMISSILELAUNCHERS = {
-		categories = { 'uab2108', 'ueb2108', 'urb2108', 'xsb2108', 'bab2308', },
-		name = "No Tactical Missile structures",
-		tooltip = "restricted_units_tactical",
+		categories = {"bab2308", "uab2108", "ueb2108", "urb2108", "xsb2108"},
+		name = "<LOC restricted_units_data_0027>No TMLs",
+		tooltip = "restricted_units_tml",
 	},
 	
-    NUKE = {
-        categories = {"uab2305", "ueb2305", "urb2305", "xsb2305", "xsb2401", "uas0304", "urs0304", "uab4302", "ueb4302", "urb4302", "xsb4302", "sal0321", "sel0321", "srl0321", "ssl0321" },
-        name = "<LOC restricted_units_data_0011>No Nukes or Anti-nukes",
-        tooltip = "restricted_units_nukes",
-    },
-	
-	TACTICALARTILLERY = {
-		categories = { "lab2320", "leb2320", "lrb2320", "lsb2320" },
-		name = "No T3 Barrage Artillery",
-		tooltip = "restricted_units_T3_Tactical_artillery",
+    TACTICALARTILLERY = {
+		categories = {"lab2320", "leb2320", "lrb2320", "lsb2320"},
+		name = "<LOC restricted_units_data_0028>No T3 Barrage Artillery",
+		tooltip = "restricted_units_T3_tactical_artillery",
 	},
 
     STRATEGICARTILLERY = {
-        categories = { "uab2302","ueb2302","urb2302","xsb2302" },
-        name = "No T3 Strategic Artillery",
-        tooltip = "restricted_units_T3_Strategic_artillery",
+        categories = {"uab2302", "ueb2302", "urb2302", "xsb2302"},
+        name = "<LOC restricted_units_data_0029>No T3 Strategic Artillery",
+        tooltip = "restricted_units_T3_strategic_artillery",
     },
 	
 	EXPERIMENTALARTILLERY = {
-		categories = { "xab2307", "ueb2401", "url0401", "seb2404", "ssb2404" },
-		name = "No Experimental Artillery",
+		categories = {"seb2404", "ssb2404", "ueb2401", "url0401", "xab2307"},
+		name = "<LOC restricted_units_data_0030>No Experimental/T4 Artillery",
 		tooltip = "restricted_units_exp_artillery",
 	},
 
-    SHIELDS = {
-        categories = {"uel0307", "ual0307", "xsl0307", "xes0205", "ueb4202", "urb4202", "uab4202", "xsb4202", "ueb4301", "uab4301", "xsb4301","seb4401","ssb4401","ualx0401","uabssg01","uebssg01","urbssg01","xsbssg01" },
-        name = "<LOC restricted_units_data_0013>No Shield Units",
-        tooltip = "restricted_units_bubbles",
+    NUKE = {
+        categories = {"sal0321", "sel0321", "srl0321", "ssl0321", "uab2305", "uab4302", "ueb2305", "ueb4302", "urb2305", "urb4302", "xsb2305", "xsb2401", "xsb4302", "uas0304", "urs0304"},
+        name = "<LOC restricted_units_data_0011>No Nukes",
+        tooltip = "restricted_units_nukes",
+    },
+	
+	SHIELDS = {
+        categories = {"sab4401", "seb4303", "seb4401", "srb4401", "ssb4401", "uab4202", "uab4301", "uabssg01", "ual0307", "ual0308", "ualx401", "ueb4202", "ueb4301", "uebssg01", "uel0307", "uel0308", "urb4202", "urb4207", "urbssg01", "wrl0207", "xes0205", "xsb4202", "xsb4301", "xsbssg01", "xsl0307"},
+        name = "<LOC restricted_units_data_0013>No Dedicated Shield Generators",
+        tooltip = "restricted_units_shields",
     },
     
     SUPPORTCOMMANDERS = {
-        categories = {"ual0301","uel0301","url0301","xsl0301"},
-        name = "No Support Commanders - SACU",
-        tooltip = "restricted_units_supcom",
+        categories = {"SUBCOMMANDER"},
+        name = "<LOC restricted_units_data_0015>No Support Commanders (SACUs)",
+        tooltip = "restricted_units_sacu",
     },
 	
     INTEL = {
-        categories = {"OMNI", "uab3101", "uab3201", "ueb3101", "ueb3201", "urb3101", "urb3201", "xsb3101", "xsb3201", "uab3102", "uab3202", "ueb3102", "ueb3202", "urb3102", "urb3202", "xsb3102", "xsb3202", "xab3301", "xrb3301", "ues0305", "uas0305", "urs0305","seb3404" },
+        categories = {"OMNI", "seb3303", "sel0324", "ssb3301", "uab3101", "uab3102", "uab3201", "uab3202", "uas0305", "ueb3101", "ueb3102", "ueb3201", "ueb3202", "ues0305", "urb3101", "urb3102", "urb3201", "urb3202", "urs0305", "xab3301", "xrb3301", "xsb3101", "xsb3102", "xsb3201", "xsb3202", "xss0305"},
         name = "<LOC restricted_units_data_0014>No Intel Structures",
         tooltip = "restricted_units_intel",
     },
 
     FABS = {
-        categories = {"ueb1104", "ueb1303", "urb1104", "urb1303", "uab1104", "uab1303", "xsb1104", "xsb1303", "xab1401","seb1401","srb1401","ssb1401" },
+        categories = {"MASSFABRICATION"},
         name = "<LOC restricted_units_data_0019>No Mass Fabrication",
         tooltip = "restricted_units_massfab",
     },
 
     ALTAIR = {
-        categories = {"baa0309","bra0309","bsa0309","saa0306","bsa0310","saa0314","sea0314","sra0306","sra0314","ssa0305","ssa0306","ssa0314","uaa0304","uea0304","uea0305","uea0305","ura0304","xaa0305","xea0306","xra0305","xsa0304","brpat3gunship","sea0310","sra0313","sra0314","sra0315" },
-		name = "Alternative Air: Only T3 Scouts, Fighters, Torpedo Bombers",
+        categories = {"baa0309", "bra0309", "brpat3gunship", "bsa0309", "bsa0310", "saa0314", "sea0310", "sea0313", "sea0314", "sra0306", "sra0313", "sra0314", "sra0315", "ssa0305", "ssa0306", "ssa0313", "ssa0314", "uaa0304", "uea0304", "uea0305", "ura0304", "xaa0305", "xea0306", "xra0305", "xsa0304"},
+		name = "<LOC restricted_units_data_0031>T3 Alternative Air Production",
 		tooltip = "restricted_units_altair",
     },
 		
@@ -153,10 +153,6 @@ GPGrestrictedUnits = {
 }
 
 GPGsortOrder = {
-    "UEF",
-    "CYBRAN",
-    "AEON",
-    "SERAPHIM",
     "T1",
     "T2",
     "T3",
