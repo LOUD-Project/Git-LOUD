@@ -522,73 +522,92 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
         -- the units data, but won't actually be working
         
 		elseif atype == 'EnergyStorage' then
+        
 			local val = BuffCalculate(unit, buffName, 'EnergyStorage', GetBlueprint(unit).Economy.StorageEnergy or 1)
 
             local brain = unit:GetAIBrain()
-            
-			--LOG("*AI DEBUG Energy Storage value is "..val.." base is "..repr(GetBlueprint(unit).Economy.StorageEnergy) )
 
 			-- the trick here is to know just how much storage there already is - and add to it - can't seem to find that
-            -- since atm I only use this on the ACU at the start of the game - it's not a real issue
+            -- other than the original blueprint value - rather than any 'current' value
+            -- since atm I only use this once, on the ACU at the start of the game - it's not a real issue
 			brain:GiveStorage('ENERGY',val)
             
             brain:GiveResource('Energy',val)
 
 		elseif atype == 'MassStorage' then
+        
 			local val = BuffCalculate(unit, buffName, 'MassStorage', GetBlueprint(unit).Economy.StorageMass or 1)
             
             local brain = unit:GetAIBrain()
-
-			--LOG("*AI DEBUG Mass Storage value is "..val.." base is "..repr(GetBlueprint(unit).Economy.StorageMass) )
 
 			brain:GiveStorage('MASS',val)
             
             brain:GiveResource('Mass',val - 1)
 
-
-
         --- ADJACENCY EFFECTS ---
         elseif atype == 'EnergyActive' then
+        
             local val = BuffCalculate(unit, buffName, 'EnergyActive', 1)
+            
             unit.EnergyBuildAdjMod = val
             unit:UpdateConsumptionValues()
 
         elseif atype == 'MassActive' then
+        
             local val = BuffCalculate(unit, buffName, 'MassActive', 1)
+            
             unit.MassBuildAdjMod = val
             unit:UpdateConsumptionValues()
 
         elseif atype == 'EnergyMaintenance' then
+        
             local val = BuffCalculate(unit, buffName, 'EnergyMaintenance', 1)
+            
             unit.EnergyMaintAdjMod = val
             unit:UpdateConsumptionValues()
 
         elseif atype == 'MassMaintenance' then
+        
             local val = BuffCalculate(unit, buffName, 'MassMaintenance', 1)
+            
             unit.MassMaintAdjMod = val
             unit:UpdateConsumptionValues()
 
         elseif atype == 'EnergyProduction' then
+        
             local val = BuffCalculate(unit, buffName, 'EnergyProduction', 1)
+            
             unit.EnergyProdAdjMod = val
             unit:UpdateProductionValues()
 
         elseif atype == 'MassProduction' then
+        
             local val = BuffCalculate(unit, buffName, 'MassProduction', 1)
+            
             unit.MassProdAdjMod = val
             unit:UpdateProductionValues()
 
         elseif atype == 'EnergyWeapon' then
+        
             local val = BuffCalculate(unit, buffName, 'EnergyWeapon', 1)
+
             for i = 1, unit:GetWeaponCount() do
+            
                 local wep = unit:GetWeapon(i)
+                
                 if wep:WeaponUsesEnergy() then
+
+                    if unit.Sync.id then
+                        ForkThread(FloatingEntityText, unit.Sync.id, 'Energy Req now '..math.floor(val*100).."%")
+                    end
+                
                     wep.AdjEnergyMod = val
-                    --LOG("*AI DEBUG EnergyRequired modifier is "..repr(val))
+
                 end
             end
 
         elseif atype == 'RateOfFire' then
+        
             for i = 1, unit:GetWeaponCount() do
                 local wep = unit:GetWeapon(i)
                 local wepbp = wep:GetBlueprint()
@@ -628,7 +647,6 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 			end
 
 		elseif atype == 'ShieldSize' then
-
 
 			if unit.MyShield then
 

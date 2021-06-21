@@ -171,6 +171,9 @@ EnergyWeaponBuffAffect = function(buff, unit, instigator)
 end
 
 -- Weapon Rate of Fire -- for energy using weapons
+-- this is difficult since many energy using weapons have their
+-- RoF controlled by the charge cycle - and not by RoF
+-- so changing RoF has, in most cases, no impact
 RateOfFireBuffCheck = function(buff, unit)
 
     return EnergyWeaponBuffCheck( buff,unit)    --unit:GetWeaponCount() > 0

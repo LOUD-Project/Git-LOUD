@@ -1021,7 +1021,7 @@ BuffBlueprint { Name = 'T2PowerEnergyWeaponBonusSize4to12',
     OnBuffRemove = AdjBuffFuncs.EnergyWeaponBuffRemove,
     Affects = {
         EnergyWeapon = {
-            Add = -0.05,
+            Add = -0.04,
             Mult = 1.0,
         },
     },
