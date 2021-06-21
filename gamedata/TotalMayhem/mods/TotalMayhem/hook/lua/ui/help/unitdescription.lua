@@ -23,7 +23,13 @@ Description['brmt3mcm']		=	"The Madcat is based on the same principles as the Vu
 Description['brmt3mcm2']	=	"The MadBolo is veritably an up-armoured and up-gunned Madcat. Be wary of its volatility."
 Description['brmt3ava']		=	"The Avalanche is the largest mobile experimental ever constructed. Essentially a factory like the Megalith, it is ponderously slow, but extremely armored and well-gunned. Capable of surviving a direct strike even by tactical nukes."
 
+Description['brnt3shpd-Radar_T3'] = "Installs a typical T3 radar package onto the unit."
+Description['brnt3shpd-Shield'] = "Installs a custom Shield Dome into the unit."
+
 Description['brot1bt']		=	"The Hervour is simply a larger Aurora. The same simple but effective configuration in a larger format. Sometimes hampered by its lack of a fully rotating turret."
+Description['brot3shpd-Radar_T3'] = "Installs a typical T3 radar package onto the unit."
+Description['brot3shpd-Shield'] = "Installs a custom Shield Dome into the unit."
+
 Description['brpat3gunship']=	"Heavy Gunship similar to the Aeon Restorer. Heavily armed for Air to Ground and Air to Air, with thick armor - expensive and very slow."
 Description['brpat2bomber']	=	"An upgraded and upsized true attack bomber. Reasonably quick and can deliver a decent payload, but fragile like all attack bombers."
 

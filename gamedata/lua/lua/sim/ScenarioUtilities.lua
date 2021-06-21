@@ -402,6 +402,19 @@ function InitializeArmies()
 		SetArmyColor(self.ArmyIndex, color[1], color[2], color[3])
 		-- Don't need WheelColor anymore, so delete it
 		ScenarioInfo.ArmySetup[self.Name].WheelColor = nil
+
+        if ScenarioInfo.Options.AIFactionColor == 'on' and self.BrainType ~= 'Human' then
+            -- These colours are based on the lobby faction dropdown icons
+            if self.FactionIndex == 1 then
+                SetArmyColor(self.ArmyIndex, 44, 159, 200)
+            elseif self.FactionIndex == 2 then
+                SetArmyColor(self.ArmyIndex, 104, 171, 77)
+            elseif self.FactionIndex == 3 then
+                SetArmyColor(self.ArmyIndex, 255, 0, 0)
+            elseif self.FactionIndex == 4 then
+                SetArmyColor(self.ArmyIndex, 254, 189, 44)
+            end
+        end
 		
         -- number of Opponents in the game
         self.NumOpponents = Opponents
@@ -699,6 +712,7 @@ function InitializeArmies()
     loudUtils.StartAdaptiveCheatThreads()
 
     ScenarioInfo.Options.AIResourceSharing = nil
+    ScenarioInfo.Options.AIFactionColor = nil
     
     return tblGroups
 	

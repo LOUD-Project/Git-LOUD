@@ -58,18 +58,18 @@ GPGrestrictedUnits = {
 		tooltip = "restricted_units_air_bombers",
     },
 	
-    AIRGUNSHIPS = {
-		categories = {"GROUNDATTACK"},
-		name = "<LOC restricted_units_data_0024>No Air Gunships",
-		tooltip = "restricted_units_air_gunships",
-    },
-    
     AIRTORPEDOBOMBERS = {
         categories = {"TORPEDOBOMBER"},
         name = "<LOC restricted_units_data_0023>No Torpedo Bombers",
         tooltip = "restricted_units_air_torpedobombers",
     },
 	
+    AIRGUNSHIPS = {
+		categories = {"GROUNDATTACK"},
+		name = "<LOC restricted_units_data_0024>No Air Gunships",
+		tooltip = "restricted_units_air_gunships",
+    },
+    
     AIRTRANSPORTS = {
 		categories = {"TRANSPORTFOCUS"},
 		name = "<LOC restricted_units_data_0025>No Air Transports",
@@ -88,13 +88,7 @@ GPGrestrictedUnits = {
 		tooltip = "restricted_units_tml",
 	},
 	
-    NUKE = {
-        categories = {"sal0321", "sel0321", "srl0321", "ssl0321", "uab2305", "uab4302", "ueb2305", "ueb4302", "urb2305", "urb4302", "xsb2305", "xsb2401", "xsb4302", "uas0304", "urs0304"},
-        name = "<LOC restricted_units_data_0011>No Nukes",
-        tooltip = "restricted_units_nukes",
-    },
-	
-	TACTICALARTILLERY = {
+    TACTICALARTILLERY = {
 		categories = {"lab2320", "leb2320", "lrb2320", "lsb2320"},
 		name = "<LOC restricted_units_data_0028>No T3 Barrage Artillery",
 		tooltip = "restricted_units_T3_tactical_artillery",
@@ -112,9 +106,15 @@ GPGrestrictedUnits = {
 		tooltip = "restricted_units_exp_artillery",
 	},
 
-    SHIELDS = {
-        categories = {"sab4401", "seb4401", "srb4401", "ssb4401", "uab4202", "uab4301", "uabssg01", "ual0307", "ual0308", "ualx401", "ueb4202", "ueb4301", "uebssg01", "uel0307", "uel0308", "urb4202", "urb4207", "urbssg01", "wrl0207", "xes0205", "xsb4202", "xsb4301", "xsbssg01", "xsl0307"},
-        name = "<LOC restricted_units_data_0013>No Shields",
+    NUKE = {
+        categories = {"sal0321", "sel0321", "srl0321", "ssl0321", "uab2305", "uab4302", "ueb2305", "ueb4302", "urb2305", "urb4302", "xsb2305", "xsb2401", "xsb4302", "uas0304", "urs0304"},
+        name = "<LOC restricted_units_data_0011>No Nukes",
+        tooltip = "restricted_units_nukes",
+    },
+	
+	SHIELDS = {
+        categories = {"sab4401", "seb4303", "seb4401", "srb4401", "ssb4401", "uab4202", "uab4301", "uabssg01", "ual0307", "ual0308", "ualx401", "ueb4202", "ueb4301", "uebssg01", "uel0307", "uel0308", "urb4202", "urb4207", "urbssg01", "wrl0207", "xes0205", "xsb4202", "xsb4301", "xsbssg01", "xsl0307"},
+        name = "<LOC restricted_units_data_0013>No Dedicated Shield Generators",
         tooltip = "restricted_units_shields",
     },
     
@@ -153,10 +153,6 @@ GPGrestrictedUnits = {
 }
 
 GPGsortOrder = {
-    "UEF",
-    "CYBRAN",
-    "AEON",
-    "SERAPHIM",
     "T1",
     "T2",
     "T3",

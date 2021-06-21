@@ -359,27 +359,27 @@ globalOpts = {
         values = {
 			{
 				text = "<LOC lobui_0130>Advanced Assassination",
-				help = "<LOC lobui_0131>Player is defeated when the Commander and all Support Commanders are destroyed",
+				help = "<LOC lobui_0131>A player is defeated when the Commander and all Support Commanders are destroyed.",
 				key = 'decapitation',
 			},
             {
                 text = "<LOC lobui_0124>Supremacy",
-                help = "<LOC lobui_0125>Player is defeated when all engineers, factories and any unit that can build an engineer are destroyed",
+                help = "<LOC lobui_0125>A player is defeated when all engineers, factories and any unit that can build an engineer are destroyed.",
                 key = 'domination',
             },
             {
                 text = "<LOC lobui_0126>Annihilation",
-                help = "<LOC lobui_0127>Player is defeated when all structures (except walls) and all units are destroyed",
+                help = "<LOC lobui_0127>A player is defeated when all structures (except walls) and all units are destroyed.",
                 key = 'eradication',
             },
             {
                 text = "<LOC lobui_0128>Sandbox",
-                help = "<LOC lobui_0129>Player is never defeated",
+                help = "<LOC lobui_0129>No player can ever be defeated.",
                 key = 'sandbox',
             },
             {
                 text = "<LOC lobui_0122>Assassination",
-                help = "<LOC lobui_0123>Player is defeated when the Commander is destroyed",
+                help = "<LOC lobui_0123>A player is defeated when the Commander is destroyed.",
                 key = 'demoralization',
             },
         },
@@ -751,6 +751,26 @@ advAIOptions = {
                 key = 'off',
             },
         },
+    },
+    {
+        default = 1,
+        label = "AI Uses Faction Color",
+        help = "Set whether AI players get assigned the color of their faction after the game starts.",
+        key = 'AIFactionColor',
+        pref = 'Lobby_AI_Faction_Color',
+        values = {
+            {
+                text = "Off",
+                help = "AI players will use the colors assigned to them in the lobby.",
+                key = 'off',
+            },
+            {
+                text = "On",
+                help = "AI players will get assigned their faction's colour after the game starts.",
+                key = 'on',
+            },
+        },
+
     },
 
 }

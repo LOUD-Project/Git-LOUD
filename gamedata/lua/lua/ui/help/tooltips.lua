@@ -1228,23 +1228,23 @@ Tooltips = {
     },
     lob_Victory_decapitation = {
         title = "Advanced Assassination",
-        description = "Player is defeated when the Commander and all Support Commanders are destroyed",
+        description = "A player is defeated when the Commander and all Support Commanders are destroyed.",
     },
     lob_Victory_demoralization = {
-        title = 'Assassination',
-        description = 'Player is defeated when the Commander is destroyed',
+        title = "Assassination",
+        description = "A player is defeated when the Commander is destroyed.",
     },
     lob_Victory_domination = {
-        title = 'Supremacy',
-        description = 'Player is defeated when all engineers, factories and any unit that can build an engineer are destroyed',
+        title = "Supremacy",
+        description = "A player is defeated when all engineers, factories and any unit that can build an engineer are destroyed."
     },
     lob_Victory_eradication = {
-        title = 'Annihilation',
-        description = 'Player is defeated when all structures (except walls) and all units are destroyed',
+        title = "Annihilation",
+        description = "A player is defeated when all structures (except walls) and all units are destroyed.",
     },
     lob_Victory_sandbox = {
-        title = 'Sandbox',
-        description = 'Player is never defeated',
+        title = "Sandbox",
+        description = "No player can ever be defeated.",
     },
 
     -- **********************
@@ -1335,6 +1335,23 @@ Tooltips = {
     },
 
     -- **********************
+    -- *** Lobby Options: AI Faction Colour
+    -- **********************
+
+    Lobby_AI_Faction_Color = {
+        title = "AI Uses Faction Color",
+        description = "Set whether AI players get assigned the color of their faction after the game starts.",
+    },
+    lob_AIFactionColor_off = {
+        title = "Off",
+        description = "AI players will use the colors assigned to them in the lobby.",
+    },
+    lob_AIFactionColor_on = {
+        title = "On",
+        description = "AI players will get assigned their faction's colour after the game starts.",
+    },
+
+    -- **********************
     -- *** Lobby Options: Civilians
     -- **********************
 
@@ -1394,7 +1411,7 @@ Tooltips = {
     },
 
     -- **********************
-    -- *** Lobby Options:Relocate Resources
+    -- *** Lobby Options: Relocate Resources
     -- **********************
 
     Lobby_RelocateResources = {
@@ -2028,99 +2045,95 @@ Tooltips = {
 
     restricted_units_T1 = {
         title = "No Tech 1",
-        description = "Players will not be able to build Tech 1 structures or units",
+        description = "Players will not be able to build Tech 1 structures or units.",
     },
     restricted_units_T2 = {
         title = "No Tech 2",
-        description = "Players will not be able to build Tech 2 structures or units",
+        description = "Players will not be able to build Tech 2 structures or units.",
     },
     restricted_units_T3 = {
         title = "No Tech 3",
-        description = "Players will not be able to build Tech 3 structures or units",
+        description = "Players will not be able to build Tech 3 structures or units.",
     },
     restricted_units_experimental = {
         title = "No Experimental/Tech 4",
-        description = "Players will not be able to build Experimental/Tech 4 structures or units",
+        description = "Players will not be able to build Experimental/Tech 4 structures or units.",
     },
     restricted_units_naval = {
         title = "No Naval",
-        description = "Players will not be able to build Naval structures or units",
+        description = "Players will not be able to build Naval structures or units.",
     },
     restricted_units_land = {
         title = "No Land",
-        description = "Players will not be able to build Land structures or units",
-    },
-    restricted_units_air = {
-        title = "No Air",
-        description = "Players will not be able to build Air units",
+        description = "Players will not be able to build Land structures or units.",
     },
     restricted_units_air_scouts = {
         title = "No Air Scouts",
-        description = "Players will not be able to build decoy, recon, scout or spy planes",
+        description = "Players will not be able to build decoy, recon, scout or spy planes.",
     },
     restricted_units_air_fighters = {
         title = "No Air Fighters",
-        description = "Players will not be able to build interceptors or other Air-to-Air aircraft",
+        description = "Players will not be able to build interceptors or other Air-to-Air aircraft.",
     },
     restricted_units_air_bombers = {
         title = "No Air Bombers",
-        description = "Players will not be able to build any bombers",
-    },
-    restricted_units_air_gunships = {
-        title = "No Air Gunships",
-        description = "Players will not be able to build any standard or experimental gunships",
+        description = "Players will not be able to build any bombers.",
     },
     restricted_units_air_torpedobombers = {
         title = "No Torpedo Bombers",
-        description = "Players will not be able to build any torpedo bombers",
+        description = "Players will not be able to build any torpedo bombers.",
+    },
+    restricted_units_air_gunships = {
+        title = "No Air Gunships",
+        description = "Players will not be able to build any standard or experimental gunships.",
     },
     restricted_units_air_transports = {
         title = "No Air Transports",
-        description = "Players will not be able to build any standard or experimental transports",
+        description = "Players will not be able to build any standard or experimental transports.",
     },
     restricted_units_air_experimentals = {
         title = "No Air Experimentals",
-        description = "Players will not be able to build any air experimentals",
+        description = "Players will not be able to build any air experimentals.",
     },
     restricted_units_tml = {
         title = "No TMLs",
-        description = "Players will not be able to build Tactical Missile Launchers",
-    },
-    restricted_units_nukes = {
-        title = "No Nukes",
-        description = "Players will not be able to build nuke defences or launchers",
+        description = "Players will not be able to build Tactical Missile Launchers.",
     },
     restricted_units_T3_tactical_artillery = {
         title = "No T3 Barrage Artillery",
-        description = "Players will not be able to build T3 Barrage Artillery",
+        description = "Players will not be able to build T3 Barrage Artillery.",
     },
     restricted_units_T3_strategic_artillery = {
         title = "No T3 Strategic Artillery",
-        description = "Players will not be able to build T3 Strategic Artillery",
+        description = "Players will not be able to build T3 Strategic Artillery.",
     },
     restricted_units_exp_artillery = {
         title = "No Experimental/T4 Artillery",
-        description = "Players will not be able to build Experimental/T4 Artillery",
+        description = "Players will not be able to build Experimental/T4 Artillery.",
+    },
+    restricted_units_nukes = {
+        title = "No Nukes",
+        description = "Players will not be able to build nuke defences or launchers.",
     },
     restricted_units_shields = {
-        title = "No Shields",
-        description = "Players will not be able to build mobile or stationary shield generators",
+        title = "No Dedicated Shield Generators",
+        description = "Players will not be able to build mobile or stationary shield generators. Personal shields and shield enhancements are not affected.",
     },
     restricted_units_sacu = {
         title = "No Support Commanders (SACUs)",
-        description = "Players will not be able to build Support Commanders -- NOTE: THIS WILL PREVENT THE BUILDING OF ALMOST ALL EXPERIMENTAL UNITS",
+        description = "Players will not be able to build Support Commanders. -- NOTE: THIS WILL PREVENT THE BUILDING OF ALMOST ALL EXPERIMENTAL UNITS",
     },
     restricted_units_intel = {
         title = "No Intel Structures",
-        description = "Players will not be able to build Radar, Sonar or Omni installations",
+        description = "Players will not be able to build Radar, Omni, Sonar or special intel structures and units.",
     },
     restricted_units_massfab = {
         title = "No Mass Fabrication",
-        description = "Players will not be able to build Mass Fabricators, including Experimental Resource Generators"
+        description = "Players will not be able to build Mass Fabricators, including Experimental Resource Generators."
     },
     restricted_units_altair = {
         title = "T3 Alternative Air Production",
-        description = "T3 air production is limited to spy planes, ASFs and torpedo bombers",
+        description = "T3 air production is limited to spy planes, ASFs and torpedo bombers.",
     },
 
     -- ************************
