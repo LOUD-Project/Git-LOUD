@@ -1,3 +1,12 @@
+### Release 23-06-2021 ###
+Effects 3.1
+LOUD Units 1.1.1
+
+- Allow Barrage Artillery (LOUD Unit Additions) to be built by BrewLAN's T3 field engineers.
+- Reduce the rate-of-fire buff given by T3 combined storage buildings to energy weapons from 5% to 4%.
+- Fix combined storage units not giving the right buff when LOUD Integrated Storage is enabled.
+- Fix the Cybran T3 Air Factory not having a description for its radar enhancement when LOUD Structure Enhancements is enabled.
+
 ### Release 12-06-2021 ###
 Lua 5.4.21
 BlackOps 6.1.2 
