@@ -322,7 +322,7 @@ UnitBlueprint {
             DamageRadius = 3,
             DamageType = 'Normal',
 			
-            DisplayName = 'Dischage Death Weapon',
+            DisplayName = 'Discharge Death Weapon',
 			
             FireTargetLayerCapsTable = {
                 Air = 'Air|Land|Seabed|Water',
@@ -333,7 +333,8 @@ UnitBlueprint {
 			
             IgnoreIfDisabled = true,
 			
-            Label = 'Dischage',
+            Label = 'DeathWeapon',
+            FireOnDeath = true,
 			
             MaxRadius = 3,
 			
