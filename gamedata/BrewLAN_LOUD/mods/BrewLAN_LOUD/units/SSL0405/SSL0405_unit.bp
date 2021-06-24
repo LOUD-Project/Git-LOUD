@@ -54,13 +54,13 @@ UnitBlueprint {
     Defense = {
         ArmorType = 'Experimental',
         
-        Health = 138000,
-        MaxHealth = 138000,
+        Health = 128500,
+        MaxHealth = 128500,
         RegenRate = 28,
         
         AirThreatLevel = 72,
         SubThreatLevel = 33,
-        SurfaceThreatLevel = 356,
+        SurfaceThreatLevel = 368,
     },
     
     Description = '<LOC ssl0405_desc>Experimental Ultra Heavy Arthrobot',
@@ -307,8 +307,8 @@ UnitBlueprint {
     },
     
     Economy = {
-        BuildCostEnergy = 01062020,
-        BuildCostMass = 77500,
+        BuildCostEnergy = 1032000,
+        BuildCostMass = 76000,
         BuildTime = 56250,
         
         MaintenanceConsumptionPerSecondEnergy = 100, --Tall mode
@@ -355,7 +355,7 @@ UnitBlueprint {
         RadarRadius = 90,
         SonarRadius = 65,
         VisionRadius = 48,
-        WaterVisionradius = 38,
+        WaterVisionRadius = 38,
     },
     
     Interface = {
@@ -378,9 +378,9 @@ UnitBlueprint {
         LayerChangeOffsetHeight = -3,
         LayerTransitionDuration = 3.1,
         
-        MaxAcceleration = 1,
+        MaxAcceleration = 1.2,
         MaxBrake = 1.5,
-        MaxSpeed = 3.2,
+        MaxSpeed = 3.6,
         MaxSpeedReverse = 2.8,
         MaxSteerForce = 10,
         MinSpeedPercent = 0,
@@ -395,11 +395,11 @@ UnitBlueprint {
         --StandUpright = true,
         
         TurnRadius = 3,
-        TurnRate = 40,
+        TurnRate = 52,
         
         --Testing would indicate that both end up about 0.3 slower than the number would indicate.
-        TallSpeedMultiplier = 0.5,
-        WaterSpeedMultiplier = 1.3,
+        TallSpeedMultiplier = 0.65,
+        WaterSpeedMultiplier = 1.1,
     },
     
     SelectionSizeX = 5,
@@ -445,7 +445,7 @@ UnitBlueprint {
             
             Damage = 700,
             DamageRadius = 1, -- Aim bone is dead centre, and the bore axes are parallel
-            DamageType = 'ShieldMult1.2',       -- 10% extra damage to shields
+            DamageType = 'ShieldMult1.2',       -- 20% extra damage to shields
             
             DisplayName = 'Thau Cannon',
             

@@ -83,6 +83,11 @@ T4Artillery = {
 
 T4LandExperimental2 = {
 	Aeon = {'sal0401', 60},
+    Seraphim = {'ssl0404', 30},     -- Sniper
+},
+
+T4LandExperimental3 = {
+    Seraphim = {'ssl0405', 70},     -- Suedath
 },
 
 T4SeaExperimental1 = {
