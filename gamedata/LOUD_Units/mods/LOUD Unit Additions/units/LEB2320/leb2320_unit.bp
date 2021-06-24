@@ -37,6 +37,7 @@ UnitBlueprint {
         'STRUCTURE',
 		'TECH3',
         'TACTICAL',
+        'INDIRECTFIRE',
         'ARTILLERY',
         'DRAGBUILD',
 		'SIZE8',
