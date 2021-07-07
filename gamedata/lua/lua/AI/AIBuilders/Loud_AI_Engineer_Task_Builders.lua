@@ -219,7 +219,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 
         BuilderConditions = {
 			{ EBC, 'LessThanEconEnergyStorageRatio', { 75 }},
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 75, 0 }},
             
 			{ UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, categories.ENERGYPRODUCTION + categories.ENERGYSTORAGE - categories.EXPERIMENTAL, categories.ENGINEER + categories.ENERGYSTORAGE + categories.ENERGYPRODUCTION, 120 }},
         },
@@ -251,6 +251,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 		
         BuilderConditions = {
 			{ EBC, 'LessThanEconMassStorageRatio', { 50 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},            
             
             { UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, categories.MASSPRODUCTION - categories.TECH1, categories.ENGINEER + categories.MASSPRODUCTION, 120 }},
         },

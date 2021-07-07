@@ -53,11 +53,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction',
 
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
 			
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
 
-			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 2, (categories.ARTILLERY * categories.STRUCTURE) - categories.TECH2 }},
+			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 2, (categories.STRATEGIC * categories.ARTILLERY * categories.STRUCTURE) - categories.TECH2 }},
             { UCBC, 'CheckUnitRange', { 'LocationType', 'T3Artillery', (categories.STRUCTURE * categories.TECH3) - categories.MASSEXTRACTION - categories.MASSSTORAGE} },
         },
 		
@@ -94,7 +94,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
 			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 8, categories.STRUCTURE * categories.SHIELD }},
             
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
@@ -137,12 +137,12 @@ BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction - Expansions',
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
 			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 8, categories.STRUCTURE * categories.SHIELD }},
             
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
 
-			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 3, (categories.ARTILLERY * categories.STRUCTURE) - categories.TECH2 }},
+			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 3, (categories.STRATEGIC * categories.ARTILLERY * categories.STRUCTURE) - categories.TECH2 }},
 
             { UCBC, 'CheckUnitRange', { 'LocationType', 'T3Artillery', categories.STRUCTURE - categories.MASSEXTRACTION - categories.TECH1} },
         },
@@ -179,7 +179,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction - Expansions',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
 			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 8, categories.STRUCTURE * categories.SHIELD }},
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},

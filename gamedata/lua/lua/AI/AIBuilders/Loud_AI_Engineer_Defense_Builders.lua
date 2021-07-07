@@ -301,7 +301,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
             Construction = {
 				NearBasePerimeterPoints = true,
                 
-				ThreatMax = 50,
+				ThreatMax = 75,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'BaseDefenseLayout',
@@ -339,7 +339,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 			
             Construction = {
 				NearBasePerimeterPoints = true,
-				ThreatMax = 50,
+				ThreatMax = 75,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'BaseDefenseLayout',
@@ -491,7 +491,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         PriorityFunction = IsEnemyCrushingLand,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .80 } },
+            { LUTL, 'UnitCapCheckLess', { .95 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
             
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }}, 
@@ -591,7 +591,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         PriorityFunction = IsEnemyCrushingLand,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .80 } },
+            { LUTL, 'UnitCapCheckLess', { .95 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 50000 }},
             
             { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
@@ -608,7 +608,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 			
             Construction = {
 				NearBasePerimeterPoints = true,
-				ThreatMax = 50,
+				ThreatMax = 75,
 
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'BaseDefenseLayout',
@@ -628,7 +628,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         PriorityFunction = IsEnemyCrushingAir,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .80 } },
+            { LUTL, 'UnitCapCheckLess', { .95 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 50000 }},
             
             { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
@@ -645,7 +645,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 			
             Construction = {
 				NearBasePerimeterPoints = true,
-				ThreatMax = 45,
+				ThreatMax = 75,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'BaseDefenseLayout',
@@ -672,7 +672,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction',
         
         BuilderConditions = {
 			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
-            { LUTL, 'UnitCapCheckLess', { .80 } },
+            { LUTL, 'UnitCapCheckLess', { .95 } },
             
             { MIBC, 'BaseInPlayableArea', { 'LocationType' }},			
             
@@ -710,7 +710,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction',
 		InstanceCount = 1,
         
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .80 } },
+            { LUTL, 'UnitCapCheckLess', { .90 } },
             
             { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
             
@@ -727,7 +727,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction',
 			DesiresAssist = true,
             Construction = {
 				NearBasePerimeterPoints = true,
-				MaxThreat = 30,
+				MaxThreat = 75,
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'ShieldLayout',
                 BuildStructures = {
@@ -788,7 +788,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS',
 		
         BuilderConditions = {
 			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
-            { LUTL, 'UnitCapCheckLess', { .80 } },
+            { LUTL, 'UnitCapCheckLess', { .95 } },
             { MIBC, 'BaseInPlayableArea', { 'LocationType' }},			
 			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
 
@@ -802,7 +802,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS',
 			DesiresAssist = true,
             Construction = {
 				NearBasePerimeterPoints = true,
-				MaxThreat = 30,
+				MaxThreat = 75,
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'ShieldLayoutInner',
                 
@@ -821,7 +821,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS',
 		InstanceCount = 1,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .80 } },
+            { LUTL, 'UnitCapCheckLess', { .90 } },
             
             { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
             
@@ -838,7 +838,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS',
 			DesiresAssist = true,
             Construction = {
 				NearBasePerimeterPoints = true,
-				MaxThreat = 30,
+				MaxThreat = 75,
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'ShieldLayout',
                 
@@ -877,7 +877,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Shield Construction',
 		
         BuilderConditions = {
 			{ LUTL, 'GreaterThanEnergyIncome', { 50000 }},
-            { LUTL, 'UnitCapCheckLess', { .80 } },
+            { LUTL, 'UnitCapCheckLess', { .90 } },
             
             { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
 			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 8, categories.STRUCTURE * categories.SHIELD }},
@@ -899,7 +899,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Shield Construction',
 			
             Construction = {
 				NearBasePerimeterPoints = true,
-				MaxThreat = 45,
+				MaxThreat = 75,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'ShieldLayoutInner',
@@ -1223,7 +1223,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
         PriorityFunction = IsEnemyCrushingLand,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .75 } },
+            { LUTL, 'UnitCapCheckLess', { .90 } },
 			{ LUTL, 'LandStrengthRatioLessThan', { 1.1 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
             { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
@@ -1269,7 +1269,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
         PriorityFunction = IsEnemyCrushingLand,
 		
         BuilderConditions = {
-			{ LUTL, 'UnitCapCheckLess', { .80 } },
+			{ LUTL, 'UnitCapCheckLess', { .95 } },
 			{ LUTL, 'LandStrengthRatioLessThan', { 1.1 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
             { MIBC, 'BaseInPlayableArea', { 'LocationType' }},            
@@ -1287,7 +1287,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
             Construction = {
 				Radius = 68,
                 NearBasePerimeterPoints = true,
-				ThreatMax = 30,	
+				ThreatMax = 75,	
 
 				BasePerimeterOrientation = 'FRONT',
 				BasePerimeterSelection = true,
@@ -1328,7 +1328,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
             Construction = {
 				Radius = 68,
                 NearBasePerimeterPoints = true,
-				ThreatMax = 25,	
+				ThreatMax = 45,	
 				
 				BasePerimeterOrientation = 'FRONT',
 				BasePerimeterSelection = true,
@@ -1438,7 +1438,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
         PriorityFunction = IsEnemyCrushingLand,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .80 } },
+            { LUTL, 'UnitCapCheckLess', { .90 } },
 			{ LUTL, 'LandStrengthRatioLessThan', { 1.1 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 50000 }},
             { MIBC, 'BaseInPlayableArea', { 'LocationType' }},            
@@ -3382,7 +3382,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
 				Radius = 1,
 				NearBasePerimeterPoints = true,
 
-				ThreatMax = 60,
+				ThreatMax = 75,
 
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'DefensivePointStandard',

@@ -19,9 +19,9 @@ local First5Minutes = function( self,aiBrain )
 	return self.Priority, true
 end
 
-local First30Minutes = function( self,aiBrain )
+local First45Minutes = function( self,aiBrain )
 	
-	if aiBrain.CycleTime > 1800 then
+	if aiBrain.CycleTime > 2700 then
 		return 0, false
 	end
 	
@@ -204,13 +204,13 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
 		
         Priority = 780,
 		
-		PriorityFunction = First30Minutes,
+		PriorityFunction = First45Minutes,
 		
         BuilderConditions = { 
 		
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ EBC, 'LessEconEnergyStorageCurrent', { 5750 }},
-			{ EBC, 'GreaterThanEconStorageCurrent', { 175, 0 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 75, 0 }},
 
 			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION - categories.TECH1 }},            
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION * categories.STRUCTURE * categories.TECH3 }},
