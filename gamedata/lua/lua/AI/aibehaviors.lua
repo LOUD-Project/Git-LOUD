@@ -2795,9 +2795,9 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
 
         if (not target or target.Dead) and PlatoonExists(aiBrain, self) then
 
-            mythreat = self:CalculatePlatoonThreat('AntiSurface', categories.ALLUNITS) * .33    -- use only 1/3 of surface threat for target search 
+            mythreat = self:CalculatePlatoonThreat('Surface', categories.ALLUNITS) * .33    -- use only 1/3 of surface threat for target search 
             
-            mythreat = mythreat + self:CalculatePlatoonThreat('AntiAir', categories.ALLUNITS)   -- plus any air threat
+            mythreat = mythreat + self:CalculatePlatoonThreat('Air', categories.ALLUNITS)   -- plus any air threat
 
 			strikerange = 125
             
@@ -2893,7 +2893,7 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
 
 				local prevposition = LOUDCOPY(GetPlatoonPosition(self))
 
-				local paththreat = (oldNumberOfUnitsInPlatoon * 1) + self:CalculatePlatoonThreat('AntiAir', categories.ALLUNITS)
+				local paththreat = (oldNumberOfUnitsInPlatoon * 1) + self:CalculatePlatoonThreat('Air', categories.ALLUNITS)
 
                 path, reason = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, self.MovementLayer, prevposition, targetposition, paththreat, 250 )
 
