@@ -601,6 +601,7 @@ BuffBlueprint { Name = 'T1PowerEnergyWeaponBonusSize20',
 
 -- RATE OF FIRE WEAPON BONUS - TIER 1 POWER GENS
 -- interestingly - this is the only one activated
+-- T2 and T3 do not provide this RoF bonus to projectile weapons - only energy weapons
 BuffBlueprint { Name = 'T1PowerRateOfFireBonusSize4',
     BuffType = 'RATEOFFIREADJACENCY',
     Stacks = 'ALWAYS',
@@ -611,7 +612,7 @@ BuffBlueprint { Name = 'T1PowerRateOfFireBonusSize4',
     OnBuffRemove = AdjBuffFuncs.RateOfFireBuffRemove,
     Affects = {
         RateOfFire = {
-            Add = -0.05,
+            Add = -0.025,
             Mult = 1.0,
         },
     },
@@ -1070,7 +1071,7 @@ BuffBlueprint { Name = 'T2PowerRateOfFireBonusSize4',
     OnBuffRemove = AdjBuffFuncs.RateOfFireBuffRemove,
     Affects = {
         RateOfFire = {
-            Add = -0.05,
+            Add = -0.04,
             Mult = 1.0,
         },
     },
@@ -1425,7 +1426,7 @@ BuffBlueprint { Name = 'T3PowerRateOfFireBonusSize4',
     OnBuffRemove = AdjBuffFuncs.RateOfFireBuffRemove,
     Affects = {
         RateOfFire = {
-            Add = -0.08,
+            Add = -0.075,
             Mult = 1.0,
         },
     },
