@@ -1684,15 +1684,15 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
             
             { LUTL, 'UnitCapCheckLess', { .75 } },
 
-			-- empty mass point within 15km with less than 45 threat 
-			{ EBC, 'CanBuildOnMassAtRange', { 'LocationType', 120, 500, 0, 75, 1, 'AntiSurface', 1 }},
+			-- empty mass point within 12km with less than 75 threat 
+			{ EBC, 'CanBuildOnMassAtRange', { 'LocationType', 120, 600, 0, 75, 1, 'AntiSurface', 1 }},
             
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS) - categories.SCOUT - categories.EXPERIMENTAL }},
         },
 		
         BuilderData = {
 			DistressRange = 150,
-            DistressReactionTime = 40,
+            DistressReactionTime = 30,
 			DistressTypes = 'Land',
 			DistressThreshold = 2,
 			
@@ -1768,12 +1768,12 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS) - categories.SCOUT - categories.EXPERIMENTAL }},
             
 			-- we have a mass extractor within 2-10km with less than 4 defense structures 
-            { UCBC, 'MassExtractorInRangeHasLessThanDefense', { 'LocationType', 150, 500, 3, 2.5, 75, 1 }},
+            { UCBC, 'MassExtractorInRangeHasLessThanDefense', { 'LocationType', 150, 600, 3, 2.5, 75, 1 }},
         },
 		
         BuilderData = {
 			DistressRange = 150,
-            DistressReactionTime = 40,
+            DistressReactionTime = 30,
 			DistressTypes = 'Land',
 			DistressThreshold = 2,
 			
@@ -1847,13 +1847,12 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
             
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS) - categories.SCOUT - categories.EXPERIMENTAL }},
             
-            --{ UCBC, 'DefensivePointForExpansion', { 'LocationType', 1250, 0, 100, 0, 'AntiSurface' }},
             { UCBC, 'DefensivePointNeedsStructure', { 'LocationType', 1250, 'DEFENSE STRUCTURE DIRECTFIRE', 60, 3, 0, 100, 0, 'AntiSurface' }},
         },
 		
         BuilderData = {
 			DistressRange = 150,
-            DistressReactionTime = 40,
+            DistressReactionTime = 30,
 			DistressTypes = 'Land',
 			DistressThreshold = 6,
 			
@@ -2006,7 +2005,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         BuilderData = {
 		
 			DistressRange = 150,
-            DistressReactionTime = 40,
+            DistressReactionTime = 30,
 			DistressTypes = 'Land',
 			DistressThreshold = 6,
 			
@@ -2320,7 +2319,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Base Guards',
 		
         BuilderData = {
 			DistressRange = 150,
-            DistressReactionTime = 45,
+            DistressReactionTime = 35,
 			DistressTypes = 'Land',
 			DistressThreshold = 4,
 			
