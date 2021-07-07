@@ -409,6 +409,131 @@ Platoon = Class(moho.platoon_methods) {
 		
 		self.MoveThread = nil
 	end,
+
+    -- this function will hunt and engage a local target with a radius
+    -- returns true if a target was prosecuted - false if not
+    PlatoonFindTarget = function( self, aiBrain, squad, scanposition, range, attackcategories)
+
+		-- seek a target around the point --
+		local target, targetposition, position
+
+		target,targetposition = FindTargetInRange( self, aiBrain, squad, range, attackcategories )
+
+		if target then
+        
+            local PlatoonFormation = self.PlatoonData.UseFormation or 'none'
+
+			-- issue attack moves toward the target --
+			if target.Sync.id and not target.Dead then
+
+				position = GetPlatoonPosition(self) or false
+
+				if position then
+
+                    local Attack = false
+                    local Artillery = false
+
+					local direction = import('/lua/utilities.lua').GetDirectionInDegrees( position, targetposition )						
+
+                    if self:GetSquadUnits('Attack') and LOUDGETN(self:GetSquadUnits('Attack')) > 0 then
+
+                        IssueClearCommands(self:GetSquadUnits('Attack'))
+				
+                        IssueFormAggressiveMove( self:GetSquadUnits('Attack'), targetposition, 'AttackFormation', direction)
+
+                        Attack = true
+                        
+                    end
+					
+                    if self:GetSquadUnits('Artillery') and LOUDGETN(self:GetSquadUnits('Artillery')) > 0 then
+
+                        IssueClearCommands(self:GetSquadUnits('Artillery'))
+                       
+                        IssueFormAggressiveMove( self:GetSquadUnits('Artillery'), targetposition, PlatoonFormation, direction)
+
+                        Artillery = true
+
+                    end
+
+                    if self:GetSquadUnits('Guard') and LOUDGETN(self:GetSquadUnits('Guard')) > 0 then
+
+                        IssueClearCommands(self:GetSquadUnits('Guard'))
+                     
+                        if not Artillery and not Attack then
+
+                            IssueFormMove( self:GetSquadUnits('Guard'), targetposition, 'BlockFormation', direction)
+
+                        elseif Artillery then
+
+                            IssueGuard( self:GetSquadUnits('Guard'), self:GetSquadUnits('Artillery')[1] )
+
+                        elseif Attack then
+
+                            IssueGuard( self:GetSquadUnits('Guard'), self:GetSquadUnits('Attack')[1] )
+
+                        end
+
+                    end
+					
+                    if self:GetSquadUnits('Support') and LOUDGETN(self:GetSquadUnits('Support')) > 0 then
+
+                        IssueClearCommands(self:GetSquadUnits('Support'))
+
+                        if not Attack and not Artillery then
+                            
+                            IssueFormAggressiveMove( self:GetSquadUnits('Support'), targetposition, 'BlockFormation', direction)
+
+                        elseif Attack then
+                            
+                            IssueGuard( self:GetSquadUnits('Support'), self:GetSquadUnits('Attack')[1])
+
+                        elseif Artillery then
+                            
+                            IssueGuard( self:GetSquadUnits('Support'), self:GetSquadUnits('Artillery')[1])                            
+
+                        end
+
+                    end
+
+                end
+
+			else
+
+				target = false
+
+			end
+
+			-- Engage target until dead or target is outside guard radius
+			while target and (not target.Dead) and PlatoonExists(aiBrain, self) do 
+
+				WaitTicks(20)
+
+				if PlatoonExists(aiBrain,self) then
+                
+                    position = GetPlatoonPosition(self) or false
+
+                    -- if target dies or moves out of range --
+                    if target.Dead or (not position) or VDist3( target:GetPosition(), position) >= range then
+
+						target = false
+                        
+                        self:Stop() 
+
+					end
+
+                end
+
+            end
+
+            -- acknowledges we had a target
+            return true
+
+		end
+        
+        -- acknowledges no target was found
+        return false
+    
+    end,
     
 	-- this function is just a 'tiny' bit different than DisbandPlatoon
 	-- first off - it makes sure that all the units get their PlatoonHandle field cleared - which is quite useful
