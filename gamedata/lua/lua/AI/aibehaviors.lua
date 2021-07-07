@@ -1475,39 +1475,50 @@ function LandScoutingAI( self, aiBrain )
 				end
 
 				if PlatoonPatrols then
+                
+                    local baseradius = 28
+                
+                    for _,scout in GetPlatoonUnits(self) do
+                    
+                        if not scout.Dead then
 					
-					local loclist = GetBasePerimeterPoints( aiBrain, targetArea, 28, false, false, 'Land', true )
+                            local loclist = GetBasePerimeterPoints( aiBrain, targetArea, baseradius, false, false, 'Land', true )
 					
-					for k,v in loclist do
-					
-						if not scout.Dead then
+                            for k,v in loclist do
 
-							if scout:CanPathTo( v ) then
+                                if scout:CanPathTo( v ) then
 								
-								if not self.MovementLayer == 'Amphibious' then
+                                    if not self.MovementLayer == 'Amphibious' then
 							
-									v[2] = GetSurfaceHeight(v[1], v[3])
+                                        v[2] = GetSurfaceHeight(v[1], v[3])
 									
-									if GetTerrainHeight(v[1], v[3]) < (v[2] - 1) then
-										continue
-									end
+                                        if GetTerrainHeight(v[1], v[3]) < (v[2] - 1) then
+                                            continue
+                                        end
 									
-								end
+                                    end
 					
-								if k == 1 then
-									self:MoveToLocation(v, false)
-								else
-									units = GetPlatoonUnits(self)
+                                    if k == 1 then
+                                    
+                                        IssueMove( {scout}, v ) --self:MoveToLocation(v, false)
+                                        
+                                    else
 
-									if LOUDGETN(units) > 0 then
-										IssuePatrol( units, v )
-									end
-								end
-							end
+                                        IssuePatrol( {scout}, v )
 
-							WaitTicks(8)
-						end
-					end
+                                    end
+                                end
+
+                                WaitTicks(2)
+
+                            end
+
+                            baseradius = baseradius + 8
+
+                        end
+
+                    end
+                    
 				end
 				
 				-- here is where you could use a variable time or alternatively
