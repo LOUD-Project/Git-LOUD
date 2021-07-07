@@ -68,6 +68,7 @@ local PlatoonExists = moho.aibrain_methods.PlatoonExists
 local LOUDCAT = table.cat
 local LOUDCOPY = table.copy
 local LOUDENTITY = EntityCategoryContains
+local LOUDEQUAL = table.equal
 local LOUDFLOOR = math.floor
 local LOUDGETN = table.getn
 local LOUDINSERT = table.insert
@@ -283,11 +284,11 @@ Platoon = Class(moho.platoon_methods) {
             end
             
             -- make a copy of the original to use for the primary loop
-            local pathcopy = table.copy(path)
+            local pathcopy = LOUDCOPY(path)
 
 			for wpidx, waypointPath in pathcopy do
 
-                table.remove( path, 1)  -- remove the currently executing step from the original path - the original platoon can see this and keep tabs on it's progress
+                LOUDREMOVE( path, 1)  -- remove the currently executing step from the original path - the original platoon can see this and keep tabs on it's progress
 			
 				if self.MoveThread then
 
@@ -1234,9 +1235,9 @@ Platoon = Class(moho.platoon_methods) {
 		end
 	
 		
-        pathlength = pathlength + VDist3( path[table.getn(path)], destination )
+        pathlength = pathlength + VDist3( path[LOUDGETN(path)], destination )
         
-        path[table.getn(path)+1] = destination
+        path[LOUDGETN(path)+1] = destination
         
 	
 		return path, 'Pathing', pathlength, pathcost
@@ -1459,7 +1460,7 @@ Platoon = Class(moho.platoon_methods) {
 			-- set transportlocation - engineers always use base centre	
 			if bestBase.Position then
 			
-				transportLocation = table.copy(bestBase.Position)
+				transportLocation = LOUDCOPY(bestBase.Position)
 			else
 				
 				LOG("*AI DEBUG "..aiBrain.Nickname.." RTB cant locate a bestBase")
@@ -1471,17 +1472,17 @@ Platoon = Class(moho.platoon_methods) {
 			if not engineer then
 			
 				-- use the base generated rally points
-				local rallypoints = table.copy(bestBase.RallyPoints)
+				local rallypoints = LOUDCOPY(bestBase.RallyPoints)
 				
 				-- sort the rallypoints for closest to the platoon --
 				LOUDSORT( rallypoints, function(a,b) return VDist2Sq( a[1],a[3], platPos[1],platPos[3] ) < VDist2Sq( b[1],b[3], platPos[1],platPos[3] ) end )
 
-				transportLocation = table.copy(rallypoints[1])
+				transportLocation = LOUDCOPY(rallypoints[1])
 				
 				-- if cannot find rally marker - use base centre
 				if not transportLocation then
 				
-					transportLocation = table.copy(bestBase.Position)
+					transportLocation = LOUDCOPY(bestBase.Position)
 					
 				end
 				
@@ -2300,15 +2301,16 @@ Platoon = Class(moho.platoon_methods) {
 						marker = {pointlist[choice][1], pointlist[choice][2], pointlist[choice][3]}
 						
 						-- and remove the marker so it cant be picked again
-						table.remove( pointlist, choice )
+						LOUDREMOVE( pointlist, choice )
 						
 						-- is it the same as last failed marker
-						if table.equal( marker, lastmarker ) then
+						if LOUDEQUAL( marker, lastmarker ) then
 						
 							LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..repr(self.BuilderName).." trying to select same point "..repr(marker))
 						
 							marker = false
 						end
+                        
 					end
 
 					guardtime = 0
@@ -3099,7 +3101,7 @@ Platoon = Class(moho.platoon_methods) {
 							
                                 PlatoonToGuard = v.PlatoonHandle
 								UnitToGuard = v
-								marker = table.copy( v:GetPosition() )
+								marker = LOUDCOPY( v:GetPosition() )
             
                                 --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." guarding unit at "..repr(marker))
                                 --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." guarding platoon "..repr(PlatoonToGuard.BuilderName))
@@ -3119,23 +3121,21 @@ Platoon = Class(moho.platoon_methods) {
                     return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 					--return self:GuardPointAir(aiBrain)
 				end
+                
 			end
 
 			IssueClearCommands( GetPlatoonUnits(self) )
 
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." getting path to "..repr(marker).." from "..repr(platLoc).." MyThreat is "..OriginalThreat )
             path = false
             pathlength = 0
 
 			path, reason, pathlength = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, self.MovementLayer, platLoc, marker, OriginalThreat * ThreatMaxRatio, 250)
-            
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." path "..reason.." is "..repr(path) )
 			
 			if PlatoonExists(aiBrain, self) then
 			
 				if not path then
 				
-					lastmarker = table.copy(marker)
+					lastmarker = LOUDCOPY(marker)
 
 					marker = false
 
@@ -3143,8 +3143,6 @@ Platoon = Class(moho.platoon_methods) {
 
 				else
 
-					--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT AIR "..repr(self.BuilderName).." path is "..repr(path))
-					
 					if PlatoonExists(aiBrain,self) then
 				
 						self.MoveThread = self:ForkThread( self.MovePlatoon, path, PlatoonFormation, bAggroMove)
@@ -3152,15 +3150,15 @@ Platoon = Class(moho.platoon_methods) {
 				
 					if PlatoonExists(aiBrain,self) and not self.MoveThread then
 					
-						lastmarker = table.copy(marker)
+						lastmarker = LOUDCOPY(marker)
 				
 						marker = false
 						
 						break
 					end
 				end
+                
 			end			
-
 
 			StuckCount = 0
             oldplatpos = false
@@ -3250,11 +3248,10 @@ Platoon = Class(moho.platoon_methods) {
 		
 			-- If Exit parameters have been met -- bypass guard cycle --
 			if guardtime >= guardTimer then
-			
-				--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINTAIR "..self.BuilderName.." has a travel/time trigger - guardTimer is "..repr(guardTimer).." time is "..repr(guardtime).." marker is "..repr(marker) )
-				
+
 				-- the guard cycle will be bypassed
 				marker = false
+                
             end
             
             if self.MoveThread then
@@ -3276,21 +3273,18 @@ Platoon = Class(moho.platoon_methods) {
 					IssueClearCommands ( GetPlatoonUnits(self) )
 				
 					if UnitToGuard and not UnitToGuard.Dead then
-                    
-                        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." unit to guard is "..repr(UnitToGuard:GetBlueprint().Description))
-					
+
 						if not UnitToGuard.Dead and PlatoonExists(aiBrain,PlatoonToGuard) then
 						
-							marker = table.copy(UnitToGuard:GetPosition()) or false
+							marker = LOUDCOPY(UnitToGuard:GetPosition()) or false
 						else
 						
 							marker = false
 							guardtime = guardTimer
+                            
 						end
 						
 						if marker then
-                        
-                            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." starting guard at "..repr(marker))
 
 							if not SetPatrol then
 							
@@ -3313,6 +3307,7 @@ Platoon = Class(moho.platoon_methods) {
 							end
 							
 							guarding = true
+                            
 						end
                         
 					else
@@ -3475,16 +3470,22 @@ Platoon = Class(moho.platoon_methods) {
 				AssignUnitsToPlatoon( aiBrain, aiBrain.StructurePool, GetPlatoonUnits(self), 'Guard', 'none' )
 
 				return self:PlatoonDisband(aiBrain)
+                
 			end
 			
-			-- the overall mission timer expires -- RTB -- 
+			-- the overall mission timer expires -- merge or RTB -- 
 			if (LOUDTIME() - self.CreationTime ) > MissionTimer then
+            
+                self.MergeIntoNearbyPlatoons( self, aiBrain, self.PlanName, 100, false )
 			
 				return self:SetAIPlan('ReturnToBaseAI',aiBrain)
+                
 			end
 	
 			WaitTicks(10)
+            
 		end
+        
     end,  
 
 	-- GuardPoint for amphibious platoons
@@ -3671,10 +3672,10 @@ Platoon = Class(moho.platoon_methods) {
 						marker = {pointlist[choice][1], pointlist[choice][2], pointlist[choice][3]}
 						
 						-- and remove the marker so it cant be picked again
-						table.remove( pointlist, choice )
+						LOUDREMOVE( pointlist, choice )
 						
 						-- is it the same as last failed marker
-						if table.equal( marker, lastmarker ) then
+						if LOUDEQUAL( marker, lastmarker ) then
 						
 							marker = false
 						end
@@ -3721,7 +3722,7 @@ Platoon = Class(moho.platoon_methods) {
 				
 					if not usedTransports then
 				
-						lastmarker = table.copy(marker)
+						lastmarker = LOUDCOPY(marker)
 						
 						marker = false
 						
@@ -3738,7 +3739,7 @@ Platoon = Class(moho.platoon_methods) {
 				
 					if not usedTransports and not self.MoveThread then
 					
-						lastmarker = table.copy(marker)
+						lastmarker = LOUDCOPY(marker)
 				
 						marker = false
 						
@@ -4297,10 +4298,10 @@ Platoon = Class(moho.platoon_methods) {
 						marker = {pointlist[choice][1], pointlist[choice][2], pointlist[choice][3]}
 						
 						-- and remove the marker so it cant be picked again
-						table.remove( pointlist, choice )
+						LOUDREMOVE( pointlist, choice )
 						
 						-- is it the same as last failed marker
-						if table.equal( marker, lastmarker ) then
+						if LOUDEQUAL( marker, lastmarker ) then
 						
 							marker = false
 						end
@@ -4336,7 +4337,7 @@ Platoon = Class(moho.platoon_methods) {
 			
 				if not path then
 				
-					lastmarker = table.copy(marker)
+					lastmarker = LOUDCOPY(marker)
 
 					marker = false
 
@@ -4353,7 +4354,7 @@ Platoon = Class(moho.platoon_methods) {
 				
 					if PlatoonExists(aiBrain,self) and not self.MoveThread then
 					
-						lastmarker = table.copy(marker)
+						lastmarker = LOUDCOPY(marker)
 				
 						marker = false
 						
@@ -4916,7 +4917,7 @@ Platoon = Class(moho.platoon_methods) {
         
             if GetPlatoonPosition(self) then
 
-                ForkTo( AIAddMustScoutArea, aiBrain, table.copy(GetPlatoonPosition(self)) )
+                ForkTo( AIAddMustScoutArea, aiBrain, LOUDCOPY(GetPlatoonPosition(self)) )
 		
                 WaitTicks(75)
 		
@@ -4975,7 +4976,7 @@ Platoon = Class(moho.platoon_methods) {
 
 			if self.UnderAttack and (not self.DistressCall) and (not self.RespondingToDistress) then
 			
-				pos = table.copy(GetPlatoonPosition(self)) or false
+				pos = LOUDCOPY(GetPlatoonPosition(self)) or false
 			
 				if pos then
 				
@@ -5292,15 +5293,21 @@ Platoon = Class(moho.platoon_methods) {
 											-- Always capture the CLOSEST ALERT
 											if rangetoalert < alertrange then
 											
-												alertposition = table.copy(alert.Position)
+												alertposition = LOUDCOPY(alert.Position)
 												alertplatoon = 'BaseAlert'
 												alertrange = rangetoalert
+                                                
+                                                if ScenarioInfo.DistressResponseDialog then
+                                                    LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..repr(platoon.MovementLayer).." selects BASE ALERT "..repr(alertposition).." threat is "..alert.Threat)
+                                                end
 											end
 										end
 									end
 								end
 							end
+                            
 						end		-- next base in this brain
+                        
 					end
 				
 					-- if platoon alerts see if one of those is closer
@@ -5314,8 +5321,8 @@ Platoon = Class(moho.platoon_methods) {
 
 								if v.DistressType == distresstype then
 
-									-- is calling platoon still alive and it's not ourselves
-									if PlatoonExists(brain, v.Platoon) and not table.equal(v.Platoon, platoon) then
+									-- is calling platoon still alive and it's not ourselves and threat is high enough to be of interest
+									if PlatoonExists(brain, v.Platoon) and (not LOUDEQUAL(v.Platoon, platoon)) then
 
 										local rangetoalert = VDist2(platoonposition[1],platoonposition[3],v.Position[1],v.Position[3])
 									
@@ -5324,7 +5331,8 @@ Platoon = Class(moho.platoon_methods) {
                                         
                                             local selfthreat = platoon:CalculatePlatoonThreat('Surface', categories.ALLUNITS)  
 
-                                            local threat = v.Threat
+                                            local threat = aiBrain:GetThreatAtPosition( v.Position, 0, true, 'AntiSurface' )
+
                                             
                                             if platoon.MovementLayer == 'Air' then
                                             
@@ -5332,21 +5340,39 @@ Platoon = Class(moho.platoon_methods) {
                                                     selfthreat = selfthreat + platoon:CalculatePlatoonThreat('Sub', categories.ALLUNITS)
                                                 end
                                                 
-                                                selfthreat = selfthreat + platoon:CalculatePlatoonThreat('Air', categories.ALLUNITS)
+                                                if distresstype == 'Air' then
+                                                    selfthreat = platoon:CalculatePlatoonThreat('Air', categories.ALLUNITS)
+                                                end
                                                 
                                                 threat = aiBrain:GetThreatAtPosition( v.Position, 0, true, 'AntiAir' )
-
-                                                if threat > (selfthreat * 1.3) then
-                                                    LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..platoon.BuilderName.." too much threat "..threat.." to respond to - mine "..selfthreat)
-                                                end
-
+                                                
+                                            elseif platoon.MovementLayer == 'Water' then
+                                            
+                                                threat = threat + aiBrain:GetThreatAtPosition( v.Position, 0, true, 'AntiSub')
+                                                
+                                                selfthreat = selfthreat + platoon:CalculatePlatoonThreat('Sub', categories.ALLUNITS)
+                                                
                                             end
 
-											if rangetoalert < alertrange and ( threat < selfthreat * 1.3 ) then
+                                            if threat > (selfthreat * 1.3) then
+                                                --LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..platoon.BuilderName.." too much "..repr(distresstype).." threat "..threat.." to respond to - mine "..selfthreat)
+                                                continue
+                                            end
+                                            
+                                            if threat > threatthreshold then
+
+                                                if rangetoalert < alertrange and ( threat < selfthreat * 1.3 ) then
 										
-												alertposition = table.copy(v.Position)
-												alertplatoon = v.Platoon
-												alertrange = rangetoalert
+                                                    alertposition = LOUDCOPY(v.Position)
+                                                    alertplatoon = v.Platoon
+                                                    alertrange = rangetoalert
+                                                
+                                                    if ScenarioInfo.DistressResponseDialog then
+                                                        LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..repr(platoon.MovementLayer).." selects PLATOON ALERT "..repr(alertposition).." threat is "..threat)
+                                                    end
+                                                    
+                                                end
+                                                
 											end
 
                                         end
@@ -8862,7 +8888,7 @@ Platoon = Class(moho.platoon_methods) {
 
 			if self.RTBLocation != AttackBase1 then
 			
-				table.insert( selections, AttackBase1 )
+				LOUDINSERT( selections, AttackBase1 )
 				
 				count = count + 1
 			end
@@ -8872,7 +8898,7 @@ Platoon = Class(moho.platoon_methods) {
 		
 			if self.RTBLocation != AttackBase2 then
 			
-				table.insert( selections, AttackBase2 )
+				LOUDINSERT( selections, AttackBase2 )
 				
 				count = count + 1
 			end
@@ -8886,19 +8912,19 @@ Platoon = Class(moho.platoon_methods) {
 		
 			if aiBrain:GetThreatAtPosition( AttackBase1Position, rings, true, 'Overall') > aiBrain:GetThreatAtPosition( AttackBase2Position, rings, true, 'Overall') then
 			
-				table.insert( selections, AttackBase1 )
+				LOUDINSERT( selections, AttackBase1 )
 			end
 
 			if aiBrain:GetThreatAtPosition( AttackBase2Position, rings, true, 'Overall') > aiBrain:GetThreatAtPosition( AttackBase1Position, rings, true, 'Overall') then
 			
-				table.insert( selections, AttackBase2 )
+				LOUDINSERT( selections, AttackBase2 )
 			end
 		end
 		
 		-- if there is more than one choice --
 		if count > 0 then
 		
-			local choice = math.random( 1, table.getn(selections) )
+			local choice = math.random( 1, LOUDGETN(selections) )
 			
 			local AttackBase = selections[choice]
         
@@ -8943,7 +8969,7 @@ Platoon = Class(moho.platoon_methods) {
 
 			if self.RTBLocation != AttackBase1 then
 			
-				table.insert( selections, AttackBase1 )
+				LOUDINSERT( selections, AttackBase1 )
 				
 				count = count + 1
 				
@@ -8955,7 +8981,7 @@ Platoon = Class(moho.platoon_methods) {
 		
 			if self.RTBLocation != AttackBase2 then
 			
-				table.insert( selections, AttackBase2 )
+				LOUDINSERT( selections, AttackBase2 )
 				
 				count = count + 1
 				
@@ -8965,7 +8991,7 @@ Platoon = Class(moho.platoon_methods) {
 
 		if count > 0 then
 		
-			local choice = math.random( 1, table.getn(selections) )
+			local choice = math.random( 1, LOUDGETN(selections) )
 			
 			local AttackBase = selections[choice]
         
@@ -9016,7 +9042,7 @@ Platoon = Class(moho.platoon_methods) {
 
 			if self.RTBLocation != AttackBase1 then
 			
-				table.insert( selections, AttackBase1 )
+				LOUDINSERT( selections, AttackBase1 )
 				
 				count = count + 1
 				
@@ -9028,7 +9054,7 @@ Platoon = Class(moho.platoon_methods) {
 		
 			if self.RTBLocation != AttackBase2 then
 			
-				table.insert( selections, AttackBase2 )
+				LOUDINSERT( selections, AttackBase2 )
 				
 				count = count + 1
 				
@@ -9038,7 +9064,7 @@ Platoon = Class(moho.platoon_methods) {
 
 		if count > 0 then
 		
-			local choice = math.random( 1, table.getn(selections) )
+			local choice = math.random( 1, LOUDGETN(selections) )
 			
 			local AttackBase = selections[choice]
         
@@ -9092,7 +9118,7 @@ Platoon = Class(moho.platoon_methods) {
 
 			if self.RTBLocation != AttackBase1 then
 			
-				table.insert( selections, AttackBase1 )
+				LOUDINSERT( selections, AttackBase1 )
 				
 				count = count + 1
 				
@@ -9104,7 +9130,7 @@ Platoon = Class(moho.platoon_methods) {
 		
 			if self.RTBLocation != AttackBase2 then
 			
-				table.insert( selections, AttackBase2 )
+				LOUDINSERT( selections, AttackBase2 )
 				
 				count = count + 1
 				
