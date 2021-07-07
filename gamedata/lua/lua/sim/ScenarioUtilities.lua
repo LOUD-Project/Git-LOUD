@@ -107,6 +107,8 @@ function CreateResources()
 			table.insert( Starts, 'ARMY_'..x )
 		end
 	end
+    
+    
 	
 	--LOG("*AI DEBUG Start positions are "..repr(Starts))
 	
@@ -581,6 +583,14 @@ function InitializeArmies()
 	
 			self.UpgradeIssuedLimit = self.UpgradeIssuedLimit + 1
 			self.UpgradeIssuedPeriod = self.UpgradeIssuedPeriod - 20
+            
+            -- if really outnumbered do this a second time
+            if PlayerDiff > 1.5 then
+            
+                self.UpgradeIssuedLimit = self.UpgradeIssuedLimit + 1
+                self.UpgradeIssuedPeriod = self.UpgradeIssuedPeriod - 20            
+            
+            end
 	
 		end
 
