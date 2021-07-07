@@ -741,7 +741,7 @@ function Nuke(aiBrain)
 				#Send a message to allies letting them know we are letting nukes fly
 				
 				--Also ping the map where we are targeting
-				aitarget = target.Sync.army	--:GetAIBrain().ArmyIndex
+				aitarget = target.Sync.army
 				AISendChat('allies', ArmyBrains[aiBrain.ArmyIndex].Nickname, 'nukechat', ArmyBrains[aitarget].Nickname)
 				AltAIUtils.AISendPing(tarPosition, 'attack', aiBrain.ArmyIndex)
 				
@@ -807,7 +807,7 @@ function CheckCost(aiBrain, pos, massCost)
 	
 	for k,v in units do
 	
-		if not v:IsDead() then
+		if not v.Dead then
 		
 			local unitValue = (v:GetBlueprint().Economy.BuildCostMass * v:GetFractionComplete())
 			

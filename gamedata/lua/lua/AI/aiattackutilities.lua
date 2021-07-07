@@ -624,7 +624,7 @@ end
 
 -- this function locates a target for a squad within a given range and list of priority target types
 -- returning an actual unit and its position -- modified to include the nolayercheck option
-function FindTargetInRange( self, aiBrain, squad, maxRange, atkPri, nolayercheck )
+function FindTargetInRange( self, aiBrain, squad, maxRange, attackcategories, nolayercheck )
 
 	local PlatoonExists = moho.aibrain_methods.PlatoonExists	
 	
@@ -636,8 +636,6 @@ function FindTargetInRange( self, aiBrain, squad, maxRange, atkPri, nolayercheck
 	end
 	
     if PlatoonExists( aiBrain, self) then
-        
-        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." finding target "..repr(atkPri))
 
         -- are there any enemy units ?
         if aiBrain:GetNumUnitsAroundPoint( categories.ALLUNITS - categories.WALL, position, maxRange, 'Enemy' ) < 1 then
@@ -701,14 +699,10 @@ function FindTargetInRange( self, aiBrain, squad, maxRange, atkPri, nolayercheck
 		-- sort them by distance
 		LOUDSORT(enemyunits, function(a,b) return VDist2Sq( GetPosition(a)[1],GetPosition(a)[3], position[1],position[3] ) < VDist2Sq( GetPosition(b)[1],GetPosition(b)[3], position[1],position[3]) end)
 
-        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." found "..repr(LOUDGETN(enemyunits)).." enemies at "..maxRange)
-
-		for _,v in atkPri do
-            
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." testing "..repr(v).." targets")
+		for _,v in attackcategories do
 
 			-- filter for the desired category
-			for _, u in EntityCategoryFilterDown( LOUDPARSE(v), enemyunits) do
+			for _, u in EntityCategoryFilterDown( v, enemyunits) do
 
 				if not u.Dead then
 				
@@ -724,9 +718,11 @@ function FindTargetInRange( self, aiBrain, squad, maxRange, atkPri, nolayercheck
                         end
                     end
 				end
+                
 			end
 			
-		end	-- get the next category in the atkPri list
+		end
+        
 	end
 	
 	return false, false
@@ -736,7 +732,7 @@ end
 -- targets are threat filtered and range filtered (both MAX and MIN) allowing 'banded' searches
 -- any shields within a targets vicinity increase it's threat --
 -- This function can use a great deal of CPU so be careful
-function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position, platoon, squad, minRange, maxRange, atkPri, threatself, threattype, threatradius)
+function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position, platoon, squad, minRange, maxRange, attackcategories, threatself, threattype, threatradius)
 
 	-- if position not supplied use platoon position or exit
     if not position then
@@ -801,8 +797,8 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
     
 	local retUnit, rePosition, bestthreat, targetUnits
     
-	-- loop thru each of our attack priorities
-	for _,category in atkPri do
+	-- loop thru each of our attack categories
+	for _,category in attackcategories do
 	
 		retUnit = false
 		retPosition = false
@@ -812,8 +808,6 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
 		
 		if targetUnits and LOUDGETN(targetUnits) > 0 then		
 
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." AIFindTargetInRangeInCategory has targets for "..platoon.BuilderName)
-            
 			-- sort them by distance -- 
 			LOUDSORT( targetUnits, function(a,b) return VDist2Sq(a:GetPosition()[1],a:GetPosition()[3], position[1],position[3]) < VDist2Sq(b:GetPosition()[1],b:GetPosition()[3], position[1],position[3]) end)
 		

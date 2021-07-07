@@ -2217,26 +2217,24 @@ Platoon = Class(moho.platoon_methods) {
 		local MergeLimit = self.PlatoonData.MergeLimit or false			-- trigger point to allow merging
         
         local bAggroMove = self.PlatoonData.AggressiveMove or false
-        local PlatoonFormation = self.PlatoonData.UseFormation or 'None'
+        local PlatoonFormation = self.PlatoonData.UseFormation or 'none'
 		local allowinwater = self.PlatoonData.AllowInWater or 'false'		-- platoon will consider points on/under water
 		local AvoidBases = self.PlatoonData.AvoidBases or 'false'			-- Platoon will avoid points within PMin of allied base positions
 		
 		local SetPatrol = self.PlatoonData.SetPatrol or false
 		local PatrolRadius = self.PlatoonData.PatrolRadius or 60
 		
-		local atkPri = {}
 		local categoryList = {}
 		
         if self.PlatoonData.PrioritizedCategories then
 		
             for k,v in self.PlatoonData.PrioritizedCategories do
 			
-                LOUDINSERT( atkPri, v )
                 LOUDINSERT( categoryList, LOUDPARSE( v ) )
 				
             end
         else
-			LOUDINSERT( atkPri, 'ALLUNITS' )
+
 			LOUDINSERT( categoryList, categories.ALLUNITS )
 		end
 		
@@ -2505,61 +2503,121 @@ Platoon = Class(moho.platoon_methods) {
 			guarding = false
 			guardtime = 0
             
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..self.BuilderName.." starts guarding")
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." GP starts guarding cycle")
 
 			while marker and guardtime < guardTimer and PlatoonExists(aiBrain, self) do
 
+                -- prosecute a local target within the radius
+                target = self:PlatoonFindTarget( aiBrain, 'Attack', marker, guardRadius, categoryList )
+                
+                -- if we had a target then we need to reset the guard
+                if target then
+                    guarding = false
+                end
+
+--[[                
 				-- seek a target around the point --
 				target = false
 				
-				target,targetposition = FindTargetInRange( self, aiBrain, 'Attack', guardRadius, atkPri)
-				
-				units = GetPlatoonUnits(self)
-				
+				target,targetposition = FindTargetInRange( self, aiBrain, 'Attack', guardRadius, categoryList)
+
 				if target then
                 
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..self.BuilderName.." gets local target ")
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." gets target "..repr(target:GetBlueprint().Description))
+                
+                    guarding = false
 
 					-- issue attack orders on target --
 					if target.Sync.id and not target.Dead then
-					
-						self:Stop()
-						
+
 						position = GetPlatoonPosition(self) or false
 						
 						if position then
-						
-							direction = import('/lua/utilities.lua').GetDirectionInDegrees( GetPlatoonPosition(self), targetposition )
-						
-							IssueAggressiveMove( self:GetSquadUnits('Attack'), targetposition)
-						
-							if self:GetSquadUnits('Artillery') then
-								IssueAggressiveMove( self:GetSquadUnits('Artillery'),targetposition)
-							end
-						
-							if self:GetSquadUnits('Guard') then
-								IssueFormAggressiveMove( self:GetSquadUnits('Guard'),targetposition,'DMSCircleFormation', direction)
-							end
-						
-							if self:GetSquadUnits('Support') then
-								IssueFormAggressiveMove( self:GetSquadUnits('Support'),targetposition,'ScatterFormation', direction)
-							end
-						
-							guarding = false
+                        
+                            local Attack = false
+                            local Artillery = false
+                            
+							direction = import('/lua/utilities.lua').GetDirectionInDegrees( GetPlatoonPosition(self), targetposition )						
+                            
+                            if self:GetSquadUnits('Attack') and LOUDGETN(self:GetSquadUnits('Attack')) > 0 then
+                            
+                                IssueClearCommands(self:GetSquadUnits('Attack'))
+				
+                                IssueFormAggressiveMove( self:GetSquadUnits('Attack'), targetposition, 'AttackFormation', direction)
+                                
+                                Attack = true
+                                
+                            end
+					
+                            if self:GetSquadUnits('Artillery') and LOUDGETN(self:GetSquadUnits('Artillery')) > 0 then
+                            
+                                IssueClearCommands(self:GetSquadUnits('Artillery'))
+                        
+                                IssueFormAggressiveMove( self:GetSquadUnits('Artillery'), targetposition, PlatoonFormation, direction)
+                            
+                                Artillery = true
+                            
+                            end
+                            
+                            if self:GetSquadUnits('Guard') and LOUDGETN(self:GetSquadUnits('Guard')) > 0 then
+                            
+                                IssueClearCommands(self:GetSquadUnits('Guard'))
+                     
+                                if not Artillery and not Attack then
+
+                                    IssueFormMove( self:GetSquadUnits('Guard'), targetposition, 'BlockFormation', direction)
+                                
+                                elseif Artillery then
+                                
+                                    IssueGuard( self:GetSquadUnits('Guard'), self:GetSquadUnits('Artillery')[1] )
+                                
+                                elseif Attack then
+                                
+                                    IssueGuard( self:GetSquadUnits('Guard'), self:GetSquadUnits('Attack')[1] )
+                            
+                                end
+                            
+                            end
+					
+                            if self:GetSquadUnits('Support') and LOUDGETN(self:GetSquadUnits('Support')) > 0 then
+
+                                IssueClearCommands(self:GetSquadUnits('Support'))
+                                
+                                if not Attack and not Artillery then
+                            
+                                    IssueFormAggressiveMove( self:GetSquadUnits('Support'), targetposition, 'BlockFormation', direction)
+                                
+                                elseif Attack then
+                            
+                                    IssueGuard( self:GetSquadUnits('Support'), self:GetSquadUnits('Attack')[1])
+                                
+                                elseif Artillery then
+                            
+                                    IssueGuard( self:GetSquadUnits('Support'), self:GetSquadUnits('Artillery')[1])                            
+                                
+                                end
+                            
+                            end
+
 						end
+                        
 					else
+                    
+                        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." gets FAKE or bad target")
+                    
 						target = false
+                        
 					end
 					
 					-- Engage target until dead or target is outside guard radius
-					while target and (not target.Dead) and self.WatchPlatoon and PlatoonExists(aiBrain, self) do 
-					
-						--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..self.BuilderName.." engaging target")
+					while target and (not target.Dead) and PlatoonExists(aiBrain, self) do 
 
 						WaitTicks(25)
 						guardtime = guardtime + 2.5
+                        
+                        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." engaging target loop")
 						
-						if self.WatchPlatoon and PlatoonExists(aiBrain,self) then
+						if PlatoonExists(aiBrain,self) then
 
                             -- if we are guarding a unit - marker follows that unit
 							if UnitToGuard and not UnitToGuard.Dead then
@@ -2568,125 +2626,26 @@ Platoon = Class(moho.platoon_methods) {
 
                             -- if target dies or moves out of range --
                             if target.Dead or VDist3( target:GetPosition(), marker) >= guardRadius then
+                            
+                                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." target dead or out of range")
+                                
 								target = false
                                 self:Stop()                                
 							end
-					
-							-- if platoon is exhausted --
-							if self:CalculatePlatoonThreat('Surface', categories.ALLUNITS) <= (OriginalThreat * .40) then
-                            
-                                self:Stop()
-								self.MergeIntoNearbyPlatoons( self, aiBrain, 'GuardPoint', 100, false)
-								
-								-- RTB any leftovers
-								return self:SetAIPlan('ReturnToBaseAI',aiBrain)
-							end
-						end
+
+                        end
                         
 					end
+                    
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." no target "..repr(target) )
                     
                     target = false
-                    guarding = false
-				end
-				
-				-- if no target and not already guarding - setup a guard around the point --
-				if (not target) and (not guarding) and PlatoonExists(aiBrain, self) then
-                
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..self.BuilderName.." no target - seting up guardposition")
 
-					self:Stop()
-                    
-                    self:MoveToLocation( marker, false)
-				
-					local randlist = { AssistRange, AssistRange * -1 }
-					
-					NumberOfUnitsInPlatoon = 0
-                    
-					local newunits = {}
-					
-					for k,unit in units do
-					
-						if not unit.Dead then
-                        
-							NumberOfUnitsInPlatoon = NumberOfUnitsInPlatoon + 1
-                            
-							newunits[NumberOfUnitsInPlatoon] = unit
-						end
-					end
-					
-					if NumberOfUnitsInPlatoon < LOUDGETN(GetPlatoonUnits(self)) then
-                    
-						units = newunits
-					end
-                    
-                    local scoutradius = (guardRadius/2) - 4
-					
-					if NumberOfUnitsInPlatoon > 0 then
-					
-						IssueFormMove( units, { marker[1] + tonumber(randlist[Random(1,2)]), marker[2], marker[3] + tonumber(randlist[Random(1,2)]) }, PlatoonFormation, GetDirectionInDegrees( GetPlatoonPosition(self), marker )) 
-					
-						for _,u in units do
-					
-							if LOUDENTITY( categories.REPAIR, u ) then
-								IssueGuard({u}, { marker[1] + tonumber(randlist[Random(1,2)]), marker[2], marker[3] + tonumber(randlist[Random(1,2)]) })
-							end
-						
-							if LOUDENTITY( categories.SCOUT, u ) then
-                            
-                                scoutradius = scoutradius + 4
-						
-								local loclist = GetBasePerimeterPoints( aiBrain, marker, scoutradius, 'ALL', false, 'Land', true )
-							
-								for k,v in loclist do
-								
-									if u:CanPathTo( v ) then
-									
-										v[2] = GetSurfaceHeight(v[1], v[3])
-										
-										if GetTerrainHeight(v[1],v[3]) < (v[2] - 1) then
-										
-											continue
-										end
-							
-										if k == 1 then
-								
-											IssueMove( {u}, v )
-										else
-								
-											if k != 4 and k !=7 and k != 10 then
-												IssuePatrol( {u}, v )
-											end
-										end
-									end
-								end
-							end
-						end
-					end
-					
-					guarding = true
-					target = false
 				end
 
-				-- check exit parameters --
-				if StrCat and StrTrigger then
-                
-					if self:GuardPointStructureCheck( aiBrain, marker, StrCat, StrRadius, PFaction, StrMin, StrMax) then
-                    
-                        --LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..self.BuilderName.." STRUCTURE Trigger - guarding ends")
-                    
-						guardtime = guardTimer
-					end
-				end
+--]]
 				
-				if UntCat and UntTrigger then
-                
-					if self:GuardPointUnitCheck( aiBrain, marker, UntCat, UntRadius, PFaction, UntMin, UntMax) then
-                    
-                        --LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..self.BuilderName.." UNIT Trigger - guarding ends")
-                    
-						guardtime = guardTimer
-					end
-				end		
+				units = GetPlatoonUnits(self)
 
 				NumberOfUnitsInPlatoon = 0
 
@@ -2703,13 +2662,173 @@ Platoon = Class(moho.platoon_methods) {
                     OldNumberOfUnitsInPlatoon = NumberOfUnitsInPlatoon
                 end
 
-				-- MERGE with other GuardPoint Platoons	-- during regular guardtime	-- check randomly about 33%
-				if Random(1,3) == 1 and MergeLimit and (guardtime <= guardTimer) and PlatoonExists(aiBrain, self) then
+                -- check for UnitToGuard
+				if marker and UnitToGuard and not UnitToGuard.Dead then
+					marker = UnitToGuard:GetPosition()
+				end
 
-					if NumberOfUnitsInPlatoon < MergeLimit then
+				-- if not already guarding - setup a guard around the marker point --
+				if (not guarding) and PlatoonExists(aiBrain, self) then
 
-                        --LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..self.BuilderName.." with "..NumberOfUnitsInPlatoon.."units, examining MERGE")
+					if NumberOfUnitsInPlatoon > 0 then
+                    
+                        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." GP starts move to guard position ")
+                    
+                        local randlist = { AssistRange, AssistRange * -1 }
                         
+                        local Attack = false
+                        local Artillery = false
+                        
+                        if self:GetSquadUnits('Attack') and LOUDGETN(self:GetSquadUnits('Attack')) > 0 then
+
+                            IssueClearCommands( self:GetSquadUnits('Attack'))
+                        
+                            IssueFormMove( self:GetSquadUnits('Attack'), { marker[1] + tonumber(randlist[Random(1,2)]), marker[2], marker[3] + tonumber(randlist[Random(1,2)]) }, PlatoonFormation, GetDirectionInDegrees( GetPlatoonPosition(self), marker )) 
+                            
+                            Attack = true
+                            
+                        end
+
+                        if self:GetSquadUnits('Artillery') and LOUDGETN(self:GetSquadUnits('Artillery')) > 0 then
+                        
+                            IssueClearCommands( self:GetSquadUnits('Artillery'))
+                        
+                            IssueFormMove( self:GetSquadUnits('Artillery'), { marker[1] + tonumber(randlist[Random(1,2)]), marker[2], marker[3] + tonumber(randlist[Random(1,2)]) }, PlatoonFormation, GetDirectionInDegrees( GetPlatoonPosition(self), marker ))
+                            
+                            Artillery = true
+                            
+                        end
+
+                        if self:GetSquadUnits('Guard') and LOUDGETN(self:GetSquadUnits('Guard')) > 0 then
+                            
+                            IssueClearCommands(self:GetSquadUnits('Guard'))
+                     
+                            if not Artillery and not Attack then
+
+                                IssueFormMove( self:GetSquadUnits('Guard'), targetposition, 'BlockFormation', direction)
+                                
+                            elseif Artillery then
+                                
+                                IssueGuard( self:GetSquadUnits('Guard'), self:GetSquadUnits('Artillery')[1] )
+                                
+                            elseif Attack then
+                                
+                                IssueGuard( self:GetSquadUnits('Guard'), self:GetSquadUnits('Attack')[1] )
+                            
+                            end
+                            
+                        end
+                        
+                        if self:GetSquadUnits('Support') and LOUDGETN(self:GetSquadUnits('Support')) > 0 then
+
+                            IssueClearCommands(self:GetSquadUnits('Support'))
+                                
+                            if not Attack and not Artillery then
+                            
+                                IssueFormAggressiveMove( self:GetSquadUnits('Support'), targetposition, 'BlockFormation', direction)
+                                
+                            elseif Attack then
+                            
+                                IssueGuard( self:GetSquadUnits('Support'), self:GetSquadUnits('Attack')[1])
+                                
+                            elseif Artillery then
+                            
+                                IssueGuard( self:GetSquadUnits('Support'), self:GetSquadUnits('Artillery')[1])                            
+                                
+                            end
+                            
+                        end
+                        
+						for _,u in units do
+					
+							if LOUDENTITY( categories.REPAIR, u ) then
+                            
+								IssueGuard({u}, { marker[1] + tonumber(randlist[Random(1,2)]), marker[2], marker[3] + tonumber(randlist[Random(1,2)]) })
+                                
+                            end
+                            
+                        end
+                        
+                        if self:GetSquadUnits('Scout') and LOUDGETN(self:GetSquadUnits('Scout')) > 0 then
+
+                            local scoutradius = ((self.PlatoonData.GuardRadius or 75)/2) - 4
+                            
+                            for _,u in self:GetSquadUnits('Scout') do        
+                            
+                                scoutradius = scoutradius + 8
+						
+                                local loclist = GetBasePerimeterPoints( aiBrain, marker, scoutradius, 'ALL', false, 'Land', true )
+							
+                                for k,v in loclist do
+								
+                                    if (not u.Dead) and u:CanPathTo( v ) then
+                                        
+                                        v[2] = GetSurfaceHeight(v[1], v[3])
+
+                                        if GetTerrainHeight(v[1],v[3]) < (v[2] - 1) then
+										
+                                            continue
+                                        end
+							
+                                        if k == 1 then
+                                    
+                                            IssueClearCommands( {u} )
+								
+                                            IssueMove( {u}, v )
+
+                                        elseif k != 4 and k !=7 and k != 10 then
+                                        
+                                            IssuePatrol( {u}, v )
+
+                                        end
+
+                                    end
+
+                                end
+                            
+                            end
+                        
+                        end
+                        
+                    end
+					
+					guarding = true
+                    
+					target = false
+                    
+				end
+
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." GP guard cycle exit check")
+                
+				-- check exit parameters --
+				if StrCat and StrTrigger then
+                
+					if self:GuardPointStructureCheck( aiBrain, marker, StrCat, StrRadius, PFaction, StrMin, StrMax) then
+
+						guardtime = guardTimer
+					end
+                    
+				end
+				
+				if UntCat and UntTrigger then
+                
+					if self:GuardPointUnitCheck( aiBrain, marker, UntCat, UntRadius, PFaction, UntMin, UntMax) then
+
+						guardtime = guardTimer
+                        
+					end
+                    
+				end		
+
+
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." GP guard cycle merge check")
+                
+                -- check for merge
+				if NumberOfUnitsInPlatoon < MergeLimit then
+                
+                    -- MERGE with other GuardPoint Platoons	-- during regular guardtime	-- check randomly about 33%
+                    if Random(1,3) == 1 and MergeLimit and (guardtime <= guardTimer) and PlatoonExists(aiBrain, self) then
+                       
 						if self.MergeWithNearbyPlatoons( self, aiBrain, 'GuardPoint', 90, false, MergeLimit) then
 
 							units = GetPlatoonUnits(self)
@@ -2894,19 +3013,16 @@ Platoon = Class(moho.platoon_methods) {
 		local SetPatrol = self.PlatoonData.SetPatrol or false
 		local PatrolRadius = self.PlatoonData.PatrolRadius or 60
 		
-		local atkPri = {}
 		local categoryList = {}
 		
         if self.PlatoonData.PrioritizedCategories then
 		
             for _,v in self.PlatoonData.PrioritizedCategories do
 			
-                LOUDINSERT( atkPri, v )
                 LOUDINSERT( categoryList, LOUDPARSE( v ) )
             end
         else
 		
-			LOUDINSERT( atkPri, 'ALLUNITS' )
 			LOUDINSERT( categoryList, categories.ALLUNITS )
 		end
 		
@@ -2950,7 +3066,9 @@ Platoon = Class(moho.platoon_methods) {
 					LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINTAIR "..self.BuilderName.." finds no point")
 					
 					return self:SetAIPlan('ReturnToBaseAI',aiBrain)
+                    
 				end
+                
 			end
 		
 			-- if guarding a unit find a suitable unit to guard around the selected point --
@@ -3215,19 +3333,27 @@ Platoon = Class(moho.platoon_methods) {
 									if k == 1 then
 									
 										self:MoveToLocation(v, false)
+                                        
 									else
 									
 										if k != 4 and k !=7 and k != 10 then
 										
 											IssuePatrol( GetPlatoonUnits(self), v )
+                                            
 										end
+                                        
 									end
+                                    
 								end
+                                
 							end
 							
 							guarding = true
+                            
 						end
+                        
 					end
+                    
 				end
 				
 				numberOfUnitsInPlatoon = 0
@@ -3279,6 +3405,7 @@ Platoon = Class(moho.platoon_methods) {
 							
                                 self:Stop()
                                 self:SetPlatoonFormationOverride(PlatoonFormation)
+                                
                             end                        
 					
                             -- reset platoon values --
@@ -3288,7 +3415,9 @@ Platoon = Class(moho.platoon_methods) {
 						
                             -- guard cycle will reposition itself --
                             guarding = false
+                            
                         end
+                        
                     end
 
                     -- Check Structure Parameters -- check randomly about 25% to minimize
@@ -3301,14 +3430,18 @@ Platoon = Class(moho.platoon_methods) {
 						
                                 -- abort the guard cycle --
                                 guardtime = guardTimer
+                                
                             end
+                            
                         end
+                        
                     end
 
                     if marker then
               
                         WaitTicks(80)
                         guardtime = guardtime + 8
+                        
                     end
 				
                     -- check for unit death or position moved --
@@ -3328,11 +3461,17 @@ Platoon = Class(moho.platoon_methods) {
                                 -- guard cycle will reposition -- 
                                 guarding = false
                             end
+                            
                         end
+                        
                     end
+                    
                 else
+                
                     marker = false
+                    
                 end
+                
 			end
             
 			-- if the mission is to be 'aborted' at a certain marker/unit
@@ -3386,8 +3525,11 @@ Platoon = Class(moho.platoon_methods) {
 					
 						v:SetScriptBit('RULEUTC_CloakToggle', false)
 					end
+                    
 				end
+                
 			end
+            
 		else
 		
 			return
@@ -3469,20 +3611,17 @@ Platoon = Class(moho.platoon_methods) {
 		local allowinwater = self.PlatoonData.AllowInWater or 'true'
 		local AvoidBases = self.PlatoonData.AvoidBases or 'false'
 		
-		local atkPri = {}
 		local categoryList = {}
 		
         if self.PlatoonData.PrioritizedCategories then
 		
             for k,v in self.PlatoonData.PrioritizedCategories do
-			
-                LOUDINSERT( atkPri, v )
+
                 LOUDINSERT( categoryList, LOUDPARSE( v ) )
             end
 			
         else
-		
-			LOUDINSERT( atkPri, 'ALLUNITS' )
+
 			LOUDINSERT( categoryList, categories.ALLUNITS )
 		end
 		
@@ -3735,7 +3874,7 @@ Platoon = Class(moho.platoon_methods) {
                 
                 --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." seeking target")
 			
-				target, targetposition = FindTargetInRange( self, aiBrain, 'Attack', guardRadius, atkPri)
+				target, targetposition = FindTargetInRange( self, aiBrain, 'Attack', guardRadius, categoryList)
 
 				units = GetPlatoonUnits(self)
 				
@@ -4094,20 +4233,17 @@ Platoon = Class(moho.platoon_methods) {
 		local allowinwater = self.PlatoonData.AllowInWater or 'true'
 		local AvoidBases = self.PlatoonData.AvoidBases or 'false'
 		
-		local atkPri = {}
 		local categoryList = {}
 		
         if self.PlatoonData.PrioritizedCategories then
 		
             for k,v in self.PlatoonData.PrioritizedCategories do
-			
-                LOUDINSERT( atkPri, v )
+
                 LOUDINSERT( categoryList, LOUDPARSE( v ) )
             end
 			
         else
-		
-			LOUDINSERT( atkPri, 'ALLUNITS' )
+
 			LOUDINSERT( categoryList, categories.ALLUNITS )
 		end
 		
@@ -4325,9 +4461,9 @@ Platoon = Class(moho.platoon_methods) {
 			
 				target = false
                 
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." seeking target using range of "..guardRadius.." using atkPri "..repr(atkPri) )
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." seeking target using range of "..guardRadius )
 			
-				target, targetposition = FindTargetInRange( self, aiBrain, 'Attack', guardRadius, atkPri)
+				target, targetposition = FindTargetInRange( self, aiBrain, 'Attack', guardRadius, categoryList)
 
 				units = GetPlatoonUnits(self)
 				
@@ -5011,14 +5147,35 @@ Platoon = Class(moho.platoon_methods) {
         
         local distressRange = self.PlatoonData.DistressRange or 120
 		local distressTypes = self.PlatoonData.DistressTypes or 'Land'
+        local PlatoonFormation = self.PlatoonData.UseFormation or 'none'
         local reactionTime = self.PlatoonData.DistressReactionTime or 15
         local threatThreshold = self.PlatoonData.DistressThreshold or 15
+        
+        local categoryList = {}
+		
+        if self.PlatoonData.PrioritizedCategories then
+        
+            LOUDINSERT( categoryList, LOUDPARSE(string.upper(distressTypes)))
+		
+            for k,v in self.PlatoonData.PrioritizedCategories do
 
+                if type(v) == 'string' then
+                    LOUDINSERT( categoryList, LOUDPARSE(v) )
+                else
+                    LOUDINSERT( categoryList, v )
+                end
+
+            end
+            
+        else
+            LOUDINSERT( categoryList, categories.ALLUNITS )
+		end
+		
 		local platoonPos
 		local distressLocation, distressType, distressplatoon, moveLocation, threatatPos, myThreatatPos
 		local units, unit
-		local inWater, cmd
-		local poscheck, prevpos, poscounter
+		local inWater
+		local prevpos, target
 		
 		WaitTicks(25)
 
@@ -5480,7 +5637,6 @@ Platoon = Class(moho.platoon_methods) {
 								self:Stop()
 
 								self:SetAIPlan(oldPlan, aiBrain)
-                                
 							end
                             
 						end
@@ -5497,7 +5653,6 @@ Platoon = Class(moho.platoon_methods) {
             end
 			
 			WaitTicks(13)
-            
         end
         
     end,
@@ -6656,6 +6811,7 @@ Platoon = Class(moho.platoon_methods) {
 		local closeToBuilder
 		local relative
 		local distance
+        
 		eng.EngineerBuildQueue = {} 	-- clear the engineers build queue 		
         
         if PlatoonExists(aiBrain, self) then

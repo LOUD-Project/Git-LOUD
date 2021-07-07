@@ -4006,16 +4006,15 @@ function NavalForceAILOUD( self, aiBrain )
 	local PlatoonFormation = data.UseFormation or 'GrowthFormation'
 
     local categoryList = {}
-    local atkPri = {}
 
     if data.PrioritizedCategories then
 	
         for _,v in data.PrioritizedCategories do
-            LOUDINSERT( atkPri, v )
+
             LOUDINSERT( categoryList, LOUDPARSE( v ) )
         end
     else
-		LOUDINSERT( atkPri, 'NAVAL' )
+
 		LOUDINSERT( categoryList, categories.NAVAL )
 	end
 
@@ -4127,7 +4126,7 @@ function NavalForceAILOUD( self, aiBrain )
 		-- Locate LOCAL targets in the searchRadius range using the attackpriority list - they must also be on the same layer
         -- and there must be an 'attack' squad
         if self:GetSquadUnits('Attack') then
-            target, targetposition = FindTargetInRange( self, aiBrain, 'Attack', SearchRadius, atkPri, true )
+            target, targetposition = FindTargetInRange( self, aiBrain, 'Attack', SearchRadius, categoryList, true )
         else
             LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." has no attack squad - no target")
         end
@@ -4632,20 +4631,17 @@ function NavalBombardAILOUD( self, aiBrain )
 	local PlatoonFormation = data.UseFormation or 'GrowthFormation'
 
     local categoryList = {}
-    local atkPri = {}
 
     if data.PrioritizedCategories then
 	
         for _,v in data.PrioritizedCategories do
 		
-            LOUDINSERT( atkPri, v )
             LOUDINSERT( categoryList, LOUDPARSE( v ) )
 			
         end
 		
     else
 	
-		LOUDINSERT( atkPri, 'NAVAL' )
 		LOUDINSERT( categoryList, categories.NAVAL )
 		
 	end
@@ -4715,7 +4711,7 @@ function NavalBombardAILOUD( self, aiBrain )
 		end
 		
 		if not self.MoveThread then
-			target, targetposition = FindTargetInRange( self, aiBrain, 'Artillery', maxRange, atkPri, true )
+			target, targetposition = FindTargetInRange( self, aiBrain, 'Artillery', maxRange, categoryList, true )
 		end
 
 		-- if target -- issue attack orders -- no need to move
@@ -6755,6 +6751,7 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 							repeat
 								WaitTicks(20)
 							until unit.Dead or (unit.UnitBeingBuilt.BlueprintID == upgradeID)
+                            
 						end
 
                         if unit.Dead then
@@ -6765,7 +6762,9 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
                         if upgradeIssued then
                             continue
                         end
+                        
                     end
+                    
                 end
                 
             else
@@ -6798,12 +6797,17 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
                     end
                     
                 end
+                
 			end
+            
         else
+        
             if ScenarioInfo.StructureUpgradeDialog then
                 LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." "..unit:GetBlueprint().Description.." Upgrade Counter already at max")
             end
+            
         end
+        
     end
     
 	if upgradeIssued then
