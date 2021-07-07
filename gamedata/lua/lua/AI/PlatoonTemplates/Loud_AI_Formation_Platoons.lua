@@ -74,35 +74,36 @@ PlatoonTemplate { Name = 'GunshipAttack Small',
         { (categories.AIR * categories.GROUNDATTACK), 1, 15, 'Attack', 'AttackFormation' },
     }
 }
-
 PlatoonTemplate { Name = 'GunshipAttack',
     GlobalSquads = {
         { (categories.AIR * categories.GROUNDATTACK), 16, 30, 'Attack', 'AttackFormation' },
 		{ (categories.AIR * categories.EXPERIMENTAL * categories.ANTIAIR), 0, 4, 'Attack', 'none' },
     }
 }
-
 PlatoonTemplate { Name = 'GunshipAttack Large',
     GlobalSquads = {
         { (categories.AIR * categories.GROUNDATTACK), 28, 45, 'Attack', 'AttackFormation' },
 		{ (categories.AIR * categories.EXPERIMENTAL * categories.ANTIAIR), 0, 6, 'Attack', 'none' },
     }
 }
-
+PlatoonTemplate { Name = 'Experimental Gunship',
+    GlobalSquads = {
+        { (categories.AIR * categories.EXPERIMENTAL * categories.MOBILE * categories.GROUNDATTACK) - categories.uaa0310 - categories.SATELLITE - categories.TRANSPORTFOCUS, 4, 8, 'Attack', 'none' },
+		{ (categories.bea0402), 0, 8, 'guard', 'none' },
+    },
+}
 PlatoonTemplate { Name = 'GunshipSquadron',
     Plan = 'GuardPointAir',
     GlobalSquads = {
         { (categories.AIR * categories.GROUNDATTACK), 5, 35, 'Attack', 'AttackFormation' },
     }
 }
-
 PlatoonTemplate { Name = 'GunshipEscort',
     Plan = 'GuardPointAir',
     GlobalSquads = {
         { (categories.AIR * categories.GROUNDATTACK), 5, 35, 'Attack', 'None' },
     }
 }
-
 PlatoonTemplate { Name = 'GunshipReinforce',
     Plan = 'ReinforceAirAI',	-- either Land or Sea bases
     GlobalSquads = {
@@ -111,32 +112,21 @@ PlatoonTemplate { Name = 'GunshipReinforce',
     }
 }
 
-PlatoonTemplate { Name = 'Experimental Gunship',
-    GlobalSquads = {
-        { (categories.AIR * categories.EXPERIMENTAL * categories.MOBILE * categories.GROUNDATTACK) - categories.uaa0310 - categories.SATELLITE - categories.TRANSPORTFOCUS, 4, 8, 'Attack', 'none' },
-		{ (categories.bea0402), 0, 8, 'guard', 'none' },
-    },
-}
-
-
 PlatoonTemplate { Name = 'Air Scout Formation',
     GlobalSquads = {
         { categories.AIR * categories.SCOUT, 1, 1, 'scout', 'none' },
     }
 }
-
 PlatoonTemplate { Name = 'Air Scout Group',
     GlobalSquads = {
         { categories.AIR * categories.SCOUT, 2, 2, 'scout', 'none' },
     }
 }
-
 PlatoonTemplate { Name = 'Air Scout Group Large',
     GlobalSquads = {
         { categories.AIR * categories.SCOUT - categories.TECH1, 5, 5, 'scout', 'ScatterFormation' },
     }
 }
-
 PlatoonTemplate { Name = 'Air Scout Group Huge',
     GlobalSquads = {
         { categories.AIR * categories.SCOUT - categories.TECH1, 9, 9, 'scout', 'ScatterFormation' },

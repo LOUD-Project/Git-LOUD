@@ -1694,7 +1694,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 			
             MissionTime = 100,
 			
-            PrioritizedCategories = {categories.MOBILE * categories.NAVAL, categories.MOBILE},
+            PrioritizedCategories = {categories.SUBMARINE, categories.MOBILE * categories.NAVAL, categories.MOBILE},
 			
 			SearchRadius = 40,	
 			
@@ -1736,7 +1736,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 			
             MissionTime = 150,
 			
-            PrioritizedCategories = { categories.MOBILE * categories.NAVAL, categories.MOBILE, categories.STRUCTURE},
+            PrioritizedCategories = { categories.CRUISER, categories.SUBMARINE, categories.MOBILE * categories.NAVAL, categories.MOBILE, categories.STRUCTURE},
 			
 			SearchRadius = 65,
 			
@@ -1760,7 +1760,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 		
 		PriorityFunction = IsPrimaryBase,
 		
-        InstanceCount = 1,
+        InstanceCount = 2,
 
         BuilderConditions = {
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 29, categories.HIGHALTAIR * categories.ANTINAVY }},
@@ -1778,7 +1778,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 			
             MissionTime = 260,
 			
-            PrioritizedCategories = { categories.MOBILE * categories.NAVAL * categories.EXPERIMENTAL, categories.MOBILE * categories.ANTIAIR, categories.MOBILE, categories.STRUCTURE},
+            PrioritizedCategories = { categories.CRUISER, categories.SUBMARINE, categories.MOBILE * categories.NAVAL * categories.EXPERIMENTAL, categories.MOBILE * categories.ANTIAIR, categories.MOBILE, categories.STRUCTURE},
 			
 			SearchRadius = 120,
 			
@@ -1921,7 +1921,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
         
-        InstanceCount = 2,
+        InstanceCount = 3,
 	
         Priority = 10,
 		
