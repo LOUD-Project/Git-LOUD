@@ -13,7 +13,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
 
     Builder {BuilderName = 'Mass Extractor T1 - 225',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -52,7 +52,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
 
     Builder {BuilderName = 'Mass Extractor T1 - 750 - Loop',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -92,7 +92,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
 
     Builder {BuilderName = 'Mass Extractor T1 - 1500 - Loop',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -132,7 +132,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
     -- additional loop engineer is just here for mass heavy maps
     Builder {BuilderName = 'Mass Extractor T1 - 1500 - Loop - Extra',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -178,7 +178,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
 
     Builder {BuilderName = 'Mass Extractor T2 - 150',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -215,7 +215,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
 	
     Builder {BuilderName = 'Mass Extractor T2 - 750',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -254,7 +254,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
 
     Builder {BuilderName = 'Mass Extractor T3 - 150',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -293,7 +293,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
     -- SACU build MassFab
     Builder {BuilderName = 'Mass Fab - Template',
     
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
@@ -340,7 +340,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Defensive Point',
 	-- builds mass if some is available
     Builder {BuilderName = 'Mass Extractor - 200 - DP',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -384,7 +384,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Expansions',
     
     Builder {BuilderName = 'Mass Extractor T1 - 150 - Expansion',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -421,7 +421,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Expansions',
 	
     Builder {BuilderName = 'Mass Extractor T2 - 750 - Loop - Expansion',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -465,7 +465,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Naval',
 
     Builder {BuilderName = 'Mass Extractor T2 - 750 - Loop - Naval',
     
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
@@ -503,7 +503,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Naval',
     
     Builder {BuilderName = 'Mass Fab - Naval Expansion',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -547,7 +547,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Fab Construction - Expansions',
 	
     Builder {BuilderName = 'Mass Fab Expansion - Template',
     
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
@@ -599,7 +599,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Fab Construction - Expansions - 
 	
     Builder {BuilderName = 'Mass Fab - Expansion - IS',
     
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
@@ -641,11 +641,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Storage Construction',
 	
     Builder {BuilderName = 'Mass Storage 600',
 	
-        PlatoonTemplate = 'MassAdjacencyEngineer',
+        PlatoonTemplate = 'EngineerGeneral',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
+        
+        PlatoonAIPlan = 'EngineerBuildMassAdjacencyAI',
 		
         Priority = 750,
 		
@@ -667,7 +669,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Storage Construction',
 				MinRadius = 20,
 				Radius = 600,
 				
-				MinStorageUnits = 4,
+				MinStructureUnits = 4,
+                
+                AdjacencyStructure = categories.MASSSTORAGE,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'MassAdjacency',
@@ -684,11 +688,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Storage Construction',
 	
     Builder {BuilderName = 'Mass Storage 1024',
 	
-        PlatoonTemplate = 'MassAdjacencyEngineer',
+        PlatoonTemplate = 'EngineerGeneral',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
+        
+        PlatoonAIPlan = 'EngineerBuildMassAdjacencyAI',
 		
         Priority = 740,
 		
@@ -709,8 +715,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Storage Construction',
 				
 				MinRadius = 500,
 				Radius = 2048,
-				
-				MinStorageUnits = 4,
+                
+                AdjacencyStructure = categories.MASSSTORAGE,
+
+				MinStructureUnits = 4,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'MassAdjacency',
@@ -732,11 +740,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Storage Construction - Active DP
 
     Builder {BuilderName = 'Mass Storage DP',
 	
-        PlatoonTemplate = 'MassAdjacencyEngineer',
+        PlatoonTemplate = 'EngineerGeneral',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
+        
+        PlatoonAIPlan = 'EngineerBuildMassAdjacencyAI',
 		
         Priority = 600,
 		
@@ -753,8 +763,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Storage Construction - Active DP
 				MinRadius = 20,
 				Radius = 200,
                 
-				MinStorageUnits = 4,
+				MinStructureUnits = 4,
                 
+                AdjacencyStructure = categories.MASSSTORAGE,
+
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'MassAdjacency',
 
@@ -775,7 +787,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Eng Station Construction',
 	
     Builder {BuilderName = 'T2 Engineering Support - Base Template',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -808,7 +820,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Eng Station Construction',
 
 	Builder {BuilderName = 'T3 Engineering Support - Base Template',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		

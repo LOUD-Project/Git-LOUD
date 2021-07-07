@@ -85,7 +85,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 
     Builder {BuilderName = 'T1 Base Defense - PD',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -142,7 +142,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 
     Builder {BuilderName = 'T1 Base Defense - AA',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -200,7 +200,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 
     Builder {BuilderName = 'T2 Base PD - Base Template',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -239,7 +239,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 
     Builder {BuilderName = 'T2 Base TMD - Base Template',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -274,7 +274,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 
     Builder {BuilderName = 'T3 Base PD - Base Template',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 751,
@@ -313,7 +313,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 
     Builder {BuilderName = 'T3 Base AA - Base Template',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 750, 
@@ -351,7 +351,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 	
     Builder {BuilderName = 'T2 Base AA - Base Template',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -384,7 +384,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
     -- this artillery is built in the defense boxes - not the core
     Builder {BuilderName = 'T2 Artillery - Base Template - Boxes',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -418,7 +418,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
     -- this artillery is built in the core - not the defense boxes
     Builder {BuilderName = 'T2 Artillery - Base Template - Core',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -452,7 +452,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 
     Builder {BuilderName = 'T3 Teleport Jamming',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 745,
@@ -483,7 +483,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 	
     Builder {BuilderName = 'T3 Tactical Artillery - Boxes',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 745,
@@ -520,7 +520,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 	-- setup so that we always build one
     Builder {BuilderName = 'AntiNuke',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 900,
@@ -552,7 +552,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 	-- and build more if enemy has more than 1
     Builder {BuilderName = 'AntiNuke - Response',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 910,
@@ -583,7 +583,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 	
     Builder {BuilderName = 'Experimental PD',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 750,
@@ -620,7 +620,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 
     Builder {BuilderName = 'Experimental AA Defense',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
         Priority = 750,
@@ -661,7 +661,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction',
 	
     Builder {BuilderName = 'Shields - Core',
     
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
         Priority = 800,
@@ -702,7 +702,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction',
 	
     Builder {BuilderName = 'Shields - Outer',
     
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
         Priority = 800,
@@ -742,7 +742,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction',
 	
 	Builder {BuilderName = 'Shield Augmentations',
     
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
         Priority = 745,
@@ -777,7 +777,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS',
 	
     Builder {BuilderName = 'Shields - Inner - IS ',
     
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
         Priority = 800,
@@ -813,7 +813,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS',
 	
     Builder {BuilderName = 'Shields - Outer - IS',
     
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
         Priority = 800,
@@ -853,7 +853,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Shield Construction',
 	
     Builder {BuilderName = 'Experimental Shield',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 
 		-- this should turn this off if there is less than 30 minutes left in the game
@@ -916,7 +916,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction',
 	
     Builder {BuilderName = 'Air Staging',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 850,
@@ -956,7 +956,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Small',
 	
     Builder {BuilderName = 'Air Staging - Small Base',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 850,
@@ -995,7 +995,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 	
     Builder {BuilderName = 'T1 Perimeter PD - Small Map',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
 		InstanceCount = 1,
@@ -1055,7 +1055,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 
     Builder {BuilderName = 'T1 Perimeter PD - Large Map',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
 		InstanceCount = 1,
@@ -1115,7 +1115,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 	
     Builder {BuilderName = 'T1 Perimeter - AA',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
 		InstanceCount = 1,
@@ -1169,7 +1169,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 
     Builder {BuilderName = 'T2 Perimeter TMD',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -1212,7 +1212,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 	
     Builder {BuilderName = 'T2 Perimeter Artillery',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -1258,7 +1258,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 
     Builder {BuilderName = 'T3 Perimeter PD',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -1302,7 +1302,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 	
     Builder {BuilderName = 'T3 Perimeter AA',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -1343,7 +1343,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 	
     Builder {BuilderName = 'T3 Perimeter Shields',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -1385,7 +1385,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 
     Builder {BuilderName = 'T4 Perimeter AA',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',		
+        PlatoonTemplate = 'EngineerBuilder',		
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -1427,7 +1427,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 	
     Builder {BuilderName = 'T4 Perimeter PD',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -1469,7 +1469,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 	
     Builder {BuilderName = 'AntiNuke Perimeter',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -1509,7 +1509,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 	
     Builder {BuilderName = 'Sera Perimeter Restoration Field',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -1554,7 +1554,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Augmentation - Perimeter',
 	
     Builder {BuilderName = 'T3 Perimeter Shield Augmentation',
     
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
@@ -1613,7 +1613,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Picket Li
 	
     Builder {BuilderName = 'T3 Picket AA',
     
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
@@ -1658,8 +1658,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Point Defense Construction',
 	
     Builder {BuilderName = 'T2 Extractor Defense',
 	
-        PlatoonTemplate = 'MassAdjacencyDefenseEngineer',
+        PlatoonTemplate = 'EngineerGeneral',
+        
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+        
+        PlatoonAIPlan = 'EngineerBuildMassDefenseAdjacencyAI',
 		
         Priority = 750,
 		
@@ -1702,8 +1705,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Point Defense Construction',
 	
     Builder {BuilderName = 'T3 Extractor Defense',
 	
-        PlatoonTemplate = 'MassAdjacencyDefenseEngineer',
+        PlatoonTemplate = 'EngineerGeneral',
+        
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+        
+        PlatoonAIPlan = 'EngineerBuildMassDefenseAdjacencyAI',
 		
         Priority = 750,
 		
@@ -1755,7 +1761,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
 	
     Builder {BuilderName = 'T2 Base PD - Expansion',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -1790,7 +1796,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
 
     Builder {BuilderName = 'T2 Base AA - Expansion',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -1823,7 +1829,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
 	
     Builder {BuilderName = 'T2 Base TMD - Expansion',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -1856,7 +1862,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
 	
     Builder {BuilderName = 'T2 TML - Expansions',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -1893,7 +1899,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
 
     Builder {BuilderName = 'T3 Base AA - Expansions',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -1930,7 +1936,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
 
     Builder {BuilderName = 'T3 Base PD - Expansions',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -1969,7 +1975,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
     
     Builder {BuilderName = 'T3 Tactical Artillery - Expansions',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -1978,7 +1984,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
         PriorityFunction = IsEnemyCrushingLand,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .75 } },
+            { LUTL, 'UnitCapCheckLess', { .85 } },
             
 			{ TBC, 'ThreatCloserThan', { 'LocationType', 400, 75, 'Land' }},
 
@@ -2008,7 +2014,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
 
     Builder {BuilderName = 'AntiNuke - Expansion',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -2042,7 +2048,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
 	
     Builder {BuilderName = 'Experimental PD - Expansions',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -2081,7 +2087,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
 	
     Builder {BuilderName = 'Experimental AA Defense - Expansions',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -2123,7 +2129,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - Expansions',
 	
     Builder {BuilderName = 'Shields - Inner - Expansion',
     
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
@@ -2167,7 +2173,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - Expansions',
 
     Builder {BuilderName = 'Shields - Outer - Outer',
     
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
@@ -2213,7 +2219,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - Expansions - LO
 	
     Builder {BuilderName = 'Shields - Inner - Expansion - IS ',
     
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
@@ -2252,7 +2258,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - Expansions - LO
 	
     Builder {BuilderName = 'Shields - Outer - Expansion - IS',
     
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
@@ -2293,7 +2299,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Shield Construction - Expansions',
 	
     Builder {BuilderName = 'Experimental Shield - Expansion',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -2338,7 +2344,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 	
     Builder {BuilderName = 'T2 Perimeter PD - Expansion',
     
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
@@ -2385,7 +2391,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 	
     Builder {BuilderName = 'T2 Perimeter AA - Expansion',
     
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
@@ -2433,7 +2439,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 	
     Builder {BuilderName = 'T2 Perimeter TMD - Expansion',
     
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
@@ -2475,7 +2481,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 	
     Builder {BuilderName = 'T3 Perimeter PD - Expansion',
     
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
@@ -2524,7 +2530,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 	
     Builder {BuilderName = 'T3 Perimeter AA - Expansion',
     
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
@@ -2573,7 +2579,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 
     Builder {BuilderName = 'T3 Perimeter Shields - Expansion',
     
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
@@ -2623,7 +2629,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Expansions',
 	
     Builder {BuilderName = 'Air Staging - Expansion',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -2653,7 +2659,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Expansions',
 	
     Builder {BuilderName = 'T2 Radar Jamming - Expansion',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -2689,7 +2695,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Expansions',
 	
     Builder {BuilderName = 'T3 Teleport Jamming - Expansion',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -2735,7 +2741,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval',
 	
     Builder {BuilderName = 'T1 Defenses Naval',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -2776,7 +2782,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval',
 	
     Builder {BuilderName = 'T2 Defenses Naval',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -2818,7 +2824,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval',
 
     Builder {BuilderName = 'T2 AA Defenses - Naval',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -2861,7 +2867,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval',
 	
     Builder {BuilderName = 'T3 Defenses Naval',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -2908,7 +2914,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval',
 	
     Builder {BuilderName = 'T3 Base AA - Naval',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -2946,7 +2952,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval',
 
     Builder {BuilderName = 'Naval AntiNuke',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -2987,7 +2993,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Naval',
 	
     Builder {BuilderName = 'Naval AirStaging',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -3027,7 +3033,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
 	-- this will rebuild the base radar of the DP
     Builder {BuilderName = 'DP STD Radar',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 751,
@@ -3058,7 +3064,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
 	-- this task builds the basic defenses of the DP
     Builder {BuilderName = 'T2 DP STD Defenses',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
@@ -3109,7 +3115,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
 	
     Builder {BuilderName = 'T2 DP STD Auxiliary Defenses',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -3242,7 +3248,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
 
     Builder {BuilderName = 'T3 DP STD Shields',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -3279,7 +3285,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
 
     Builder {BuilderName = 'T3 DP STD AA Defenses',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -3316,7 +3322,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
 
     Builder {BuilderName = 'T3 DP STD Defenses',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -3354,7 +3360,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
     
     Builder {BuilderName = 'T3 DP STD Tactical Artillery',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -3389,7 +3395,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
 
     Builder {BuilderName = 'T4 DP STD AA Defenses',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -3427,7 +3433,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
 	
     Builder {BuilderName = 'T4 DP STD Antinuke Defenses',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -3468,7 +3474,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Small',
 	-- this will rebuild the base radar of the DP
     Builder {BuilderName = 'DP SML Radar',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -3502,7 +3508,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Small',
 
     Builder {BuilderName = 'T2 DP SML Auxiliary Defenses',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -3538,7 +3544,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Small',
 
     Builder {BuilderName = 'T3 DP SML AA Defenses',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -3572,7 +3578,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Small',
 
     Builder {BuilderName = 'T2 DP SML Shields',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -3605,7 +3611,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Small',
 
     Builder {BuilderName = 'T3 DP SML Defenses',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -3642,7 +3648,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Small',
     
     Builder {BuilderName = 'T3 DP SML Tactical Artillery',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -3677,7 +3683,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Small',
 
     Builder {BuilderName = 'T4 DP SML AA Defenses',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -3716,7 +3722,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Small',
 	
     Builder {BuilderName = 'T4 DP SML Antinuke Defenses',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -3759,7 +3765,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval',
 	-- this will rebuild the base radar of the DP
     Builder {BuilderName = 'Naval DP Sonar',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -3796,7 +3802,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval',
 
     Builder {BuilderName = 'Naval DP Airstaging',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -3830,7 +3836,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval',
 
     Builder {BuilderName = 'Naval DP T2 AA Defenses',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -3861,7 +3867,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval',
 
     Builder {BuilderName = 'Naval DP T2 Surface Defenses',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -3892,7 +3898,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval',
 	
     Builder {BuilderName = 'Naval DP T2 Naval Defenses',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -3925,7 +3931,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval',
 
     Builder {BuilderName = 'Naval DP T3 AA Defenses',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -3956,7 +3962,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval',
 	
     Builder {BuilderName = 'Naval DP Antinuke',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -3995,7 +4001,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval',
 	
 --[[	
     Builder {BuilderName = 'T2 Perimeter PD',
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		InstanceCount = 1,
         Priority = 750,
@@ -4029,7 +4035,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval',
     },
 	
     Builder {BuilderName = 'T2 Perimeter AA',
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		InstanceCount = 1,
         Priority = 750,
@@ -4064,7 +4070,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval',
     },
 
     Builder {BuilderName = 'T2 Perimeter Wall',
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		InstanceCount = 1,
         Priority = 700,

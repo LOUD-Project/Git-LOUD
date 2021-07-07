@@ -38,11 +38,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
 
     Builder {BuilderName = 'T1 Power Template',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        InstanceCount = 1,
+        InstanceCount = 2,
 		
         Priority = 700,
 		
@@ -76,7 +76,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
 	
     Builder {BuilderName = 'T2 Power Template',
     
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
@@ -113,7 +113,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
 
     Builder {BuilderName = 'T3 Power Template',
     
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
@@ -147,7 +147,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
 	
     Builder {BuilderName = 'Hydrocarbon',
     
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
@@ -183,7 +183,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
     -- usually only when the base gets very large
     Builder {BuilderName = 'T3 Power - Perimeter',
     
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
@@ -231,7 +231,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Expansions',
    
     Builder {BuilderName = 'Hydrocarbon - Expansion',
     
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
@@ -263,7 +263,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Expansions',
 	
     Builder {BuilderName = 'T3 Power Template - Expansion',
     
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
@@ -310,7 +310,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Naval',
 	-- this one is different than usual in that there is no check to see if building any other T3 power elsewhere
     Builder {BuilderName = 'T3 Power - Naval',
     
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
@@ -447,7 +447,7 @@ BuilderGroup {BuilderGroupName = 'Energy Facility',
 -- maps with starting positions too close to the edge of the map - or on rugged ground
 -- will cause this to fail and 'upset' the entire applecart
     Builder {BuilderName = 'T3 Power Facility',
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         Priority = 990,
         BuilderConditions = {
@@ -492,7 +492,7 @@ BuilderGroup {BuilderGroupName = 'Energy Facility',
     },
 
     Builder {BuilderName = 'Energy Storage Power Facility',
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         Priority = 750,
 		
@@ -528,7 +528,7 @@ BuilderGroup {BuilderGroupName = 'Energy Facility',
     },
 
     Builder {BuilderName = 'Energy Storage Power Facility Stage 2',
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         Priority = 710,
 		
@@ -569,7 +569,7 @@ BuilderGroup {BuilderGroupName = 'Energy Facility - LOUD_IS',
     BuildersType = 'EngineerBuilder',
 
     Builder {BuilderName = 'T3 Power Facility - LOUD_IS',
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         Priority = 990,
         BuilderConditions = {

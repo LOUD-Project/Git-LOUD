@@ -64,7 +64,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction',
 
     Builder {BuilderName = 'Land Factory Rebuild',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -95,7 +95,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction',
 	
     Builder {BuilderName = 'Air Factory Rebuild',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -126,7 +126,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction',
     
     Builder {BuilderName = 'Land Factory Balance',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -165,7 +165,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction',
 	-- this insures that when eco conditions are met - this will get built ahead of land factories
     Builder {BuilderName = 'Air Factory Balance',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -206,7 +206,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Expansions',
 
     Builder {BuilderName = 'Land Factory Rebuild - Expansion',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -237,7 +237,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Expansions',
 	
     Builder {BuilderName = 'Land Factory Balance - Expansion',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -272,7 +272,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Expansions',
 
     Builder {BuilderName = 'Air Factory Balance - Expansion',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -313,7 +313,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Naval',
 	
     Builder {BuilderName = 'Naval Factory Builder',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -356,7 +356,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Naval',
 
     Builder {BuilderName = 'Naval Factory Rebuild',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -394,7 +394,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Quantum Gate Construction',
 
     Builder {BuilderName = 'Quantum Gate',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -441,7 +441,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Quantum Gate Construction - Small Bas
 
     Builder {BuilderName = 'Quantum Gate - Small Base',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		

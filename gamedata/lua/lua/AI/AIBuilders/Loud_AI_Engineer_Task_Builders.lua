@@ -17,7 +17,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 	-- a limited number of high priority shield repairing jobs
     Builder {BuilderName = 'Repair Shield',
 	
-        PlatoonTemplate = 'EngineerRepairGeneral',
+        PlatoonTemplate = 'EngineerGeneral',
         
         PlatoonAIPlan = 'EngineerAssistShield',
 		
@@ -48,7 +48,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 	-- SACU assisting any STRUCTURE but energy 
     Builder {BuilderName = 'SCU Assist Structure/Exp',
 	
-        PlatoonTemplate = 'EngineerAssistGeneral',
+        PlatoonTemplate = 'EngineerGeneral',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -80,7 +80,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 	-- SACU assisting any LAND EXP
     Builder {BuilderName = 'SCU Assist Land Experimental',
 	
-        PlatoonTemplate = 'EngineerAssistGeneral',
+        PlatoonTemplate = 'EngineerGeneral',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -112,7 +112,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
     -- SACU assisting any AIR EXP
     Builder {BuilderName = 'SCU Assist Air Experimental',
 	
-        PlatoonTemplate = 'EngineerAssistGeneral',
+        PlatoonTemplate = 'EngineerGeneral',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -144,7 +144,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
     -- SACU assisting any ARTILLERY STRUCTURE (T2 thru T4)
     Builder {BuilderName = 'SCU Assist Artillery',
 	
-        PlatoonTemplate = 'EngineerAssistGeneral',
+        PlatoonTemplate = 'EngineerGeneral',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -178,9 +178,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
     -- Regular Engineers reclaim mass if storage is quite low
     Builder {BuilderName = 'Reclaim Mass High',
 	
-        PlatoonTemplate = 'EngineerReclaimerGeneral',
+        PlatoonTemplate = 'EngineerGeneral',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'} },
+        
+        PlatoonAIPlan = 'EngineerReclaimAI',
 		
 		Priority = 745,
 		
@@ -203,7 +205,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
     -- assist building power if storage is not almost full
     Builder {BuilderName = 'Assist Energy',
 	
-        PlatoonTemplate = 'EngineerAssistGeneral',
+        PlatoonTemplate = 'EngineerGeneral',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'} },
 		
@@ -237,7 +239,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
     -- assist upgrading mass if storage is low
     Builder {BuilderName = 'Assist Mass Upgrade',
 	
-        PlatoonTemplate = 'EngineerAssistGeneral',
+        PlatoonTemplate = 'EngineerGeneral',
         
 	    PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -270,9 +272,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
     -- repair damaged structures
     Builder {BuilderName = 'Repair',
 	
-        PlatoonTemplate = 'EngineerRepairGeneral',
+        PlatoonTemplate = 'EngineerGeneral',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+        
+        PlatoonAIPlan = 'EngineerRepairAI',
 		
         Priority = 700,
 		
@@ -292,9 +296,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 	-- when there is nothing else to do and storage somewhat low
     Builder {BuilderName = 'Reclaim Mass Low',
 	
-        PlatoonTemplate = 'EngineerReclaimerGeneral',
+        PlatoonTemplate = 'EngineerGeneral',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+        
+        PlatoonAIPlan = 'EngineerReclaimAI',
 		
         Priority = 660,
 		
@@ -316,9 +322,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
     -- when there is nothing else to do and energy somewhat low
     Builder {BuilderName = 'Reclaim Energy',
 	
-        PlatoonTemplate = 'EngineerReclaimerGeneral',
+        PlatoonTemplate = 'EngineerGeneral',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+        
+        PlatoonAIPlan = 'EngineerReclaimAI',
 		
         Priority = 660,
 		
@@ -341,7 +349,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
     -- when there is nothing else to do assist AIR factories
     Builder {BuilderName = 'Assist Factory AIR',
 	
-        PlatoonTemplate = 'EngineerAssistGeneral',
+        PlatoonTemplate = 'EngineerGeneral',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -375,7 +383,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
     -- when there is nothing else to do assist LAND factories
     Builder {BuilderName = 'Assist Factory LAND',
 	
-        PlatoonTemplate = 'EngineerAssistGeneral',
+        PlatoonTemplate = 'EngineerGeneral',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -409,7 +417,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
     -- when there is nothing else to do assist SEA factories
     Builder {BuilderName = 'Assist Factory SEA',
 	
-        PlatoonTemplate = 'EngineerAssistGeneral',
+        PlatoonTemplate = 'EngineerGeneral',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -443,7 +451,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
     -- when there is nothing else to do assist factories
     Builder {BuilderName = 'Assist Factory',
 	
-        PlatoonTemplate = 'EngineerAssistGeneral',
+        PlatoonTemplate = 'EngineerGeneral',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -475,7 +483,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
     -- when there is nothing else to do - general assist for T1
     Builder {BuilderName = 'T1 Assist Structure/Exp',
 	
-        PlatoonTemplate = 'EngineerAssistGeneral',
+        PlatoonTemplate = 'EngineerGeneral',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -507,7 +515,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
     -- when there is nothing else to do - general assist for T2/T3
     Builder {BuilderName = 'Eng Assist Structure/Exp',
 	
-        PlatoonTemplate = 'EngineerAssistGeneral',
+        PlatoonTemplate = 'EngineerGeneral',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -543,9 +551,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Reclaim Old Structures',
 	
 	Builder {BuilderName = 'Reclaim T1 Defenses',
 	
-        PlatoonTemplate = 'EngineerStructureReclaimerGeneral',
+        PlatoonTemplate = 'EngineerGeneral',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+        
+        PlatoonAIPlan = 'EngineerReclaimStructureAI',
 		
         Priority = 730,
         
@@ -567,8 +577,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Reclaim Old Structures',
 	
 	Builder {BuilderName = 'Reclaim T2 Defenses',
 	
-        PlatoonTemplate = 'EngineerStructureReclaimerGeneral',
+        PlatoonTemplate = 'EngineerGeneral',
+        
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+        
+        PlatoonAIPlan = 'EngineerReclaimStructureAI',
 		
         Priority = 730,
         
@@ -591,9 +604,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Reclaim Old Structures',
     
 	Builder {BuilderName = 'Reclaim Power',
 	
-        PlatoonTemplate = 'EngineerStructureReclaimerGeneral',
+        PlatoonTemplate = 'EngineerGeneral',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+        
+        PlatoonAIPlan = 'EngineerReclaimStructureAI',
 		
         Priority = 710,
 		
@@ -709,9 +724,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Active DP',
     -- if high unit count is triggered - start reclaiming T2 defense structures
 	Builder {BuilderName = 'Reclaim T2 Defenses Active DP',
 	
-        PlatoonTemplate = 'EngineerStructureReclaimerGeneral',
+        PlatoonTemplate = 'EngineerGeneral',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+        
+        PlatoonAIPlan = 'EngineerReclaimStructureAI',
 		
         Priority = 730,
 		
@@ -733,9 +750,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Active DP',
     -- make reclaim very important
     Builder {BuilderName = 'Reclaim Mass Active DP',
 	
-        PlatoonTemplate = 'EngineerReclaimerGeneral',
+        PlatoonTemplate = 'EngineerGeneral',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+        
+        PlatoonAIPlan = 'EngineerReclaimAI',
 		
         Priority = 700, 
 		
@@ -759,7 +778,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Active DP',
     -- or build any locally available extractor
     Builder {BuilderName = 'Mass Extractor 150 Active DP',
 	 
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'} },
 		
@@ -793,9 +812,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Active DP',
     -- fix things
     Builder {BuilderName = 'Repair Active DP',
 	
-        PlatoonTemplate = 'EngineerRepairGeneral',
+        PlatoonTemplate = 'EngineerGeneral',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'} },
+        
+        PlatoonAIPlan = 'EngineerRepairAI',
 		
         Priority = 650,
 
@@ -813,7 +834,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Active DP',
     -- assist other engineers at this DP
     Builder {BuilderName = 'Assist Active DP',
 	
-        PlatoonTemplate = 'EngineerAssistGeneral',
+        PlatoonTemplate = 'EngineerGeneral',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'} },
 		

@@ -4,12 +4,6 @@
 --  used when forming engineer tasks
 
 -- COMMANDER
-PlatoonTemplate {Name = 'CommanderAssist',
-    GlobalSquads = {
-        { categories.COMMAND, 1, 1, 'Support', 'none' },
-    },        
-}
-
 PlatoonTemplate {Name = 'CommanderBuilder',
     GlobalSquads = {
         { categories.COMMAND, 1, 1, 'Support', 'none' },
@@ -22,66 +16,19 @@ PlatoonTemplate {Name = 'CommanderEnhance',
     },
 }
 
-PlatoonTemplate {Name = 'CommanderReclaim',
-    GlobalSquads = {
-        { categories.COMMAND, 1, 1, 'Support', 'none' },
-    },	
-}
-
-PlatoonTemplate {Name = 'CommanderRepair',
-    GlobalSquads = {
-        { categories.COMMAND, 1, 1, 'Support', 'none' },
-    },        
-}
-
 
 -- GENERAL ENGINEER 
-PlatoonTemplate {Name = 'EngineerBuilderGeneral',
+PlatoonTemplate {Name = 'EngineerBuilder',
     Plan = 'EngineerBuildAI',
     GlobalSquads = {
-        { (categories.MOBILE * categories.ENGINEER), 1, 1, 'Support', 'none' },
+        { categories.MOBILE * categories.ENGINEER, 1, 1, 'Support', 'none' },
     },        
 }
 
-PlatoonTemplate {Name = 'EngineerAssistGeneral',
+PlatoonTemplate {Name = 'EngineerGeneral',
 	GlobalSquads = {
-		{ (categories.MOBILE * categories.ENGINEER) + categories.SUBCOMMANDER, 1, 1, 'Support', 'none' },
+		{ categories.MOBILE * categories.ENGINEER, 1, 1, 'Support', 'none' },
 	},
-}
-
-PlatoonTemplate {Name = 'EngineerReclaimerGeneral',
-    Plan = 'EngineerReclaimAI',
-    GlobalSquads = {
-        { (categories.MOBILE * categories.ENGINEER) + categories.SUBCOMMANDER, 1, 1, 'Support', 'none' },
-    },
-}
-
-PlatoonTemplate {Name = 'EngineerStructureReclaimerGeneral',
-	Plan = 'EngineerReclaimStructureAI',
-    GlobalSquads = {
-        { (categories.MOBILE * categories.ENGINEER) + categories.SUBCOMMANDER, 1, 1, 'Support', 'none' },
-    },
-}	
-	
-PlatoonTemplate {Name = 'EngineerRepairGeneral',
-    Plan = 'EngineerRepairAI',
-    GlobalSquads = {
-        { (categories.MOBILE * categories.ENGINEER) + categories.SUBCOMMANDER, 1, 1, 'Support', 'none' },
-    },        
-}
-
-PlatoonTemplate {Name = 'MassAdjacencyEngineer',
-    Plan = 'EngineerBuildMassAdjacencyAI',
-    GlobalSquads = {
-		{ (categories.MOBILE * categories.ENGINEER) + categories.SUBCOMMANDER, 1, 1, 'Support', 'none' },
-    },
-}
-
-PlatoonTemplate {Name = 'MassAdjacencyDefenseEngineer',
-    Plan = 'EngineerBuildMassDefenseAdjacencyAI',
-    GlobalSquads = {
-		{ (categories.MOBILE * categories.ENGINEER) + categories.SUBCOMMANDER, 1, 1, 'Support', 'none' },
-    },
 }
 
 

@@ -54,7 +54,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Land Construction',
 -- This should be used for a light experimental - lowest eco requirements
     Builder {BuilderName = 'Land Experimental 1',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -92,7 +92,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Land Construction',
 -- This one builds medium experimentals but has slightly higher eco needs
     Builder {BuilderName = 'Land Experimental 2',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -131,7 +131,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Land Construction',
 -- This one builds heavy experimentals but has the highest eco needs
 	Builder {BuilderName = 'Land Experimental 3',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -171,7 +171,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Land Construction',
 -- This one builds the heaviest experiementals of all
 	Builder {BuilderName = 'Land Experimental 4',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -214,7 +214,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Land Construction - Expansions',
 
     Builder {BuilderName = 'Land Exp 1 Expansion',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -253,7 +253,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Land Construction - Expansions',
 	
     Builder {BuilderName = 'Land Exp 2 Expansion',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
 
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 
@@ -291,7 +291,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Land Construction - Expansions',
 	
 	Builder {BuilderName = 'Land Exp 3 Expansion',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
 
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 
@@ -330,7 +330,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Land Construction - Expansions',
 	
 	Builder {BuilderName = 'Land Exp 4 Expansion',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
 
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 
@@ -377,7 +377,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Air Construction - Land Only Map',
 -- We also have different priorities on land maps versus water maps - Air Exps more necessary on Water maps and trigger earlier
     Builder {BuilderName = 'Air Experimental - Land Map',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
 
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 
@@ -416,7 +416,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Air Construction - Land Only Map',
 
     Builder {BuilderName = 'Air Experimental - Air Transport',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
 
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 
@@ -459,7 +459,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Air Construction - Land Only Map',
     
     Builder {BuilderName = 'Air Experimental 2 - Land Map',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
 
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 
@@ -503,7 +503,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Air Construction - Water Map',
 	
     Builder {BuilderName = 'Air Experimental 1 - Water Map',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
 
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 
@@ -543,7 +543,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Air Construction - Water Map',
 	
     Builder {BuilderName = 'Air Experimental 2 - Water Map',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
 
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 
@@ -586,7 +586,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Air Construction - Expansions',
 	
     Builder {BuilderName = 'Air Experimental - Land Map - Expansion',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
 
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -625,7 +625,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Air Construction - Expansions',
 	
     Builder {BuilderName = 'Air Experimental 2 - Land Map - Expansion',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 
@@ -668,7 +668,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Air Construction - Water Map - Exp
 	
     Builder {BuilderName = 'Air Experimental - Water Map - Expansion',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 750,
@@ -707,7 +707,8 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Air Construction - Water Map - Exp
 	
     Builder {BuilderName = 'Air Experimental 2 - Water Map - Expansion',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
+        
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 750,
@@ -749,7 +750,7 @@ BuilderGroup {BuilderGroupName = 'Satellite Builders',
     BuildersType = 'EngineerBuilder',
 	
     -- Builder {BuilderName = 'Satellite Experimental',
-        -- PlatoonTemplate = 'EngineerBuilderGeneral',
+        -- PlatoonTemplate = 'EngineerBuilder',
 		-- PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         -- Priority = 0, 
         -- BuilderConditions = {
@@ -782,7 +783,8 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Naval Construction',
 	
     Builder {BuilderName = 'Sea Experimental 1',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
+        
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 740,
@@ -823,7 +825,8 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Naval Construction',
 	
     Builder {BuilderName = 'Sea Experimental 2',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
+        
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 740,
@@ -869,7 +872,8 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Naval Construction - Expansions',
 	
     Builder {BuilderName = 'Sea Experimental 1 Expansion',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
+        
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 740,
@@ -910,7 +914,8 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Naval Construction - Expansions',
 	
     Builder {BuilderName = 'Sea Experimental 2 Expansion',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
+        
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 740,
@@ -958,7 +963,8 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Construction',
 	
     Builder {BuilderName = 'Economic Experimental',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
+        
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 845,
@@ -1025,7 +1031,8 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Construction - Small Base'
 	
     Builder {BuilderName = 'Economic Experimental - Small Base',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
+        
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 850,
@@ -1092,7 +1099,8 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Defense Construction',
 	
     Builder {BuilderName = 'Economic Experimental Defenses',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
+        
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 840,
@@ -1192,7 +1200,8 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Defense Construction - LOU
 
     Builder {BuilderName = 'Economic Experimental Defenses - IS',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
+        
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 840,
@@ -1249,7 +1258,8 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Defense Construction - Sma
 	
     Builder {BuilderName = 'Economic Experimental Defenses - Small Base',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
+        
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 850,
@@ -1349,7 +1359,8 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Defense Construction - LOU
 
     Builder {BuilderName = 'Economic Experimental Defenses - IS - Small Base',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
+        
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 850,
@@ -1407,7 +1418,8 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Construction - Expansions'
 	
     Builder {BuilderName = 'Economic Experimental - Expansions',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
+        
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 740,
@@ -1457,7 +1469,8 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Construction - Naval',
 	
     Builder {BuilderName = 'Economic Experimental Naval',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
+        
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 740,

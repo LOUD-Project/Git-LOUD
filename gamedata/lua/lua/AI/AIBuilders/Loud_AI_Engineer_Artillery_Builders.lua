@@ -43,7 +43,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction',
 	
     Builder {BuilderName = 'Artillery T3',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -82,7 +82,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction',
 	-- this platoon covers Mavor, Scathis, Ylonna Oss & Salvation
     Builder {BuilderName = 'Artillery Experimental',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -126,7 +126,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction - Expansions',
 	
     Builder {BuilderName = 'Artillery T3 Expansions',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -167,7 +167,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction - Expansions',
 
     Builder {BuilderName = 'Artillery Experimental Expansions',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -212,7 +212,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Nuke Construction',
 	
     Builder {BuilderName = 'Nuke Silo',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
+        
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 750,
@@ -254,7 +255,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Nuke Construction - Expansions',
 	
     Builder {BuilderName = 'Nuke Silo - Expansion',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
+        
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 750,

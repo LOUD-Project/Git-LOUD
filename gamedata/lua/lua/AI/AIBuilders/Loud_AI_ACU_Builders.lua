@@ -359,7 +359,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
     -- provided we have some mass in storage
     Builder {BuilderName = 'CDR Assist Energy',
 	
-        PlatoonTemplate = 'CommanderAssist',
+        PlatoonTemplate = 'CommanderBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -391,7 +391,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
 
     Builder {BuilderName = 'CDR Assist Mass Upgrade',
 	
-        PlatoonTemplate = 'CommanderAssist',
+        PlatoonTemplate = 'CommanderBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -425,7 +425,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
     -- so they'll appear randomly for the most part
     Builder {BuilderName = 'CDR Assist Factory Upgrade',
 	
-        PlatoonTemplate = 'CommanderAssist',
+        PlatoonTemplate = 'CommanderBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -459,7 +459,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
     -- for upto 75 seconds
     Builder {BuilderName = 'CDR Assist Structure Experimental',
 	
-        PlatoonTemplate = 'CommanderAssist',
+        PlatoonTemplate = 'CommanderBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -492,7 +492,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
     -- or assist factory builds for 60 seconds
     Builder {BuilderName = 'CDR Assist Factory',
 	
-        PlatoonTemplate = 'CommanderAssist',
+        PlatoonTemplate = 'CommanderBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -523,7 +523,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
     -- or repair something -- no regard for Base Alert status
     Builder {BuilderName = 'CDR Repair',
 	
-        PlatoonTemplate = 'CommanderRepair',
+        PlatoonTemplate = 'CommanderBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -547,7 +547,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
     -- reclaim mass locally if there is any
     Builder {BuilderName = 'CDR Reclaim Mass',
 	
-        PlatoonTemplate = 'CommanderReclaim',
+        PlatoonTemplate = 'CommanderBuilder',
 
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		

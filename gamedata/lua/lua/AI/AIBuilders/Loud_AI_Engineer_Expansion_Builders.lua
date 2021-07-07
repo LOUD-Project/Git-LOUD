@@ -50,7 +50,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Land Expansion Construction',
 	-- and ALL other (counted) expansion bases have at least 4 upgraded factories
     Builder {BuilderName = 'Land Expansion Base',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -130,7 +130,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Land Expansion Construction',
     -- first 10 minutes only
     Builder {BuilderName = 'Land Expansion Base - Outnumbered',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -198,7 +198,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
 	-- This builder will start an active DP 
 	Builder {BuilderName = 'DP - Expansion',
 	
-		PlatoonTemplate = 'EngineerBuilderGeneral',
+		PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -254,7 +254,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
     
 	Builder {BuilderName = 'DP - Expansion SACU',
 	
-		PlatoonTemplate = 'EngineerBuilderGeneral',
+		PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -312,7 +312,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
 	-- Later on he can convert these 'Active DP' into real bases at his discretion
     Builder {BuilderName = 'DP - Expansion - Start & Expansion Areas',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -370,7 +370,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
 
     Builder {BuilderName = 'DP - Expansion - Start & Expansion Areas - SACU',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -433,7 +433,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction - Small'
 	-- This builder will start an active DP 
 	Builder {BuilderName = 'DP - Expansion Small',
 	
-		PlatoonTemplate = 'EngineerBuilderGeneral',
+		PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
@@ -496,7 +496,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction',
 	-- I also shortened the search range to about 17km from 20km
     Builder {BuilderName = 'Naval Base Initial - Large Map',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -557,7 +557,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction',
     
     Builder {BuilderName = 'Naval Base Initial - Small Map',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -625,7 +625,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction - Expans
 	-- only Naval Bases will do this
     Builder {BuilderName = 'Naval Base Secondary',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -688,7 +688,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction - Naval'
 	-- build a naval position that is closer to the goal than the current primary position
     Builder {BuilderName = 'Naval DP Expansion',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
 		
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		

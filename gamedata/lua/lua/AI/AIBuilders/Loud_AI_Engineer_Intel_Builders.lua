@@ -11,7 +11,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Radar Construction - Expansions',
 	
     Builder {BuilderName = 'Radar Engineer - Expansion',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
 		
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -46,7 +46,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Sonar Builders',
 	
     Builder {BuilderName = 'Sonar Engineer',
 	
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
 		
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
@@ -85,7 +85,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Optics Construction',
 	
     Builder {BuilderName = 'Optics Cybran',
     
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
         
 		FactionIndex = 3,
         
@@ -119,7 +119,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Optics Construction',
     },
     
     Builder {BuilderName = 'Optics Aeon',
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+        PlatoonTemplate = 'EngineerBuilder',
 		FactionIndex = 2,
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         Priority = 700,
