@@ -1683,7 +1683,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Point Defense Construction',
 				MinRadius = 150,
 				Radius = 1000,
 				
-				MinStorageUnits = 2,
+				MinStructureUnits = 2,
 				MaxDefenseStructures = 4,
 				MaxDefenseCategories = categories.STRUCTURE * categories.DEFENSE,
 				
@@ -1724,7 +1724,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Point Defense Construction',
 				MinRadius = 150,
 				Radius = 1000,
 				
-				MinStorageUnits = 3,
+				MinStructureUnits = 3,
 				MaxDefenseStructures = 3,
 				MaxDefenseCategories = categories.STRUCTURE * categories.DEFENSE * categories.TECH3,
 				

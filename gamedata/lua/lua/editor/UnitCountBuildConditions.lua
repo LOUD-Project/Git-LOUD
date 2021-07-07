@@ -849,6 +849,30 @@ function MassExtractorInRangeHasLessThanStorage(aiBrain, locationType, mindistan
 	return false
 end
 
+function MassExtractorInRangeHasLessThanEnergy(aiBrain, locationType, mindistance, maxdistance, energyunits, startX, startZ)
+
+    local pos = aiBrain.BuilderManagers[ locationType ].Position
+	
+	-- get your own extractors around the point
+	local Mexs = GetOwnUnitsAroundPoint(aiBrain, categories.MASSEXTRACTION - categories.TECH1, pos, maxdistance)
+	
+	for k,v in Mexs do
+		local mexposition = v:GetPosition()
+		local distance = VDist2Sq( pos[1],pos[3], mexposition[1],mexposition[3] )
+		
+		if distance >= (mindistance*mindistance) and distance <= (maxdistance*maxdistance) then
+			-- get the storage units around that point
+			local STORS = GetOwnUnitsAroundPoint(aiBrain, categories.ENERGYPRODUCTION * categories.TECH1, mexposition, 5)
+			
+			if LOUDGETN(STORS) < energyunits then
+				return true
+			end
+		end
+	end
+    
+	return false
+end
+
 function MassExtractorInRangeHasLessThanDefense(aiBrain, locationType, mindistance, maxdistance, defenseunits, threatmin, threatmax, threatrings)
 
     local pos = aiBrain.BuilderManagers[ locationType ].Position

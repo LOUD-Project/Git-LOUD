@@ -347,13 +347,71 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Naval',
     },
 }
 
+-- this only comes into play when IS is turned on - rings local MEX with power
+BuilderGroup {BuilderGroupName = 'Engineer Mass Energy Construction',
+    BuildersType = 'EngineerBuilder',
+	
+    Builder {BuilderName = 'Mass Energy Adjacency',
+	
+        PlatoonTemplate = 'EngineerGeneral',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
+        
+        PlatoonAIPlan = 'EngineerBuildMassAdjacencyAI',
+		
+        Priority = 750,
+		
+		PriorityFunction = First45Minutes,
 
+		InstanceCount = 1,
+		
+        BuilderType = { 'T1' },
+		
+        BuilderConditions = {
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+            { LUTL, 'UnitCapCheckLess', { .85 } },
+
+			{ UCBC, 'MassExtractorInRangeHasLessThanEnergy', {'LocationType', 20, 180, 4 }},
+        },
+		
+        BuilderData = {
+            Construction = {
+				LoopBuild = true,
+				
+				MinRadius = 20,
+				Radius = 180,
+				
+				MinStructureUnits = 4,
+                
+                AdjacencyStructure = categories.ENERGYPRODUCTION * categories.TECH1,
+				
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
+				BaseTemplate = 'EnergyAdjacency',
+				
+                BuildStructures = {
+                    'T1EnergyProduction',
+                    'T1EnergyProduction',
+                    'T1EnergyProduction',
+                    'T1EnergyProduction',
+                }
+            }
+        }
+    },
+	
+}
+
+-- only used when IS is turned off
 BuilderGroup {BuilderGroupName = 'Engineer Energy Storage Construction',
     BuildersType = 'EngineerBuilder',
 	
 	Builder {BuilderName = 'Energy Storage - HydroCarbon',
-        PlatoonTemplate = 'EngineerBuilderGeneral',
+    
+        PlatoonTemplate = 'EngineerBuilder',
+        
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+        
         Priority = 700,
 		
         BuilderConditions = {

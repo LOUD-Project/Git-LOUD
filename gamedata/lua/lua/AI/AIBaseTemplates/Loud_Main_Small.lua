@@ -115,6 +115,7 @@ BaseBuilderTemplate {
     -- IS = Integrated Storage --
 	LOUD_IS_Installed_Builders = {
 
+        'Engineer Mass Energy Construction',
 		'Engineer T4 Economy Defense Construction - LOUD IS - Small Base',
 		'Engineer Shield Construction - LOUD_IS',
 	},
