@@ -1531,6 +1531,7 @@ function LandScoutingAI( self, aiBrain )
 		
 		WaitTicks(30)
     end
+    
 end
 
 function NavalScoutingAI( self, aiBrain )
@@ -1829,6 +1830,67 @@ function NavalScoutingAI( self, aiBrain )
 	return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 end
 
+-- this behavior will watch the platoon's overall health and size
+-- and RTB it (after checking for a merge) when it falls too low
+function RetreatAI( self, aiBrain )
+
+    WaitTicks(50)  -- Wait 5 seconds before beginning
+    
+    local OriginalStrength = self:CalculatePlatoonThreat('Overall', categories.ALLUNITS)
+    
+    local OriginalSize = 0
+    local CurrentSize = 0
+    
+    local function CountPlatoonUnits()
+    
+        CurrentSize = 0
+    
+        for _, u in self:GetPlatoonUnits() do
+    
+            if not u.Dead then
+                CurrentSize = CurrentSize + 1
+            end
+        
+        end
+        
+        return CurrentSize
+        
+    end
+    
+    OriginalSize = CountPlatoonUnits()
+    
+    OriginalPlan = self.PlanName
+    
+    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..OriginalPlan.." reports Original Size as "..OriginalSize.." Strength "..OriginalStrength)
+    
+    while true do
+    
+        if (OriginalStrength * .4) >= self:CalculatePlatoonThreat('Overall', categories.ALLUNITS) or (OriginalSize * .4) >= CountPlatoonUnits() then
+        
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..OriginalPlan.." falls below RETREAT trigger")
+            
+            if PlatoonExists( aiBrain, self) then
+
+                self:Stop()
+                
+				self.MergeIntoNearbyPlatoons( self, aiBrain, OriginalPlan, 100, false)
+
+				-- RTB any leftovers
+				return self:SetAIPlan('ReturnToBaseAI',aiBrain)
+
+            else
+            
+                break
+                
+            end
+
+        end
+        
+        WaitTicks(4)
+        
+    end
+
+end
 
 -- This function borrows some good code from Sorian for timed launches
 -- Launchers are added to the platoon thru the NukeAIHub

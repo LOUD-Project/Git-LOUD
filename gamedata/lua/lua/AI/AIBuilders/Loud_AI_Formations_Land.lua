@@ -166,7 +166,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 	
         PlatoonTemplate = 'LandAttackHugeNW',
         
-		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, },		
+		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },		
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
 		
@@ -208,7 +208,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
     Builder {BuilderName = 'MEX Attack Land - Large',
 	
         PlatoonTemplate = 'T3MassAttack',
-		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, },
+		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
 		
@@ -290,7 +290,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
     Builder {BuilderName = 'MEX Attack Land Large Need Mass',
 	
         PlatoonTemplate = 'T3MassAttack',
-		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, },
+		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
 		
@@ -373,7 +373,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 	
         PlatoonTemplate = 'T2MassAttack',
         
-		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, },
+		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
 		
@@ -448,7 +448,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 	
         PlatoonTemplate = 'T3LandAttackNW',
         
-		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, },
+		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
 		
@@ -492,9 +492,9 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
     -- focused on production first -- no distance restriction
     Builder {BuilderName = 'Land Attack Large',
 	
-        PlatoonTemplate = 'T3LandAttack',
+        PlatoonTemplate = 'T2LandAttack',
         
-		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, },
+		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
 		
@@ -537,7 +537,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
     Builder {BuilderName = 'MEX Attack Land',
 	
         PlatoonTemplate = 'T2MassAttack',
-		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, },
+		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
 		
@@ -610,7 +610,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
     Builder {BuilderName = 'MEX Attack Land Need Mass',
 	
         PlatoonTemplate = 'T2MassAttack',
-		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, },
+		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
 		
@@ -685,7 +685,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 	Builder {BuilderName = 'MEX Attack Small Land Need Mass',
 	
         PlatoonTemplate = 'T1MassAttack',
-		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, },
+		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
 		
@@ -764,7 +764,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 	
         PlatoonTemplate = 'T1ArtilleryAttack',
         
-		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, },
+		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
 		
@@ -839,7 +839,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 	
         PlatoonTemplate = 'T3LandAttack',
         
-		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, },
+		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
 		
@@ -873,7 +873,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 	
         PlatoonTemplate = 'T2LandAttack',
         
-		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, },
+		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
 		
@@ -906,7 +906,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 	
         PlatoonTemplate = 'T1LandAttack',
         
-		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, },
+		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI', },
 		
@@ -940,7 +940,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 	
         PlatoonTemplate = 'T3MassAttack',
         
-		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, },
+		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
 		
@@ -1011,7 +1011,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 	
         PlatoonTemplate = 'T1MassAttack',
         
-		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, },
+		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
 		
@@ -1368,7 +1368,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
     Builder {BuilderName = 'Amphib Attk - Unit Forced',
 	
         PlatoonTemplate = 'AmphibAttackHuge',
-		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, },
+		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
 		
@@ -1405,7 +1405,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 	
         PlatoonTemplate = 'T3AmphibAttack',
         
-		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, },
+		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 		
         Priority = 802,
 		
@@ -1444,7 +1444,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 	
         PlatoonTemplate = 'T2AmphibAttack',
         
-		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, },
+		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 		
         Priority = 801,
 		
@@ -1483,7 +1483,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 	
         PlatoonTemplate = 'T1AmphibAttack',
         
-		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, },
+		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
 		
@@ -1550,7 +1550,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 	
         PlatoonTemplate = 'ReinforceAmphibiousPlatoon',
         
-		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, },
+		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 		
 		PlatoonAIPlan = 'ReinforceAmphibAI',
 		
@@ -1584,88 +1584,13 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
     BuildersType = 'PlatoonFormBuilder',
 
-    
-	Builder {BuilderName = 'Extractor Attack',
-	
-        PlatoonTemplate = 'T1MassGuard',
-        
-		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, },
-		
-		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
-		
-        Priority = 800,
-        
-        RTBLocation = 'Any',
-
-        InstanceCount = 5,
-		
-        BuilderType = 'Any',
-		
-        BuilderConditions = {
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-
-			{ LUTL, 'NeedTeamMassPointShare', {}},
-            
-            { LUTL, 'UnitCapCheckLess', { .75 } },
-
-			-- enemy mass points within 20km
-			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType', 0, categories.MASSPRODUCTION, 1000 }},
-            
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS) - categories.SCOUT - categories.EXPERIMENTAL }},
-        },
-		
-        BuilderData = {
-		
-			DistressRange = 150,
-            DistressReactionTime = 45,
-			DistressTypes = 'Land',
-			DistressThreshold = 4,
-			
-			PointType = 'Unit',
-			PointCategory = categories.MASSPRODUCTION,
-			PointSourceSelf = true,
-			PointFaction = 'Enemy',
-			PointRadius = 1000,
-			PointSort = 'Closest',
-			PointMin = 100,
-			PointMax = 1000,
-			
-			StrCategory = categories.STRUCTURE * categories.DEFENSE * categories.DIRECTFIRE,
-			StrRadius = 30,
-			StrTrigger = true,
-			StrMin = 0,
-			StrMax = 2,
-            
-            ThreatMaxRatio = 0.9,
-			
-			UntCategory = (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.ENGINEER),
-			UntRadius = 30,
-			UntTrigger = true,
-			UntMin = 0,
-			UntMax = 6,
-			
-            PrioritizedCategories = { 'MASSPRODUCTION','ECONOMIC','ENGINEER'},
-			
-			GuardRadius = 75,
-			GuardTimer = 25,
-			
-			MergeLimit = 25,
-			
-			AggressiveMove = true,
-			
-			AllowInWater = false,
-			
-			UseFormation = 'LOUDClusterFormation',
-        },
-    },
-    
 	-- Platoon designed to go to empty mass points within 15km and stay there until an extractor is built
 	-- runs until AI team has its share of mass points
     Builder {BuilderName = 'Mass Point Guard',
 	
         PlatoonTemplate = 'T1MassGuard',
         
-		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, },
+		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
 		
@@ -1746,7 +1671,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 	
         PlatoonTemplate = 'T1MassGuard',
         
-		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, },
+		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 		
 		PlatoonAddPlans = { 'DistressResponseAI','PlatoonCallForHelpAI' },
 		
@@ -1828,7 +1753,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 	
         PlatoonTemplate = 'T1MassGuard',
         
-		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, },
+		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI', },
 		
@@ -1896,18 +1821,16 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         },
     },
 	
-    Builder {BuilderName = 'DP Guard Artillery',
+    Builder {BuilderName = 'Expansion Guard',
 	
-        PlatoonTemplate = 'T2PointGuardArtillery',
+        PlatoonTemplate = 'T1MassGuard',
         
-		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, },
+		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 		
-		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI', },
+		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
 		
-        Priority = 800,
-		
-		PriorityFunction = IsPrimaryBase,
-		
+        Priority = 801,
+
 		RTBLocation = 'Any',
 		
         InstanceCount = 3,
@@ -1915,69 +1838,69 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         BuilderType = 'Any',
 		
         BuilderConditions = {
-
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            { LUTL, 'UnitCapCheckLess', { .85 } },
             
-            { LUTL, 'PoolGreater', { 6, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL }},
+            { LUTL, 'UnitCapCheckLess', { .75 } },
+
+            { UCBC, 'ExpansionPointNeedsStructure', { 'LocationType', 1250, 'STRUCTURE -ECONOMIC', 60, 6, 0, 100, 0, 'AntiSurface' }},
             
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL }},
-            
-			-- a DP marker with less than 100 enemy threat
-            { UCBC, 'DefensivePointForExpansion', { 'LocationType', 1250, 0, 100, 0, 'AntiSurface' }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS) - categories.SCOUT - categories.EXPERIMENTAL }},
         },
 		
         BuilderData = {
 		
-			DistressRange = 100,
+			DistressRange = 150,
+            DistressReactionTime = 30,
 			DistressTypes = 'Land',
-			DistressThreshold = 8,
+			DistressThreshold = 6,
 			
-			PointType = 'Marker',
-			PointCategory = 'Defensive Point',
-			PointSourceSelf = true,
-			PointFaction = 'Ally',
-			PointRadius = 1250,
-			PointSort = 'Closest',
-			PointMin = 250,
-			PointMax = 999999,
+			PointType = 'Marker',				-- either Unit or Marker
+			PointCategory = 'Large Expansion Area',
+			PointSourceSelf = true,				-- true AI will use its base as source, false will use current Enemy Main Base location
+			PointFaction = 'Ally',	 			-- must be either Ally or Enemy - determines which Structures and Units to check
+			PointRadius = 1250,					-- controls the finding of points based upon distance from PointSource
+			PointSort = 'Closest',				-- options are Closest or Furthest
+			PointMin = 200,						-- allows you to filter found points by range from PointSource
+			PointMax = 1250,
 			
-			StrCategory = categories.DEFENSE * categories.STRUCTURE * categories.DIRECTFIRE,
+			StrCategory = categories.STRUCTURE - categories.ECONOMIC,		-- filter points based upon units/strucutres at point
 			StrRadius = 60,
-			StrTrigger = true,
+			StrTrigger = true,					-- structure parameters trigger end to guardtimer
 			StrMin = 0,
-			StrMax = 3,
+			StrMax = 4,
             
             ThreatMin = 0,
-            ThreatMaxRatio = 1.6,
-            ThreatRings = 0,
-
-			UntCategory = (categories.LAND * categories.MOBILE * categories.DIRECTFIRE),
+            ThreatMaxRatio = 1,
+            ThreatRings = 0,                -- at this range
+			
+			UntCategory = categories.LAND * categories.MOBILE * categories.DIRECTFIRE,		-- secondary filter on presence of units/structures at point
 			UntRadius = 60,
-			UntTrigger = false,
+			UntTrigger = true,					-- unit parameters trigger an early end to guardtimer
 			UntMin = 0,
-			UntMax = 10,
+			UntMax = 30,
 			
             AssistRange = 2,
 			
-            PrioritizedCategories = {'LAND MOBILE','STRUCTURE -WALL','ENGINEER'},
+            PrioritizedCategories = {'LAND MOBILE','STRUCTURE -WALL','ENGINEER'},		-- controls target selection
 			
-			GuardRadius = 80,
-			GuardTimer = 480,
+			GuardRadius = 75,					-- range at which platoon will engage targets
+			GuardTimer = 1050,					-- period that platoon will guard the point 
 			
-			MergeLimit = 10,
+			MergeLimit = 36,					-- limit to which unit merging is allowed - nil = original platoon size
 			
 			AggressiveMove = true,
 			
-			UseFormation = 'BlockFormation',
+			AvoidBases = true,
+			
+			UseFormation = 'LOUDClusterFormation',
         },
-    },
+    }, 
 
     Builder {BuilderName = 'Start Guard',
 	
         PlatoonTemplate = 'T1MassGuard',
         
-		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, },
+		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
 		
@@ -2050,12 +1973,89 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			UseFormation = 'LOUDClusterFormation',
         },
     }, 
+		
+    Builder {BuilderName = 'DP Guard Artillery',
 	
+        PlatoonTemplate = 'T2PointGuardArtillery',
+        
+		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
+		
+		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI', },
+		
+        Priority = 800,
+		
+		PriorityFunction = IsPrimaryBase,
+		
+		RTBLocation = 'Any',
+		
+        InstanceCount = 3,
+		
+        BuilderType = 'Any',
+		
+        BuilderConditions = {
+
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+            { LUTL, 'UnitCapCheckLess', { .85 } },
+            
+            { LUTL, 'PoolGreater', { 6, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL }},
+            
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL }},
+            
+			-- a DP marker with less than 100 enemy threat
+            { UCBC, 'DefensivePointForExpansion', { 'LocationType', 1250, 0, 100, 0, 'AntiSurface' }},
+        },
+		
+        BuilderData = {
+		
+			DistressRange = 100,
+			DistressTypes = 'Land',
+			DistressThreshold = 8,
+			
+			PointType = 'Marker',
+			PointCategory = 'Defensive Point',
+			PointSourceSelf = true,
+			PointFaction = 'Ally',
+			PointRadius = 1250,
+			PointSort = 'Closest',
+			PointMin = 250,
+			PointMax = 999999,
+			
+			StrCategory = categories.DEFENSE * categories.STRUCTURE * categories.DIRECTFIRE,
+			StrRadius = 60,
+			StrTrigger = true,
+			StrMin = 0,
+			StrMax = 3,
+            
+            ThreatMin = 0,
+            ThreatMaxRatio = 1.6,
+            ThreatRings = 0,
+
+			UntCategory = (categories.LAND * categories.MOBILE * categories.DIRECTFIRE),
+			UntRadius = 60,
+			UntTrigger = false,
+			UntMin = 0,
+			UntMax = 10,
+			
+            AssistRange = 2,
+			
+            PrioritizedCategories = {'LAND MOBILE','STRUCTURE -WALL','ENGINEER'},
+			
+			GuardRadius = 80,
+			GuardTimer = 480,
+			
+			MergeLimit = 10,
+			
+			AggressiveMove = true,
+			
+			UseFormation = 'BlockFormation',
+        },
+    },
+
     Builder {BuilderName = 'Start Guard Artillery',
 	
         PlatoonTemplate = 'T1PointGuardArtillery',
         
-		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, },
+		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
 		
@@ -2129,87 +2129,12 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			UseFormation = 'AttackFormation',
         },
     }, 
-	
-    Builder {BuilderName = 'Expansion Guard',
-	
-        PlatoonTemplate = 'T1MassGuard',
-        
-		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, },
-		
-		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
-		
-        Priority = 801,
-
-		RTBLocation = 'Any',
-		
-        InstanceCount = 3,
-		
-        BuilderType = 'Any',
-		
-        BuilderConditions = {
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            
-            { LUTL, 'UnitCapCheckLess', { .75 } },
-
-            { UCBC, 'ExpansionPointNeedsStructure', { 'LocationType', 1250, 'STRUCTURE -ECONOMIC', 60, 6, 0, 100, 0, 'AntiSurface' }},
-            
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS) - categories.SCOUT - categories.EXPERIMENTAL }},
-        },
-		
-        BuilderData = {
-		
-			DistressRange = 150,
-            DistressReactionTime = 40,
-			DistressTypes = 'Land',
-			DistressThreshold = 6,
-			
-			PointType = 'Marker',				-- either Unit or Marker
-			PointCategory = 'Large Expansion Area',
-			PointSourceSelf = true,				-- true AI will use its base as source, false will use current Enemy Main Base location
-			PointFaction = 'Ally',	 			-- must be either Ally or Enemy - determines which Structures and Units to check
-			PointRadius = 1250,					-- controls the finding of points based upon distance from PointSource
-			PointSort = 'Closest',				-- options are Closest or Furthest
-			PointMin = 200,						-- allows you to filter found points by range from PointSource
-			PointMax = 1250,
-			
-			StrCategory = categories.STRUCTURE - categories.ECONOMIC,		-- filter points based upon units/strucutres at point
-			StrRadius = 60,
-			StrTrigger = true,					-- structure parameters trigger end to guardtimer
-			StrMin = 0,
-			StrMax = 4,
-            
-            ThreatMin = 0,
-            ThreatMaxRatio = 1,
-            ThreatRings = 0,                -- at this range
-			
-			UntCategory = categories.LAND * categories.MOBILE * categories.DIRECTFIRE,		-- secondary filter on presence of units/structures at point
-			UntRadius = 60,
-			UntTrigger = true,					-- unit parameters trigger an early end to guardtimer
-			UntMin = 0,
-			UntMax = 30,
-			
-            AssistRange = 2,
-			
-            PrioritizedCategories = {'LAND MOBILE','STRUCTURE -WALL','ENGINEER'},		-- controls target selection
-			
-			GuardRadius = 75,					-- range at which platoon will engage targets
-			GuardTimer = 1050,					-- period that platoon will guard the point 
-			
-			MergeLimit = 45,					-- limit to which unit merging is allowed - nil = original platoon size
-			
-			AggressiveMove = true,
-			
-			AvoidBases = true,
-			
-			UseFormation = 'LOUDClusterFormation',
-        },
-    }, 
 
     Builder {BuilderName = 'Expansion Guard Artillery',
 	
         PlatoonTemplate = 'T1PointGuardArtillery',
         
-		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, },
+		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
 		
@@ -2282,7 +2207,82 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			UseFormation = 'AttackFormation',
 			
         },
-    }, 	
+    }, 
+    
+	Builder {BuilderName = 'Extractor Attack',
+	
+        PlatoonTemplate = 'T1MassGuard',
+        
+		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
+		
+		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
+		
+        Priority = 800,
+        
+        RTBLocation = 'Any',
+
+        InstanceCount = 5,
+		
+        BuilderType = 'Any',
+		
+        BuilderConditions = {
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+
+			{ LUTL, 'NeedTeamMassPointShare', {}},
+            
+            { LUTL, 'UnitCapCheckLess', { .75 } },
+
+			-- enemy mass points within 20km
+			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType', 0, categories.MASSPRODUCTION, 1000 }},
+            
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS) - categories.SCOUT - categories.EXPERIMENTAL }},
+        },
+		
+        BuilderData = {
+		
+			DistressRange = 150,
+            DistressReactionTime = 35,
+			DistressTypes = 'Land',
+			DistressThreshold = 4,
+			
+			PointType = 'Unit',
+			PointCategory = categories.MASSPRODUCTION,
+			PointSourceSelf = true,
+			PointFaction = 'Enemy',
+			PointRadius = 1000,
+			PointSort = 'Closest',
+			PointMin = 100,
+			PointMax = 1000,
+			
+			StrCategory = categories.STRUCTURE * categories.DEFENSE * categories.DIRECTFIRE,
+			StrRadius = 30,
+			StrTrigger = true,
+			StrMin = 0,
+			StrMax = 2,
+            
+            ThreatMaxRatio = 0.9,
+			
+			UntCategory = (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.ENGINEER),
+			UntRadius = 30,
+			UntTrigger = true,
+			UntMin = 0,
+			UntMax = 6,
+			
+            PrioritizedCategories = { 'MASSPRODUCTION','ECONOMIC','ENGINEER'},
+			
+			GuardRadius = 75,
+			GuardTimer = 25,
+			
+			MergeLimit = 25,
+			
+			AggressiveMove = true,
+			
+			AllowInWater = false,
+			
+			UseFormation = 'LOUDClusterFormation',
+        },
+    },
+	
 }
 
 -- Land Formations - Base Guards --
@@ -2298,7 +2298,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Base Guards',
 	
         PlatoonTemplate = 'BaseGuardMedium',
         
-		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, },
+		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 		
 		PlatoonAddPlans = { 'DistressResponseAI' },
 		
@@ -2337,7 +2337,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Base Guards',
 	
         PlatoonTemplate = 'BaseGuardAAPatrol',
         
-		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, },
+		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 		
 		PlatoonAddPlans = { 'DistressResponseAI' },
 		

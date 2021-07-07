@@ -991,7 +991,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 	
         PlatoonTemplate = 'GunshipAttack Small',
         
-		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'} },
+		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
 		
@@ -1033,7 +1033,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 	
         PlatoonTemplate = 'GunshipAttack',
         
-		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'} },
+		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI', 'DistressResponseAI' },
 		
@@ -1080,7 +1080,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 	
         PlatoonTemplate = 'GunshipAttack Small',
         
-		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'} },
+		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI', 'DistressResponseAI' },
 		
@@ -1126,7 +1126,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 	
         PlatoonTemplate = 'GunshipAttack Large',
         
-		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'} },
+		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI', 'DistressResponseAI' },
 		
@@ -1669,7 +1669,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 	
         PlatoonTemplate = 'TorpedoAttack Small',
         
-		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'} },
+		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI', 'DistressResponseAI' },
 		
@@ -1708,7 +1708,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 	
         PlatoonTemplate = 'TorpedoAttack',
         
-		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'} },
+		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI', 'DistressResponseAI' },
 		
@@ -1750,7 +1750,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 	
         PlatoonTemplate = 'TorpedoAttack Large',
         
-		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'} },
+		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI', 'DistressResponseAI' },
 		
@@ -1836,7 +1836,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 	
         PlatoonTemplate = 'TorpedoBomberAttack',
 		
-		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'} },
+		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
 		
@@ -1946,7 +1946,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 	
         PlatoonTemplate = 'FighterEscort',
 		
-		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, },
+		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI', 'DistressResponseAI' },
 		
@@ -2015,7 +2015,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 	
         PlatoonTemplate = 'GunshipEscort',
 		
-		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, },
+		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'},  {BHVR, 'RetreatAI'} },
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
 		
@@ -2082,7 +2082,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 	
         PlatoonTemplate = 'TorpedoEscort',
 		
-		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, },
+		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
 		

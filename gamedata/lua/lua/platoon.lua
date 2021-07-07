@@ -393,6 +393,7 @@ Platoon = Class(moho.platoon_methods) {
         self:KillMoveThread()        
 	end,
 	
+    -- this just kills the thread created by MovePlatoon
 	KillMoveThread = function( self )
 		
 		if self.WaypointCallback then
@@ -2380,24 +2381,12 @@ Platoon = Class(moho.platoon_methods) {
 			stuckcount = 0
 			oldplatpos = false
 			calltransport = 0
-            
-            -- Setup a watch on the platoon count for retreat
-            if marker then
-        
-                self.WatchPlatoon = self:ForkThread( self.WatchPlatoonSize, LOUDGETN(self:GetPlatoonUnits()), .4 )
-            else
-                if self.WatchPlatoon then
-                    KillThread(self.WatchPlatoon)
-                    self.WatchPlatoon = nil
-                end
-            end
 			
 			distance = VDist3( GetPlatoonPosition(self), marker )
+            
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." GP now moving to marker "..repr(marker).." distance is "..repr(distance).." UntRadius is "..repr(UntRadius) )
 
 			while PlatoonExists(aiBrain,self) and marker and distance > UntRadius and guardtime < guardTimer do
-			
-				--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..self.BuilderName.." moving to "..repr(marker))
-				--LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT - "..self.BuilderName.." distance is "..distance.." Radius "..UntRadius)
 				
 				position = GetPlatoonPosition(self) or false
 
@@ -2461,29 +2450,37 @@ Platoon = Class(moho.platoon_methods) {
 					if PlatoonExists( aiBrain, self ) then
                     
                         if marker then
-
-                            distance = VDist3( GetPlatoonPosition(self), marker )
-
-                            -- call transports if still far (every 30 seconds)
-                            if marker and calltransport > 30 and distance > 350 then
-
-                                usedTransports = self:SendPlatoonWithTransportsLOUD( aiBrain, marker, 1, false )
-
-                                calltransport = 0	-- reset the calltransport trigger
-                            end
-				
-                            calltransport = calltransport + 1
-                        end
-            
-                        if not self.WatchPlatoon then
-
-                            marker = false
-
-                            return self:SetAIPlan('ReturnToBaseAI',aiBrain)                
-                        end
                         
+                            position = GetPlatoonPosition(self) or false
+                            
+                            if position then
+
+                                distance = VDist3( GetPlatoonPosition(self), marker )
+
+                                -- call transports if still far (every 30 seconds)
+                                if marker and calltransport > 30 and distance > 350 then
+
+                                    usedTransports = self:SendPlatoonWithTransportsLOUD( aiBrain, marker, 1, false )
+
+                                    calltransport = 0	-- reset the calltransport trigger
+                                end
+				
+                                calltransport = calltransport + 1
+                                
+                            else
+                            
+                                marker = false
+                                
+                            end
+                            
+                        end
+
 					end
+                    
                 end
+                
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." GP still at "..repr(distance).." from marker "..repr(marker))
+                
 			end
 			
 			-- if marker still valid and we have time left - stop movement
@@ -2493,8 +2490,11 @@ Platoon = Class(moho.platoon_methods) {
 				if PlatoonExists(aiBrain,self) and self.MoveThread then
 					self:KillMoveThread()
 				end
+                
 			else
+            
 				continue
+                
 			end
             
 
@@ -3324,6 +3324,7 @@ Platoon = Class(moho.platoon_methods) {
 								local randlist = { '-6', '6' }
 								
 								IssueGuard( GetPlatoonUnits(self), { marker[1] + tonumber(randlist[Random(1,2)]), marker[2], marker[3] + tonumber(randlist[Random(1,2)]) } )
+                                
 							else
 							
 								local loclist = GetBasePerimeterPoints(aiBrain, marker, PatrolRadius, 'ALL', false, 'Air')
@@ -3377,26 +3378,18 @@ Platoon = Class(moho.platoon_methods) {
                             
                                 numberOfUnitsInPlatoon = numberOfUnitsInPlatoon + 1                            
                             end
-						end		
+                            
+						end	
+                        
                     end
+                    
 				end
 
-				-- if depleted try merging into another platoon and RTB any leftovers --
 				if numberOfUnitsInPlatoon > 0 then
                 
                     WaitTicks(1)
 
-                    myThreat = self:CalculatePlatoonThreat(ThreatType, categories.ALLUNITS)
-
-					if myThreat < (OriginalThreat * .4) or numberOfUnitsInPlatoon < (oldNumberOfUnitsInPlatoon * .4) then
-					
-						self.MergeIntoNearbyPlatoons( self, aiBrain, 'GuardPointAir', 100, false)
-						
-						return self:SetAIPlan('ReturnToBaseAI',aiBrain)
-					end
-
                     -- MERGE other GuardPoint Platoons into us during regular guardtime -- if we have space -- 50% of the time
-
                     if numberOfUnitsInPlatoon < MergeLimit and Random(1,2) == 2 and guarding and guardtime <= guardTimer then
 					
                         if self.MergeWithNearbyPlatoons( self, aiBrain, 'GuardPointAir', 100, true, MergeLimit) then
@@ -5420,11 +5413,6 @@ Platoon = Class(moho.platoon_methods) {
 					
                         -- kill any existing behavior
 						if self.AIThread then
-						
-							--if ScenarioInfo.DistressResponseDialog then
-								--LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." Killing existing thread "..oldPlan.." "..repr(self.AIThread))
-							--end
-						
 							self:StopAI()
 						end
 
@@ -8563,19 +8551,6 @@ Platoon = Class(moho.platoon_methods) {
 		local platPos = LOUDCOPY(GetPlatoonPosition(self))
         local radiusSq = radius*radius	-- maximum range to check allied platoons --
 
-		-- we cant be within 1/3 that range to our own base --
---[[
-        for _, base in aiBrain.BuilderManagers do
-		
-            if VDist2Sq( platPos[1],platPos[3], base.Position[1],base.Position[3] ) <= ( radiusSq / 3 ) then
-			
-				return false
-				
-            end 
-			
-        end
---]]
-
 		-- get a list of all the platoons for this brain
 		local GetPlatoonsList = moho.aibrain_methods.GetPlatoonsList
         local AlliedPlatoons = LOUDCOPY(GetPlatoonsList(aiBrain))
@@ -8586,7 +8561,7 @@ Platoon = Class(moho.platoon_methods) {
 		local allyPlatoonSize, validUnits, counter = 0
 		
         --if ScenarioInfo.PlatoonMergeDialog then
-          --  LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." checking MERGE WITH for "..repr(table.getn(AlliedPlatoons)).." platoons")
+          --  LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." checking MERGE WITH for "..repr(LOUDGETN(AlliedPlatoons)).." platoons")
         --end
 		
 		local count = 0
