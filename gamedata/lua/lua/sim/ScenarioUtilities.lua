@@ -710,6 +710,8 @@ function InitializeArmies()
     end
     
     loudUtils.StartAdaptiveCheatThreads()
+    
+    loudUtils.StartSpeedProfile()
 
     ScenarioInfo.Options.AIResourceSharing = nil
     ScenarioInfo.Options.AIFactionColor = nil

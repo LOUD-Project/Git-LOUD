@@ -651,6 +651,76 @@ function StartAdaptiveCheatThreads()
     
 end
 
+function StartSpeedProfile()
+
+    --ForkThread (SpeedProfile)
+
+end
+
+function SpeedProfile()
+
+    -- account for time expended prior to game time starting
+    --local startvalue = GetSystemTimeSecondsOnlyForProfileUse()
+    
+    local GSO = GetSystemTimeSecondsOnlyForProfileUse
+    --local GTS = GetGameTimeSeconds
+    
+--[[
+    while true do
+    
+        local gamesecondsperactualseconds = ( GSO() - startvalue ) / GTS()
+        local ax = GTS() / (GSO() - startvalue)
+    
+        LOG("*AI DEBUG Speed Profile at Gametime "..repr(GTS()).." is "..gamesecondsperactualseconds.." -- "..ax )
+    
+        -- this will actually be precisely 5 seconds -- at least according to GetGameTimeSeconds
+        -- not quite sure where the extra tick is being lost
+        WaitTicks(51)
+        
+    end
+--]]
+
+    local a
+    
+    local b = {}
+    
+    local total = 0
+    
+    local count = 1
+    
+    local avg = 0
+    
+    local period = 30
+    
+    while true do
+    
+        a = GSO()
+       
+        WaitTicks(11)
+       
+        a = GSO() - a
+       
+        total = total - ( b[count] or 0 )
+       
+        b[count] = a
+       
+        total = total + a
+       
+        avg = total/period
+       
+        count = count + 1
+       
+        if count > period then
+       
+            count = 1
+            
+        end
+
+        LOG("*AI DEBUG Time per game second "..a.."  Avg over "..period.." seconds "..avg)
+    
+    end
+end
+
 -- The following 2 functions are courtesy of:
 -- - Uveso (FAF); initial implementation
 -- - Azraeelian Angel; adaptation for LOUD
