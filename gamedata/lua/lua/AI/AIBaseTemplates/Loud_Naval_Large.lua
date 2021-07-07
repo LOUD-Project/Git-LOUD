@@ -97,11 +97,11 @@ BaseBuilderTemplate {
         if personality == 'loud' then
 			
 			-- must be lots of water on a larger map with a high unit cap
-			if (aiBrain:GetMapWaterRatio() > .20 and ScenarioInfo.size[1] >= 1024) and GetArmyUnitCap(aiBrain.ArmyIndex) > 750 then
+			if (aiBrain:GetMapWaterRatio() > .20 and ScenarioInfo.size[1] >= 1024) and GetArmyUnitCap(aiBrain.ArmyIndex) >= 1000 then
 				return 100,false
 			end
 			
-			-- if it's a large water map but unit cap less is 750 or less
+			-- if it's a large water map but unit cap less is 1000 or less
 			if (aiBrain:GetMapWaterRatio() > .20 and ScenarioInfo.size[1] >= 1024) then
 				return 50,false		-- return only 50 should promote the selection of the small naval base
 			end

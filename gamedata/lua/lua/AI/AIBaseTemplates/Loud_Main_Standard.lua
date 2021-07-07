@@ -159,7 +159,7 @@ BaseBuilderTemplate {
 
         local mapSizeX, mapSizeZ = GetMapSize()
 		
-		--LOG("*AI DEBUG Map Water Ratio is "..repr(aiBrain:GetMapWaterRatio()).."  Size is "..ScenarioInfo.size[1].."  Unit Cap for "..aiBrain.Nickname.." is "..GetArmyUnitCap(aiBrain.ArmyIndex))
+		LOG("*AI DEBUG Map Water Ratio is "..repr(aiBrain:GetMapWaterRatio()).."  Size is "..ScenarioInfo.size[1].."  Unit Cap for "..aiBrain.Nickname.." is "..GetArmyUnitCap(aiBrain.ArmyIndex))
 
         -- If we're playing on a 5k or 10k map we'll want the Small base
         if mapSizeX <= 512 or mapSizeZ <= 512 or GetArmyUnitCap(aiBrain.ArmyIndex) < 1000 then	--tonumber(ScenarioInfo.Options.UnitCap) < 1000 then
@@ -167,9 +167,24 @@ BaseBuilderTemplate {
 			
         -- If we're playing on a 20k map or low pop - then maybe we'll go Standard
         elseif ((mapSizeX >= 1024 and mapSizeX < 2048) and (mapSizeZ >= 1024 and mapSizeZ < 2048)) then
-            return Random(10,60), 'loud'
-			
+        
+            if aiBrain.IsWaterMap then
+            
+                return 10, 'loud'
+                
+            else
+            
+                return Random(10,60), 'loud'
+                
+            end
+
 		end
+        
+        if GetArmyUnitCap(aiBrain.ArmyIndex) < 1500 and aiBrain:GetMapWaterRatio() > .20 then
+        
+            return 10, 'loud'
+            
+        end
 		
 		-- anything else
         return 100, 'loud'

@@ -86,7 +86,7 @@ BaseBuilderTemplate {
         
         if personality == 'loud' then
 		
-			if aiBrain:GetMapWaterRatio() <= .10 or GetArmyUnitCap(aiBrain.ArmyIndex) < 750 then
+			if aiBrain:GetMapWaterRatio() <= .10 or GetArmyUnitCap(aiBrain.ArmyIndex) < 1000 then
 				return 80, false
 			end
 
