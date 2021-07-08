@@ -245,8 +245,8 @@ UnitBlueprint {
 			
             DisplayName = 'Light Quarnon Cannon',
             
-            EnergyRequired = 550,
-            EnergyDrainPerSecond = 250,     -- 2.2 seconds to charge
+            EnergyRequired = 560,
+            EnergyDrainPerSecond = 125,     -- 4.5 seconds to charge
 				
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
@@ -262,7 +262,7 @@ UnitBlueprint {
             MinRadius = 25,
 			
             MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0.7,         -- 2.8 seconds to fire
+            MuzzleSalvoDelay = 0.8,         -- 3.2 seconds to discharge
             MuzzleSalvoSize = 4,
             MuzzleVelocity = 23,
 			MuzzleVelocityRandom = 1,
@@ -291,7 +291,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,     -- rate controlled by charge - every 5 seconds
+            RateOfFire = 1,     -- rate controlled by charge - every 4.5 seconds
 			
             TargetCheckInterval = 2,
 			
