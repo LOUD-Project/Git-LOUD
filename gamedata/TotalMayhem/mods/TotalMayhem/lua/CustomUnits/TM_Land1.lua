@@ -1,14 +1,14 @@
 UnitList = {
    
     T3ArmoredAssault = {
-        UEF = {'BRNT3ABB', 25},		    -- Ironfist
-        Aeon = {'BROT3HM', 25},		    -- Mogul 
+        UEF = {'BRNT3ABB', 20},		    -- Ironfist
+        Aeon = {'BROT3HM', 20},		    -- Mogul 
         Cybran = {'BRMT3BM2', 15},	    -- Dervish
-		Seraphim = {'BRPT3BOT', 25},    -- Thaam-Thuum
+		Seraphim = {'BRPT3BOT', 20},    -- Thaam-Thuum
     },
    
     T3LandArtillery = {
-        Cybran = {'BRMT3ML', 30},	    -- Pavestone
+        Cybran = {'BRMT3ML', 25},	    -- Pavestone
 		Seraphim = {'BRPT3ML', 40},	    -- Heth-Zthuha
     },
     
@@ -33,15 +33,15 @@ UnitList = {
 	
 
     T2LandDFTank = {
-        Cybran = {'BRMT2MEDM', 25},	    -- Immortal
-		UEF = {'BRNT2BM', 25},		    -- Banshee
-        Aeon = {'BROT2ASB', 25},	    -- Amphorak
-		Seraphim = {'BRPT2BTBOT', 25},	-- Iltha
+        Cybran = {'BRMT2MEDM', 20},	    -- Immortal
+		UEF = {'BRNT2BM', 20},		    -- Banshee
+        Aeon = {'BROT2ASB', 20},	    -- Amphorak
+		Seraphim = {'BRPT2BTBOT', 20},	-- Iltha
     },
 
     T2AttackTank = {
-        UEF = {'BRNT2MT', 50},		-- Statue Rapid Assault
-        Cybran = {'BRMT2HT', 50},	-- Hippo
+        UEF = {'BRNT2MT', 40},		-- Statue Rapid Assault
+        Cybran = {'BRMT2HT', 40},	-- Hippo
     },
     
     -- December 22, 2020 -- T2 Land Amphibious does not exist in Default Factory Platoons.
@@ -72,13 +72,13 @@ UnitList = {
     },
 
     T1LandDFBot = {
-        Aeon = {'BROT1EXM1', 50}, -- Bugbear
-        Cybran = {'BRMT1EXM1', 50},	-- Proton
-		Seraphim = {'BRPT1EXM1', 50},	-- Othazyne
+        Aeon = {'BROT1EXM1', 40}, -- Bugbear
+        Cybran = {'BRMT1EXM1', 40},	-- Proton
+		Seraphim = {'BRPT1EXM1', 40},	-- Othazyne
     },
     
     T1LandArtillery = {
-        Aeon = { 'BROT1ML', 40}, -- Wavecrest
+        Aeon = { 'BROT1ML', 35}, -- Wavecrest
     },
 
 }

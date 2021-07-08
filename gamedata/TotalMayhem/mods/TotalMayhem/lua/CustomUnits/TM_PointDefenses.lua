@@ -2,7 +2,7 @@ UnitList = {
 
 	T3GroundDefense = {
 		UEF = {'BRNT3PDRO', 20},
-		Aeon = {'BRMT3PDRO', 20},
+		Aeon = {'BROT3PDRO', 20},
 		Cybran = {'BRMT3PDRO', 20},
 		Seraphim = {'BRPT3PD', 30},
     },
