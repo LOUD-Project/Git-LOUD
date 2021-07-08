@@ -91,12 +91,12 @@ UnitBlueprint {
             ShieldRechargeTime = 26,
             ShieldRegenRate = 288,
             ShieldRegenStartTime = 1,
-            ShieldSize = 18,
+            ShieldSize = 16,
             ShieldVerticalOffset = -3,
         },
     },
     
-    Description = 'Experimental Heavy Assault Artillery Platform',
+    Description = 'Experimental Assault Artillery Platform',
     
     Display = {
         Abilities = {
@@ -223,7 +223,7 @@ UnitBlueprint {
         BuildCostMass = 27500,
         BuildTime = 12400,
         
-        MaintenanceConsumptionPerSecondEnergy = 533,
+        MaintenanceConsumptionPerSecondEnergy = 500,
     },
 
     General = {
@@ -238,7 +238,7 @@ UnitBlueprint {
             RULEUCC_Pause = true,
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
-            RULEUCC_Transport = true,
+            RULEUCC_Transport = false,
         },
 
         FactionName = 'UEF',
@@ -263,7 +263,7 @@ UnitBlueprint {
     },
     
     Interface = {
-        HelpText = 'Heavy Assault Artillery Platform',
+        HelpText = 'Assault Artillery Platform',
     },
     
     LifeBarHeight = 0.075,
@@ -282,7 +282,7 @@ UnitBlueprint {
         Elevation = 1,
         LayerChangeOffsetHeight = -0.75,
         
-        MaxAcceleration = 0.75,
+        MaxAcceleration = 0.55,
         MaxBrake = 1.1,
         MaxSpeed = 2.2,
         MaxSpeedReverse = 1.6,
@@ -355,6 +355,9 @@ UnitBlueprint {
             
             DisplayName = 'APDS Artillery',
             
+            EnergyRequired = 5000,
+            EnergyDrainPerSecond = 1000,     -- 5 seconds to charge
+
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
@@ -399,7 +402,7 @@ UnitBlueprint {
             
             RangeCategory = 'UWRC_IndirectFire',
             
-            RateOfFire = 0.2,       -- 2000 * 4 = 8000 * .2 = 1600 DPS
+            RateOfFire = 0.2,       -- 2000 * 4 = 8000 * .2 = 1600 DPS - controlled by charge
 
             TargetCheckInterval = 0.5,
             TargetPriorities = {
