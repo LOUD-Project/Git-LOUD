@@ -5046,7 +5046,7 @@ Platoon = Class(moho.platoon_methods) {
 							if PlatoonExists(aiBrain, self) then
 
                                 if ScenarioInfo.DistressResponseDialog then
-                                    LOG('*AI DEBUG '..aiBrain.Nickname..' PCAI '..self.BuilderName.." is under attack! threat is "..repr(threat)..' raising call for '..distresscalltype..' help at '..repr(pos) )
+                                    LOG('*AI DEBUG '..aiBrain.Nickname..' PCAI '..self.BuilderName.." is under attack! threat is "..math.floor(threat)..' raising call for '..distresscalltype..' help at '..repr(pos) )
                                 end
 								
 								LOUDINSERT(aiBrain.PlatoonDistress.Platoons, { Platoon = self, DistressType = distresscalltype, Position = LOUDCOPY(pos), Threat = threat, CreationTime = LOUDTIME() } )
@@ -5219,13 +5219,19 @@ Platoon = Class(moho.platoon_methods) {
 					
 							if VDist3( platoonposition, brain.CDRDistress ) < ( distressrange * 2) then
 
+                                if ScenarioInfo.DistressResponseDialog then
+                                    LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..repr(platoon.MovementLayer).." selects ACU ALERT "..repr(brain.CDRDistress))
+                                end
+
 								return brain.CDRDistress, distresstype, 'Commander'
 							end
+                            
 						else
 							LOG("*AI DEBUG "..brain.Nickname.." CDR Dead - CDR Distress deactivated")
 						
 							brain.CDRDistress = false
 						end
+                        
 					end
 				
 					-- Secondly - look for BASE and PLATOON alerts
@@ -5367,16 +5373,12 @@ Platoon = Class(moho.platoon_methods) {
 		
 		while PlatoonExists(aiBrain,self) and self.DistressResponseAIRunning do
 
-			if PlatoonExists(aiBrain,self) then
-				platoonPos = GetPlatoonPosition(self) or false
-			else
-				platoonPos = false
-			end
+			platoonPos = GetPlatoonPosition(self) or false
 			
 			-- Find a distress location within the platoons range
             if self.DistressResponseAIRunning and (platoonPos and (not self.DistressCall) and (not self.UsingTransport)) and (aiBrain.CDRDistress or aiBrain.PlatoonDistress.AlertSounded or aiBrain.BaseAlertSounded) and (not self.RespondingToDistress)  then
 
-				-- these 3 global triggers make this process quick -- aibrain.CDRDistress -- aibrainPlatoonDistressTable.AlertSounded -- aibrain.BaseAlertSounded
+				-- 3 global triggers make this process quick -- aibrain.CDRDistress -- aibrainPlatoonDistressTable.AlertSounded -- aibrain.BaseAlertSounded
 				-- since they are quick to look up we run this thread pretty hot to make the platoon responsive
 				-- the only drawback is that it is local only to the brain using it -- the only time allied checks will be looked at is when this brain has one of its own
                 distressLocation, distressType, distressplatoon = PlatoonMonitorDistressLocations( self, aiBrain, platoonPos, distressRange, distressTypes, threatThreshold )
@@ -5412,56 +5414,17 @@ Platoon = Class(moho.platoon_methods) {
 				
                         -- if the platoon has a movement thread --
 						if self.MoveThread then
-
                             self:KillMoveThread()
---[[
-                            LOG("*AI DEBUG There are "..LOUDGETN(GetPlatoonUnits(self)))
-
-                            for _,u in GetPlatoonUnits(self) do
-                            
-                                if not u.Dead then
-
-                                    local navigator = u:GetNavigator()
-                                    LOG("*AI DEBUG Navigator of unit is "..repr(navigator))
-
-                                    local currenttarget = navigator:GetCurrentTargetPos()
-                                    LOG("*AI DEBUG Current target is "..repr(currenttarget))
-
-                                    local goalposition = navigator:GetGoalPos()
-                                    LOG("*AI DEBUG Current goal is "..repr(goalposition))
-                                
-                                    local usingformation = navigator:IgnoreFormation(true)
-                                    LOG("*AI DEBUG Is Ignoring formation is "..repr(usingformation))
-                                
-                                    usingformation = u:GetCommandQueue()
-                                    LOG("*AI DEBUG Command Queue is "..repr(usingformation))
-                                
-                                    goalposition = navigator:AbortMove()
-                                    LOG("*AI DEBUG Current goal is "..repr(goalposition))
-
-                                    navigator:SetGoal(distressLocation)
-
-                                    currenttarget = navigator:GetCurrentTargetPos()
-                                    LOG("*AI DEBUG Current target is "..repr(currenttarget))
-
-                                    goalposition = navigator:GetGoalPos()
-                                    LOG("*AI DEBUG Current goal is "..repr(goalposition))
-                                
-                                    usingformation = u:GetCommandQueue()
-                                    LOG("*AI DEBUG Command Queue is "..repr(usingformation))
-                                
-                                end
-                            end
---]]
 						end
 				
 						-- This keeps the platoon from issuing a distress ALERT of it's own 
 						-- or responding to another distress call
 						self.RespondingToDistress = true
 
-						-- Head towards position and repeat until distress clear
-						repeat
-							moveLocation = distressLocation
+						-- Head towards position and repeat until there is no distressLocation
+						while PlatoonExists(aiBrain, self) and distressLocation and self.DistressResponseAIRunning do
+                        
+							moveLocation = LOUDCOPY(distressLocation)
 							
 							self:Stop()
                             
@@ -5471,122 +5434,193 @@ Platoon = Class(moho.platoon_methods) {
                                 -- am I in the water ?
                                 inWater = InWaterCheck(self)
                             end
-							
-                            cmd = false
-						
-							-- move directly to distress
+
+							-- move directly to distressLocation
 							if not inWater then
+                        
+                                local Attack = false
+                                local Artillery = false
                             
-                            	local GetDirectionInDegrees = import('/lua/utilities.lua').GetDirectionInDegrees		
+                                direction = import('/lua/utilities.lua').GetDirectionInDegrees( GetPlatoonPosition(self), distressLocation )						
+                            
+                                if self:GetSquadUnits('Attack') and LOUDGETN(self:GetSquadUnits('Attack')) > 0 then
+                            
+                                    IssueClearCommands(self:GetSquadUnits('Attack'))
+				
+                                    IssueFormAggressiveMove( self:GetSquadUnits('Attack'), distressLocation, 'AttackFormation', direction)
+                                
+                                    Attack = true
+                                
+                                end
+					
+                                if self:GetSquadUnits('Artillery') and LOUDGETN(self:GetSquadUnits('Artillery')) > 0 then
+                            
+                                    IssueClearCommands(self:GetSquadUnits('Artillery'))
+                        
+                                    IssueFormAggressiveMove( self:GetSquadUnits('Artillery'), distressLocation, PlatoonFormation, direction)
+                            
+                                    Artillery = true
+                            
+                                end
+                            
+                                if self:GetSquadUnits('Guard') and LOUDGETN(self:GetSquadUnits('Guard')) > 0 then
+                            
+                                    IssueClearCommands(self:GetSquadUnits('Guard'))
+                     
+                                    if not Artillery and not Attack then
+
+                                        IssueFormMove( self:GetSquadUnits('Guard'), distressLocation, 'BlockFormation', direction)
+                                
+                                    elseif Artillery then
+                                
+                                        IssueGuard( self:GetSquadUnits('Guard'), self:GetSquadUnits('Artillery')[1] )
+                                
+                                    elseif Attack then
+                                
+                                        IssueGuard( self:GetSquadUnits('Guard'), self:GetSquadUnits('Attack')[1] )
+                            
+                                    end
+                            
+                                end
+					
+                                if self:GetSquadUnits('Support') and LOUDGETN(self:GetSquadUnits('Support')) > 0 then
+
+                                    IssueClearCommands(self:GetSquadUnits('Support'))
+                                
+                                    if not Attack and not Artillery then
+                                
+                                        IssueFormAggressiveMove( self:GetSquadUnits('Support'), distressLocation, 'BlockFormation', direction)
+                                
+                                    elseif Attack then
+                            
+                                        IssueGuard( self:GetSquadUnits('Support'), self:GetSquadUnits('Attack')[1])
+                                
+                                    elseif Artillery then
+                            
+                                        IssueGuard( self:GetSquadUnits('Support'), self:GetSquadUnits('Artillery')[1])                            
+                                
+                                    end
+                            
+                                end
 
                                 if self:GetSquadUnits('Scout') then
-                                    IssueFormMove( self:GetSquadUnits('Scout'), distressLocation, 'BlockFormation', GetDirectionInDegrees( self:GetSquadPosition('Scout'), distressLocation))
-                                end
-					
-                                if self:GetSquadUnits('Attack') then
-                                    IssueFormAggressiveMove( self:GetSquadUnits('Attack'), distressLocation, 'AttackFormation', GetDirectionInDegrees( self:GetSquadPosition('Attack'), distressLocation))
-                                end
-					
-                                if self:GetSquadUnits('Artillery') then
-                                    IssueFormAggressiveMove( self:GetSquadUnits('Artillery'), distressLocation, 'BlockFormation', GetDirectionInDegrees( self:GetSquadPosition('Artillery'), distressLocation))
-                                end
-					
-                                if self:GetSquadUnits('Guard') then
-                                    IssueFormMove( self:GetSquadUnits('Guard'), distressLocation, 'BlockFormation', GetDirectionInDegrees( self:GetSquadPosition('Guard'), distressLocation))
-                                end
-					
-                                if self:GetSquadUnits('Support') then
-                                    IssueFormAggressiveMove( self:GetSquadUnits('Support'), distressLocation, 'BlockFormation', GetDirectionInDegrees( self:GetSquadPosition('Support'), distressLocation))
+                                    IssueFormMove( self:GetSquadUnits('Scout'), distressLocation, 'BlockFormation', direction)
                                 end
 
 							else
 
-								cmd = self:MoveToLocation( distressLocation, false )
+								self:MoveToLocation( distressLocation, false )
                                 
 							end
 						
-							poscheck = GetPlatoonPosition(self) or false
-							prevpos = table.copy(poscheck)
-							poscounter = 0
-							
-							local breakResponse = false
-						
+							platoonPos = GetPlatoonPosition(self) or false
+                            
+							prevpos = false
+
 							-- underway to distress position, check threat at position still greater than threshold
-							repeat
+                            -- also, watch for stalled movement
+                            -- when within 70 start seeking local targets to prosecute
+							while PlatoonExists(aiBrain, self) and moveLocation do
+
+                                if self.DistressResponseAIRunning then
+
+                                    platoonPos = GetPlatoonPosition(self) or false
 							
-                                if not breakResponse then
+                                    if platoonPos then
 
-                                    if PlatoonExists(aiBrain, self) and self.DistressResponseAIRunning then
+                                        -- if we have a prevpos and we haven't moved much
+                                        if prevpos and VDist2(platoonPos[1],platoonPos[3], prevpos[1],prevpos[3]) < 4 then
 
-                                        -- default about 15 seconds --
-                                        -- higher values mean the platoon will check less and
-                                        -- continue on to the goal for a longer period 
-                                        WaitTicks(reactionTime * 10)
-                                        
-                                        poscheck = GetPlatoonPosition(self) or false
-							
-                                        if poscheck then
+                                            if ScenarioInfo.DistressResponseDialog then
+                                                LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." seems to have stopped moving "..math.floor(VDist2(platoonPos[1],platoonPos[3], prevpos[1],prevpos[3])))
+                                            end
 
-                                            -- if we're close to where we were last time around
-                                            if VDist2(poscheck[1],poscheck[3], prevpos[1],prevpos[3]) < 12 then
-								
-                                                poscounter = poscounter + 1
-								
-                                                -- we haven't moved much in 2 response cycles
-                                                if poscounter == 2 then
-                                                    breakResponse = true
-                                                end
-                                                
-                                            else
+                                            moveLocation = false
+
+                                        else
                                             
-                                                prevpos = table.copy(poscheck)
-                                                poscounter = 0
+                                            prevpos = LOUDCOPY(platoonPos)
+                                            
+                                        end
+							
+                                        if moveLocation then
+
+                                            -- default so that Commander and Base threats always pass
+                                            threatatPos = threatThreshold
+                                            
+                                            -- otherwise check threat at moveLocation
+                                            if (distressplatoon != 'Commander') and (distressplatoon != 'BaseAlert') then
+                                            
+                                                -- get threat at the distress position --
+                                                if distressType == 'Air' then
+                                                    threatatPos = GetThreatAtPosition( aiBrain, moveLocation, 0, true, 'AntiAir')
+                                                else
+                                                    threatatPos = GetThreatAtPosition( aiBrain, moveLocation, 0, true, 'AntiSurface')
+                                                end
+                                       
+                                                -- abort distress response if it's below threshold
+                                                if threatatPos < threatThreshold then
+
+                                                    if ScenarioInfo.DistressResponseDialog then
+                                                        LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." threat at "..repr(moveLocation).." is "..repr(threatatPos).." but threshold is "..threatThreshold)
+                                                    end
+                                            
+                                                    moveLocation = false
+                                                end
                                                 
                                             end
-							
-                                            if not breakResponse then
-                                            
-                                                if poscounter == 0 then
-                                                    WaitTicks(reactionTime * 2)
-                                                end
-                                            
-                                                threatatPos = GetThreatAtPosition( aiBrain, moveLocation, 0, true, 'AntiSurface')
-                                                threatatPos = threatatPos - GetThreatAtPosition( aiBrain, moveLocation, 0, true, 'AntiAir')
-                                                threatatPos = threatatPos - GetThreatAtPosition( aiBrain, moveLocation, 0, true, 'AntiSub')
-                                                
-                                                if aiBrain:GetCurrentEnemy() then
-                                                
-                                                    myThreatatPos = GetThreatAtPosition( aiBrain:GetCurrentEnemy(), moveLocation, 0, true, 'AntiSurface' )
-                                                    myThreatatPos = myThreatatPos - GetThreatAtPosition( aiBrain:GetCurrentEnemy(), moveLocation, 0, true, 'AntiAir' )
-                                                    myThreatatPos = myThreatatPos - GetThreatAtPosition( aiBrain:GetCurrentEnemy(), moveLocation, 0, true, 'AntiSub' )
-                                                    
-                                                end
-                                                
+
+                                            -- check for proximity and scan for (and prosecute) targets if so
+                                            if moveLocation then
+                                        
+                                                local distance = math.floor(VDist3( platoonPos, moveLocation ))
+
                                                 if ScenarioInfo.DistressResponseDialog then
-                                                    LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." enemythreat "..(threatatPos).." mine "..repr(myThreatatPos).." distance to distress is "..repr(VDist3(poscheck,distressLocation)))
+                                                    LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." distance to "..repr(moveLocation).." is "..repr(distance))
+                                                end
+                                            
+                                                -- check for local targets now
+                                                if distance < 70 then
+
+                                                    target = self:PlatoonFindTarget( aiBrain, 'Attack', platoonPos, 70, categoryList )
+
+                                                    -- if we had a target we'll need to reacquire the distress location
+                                                    if target then
+                                                        moveLocation = false
+                                                    end
+
                                                 end
                                                 
                                             end
                                             
                                         end
-                                        
-                                        self.RespondingToDistress = nil	-- allow platoon to issue it's own distress calls after the first pass
-                                        
-                                    else
+
+                                    end
+    
+                                    -- delay between threat checks
+                                    if moveLocation then
                                     
-                                        breakResponse = true
-                                        
+                                        --if ScenarioInfo.DistressResponseDialog then
+                                          --  LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." on cycle wait "..reactionTime * 10)
+                                        --end
+
+                                        -- default about 15 seconds -- higher values mean the platoon will check less and
+                                        -- continue on to the goal for a longer period 
+                                        WaitTicks(reactionTime * 10)
                                     end
                                     
+                                    self.RespondingToDistress = nil	-- allow platoon to issue it's own distress calls after the first pass
+                                    
+                                else
+                                    moveLocation = false
                                 end
 								
-							until breakResponse or (not poscheck) or ( cmd and not self:IsCommandsActive(cmd)) or (threatatPos <= threatThreshold) or (not self.DistressResponseAIRunning)
+                            end    
 
 							if PlatoonExists(aiBrain, self) and self.DistressResponseAIRunning then
-			
-                                --if ScenarioInfo.DistressResponseDialog then
-                                  --  LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." seems to have stopped moving to "..repr(distressLocation).." is at "..repr(GetPlatoonPosition(self)) )
-                                --end
+
+                                -- short wait between checks for new distressLocation
+                                WaitTicks(reactionTime)
 							
 								platoonPos = GetPlatoonPosition(self) or false
 								
@@ -5596,9 +5630,9 @@ Platoon = Class(moho.platoon_methods) {
                                 
 							end
 
-						until (not self.DistressResponseAIRunning) or (not distressLocation) or (not PlatoonExists(aiBrain, self))
+						end
 
-						
+                        -- return to previous task if no distressLocation
 						if PlatoonExists(aiBrain, self) and not distressLocation then
 			
 							if ScenarioInfo.DistressResponseDialog then
