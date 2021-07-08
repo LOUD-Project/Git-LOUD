@@ -6692,7 +6692,7 @@ Platoon = Class(moho.platoon_methods) {
 					local STORS = GetOwnUnitsAroundPoint(aiBrain, categories.MASSSTORAGE, mexposition, 5)
                     
                     -- if storage check number of defense units
-                    if LOUDGETN(STORS) >= cons.MinStorageUnits then
+                    if LOUDGETN(STORS) >= cons.MinStructureUnits then
 					
                         local DEFS = GetUnitsAroundPoint( aiBrain, cons.MaxDefenseCategories, mexposition, 20, 'Ally')
 			
@@ -6793,12 +6793,15 @@ Platoon = Class(moho.platoon_methods) {
     EngineerBuildMassAdjacencyAI = function( self, aiBrain )
         
 		local homepos = aiBrain.BuilderManagers[self.BuilderLocation].Position
+        
         local cons = self.PlatoonData.Construction
 		
         local factionIndex = cons.FactionIndex or aiBrain.FactionIndex
 		
         local buildingTmpl = import(cons.BuildingTemplateFile or '/lua/buildingtemplates.lua')[(cons.BuildingTemplate or 'BuildingTemplates')][factionIndex]
         local baseTmpl = import(cons.BaseTemplateFile or '/lua/basetemplates.lua')[(cons.BaseTemplate or 'BaseTemplates')][factionIndex]
+        
+        local adjacencytest = cons.AdjacencyStructure or categories.MASSSTORAGE
 
         local eng
         local platoonUnits = GetPlatoonUnits(self)
@@ -6850,9 +6853,9 @@ Platoon = Class(moho.platoon_methods) {
                 
                 if distance >= cons.MinRadius and distance <= cons.Radius then
                     -- get the number of storage units there
-                    local STORS = GetOwnUnitsAroundPoint(aiBrain, categories.MASSSTORAGE, mexposition, 5)
+                    local STORS = GetOwnUnitsAroundPoint(aiBrain, adjacencytest, mexposition, 5)
                     
-                    if LOUDGETN(STORS) < cons.MinStorageUnits then
+                    if LOUDGETN(STORS) < cons.MinStructureUnits then
                         reference[counter+1] = mexposition
 						counter = counter + 1
                         break
@@ -7031,7 +7034,7 @@ Platoon = Class(moho.platoon_methods) {
 						
 					end
 			
-					engLastPos = table.copy(engPos)
+					engLastPos = LOUDCOPY(engPos)
 					
 				end
 				
@@ -7223,7 +7226,7 @@ Platoon = Class(moho.platoon_methods) {
 
 					platoon:MoveToLocation( waypointPath, false )
 	
-					prevpoint = table.copy(waypointPath)
+					prevpoint = LOUDCOPY(waypointPath)
 					
 				end
 			
