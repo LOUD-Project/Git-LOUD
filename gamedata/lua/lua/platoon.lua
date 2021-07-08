@@ -2389,16 +2389,18 @@ Platoon = Class(moho.platoon_methods) {
 			if MissionTimer != 'Abort' and (LOUDTIME() - self.CreationTime ) > MissionTimer then
 				break
 			end
-
-			OriginalThreat = self:CalculatePlatoonThreat('Surface', categories.ALLUNITS)
 			
 			position = GetPlatoonPosition(self) or false
-			
+
+			OriginalThreat = self:CalculatePlatoonThreat('Surface', categories.ALLUNITS)
+
 			-- FIRST TASK -- FIND A POINT WE CAN GET TO --
 			
 			marker = false
 			
 			if position then
+            
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." GP seeking position")
 			
 				-- Get a list of points that meet all of the required conditions 
 				pointlist = FindPointMeetsConditions( self, aiBrain, PType, PCat, PSource, PRadius, PSort, PFaction, PMin, PMax, AvoidBases, StrCat, StrRadius, StrMin, StrMax, UntCat, UntRadius, UntMin, UntMax, allowinwater, ThreatMin, OriginalThreat * ThreatMaxRatio, 'AntiSurface')
@@ -2411,7 +2413,6 @@ Platoon = Class(moho.platoon_methods) {
                     --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." Pointlist is "..repr(pointlist))
 
 					-- randomly pick a marker (but cannot be the same as recently failed)
-					-- exit
 					while marker == false do
 					
 						local choices = math.ceil(LOUDGETN(pointlist))
@@ -2446,27 +2447,28 @@ Platoon = Class(moho.platoon_methods) {
                 
 			end
 			
-			if not position or not marker then
-                
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..self.BuilderName.." ends - no positions to guard")
-                
+			if not marker then
+
                 return self:SetAIPlan('ReturnToBaseAI',aiBrain)
+                
 			end
-		
-			IssueClearCommands( GetPlatoonUnits(self))
-			
-			usedTransports = false
-			
-			distance = VDist3( GetPlatoonPosition(self), marker )
-            
+           
             path = false
             pathlength = 0
-			
+	
 			path, reason, pathlength = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, self.MovementLayer, position, marker, OriginalThreat * ThreatMaxRatio, 160)
 			
 			if PlatoonExists(aiBrain, self) then
+		
+                IssueClearCommands( GetPlatoonUnits(self))
 			
-				if not path then
+                usedTransports = false
+  			
+				if path then
+                
+                    self.MoveThread = self:ForkThread( self.MovePlatoon, path, PlatoonFormation, bAggroMove)
+
+                else
 				
 					-- try 3 transport calls -- if they fail - record this marker so it doesn't get
 					-- picked again the next time this platoon picks a new point
@@ -2474,32 +2476,15 @@ Platoon = Class(moho.platoon_methods) {
 				
 					if not usedTransports then
 				
-						lastmarker = table.copy(marker)
+						lastmarker = LOUDCOPY(marker)
 						
-						marker = false
-						
-						break
-					end
-                    
-				else
-                
-					if PlatoonExists(aiBrain,self) then
-
-						self.MoveThread = self:ForkThread( self.MovePlatoon, path, PlatoonFormation, bAggroMove)
-                        
-					end
-				
-					if not usedTransports and not self.MoveThread then
-					
-						lastmarker = table.copy(marker)
-				
 						marker = false
 						
 						break
 					end
                     
 				end
-                
+
 			end
 			
 			-- SECOND TASK -- TRAVEL TO THE MARKER --
@@ -2624,7 +2609,6 @@ Platoon = Class(moho.platoon_methods) {
                 
 			end
             
-
 			-- THIRD TASK -- Set up around marker and guard it until exit parameters, guardtime or exhausted
 			-- we'll either have a target or be guarding the point --
 			guarding = false
@@ -2641,136 +2625,6 @@ Platoon = Class(moho.platoon_methods) {
                 if target then
                     guarding = false
                 end
-
---[[                
-				-- seek a target around the point --
-				target = false
-				
-				target,targetposition = FindTargetInRange( self, aiBrain, 'Attack', guardRadius, categoryList)
-
-				if target then
-                
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." gets target "..repr(target:GetBlueprint().Description))
-                
-                    guarding = false
-
-					-- issue attack orders on target --
-					if target.Sync.id and not target.Dead then
-
-						position = GetPlatoonPosition(self) or false
-						
-						if position then
-                        
-                            local Attack = false
-                            local Artillery = false
-                            
-							direction = import('/lua/utilities.lua').GetDirectionInDegrees( GetPlatoonPosition(self), targetposition )						
-                            
-                            if self:GetSquadUnits('Attack') and LOUDGETN(self:GetSquadUnits('Attack')) > 0 then
-                            
-                                IssueClearCommands(self:GetSquadUnits('Attack'))
-				
-                                IssueFormAggressiveMove( self:GetSquadUnits('Attack'), targetposition, 'AttackFormation', direction)
-                                
-                                Attack = true
-                                
-                            end
-					
-                            if self:GetSquadUnits('Artillery') and LOUDGETN(self:GetSquadUnits('Artillery')) > 0 then
-                            
-                                IssueClearCommands(self:GetSquadUnits('Artillery'))
-                        
-                                IssueFormAggressiveMove( self:GetSquadUnits('Artillery'), targetposition, PlatoonFormation, direction)
-                            
-                                Artillery = true
-                            
-                            end
-                            
-                            if self:GetSquadUnits('Guard') and LOUDGETN(self:GetSquadUnits('Guard')) > 0 then
-                            
-                                IssueClearCommands(self:GetSquadUnits('Guard'))
-                     
-                                if not Artillery and not Attack then
-
-                                    IssueFormMove( self:GetSquadUnits('Guard'), targetposition, 'BlockFormation', direction)
-                                
-                                elseif Artillery then
-                                
-                                    IssueGuard( self:GetSquadUnits('Guard'), self:GetSquadUnits('Artillery')[1] )
-                                
-                                elseif Attack then
-                                
-                                    IssueGuard( self:GetSquadUnits('Guard'), self:GetSquadUnits('Attack')[1] )
-                            
-                                end
-                            
-                            end
-					
-                            if self:GetSquadUnits('Support') and LOUDGETN(self:GetSquadUnits('Support')) > 0 then
-
-                                IssueClearCommands(self:GetSquadUnits('Support'))
-                                
-                                if not Attack and not Artillery then
-                            
-                                    IssueFormAggressiveMove( self:GetSquadUnits('Support'), targetposition, 'BlockFormation', direction)
-                                
-                                elseif Attack then
-                            
-                                    IssueGuard( self:GetSquadUnits('Support'), self:GetSquadUnits('Attack')[1])
-                                
-                                elseif Artillery then
-                            
-                                    IssueGuard( self:GetSquadUnits('Support'), self:GetSquadUnits('Artillery')[1])                            
-                                
-                                end
-                            
-                            end
-
-						end
-                        
-					else
-                    
-                        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." gets FAKE or bad target")
-                    
-						target = false
-                        
-					end
-					
-					-- Engage target until dead or target is outside guard radius
-					while target and (not target.Dead) and PlatoonExists(aiBrain, self) do 
-
-						WaitTicks(25)
-						guardtime = guardtime + 2.5
-                        
-                        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." engaging target loop")
-						
-						if PlatoonExists(aiBrain,self) then
-
-                            -- if we are guarding a unit - marker follows that unit
-							if UnitToGuard and not UnitToGuard.Dead then
-								marker = UnitToGuard:GetPosition()
-							end
-
-                            -- if target dies or moves out of range --
-                            if target.Dead or VDist3( target:GetPosition(), marker) >= guardRadius then
-                            
-                                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." target dead or out of range")
-                                
-								target = false
-                                self:Stop()                                
-							end
-
-                        end
-                        
-					end
-                    
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." no target "..repr(target) )
-                    
-                    target = false
-
-				end
-
---]]
 				
 				units = GetPlatoonUnits(self)
 
@@ -2969,12 +2823,7 @@ Platoon = Class(moho.platoon_methods) {
 								end
 							end
 
-							self:Stop()
-							self:SetPlatoonFormationOverride(PlatoonFormation)
-                            
                             OldNumberOfUnitsInPlatoon = NumberOfUnitsInPlatoon
-
-							OriginalThreat = self:CalculatePlatoonThreat('Surface', categories.ALLUNITS)
 							
 							target = false
 							guarding = false
@@ -2982,28 +2831,16 @@ Platoon = Class(moho.platoon_methods) {
                             -- reset guardtime
                             guardtime = 0
                             
-                            -- expand the guardRadius by 20%
-                            guardRadius = guardRadius * 1.2
-                            
-                            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." completes merge")
+                            -- expand the guardRadius by 15%
+                            guardRadius = guardRadius * 1.15
+
                         end
+                        
                     end
-				end
-				
-				-- check if platoon exhausted -- merge if possible or RTB --
-				if (not self.WatchPlatoon) or self:CalculatePlatoonThreat('Surface', categories.ALLUNITS) <= (OriginalThreat * .40) or NumberOfUnitsInPlatoon < (OldNumberOfUnitsInPlatoon * .4) then
-				
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..self.BuilderName.." at "..NumberOfUnitsInPlatoon.." worn out - seeking MERGE_INTO prior to RTB")
                     
-					self.MergeIntoNearbyPlatoons( self, aiBrain, 'GuardPoint', 100, false)
-					
-					return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 				end
-				
-				if marker and UnitToGuard and not UnitToGuard.Dead then
-					marker = UnitToGuard:GetPosition()
-				end
-				
+
+                -- check for Abort Mission on marker --
 				if MissionTimer == 'Abort' then
 
 					-- assign them to the structure pool so they dont interfere with normal unit pools
@@ -3012,25 +2849,26 @@ Platoon = Class(moho.platoon_methods) {
 					return aiBrain:DisbandPlatoon(self)
 				end
                 
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." GP guard cycle wait check")
+                
 				WaitTicks(40)
 				guardtime = guardtime + 4
-                
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINT "..self.BuilderName.." looping in Guard - guardtime is "..guardtime)
+
 			end
+            
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." GP guard complete - wait check")
 
 			marker = false
-            
-            if self.WatchPlatoon then
-            
-                KillThread (self.WatchPlatoon)
-                
-                self.WatchPlatoon = nil
-            end            
-			
+
 			WaitTicks(30)
+            
 		end
+        
+        -- when about to RTB try to merge into nearby platoons
+        self.MergeIntoNearbyPlatoons( self, aiBrain, 'GuardPoint', 100, false )
 
 		return self:SetAIPlan('ReturnToBaseAI',aiBrain)
+        
     end,  
 
 	-- GuardPoint for air units
