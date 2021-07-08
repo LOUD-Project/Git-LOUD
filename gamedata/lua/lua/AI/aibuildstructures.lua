@@ -73,7 +73,7 @@ function AIExecuteBuildStructure( aiBrain, engineer, buildingType, closeToBuilde
         local mindistance = constructionData.MinRange or 0
         local maxdistance = constructionData.MaxRange or 500
         local tMin = constructionData.ThreatMin or 0
-        local tMax = constructionData.ThreatMax or 10
+        local tMax = constructionData.ThreatMax or 20
         local tRings = constructionData.ThreatRings or 0
         local tType = constructionData.ThreatType or 'AntiSurface'
         local maxlist = constructionData.MaxChoices or 1
@@ -266,7 +266,7 @@ function AIBuildBaseTemplateOrdered( aiBrain, eng, buildingType, closeToBuilder,
 		
     else
 	
-		WARN("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." failed DecideWhatToBuild - "..repr(buildingType).."  platoon ".. repr(eng.BuilderName))	--	.." template is "..repr(buildingTemplate))
+		WARN("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." failed DecideWhatToBuild - "..repr(buildingType).."  platoon ".. repr(eng.BuilderName)	.." template is "..repr(buildingTemplate))
 
 	end
 

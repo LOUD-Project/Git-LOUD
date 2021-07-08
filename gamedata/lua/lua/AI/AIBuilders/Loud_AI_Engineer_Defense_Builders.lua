@@ -301,7 +301,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
             Construction = {
 				NearBasePerimeterPoints = true,
                 
-				ThreatMax = 75,
+				ThreatMax = 100,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'BaseDefenseLayout',
@@ -405,7 +405,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
             Construction = {
 				NearBasePerimeterPoints = true,
                 
-				ThreatMax = 50,
+				ThreatMax = 75,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'BaseDefenseLayout',
@@ -440,7 +440,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         BuilderData = {
             Construction = {
 				NearBasePerimeterPoints = true,
-				ThreatMax = 50,
+				ThreatMax = 90,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'SupportLayout',
@@ -507,7 +507,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 
 			Construction = {
 				NearBasePerimeterPoints = true,
-				ThreatMax = 35,				
+				ThreatMax = 100,				
 
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'BaseDefenseLayout',
@@ -571,7 +571,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 			
             Construction = {
 				NearBasePerimeterPoints = true,
-				ThreatMax = 30,
+				ThreatMax = 75,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'BaseDefenseLayout',
@@ -608,7 +608,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 			
             Construction = {
 				NearBasePerimeterPoints = true,
-				ThreatMax = 75,
+				ThreatMax = 100,
 
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'BaseDefenseLayout',
@@ -802,7 +802,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS',
 			DesiresAssist = true,
             Construction = {
 				NearBasePerimeterPoints = true,
-				MaxThreat = 75,
+				MaxThreat = 90,
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'ShieldLayoutInner',
                 
@@ -899,7 +899,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Shield Construction',
 			
             Construction = {
 				NearBasePerimeterPoints = true,
-				MaxThreat = 75,
+				MaxThreat = 100,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'ShieldLayoutInner',
@@ -936,7 +936,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction',
 				Radius = 50,			
                 NearBasePerimeterPoints = true,
 				
-				ThreatMax = 30,
+				ThreatMax = 50,
 				
 				BasePerimeterOrientation = 'REAR',
 				BasePerimeterSelection = 2,
@@ -975,6 +975,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Small',
 			Construction = {
 				Radius = 26,			
                 NearBasePerimeterPoints = true,
+                
+                ThreatMax = 50,
 				
 				BasePerimeterOrientation = 'REAR',
 				BasePerimeterSelection = 2,
@@ -1244,6 +1246,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
             Construction = {
 				Radius = 68,
                 NearBasePerimeterPoints = true,
+                
+                ThreatMax = 75,
 				
 				BasePerimeterOrientation = 'FRONT',
 				BasePerimeterSelection = true,
@@ -1287,7 +1291,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
             Construction = {
 				Radius = 68,
                 NearBasePerimeterPoints = true,
-				ThreatMax = 75,	
+                
+				ThreatMax = 100,	
 
 				BasePerimeterOrientation = 'FRONT',
 				BasePerimeterSelection = true,
@@ -1328,7 +1333,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
             Construction = {
 				Radius = 68,
                 NearBasePerimeterPoints = true,
-				ThreatMax = 45,	
+                
+				ThreatMax = 60,	
 				
 				BasePerimeterOrientation = 'FRONT',
 				BasePerimeterSelection = true,
@@ -1371,6 +1377,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
             Construction = {
 				Radius = 68,
                 NearBasePerimeterPoints = true,
+                
+                ThreatMax = 75,
 				
 				BasePerimeterOrientation = 'FRONT',
 				BasePerimeterSelection = true,
@@ -1413,6 +1421,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
             Construction = {
 				Radius = 68,
                 NearBasePerimeterPoints = true,
+                
+                ThreatMax = 75,
 
 				BasePerimeterOrientation = 'FRONT',				
 				BasePerimeterSelection = true,
@@ -1455,6 +1465,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
             Construction = {
 				Radius = 68,
                 NearBasePerimeterPoints = true,
+                
+                ThreatMax = 100,
 
 				BasePerimeterOrientation = 'FRONT',
 				BasePerimeterSelection = true,
@@ -1495,6 +1507,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
             Construction = {
 				Radius = 68,
                 NearBasePerimeterPoints = true,
+                
+                ThreatMax = 60,
 
 				BasePerimeterOrientation = 'FRONT',
 				BasePerimeterSelection = true,
@@ -1668,7 +1682,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Point Defense Construction',
 		
         BuilderConditions = {
 		
-            { LUTL, 'UnitCapCheckLess', { .65 } },
+            { LUTL, 'UnitCapCheckLess', { .75 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 4200 }},
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
 			{ UCBC, 'MassExtractorHasStorageAndLessDefense', { 'LocationType', 150, 1000, 2, 4, categories.STRUCTURE * categories.DEFENSE }},
@@ -1715,7 +1729,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Point Defense Construction',
 		
         BuilderConditions = {
 			{ LUTL, 'NeedTeamMassPointShare', {}},
-            { LUTL, 'UnitCapCheckLess', { .65 } },			
+            { LUTL, 'UnitCapCheckLess', { .75 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
 			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
 			{ UCBC, 'MassExtractorHasStorageAndLessDefense', { 'LocationType', 150, 1000, 3, 3, categories.STRUCTURE * categories.DEFENSE * categories.TECH3 }},
@@ -1784,7 +1798,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
             Construction = {
 				NearBasePerimeterPoints = true,
                 
-				ThreatMax = 60,
+				ThreatMax = 75,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
 				BaseTemplate = 'ExpansionLayout_II',
@@ -1850,7 +1864,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
             Construction = {
 				NearBasePerimeterPoints = true,
 				
-				ThreatMax = 60,				
+				ThreatMax = 75,				
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
 				BaseTemplate = 'ExpansionLayout_II',
@@ -1924,7 +1938,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
             Construction = {
 				NearBasePerimeterPoints = true,
 				
-				ThreatMax = 60,
+				ThreatMax = 75,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
 				BaseTemplate = 'ExpansionLayout_II',
@@ -1963,7 +1977,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
 				Radius = 1,			
 				NearBasePerimeterPoints = true,
 				
-				ThreatMax = 60,
+				ThreatMax = 100,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
 				BaseTemplate = 'ExpansionLayout_II',
@@ -2002,7 +2016,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
 				Radius = 1,			
 				NearBasePerimeterPoints = true,
 				
-				ThreatMax = 60,
+				ThreatMax = 90,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
 				BaseTemplate = 'ExpansionLayout_II',
@@ -2075,7 +2089,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
             Construction = {
 				NearBasePerimeterPoints = true,
 				
-				ThreatMax = 50,
+				ThreatMax = 100,
 
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
 				BaseTemplate = 'ExpansionLayout_II',
@@ -2112,7 +2126,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
             Construction = {
 				NearBasePerimeterPoints = true,
 				
-				ThreatMax = 50,
+				ThreatMax = 90,
 
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
 				BaseTemplate = 'ExpansionLayout_II',
@@ -2156,7 +2170,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - Expansions',
             Construction = {
 				NearBasePerimeterPoints = true,
                 
-				MaxThreat = 45,
+				MaxThreat = 75,
                 
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
 				BaseTemplate = 'ExpansionLayout_II',
@@ -2198,7 +2212,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - Expansions',
             Construction = {
 				NearBasePerimeterPoints = true,
                 
-				MaxThreat = 30,
+				MaxThreat = 45,
                 
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
 				BaseTemplate = 'ExpansionLayout_II',
@@ -2246,7 +2260,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - Expansions - LO
             Construction = {
 				NearBasePerimeterPoints = true,
                 
-				MaxThreat = 60,
+				MaxThreat = 75,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
 				BaseTemplate = 'ExpansionLayout_II',
@@ -2283,7 +2297,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - Expansions - LO
             Construction = {
 				NearBasePerimeterPoints = true,
                 
-				MaxThreat = 50,
+				MaxThreat = 60,
                 
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
 				BaseTemplate = 'ExpansionLayout_II',
@@ -2313,8 +2327,6 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Shield Construction - Expansions',
 			
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 6, categories.ENERGYPRODUCTION * categories.TECH3 }},
 
-			-- must have at least 1 Experimental level defense ?
-			--{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 0, categories.EXPERIMENTAL * categories.DEFENSE * categories.STRUCTURE }},
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.EXPERIMENTAL * categories.SHIELD }},
         },
 		
@@ -2327,7 +2339,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Shield Construction - Expansions',
             Construction = {
 				NearBasePerimeterPoints = true,
                 
-				MaxThreat = 45,
+				MaxThreat = 60,
                 
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
 				BaseTemplate = 'ExpansionLayout_II',
@@ -2376,7 +2388,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
                 NearBasePerimeterPoints = true,
 				BasePerimeterOrientation = 'FRONT',
                 
-				MaxThreat = 45,
+				MaxThreat = 60,
 
 				BaseTemplateFile = '/lua/ai/aibuilders/loud_perimeter_defense_templates.lua',
 				BaseTemplate = 'PerimeterDefenseExpansionTemplates',
@@ -2469,7 +2481,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
                 NearBasePerimeterPoints = true,
 				BasePerimeterOrientation = 'FRONT',
                 
-				MaxThreat = 45,
+				MaxThreat = 50,
 
 				BaseTemplateFile = '/lua/ai/aibuilders/loud_perimeter_defense_templates.lua',
 				BaseTemplate = 'PerimeterDefenseExpansionTemplates',
@@ -2515,7 +2527,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
                 NearBasePerimeterPoints = true,
 				BasePerimeterOrientation = 'FRONT',
                 
-                MaxThreat = 45,
+                MaxThreat = 100,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/loud_perimeter_defense_templates.lua',
 				BaseTemplate = 'PerimeterDefenseExpansionTemplates',
@@ -2564,7 +2576,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
                 NearBasePerimeterPoints = true,
 				BasePerimeterOrientation = 'FRONT',
                 
-                MaxThreat = 45,
+                MaxThreat = 75,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/loud_perimeter_defense_templates.lua',
 				BaseTemplate = 'PerimeterDefenseExpansionTemplates',
@@ -2611,7 +2623,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
                 NearBasePerimeterPoints = true,
 				BasePerimeterOrientation = 'FRONT',
                 
-                MaxThreat = 45,
+                MaxThreat = 75,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/loud_perimeter_defense_templates.lua',
 				BaseTemplate = 'PerimeterDefenseExpansionTemplates',
@@ -2650,7 +2662,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Expansions',
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
 				BaseTemplate = 'ExpansionLayout_II',
                 
-                MaxThreat = 60,
+                MaxThreat = 75,
 				
                 BuildStructures = {'T2AirStagingPlatform'},
             }
@@ -2896,7 +2908,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval',
 				AddRotations = 1,
                 NearBasePerimeterPoints = true,
 				
-				ThreatMax = 60,
+				ThreatMax = 100,
 				
 				BasePerimeterOrientation = 'FRONT',
 				BasePerimeterSelection = true,
@@ -2938,7 +2950,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval',
             Construction = {
                 NearBasePerimeterPoints = true,
 				
-				ThreatMax = 60,
+				ThreatMax = 75,
 
 				BasePerimeterSelection = true,
 
@@ -3014,7 +3026,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Naval',
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
 				BaseTemplate = 'NavalExpansionBase',
                 
-                MaxThreat = 50,
+                MaxThreat = 75,
 				
                 BuildStructures = {'T2AirStagingPlatform' },
             }
@@ -3030,7 +3042,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Naval',
 BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
 	BuildersType = 'EngineerBuilder',
 
-	-- this will rebuild the base radar of the DP
     Builder {BuilderName = 'DP STD Radar',
 	
         PlatoonTemplate = 'EngineerBuilder',
@@ -3053,6 +3064,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
             Construction = {
 				NearBasePerimeterPoints = true,
                 
+                ThreatMax = 50,
+                
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'DefensivePointStandard',
                 
@@ -3061,7 +3074,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
         }
     },
 	
-	-- this task builds the basic defenses of the DP
     Builder {BuilderName = 'T2 DP STD Defenses',
 	
         PlatoonTemplate = 'EngineerBuilder',
@@ -3091,6 +3103,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
             Construction = {
 			
 				NearBasePerimeterPoints = true,
+
+                ThreatMin = 20,
+                ThreatMax = 75,
+                
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'DefensivePointStandard',
 				
@@ -3137,6 +3153,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
 			
             Construction = {
 				NearBasePerimeterPoints = true,
+                
+                ThreatMax = 90,
                 
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'DefensivePointStandard',
@@ -3271,6 +3289,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
             Construction = {
 				NearBasePerimeterPoints = true,
                 
+                ThreatMax = 75,
+                
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'DefensivePointStandard',
                 
@@ -3306,6 +3326,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
 			
             Construction = {
 				NearBasePerimeterPoints = true,
+                
+                ThreatMax = 90,
                 
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'DefensivePointStandard',
@@ -3346,6 +3368,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
             Construction = {
 				NearBasePerimeterPoints = true,
                 
+                ThreatMax = 100,
+                
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'DefensivePointStandard',
                 
@@ -3382,7 +3406,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
 				Radius = 1,
 				NearBasePerimeterPoints = true,
 
-				ThreatMax = 75,
+				ThreatMax = 100,
 
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'DefensivePointStandard',
@@ -3392,7 +3416,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
         }
     },    
     
-
     Builder {BuilderName = 'T4 DP STD AA Defenses',
 	
         PlatoonTemplate = 'EngineerBuilder',
@@ -3419,9 +3442,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
         BuilderData = {
 			DesiresAssist = true,
 			NumAssistees = 2,
-			
+
             Construction = {
 				NearBasePerimeterPoints = true,
+                
+                ThreatMax = 90,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'DefensivePointStandard',
@@ -3457,6 +3482,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
 			
             Construction = {
 				NearBasePerimeterPoints = true,
+                
+                ThreatMax = 60,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'DefensivePointStandard',
@@ -3471,7 +3498,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
 BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Small',
 	BuildersType = 'EngineerBuilder',
 
-	-- this will rebuild the base radar of the DP
     Builder {BuilderName = 'DP SML Radar',
 	
         PlatoonTemplate = 'EngineerBuilder',
@@ -3494,6 +3520,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Small',
 			
             Construction = {
 				NearBasePerimeterPoints = true,
+                
+                ThreatMax = 60,
                 
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'DefensivePointSmall',
@@ -3529,6 +3557,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Small',
             
             Construction = {
 				NearBasePerimeterPoints = true,
+                
+                ThreatMax = 60,
                 
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'DefensivePointSmall',
@@ -3566,6 +3596,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Small',
             Construction = {
 				NearBasePerimeterPoints = true,
                 
+                ThreatMax = 60,
+                
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'DefensivePointSmall',
                 
@@ -3600,6 +3632,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Small',
 			
             Construction = {
 				NearBasePerimeterPoints = true,
+                
+                ThreatMax = 60,
                 
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'DefensivePointSmall',
@@ -3636,6 +3670,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Small',
             Construction = {
 				NearBasePerimeterPoints = true,
                 
+                ThreatMax = 100,
+                
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'DefensivePointSmall',
                 
@@ -3671,7 +3707,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Small',
 				Radius = 1,
 				NearBasePerimeterPoints = true,
 
-				ThreatMax = 60,
+				ThreatMax = 100,
 
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'DefensivePointStandard',
@@ -3712,6 +3748,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Small',
             Construction = {
 				NearBasePerimeterPoints = true,
                 
+                ThreatMax = 90,
+                
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'DefensivePointSmall',
                 
@@ -3749,6 +3787,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Small',
             Construction = {
 				NearBasePerimeterPoints = true,
                 
+                ThreatMax = 60,
+                
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'DefensivePointSmall',
                 
@@ -3762,7 +3802,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Small',
 BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval',
 	BuildersType = 'EngineerBuilder',
 
-	-- this will rebuild the base radar of the DP
     Builder {BuilderName = 'Naval DP Sonar',
 	
         PlatoonTemplate = 'EngineerBuilder',
@@ -3788,6 +3827,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval',
 			
             Construction = {
 				NearBasePerimeterPoints = true,
+                
+                ThreatMax = 60,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'NavalDefensivePoint',
@@ -3822,6 +3863,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval',
             
             Construction = {
 				NearBasePerimeterPoints = true,
+                
+                ThreatMax = 60,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'NavalDefensivePoint',
@@ -3887,6 +3930,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval',
 			
             Construction = {
 				NearBasePerimeterPoints = true,
+                
+                ThreatMax = 50,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'NavalDefensivePoint',
@@ -3920,6 +3965,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval',
 			
             Construction = {
 				NearBasePerimeterPoints = true,
+                
+                ThreatMax = 60,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'NavalDefensivePoint',
@@ -3951,6 +3998,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval',
 			
             Construction = {
 				NearBasePerimeterPoints = true,
+                
+                ThreatMax = 75,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'NavalDefensivePoint',
@@ -3986,6 +4035,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval',
 			
             Construction = {
                 NearBasePerimeterPoints = true,
+                
+                ThreatMax = 50,
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'NavalDefensivePoint',
@@ -3996,197 +4047,3 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval',
     },	
 }
 
-
-
-	
---[[	
-    Builder {BuilderName = 'T2 Perimeter PD',
-        PlatoonTemplate = 'EngineerBuilder',
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-		InstanceCount = 1,
-        Priority = 750,
-        BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .75 } },
-			{ LUTL, 'LandStrengthRatioLessThan', { 1.1 } },
-			{ LUTL, 'GreaterThanEnergyIncome', { 4200 }},
-			
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 400, 75, 'Land' }},
-
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
-			-- check perimeter for less than 36 T2 PD
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 36, categories.STRUCTURE * categories.DEFENSE * categories.DIRECTFIRE * categories.TECH2, 50, 80 }},
-        },
-		
-		BuilderType = { 'T2','T3','SubCommander' },
-
-        BuilderData = {
-            Construction = {
-				Radius = 68,
-				Iterations = 9,
-                NearBasePerimeterPoints = true,
-				BasePerimeterOrientation = 'FRONT',
-				BaseTemplateFile = '/lua/ai/aibuilders/loud_perimeter_defense_templates.lua',
-				BaseTemplate = 'PerimeterDefenseTemplates',
-                BuildStructures = {
-					'T2GroundDefense',
-                },
-            }
-        }
-    },
-	
-    Builder {BuilderName = 'T2 Perimeter AA',
-        PlatoonTemplate = 'EngineerBuilder',
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-		InstanceCount = 1,
-        Priority = 750,
-        BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .75 } },
-			{ LUTL, 'AirStrengthRatioLessThan', { 1.5 }},
-			{ LUTL, 'GreaterThanEnergyIncome', { 4200 }},
-			
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 450, 35, 'Air' }},
-
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
-			-- check perimeter for less than 18 T2 AA
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 24, categories.STRUCTURE * categories.ANTIAIR * categories.TECH2, 50, 80 }},
-        },
-		
-		BuilderType = { 'T2','T3','SubCommander' },
-
-        BuilderData = {
-            Construction = {
-				Radius = 68,
-				Iterations = 12,
-                NearBasePerimeterPoints = true,
-				BasePerimeterOrientation = 'ALL',
-				BaseTemplateFile = '/lua/ai/aibuilders/loud_perimeter_defense_templates.lua',
-				BaseTemplate = 'PerimeterDefenseTemplates',
-                BuildStructures = {
-					'T2AADefense',
-                    'T2AADefense',
-                },
-            }
-        }
-    },
-
-    Builder {BuilderName = 'T2 Perimeter Wall',
-        PlatoonTemplate = 'EngineerBuilder',
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-		InstanceCount = 1,
-        Priority = 700,
-        BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .65 } },
-			{ LUTL, 'LandStrengthRatioLessThan', { 1.1 } },
-			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
-			
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 450, 75, 'Land' }},
-
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
-			
-			{ UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 9, categories.DIRECTFIRE * categories.STRUCTURE, 60, 80 }},
-        },
-		
-		BuilderType = { 'T2','T3' },
-		
-        BuilderData = {
-            Construction = {
-				Radius = 68,
-				AddRotations = 1,
-				Iterations = 9,
-                NearBasePerimeterPoints = true,
-				BaseTemplateFile = '/lua/ai/aibuilders/loud_perimeter_defense_templates.lua',
-				BaseTemplate = 'PerimeterDefenseTemplates',
-                BuildStructures = {
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-					'T2Wall',
-                },
-            }
-        }
-    },
---]]	
