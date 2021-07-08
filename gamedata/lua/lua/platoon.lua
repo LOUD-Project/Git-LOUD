@@ -8679,60 +8679,72 @@ Platoon = Class(moho.platoon_methods) {
 			aPlat.UsingTransport = true
 			
             local aPlatUnits = GetPlatoonUnits(aPlat)
-			
-            validUnits = {}
-			counter = 0
             
             -- the allied platoons size
 			allyPlatoonSize = 0
 
-			-- count and check validity of allied units
-            aPlatUnits = aPlat:GetSquadUnits('Attack')
             
-            if aPlatUnits then
+            local Squads = { 'Attack','Artillery','Guard','Support','Scout' }
             
-                for _,u in aPlatUnits do
-			
-                    if not u.Dead then
-				
-                        allyPlatoonSize = allyPlatoonSize + 1
+            for _, squad in Squads do
 
-                        if not IsUnitState(u,'Attached' )then
+                validUnits = {}
+                counter = 0
+
+                -- count and check validity of allied units
+                aPlatUnits = aPlat:GetSquadUnits( squad )
+            
+                if aPlatUnits then
+            
+                    for _,u in aPlatUnits do
+			
+                        if not u.Dead then
 				
-                            -- if we have space in our platoon --
-                            if (counter + platooncount) <= mergelimit then
+                            allyPlatoonSize = allyPlatoonSize + 1
+
+                            if not IsUnitState(u,'Attached' )then
+				
+                                -- if we have space in our platoon --
+                                if (counter + platooncount) <= mergelimit then
 						
-                                validUnits[counter+1] = u
-                                counter = counter + 1
+                                    validUnits[counter+1] = u
+                                    counter = counter + 1
+                                end
                             end
                         end
+                        
                     end
+                    
+                    
+                    
                 end
+
+                -- if no valid units or we are smaller than the allied platoon then dont allow
+                if counter < 1 or platooncount < allyPlatoonSize or allyPlatoonSize == 0 then
+            
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." of "..platooncount.." FAILS merge with "..aPlat.BuilderName.." which has "..allyPlatoonSize)
+                    continue
+                end
+
+                -- otherwise we do the merge
+                if ScenarioInfo.PlatoonMergeDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." MERGE_WITH takes "..counter.." "..repr(squad).." units from "..aPlat.BuilderName.." now has "..platooncount+counter)
+                end
+
+                -- assign the valid units to us - this may end the allied platoon --
+                AssignUnitsToPlatoon( aiBrain, self, validUnits, squad, 'none' )
+			
+                -- add the new units to our count --
+                platooncount = platooncount + counter
+			
+                -- flag that we did a merge --
+                mergedunits = true
+            
             end
             
 			-- unmark the allied platoon
 			aPlat.UsingTransport = false
-			
-			-- if no valid units or we are smaller than the allied platoon then dont allow
-			if counter < 1 or platooncount < allyPlatoonSize or allyPlatoonSize == 0 then
-            
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." of "..platooncount.." FAILS merge with "..aPlat.BuilderName.." which has "..allyPlatoonSize)
-                continue
-            end
 
-			-- otherwise we do the merge
-			if ScenarioInfo.PlatoonMergeDialog then
-				LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." MERGE_WITH takes "..counter.." units from "..aPlat.BuilderName.." now has "..platooncount+counter)
-			end
-
-			-- assign the valid units to us - this may end the allied platoon --
-            AssignUnitsToPlatoon( aiBrain, self, validUnits, 'Attack', 'none' )
-			
-			-- add the new units to our count --
-			platooncount = platooncount + counter
-			
-			-- flag that we did a merge --
-			mergedunits = true
         end
 
         if ScenarioInfo.PlatoonMergeDialog then
@@ -8828,15 +8840,29 @@ Platoon = Class(moho.platoon_methods) {
             end
 
             if counter > 0 then
+            
+                local Squads = { 'Scout','Attack','Artillery','Guard','Support' }
+                
+                for _, squad in Squads do
+                
+                    if self:GetSquadUnits( squad ) and LOUDGETN( self:GetSquadUnits( squad )) > 0 then
+                    
+                        if ScenarioInfo.PlatoonMergeDialog then
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." assigns "..LOUDGETN( self:GetSquadUnits( squad )).." units to "..repr(squad).." squad in "..repr(aPlat.BuilderName))
+                        end
+
+                        IssueMove( self:GetSquadUnits( squad ), aPlat:GetPlatoonPosition() )
+                        
+                        AssignUnitsToPlatoon( aiBrain, aPlat, self:GetSquadUnits( squad ), squad, 'none' )
+
+                    end
+                    
+                end
 			
 				if ScenarioInfo.PlatoonMergeDialog then
 					LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." with "..counter.." units MERGE_INTO "..repr(aPlat.BuilderName))
-				end			
+				end		
 
-				AssignUnitsToPlatoon( aiBrain, aPlat, validUnits, 'Attack', 'GrowthFormation' )
-
-				IssueMove( validUnits, aPlat:GetPlatoonPosition() )
-			
 				return true
 			end
 

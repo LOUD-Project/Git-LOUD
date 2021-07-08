@@ -867,8 +867,8 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
                             end
 					
 							-- cap low end of threat so we dont chase low value targets
-							if enemythreat < ( threatself * .25) then
-								enemythreat = ( threatself * .25)
+							if enemythreat < ( threatself * .20) then
+								enemythreat = ( threatself * .20)
 							end
 						
 							if (not retUnit) or enemythreat < bestthreat then
