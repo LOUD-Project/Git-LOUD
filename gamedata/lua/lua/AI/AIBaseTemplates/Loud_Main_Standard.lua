@@ -175,8 +175,16 @@ BaseBuilderTemplate {
                 return 10, 'loud'
                 
             else
+                
+                if GetArmyUnitCap(aiBrain.ArmyIndex) < 1500 then
             
-                return Random(10,60), 'loud'
+                    return Random(10,60), 'loud'
+                    
+                else
+                
+                    return Random(50,100),'loud'
+                    
+                end
                 
             end
 

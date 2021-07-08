@@ -39,8 +39,11 @@ BaseBuilderTemplate {
 		'Engineer Base Defense Construction - Perimeter',
 
 		'Engineer T4 Shield Construction',
-       
         'Engineer Misc Construction - Small',
+   		'Engineer Mass Point Defense Construction',
+		'Engineer Artillery Construction',
+        'Engineer Optics Construction',
+		'Engineer Nuke Construction',
         
         # ==== LAND UNIT BUILDERS ==== #
 		'Factory Production - Land',
