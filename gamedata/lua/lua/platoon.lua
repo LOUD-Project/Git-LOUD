@@ -8252,7 +8252,7 @@ Platoon = Class(moho.platoon_methods) {
 			
 			--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." AmphibForceAI seeking local target from "..repr(GetPlatoonPosition(self)))
 			
-			target, targetLocation = FindTargetInRange( self, aiBrain, 'Attack', 100, { 'ECONOMIC','LAND MOBILE','STRUCTURE -WALL' } )
+			target, targetLocation = FindTargetInRange( self, aiBrain, 'Attack', 100, { categories.ECONOMIC, categories.LAND + categories.MOBILE, categories.STRUCTURE - categories.WALL } )
 			
 			if target and not target.Dead and PlatoonExists( aiBrain, self) then
 			
@@ -8301,24 +8301,21 @@ Platoon = Class(moho.platoon_methods) {
 						sthreat = 1
 					end
 					
-					if ethreat < 1 then 
-						ethreat = 1
-					end
-
-                    -- calc economic value of the target area but cap it so it doesn't drown the military value
-                    ecovalue = ethreat/mythreat
+					if ethreat < mythreat then 
                     
-					if ecovalue > 6.0 then
+						ethreat = 1
+                        ecovalue = .5
+                        
+					else
+
+                        ecovalue = ethreat/mythreat
+                        
+                    end
+                    
+					if ecovalue > 8.0 then
 					
-						ecovalue = 6.0
+						ecovalue = 8.0
 						
-					elseif ecovalue < 1.0 then
-					
-						ecovalue = .8 
-						
-					elseif ecovalue < 2.5 then
-					
-						ecovalue = 2.5
 					end
                     
 					-- target value is relative to the platoons surface strength vs. the targets surface strength
@@ -8328,14 +8325,15 @@ Platoon = Class(moho.platoon_methods) {
 					milvalue =  (mythreat/sthreat) 
                     
                     if milvalue > 4.0 then 
+                    
+                        ecovalue = ecovalue * milvalue
 					
                         milvalue = 4.0
-						ecovalue = ecovalue * 3
 						
                     elseif milvalue < 1.10 then
 					
 						milvalue = milvalue * .9
-						milvalue = milvalue * milvalue
+						milvalue = math.max( .01, milvalue * milvalue )
 
                     end
                     
@@ -8382,7 +8380,7 @@ Platoon = Class(moho.platoon_methods) {
 
 					if path then
 
-						local distancefactor = pathlength/100
+						local distancefactor = pathlength/80
                         
                         distancefactor = 1 / (math.log10(distancefactor))
 					
@@ -8546,7 +8544,7 @@ Platoon = Class(moho.platoon_methods) {
 						--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." HiPri recheck reports target threat is "..repr(targetthreat.Sur).." - my threat is "..mystrength)
 						break   -- this will terminate any movement thread
 					else
-                        targetLocation = table.copy(newposition)
+                        targetLocation = LOUDCOPY(newposition)
                         --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." validates target - position is now "..repr(targetLocation))
                     end
 				end
