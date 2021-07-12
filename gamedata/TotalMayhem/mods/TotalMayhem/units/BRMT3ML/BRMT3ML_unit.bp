@@ -214,7 +214,7 @@ UnitBlueprint {
             DisplayName = 'Rockets',
             
             EnergyRequired = 1600,
-            EnergyDrainPerSecond = 246,     -- 4.5 seconds to charge
+            EnergyDrainPerSecond = 128,     -- 12.5 seconds to charge
 
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -229,8 +229,8 @@ UnitBlueprint {
             MaxRadius = 84,
             MinRadius = 15,
 			
-            MuzzleSalvoDelay = 0.1,
-            MuzzleSalvoSize = 10,       -- 6 seconds to fire 
+            MuzzleSalvoDelay = 0.5,
+            MuzzleSalvoSize = 10,
             MuzzleVelocity = 20.5,
             MuzzleVelocityRandomness = 2,
 			
