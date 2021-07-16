@@ -26,7 +26,7 @@ BrainConditionsMonitor = Class {
 		
 		self.Trash = TrashBag()
         
-        self.ThreadWaitDuration = 15	-- default value
+        self.ThreadWaitDuration = 16	-- default value in ticks
 		
     end,
 
@@ -105,7 +105,7 @@ BrainConditionsMonitor = Class {
 		-- record current game time
 		aiBrain.CycleTime = GetGameTimeSeconds()
 	
-		WaitTicks(10)	-- wait a second before starting up --
+		WaitTicks(11)	-- wait a second before starting up --
 		
 		-- if time-limited game record victory time on the brain
 		if ScenarioInfo.VictoryTime then
@@ -138,26 +138,27 @@ BrainConditionsMonitor = Class {
 		local numChecks = self.ResultTableCounter
 		local numResults = 0
 		
-		local checkrate = .1	 -- this makes the first pass very fast so CDR gets started
+		local checkrate = .01	 -- this makes the first pass very fast so CDR gets started
         
         local ResultTable = self.ResultTable
 
         -- adjustment for high player count comes into play when we can no longer maintain the minimum cycle time
-        local playerfactor = table.getn(ArmyBrains) * 2
+        local playerfactor = table.getn(ArmyBrains) * 5
         
-        local minimumcycletime = 60
-	
-		
+        local minimumcycletime = 150     -- in ticks
+
         while true do
 			
 			-- record current game time
 			aiBrain.CycleTime = GetGameTimeSeconds()
-
-			-- the thread duration is always the number of checked conditions times 2 (minimum of minimumcycletime)
-            -- plus a little extra slack based upon the number of brains
-			self.ThreadWaitDuration = LOUDMAX( LOUDCEIL( (numResults * 2) / 10) + playerfactor + (aiBrain.NumBases * 5), minimumcycletime + aiBrain.NumBases )
             
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." Thread Duration for "..aiBrain.NumBases.." bases is "..self.ThreadWaitDuration)
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." BCM cycles at "..aiBrain.CycleTime.." seconds")
+
+			-- the thread duration, in ticks, is always the number of checked conditions times 2
+            -- plus a little extra slack based upon the number of brains + number of bases
+			self.ThreadWaitDuration = LOUDMAX( LOUDCEIL( (numResults * 2)) + playerfactor + (aiBrain.NumBases * 5), minimumcycletime )
+            
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." BCM Thread Duration for "..aiBrain.NumBases.." bases is "..self.ThreadWaitDuration.." ticks -- checkrate is every "..(checkrate).." ticks")
 
 			numChecks = 0
 			numResults = 0
@@ -176,7 +177,7 @@ BrainConditionsMonitor = Class {
 
 							aiBrain.ConditionsMonitor.ResultTable[k].Status = v:CheckCondition(aiBrain)
 							
-							WaitTicks(checkrate)
+							WaitTicks(checkrate)    -- the real time is always 1 tick less
 						end
 						
 					else
@@ -196,11 +197,16 @@ BrainConditionsMonitor = Class {
 				end
             end
 
-			if ( (self.ThreadWaitDuration * 10) - (numResults * checkrate) ) > 0 then
-				WaitTicks( (self.ThreadWaitDuration * 10) - ( numResults * checkrate ) )
+			if ( self.ThreadWaitDuration - (numResults * 2) ) > 0 then
+            
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." BCM had "..numResults.." checks at "..(checkrate).." -- delays for "..(1 + self.ThreadWaitDuration) - (numResults * 2).." ticks")
+            
+				WaitTicks( (1 + self.ThreadWaitDuration) - (numResults * 2)  )
+                
 			end
 
-            checkrate = LOUDFLOOR( (self.ThreadWaitDuration * 10) / numResults )
+            checkrate = LOUDFLOOR( (self.ThreadWaitDuration) / numResults ) + 1     -- we add the 1 tick lost to checkrate
+            
         end
         
     end,
