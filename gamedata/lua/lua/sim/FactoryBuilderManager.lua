@@ -329,8 +329,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 	-- delays are dynamic - higher tier factories wait less while those enhancing wait more
     DelayBuildOrder = function( self, factory )
 
-		if factory:BeenDestroyed() then
-		
+		if factory.Dead then
 			return
 		end
 	

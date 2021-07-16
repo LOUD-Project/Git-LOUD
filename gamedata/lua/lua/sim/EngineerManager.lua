@@ -344,7 +344,7 @@ EngineerManager = Class(BuilderManager) {
 				WaitTicks(50)
 			end
 
-			if (not BeenDestroyed(unit)) and ( (not unit:IsIdleState() ) or unit:IsUnitState('Attached') ) then
+			if (not unit.Dead) and ( (not unit:IsIdleState() ) or unit:IsUnitState('Attached') ) then
 			
 				if unit:IsUnitState('Attached') then
 				

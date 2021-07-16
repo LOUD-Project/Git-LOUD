@@ -413,13 +413,15 @@ Platoon = Class(moho.platoon_methods) {
     -- this function will hunt and engage a local target with a radius
     -- returns true if a target was prosecuted - false if not
     PlatoonFindTarget = function( self, aiBrain, squad, scanposition, range, attackcategories)
+    
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." PlatoonFindTarget for "..self.BuilderName)
 
 		-- seek a target around the point --
 		local target, targetposition, position
 
 		target,targetposition = FindTargetInRange( self, aiBrain, squad, range, attackcategories )
 
-		if target then
+		if target and PlatoonExists( aiBrain,self) then
         
             local PlatoonFormation = self.PlatoonData.UseFormation or 'none'
 
@@ -2703,7 +2705,7 @@ Platoon = Class(moho.platoon_methods) {
                         if self:GetSquadUnits('Support') and LOUDGETN(self:GetSquadUnits('Support')) > 0 then
 
                             IssueClearCommands(self:GetSquadUnits('Support'))
-                                
+
                             if not Attack and not Artillery then
                             
                                 IssueFormAggressiveMove( self:GetSquadUnits('Support'), targetposition, 'BlockFormation', direction)
@@ -3949,7 +3951,7 @@ Platoon = Class(moho.platoon_methods) {
 							
 								for k,v in loclist do
 								
-									if u:CanPathTo( v ) then
+									if (not u.Dead) and u:CanPathTo( v ) then
 									
 										v[2] = GetSurfaceHeight(v[1], v[3])
 										
@@ -4544,7 +4546,7 @@ Platoon = Class(moho.platoon_methods) {
 							
 								for k,v in loclist do
 								
-									if u:CanPathTo( v ) then
+									if (not u.Dead) and u:CanPathTo( v ) then
 									
 										v[2] = GetSurfaceHeight(v[1], v[3])
 										
@@ -4874,18 +4876,21 @@ Platoon = Class(moho.platoon_methods) {
 	-- This flag is reset after 7.5 seconds
 	PlatoonUnderAttack = function(self, aiBrain)
 
-		if not self.UnderAttack then
+		if PlatoonExists( aiBrain, self) and not self.UnderAttack then
         
             self.UnderAttack = true
         
             if GetPlatoonPosition(self) then
+            
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." UNDER ATTACK")
 
                 ForkTo( AIAddMustScoutArea, aiBrain, LOUDCOPY(GetPlatoonPosition(self)) )
 		
                 WaitTicks(75)
 		
-                self.UnderAttack = nil
-                
+                if PlatoonExists( aiBrain, self) then
+                    self.UnderAttack = nil
+                end
             end
         end
 	end,

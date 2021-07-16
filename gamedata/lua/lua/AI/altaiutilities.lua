@@ -1658,7 +1658,7 @@ function WatchUnitLoading( transport, units, aiBrain )
 			-- also detect if all units to be loaded are dead
 			for _,u in newunits do
 		
-				if not BeenDestroyed(u) then
+				if not u.Dead then
 				
 					-- we have some live units
 					unitsdead = false
@@ -1689,7 +1689,7 @@ function WatchUnitLoading( transport, units, aiBrain )
 		end
 
 		-- issue reloads to unloaded units if transport is not moving and not loading units
-		if not (transport.Dead or BeenDestroyed(transport)) and (loading and not (IsUnitState( transport, 'Moving') or IsUnitState( transport, 'TransportLoading'))) then
+		if (not transport.Dead) and (loading and not (IsUnitState( transport, 'Moving') or IsUnitState( transport, 'TransportLoading'))) then
 
 			reloads = reloads + 1
 			reissue = reissue + 1
@@ -1698,7 +1698,7 @@ function WatchUnitLoading( transport, units, aiBrain )
 			
 			for k,u in tempunits do
 			
-				if not (u.Dead or BeenDestroyed(u)) and not IsUnitState( u, 'Attached') then
+				if (not u.Dead) and not IsUnitState( u, 'Attached') then
 
 					-- if the unit is not attached and the transport has space for it or it's a UEF Gunship (TransportHasSpaceFor command is unreliable)
 					if (not transport.Dead) and transport:TransportHasSpaceFor(u) then
@@ -1824,7 +1824,7 @@ function WatchTransportTravel( transport, destination, aiBrain )
 
 			for _,u in transport:GetCargo() do
 			
-				if not BeenDestroyed(u) then
+				if not u.Dead then
 				
 					unitsdead = false
 					break
@@ -1916,7 +1916,7 @@ function WatchUnitUnload( transport, unitlist, destination, aiBrain )
 			-- do we have loaded units
 			for _,u in unitlist do
 		
-				if not BeenDestroyed(u) then
+				if not u.Dead then
 				
 					unitsdead = false
 				

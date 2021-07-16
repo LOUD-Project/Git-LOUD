@@ -1486,7 +1486,7 @@ function LandScoutingAI( self, aiBrain )
 					
                             for k,v in loclist do
 
-                                if scout:CanPathTo( v ) then
+                                if (not scout.Dead) and scout:CanPathTo( v ) then
 								
                                     if not self.MovementLayer == 'Amphibious' then
 							
@@ -1530,7 +1530,7 @@ function LandScoutingAI( self, aiBrain )
 				
 					for _,v in GetPlatoonUnits(self) do
 				
-						if not v:BeenDestroyed() then
+						if not v.Dead then
 							AssignUnitsToPlatoon( aiBrain, aiBrain.StructurePool, v, 'Guard', 'none' )
 						end
 					end
@@ -1674,7 +1674,7 @@ function NavalScoutingAI( self, aiBrain )
 			
 			if PlatoonExists( aiBrain, self ) then
 
-				if not path then
+				if (not path) and (not scout.Dead) then
 				
 					if distance <= 120 and scout:CanPathTo(targetArea) then
                     
@@ -1846,6 +1846,10 @@ end
 function RetreatAI( self, aiBrain )
 
     WaitTicks(50)  -- Wait 5 seconds before beginning
+
+    if not PlatoonExists( aiBrain, self ) then
+        return
+    end
     
     local OriginalStrength = self:CalculatePlatoonThreat('Overall', categories.ALLUNITS)
     

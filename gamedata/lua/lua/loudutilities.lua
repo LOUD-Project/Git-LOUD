@@ -1704,21 +1704,31 @@ end
 -- this function will attempt to get the air unit to a repair pad
 -- and will wait until the unit is fueled and repaired
 function AirUnitRefitThread( unit, aiBrain )
+    
+    if unit.Dead or unit.InRefit then
+        return
+    end
 
-	local GetFuelRatio = moho.unit_methods.GetFuelRatio
-	
 	-- if not dead 
-	if (not unit:BeenDestroyed()) then
+	if (not unit.Dead) then
+    
+        unit.InRefit = true
 
         local ident = Random(100000,999999)
         local returnpool = aiBrain:MakePlatoon('AirRefit'..tostring(ident), 'none')
         
         returnpool.BuilderName = 'AirRefit'..tostring(ident)
         returnpool.UsingTransport = true        -- never review this platoon as part of a merge
+        
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." assigns unit "..unit.Sync.id.." to AirRefit"..tostring(ident).." Unit is "..repr(unit.Dead))
 
-        aiBrain:AssignUnitsToPlatoon( returnpool, {unit}, 'Unassigned', '')
+        if not unit.Dead then
+        
+            aiBrain:AssignUnitsToPlatoon( returnpool, {unit}, 'Unassigned', '')
 
-        unit.PlatoonHandle = returnpool
+            unit.PlatoonHandle = returnpool
+            
+        end
 
 		local fuellimit = .75
 		local healthlimit = .80
@@ -1727,6 +1737,8 @@ function AirUnitRefitThread( unit, aiBrain )
 		local platpos, tempDist
 
 		local rtbissued = false
+
+        local GetFuelRatio = moho.unit_methods.GetFuelRatio
 
 		while (not unit.Dead) do
 		
@@ -1752,7 +1764,7 @@ function AirUnitRefitThread( unit, aiBrain )
 
 						-- Begin loading/refit sequence
 						if closestairpad then
-							AirStagingThread (unit, closestairpad, aiBrain )
+							AirStagingThread( unit, closestairpad, aiBrain )
 						end
                     end
                 end
@@ -1787,19 +1799,33 @@ function AirUnitRefitThread( unit, aiBrain )
 				
 			-- otherwise we may have refueled/repaired ourselves or don't need it
 			else
+            
 				break
+                
 			end
-	
-			WaitTicks(30)
+            
+            if rtbissued then
+
+                WaitTicks(21)
+                
+            else
+            
+                break
+                
+            end
 		end
+
 	end
-	
+
 	-- return repaired/refuelled unit to pool
 	if not unit.Dead then
     
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." Unit "..unit.Sync.id.." has refuelled or repaired - leaving AirUnitRefitThread - Dead is "..repr(unit.Dead))
+
         -- weapons turned back on (just in case)
-        
         unit:MarkWeaponsOnTransport(unit, false)
+
+        unit.InRefit = nil        
 
 		-- all units except TRUE transports are returned to ArmyPool --
 		if not LOUDENTITY( categories.TRANSPORTFOCUS, unit) or LOUDENTITY( categories.uea0203, unit ) then
@@ -1809,12 +1835,15 @@ function AirUnitRefitThread( unit, aiBrain )
 			unit.PlatoonHandle = aiBrain.ArmyPool
 			
 			DisperseUnitsToRallyPoints( aiBrain, {unit}, GetPosition(unit), false )
+            
 		else
+        
             if ScenarioInfo.TransportDialog then
                 LOG("*AI DEBUG "..aiBrain.Nickname.." transport "..unit.Sync.id.." leaving Refit thread")
             end
             
 			ForkThread( import('/lua/ai/altaiutilities.lua').ReturnTransportsToPool, aiBrain, {unit}, true )
+            
 		end
 	end
 end
@@ -1824,35 +1853,39 @@ function AirStagingThread( unit, airstage, aiBrain )
 
 	local loadstatus = 0
 	
-	if not airstage:BeenDestroyed() then
+	if not airstage.Dead then
 		
-		if not unit:BeenDestroyed() then
+		if not unit.Dead then
 
 			IssueStop( {unit} )
 			IssueClearCommands( {unit} )
 
             local safePath, reason = aiBrain.TransportPool.PlatoonGenerateSafePathToLOUD(aiBrain, unit.PlatoonHandle, 'Air', unit:GetPosition(), GetPosition(airstage), 16, 240)
-			
-            if safePath then
-                
-                if ScenarioInfo.TransportDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..unit.Sync.id.." gets RTB path of "..repr(safePath).." to airstaging")
-                end
-
-                -- use path
-                for _,p in safePath do
-                    IssueMove( {unit}, p )
-                end
-                
-            else
             
-                if ScenarioInfo.TransportDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..unit.Sync.id.." no safe path for RTB -- airstaging -- after drop")
-                end
-
-                -- go direct -- possibly bad
-                IssueMove( {unit}, GetPosition(airstage))
+            if not unit.Dead then
+			
+                if safePath then
                 
+                    if ScenarioInfo.TransportDialog then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..unit.Sync.id.." gets RTB path of "..repr(safePath).." to airstaging - unit is "..repr(unit.Dead) )
+                    end
+
+                    -- use path
+                    for _,p in safePath do
+                        IssueMove( {unit}, p )
+                    end
+                
+                else
+            
+                    if ScenarioInfo.TransportDialog then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..unit.Sync.id.." no safe path for RTB -- airstaging -- after drop")
+                    end
+
+                    -- go direct -- possibly bad
+                    IssueMove( {unit}, GetPosition(airstage))
+                
+                end
+            
             end
 
 			if not (unit.Dead or airstage.Dead) and (not unit:IsUnitState('Attached')) then
@@ -1871,7 +1904,7 @@ function AirStagingThread( unit, airstage, aiBrain )
 		
 		if (( unit:GetFuelRatio() < .75 and unit:GetFuelRatio() != -1) or unit:GetHealthPercent() < .80) and (not airstage.Dead) then
 		
-			WaitTicks(10)
+			WaitTicks(11)
             waitcount = waitcount + 1
         else
 			break
@@ -1881,12 +1914,13 @@ function AirStagingThread( unit, airstage, aiBrain )
 
             return AirStagingThread( unit, airstage, aiBrain )
         end
+        
 	end
-	
+
 	-- get it off the airpad
-	if (not airstage.Dead) and (not unit:BeenDestroyed()) and unit:IsUnitState('Attached') then
+	if (not airstage.Dead) and (not unit.Dead) and unit:IsUnitState('Attached') then
 	
-		WaitTicks(10)
+		WaitTicks(11)
 		
 		-- we should be loaded onto airpad at this point
 		-- some interesting behaviour here - usually when a unit is ready 
@@ -1906,7 +1940,7 @@ function AirStagingThread( unit, airstage, aiBrain )
 					break
 				end
 				
-				WaitTicks(15)
+				WaitTicks(16)
 			end
 			
 			if ready and unit:IsUnitState('Attached') and (not unit.Dead) and (not airstage.Dead) then
@@ -1926,6 +1960,9 @@ function AirStagingThread( unit, airstage, aiBrain )
 	end
 	
 	if not unit.Dead then
+        
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." Unit "..unit.Sync.id.." leaving AirStagingThread")
+	
 		unit:MarkWeaponsOnTransport(unit, false)
 	end	
 end

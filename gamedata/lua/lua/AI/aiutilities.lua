@@ -15,6 +15,8 @@ local VDist2Sq = VDist2Sq
 function AIAddMustScoutArea( aiBrain, location )
 
 	if location and ( not aiBrain:IsDefeated() ) then
+    
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." adding MustScout at "..repr(location))
 	
 		for _,v in aiBrain.IL.MustScout do
 		
