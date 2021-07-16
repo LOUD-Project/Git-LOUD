@@ -1519,7 +1519,7 @@ Unit = Class(moho.unit_methods) {
             
             --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self:GetBlueprint().Description).." Calling for Help - platoon is "..repr(aiBrain:PlatoonExists(self.PlatoonHandle)) )
 			
-			if (not platoon.UnderAttack) and aiBrain:PlatoonExists( self.PlatoonHandle ) then
+			if (not platoon.DistressCall) and (not platoon.UnderAttack) and aiBrain:PlatoonExists( self.PlatoonHandle ) then
 			
 				-- turn on the UnderAttack flag and process it
 				self.PlatoonHandle:ForkThread( platoon.PlatoonUnderAttack, aiBrain)
@@ -1740,7 +1740,7 @@ Unit = Class(moho.unit_methods) {
     -- On killed: this function plays when the unit takes a mortal hit.  It plays all the default death effect
     OnKilled = function(self, instigator, deathtype, overkillRatio)
 	
-		--LOG("*AI DEBUG OnKilled for "..repr(__blueprints[self.BlueprintID].Description).." "..self.Sync.id)
+		--LOG("*AI DEBUG OnKilled for unit "..self.Sync.id.." "..repr(__blueprints[self.BlueprintID].Description))
         
         --LOG("*AI DEBUG "..repr(__blueprints[self.BlueprintID].Defense))
 		
@@ -2036,7 +2036,7 @@ Unit = Class(moho.unit_methods) {
 		if other.LastImpact then
 		
 			-- if hit same unit twice
-			if other.LastImpact == GetEntityId(self) then
+			if other.LastImpact == self.Sync.id then
 
 				return false
 				
@@ -2105,7 +2105,7 @@ Unit = Class(moho.unit_methods) {
 		-- for rail guns from 4DC credit Resin_Smoker
 		if other.LastImpact then
 			-- if hit same unit twice
-			if other.LastImpact == GetEntityId(self) then
+			if other.LastImpact == self.Sync.id then
 				return false
 			end
 		end
@@ -2133,7 +2133,7 @@ Unit = Class(moho.unit_methods) {
 		-- the projectile just carries thru to hit additional targets
 		if other.DamageData.DamageType == 'Railgun' then
 		
-			other.LastImpact = GetEntityId(self)
+			other.LastImpact = self.Sync.id
 
 		end
 
@@ -2334,14 +2334,14 @@ Unit = Class(moho.unit_methods) {
 	
 		self.PlatoonHandle = nil
 
-		--LOG("*AI DEBUG OnDestroy for "..self:GetBlueprint().Description)
+		--LOG("*AI DEBUG OnDestroy for unit "..self.Sync.id.." "..repr(__blueprints[self.BlueprintID].Description))
 		
-		local ID = GetEntityId(self)
+		--local ID = GetEntityId(self)
+
+		Sync.ReleaseIds[self.Sync.id] = true
 
 		-- Don't allow anyone to stuff anything else in the table
 		self.Sync = false
-
-		Sync.ReleaseIds[ID] = true
 
 		-- If factory, destroy what I'm building if I die
 		if LOUDENTITY(categories.FACTORY, self) then

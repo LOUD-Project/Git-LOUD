@@ -4877,12 +4877,10 @@ Platoon = Class(moho.platoon_methods) {
 	PlatoonUnderAttack = function(self, aiBrain)
 
 		if PlatoonExists( aiBrain, self) and not self.UnderAttack then
-        
-            self.UnderAttack = true
-        
+
             if GetPlatoonPosition(self) then
-            
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." UNDER ATTACK")
+        
+                self.UnderAttack = true
 
                 ForkTo( AIAddMustScoutArea, aiBrain, LOUDCOPY(GetPlatoonPosition(self)) )
 		
@@ -4891,6 +4889,7 @@ Platoon = Class(moho.platoon_methods) {
                 if PlatoonExists( aiBrain, self) then
                     self.UnderAttack = nil
                 end
+                
             end
         end
 	end,
@@ -4943,8 +4942,16 @@ Platoon = Class(moho.platoon_methods) {
 		while PlatoonExists(aiBrain,self) do
 
 			if self.UnderAttack and (not self.DistressCall) and (not self.RespondingToDistress) then
-			
-				pos = LOUDCOPY(GetPlatoonPosition(self)) or false
+            
+                if ScenarioInfo.DistressResponseDialog then
+                    LOG('*AI DEBUG '..aiBrain.Nickname..' PCAI '..self.BuilderName.." is under attack! Checking if need to raise distress")
+                end
+
+                pos = false
+            
+                if GetPlatoonPosition(self) then
+                    pos = LOUDCOPY(GetPlatoonPosition(self))
+                end
 			
 				if pos then
 				
@@ -4967,6 +4974,10 @@ Platoon = Class(moho.platoon_methods) {
 						threat = GetThreatAtPosition( aiBrain, pos, 0, true, 'AntiSurface' )
 						
 					end
+            
+                    if ScenarioInfo.DistressResponseDialog then
+                        LOG('*AI DEBUG '..aiBrain.Nickname..' PCAI '..self.BuilderName.." is under attack! layer is "..repr(layer).." threat is "..threat)
+                    end
 
 					if threat >= threatcheckthreshold then
 			
@@ -5065,30 +5076,22 @@ Platoon = Class(moho.platoon_methods) {
 								end
                                 
 							end
-                            
-						else
-                        
-                            --if distresscalltype then
-                        
-                                --if ScenarioInfo.DistressResponseDialog then
-                                    --LOG('*AI DEBUG '..aiBrain.Nickname..' PCAI '..self.BuilderName..' on layer '..layer..' ignores '..threat..' threat - my threat is '..repr(mythreat)..' '..repr(myecothreat) )
-                                --end
-                                
-                            --end
-                            
+
                         end
+                        
+                        WaitTicks(6)
                         
 					else
 					
 						self.DistressCall = nil
                         
 					end
-                    
+ 
                 end
                 
 			end
 
-			WaitTicks(checkinterval)
+			WaitTicks(6)
  
         end
 		
