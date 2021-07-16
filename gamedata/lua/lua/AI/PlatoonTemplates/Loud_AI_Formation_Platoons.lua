@@ -290,14 +290,13 @@ PlatoonTemplate { Name = 'T3MassAttack',
         { categories.LAND * categories.MOBILE * categories.ANTIAIR, 0, 18, 'Guard', 'none' },
 		{ categories.LAND * categories.MOBILE * categories.SHIELD, 0, 10, 'Support', 'none'},
 		{ categories.LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE, 0, 5, 'Guard', 'none'},
-        { (categories.LAND * categories.MOBILE * categories.SCOUT), 0, 2, 'Support', 'none' },
+        { (categories.LAND * categories.MOBILE * categories.SCOUT), 0, 2, 'Scout', 'none' },
     },
 }
 
 PlatoonTemplate { Name = 'T1LandAttack',
-    Plan = 'LandForceAILOUD',    
     GlobalSquads = {
-        { (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS) - categories.SCOUT - categories.ENGINEER - categories.EXPERIMENTAL, 6, 23, 'Attack', 'AttackFormation' },
+        { (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS) - categories.SCOUT - categories.ENGINEER - categories.EXPERIMENTAL, 5, 18, 'Attack', 'AttackFormation' },
 		{ categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL, 0, 6, 'Artillery', 'AttackFormation' },
         { categories.LAND * categories.MOBILE * categories.ANTIAIR, 0, 5, 'Guard', 'none' },
 		{ categories.LAND * categories.MOBILE * categories.SHIELD, 0, 1, 'Guard', 'none' },
@@ -306,7 +305,6 @@ PlatoonTemplate { Name = 'T1LandAttack',
 }
 
 PlatoonTemplate { Name = 'T2LandAttack',
-    Plan = 'LandForceAILOUD',    
     GlobalSquads = {
         { (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS) - categories.SCOUT - categories.ENGINEER - categories.EXPERIMENTAL, 24, 36, 'Attack', 'AttackFormation' },
 		{ categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL, 0, 12, 'Artillery', 'AttackFormation' },
@@ -324,7 +322,7 @@ PlatoonTemplate { Name = 'T3LandAttack',
         { categories.LAND * categories.MOBILE * categories.ANTIAIR, 0, 18, 'Guard', 'none' },
 		{ categories.LAND * categories.MOBILE * categories.SHIELD, 0, 10, 'Support', 'none'},
 		{ categories.LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE, 0, 4, 'Guard', 'none'},
-        { (categories.LAND * categories.MOBILE * categories.SCOUT), 0, 2, 'Support', 'none' },
+        { (categories.LAND * categories.MOBILE * categories.SCOUT), 0, 2, 'Scout', 'none' },
     },
 }
 
@@ -336,7 +334,7 @@ PlatoonTemplate { Name = 'T3LandAttackNW',
         { categories.LAND * categories.MOBILE * categories.ANTIAIR, 0, 18, 'Guard', 'none' },
 		{ categories.LAND * categories.MOBILE * categories.SHIELD, 0, 10, 'Support', 'none'},
 		{ categories.LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE, 0, 5, 'Guard', 'none'},
-        { (categories.LAND * categories.MOBILE * categories.SCOUT), 0, 2, 'Support', 'none' },
+        { (categories.LAND * categories.MOBILE * categories.SCOUT), 0, 2, 'Scout', 'none' },
     },
 }
 
@@ -348,7 +346,7 @@ PlatoonTemplate { Name = 'LandAttackHugeNW',
         { categories.LAND * categories.MOBILE * categories.ANTIAIR, 0, 18, 'Guard', 'none' },
 		{ categories.LAND * categories.MOBILE * categories.SHIELD, 0, 10, 'Support', 'none'},
 		{ categories.LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE, 0, 5, 'Guard', 'none'},
-        { (categories.LAND * categories.MOBILE * categories.SCOUT), 0, 2, 'Support', 'none' },
+        { (categories.LAND * categories.MOBILE * categories.SCOUT), 0, 2, 'Scout', 'none' },
     },
 }
 
@@ -429,16 +427,16 @@ PlatoonTemplate { Name = 'T1LandScoutForm',
 
     FactionSquads = {
         UEF = {
-            { 'uel0101', 2, 4, 'Guard', 'none' }
+            { 'uel0101', 2, 3, 'Scout', 'none' }
         },
         Aeon = {
-            { 'ual0101', 2, 2, 'Guard', 'none' }
+            { 'ual0101', 2, 3, 'Scout', 'none' }
         },
         Cybran = {
-            { 'url0101', 1, 1, 'Guard', 'none' }
+            { 'url0101', 1, 1, 'Scout', 'none' }
         },
         Seraphim = {
-            { 'xsl0101', 1, 2, 'Guard', 'none' }
+            { 'xsl0101', 1, 1, 'Scout', 'none' }
         },
     }
 }
@@ -450,8 +448,8 @@ PlatoonTemplate { Name = 'T1MassGuard',
         { (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS) - categories.SCOUT - categories.EXPERIMENTAL, 3, 5, 'Attack', 'AttackFormation' },
 		{ categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL, 0, 2, 'Artillery', 'AttackFormation' },
 		{ categories.LAND * categories.MOBILE * categories.ANTIAIR, 0, 1, 'Support', 'AttackFormation' },		
-        { (categories.LAND * categories.MOBILE * categories.SCOUT), 0, 1, 'Scout', 'none' },
 		{ categories.LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE, 0, 1, 'Guard', 'none' },
+        { (categories.LAND * categories.MOBILE * categories.SCOUT), 0, 1, 'Scout', 'none' },        
     },
 }
 
@@ -498,8 +496,8 @@ PlatoonTemplate { Name = 'T2PointGuard',
 		{ categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL, 5, 8, 'Artillery', 'AttackFormation' },
 		{ categories.LAND * categories.MOBILE * categories.ANTIAIR, 0, 12, 'Guard', 'none' },
 		{ categories.LAND * categories.MOBILE * categories.SHIELD, 0, 3, 'Support', 'none' },
-        { (categories.LAND * categories.MOBILE * categories.SCOUT), 0, 1, 'Scout', 'none' },
 		{ categories.LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE, 0, 2, 'Guard', 'none' },
+        { (categories.LAND * categories.MOBILE * categories.SCOUT), 0, 1, 'Scout', 'none' },        
     },
 }
 
@@ -509,8 +507,8 @@ PlatoonTemplate { Name = 'T1PointGuardArtillery',
 		{ categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL, 5, 8, 'Artillery', 'AttackFormation' },
 		{ categories.LAND * categories.MOBILE * categories.ANTIAIR, 0, 5, 'Guard', 'none' },
 		{ categories.LAND * categories.MOBILE * categories.SHIELD, 0, 1, 'Support', 'none' },
-        { (categories.LAND * categories.MOBILE * categories.SCOUT), 0, 1, 'Scout', 'none' },
 		{ categories.LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE, 0, 1, 'Guard', 'none' },
+        { (categories.LAND * categories.MOBILE * categories.SCOUT), 0, 1, 'Scout', 'none' },        
     },
 }
 
@@ -521,8 +519,8 @@ PlatoonTemplate { Name = 'T2PointGuardArtillery',
 		{ categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL, 12, 24, 'Artillery', 'AttackFormation' },
         { categories.LAND * categories.MOBILE * categories.ANTIAIR, 0, 12, 'Guard', 'none' },
 		{ categories.LAND * categories.MOBILE * categories.SHIELD, 0, 4, 'Support', 'none' },
-        { (categories.LAND * categories.MOBILE * categories.SCOUT), 0, 1, 'Scout', 'none' },
 		{ categories.LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE, 0, 2, 'Guard', 'none' },
+        { (categories.LAND * categories.MOBILE * categories.SCOUT), 0, 1, 'Scout', 'none' },        
     },
 }
 

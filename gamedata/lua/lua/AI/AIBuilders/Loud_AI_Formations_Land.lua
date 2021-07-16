@@ -497,7 +497,9 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
-		
+        
+        PlatoonAIPlan = 'LandForceAILOUD',
+        
         Priority = 800,
 		
 		PriorityFunction = IsPrimaryBase,
@@ -512,11 +514,10 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
             
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1 } },
             
-            { LUTL, 'PoolGreater', { 28, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT }},
-            { LUTL, 'PoolGreater', { 6, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE }},
+            { LUTL, 'PoolGreater', { 23, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.EXPERIMENTAL }},
             
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 28, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 23, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.EXPERIMENTAL }},
+
         },
 		
         BuilderData = {
@@ -876,7 +877,9 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
-		
+        
+        PlatoonAIPlan = 'LandForceAILOUD',
+        
         Priority = 801,
 
 		RTBLocation = 'Any',
@@ -888,7 +891,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 24, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.AMPHIBIOUS - categories.EXPERIMENTAL }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 23, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.AMPHIBIOUS - categories.EXPERIMENTAL }},
         },
 		
         BuilderData = {
@@ -909,6 +912,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI', },
+        
+        PlatoonAIPlan = 'LandForceAILOUD',
 		
         Priority = 800,
 
