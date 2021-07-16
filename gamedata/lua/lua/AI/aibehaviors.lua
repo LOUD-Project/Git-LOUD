@@ -6799,9 +6799,10 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 		unit.Upgrading = true
 		unit.DesiresAssist = true
         
-        WaitTicks(1)
-		
-        -- inserted this here to be absolutely clear about how to pass along another unit
+        repeat 
+            WaitTicks(1)
+        until unit.UnitBeingBuilt.Sync
+
 		local unitbeingbuilt = GetEntityById(unit.UnitBeingBuilt.Sync.id)
         
         -- this was inserted to wait for the upgrade to complete - was originally doing it

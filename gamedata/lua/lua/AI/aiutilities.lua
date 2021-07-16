@@ -70,7 +70,7 @@ function AIPickEnemyLogic( self, brainbool )
                     local threats = self:GetThreatsAroundPosition( self.BuilderManagers.MAIN.Position, 32, true, threattype, armyindex)
                 
                     -- sort the threats for closest
-                    table.sort( threats, function(a,b) return VDist2Sq(a[1],a[2],testposition[1],testposition[3]) < VDist2Sq(b[1],b[2],testposition[1],testposition[3]) end )
+                    LOUDSORT( threats, function(a,b) return VDist2Sq(a[1],a[2],testposition[1],testposition[3]) < VDist2Sq(b[1],b[2],testposition[1],testposition[3]) end )
                 
                     --LOG("*AI DEBUG "..self.Nickname.." "..threattype.." Threats from "..v.Nickname.." are "..repr(threats))
                     
