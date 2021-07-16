@@ -2949,92 +2949,95 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
                     local aa = 1
                     local tertiary = 1
 
-                    local squad = GetPlatoonPosition(self)
+                    local squad = GetPlatoonPosition(self) or false
                     
-                    targetposition = target:GetPosition()
+                    targetposition = target:GetPosition() or false
                     
-                    local midpointx = (squad[1]+targetposition[1])/2
-                    local midpointy = (squad[2]+targetposition[2])/2
-                    local midpointz = (squad[3]+targetposition[3])/2
+                    if squad and targetposition then
                     
-					local Direction = import('/lua/utilities.lua').GetDirectionInDegrees( squad, targetposition )
+                        local midpointx = (squad[1]+targetposition[1])/2
+                        local midpointy = (squad[2]+targetposition[2])/2
+                        local midpointz = (squad[3]+targetposition[3])/2
+                    
+                        local Direction = import('/lua/utilities.lua').GetDirectionInDegrees( squad, targetposition )
 
-                    -- this gets them moving to a point halfway to the targetposition - hopefully
-                    IssueFormMove( GetPlatoonUnits(self), { midpointx, midpointy, midpointz }, 'AttackFormation', Direction )
+                        -- this gets them moving to a point halfway to the targetposition - hopefully
+                        IssueFormMove( GetPlatoonUnits(self), { midpointx, midpointy, midpointz }, 'AttackFormation', Direction )
 
-                    -- sort the bombers by farthest from target -- we'll send them just ahead of the others to get tighter wave integrity
-                    LOUDSORT( attackers, function (a,b) return VDist3(a:GetPosition(),targetposition) > VDist3(b:GetPosition(),targetposition) end )
+                        -- sort the bombers by farthest from target -- we'll send them just ahead of the others to get tighter wave integrity
+                        LOUDSORT( attackers, function (a,b) return VDist3(a:GetPosition(),targetposition) > VDist3(b:GetPosition(),targetposition) end )
                    
-                    local attackissued = false
-                    local attackissuedcount = 0
+                        local attackissued = false
+                        local attackissuedcount = 0
 
-                    for key,u in attackers do
+                        for key,u in attackers do
                     
-                        if not u.Dead then
+                            if not u.Dead then
                         
-                            IssueClearCommands( {u} )
+                                IssueClearCommands( {u} )
                             
-                            attackissued = false
+                                attackissued = false
 
-                            -- first 20% of attacks go for the shields
-                            if key < attackercount * .2 and SecondaryShieldTargets[shield] then
+                                -- first 20% of attacks go for the shields
+                                if key < attackercount * .2 and SecondaryShieldTargets[shield] then
                         
-                                if not SecondaryShieldTargets[shield].Dead then
-                                    IssueAttack( {u}, SecondaryShieldTargets[shield] )
-                                    attackissued = true
-                                    attackissuedcount = attackissuedcount + 1
-                                end
+                                    if not SecondaryShieldTargets[shield].Dead then
+                                        IssueAttack( {u}, SecondaryShieldTargets[shield] )
+                                        attackissued = true
+                                        attackissuedcount = attackissuedcount + 1
+                                    end
 
-                                if shield >= ShieldCount then
-                                    shield = 1
-                                else
-                                    shield = shield + 1
-                                end 
-                            end
+                                    if shield >= ShieldCount then
+                                        shield = 1
+                                    else
+                                        shield = shield + 1
+                                    end 
+                                end
                         
-                            -- next 15% go for AA units
-                            if not attackissued and key <= attackercount * .35 and SecondaryAATargets[aa] then
+                                -- next 15% go for AA units
+                                if not attackissued and key <= attackercount * .35 and SecondaryAATargets[aa] then
 
-                                if not SecondaryAATargets[aa].Dead then
-                                    IssueAttack( {u}, SecondaryAATargets[aa] )
-                                    attackissued = true
-                                    attackissuedcount = attackissuedcount + 1
+                                    if not SecondaryAATargets[aa].Dead then
+                                        IssueAttack( {u}, SecondaryAATargets[aa] )
+                                        attackissued = true
+                                        attackissuedcount = attackissuedcount + 1
+                                    end
+                            
+                                    if aa >= AACount then
+                                        aa = 1
+                                    else
+                                        aa = aa + 1
+                                    end
                                 end
                             
-                                if aa >= AACount then
-                                    aa = 1
-                                else
-                                    aa = aa + 1
-                                end
-                            end
+                                -- next 15% for tertiary targets --
+                                if not attackissued and key <= attackercount * .5 and TertiaryTargets[tertiary] then
                             
-                            -- next 15% for tertiary targets --
-                            if not attackissued and key <= attackercount * .5 and TertiaryTargets[tertiary] then
-                            
-                                if not TertiaryTargets[tertiary].Dead and self:CanAttackTarget('Attack', TertiaryTargets[tertiary]) then
-                                    IssueAttack( {u}, TertiaryTargets[tertiary] )
-                                    attackissued = true
-                                    attackissuedcount = attackissuedcount + 1
-                                end
+                                    if not TertiaryTargets[tertiary].Dead and self:CanAttackTarget('Attack', TertiaryTargets[tertiary]) then
+                                        IssueAttack( {u}, TertiaryTargets[tertiary] )
+                                        attackissued = true
+                                        attackissuedcount = attackissuedcount + 1
+                                    end
                                 
-                                if tertiary >= TertiaryCount then
-                                    tertiary = 1
-                                else 
-                                    tertiary = tertiary + 1
+                                    if tertiary >= TertiaryCount then
+                                        tertiary = 1
+                                    else 
+                                        tertiary = tertiary + 1
+                                    end
                                 end
-                            end
                         
-                            -- all others go for primary
-                            if not target.Dead and not attackissued then
+                                -- all others go for primary
+                                if not target.Dead and not attackissued then
 
-                                IssueAttack( {u}, target )
-                                attackissued = true
-                                attackissuedcount = attackissuedcount + 1
-                            end
+                                    IssueAttack( {u}, target )
+                                    attackissued = true
+                                    attackissuedcount = attackissuedcount + 1
+                                end
                     
-                            if attackissuedcount > 3 then
-                                WaitTicks(1)
-                                attackissuedcount = 0
+                                if attackissuedcount > 3 then
+                                    WaitTicks(1)
+                                    attackissuedcount = 0
+                                end
                             end
                         end
                     end
@@ -3043,22 +3046,11 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
         end
 
 		-- Attack until target is dead, beyond maxrange or retreat
-        if target then
-        
-            self.WatchPlatoon = self:ForkThread( self.WatchPlatoonSize, oldNumberOfUnitsInPlatoon, .5 )
-            
-        else
-            if self.WatchPlatoon then
-                KillThread(self.WatchPlatoon)
-                self.WatchPlatoon = nil
-            end
-        end
-
 		while (target and not target.Dead) and PlatoonExists(aiBrain, self) do
 
 			loiter = false
 			
-			WaitTicks(7)
+			WaitTicks(6)
 			
 			if PlatoonExists(aiBrain, self) then
 
