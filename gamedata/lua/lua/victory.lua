@@ -14,7 +14,7 @@ function CheckVictory(ScenarioInfo)
 		
     elseif ScenarioInfo.Options.Victory == 'domination' then
         -- Supremacy - A player is defeated when all engineers, factories and any unit that can build an engineer are destroyed.
-        categoryCheck = categories.ENGINEER + categories.FACTORY + categories.BRMT3AVA + categories.XRL0403 + categories.SSL0403 - categories.CARRIER - categories.RESEARCHCENTRE - categories.UAB0305 - categories.URB0305 - categories.XSB0305 - categories.UEB0305 - categories.SRB5310 - categories.SEB5310 - categories.BSB2402 - categories.SEB3303
+        categoryCheck = categories.ENGINEER + categories.FACTORY --+ categories.BRMT3AVA   --+ categories.SSL0403) - categories.CARRIER - categories.RESEARCHCENTRE     -- categories.UAB0305 - categories.URB0305 - categories.XSB0305 - categories.UEB0305 - categories.SRB5310 - categories.SEB5310 - categories.BSB2402 - categories.SEB3303
 	
     elseif ScenarioInfo.Options.Victory == 'eradication' then
         -- Annihilation - A player is defeated when all structures (except walls) and all units are destroyed.
