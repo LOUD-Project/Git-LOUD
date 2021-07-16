@@ -1851,6 +1851,8 @@ function RetreatAI( self, aiBrain )
         return
     end
     
+    --LOG("*AI DEBUG "..aiBrain.Nickname.." RetreatAI for "..self.BuilderName.." begins")
+    
     local OriginalStrength = self:CalculatePlatoonThreat('Overall', categories.ALLUNITS)
     
     local OriginalSize = 0
@@ -1875,33 +1877,41 @@ function RetreatAI( self, aiBrain )
     OriginalSize = CountPlatoonUnits()
     
     OriginalPlan = self.PlanName
-    
-    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..OriginalPlan.." reports Original Size as "..OriginalSize.." Strength "..OriginalStrength)
-    
-    while true do
-    
-        if (OriginalStrength * .4) >= self:CalculatePlatoonThreat('Overall', categories.ALLUNITS) or (OriginalSize * .4) >= CountPlatoonUnits() then
-        
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..OriginalPlan.." falls below RETREAT trigger")
-            
-            if PlatoonExists( aiBrain, self) then
 
-                self:Stop()
+    while PlatoonExists( aiBrain, self) do
+    
+        if self.UnderAttack then
+    
+            if (OriginalStrength * .4) >= self:CalculatePlatoonThreat('Overall', categories.ALLUNITS) or (OriginalSize * .4) >= CountPlatoonUnits() then
+
+                if PlatoonExists( aiBrain, self) then
+
+                    self:Stop()
                 
-				self.MergeIntoNearbyPlatoons( self, aiBrain, OriginalPlan, 100, false)
-
-				-- RTB any leftovers
-				return self:SetAIPlan('ReturnToBaseAI',aiBrain)
-
-            else
-            
-                break
+                    self.MergeIntoNearbyPlatoons( self, aiBrain, OriginalPlan, 100, false)
                 
+                    if PlatoonExists( aiBrain, self) then
+                    
+                        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." RetreatAI")
+
+                        -- RTB any leftovers
+                        return self:SetAIPlan('ReturnToBaseAI',aiBrain)
+                    
+                    end
+
+                else
+            
+                    break
+                
+                end
+
             end
-
+            
+            WaitTicks(3)
+            
         end
         
-        WaitTicks(4)
+        WaitTicks(2)
         
     end
 
@@ -2496,122 +2506,114 @@ function AirForceAILOUD( self, aiBrain )
                     local aa = 1
                     local tertiary = 1
 
-                    local squad = GetPlatoonPosition(self)
+                    local squad = GetPlatoonPosition(self) or false
                     
-                    targetposition = target:GetPosition()
+                    targetposition = target:GetPosition() or false
                     
-                    local midpointx = (squad[1]+targetposition[1])/2
-                    local midpointy = (squad[2]+targetposition[2])/2
-                    local midpointz = (squad[3]+targetposition[3])/2
-                    
-					local Direction = import('/lua/utilities.lua').GetDirectionInDegrees( squad, targetposition )
+                    if squad and targetposition then
 
-                    -- this gets them moving to a point halfway to the targetposition - hopefully
-                    IssueFormMove( GetPlatoonUnits(self), { midpointx, midpointy, midpointz }, 'AttackFormation', Direction )
+                        local midpointx = (squad[1]+targetposition[1])/2
+                        local midpointy = (squad[2]+targetposition[2])/2
+                        local midpointz = (squad[3]+targetposition[3])/2
+                    
+                        local Direction = import('/lua/utilities.lua').GetDirectionInDegrees( squad, targetposition )
 
-                    -- sort the fighters by farthest from target -- we'll send them just ahead of the others to get tighter wave integrity
-                    LOUDSORT( attackers, function (a,b) return VDist3(a:GetPosition(),targetposition) > VDist3(b:GetPosition(),targetposition) end )
+                        -- this gets them moving to a point halfway to the targetposition - hopefully
+                        IssueFormMove( GetPlatoonUnits(self), { midpointx, midpointy, midpointz }, 'AttackFormation', Direction )
+
+                        -- sort the fighters by farthest from target -- we'll send them just ahead of the others to get tighter wave integrity
+                        LOUDSORT( attackers, function (a,b) return VDist3(a:GetPosition(),targetposition) > VDist3(b:GetPosition(),targetposition) end )
                    
-                    local attackissued = false
-                    local attackissuedcount = 0
+                        local attackissued = false
+                        local attackissuedcount = 0
 
-                    for key,u in attackers do
+                        for key,u in attackers do
                     
-                        if not u.Dead then
+                            if not u.Dead then
                         
-                            IssueClearCommands( {u} )
+                                IssueClearCommands( {u} )
                             
-                            attackissued = false
+                                attackissued = false
 
-                            -- first 15% of attacks go for the gunships
-                            if key < attackercount * .15 and SecondaryShieldTargets[shield] then
+                                -- first 15% of attacks go for the gunships
+                                if key < attackercount * .15 and SecondaryShieldTargets[shield] then
                         
-                                if not SecondaryShieldTargets[shield].Dead then
-                                    IssueAttack( {u}, SecondaryShieldTargets[shield] )
-                                    attackissued = true
-                                    attackissuedcount = attackissuedcount + 1
-                                end
+                                    if not SecondaryShieldTargets[shield].Dead then
+                                        IssueAttack( {u}, SecondaryShieldTargets[shield] )
+                                        attackissued = true
+                                        attackissuedcount = attackissuedcount + 1
+                                    end
 
-                                if shield >= ShieldCount then
-                                    shield = 1
-                                else
-                                    shield = shield + 1
-                                end 
-                            end
+                                    if shield >= ShieldCount then
+                                        shield = 1
+                                    else
+                                        shield = shield + 1
+                                    end 
+                                end
                         
-                            -- next 30% go for fighters units
-                            if not attackissued and key <= attackercount * .45 and SecondaryAATargets[aa] then
+                                -- next 30% go for fighters units
+                                if not attackissued and key <= attackercount * .45 and SecondaryAATargets[aa] then
 
-                                if not SecondaryAATargets[aa].Dead then
-                                    IssueAttack( {u}, SecondaryAATargets[aa] )
-                                    attackissued = true
-                                    attackissuedcount = attackissuedcount + 1
+                                    if not SecondaryAATargets[aa].Dead then
+                                        IssueAttack( {u}, SecondaryAATargets[aa] )
+                                        attackissued = true
+                                        attackissuedcount = attackissuedcount + 1
+                                    end
+                            
+                                    if aa >= AACount then
+                                        aa = 1
+                                    else
+                                        aa = aa + 1
+                                    end
                                 end
                             
-                                if aa >= AACount then
-                                    aa = 1
-                                else
-                                    aa = aa + 1
-                                end
-                            end
+                                -- next 15% for bomber targets --
+                                if not attackissued and key <= attackercount * .6 and TertiaryTargets[tertiary] then
                             
-                            -- next 15% for bomber targets --
-                            if not attackissued and key <= attackercount * .6 and TertiaryTargets[tertiary] then
-                            
-                                if not TertiaryTargets[tertiary].Dead then
+                                    if not TertiaryTargets[tertiary].Dead then
                                 
-                                    IssueAttack( {u}, TertiaryTargets[tertiary] )
+                                        IssueAttack( {u}, TertiaryTargets[tertiary] )
                                     
-                                    --LOG("*AI DEBUG Issued attack "..key.." on Tertiary "..repr(tertiary).." "..repr(TertiaryTargets[tertiary]:GetBlueprint().Description) )
+                                        --LOG("*AI DEBUG Issued attack "..key.." on Tertiary "..repr(tertiary).." "..repr(TertiaryTargets[tertiary]:GetBlueprint().Description) )
                                     
+                                        attackissued = true
+                                        attackissuedcount = attackissuedcount + 1
+                                    end
+                                
+                                    if tertiary >= TertiaryCount then
+                                        tertiary = 1
+                                    else 
+                                        tertiary = tertiary + 1
+                                    end
+                                end
+                        
+                                -- all others go for primary
+                                if not target.Dead and not attackissued then
+
+                                    IssueAttack( {u}, target )
                                     attackissued = true
                                     attackissuedcount = attackissuedcount + 1
-                                end
-                                
-                                if tertiary >= TertiaryCount then
-                                    tertiary = 1
-                                else 
-                                    tertiary = tertiary + 1
-                                end
-                            end
-                        
-                            -- all others go for primary
-                            if not target.Dead and not attackissued then
-
-                                IssueAttack( {u}, target )
-                                attackissued = true
-                                attackissuedcount = attackissuedcount + 1
                             
-                            end
+                                end
                     
-                            if attackissuedcount > 3 then
-                                WaitTicks(1)
-                                attackissuedcount = 0
+                                if attackissuedcount > 3 then
+                                    WaitTicks(1)
+                                    attackissuedcount = 0
+                                end
                             end
                         end
                     end
+                    
                 end                    
-
 			end
         end
 
 		-- Attack until target is dead, beyond maxrange, or retreat
-        if target then
-        
-            self.WatchPlatoon = self:ForkThread( self.WatchPlatoonSize, oldNumberOfUnitsInPlatoon, .4 )
-            
-        else
-            if self.WatchPlatoon then
-                KillThread(self.WatchPlatoon)
-                self.WatchPlatoon = nil
-            end
-        end
-
 		while (target and not target.Dead) and PlatoonExists(aiBrain, self) do
 
 			loiter = false
 			
-			WaitTicks(7)
+			WaitTicks(6)
 			
 			if PlatoonExists(aiBrain, self) then
 
@@ -2628,17 +2630,6 @@ function AirForceAILOUD( self, aiBrain )
                     end
 				end
 			end
-            
-            if not self.WatchPlatoon then
-            
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." platoon watch trigger")
-                
-                target = false
-
-                self:MoveToLocation( self.anchorposition, false )
-
-                return self:SetAIPlan('ReturnToBaseAI',aiBrain)                
-            end
 		end
 
         -- target is destroyed
@@ -2649,13 +2640,7 @@ function AirForceAILOUD( self, aiBrain )
             loiter = false
             
             self:MoveToLocation( self.anchorposition, false )
-            
-            if self.WatchPlatoon then
-            
-                KillThread (self.WatchPlatoon)
-                
-                self.WatchPlatoon = nil
-            end
+
 		end
 
 		-- loiter will be true if we did not find a target
@@ -3090,17 +3075,7 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
                     end
 				end
 			end
-            
-            if not self.WatchPlatoon then
-            
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." platoon watch trigger")
-                
-                target = false
 
-                self:MoveToLocation( self.anchorposition, false )
-
-                return self:SetAIPlan('ReturnToBaseAI',aiBrain)                
-            end            
 		end
 
         -- we had a target and target is destroyed
@@ -3111,13 +3086,7 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
             loiter = false
             
             self:MoveToLocation( self.anchorposition, false )
-            
-            if self.WatchPlatoon then
-            
-                KillThread (self.WatchPlatoon)
-                
-                self.WatchPlatoon = nil
-            end            
+
 		end
 
 		-- loiter will be true if we did not find a target
@@ -3517,22 +3486,11 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
         end
 
 		-- Attack until target is dead, beyond maxrange, or retreat
-        if target then
-        
-            self.WatchPlatoon = self:ForkThread( self.WatchPlatoonSize, oldNumberOfUnitsInPlatoon, .4 )
-            
-        else
-            if self.WatchPlatoon then
-                KillThread(self.WatchPlatoon)
-                self.WatchPlatoon = nil
-            end
-        end
-
 		while (target and not target.Dead) and PlatoonExists(aiBrain, self) do
 
 			loiter = false
 			
-			WaitTicks(7)
+			WaitTicks(6)
 			
 			if PlatoonExists(aiBrain, self) then
 
@@ -3548,17 +3506,7 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
                     end
 				end
 			end
-            
-            if not self.WatchPlatoon then
-            
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." platoon watch trigger")
-                
-                target = false
 
-                self:MoveToLocation( self.anchorposition, false )
-
-                return self:SetAIPlan('ReturnToBaseAI',aiBrain)                
-            end            
 		end
 
         -- we had a target and target is destroyed
@@ -3569,13 +3517,7 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
             loiter = false
             
             self:MoveToLocation( self.anchorposition, false )
-            
-            if self.WatchPlatoon then
-            
-                KillThread (self.WatchPlatoon)
-                
-                self.WatchPlatoon = nil
-            end
+
 		end
 
 		-- loiter will be true if we did not find a target
@@ -3975,22 +3917,11 @@ function AirForceAI_Torpedo_LOUD( self, aiBrain )
         end
 
 		-- Attack until target is dead, beyond maxrange, or retreat
-        if target then
-        
-            self.WatchPlatoon = self:ForkThread( self.WatchPlatoonSize, oldNumberOfUnitsInPlatoon, .5 )
-            
-        else
-            if self.WatchPlatoon then
-                KillThread(self.WatchPlatoon)
-                self.WatchPlatoon = nil
-            end
-        end
-
 		while (target and not target.Dead) and PlatoonExists(aiBrain, self) do
 
 			loiter = false
 			
-			WaitTicks(7)
+			WaitTicks(6)
 			
 			if PlatoonExists(aiBrain, self) then
 
@@ -4006,17 +3937,7 @@ function AirForceAI_Torpedo_LOUD( self, aiBrain )
                     end
 				end
 			end
-            
-            if not self.WatchPlatoon then
-            
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." platoon watch trigger")
-                
-                target = false
 
-                self:MoveToLocation( self.anchorposition, false )
-
-                return self:SetAIPlan('ReturnToBaseAI',aiBrain)                
-            end   
         end
         
         -- we had a target and target is destroyed
@@ -4027,13 +3948,7 @@ function AirForceAI_Torpedo_LOUD( self, aiBrain )
             loiter = false
             
             self:MoveToLocation( self.anchorposition, false )
-            
-            if self.WatchPlatoon then
-            
-                KillThread (self.WatchPlatoon)
-                
-                self.WatchPlatoon = nil
-            end
+
 		end
 
 		-- loiter will be true if we did not find a target
