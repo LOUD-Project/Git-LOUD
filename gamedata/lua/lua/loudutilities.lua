@@ -1623,9 +1623,9 @@ function ResetPFMTasks (manager, aiBrain)
     local newpri, temporary
 	local newtasks = 0
     
-    if ScenarioInfo.PriorityDialog then
-        LOG("*AI DEBUG "..aiBrain.Nickname.." "..manager.ManagerType.." "..manager.LocationType.." Resets Any PFM Tasks")
-    end
+    --if ScenarioInfo.PriorityDialog then
+      --  LOG("*AI DEBUG "..aiBrain.Nickname.." "..manager.ManagerType.." "..manager.LocationType.." Resets Any PFM Tasks")
+    --end
 
 	for _,b in manager.BuilderData['Any'].Builders do
 

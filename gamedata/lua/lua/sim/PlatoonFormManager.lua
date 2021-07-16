@@ -196,9 +196,9 @@ PlatoonFormManager = Class(BuilderManager) {
 		local CanFormPlatoon = moho.platoon_methods.CanFormPlatoon
 		local FormPlatoon = moho.platoon_methods.FormPlatoon
 
-        if ScenarioInfo.PriorityDialog then
-          	LOG("*AI DEBUG "..aiBrain.Nickname.." PFM "..self.LocationType.." trys to form "..repr(builder.BuilderName) )
-        end
+        --if ScenarioInfo.PriorityDialog then
+          --	LOG("*AI DEBUG "..aiBrain.Nickname.." PFM "..self.LocationType.." trys to form "..repr(builder.BuilderName) )
+        --end
 
 		if aiBrain.BuilderManagers[self.LocationType] then
 		

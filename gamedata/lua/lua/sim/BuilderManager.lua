@@ -221,13 +221,14 @@ BuilderManager = Class {
 		-- sort the builders list if needed
 		if self.BuilderData[unit.BuilderType].NeedSort then
         
-            if ScenarioInfo.PriorityDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.ManagerType.." sorting "..unit.BuilderType.." tasks")
-            end
+            --if ScenarioInfo.PriorityDialog then
+              --  LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.ManagerType.." sorting "..unit.BuilderType.." tasks")
+            --end
 
 			LOUDSORT( self.BuilderData[unit.BuilderType].Builders, function(a,b) return a.Priority > b.Priority end )
-            
+--[[            
             if ScenarioInfo.PriorityDialog then
+            
                 if not self.BuilderData[unit.BuilderType].displayed then
                 
                     LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.ManagerType.." "..self.LocationType.." SORTED "..unit.BuilderType.." Builders are ")
@@ -237,10 +238,10 @@ BuilderManager = Class {
                         LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.ManagerType.." "..v.Location.." "..v.Priority.." "..v.BuilderName)
                     end
                     
-                    --self.BuilderData[unit.BuilderType].displayed = true
+                    self.BuilderData[unit.BuilderType].displayed = true
                 end
             end
-			
+--]]			
 			self.BuilderData[unit.BuilderType].NeedSort = false
         end
 
@@ -286,9 +287,9 @@ BuilderManager = Class {
 				local newPri = false
 				local temporary = true
                 
-                if ScenarioInfo.PriorityDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.ManagerType.." "..self.LocationType.." PriorityFunction for "..repr(self.BuilderData[unit.BuilderType].Builders[k].BuilderName) )    
-                end
+                --if ScenarioInfo.PriorityDialog then
+                  --  LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.ManagerType.." "..self.LocationType.." PriorityFunction for "..repr(self.BuilderData[unit.BuilderType].Builders[k].BuilderName) )    
+                --end
 				
 				newPri,temporary = Builders[TaskList[k].BuilderName]:PriorityFunction( aiBrain, unit )
 
@@ -414,7 +415,7 @@ BuilderManager = Class {
         while self.Active do
     
             if ScenarioInfo.PriorityDialog then
-                LOG("*AI DEBUG "..brain.Nickname.." "..self.ManagerType.." "..self.LocationType.." Begins cycle")
+                LOG("*AI DEBUG "..brain.Nickname.." "..self.ManagerType.." "..self.LocationType.." Begins cycle at "..GetGameTimeSeconds().." seconds. BCM cycle is "..brain.ConditionsMonitor.ThreadWaitDuration )
             end
         
             -- if this is not a naval base - see if mode should change from Amphibious to Land
@@ -446,24 +447,28 @@ BuilderManager = Class {
             -- other bases run at one/fifth the speed
 			if self.LocationType == 'MAIN' or brain.BuilderManagers[self.LocationType].PrimaryLandAttackBase or brain.BuilderManagers[self.LocationType].PrimarySeaAttackBase then
 			
-				self.BuilderCheckInterval = brain.ConditionsMonitor.ThreadWaitDuration * 2
+				self.BuilderCheckInterval = brain.ConditionsMonitor.ThreadWaitDuration
+                
 			else
 			
-				self.BuilderCheckInterval = brain.ConditionsMonitor.ThreadWaitDuration * 5
+				self.BuilderCheckInterval = brain.ConditionsMonitor.ThreadWaitDuration * 3
+                
 			end
 
             -- as we move the AI Mult up, we check the Builders more frequently
             -- this can simulate a greater degree of responsiveness
-            self.BuilderCheckInterval = math.floor( self.BuilderCheckInterval / brain.VeterancyMult )
+            -- self.BuilderCheckInterval = math.floor( self.BuilderCheckInterval / brain.VeterancyMult )
 
             -- and we set the delay between task checks accordingly
-			if tasks != self.NumBuilders or ((self.BuilderCheckInterval * 10) != duration) then
-				duration = self.BuilderCheckInterval * 10
+			if tasks != self.NumBuilders or ( self.BuilderCheckInterval != duration ) then
+            
+				duration = self.BuilderCheckInterval
 				tasks = self.NumBuilders
 				ticksize = LOUDFLOOR( duration / tasks )
+                
 			end
 
-            numTicks = 0
+            numTicks = 1
 			numTested = 0
 			numPassed = 0
             
@@ -475,13 +480,11 @@ BuilderManager = Class {
 		
                 if self.BuilderData['Any'].NeedSort then
     
-                    if ScenarioInfo.PriorityDialog then
-                        LOG("*AI DEBUG "..brain.Nickname.." "..self.ManagerType.." "..self.LocationType.." Sorting Any PFM tasks")
-                    end
+                    --if ScenarioInfo.PriorityDialog then
+                      --  LOG("*AI DEBUG "..brain.Nickname.." "..self.ManagerType.." "..self.LocationType.." Sorting "..LOUDGETN(self.BuilderData['Any'].Builders).." -- Any -- PFM tasks")
+                    --end
 
                     LOUDSORT( self.BuilderData['Any'].Builders, function(a,b) return a.Priority > b.Priority end )
-				
-                    --LOG("*AI DEBUG "..brain.Nickname.." SORTED "..repr(self.ManagerType).." tasks at "..repr(self.LocationType).." is "..repr(self.BuilderData['Any'].Builders))
                 
                     self.BuilderData['Any'].NeedSort = false
                 end
@@ -489,9 +492,9 @@ BuilderManager = Class {
                 -- loop thru all the platoon builders
 				for bType,bTypeData in self.BuilderData do
                 
-                    if ScenarioInfo.PlatoonDialog or ScenarioInfo.PriorityDialog then
-                        LOG("*AI DEBUG "..brain.Nickname.." PFM "..(self.LocationType).." Begins Processing "..repr(bType).." at "..repr(GetGameTimeSeconds()).." seconds" )
-                    end
+                    --if ScenarioInfo.PlatoonDialog or ScenarioInfo.PriorityDialog then
+                      --  LOG("*AI DEBUG "..brain.Nickname.." PFM "..(self.LocationType).." Begins Processing "..repr(bType).." at "..repr(GetGameTimeSeconds()).." seconds using ticksize of "..ticksize.." between checks" )
+                    --end
 			
 					for _,bData in bTypeData.Builders do
 
@@ -505,24 +508,38 @@ BuilderManager = Class {
 							
 								numPassed = numPassed + 1
 						
-								WaitTicks(ticksize)
+								WaitTicks(ticksize+1)
 								numTicks = numTicks + ticksize
+                                
                             end
 						end
 					end
 				end
-			else
-                -- delay the next cycle by 12 seconds (versus waiting the entire duration, which may be too long)
-                duration = 120
-            end
 
-            if ScenarioInfo.PriorityDialog then
-                LOG("*AI DEBUG "..brain.Nickname.." "..self.ManagerType.." "..self.LocationType.." processed "..numTested.." Builders - ticks used is "..numTicks.." Formed "..numPassed ) 
-                LOG("*AI DEBUG "..brain.Nickname.." "..self.ManagerType.." "..self.LocationType.." checked "..conditionscheckedcount.." of "..conditioncounttotal.." conditions this pass - in "..(numTicks/10).." seconds")
+                --if ScenarioInfo.PriorityDialog then
+                  --  LOG("*AI DEBUG "..brain.Nickname.." "..self.ManagerType.." "..self.LocationType.." processed "..numTested.." Builders - used "..numTicks.." ticks of "..duration.." - Formed "..numPassed ) 
+                  --  LOG("*AI DEBUG "..brain.Nickname.." "..self.ManagerType.." "..self.LocationType.." checked "..conditionscheckedcount.." of "..conditioncounttotal.." conditions this pass")
+                --end
+                
+			else
+
+                --if ScenarioInfo.PriorityDialog then
+                  --  LOG("*AI DEBUG "..brain.Nickname.." "..self.ManagerType.." "..self.LocationType.." NO POOL UNITS" ) 
+                --end
+                
+                -- delay the next cycle by the length of the BCM cycle - with NO cheat multipliers
+                duration = brain.ConditionsMonitor.ThreadWaitDuration
+
             end
 
 			if numTicks < duration then
+
+                --if ScenarioInfo.PriorityDialog then
+                  --  LOG("*AI DEBUG "..brain.Nickname.." "..self.ManagerType.." "..self.LocationType.." - delaying "..repr(((duration) - numTicks)/10).." seconds" ) 
+                --end
+            
 				WaitTicks( duration - numTicks )
+
 			end
 
             local ResetPFMTasks = import('/lua/loudutilities.lua').ResetPFMTasks
