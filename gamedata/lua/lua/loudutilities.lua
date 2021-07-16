@@ -3807,7 +3807,7 @@ function ParseIntelThread( aiBrain )
 	local checkspertick = 1		-- number of threat entries to be processed per tick - this really affects game performance if moved up
 	
     -- this rate is important since it must be able to keep up with the shift in fast moving air units
-	local parseinterval = 45    -- the rate of a single iteration in ticks - essentially every 4.5 seconds
+	local parseinterval = 50    -- the rate of a single iteration in ticks - essentially every 6 seconds (which is relative to the IMAP update cycle which is 3 seconds)
 
     -- the current iteration value
     local iterationcount = 0 
@@ -3855,6 +3855,8 @@ function ParseIntelThread( aiBrain )
 	-- in a perfect world we would check all 8 threat types every parseinterval 
 	-- however, only AIR will be checked every cycle -- the others will be checked every other cycle or on the 3rd or 4th
     while true do
+    
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL Begins cycle at "..GetGameTimeSeconds())
 
 		numchecks = 0
 		usedticks = 0
@@ -3875,18 +3877,18 @@ function ParseIntelThread( aiBrain )
                     
                     aiBrain.IntelDebugThread = aiBrain:ForkThread( DrawIntel, parseinterval )
                 end
-                
-            end
  
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." All threats is "..repr(GetThreatsAroundPosition( aiBrain, HomePosition, 32, true) ))
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." All AIR threats is "..repr(GetThreatsAroundPosition( aiBrain, HomePosition, 32, true,'Air') ))
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." All LND threats is "..repr(GetThreatsAroundPosition( aiBrain, HomePosition, 32, true,'Land') ))
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." All NVL threats is "..repr(GetThreatsAroundPosition( aiBrain, HomePosition, 32, true,'Naval') ))
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." All ART threats is "..repr(GetThreatsAroundPosition( aiBrain, HomePosition, 32, true,'Artillery') ))
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." All ACU threats is "..repr(GetThreatsAroundPosition( aiBrain, HomePosition, 32, true,'Commander') ))
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." All EXP threats is "..repr(GetThreatsAroundPosition( aiBrain, HomePosition, 32, true,'Experimental') ))
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." All -AS threats is "..repr(GetThreatsAroundPosition( aiBrain, HomePosition, 32, true,'AntiSurface') ))
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." All -AA threats is "..repr(GetThreatsAroundPosition( aiBrain, HomePosition, 32, true,'AntiAir') ))
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." All threats is "..repr(GetThreatsAroundPosition( aiBrain, HomePosition, 32, true) ))
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." All AIR threats is "..repr(GetThreatsAroundPosition( aiBrain, HomePosition, 32, true,'Air') ))
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." All LND threats is "..repr(GetThreatsAroundPosition( aiBrain, HomePosition, 32, true,'Land') ))
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." All NVL threats is "..repr(GetThreatsAroundPosition( aiBrain, HomePosition, 32, true,'Naval') ))
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." All ART threats is "..repr(GetThreatsAroundPosition( aiBrain, HomePosition, 32, true,'Artillery') ))
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." All ACU threats is "..repr(GetThreatsAroundPosition( aiBrain, HomePosition, 32, true,'Commander') ))
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." All EXP threats is "..repr(GetThreatsAroundPosition( aiBrain, HomePosition, 32, true,'Experimental') ))
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." All -AS threats is "..repr(GetThreatsAroundPosition( aiBrain, HomePosition, 32, true,'AntiSurface') ))
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." All -AA threats is "..repr(GetThreatsAroundPosition( aiBrain, HomePosition, 32, true,'AntiAir') ))
+
+            end
 
             iterationcount = 1
 
@@ -3978,7 +3980,7 @@ function ParseIntelThread( aiBrain )
                         numchecks = numchecks + 1
 
                         if numchecks > checkspertick then
-                            WaitTicks(1)
+                            WaitTicks(2)    -- we always lose the first tick --
 							usedticks = usedticks + 1
                             numchecks = 0
                         end
@@ -4052,8 +4054,7 @@ function ParseIntelThread( aiBrain )
                                 end
                             end
                             
-                            -- if the IMAP threat is less than half of the reported threat at that position
-                            -- reduce the IMAP threat by 50% --
+                            -- if the IMAP threat is less than half of the reported threat at that position reduce IMAP by 50%
 							if newthreat < (threat[3]/2) then
                             
 								if ScenarioInfo.IntelDialog then
@@ -4196,7 +4197,7 @@ function ParseIntelThread( aiBrain )
                             rebuild = false
                         end
                         
-                        WaitTicks(1)
+                        WaitTicks(2)    -- again - the first tick is lost
                         
                         usedticks = usedticks + 1
 					end
@@ -4255,7 +4256,7 @@ function ParseIntelThread( aiBrain )
                     rebuild = false
                 end
                 
-                WaitTicks(1)
+                WaitTicks(2)    -- again - we lose the first tick
                 
                 usedticks = usedticks + 1
             end
@@ -4280,7 +4281,7 @@ function ParseIntelThread( aiBrain )
 				LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL On Wait for ".. parseinterval - usedticks .. " ticks")	
 			end
 			
-			WaitTicks(parseinterval - usedticks)
+			WaitTicks((parseinterval+1) - usedticks)
 
 			if parseinterval - usedticks > 36 then
 			
@@ -4293,11 +4294,11 @@ function ParseIntelThread( aiBrain )
             
 		else
         
-			if checkspertick < 6 then
+			if checkspertick < 10 then
             
 				checkspertick = checkspertick + 1
                 
-                if checkspertick > 5 then
+                if checkspertick > 7 then
                     LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL increased CPT to "..checkspertick)
                 end
 			end
