@@ -925,34 +925,40 @@ function SimulateFactoryBuilt (finishedUnit)
 		if not LOUDENTITY((categories.TRANSPORTFOCUS - categories.uea0203), finishedUnit) then
 
 			local ProcessDamagedAirUnit = function( finishedUnit, newHP, oldHP )
+            
+                if not finishedUnit.InRefit then
 	
-				-- added check for RTP callback (which is intended for transports but UEF gunships sometimes get it)
-				-- to bypass this is the unit is in the transport pool --
-				if (newHP < oldHP and newHP < 0.5) and not finishedUnit.ReturnToPoolCallbackSet then
+                    -- added check for RTP callback (which is intended for transports but UEF gunships sometimes get it)
+                    -- to bypass this is the unit is in the transport pool --
+                    if (newHP < oldHP and newHP < 0.5) and not finishedUnit.ReturnToPoolCallbackSet then
 					
-					--LOG("*AI DEBUG Callback Damaged running on "..finishedUnit:GetBlueprint().Description.." with New "..repr(newHP).." and Old "..repr(oldHP))
+                        --LOG("*AI DEBUG Callback OnHealthChanged running on "..finishedUnit:GetBlueprint().Description.." with New "..repr(newHP).." and Old "..repr(oldHP))
 
-					local ProcessAirUnits = import('/lua/loudutilities.lua').ProcessAirUnits
+                        local ProcessAirUnits = import('/lua/loudutilities.lua').ProcessAirUnits
 
-					ProcessAirUnits( finishedUnit, finishedUnit:GetAIBrain() )
-				end
+                        ProcessAirUnits( finishedUnit, finishedUnit:GetAIBrain() )
+                    end
+                end
 			end
 
 			finishedUnit:AddUnitCallback( ProcessDamagedAirUnit, 'OnHealthChanged')
 			
 			local ProcessFuelOutAirUnit = function( finishedUnit )
 				
-				-- this flag only gets turned on after this executes
-				-- and is turned back on only when the unit gets fuel - so we avoid multiple executions
-				-- and we don't process this if it's a transport pool unit --
-				if finishedUnit.HasFuel and not finishedUnit.ReturnToPoolCallbackSet then
+                if not finishedUnit.InRefit then
+                
+                    -- this flag only gets turned on after this executes
+                    -- and is turned back on only when the unit gets fuel - so we avoid multiple executions
+                    -- and we don't process this if it's a transport pool unit --
+                    if finishedUnit.HasFuel and not finishedUnit.ReturnToPoolCallbackSet then
 				
-					--LOG("*AI DEBUG Callback OutOfFuel running on "..finishedUnit:GetBlueprint().Description )
+                        --LOG("*AI DEBUG Callback OutOfFuel running on "..finishedUnit:GetBlueprint().Description )
 				
-					local ProcessAirUnits = import('/lua/loudutilities.lua').ProcessAirUnits
+                        local ProcessAirUnits = import('/lua/loudutilities.lua').ProcessAirUnits
 					
-					ProcessAirUnits( finishedUnit, finishedUnit:GetAIBrain() )
-				end
+                        ProcessAirUnits( finishedUnit, finishedUnit:GetAIBrain() )
+                    end
+                end
 			end
 			
 			finishedUnit:AddUnitCallback( ProcessFuelOutAirUnit, 'OnRunOutOfFuel')
@@ -1687,14 +1693,20 @@ function ProcessAirUnits( unit, aiBrain )
 
 		if ( fuel > -1 and fuel < .75 ) or unit:GetHealthPercent() < .80 then
 
-            if ScenarioInfo.TransportDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." Air Unit "..unit.Sync.id.." assigned to Refuel Pool ")
-            end
+            if not unit.InRefit then
 
-			-- and send it off to the refit thread --
-			unit:ForkThread( AirUnitRefitThread, aiBrain )
-			
-			return true     -- unit had to be processed
+                if ScenarioInfo.TransportDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." Air Unit "..unit.Sync.id.." assigned to AirUnitRefitThread ")
+                end
+            
+                -- and send it off to the refit thread --
+                unit:ForkThread( AirUnitRefitThread, aiBrain )
+                
+                return true
+                
+            else
+                LOG("*AI DEBUG "..aiBrain.Nickname.." Air Unit "..unit.Sync.id.." "..unit:GetBlueprint().Description.." already in refit Thread")
+            end
 		end
 	end
 	

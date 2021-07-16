@@ -3514,14 +3514,17 @@ AirUnit = Class(MobileUnit) {
                     if not LOUDENTITY((categories.TRANSPORTFOCUS - categories.uea0203), self) then
 
                         local ProcessDamagedAirUnit = function( self, newHP, oldHP )
+                        
+                            if not self.InRefit then
 	
-                            -- added check for RTP callback (which is intended for transports but UEF gunships sometimes get it)
-                            -- to bypass this if the unit is in the transport pool --
-                            if (newHP < oldHP and newHP < 0.5) and not self.ReturnToPoolCallbackSet then
+                                -- added check for RTP callback (which is intended for transports but UEF gunships sometimes get it)
+                                -- to bypass this if the unit is in the transport pool --
+                                if (newHP < oldHP and newHP < 0.5) and not self.ReturnToPoolCallbackSet then
 
-                                local ProcessAirUnits = import('/lua/loudutilities.lua').ProcessAirUnits
+                                    local ProcessAirUnits = import('/lua/loudutilities.lua').ProcessAirUnits
 
-                                ProcessAirUnits( self, self:GetAIBrain() )
+                                    ProcessAirUnits( self, self:GetAIBrain() )
+                                end
                             end
                         end
 
@@ -3529,14 +3532,17 @@ AirUnit = Class(MobileUnit) {
 				
                         local ProcessFuelOutAirUnit = function( self )
 				
-                            -- this flag only gets turned on after this executes
-                            -- and is turned back on only when the unit gets fuel - so we avoid multiple executions
-                            -- and we don't process this if it's a transport pool unit --
-                            if not self.ReturnToPoolCallbackSet then
+                            if not self.InRefit then
+                            
+                                -- this flag only gets turned on after this executes
+                                -- and is turned back on only when the unit gets fuel - so we avoid multiple executions
+                                -- and we don't process this if it's a transport pool unit --
+                                if not self.ReturnToPoolCallbackSet then
 
-                                local ProcessAirUnits = import('/lua/loudutilities.lua').ProcessAirUnits
-					
-                                ProcessAirUnits( self, self:GetAIBrain() )
+                                    local ProcessAirUnits = import('/lua/loudutilities.lua').ProcessAirUnits
+
+                                    ProcessAirUnits( self, self:GetAIBrain() )
+                                end
                             end
                         end
                         
