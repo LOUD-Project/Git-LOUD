@@ -1,3 +1,44 @@
+### Release 16-07-2021 ###
+Lua 5.4.23
+Total Mayhem 6.1.3
+
+- Rebalances to the Pavestone (Cybran Tech 3 Mobile Rocket Battery):
+ |--> Energy required to fire a salvo: 246 -> 128.
+ |--> Delay between shots in a salvo: 0.1 -> 0.5 seconds.
+- AI: Relax the requirements for building an Experimental square shield.
+- AI: Increase the effiency of units forming platoons and getting from bases to the field.
+- Fix a crash related to dead-but-not-yet-destroyed units wrongly receiving orders.
+- Fix AI players wrongly surviving destruction of all their units under the "Supremacy" victory condition.
+
+### Release 08-07-2021 ###
+Total Mayhem 6.1.2
+Wyvern Battle Pack 1.1
+
+- Changes to rate-of-fire adjacency buffs granted by power generators:
+ |--> Tech 1: +5% -> +2.5%.
+ |--> Tech 2: +5% -> +4%.
+ |--> Tech 3: +8% -> +7.5%.
+- Rebalances to the Wyvern (Experimental Assault Artillery Platform):
+ |--> Shield dome size: 18 -> 16.
+ |--> Shield dome energy cost per second: 533 -> 500.
+ |--> Maximum acceleration: 0.75 -> 0.55.
+ |--> Energy required to fire main gun: 0 -> 5000, over 5 seconds.
+- Rebalances to the Heth-Ztuha (Seraphim Tech 3 Thau Battery):
+ |--> Energy required to fire a salvo: 550 -> 560.
+ |--> Time required to charge weapon: 2.2 -> 4.5 seconds.
+ |--> Delay between shots in a salvo: 0.7 -> 0.8 seconds.
+- AI: The radii of land patrols are now governed by the number of scout units, leading to greater coverage.
+- AI: Allow more units to upgrade themselves if AI players are severely outnumbered.
+- AI: Several small adjustments to platoon "distress call" behaviour for land and air platoons:
+ |--> On average, ranges at which distress signals are broadcast have been raised.
+ |--> On average, reaction times to distress signals have been lowered.
+- AI: Many more platoon types are now capable of retreating when necessary.
+- AI: Somewhat less eagerness to build defences when under threat, or near the maximum unit count.
+- AI: Less energy income required to start building Tech 3 static artillery.
+- AI: Improvements to decisions about where and when to build Tech 1 power generators.
+- AI: Better main base building choices on maps with large amounts of water.
+- AI: Minor adjustments to the weighting on decisions to produce Total Mayhem units.
+
 ### Release 23-06-2021 ###
 Effects 3.1
 LOUD Units 1.1.1
@@ -21,7 +62,7 @@ LOUD Misc 5.5.03
  |--> Maximum health: 38500 -> 36500.
  |--> Health regeneration rate per second: 14 -> 12.
  |--> Stomp damage area-of-effect: 2m -> 3m.
- |--> Maximum accelerationreduced by about 30%.
+ |--> Maximum acceleration reduced by about 30%.
  |--> Kills required per veterancy level: 25 -> 30.
  |--> Energy required to fire : 22500 -> 41600 (recharges over 16 instead of 10 seconds).
 - Area-of-effect damage removed from the main beam of the Manticore (Cybran Tech 3 Point Defense).
