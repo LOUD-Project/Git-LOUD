@@ -6289,7 +6289,7 @@ function SCUSelfEnhanceThread ( unit, faction, aiBrain )
 			
 				-- note that storage requirements for enhancements are just a little higher than those for factories building units
 				-- this is to insure that unit building and upgrading take priority over enhancements
-				if GetEconomyStored( aiBrain, 'MASS') >= 400 and GetEconomyStored( aiBrain, 'ENERGY') >= 4000 then
+				if GetEconomyStored( aiBrain, 'MASS') >= 450 and GetEconomyStored( aiBrain, 'ENERGY') >= 4500 then
 			
                     for _,v in unit:GetGuards() do
 			
@@ -6465,7 +6465,7 @@ function FactorySelfEnhanceThread ( unit, faction, aiBrain, manager )
 			
 					-- note that storage requirements for enhancements are just a little higher than those for factories building units
 					-- this is to insure that unit building and upgrading take priority over enhancements
-					if GetEconomyStored( aiBrain, 'MASS') >= 440 and GetEconomyStored( aiBrain, 'ENERGY') >= 4400 then
+					if GetEconomyStored( aiBrain, 'MASS') >= 450 and GetEconomyStored( aiBrain, 'ENERGY') >= 4500 then
 				
 						IssueStop({unit})
 						IssueClearCommands({unit})
@@ -6664,7 +6664,7 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
     
     -- these two values directly control resource requirements
     local masslimit = .84
-    local energylimit = .5
+    local energylimit = .66
 	
 	while ((not unit.Dead) or unit.Sync.id) and upgradeable and (not upgradeIssued) do
 	
