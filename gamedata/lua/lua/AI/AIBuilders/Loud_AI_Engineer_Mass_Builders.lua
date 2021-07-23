@@ -11,7 +11,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
     BuildersType = 'EngineerBuilder',
 
 
-    Builder {BuilderName = 'Mass Extractor T1 - 225',
+    Builder {BuilderName = 'Mass Extractor T1 - 250',
 	
         PlatoonTemplate = 'EngineerBuilder',
         
@@ -23,12 +23,14 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
         
         InstanceCount = 1,
 		
-		BuilderType = { 'T1' },
+		BuilderType = { 'T1','T2','T3' },
 
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+            
             { LUTL, 'UnitCapCheckLess', { .85 } },
-            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 225, -9999, 45, 0, 'AntiSurface', 1 }},
+            
+            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 225, -9999, 50, 0, 'AntiSurface', 1 }},
         },
 		
         BuilderData = {
@@ -38,9 +40,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
 				BuildClose = true,		-- seek points closest to engineer
 				LoopBuild = true,		-- repeat until none in range
                 
-                MaxRange = 225,
+                MaxRange = 250,
 
-				ThreatMax = 45,
+				ThreatMax = 50,
 				ThreatRings = 0,
                 
 				ThreatType = 'AntiSurface',
@@ -58,11 +60,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
 		
-        Priority = 840,
+        Priority = 845,
         
         InstanceCount = 2,
 		
-        BuilderType = { 'T1' },
+        BuilderType = { 'T1','T2' },
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
@@ -89,6 +91,45 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
             }
         }
     },
+    
+    Builder {BuilderName = 'Mass Extractor T2 - 750 - Loop',
+	
+        PlatoonTemplate = 'EngineerBuilder',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
+		
+        Priority = 840,
+        
+        InstanceCount = 1,
+		
+		BuilderType = { 'T2','T3' },
+		
+        BuilderConditions = {
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+            { LUTL, 'UnitCapCheckLess', { .85 } },
+            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 150, 750, -9999, 40, 0, 'AntiSurface', 1 }},
+        },
+		
+        BuilderData = {
+		
+            Construction = {
+				BuildClose = true,
+				LoopBuild = true,
+                
+                MinRange = 150,
+                MaxRange = 750,
+
+				ThreatMax = 40,
+				ThreatRings = 0,
+				ThreatType = 'AntiSurface',
+                
+                BuildStructures = { 'T2Resource' }
+            }
+        }
+    },
+
 
     Builder {BuilderName = 'Mass Extractor T1 - 1500 - Loop',
 	
@@ -142,7 +183,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
         
         InstanceCount = 1,
 		
-        BuilderType = { 'T1' },
+        BuilderType = { 'T1','T2','T3' },
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
@@ -176,118 +217,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
     },  
 
 
-    Builder {BuilderName = 'Mass Extractor T2 - 150',
 	
-        PlatoonTemplate = 'EngineerBuilder',
-        
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-		
-		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
-		
-        Priority = 840,
-        
-        InstanceCount = 1,
-		
-		BuilderType = { 'T2' },
-
-        BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .85 } },
-            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 150, -9999, 60, 0, 'AntiSurface', 1 }},
-        },
-		
-        BuilderData = {
-		
-            Construction = {
-			
-				BuildClose = true,
-				LoopBuild = true,
-                
-                MaxRange = 150,
-
-				ThreatMax = 60,
-				ThreatRings = 0,
-                
-				ThreatType = 'AntiSurface',
-                BuildStructures = { 'T2Resource' }
-            }
-        }
-    },	
-	
-    Builder {BuilderName = 'Mass Extractor T2 - 750',
-	
-        PlatoonTemplate = 'EngineerBuilder',
-        
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-		
-		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
-		
-        Priority = 810,
-        
-        InstanceCount = 1,
-		
-		BuilderType = { 'T2','T3' },
-		
-        BuilderConditions = {
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            { LUTL, 'UnitCapCheckLess', { .85 } },
-            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 150, 750, -9999, 45, 0, 'AntiSurface', 1 }},
-        },
-		
-        BuilderData = {
-		
-            Construction = {
-				BuildClose = true,
-				LoopBuild = true,
-                
-                MinRange = 150,
-                MaxRange = 750,
-
-				ThreatMax = 45,
-				ThreatRings = 0,
-				ThreatType = 'AntiSurface',
-                
-                BuildStructures = { 'T2Resource' }
-            }
-        }
-    },
-
-
-    Builder {BuilderName = 'Mass Extractor T3 - 150',
-	
-        PlatoonTemplate = 'EngineerBuilder',
-        
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-		
-		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
-		
-        Priority = 850,
-        
-        InstanceCount = 1,
-		
-		BuilderType = { 'T3','SubCommander' },
-
-        BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .85 } },
-            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 150, -9999, 60, 0, 'AntiSurface', 1 }},
-        },
-		
-        BuilderData = {
-		
-            Construction = {
-			
-				BuildClose = false,
-				LoopBuild = true,
-                
-                MaxRange = 150,
-                
-				ThreatMax = 60,
-				ThreatRings = 0,
-				ThreatType = 'AntiSurface',
-                
-                BuildStructures = { 'T3Resource' }
-            }
-        }
-    },
 
 
     -- SACU build MassFab

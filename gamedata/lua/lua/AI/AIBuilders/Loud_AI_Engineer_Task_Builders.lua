@@ -191,13 +191,14 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
         BuilderType = { 'T1','T2','T3','SubCommander' },
 		
         BuilderConditions = {
-			{ EBC, 'LessThanEconMassStorageRatio', { 25 }},
-			{ EBC, 'ReclaimablesInAreaMass', { 'LocationType', }},
+			{ EBC, 'LessThanEconMassStorageRatio', { 50 }},
+			{ EBC, 'ReclaimablesInAreaMass', { 'LocationType', 180 }},
         },
 		
         BuilderData = {
-			ReclaimTime = 60,
+			ReclaimTime = 90,
 			ReclaimType = 'Mass',
+            ReclaimRange = 180,
         },
     },
 
@@ -213,7 +214,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 		
         Priority = 745,
 		
-        InstanceCount = 9,
+        InstanceCount = 6,
 		
         BuilderType = { 'T1','T2','T3','SubCommander' },
 
@@ -247,13 +248,16 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 		
         Priority = 745,
 		
-		InstanceCount = 4,
+		InstanceCount = 3,
 		
         BuilderConditions = {
-			{ EBC, 'LessThanEconMassStorageRatio', { 50 }},
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},            
-            
+
             { UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, categories.MASSPRODUCTION - categories.TECH1, categories.ENGINEER + categories.MASSPRODUCTION, 120 }},
+            
+			{ EBC, 'LessThanEconMassStorageRatio', { 50 }},
+            
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},            
+
         },
 		
         BuilderType = { 'T1','T2','T3','SubCommander' },
@@ -286,9 +290,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 		BuilderType = { 'T1','T2','T3','SubCommander' },
 		
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},		
             
             { UCBC, 'DamagedStructuresInArea', { 'LocationType', }},
+            
+			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},		
+
         },
 		
         BuilderData = { },
@@ -310,13 +316,16 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
         BuilderType = { 'T1','T2' },		
 
         BuilderConditions = {
+        
 			{ EBC, 'LessThanEconMassStorageRatio', { 50 }},
-			{ EBC, 'ReclaimablesInAreaMass', { 'LocationType', }},
+            
+			{ EBC, 'ReclaimablesInAreaMass', { 'LocationType', 140 }},
         },
 		
         BuilderData = {
 			ReclaimTime = 75,
 			ReclaimType = 'Mass',
+            ReclaimRange = 140,
         },
     },    
 
@@ -336,14 +345,17 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
         BuilderType = { 'T1','T2','T3' },
 
         BuilderConditions = {
-			{ MIBC, 'ReclaimablesInAreaEnergy', { 'LocationType', }},
             
 			{ EBC, 'LessEconEnergyStorageCurrent', { 5000 }},
+            
+			{ MIBC, 'ReclaimablesInAreaEnergy', { 'LocationType', 140 }},
+
         },
 		
         BuilderData = {
 			ReclaimTime = 75,
 			ReclaimType = 'Energy',
+            ReclaimRange = 140,
         },
     },
 
@@ -704,7 +716,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Transfers',
 			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
             
 			-- we do an eco check just to make sure we're not transferring just because we're in a eco lock
-			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
+			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }},
 			{ UCBC, 'BaseCount', { 1, '>' } }
         },
 		
@@ -767,12 +779,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Active DP',
 			--{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			
 			{ EBC, 'LessThanEconMassStorageRatio', { 50 }},			
-			{ EBC, 'ReclaimablesInAreaMass', { 'LocationType', 75 }},
+			{ EBC, 'ReclaimablesInAreaMass', { 'LocationType', 90 }},
         },
 		
         BuilderData = {
-			ReclaimTime = 90,
+			ReclaimTime = 75,
 			ReclaimType = 'Mass',
+            ReclaimRange = 90,
         },
     },	
 	

@@ -1112,7 +1112,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Defense Construction',
             { LUTL, 'UnitCapCheckLess', { .85 } },
 			{ UCBC, 'BuildingGreaterAtLocation', { 'LocationType', 0, categories.EXPERIMENTAL * categories.ECONOMIC}},
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 2, (categories.STRUCTURE * categories.SHIELD) }},
-			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
+			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }},
 			
         },
 		
@@ -1213,7 +1213,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Defense Construction - LOU
             { LUTL, 'UnitCapCheckLess', { .85 } },
 			{ UCBC, 'BuildingGreaterAtLocation', { 'LocationType', 0, categories.EXPERIMENTAL * categories.ECONOMIC}},
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 2, (categories.STRUCTURE * categories.SHIELD) }},
-			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }}, 
+			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }}, 
 			
         },
 		
@@ -1271,7 +1271,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Defense Construction - Sma
             { LUTL, 'UnitCapCheckLess', { .85 } },
 			{ UCBC, 'BuildingGreaterAtLocation', { 'LocationType', 0, categories.EXPERIMENTAL * categories.ECONOMIC}},
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 2, (categories.STRUCTURE * categories.SHIELD) }},
-			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
+			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }},
 			
         },
 		
@@ -1372,7 +1372,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Defense Construction - LOU
             { LUTL, 'UnitCapCheckLess', { .85 } },
 			{ UCBC, 'BuildingGreaterAtLocation', { 'LocationType', 0, categories.EXPERIMENTAL * categories.ECONOMIC}},
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 2, (categories.STRUCTURE * categories.SHIELD) }},
-			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }}, 
+			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }}, 
 			
         },
 		

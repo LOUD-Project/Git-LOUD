@@ -23,7 +23,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Radar Construction - Expansions',
             { LUTL, 'UnitCapCheckLess', { .85 } },
             { LUTL, 'UnitsLessAtLocation', { 'LocationType', 1, categories.STRUCTURE * categories.OVERLAYRADAR * categories.INTELLIGENCE }},
 			
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }},
         },
 		
         BuilderData = {
