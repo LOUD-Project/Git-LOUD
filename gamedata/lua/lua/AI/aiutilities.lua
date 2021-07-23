@@ -1057,6 +1057,7 @@ function SetupAICheat(aiBrain, biggestTeamSize)
     newbuff = table.deepcopy(Buffs['CheatIncome'])
     
     newbuff.Name = 'CheatIncome'..aiBrain.ArmyIndex
+    
 	newbuff.Affects.EnergyProduction.Mult = aiBrain.CheatValue
 	newbuff.Affects.MassProduction.Mult = aiBrain.CheatValue
     
@@ -1147,6 +1148,7 @@ function SetupAICheat(aiBrain, biggestTeamSize)
             Affects = newbuff.Affects,
         }
     end
+
     
 	-- overall cheat buff -- applied at 34% of the multiplier
 	-- alter unit health, shield health and regen rates

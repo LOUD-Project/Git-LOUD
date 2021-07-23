@@ -6300,9 +6300,7 @@ function SCUSelfEnhanceThread ( unit, faction, aiBrain )
                         end
 				
                     end
-				
-					--unit.AssigningTask = true
-            
+
 					IssueStop({unit})
 					IssueClearCommands({unit})
 			
@@ -6701,7 +6699,7 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 
 			-- if not losing too much mass and energy flow is positive -- and energy consumption of the upgraded item is less than our current energytrend
 			-- or we have the amount of mass and energy stored to build this item
-            -- OR must have 80% of the mass and 50% of the energy to build it
+            -- OR must have 84% of the mass and 65% of the energy to build it
             if ( econ.MassTrend >= MassTrendNeeded and econ.EnergyTrend >= EnergyTrendNeeded and econ.EnergyTrend >= EnergyMaintenance )
 				or ( MassStorage >= (MassNeeded * masslimit) and EnergyStorage > (EnergyNeeded * energylimit) )  then
 

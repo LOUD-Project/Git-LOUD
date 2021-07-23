@@ -3,6 +3,7 @@
 
 local CreateBuilder = import('/lua/sim/Builder.lua').CreateBuilder
 
+local LOUDCOPY = table.copy
 local LOUDGETN = table.getn
 local LOUDINSERT = table.insert
 local LOUDREMOVE = table.remove
@@ -64,11 +65,11 @@ BuilderManager = Class {
 
 		if self.BuilderData[bType] then
 
-			local oldtable = table.copy(self.BuilderData[bType].Builders)
+			local oldtable = LOUDCOPY(self.BuilderData[bType].Builders)
 
 			LOUDSORT(oldtable, function(a,b) return a.Priority > b.Priority end )
 
-			self.BuilderData[bType].Builders = table.copy(oldtable)
+			self.BuilderData[bType].Builders = LOUDCOPY(oldtable)
 
 			self.BuilderData[bType].NeedSort = false
 		end
@@ -135,7 +136,7 @@ BuilderManager = Class {
 						builder:SetPriority(priority, temporary)
 
 						if priority == 0 and not temporary then
-							table.remove( manager.BuilderData[k1].Builders, k2 )
+							LOUDREMOVE( manager.BuilderData[k1].Builders, k2 )
 						end
 					
 						manager.BuilderData[k1].NeedSort = true
@@ -352,18 +353,19 @@ BuilderManager = Class {
 	-- checks if the PFM builderlist needs to be resorted due to a priority change
 	
 	-- This thread is the core of the PFM -- cycles thru all the platoons as long as the manager is Active
-	
-	-- The loop time is controlled by the duration of the BrainConditionMonitor duration and if the base
-	-- is the PrimaryLandAttackBase or not
-	
+
 	-- essentially, as more conditions must be checked (more bases) we slow the rate of platoon checking
-	-- run all bases at 1/2 the rate of the Condition Monitor -- except primary runs at 1 to 1
+	-- run the MAIN and any kind of PRIMARY base at twice the speed of the BCM (for responsiveness and that's where the units are likely to be)
+    -- any other kind of base runs at half the speed (once every 2 BCM cycles)
+    -- anytime any base has NO POOL - nothing will be checked and we simply delay by the length of the BCM cycle
     
     -- One huge difference in the PFM is that unlike the EM and the FM - if two tasks have equal priority
     -- and they both pass their status checks, the PFM will form them in alphabetical order
+    
     ManagerThread = function(self, brain)
 
         local LOUDCEIL = math.ceil
+        local LOUDEQUAL = table.equal
 		local LOUDFLOOR = math.floor
         local LOUDGETN = table.getn
         local WaitTicks = coroutine.yield
@@ -413,13 +415,9 @@ BuilderManager = Class {
 
 	
         while self.Active do
-    
-            if ScenarioInfo.PriorityDialog then
-                LOG("*AI DEBUG "..brain.Nickname.." "..self.ManagerType.." "..self.LocationType.." Begins cycle at "..GetGameTimeSeconds().." seconds. BCM cycle is "..brain.ConditionsMonitor.ThreadWaitDuration )
-            end
-        
+     
             -- if this is not a naval base - see if mode should change from Amphibious to Land
-            if brain.AttackPlan.Goal and ( not self.LastGoalCheck or not table.equal(self.LastGoalCheck, brain.AttackPlan.Goal) ) and brain.BuilderManagers[self.LocationType].BaseType != 'Sea' then
+            if brain.AttackPlan.Goal and ( not self.LastGoalCheck or not LOUDEQUAL(self.LastGoalCheck, brain.AttackPlan.Goal) ) and brain.BuilderManagers[self.LocationType].BaseType != 'Sea' then
         
                 local path, reason, landpathlength, pathcost = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( brain, 'AttackPlanner', 'Land', brain.BuilderManagers[self.LocationType].Position, brain.AttackPlan.Goal, 999999, 160 )
                 
@@ -438,20 +436,20 @@ BuilderManager = Class {
                 end
                 
                 -- record the position of the the goal --
-                self.LastGoalCheck = table.copy(brain.AttackPlan.Goal)
+                self.LastGoalCheck = LOUDCOPY(brain.AttackPlan.Goal)
             end
 
 
 			-- The PFM is the only manager truly affected by this since factories and engineers seek their own jobs
-			-- Simply, the PFM at a Primary Base (or MAIN) runs at half the speed of the Conditions Monitor
-            -- other bases run at one/fifth the speed
+			-- Simply, the PFM at a Primary Base (or MAIN) runs at the same speed of the Conditions Monitor
+            -- other bases run at one/third the speed
 			if self.LocationType == 'MAIN' or brain.BuilderManagers[self.LocationType].PrimaryLandAttackBase or brain.BuilderManagers[self.LocationType].PrimarySeaAttackBase then
 			
-				self.BuilderCheckInterval = brain.ConditionsMonitor.ThreadWaitDuration
+				self.BuilderCheckInterval = brain.ConditionsMonitor.ThreadWaitDuration/2
                 
 			else
 			
-				self.BuilderCheckInterval = brain.ConditionsMonitor.ThreadWaitDuration * 3
+				self.BuilderCheckInterval = brain.ConditionsMonitor.ThreadWaitDuration * 2
                 
 			end
 
@@ -474,6 +472,10 @@ BuilderManager = Class {
             
             conditionscheckedcount = 0
             conditioncounttotal = 0
+    
+            if ScenarioInfo.PriorityDialog then
+                LOG("*AI DEBUG "..brain.Nickname.." "..self.ManagerType.." "..self.LocationType.." Begins cycle at "..GetGameTimeSeconds().." seconds. Cycle will be "..(duration/10).." - BCM cycle is "..(brain.ConditionsMonitor.ThreadWaitDuration/10) )
+            end
 			
             -- there must be units in the Pool or there will be nothing to form
 			if PoolGreaterAtLocation( brain, self.LocationType, 0, categories.ALLUNITS - categories.ENGINEER ) then
@@ -522,13 +524,13 @@ BuilderManager = Class {
                 --end
                 
 			else
-
-                --if ScenarioInfo.PriorityDialog then
-                  --  LOG("*AI DEBUG "..brain.Nickname.." "..self.ManagerType.." "..self.LocationType.." NO POOL UNITS" ) 
-                --end
                 
                 -- delay the next cycle by the length of the BCM cycle - with NO cheat multipliers
                 duration = brain.ConditionsMonitor.ThreadWaitDuration
+
+                if ScenarioInfo.PriorityDialog then
+                    LOG("*AI DEBUG "..brain.Nickname.." "..self.ManagerType.." "..self.LocationType.." NO POOL UNITS - delaying "..duration ) 
+                end
 
             end
 
@@ -551,38 +553,3 @@ BuilderManager = Class {
     end,
 	
 }
-
---[[
-    ClearBuilderLists = function(self)
-        for k,v in self.Builders do
-            v.Builders = {}
-            v.NeedSort = false
-        end
-        self.BuilderList = false
-    end,
-	
-	-- while this function will still return a result, it has no way of knowing if the builder
-	-- exists under multiple builder types (ie. - T1,T2,T3 engineers being the best example)
-	-- it will simply return the first one it encounters with the correct name -- nope - 
-	-- can't really use this anymore 
-    GetBuilder = function(self, builderName)
-	
-        for _,bType in self.BuilderData do
-		
-            for _,builder in bType.Builders do
-			
-                if builder.BuilderName == builderName then
-				
-                    return builder
-					
-                end
-				
-            end
-			
-        end
-		
-        return false
-		
-    end,
-	
---]]

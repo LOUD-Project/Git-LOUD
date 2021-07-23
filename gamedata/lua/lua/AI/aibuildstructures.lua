@@ -53,6 +53,7 @@ function AIExecuteBuildStructure( aiBrain, engineer, buildingType, closeToBuilde
 		-- Most certainly it won't be related to any threat check we do elsewhere in our code - as far as I can tell.
 		-- The biggest result - ENGINEERS GO WANDERING INTO HARMS WAY FREQUENTLY -- I'm going to try various values
 		-- I am now passing along the engineers ThreatMax from his platoon (if it's there)
+        
         --location = aiBrain:FindPlaceToBuild( buildingType, whatToBuild, baseTemplate, relative, engineer, 'Enemy', SourcePosition[1], SourcePosition[3], constructionData.ThreatMax or 7.5)	
     
         local AIUtils = '/lua/ai/aiutilities.lua'

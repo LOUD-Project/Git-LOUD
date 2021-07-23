@@ -1714,6 +1714,7 @@ Platoon = Class(moho.platoon_methods) {
 					self.MoveThread = self:ForkThread( self.MovePlatoon, path, UseFormation, false)
 				end
 			end
+            
 		else
 		
 			-- closer than 60 - move directly --
@@ -1722,10 +1723,10 @@ Platoon = Class(moho.platoon_methods) {
 				self.MoveThread = self:ForkThread( self.MovePlatoon, {transportLocation}, UseFormation, false )
 				
 			end
+            
 		end
 		
 		--LOG("*AI DEBUG "..aiBrain.Nickname.." RTB "..repr(self.BuilderName).." Moving to transportLocation - distance "..repr(math.sqrt(distance)))
-
 		
 		-- At this point the platoon is on its way back to base (or may be there)
 		local count = false
@@ -1956,8 +1957,6 @@ Platoon = Class(moho.platoon_methods) {
 					break
 				end
 			end
-
-			--nocmdactive = true	-- this will trigger the nocmdactive check on the next pass
 
 			WaitTicks(55)
         end
@@ -5955,9 +5954,7 @@ Platoon = Class(moho.platoon_methods) {
                 until allIdle or timeAlive >= reclaimtime
 				
             else
-			
-				--WaitTicks(10)
-				
+
 				return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 				
 			end
