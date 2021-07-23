@@ -224,7 +224,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
         BuilderType = 'Any',
 		
 		BuilderConditions = {
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.AIR * categories.SCOUT * categories.TECH3 }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.AIR * categories.SCOUT }},
 		},
 		
 		BuilderData = {},
@@ -257,7 +257,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
         BuilderType = 'Any',
 		
 		BuilderConditions = {
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 8, categories.AIR * categories.SCOUT * categories.TECH3 }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 8, categories.AIR * categories.SCOUT }},
 		},
 		
 		BuilderData = {},
@@ -1297,6 +1297,34 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         BuilderType = 'Any',
     },
 
+	-- this will forward Scouts to either primary land or sea attack base
+    Builder {BuilderName = 'Reinforce Primary - Scout Squadron',
+	
+        PlatoonTemplate = 'AirScoutGroup',
+        
+		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, },
+		
+        InstanceCount = 2,
+        
+        PlatoonAIPlan = 'ReinforceAirAI',
+        
+        Priority = 10,
+
+		PriorityFunction = NotPrimaryBase,
+        
+        RTBLocation = 'LocationType',
+		
+        BuilderConditions = {
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, categories.AIR * categories.SCOUT }},            
+        },
+		
+        BuilderData = {
+            LocationType = 'LocationType',
+        }, 
+		
+        BuilderType = 'Any',		
+    },
+	
 }
 
 
