@@ -1073,32 +1073,11 @@ function SetupAICheat(aiBrain, biggestTeamSize)
     end
 
 
-	-- intel range cheat -- increases intel ranges by the multiplier
-    newbuff = table.deepcopy(Buffs['CheatIntel'])
-    
-    newbuff.Name = 'CheatIntel'..aiBrain.ArmyIndex
-	newbuff.Affects.VisionRadius.Mult = aiBrain.CheatValue
-    newbuff.Affects.WaterVisionRadius.Mult = aiBrain.CheatValue    
-	newbuff.Affects.RadarRadius.Mult = aiBrain.CheatValue
-	newbuff.Affects.OmniRadius.Mult = aiBrain.CheatValue
-	newbuff.Affects.SonarRadius.Mult = aiBrain.CheatValue
-    
-    if not Buffs[newbuff.Name] then
-		
-        BuffBlueprint {
-            Name = newbuff.Name,
-            BuffType = newbuff.BuffType,
-            Stacks = newbuff.Stacks,
-            Duration = newbuff.Duration,
-            Affects = newbuff.Affects,
-        }
-    end
-
-
-    -- ACU intel range buff
+    -- ACU intel range buff - same as cheat bonus
     newbuff = table.deepcopy(Buffs['CheatCDROmni'])
     
     newbuff.Name = 'CheatCDROmni'..aiBrain.ArmyIndex
+    
 	newbuff.Affects.VisionRadius.Mult = aiBrain.CheatValue
     newbuff.Affects.WaterVisionRadius.Mult = aiBrain.CheatValue
 	newbuff.Affects.OmniRadius.Mult = aiBrain.CheatValue
@@ -1119,6 +1098,7 @@ function SetupAICheat(aiBrain, biggestTeamSize)
     newbuff = table.deepcopy(Buffs['CheatEnergyStorage'])
     
     newbuff.Name = 'CheatEnergyStorage'..aiBrain.ArmyIndex
+    
 	newbuff.Affects.EnergyStorage.Mult = math.max( aiBrain.CheatValue - 1, 0)
     
     if not Buffs[newbuff.Name] then
@@ -1136,7 +1116,35 @@ function SetupAICheat(aiBrain, biggestTeamSize)
     newbuff = table.deepcopy(Buffs['CheatMassStorage'])
     
     newbuff.Name = 'CheatMassStorage'..aiBrain.ArmyIndex
+    
 	newbuff.Affects.MassStorage.Mult = math.max( aiBrain.CheatValue - 1, 0)
+    
+    if not Buffs[newbuff.Name] then
+		
+        BuffBlueprint {
+            Name = newbuff.Name,
+            BuffType = newbuff.BuffType,
+            Stacks = newbuff.Stacks,
+            Duration = newbuff.Duration,
+            Affects = newbuff.Affects,
+        }
+    end
+
+	-- intel range cheat -- applied at 34% of the multiplier
+    -- affects vision, radar, sonar, omni
+    newbuff = table.deepcopy(Buffs['CheatIntel'])
+	
+	modifier = math.max( 0, aiBrain.CheatValue - 1.0 )
+	modifier = 0.34 * modifier
+	modifier = 1.0 + modifier
+    
+    newbuff.Name = 'CheatIntel'..aiBrain.ArmyIndex
+    
+	newbuff.Affects.VisionRadius.Mult = modifier
+    newbuff.Affects.WaterVisionRadius.Mult = modifier
+	newbuff.Affects.RadarRadius.Mult = modifier
+	newbuff.Affects.OmniRadius.Mult = modifier
+	newbuff.Affects.SonarRadius.Mult = modifier
     
     if not Buffs[newbuff.Name] then
 		
