@@ -74,6 +74,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction',
 		
         BuilderConditions = {
 			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
+            
+			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 1, categories.LAND }},            
         },
 		
         BuilderType = { 'Commander','T1','T2','T3','SubCommander' },
@@ -105,6 +107,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction',
 		
         BuilderConditions = {
 			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
+            
+			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 1, categories.AIR }},
         },
 		
         BuilderType = { 'Commander','T1','T2','T3','SubCommander' },
@@ -140,8 +144,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction',
 			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 2, categories.LAND * categories.TECH1 }},
             { UCBC, 'FactoryRatioGreaterOrEqualAtLocation', { 'LocationType', categories.AIR, categories.LAND } },
 			
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 6, 1.01, 1 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 7, 1.01, 1 }},
         },
 		
         BuilderType = { 'Commander','T1','T2','T3','SubCommander' },
@@ -178,8 +182,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction',
 			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 2, categories.AIR * categories.TECH1 }},
             { UCBC, 'FactoryRatioGreaterOrEqualAtLocation', { 'LocationType', categories.LAND, categories.AIR } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.6, 12, 1, 1.01 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 4000 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.6, 15, 1, 1.01 }},
         },
 		
         BuilderType = { 'Commander','T1','T2','T3','SubCommander' },
