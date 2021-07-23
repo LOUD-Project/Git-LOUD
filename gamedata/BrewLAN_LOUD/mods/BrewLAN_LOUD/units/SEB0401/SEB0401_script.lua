@@ -59,7 +59,7 @@ SEB0401 = Class(TLandFactoryUnit) {
     OnScriptBitSet = function(self, bit)
         TLandFactoryUnit.OnScriptBitSet(self, bit)
         if bit == 1 then
-            self.airmode = true
+            self.BLFactoryAirMode = true
             BuildModeChange(self)
         end
     end,
@@ -67,7 +67,7 @@ SEB0401 = Class(TLandFactoryUnit) {
     OnScriptBitClear = function(self, bit)
         TLandFactoryUnit.OnScriptBitClear(self, bit)
         if bit == 1 then
-            self.airmode = false
+            self.BLFactoryAirMode = false
             BuildModeChange(self)
         end
     end,

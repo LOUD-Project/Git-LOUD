@@ -37,7 +37,7 @@ SAB0401 = Class(AAirFactoryUnit) {
             bp.SizeSphere
         )
 
-        self.airmode = true
+        self.BLFactoryAirMode = true
 
         BuildModeChange(self)
     end,

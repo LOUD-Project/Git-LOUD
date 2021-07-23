@@ -65,26 +65,22 @@ function BuildModeChange(self, mode)
 	
     if aiBrain.BrainType == 'Human' then
 	
-        if self.airmode then
-		
+        if self.BLFactoryAirMode then
             self:AddBuildRestriction(categories.NAVAL)
             self:AddBuildRestriction(categories.MOBILESONAR)
             self:AddBuildRestriction(categories.LAND - categories.ENGINEER)
-			
+
         else
             if Layer == 'Land' then
-			
-                self:AddBuildRestriction(categories.NAVAL)
+                self:AddBuildRestriction(categories.NAVAL - categories.LAND)
                 self:AddBuildRestriction(categories.MOBILESONAR)
-				
+
             elseif Layer == 'Water' or Layer == 'Seabed' then
-			
-                self:AddBuildRestriction(categories.LAND - categories.ENGINEER)
-				
+                self:AddBuildRestriction(categories.LAND - categories.ENGINEER - categories.NAVAL)
             end
-			
+
             self:AddBuildRestriction(categories.AIR)
-			
+
         end
 		
     ------------------------------------------------------------------------
