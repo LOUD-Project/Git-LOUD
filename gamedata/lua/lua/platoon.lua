@@ -2687,7 +2687,7 @@ Platoon = Class(moho.platoon_methods) {
                      
                             if not Artillery and not Attack then
 
-                                IssueFormMove( self:GetSquadUnits('Guard'), targetposition, 'BlockFormation', direction)
+                                IssueFormMove( self:GetSquadUnits('Guard'), marker, 'BlockFormation', direction)
                                 
                             elseif Artillery then
                                 
@@ -2707,7 +2707,7 @@ Platoon = Class(moho.platoon_methods) {
 
                             if not Attack and not Artillery then
                             
-                                IssueFormAggressiveMove( self:GetSquadUnits('Support'), targetposition, 'BlockFormation', direction)
+                                IssueFormAggressiveMove( self:GetSquadUnits('Support'), marker, 'BlockFormation', direction)
                                 
                             elseif Attack then
                             
@@ -5813,6 +5813,7 @@ Platoon = Class(moho.platoon_methods) {
 
 		local reclaimtime = self.PlatoonData.ReclaimTime or 60
 		local reclaimtype = self.PlatoonData.ReclaimType or 'Mass'
+        local reclaimrange = self.PlatoonData.ReclaimRange or aiBrain.BuilderManagers[self.BuilderLocation].EngineerManager.Radius
 
         local timeAlive = 0
 		local stuckCount = 0
@@ -5829,7 +5830,7 @@ Platoon = Class(moho.platoon_methods) {
         while PlatoonExists(aiBrain,self) do
 		
 			-- this gives us all the reclaimables in a rectangle at -15 from base radius
-            local ents = AIGetReclaimablesAroundLocation( aiBrain, self.BuilderLocation )
+            local ents = AIGetReclaimablesAroundLocation( aiBrain, self.BuilderLocation, reclaimrange )
 			
             if not ents or LOUDGETN( ents ) < 1 then
 			
@@ -5936,13 +5937,13 @@ Platoon = Class(moho.platoon_methods) {
 						
 					end
 					
-					WaitTicks(5)
+					WaitTicks(6)
 					
 				end
 				
                 repeat
 				
-                    WaitTicks(8)
+                    WaitTicks(6)
                     timeAlive = timeAlive + .5
 					
 					if (not IsUnitState(eng,'Reclaiming')) and not IsUnitState(eng,'Moving') then
@@ -7221,15 +7222,14 @@ Platoon = Class(moho.platoon_methods) {
 			end
 
 			-- this is a bit different than the MovePlatoon function 
+            -- do a reclaim move towards goal
 			local function MoveEngineer( platoon, path )
 		
 				local prevpoint
 			
 				for wpidx, waypointPath in path do
-                
-                    --LOG("*AI DEBUG "..repr(platoon.BuilderName).." issues move to location "..repr(waypointPath))
 
-					platoon:MoveToLocation( waypointPath, false )
+					platoon:AggressiveMoveToLocation( waypointPath )
 	
 					prevpoint = LOUDCOPY(waypointPath)
 					
