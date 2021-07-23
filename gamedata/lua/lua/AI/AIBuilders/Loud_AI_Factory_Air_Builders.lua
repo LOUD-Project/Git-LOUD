@@ -94,7 +94,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
 	
         PlatoonTemplate = 'T1AirScout',
         
-        Priority = 605,
+        Priority = 600,
 
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},

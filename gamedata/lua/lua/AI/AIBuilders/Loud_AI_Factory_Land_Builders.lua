@@ -41,6 +41,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
 			
 			-- this is here to insure enough scouts for large combat platoons but to avoid flooding
             { UCBC, 'PoolLess', { 6, categories.LAND * categories.SCOUT }},
+            
 			-- and that we aren't already building some
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.SCOUT * categories.LAND, categories.LAND } },
 			
@@ -88,6 +89,9 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
 		PriorityFunction = First45Minutes,
 
         BuilderConditions = {
+            -- must have some Directfire in the Pool at this Location
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.LAND * categories.MOBILE * categories.DIRECTFIRE }},
+
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 8, categories.INDIRECTFIRE * categories.MOBILE }},
         },
 		
@@ -106,6 +110,9 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
             { LUTL, 'AirStrengthRatioLessThan', { 3 } },
             
             { UCBC, 'PoolLess', { 4, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
+            
+            -- must have some Directfire in the Pool at this location
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.LAND * categories.MOBILE * categories.DIRECTFIRE }},
             
             { UCBC, 'HaveLessThanUnitsWithCategory', { 1, categories.FACTORY * categories.LAND - categories.TECH1 }},
         },
@@ -131,6 +138,9 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
 		
 			-- only on 5k-20k maps
 			{ MIBC, 'MapLessThan', { 1028 } },
+            
+            -- must have some Directfire in the Pool at this location
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.LAND * categories.MOBILE * categories.DIRECTFIRE }},
 			
 			-- turn off as soon as we have a T2/T3 land factory
             { UCBC, 'HaveLessThanUnitsWithCategory', { 1, categories.FACTORY * categories.LAND - categories.TECH1 }},
@@ -161,7 +171,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
 			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 2, categories.LAND * categories.TECH3 }},
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.SHIELD, categories.LAND }},
             
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},            
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }},            
         },
 		
         BuilderType = {'LandT2'},
@@ -184,7 +194,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
 			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 2, categories.LAND * categories.TECH3 }},
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.SHIELD, categories.LAND }},
 			
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }},
         },
 		
         BuilderType = {'LandT2'},
@@ -207,7 +217,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
 			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 2, categories.LAND * categories.TECH3 }},
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE }},
 
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},			
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }},			
         },
 		
         BuilderType = {'LandT2'},
@@ -232,7 +242,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
             
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.LAND * categories.MOBILE * categories.SHIELD, categories.LAND }},
 
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},			
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }},			
         },
 		
         BuilderType = {'LandT3'},
@@ -254,7 +264,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
             
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.LAND * categories.MOBILE * categories.SHIELD, categories.LAND }},
 
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},			
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }},			
         },
 		
         BuilderType = {'LandT3'},
@@ -276,7 +286,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
             
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE }},
 
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }},
         },
 		
         BuilderType = {'LandT3'},
@@ -298,7 +308,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
             
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.LAND * categories.MOBILE * categories.SHIELD, categories.LAND }},
 
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},			
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }},			
         },
 		
         BuilderType = {'LandT3'},
