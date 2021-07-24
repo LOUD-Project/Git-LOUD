@@ -1,3 +1,21 @@
+### Release 23-07-2021 ###
+Lua 5.4.25
+
+- AI: Reduced the size of basic early guard formations.
+- AI: Don't build support units for platoons which aren't receiving direct fire units. 
+- AI: Slight increases to the economic requirements for units to start receiving upgrades.
+- AI: Allow forward bases to be reinforced with fresh air scouts.
+- AI: Improved ACU behaviour:
+ |--> Don't start a second Energy project if one is underway, unless there are already 6 or more Tech 3 power generators built at its location.
+ |--> Only assist Mass projects if there is sufficient Energy, and Mass storage is less than 50 percent.
+ |--> Storage requirements for adding a new factory have been lowered.
+- AI: Improve coverage of Mass points in the late game.
+- AI: Slight increase in Energy requirement triggers for building certain artillery and Experimental units.
+- AI: Generally increase economic requirements (trend and efficiency) for most defense projects.
+- AI: Fix accumulation of unused Tech 1 & 2 air scouts during the late game.
+- AI: Fix some platoons receiving incorrect destinations for move orders.
+- Fix AI intel cheats applying at 3 times the intended rate.
+
 ### Release 16-07-2021 ###
 Lua 5.4.23
 Total Mayhem 6.1.3
