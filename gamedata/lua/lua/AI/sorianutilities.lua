@@ -185,6 +185,23 @@ function FinishAIChat(data)
 			AISendChat('allies', aiBrain.Nickname, 'Ok. I\'ll stop showing the plan')
 			
 		end
+        
+    elseif data.CurrentBases then
+    
+        if not aiBrain.DisplayBaseMonitors then
+        
+            aiBrain.DisplayBaseMonitors = true
+            aiBrain.DisplayBaseNames = true
+            
+            AISendChat('allies', aiBrain.Nickname, 'Ok. I\'ll start showing my base radii')
+            
+        else
+            aiBrain.DisplayBaseMonitors = false
+            aiBrain.DisplayBaseNames = false
+            
+            AISendChat('allies', aiBrain.Nickname, 'Ok. No longer showing base monitor radii')
+            
+        end
 
 	elseif data.CurrentStatus then
 	
@@ -278,7 +295,7 @@ function FinishAIChat(data)
 			
 		else
 		
-			AISendChat(data.ToArmy, aiBrain.Nickname, 'Available Commands: target <enemy or at will>, current <focus, plan or status>, give me an engineer.')
+			AISendChat(data.ToArmy, aiBrain.Nickname, 'Available Commands: target <enemy or at will>, current <bases, focus, plan or status>, give me an engineer.')
 			
 		end
 	
@@ -300,6 +317,7 @@ end
 --   Returns:  
 --       nil
 -------------------------------------------------------
+--[[
 function AIHandlePing(aiBrain, pingData)
 
 	if pingData.Type == 'move' then
@@ -333,7 +351,7 @@ function AIHandlePing(aiBrain, pingData)
 	end
 	
 end
-
+--]]
 
 
 

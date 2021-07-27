@@ -2874,7 +2874,7 @@ function DeadBaseMonitor( aiBrain )
 					aiBrain.NumBases = aiBrain.NumBases - 1
 
 					-- remove the visible marker from the map
-					if ScenarioInfo.DisplayBaseNames then
+					if ScenarioInfo.DisplayBaseNames or aiBrain.DisplayBaseNames or aiBrain.BuilderManagers[k].MarkerID then
 						ForkThread( RemoveBaseMarker, aiBrain, k, aiBrain.BuilderManagers[k].MarkerID)
 					end
 

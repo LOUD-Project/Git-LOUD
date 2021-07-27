@@ -192,6 +192,8 @@ EngineerManager = Class(BuilderManager) {
 
 	-- This is the primary function that assigns jobs to an engineer
     AssignEngineerTask = function( self, unit, aiBrain )
+    
+        --LOG("*AI DEBUG AIBrain Data is "..repr(aiBrain))
 
 		if unit.Dead or unit.AssigningTask or BeenDestroyed(unit) then
 			return
@@ -744,7 +746,7 @@ EngineerManager = Class(BuilderManager) {
 				color = '00ff00'        -- green --
 			end
 
-			if GetFocusArmy() == -1 or (aiBrain.ArmyIndex == GetFocusArmy()) then
+			if GetFocusArmy() == -1 or (aiBrain.ArmyIndex == GetFocusArmy()) or IsAlly(GetFocusArmy(), aiBrain.ArmyIndex) then
 
 				for j = 1, 3 do
 			
@@ -848,7 +850,7 @@ EngineerManager = Class(BuilderManager) {
 						highThreatPos = false
 						highThreatType = false
 
-						if ScenarioInfo.DisplayBaseMonitors then
+						if ScenarioInfo.DisplayBaseMonitors or aiBrain.DisplayBaseMonitors then
 							ForkThread( DrawBaseMonitorRadius, (AlertRadius + alertrangemod) )
 						end
 	
@@ -954,11 +956,19 @@ EngineerManager = Class(BuilderManager) {
 		
 			if self.Active then
 		
-				if ScenarioInfo.DisplayBaseNames then
+				if ScenarioInfo.DisplayBaseNames or aiBrain.DisplayBaseNames then
+                
 					if not aiBrain.BuilderManagers[self.LocationType].MarkerID then
 						ForkThread( SetBaseMarker )
 					end
-				end
+                    
+				else
+                
+                    if aiBrain.BuilderManagers[self.LocationType].MarkerID then
+   						ForkThread( import('/lua/loudutilities.lua').RemoveBaseMarker, aiBrain, self.LocationType, aiBrain.BuilderManagers[self.LocationType].MarkerID)
+                    end
+                    
+                end
 		
 				ForkThread( BaseMonitorThreatCheck )
 			end

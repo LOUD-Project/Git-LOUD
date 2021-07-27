@@ -114,8 +114,9 @@ end
 --		-- target X			-- makes the AI select that player as his enemy 
 --		-- focus
 --		-- give me an engineer	-- The AI will donate an available engineer - if he has any
+--      -- current bases    -- The AI will begin drawing a range circle around his base positions which describes his control area for that base
 --		-- current focus	-- The AI will reply with who his current enemy is
---		-- current plan		-- The AI will begin drawing his current plan on the map
+--		-- current plan		-- The AI will begin drawing his current attack plan on the map
 --		-- current status	-- The AI will begin reporting his current military ratio evaluations
 
 function ProcessAIChat(to, from, text)
@@ -156,6 +157,9 @@ function ProcessAIChat(to, from, text)
 					local focus = trim(string.lower(aftertext))
 					SimCallback({Func = 'AIChat', Args = {Army = i, NewFocus = focus}})
 					
+				elseif string.lower(testtext) == 'current' and aftertext == 'bases' then
+					SimCallback({Func = 'AIChat', Args = {Army = i, CurrentBases = true}})
+					
 				elseif string.lower(testtext) == 'current' and aftertext == 'focus' then
 					SimCallback({Func = 'AIChat', Args = {Army = i, CurrentFocus = true}})
 					
@@ -174,7 +178,9 @@ function ProcessAIChat(to, from, text)
 				end
 			end
 		end
+        
 	elseif to == 'all' then
+    
 		for i, v in armies.armiesTable do
 			-- Sending one of the tokens below to all chat broadcasts a request
 			-- for the AI to reply with its current cheat multiplier
