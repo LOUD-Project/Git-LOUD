@@ -51,6 +51,7 @@ UnitBlueprint {
         --For some reason, the AIR category is required to set up a ferry point.
         --However, this is not an acceptable cost, most AA will shoot it.
         'LAND',
+        'AMPHIBIOUS',
         'EXPERIMENTAL',
         'TRANSPORTATION',
         'CANTRANSPORTCOMMANDER',

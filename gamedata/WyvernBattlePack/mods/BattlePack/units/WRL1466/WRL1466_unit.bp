@@ -61,6 +61,7 @@ UnitBlueprint {
         'CYBRAN',
         'MOBILE',
         'LAND',
+        'AMPHIBIOUS',
         'EXPERIMENTAL',
         'DIRECTFIRE',
         'NEEDMOBILEBUILD',

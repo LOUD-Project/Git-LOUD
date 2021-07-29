@@ -59,6 +59,7 @@ UnitBlueprint {
         'AEON',
         'MOBILE',
         'LAND',
+        'AMPHIBIOUS',
         'DIRECTFIRE',
         'EXPERIMENTAL',
         'NEEDMOBILEBUILD',

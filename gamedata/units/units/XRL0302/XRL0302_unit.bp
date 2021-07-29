@@ -31,6 +31,7 @@ UnitBlueprint {
         'CYBRAN',
         'MOBILE',
         'LAND',
+        'AMPHIBIOUS',
         'TECH2',
         'DIRECTFIRE',
         'VISIBLETORECON',

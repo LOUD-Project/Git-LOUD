@@ -2067,6 +2067,14 @@ Tooltips = {
         title = "No Land",
         description = "Players will not be able to build Land structures or units.",
     },
+    restricted_units_amphib = {
+        title = "No Amphibious",
+        description = "Players will not be able to build Amphibious units (but will still be able to build Engineers, Support Armored Command Units, and Aquatic structures).",
+    },
+    restricted_units_hover = {
+        title = "No Hover",
+        description = "Players will not be able to build hovering units.",
+    },
     restricted_units_air_scouts = {
         title = "No Air Scouts",
         description = "Players will not be able to build decoy, recon, scout or spy planes.",

@@ -39,6 +39,18 @@ GPGrestrictedUnits = {
         name = "<LOC restricted_units_data_0005>No Land",
         tooltip = "restricted_units_land",
     },
+
+    AMPHIB = {
+        categories = {"AMPHIBIOUS"},
+        name = "<LOC restricted_units_data_0006>No Amphibious",
+        tooltip = "restricted_units_amphib",
+    },
+
+    HOVER = {
+        categories = {"HOVER"},
+        name = "<LOC restricted_units_data_0007>No Hover",
+        tooltip = "restricted_units_hover",
+    },
 	
     AIRSCOUTS = {
         categories = {"saa0201", "sea0201", "sea0310", "sra0201", "ssa0201", "uaa0101", "uaa0302", "uea0101", "uea0302", "ura0101", "ura0302", "xsa0101", "xsa0302"},
@@ -159,6 +171,8 @@ GPGsortOrder = {
     "EXPERIMENTAL",
     "NAVAL",
     "LAND",
+    "AMPHIB",
+    "HOVER",
 	"AIRSCOUTS",
 	"AIRFIGHTERS",
 	"AIRBOMBERS",

@@ -86,6 +86,7 @@ UnitBlueprint {
         'UEF',
         'MOBILE',
         'LAND',
+        'AMPHIBIOUS',
         'EXPERIMENTAL',
 		'INDIRECTFIRE',
         'FACTORY',

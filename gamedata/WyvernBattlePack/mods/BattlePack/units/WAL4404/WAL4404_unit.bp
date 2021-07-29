@@ -45,6 +45,7 @@ UnitBlueprint {
         'AEON',
         'MOBILE',
         'LAND',
+        'AMPHIBIOUS',
         'EXPERIMENTAL',
         'DIRECTFIRE',
         'VISIBLETORECON',

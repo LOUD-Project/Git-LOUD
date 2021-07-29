@@ -69,6 +69,7 @@ UnitBlueprint {
         'UEF',
         'MOBILE',
         'LAND',
+        'AMPHIBIOUS',
         'EXPERIMENTAL',
         'DIRECTFIRE',
         'NEEDMOBILEBUILD',

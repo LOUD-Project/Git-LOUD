@@ -76,6 +76,7 @@ UnitBlueprint {
         'SERAPHIM',
         'MOBILE',
         'LAND',
+        'AMPHIBIOUS',
         'DIRECTFIRE',
         'EXPERIMENTAL',
         'SNIPER',

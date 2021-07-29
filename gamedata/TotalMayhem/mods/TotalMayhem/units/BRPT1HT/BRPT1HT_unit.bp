@@ -47,6 +47,7 @@ UnitBlueprint {
         'MOBILE',
         'LAND',
         'TECH1',
+        'AMPHIBIOUS',
         'HOVER',
         'DIRECTFIRE',
         'VISIBLETORECON',

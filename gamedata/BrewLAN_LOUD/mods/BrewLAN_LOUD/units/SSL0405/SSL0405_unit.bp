@@ -33,6 +33,7 @@ UnitBlueprint {
         'SERAPHIM',
         'MOBILE',
         'LAND',
+        'AMPHIBIOUS',
         'NAVAL',
         'DIRECTFIRE',
         'EXPERIMENTAL',

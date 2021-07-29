@@ -80,6 +80,7 @@ UnitBlueprint {
         'UEF',
         'MOBILE',
         'LAND',
+        'AMPHIBIOUS',
         'EXPERIMENTAL',
         'DIRECTFIRE',
         'VISIBLETORECON',
