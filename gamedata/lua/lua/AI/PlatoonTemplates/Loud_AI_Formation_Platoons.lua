@@ -135,7 +135,6 @@ PlatoonTemplate { Name = 'Air Scout Group Huge',
 
 
 PlatoonTemplate { Name = 'TorpedoReinforce',
-	Plan = 'ReinforceAirNavalAI',	-- specifically naval bases
 	GlobalSquads = {
 		{ (categories.HIGHALTAIR * categories.ANTINAVY) - categories.EXPERIMENTAL, 3, 48, 'Attack', 'AttackFormation' },
   		{ (categories.AIR * categories.SCOUT), 0, 4, 'Support', 'none' },

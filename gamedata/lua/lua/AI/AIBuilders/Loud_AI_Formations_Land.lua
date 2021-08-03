@@ -1600,7 +1600,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         
         PlatoonAIPlan = 'GuardPoint',
         
-        Priority = 801,
+        Priority = 802,
 		
 		RTBLocation = 'Any',
 		
@@ -1683,7 +1683,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 
         PlatoonAIPlan = 'GuardPoint',
 		
-        Priority = 801,
+        Priority = 802,
 		
 		RTBLocation = 'Any',
 		
