@@ -153,7 +153,7 @@ GPGrestrictedUnits = {
 		name = "<LOC restricted_units_data_0031>T3 Alternative Air Production",
 		tooltip = "restricted_units_altair",
     },
-		
+
 -- this is a bizarre and silly restriction as the game can't really function without them in any real sense --
 --[[	
     NOENGINEERS = {

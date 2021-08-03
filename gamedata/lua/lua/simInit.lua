@@ -171,6 +171,7 @@ function BeginSession()
         for index, restriction in ScenarioInfo.Options.RestrictedCategories do
 		
             local restrictedCategories = nil
+            
 			
 			LOG("*AI DEBUG Here is the restricted data "..repr(restrictedUnits[restriction].categories))
 			

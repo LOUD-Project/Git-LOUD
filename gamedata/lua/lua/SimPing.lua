@@ -127,7 +127,9 @@ function SpawnPing(data)
 		if AvailableMarker then
 			return AvailableMarker
 		end
-	end
+	else
+        LOG("*AI DEBUG Ping Markers was locked")
+    end
 end
 
 -- this should give us the first available ID# for this owners pingmarker table
