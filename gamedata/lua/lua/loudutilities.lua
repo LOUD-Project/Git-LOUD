@@ -192,6 +192,50 @@ function FindClosestBaseName( aiBrain, position, allownavalbases, onlynavalbases
     return closest
 end
 
+
+function GetBaseWithGreatestThreatAtDistance( aiBrain, threattype, threatcutoff, distance )
+
+    local bestname = false
+    local threatamount = 0
+    local bestthreat = threatcutoff or 10
+    
+    local ringcheck = math.floor(distance/ScenarioInfo.IMAPSize)
+
+    for _, base in aiBrain.BuilderManagers do
+    
+        --LOG("*AI DEBUG Base is "..repr(base.BaseName))
+
+        if base.PlatoonFormManager.Active then
+
+            local threatTable = aiBrain:GetThreatsAroundPosition( base.Position, ringcheck, true, threattype)
+            
+            for _,v in threatTable do
+            
+                if v[3] > threatcutoff then
+                
+                    threatamount = threatamount + v[3]
+                    
+                end
+           
+            end
+            
+            if threatamount > bestthreat then
+            
+                bestname = base.BaseName
+                bestthreat = threatamount
+                
+            end
+
+        end
+        
+    end
+    
+    LOG("*AI DEBUG "..aiBrain.Nickname.." GetBaseWithGreatestThreatAtDistance returns "..repr(bestname).." with "..bestthreat.." rings is "..ringcheck)
+    
+    return bestname, bestthreat
+    
+end
+
 -- Sorts the list of scouting areas by time since scouted, and then distance from main base.
 function AISortScoutingAreas( aiBrain, list )
 

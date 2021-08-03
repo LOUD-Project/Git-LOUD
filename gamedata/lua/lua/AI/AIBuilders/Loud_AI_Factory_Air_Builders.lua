@@ -290,8 +290,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Torpedo Bombers',
 			-- dont start production until you have at least 2+ T2/T3 factories at location
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},
 
-            -- one of the few places where I use a ratio to control the number of units
-			{ UCBC, 'HaveLessThanUnitsAsPercentageOfUnitCap', { 9, categories.ANTINAVY * categories.AIR }},
+            -- one of the few places where I use a % ratio to control the number of units
+			{ UCBC, 'HaveLessThanUnitsAsPercentageOfUnitCap', { 5, categories.ANTINAVY * categories.AIR }},
         },
 		
         BuilderType =  {'AirT2','SeaT2'},
@@ -310,7 +310,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Torpedo Bombers',
 			-- dont produce unless you have 3+ T3 Air factories overall
 			{ LUTL, 'HaveGreaterThanUnitsWithCategory', { 2, categories.FACTORY * categories.AIR * categories.TECH3 }},
 
-			{ UCBC, 'HaveLessThanUnitsAsPercentageOfUnitCap', { 9, categories.ANTINAVY * categories.AIR }},
+			{ UCBC, 'HaveLessThanUnitsAsPercentageOfUnitCap', { 5, categories.ANTINAVY * categories.AIR }},
         },
 		
         BuilderType =  {'AirT3','SeaT3'},
@@ -332,6 +332,9 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Torpedo Bombers',
 			
 			-- dont start production until you have at least 3+ T2/T3 factories at location
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},
+
+            -- one of the few places where I use a % ratio to control the number of units
+			{ UCBC, 'HaveLessThanUnitsAsPercentageOfUnitCap', { 5, categories.ANTINAVY * categories.AIR }},            
         },
 		
         BuilderType =  {'AirT2','SeaT2'},
@@ -352,6 +355,9 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Torpedo Bombers',
 			
 			-- dont produce unless you have 3+ T3 Air factories overall
 			{ LUTL, 'HaveGreaterThanUnitsWithCategory', { 2, categories.FACTORY * categories.AIR * categories.TECH3 }},
+
+            -- one of the few places where I use a % ratio to control the number of units
+			{ UCBC, 'HaveLessThanUnitsAsPercentageOfUnitCap', { 5, categories.ANTINAVY * categories.AIR }},            
         },
 		
         BuilderType =  {'AirT3','SeaT3'},

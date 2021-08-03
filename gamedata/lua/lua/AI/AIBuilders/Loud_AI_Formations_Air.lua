@@ -1300,7 +1300,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 	-- this will forward Scouts to either primary land or sea attack base
     Builder {BuilderName = 'Reinforce Primary - Scout Squadron',
 	
-        PlatoonTemplate = 'AirScoutGroup',
+        PlatoonTemplate = 'Air Scout Group',
         
 		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, },
 		
@@ -1772,7 +1772,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 			
             MergeLimit = 12,
 			
-            MissionTime = 100,
+            MissionTime = 75,
 			
             PrioritizedCategories = {categories.SUBMARINE, categories.MOBILE * categories.NAVAL, categories.MOBILE},
 			
@@ -1814,7 +1814,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 			
             MergeLimit = 28,
 			
-            MissionTime = 150,
+            MissionTime = 120,
 			
             PrioritizedCategories = { categories.CRUISER, categories.SUBMARINE, categories.MOBILE * categories.NAVAL, categories.MOBILE, categories.STRUCTURE},
 			
@@ -1868,49 +1868,6 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
         BuilderType = 'Any',
     },
 
-	-- ALL these torpedo bomber groups are very specifically targeted and only come into play when the selected targets are available
-	-- this first one hunts nukes and antinukes - but will go after mobile experimentals as well
-    -- this is turned off since the build conditions can't identify if it's in the water or not
---[[
-    Builder {BuilderName = 'Hunt Torps - Nuke Antinuke',
-	
-        PlatoonTemplate = 'TorpedoBomberAttack',
-		
-		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'} },
-		
-		PlatoonAIPlan = 'AttackForceAI',		
-		
-        Priority = 0,
-		
-		-- this will only form at primary bases
-		PriorityFunction = IsPrimaryBase,
-
-        InstanceCount = 1,
-		
-        BuilderType = 'Any',
-		
-        BuilderConditions = {
-            { LUTL, 'AirStrengthRatioGreaterThan', { 1.2 } },
-			{ LUTL, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, categories.NUKE + categories.ANTIMISSILE - categories.TECH2, 'Enemy' }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 23, categories.HIGHALTAIR * categories.ANTINAVY } },			
-        },
-		
-        BuilderData = {
-			LocationType = 'LocationType',
-            
-            MergeLimit = false,
-            
-            MissionTime = 300,
-            
-            PrioritizedCategories = {categories.NUKE + categories.ANTIMISSILE - categories.TECH2, categories.EXPERIMENTAL * categories.MOBILE - categories.AIR},
-            
-			SearchRadius = 500,
-            
-            UseFormation = 'AttackFormation',
-        },
-    },
---]]	
-
 	-- this one goes after sonar
     Builder {BuilderName = 'Hunt Torps - Sonar',
 	
@@ -1951,9 +1908,82 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
         },
     },
 
+
+    Builder {BuilderName = 'Reinforce Primary - Torpedo Squadron',
+	
+        PlatoonTemplate = 'TorpedoReinforce',
+		
+		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, },
+		
+		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
+        
+        PlatoonAIPlan = 'ReinforceAirNavalAI',
+        
+        InstanceCount = 3,
+	
+        Priority = 10,
+		
+		-- this function turns the builder on at any base that is NOT the primary naval base
+		PriorityFunction = NotPrimarySeaBase,
+
+        BuilderConditions = {
+            { LUTL, 'NoBaseAlert', { 'LocationType' }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.HIGHALTAIR * categories.ANTINAVY } },
+        },
+		
+        BuilderData = {
+            LocationType = 'LocationType',
+        },
+		
+        BuilderType = 'Any',
+    }, 	
+    
+--[[
+	-- ALL these torpedo bomber groups are very specifically targeted and only come into play when the selected targets are available
+	-- this first one hunts nukes and antinukes - but will go after mobile experimentals as well
+    -- this is turned off since the build conditions can't identify if it's in the water or not
+
+    Builder {BuilderName = 'Hunt Torps - Nuke Antinuke',
+	
+        PlatoonTemplate = 'TorpedoBomberAttack',
+		
+		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'} },
+		
+		PlatoonAIPlan = 'AttackForceAI',		
+		
+        Priority = 0,
+		
+		-- this will only form at primary bases
+		PriorityFunction = IsPrimaryBase,
+
+        InstanceCount = 1,
+		
+        BuilderType = 'Any',
+		
+        BuilderConditions = {
+            { LUTL, 'AirStrengthRatioGreaterThan', { 1.2 } },
+			{ LUTL, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, categories.NUKE + categories.ANTIMISSILE - categories.TECH2, 'Enemy' }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 23, categories.HIGHALTAIR * categories.ANTINAVY } },			
+        },
+		
+        BuilderData = {
+			LocationType = 'LocationType',
+            
+            MergeLimit = false,
+            
+            MissionTime = 300,
+            
+            PrioritizedCategories = {categories.NUKE + categories.ANTIMISSILE - categories.TECH2, categories.EXPERIMENTAL * categories.MOBILE - categories.AIR},
+            
+			SearchRadius = 500,
+            
+            UseFormation = 'AttackFormation',
+        },
+    },
+
 	-- self explanatory - goes after Economic experimentals - but also massfabrication
     -- again - turned off - conditions can't identify if it's in the water or not
---[[
+
     Builder {BuilderName = 'Hunt Torps - Economic Experimental',
 	
         PlatoonTemplate = 'TorpedoBomberAttack',
@@ -1992,34 +2022,6 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
         },
     },
 --]]    
-
-    Builder {BuilderName = 'Reinforce Primary - Torpedo Squadron',
-	
-        PlatoonTemplate = 'TorpedoReinforce',
-		
-		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, },
-		
-		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
-        
-        InstanceCount = 3,
-	
-        Priority = 10,
-		
-		-- this function turns the builder on at any base that is NOT the primary naval base
-		PriorityFunction = NotPrimarySeaBase,
-
-        BuilderConditions = {
-            { LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.HIGHALTAIR * categories.ANTINAVY } },
-        },
-		
-        BuilderData = {
-            LocationType = 'LocationType',
-        },
-		
-        BuilderType = 'Any',
-    }, 	
-    
 
     -- Naval Flotilla Air Groups -- Large Support Groups
     Builder {BuilderName = 'Naval Fighter Squadron',

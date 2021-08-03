@@ -9100,7 +9100,7 @@ Platoon = Class(moho.platoon_methods) {
 		
         local aiBrain = GetBrain(self)
 		
-        local AttackBase1 = false
+        local AttackBase1 = import('/lua/loudutilities.lua').GetBaseWithGreatestThreatAtDistance( aiBrain, 'NAVAL', 5, 350 )
 		local AttackBase2 = import('/lua/loudutilities.lua').GetPrimarySeaAttackBase(aiBrain) -- may return a false
 		
 		local selections = {}
@@ -9138,7 +9138,7 @@ Platoon = Class(moho.platoon_methods) {
         
 			if AttackBase and AttackBase != self.BuilderLocation then
 			
-				--LOG("*AI DEBUG "..aiBrain.Nickname.." REINFORCE_AIR_NAVAL "..repr(self.BuilderName).." reinforcing "..repr(AttackBase).." from "..repr(self.RTBLocation))
+				LOG("*AI DEBUG "..aiBrain.Nickname.." REINFORCE_AIR_NAVAL "..repr(self.BuilderName).." reinforcing "..repr(AttackBase).." from "..repr(self.RTBLocation).." Primary is "..repr(AttackBase2) )
 		
 				self.RTBLocation = AttackBase
 			
