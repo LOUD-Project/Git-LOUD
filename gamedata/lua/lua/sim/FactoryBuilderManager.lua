@@ -567,7 +567,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 		
 		if not factory.Dead then
 		
-			if table.getn(factory:GetCommandQueue()) <= 1 then
+			if LOUDGETN(factory:GetCommandQueue()) <= 1 then
 		
 				factory.addplan = false
 				factory.addbehavior = false
@@ -816,7 +816,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 			
 			units = GetOwnUnitsAroundPoint( aiBrain, category, rallypoint, 16)
 			
-			if table.getn(units) > 10 then
+			if LOUDGETN(units) > 10 then
 			
 				local unitlist = {}
 				
@@ -824,13 +824,11 @@ FactoryBuilderManager = Class(BuilderManager) {
 				
 					if (unit.PlatoonHandle == aiBrain.ArmyPool) and unit:IsIdleState() then
 
-						table.insert( unitlist, unit )
+						LOUDINSERT( unitlist, unit )
 					end
 				end
 				
-				if table.getn(unitlist) > 10 then
-				
-					--LOG("*AI DEBUG "..aiBrain.Nickname.." TraffMgt of "..table.getn(unitlist).." at "..repr(rallypoint))
+				if LOUDGETN(unitlist) > 10 then
 
 					IssueClearCommands( unitlist )
 

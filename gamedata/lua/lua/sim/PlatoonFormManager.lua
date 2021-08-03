@@ -84,6 +84,11 @@ PlatoonFormManager = Class(BuilderManager) {
                 end
             end
             
+            if not resolvedtemplate then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." failed to resolve template for "..repr(templateName))
+                return false
+            end
+            
             -- apply the AI Multiplier to the maximum of each squad
             for k,v in resolvedtemplate do
             

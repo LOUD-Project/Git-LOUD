@@ -2804,10 +2804,12 @@ function DeadBaseMonitor( aiBrain )
 	local grouplnd, grouplndcount, counter
 	local groupair, groupaircount
 	local groupsea, groupseacount
+    
+    local BM = aiBrain.BuilderManagers
 
 	while true do
 
-		for k,v in aiBrain.BuilderManagers do
+		for k,v in BM do
 			
 			changed = false
 			structurecount = 0
@@ -2826,30 +2828,34 @@ function DeadBaseMonitor( aiBrain )
 
 			end
             
+            local EM = v.EngineerManager
+            local FM = v.FactoryManager
+            local PFM = v.PlatoonFormManager
+            
             if ScenarioInfo.DeadBaseMonitorDialog then
             
-                if v.EngineerManager.BMDistressResponseThread then
+                if EM.BMDistressResponseThread then
                     LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(v.BaseName).." DBM - active base distress response")
                     continue
                 end
             end
 
 			-- if a base has no factories
-			if (v.CountedBase and v.FactoryManager:GetNumCategoryFactories(categories.FACTORY) <= 0) or
+			if (v.CountedBase and FM:GetNumCategoryFactories(categories.FACTORY) <= 0) or
 				(not v.CountedBase and structurecount < 1) then
                 
                 -- if the base has no engineers - increase the no factory count
-                if v.EngineerManager:GetNumCategoryUnits(categories.ALLUNITS) <= 0 then 
+                if EM:GetNumCategoryUnits(categories.ALLUNITS) <= 0 then 
                 
                     if ScenarioInfo.DeadBaseMonitorDialog then
                         LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(v.BaseName).." DBM - no factories or Engineers "..repr(aiBrain.BuilderManagers[k].nofactorycount + 1))
                     end
                     
-                    aiBrain.BuilderManagers[k].nofactorycount = aiBrain.BuilderManagers[k].nofactorycount + 1
+                    BM[k].nofactorycount = BM[k].nofactorycount + 1
                 end
 
 				-- if base has no engineers AND has had no factories for about 250 seconds
-				if v.EngineerManager:GetNumCategoryUnits(categories.ALLUNITS) <= 0 and aiBrain.BuilderManagers[k].nofactorycount >= 10 then
+				if EM:GetNumCategoryUnits(categories.ALLUNITS) <= 0 and BM[k].nofactorycount >= 10 then
 				
                     if ScenarioInfo.DeadBaseMonitorDialog then
                         LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(v.BaseName).." DBM - removing base")
@@ -2878,10 +2884,10 @@ function DeadBaseMonitor( aiBrain )
 					RemoveBaseRallyPoints( aiBrain, k, v.BaseType, v.RallyPointRadius )
 					
 					-- disable and destroy the EM at this base (this will end BaseDistress and prevent the base from being re-selected as a Primary)
-					if v.EngineerManager then
+					if EM then
 					
-						v.EngineerManager:SetEnabled(aiBrain,false)
-						v.EngineerManager:Destroy()
+						EM:SetEnabled(aiBrain,false)
+						EM:Destroy()
 					end
 
 					-- check if new primary bases are needed
@@ -2889,19 +2895,19 @@ function DeadBaseMonitor( aiBrain )
 					SetPrimarySeaAttackBase(aiBrain)
 					
 					-- then clear it out
-					ClearOutBase( v.PlatoonFormManager, aiBrain )
+					ClearOutBase( PFM, aiBrain )
 					
 					-- disable and destroy the FBM and PFM now
-					if v.FactoryManager then
+					if FM then
 					
-						v.FactoryManager:SetEnabled(aiBrain,false)
-						v.FactoryManager:Destroy()
+						FM:SetEnabled(aiBrain,false)
+						FM:Destroy()
 					end
 					
-					if v.PlatoonFormManager then
+					if PFM then
 					
-						v.PlatoonFormManager:SetEnabled(aiBrain,false)
-						v.PlatoonFormManager:Destroy()
+						PFM:SetEnabled(aiBrain,false)
+						PFM:Destroy()
 					end
 
 					-- update the base counter
@@ -2918,21 +2924,21 @@ function DeadBaseMonitor( aiBrain )
 					aiBrain.NumBases = aiBrain.NumBases - 1
 
 					-- remove the visible marker from the map
-					if ScenarioInfo.DisplayBaseNames or aiBrain.DisplayBaseNames or aiBrain.BuilderManagers[k].MarkerID then
-						ForkThread( RemoveBaseMarker, aiBrain, k, aiBrain.BuilderManagers[k].MarkerID)
+					if ScenarioInfo.DisplayBaseNames or aiBrain.DisplayBaseNames or BM[k].MarkerID then
+						ForkThread( RemoveBaseMarker, aiBrain, k, BM[k].MarkerID)
 					end
 
 					-- remove base from table
-                    aiBrain.BuilderManagers[k] = nil
+                    BM[k] = nil
 					
 					-- rebuild the bases table
-					aiBrain.BuilderManagers = RebuildTable(aiBrain, aiBrain.BuilderManagers)
+					BM = RebuildTable(aiBrain, BM)
 
 					break -- we changed -- start at the top again					
 				end
 
 			else
-				aiBrain.BuilderManagers[k].nofactorycount = 0
+				BM[k].nofactorycount = 0
 			end
 			
 			WaitTicks(10)   -- 1 second between bases
@@ -3997,8 +4003,8 @@ function ParseIntelThread( aiBrain )
                 
                     LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL "..threatType.." begins on iteration "..repr(iterationcount))
                     
-                    if table.getn(threats) > 0 then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL "..threatType.." gets "..table.getn(threats).." results at GameSecond "..gametime)
+                    if LOUDGETN(threats) > 0 then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL "..threatType.." gets "..LOUDGETN(threats).." results at GameSecond "..gametime)
                     end
 				end
 	
@@ -4116,7 +4122,7 @@ function ParseIntelThread( aiBrain )
 							units = GetUnitsAroundPoint( aiBrain, vx[3], newPos, (IMAPRadius/ThresholdMult), 'Enemy')
 						
                             -- and if we don't see anything - reduce it by 20%
-							if table.getn(units) < 1 then
+							if LOUDGETN(units) < 1 then
                             
 								if ScenarioInfo.IntelDialog then
 									LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL "..threatType.." shows "..threat[3].." but I find no units - reducing by 20%")
@@ -4144,16 +4150,22 @@ function ParseIntelThread( aiBrain )
                             
                             for k,loc in aiBrain.IL.HiPri do
                             
+                                local Type = loc.Type
+                            
 								-- it's got to be of the same type
-                                if loc.Type == threatType then
+                                if Type == threatType then
+                                
+                                    local Position = loc.Position
+                                    local Threat = loc.Threat
+                                    local LastUpdate = loc.LastUpdate
 
 									-- and within the merge distance
-									if LOUDV2( newPos[1],newPos[3], loc.Position[1],loc.Position[3] ) <= mergeradius then
+									if LOUDV2( newPos[1],newPos[3], Position[1],Position[3] ) <= mergeradius then
 									
 										if dupe then
 										
 											if ScenarioInfo.IntelDialog then
-												LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL "..threatType.." Killing Duplicate at "..repr(loc.Position) )
+												LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL "..threatType.." Killing Duplicate at "..repr(Position) )
 											end
 										
 											aiBrain.IL.HiPri[k] = nil
@@ -4168,13 +4180,13 @@ function ParseIntelThread( aiBrain )
 										if newthreat > vx[1] then
 										
 											if ScenarioInfo.IntelDialog then
-												LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL "..threatType.." Updating Existing threat of "..repr(loc.Threat).." to "..repr(newthreat).." from "..repr(loc.Position).." to "..repr(newPos) )
+												LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL "..threatType.." Updating Existing threat of "..repr(Threat).." to "..repr(newthreat).." from "..repr(Position).." to "..repr(newPos) )
 											end
 										
 											-- so update the existing entry
 											loc.Threat = newthreat
 										
-											if loc.LastUpdate < newtime then
+											if LastUpdate < newtime then
 												loc.LastUpdate = newtime
 											end
 										
@@ -4183,11 +4195,11 @@ function ParseIntelThread( aiBrain )
                                     
                                     end
                                     
-                                    if loc.Threat <= vx[1] and not loc.Permanent then
+                                    if Threat <= vx[1] and not loc.Permanent then
                                         
 										if ScenarioInfo.IntelDialog then
                                             LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL data is "..repr(loc))
-											LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL "..threatType.." Removing Existing "..repr(loc.Threat).." too low at "..repr(loc.Position))
+											LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL "..threatType.." Removing Existing "..repr(Threat).." too low at "..repr(Position))
 										end
 
 										-- newthreat is too low 
@@ -4828,7 +4840,7 @@ function CreateAttackPlan( self, enemyPosition )
         end
     end
 
-	if table.getn(markerlist) < 1 then
+	if LOUDGETN(markerlist) < 1 then
     
         if ScenarioInfo.AttackPlanDialog then
             WARN("*AI DEBUG "..self.Nickname.." No Markers meet AttackPlan requirements - Cannot solve tactical challenge")

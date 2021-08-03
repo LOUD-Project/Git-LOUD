@@ -245,27 +245,31 @@ BuilderManager = Class {
 --]]			
 			self.BuilderData[unit.BuilderType].NeedSort = false
         end
+        
+        local Priority
 
         for k,task in TaskList do
         
             conditionschecked = 0
+            
+            Priority = task.Priority
 		
-			if task.Priority > 100 and (task.InstancesAvailable > 0 or self.ManagerType == 'FBM') and continuesearching then
+			if Priority > 100 and (task.InstancesAvailable > 0 or self.ManagerType == 'FBM') and continuesearching then
 			
 				-- if no task found yet or priority is the same as one we have already added - examine the task
-                if (not found) or task.Priority >= found then
+                if (not found) or Priority >= found then
 
                     if GetBuilderStatus( task.BuilderConditions ) then
 
                         if BuilderParamCheck(self, task, unit) then
 						
-                            found = task.Priority
+                            found = Priority
                             possibleBuilders[counter+1] = k
 							counter = counter + 1
                         end
                     end
                     
-                elseif found and task.Priority < found then
+                elseif found and Priority < found then
 					continuesearching = false
                 end
                 
@@ -295,10 +299,10 @@ BuilderManager = Class {
 				newPri,temporary = Builders[TaskList[k].BuilderName]:PriorityFunction( aiBrain, unit )
 
 				-- if the priority function reports a different priority than current priority
-				if newPri and newPri != task.Priority and (task.InstancesAvailable > 0 or self.ManagerType == 'FBM') then
+				if newPri and newPri != Priority and (task.InstancesAvailable > 0 or self.ManagerType == 'FBM') then
 				
 					if ScenarioInfo.PriorityDialog then
-						LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.ManagerType.." "..self.LocationType.." PriorityFunction for "..repr(self.BuilderData[unit.BuilderType].Builders[k].BuilderName).." changes to "..newPri.." from "..task.Priority )
+						LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.ManagerType.." "..self.LocationType.." PriorityFunction for "..repr(self.BuilderData[unit.BuilderType].Builders[k].BuilderName).." changes to "..newPri.." from "..Priority )
 					end
 
 					self.BuilderData[unit.BuilderType].Builders[k]:SetPriority( newPri, temporary )

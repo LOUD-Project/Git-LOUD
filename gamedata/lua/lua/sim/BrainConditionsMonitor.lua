@@ -3,6 +3,7 @@
 
 local LOUDINSERT = table.insert
 local LOUDEQUAL = table.equal
+local LOUDGETN = table.getn
 
 
 local import = import
@@ -114,6 +115,8 @@ BrainConditionsMonitor = Class {
 		else
 			aiBrain.VictoryTime = false
 		end
+        
+        local BM = aiBrain.BuilderManagers
 	
 		-- LocationType entries MUST ALWAYS be the first element so if it isnt we just
 		-- return true since it must be a global condition		
@@ -124,7 +127,7 @@ BrainConditionsMonitor = Class {
 
 				if type(v.FunctionData[1]) == 'string' then 
 				
-					if aiBrain.BuilderManagers[v.FunctionData[1]].EngineerManager.Active then
+					if BM[v.FunctionData[1]].EngineerManager.Active then
 						return true
 					else
 						return false
@@ -143,11 +146,13 @@ BrainConditionsMonitor = Class {
         local ResultTable = self.ResultTable
 
         -- adjustment for high player count comes into play when we can no longer maintain the minimum cycle time
-        local playerfactor = table.getn(ArmyBrains) * 5
+        local playerfactor = LOUDGETN(ArmyBrains) * 5
         
         local minimumcycletime = 150     -- in ticks
 
         while true do
+        
+            --local start = GetSystemTimeSecondsOnlyForProfileUse()
 			
 			-- record current game time
 			aiBrain.CycleTime = GetGameTimeSeconds()
@@ -196,6 +201,10 @@ BrainConditionsMonitor = Class {
 					end
 				end
             end
+            
+            --local final = GetSystemTimeSecondsOnlyForProfileUse()
+            
+            --LOG("*AI DEBUG Time is "..final - start)
 
 			if ( self.ThreadWaitDuration - (numResults * 2) ) > 0 then
             
@@ -231,30 +240,35 @@ Condition = Class {
         self.Filename = filename
         self.FunctionName = funcName
         self.FunctionData = funcData
-		self.FunctionDataElements = table.getn(funcData)
+		self.FunctionDataElements = LOUDGETN(funcData)
 	
     end,
 
 	SetStatus = function(self,brain)
+    
+        local elements = self.FunctionDataElements
+        local filename = self.Filename
+        local funcname = self.FunctionName
+        local funcdata = self.FunctionData
 
-		if self.FunctionDataElements == 1 then
-			self.Status = import(self.Filename)[self.FunctionName](brain, self.FunctionData[1])
-		elseif self.FunctionDataElements == 2 then
-			self.Status = import(self.Filename)[self.FunctionName](brain, self.FunctionData[1],self.FunctionData[2])
-		elseif self.FunctionDataElements == 3 then
-			self.Status = import(self.Filename)[self.FunctionName](brain, self.FunctionData[1],self.FunctionData[2],self.FunctionData[3])
-		elseif self.FunctionDataElements == 4 then
-			self.Status = import(self.Filename)[self.FunctionName](brain, self.FunctionData[1],self.FunctionData[2],self.FunctionData[3],self.FunctionData[4])
-		elseif self.FunctionDataElements == 5 then
-			self.Status = import(self.Filename)[self.FunctionName](brain, self.FunctionData[1],self.FunctionData[2],self.FunctionData[3],self.FunctionData[4],self.FunctionData[5])
-		elseif self.FunctionDataElements == 6 then
-			self.Status = import(self.Filename)[self.FunctionName](brain, self.FunctionData[1],self.FunctionData[2],self.FunctionData[3],self.FunctionData[4],self.FunctionData[5],self.FunctionData[6])
-		elseif self.FunctionDataElements == 7 then
-			self.Status = import(self.Filename)[self.FunctionName](brain, self.FunctionData[1],self.FunctionData[2],self.FunctionData[3],self.FunctionData[4],self.FunctionData[5],self.FunctionData[6],self.FunctionData[7])
-		elseif self.FunctionDataElements == 9 then
-			self.Status = import(self.Filename)[self.FunctionName](brain, self.FunctionData[1],self.FunctionData[2],self.FunctionData[3],self.FunctionData[4],self.FunctionData[5],self.FunctionData[6],self.FunctionData[7],self.FunctionData[8],self.FunctionData[9])			
+		if elements == 1 then
+			self.Status = import(filename)[funcname](brain, funcdata[1])
+		elseif elements == 2 then
+			self.Status = import(filename)[funcname](brain, funcdata[1],funcdata[2])
+		elseif elements == 3 then
+			self.Status = import(filename)[funcname](brain, funcdata[1],funcdata[2],funcdata[3])
+		elseif elements == 4 then
+			self.Status = import(filename)[funcname](brain, funcdata[1],funcdata[2],funcdata[3],funcdata[4])
+		elseif elements == 5 then
+			self.Status = import(filename)[funcname](brain, funcdata[1],funcdata[2],funcdata[3],funcdata[4],funcdata[5])
+		elseif elements == 6 then
+			self.Status = import(filename)[funcname](brain, funcdata[1],funcdata[2],funcdata[3],funcdata[4],funcdata[5],funcdata[6])
+		elseif elements == 7 then
+			self.Status = import(filename)[funcname](brain, funcdata[1],funcdata[2],funcdata[3],funcdata[4],funcdata[5],funcdata[6],funcdata[7])
+		elseif elements == 9 then
+			self.Status = import(filename)[funcname](brain, funcdata[1],funcdata[2],funcdata[3],funcdata[4],funcdata[5],funcdata[6],funcdata[7],funcdata[8],funcdata[9])			
 		else
-			self.Status = import(self.Filename)[self.FunctionName](brain, unpack(self.FunctionData))
+			self.Status = import(filename)[funcname](brain, unpack(funcdata))
 		end
 
 	end,
