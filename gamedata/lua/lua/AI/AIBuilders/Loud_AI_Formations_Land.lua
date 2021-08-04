@@ -1549,7 +1549,92 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 			UseFormation = 'AttackFormation',
         },
 	},
-    
+
+	-- Platoon designed to go to empty mass points within 15km and stay there until an extractor is built
+	-- runs until AI team has its share of mass points
+    Builder {BuilderName = 'Amphib Mass Point Guard',
+	
+        PlatoonTemplate = 'T1AmphibMassGuard',
+        
+		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
+		
+		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
+        
+        PlatoonAIPlan = 'GuardPoint',
+        
+        Priority = 802,
+		
+		RTBLocation = 'Any',
+		
+        InstanceCount = 4,
+		
+        BuilderType = 'Any',
+		
+        BuilderConditions = {
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+            
+			{ LUTL, 'NeedTeamMassPointShare', {}},
+            
+            { LUTL, 'UnitCapCheckLess', { .75 } },
+
+			-- empty mass point within 20km with less than 75 threat 
+			{ EBC, 'CanBuildOnMassAtRange', { 'LocationType', 120, 1000, 0, 75, 1, 'AntiSurface', 1 }},
+            
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, (categories.LAND * categories.MOBILE * categories.AMPHIBIOUS) - categories.SCOUT - categories.EXPERIMENTAL }},
+        },
+		
+        BuilderData = {
+			DistressRange = 150,
+            DistressReactionTime = 30,
+			DistressTypes = 'Land',
+			DistressThreshold = 2,
+			
+			PointType = 'Marker',			-- either Unit or Marker
+			PointCategory = 'Mass',
+			PointSourceSelf = true,			-- true AI will use its base as source, false will use current Enemy Main Base location
+			PointFaction = 'Ally',	 		-- must be Self, Ally or Enemy - determines which Structures and Units to check
+			PointRadius = 1000,		    	-- controls the finding of points based upon distance from PointSource
+			PointSort = 'Closest',			-- options are Closest or Furthest
+			PointMin = 100,					-- filter points by range from PointSource
+			PointMax = 1000,
+			
+			StrCategory = categories.MASSEXTRACTION,		-- filter points based upon presence of units/strucutres at point
+			StrRadius = 5,
+			StrTrigger = true,				-- structure parameters trigger end to guardtimer
+			StrMin = 0,
+			StrMax = 0,
+            
+            ThreatMin = 0,
+            ThreatMaxRatio = 0.8,
+            ThreatRings = 1,
+			
+			UntCategory = categories.LAND * categories.MOBILE - categories.ENGINEER,		-- secondary filter on units/structures at point
+			UntRadius = 45,
+			UntTrigger = true,				-- unit parameters trigger end to guardtimer
+			UntMin = 0,
+			UntMax = 8,
+			
+            AssistRange = 3,
+			
+            PrioritizedCategories = {'LAND MOBILE','STRUCTURE -WALL','ENGINEER'},		-- target selection when at point --
+			
+			GuardRadius = 75,				-- range at which platoon will engage targets
+			GuardTimer = 240,				-- period that platoon will guard the point unless triggers are met
+			
+			MissionTime = 960,				-- platoon will operate 16 minutes then RTB
+			
+			MergeLimit = 16,				-- level to which merging is allowed
+			
+			AggressiveMove = true,
+			
+			AllowInWater = true,            -- this formation is allowed to guard positions in the water
+			
+			AvoidBases = true,
+			
+			UseFormation = 'LOUDClusterFormation',
+        },
+    },
+	    
 	Builder {BuilderName = 'Reinforce Primary - Amphibious',
 	
         PlatoonTemplate = 'ReinforceAmphibiousPlatoon',

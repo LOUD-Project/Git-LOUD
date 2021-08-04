@@ -452,6 +452,16 @@ PlatoonTemplate { Name = 'T1MassGuard',
     },
 }
 
+PlatoonTemplate { Name = 'T1AmphibMassGuard',
+
+    GlobalSquads = {
+        { (categories.LAND * categories.MOBILE * categories.AMPHIBIOUS) - categories.SCOUT - categories.EXPERIMENTAL, 3, 6, 'Attack', 'AttackFormation' },
+		{ (categories.LAND * categories.MOBILE * categories.AMPHIBIOUS) * categories.ANTIAIR, 0, 1, 'Support', 'AttackFormation' },		
+		{ (categories.LAND * categories.MOBILE * categories.AMPHIBIOUS) * categories.COUNTERINTELLIGENCE, 0, 1, 'Guard', 'none' },
+        { (categories.LAND * categories.MOBILE * categories.AMPHIBIOUS) * categories.SCOUT, 0, 1, 'Scout', 'none' },        
+    },
+}
+
 PlatoonTemplate { Name = 'T1PointGuardArtillery',
 
     GlobalSquads = {

@@ -549,6 +549,29 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Water Map',
     BuildersType = 'FactoryBuilder',
 
 
+    -- Tech 1 Amphibious Tank
+    Builder {BuilderName = 'T1 Amphibious Tank',
+	
+        PlatoonTemplate = 'T1LandAmphibious',
+        Priority = 550,
+		
+        BuilderConditions = {
+        
+            { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},
+		
+            { LUTL, 'UnitCapCheckLess', { .85 } },
+			
+            { LUTL, 'PoolLess', { 60, categories.AMPHIBIOUS }},
+
+            -- ok - we use a very general amphibious check here since units in this class are NOT necessarily DIRECTFIRE
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.AMPHIBIOUS, categories.LAND }},
+        },
+		
+        BuilderType = {'LandT1','LandT2'},
+		
+    },
+	
+
     -- Tech 2 Amphibious Tank
     Builder {BuilderName = 'T2 Amphibious Tank',
 	
@@ -717,7 +740,7 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Water Map',
 
 			{ LUTL, 'FactoriesGreaterThan', { 2, categories.LAND * categories.TECH3 }},
             
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.AMPHIBIOUS * categories.ARTILLERY, categories.LAND * categories.TECH3 }},
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.AMPHIBIOUS * categories.INDIRECTFIRE, categories.LAND * categories.TECH3 }},
         },
 		
         BuilderType = {'LandT3'},
@@ -742,8 +765,10 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Water Map',
 			{ LUTL, 'FactoriesGreaterThan', { 3, categories.LAND * categories.TECH3 }},
             
             { LUTL, 'HaveLessThanUnitsWithCategory', { 75, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS }},
-            --{ UCBC, 'HaveLessThanUnitsWithCategory', { 45, (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS) * categories.TECH3 }},
 
+            -- this insures that we're actually building amphib units first without using priority as a gate
+            { UCBC, 'LocationFactoriesBuildingGreater', { 'LocationType', 1, (categories.LAND * categories.AMPHIBIOUS) * categories.DIRECTFIRE }},
+            
  			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS), categories.LAND * categories.TECH3 }},			
         },
 		
@@ -766,7 +791,6 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Water Map',
 			{ LUTL, 'FactoriesGreaterThan', { 2, categories.LAND * categories.TECH3 }},
             
             { LUTL, 'HaveLessThanUnitsWithCategory', { 32, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.AMPHIBIOUS }},
-			--{ UCBC, 'HaveLessThanUnitsWithCategory', { 20, categories.LAND * categories.MOBILE * categories.ARTILLERY - categories.AMPHIBIOUS * categories.TECH3 }},
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, (categories.LAND * categories.MOBILE * categories.ARTILLERY), categories.LAND * categories.TECH3 }},
         },
@@ -791,7 +815,6 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Water Map',
 			{ LUTL, 'FactoriesGreaterThan', { 2, categories.LAND * categories.TECH3 }},
             
             { LUTL, 'HaveLessThanUnitsWithCategory', { 32, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.AMPHIBIOUS }},
-			--{ UCBC, 'HaveLessThanUnitsWithCategory', { 20, categories.LAND * categories.MOBILE * categories.ARTILLERY - categories.AMPHIBIOUS * categories.TECH3 }},
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.xel0306, categories.LAND * categories.TECH3 }},
         },
