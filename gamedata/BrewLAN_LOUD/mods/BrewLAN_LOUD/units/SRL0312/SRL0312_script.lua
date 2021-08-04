@@ -10,6 +10,7 @@ local meshfile = string.gsub(__blueprints.srl0312.Source, 'units/srl0312/srl0312
 SRL0312 = Class(CLandUnit) {
     Weapons = {
         MissileRack = Class(CIFMissileLoaWeapon) {},
+        
         AntiAir = Class(CAANanoDartWeapon) {
             CreateProjectileForWeapon = function(self, bone)
                 local projectile = CAANanoDartWeapon.CreateProjectileForWeapon(self, bone)
@@ -18,7 +19,9 @@ SRL0312 = Class(CLandUnit) {
                 return projectile
             end,
         },
+        
         Proton = Class(CDFProtonCannonWeapon) {},
+        
         AntiTorpedo = Class(CIFSmartCharge) {},
     },
 
@@ -42,7 +45,7 @@ SRL0312 = Class(CLandUnit) {
         CLandUnit.OnScriptBitClear(self, bit)
         if bit == 1 then
             local Rack = self:GetWeaponByLabel('MissileRack')
-            Rack:ChangeMaxRadius(__blueprints.srl0312.Weapon[2].MaxRadius)
+            Rack:ChangeMaxRadius(__blueprints.srl0312.Weapon[3].MaxRadius)
             Rack:SetWeaponEnabled(false)
             --self:SetWeaponEnabledByLabel('MissileRack', false)
             self:SetWeaponEnabledByLabel('AntiAir', true)

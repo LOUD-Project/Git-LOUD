@@ -13,6 +13,10 @@ T2Bomber = {
 	Seraphim = {'ssa0211', 100},
 },
 
+T2SeaSub = {
+    UEF = {'ses0204', 100},
+},
+
 T3Bomber = {
 	Aeon = {'saa0314', 25},
 	Cybran = {'sra0314', 20},
@@ -27,8 +31,8 @@ T3Fighter = {
 },
 
 T3Gunship = {
-    Cybran = {'sra0315', 50},
-    Seraphim = {'ssa0305', 60},
+    Cybran = {'sra0315', 40},
+    Seraphim = {'ssa0305', 50},
 },
 
 
@@ -64,6 +68,10 @@ T3LandBot = {
 
 T3MobileMissile = {
 	Cybran = {'srl0311', 100},	-- Hexatron
+},
+
+T3AmphibiousArtillery = {
+    Cybran = {'srl0312', 100},  -- Toxotai
 },
 
 T3MobileShields = {
