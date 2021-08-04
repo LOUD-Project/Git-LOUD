@@ -1,10 +1,10 @@
 UnitList = {
    
     T3ArmoredAssault = {
-        UEF = {'BRNT3ABB', 20},		    -- Ironfist
-        Aeon = {'BROT3HM', 20},		    -- Mogul 
-        Cybran = {'BRMT3BM2', 15},	    -- Dervish
-		Seraphim = {'BRPT3BOT', 20},    -- Thaam-Thuum
+        UEF = {'BRNT3ABB', 12},		    -- Ironfist
+        Aeon = {'BROT3HM', 12},		    -- Mogul 
+        Cybran = {'BRMT3BM2', 12},	    -- Dervish
+		Seraphim = {'BRPT3BOT', 12},    -- Thaam-Thuum
     },
    
     T3LandArtillery = {
@@ -13,17 +13,17 @@ UnitList = {
     },
     
     T3LandBot = {
-        UEF = {'BRNT3ABB', 15},       	-- Ironfist
-        Aeon = {'BROT3HM', 15},		    -- Mogul	
-        Cybran = {'BRMT3BM2', 15},  	-- Dervish
-		Seraphim = {'BRPT3BOT', 25},	-- Thaam-Thuum
+        UEF = {'BRNT3ABB', 12},       	-- Ironfist
+        Aeon = {'BROT3HM', 12},		    -- Mogul	
+        Cybran = {'BRMT3BM2', 12},  	-- Dervish
+		Seraphim = {'BRPT3BOT', 18},	-- Thaam-Thuum
     },
 	
 	T3Amphibious = {
         UEF = {'BRNT3ABB', 50},		    -- Ironfist
         Aeon = {'BROT3BT', 100},	    -- Transoma	
-        Cybran = {'BRMT3BM2', 35},	    -- Dervish
-		Seraphim = {'BRPT3BOT', 35},    -- Thaam-Thuum
+        Cybran = {'BRMT3BM2', 30},	    -- Dervish
+		Seraphim = {'BRPT3BOT', 30},    -- Thaam-Thuum
 	},
 
 	T3AmphibiousAA = {
@@ -33,15 +33,15 @@ UnitList = {
 	
 
     T2LandDFTank = {
-        Cybran = {'BRMT2MEDM', 20},	    -- Immortal
-		UEF = {'BRNT2BM', 20},		    -- Banshee
-        Aeon = {'BROT2ASB', 20},	    -- Amphorak
-		Seraphim = {'BRPT2BTBOT', 20},	-- Iltha
+        Cybran = {'BRMT2MEDM', 10},	    -- Immortal
+		UEF = {'BRNT2BM', 10},		    -- Banshee
+        Aeon = {'BROT2ASB', 10},	    -- Amphorak
+		Seraphim = {'BRPT2BTBOT', 10},	-- Iltha
     },
 
     T2AttackTank = {
-        UEF = {'BRNT2MT', 40},		-- Statue Rapid Assault
-        Cybran = {'BRMT2HT', 40},	-- Hippo
+        UEF = {'BRNT2MT', 40},		    -- Statue Rapid Assault
+        Cybran = {'BRMT2HT', 40},	    -- Hippo
     },
     
     -- December 22, 2020 -- T2 Land Amphibious does not exist in Default Factory Platoons.
@@ -50,16 +50,16 @@ UnitList = {
     -- This explains why we would see pure platoons of Wagners, Riptides, etc.
 
     T2LandAmphibTank = {
-        Aeon = {'BROT2ASB', 20},	-- Amphorak
-		Cybran = {'BRMT2MEDM', 20},	-- Immortal
-        UEF = {'BRNT2BM', 20},		-- Banshee
+        Aeon = {'BROT2ASB', 20},	    -- Amphorak
+		Cybran = {'BRMT2MEDM', 20},	    -- Immortal
+        UEF = {'BRNT2BM', 20},		    -- Banshee
         Seraphim = {'BRPT2BTBOT', 20},	-- Iltha
     },
 
     T2LandAmphibBot = {
-        Aeon = {'BROT2ASB', 40},	-- Amphorak
-		Cybran = {'BRMT2MEDM', 40},	-- Immortal
-        UEF = {'BRNT2BM', 40},		-- Banshee
+        Aeon = {'BROT2ASB', 40},	    -- Amphorak
+		Cybran = {'BRMT2MEDM', 40},	    -- Immortal
+        UEF = {'BRNT2BM', 40},		    -- Banshee
         Seraphim = {'BRPT2BTBOT', 40},	-- Iltha
     },
 
@@ -67,18 +67,25 @@ UnitList = {
 
 
     T1LandDFTank = {
-        Aeon = {'BROT1BT', 35}, -- Hervour
+        Aeon = {'BROT1BT', 35},         -- Hervour
 		Seraphim = {'BRPT1HT', 70},		-- Yenshavoh
     },
 
     T1LandDFBot = {
-        Aeon = {'BROT1EXM1', 40}, -- Bugbear
-        Cybran = {'BRMT1EXM1', 40},	-- Proton
+        Aeon = {'BROT1EXM1', 40},       -- Bugbear
+        Cybran = {'BRMT1EXM1', 40},	    -- Proton
 		Seraphim = {'BRPT1EXM1', 40},	-- Othazyne
     },
     
     T1LandArtillery = {
-        Aeon = { 'BROT1ML', 35}, -- Wavecrest
+        Aeon = { 'BROT1ML', 35},        -- Wavecrest
     },
+
+    T1LandAmphibious = {
+        Cybran = {'BRMT1BT', 100},      -- Scarab
+        Seraphim = {'BRPT1HT', 100},    -- Yenshavoh
+    },
+    
+    
 
 }
