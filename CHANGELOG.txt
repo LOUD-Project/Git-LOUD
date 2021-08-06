@@ -1,3 +1,19 @@
+### Release 04-08-2021 ###
+Lua 5.4.26
+Textures 6.5
+Total Mayhem 6.1.4
+BrewLAN LOUD 0.9.02
+
+- New BrewLAN units:
+ |--> Toxotai - Cybran Tech 3 Missile Tank (amphibious, stealth, anti-air, torpedo defense)
+ |--> Cochrane - UEF Tech 2 Attack Submarine (courtesy of a commission by stash#6484)
+- New Unit Restriction sets for hovering and amphibious units.
+- AI: Will now build Tech 1 amphibious units and put them in formations.
+- AI: Better selection of base template choices when the map's starting area is small.
+- AI: Upper limit for torpedo bomber building is now 5% of unit cap (down from 9%).
+- Fix the Ivan (UEF Experimental Unit Cannon) not having a strategic icon.
+- Fix the icon of the Seraphim's Tech 3 power generator when LOUD Integrated Storage is enabled.
+
 ### Release 23-07-2021 ###
 Lua 5.4.25
 
@@ -846,8 +862,8 @@ Lua 5.3.28
 - AI can now adapt its multiplier in response to certain factors. If the corresponding lobby global option is set to "Time-Based", the AI will increase its multiplier by 0.02 every 6 minutes. If the option is set to "Ratio-Based", all AI will increase their multipliers up to a max of 0.5 based on the relative size of their land army ratio to that of their enemies.
 - New AI multiplier options: 1.45 and 2.5.
 - Two new units:
- |--> Deluge - Aeon Experimental Battleship, equipped with a downsized Salvation cannon and personal shield.
- |--> Xiphos - Cybran T3 Interdiction Gunship, equipped with potent weaponry and a rearward anti-missile system.
+ |--> Deluge - Aeon Experimental Battleship, equipped with a downsized Salvation cannon and personal shield (courtesy of a commission by Darkdessy#4719).
+ |--> Xiphos - Cybran T3 Interdiction Gunship, equipped with potent weaponry and a rearward anti-missile system (courtesy of a commission by RD#0568).
 - The buff system now works on AI on a per-brain basis.
 - Several land and amphibious platoons have received new names to indicate type.
 - Platoon control value and land ratio restriction tweaks.
