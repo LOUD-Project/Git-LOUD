@@ -72,48 +72,65 @@ CIFMissileTactical01 = Class(CLOATacticalMissileProjectile) {
     end,      
     
     PassDamageData = function(self, damageData)
+    
         CLOATacticalMissileProjectile.PassDamageData(self,damageData)
-        local launcherbp = self:GetLauncher():GetBlueprint()  
-        self.ChildDamageData = table.copy(self.DamageData)
-        self.ChildDamageData.DamageAmount = launcherbp.SplitDamage.DamageAmount or 0
-        self.ChildDamageData.DamageRadius = launcherbp.SplitDamage.DamageRadius or 1   
+        
+
     end,      
     
     OnImpact = function(self, targetType, targetEntity)
         local army = self:GetArmy()
-        CreateLightParticle( self, -1, army, 3, 7, 'glow_03', 'ramp_fire_11' ) 
-        #if I collide with terrain dont split
+        CreateLightParticle( self, -1, army, 3, 7, 'glow_03', 'ramp_fire_11' )
+        
+        --if I collide with terrain dont split
         if targetType != 'Projectile' then
             self.Split = true
         end
+        
         CLOATacticalMissileProjectile.OnImpact(self, targetType, targetEntity)
     end,        
     
     OnDamage = function(self, instigator, amount, vector, damageType)
+    
         if not self.Split and (amount >= self:GetHealth()) then
 		
 			local LOUDPI = math.pi
 			local LOUDCOS = math.cos
 			local LOUDSIN = math.sin
 			
-            self.Split = true        
+            self.Split = true
+            
             local vx, vy, vz = self:GetVelocity()
             local velocity = 10
+            
             local ChildProjectileBP = '/projectiles/CIFMissileTacticalSplit01/CIFMissileTacticalSplit01_proj.bp'
+            
             local angle = (2*LOUDPI) / self.NumChildMissiles
             local spreadMul = 1  # Adjusts the width of the dispersal        
 
-            # Launch projectiles at semi-random angles away from split location
+            local launcherbp = self:GetLauncher():GetBlueprint()
+
+            self.ChildDamageData = table.copy(self.DamageData)
+            self.ChildDamageData.DamageAmount = launcherbp.SplitDamage.DamageAmount or 0
+            self.ChildDamageData.DamageRadius = launcherbp.SplitDamage.DamageRadius or 1                   
+           
+            -- Launch projectiles at semi-random angles away from split location
             for i = 0, (self.NumChildMissiles - 1) do
+            
                 local xVec = vx + LOUDSIN(i*angle) * spreadMul
                 local yVec = vy + LOUDCOS(i*angle) * spreadMul
                 local zVec = vz + LOUDCOS(i*angle) * spreadMul 
+                
                 local proj = self:CreateChildProjectile(ChildProjectileBP)
+        
                 proj:SetVelocity(xVec,yVec,zVec)
                 proj:SetVelocity(velocity)
-                proj:PassDamageData(self.ChildDamageData)                        
+                
+                proj:PassDamageData(self.ChildDamageData)
+
             end
         end
+        
         CLOATacticalMissileProjectile.OnDamage(self, instigator, amount, vector, damageType)
     end,
 }

@@ -91,13 +91,7 @@ CIFMissileTactical02 = Class(CLOATacticalMissileProjectile) {
     PassDamageData = function(self, damageData)
 	
         CLOATacticalMissileProjectile.PassDamageData(self,damageData)
-		
-        local launcherbp = self:GetLauncher():GetBlueprint()  
-		
-        self.ChildDamageData = table.copy(self.DamageData)
-        self.ChildDamageData.DamageAmount = launcherbp.SplitDamage.DamageAmount or 0
-        self.ChildDamageData.DamageRadius = launcherbp.SplitDamage.DamageRadius or 1   
-		
+
     end,    
     
 	-- impacts take place just before doing damage --
@@ -135,6 +129,14 @@ CIFMissileTactical02 = Class(CLOATacticalMissileProjectile) {
             local angle = (2*LOUDPI) / self.NumChildMissiles
             local spreadMul = 0.5  -- Adjusts the width of the dispersal        
 
+		
+            local launcherbp = self:GetLauncher():GetBlueprint()  
+		
+            self.ChildDamageData = table.copy(self.DamageData)
+
+            self.ChildDamageData.DamageAmount = launcherbp.SplitDamage.DamageAmount or 0
+            self.ChildDamageData.DamageRadius = launcherbp.SplitDamage.DamageRadius or 1   
+	
             -- Launch projectiles at semi-random angles away from split location
             for i = 0, (self.NumChildMissiles - 1) do
 			
@@ -146,6 +148,8 @@ CIFMissileTactical02 = Class(CLOATacticalMissileProjectile) {
 				
                 proj:SetVelocity(xVec,yVec,zVec)
                 proj:SetVelocity(velocity)
+                
+
                 proj:PassDamageData(self.ChildDamageData)
 				
             end
