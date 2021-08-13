@@ -172,7 +172,7 @@ Unit = Class(moho.unit_methods) {
 
         self.Sync = { army = GetArmy(self), id = GetEntityId(self) }
 
-        setmetatable(self.Sync,SyncMeta)
+        setmetatable( self.Sync, SyncMeta )
 
         if not self.Trash then
             self.Trash = TrashBag()
@@ -349,27 +349,55 @@ Unit = Class(moho.unit_methods) {
 
         self.Dead = false		
 		self.PlatoonHandle = false
+        
+        local aiBrain = self:GetAIBrain()
 
         -- all AI (except Civilian) are technically cheaters --
-        if self:GetAIBrain().CheatingAI then
+        if aiBrain.CheatingAI then
             self:ForkThread(ApplyCheatBuffs)
         end
-
+	
+        -- from All Your Voice mod
 		-- this routine gets launched on EVERY unit
 		-- since it really only does anything if the blueprint has the
 		-- correct audio section - then this should only be launched if
-		-- that is the case - instead of every unit
-        self:LaunchIntelWatch(bp)		
+		-- that is the case - instead of every unit        
+        if ArmyIsCivilian( aiBrain.ArmyIndex ) == false then
+
+            for _,faction in {'UEF', 'Aeon', 'Cybran', 'Seraphim'} do
+
+                if bp.Audio['EnemyUnitDetected'..faction] then
+
+                    self.SeenEver = {}
+                    self.SeenEverDelay = {}
+
+                    -- this puts an entry for every army into this unit
+                    for _, brain in BRAINS do
+
+                        self.SeenEver[brain.ArmyIndex] = false
+                        self.SeenEverDelay[brain.ArmyIndex] = 0
+
+                    end                    
+
+                    return self:ForkThread( self.WatchIntelFromOthers, bp, aiBrain )
+					
+                end
+				
+            end
+
+        end
 
 		-- from CBFP
         if bp.Transport and bp.Transport.DontUseForcedAttachPoints then
-		
             self:RemoveTransportForcedAttachPoints()
-			
         end
 		
-        self:InitBuffFields( bp )
+        if self.BuffFields and bp.BuffFields then
+            self:InitBuffFields( bp )
+        end
+        
         self:DisableRestrictedWeapons()
+        
         self:OnCreated()  
 		
     end,
@@ -492,36 +520,6 @@ Unit = Class(moho.unit_methods) {
                 end
 				
             end
-			
-        end
-		
-    end,
-	
-	-- from All Your Voice mod
-    LaunchIntelWatch = function(self, bp)
-	
-        if ArmyIsCivilian( self:GetAIBrain().ArmyIndex ) == false then
-
-			for _,faction in {'UEF', 'Aeon', 'Cybran', 'Seraphim'} do
-
-                if bp.Audio['EnemyUnitDetected'..faction] then
-
-                    self.SeenEver = {}
-                    self.SeenEverDelay = {}
-		
-                    -- this puts an entry for every army into this unit
-                    for _, brain in BRAINS do
-					
-                        self.SeenEver[brain.ArmyIndex] = false
-                        self.SeenEverDelay[brain.ArmyIndex] = 0
-						
-                    end                    
-                    
-                    return self:ForkThread( self.WatchIntelFromOthers, bp, self:GetAIBrain() )
-					
-				end
-				
-			end
 			
         end
 		

@@ -3,9 +3,12 @@
 
 local LOUDENTITY = EntityCategoryContains
 local ParseEntityCategory = ParseEntityCategory
+local LOUDCOPY = table.copy
 local LOUDGETN = table.getn
 local LOUDINSERT = table.insert
 local LOUDREMOVE = table.remove
+
+local LOUDCREATEPROJECTILE = moho.weapon_methods.CreateProjectile
 
 local ForkThread = ForkThread
 local ForkTo = ForkThread
@@ -13,8 +16,19 @@ local ForkTo = ForkThread
 local WaitSeconds = WaitSeconds
 local WaitTicks = coroutine.yield
 
+local BeenDestroyed = moho.entity_methods.BeenDestroyed
 local GetBlueprint = moho.weapon_methods.GetBlueprint
 local PlaySound = moho.weapon_methods.PlaySound
+
+local SetFireTargetLayerCaps = moho.weapon_methods.SetFireTargetLayerCaps
+local SetTargetingPriorities = moho.weapon_methods.SetTargetingPriorities
+
+local PassDamageData = import('/lua/sim/Projectile.lua').Projectile.PassDamageData
+
+local MISSILEOPTION = tonumber(ScenarioInfo.Options.MissileOption)
+local STRUCTURE = categories.STRUCTURE
+
+--LOG("*AI DEBUG Weapon Methods are "..repr(moho.weapon_methods))
 
 Weapon = Class(moho.weapon_methods) {
 
@@ -34,11 +48,132 @@ Weapon = Class(moho.weapon_methods) {
 		self.Trash = self.unit.Trash
 		
         local bp = GetBlueprint(self)
+
+        -- brought this function local since it's the only place it gets called
+        if bp.Turreted == true then
 		
+            local CreateAimController = CreateAimController
+            
+            local yawBone = bp.TurretBoneYaw
+            local pitchBone = bp.TurretBonePitch
+            local muzzleBone = bp.TurretBoneMuzzle
+            local precedence = bp.AimControlPrecedence or 10
+            local pitchBone2
+            local muzzleBone2
+		
+            if bp.TurretBoneDualPitch and bp.TurretBoneDualPitch != '' then
+                pitchBone2 = bp.TurretBoneDualPitch
+            end
+		
+            if bp.TurretBoneDualMuzzle and bp.TurretBoneDualMuzzle != '' then
+                muzzleBone2 = bp.TurretBoneDualMuzzle
+            end
+
+            if yawBone and pitchBone and muzzleBone then
+		
+                if bp.TurretDualManipulators then
+			
+                    if not bp.TurretBoneAimYaw then
+                        self.AimControl = CreateAimController(self, 'Torso', yawBone)
+                    else
+                        self.AimControl = CreateAimController(self, 'Torso', bp.TurretBoneAimYaw)
+                    end
+				
+                    self.AimRight = CreateAimController(self, 'Right', pitchBone, pitchBone, muzzleBone)
+                    self.AimLeft = CreateAimController(self, 'Left', pitchBone2, pitchBone2, muzzleBone2)
+				
+                    self.AimControl:SetPrecedence(precedence)
+                    self.AimRight:SetPrecedence(precedence)
+                    self.AimLeft:SetPrecedence(precedence)
+				
+                    if LOUDENTITY(STRUCTURE, self.unit) then
+                        self.AimControl:SetResetPoseTime(9999999)
+                    end
+				
+                    self:SetFireControl('Right')
+                    self.Trash:Add(self.AimControl)
+                    self.Trash:Add(self.AimRight)
+                    self.Trash:Add(self.AimLeft)
+				
+                else
+                
+                    if not bp.TurretBoneAimYaw then
+                        self.AimControl = CreateAimController(self, 'Default', yawBone, pitchBone, muzzleBone)
+                    else
+                        self.AimControl = CreateAimController(self, 'Default', bp.TurretBoneAimYaw, pitchBone, muzzleBone)
+                    end
+				
+                    if LOUDENTITY(STRUCTURE, self.unit) then
+                        self.AimControl:SetResetPoseTime(9999999)
+                    end
+				
+                    self.unit.Trash:Add(self.AimControl)
+                    self.AimControl:SetPrecedence(precedence)
+				
+                    if bp.RackSlavedToTurret and LOUDGETN(bp.RackBones) > 0 then
+                    
+                        for k, v in bp.RackBones do
+                            if v.RackBone != pitchBone then
+                                local slaver = CreateSlaver(self.unit, v.RackBone, pitchBone)
+                                slaver:SetPrecedence(precedence-1)
+                                self.Trash:Add(slaver)
+                            end
+                        end
+                    end
+                end
+            end
+
+            local numbersexist = true
+		
+            local turretyawmin, turretyawmax, turretyawspeed
+            local turretpitchmin, turretpitchmax, turretpitchspeed
+        
+            if bp.TurretYaw and bp.TurretYawRange then
+                turretyawmin = bp.TurretYaw - bp.TurretYawRange
+                turretyawmax = bp.TurretYaw + bp.TurretYawRange
+            else
+                numbersexist = false
+            end
+        
+            if bp.TurretYawSpeed then
+                turretyawspeed = bp.TurretYawSpeed
+            else
+                numbersexist = false
+            end
+        
+            if bp.TurretPitch and bp.TurretPitchRange then
+                turretpitchmin = bp.TurretPitch - bp.TurretPitchRange
+                turretpitchmax = bp.TurretPitch + bp.TurretPitchRange
+            else
+                numbersexist = false
+            end
+        
+            if bp.TurretPitchSpeed then
+                turretpitchspeed = bp.TurretPitchSpeed
+            else
+                numbersexist = false
+            end
+        
+            if numbersexist then
+		
+                self.AimControl:SetFiringArc(turretyawmin, turretyawmax, turretyawspeed, turretpitchmin, turretpitchmax, turretpitchspeed)
+			
+                if self.AimRight then
+                    self.AimRight:SetFiringArc(turretyawmin/12, turretyawmax/12, turretyawspeed, turretpitchmin, turretpitchmax, turretpitchspeed)
+                end
+			
+                if self.AimLeft then
+                    self.AimLeft:SetFiringArc(turretyawmin/12, turretyawmax/12, turretyawspeed, turretpitchmin, turretpitchmax, turretpitchspeed)
+                end
+			
+            end
+		
+        end
+
 		-- store weapon buffs on the weapon itself so 
 		-- we can bypass GetBlueprint every time the weapon fires
 		if bp.Buffs then
-			self.Buffs = table.copy(bp.Buffs)
+			self.Buffs = LOUDCOPY(bp.Buffs)
 		end
 
 		-- if a weapon fires a round with these parameters 
@@ -51,10 +186,6 @@ Weapon = Class(moho.weapon_methods) {
 
         self:SetValidTargetsForCurrentLayer( self.unit:GetCurrentLayer(), bp)
 		
-        if bp.Turreted == true then
-            self:SetupTurret(bp)
-        end
-
 		-- next 3 conditions are for adv missile track and retarget
         if bp.advancedTracking then
 		
@@ -77,14 +208,14 @@ Weapon = Class(moho.weapon_methods) {
 		
 		end
 		
-        self:SetWeaponPriorities()
+        self:SetWeaponPriorities(bp.TargetPriorities)
 		
         --self.Disabledbf = {}
         
         --self.DamageMod = 0
         --self.DamageRadiusMod = 0
 		
-        local initStore = tonumber(ScenarioInfo.Options.MissileOption) or bp.InitialProjectileStorage or 0
+        local initStore = MISSILEOPTION or bp.InitialProjectileStorage or 0
 		
         if initStore > 0 then
 		
@@ -98,8 +229,22 @@ Weapon = Class(moho.weapon_methods) {
             if bp.NukeWeapon then
                 nuke = true
             end
+
+            local function AmmoThread(amount)
+	
+                if not BeenDestroyed(self.unit) then
 			
-            ForkThread(self.AmmoThread, self, nuke, math.floor(initStore))
+                    WaitTicks(2)
+		
+                    if nuke then
+                        self.unit:GiveNukeSiloAmmo(amount)
+                    else
+                        self.unit:GiveTacticalSiloAmmo(amount)
+                    end
+                end
+            end
+			
+            ForkThread( AmmoThread, math.floor(initStore))
         end
 		
 		self:SetDamageTable(bp)
@@ -107,9 +252,7 @@ Weapon = Class(moho.weapon_methods) {
 		if ScenarioInfo.WeaponDialog then
 		
 			LOG("*AI DEBUG Weapon OnCreate for "..repr(__blueprints[self.unit.BlueprintID].Description).." "..self.unit.Sync.id )
-			
-			--LOG("*AI DEBUG Weapon Blueprint is "..repr( GetBlueprint(self) ))
-			
+
 		end
 
     end,
@@ -121,134 +264,6 @@ Weapon = Class(moho.weapon_methods) {
 			LOG("*AI DEBUG Weapon OnDestroy")
 		end
 
-    end,
-
-    AmmoThread = function(self, nuke, amount)
-	
-		if not self.unit:BeenDestroyed() then
-			
-			WaitTicks(2)
-		
-			if nuke then
-				self.unit:GiveNukeSiloAmmo(amount)
-			else
-				self.unit:GiveTacticalSiloAmmo(amount)
-			end
-		end
-    end,
-
-    SetupTurret = function(self, bp)
-		
-        local yawBone = bp.TurretBoneYaw
-        local pitchBone = bp.TurretBonePitch
-        local muzzleBone = bp.TurretBoneMuzzle
-        local precedence = bp.AimControlPrecedence or 10
-        local pitchBone2
-        local muzzleBone2
-		
-        if bp.TurretBoneDualPitch and bp.TurretBoneDualPitch != '' then
-            pitchBone2 = bp.TurretBoneDualPitch
-        end
-		
-        if bp.TurretBoneDualMuzzle and bp.TurretBoneDualMuzzle != '' then
-            muzzleBone2 = bp.TurretBoneDualMuzzle
-        end
-
-        if yawBone and pitchBone and muzzleBone then
-		
-            if bp.TurretDualManipulators then
-			
-				if not bp.TurretBoneAimYaw then
-					self.AimControl = CreateAimController(self, 'Torso', yawBone)
-				else
-					self.AimControl = CreateAimController(self, 'Torso', bp.TurretBoneAimYaw)
-				end
-				
-                self.AimRight = CreateAimController(self, 'Right', pitchBone, pitchBone, muzzleBone)
-                self.AimLeft = CreateAimController(self, 'Left', pitchBone2, pitchBone2, muzzleBone2)
-				
-                self.AimControl:SetPrecedence(precedence)
-                self.AimRight:SetPrecedence(precedence)
-                self.AimLeft:SetPrecedence(precedence)
-				
-                if LOUDENTITY(categories.STRUCTURE, self.unit) then
-                    self.AimControl:SetResetPoseTime(9999999)
-                end
-				
-                self:SetFireControl('Right')
-                self.Trash:Add(self.AimControl)
-                self.Trash:Add(self.AimRight)
-                self.Trash:Add(self.AimLeft)
-				
-            else
-				if not bp.TurretBoneAimYaw then
-					self.AimControl = CreateAimController(self, 'Default', yawBone, pitchBone, muzzleBone)
-				else
-					self.AimControl = CreateAimController(self, 'Default', bp.TurretBoneAimYaw, pitchBone, muzzleBone)
-				end
-				
-                if LOUDENTITY(categories.STRUCTURE, self.unit) then
-                    self.AimControl:SetResetPoseTime(9999999)
-                end
-				
-                self.unit.Trash:Add(self.AimControl)
-                self.AimControl:SetPrecedence(precedence)
-				
-                if bp.RackSlavedToTurret and LOUDGETN(bp.RackBones) > 0 then
-                    for k, v in bp.RackBones do
-                        if v.RackBone != pitchBone then
-                            local slaver = CreateSlaver(self.unit, v.RackBone, pitchBone)
-                            slaver:SetPrecedence(precedence-1)
-                            self.Trash:Add(slaver)
-                        end
-                    end
-                end
-            end
-        end
-
-        local numbersexist = true
-		
-        local turretyawmin, turretyawmax, turretyawspeed
-        local turretpitchmin, turretpitchmax, turretpitchspeed
-        
-        if bp.TurretYaw and bp.TurretYawRange then
-            turretyawmin, turretyawmax = self:GetTurretYawMinMax(bp)
-        else
-            numbersexist = false
-        end
-        
-        if bp.TurretYawSpeed then
-            turretyawspeed = self:GetTurretYawSpeed(bp)
-        else
-            numbersexist = false
-        end
-        
-        if bp.TurretPitch and bp.TurretPitchRange then
-            turretpitchmin, turretpitchmax = self:GetTurretPitchMinMax(bp)
-        else
-            numbersexist = false
-        end
-        
-        if bp.TurretPitchSpeed then
-            turretpitchspeed = self:GetTurretPitchSpeed(bp)
-        else
-            numbersexist = false
-        end
-        
-        if numbersexist then
-		
-            self.AimControl:SetFiringArc(turretyawmin, turretyawmax, turretyawspeed, turretpitchmin, turretpitchmax, turretpitchspeed)
-			
-            if self.AimRight then
-                self.AimRight:SetFiringArc(turretyawmin/12, turretyawmax/12, turretyawspeed, turretpitchmin, turretpitchmax, turretpitchspeed)
-            end
-			
-            if self.AimLeft then
-                self.AimLeft:SetFiringArc(turretyawmin/12, turretyawmax/12, turretyawspeed, turretpitchmin, turretpitchmax, turretpitchspeed)
-            end
-			
-        end
-		
     end,
 
     AimManipulatorSetEnabled = function(self, enabled)
@@ -320,10 +335,7 @@ Weapon = Class(moho.weapon_methods) {
 		if ScenarioInfo.WeaponDialog then
 			LOG("*AI DEBUG Weapon OnFire for "..repr(__blueprints[self.unit.BlueprintID].Description) )
 		end
-		
-        --local bp = GetBlueprint(self)
-        
-		--if bp.Buffs then
+
 		if self.Buffs then
 			self:DoOnFireBuffs(self.Buffs)
 		end
@@ -355,7 +367,7 @@ Weapon = Class(moho.weapon_methods) {
 	
         if self.DisabledFiringBones and self.unit.Animator then
 		
-            for key, value in self.DisabledFiringBones do
+            for _, value in self.DisabledFiringBones do
 			
                 self.unit.Animator:SetBoneEnabled(value, false)
 				
@@ -371,7 +383,7 @@ Weapon = Class(moho.weapon_methods) {
 	
         if self.DisabledFiringBones and self.unit.Animator then
 		
-            for key, value in self.DisabledFiringBones do
+            for _, value in self.DisabledFiringBones do
 			
                 self.unit.Animator:SetBoneEnabled(value, true)
 				
@@ -388,7 +400,7 @@ Weapon = Class(moho.weapon_methods) {
     OnStopTracking = function(self, label)
         --self:PlayWeaponSound('BarrelStop')
 		
-        if LOUDENTITY(categories.STRUCTURE, self.unit) then
+        if LOUDENTITY(STRUCTURE, self.unit) then
             self.AimControl:SetResetPoseTime(9999999)
         end
 
@@ -499,17 +511,17 @@ Weapon = Class(moho.weapon_methods) {
 			LOG("*AI DEBUG Weapon CreateProjectileForWeapon for "..repr(__blueprints[self.unit.BlueprintID].Description))
 		end
 
-        local proj = moho.weapon_methods.CreateProjectile( self, bone )
+        local proj = LOUDCREATEPROJECTILE( self, bone )
 		
-        if proj and not proj:BeenDestroyed() then
+        if proj and not BeenDestroyed(proj) then
 
-            proj:PassDamageData( self.damageTable )
+            PassDamageData( proj, self.damageTable )
 			
 			if self.NukeWeapon then
 			
 				local bp = GetBlueprint(self)
 
-                local data = {
+                proj.Data = {
 				
                     NukeInnerRingDamage = bp.NukeInnerRingDamage or 2000,
                     NukeInnerRingRadius = bp.NukeInnerRingRadius or 30,
@@ -523,7 +535,7 @@ Weapon = Class(moho.weapon_methods) {
 
                 }
 				
-                proj:PassData(data)
+                --proj:PassData(data)
 				
             end
         end
@@ -539,11 +551,11 @@ Weapon = Class(moho.weapon_methods) {
 		
             if weaponBlueprint.FireTargetLayerCapsTable[newLayer] then
 			
-                self:SetFireTargetLayerCaps( weaponBlueprint.FireTargetLayerCapsTable[newLayer] )
+                SetFireTargetLayerCaps( self, weaponBlueprint.FireTargetLayerCapsTable[newLayer] )
 				
             else
 			
-                self:SetFireTargetLayerCaps('None')
+                SetFireTargetLayerCaps( self,'None')
 				
             end
         end
@@ -560,30 +572,34 @@ Weapon = Class(moho.weapon_methods) {
             if bp.TargetPriorities then
 			
                 local priorityTable = {}
-				local counter = 0
+				local counter = 1
 				
                 for k, v in bp.TargetPriorities do
-                    priorityTable[counter+1] = LOUDPARSE(v)
+                    priorityTable[counter] = LOUDPARSE(v)
 					counter = counter + 1
                 end
 				
-                self:SetTargetingPriorities(priorityTable)
+                SetTargetingPriorities( self, priorityTable )
             end
 			
         else
+        
             if type(priTable[1]) == 'string' then
 			
                 local priorityTable = {}
-				local counter = 0
+				local counter = 1
 				
                 for k, v in priTable do
-                    priorityTable[counter+1] = LOUDPARSE(v)
+                    priorityTable[counter] = LOUDPARSE(v)
 					counter = counter + 1
                 end
 				
-                self:SetTargetingPriorities(priorityTable)
+                SetTargetingPriorities( self, priorityTable )
+                
             else
-                self:SetTargetingPriorities(priTable)
+            
+                SetTargetingPriorities( self, priTable )
+                
             end
         end
     end,
@@ -600,30 +616,6 @@ Weapon = Class(moho.weapon_methods) {
 		
 		return false
 		
-    end,
-
-    OnVeteranLevel = function(self, old, new)
-	
-        local bp = GetBlueprint(self)
-		
-        if not bp.Buffs then return end
-
-        local lvlkey = 'VeteranLevel' .. new
-		
-        for k, v in bp.Buffs do
-		
-            if v.Add[lvlkey] == true then
-			
-                self:AddBuff(v)
-				
-            end
-			
-        end
-		
-    end,
-
-    AddBuff = function(self, buffTbl)
-        self.unit:AddWeaponBuff(buffTbl, self)
     end,
 
     AddDamageMod = function(self, dmgMod)
@@ -745,6 +737,46 @@ Weapon = Class(moho.weapon_methods) {
     end,
 }
 
+--[[
+
+    AmmoThread = function(self, nuke, amount)
+	
+		if not BeenDestroyed(self.unit) then
+			
+			WaitTicks(2)
+		
+			if nuke then
+				self.unit:GiveNukeSiloAmmo(amount)
+			else
+				self.unit:GiveTacticalSiloAmmo(amount)
+			end
+		end
+    end,
+
+    OnVeteranLevel = function(self, old, new)
+	
+        local bp = GetBlueprint(self)
+		
+        if not bp.Buffs then return end
+
+        local lvlkey = 'VeteranLevel' .. new
+		
+        for k, v in bp.Buffs do
+		
+            if v.Add[lvlkey] == true then
+			
+                self:AddBuff(v)
+				
+            end
+			
+        end
+		
+    end,
+
+    AddBuff = function(self, buffTbl)
+        self.unit:AddWeaponBuff(buffTbl, self)
+    end,
+--]]
     -- PlayWeaponAmbientSound = function(self, sound)
         -- local bp = GetBlueprint(self)
         -- if not bp.Audio[sound] then return end
