@@ -50,6 +50,8 @@ function CheckVictory(ScenarioInfo)
 	
 	--local GetCurrentUnits = moho.aibrain_methods.GetCurrentUnits
 	local GetListOfUnits = moho.aibrain_methods.GetListOfUnits
+    
+    local BRAINS = ArmyBrains
 	
     while categoryCheck do
 	
@@ -59,7 +61,7 @@ function CheckVictory(ScenarioInfo)
         local stillAlive = {}
 		local counter = 0
 		
-        for index,brain in ArmyBrains do
+        for index,brain in BRAINS do
 		
             if not ArmyIsOutOfGame( brain.ArmyIndex ) and not ArmyIsCivilian( brain.ArmyIndex ) then
 			

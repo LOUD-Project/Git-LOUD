@@ -523,7 +523,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
         
 		elseif atype == 'EnergyStorage' then
         
-			local val = BuffCalculate(unit, buffName, 'EnergyStorage', GetBlueprint(unit).Economy.StorageEnergy or 1)
+			local val = BuffCalculate(unit, buffName, 'EnergyStorage', __blueprints[unit.BlueprintID].Economy.StorageEnergy or 1)
 
             local brain = unit:GetAIBrain()
 
@@ -536,7 +536,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 
 		elseif atype == 'MassStorage' then
         
-			local val = BuffCalculate(unit, buffName, 'MassStorage', GetBlueprint(unit).Economy.StorageMass or 1)
+			local val = BuffCalculate(unit, buffName, 'MassStorage', __blueprints[unit.BlueprintID].Economy.StorageMass or 1)
             
             local brain = unit:GetAIBrain()
 

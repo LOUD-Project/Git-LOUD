@@ -148,49 +148,6 @@ PlatoonFormManager = Class(BuilderManager) {
 		return retUnits
 		
     end,
- 
-    GetNumberOfUnitsBeingBuilt = function(self, aiBrain, buildingCategory, builderCategory, range)
-		
-        local filterUnits = GetOwnUnitsAroundPoint( aiBrain, builderCategory, self.Location, range or self.Radius )
-		
-		local LOUDENTITY = EntityCategoryContains
-		local IsUnitState = moho.unit_methods.IsUnitState
-
-		local counter = 0
-        
-        for k,v in filterUnits do
-		
-			if not v.DesiresAssist or not v.UnitBeingBuilt then
-			
-				continue
-				
-			end
-			
-            if (not IsUnitState(v, 'Building') and not IsUnitState(v, 'Upgrading')) then
-			
-                continue
-				
-            end
-
-            if not LOUDENTITY( buildingCategory, v.UnitBeingBuilt ) then
-			
-                continue
-				
-            end
-            
-            if v.NumAssistees and LOUDGETN( v:GetGuards() ) >= v.NumAssistees then
-			
-                continue
-				
-            end
-
-			counter = counter + 1
-			
-        end
-		
-		return counter
-		
-    end,
 	
 	-- Just to note that this only runs if the task has passed all of its conditions
 	-- platoon priorityfunctions (for the PFM) only run when the base changes its status between Primary and not Primary
@@ -260,6 +217,10 @@ PlatoonFormManager = Class(BuilderManager) {
 						-- this will run a non critical function -- Wait ?  What do you think that means ? 
 						-- these forks are NOT put into the platoons TRASH -- so they save on processing and storage - BUT 
 						-- they must terminate themselves -- ideally independent of the platoon entirely
+                        
+                        -- a good example of this could be having the formation of a platoon turn one builder off while
+                        -- another is turned on  (Note to self - something you've thought about doing with something like Czar Attack)
+                        
 						if ScenarioInfo.PlatoonDialog then
 							--LOG("*AI DEBUG "..aiBrain.Nickname.." "..builder.BuilderName.." adds function "..repr(papv[2]))
 						end
@@ -281,9 +242,9 @@ PlatoonFormManager = Class(BuilderManager) {
 				end
 
 			else
-                --if ScenarioInfo.PlatoonDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." PFM "..self.LocationType.." unable to form platoon "..repr(template[1]))
-                --end
+                
+                LOG("*AI DEBUG "..aiBrain.Nickname.." PFM "..self.LocationType.." unable to form platoon "..repr(template[1]))
+                
 			end
         end
     end,

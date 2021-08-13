@@ -32,6 +32,10 @@ local GetListOfUnits = moho.aibrain_methods.GetListOfUnits
 local GetPosition = moho.entity_methods.GetPosition
 local GetNumUnitsAroundPoint = moho.aibrain_methods.GetNumUnitsAroundPoint
 local GetEconomyIncome = moho.aibrain_methods.GetEconomyIncome
+
+local AssignUnitsToPlatoon = moho.aibrain_methods.AssignUnitsToPlatoon
+local MakePlatoon = moho.aibrain_methods.MakePlatoon
+
 local PlatoonCategoryCount = moho.platoon_methods.PlatoonCategoryCount
 
 local timeACTBrains = {}
@@ -72,8 +76,10 @@ end
 
 function UnitsLessAtLocation( aiBrain, locationType, unitCount, testCat )
 
-	if aiBrain.BuilderManagers[locationType].EngineerManager then
-		return GetNumUnitsAroundPoint( aiBrain, testCat, aiBrain.BuilderManagers[locationType].Position, aiBrain.BuilderManagers[locationType].EngineerManager.Radius, 'Ally') < unitCount
+    local BM = aiBrain.BuilderManagers[locationType]
+
+	if BM.EngineerManager then
+		return GetNumUnitsAroundPoint( aiBrain, testCat, BM.Position, BM.EngineerManager.Radius, 'Ally') < unitCount
 	end
 	
 	return false
@@ -81,8 +87,10 @@ end
 
 function UnitsGreaterAtLocation( aiBrain, locationType, unitCount, testCat )
 
-	if aiBrain.BuilderManagers[locationType].EngineerManager then
-		return GetNumUnitsAroundPoint( aiBrain, testCat, aiBrain.BuilderManagers[locationType].Position, aiBrain.BuilderManagers[locationType].EngineerManager.Radius, 'Ally') > unitCount
+    local BM = aiBrain.BuilderManagers[locationType]
+
+	if BM.EngineerManager then
+		return GetNumUnitsAroundPoint( aiBrain, testCat, BM.Position, BM.EngineerManager.Radius, 'Ally') > unitCount
 	end
     
 	return false
@@ -199,15 +207,15 @@ function GetBaseWithGreatestThreatAtDistance( aiBrain, threattype, threatcutoff,
     local threatamount = 0
     local bestthreat = threatcutoff or 10
     
-    local ringcheck = math.floor(distance/ScenarioInfo.IMAPSize)
+    local ringcheck = LOUDFLOOR(distance/ScenarioInfo.IMAPSize)
+    
+   	local GetThreatsAroundPosition = moho.aibrain_methods.GetThreatsAroundPosition
 
     for _, base in aiBrain.BuilderManagers do
-    
-        --LOG("*AI DEBUG Base is "..repr(base.BaseName))
 
         if base.PlatoonFormManager.Active then
 
-            local threatTable = aiBrain:GetThreatsAroundPosition( base.Position, ringcheck, true, threattype)
+            local threatTable = GetThreatsAroundPosition( aiBrain, base.Position, ringcheck, true, threattype)
             
             for _,v in threatTable do
             
@@ -230,7 +238,7 @@ function GetBaseWithGreatestThreatAtDistance( aiBrain, threattype, threatcutoff,
         
     end
     
-    LOG("*AI DEBUG "..aiBrain.Nickname.." GetBaseWithGreatestThreatAtDistance returns "..repr(bestname).." with "..bestthreat.." rings is "..ringcheck)
+    --LOG("*AI DEBUG "..aiBrain.Nickname.." GetBaseWithGreatestThreatAtDistance returns "..repr(bestname).." with "..bestthreat.." rings is "..ringcheck)
     
     return bestname, bestthreat
     
@@ -395,7 +403,7 @@ function GetEnemyUnitsInRect( aiBrain, x1, z1, x2, z2 )
     if units then
 	
         local enemyunits = {}
-		local counter = 0
+		local counter = 1
 		
         local IsEnemy = IsEnemy
 		local GetAIBrain = moho.entity_methods.GetAIBrain
@@ -403,13 +411,13 @@ function GetEnemyUnitsInRect( aiBrain, x1, z1, x2, z2 )
         for _,v in units do
 		
             if not v.Dead and IsEnemy( GetAIBrain(v).ArmyIndex, aiBrain.ArmyIndex) then
-                enemyunits[counter+1] =  v
+                enemyunits[counter] =  v
 				counter = counter + 1
             end
         end 
 		
-        if counter > 0 then
-            return enemyunits, counter
+        if counter > 1 then
+            return enemyunits, counter-1
         end
     end
     
@@ -433,7 +441,7 @@ function GetFreeUnitsAroundPoint( aiBrain, category, location, radius, useRefuel
     local GetThreatAtPosition = moho.aibrain_methods.GetThreatAtPosition
 	
     local retUnits = {}
-	local counter = 0
+	local counter = 1
 	
     local checkThreat = true	-- default to true which means include all if no threat check 
 	local threat = 0
@@ -454,14 +462,14 @@ function GetFreeUnitsAroundPoint( aiBrain, category, location, radius, useRefuel
 				-- select only units in the Army pool or not attached
 				if not v.PlatoonHandle or (v.PlatoonHandle == aiBrain.ArmyPool) or (useRefuelPool and v.PlatoonHandle == aiBrain.RefuelPool) then
 
-					retUnits[counter+1] = v
+					retUnits[counter] = v
 					counter = counter + 1
 				end
 			end
         end
     end
 	
-    return retUnits,counter
+    return retUnits,counter-1
 end
 
 --	The SpawnWave is a bonus given only to the AIx
@@ -1028,20 +1036,22 @@ function PlatoonDistressMonitor( aiBrain )
     local RebuildTable = aiBrain.RebuildTable
 
     local change = false
+    
+    local PlatoonDistress = aiBrain.PlatoonDistress
 
 	while true do
 
 		WaitTicks(80)
 
-		if aiBrain.PlatoonDistress.AlertSounded then
+		if PlatoonDistress.AlertSounded then
 		
 			change = false
 
-			for k,v in aiBrain.PlatoonDistress.Platoons do
+			for k,v in PlatoonDistress.Platoons do
 			
 				if (not PlatoonExists(aiBrain, v.Platoon)) or (GetGameTimeSeconds() - v.CreationTime > 30) then
 
-					aiBrain.PlatoonDistress.Platoons[k] = nil
+					PlatoonDistress.Platoons[k] = nil
 					change = true
 
 					if PlatoonExists(aiBrain, v.Platoon) then
@@ -1052,10 +1062,10 @@ function PlatoonDistressMonitor( aiBrain )
 
 			if change then
 		
-				aiBrain.PlatoonDistress.Platoons = RebuildTable( aiBrain, aiBrain.PlatoonDistress.Platoons)
+				PlatoonDistress.Platoons = RebuildTable( aiBrain, PlatoonDistress.Platoons)
 
-				if LOUDGETN(aiBrain.PlatoonDistress.Platoons) == 0 then
-					aiBrain.PlatoonDistress.AlertSounded = false
+				if LOUDGETN(PlatoonDistress.Platoons) == 0 then
+					PlatoonDistress.AlertSounded = false
                 end
 			end
 		end
@@ -1115,7 +1125,7 @@ function DisperseUnitsToRallyPoints( aiBrain, units, position, rallypointtable, 
 
         local ident = Random(1,999999)
 
-		returnpool = aiBrain:MakePlatoon('ReturnToBase '..tostring(ident), 'none' )
+		returnpool = MakePlatoon( aiBrain, 'ReturnToBase '..tostring(ident), 'none' )
 
         returnpool.PlanName = 'ReturnToBaseAI'
         returnpool.BuilderName = 'DisperseFail'
@@ -1128,7 +1138,7 @@ function DisperseUnitsToRallyPoints( aiBrain, units, position, rallypointtable, 
 		for _,u in units do
 
 			if not u.Dead then
-				aiBrain:AssignUnitsToPlatoon( returnpool, {u}, 'Unassigned', 'None' )
+				AssignUnitsToPlatoon( aiBrain, returnpool, {u}, 'Unassigned', 'None' )
 				
 				u.PlatoonHandle = {returnpool}
 				u.PlatoonHandle.PlanName = 'ReturnToBaseAI'
@@ -1470,7 +1480,7 @@ function ClearOutBase( manager, aiBrain )
 
             local ident = Random(1,999999)
 
-            local plat = aiBrain:MakePlatoon('ClearOutLand'..tostring(ident),'none')
+            local plat = MakePlatoon( aiBrain,'ClearOutLand'..tostring(ident),'none')
 
             plat.BuilderName = 'ClearOutPrimary Land'
             plat.BulderLocation = basename
@@ -1480,7 +1490,7 @@ function ClearOutBase( manager, aiBrain )
             for _,unit in grouplnd do
 
                 if counter < 60 then
-                    aiBrain:AssignUnitsToPlatoon(plat, {unit},'Attack','None')
+                    AssignUnitsToPlatoon( aiBrain,plat, {unit},'Attack','None')
                     counter = counter + 1
                 else
                     break
@@ -1500,7 +1510,7 @@ function ClearOutBase( manager, aiBrain )
 
             local ident = Random(1,999999)
 
-            local plat = aiBrain:MakePlatoon('ClearOutAmphib'..tostring(ident),'none')
+            local plat = MakePlatoon( aiBrain,'ClearOutAmphib'..tostring(ident),'none')
 
             plat.BuilderName = 'ClearOutPrimary Amphib'
             plat.BulderLocation = basename
@@ -1510,7 +1520,7 @@ function ClearOutBase( manager, aiBrain )
             for _,unit in groupamphib do
 
                 if counter < 60 then
-                    aiBrain:AssignUnitsToPlatoon(plat, {unit},'Attack','None')
+                    AssignUnitsToPlatoon( aiBrain,plat, {unit},'Attack','None')
                     counter = counter + 1
                 else
                     break
@@ -1530,7 +1540,7 @@ function ClearOutBase( manager, aiBrain )
 
             local ident = Random(1,999999)
 
-            local plat = aiBrain:MakePlatoon('ClearOutSea'..tostring(ident),'none')
+            local plat = MakePlatoon( aiBrain,'ClearOutSea'..tostring(ident),'none')
 
             plat.BuilderName = 'ClearOutPrimary Sea'
             plat.BulderLocation = basename
@@ -1540,7 +1550,7 @@ function ClearOutBase( manager, aiBrain )
             for _,unit in groupsea do
 
                 if counter < 60 then
-                    aiBrain:AssignUnitsToPlatoon(plat, {unit},'Attack','None')
+                    AssignUnitsToPlatoon( aiBrain,plat, {unit},'Attack','None')
                     counter = counter + 1
                 else
                     break
@@ -1560,7 +1570,7 @@ function ClearOutBase( manager, aiBrain )
 
             local ident = Random(1,999999)
 
-            local plat = aiBrain:MakePlatoon('ClearOutFighters'..tostring(ident),'none')
+            local plat = MakePlatoon( aiBrain,'ClearOutFighters'..tostring(ident),'none')
 
             plat.BuilderName = 'ClearOut Fighters'
             plat.BuilderLocation = basename
@@ -1568,7 +1578,7 @@ function ClearOutBase( manager, aiBrain )
             for _,unit in groupair do
                 -- assign the units into 'Artillery' which will get an AttackMove order
                 -- rather than typical attack - which forces an attack formation - but uses a simple move order
-                aiBrain:AssignUnitsToPlatoon(plat, {unit},'Artillery','None')
+                AssignUnitsToPlatoon( aiBrain,plat, {unit},'Artillery','None')
 
             end
 
@@ -1585,14 +1595,14 @@ function ClearOutBase( manager, aiBrain )
 
             local ident = Random(1,999999)
 
-            local plat = aiBrain:MakePlatoon('ClearOutGunships'..tostring(ident),'none')
+            local plat = MakePlatoon( aiBrain,'ClearOutGunships'..tostring(ident),'none')
 
             plat.BuilderName = 'ClearOut Gunships'
             plat.BuilderLocation = basename
 
             for _,unit in groupair do
 
-                aiBrain:AssignUnitsToPlatoon(plat, {unit},'Attack','None')
+                AssignUnitsToPlatoon( aiBrain,plat, {unit},'Attack','None')
 
             end
 
@@ -1609,14 +1619,14 @@ function ClearOutBase( manager, aiBrain )
 
             local ident = Random(1,999999)
 
-            local plat = aiBrain:MakePlatoon('ClearOutBombers'..tostring(ident),'none')
+            local plat = MakePlatoon( aiBrain,'ClearOutBombers'..tostring(ident),'none')
 
             plat.BuilderName = 'ClearOut Bombers'
             plat.BuilderLocation = basename
 
             for _,unit in groupair do
 
-                aiBrain:AssignUnitsToPlatoon(plat, {unit},'Attack','None')
+                AssignUnitsToPlatoon( aiBrain,plat, {unit},'Attack','None')
 
             end
 
@@ -1633,14 +1643,14 @@ function ClearOutBase( manager, aiBrain )
 
             local ident = Random(1,999999)
 
-            local plat = aiBrain:MakePlatoon('ClearOutTorpedoBombers'..tostring(ident),'none')
+            local plat = MakePlatoon( aiBrain,'ClearOutTorpedoBombers'..tostring(ident),'none')
 
             plat.BuilderName = 'ClearOut TorpedoBombers'
             plat.BuilderLocation = basename
 
             for _,unit in groupair do
 
-                aiBrain:AssignUnitsToPlatoon(plat, {unit},'Attack','None')
+                AssignUnitsToPlatoon( aiBrain,plat, {unit},'Attack','None')
 
             end
 
@@ -1771,7 +1781,7 @@ function AirUnitRefitThread( unit, aiBrain )
         unit.InRefit = true
 
         local ident = Random(100000,999999)
-        local returnpool = aiBrain:MakePlatoon('AirRefit'..tostring(ident), 'none')
+        local returnpool = MakePlatoon( aiBrain,'AirRefit'..tostring(ident), 'none')
         
         returnpool.BuilderName = 'AirRefit'..tostring(ident)
         returnpool.UsingTransport = true        -- never review this platoon as part of a merge
@@ -1780,7 +1790,7 @@ function AirUnitRefitThread( unit, aiBrain )
 
         if not unit.Dead then
         
-            aiBrain:AssignUnitsToPlatoon( returnpool, {unit}, 'Unassigned', '')
+            AssignUnitsToPlatoon( aiBrain, returnpool, {unit}, 'Unassigned', '')
 
             unit.PlatoonHandle = returnpool
             
@@ -1886,7 +1896,7 @@ function AirUnitRefitThread( unit, aiBrain )
 		-- all units except TRUE transports are returned to ArmyPool --
 		if not LOUDENTITY( categories.TRANSPORTFOCUS, unit) or LOUDENTITY( categories.uea0203, unit ) then
 	
-			aiBrain:AssignUnitsToPlatoon( aiBrain.ArmyPool, {unit}, 'Unassigned', '' )
+			AssignUnitsToPlatoon( aiBrain, aiBrain.ArmyPool, {unit}, 'Unassigned', '' )
 			
 			unit.PlatoonHandle = aiBrain.ArmyPool
 			
@@ -2028,8 +2038,10 @@ end
 function TeleportLocationBlocked( self, location )
 
 	local aiBrain = self:GetAIBrain()
+    
+    local BRAINS = ArmyBrains
 	
-	for num, brain in ArmyBrains do
+	for num, brain in BRAINS do
 	
 		if not IsAlly( aiBrain.ArmyIndex, brain.ArmyIndex ) and aiBrain.Armyindex != brain.ArmyIndex then
 		
@@ -2037,7 +2049,7 @@ function TeleportLocationBlocked( self, location )
 			
 			for i, unit in unitList do
 			
-				local noTeleDistance = unit:GetBlueprint().Defense.NoTeleDistance
+				local noTeleDistance = __blueprints[unit.BlueprintID].Defense.NoTeleDistance
 				local atposition = unit:GetPosition()
 				local targetdestdistance = VDist2(location[1], location[3], atposition[1], atposition[3])
 				
@@ -3901,6 +3913,7 @@ function ParseIntelThread( aiBrain )
 	local timecheck
     
 	local ALLBPS = __blueprints
+    local BRAINS = ArmyBrains
 
 	-- in a perfect world we would check all 8 threat types every parseinterval 
 	-- however, only AIR will be checked every cycle -- the others will be checked every other cycle or on the 3rd or 4th
@@ -4376,7 +4389,7 @@ function ParseIntelThread( aiBrain )
 
             if EnemyData['Air']['Total'] > 0 then
             
-                for v, brain in ArmyBrains do
+                for v, brain in BRAINS do
             
                     if IsEnemy( aiBrain.ArmyIndex, v ) then
                 
@@ -4416,7 +4429,7 @@ function ParseIntelThread( aiBrain )
 
             if EnemyData['Land']['Total'] > 0 then
 
-                for v, brain in ArmyBrains do
+                for v, brain in BRAINS do
             
                     if IsEnemy( aiBrain.ArmyIndex, v ) then
                 
@@ -4456,7 +4469,7 @@ function ParseIntelThread( aiBrain )
 
             if EnemyData['Naval']['Total'] > 0 then
 
-                for v, brain in ArmyBrains do
+                for v, brain in BRAINS do
             
                     if IsEnemy( aiBrain.ArmyIndex, v ) then
                 

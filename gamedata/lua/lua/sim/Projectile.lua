@@ -12,6 +12,7 @@ local UnitDoTThread = import('/lua/sim/defaultdamage.lua').UnitDoTThread
 local AAFlare = import('/lua/defaultantiprojectile.lua').AAFlare
 local Flare = import('/lua/defaultantiprojectile.lua').Flare
 
+local LOUDEMPTY = table.empty
 local LOUDENTITY = EntityCategoryContains
 local LOUDEMITATENTITY = CreateEmitterAtEntity
 local LOUDEMITATBONE = CreateEmitterAtBone
@@ -28,15 +29,24 @@ local AdjustHealth = moho.entity_methods.AdjustHealth
 local BeenDestroyed = moho.entity_methods.BeenDestroyed
 local Destroy = moho.entity_methods.Destroy
 local GetArmy = moho.entity_methods.GetArmy
+
 local GetBlueprint = moho.entity_methods.GetBlueprint
+
 local GetHealth = moho.entity_methods.GetHealth
+local GetMaxHealth = moho.entity_methods.GetMaxHealth
+
 local GetLauncher = moho.projectile_methods.GetLauncher
 local GetPosition = moho.entity_methods.GetPosition
+
+local SetHealth = moho.entity_methods.SetHealth
+local SetMaxHealth = moho.entity_methods.SetMaxHealth
 
 
 local PlaySound = moho.entity_methods.PlaySound
 
 local DefaultTerrainType = GetTerrainType( -1, -1 )
+
+local ALLBPS = __blueprints
 
 Projectile = Class(moho.projectile_methods, Entity) {
 
@@ -101,14 +111,16 @@ Projectile = Class(moho.projectile_methods, Entity) {
         self.Trash = TrashBag()
 		
 		local bp = GetBlueprint(self)
+        
+        self.BlueprintID = bp.BlueprintId
 		
 		if ScenarioInfo.ProjectileDialog then
 			LOG("*AI DEBUG Projectile OnCreate blueprint is "..repr(bp.BlueprintId))
 		end
 		
-        self:SetMaxHealth(bp.Defense.MaxHealth or 1)
+        SetMaxHealth( self, bp.Defense.MaxHealth or 1)
 		
-        self:SetHealth(self, self:GetMaxHealth())
+        SetHealth( self, self, GetMaxHealth(self))
 	
         if bp.Audio.ExistLoop then
 		
@@ -224,15 +236,19 @@ Projectile = Class(moho.projectile_methods, Entity) {
 		if ScenarioInfo.ProjectileDialog then
 			LOG("*AI DEBUG Projectile OnCollisionCheck ")
 		end
+        
+        local TORPEDO = categories.TORPEDO
+        local DIRECTFIRE = categories.DIRECTFIRE
+        local MISSILE = categories.MISSILE
 
-        if (LOUDENTITY(categories.TORPEDO, self) and ( LOUDENTITY(categories.TORPEDO, other) or LOUDENTITY(categories.DIRECTFIRE, other))) or 
-           (LOUDENTITY(categories.MISSILE, self) and ( LOUDENTITY(categories.MISSILE, other) or LOUDENTITY(categories.DIRECTFIRE, other))) or 
-           (LOUDENTITY(categories.DIRECTFIRE, self) and LOUDENTITY(categories.MISSILE, other)) or 
+        if (LOUDENTITY(TORPEDO, self) and ( LOUDENTITY(TORPEDO, other) or LOUDENTITY(DIRECTFIRE, other))) or 
+           (LOUDENTITY(MISSILE, self) and ( LOUDENTITY(MISSILE, other) or LOUDENTITY(DIRECTFIRE, other))) or 
+           (LOUDENTITY(DIRECTFIRE, self) and LOUDENTITY(MISSILE, other)) or 
            (GetArmy(self) == GetArmy(other)) then
             return false
         end
 
-		local bp = GetBlueprint(other)
+		local bp = ALLBPS[other.BlueprintID]
         
         if bp.Physics.HitAssignedTarget then
             if other:GetTrackingTarget() != self then
@@ -248,7 +264,7 @@ Projectile = Class(moho.projectile_methods, Entity) {
 			end
 		end
 		
-		bp = GetBlueprint(self)
+		bp = ALLBPS[self.BlueprintID]
         
 		if bp.DoNotCollideList then
 			for _,v in bp.DoNotCollideList do
@@ -267,7 +283,7 @@ Projectile = Class(moho.projectile_methods, Entity) {
 
     OnDamage = function(self, instigator, amount, vector, damageType)
 	
-        local bp = GetBlueprint(self).Defense.MaxHealth
+        local bp = ALLBPS[self.BlueprintID].Defense.MaxHealth
 		
         if bp then
 		
@@ -287,7 +303,7 @@ Projectile = Class(moho.projectile_methods, Entity) {
 			LOG("*AI DEBUG Projectile OnDestroy for "..repr(self) )
 		end
 	
-		if self.DamageData and not table.empty(self.DamageData) then
+		if self.DamageData and not LOUDEMPTY(self.DamageData) then
 		
 			-- from adv missile track and retarget
 			local target = self:GetTrackingTarget()
@@ -328,7 +344,7 @@ Projectile = Class(moho.projectile_methods, Entity) {
                 local excessDamageRatio = 0.0
 				
                 -- Calculate the excess damage ratio
-                local maxHealth = GetBlueprint(self).Defense.MaxHealth or 10
+                local maxHealth = ALLBPS[self.BlueprintID].Defense.MaxHealth or 10
 				
                 if (health - amount < 0 and maxHealth > 0) then
                     excessDamageRatio = -(health - amount) / maxHealth
@@ -376,7 +392,7 @@ Projectile = Class(moho.projectile_methods, Entity) {
 			
                 if not damageData.DoTTime then
 				
-                    Damage( instigator, GetPosition(self), targetEntity, damageData.DamageAmount, damageData.DamageType)
+                    Damage( instigator, GetPosition(self), targetEntity, damage, damageData.DamageType or "Normal")
 					
                 else
 				
@@ -413,7 +429,7 @@ Projectile = Class(moho.projectile_methods, Entity) {
 
         for k, v in EffectTable do
 		
-			if not self:BeenDestroyed() then
+			if not BeenDestroyed(self) then
 				
 				if ScenarioInfo.ProjectileDialog then
 					LOG("*AI DEBUG Projectile CreateTerrainEffects for impact on "..repr(targetType).." terrain "..repr(v) )
@@ -507,7 +523,7 @@ Projectile = Class(moho.projectile_methods, Entity) {
 			self:DoDamage( GetLauncher(self) or self, self.DamageData, targetEntity)
 		end
 
-        local bp = GetBlueprint(self)
+        local bp = ALLBPS[self.BlueprintID]
 		
         if bp.Audio['Impact'..targetType] then
 		
@@ -610,7 +626,7 @@ Projectile = Class(moho.projectile_methods, Entity) {
 			
 				if TerrainEffect then
 			
-					if (not table.empty(TerrainEffect)) and (not self:BeenDestroyed()) then
+					if (not LOUDEMPTY(TerrainEffect)) and (not BeenDestroyed(self)) then
 
 						ForkTo( self.CreateTerrainEffects, self, army, TerrainEffect, bp.Display.ImpactEffects.Scale or 1 )
 			
@@ -701,7 +717,7 @@ Projectile = Class(moho.projectile_methods, Entity) {
     PassDamageData = function(self, damageData)
 		
 		if ScenarioInfo.ProjectileDialog then
-			LOG("*AI DEBUG Projectile PassDamageData"..repr(self))
+			LOG("*AI DEBUG Projectile PassDamageData DATA is "..repr(damageData))
 		end
 		
         self.DamageData.DamageAmount = damageData.DamageAmount or 0.1
@@ -747,7 +763,7 @@ Projectile = Class(moho.projectile_methods, Entity) {
     
     OnExitWater = function(self)
 	
-        local bp = GetBlueprint(self).Audio['ExitWater']
+        local bp = ALLBPS[self.BlueprintID].Audio['ExitWater']
 		
         if bp then
             PlaySound(self,bp)
@@ -757,7 +773,7 @@ Projectile = Class(moho.projectile_methods, Entity) {
     
     OnEnterWater = function(self)
 	
-        local bp = GetBlueprint(self).Audio['EnterWater']
+        local bp = ALLBPS[self.BlueprintID].Audio['EnterWater']
 		
         if bp then
             PlaySound(self,bp)
@@ -784,7 +800,7 @@ Projectile = Class(moho.projectile_methods, Entity) {
 
     OnLostTarget = function(self)
 	
-        local bp = GetBlueprint(self).Physics
+        local bp = ALLBPS[self.BlueprintID].Physics
 		
         if (bp.TrackTarget and bp.TrackTarget == true) then
 		

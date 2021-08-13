@@ -31,12 +31,12 @@ local CreateAeonConstructionUnitBuildingEffects = import('/lua/EffectUtilities.l
 local CreateAeonFactoryBuildingEffects = import('/lua/EffectUtilities.lua').CreateAeonFactoryBuildingEffects
 
 local ForkThread = ForkThread
-local GetBlueprint = moho.entity_methods.GetBlueprint
+
 
 AeonFactoryUnit = Class(FactoryUnit) {
 
     StartBuildFx = function( self, unitBeingBuilt )
-        unitBeingBuilt.Trash:Add( self:ForkThread( CreateAeonFactoryBuildingEffects, unitBeingBuilt, GetBlueprint(self).General.BuildBones.BuildEffectBones, self.Buildbone, self.BuildEffectsBag ) )        
+        unitBeingBuilt.Trash:Add( self:ForkThread( CreateAeonFactoryBuildingEffects, unitBeingBuilt, __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones, self.Buildbone, self.BuildEffectsBag ) )        
     end,
 }
 
@@ -91,7 +91,7 @@ AShieldStructureUnit = Class(ShieldStructureUnit) {
 	
         ShieldStructureUnit.OnShieldEnabled(self)
 		
-        local bpAnim = GetBlueprint(self).Display.AnimationOpen
+        local bpAnim = __blueprints[self.BlueprintID].Display.AnimationOpen
 		
         if not bpAnim then return end
 		
@@ -146,7 +146,7 @@ ARadarJammerUnit = Class(RadarJammerUnit) {
 	
         RadarJammerUnit.OnStopBeingBuilt(self, builder, layer)
 		
-        local bpAnim = GetBlueprint(self).Display.AnimationOpen
+        local bpAnim = __blueprints[self.BlueprintID].Display.AnimationOpen
 		
         if not bpAnim then return end
 		

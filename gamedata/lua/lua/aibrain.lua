@@ -379,11 +379,13 @@ function SetAIDebug(data)
 
         if data.Switch == 'DisplayAttackPlans' then
         
+            local BRAINS = ArmyBrains
+        
             if data.Active then
             
                 local LoudUtils = import('/lua/loudutilities.lua')
                 
-                for i, brain in ArmyBrains do
+                for i, brain in BRAINS do
                 
                     if brain.BrainType == 'AI' and not brain.DrawPlanThread then
                         brain.DrawPlanThread = ForkThread(LoudUtils.DrawPlanNodes, brain)
@@ -392,7 +394,7 @@ function SetAIDebug(data)
                 
             else
             
-                for i, brain in ArmyBrains do
+                for i, brain in BRAINS do
                 
                     if brain.BrainType == 'AI' and brain.DrawPlanThread then
                         KillThread(brain.DrawPlanThread)
@@ -404,11 +406,13 @@ function SetAIDebug(data)
 
         if data.Switch == 'DisplayIntelPoints' then
         
+            local BRAINS = ArmyBrains
+        
             if data.Active then
             
                 local LoudUtils = import('/lua/loudutilities.lua')
 
-                for i, brain in ArmyBrains do
+                for i, brain in BRAINS do
                 
                     --LOG("*AI DEBUG "..brain.Nickname.." BrainType is "..repr(brain.BrainType).." Civilian is "..repr(ArmyIsCivilian(brain.ArmyIndex)) )
                 
@@ -419,7 +423,7 @@ function SetAIDebug(data)
                 
             else
             
-                for i, brain in ArmyBrains do
+                for i, brain in BRAINS do
                 
                     if brain.BrainType == 'AI' and brain.IntelDebugThread then
                     

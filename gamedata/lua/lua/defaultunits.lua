@@ -863,7 +863,7 @@ StructureUnit = Class(Unit) {
 			
 				--LOG("*AI DEBUG unit is "..repr(v.Unit).." adjacent is "..repr(adjacentUnit:GetEntityId()) )
 			
-				if v.Unit == adjacentUnit:GetEntityId() then
+				if v.Unit == adjacentUnit.Sync.id then   --:GetEntityId() then
 					return
 				end
 			end
@@ -920,7 +920,9 @@ MobileUnit = Class(Unit) {
         
         if bp.AirThreatLevel > 0 or bp.SurfaceThreatLevel > 0 or bp.SubThreatLevel > 0 then
         
-            for k, brain in ArmyBrains do
+            local BRAINS = ArmyBrains
+        
+            for k, brain in BRAINS do
             
                 local function delaythreat( brain, position, threatamount, threattype)
                 

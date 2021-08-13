@@ -44,8 +44,8 @@ local LOUDATTACHBEAMENTITY = AttachBeamEntityToEntity
 
 local WaitTicks = coroutine.yield
 
---local GetArmy = moho.entity_methods.GetArmy
-local GetBlueprint = moho.entity_methods.GetBlueprint
+local ALLBPS = __blueprints
+
 local GetFractionComplete = moho.entity_methods.GetFractionComplete
 local BeenDestroyed = moho.entity_methods.BeenDestroyed
 local SetVelocity = moho.projectile_methods.SetVelocity
@@ -53,10 +53,10 @@ local SetVelocity = moho.projectile_methods.SetVelocity
 function CreateEffects( obj, army, EffectTable )
 
     local emitters = {}
-    local counter = 0
+    local counter = 1
 	
     for _, v in EffectTable do
-		emitters[counter+1] = LOUDEMITATENTITY( obj, army, v )
+		emitters[counter] = LOUDEMITATENTITY( obj, army, v )
         counter = counter + 1
     end
     
@@ -66,10 +66,10 @@ end
 function CreateEffectsWithOffset( obj, army, EffectTable, x, y, z )
 
     local emitters = {}
-    local counter = 0
+    local counter = 1
 	
     for _, v in EffectTable  do
-		emitters[counter+1] = LOUDEMITATENTITY( obj, army, v ):OffsetEmitter(x, y, z)
+		emitters[counter] = LOUDEMITATENTITY( obj, army, v ):OffsetEmitter(x, y, z)
         counter = counter + 1
     end
     
@@ -79,10 +79,10 @@ end
 function CreateEffectsWithRandomOffset( obj, army, EffectTable, xRange, yRange, zRange )
 
     local emitters = {}
-	local counter = 0
+	local counter = 1
 	
     for _, v in EffectTable do
-		emitters[counter+1] = LOUDEMITONENTITY( obj, army, v ):OffsetEmitter(util.GetRandomOffset(xRange, yRange, zRange, 1))
+		emitters[counter] = LOUDEMITONENTITY( obj, army, v ):OffsetEmitter(util.GetRandomOffset(xRange, yRange, zRange, 1))
 		counter = counter + 1
     end
     
@@ -93,10 +93,10 @@ end
 function CreateBoneEffects( obj, bone, army, EffectTable )
 
     local emitters = {}
-    local counter = 0
+    local counter = 1
 	
     for _, v in EffectTable do
-		emitters[counter+1] = LOUDEMITATBONE( obj, bone, army, v )
+		emitters[counter] = LOUDEMITATBONE( obj, bone, army, v )
         counter = counter + 1
     end
     
@@ -106,10 +106,10 @@ end
 function CreateBoneEffectsOffset( obj, bone, army, EffectTable, x, y, z )
 
     local emitters = {}
-    local counter = 0
+    local counter = 1
 
     for _, v in EffectTable do
-		emitters[counter+1] = LOUDEMITATBONE( obj, bone, army, v ):OffsetEmitter(x, y, z)
+		emitters[counter] = LOUDEMITATBONE( obj, bone, army, v ):OffsetEmitter(x, y, z)
         counter = counter + 1
     end
 
@@ -139,10 +139,10 @@ function CreateRandomEffects( obj, army, EffectTable, NumEffects )
 	
     local NumTableEntries = LOUDGETN(EffectTable)
     local emitters = {}
-	local counter = 0
+	local counter = 1
 	
     for i = 1, NumEffects do
-        emitters[counter+1] = LOUDEMITONENTITY( obj, army, EffectTable[GetRandomInt(1,NumTableEntries)] )
+        emitters[counter] = LOUDEMITONENTITY( obj, army, EffectTable[GetRandomInt(1,NumTableEntries)] )
 		counter = counter + 1
     end
 	
@@ -161,7 +161,7 @@ function CreateBuildCubeThread( unitBeingBuilt, builder, OnBeingBuiltEffectsBag 
 
 	local LOUDABS = math.abs
 	
-    local bp = GetBlueprint(unitBeingBuilt)
+    local bp = ALLBPS[unitBeingBuilt.BlueprintID]
 	local pos = unitBeingBuilt:GetPosition()
 	
     local xPos = pos[1]
@@ -250,7 +250,7 @@ end
 
 function CreateUEFUnitBeingBuiltEffects( builder, unitBeingBuilt, BuildEffectsBag )
 
-    BuildEffectsBag:Add( LOUDATTACHEMITTER( builder, builder:GetBlueprint().Display.BuildAttachBone, builder.Sync.army, '/effects/emitters/uef_mobile_unit_build_01_emit.bp' ) )
+    BuildEffectsBag:Add( LOUDATTACHEMITTER( builder, ALLBPS[builder.BlueprintID].Display.BuildAttachBone, builder.Sync.army, '/effects/emitters/uef_mobile_unit_build_01_emit.bp' ) )
 end
 
 function CreateUEFBuildSliceBeams( builder, unitBeingBuilt, BuildEffectBones, BuildEffectsBag )
@@ -258,7 +258,7 @@ function CreateUEFBuildSliceBeams( builder, unitBeingBuilt, BuildEffectBones, Bu
     local army = builder.Sync.army
     local BeamBuildEmtBp = '/effects/emitters/build_beam_01_emit.bp'
     
-    local buildbp = GetBlueprint(unitBeingBuilt)
+    local buildbp = ALLBPS[unitBeingBuilt.BlueprintID]
 
 	local pos = unitBeingBuilt:GetPosition()
 
@@ -341,7 +341,7 @@ function CreateUEFCommanderBuildSliceBeams( builder, unitBeingBuilt, BuildEffect
 
     local army = builder.Sync.army
     local BeamBuildEmtBp = '/effects/emitters/build_beam_01_emit.bp'
-    local buildbp = GetBlueprint(unitBeingBuilt)
+    local buildbp = ALLBPS[unitBeingBuilt.BlueprintID]
 	local pos = unitBeingBuilt:GetPosition()
 	local x = pos[1]
 	local y = pos[2]
@@ -470,7 +470,7 @@ end
 function CreateAeonBuildBaseThread( unitBeingBuilt, builder, EffectsBag )
 
 	local army = builder.Sync.army
-    local bp = GetBlueprint(unitBeingBuilt)
+    local bp = ALLBPS[unitBeingBuilt.BlueprintID]
 	local pos = unitBeingBuilt:GetPosition()
 	
 	local x = pos[1]
@@ -549,7 +549,7 @@ function CreateCybranBuildBeams( builder, unitBeingBuilt, BuildEffectBones, Buil
 		local army = builder.Sync.army
 	
 		local BeamEndEntities = {}
-		local counter = 0
+		local counter = 1
     
         for i, BuildBone in BuildEffectBones do
 		
@@ -557,7 +557,7 @@ function CreateCybranBuildBeams( builder, unitBeingBuilt, BuildEffectBones, Buil
 			
             builder.Trash:Add(beamEnd)
 			
-            BeamEndEntities[counter+1] = beamEnd
+            BeamEndEntities[counter] = beamEnd
 			counter = counter + 1
 			
             BuildEffectsBag:Add( beamEnd )
@@ -609,11 +609,11 @@ function SpawnBuildBots( builder, unitBeingBuilt, numBots,  BuildEffectsBag )
     local angle = (2*LOUDPI) / numBots
 
     local xVec = 0
-    local yVec = builder:GetBlueprint().SizeY * 0.5
+    local yVec = ALLBPS[builder.BlueprintID].SizeY * 0.5
     local zVec = 0
 	
     local BuilderUnits = {}
-	local counter = 0
+	local counter = 1
 	
     local tunit = nil
 
@@ -628,7 +628,7 @@ function SpawnBuildBots( builder, unitBeingBuilt, numBots,  BuildEffectsBag )
         tunit:SetCanTakeDamage(false)
         tunit:SetCanBeKilled(false)
         
-        BuilderUnits[counter+1] = tunit
+        BuilderUnits[counter] = tunit
 		counter = counter + 1
 		
         BuildEffectsBag:Add(tunit)
@@ -735,7 +735,7 @@ end
 -- effects used by Factories building units
 function CreateAeonFactoryBuildingEffects( builder, unitBeingBuilt, BuildEffectBones, BuildBone, EffectsBag )
 
-    local bp = GetBlueprint(unitBeingBuilt)
+    local bp = ALLBPS[unitBeingBuilt.BlueprintID]
     local army = builder.Sync.army
 	local pos = table.copy(builder.CachePosition)
 	
@@ -846,7 +846,7 @@ end
 
 function CreateSeraphimFactoryBuildingEffects( builder, unitBeingBuilt, BuildEffectBones, BuildBone, EffectsBag )
 
-    local bp = GetBlueprint(unitBeingBuilt)
+    local bp = ALLBPS[unitBeingBuilt.BlueprintID]
     local army = builder.Sync.army
 	local pos = builder:GetPosition(BuildBone)
 	local x = pos[1]
@@ -924,7 +924,7 @@ end
 
 function CreateSeraphimBuildBaseThread( unitBeingBuilt, builder, EffectsBag )
     local army = builder.Sync.army
-    local bp = GetBlueprint(unitBeingBuilt)
+    local bp = ALLBPS[unitBeingBuilt.BlueprintID]
 	local pos = unitBeingBuilt:GetPosition()
 	local x = pos[1]
 	local y = pos[2]
@@ -1005,7 +1005,7 @@ function CreateSeraphimBuildBaseThread( unitBeingBuilt, builder, EffectsBag )
 end
 
 function CreateSeraphimExperimentalBuildBaseThread( unitBeingBuilt, builder, EffectsBag )
-    local bp = GetBlueprint(unitBeingBuilt)
+    local bp = ALLBPS[unitBeingBuilt.BlueprintID]
 	local pos = unitBeingBuilt:GetPosition()
 	local x = pos[1]
 	local y = pos[2]
@@ -1038,13 +1038,13 @@ function CreateSeraphimExperimentalBuildBaseThread( unitBeingBuilt, builder, Eff
     }
     
     local AdjustedEmitters = {}
-	local counter = 0
+	local counter = 1
 	
     local effect = nil
 	
     for _, vEffect in BuildEffectsEmitters do
         effect = LOUDATTACHEMITTER( unitBeingBuilt, -1, builder.Sync.army, vEffect ):ScaleEmitter(2)
-        AdjustedEmitters[counter+1] = effect
+        AdjustedEmitters[counter] = effect
 		counter = counter + 1
         EffectsBag:Add(effect)
     end
@@ -1095,282 +1095,43 @@ end
 -- and getting rid of all this complex calculation for position and intermediate nodes
 function CreateAdjacencyBeams( unit, adjacentUnit )
 
-	--local LOUDGETN = table.getn
 	local LOUDINSERT = table.insert
-	--local LOUDWARP = Warp
 	local LOUDATTACHEMITTER = CreateAttachedEmitter
 
-	local info = { Unit = adjacentUnit:GetEntityId(), Trash = TrashBag(), }
+	local info = { Unit = adjacentUnit.Sync.id, Trash = TrashBag(), }
     
-    --local uBp =  __blueprints[unit.BlueprintID]
-    --local aBp =  __blueprints[adjacentUnit.BlueprintID]
     local army = unit.Sync.army
     local faction = __blueprints[unit.BlueprintID].General.FactionName
 
     -- Determine which effects we will be using	-- default to Cybran
-    --local nodeMesh = '/effects/entities/cybranadjacencynode/cybranadjacencynode_mesh'
     local beamEffect = '/effects/emitters/adjacency_cybran_beam_01_emit.bp'
-	
-    --local emitterNodeEffects = {}  
-    --local numNodes = 0
-    --local nodeList = {}
-    --local validAdjacency = true
 
-	-- Create hub start/end and all midpoint nodes -- NOTE: since adjacency can only
-	-- happen between structures I make direct use of the CachePosition value and save
-	-- calling the GetPosition function -- I use a table.copy since we dont want the
-	-- code to start playing with the CachePosition directly -- which is was doing 
-	-- until I put this in place
-    --local unitHub = { entity = Entity{}, pos = table.copy(unit.CachePosition) }
-	--local adjacentHub = { entity = Entity{}, pos = table.copy(adjacentUnit.CachePosition) }
-	
-    --local unitHub = { entity = unit, pos = table.copy(unit.CachePosition) }
-	--local adjacentHub = { entity = adjacentUnit, pos = table.copy(adjacentUnit.CachePosition) }
-
-    --local spec = { Owner = unit }
-   
     if faction == 'Aeon' then
-        --nodeMesh = '/effects/entities/aeonadjacencynode/aeonadjacencynode_mesh'
+    
         beamEffect = '/effects/emitters/adjacency_aeon_beam_01_emit.bp'
 		
     elseif faction == 'UEF' then
-        --nodeMesh = '/effects/entities/uefadjacencynode/uefadjacencynode_mesh'
+    
         beamEffect = '/effects/emitters/adjacency_uef_beam_01_emit.bp'	
-		
-    --elseif faction == 'Seraphim' then
-        --nodeMesh = '/effects/entities/seraphimadjacencynode/seraphimadjacencynode_mesh'
---[[		
-        LOUDINSERT( emitterNodeEffects, EffectTemplate.SAdjacencyAmbient01 )
-		
-        if  VDist2( unitHub.pos[1],unitHub.pos[3], adjacentHub.pos[1], adjacentHub.pos[3] ) < 2.5 then
-            numNodes = 1
-        else
-            numNodes = 3
-            LOUDINSERT( emitterNodeEffects, EffectTemplate.SAdjacencyAmbient02 )
-            LOUDINSERT( emitterNodeEffects, EffectTemplate.SAdjacencyAmbient03 )
-        end
---]]
+
     end    
---[[
-	if numNodes > 0 then
-		for i = 1, numNodes do
-			local node = { entity = Entity(spec), pos = {0,0,0}, mesh = nil,}
-			node.entity:SetVizToNeutrals('Intel')
-			node.entity:SetVizToEnemies('Intel')
-			LOUDINSERT( nodeList, node )
-		end
-	end
---]]
-	--local verticalOffset = 0.05
---[[
-	-- Move Unit Pos towards adjacent unit by bounding box size
-	local uBpSizeX = uBp.SizeX * 0.5
-	local uBpSizeZ = uBp.SizeZ * 0.5
-	local aBpSizeX = aBp.SizeX * 0.5
-	local aBpSizeZ = aBp.SizeZ * 0.5
 
-	-- To Determine positioning, need to use the bounding box or skirt size
-	local uBpSkirtX = uBp.Physics.SkirtSizeX * 0.5
-	local uBpSkirtZ = uBp.Physics.SkirtSizeZ * 0.5
-	local aBpSkirtX = aBp.Physics.SkirtSizeX * 0.5
-	local aBpSkirtZ = aBp.Physics.SkirtSizeZ * 0.5	
-
-	-- Get edge corner positions, { TOP, LEFT, BOTTOM, RIGHT }
-	local unitSkirtBounds = {
-		unitHub.pos[3] - uBpSkirtZ,
-		unitHub.pos[1] - uBpSkirtX,
-		unitHub.pos[3] + uBpSkirtZ,
-		unitHub.pos[1] + uBpSkirtX,
-	}
-	
-	local adjacentSkirtBounds = {
-		adjacentHub.pos[3] - aBpSkirtZ,
-		adjacentHub.pos[1] - aBpSkirtX,
-		adjacentHub.pos[3] + aBpSkirtZ,
-		adjacentHub.pos[1] + aBpSkirtX,
-	}
-
-	-- Figure out the best matching ogrid position on units bounding box
-	-- depending on it's skirt size
-
-	-- Unit bottom or top skirt is aligned to adjacent unit
-	if (unitSkirtBounds[3] == adjacentSkirtBounds[1]) or (unitSkirtBounds[1] == adjacentSkirtBounds[3]) then
-	
-		local sharedSkirtLower = unitSkirtBounds[4] - (unitSkirtBounds[4] - adjacentSkirtBounds[2])
-		local sharedSkirtUpper = unitSkirtBounds[4] - (unitSkirtBounds[4] - adjacentSkirtBounds[4])
-		local sharedSkirtLen = sharedSkirtUpper - sharedSkirtLower
-    	
-		-- Depending on shared skirt bounds, determine the position of unit hub
-		-- Find out how many times the shared skirt fits into the unit hub shared skirt
-		local numAdjSkirtsOnUnitSkirt = (uBpSkirtX * 2) / sharedSkirtLen
-		local numUnitSkirtsOnAdjSkirt = (aBpSkirtX * 2) / sharedSkirtLen
- 		
- 		-- Z-offset, offset adjacency hub positions the proper direction
-		if unitSkirtBounds[3] == adjacentSkirtBounds[1] then
-			unitHub.pos[3] = unitHub.pos[3] + uBpSizeZ														 
-			adjacentHub.pos[3] = adjacentHub.pos[3] - aBpSizeZ
-		else
-			unitHub.pos[3] = unitHub.pos[3] - uBpSizeZ
-			adjacentHub.pos[3] = adjacentHub.pos[3] + aBpSizeZ			
-		end    
-		
-		-- X-offset, Find the shared adjacent x position range			
-		-- If we have more than skirt on this section, then we need to adjust the x position of the unit hub 
-		if numAdjSkirtsOnUnitSkirt > 1 or numUnitSkirtsOnAdjSkirt < 1 then
-			local uSkirtLen = (unitSkirtBounds[4] - unitSkirtBounds[2]) * 0.5           # Unit skirt length			
-			local uGridUnitSize = (uBpSizeX * 2) / uSkirtLen                            # Determine one grid of adjacency along that length
-			local xoffset = LOUDABS(unitSkirtBounds[2] - adjacentSkirtBounds[2]) * 0.5 # Get offset of the unit along the skirt
-			unitHub.pos[1] = (unitHub.pos[1] - uBpSizeX) + (xoffset * uGridUnitSize) + (uGridUnitSize * 0.5) # Now offset the position of adjacent point
-		end
-		
-		-- If we have more than skirt on this section, then we need to adjust the x position of the adjacent hub 
-		if numUnitSkirtsOnAdjSkirt > 1  or numAdjSkirtsOnUnitSkirt < 1 then
-			local aSkirtLen = (adjacentSkirtBounds[4] - adjacentSkirtBounds[2]) * 0.5   # Adjacent unit skirt length			
-			local aGridUnitSize = (aBpSizeX * 2) / aSkirtLen                            # Determine one grid of adjacency along that length ??
-			local xoffset = LOUDABS(adjacentSkirtBounds[2] - unitSkirtBounds[2]) * 0.5	# Get offset of the unit along the adjacent unit
-			adjacentHub.pos[1] = (adjacentHub.pos[1] - aBpSizeX) + (xoffset * aGridUnitSize) + (aGridUnitSize * 0.5) # Now offset the position of adjacent point
-        end			
-
-	-- Unit right or top left is aligned to adjacent unit
-	elseif (unitSkirtBounds[4] == adjacentSkirtBounds[2]) or (unitSkirtBounds[2] == adjacentSkirtBounds[4]) then
-	
-		local sharedSkirtLower = unitSkirtBounds[3] - (unitSkirtBounds[3] - adjacentSkirtBounds[1])
-		local sharedSkirtUpper = unitSkirtBounds[3] - (unitSkirtBounds[3] - adjacentSkirtBounds[3])
-		local sharedSkirtLen = sharedSkirtUpper - sharedSkirtLower
-   	
-		-- Depending on shared skirt bounds, determine the position of unit hub
-		-- Find out how many times the shared skirt fits into the unit hub shared skirt
-		local numAdjSkirtsOnUnitSkirt = (uBpSkirtX * 2) / sharedSkirtLen
-		local numUnitSkirtsOnAdjSkirt = (aBpSkirtX * 2) / sharedSkirtLen
-
-		-- X-offset
-		if (unitSkirtBounds[4] == adjacentSkirtBounds[2]) then
-			unitHub.pos[1] = unitHub.pos[1] + uBpSizeX
-			adjacentHub.pos[1] = adjacentHub.pos[1] - aBpSizeX
-		else
-			unitHub.pos[1] = unitHub.pos[1] - uBpSizeX
-			adjacentHub.pos[1] = adjacentHub.pos[1] + aBpSizeX
-		end
-		
-		-- Z-offset, Find the shared adjacent x position range			
-		-- If we have more than skirt on this section, then we need to adjust the x position of the unit hub 
-		if numAdjSkirtsOnUnitSkirt > 1 or numUnitSkirtsOnAdjSkirt < 1 then
-			local uSkirtLen = (unitSkirtBounds[3] - unitSkirtBounds[1]) * 0.5           # Unit skirt length			
-			local uGridUnitSize = (uBpSizeZ * 2) / uSkirtLen                            # Determine one grid of adjacency along that length
-			local zoffset = LOUDABS(unitSkirtBounds[1] - adjacentSkirtBounds[1]) * 0.5 # Get offset of the unit along the skirt
-			unitHub.pos[3] = (unitHub.pos[3] - uBpSizeZ) + (zoffset * uGridUnitSize) + (uGridUnitSize * 0.5) # Now offset the position of adjacent point
-		end
-		
-		-- If we have more than skirt on this section, then we need to adjust the x position of the adjacent hub 
-		if numUnitSkirtsOnAdjSkirt > 1 or numAdjSkirtsOnUnitSkirt < 1 then
-			local aSkirtLen = (adjacentSkirtBounds[3] - adjacentSkirtBounds[1]) * 0.5   # Adjacent unit skirt length			
-			local aGridUnitSize = (aBpSizeZ * 2) / aSkirtLen                            # Determine one grid of adjacency along that length ??
-			local zoffset = LOUDABS(adjacentSkirtBounds[1] - unitSkirtBounds[1]) * 0.5	# Get offset of the unit along the adjacent unit
-			adjacentHub.pos[3] = (adjacentHub.pos[3] - aBpSizeZ) + (zoffset * aGridUnitSize) + (aGridUnitSize * 0.5) # Now offset the position of adjacent point
-        end				
-    end
---]]
-
-	-- Setup our midpoint positions
---[[
-	if  faction == 'Seraphim' then 
-		local DirectionVec = util.GetDifferenceVector( unitHub.pos, adjacentHub.pos )
-		local Dist = VDist3( unitHub.pos, adjacentHub.pos )
-		local PerpVec = Cross( DirectionVec, Vector(0,0.35,0) )
-		local segmentLen = 1 / (numNodes + 1)
-		local halfDist = Dist * 0.5
-
-		if GetRandomInt(0,1) == 1 then
-			PerpVec[1] = -PerpVec[1]
-			PerpVec[2] = -PerpVec[2]
-			PerpVec[3] = -PerpVec[3]
-		end
-
-		local offsetMul = 0.15
-
-		for i = 1, numNodes do
-			local segmentMul = i * segmentLen
-
-			if segmentMul <= 0.5 then
-				offsetMul = offsetMul + 0.12
-			else
-				offsetMul = offsetMul - 0.12
-			end
-
-			nodeList[i].pos = {
-				unitHub.pos[1] - (DirectionVec[1] * segmentMul) - (PerpVec[1] * offsetMul),
-				nil,
-				unitHub.pos[3] - (DirectionVec[3] * segmentMul) - (PerpVec[3] * offsetMul),
-			}
-		end
-    end
---]]	
-
-
-    --if validAdjacency then
---[[
-        -- Offset beam positions above the ground at current positions terrain height
-        for _, v in nodeList do
-            v.pos[2] = GetTerrainHeight(v.pos[1], v.pos[3]) + verticalOffset
-        end
-
-        unitHub.pos[2] = GetTerrainHeight(unitHub.pos[1], unitHub.pos[3]) + verticalOffset
-        adjacentHub.pos[2] = GetTerrainHeight(adjacentHub.pos[1], adjacentHub.pos[3]) + verticalOffset
+    if beamEffect then
+    
+        local beam = LOUDATTACHBEAMENTITY( unit, -1, adjacentUnit, -1, army, beamEffect )
         
-		if numNodes > 0 then
-			-- Set the mesh of the entity and attach any node effects
-			for i = 1, numNodes do
-				nodeList[i].entity:SetMesh(nodeMesh, false)
-				nodeList[i].mesh = true
-			
-				if emitterNodeEffects[i] != nil and LOUDGETN(emitterNodeEffects[i]) != 0 then
+        info.Trash:Add(beam)
+        unit.Trash:Add(beam)
+    end
 
-					for _, vEmit in emitterNodeEffects[i] do
-						emit = LOUDATTACHEMITTER( nodeList[i].entity, 0, army, vEmit )
-						info.Trash:Add(emit)
-						--unit.Trash:Add(emit)
-					end
-				end
-			end
-		end
---]]
-        -- Insert start and end points into our list
-        --LOUDINSERT(nodeList, 1, unitHub )
-        --LOUDINSERT(nodeList, adjacentHub )
---[[
-        -- WARP everything to its final position
-		-- the +2 accounts for the start and end nodes
-        for i = 1, numNodes + 2 do
-            LOUDWARP( nodeList[i].entity, nodeList[i].pos )
-            info.Trash:Add(nodeList[i].entity)
-            --unit.Trash:Add(nodeList[i].entity)
-        end
---]]
-        -- Attach beams to the adjacent unit
-        --for i = 1, numNodes + 1 do
---[[		
-            if nodeList[i].mesh != nil then
-                local vec = util.GetDirectionVector(Vector(nodeList[i].pos[1], nodeList[i].pos[2], nodeList[i].pos[3]), Vector(nodeList[i+1].pos[1], nodeList[i+1].pos[2], nodeList[i+1].pos[3]))
-                nodeList[i].entity:SetOrientation( OrientFromDir( vec ),true)
-            end
---]]			
-            if beamEffect then
-                local beam = LOUDATTACHBEAMENTITY( unit, -1, adjacentUnit, -1, army, beamEffect )
-                info.Trash:Add(beam)
-                unit.Trash:Add(beam)
-            end
-        --end
-		
-		LOUDINSERT( unit.AdjacencyBeamsBag, info)
-    --end
-	
+	LOUDINSERT( unit.AdjacencyBeamsBag, info)
 
 end
 
 
 function PlaySacrificingEffects( unit, target_unit )
-	--local army = unit.Sync.army
-	local bp = GetBlueprint(unit)
+
+	local bp = ALLBPS[unit.BlueprintID]
 	local faction = bp.General.FactionName
 
 	if faction == 'Aeon' then
@@ -1382,7 +1143,7 @@ end
 
 function PlaySacrificeEffects( unit, target_unit )
 	local army = unit.Sync.army
-	local bp = GetBlueprint(unit)
+	local bp = ALLBPS[unit.BlueprintID]
 	local faction = bp.General.FactionName
 
 	if faction == 'Aeon' then
@@ -1396,11 +1157,11 @@ end
 function PlayReclaimEffects( reclaimer, reclaimed, BuildEffectBones, EffectsBag )
 
     local pos = reclaimed:GetPosition()
-	
-    --pos[2] = GetSurfaceHeight(pos[1], pos[3])
 
     local beamEnd = Entity()
+    
     EffectsBag:Add(beamEnd)
+    
     LOUDWARP( beamEnd, pos )
 
     for _, vBone in BuildEffectBones do
@@ -1422,6 +1183,7 @@ function PlayReclaimEndEffects( reclaimer, reclaimed )
     if reclaimer then
         army = reclaimer.Sync.army
     end
+    
 	for _, v in ReclaimObjectEnd do
 	    LOUDEMITATENTITY( reclaimed, army, v )
 	end
@@ -1431,17 +1193,21 @@ end
 
 
 function PlayCaptureEffects( capturer, captive, BuildEffectBones, EffectsBag )
+
 	local army = capturer.Sync.army
 
     for _, vBone in BuildEffectBones do
+    
 		for _, vEmit in EffectTemplate.CaptureBeams do
 			EffectsBag:Add(LOUDATTACHBEAMENTITY(capturer, vBone, captive, -1, army, vEmit ))
 		end
+        
 	end
 end
 
 
 function CreateCybranQuantumGateEffect( unit, bone1, bone2, TrashBag, startwaitSeed )
+
     -- Adding a quick wait here so that unit bone positions are correct
     WaitTicks( startwaitSeed * 10 )
     
@@ -1579,7 +1345,7 @@ end
 function PlayTeleportChargeEffects(self)
 
     local army = self.Sync.army
-    local bp = GetBlueprint(self)
+    local bp = ALLBPS[self.BlueprintID]
 
     self.TeleportChargeBag = {}
 
@@ -1598,7 +1364,7 @@ end
 function PlayTeleportInEffects(self)
 
     local army = self.Sync.army
-    local bp = GetBlueprint(self)
+    local bp = ALLBPS[self.BlueprintID]
 
     for k, v in EffectTemplate.GenericTeleportIn01 do
         LOUDEMITATENTITY( self, army, v ):OffsetEmitter(0, ( bp.Physics.MeshExtentsY or 1 ) * 0.5, 0)
@@ -1632,7 +1398,7 @@ function EXTeleportChargeEffects(self)
 
     if not self.Dead then
 
-		local bpe = self:GetBlueprint().Economy
+		local bpe = ALLBPS[self.BlueprintID].Economy
 
 		self.EXPhaseEnabled = true
 		self.EXPhaseCharge = 1
@@ -1650,7 +1416,7 @@ function EXTeleportChargeEffects(self)
 			self.EXTeleTimeMod3 = (EXTeleTime * 10) - ((self.EXTeleTimeMod1 * 2) + self.EXTeleTimeMod2)
 			self.EXTeleTimeMod4 = (self.EXTeleTimeMod3) - 7
 
-			local bp = self:GetBlueprint()
+			local bp = ALLBPS[self.BlueprintID]
 			local bpDisplay = bp.Display
 
 			if self.EXPhaseCharge == 1 then
@@ -1686,7 +1452,7 @@ function EXTeleportCooldownEffects(self)
 
     if not self.Dead then
 
-        local bp = self:GetBlueprint()
+        local bp = ALLBPS[self.BlueprintID]
 		local bpDisplay = bp.Display
 
 		self.EXPhaseCharge = 0

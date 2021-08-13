@@ -36,27 +36,37 @@ local WaitTicks = coroutine.yield
 local BeenDestroyed = moho.entity_methods.BeenDestroyed
 local CreateProjectile = moho.entity_methods.CreateProjectile
 local GetArmy = moho.entity_methods.GetArmy
-local GetBlueprint = moho.entity_methods.GetBlueprint
+
+local ALLBPS = __blueprints
+
 local GetPosition = moho.entity_methods.GetPosition
 
 
 function GetUnitSizes( unit )
-    local bp = GetBlueprint(unit)
+
+    local bp = ALLBPS[unit.BlueprintID]
+    
     return bp.SizeX or 0, bp.SizeY or 0, bp.SizeZ or 0
 end
 
 function GetUnitVolume( unit )
+
     local x,y,z = GetUnitSizes( unit )
+    
     return x*y*z
 end
 
 function GetAverageBoundingXZRadius( unit )
-    local bp = GetBlueprint(unit)
+
+    local bp = ALLBPS[unit.BlueprintID]
+    
     return ( ( (bp.SizeX or 0) + (bp.SizeZ or 0) ) * 0.5)
 end
 
 function GetAverageBoundingXYZRadius( unit )
-    local bp = GetBlueprint(unit)
+
+    local bp = ALLBPS[unit.BlueprintID]
+    
     return ((bp.SizeX or 0 + bp.SizeY or 0 + bp.SizeZ or 0) * 0.333)
 end
 

@@ -25,7 +25,6 @@ local WaitTicks = coroutine.yield
 local AssignUnitsToPlatoon = moho.aibrain_methods.AssignUnitsToPlatoon
 local BeenDestroyed = moho.entity_methods.BeenDestroyed
 local IsUnitState = moho.unit_methods.IsUnitState
---local GetUnitId = moho.unit_methods.GetUnitId
 
 local GetNumUnitsAroundPoint = moho.aibrain_methods.GetNumUnitsAroundPoint
 local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint

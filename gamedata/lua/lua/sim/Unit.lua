@@ -127,6 +127,8 @@ local IsValidBone = moho.entity_methods.IsValidBone
 
 local ALLBPS = __blueprints
 
+local BRAINS = ArmyBrains
+
 Unit = Class(moho.unit_methods) {
 
     BuffTypes = {
@@ -508,7 +510,7 @@ Unit = Class(moho.unit_methods) {
                     self.SeenEverDelay = {}
 		
                     -- this puts an entry for every army into this unit
-                    for _, brain in ArmyBrains do
+                    for _, brain in BRAINS do
 					
                         self.SeenEver[brain.ArmyIndex] = false
                         self.SeenEverDelay[brain.ArmyIndex] = 0
@@ -541,11 +543,13 @@ Unit = Class(moho.unit_methods) {
         local enemy_index = {}
         local enemy_count = 1
 
-        for _, brain in ArmyBrains do
+        for _, brain in BRAINS do
+        
             if brain.BrainType == 'Human' and IsEnemy( brain.ArmyIndex, mybrain.ArmyIndex) then
                 enemy_index[enemy_count] = brain.ArmyIndex
                 enemy_count = enemy_count + 1
             end
+            
         end
 
 		while enemy_count > 1 do
@@ -2070,7 +2074,7 @@ Unit = Class(moho.unit_methods) {
 			
         end
 		
-		local DNCList = GetBlueprint(other).DoNotCollideList
+		local DNCList = __blueprints[other.BlueprintID].DoNotCollideList
 		
 		if DNCList then
 		
@@ -2086,7 +2090,7 @@ Unit = Class(moho.unit_methods) {
 			
 		end
 
-		local DNCList = GetBlueprint(self).DoNotCollideList	
+		local DNCList = __blueprints[self.BlueprintID].DoNotCollideList	
 		
 		if DNCList then
 		
@@ -2496,7 +2500,7 @@ Unit = Class(moho.unit_methods) {
 			
 			local mybrain = self:GetAIBrain()
 			
-			for _, brain in ArmyBrains do
+			for _, brain in BRAINS do
         
 				if brain.BrainType == 'Human' then
                 
@@ -2537,7 +2541,7 @@ Unit = Class(moho.unit_methods) {
 	
         local mybrain = self:GetAIBrain()
 		
-        for _, brain in ArmyBrains do
+        for _, brain in BRAINS do
 		
 			if brain.BrainType == "Human" then
 				
@@ -3524,7 +3528,7 @@ Unit = Class(moho.unit_methods) {
 
     OnWorkBegin = function(self, work)
 	
-        local unitEnhancements = import('/lua/enhancementcommon.lua').GetEnhancements(GetEntityId(self))
+        local unitEnhancements = import('/lua/enhancementcommon.lua').GetEnhancements(self.Sync.id) --GetEntityId(self))
         local tempEnhanceBp = ALLBPS[self.BlueprintID].Enhancements[work]
 
         if tempEnhanceBp.Prerequisite then
@@ -3705,8 +3709,8 @@ Unit = Class(moho.unit_methods) {
 
     HasEnhancement = function(self, enh)
 	
-        local entId = GetEntityId(self)
-        local unitEnh = SimUnitEnhancements[entId]
+        --local entId = self.Sync.id  --GetEntityId(self)
+        local unitEnh = SimUnitEnhancements[self.Sync.id]
 		
         if unitEnh then
 		
@@ -4607,7 +4611,7 @@ Unit = Class(moho.unit_methods) {
     -- Check if we should veteran up.
     CheckVeteranLevel = function(self)
 	
-        local bp = GetBlueprint(self).Veteran or Game.VeteranDefault or false
+        local bp = ALLBPS[self.BlueprintID].Veteran or Game.VeteranDefault or false
 		
         if (not bp) or not bp[('Level'..self.VeteranLevel + 1)] then
             return
@@ -4619,7 +4623,7 @@ Unit = Class(moho.unit_methods) {
 
             self:SetVeteranLevel(self.VeteranLevel + 1)
 			
-			-- unit cap is increased by the veteran level * veterancy multiplier 
+			-- unit cap is increased by the veteran level * veterancy multiplier (derived from AI cheat)
 			SetArmyUnitCap( brain.ArmyIndex, GetArmyUnitCap(brain.ArmyIndex) + ( self.VeteranLevel * (brain.VeterancyMult or 1.0) ))
 			
         end
@@ -4961,6 +4965,7 @@ Unit = Class(moho.unit_methods) {
 
 	-- all credit to BrewLAN
     CreateProjectedShield = function(self, shieldSpec)
+    
         shieldSpec = shieldSpec or __blueprints.sab4401.Defense.TargetShield
 
         if shieldSpec then
@@ -5277,7 +5282,7 @@ Unit = Class(moho.unit_methods) {
 		end
 		
 		-- Teleport Interdiction Check
-		for num, brain in ArmyBrains do
+		for num, brain in BRAINS do
 		
 			local unitlist = brain:GetListOfUnits(categories.ANTITELEPORT, false)
 			
@@ -6050,7 +6055,7 @@ Unit = Class(moho.unit_methods) {
     OnKilledVO = function(self)
         local bp = GetBlueprint(self).Audio
         if bp then
-            for num, aiBrain in ArmyBrains do
+            for num, aiBrain in BRAINS do
                 local factionIndex = aiBrain.FactionIndex
                 if factionIndex == 1 then
                     if bp['ExperimentalUnitDestroyedUEF'] then

@@ -912,19 +912,6 @@ function NumberofUnitsBetweenPoints(aiBrain, start, finish, unitCat, stepby, all
 	return returnNum
 end
 
-
-function GetRandomEnemyPos(aiBrain)
-	for k, v in ArmyBrains do
-		if IsEnemy(aiBrain.ArmyIndex, v:GetArmyIndex()) and not v:IsDefeated() then
-			if v:GetArmyStartPos() then
-				local ePos = v:GetArmyStartPos()
-				return ePos[1], ePos[3]
-			end
-		end
-	end
-	return false
-end
-
 -------------------------------------------------------
 --   Function: GetArmyData
 --   Args:
@@ -937,8 +924,10 @@ end
 function GetArmyData(army)
     
     if type(army) == 'string' then
+    
+        local Brains = ArmyBrains
 	
-        for i, v in ArmyBrains do
+        for i, v in Brains do
 		
             if v.Nickname == army then
 
@@ -956,31 +945,44 @@ end
 
 
 function IsAIArmy(army)
+
     if type(army) == 'string' then
-	    for i, v in ArmyBrains do
+    
+        local Brains = ArmyBrains
+        
+	    for i, v in Brains do
+        
 			if v.Nickname == army and v.BrainType == 'AI' then
 				return true
 			end
+            
         end
+        
 	elseif type(army) == 'number' then
+    
 		if ArmyBrains[army].BrainType == 'AI' then
 			return true		
 		end
+        
 	end
+    
     return false
 end
 
 
 function AIHasAlly(army)
 
-	--LOG("*AI DEBUG Checking for allies for "..repr(army.Nickname))
-	
-	for k, v in ArmyBrains do
+    local Brains = ArmyBrains
+    
+	for k, v in Brains do
+    
 		if IsAlly(army.ArmyIndex, v.ArmyIndex) and army.ArmyIndex != v.ArmyIndex and not v:IsDefeated() then
 			--LOG("*AI DEBUG "..repr(army.Nickname).." has an ally - "..repr(v.Nickname))
 			return true
 		end
+        
 	end
+    
 	return false
 end
 

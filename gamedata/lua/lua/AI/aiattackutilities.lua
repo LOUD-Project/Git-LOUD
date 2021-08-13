@@ -15,7 +15,6 @@ local GetPlatoonUnits = moho.platoon_methods.GetPlatoonUnits
 
 function GetNavalPlatoonMaxRange(aiBrain, platoon)
 
-	local GetBlueprint = moho.entity_methods.GetBlueprint
     local maxRange = 0
 	local selectedWeaponArc = 'none'
 	local turretPitch = nil
@@ -24,7 +23,7 @@ function GetNavalPlatoonMaxRange(aiBrain, platoon)
     
         if not unit.Dead then
         
-			for _,weapon in GetBlueprint(unit).Weapon do
+			for _,weapon in __blueprints[unit.BlueprintID].Weapon do
 			
 				-- weapon must be able to fire FROM the Water layer and not be a nuke
 				if weapon.NukeWeapon or not weapon.FireTargetLayerCapsTable or not weapon.FireTargetLayerCapsTable.Water then
@@ -100,7 +99,7 @@ function GetMostRestrictiveLayer(platoon)
 	
         if not v.Dead then
 		
-            mType = GetBlueprint(v).Physics.MotionType
+            mType = __blueprints[v.BlueprintID].Physics.MotionType
 			
             if ( mType == 'RULEUMT_AmphibiousFloating' or mType == 'RULEUMT_Hover' or mType == 'RULEUMT_Amphibious' ) and ( platoon.MovementLayer == 'Air' or platoon.MovementLayer == 'Water' ) then
 			
@@ -162,7 +161,7 @@ function GetPathGraphs()
     if not ScenarioInfo.PathGraphs then 
 		
 		local AIGetMarkerLocationsEx = import('/lua/ai/aiutilities.lua').AIGetMarkerLocationsEx
-        local InWaterCheck = LocationInWaterCheck   --import('/lua/ai/aiattackutilities.lua').LocationInWaterCheck
+        local InWaterCheck = LocationInWaterCheck
 
 		-- create the persistent tables --
 		ScenarioInfo.PathGraphs = { ['RawPaths'] = {}, ['Air'] = {}, ['Amphibious'] = {}, ['Land'] = {}, ['Water'] = {} }
@@ -189,10 +188,10 @@ function GetPathGraphs()
 				-- parse the marker and build table of adjacent nodes --
 				adj = STR_GetTokens(marker.adjacentTo, ' ')
 				newadj = {}
-				counter = 0
+				counter = 1
 				
 				for _,v in adj do
-					newadj[counter+1] = v
+					newadj[counter] = v
 					counter = counter + 1
 				end
                 
@@ -337,9 +336,11 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 	
 		-- if AvoidBases flag is true then do the check 
         if shouldcheckAvoidBases == true then 
+        
+            local Brains = ArmyBrains
 		
 			-- loop thru all brains
-			for _, brain in ArmyBrains do
+			for _, brain in Brains do
 			
 				-- if not defeated and it's ourselves or an Ally
 				if not brain:IsDefeated() and ( aiBrain.ArmyIndex == brain.ArmyIndex or IsAlly(aiBrain.ArmyIndex, brain.ArmyIndex)) then
@@ -384,7 +385,7 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 	
 	local pointlist = {}
 	local positions = {}
-	local counter = 0
+	local counter = 1
 
 	local pos, distance, platdistance
     
@@ -438,7 +439,7 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 				if AvoidsBases( pos, shouldcheckAvoidBases, DistMin) then
                 
                     -- if not too close to Allied base - store it with both distances -
-					positions[counter+1] = {pos[1], pos[2], pos[3], distance, platdistance } 
+					positions[counter] = {pos[1], pos[2], pos[3], distance, platdistance } 
 					counter = counter + 1
 				end
 			end
@@ -486,7 +487,7 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
                                     platdistance = LOUDV2(platpos[1],platpos[3], v.Position[1],v.Position[3])
 
                                     -- insert it into the list of possible choices --
-                                    positions[counter+1] = {v.Position[1], v.Position[2], v.Position[3], distance, platdistance }
+                                    positions[counter] = {v.Position[1], v.Position[2], v.Position[3], distance, platdistance }
 							
                                     counter = counter + 1
                                 end
@@ -500,7 +501,7 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 		else
 			-- using BASE as the pointsource tells us that our present base is inserted into the list - distance is 0
 			-- and it will be the ONLY entry in the point list
-			positions[counter+1] = { PointSource[1], PointSource[2], PointSource[3], 0, 0 }
+			positions[counter] = { PointSource[1], PointSource[2], PointSource[3], 0, 0 }
 			counter = counter + 1
 		end
 	end
@@ -508,7 +509,7 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
     --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." Point list is "..LOUDGETN(positions) )
 
 	-- if there are positions to check --
-	if counter > 0 then
+	if counter > 1 then
 	
 		local previous = nil
 
@@ -587,12 +588,11 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 				end
 			end	
 		end
-	--else
-        --LOG("*AI DEBUG "..aiBrain.Nickname.." FindPoint "..self.BuilderName.." - nothing found")
+
     end 
 
 	--- Sort according to distance
-	if counter > 0 then
+	if counter > 1 then
 	
 		positions = aiBrain:RebuildTable(positions)
 		
@@ -613,8 +613,6 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
             LOUDSORT(positions, function(a,b)   return (a[6]+ (a[4]+a[5])) <  (b[6]+ (b[4]+b[5]))  end)
             
         end
-        
-        --LOG("*AI DEBUG "..aiBrain.Nickname.." Find Positions list for "..self.BuilderName.." is "..repr(positions))
 		
 		return {positions[1]}
 	end

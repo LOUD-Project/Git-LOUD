@@ -29,12 +29,17 @@ local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
 local PlatoonCategoryCount = moho.platoon_methods.PlatoonCategoryCount
 local PlatoonCategoryCountAroundPosition = moho.platoon_methods.PlatoonCategoryCountAroundPosition
 
+local LOUDCOPY = table.copy
 local LOUDENTITY = EntityCategoryContains
 local LOUDFLOOR = math.floor
 local LOUDGETN = table.getn
 local LOUDINSERT = table.insert
 local LOUDPARSE = ParseEntityCategory
+local LOUDSORT = table.sort
 local LOUDTYPE = type
+
+local MATHMAX = math.max
+
 local VDist3 = VDist3
 
 function PreBuiltBase(aiBrain)
@@ -65,7 +70,7 @@ end
 function HaveLessThanUnitsForMapSize(aiBrain, sizetable, testCat, idleReq)
 	
     -- use the largest map dimension to determine which size selection we'll use for the number required
-	local numReq = math.max(sizetable[ScenarioInfo.size[1]], sizetable[ScenarioInfo.size[2]])
+	local numReq = MATHMAX(sizetable[ScenarioInfo.size[1]], sizetable[ScenarioInfo.size[2]])
 	
     return GetCurrentUnits(aiBrain,testCat) < numReq
 end
@@ -212,8 +217,10 @@ end
 
 function UnitsLessAtLocation( aiBrain, locationType, unitCount, testCat )
 
-	if aiBrain.BuilderManagers[locationType].EngineerManager then
-		return GetNumUnitsAroundPoint( aiBrain, testCat, aiBrain.BuilderManagers[locationType].Position, aiBrain.BuilderManagers[locationType].EngineerManager.Radius, 'Ally') < unitCount
+    local BM = aiBrain.BuilderManagers[locationType]
+
+	if BM.EngineerManager then
+		return GetNumUnitsAroundPoint( aiBrain, testCat, BM.Position, BM.EngineerManager.Radius, 'Ally') < unitCount
 	end
     
 	return false
@@ -221,9 +228,11 @@ end
 
 function UnitsLessAtLocationInRange( aiBrain, locationType, unitCount, testCat, rangemin, rangemax)
 
-	if aiBrain.BuilderManagers[locationType].EngineerManager.Active then
+    local BM = aiBrain.BuilderManagers[locationType]
+    
+	if BM.EngineerManager.Active then
 
-		local managerposition = aiBrain.BuilderManagers[locationType].Position
+		local managerposition = BM.Position
 		local numUnits = 0
 		
 		local units = GetUnitsAroundPoint( aiBrain, testCat, managerposition, rangemax, 'Ally' )
@@ -244,8 +253,10 @@ end
 
 function UnitsGreaterAtLocation( aiBrain, locationType, unitCount, testCat )
 
-	if aiBrain.BuilderManagers[locationType].EngineerManager then
-		return GetNumUnitsAroundPoint( aiBrain, testCat, aiBrain.BuilderManagers[locationType].Position, aiBrain.BuilderManagers[locationType].EngineerManager.Radius, 'Ally') > unitCount
+    local BM = aiBrain.BuilderManagers[locationType]
+
+	if BM.EngineerManager then
+		return GetNumUnitsAroundPoint( aiBrain, testCat, BM.Position, BM.EngineerManager.Radius, 'Ally') > unitCount
 	end
     
 	return false
@@ -297,12 +308,13 @@ end
 
 function PoolLessAtLocation( aiBrain, locationType, unitCount, testCat)
 
-    local numUnits = PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, testCat, aiBrain.BuilderManagers[locationType].Position, aiBrain.BuilderManagers[locationType].Radius)
+    local BM = aiBrain.BuilderManagers[locationType]
+    local numUnits = PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, testCat, BM.Position, BM.Radius)
 	
 	if numUnits > 0 then
 	
-		local engbeingbuilt = aiBrain.BuilderManagers[locationType].EngineerManager:GetNumCategoryBeingBuilt(testCat, categories.ENGINEER)
-		local facbeingbuilt = aiBrain.BuilderManagers[locationType].FactoryManager:GetNumCategoryBeingBuilt(testCat, categories.FACTORY)
+		local engbeingbuilt = BM.EngineerManager:GetNumCategoryBeingBuilt(testCat, categories.ENGINEER)
+		local facbeingbuilt = BM.FactoryManager:GetNumCategoryBeingBuilt(testCat, categories.FACTORY)
 	
 		numUnits = numUnits - (engbeingbuilt + facbeingbuilt)
 		
@@ -314,12 +326,14 @@ end
 
 function PoolGreaterAtLocation( aiBrain, locationType, unitCount, testCat)
 
-	if aiBrain.BuilderManagers[locationType] != nil then
+    local BM = aiBrain.BuilderManagers[locationType]
 
-		local numUnits = PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, testCat, aiBrain.BuilderManagers[locationType].Position, aiBrain.BuilderManagers[locationType].Radius)
+	if BM != nil then
 
-		local engbeingbuilt = aiBrain.BuilderManagers[locationType].EngineerManager:GetNumCategoryBeingBuilt(testCat, categories.ENGINEER)
-		local facbeingbuilt = aiBrain.BuilderManagers[locationType].FactoryManager:GetNumCategoryBeingBuilt(testCat, categories.FACTORY)
+		local numUnits = PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, testCat, BM.Position, BM.Radius)
+
+		local engbeingbuilt = BM.EngineerManager:GetNumCategoryBeingBuilt(testCat, categories.ENGINEER)
+		local facbeingbuilt = BM.FactoryManager:GetNumCategoryBeingBuilt(testCat, categories.FACTORY)
 	
 		return numUnits - (engbeingbuilt + facbeingbuilt) > unitCount
 	end
@@ -380,16 +394,70 @@ function FactoryRatioGreaterAtLocation( aiBrain, locationType, unitCategory, uni
     return aiBrain.BuilderManagers[locationType].FactoryManager:GetNumCategoryFactories(unitCategory) > aiBrain.BuilderManagers[locationType].FactoryManager:GetNumCategoryFactories(unitCategory2)
 end
 
+ 
+local function GetNumberOfUnitsBeingBuilt( aiBrain, location, buildingCategory, builderCategory, range)
+
+    local BM = aiBrain.BuilderManagers[location]
+
+    local filterUnits = GetOwnUnitsAroundPoint( aiBrain, builderCategory, BM.Position, range or BM.Radius )
+
+    local LOUDENTITY = EntityCategoryContains
+	local IsUnitState = moho.unit_methods.IsUnitState
+
+	local counter = 0
+
+    for k,v in filterUnits do
+		
+		if not v.DesiresAssist or not v.UnitBeingBuilt then
+			
+			continue
+
+		end
+
+        if (not IsUnitState(v, 'Building') and not IsUnitState(v, 'Upgrading')) then
+			
+            continue
+
+        end
+
+        if not LOUDENTITY( buildingCategory, v.UnitBeingBuilt ) then
+			
+            continue
+
+        end
+            
+        if v.NumAssistees and LOUDGETN( v:GetGuards() ) >= v.NumAssistees then
+			
+            continue
+
+        end
+
+        counter = counter + 1
+
+    end
+
+	return counter
+
+end
+	
+
+
 function BuildingLessAtLocation( aiBrain, locationType, unitCount, testCat, builderCat)
-	return aiBrain.BuilderManagers[locationType].PlatoonFormManager:GetNumberOfUnitsBeingBuilt( aiBrain, testCat, builderCat or categories.ALLUNITS) < unitCount
+
+    return GetNumberOfUnitsBeingBuilt( aiBrain, locationType, testCat, builderCat or categories.ALLUNITS) < unitCount
+
 end
 
 function BuildingGreaterAtLocation( aiBrain, locationType, unitCount, testCat, builderCat)
-	return aiBrain.BuilderManagers[locationType].PlatoonFormManager:GetNumberOfUnitsBeingBuilt( aiBrain, testCat, builderCat or categories.ALLUNITS)  > unitCount
+
+    return GetNumberOfUnitsBeingBuilt( aiBrain, locationType, testCat, builderCat or categories.ALLUNITS) > unitCount
+
 end
 
 function BuildingGreaterAtLocationAtRange( aiBrain, locationType, unitCount, testCat, builderCat, range)
-	return aiBrain.BuilderManagers[locationType].PlatoonFormManager:GetNumberOfUnitsBeingBuilt( aiBrain, testCat, builderCat or categories.ALLUNITS, range)  > unitCount
+
+    return GetNumberOfUnitsBeingBuilt( aiBrain, locationType, testCat, builderCat or categories.ALLUNITS, range) > unitCount
+
 end
 
 function LocationFactoriesBuildingLess( aiBrain, locationType, unitCount, testCat, facCat)
@@ -433,16 +501,21 @@ function LocationEngineerNeedsBuildingAssistanceInRange( aiBrain, locationType, 
     return false
 end
 
+
+local landfactory = categories.LAND * categories.FACTORY * categories.STRUCTURE
+local airfactory = categories.AIR * categories.FACTORY * categories.STRUCTURE
+local seafactory = categories.NAVAL * categories.FACTORY * categories.STRUCTURE
+
 function FactoryCapCheck(aiBrain, locationType, factoryType)
 
     local catCheck = false
 	
     if factoryType == 'LAND' then
-        catCheck = categories.LAND * categories.FACTORY * categories.STRUCTURE
+        catCheck = landfactory  --categories.LAND * categories.FACTORY * categories.STRUCTURE
     elseif factoryType == 'AIR' then
-        catCheck = categories.AIR * categories.FACTORY * categories.STRUCTURE
+        catCheck = airfactory   --categories.AIR * categories.FACTORY * categories.STRUCTURE
     elseif factoryType == 'SEA' then
-        catCheck = categories.NAVAL * categories.FACTORY * categories.STRUCTURE
+        catCheck = seafactory   --categories.NAVAL * categories.FACTORY * categories.STRUCTURE
     elseif factoryType == 'GATE' then
         catCheck = categories.GATE
     else
@@ -450,24 +523,30 @@ function FactoryCapCheck(aiBrain, locationType, factoryType)
         return false
     end
 	
-    local factoryManager = aiBrain.BuilderManagers[locationType].FactoryManager
+    local BM = aiBrain.BuilderManagers[locationType]
+    local factoryManager = BM.FactoryManager
 	local numUnits = 0
 	
 	if factoryManager.Active == true then
 		-- this should give you the total number of factories at this location
 		numUnits = factoryManager:GetNumCategoryFactories(catCheck)
 
-		local engineerManager = aiBrain.BuilderManagers[locationType].EngineerManager
+		local engineerManager = BM.EngineerManager
 
 		numUnits = numUnits + engineerManager:GetNumCategoryBeingBuilt( catCheck, categories.ALLUNITS )
 	end
 
-    if numUnits < aiBrain.BuilderManagers[locationType].BaseSettings.FactoryCount[factoryType] then
+    if numUnits < BM.BaseSettings.FactoryCount[factoryType] then
 		return true
 	end
 	
     return false
 end
+
+
+local T1 = categories.TECH1
+local T2 = categories.TECH2
+local T3 = categories.TECH3
 
 function BelowEngineerCapCheck(aiBrain, locationType, techLevel)
 
@@ -477,17 +556,17 @@ function BelowEngineerCapCheck(aiBrain, locationType, techLevel)
 	
     if techLevel == 'Tech1' then
 	
-        catCheck = categories.TECH1
+        catCheck = T1
 		
     elseif techLevel == 'Tech2' then
 	
-        catCheck = categories.TECH2
+        catCheck = T2
         capmult = 300
         caplimit = 3
 		
     elseif techLevel == 'Tech3' then
 	
-        catCheck = categories.TECH3
+        catCheck = T3
         capmult = 250
         caplimit = 5
 		
@@ -502,21 +581,22 @@ function BelowEngineerCapCheck(aiBrain, locationType, techLevel)
         WARN('*AI WARNING: Invalid techLevel - ' .. techLevel)
         return false
     end
-	
-	local capCheck = aiBrain.BuilderManagers[locationType].BaseSettings.EngineerCount[techLevel]
+
+    local BM = aiBrain.BuilderManagers[locationType]	
+	local capCheck = BM.BaseSettings.EngineerCount[techLevel]
 
     -- always use the largest value - so even if the cheat level is less than 1 - we'll have the usual number of engineers
-    capCheck = math.max(capCheck, math.floor(capCheck * ((aiBrain.CheatValue) * (aiBrain.CheatValue))))
+    capCheck = MATHMAX(capCheck, LOUDFLOOR(capCheck * ((aiBrain.CheatValue) * (aiBrain.CheatValue))))
 
 	if aiBrain.StartingUnitCap > 1000 then
 	
         -- at 1000+ units add 1 engineer for every capmult - up to the cap limit --
-		capCheck = capCheck + math.min( 1 + math.floor(( aiBrain.StartingUnitCap - 1000) / capmult ), caplimit)
+		capCheck = capCheck + math.min( 1 + LOUDFLOOR(( aiBrain.StartingUnitCap - 1000) / capmult ), caplimit)
         
         --LOG("*AI DEBUG "..aiBrain.Nickname.." Engineer "..repr(techLevel).." at "..repr(locationType).." is "..capCheck)
 	end
 
-	return EntityCategoryCount( catCheck, aiBrain.BuilderManagers[locationType].EngineerManager.EngineerList ) < capCheck
+	return EntityCategoryCount( catCheck, BM.EngineerManager.EngineerList ) < capCheck
 end
 
 function AboveEngineerCapCheck(aiBrain, locationType, techLevel)
@@ -526,16 +606,16 @@ function AboveEngineerCapCheck(aiBrain, locationType, techLevel)
 	
     if techLevel == 'Tech1' then
 	
-        catCheck = categories.TECH1
+        catCheck = T1
 		
     elseif techLevel == 'Tech2' then
 	
-        catCheck = categories.TECH2
+        catCheck = T2
         capmult = 300
 		
     elseif techLevel == 'Tech3' then
 	
-        catCheck = categories.TECH3
+        catCheck = T3
         capmult = 250
 		
     elseif techLevel == 'SCU' then
@@ -548,23 +628,25 @@ function AboveEngineerCapCheck(aiBrain, locationType, techLevel)
         WARN('*AI WARNING: Invalid techLevel - ' .. techLevel)
         return false
     end
-	
-	local capCheck = aiBrain.BuilderManagers[locationType].BaseSettings.EngineerCount[techLevel]
+    
+    local BM = aiBrain.BuilderManagers[locationType]
+	local capCheck = BM.BaseSettings.EngineerCount[techLevel]
     
     -- multiply the engineer limit by the AI multiplier - but insure it's never less than minimum (if multiplier is less than 1)
-    capCheck = math.max( capCheck, math.floor(capCheck * ( (aiBrain.CheatValue) * (aiBrain.CheatValue) )) )
+    capCheck = MATHMAX( capCheck, LOUDFLOOR(capCheck * ( (aiBrain.CheatValue) * (aiBrain.CheatValue) )) )
 
 	if aiBrain.StartingUnitCap > 1000 then
 	
         -- at 1000+ units add 1 engineer for every capmult - up to a limit of 5 --
-		capCheck = capCheck + math.max( 1 + math.floor(( aiBrain.StartingUnitCap - 1000) / capmult ), 5) 
+		capCheck = capCheck + MATHMAX( 1 + LOUDFLOOR(( aiBrain.StartingUnitCap - 1000) / capmult ), 5) 
 	end
 
-	return EntityCategoryCount( catCheck, aiBrain.BuilderManagers[locationType].EngineerManager.EngineerList ) >= capCheck
+	return EntityCategoryCount( catCheck, BM.EngineerManager.EngineerList ) >= capCheck
 end
 
 function AdjacencyCheck( aiBrain, locationType, category, radius, testUnit )
 
+    local LOUDCOPY = table.copy
 	local LOUDGETN = table.getn
 
 	local LOUDPARSE = ParseEntityCategory
@@ -594,8 +676,8 @@ function AdjacencyCheck( aiBrain, locationType, category, radius, testUnit )
 	
         if not v.Dead then
 
-            local targetSize = v:GetBlueprint().Physics
-            local targetPos = table.copy(v.CachePosition)
+            local targetSize = __blueprints[v.BlueprintID].Physics
+            local targetPos = LOUDCOPY(v.CachePosition)
 			
             targetPos[1] = targetPos[1] - (targetSize.SkirtSizeX* 0.5)
             targetPos[3] = targetPos[3] - (targetSize.SkirtSizeZ* 0.5)
@@ -753,7 +835,8 @@ function DamagedStructuresInArea(aiBrain, locationtype)
 	if aiBrain.BuilderManagers[locationtype] then
 
 		local Structures = GetOwnUnitsAroundPoint( aiBrain, categories.STRUCTURE, aiBrain.BuilderManagers[locationtype].Position, 80 )
-		table.sort( Structures, function(a,b) return a:GetHealthPercent() < b:GetHealthPercent() end)
+        
+		LOUDSORT( Structures, function(a,b) return a:GetHealthPercent() < b:GetHealthPercent() end)
 
 		for k,v in Structures do
 			if not v.Dead and v:GetHealthPercent() < .8 and not v.BeingReclaimed then
@@ -785,7 +868,8 @@ end
 function GetGuards(aiBrain, Unit)
 	local engs = GetUnitsAroundPoint(aiBrain, categories.ENGINEER, Unit:GetPosition(), 15, 'Ally' )
 	local count = 0
-	local UpgradesFrom = Unit:GetBlueprint().General.UpgradesFrom
+    
+	local UpgradesFrom = __blueprints[Unit.BlueprintID].General.UpgradesFrom
     
 	for k,v in engs do
 		if v.UnitBeingBuilt == Unit and v != Unit then
@@ -810,7 +894,7 @@ function MassExtractorHasStorageAndLessDefense(aiBrain, locationType, mindistanc
 	
 	for _,v in GetOwnUnitsAroundPoint(aiBrain, categories.MASSEXTRACTION - categories.TECH1, position, maxdistance) do
 	
-		local mexposition = table.copy(v:GetPosition())
+		local mexposition = LOUDCOPY(v:GetPosition())
 		local distance = VDist2Sq( position[1],position[3], mexposition[1],mexposition[3])
 		
 		if distance >= (mindistance*mindistance) then

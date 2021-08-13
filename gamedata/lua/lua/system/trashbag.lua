@@ -1,4 +1,4 @@
-local getn = table.getn
+--local getn = table.getn
 
 -- TrashBag is a class to help manage objects that need destruction. You add objects to it with Add().
 -- When TrashBag:Destroy() is called, it calls Destroy() in turn on all its contained objects.
@@ -10,15 +10,16 @@ local getn = table.getn
 TrashBag = Class {
 
     __mode = 'v',
+    
+    Count = 1,
 
     -- Add an object to the TrashBag.
     Add = function(self, obj)
 	
         if obj != nil then
-		
-			local i = getn(self)+1
-			
-			self[i] = obj
+
+			self[self.Count] = obj
+            self.Count = self.Count + 1
 			
 		end
 		
@@ -27,10 +28,11 @@ TrashBag = Class {
     -- Call Destroy() for all objects in this bag.
     Destroy = function(self)
 
-        for i,v in self do
+        for i = 1,self.Count -1 do
 
-			self[i]:Destroy()
-			
+            if self[i] then
+                self[i]:Destroy()
+			end
         end
 
 		self = {}

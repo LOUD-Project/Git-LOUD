@@ -7468,9 +7468,11 @@ Platoon = Class(moho.platoon_methods) {
 							if not eng.Dead then
 							
 								--LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName).." Eng "..eng.Sync.id.." gets newbase data ")
+                                
+                                local BRAINS = ArmyBrains
 
 								-- loop thru brains to see if it's been taken by another
-								for _,brain in ArmyBrains do
+								for _,brain in BRAINS do
 								
 									if brain.BuilderManagers[ eng.NewExpansion[1] ] then
 									

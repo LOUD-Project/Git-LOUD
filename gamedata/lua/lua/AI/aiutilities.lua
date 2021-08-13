@@ -55,7 +55,9 @@ function AIPickEnemyLogic( self, brainbool )
     --local testposition = self.BuilderManagers[self.PrimaryLandBase].Position or self:GetStartVector3f()
     local testposition = self.BuilderManagers['MAIN'].Position or self:GetStartVector3f()
     
-    for k,v in ArmyBrains do
+    local Brains = ArmyBrains
+    
+    for k,v in Brains do
 	
         local armyindex = v.ArmyIndex
 		
@@ -335,7 +337,7 @@ function AIGetMarkerLocations(markerType)
 	end
 	
     local markerlist = {}
-	local counter = 0
+	local counter = 1
     
     if markerType == 'Start Location' then
 	
@@ -344,7 +346,7 @@ function AIGetMarkerLocations(markerType)
         for k,v in tempMarkers do
 		
             if string.sub(v.Name,1,5) == 'ARMY_' then 
-                markerlist[counter+1] = { Position = {v.Position[1],v.Position[2],v.Position[3]}, Name = v.Name}
+                markerlist[counter] = { Position = {v.Position[1],v.Position[2],v.Position[3]}, Name = v.Name}
 				counter = counter + 1
             end
         end 
@@ -357,7 +359,7 @@ function AIGetMarkerLocations(markerType)
             for k, v in markers do
 			
                 if v.type == markerType then
-                    markerlist[counter+1] = { Position = {v.position[1],v.position[2],v.position[3]}, Name = k }
+                    markerlist[counter] = { Position = {v.position[1],v.position[2],v.position[3]}, Name = k }
 					counter = counter + 1
                 end
             end
@@ -381,7 +383,7 @@ function AIGetMarkerLocationsEx(aiBrain, markerType)
 
     local tempMarkers = ScenarioInfo.Env.Scenario.MasterChain._MASTERCHAIN_.Markers
     local markerlist = {}
-	local counter = 0
+	local counter = 1
     
     if tempMarkers then
 	
@@ -390,7 +392,7 @@ function AIGetMarkerLocationsEx(aiBrain, markerType)
             if v.type == markerType then
 			
                 v.name = k
-                markerlist[counter+1] = v
+                markerlist[counter] = v
 				counter = counter + 1
             end
         end
@@ -404,7 +406,7 @@ function AIGetMarkersAroundLocation( aiBrain, markerType, pos, radius, threatMin
     local tempMarkers = ScenarioInfo.Env.Scenario.MasterChain[markerType] or AIGetMarkerLocations( markerType )
 	
     local markerlist = {}
-	local counter = 0
+	local counter = 1
 	
 	local VDist2Sq = VDist2Sq
     local GetThreatAtPosition = moho.aibrain_methods.GetThreatAtPosition
@@ -422,14 +424,14 @@ function AIGetMarkersAroundLocation( aiBrain, markerType, pos, radius, threatMin
 		
             if not threatMin then
 			
-                markerlist[counter+1] = v
+                markerlist[counter] = v
 				counter = counter + 1
             else
 			
                 local threat = GetThreatAtPosition( aiBrain, v.Position, threatRings, true, threatType or 'Overall' )
 				
                 if threat >= threatMin and threat <= threatMax then
-                    markerlist[counter+1] = v
+                    markerlist[counter] = v
 					counter = counter + 1
 				end
             end
@@ -449,13 +451,13 @@ end
 function AIFilterAlliedBases( aiBrain, positions )
 
     local markerlist = {}
-	local counter = 0
+	local counter = 1
 	
     for k,v in positions do
 	
         if aiBrain:GetNumUnitsAroundPoint( categories.ALLUNITS - categories.MASSEXTRACTION - categories.MASSSTORAGE - categories.MOBILE - categories.WALL, v.Position, 42, 'Ally' ) == 0 then
 		
-            markerlist[counter+1] = v
+            markerlist[counter] = v
 			counter = counter + 1
         end
     end
@@ -579,7 +581,8 @@ function GetOwnUnitsAroundPoint( aiBrain, category, location, radius )
 	local GetFractionComplete = moho.entity_methods.GetFractionComplete
 
     local mlist = {}
-	local counter = 0
+	local counter = 1
+    local ArmyIndex = aiBrain.ArmyIndex
 	
 	if category and location and radius then
 	
@@ -587,8 +590,8 @@ function GetOwnUnitsAroundPoint( aiBrain, category, location, radius )
 	
 		for k,v in units do
 	
-			if (not v.Dead) and GetFractionComplete(v) == 1 and v.Sync.army == aiBrain.ArmyIndex then
-				mlist[counter+1] = v
+			if (not v.Dead) and GetFractionComplete(v) == 1 and v.Sync.army == ArmyIndex then
+				mlist[counter] = v
 				counter = counter + 1
 			end
 		end
@@ -604,7 +607,7 @@ function GetAlliedUnitsAroundPoint( aiBrain, category, location, radius )
 	local GetFractionComplete = moho.entity_methods.GetFractionComplete
 
     local mlist = {}
-	local counter = 0
+	local counter = 1
 	
 	if category and location and radius then
 	
@@ -613,7 +616,7 @@ function GetAlliedUnitsAroundPoint( aiBrain, category, location, radius )
 		for k,v in units do
 	
 			if (not v.Dead) and GetFractionComplete(v) == 1 then
-				mlist[counter+1] = v
+				mlist[counter] = v
 				counter = counter + 1
 			end
 		end
@@ -626,11 +629,11 @@ function GetOwnUnitsAroundPointWithThreatCheck( aiBrain, category, location, rad
 	
 	local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
 	local GetThreatAtPosition = moho.aibrain_methods.GetThreatAtPosition
-	--local GetAIBrain = moho.unit_methods.GetAIBrain
+
 	local GetFractionComplete = moho.entity_methods.GetFractionComplete
 	
     local mlist = {}
-	local counter = 0
+	local counter = 1
 
     for k,v in GetUnitsAroundPoint( aiBrain, category, location, radius, 'Ally' ) do
 	
@@ -642,14 +645,14 @@ function GetOwnUnitsAroundPointWithThreatCheck( aiBrain, category, location, rad
 				
 				if threat >= tmin and threat <= tmax then
 			
-					mlist[counter+1] = v
+					mlist[counter] = v
 					counter = counter + 1
 					
 				end
 				
 			else
 			
-				mlist[counter+1] = v
+				mlist[counter] = v
 				counter = counter + 1
 				
             end
@@ -689,7 +692,8 @@ function CheckUnitPathingEx( destPos, curlocation, unit )
     end
 	
     local pathingType = 'Land'
-    local mType = unit:GetBlueprint().Physics.MotionType
+    
+    local mType = __blueprints[unit.BlueprintID].Physics.MotionType
 	
     if mType == 'RULEUMT_AmphibiousFloating' or mType == 'RULEUMT_Hover' or mType == 'RULEUMT_Amphibious' then
 	
@@ -1361,7 +1365,6 @@ end
 -- this function has been revised to factor in the value of friendly units --
 function AIFindBrainNukeTargetInRangeSorian( aiBrain, launcher, maxRange, atkPri, nukeCount, oldTarget )
 
-	local GetBlueprint = moho.entity_methods.GetBlueprint
     local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
 	
 	local massCost = 15000	-- target must be worth at least this much mass
@@ -1374,7 +1377,7 @@ function AIFindBrainNukeTargetInRangeSorian( aiBrain, launcher, maxRange, atkPri
 		for k,v in GetUnitsAroundPoint( aiBrain, categories.ALLUNITS - categories.WALL, pos, 32, 'Ally' ) do
 		
 			if not v.Dead then
-				massValue = massValue - GetBlueprint(v).Economy.BuildCostMass
+				massValue = massValue - __blueprints[v.BlueprintID].Economy.BuildCostMass
 			end
 		end
 		
@@ -1382,7 +1385,7 @@ function AIFindBrainNukeTargetInRangeSorian( aiBrain, launcher, maxRange, atkPri
 		for k,v in GetUnitsAroundPoint( aiBrain, categories.ALLUNITS - categories.WALL, pos, 32, 'Enemy' ) do
 		
 			if not v.Dead then
-				massValue = massValue + GetBlueprint(v).Economy.BuildCostMass
+				massValue = massValue + __blueprints[v.BlueprintID].Economy.BuildCostMass
 			end	
 		end
 		
@@ -1428,8 +1431,10 @@ function AIFindBrainNukeTargetInRangeSorian( aiBrain, launcher, maxRange, atkPri
 						dupTarget = true
 					end
 				end
+                
+                local Brains = ArmyBrains
 				
-				for k,v in ArmyBrains do
+				for k,v in Brains do
 				
 					if IsAlly( v.ArmyIndex, aiBrain.ArmyIndex ) or ( aiBrain.ArmyIndex == v.ArmyIndex ) then
 						

@@ -1160,7 +1160,6 @@ EngineerManager = Class(BuilderManager) {
 	
 		local GetThreatOfGroup = function( group, distressType )
 	
-			--local GetBlueprint = moho.entity_methods.GetBlueprint
 			local totalThreat = 0
 	
 			if distressType == 'Land' then
