@@ -151,13 +151,12 @@ BrainConditionsMonitor = Class {
         local minimumcycletime = 150     -- in ticks
 
         while true do
-        
-            --local start = GetSystemTimeSecondsOnlyForProfileUse()
-			
 			-- record current game time
 			aiBrain.CycleTime = GetGameTimeSeconds()
             
             --LOG("*AI DEBUG "..aiBrain.Nickname.." BCM cycles at "..aiBrain.CycleTime.." seconds")
+            
+            --local start = GetSystemTimeSecondsOnlyForProfileUse()
 
 			-- the thread duration, in ticks, is always the number of checked conditions times 2
             -- plus a little extra slack based upon the number of brains + number of bases
@@ -204,7 +203,7 @@ BrainConditionsMonitor = Class {
             
             --local final = GetSystemTimeSecondsOnlyForProfileUse()
             
-            --LOG("*AI DEBUG Time is "..final - start)
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." BCM cycle time is "..final - start)
 
 			if ( self.ThreadWaitDuration - (numResults * 2) ) > 0 then
             
