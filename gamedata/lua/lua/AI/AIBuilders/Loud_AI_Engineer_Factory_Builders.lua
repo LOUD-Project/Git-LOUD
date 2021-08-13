@@ -139,6 +139,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction',
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .75 } },
 			{ LUTL, 'LandStrengthRatioLessThan', { 4 } },
+            
+            --{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, categories.FACTORY - categories.GATE }},
 			
             { UCBC, 'FactoryCapCheck', { 'LocationType', 'LAND' }},
 			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 2, categories.LAND * categories.TECH1 }},
@@ -177,6 +179,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction',
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .75 } },
+            
+            --{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, categories.FACTORY - categories.GATE }},
 			
 			{ UCBC, 'FactoryCapCheck', { 'LocationType', 'AIR' }},
 			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 2, categories.AIR * categories.TECH1 }},
@@ -249,7 +253,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Expansions',
         
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .65 } },
-
+            
+            --{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, categories.FACTORY - categories.GATE }},
+            
             { UCBC, 'FactoryCapCheck', { 'LocationType', 'LAND' }},
 			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 1, categories.LAND * categories.TECH1 }},
 			
@@ -284,7 +290,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Expansions',
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .65 } },
-
+            
+            --{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, categories.FACTORY - categories.GATE }},
+            
 			{ UCBC, 'FactoryCapCheck', { 'LocationType', 'AIR' }},
 			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 1, categories.AIR * categories.TECH1 }},
             { UCBC, 'FactoryRatioLessAtLocation', { 'LocationType', categories.AIR, categories.LAND } },

@@ -25,14 +25,26 @@ local First45Minutes = function(self,aiBrain)
 	return self.Priority, true
 end
 
+local Map10korLess = function(self,aiBrain)
+
+    if ScenarioInfo.IMAPSize < 64 then
+        return 550, true
+    end
+
+    return self.Priority, true
+end
+
 -- This group covers those units that are universal to both land and water maps
 BuilderGroup {BuilderGroupName = 'Factory Production - Land',
     BuildersType = 'FactoryBuilder',
 	
+    -- land scouts are reduced priority on smaller maps
     Builder {BuilderName = 'Land Scout', 
 	
         PlatoonTemplate = 'T1LandScout',
         Priority = 600,
+        
+        PriorityFunction = Map10korLess,
 
         BuilderConditions = {
 		
@@ -51,6 +63,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
 		
     },
 
+    -- LAB are only built for the first 30 minutes
 	Builder {BuilderName = 'T1 Bots',
 	
 		PlatoonTemplate = 'T1LandDFBot',
@@ -66,6 +79,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
 		
     },	
 	
+    
     Builder {BuilderName = 'T1 Tanks',
 	
         PlatoonTemplate = 'T1LandDFTank',
@@ -99,6 +113,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
 		
     },
     
+    -- T1 MAA is only built for the first 30 minutes --
     Builder {BuilderName = 'T1 Mobile AA - Large Map',
 	
         PlatoonTemplate = 'T1LandAA',
@@ -363,6 +378,9 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
             { LUTL, 'UnitCapCheckLess', { .95 } },
             { LUTL, 'AirStrengthRatioLessThan', { 1.5 } }, 
             
+            -- must have some Directfire in the Pool at this Location
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.LAND * categories.MOBILE * categories.DIRECTFIRE }},
+            
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 10, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.ANTIAIR - categories.TECH1, categories.LAND }},
 			
@@ -462,6 +480,9 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			{ LUTL, 'AirStrengthRatioLessThan', { 1.5 } }, 
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.LAND * categories.TECH3 }},
+            
+            -- must have some Directfire in the Pool at this Location
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.LAND * categories.MOBILE * categories.DIRECTFIRE }},
 			
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.ANTIAIR, categories.LAND * categories.TECH3 }},
 			{ LUTL, 'PoolLess', { 32, categories.LAND * categories.MOBILE * categories.ANTIAIR - categories.TECH1 }},

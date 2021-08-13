@@ -42,6 +42,17 @@ local MapSizeLargerThan20K = function(self,aiBrain)
 
 end
 
+local MapSizeLessThan20k = function(self,aiBrain)
+
+    if ScenarioInfo.size[1] <= 1028 or ScenarioInfo.size[2] <= 1028 then
+        return 800, false
+    else
+        return self.priority, false
+    end
+
+end
+    
+
 -- used to group T3 artillery into platoons
 BuilderGroup {BuilderGroupName = 'Land Formations - Artillery',
     BuildersType = 'PlatoonFormBuilder',
@@ -1670,6 +1681,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 -- these are mostly early platoons - designed to skirmish
 -- focused on mass points, extractors, DPs and Expansions
 -- these platoons usually stop once the AI has attained his share of mass point control
+-- many of these platoons are suppressed on 5k and 10k maps thus promoting a more aggressive attack posture
 BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
     BuildersType = 'PlatoonFormBuilder',
 
@@ -1686,6 +1698,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         PlatoonAIPlan = 'GuardPoint',
         
         Priority = 802,
+        
+        PriorityFunction = MapSizeLessThan20k,
 		
 		RTBLocation = 'Any',
 		
@@ -1758,6 +1772,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         },
     },
 	
+    -- this one guards existing extractors
     Builder {BuilderName = 'MEX Guard',
 	
         PlatoonTemplate = 'T1MassGuard',
@@ -1769,7 +1784,9 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         PlatoonAIPlan = 'GuardPoint',
 		
         Priority = 802,
-		
+        
+        PriorityFunction = MapSizeLessThan20k,
+
 		RTBLocation = 'Any',
 		
         InstanceCount = 3,
@@ -1853,7 +1870,9 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         PlatoonAIPlan = 'GuardPoint',
 		
         Priority = 801,
-
+        
+        PriorityFunction = MapSizeLessThan20k,
+		
 		RTBLocation = 'Any',
 		
         InstanceCount = 3,
@@ -1917,6 +1936,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         },
     },
 	
+    -- this one guards Expansion points
     Builder {BuilderName = 'Expansion Guard',
 	
         PlatoonTemplate = 'T1MassGuard',
@@ -1928,7 +1948,9 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         PlatoonAIPlan = 'GuardPoint',
 		
         Priority = 801,
-
+        
+        PriorityFunction = MapSizeLessThan20k,
+		
 		RTBLocation = 'Any',
 		
         InstanceCount = 3,
@@ -1994,6 +2016,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         },
     }, 
 
+    -- and this one guards empty start positions
     Builder {BuilderName = 'Start Guard',
 	
         PlatoonTemplate = 'T1MassGuard',
@@ -2072,8 +2095,9 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			
 			UseFormation = 'LOUDClusterFormation',
         },
-    }, 
-		
+    },
+    
+    -- a pure artillery guard formation for empty DP positions
     Builder {BuilderName = 'DP Guard Artillery',
 	
         PlatoonTemplate = 'T1PointGuardArtillery',
