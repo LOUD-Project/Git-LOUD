@@ -1,3 +1,21 @@
+### Release 13-08-2021 ###
+Lua 5.4.29
+
+- Several major performance improvements across the board.
+- AI: Less likelihood to build mobile anti-air if there are no direct-fire units to support them.
+- AI: More early aggression on small maps.
+
+### Patch 10-08-2021 ###
+Projectiles 3.2
+
+- Internal code changes only; no new features or fixes.
+
+### Patch 06-08-2021 ###
+Lua 5.4.27
+
+- Fix matches not ending when all enemy AI are dead.
+- Fix Salvation (Aeon Experimental Artillery) not getting power generator adjacency benefits.
+
 ### Release 04-08-2021 ###
 Lua 5.4.26
 Textures 6.5
