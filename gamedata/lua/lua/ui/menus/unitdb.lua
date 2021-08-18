@@ -1395,7 +1395,7 @@ function Filter()
 			local struct = table.find(bp.Categories, 'STRUCTURE')
 			if (filters['type'] == 5 and not struct)
 			or (filters['type'] == 6 and bp.General.Classification ~= 'RULEUC_Commander')
-			or (filters['type'] == 3 and not bp.Physics.BuildOnLayerCaps.LAYER_Air)
+			or (filters['type'] == 3 and bp.Physics.MotionType ~= 'RULEUMT_Air')
 			or (filters['type'] == 2 and (struct or not table.find(bp.Categories, 'LAND')))
 			or (filters['type'] == 4 and (struct or not table.find(bp.Categories, 'NAVAL')))
 			then
