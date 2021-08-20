@@ -53,6 +53,7 @@ local AssignUnitsToPlatoon = moho.aibrain_methods.AssignUnitsToPlatoon
 local BeenDestroyed = moho.entity_methods.BeenDestroyed
 local BuildStructure = moho.aibrain_methods.BuildStructure
 local CanAttackTarget = moho.platoon_methods.CanAttackTarget
+local GetAIBrain = moho.unit_methods.GetAIBrain
 local GetBlueprint = moho.entity_methods.GetBlueprint
 local GetBrain = moho.platoon_methods.GetBrain
 local GetFractionComplete = moho.entity_methods.GetFractionComplete
@@ -263,7 +264,7 @@ Platoon = Class(moho.platoon_methods) {
 		
 		local prevpoint = GetPlatoonPosition(self) or false
 
-		if prevpoint and LOUDGETN(path) > 0 then
+		if prevpoint and path[1] then
 		
 			-- this variable controls what I call the 'path slack'
 			-- essentially - as a platoon moves from point to point
@@ -1742,21 +1743,7 @@ Platoon = Class(moho.platoon_methods) {
             for _,v in GetPlatoonUnits(self) do
 				
 				if not v.Dead then
---[[					
-					if nocmdactive then
-					
-						if LOUDGETN(GetCommandQueue(v)) > 0 or (not v:IsIdleState()) then
-						
-							nocmdactive = false
-							
-						else
-						
-							--LOG("*AI DEBUG "..aiBrain.Nickname.." RTB "..self.BuilderName.." has "..LOUDGETN(GetCommandQueue(v)).." CMD queue - Idle State is "..repr(v:IsIdleState()))
-							
-						end
-						
-					end
---]]					
+
 					-- look for stuck units after 90 seconds
 					if (LOUDTIME() - StartMoveTime) > 90 then
 					
@@ -2883,7 +2870,7 @@ Platoon = Class(moho.platoon_methods) {
         local platLoc = GetPlatoonPosition(self)       
 		local units = GetPlatoonUnits(self)
 		
-		if LOUDGETN(units) > 0 then
+		if units[1] then
 		
 			for _,v in units do
 			
@@ -3054,7 +3041,7 @@ Platoon = Class(moho.platoon_methods) {
 				
 				local armypool = aiBrain:GetPlatoonUniquelyNamed('ArmyPool')
 			
-				if LOUDGETN( guardunits ) > 0 then
+				if guardunits[1] then
 				
 					for _,v in guardunits do
 					
@@ -3467,7 +3454,7 @@ Platoon = Class(moho.platoon_methods) {
 		
 		local units = GetPlatoonUnits(self)
 		
-		if LOUDGETN(units) > 0 then 
+		if units[1] then 
 		
 			for _,v in units do 
 			
@@ -4106,7 +4093,7 @@ Platoon = Class(moho.platoon_methods) {
 		
 		local units = GetPlatoonUnits(self)
 		
-		if LOUDGETN(units) > 0 then 
+		if units[1] then 
 		
 			for _,v in units do 
 			
@@ -5031,7 +5018,7 @@ Platoon = Class(moho.platoon_methods) {
 								
 								mythreat = self:CalculatePlatoonThreat('Air', categories.ALLUNITS)
                                 
-                            elseif LOUDGETN(seaunits) > 0 then
+                            elseif seaunits[1] then
                             
                                 distresscalltype = 'Naval'
 							end						
@@ -5055,7 +5042,7 @@ Platoon = Class(moho.platoon_methods) {
 							
 								distresscalltype = 'Air'
                                 
-                            elseif LOUDGETN(seaunits) > 0 then
+                            elseif seaunits[1] then
                             
                                 distresscalltype = 'Naval'
 								
@@ -5074,7 +5061,7 @@ Platoon = Class(moho.platoon_methods) {
 							
 								distresscalltype = 'Naval'
 							
-							elseif LOUDGETN(airunits) > 0 then
+							elseif airunits[1] then
 							
 								distresscalltype = 'Air'
 								
@@ -5318,7 +5305,7 @@ Platoon = Class(moho.platoon_methods) {
 
 						local alerts = brain.PlatoonDistress.Platoons
                     
-						if LOUDGETN(alerts) > 0 then
+						if alerts[1] then
 
 							for _,v in alerts do
 
@@ -5752,7 +5739,6 @@ Platoon = Class(moho.platoon_methods) {
 	
 	EngineerReclaimStructureAI = function( self, aiBrain )
 		
-		local LOUDGETN = LOUDGETN
 		local VDist2Sq = VDist2Sq
 		local VDist3Sq = VDist3Sq
 		local IsIdleState = moho.unit_methods.IsIdleState
@@ -5799,7 +5785,7 @@ Platoon = Class(moho.platoon_methods) {
             
 			local lastpos
 			
-			while LOUDGETN(reclaimlist) > 0 do
+			while reclaimlist[1] do
 			
 				sortedreclaimlist[counter+1] = reclaimlist[1]
 				counter = counter + 1
@@ -5862,7 +5848,7 @@ Platoon = Class(moho.platoon_methods) {
 			-- this gives us all the reclaimables in a rectangle at -15 from base radius
             local ents = AIGetReclaimablesAroundLocation( aiBrain, self.BuilderLocation, reclaimrange )
 			
-            if not ents or LOUDGETN( ents ) < 1 then
+            if not ents[1] then
 			
                 return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 				
@@ -7007,12 +6993,11 @@ Platoon = Class(moho.platoon_methods) {
 		
         IssueClearCommands({eng})
 
-		local aiBrain = eng:GetAIBrain()
+		local aiBrain = GetAIBrain(eng)
 
 		-- THE MAINLINE CODE --- issue a build order if the engineer has items in queue
-        if (not eng.Fighting) and (eng.EngineerBuildQueue and LOUDGETN(eng.EngineerBuildQueue) > 0) then
+        if (not eng.Fighting) and (eng.EngineerBuildQueue[1]) then
 
-			local LOUDGETN = LOUDGETN
 			local LOUDMOD = math.mod
 			local CanBuildStructureAt = moho.aibrain_methods.CanBuildStructureAt
 			local GetThreatAtPosition = moho.aibrain_methods.GetThreatAtPosition
@@ -7176,7 +7161,7 @@ Platoon = Class(moho.platoon_methods) {
 					-- check reclaimables - note - unlike units we issue reclaims to all and then return to PBC to continue with the build order
 					local reclaims = AIGetReclaimablesAroundLocation( aiBrain, eng.LocationType, 2, buildlocation ) or false
 					
-					if reclaims and LOUDGETN(reclaims) > 0 then
+					if reclaims[1] then
 
 						-- sort for closest to engineer -- 
 						LOUDSORT(reclaims, function(a,b) return VDist3( eng:GetPosition(), a:GetPosition() ) < VDist3( eng:GetPosition(), b:GetPosition() ) end )
@@ -7956,7 +7941,7 @@ Platoon = Class(moho.platoon_methods) {
 				
 					for _,u in GetUnitsAroundPoint( aiBrain, categories.ALLUNITS - categories.WALL, Target.Position, 90, 'Enemy') do
 					
-						if enemyindex == u:GetAIBrain().ArmyIndex then
+						if enemyindex == GetAIBrain(u).ArmyIndex then
 							value = value * 1.15
 							break
 						end
@@ -8399,7 +8384,7 @@ Platoon = Class(moho.platoon_methods) {
 
 					for _,u in GetUnitsAroundPoint( aiBrain, categories.ALLUNITS - categories.WALL, Target.Position, 90, 'Enemy') do
 					
-						if enemyindex == u:GetAIBrain().ArmyIndex then
+						if enemyindex == GetAIBrain(u).ArmyIndex then
 							value = value * 1.15
 							break
 						end
@@ -8926,9 +8911,7 @@ Platoon = Class(moho.platoon_methods) {
 	end,
 	
 	PlatoonAtWaypoint = function( platoon, params )
-    
-        --LOG("*AI DEBUG "..repr(platoon.BuilderName).." at waypoint")
-	
+
 		local CmdQ = false
 		
 		for k,v in GetPlatoonUnits(platoon) do
@@ -8941,7 +8924,7 @@ Platoon = Class(moho.platoon_methods) {
 			end
 		end
 		
-		if CmdQ and LOUDGETN(CmdQ)> 1 then
+		if CmdQ[2] then
 		
 			--LOG("*AI DEBUG Platoon still has "..LOUDGETN(CmdQ).." steps")
 			

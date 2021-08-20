@@ -88,7 +88,7 @@ function AssistBody(self, eng, aiBrain)
 
 		assistList = GetAssistees( beingbuiltcategory )
 
-        if LOUDGETN(assistList) > 0 then
+        if assistList[1] then
 
 			-- we'll use the base position rather than the engineer --
 			platoonPos = aiBrain.BuilderManagers[locationType].Position or false
@@ -1041,7 +1041,7 @@ function GetTransports( platoon, aiBrain)
             LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." getting available transports")
         end
 
-		if armypooltransports and LOUDGETN(armypooltransports) > 0 then
+		if armypooltransports[1] then
 
 			for _,trans in armypooltransports do
 			
@@ -1070,7 +1070,7 @@ function GetTransports( platoon, aiBrain)
 			end
 		end
 		
-		if TransportPoolTransports and LOUDGETN(TransportPoolTransports) > 0 then
+		if TransportPoolTransports[1] then
 
 			for _,trans in TransportPoolTransports do
             
@@ -2199,14 +2199,14 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
 		
 		currLeftovers = {}
 	
-		if LOUDGETN(leftoverUnits) > 0 then
+		if leftoverUnits[1] then
 		
 			transportTable, currLeftovers = SortUnitsOnTransports( transportTable, leftoverUnits )
 		end
 	
 	
 		-- send any leftovers to RTB --
-		if LOUDGETN(currLeftovers) > 0 then
+		if currLeftovers[1] then
 		
 			for _,v in currLeftovers do
 			
@@ -2262,21 +2262,21 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
 		end
 
 		-- if units are assigned to this transport
-        if LOUDGETN( data.Units["Large"] ) > 0 then
+        if data.Units["Large"][1] then
 		
             IssueClearCommands( data.Units["Large"] )
 			
 			loadissued = true
 		end
 		
-		if LOUDGETN( data.Units["Medium"] ) > 0 then
+		if data.Units["Medium"][1] then
 		
             IssueClearCommands( data.Units["Medium"] )
 		
 			loadissued = true
 		end
 		
-		if LOUDGETN( data.Units["Small"] ) > 0 then
+		if data.Units["Small"][1] then
 		
             IssueClearCommands( data.Units["Small"] )
 			
@@ -2438,7 +2438,7 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
                     
                     LOG("*AI DEBUG "..aiBrain.Nickname.." "..transports.BuilderName.." has path to "..repr(location).." - length "..repr(pathlength).." - cost "..pathcost)
 --[[                    
-                    if LOUDGETN( safePath ) > 1 then
+                    if safePath[1] then
                     
                         local lastpos = table.copy(platpos)
                         

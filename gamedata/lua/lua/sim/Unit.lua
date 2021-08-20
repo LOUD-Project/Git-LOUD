@@ -113,6 +113,7 @@ SyncMeta = {
     end,
 }
 
+local GetAIBrain = moho.unit_methods.GetAIBrain
 local GetArmy = moho.entity_methods.GetArmy
 local GetBlueprint = moho.entity_methods.GetBlueprint
 local GetEntityId = moho.entity_methods.GetEntityId
@@ -266,7 +267,7 @@ Unit = Class(moho.unit_methods) {
 
     OnCreate = function(self)
         
-        local aiBrain = self:GetAIBrain()
+        local aiBrain = GetAIBrain(self)
 		
 		local bp = ALLBPS[self.BlueprintID]
 
@@ -350,7 +351,7 @@ Unit = Class(moho.unit_methods) {
 
 		self.CanBeKilled = true
 		
-        if bp.Display.AnimationDeath and LOUDGETN(bp.Display.AnimationDeath) > 0 then
+        if bp.Display.AnimationDeath[1] then
 		
 			self.PlayDeathAnimation = true
 			
@@ -1114,7 +1115,7 @@ Unit = Class(moho.unit_methods) {
 	-- when you are captured
     OnCaptured = function(self, captor)
 	
-        if self and not self.Dead and captor and not captor.Dead and self:GetAIBrain() ~= captor:GetAIBrain() then
+        if self and not self.Dead and captor and not captor.Dead and GetAIBrain(self) ~= GetAIBrain(captor) then
 		
             if not self:IsCapturable() then
 			
@@ -1511,14 +1512,14 @@ Unit = Class(moho.unit_methods) {
     
         local platoon = self.PlatoonHandle
 
-        --LOG("*AI DEBUG "..self:GetAIBrain().Nickname.." "..repr(self:GetBlueprint().Description).." taking damage - platoon is "..repr(self.PlatoonHandle) )
+        --LOG("*AI DEBUG "..GetAIBrain(self).Nickname.." "..repr(self:GetBlueprint().Description).." taking damage - platoon is "..repr(self.PlatoonHandle) )
 
         -- if the unit is in a platoon that exists and that platoon has a CallForHelpAI
 		-- I should probably do this thru a callback but it's much easier to find and work
 		-- with it here until I have it right
 		if platoon.CallForHelpAI then
         
-			local aiBrain = self:GetAIBrain()
+			local aiBrain = GetAIBrain(self)
             
             --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self:GetBlueprint().Description).." Calling for Help - platoon is "..repr(aiBrain:PlatoonExists(self.PlatoonHandle)) )
 			
@@ -1584,7 +1585,7 @@ Unit = Class(moho.unit_methods) {
 		
         if not self.Dead and LOUDENTITY(categories.COMMAND, self) then
 		
-			self:GetAIBrain():OnPlayCommanderUnderAttackVO()
+			GetAIBrain(self):OnPlayCommanderUnderAttackVO()
 			
         end
 		
@@ -1678,7 +1679,7 @@ Unit = Class(moho.unit_methods) {
         local army = self.Sync.army
 		
 		local Random = Random
-		local LOUDGETN = table.getn
+
 		local LOUDINSERT = table.insert
 		local LOUDATTACHEMITTER = CreateAttachedEmitter
 		
@@ -2314,7 +2315,7 @@ Unit = Class(moho.unit_methods) {
 			
                 if cb then
 				
-                    cb( self:GetAIBrain(), self )
+                    cb( GetAIBrain(self), self )
 					
                 end
 				
@@ -2449,7 +2450,7 @@ Unit = Class(moho.unit_methods) {
 		
         if bp then
 		
-            local aiBrain = self:GetAIBrain()
+            local aiBrain = GetAIBrain(self)
             local factionIndex = aiBrain.FactionIndex
 			
             if factionIndex == 1 then
@@ -2488,7 +2489,7 @@ Unit = Class(moho.unit_methods) {
 
         if bp then
 			
-			local mybrain = self:GetAIBrain()
+			local mybrain = GetAIBrain(self)
 			
 			for _, brain in BRAINS do
         
@@ -2529,7 +2530,7 @@ Unit = Class(moho.unit_methods) {
 	-- this is where the Nuke Launched Audio is triggered 
     NukeCreatedAtUnit = function(self)
 	
-        local mybrain = self:GetAIBrain()
+        local mybrain = GetAIBrain(self)
 		
         for _, brain in BRAINS do
 		
@@ -2630,18 +2631,16 @@ Unit = Class(moho.unit_methods) {
 	-- is this issued by the unit being built ? or the builder of the unit ?
     OnStartBeingBuilt = function(self, builder, layer)
 		
-        local aiBrain = self:GetAIBrain()
-		
-		--LOG("*AI DEBUG "..aiBrain.Nickname.." OnStartBeingBuilt event for "..repr(self:GetBlueprint().Description).." built by "..repr(builder:GetBlueprint().Description) )
+        local aiBrain = GetAIBrain(self)
 		
 		self:CheckUnitRestrictions()
 	
         self:StartBeingBuiltEffects(builder, layer)
 
 		local LOUDENTITY = EntityCategoryContains
-		local LOUDGETN = table.getn
+
 		
-        if aiBrain.UnitBuiltTriggerList and LOUDGETN(aiBrain.UnitBuiltTriggerList) > 0 then
+        if aiBrain.UnitBuiltTriggerList[1] then
 		
             for k,v in aiBrain.UnitBuiltTriggerList do
 			
@@ -2778,7 +2777,7 @@ Unit = Class(moho.unit_methods) {
 			
         end
 		
-        local aiBrain = self:GetAIBrain()
+        local aiBrain = GetAIBrain(self)
 		
         for k,v in aiBrain.UnitBuiltTriggerList do
 		
@@ -2798,7 +2797,7 @@ Unit = Class(moho.unit_methods) {
 	-- if the original builder is dead - then no builder is reported
     OnStopBeingBuilt = function(self, builder, layer)
 
-		local aiBrain = self:GetAIBrain()
+		local aiBrain = GetAIBrain(self)
 		
 		local bp = ALLBPS[self.BlueprintID]
 --[[		
@@ -3143,7 +3142,7 @@ Unit = Class(moho.unit_methods) {
 
     OnFailedToBuild = function(self)
     
-        --LOG("*AI DEBUG OnFailedToBuild "..self:GetAIBrain().Nickname.." "..repr(self.PlatoonHandle.BuilderName))
+        --LOG("*AI DEBUG OnFailedToBuild "..GetAIBrain(self).Nickname.." "..repr(self.PlatoonHandle.BuilderName))
 	
         self:DoOnFailedToBuildCallbacks()
         self:SetActiveConsumptionInactive()
@@ -3373,7 +3372,7 @@ Unit = Class(moho.unit_methods) {
 
     IntelWatchThread = function(self)
 	
-		local aiBrain = self:GetAIBrain()
+		local aiBrain = GetAIBrain(self)
 		
         local bp = ALLBPS[self.BlueprintID]
 	
@@ -3525,14 +3524,14 @@ Unit = Class(moho.unit_methods) {
 		
             if unitEnhancements[tempEnhanceBp.Slot] != tempEnhanceBp.Prerequisite then
 			
-                LOG("*AI DEBUG "..self:GetAIBrain().Nickname.." enhancement "..repr(work).." does not have the proper prereq "..repr(tempEnhanceBp.Prerequisite) )
+                LOG("*AI DEBUG "..GetAIBrain(self).Nickname.." enhancement "..repr(work).." does not have the proper prereq "..repr(tempEnhanceBp.Prerequisite) )
                 return false	-- should we be forking to OnWorkFail at this point ?
 				
             end
 			
         elseif unitEnhancements[tempEnhanceBp.Slot] then
 		
-			LOG("*AI DEBUG "..self:GetAIBrain().Nickname.." "..self:GetBlueprint().Description.." Slot required is " .. tempEnhanceBp.Slot )
+			LOG("*AI DEBUG "..GetAIBrain(self).Nickname.." "..self:GetBlueprint().Description.." Slot required is " .. tempEnhanceBp.Slot )
 			
             --error('*ERROR: "..self.Brain.Nickname.." enhancement '..repr(work)..' does not have the proper slot available!', 2)
             return false	-- as above, to OnWorkFail ?
@@ -4607,7 +4606,7 @@ Unit = Class(moho.unit_methods) {
             return
         end
 		
-		local brain = self:GetAIBrain()
+		local brain = GetAIBrain(self)
 		
         if self:GetStat('KILLS', 0).Value >= bp[('Level' .. self.VeteranLevel + 1)] * ( 1.0 / (brain.VeterancyMult or 1.0) ) then
 
@@ -5193,7 +5192,7 @@ Unit = Class(moho.unit_methods) {
 			
                 local cargo = self:GetCargo()
 				
-                if LOUDGETN(cargo) > 0 then
+                if cargo[1] then
 				
                     for _, v in cargo do
 					
@@ -5228,7 +5227,7 @@ Unit = Class(moho.unit_methods) {
 			
                 local cargo = self:GetCargo()
 				
-                if LOUDGETN(cargo) > 0 then
+                if cargo[1] then
 				
                     for _, v in cargo do
 					
@@ -5318,7 +5317,7 @@ Unit = Class(moho.unit_methods) {
 		
 		local telecost = bp.Economy.TeleportBurstEnergyCost or 5000
 		
-        local mybrain = self:GetAIBrain()
+        local mybrain = GetAIBrain(self)
 		
         local storedenergy = mybrain:GetEconomyStored('ENERGY')
 		
@@ -5782,7 +5781,7 @@ Unit = Class(moho.unit_methods) {
 	CloakEffectControlThread = function(self,blueprint)
 	
 		local bp = blueprint or ALLBPS[self.BlueprintID]
-		local brain = self:GetAIBrain()
+		local brain = GetAIBrain(self)
 		
 		-- local a bunch of repetitive functions
 		local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint

@@ -544,7 +544,7 @@ function SpawnWaveThread( aiBrain )
 	
 		local T3AirFacs = aiBrain:GetListOfUnits( categories.AIR * categories.FACTORY * categories.TECH3, false )
 		
-		if LOUDGETN(T3AirFacs) > 0 then
+		if T3AirFacs[1] then
 		
 			for _,v in T3AirFacs do
 
@@ -675,7 +675,7 @@ end
 
 function StartAdaptiveCheatThreads()
 
-	if LOUDGETN(ratioACTBrains) > 0 then
+	if ratioACTBrains[1] then
     
 		local str = ""
         
@@ -688,7 +688,7 @@ function StartAdaptiveCheatThreads()
 		ForkThread(RatioAdaptiveCheatThread)
 	end
     
-	if LOUDGETN(timeACTBrains) > 0 then
+	if timeACTBrains[1] then
     
 		local str = ""
         
@@ -791,7 +791,7 @@ function RatioAdaptiveCheatThread()
 
 	while true do
     
-		if LOUDGETN(ratioACTBrains) < 1 then
+		if not ratioACTBrains[1] then
 			break
 		end
 
@@ -894,7 +894,7 @@ function TimeAdaptiveCheatThread()
 	
 	while true do
     
-		if LOUDGETN(timeACTBrains) < 1 then
+		if not timeACTBrains[1] then
 			break
 		end
         
@@ -1064,7 +1064,7 @@ function PlatoonDistressMonitor( aiBrain )
 		
 				PlatoonDistress.Platoons = RebuildTable( aiBrain, PlatoonDistress.Platoons)
 
-				if LOUDGETN(PlatoonDistress.Platoons) == 0 then
+				if not PlatoonDistress.Platoons[1] then
 					PlatoonDistress.AlertSounded = false
                 end
 			end
@@ -1081,7 +1081,7 @@ function DisperseUnitsToRallyPoints( aiBrain, units, position, rallypointtable, 
 
 		local rallypoints = AIGetMarkersAroundLocation(aiBrain, 'Rally Point', position, 90)
 	
-		if LOUDGETN(rallypoints) < 1 then
+		if not rallypoints[1] then
 			rallypoints = AIGetMarkersAroundLocation(aiBrain, 'Naval Rally Point', position, 90)
 		end
 	
@@ -1097,7 +1097,7 @@ function DisperseUnitsToRallyPoints( aiBrain, units, position, rallypointtable, 
         LOUDSORT( rallypointtable, function(a,b) return VDist2Sq(a[1],a[3],checkposition[1],checkposition[3]) < VDist2Sq(b[1],b[3], checkposition[1],checkposition[3]) end )
     end
 
-	if LOUDGETN(rallypointtable) > 0 then
+	if rallypointtable[1] then
 	
 		local rallycount = LOUDGETN(rallypointtable)
 
@@ -1822,7 +1822,7 @@ function AirUnitRefitThread( unit, aiBrain )
 					plats = import('/lua/ai/aiutilities.lua').GetOwnUnitsAroundPoint( aiBrain, categories.AIRSTAGINGPLATFORM - categories.MOBILE, unitPos, 1536 )
 					
 					-- Locate closest airpad
-					if LOUDGETN( plats ) > 0 then
+					if plats[1] then
                     
                         LOUDSORT( plats, function(a,b) return VDist3Sq(a:GetPosition(),unitPos) < VDist3Sq(b:GetPosition(),unitPos) end )
                         
@@ -3005,7 +3005,7 @@ function PathGeneratorAir( aiBrain )
 	local LOUDFLOOR = math.floor
     local MATHMAX = math.max
     local LOUDLOG10 = math.log10
-	local LOUDGETN = table.getn
+
 	local LOUDINSERT = table.insert
 	local LOUDREMOVE = table.remove
 	local LOUDSORT = table.sort
@@ -3104,10 +3104,10 @@ function PathGeneratorAir( aiBrain )
 
 			fork.length = queueitem.length + adjacentNode[2]
 
-			fork.path[queueitem.pathcount + 1] = testposition
-
 			fork.pathcount = queueitem.pathcount + 1
-			
+	
+			fork.path[fork.pathcount] = testposition
+		
 			fork.threat = queueitem.threat - threat
 
 			LOUDINSERT(queue,fork)
@@ -3158,7 +3158,7 @@ function PathGeneratorAir( aiBrain )
 			-- we also no longer need to pass it to the AStar function as it is part of the queue data
 			queue = { { cost = EndThreat, goaldist = 0, length = data.Startlength or 0, Node = data.StartNode, path = { data.StartNode.position, }, pathcount = 1, threat = data.ThreatWeight - EndThreat } }
     
-			while LOUDGETN(queue) > 0 do
+			while queue[1] do
 			
 				local pathlist, pathlength, shortcut, pathcost = AStarLoopBody( data, queue, closed )
         
@@ -3195,7 +3195,7 @@ function PathGeneratorAmphibious(aiBrain)
 	local LOUDFLOOR = math.floor
     local MATHMAX = math.max
     local LOUDLOG10 = math.log10
-	local LOUDGETN = table.getn
+
 	local LOUDINSERT = table.insert
 	local LOUDREMOVE = table.remove
 	local LOUDSORT = table.sort
@@ -3304,9 +3304,9 @@ function PathGeneratorAmphibious(aiBrain)
 
 			fork.length = queueitem.length + adjacentNode[2]
 
-			fork.path[queueitem.pathcount + 1] = testposition
-
 			fork.pathcount = queueitem.pathcount + 1
+            
+			fork.path[fork.pathcount] = testposition
 
 			fork.threat = queueitem.threat - threat
 
@@ -3343,7 +3343,7 @@ function PathGeneratorAmphibious(aiBrain)
 			-- we also no longer need to pass it to the AStar function as it is part of the queue data
 			queue = { { cost = EndThreat, goaldist = 0, length = data.Startlength or 0, Node = data.StartNode, path = {data.StartNode.position, }, pathcount = 1, threat = data.ThreatWeight - EndThreat } }
     
-			while LOUDGETN(queue) > 0 do
+			while queue[1] do
 
 				local pathlist, pathlength, shortcut, pathcost = AStarLoopBody( data, queue, closed )
         
@@ -3378,7 +3378,7 @@ function PathGeneratorLand(aiBrain)
     local LOUDEQUAL = table.equal
 	local LOUDFLOOR = math.floor
     local MATHMAX = math.max
-	local LOUDGETN = table.getn
+
 	local LOUDINSERT = table.insert
 	local LOUDREMOVE = table.remove
 	local LOUDSORT = table.sort
@@ -3463,10 +3463,10 @@ function PathGeneratorLand(aiBrain)
 
 			fork.length = queueitem.length + adjacentNode[2]
 
-			fork.path[queueitem.pathcount + 1] = testposition
-
 			fork.pathcount = queueitem.pathcount + 1
 			
+			fork.path[fork.pathcount] = testposition
+
 			fork.threat = queueitem.threat - threat
 
 			LOUDINSERT(queue,fork)
@@ -3499,7 +3499,7 @@ function PathGeneratorLand(aiBrain)
           
 			queue = { { cost = EndThreat, goaldist = 0, length = data.Startlength or 0, Node = data.StartNode, path = {data.StartNode.position, }, pathcount = 1, threat = data.ThreatWeight - EndThreat } }
 
-			while LOUDGETN(queue) > 0 do
+			while queue[1] do
 
 				-- adjust these multipliers to make pathfinding more or less sensitive to threat
 				-- local maxthreat = data.ThreatWeight * 1.2
@@ -3537,7 +3537,7 @@ function PathGeneratorWater(aiBrain)
 	local LOUDCOPY = table.copy
     local LOUDEQUAL = table.equal
 	local LOUDFLOOR = math.floor
-	local LOUDGETN = table.getn
+
 	local LOUDINSERT = table.insert
 	local LOUDREMOVE = table.remove
 	local LOUDSORT = table.sort
@@ -3621,10 +3621,10 @@ function PathGeneratorWater(aiBrain)
 
 			fork.length = queueitem.length + adjacentNode[2]
 
-			fork.path[queueitem.pathcount + 1] = testposition
-
 			fork.pathcount = queueitem.pathcount + 1
 			
+			fork.path[fork.pathcount] = testposition
+
 			fork.threat = queueitem.threat - threat
 			
 			LOUDINSERT(queue,fork)
@@ -3649,7 +3649,7 @@ function PathGeneratorWater(aiBrain)
 			closed = {}
 			queue = { {cost = 0, goaldist = 0, length = data.Startlength or 0, Node = data.StartNode, path = {data.StartNode.position, }, pathcount = 1, threat = data.ThreatWeight } }
 
-			while LOUDGETN(queue) > 0 do
+			while queue[1] do
 
 				local pathlist, pathlength, shortcut, pathcost = AStarLoopBody( data, queue, closed )
         
@@ -4028,7 +4028,7 @@ function ParseIntelThread( aiBrain )
                 
                     LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL "..threatType.." begins on iteration "..repr(iterationcount))
                     
-                    if LOUDGETN(threats) > 0 then
+                    if threats[1] then
                         LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL "..threatType.." gets "..LOUDGETN(threats).." results at GameSecond "..gametime)
                     end
 				end
@@ -4147,7 +4147,7 @@ function ParseIntelThread( aiBrain )
 							units = GetUnitsAroundPoint( aiBrain, vx[3], newPos, (IMAPRadius/ThresholdMult), 'Enemy')
 						
                             -- and if we don't see anything - reduce it by 20%
-							if LOUDGETN(units) < 1 then
+							if not units[1] then
                             
 								if ScenarioInfo.IntelDialog then
 									LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL "..threatType.." shows "..threat[3].." but I find no units - reducing by 20%")
@@ -5062,11 +5062,11 @@ function CreateAttackPlan( self, enemyPosition )
             end
             
 			-- if there are no positions we'll have to create one out of a movement node
-            if LOUDGETN(positions) < 1 then
+            if not positions[1] then
                 
                 local a,b
 
-                if LOUDGETN(positions) < 1 then
+                if not positions[1] then
 				
                     if ScenarioInfo.AttackPlanDialog then
                         LOG("*AI DEBUG "..self.Nickname.." could find no marker positions from "..repr(CurrentPoint))
@@ -5093,7 +5093,7 @@ function CreateAttackPlan( self, enemyPosition )
                 landposition = AIGetMarkersAroundLocation( self, 'Land Path Node', result, 200)
 
 				-- try and use a land marker when no other can be found
-                if LOUDGETN(landposition) < 1 then
+                if not landposition[1] then
 				
                     if ScenarioInfo.AttackPlanDialog then
                         LOG("*AI DEBUG "..self.Nickname.." Could not find a Land Node with 200 of resultposition "..repr(result).." using Water at 300")

@@ -23,7 +23,7 @@ local BeenDestroyed = moho.entity_methods.BeenDestroyed
 local MakePlatoon = moho.aibrain_methods.MakePlatoon
 
 local LOUDFLOOR = math.floor
-local LOUDGETN = table.getn
+
 local LOUDINSERT = table.insert
 local LOUDREMOVE = table.remove
 local LOUDSORT = table.sort
@@ -437,7 +437,7 @@ EngineerManager = Class(BuilderManager) {
 		
             if not v.Dead then
 
-				if v.EngineerBuildQueue and LOUDGETN(v.EngineerBuildQueue) > 0 then
+				if v.EngineerBuildQueue[1] then
             
 					local buildingId = self:GetBuildingId( v, buildingType )
 					
@@ -726,7 +726,6 @@ EngineerManager = Class(BuilderManager) {
 
 		local DrawC = DrawCircle
 
-		local LOUDGETN = table.getn
 		local LOUDMIN = math.min
 		local LOUDSORT = table.sort
 		
@@ -786,7 +785,7 @@ EngineerManager = Class(BuilderManager) {
 		-- keeping it updated and active, or expiring it when it is no longer valid
 		local function BaseMonitorThreatCheck()
 
-			if aiBrain.IL.HiPri and LOUDGETN(aiBrain.IL.HiPri) > 0 then
+			if aiBrain.IL.HiPri[1] then
 	
 				local AlertRadius = self.BaseMonitor.AlertRange
 		
@@ -798,7 +797,7 @@ EngineerManager = Class(BuilderManager) {
 				local threatTable = table.copy(aiBrain.IL.HiPri)
 
 				-- if there is a threat table and we have a position
-				if LOUDGETN(threatTable) > 0 and self.Location then
+				if threatTable[1] and self.Location then
 
 					-- sort the threat table by distance from this base --
 					LOUDSORT(threatTable, function (a,b) return VDist2Sq(a.Position[1],a.Position[3], self.Location[1],self.Location[3]) < VDist2Sq(b.Position[1],b.Position[3], self.Location[1],self.Location[3]) end)
@@ -883,13 +882,20 @@ EngineerManager = Class(BuilderManager) {
 												experimentalsair = GetUnitsAroundPoint( aiBrain, categories.EXPERIMENTAL * categories.AIR, highThreatPos, 120, 'Enemy')
 												experimentalssea = GetUnitsAroundPoint( aiBrain, categories.EXPERIMENTAL * categories.NAVAL, highThreatPos, 120, 'Enemy')
 										
-												if LOUDGETN(experimentalsair) > 0 then
+												if experimentalsair[1] then
+                                                
 													highThreatType = 'Air'
-												elseif LOUDGETN(experimentalssea) > 0 then
+                                                    
+												elseif experimentalssea[1] then
+                                                
 													highThreatType = 'Naval'
+                                                    
 												else
+                                                
 													highThreatType = 'Land'
+                                                    
 												end
+                                                
 											else
 												highThreatType = threat.Type
 											end
@@ -1198,7 +1204,6 @@ EngineerManager = Class(BuilderManager) {
 			end		
 		end
 	
-		local LOUDGETN = table.getn
 		local WaitTicks = coroutine.yield
 
 		local baseposition = self.Location

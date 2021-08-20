@@ -4,7 +4,7 @@
 local LOUDENTITY = EntityCategoryContains
 local ParseEntityCategory = ParseEntityCategory
 local LOUDCOPY = table.copy
-local LOUDGETN = table.getn
+
 local LOUDINSERT = table.insert
 local LOUDREMOVE = table.remove
 
@@ -110,7 +110,7 @@ Weapon = Class(moho.weapon_methods) {
                     self.unit.Trash:Add(self.AimControl)
                     self.AimControl:SetPrecedence(precedence)
 				
-                    if bp.RackSlavedToTurret and LOUDGETN(bp.RackBones) > 0 then
+                    if bp.RackSlavedToTurret and bp.RackBones[1] then
                     
                         for k, v in bp.RackBones do
                             if v.RackBone != pitchBone then

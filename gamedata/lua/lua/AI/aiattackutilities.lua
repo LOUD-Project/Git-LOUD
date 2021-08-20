@@ -1,6 +1,5 @@
 --**  File     :  /lua/AI/aiattackutilities.lua
 
-local LOUDGETN = table.getn
 local LOUDINSERT = table.insert
 local LOUDPARSE = ParseEntityCategory
 local LOUDSORT = table.sort
@@ -248,7 +247,7 @@ function GetPathGraphs()
 					end
 				
 					-- a point MUST be connected to something
-					if LOUDGETN(mdata.adjacent) < 1 then
+					if not mdata.adjacent[1] then
 						badpoint = true
 					end
 					
@@ -476,7 +475,7 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 				pointlist = table.cat(pointlist, ScenarioInfo.Env.Scenario.MasterChain[ cat ] or AIGetMarkerLocations( cat ) )
 			end
 		
-			if LOUDGETN(pointlist)>0 and PointSource then
+			if pointlist[1] and PointSource then
 
 				-- sort the list by distance from source 
 				table.sort( pointlist, function(a,b) return LOUDV2(PointSource[1],PointSource[3],a.Position[1],a.Position[3]) < LOUDV2( PointSource[1],PointSource[3],b.Position[1],b.Position[3] ) end)
@@ -802,7 +801,6 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
 
 	local CanAttackTarget = moho.platoon_methods.CanAttackTarget
 
-	local LOUDGETN = table.getn
 	local LOUDSORT = table.sort
 	local VDist2Sq = VDist2Sq
 	local VDist2 = VDist2
@@ -821,7 +819,7 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
 		-- filter the enemy units down to a specific category
 		targetUnits = EntityCategoryFilterDown( category, enemyunits )
 		
-		if targetUnits and LOUDGETN(targetUnits) > 0 then		
+		if targetUnits[1] then		
 
 			-- sort them by distance -- 
 			LOUDSORT( targetUnits, function(a,b) return VDist2Sq(a:GetPosition()[1],a:GetPosition()[3], position[1],position[3]) < VDist2Sq(b:GetPosition()[1],b:GetPosition()[3], position[1],position[3]) end)

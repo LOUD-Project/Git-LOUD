@@ -1832,7 +1832,7 @@ function NavalScoutingAI( self, aiBrain )
 							else
 								units = GetPlatoonUnits(self)
 
-								if LOUDGETN(units) > 0 and v then
+								if units[1] and v then
 									IssuePatrol( units, v )
 								end
 							end
@@ -2486,7 +2486,7 @@ function AirForceAILOUD( self, aiBrain )
                     --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." vs using "..repr(newpath))
 
                     -- if we have a path - versus direct which will have zero path entries --
-                    if LOUDGETN(newpath) > 0 then
+                    if newpath[1] then
 
                         -- move the platoon to within strikerange in formation
                         self.MoveThread = self:ForkThread( self.MovePlatoon, newpath, 'AttackFormation', false, 70)
@@ -2929,7 +2929,7 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
                     --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." vs using "..repr(newpath))
 
                     -- if we have a path - versus direct which will have zero path entries --
-                    if LOUDGETN(newpath) > 0 then
+                    if newpath[1] then
 
                         -- move the platoon to within strikerange in formation
                         self.MoveThread = self:ForkThread( self.MovePlatoon, newpath, 'AttackFormation', false, 70)
@@ -4058,7 +4058,7 @@ function NavalForceAILOUD( self, aiBrain )
             
                 local nearwater = import('/lua/ai/aiutilities.lua').AIGetMarkersAroundLocation( aiBrain, 'Water Path Node', v.Position, maxRange * .25 )
 			
-                if LOUDGETN(nearwater) > 0 then
+                if nearwater[1] then
                     --LOG("*AI DEBUG "..aiBrain.Nickname.." Mass point in range "..(maxRange *.25).." of "..repr(v.Position).. " Adding "..repr(nearwater[1]))
                     LOUDINSERT(navalAreas, nearwater[1])
                 end
@@ -4328,7 +4328,7 @@ function NavalForceAILOUD( self, aiBrain )
 				-- rebuild the table in case some points have been used
 				navalAreas = aiBrain:RebuildTable(navalAreas)
 				
-				if LOUDGETN(navalAreas) > 0 then
+				if navalAreas[1] then
 				
 					for k,v in RandomIter(navalAreas) do
 
@@ -5304,7 +5304,7 @@ function EyeBehavior( unit, aiBrain )
             -- 2) Scout a high priority location    
             if not targetArea and not aiBrain.IL.LastAirScoutHi then
 			
-				if LOUDGETN(aiBrain.IL.HiPri) > 0 then
+				if aiBrain.IL.HiPri[1] then
 
 					targetArea = LOUDCOPY(aiBrain.IL.HiPri[1].Position)
 					
@@ -5326,7 +5326,8 @@ function EyeBehavior( unit, aiBrain )
 					
 				end
 
-				if LOUDGETN(aiBrain.IL.LowPri) > 0 then
+				if aiBrain.IL.LowPri[1] then
+                
 					targetArea = aiBrain.IL.LowPri[1].Position
 					aiBrain.IL.LowPri[1].LastScouted = LOUDTIME()
 					
@@ -6127,15 +6128,19 @@ function TMLThread( unit, aiBrain )
 			targetUnits = GetUnitsAroundPoint( aiBrain, categories.ALLUNITS - categories.WALL - categories.AIR - categories.TECH1, position, maxRadius, 'Enemy' )
 
 			-- locate a target in range or wait additional 5 seconds
-			if targetUnits and LOUDGETN(targetUnits) > 0 then
+			if targetUnits[1] then
+            
 				-- loop thru each of the attack Priorities
 				for _,v in atkPri do
+                
 					for _, targetunit in EntityCategoryFilterDown( ParseEntityCategory(v), targetUnits ) do
+                    
 						-- if you find a target then break out
 						if not targetunit.Dead then
 							target = targetunit
 							break
 						end
+                        
 					end
 
 					-- if there is a target -- fire at it
@@ -6453,7 +6458,7 @@ function FactorySelfEnhanceThread ( unit, faction, aiBrain, manager )
 		return
 	end	
 
-	if LOUDGETN(EnhanceList) == 0 then
+	if not EnhanceList[1] then
 		EBP = false
 	end
 	
@@ -6944,7 +6949,7 @@ function AirLandToggleThread(unit, aiBrain)
     local antiAirRange, landRange, weaponType
 	
     local toggleWeapons = {}
-    local unitCat = ParseEntityCategory( unit:GetUnitId() )
+    local unitCat = ParseEntityCategory( unit.BlueprintID )
 	
     for _,v in weapons do
         if v.ToggleWeapon then
@@ -7095,7 +7100,7 @@ function FindExperimentalTarget( self, aiBrain )
             local numUnitsAtBase = 0
             local notDeadUnit = false
             
-			if LOUDGETN(unitsAtBase) > 0 then
+			if unitsAtBase[1] then
 			
 				--LOG("*AI DEBUG "..aiBrain.Nickname.." FindExperimentalTarget finds "..LOUDGETN(unitsAtBase).." "..repr(priority).." units at "..repr(base.Position) )
 

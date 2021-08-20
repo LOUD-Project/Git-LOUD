@@ -5,8 +5,6 @@ local AIGetMarkerLocations = import('/lua/ai/aiutilities.lua').AIGetMarkerLocati
 local AIGetReclaimablesAroundLocation = import('/lua/ai/aiutilities.lua').AIGetReclaimablesAroundLocation
 local AISortMarkersFromLastPosWithThreatCheck = import('/lua/ai/aiutilities.lua').AISortMarkersFromLastPosWithThreatCheck
 
-local LOUDGETN = table.getn
-
 local GetEconomyTrend = moho.aibrain_methods.GetEconomyTrend
 local GetEconomyStoredRatio = moho.aibrain_methods.GetEconomyStoredRatio
 local GetEconomyIncome = moho.aibrain_methods.GetEconomyIncome
@@ -19,7 +17,7 @@ function ReclaimablesInAreaMass(aiBrain, locType, range)
 
     local ents = AIGetReclaimablesAroundLocation( aiBrain, locType, range )
 	
-    if ents and LOUDGETN(ents) > 0 then
+    if ents[1] then
 	
 		if not aiBrain.BadReclaimables then
 			aiBrain.BadReclaimables = {}
@@ -31,6 +29,7 @@ function ReclaimablesInAreaMass(aiBrain, locType, range)
 			end
 		end
     end
+    
     return false
 end
 

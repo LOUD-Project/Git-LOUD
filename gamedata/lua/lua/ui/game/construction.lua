@@ -446,7 +446,7 @@ function CreateTabs(type)
 
     for _, tab in controls.tabs do
 
-        if sortedOptions[tab.ID] and LOUDGETN(sortedOptions[tab.ID]) > 0 then
+        if sortedOptions[tab.ID][1] then
 
             tab:Enable()
 
@@ -2630,14 +2630,18 @@ function FormatData(unitData, type)
 
             local index = i
 
-            if LOUDGETN(units) > 0 then
+            if units[1] then
 
-                if LOUDGETN(retData) > 0 then
+                if retData[1] then
+                
                     LOUDINSERT(retData, {type = 'spacer'})
+                    
                 end
 
                 for unitIndex, unit in units do
+                
                     LOUDINSERT(retData, {type = 'item', id = unit})
+                    
                 end
 
             end
@@ -2956,10 +2960,12 @@ function SetSecondaryDisplay(type)
 
             local attachedUnits = EntityCategoryFilterDown(categories.MOBILE, GetAttachedUnitsList(sortedOptions.selection))
 
-            if attachedUnits and LOUDGETN(attachedUnits) > 0 then
+            if attachedUnits[1] then
+            
                 for _, v in attachedUnits do
                     LOUDINSERT(data, {type = 'attachedunit', id = v:GetBlueprint().BlueprintId, unit = v})
                 end
+                
             end
 
             controls.secondaryProgress:SetAlpha(0, true)
@@ -2997,7 +3003,7 @@ function CheckForOrderQueue(newSelection)
 
         SetQueueState(false)
 
-    elseif LOUDGETN(selection) > 0 then
+    elseif selection[1] then
 
         ClearCurrentFactoryForQueueDisplay()
         ClearQueueGrid()
@@ -3100,16 +3106,19 @@ function OnSelection(buildableCategories, selection, isOldSelection)
 			sortedOptions.t4 = EntityCategoryFilterDown(categories.EXPERIMENTAL, buildableUnits)
 		end
 
-        if LOUDGETN(buildableUnits) > 0 then
+        if buildableUnits[1] then
+        
             controls.constructionTab:Enable()
+            
         else
+        
             controls.constructionTab:Disable()
+            
             if BuildMode.IsInBuildMode() then
                 BuildMode.ToggleBuildMode()    
             end
+            
         end
-        
-        
 
         sortedOptions.selection = selection
         controls.selectionTab:Enable()

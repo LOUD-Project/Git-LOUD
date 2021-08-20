@@ -419,7 +419,7 @@ StructureUnit = Class(Unit) {
 
         if not specTarmac then
 		
-            if bp and LOUDGETN(bp) > 0 then
+            if bp[1] then
 			
                 local num = Random(1, LOUDGETN(bp))
 				
@@ -455,7 +455,7 @@ StructureUnit = Class(Unit) {
 
         if not orientation then
 		
-            if tarmac.Orientations and LOUDGETN(tarmac.Orientations) > 0 then
+            if tarmac.Orientations[1] then
 			
                 orient = tarmac.Orientations[Random(1, LOUDGETN(tarmac.Orientations))]
                 orient = (0.01745 * orient)
@@ -480,7 +480,7 @@ StructureUnit = Class(Unit) {
         end
 
         local factionTable = {e=1, a=2, r=3, s=4}
-        local faction  = factionTable[string.sub(self:GetUnitId(),2,2)]
+        local faction  = factionTable[string.sub(self.BlueprintID,2,2)]
 
         if albedo and tarmac.Albedo then
 		
@@ -589,7 +589,7 @@ StructureUnit = Class(Unit) {
 
 		if order == 'Upgrade' then
 
-			if unitBeingBuilt:GetUnitId() == __blueprints[self.BlueprintID].General.UpgradesTo then
+			if unitBeingBuilt.BlueprintID == __blueprints[self.BlueprintID].General.UpgradesTo then
 				ChangeState(self, self.UpgradingState)
 			end
 		end
@@ -753,19 +753,19 @@ StructureUnit = Class(Unit) {
 			self:HideBone(0, true)
 			self.BeingBuiltShowBoneTriggered = false
 
-			if bp.UpgradesFrom != builder:GetUnitId() then
+			if bp.UpgradesFrom != builder.BlueprintID then
 				self:ForkThread( CreateBuildCubeThread, builder, self.OnBeingBuiltEffectsBag )
 			end
 
 		elseif bp.FactionName == 'Aeon' then
 
-			if bp.UpgradesFrom != builder:GetUnitId() then
+			if bp.UpgradesFrom != builder.BlueprintID then
 				self:ForkThread( CreateAeonBuildBaseThread, builder, self.OnBeingBuiltEffectsBag )
 			end
 
         elseif bp.FactionName == 'Seraphim' then
 
-            if bp.UpgradesFrom != builder:GetUnitId() then
+            if bp.UpgradesFrom != builder.BlueprintID then
                 self:ForkThread( CreateSeraphimBuildBaseThread, builder, self.OnBeingBuiltEffectsBag )
             end
         end
@@ -1276,32 +1276,31 @@ MobileUnit = Class(Unit) {
 
         local bpTable = __blueprints[self.BlueprintID].Display.MovementEffects
 
-		if bpTable then
+		if bpTable[self.CacheLayer] then
 
-			if bpTable[self.CacheLayer] then
+			bpTable = bpTable[self.CacheLayer]
 
-				bpTable = bpTable[self.CacheLayer]
-
-				if bpTable.Treads then
-					self:CreateTreads( bpTable.Treads )
-				else
-					self:RemoveScroller()
-				end
-
-				if (not bpTable.Effects or (bpTable.Effects and (LOUDGETN(bpTable.Effects) == 0))) then
-
-					if not self.Footfalls and bpTable.Footfall then
-						LOG('*WARNING: No movement effect groups defined for unit ',repr(self:GetUnitId()),', Effect groups with bone lists must be defined to play movement effects. Add these to the Display.MovementEffects', self.CacheLayer, '.Effects table in unit blueprint. ' )
-					end
-					return false
-				end
-
-				if bpTable.CameraShake then
-					self.CamShakeT1 = self:ForkThread(self.MovementCameraShakeThread, bpTable.CameraShake )
-				end
-
-				self:CreateTerrainTypeEffects( bpTable.Effects, 'FXMovement', self.CacheLayer, TypeSuffix, EffectsBag, TerrainType )
+			if bpTable.Treads then
+				self:CreateTreads( bpTable.Treads )
+			else
+				self:RemoveScroller()
 			end
+
+			if not bpTable.Effects[1] then
+
+				if not self.Footfalls and bpTable.Footfall then
+					LOG('*WARNING: No movement effect groups defined for unit ',repr(self.BlueprintID),', Effect groups with bone lists must be defined to play movement effects. Add these to the Display.MovementEffects', self.CacheLayer, '.Effects table in unit blueprint. ' )
+				end
+                
+				return false
+			end
+
+			if bpTable.CameraShake then
+				self.CamShakeT1 = self:ForkThread(self.MovementCameraShakeThread, bpTable.CameraShake )
+			end
+
+			self:CreateTerrainTypeEffects( bpTable.Effects, 'FXMovement', self.CacheLayer, TypeSuffix, EffectsBag, TerrainType )
+
 		end
 
     end,
@@ -4147,7 +4146,7 @@ ConstructionUnit = Class(MobileUnit) {
 
 		if order == 'Upgrade' then
 
-			if unitBeingBuilt:GetUnitId() == __blueprints[self.BlueprintID].General.UpgradesTo then
+			if unitBeingBuilt.BlueprintID == __blueprints[self.BlueprintID].General.UpgradesTo then
 
 				self.Upgrading = true
 				self.BuildingUnit = false

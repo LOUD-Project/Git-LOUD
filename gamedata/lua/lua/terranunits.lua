@@ -149,7 +149,7 @@ TConstructionUnit = Class(ConstructionUnit) {
 	
         ConstructionUnit.OnLayerChange(self, new, old)
 		
-        if self:GetBlueprint().Display.AnimationWater then
+        if __blueprints[self.BlueprintID].Display.AnimationWater then
 		
             if self.TerrainLayerTransitionThread then
                 self.TerrainLayerTransitionThread:Destroy()
@@ -172,7 +172,7 @@ TConstructionUnit = Class(ConstructionUnit) {
         end
 
         if water then
-            self.TransformManipulator:PlayAnim(self:GetBlueprint().Display.AnimationWater)
+            self.TransformManipulator:PlayAnim(__blueprints[self.BlueprintID].Display.AnimationWater)
             self.TransformManipulator:SetRate(1)
             self.TransformManipulator:SetPrecedence(0)
         else
@@ -197,11 +197,13 @@ TMassCollectionUnit = Class(MassCollectionUnit) {
 
     StartBeingBuiltEffects = function(self, builder, layer)
 	
-		self:SetMesh(self:GetBlueprint().Display.BuildMeshBlueprint, true)
+		self:SetMesh(__blueprints[self.BlueprintID].Display.BuildMeshBlueprint, true)
 		
-        if self:GetBlueprint().General.UpgradesFrom != builder:GetUnitId() then
+        if __blueprints[self.BlueprintID].General.UpgradesFrom != builder.BlueprintID then
+        
 			self:HideBone(0, true)        
             self.OnBeingBuiltEffectsBag:Add( self:ForkThread( CreateBuildCubeThread, builder, self.OnBeingBuiltEffectsBag ))
+            
         end
 		
     end,    
@@ -215,11 +217,13 @@ TMobileFactoryUnit = Class(MobileUnit) {
 
     StartBeingBuiltEffects = function(self, builder, layer)
 	
-		self:SetMesh(self:GetBlueprint().Display.BuildMeshBlueprint, true)
+		self:SetMesh(__blueprints[self.BlueprintID].Display.BuildMeshBlueprint, true)
 		
-        if self:GetBlueprint().General.UpgradesFrom != builder:GetUnitId() then
+        if __blueprints[self.BlueprintID].General.UpgradesFrom != builder.BlueprintID then
+        
 			self:HideBone(0, true)        
             self.OnBeingBuiltEffectsBag:Add( self:ForkThread( CreateBuildCubeThread, builder, self.OnBeingBuiltEffectsBag ))
+            
         end
     end,   
 }
@@ -236,7 +240,7 @@ TShieldStructureUnit = Class(ShieldStructureUnit) {
 
     StartBeingBuiltEffects = function(self,builder,layer)
 	
-    	self:SetMesh(self:GetBlueprint().Display.BuildMeshBlueprint, true)
+    	self:SetMesh(__blueprints[self.BlueprintID].Display.BuildMeshBlueprint, true)
 		
         if builder and EntityCategoryContains(categories.MOBILE, builder) then
 		
@@ -348,8 +352,10 @@ TPodTowerUnit = Class(TStructureUnit) {
     
     OnStartBuild = function(self, unitBeingBuilt, order )
         TStructureUnit.OnStartBuild(self,unitBeingBuilt,order)
-        local unitid = self:GetBlueprint().General.UpgradesTo
-        if unitBeingBuilt:GetUnitId() == unitid and order == 'Upgrade' then
+        
+        local unitid = __blueprints[self.BlueprintID].General.UpgradesTo
+        
+        if unitBeingBuilt.BlueprintID == unitid and order == 'Upgrade' then
             self.NowUpgrading = true
             ChangeState( self, self.UpgradingState )
         end
@@ -362,14 +368,20 @@ TPodTowerUnit = Class(TStructureUnit) {
     NotifyOfPodStartBuild = function(self)
         if not self.OpeningAnimationStarted then
             self.OpeningAnimationStarted = true
-            local bp = self:GetBlueprint()
+            
+            local bp = __blueprints[self.BlueprintID]
+            
             if not bp.Display.AnimationOpen then return end    
+            
             if not self.OpenAnim then
                 self.OpenAnim = CreateAnimator(self)
                 self.Trash:Add(self.OpenAnim)
             end
+            
             self.OpenAnim:PlayAnim(bp.Display.AnimationOpen, false):SetRate(2.0)
+            
             WaitTicks(5)
+            
             if not self.NowUpgrading then
                 self.OpenAnim:SetRate(0)
             end
@@ -378,16 +390,22 @@ TPodTowerUnit = Class(TStructureUnit) {
     
     NotifyOfPodStopBuild = function(self)
         if self.OpeningAnimationStarted then
-            local bp = self:GetBlueprint()
+        
+            local bp = __blueprints[self.BlueprintID]
+            
             if not bp.Display.AnimationOpen then return end
+            
             if not self.OpenAnim then return end
+            
             self.OpenAnim:SetRate(1.5)
             self.OpeningAnimationStarted = false
         end    
     end,
     
     SetPodConsumptionRebuildRate = function(self, podData)
-        local bp = self:GetBlueprint()
+    
+        local bp = __blueprints[self.BlueprintID]
+        
         #-- Get build rate of tower
         local buildRate = bp.Economy.BuildRate
         
@@ -428,12 +446,17 @@ TPodTowerUnit = Class(TStructureUnit) {
             -- when this unit is destroyed at the tail end of the upgrade.  Make sure the unit dies properly elsewhere.
 
             self.TowerCaptured = nil
-            local bp = self:GetBlueprint()
+            
+            local bp = __blueprints[self.BlueprintID]
+            
             for k,v in bp.Economy.EngineeringPods do
+            
                 if v.CreateWithUnit and not self.PodData[v.PodName].Active then
+                
                     if not self.PodData then
                         self.PodData = {}
                     end
+                    
                     self.PodData[v.PodName] = table.deepcopy( v )
                     self:CreatePod( v.PodName )
                 end
@@ -548,7 +571,7 @@ TPodTowerUnit = Class(TStructureUnit) {
 	
         Main = function(self)
 
-            local bp = self:GetBlueprint().Display
+            local bp = __blueprints[self.BlueprintID].Display
 			
             self:DestroyTarmac()
             self:PlayUnitSound('UpgradeStart')

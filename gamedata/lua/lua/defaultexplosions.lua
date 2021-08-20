@@ -19,7 +19,7 @@ local CreateBoneEffectsOffset = import('EffectUtilities.lua').CreateBoneEffectsO
 local CreateRandomEffects = import('EffectUtilities.lua').CreateRandomEffects
 
 local LOUDFLOOR = math.floor
-local LOUDGETN = table.getn
+
 local LOUDINSERT = table.insert
 local LOUDPI = math.pi
 local LOUDSIN = math.sin
@@ -193,7 +193,7 @@ function _CreateScalableUnitExplosion( obj )
 	if scale > 1 and layer == 'Water' then
 		local EnvironmentalEffectTable = GetUnitEnvironmentalExplosionEffects( layer, scale )
 		
-		if LOUDGETN( EnvironmentalEffectTable ) != 0 then
+		if EnvironmentalEffectTable[1] then
 			BaseEffectTable = TableCat( BaseEffectTable, EnvironmentalEffectTable )
 		end
 	end

@@ -2,7 +2,6 @@
 
 local SUtils = import('/lua/ai/sorianutilities.lua')
 
-local LOUDGETN = table.getn
 local LOUDINSERT = table.insert
 local LOUDPARSE = ParseEntityCategory
 local LOUDSORT = table.sort
@@ -282,7 +281,7 @@ function AISortMarkersFromLastPosWithThreatCheck(aiBrain, markerlist, maxNumber,
 	local counter = 0
 	local threat, point
 
-    while LOUDGETN(markerlist) > 0 do
+    while markerlist[1] do
     
         point = markerlist[1].Position    -- get first entry (closest) from MarkerList
         
@@ -537,7 +536,7 @@ function AIGetClosestMarkerLocation(aiBrain, markerType, startX, startZ, extraTy
         end
     end
 	
-	if LOUDGETN(markerlist) > 0 then
+	if markerlist[1] then
     
 		LOUDSORT(markerlist, function(a,b) return VDist2Sq(a.Position[1],a.Position[3],startX,startZ) < VDist2Sq(b.Position[1],b.Position[3],startX,startZ) end)
 

@@ -41,7 +41,9 @@ local ForkThread = ForkThread
 SAirFactoryUnit = Class(FactoryUnit) {
 
     StartBuildFx = function( self, unitBeingBuilt )
-		local BuildBones = self:GetBlueprint().General.BuildBones.BuildEffectBones
+    
+		local BuildBones = __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones
+        
         local thread = self:ForkThread( EffectUtil.CreateSeraphimFactoryBuildingEffects, unitBeingBuilt, BuildBones, 'Attachpoint', self.BuildEffectsBag )
         unitBeingBuilt.Trash:Add( thread )
     end,
@@ -53,7 +55,7 @@ SAirFactoryUnit = Class(FactoryUnit) {
         if unitBeingBuilt and not unitBeingBuilt.Dead and EntityCategoryContains( categories.AIR, unitBeingBuilt ) then
             unitBeingBuilt:DetachFrom(true)
 			
-            local bp = self:GetBlueprint()
+            local bp = __blueprints[self.BlueprintID]
 			
             self:DetachAll(bp.Display.BuildAttachBone or 0)
         end
@@ -119,7 +121,7 @@ SAirFactoryUnit = Class(FactoryUnit) {
         else
 		
             -- Engineers need to be slid off the factory
-            local bp = self:GetBlueprint()
+            local bp = __blueprints[self.BlueprintID]
 			
             if not self.AttachmentSliderManip then
                 self.AttachmentSliderManip = CreateSlider(self, bp.Display.BuildAttachBone or 0)
@@ -155,9 +157,9 @@ SAirFactoryUnit = Class(FactoryUnit) {
     
     OnStartBuild = function(self, unitBeingBuilt, order )
         -- Set goal for rotator
-        local unitid = self:GetBlueprint().General.UpgradesTo
+        local unitid = __blueprints[self.BlueprintID].General.UpgradesTo
 		
-        if unitBeingBuilt:GetUnitId() == unitid and order == 'Upgrade' then
+        if unitBeingBuilt.BlueprintID == unitid and order == 'Upgrade' then
             --stop pods that exist in the upgraded unit
             local savedAngle
 			
@@ -248,12 +250,12 @@ SConstructionUnit = Class(ConstructionUnit) {
     end,
 
     CreateBuildEffects = function( self, unitBeingBuilt, order )
-        EffectUtil.CreateSeraphimUnitEngineerBuildingEffects( self, unitBeingBuilt, self:GetBlueprint().General.BuildBones.BuildEffectBones, self.BuildEffectsBag )
+        EffectUtil.CreateSeraphimUnitEngineerBuildingEffects( self, unitBeingBuilt, __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones, self.BuildEffectsBag )
     end,    
     
     OnStartBuild = function(self, unitBeingBuilt, order)
 	
-        local bp = self:GetBlueprint()
+        local bp = __blueprints[self.BlueprintID]
 		
         if order != 'Upgrade' or bp.Display.ShowBuildEffectsDuringUpgrade then
             self:StartBuildingEffects(unitBeingBuilt, order)
@@ -264,7 +266,7 @@ SConstructionUnit = Class(ConstructionUnit) {
         self:PlayUnitSound('Construct')
         --self:PlayUnitAmbientSound('ConstructLoop')
 		
-        if bp.General.UpgradesTo and unitBeingBuilt:GetUnitId() == bp.General.UpgradesTo and order == 'Upgrade' then
+        if bp.General.UpgradesTo and unitBeingBuilt.BlueprintID == bp.General.UpgradesTo and order == 'Upgrade' then
             self.Upgrading = true
             self.BuildingUnit = false        
             unitBeingBuilt.DisallowCollisions = true
@@ -276,7 +278,8 @@ SConstructionUnit = Class(ConstructionUnit) {
     end,    
     
     SetupBuildBones = function(self)
-        local bp = self:GetBlueprint()
+    
+        local bp = __blueprints[self.BlueprintID]
         
         ConstructionUnit.SetupBuildBones(self)
         local buildbones = bp.General.BuildBones
@@ -350,16 +353,17 @@ SHoverLandUnit = Class(MobileUnit) {}
 SLandFactoryUnit = Class(FactoryUnit) {
 
     StartBuildFx = function( self, unitBeingBuilt )
-		local BuildBones = self:GetBlueprint().General.BuildBones.BuildEffectBones
+    
+		local BuildBones = __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones
         local thread = self:ForkThread( EffectUtil.CreateSeraphimFactoryBuildingEffects, unitBeingBuilt, BuildBones, 'Attachpoint', self.BuildEffectsBag )
         unitBeingBuilt.Trash:Add( thread )
     end,
     
     OnStartBuild = function(self, unitBeingBuilt, order )
 
-        local unitid = self:GetBlueprint().General.UpgradesTo
+        local unitid = __blueprints[self.BlueprintID].General.UpgradesTo
 		
-        if unitBeingBuilt:GetUnitId() == unitid and order == 'Upgrade' then
+        if unitBeingBuilt.BlueprintID == unitid and order == 'Upgrade' then
             -- stop pods that exist in the upgraded unit
             local savedAngle
             if (self.Rotator1) then
@@ -430,17 +434,19 @@ SRadarUnit = Class(RadarUnit) {}
 SSonarUnit = Class(SonarUnit) {}
 
 SSeaFactoryUnit = Class(FactoryUnit) {
+
     StartBuildFx = function( self, unitBeingBuilt )
-		local BuildBones = self:GetBlueprint().General.BuildBones.BuildEffectBones
+    
+		local BuildBones = __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones
         local thread = self:ForkThread( EffectUtil.CreateSeraphimFactoryBuildingEffects, unitBeingBuilt, BuildBones, 'Attachpoint', self.BuildEffectsBag )
         unitBeingBuilt.Trash:Add( thread )
     end,
 
     OnStartBuild = function(self, unitBeingBuilt, order )
 
-        local unitid = self:GetBlueprint().General.UpgradesTo
+        local unitid = __blueprints[self.BlueprintID].General.UpgradesTo
 		
-        if unitBeingBuilt:GetUnitId() == unitid and order == 'Upgrade' then
+        if unitBeingBuilt.BlueprintID == unitid and order == 'Upgrade' then
             -- stop pods that exist in the upgraded unit
             local savedAngle
             if (self.Rotator1) then
@@ -513,7 +519,7 @@ SShieldStructureUnit = Class(ShieldStructureUnit) {
         if not self.AnimationManipulator then
             self.AnimationManipulator = CreateAnimator(self)
             self.Trash:Add(self.AnimationManipulator)
-            self.AnimationManipulator:PlayAnim(self:GetBlueprint().Display.AnimationActivate, false)
+            self.AnimationManipulator:PlayAnim(__blueprints[self.BlueprintID].Display.AnimationActivate, false)
         end
         self.AnimationManipulator:SetRate(1)
     end,
@@ -556,12 +562,12 @@ SEnergyBallUnit = Class(SHoverLandUnit) {
     KillingState = State { 
 	
         LifeThread = function(self)
-            WaitTicks( self:GetBlueprint().Lifetime * 10)
+            WaitTicks( __blueprints[self.BlueprintID].Lifetime * 10)
             ChangeState( self, self.DeathState )
         end,
         
         Main = function(self)
-            local bp = self:GetBlueprint()
+            local bp = __blueprints[self.BlueprintID]
             local aiBrain = self:GetAIBrain()
             
             --Queue up random moves
@@ -619,7 +625,7 @@ SEnergyBallUnit = Class(SHoverLandUnit) {
         end,
         
         ComputeWaitTime = function(self)
-            local timeLeft = self:GetBlueprint().Lifetime - self.timeAlive
+            local timeLeft = __blueprints[self.BlueprintID].Lifetime - self.timeAlive
             
             local maxWait = 75
             if timeLeft < 7.5 and timeLeft > 2.5 then

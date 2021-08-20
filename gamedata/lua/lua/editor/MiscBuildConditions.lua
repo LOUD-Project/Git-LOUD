@@ -2,9 +2,6 @@
 
 local AIGetClosestMarkerLocation = import('/lua/ai/aiutilities.lua').AIGetClosestMarkerLocation
 local AIGetReclaimablesAroundLocation = import('/lua/ai/aiutilities.lua').AIGetReclaimablesAroundLocation
-local LOUDGETN = table.getn
-
-
 
 function RandomNumber(aiBrain, higherThan, lowerThan, minNumber, maxNumber)
 
@@ -13,6 +10,7 @@ function RandomNumber(aiBrain, higherThan, lowerThan, minNumber, maxNumber)
     if higherThan < num and lowerThan > num then
         return true
     end
+    
     return false
 end
 
@@ -37,7 +35,7 @@ function ReclaimablesInArea(aiBrain, locType, range)
 
     local ents = AIGetReclaimablesAroundLocation( aiBrain, locType, range )
 	
-    if ents and LOUDGETN(ents) > 0 then
+    if ents[1] then
 	
 		if not aiBrain.BadReclaimables then
 			aiBrain.BadReclaimables = {}
@@ -49,6 +47,7 @@ function ReclaimablesInArea(aiBrain, locType, range)
 			end
 		end
     end
+    
     return false
 end
 
@@ -56,7 +55,7 @@ function ReclaimablesInAreaEnergy(aiBrain, locType)
 
     local ents = AIGetReclaimablesAroundLocation( aiBrain, locType )
 	
-    if ents and LOUDGETN(ents) > 0 then
+    if ents[1] then
 	
 		if not aiBrain.BadReclaimables then
 			aiBrain.BadReclaimables = {}
@@ -68,6 +67,7 @@ function ReclaimablesInAreaEnergy(aiBrain, locType)
 			end
 		end
     end
+    
     return false
 end
 

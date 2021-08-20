@@ -40,7 +40,7 @@ local OriginalPos
 
 local ForkThread = ForkThread
 local WaitTicks = coroutine.yield
-local LOUDGETN = table.getn
+
 
 -- check this flag to see if it's valid to show the exit dialog
 supressExitDialog = false

@@ -97,7 +97,7 @@ function UnitRestricted(unit, unitId)
     if ScenarioInfo.Options.RestrictedCategories then     -- if restrictions defined
 	
 		if unit then
-			unitId = unit.BlueprintID	--:GetUnitId()
+			unitId = unit.BlueprintID
 		end
 
 		if _UnitRestricted_cache[unitId] then          -- use cache if available
