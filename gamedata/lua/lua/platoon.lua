@@ -58,6 +58,7 @@ local GetBrain = moho.platoon_methods.GetBrain
 local GetFractionComplete = moho.entity_methods.GetFractionComplete
 local GetPlatoonPosition = moho.platoon_methods.GetPlatoonPosition
 local GetPlatoonUnits = moho.platoon_methods.GetPlatoonUnits
+local GetSquadUnits = moho.platoon_methods.GetSquadUnits
 
 local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
 local IsUnitState = moho.unit_methods.IsUnitState
@@ -67,6 +68,7 @@ local PlatoonExists = moho.aibrain_methods.PlatoonExists
 
 local LOUDCAT = table.cat
 local LOUDCOPY = table.copy
+local LOUDDEEPCOPY = table.deepcopy
 local LOUDENTITY = EntityCategoryContains
 local LOUDEQUAL = table.equal
 local LOUDFLOOR = math.floor
@@ -86,6 +88,9 @@ local ForkTo = ForkThread
 local KillThread = KillThread
 
 local WaitTicks = coroutine.yield
+
+local AIRUNITS = categories.AIR * categories.MOBILE - categories.EXPERIMENTAL
+local ENGINEERS = categories.ENGINEER
 
 
 Platoon = Class(moho.platoon_methods) {
@@ -222,9 +227,7 @@ Platoon = Class(moho.platoon_methods) {
         local aiBrain = GetBrain(self)
         local triggerpoint = startsize * triggervalue
         local count = 0
-        
-        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." watching platoon of "..startsize.." trigger is "..triggerpoint)
-    
+
         while PlatoonExists(aiBrain,self) and self.WatchPlatoon do
         
             count = 0
@@ -245,9 +248,6 @@ Platoon = Class(moho.platoon_methods) {
             end
             
             if count < triggerpoint then
-
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." Platoon Size trigger")
-                
                 self.WatchPlatoon = nil
             end
             
@@ -285,6 +285,8 @@ Platoon = Class(moho.platoon_methods) {
             
             -- make a copy of the original to use for the primary loop
             local pathcopy = LOUDCOPY(path)
+            
+            local GetDirection = import('/lua/utilities.lua').GetDirectionInDegrees
 
 			for wpidx, waypointPath in pathcopy do
 
@@ -294,70 +296,73 @@ Platoon = Class(moho.platoon_methods) {
 
 					self.WaypointCallback = self:SetupPlatoonAtWaypointCallbacks( waypointPath, pathslack )
 			
-					local Direction = import('/lua/utilities.lua').GetDirectionInDegrees( prevpoint, waypointPath )
+					local Direction = GetDirection( prevpoint, waypointPath )
 
 					if AggroMove then
-                    
-                        local Attack = false
-                        local Artillery = false
 
-						if self:GetSquadUnits('Scout') and LOUDGETN(self:GetSquadUnits('Scout')) > 0 then
+                        local SCOUTS = GetSquadUnits( self, 'Scout' ) or false
+
+						if SCOUTS[1] then
                         
-							IssueFormMove( self:GetSquadUnits('Scout'), waypointPath, 'BlockFormation', Direction)
+							IssueFormMove( SCOUTS, waypointPath, 'BlockFormation', Direction)
                             
 						end
-					
-						if self:GetSquadUnits('Attack') and LOUDGETN(self:GetSquadUnits('Attack')) > 0 then
                         
-							IssueFormAggressiveMove( self:GetSquadUnits('Attack'), waypointPath, 'AttackFormation', Direction)
-                            
-                            Attack = true
+                        local ATTACKS = GetSquadUnits( self,'Attack') or false
+					
+						if ATTACKS[1] then
+                        
+							IssueFormAggressiveMove( ATTACKS, waypointPath, 'AttackFormation', Direction)
+
+						end
+                        
+                        local ARTILLERY = GetSquadUnits( self,'Artillery') or false
+                        
+						if ARTILLERY[1] then
+                        
+							IssueFormAggressiveMove( ARTILLERY, waypointPath, PlatoonFormation, Direction)
                             
 						end
-					
-						if self:GetSquadUnits('Artillery') and LOUDGETN(self:GetSquadUnits('Artillery')) > 0 then
                         
-							IssueFormAggressiveMove( self:GetSquadUnits('Artillery'), waypointPath, PlatoonFormation, Direction)
-                            
-                            Artillery = true
-                            
-						end
+                        local GUARDS = GetSquadUnits(self,'Guard') or false
 					
-						if self:GetSquadUnits('Guard') and LOUDGETN(self:GetSquadUnits('Guard')) > 0 then
+						if GUARDS[1] then
                      
-                            if not Artillery and not Attack then
+                            if not ARTILLERY[1] and not ATTACKS[1] then
                             
-                                IssueFormMove( self:GetSquadUnits('Guard'), waypointPath, 'BlockFormation', Direction)
+                                IssueFormMove( GUARDS, waypointPath, 'BlockFormation', Direction)
                                 
-                            elseif Artillery then
+                            elseif ARTILLERY[1] then
                             
-                                --LOG("*AI DEBUG Issuing Guard to Artillery "..repr(self:GetSquadUnits('Artillery')[1]) )
+                                --LOG("*AI DEBUG Issuing Guard to "..repr(GUARDS).." to Artillery "..repr(ARTILLERY[1]) )
                                 
-                                IssueGuard( self:GetSquadUnits('Guard'), self:GetSquadUnits('Artillery')[1] )
+                                IssueGuard( GUARDS, ARTILLERY[1] )
                                 
-                            elseif Attack then
+                            elseif ATTACKS[1] then
                             
-                                --LOG("*AI DEBUG Issuing Guard to Attack "..repr(self:GetSquadUnits('Attack')[1]) )
+                                --LOG("*AI DEBUG Issuing Guard to Attack "..repr(GetSquadUnits( self,'Attack')[1]) )
                                 
-                                IssueGuard( self:GetSquadUnits('Guard'), self:GetSquadUnits('Attack')[1] )
+                                IssueGuard( GUARDS, ATTACKS[1] )
                             
                             end
                             
 						end
-					
-						if self:GetSquadUnits('Support') and LOUDGETN(self:GetSquadUnits('Support')) > 0 then
                         
-                            if not Attack and not Artillery then
+                        local SUPPORTS = GetSquadUnits(self,'Support') or false
+					
+						if SUPPORTS[1] then
+                        
+                            if not ATTACKS[1] and not ARTILLERY[1] then
                             
-                                IssueFormAggressiveMove( self:GetSquadUnits('Support'), waypointPath, 'BlockFormation', Direction)
+                                IssueFormAggressiveMove( SUPPORTS, waypointPath, 'BlockFormation', Direction)
                                 
-                            elseif Attack then
+                            elseif ATTACKS[1] then
                             
-                                IssueGuard( self:GetSquadUnits('Support'), self:GetSquadUnits('Attack')[1])
+                                IssueGuard( SUPPORTS, ATTACKS[1] )
                                 
-                            elseif Artillery then
+                            elseif ARTILLERY[1] then
                             
-                                IssueGuard( self:GetSquadUnits('Support'), self:GetSquadUnits('Artillery')[1])                            
+                                IssueGuard( SUPPORTS, ARTILLERY[1] )                            
                                 
                             end
                             
@@ -413,8 +418,6 @@ Platoon = Class(moho.platoon_methods) {
     -- this function will hunt and engage a local target with a radius
     -- returns true if a target was prosecuted - false if not
     PlatoonFindTarget = function( self, aiBrain, squad, scanposition, range, attackcategories)
-    
-        --LOG("*AI DEBUG "..aiBrain.Nickname.." PlatoonFindTarget for "..self.BuilderName)
 
 		-- seek a target around the point --
 		local target, targetposition, position
@@ -432,66 +435,67 @@ Platoon = Class(moho.platoon_methods) {
 
 				if position then
 
-                    local Attack = false
-                    local Artillery = false
+					local direction = import('/lua/utilities.lua').GetDirectionInDegrees( position, targetposition )
 
-					local direction = import('/lua/utilities.lua').GetDirectionInDegrees( position, targetposition )						
+                    local ATTACKS = GetSquadUnits(self,'Attack')
 
-                    if self:GetSquadUnits('Attack') and LOUDGETN(self:GetSquadUnits('Attack')) > 0 then
+                    if ATTACKS[1] then
 
-                        IssueClearCommands(self:GetSquadUnits('Attack'))
+                        IssueClearCommands( ATTACKS )
 				
-                        IssueFormAggressiveMove( self:GetSquadUnits('Attack'), targetposition, 'AttackFormation', direction)
-
-                        Attack = true
+                        IssueFormAggressiveMove( ATTACKS, targetposition, 'AttackFormation', direction)
                         
                     end
+                    
+                    local ARTILLERY = GetSquadUnits(self,'Artillery')
 					
-                    if self:GetSquadUnits('Artillery') and LOUDGETN(self:GetSquadUnits('Artillery')) > 0 then
+                    if ARTILLERY[1] then
 
-                        IssueClearCommands(self:GetSquadUnits('Artillery'))
+                        IssueClearCommands( ARTILLERY )
                        
-                        IssueFormAggressiveMove( self:GetSquadUnits('Artillery'), targetposition, PlatoonFormation, direction)
-
-                        Artillery = true
+                        IssueFormAggressiveMove( ARTILLERY, targetposition, PlatoonFormation, direction)
 
                     end
+                    
+                    local GUARDS = GetSquadUnits(self,'Guard')
 
-                    if self:GetSquadUnits('Guard') and LOUDGETN(self:GetSquadUnits('Guard')) > 0 then
+                    if GUARDS[1] then
 
-                        IssueClearCommands(self:GetSquadUnits('Guard'))
+                        IssueClearCommands( GUARDS )
                      
-                        if not Artillery and not Attack then
+                        if not ARTILLERY[1] and not ATTACKS[1] then
 
-                            IssueFormMove( self:GetSquadUnits('Guard'), targetposition, 'BlockFormation', direction)
+                            IssueFormMove( GUARDS, targetposition, 'BlockFormation', direction)
 
-                        elseif Artillery then
+                        elseif ARTILLERY[1] then
 
-                            IssueGuard( self:GetSquadUnits('Guard'), self:GetSquadUnits('Artillery')[1] )
+                            IssueGuard( GUARDS, ARTILLERY[1] )
 
-                        elseif Attack then
+                        elseif ATTACKS[1] then
 
-                            IssueGuard( self:GetSquadUnits('Guard'), self:GetSquadUnits('Attack')[1] )
+                            IssueGuard( GUARDS, ATTACKS[1] )
 
                         end
 
                     end
+                    
+                    local SUPPORTS = GetSquadUnits(self,'Support')
 					
-                    if self:GetSquadUnits('Support') and LOUDGETN(self:GetSquadUnits('Support')) > 0 then
+                    if SUPPORTS[1] then
 
-                        IssueClearCommands(self:GetSquadUnits('Support'))
+                        IssueClearCommands( SUPPORTS )
 
-                        if not Attack and not Artillery then
+                        if not ATTACKS[1] and not ARTILLERY[1] then
                             
-                            IssueFormAggressiveMove( self:GetSquadUnits('Support'), targetposition, 'BlockFormation', direction)
+                            IssueFormAggressiveMove( SUPPORTS, targetposition, 'BlockFormation', direction)
 
-                        elseif Attack then
+                        elseif ATTACKS[1] then
                             
-                            IssueGuard( self:GetSquadUnits('Support'), self:GetSquadUnits('Attack')[1])
+                            IssueGuard( SUPPORTS, ATTACKS[1] )
 
-                        elseif Artillery then
+                        elseif ARTILLERY[1] then
                             
-                            IssueGuard( self:GetSquadUnits('Support'), self:GetSquadUnits('Artillery')[1])                            
+                            IssueGuard( SUPPORTS, ARTILLERY[1] )
 
                         end
 
@@ -561,7 +565,7 @@ Platoon = Class(moho.platoon_methods) {
 					v.PlatoonHandle = false
 					
 					-- processing for engineers --
-					if LOUDENTITY( categories.ENGINEER, v ) then
+					if LOUDENTITY( ENGINEERS, v ) then
 
 						local EM = aiBrain.BuilderManagers[v.LocationType].EngineerManager
 
@@ -604,7 +608,7 @@ Platoon = Class(moho.platoon_methods) {
                     end
 				
 					-- processing for air units assigns them to the refuel pool 
-					if LOUDENTITY( categories.AIR * categories.MOBILE - categories.EXPERIMENTAL, v ) then
+					if LOUDENTITY( AIRUNITS, v ) then
 					
 						if ProcessAirUnits( v, aiBrain) then
 							-- onto next unit --
@@ -653,7 +657,7 @@ Platoon = Class(moho.platoon_methods) {
 			local counter = 0
 			local bUsedTransports = false
 			local transportplatoon = false
-			local IsEngineer = PlatoonCategoryCount( self, categories.ENGINEER ) > 0
+			local IsEngineer = PlatoonCategoryCount( self, ENGINEERS ) > 0
             
             local path, reason, pathlength
     
@@ -1170,12 +1174,11 @@ Platoon = Class(moho.platoon_methods) {
                             if AIGetThreatLevelsAroundPoint( v.position, threatradius) <= (threatallowed * threatmodifier) then
 
                                 if seeksafest or goalseek then
-						
-                                    positions[counter+1] = { AIGetThreatLevelsAroundPoint( v.position, threatradius), v.node, v.position }
-                                    counter = counter + 1
-							
+
+                                    counter = counter + 1						
+                                    positions[counter] = { AIGetThreatLevelsAroundPoint( v.position, threatradius), v.node, v.position }
+
                                 else
-						
                                     return ScenarioInfo.PathGraphs[platoonLayer][v.node], v.node or GetPathGraphs()[platoonLayer][v.node], v.node
                                 end
 
@@ -1426,7 +1429,7 @@ Platoon = Class(moho.platoon_methods) {
 				platoonDead = false
                 
 				-- set the 'engineer' flag
-				if LOUDENTITY( categories.ENGINEER, v ) then
+				if LOUDENTITY( ENGINEERS, v ) then
 				
 					engineer = v
 
@@ -1464,9 +1467,6 @@ Platoon = Class(moho.platoon_methods) {
 
 						-- find the closest manager 
 						if self.MovementLayer == "Land" then
-							
-							-- dont use naval bases for land --
-							--LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." seeks ONLY Land Bases")
 
 							RTBLocation = FindClosestBaseName( aiBrain, GetPlatoonPosition(self), false, false )
 
@@ -1480,17 +1480,13 @@ Platoon = Class(moho.platoon_methods) {
 							else
 								
 								-- use only naval bases for 'Sea' platoons
-								--LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.Buildername).." seeks ONLY Naval bases")
-
 								RTBLocation = FindClosestBaseName( aiBrain, GetPlatoonPosition(self), true, true )
 
 							end
 						end
 
 					end
-                    
-					--LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." using RTBLocation "..repr(RTBLocation))
-                    
+
                 end
 				
 				-- default attached processing (something is not doing this properly)
@@ -1920,8 +1916,6 @@ Platoon = Class(moho.platoon_methods) {
 						end
 					end
 
-
-
 					if not returnpool.BuilderLocation then
 					
 						GetMostRestrictiveLayer(returnpool)
@@ -1944,8 +1938,7 @@ Platoon = Class(moho.platoon_methods) {
 						end
 						
 						returnpool.RTBLocation = returnpool.BuilderLocation	-- this should insure the RTB to a particular base
-						
-						--LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon "..repr(returnpool.BuilderName).." on layer "..returnpool.MovementLayer.." submitted to "..repr(returnpool.BuilderLocation))
+
 					end
 					
                     count = true -- signal the end of the primary loop
@@ -2648,6 +2641,9 @@ Platoon = Class(moho.platoon_methods) {
 				if marker and UnitToGuard and not UnitToGuard.Dead then
 					marker = UnitToGuard:GetPosition()
 				end
+                
+                local direction = import('/lua/utilities.lua').GetDirectionInDegrees( GetPlatoonPosition(self), marker )
+
 
 				-- if not already guarding - setup a guard around the marker point --
 				if (not guarding) and PlatoonExists(aiBrain, self) then
@@ -2657,65 +2653,66 @@ Platoon = Class(moho.platoon_methods) {
                         --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." GP starts move to guard position ")
                     
                         local randlist = { AssistRange, AssistRange * -1 }
-                        
-                        local Attack = false
-                        local Artillery = false
-                        
-                        if self:GetSquadUnits('Attack') and LOUDGETN(self:GetSquadUnits('Attack')) > 0 then
 
-                            IssueClearCommands( self:GetSquadUnits('Attack'))
+                        local ATTACKS = GetSquadUnits( self,'Attack' )
                         
-                            IssueFormMove( self:GetSquadUnits('Attack'), { marker[1] + tonumber(randlist[Random(1,2)]), marker[2], marker[3] + tonumber(randlist[Random(1,2)]) }, PlatoonFormation, GetDirectionInDegrees( GetPlatoonPosition(self), marker )) 
-                            
-                            Attack = true
+                        if ATTACKS[1] then
+
+                            IssueClearCommands( ATTACKS )
+                        
+                            IssueFormMove( ATTACKS, { marker[1] + tonumber(randlist[Random(1,2)]), marker[2], marker[3] + tonumber(randlist[Random(1,2)]) }, PlatoonFormation, GetDirectionInDegrees( GetPlatoonPosition(self), marker )) 
                             
                         end
 
-                        if self:GetSquadUnits('Artillery') and LOUDGETN(self:GetSquadUnits('Artillery')) > 0 then
+                        local ARTILLERY = GetSquadUnits( self, 'Artillery' )
                         
-                            IssueClearCommands( self:GetSquadUnits('Artillery'))
+                        if ARTILLERY[1] then
                         
-                            IssueFormMove( self:GetSquadUnits('Artillery'), { marker[1] + tonumber(randlist[Random(1,2)]), marker[2], marker[3] + tonumber(randlist[Random(1,2)]) }, PlatoonFormation, GetDirectionInDegrees( GetPlatoonPosition(self), marker ))
-                            
-                            Artillery = true
+                            IssueClearCommands( ARTILLERY )
+                        
+                            IssueFormMove( ARTILLERY, { marker[1] + tonumber(randlist[Random(1,2)]), marker[2], marker[3] + tonumber(randlist[Random(1,2)]) }, PlatoonFormation, GetDirectionInDegrees( GetPlatoonPosition(self), marker ))
                             
                         end
+                        
+                        local GUARDS = GetSquadUnits( self, 'Guard' )
 
-                        if self:GetSquadUnits('Guard') and LOUDGETN(self:GetSquadUnits('Guard')) > 0 then
+                        if GUARDS[1] then
                             
-                            IssueClearCommands(self:GetSquadUnits('Guard'))
+                            IssueClearCommands( GUARDS )
                      
-                            if not Artillery and not Attack then
+                            if not ARTILLERY[1] and not ATTACKS[1] then
 
-                                IssueFormMove( self:GetSquadUnits('Guard'), marker, 'BlockFormation', direction)
+                                IssueFormMove( GUARDS, marker, 'BlockFormation', direction)
                                 
-                            elseif Artillery then
+                            elseif ARTILLERY[1] then
                                 
-                                IssueGuard( self:GetSquadUnits('Guard'), self:GetSquadUnits('Artillery')[1] )
+                                IssueGuard( GUARDS, ARTILLERY[1] )
                                 
-                            elseif Attack then
+                            elseif ATTACKS[1] then
                                 
-                                IssueGuard( self:GetSquadUnits('Guard'), self:GetSquadUnits('Attack')[1] )
+                                IssueGuard( GUARDS, ATTACKS[1] )
                             
                             end
                             
                         end
                         
-                        if self:GetSquadUnits('Support') and LOUDGETN(self:GetSquadUnits('Support')) > 0 then
+                        local SUPPORTS = GetSquadUnits( self, 'Support' )
+                        
+                        if SUPPORTS[1] then
 
-                            IssueClearCommands(self:GetSquadUnits('Support'))
+                            IssueClearCommands( SUPPORTS )
 
-                            if not Attack and not Artillery then
+                            if not ATTACKS[1] and not ARTILLERY[1] then
                             
-                                IssueFormAggressiveMove( self:GetSquadUnits('Support'), marker, 'BlockFormation', direction)
+                                IssueFormAggressiveMove( SUPPORTS, marker, 'BlockFormation', direction)
                                 
-                            elseif Attack then
+                            elseif ATTACKS[1] then
                             
-                                IssueGuard( self:GetSquadUnits('Support'), self:GetSquadUnits('Attack')[1])
+                                IssueGuard( SUPPORTS, ATTACKS[1] )
                                 
-                            elseif Artillery then
+                            elseif ARTILLERY[1] then
                             
-                                IssueGuard( self:GetSquadUnits('Support'), self:GetSquadUnits('Artillery')[1])                            
+                                IssueGuard( SUPPORTS, ARTILLERY[1] )
                                 
                             end
                             
@@ -2731,11 +2728,13 @@ Platoon = Class(moho.platoon_methods) {
                             
                         end
                         
-                        if self:GetSquadUnits('Scout') and LOUDGETN(self:GetSquadUnits('Scout')) > 0 then
+                        local SCOUTS = GetSquadUnits( self, 'Scout' )
+                        
+                        if SCOUTS[1] then
 
                             local scoutradius = ((self.PlatoonData.GuardRadius or 75)/2) - 4
                             
-                            for _,u in self:GetSquadUnits('Scout') do        
+                            for _,u in SCOUTS do
                             
                                 scoutradius = scoutradius + 8
 						
@@ -3848,22 +3847,36 @@ Platoon = Class(moho.platoon_methods) {
 						if position then
 						
 							direction = import('/lua/utilities.lua').GetDirectionInDegrees( GetPlatoonPosition(self), targetposition )
+                            
+                            local ATTACKS = GetSquadUnits(self,'Attack')
+                            
+                            if ATTACKS[1] then
 						
-							IssueFormAttack( self:GetSquadUnits('Attack'), target, 'AttackFormation', direction)
+                                IssueFormAttack( ATTACKS, target, 'AttackFormation', direction)
+                                
+                            end
+                            
+                            local ARTILLERY = GetSquadUnits(self,'Artillery')
 						
-							if self:GetSquadUnits('Artillery') then
+							if ARTILLERY[1] then
 							
-								IssueFormAggressiveMove( self:GetSquadUnits('Artillery'),targetposition,'AttackFormation', direction)
+								IssueFormAggressiveMove( ARTILLERY,targetposition,'AttackFormation', direction)
+                                
 							end
+                            
+                            local GUARDS = GetSquadUnits(self,'Guard')
 						
-							if self:GetSquadUnits('Guard') then
+							if GUARDS[1] then
 							
-								IssueFormAggressiveMove( self:GetSquadUnits('Guard'),targetposition,'DMSCircleFormation', direction)
+								IssueFormAggressiveMove( GUARDS,targetposition,'DMSCircleFormation', direction)
+                                
 							end
+                            
+                            local SUPPORTS = GetSquadUnits(self,'Support')
 						
-							if self:GetSquadUnits('Support') then
+							if SUPPORTS[1] then
 							
-								IssueFormAggressiveMove( self:GetSquadUnits('Support'),targetposition,'ScatterFormation', direction)
+								IssueFormAggressiveMove( SUPPORTS,targetposition,'ScatterFormation', direction)
 								
 							end
 						
@@ -4439,25 +4452,39 @@ Platoon = Class(moho.platoon_methods) {
 						if position then
 						
 							direction = import('/lua/utilities.lua').GetDirectionInDegrees( GetPlatoonPosition(self), targetposition )
+                           
+                            local ATTACKS = GetSquadUnits(self,'Attack')
+                            
+                            if ATTACKS[1] then
 						
-							IssueFormAttack( self:GetSquadUnits('Attack'), target, 'AttackFormation', direction)
+                                IssueFormAttack( ATTACKS, target, 'AttackFormation', direction)
+                                
+                            end
+                            
+                            local ARTILLERY = GetSquadUnits(self,'Artillery')
 						
-							if self:GetSquadUnits('Artillery') then
+							if ARTILLERY[1] then
 							
-								IssueFormAggressiveMove( self:GetSquadUnits('Artillery'),targetposition,'AttackFormation', direction)
+								IssueFormAggressiveMove( ARTILLERY,targetposition,'AttackFormation', direction)
+                                
 							end
+                            
+                            local GUARDS = GetSquadUnits(self,'Guard')
 						
-							if self:GetSquadUnits('Guard') then
+							if GUARDS[1] then
 							
-								IssueFormAggressiveMove( self:GetSquadUnits('Guard'),targetposition,'DMSCircleFormation', direction)
+								IssueFormAggressiveMove( GUARDS,targetposition,'DMSCircleFormation', direction)
+                                
 							end
+                            
+                            local SUPPORTS = GetSquadUnits(self,'Support')
 						
-							if self:GetSquadUnits('Support') then
+							if SUPPORTS[1] then
 							
-								IssueFormAggressiveMove( self:GetSquadUnits('Support'),targetposition,'ScatterFormation', direction)
+								IssueFormAggressiveMove( SUPPORTS,targetposition,'ScatterFormation', direction)
 								
 							end
-						
+
 							guarding = false
 							
 						end
@@ -5444,74 +5471,77 @@ Platoon = Class(moho.platoon_methods) {
 
 							-- move directly to distressLocation
 							if not inWater then
-                        
-                                local Attack = false
-                                local Artillery = false
+
+                                direction = import('/lua/utilities.lua').GetDirectionInDegrees( GetPlatoonPosition(self), distressLocation )
+                                
+                                local ATTACKS = GetSquadUnits(self,'Attack')
                             
-                                direction = import('/lua/utilities.lua').GetDirectionInDegrees( GetPlatoonPosition(self), distressLocation )						
+                                if ATTACKS[1] then
                             
-                                if self:GetSquadUnits('Attack') and LOUDGETN(self:GetSquadUnits('Attack')) > 0 then
-                            
-                                    IssueClearCommands(self:GetSquadUnits('Attack'))
+                                    IssueClearCommands( ATTACKS )
 				
-                                    IssueFormAggressiveMove( self:GetSquadUnits('Attack'), distressLocation, 'AttackFormation', direction)
-                                
-                                    Attack = true
-                                
+                                    IssueFormAggressiveMove( ATTACKS, distressLocation, 'AttackFormation', direction)
+
                                 end
+                                
+                                local ARTILLERY = GetSquadUnits(self,'Artillery')
 					
-                                if self:GetSquadUnits('Artillery') and LOUDGETN(self:GetSquadUnits('Artillery')) > 0 then
+                                if ARTILLERY[1] then
                             
-                                    IssueClearCommands(self:GetSquadUnits('Artillery'))
+                                    IssueClearCommands(ARTILLERY)
                         
-                                    IssueFormAggressiveMove( self:GetSquadUnits('Artillery'), distressLocation, PlatoonFormation, direction)
-                            
-                                    Artillery = true
-                            
+                                    IssueFormAggressiveMove( ARTILLERY, distressLocation, PlatoonFormation, direction)
+
                                 end
+                                
+                                local GUARDS = GetSquadUnits(self,'Guard')
                             
-                                if self:GetSquadUnits('Guard') and LOUDGETN(self:GetSquadUnits('Guard')) > 0 then
+                                if GUARDS[1] then
                             
-                                    IssueClearCommands(self:GetSquadUnits('Guard'))
+                                    IssueClearCommands(GUARDS)
                      
-                                    if not Artillery and not Attack then
+                                    if not ARTILLERY[1] and not ATTACKS[1] then
 
-                                        IssueFormMove( self:GetSquadUnits('Guard'), distressLocation, 'BlockFormation', direction)
+                                        IssueFormMove( GUARDS, distressLocation, 'BlockFormation', direction)
                                 
-                                    elseif Artillery then
+                                    elseif ARTILLERY[1] then
                                 
-                                        IssueGuard( self:GetSquadUnits('Guard'), self:GetSquadUnits('Artillery')[1] )
+                                        IssueGuard( GUARDS, ARTILLERY[1] )
                                 
-                                    elseif Attack then
+                                    elseif ATTACKS[1] then
                                 
-                                        IssueGuard( self:GetSquadUnits('Guard'), self:GetSquadUnits('Attack')[1] )
+                                        IssueGuard( GUARDS, ATTACKS[1] )
                             
                                     end
                             
                                 end
+                                
+                                local SUPPORTS = GetSquadUnits(self,'Support')
 					
-                                if self:GetSquadUnits('Support') and LOUDGETN(self:GetSquadUnits('Support')) > 0 then
+                                if SUPPORTS[1] then
 
-                                    IssueClearCommands(self:GetSquadUnits('Support'))
+                                    IssueClearCommands(SUPPORTS)
                                 
-                                    if not Attack and not Artillery then
+                                    if not ATTACKS[1] and not ARTILLERY[1] then
                                 
-                                        IssueFormAggressiveMove( self:GetSquadUnits('Support'), distressLocation, 'BlockFormation', direction)
+                                        IssueFormAggressiveMove( SUPPORTS, distressLocation, 'BlockFormation', direction)
                                 
-                                    elseif Attack then
+                                    elseif ATTACKS[1] then
                             
-                                        IssueGuard( self:GetSquadUnits('Support'), self:GetSquadUnits('Attack')[1])
+                                        IssueGuard( SUPPORTS, ATTACKS[1] )
                                 
-                                    elseif Artillery then
+                                    elseif ARTILLERY[1] then
                             
-                                        IssueGuard( self:GetSquadUnits('Support'), self:GetSquadUnits('Artillery')[1])                            
+                                        IssueGuard( SUPPORTS, ARTILLERY[1] )
                                 
                                     end
                             
                                 end
+                                
+                                local SCOUTS = GetSquadUnits(self,'Scout')
 
-                                if self:GetSquadUnits('Scout') then
-                                    IssueFormMove( self:GetSquadUnits('Scout'), distressLocation, 'BlockFormation', direction)
+                                if SCOUTS[1] then
+                                    IssueFormMove( SCOUTS, distressLocation, 'BlockFormation', direction)
                                 end
 
 							else
@@ -5756,8 +5786,8 @@ Platoon = Class(moho.platoon_methods) {
 				local reclaimables = GetUnitsAroundPoint( aiBrain, cat, baseposition, baseradius, 'Ally' ) 
 				
 				for _,v in reclaimables do
-					reclaimlist[counter+1] = { ID = v, Position = v:GetPosition(), Distance = VDist3Sq( v:GetPosition(), unitPos) }
 					counter = counter + 1
+					reclaimlist[counter] = { ID = v, Position = v:GetPosition(), Distance = VDist3Sq( v:GetPosition(), unitPos) }
 				end
 			end
 		
@@ -6047,7 +6077,7 @@ Platoon = Class(moho.platoon_methods) {
 
 		for _,v in GetPlatoonUnits(self) do
 		
-			if not v.Dead and LOUDENTITY( categories.ENGINEER, v) then
+			if not v.Dead and LOUDENTITY( ENGINEERS, v) then
 			
 				eng = v
 				break
@@ -6108,7 +6138,7 @@ Platoon = Class(moho.platoon_methods) {
 
         for _, v in GetPlatoonUnits(self) do
 		
-            if not v.Dead and LOUDENTITY(categories.ENGINEER, v ) then
+            if not v.Dead and LOUDENTITY( ENGINEERS, v ) then
 			
                 if not eng then
                     IssueClearCommands( {v} )
@@ -6150,7 +6180,7 @@ Platoon = Class(moho.platoon_methods) {
 		-- the specific reference within the basetemplates file that contains the relative positions for specific groups of structures
 		-- this is what allows you to have faction specific building layouts with unique facility names
 		-- we'll take a copy of this table so that we can modify it for rotations without altering the source
-        local baseTmpl = table.deepcopy( baseTmplFile[(cons.BaseTemplate or 'BaseTemplates')][factionIndex] )
+        local baseTmpl = LOUDDEEPCOPY( baseTmplFile[(cons.BaseTemplate or 'BaseTemplates')][factionIndex] )
 
 		eng.EngineerBuildQueue = {} 	-- clear the engineers build queue		
 
@@ -6198,13 +6228,12 @@ Platoon = Class(moho.platoon_methods) {
 			end
 
 			local repeatbuilds = 0
-			--local baseline = reference[1]
 
 			for k,v in reference do
 			
 				if not buildpoint or buildpoint == k then
 
-					local layout = table.deepcopy(baseTmpl)
+					local layout = LOUDDEEPCOPY(baseTmpl)
 
 					if rotation then
 					
@@ -6262,8 +6291,9 @@ Platoon = Class(moho.platoon_methods) {
 						
 					end
 
-					baseTmplList[counter+1] = AIBuildBaseTemplateFromLocation( layout, v )
 					counter = counter + 1
+					baseTmplList[counter] = AIBuildBaseTemplateFromLocation( layout, v )
+
 					repeatbuilds = repeatbuilds + 1
 					
 				end
@@ -6415,7 +6445,7 @@ Platoon = Class(moho.platoon_methods) {
 				if not buildpoint or buildpoint == k then
 				
 					-- get a copy of the potential build locations
-					local layout = table.deepcopy(baseTmpl)
+					local layout = LOUDDEEPCOPY(baseTmpl)
 					
 					-- the rotation flag tells us we might have some rotation to do
 					if rotation then
@@ -6479,8 +6509,9 @@ Platoon = Class(moho.platoon_methods) {
 						end
 					end			
 
-					baseTmplList[counter+1] = AIBuildBaseTemplateFromLocation( layout, v )
 					counter = counter + 1
+					baseTmplList[counter] = AIBuildBaseTemplateFromLocation( layout, v )
+
 					repeatbuilds = repeatbuilds + 1
 				end
 				
@@ -6624,7 +6655,7 @@ Platoon = Class(moho.platoon_methods) {
 		
 		for _,v in GetPlatoonUnits(self) do
 		
-			if not v.Dead and LOUDENTITY(categories.ENGINEER, v ) then
+			if not v.Dead and LOUDENTITY( ENGINEERS, v ) then
 			
 				if not eng then
 				
@@ -6813,7 +6844,7 @@ Platoon = Class(moho.platoon_methods) {
         local platoonUnits = GetPlatoonUnits(self)
         
 		for _, v in platoonUnits do
-			if not v.Dead and LOUDENTITY(categories.ENGINEER, v ) then
+			if not v.Dead and LOUDENTITY( ENGINEERS, v ) then
 				if not eng then
 					eng = v
 				else
@@ -6837,6 +6868,7 @@ Platoon = Class(moho.platoon_methods) {
         if PlatoonExists(aiBrain, self) then
 		
             local reference = {}
+            
 			local baseTmplList = {}
 			local counter = 0
             
@@ -6854,24 +6886,30 @@ Platoon = Class(moho.platoon_methods) {
             LOUDSORT( Mexs, function(a,b) return VDist3( a:GetPosition(), position) < VDist3( b:GetPosition(), position) end )
             
             for _,v in Mexs do
+            
                 local mexposition = LOUDCOPY( v:GetPosition())
+                
                 distance = VDist3( mexposition, homepos )
                 
                 if distance >= cons.MinRadius and distance <= cons.Radius then
+                
                     -- get the number of storage units there
                     local STORS = GetOwnUnitsAroundPoint(aiBrain, adjacencytest, mexposition, 5)
                     
                     if LOUDGETN(STORS) < cons.MinStructureUnits then
-                        reference[counter+1] = mexposition
+                    
 						counter = counter + 1
+                        reference[counter] = mexposition
                         break
+                        
                     end
                 end
             end
 
             if counter < 1 or eng.Dead then
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." MassAdjacencyAI - no reference found - RTB")
+
                 return self:SetAIPlan('ReturnToBaseAI',aiBrain)
+                
             end
 		
             baseTmplList = {}
@@ -6880,8 +6918,10 @@ Platoon = Class(moho.platoon_methods) {
             -- create a table of all possible build locations for all building types in this template
             -- utilizing the position and the offset values provided by the base template (baseTmpl)
             for _,v in reference do
-                baseTmplList[counter+1] = AIBuildBaseTemplateFromLocation( baseTmpl, v )
+
 				counter = counter + 1
+                baseTmplList[counter] = AIBuildBaseTemplateFromLocation( baseTmpl, v )
+
             end
 
             local buildFunction = AIBuildBaseTemplateOrdered
@@ -6901,11 +6941,14 @@ Platoon = Class(moho.platoon_methods) {
             end
         
             if not eng.Dead then
+            
                 local count = 0
+                
                 while IsUnitState(eng,'Attached' ) and count < 10 do
                     WaitTicks(60)
                     count = count + 1
                 end
+                
             end
 
             if not eng.Dead and builtsomething then
@@ -6938,9 +6981,7 @@ Platoon = Class(moho.platoon_methods) {
 
 		-- remove first item from the build queue
         if removeLastBuild and eng.EngineerBuildQueue[1] then
-		
-			--LOG("*AI DEBUG Eng "..eng.Sync.id.." build queue is "..repr(eng.EngineerBuildQueue))
-		
+
             LOUDREMOVE(eng.EngineerBuildQueue, 1)
             
             --LOG("*AI DEBUG Eng "..eng.Sync.id.." build queue after remove is "..repr(eng.EngineerBuildQueue).." count is "..repr(LOUDGETN(eng.EngineerBuildQueue)))
@@ -6986,9 +7027,7 @@ Platoon = Class(moho.platoon_methods) {
 			
 			-- Used to watch an eng after he's ordered to build/reclaim/capture - when idle eng is resent to PBC
 			local function WatchForNotBuilding()
-				
-				--LOG("*AI DEBUG Eng "..eng.Sync.id.." enters WFNB")
-		
+
 				local GetPosition = moho.entity_methods.GetPosition
 				local GetWorkProgress = moho.unit_methods.GetWorkProgress
 
@@ -7106,7 +7145,7 @@ Platoon = Class(moho.platoon_methods) {
 				eng.IssuedReclaimCommand = false
     
 				-- Check if enemy units are at location -- if so reclaim one 
-				for k,v in { categories.ENGINEER - categories.COMMAND, categories.STRUCTURE + ( categories.MOBILE * categories.LAND - categories.ENGINEER - categories.COMMAND) } do
+				for k,v in { ENGINEERS - categories.COMMAND, categories.STRUCTURE + ( categories.MOBILE * categories.LAND - ENGINEERS - categories.COMMAND) } do
 
 					for _,unit in GetUnitsAroundPoint( aiBrain, v, buildlocation, 10, 'Enemy' ) do
 					
@@ -7178,8 +7217,6 @@ Platoon = Class(moho.platoon_methods) {
 						
 					end
 
-					--LOG("*AI DEBUG Eng "..eng.Sync.id.." issued reclaims")
-					
 					-- if we actually issued the reclaim then we'll terminate
 					-- WFNB will relaunch the PBC for us
 					eng.NotBuildingThread = eng:ForkThread(WatchForNotBuilding)
@@ -7201,9 +7238,7 @@ Platoon = Class(moho.platoon_methods) {
 					if not v.Dead and v:GetFractionComplete() < 1 then
 					
 						IssueRepair( {eng}, v )
-						
-						--LOG("*AI DEBUG Eng "..eng.Sync.id.." repairs "..v:GetBlueprint().Description )
-						
+
 						eng.IssuedBuildCommand = true
 						eng.IssuedReclaimCommand = false
 
@@ -7510,9 +7545,7 @@ Platoon = Class(moho.platoon_methods) {
 									
 									-- clear all queue items
 									eng.EngineerBuildQueue = {}
-									
-									--LOG("*AI DEBUG basetaken")
-									
+
 									self:ProcessBuildCommand( eng,false )
 
 									return
@@ -7674,9 +7707,7 @@ Platoon = Class(moho.platoon_methods) {
     -- intended to be used to have one platoon guard another
 	-- each guard will guard every unit in 
     GuardPlatoonAI = function( self, aiBrain )
-	
-		--LOG("*AI DEBUG "..aiBrain.Nickname.." GuardPlatoonAI launched")
-        
+
         if PlatoonExists(aiBrain, self) then 
         
             if PlatoonExists( aiBrain, self.GuardedPlatoon ) then
@@ -7973,9 +8004,9 @@ Platoon = Class(moho.platoon_methods) {
 					WaitTicks(2)
 				end
                 
-                if targetLocation then
+                --if targetLocation then
                     --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." with threat of "..repr(mythreat).." selects "..repr(targettype).." "..repr(targetclass).." target at "..repr(targetLocation).." distance "..repr(targetdistance).." factor "..repr(targetdistancefactor).." with value of "..repr(targetvalue))                
-                end
+                --end
                 
 			end
 			
@@ -7999,9 +8030,7 @@ Platoon = Class(moho.platoon_methods) {
 			end
 			
 			if not targetLocation or notargetcount > 6 then
-            
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." no target or notargetcount > 6 "..repr(notargetcount).." now RTB" )
-                
+
 				return self:SetAIPlan('ReturnToBaseAI',aiBrain)
                 
 			end
@@ -8699,7 +8728,7 @@ Platoon = Class(moho.platoon_methods) {
                 counter = 0
 
                 -- count and check validity of allied units
-                aPlatUnits = aPlat:GetSquadUnits( squad )
+                aPlatUnits = GetSquadUnits( aPlat, squad )
             
                 if aPlatUnits then
             
@@ -8714,16 +8743,17 @@ Platoon = Class(moho.platoon_methods) {
                                 -- if we have space in our platoon --
                                 if (counter + platooncount) <= mergelimit then
 						
-                                    validUnits[counter+1] = u
                                     counter = counter + 1
+                                    validUnits[counter] = u
+
                                 end
+                                
                             end
+                            
                         end
                         
                     end
-                    
-                    
-                    
+
                 end
 
                 -- if no valid units or we are smaller than the allied platoon then dont allow
@@ -8840,9 +8870,9 @@ Platoon = Class(moho.platoon_methods) {
 			
                 if (not u.Dead) and (not u:IsUnitState( 'Attached' )) then
 				
-                    validUnits[counter+1] = u
 					counter = counter + 1
-					
+                    validUnits[counter] = u
+
                 end
             end
 
@@ -8852,15 +8882,17 @@ Platoon = Class(moho.platoon_methods) {
                 
                 for _, squad in Squads do
                 
-                    if self:GetSquadUnits( squad ) and LOUDGETN( self:GetSquadUnits( squad )) > 0 then
-                    
+                    local SQUADUNITS = GetSquadUnits(self,squad)
+                
+                    if SQUADUNITS[1] then
+
                         if ScenarioInfo.PlatoonMergeDialog then
-                            LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." assigns "..LOUDGETN( self:GetSquadUnits( squad )).." units to "..repr(squad).." squad in "..repr(aPlat.BuilderName))
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." assigns "..LOUDGETN( SQUADUNITS ).." units to "..repr(squad).." squad in "..repr(aPlat.BuilderName))
                         end
 
-                        IssueMove( self:GetSquadUnits( squad ), aPlat:GetPlatoonPosition() )
+                        IssueMove( SQUADUNITS, aPlat:GetPlatoonPosition() )
                         
-                        AssignUnitsToPlatoon( aiBrain, aPlat, self:GetSquadUnits( squad ), squad, 'none' )
+                        AssignUnitsToPlatoon( aiBrain, aPlat, SQUADUNITS, squad, 'none' )
 
                     end
                     
