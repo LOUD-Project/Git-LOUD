@@ -1691,9 +1691,9 @@ function ResetPFMTasks (manager, aiBrain)
 
 				if Builders[d].PriorityFunction then
                 
-                    --if ScenarioInfo.PriorityDialog then
-                      --  LOG("*AI DEBUG "..aiBrain.Nickname.." "..manager.ManagerType.." "..manager.LocationType.." PriorityFunction for "..b.BuilderName  )
-                    --end
+                    if ScenarioInfo.PriorityDialog then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..manager.ManagerType.." "..manager.LocationType.." PriorityFunction for "..b.BuilderName  )
+                    end
 
 					temporary = true
 
@@ -2810,6 +2810,8 @@ function DeadBaseMonitor( aiBrain )
 
 	local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
     local RebuildTable = aiBrain.RebuildTable
+    
+  	local GetOwnUnitsAroundPoint = import('/lua/ai/aiutilities.lua').GetOwnUnitsAroundPoint
 	
 	local changed, structurecount, platland, platair, platsea
 	
@@ -2818,6 +2820,9 @@ function DeadBaseMonitor( aiBrain )
 	local groupsea, groupseacount
     
     local BM = aiBrain.BuilderManagers
+    
+    local STRUCTURES = categories.STRUCTURE - categories.WALL
+    local ALLUNITS = categories.ALLUNITS - categories.WALL
 
 	while true do
 
@@ -2836,7 +2841,7 @@ function DeadBaseMonitor( aiBrain )
 
 			if not v.CountedBase then
 			
-				structurecount = LOUDGETN(import('/lua/ai/aiutilities.lua').GetOwnUnitsAroundPoint( aiBrain, categories.STRUCTURE - categories.WALL, v.Position, 60))
+				structurecount = LOUDGETN( GetOwnUnitsAroundPoint( aiBrain, STRUCTURES, v.Position, 60) )
 
 			end
             
@@ -2857,7 +2862,7 @@ function DeadBaseMonitor( aiBrain )
 				(not v.CountedBase and structurecount < 1) then
                 
                 -- if the base has no engineers - increase the no factory count
-                if EM:GetNumCategoryUnits(categories.ALLUNITS) <= 0 then 
+                if EM:GetNumCategoryUnits(ALLUNITS) <= 0 then 
                 
                     if ScenarioInfo.DeadBaseMonitorDialog then
                         LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(v.BaseName).." DBM - no factories or Engineers "..repr(aiBrain.BuilderManagers[k].nofactorycount + 1))
@@ -2867,7 +2872,7 @@ function DeadBaseMonitor( aiBrain )
                 end
 
 				-- if base has no engineers AND has had no factories for about 250 seconds
-				if EM:GetNumCategoryUnits(categories.ALLUNITS) <= 0 and BM[k].nofactorycount >= 10 then
+				if EM:GetNumCategoryUnits(ALLUNITS) <= 0 and BM[k].nofactorycount >= 10 then
 				
                     if ScenarioInfo.DeadBaseMonitorDialog then
                         LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(v.BaseName).." DBM - removing base")
@@ -2998,6 +3003,7 @@ function PathGeneratorAir( aiBrain )
 	local LOUDCOPY = table.copy
     local LOUDEQUAL = table.equal
 	local LOUDFLOOR = math.floor
+    local MATHMAX = math.max
     local LOUDLOG10 = math.log10
 	local LOUDGETN = table.getn
 	local LOUDINSERT = table.insert
@@ -3076,7 +3082,7 @@ function PathGeneratorAir( aiBrain )
 				continue
 			end
 			
-			threat = math.max(0, GetThreatAtPosition( aiBrain, testposition, 0, true, data.ThreatLayer ))
+			threat = MATHMAX(0, GetThreatAtPosition( aiBrain, testposition, 0, true, data.ThreatLayer ))
 			
 			if threat > (queueitem.threat) then
 				continue
@@ -3187,6 +3193,7 @@ function PathGeneratorAmphibious(aiBrain)
 	local LOUDCOPY = table.copy
     local LOUDEQUAL = table.equal
 	local LOUDFLOOR = math.floor
+    local MATHMAX = math.max
     local LOUDLOG10 = math.log10
 	local LOUDGETN = table.getn
 	local LOUDINSERT = table.insert
@@ -3269,7 +3276,7 @@ function PathGeneratorAmphibious(aiBrain)
                 ThreatLayerCheck = 'AntiSub'
             end
 
-            local threat = math.max(0,GetThreatBetweenPositions( aiBrain, queueitem.Node.position, testposition, nil, ThreatLayerCheck))
+            local threat = MATHMAX(0,GetThreatBetweenPositions( aiBrain, queueitem.Node.position, testposition, nil, ThreatLayerCheck))
 
 			if threat > (queueitem.threat) then
                 
@@ -3370,6 +3377,7 @@ function PathGeneratorLand(aiBrain)
 	local LOUDCOPY = table.copy
     local LOUDEQUAL = table.equal
 	local LOUDFLOOR = math.floor
+    local MATHMAX = math.max
 	local LOUDGETN = table.getn
 	local LOUDINSERT = table.insert
 	local LOUDREMOVE = table.remove
@@ -3436,7 +3444,7 @@ function PathGeneratorLand(aiBrain)
 				return queueitem.path, queueitem.length, true, queueitem.cost
 			end
 			
-			local threat = math.max(0,GetThreatBetweenPositions( aiBrain, queueitem.Node.position, testposition, nil, data.ThreatLayer))
+			local threat = MATHMAX(0,GetThreatBetweenPositions( aiBrain, queueitem.Node.position, testposition, nil, data.ThreatLayer))
 
             -- if below min threat - devalue it even further
 			if threat <= data.ThreatWeight * minthreat then
@@ -3914,6 +3922,10 @@ function ParseIntelThread( aiBrain )
     
 	local ALLBPS = __blueprints
     local BRAINS = ArmyBrains
+    
+    local AIRUNITS = (categories.AIR * categories.MOBILE) - categories.TRANSPORTFOCUS - categories.SATELLITE - categories.SCOUT
+    local LANDUNITS = (categories.LAND * categories.MOBILE) - categories.ANTIAIR - categories.ENGINEER - categories.SCOUT
+    local NAVALUNITS = (categories.NAVAL * categories.MOBILE) + (categories.NAVAL * categories.FACTORY) + (categories.NAVAL * categories.DEFENSE)
 
 	-- in a perfect world we would check all 8 threat types every parseinterval 
 	-- however, only AIR will be checked every cycle -- the others will be checked every other cycle or on the 3rd or 4th
@@ -4393,7 +4405,7 @@ function ParseIntelThread( aiBrain )
             
                     if IsEnemy( aiBrain.ArmyIndex, v ) then
                 
-                        local enemyunits = GetListOfUnits( brain, (categories.AIR * categories.MOBILE) - categories.TRANSPORTFOCUS - categories.SATELLITE - categories.SCOUT, false, false)
+                        local enemyunits = GetListOfUnits( brain, AIRUNITS, false, false)
                     
                         for _,v in enemyunits do
                     
@@ -4405,7 +4417,7 @@ function ParseIntelThread( aiBrain )
                         
                     else
                     
-                        local myteamunits = GetListOfUnits( brain, (categories.AIR * categories.MOBILE) - categories.TRANSPORTFOCUS - categories.SATELLITE - categories.SCOUT, false, false)
+                        local myteamunits = GetListOfUnits( brain, AIRUNITS, false, false)
                     
                         for _,v in myteamunits do
                     
@@ -4433,7 +4445,7 @@ function ParseIntelThread( aiBrain )
             
                     if IsEnemy( aiBrain.ArmyIndex, v ) then
                 
-                        local enemyunits = GetListOfUnits( brain, (categories.LAND * categories.MOBILE) - categories.ANTIAIR - categories.ENGINEER - categories.SCOUT, false, false)
+                        local enemyunits = GetListOfUnits( brain, LANDUNITS, false, false)
                     
                         for _,v in enemyunits do
                     
@@ -4445,7 +4457,7 @@ function ParseIntelThread( aiBrain )
                         
                     else
                 
-                        local myteamunits = GetListOfUnits( brain, (categories.LAND * categories.MOBILE) - categories.ANTIAIR - categories.ENGINEER - categories.SCOUT, false, false)
+                        local myteamunits = GetListOfUnits( brain, LANDUNITS, false, false)
                     
                         for _,v in myteamunits do
                     
@@ -4473,7 +4485,7 @@ function ParseIntelThread( aiBrain )
             
                     if IsEnemy( aiBrain.ArmyIndex, v ) then
                 
-                        local enemyunits = GetListOfUnits( brain, (categories.MOBILE * categories.NAVAL) + (categories.NAVAL * categories.FACTORY) + (categories.NAVAL * categories.DEFENSE), false, false)
+                        local enemyunits = GetListOfUnits( brain, NAVALUNITS, false, false)
                     
                         for _,v in enemyunits do
                     
@@ -4484,7 +4496,7 @@ function ParseIntelThread( aiBrain )
                         end
                     else
 
-                        local myteamunits = GetListOfUnits( brain, (categories.MOBILE * categories.NAVAL) + (categories.NAVAL * categories.FACTORY) + (categories.NAVAL * categories.DEFENSE), false, false)
+                        local myteamunits = GetListOfUnits( brain, NAVALUNITS, false, false)
                     
                         for _,v in myteamunits do
                     
@@ -4761,7 +4773,11 @@ function AttackPlanner(self, enemyPosition)
 end
 
 function CreateAttackPlan( self, enemyPosition )
-  
+
+    local LOUDCOPY = table.copy
+    local VDist2 = VDist2
+    local VDist2Sq = VDist2Sq
+    
 	if self.DeliverStatus then
 		ForkThread( AISendChat, 'allies', self.Nickname, 'Creating Attack Plan for '..ArmyBrains[self:GetCurrentEnemy().ArmyIndex].Nickname )
 	end
@@ -4793,6 +4809,8 @@ function CreateAttackPlan( self, enemyPosition )
   
     local markertypes = { 'Defensive Point','Naval Area','Naval Defensive Point','Blank Marker','Expansion Area','Large Expansion Area','Small Expansion Area' }
     local markerlist = {}
+    local counter = 0
+    
     local markers = ScenarioInfo.Env.Scenario.MasterChain._MASTERCHAIN_.Markers
 
 	-- checks if destination is somewhere between two points
@@ -4845,15 +4863,16 @@ function CreateAttackPlan( self, enemyPosition )
 					and VDist2Sq(Position[1],Position[3], Goal[1],Goal[3]) <= VDist2Sq(StartPosition[1],StartPosition[3], Goal[1],Goal[3])
 					
 					then
-					
-                    LOUDINSERT( markerlist, { Position = {v.position[1], v.position[2], v.position[3]}, Name = v.type } )
+	
+                    counter = counter + 1
+                    markerlist[counter] = { Position = {v.position[1], v.position[2], v.position[3]}, Name = v.type } 
                     break
                 end
             end
         end
     end
 
-	if LOUDGETN(markerlist) < 1 then
+	if counter < 1 then
     
         if ScenarioInfo.AttackPlanDialog then
             WARN("*AI DEBUG "..self.Nickname.." No Markers meet AttackPlan requirements - Cannot solve tactical challenge")
@@ -4863,7 +4882,7 @@ function CreateAttackPlan( self, enemyPosition )
 	end
 
     -- we always start checking from here --
-    local CurrentPoint = table.copy(StartPosition)
+    local CurrentPoint = LOUDCOPY(StartPosition)
     
     local CurrentPointDistance = VDist2(CurrentPoint[1],CurrentPoint[3], Goal[1],Goal[3])
     
@@ -4931,6 +4950,7 @@ function CreateAttackPlan( self, enemyPosition )
             LOUDSORT( markerlist, function(a,b)	return VDist2Sq(a.Position[1],a.Position[3], CurrentPoint[1],CurrentPoint[3]) < VDist2Sq(b.Position[1],b.Position[3], CurrentPoint[1],CurrentPoint[3]) end )
 
             positions = {}
+            counter = 0
 
             -- Now we'll test each valid position and assign a value to it
             -- seek the position which has the lowest path value between our minimum(100) and maximum(300) stage size distance
@@ -5000,7 +5020,8 @@ function CreateAttackPlan( self, enemyPosition )
                                 LOG("*AI DEBUG "..self.Nickname.." adding "..repr(v.Name).." at "..repr(v.Position).." w "..pathtype.." path to goal of "..repr(holdpathlength))
                             end
                             
-                            LOUDINSERT(positions, {Name = v.Name, Position = v.Position, Pathvalue = holdpathlength, Type = pathtype, Path = path})
+                            counter = counter + 1
+                            positions[counter] = {Name = v.Name, Position = v.Position, Pathvalue = holdpathlength, Type = pathtype, Path = path}
                             
                             CurrentBestPathLength = holdpathlength
 

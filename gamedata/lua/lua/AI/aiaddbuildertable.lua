@@ -39,9 +39,7 @@ function AddGlobalBaseTemplate(aiBrain, locationType, baseBuilderName)
 				tableType = 'FactoryManager'
 		
 			end
-            
-            --LOG("*AI DEBUG Adding Group "..repr(builderGroupName))
-	
+
 			for k,v in BuilderGroups[builderGroupName] do
 	
 				-- filter out the Group Headers 
@@ -52,9 +50,7 @@ function AddGlobalBaseTemplate(aiBrain, locationType, baseBuilderName)
 				end
 		
 			end	
-	
-			--AddBuilderTable( aiBrain, locationType, BuilderGroups[builderGroupName])
-		
+
 		end
 	
 	end

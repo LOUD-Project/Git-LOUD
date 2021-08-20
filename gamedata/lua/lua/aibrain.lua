@@ -811,9 +811,6 @@ AIBrain = Class(moho.aibrain_methods) {
 		
 		self.BuilderManagers = {}		
 		
-		--self.TriggerList = {}
-		--self.IntelTriggerList = {}
-		
 		self.PingCallbackList = {}
         
         -- this is a LOUD data element for storing unpacked
@@ -828,15 +825,18 @@ AIBrain = Class(moho.aibrain_methods) {
 		-- Store the cheat value (ie. 1.1 = 10% cheat)
 		local s = ScenarioInfo.ArmySetup[self.Name].Mult
 		local m
+        
 		if type(s) == "string" then
 			m = tonumber(ScenarioInfo.ArmySetup[self.Name].Mult)
 		else
 			m = aiMults[ScenarioInfo.ArmySetup[self.Name].Mult]
 		end
+        
         if m then 
             m = math.max(0.1, m)
             m = math.min(m, 99)
         end
+        
         self.CheatValue = m -- Should never be modified
         
 		-- 1 for fixed, 2 for feedback, 3 for time, 4 for both
@@ -883,12 +883,14 @@ AIBrain = Class(moho.aibrain_methods) {
                 -- Subscribe to ACT if .Adaptive dictates such
                 import('/lua/loudutilities.lua').SubscribeToACT(self)
 			end
+            
 		else
         
             -- Civilians are NOT Cheating AI
             self.CheatingAI = false
             
         end
+        
     end,
 
 	OnSpawnPreBuiltUnits = function(self)
@@ -897,31 +899,7 @@ AIBrain = Class(moho.aibrain_methods) {
         local resourceStructures = nil
         local initialUnits = {}
         local posX, posY = self:GetArmyStartPos()
-        
-        --LOG("*AI DEBUG ScenarioInfo is "..repr(ScenarioInfo))
---[[        
-        if ScenarioInfo.BOACU_Installed then
 
-            if factionIndex == 1 then
-			
-                initialUnits = { 'EAL0001', 'ERL0001', 'ESL0001' }
-            
-            elseif factionIndex == 2 then
-			
-                initialUnits = { 'ERL0001', 'EEL0001', 'ESL0001' }
-            
-            elseif factionIndex == 3 then
-			
-                initialUnits = { 'EAL0001', 'EEL0001', 'ESL0001' }
-            
-            elseif factionIndex == 4 then
-			
-                initialUnits = { 'EAL0001', 'ERL0001', 'EEL0001' }
-                
-            end
-        
-        end
---]]        
         LOG("*AI DEBUG initialUnits is "..repr(initialUnits))
 
         if factionIndex == 1 then
@@ -1095,7 +1073,6 @@ AIBrain = Class(moho.aibrain_methods) {
 		
         LOUDINSERT( Sync.GameResult, { self.ArmyIndex, "defeat" } )
 		
-        --import('/lua/SimUtils.lua').UpdateUnitCap()
         import('/lua/SimPing.lua').OnArmyDefeat(self.ArmyIndex)
        
 		if self.BuilderManagers then
@@ -1521,8 +1498,6 @@ AIBrain = Class(moho.aibrain_methods) {
 			basetype = "Sea"
         end
 
-		--LOG("*AI DEBUG "..self.Nickname.." Setting up Managers for "..repr(baseName).." counted is "..repr(countedbase))
-		
 		-- add the buildermanager record to this brain
         self.BuilderManagers[baseName] = {
 		

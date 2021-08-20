@@ -227,7 +227,7 @@ BuilderManager = Class {
             --end
 
 			LOUDSORT( self.BuilderData[unit.BuilderType].Builders, function(a,b) return a.Priority > b.Priority end )
---[[            
+--[[
             if ScenarioInfo.PriorityDialog then
             
                 if not self.BuilderData[unit.BuilderType].displayed then
@@ -242,7 +242,7 @@ BuilderManager = Class {
                     self.BuilderData[unit.BuilderType].displayed = true
                 end
             end
---]]			
+--]]
 			self.BuilderData[unit.BuilderType].NeedSort = false
         end
         
@@ -264,8 +264,9 @@ BuilderManager = Class {
                         if BuilderParamCheck(self, task, unit) then
 						
                             found = Priority
-                            possibleBuilders[counter+1] = k
 							counter = counter + 1
+                            possibleBuilders[counter] = k
+
                         end
                     end
                     
@@ -292,9 +293,9 @@ BuilderManager = Class {
 				local newPri = false
 				local temporary = true
                 
-                --if ScenarioInfo.PriorityDialog then
-                  --  LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.ManagerType.." "..self.LocationType.." PriorityFunction for "..repr(self.BuilderData[unit.BuilderType].Builders[k].BuilderName) )    
-                --end
+                if ScenarioInfo.PriorityDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.ManagerType.." "..self.LocationType.." PriorityFunction for "..repr(self.BuilderData[unit.BuilderType].Builders[k].BuilderName) )    
+                end
 				
 				newPri,temporary = Builders[TaskList[k].BuilderName]:PriorityFunction( aiBrain, unit )
 

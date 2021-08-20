@@ -90,8 +90,10 @@ function AIExecuteBuildStructure( aiBrain, engineer, buildingType, closeToBuilde
                 if VDist3( v.Position, SourcePosition ) <= maxdistance then
                 
                     if CanBuildStructureAt( aiBrain, testunit, v.Position ) then
-                        mlist[counter+1] = v
+
                         counter = counter + 1
+                        mlist[counter] = v
+
                     end
                     
                 end
@@ -105,8 +107,6 @@ function AIExecuteBuildStructure( aiBrain, engineer, buildingType, closeToBuilde
 			local markerTable = import(AIUtils).AISortMarkersFromLastPosWithThreatCheck(aiBrain, mlist, maxlist, tMin, tMax, tRings, tType, SourcePosition)
 
 			if markerTable then
-            
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." finds "..LOUDGETN(markerTable).." "..repr(buildingType).." markers")
 
                 -- pick one of the points randomly
 				location = table.copy( markerTable[ Random(1,LOUDGETN(markerTable)) ] )
@@ -215,8 +215,6 @@ function AIBuildBaseTemplateOrdered( aiBrain, eng, buildingType, closeToBuilder,
 					
 						IssueRepair( {eng}, v )
 
-						--LOG("*AI DEBUG Eng "..eng.Sync.id.." repairs "..v:GetBlueprint().Description )
-
 						eng.IssuedBuildCommand = true
 						eng.IssuedReclaimCommand = false
 						
@@ -262,8 +260,6 @@ function AIBuildBaseTemplateOrdered( aiBrain, eng, buildingType, closeToBuilder,
             end
 			
         end
-		
-		--LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." could not find place to to build "..repr(buildingType).." platoon "..repr(eng.BuilderName))	--.." template is "..repr(baseTemplate))
 		
     else
 	
@@ -383,8 +379,6 @@ function AIBuildAdjacency( aiBrain, builder, buildingType, closeToBuilder, relat
 		
     end
 
-	--LOG("*AI DEBUG "..aiBrain.Nickname.." failed DecideWhatToBuild - "..repr(buildingType).."  template "..repr(buildingTemplate).."  platoon ".. repr(builder.BuilderName) .." - ".. builder.Sync.id)
-
     return false, false
 	
 end
@@ -438,9 +432,7 @@ function AINewExpansionBase( aiBrain, baseName, position, engineer, construction
 
 		-- if more than one with highest value - pick randomly
 		local validNames = {}
-        
-        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(engineer.platoonhandle.BuilderName).." using "..repr(constructionData.NearMarkerType).." bases are "..repr(baseValues))
-        
+
 		for k,v in baseValues do
 		
 			if v.Value == highPri then
@@ -461,9 +453,7 @@ function AINewExpansionBase( aiBrain, baseName, position, engineer, construction
 
 			-- this function would level the area around a new base
 			--import('/lua/loudutilities.lua').LevelStartBaseArea( position, rallypointradius )
-            
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..engineer.Sync.id.." creating new base "..repr(baseName))
-			
+
 			aiBrain:AddBuilderManagers( position, expansionradius, baseName, true, rallypointradius, countedbase )
 
 			import('/lua/ai/AIAddBuilderTable.lua').AddGlobalBaseTemplate(aiBrain, baseName, pick.Base )
@@ -475,7 +465,9 @@ function AINewExpansionBase( aiBrain, baseName, position, engineer, construction
 			aiBrain.BuilderManagers[baseName].EngineerManager:AddEngineerUnit(engineer, true)
 			
 			return true
+            
 		end
+        
 	end
 
 	return false

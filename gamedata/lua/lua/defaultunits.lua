@@ -42,6 +42,7 @@ local RemoveBuff = import('/lua/sim/buff.lua').RemoveBuff
 local LOUDCEIL = math.ceil
 local EntityCategoryContains = EntityCategoryContains
 local LOUDFLOOR = math.floor
+local LOUDCOPY = table.copy
 local LOUDGETN = table.getn
 local LOUDINSERT = table.insert
 local ChangeState = ChangeState
@@ -103,12 +104,14 @@ StructureUnit = Class(Unit) {
             if bp.AnimationUpgrade then
 
                 local unitBuilding = self.UnitBeingBuilt
+                
+               	local GetFractionComplete = moho.entity_methods.GetFractionComplete
+                
+                local fractionOfComplete = GetFractionComplete(unitBuilding)
 
                 self.AnimatorUpgradeManip = CreateAnimator(self)
 
                 self.Trash:Add(self.AnimatorUpgradeManip)
-
-                local fractionOfComplete = 0
 
                 self:StartUpgradeEffects(unitBuilding)
 
@@ -116,11 +119,11 @@ StructureUnit = Class(Unit) {
 
                 while fractionOfComplete < 1 and not self.Dead do
 
-                    fractionOfComplete = unitBuilding:GetFractionComplete()
+                    fractionOfComplete = GetFractionComplete(unitBuilding)
 
                     self.AnimatorUpgradeManip:SetAnimationFraction(fractionOfComplete)
 
-                    WaitTicks(10)
+                    WaitTicks(4)
 
                 end
 
@@ -182,7 +185,7 @@ StructureUnit = Class(Unit) {
         Unit.OnCreate(self)
 
 		-- ALL STRUCTURES now cache their position - as it never changes
-		self.CachePosition = table.copy(moho.entity_methods.GetPosition(self))
+		self.CachePosition = LOUDCOPY(moho.entity_methods.GetPosition(self))
 
         if self.CacheLayer == 'Land' then
 
@@ -593,6 +596,7 @@ StructureUnit = Class(Unit) {
     end,
 
     OnStopBeingBuilt = function(self,builder,layer)
+
         Unit.OnStopBeingBuilt(self,builder,layer)
         self:PlayActiveAnimation()
     end,
@@ -1188,8 +1192,10 @@ MobileUnit = Class(Unit) {
 				local counter = 0
 			
                 for k, v in treads.TreadMarks do
-                    self.TreadThreads[counter+1] = self:ForkThread(self.CreateTreadsThread, v, terraintype )
-					counter = counter + 1
+                
+					counter = counter + 1                
+                    self.TreadThreads[counter] = self:ForkThread(self.CreateTreadsThread, v, terraintype )
+
                 end
 				
             end
@@ -2118,7 +2124,7 @@ FactoryUnit = Class(StructureUnit) {
 
         StructureUnit.OnKilled(self, instigator, type, overkillRatio)
 
-        if self.UnitBeingBuilt and not self.UnitBeingBuilt:BeenDestroyed() and self.UnitBeingBuilt:GetFractionComplete() != 1 then
+        if self.UnitBeingBuilt and not self.UnitBeingBuilt:BeenDestroyed() and self.UnitBeingBuilt:GetFractionComplete() < 1 then
 
             self.UnitBeingBuilt:Destroy()
 

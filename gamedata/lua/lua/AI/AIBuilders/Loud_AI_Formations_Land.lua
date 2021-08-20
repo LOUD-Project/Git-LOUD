@@ -47,7 +47,7 @@ local MapSizeLessThan20k = function(self,aiBrain)
     if ScenarioInfo.size[1] <= 1028 or ScenarioInfo.size[2] <= 1028 then
         return 800, false
     else
-        return self.priority, false
+        return self.Priority, false
     end
 
 end

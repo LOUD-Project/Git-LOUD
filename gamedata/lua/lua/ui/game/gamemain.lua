@@ -1097,30 +1097,44 @@ function SimChangeCameraZoom(newMult)
 end
 
 UnitEventAlerts = function()
+
     while true do
-        if UnitData.VOs then
-            if LOUDGETN(UnitData.VOs) > 0 then
-                for _,vo in pairs(UnitData.VOs) do
-                    if vo.Text != "EnemyUnitDetected" or (vo.Text == "EnemyUnitDetected" and SessionGetScenarioInfo().Options.FogOfWar != 'none') then
-                        if vo.Marker and GetOption('vo_VisualAlertsMode') != 0 then
-                            Ping(vo.Marker.type, vo.Marker.position)
-                            LastAlertPos = vo.Marker.position
-                        end
-                        if GetOption('vo_'..vo.Text) != false then
-                            PlayVoice(Sound{Bank = vo.Bank, Cue = vo.Cue}, true)
-                        end
+    
+        if UnitData.VOs[1] then
+            
+            for _,vo in pairs(UnitData.VOs) do
+                
+                if vo.Text != "EnemyUnitDetected" or (vo.Text == "EnemyUnitDetected" and SessionGetScenarioInfo().Options.FogOfWar != 'none') then
+                    
+                    if vo.Marker and GetOption('vo_VisualAlertsMode') != 0 then
+                        Ping(vo.Marker.type, vo.Marker.position)
+                        LastAlertPos = vo.Marker.position
                     end
+
+                    if GetOption('vo_'..vo.Text) != false then
+                        PlayVoice(Sound{Bank = vo.Bank, Cue = vo.Cue}, true)
+                    end
+
                 end
-                UnitData.VOs = {}
+
             end
+
+            UnitData.VOs = {}
+            
         end
+        
         WaitTicks(11)
+        
     end
+    
 end
 
 GoToLastAlert = function()
+
     if LastAlertPos then
+    
         OriginalPos = GetCamera("WorldCamera"):SaveSettings()
+        
         ForkThread(function()
             local cam = GetCamera("WorldCamera")
             local saved = cam:SaveSettings()

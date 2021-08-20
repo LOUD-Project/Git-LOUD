@@ -188,8 +188,9 @@ function GetTemplateReplacement(building, faction, customunits)
 
 	for k,v in customunits do
 		if rand <= v[2] then
-			possibles[counter+1] = v[1]
 			counter = counter + 1
+			possibles[counter] = v[1]
+
 		end
 	end
 
@@ -1336,8 +1337,9 @@ function GetTransports( platoon, aiBrain)
 								GetNumTransportSlots( transport )
 							end
 
-							transports[counter+1] = { Unit = transport, Distance = range, Slots = LOUDCOPY(aiBrain.TransportSlotTable[id]) }
 							counter = counter + 1
+							transports[counter] = { Unit = transport, Distance = range, Slots = LOUDCOPY(aiBrain.TransportSlotTable[id]) }
+
 
 							Collected.Large = Collected.Large + transports[counter].Slots.Large
 							Collected.Medium = Collected.Medium + transports[counter].Slots.Medium
@@ -1665,8 +1667,9 @@ function WatchUnitLoading( transport, units, aiBrain )
 					if not IsUnitState( u, 'Attached') then
 					
 						loading = true
-						tempunits[counter+1] = u
 						counter = counter + 1
+						tempunits[counter] = u
+
 					end
 				end
 			end
@@ -1715,9 +1718,10 @@ function WatchUnitLoading( transport, units, aiBrain )
 						if not newunits then
 							newunits = {}
 						end
-						
-						newunits[counter + 1] = u
-						counter = counter + 1
+                        
+						counter = counter + 1						
+						newunits[counter] = u
+
 					
 					-- if the unit is not attached and the transport does NOT have space for it - turn off loading flag and clear the tempunits list
 					elseif (not transport.Dead) and (not transport:TransportHasSpaceFor(u)) and (not EntityCategoryContains(categories.uea0203,transport)) then
@@ -2003,8 +2007,9 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
 			
 				local slots = LOUDCOPY( aiBrain.TransportSlotTable[v.BlueprintID] )
 		
-				transportTable[counter + 1] = {	Transport = v, LargeSlots = slots.Large, MediumSlots = slots.Medium, SmallSlots = slots.Small, Units = { ["Small"] = {}, ["Medium"] = {}, ["Large"] = {} } }
 				counter = counter + 1
+				transportTable[counter] = {	Transport = v, LargeSlots = slots.Large, MediumSlots = slots.Medium, SmallSlots = slots.Small, Units = { ["Small"] = {}, ["Medium"] = {}, ["Large"] = {} } }
+
 			end
 		end
 	end
@@ -2246,9 +2251,10 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
 					if not unitstoload then
 						unitstoload = {}
 					end
-					
-					unitstoload[counter+1] = v
-					counter = counter + 1
+
+					counter = counter + 1					
+					unitstoload[counter] = v
+
 				else
 					data.Units[size][u] = nil
 				end
@@ -3094,11 +3100,10 @@ function GetHiPriTargetList(aiBrain, location)
 		end
 		
 		if newPos and allthreat > 0 then
-		
-			targetlist[counter+1] = { Position = newPos, Type = threat.Type, LastScouted = threat.LastScouted,  Distance = VDist2(location[1],location[3], threat.Position[1],threat.Position[3]), Threats = { Air = airthreat, Eco = ecothreat, Sub = subthreat, Sur = surthreat, All = allthreat} }
 			
-			counter = counter + 1
-			
+			counter = counter + 1		
+			targetlist[counter] = { Position = newPos, Type = threat.Type, LastScouted = threat.LastScouted,  Distance = VDist2(location[1],location[3], threat.Position[1],threat.Position[3]), Threats = { Air = airthreat, Eco = ecothreat, Sub = subthreat, Sur = surthreat, All = allthreat} }
+
 			prev_position = LOUDCOPY(threat.Position)
 		end
     end

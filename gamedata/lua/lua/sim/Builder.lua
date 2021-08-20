@@ -53,7 +53,7 @@ Builder = Class {
 		
         if data.BuilderConditions then
 		
-			local counter = 0
+			local counter = 1
 		
             -- Convert location type here
             for k,v in data.BuilderConditions do
@@ -82,7 +82,7 @@ Builder = Class {
 					end
                 end
 				
-				self.BuilderConditions[counter+1] = aiBrain.ConditionsMonitor:GetConditionKey( unpack(bCond) )
+				self.BuilderConditions[counter] = aiBrain.ConditionsMonitor:GetConditionKey( unpack(bCond) )
 				counter = counter + 1
             end
         end

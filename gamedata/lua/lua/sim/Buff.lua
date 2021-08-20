@@ -4,6 +4,7 @@
 local WaitTicks = coroutine.yield
 local LOUDENTITY = EntityCategoryContains
 local LOUDPARSE = ParseEntityCategory
+local LOUDEMPTY = table.empty
 
 local GetBlueprint = moho.entity_methods.GetBlueprint
 
@@ -14,6 +15,7 @@ local SetHealth = moho.entity_methods.SetHealth
 local SetMaxHealth = moho.entity_methods.SetMaxHealth
 local SetShieldRatio = moho.unit_methods.SetShieldRatio
 
+local GetAIBrain = moho.unit_methods.GetAIBrain
 local GetFuelRatio = moho.unit_methods.GetFuelRatio
 local SetFuelRatio = moho.unit_methods.SetFuelRatio
 
@@ -525,7 +527,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
         
 			local val = BuffCalculate(unit, buffName, 'EnergyStorage', __blueprints[unit.BlueprintID].Economy.StorageEnergy or 1)
 
-            local brain = unit:GetAIBrain()
+            local brain = GetAIBrain(unit)
 
 			-- the trick here is to know just how much storage there already is - and add to it - can't seem to find that
             -- other than the original blueprint value - rather than any 'current' value
@@ -538,7 +540,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
         
 			local val = BuffCalculate(unit, buffName, 'MassStorage', __blueprints[unit.BlueprintID].Economy.StorageMass or 1)
             
-            local brain = unit:GetAIBrain()
+            local brain = GetAIBrain(unit)
 
 			brain:GiveStorage('MASS',val)
             
@@ -904,7 +906,7 @@ function RemoveBuff(unit, buffName, removeAllCounts, instigator)
 					unit.Buffs.Affects[atype][buffName] = nil
 				end
 
-				if table.empty(unit.Buffs.Affects[atype]) then
+				if LOUDEMPTY(unit.Buffs.Affects[atype]) then
 					unit.Buffs.Affects[atype] = nil
 				end
 
@@ -920,7 +922,7 @@ function RemoveBuff(unit, buffName, removeAllCounts, instigator)
 
 			unit.Buffs.BuffTable[def.BuffType][buffName] = nil
 
-			if table.empty(unit.Buffs.BuffTable[def.BuffType]) then
+			if LOUDEMPTY(unit.Buffs.BuffTable[def.BuffType]) then
 				unit.Buffs.BuffTable[def.BuffType] = nil
 			end
 

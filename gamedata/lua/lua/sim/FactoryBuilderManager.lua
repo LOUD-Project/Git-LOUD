@@ -27,6 +27,12 @@ local WaitTicks = coroutine.yield
 
 local PlatoonTemplates = PlatoonTemplates
 
+local FACTORY = categories.FACTORY * categories.STRUCTURE
+local ENGINEER = categories.ENGINEER
+local LAND = categories.LAND
+local AIR = categories.AIR
+local NAVAL = categories.NAVAL
+
 	
 function CreateFactoryBuilderManager(brain, lType, location, basetype)
 
@@ -104,63 +110,63 @@ FactoryBuilderManager = Class(BuilderManager) {
 	end,
 
 	AddFactory = function( self, factory )
-	
+
+        factory.SetupComplete = true
+
         while (not factory.Dead) and factory:GetFractionComplete() < 1 do
-		
+        
+            LOG("*AI DEBUG Adding Factory 2 "..factory.Sync.id.." at "..factory:GetFractionComplete().." Dead is "..repr(factory.Dead).." to "..self.ManagerType.." "..self.LocationType)
+            
             WaitTicks(100)
         end
-		
-		--LOG("*AI DEBUG Adding Factory "..factory.Sync.id.." to "..self.ManagerType.." "..self.LocationType)
 
 		local LOUDENTITY = EntityCategoryContains
 
-		if not factory.Dead and not factory.SetupComplete then
-			
-			factory.SetupComplete = true
+		if not factory.Dead then
 			
 			factory.failedbuilds = 0
 			
-			if LOUDENTITY( categories.LAND * categories.TECH1, factory ) then
+			if LOUDENTITY( LAND * categories.TECH1, factory ) then
 			
 				factory.BuilderType = 'LandT1'
 				factory.BuildLevel = 1
 				
-			elseif LOUDENTITY( categories.LAND * categories.TECH2, factory ) then
+			elseif LOUDENTITY( LAND * categories.TECH2, factory ) then
 			
 				factory.BuilderType = 'LandT2'
 				factory.BuildLevel = 2
 				
-			elseif LOUDENTITY( categories.LAND * categories.TECH3, factory ) then
+			elseif LOUDENTITY( LAND * categories.TECH3, factory ) then
 			
 				factory.BuilderType = 'LandT3'
 				factory.BuildLevel = 3
 				
-			elseif LOUDENTITY( categories.AIR * categories.TECH1, factory ) then
+			elseif LOUDENTITY( AIR * categories.TECH1, factory ) then
 			
 				factory.BuilderType = 'AirT1'
 				factory.BuildLevel = 1
 				
-			elseif LOUDENTITY( categories.AIR * categories.TECH2, factory ) then
+			elseif LOUDENTITY( AIR * categories.TECH2, factory ) then
 			
 				factory.BuilderType = 'AirT2'
 				factory.BuildLevel = 2
 				
-			elseif LOUDENTITY( categories.AIR * categories.TECH3, factory ) then
+			elseif LOUDENTITY( AIR * categories.TECH3, factory ) then
 			
 				factory.BuilderType = 'AirT3'
 				factory.BuildLevel = 3
 				
-			elseif LOUDENTITY( categories.NAVAL * categories.TECH1, factory ) then
+			elseif LOUDENTITY( NAVAL * categories.TECH1, factory ) then
 			
 				factory.BuilderType = 'SeaT1'
 				factory.BuildLevel = 1
 				
-			elseif LOUDENTITY( categories.NAVAL * categories.TECH2, factory ) then
+			elseif LOUDENTITY( NAVAL * categories.TECH2, factory ) then
 			
 				factory.BuilderType = 'SeaT2'
 				factory.BuildLevel = 2
 				
-			elseif LOUDENTITY( categories.NAVAL * categories.TECH3, factory ) then
+			elseif LOUDENTITY( NAVAL * categories.TECH3, factory ) then
 			
 				factory.BuilderType = 'SeaT3'
 				factory.BuildLevel = 3
@@ -483,9 +489,10 @@ FactoryBuilderManager = Class(BuilderManager) {
 			
 				continue
 			end
-            
-			units[counter+1] = v
-			counter = counter + 1
+
+			counter = counter + 1            
+			units[counter] = v
+
 		end
 
 		return units
@@ -508,8 +515,9 @@ FactoryBuilderManager = Class(BuilderManager) {
 				continue
 			end 
             
-			units[counter+1] = v
-			counter = counter + 1
+			counter = counter + 1            
+			units[counter] = v
+
 		end
         
        return units
@@ -529,7 +537,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 			factory:SetCustomName("")
 		end
 
-        if LOUDENTITY( categories.ENGINEER, finishedUnit ) then
+        if LOUDENTITY( ENGINEER, finishedUnit ) then
 		
 			local EM = aiBrain.BuilderManagers[self.LocationType].EngineerManager
 
@@ -544,7 +552,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 			finishedUnit:ForkThread( import('/lua/ai/aibehaviors.lua')[factory.addbehavior], aiBrain )
 		end
 		
-        if LOUDENTITY( categories.FACTORY * categories.STRUCTURE, finishedUnit ) then
+        if LOUDENTITY( FACTORY, finishedUnit ) and not finishedUnit.SetupComplete then
 		
 			if finishedUnit:GetFractionComplete() == 1 then
 
@@ -618,11 +626,10 @@ FactoryBuilderManager = Class(BuilderManager) {
 			for _,v in customData do
 			
 				if Random(1,100) <= v[2] then
-				
-					possibles[counter+1] = v[1]
 
-					counter = counter + 1
-					
+					counter = counter + 1				
+					possibles[counter] = v[1]
+
 				end
 				
 			end
@@ -751,7 +758,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 		
 			local rallyType = 'Rally Point'
 		
-			if LOUDENTITY( categories.NAVAL, factory ) then
+			if LOUDENTITY( NAVAL, factory ) then
 			
 				rallyType = 'Naval Rally Point'
 			end

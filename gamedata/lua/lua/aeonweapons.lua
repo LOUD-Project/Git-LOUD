@@ -32,6 +32,8 @@ local GetSource = moho.blip_methods.GetSource
 
 local DefaultBuffField = import('/lua/defaultbufffield.lua').DefaultBuffField
 
+local TARGETS = categories.STRUCTURE + categories.COMMAND + categories.EXPERIMENTAL + categories.NAVAL + categories.SUBCOMMANDER
+
 AeonBuffField = Class(DefaultBuffField) {
 	AmbientEffects = '/mods/BlackopsUnleashed/effects/emitters/genmaelstrom_aura_02_emit.bp',
     FieldVisualEmitter = '/mods/BlackopsUnleashed/effects/emitters/genmaelstrom_aura_01_emit.bp',
@@ -59,15 +61,19 @@ ADFTractorClaw = Class(DefaultBeamWeapon) {
     FxMuzzleFlash = {},
    
     PlayFxBeamStart = function(self, muzzle)
+    
         local target = GetCurrentTarget(self)
 
         if not target or
-            EntityCategoryContains(categories.STRUCTURE, target) or
-            EntityCategoryContains(categories.COMMAND, target) or
-            EntityCategoryContains(categories.EXPERIMENTAL, target) or
-            EntityCategoryContains(categories.NAVAL, target) or
-            EntityCategoryContains(categories.SUBCOMMANDER, target) or
+            --EntityCategoryContains(categories.STRUCTURE, target) or
+            --EntityCategoryContains(categories.COMMAND, target) or
+            --EntityCategoryContains(categories.EXPERIMENTAL, target) or
+            --EntityCategoryContains(categories.NAVAL, target) or
+            --EntityCategoryContains(categories.SUBCOMMANDER, target) or
+            EntityCategoryContains( TARGETS, target ) or
+            
             not EntityCategoryContains(categories.ALLUNITS, target) then
+            
             return
         end
 
@@ -90,6 +96,7 @@ ADFTractorClaw = Class(DefaultBeamWeapon) {
 
         self.TT1 = self:ForkThread(self.TractorThread, target)
         self:ForkThread(self.TractorWatchThread, target)
+        
     end,
     
     -- override this function in the unit to check if another weapon already has this

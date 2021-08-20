@@ -25,7 +25,7 @@ ainames = {
         "Vasudevan",
         "Vidhee",
         "Xavier",
-        "Zimm",
+        "Kami-Sutra",
 
         "Budac",
         "Dewster",
@@ -73,7 +73,7 @@ ainames = {
         "C@tch22",
         "CR07-A",
         "Cracker",
-        "Daedalus",
+        "Binary One",
         "DFS",
         "GStar",
         "Jackal",

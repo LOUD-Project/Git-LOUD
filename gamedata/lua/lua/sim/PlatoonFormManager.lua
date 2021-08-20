@@ -112,7 +112,7 @@ PlatoonFormManager = Class(BuilderManager) {
 		local IsUnitState = moho.unit_methods.IsUnitState
 
         local retUnits = {}
-		local counter = 0
+		local counter = 1
         
         for _,v in filterUnits do
 		
@@ -140,7 +140,7 @@ PlatoonFormManager = Class(BuilderManager) {
 				
             end
 
-            retUnits[counter+1] = v
+            retUnits[counter] = v
 			counter = counter + 1
 			
         end

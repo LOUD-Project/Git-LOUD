@@ -129,6 +129,11 @@ local ALLBPS = __blueprints
 
 local BRAINS = ArmyBrains
 
+local FACTORY = categories.FACTORY
+local PROJECTILE = categories.PROJECTILE
+local SUBCOMMANDER = categories.SUBCOMMANDER
+local WALL = categories.WALL
+
 Unit = Class(moho.unit_methods) {
 
     BuffTypes = {
@@ -260,12 +265,20 @@ Unit = Class(moho.unit_methods) {
     end,
 
     OnCreate = function(self)
+        
+        local aiBrain = self:GetAIBrain()
 		
 		local bp = ALLBPS[self.BlueprintID]
 
         Entity.OnCreate(self)
 		
 		self.CacheLayer = moho.unit_methods.GetCurrentLayer(self)
+
+        self.Buffs = { BuffTable = {}, Affects = {}, }
+		
+        if self.BuffFields and bp.BuffFields then
+            self:InitBuffFields( bp )
+        end
         
         if self.LandBuiltHiddenBones then
 		
@@ -330,9 +343,7 @@ Unit = Class(moho.unit_methods) {
         self:SetProductionPerSecondMass( bp.Economy.ProductionPerSecondMass or 0 )
 
         SetProductionActive(self,true)
-
-        self.Buffs = { BuffTable = {}, Affects = {}, }
-
+   
         self:SetIntelRadius('Vision', bp.Intel.VisionRadius or 0)
 
 		self.CanTakeDamage = true
@@ -349,8 +360,6 @@ Unit = Class(moho.unit_methods) {
 
         self.Dead = false		
 		self.PlatoonHandle = false
-        
-        local aiBrain = self:GetAIBrain()
 
         -- all AI (except Civilian) are technically cheaters --
         if aiBrain.CheatingAI then
@@ -391,11 +400,7 @@ Unit = Class(moho.unit_methods) {
         if bp.Transport and bp.Transport.DontUseForcedAttachPoints then
             self:RemoveTransportForcedAttachPoints()
         end
-		
-        if self.BuffFields and bp.BuffFields then
-            self:InitBuffFields( bp )
-        end
-        
+     
         self:DisableRestrictedWeapons()
         
         self:OnCreated()  
@@ -595,13 +600,9 @@ Unit = Class(moho.unit_methods) {
     end,
 
     SetDead = function(self)
-	
-		--LOG("*AI DEBUG SetDead for "..repr(self:GetBlueprint().Description))
 
 		self.Dead = true
-		
-		--self.Brain = nil
-	
+
 		self.Weapons = nil
 
 		self.FxScale = nil
@@ -824,9 +825,9 @@ Unit = Class(moho.unit_methods) {
 		
             if self:TestToggleCaps(v) == true then
 			
-                self.ToggleCaps[counter+1] = v
 				counter = counter + 1
-				
+                self.ToggleCaps[counter] = v
+
             end
 			
             self:RemoveToggleCap(v)
@@ -1741,21 +1742,12 @@ Unit = Class(moho.unit_methods) {
 
     -- On killed: this function plays when the unit takes a mortal hit.  It plays all the default death effect
     OnKilled = function(self, instigator, deathtype, overkillRatio)
-	
-		--LOG("*AI DEBUG OnKilled for unit "..self.Sync.id.." "..repr(__blueprints[self.BlueprintID].Description))
-        
-        --LOG("*AI DEBUG "..repr(__blueprints[self.BlueprintID].Defense))
-		
-		--if instigator then
-			--LOG("*AI DEBUG by "..repr(instigator:GetAIBrain().Nickname).." "..instigator:GetBlueprint().Description)	--.." "..repr(instigator))
-		--end
-
         
 		self:PlayUnitSound('Killed')
 
-        if LOUDENTITY(categories.FACTORY, self) then
+        if LOUDENTITY(FACTORY, self) then
 		
-            if self.UnitBeingBuilt and not self.UnitBeingBuilt.Dead and self.UnitBeingBuilt:GetFractionComplete() != 1 then
+            if self.UnitBeingBuilt and not self.UnitBeingBuilt.Dead and self.UnitBeingBuilt:GetFractionComplete() < 1 then
 			
                 self.UnitBeingBuilt:Kill()
             end
@@ -1796,7 +1788,7 @@ Unit = Class(moho.unit_methods) {
         end
 
         -- Notify instigator that you killed me - do not grant kills for walls
-		if not LOUDENTITY(categories.WALL, self) then
+		if not LOUDENTITY(WALL, self) then
 		
 			if instigator and IsUnit(instigator) then
 				instigator:ForkThread( instigator.OnKilledUnit, self )
@@ -2051,7 +2043,7 @@ Unit = Class(moho.unit_methods) {
 
 		local GetArmy = moho.entity_methods.GetArmy
 		
-        if LOUDENTITY(categories.PROJECTILE, other) then
+        if LOUDENTITY(PROJECTILE, other) then
 
 			local IsAllied = IsAlly
 			local army1 = GetArmy(self)
@@ -2114,7 +2106,7 @@ Unit = Class(moho.unit_methods) {
 
         if not self.Dead and self.EXPhaseEnabled == true then
 		
-            if LOUDENTITY(categories.PROJECTILE, other) then 
+            if LOUDENTITY(PROJECTILE, other) then 
 			
                 local random = Random(1,100)
 				
@@ -2346,9 +2338,9 @@ Unit = Class(moho.unit_methods) {
 		self.Sync = false
 
 		-- If factory, destroy what I'm building if I die
-		if LOUDENTITY(categories.FACTORY, self) then
+		if LOUDENTITY(FACTORY, self) then
 		
-			if self.UnitBeingBuilt and not self.UnitBeingBuilt.Dead and self.UnitBeingBuilt:GetFractionComplete() != 1 then
+			if self.UnitBeingBuilt and not self.UnitBeingBuilt.Dead and self.UnitBeingBuilt:GetFractionComplete() < 1 then
 			
 				self.UnitBeingBuilt:Destroy()
 				
@@ -2824,7 +2816,7 @@ Unit = Class(moho.unit_methods) {
 			
 			if bp.Enhancements.Sequence then
 			
-				if aiBrain.BrainType != 'Human' and not ( EntityCategoryContains( categories.FACTORY, self ) or EntityCategoryContains( categories.SUBCOMMANDER, self )) then
+				if aiBrain.BrainType != 'Human' and not ( EntityCategoryContains( FACTORY, self ) or EntityCategoryContains( SUBCOMMANDER, self )) then
 					
 					if not self.EnhancementsComplete then
 					

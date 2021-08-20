@@ -19,6 +19,9 @@ local ToolTip = import('/lua/ui/game/tooltip.lua')
 local TooltipInfo = import('/lua/ui/help/tooltips.lua').Tooltips
 local UIUtil = import('/lua/ui/uiutil.lua')
 
+local LOUDGETN = table.getn
+local LOUDINSERT = table.insert
+
 controls = {
     avatars = {},
     idleEngineers = false,
@@ -40,7 +43,7 @@ function GetEngineerGeneric()
 		
         currentIndex = currentIndex + 1
 		
-        if currentIndex > table.getn(idleEngineers) then
+        if currentIndex > LOUDGETN(idleEngineers) then
             currentIndex = 1
         end
 		
@@ -335,12 +338,12 @@ function CreateIdleTab(unitData, id, expandFunc)
 			
             local keyToIcon = {'T1','T1F','T2','T2F','T3','T3F','SCU'}
             
-            local i = table.getn(sortedUnits)
+            local i = LOUDGETN(sortedUnits)
             local needIcon = true
 			
             while i > 0 do
 			
-                if table.getn(sortedUnits[i]) > 0 then
+                if sortedUnits[i][1] then
 				
                     if needIcon and Factions[currentFaction].IdleEngTextures[keyToIcon[i]] then
 					
@@ -360,7 +363,7 @@ function CreateIdleTab(unitData, id, expandFunc)
 					
                     for _, unit in sortedUnits[i] do
 					
-                        table.insert(self.units, unit)
+                        LOUDINSERT(self.units, unit)
 						
                     end
 					
@@ -391,7 +394,7 @@ function CreateIdleTab(unitData, id, expandFunc)
 			
 				for curCat = 1, 4 do
 				
-                    if table.getn(sortedFactories[curCat][i]) > 0 then
+                    if sortedFactories[curCat][i][1] then
 					
                         if needIcon then
 						
@@ -417,7 +420,7 @@ function CreateIdleTab(unitData, id, expandFunc)
 						
                         for _, unit in sortedFactories[curCat][i] do
 						
-                            table.insert(self.units, unit)
+                            LOUDINSERT(self.units, unit)
 							
                         end
 						
@@ -499,7 +502,7 @@ function ClickFunc(self, event)
 					local newSelection = GetSelectedUnits() or {}
                     
 					for i, unit in newSelection do
-						table.insert(curUnits, unit)
+						LOUDINSERT(curUnits, unit)
 					end
                     
 					SelectUnits(curUnits)
@@ -539,7 +542,7 @@ function ClickFunc(self, event)
                     
 					for i, unit in tempSelection do
 						if UnitIsInList(unit) then
-							table.insert(curUnits, unit)
+							LOUDINSERT(curUnits, unit)
 						end
 					end
 
@@ -561,14 +564,14 @@ function ClickFunc(self, event)
                 local selectUnits = {self.units[self.curIndex]}
                 if event.Modifiers.Shift then
                     selectUnits = GetSelectedUnits() or {}
-                    table.insert(selectUnits, self.units[self.curIndex])
+                    LOUDINSERT(selectUnits, self.units[self.curIndex])
                 end
                 SelectUnits(selectUnits)
 				
             elseif event.Modifiers.Right then
                 if event.Modifiers.Shift then
                     local selection = GetSelectedUnits() or {}
-                    table.insert(selection, self.units[self.curIndex])
+                    LOUDINSERT(selection, self.units[self.curIndex])
                     UISelectAndZoomTo(self.units[self.curIndex])
                     SelectUnits(selection)
                 else
@@ -594,7 +597,7 @@ function ClickFunc(self, event)
                 if event.Modifiers.Shift then
                     selectUnits = GetSelectedUnits() or {}
                     for _, unit in self.units do
-                        table.insert(selectUnits, unit)
+                        LOUDINSERT(selectUnits, unit)
                     end
                 end
                 SelectUnits(selectUnits)
@@ -603,7 +606,7 @@ function ClickFunc(self, event)
                 if event.Modifiers.Shift then
                     local selection = GetSelectedUnits() or {}
                     for _, unit in self.units do
-                        table.insert(selection, unit)
+                        LOUDINSERT(selection, unit)
                     end
                     UISelectAndZoomTo(self.units[self.curIndex])
                     SelectUnits(selection)
@@ -745,10 +748,10 @@ function CreateIdleEngineerList(parent, units)
 			
 			if self.icons[i] then
 			
-				if table.getn(units) > 0 and not self.icons[i]:IsHidden() then
+				if units[1] and not self.icons[i]:IsHidden() then
 			
 					self.icons[i].units = units
-					self.icons[i].count:SetText(table.getn(units))
+					self.icons[i].count:SetText(LOUDGETN(units))
 					self.icons[i].count:Show()
 					self.icons[i].countBG:Show()
 					self.icons[i].icon:SetAlpha(1)
@@ -919,12 +922,12 @@ function CreateIdleFactoryList(parent, units)
 			
                 local i = index
 				
-                if table.getn(factories[type][i]) > 0 then
+                if factories[type][i][1] then
 				
                     bg.icons[type][i].units = factories[type][i]
                     bg.icons[type][i]:SetAlpha(1)
                     bg.icons[type][i].countBG:Show()
-                    bg.icons[type][i].count:SetText(table.getn(factories[type][i]))
+                    bg.icons[type][i].count:SetText(LOUDGETN(factories[type][i]))
 					
                 else
 				
@@ -1036,7 +1039,7 @@ function AvatarUpdate()
     
 	-- there were several reference to - categories.GATE that I removed here so that idle gates will show up as idle factories
 	-- we'll also exclude counting and showing the HEAVYWALL segments as factories
-    if factories and table.getn(EntityCategoryFilterDown(categories.ALLUNITS - categories.SIZE4, factories)) > 0 then
+    if factories and LOUDGETN(EntityCategoryFilterDown(categories.ALLUNITS - categories.SIZE4, factories)) > 0 then
 	
         if controls.idleFactories then
 		

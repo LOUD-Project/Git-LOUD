@@ -55,8 +55,8 @@ function CanBuildOnMassAtRange(aiBrain, locationType, mindistance, maxdistance, 
                 if VDist3( v.Position, position ) <= maxdistance then
                 
                     if CanBuildStructureAt( aiBrain, 'ueb1103', v.Position ) then
-                        mlist[counter+1] = v
                         counter = counter + 1
+                        mlist[counter] = v
                     end
                 end
             end
@@ -88,8 +88,8 @@ function CanBuildOnHydroLessThanDistance(aiBrain, locationType, distance, tMin, 
     
 		for _,v in markerlist do
 			if CanBuildStructureAt( aiBrain, 'ueb1102', v.Position ) then
-				mlist[counter+1] = v
 				counter = counter + 1
+				mlist[counter] = v
 			end
 		end
 	

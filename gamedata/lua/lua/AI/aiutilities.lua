@@ -15,9 +15,7 @@ local VDist2Sq = VDist2Sq
 function AIAddMustScoutArea( aiBrain, location )
 
 	if location and ( not aiBrain:IsDefeated() ) then
-    
-        --LOG("*AI DEBUG "..aiBrain.Nickname.." adding MustScout at "..repr(location))
-	
+
 		for _,v in aiBrain.IL.MustScout do
 		
 			-- If there's already a location to scout within 50 of this one, don't add it.
@@ -57,6 +55,10 @@ function AIPickEnemyLogic( self, brainbool )
     
     local Brains = ArmyBrains
     
+  	local GetThreatsAroundPosition = moho.aibrain_methods.GetThreatsAroundPosition
+    local MATHEXP = math.exp
+    local MATHMAX = math.max
+    
     for k,v in Brains do
 	
         local armyindex = v.ArmyIndex
@@ -69,13 +71,11 @@ function AIPickEnemyLogic( self, brainbool )
             
                 for _,threattype in threattypes do
 			
-                    local threats = self:GetThreatsAroundPosition( self.BuilderManagers.MAIN.Position, 32, true, threattype, armyindex)
+                    local threats = GetThreatsAroundPosition( self, self.BuilderManagers.MAIN.Position, 32, true, threattype, armyindex)
                 
                     -- sort the threats for closest
                     LOUDSORT( threats, function(a,b) return VDist2Sq(a[1],a[2],testposition[1],testposition[3]) < VDist2Sq(b[1],b[2],testposition[1],testposition[3]) end )
-                
-                    --LOG("*AI DEBUG "..self.Nickname.." "..threattype.." Threats from "..v.Nickname.." are "..repr(threats))
-                    
+
                     for _,data in threats do
 
                         if data[3] > 60 then
@@ -91,7 +91,7 @@ function AIPickEnemyLogic( self, brainbool )
                             local distance = VDist3( testposition, {data[1],0,data[2]} )
                 
                             -- adjust the strength according to distance result against the maximum possible distance on this map
-                            local threatWeight = math.exp((self.dist_comp/ distance )-1)
+                            local threatWeight = MATHEXP((self.dist_comp/ distance )-1)
 
                             threatWeight = threatWeight * data[3]
                             
@@ -104,7 +104,7 @@ function AIPickEnemyLogic( self, brainbool )
                     end
 
                     -- make sure the value is positive
-                    insertTable.Strength = math.max( insertTable.Strength, 0)
+                    insertTable.Strength = MATHMAX( insertTable.Strength, 0)
 			
                     if insertTable.Strength > 35 then
                         armyStrengthTable[armyindex] = insertTable
@@ -115,8 +115,6 @@ function AIPickEnemyLogic( self, brainbool )
     end
 	
 	--LOG("*AI DEBUG "..self.Nickname.." Str table is "..repr(armyStrengthTable))
-	
-    --local allyEnemy = self:GetAllianceEnemy(armyStrengthTable, mys)
 	
     -- if targetoveride is true then allow target switching
     -- the only place I see that happening is with the Sorian
@@ -156,8 +154,6 @@ function AIPickEnemyLogic( self, brainbool )
 			KillThread(self.DrawPlanThread)
             self.DrawPlanThread = nil
 		end	
-        
-        --LOG("*AI DEBUG "..self.Nickname.." says findEnemy is "..repr(findEnemy))
 
         if findEnemy then
 		
@@ -221,8 +217,6 @@ function AIPickEnemyLogic( self, brainbool )
                     x1 = x1/counter
                     x2 = x2/counter
                     x3 = x3/counter
-                
-                    --LOG("*AI DEBUG The average position for "..repr(enemyPosition).." is at "..repr({ x1, x2, x3 }))
                 
                     enemyPosition = { x1,x2,x3 }
 
@@ -301,13 +295,13 @@ function AISortMarkersFromLastPosWithThreatCheck(aiBrain, markerlist, maxNumber,
 			end
 			
 			if threat >= threatMin then
-				mlist[counter+1] = point
 				counter = counter + 1
+				mlist[counter] = point
 			end
 			
 		else
-			mlist[counter+1] = point
 			counter = counter + 1
+			mlist[counter+1] = point
         end
 
 		if counter >= maxNumber then
@@ -337,7 +331,7 @@ function AIGetMarkerLocations(markerType)
 	end
 	
     local markerlist = {}
-	local counter = 1
+	local counter = 0
     
     if markerType == 'Start Location' then
 	
@@ -346,10 +340,13 @@ function AIGetMarkerLocations(markerType)
         for k,v in tempMarkers do
 		
             if string.sub(v.Name,1,5) == 'ARMY_' then 
-                markerlist[counter] = { Position = {v.Position[1],v.Position[2],v.Position[3]}, Name = v.Name}
+            
 				counter = counter + 1
+                markerlist[counter] = { Position = {v.Position[1],v.Position[2],v.Position[3]}, Name = v.Name}
+
             end
         end 
+        
     else
 	
         local markers = ScenarioInfo.Env.Scenario.MasterChain._MASTERCHAIN_.Markers  --GetMarkers()
@@ -359,11 +356,14 @@ function AIGetMarkerLocations(markerType)
             for k, v in markers do
 			
                 if v.type == markerType then
+                
+                    counter = counter + 1                
                     markerlist[counter] = { Position = {v.position[1],v.position[2],v.position[3]}, Name = k }
-					counter = counter + 1
+                    
                 end
             end
         end
+        
     end
 
 	ScenarioInfo.Env.Scenario.MasterChain[markerType] = markerlist
@@ -383,7 +383,7 @@ function AIGetMarkerLocationsEx(aiBrain, markerType)
 
     local tempMarkers = ScenarioInfo.Env.Scenario.MasterChain._MASTERCHAIN_.Markers
     local markerlist = {}
-	local counter = 1
+	local counter = 0
     
     if tempMarkers then
 	
@@ -392,8 +392,9 @@ function AIGetMarkerLocationsEx(aiBrain, markerType)
             if v.type == markerType then
 			
                 v.name = k
+				counter = counter + 1                
                 markerlist[counter] = v
-				counter = counter + 1
+
             end
         end
     end
@@ -451,15 +452,20 @@ end
 function AIFilterAlliedBases( aiBrain, positions )
 
     local markerlist = {}
-	local counter = 1
+	local counter = 0
+    
+	local GetNumUnitsAroundPoint = moho.aibrain_methods.GetNumUnitsAroundPoint
+    local searchcats = categories.ALLUNITS - categories.MASSEXTRACTION - categories.MASSSTORAGE - categories.MOBILE - categories.WALL
 	
     for k,v in positions do
 	
-        if aiBrain:GetNumUnitsAroundPoint( categories.ALLUNITS - categories.MASSEXTRACTION - categories.MASSSTORAGE - categories.MOBILE - categories.WALL, v.Position, 42, 'Ally' ) == 0 then
+        if GetNumUnitsAroundPoint( aiBrain, searchcats, v.Position, 42, 'Ally' ) == 0 then
 		
-            markerlist[counter] = v
 			counter = counter + 1
+            markerlist[counter] = v
+
         end
+        
     end
 	
     return markerlist
@@ -497,17 +503,21 @@ end
 function AIFindDefensivePointNeedsStructureFromPoint( aiBrain, point, radius, category, markerRadius, unitMax, tMin, tMax, tRings, tType)
 
     local positions = AIGetMarkersAroundLocation( aiBrain, 'Defensive Point', point, radius, tMin, tMax, tRings, tType)
+    
 	positions = table.cat(positions, AIGetMarkersAroundLocation( aiBrain, 'Expansion Area', point, radius, tMin, tMax, tRings, tType))
+    
+    local searchcats = LOUDPARSE(category)
 	
     LOUDSORT(positions, function(a,b) return VDist2Sq(a.Position[1],a.Position[3], point[1],point[3]) < VDist2Sq(b.Position[1],b.Position[3], point[1],point[3]) end)
     
     for _,v in positions do
 	
-        local numUnits = GetNumberOfOwnUnitsAroundPoint( aiBrain, LOUDPARSE(category), v.Position, markerRadius )
+        local numUnits = GetNumberOfOwnUnitsAroundPoint( aiBrain, searchcats, v.Position, markerRadius )
 
         if numUnits <= unitMax then
 			return v.Position, v.Name
         end
+        
     end
 	
     return false,nil
@@ -552,6 +562,7 @@ function AIGetClosestThreatMarkerLoc(aiBrain, markerType, startX, startZ, threat
         if threat >= threatMin and threat <= threatMax then
 			return v.Position, v.Name
         end
+        
     end
 	
     return false, nil
@@ -581,7 +592,7 @@ function GetOwnUnitsAroundPoint( aiBrain, category, location, radius )
 	local GetFractionComplete = moho.entity_methods.GetFractionComplete
 
     local mlist = {}
-	local counter = 1
+	local counter = 0
     local ArmyIndex = aiBrain.ArmyIndex
 	
 	if category and location and radius then
@@ -591,10 +602,14 @@ function GetOwnUnitsAroundPoint( aiBrain, category, location, radius )
 		for k,v in units do
 	
 			if (not v.Dead) and GetFractionComplete(v) == 1 and v.Sync.army == ArmyIndex then
+
+				counter = counter + 1            
 				mlist[counter] = v
-				counter = counter + 1
+
 			end
+            
 		end
+        
 	end
 	
     return mlist
@@ -607,7 +622,7 @@ function GetAlliedUnitsAroundPoint( aiBrain, category, location, radius )
 	local GetFractionComplete = moho.entity_methods.GetFractionComplete
 
     local mlist = {}
-	local counter = 1
+	local counter = 0
 	
 	if category and location and radius then
 	
@@ -616,10 +631,14 @@ function GetAlliedUnitsAroundPoint( aiBrain, category, location, radius )
 		for k,v in units do
 	
 			if (not v.Dead) and GetFractionComplete(v) == 1 then
-				mlist[counter] = v
+            
 				counter = counter + 1
+				mlist[counter] = v
+
 			end
+            
 		end
+        
 	end
 	
     return mlist
@@ -633,7 +652,7 @@ function GetOwnUnitsAroundPointWithThreatCheck( aiBrain, category, location, rad
 	local GetFractionComplete = moho.entity_methods.GetFractionComplete
 	
     local mlist = {}
-	local counter = 1
+	local counter = 0
 
     for k,v in GetUnitsAroundPoint( aiBrain, category, location, radius, 'Ally' ) do
 	
@@ -645,15 +664,16 @@ function GetOwnUnitsAroundPointWithThreatCheck( aiBrain, category, location, rad
 				
 				if threat >= tmin and threat <= tmax then
 			
-					mlist[counter] = v
 					counter = counter + 1
+					mlist[counter] = v
+
 					
 				end
 				
 			else
-			
+
+				counter = counter + 1			
 				mlist[counter] = v
-				counter = counter + 1
 				
             end
 			
@@ -994,6 +1014,7 @@ function SetupAICheatUnitCap(aiBrain, biggestTeamSize)
         SetArmyUnitCap( aiBrain.ArmyIndex, math.floor(cheatCap) )
         
         LOG("*AI DEBUG "..aiBrain.Nickname.." Unit cap set to "..cheatCap.." from base of "..initialCap)
+        
     end
     
     if aiBrain.OutnumberedRatio > 1 then 
@@ -1006,6 +1027,7 @@ function SetupAICheatUnitCap(aiBrain, biggestTeamSize)
 
 	-- start the spawn wave thread for cheating AI --
     aiBrain.WaveThread = ForkThread(import('/lua/loudutilities.lua').SpawnWaveThread, aiBrain)
+    
 end
 
 
@@ -1212,8 +1234,6 @@ function ApplyCheatBuffs(unit)
 	if not LOUDENTITY( categories.INSIGNIFICANTUNIT, unit) and not LOUDENTITY((categories.NUKE + categories.ANTIMISSILE) * categories.SILO, unit ) then
     
         local aiBrain = unit:GetAIBrain()
-        
-        --LOG("*AI DEBUG "..brain.Nickname.." Applying Cheat Buffs to "..unit:GetBlueprint().Description)
 
 		local ApplyBuff = import('/lua/sim/buff.lua').ApplyBuff
         local RemoveBuff = import('/lua/sim/buff.lua').RemoveBuff

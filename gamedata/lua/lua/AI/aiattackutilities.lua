@@ -1,6 +1,7 @@
 --**  File     :  /lua/AI/aiattackutilities.lua
 
 local LOUDGETN = table.getn
+local LOUDINSERT = table.insert
 local LOUDPARSE = ParseEntityCategory
 local LOUDSORT = table.sort
 
@@ -10,6 +11,9 @@ local WaitTicks = coroutine.yield
 
 local GetPlatoonPosition = moho.platoon_methods.GetPlatoonPosition
 local GetPlatoonUnits = moho.platoon_methods.GetPlatoonUnits
+
+local ALLBUTWALLS = categories.ALLUNITS - categories.WALL
+local SHIELDS = categories.SHIELD * categories.STRUCTURE
 
 -- determines the max range of a naval platoon and returns the weapon arc and turret pitch range
 
@@ -118,8 +122,11 @@ function GetMostRestrictiveLayer(platoon)
 			
                 platoon.MovementLayer = 'Land'
                 break   --Nothing more restrictive than land, since there should be no mixed land/water platoons
+                
             end
+            
         end
+        
     end
 	
     return
@@ -143,6 +150,7 @@ function GetClosestPathNodeInRadiusByLayer(location, layer)
 		if VDist2Sq( nodes[1].position[1],nodes[1].position[3], location[1],location[3]) <= (radius*radius) then
 			return true, nodes[1].position
         end
+        
 	end
 
 	return false, nil
@@ -182,6 +190,7 @@ function GetPathGraphs()
 		for k, v in markerGroups do
 		
 			for _, marker in v do
+            
 				ScenarioInfo.PathGraphs[k] = ScenarioInfo.PathGraphs[k] or {}
 				ScenarioInfo.PathGraphs['RawPaths'][k] = ScenarioInfo.PathGraphs['RawPaths'][k] or {}
             
@@ -205,11 +214,11 @@ function GetPathGraphs()
                 end
 				
 				-- sort the adjacent nodes by name
-				table.sort(newadj)
+				LOUDSORT(newadj)
 
 				ScenarioInfo.PathGraphs[k][marker.name] = { marker.name, position = {marker.position[1],marker.position[2],marker.position[3]}, adjacent = table.copy(newadj), InWater = water }
 				
-				table.insert(ScenarioInfo.PathGraphs['RawPaths'][k], { position = { marker.position[1],marker.position[2],marker.position[3] }, node = marker.name } )
+				LOUDINSERT(ScenarioInfo.PathGraphs['RawPaths'][k], { position = { marker.position[1],marker.position[2],marker.position[3] }, node = marker.name } )
 			end
 		end
 
@@ -239,7 +248,7 @@ function GetPathGraphs()
 					end
 				
 					-- a point MUST be connected to something
-					if table.getn(mdata.adjacent) < 1 then
+					if LOUDGETN(mdata.adjacent) < 1 then
 						badpoint = true
 					end
 					
@@ -260,7 +269,9 @@ function GetPathGraphs()
 						
 							WARN("*AI DEBUG adjacent marker "..repr(gk).." "..repr(adj).." reports no position in data for "..repr(mn))
 							mdata.adjacent[k] = nil	-- the adjacent node does not exist -- remove it from the RawPaths data --
+                            
 						end
+                        
 					end
 
 					if badpoint then
@@ -350,14 +361,16 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 					
 						-- if position is within the radius then return false (avoid this position)
 						if VDist2Sq(base.Position[1], base.Position[3], markerPos[1], markerPos[3]) < (baseRadius * baseRadius) then
-                        
-                            --LOG("*AI DEBUG "..aiBrain.Nickname.." avoiding "..repr(base.BaseName))
 						
 							return false
 						end
+                        
 					end
+                    
 				end
+                
 			end
+            
 		end
 		
 		-- position is ok (not within radius of an Allied base)
@@ -407,8 +420,6 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
         
         return true
     end
-    
-    --LOG("*AI DEBUG "..aiBrain.Nickname.." Find Point within "..PointRadius.." from "..repr(PointSource).." for "..self.BuilderName)
 	
 	-- find positions -- 
 	if PointType == 'Unit' then
@@ -442,7 +453,9 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 					positions[counter] = {pos[1], pos[2], pos[3], distance, platdistance } 
 					counter = counter + 1
 				end
+                
 			end
+            
 		end
 		
 	elseif PointType == 'Marker' then
@@ -491,13 +504,20 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 							
                                     counter = counter + 1
                                 end
+                                
                             end
+                            
                         else
+                        
                             break -- beyond max distance stop checking --
                         end
+                        
                     end
+                    
                 end
+                
             end
+            
 		else
 			-- using BASE as the pointsource tells us that our present base is inserted into the list - distance is 0
 			-- and it will be the ONLY entry in the point list
@@ -505,8 +525,6 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 			counter = counter + 1
 		end
 	end
-
-    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." Point list is "..LOUDGETN(positions) )
 
 	-- if there are positions to check --
 	if counter > 1 then
@@ -530,9 +548,7 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 			-- only allow targets that are in the water
 			if allowinwater == "Only" then
 				if (GetTerrainHeight( v[1], v[3] )) > (GetSurfaceHeight( v[1], v[3] ) - 1) then
-                
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." Find Point for "..self.BuilderName.." ONLYWATER removes position "..repr(v).." for elevation" )
-                    
+
 					positions[k] = nil
 					counter = counter - 1
 					continue
@@ -545,9 +561,7 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 				local threatatpoint = GetThreatAtPosition( aiBrain, {v[1],v[2],v[3]}, 2, true, threattype )
 	
 				if (threatatpoint < threatmin or threatatpoint > threatmax) then
-                
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." Find Point for "..self.BuilderName.." removes position "..repr(v).." for threat "..threatatpoint.." min is "..threatmin.." max is "..threatmax )
-                    
+
                     -- remove this position from list
 					positions[k]=nil
 					counter = counter - 1
@@ -586,7 +600,9 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 					counter = counter - 1
 					continue
 				end
+                
 			end	
+            
 		end
 
     end 
@@ -636,7 +652,7 @@ function FindTargetInRange( self, aiBrain, squad, maxRange, attackcategories, no
     if PlatoonExists( aiBrain, self) then
 
         -- are there any enemy units ?
-        if aiBrain:GetNumUnitsAroundPoint( categories.ALLUNITS - categories.WALL, position, maxRange, 'Enemy' ) < 1 then
+        if aiBrain:GetNumUnitsAroundPoint( ALLBUTWALLS, position, maxRange, 'Enemy' ) < 1 then
             return false, false
         end
 
@@ -675,7 +691,6 @@ function FindTargetInRange( self, aiBrain, squad, maxRange, attackcategories, no
 					if math.abs(lastposHeight - nextposHeight) > 3.6 or InWater then
 						
 						-- we are obstructed
-						--LOG("*AI DEBUG "..aiBrain.Nickname.." LOCAL TARGET OBSTRUCTED ")
 						return true
 					end
 					
@@ -692,7 +707,7 @@ function FindTargetInRange( self, aiBrain, squad, maxRange, attackcategories, no
         local EntityCategoryFilterDown = EntityCategoryFilterDown
         local VDist2Sq = VDist2Sq
 	
-		local enemyunits = GetUnitsAroundPoint( aiBrain, categories.ALLUNITS - categories.WALL, position, maxRange, 'Enemy')
+		local enemyunits = GetUnitsAroundPoint( aiBrain, ALLBUTWALLS, position, maxRange, 'Enemy')
 
 		-- sort them by distance
 		LOUDSORT(enemyunits, function(a,b) return VDist2Sq( GetPosition(a)[1],GetPosition(a)[3], position[1],position[3] ) < VDist2Sq( GetPosition(b)[1],GetPosition(b)[3], position[1],position[3]) end)
@@ -714,7 +729,9 @@ function FindTargetInRange( self, aiBrain, squad, maxRange, attackcategories, no
 						if CanGraphTo( position, GetPosition(u), self.MovementLayer ) and not CheckBlockingTerrain( position, GetPosition(u)) then
 							return u, GetPosition(u)
                         end
+                        
                     end
+                    
 				end
                 
 			end
@@ -743,7 +760,7 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
     end
 	
 	-- are there any enemy units ?
-	if aiBrain:GetNumUnitsAroundPoint( categories.ALLUNITS - categories.WALL, position, maxRange, 'Enemy' ) < 1 then
+	if aiBrain:GetNumUnitsAroundPoint( ALLBUTWALLS, position, maxRange, 'Enemy' ) < 1 then
 		return false, false
 	end
 
@@ -777,7 +794,7 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
 	end
 	
 	-- get all the enemy units around this point (except walls)
-	local enemyunits = GetUnitsAroundPoint( aiBrain, categories.ALLUNITS - categories.WALL, position, maxRange, 'Enemy' )
+	local enemyunits = GetUnitsAroundPoint( aiBrain, ALLBUTWALLS, position, maxRange, 'Enemy' )
 
     if table.empty(enemyunits) then
         return false, false
@@ -791,7 +808,7 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
 	local VDist2 = VDist2
 	
     -- get a count of all shields within the list
-	local shieldcount = EntityCategoryCount( categories.SHIELD * categories.STRUCTURE, enemyunits )
+	local shieldcount = EntityCategoryCount( SHIELDS, enemyunits )
     
 	local retUnit, rePosition, bestthreat, targetUnits
     
@@ -847,7 +864,7 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
 							-- check and adjust threat for shields
 							if shieldcount > 0 then
 					
-								enemyshields = GetUnitsAroundPoint( aiBrain, categories.STRUCTURE * categories.SHIELD, unitposition, 100, 'Enemy')
+								enemyshields = GetUnitsAroundPoint( aiBrain, SHIELDS, unitposition, 100, 'Enemy')
 								
 								LOUDSORT(enemyshields, function(a,b) return VDist2Sq(a:GetPosition()[1],a:GetPosition()[3], unitposition[1],unitposition[3]) < VDist2Sq(b:GetPosition()[1],b:GetPosition()[3], unitposition[1],unitposition[3]) end)
 							

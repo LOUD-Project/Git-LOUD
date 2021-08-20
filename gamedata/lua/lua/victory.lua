@@ -83,8 +83,9 @@ function CheckVictory(ScenarioInfo)
 					ArmyBrains[index] = nil
 					
                 else
-                    stillAlive[counter+1] = brain
 					counter = counter + 1
+                    stillAlive[counter] = brain
+
                 end
             end
         end

@@ -38,6 +38,9 @@ local WaitTicks = coroutine.yield
 -- add support for builderType (ie. Any, Commander)	-- so now we can specify as follows;
 local builderTypes = { 'Any','T1','T2','T3','SubCommander','Commander' }
 
+local COMMAND = categories.COMMAND
+local SUBCOMMANDER = categories.SUBCOMMANDER
+
 local PlatoonTemplates = PlatoonTemplates
 
 
@@ -62,9 +65,7 @@ EngineerManager = Class(BuilderManager) {
 		self.ManagerType = 'EM'
         self.Radius = radius
 		self.EngineerList = { Count = 0, }
-        
-        --LOG("*AI DEBUG "..brain.Nickname.." "..repr(self).." ScenarioInfo is "..repr(ScenarioInfo.MapData))
-		
+
 		for _,v in builderTypes do
 			self:AddBuilderType(v)
 		end
@@ -104,7 +105,7 @@ EngineerManager = Class(BuilderManager) {
 	-- It then sends the engineer off to find work
     AddEngineerUnit = function( self, unit, dontAssign )
 
-        table.insert( self.EngineerList, unit )
+        LOUDINSERT( self.EngineerList, unit )
         
         if ScenarioInfo.EngineerDialog then
             LOG("*AI DEBUG "..unit:GetAIBrain().Nickname.." Adding Engineer "..unit.Sync.id.." "..__blueprints[unit.BlueprintID].Description.." to "..self.ManagerType.." "..self.LocationType)
@@ -116,7 +117,7 @@ EngineerManager = Class(BuilderManager) {
 		unit.failedbuilds = 0
         unit.LocationType = self.LocationType
 
-		if LOUDENTITY( categories.COMMAND, unit ) then
+		if LOUDENTITY( COMMAND, unit ) then
 		
 			unit.BuilderType = 'Commander'
 			
@@ -128,11 +129,11 @@ EngineerManager = Class(BuilderManager) {
 		
 			unit.BuilderType = 'T2'
 			
-		elseif LOUDENTITY( categories.TECH3 - categories.SUBCOMMANDER, unit ) then
+		elseif LOUDENTITY( categories.TECH3 - SUBCOMMANDER, unit ) then
 		
 			unit.BuilderType = 'T3'
 			
-		elseif LOUDENTITY( categories.TECH3 + categories.SUBCOMMANDER, unit ) then
+		elseif LOUDENTITY( SUBCOMMANDER, unit ) then
 		
 			unit.BuilderType = 'SubCommander'
 		end
@@ -158,7 +159,7 @@ EngineerManager = Class(BuilderManager) {
 				WaitTicks(100)
 			end
 		
-			if not LOUDENTITY( categories.COMMAND, unit) then
+			if not LOUDENTITY( COMMAND, unit) then
 				WaitTicks(35)
 			end
 		
@@ -172,7 +173,7 @@ EngineerManager = Class(BuilderManager) {
 
 		-- SACU will have enhancement threads that may need rebuilding
 		-- so we cancel any existing thread and restart it
-		if LOUDENTITY( categories.SUBCOMMANDER, unit) then
+		if LOUDENTITY( SUBCOMMANDER, unit) then
 		
 			if unit.EnhanceThread then
 			
@@ -192,8 +193,6 @@ EngineerManager = Class(BuilderManager) {
 
 	-- This is the primary function that assigns jobs to an engineer
     AssignEngineerTask = function( self, unit, aiBrain )
-    
-        --LOG("*AI DEBUG AIBrain Data is "..repr(aiBrain))
 
 		if unit.Dead or unit.AssigningTask or BeenDestroyed(unit) then
 			return
@@ -204,8 +203,6 @@ EngineerManager = Class(BuilderManager) {
 		if unit.Dead or unit.AssigningTask or BeenDestroyed(unit) then
 			return
 		end
-		
-		--LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..unit.Sync.id.." seeking task")
 		
 		unit.AssigningTask = true
 		
@@ -316,7 +313,12 @@ EngineerManager = Class(BuilderManager) {
 				if aiBrain:PlatoonExists(unit.PlatoonHandle) then
 					aiBrain:DisbandPlatoon(unit.PlatoonHandle)
 				end
-			end
+			
+            else
+                if ScenarioInfo.PlatoonDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." EM Enginer "..unit.Sync.id.." finds no task")
+                end
+            end
 
             unit.PlatoonHandle = aiBrain.ArmyPool
             unit.failedbuilds = ((unit.failedbuilds or 0) + 1) 
@@ -400,7 +402,7 @@ EngineerManager = Class(BuilderManager) {
 		local engs = EntityCategoryFilterDown( engCategory, self.EngineerList ) or {}
 
         local units = {}
-		local counter = 0
+		local counter = 1
 
         for _,v in engs do
 		
@@ -412,7 +414,7 @@ EngineerManager = Class(BuilderManager) {
             
 					if LOUDENTITY( buildingcategory, beingBuiltUnit ) then
 					
-						units[counter+1] = v
+						units[counter] = v
 						counter = counter + 1
 					end
 				end
@@ -466,7 +468,7 @@ EngineerManager = Class(BuilderManager) {
         local testUnits = self:GetEngineersBuildingCategory( engCategory, buildingcategory )
 		
         local retUnits = {}
-		local counter = 0
+		local counter = 1
 
 		-- see if any need assistance
         for _,v in testUnits do
@@ -475,7 +477,7 @@ EngineerManager = Class(BuilderManager) {
 
 				if LOUDGETN( GetGuards(v) ) < v.NumAssistees then
 				
-					retUnits[counter+1] = v
+					retUnits[counter] = v
 					counter = counter + 1
 				end
 			end
