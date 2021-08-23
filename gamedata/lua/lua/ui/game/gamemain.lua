@@ -41,6 +41,9 @@ local OriginalPos
 local ForkThread = ForkThread
 local WaitTicks = coroutine.yield
 
+local LOUDINSERT = table.insert
+local LOUDREMOVE = table.remove
+
 
 -- check this flag to see if it's valid to show the exit dialog
 supressExitDialog = false
@@ -336,7 +339,7 @@ function CreateUI(isReplay)
 					local dpos = {}
 					
 					for i,x in pairs(position) do
-						table.insert(dpos, position[i] - 2 * saved.Focus[i])
+						LOUDINSERT(dpos, position[i] - 2 * saved.Focus[i])
 					end
 					
 					WARN(repr(saved.Focus))
@@ -613,7 +616,7 @@ end
 
 function AddOnUIDestroyedFunction(func)
 
-    table.insert(OnDestroyFuncs, func)
+    LOUDINSERT(OnDestroyFuncs, func)
 	
 end
 
@@ -643,7 +646,7 @@ function OnSelectionChanged(oldSelection, newSelection, added, removed)
             local temp = {}
             for _, unit in newSelection do
                 if unit:IsInCategory('LAND') then
-                    table.insert(temp, unit)
+                    LOUDINSERT(temp, unit)
                 end
             end
             newSelection = temp
@@ -760,7 +763,7 @@ local _beatFunctions = {}
 
 function AddBeatFunction(fn)
 
-    table.insert(_beatFunctions, fn)
+    LOUDINSERT(_beatFunctions, fn)
 	
 end
 
@@ -770,7 +773,7 @@ function RemoveBeatFunction(fn)
 	
         if v == fn then
 		
-            table.remove(_beatFunctions, i)
+            LOUDREMOVE(_beatFunctions, i)
             break
 			
         end
@@ -1041,7 +1044,7 @@ end
 local chatFuncs = {}
 
 function RegisterChatFunc(func, dataTag)
-    table.insert(chatFuncs, {id = dataTag, func = func})
+    LOUDINSERT(chatFuncs, {id = dataTag, func = func})
 end
 
 function ReceiveChat(sender, data)
@@ -1146,7 +1149,7 @@ GoToLastAlert = function()
             if mode == 1 then
                 local dpos = {}
                 for i,x in pairs(position) do
-                    table.insert(dpos, position[i] - 2 * saved.Focus[i])
+                    LOUDINSERT(dpos, position[i] - 2 * saved.Focus[i])
                 end
                 WARN(repr(saved.Focus))
                 WARN(repr(dpos))
@@ -1186,7 +1189,9 @@ end
 function AreaReclaim()
     local mousePos = GetMouseWorldPos()
     local units = GetSelectedUnits()
-    if not units or table.empty(units) then return end
+    
+    if not units[1] then return end
+    
     local simCallback = {
         Func = 'AreaReclaim',
         Args = {

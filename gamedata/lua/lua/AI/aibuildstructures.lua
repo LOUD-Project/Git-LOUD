@@ -5,14 +5,17 @@ local import = import
 local BaseTemplates = import('/lua/basetemplates.lua').BaseTemplates
 local BuildingTemplates = import('/lua/buildingtemplates.lua').BuildingTemplates
 
+local LOUDCOPY = table.copy
 local LOUDGETN = table.getn
 local LOUDINSERT = table.insert
+local LOUDREMOVE = table.remove
 local LOUDSORT = table.sort
 
-
+--[[
 function AddToBuildQueue(aiBrain, eng, whatToBuild, buildLocation, relative)
     LOUDINSERT(eng.EngineerBuildQueue, { whatToBuild, buildLocation } )
 end
+--]]
 
 function IsResource(buildingType)
     return buildingType == 'Resource' or buildingType == 'T1HydroCarbon' or buildingType == 'T1Resource' or buildingType == 'T2Resource' or buildingType == 'T3Resource'
@@ -109,7 +112,7 @@ function AIExecuteBuildStructure( aiBrain, engineer, buildingType, closeToBuilde
 			if markerTable then
 
                 -- pick one of the points randomly
-				location = table.copy( markerTable[ Random(1,LOUDGETN(markerTable)) ] )
+				location = LOUDCOPY( markerTable[ Random(1,LOUDGETN(markerTable)) ] )
             end
 		end	
 
@@ -155,7 +158,8 @@ function AIExecuteBuildStructure( aiBrain, engineer, buildingType, closeToBuilde
 			
         end
 
-        AddToBuildQueue(aiBrain, engineer, whatToBuild, { relativeLoc[1], relativeLoc[3], 0 } )
+        --AddToBuildQueue(aiBrain, engineer, whatToBuild, { relativeLoc[1], relativeLoc[3], 0 } )
+        LOUDINSERT(engineer.EngineerBuildQueue, { whatToBuild, {relativeLoc[1], relativeLoc[3], 0 } } )
 		
 		return true
 		
@@ -240,9 +244,10 @@ function AIBuildBaseTemplateOrdered( aiBrain, eng, buildingType, closeToBuilder,
 							
 								if not eng.Dead and aiBrain:CanBuildStructureAt( whatToBuild, { position[1], 0, position[2] } ) or EngineerTryRepair( { position[1],0,position[2] } ) then
 									
-									AddToBuildQueue( aiBrain, eng, whatToBuild, position )
+									--AddToBuildQueue( aiBrain, eng, whatToBuild, position )
+                                    LOUDINSERT(eng.EngineerBuildQueue, { whatToBuild, position } )
 									
-									table.remove(bType,n)
+									LOUDREMOVE(bType,n)
 									
 									return true
 								end
@@ -368,7 +373,8 @@ function AIBuildAdjacency( aiBrain, builder, buildingType, closeToBuilder, relat
 		
         if location then
 		
-            AddToBuildQueue( aiBrain, builder, whatToBuild, location )
+            --AddToBuildQueue( aiBrain, builder, whatToBuild, location )
+            LOUDINSERT(builder.EngineerBuildQueue, { whatToBuild, location } )
 			
             return true
 			
@@ -389,11 +395,11 @@ end
 -- both values get defaulted if not present  
 function AINewExpansionBase( aiBrain, baseName, position, engineer, constructionData )
 
-	local LOUDGETN = table.getn
-
 	if (not engineer.Dead) then
 
 		local baseValues = {}
+        local count = 0
+        
 		local highPri = false
 
 		-- determines if this base is counted against total allowed bases -- defaults to false
@@ -421,8 +427,9 @@ function AINewExpansionBase( aiBrain, baseName, position, engineer, construction
 			local baseValue,island = baseData.ExpansionFunction( aiBrain, position, constructionData.NearMarkerType )
 
 			if baseValue > 0 then
-			
-				LOUDINSERT( baseValues, { Base = templateName, Island = island, Value = baseValue } )
+            
+                count = count + 1
+				baseValues[count] = { Base = templateName, Island = island, Value = baseValue }
             
 				if not highPri or baseValue > highPri then
 					highPri = baseValue
@@ -432,17 +439,19 @@ function AINewExpansionBase( aiBrain, baseName, position, engineer, construction
 
 		-- if more than one with highest value - pick randomly
 		local validNames = {}
+        count = 0
 
 		for k,v in baseValues do
 		
 			if v.Value == highPri then
 			
-				LOUDINSERT( validNames, {Base = v.Base, Island = v.Island} )
+                count = count + 1
+				validNames[count] = {Base = v.Base, Island = v.Island}
 				
 			end
 		end
 		
-		local pick = validNames[ Random( 1, LOUDGETN(validNames) ) ] or false
+		local pick = validNames[ Random( 1, count ) ] or false
         
 		if not pick then
         

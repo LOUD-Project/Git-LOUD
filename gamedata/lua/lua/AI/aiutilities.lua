@@ -2,12 +2,16 @@
 
 local SUtils = import('/lua/ai/sorianutilities.lua')
 
+local TABLECAT = table.cat
+local LOUDDEEPCOPY = table.deepcopy
 local LOUDINSERT = table.insert
 local LOUDPARSE = ParseEntityCategory
 local LOUDSORT = table.sort
 
 local VDist2 = VDist2
 local VDist2Sq = VDist2Sq
+
+local GetAIBrain = moho.unit_methods.GetAIBrain
 
 
 -- Adds an area to the brains MustScout table
@@ -119,7 +123,7 @@ function AIPickEnemyLogic( self, brainbool )
     -- the only place I see that happening is with the Sorian
     -- AI Chat functions - otherwise default is false and 
     -- allied targets don't override this one
-    if allyEnemy then -- and not self.targetoveride then
+    if allyEnemy then
 	
         LOG("*AI DEBUG Switching to allied enemy")
 		
@@ -503,7 +507,7 @@ function AIFindDefensivePointNeedsStructureFromPoint( aiBrain, point, radius, ca
 
     local positions = AIGetMarkersAroundLocation( aiBrain, 'Defensive Point', point, radius, tMin, tMax, tRings, tType)
     
-	positions = table.cat(positions, AIGetMarkersAroundLocation( aiBrain, 'Expansion Area', point, radius, tMin, tMax, tRings, tType))
+	positions = TABLECAT(positions, AIGetMarkersAroundLocation( aiBrain, 'Expansion Area', point, radius, tMin, tMax, tRings, tType))
     
     local searchcats = LOUDPARSE(category)
 	
@@ -532,7 +536,7 @@ function AIGetClosestMarkerLocation(aiBrain, markerType, startX, startZ, extraTy
 	
         for _, pType in extraTypes do
 		
-            markerlist = table.cat(markerlist, ScenarioInfo.Env.Scenario.MasterChain[pType] or AIGetMarkerLocations(pType) )
+            markerlist = TABLECAT(markerlist, ScenarioInfo.Env.Scenario.MasterChain[pType] or AIGetMarkerLocations(pType) )
         end
     end
 	
@@ -1047,7 +1051,7 @@ function SetupAICheat(aiBrain, biggestTeamSize)
     local modifier = 1
 
 	-- build rate cheat
-    local newbuff = table.deepcopy(Buffs['CheatBuildRate'])
+    local newbuff = LOUDDEEPCOPY(Buffs['CheatBuildRate'])
     
     newbuff.Name = 'CheatBuildRate'..aiBrain.ArmyIndex
     
@@ -1079,7 +1083,7 @@ function SetupAICheat(aiBrain, biggestTeamSize)
 
 
 	-- resource rate cheat buff
-    newbuff = table.deepcopy(Buffs['CheatIncome'])
+    newbuff = LOUDDEEPCOPY(Buffs['CheatIncome'])
     
     newbuff.Name = 'CheatIncome'..aiBrain.ArmyIndex
     
@@ -1099,7 +1103,7 @@ function SetupAICheat(aiBrain, biggestTeamSize)
 
 
     -- ACU intel range buff - same as cheat bonus
-    newbuff = table.deepcopy(Buffs['CheatCDROmni'])
+    newbuff = LOUDDEEPCOPY(Buffs['CheatCDROmni'])
     
     newbuff.Name = 'CheatCDROmni'..aiBrain.ArmyIndex
     
@@ -1120,7 +1124,7 @@ function SetupAICheat(aiBrain, biggestTeamSize)
 	
     
 	-- storage cheat -- increases storage by the multiplier - only used on the ACU
-    newbuff = table.deepcopy(Buffs['CheatEnergyStorage'])
+    newbuff = LOUDDEEPCOPY(Buffs['CheatEnergyStorage'])
     
     newbuff.Name = 'CheatEnergyStorage'..aiBrain.ArmyIndex
     
@@ -1138,7 +1142,7 @@ function SetupAICheat(aiBrain, biggestTeamSize)
     end
 
     
-    newbuff = table.deepcopy(Buffs['CheatMassStorage'])
+    newbuff = LOUDDEEPCOPY(Buffs['CheatMassStorage'])
     
     newbuff.Name = 'CheatMassStorage'..aiBrain.ArmyIndex
     
@@ -1157,7 +1161,7 @@ function SetupAICheat(aiBrain, biggestTeamSize)
 
 	-- intel range cheat -- applied at 34% of the multiplier
     -- affects vision, radar, sonar, omni
-    newbuff = table.deepcopy(Buffs['CheatIntel'])
+    newbuff = LOUDDEEPCOPY(Buffs['CheatIntel'])
 	
 	modifier = math.max( 0, aiBrain.CheatValue - 1.0 )
 	modifier = 0.34 * modifier
@@ -1185,7 +1189,7 @@ function SetupAICheat(aiBrain, biggestTeamSize)
     
 	-- overall cheat buff -- applied at 34% of the multiplier
 	-- alter unit health, shield health and regen rates
-    newbuff = table.deepcopy(Buffs['CheatALL'])
+    newbuff = LOUDDEEPCOPY(Buffs['CheatALL'])
     
     newbuff.Name = 'CheatALL'..aiBrain.ArmyIndex
 	
@@ -1232,7 +1236,7 @@ function ApplyCheatBuffs(unit)
     -- Cheatbuffs are NOT applied to Insignificant units or NUKE/ANTI-NUKE units --
 	if not LOUDENTITY( categories.INSIGNIFICANTUNIT, unit) and not LOUDENTITY((categories.NUKE + categories.ANTIMISSILE) * categories.SILO, unit ) then
     
-        local aiBrain = unit:GetAIBrain()
+        local aiBrain = GetAIBrain(unit)
 
 		local ApplyBuff = import('/lua/sim/buff.lua').ApplyBuff
         local RemoveBuff = import('/lua/sim/buff.lua').RemoveBuff

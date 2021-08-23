@@ -27,6 +27,7 @@ local WaitSeconds = WaitSeconds
 local WaitTicks = coroutine.yield
 local VDist3 = VDist3
 
+local GetAIBrain = moho.unit_methods.GetAIBrain
 local GetCurrentUnits = moho.aibrain_methods.GetCurrentUnits
 local GetListOfUnits = moho.aibrain_methods.GetListOfUnits
 local GetPosition = moho.entity_methods.GetPosition
@@ -457,7 +458,7 @@ function GetFreeUnitsAroundPoint( aiBrain, category, location, radius, useRefuel
 	
 		for k,v in units do
 		
-			if not v.Dead and not v:IsBeingBuilt() and v:GetAIBrain().ArmyIndex == aiBrain.ArmyIndex then
+			if not v.Dead and not v:IsBeingBuilt() and GetAIBrain(v).ArmyIndex == aiBrain.ArmyIndex then
 			
 				-- select only units in the Army pool or not attached
 				if not v.PlatoonHandle or (v.PlatoonHandle == aiBrain.ArmyPool) or (useRefuelPool and v.PlatoonHandle == aiBrain.RefuelPool) then
@@ -519,14 +520,14 @@ function SpawnWaveThread( aiBrain )
 			end
 			
 			-- add the unit to the list --
-			table.insert(initialUnits, test_unit_id)
+			LOUDINSERT(initialUnits, test_unit_id)
 		else
 		
 			if not initialUnits then
 				initialUnits = {}
 			end
 			
-			table.insert(initialUnits, false)
+			LOUDINSERT(initialUnits, false)
 		end
 	end
 	
@@ -663,11 +664,11 @@ function SubscribeToACT(aiBrain)
 
 	-- Purge unneeded adaptive KVP once it's consumed
 	if aiBrain.Adaptive == 2 or aiBrain.Adaptive == 4 then
-		table.insert(ratioACTBrains, aiBrain)
+		LOUDINSERT(ratioACTBrains, aiBrain)
 	end
     
 	if aiBrain.Adaptive == 3 or aiBrain.Adaptive == 4 then
-		table.insert(timeACTBrains, aiBrain)
+		LOUDINSERT(timeACTBrains, aiBrain)
 	end
     
 	aiBrain.Adaptive = nil
@@ -988,7 +989,7 @@ function SimulateFactoryBuilt (finishedUnit)
 
                         local ProcessAirUnits = import('/lua/loudutilities.lua').ProcessAirUnits
 
-                        ProcessAirUnits( finishedUnit, finishedUnit:GetAIBrain() )
+                        ProcessAirUnits( finishedUnit, GetAIBrain(finishedUnit) )
                     end
                 end
 			end
@@ -1008,7 +1009,7 @@ function SimulateFactoryBuilt (finishedUnit)
 				
                         local ProcessAirUnits = import('/lua/loudutilities.lua').ProcessAirUnits
 					
-                        ProcessAirUnits( finishedUnit, finishedUnit:GetAIBrain() )
+                        ProcessAirUnits( finishedUnit, GetAIBrain(finishedUnit) )
                     end
                 end
 			end
@@ -1017,7 +1018,7 @@ function SimulateFactoryBuilt (finishedUnit)
 		else
 			
 			-- transports get assigned to the Transport pool
-			finishedUnit:ForkThread( AssignTransportToPool, finishedUnit:GetAIBrain() )
+			finishedUnit:ForkThread( AssignTransportToPool, GetAIBrain(finishedUnit) )
 		end
 	end
 end
@@ -1086,9 +1087,11 @@ function DisperseUnitsToRallyPoints( aiBrain, units, position, rallypointtable, 
 		end
 	
 		rallypointtable = {}
+        local count = 0
 		
 		for _,v in rallypoints do
-			LOUDINSERT( rallypointtable, v.Position )
+            count = count + 1
+			rallypointtable[count] = v.Position
 		end
 	end
 
@@ -1733,7 +1736,7 @@ end
 -- it sets a value on the brain to produce more -- this function
 -- is run whenever a factory responds to that need and starts building them
 function ResetBrainNeedsTransport( aiBrain )
-    aiBrain.NeedTransports = false
+    aiBrain.NeedTransports = nil
 end
 
 -- this function will direct all air units into the refit/refuel process if needed
@@ -2037,7 +2040,7 @@ end
 -- unit is in range of the location
 function TeleportLocationBlocked( self, location )
 
-	local aiBrain = self:GetAIBrain()
+	local aiBrain = GetAIBrain(self)
     
     local BRAINS = ArmyBrains
 	
@@ -2124,7 +2127,7 @@ function AddCustomUnitSupport( aiBrain )
 						interExcludes[e.mod] = {}
 					end
 					e.always = true
-					table.insert(interExcludes[e.mod], e)
+					LOUDINSERT(interExcludes[e.mod], e)
 				end
 			end
 		end
@@ -2139,7 +2142,7 @@ function AddCustomUnitSupport( aiBrain )
 		-- If there's an inter-mod exclusion set for this mod, add its blocks too
 		if interExcludes[m.uid] then
 			for _, v in interExcludes[m.uid] do
-				table.insert(env, v)
+				LOUDINSERT(env, v)
 			end
 		end
 		-- Check every exclusion block to see if modconfig activates it
@@ -2616,18 +2619,18 @@ function GetBasePerimeterPoints( aiBrain, location, radius, orientation, positio
 	
 	-- sort the points from front to rear based upon orientation
 	if Orient == 'N' then
-		table.sort(locList, function(a,b) return a[3] < b[3] end)
+		LOUDSORT(locList, function(a,b) return a[3] < b[3] end)
 	elseif Orient == 'S' then
-		table.sort(locList, function(a,b) return a[3] > b[3] end)
+		LOUDSORT(locList, function(a,b) return a[3] > b[3] end)
 	elseif Orient == 'E' then 
-		table.sort(locList, function(a,b) return a[1] > b[1] end)
+		LOUDSORT(locList, function(a,b) return a[1] > b[1] end)
 	elseif Orient == 'W' then
-		table.sort(locList, function(a,b) return a[1] < b[1] end)
+		LOUDSORT(locList, function(a,b) return a[1] < b[1] end)
 	end
 
 	local sortedList = {}
 	
-	if table.empty(locList) then
+	if not locList[1] then
 		return {} 
 	end
 	
@@ -2689,7 +2692,7 @@ function GetBasePerimeterPoints( aiBrain, location, radius, orientation, positio
 	if positionselection then
 	
 		if type(positionselection) == 'boolean' then
-			positionselection = Random( 1, counter )	--table.getn(sortedList))
+			positionselection = Random( 1, counter )
 		end
 
 	end
@@ -3078,13 +3081,13 @@ function PathGeneratorAir( aiBrain )
 			
 			local threat = GetThreatBetweenPositions( aiBrain, queueitem.Node.position, testposition, false, data.ThreatLayer)
 
-			if threat > (queueitem.threat) then
+			if threat > queueitem.threat then
 				continue
 			end
 			
 			threat = MATHMAX(0, GetThreatAtPosition( aiBrain, testposition, 0, true, data.ThreatLayer ))
 			
-			if threat > (queueitem.threat) then
+			if threat > queueitem.threat then
 				continue
 			end
 			
@@ -3609,7 +3612,7 @@ function PathGeneratorWater(aiBrain)
 
 			local threat = GetThreatBetweenPositions( aiBrain, position, testposition, nil, data.ThreatLayer)
 			
-			if threat > (queueitem.threat) then
+			if threat > queueitem.threat then
 				continue
 			end
 
@@ -4654,8 +4657,9 @@ function BuildScoutLocations( self )
         end
 
         self.Players = ScenarioInfo.Options.PlayerCount
+        
         self.NumOpponents = numOpponents
-        self.NumAllies = numAllies
+
 		
 		local StartPosX, StartPosZ = self:GetArmyStartPos()
 		
@@ -4726,7 +4730,7 @@ end
 -- the index of the current enemy is kept on the brain
 function PickEnemy( self )
 	
-	self.targetoveride = false
+	self.targetoveride = nil
 
     while true do
         AIPickEnemyLogic( self, true)
@@ -5115,7 +5119,7 @@ function CreateAttackPlan( self, enemyPosition )
                 end
 
 				-- if no land marker could be found - try using a Naval marker
-                if fakeposition then
+                if fakeposition[1].Position then
 				
                     if ScenarioInfo.AttackPlanDialog then
                         LOG("*AI DEBUG "..self.Nickname.." using Fakeposition assign - working from CurrentPoint of "..repr(CurrentPoint))
@@ -5138,7 +5142,7 @@ function CreateAttackPlan( self, enemyPosition )
             LOUDSORT(positions, function(a,b) return a.Pathvalue < b.Pathvalue end )
 			
 			-- make sure new point not same as previous - if it is - we're done
-			if not table.equal( positions[1].Position, CurrentPoint ) then
+			if positions[1] and (not table.equal( positions[1].Position, CurrentPoint )) then
 			
 				StageCount = StageCount + 1 
 				

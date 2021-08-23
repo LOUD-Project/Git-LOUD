@@ -15,7 +15,6 @@ local CreatePlatoonBuilder = import('/lua/sim/Builder.lua').CreatePlatoonBuilder
 local factionnames = { 'UEF','Aeon','Cybran','Seraphim' }
 
 local LOUDGETN = table.getn
-local LOUDINSERT = table.insert
 
 function CreatePlatoonFormManager(brain, lType, position, radius)
 

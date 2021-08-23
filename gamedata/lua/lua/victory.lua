@@ -67,7 +67,7 @@ function CheckVictory(ScenarioInfo)
 			
 				local validunits = GetListOfUnits( brain, categoryCheck, false )
 				
-                if not validunits or table.getn(validunits) < 1 then
+                if not validunits[1] then
 
 					-- kill all units
 					local killacu = brain:GetListOfUnits(categories.ALLUNITS, false)

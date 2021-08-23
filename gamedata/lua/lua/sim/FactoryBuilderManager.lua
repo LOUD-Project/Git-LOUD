@@ -15,6 +15,7 @@ local RandomLocation = import('/lua/ai/aiutilities.lua').RandomLocation
 local CreateFactoryBuilder = import('/lua/sim/Builder.lua').CreateFactoryBuilder
 
 local BuildPlatoon = moho.aibrain_methods.BuildPlatoon
+local GetAIBrain = moho.unit_methods.GetAIBrain
 
 local LOUDGETN  = table.getn
 local LOUDINSERT = table.insert
@@ -343,7 +344,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 		local IsIdleState = moho.unit_methods.IsIdleState
 		local IsUnitState = moho.unit_methods.IsUnitState
 		
-		local aiBrain = factory:GetAIBrain()		
+		local aiBrain = GetAIBrain(factory)		
 		local GetEconomyStored = moho.aibrain_methods.GetEconomyStored
 	
 		WaitTicks( (6 - (factory.BuildLevel * 2)) + (factory.failedbuilds * 10) + 1 )
@@ -528,7 +529,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 	-- some specfic tasks are performed here for engineers, factory upgrades or air transports
     FactoryFinishBuilding = function( self, factory, finishedUnit )
 
-		local aiBrain = factory:GetAIBrain()
+		local aiBrain = GetAIBrain(factory)
 		
 		local LOUDENTITY = EntityCategoryContains
 		
@@ -653,9 +654,9 @@ FactoryBuilderManager = Class(BuilderManager) {
 			local replacementdone = false
             
             -- sometimes the stock unit template is empty
-            local tablesize = LOUDGETN(PlatoonTemplates[templateName].FactionSquads[faction])
+            --local tablesize = LOUDGETN(PlatoonTemplates[templateName].FactionSquads[faction])
             
-            if tablesize > 0 then
+            if PlatoonTemplates[templateName].FactionSquads[faction][1] then
 		
                 for _,v in PlatoonTemplates[templateName].FactionSquads[faction] do
 			
@@ -812,7 +813,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 			Direction = 270		-- West
 		end
 
-		local aiBrain = factory:GetAIBrain()
+		local aiBrain = GetAIBrain(factory)
 		
 		while true do
 		

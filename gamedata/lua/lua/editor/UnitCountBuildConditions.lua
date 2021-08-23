@@ -33,7 +33,7 @@ local LOUDCOPY = table.copy
 local LOUDENTITY = EntityCategoryContains
 local LOUDFLOOR = math.floor
 local LOUDGETN = table.getn
-local LOUDINSERT = table.insert
+
 local LOUDPARSE = ParseEntityCategory
 local LOUDSORT = table.sort
 local LOUDTYPE = type
@@ -992,13 +992,13 @@ end
 
 function ShieldDamaged(aiBrain, locationType)
 
-	local engineerManager = aiBrain.BuilderManagers[locationType].EngineerManager
+	local BM = aiBrain.BuilderManagers[locationType]
 	
-    if not engineerManager then
+    if not BM then
         return false
     end
 	
-	local shields = aiBrain:GetUnitsAroundPoint( categories.STRUCTURE * categories.SHIELD - categories.TECH2, engineerManager.Location, engineerManager.Radius, 'Ally' )
+	local shields = aiBrain:GetUnitsAroundPoint( categories.STRUCTURE * categories.SHIELD - categories.TECH2, BM.Position, BM.Radius, 'Ally' )
 	
 	for num, unit in shields do
 	

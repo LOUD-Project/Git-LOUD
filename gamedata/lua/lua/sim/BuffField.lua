@@ -7,6 +7,8 @@ local RemoveBuff = import('/lua/sim/buff.lua').RemoveBuff
 
 local Entity = import('/lua/sim/Entity.lua').Entity
 
+local LOUDINSERT = table.insert
+
 BuffFieldBlueprints = {}
 
 -- this function is for registering new buff fields. Don't remove.
@@ -73,7 +75,7 @@ BuffField = Class(Entity) {
         Entity.OnCreate(self)
 		
 		-- store the entity on its owner
-		table.insert(Owner.MyBuffFields, self)
+		LOUDINSERT(Owner.MyBuffFields, self)
 
         if bp.DisableInTransport then
             Owner:AddUnitCallback(self.DisableInTransport, 'OnAttachedToTransport')
@@ -143,7 +145,7 @@ BuffField = Class(Entity) {
                 Owner.BuffFieldEffectsBag = {}
             end
 
-            table.insert( Owner.BuffFieldEffectsBag, CreateAttachedEmitter(Owner, 0, Army, self.FieldVisualEmitter):ScaleEmitter(self.VisualScale) )
+            LOUDINSERT( Owner.BuffFieldEffectsBag, CreateAttachedEmitter(Owner, 0, Army, self.FieldVisualEmitter):ScaleEmitter(self.VisualScale) )
         end
 		
 		if self.AmbientEffects and type(self.AmbientEffects) == 'string' and self.AmbientEffects != '' then
@@ -152,7 +154,7 @@ BuffField = Class(Entity) {
                 Owner.BuffFieldEffectsBag = {}
             end
 
-            table.insert( Owner.BuffFieldEffectsBag, CreateAttachedEmitter(Owner, 0, Army, self.AmbientEffects):ScaleEmitter(self.VisualScale) )
+            LOUDINSERT( Owner.BuffFieldEffectsBag, CreateAttachedEmitter(Owner, 0, Army, self.AmbientEffects):ScaleEmitter(self.VisualScale) )
 		end
     end,
 	
@@ -255,6 +257,8 @@ BuffField = Class(Entity) {
 		local GetOwnUnitsAroundPoint = import('/lua/ai/aiutilities.lua').GetOwnUnitsAroundPoint
 		local GetAlliedUnitsAroundPoint = import('/lua/ai/aiutilities.lua').GetAlliedUnitsAroundPoint
 		local ForkThread = ForkThread
+        
+        local LOUDCOPY = table.copy
 		local LOUDMERGE = table.merged
 		
 		local aiBrain = Owner:GetAIBrain()
@@ -267,7 +271,7 @@ BuffField = Class(Entity) {
 		
 			local unitlist = {}
 
-			local pos = table.copy(Owner:GetPosition()) or false
+			local pos = LOUDCOPY(Owner:GetPosition()) or false
 
 			if pos then
             

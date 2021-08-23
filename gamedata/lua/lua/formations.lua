@@ -36,7 +36,7 @@ local LOUDCOS = math.cos
 local LOUDENTITY = EntityCategoryContains
 local LOUDFLOOR = math.floor
 local LOUDGETN = table.getn
-local LOUDINSERT = table.insert
+
 local LOUDMAX = math.max
 local LOUDMOD = math.mod
 local LOUDPI = math.pi
@@ -1162,7 +1162,6 @@ function LOUDClusterFormation( formationUnits )
 
 	local LOUDCOS = math.cos
 	local LOUDSIN = math.sin
-	local LOUDINSERT = table.insert
 	local LOUDPI = math.pi
 	local LOUDMAX = math.max
 	local LOUDGETN = table.getn
@@ -1177,7 +1176,7 @@ function LOUDClusterFormation( formationUnits )
     local ring = 0
     local ringChange = 1
     local unitCount = 0
-    local sizeMult = 0 --LOUDMAX(1.0, ringChange * 0.2)
+    local sizeMult = 0
     
     #-- make rings around center point
     for i in formationUnits do
@@ -1215,6 +1214,7 @@ function ScatterFormation( formationUnits )
     local rotate = false
 	
     local FormationPos = {}
+    local count = 0
 	
     local numUnits = LOUDGETN(formationUnits)
 
@@ -1258,7 +1258,9 @@ function ScatterFormation( formationUnits )
 		
         --LOG('*FORMATION DEBUG: X=' .. offsetX .. ', Y=' .. offsetY )
 		
-        LOUDINSERT(FormationPos, { offsetX, offsetY, categories.ALLUNITS, 0, rotate })
+        count = count + 1
+        FormationPos[count] = { offsetX, offsetY, categories.ALLUNITS, 0, rotate }
+        
         unitCount = unitCount + 1
 		
     end
@@ -1625,9 +1627,8 @@ function NavalBlocks( unitsList, navyType )
     local Destroyers = true
     local unitNum = 1
 	
-	local LOUDINSERT = table.insert
-	
 	local FormationPos = {}
+    local count = 0
 	
     for i,v in navyType do
 	
@@ -1636,7 +1637,8 @@ function NavalBlocks( unitsList, navyType )
             if u == 'Carriers' and Carriers and unitsList.CarrierCount > 0 then
                 for j, coord in v[1] do
                     if unitsList.CarrierCount ~= 0 then
-                        LOUDINSERT(FormationPos, { coord[1]*NavalSpacing, coord[2]*NavalSpacing, categories.NAVAL * categories.AIRSTAGINGPLATFORM * ( categories.TECH3 + categories.EXPERIMENTAL ), 0, true })
+                        count = count + 1
+                        FormationPos[count] = { coord[1]*NavalSpacing, coord[2]*NavalSpacing, categories.NAVAL * categories.AIRSTAGINGPLATFORM * ( categories.TECH3 + categories.EXPERIMENTAL ), 0, true }
                         unitsList.CarrierCount = unitsList.CarrierCount - 1
                         unitNum = unitNum + 1
                     end
@@ -1647,7 +1649,8 @@ function NavalBlocks( unitsList, navyType )
             elseif u == 'Battleships' and Battleships and unitsList.BattleshipCount > 0 then
                 for j, coord in v[1] do
                     if unitsList.BattleshipCount ~= 0 then
-                        LOUDINSERT(FormationPos, { coord[1]*NavalSpacing, coord[2]*NavalSpacing, BattleshipNaval, 0, true })
+                        count = count + 1
+                        FormationPos[count] = { coord[1]*NavalSpacing, coord[2]*NavalSpacing, BattleshipNaval, 0, true }
                         unitsList.BattleshipCount = unitsList.BattleshipCount - 1
                         unitNum = unitNum + 1
                     end
@@ -1658,7 +1661,8 @@ function NavalBlocks( unitsList, navyType )
             elseif u == 'Cruisers' and Cruisers and unitsList.CruiserCount > 0 then
                 for j, coord in v[1] do
                     if unitsList.CruiserCount ~= 0 then
-                        LOUDINSERT(FormationPos, { coord[1]*NavalSpacing, coord[2]*NavalSpacing, CruiserNaval, 0, true })
+                        count = count + 1
+                        FormationPos[count] = { coord[1]*NavalSpacing, coord[2]*NavalSpacing, CruiserNaval, 0, true }
                         unitNum = unitNum + 1
                         unitsList.CruiserCount = unitsList.CruiserCount - 1
                     end
@@ -1669,7 +1673,8 @@ function NavalBlocks( unitsList, navyType )
             elseif u == 'Destroyers' and Destroyers and unitsList.DestroyerCount > 0 then
                 for j, coord in v[1] do
                     if unitsList.DestroyerCount > 0 then
-                        LOUDINSERT(FormationPos, { coord[1]*NavalSpacing, coord[2]*NavalSpacing, DestroyerNaval, 0, true })
+                        count = count + 1
+                        FormationPos[count] = { coord[1]*NavalSpacing, coord[2]*NavalSpacing, DestroyerNaval, 0, true }
                         unitNum = unitNum + 1
                         unitsList.DestroyerCount = unitsList.DestroyerCount - 1
                     end
@@ -1680,7 +1685,8 @@ function NavalBlocks( unitsList, navyType )
             elseif u == 'Frigates' and unitsList.FrigateCount > 0 then
                 for j, coord in v[1] do
                     if unitsList.FrigateCount > 0 then
-                        LOUDINSERT(FormationPos, { coord[1]*NavalSpacing, coord[2]*NavalSpacing, FrigateNaval, 0, true })
+                        count = count + 1
+                        FormationPos[count] = { coord[1]*NavalSpacing, coord[2]*NavalSpacing, FrigateNaval, 0, true }
                         unitNum = unitNum + 1
                         unitsList.FrigateCount = unitsList.FrigateCount - 1
                     end
@@ -1690,7 +1696,8 @@ function NavalBlocks( unitsList, navyType )
             elseif u == 'Frigates' and unitsList.LightCount > 0 then
                 for j,coord in v[1] do
                     if unitsList.LightCount > 0 then
-                        LOUDINSERT(FormationPos, { coord[1]*NavalSpacing, coord[2]*NavalSpacing, LightAttackNaval, 0, true })
+                        count = count + 1
+                        FormationPos[count] = { coord[1]*NavalSpacing, coord[2]*NavalSpacing, LightAttackNaval, 0, true }
                         unitNum = unitNum + 1
                         unitsList.LightCount = unitsList.LightCount - 1
                     end
@@ -1700,7 +1707,8 @@ function NavalBlocks( unitsList, navyType )
             elseif u == 'Submarines' and unitsList.SubCount > 0 then
                 for j,coord in v[1] do
                     if ( unitsList.SubCount + unitsList.NukeSubCount ) > 0 then
-                        LOUDINSERT(FormationPos, { coord[1]*NavalSpacing, coord[2]*NavalSpacing, SubNaval, 0, true })
+                        count = count + 1
+                        FormationPos[count] = { coord[1]*NavalSpacing, coord[2]*NavalSpacing, SubNaval, 0, true }
                         unitNum = unitNum + 1
                         unitsList.SubCount = unitsList.SubCount - 1
                     end
@@ -1725,39 +1733,56 @@ function NavalBlocks( unitsList, navyType )
 
     while i <= unitsList.UnitTotal do
         if unitsList.CarrierCount > 0 then
-            LOUDINSERT(FormationPos, { sideTable[sideIndex]*NavalSpacing, length*NavalSpacing, categories.NAVAL * categories.AIRSTAGINGPLATFORM * ( categories.TECH3 + categories.EXPERIMENTAL ), 0, true  })
+            count = count + 1
+            FormationPos[count] = { sideTable[sideIndex]*NavalSpacing, length*NavalSpacing, categories.NAVAL * categories.AIRSTAGINGPLATFORM * ( categories.TECH3 + categories.EXPERIMENTAL ), 0, true  }
             unitNum = unitNum + 1
             unitsList.CarrierCount = unitsList.CarrierCount - 1
+            
         elseif unitsList.BattleshipCount > 0 then
-            LOUDINSERT(FormationPos, { sideTable[sideIndex]*NavalSpacing, length*NavalSpacing, BattleshipNaval, 0, true })
+            count = count + 1
+            FormationPos[count] = { sideTable[sideIndex]*NavalSpacing, length*NavalSpacing, BattleshipNaval, 0, true }
             unitNum = unitNum + 1
             unitsList.BattleshipCount = unitsList.BattleshipCount - 1
+            
         elseif unitsList.CruiserCount > 0 then
-            LOUDINSERT(FormationPos, { sideTable[sideIndex]*NavalSpacing, length*NavalSpacing, CruiserNaval, 0, true })
+            count = count + 1
+            FormationPos[count] = { sideTable[sideIndex]*NavalSpacing, length*NavalSpacing, CruiserNaval, 0, true }
             unitNum = unitNum + 1
             unitsList.CruiserCount = unitsList.CruiserCount - 1
+            
         elseif unitsList.DestroyerCount > 0 then
-            LOUDINSERT(FormationPos, { sideTable[sideIndex]*NavalSpacing, length*NavalSpacing, DestroyerNaval, 0, true })
+            count = count + 1
+            FormationPos[count] = { sideTable[sideIndex]*NavalSpacing, length*NavalSpacing, DestroyerNaval, 0, true }
             unitNum = unitNum + 1
             unitsList.DestroyerCount = unitsList.DestroyerCount - 1
+            
         elseif unitsList.FrigateCount > 0 then
-            LOUDINSERT(FormationPos, { sideTable[sideIndex]*NavalSpacing, length*NavalSpacing, FrigateNaval, 0, true })
+            count = count + 1
+            FormationPos[count] = { sideTable[sideIndex]*NavalSpacing, length*NavalSpacing, FrigateNaval, 0, true }
             unitNum = unitNum + 1
             unitsList.FrigateCount = unitsList.FrigateCount - 1
+            
         elseif unitsList.LightCount > 0 then
-            LOUDINSERT(FormationPos, { sideTable[sideIndex]*NavalSpacing, length*NavalSpacing, LightAttackNaval, 0, true })
+            count = count + 1
+            FormationPos[count] = { sideTable[sideIndex]*NavalSpacing, length*NavalSpacing, LightAttackNaval, 0, true }
             unitNum = unitNum + 1
             unitsList.LightCount = unitsList.LightCount - 1
+            
         elseif ( unitsList.SubCount + unitsList.NukeSubCount ) > 0 then
-            LOUDINSERT(FormationPos, { sideTable[sideIndex]*NavalSpacing, length*NavalSpacing, SubNaval, 0, true })
+            count = count + 1
+            FormationPos[count] = { sideTable[sideIndex]*NavalSpacing, length*NavalSpacing, SubNaval, 0, true }
             unitNum = unitNum + 1
             unitsList.SubCount = unitsList.SubCount - 1
+            
         elseif ( unitsList.MobileSonarCount ) > 0 then
-            LOUDINSERT(FormationPos, { sideTable[sideIndex]*NavalSpacing, length*NavalSpacing, MobileSonar + DefensiveBoat, 0, true } )
+            count = count + 1
+            FormationPos[count] = { sideTable[sideIndex]*NavalSpacing, length*NavalSpacing, MobileSonar + DefensiveBoat, 0, true }
             unitNum = unitNum + 1
             unitsList.MobileSonarCount = unitsList.MobileSonarCount - 1
+            
         elseif ( unitsList.RemainingCategory ) > 0 then
-            LOUDINSERT(FormationPos, { sideTable[sideIndex]*NavalSpacing, length*NavalSpacing, NavalCategories.RemainingCategory, 0, true } )
+            count = count + 1
+            FormationPos[count] = { sideTable[sideIndex]*NavalSpacing, length*NavalSpacing, NavalCategories.RemainingCategory, 0, true } 
             unitNum = unitNum + 1
             unitsList.RemainingCategory = unitsList.RemainingCategory - 1
         end
@@ -1776,6 +1801,7 @@ function NavalBlocks( unitsList, navyType )
 
         i = i + 1
     end
+    
     return FormationPos
 end
 

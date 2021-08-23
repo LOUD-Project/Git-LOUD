@@ -20,10 +20,11 @@ local CreateEngineerBuilder = import('/lua/sim/Builder.lua').CreateEngineerBuild
 
 local AssignUnitsToPlatoon = moho.aibrain_methods.AssignUnitsToPlatoon
 local BeenDestroyed = moho.entity_methods.BeenDestroyed
+local GetAIBrain = moho.unit_methods.GetAIBrain
 local MakePlatoon = moho.aibrain_methods.MakePlatoon
 
 local LOUDFLOOR = math.floor
-
+local LOUDCOPY = table.copy
 local LOUDINSERT = table.insert
 local LOUDREMOVE = table.remove
 local LOUDSORT = table.sort
@@ -108,8 +109,8 @@ EngineerManager = Class(BuilderManager) {
         LOUDINSERT( self.EngineerList, unit )
         
         if ScenarioInfo.EngineerDialog then
-            LOG("*AI DEBUG "..unit:GetAIBrain().Nickname.." Adding Engineer "..unit.Sync.id.." "..__blueprints[unit.BlueprintID].Description.." to "..self.ManagerType.." "..self.LocationType)
-            LOG("*AI DEBUG "..unit:GetAIBrain().Nickname.." Engineer Count is "..self.EngineerList.Count + 1)
+            LOG("*AI DEBUG "..GetAIBrain(unit).Nickname.." Adding Engineer "..unit.Sync.id.." "..__blueprints[unit.BlueprintID].Description.." to "..self.ManagerType.." "..self.LocationType)
+            LOG("*AI DEBUG "..GetAIBrain(unit).Nickname.." Engineer Count is "..self.EngineerList.Count + 1)
         end
 		
         self.EngineerList.Count = self.EngineerList.Count + 1
@@ -166,7 +167,7 @@ EngineerManager = Class(BuilderManager) {
 			if not unit.Dead then
 
 				if not unit.AssigningTask then
-					self:ForkThread( self.DelayAssignEngineerTask, unit, unit:GetAIBrain() )
+					self:ForkThread( self.DelayAssignEngineerTask, unit, GetAIBrain(unit) )
 				end
 			end	
 		end
@@ -181,7 +182,7 @@ EngineerManager = Class(BuilderManager) {
 				unit.EnhanceThread = nil
 			end
 			
-			local aiBrain = unit:GetAIBrain()
+			local aiBrain = GetAIBrain(unit)
 			
 			if not unit.EnhancementsComplete then
 				unit.EnhanceThread = unit:ForkThread( import('/lua/ai/aibehaviors.lua').SCUSelfEnhanceThread, aiBrain.FactionIndex, aiBrain )
@@ -426,12 +427,13 @@ EngineerManager = Class(BuilderManager) {
 	
     GetBuildingId = function( self, engineer, buildingType )
 	
-        return engineer:GetAIBrain():DecideWhatToBuild( engineer, buildingType, import('/lua/buildingtemplates.lua').BuildingTemplates[engineer:GetAIBrain().FactionIndex] )
+        return GetAIBrain(engineer):DecideWhatToBuild( engineer, buildingType, import('/lua/buildingtemplates.lua').BuildingTemplates[GetAIBrain(engineer).FactionIndex] )
     end,
     
     GetEngineersQueued = function( self, buildingType )
 		
         local units = {}
+        local count = 0
 		
         for _,v in self.EngineerList do
 		
@@ -440,20 +442,23 @@ EngineerManager = Class(BuilderManager) {
 				if v.EngineerBuildQueue[1] then
             
 					local buildingId = self:GetBuildingId( v, buildingType )
-					
-					local found = false
 			
 					for num, data in v.EngineerBuildQueue do
 			
 						if data[1] == buildingId then
-						
-							found = true
-							LOUDINSERT( units, v )
+
+                            count = count + 1
+							units[count] = v
+                            
 							break
 						end
+                        
 					end
+                    
 				end
+                
 			end
+            
         end
 		
         return units
@@ -468,7 +473,7 @@ EngineerManager = Class(BuilderManager) {
         local testUnits = self:GetEngineersBuildingCategory( engCategory, buildingcategory )
 		
         local retUnits = {}
-		local counter = 1
+		local counter = 0
 
 		-- see if any need assistance
         for _,v in testUnits do
@@ -477,8 +482,9 @@ EngineerManager = Class(BuilderManager) {
 
 				if LOUDGETN( GetGuards(v) ) < v.NumAssistees then
 				
-					retUnits[counter] = v
 					counter = counter + 1
+					retUnits[counter] = v
+
 				end
 			end
         end
@@ -495,7 +501,9 @@ EngineerManager = Class(BuilderManager) {
             if sUnit == unit then
             
                 if ScenarioInfo.EngineerDialog then
-                    local brain = unit:GetAIBrain()
+                
+                    local brain = GetAIBrain(unit)
+                    
                     LOG("*AI DEBUG "..brain.Nickname.." Removing Engineer "..unit.Sync.id.." "..__blueprints[unit.BlueprintID].Description.." from "..self.ManagerType.." "..self.LocationType)
                     LOG("*AI DEBUG "..brain.Nickname.." Engineer Count is "..self.EngineerList.Count - 1)
                 end
@@ -542,11 +550,12 @@ EngineerManager = Class(BuilderManager) {
 		local LOUDENTITY = EntityCategoryContains
 		local ForkThread = ForkThread
 		
-        local aiBrain = unit:GetAIBrain()
+        local aiBrain = GetAIBrain(unit)
+        
         local faction = aiBrain.FactionIndex
 		local StructurePool = aiBrain.StructurePool
 
-		if LOUDENTITY( categories.FACTORY * categories.STRUCTURE - categories.EXPERIMENTAL, finishedUnit ) and finishedUnit:GetAIBrain().ArmyIndex == aiBrain.ArmyIndex then
+		if LOUDENTITY( categories.FACTORY * categories.STRUCTURE - categories.EXPERIMENTAL, finishedUnit ) and GetAIBrain(finishedUnit).ArmyIndex == aiBrain.ArmyIndex then
 
 			-- this was a tricky problem for engineers starting new bases since it was getting
 			-- the LocationType from the platoon (which came from the original base not the new base)
@@ -738,7 +747,7 @@ EngineerManager = Class(BuilderManager) {
 		-- looks for threats
 		local function DrawBaseMonitorRadius( range )
 
-			local position = table.copy(self.Location)
+			local position = aiBrain.BuilderManagers[self.LocationType].Position
 		
 			local color = 'ff0000'      -- red --
 		
@@ -794,7 +803,7 @@ EngineerManager = Class(BuilderManager) {
 					AlertRadius = self.BaseMonitor.AlertRange + 25
 				end
 
-				local threatTable = table.copy(aiBrain.IL.HiPri)
+				local threatTable = LOUDCOPY(aiBrain.IL.HiPri)
 
 				-- if there is a threat table and we have a position
 				if threatTable[1] and self.Location then
@@ -1010,9 +1019,9 @@ EngineerManager = Class(BuilderManager) {
 	BaseMonitorAlertTimeoutLOUD = function( self, aiBrain, pos, baseposition, threattype, distressrange )
 
 		local threshold = self.BaseMonitor.AlertLevel
-	
+        
+        local LOUDCOPY = table.copy
 		local LOUDFLOOR = math.floor
-		local LOUDINSERT = table.insert
 		local LOUDREMOVE = table.remove
 		
 		local WaitTicks = coroutine.yield
@@ -1091,7 +1100,7 @@ EngineerManager = Class(BuilderManager) {
 				-- mark the brain that a base is sounding an alert
 				aiBrain.BaseAlertSounded = true
 
-				pos = table.copy(newpos)
+				pos = LOUDCOPY(newpos)
 		
 				self.BaseMonitor.LastAlertTime = LOUDFLOOR(GetGameTimeSeconds())
 
@@ -1206,7 +1215,7 @@ EngineerManager = Class(BuilderManager) {
 	
 		local WaitTicks = coroutine.yield
 
-		local baseposition = self.Location
+		local baseposition = aiBrain.BuilderManagers[self.LocationType].Position
 
 		local radius = aiBrain.BuilderManagers[self.LocationType].Radius
     
@@ -1723,7 +1732,7 @@ EngineerManager = Class(BuilderManager) {
 						-- if closest one - store it
 						if distressdist <= distance then
 
-							returnPos = table.copy(v.Position)
+							returnPos = LOUDCOPY(v.Position)
 							returnThreat = v.Threat
 							distance = distressdist
 						end

@@ -32,6 +32,8 @@ local WaitTicks = coroutine.yield
 
 local AssignUnitsToPlatoon = moho.aibrain_methods.AssignUnitsToPlatoon
 local AttackTarget = moho.platoon_methods.AttackTarget
+
+local GetAIBrain = moho.unit_methods.GetAIBrain
 local GetBrain = moho.platoon_methods.GetBrain
 
 local GetEconomyStored = moho.aibrain_methods.GetEconomyStored
@@ -388,7 +390,7 @@ function CDROverCharge( aiBrain, cdr )
 						local targetPos = target:GetPosition()
 					
 						enemyThreat = GetThreatAtPosition( aiBrain, targetPos, 0, true, 'AntiSurface')
-						friendlyThreat = GetThreatAtPosition( target:GetAIBrain(), targetPos, 0, true, 'AntiSurface')
+						friendlyThreat = GetThreatAtPosition( GetAIBrain(target), targetPos, 0, true, 'AntiSurface')
 						
 						--LOG("*AI DEBUG Commander "..aiBrain.Nickname.." - threat numbers - enemy "..enemyThreat.." - friendly "..friendlyThreat + cdrThreat)
 		
@@ -467,7 +469,7 @@ function CDROverCharge( aiBrain, cdr )
 
 				-- did Bob die ?
 				if cdr.Dead then
-					aiBrain.CDRDistress = false
+					aiBrain.CDRDistress = nil
 					return
 				end
 				
@@ -630,7 +632,7 @@ function CDRRunAway( aiBrain, cdr )
 				
             end
 			
-			aiBrain.CDRDistress = false
+			aiBrain.CDRDistress = nil
 			
 			LOG("*AI DEBUG "..aiBrain.Nickname.." Commander Distress DEACTIVATED")
 			
@@ -671,7 +673,7 @@ function CDRReturnHome( aiBrain, cdr, Mult )
 	
 	if cdr.Dead then
 	
-		aiBrain.CDRDistress = false
+		aiBrain.CDRDistress = nil
 		return true
 
 	end
@@ -1952,10 +1954,13 @@ function NukeAI( self, aiBrain )
 	local LOUDGETN = LOUDGETN
 	local AvailableLaunches = {}
 	local nukesavailable = 0
+    local count = 0
 	
 	while PlatoonExists( aiBrain, self ) do
 	
 		AvailableLaunches = {}
+        count = 0
+        
 		nukesavailable = 0
 		
 		-- make a list of available missiles
@@ -1965,7 +1970,8 @@ function NukeAI( self, aiBrain )
 			
 				if u:GetNukeSiloAmmoCount() > 0 then
 				
-					LOUDINSERT( AvailableLaunches, u )
+                    count = count + 1
+                    AvailableLaunches[count] = u
 					nukesavailable = nukesavailable + 1
 					
 					if  EntityCategoryContains( categories.xsb2401, u ) then
@@ -2090,6 +2096,7 @@ function NukeAI( self, aiBrain )
 
 				local launches = 0
 				local launchers = {}
+                local count = 0 
 
 				-- collect all the launchers and their flighttime
 				for _,u in AvailableLaunches do
@@ -2101,7 +2108,8 @@ function NukeAI( self, aiBrain )
 					if launcherposition and nukePos then
 
 						-- approx flight time to target
-						LOUDINSERT( launchers, { unit = u, flighttime = math.sqrt( VDist2Sq( nukePos[1],nukePos[3], launcherposition[1],launcherposition[3] ) ) /40 } )
+                        count = count + 1
+						launchers[count] = { unit = u, flighttime = math.sqrt( VDist2Sq( nukePos[1],nukePos[3], launcherposition[1],launcherposition[3] ) ) /40 }
 
 						launches = launches + 1
 						
@@ -2174,7 +2182,7 @@ function NukeAI( self, aiBrain )
 
 					if firednukes > 0 then
 					
-						local aitarget = targetunit:GetAIBrain().ArmyIndex
+						local aitarget = GetAIBrain(targetunit).ArmyIndex
 					
 						AISendChat('allies', ArmyBrains[aiBrain.ArmyIndex].Nickname, 'nukechat', ArmyBrains[aitarget].Nickname)
 
@@ -2227,11 +2235,13 @@ function AirForceAILOUD( self, aiBrain )
     local platoonUnits = LOUDCOPY(GetPlatoonUnits(self))
 
     local categoryList = {}
+    local count = 0
     
     if self.PlatoonData.PrioritizedCategories then
 	
         for _,v in self.PlatoonData.PrioritizedCategories do
-            LOUDINSERT( categoryList, v )
+            count = count + 1
+            categoryList[count] = v
         end
     end
 
@@ -2467,6 +2477,7 @@ function AirForceAILOUD( self, aiBrain )
                     IssueClearCommands( platoonUnits )
 
                     local newpath = {}
+                    local count = 0
                     local pathsize = LOUDGETN(path)
 
                     -- build a newpath that gets the platoon to within strikerange
@@ -2474,7 +2485,8 @@ function AirForceAILOUD( self, aiBrain )
 
                         if waypoint < pathsize and VDist2(p[1],p[3], targetposition[1],targetposition[3]) > strikerange and not DestinationBetweenPoints( targetposition, prevposition, p, 150 ) then
 
-                            LOUDINSERT( newpath, p )
+                            count = count + 1
+                            newpath[count] = p
 
                             prevposition = p
 						else
@@ -2692,11 +2704,13 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
     local platoonUnits = LOUDCOPY(GetPlatoonUnits(self))
 
     local categoryList = {}
+    local count = 0
     
     if self.PlatoonData.PrioritizedCategories then
 	
         for _,v in self.PlatoonData.PrioritizedCategories do
-            LOUDINSERT( categoryList, v )
+            count = count + 1
+            categoryList[count] = v
         end
     end
 
@@ -2909,6 +2923,8 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
                     IssueClearCommands( platoonUnits )
                     
                     local newpath = {}
+                    local count = 0
+                    
                     local pathsize = LOUDGETN(path)
 
                     -- build a newpath that gets the platoon to within strikerange
@@ -2917,7 +2933,8 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
 
                         if waypoint < pathsize and VDist2(p[1],p[3], targetposition[1],targetposition[3]) > strikerange and not DestinationBetweenPoints( targetposition, prevposition, p, 150 ) then
 
-                            LOUDINSERT( newpath, p )
+                            count = count + 1
+                            newpath[count] = p
 
                             prevposition = p
 						else
@@ -3129,11 +3146,14 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
     local platoonUnits = LOUDCOPY(GetPlatoonUnits(self))
 
     local categoryList = {}
+    local count = 0
     
     if self.PlatoonData.PrioritizedCategories then
 	
         for _,v in self.PlatoonData.PrioritizedCategories do
-            LOUDINSERT( categoryList, v )
+        
+            count = count + 1
+            categoryList[count] = v
         end
     end
 
@@ -3345,6 +3365,8 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
                     IssueClearCommands( platoonUnits )
                 
                     local newpath = {}
+                    local count = 0
+                    
                     local pathsize = LOUDGETN(path)
 
                     -- build a newpath that gets the platoon to within strikerange
@@ -3353,7 +3375,8 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
 
                         if waypoint < pathsize and VDist2(p[1],p[3], targetposition[1],targetposition[3]) > strikerange and not DestinationBetweenPoints( targetposition, prevposition, p, 150 ) then
 
-                            LOUDINSERT( newpath, p )
+                            count = count + 1
+                            newpath[count] = p
 
                             prevposition = p
 
@@ -3560,11 +3583,14 @@ function AirForceAI_Torpedo_LOUD( self, aiBrain )
     local platoonUnits = LOUDCOPY(GetPlatoonUnits(self))
 
     local categoryList = {}
+    local count = 0
     
     if self.PlatoonData.PrioritizedCategories then
 	
         for _,v in self.PlatoonData.PrioritizedCategories do
-            LOUDINSERT( categoryList, v )
+        
+            count = count + 1
+            categoryList[count] = v
         end
     end
 
@@ -3776,6 +3802,8 @@ function AirForceAI_Torpedo_LOUD( self, aiBrain )
                     IssueClearCommands( platoonUnits )
                     
                     local newpath = {}
+                    local count = 0
+                    
                     local pathsize = LOUDGETN(path)
 
                     -- build a newpath that gets the platoon to within strikerange
@@ -3784,7 +3812,8 @@ function AirForceAI_Torpedo_LOUD( self, aiBrain )
 
                         if waypoint < pathsize and VDist2(p[1],p[3], targetposition[1],targetposition[3]) > strikerange and not DestinationBetweenPoints( targetposition, prevposition, p, 150 ) then
 
-                            LOUDINSERT( newpath, p )
+                            count = count + 1
+                            newpath[count] = p
 
                             prevposition = p
 						else
@@ -4006,16 +4035,20 @@ function NavalForceAILOUD( self, aiBrain )
 	local PlatoonFormation = data.UseFormation or 'GrowthFormation'
 
     local categoryList = {}
+    local count = 0
 
     if data.PrioritizedCategories then
 	
         for _,v in data.PrioritizedCategories do
 
-            LOUDINSERT( categoryList, LOUDPARSE( v ) )
+            count = count + 1
+            categoryList[count] = LOUDPARSE( v )
+            
         end
     else
-
-		LOUDINSERT( categoryList, categories.NAVAL )
+        
+        count = count + 1
+		categoryList[count] = categories.NAVAL
 	end
 
     --self:SetPrioritizedTargetList( 'Attack', categoryList )
@@ -4631,18 +4664,21 @@ function NavalBombardAILOUD( self, aiBrain )
 	local PlatoonFormation = data.UseFormation or 'GrowthFormation'
 
     local categoryList = {}
+    local count = 0
 
     if data.PrioritizedCategories then
 	
         for _,v in data.PrioritizedCategories do
 		
-            LOUDINSERT( categoryList, LOUDPARSE( v ) )
+            count = count + 1
+            categoryList[count] = LOUDPARSE( v )
 			
         end
 		
     else
 	
-		LOUDINSERT( categoryList, categories.NAVAL )
+		count = count + 1
+        categoryList[count] = categories.NAVAL
 		
 	end
 
@@ -5508,7 +5544,7 @@ function CarrierThread ( carrier, aiBrain )
 
     local killedCallback = function( carrier )
 
-		local aiBrain = carrier:GetAIBrain()
+		local aiBrain = GetAIBrain(carrier)
 		
 		LOG("*AI DEBUG "..aiBrain.Nickname.." Carrier OnKilled event callback")
 		
@@ -7567,45 +7603,6 @@ function LocationInWaterCheck(position)
 end
 
 
---[[
-
--- this is an old function - given a base position -- loop thru the SurfacePriorities looking
--- for a target - if there are more than 5 priority targets at the base then return a unit and the base
--- otherwise we return nil ?  Strange....so this basically avoids a base until there are more than 5
--- priority targets at it...
-function WreckBase( self, base )   
-
-	local weaponrange = GetExperimentalUnit(self):GetWeapon(1):GetBlueprint().MaxRadius
-	local aiBrain = self:GetAIBrain()
-	
-    for _, priority in SurfacePriorities do
-	
-        local numUnitsAtBase = 0
-        local notDeadUnit = false
-		
-        local unitsAtBase = aiBrain:GetUnitsAroundPoint(ParseEntityCategory(priority), base.Position, weaponrange - 2, 'Enemy')
-		
-		if unitsAtBase and LOUDGETN(unitsAtBase) > 5 then
-		
-			for _,unit in unitsAtBase do
-				if not unit.Dead then
-					notDeadUnit = unit
-					numUnitsAtBase = numUnitsAtBase + 1
-				end
-			end        
-        
-			if numUnitsAtBase > 5 then
-				return notDeadUnit, base
-			end
-			
-		end
-		
-    end
-	
-	return nil, nil
-	
-end
-
 --	Finds the experiemental unit in the platoon (assumes platoons are only experimentals)
 --	Assigns any extra experimentals to guard the first
 function GetExperimentalUnit( platoon )
@@ -7643,7 +7640,7 @@ end
 -- Generic experimental AI. Find closest HiPriTarget and go attack it. 
 function BehemothBehavior(self)   
 
-    local aiBrain = self:GetAIBrain()
+    local aiBrain = GetAIBrain(self)
     local experimental = GetExperimentalUnit(self)
 	
 	local markerlist = false
@@ -7784,7 +7781,7 @@ end
 --	Returns:  target unit, target base, else nil
 function FindNavalExperimentalTargetLOUD( self )
 
-    local aiBrain = self:GetAIBrain()
+    local aiBrain = GetAIBrain(self)
     local enemyBases = aiBrain.IL.HiPri
 	
 	local mapSizeX = ScenarioInfo.size[1]
@@ -8030,7 +8027,7 @@ end
 --       nil
 -------------------------------------------------------
 function FatBoyBuildCheck(self)
-    local aiBrain = self:GetAIBrain()
+    local aiBrain = GetAIBrain(self)
     local experimental = GetExperimentalUnit(self)
 	local buildUnits = {}
     
@@ -8091,7 +8088,7 @@ end
 --       nil
 -------------------------------------------------------
 function FatboyChildBehavior(self, parent, base)   
-		local aiBrain = self:GetAIBrain()
+		local aiBrain = GetAIBrain(self)
 		local experimental = GetExperimentalUnit(parent)
 		local targetUnit = false
      

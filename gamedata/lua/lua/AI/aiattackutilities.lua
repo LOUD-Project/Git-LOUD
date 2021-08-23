@@ -1,6 +1,6 @@
 --**  File     :  /lua/AI/aiattackutilities.lua
 
-local LOUDINSERT = table.insert
+local LOUDCOPY = table.copy
 local LOUDPARSE = ParseEntityCategory
 local LOUDSORT = table.sort
 
@@ -165,6 +165,8 @@ end
 -- ceased storing the graph name in the RawPaths table since it wasn't used
 function GetPathGraphs()
 
+    local LOUDINSERT = table.insert
+
     if not ScenarioInfo.PathGraphs then 
 		
 		local AIGetMarkerLocationsEx = import('/lua/ai/aiutilities.lua').AIGetMarkerLocationsEx
@@ -215,7 +217,7 @@ function GetPathGraphs()
 				-- sort the adjacent nodes by name
 				LOUDSORT(newadj)
 
-				ScenarioInfo.PathGraphs[k][marker.name] = { marker.name, position = {marker.position[1],marker.position[2],marker.position[3]}, adjacent = table.copy(newadj), InWater = water }
+				ScenarioInfo.PathGraphs[k][marker.name] = { marker.name, position = {marker.position[1],marker.position[2],marker.position[3]}, adjacent = LOUDCOPY(newadj), InWater = water }
 				
 				LOUDINSERT(ScenarioInfo.PathGraphs['RawPaths'][k], { position = { marker.position[1],marker.position[2],marker.position[3] }, node = marker.name } )
 			end
@@ -468,7 +470,7 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 			if type(PointCategory) == 'string' then
 				CheckCategory = { PointCategory }
 			else
-				CheckCategory = table.copy( PointCategory )
+				CheckCategory = LOUDCOPY( PointCategory )
 			end
 			
 			for _,cat in CheckCategory do
@@ -478,7 +480,7 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 			if pointlist[1] and PointSource then
 
 				-- sort the list by distance from source 
-				table.sort( pointlist, function(a,b) return LOUDV2(PointSource[1],PointSource[3],a.Position[1],a.Position[3]) < LOUDV2( PointSource[1],PointSource[3],b.Position[1],b.Position[3] ) end)
+				LOUDSORT( pointlist, function(a,b) return LOUDV2(PointSource[1],PointSource[3],a.Position[1],a.Position[3]) < LOUDV2( PointSource[1],PointSource[3],b.Position[1],b.Position[3] ) end)
 				
 				for k,v in pointlist do
                
@@ -751,7 +753,7 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
 	-- if position not supplied use platoon position or exit
     if not position then
 	
-        position = table.copy(GetPlatoonPosition(platoon))
+        position = LOUDCOPY(GetPlatoonPosition(platoon))
 		
 		if not position then
 			return false,false
@@ -795,7 +797,7 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
 	-- get all the enemy units around this point (except walls)
 	local enemyunits = GetUnitsAroundPoint( aiBrain, ALLBUTWALLS, position, maxRange, 'Enemy' )
 
-    if table.empty(enemyunits) then
+    if not enemyunits[1] then
         return false, false
     end
 
@@ -887,7 +889,7 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
 							if (not retUnit) or enemythreat < bestthreat then
 
 								retUnit = u
-								retPosition = table.copy(unitposition)
+								retPosition = LOUDCOPY(unitposition)
 								bestthreat = enemythreat
                                 unitchecks = 0
 								break

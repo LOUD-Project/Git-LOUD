@@ -436,13 +436,13 @@ function CreateDefaultBuildBeams( builder, unitBeingBuilt, BuildEffectBones, Bui
     local BeamEndEntity = Entity()
     local army = builder.Sync.army
 	
-	local LOUDINSERT = table.insert
 	local GetRandomFloat = GetRandomFloat
 	
     BuildEffectsBag:Add( BeamEndEntity )
     LOUDWARP( BeamEndEntity, Vector(ox, oy, oz))   
    
     local BuildBeams = {}
+    local count = 0
 
     -- Create build beams
     if BuildEffectBones != nil then
@@ -450,7 +450,8 @@ function CreateDefaultBuildBeams( builder, unitBeingBuilt, BuildEffectBones, Bui
 		
         for i, BuildBone in BuildEffectBones do
             local beamEffect = LOUDATTACHBEAMENTITY(builder, BuildBone, BeamEndEntity, -1, army, BeamBuildEmtBp )
-            LOUDINSERT( BuildBeams, beamEffect )
+            count = count + 1
+            BuildBeams[count] = beamEffect
             BuildEffectsBag:Add(beamEffect)
         end
     end    
@@ -923,8 +924,10 @@ function CreateSeraphimFactoryBuildingEffects( builder, unitBeingBuilt, BuildEff
 end
 
 function CreateSeraphimBuildBaseThread( unitBeingBuilt, builder, EffectsBag )
+
     local army = builder.Sync.army
     local bp = ALLBPS[unitBeingBuilt.BlueprintID]
+    
 	local pos = unitBeingBuilt:GetPosition()
 	local x = pos[1]
 	local y = pos[2]
@@ -957,17 +960,21 @@ function CreateSeraphimBuildBaseThread( unitBeingBuilt, builder, EffectsBag )
     }
     
     local AdjustedEmitters = {}
+    local count = 0
+    
     local effect = nil
 	
     for _, vEffect in BuildEffectsEmitters do
         effect = LOUDATTACHEMITTER( unitBeingBuilt, -1, army, vEffect)
-        LOUDINSERT( AdjustedEmitters, effect )
+        count = count + 1
+        AdjustedEmitters[count] = effect
         EffectsBag:Add(effect)
     end
 
     for _, vEffect in BuildEffectBaseEmitters do
         effect = LOUDATTACHEMITTER( BuildBaseEffect, -1, army, vEffect)
-        LOUDINSERT( AdjustedEmitters, effect )
+        count = count + 1
+        AdjustedEmitters[count] = effect
         EffectsBag:Add(effect)
     end
 
@@ -1348,11 +1355,13 @@ function PlayTeleportChargeEffects(self)
     local bp = ALLBPS[self.BlueprintID]
 
     self.TeleportChargeBag = {}
+    local count = 0
 
     for k, v in EffectTemplate.GenericTeleportCharge01 do
         local fx = LOUDEMITATENTITY( self, army, v ):OffsetEmitter(0, ( bp.Physics.MeshExtentsY or 1 ) * 0.5, 0)
         self.Trash:Add(fx)
-        LOUDINSERT( self.TeleportChargeBag, fx)
+        count = count + 1
+        self.TeleportChargeBag[count] = fx
     end
 
 	-- from BO:U

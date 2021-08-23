@@ -2025,6 +2025,7 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
 	local function SortUnitsOnTransports( transportTable, unitTable )
 
 		local leftoverUnits = {}
+        local count = 0
 	
 		for num, unit in unitTable do
 		
@@ -2093,14 +2094,12 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
 					-- add the unit to the list for this transport
 					LOUDINSERT( transportTable[transSlotNum].Units.Small, unit )
 				else
-				
-					--WARN("*AI DEBUG "..unit:GetAIBrain().Nickname.." FOUND TRANSPORT NOT ENOUGH SLOTS for "..unit:GetBlueprint().Description)
-					
-					LOUDINSERT(leftoverUnits, unit)
+					count = count + 1
+					leftoverUnits[count] = unit
 				end
 			else
-
-				LOUDINSERT(leftoverUnits, unit)
+                count = count + 1
+				leftoverUnits[count] = unit
 			end
 		end
 
@@ -2627,7 +2626,7 @@ function AssignTransportToPool( unit, aiBrain )
 
 		unit:AddUnitCallback( function(unit)
 	
-			if table.getn(unit:GetCargo()) == 0 then
+			if LOUDGETN(unit:GetCargo()) == 0 then
 				
 				if unit.WatchUnloadThread then
 					KillThread(unit.WatchUnloadThread)

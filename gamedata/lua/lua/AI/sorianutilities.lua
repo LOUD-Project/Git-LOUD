@@ -125,7 +125,8 @@ function FinishAIChat(data)
 	
 		if data.NewTarget == 'at will' then
 		
-			aiBrain.targetoveride = false
+			aiBrain.targetoveride = nil
+            
 			AISendChat('allies', aiBrain.Nickname, 'Targeting at will')
 			
 		else
@@ -855,9 +856,9 @@ end
 -------------------------------------------------------
 function FindDamagedShield(aiBrain, locationType, buildCat)
 
-	local engineerManager = aiBrain.BuilderManagers[locationType].EngineerManager
+	local BM = aiBrain.BuilderManagers[locationType]
 	
-	local shields = aiBrain:GetUnitsAroundPoint( buildCat, engineerManager.Location, engineerManager.Radius, 'Ally' )
+	local shields = aiBrain:GetUnitsAroundPoint( buildCat, BM.Position, BM.Radius, 'Ally' )
 	
 	local retShield = false
 	

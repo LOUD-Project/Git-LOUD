@@ -2,11 +2,7 @@
 -- and it is initiated in the OnCreateAI function
 function ExecutePlan(aiBrain)
 
-	aiBrain.ConstantEval = false
-	
     WaitTicks(5)
-    
-    --LOG("*AI DEBUG "..aiBrain.Nickname.." Assigning Threat to other positions")
 
     -- put some initial threat at all enemy positions
     for k,brain in ArmyBrains do
@@ -124,12 +120,9 @@ function SetupMainBase(aiBrain)
     for k,v in aiBrain.BuilderManagers do
 	
         v.EngineerManager:SortBuilderList('Any')
-        --v.FactoryManager:SortBuilderList('Land')
-        --v.FactoryManager:SortBuilderList('Air')
-        --v.FactoryManager:SortBuilderList('Sea')
-        --v.PlatoonFormManager:SortBuilderList('Any')
 		
     end
+    
 end
 
 

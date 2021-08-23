@@ -4,6 +4,7 @@
 local WaitTicks = coroutine.yield
 local LOUDENTITY = EntityCategoryContains
 local LOUDPARSE = ParseEntityCategory
+local LOUDCOPY = table.copy
 local LOUDEMPTY = table.empty
 
 local GetBlueprint = moho.entity_methods.GetBlueprint
@@ -103,7 +104,7 @@ function ApplyBuff(unit, buffName, instigator)
     end
 
 	-- if the unit already has this bufftype then ignore it
-    if def.Stacks == 'IGNORE' and ubt[def.BuffType] and not table.empty(ubt[def.BuffType]) then
+    if def.Stacks == 'IGNORE' and ubt[def.BuffType] and not LOUDEMPTY(ubt[def.BuffType]) then
         return
     end
 	
@@ -938,7 +939,7 @@ function RemoveBuff(unit, buffName, removeAllCounts, instigator)
 			-- If the user layer was displaying an icon, remove it from the sync table
 			local newTable = unit.Sync.Buffs
 			table.removeByValue(newTable,buffName)
-			unit.Sync.Buffs = table.copy(newTable)
+			unit.Sync.Buffs = LOUDCOPY(newTable)
 		end
 
 		BuffAffectUnit(unit, buffName, instigator, true)

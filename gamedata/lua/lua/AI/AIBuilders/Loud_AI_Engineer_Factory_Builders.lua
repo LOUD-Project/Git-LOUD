@@ -6,12 +6,14 @@ local MIBC = '/lua/editor/MiscBuildConditions.lua'
 local EBC = '/lua/editor/EconomyBuildConditions.lua'
 local LUTL = '/lua/loudutilities.lua'
 
+local LOUDGETN = table.getn
+
 -- this function will turn a builder on if there are no factories
 local HaveZeroAirFactories = function( self, aiBrain )
 
     if aiBrain.CycleTime > 120 then
 	
-        if table.getn( aiBrain:GetListOfUnits( categories.FACTORY * categories.AIR, false, true )) < 1 then
+        if LOUDGETN( aiBrain:GetListOfUnits( categories.FACTORY * categories.AIR, false, true )) < 1 then
 	
             return 990, true
 		
@@ -27,7 +29,7 @@ local HaveZeroLandFactories = function( self, aiBrain )
 
     if aiBrain.CycleTime > 120 then
 	
-        if table.getn( aiBrain:GetListOfUnits( categories.FACTORY * categories.LAND, false, true )) < 1 then
+        if LOUDGETN( aiBrain:GetListOfUnits( categories.FACTORY * categories.LAND, false, true )) < 1 then
 
             return 990, true
 		
@@ -43,7 +45,7 @@ local HaveZeroNavalFactories = function( self, aiBrain )
 
     if aiBrain.CycleTime > 120 then
 	
-        if table.getn( aiBrain:GetListOfUnits( categories.FACTORY * categories.NAVAL, false, true )) < 1 then
+        if LOUDGETN( aiBrain:GetListOfUnits( categories.FACTORY * categories.NAVAL, false, true )) < 1 then
 	
             return 990, true
 		

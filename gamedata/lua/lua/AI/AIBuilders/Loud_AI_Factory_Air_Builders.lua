@@ -5,6 +5,8 @@ local UCBC = '/lua/editor/UnitCountBuildConditions.lua'
 local LUTL = '/lua/loudutilities.lua'
 local TBC = '/lua/editor/ThreatBuildConditions.lua'
 
+local LOUDGETN = table.getn
+
 -- imbedded into the Builder
 local First45Minutes = function( self, aiBrain )
 	
@@ -50,7 +52,7 @@ local HaveLessThanThreeT2AirFactory = function( self, aiBrain )
 		
 	end
 	
-	if table.getn( aiBrain:GetListOfUnits( categories.FACTORY * categories.AIR - categories.TECH1, false, true )) < 3 then
+	if LOUDGETN( aiBrain:GetListOfUnits( categories.FACTORY * categories.AIR - categories.TECH1, false, true )) < 3 then
 	
 		return 600, true
 		
@@ -63,7 +65,7 @@ end
 
 local HaveLessThanThreeT3AirFactory = function( self, aiBrain )
 
-	if table.getn( aiBrain:GetListOfUnits( categories.FACTORY * categories.AIR * categories.TECH3, false, true )) < 3 then
+	if LOUDGETN( aiBrain:GetListOfUnits( categories.FACTORY * categories.AIR * categories.TECH3, false, true )) < 3 then
 	
 		return 600, true
 		

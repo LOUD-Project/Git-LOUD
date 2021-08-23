@@ -540,24 +540,35 @@ function Refresh()
         local function SortFunc(t1, t2)
             return (t1.EndTime or t1.StartTime) > (t2.EndTime or t2.StartTime)
         end
-        if table.getn(sortedPrim) > 0 then
+        
+        if sortedPrim[1] then
+        
             ObjectiveLogData[index] = {type = 'title', title = primtitle, color = 'ffe9e45f'}
             index = index + 1
+            
             table.sort(sortedPrim, SortFunc)
+            
             for i, v in sortedPrim do
                 ObjectiveLogData[index] = table.deepcopy(v)
                 index = index + 1
             end
+            
         end
-        if table.getn(sortedSec) > 0 then
+        
+        if sortedSec[1] then
+        
             ObjectiveLogData[index] = {type = 'title', title = sectitle, color = 'ffe9aa5f'}
             index = index + 1
+            
             table.sort(sortedSec, SortFunc)
+            
             for i, v in sortedSec do
                 ObjectiveLogData[index] = table.deepcopy(v)
                 index = index + 1
             end
+            
         end
+        
         if table.getn(sortedCom) > 0 then
             ObjectiveLogData[index] = {type = 'title', title = comtitle, color = 'ff5fbde9'}
             index = index + 1

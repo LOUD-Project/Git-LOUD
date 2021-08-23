@@ -58,8 +58,8 @@ function TransferUnitsOwnership(units, ToArmyIndex)
         local owner = v:GetArmy()
 
         local unit = v
-        local bp = unit:GetBlueprint()
-        local unitId = unit:GetUnitId()
+        local bp = __blueprints[unit.BlueprintID]
+        local unitId = unit.BlueprintID
 		
         -- B E F O R E
         local numNukes = unit:GetNukeSiloAmmoCount()  #looks like one of these 2 works for SMDs also
@@ -115,7 +115,7 @@ function TransferUnitsOwnership(units, ToArmyIndex)
             unit:AddKills( unitKills )
         end
 		
-        if enh and table.getn(enh) > 0 then
+        if enh[1] then
             for k, v in enh do
                 unit:CreateEnhancement( v )
             end

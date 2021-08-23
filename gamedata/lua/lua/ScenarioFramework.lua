@@ -50,10 +50,13 @@ function OnFactionSelect(data)
     if ScenarioInfo.campaignInfo then
         ScenarioInfo.campaignInfo.campaignID = data.Faction
     end
-    if table.getn(factionCallbacks) > 0 then
+    
+    if factionCallbacks[1] then
+    
         for index, callbackFunc in factionCallbacks do
             if callbackFunc then callbackFunc(data) end
         end
+        
     else
         WARN('I chose ', data.Faction,' but I dont have a callback set!')
     end
@@ -120,11 +123,16 @@ function GiveUnitToArmy( unit, newArmyIndex )
     -- We need the brain to ignore army cap when transfering the unit
     -- do all necessary steps to set brain to ignore, then un-ignore if necessary the unit cap
     local newBrain = ArmyBrains[newArmyIndex]
+    
+    -- we'll turn off unit cap and then turn it back on if it was there
     SetIgnoreArmyUnitCap(newArmyIndex, true)
+    
     local newUnit = ChangeUnitArmy(unit, newArmyIndex)
+    
     if not newBrain.IgnoreArmyCaps then
         SetIgnoreArmyUnitCap(newArmyIndex, false)
     end
+    
     return newUnit
 end
 
@@ -468,14 +476,17 @@ end
 
 -- The actual thread used by Dialogue
 function PlayDialogue()
-    while table.getn(ScenarioInfo.DialogueQueue) > 0 do
+
+    while ScenarioInfo.DialogueQueue[1] do
+    
         local dTable = table.remove(ScenarioInfo.DialogueQueue, 1)
+        
         if not dTable.Flushed and ( not ScenarioInfo.OpEnded or dTable.Critical ) then
+        
             for k,v in dTable do
+            
                 if v ~= nil and not dTable.Flushed and ( not ScenarioInfo.OpEnded or dTable.Critical ) then
-                    #if v.bank and v.cue then
-                    #    table.insert(Sync.Sounds, {Bank = v.bank, Cue = v.cue} )
-                    #end
+
                     if not v.vid and v.bank and v.cue then
                         table.insert(Sync.Voice, {Cue=v.cue, Bank=v.bank} )
                         if not v.delay then
@@ -509,9 +520,11 @@ function PlayDialogue()
                 end
             end
         end
+        
         if dTable.Callback then
             ForkThread(dTable.Callback)
         end
+        
         WaitTicks(1)
     end
     ScenarioInfo.DialogueLock = false

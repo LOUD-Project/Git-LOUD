@@ -2050,7 +2050,7 @@ Platoon = Class(moho.platoon_methods) {
 		
 		for _,v in GetPlatoonUnits(self) do
 		
-			local ID = v:GetUnitId()
+			local ID = v.BlueprintID
 		
 			local newplatoon = aiBrain:MakePlatoon('Experimental', 'none')
 			
@@ -2182,7 +2182,7 @@ Platoon = Class(moho.platoon_methods) {
 				-- if the unit is not within 80 of the platpos - warp it
 				if distance > 80 then
 				
-					LOG("*AI DEBUG Warping stuck "..v:GetUnitId().." at "..repr( GetPosition(v)).." Distance to "..repr(platpos).." is "..distance)
+					LOG("*AI DEBUG Warping stuck "..v.BlueprintID.." at "..repr( GetPosition(v)).." Distance to "..repr(platpos).." is "..distance)
 					Warp( v, platpos )
 					
 					--v:Kill()
@@ -5236,7 +5236,7 @@ Platoon = Class(moho.platoon_methods) {
 					-- we wont look at other distress calls
 					if brain.CDRDistress then
 					
-						if LOUDGETN( brain:GetUnitsAroundPoint( categories.COMMAND, brain.CDRDistress, 100, 'Ally') ) > 0 then
+						if brain:GetUnitsAroundPoint( categories.COMMAND, brain.CDRDistress, 100, 'Ally')[1] then
 					
 							if VDist3( platoonposition, brain.CDRDistress ) < ( distressrange * 2) then
 
@@ -5250,7 +5250,7 @@ Platoon = Class(moho.platoon_methods) {
 						else
 							LOG("*AI DEBUG "..brain.Nickname.." CDR Dead - CDR Distress deactivated")
 						
-							brain.CDRDistress = false
+							brain.CDRDistress = nil
 						end
                         
 					end

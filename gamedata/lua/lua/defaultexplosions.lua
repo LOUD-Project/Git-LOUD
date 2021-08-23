@@ -20,7 +20,6 @@ local CreateRandomEffects = import('EffectUtilities.lua').CreateRandomEffects
 
 local LOUDFLOOR = math.floor
 
-local LOUDINSERT = table.insert
 local LOUDPI = math.pi
 local LOUDSIN = math.sin
 local LOUDCOS = math.cos
@@ -438,13 +437,12 @@ function CreateCompositeExplosionMeshes( object )
     local scalingmin = 0.065
     local scalingmax = 0.135
 	
-	local LOUDINSERT = table.insert
 	local GetRandomFloat = GetRandomFloat
 
-    LOUDINSERT( explosionMeshProjectiles, CreateExplosionMesh( object, '/effects/Explosion/Explosion01_a_proj.bp', 0.4, 0.4, 0.4, GetRandomFloat( 0.1, 0.2 ), GetRandomFloat( scalingmin, scalingmax ), lifetime, 0.1, 0.1, 0.1, -45, 1,0,0 ))
-    LOUDINSERT( explosionMeshProjectiles, CreateExplosionMesh( object, '/effects/Explosion/Explosion01_b_proj.bp', -0.4, 0.4, 0.4, GetRandomFloat( 0.1, 0.2 ), GetRandomFloat( scalingmin, scalingmax ), lifetime, -0.1, 0.1, 0.1, -80, 1, 0, -1  ))
-    LOUDINSERT( explosionMeshProjectiles, CreateExplosionMesh( object, '/effects/Explosion/Explosion01_c_proj.bp', -0.2, 0.4, -0.4, GetRandomFloat( 0.1, 0.2 ), GetRandomFloat( scalingmin, scalingmax ), lifetime, -0.04, 0.1, -0.1, -90, -1,0,0 ))
-    LOUDINSERT( explosionMeshProjectiles, CreateExplosionMesh( object, '/effects/Explosion/Explosion01_d_proj.bp', 0.0, 0.7, 0.4, GetRandomFloat( 0.1, 0.14 ), GetRandomFloat( scalingmin, scalingmax ), lifetime, 0, 0.1, 0, 90, 1,0,0 ))
+    explosionMeshProjectiles[1] = CreateExplosionMesh( object, '/effects/Explosion/Explosion01_a_proj.bp', 0.4, 0.4, 0.4, GetRandomFloat( 0.1, 0.2 ), GetRandomFloat( scalingmin, scalingmax ), lifetime, 0.1, 0.1, 0.1, -45, 1,0,0 )
+    explosionMeshProjectiles[2] = CreateExplosionMesh( object, '/effects/Explosion/Explosion01_b_proj.bp', -0.4, 0.4, 0.4, GetRandomFloat( 0.1, 0.2 ), GetRandomFloat( scalingmin, scalingmax ), lifetime, -0.1, 0.1, 0.1, -80, 1, 0, -1  )
+    explosionMeshProjectiles[3] = CreateExplosionMesh( object, '/effects/Explosion/Explosion01_c_proj.bp', -0.2, 0.4, -0.4, GetRandomFloat( 0.1, 0.2 ), GetRandomFloat( scalingmin, scalingmax ), lifetime, -0.04, 0.1, -0.1, -90, -1,0,0 )
+    explosionMeshProjectiles[4] = CreateExplosionMesh( object, '/effects/Explosion/Explosion01_d_proj.bp', 0.0, 0.7, 0.4, GetRandomFloat( 0.1, 0.14 ), GetRandomFloat( scalingmin, scalingmax ), lifetime, 0, 0.1, 0, 90, 1,0,0 )
 
     #-- Slow down scaling of secondary meshes
     WaitTicks( 3 )

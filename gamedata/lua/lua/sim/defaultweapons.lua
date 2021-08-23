@@ -5,7 +5,6 @@ local Weapon = import('/lua/sim/Weapon.lua').Weapon
 
 local CollisionBeam = import('/lua/sim/CollisionBeam.lua').CollisionBeam
 local CalculateBallisticAcceleration = import('/lua/sim/CalcBallisticAcceleration.lua').CalculateBallisticAcceleration 
---local EffectTemplate = import('/lua/EffectTemplates.lua')
 
 local LOUDABS = math.abs
 local LOUDGETN = table.getn
@@ -57,7 +56,7 @@ DefaultProjectileWeapon = Class(Weapon) {
         if bp.RackRecoilDistance and bp.RackRecoilDistance != 0 then
 		
 			if bp.MuzzleSalvoDelay != 0 then
-				local strg = '*ERROR: You can not have a RackRecoilDistance with a MuzzleSalvoDelay not equal to 0, aborting weapon setup.  Weapon: ' .. bp.DisplayName .. ' on Unit: ' .. self.unit:GetUnitId()
+				local strg = '*ERROR: You can not have a RackRecoilDistance with a MuzzleSalvoDelay not equal to 0, aborting weapon setup.  Weapon: ' .. bp.DisplayName .. ' on Unit: ' .. self.unit.BlueprintID
 				error(strg, 2)
 				return false
 			end
@@ -95,7 +94,7 @@ DefaultProjectileWeapon = Class(Weapon) {
 		
 			if totalMuzzleFiringTime > (1 / bp.RateOfFire) and not bp.EnergyDrainPerSecond then
 			
-				local strg = '*ERROR: The total time to fire ('..totalMuzzleFiringTime..') '..NumMuzzles..' muzzles is longer than the RateOfFire '..bp.RateOfFire..' allows, aborting weapon setup.  Weapon: ' .. bp.DisplayName .. ' on Unit: ' .. self.unit:GetUnitId()
+				local strg = '*ERROR: The total time to fire ('..totalMuzzleFiringTime..') '..NumMuzzles..' muzzles is longer than the RateOfFire '..bp.RateOfFire..' allows, aborting weapon setup.  Weapon: ' .. bp.DisplayName .. ' on Unit: ' .. self.unit.BlueprintID
 				error(strg, 2)
 				return false
 				

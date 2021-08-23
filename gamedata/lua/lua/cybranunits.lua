@@ -35,26 +35,31 @@ local WaitSeconds = WaitSeconds
 local WaitTicks = coroutine.yield
 
 local CreateAttachedEmitter = CreateAttachedEmitter
+local GetAIBrain = moho.unit_methods.GetAIBrain
+
+local LOUDGETN = table.getn
 
 --  AIR FACTORY STRUCTURES
 CAirFactoryUnit = Class(FactoryUnit) {
 
     CreateBuildEffects = function( self, unitBeingBuilt, order )
+    
         if not unitBeingBuilt then return end
+        
         WaitTicks( 1 )
         CreateCybranFactoryBuildEffects( self, unitBeingBuilt, __blueprints[self.BlueprintID].General.BuildBones, self.BuildEffectsBag )
     end,
     
     StartBuildFx = function(self, unitBeingBuilt)
-        if not unitBeingBuilt then
-			return
-		end
+    
+        if not unitBeingBuilt then return end
         
         if not self.BuildAnimManip then
             self.BuildAnimManip = CreateAnimator(self)
             self.BuildAnimManip:PlayAnim( __blueprints[self.BlueprintID].Display.AnimationBuild, true):SetRate(0)
             self.Trash:Add(self.BuildAnimManip)
         end
+        
         self.BuildAnimManip:SetRate(1)
     end,
     
@@ -106,7 +111,7 @@ CConstructionUnit = Class(ConstructionUnit){
 	
         ConstructionUnit.OnLayerChange(self, new, old)
 		
-        if self:GetBlueprint().Display.AnimationWater then
+        if __blueprints[self.BlueprintID].Display.AnimationWater then
 		
             if self.TerrainLayerTransitionThread then
 			
@@ -137,7 +142,7 @@ CConstructionUnit = Class(ConstructionUnit){
         end
 
         if water then
-            self.TransformManipulator:PlayAnim(self:GetBlueprint().Display.AnimationWater)
+            self.TransformManipulator:PlayAnim(__blueprints[self.BlueprintID].Display.AnimationWater)
             self.TransformManipulator:SetRate(1)
             self.TransformManipulator:SetPrecedence(0)
         else
@@ -155,9 +160,9 @@ CConstructionUnit = Class(ConstructionUnit){
     
     CreateBuildEffects = function( self, unitBeingBuilt, order )
 	
-        local buildbots = SpawnBuildBots( self, unitBeingBuilt, table.getn( __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones), self.BuildEffectsBag )
+        local buildbots = SpawnBuildBots( self, unitBeingBuilt, LOUDGETN( __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones), self.BuildEffectsBag )
 		
-        CreateCybranEngineerBuildEffects( self, self:GetBlueprint().General.BuildBones.BuildEffectBones, buildbots, self.BuildEffectsBag )
+        CreateCybranEngineerBuildEffects( self, __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones, buildbots, self.BuildEffectsBag )
     end,
 }
 
@@ -338,7 +343,7 @@ CConstructionEggUnit = Class(StructureUnit) {
         
         local pos = self:GetPosition()
         
-        local aiBrain = self:GetAIBrain()
+        local aiBrain = GetAIBrain(self)
 		
         CreateUnitHPR(buildUnit, aiBrain.Name, pos[1], pos[2], pos[3], 0, 0, 0 )
 		
@@ -363,9 +368,11 @@ CConstructionEggUnit = Class(StructureUnit) {
     
     EggConstruction = State {
         Main = function(self)
+        
             local bp = __blueprints[self.BlueprintID]
             local buildUnit = bp.Economy.BuildUnit
-            self:GetAIBrain():BuildUnit( self, buildUnit, 1 )
+            
+            GetAIBrain(self):BuildUnit( self, buildUnit, 1 )
         end,
     },
     
@@ -389,29 +396,34 @@ CConstructionEggUnit = Class(StructureUnit) {
 --
 --  CConstructionStructureUnit
 --
-CConstructionStructureUnit = Class(StructureUnit) {   
+CConstructionStructureUnit = Class(StructureUnit) {
+   
     OnCreate = function(self)
         -- Structure stuff
         StructureUnit.OnCreate(self)
 
+        local bp = __blueprints[self.BlueprintID]
+        
         --Construction stuff   
         --self.EffectsBag = {}
 		
-        if self:GetBlueprint().General.BuildBones then
+        if bp.General.BuildBones then
             self:SetupBuildBones()
         end
 
-        if self:GetBlueprint().Display.AnimationBuild then
-            self.BuildingOpenAnim = self:GetBlueprint().Display.AnimationBuild
+        if bp.Display.AnimationBuild then
+            self.BuildingOpenAnim = bp.Display.AnimationBuild
         end
 
         if self.BuildingOpenAnim then
             self.BuildingOpenAnimManip = CreateAnimator(self)
             self.BuildingOpenAnimManip:SetPrecedence(1)
             self.BuildingOpenAnimManip:PlayAnim(self.BuildingOpenAnim, false):SetRate(0)
+            
             if self.BuildArmManipulator then
                 self.BuildArmManipulator:Disable()
             end
+            
         end
         self.BuildingUnit = false
     end,
@@ -426,7 +438,9 @@ CConstructionStructureUnit = Class(StructureUnit) {
     end,
     
     OnStopBeingBuilt = function(self,builder,layer)
+    
         StructureUnit.OnStopBeingBuilt(self,builder,layer)
+        
         -- If created with F2 on land, then play the transform anim.
         if(self:GetCurrentLayer() == 'Water') then
             self.TerrainLayerTransitionThread = self:ForkThread(self.TransformThread, true)
@@ -434,8 +448,12 @@ CConstructionStructureUnit = Class(StructureUnit) {
     end,
 
     CreateBuildEffects = function( self, unitBeingBuilt, order )
-        local buildbots = SpawnBuildBots( self, unitBeingBuilt, table.getn(self:GetBlueprint().General.BuildBones.BuildEffectBones), self.BuildEffectsBag )
-        CreateCybranEngineerBuildEffects( self, self:GetBlueprint().General.BuildBones.BuildEffectBones, buildbots, self.BuildEffectsBag )
+    
+        local buildbones = __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones
+        
+        local buildbots = SpawnBuildBots( self, unitBeingBuilt, LOUDGETN(buildbones), self.BuildEffectsBag )
+        
+        CreateCybranEngineerBuildEffects( self, buildbones, buildbots, self.BuildEffectsBag )
     end,
     
     -- This will only be called if not in StructureUnit's upgrade state
@@ -495,7 +513,7 @@ CConstructionStructureUnit = Class(StructureUnit) {
         -- StructureUnit.OnPrepareArmToBuild(self)
 
         -- if self.BuildingOpenAnimManip then
-            -- self.BuildingOpenAnimManip:SetRate(self:GetBlueprint().Display.AnimationBuildRate or 1)
+            -- self.BuildingOpenAnimManip:SetRate(__blueprints[self.BlueprintID].Display.AnimationBuildRate or 1)
             -- if self.BuildArmManipulator then
                 -- self.StoppedBuilding = false
                 -- ForkThread( self.WaitForBuildAnimation, self, true )
@@ -509,7 +527,7 @@ CConstructionStructureUnit = Class(StructureUnit) {
         -- if self.StoppedBuilding then
             -- self.StoppedBuilding = false
             -- self.BuildArmManipulator:Disable()
-            -- self.BuildingOpenAnimManip:SetRate(-(self:GetBlueprint().Display.AnimationBuildRate or 1))
+            -- self.BuildingOpenAnimManip:SetRate(-(__blueprints[self.BlueprintID].Display.AnimationBuildRate or 1))
         -- end
     -- end,
     
@@ -528,5 +546,5 @@ CConstructionStructureUnit = Class(StructureUnit) {
     -- end,         
     
     -- CreateCaptureEffects = function( self, target )
-		-- EffectUtil.PlayCaptureEffects( self, target, self:GetBlueprint().General.BuildBones.BuildEffectBones or {0,}, self.CaptureEffectsBag )
+		-- EffectUtil.PlayCaptureEffects( self, target, __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones or {0,}, self.CaptureEffectsBag )
     -- end,    

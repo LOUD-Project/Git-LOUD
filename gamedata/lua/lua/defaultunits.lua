@@ -64,6 +64,7 @@ local VDist2 = VDist2
 local DisableIntel = moho.entity_methods.DisableIntel
 local EnableIntel = moho.entity_methods.EnableIntel
 
+local GetAIBrain = moho.unit_methods.GetAIBrain
 local GetPosition = moho.entity_methods.GetPosition
 local GetWeapon = moho.unit_methods.GetWeapon
 local GetWeaponCount = moho.unit_methods.GetWeaponCount
@@ -836,8 +837,6 @@ StructureUnit = Class(Unit) {
         local adjBuffs = __blueprints[self.BlueprintID].Adjacency
 
         if adjBuffs and import('/lua/sim/adjacencybuffs.lua')[adjBuffs] then
-		
-			--LOG("*AI DEBUG "..__blueprints[self.BlueprintID].Description.." no longer adjacent to "..repr(adjacentUnit:GetBlueprint().Description) )
 
             for k,v in import('/lua/sim/adjacencybuffs.lua')[adjBuffs] do
 			
@@ -864,21 +863,17 @@ StructureUnit = Class(Unit) {
 
 			-- see if we already have an adjacency effect to this unit
 			for k,v in self.AdjacencyBeamsBag do
-			
-				--LOG("*AI DEBUG unit is "..repr(v.Unit).." adjacent is "..repr(adjacentUnit:GetEntityId()) )
-			
-				if v.Unit == adjacentUnit.Sync.id then   --:GetEntityId() then
+
+				if v.Unit == adjacentUnit.Sync.id then
 					return
 				end
+                
 			end
 			
 		end
-		
-		--LOG("*AI DEBUG Creating adjacency from "..repr(self:GetBlueprint().Description).." to "..repr(adjacentUnit:GetBlueprint().Description) )
 
 		CreateAdjacencyBeams( self, adjacentUnit )
-		
-		--LOG("*AI DEBUG AdjacencyBeamsBag for "..repr(self:GetBlueprint().Description).." is "..repr(self.AdjacencyBeamsBag) )	
+
     end,
 
     DestroyAdjacentEffects = function(self, adjacentUnit)
@@ -950,7 +945,7 @@ MobileUnit = Class(Unit) {
         
                 local position = self:GetPosition()
                 
-                if IsEnemy( self:GetAIBrain().ArmyIndex, brain.ArmyIndex ) then
+                if IsEnemy( GetAIBrain(self).ArmyIndex, brain.ArmyIndex ) then
                 
                     if bp.AirThreatLevel > 0 then
                         ForkTo ( delaythreat, brain, position, bp.AirThreatLevel, 'AntiAir' )
@@ -1594,8 +1589,6 @@ MobileUnit = Class(Unit) {
 		-- all these inclusions are to cover Amphib units being dropped into, or constructed on the seabed
 		-- or to cover Sonar carrying aircraft (ie. Torpedo Bombers)
         elseif (old == 'Land' or old == 'Air' or old == 'None') and new == 'Seabed' then
-		
-			--LOG("*AI DEBUG OnLayerChange "..repr(old).." "..repr(new))
 
 			local Intel = __blueprints[self.BlueprintID].Intel
 			local vis = Intel.VisionRadius or 2
@@ -1623,15 +1616,6 @@ MobileUnit = Class(Unit) {
 
         end
 
---[[
-        if( new == 'Land' ) then
-            --self:PlayUnitAmbientSound('AmbientMoveLand')
-        elseif(( new == 'Water' ) or ( new == 'Seabed' )) then
-            --self:PlayUnitAmbientSound('AmbientMoveWater')
-        elseif ( new == 'Sub' ) then
-            --self:PlayUnitAmbientSound('AmbientMoveSub')
-        end
---]]
 		local bp = __blueprints[self.BlueprintID].Display
 
 		-- if unit has footfalls and they are described for new layer then use them
@@ -1659,9 +1643,6 @@ MobileUnit = Class(Unit) {
         if self.Dead then
             return
         end
-		
-		--LOG("*AI DEBUG OnMotionHorzEventChange for "..__blueprints[self.BlueprintID].Description )
-		
 
         if ( old == 'Stopped' or (old == 'Stopping' and (new == 'Cruise' or new == 'TopSpeed'))) then
 
@@ -1700,8 +1681,6 @@ MobileUnit = Class(Unit) {
     end,
 
     OnMotionVertEventChange = function( self, new, old )
-	
-		--LOG("*AI DEBUG OnMotionVertEventChange for "..__blueprints[self.BlueprintID].Description)
 
         if new == 'Bottom' then
             self:UpdateBeamExhaust('Landed')
@@ -1750,8 +1729,7 @@ MobileUnit = Class(Unit) {
                 end
             end
         end
-		
-        --self:CreateMotionChangeEffects( new, old )
+
     end,
 
     AddOnHorizontalStartMoveCallback = function(self, fn)
@@ -1946,7 +1924,7 @@ FactoryUnit = Class(StructureUnit) {
 
         local bp = __blueprints[self.BlueprintID].Physics.RollOffPoints
 
-		local pos = table.copy(self.CachePosition)
+		local pos = LOUDCOPY(self.CachePosition)
 
 		local px = pos[1]
 		local py = pos[2]
@@ -2326,7 +2304,7 @@ QuantumGateUnit = Class(FactoryUnit) {
 		local warpLocation = self:GetRallyPoint()
 		local possibleGates = import('/lua/CommonTools.lua').GetAlliedGatesInRadius(self, warpLocation, radius)
 
-		if not possibleGates or table.getn(possibleGates) == 0 then
+		if not possibleGates[1] then
 			import('/lua/CommonTools.lua').PrintError("No destination gates found at rally point", self:GetArmy())
 			return
 		end
@@ -2351,7 +2329,7 @@ QuantumGateUnit = Class(FactoryUnit) {
 		--	return
 		--end
 
-		LOG('~Number of units to teleport: ' .. table.getn(warpUnits))
+		LOG('~Number of units to teleport: ' .. LOUDGETN(warpUnits))
 
 		if self.TeleportDrain then
 			RemoveEconomyEvent(self, self.TeleportDrain)
@@ -2388,11 +2366,16 @@ QuantumGateUnit = Class(FactoryUnit) {
 
 		local fx = nil
 		local fxBag = { }
+        local count = 0
 
 		for k, v in self.GateExplodeEffect do
+        
 			for k, e in v.Emitters do
+            
 				fx = CreateEmitterAtEntity(self, self.Sync.army, e):OffsetEmitter(v.Offset.x, v.Offset.y, v.Offset.z):ScaleEmitter(v.Scale)
-				table.insert(fxBag, fx)
+                
+                count = count + 1
+				fxBag[count] = fx
 			end
 		end
 
@@ -2432,12 +2415,18 @@ QuantumGateUnit = Class(FactoryUnit) {
 	
 		local army = self.Sync.army
 
-		self.TeleportChargeBag = { }
+		self.TeleportChargeBag = {}
+        local count = 0
 
 		for k, v in self.TeleportChargeEffect do
+        
 			for k, e in v.Emitters do
+            
 				local fx = CreateEmitterAtEntity(self, army, e):OffsetEmitter(v.Offset.x, v.Offset.y, v.Offset.z):ScaleEmitter(v.Scale)
-				table.insert(self.TeleportChargeBag, fx)
+                
+                count = count + 1
+				self.TeleportChargeBag[count] = fx
+                
 			end
 		end
 
@@ -2705,7 +2694,7 @@ WallStructureUnit = Class(StructureUnit) {
         Entity.OnCreate(self)
 
 		self.CacheLayer = moho.unit_methods.GetCurrentLayer(self)
-		self.CachePosition = table.copy(moho.entity_methods.GetPosition(self))
+		self.CachePosition = LOUDCOPY(moho.entity_methods.GetPosition(self))
 
 		self.WeaponCount = 0
 
@@ -2728,7 +2717,7 @@ WallStructureUnit = Class(StructureUnit) {
         self.Dead = false
 		self.PlatoonHandle = false
 
-        if self:GetAIBrain().CheatingAI then
+        if GetAIBrain(self).CheatingAI then
 
 			import('/lua/sim/buff.lua').ApplyBuff( self, 'CheatALL')
 
@@ -2814,7 +2803,7 @@ MassCollectionUnit = Class(StructureUnit) {
     -- if mass econ is depleted, take all the mass generated and use it for the upgrade
     WatchUpgradeConsumption = function(self, massConsumption, massProduction)
 
-        local aiBrain = self:GetAIBrain()
+        local aiBrain = GetAIBrain(self)
 
         local GetEconomyStored = moho.aibrain_methods.GetEconomyStored
 		local GetResourceConsumed = moho.unit_methods.GetResourceConsumed
@@ -3507,7 +3496,7 @@ AirUnit = Class(MobileUnit) {
 		self.EventCallbacks.OnGotFuel = {}
 		self.HasFuel = true
             
-            local aiBrain = self:GetAIBrain()
+            local aiBrain = GetAIBrain(self)
             
             --LOG("*AI DEBUG "..aiBrain.Nickname.." AirUnit OnCreate "..repr(self:GetBlueprint().Description))
             
@@ -3530,7 +3519,7 @@ AirUnit = Class(MobileUnit) {
 
                                     local ProcessAirUnits = import('/lua/loudutilities.lua').ProcessAirUnits
 
-                                    ProcessAirUnits( self, self:GetAIBrain() )
+                                    ProcessAirUnits( self, GetAIBrain(self) )
                                 end
                             end
                         end
@@ -3548,7 +3537,7 @@ AirUnit = Class(MobileUnit) {
 
                                     local ProcessAirUnits = import('/lua/loudutilities.lua').ProcessAirUnits
 
-                                    ProcessAirUnits( self, self:GetAIBrain() )
+                                    ProcessAirUnits( self, GetAIBrain(self) )
                                 end
                             end
                         end
@@ -3619,7 +3608,7 @@ AirUnit = Class(MobileUnit) {
 
 			if not EntityCategoryContains(categories.TRANSPORTFOCUS, self) then
 			
-				local brain = self:GetAIBrain()
+				local brain = GetAIBrain(self)
 				
 				-- sometimes AI units will 'wander' away and land beyond the control of a base
 				-- this will get them back to a base position
@@ -3907,7 +3896,7 @@ AirUnit = Class(MobileUnit) {
 
 		slider:Destroy()
 
-		--LOG("*AI DEBUG "..self:GetAIBrain().Nickname.." air sink Thread complete for "..GetBlueprint(self).Description)
+		--LOG("*AI DEBUG "..GetAIBrain(self).Nickname.." air sink Thread complete for "..GetBlueprint(self).Description)
 
 		self:CreateWreckage(overkillRatio)
         

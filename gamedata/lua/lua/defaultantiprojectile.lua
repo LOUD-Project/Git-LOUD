@@ -5,7 +5,7 @@
 local Entity = import('/lua/sim/Entity.lua').Entity
 
 local LOUDENTITY = EntityCategoryContains
-local LOUDINSERT = table.insert
+
 local LOUDSTATE = ChangeState
 local WaitSeconds = WaitSeconds
 
@@ -185,10 +185,14 @@ MissileDetector = Class(Entity) {
             end
 
             local beams = {}
+            local count = 0
             local army = self.Army
             
-            for _, v in self.RedirectBeams do               
-                LOUDINSERT(beams, AttachBeamEntityToEntity(self.EnemyProj, -1, self.Owner, self.AttachBone, army, v))
+            for _, v in self.RedirectBeams do
+            
+                count = count + 1
+                beams[count] = AttachBeamEntityToEntity(self.EnemyProj, -1, self.Owner, self.AttachBone, army, v)
+                
             end
             
             if self.Enemy then
@@ -259,17 +263,21 @@ MissileRedirect = Class(Entity) {
         -- rest of the code is for loyalist tactical missile deflection fix   [161]
         local bp = self:GetBlueprint()
         local ProjectileCategories = bp.ProjectileCategories or { 'MISSILE -STRATEGIC' }
+        
         local ParsedProjectileCategories = {}
+        local count = 0
 
         for k, category in ProjectileCategories do
 		
             if type(category) == 'string' then
 			
-                LOUDINSERT(ParsedProjectileCategories, ParseEntityCategory(category) )
+                count = count + 1
+                ParsedProjectileCategories[count] = ParseEntityCategory(category)
 				
             else
 			
-                LOUDINSERT(ParsedProjectileCategories, category)
+                count = count + 1
+                ParsedProjectileCategories[count] = category
 				
             end
 			
@@ -346,10 +354,14 @@ MissileRedirect = Class(Entity) {
             end
             
             local beams = {}
+            local count = 0
+            
             local army = GetArmy(self)
             
-            for _, v in self.RedirectBeams do               
-                LOUDINSERT(beams, AttachBeamEntityToEntity(self.EnemyProj, -1, self.Owner, self.AttachBone, army, v))
+            for _, v in self.RedirectBeams do
+                
+                count = count + 1
+                beams[count] = AttachBeamEntityToEntity(self.EnemyProj, -1, self.Owner, self.AttachBone, army, v)
             end
             
             if self.Enemy then
