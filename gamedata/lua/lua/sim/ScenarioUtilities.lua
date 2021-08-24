@@ -489,7 +489,7 @@ function InitializeArmies()
 		
 		-- Set the NeedTransports flag -- used when the AI tries to air transport units and cannot find enough transport
 		-- this brings factory platoons online to build more (more than standard)
-		self.NeedTransports = false
+		self.NeedTransports = nil
 		
 		-- Set the flag that notes if an expansion base is being setup -- when an engineer takes on an expansion task, he'll set this flag to true
 		-- when he dies or starts building the new base, he'll set it back to false
@@ -574,9 +574,7 @@ function InitializeArmies()
 		end
 		
 		local PlayerDiff = (self.NumOpponents or 1)/(self.Players - self.NumOpponents)		
-		
-		ScenarioInfo.ArmySetup[self.Name].NumAllies = self.Players - self.NumOpponents
-        
+ 
 		-- if outnumbered increase the number of simultaneous upgrades allowed
 		-- and reduce the waiting period by 2 seconds ( about 10% )
 		if PlayerDiff > 1.0 then
@@ -855,6 +853,7 @@ function CreateArmyGroup(strArmy,strGroup,wreckage, balance)
 
     local brain = GetArmyBrain(strArmy)
 	
+    -- for this process we will turn off the cap limits, create the units, and then turn it back on
     if not brain.IgnoreArmyCaps then
         SetIgnoreArmyUnitCap(brain:GetArmyIndex(), true)
     end
@@ -864,16 +863,21 @@ function CreateArmyGroup(strArmy,strGroup,wreckage, balance)
     if not brain.IgnoreArmyCaps then
         SetIgnoreArmyUnitCap(brain:GetArmyIndex(), false)
     end
+    
     if tblResult == nil and strGroup ~= 'INITIAL' then
         error('SCENARIO UTILITIES WARNING: No units found for for Army- ' .. strArmy .. ' Group- ' .. strGroup, 2)
     end
+    
     if wreckage then
+    
         for num, unit in tblResult do
             unit:CreateWreckageProp(0, 1800)
             unit:Destroy()
         end
+        
         return
     end
+    
     return tblResult, treeResult, platoonList
 end
 

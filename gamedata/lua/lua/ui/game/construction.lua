@@ -338,7 +338,7 @@ function CreateTabs(type)
 
             for _, tab in controls.tabs do
                 
-                if sortedOptions[tab.ID] and table.getn(sortedOptions[tab.ID]) > 0 then
+                if sortedOptions[tab.ID] and LOUDGETN(sortedOptions[tab.ID]) > 0 then
                     numActive = numActive + 1
                 end
             end
@@ -1288,11 +1288,11 @@ end
 		--Thus the only way I can see to modify the build queue is to delete it back to the point it is modified from (the from argument) and then 
 	    --add the modified version back in. Unfortunately this causes a momentary 'skip' in the displayed build cue as it is deleted and replaced
         
-		for i = table.getn(oldQueue), from, -1  do
+		for i = LOUDGETN(oldQueue), from, -1  do
 			DecreaseBuildCountInQueue(i, oldQueue[i].count)	
 		end
         
-		for i = from, table.getn(newqueue)  do
+		for i = from, LOUDGETN(newqueue)  do
         
 	        blueprint = __blueprints[newqueue[i].id]
             
@@ -1727,7 +1727,7 @@ function OnClickHandler(button, modifiers)
 
 					local tempTemplate = table.deepcopy(activeTemplate)
 
-					for i = 3, table.getn(activeTemplate) do
+					for i = 3, LOUDGETN(activeTemplate) do
 						local index = i
 						activeTemplate[index][3] = 0 - tempTemplate[index][4]
 						activeTemplate[index][4] = tempTemplate[index][3]

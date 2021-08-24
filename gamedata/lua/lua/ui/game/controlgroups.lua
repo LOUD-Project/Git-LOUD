@@ -110,7 +110,8 @@ function OnSelectionSetChanged(name, units, applied)
                 
                 local iconID = ''
                 for _, unitTable in sortedUnits do
-                    if table.getn(unitTable) > 0 then
+                
+                    if unitTable[1] then
                         iconID = unitTable[1]:GetBlueprint().BlueprintId
                         break
                     end

@@ -2656,7 +2656,7 @@ Unit = Class(moho.unit_methods) {
 		
         local builderUpgradesTo = ALLBPS[builder.BlueprintID].General.UpgradesTo or false
 		
-        if not builderUpgradesTo or self:GetUnitId() != builderUpgradesTo then
+        if not builderUpgradesTo or self.BlueprintID != builderUpgradesTo then
 
             if EntityCategoryContains( categories.STRUCTURE, self) then
 			
@@ -2713,7 +2713,7 @@ Unit = Class(moho.unit_methods) {
 		
             local cb = function(bpUnitId)
 			
-                if self:GetUnitId() == bpUnitId then 
+                if self.BlueprintID == bpUnitId then 
 				
                     self:OnRebuildBonusIsLegal()
 					
@@ -3099,7 +3099,7 @@ Unit = Class(moho.unit_methods) {
         self:PlayUnitSound('Construct')
         --self:PlayUnitAmbientSound('ConstructLoop')
 		
-        if bp.General.UpgradesTo and unitBeingBuilt:GetUnitId() == bp.General.UpgradesTo and order == 'Upgrade' then
+        if bp.General.UpgradesTo and unitBeingBuilt.BlueprintID == bp.General.UpgradesTo and order == 'Upgrade' then
 
             unitBeingBuilt.DisallowCollisions = true
 
@@ -4005,7 +4005,7 @@ Unit = Class(moho.unit_methods) {
 			
         end
 		
-        error('*ERROR: Trying to use the bone, ' .. bone .. ' on unit ' .. self:GetUnitId() .. ' and it does not exist in the model.', 2)
+        error('*ERROR: Trying to use the bone, ' .. bone .. ' on unit ' .. self.BlueprintID .. ' and it does not exist in the model.', 2)
 		
         return false
 		
@@ -4689,14 +4689,14 @@ Unit = Class(moho.unit_methods) {
         -- Make sure there is an appropriate buff type for this unit
         if not self.BuffTypes[buffType] then
 		
-            WARN('*WARNING: Tried to generate a buff of unknown type to units: ' .. buffType .. ' - UnitId: ' .. self:GetUnitId() )
+            WARN('*WARNING: Tried to generate a buff of unknown type to units: ' .. buffType .. ' - UnitId: ' .. self.BlueprintID )
 			
             return nil
 			
         end
         
         -- Generate a buffname based on the unitId
-        local buffName = self:GetUnitId() .. levelName .. buffType
+        local buffName = self.BlueprintID .. levelName .. buffType
         
         -- Figure out what we want the Add and Mult values to be based on the BuffTypes table
         local addVal = 0
@@ -4822,7 +4822,7 @@ Unit = Class(moho.unit_methods) {
 				
             else
 			
-                LOG('*WARNING: TRYING TO CREATE PERSONAL SHIELD ON UNIT ',repr(self:GetUnitId()),', but it does not have an OwnerShieldMesh=<meshBpName> defined in the Blueprint.')
+                LOG('*WARNING: TRYING TO CREATE PERSONAL SHIELD ON UNIT ',repr(self.BlueprintID),', but it does not have an OwnerShieldMesh=<meshBpName> defined in the Blueprint.')
 				
             end
 			
@@ -4945,7 +4945,7 @@ Unit = Class(moho.unit_methods) {
                 self.Trash:Add(self.MyHunkerShield)
 
             else
-                LOG('*WARNING: TRYING TO CREATE HUNKER SHIELD ON UNIT ',repr(self:GetUnitId()),', but it does not have an OwnerShieldMesh=<meshBpName> defined in the Blueprint.')
+                LOG('*WARNING: TRYING TO CREATE HUNKER SHIELD ON UNIT ',repr(self.BlueprintID),', but it does not have an OwnerShieldMesh=<meshBpName> defined in the Blueprint.')
             end
 			
         end
