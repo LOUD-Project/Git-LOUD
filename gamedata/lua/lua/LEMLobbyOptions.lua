@@ -42,13 +42,13 @@ GPGrestrictedUnits = {
 
     AMPHIB = {
         categories = {"AMPHIBIOUS"},
-        name = "<LOC restricted_units_data_0006>No Amphibious",
+        name = "<LOC restricted_units_data_0032>No Amphibious",
         tooltip = "restricted_units_amphib",
     },
 
     HOVER = {
         categories = {"HOVER"},
-        name = "<LOC restricted_units_data_0007>No Hover",
+        name = "<LOC restricted_units_data_0033>No Hover",
         tooltip = "restricted_units_hover",
     },
 	
