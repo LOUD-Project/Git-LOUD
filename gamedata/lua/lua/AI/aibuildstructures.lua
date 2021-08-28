@@ -458,6 +458,7 @@ function AINewExpansionBase( aiBrain, baseName, position, engineer, construction
             if not engineer.Dead then
                 --LOG('*AI DEBUG '..aiBrain.Nickname.." yielded no base pick for engineer "..repr(engineer.platoonhandle.BuilderName).." from "..engineer.LocationType )
             end
+            
 		else
 
 			-- this function would level the area around a new base

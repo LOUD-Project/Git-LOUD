@@ -151,6 +151,7 @@ BrainConditionsMonitor = Class {
         local minimumcycletime = 150     -- in ticks
 
         while true do
+        
 			-- record current game time
 			aiBrain.CycleTime = GetGameTimeSeconds()
             

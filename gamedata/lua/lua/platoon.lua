@@ -154,6 +154,7 @@ Platoon = Class(moho.platoon_methods) {
 		
 			WARN("Unable to locate AIPlan "..repr(plan).." for "..repr(self.BuilderName))
 		end
+
     end,
 
     StopAI = function( self )
@@ -2628,6 +2629,10 @@ Platoon = Class(moho.platoon_methods) {
 				if marker and UnitToGuard and not UnitToGuard.Dead then
 					marker = UnitToGuard:GetPosition()
 				end
+                
+                if NumberOfUnitsInPlatoon < 1 then
+                    return aiBrain:DisbandPlatoon(self)
+                end
                 
                 local direction = import('/lua/utilities.lua').GetDirectionInDegrees( GetPlatoonPosition(self), marker )
 
@@ -6580,11 +6585,11 @@ Platoon = Class(moho.platoon_methods) {
 				
 					local function MonitorNewBaseThread( self, refName, refposition, cons)
 					
-						--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." base expansion underway ")
+						LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." base expansion underway ")
 	
 						aiBrain.BaseExpansionUnderway = true
 	
-						eng.NeedsBaseData = nil
+						eng.NeedsBaseData = false
 	
 						-- this callback removes the ExpansionUnderway flag from the brain
 						local deathFunction = function() aiBrain.BaseExpansionUnderway = false end
@@ -7542,8 +7547,8 @@ Platoon = Class(moho.platoon_methods) {
 								-- start the new base --
 								if AINewExpansionBase( aiBrain, eng.NewExpansion[1], eng.NewExpansion[2], eng, eng.NewExpansion[3] ) then
                                 
-                                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." Eng "..eng.Sync.id.." creates new base at "..repr(eng.NewExpansion[2]))
-                                    --LOG("*AI DEBUG Engineer is presently at "..repr(eng:GetPosition()))
+                                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." Eng "..eng.Sync.id.." creates new base at "..repr(eng.NewExpansion[2]))
+                                    LOG("*AI DEBUG Engineer is presently at "..repr(eng:GetPosition()))
 									
 									platoon.LocationType = eng.NewExpansion[1]
 									platoon.RTBLocation = eng.NewExpansion[1]

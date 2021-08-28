@@ -229,9 +229,9 @@ EngineerManager = Class(BuilderManager) {
 			
 			if not builder:StoreHandle( hndl, self, unit.BuilderType ) then
 			
-				WARN("*AI DEBUG "..aiBrain.Nickname.." no available instance for "..builder.BuilderName.." Eng "..unit.Sync.id.." Creation Time "..hndl.CreationTime.." told that "..builder.InstancesAvailable.." were available")
+				WARN("*AI DEBUG "..aiBrain.Nickname.." no available instance for "..builder.BuilderName.." Eng "..unit.Sync.id.." Creation Time "..hndl.CreationTime.." told that "..builder.InstanceAvailable.." were available")
 				
-				builder.InstancesAvailable = 0
+				builder.InstanceAvailable = 0
 				aiBrain:DisbandPlatoon(hndl)
             
 				if not unit.Dead then
@@ -685,7 +685,7 @@ EngineerManager = Class(BuilderManager) {
 	-- thanks to splitting jobs out to the engineers that can do them - this check is redundant - always true
     BuilderParamCheck = function( self, builder, unit )
 		
-        if not unit.Dead and builder.InstancesAvailable > 0 then
+        if not unit.Dead and builder.InstanceAvailable > 0 then
 			return true
 		end
 	

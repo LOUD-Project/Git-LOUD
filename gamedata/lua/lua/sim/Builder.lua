@@ -12,8 +12,6 @@
 --        BuilderConditions = list of functions that return true/false, list of args,  { < function>, {<args>}}
 -- }
 
-local LOUDINSERT = table.insert
-
 function CreateBuilder(brain, data, locationType, builderType)
 
     local builder = Builder()
@@ -50,15 +48,20 @@ Builder = Class {
     SetupBuilderConditions = function(self, aiBrain, data, locationType)
 
 		self.BuilderConditions = {}
+        
+        local GetConditionKey = aiBrain.ConditionsMonitor.GetConditionKey
 		
         if data.BuilderConditions then
+        
+            local LOUDDEEPCOPY = table.deepcopy
+            local type = type
 		
 			local counter = 1
 		
             -- Convert location type here
             for k,v in data.BuilderConditions do
 
-                local bCond = table.deepcopy(v)
+                local bCond = LOUDDEEPCOPY(v)
 				
                 if type(bCond[1]) == 'function' then
 				

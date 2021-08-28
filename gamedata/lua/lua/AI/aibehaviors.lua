@@ -890,11 +890,13 @@ function AirScoutingAI( self, aiBrain )
     local UNITCHECK = categories.ALLUNITS - categories.WALL
     local OMNICHECK = categories.STRUCTURE * categories.INTELLIGENCE * categories.OMNI
     
+    local MustScoutList = aiBrain.IL.MustScout
+    
     self.UsingTransport = true      -- airscouting is never considered for merge operations
 
 	local function AIGetMustScoutArea()
 	
-		for k,v in aiBrain.IL.MustScout do
+		for k,v in MustScoutList do
 		
 			if not v.TaggedBy or v.TaggedBy.Dead then
 				return v, k
@@ -5302,10 +5304,11 @@ end
 function EyeBehavior( unit, aiBrain )
 
 	local IsIdleState = moho.unit_methods.IsIdleState
+    local MustScoutList = aiBrain.IL.MustScout
 	
 	local function AIGetMustScoutArea()
 	
-		for k,v in aiBrain.IL.MustScout do
+		for k,v in MustScoutList do
 		
 			if not v.TaggedBy or v.TaggedBy.Dead then
 			
@@ -5332,7 +5335,7 @@ function EyeBehavior( unit, aiBrain )
             -- 1) If we have any "must scout" (manually added) locations that have not been scouted yet, then scout them
             if mustScoutArea  then
 			
-				aiBrain.IL.MustScout[mustScoutIndex].TaggedBy = unit
+				MustScoutList[mustScoutIndex].TaggedBy = unit
 
                 targetArea = mustScoutArea.Position
             end
@@ -5374,23 +5377,22 @@ function EyeBehavior( unit, aiBrain )
             -- Execute the scouting mission
             if targetArea then
 				
-                #-- Ok lets execute the Eye Viz function now
+                -- Ok lets execute the Eye Viz function now
                 IssueScript( {unit}, {TaskName = "TargetLocation", Location = targetArea} )
                 
-				#-- when scouting an untagged (must scout) area 
-				#-- take it off the list of must scout areas
+				-- when scouting an untagged (must scout) area 
+				-- take it off the list of must scout areas
                 if mustScoutArea then
-                    for idx,loc in aiBrain.IL.MustScout do
-                        if idx == mustScoutIndex then
-							aiBrain.IL.MustScout[idx] = nil
-                            break 
-                        end
-                    end
+
+					aiBrain.IL.MustScout[mustScoutIndex] = nil
                     
 					aiBrain.IL.MustScout = aiBrain:RebuildTable(aiBrain.IL.MustScout)
+                    
 					mustScoutArea = false
                 end
+                
             end
+            
         end
     end
 end

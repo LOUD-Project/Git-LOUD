@@ -38,6 +38,8 @@ local AssignUnitsToPlatoon = moho.aibrain_methods.AssignUnitsToPlatoon
 local MakePlatoon = moho.aibrain_methods.MakePlatoon
 
 local PlatoonCategoryCount = moho.platoon_methods.PlatoonCategoryCount
+local PlatoonExists = moho.aibrain_methods.PlatoonExists
+
 
 local timeACTBrains = {}
 local ratioACTBrains = {}
@@ -1694,9 +1696,9 @@ function ResetPFMTasks (manager, aiBrain)
 
 				if Builders[d].PriorityFunction then
                 
-                    if ScenarioInfo.PriorityDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..manager.ManagerType.." "..manager.LocationType.." PriorityFunction for "..b.BuilderName  )
-                    end
+                    --if ScenarioInfo.PriorityDialog then
+                      --  LOG("*AI DEBUG "..aiBrain.Nickname.." "..manager.ManagerType.." "..manager.LocationType.." PriorityFunction for "..b.BuilderName  )
+                    --end
 
 					temporary = true
 
@@ -2839,7 +2841,7 @@ function DeadBaseMonitor( aiBrain )
 			platsea = false
             
             if ScenarioInfo.DeadBaseMonitorDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(v.BaseName).." DBM processing "..repr(v.PrimaryLandAttackBase).." "..repr(v.PrimarySeaAttackBase))
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(v.BaseName).." DBM processing - PrimaryLand "..repr(v.PrimaryLandAttackBase).." - PrimarySea "..repr(v.PrimarySeaAttackBase))
             end
 
 			if not v.CountedBase then
@@ -2877,9 +2879,9 @@ function DeadBaseMonitor( aiBrain )
 				-- if base has no engineers AND has had no factories for about 250 seconds
 				if EM:GetNumCategoryUnits(ALLUNITS) <= 0 and BM[k].nofactorycount >= 10 then
 				
-                    if ScenarioInfo.DeadBaseMonitorDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(v.BaseName).." DBM - removing base")
-					end
+                    --if ScenarioInfo.DeadBaseMonitorDialog then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(v.BaseName).." DBM - removing base" )
+					--end
                     
 					-- handle the MAIN base
 					if k == 'MAIN' then
@@ -2896,38 +2898,47 @@ function DeadBaseMonitor( aiBrain )
 						aiBrain.MainBaseDead = true
 					end
 
-					-- clear any Primary flags
-                    v.PrimaryLandAttackBase = false
-					v.PrimarySeaAttackBase = false
-
 					-- remove the dynamic rally points - using the basename (k) now instead of v.position
 					RemoveBaseRallyPoints( aiBrain, k, v.BaseType, v.RallyPointRadius )
 					
 					-- disable and destroy the EM at this base (this will end BaseDistress and prevent the base from being re-selected as a Primary)
 					if EM then
-					
-						EM:SetEnabled(aiBrain,false)
-						EM:Destroy()
+						BM[k].EngineerManager:SetEnabled(aiBrain,false)
+						BM[k].EngineerManager:Destroy()
 					end
 
-					-- check if new primary bases are needed
-					SetPrimaryLandAttackBase(aiBrain)
-					SetPrimarySeaAttackBase(aiBrain)
+					-- clear any Primary flags
+   					-- and set new primary bases if needed
+                    if v.PrimaryLandAttackBase then
+                        v.PrimaryLandAttackBase = false
+                        SetPrimaryLandAttackBase(aiBrain)
+                    end
+                    
+                    if v.PrimarySeaAttackBase then
+                        v.PrimarySeaAttackBase = false
+                        SetPrimarySeaAttackBase(aiBrain)
+                    end
 					
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(v.BaseName).." shutting down Clearing Out")
+                    
 					-- then clear it out
 					ClearOutBase( PFM, aiBrain )
 					
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(v.BaseName).." shutting down FM")
+                    
 					-- disable and destroy the FBM and PFM now
 					if FM then
 					
-						FM:SetEnabled(aiBrain,false)
-						FM:Destroy()
+						aiBrain.BuilderManagers[k].FactoryManager:SetEnabled(aiBrain,false)
+						aiBrain.BuilderManagers[k].FactoryManager:Destroy()
 					end
 					
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(v.BaseName).." shutting down PFM")
+                    
 					if PFM then
 					
-						PFM:SetEnabled(aiBrain,false)
-						PFM:Destroy()
+						aiBrain.BuilderManagers[k].PlatoonFormManager:SetEnabled(aiBrain,false)
+						aiBrain.BuilderManagers[k].PlatoonFormManager:Destroy()
 					end
 
 					-- update the base counter
@@ -2945,26 +2956,32 @@ function DeadBaseMonitor( aiBrain )
 
 					-- remove the visible marker from the map
 					if ScenarioInfo.DisplayBaseNames or aiBrain.DisplayBaseNames or BM[k].MarkerID then
-						ForkThread( RemoveBaseMarker, aiBrain, k, BM[k].MarkerID)
+						ForkThread( RemoveBaseMarker, aiBrain, k, aiBrain.BuilderManagers[k].MarkerID)
 					end
 
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(v.BaseName).." cleaning up")
+                    
 					-- remove base from table
-                    BM[k] = nil
+                    aiBrain.BuilderManagers[k] = nil
 					
 					-- rebuild the bases table
-					BM = RebuildTable(aiBrain, BM)
+					aiBrain.BuilderManagers = RebuildTable(aiBrain, aiBrain.BuilderManagers)
+                    
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." BM after is "..repr(BM))
 
 					break -- we changed -- start at the top again					
 				end
 
 			else
-				BM[k].nofactorycount = 0
+                if BM[k] then
+                    BM[k].nofactorycount = 0
+                end
 			end
 			
-			WaitTicks(10)   -- 1 second between bases
+			WaitTicks(20)   -- 2 second between bases
 		end
 		
-		WaitTicks(180)	    -- check every 18 seconds
+		WaitTicks(200)	    -- check every 20 seconds
 	end
 end
 
@@ -3002,6 +3019,7 @@ function PathGeneratorAir( aiBrain )
 	-- localize this often used function
     local GetThreatAtPosition = moho.aibrain_methods.GetThreatAtPosition
 	local GetThreatBetweenPositions = moho.aibrain_methods.GetThreatBetweenPositions
+    local PlatoonExists = moho.aibrain_methods.PlatoonExists
 
 	local LOUDCOPY = table.copy
     local LOUDEQUAL = table.equal
@@ -3165,14 +3183,14 @@ function PathGeneratorAir( aiBrain )
 			
 				local pathlist, pathlength, shortcut, pathcost = AStarLoopBody( data, queue, closed )
         
-				if pathlist then
+				if pathlist and (type(data.Platoon) == 'string' or PlatoonExists(aiBrain, data.Platoon)) then
 
 					PathReplies[data.Platoon] = { length = pathlength, path = LOUDCOPY(pathlist), cost = pathcost }
 					break
 				end
 			end
 			
-			if not PathReplies[data.Platoon] then
+			if (not PathReplies[data.Platoon]) and (type(data.Platoon) == 'string' or PlatoonExists(aiBrain, data.Platoon)) then
             
                 if ScenarioInfo.PathFindingDialog then
                     LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(data.Platoon.BuilderName or data.Platoon).." no safe AIR path found to "..repr(data.Dest))
@@ -3192,6 +3210,7 @@ end
 function PathGeneratorAmphibious(aiBrain)
 	
 	local GetThreatBetweenPositions = moho.aibrain_methods.GetThreatBetweenPositions
+    local PlatoonExists = moho.aibrain_methods.PlatoonExists
 
 	local LOUDCOPY = table.copy
     local LOUDEQUAL = table.equal
@@ -3349,8 +3368,8 @@ function PathGeneratorAmphibious(aiBrain)
 			while queue[1] do
 
 				local pathlist, pathlength, shortcut, pathcost = AStarLoopBody( data, queue, closed )
-        
-				if pathlist then
+
+				if pathlist and (type(data.Platoon) == 'string' or PlatoonExists(aiBrain, data.Platoon)) then
 					
 					PathReplies[data.Platoon] = { length = pathlength, path = LOUDCOPY(pathlist), cost = pathcost }
 
@@ -3376,6 +3395,7 @@ end
 function PathGeneratorLand(aiBrain)
 	
 	local GetThreatBetweenPositions = moho.aibrain_methods.GetThreatBetweenPositions
+    local PlatoonExists = moho.aibrain_methods.PlatoonExists
 
 	local LOUDCOPY = table.copy
     local LOUDEQUAL = table.equal
@@ -3536,6 +3556,7 @@ end
 function PathGeneratorWater(aiBrain)
 	
 	local GetThreatBetweenPositions = moho.aibrain_methods.GetThreatBetweenPositions
+    local PlatoonExists = moho.aibrain_methods.PlatoonExists
 
 	local LOUDCOPY = table.copy
     local LOUDEQUAL = table.equal

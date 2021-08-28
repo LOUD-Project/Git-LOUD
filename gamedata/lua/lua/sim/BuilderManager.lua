@@ -22,7 +22,7 @@ BuilderManager = Class {
         self.Trash = TrashBag()
         self.BuilderData = {}
         self.BuilderCheckInterval = 20
-        self.BuilderList = false
+
         self.Active = false
         self.NumBuilders = 0
 		
@@ -50,11 +50,15 @@ BuilderManager = Class {
     SetEnabled = function(self, brain, enable)
 
         if enable then
+        
+            LOG("*AI DEBUG "..brain.Nickname.." "..self.LocationType.." "..self.ManagerType.." setting ACTIVE")
 
 			self.Active = true		
 			self:ForkThread( self.ManagerThread, brain)
 
         elseif not enable then
+        
+            LOG("*AI DEBUG "..brain.Nickname.." "..self.LocationType.." "..self.ManagerType.." setting ACTIVE to FALSE ")
 
 			self.Active = false		
 			self.Trash:Destroy()
@@ -96,7 +100,6 @@ BuilderManager = Class {
                 LOUDINSERT( self.BuilderData[BuilderType].Builders, newBuilder )
 
                 self.BuilderData[BuilderType].NeedSort = true
-                self.BuilderList = true
 
                 self.NumBuilders = self.NumBuilders + 1
             end
@@ -236,7 +239,7 @@ BuilderManager = Class {
                     
                     for k,v in self.BuilderData[unit.BuilderType].Builders do
                     
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.ManagerType.." "..v.Location.." "..v.Priority.." "..v.BuilderName)
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.ManagerType.." "..v.BaseName.." "..v.Priority.." "..v.BuilderName)
                     end
                     
                     self.BuilderData[unit.BuilderType].displayed = true
@@ -254,7 +257,7 @@ BuilderManager = Class {
             
             Priority = task.Priority
 		
-			if Priority > 100 and (task.InstancesAvailable > 0 or self.ManagerType == 'FBM') and continuesearching then
+			if Priority > 100 and (task.InstanceAvailable > 0 or self.ManagerType == 'FBM') and continuesearching then
 			
 				-- if no task found yet or priority is the same as one we have already added - examine the task
                 if (not found) or Priority >= found then
@@ -293,14 +296,14 @@ BuilderManager = Class {
 				local newPri = false
 				local temporary = true
                 
-                if ScenarioInfo.PriorityDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.ManagerType.." "..self.LocationType.." PriorityFunction for "..repr(self.BuilderData[unit.BuilderType].Builders[k].BuilderName) )    
-                end
+                --if ScenarioInfo.PriorityDialog then
+                  --  LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.ManagerType.." "..self.LocationType.." PriorityFunction for "..repr(self.BuilderData[unit.BuilderType].Builders[k].BuilderName) )    
+                --end
 				
 				newPri,temporary = Builders[TaskList[k].BuilderName]:PriorityFunction( aiBrain, unit )
 
 				-- if the priority function reports a different priority than current priority
-				if newPri and newPri != Priority and (task.InstancesAvailable > 0 or self.ManagerType == 'FBM') then
+				if newPri and newPri != Priority and (task.InstanceAvailable > 0 or self.ManagerType == 'FBM') then
 				
 					if ScenarioInfo.PriorityDialog then
 						LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.ManagerType.." "..self.LocationType.." PriorityFunction for "..repr(self.BuilderData[unit.BuilderType].Builders[k].BuilderName).." changes to "..newPri.." from "..Priority )
@@ -505,7 +508,7 @@ BuilderManager = Class {
 			
 					for _,bData in bTypeData.Builders do
 
-						if bData.Priority >= 100 and bData.InstancesAvailable > 0 then
+						if bData.Priority >= 100 and bData.InstanceAvailable > 0 then
 
 							numTested = numTested + 1
 						

@@ -816,8 +816,6 @@ AIBrain = Class(moho.aibrain_methods) {
         -- this is a LOUD data element for storing unpacked
         -- platoon templates
         self.PlatoonTemplates = {}
-        
-		self.IgnoreArmyCaps = false
 
         -- all AI are technically 'cheaters' now --
         self.CheatingAI = true
@@ -873,12 +871,9 @@ AIBrain = Class(moho.aibrain_methods) {
 
 			-- go get and set a plan for MAIN
 			if self:IsOpponentAIRunning() then
-			
-				self.CurrentPlan = '/lua/ai/aiarchetype-managerloader.lua'
-				self.CurrentPlanScript = import(self.CurrentPlan)
-				
+
 				-- start the plan
-				ForkThread( self.CurrentPlanScript.ExecutePlan, self )
+				ForkThread( import('/lua/ai/aiarchetype-managerloader.lua').ExecutePlan, self )
 
                 -- Subscribe to ACT if .Adaptive dictates such
                 import('/lua/loudutilities.lua').SubscribeToACT(self)
@@ -1081,6 +1076,18 @@ AIBrain = Class(moho.aibrain_methods) {
 			if self.BrainType != 'Human' then
 
 				LOG("*AI DEBUG Shutting down AI "..self.Nickname)
+                
+                --LOG("*AI DEBUG AIBrain at shutdown is "..repr(self))
+                
+                self.AirRatio = nil
+                self.LandRatio = nil
+                self.NavalRatio = nil
+                
+                self.BadReclaimables = nil
+                self.BaseAlertSounded = nil
+                self.BaseExpansionUnderway = nil
+                
+                self.CurrentPlan = nil
 				
 				self.ConditionsMonitor.Trash:Destroy()
 				
@@ -1104,21 +1111,42 @@ AIBrain = Class(moho.aibrain_methods) {
 					v.PlatoonFormManager:SetEnabled(self,false)
 					
 					v.FactoryManager:Destroy()
+                    v.FactoryManager.BuilderData = nil
 					v.PlatoonFormManager:Destroy()
+                    v.PlatoonFormManager.BuilderData = nil
 					v.EngineerManager:Destroy()
+                    v.EngineerManager.BuilderData = nil
+                    
 					--v.StrategyManager:Destroy()
 					
-                    v.PrimaryLandAttackBase = false
+                    v.PrimaryLandAttackBase = nil
+                    v.PrimarySeaAttackBase = nil
+                    
+                    self.BuilderManagers[k] = nil
 					
 				end
-			
+                
+                self.LastPrimaryLandAttackBase = nil
+                self.LastPrimarySeaAttackBase = nil
+                
+                self.MainBaseDead = nil
+                
+                self.NumBases = nil
+                self.NumBasesLand = nil
+                self.NumBasesNaval = nil
+
+                self.PrimaryLandAttackBase = nil
+                self.PrimaryLandAttackBaseDistance = nil
+                self.PrimarySeaAttackBase = nil
+                self.PrimarySeaAttackBaseDistance = nil
+
 				if self.PathCacheThread then
 				
 					KillThread(self.PathCacheThread)
 					
 					if self.PathCache then
 					
-						self.PathCache = {}
+						self.PathCache = nil
 						
 					end
 					
@@ -1155,8 +1183,15 @@ AIBrain = Class(moho.aibrain_methods) {
 				self.AttackPlan = nil
 				self.EcoData = nil
 				self.EnemyData = nil
+
 				self.IL = nil
+                
 				self.PathRequests = nil
+                
+                self.PingCallbackList = nil
+                
+                self.PlatoonDistress = nil
+                self.PlatoonTemplates = nil
 				
 				self:DisbandPlatoon(self.RefuelPool)
 				self:DisbandPlatoon(self.StructurePool)
@@ -1181,16 +1216,15 @@ AIBrain = Class(moho.aibrain_methods) {
 
 	        ForkThread(KillArmy)
 
-			self.BuilderManagers = nil
-			self.CurrentPlanScript = nil
+			--self.BuilderManagers = nil
 			
 			if self.Trash then
-			
+
 				self.Trash:Destroy()
 				
 			end
-			
-			LOG("*AI DEBUG Shut down complete "..repr(self))
+
+			--LOG("*AI DEBUG Shut down complete "..repr(self))
 			
         end
 
@@ -1618,201 +1652,6 @@ AIBrain = Class(moho.aibrain_methods) {
 
 --[[
 
-    EvaluateAIPlanList = function(self)
-	
-		local AIPlansList =	{
-			-- EARTH Faction Plans
-			{ '/lua/ai/aiarchetype-managerloader.lua', },
-			-- AEON Faction Plans
-			{ '/lua/ai/aiarchetype-managerloader.lua', },
-			-- CYBRAN Faction Plans
-			{ '/lua/ai/aiarchetype-managerloader.lua', },
-			-- SERAPHIM Faction Plans
-			{ '/lua/ai/aiarchetype-managerloader.lua', },
-		}
-
-        if self:IsOpponentAIRunning() then
-
-            local bestPlan = nil
-            local bestValue = 0
-            --for i,u in AIPlansList[self.FactionIndex] do
-				-- gets the best Starting Base Plan
-                --local value = self:EvaluatePlan(u)
-				local value = import('/lua/ai/aiarchetype-managerloader.lua').EvaluatePlan(self)
-                if value > bestValue then
-                    bestPlan = '/lua/ai/aiarchetype-managerloader.lua'	--u
-                    bestValue = value
-                end
-            --end
-
-            if bestPlan then
-				self.CurrentPlan = bestPlan
-                local bPlan = import(bestPlan)
-                if bPlan != self.CurrentPlanScript then
-                    self.CurrentPlanScript = import(bestPlan)
-                end
-            end
-		end
-		self.AIPlansList = nil
-    end,
-    
-    EvaluateAIThread = function(self)
-		LOG("*AI DEBUG EvaluateAIThread for "..self.Nickname)
-		
-        local personality = self:GetPersonality()
-        local factionIndex = self.FactionIndex
-        
-        while self.ConstantEval do
-            self:EvaluateAIPlanList()
-            local delay = personality:AdjustDelay(100, 2)
-            WaitTicks(delay)
-				end
-		if not self.ConstantEval then
-			self:EvaluateAIPlanList()
-			end
-    end,
-
-    EvaluatePlan = function(self,  planName )
-        local plan = import(planName)
-        if plan then
-            return plan.EvaluatePlan(self)
-        else
-            LOG('*WARNING: TRIED TO IMPORT PLAN NAME ', repr(planName), ' BUT IT ERRORED OUT IN THE AI BRAIN.')
-            return 0
-		end
-    end,
-
-    ExecuteAIThread = function(self)
-	
-        local personality = self:GetPersonality()
-
-        local delay = personality:AdjustDelay(20, 4)
-        WaitTicks(delay)
-    end,
-
-    ExecutePlan = function(self)
-        self.CurrentPlanScript.ExecutePlan(self)
-    end,
-    GetEngineerManagerUnitsBeingBuilt = function(self, category)
-        local unitCount = 0
-        for k,v in self.BuilderManagers do
-            unitCount = unitCount + v.EngineerManager:GetNumCategoryBeingBuilt( category, categories.ALLUNITS )
-		end
-        return unitCount
-	end,
-
-    GetManagerCount = function(self, Type)
-
-        local count = 0
-		
-        for k,v in self.BuilderManagers do
-            if Type then
-				#-- count any starting areas but EXCLUDE the MAIN base
-                if Type == 'Start Location' and not ( (LOUDSTRING(k, 'ARMY_')) or (LOUDSTRING(k, 'MAIN')) ) then
-                    continue
-				#-- count Naval Areas
-                elseif Type == 'Naval Area' and not ( LOUDSTRING(k, 'Naval Area') ) then
-                    continue
-				#-- count Expansion Areas
-                elseif Type == 'Expansion Area' and not ( (LOUDSTRING(k,'Expansion Area')) or (LOUDSTRING(k, 'EXPANSION_AREA')) ) then
-                    continue
-                end
-            end
-        
-            if v.EngineerManager:GetNumCategoryUnits(categories.ENGINEER) < 1 and v.FactoryManager:GetNumCategoryFactories(categories.FACTORY) < 1 then
-                continue
-            end
-            
-            count = count + 1
-        end
-        return count
-    end,
-
-    GetFactoriesBeingBuilt = function(self)
-        local unitCount = 0
-        local LOUDGETN = table.getn
-		
-        #-- Units queued up
-        for k,v in self.BuilderManagers do
-            unitCount = unitCount + LOUDGETN( v.EngineerManager:GetEngineersQueued( 'T1LandFactory' ) )
-        end
-        return unitCount
-    end,
-
-    #-----------------------------------------------------
-    # In this function we get our 'strength' and compare
-    # it to our allies (if we have any).  If our strength
-    # is less than our allies - then we return the current
-    # enemy of our ally - note: this doesn't actually switch
-    # your target - just gives you the value of your allies
-    # current enemy.
-	# I've since discovered that the GetHighestThreatPosition
-	# will only return values for enemies - not allies so
-	# this function simply does NOT work
-    #------------------------------------------------------
-    GetAllianceEnemy = function(self, armyStrengthTable, mystrength, myenemy)
-	
-        local result = false
-        
-        local pos, mystrength = self:GetHighestThreatPosition( 2, true, 'Structures', self:GetArmyIndex() )
-		
-		LOG("*AI DEBUG GetAllianceEnemy mystrength is "..repr(pos).." - "..mystrength)
-        
-        for k,v in armyStrengthTable do
-        
-            -- it's an enemy, ignore
-            if v.Enemy then
-                continue
-            end
-            
-            -- Ally too weak
-			LOG("*AI DEBUG GetAllianceEnemy Ally strength is "..v.Strength)
-			
-            if v.Strength < mystrength then
-                continue
-            end
-            
-            -- If the brain has an enemy, it's our new enemy
-            local enemy = v.Brain:GetCurrentEnemy()
-			
-            if enemy and not enemy:IsDefeated() and v.Strength > highStrength then
-			
-                highStrength = v.Strength
-                result = v.Brain:GetCurrentEnemy()
-				
-            end
-        end
-        
-        return result
-    end,
-
-    IgnoreArmyUnitCap = function(self, val)
-        self.IgnoreArmyCaps = val
-        SetIgnoreArmyCap(self, val)
-    end,
-
-    InitializeEconomyState = function(self)
-    end,
-	
-    --------- System for playing VOs to the Player ----------
-    InitializeVO = function(self)
-	
-		VOReplayTime = table.merged(VOReplayTime, CustomVOReplayTime)
-        if not self.VOTable then
-            self.VOTable = {}
-        end
-    end,
-
-    ImportScenarioArmyPlans = function(self, planName)
-	
-        if planName and planName != '' then
-            return import(planName).AIPlansList
-        else
-            return nil
-        end
-    end,
-
-
     -- Called when recon data changes for enemy units (e.g. A unit comes into line of sight)
     -- Params
     --   blip: the unit (could be fake) in question
@@ -1898,22 +1737,7 @@ AIBrain = Class(moho.aibrain_methods) {
             end
         end
     end,
-    PlayVOSound = function(self, sound, string)
-		PlayVOSound(self, sound, string, nil)
-    end,
-    SetConstantEvaluate = function(self, eval)
-        if eval == true and self.ConstantEval == false then
-            self.ConstantEval = eval
-            ForkThread1(self.EvaluateAIThread, self )
-        end
-        self.ConstantEval = eval
-    end,
-	T4ThreatMonitorTimeout = function(self, threattypes)
-		WaitTicks(1800)
-		for k,v in threattypes do
-			self.T4ThreatFound[v] = false
-		end
-	end,
+
 --    INTEL TRIGGER SPEC
 --    {
 --        CallbackFunction = <function>,

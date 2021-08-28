@@ -97,7 +97,7 @@ PlatoonFormManager = Class(BuilderManager) {
                 end
             end
 
-            aiBrain.PlatoonTemplates[templateName] = resolvedtemplate
+            aiBrain.PlatoonTemplates[templateName] = LOUDCOPY(resolvedtemplate)
         end
         
         return aiBrain.PlatoonTemplates[templateName]

@@ -76,37 +76,33 @@ function ExecutePlan(aiBrain)
     end
     
     WaitTicks(5)	
-    
-    if not aiBrain.BuilderManagers.MAIN.FactoryManager.BuilderList then
 
-        SetupMainBase(aiBrain)
-        
-        -- Get units out of pool and assign them to the managers
-        local mainManagers = aiBrain.BuilderManagers.MAIN
-        local pool = aiBrain:GetPlatoonUniquelyNamed('ArmyPool')
+    SetupMainBase(aiBrain)
+
+    -- Get units out of pool and assign them to the managers
+    local mainManagers = aiBrain.BuilderManagers.MAIN
+    local pool = aiBrain:GetPlatoonUniquelyNamed('ArmyPool')
+
+    for _,v in pool:GetPlatoonUnits() do
 		
-        for _,v in pool:GetPlatoonUnits() do
-		
-            if EntityCategoryContains( categories.ENGINEER, v ) then
+        if EntityCategoryContains( categories.ENGINEER, v ) then
 			
-                mainManagers.EngineerManager:AddEngineerUnit(v)
-				
-            elseif EntityCategoryContains( categories.FACTORY * categories.STRUCTURE, v ) then
+            mainManagers.EngineerManager:AddEngineerUnit(v)
+
+        elseif EntityCategoryContains( categories.FACTORY * categories.STRUCTURE, v ) then
 			
-                mainManagers.FactoryManager:AddFactory( v )
-				
-            end
-			
+            mainManagers.FactoryManager:AddFactory( v )
+
         end
-		
-		if not aiBrain.IgnoreArmyCaps then
-		
-			aiBrain:ForkThread(UnitCapWatchThread)
-			
-		end
-		
+
     end
-	
+
+    if not aiBrain.IgnoreArmyCaps then
+		
+		aiBrain:ForkThread(UnitCapWatchThread)
+
+	end
+
 end
 
 function SetupMainBase(aiBrain)

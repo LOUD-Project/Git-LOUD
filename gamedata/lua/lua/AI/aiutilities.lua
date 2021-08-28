@@ -4,6 +4,7 @@ local SUtils = import('/lua/ai/sorianutilities.lua')
 
 local TABLECAT = table.cat
 local LOUDDEEPCOPY = table.deepcopy
+local LOUDFLOOR = math.floor
 local LOUDINSERT = table.insert
 local LOUDPARSE = ParseEntityCategory
 local LOUDSORT = table.sort
@@ -17,20 +18,39 @@ local GetAIBrain = moho.unit_methods.GetAIBrain
 -- Adds an area to the brains MustScout table
 function AIAddMustScoutArea( aiBrain, location )
 
-	if location and ( not aiBrain:IsDefeated() ) then
+    local gametime = LOUDFLOOR(GetGameTimeSeconds())
+    local MustScoutList = aiBrain.IL.MustScout or false
 
-		for _,v in aiBrain.IL.MustScout do
+	if location and MustScoutList then
+
+		for k,v in MustScoutList do
+        
+            -- if the report is old - or someone took that job and died - remove it
+            if gametime > (v.Created + 180) or v.TaggedBy.Dead then
+
+                MustScoutList[k] = nil
+                
+            else
+            
+                -- if the job has NOT been taken
+                if not v.TaggedBy then
 		
-			-- If there's already a location to scout within 50 of this one, don't add it.
-			if VDist2Sq(v.Position[1],v.Position[3], location[1],location[3]) < 2500 then
+                    -- but theres already a location to scout within 50 of this one
+                    if VDist2Sq(v.Position[1],v.Position[3], location[1],location[3]) < 2500 then
 			
-				return
+                        -- dont add it
+                        return
 				
-			end
+                    end
+                    
+                end
+                
+            end
 			
 		end
 		
-		LOUDINSERT( aiBrain.IL.MustScout,	{ Position = location, TaggedBy = false	} )
+        -- otherwise -- add it
+		LOUDINSERT( aiBrain.IL.MustScout,	{ Created = GetGameTimeSeconds(), Position = location, TaggedBy = false	} )
 		
 	end
 	
@@ -304,7 +324,7 @@ function AISortMarkersFromLastPosWithThreatCheck(aiBrain, markerlist, maxNumber,
 			
 		else
 			counter = counter + 1
-			mlist[counter+1] = point
+			mlist[counter] = point
         end
 
 		if counter >= maxNumber then
@@ -410,7 +430,7 @@ function AIGetMarkersAroundLocation( aiBrain, markerType, pos, radius, threatMin
     local tempMarkers = ScenarioInfo.Env.Scenario.MasterChain[markerType] or AIGetMarkerLocations( markerType )
 	
     local markerlist = {}
-	local counter = 1
+	local counter = 0
 	
 	local VDist2Sq = VDist2Sq
     local GetThreatAtPosition = moho.aibrain_methods.GetThreatAtPosition
@@ -427,22 +447,29 @@ function AIGetMarkersAroundLocation( aiBrain, markerType, pos, radius, threatMin
         if VDist2Sq( pos[1], pos[3], v.Position[1], v.Position[3] ) <= checkdistance then
 		
             if not threatMin then
-			
+            
+				counter = counter + 1			
                 markerlist[counter] = v
-				counter = counter + 1
+
             else
 			
                 local threat = GetThreatAtPosition( aiBrain, v.Position, threatRings, true, threatType or 'Overall' )
 				
                 if threat >= threatMin and threat <= threatMax then
+                
+                    counter = counter + 1                
                     markerlist[counter] = v
-					counter = counter + 1
+
 				end
+                
             end
 			
         else
+        
 			break
+            
 		end
+        
     end
 	
 	return markerlist
