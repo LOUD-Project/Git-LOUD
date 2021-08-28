@@ -31,13 +31,11 @@ Builder = Class {
     Create = function(self, brain, data, locationType, builderType)
         
         self.Priority = data.Priority
-		self.OldPriority = data.OldPriorty or false
 
         self.BuilderName = data.BuilderName
 		self.BuilderType = builderType
 
-		self.Location = locationType
-        self.RTBLocation = data.RTBLocation or self.Location
+        self.RTBLocation = data.RTBLocation or nil
         
         self:SetupBuilderConditions( brain, data, locationType)
         
@@ -85,7 +83,7 @@ Builder = Class {
 					end
                 end
 				
-				self.BuilderConditions[counter] = aiBrain.ConditionsMonitor:GetConditionKey( unpack(bCond) )
+				self.BuilderConditions[counter] = GetConditionKey( aiBrain.ConditionsMonitor, unpack(bCond) )
 				counter = counter + 1
             end
         end
@@ -93,45 +91,57 @@ Builder = Class {
 	
     SetPriority = function( builder, val, temporary)
 	
+        -- Priority changes are either temporary or permanent --
         if temporary then
 			
-			if builder.Priority != 0 and builder.OldPriority != val then
+            -- if there is an OLD Priority - then this builder is currently altered
+            -- otherwise - store the current priority as the OLD priority
+			if not builder.OldPriority then                                     --builder.Priority != 0 and builder.OldPriority != val then
 			
 				builder.OldPriority = builder.Priority
-				builder.PriorityAltered = true
+               
 			end
 
+            -- and change the current priority
 			builder.Priority = val
-			
+
 		else
-		
-			builder.OldPriority = val
+            
+            -- this is a permanent change - so removed any OLD priority
+            -- and change the current priority to the new value
+			builder.OldPriority = nil
 			builder.Priority = val
-			builder.PriorityAltered = false
-		end
+
+        end
 		
 		if ScenarioInfo.PriorityDialog then
-			LOG("*AI DEBUG "..repr(builder.ManagerType).." "..repr(builder.Location).." "..repr(builder.BuilderName).." set to "..val.." Temporary is "..repr(temporary))
+			LOG("*AI DEBUG "..repr(builder.BuilderName).." set to "..val.." Temporary is "..repr(temporary))
 		end
     end,
     
     ResetPriority = function(self, manager)
-		
-		if self.PriorityAltered and self.Priority != self.OldPriority then
+    
+        -- this is simple - return the priority of this job to it's original value
+        -- and remove any indication of OLD Priority
+        -- if there is NO OLD Priority this function does nothing
+		if self.OldPriority then
 		
 			if ScenarioInfo.PriorityDialog then
 				LOG("*AI DEBUG "..manager.ManagerType.." "..manager.LocationType.." "..self.BuilderName.." Reset to "..self.OldPriority)
 			end
 
 			manager:SetBuilderPriority( self.BuilderName, self.OldPriority, false)
-			
-			self.PriorityAltered = false
+
+            self.OldPriority = nil
+            
 		end
+
     end,
-    
+
+--[[    
     CalculatePriority = function(self, builderManager)
 	
-        self.PriorityAltered = false
+        self.PriorityAltered = nil
         
 		if Builders[self.BuilderName].PriorityFunction then
         
@@ -145,14 +155,17 @@ Builder = Class {
 			if newPri and newPri != self.Priority then
 				builderManager:SetBuilderPriority(self.BuilderName, newPri, temporary)
 			end
+
 		end
 		
-        return self.PriorityAltered
+        return self.PriorityAltered or false
     end,
+--]]
   
     GetBuilderData = function(self, locationType, builderData )
 
         local returnData = {}
+        local type = type
 		
         builderData = builderData or Builders[self.BuilderName].BuilderData
 		
@@ -179,53 +192,6 @@ Builder = Class {
     end,
 
 }
-	
---[[
-    
-    AdjustPriority = function(self, val)
-        self.Priority = self.Priority + val
-    end,
-   
-    GetBuilderType = function(self)
-        return Builders[self.BuilderName].BuilderType
-    end,
-   
-    GetBuilderName = function(self)
-        return self.BuilderName
-    end,
-   
-    GetPlatoonAIFunction = function(self)
-        return Builders[self.BuilderName].PlatoonAIFunction or false
-    end,
-    
-    GetPlatoonAddBehaviors = function(self)
-        return Builders[self.BuilderName].PlatoonAddBehaviors or false
-    end,
-    
-    GetPlatoonAddFunctions = function(self)
-        return Builders[self.BuilderName].PlatoonAddFunctions or false
-    end,
-  
-    GetPlatoonAddPlans = function(self)
-        return Builders[self.BuilderName].PlatoonAddPlans or false
-    end,
-
-    GetPlatoonAIPlan = function(self)
-        return Builders[self.BuilderName].PlatoonAIPlan or false
-    end,
-
-    VerifyDataName = function(self, valueName, data)
-        if not data[valueName] and not data.BuilderName then
-            error('*BUILDER ERROR: Invalid builder data missing: ' .. valueName .. ' - BuilderName not given')
-            return false
-        elseif not data[valueName] then
-            error('*BUILDER ERROR: Invalid builder data missing: ' .. valueName .. ' - BuilderName given: ' .. data.BuilderName)
-            return false
-        end
-        return true
-    end,
-    
---]]
 
 
 ------------------------
@@ -272,25 +238,28 @@ PlatoonBuilder = Class(Builder) {
 		if not data.FactionIndex or data.FactionIndex == brain.FactionIndex then
 	
 			Builder.Create( builder, brain, data, locationType)
-			
-			builder.ManagerType = manager.ManagerType
-		
+
 			builder.InstanceCount = {}
-			builder.InstancesAvailable = 0
+			builder.InstanceAvailable = 0
 		
 			local num = 1
 		
 			while num <= ( data.InstanceCount or 1 ) do
 			
-				LOUDINSERT( builder.InstanceCount, { Status = 'Available', PlatoonHandle = false } )
+				builder.InstanceCount[num] = false
 				num = num + 1
-				builder.InstancesAvailable = builder.InstancesAvailable + 1
+                
+				builder.InstanceAvailable = builder.InstanceAvailable + 1
 			end
 			
 			return true
+            
 		else
+        
 			return false
+            
 		end
+
     end,
     
 	-- OK - this is where the instances get used up -- and there is a small potential for
@@ -302,15 +271,16 @@ PlatoonBuilder = Class(Builder) {
 	
         for k,v in builder.InstanceCount do
 		
-            if v.Status == 'Available' then
+            if not v then
+            
+                local LOUDINSERT = table.insert
 				
-                v.Status = 'ActivePlatoon'
-                v.PlatoonHandle = true
+                builder.InstanceCount[k] = true
 				
 				platoon.BuilderName = builder.BuilderName
 				platoon.BuilderType = BuilderType
-				platoon.BuilderLocation = builder.Location
-				platoon.BuilderManager = builder.ManagerType
+				platoon.BuilderLocation = manager.LocationType      --builder.Base
+				platoon.BuilderManager = manager.ManagerType
 				platoon.BuilderInstance = k
 				
                 local destroyedCallback = function( brain, platoon )
@@ -335,12 +305,11 @@ PlatoonBuilder = Class(Builder) {
 						
 							if b.BuilderName == platoon.BuilderName then
 							
-								b.InstancesAvailable = b.InstancesAvailable + 1
-								b.InstanceCount[platoon.BuilderInstance].PlatoonHandle = false
-								b.InstanceCount[platoon.BuilderInstance].Status = 'Available'
+								b.InstanceAvailable = b.InstanceAvailable + 1
+								b.InstanceCount[platoon.BuilderInstance] = false
 								
 								if ScenarioInfo.InstanceDialog then
-									LOG("*AI DEBUG "..aiBrain.Nickname.." resetting "..platoon.BuilderName.." instances to "..b.InstancesAvailable)
+									LOG("*AI DEBUG "..aiBrain.Nickname.." resetting "..platoon.BuilderName.." instances to "..b.InstanceAvailable)
 								end
 								
 								break
@@ -351,7 +320,7 @@ PlatoonBuilder = Class(Builder) {
 				
 				LOUDINSERT(platoon.EventCallbacks.OnDestroyed, destroyedCallback)
 
-				builder.InstancesAvailable = builder.InstancesAvailable - 1
+				builder.InstanceAvailable = builder.InstanceAvailable - 1
 
 				return true
 			end
@@ -407,15 +376,21 @@ function CreateEngineerBuilder( manager, brain, data, locationType)
 	local Game = import('/lua/game.lua')
 	
 	if data.BuilderData.Construction.BuildStructures then
+    
+        local LOUDCOPY = table.copy
+        local LOUDINSERT = table.insert
+        
+        local BuildStructures = data.BuilderData.Construction.BuildStructures
 		
 		local fulltemplate = {}
 		local datatemplate = {}
 
-		for k,v in data.BuilderData.Construction.BuildStructures do
+		for k,v in BuildStructures do
 
 	        local buildingTmpl = import('/lua/buildingtemplates.lua').BuildingTemplates[brain.FactionIndex]
 			
 			local template = {}
+            local count = 0
 
 			for _, id in buildingTmpl do
 			
@@ -424,9 +399,14 @@ function CreateEngineerBuilder( manager, brain, data, locationType)
 					local fog = id[2]
 					
 					if fog != nil and not Game.UnitRestricted( false, fog) then
-                        LOUDINSERT( template, fog )
+                    
+                        count = count + 1
+                        template[count] = fog
+                        
 					end
+                    
 				end
+                
 			end
 			
 			local replacement = false
@@ -440,29 +420,36 @@ function CreateEngineerBuilder( manager, brain, data, locationType)
 					local fog = replacement[1][2]
 					
 					if not Game.UnitRestricted( false, fog) then
-						LOUDINSERT( template, fog )
+                    
+                        count = count + 1
+						template[count] = fog
 					end
 				end
 			end
 
-			if table.empty(template) then
+			if not template[1] then
+            
 				--LOG("*AI DEBUG "..brain.Nickname.." id for "..repr(v).." in "..data.BuilderName.." is empty ")
+                
 			else
+            
 				LOUDINSERT( fulltemplate, template )
 				LOUDINSERT( datatemplate, v )
+                
 			end
 		end
 		
-		if table.empty(fulltemplate) then
+		if not fulltemplate[1] then
 		
 			--LOG("*AI DEBUG "..brain.Nickname.." Builder "..repr(data.BuilderName).." is empty")
 			return false
+            
 		else
 			--LOG("*AI DEBUG IDs for "..repr(data.BuilderName).." are "..repr(fulltemplate) )
 			--LOG("*AI DEBUG Data template will be "..repr(datatemplate))
 		end	
 
-		data.BuilderData.Construction.BuildStructures = table.copy(datatemplate)
+		data.BuilderData.Construction.BuildStructures = LOUDCOPY(datatemplate)
 	end
 	
     if builder:Create( manager, brain, data, locationType) then

@@ -30,12 +30,12 @@ local IsEnemyNavalActive = function( self, aiBrain, manager )
 	
 end
 
--- this function will turn a builder off if the enemy is not active in the water
+-- this function will turn a builder off if the enemy is not active in the air
 local IsEnemyAirActive = function(self,aiBrain,manager)
 
 	if aiBrain.AirRatio and (aiBrain.AirRatio > .01 and aiBrain.AirRatio <= 10) then
 	
-		return 600, true	-- standard naval priority -- 
+		return 600, true
 
 	end
 
@@ -290,7 +290,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Torpedo Bombers',
         BuilderConditions = {
 
 			-- dont start production until you have at least 2+ T2/T3 factories at location
-			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},
+			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY * categories.AIR - categories.TECH1 }},
 
             -- one of the few places where I use a % ratio to control the number of units
 			{ UCBC, 'HaveLessThanUnitsAsPercentageOfUnitCap', { 5, categories.ANTINAVY * categories.AIR }},

@@ -3377,7 +3377,7 @@ function PathGeneratorAmphibious(aiBrain)
 				end
 			end
 			
-			if not PathReplies[data.Platoon] then
+			if (not PathReplies[data.Platoon]) and (type(data.Platoon) == 'string' or PlatoonExists(aiBrain, data.Platoon)) then
             
                 if ScenarioInfo.PathFindingDialog then
                     LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(data.Platoon.BuilderName or data.Platoon).." no safe AMPHIB path found to "..repr(data.Dest))
@@ -3528,8 +3528,8 @@ function PathGeneratorLand(aiBrain)
 				-- local maxthreat = data.ThreatWeight * 1.2
 				-- local minthreat = data.ThreatWeight * .5
 				local pathlist, pathlength, shortcut, pathcost = AStarLoopBody( data, queue, closed, data.ThreatWeight * 0.9, data.ThreatWeight * .3 )
-        
-				if pathlist then
+
+				if pathlist and (type(data.Platoon) == 'string' or PlatoonExists(aiBrain, data.Platoon)) then
 
 					PathReplies[data.Platoon] = { length = pathlength, path = LOUDCOPY(pathlist), cost = pathcost }
 					break
@@ -3537,7 +3537,7 @@ function PathGeneratorLand(aiBrain)
 				
 			end
 
-			if not PathReplies[data.Platoon] then
+			if (not PathReplies[data.Platoon]) and (type(data.Platoon) == 'string' or PlatoonExists(aiBrain, data.Platoon)) then
             
                 if ScenarioInfo.PathFindingDialog then            
                     LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(data.Platoon.BuilderName or data.Platoon).." no safe LAND path found to "..repr(data.Dest))
@@ -3676,15 +3676,19 @@ function PathGeneratorWater(aiBrain)
 			while queue[1] do
 
 				local pathlist, pathlength, shortcut, pathcost = AStarLoopBody( data, queue, closed )
-        
-				if pathlist then
+                
+                --if type(data.Platoon) == 'string' then
+                  --  LOG("*AI DEBUG Data Platoon is "..repr(data.Platoon))
+                --end
+                
+				if pathlist and data.Platoon then
 
 					PathReplies[data.Platoon] = { length = pathlength, path = LOUDCOPY(pathlist), cost = pathcost }
 					break
 				end
 			end
 			
-			if not aiBrain.PathRequests['Replies'][data.Platoon] then
+			if (not PathReplies[data.Platoon]) and data.Platoon then
             
                 if ScenarioInfo.PathFindingDialog then
                     LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(data.Platoon.BuilderName or data.Platoon).." no safe WATER path found to "..repr(data.Dest))

@@ -2876,6 +2876,7 @@ function ReturnTransportsToPool( aiBrain, units, move )
 end
 
 -- This utility will traverse all true transports to insure they are in the TransportPool
+-- and a perfunctory cleanup on the path requests reply table for dead platoons
 function CheckTransportPool( aiBrain )
 
     local RefuelPool = aiBrain.RefuelPool
@@ -2947,6 +2948,19 @@ function CheckTransportPool( aiBrain )
 	end
 	
 	aiBrain.CheckTransportPoolThread = nil
+    
+    local gametime = math.floor(GetGameTimeSeconds())
+
+    -- this loop just clears the reply queue of pathfinding replies
+    -- I know - this isn't the most suitable place for this function
+    for k,v in aiBrain.PathRequests['Replies'] do
+
+        if ((not type(k)=='string') and not aiBrain:PlatoonExists(k)) or (k.CreationTime and (gametime > k.CreationTime + 180)) then
+        
+            aiBrain.PathRequests['Replies'][k] = nil
+        end
+    end
+    
 end
 
 function GetGuards( aiBrain, Unit)

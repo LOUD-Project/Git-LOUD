@@ -279,7 +279,7 @@ BuilderManager = Class {
                 
             else
 
-				if task.OldPriority and task.OldPriority == 0 then
+				if task.Priority == 0 and not task.OldPriority then
 
 					if ScenarioInfo.PriorityDialog then
 						LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.ManagerType.." "..self.LocationType.." Removing "..repr(self.BuilderData[unit.BuilderType].Builders[k].BuilderName) )

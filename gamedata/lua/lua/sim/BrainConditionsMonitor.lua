@@ -27,7 +27,7 @@ BrainConditionsMonitor = Class {
 		
 		self.Trash = TrashBag()
         
-        self.ThreadWaitDuration = 16	-- default value in ticks
+        self.ThreadWaitDuration = 40	-- starting value for first pass
 		
     end,
 
@@ -62,33 +62,34 @@ BrainConditionsMonitor = Class {
             self.ConditionData[cFilename][cFunctionName] = {}
         end
         
-        -- Check if the cData matches up
-        for _,data in self.ConditionData[cFilename][cFunctionName] do
+        -- Check if the cData matches up to an existing function --
+        for _,index in self.ConditionData[cFilename][cFunctionName] do
 		
-			if LOUDEQUAL( self.ResultTable[data.Key].FunctionData, cData) then
-				self.ResultTable[data.Key].Active = true
-                return data.Key
+			if LOUDEQUAL( self.ResultTable[index].FunctionData, cData) then
+            
+				self.ResultTable[index].Active = true
+                
+                return index
 			end
         end
         
-        -- No match, so add the data to the table and return the key
+        -- No match, so add the data to the table and return the new key
         local newCondition = ImportCondition()
         
         if cFilename == '/lua/editor/UnitCountBuildConditions.lua' or cFilename == '/lua/editor/EconomyBuildConditions.lua' then
             newCondition = InstantImportCondition()
         end
 
-		newCondition:Create( self.Brain, self.ResultTableCounter + 1, cFilename, cFunctionName, cData)
+		self.ResultTableCounter = self.ResultTableCounter + 1
+
+		newCondition:Create( self.Brain, self.ResultTableCounter, cFilename, cFunctionName, cData)
 
 		-- add it to the Result Table
-		self.ResultTableCounter = self.ResultTableCounter + 1
         self.ResultTable[self.ResultTableCounter] = newCondition
-		
-		--LOG("*AI DEBUG "..repr(self.Brain.Nickname).." added Condition "..repr(self.ResultTableCounter).." "..repr(newCondition))
 
-		LOUDINSERT( self.ConditionData[cFilename][cFunctionName], { Key = newCondition.Key } )
+		LOUDINSERT( self.ConditionData[cFilename][cFunctionName], self.ResultTableCounter )
 		
-        return newCondition.Key
+        return self.ResultTableCounter
 		
     end,
 	
@@ -106,14 +107,13 @@ BrainConditionsMonitor = Class {
 		-- record current game time
 		aiBrain.CycleTime = GetGameTimeSeconds()
 	
-		WaitTicks(11)	-- wait a second before starting up --
+		WaitTicks(11)	-- wait one second before starting up --
 		
 		-- if time-limited game record victory time on the brain
 		if ScenarioInfo.VictoryTime then
 		
 			aiBrain.VictoryTime = ScenarioInfo.VictoryTime
-		else
-			aiBrain.VictoryTime = false
+
 		end
         
         local BM = aiBrain.BuilderManagers
@@ -141,7 +141,7 @@ BrainConditionsMonitor = Class {
 		local numChecks = self.ResultTableCounter
 		local numResults = 0
 		
-		local checkrate = .01	 -- this makes the first pass very fast so CDR gets started
+		local checkrate = .1	 -- this makes the first pass very fast so CDR gets started
         
         local ResultTable = self.ResultTable
 
@@ -186,20 +186,29 @@ BrainConditionsMonitor = Class {
 						end
 						
 					else
+                    
+                        --LOG("*AI DEBUG "..aiBrain.Nickname.." Result Table "..k.." no longer active for "..repr(v.FunctionData[1]) )
+                        
 						ResultTable[k].Active = false
-
+--[[
 						for a,b in self.ConditionData[v.Filename][v.FunctionName] do
+                        
+                            --LOG("*AI DEBUG Reviewing Condition k is "..repr(k).." Key is "..repr(b))
 						
-							if k == b.Key then
-
-								self.ConditionData[v.Filename][v.FunctionName][a] = nil
+							if k == b then
+                            
+ 								self.ConditionData[v.Filename][v.FunctionName][a] = nil
 								aiBrain.ConditionsMonitor.ResultTable[k] = nil
 								
 								break
 							end
+                            
 						end
+--]]                        
 					end
+                    
 				end
+                
             end
             
             --local final = GetSystemTimeSecondsOnlyForProfileUse()
