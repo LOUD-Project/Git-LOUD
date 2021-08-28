@@ -108,11 +108,17 @@ CIFMissileTactical01 = Class(CLOATacticalMissileProjectile) {
             local angle = (2*LOUDPI) / self.NumChildMissiles
             local spreadMul = 1  # Adjusts the width of the dispersal        
 
-            local launcherbp = self:GetLauncher():GetBlueprint()
+            local launcher = self:GetLauncher() or false
+            local launcherbp
+            
+            if launcher then 
+                launcherbp = __blueprints[launcher.BlueprintID]
+            end
 
             self.ChildDamageData = table.copy(self.DamageData)
-            self.ChildDamageData.DamageAmount = launcherbp.SplitDamage.DamageAmount or 0
-            self.ChildDamageData.DamageRadius = launcherbp.SplitDamage.DamageRadius or 1                   
+            
+            self.ChildDamageData.DamageAmount = launcherbp.SplitDamage.DamageAmount or self.ChildDamageData.DamageAmount/self.NumChildMissiles
+            self.ChildDamageData.DamageRadius = launcherbp.SplitDamage.DamageRadius or 0.5
            
             -- Launch projectiles at semi-random angles away from split location
             for i = 0, (self.NumChildMissiles - 1) do
