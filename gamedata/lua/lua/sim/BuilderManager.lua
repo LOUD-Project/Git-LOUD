@@ -50,15 +50,11 @@ BuilderManager = Class {
     SetEnabled = function(self, brain, enable)
 
         if enable then
-        
-            LOG("*AI DEBUG "..brain.Nickname.." "..self.LocationType.." "..self.ManagerType.." setting ACTIVE")
 
 			self.Active = true		
 			self:ForkThread( self.ManagerThread, brain)
 
         elseif not enable then
-        
-            LOG("*AI DEBUG "..brain.Nickname.." "..self.LocationType.." "..self.ManagerType.." setting ACTIVE to FALSE ")
 
 			self.Active = false		
 			self.Trash:Destroy()
@@ -481,9 +477,9 @@ BuilderManager = Class {
             conditionscheckedcount = 0
             conditioncounttotal = 0
     
-            if ScenarioInfo.PriorityDialog then
-                LOG("*AI DEBUG "..brain.Nickname.." "..self.ManagerType.." "..self.LocationType.." Begins cycle at "..GetGameTimeSeconds().." seconds. Cycle will be "..(duration/10).." - BCM cycle is "..(brain.ConditionsMonitor.ThreadWaitDuration/10) )
-            end
+            --if ScenarioInfo.PriorityDialog then
+              --  LOG("*AI DEBUG "..brain.Nickname.." "..self.ManagerType.." "..self.LocationType.." Begins cycle at "..GetGameTimeSeconds().." seconds. Cycle will be "..(duration/10).." - BCM cycle is "..(brain.ConditionsMonitor.ThreadWaitDuration/10) )
+            --end
 			
             -- there must be units in the Pool or there will be nothing to form
 			if PoolGreaterAtLocation( brain, self.LocationType, 0, categories.ALLUNITS - categories.ENGINEER ) then

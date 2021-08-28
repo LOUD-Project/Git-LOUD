@@ -1709,7 +1709,7 @@ function ResetPFMTasks (manager, aiBrain)
 						tasksaltered = tasksaltered + 1
                         
                         if ScenarioInfo.PriorityDialog then
-                            LOG("*AI DEBUG "..aiBrain.Nickname.." "..manager.ManagerType.." at "..manager.LocationType.." "..b.BuilderName.." is set to "..repr(newPri).." Permanent is "..repr(not temporary))
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." "..manager.ManagerType.." at "..manager.LocationType.." "..b.BuilderName.." is set to "..repr(newPri).." Temporary is "..repr(temporary))
                         end
 
 						manager:SetBuilderPriority(b.BuilderName, newPri, temporary)
@@ -2870,7 +2870,7 @@ function DeadBaseMonitor( aiBrain )
                 if EM:GetNumCategoryUnits(ALLUNITS) <= 0 then 
                 
                     if ScenarioInfo.DeadBaseMonitorDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(v.BaseName).." DBM - no factories or Engineers "..repr(aiBrain.BuilderManagers[k].nofactorycount + 1))
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(v.BaseName).." DBM - no factories or Engineers "..repr(BM[k].nofactorycount + 1))
                     end
                     
                     BM[k].nofactorycount = BM[k].nofactorycount + 1

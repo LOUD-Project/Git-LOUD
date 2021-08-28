@@ -1379,7 +1379,7 @@ function PlayTeleportInEffects(self)
         LOUDEMITATENTITY( self, army, v ):OffsetEmitter(0, ( bp.Physics.MeshExtentsY or 1 ) * 0.5, 0)
     end
 
-    if not self.Dead and not self.EXPhaseEnabled == false then   
+    if not self.Dead and self.EXPhaseEnabled then   
 		EXTeleportCooldownEffects(self)
     end
 end
@@ -1488,7 +1488,7 @@ function EXTeleportCooldownEffects(self)
 			self:SetMesh(bpDisplay.MeshBlueprint, true)
 			WaitTicks(10)
 			self.EXPhaseShieldPercentage = 0
-			self.EXPhaseEnabled = false
+			self.EXPhaseEnabled = nil
 		end
     end
 end

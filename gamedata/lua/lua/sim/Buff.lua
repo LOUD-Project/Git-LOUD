@@ -552,42 +552,72 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
         
             local val = BuffCalculate(unit, buffName, 'EnergyActive', 1)
             
-            unit.EnergyBuildAdjMod = val
+            if val != 1 then
+                unit.EnergyBuildAdjMod = val
+            else
+                unit.EnergyBuildAdjMod = nil
+            end
+            
             unit:UpdateConsumptionValues()
 
         elseif atype == 'MassActive' then
         
             local val = BuffCalculate(unit, buffName, 'MassActive', 1)
             
-            unit.MassBuildAdjMod = val
+            if val != 1 then
+                unit.MassBuildAdjMod = val
+            else
+                unit.MassBuildAdjMod = nil
+            end
+            
             unit:UpdateConsumptionValues()
 
         elseif atype == 'EnergyMaintenance' then
         
             local val = BuffCalculate(unit, buffName, 'EnergyMaintenance', 1)
             
-            unit.EnergyMaintAdjMod = val
+            if val != 1 then
+                unit.EnergyMaintAdjMod = val
+            else
+                unit.EnergyMaintAdjMod = nil
+            end
+            
             unit:UpdateConsumptionValues()
 
         elseif atype == 'MassMaintenance' then
         
             local val = BuffCalculate(unit, buffName, 'MassMaintenance', 1)
             
-            unit.MassMaintAdjMod = val
+            if val != 1 then
+                unit.MassMaintAdjMod = val
+            else
+                unit.MassMaintAdjMod = nil
+            end
+            
             unit:UpdateConsumptionValues()
 
         elseif atype == 'EnergyProduction' then
         
             local val = BuffCalculate(unit, buffName, 'EnergyProduction', 1)
             
-            unit.EnergyProdAdjMod = val
+            if val != 1 then
+                unit.EnergyProdAdjMod = val
+            else
+                unit.EnergyProdAdjMod = nil
+            end
+            
             unit:UpdateProductionValues()
 
         elseif atype == 'MassProduction' then
         
             local val = BuffCalculate(unit, buffName, 'MassProduction', 1)
             
-            unit.MassProdAdjMod = val
+            if val != 1 then
+                unit.MassProdAdjMod = val
+            else
+                unit.MassProdAdjMod = nil
+            end
+            
             unit:UpdateProductionValues()
 
         elseif atype == 'EnergyWeapon' then
@@ -603,8 +633,12 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
                     if unit.Sync.id then
                         ForkThread(FloatingEntityText, unit.Sync.id, 'Energy Req now '..math.floor(val*100).."%")
                     end
-                
-                    wep.AdjEnergyMod = val
+                    
+                    if val != 1 then
+                        wep.AdjEnergyMod = val
+                    else
+                        wep.AdjEnergyMod = nil
+                    end
 
                 end
             end

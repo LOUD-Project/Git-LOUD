@@ -114,9 +114,9 @@ Builder = Class {
 
         end
 		
-		if ScenarioInfo.PriorityDialog then
-			LOG("*AI DEBUG "..repr(builder.BuilderName).." set to "..val.." Temporary is "..repr(temporary))
-		end
+		--if ScenarioInfo.PriorityDialog then
+			--LOG("*AI DEBUG "..repr(builder.BuilderName).." set to "..val.." Temporary is "..repr(temporary))
+		--end
     end,
     
     ResetPriority = function(self, manager)

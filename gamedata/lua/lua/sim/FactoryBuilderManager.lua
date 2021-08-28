@@ -112,8 +112,6 @@ FactoryBuilderManager = Class(BuilderManager) {
 
 	AddFactory = function( self, factory )
 
-        factory.SetupComplete = true
-
         while (not factory.Dead) and factory:GetFractionComplete() < 1 do
         
             LOG("*AI DEBUG Adding Factory 2 "..factory.Sync.id.." at "..factory:GetFractionComplete().." Dead is "..repr(factory.Dead).." to "..self.ManagerType.." "..self.LocationType)
@@ -123,7 +121,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 
 		local LOUDENTITY = EntityCategoryContains
 
-		if not factory.Dead then
+		if not factory.Dead and not factory.BuildLevel then
 			
 			factory.failedbuilds = 0
 			
@@ -178,13 +176,17 @@ FactoryBuilderManager = Class(BuilderManager) {
 				factory.BuildLevel = 3
 			end
 			
+            
 			-- fired off when the factory completes an item (single or multiple units)
 			local factoryWorkFinish = function( factory, finishedUnit, aiBrain )
 			
 				self:FactoryFinishBuilding(factory, finishedUnit)
 			end
-			
+            
+			--LOG("*AI DEBUG Adding FactoryWorkFinish callback to factory "..repr(factory))
+            
 			factory:AddOnUnitBuiltCallback( factoryWorkFinish, categories.ALLUNITS )
+            
 			
 			-- this section applies only to static factories - mobile factories dont need any of this
 			if not LOUDENTITY( categories.MOBILE, factory) then
@@ -250,8 +252,8 @@ FactoryBuilderManager = Class(BuilderManager) {
 			
 				if aiBrain:CanBuildPlatoon( buildplatoon, {factory} ) then
 
-					factory.addplan = false
-					factory.addbehavior = false
+					factory.addplan = nil
+					factory.addbehavior = nil
 				
 					factory.failedbuilds = 0
 
@@ -296,7 +298,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 					-- sometimes fail the CanBuildPlatoon function - so we'll set the priority to 10 and the 
 					-- priority will return to normal on the next priority sort
 					if ScenarioInfo.PriorityDialog then
-						LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." "..self.ManagerType.." Factory "..factory.Sync.id.." "..factory.BuilderType.." unable to build "..repr(builder.BuilderName))
+						LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." "..self.ManagerType.." Factory "..repr(factory).." unable to build "..repr(builder.BuilderName))
 					end
 
                     -- if there was a build platoon but we failed anyway - assign a timeout
@@ -554,8 +556,12 @@ FactoryBuilderManager = Class(BuilderManager) {
 			finishedUnit:ForkThread( import('/lua/ai/aibehaviors.lua')[factory.addbehavior], aiBrain )
 		end
 		
-        if LOUDENTITY( FACTORY, finishedUnit ) and not finishedUnit.SetupComplete then
-		
+        -- note how we check for BuildLevel to insure that factory has not already been added
+        -- this event was somehow misfiring - sometimes causing the factory to go thru being
+        -- added twice - and putting a 2nd OnUnitBuilt callback onto the factory - which would
+        -- cause the factory to go looking for 2 jobs whenever something was built
+        if LOUDENTITY( FACTORY, finishedUnit ) and not finishedUnit.BuildLevel then
+
 			if finishedUnit:GetFractionComplete() == 1 then
 
 				ForkThread( self.AddFactory, self, finishedUnit )
@@ -579,8 +585,8 @@ FactoryBuilderManager = Class(BuilderManager) {
 		
 			if LOUDGETN(factory:GetCommandQueue()) <= 1 then
 		
-				factory.addplan = false
-				factory.addbehavior = false
+				factory.addplan = nil
+				factory.addbehavior = nil
 
 				ForkThread( self.DelayBuildOrder, self, factory )
 			

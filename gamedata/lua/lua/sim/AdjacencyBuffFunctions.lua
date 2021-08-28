@@ -176,7 +176,7 @@ end
 -- so changing RoF has, in most cases, no impact
 RateOfFireBuffCheck = function(buff, unit)
 
-    return EnergyWeaponBuffCheck( buff,unit)    --unit:GetWeaponCount() > 0
+    return EnergyWeaponBuffCheck( buff,unit)
 
 end
 

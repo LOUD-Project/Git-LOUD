@@ -595,6 +595,13 @@ StructureUnit = Class(Unit) {
 			end
 		end
     end,
+    
+    OnStopBuild = function(self, unitBuilding, order)
+    
+        Unit.OnStopBuild( self, unitBuilding)
+        self.UnitBeingBuilt = nil
+        
+    end,
 
     OnStopBeingBuilt = function(self,builder,layer)
 
@@ -2695,8 +2702,6 @@ WallStructureUnit = Class(StructureUnit) {
 
 		self.CacheLayer = moho.unit_methods.GetCurrentLayer(self)
 		self.CachePosition = LOUDCOPY(moho.entity_methods.GetPosition(self))
-
-		self.WeaponCount = 0
 
         self.FxDamage1Amount = self.FxDamage1Amount or 1
         self.FxDamage2Amount = self.FxDamage2Amount or 1

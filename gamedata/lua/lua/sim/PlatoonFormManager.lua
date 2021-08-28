@@ -14,6 +14,7 @@ local CreatePlatoonBuilder = import('/lua/sim/Builder.lua').CreatePlatoonBuilder
 
 local factionnames = { 'UEF','Aeon','Cybran','Seraphim' }
 
+local LOUDCOPY = table.copy
 local LOUDGETN = table.getn
 
 function CreatePlatoonFormManager(brain, lType, position, radius)
@@ -167,7 +168,7 @@ PlatoonFormManager = Class(BuilderManager) {
 		
 			if template and self.Location and self.Radius and CanFormPlatoon( aiBrain.ArmyPool, template, 1, self.Location, self.Radius) then
 
-				if ScenarioInfo.PlatoonDialog or ScenarioInfo.PriorityDialog then
+				if ScenarioInfo.PlatoonDialog then
 					LOG("*AI DEBUG "..aiBrain.Nickname.." PFM "..self.LocationType.." forms "..repr(builder.BuilderName).." using "..repr(template[1]))
 				end
 

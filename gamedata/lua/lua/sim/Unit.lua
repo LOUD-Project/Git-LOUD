@@ -261,7 +261,7 @@ Unit = Class(moho.unit_methods) {
         }
 		
 		self.PlatoonHandle = false
-		self.WeaponCount = 0
+		self.WeaponCount = nil
 		
     end,
 
@@ -357,7 +357,7 @@ Unit = Class(moho.unit_methods) {
 			
         end
 
-        self.VeteranLevel = 0
+        --self.VeteranLevel = 0
 
         self.Dead = false		
 		self.PlatoonHandle = false
@@ -2105,7 +2105,7 @@ Unit = Class(moho.unit_methods) {
 			end
 		end
 
-        if not self.Dead and self.EXPhaseEnabled == true then
+        if not self.Dead and self.EXPhaseEnabled then
 		
             if LOUDENTITY(PROJECTILE, other) then 
 			
@@ -2934,11 +2934,11 @@ Unit = Class(moho.unit_methods) {
 		
 		if ScenarioInfo.BOU_Installed then
 			-- support BO:U Phased units 
-			self.EXPhaseShieldPercentage = 0
-			self.EXPhaseEnabled = false
-			self.EXTeleportCooldownCharge = false
-			self.EXPhaseCharge = 0
-		end
+			self.EXPhaseShieldPercentage = nil
+			self.EXPhaseEnabled = nil
+			self.EXTeleportCooldownCharge = nil
+			self.EXPhaseCharge = nil
+        end
 		
 		self:ForkThread(self.CloakEffectControlThread, bp)
 
@@ -4546,15 +4546,15 @@ Unit = Class(moho.unit_methods) {
 			
         end
 
-        local nextLvl = self.VeteranLevel + 1
+        local nextLvl = (self.VeteranLevel or 0) + 1
         local nextKills = vet[('Level' .. nextLvl)]
         
         -- check if we gained more than one level
-        while unitKills >= nextKills and self.VeteranLevel < vetLevels do
+        while unitKills >= nextKills and (self.VeteranLevel or 0) < vetLevels do
 		
             self:SetVeteranLevel(nextLvl)
             
-            nextLvl = self.VeteranLevel + 1
+            nextLvl = (self.VeteranLevel or 0) + 1
             nextKills = vet[('Level' .. nextLvl)]
 			
         end 
@@ -4593,7 +4593,7 @@ Unit = Class(moho.unit_methods) {
     -- Return the current vet level
     GetVeteranLevel = function(self)
 	
-        return self.VeteranLevel
+        return (self.VeteranLevel or 0)
 		
     end,
 
@@ -4602,18 +4602,18 @@ Unit = Class(moho.unit_methods) {
 	
         local bp = ALLBPS[self.BlueprintID].Veteran or Game.VeteranDefault or false
 		
-        if (not bp) or not bp[('Level'..self.VeteranLevel + 1)] then
+        if (not bp) or not bp[('Level'..(self.VeteranLevel or 0) + 1)] then
             return
         end
 		
 		local brain = GetAIBrain(self)
 		
-        if self:GetStat('KILLS', 0).Value >= bp[('Level' .. self.VeteranLevel + 1)] * ( 1.0 / (brain.VeterancyMult or 1.0) ) then
+        if self:GetStat('KILLS', 0).Value >= bp[('Level' .. (self.VeteranLevel or 0) + 1)] * ( 1.0 / (brain.VeterancyMult or 1.0) ) then
 
-            self:SetVeteranLevel(self.VeteranLevel + 1)
+            self:SetVeteranLevel((self.VeteranLevel or 0) + 1)
 			
 			-- unit cap is increased by the veteran level * veterancy multiplier (derived from AI cheat)
-			SetArmyUnitCap( brain.ArmyIndex, GetArmyUnitCap(brain.ArmyIndex) + ( self.VeteranLevel * (brain.VeterancyMult or 1.0) ))
+			SetArmyUnitCap( brain.ArmyIndex, GetArmyUnitCap(brain.ArmyIndex) + ( (self.VeteranLevel or 0) * (brain.VeterancyMult or 1.0) ))
 			
         end
 		
@@ -5445,9 +5445,9 @@ Unit = Class(moho.unit_methods) {
         self.UnitBeingTeleported = nil
 		
 		-- from BO:U
-		if not self.Dead and not self.EXPhaseEnabled == false then   
+		if not self.Dead and self.EXPhaseEnabled then   
 		
-			self.EXPhaseEnabled = false
+			self.EXPhaseEnabled = nil
 			self.EXPhaseCharge = 0
 			self.EXPhaseShieldPercentage = 0
 			
