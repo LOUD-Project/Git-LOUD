@@ -2824,12 +2824,14 @@ function DeadBaseMonitor( aiBrain )
 	local groupair, groupaircount
 	local groupsea, groupseacount
     
-    local BM = aiBrain.BuilderManagers
+
     
     local STRUCTURES = categories.STRUCTURE - categories.WALL
     local ALLUNITS = categories.ALLUNITS - categories.WALL
 
 	while true do
+    
+        local BM = aiBrain.BuilderManagers
 
 		for k,v in BM do
 			
@@ -2903,8 +2905,8 @@ function DeadBaseMonitor( aiBrain )
 					
 					-- disable and destroy the EM at this base (this will end BaseDistress and prevent the base from being re-selected as a Primary)
 					if EM then
-						BM[k].EngineerManager:SetEnabled(aiBrain,false)
-						BM[k].EngineerManager:Destroy()
+						EM:SetEnabled(aiBrain,false)
+						EM:Destroy()
 					end
 
 					-- clear any Primary flags
@@ -2929,16 +2931,16 @@ function DeadBaseMonitor( aiBrain )
 					-- disable and destroy the FBM and PFM now
 					if FM then
 					
-						aiBrain.BuilderManagers[k].FactoryManager:SetEnabled(aiBrain,false)
-						aiBrain.BuilderManagers[k].FactoryManager:Destroy()
+						FM:SetEnabled(aiBrain,false)
+						FM:Destroy()
 					end
 					
                     LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(v.BaseName).." shutting down PFM")
                     
 					if PFM then
 					
-						aiBrain.BuilderManagers[k].PlatoonFormManager:SetEnabled(aiBrain,false)
-						aiBrain.BuilderManagers[k].PlatoonFormManager:Destroy()
+						PFM:SetEnabled(aiBrain,false)
+						PFM:Destroy()
 					end
 
 					-- update the base counter
@@ -2956,18 +2958,20 @@ function DeadBaseMonitor( aiBrain )
 
 					-- remove the visible marker from the map
 					if ScenarioInfo.DisplayBaseNames or aiBrain.DisplayBaseNames or BM[k].MarkerID then
-						ForkThread( RemoveBaseMarker, aiBrain, k, aiBrain.BuilderManagers[k].MarkerID)
+						ForkThread( RemoveBaseMarker, aiBrain, k, BM[k].MarkerID)
 					end
 
                     LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(v.BaseName).." cleaning up")
                     
 					-- remove base from table
-                    aiBrain.BuilderManagers[k] = nil
+                    BM[k] = nil
 					
 					-- rebuild the bases table
 					aiBrain.BuilderManagers = RebuildTable(aiBrain, aiBrain.BuilderManagers)
                     
                     --LOG("*AI DEBUG "..aiBrain.Nickname.." BM after is "..repr(BM))
+                    
+                    changed = true
 
 					break -- we changed -- start at the top again					
 				end
@@ -2977,6 +2981,10 @@ function DeadBaseMonitor( aiBrain )
                     BM[k].nofactorycount = 0
                 end
 			end
+            
+            if changed then
+                break
+            end
 			
 			WaitTicks(20)   -- 2 second between bases
 		end
