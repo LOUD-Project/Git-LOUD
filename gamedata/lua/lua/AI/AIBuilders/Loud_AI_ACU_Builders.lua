@@ -9,6 +9,23 @@ local TBC = '/lua/editor/ThreatBuildConditions.lua'
 local BHVR = '/lua/ai/aibehaviors.lua'
 local LUTL = '/lua/loudutilities.lua'
 
+-- this is here as a test to see if it has any impact I can detect
+-- I don't think it does being that all of this is really just data
+-- that is loaded
+local ENERGYPRODUCTION = categories.ENERGYPRODUCTION
+local HYDROCARBON = categories.HYDROCARBON
+local MASSFABRICATION = categories.MASSFABRICATION
+local MASSPRODUCTION = categories.MASSPRODUCTION
+local ENGINEER = categories.ENGINEER
+local EXPERIMENTAL = categories.EXPERIMENTAL
+local FACTORY = categories.FACTORY
+local STRUCTURE = categories.STRUCTURE
+local ANTIAIR = categories.ANTIAIR
+local TECH1 = categories.TECH1
+local TECH2 = categories.TECH2
+local TECH3 = categories.TECH3
+
+
 -- imbedded into the Builder
 local First5Minutes = function( self,aiBrain )
 	
@@ -212,8 +229,8 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
 			{ EBC, 'LessEconEnergyStorageCurrent', { 5750 }},
 			{ EBC, 'GreaterThanEconStorageCurrent', { 75, 0 }},
 
-			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION - categories.TECH1 }},            
-			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION * categories.STRUCTURE * categories.TECH3 }},
+			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, ENERGYPRODUCTION - TECH1 }},            
+			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, ENERGYPRODUCTION * STRUCTURE * TECH3 }},
         },
 		
         BuilderType = { 'Commander' },
@@ -291,11 +308,11 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
 			{ EBC, 'LessThanEnergyTrend', { 1800 }},
 			{ EBC, 'GreaterThanEconStorageCurrent', { 75, 0 }},
             
-			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 6, categories.ENERGYPRODUCTION * categories.TECH3 }},
+			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 6, ENERGYPRODUCTION * TECH3 }},
 
-			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION * categories.TECH3 }},
+			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, ENERGYPRODUCTION * TECH3 }},
 
-			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 26, (categories.ENERGYPRODUCTION * categories.TECH3) - categories.HYDROCARBON }},
+			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 26, (ENERGYPRODUCTION * TECH3) - HYDROCARBON }},
         },
 	
         BuilderType = { 'Commander' },
@@ -336,10 +353,10 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
 			{ EBC, 'LessThanEconMassStorageRatio', { 50 }},
 			
 			-- check base massfabs 
-			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 8, categories.MASSFABRICATION * categories.TECH3, 10, 42 }},
+			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 8, MASSFABRICATION * TECH3, 10, 42 }},
             
 			-- there has to be advanced power at this location
-			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION - categories.TECH1 }},
+			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 1, ENERGYPRODUCTION - TECH1 }},
 			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 0.3, 1.04 }},
         },
 		
@@ -377,7 +394,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
             
 			{ EBC, 'GreaterThanEconStorageCurrent', { 75, 0 }},
             
-			{ UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, categories.ENERGYPRODUCTION, categories.ENGINEER + categories.ENERGYPRODUCTION, 75 }},
+			{ UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, ENERGYPRODUCTION, ENGINEER + ENERGYPRODUCTION, 75 }},
         },
 		
         BuilderType = { 'Commander' },
@@ -386,8 +403,8 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
             Assist = {
 				AssistRange = 80,
                 AssisteeType = 'Any',
-				AssisteeCategory = categories.ENGINEER + categories.ENERGYPRODUCTION,
-                BeingBuiltCategories = { categories.ENERGYPRODUCTION },
+				AssisteeCategory = ENGINEER + ENERGYPRODUCTION,
+                BeingBuiltCategories = { ENERGYPRODUCTION },
                 Time = 75,
             },
         }
@@ -410,7 +427,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
             
 			{ EBC, 'GreaterThanEconStorageCurrent', { 0, 750 }},           
             
-            { UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, categories.MASSPRODUCTION, categories.MASSPRODUCTION, 75 }},
+            { UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, MASSPRODUCTION, MASSPRODUCTION, 75 }},
         },
 		
         BuilderType = { 'Commander' },
@@ -419,8 +436,8 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
             Assist = {
 				AssistRange = 80,
 				AssisteeType = 'Structure',
-				AssisteeCategory = categories.MASSPRODUCTION,
-                BeingBuiltCategories = {categories.MASSPRODUCTION},
+				AssisteeCategory = MASSPRODUCTION,
+                BeingBuiltCategories = {MASSPRODUCTION},
                 Time = 60,
             },
         }
@@ -446,7 +463,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
             
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }},
             
-            { UCBC, 'LocationFactoriesBuildingGreater', { 'LocationType', 0, categories.FACTORY }},
+            { UCBC, 'LocationFactoriesBuildingGreater', { 'LocationType', 0, FACTORY }},
         },
 		
         BuilderType = { 'Commander' },
@@ -455,8 +472,8 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
             Assist = {
 				AssistRange = 75,
 				AssisteeType = 'Factory',
-				AssisteeCategory = categories.FACTORY,
-				BeingBuiltCategories = {categories.FACTORY},
+				AssisteeCategory = FACTORY,
+				BeingBuiltCategories = {FACTORY},
                 Time = 75,
             },
         }
@@ -480,7 +497,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
 			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }},             
             
-            { UCBC, 'LocationEngineerNeedsBuildingAssistanceInRange', { 'LocationType', categories.STRUCTURE + categories.EXPERIMENTAL, categories.ENGINEER, 125 }},
+            { UCBC, 'LocationEngineerNeedsBuildingAssistanceInRange', { 'LocationType', STRUCTURE + EXPERIMENTAL, ENGINEER, 125 }},
         },
 		
         BuilderType = { 'Commander' },
@@ -489,8 +506,8 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
             Assist = {
 				AssistRange = 125,
                 AssisteeType = 'Engineer',
-				AssisteeCategory = categories.ENGINEER,
-                BeingBuiltCategories = {categories.STRUCTURE, categories.EXPERIMENTAL},
+				AssisteeCategory = ENGINEER,
+                BeingBuiltCategories = {STRUCTURE, EXPERIMENTAL},
                 Time = 75,
             },
         }
@@ -520,7 +537,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
             Assist = {
 				AssistRange = 80,
 				AssisteeType = 'Factory',
-				AssisteeCategory = categories.FACTORY,
+				AssisteeCategory = FACTORY,
 				BeingBuiltCategories = {categories.MOBILE},
                 Time = 60,
             },
@@ -610,8 +627,8 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
 			{ MIBC, 'GreaterThanGameTime', { 210 } },
             
 			-- must not have any of the internal T2+ AA structures 
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 1, categories.STRUCTURE * categories.ANTIAIR, 14, 35 }},
-			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 9, categories.DEFENSE * categories.STRUCTURE * categories.ANTIAIR}},
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 1, STRUCTURE * ANTIAIR, 14, 35 }},
+			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 9, STRUCTURE * ANTIAIR}},
         },
 		
         BuilderType = { 'Commander' },
