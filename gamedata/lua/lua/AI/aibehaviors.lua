@@ -173,8 +173,8 @@ function LifeThread( aiBrain, cdr )
             
             if mrequested > mincome then
             
-                -- upto 12 (modified by AI mult)
-                mneeded = MATHMIN(12,((mrequested - mincome ) * 10)) * cheatmult
+                -- upto 10
+                mneeded = MATHMIN(10,((mrequested - mincome ) * 10))
                 
                 GiveResource( aiBrain, 'Mass', mneeded)
             end
@@ -187,8 +187,8 @@ function LifeThread( aiBrain, cdr )
             
             if erequested > eincome then
             
-                -- upto 120 (modified by AI mult)
-                eneeded = MATHMIN(120,((erequested - eincome ) * 10)) * cheatmult
+                -- upto 120
+                eneeded = MATHMIN(120,((erequested - eincome ) * 10))
                 
                 GiveResource( aiBrain, 'Energy', eneeded)
             end

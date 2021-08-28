@@ -296,7 +296,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 					-- sometimes fail the CanBuildPlatoon function - so we'll set the priority to 10 and the 
 					-- priority will return to normal on the next priority sort
 					if ScenarioInfo.PriorityDialog then
-						LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." "..self.ManagerType.." Factory "..factory.Sync.id.." unable to build "..repr(builder.BuilderName))
+						LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." "..self.ManagerType.." Factory "..factory.Sync.id.." "..factory.BuilderType.." unable to build "..repr(builder.BuilderName))
 					end
 
                     -- if there was a build platoon but we failed anyway - assign a timeout
@@ -347,7 +347,8 @@ FactoryBuilderManager = Class(BuilderManager) {
 		local aiBrain = GetAIBrain(factory)		
 		local GetEconomyStored = moho.aibrain_methods.GetEconomyStored
 	
-		WaitTicks( (6 - (factory.BuildLevel * 2)) + (factory.failedbuilds * 10) + 1 )
+        -- this is the dynamic delay controlled - minimum delay is ALWAYS 2 --
+		WaitTicks( (6 - (factory.BuildLevel * 2)) + (factory.failedbuilds * 10) + 2 )
 
 		if factory.EnhanceThread or factory.Upgrading then
         
