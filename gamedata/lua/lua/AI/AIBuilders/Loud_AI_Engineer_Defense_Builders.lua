@@ -20,7 +20,7 @@ local IsEnemyNavalActive = function(self,aiBrain,manager)
 
 	if aiBrain.NavalRatio and (aiBrain.NavalRatio > .01 and aiBrain.NavalRatio <= 10) then
 	
-		return self.Priority, true	-- standard naval priority -- 
+		return self.Priority, false	-- standard naval priority -- 
 
 	end
 
@@ -31,7 +31,7 @@ end
 local IsPrimaryBase = function(self,aiBrain,manager)
 	
 	if aiBrain.BuilderManagers[manager.LocationType].PrimarySeaAttackBase then
-		return self.Priority, true
+		return self.Priority, false
 	end
 
 	return 10, true
@@ -41,7 +41,7 @@ end
 local IsNavalMap = function( self, aiBrain, manager)
 
     if aiBrain.IsNavalMap then
-        return self.Priority, true
+        return self.Priority, false
     end
     
     return 0, false
@@ -62,7 +62,7 @@ local IsEnemyCrushingLand = function(self,aiBrain,manager)
 
     end
     
-    return self.Priority,true
+    return self.Priority, false
 end
 
 local IsEnemyCrushingAir = function(self,aiBrain,manager)
@@ -73,7 +73,7 @@ local IsEnemyCrushingAir = function(self,aiBrain,manager)
 
     end
     
-    return self.Priority,true
+    return self.Priority, false
 end
 
 ---------------------

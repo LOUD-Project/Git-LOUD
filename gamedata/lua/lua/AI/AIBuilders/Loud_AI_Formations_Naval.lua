@@ -17,7 +17,7 @@ end
 local IsPrimaryBase = function(self,aiBrain,manager)
 	
 	if aiBrain.BuilderManagers[manager.LocationType].PrimarySeaAttackBase then
-		return self.Priority, true
+		return self.Priority, false
 	end
 
 	return 10, true
@@ -27,7 +27,7 @@ end
 local IsEnemyNavalActive = function(self,aiBrain,manager)
 
 	if aiBrain.NavalRatio and (aiBrain.NavalRatio > .01 and aiBrain.NavalRatio <= 10) then
-		return self.Priority, true
+		return self.Priority, false
 	end
 
 	return 10, true
