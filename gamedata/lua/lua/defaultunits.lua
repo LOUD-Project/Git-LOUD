@@ -89,6 +89,7 @@ StructureUnit = Class(Unit) {
 
     IdleState = State {
         Main = function(self)
+            self.UnitBeingBuilt = nil
         end,
     },
 
@@ -594,13 +595,6 @@ StructureUnit = Class(Unit) {
 				ChangeState(self, self.UpgradingState)
 			end
 		end
-    end,
-    
-    OnStopBuild = function(self, unitBuilding, order)
-    
-        Unit.OnStopBuild( self, unitBuilding)
-        self.UnitBeingBuilt = nil
-        
     end,
 
     OnStopBeingBuilt = function(self,builder,layer)
@@ -1883,6 +1877,12 @@ FactoryUnit = Class(StructureUnit) {
         if unitBeingBuilt and not unitBeingBuilt.Dead then
 
             unitBeingBuilt:DetachFrom(true)
+        
+            if EntityCategoryContains(categories.SERAPHIM * categories.AIR, unitBeingBuilt) then
+            
+                self:DetachAll(bp.Display.BuildAttachBone or 0)
+            
+            end
 
         end
 

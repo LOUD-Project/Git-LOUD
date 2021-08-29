@@ -48,28 +48,6 @@ SAirFactoryUnit = Class(FactoryUnit) {
         unitBeingBuilt.Trash:Add( thread )
     end,
 
-    FinishBuildThread = function(self, unitBeingBuilt, order )
-        self:SetBusy(true)
-        self:SetBlockCommandQueue(true)
-		
-        if unitBeingBuilt and not unitBeingBuilt.Dead and EntityCategoryContains( categories.AIR, unitBeingBuilt ) then
-            unitBeingBuilt:DetachFrom(true)
-			
-            local bp = __blueprints[self.BlueprintID]
-			
-            self:DetachAll(bp.Display.BuildAttachBone or 0)
-        end
-		
-        self:DestroyBuildRotator()
-		
-        if order != 'Upgrade' then
-            ChangeState(self, self.RollingOffState)
-        else
-            self:SetBusy(false)
-            self:SetBlockCommandQueue(false)
-        end
-    end,
-
     CreateRollOffEffects = function(self)
 	
         local army = self.Sync.army
@@ -149,6 +127,7 @@ SAirFactoryUnit = Class(FactoryUnit) {
 			
             self:DestroyRollOffEffects()
             self:SetBusy(false)
+            
             ChangeState(self, self.IdleState)
 			
         end
