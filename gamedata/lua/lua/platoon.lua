@@ -6585,7 +6585,7 @@ Platoon = Class(moho.platoon_methods) {
 				
 					local function MonitorNewBaseThread( self, refName, refposition, cons)
 					
-						LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." base expansion underway ")
+						--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." base expansion underway ")
 	
 						aiBrain.BaseExpansionUnderway = true
 	
@@ -7547,15 +7547,15 @@ Platoon = Class(moho.platoon_methods) {
 								-- start the new base --
 								if AINewExpansionBase( aiBrain, eng.NewExpansion[1], eng.NewExpansion[2], eng, eng.NewExpansion[3] ) then
                                 
-                                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." Eng "..eng.Sync.id.." creates new base at "..repr(eng.NewExpansion[2]))
-                                    LOG("*AI DEBUG Engineer is presently at "..repr(eng:GetPosition()))
+                                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName).." Eng "..eng.Sync.id.." creates new base "..repr(eng.NewExpansion[1]).." at "..repr(eng.NewExpansion[2]))
+                                    --LOG("*AI DEBUG Engineer is presently at "..repr(eng:GetPosition()))
 									
 									platoon.LocationType = eng.NewExpansion[1]
 									platoon.RTBLocation = eng.NewExpansion[1]
 
 								else
 									
-									LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName).." Eng "..eng.Sync.id.." failed to start new base "..repr(eng.NewExpansion[1]).." at "..repr(eng.NewExpansion[2]))
+									WARN("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName).." Eng "..eng.Sync.id.." failed to start new base "..repr(eng.NewExpansion[1]).." at "..repr(eng.NewExpansion[2]))
 
 									-- clear the expansion data
 									eng.NewExpansion = nil
@@ -9160,7 +9160,7 @@ Platoon = Class(moho.platoon_methods) {
         
 			if AttackBase and AttackBase != self.BuilderLocation then
 			
-				LOG("*AI DEBUG "..aiBrain.Nickname.." REINFORCE_AIR_NAVAL "..repr(self.BuilderName).." reinforcing "..repr(AttackBase).." from "..repr(self.RTBLocation).." Primary is "..repr(AttackBase2) )
+				--LOG("*AI DEBUG "..aiBrain.Nickname.." REINFORCE_AIR_NAVAL "..repr(self.BuilderName).." reinforcing "..repr(AttackBase).." from "..repr(self.RTBLocation).." Primary is "..repr(AttackBase2) )
 		
 				self.RTBLocation = AttackBase
 			

@@ -458,6 +458,7 @@ CConstructionStructureUnit = Class(StructureUnit) {
     
     -- This will only be called if not in StructureUnit's upgrade state
     OnStopBuild = function(self, unitBeingBuilt)
+    
         StructureUnit.OnStopBuild(self, unitBeingBuilt)
 
         self.UnitBeingBuilt = nil

@@ -2933,7 +2933,7 @@ function CheckTransportPool( aiBrain )
 			
 				if platoon != aiBrain.ArmyPool and platoon != aiBrain.RefuelPool and platoon != aiBrain.StructurePool then
 				
-					LOG("*AI DEBUG "..aiBrain.Nickname.." disbanding old "..repr(platoon.BuilderName).." platoon")
+					LOG("*AI DEBUG "..aiBrain.Nickname.." disbanding old "..repr(platoon).." platoon")
 					aiBrain:DisbandPlatoon(platoon)
 				end
 			end

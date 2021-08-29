@@ -146,7 +146,7 @@ BaseBuilderTemplate {
 		local island = import('/lua/ai/AIUtilities.lua').AIGetMarkersAroundLocation( aiBrain, 'Island', location, 50 )
 		
 		if table.getn(island) > 0 then
-			LOG("*AI DEBUG This DP is on an island..and BTW the threat distance value is "..distance)
+			--LOG("*AI DEBUG This DP is on an island..and BTW the threat distance value is "..distance)
 			island = true
 		else 
 			island = false

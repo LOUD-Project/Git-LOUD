@@ -350,7 +350,7 @@ end
 EngineerBuilder = Class(PlatoonBuilder) {
 
     Create = function( self, manager, brain, data, locationType )
-	
+
 		-- here is where I implement the faction specific platoon loading
 		-- if the platoon spec has a FactionIndex tag then it's compared here
 		if not data.FactionIndex or data.FactionIndex == brain.FactionIndex then

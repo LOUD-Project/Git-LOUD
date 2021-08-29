@@ -351,6 +351,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 	
         -- this is the dynamic delay controlled - minimum delay is ALWAYS 2 --
         -- basically higher tier factories have less delay periods
+        
 		WaitTicks( (8 - (factory.BuildLevel * 2)) + (factory.failedbuilds * 10) )
 
 		if factory.EnhanceThread or factory.Upgrading then

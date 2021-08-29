@@ -3115,13 +3115,13 @@ Unit = Class(moho.unit_methods) {
     end,
 
     OnStopBuild = function(self, unitBeingBuilt)
-	
-		--if unitBeingBuilt then
-			--LOG("*AI DEBUG OnStopBuild "..repr(unitBeingBuilt.Sync.id).." "..repr(unitBeingBuilt:GetBlueprint().Description).." by "..self:GetBlueprint().Description)
-		--else
-			--LOG("*AI DEBUG OnStopBuild for "..self:GetBlueprint().Description.." no unitBeingBuilt")
-		--end
-		
+--[[	
+		if unitBeingBuilt then
+			LOG("*AI DEBUG OnStopBuild "..repr(unitBeingBuilt.Sync.id).." "..repr(unitBeingBuilt:GetBlueprint().Description).." by "..self:GetBlueprint().Description)
+		else
+			LOG("*AI DEBUG OnStopBuild for "..self:GetBlueprint().Description.." no unitBeingBuilt")
+		end
+--]]		
         self:DoOnUnitBuiltCallbacks(unitBeingBuilt)
 
         self:StopBuildingEffects(unitBeingBuilt)

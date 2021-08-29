@@ -1564,6 +1564,8 @@ AIBrain = Class(moho.aibrain_methods) {
             PlatoonFormManager = CreatePlatoonFormManager(self, baseName, position, radius),
 			
         }
+
+        LOG("*AI DEBUG "..self.Nickname.." "..repr(baseName).." Created")
         
 		-- increment the total number of bases used by this brain
 		self.NumBases = self.NumBases + 1
