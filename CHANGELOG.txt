@@ -1,3 +1,15 @@
+### Release 29-08-2021 ###
+Lua 5.4.31
+US Localization 1.0.2
+Projectiles 3.2.1
+
+- More performance improvements across the board.
+- AI: Torpedo bomber production requires two Tech 2 Air Factories rather than two T2 factories in general.
+- AI: Any resources gained per-tick via cheating are no longer multiplied by the AI's cheating level.
+ |--> Additionally, the maximum Mass gained per tick is now 10 (from 12).
+- Fix: Incorrect names were being applied to certain unit restrictions.
+- Fix: Engineers built from Seraphim Air Factories were not rolling off the pad.
+
 ### Release 13-08-2021 ###
 Lua 5.4.29
 
