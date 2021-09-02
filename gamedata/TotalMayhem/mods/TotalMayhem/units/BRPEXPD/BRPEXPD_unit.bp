@@ -118,7 +118,7 @@ UnitBlueprint {
         BuildCostMass = 8750,
         BuildTime = 8250,
 		
-        RebuildBonusIds = {'BRPT2EXPD'},
+        RebuildBonusIds = {'BRPEXPD'},
     },
 
     General = {

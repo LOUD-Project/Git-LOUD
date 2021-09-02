@@ -109,6 +109,8 @@ UnitBlueprint {
         BuildCostEnergy = 9000,
         BuildCostMass = 1000,
         BuildTime = 1000,
+		
+        RebuildBonusIds = {'brmt2pd'},
     },
 
     General = {
