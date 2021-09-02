@@ -74,7 +74,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 314.8,
     },
 
-    Description = '<LOC seb2401_desc>Experimental Point Defence',
+    Description = '<LOC seb2401_desc>Experimental Point Defense',
 
     Display = {
 
@@ -123,6 +123,8 @@ UnitBlueprint {
         BuildCostEnergy = 175000,
         BuildCostMass = 15000,
         BuildTime = 15000,
+
+        RebuildBonusIds = {'seb2401'},
 
         StorageEnergy = 8000,
     },
