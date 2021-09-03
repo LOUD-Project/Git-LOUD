@@ -117,9 +117,8 @@ UnitBlueprint {
         BuildCostEnergy = 20000,
         BuildCostMass = 2500,
         BuildTime = 2500,
-        RebuildBonusIds = {
-            'xsb2101',
-        },
+        
+        RebuildBonusIds = {'ssb2380'},
     },
 	
     General = {

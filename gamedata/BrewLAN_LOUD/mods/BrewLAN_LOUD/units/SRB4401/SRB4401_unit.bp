@@ -128,6 +128,7 @@ UnitBlueprint {
 		
         MaintenanceConsumptionPerSecondEnergy = 2086,
 		
+        RebuildBonusIds = {'srb4401'},	
     },
 	
     Footprint = {

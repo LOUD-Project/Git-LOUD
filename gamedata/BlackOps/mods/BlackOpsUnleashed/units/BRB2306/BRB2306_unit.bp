@@ -91,7 +91,7 @@ UnitBlueprint {
         BuildCostMass = 1750,
         BuildTime = 1590,
 		
-        RebuildBonusIds = {'xrb2306'},
+        RebuildBonusIds = {'brb2306'},
     },
 	
     General = {

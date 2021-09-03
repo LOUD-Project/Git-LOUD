@@ -60,7 +60,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 354,
     },
 	
-    Description = '<LOC seb2401_desc>Experimental Point Defence',
+    Description = '<LOC seb2401_desc>Experimental Point Defense',
 	
     Display = {
         Abilities = {
@@ -111,7 +111,7 @@ UnitBlueprint {
 		
         BuildTime = 10500,
 		
-        RebuildBonusIds = {'srb2401'},
+        RebuildBonusIds = {'srb2402'},
     },
 	
 	Enhancements = {

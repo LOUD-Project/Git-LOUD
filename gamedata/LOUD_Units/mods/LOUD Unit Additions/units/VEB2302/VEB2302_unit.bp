@@ -115,12 +115,14 @@ UnitBlueprint {
         UniformScale = 0.02,
     },
 	
-    Economy = {
-	
+    Economy = {	
         BuildCostEnergy = 145000,
         BuildCostMass = 13000,
         BuildTime = 13000,
-
+        
+        RebuildBonusIds = {
+            'veb2302',
+        },
     },
 	
     General = {

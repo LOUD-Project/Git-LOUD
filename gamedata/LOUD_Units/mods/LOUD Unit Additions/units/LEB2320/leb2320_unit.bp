@@ -95,6 +95,10 @@ UnitBlueprint {
         BuildCostEnergy = 135000,
         BuildCostMass = 9500,
         BuildTime = 10500,
+        
+        RebuildBonusIds = {
+            'leb2320',
+        },
     },
 	
 	Footprint = {
