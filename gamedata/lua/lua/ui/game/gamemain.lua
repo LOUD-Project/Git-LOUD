@@ -180,6 +180,10 @@ function OnFirstUpdate()
         end
 		
     end
+
+    -- Hotbuild requires these two calls to be fully functional at game start
+    import('/lua/hotbuild/hotbuild.lua').init()
+    IN_AddKeyMapTable(import('/lua/keymap/keymapper.lua').GetKeyMappings())
 	
 end
 
