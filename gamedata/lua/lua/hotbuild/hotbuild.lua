@@ -171,6 +171,9 @@ end
 ---- Initialize functions
 function init()
 
+    -- Prevent this function from being called twice
+    if (enabled) then return end
+
     LOG("*AI DEBUG Hotbuild INIT")
 
     enabled = true
@@ -332,14 +335,6 @@ end
 ---- The actual key action callback
 function buildAction(name, modifier)
 
-    if (not enabled) then
-    
-        init()
-        
-        --LOG("BuildAction refused as hotbuild mod is not enabled")
-        --return
-    end
-    
     --LOG("---> buildAction " .. name .. " modifier: " .. modifier)
     
     local selection = GetSelectedUnits()

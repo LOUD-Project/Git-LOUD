@@ -1,11 +1,3 @@
---*****************************************************************************
---* File: lua/ui/game/helptext.lua
---* Author: Ted Snook
---* Summary: Help Text Popup
---*
---* Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
---*****************************************************************************
-
 local Bitmap = import('/lua/maui/bitmap.lua').Bitmap
 local Edit = import('/lua/maui/edit.lua').Edit
 local Group = import('/lua/maui/group.lua').Group
