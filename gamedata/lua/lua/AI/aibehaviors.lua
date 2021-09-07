@@ -164,7 +164,7 @@ function LifeThread( aiBrain, cdr )
 
     while true do
     
-        WaitTicks(1)
+        WaitTicks(2)
         
         if GetEconomyStoredRatio( aiBrain, 'MASS') < .01 then
         
@@ -6153,7 +6153,7 @@ function TMLThread( unit, aiBrain )
 	
     unit:SetAutoMode(true)
 
-	local atkPri = { 'STRUCTURE','EXPERIMENTAL','SHIELD','ENGINEER -TECH1','MOBILE -TECH1', }
+	local atkPri = { 'SHIELD','EXPERIMENTAL','ANTIMISSILE -SILO','ECONOMIC','ENGINEER -TECH1','MOBILE -TECH1', }
 	local targetUnits, target, targPos
 	
     while not unit.Dead do
@@ -6161,7 +6161,7 @@ function TMLThread( unit, aiBrain )
         while unit:GetTacticalSiloAmmoCount() > 0 do
 		
 			-- wait 3 seconds
-            WaitTicks(30)
+            WaitTicks(35)
 			
 			targetUnits = GetUnitsAroundPoint( aiBrain, categories.ALLUNITS - categories.WALL - categories.AIR - categories.TECH1, position, maxRadius, 'Enemy' )
 
@@ -6205,7 +6205,7 @@ function TMLThread( unit, aiBrain )
 				target = false
 				
 				IssueClearCommands({unit})
-				WaitTicks(50)
+				WaitTicks(60)
 			end
 		end
 		

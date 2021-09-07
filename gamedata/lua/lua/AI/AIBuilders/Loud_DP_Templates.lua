@@ -208,32 +208,31 @@ DefensivePointStandard = {
             {-5, 6 },
         },
         
+        {{ 'T2StrategicMissile'	},
+			{ 0, 6 },
+            {-2, 6 },
+            { 2, 6 },
+        },
+        
         {{ 'T3StrategicMissileDefense'	},
 			{ 0, -8 },
             { 16, 5 },
 			{-16,-6 },
         },
-        {
-            { 'T3TacticalArtillery'	},
+        
+        {{ 'T3TacticalArtillery'	},
 			{-3,-5 },
-        },                
+        },
+        
     },
 
 	-- Aeon DP Template Standard
     {
-        {
-            {
-            'T1Radar', 
-            'T2Radar', 
-			'T3Radar',
-            },
+        {{ 'T1Radar', 'T2Radar', 'T3Radar' },
             {  0, -4 },
         },
-		{
-			{
-			'Wall',
-			'T2Wall',
-			},
+        
+		{{ 'Wall', 'T2Wall'	},
 			{ 17, -7 },
 			{ 18, -7 },
 			{ 19, -7 },
@@ -327,10 +326,8 @@ DefensivePointStandard = {
 			{ 7, 18 },
 			{ 7, 17 },
 		},
-        {
-            {
-            'T2GroundDefense', 
-            },
+        
+        {{ 'T2GroundDefense'  },
             { 19,-1 },
             { 19, 1 },
             {-19,-1 },
@@ -340,17 +337,13 @@ DefensivePointStandard = {
 			{-1, 19 },
 			{ 1, 19 },
         },
-        {
-            {
-            'T3GroundDefense', 
-            },
+        
+        {{ 'T3GroundDefense'  },
             { 9,-9 },
             {-9, 9 },
         },
-        {
-            {
-            'T2AADefense', 
-            },
+        
+        {{ 'T2AADefense'      },
             { 19,-5 },
             { 19, 5 },
             {-19,-5 },
@@ -360,10 +353,8 @@ DefensivePointStandard = {
 			{ -5, 19 },
 			{  5, 19 },
         },
-        {
-            {
-            'T2Artillery', 
-            },
+        
+        {{ 'T2Artillery'      },
             { 5,-3 },
             { 5, 3 },
             {-5,-3 },
@@ -373,58 +364,40 @@ DefensivePointStandard = {
 			{-3,-5 },
 			{ 3,-5 },
         },
-        {
-            {
-            'T1AirStagingPlatform',
-            'T2AirStagingPlatform', 
-            },
+        
+        {{ 'T1AirStagingPlatform', 'T2AirStagingPlatform'      },
             { 0, 13 },
             { 0,-13 },
-        },	
-        {
-            {
-            'T2RadarJammer', 
-            },
+        },
+
+        {{ 'T2RadarJammer'   },
             {-6,-8 },
 			{ 6, 8 },
         },
-		{
-			{
-			'T2TeleportJammer',
-			},
+        
+		{{ 'T2TeleportJammer'},
 			{ 0, 8 },
-		},		
-        {
-            {
-            'T3EnergyProduction',
-			'T2EnergyProduction',
-            },
+		},
+        
+        {{ 'T3EnergyProduction', 'T2EnergyProduction' },
             { 0, 0 },
         },
-        {
-            {
-			'T1MassCreation',
-            },
+        
+        {{ 'T1MassCreation' },
             {-4, 0 },
             { 0, 4 },
 			{-2,-4 },
 			{ 2,-4 },
 			{-2, 4 },
 			{ 2, 4 },
-        },        
-        {
-            {
-            'T2ShieldDefense', 
-            'T3ShieldDefense', 
-            },
+        },
+        
+        {{ 'T2ShieldDefense', 'T3ShieldDefense' },
             { 11, 0 },
             {-11, 0 },
         },
-		{
-			{
-			'T3Storage',
-			'EnergyStorage',
-			},
+        
+		{{ 'T3Storage',	'EnergyStorage'	},
 			{ 11,-4 },
 			{  9,-4 },
 			{ 13,-4 },
@@ -438,47 +411,49 @@ DefensivePointStandard = {
 			{ -9, 4 },
 			{-13, 4 },
 		},
-        {
-            {'T3AADefense' },
+        
+        {{'T3AADefense' },
             { 6,-13 },
 			{-6,-13 },
 			{-6, 13 },
 			{ 6, 13 },
         },
-		{
-			{'T4AADefense' },
+        
+		{{'T4AADefense' },
 			{ 16,-1 },
 			{-16, 0 },
 		},
-        {
-            {
-            'T2MissileDefense', 
-            },
+        
+        {{ 'T2MissileDefense' },
             { 5,-6 },
             { 5, 6 },
             {-5,-6 },
             {-5, 6 },
         },
-        {
-            {
-            'T3StrategicMissileDefense', 
-            },
+        
+        {{ 'T2StrategicMissile'	},
+			{ 0, 6 },
+            {-2, 6 },
+            { 2, 6 },
+        },
+
+        {{ 'T3StrategicMissileDefense' },
             { 0, -8 },
         },
-        {
-            { 'T3TacticalArtillery'	},
+        
+        {{ 'T3TacticalArtillery'	},
 			{-3,-5 },
-        },                
+        },
+        
     },
 
 	-- Cybran DP Template Standard
     {
-        {
-            { 'T1Radar', 'T2Radar', 'T3Radar'	},
+        {{ 'T1Radar', 'T2Radar', 'T3Radar'	},
             { 0, -4 },
         },
-		{
-			{ 'Wall', 'T2Wall'	},
+        
+		{{ 'Wall', 'T2Wall'	},
 			{ 17, -7 },
 			{ 18, -7 },
 			{ 19, -7 },
@@ -572,8 +547,8 @@ DefensivePointStandard = {
 			{ 7, 18 },
 			{ 7, 17 },
 		},
-        {
-            { 'T2GroundDefense'	},
+        
+        {{ 'T2GroundDefense'	},
             { 19,-1 },
             { 19, 1 },
             {-19,-1 },
@@ -583,13 +558,13 @@ DefensivePointStandard = {
 			{-1, 19 },
 			{ 1, 19 },
         },
-        {
-            { 'T3GroundDefense'	},
+        
+        {{ 'T3GroundDefense'	},
             { 9,-9 },
             {-9, 9 },
         },
-        {
-            { 'T2AADefense'	},
+        
+        {{ 'T2AADefense'	},
             { 19,-5 },
             { 19, 5 },
             {-19,-5 },
@@ -599,8 +574,8 @@ DefensivePointStandard = {
 			{ -5, 19 },
 			{  5, 19 },
         },
-        {
-            { 'T2Artillery'	},
+        
+        {{ 'T2Artillery'	},
             { 5,-3 },
             { 5, 3 },
             {-5,-3 },
@@ -610,40 +585,40 @@ DefensivePointStandard = {
 			{-3,-5 },
 			{ 3,-5 },
         },
-        {
-            { 'T2AirStagingPlatform'	},
+        
+        {{ 'T2AirStagingPlatform'	},
             { 0, 13 },
             { 0,-13 },
         },	
-        {
-            { 'T2RadarJammer'	},
+        
+        {{ 'T2RadarJammer'	},
             {-6,-8 },
 			{ 6, 8 },
         },
-		{
-			{ 'T2TeleportJammer'	},
+        
+		{{ 'T2TeleportJammer'	},
 			{ 0, 8 },
 		},		
-        {
-            { 'T2EnergyProduction'	},
+        
+        {{ 'T2EnergyProduction'	},
             { 0, 0 },
         },
-        {
-            { 'T1MassCreation'	},
+        
+        {{ 'T1MassCreation'	},
             {-4, 0 },
             { 0, 4 },
 			{-2,-4 },
 			{ 2,-4 },
 			{-2, 4 },
 			{ 2, 4 },
-        },        
-        {
-            { 'T2ShieldDefense', 'T3ShieldDefense'	},
+        },
+        
+        {{ 'T2ShieldDefense', 'T3ShieldDefense'	},
             { 11, 0 },
             {-11, 0 },
         },
-		{
-			{ 'T3Storage', 'EnergyStorage'	},
+        
+		{{ 'T3Storage', 'EnergyStorage'	},
 			{ 11,-4 },
 			{  9,-4 },
 			{ 13,-4 },
@@ -657,43 +632,49 @@ DefensivePointStandard = {
 			{ -9, 4 },
 			{-13, 4 },
 		},
-        {
-            { 'T3AADefense'	},
+        
+        {{ 'T3AADefense'	},
             { 6,-13 },
 			{-6,-13 },
 			{-6, 13 },
 			{ 6, 13 },
         },
-		{
-			{ 'T4AADefense'	},
+        
+		{{ 'T4AADefense'	},
 			{ 16,-1 },
 			{-16, 0 },
 		},
-        {
-            { 'T2MissileDefense'	},
+        
+        {{ 'T2MissileDefense'	},
             { 5,-6 },
             { 5, 6 },
             {-5,-6 },
             {-5, 6 },
         },
-        {
-            { 'T3StrategicMissileDefense'	},
+        
+        {{ 'T2StrategicMissile'	},
+			{ 0, 6 },
+            {-2, 6 },
+            { 2, 6 },
+        },
+            
+        {{ 'T3StrategicMissileDefense'	},
             { 0, -8 },
         },
-        {
-            { 'T3TacticalArtillery'	},
+        
+        {{ 'T3TacticalArtillery'	},
 			{-3,-5 },
-        },                
+        },
+        
     },
 
 	-- Seraphim DP Template Standard
     {
-        {
-            { 'T1Radar', 'T2Radar', 'T3Radar'	},
+        {{ 'T1Radar', 'T2Radar', 'T3Radar'	},
             { 0, -4 },
         },
-		{
-			{ 'Wall', 'T2Wall'	},
+        
+		{{ 'Wall', 'T2Wall'	},
 			{ 17, -7 },
 			{ 18, -7 },
 			{ 19, -7 },
@@ -787,8 +768,8 @@ DefensivePointStandard = {
 			{ 7, 18 },
 			{ 7, 17 },
 		},
-        {
-            { 'T2GroundDefense'	},
+        
+        {{ 'T2GroundDefense'	},
             { 19,-1 },
             { 19, 1 },
             {-19,-1 },
@@ -798,13 +779,13 @@ DefensivePointStandard = {
 			{-1, 19 },
 			{ 1, 19 },
         },
-        {
-            { 'T3GroundDefense' },
+        
+        {{ 'T3GroundDefense' },
             { 9,-9 },
             {-9, 9 },
         },
-        {
-            { 'T2AADefense'		},
+        
+        {{ 'T2AADefense'		},
             { 19,-5 },
             { 19, 5 },
             {-19,-5 },
@@ -814,8 +795,8 @@ DefensivePointStandard = {
 			{ -5, 19 },
 			{  5, 19 },
         },
-        {
-            { 'T2Artillery'		},
+        
+        {{ 'T2Artillery'		},
             { 5,-3 },
             { 5, 3 },
             {-5,-3 },
@@ -825,40 +806,40 @@ DefensivePointStandard = {
 			{-3,-5 },
 			{ 3,-5 },
         },
-        {
-            { 'T2AirStagingPlatform'	},
+        
+        {{ 'T2AirStagingPlatform'	},
             { 0, 13 },
             { 0,-13 },
         },	
-        {
-            { 'T2RadarJammer'	},
+        
+        {{ 'T2RadarJammer'	},
             {-6,-8 },
 			{ 6, 8 },
         },
-		{
-			{ 'T2TeleportJammer'	},
+        
+		{{ 'T2TeleportJammer'	},
 			{ 0, 8 },
 		},		
-        {
-            { 'T2EnergyProduction'	},
+        
+        {{ 'T2EnergyProduction'	},
             { 0, 0 },
         },
-        {
-            { 'T1MassCreation'		},
+        
+        {{ 'T1MassCreation'		},
             {-4, 0 },
             { 0, 4 },
 			{-2,-4 },
 			{ 2,-4 },
 			{-2, 4 },
 			{ 2, 4 },
-        },        
-        {
-            { 'T2ShieldDefense', 'T3ShieldDefense'	},
+        },
+        
+        {{ 'T2ShieldDefense', 'T3ShieldDefense'	},
             { 11, 0 },
             {-11, 0 },
         },
-		{
-			{ 'T3Storage', 'EnergyStorage'	},
+        
+		{{ 'T3Storage', 'EnergyStorage'	},
 			{ 11,-4 },
 			{  9,-4 },
 			{ 13,-4 },
@@ -872,87 +853,100 @@ DefensivePointStandard = {
 			{ -9, 4 },
 			{-13, 4 },
 		},
-        {
-            { 'T3AADefense'	},
+        
+        {{ 'T3AADefense'	},
             { 6,-13 },
 			{-6,-13 },
 			{-6, 13 },
 			{ 6, 13 },
         },
-		{
-			{ 'T4AADefense'	},
+        
+		{{ 'T4AADefense'	},
 			{ 16,-1 },
 			{-16, 0 },
 		},
-        {
-            { 'T2MissileDefense' },
+        
+        {{ 'T2MissileDefense' },
             { 5,-6 },
             { 5, 6 },
             {-5,-6 },
             {-5, 6 },
         },
-        {
-            { 'T3StrategicMissileDefense'	},
+        
+        {{ 'T2StrategicMissile'	},
+			{ 0, 6 },
+            {-2, 6 },
+            { 2, 6 },
+        },
+
+        {{ 'T3StrategicMissileDefense'	},
             { 0, -8 },
         },
-        {
-            { 'T3TacticalArtillery'	},
+        
+        {{ 'T3TacticalArtillery'	},
 			{-3,-5 },
-        },                
+        },
+        
     },
 }
 
 DefensivePointSmall = {
 	-- UEF DP Template Small
     {
-        {
-            { 'T1Radar', 'T2Radar', 'T3Radar'	},
+        {{ 'T1Radar', 'T2Radar', 'T3Radar'	},
             { 0, -4 },
         },
-        {
-            { 'T2ShieldDefense', 'T3ShieldDefense'	},
+        
+        {{ 'T2ShieldDefense', 'T3ShieldDefense'	},
             { 0, 0 },
         },
-        {
-            { 'T2AirStagingPlatform'	},
+        
+        {{ 'T2AirStagingPlatform'	},
             { 6, 0 },
-        },	
-        {
-            { 'T2RadarJammer'	},
+        },
+        
+        {{ 'T2RadarJammer'	},
             {-6, 0 },
         },
-        {
-            { 'T2MissileDefense'	},
+        
+        {{ 'T2MissileDefense'	},
             { 0, -6 },
         },
-        {
-            { 'T3AADefense'	},
+        
+        {{ 'T3AADefense'	},
             { 7,-7 },
 			{-7,-7 },
 			{-7, 7 },
 			{ 7, 7 },
         },
-        {
-            { 'T3GroundDefense'	},
+        
+        {{ 'T3GroundDefense'	},
             { 0, -9 },
             { 0,  9 },
         },
-		{
-			{ 'T2TeleportJammer'	},
+        
+		{{ 'T2TeleportJammer'	},
 			{ 3,-5 },
 		},		
-		{
-			{ 'T4AADefense'	},
+        
+		{{ 'T4AADefense'	},
 			{-3, 5 },
 		},
-        {
-            { 'T3StrategicMissileDefense'	},
+        
+        {{ 'T2StrategicMissile'	},
+			{ 0, 6 },
+            {-2, 6 },
+            { 2, 6 },
+        },        
+        
+        {{ 'T3StrategicMissileDefense'	},
 			{ 3, 5 },
         },
-        {
-            { 'T3TacticalArtillery'	},
+        
+        {{ 'T3TacticalArtillery'	},
 			{-3,-5 },
-        },        
+        },
+        
     },
 	-- Aeon DP Template Small
 	{
@@ -996,6 +990,12 @@ DefensivePointSmall = {
 			{ 'T4AADefense'	},
 			{-3, 5 },
 		},
+        {
+            { 'T2StrategicMissile'	},
+			{ 0, 6 },
+            {-2, 6 },
+            { 2, 6 },
+        },                
         {
             { 'T3StrategicMissileDefense'	},
 			{ 3, 5 },
@@ -1048,6 +1048,12 @@ DefensivePointSmall = {
 			{-3, 5 },
 		},
         {
+            { 'T2StrategicMissile'	},
+			{ 0, 6 },
+            {-2, 6 },
+            { 2, 6 },
+        },                
+        {
             { 'T3StrategicMissileDefense'	},
 			{ 3, 5 },
         },
@@ -1098,6 +1104,12 @@ DefensivePointSmall = {
 			{ 'T4AADefense'	},
 			{-3, 5 },
 		},
+        {
+            { 'T2StrategicMissile'	},
+			{ 0, 6 },
+            {-2, 6 },
+            { 2, 6 },
+        },
         {
             { 'T3StrategicMissileDefense'	},
 			{ 3, 5 },

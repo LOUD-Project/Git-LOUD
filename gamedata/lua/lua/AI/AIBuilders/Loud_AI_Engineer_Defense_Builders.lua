@@ -3381,7 +3381,41 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
             }
         }
     },
-    
+	
+    Builder {BuilderName = 'T2 DP STD TML',
+	
+        PlatoonTemplate = 'EngineerBuilder',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+        Priority = 750,
+
+        BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .85 } },
+            
+			--{ TBC, 'ThreatCloserThan', { 'LocationType', 400, 75, 'Land' }},
+
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 15, 1.012, 1.025 }}, 
+            
+            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 3, categories.TACTICALMISSILEPLATFORM * categories.STRUCTURE }},			
+        },
+		
+        BuilderType = {'T2','T3','SubCommander' },
+		
+        BuilderData = {
+            Construction = {
+                NearBasePerimeterPoints = true,
+				
+				ThreatMax = 100,
+				
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
+				BaseTemplate = 'DefensivePointStandard',
+				
+                BuildStructures = {'T2StrategicMissile'},
+            }
+        }
+    },
+        
     Builder {BuilderName = 'T3 DP STD Tactical Artillery',
 	
         PlatoonTemplate = 'EngineerBuilder',
@@ -3521,7 +3555,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Small',
             Construction = {
 				NearBasePerimeterPoints = true,
                 
-                ThreatMax = 60,
+                ThreatMax = 75,
                 
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'DefensivePointSmall',
@@ -3558,7 +3592,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Small',
             Construction = {
 				NearBasePerimeterPoints = true,
                 
-                ThreatMax = 60,
+                ThreatMax = 75,
                 
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'DefensivePointSmall',
@@ -3596,7 +3630,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Small',
             Construction = {
 				NearBasePerimeterPoints = true,
                 
-                ThreatMax = 60,
+                ThreatMax = 75,
                 
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'DefensivePointSmall',
@@ -3633,7 +3667,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Small',
             Construction = {
 				NearBasePerimeterPoints = true,
                 
-                ThreatMax = 60,
+                ThreatMax = 100,
                 
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
 				BaseTemplate = 'DefensivePointSmall',
@@ -3678,6 +3712,40 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Small',
                 BuildStructures = {
                     'T3GroundDefense',
                 }
+            }
+        }
+    },
+	
+    Builder {BuilderName = 'T2 DP SML TML',
+	
+        PlatoonTemplate = 'EngineerBuilder',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+        Priority = 750,
+
+        BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .85 } },
+            
+			--{ TBC, 'ThreatCloserThan', { 'LocationType', 400, 75, 'Land' }},
+
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 15, 1.012, 1.025 }}, 
+            
+            { UCBC, 'UnitsLessAtLocation', { 'LocationType', 3, categories.TACTICALMISSILEPLATFORM * categories.STRUCTURE }},			
+        },
+		
+        BuilderType = {'T2','T3','SubCommander' },
+		
+        BuilderData = {
+            Construction = {
+                NearBasePerimeterPoints = true,
+				
+				ThreatMax = 100,
+				
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
+				BaseTemplate = 'DefensivePointSmall',
+				
+                BuildStructures = {'T2StrategicMissile'},
             }
         }
     },
