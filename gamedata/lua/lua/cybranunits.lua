@@ -8,6 +8,7 @@ local AirUnit = DefaultUnitsFile.AirUnit
 local ConcreteStructureUnit = DefaultUnitsFile.ConcreteStructureUnit
 local WallStructureUnit = import('defaultunits.lua').WallStructureUnit
 local ConstructionUnit = DefaultUnitsFile.ConstructionUnit
+local DirectionalWalkingLandUnit = DefaultUnitsFile.DirectionalWalkingLandUnit
 
 local FactoryUnit = DefaultUnitsFile.FactoryUnit
 
@@ -15,6 +16,8 @@ local FactoryUnit = DefaultUnitsFile.FactoryUnit
 local MobileUnit = DefaultUnitsFile.MobileUnit
 
 local SeaUnit = DefaultUnitsFile.SeaUnit
+local SubUnit = DefaultUnitsFile.SubUnit
+local WalkingLandUnit = DefaultUnitsFile.WalkingLandUnit
 
 local ShieldStructureUnit = DefaultUnitsFile.ShieldStructureUnit
 local StructureUnit = DefaultUnitsFile.StructureUnit
