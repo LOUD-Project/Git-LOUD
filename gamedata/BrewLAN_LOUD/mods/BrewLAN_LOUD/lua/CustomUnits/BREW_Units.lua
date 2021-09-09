@@ -66,8 +66,8 @@ T3LandBot = {
 	Seraphim = {'ssl0311', 20}, -- Ilshatha
 },
 
-T3MobileMissile = {
-	Cybran = {'srl0311', 100},	-- Hexatron
+T3LandArtillery = {
+	Cybran = {'srl0311', 100},	-- Triseptitron
 },
 
 T3AmphibiousArtillery = {
