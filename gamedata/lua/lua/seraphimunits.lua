@@ -209,6 +209,150 @@ SAirFactoryUnit = Class(FactoryUnit) {
 	
 }
 
+SLandFactoryUnit = Class(FactoryUnit) {
+
+    StartBuildFx = function( self, unitBeingBuilt )
+    
+		local BuildBones = __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones
+        local thread = self:ForkThread( EffectUtil.CreateSeraphimFactoryBuildingEffects, unitBeingBuilt, BuildBones, 'Attachpoint', self.BuildEffectsBag )
+        unitBeingBuilt.Trash:Add( thread )
+    end,
+    
+    OnStartBuild = function(self, unitBeingBuilt, order )
+
+        local unitid = __blueprints[self.BlueprintID].General.UpgradesTo
+		
+        if unitBeingBuilt.BlueprintID == unitid and order == 'Upgrade' then
+            -- stop pods that exist in the upgraded unit
+            local savedAngle
+            if (self.Rotator1) then
+                savedAngle = self.Rotator1:GetCurrentAngle()
+                self.Rotator1:SetGoal(savedAngle)
+                unitBeingBuilt.Rotator1:SetCurrentAngle(savedAngle)
+                unitBeingBuilt.Rotator1:SetGoal(savedAngle)
+                -- freeze the next rotator to 0, since that's where it will be
+                unitBeingBuilt.Rotator2:SetCurrentAngle(0)
+                unitBeingBuilt.Rotator2:SetGoal(0)
+            end
+            
+            if (self.Rotator2) then
+                savedAngle = self.Rotator2:GetCurrentAngle()
+                self.Rotator2:SetGoal(savedAngle)
+                unitBeingBuilt.Rotator2:SetCurrentAngle(savedAngle)
+                unitBeingBuilt.Rotator2:SetGoal(savedAngle)
+                unitBeingBuilt.Rotator3:SetCurrentAngle(0)
+                unitBeingBuilt.Rotator3:SetGoal(0)
+            end
+        end
+        FactoryUnit.OnStartBuild(self,unitBeingBuilt,order)
+    end,
+  
+    UpgradingState = State(FactoryUnit.UpgradingState) {
+	
+        OnStopBuild = function(self, unitBuilding)
+            if unitBuilding:GetFractionComplete() == 1 then
+                if (unitBuilding.Rotator1) then
+                    unitBuilding.Rotator1:ClearGoal()
+                end
+                if (unitBuilding.Rotator2) then
+                    unitBuilding.Rotator2:ClearGoal()
+                end
+                if (unitBuilding.Rotator3) then
+                    unitBuilding.Rotator3:ClearGoal()
+                end                  
+            end
+            FactoryUnit.UpgradingState.OnStopBuild(self, unitBuilding)
+        end,
+
+        OnFailedToBuild = function(self)
+           FactoryUnit.UpgradingState.OnFailedToBuild(self)
+           if (self.Rotator1) then
+               self.Rotator1:ClearGoal()
+               self.Rotator1:SetSpeed(5)
+           end
+           
+            if (self.Rotator2) then
+               self.Rotator2:ClearGoal()
+               self.Rotator2:SetSpeed(5)
+           end
+        end,
+    },  
+    
+}
+
+SSeaFactoryUnit = Class(FactoryUnit) {
+
+    StartBuildFx = function( self, unitBeingBuilt )
+    
+		local BuildBones = __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones
+        local thread = self:ForkThread( EffectUtil.CreateSeraphimFactoryBuildingEffects, unitBeingBuilt, BuildBones, 'Attachpoint', self.BuildEffectsBag )
+        unitBeingBuilt.Trash:Add( thread )
+    end,
+
+    OnStartBuild = function(self, unitBeingBuilt, order )
+
+        local unitid = __blueprints[self.BlueprintID].General.UpgradesTo
+		
+        if unitBeingBuilt.BlueprintID == unitid and order == 'Upgrade' then
+            -- stop pods that exist in the upgraded unit
+            local savedAngle
+            if (self.Rotator1) then
+                savedAngle = self.Rotator1:GetCurrentAngle()
+                self.Rotator1:SetGoal(savedAngle)
+                unitBeingBuilt.Rotator1:SetCurrentAngle(savedAngle)
+                unitBeingBuilt.Rotator1:SetGoal(savedAngle)
+                -- freeze the next rotator to 0, since that's where it will be
+                unitBeingBuilt.Rotator2:SetCurrentAngle(0)
+                unitBeingBuilt.Rotator2:SetGoal(0)
+            end
+            
+            if (self.Rotator2) then
+                savedAngle = self.Rotator2:GetCurrentAngle()
+                self.Rotator2:SetGoal(savedAngle)
+                unitBeingBuilt.Rotator2:SetCurrentAngle(savedAngle)
+                unitBeingBuilt.Rotator2:SetGoal(savedAngle)
+                unitBeingBuilt.Rotator3:SetCurrentAngle(0)
+                unitBeingBuilt.Rotator3:SetGoal(0)
+            end
+        end
+        FactoryUnit.OnStartBuild(self,unitBeingBuilt,order)
+    end,
+  
+    UpgradingState = State(FactoryUnit.UpgradingState) {   
+	
+        OnStopBuild = function(self, unitBuilding)
+            if unitBuilding:GetFractionComplete() == 1 then
+                -- start halted rotators on upgraded unit
+                if (unitBuilding.Rotator1) then
+                    unitBuilding.Rotator1:ClearGoal()
+                end
+                if (unitBuilding.Rotator2) then
+                    unitBuilding.Rotator2:ClearGoal()
+                end
+                if (unitBuilding.Rotator3) then
+                    unitBuilding.Rotator3:ClearGoal()
+                end                  
+            end
+            FactoryUnit.UpgradingState.OnStopBuild(self, unitBuilding)
+        end,
+
+        OnFailedToBuild = function(self)
+           FactoryUnit.UpgradingState.OnFailedToBuild(self)
+           -- failed to build, so resume rotators
+           if (self.Rotator1) then
+               self.Rotator1:ClearGoal()
+               self.Rotator1:SetSpeed(5)
+           end
+           
+            if (self.Rotator2) then
+               self.Rotator2:ClearGoal()
+               self.Rotator2:SetSpeed(5)
+           end
+        end,
+    },      
+}
+
+
 SAirUnit = Class(AirUnit) {
     ContrailEffects = {'/effects/emitters/contrail_ser_polytrail_01_emit.bp',},
 }
@@ -329,77 +473,6 @@ SEnergyStorageUnit = Class(StructureUnit) {}
 
 SHoverLandUnit = Class(MobileUnit) {}
 
-SLandFactoryUnit = Class(FactoryUnit) {
-
-    StartBuildFx = function( self, unitBeingBuilt )
-    
-		local BuildBones = __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones
-        local thread = self:ForkThread( EffectUtil.CreateSeraphimFactoryBuildingEffects, unitBeingBuilt, BuildBones, 'Attachpoint', self.BuildEffectsBag )
-        unitBeingBuilt.Trash:Add( thread )
-    end,
-    
-    OnStartBuild = function(self, unitBeingBuilt, order )
-
-        local unitid = __blueprints[self.BlueprintID].General.UpgradesTo
-		
-        if unitBeingBuilt.BlueprintID == unitid and order == 'Upgrade' then
-            -- stop pods that exist in the upgraded unit
-            local savedAngle
-            if (self.Rotator1) then
-                savedAngle = self.Rotator1:GetCurrentAngle()
-                self.Rotator1:SetGoal(savedAngle)
-                unitBeingBuilt.Rotator1:SetCurrentAngle(savedAngle)
-                unitBeingBuilt.Rotator1:SetGoal(savedAngle)
-                -- freeze the next rotator to 0, since that's where it will be
-                unitBeingBuilt.Rotator2:SetCurrentAngle(0)
-                unitBeingBuilt.Rotator2:SetGoal(0)
-            end
-            
-            if (self.Rotator2) then
-                savedAngle = self.Rotator2:GetCurrentAngle()
-                self.Rotator2:SetGoal(savedAngle)
-                unitBeingBuilt.Rotator2:SetCurrentAngle(savedAngle)
-                unitBeingBuilt.Rotator2:SetGoal(savedAngle)
-                unitBeingBuilt.Rotator3:SetCurrentAngle(0)
-                unitBeingBuilt.Rotator3:SetGoal(0)
-            end
-        end
-        FactoryUnit.OnStartBuild(self,unitBeingBuilt,order)
-    end,
-  
-    UpgradingState = State(FactoryUnit.UpgradingState) {
-	
-        OnStopBuild = function(self, unitBuilding)
-            if unitBuilding:GetFractionComplete() == 1 then
-                if (unitBuilding.Rotator1) then
-                    unitBuilding.Rotator1:ClearGoal()
-                end
-                if (unitBuilding.Rotator2) then
-                    unitBuilding.Rotator2:ClearGoal()
-                end
-                if (unitBuilding.Rotator3) then
-                    unitBuilding.Rotator3:ClearGoal()
-                end                  
-            end
-            FactoryUnit.UpgradingState.OnStopBuild(self, unitBuilding)
-        end,
-
-        OnFailedToBuild = function(self)
-           FactoryUnit.UpgradingState.OnFailedToBuild(self)
-           if (self.Rotator1) then
-               self.Rotator1:ClearGoal()
-               self.Rotator1:SetSpeed(5)
-           end
-           
-            if (self.Rotator2) then
-               self.Rotator2:ClearGoal()
-               self.Rotator2:SetSpeed(5)
-           end
-        end,
-    },  
-    
-}
-
 SLandUnit = Class(MobileUnit) {}
 
 SMassCollectionUnit = Class(MassCollectionUnit) {}
@@ -411,78 +484,6 @@ SMassStorageUnit = Class(StructureUnit) {}
 SRadarUnit = Class(RadarUnit) {}
 
 SSonarUnit = Class(SonarUnit) {}
-
-SSeaFactoryUnit = Class(FactoryUnit) {
-
-    StartBuildFx = function( self, unitBeingBuilt )
-    
-		local BuildBones = __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones
-        local thread = self:ForkThread( EffectUtil.CreateSeraphimFactoryBuildingEffects, unitBeingBuilt, BuildBones, 'Attachpoint', self.BuildEffectsBag )
-        unitBeingBuilt.Trash:Add( thread )
-    end,
-
-    OnStartBuild = function(self, unitBeingBuilt, order )
-
-        local unitid = __blueprints[self.BlueprintID].General.UpgradesTo
-		
-        if unitBeingBuilt.BlueprintID == unitid and order == 'Upgrade' then
-            -- stop pods that exist in the upgraded unit
-            local savedAngle
-            if (self.Rotator1) then
-                savedAngle = self.Rotator1:GetCurrentAngle()
-                self.Rotator1:SetGoal(savedAngle)
-                unitBeingBuilt.Rotator1:SetCurrentAngle(savedAngle)
-                unitBeingBuilt.Rotator1:SetGoal(savedAngle)
-                -- freeze the next rotator to 0, since that's where it will be
-                unitBeingBuilt.Rotator2:SetCurrentAngle(0)
-                unitBeingBuilt.Rotator2:SetGoal(0)
-            end
-            
-            if (self.Rotator2) then
-                savedAngle = self.Rotator2:GetCurrentAngle()
-                self.Rotator2:SetGoal(savedAngle)
-                unitBeingBuilt.Rotator2:SetCurrentAngle(savedAngle)
-                unitBeingBuilt.Rotator2:SetGoal(savedAngle)
-                unitBeingBuilt.Rotator3:SetCurrentAngle(0)
-                unitBeingBuilt.Rotator3:SetGoal(0)
-            end
-        end
-        FactoryUnit.OnStartBuild(self,unitBeingBuilt,order)
-    end,
-  
-    UpgradingState = State(FactoryUnit.UpgradingState) {   
-	
-        OnStopBuild = function(self, unitBuilding)
-            if unitBuilding:GetFractionComplete() == 1 then
-                -- start halted rotators on upgraded unit
-                if (unitBuilding.Rotator1) then
-                    unitBuilding.Rotator1:ClearGoal()
-                end
-                if (unitBuilding.Rotator2) then
-                    unitBuilding.Rotator2:ClearGoal()
-                end
-                if (unitBuilding.Rotator3) then
-                    unitBuilding.Rotator3:ClearGoal()
-                end                  
-            end
-            FactoryUnit.UpgradingState.OnStopBuild(self, unitBuilding)
-        end,
-
-        OnFailedToBuild = function(self)
-           FactoryUnit.UpgradingState.OnFailedToBuild(self)
-           -- failed to build, so resume rotators
-           if (self.Rotator1) then
-               self.Rotator1:ClearGoal()
-               self.Rotator1:SetSpeed(5)
-           end
-           
-            if (self.Rotator2) then
-               self.Rotator2:ClearGoal()
-               self.Rotator2:SetSpeed(5)
-           end
-        end,
-    },      
-}
 
 SSeaUnit = Class(DefaultUnitsFile.SeaUnit) {}
 

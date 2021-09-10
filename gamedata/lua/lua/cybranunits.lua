@@ -42,7 +42,6 @@ local GetAIBrain = moho.unit_methods.GetAIBrain
 
 local LOUDGETN = table.getn
 
---  AIR FACTORY STRUCTURES
 CAirFactoryUnit = Class(FactoryUnit) {
 
     CreateBuildEffects = function( self, unitBeingBuilt, order )
@@ -66,12 +65,6 @@ CAirFactoryUnit = Class(FactoryUnit) {
         self.BuildAnimManip:SetRate(1)
     end,
     
-    -- StopBuildFx = function(self)
-        -- if self.BuildAnimManip then
-            -- self.BuildAnimManip:SetRate(0)
-        -- end
-    -- end,
-    
     OnPaused = function(self)
         StructureUnit.OnPaused(self)
         self:StopBuildFx()
@@ -86,16 +79,112 @@ CAirFactoryUnit = Class(FactoryUnit) {
     end,
 }   
 
--- AIR STAGING STRUCTURES
-CAirStagingPlatformUnit = Class(AirStagingPlatformUnit) {}
+CLandFactoryUnit = Class(FactoryUnit) {
+   
+    CreateBuildEffects = function( self, unitBeingBuilt, order )
+        if not unitBeingBuilt then return end
+        WaitTicks( 1 )
+        CreateCybranFactoryBuildEffects( self, unitBeingBuilt, __blueprints[self.BlueprintID].General.BuildBones, self.BuildEffectsBag )
+    end,   
+   
+    StartBuildFx = function(self, unitBeingBuilt)
+        if not unitBeingBuilt then
+            unitBeingBuilt = self:GetFocusUnit()
+        end
+        
+        # Start build process
+        if not self.BuildAnimManip then
+            self.BuildAnimManip = CreateAnimator(self)
+            self.BuildAnimManip:PlayAnim( __blueprints[self.BlueprintID].Display.AnimationBuild, true):SetRate(0)
+            self.Trash:Add(self.BuildAnimManip)
+        end
 
---  AIR UNITS
+        self.BuildAnimManip:SetRate(1)
+    end,
+    
+    OnPaused = function(self)
+        StructureUnit.OnPaused(self)
+        self:StopBuildFx(self:GetFocusUnit())
+    end,
+
+    OnUnpaused = function(self)
+        StructureUnit.OnUnpaused(self)
+		
+        if self:IsUnitState('Building') then
+            self:StartBuildFx(self:GetFocusUnit())
+        end
+    end,
+}
+
+CSeaFactoryUnit = Class(FactoryUnit) {
+    
+    StartBuildingEffects = function( self, unitBeingBuilt, order )
+        self.BuildEffectsBag:Add( self:ForkThread( CreateCybranBuildBeams, unitBeingBuilt, __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones, self.BuildEffectsBag ) )
+    end,
+
+    OnPaused = function(self)
+        StructureUnit.OnPaused(self)
+        self:StopArmsMoving()
+    end,
+    
+    OnUnpaused = function(self)
+        StructureUnit.OnUnpaused(self)
+        if self:GetNumBuildOrders(categories.ALLUNITS) > 0 and not self:IsUnitState('Upgrading') and self:IsUnitState('Building') then
+            self:StartArmsMoving()
+        end
+    end,
+
+    OnStartBuild = function(self, unitBeingBuilt, order )
+        FactoryUnit.OnStartBuild(self, unitBeingBuilt, order )
+        if order != 'Upgrade' then
+            self:StartArmsMoving()
+        end
+    end,
+   
+    OnStopBuild = function(self, unitBuilding)
+        self:StopArmsMoving()
+		FactoryUnit.OnStopBuild(self, unitBuilding)
+    end,
+
+    OnFailedToBuild = function(self)
+        self:StopArmsMoving()
+        FactoryUnit.OnFailedToBuild(self)		
+    end,
+   
+    StartArmsMoving = function(self)
+        self.ArmsThread = self:ForkThread(self.MovingArmsThread)
+    end,
+
+    MovingArmsThread = function(self)
+    end,
+    
+    StopArmsMoving = function(self)
+        if self.ArmsThread then
+            KillThread(self.ArmsThread)
+            self.ArmsThread = nil
+        end
+    end,
+}
+
+
 CAirUnit = Class(AirUnit) {}
 
---  WALL  STRUCTURES
+CLandUnit = Class(MobileUnit) {}
+
+CSeaUnit = Class(SeaUnit) {}
+
+CShieldLandUnit = Class(MobileUnit) {}
+
+CSubUnit = Class(SubUnit) {}
+
+CWalkingLandUnit = Class(WalkingLandUnit) {}
+
+CDirectionalWalkingLandUnit = Class(DirectionalWalkingLandUnit) {}
+
+CAirStagingPlatformUnit = Class(AirStagingPlatformUnit) {}
+
 CConcreteStructureUnit = Class(ConcreteStructureUnit) {}
 
---  CONSTRUCTION UNITS
 CConstructionUnit = Class(ConstructionUnit){
 
     OnStopBeingBuilt = function(self,builder,layer)
@@ -169,170 +258,32 @@ CConstructionUnit = Class(ConstructionUnit){
     end,
 }
 
---  ENERGY CREATION UNITS
-CEnergyCreationUnit = Class(DefaultUnitsFile.EnergyCreationUnit) {
---[[    
-    OnStopBeingBuilt = function(self,builder,layer)
-	
-        DefaultUnitsFile.EnergyCreationUnit.OnStopBeingBuilt(self, builder, layer)
-		
-        if self.AmbientEffects then
-            for k, v in EffectTemplate[self.AmbientEffects] do
-                CreateAttachedEmitter(self, 0, self.Sync.army, v)
-            end
-        end
-    end,
---]]
-}
+CEnergyCreationUnit = Class(DefaultUnitsFile.EnergyCreationUnit) {}
 
--- ENERGY STORAGE STRUCTURES
 CEnergyStorageUnit = Class(StructureUnit) {}
 
---  LAND FACTORY STRUCTURES
-CLandFactoryUnit = Class(FactoryUnit) {
-   
-    CreateBuildEffects = function( self, unitBeingBuilt, order )
-        if not unitBeingBuilt then return end
-        WaitTicks( 1 )
-        CreateCybranFactoryBuildEffects( self, unitBeingBuilt, __blueprints[self.BlueprintID].General.BuildBones, self.BuildEffectsBag )
-    end,   
-   
-    StartBuildFx = function(self, unitBeingBuilt)
-        if not unitBeingBuilt then
-            unitBeingBuilt = self:GetFocusUnit()
-        end
-        
-        # Start build process
-        if not self.BuildAnimManip then
-            self.BuildAnimManip = CreateAnimator(self)
-            self.BuildAnimManip:PlayAnim( __blueprints[self.BlueprintID].Display.AnimationBuild, true):SetRate(0)
-            self.Trash:Add(self.BuildAnimManip)
-        end
-
-        self.BuildAnimManip:SetRate(1)
-    end,
-    
-    -- StopBuildFx = function(self)
-        -- if self.BuildAnimManip then
-            -- self.BuildAnimManip:SetRate(0)
-        -- end
-    -- end,
-    
-    OnPaused = function(self)
-        StructureUnit.OnPaused(self)
-		
-        self:StopBuildFx(self:GetFocusUnit())
-    end,
-
-    OnUnpaused = function(self)
-        StructureUnit.OnUnpaused(self)
-		
-        if self:IsUnitState('Building') then
-            self:StartBuildFx(self:GetFocusUnit())
-        end
-    end,
-}
-
---  LAND UNITS
-CLandUnit = Class(MobileUnit) {}
-
---  MASS COLLECTION UNITS
 CMassCollectionUnit = Class(DefaultUnitsFile.MassCollectionUnit) {}
 
---  MASS FABRICATION UNITS
 CMassFabricationUnit = Class(DefaultUnitsFile.MassFabricationUnit) {}
 
---   MASS STORAGE UNITS
 CMassStorageUnit = Class(StructureUnit) {}
 
---  RADAR STRUCTURES
 CRadarUnit = Class(DefaultUnitsFile.RadarUnit) {}
 
---  SONAR STRUCTURES
 CSonarUnit = Class(DefaultUnitsFile.SonarUnit) {}
 
---  SEA FACTORY STRUCTURES
-CSeaFactoryUnit = Class(FactoryUnit) {
-    
-    StartBuildingEffects = function( self, unitBeingBuilt, order )
-        self.BuildEffectsBag:Add( self:ForkThread( CreateCybranBuildBeams, unitBeingBuilt, __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones, self.BuildEffectsBag ) )
-    end,
-
-    OnPaused = function(self)
-        StructureUnit.OnPaused(self)
-        self:StopArmsMoving()
-    end,
-    
-    OnUnpaused = function(self)
-        StructureUnit.OnUnpaused(self)
-        if self:GetNumBuildOrders(categories.ALLUNITS) > 0 and not self:IsUnitState('Upgrading') and self:IsUnitState('Building') then
-            self:StartArmsMoving()
-        end
-    end,
-
-    OnStartBuild = function(self, unitBeingBuilt, order )
-        FactoryUnit.OnStartBuild(self, unitBeingBuilt, order )
-        if order != 'Upgrade' then
-            self:StartArmsMoving()
-        end
-    end,
-   
-    OnStopBuild = function(self, unitBuilding)
-        self:StopArmsMoving()
-		FactoryUnit.OnStopBuild(self, unitBuilding)
-    end,
-
-    OnFailedToBuild = function(self)
-        self:StopArmsMoving()
-        FactoryUnit.OnFailedToBuild(self)		
-    end,
-   
-    StartArmsMoving = function(self)
-        self.ArmsThread = self:ForkThread(self.MovingArmsThread)
-    end,
-
-    MovingArmsThread = function(self)
-    end,
-    
-    StopArmsMoving = function(self)
-        if self.ArmsThread then
-            KillThread(self.ArmsThread)
-            self.ArmsThread = nil
-        end
-    end,
-}
-
---  SEA UNITS
-CSeaUnit = Class(SeaUnit) {}
-
---  SHIELD LAND UNITS
-CShieldLandUnit = Class(MobileUnit) {}
-
---  SHIELD STRUCTURES
 CShieldStructureUnit = Class(ShieldStructureUnit) {}
 
---  STRUCTURES
 CStructureUnit = Class(StructureUnit) {}
 
---  SUBMARINE UNITS
-CSubUnit = Class(DefaultUnitsFile.SubUnit) {}
-
---  TRANSPORT BEACON UNITS
 CTransportBeaconUnit = Class(DefaultUnitsFile.TransportBeaconUnit) {}
 
---  WALKING LAND UNITS
-CWalkingLandUnit = Class(DefaultUnitsFile.WalkingLandUnit) {}
-
---  WALL  STRUCTURES
 CWallStructureUnit = Class(WallStructureUnit) {}
 
---  CIVILIAN STRUCTURES
 CCivilianStructureUnit = Class(StructureUnit) {}
 
---  QUANTUM GATE UNITS
 CQuantumGateUnit = Class(QuantumGateUnit) {}
 
---  RADAR JAMMER UNITS
 CRadarJammerUnit = Class(RadarJammerUnit) {}
 
 CConstructionEggUnit = Class(StructureUnit) {
@@ -504,51 +455,3 @@ CConstructionStructureUnit = Class(StructureUnit) {
     end,
 
 }
-
-    -- StartBuildingEffects = function(self, unitBeingBuilt, order)
-        -- StructureUnit.StartBuildingEffects(self, unitBeingBuilt, order)
-    -- end,
-    
-    -- StopBuildingEffects = function(self, unitBeingBuilt)
-        -- StructureUnit.StopBuildingEffects(self, unitBeingBuilt)
-    -- end,
-    
-    -- OnPrepareArmToBuild = function(self)
-        -- StructureUnit.OnPrepareArmToBuild(self)
-
-        -- if self.BuildingOpenAnimManip then
-            -- self.BuildingOpenAnimManip:SetRate(__blueprints[self.BlueprintID].Display.AnimationBuildRate or 1)
-            -- if self.BuildArmManipulator then
-                -- self.StoppedBuilding = false
-                -- ForkThread( self.WaitForBuildAnimation, self, true )
-            -- end
-        -- end
-    -- end,
-
-    -- OnStopBuilderTracking = function(self)
-        -- StructureUnit.OnStopBuilderTracking(self)
-
-        -- if self.StoppedBuilding then
-            -- self.StoppedBuilding = false
-            -- self.BuildArmManipulator:Disable()
-            -- self.BuildingOpenAnimManip:SetRate(-(__blueprints[self.BlueprintID].Display.AnimationBuildRate or 1))
-        -- end
-    -- end,
-    
-    -- CheckBuildRestriction = function(self, target_bp)
-        -- if self:CanBuild(target_bp.BlueprintId) then
-            -- return true
-        -- else
-            -- return false
-        -- end
-    -- end,
-       
-
-    
-    -- CreateReclaimEndEffects = function( self, target )
-        -- EffectUtil.PlayReclaimEndEffects( self, target )
-    -- end,         
-    
-    -- CreateCaptureEffects = function( self, target )
-		-- EffectUtil.PlayCaptureEffects( self, target, __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones or {0,}, self.CaptureEffectsBag )
-    -- end,    

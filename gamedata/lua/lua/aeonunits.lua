@@ -134,7 +134,7 @@ AWalkingLandUnit = Class(WalkingLandUnit) {}
 
 AWallStructureUnit = Class(WallStructureUnit) {}
 
-ACivilianStructureUnit = Class(AStructureUnit) {}
+ACivilianStructureUnit = Class(StructureUnit) {}
 
 AQuantumGateUnit = Class(QuantumGateUnit) {}
 

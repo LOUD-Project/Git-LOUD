@@ -921,6 +921,7 @@ MobileUnit = Class(Unit) {
         if bp.AirThreatLevel > 0 or bp.SurfaceThreatLevel > 0 or bp.SubThreatLevel > 0 then
         
             local BRAINS = ArmyBrains
+            local position = self:GetPosition()
         
             for k, brain in BRAINS do
             
@@ -943,8 +944,6 @@ MobileUnit = Class(Unit) {
                         WaitTicks(31)
                     end
                 end
-        
-                local position = self:GetPosition()
                 
                 if IsEnemy( GetAIBrain(self).ArmyIndex, brain.ArmyIndex ) then
                 

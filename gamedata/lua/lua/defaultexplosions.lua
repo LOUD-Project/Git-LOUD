@@ -34,11 +34,36 @@ local WaitTicks = coroutine.yield
 
 local BeenDestroyed = moho.entity_methods.BeenDestroyed
 local CreateProjectile = moho.entity_methods.CreateProjectile
+
 local GetArmy = moho.entity_methods.GetArmy
+local GetPosition = moho.entity_methods.GetPosition
+
+local ScorchSplatTextures = {
+    'scorch_001_albedo',
+    'scorch_002_albedo',
+    'scorch_003_albedo',
+    'scorch_004_albedo',
+    'scorch_005_albedo',
+    'scorch_006_albedo',
+    'scorch_007_albedo',
+    'scorch_008_albedo',
+    'scorch_009_albedo',
+    'scorch_010_albedo',}
+
+local ScorchDecalTextures = {
+    'scorch_001_albedo',
+    'scorch_002_albedo',
+    'scorch_003_albedo',
+    'scorch_004_albedo',
+    'scorch_005_albedo',
+    'scorch_006_albedo',
+    'scorch_007_albedo',
+    'scorch_008_albedo',
+    'scorch_009_albedo',
+    'scorch_010_albedo',}
 
 local ALLBPS = __blueprints
 
-local GetPosition = moho.entity_methods.GetPosition
 
 
 function GetUnitSizes( unit )
@@ -59,14 +84,14 @@ function GetAverageBoundingXZRadius( unit )
 
     local bp = ALLBPS[unit.BlueprintID]
     
-    return ( ( (bp.SizeX or 0) + (bp.SizeZ or 0) ) * 0.5)
+    return ( ( (bp.SizeX or 1) + (bp.SizeZ or 1) ) * 0.25)
 end
 
 function GetAverageBoundingXYZRadius( unit )
 
     local bp = ALLBPS[unit.BlueprintID]
     
-    return ((bp.SizeX or 0 + bp.SizeY or 0 + bp.SizeZ or 0) * 0.333)
+    return ( ( (bp.SizeX or 1) + (bp.SizeY or 1) + (bp.SizeZ or 1) ) * 0.166)
 end
 
 function QuatFromRotation( rotation, x, y, z )
@@ -143,6 +168,7 @@ function CreateTimedStuctureUnitExplosion( obj )
 end
 
 function MakeExplosionEntitySpec( unit, overKillRatio, army )
+
     return {
         Army = army,
         Dimensions = {GetUnitSizes( unit )},
@@ -151,7 +177,8 @@ function MakeExplosionEntitySpec( unit, overKillRatio, army )
         OverKillRatio = overKillRatio,
         Volume = GetUnitVolume( unit ), 
         Layer = unit:GetCurrentLayer(),
-    }    
+    }
+    
 end
 
 function CreateUnitExplosionEntity( unit, overKillRatio, army, pos )
@@ -256,30 +283,6 @@ function CreateRandomScorchSplatAtObject( obj, scale, LOD, lifetime, army )
     LOUDSPLAT( obj:GetPosition(), GetRandomFloat( 0, 6.28 ), ScorchSplatTextures[ GetRandomInt( 1, 10) ], scale, scale, LOD, lifetime, army )
 end
 
-ScorchSplatTextures = {
-    'scorch_001_albedo',
-    'scorch_002_albedo',
-    'scorch_003_albedo',
-    'scorch_004_albedo',
-    'scorch_005_albedo',
-    'scorch_006_albedo',
-    'scorch_007_albedo',
-    'scorch_008_albedo',
-    'scorch_009_albedo',
-    'scorch_010_albedo',}
-
-ScorchDecalTextures = {
-    'scorch_001_albedo',
-    'scorch_002_albedo',
-    'scorch_003_albedo',
-    'scorch_004_albedo',
-    'scorch_005_albedo',
-    'scorch_006_albedo',
-    'scorch_007_albedo',
-    'scorch_008_albedo',
-    'scorch_009_albedo',
-    'scorch_010_albedo',}
-
 function CreateWreckageEffects( obj, prop )
 
     if IsUnit(obj) then
@@ -334,8 +337,6 @@ end
 function CreateDefaultExplosion( unit, scale, overKillRatio )
 
     local spec = { Position = unit:GetPosition(), Dimensions = GetUnitSizes( unit ), Volume = GetUnitVolume( unit ), }
-    --local Explosion = unit #Entity(spec)
-    --local army = GetArmy(army)
 
     CreateConcussionRing( Explosion, scale )
 
