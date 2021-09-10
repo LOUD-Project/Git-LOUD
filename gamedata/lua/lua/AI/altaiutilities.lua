@@ -150,25 +150,44 @@ function UnfinishedBody(self, eng, aiBrain)
     local beingBuilt = assistData.BeingBuiltCategories or categories.ALLUNITS
     local range = assistData.Range or 80
 	
-    local catString, category, assistList
+    local category, assistList
+    
 
-    for _,catString in beingBuilt do
+    local function FindUnfinishedUnits( locationType, buildCat )
 
-        category = catString
-        assistList = FindUnfinishedUnits( aiBrain, self.BuilderLocation, category, range )
+        local GetFractionComplete = moho.entity_methods.GetFractionComplete
+	
+        local unfinished = GetUnitsAroundPoint( aiBrain, buildCat, aiBrain.BuilderManagers[locationType].Position, range or 80, 'Ally' )
+	
+        for num, unit in unfinished do
+        
+            if GetFractionComplete(unit) < 1 and GetGuards(aiBrain, unit) < 1 then 
+                return unit
+            end
+            
+        end
+	
+        return false
+	
+    end
+    
+
+    for _,category in beingBuilt do
+
+        assistList = FindUnfinishedUnits( self.BuilderLocation, category )
 
 		if assistList then
-			assistee = assistList
 			break
         end
+        
     end
 
-    if assistee then
+    if assistList then
 		
         self:Stop()
 
-		eng.UnitBeingBuilt = assistee
-        IssueGuard( {eng}, assistee )
+		eng.UnitBeingBuilt = assistList
+        IssueGuard( {eng}, assistList )
 
 	else
         eng.AssistPlatoon = nil
@@ -877,44 +896,6 @@ end
 
 
 
--- Takes a list of units & returns the number & size of the transport slots required to move it
-function GetNumTransports(units)
-
-	LOG("*AI DEBUG Getting Number of transports required")
-	
-	local transportsNeeded = false	-- used to keep from issuing false positive if no units are provided
-    local transportslotsNeeded = { Small = 0, Medium = 0, Large = 0, }
-	
-    for _, v in units do
-	
-        if v and not v.Dead then
-			
-            if v.TransportClass == 1 then
-				transportsNeeded = true
-                transportslotsNeeded.Small = transportslotsNeeded.Small + 1.0
-				
-            elseif v.TransportClass == 2 then
-				transportsNeeded = true
-				transportslotsNeeded.Small = transportslotsNeeded.Small + 0.34
-                transportslotsNeeded.Medium = transportslotsNeeded.Medium + 1.0
-				
-            elseif v.TransportClass == 3 then
-				transportsNeeded = true
-				transportslotsNeeded.Small = transportslotsNeeded.Small + 0.5
-                transportslotsNeeded.Medium = transportslotsNeeded.Medium + 0.25
-                transportslotsNeeded.Large = transportslotsNeeded.Large + 1.0
-				
-            else
-			
-				LOG("*AI DEBUG "..v:GetBlueprint().Description.." has no transportClass value")
-				return false, nil
-            end
-        end
-    end
-	
-    return transportsNeeded, transportslotsNeeded
-end
-
 
 -- This function attempts to locate the required number of transports to move the platoon.
 -- Modified to restrict the use of out of gas transports and to keep transports moving back to a base when not in use
@@ -955,66 +936,41 @@ function GetTransports( platoon, aiBrain)
     
     -- if there are no transports available - we're done
     if (armypooltransports and LOUDGETN(armypooltransports) < 1) and (TransportPoolTransports and LOUDGETN(TransportPoolTransports) < 1) then
-    
-        --if ScenarioInfo.TransportDialog then
-          --  LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." no transports available")
-        --end
-        
         return false, false
     end
 
 
-	local LOUDCOPY = table.copy
-	local LOUDENTITY = EntityCategoryContains
-	local LOUDGETN = table.getn
-	local WaitTicks = coroutine.yield
+	local CanUseTransports = false	-- used to keep from issuing false positive if no units are provided
+	local neededTable = { Small = 0, Medium = 0, Large = 0, Total = 0 }
 	
-	local counter = 0
-
-    
-    -- This local function will traverse all the units in the platoon and 
-    -- calculate the number and size of all slots required
-	local function GetNumTransports(units)
-
-		local transportsNeeded = false	-- used to keep from issuing false positive if no units are provided
-		local transportslotsNeeded = { Small = 0, Medium = 0, Large = 0, Total = 0 }
+	for _, v in GetPlatoonUnits(platoon) do
 	
-		for _, v in units do
-	
-			if v and not v.Dead then
+		if v and not v.Dead then
 			
-				if v.TransportClass == 1 then
-					transportsNeeded = true
-					transportslotsNeeded.Small = transportslotsNeeded.Small + 1.0
-                    transportslotsNeeded.Total = transportslotsNeeded.Total + 1
+			if v.TransportClass == 1 then
+				CanUseTransports = true
+				neededTable.Small = neededTable.Small + 1.0
+                neededTable.Total = neededTable.Total + 1
 				
-				elseif v.TransportClass == 2 then
-					transportsNeeded = true
-					transportslotsNeeded.Small = transportslotsNeeded.Small + 0.34
-					transportslotsNeeded.Medium = transportslotsNeeded.Medium + 1.0
-                    transportslotsNeeded.Total = transportslotsNeeded.Total + 1                    
+			elseif v.TransportClass == 2 then
+				CanUseTransports = true
+				neededTable.Small = neededTable.Small + 0.34
+				neededTable.Medium = neededTable.Medium + 1.0
+                neededTable.Total = neededTable.Total + 1                    
 				
-				elseif v.TransportClass == 3 then
-					transportsNeeded = true
-					transportslotsNeeded.Small = transportslotsNeeded.Small + 0.5
-					transportslotsNeeded.Medium = transportslotsNeeded.Medium + 0.25
-					transportslotsNeeded.Large = transportslotsNeeded.Large + 1.0
-                    transportslotsNeeded.Total = transportslotsNeeded.Total + 1
+			elseif v.TransportClass == 3 then
+                CanUseTransports = true
+				neededTable.Small = neededTable.Small + 0.5
+				neededTable.Medium = neededTable.Medium + 0.25
+				neededTable.Large = neededTable.Large + 1.0
+                neededTable.Total = neededTable.Total + 1
                     
-				else
-					LOG("*AI DEBUG "..v:GetBlueprint().Description.." has no transportClass value")
-					return false, nil
-				end
-			end	
-		end
-	
-		return transportsNeeded, transportslotsNeeded
+			else
+				LOG("*AI DEBUG "..v:GetBlueprint().Description.." has no transportClass value")
+			end
+		end	
 	end
 
-	-- this tells us how many and what size of slots we'll need to move the platoon
-	-- it returns false if there is an untransportable unit in the platoon
-    local CanUseTransports, neededTable = GetNumTransports( GetPlatoonUnits(platoon) ) 
-	
     if not CanUseTransports then
     
         if ScenarioInfo.TransportDialog then
@@ -1023,7 +979,11 @@ function GetTransports( platoon, aiBrain)
         
         return false, false
     end
-	
+
+
+	local LOUDCOPY = table.copy
+	local LOUDENTITY = EntityCategoryContains
+	local WaitTicks = coroutine.yield
     
 	platoon.UsingTransport = true	-- this will keep the platoon from doing certain things while it's looking for transport
 	
@@ -1048,9 +1008,9 @@ function GetTransports( platoon, aiBrain)
 				if not trans.InUse then
                 
                     if not trans.Assigning then
-				
-                        AvailableTransports[transportcount + 1] = trans
-                        transportcount = transportcount + 1
+                    
+                        transportcount = transportcount + 1				
+                        AvailableTransports[transportcount] = trans
 
                         -- this puts specials into the transport pool -- occurs to me that they
                         -- may get stuck in here if it turns out we cant use transports
@@ -1073,17 +1033,14 @@ function GetTransports( platoon, aiBrain)
 		if TransportPoolTransports[1] then
 
 			for _,trans in TransportPoolTransports do
-            
-                --if not IsEngineer then
-                    --LOG("*AI DEBUG "..trans:GetBlueprint().Description.." In use "..repr(trans.InUse).."  Assigning "..repr(trans.Assigning))
-                --end
                 
 				if not trans.InUse then
                 
                     if not trans.Assigning then
                 
-                        AvailableTransports[transportcount + 1] = trans
                         transportcount = transportcount + 1
+                        AvailableTransports[transportcount] = trans
+
                     end
                     
 				else
@@ -1152,14 +1109,12 @@ function GetTransports( platoon, aiBrain)
     local transports = {}			-- this will hold the data for all of the eligible transports
 
 	-- we assume we cannot use tranports
-	local CanUseTransports = false
+	CanUseTransports = false
 	
 	-- we'll accumulate the slots from all transports
 	-- this will allow us to save a bunch of effort if we simply dont have enough transport capacity
 	-- without having to do a lot of processing
 	local Collected = { Large = 0, Medium = 0, Small = 0 }
-	
-	counter = 0
 
 	local GetFuelRatio = moho.unit_methods.GetFuelRatio
 	local IsBeingBuilt = moho.unit_methods.IsBeingBuilt
@@ -1286,6 +1241,8 @@ function GetTransports( platoon, aiBrain)
 			return bones
 		end
 	end
+    
+    local counter = 0
 
 	-- now we filter out those that dont pass muster
 	for k,transport in AvailableTransports do
@@ -1340,7 +1297,6 @@ function GetTransports( platoon, aiBrain)
 							counter = counter + 1
 							transports[counter] = { Unit = transport, Distance = range, Slots = LOUDCOPY(aiBrain.TransportSlotTable[id]) }
 
-
 							Collected.Large = Collected.Large + transports[counter].Slots.Large
 							Collected.Medium = Collected.Medium + transports[counter].Slots.Medium
 							Collected.Small = Collected.Small + transports[counter].Slots.Small
@@ -1360,7 +1316,9 @@ function GetTransports( platoon, aiBrain)
 						end
 					end
 				end
+                
 			else
+            
                 if ScenarioInfo.TransportDialog then
                     LOG("*AI DEBUG "..aiBrain.Nickname.." rejects transport "..transport.Sync.id.." In Use "..repr(transport.InUse).." - Assigning "..repr(transport.Assigning).." - BeingBuilt "..repr(IsBeingBuilt(transport)).." or Low Fuel/Health")
                 end
@@ -2166,6 +2124,7 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
 	
 		local leftoverUnits = {}
 		local currLeftovers = {}
+        counter = 0
 	
 		-- assign the large units - note how we come back with leftoverunits here
 		transportTable, leftoverUnits = SortUnitsOnTransports( transportTable, remainingSize3 )
@@ -2177,8 +2136,8 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
 		for k,v in currLeftovers do
 		
 			if not v.Dead then
-			
-				LOUDINSERT(leftoverUnits, v)
+                counter = counter + 1
+				leftoverUnits[counter] = v
 			end
 		end
 		
@@ -2191,15 +2150,14 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
 		for k,v in currLeftovers do
 		
 			if not v.Dead then
-			
-				LOUDINSERT(leftoverUnits, v)
+                counter = counter + 1
+				leftoverUnits[counter] = v
 			end
 		end
 		
 		currLeftovers = {}
 	
 		if leftoverUnits[1] then
-		
 			transportTable, currLeftovers = SortUnitsOnTransports( transportTable, leftoverUnits )
 		end
 	
@@ -2208,7 +2166,6 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
 		if currLeftovers[1] then
 		
 			for _,v in currLeftovers do
-			
 				IssueClearCommands({v})
 			end
 	
@@ -2436,18 +2393,7 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
                     end
                     
                     LOG("*AI DEBUG "..aiBrain.Nickname.." "..transports.BuilderName.." has path to "..repr(location).." - length "..repr(pathlength).." - cost "..pathcost)
---[[                    
-                    if safePath[1] then
-                    
-                        local lastpos = table.copy(platpos)
-                        
-                        for _,v in safePath do
-                            LOG("*AI DEBUG between "..repr(lastpos).." and "..repr(v).." is "..moho.aibrain_methods.GetThreatBetweenPositions( aiBrain, lastpos, v, false, 'Air'))
-                            LOG("*AI DEBUG at "..repr(v).." "..moho.aibrain_methods.GetThreatAtPosition( aiBrain, v, 0, false, 'AntiAir'))
-                            lastpos = table.copy(v)
-                        end
-                    end
---]]
+
                 end
             end
 		
@@ -2476,7 +2422,7 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
 				else
                 
 					if ScenarioInfo.TransportDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..transports.BuilderName.." goes direct to "..repr(location))
+                        WARN("*AI DEBUG "..aiBrain.Nickname.." "..transports.BuilderName.." goes direct to "..repr(location))
                     end
 			
 					-- go direct ?? -- what ?
@@ -2989,22 +2935,6 @@ function GetGuards( aiBrain, Unit)
 	end
 	
 	return count
-end
-
-function FindUnfinishedUnits( aiBrain, locationType, buildCat, range )
-
-	local GetFractionComplete = moho.entity_methods.GetFractionComplete
-	
-	local unfinished = GetUnitsAroundPoint( aiBrain, buildCat, aiBrain.BuilderManagers[locationType].Position, range or 80, 'Ally' )
-	
-	for num, unit in unfinished do
-		if GetFractionComplete(unit) < 1 and GetGuards(aiBrain, unit) < 1 then 
-			return unit
-		end
-	end
-	
-	return false
-	
 end
 
 --	This function will return threat and distance data from entries in the HighPriorityList
