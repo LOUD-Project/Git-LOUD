@@ -171,10 +171,12 @@ EAL0001 = Class(AWalkingLandUnit) {
         -- Restrict what enhancements will enable later
         self:AddBuildRestriction( categories.AEON * (categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER) )
         self:AddBuildRestriction( categories.AEON * ( categories.BUILTBYTIER4COMMANDER) )
-            self.RemoteViewingData = {}
-            self.RemoteViewingData.RemoteViewingFunctions = {}
-            self.RemoteViewingData.DisableCounter = 0
-            self.RemoteViewingData.IntelButton = true
+        
+        self.RemoteViewingData = {}
+        self.RemoteViewingData.RemoteViewingFunctions = {}
+        self.RemoteViewingData.DisableCounter = 0
+        self.RemoteViewingData.IntelButton = true
+        
     end,
 
     OnPrepareArmToBuild = function(self)
