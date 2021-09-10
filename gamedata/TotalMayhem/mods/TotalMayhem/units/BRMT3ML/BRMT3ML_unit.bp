@@ -232,7 +232,7 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0.5,
             MuzzleSalvoSize = 10,
             MuzzleVelocity = 20.5,
-            MuzzleVelocityRandomness = 2,
+            MuzzleVelocityRandom = 2,
 			
             ProjectileId = '/mods/TotalMayhem/projectiles/cybranrocketproj/cybranrocket_proj.bp',
             ProjectileLifetimeUsesMultiplier = 5,
