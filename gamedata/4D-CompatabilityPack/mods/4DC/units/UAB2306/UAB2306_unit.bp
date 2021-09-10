@@ -204,7 +204,7 @@ UnitBlueprint {
             DamageType = 'Normal',
 
             EnergyDrainPerSecond = 400,
-            EnergyRequired = 2200,
+            EnergyRequired = 2200,      
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
