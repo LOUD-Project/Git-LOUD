@@ -3049,6 +3049,7 @@ function PathGeneratorAir( aiBrain )
 	
 	-- get the table with all the nodes for this layer
 	local graph = ScenarioInfo.PathGraphs['Air']
+    local Rings = ScenarioInfo.RingSize or 0
 
 	local DestinationBetweenPoints = function( destination, start, finish, stepsize )
 
@@ -3071,55 +3072,63 @@ function PathGeneratorAir( aiBrain )
 		return false
 	end
 
+	local data = false	
+	local queue = {}
+	local closed = {}
+
 	--this is the function which evaluates all the branches for a given node
-	local AStarLoopBody = function( data, queue, closed)
+	local function AStarLoopBody()
 		
 		local queueitem = LOUDREMOVE(queue, 1)
 
 		if closed[queueitem.Node[1]] then
 			return false, 0, false, 0
 		end
+        
+        local Node = queueitem.Node
 
-		if LOUDEQUAL(queueitem.Node.position, data.EndNode.position) or VDist3( data.Dest, queueitem.Node.position) <= data.Stepsize then
+		if LOUDEQUAL(Node.position, data.EndNode.position) or VDist3( data.Dest, Node.position) <= data.Stepsize then
 			return queueitem.path, queueitem.length, false, queueitem.cost
 		end
 	
 		closed[queueitem.Node[1]] = true
+        
+        local newnode, testposition, threat, fork, stepcostadjust
 		
 		-- loop thru all the nodes which are adjacent to this one and create a fork entry for each adjacent node
 		-- adjacentnode data format is nodename, distance to node
-		for _, adjacentNode in queueitem.Node.adjacent do
+		for _, adjacentNode in Node.adjacent do
 		
-			local newnode = adjacentNode[1]
+			newnode = adjacentNode[1]
 			
 			if closed[newnode] then
 				continue
 			end
 			
-			local testposition = LOUDCOPY(graph[newnode].position)
+			testposition = LOUDCOPY(graph[newnode].position)
 		
-			if data.Testpath and DestinationBetweenPoints( data.Dest, queueitem.Node.position, testposition, data.Stepsize) then
+			if data.Testpath and DestinationBetweenPoints( data.Dest, Node.position, testposition, data.Stepsize) then
 
-                queueitem.length = queueitem.length + VDist3(data.Dest, queueitem.Node.position)
+                queueitem.length = queueitem.length + VDist3(data.Dest, Node.position)
              
 				return queueitem.path, queueitem.length, true, queueitem.cost
 			end
 			
-			local threat = GetThreatBetweenPositions( aiBrain, queueitem.Node.position, testposition, false, data.ThreatLayer)
+			threat = GetThreatBetweenPositions( aiBrain, Node.position, testposition, false, data.ThreatLayer)
 
 			if threat > queueitem.threat then
 				continue
 			end
 			
-			threat = MATHMAX(0, GetThreatAtPosition( aiBrain, testposition, 0, true, data.ThreatLayer ))
+			threat = MATHMAX(0, GetThreatAtPosition( aiBrain, testposition, Rings, true, data.ThreatLayer ))
 			
 			if threat > queueitem.threat then
 				continue
 			end
 			
-			local fork = { cost = 0, goaldist = 0, length = 0, Node = graph[newnode], path = LOUDCOPY(queueitem.path) }
+			fork = { cost = 0, goaldist = 0, length = 0, Node = graph[newnode], path = LOUDCOPY(queueitem.path) }
             
-            local stepcostadjust = 0
+            stepcostadjust = 0
             
             -- a step with ANY threat costs more than one without
             if threat > 0 then 
@@ -3146,13 +3155,10 @@ function PathGeneratorAir( aiBrain )
 
 		return false, 0, false, 0
 	end		
-	
-	local closed = {}
-	local queue = {}
-	local data = false
 
     local PathRequests = aiBrain.PathRequests.Air
     local PathReplies = aiBrain.PathRequests['Replies']
+    local PathFindingDialog = ScenarioInfo.PathFindingDialog or false
 	
 	-- OK - some notes about the path requests - here is the data layout of path request;
 	--	Dest = destination,
@@ -3164,6 +3170,8 @@ function PathGeneratorAir( aiBrain )
 	--	Testpath = testPath,
 	--	ThreatLayer = threattype,
 	--	ThreatWeight = threatallowed,	-- this is the maximum total threat this platoon is allowed to encounter
+    
+    local EndThreat, pathlist, pathlength, shortcut, pathcost
 
 	-- i've come to a conclusion about how pathing can take casualties into account along the way -- in our case this
 	-- would be represented by the platoon having a declining threat as it encounters enemy threat along its chosen path
@@ -3172,44 +3180,42 @@ function PathGeneratorAir( aiBrain )
 	--	 the platoon will refuse the task	
 	while true do
     
-        data = LOUDREMOVE(PathRequests, 1) or false
-		
-		if data then
+        if PathRequests[1] then
+    
+            data = LOUDREMOVE(PathRequests, 1) or false
 
-			closed = {}
+            closed = {}
             
             -- we must take into account the threat between the EndNode and the destination - they are rarely the same point
             -- we add this threat to the cost value to start with since the final step is just added to the path after the
             -- path has been decided
-            local EndThreat = GetThreatBetweenPositions( aiBrain, data.EndNode.position, data.Dest, nil, data.ThreatLayer )
+            EndThreat = GetThreatBetweenPositions( aiBrain, data.EndNode.position, data.Dest, nil, data.ThreatLayer )
             
-			-- NOTE: We insert the ThreatWeight into the data we carry in the queue now - which will allow us to decrease it with each step we take that has threat
-			-- we also no longer need to pass it to the AStar function as it is part of the queue data
-			queue = { { cost = EndThreat, goaldist = 0, length = data.Startlength or 0, Node = data.StartNode, path = { data.StartNode.position, }, pathcount = 1, threat = data.ThreatWeight - EndThreat } }
+            -- NOTE: We insert the ThreatWeight into the data we carry in the queue now - which will allow us to decrease it with each step we take that has threat
+            -- we also no longer need to pass it to the AStar function as it is part of the queue data
+            queue = { { cost = EndThreat, goaldist = 0, length = data.Startlength or 0, Node = data.StartNode, path = { data.StartNode.position, }, pathcount = 1, threat = data.ThreatWeight - EndThreat } }
     
-			while queue[1] do
-			
-				local pathlist, pathlength, shortcut, pathcost = AStarLoopBody( data, queue, closed )
+            while queue[1] do
+                
+                pathlist, pathlength, shortcut, pathcost = AStarLoopBody()
         
-				if pathlist and (type(data.Platoon) == 'string' or PlatoonExists(aiBrain, data.Platoon)) then
+                if pathlist and (type(data.Platoon) == 'string' or PlatoonExists(aiBrain, data.Platoon)) then
 
-					PathReplies[data.Platoon] = { length = pathlength, path = LOUDCOPY(pathlist), cost = pathcost }
-					break
-				end
-			end
+                    PathReplies[data.Platoon] = { length = pathlength, path = LOUDCOPY(pathlist), cost = pathcost }
+                    break
+                end
+            end
 			
-			if (not PathReplies[data.Platoon]) and (type(data.Platoon) == 'string' or PlatoonExists(aiBrain, data.Platoon)) then
+            if (not PathReplies[data.Platoon]) and (type(data.Platoon) == 'string' or PlatoonExists(aiBrain, data.Platoon)) then
             
-                if ScenarioInfo.PathFindingDialog then
+                if PathFindingDialog then
                     LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(data.Platoon.BuilderName or data.Platoon).." no safe AIR path found to "..repr(data.Dest))
                 end
                 
-				PathReplies[data.Platoon] = { length = 0, path = 'NoPath', cost = 0 }
+                PathReplies[data.Platoon] = { length = 0, path = 'NoPath', cost = 0 }
 
             end
-		end
-        
-        data = false
+        end
 		
 		WaitTicks(1)
 	end
@@ -3238,7 +3244,8 @@ function PathGeneratorAmphibious(aiBrain)
 	
 	-- get the table with all the nodes for this layer
 	local graph = ScenarioInfo.PathGraphs['Amphibious']
-
+    local Rings = ScenarioInfo.RingSize or 0
+    
 	local DestinationBetweenPoints = function( destination, start, finish, stepsize )
 
 		local steps = LOUDFLOOR( VDist2(start[1], start[3], finish[1], finish[3]) / stepsize )
@@ -3259,8 +3266,12 @@ function PathGeneratorAmphibious(aiBrain)
 		return false
 	end
 
+	local data = false	
+	local queue = {}
+	local closed = {}
+
 	--this is the function which evaluates all the branches for a given node
-	local AStarLoopBody = function( data, queue, closed)
+	local function AStarLoopBody()
 
 		local queueitem = LOUDREMOVE(queue, 1)
 	
@@ -3268,29 +3279,31 @@ function PathGeneratorAmphibious(aiBrain)
 			return false, 0, false, 0
 		end
         
-        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(data.Platoon.BuilderName or data.Platoon).." processing "..repr(queueitem.Node[1]) )
+        local Node = queueitem.Node
 	
-		if LOUDEQUAL( queueitem.Node.position, data.EndNode.position ) then
+		if LOUDEQUAL( Node.position, data.EndNode.position ) then
 			return queueitem.path, queueitem.length, false, queueitem.cost
 		end
 		
 		closed[queueitem.Node[1]] = true
-
+        
+        local newnode, testposition, threat, fork, stepcostadjust
+		
 		-- loop thru all the nodes which are adjacent to this one and create a fork entry for each adjacent node
 		-- adjacentnode data format is nodename, distance to node
-		for _, adjacentNode in queueitem.Node.adjacent do 
+		for _, adjacentNode in Node.adjacent do 
         
-            local newnode = adjacentNode[1]
+            newnode = adjacentNode[1]
 		
 			if closed[newnode] then
 				continue
 			end
 
-			local testposition = LOUDCOPY(graph[newnode].position)
+			testposition = LOUDCOPY(graph[newnode].position)
 
-			if data.Testpath and DestinationBetweenPoints( data.Dest, queueitem.Node.position, testposition, data.Stepsize) then
+			if data.Testpath and DestinationBetweenPoints( data.Dest, Node.position, testposition, data.Stepsize) then
             
-                queueitem.length = queueitem.length + VDist3(data.Dest, queueitem.Node.position)
+                queueitem.length = queueitem.length + VDist3(data.Dest, Node.position)
                 
 				return queueitem.path, queueitem.length, true, queueitem.cost
 			end
@@ -3302,32 +3315,27 @@ function PathGeneratorAmphibious(aiBrain)
             -- right now we're just going to force the threat check to anti-sub - which is great
             -- for SUBMERSIBLE groups - but bad for hovercraft - ideally - we'd let the platoon
             -- pass an alternative threatlayer to be used in this situation - TODO
-            if queueitem.Node.InWater then
+            if Node.InWater then
                 ThreatLayerCheck = 'AntiSub'
             end
 
-            local threat = MATHMAX(0,GetThreatBetweenPositions( aiBrain, queueitem.Node.position, testposition, nil, ThreatLayerCheck))
+            threat = MATHMAX(0,GetThreatBetweenPositions( aiBrain, Node.position, testposition, nil, ThreatLayerCheck))
 
 			if threat > (queueitem.threat) then
-                
-                --if ScenarioInfo.PathFindingDialog then
-                  --  LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(data.Platoon.BuilderName).." "..threat.." threat blocked us ("..queueitem.threat..") at "..repr(testposition).." from position "..repr(queueitem.Node.position) )
-                --end
-                
 				continue
 			end
 
-			local fork = { cost = 0, goaldist = 0, length = 0, Node = graph[newnode], path = LOUDCOPY(queueitem.path) }
+			fork = { cost = 0, goaldist = 0, length = 0, Node = graph[newnode], path = LOUDCOPY(queueitem.path) }
             
-            local stepcost = 10
+            local stepcostadjust = 10
             
             -- make water based movement cheaper
-            if queueitem.Node.InWater then
-                stepcost = 1
+            if Node.InWater then
+                stepcostadjust = 1
             end
 
             -- each step adds the stepcost
-			fork.cost = queueitem.cost + threat + stepcost
+			fork.cost = queueitem.cost + threat + stepcostadjust
 
             -- as we accrue more steps in a path - the value of being closer to the goal diminishes quickly in favor of being safe --
             fork.goaldist = VDist2( data.Dest[1], data.Dest[3], testposition[1], testposition[3] ) * ( LOUDLOG10(queueitem.pathcount + 1))
@@ -3348,14 +3356,12 @@ function PathGeneratorAmphibious(aiBrain)
 		return false, 0, false, 0
 	end
 
-	local closed = {}
-	local queue = {}
-	local data = {}
-
     local PathRequests = aiBrain.PathRequests.Amphibious
-	
     local PathReplies = aiBrain.PathRequests['Replies']
-
+    local PathFindingDialog = ScenarioInfo.PathFindingDialog or false
+    
+    local EndThreat, pathlist, pathlength, shortcut, pathcost
+    
 	while true do
 		
 		if PathRequests[1] then
@@ -3375,19 +3381,18 @@ function PathGeneratorAmphibious(aiBrain)
     
 			while queue[1] do
 
-				local pathlist, pathlength, shortcut, pathcost = AStarLoopBody( data, queue, closed )
+				pathlist, pathlength, shortcut, pathcost = AStarLoopBody()
 
 				if pathlist and (type(data.Platoon) == 'string' or PlatoonExists(aiBrain, data.Platoon)) then
 					
 					PathReplies[data.Platoon] = { length = pathlength, path = LOUDCOPY(pathlist), cost = pathcost }
-
-					break	-- to next request
+					break
 				end
 			end
 			
 			if (not PathReplies[data.Platoon]) and (type(data.Platoon) == 'string' or PlatoonExists(aiBrain, data.Platoon)) then
             
-                if ScenarioInfo.PathFindingDialog then
+                if PathFindingDialog then
                     LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(data.Platoon.BuilderName or data.Platoon).." no safe AMPHIB path found to "..repr(data.Dest))
                 end
                 
@@ -3419,8 +3424,10 @@ function PathGeneratorLand(aiBrain)
 	local WaitTicks = coroutine.yield
 	
 	local dist_comp = aiBrain.dist_comp
+    
 	local graph = ScenarioInfo.PathGraphs['Land']
-
+    local Rings = ScenarioInfo.RingSize or 0
+    
 	local DestinationBetweenPoints = function( destination, start, finish, stepsize )
 
 		local steps = LOUDFLOOR( VDist2(start[1], start[3], finish[1], finish[3]) / stepsize )
@@ -3439,8 +3446,13 @@ function PathGeneratorLand(aiBrain)
 		return false
 	end
 
+	local data = false	
+	local queue = {}
+	local closed = {}
+    local maxthreat, minthreat
+
 	--this is the function which evaluates all the branches for a given node
-	local AStarLoopBody = function( data, queue, closed, maxthreat, minthreat )
+	local function AStarLoopBody()
 		
 		local queueitem = LOUDREMOVE(queue, 1)
 
@@ -3449,33 +3461,36 @@ function PathGeneratorLand(aiBrain)
 			return false, 0, false, 0
 		end
 
+        local Node = queueitem.Node
 		
-		if LOUDEQUAL(queueitem.Node.position,data.EndNode.position) or VDist3( data.Dest, queueitem.Node.position) <= data.Stepsize then
+		if LOUDEQUAL(Node.position,data.EndNode.position) or VDist3( data.Dest, Node.position) <= data.Stepsize then
 			return queueitem.path, queueitem.length, false, queueitem.cost
 		end
 	
 		closed[queueitem.Node[1]] = true
+        
+        local newnode, testposition, threat, fork, stepcostadjust
 	
 		-- loop thru all the nodes which are adjacent to this one and create a fork entry for each adjacent node
 		-- adjacentnode data format is nodename, distance to node
 		for _, adjacentNode in queueitem.Node.adjacent do
 			
-			local newnode = adjacentNode[1]
+			newnode = adjacentNode[1]
 				
 			if closed[newnode] then
 				continue
 			end
 
-			local testposition = LOUDCOPY(graph[newnode].position)
+			testposition = LOUDCOPY(graph[newnode].position)
 		
-			if data.Testpath and DestinationBetweenPoints( data.Dest, queueitem.Node.position, testposition, data.Stepsize) then
+			if data.Testpath and DestinationBetweenPoints( data.Dest, Node.position, testposition, data.Stepsize) then
             
-                queueitem.length = queueitem.length + VDist3(data.Dest, queueitem.Node.position)
+                queueitem.length = queueitem.length + VDist3(data.Dest, Node.position)
 
 				return queueitem.path, queueitem.length, true, queueitem.cost
 			end
 			
-			local threat = MATHMAX(0,GetThreatBetweenPositions( aiBrain, queueitem.Node.position, testposition, nil, data.ThreatLayer))
+			threat = MATHMAX(0,GetThreatBetweenPositions( aiBrain, Node.position, testposition, nil, data.ThreatLayer))
 
             -- if below min threat - devalue it even further
 			if threat <= data.ThreatWeight * minthreat then
@@ -3486,7 +3501,7 @@ function PathGeneratorLand(aiBrain)
 				threat = (threat/maxthreat) * threat
 			end
 
-			local fork = { cost = 0, goaldist = 0, length = 0, Node = graph[newnode], path = LOUDCOPY(queueitem.path), pathcount = 0 }
+			fork = { cost = 0, goaldist = 0, length = 0, Node = graph[newnode], path = LOUDCOPY(queueitem.path), pathcount = 0 }
 
 			fork.cost = queueitem.cost + threat + 10
 			
@@ -3508,13 +3523,12 @@ function PathGeneratorLand(aiBrain)
 		return false, 0, false, 0
 	end		
 
-	local data = {}
-	local closed = {}
-	local queue = {}
 
 	local PathRequests = aiBrain.PathRequests.Land
     local PathReplies = aiBrain.PathRequests['Replies']
-
+    local PathFindingDialog = ScenarioInfo.PathFindingDialog or false
+    
+    local EndThreat, pathlist, pathlength, shortcut, pathcost
 
 	while true do
 		
@@ -3526,16 +3540,17 @@ function PathGeneratorLand(aiBrain)
             -- we must take into account the threat between the EndNode and the destination - they are rarely the same point
             -- we add this threat to the cost value to start with since the final step is just added to the path after the
             -- path has been decided
-            local EndThreat = GetThreatBetweenPositions( aiBrain, data.EndNode.position, data.Dest, nil, data.ThreatLayer )
+            EndThreat = GetThreatBetweenPositions( aiBrain, data.EndNode.position, data.Dest, nil, data.ThreatLayer )
           
 			queue = { { cost = EndThreat, goaldist = 0, length = data.Startlength or 0, Node = data.StartNode, path = {data.StartNode.position, }, pathcount = 1, threat = data.ThreatWeight - EndThreat } }
 
 			while queue[1] do
 
 				-- adjust these multipliers to make pathfinding more or less sensitive to threat
-				-- local maxthreat = data.ThreatWeight * 1.2
-				-- local minthreat = data.ThreatWeight * .5
-				local pathlist, pathlength, shortcut, pathcost = AStarLoopBody( data, queue, closed, data.ThreatWeight * 0.9, data.ThreatWeight * .3 )
+				maxthreat = data.ThreatWeight * 0.9
+				minthreat = data.ThreatWeight * .3
+                
+				pathlist, pathlength, shortcut, pathcost = AStarLoopBody()
 
 				if pathlist and (type(data.Platoon) == 'string' or PlatoonExists(aiBrain, data.Platoon)) then
 
@@ -3547,7 +3562,7 @@ function PathGeneratorLand(aiBrain)
 
 			if (not PathReplies[data.Platoon]) and (type(data.Platoon) == 'string' or PlatoonExists(aiBrain, data.Platoon)) then
             
-                if ScenarioInfo.PathFindingDialog then            
+                if PathFindingDialog then            
                     LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(data.Platoon.BuilderName or data.Platoon).." no safe LAND path found to "..repr(data.Dest))
                 end
                 
@@ -3811,6 +3826,7 @@ function ParseIntelThread( aiBrain )
 
 	-- save the current resolution globally - it will be used by other routines to follow moving intel targets
 	ScenarioInfo.IMAPRadius = IMAPRadius
+    ScenarioInfo.RingSize = Rings
 
 	
     -- when turned on - this function will highlight the IMAP block 
