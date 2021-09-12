@@ -1,3 +1,53 @@
+### Release 11-09-2021 ###
+Lua 5.4.32
+4th Dimension LOUD 4.1.1
+BlackOps 6.1.3
+BrewLAN LOUD 0.9.1
+Total Mayhem 6.1.5
+
+- New BrewLAN unit: the Triseptitron, a Cybran Mobile Rocket Platform (Tech 3).
+ |--> This unit replaces the Hexatron.
+ |--> By comparison, expect it to be more suited to blanketing large areas with inaccurate rockets and overwhelming shields.
+- AI: A battery of three static Tactical Missile Launchers (TMLs) will now get built at defensive points.
+- AI: Improvements to TML targeting.
+- AI: Improvements to threat detection on maps less then 20km x 20km in size.
+- Allowed the following structures to gain free build progress when built on wrecks of the same unit:
+ |--> Flash Flood (Aeon Tech 3 Torpedo Launcher)
+ |--> Iron Curtain (Cybran Experimental Shield Generator)
+ |--> Hiro (UEF Tech 3 Heavy Point Defense)
+ |--> Excalibur (UEF Experimental Point Defense)
+ |--> Manticore (Cybran Tech 3 Point Defense)
+ |--> Slingshot (Cybran Tech 2 Heavy Point Defense)
+ |--> Heth-Athala (Seraphim Experimental Multirole Point Defense)
+ |--> Beholder (Cybran Tech 3 Point Defense)
+ |--> All Barrage Artillery variants
+ |--> All Tech 4 SAM installation variants
+- Introduced rebalances to all TMLs, but only when the LOUD Unit Additions mod is enabled:
+ |--> UEF variant:
+ |-- |--> Significantly reduced time needed to fire.
+ |-- |--> 10x faster to close after firing.
+ |--> Cybran variant:
+ |-- |--> Mass build cost: 850 -> 800.
+ |-- |--> Energy build cost: 5100 -> 4000.
+ |-- |--> Time to be built: 85 seconds -> 80 seconds.
+ |-- |--> Significantly reduced time needed to fire.
+ |--> Aeon variant:
+ |-- |--> Mass build cost: 700 -> 720.
+ |-- |--> Energy build cost: 3500 -> 3600.
+ |-- |--> Time to be built: 70 seconds -> 72 seconds.
+ |-- |--> Moderately reduced time needed to fire.
+ |--> Seraphim variant:
+ |-- |--> Mass build cost: 825 -> 800;
+ |-- |--> Energy build cost: 4500 -> 4000;
+ |-- |--> Time to built: 82.5 seconds -> 80 seconds.
+ |-- |--> Moderately reduced time needed to fire.
+ |--> All variants:
+ |-- |--> Build missiles approximately 140% faster.
+- Made the Predator (Aeon Tech 2 Sniper Bot) prioritise shields after Experimentals.
+- Adjusted the Overlord (Aeon Experimental Medium Assault Bot) so it can be built to fit next to other units. 
+- Even more code optimisations.
+- Fix: Templates couldn't be built via Hotbuild unless the keybinding menu had been opened first.
+
 ### Release 29-08-2021 ###
 Lua 5.4.31
 US Localization 1.0.2
