@@ -417,7 +417,7 @@ function SetAIDebug(data)
                     --LOG("*AI DEBUG "..brain.Nickname.." BrainType is "..repr(brain.BrainType).." Civilian is "..repr(ArmyIsCivilian(brain.ArmyIndex)) )
                 
                     if brain.BrainType == 'AI' and not ArmyIsCivilian(brain.ArmyIndex) and not brain.IntelDebugThread then
-                        brain.IntelDebugThread = brain:ForkThread(LoudUtils.DrawIntel)
+                        brain.IntelDebugThread = brain:ForkThread(LoudUtils.DrawIntel, 50)
                     end
                 end
                 
@@ -802,6 +802,10 @@ AIBrain = Class(moho.aibrain_methods) {
         self.Trash = TrashBag()
 
 		self.ArmyIndex = self:GetArmyIndex()
+        
+        self.AirRatio = 0.01
+        self.LandRatio = 0.01
+        self.NavalRatio = 0.01
 		
 		-- store the faction index (1 = UEF, 2 = Aeon, 3 = Cybran, 4 = Seraphim)
 		self.FactionIndex = self:GetFactionIndex()
@@ -813,8 +817,7 @@ AIBrain = Class(moho.aibrain_methods) {
 		
 		self.PingCallbackList = {}
         
-        -- this is a LOUD data element for storing unpacked
-        -- platoon templates
+        -- this is a LOUD data element for storing unpacked platoon templates
         self.PlatoonTemplates = {}
 
         -- all AI are technically 'cheaters' now --
