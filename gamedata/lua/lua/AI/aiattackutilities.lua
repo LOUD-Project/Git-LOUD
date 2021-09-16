@@ -910,7 +910,9 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
 			else
 				retUnit = false
 			end
+            
 		end
+        
 	end
 	
 	return false,false

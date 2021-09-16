@@ -111,9 +111,7 @@ BrainConditionsMonitor = Class {
 		
 		-- if time-limited game record victory time on the brain
 		if ScenarioInfo.VictoryTime then
-		
 			aiBrain.VictoryTime = ScenarioInfo.VictoryTime
-
 		end
         
         local BM = aiBrain.BuilderManagers
@@ -149,11 +147,13 @@ BrainConditionsMonitor = Class {
         local playerfactor = LOUDGETN(ArmyBrains) * 5
         
         local minimumcycletime = 150     -- in ticks
+        
+        local CycleTime = aiBrain.CycleTime
+        local BaseCount = aiBrain.NumBases
 
         while true do
         
-			-- record current game time
-			aiBrain.CycleTime = GetGameTimeSeconds()
+			CycleTime = GetGameTimeSeconds()
             
             --LOG("*AI DEBUG "..aiBrain.Nickname.." BCM cycles at "..aiBrain.CycleTime.." seconds")
             
@@ -161,9 +161,9 @@ BrainConditionsMonitor = Class {
 
 			-- the thread duration, in ticks, is always the number of checked conditions times 2
             -- plus a little extra slack based upon the number of brains + number of bases
-			self.ThreadWaitDuration = LOUDMAX( LOUDCEIL( (numResults * 2)) + playerfactor + (aiBrain.NumBases * 5), minimumcycletime )
+			self.ThreadWaitDuration = LOUDMAX( LOUDCEIL( (numResults * 2)) + playerfactor + (BaseCount * 5), minimumcycletime )
             
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." BCM Thread Duration for "..aiBrain.NumBases.." bases is "..self.ThreadWaitDuration.." ticks -- checkrate is every "..(checkrate).." ticks")
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." BCM Thread Duration for "..BaseCount.." bases is "..ThreadWaitDuration.." ticks -- checkrate is every "..(checkrate).." ticks")
 
 			numChecks = 0
 			numResults = 0
@@ -182,7 +182,7 @@ BrainConditionsMonitor = Class {
 
 							aiBrain.ConditionsMonitor.ResultTable[k].Status = v:CheckCondition(aiBrain)
 							
-							WaitTicks(checkrate)    -- the real time is always 1 tick less
+							WaitTicks(checkrate)
 						end
 						
 					else
@@ -190,21 +190,7 @@ BrainConditionsMonitor = Class {
                         --LOG("*AI DEBUG "..aiBrain.Nickname.." Result Table "..k.." no longer active for "..repr(v.FunctionData[1]) )
                         
 						ResultTable[k].Active = false
---[[
-						for a,b in self.ConditionData[v.Filename][v.FunctionName] do
-                        
-                            --LOG("*AI DEBUG Reviewing Condition k is "..repr(k).." Key is "..repr(b))
-						
-							if k == b then
-                            
- 								self.ConditionData[v.Filename][v.FunctionName][a] = nil
-								aiBrain.ConditionsMonitor.ResultTable[k] = nil
-								
-								break
-							end
-                            
-						end
---]]                        
+
 					end
                     
 				end
