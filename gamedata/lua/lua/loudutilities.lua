@@ -2824,14 +2824,16 @@ function DeadBaseMonitor( aiBrain )
 	local groupair, groupaircount
 	local groupsea, groupseacount
     
-
-    
     local STRUCTURES = categories.STRUCTURE - categories.WALL
     local ALLUNITS = categories.ALLUNITS - categories.WALL
+    
+    local BM, EM, FM, PFM
+    local DeadBaseMonitorDialog
 
 	while true do
     
-        local BM = aiBrain.BuilderManagers
+        BM = aiBrain.BuilderManagers
+        DeadBaseMonitorDialog = ScenarioInfo.DeadBaseMonitorDialog or false
 
 		for k,v in BM do
 			
@@ -2842,21 +2844,19 @@ function DeadBaseMonitor( aiBrain )
 			platair = false
 			platsea = false
             
-            if ScenarioInfo.DeadBaseMonitorDialog then
+            if DeadBaseMonitorDialog then
                 LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(v.BaseName).." DBM processing - PrimaryLand "..repr(v.PrimaryLandAttackBase).." - PrimarySea "..repr(v.PrimarySeaAttackBase))
             end
 
 			if not v.CountedBase then
-			
 				structurecount = LOUDGETN( GetOwnUnitsAroundPoint( aiBrain, STRUCTURES, v.Position, 60) )
-
 			end
             
-            local EM = v.EngineerManager
-            local FM = v.FactoryManager
-            local PFM = v.PlatoonFormManager
+            EM = v.EngineerManager
+            FM = v.FactoryManager
+            PFM = v.PlatoonFormManager
             
-            if ScenarioInfo.DeadBaseMonitorDialog then
+            if DeadBaseMonitorDialog then
             
                 if EM.BMDistressResponseThread then
                     LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(v.BaseName).." DBM - active base distress response")
@@ -2871,7 +2871,7 @@ function DeadBaseMonitor( aiBrain )
                 -- if the base has no engineers - increase the no factory count
                 if EM:GetNumCategoryUnits(ALLUNITS) <= 0 then 
                 
-                    if ScenarioInfo.DeadBaseMonitorDialog then
+                    if DeadBaseMonitorDialog then
                         LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(v.BaseName).." DBM - no factories or Engineers "..repr(BM[k].nofactorycount + 1))
                     end
                     
@@ -2881,9 +2881,9 @@ function DeadBaseMonitor( aiBrain )
 				-- if base has no engineers AND has had no factories for about 250 seconds
 				if EM:GetNumCategoryUnits(ALLUNITS) <= 0 and BM[k].nofactorycount >= 10 then
 				
-                    --if ScenarioInfo.DeadBaseMonitorDialog then
+                    if DeadBaseMonitorDialog then
                         LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(v.BaseName).." DBM - removing base" )
-					--end
+					end
                     
 					-- handle the MAIN base
 					if k == 'MAIN' then
@@ -2896,7 +2896,6 @@ function DeadBaseMonitor( aiBrain )
 							aiBrain.WaveThread = nil
 						end
 
-						-- record MainBaseDead
 						aiBrain.MainBaseDead = true
 					end
 
@@ -2920,25 +2919,17 @@ function DeadBaseMonitor( aiBrain )
                         v.PrimarySeaAttackBase = false
                         SetPrimarySeaAttackBase(aiBrain)
                     end
-					
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(v.BaseName).." shutting down Clearing Out")
-                    
+
 					-- then clear it out
 					ClearOutBase( PFM, aiBrain )
-					
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(v.BaseName).." shutting down FM")
-                    
+
 					-- disable and destroy the FBM and PFM now
 					if FM then
-					
 						FM:SetEnabled(aiBrain,false)
 						FM:Destroy()
 					end
-					
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(v.BaseName).." shutting down PFM")
-                    
+
 					if PFM then
-					
 						PFM:SetEnabled(aiBrain,false)
 						PFM:Destroy()
 					end
@@ -2961,16 +2952,12 @@ function DeadBaseMonitor( aiBrain )
 						ForkThread( RemoveBaseMarker, aiBrain, k, BM[k].MarkerID)
 					end
 
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(v.BaseName).." cleaning up")
-                    
 					-- remove base from table
                     BM[k] = nil
 					
 					-- rebuild the bases table
 					aiBrain.BuilderManagers = RebuildTable(aiBrain, aiBrain.BuilderManagers)
-                    
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." BM after is "..repr(BM))
-                    
+
                     changed = true
 
 					break -- we changed -- start at the top again					
