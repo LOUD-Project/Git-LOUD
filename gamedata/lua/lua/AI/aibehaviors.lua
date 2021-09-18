@@ -2377,6 +2377,18 @@ function AirForceAILOUD( self, aiBrain )
 			if GetPlatoonPosition(self) then
 			
 				if not loiter then
+                
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." sets loiter at "..repr(self.anchorposition))
+                    
+                    --local dog = aiBrain:GetCurrentEnemy()
+                    
+                    --if dog then
+                    
+                        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." gets highest threat position "..repr(dog:GetHighestThreatPosition( 16, true, 'AIR' )))
+                    
+                        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." threats around postion are "..repr(aiBrain:GetThreatsAroundPosition(self.anchorposition, 16, true, 'AIR' )))
+                        
+                    --end
 
 					IssueClearCommands( platoonUnits )
 				
@@ -2394,12 +2406,16 @@ function AirForceAILOUD( self, aiBrain )
             
             -- the searchradius adapts to the current air ratio AND the outnumbered ratio
             local searchradius = math.max(Searchradius, (Searchradius * aiBrain.AirRatio)/aiBrain.OutnumberedRatio )
+            
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." searching at radius "..searchradius)
 
             
 			-- locate a target -- starting with the closest -- least dangerous ones 
             for _,rangemult in mult do
 
 				for _,threatmult in difficulty do
+                
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." cycles rangemultiplier at "..repr(rangemult).." threatmultiplier at "..repr(threatmult) )
 
 					target,targetposition = AIFindTargetInRangeInCategoryWithThreatFromPosition(aiBrain, self.anchorposition, self, 'Attack', minrange, searchradius * rangemult, categoryList, mythreat * (threatmult - (.05 * rangemult)), threatcompare, threatcheckradius )
 
@@ -2632,12 +2648,17 @@ function AirForceAILOUD( self, aiBrain )
                                     WaitTicks(1)
                                     attackissuedcount = 0
                                 end
+                                
                             end
+                            
                         end
+                        
                     end
                     
-                end                    
+                end
+                
 			end
+            
         end
 
 		-- Attack until target is dead, beyond maxrange, or retreat
@@ -2645,9 +2666,9 @@ function AirForceAILOUD( self, aiBrain )
 
 			loiter = false
 			
-			WaitTicks(6)
+			WaitTicks(3)
 			
-			if PlatoonExists(aiBrain, self) then
+			if PlatoonExists(aiBrain, self) and (not target.Dead) then
 
 				if GetPlatoonPosition(self) and self.anchorposition then
                 
@@ -2679,7 +2700,10 @@ function AirForceAILOUD( self, aiBrain )
 		-- or we couldn't get to the target - we should 
         -- still be guarding the anchorposition
 		if loiter then
-			WaitTicks(12)
+        
+			WaitTicks(11)
+            
+            loiter = false
 		end
     end
 
