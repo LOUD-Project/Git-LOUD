@@ -187,10 +187,11 @@ Builder = Class {
         return returnData
     end,
 
+--[[
     GetPlatoonTemplate = function(self)
         return Builders[self.BuilderName].PlatoonTemplate or false
     end,
-
+--]]
 }
 
 

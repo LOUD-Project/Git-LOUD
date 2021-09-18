@@ -5,6 +5,7 @@
 --  Engineers form their own platoons, see the Engineer Manager for that
 
 local import = import
+local Behaviors = import('/lua/ai/aibehaviors.lua')
 
 local BuilderManager = import('/lua/sim/BuilderManager.lua').BuilderManager
 
@@ -90,6 +91,8 @@ PlatoonFormManager = Class(BuilderManager) {
             end
             
             -- apply the AI Multiplier to the maximum of each squad
+            -- this is a nice sentiment, but doesn't work for ACT 
+            -- we'd have to add a process to rewrite all the templates when ACT changes the CheatValue.
             for k,v in resolvedtemplate do
             
                 if k > 2 then
@@ -157,62 +160,67 @@ PlatoonFormManager = Class(BuilderManager) {
 		
 		local CanFormPlatoon = moho.platoon_methods.CanFormPlatoon
 		local FormPlatoon = moho.platoon_methods.FormPlatoon
+        
+        local PlatoonDialog = ScenarioInfo.PlatoonDialog or false
+        
+        local LocationType = self.LocationType
+        
+        local BuilderName = builder.BuilderName
+        local Builder = Builders[BuilderName]
 
-        --if ScenarioInfo.PriorityDialog then
-          --	LOG("*AI DEBUG "..aiBrain.Nickname.." PFM "..self.LocationType.." trys to form "..repr(builder.BuilderName) )
-        --end
 
-		if aiBrain.BuilderManagers[self.LocationType] then
+		if aiBrain.BuilderManagers[LocationType] then
 		
-			local template = self.GetPlatoonTemplate( self, builder:GetPlatoonTemplate(), aiBrain )
+			local template = self.GetPlatoonTemplate( self, Builder.PlatoonTemplate, aiBrain )
 		
 			if template and self.Location and self.Radius and CanFormPlatoon( aiBrain.ArmyPool, template, 1, self.Location, self.Radius) then
 
-				if ScenarioInfo.PlatoonDialog then
-					LOG("*AI DEBUG "..aiBrain.Nickname.." PFM "..self.LocationType.." forms "..repr(builder.BuilderName).." using "..repr(template[1]))
+				if PlatoonDialog then
+					LOG("*AI DEBUG "..aiBrain.Nickname.." PFM "..LocationType.." forms "..repr(BuilderName).." using "..repr(template[1]))
 				end
 
 				local hndl = FormPlatoon( aiBrain.ArmyPool, template, 1, self.Location, self.Radius)
 				
 				if not builder:StoreHandle( hndl, self, 'Any' ) then
 				
-					if ScenarioInfo.PlatoonDialog then
-						LOG("*AI DEBUG "..aiBrain.Nickname.." PFM "..self.LocationType.." fails StoreHandle for "..repr(template[1]))
+					if PlatoonDialog then
+						LOG("*AI DEBUG "..aiBrain.Nickname.." PFM "..LocationType.." fails StoreHandle for "..repr(template[1]))
 					end
 					
 					return aiBrain:DisbandPlatoon(hndl)
 				end
 
-				hndl.LocationType = self.LocationType
+				hndl.LocationType = LocationType
 				hndl.PlanName = template[2]
 				
-				hndl.PlatoonData = builder:GetBuilderData(self.LocationType)
-				hndl.RTBLocation = builder.RTBLocation or self.LocationType
+				hndl.PlatoonData = builder:GetBuilderData(LocationType)
+				hndl.RTBLocation = builder.RTBLocation or LocationType
 				
 				hndl:OnUnitsAddedToPlatoon()
 				
 				GetMostRestrictiveLayer(hndl)
 
-				if Builders[builder.BuilderName].PlatoonAIPlan then
-					hndl.PlanName = Builders[builder.BuilderName].PlatoonAIPlan
+				if Builder.PlatoonAIPlan then
+                
+					hndl.PlanName = Builder.PlatoonAIPlan
 					hndl:SetAIPlan(hndl.PlanName, aiBrain)
 				end
 
-				if Builders[builder.BuilderName].PlatoonAddPlans then
+				if Builder.PlatoonAddPlans then
 				
-					for _, papv in Builders[builder.BuilderName].PlatoonAddPlans do
+					for _, papv in Builder.PlatoonAddPlans do
 
-						if ScenarioInfo.PlatoonDialog then
-							LOG("*AI DEBUG "..aiBrain.Nickname.." "..builder.BuilderName.." adds plan "..repr(papv))
+						if PlatoonDialog then
+							LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(BuilderName).." adds plan "..repr(papv))
 						end
 
 						hndl:ForkThread( hndl[papv], aiBrain )
 					end
 				end
 
-				if Builders[builder.BuilderName].PlatoonAddFunctions then
+				if Builder.PlatoonAddFunctions then
 				
-					for _, papv in Builders[builder.BuilderName].PlatoonAddFunctions do
+					for _, papv in Builder.PlatoonAddFunctions do
 					
 						-- this will run a non critical function -- Wait ?  What do you think that means ? 
 						-- these forks are NOT put into the platoons TRASH -- so they save on processing and storage - BUT 
@@ -220,30 +228,31 @@ PlatoonFormManager = Class(BuilderManager) {
                         
                         -- a good example of this could be having the formation of a platoon turn one builder off while
                         -- another is turned on  (Note to self - something you've thought about doing with something like Czar Attack)
+                        -- so Czar Attack could turn OFF Czar Attack and turn ON Czar Attack 2 - which could, in turn, reverse that
                         
-						if ScenarioInfo.PlatoonDialog then
-							--LOG("*AI DEBUG "..aiBrain.Nickname.." "..builder.BuilderName.." adds function "..repr(papv[2]))
+						if PlatoonDialog then
+							LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(BuilderName).." adds function "..repr(papv[2]))
 						end
 						
 						ForkThread( import(papv[1])[papv[2]], hndl, aiBrain )
 					end
 				end
 
-				if Builders[builder.BuilderName].PlatoonAddBehaviors then
+				if Builder.PlatoonAddBehaviors then
 				
-					for _, papv in Builders[builder.BuilderName].PlatoonAddBehaviors do
+					for _, papv in Builder.PlatoonAddBehaviors do
 
-						if ScenarioInfo.PlatoonDialog then
-							LOG("*AI DEBUG "..aiBrain.Nickname.." "..builder.BuilderName.." adds behavior "..repr(papv))
+						if PlatoonDialog then
+							LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(BuilderName).." adds behavior "..repr(papv))
 						end
 					
-						hndl:ForkThread( import('/lua/ai/aibehaviors.lua')[papv], aiBrain )
+						hndl:ForkThread( Behaviors[papv], aiBrain )
 					end
 				end
 
 			else
                 
-                LOG("*AI DEBUG "..aiBrain.Nickname.." PFM "..self.LocationType.." unable to form platoon "..repr(template[1]))
+                LOG("*AI DEBUG "..aiBrain.Nickname.." PFM "..LocationType.." unable to form platoon "..repr(template[1]))
                 
 			end
         end

@@ -264,14 +264,15 @@ BuffField = Class(Entity) {
 		local aiBrain = Owner:GetAIBrain()
 		
 		local units = {}
+        local pos
 		local count = 0
 		local mastercount = 0
 
 		local function GetNearbyAffectableUnits()
 		
-			local unitlist = {}
+			units = {}
 
-			local pos = LOUDCOPY(Owner:GetPosition()) or false
+			pos = LOUDCOPY(Owner:GetPosition()) or false
 
 			if pos then
             
@@ -280,20 +281,20 @@ BuffField = Class(Entity) {
                 end
 			
 				if bp.AffectsOwnUnits and not bp.AffectsAllies then
-					unitlist = GetOwnUnitsAroundPoint( aiBrain, bp.AffectsUnitCategories, pos, bp.Radius)
+					units = GetOwnUnitsAroundPoint( aiBrain, bp.AffectsUnitCategories, pos, bp.Radius)
 				end
 			
 				if bp.AffectsAllies then
-					unitlist = GetAlliedUnitsAroundPoint( aiBrain, bp.AffectsUnitCategories, pos, bp.Radius)
+					units = GetAlliedUnitsAroundPoint( aiBrain, bp.AffectsUnitCategories, pos, bp.Radius)
 				end
 			
 				if bp.AffectsVisibleEnemies then
-					unitlist = aiBrain:GetUnitsAroundPoint( bp.AffectsUnitCategories, pos, bp.Radius, 'Enemy' )
+					units = aiBrain:GetUnitsAroundPoint( bp.AffectsUnitCategories, pos, bp.Radius, 'Enemy' )
 				end
 				
 			end
 
-			return unitlist
+			return units
 			
 		end
 
