@@ -146,24 +146,25 @@ BrainConditionsMonitor = Class {
         -- adjustment for high player count comes into play when we can no longer maintain the minimum cycle time
         local playerfactor = LOUDGETN(ArmyBrains) * 5
         
-        local minimumcycletime = 150     -- in ticks
-        
-        local CycleTime = aiBrain.CycleTime
-        local BaseCount = aiBrain.NumBases
+        local minimumcycletime = 120     -- in ticks
+
+        -- BCM logging --
+        local BCMDialog = false
 
         while true do
         
-			CycleTime = GetGameTimeSeconds()
-            
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." BCM cycles at "..aiBrain.CycleTime.." seconds")
+			aiBrain.CycleTime = GetGameTimeSeconds()
             
             --local start = GetSystemTimeSecondsOnlyForProfileUse()
 
 			-- the thread duration, in ticks, is always the number of checked conditions times 2
             -- plus a little extra slack based upon the number of brains + number of bases
-			self.ThreadWaitDuration = LOUDMAX( LOUDCEIL( (numResults * 2)) + playerfactor + (BaseCount * 5), minimumcycletime )
+			self.ThreadWaitDuration = LOUDMAX( LOUDCEIL( (numResults * 2)) + playerfactor + (aiBrain.NumBases * 5), minimumcycletime )
             
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." BCM Thread Duration for "..BaseCount.." bases is "..ThreadWaitDuration.." ticks -- checkrate is every "..(checkrate).." ticks")
+            if BCMDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." BCM cycles at "..aiBrain.CycleTime.." seconds")
+                LOG("*AI DEBUG "..aiBrain.Nickname.." BCM Thread Duration for "..numResults.." Results  "..aiBrain.NumBases.." bases is "..self.ThreadWaitDuration.." ticks -- checkrate is "..(checkrate-1).." ticks")
+            end
 
 			numChecks = 0
 			numResults = 0
@@ -186,9 +187,7 @@ BrainConditionsMonitor = Class {
 						end
 						
 					else
-                    
-                        --LOG("*AI DEBUG "..aiBrain.Nickname.." Result Table "..k.." no longer active for "..repr(v.FunctionData[1]) )
-                        
+
 						ResultTable[k].Active = false
 
 					end
@@ -203,9 +202,11 @@ BrainConditionsMonitor = Class {
 
 			if ( self.ThreadWaitDuration - (numResults * 2) ) > 0 then
             
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." BCM had "..numResults.." checks at "..(checkrate).." -- delays for "..(1 + self.ThreadWaitDuration) - (numResults * 2).." ticks")
+                if BCMDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." BCM checked "..numChecks.." and had "..numResults.." results at "..(checkrate-1).." ticks per result -- delays for "..self.ThreadWaitDuration - (numResults * 2).." ticks")
+                end
             
-				WaitTicks( (1 + self.ThreadWaitDuration) - (numResults * 2)  )
+				WaitTicks( self.ThreadWaitDuration - (numResults * 2) + 1  )
                 
 			end
 
