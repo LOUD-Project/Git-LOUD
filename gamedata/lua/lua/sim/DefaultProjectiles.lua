@@ -19,12 +19,11 @@ EmitterProjectile = Class(Projectile) {
     FxTrailOffset = 0,
 
     OnCreate = function(self)
+
         Projectile.OnCreate(self)
 		
-        local army = GetArmy(self)
-		
         for i in self.FxTrails do
-            LOUDEMITONENTITY(self, army, self.FxTrails[i]):ScaleEmitter(self.FxTrailScale):OffsetEmitter(0, 0, self.FxTrailOffset)
+            LOUDEMITONENTITY(self, self.Army, self.FxTrails[i]):ScaleEmitter(self.FxTrailScale):OffsetEmitter(0, 0, self.FxTrailOffset)
         end
     end,
 }
@@ -35,10 +34,11 @@ SingleBeamProjectile = Class(EmitterProjectile) {
     FxTrails = {},
 
     OnCreate = function(self)
+
         EmitterProjectile.OnCreate(self)
-		
+
         if self.BeamName then
-            LOUDBEAMEMITONENTITY( self, -1, GetArmy(self), self.BeamName )
+            LOUDBEAMEMITONENTITY( self, -1, self.Army, self.BeamName )
         end
     end,
 }
@@ -49,10 +49,11 @@ MultiBeamProjectile = Class(EmitterProjectile) {
     FxTrails = {},
 
     OnCreate = function(self)
+    
         EmitterProjectile.OnCreate(self)
 		
         for _, v in self.Beams do
-            LOUDBEAMEMITONENTITY( self, -1, GetArmy(self), v )
+            LOUDBEAMEMITONENTITY( self, -1, self.Army, v )
         end
     end,
 }
@@ -64,10 +65,11 @@ SinglePolyTrailProjectile = Class(EmitterProjectile) {
     FxTrails = {},
 
     OnCreate = function(self)
+    
         EmitterProjectile.OnCreate(self)
 	
         if self.PolyTrail != '' then
-            LOUDTRAIL(self, -1, GetArmy(self), self.PolyTrail):OffsetEmitter(0, 0, self.PolyTrailOffset)
+            LOUDTRAIL(self, -1, self.Army, self.PolyTrail):OffsetEmitter(0, 0, self.PolyTrailOffset)
         end
     end,
 }
@@ -80,12 +82,14 @@ MultiPolyTrailProjectile = Class(EmitterProjectile) {
     RandomPolyTrails = 0,   -- Count of how many are selected randomly for PolyTrail table
 
     OnCreate = function(self)
+    
         EmitterProjectile.OnCreate(self)
 		
         if self.PolyTrails then
 		
             local NumPolyTrails = table.getn( self.PolyTrails )
-			local army = GetArmy(self)
+            
+			local army = self.Army
 			
             if self.RandomPolyTrails != 0 then
 				
@@ -95,10 +99,13 @@ MultiPolyTrailProjectile = Class(EmitterProjectile) {
                     index = math.floor( Random( 1, NumPolyTrails))
                     LOUDTRAIL(self, -1, army, self.PolyTrails[index] ):OffsetEmitter(0, 0, self.PolyTrailOffset[index])
                 end
+                
             else
+            
                 for i = 1, NumPolyTrails do
                     LOUDTRAIL(self, -1, army, self.PolyTrails[i] ):OffsetEmitter(0, 0, self.PolyTrailOffset[i])
                 end
+                
             end
         end
     end,
@@ -114,9 +121,11 @@ SingleCompositeEmitterProjectile = Class(SinglePolyTrailProjectile) {
     FxTrails = {},
 
     OnCreate = function(self)
+    
         SinglePolyTrailProjectile.OnCreate(self)
+        
         if self.BeamName != '' then
-            LOUDBEAMEMITONENTITY( self, -1, GetArmy(self), self.BeamName )
+            LOUDBEAMEMITONENTITY( self, -1, self.Army, self.BeamName )
         end
     end,
 }
@@ -131,10 +140,11 @@ MultiCompositeEmitterProjectile = Class(MultiPolyTrailProjectile) {
     FxTrails = {},
 
     OnCreate = function(self)
+    
         MultiPolyTrailProjectile.OnCreate(self)
 
         for _, v in self.Beams do
-            LOUDBEAMEMITONENTITY( self, -1, GetArmy(self), v )
+            LOUDBEAMEMITONENTITY( self, -1, self.Army, v )
         end
     end,
 }
@@ -158,14 +168,12 @@ OnWaterEntryEmitterProjectile = Class(Projectile) {
 		
         if inWater then
 		
-			local army = GetArmy(self)
-			
 			for i in self.FxTrails do
-				LOUDEMITONENTITY(self, army, self.FxTrails[i]):ScaleEmitter(self.FxTrailScale):OffsetEmitter(0, 0, self.FxTrailOffset)
+				LOUDEMITONENTITY(self, self.Army, self.FxTrails[i]):ScaleEmitter(self.FxTrailScale):OffsetEmitter(0, 0, self.FxTrailOffset)
 			end
 			
 			if self.PolyTrail != '' then
-				LOUDTRAIL(self, -1, army, self.PolyTrail):OffsetEmitter(0, 0, self.PolyTrailOffset)
+				LOUDTRAIL(self, -1, self.Army, self.PolyTrail):OffsetEmitter(0, 0, self.PolyTrailOffset)
 			end
 			
 		end
@@ -175,15 +183,13 @@ OnWaterEntryEmitterProjectile = Class(Projectile) {
     EnterWaterThread = function(self)
 	
         WaitTicks(self.TrailDelay)
-		
-        local army = GetArmy(self)
-		
+
         for i in self.FxTrails do
-            LOUDEMITONENTITY(self, army, self.FxTrails[i]):ScaleEmitter(self.FxTrailScale):OffsetEmitter(0, 0, self.FxTrailOffset)
+            LOUDEMITONENTITY(self, self.Army, self.FxTrails[i]):ScaleEmitter(self.FxTrailScale):OffsetEmitter(0, 0, self.FxTrailOffset)
         end
 		
         if self.PolyTrail != '' then
-            LOUDTRAIL(self, -1, army, self.PolyTrail):OffsetEmitter(0, 0, self.PolyTrailOffset)
+            LOUDTRAIL(self, -1, self.Army, self.PolyTrail):OffsetEmitter(0, 0, self.PolyTrailOffset)
         end
 		
     end,

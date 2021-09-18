@@ -105,6 +105,8 @@ Projectile = Class(moho.projectile_methods, Entity) {
     end,
 
     OnCreate = function(self, inWater)
+
+        self.Army = GetArmy(self)
 	
         self.DamageData = { DamageAmount = false, DamageType = 'Normal' }
 
@@ -144,6 +146,7 @@ Projectile = Class(moho.projectile_methods, Entity) {
 			ForkTo( self.Tracking, self )
 			
 		end
+
 		
     end,
 
@@ -244,7 +247,7 @@ Projectile = Class(moho.projectile_methods, Entity) {
         if (LOUDENTITY(TORPEDO, self) and ( LOUDENTITY(TORPEDO, other) or LOUDENTITY(DIRECTFIRE, other))) or 
            (LOUDENTITY(MISSILE, self) and ( LOUDENTITY(MISSILE, other) or LOUDENTITY(DIRECTFIRE, other))) or 
            (LOUDENTITY(DIRECTFIRE, self) and LOUDENTITY(MISSILE, other)) or 
-           (GetArmy(self) == GetArmy(other)) then
+           (self.Army) == (other.Sync.army) then
             return false
         end
 
@@ -358,7 +361,7 @@ Projectile = Class(moho.projectile_methods, Entity) {
 
     OnKilled = function(self, instigator, type, overkillRatio)
 	
-        self:CreateImpactEffects( GetArmy(self), self.FxOnKilled, self.FxOnKilledScale )
+        self:CreateImpactEffects( self.Army, self.FxOnKilled, self.FxOnKilledScale )
 		
         Destroy(self)
 		
@@ -471,7 +474,7 @@ Projectile = Class(moho.projectile_methods, Entity) {
 		end
 		
 		-- if this unit category is on the weapon's do-not-collide list, skip!
-		local DNC = firingWeapon:GetBlueprint().DoNotCollideList
+		local DNC = firingWeapon.bp.DoNotCollideList
 
 		if DNC then
 		
@@ -541,7 +544,7 @@ Projectile = Class(moho.projectile_methods, Entity) {
 			local ImpactEffects = {}
 			local ImpactEffectScale = 1
 	
-			local army = GetArmy(self)
+			local army = self.Army
 	
 			--ImpactEffects
 			if targetType == 'Water' then

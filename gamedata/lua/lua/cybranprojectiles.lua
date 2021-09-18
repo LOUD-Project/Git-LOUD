@@ -59,7 +59,9 @@ CIFProtonBombProjectile = Class(NullShell) {
     FxImpactLand = EffectTemplate.CProtonBombHit01,
 
     OnImpact = function(self, targetType, targetEntity)
-        local army = GetArmy(self)
+    
+        local army = self.Army
+        
 		local LOUDPI = math.pi
 		local LOUDSIN = math.sin
 		local LOUDCOS = math.cos
@@ -68,11 +70,16 @@ CIFProtonBombProjectile = Class(NullShell) {
         CreateLightParticle( self, -1, army, 8, 22, 'glow_03', 'ramp_antimatter_02' )
         
         if targetType == 'Terrain' or targetType == 'Prop' then
+        
             local pos = self:GetPosition()
+            
             DamageArea( self, pos, self.DamageData.DamageRadius * 0.25, 1, 'Force', true )
             DamageArea( self, pos, self.DamageData.DamageRadius * 0.25, 1, 'Force', true )          
+            
             self.DamageData.DamageAmount = self.DamageData.DamageAmount - 10
+            
             DamageRing( self, pos, 0.1, self.DamageData.DamageRadius, 10, 'Fire', false, false) 
+            
             CreateDecal( pos, RandomFloat(0.0,6.28), 'scorch_011_albedo', '', 'Albedo', 12, 12, 150, 200, army )            
         end
 
@@ -368,7 +375,7 @@ CIFMolecularResonanceShell = Class(SinglePolyTrailProjectile) {
 
     DelayedDestroyThread = function(self)
         WaitTicks( 3 )
-        self.CreateImpactEffects( self, GetArmy(self), self.FxImpactUnit, self.FxUnitHitScale )
+        self.CreateImpactEffects( self, self.Army, self.FxImpactUnit, self.FxUnitHitScale )
         self:Destroy()
     end,
 
@@ -583,8 +590,11 @@ CLOATacticalMissileProjectile = Class(SingleBeamProjectile) {
     end,
     
     OnExitWater = function(self)
+    
 		EmitterProjectile.OnExitWater(self)
-		local army = GetArmy(self)
+        
+		local army = self.Army
+        
 		local CreateEmitterAtBone = CreateEmitterAtBone
 		
 		for k, v in self.FxExitWaterEmitter do
@@ -621,8 +631,9 @@ CLOATacticalChildMissileProjectile = Class(SingleBeamProjectile) {
     end,
     
     OnImpact = function(self, targetType, targetEntity)
-        local army = GetArmy(self)
-        CreateLightParticle( self, -1, army, 1, 7, 'glow_03', 'ramp_fire_11' ) 
+
+        CreateLightParticle( self, -1, self.Army, 1, 7, 'glow_03', 'ramp_fire_11' ) 
+        
         SingleBeamProjectile.OnImpact(self, targetType, targetEntity)
     end,
         
@@ -639,12 +650,13 @@ CLOATacticalChildMissileProjectile = Class(SingleBeamProjectile) {
     end,
     
     OnExitWater = function(self)
+    
 		EmitterProjectile.OnExitWater(self)
-		local army = GetArmy(self)
+        
 		local CreateEmitterAtBone = CreateEmitterAtBone
 		
 		for k, v in self.FxExitWaterEmitter do
-			CreateEmitterAtBone(self,-2,army,v)
+			CreateEmitterAtBone( self, -2, self.Army, v )
 		end
     end,
 }
@@ -656,7 +668,7 @@ CShellAAAutoCannonProjectile = Class(MultiPolyTrailProjectile) {
 	},
 	PolyTrailOffset = {0,0},
 
-    # Hit Effects
+    -- Hit Effects
     FxImpactUnit = {'/effects/emitters/auto_cannon_hit_flash_01_emit.bp', },
     FxImpactProp ={'/effects/emitters/auto_cannon_hit_flash_01_emit.bp', },
     FxImpactAirUnit = {'/effects/emitters/auto_cannon_hit_flash_01_emit.bp', },
@@ -691,8 +703,10 @@ CTorpedoShipProjectile = Class(OnWaterEntryEmitterProjectile) {
     FxImpactNone = {},
 
     OnCreate = function(self, inWater)
+    
         OnWaterEntryEmitterProjectile.OnCreate(self, inWater)
-        # if we are starting in the water then immediately switch to tracking in water
+        
+        -- if we are starting in the water then immediately switch to tracking in water
         if inWater == true then
             self:TrackTarget(true):StayUnderwater(true)
             self:OnEnterWater(self)
@@ -748,11 +762,10 @@ CDepthChargeProjectile = Class(OnWaterEntryEmitterProjectile) {
 	
         OnWaterEntryEmitterProjectile.OnEnterWater(self)
 		
-        local army = GetArmy(self)
 		local CreateEmitterAtEntity = CreateEmitterAtEntity
 
-        for k, v in self.FxEnterWater do #splash
-            CreateEmitterAtEntity(self,army,v)
+        for k, v in self.FxEnterWater do
+            CreateEmitterAtEntity( self, self.Army, v )
         end
 
         self:TrackTarget(false)

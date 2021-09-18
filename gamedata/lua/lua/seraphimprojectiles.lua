@@ -293,7 +293,7 @@ SShleoAACannon = Class(EmitterProjectile) {
         local PolytrailGroup = self.PolyTrails[RandomInt(1,table.getn( self.PolyTrails ))]
 
         for k, v in PolytrailGroup do
-            CreateTrail(self, -1, self:GetArmy(), v )
+            CreateTrail(self, -1, self.Army, v )
         end
     end,    
 }

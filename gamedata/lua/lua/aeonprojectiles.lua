@@ -105,10 +105,9 @@ ACannonTankProjectile = Class(SingleBeamProjectile) {
         SingleBeamProjectile.OnCreate(self)
 		
         if self.PolyTrails then
-            local army = GetArmy(self)
 			
             for _, value in self.PolyTrails do
-                CreateTrail( self, -1, army, value)
+                CreateTrail( self, -1, self.Army, value)
             end
         end
     end,
@@ -134,10 +133,8 @@ ADepthChargeProjectile = Class(OnWaterEntryEmitterProjectile) {
     OnEnterWater = function(self)
         OnWaterEntryEmitterProjectile.OnEnterWater(self)
 		
-        local army = GetArmy(self)
-
         for _, v in self.FxEnterWater do 
-            CreateEmitterAtEntity(self, army, v)
+            CreateEmitterAtEntity(self, self.Army, v)
         end
 
     end,
@@ -434,11 +431,9 @@ AAAQuantumDisplacementCannonProjectile = Class(NullShell) {
         NullShell.OnCreate(self)
 
         self.TrailEmitters = {}
-		
-        local army = GetArmy(self)
-		
-        self.CreateTrailFX(self,army)
-        self:ForkThread(self.UpdateThread,army)
+
+        self.CreateTrailFX(self, self.Army)
+        self:ForkThread(self.UpdateThread, self.Army)
     end,
 
     CreateTrailFX = function(self, army)
@@ -446,6 +441,7 @@ AAAQuantumDisplacementCannonProjectile = Class(NullShell) {
         if (self.PolyTrail) then
             table.insert( self.TrailEmitters, CreateTrail(self, -1, army, self.PolyTrail ))
         end
+        
         for i in self.FxTrails do
             table.insert( self.TrailEmitters, CreateEmitterOnEntity(self, army, self.FxTrails[i]))
         end
@@ -456,6 +452,7 @@ AAAQuantumDisplacementCannonProjectile = Class(NullShell) {
         for i in self.FxTeleport do
             CreateEmitterAtEntity(self, army, self.FxTeleport[i])
         end
+        
     end,
 
     DestroyTrailFX = function(self)
@@ -503,12 +500,17 @@ AQuarkBombProjectile = Class(EmitterProjectile) {
     FxImpactUnderWater = {},
 
     OnImpact = function(self, targetType, targetEntity)
-        CreateLightParticle( self, -1, GetArmy(self), 26, 6, 'sparkle_white_add_08', 'ramp_white_02' )
+    
+        CreateLightParticle( self, -1, self.Army, 26, 6, 'sparkle_white_add_08', 'ramp_white_02' )
 
         if targetType == 'Terrain' or targetType == 'Prop' then
+        
             local pos = self:GetPosition()
+            
             CreateScorchMarkSplat( self, 3 )
+            
             self.DamageData.DamageAmount = self.DamageData.DamageAmount - 10
+            
             DamageRing( self, pos, 0.1, self.DamageData.DamageRadius, 10, 'Fire', false, false )
             DamageArea( self, pos, self.DamageData.DamageRadius - 1, 1, 'Force', true )
             DamageArea( self, pos, self.DamageData.DamageRadius - 1, 1, 'Force', true )            
