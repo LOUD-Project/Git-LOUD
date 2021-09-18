@@ -91,16 +91,22 @@ SIFZthuthaamArtilleryCannon = Class(DefaultProjectileWeapon) {
 
 -- Units: XSL0303
 SDFThauCannon = Class(DefaultProjectileWeapon) {
+
 	FxMuzzleFlash = EffectTemplate.STauCannonMuzzleFlash,
 	FxMuzzleTerrainTypeName = 'ThauTerrainMuzzle',
 	
 	PlayFxMuzzleSequence = function(self, muzzle)
+    
 		DefaultProjectileWeapon.PlayFxMuzzleSequence(self, muzzle)
+        
         local pos = self.unit:GetPosition()
+        
         local TerrainType = GetTerrainType( pos.x,pos.z )
+        
         local effectTable = TerrainType.FXOther[self.unit:GetCurrentLayer()][self.FxMuzzleTerrainTypeName] 
+        
         if effectTable != nil then
-            local army = self.unit:GetArmy()
+            local army = self.unit.Sync.army
 			local CreateAttachedEmitter = CreateAttachedEmitter
 			
 			for k, v in effectTable do
@@ -201,9 +207,13 @@ SDFExperimentalPhasonLaser = Class(DefaultBeamWeapon) {
     FxUpackingChargeEffectScale = 1,
 
     PlayFxWeaponUnpackSequence = function( self )
+    
         if not self.ContBeamOn then
-            local army = self.unit:GetArmy()
-            local bp = self:GetBlueprint()
+        
+            local army = self.unit.Sync.army
+            
+            local bp = self.bp
+            
 			local CreateAttachedEmitter = CreateAttachedEmitter
 			
             for k, v in self.FxUpackingChargeEffects do
@@ -211,6 +221,7 @@ SDFExperimentalPhasonLaser = Class(DefaultBeamWeapon) {
                     CreateAttachedEmitter(self.unit, ev, army, v):ScaleEmitter(self.FxUpackingChargeEffectScale)
                 end
             end
+            
             DefaultBeamWeapon.PlayFxWeaponUnpackSequence(self)
         end
     end,
@@ -233,9 +244,13 @@ SDFUltraChromaticBeamGenerator = Class(DefaultBeamWeapon) {
     FxUpackingChargeEffectScale = 1,
 
     PlayFxWeaponUnpackSequence = function( self )
+    
         if not self.ContBeamOn then
-            local army = self.unit:GetArmy()
-            local bp = self:GetBlueprint()
+        
+            local army = self.unit.Sync.army
+            
+            local bp = self.bp
+            
 			local CreateAttachedEmitter = CreateAttachedEmitter
 			
             for k, v in self.FxUpackingChargeEffects do
@@ -243,6 +258,7 @@ SDFUltraChromaticBeamGenerator = Class(DefaultBeamWeapon) {
                     CreateAttachedEmitter(self.unit, ev, army, v):ScaleEmitter(self.FxUpackingChargeEffectScale)
                 end
             end
+            
             DefaultBeamWeapon.PlayFxWeaponUnpackSequence(self)
         end
     end,
@@ -253,11 +269,13 @@ SDFUltraChromaticBeamGenerator02 = Class(SDFUltraChromaticBeamGenerator) {
 }
 
 SIFCommanderDeathWeapon = Class(BareBonesWeapon) {
+
     OnCreate = function(self)
+    
         BareBonesWeapon.OnCreate(self)
 
-        local myBlueprint = self:GetBlueprint()
-        # The "or x" is supplying default values in case the blueprint doesn't have an overriding value
+        local myBlueprint = self.bp
+
         self.Data = {
             NukeOuterRingDamage = myBlueprint.NukeOuterRingDamage or 10,
             NukeOuterRingRadius = myBlueprint.NukeOuterRingRadius or 40,
@@ -276,9 +294,11 @@ SIFCommanderDeathWeapon = Class(BareBonesWeapon) {
     end,
 
     Fire = function(self)
-        local myBlueprint = self:GetBlueprint()
-        local myProjectile = self.unit:CreateProjectile( myBlueprint.ProjectileId, 0, 0, 0, nil, nil, nil):SetCollision(false)
+
+        local myProjectile = self.unit:CreateProjectile( self.bp.ProjectileId, 0, 0, 0, nil, nil, nil):SetCollision(false)
+        
         myProjectile:PassDamageData(self.damageTable)
+        
         if self.Data then
             myProjectile:PassData(self.Data)
         end
@@ -327,8 +347,11 @@ SDFGapingMaw = Class(DefaultBeamWeapon) {
     FxMuzzleFlash = {},
 
     PlayFxBeamStart = function(self, muzzle)
+    
         local target = self:GetCurrentTarget()
-        local bp = self:GetBlueprint()
+        
+        local bp = self.bp
+        
         if not target or not EntityCategoryContains(categories.ALLUNITS - categories.STRUCTURE, target) then
             -- Since this is now survivable, and has a fixed size max I don't feel bad about allowing:
             -- - categories.SUBCOMMANDER - categories.COMMAND - categories.EXPERIMENTAL
@@ -353,23 +376,31 @@ SDFGapingMaw = Class(DefaultBeamWeapon) {
 
     --recon blip check
     GetRealTarget = function(self, target)
+    
         if target and not IsUnit(target) then
+        
             local unitTarget = target:GetSource()
             local unitPos = unitTarget:GetPosition()
             local reconPos = target:GetPosition()
             local dist = VDist2(unitPos[1], unitPos[3], reconPos[1], reconPos[3])
+            
             if dist < 10 then
                 return unitTarget
             end
+            
         end
+        
         return target
     end,
 
     OnLostTarget = function(self)
+    
         self:AimManipulatorSetEnabled(true)
         DefaultBeamWeapon.OnLostTarget(self)
+        
         ------enabled= false
         ------self.unit:SetEnabled(false)
+        
         DefaultBeamWeapon.PlayFxBeamEnd(self,self.Beams[1].Beam)
     end,
 
@@ -377,11 +408,13 @@ SDFGapingMaw = Class(DefaultBeamWeapon) {
         local beam = self.Beams[1].Beam
         if not beam then return end
 
-        local bp = self:GetBlueprint()
+        local bp = self.bp
+        
         local muzzle = bp.MuzzleSpecial
         if not muzzle then return end
 
         target:SetDoNotTarget(true)
+        
         local pos0 = beam:GetPosition(0)
         local pos1 = beam:GetPosition(1)
         local dist = VDist3(pos0, pos1)
@@ -475,6 +508,7 @@ SDFGapingMaw = Class(DefaultBeamWeapon) {
 }
 
 InvisibleCollisionBeam = Class(moho.CollisionBeamEntity) {
+
     OnCreate = function(self)
         self.Trash = TrashBag()
     end,
@@ -496,29 +530,40 @@ InvisibleCollisionBeam = Class(moho.CollisionBeamEntity) {
     end,
 
     DoDamage = function(self, instigator, damageData, targetEntity)
+    
         local damage = damageData.DamageAmount or 0
         local dmgmod = 1
+        
         if self.Weapon.DamageModifiers then
             for k, v in self.Weapon.DamageModifiers do
                 dmgmod = v * dmgmod
             end
         end
+        
         damage = damage * dmgmod
+        
         if instigator and damage > 0 then
+        
             local radius = damageData.DamageRadius
+            
             if radius and radius > 0 then
+            
                 if not damageData.DoTTime or damageData.DoTTime <= 0 then
                     DamageArea(instigator, self:GetPosition(1), radius, damage, damageData.DamageType or 'Normal', damageData.DamageFriendly or false)
                 else
                     ForkThread(DefaultDamage.AreaDoTThread, instigator, self:GetPosition(1), damageData.DoTPulses or 1, (damageData.DoTTime / (damageData.DoTPulses or 1)), radius, damage, damageData.DamageType, damageData.DamageFriendly)
                 end
+                
             elseif targetEntity then
+            
                 if not damageData.DoTTime or damageData.DoTTime <= 0 then
                     Damage(instigator, self:GetPosition(), targetEntity, damage, damageData.DamageType)
                 else
                     ForkThread(DefaultDamage.UnitDoTThread, instigator, targetEntity, damageData.DoTPulses or 1, (damageData.DoTTime / (damageData.DoTPulses or 1)), damage, damageData.DamageType, damageData.DamageFriendly)
                 end
+                
             else
+            
                 DamageArea(instigator, self:GetPosition(1), 0.25, damage, damageData.DamageType, damageData.DamageFriendly)
             end
         else
@@ -547,6 +592,7 @@ InvisibleCollisionBeam = Class(moho.CollisionBeamEntity) {
         --  'Shield'
 
         local instigator = self:GetLauncher()
+        
         if not self.DamageTable then
             self:SetDamageTable()
         end
@@ -567,40 +613,7 @@ InvisibleCollisionBeam = Class(moho.CollisionBeamEntity) {
             --    LOG("target ".. tentID .." hit multiple times")
             end
         end
-        --local ImpactEffects = {}
-        --local ImpactEffectScale = 1
-        --[[local army = self:GetArmy()
 
-        if impactType == 'Water' then
-            ImpactEffects = self.FxImpactWater
-            ImpactEffectScale = self.FxWaterHitScale
-        elseif impactType == 'Underwater' or impactType == 'UnitUnderwater' then
-            ImpactEffects = self.FxImpactUnderWater
-            ImpactEffectScale = self.FxUnderWaterHitScale
-        elseif impactType == 'Unit' then
-            ImpactEffects = self.FxImpactUnit
-            ImpactEffectScale = self.FxUnitHitScale
-        elseif impactType == 'UnitAir' then
-            ImpactEffects = self.FxImpactAirUnit
-            ImpactEffectScale = self.FxAirUnitHitScale
-        elseif impactType == 'Terrain' then
-            ImpactEffects = self.FxImpactLand
-            ImpactEffectScale = self.FxLandHitScale
-        elseif impactType == 'Air' or impactType == 'Projectile' then
-            ImpactEffects = self.FxImpactNone
-            ImpactEffectScale = self.FxNoneHitScale
-        elseif impactType == 'Prop' then
-            ImpactEffects = self.FxImpactProp
-            ImpactEffectScale = self.FxPropHitScale
-        elseif impactType == 'Shield' then
-            ImpactEffects = self.FxImpactShield
-            ImpactEffectScale = self.FxShieldHitScale
-        else
-            LOG('*ERROR: CollisionBeam:OnImpact(): UNKNOWN TARGET TYPE ', repr(impactType))
-        end
-
-        self:CreateImpactEffects( army, ImpactEffects, ImpactEffectScale )
-        self:UpdateTerrainCollisionEffects( impactType )]]
     end,
 
     GetCollideFriendly = function(self)
@@ -608,7 +621,9 @@ InvisibleCollisionBeam = Class(moho.CollisionBeamEntity) {
     end,
 
     SetDamageTable = function(self)
+    
         local weaponBlueprint = self.Weapon:GetBlueprint()
+        
         self.DamageTable = {}
         self.DamageTable.DamageRadius = weaponBlueprint.DamageRadius
         self.DamageTable.DamageAmount = weaponBlueprint.Damage
@@ -622,7 +637,9 @@ InvisibleCollisionBeam = Class(moho.CollisionBeamEntity) {
 
     --When this beam impacts with the target, do any buffs that have been passed to it.
     DoUnitImpactBuffs = function(self, target)
+    
         local data = self.DamageTable
+        
         if data.Buffs then
             for k, v in data.Buffs do
                 if v.Add.OnImpact == true and not EntityCategoryContains((ParseEntityCategory(v.TargetDisallow) or ''), target)
@@ -653,25 +670,37 @@ SMeleeBladeBeamWeapon = Class(Weapon) {
     BeamType = InvisibleCollisionBeam,
 
     OnCreate = function(self)
+    
         self.Beams = {}
-        local bp = self:GetBlueprint()
+        
+        local bp = self.bp
+        local counter = 0
+        
         for i, blade in bp.Blades do
+        
             for j, muzzle in blade.MuzzleBones do
+            
                 local beam
+                
                 beam = self.BeamType{
                     Weapon = self,
                     BeamBone = 0,
                     OtherBone = muzzle,
                     CollisionCheckInterval = 1,
                 }
-                local beamTable = { Beam = beam, Muzzle = muzzle, Destroyables = {} }
-                table.insert(self.Beams, beamTable)
+                
+                self.Beams[counter] = { Beam = beam, Muzzle = muzzle, Destroyables = {} }
+                counter = counter + 1
+                
                 self.unit.Trash:Add(beam)
+                
                 beam.DamageTracker = 'DamageTracker'..i
+                
                 beam:SetParentWeapon(self)
                 beam:Disable()
             end
         end
+        
         BareBonesWeapon.OnCreate(self)
     end,
 
@@ -680,14 +709,18 @@ SMeleeBladeBeamWeapon = Class(Weapon) {
         if not self.Blades then
             self.Blades = self:GetBlueprint().Blades
         end
+        
         if self.NoAttackChance and self.NoAttackChance >= math.random(1,4) then
             --This allows it to still attack with both, but makes it less likely.
             return
         end
+        
         --Pick which limb or set of limbs we're doing
         local bn = math.random(1, table.getn(self.Blades))
+        
         --If that limb is busy, try again later.
         local bncheck = 'Is'..bn..'Swinging'
+        
         if self[bncheck] then
             return
         end
@@ -695,16 +728,20 @@ SMeleeBladeBeamWeapon = Class(Weapon) {
         --Set up
         local blade = self.Blades[bn]
         local bnanim = 'Animator' .. bn
+        
         if not self[bnanim] then
             self[bnanim] = CreateAnimator(self.unit)
             self.unit.Trash:Add(self[bnanim])
         end
+        
         -- no point checking if anything is in it, it needs resetting, and it'll only be empty if we missed
         self['DamageTracker'..bn] = {}
+        
         --Start swinging
         self[bncheck] = true
         self.NoAttackChance = 3
         self[bnanim]:PlayAnim(blade.Animations[math.random(1, table.getn(blade.Animations))]):SetRate(0.65 + math.random()/5)
+        
         --Disable walk and idle anims on the main limb(s)
         local SetOtherAnimatorsActive = function(self, blade, active)
             for i, bone in blade.LimbBones do
@@ -715,21 +752,27 @@ SMeleeBladeBeamWeapon = Class(Weapon) {
                 end
             end
         end
+        
         SetOtherAnimatorsActive(self, blade, false)
+        
         self:ForkThread(function()
             local AFF = {0.35,0.65}
             local totalAnimLength = self[bnanim]:GetAnimationDuration()/math.abs(self[bnanim]:GetRate()) * 10
+            
             --Wait unti blade is swinging
             coroutine.yield(totalAnimLength * AFF[1])
             self.NoAttackChance = 2
+            
             --Enable collision beams
             for i, muzzle in blade.MuzzleBones do
                 self:PlayFxBeamStart(muzzle)
             end
+            
             --Wait until blade has finished swinging
             coroutine.yield(totalAnimLength * (AFF[2] - AFF[1]))
             self.NoAttackChance = 1
             self:PlayFxBeamEnd()
+            
             --Wait until the reset portion of the animation is complete
             coroutine.yield(totalAnimLength * (1 - AFF[2]))
             self.NoAttackChance = 0
@@ -739,29 +782,39 @@ SMeleeBladeBeamWeapon = Class(Weapon) {
     end,
 
     PlayFxBeamStart = function(self, muzzle)
-        local army = self.unit:GetArmy()
-        local bp = self:GetBlueprint()
+    
+        local army = self.unit.Sync.army
+        local bp = self.bp
+        
         local beam
         local beamTable
+        
         for k, v in self.Beams do
             if v.Muzzle == muzzle then
                 beam = v.Beam
                 beamTable = v
             end
         end
+        
         if not beam then
             error('*ERROR: We have a beam created that does not coincide with a muzzle bone.  Internal Error, aborting beam weapon.', 2)
             return
         end
+        
         if beam:IsEnabled() then return end
+        
         beam:Enable()
+        
         self.HoldFireThread = self:ForkThread(self.WatchForHoldFire, beam)
         self.BeamStarted = true
     end,
 
     PlayFxBeamEnd = function(self, beam)
+    
         if not self.unit.Dead then
-            local bp = self:GetBlueprint()
+        
+            local bp = self.bp
+            
             if beam then
                 beam:Disable()
             else
@@ -769,8 +822,10 @@ SMeleeBladeBeamWeapon = Class(Weapon) {
                     v.Beam:Disable()
                 end
             end
+            
             self.BeamStarted = false
         end
+        
         if self.HoldFireThread then
             KillThread(self.HoldFireThread)
         end

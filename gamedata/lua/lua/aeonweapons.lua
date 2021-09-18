@@ -279,11 +279,15 @@ AIFArtilleryMiasmaShellWeapon = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = {},
 
     CreateProjectileForWeapon = function(self, bone)
+    
         local proj = self:CreateProjectile(bone)
+        
         local damageTable = self.damageTable
-        local blueprint = GetBlueprint(self)
+        
+        local blueprint = self.bp
+        
         local data = {
-                --Instigator = self.unit,
+
                 Damage = blueprint.DoTDamage,
                 Duration = blueprint.DoTDuration,
                 Frequency = blueprint.DoTFrequency,
@@ -317,12 +321,15 @@ AANDepthChargeBombWeapon = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = {'/effects/emitters/antiair_muzzle_fire_02_emit.bp',},
 
     CreateProjectileForWeapon = function(self, bone)
+    
         local proj = self:CreateProjectile(bone)
+        
         local damageTable = self.damageTable
-        local blueprint = GetBlueprint(self)
+        
+        local blueprint = self.bp
+        
         local data = {
-                Army = GetArmy(self.unit),
-                --Instigator = self.unit,
+                Army = self.unit.Sync.army,
                 StartRadius = blueprint.DOTStartRadius,
                 EndRadius = blueprint.DOTEndRadius,
                 DOTtype = blueprint.DOTtype,
@@ -336,6 +343,7 @@ AANDepthChargeBombWeapon = Class(DefaultProjectileWeapon) {
             proj:PassDamageData(damageTable)
             proj:PassData(data)
         end
+        
         return proj
     end,
 }
@@ -344,12 +352,15 @@ AANTorpedoCluster = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = {'/effects/emitters/aeon_torpedocluster_flash_01_emit.bp',},
 
     CreateProjectileForWeapon = function(self, bone)
+    
         local proj = self:CreateProjectile(bone)
+        
         local damageTable = self.damageTable
-        local blueprint = GetBlueprint(self)
+        
+        local blueprint = self.bp
+        
         local data = {
-                Army = GetArmy(self.unit),
-                --Instigator = self.unit,
+                Army = self.unit.Sync.army,
                 StartRadius = blueprint.DOTStartRadius,
                 EndRadius = blueprint.DOTEndRadius,
                 DOTtype = blueprint.DOTtype,
@@ -363,14 +374,19 @@ AANTorpedoCluster = Class(DefaultProjectileWeapon) {
             proj:PassDamageData(damageTable)
             proj:PassData(data)
         end
+        
         return proj
     end,
 }
 
 AIFSmartCharge = Class(DefaultProjectileWeapon) {
+
     CreateProjectileAtMuzzle = function(self, muzzle)
+    
         local proj = DefaultProjectileWeapon.CreateProjectileAtMuzzle(self, muzzle)
-        local tbl = self:GetBlueprint().DepthCharge
+        
+        local tbl = self.bp.DepthCharge
+        
         proj:AddDepthCharge(tbl)
     end,
 }
@@ -394,11 +410,12 @@ AKamikazeWeapon = Class(KamikazeWeapon) {
 AIFQuantumWarhead = Class(DefaultProjectileWeapon) {}
 
 AIFCommanderDeathWeapon = Class(BareBonesWeapon) {
+
     OnCreate = function(self)
 	
         BareBonesWeapon.OnCreate(self)
 
-        local myBlueprint = GetBlueprint(self)
+        local myBlueprint = self.bp
 		
         self.Data = {
             NukeOuterRingDamage = myBlueprint.NukeOuterRingDamage or 10,
@@ -417,8 +434,8 @@ AIFCommanderDeathWeapon = Class(BareBonesWeapon) {
     end,
 
     Fire = function(self)
-        local myBlueprint = GetBlueprint(self)
-        local myProjectile = self.unit:CreateProjectile( myBlueprint.ProjectileId, 0, 0, 0, nil, nil, nil):SetCollision(false)
+
+        local myProjectile = self.unit:CreateProjectile( self.bp.ProjectileId, 0, 0, 0, nil, nil, nil):SetCollision(false)
 		
         myProjectile:PassDamageData(self.damageTable)
 		
@@ -429,10 +446,12 @@ AIFCommanderDeathWeapon = Class(BareBonesWeapon) {
 }
 
 AIFParagonDeathWeapon = Class(BareBonesWeapon) {
+
     OnCreate = function(self)
+    
         BareBonesWeapon.OnCreate(self)
 
-        local myBlueprint = GetBlueprint(self)
+        local myBlueprint = self.bp
 
         self.Data = {
             NukeOuterRingDamage = myBlueprint.NukeOuterRingDamage or 10,
@@ -452,8 +471,8 @@ AIFParagonDeathWeapon = Class(BareBonesWeapon) {
     end,
 
     Fire = function(self)
-        local myBlueprint = GetBlueprint(self)
-        local myProjectile = self.unit:CreateProjectile( myBlueprint.ProjectileId, 0, 0, 0, nil, nil, nil):SetCollision(false)
+
+        local myProjectile = self.unit:CreateProjectile( self.bp.ProjectileId, 0, 0, 0, nil, nil, nil):SetCollision(false)
 		
         myProjectile:PassDamageData(self.damageTable)
 		
@@ -472,6 +491,7 @@ ADFLaserHighIntensityWeapon = Class(DefaultProjectileWeapon) {
 }
 
 AAATemporalFizzWeapon = Class(DefaultProjectileWeapon) {
+
     FxChargeEffects = { '/effects/emitters/temporal_fizz_muzzle_charge_01_emit.bp', },
     FxMuzzleFlash = { '/effects/emitters/temporal_fizz_muzzle_flash_01_emit.bp',},
     ChargeEffectMuzzles = {},
@@ -480,7 +500,8 @@ AAATemporalFizzWeapon = Class(DefaultProjectileWeapon) {
     
         DefaultProjectileWeapon.PlayFxRackSalvoChargeSequence(self)
 		
-        local army = GetArmy(self.unit)
+        local army = self.unit.Sync.army
+        
 		local CreateAttachedEmitter = CreateAttachedEmitter
 		
         for _, valueb in self.ChargeEffectMuzzles do
@@ -526,8 +547,11 @@ AQuantumBeamGenerator = Class(DefaultBeamWeapon) {
     FxUpackingChargeEffectScale = 1,
 
     PlayFxWeaponUnpackSequence = function( self )
-        local army = GetArmy(self.unit)
-        local bp = GetBlueprint(self)
+    
+        local army = self.unit.Sync.army
+        
+        local bp = self.bp
+        
 		local CreateAttachedEmitter = CreateAttachedEmitter
 		
         for k, v in self.FxUpackingChargeEffects do
@@ -535,6 +559,7 @@ AQuantumBeamGenerator = Class(DefaultBeamWeapon) {
                 CreateAttachedEmitter(self.unit, ev, army, v):ScaleEmitter(self.FxUpackingChargeEffectScale)
             end
         end
+        
         DefaultBeamWeapon.PlayFxWeaponUnpackSequence(self)
     end,
 }
@@ -548,6 +573,7 @@ AAMWillOWisp = Class(DefaultProjectileWeapon) {
 }
 
 ADFPhasonLaser = Class(DefaultBeamWeapon) {
+
     BeamType = PhasonLaserCollisionBeam,
     FxMuzzleFlash = {},
     FxChargeMuzzleFlash = {},
@@ -555,9 +581,13 @@ ADFPhasonLaser = Class(DefaultBeamWeapon) {
     FxUpackingChargeEffectScale = 1,
 
     PlayFxWeaponUnpackSequence = function( self )
+    
         if not self.ContBeamOn then
-            local army = GetArmy(self.unit)
-            local bp = GetBlueprint(self)
+        
+            local army = self.unit.Sync.army
+            
+            local bp = self.bp
+            
 			local CreateAttachedEmitter = CreateAttachedEmitter
 			
             for k, v in self.FxUpackingChargeEffects do
@@ -567,6 +597,7 @@ ADFPhasonLaser = Class(DefaultBeamWeapon) {
 					end
 				end
             end
+            
             DefaultBeamWeapon.PlayFxWeaponUnpackSequence(self)
         end
     end,

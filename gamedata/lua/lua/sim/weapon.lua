@@ -46,8 +46,11 @@ Weapon = Class(moho.weapon_methods) {
 
 		-- use the trash on the parent unit
 		self.Trash = self.unit.Trash
+        
+        -- store the blueprint of the weapon 
+        self.bp = GetBlueprint(self)
 		
-        local bp = GetBlueprint(self)
+        local bp = self.bp
 
         -- brought this function local since it's the only place it gets called
         if bp.Turreted == true then
@@ -303,31 +306,19 @@ Weapon = Class(moho.weapon_methods) {
     end,
 
     GetTurretYawMinMax = function(self,blueprint)
-
-		local bp = blueprint or GetBlueprint(self)
-
-        return bp.TurretYaw - bp.TurretYawRange, bp.TurretYaw + bp.TurretYawRange
+        return self.bp.TurretYaw - self.bp.TurretYawRange, self.bp.TurretYaw + self.bp.TurretYawRange
     end,
 
     GetTurretYawSpeed = function(self,blueprint)
-	
-		local bp = blueprint or GetBlueprint(self)
-		
-        return bp.TurretYawSpeed
+        return self.bp.TurretYawSpeed
     end,
 
     GetTurretPitchMinMax = function(self,blueprint)
-	
-		local bp = blueprint or GetBlueprint(self)
-
-        return bp.TurretPitch - bp.TurretPitchRange, bp.TurretPitch + bp.TurretPitchRange
+        return self.bp.TurretPitch - self.bp.TurretPitchRange, self.bp.TurretPitch + self.bp.TurretPitchRange
     end,
 
     GetTurretPitchSpeed = function(self,blueprint)
-	
-		local bp = blueprint or GetBlueprint(self)
-		
-        return bp.TurretPitchSpeed
+        return self.bp.TurretPitchSpeed
     end,
 
     OnFire = function(self)
@@ -362,9 +353,7 @@ Weapon = Class(moho.weapon_methods) {
     end,
 
     OnGotTarget = function(self)
-	
-		--LOG("*AI DEBUG Weapon OnGotTarget")
-	
+
         if self.DisabledFiringBones and self.unit.Animator then
 		
             for _, value in self.DisabledFiringBones do
@@ -378,9 +367,7 @@ Weapon = Class(moho.weapon_methods) {
     end,
 
     OnLostTarget = function(self)
-	
-		--LOG("*AI DEBUG Weapon OnLostTarget")
-	
+
         if self.DisabledFiringBones and self.unit.Animator then
 		
             for _, value in self.DisabledFiringBones do
@@ -394,11 +381,11 @@ Weapon = Class(moho.weapon_methods) {
     end,
 
     OnStartTracking = function(self, label)
-        --self:PlayWeaponSound('BarrelStart')
+        self:PlayWeaponSound('BarrelStart')
     end,
 
     OnStopTracking = function(self, label)
-        --self:PlayWeaponSound('BarrelStop')
+        self:PlayWeaponSound('BarrelStop')
 		
         if LOUDENTITY(STRUCTURE, self.unit) then
             self.AimControl:SetResetPoseTime(9999999)
@@ -407,12 +394,10 @@ Weapon = Class(moho.weapon_methods) {
     end,
 
     PlayWeaponSound = function(self, sound)
-	
-        local bp = GetBlueprint(self)
+
+        if not self.bp.Audio[sound] then return end
 		
-        if not bp.Audio[sound] then return end
-		
-        PlaySound( self, bp.Audio[sound] )
+        PlaySound( self, self.bp.Audio[sound] )
 		
     end,
 
@@ -519,7 +504,7 @@ Weapon = Class(moho.weapon_methods) {
 			
 			if self.NukeWeapon then
 			
-				local bp = GetBlueprint(self)
+				local bp = self.bp
 
                 proj.Data = {
 				
@@ -545,7 +530,7 @@ Weapon = Class(moho.weapon_methods) {
 
     SetValidTargetsForCurrentLayer = function(self, newLayer, bp)
 
-        local weaponBlueprint = bp or GetBlueprint(self)
+        local weaponBlueprint = self.bp
 		
         if weaponBlueprint.FireTargetLayerCapsTable then
 		
@@ -566,17 +551,17 @@ Weapon = Class(moho.weapon_methods) {
 		local LOUDPARSE = ParseEntityCategory
 		
         if not priTable then
-		
-            local bp = GetBlueprint(self)
-			
-            if bp.TargetPriorities then
+
+            if self.bp.TargetPriorities then
 			
                 local priorityTable = {}
 				local counter = 1
 				
-                for k, v in bp.TargetPriorities do
+                for k, v in self.bp.TargetPriorities do
+                
                     priorityTable[counter] = LOUDPARSE(v)
 					counter = counter + 1
+                    
                 end
 				
                 SetTargetingPriorities( self, priorityTable )
@@ -590,8 +575,10 @@ Weapon = Class(moho.weapon_methods) {
 				local counter = 1
 				
                 for k, v in priTable do
+                
                     priorityTable[counter] = LOUDPARSE(v)
 					counter = counter + 1
+                    
                 end
 				
                 SetTargetingPriorities( self, priorityTable )
@@ -605,12 +592,10 @@ Weapon = Class(moho.weapon_methods) {
     end,
 
     WeaponUsesEnergy = function(self)
-	
-        local bp = GetBlueprint(self)
+
+        if self.bp.EnergyRequired then
 		
-        if bp.EnergyRequired then
-		
-			return bp.EnergyRequired > 0
+			return self.bp.EnergyRequired > 0
 			
         end
 		
@@ -639,9 +624,7 @@ Weapon = Class(moho.weapon_methods) {
     DisableBuff = function(self, buffname)
 	
         if buffname then
-		
-			--LOG("*AI DEBUG Weapon DisableBuff "..repr(buffname))
-		
+
 			if not self.Disabledbf then
 				self.Disabledbf = {}
 			end
@@ -649,7 +632,7 @@ Weapon = Class(moho.weapon_methods) {
             for k, v in self.Disabledbf do
 			
                 if v == buffname then
-                    #this buff is already in the table
+                    -- buff already in the table
                     return
                 end
             end
@@ -711,10 +694,8 @@ Weapon = Class(moho.weapon_methods) {
             self:SetEnabled(enable)
             return
         end
-		
-        local bp = GetBlueprint(self)
-		
-        if bp.EnabledByEnhancement then
+
+        if self.bp.EnabledByEnhancement then
 		
             local id = self.unit:GetEntityId()
 			
@@ -722,11 +703,14 @@ Weapon = Class(moho.weapon_methods) {
 			
                 for k, v in SimUnitEnhancements[id] do
 				
-                    if v == bp.EnabledByEnhancement then
+                    if v == self.bp.EnabledByEnhancement then
+                    
                         self:SetEnabled(enable)
                         return
                     end
+                    
                 end
+                
             end
 			
             --Enhancement needed but doesn't have it, don't allow weapon to be enabled.
