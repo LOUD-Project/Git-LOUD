@@ -416,6 +416,8 @@ function AINewExpansionBase( aiBrain, baseName, position, engineer, construction
 			
 		end
         
+        local basevalue, island
+        
 		-- build a list of possible base plan choices
 		for templateName, baseData in BaseBuilderTemplates do
 			
@@ -424,7 +426,7 @@ function AINewExpansionBase( aiBrain, baseName, position, engineer, construction
 			-- technically, some basebuildertemplates could be less affected by threat but I don't see it
 			-- essentially the expansion function just returns a reduced value according to how close threat is to the position
 			-- this was originally intended to select different base plans
-			local baseValue,island = baseData.ExpansionFunction( aiBrain, position, constructionData.NearMarkerType )
+			baseValue,island = baseData.ExpansionFunction( aiBrain, position, constructionData.NearMarkerType )
 
 			if baseValue > 0 then
             

@@ -874,7 +874,7 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
                                 
                                     -- if the shield is On and it covers the target
                                     if s:ShieldIsOn() and VDist2(s:GetPosition()[1],s:GetPosition()[3],unitposition[1],unitposition[3]) < s.MyShield.Size then
-                                        enemythreat = enemythreat + (s.MyShield:GetHealth() * .01)	-- threat plus 1% of shield strength
+                                        enemythreat = enemythreat + (s.MyShield:GetHealth() * .02)	-- threat plus 2% of shield strength
                                     end
                                     
                                 end

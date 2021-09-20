@@ -535,14 +535,15 @@ function AIFindDefensivePointNeedsStructureFromPoint( aiBrain, point, radius, ca
     local positions = AIGetMarkersAroundLocation( aiBrain, 'Defensive Point', point, radius, tMin, tMax, tRings, tType)
     
 	positions = TABLECAT(positions, AIGetMarkersAroundLocation( aiBrain, 'Expansion Area', point, radius, tMin, tMax, tRings, tType))
-    
-    local searchcats = LOUDPARSE(category)
-	
+
     LOUDSORT(positions, function(a,b) return VDist2Sq(a.Position[1],a.Position[3], point[1],point[3]) < VDist2Sq(b.Position[1],b.Position[3], point[1],point[3]) end)
     
+    local searchcats = LOUDPARSE(category)
+    local numunits
+
     for _,v in positions do
 	
-        local numUnits = GetNumberOfOwnUnitsAroundPoint( aiBrain, searchcats, v.Position, markerRadius )
+        numUnits = GetNumberOfOwnUnitsAroundPoint( aiBrain, searchcats, v.Position, markerRadius )
 
         if numUnits <= unitMax then
 			return v.Position, v.Name
@@ -584,10 +585,12 @@ function AIGetClosestThreatMarkerLoc(aiBrain, markerType, startX, startZ, threat
     local GetThreatAtPosition = moho.aibrain_methods.GetThreatAtPosition
     
     LOUDSORT(markerlist, function(a,b) return VDist2Sq(a.Position[1],a.Position[3],startX,startZ) < VDist2Sq(b.Position[1],b.Position[3],startX,startZ) end)
+    
+    local threat
 
     for k, v in markerlist do
 	
-        local threat = GetThreatAtPosition( aiBrain, v.Position, rings, true, threatType or 'Overall')
+        threat = GetThreatAtPosition( aiBrain, v.Position, rings, true, threatType or 'Overall')
         
         if threat >= threatMin and threat <= threatMax then
 			return v.Position, v.Name
@@ -683,6 +686,7 @@ function GetOwnUnitsAroundPointWithThreatCheck( aiBrain, category, location, rad
 	
     local mlist = {}
 	local counter = 0
+    local threat
 
     for k,v in GetUnitsAroundPoint( aiBrain, category, location, radius, 'Ally' ) do
 	
@@ -690,14 +694,13 @@ function GetOwnUnitsAroundPointWithThreatCheck( aiBrain, category, location, rad
 
 			if tmin and tmax then
 			
-				local threat = GetThreatAtPosition( aiBrain, v:GetPosition(), rings or 1, true, tType or 'Overall' )
+				threat = GetThreatAtPosition( aiBrain, v:GetPosition(), rings or 1, true, tType or 'Overall' )
 				
 				if threat >= tmin and threat <= tmax then
 			
 					counter = counter + 1
 					mlist[counter] = v
-
-					
+				
 				end
 				
 			else
@@ -805,13 +808,14 @@ function AIFindBrainTargetAroundPoint( aiBrain, position, maxRange, category )
     
     local retUnit = false
     local distance = false
+    local unitPos, newdist
 	
     for num, unit in targetUnits do
 	
         if not unit.Dead then
 		
-            local unitPos = unit:GetPosition()
-			local newdist = VDist2( position[1],position[3], unitPos[1],unitPos[3] )
+            unitPos = unit:GetPosition()
+			newdist = VDist2( position[1],position[3], unitPos[1],unitPos[3] )
 			
             if not retUnit or newdist < distance then
                 retUnit = unit
@@ -990,12 +994,13 @@ function GetThreatDistance(aiBrain, position, threatCutoff )
 
     local threatTable = aiBrain:GetThreatsAroundPosition( position, 4, true, 'StructuresNotMex')
     local closestHighThreat = 999999
+    local dist
 	
     for k,v in threatTable do
 
         if v[3] > threatCutoff then
 		
-            local dist = VDist2( v[1], v[2], position[1], position[3] )
+            dist = VDist2( v[1], v[2], position[1], position[3] )
 			
             if not closestHighThreat or dist < closestHighThreat then
 			
