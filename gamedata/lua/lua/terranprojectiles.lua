@@ -78,7 +78,8 @@ TArtilleryAntiMatterProjectile = Class(SinglePolyTrailProjectile) {
 
     OnImpact = function(self, targetType, targetEntity)
 	
-        local army = GetArmy(self)
+        local army = self.Army
+        
 		local pos = self:GetPosition()
 		local rf = GetRandomFloat(0,2*math.pi)
 		local CreateDecal = CreateDecal
@@ -104,7 +105,9 @@ TArtilleryAntiMatterProjectile02 = Class(TArtilleryAntiMatterProjectile) {
     FxImpactLand = EffectTemplate.TAntiMatterShellHit02,
 
     OnImpact = function(self, targetType, targetEntity)
-        local army = GetArmy(self)
+    
+        local army = self.Army
+        
         local pos = self:GetPosition()
 		local rf = GetRandomFloat(0,2*math.pi)
 		local CreateDecal = CreateDecal
@@ -179,7 +182,8 @@ TDepthChargeProjectile = Class(OnWaterEntryEmitterProjectile) {
 	
         OnWaterEntryEmitterProjectile.OnEnterWater(self)
 		
-        local army = GetArmy(self)
+        local army = self.Army
+        
 		local CreateEmitterAtEntity = CreateEmitterAtEntity
 
         for k, v in self.FxEnterWater do #--splash
@@ -262,11 +266,15 @@ TIFSmallYieldNuclearBombProjectile = Class(EmitterProjectile) {
     FxImpactUnderWater = {},
 
     OnImpact = function(self, TargetType, TargetEntity)
-        local army = GetArmy(self)
+    
+        local army = self.Army
+        
         CreateLightParticle( self, -1, army, 2.75, 4, 'sparkle_03', 'ramp_fire_03' )
+        
         if TargetType == 'Terrain' then
             CreateSplat( self:GetPosition(), 0, 'scorch_008_albedo', 6, 6, 200, 120, army )
         end
+        
         EmitterProjectile.OnImpact( self, TargetType, TargetEntity )
     end,
 }
@@ -381,11 +389,15 @@ TMissileCruiseProjectile02 = Class(SingleBeamProjectile) {
     end,
 
     CreateImpactEffects = function( self, army, EffectTable, EffectScale )
+    
         local emit = nil
+        
 		local CreateEmitterAtEntity = CreateEmitterAtEntity
 		
         for k, v in EffectTable do
+        
             emit = CreateEmitterAtEntity(self,army,v)
+            
             if emit and EffectScale != 1 then
                 emit:ScaleEmitter(EffectScale or 1)
             end
@@ -406,8 +418,11 @@ TMissileCruiseSubProjectile = Class(SingleBeamProjectile) {
     FxImpactUnderWater = {},
 
     OnExitWater = function(self)
+    
 		EmitterProjectile.OnExitWater(self)
-		local army = GetArmy(self)
+        
+		local army = self.Army
+        
 		local CreateEmitterAtBone = CreateEmitterAtBone
 		
 		for k, v in self.FxExitWaterEmitter do
@@ -535,12 +550,14 @@ TTorpedoShipProjectile = Class(OnWaterEntryEmitterProjectile) {
         OnWaterEntryEmitterProjectile.OnEnterWater(self)
         self:SetCollisionShape('Sphere', 0, 0, 0, 1.0)
 		
-        local army = GetArmy(self)
+        local army = self.Army
+        
 		local CreateEmitterAtEntity = CreateEmitterAtEntity
 
         for k, v in self.FxEnterWater do #splash
             CreateEmitterAtEntity(self,army,v)
         end
+        
         self:TrackTarget(true)
         self:StayUnderwater(true)
         self:SetTurnRate(120)

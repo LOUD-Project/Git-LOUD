@@ -90,9 +90,12 @@ TDFHiroPlasmaCannon = Class(DefaultBeamWeapon) {
     FxUpackingChargeEffectScale = 1,
 
     PlayFxWeaponUnpackSequence = function( self )
+    
         if not self.ContBeamOn then
-            local army = self.unit:GetArmy()
-            local bp = self:GetBlueprint()
+        
+            local army = self.unit.Sync.army
+            local bp = self.bp
+            
 			local CreateAttachedEmitter = CreateAttachedEmitter
 			
             for k, v in self.FxUpackingChargeEffects do
@@ -106,14 +109,18 @@ TDFHiroPlasmaCannon = Class(DefaultBeamWeapon) {
 }
 
 TAAFlakArtilleryCannon = Class(DefaultProjectileWeapon) {
+
     FxMuzzleFlash = EffectTemplate.TFlakCannonMuzzleFlash01,
-    #-- Custom over-ride for this weapon, so it passes data and damageTable
+    
+    -- Custom over-ride for this weapon, so it passes data and damageTable
     CreateProjectileForWeapon = function(self, bone)
+    
         local proj = self:CreateProjectile(bone)
         local damageTable = self.damageTable
-        local blueprint = self:GetBlueprint()
+        
+        local blueprint = self.bp
         local data = {
-            --Instigator = self.unit,
+
             Damage = blueprint.DoTDamage,
             Duration = blueprint.DoTDuration,
             Frequency = blueprint.DoTFrequency,
@@ -175,18 +182,21 @@ TIFSmartCharge = Class(DefaultProjectileWeapon) {
 
     CreateProjectileAtMuzzle = function(self, muzzle)
         local proj = DefaultProjectileWeapon.CreateProjectileAtMuzzle(self, muzzle)
-        local tbl = self:GetBlueprint().DepthCharge
+        local tbl = self.bp.DepthCharge
         proj:AddDepthCharge(tbl)
     end,
 }
 
 TIFCommanderDeathWeapon = Class(BareBonesWeapon) {
-    FiringMuzzleBones = {0}, # just fire from the base bone of the unit
+    FiringMuzzleBones = {0}, -- just fire from the base bone of the unit
 
     OnCreate = function(self)
+    
         BareBonesWeapon.OnCreate(self)
-        local myBlueprint = self:GetBlueprint()
-        # The "or x" is supplying default values in case the blueprint doesn't have an overriding value
+        
+        local myBlueprint = self.bp
+        
+        --# The "or x" is supplying default values in case the blueprint doesn't have an overriding value
         self.Data = {
             NukeOuterRingDamage = myBlueprint.NukeOuterRingDamage or 10,
             NukeOuterRingRadius = myBlueprint.NukeOuterRingRadius or 40,
@@ -206,9 +216,12 @@ TIFCommanderDeathWeapon = Class(BareBonesWeapon) {
     end,
 
     Fire = function(self)
-        local myBlueprint = self:GetBlueprint()
+    
+        local myBlueprint = self.bp
         local myProjectile = self.unit:CreateProjectile( myBlueprint.ProjectileId, 0, 0, 0, nil, nil, nil):SetCollision(false)
+        
         myProjectile:PassDamageData(self.damageTable)
+        
         if self.Data then
             myProjectile:PassData(self.Data)
         end
@@ -228,9 +241,10 @@ TIFCarpetBombWeapon = Class(DefaultProjectileWeapon) {
     CreateProjectileForWeapon = function(self, bone)
         local projectile = self:CreateProjectile(bone)
         local damageTable = self.damageTable
-        local blueprint = self:GetBlueprint()
+        
+        local blueprint = self.bp
         local data = {
-            --Instigator = self.unit,
+
             Damage = blueprint.DoTDamage,
             Duration = blueprint.DoTDuration,
             Frequency = blueprint.DoTFrequency,
@@ -238,10 +252,12 @@ TIFCarpetBombWeapon = Class(DefaultProjectileWeapon) {
             Type = 'Normal',
             DamageFriendly = blueprint.DamageFriendly,
         }
+        
         if projectile and not projectile:BeenDestroyed() then
             projectile:PassData(data)
             projectile:PassDamageData(damageTable)
         end
+        
         return projectile
     end,
 }
@@ -263,8 +279,10 @@ TAMPhalanxWeapon = Class(DefaultProjectileWeapon) {
     FxShellEject  = EffectTemplate.TPhalanxGunShells,
 
     PlayFxMuzzleSequence = function(self, muzzle)
-        local army = self.unit:GetArmy()
-        local bp = self:GetBlueprint()
+    
+        local army = self.unit.Sync.army
+        local bp = self.bp
+        
 		local CreateAttachedEmitter = CreateAttachedEmitter
 		
 		DefaultProjectileWeapon.PlayFxMuzzleSequence(self, muzzle)
@@ -276,13 +294,17 @@ TAMPhalanxWeapon = Class(DefaultProjectileWeapon) {
 }
 
 TOrbitalDeathLaserBeamWeapon = Class(DefaultBeamWeapon) {
+
     BeamType = OrbitalDeathLaserCollisionBeam,
+    
     FxUpackingChargeEffects = {},
     FxUpackingChargeEffectScale = 1,
 
     PlayFxWeaponUnpackSequence = function( self )
-        local army = self.unit:GetArmy()
-        local bp = self:GetBlueprint()
+    
+        local army = self.unit.Sync.army
+        local bp = self.bp
+        
         local CreateAttachedEmitter = CreateAttachedEmitter
 		
         for _, v in self.FxUpackingChargeEffects do
@@ -290,6 +312,7 @@ TOrbitalDeathLaserBeamWeapon = Class(DefaultBeamWeapon) {
                 CreateAttachedEmitter(self.unit, ev, army, v):ScaleEmitter(self.FxUpackingChargeEffectScale)
             end
         end
+        
         DefaultBeamWeapon.PlayFxWeaponUnpackSequence(self)
     end,
 }
