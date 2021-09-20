@@ -187,7 +187,7 @@ function FindClosestBaseName( aiBrain, position, allownavalbases, onlynavalbases
     local distance = 99999999
 	local closest = false
     
-    local BM = aiBrain.BuidlerManagers
+    local BM = aiBrain.BuilderManagers
 	
     for k,v in BM do
 	

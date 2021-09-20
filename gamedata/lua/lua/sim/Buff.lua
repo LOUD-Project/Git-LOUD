@@ -59,6 +59,8 @@ local RequestRefreshUI = moho.entity_methods.RequestRefreshUI
 -- This function is a fire-and-forget.  Apply this and it'll be applied over time if there is a duration.
 function ApplyBuff(unit, buffName, instigator)
 
+    local BuffDialog = ScenarioInfo.BuffDialog
+
     if not unit or unit.Dead or not unit.Buffs.BuffTable then
         return
     end
@@ -124,10 +126,8 @@ function ApplyBuff(unit, buffName, instigator)
 
     local uaffects = unit.Buffs.Affects
 	
-	if ScenarioInfo.BuffDialog then
-
+	if BuffDialog then
 		LOG("*AI DEBUG Applying "..buffName.." to "..repr(unit:GetBlueprint().Description).." "..unit.Sync.id )
-		
 	end
 
     if def.Affects then
@@ -198,10 +198,12 @@ function ApplyBuff(unit, buffName, instigator)
 	-- we have a visual effect - we bump the count to 1 to insure that we
 	-- flush the visual effect when the buff comes off
     if newbuff and Buffs[buffName].Effects then
+    
+        local bufffx
 
 		for k, fx in Buffs[buffName].Effects do
 
-			local bufffx = CreateAttachedEmitter(unit, 0, unit.Sync.army, fx)
+			bufffx = CreateAttachedEmitter(unit, 0, unit.Sync.army, fx)
 
 			if Buffs[buffName].EffectsScale then
 				bufffx:ScaleEmitter(Buffs[buffName].EffectsScale)
@@ -268,10 +270,8 @@ function ApplyBuff(unit, buffName, instigator)
 
 	end
 
-	if ScenarioInfo.BuffDialog then
-	
+	if BuffDialog then
 		LOG("*AI DEBUG Unit "..unit:GetBlueprint().Description.." after applying buffs is "..repr(unit.Buffs))
-		
 	end
 
 end
@@ -279,8 +279,6 @@ end
 -- Function to do work on the buff.  Apply the buff every second
 -- Then remove the buff so it can be applied again
 function BuffWorkThread(unit, buffName, instigator)
-
-	--LOG("*AI DEBUG BuffWorkThread launched")
 
 	local buffTable = Buffs[buffName]
 
@@ -296,7 +294,7 @@ function BuffWorkThread(unit, buffName, instigator)
 
 		if pulse < buffTable.Duration then
 
-			WaitTicks(10)
+			WaitTicks(11)
 
 		end
 	end
@@ -315,6 +313,8 @@ end
 -- However, this doesn't work for stunned units because it's a fire-and-forget type buff, not a fire-and-keep-track-of type buff.
 function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 
+    local BuffDialog = ScenarioInfo.BuffDialog
+    
     local buffDef = Buffs[buffName]
 
     local buffAffects = buffDef.Affects
@@ -327,7 +327,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 		instigator = unit
 	end
 	
-	if ScenarioInfo.BuffDialog then
+	if BuffDialog then
 		LOG("*AI DEBUG Affecting unit "..repr(unit:GetBlueprint().Description).." with Buff "..buffName.." from "..repr(instigator:GetBlueprint().Description) )
 	end
 
@@ -837,6 +837,8 @@ end
 -- Calculates the buff from all the buffs of the same time the unit has.
 function BuffCalculate(unit, buffName, affectType, initialVal, initialBool)
 
+    local BuffDialog = ScenarioInfo.BuffDialog
+    
     local adds = 0
     local mults = 1.0
     local bool = initialBool or false
@@ -849,7 +851,7 @@ function BuffCalculate(unit, buffName, affectType, initialVal, initialBool)
 
 		for k, v in unit.Buffs.Affects[affectType] do
 		
-			if ScenarioInfo.BuffDialog then	
+			if BuffDialog then	
 				LOG("*AI DEBUG Affecting "..repr(v))
 			end
 
@@ -894,7 +896,7 @@ function BuffCalculate(unit, buffName, affectType, initialVal, initialBool)
 		returnVal = highestCeil
 	end
 	
-	if ScenarioInfo.BuffDialog then
+	if BuffDialog then
 		LOG("*AI DEBUG Returnval is "..repr(returnVal).." bool is "..repr(bool))
 	end
 
@@ -904,17 +906,16 @@ end
 -- altered to report true/false if Buff was removed --
 function RemoveBuff(unit, buffName, removeAllCounts, instigator)
 
+    local BuffDialog = ScenarioInfo.BuffDialog
+    
     local def = Buffs[buffName]
 
     local unitBuff = unit.Buffs.BuffTable[def.BuffType][buffName]
 
 	if unitBuff then
 
-        if ScenarioInfo.BuffDialog then
+        if BuffDialog then
             LOG("*AI DEBUG Removing Buff "..buffName.." from "..repr(unit:GetBlueprint().Description))
-        end
-	
-		if ScenarioInfo.BuffDialog then
 			LOG("*AI DEBUG before Removing "..buffName.." unit data is "..repr(unit.Buffs) )	
 		end
 
@@ -982,7 +983,7 @@ function RemoveBuff(unit, buffName, removeAllCounts, instigator)
         return false
     end
 	
-	if ScenarioInfo.BuffDialog then
+	if BuffDialog then
 		LOG("*AI DEBUG AFTER Removing "..buffName.." unit data is "..repr(unit.Buffs) )
 	end
     
@@ -1003,10 +1004,12 @@ function PlayBuffEffect(unit, buffName, data)
     if not Buffs[buffName].Effects then
         return
     end
+    
+    local bufffx
 
     for k, fx in Buffs[buffName].Effects do
 
-        local bufffx = CreateAttachedEmitter(unit, 0, unit.Sync.army, fx)
+        bufffx = CreateAttachedEmitter(unit, 0, unit.Sync.army, fx)
 
         if Buffs[buffName].EffectsScale then
             bufffx:ScaleEmitter(Buffs[buffName].EffectsScale)

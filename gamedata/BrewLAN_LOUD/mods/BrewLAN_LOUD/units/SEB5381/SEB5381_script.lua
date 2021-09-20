@@ -26,7 +26,9 @@ SEB5381 = Class(TStructureUnit) {
     end,
 
 	CalculateWeaponDamageBuff = function(self, adjacentUnit, remove)
+    
 		for _, v in import('/lua/sim/adjacencybuffs.lua')['T3WeaponBoosterDamageAdjacencyBuffs'] do
+        
 			if not remove then
 				Buff.ApplyBuff(adjacentUnit, v, self)
 			else

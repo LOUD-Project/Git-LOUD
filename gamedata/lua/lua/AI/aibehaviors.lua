@@ -5194,21 +5194,27 @@ function EngineerTransferAI( self, aiBrain )
 	
 	local Eng_Cat = self.PlatoonData.TransferCategory
 	local Eng_Type = self.PlatoonData.TransferType
+    
+    local BM = aiBrain.BuilderManagers
+    
+    local engineerManager, factoryManager, numUnits, structurecount, factorycount, capcheck
 
 	-- scan all bases and transfer if they dont have their maximum already
-	for k,v in aiBrain.BuilderManagers do
+	for k,v in BM do
 	
 		-- make a list of possible bases
 		-- base must have an ACTIVE EM -- ignore MAIN & the base this engineer is presently assigned to
 		if v.EngineerManager.Active and (k != 'MAIN' and k != eng.LocationType) then
 		
-			local engineerManager = v.EngineerManager
-			local factoryManager = v.FactoryManager
-			local numUnits = engineerManager:GetNumCategoryUnits( Eng_Cat )
-			local structurecount = LOUDGETN(aiBrain:GetUnitsAroundPoint( categories.STRUCTURE - categories.WALL, v.Position, 40, 'Ally'))
-			local factorycount = LOUDGETN(factoryManager.FactoryList)
+			engineerManager = v.EngineerManager
+			factoryManager = v.FactoryManager
+            
+			numUnits = engineerManager:GetNumCategoryUnits( Eng_Cat )
+            
+			structurecount = LOUDGETN(aiBrain:GetUnitsAroundPoint( categories.STRUCTURE - categories.WALL, v.Position, 40, 'Ally'))
+			factorycount = LOUDGETN(factoryManager.FactoryList)
 			
-			local capCheck = v.BaseSettings.EngineerCount[Eng_Type] or 1
+			capCheck = v.BaseSettings.EngineerCount[Eng_Type] or 1
             
             -- use maximum amount but never let it go below the base value due to AI multiplier being less than 1
             capCheck = math.max(capCheck, math.floor(capCheck * (aiBrain.CheatValue) * aiBrain.CheatValue))
@@ -5285,12 +5291,6 @@ function EngineerTransferAI( self, aiBrain )
 	
 	self:SetAIPlan('ReturnToBaseAI',aiBrain)
 	
-	--LOG("*AI DEBUG "..aiBrain.Nickname.." ENG_TRANSFER "..Eng_Type.." Transfer TO "..eng.LocationType)
-	
-	--if Eng_Type == 'SCU' then
-		--LOG("*AI DEBUG "..aiBrain.Nickname.." ENG DATA IS "..repr(eng) )
-	--end
-	
 end
 
 -- === SPECIFIC UNIT BEHAVIORS ===
@@ -5305,22 +5305,28 @@ function MassFabThread( unit, aiBrain )
 	local massfabison = true
 	
 	WaitTicks(50)
+    
+    local EnergyStoredRatio, MassStoredRatio, EnergyTrend
 	
 	while not unit.Dead do
 	
-		local EnergyStoredRatio = ((GetEconomyStoredRatio( aiBrain, 'ENERGY' )) * 100)
-		local MassStoredRatio = ((GetEconomyStoredRatio( aiBrain, 'MASS' )) * 100)
-		local EnergyTrend = GetEconomyTrend( aiBrain, 'ENERGY' )
+		EnergyStoredRatio = ((GetEconomyStoredRatio( aiBrain, 'ENERGY' )) * 100)
+		MassStoredRatio = ((GetEconomyStoredRatio( aiBrain, 'MASS' )) * 100)
+		EnergyTrend = GetEconomyTrend( aiBrain, 'ENERGY' )
 		
 		if (MassStoredRatio > 95 or (EnergyStoredRatio < 25 and EnergyTrend < 500)) and massfabison then
+        
 			massfabison = false
 			unit:OnProductionPaused()
+            
 		elseif (MassStoredRatio <= 95 and (EnergyStoredRatio > 50 and EnergyTrend > 350)) and not massfabison then
+        
 			massfabison = true
 			unit:OnProductionUnpaused()
+            
 		end
 
-		WaitTicks(50)	-- check every 5 seconds
+		WaitTicks(41)	-- check every 4 seconds
 	end
 end
 
@@ -5345,6 +5351,8 @@ function EyeBehavior( unit, aiBrain )
 		return false, nil
 		
 	end	
+
+    local targetArea, mustScoutArea, mustScoutIndex
     
     while not unit.Dead do
     
@@ -5352,9 +5360,9 @@ function EyeBehavior( unit, aiBrain )
         
         if GetEconomyTrend( aiBrain, 'ENERGY' ) > 100 and GetEconomyStored( aiBrain, 'ENERGY' ) > 7000 and IsIdleState(unit) then
 		
-            local targetArea = false
+            targetArea = false
 
-            local mustScoutArea, mustScoutIndex = AIGetMustScoutArea()
+            mustScoutArea, mustScoutIndex = AIGetMustScoutArea()
             
             -- 1) If we have any "must scout" (manually added) locations that have not been scouted yet, then scout them
             if mustScoutArea  then
@@ -5374,7 +5382,6 @@ function EyeBehavior( unit, aiBrain )
 					aiBrain.IL.HiPri[1].LastScouted = LOUDTIME()
 					aiBrain.IL.LastAirScoutHi = true
 
-					--AISortScoutingAreas( aiBrain, aiBrain.IL.HiPri )
 				end
 			end
 
@@ -5394,7 +5401,6 @@ function EyeBehavior( unit, aiBrain )
 					targetArea = aiBrain.IL.LowPri[1].Position
 					aiBrain.IL.LowPri[1].LastScouted = LOUDTIME()
 					
-					--AISortScoutingAreas( aiBrain, aiBrain.IL.LowPri )
 				end
             end
             
@@ -7135,17 +7141,13 @@ function FindExperimentalTarget( self, aiBrain )
 	local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
 
     local enemyBases = aiBrain.IL.HiPri	
-	
-	--LOG("*AI DEBUG Platoon Data is "..repr(self.PlatoonData))
-	
+
 	local SurfacePriorities = self.PlatoonData.PrioritizedCategories
    
     --	For each priority type in SurfacePriorities, check each HiPri position we're aware of (through scouting/intel),
     --	The position with the most number of the targets gets selected. If there's a tie, pick closer. 
 	-- this has been changed to locate the closest first --
     for _, priority in SurfacePriorities do
-	
-		--LOG("*AI DEBUG "..aiBrain.Nickname.." FindExperimentalTarget checking ".. repr(priority))
 		
         local bestBase = false
         local mostUnits = 0

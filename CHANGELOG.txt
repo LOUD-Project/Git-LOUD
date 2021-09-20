@@ -1,3 +1,12 @@
+### Release 18-09-2021 ###
+Lua 5.4.34
+Projectiles LOUD 3.2.2
+
+- reduced lifetime of Triseptitron impact decal
+- AI: minor response improvement to fighter behaviors
+- Many optimizations (pathfinders, projectiles, weapons, build condition monitors)
+
+
 ### Release 11-09-2021 ###
 Lua 5.4.32
 4th Dimension LOUD 4.1.1
