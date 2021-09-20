@@ -160,8 +160,10 @@ function AIFindClosestBuilderManagerPosition( aiBrain, position)
 
     local distance = 9999999
 	local closest = false
+    
+    local BM = aiBrain.BuilderManagers
 
-    for k,v in aiBrain.BuilderManagers do
+    for k,v in BM do
 	
 		if v.EngineerManager.Active then
 		
@@ -184,8 +186,10 @@ function FindClosestBaseName( aiBrain, position, allownavalbases, onlynavalbases
 
     local distance = 99999999
 	local closest = false
+    
+    local BM = aiBrain.BuidlerManagers
 	
-    for k,v in aiBrain.BuilderManagers do
+    for k,v in BM do
 	
 		if position and v.EngineerManager.Active then
 		
@@ -213,12 +217,16 @@ function GetBaseWithGreatestThreatAtDistance( aiBrain, threattype, threatcutoff,
     local ringcheck = LOUDFLOOR(distance/ScenarioInfo.IMAPSize)
     
    	local GetThreatsAroundPosition = moho.aibrain_methods.GetThreatsAroundPosition
+    
+    local BM = aiBrain.BuilderManagers
+    
+    local threattable
 
-    for _, base in aiBrain.BuilderManagers do
+    for _, base in BM do
 
         if base.PlatoonFormManager.Active then
 
-            local threatTable = GetThreatsAroundPosition( aiBrain, base.Position, ringcheck, true, threattype)
+            threatTable = GetThreatsAroundPosition( aiBrain, base.Position, ringcheck, true, threattype)
             
             for _,v in threatTable do
             
