@@ -426,6 +426,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .75 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },            
 
 			{ UCBC, 'HaveLessThanUnitsForMapSize', { { [256] = 1, [512] = 2, [1024] = 3, [2048] = 5, [4096] = 8 }, categories.TRANSPORTFOCUS * categories.TECH2}},
             
@@ -448,7 +449,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},		
             { LUTL, 'UnitCapCheckLess', { .75 } },
-
+            { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
+            
 			{ UCBC, 'HaveLessThanUnitsWithCategory', { 20, categories.uea0203 }},
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.uea0203, categories.AIR - categories.TECH1 }},
         },
@@ -468,6 +470,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .75 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
 			
             { UCBC, 'ArmyNeedsTransports', { true } },
 
@@ -486,6 +489,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .85 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
 			
 			-- this tends to prevent overbuilding of transports when they're not really needed --
 			-- but you'll notice that this builder doesn't reset the NeedsTransports flag --
@@ -512,6 +516,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .85 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
 			
             { UCBC, 'ArmyNeedsTransports', { true } },
 			
