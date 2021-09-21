@@ -8,6 +8,19 @@ local LUTL = '/lua/loudutilities.lua'
 
 local LOUDGETN = table.getn
 
+-- this function will turn a builder off if the enemy is not active in the water
+local IsEnemyNavalActive = function( self, aiBrain, manager )
+
+	if aiBrain.NavalRatio and (aiBrain.NavalRatio > .01 and aiBrain.NavalRatio <= 10) then
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." enemy naval is active at "..repr(aiBrain.NavalRatio))
+		return 800, true
+
+	end
+
+	return 10, true
+	
+end
+
 -- this function will turn a builder on if there are no factories
 local HaveZeroAirFactories = function( self, aiBrain )
 
@@ -328,6 +341,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Naval',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 800,
+        
+        PriorityFunction = IsEnemyNavalActive,
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .75 } },
