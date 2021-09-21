@@ -4032,10 +4032,6 @@ function ParseIntelThread( aiBrain )
     local EnemyData = aiBrain.EnemyData
     local EnemyDataCount
     local EnemyDataHistory = EnemyData.History
-    
-    local AirRatio = aiBrain.AirRatio
-    local LandRatio = aiBrain.LandRatio
-    local NavalRatio = aiBrain.NavalRatio
 
 	-- the 3D location of the MAIN base for this AI
 	local HomePosition = aiBrain.BuilderManagers.MAIN.Position
@@ -4558,9 +4554,9 @@ function ParseIntelThread( aiBrain )
                     end
                 end
             
-                AirRatio = LOUDMAX( LOUDMIN( (totalThreat / oldthreat), 10 ), 0.011)
+                aiBrain.AirRatio = LOUDMAX( LOUDMIN( (totalThreat / oldthreat), 10 ), 0.011)
             else
-                AirRatio = 0.01
+                aiBrain.AirRatio = 0.01
             end
 
             --- LAND UNITS ---
@@ -4598,9 +4594,9 @@ function ParseIntelThread( aiBrain )
                     end
                 end
             
-                LandRatio = LOUDMAX( LOUDMIN( (totalThreat / oldthreat), 10 ), 0.011)
+                aiBrain.LandRatio = LOUDMAX( LOUDMIN( (totalThreat / oldthreat), 10 ), 0.011)
             else
-                LandRatio = 0.01
+                aiBrain.LandRatio = 0.01
             end
 
             --- NAVAL UNITS ---
@@ -4637,13 +4633,13 @@ function ParseIntelThread( aiBrain )
                     end
                 end
             
-                NavalRatio = LOUDMAX( LOUDMIN( (totalThreat / oldthreat), 10 ), 0.011)
+                aiBrain.NavalRatio = LOUDMAX( LOUDMIN( (totalThreat / oldthreat), 10 ), 0.011)
             else
-                NavalRatio = 0.01
+                aiBrain.NavalRatio = 0.01
             end
 
             if ReportRatios then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." Air Ratio is "..repr(AirRatio).." Land Ratio is "..repr(LandRatio).." Naval Ratio is "..repr(NavalRatio))
+                LOG("*AI DEBUG "..aiBrain.Nickname.." Air Ratio is "..repr(aiBrain.AirRatio).." Land Ratio is "..repr(aiBrain.LandRatio).." Naval Ratio is "..repr(aiBrain.NavalRatio))
             end
         
         end
