@@ -476,7 +476,8 @@ function CollectCurrentScores()
 	
 	local LOUDFLOOR = math.floor
 	local LOUDGETN = table.getn
-	local ScoreInterval = 50	-- time, in ticks, between score updates
+    
+	local ScoreInterval = 51	-- time, in ticks, between score updates
 
 	-- all the scores update every ScoreInterval period so
 	-- calculate how much time each brain can utilize of that
@@ -1218,16 +1219,12 @@ AIBrain = Class(moho.aibrain_methods) {
 			end
 
 	        ForkThread(KillArmy)
-
-			--self.BuilderManagers = nil
 			
 			if self.Trash then
 
 				self.Trash:Destroy()
 				
 			end
-
-			--LOG("*AI DEBUG Shut down complete "..repr(self))
 			
         end
 
