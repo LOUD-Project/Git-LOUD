@@ -1160,7 +1160,7 @@ function SetupAICheat(aiBrain, biggestTeamSize)
     
     newbuff.Name = 'CheatEnergyStorage'..aiBrain.ArmyIndex
     
-	newbuff.Affects.EnergyStorage.Mult = math.max( aiBrain.CheatValue - 1, 0)
+	newbuff.Affects.EnergyStorage.Mult = math.max( aiBrain.CheatValue - 1, 0.01)
     
     if not Buffs[newbuff.Name] then
 		
@@ -1178,7 +1178,7 @@ function SetupAICheat(aiBrain, biggestTeamSize)
     
     newbuff.Name = 'CheatMassStorage'..aiBrain.ArmyIndex
     
-	newbuff.Affects.MassStorage.Mult = math.max( aiBrain.CheatValue - 1, 0)
+	newbuff.Affects.MassStorage.Mult = math.max( aiBrain.CheatValue - 1, 0.01)
     
     if not Buffs[newbuff.Name] then
 		
@@ -1294,11 +1294,14 @@ function ApplyCheatBuffs(unit)
                     local buffDef = Buffs['CheatEnergyStorage'..aiBrain.ArmyIndex]
                     local buffAffects = buffDef.Affects
                     
-                    buffAffects.EnergyStorage.Mult = math.max( aiBrain.CheatValue - 1, 0) * outnumberratio
+                    -- this will add the difference of the outnumbered ratio to the MULT of of the cheat value
+                    -- so if outnumbered 2 to 1 -- with a 10% cheat - the mult will be set to 1.1 which will 
+                    -- result in a bonus equal to the starting value (ie. - 5000) plus another 10% (total 5500)
+                    buffAffects.EnergyStorage.Mult = math.max( aiBrain.CheatValue - 1, 0) + (outnumberratio - 1)
                     
                     buffDef = Buffs['CheatMassStorage'..aiBrain.ArmyIndex]
                     buffAffects = buffDef.Affects
-                    buffAffects.MassStorage.Mult = math.max( aiBrain.CheatValue - 1, 0) * outnumberratio
+                    buffAffects.MassStorage.Mult = math.max( aiBrain.CheatValue - 1, 0) + (outnumberratio - 1)
 
                     ApplyBuff(unit, 'CheatIncome'..aiBrain.ArmyIndex)  -- 2nd instance of resource cheat for ACU
                 end
@@ -1307,8 +1310,8 @@ function ApplyCheatBuffs(unit)
 
 				ApplyBuff(unit, 'CheatCDROmni'..aiBrain.ArmyIndex)
 
-                -- because the 2nd Storage buff will remove the first we'll wait 40 seconds
-                WaitTicks(400)
+                -- because the 2nd Storage buff will remove the first we'll wait 45 seconds
+                WaitTicks(450)
                 
                 RemoveBuff( unit, 'CheatEnergyStorage'..aiBrain.ArmyIndex )
                 

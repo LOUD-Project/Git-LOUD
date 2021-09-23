@@ -662,7 +662,7 @@ BuffBlueprint { Name = 'CheatEnergyStorage',
 		EnergyStorage = {
 		    BuffCheckFunction = AdjBuffFuncs.EnergyStorageBuffCheck,
 			Add = 0,
-			Mult = 1,
+			Mult = 0.01,
 		},
 	},
 }
@@ -675,7 +675,7 @@ BuffBlueprint { Name = 'CheatMassStorage',
 		MassStorage = {
 		    BuffCheckFunction = AdjBuffFuncs.MassStorageBuffCheck,
 			Add = 0,
-			Mult = 1,
+			Mult = 0.01,
 		},
 	},
 }
