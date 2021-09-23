@@ -5312,7 +5312,8 @@ function MassFabThread( unit, aiBrain )
 	
 		EnergyStoredRatio = ((GetEconomyStoredRatio( aiBrain, 'ENERGY' )) * 100)
 		MassStoredRatio = ((GetEconomyStoredRatio( aiBrain, 'MASS' )) * 100)
-		EnergyTrend = GetEconomyTrend( aiBrain, 'ENERGY' )
+        
+		EnergyTrend = GetEconomyTrend( aiBrain, 'ENERGY' ) * 10     -- all trend values are *10 to get actual values
 		
 		if (MassStoredRatio > 95 or (EnergyStoredRatio < 25 and EnergyTrend < 500)) and massfabison then
         
@@ -5358,7 +5359,7 @@ function EyeBehavior( unit, aiBrain )
     
         WaitSeconds(30)
         
-        if GetEconomyTrend( aiBrain, 'ENERGY' ) > 100 and GetEconomyStored( aiBrain, 'ENERGY' ) > 7000 and IsIdleState(unit) then
+        if (GetEconomyTrend( aiBrain, 'ENERGY' ) *10) > 100 and GetEconomyStored( aiBrain, 'ENERGY' ) > 7000 and IsIdleState(unit) then
 		
             targetArea = false
 
@@ -5444,7 +5445,7 @@ function RiftGateBehavior( unit, aiBrain, manager )
 	
         WaitTicks(45)
         
-        if GetEconomyTrend(aiBrain,'ENERGY') > 0 and GetEconomyStored(aiBrain,'ENERGY') > 1500 and IsIdleState(unit) then
+        if (GetEconomyTrend(aiBrain,'ENERGY') * 10) > 100 and GetEconomyStored(aiBrain,'ENERGY') > 1500 and IsIdleState(unit) then
         
             BuildUnit( aiBrain, unit, unitlist[ Random(1,6) ], 3 )
         end

@@ -2259,17 +2259,17 @@ function NameEngineerUnits( platoon, aiBrain )
 	end
 end
 
--- Records economy values every 10 ticks - builds array of 90 sample points
+-- Records economy values every 2 ticks - builds array of 450 sample points
 -- which covers the values of the last 90 seconds - used as trend analysis
 -- added in average Mass and Energy Trends
 -- added in average Mass and Energy Storage level
 function EconomyMonitor( aiBrain )
 	
-    aiBrain.EcoData = { ['EnergyIncome'] = {}, ['EnergyRequested'] = {}, ['EnergyStorage'] = {}, ['EnergyTrend'] = {}, ['MassIncome'] = {}, ['MassRequested'] = {}, ['MassStorage'] = {}, ['MassTrend'] = {}, ['Period'] = 900, ['OverTime'] = { EnergyEfficiency = 0, EnergyIncome = 0, EnergyRequested = 0, EnergyTrend = 0, MassEfficiency = 0, MassIncome = 0, MassRequested = 0, MassTrend = 0} }
+    aiBrain.EcoData = { ['EnergyIncome'] = {}, ['EnergyRequested'] = {}, ['EnergyStorage'] = {}, ['EnergyTrend'] = {}, ['MassIncome'] = {}, ['MassRequested'] = {}, ['MassStorage'] = {}, ['MassTrend'] = {}, ['Period'] = 450, ['OverTime'] = { EnergyEfficiency = 0, EnergyIncome = 0, EnergyRequested = 0, EnergyTrend = 0, MassEfficiency = 0, MassIncome = 0, MassRequested = 0, MassTrend = 0} }
 
 	-- number of sample points
 	-- local point
-	local samplerate = 10
+	local samplerate = 2
 	local samples = aiBrain.EcoData['Period'] / samplerate
 
 	-- create the table to store the samples
@@ -2290,7 +2290,7 @@ function EconomyMonitor( aiBrain )
     local GetEconomyStoredRatio = moho.aibrain_methods.GetEconomyStoredRatio
 
 	local LOUDMIN = math.min
-	local LOUDMAX = math.max
+
 	local WaitTicks = coroutine.yield
 
 	-- array totals
@@ -2344,20 +2344,23 @@ function EconomyMonitor( aiBrain )
             EcoDataEnergyStorage[point] = GetEconomyStoredRatio( aiBrain, 'ENERGY')*100
             EcoDataMassStorage[point] = GetEconomyStoredRatio( aiBrain, 'MASS')*100
 
+            -- this was originally intended to prevent trends from going negative
+            -- but it really impaired the accuracy of a recovery from stall since
+            -- the trend would return to positive earlier than it should have
 			e = GetEconomyTrend( aiBrain, 'ENERGY')
 			m = GetEconomyTrend( aiBrain, 'MASS')
 
-			if e > 0.1 then
+			--if e > 0.01 then
 				EcoDataEnergyTrend[point] = e
-			else
-				EcoDataEnergyTrend[point] = 0.1
-			end
+			--else
+				--EcoDataEnergyTrend[point] = 0.01
+			--end
 			
-			if m > 0.1 then
+			--if m > 0.01 then
 				EcoDataMassTrend[point] = m
-			else
-				EcoDataMassTrend[point] = 0.1
-			end
+			--else
+				--EcoDataMassTrend[point] = 0.01
+			--end
 
             -- add the new data to totals
 			eIncome = eIncome + EcoDataEnergyIncome[point]
@@ -2381,8 +2384,9 @@ function EconomyMonitor( aiBrain )
 
 			EcoDataOverTime['EnergyEfficiency'] = LOUDMIN( (eIncome * samplefactor) / (eRequested * samplefactor), 2)
 			EcoDataOverTime['MassEfficiency'] = LOUDMIN( (mIncome * samplefactor) / (mRequested * samplefactor), 2)
-			
-			WaitTicks(samplerate)
+
+			WaitTicks(samplerate + 1)   -- account for lost tick
+
 		end
     end
 end
