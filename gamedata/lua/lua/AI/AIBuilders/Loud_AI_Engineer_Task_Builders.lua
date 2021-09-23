@@ -219,6 +219,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
         BuilderType = { 'T1','T2','T3','SubCommander' },
 
         BuilderConditions = {
+        
+			{ EBC, 'LessThanEnergyTrendOverTime', { 30 }},        
 			{ EBC, 'LessThanEconEnergyStorageRatio', { 75 }},
 			{ EBC, 'GreaterThanEconStorageCurrent', { 75, 0 }},
             
@@ -346,7 +348,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 
         BuilderConditions = {
             
-			{ EBC, 'LessEconEnergyStorageCurrent', { 5000 }},
+			{ EBC, 'LessThanEconEnergyStorageCurrent', { 5000 }},
             
 			{ MIBC, 'ReclaimablesInAreaEnergy', { 'LocationType', 140 }},
 

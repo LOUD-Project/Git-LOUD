@@ -226,7 +226,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
         BuilderConditions = { 
 		
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ EBC, 'LessEconEnergyStorageCurrent', { 5750 }},
+			{ EBC, 'LessThanEconEnergyStorageCurrent', { 5750 }},
 			{ EBC, 'GreaterThanEconStorageCurrent', { 75, 0 }},
 
 			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, ENERGYPRODUCTION - TECH1 }},            
@@ -305,7 +305,9 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ EBC, 'LessThanEnergyTrend', { 1800 }},
+			{ EBC, 'LessThanEnergyTrendOverTime', { 180 }},
+			{ EBC, 'LessThanEconEnergyStorageRatio', { 75 }},
+            
 			{ EBC, 'GreaterThanEconStorageCurrent', { 75, 0 }},
             
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 6, ENERGYPRODUCTION * TECH3 }},
