@@ -2742,23 +2742,25 @@ function SetBaseRallyPoints( aiBrain, basename, basetype, rallypointradius, orie
 		local ystep = (pos[3] - targetPos[3]) / steps -- how much the Y value will change from step to step
 
 		local lastpos = {pos[1], 0, pos[3]}
+        
+        local nextpos, lastposHeight, nextposHeight
+        local LOUDABS = math.abs
 	
 		-- Iterate thru the number of steps - starting at the pos and adding xstep and ystep to each point
 		for i = 0, steps do
 	
 			if i > 0 then
 		
-				local nextpos = { pos[1] - (xstep * i), 0, pos[3] - (ystep * i)}
+				nextpos = { pos[1] - (xstep * i), 0, pos[3] - (ystep * i)}
 			
 				-- Get height for both points
-				local lastposHeight = GetTerrainHeight( lastpos[1], lastpos[3] )
-				local nextposHeight = GetTerrainHeight( nextpos[1], nextpos[3] )
+				lastposHeight = GetTerrainHeight( lastpos[1], lastpos[3] )
+				nextposHeight = GetTerrainHeight( nextpos[1], nextpos[3] )
 
 				-- if more than 3.6 ogrids change in height over 6 ogrids distance
-				if math.abs(lastposHeight - nextposHeight) > 3.6 then
+				if LOUDABS(lastposHeight - nextposHeight) > 3.6 then
 
 					-- we are obstructed
-					LOG("*AI DEBUG "..aiBrain.Nickname.." RALLY POINT OBSTRUCTED ")
 					return true
 				end
 				
@@ -2844,7 +2846,10 @@ function DeadBaseMonitor( aiBrain )
 
 	while true do
     
+        -- learned something about local references with this and the importance of 'refreshing'
+        -- the reference
         BM = aiBrain.BuilderManagers
+        
         DeadBaseMonitorDialog = ScenarioInfo.DeadBaseMonitorDialog or false
 
 		for k,v in BM do
@@ -2887,7 +2892,7 @@ function DeadBaseMonitor( aiBrain )
                         LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(v.BaseName).." DBM - no factories or Engineers "..repr(BM[k].nofactorycount + 1))
                     end
                     
-                    BM[k].nofactorycount = BM[k].nofactorycount + 1
+                    aiBrain.BuilderManagers[k].nofactorycount = BM[k].nofactorycount + 1
                 end
 
 				-- if base has no engineers AND has had no factories for about 250 seconds
@@ -2923,12 +2928,16 @@ function DeadBaseMonitor( aiBrain )
 					-- clear any Primary flags
    					-- and set new primary bases if needed
                     if v.PrimaryLandAttackBase then
-                        v.PrimaryLandAttackBase = false
+                    
+                        aiBrain.BuilderManagers[k].PrimaryLandAttackBase = false
+                        
                         SetPrimaryLandAttackBase(aiBrain)
                     end
                     
                     if v.PrimarySeaAttackBase then
-                        v.PrimarySeaAttackBase = false
+                    
+                        aiBrain.BuilderManagers[k].PrimarySeaAttackBase = false
+                        
                         SetPrimarySeaAttackBase(aiBrain)
                     end
 
@@ -2965,7 +2974,7 @@ function DeadBaseMonitor( aiBrain )
 					end
 
 					-- remove base from table
-                    BM[k] = nil
+                    aiBrain.BuilderManagers[k] = nil
 					
 					-- rebuild the bases table
 					aiBrain.BuilderManagers = RebuildTable(aiBrain, aiBrain.BuilderManagers)
@@ -2977,7 +2986,7 @@ function DeadBaseMonitor( aiBrain )
 
 			else
                 if BM[k] then
-                    BM[k].nofactorycount = 0
+                    aiBrain.BuilderManagers[k].nofactorycount = 0
                 end
 			end
             
@@ -2985,10 +2994,10 @@ function DeadBaseMonitor( aiBrain )
                 break
             end
 			
-			WaitTicks(20)   -- 2 second between bases
+			WaitTicks(21)   -- 2 second between bases
 		end
 		
-		WaitTicks(200)	    -- check every 20 seconds
+		WaitTicks(201)	    -- check every 20 seconds
 	end
 end
 
@@ -3214,7 +3223,7 @@ function PathGeneratorAir( aiBrain )
         
                 if pathlist and (type(platoon) == 'string' or PlatoonExists(aiBrain, platoon)) then
 
-                    PathReplies[platoon] = { length = pathlength, path = LOUDCOPY(pathlist), cost = pathcost }
+                    aiBrain.PathRequests['Replies'][platoon] = { length = pathlength, path = LOUDCOPY(pathlist), cost = pathcost }
                     break
                 end
             end
@@ -3225,7 +3234,7 @@ function PathGeneratorAir( aiBrain )
                     LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." no safe AIR path found to "..repr(data.Dest))
                 end
                 
-                PathReplies[platoon] = { length = 0, path = 'NoPath', cost = 0 }
+                aiBrain.PathRequests['Replies'][platoon] = { length = 0, path = 'NoPath', cost = 0 }
 
             end
             
@@ -3424,7 +3433,7 @@ function PathGeneratorAmphibious(aiBrain)
 
 				if pathlist and (type(platoon) == 'string' or PlatoonExists(aiBrain, platoon)) then
 					
-					PathReplies[platoon] = { length = pathlength, path = LOUDCOPY(pathlist), cost = pathcost }
+					aiBrain.PathRequests['Replies'][platoon] = { length = pathlength, path = LOUDCOPY(pathlist), cost = pathcost }
 					break
 				end
 			end
@@ -3435,7 +3444,7 @@ function PathGeneratorAmphibious(aiBrain)
                     LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." no safe AMPHIB path found to "..repr(data.Dest))
                 end
                 
-				PathReplies[platoon] = { length = 0, path = 'NoPath', cost = 0 }
+				aiBrain.PathRequests['Replies'][platoon] = { length = 0, path = 'NoPath', cost = 0 }
 			end
 		else
             WaitTicks(4)
@@ -3616,7 +3625,7 @@ function PathGeneratorLand(aiBrain)
 
 				if pathlist and (type(platoon) == 'string' or PlatoonExists(aiBrain, platoon)) then
 
-					PathReplies[platoon] = { length = pathlength, path = LOUDCOPY(pathlist), cost = pathcost }
+					aiBrain.PathRequests['Replies'][platoon] = { length = pathlength, path = LOUDCOPY(pathlist), cost = pathcost }
 					break
 				end
 				
@@ -3628,7 +3637,7 @@ function PathGeneratorLand(aiBrain)
                     LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." no safe LAND path found to "..repr(destination))
                 end
                 
-				PathReplies[platoon] = { length = 0, path = 'NoPath', cost = 0 }
+				aiBrain.PathRequests['Replies'][platoon] = { length = 0, path = 'NoPath', cost = 0 }
 			end
 		else
             WaitTicks(3)
@@ -3791,7 +3800,7 @@ function PathGeneratorWater(aiBrain)
                 
 				if pathlist and platoon then
 
-					PathReplies[platoon] = { length = pathlength, path = LOUDCOPY(pathlist), cost = pathcost }
+					aiBrain.PathRequests['Replies'][platoon] = { length = pathlength, path = LOUDCOPY(pathlist), cost = pathcost }
 					break
 				end
 			end
@@ -3802,7 +3811,7 @@ function PathGeneratorWater(aiBrain)
                     LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." no safe WATER path found to "..repr(destination))
                 end
                 
-				PathReplies[platoon] = { length = 0, path = 'NoPath', cost = 0 }
+				aiBrain.PathRequests['Replies'][platoon] = { length = 0, path = 'NoPath', cost = 0 }
 			end
         else
             WaitTicks(3)
