@@ -113,51 +113,90 @@ function GreaterThanEconStorageCurrent(aiBrain, mStorage, eStorage)
     return false
 end
 
+----------------------
+-- ENERGY FUNCTIONS --
+----------------------
+
 -- modified to be altered by AI Cheat --
-function LessEconEnergyStorageCurrent(aiBrain, eStorage)
+function LessThanEconEnergyStorageCurrent(aiBrain, eStorage)
 	return GetEconomyStored( aiBrain, 'ENERGY') < (eStorage * (1/math.max( 1, aiBrain.CheatValue)))
 end
 
 function LessThanEconEnergyStorageRatio(aiBrain, eStorageRatio)
-	return (GetEconomyStoredRatio( aiBrain, 'ENERGY')*100) < eStorageRatio
+	return (GetEconomyStoredRatio( aiBrain, 'ENERGY') *100) < eStorageRatio
 end
 
-function LessThanEconMassStorageRatio(aiBrain, mStorageRatio)
-	return (GetEconomyStoredRatio(aiBrain,'MASS')*100) < mStorageRatio
-end
-
-function GreaterThanEconMassStorageRatio(aiBrain, mStorageRatio)
-	return (GetEconomyStoredRatio(aiBrain,'MASS')*100) >= mStorageRatio
-end
-
--- I built the EconEfficiencyCheck into this function since Trend is current
--- and not averaged as I thought it was -- this allows us to do two things at once
--- insure that we have the extra mass and energy AND that we are positive overall
--- so we can remove the extra conditions in the builders -- less conditions is good
-function GreaterThanEconTrendEfficiencyOverTime(aiBrain, mTrend, eTrend, massefficiency,energyefficiency)
-
-	if GreaterThanEconEfficiencyOverTime(aiBrain, massefficiency or 1, energyefficiency or 1) then
-    
-        --LOG("*AI DEBUG "..aiBrain.Nickname.." EconTrend Mass "..repr(aiBrain.EcoData['OverTime'].MassTrend).." Energy "..repr(aiBrain.EcoData['OverTime'].EnergyTrend))
-		
-		if aiBrain.EcoData['OverTime'].MassTrend >= mTrend then
-			return aiBrain.EcoData['OverTime'].EnergyTrend >= eTrend
-		end
-	end
-    return false
+function GreaterThanEconEnergyStorageRatio(aiBrain, eStorageRatio)
+	return (GetEconomyStoredRatio(aiBrain,'ENERGY') *100) >= eStorageRatio
 end
 
 function LessThanEnergyTrend(aiBrain, eTrend)
 	return GetEconomyTrend( aiBrain, 'ENERGY' ) < eTrend
 end
 
+function LessThanEnergyTrendOverTime(aiBrain, eTrend)
+    return aiBrain.EcoData['OverTime']['EnergyTrend'] <= eTrend
+end
+
 function GreaterThanEnergyTrend(aiBrain, eTrend)
-    return GetEconomyTrend( aiBrain, 'ENERGY' ) >= eTrend
+    return (GetEconomyTrend( aiBrain, 'ENERGY' ) *10) >= eTrend
 end
 
 function GreaterThanEnergyIncome(aiBrain, eIncome)
-	return (GetEconomyIncome( aiBrain, 'ENERGY')*10) >= eIncome
+	return (GetEconomyIncome( aiBrain, 'ENERGY') *10) >= eIncome
 end
+
+--------------------
+-- MASS FUNCTIONS --
+--------------------
+
+-- modified to be altered by AI Cheat --
+function LessThanEconMassStorageCurrent(aiBrain, mStorage)
+	return GetEconomyStored( aiBrain, 'MASS') < (mStorage * (1/math.max( 1, aiBrain.CheatValue)))
+end
+
+function LessThanEconMassStorageRatio(aiBrain, mStorageRatio)
+	return (GetEconomyStoredRatio(aiBrain,'MASS') *100) < mStorageRatio
+end
+
+function GreaterThanEconMassStorageRatio(aiBrain, mStorageRatio)
+	return (GetEconomyStoredRatio(aiBrain,'MASS') *100) >= mStorageRatio
+end
+
+function LessThanMassTrend(aiBrain, mTrend)
+	return GetEconomyTrend( aiBrain, 'MASS' ) < mTrend
+end
+
+function LessThanMassTrendOverTime(aiBrain, mTrend)
+    return aiBrain.EcoData['OverTime']['MassTrend'] <= mTrend
+end
+
+function GreaterThanMassTrend(aiBrain, mTrend)
+    return (GetEconomyTrend( aiBrain, 'MASS' ) *10) >= mTrend
+end
+
+function GreaterThanEnergyIncome(aiBrain, mIncome)
+	return (GetEconomyIncome( aiBrain, 'MASS') *10) >= mIncome
+end
+
+
+--------------------------
+-- EFFICIENCY FUNCTIONS --
+--------------------------
+
+-- combo function combines M/E OverTime Trends with Overtime Efficiency
+function GreaterThanEconTrendEfficiencyOverTime(aiBrain, mTrend, eTrend, massefficiency,energyefficiency)
+
+	if GreaterThanEconEfficiencyOverTime(aiBrain, massefficiency or 1, energyefficiency or 1) then
+
+		if aiBrain.EcoData['OverTime']['MassTrend'] >= mTrend then
+			return aiBrain.EcoData['OverTime']['EnergyTrend'] >= eTrend
+		end
+        
+	end
+    return false
+end
+
 
 function GreaterThanEconEfficiency(aiBrain, mEfficiency, eEfficiency)
     return ((GetEconomyIncome( aiBrain, 'MASS') / GetEconomyRequested( aiBrain, 'MASS')) >= mEfficiency and (GetEconomyIncome( aiBrain, 'ENERGY') / GetEconomyRequested( aiBrain, 'ENERGY')) >= eEfficiency)
@@ -168,15 +207,13 @@ function LessThanEconEfficiency(aiBrain, mEfficiency, eEfficiency)
 end
 
 function GreaterThanEconEfficiencyOverTime(aiBrain, mEfficiency, eEfficiency)
-
-    --LOG("*AI DEBUG "..aiBrain.Nickname.." Econ Efficiency M "..aiBrain.EcoData['OverTime'].MassEfficiency.."  E "..aiBrain.EcoData['OverTime'].EnergyEfficiency )
-
-    return (aiBrain.EcoData['OverTime'].MassEfficiency >= mEfficiency and aiBrain.EcoData['OverTime'].EnergyEfficiency >= eEfficiency)
+    return (aiBrain.EcoData['OverTime']['MassEfficiency'] >= mEfficiency and aiBrain.EcoData['OverTime']['EnergyEfficiency'] >= eEfficiency)
 end
 
 function LessThanEconEfficiencyOverTime(aiBrain, mEfficiency, eEfficiency)
-    return (aiBrain.EcoData['OverTime'].MassEfficiency <= mEfficiency and aiBrain.EcoData['OverTime'].EnergyEfficiency <= eEfficiency)
+    return (aiBrain.EcoData['OverTime']['MassEfficiency'] <= mEfficiency and aiBrain.EcoData['OverTime']['EnergyEfficiency'] <= eEfficiency)
 end
+
 
 -- this now includes a basic eco check to insure we are positive flow
 -- allows us to remove other eco checks in the builder conditions
