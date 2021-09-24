@@ -20,6 +20,9 @@ local LOUDPARSE = ParseEntityCategory
 local ForkThread = ForkThread
 local ForkTo = ForkThread
 
+local STRINGSUB = string.sub
+local TONUMBER = tonumber
+
 local Damage = Damage
 local DamageArea = DamageArea
 
@@ -651,6 +654,21 @@ Projectile = Class(moho.projectile_methods, Entity) {
 			bp.Physics.ImpactTimeout = 0.1
 
 		end
+        
+        -- Some weapons do modifed Shield damage --
+        if targetType == 'Shield' then
+        
+            if STRINGSUB(self.DamageData.DamageType, 1, 10) == 'ShieldMult' then
+            
+                mult = TONUMBER( STRINGSUB(self.DamageData.DamageType, 11) ) or 1
+                
+                --LOG("*AI DEBUG Shield Mult is "..repr(mult))
+
+                self.DamageData.DamageAmount = self.DamageData.DamageAmount * mult
+                
+            end
+        
+        end
 
         if bp.Physics.ImpactTimeout and (targetType == 'Terrain' or targetType == 'Air' or targetType == 'Underwater') then
 		
