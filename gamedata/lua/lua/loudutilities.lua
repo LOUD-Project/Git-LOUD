@@ -2259,17 +2259,17 @@ function NameEngineerUnits( platoon, aiBrain )
 	end
 end
 
--- Records economy values every 2 ticks - builds array of 450 sample points
+-- Records economy values every 3 ticks - builds array of 270 sample points
 -- which covers the values of the last 90 seconds - used as trend analysis
 -- added in average Mass and Energy Trends
 -- added in average Mass and Energy Storage level
 function EconomyMonitor( aiBrain )
 	
-    aiBrain.EcoData = { ['EnergyIncome'] = {}, ['EnergyRequested'] = {}, ['EnergyStorage'] = {}, ['EnergyTrend'] = {}, ['MassIncome'] = {}, ['MassRequested'] = {}, ['MassStorage'] = {}, ['MassTrend'] = {}, ['Period'] = 450, ['OverTime'] = { EnergyEfficiency = 0, EnergyIncome = 0, EnergyRequested = 0, EnergyTrend = 0, MassEfficiency = 0, MassIncome = 0, MassRequested = 0, MassTrend = 0} }
+    aiBrain.EcoData = { ['EnergyIncome'] = {}, ['EnergyRequested'] = {}, ['EnergyStorage'] = {}, ['EnergyTrend'] = {}, ['MassIncome'] = {}, ['MassRequested'] = {}, ['MassStorage'] = {}, ['MassTrend'] = {}, ['Period'] = 270, ['OverTime'] = { EnergyEfficiency = 0, EnergyIncome = 0, EnergyRequested = 0, EnergyTrend = 0, MassEfficiency = 0, MassIncome = 0, MassRequested = 0, MassTrend = 0} }
 
 	-- number of sample points
 	-- local point
-	local samplerate = 2
+	local samplerate = 3
 	local samples = aiBrain.EcoData['Period'] / samplerate
 
 	-- create the table to store the samples
