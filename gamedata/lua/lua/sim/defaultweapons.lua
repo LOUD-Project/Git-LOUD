@@ -1234,7 +1234,7 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
                     CollisionCheckInterval = bp.BeamCollisionDelay * 10,
                 }
 				
-                self.Beams[counter] = { Beam = beam, Muzzle = mv, Destroyables = {} }
+                self.Beams[counter] = { Beam = beam, Muzzle = mv }
                 counter = counter + 1
 				
                 self.unit.Trash:Add(beam)
@@ -1279,7 +1279,7 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
 	
         local bp = self.bp
 		
-        self.BeamDestroyables = {}
+        --self.BeamDestroyables = {}
 		
         local beam
         local beamTable

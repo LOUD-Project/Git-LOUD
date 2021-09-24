@@ -118,28 +118,35 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
 		local LOUDATTACHEMITTER = CreateAttachedEmitter
 		local LOUDGETN = table.getn
 		local LOUDINSERT = table.insert
+        
+        local fx
 		
         for k, y in self.FxBeamStartPoint do
-            local fx = LOUDATTACHEMITTER(self, 0, army, y ):ScaleEmitter(self.FxBeamStartPointScale)
+        
+            fx = LOUDATTACHEMITTER(self, 0, army, y ):ScaleEmitter(self.FxBeamStartPointScale)
+            
             LOUDINSERT( self.BeamEffectsBag, fx)
             self.Trash:Add(fx)
         end
 		
         for k, y in self.FxBeamEndPoint do
-            local fx = LOUDATTACHEMITTER(self, 1, army, y ):ScaleEmitter(self.FxBeamEndPointScale)
+        
+            fx = LOUDATTACHEMITTER(self, 1, army, y ):ScaleEmitter(self.FxBeamEndPointScale)
+            
             LOUDINSERT( self.BeamEffectsBag, fx)
             self.Trash:Add(fx)
         end
 		
         if LOUDGETN(self.FxBeam) != 0 then
+        
             local fxBeam = CreateBeamEmitter(self.FxBeam[Random(1, LOUDGETN(self.FxBeam))], army)
             AttachBeamToEntity(fxBeam, self, 0, army)
             
-            #-- collide on start if it's a continuous beam
+            -- collide on start if it's a continuous beam
             --local weaponBlueprint = self.Weapon:GetBlueprint()
             --local bCollideOnStart = self.Weapon:GetBlueprint().BeamLifetime <= 0
 			
-            self:SetBeamFx(fxBeam, self.Weapon:GetBlueprint().BeamLifetime <= 0 )
+            self:SetBeamFx(fxBeam, self.Weapon.bp.BeamLifetime <= 0 )
             
             LOUDINSERT( self.BeamEffectsBag, fxBeam )
             self.Trash:Add(fxBeam)
@@ -209,20 +216,20 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
     -- 'Air' (hitting nothing) and 'Underwater' (hitting nothing underwater).
     OnImpact = function(self, impactType, targetEntity)
 	
-        #LOG('*DEBUG: COLLISION BEAM ONIMPACT ', repr(self))
-        #LOG('*DEBUG: COLLISION BEAM ONIMPACT, WEAPON =  ', repr(self.Weapon), 'Type = ', impactType)
+        --LOG('*AI DEBUG: COLLISION BEAM ONIMPACT ', repr(self))
+        --LOG('*AI DEBUG: COLLISION BEAM ONIMPACT, WEAPON =  ', repr(self.Weapon), 'Type = ', impactType)
         --LOG('CollisionBeam impacted with: ' .. impactType )
-        # Possible 'type' values are:
-        #  'Unit'
-        #  'Terrain'
-        #  'Water'
-        #  'Air'
-        #  'UnitAir'
-        #  'Underwater'
-        #  'UnitUnderwater'
-        #  'Projectile'
-        #  'Prop'
-        #  'Shield'
+        --# Possible 'type' values are:
+        --#  'Unit'
+        --#  'Terrain'
+        --#  'Water'
+        --#  'Air'
+        --#  'UnitAir'
+        --#  'Underwater'
+        --#  'UnitUnderwater'
+        --#  'Projectile'
+        --#  'Prop'
+        --#  'Shield'
 
         local instigator = self:GetLauncher()
 		
@@ -278,7 +285,9 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
     end,
 
     SetDamageTable = function(self)
-        local weaponBlueprint = self.Weapon:GetBlueprint()
+    
+        local weaponBlueprint = self.Weapon.bp
+        
         self.DamageTable = {}
         self.DamageTable.DamageRadius = weaponBlueprint.DamageRadius
         self.DamageTable.DamageAmount = weaponBlueprint.Damage
@@ -288,6 +297,7 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
         self.DamageTable.DoTTime = weaponBlueprint.DoTTime
         self.DamageTable.DoTPulses = weaponBlueprint.DoTPulses
         self.DamageTable.Buffs = weaponBlueprint.Buffs
+        
     end,
 
     --When this beam impacts with the target, do any buffs that have been passed to it.

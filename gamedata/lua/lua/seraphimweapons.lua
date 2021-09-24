@@ -689,7 +689,7 @@ SMeleeBladeBeamWeapon = Class(Weapon) {
                     CollisionCheckInterval = 1,
                 }
                 
-                self.Beams[counter] = { Beam = beam, Muzzle = muzzle, Destroyables = {} }
+                self.Beams[counter] = { Beam = beam, Muzzle = muzzle }
                 counter = counter + 1
                 
                 self.unit.Trash:Add(beam)

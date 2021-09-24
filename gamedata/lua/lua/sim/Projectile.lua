@@ -235,8 +235,10 @@ Projectile = Class(moho.projectile_methods, Entity) {
     end,
 	
     OnCollisionCheck = function(self,other)
+    
+        local ProjectileDialog = ScenarioInfo.ProjectileDialog
 	
-		if ScenarioInfo.ProjectileDialog then
+		if ProjectileDialog then
 			LOG("*AI DEBUG Projectile OnCollisionCheck ")
 		end
         
@@ -277,7 +279,7 @@ Projectile = Class(moho.projectile_methods, Entity) {
 			end
 		end
 		
-		if ScenarioInfo.ProjectileDialog then
+		if ProjectileDialog then
 			LOG("*AI DEBUG Projectile OnCollisionCheck true with "..repr(other))
 		end
 
@@ -511,7 +513,7 @@ Projectile = Class(moho.projectile_methods, Entity) {
 		if ScenarioInfo.ProjectileDialog then
 		
 			LOG("*AI DEBUG Projectile OnImpact targetType is "..repr(targetType))
-			LOG("*AI DEGUG Projectile OnImpact data is "..repr(self))
+			LOG("*AI DEGUG Projectile OnImpact data is "..repr(self.DamageData))
 			
 			if targetEntity then
 				LOG("*AI DEBUG Projectile Target entity is "..repr(targetEntity.BlueprintID))
@@ -641,6 +643,7 @@ Projectile = Class(moho.projectile_methods, Entity) {
 			
 		end
 
+        -- Railgun damage drops by 20% per target it collides with
 		if self.DamageData.DamageType == 'Railgun' then
 
 			self.DamageData.DamageAmount = self.DamageData.DamageAmount * 0.8
