@@ -1,11 +1,24 @@
+### Release 24-09-2021 ###
+Lua 5.4.35
+Projectiles 3.2.3
+
+- AI: Several improvements to economic management abilities.
+ |--> Reduce likelihood of stalling resources, and speed up recovery when a stall does happen.
+ |--> Reduce tendency to waste Mass and Energy, especally in the late game.
+ |--> This also leads to higher availability on AI Engineers for other jobs.
+- AI: When cheating and/or being outnumbered, the AI ACU will receive an energy and mass bonus equal to the ratio of the cheat and the outnumbered ratio.
+- AI: Fix errors in base layout templates.
+- Further reduce graphical level-of-detail (LOD) at distance, and lifetime.
+- Fix damage multiplier against shields not being applied.
+- Fix precision of the time interval between player score updates.
+
 ### Release 18-09-2021 ###
 Lua 5.4.34
 Projectiles LOUD 3.2.2
 
-- reduced lifetime of Triseptitron impact decal
-- AI: minor response improvement to fighter behaviors
-- Many optimizations (pathfinders, projectiles, weapons, build condition monitors)
-
+- Reduced lifetime of the Triseptitron (Cybran Tech 3 Mobile Rocket Platform) missile's impact decal.
+- AI: minor response improvement to fighter behaviours.
+- Many optimizations (pathfinders, projectiles, weapons, build condition monitors).
 
 ### Release 11-09-2021 ###
 Lua 5.4.32
