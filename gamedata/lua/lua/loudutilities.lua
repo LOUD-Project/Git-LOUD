@@ -2265,7 +2265,7 @@ end
 -- added in average Mass and Energy Storage level
 function EconomyMonitor( aiBrain )
 	
-    aiBrain.EcoData = { ['EnergyIncome'] = {}, ['EnergyRequested'] = {}, ['EnergyStorage'] = {}, ['EnergyTrend'] = {}, ['MassIncome'] = {}, ['MassRequested'] = {}, ['MassStorage'] = {}, ['MassTrend'] = {}, ['Period'] = 270, ['OverTime'] = { EnergyEfficiency = 0, EnergyIncome = 0, EnergyRequested = 0, EnergyTrend = 0, MassEfficiency = 0, MassIncome = 0, MassRequested = 0, MassTrend = 0} }
+    aiBrain.EcoData = { ['EnergyIncome'] = {}, ['EnergyRequested'] = {}, ['EnergyTrend'] = {}, ['MassIncome'] = {}, ['MassRequested'] = {}, ['MassTrend'] = {}, ['Period'] = 270, ['OverTime'] = { EnergyEfficiency = 0, EnergyIncome = 0, EnergyRequested = 0, EnergyTrend = 0, MassEfficiency = 0, MassIncome = 0, MassRequested = 0, MassTrend = 0} }
 
 	-- number of sample points
 	-- local point
@@ -2276,11 +2276,11 @@ function EconomyMonitor( aiBrain )
 	for point = 1, samples do
 		aiBrain.EcoData['EnergyIncome'][point] = 0
 		aiBrain.EcoData['EnergyRequested'][point] = 0
-        aiBrain.EcoData['EnergyStorage'][point] = 0
+        --aiBrain.EcoData['EnergyStorage'][point] = 0
 		aiBrain.EcoData['EnergyTrend'][point] = 0
 		aiBrain.EcoData['MassIncome'][point] = 0
 		aiBrain.EcoData['MassRequested'][point] = 0
-        aiBrain.EcoData['MassStorage'][point] = 0
+        --aiBrain.EcoData['MassStorage'][point] = 0
 		aiBrain.EcoData['MassTrend'][point] = 0
 	end    
 
@@ -2315,12 +2315,19 @@ function EconomyMonitor( aiBrain )
     local EcoDataMassRequested = EcoData['MassRequested']
     local EcoDataEnergyTrend = EcoData['EnergyTrend']
     local EcoDataMassTrend = EcoData['MassTrend']
-    local EcoDataEnergyStorage = EcoData['EnergyStorage']
-    local EcoDataMassStorage = EcoData['MassStorage']
+    --local EcoDataEnergyStorage = EcoData['EnergyStorage']
+    --local EcoDataMassStorage = EcoData['MassStorage']
 
     local EcoDataOverTime = EcoData['OverTime']
     
     local e,m
+    
+    -- Economy Monitor is delayed according to ArmyIndex
+    -- between 0 and samplerate - 1 ticks, this way - they don't all fall
+    -- on the same tick
+    WaitTicks( math.mod( aiBrain.ArmyIndex, samplerate ) + 1)       -- we add one to avoid 0 --
+    
+    LOG("*AI DEBUG Economy Monitor for Armyindex "..aiBrain.ArmyIndex.." started ")
 
     while true do
 
@@ -2331,8 +2338,8 @@ function EconomyMonitor( aiBrain )
 			mIncome = mIncome - EcoDataMassIncome[point]
 			eRequested = eRequested - EcoDataEnergyRequested[point]
 			mRequested = mRequested - EcoDataMassRequested[point]
-            eStorage = eStorage - EcoDataEnergyStorage[point]
-            mStorage = mStorage - EcoDataMassStorage[point]
+            --eStorage = eStorage - EcoDataEnergyStorage[point]
+            --mStorage = mStorage - EcoDataMassStorage[point]
 			eTrend = eTrend - EcoDataEnergyTrend[point]
 			mTrend = mTrend - EcoDataMassTrend[point]
             
@@ -2341,8 +2348,8 @@ function EconomyMonitor( aiBrain )
 			EcoDataMassIncome[point] = GetEconomyIncome( aiBrain, 'MASS')
 			EcoDataEnergyRequested[point] = GetEconomyRequested( aiBrain, 'ENERGY')
 			EcoDataMassRequested[point] = GetEconomyRequested( aiBrain, 'MASS')
-            EcoDataEnergyStorage[point] = GetEconomyStoredRatio( aiBrain, 'ENERGY')*100
-            EcoDataMassStorage[point] = GetEconomyStoredRatio( aiBrain, 'MASS')*100
+            --EcoDataEnergyStorage[point] = GetEconomyStoredRatio( aiBrain, 'ENERGY')*100
+            --EcoDataMassStorage[point] = GetEconomyStoredRatio( aiBrain, 'MASS')*100
 
             -- this was originally intended to prevent trends from going negative
             -- but it really impaired the accuracy of a recovery from stall since
@@ -2367,21 +2374,23 @@ function EconomyMonitor( aiBrain )
 			mIncome = mIncome + EcoDataMassIncome[point]
 			eRequested = eRequested + EcoDataEnergyRequested[point]
 			mRequested = mRequested + EcoDataMassRequested[point]
-            eStorage = eStorage + EcoDataEnergyStorage[point]
-            mStorage = mStorage + EcoDataMassStorage[point]
+            --eStorage = eStorage + EcoDataEnergyStorage[point]
+            --mStorage = mStorage + EcoDataMassStorage[point]
 			eTrend = eTrend + EcoDataEnergyTrend[point]
 			mTrend = mTrend + EcoDataMassTrend[point]
             
             -- calculate new OverTime values --
-			EcoDataOverTime['EnergyIncome'] = eIncome * samplefactor
-			EcoDataOverTime['MassIncome'] = mIncome * samplefactor
+
+            
 			EcoDataOverTime['EnergyRequested'] = eRequested * samplefactor
 			EcoDataOverTime['MassRequested'] = mRequested * samplefactor
-            EcoDataOverTime['EnergyStorage'] = eStorage * samplefactor
-            EcoDataOverTime['MassStorage'] = mStorage * samplefactor
+            --EcoDataOverTime['EnergyStorage'] = eStorage * samplefactor
+            --EcoDataOverTime['MassStorage'] = mStorage * samplefactor
+            
+			EcoDataOverTime['EnergyIncome'] = eIncome * samplefactor
+			EcoDataOverTime['MassIncome'] = mIncome * samplefactor            
 			EcoDataOverTime['EnergyTrend'] = eTrend * samplefactor
 			EcoDataOverTime['MassTrend'] = mTrend * samplefactor
-
 			EcoDataOverTime['EnergyEfficiency'] = LOUDMIN( (eIncome * samplefactor) / (eRequested * samplefactor), 2)
 			EcoDataOverTime['MassEfficiency'] = LOUDMIN( (mIncome * samplefactor) / (mRequested * samplefactor), 2)
 
