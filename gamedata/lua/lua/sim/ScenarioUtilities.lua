@@ -371,6 +371,20 @@ function CreateResources()
     ScenarioInfo.Options.RelocateResources = nil
 	
 	LOG("*AI DEBUG Created Resources and used "..( (gcinfo() - memstart)*1024 ).." bytes")
+    
+    -- create the initial mass point list
+    ScenarioInfo.StartingMassPointList = table.copy(import('/lua/ai/aiutilities.lua').AIGetMarkerLocations('Mass'))
+
+	-- store the number of mass points on the map
+	ScenarioInfo.NumMassPoints = table.getn( import('/lua/ai/aiutilities.lua').AIGetMarkerLocations('Mass') )
+
+	LOG("*AI DEBUG Storing Mass Points = "..ScenarioInfo.NumMassPoints)
+    
+    LOG("*AI DEBUG Number of Players is "..ScenarioInfo.Options.PlayerCount)
+    
+    ScenarioInfo.MassPointShare = math.floor(ScenarioInfo.NumMassPoints/ScenarioInfo.Options.PlayerCount)
+    
+    LOG("*AI DEBUG Player Mass Point Share is "..ScenarioInfo.MassPointShare)
 	
 end
 
@@ -383,7 +397,11 @@ function InitializeArmies()
     local function InitializeSkirmishSystems(self)
 	
 		-- store which team we're on
-		self.Team = ScenarioInfo.ArmySetup[self.Name].Team
+        if ScenarioInfo.ArmySetup[self.Name].Team == 1 then
+            self.Team = -1 * self.ArmyIndex  -- no team specified
+        else
+            self.Team = ScenarioInfo.ArmySetup[self.Name].Team  -- specified team number
+        end
         
         local Opponents = 0
         local TeamSize = 1
@@ -697,30 +715,80 @@ function InitializeArmies()
         
     end
     
+    ScenarioInfo.TeamMassPointList = {}
+    
 	--3+ Teams Unit Cap Fix, setting up the Unit Cap part of SetupAICheat,
 	-- now that we know what is the number of armies in the biggest team.                 
-	for iArmy, strArmy in pairs(tblArmy) do
+	for _, strArmy in tblArmy do
 
-        local tblData = ScenarioInfo.Env.Scenario.Armies[strArmy]
         local armyIsCiv = ScenarioInfo.ArmySetup[strArmy].Civilian
+        local aiBrain = GetArmyBrain(strArmy)
 
-        if tblData then
+        if aiBrain.BrainType == 'AI' and not armyIsCiv then
 			
-			-- if this is an AI (but not civilian)
-            if GetArmyBrain(strArmy).BrainType == 'AI' and not armyIsCiv then
-			
-				import('/lua/ai/aiutilities.lua').SetupAICheatUnitCap( GetArmyBrain(strArmy), ScenarioInfo.biggestTeamSize )
-				
+            import('/lua/ai/aiutilities.lua').SetupAICheatUnitCap( aiBrain, ScenarioInfo.biggestTeamSize )
+            
+            if not ScenarioInfo.TeamMassPointList[aiBrain.Team] then
+            
+                LOG("*AI DEBUG Creating Starting Mass Point List for Team "..aiBrain.Team)
+                
+                ScenarioInfo.TeamMassPointList[aiBrain.Team] = table.copy(ScenarioInfo.StartingMassPointList)
+
             end
             
+            aiBrain.StartingMassPointList = {}  -- initialize starting mass point list for this brain
+            
+            aiBrain.MassPointShare = ScenarioInfo.MassPointShare
+
 		end
         
     end
     
+    for k, v in ScenarioInfo.TeamMassPointList do
+    
+        LOG("*AI DEBUG Processing "..ScenarioInfo.MassPointShare.." TeamMassPoints for team "..repr(k))
+        
+        local count = 0
+        
+        while count < ScenarioInfo.MassPointShare do
+        
+            for a, brain in ArmyBrains do
+        
+                if brain.Team == k then
+                
+                    local Position = { brain.StartPosX, 0, brain.StartPosZ }
+
+                    -- sort the list for closest
+                    table.sort(ScenarioInfo.TeamMassPointList[brain.Team], function(a,b) return VDist3( a.Position, Position ) < VDist3( b.Position, Position) end )
+                    
+                    -- take the closest one and remove it from master list
+                    table.insert( brain.StartingMassPointList, table.remove( ScenarioInfo.TeamMassPointList[brain.Team], 1 ))
+
+                end
+            
+            end
+            
+            count = count + 1
+        
+        end
+
+        for a, brain in ArmyBrains do
+        
+            if brain.Team == k then
+                LOG("*AI DEBUG "..brain.Nickname.." StartingMassPointList is "..repr(brain.StartingMassPointList))
+            end
+            
+        end
+        
+    end
+
     loudUtils.StartAdaptiveCheatThreads()
     
     loudUtils.StartSpeedProfile()
-
+    
+    ScenarioInfo.StartingMassPointList = nil
+    ScenarioInfo.TeamMassPointList = nil
+    
     ScenarioInfo.Options.AIResourceSharing = nil
     ScenarioInfo.Options.AIFactionColor = nil
     

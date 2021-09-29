@@ -61,6 +61,8 @@ function AIExecuteBuildStructure( aiBrain, engineer, buildingType, closeToBuilde
     
         local AIUtils = '/lua/ai/aiutilities.lua'
 
+        local CanBuildStructureAt = moho.aibrain_methods.CanBuildStructureAt
+
         local testunit = 'ueb1102'  -- Hydrocarbon
         local testtype = 'Hydrocarbon'
         
@@ -69,52 +71,71 @@ function AIExecuteBuildStructure( aiBrain, engineer, buildingType, closeToBuilde
             testtype = 'Mass'
         end
 
-		local markerlist = ScenarioInfo.Env.Scenario.MasterChain[testtype]
+        -- this is the code that enables the StartingMassPointList which provides
+        -- early engineers with direct goals based on mass point share requirements
+        -- As the entries are taken, they are removed until the list is empty at which point the original code takes over 
+        if testtype == 'Mass' and aiBrain.StartingMassPointList[1] then
         
-		local mlist = {}
-		local counter = 0
-        
-        local mindistance = constructionData.MinRange or 0
-        local maxdistance = constructionData.MaxRange or 500
-        local tMin = constructionData.ThreatMin or 0
-        local tMax = constructionData.ThreatMax or 20
-        local tRings = constructionData.ThreatRings or 0
-        local tType = constructionData.ThreatType or 'AntiSurface'
-        local maxlist = constructionData.MaxChoices or 1
-        
-        LOUDSORT( markerlist, function (a,b) return VDist3( a.Position, SourcePosition ) < VDist3( b.Position, SourcePosition ) end )
+            location = LOUDREMOVE(aiBrain.StartingMassPointList, 1)
+            location = location.Position
 
-		local CanBuildStructureAt = moho.aibrain_methods.CanBuildStructureAt
-    
-		for _,v in markerlist do
+            if CanBuildStructureAt( aiBrain, testunit, location ) then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." Engineer can build at initial mass point at "..repr(location))
+                constructionData.MaxRange = 1500
+            else
+                LOG("*AI DEBUG "..aiBrain.Nickname.." Engineer CANNOT build at initial mass point at "..repr(location))
+                location = false
+            end
+        end
+        
+        if not location then
+
+            local markerlist = ScenarioInfo.Env.Scenario.MasterChain[testtype]
+        
+            local mlist = {}
+            local counter = 0
+        
+            local mindistance = constructionData.MinRange or 0
+            local maxdistance = constructionData.MaxRange or 500
+            local tMin = constructionData.ThreatMin or 0
+            local tMax = constructionData.ThreatMax or 20
+            local tRings = constructionData.ThreatRings or 0
+            local tType = constructionData.ThreatType or 'AntiSurface'
+            local maxlist = constructionData.MaxChoices or 1
+        
+            LOUDSORT( markerlist, function (a,b) return VDist3( a.Position, SourcePosition ) < VDist3( b.Position, SourcePosition ) end )
+
+            for _,v in markerlist do
             
-            if VDist3( v.Position, SourcePosition ) >= mindistance then
-            
-                if VDist3( v.Position, SourcePosition ) <= maxdistance then
+                if VDist3( v.Position, SourcePosition ) >= mindistance then
                 
-                    if CanBuildStructureAt( aiBrain, testunit, v.Position ) then
+                    if VDist3( v.Position, SourcePosition ) <= maxdistance then
+                
+                        if CanBuildStructureAt( aiBrain, testunit, v.Position ) then
 
-                        counter = counter + 1
-                        mlist[counter] = v
+                            counter = counter + 1
+                            mlist[counter] = v
 
-                    end
+                        end
                     
-                end
+                    end
                 
-            end
+                end
             
-		end
+            end
 		
-		if counter > 0 then
+            if counter > 0 then
             
-			local markerTable = import(AIUtils).AISortMarkersFromLastPosWithThreatCheck(aiBrain, mlist, maxlist, tMin, tMax, tRings, tType, SourcePosition)
+                local markerTable = import(AIUtils).AISortMarkersFromLastPosWithThreatCheck(aiBrain, mlist, maxlist, tMin, tMax, tRings, tType, SourcePosition)
 
-			if markerTable then
+                if markerTable then
 
-                -- pick one of the points randomly
-				location = LOUDCOPY( markerTable[ Random(1,LOUDGETN(markerTable)) ] )
-            end
-		end	
+                    -- pick one of the points randomly
+                    location = LOUDCOPY( markerTable[ Random(1,LOUDGETN(markerTable)) ] )
+                end
+            end	
+        
+        end
 
         -- if no result or out of range - then abort
 		if not location or VDist3( SourcePosition, location ) > constructionData.MaxRange then

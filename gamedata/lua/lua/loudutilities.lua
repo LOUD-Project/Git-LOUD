@@ -278,37 +278,50 @@ end
 -- if the AI has its share of mass points
 function HasMassPointShare( aiBrain, multiple )
 
-	local LOUDGETN = table.getn
+    local units = aiBrain:GetListOfUnits(categories.ECONOMIC, false)
+    
+    local extractorCount = 0
+    
+    if units[1] then
+	
+        extractorCount = EntityCategoryCount( categories.MASSEXTRACTION - categories.TECH1, units)
+    
+        extractorCount = extractorCount + ( EntityCategoryCount( categories.MASSFABRICATION * categories.TECH3, units) * .5)
+    
+        extractorCount = extractorCount + ( EntityCategoryCount( categories.MASSFABRICATION * categories.EXPERIMENTAL, units) * 4)
 
-	local GetListOfUnits = moho.aibrain_methods.GetListOfUnits
-	
-    local extractorCount = LOUDGETN(GetListOfUnits(aiBrain,categories.MASSEXTRACTION, false))
-	local fabricatorCount = LOUDGETN(GetListOfUnits(aiBrain,categories.MASSFABRICATION * categories.TECH3, false))
-	local res_genCount = LOUDGETN(GetListOfUnits(aiBrain,categories.MASSFABRICATION * categories.EXPERIMENTAL, false))
-	
-    -- the Extractor count is increased by the AIMult (which is carried in aiBrain.VeterancyMult)
-	extractorCount = (extractorCount + (fabricatorCount * .5) + (res_genCount * 4)) * aiBrain.VeterancyMult
-	
+        -- The Extractor count is increased by the AIMult (which is carried in aiBrain.VeterancyMult)
+        -- so an AI with a high cheat will consider itself to have it's share sooner
+        extractorCount = extractorCount * aiBrain.VeterancyMult
+        
+    end
+
     -- the addition of the multiple allows us to test for an ownership % relationship
-	return extractorCount >= ( LOUDFLOOR( (ScenarioInfo.NumMassPoints/aiBrain.Players) -1 ) * (multiple or 1) )
+	return extractorCount >= ( aiBrain.MassPointShare * (multiple or 1))
 end
 
 -- a variant of the above
 function NeedMassPointShare( aiBrain, multiple )
 
-	local LOUDGETN = table.getn
-
-	local GetListOfUnits = moho.aibrain_methods.GetListOfUnits
+    local units = aiBrain:GetListOfUnits( categories.ECONOMIC, false)
+    
+    local extractorCount = 0
 	
-    local extractorCount = LOUDGETN(GetListOfUnits(aiBrain,categories.MASSEXTRACTION, false))
-	local fabricatorCount = LOUDGETN(GetListOfUnits(aiBrain,categories.MASSFABRICATION * categories.TECH3, false))
-	local res_genCount = LOUDGETN(GetListOfUnits(aiBrain,categories.MASSFABRICATION * categories.EXPERIMENTAL, false))
-	
-    -- The Extractor count is increased by the AIMult (which is carried in aiBrain.VeterancyMult)
-    -- so an AI with a high cheat will consider itself to have it's share sooner
-	extractorCount = (extractorCount + (fabricatorCount * .5) + (res_genCount * 4)) * aiBrain.VeterancyMult
+    if units[1] then
 
-	return extractorCount <= ( LOUDFLOOR( (ScenarioInfo.NumMassPoints/aiBrain.Players) -1 ) * (multiple or 1) )
+        extractorCount = EntityCategoryCount( categories.MASSEXTRACTION - categories.TECH1, units)
+    
+        extractorCount = extractorCount + ( EntityCategoryCount( categories.MASSFABRICATION * categories.TECH3, units) * .5)
+    
+        extractorCount = extractorCount + ( EntityCategoryCount( categories.MASSFABRICATION * categories.EXPERIMENTAL, units) * 4)
+
+        -- The Extractor count is increased by the AIMult (which is carried in aiBrain.VeterancyMult)
+        -- so an AI with a high cheat will consider itself to have it's share sooner
+        extractorCount = extractorCount * aiBrain.VeterancyMult
+        
+    end
+
+	return extractorCount < ( aiBrain.MassPointShare * (multiple or 1))
 end
 
 -- verifies if the TEAM has its share of mass points
@@ -316,7 +329,8 @@ function TeamMassPointShare( aiBrain, bool )
 
     -- the Extractor count is increased by the AIMult so we trigger this earlier than the count would indicate
 	local TeamExtractors = LOUDGETN(aiBrain:GetUnitsAroundPoint( categories.MASSEXTRACTION, Vector(0,0,0), 9999, 'Ally' )) * aiBrain.VeterancyMult
-	local TeamNeeded = LOUDFLOOR( ((ScenarioInfo.NumMassPoints/aiBrain.Players) - 1) * aiBrain.TeamSize)
+    
+	local TeamNeeded = aiBrain.MassPointShare * aiBrain.TeamSize
 	
 	if TeamExtractors >= TeamNeeded then
 		
@@ -339,7 +353,8 @@ end
 function NeedTeamMassPointShare( aiBrain )
 
 	local TeamExtractors = LOUDGETN(aiBrain:GetUnitsAroundPoint( categories.MASSEXTRACTION - categories.TECH1, Vector(0,0,0), 9999, 'Ally' )) * aiBrain.VeterancyMult
-	local TeamNeeded = LOUDFLOOR( ((ScenarioInfo.NumMassPoints/aiBrain.Players) - 1) * aiBrain.TeamSize)
+    
+	local TeamNeeded = aiBrain.MassPointShare * aiBrain.TeamSize
 
 	return TeamExtractors < TeamNeeded
 end
@@ -2275,13 +2290,13 @@ function EconomyMonitor( aiBrain )
 	-- create the table to store the samples
 	for point = 1, samples do
 		aiBrain.EcoData['EnergyIncome'][point] = 0
-		aiBrain.EcoData['EnergyRequested'][point] = 0
-        --aiBrain.EcoData['EnergyStorage'][point] = 0
-		aiBrain.EcoData['EnergyTrend'][point] = 0
 		aiBrain.EcoData['MassIncome'][point] = 0
+		aiBrain.EcoData['EnergyRequested'][point] = 0
 		aiBrain.EcoData['MassRequested'][point] = 0
-        --aiBrain.EcoData['MassStorage'][point] = 0
+		aiBrain.EcoData['EnergyTrend'][point] = 0
 		aiBrain.EcoData['MassTrend'][point] = 0
+        --aiBrain.EcoData['EnergyStorage'][point] = 0        
+        --aiBrain.EcoData['MassStorage'][point] = 0        
 	end    
 
     local GetEconomyIncome = moho.aibrain_methods.GetEconomyIncome
@@ -2298,11 +2313,11 @@ function EconomyMonitor( aiBrain )
     local mIncome = 0
     local eRequested = 0
     local mRequested = 0
-    local eStorage = 0
-    local mStorage = 0
 	local eTrend = 0
 	local mTrend = 0
-
+    --local eStorage = 0
+    --local mStorage = 0
+    
     -- this will be used to multiply the totals
     -- to arrive at the averages
 	local samplefactor = 1/samples
@@ -2319,15 +2334,11 @@ function EconomyMonitor( aiBrain )
     --local EcoDataMassStorage = EcoData['MassStorage']
 
     local EcoDataOverTime = EcoData['OverTime']
-    
-    local e,m
-    
+
     -- Economy Monitor is delayed according to ArmyIndex
     -- between 0 and samplerate - 1 ticks, this way - they don't all fall
     -- on the same tick
     WaitTicks( math.mod( aiBrain.ArmyIndex, samplerate ) + 1)       -- we add one to avoid 0 --
-    
-    LOG("*AI DEBUG Economy Monitor for Armyindex "..aiBrain.ArmyIndex.." started ")
 
     while true do
 
@@ -2338,61 +2349,46 @@ function EconomyMonitor( aiBrain )
 			mIncome = mIncome - EcoDataMassIncome[point]
 			eRequested = eRequested - EcoDataEnergyRequested[point]
 			mRequested = mRequested - EcoDataMassRequested[point]
-            --eStorage = eStorage - EcoDataEnergyStorage[point]
-            --mStorage = mStorage - EcoDataMassStorage[point]
 			eTrend = eTrend - EcoDataEnergyTrend[point]
 			mTrend = mTrend - EcoDataMassTrend[point]
+            --eStorage = eStorage - EcoDataEnergyStorage[point]
+            --mStorage = mStorage - EcoDataMassStorage[point]
             
             -- insert the new data --
 			EcoDataEnergyIncome[point] = GetEconomyIncome( aiBrain, 'ENERGY')
 			EcoDataMassIncome[point] = GetEconomyIncome( aiBrain, 'MASS')
 			EcoDataEnergyRequested[point] = GetEconomyRequested( aiBrain, 'ENERGY')
 			EcoDataMassRequested[point] = GetEconomyRequested( aiBrain, 'MASS')
+			EcoDataEnergyTrend[point] = GetEconomyTrend( aiBrain, 'ENERGY')
+			EcoDataMassTrend[point] = GetEconomyTrend( aiBrain, 'MASS')
             --EcoDataEnergyStorage[point] = GetEconomyStoredRatio( aiBrain, 'ENERGY')*100
             --EcoDataMassStorage[point] = GetEconomyStoredRatio( aiBrain, 'MASS')*100
 
-            -- this was originally intended to prevent trends from going negative
-            -- but it really impaired the accuracy of a recovery from stall since
-            -- the trend would return to positive earlier than it should have
-			e = GetEconomyTrend( aiBrain, 'ENERGY')
-			m = GetEconomyTrend( aiBrain, 'MASS')
-
-			--if e > 0.01 then
-				EcoDataEnergyTrend[point] = e
-			--else
-				--EcoDataEnergyTrend[point] = 0.01
-			--end
-			
-			--if m > 0.01 then
-				EcoDataMassTrend[point] = m
-			--else
-				--EcoDataMassTrend[point] = 0.01
-			--end
 
             -- add the new data to totals
 			eIncome = eIncome + EcoDataEnergyIncome[point]
 			mIncome = mIncome + EcoDataMassIncome[point]
 			eRequested = eRequested + EcoDataEnergyRequested[point]
 			mRequested = mRequested + EcoDataMassRequested[point]
-            --eStorage = eStorage + EcoDataEnergyStorage[point]
-            --mStorage = mStorage + EcoDataMassStorage[point]
 			eTrend = eTrend + EcoDataEnergyTrend[point]
 			mTrend = mTrend + EcoDataMassTrend[point]
-            
-            -- calculate new OverTime values --
+            --eStorage = eStorage + EcoDataEnergyStorage[point]
+            --mStorage = mStorage + EcoDataMassStorage[point]
 
             
+            -- calculate new OverTime values --
+			EcoDataOverTime['EnergyIncome'] = eIncome * samplefactor
+			EcoDataOverTime['MassIncome'] = mIncome * samplefactor
 			EcoDataOverTime['EnergyRequested'] = eRequested * samplefactor
 			EcoDataOverTime['MassRequested'] = mRequested * samplefactor
+			EcoDataOverTime['EnergyTrend'] = eTrend * samplefactor
+			EcoDataOverTime['MassTrend'] = mTrend * samplefactor
             --EcoDataOverTime['EnergyStorage'] = eStorage * samplefactor
             --EcoDataOverTime['MassStorage'] = mStorage * samplefactor
             
-			EcoDataOverTime['EnergyIncome'] = eIncome * samplefactor
-			EcoDataOverTime['MassIncome'] = mIncome * samplefactor            
-			EcoDataOverTime['EnergyTrend'] = eTrend * samplefactor
-			EcoDataOverTime['MassTrend'] = mTrend * samplefactor
 			EcoDataOverTime['EnergyEfficiency'] = LOUDMIN( (eIncome * samplefactor) / (eRequested * samplefactor), 2)
 			EcoDataOverTime['MassEfficiency'] = LOUDMIN( (mIncome * samplefactor) / (mRequested * samplefactor), 2)
+
 
 			WaitTicks(samplerate + 1)   -- account for lost tick
 
@@ -4073,7 +4069,7 @@ function ParseIntelThread( aiBrain )
 	-- this moves all the local creation up front so NO locals need to be declared in
 	-- the primary loop - probably doesn't mean much - but I did it anyway
     -- it also lets me see all the variables I might be using and better re-use them 
-	local totalThreat, threats, gametime, units, counter, x1,x2,x3, dupe, oldthreat, newthreat, newtime, realcount, bp, rebuild
+	local totalThreat, threats, gametime, units, counter, x1,x2,x3, dupe, oldthreat, newthreat, newtime, bp, rebuild
 	local DisplayIntelPoints, IntelDialog, ReportRatios
     local Type, Position, Threat, LastUpdate
     
@@ -4544,8 +4540,6 @@ function ParseIntelThread( aiBrain )
             -----------------
             totalThreat = 0
             oldthreat = 0
-            realcount = 0
-
 
             if EnemyData['Air']['Total'] > 0 then
             
@@ -4559,8 +4553,8 @@ function ParseIntelThread( aiBrain )
                     
                             bp = ALLBPS[v.BlueprintID].Defense
                         
-                            oldthreat = oldthreat + bp.AirThreatLevel + bp.SurfaceThreatLevel + bp.SubThreatLevel
-                            realcount = realcount + 1
+                            oldthreat = oldthreat + bp.AirThreatLevel + bp.SurfaceThreatLevel
+
                         end
                         
                     else
@@ -4571,7 +4565,7 @@ function ParseIntelThread( aiBrain )
                     
                             bp = ALLBPS[v.BlueprintID].Defense
                         
-                            totalThreat = totalThreat + bp.AirThreatLevel + bp.SurfaceThreatLevel + bp.SubThreatLevel
+                            totalThreat = totalThreat + bp.AirThreatLevel + bp.SurfaceThreatLevel
                         end                    
                     end
                 end
@@ -4585,7 +4579,6 @@ function ParseIntelThread( aiBrain )
             ------------------
             totalThreat = 0
             oldthreat = 0
-            realcount = 0
 
             if EnemyData['Land']['Total'] > 0 then
 
@@ -4599,8 +4592,8 @@ function ParseIntelThread( aiBrain )
                     
                             bp = ALLBPS[v.BlueprintID].Defense
                         
-                            oldthreat = oldthreat + bp.AirThreatLevel + bp.SurfaceThreatLevel + bp.SubThreatLevel
-                            realcount = realcount + 1
+                            oldthreat = oldthreat + bp.SurfaceThreatLevel
+
                         end
                         
                     else
@@ -4611,7 +4604,7 @@ function ParseIntelThread( aiBrain )
                     
                             bp = ALLBPS[v.BlueprintID].Defense
                         
-                            totalThreat = totalThreat + bp.AirThreatLevel + bp.SurfaceThreatLevel + bp.SubThreatLevel
+                            totalThreat = totalThreat + bp.SurfaceThreatLevel
                         end
                     end
                 end
@@ -4625,7 +4618,6 @@ function ParseIntelThread( aiBrain )
             -------------------
             totalThreat = 0
             oldthreat = 0
-            realcount = 0
 
             if EnemyData['Naval']['Total'] > 0 then
 
@@ -4639,9 +4631,10 @@ function ParseIntelThread( aiBrain )
                     
                             bp = ALLBPS[v.BlueprintID].Defense
                         
-                            oldthreat = oldthreat + bp.AirThreatLevel + bp.SurfaceThreatLevel + bp.SubThreatLevel
-                            realcount = realcount + 1
+                            oldthreat = oldthreat + bp.SurfaceThreatLevel + bp.SubThreatLevel
+
                         end
+                        
                     else
 
                         units = GetListOfUnits( brain, NAVALUNITS, false, false)
@@ -4650,7 +4643,7 @@ function ParseIntelThread( aiBrain )
                     
                             bp = ALLBPS[v.BlueprintID].Defense
                         
-                            totalThreat = totalThreat + bp.AirThreatLevel + bp.SurfaceThreatLevel + bp.SubThreatLevel
+                            totalThreat = totalThreat + bp.SurfaceThreatLevel + bp.SubThreatLevel
                         end                
                     end
                 end
@@ -4810,11 +4803,6 @@ function BuildScoutLocations( self )
 		
 		self.StartPosX = StartPosX
 		self.StartPosZ = StartPosZ
-		
-		-- store the number of mass points on the map
-		ScenarioInfo.NumMassPoints = LOUDGETN(AIGetMarkerLocations('Mass'))
-        
-		LOG("*AI DEBUG Storing Mass Points = "..ScenarioInfo.NumMassPoints)
 
 		-- Having handled Starting Locations lets add others to the permanent list
         -- for HiPri
