@@ -2295,7 +2295,7 @@ QuantumGateUnit = Class(FactoryUnit) {
 
 	-- This is the "main" function called when the teleport button is clicked
 	WarpNearbyUnits	= function(self, radius)
-		LOG('~Starting teleport')
+		LOG('~Attempting to teleport')
 
 		if not self.TeleportReady then
 			import('/lua/CommonTools.lua').PrintError("Gateway not ready!", self:GetArmy())
@@ -2329,11 +2329,6 @@ QuantumGateUnit = Class(FactoryUnit) {
 		end
 
 		local warpUnits = import('/lua/CommonTools.lua').GetAlliedMobileUnitsInRadius(self, self:GetPosition(), radius)
-
-		--if not warpUnits or table.getn(warpUnits) == 0 then
-		--	import('/lua/CommonTools.lua').PrintError("No units within teleport radius", self:GetArmy())
-		--	return
-		--end
 
 		LOG('~Number of units to teleport: ' .. LOUDGETN(warpUnits))
 
@@ -2545,8 +2540,9 @@ QuantumGateUnit = Class(FactoryUnit) {
 
 		self:UpdateTeleportProgress(0.0)
 
-		local srcGatePos = self:GetPosition()
-		local dstGatePos = self.DestinationGateway:GetPosition()
+		local srcGatePos = table.copy(self:GetPosition())
+		local dstGatePos = table.copy(self.DestinationGateway:GetPosition())
+        
 		LOG(string.format("~Source gateway position: [%f, %f, %f]", srcGatePos[1], srcGatePos[2], srcGatePos[3]))
 		LOG(string.format("~Destination gateway position: [%f, %f, %f]", dstGatePos[1], dstGatePos[2], dstGatePos[3]))
 
@@ -2566,24 +2562,26 @@ QuantumGateUnit = Class(FactoryUnit) {
 
 			-- figure out the position of the unit relative to the sending gate, and use that relative position
 			-- offset by the receiving gate's position to determine the final location to teleport a unit
-			if v.GetPosition then
-				local curPos = v:GetPosition()
 
-				local xOffset = curPos[1] - srcGatePos[1]
-				local yOffset = curPos[2] - srcGatePos[2]
-				local zOffset = curPos[3] - srcGatePos[3]
+			local curPos = table.copy(v:GetPosition())
 
-				local newPos = { dstGatePos[1] + xOffset, dstGatePos[2] + yOffset, dstGatePos[3] + zOffset }
+			local xOffset = curPos[1] - srcGatePos[1]
+			local yOffset = curPos[2] - srcGatePos[2]
+			local zOffset = curPos[3] - srcGatePos[3]
 
-				v:CleanupTeleportChargeEffects()
-				v:PlayScaledTeleportOutEffects()
+			local newPos = { dstGatePos[1] + xOffset, dstGatePos[2] + yOffset, dstGatePos[3] + zOffset }
 
-				Warp(v,	newPos, v:GetOrientation())
+			v:CleanupTeleportChargeEffects()
+			v:PlayScaledTeleportOutEffects()
 
-				v:PlayScaledTeleportInEffects()
-				v:CleanupTeleportChargeEffects()
-				v:SetImmobile(false) -- this is important
-			end
+            LOG("~Transported unit to "..repr(newPos))
+			Warp( v, newPos )
+
+			v:PlayScaledTeleportInEffects()
+			v:CleanupTeleportChargeEffects()
+            
+			v:SetImmobile(false) -- this is important
+
 		end
 
 		self:RemoveTeleportLink()
