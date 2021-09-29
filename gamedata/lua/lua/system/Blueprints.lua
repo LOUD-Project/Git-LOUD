@@ -621,7 +621,7 @@ function ModBlueprints(all_blueprints)
 			
 					econScale = 0.0    # -- cost more
 					speedScale = -0.10  # -- move slower
-					viewScale = 0.0   
+					viewScale = 0.05    # -- see further   
 			
 					for j, catj in bp.Categories do
 				
@@ -630,7 +630,12 @@ function ModBlueprints(all_blueprints)
 							if bp.Economy.BuildTime then
 							
 								bp.Economy.BuildTime = bp.Economy.BuildTime + (bp.Economy.BuildTime * econScale)
+                                
 								bp.Economy.BuildCostEnergy = bp.Economy.BuildCostEnergy + (bp.Economy.BuildCostEnergy * econScale)
+                                
+                                -- simple 10% energy cost reduction for all naval units
+                                bp.Economy.BuildCostEnergy = bp.Economy.BuildCostEnergy * 0.9
+                                
 								bp.Economy.BuildCostMass = bp.Economy.BuildCostMass + (bp.Economy.BuildCostMass * econScale)
 								
 							end
@@ -754,6 +759,11 @@ function ModBlueprints(all_blueprints)
 								bp.Economy.BuildCostEnergy = bp.Economy.BuildCostEnergy + (bp.Economy.BuildCostEnergy * econScale)
 								bp.Economy.BuildCostMass = bp.Economy.BuildCostMass + (bp.Economy.BuildCostMass * econScale)
 							end
+
+                            if bp.Physics.MotionType == 'RULEUMT_Hover' then
+                                LOG("*AI DEBUG Hover unit adjustment in "..repr(bp.Description))
+                                bp.Economy.BuildCostEnergy = bp.Economy.BuildCostEnergy * 1.1
+                            end
 							
 							if bp.SizeY and not bp.Physics.LayerChangeOffsetHeight then
 								bp.Physics.LayerChangeOffsetHeight = bp.SizeY/2 * -1
@@ -789,8 +799,8 @@ function ModBlueprints(all_blueprints)
 							
 							-- this series of adjustments is designed to give the lower tech mobile land units a little more 'oomph' with
 							-- regards to their T3 counterparts both in the form of Health and Speed
-							local T1_Adjustment = 1.22
-							local T2_Adjustment = 1.12
+							local T1_Adjustment = 1.20
+							local T2_Adjustment = 1.11
 							local T3_Adjustment = 1.00
 						
 							for _, cat_mobile in bp.Categories do
