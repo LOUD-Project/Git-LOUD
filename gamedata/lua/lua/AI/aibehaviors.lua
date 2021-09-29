@@ -6184,64 +6184,73 @@ function TMLThread( unit, aiBrain )
 	
     unit:SetAutoMode(true)
 
-	local atkPri = { 'SHIELD','EXPERIMENTAL','ANTIMISSILE -SILO','ECONOMIC','ENGINEER -TECH1','MOBILE -TECH1', }
+	local atkPri = { 'SHIELD','ANTIMISSILE -SILO','EXPERIMENTAL','ARTILLERY','ECONOMIC','ENGINEER TECH3','MOBILE TECH3', }
 	local targetUnits, target, targPos
 	
     while not unit.Dead do
 
-        while unit:GetTacticalSiloAmmoCount() > 0 do
-		
-			-- wait 3 seconds
-            WaitTicks(35)
-			
-			targetUnits = GetUnitsAroundPoint( aiBrain, categories.ALLUNITS - categories.WALL - categories.AIR - categories.TECH1, position, maxRadius, 'Enemy' )
+        -- dont search for targets unless ammo is 3+
+        while unit:GetTacticalSiloAmmoCount() > 2 do
 
-			-- locate a target in range or wait additional 5 seconds
-			if targetUnits[1] then
-            
-				-- loop thru each of the attack Priorities
-				for _,v in atkPri do
+            while unit:GetTacticalSiloAmmoCount() > 0 do
+			
+                targetUnits = GetUnitsAroundPoint( aiBrain, categories.ALLUNITS - categories.WALL - categories.AIR - categories.TECH1, position, maxRadius, 'Enemy' )
                 
-					for _, targetunit in EntityCategoryFilterDown( ParseEntityCategory(v), targetUnits ) do
+                if targetUnits[1] then
+            
+                    -- loop thru each of the attack Priorities
+                    for _,v in atkPri do
+                
+                        for _, targetunit in EntityCategoryFilterDown( ParseEntityCategory(v), targetUnits ) do
                     
-						-- if you find a target then break out
-						if not targetunit.Dead then
-							target = targetunit
-							break
-						end
+                            -- if you find a target then break out
+                            if not targetunit.Dead then
+                                target = targetunit
+                                break
+                            end
                         
-					end
+                        end
 
-					-- if there is a target -- fire at it
-					if target and not target.Dead and not unit.Dead then
+                        -- if there is a target -- fire at it
+                        if target and not target.Dead and not unit.Dead then
 			
-						if LOUDENTITY(categories.STRUCTURE, target) then
-							IssueTactical({unit}, target)
-						else
-							-- get a target position based upon movement
-							targPos = UnitLeadTarget(position, target) 
-							
+                            if LOUDENTITY(categories.STRUCTURE, target) then
+                            
+                                IssueTactical({unit}, target)
+                                
+                            else
+                            
+                                -- get a target position based upon movement
+                                targPos = UnitLeadTarget(position, target) 
 					
-							if targPos then
-								IssueTactical({unit}, targPos)
-								target = false
-								targPos = false 	-- clear targeting data 
-								break	-- break out back to ammo loop
-							end
-						end
-					end
-				end
-			else
+                                if targPos then
+                                    IssueTactical({unit}, targPos)
+                                    target = false
+                                    targPos = false 	-- clear targeting data 
+                                    break	-- break out back to ammo loop
+                                end
+                                
+                            end
+                            
+                        end
+                        
+                    end
+                    
+                else
 			
-				target = false
-				
-				IssueClearCommands({unit})
-				WaitTicks(60)
+                    break
+
+                end
+                
+                -- wait 2.5 seconds between target checks
+                WaitTicks(26)
+                
 			end
+            
 		end
 		
-		-- wait 12 seconds between ammo checks
-        WaitTicks(120)
+		-- wait 10 seconds between ammo checks
+        WaitTicks(101)
     end
 end
 

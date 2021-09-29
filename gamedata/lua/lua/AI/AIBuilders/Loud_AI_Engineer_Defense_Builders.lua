@@ -449,6 +449,40 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
             }
 	    }
     },
+	
+    Builder {BuilderName = 'T2 TML - Base Template - Core',
+	
+        PlatoonTemplate = 'EngineerBuilder',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+        Priority = 745,
+
+        PriorityFunction = IsEnemyCrushingLand,
+        
+        BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .80 } },
+
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }}, 
+            
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 6, categories.TACTICALMISSILEPLATFORM * categories.STRUCTURE, 10, 20 }},			
+        },
+		
+        BuilderType = {'T2','T3','SubCommander' },
+		
+        BuilderData = {
+            Construction = {
+                NearBasePerimeterPoints = true,
+				
+				ThreatMax = 100,
+				
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
+				BaseTemplate = 'SupportLayout',
+				
+                BuildStructures = {'T2StrategicMissile'},
+            }
+        }
+    },
 
     Builder {BuilderName = 'T3 Teleport Jamming',
 	
