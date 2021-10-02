@@ -809,7 +809,7 @@ ProjectedShield = Class(Shield){
         if pCount == 0 then
             self.Owner:DestroyShield()
         else
-
+            
 			ForkThread(self.CreateImpactEffect, self, vector)
 
             --Calculate the damage now, once, and before we fuck with the numbers.
@@ -863,45 +863,53 @@ ProjectedShield = Class(Shield){
     end,
 
     CreateImpactEffect = function(self, vector)
-	
-        local army = GetArmy(self)
-        local OffsetLength = GetVectorLength(vector)
-        local ImpactMesh = Entity { Owner = self.Owner }
-        local beams = {}
-	
-        for i, Pillar in self.Owner.Projectors do
 
-			if self:IsValidBone(0) and Pillar:IsValidBone('Gem') then
-				beams[i] = AttachBeamEntityToEntity(self, 0, Pillar, 'Gem', army, Pillar:GetBlueprint().Defense.Shield.ShieldTargetBeam)
-			end
+        if not self.Dead then
+        
+            local army = GetArmy(self)
+            local OffsetLength = GetVectorLength(vector)
+            local ImpactMesh = Entity { Owner = self.Owner }
+            local beams = {}
+	
+            for i, Pillar in self.Owner.Projectors do
+
+                if self:IsValidBone(0) and Pillar:IsValidBone('Gem') then
+                    beams[i] = AttachBeamEntityToEntity(self, 0, Pillar, 'Gem', army, Pillar:GetBlueprint().Defense.Shield.ShieldTargetBeam)
+                end
+            end
+		
+            Warp( ImpactMesh, self:GetPosition())
+		
+            if self.ImpactMeshBp ~= '' then
+                ImpactMesh:SetMesh(self.ImpactMeshBp)
+                ImpactMesh:SetDrawScale(self.Size)
+                ImpactMesh:SetOrientation(OrientFromDir(Vector(-vector.x,-vector.y,-vector.z)),true)
+            end
+		
+            for k, v in self.ImpactEffects do
+                CreateEmitterAtBone( ImpactMesh, -1, army, v ):OffsetEmitter(0,0,OffsetLength)
+            end
+		
+            WaitTicks(5)
+		
+            for i, v in beams do
+                v:Destroy()
+            end
+		
+            WaitTicks(45)
+        
+            ImpactMesh:Destroy()
+            
         end
-		
-        Warp( ImpactMesh, self:GetPosition())
-		
-        if self.ImpactMeshBp ~= '' then
-            ImpactMesh:SetMesh(self.ImpactMeshBp)
-            ImpactMesh:SetDrawScale(self.Size)
-            ImpactMesh:SetOrientation(OrientFromDir(Vector(-vector.x,-vector.y,-vector.z)),true)
-        end
-		
-        for k, v in self.ImpactEffects do
-            CreateEmitterAtBone( ImpactMesh, -1, army, v ):OffsetEmitter(0,0,OffsetLength)
-        end
-		
-        WaitTicks(5)
-		
-        for i, v in beams do
-            v:Destroy()
-        end
-		
-        WaitTicks(45)
-        ImpactMesh:Destroy()
+        
     end,
 
     OnCollisionCheck = function(self,other)
+    
         if self:CheckProjectors() == 0 then
             return false
         end
+        
         return Shield.OnCollisionCheck(self,other)
     end,
 }

@@ -1998,17 +1998,197 @@ Platoon = Class(moho.platoon_methods) {
         end
     end,
 
-	TacticalAI = function( self )
+	TacticalAI = function( self, aiBrain )
 	
 		LOG("*AI DEBUG Launched TacticalAI")
 		
 	end,
 	
-	ArtilleryAI = function( self )
+	ArtilleryAI = function( self, aiBrain )
+
+        local DistressResponseDialog = ScenarioInfo.DistressResponseDialog 
 	
 		LOG("*AI DEBUG ArtilleryAI launched")
 		
 		Behaviors.AssignArtilleryPriorities(self)
+        
+        local threatThreshold = 50
+        local distressRange = 1000
+        local distresstype = 'Land'
+        
+        local distressLocation, distressplatoon
+        
+        local platoonPos = self:GetPlatoonPosition()
+	
+		-- this function returns the location of any distress call within range
+		local function PlatoonMonitorDistressLocations()    -- self, aiBrain, platoonPos, distressRange, distresstype, threatThreshold )
+
+			local selfindex = aiBrain.ArmyIndex
+		
+			local VDist3 = VDist3
+			local VDist2 = VDist2
+		
+			local index, brain, baseName, base
+
+            local alerts
+			local alertposition = false
+			local alertrange = 9999999
+			local alertplatoon
+            local rangetoalert
+		
+			local Brains = ArmyBrains
+		
+			for index,brain in Brains do
+		
+				if index == selfindex or IsAlly( selfindex, brain.ArmyIndex ) and brain.BuilderManagers != nil then
+			
+					-- First check for CDR Distress -- respond at distress range
+					-- note that we don't care what kind of distresstype it is -- a commander needs help
+					-- we wont look at other distress calls
+					if brain.CDRDistress then
+					
+						if brain:GetUnitsAroundPoint( categories.COMMAND, brain.CDRDistress, 100, 'Ally')[1] then
+					
+							if VDist3( platoonPos, brain.CDRDistress ) < distressRange then
+
+                                if DistressResponseDialog then
+                                    LOG("*AI DEBUG "..aiBrain.Nickname.." ArtilleryAI DR "..self.BuilderName.." "..repr(self.MovementLayer).." selects ACU ALERT "..repr(brain.CDRDistress))
+                                end
+
+								return brain.CDRDistress, distresstype, 'Commander'
+							end
+                            
+						else
+							LOG("*AI DEBUG "..brain.Nickname.." CDR Dead - CDR Distress deactivated")
+						
+							brain.CDRDistress = nil
+						end
+                        
+					end
+				
+					-- Secondly - look for BASE and self alerts
+					-- respond to the closest ALERT (Base alerts at double range)
+					-- that exceeds our threat threshold
+					if brain.BaseAlertSounded then
+				
+						-- loop thru bases for this brain
+						for baseName,base in brain.BuilderManagers do
+
+							-- must have an EM and be active
+							if base.EngineerManager.Active then
+
+								-- is EM sounding an alert for my kind of distress response ? --
+								-- remember - each base will only track one alert for each type --
+								-- therefore - we either have an alert or we don't for any given base -- 
+								if base.EngineerManager.BaseMonitor.AlertsTable[distresstype] then
+							
+									alerts = base.EngineerManager.BaseMonitor.AlertsTable[distresstype]
+
+									-- is threat high enough for me to notice ?
+									if alerts.Threat >= threatThreshold then
+							
+										rangetoalert = VDist2( platoonPos[1],platoonPos[3], alerts.Position[1], alerts.Position[3])
+								
+										if rangetoalert <= distressRange then
+                                
+											-- Always capture the CLOSEST ALERT
+											if rangetoalert < alertrange then
+											
+												alertposition = LOUDCOPY(alerts.Position)
+												alertplatoon = 'BaseAlert'
+												alertrange = rangetoalert
+                                                
+                                                if DistressResponseDialog then
+                                                    LOG("*AI DEBUG "..aiBrain.Nickname.." ArtilleryAI DR "..self.BuilderName.." "..repr(self.MovementLayer).." selects BASE ALERT "..repr(alertposition).." threat is "..alerts.Threat)
+                                                end
+											end
+										end
+									end
+								end
+							end
+                            
+						end		-- next base in this brain
+                        
+					end
+				
+					-- if self alerts see if one of those is closer
+					if brain.PlatoonDistress.AlertSounded then
+
+						alerts = brain.PlatoonDistress.Platoons
+                    
+						if alerts[1] then
+
+							for _,v in alerts do
+
+								if v.DistressType == distresstype then
+
+									-- is calling self still alive and it's not ourselves and threat is high enough to be of interest
+									if PlatoonExists( brain, v.Platoon) and (not LOUDEQUAL(v.Platoon, self)) then
+
+										rangetoalert = VDist2(platoonPos[1],platoonPos[3],v.Position[1],v.Position[3])
+									
+										-- is it within my distress response range 
+										if rangetoalert > 60 and rangetoalert < distressRange then
+
+                                            local threat = aiBrain:GetThreatAtPosition( v.Position, 0, true, 'AntiSurface' )
+
+                                            if threat > threatThreshold then
+
+                                                if rangetoalert < alertrange then
+										
+                                                    alertposition = LOUDCOPY(v.Position)
+                                                    alertplatoon = v.Platoon
+                                                    alertrange = rangetoalert
+                                                
+                                                    if DistressResponseDialog then
+                                                        LOG("*AI DEBUG "..aiBrain.Nickname.." ArtilleryAI DR "..self.BuilderName.." selects Platoon ALERT "..repr(alertposition).." threat is "..threat)
+                                                    end
+                                                    
+                                                end
+                                                
+											end
+
+                                        end
+                                        
+									end
+                                    
+								end
+                                
+							end
+                            
+						end
+                        
+					end
+                    
+				end
+                
+			end		-- next brain --
+	
+			if alertposition then
+				return alertposition, distresstype, alertplatoon
+			else
+				return false, false, false
+			end
+            
+		end	
+
+        while aiBrain:PlatoonExists(self) do
+        
+            WaitTicks(31)   -- wait 3 seconds
+            
+            LOG("*AI DEBUG "..aiBrain.Nickname.." ArtilleryAI cycles")
+        
+            distressLocation, distressType, distressplatoon = PlatoonMonitorDistressLocations()
+
+            if distressLocation then
+			
+				if DistressResponseDialog then
+					LOG("*AI DEBUG "..aiBrain.Nickname.." ArtilleryAI DR "..self.BuilderName.." at "..repr(platoonPos).." responds to "..distressType.." DISTRESS at "..repr(distressLocation).." distance "..VDist3(platoonPos,distressLocation) )
+				end
+        
+            end
+        
+        end
 		
 	end,
 
@@ -3004,6 +3184,8 @@ Platoon = Class(moho.platoon_methods) {
 				
 					LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINTAIR "..self.BuilderName.." finds no point")
 					
+                    WaitTicks(10)
+                    
 					return self:SetAIPlan('ReturnToBaseAI',aiBrain)
                     
 				end
@@ -5281,7 +5463,7 @@ Platoon = Class(moho.platoon_methods) {
 												alertrange = rangetoalert
                                                 
                                                 if DistressResponseDialog then
-                                                    LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..repr(platoon.MovementLayer).." selects BASE ALERT "..repr(alertposition).." threat is "..alert.Threat)
+                                                    LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..repr(platoon.MovementLayer).." selects BASE ALERT "..repr(alertposition).." threat is "..alerts.Threat)
                                                 end
 											end
 										end

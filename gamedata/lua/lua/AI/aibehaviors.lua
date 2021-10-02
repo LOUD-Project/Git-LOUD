@@ -6174,6 +6174,8 @@ end
 
 -- this controls the AI TMLs and adjusts to lead targets
 function TMLThread( unit, aiBrain )
+
+    --LOG("*AI DEBUG "..aiBrain.Nickname.." TMLThread")
     
     local maxRadius = unit:GetBlueprint().Weapon[1].MaxRadius
 	local position = LOUDCOPY(unit:GetPosition())
@@ -6193,14 +6195,20 @@ function TMLThread( unit, aiBrain )
         while unit:GetTacticalSiloAmmoCount() > 2 do
 
             while unit:GetTacticalSiloAmmoCount() > 0 do
+            
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." TML seeking target")
 			
                 targetUnits = GetUnitsAroundPoint( aiBrain, categories.ALLUNITS - categories.WALL - categories.AIR - categories.TECH1, position, maxRadius, 'Enemy' )
                 
                 if targetUnits[1] then
+                
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." TML examining targets")
             
                     -- loop thru each of the attack Priorities
                     for _,v in atkPri do
                 
+                        target = false
+                        
                         for _, targetunit in EntityCategoryFilterDown( ParseEntityCategory(v), targetUnits ) do
                     
                             -- if you find a target then break out
@@ -6235,10 +6243,6 @@ function TMLThread( unit, aiBrain )
                         end
                         
                     end
-                    
-                else
-			
-                    break
 
                 end
                 
