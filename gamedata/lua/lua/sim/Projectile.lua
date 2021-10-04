@@ -508,11 +508,24 @@ Projectile = Class(moho.projectile_methods, Entity) {
     --  'Projectile'
     --  'ProjectileUnderWater'
     OnImpact = function(self, targetType, targetEntity)
-	
-		if targetType == 'Shield' and self.DamageData.DamageRadius > 0 then
-			self.DamageData.DamageRadius = nil
+
+		if targetType == 'Shield' then
+
+            -- LOUD 'marshmallow shield effect' all AOE to 0 on shields
+            if self.DamageData.DamageRadius > 0 then
+                self.DamageData.DamageRadius = nil
+            end
+
+            -- LOUD ShieldMult effect
+            if STRINGSUB(self.DamageData.DamageType, 1, 10) == 'ShieldMult' then
+
+                local mult = TONUMBER( STRINGSUB(self.DamageData.DamageType, 11) ) or 1
+                self.DamageData.DamageAmount = self.DamageData.DamageAmount * mult
+
+            end
+
 		end
-	
+
 		if ScenarioInfo.ProjectileDialog then
 		
 			LOG("*AI DEBUG Projectile OnImpact targetType is "..repr(targetType))
@@ -654,21 +667,6 @@ Projectile = Class(moho.projectile_methods, Entity) {
 			bp.Physics.ImpactTimeout = 0.1
 
 		end
-        
-        -- Some weapons do modifed Shield damage --
-        if targetType == 'Shield' then
-        
-            if STRINGSUB(self.DamageData.DamageType, 1, 10) == 'ShieldMult' then
-            
-                mult = TONUMBER( STRINGSUB(self.DamageData.DamageType, 11) ) or 1
-                
-                --LOG("*AI DEBUG Shield Mult is "..repr(mult))
-
-                self.DamageData.DamageAmount = self.DamageData.DamageAmount * mult
-                
-            end
-        
-        end
 
         if bp.Physics.ImpactTimeout and (targetType == 'Terrain' or targetType == 'Air' or targetType == 'Underwater') then
 		
