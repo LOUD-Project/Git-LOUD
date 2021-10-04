@@ -17,6 +17,9 @@ local ForkThread = ForkThread
 
 local GetArmy = moho.entity_methods.GetArmy
 
+local STRINGSUB = string.sub
+local TONUMBER = tonumber
+
 CollisionBeam = Class(moho.CollisionBeamEntity) {
 
     FxBeam = {},
@@ -42,6 +45,11 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
     TerrainImpactScale = 1,
 
     OnCreate = function(self)
+	
+        self.Army = GetArmy(self)
+        
+        self.DamageData = { DamageAmount = false, DamageType = 'Normal' }    
+
         self.LastTerrainType = nil
         self.BeamEffectsBag = {}
         self.TerrainEffectsBag = {}
@@ -113,7 +121,7 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
 
     CreateBeamEffects = function(self)
 	
-        local army = GetArmy(self)
+        local army = self.Army
 		
 		local LOUDATTACHEMITTER = CreateAttachedEmitter
 		local LOUDGETN = table.getn
@@ -140,6 +148,7 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
         if LOUDGETN(self.FxBeam) != 0 then
         
             local fxBeam = CreateBeamEmitter(self.FxBeam[Random(1, LOUDGETN(self.FxBeam))], army)
+            
             AttachBeamToEntity(fxBeam, self, 0, army)
             
             -- collide on start if it's a continuous beam
@@ -161,32 +170,47 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
     end,
 
     CreateImpactEffects = function( self, army, EffectTable, EffectScale )
+    
         local emit = nil
+        
         EffectTable = EffectTable or {}
         EffectScale = EffectScale or 1
+        
         for k, v in EffectTable do
+        
             emit = LOUDEMITATBONE(self,1,army,v)
+            
             if emit and EffectScale != 1 then
                 emit:ScaleEmitter(EffectScale)
             end
+            
         end
+        
     end,
 
     CreateTerrainEffects = function( self, army, EffectTable, EffectScale )
+    
         local emit = nil
+        
         for k, v in EffectTable do
+        
             emit = LOUDATTACHEMITTER(self,1,army,v)
             LOUDINSERT(self.TerrainEffectsBag, emit )
+            
             if emit and EffectScale != 1 then
                 emit:ScaleEmitter(EffectScale)
             end
+            
         end
+        
     end,
 
     DestroyTerrainEffects = function( self )
+    
         for k, v in self.TerrainEffectsBag do
             v:Destroy()
         end
+        
         self.TerrainEffectsBag = {}
     end,
 
@@ -232,15 +256,34 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
         --#  'Shield'
 
         local instigator = self:GetLauncher()
-		
-        if not self.DamageTable then
-            self:SetDamageTable()
-        end
 
-        local damageData = self.DamageTable
+        -- set the damage parameters from the blueprint
+        self:SetDamageTable()
+
+
+		if impactType == 'Shield' then
+        
+            --LOG("*AI DEBUG DamageData is "..repr(self.DamageData))
+
+            -- LOUD 'marshmallow shield effect' all AOE to 0 on shields
+            if self.DamageData.DamageRadius > 0 then
+                self.DamageData.DamageRadius = nil
+            end
+
+            -- LOUD ShieldMult effect
+            if STRINGSUB(self.DamageData.DamageType, 1, 10) == 'ShieldMult' then
+
+                local mult = TONUMBER( STRINGSUB(self.DamageData.DamageType, 11) ) or 1
+                self.DamageData.DamageAmount = self.DamageData.DamageAmount * mult
+
+            end
+
+		end
+
+        local damageData = self.DamageData
 
         -- Buffs (Stun, etc)
-        if targetEntity and IsUnit(targetEntity) and self.DamageTable.Buffs then
+        if targetEntity and IsUnit(targetEntity) and self.DamageData.Buffs then
             self:DoUnitImpactBuffs(targetEntity)
         end
 
@@ -286,23 +329,56 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
 
     SetDamageTable = function(self)
     
-        local weaponBlueprint = self.Weapon.bp
-        
-        self.DamageTable = {}
-        self.DamageTable.DamageRadius = weaponBlueprint.DamageRadius
-        self.DamageTable.DamageAmount = weaponBlueprint.Damage
-        self.DamageTable.DamageType = weaponBlueprint.DamageType
-        self.DamageTable.DamageFriendly = weaponBlueprint.DamageFriendly
-        self.DamageTable.CollideFriendly = weaponBlueprint.CollideFriendly
-        self.DamageTable.DoTTime = weaponBlueprint.DoTTime
-        self.DamageTable.DoTPulses = weaponBlueprint.DoTPulses
-        self.DamageTable.Buffs = weaponBlueprint.Buffs
-        
+        local damageData = self.Weapon.bp
+		
+		if ScenarioInfo.ProjectileDialog then
+			LOG("*AI DEBUG CollisionBeam PassDamageData DATA is "..repr(damageData))
+		end
+		
+        self.DamageData.DamageAmount = damageData.Damage or 0.1
+        self.DamageData.DamageType = damageData.DamageType
+
+		if damageData.DamageRadius > 0 then
+			self.DamageData.DamageRadius = damageData.DamageRadius
+		end
+	
+		if damageData.DamageFriendly then
+			self.DamageData.DamageFriendly = damageData.DamageFriendly
+		end
+		
+		if damageData.CollideFriendly then
+			self.DamageData.CollideFriendly = damageData.CollideFriendly
+		end
+		
+		if damageData.DoTTime then
+			self.DamageData.DoTTime = damageData.DoTTime
+		end
+		
+		if damageData.DoTPulses then
+			self.DamageData.DoTPulses = damageData.DoTPulses
+		end
+
+		if damageData.advancedTracking then
+			self.DamageData.advancedTracking = damageData.advancedTracking
+		end
+		
+		if damageData.Buffs then
+			self.DamageData.Buffs = damageData.Buffs
+		end
+		
+		if damageData.ArtilleryShieldBlocks then
+			self.DamageData.ArtilleryShieldBlocks = damageData.ArtilleryShieldBlocks
+		end
+		
+		if ScenarioInfo.ProjectileDialog then
+			LOG("*AI DEBUG CollisionBeam PassDamageData is "..repr(self.DamageData))
+		end
+
     end,
 
     --When this beam impacts with the target, do any buffs that have been passed to it.
     DoUnitImpactBuffs = function(self, target)
-        local data = self.DamageTable
+        local data = self.DamageData
         if data.Buffs then
             for k, v in data.Buffs do
                 if v.Add.OnImpact == true and not LOUDENTITY((LOUDPARSE(v.TargetDisallow) or ''), target) 

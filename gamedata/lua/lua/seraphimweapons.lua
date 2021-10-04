@@ -593,7 +593,7 @@ InvisibleCollisionBeam = Class(moho.CollisionBeamEntity) {
 
         local instigator = self:GetLauncher()
         
-        if not self.DamageTable then
+        if not self.DamageData then
             self:SetDamageTable()
         end
 
@@ -605,7 +605,7 @@ InvisibleCollisionBeam = Class(moho.CollisionBeamEntity) {
                 -- Buffs (Stun, etc)
                 self:DoUnitImpactBuffs(targetEntity)
 
-                local damageData = self.DamageTable
+                local damageData = self.DamageData
 
                 self.Weapon[self.DamageTracker][tentID] = true
                 self:DoDamage( instigator, damageData, targetEntity)
@@ -624,21 +624,21 @@ InvisibleCollisionBeam = Class(moho.CollisionBeamEntity) {
     
         local weaponBlueprint = self.Weapon:GetBlueprint()
         
-        self.DamageTable = {}
-        self.DamageTable.DamageRadius = weaponBlueprint.DamageRadius
-        self.DamageTable.DamageAmount = weaponBlueprint.Damage
-        self.DamageTable.DamageType = weaponBlueprint.DamageType
-        self.DamageTable.DamageFriendly = weaponBlueprint.DamageFriendly
-        self.DamageTable.CollideFriendly = weaponBlueprint.CollideFriendly
-        self.DamageTable.DoTTime = weaponBlueprint.DoTTime
-        self.DamageTable.DoTPulses = weaponBlueprint.DoTPulses
-        self.DamageTable.Buffs = weaponBlueprint.Buffs
+        self.DamageData = {}
+        self.DamageData.DamageRadius = weaponBlueprint.DamageRadius
+        self.DamageData.DamageAmount = weaponBlueprint.Damage
+        self.DamageData.DamageType = weaponBlueprint.DamageType
+        self.DamageData.DamageFriendly = weaponBlueprint.DamageFriendly
+        self.DamageData.CollideFriendly = weaponBlueprint.CollideFriendly
+        self.DamageData.DoTTime = weaponBlueprint.DoTTime
+        self.DamageData.DoTPulses = weaponBlueprint.DoTPulses
+        self.DamageData.Buffs = weaponBlueprint.Buffs
     end,
 
     --When this beam impacts with the target, do any buffs that have been passed to it.
     DoUnitImpactBuffs = function(self, target)
     
-        local data = self.DamageTable
+        local data = self.DamageData
         
         if data.Buffs then
             for k, v in data.Buffs do
