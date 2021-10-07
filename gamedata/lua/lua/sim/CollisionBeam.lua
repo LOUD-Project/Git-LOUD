@@ -229,7 +229,7 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
 
         if TerrainEffects and (self.LastTerrainType != TerrainType) then
             self:DestroyTerrainEffects()
-            self:CreateTerrainEffects( GetArmy(self), TerrainEffects, self.TerrainImpactScale )
+            self:CreateTerrainEffects( self.Army, TerrainEffects, self.TerrainImpactScale )
             self.LastTerrainType = TerrainType
         end
     end,
@@ -255,15 +255,10 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
         --#  'Prop'
         --#  'Shield'
 
-        local instigator = self:GetLauncher()
-
         -- set the damage parameters from the blueprint
         self:SetDamageTable()
 
-
 		if impactType == 'Shield' then
-        
-            --LOG("*AI DEBUG DamageData is "..repr(self.DamageData))
 
             -- LOUD 'marshmallow shield effect' all AOE to 0 on shields
             if self.DamageData.DamageRadius > 0 then
@@ -280,15 +275,23 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
 
 		end
 
-        local damageData = self.DamageData
+		if ScenarioInfo.ProjectileDialog then
+		
+			LOG("*AI DEBUG Beam OnImpact targetType is "..repr(targetType))
+			LOG("*AI DEGUG Beam OnImpact data is "..repr(self.DamageData))
+			
+			if targetEntity then
+				LOG("*AI DEBUG Beam Target entity is "..repr(targetEntity.BlueprintID))
+			end
+		end
 
-        -- Buffs (Stun, etc)
-        if targetEntity and IsUnit(targetEntity) and self.DamageData.Buffs then
-            self:DoUnitImpactBuffs(targetEntity)
-        end
-
-        -- Do Damage
-        self:DoDamage( instigator, damageData, targetEntity )
+		if self.DamageData.Buffs then
+			self:DoUnitImpactBuffs( targetEntity )
+		end		
+		
+		if self.DamageData.DamageAmount and self.DamageData.DamageAmount > 0 then
+			self:DoDamage( self:GetLauncher() or self, self.DamageData, targetEntity)
+		end
 
         local ImpactEffects = {}
         local ImpactEffectScale = 1
@@ -296,30 +299,38 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
         if impactType == 'Unit' then
             ImpactEffects = self.FxImpactUnit
             ImpactEffectScale = self.FxUnitHitScale
+            
         elseif impactType == 'UnitAir' then
             ImpactEffects = self.FxImpactAirUnit
             ImpactEffectScale = self.FxAirUnitHitScale
+            
         elseif impactType == 'Shield' then
             ImpactEffects = self.FxImpactShield
             ImpactEffectScale = self.FxShieldHitScale            
+            
 		elseif impactType == 'Water' then
             ImpactEffects = self.FxImpactWater
             ImpactEffectScale = self.FxWaterHitScale
+            
         elseif impactType == 'Underwater' or impactType == 'UnitUnderwater' then
             ImpactEffects = self.FxImpactUnderWater
             ImpactEffectScale = self.FxUnderWaterHitScale
+            
         elseif impactType == 'Terrain' then
             ImpactEffects = self.FxImpactLand
             ImpactEffectScale = self.FxLandHitScale
+            
         elseif impactType == 'Air' or impactType == 'Projectile' then
             ImpactEffects = self.FxImpactNone
             ImpactEffectScale = self.FxNoneHitScale
+            
         elseif impactType == 'Prop' then
             ImpactEffects = self.FxImpactProp
             ImpactEffectScale = self.FxPropHitScale
+            
         end
 		
-        self:CreateImpactEffects( GetArmy(self), ImpactEffects, ImpactEffectScale )
+        self:CreateImpactEffects( self.Army, ImpactEffects, ImpactEffectScale )
         self:UpdateTerrainCollisionEffects( impactType )
     end,
 
