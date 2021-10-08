@@ -739,8 +739,8 @@ function Nuke(aiBrain)
 	#If we have nukes
 	if nukeCount > 0 then
 	
-		#This table keeps track of all targets fired at this round to keep from firing multiple nukes
-		#at the same target unless we have to to overwhelm anti-nukes.
+		--#This table keeps track of all targets fired at this round to keep from firing multiple nukes
+		--#at the same target unless we have to to overwhelm anti-nukes.
 		local oldTarget = {}
 		local target
 		local fireCount = 0
@@ -748,11 +748,11 @@ function Nuke(aiBrain)
 		local tarPosition
 		local antiNukes
 		
-		#Repeat until all launchers have fired or we run out of targets
+		--#Repeat until all launchers have fired or we run out of targets
 		repeat
 		
-			#Get a target and target position. This function also ensures that we fire at a new target
-			#and one that we have enough nukes to hit the target
+			--#Get a target and target position. This function also ensures that we fire at a new target
+			--#and one that we have enough nukes to hit the target
 			target, tarPosition, antiNukes = AIUtils.AIFindBrainNukeTargetInRangeSorian( aiBrain, launcher, maxRadius, atkPri, nukeCount, oldTarget )
 			
 			if target then
@@ -802,12 +802,12 @@ function Nuke(aiBrain)
 				
 			end
 			
-			#Keep track of old targets
+			--#Keep track of old targets
 			LOUDINSERT( oldTarget, target )
 			
 			fireCount = 0
 			
-			#WaitTicks(150)
+			--#WaitTicks(150)
 			
 		until nukeCount <= 0 or target == false
 		

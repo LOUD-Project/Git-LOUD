@@ -573,8 +573,8 @@ EngineerManager = Class(BuilderManager) {
             ForkThread( aiBrain.BuilderManagers[finishedUnit.LocationType].FactoryManager.AddFactory, aiBrain.BuilderManagers[finishedUnit.LocationType].FactoryManager, finishedUnit )
 		end
 
-		-- if STRUCTURE see if Upgrade Thread should start - excluding NUKES
-		if LOUDENTITY( categories.STRUCTURE - categories.NUKE, finishedUnit ) then
+		-- if STRUCTURE see if Upgrade Thread should start - excluding NUKES & Strat Artillery (they get formed into their own platoons)
+		if LOUDENTITY( categories.STRUCTURE - categories.NUKE - (categories.ARTILLERY * categories.STRATEGIC), finishedUnit ) then
 		
 			finishedUnit.DesiresAssist = true
 
