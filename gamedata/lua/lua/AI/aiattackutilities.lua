@@ -811,7 +811,7 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
 	local shieldcount = EntityCategoryCount( SHIELDS, enemyunits )
     
 	local retUnit, rePosition, bestthreat, targetUnits
-    
+
 	-- loop thru each of our attack categories
 	for _,category in attackcategories do
 	
@@ -821,8 +821,8 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
 		-- filter the enemy units down to a specific category
 		targetUnits = EntityCategoryFilterDown( category, enemyunits )
 		
-		if targetUnits[1] then		
-
+		if targetUnits[1] then	
+        
 			-- sort them by distance -- 
 			LOUDSORT( targetUnits, function(a,b) return VDist2Sq(a:GetPosition()[1],a:GetPosition()[3], position[1],position[3]) < VDist2Sq(b:GetPosition()[1],b:GetPosition()[3], position[1],position[3]) end)
 		
@@ -842,59 +842,72 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
 			
 				-- if target is not dead and it's outside the minimum range
 				if (not u.Dead) and VDist2Sq(unitposition[1],unitposition[3], position[1],position[3]) >= minimumrange then
-                
+
                     -- only count it as a unit being checked if we actually have to process it
                     unitchecks = unitchecks + 1
                     
 					-- if can attack this type of target
-					if CanAttackTarget( platoon,'Attack',u ) then
-					
-						enemythreat = AIGetThreatLevelsAroundPoint(unitposition)
+					if CanAttackTarget( platoon, squad, u ) then
 
-                        -- monitor the number of times the getthreat call was the same
-                        if lastget != 0 and enemythreat == lastget then
-                            gets = gets + 1
-                        end
-                        
-                        lastget = enemythreat
-                        
-						-- if threat is less than threatself
-						if enemythreat <= threatself then						
+                        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(squad).." finds "..repr(u:GetBlueprint().Description).." at "..VDist3(unitposition, position).." from position "..repr(position))
 
-							-- check and adjust threat for shields
-							if shieldcount > 0 then
+                        -- if threat values are provided, use them to filter the targets
+                        if threatself then
 					
-								enemyshields = GetUnitsAroundPoint( aiBrain, SHIELDS, unitposition, 100, 'Enemy')
-								
-								LOUDSORT(enemyshields, function(a,b) return VDist2Sq(a:GetPosition()[1],a:GetPosition()[3], unitposition[1],unitposition[3]) < VDist2Sq(b:GetPosition()[1],b:GetPosition()[3], unitposition[1],unitposition[3]) end)
-							
-								totalshieldvalueattarget = 0
-							
-                                for _,s in enemyshields do
-                                
-                                    -- if the shield is On and it covers the target
-                                    if s:ShieldIsOn() and VDist2(s:GetPosition()[1],s:GetPosition()[3],unitposition[1],unitposition[3]) < s.MyShield.Size then
-                                        enemythreat = enemythreat + (s.MyShield:GetHealth() * .02)	-- threat plus 2% of shield strength
-                                    end
-                                    
-                                end
-                                
+                            enemythreat = AIGetThreatLevelsAroundPoint(unitposition)
+
+                            -- monitor the number of times the getthreat call was the same
+                            if lastget != 0 and enemythreat == lastget then
+                                gets = gets + 1
                             end
-					
-							-- cap low end of threat so we dont chase low value targets
-							if enemythreat < ( threatself * .20) then
-								enemythreat = ( threatself * .20)
-							end
-						
-							if (not retUnit) or enemythreat < bestthreat then
+                        
+                            lastget = enemythreat
+                        
+                            -- if threat is less than threatself
+                            if enemythreat <= threatself then						
 
-								retUnit = u
-								retPosition = LOUDCOPY(unitposition)
-								bestthreat = enemythreat
-                                unitchecks = 0
-								break
-							end
-						end
+                                -- check and adjust threat for shields
+                                if shieldcount > 0 then
+					
+                                    enemyshields = GetUnitsAroundPoint( aiBrain, SHIELDS, unitposition, 100, 'Enemy')
+								
+                                    LOUDSORT(enemyshields, function(a,b) return VDist2Sq(a:GetPosition()[1],a:GetPosition()[3], unitposition[1],unitposition[3]) < VDist2Sq(b:GetPosition()[1],b:GetPosition()[3], unitposition[1],unitposition[3]) end)
+							
+                                    totalshieldvalueattarget = 0
+							
+                                    for _,s in enemyshields do
+                                
+                                        -- if the shield is On and it covers the target
+                                        if s:ShieldIsOn() and VDist2(s:GetPosition()[1],s:GetPosition()[3],unitposition[1],unitposition[3]) < s.MyShield.Size then
+                                            enemythreat = enemythreat + (s.MyShield:GetHealth() * .02)	-- threat plus 2% of shield strength
+                                        end
+                                    
+                                    end
+                                
+                                end
+					
+                                -- cap low end of threat so we dont chase low value targets
+                                if enemythreat < ( threatself * .20) then
+                                    enemythreat = ( threatself * .20)
+                                end
+						
+                                if (not retUnit) or enemythreat < bestthreat then
+
+                                    retUnit = u
+                                    retPosition = LOUDCOPY(unitposition)
+                                    bestthreat = enemythreat
+                                    unitchecks = 0
+                                    break
+                                end
+                            end
+                        
+                        else    -- otherwise select the first target
+                        
+                            return u, LOUDCOPY(unitposition)
+                            --retPosition = LOUDCOPY(unitposition)
+                            --break
+                            
+                        end
 					end
 			
                     -- dont check too many targets per tick
