@@ -2005,23 +2005,89 @@ Platoon = Class(moho.platoon_methods) {
 	end,
 	
 	ArtilleryAI = function( self, aiBrain )
+    
+        local SurfacePriorities = { 
+            'STRUCTURE ARTILLERY -TECH2',
+            'MASSEXTRACTION -TECH2',
+            'MASSFABRICATION -TECH2',
+            'STRUCTURE INTELLIGENCE -TECH1',
+            'ANTIMISSILE -TECH2',
+            'STRUCTURE NUKE',
+            'MOBILE LAND EXPERIMENTAL',
+            'SHIELD',
+            'DEFENSE STRUCTURE ANTIAIR TECH3',
+            'DEFENSE STRUCTURE DIRECTFIRE TECH3',
+            'FACTORY STRUCTURE -TECH1',
+            'STRUCTURE ANTINAVY',
+            'EXPERIMENTAL STRUCTURE',
+            'ENERGYPRODUCTION STRUCTURE TECH3',
+            'MOBILE LAND TECH3',	
+            'COMMAND',
+            'SUBCOMMANDER',
+        }
+    
+        local DistressPriorities = { 
+            'SHIELD',
+            'ANTIMISSILE -TECH2',
+            'ARTILLERY',
+            'MOBILE LAND EXPERIMENTAL',
+            'COMMAND',
+            'SUBCOMMANDER',
+            'MOBILE LAND TECH3',	
+        }
+
+        -- we turn the Priorities into a table (rather than a string) because the
+        -- AIFindTargetInRangeInCategory function requires a table to function correctly
+        local DistressCategories = {}
+        local count = 0
+        
+        for _,v in DistressPriorities do
+            count = count + 1
+            DistressCategories[count] = LOUDPARSE(v)
+        end
 
         local DistressResponseDialog = ScenarioInfo.DistressResponseDialog 
 	
 		LOG("*AI DEBUG ArtilleryAI launched")
-		
-		Behaviors.AssignArtilleryPriorities(self)
-        
-        local threatThreshold = 50
-        local distressRange = 1000
-        local distresstype = 'Land'
+
+        local threatThreshold = 125     -- this determines which distress calls we'll look at
+        local distressRange = 1000      -- controls how far afield we'll look
+        local distresstype = 'Land'     -- respond only to 'Land', at this time - would like to add 'Naval' as well at some point
         
         local distressLocation, distressplatoon
         
         local platoonPos = self:GetPlatoonPosition()
+        
+        local target, targetposition
+        local firecount = 0
+        
+
+        local function AssignArtilleryPriorities( priorities )
+	
+            for _,v in GetPlatoonUnits(self) do
+            
+                if v != nil then
+                    v:SetTargetPriorities( priorities )
+                end
+                
+            end
+            
+        end
+        
+        local function ResetArtilleryWeapon()
+
+            for _,u in GetPlatoonUnits(self) do
+			
+                for i=1, u:GetWeaponCount() do
+                    u:GetWeapon(i):ResetTarget()
+                end
+
+            end
+        
+        end
 	
 		-- this function returns the location of any distress call within range
-		local function PlatoonMonitorDistressLocations()    -- self, aiBrain, platoonPos, distressRange, distresstype, threatThreshold )
+		local function PlatoonMonitorDistressLocations()
 
 			local selfindex = aiBrain.ArmyIndex
 		
@@ -2172,22 +2238,93 @@ Platoon = Class(moho.platoon_methods) {
             
 		end	
 
+        local AIFindTargetInRangeInCategoryWithThreatFromPosition = import('/lua/ai/aiattackutilities.lua').AIFindTargetInRangeInCategoryWithThreatFromPosition
+
+        AssignArtilleryPriorities( SurfacePriorities )
+        
+        -- So, for now, this process is relatively simple
+        -- Under normal conditions the Artillery will pick it's own targets
+        -- However, when a distress call is acknowledged, the artillery will
+        -- get a new set of priority targets, and will look for those targets with a radius of the distress call
+        -- as long as the distress call lasts, it will pick targets, from that list, in that area
+        -- if none exist, or the distress call ends, the artillery will revert to its normal priorities and go
+        -- back to picking it's own targets
         while aiBrain:PlatoonExists(self) do
         
-            WaitTicks(31)   -- wait 3 seconds
-            
-            LOG("*AI DEBUG "..aiBrain.Nickname.." ArtilleryAI cycles")
-        
+            WaitTicks(36)   -- wait 3.5 seconds
+
             distressLocation, distressType, distressplatoon = PlatoonMonitorDistressLocations()
 
             if distressLocation then
+            
+                firecount = 0
+                target = false
 			
 				if DistressResponseDialog then
 					LOG("*AI DEBUG "..aiBrain.Nickname.." ArtilleryAI DR "..self.BuilderName.." at "..repr(platoonPos).." responds to "..distressType.." DISTRESS at "..repr(distressLocation).." distance "..VDist3(platoonPos,distressLocation) )
 				end
-        
+
+                -- Assign targeting priority
+                AssignArtilleryPriorities( DistressCategories )
+                
+                ResetArtilleryWeapon()
+
+                -- While we have a distress call
+                repeat
+                
+                    target = false
+                    
+                    -- seek a target - but we dont provide threat information so that 1st available target closest to distressLocation is selected
+                    target,targetposition = AIFindTargetInRangeInCategoryWithThreatFromPosition(aiBrain, distressLocation, self, 'Artillery', 0, 100, DistressCategories )
+
+                    if target then
+                    
+                        if DistressResponseDialog then
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." Artillery AI found a target "..repr(target:GetBlueprint().Description).." near "..repr(distressLocation))
+                        end
+                        
+                        firecount = 0
+                    
+                        IssueAttack ( GetPlatoonUnits(self), target)
+                    
+                        while (not target.Dead) and firecount <= 3 do
+                        
+                            WaitTicks(80)   -- 8 seconds
+                        
+                            firecount = firecount + 1
+                        
+                        end
+
+                        if DistressResponseDialog then
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." ArtilleryAI finishes fire mission - target is dead "..repr(target.Dead))
+                        end
+
+                    end
+
+                    -- check for distress call
+                    distressLocation, distressType, distressplatoon = PlatoonMonitorDistressLocations()
+                    
+                until (not distressLocation) or (not target)
+                
+                firecount = 0
+                
+                -- Assign normal priorities
+          		AssignArtilleryPriorities( SurfacePriorities )
+
+                ResetArtilleryWeapon()
+				
+			end
+
+            firecount = firecount + 1
+            
+            if firecount > 6 then
+                
+                -- attempt to find better target under normal conditions
+                ResetArtilleryWeapon()
+                
+                firecount = 0
+                
             end
-        
         end
 		
 	end,
