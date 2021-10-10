@@ -1,3 +1,28 @@
+### Release 7-10-2021 ###
+Lua 5.4.37
+
+AI  - Artillery Director - directs artillery at key targets/distress calls (1st iteration)
+    - Initial Mass points will be distributed equally to all AI players for rapid early growth
+    - Added TMLs to MAIN base
+    - Improved Eco triggers for base defense construction
+    
+Additional fix to ShieldMult damage application
+
+Minor overall cost adjustments to ALL Hover units +10% E
+Minor overall cost adjustments to ALL Naval units -10% E
+
+All NAVAL mobile units +5% viewrange
+
+Inter-tier HP adjustments reduced (mobile units)
+    -->  T1 goes from 1.22 to 1.20
+    -->  T2 goes from 1.12 to 1.11
+    -->  T3 remains at 1.0
+
+### Release 26-09-2021 ###
+Lua 5.4.36
+
+AI  - Hotfix to solve performance issue with Ecomonitor changes from previous version
+
 ### Release 24-09-2021 ###
 Lua 5.4.35
 Projectiles 3.2.3
