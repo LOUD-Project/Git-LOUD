@@ -754,7 +754,8 @@ function InitializeArmies()
         
             for a, brain in ArmyBrains do
         
-                if brain.Team == k then
+                
+                if brain.BrainType == 'AI' and brain.Team == k then
                 
                     local Position = { brain.StartPosX, 0, brain.StartPosZ }
 
@@ -774,7 +775,7 @@ function InitializeArmies()
 
         for a, brain in ArmyBrains do
         
-            if brain.Team == k then
+            if brain.BrainType == 'AI' and brain.Team == k then
                 LOG("*AI DEBUG "..brain.Nickname.." StartingMassPointList is "..repr(brain.StartingMassPointList))
             end
             
