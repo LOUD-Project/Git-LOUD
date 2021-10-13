@@ -18,6 +18,7 @@ end
 --------------------------------------------------------------------------------
 
 function MetalWorld(all_bps)
+
     for id, bp in all_bps do
         if bp.Physics.BuildRestriction == 'RULEUBR_OnMassDeposit' then
             bp.Physics.BuildRestriction = nil

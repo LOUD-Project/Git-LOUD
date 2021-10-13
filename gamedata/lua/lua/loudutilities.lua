@@ -2199,6 +2199,11 @@ function AddCustomUnitSupport( aiBrain )
 			ScenarioInfo.LOUD_IS_Checked = true
 			ScenarioInfo.LOUD_IS_Installed = true
 		end
+        
+        if m.name == 'Metal World' then
+            LOG("*AI DEBUG METAL WORLD Installed")
+            ScenarioInfo.MetalWorld = true
+        end
 		
 		--If mod has a CustomUnits folder
 		local CustomUnitFiles = DiskFindFiles(m.location..'/lua/CustomUnits', '*.lua')

@@ -83,13 +83,17 @@ function CreateProps()
 	local memstart = gcinfo()
 	
     for i, tblData in pairs(ScenarioInfo.Env.Scenario['Props']) do
-        CreatePropHPR( tblData.prop, tblData.Position[1], tblData.Position[2], tblData.Position[3], tblData.Orientation[1], tblData.Orientation[2], tblData.Orientation[3] )
+    
+        if ScenarioInfo.MetalWorld and tblData.type == 'Mass' then
+            continue
+        else
+            CreatePropHPR( tblData.prop, tblData.Position[1], tblData.Position[2], tblData.Position[3], tblData.Orientation[1], tblData.Orientation[2], tblData.Orientation[3] )
+        end
     end
 	
 	-- we dont need the prop data anymore
 	ScenarioInfo.Env.Scenario['Props'] = nil
-	
-	--LOG("*AI DEBUG Created Props and used "..( (gcinfo() - memstart)*1024 ).." bytes")
+
 end
 
 function CreateResources()
@@ -99,19 +103,25 @@ function CreateResources()
     local markers = GetMarkers()
 	local Armies = ListArmies()
 	local Starts = {}
-	
-	--LOG("*AI DEBUG Armies is "..repr(ArmyBrains))
-	
+
 	for x = 1, 16 do
 		if GetMarker('ARMY_'..x) then
 			table.insert( Starts, 'ARMY_'..x )
 		end
 	end
     
+    if ScenarioInfo.MetalWorld then
+        LOG("*AI DEBUG METALWORLD DETECTED")
+    end
     
-	
-	--LOG("*AI DEBUG Start positions are "..repr(Starts))
-	
+    -- create the initial mass point list
+    ScenarioInfo.StartingMassPointList = {}
+
+	-- store the number of mass points on the map
+	ScenarioInfo.NumMassPoints = 0
+
+    ScenarioInfo.MassPointShare = 1
+
 	local doit_value = tonumber(ScenarioInfo.Options.UnusedResources) or 1
 	
     for i, tblData in pairs(markers) do
@@ -258,8 +268,8 @@ function CreateResources()
 				
 				local chance = Random(1,math.min(doit_value,99))
 
-				-- keep it 
-				if chance == doit_value then
+				-- keep it (always keep it on MetalWorld)
+				if chance == doit_value or ScenarioInfo.MetalWorld then
 				
 					doit = true
 					
@@ -274,37 +284,45 @@ function CreateResources()
 			end	
 			
 			if doit then
+            
+                -- don't place mass point grahpic on MetalWorld
+                if ScenarioInfo.MetalWorld and tblData.type == 'Mass' then
+                    
+                    continue
+                    
+                else
 			
-				FlattenMapRect(tblData.position[1]-2, tblData.position[3]-2, 4, 4, tblData.position[2])
+                    FlattenMapRect(tblData.position[1]-2, tblData.position[3]-2, 4, 4, tblData.position[2])
 		
-				CreateResourceDeposit( tblData.type, tblData.position[1], tblData.position[2], tblData.position[3],	tblData.size )
+                    CreateResourceDeposit( tblData.type, tblData.position[1], tblData.position[2], tblData.position[3],	tblData.size )
 
-				-- fixme: texture names should come from editor
-				local albedo, sx, sz, lod
+                    -- fixme: texture names should come from editor
+                    local albedo, sx, sz, lod
 				
-				if tblData.type == "Mass" then
+                    if tblData.type == "Mass" then
 				
-					albedo = "/env/common/splats/mass_marker.dds"
-					sx = 2
-					sz = 2
-					lod = 100
+                        albedo = "/env/common/splats/mass_marker.dds"
+                        sx = 2
+                        sz = 2
+                        lod = 100
 
-					CreatePropHPR('/env/common/props/massDeposit01_prop.bp', tblData.position[1], tblData.position[2], tblData.position[3],	Random(0,360), 0, 0	)
+                        CreatePropHPR('/env/common/props/massDeposit01_prop.bp', tblData.position[1], tblData.position[2], tblData.position[3],	Random(0,360), 0, 0	)
 					
-				else
+                    else
 				
-					albedo = "/env/common/splats/hydrocarbon_marker.dds"
-					sx = 6
-					sz = 6
-					lod = 200
+                        albedo = "/env/common/splats/hydrocarbon_marker.dds"
+                        sx = 6
+                        sz = 6
+                        lod = 200
 					
-					CreatePropHPR('/env/common/props/hydrocarbonDeposit01_prop.bp',	tblData.position[1], tblData.position[2], tblData.position[3], Random(0,360), 0, 0 )
-					
-				end
+                        CreatePropHPR('/env/common/props/hydrocarbonDeposit01_prop.bp',	tblData.position[1], tblData.position[2], tblData.position[3], Random(0,360), 0, 0 )
 
-				-- syntax reference -- Position, heading, texture name for albedo, sizex, sizez, LOD, duration, army, misc
-				CreateSplat( tblData.position, 0, albedo, sx, sz, lod, 0, -1, 0	)
+                    end
+
+                    -- syntax reference -- Position, heading, texture name for albedo, sizex, sizez, LOD, duration, army, misc
+                    CreateSplat( tblData.position, 0, albedo, sx, sz, lod, 0, -1, 0	)
 			
+                end
 			end
         end
 		
@@ -419,7 +437,9 @@ function InitializeArmies()
 		end
 		
 		local color = ScenarioInfo.ArmySetup[self.Name].WheelColor
+        
 		SetArmyColor(self.ArmyIndex, color[1], color[2], color[3])
+        
 		-- Don't need WheelColor anymore, so delete it
 		ScenarioInfo.ArmySetup[self.Name].WheelColor = nil
 
@@ -582,10 +602,6 @@ function InitializeArmies()
 		-- record the starting unit cap	
 		-- caps of 1000+ trigger some conditions
 		self.StartingUnitCap = GetArmyUnitCap(self.ArmyIndex)
-		
-		--3+ Teams Unit Cap Fix : Determine team size of current army,
-		-- if it is bigger than what was previously recorded, this is the new
-		-- biggest team to work with later to determine other team's armies unit cap
   
 		if self.CheatingAI then
 			import('/lua/ai/aiutilities.lua').SetupAICheat( self )
@@ -604,7 +620,15 @@ function InitializeArmies()
             if PlayerDiff > 1.5 then
             
                 self.UpgradeIssuedLimit = self.UpgradeIssuedLimit + 1
-                self.UpgradeIssuedPeriod = self.UpgradeIssuedPeriod - 20            
+                self.UpgradeIssuedPeriod = self.UpgradeIssuedPeriod - 20
+                
+                -- if really badly outnumbered then we do it a 3rd time
+                if PlayerDiff > 2.0 then
+                
+                    self.UpgradeIssuedLimit = self.UpgradeIssuedLimit + 1
+                    self.UpgradeIssuedPerio = self.UpgradeIssuedPeriod - 20
+                    
+                end
             
             end
 	
@@ -616,12 +640,10 @@ function InitializeArmies()
     local tblArmy = ListArmies()
 
     local civOpt = ScenarioInfo.Options.CivilianAlliance
-
     local bCreateInitial = ShouldCreateInitialArmyUnits()
-	
-    import('/lua/sim/scenarioutilities.lua').CreateProps()
-    import('/lua/sim/scenarioutilities.lua').CreateResources()
-	
+    
+    -- setup teams and civilians, add custom units, wrecks
+    -- call out to Initialize SkirimishSystems (a great deal of AI setup)
     for iArmy, strArmy in pairs(tblArmy) do
     
         -- release some data we don't need anymore
@@ -714,7 +736,13 @@ function InitializeArmies()
         end
         
     end
+
+	
+    import('/lua/sim/scenarioutilities.lua').CreateProps()
     
+    import('/lua/sim/scenarioutilities.lua').CreateResources()
+	
+   
     ScenarioInfo.TeamMassPointList = {}
     
 	--3+ Teams Unit Cap Fix, setting up the Unit Cap part of SetupAICheat,
@@ -732,7 +760,13 @@ function InitializeArmies()
             
                 LOG("*AI DEBUG Creating Starting Mass Point List for Team "..aiBrain.Team)
                 
-                ScenarioInfo.TeamMassPointList[aiBrain.Team] = table.copy(ScenarioInfo.StartingMassPointList)
+                ScenarioInfo.TeamMassPointList[aiBrain.Team] = {}
+                
+                if ScenarioInfo.StartingMassPointList[1] then
+                
+                    ScenarioInfo.TeamMassPointList[aiBrain.Team] = table.copy(ScenarioInfo.StartingMassPointList)
+                    
+                end
 
             end
             
@@ -786,7 +820,7 @@ function InitializeArmies()
     loudUtils.StartAdaptiveCheatThreads()
     
     loudUtils.StartSpeedProfile()
-    
+   
     ScenarioInfo.StartingMassPointList = nil
     ScenarioInfo.TeamMassPointList = nil
     
