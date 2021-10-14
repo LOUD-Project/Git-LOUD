@@ -1,5 +1,6 @@
 UnitBlueprint {
     Adjacency = 'T2PowerGeneratorAdjacencyBuffs',
+    
     Audio = {
         DeathExplosion = Sound {
             Bank = 'UALDestroy',
@@ -17,7 +18,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+    
     BuildIconSortPriority = 70,
+    
     Categories = {
         'SELECTABLE',
         'AEON',
@@ -29,15 +32,19 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
     },
+    
     CollisionOffsetY = 0,
+    
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 97,	-- 10% Energy + 1% Health
-        Health = 2640,
-        MaxHealth = 2640,
-        RegenRate = 3,
+        EconomyThreatLevel = 101,	-- 10% Energy + 1% Health
+        Health = 2880,
+        MaxHealth = 2880,
+        RegenRate = 4,
     },
+    
     Description = '<LOC uab1203_desc>Improved Power Generator & Storage',
+    
     Display = {
         Abilities = {
             'Volatile',
@@ -121,7 +128,9 @@ UnitBlueprint {
                 },
             },
         },
+        
         SpawnRandomRotation = true,
+        
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar8x_aeon_01_albedo',
@@ -141,40 +150,51 @@ UnitBlueprint {
         },
         UniformScale = 0.054,
     },
+    
     Economy = {
         AdjacentStructureEnergyMod = -4,
-        BuildCostEnergy = 11700,
-        BuildCostMass = 2250,
-        BuildTime = 2700,
+        
+        BuildCostEnergy = 11000,
+        BuildCostMass = 1100,
+        
+        BuildTime = 2400,
 		
-        ProductionPerSecondEnergy = 700,
+        ProductionPerSecondEnergy = 750,
+        
         StorageEnergy = 5000,
     },
+    
     Footprint = {
         SizeX = 3,
         SizeZ = 3,
     },
+    
     General = {
-		CapCost = 3,
+		CapCost = 4,
         Category = 'Economy',
         Classification = 'RULEUC_Resource',
         FactionName = 'Aeon',
-        Icon = 'land',
+        Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
         UnitWeight = 1,
+        
         UpgradesFrom = 'uab1201',
     },
+    
     Interface = {
         HelpText = 'Improved Power Generator & Storage',
     },
+    
     LifeBarHeight = 0.075,
     LifeBarOffset = 1,
     LifeBarSize = 3,
+    
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Land = true,
+            LAYER_Seabed = true,
         },
         DragCoefficient = 0.2,
         FlattenSkirt = true,
@@ -190,17 +210,21 @@ UnitBlueprint {
         SkirtSizeZ = 6,
         TurnRate = 0,
     },
+    
     SelectionSizeX = 1.8,
     SelectionSizeZ = 1.8,
     SelectionThickness = 0.38,
+    
     SizeX = 2.64,
     SizeY = 1.56,
     SizeZ = 2.64,
+    
     StrategicIconName = 'icon_structure2_energy',
     StrategicIconSortPriority = 245,
+    
     Weapon = {
         {
-            Damage = 2500,
+            Damage = 2000,
             DamageFriendly = true,
             DamageRadius = 5,
             DamageType = 'Normal',
