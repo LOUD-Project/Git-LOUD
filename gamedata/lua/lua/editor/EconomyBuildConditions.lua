@@ -126,20 +126,29 @@ function LessThanEconEnergyStorageRatio(aiBrain, eStorageRatio)
 	return (GetEconomyStoredRatio( aiBrain, 'ENERGY') *100) < eStorageRatio
 end
 
+function GreaterThanEconEnergyStorageCurrent(aiBrain, eStorage)
+    return GetEconomyStored( aiBrain, 'ENERGY') >= (eStorage * (1/math.max( 1, aiBrain.CheatValue)))
+end
+
 function GreaterThanEconEnergyStorageRatio(aiBrain, eStorageRatio)
 	return (GetEconomyStoredRatio(aiBrain,'ENERGY') *100) >= eStorageRatio
 end
+
 
 function LessThanEnergyTrend(aiBrain, eTrend)
 	return GetEconomyTrend( aiBrain, 'ENERGY' ) < eTrend
 end
 
 function LessThanEnergyTrendOverTime(aiBrain, eTrend)
-    return aiBrain.EcoData['OverTime']['EnergyTrend'] <= eTrend
+    return aiBrain.EcoData['OverTime']['EnergyTrend'] < eTrend
 end
 
 function GreaterThanEnergyTrend(aiBrain, eTrend)
     return (GetEconomyTrend( aiBrain, 'ENERGY' ) *10) >= eTrend
+end
+
+function GreaterThanEnergyTrendOverTime(aiBrain, eTrend)
+    return aiBrain.EcoData['OverTime']['EnergyTrend'] >= eTrend
 end
 
 function GreaterThanEnergyIncome(aiBrain, eIncome)

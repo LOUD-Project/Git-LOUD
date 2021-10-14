@@ -68,7 +68,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+            
             { LUTL, 'UnitCapCheckLess', { .85 } },
+
+            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 1000 }},            
             { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 150, 750, -9999, 30, 0, 'AntiSurface', 1 }},
         },
 		
@@ -108,7 +111,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+            
             { LUTL, 'UnitCapCheckLess', { .85 } },
+
+            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 1000 }},            
             { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 150, 750, -9999, 40, 0, 'AntiSurface', 1 }},
         },
 		
@@ -147,7 +153,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+            
             { LUTL, 'UnitCapCheckLess', { .85 } },
+
+            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 1000 }},            
             { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 150, 1500, -9999, 15, 1, 'AntiSurface', 1 }},
         },
 		
@@ -194,6 +203,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
             -- this is likely the only place where I might use this
 			{ LUTL, 'NeedMassPointShare', { .5 } },
             
+            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 1000 }},            
             { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 150, 1500, -9999, 10, 1, 'AntiSurface', 1 }},
         },
 		

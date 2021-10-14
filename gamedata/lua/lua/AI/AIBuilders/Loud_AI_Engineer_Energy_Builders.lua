@@ -87,8 +87,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
         BuilderConditions = {
         
 			{ EBC, 'LessThanEnergyTrend', { 30 }},        
-			{ EBC, 'LessThanEnergyTrendOverTime', { 30 }},
-			{ EBC, 'LessThanEconEnergyStorageRatio', { 75 }},
+			{ EBC, 'LessThanEnergyTrendOverTime', { 50 }},
+			{ EBC, 'LessThanEconEnergyStorageRatio', { 85 }},
             
 			{ UCBC, 'HaveLessThanUnitsWithCategory', { 1, categories.ENERGYPRODUCTION * categories.TECH3 }},
 			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION - categories.TECH1 }},            
@@ -125,7 +125,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
         
 			{ EBC, 'LessThanEnergyTrend', { 180 }},        
 			{ EBC, 'LessThanEnergyTrendOverTime', { 180 }},
-			{ EBC, 'LessThanEconEnergyStorageRatio', { 75 }},            
+			{ EBC, 'LessThanEconEnergyStorageRatio', { 85 }},            
 
 			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION * categories.TECH3 }},
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 26, (categories.ENERGYPRODUCTION * categories.TECH3) - categories.HYDROCARBON }},
@@ -199,7 +199,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
             
 			{ EBC, 'LessThanEnergyTrend', { 180 }},			
 			{ EBC, 'LessThanEnergyTrendOverTime', { 180 }},
-   			{ EBC, 'LessThanEconEnergyStorageRatio', { 75 }},
+   			{ EBC, 'LessThanEconEnergyStorageRatio', { 85 }},
 			
 			-- must have much of the inner core power systems complete
             { UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 20, (categories.ENERGYPRODUCTION * categories.TECH3) - categories.HYDROCARBON, 0, 59 }},
@@ -285,7 +285,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Expansions',
 
 			{ EBC, 'LessThanEnergyTrend', { 180 }},			
 			{ EBC, 'LessThanEnergyTrendOverTime', { 180 }},
-   			{ EBC, 'LessThanEconEnergyStorageRatio', { 75 }},
+   			{ EBC, 'LessThanEconEnergyStorageRatio', { 85 }},
             
 			-- don't build T3 power if one is already being built somewhere else
 			{ UCBC, 'HaveLessThanUnitsInCategoryBeingBuilt', { 1, categories.ENERGYPRODUCTION * categories.TECH3 }},
@@ -337,7 +337,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Naval',
             
 			{ EBC, 'LessThanEnergyTrend', { 180 }},            
 			{ EBC, 'LessThanEnergyTrendOverTime', { 180 }},
-			{ EBC, 'LessThanEconEnergyStorageRatio', { 75 }},            
+			{ EBC, 'LessThanEconEnergyStorageRatio', { 85 }},            
         },
         
         BuilderData = {

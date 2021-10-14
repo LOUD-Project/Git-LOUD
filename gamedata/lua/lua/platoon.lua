@@ -7960,10 +7960,18 @@ Platoon = Class(moho.platoon_methods) {
 			eng.EngineerBuildQueue = {}		
 			
 		    if platoon.PlatoonData.Construction.LoopBuild and platoon.PlanName then
+            
+                if aiBrain:GetEconomyStored('ENERGY') > 1000 then
 			
-				platoon:SetAIPlan( platoon.PlanName, aiBrain)
+                    platoon:SetAIPlan( platoon.PlanName, aiBrain)
 				
-				return
+                    return
+                    
+                else
+                
+                    platoon.PlatoonData.Construction.LoopBuild = false
+                    
+                end
 				
 			end
 			

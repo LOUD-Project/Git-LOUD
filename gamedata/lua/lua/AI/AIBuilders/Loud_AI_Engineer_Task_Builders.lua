@@ -220,8 +220,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 
         BuilderConditions = {
         
-			{ EBC, 'LessThanEnergyTrendOverTime', { 30 }},        
-			{ EBC, 'LessThanEconEnergyStorageRatio', { 75 }},
+			{ EBC, 'LessThanEnergyTrendOverTime', { 50 }},        
+			{ EBC, 'LessThanEconEnergyStorageRatio', { 85 }},
 			{ EBC, 'GreaterThanEconStorageCurrent', { 75, 0 }},
             
 			{ UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, categories.ENERGYPRODUCTION + categories.ENERGYSTORAGE - categories.EXPERIMENTAL, categories.ENGINEER + categories.ENERGYSTORAGE + categories.ENERGYPRODUCTION, 120 }},
