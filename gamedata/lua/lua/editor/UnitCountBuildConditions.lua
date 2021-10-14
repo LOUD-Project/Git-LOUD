@@ -898,6 +898,11 @@ function MassExtractorHasStorageAndLessDefense(aiBrain, locationType, mindistanc
 		local distance = VDist2Sq( position[1],position[3], mexposition[1],mexposition[3])
 		
 		if distance >= (mindistance*mindistance) then
+        
+            -- Integrated Storage Installed - always yes --
+            if ScenarioInfo.LOUD_IS_Installed then
+                minstorageunits = 0
+            end
 			
 			if GetNumberOfOwnUnitsAroundPoint(aiBrain, categories.MASSSTORAGE, mexposition, 5) >= minstorageunits then
 
@@ -923,6 +928,11 @@ function MassExtractorInRangeHasLessThanStorage(aiBrain, locationType, mindistan
 		if distance >= (mindistance*mindistance) and distance <= (maxdistance*maxdistance) then
 			-- get the storage units around that point
 			local STORS = GetOwnUnitsAroundPoint(aiBrain, categories.MASSSTORAGE, mexposition, 5)
+            
+            -- Integrated Storage Installed - we always have enough storage
+            if ScenarioInfo.LOUD_IS_Installed then
+                storageunits = 0
+            end
 			
 			if LOUDGETN(STORS) < storageunits then
 				return true

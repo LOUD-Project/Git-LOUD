@@ -7017,6 +7017,10 @@ Platoon = Class(moho.platoon_methods) {
 				
 					local STORS = GetOwnUnitsAroundPoint(aiBrain, categories.MASSSTORAGE, mexposition, 5)
                     
+                    if ScenarioInfo.LOUD_IS_Installed then
+                        cons.MinStructureUnits = 0
+                    end
+                    
                     -- if storage check number of defense units
                     if LOUDGETN(STORS) >= cons.MinStructureUnits then
 					
@@ -7182,7 +7186,7 @@ Platoon = Class(moho.platoon_methods) {
                 
                 if distance >= cons.MinRadius and distance <= cons.Radius then
                 
-                    -- get the number of storage units there
+                    -- get the number of structure units around there
                     local STORS = GetOwnUnitsAroundPoint(aiBrain, adjacencytest, mexposition, 5)
                     
                     if LOUDGETN(STORS) < cons.MinStructureUnits then
