@@ -37,7 +37,7 @@ function CanBuildOnMassAtRange(aiBrain, locationType, mindistance, maxdistance, 
 
     if aiBrain.BuilderManagers[locationType] then
 		
-		local markerlist = ScenarioInfo.Env.Scenario.MasterChain['Mass']
+		local markerlist = ScenarioInfo['Mass']
 
 		local mlist = {}
 		local counter = 0
@@ -78,7 +78,7 @@ function CanBuildOnHydroLessThanDistance(aiBrain, locationType, distance, tMin, 
 
 	if aiBrain.BuilderManagers[locationType] then
 		
-		local markerlist = ScenarioInfo.Env.Scenario.MasterChain['Hydrocarbon'] or AIGetMarkerLocations('Hydrocarbon')
+		local markerlist = ScenarioInfo['Hydrocarbon'] or AIGetMarkerLocations('Hydrocarbon')
 		
 		local mlist = {}
 		local counter = 0

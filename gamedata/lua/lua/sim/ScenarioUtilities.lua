@@ -84,7 +84,7 @@ function CreateProps()
 	
     for i, tblData in pairs(ScenarioInfo.Env.Scenario['Props']) do
     
-        if ScenarioInfo.MetalWorld and tblData.type == 'Mass' then
+        if (ScenarioInfo.MetalWorld or ScenarioInfo.MassPointRNG) and tblData.type == 'Mass' then
             continue
         else
             CreatePropHPR( tblData.prop, tblData.Position[1], tblData.Position[2], tblData.Position[3], tblData.Orientation[1], tblData.Orientation[2], tblData.Orientation[3] )
@@ -101,8 +101,12 @@ function CreateResources()
 	local memstart = gcinfo()
 	
     local markers = GetMarkers()
+    
 	local Armies = ListArmies()
 	local Starts = {}
+    
+    local coordsTbl = {}
+    local newmarkers = {}
 
 	for x = 1, 16 do
 		if GetMarker('ARMY_'..x) then
@@ -111,7 +115,39 @@ function CreateResources()
 	end
     
     if ScenarioInfo.MetalWorld then
-        LOG("*AI DEBUG METALWORLD DETECTED")
+        LOG("*AI DEBUG MetalWorld DETECTED")
+        
+        -- we'll replace each existing mass point with 5
+        -- but they'll be hidden
+        coordsTbl = {
+            { {-2,-2}, {-2, 2}, { 0, 0}, { 2,-2}, { 2, 2} },
+        } 
+    end
+    
+    if ScenarioInfo.MassPointRNG then
+        LOG("*AI DEBUG MassPointRNG DETECTED")
+        
+        -- replace coordsTbl with data --
+        -- randomly selected
+        coordsTbl = {
+            { {-2,-2}, {-2, 2}, { 2,-2}, { 2, 2}    },
+            { {-2, 0}, { 0,-2}, { 2, 0}, { 0, 2}    },
+            { { 0, 0}, {-2, 2}, { 2, 2}     },
+            { {-2, 0}, { 0, 0}, { 2, 0}     },
+            { { 0,-2}, { 0, 0}, { 0, 2}     },  
+            { { 0,-2}, { 0, 2}  },
+            { {-2, 0}, { 2, 0}  },
+            { { 1, 1}, {-1,-1}  },
+            { {-1, 1}, { 1,-1}  },
+            { { 0, 0}   },
+            { { 2, 0}   },
+            { {-2, 0}   },
+            { { 0,-2}   },
+            { { 0, 2}   },
+            { },
+            { },
+            { },
+        } 
     end
     
     -- create the initial mass point list
@@ -121,21 +157,51 @@ function CreateResources()
 	ScenarioInfo.NumMassPoints = 0
 
     ScenarioInfo.MassPointShare = 1
+    
+    local function CreateSingleResource(tblData)
+
+        FlattenMapRect(tblData.position[1]-2, tblData.position[3]-2, 4, 4, tblData.position[2])
+
+        CreateResourceDeposit( tblData.type, tblData.position[1], tblData.position[2], tblData.position[3],	tblData.size )
+
+        -- fixme: texture names should come from editor
+        local albedo, sx, sz, lod
+
+        if tblData.type == "Mass" then
+
+            albedo = "/env/common/splats/mass_marker.dds"
+            sx = 2
+            sz = 2
+            lod = 100
+
+            CreatePropHPR('/env/common/props/massDeposit01_prop.bp', tblData.position[1], tblData.position[2], tblData.position[3],	Random(0,360), 0, 0	)
+
+        else
+
+            albedo = "/env/common/splats/hydrocarbon_marker.dds"
+            sx = 6
+            sz = 6
+            lod = 200
+
+            CreatePropHPR('/env/common/props/hydrocarbonDeposit01_prop.bp',	tblData.position[1], tblData.position[2], tblData.position[3], Random(0,360), 0, 0 )
+
+        end
+
+        -- syntax reference -- Position, heading, texture name for albedo, sizex, sizez, LOD, duration, army, misc
+        CreateSplat( tblData.position, 0, albedo, sx, sz, lod, 0, -1, 0	)
+
+    end
 
 	local doit_value = tonumber(ScenarioInfo.Options.UnusedResources) or 1
-	
+    
+    local count = 0
+
     for i, tblData in pairs(markers) do
-	
-		if tblData.orientation then
-			tblData.orientation = nil
-		end
+    
+        count = count + 1
 
 		tblData.hint = false
 
-		if tblData.editorIcon then
-			tblData.editorIcon = nil
-		end
-	
         if tblData.resource then
 
 			-- assume we'll spawn the resource
@@ -285,77 +351,84 @@ function CreateResources()
 			
 			if doit then
             
+                -- METAL WORLD --
                 -- don't place mass point grahpic on MetalWorld
+                -- but replace each existing point with 5
                 if ScenarioInfo.MetalWorld and tblData.type == 'Mass' then
-                    
-                    continue
-                    
-                else
-			
-                    FlattenMapRect(tblData.position[1]-2, tblData.position[3]-2, 4, 4, tblData.position[2])
-		
-                    CreateResourceDeposit( tblData.type, tblData.position[1], tblData.position[2], tblData.position[3],	tblData.size )
-
-                    -- fixme: texture names should come from editor
-                    local albedo, sx, sz, lod
-				
-                    if tblData.type == "Mass" then
-				
-                        albedo = "/env/common/splats/mass_marker.dds"
-                        sx = 2
-                        sz = 2
-                        lod = 100
-
-                        CreatePropHPR('/env/common/props/massDeposit01_prop.bp', tblData.position[1], tblData.position[2], tblData.position[3],	Random(0,360), 0, 0	)
-					
-                    else
-				
-                        albedo = "/env/common/splats/hydrocarbon_marker.dds"
-                        sx = 6
-                        sz = 6
-                        lod = 200
-					
-                        CreatePropHPR('/env/common/props/hydrocarbonDeposit01_prop.bp',	tblData.position[1], tblData.position[2], tblData.position[3], Random(0,360), 0, 0 )
+                
+                    -- generate 5 points to replace the old single point
+                    for _, coord in coordsTbl[math.random(1,table.getn(coordsTbl))] do
+                        
+                        local newttblsData = table.deepcopy(tblData)
+                            
+                        newttblsData.position[1] = tblData.position[1] + coord[1]
+                        newttblsData.position[3] = tblData.position[3] + coord[2]
+                        newttblsData.position[2] = GetTerrainHeight(tblData.position[1],tblData.position[3])
+                            
+                        -- put the new marker into the marker table
+                        table.insert(newmarkers, newttblsData)
 
                     end
 
-                    -- syntax reference -- Position, heading, texture name for albedo, sizex, sizez, LOD, duration, army, misc
-                    CreateSplat( tblData.position, 0, albedo, sx, sz, lod, 0, -1, 0	)
+                    -- remove the source marker from original list
+                    ScenarioInfo.Env.Scenario.MasterChain._MASTERCHAIN_.Markers[i] = nil
+
+                    continue
+                    
+                else
+                
+                    -- MASS POINT RNG --
+                    if ScenarioInfo.MassPointRNG and tblData.type == 'Mass' then
+
+                        -- randomly generate between 0 and 4 new points to replace the old one
+                        for _, coord in coordsTbl[math.random(1,table.getn(coordsTbl))] do
+                        
+                            local newttblsData = table.deepcopy(tblData)
+                            
+                            newttblsData.position[1] = tblData.position[1] + coord[1]
+                            newttblsData.position[3] = tblData.position[3] + coord[2]
+                            newttblsData.position[2] = GetTerrainHeight(tblData.position[1],tblData.position[3])
+                            
+                            -- put the new marker into the marker table
+                            table.insert(newmarkers, newttblsData)
+                            
+                            CreateSingleResource(newttblsData)
+                        end
+
+                        -- remove the source marker from original list
+                        ScenarioInfo.Env.Scenario.MasterChain._MASTERCHAIN_.Markers[i] = nil
+
+                    else
+
+                        CreateSingleResource(tblData)
+                        
+                    end
 			
                 end
+                
 			end
+            
         end
-		
-		if tblData.prop then
-			tblData.prop = nil
-		end
-		
-		if tblData.color then
-			tblData.color = nil
-		end
-		
-		if tblData.size then
-			tblData.size = nil
-		end
-		
-		if tblData.amount then
-			tblData.amount = nil
-		end
-		
-		if tblData.position then
-		
-			local a = tblData.position[1]
-			local b = tblData.position[2]
-			local c = tblData.position[3]
-			tblData.position = { a, b, c }
-			
-		end
-		
+
     end
-	
+
+    if newmarkers[1] then
+
+        for _, data in newmarkers do
+            table.insert(ScenarioInfo.Env.Scenario.MasterChain._MASTERCHAIN_.Markers, data)
+        end
+        
+    end
+    
+    markers = GetMarkers()
+    
+    count = 0
+
 	-- loop thru all the start positions and eliminate those which
 	-- no longer have any resources within range 75 of them
     for i, tblData in pairs(markers) do
+    
+        count = count + 1
 		
         if tblData.type == "Blank Marker" then
 		
@@ -384,13 +457,49 @@ function CreateResources()
 
         end
 
+		if tblData.editorIcon then
+			tblData.editorIcon = nil
+		end
+	
+		if tblData.orientation then
+			tblData.orientation = nil
+		end
+		
+		if tblData.color then
+			tblData.color = nil
+		end
+		
+		if tblData.size then
+			tblData.size = nil
+		end
+		
+		if tblData.amount then
+			tblData.amount = nil
+		end
+		
+		if tblData.prop then
+			tblData.prop = nil
+		end
+		
+		if tblData.position then
+		
+			local a = tblData.position[1]
+			local b = tblData.position[2]
+			local c = tblData.position[3]
+			tblData.position = { a, b, c }
+			
+		end
+	
     end
 
     ScenarioInfo.Options.RelocateResources = nil
 	
 	LOG("*AI DEBUG Created Resources and used "..( (gcinfo() - memstart)*1024 ).." bytes")
     
-    -- create the initial mass point list
+    -- clear the marker list (forces a rebuild)
+    ScenarioInfo['Mass'] = nil
+    
+    -- create the initial mass point list - this call will force the mass point marker list to be recreated
     ScenarioInfo.StartingMassPointList = table.copy(import('/lua/ai/aiutilities.lua').AIGetMarkerLocations('Mass'))
 
 	-- store the number of mass points on the map
@@ -424,6 +533,7 @@ function InitializeArmies()
         local Opponents = 0
         local TeamSize = 1
 
+        -- calculate team sizes
         for index, playerInfo in ArmyBrains do
     
             if ArmyIsCivilian(playerInfo.ArmyIndex) or index == self.ArmyIndex then continue end
@@ -477,24 +587,34 @@ function InitializeArmies()
         if self.BrainType == 'Human' then
             return
         end
+        
 
         if ScenarioInfo.Options.AIResourceSharing == 'off' then
+        
             self:SetResourceSharing(false)
+            
         elseif ScenarioInfo.Options.AIResourceSharing == 'aiOnly' then
+        
             local allPlayersAI = true
+            
             for i, playerInfo in ArmyBrains do
+            
                 -- If this AI is allied to a human, disable resource sharing
                 if IsAlly(i, self.ArmyIndex) and playerInfo.BrainType == 'Human' then
+                
                     self:SetResourceSharing(false)
                     break
+                    
                 end
+                
             end
+            
         else
             self:SetResourceSharing(true)
         end
 
 		-- build table of scout locations and set some starting threat at all enemy locations
-		loudUtils.BuildScoutLocations(self)
+		--loudUtils.BuildScoutLocations(self)
 
         -- Create the Condition monitor
         self.ConditionsMonitor = import('/lua/sim/BrainConditionsMonitor.lua').CreateConditionsMonitor(self)
@@ -692,8 +812,9 @@ function InitializeArmies()
                 
             end
 			
-			-- if this is an AI (but not civilian)        
-            if GetArmyBrain(strArmy).BrainType == 'AI' and (not armyIsCiv) then
+			-- if this is not civilian - mark the use of certain mods
+            -- and add custom unit tables to each AI
+            if not armyIsCiv then
                 loudUtils.AddCustomUnitSupport(GetArmyBrain(strArmy))
             end
             
@@ -746,13 +867,17 @@ function InitializeArmies()
     ScenarioInfo.TeamMassPointList = {}
     
 	--3+ Teams Unit Cap Fix, setting up the Unit Cap part of SetupAICheat,
+    -- get each AI to build it's scouting locations
 	-- now that we know what is the number of armies in the biggest team.                 
 	for _, strArmy in tblArmy do
 
         local armyIsCiv = ScenarioInfo.ArmySetup[strArmy].Civilian
+        
         local aiBrain = GetArmyBrain(strArmy)
 
         if aiBrain.BrainType == 'AI' and not armyIsCiv then
+        
+            loudUtils.BuildScoutLocations(aiBrain)
 			
             import('/lua/ai/aiutilities.lua').SetupAICheatUnitCap( aiBrain, ScenarioInfo.biggestTeamSize )
             

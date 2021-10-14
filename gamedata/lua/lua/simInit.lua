@@ -243,7 +243,7 @@ function BeginSession()
     end
     
     -- Create any effect markers on map
-    local markers = ScenarioInfo.Env.Scenario.MasterChain._MASTERCHAIN_.Markers	--import('/lua/sim/scenarioutilities.lua').GetMarkers()
+    local markers = ScenarioInfo.Env.Scenario.MasterChain._MASTERCHAIN_.Markers
     local Entity = import('/lua/sim/Entity.lua').Entity
     local EffectTemplate = import ('/lua/EffectTemplates.lua')
 	

@@ -18,7 +18,7 @@ end
 
 local MapHasNavalAreas = function( self, aiBrain )
 
-    if ScenarioInfo.Env.Scenario.MasterChain['Naval Area'][1] then
+    if ScenarioInfo['Naval Area'][1] then
         return self.Priority, false
     end
     
@@ -30,7 +30,7 @@ local MapHasNavalAreasButNotEstablished = function( self, aiBrain )
 
     if aiBrain.NumBasesNaval < 1 then
     
-        if ScenarioInfo.Env.Scenario.MasterChain['Naval Area'][1] then
+        if ScenarioInfo['Naval Area'][1] then
             return 999, false
         else
             return 0, false

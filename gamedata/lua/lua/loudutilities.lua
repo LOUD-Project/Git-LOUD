@@ -2181,6 +2181,8 @@ function AddCustomUnitSupport( aiBrain )
 				end
 			end
 		end
+
+        -- Some custom Scenario variables to support certain mods
 	
 		if m.name == 'BlackOps Adv Command Units for LOUD' then
 			--LOG("*AI DEBUG BOACU installed")
@@ -2201,8 +2203,17 @@ function AddCustomUnitSupport( aiBrain )
 		end
         
         if m.name == 'Metal World' then
-            LOG("*AI DEBUG METAL WORLD Installed")
+            --LOG("*AI DEBUG METAL WORLD Installed")
             ScenarioInfo.MetalWorld = true
+        end
+        
+        if m.name == 'Mass Point RNG' then
+            --LOG("*AI DEBUG Mass Point RNG Installed")
+            ScenarioInfo.MassPointRNG = true
+        end
+        
+        if aiBrain.BrainType != 'AI' then
+            continue
         end
 		
 		--If mod has a CustomUnits folder
@@ -2781,8 +2792,8 @@ function SetBaseRallyPoints( aiBrain, basename, basetype, rallypointradius, orie
 		return false
 	end
 	
-	if not ScenarioInfo.Env.Scenario.MasterChain[markertype] then
-		ScenarioInfo.Env.Scenario.MasterChain[markertype] = {}
+	if not ScenarioInfo[markertype] then
+		ScenarioInfo[markertype] = {}
 	end
 	
 	local rallypointtable = {}
@@ -2792,7 +2803,7 @@ function SetBaseRallyPoints( aiBrain, basename, basetype, rallypointradius, orie
 
         if not CheckBlockingTerrain( baseposition, {v[1],v[2],v[3]} ) then
         
-            LOUDINSERT(ScenarioInfo.Env.Scenario.MasterChain[markertype], { Name = markertype, Position = { v[1], v[2], v[3] } } )
+            LOUDINSERT(ScenarioInfo[markertype], { Name = markertype, Position = { v[1], v[2], v[3] } } )
             LOUDINSERT(rallypointtable, { v[1], v[2], v[3] }  )
             
         end
@@ -2814,10 +2825,10 @@ function RemoveBaseRallyPoints( aiBrain, basename, basetype, rallypointradius )
 	
 	for _,v in GetBasePerimeterPoints( aiBrain, basename, rallypointradius, 'ALL' ) do
     
-		for k,r in ScenarioInfo.Env.Scenario.MasterChain[markertype] do
+		for k,r in ScenarioInfo[markertype] do
         
 			if v[1] == r.Position[1] and v[3] == r.Position[3] then
-				LOUDREMOVE(ScenarioInfo.Env.Scenario.MasterChain[markertype], k )
+				LOUDREMOVE(ScenarioInfo[markertype], k )
 			end
             
 		end
@@ -4675,7 +4686,7 @@ end
 -- added dynamic ratio between Hi and Low scouting based upon number of points
 function BuildScoutLocations( self )
 
-	--LOG("*AI DEBUG "..self.Nickname.." now BuildingScoutLocations ")
+	LOG("*AI DEBUG "..self.Nickname.." now BuildingScoutLocations ")
 	
 	local GetMarker = import('/lua/sim/scenarioutilities.lua').GetMarker
 	local AIGetMarkerLocations = import('/lua/ai/aiutilities.lua').AIGetMarkerLocations

@@ -349,8 +349,8 @@ end
 -- this means that each markertype only gets read and assembled ONCE for the entire session
 function AIGetMarkerLocations(markerType)
 
-	if ScenarioInfo.Env.Scenario.MasterChain[markerType] then
-		return ScenarioInfo.Env.Scenario.MasterChain[markerType]
+	if ScenarioInfo[markerType] then
+		return ScenarioInfo[markerType]
 	end
 	
     local markerlist = {}
@@ -372,7 +372,7 @@ function AIGetMarkerLocations(markerType)
         
     else
 	
-        local markers = ScenarioInfo.Env.Scenario.MasterChain._MASTERCHAIN_.Markers  --GetMarkers()
+        local markers = ScenarioInfo.Env.Scenario.MasterChain._MASTERCHAIN_.Markers
 		
         if markers then
 		
@@ -388,8 +388,12 @@ function AIGetMarkerLocations(markerType)
         end
         
     end
+    
+    --LOG("*AI DEBUG Setting Master "..repr(markerType).." Marker List")
 
-	ScenarioInfo.Env.Scenario.MasterChain[markerType] = markerlist
+    --LOG("*AI DEBUG Point List is "..repr(markerlist))
+
+	ScenarioInfo[markerType] = markerlist
 
     return markerlist
 end
@@ -427,7 +431,7 @@ end
 
 function AIGetMarkersAroundLocation( aiBrain, markerType, pos, radius, threatMin, threatMax, threatRings, threatType )
 
-    local tempMarkers = ScenarioInfo.Env.Scenario.MasterChain[markerType] or AIGetMarkerLocations( markerType )
+    local tempMarkers = ScenarioInfo[markerType] or AIGetMarkerLocations( markerType )
 	
     local markerlist = {}
 	local counter = 0
@@ -558,13 +562,13 @@ end
 -- return false if there are none --
 function AIGetClosestMarkerLocation(aiBrain, markerType, startX, startZ, extraTypes)
 
-    local markerlist = ScenarioInfo.Env.Scenario.MasterChain[markerType] or AIGetMarkerLocations(markerType)
+    local markerlist = ScenarioInfo[markerType] or AIGetMarkerLocations(markerType)
     
     if extraTypes then
 	
         for _, pType in extraTypes do
 		
-            markerlist = TABLECAT(markerlist, ScenarioInfo.Env.Scenario.MasterChain[pType] or AIGetMarkerLocations(pType) )
+            markerlist = TABLECAT(markerlist, ScenarioInfo[pType] or AIGetMarkerLocations(pType) )
         end
     end
 	
@@ -580,7 +584,7 @@ end
 
 function AIGetClosestThreatMarkerLoc(aiBrain, markerType, startX, startZ, threatMin, threatMax, rings, threatType)
 
-    local markerlist = ScenarioInfo.Env.Scenario.MasterChain[markerType] or AIGetMarkerLocations(markerType)
+    local markerlist = ScenarioInfo[markerType] or AIGetMarkerLocations(markerType)
 
     local GetThreatAtPosition = moho.aibrain_methods.GetThreatAtPosition
     

@@ -4090,9 +4090,9 @@ function NavalForceAILOUD( self, aiBrain )
 
 	local OriginalThreat = self:CalculatePlatoonThreat('Overall', categories.ALLUNITS)
 
-	local navalmarkers = ScenarioInfo.Env.Scenario.MasterChain['Naval Area'] or AIGetMarkerLocations('Naval Area')
-	local combatmarkers = ScenarioInfo.Env.Scenario.MasterChain['Combat Zone'] or AIGetMarkerLocations('Combat Zone')
-	local massmarkers = ScenarioInfo.Env.Scenario.MasterChain['Mass'] or AIGetMarkerLocations('Mass')
+	local navalmarkers = ScenarioInfo['Naval Area'] or AIGetMarkerLocations('Naval Area')
+	local combatmarkers = ScenarioInfo['Combat Zone'] or AIGetMarkerLocations('Combat Zone')
+	local massmarkers = ScenarioInfo['Mass'] or AIGetMarkerLocations('Mass')
 
 	-- make a copy of the naval base markers
 	local navalAreas = LOUDCOPY(navalmarkers)
@@ -4720,12 +4720,12 @@ function NavalBombardAILOUD( self, aiBrain )
 	local OriginalThreat = self:CalculatePlatoonThreat('Overall', categories.ALLUNITS)
 
 	-- get all the possible naval markers that we want the bombardment platoon to operate from
-	local navalmarkers = ScenarioInfo.Env.Scenario.MasterChain['Naval Area'] or AIGetMarkerLocations('Naval Area')
+	local navalmarkers = ScenarioInfo['Naval Area'] or AIGetMarkerLocations('Naval Area')
 	-- include naval links
-	local linkmarkers = ScenarioInfo.Env.Scenario.MasterChain['Naval Link'] or AIGetMarkerLocations('Naval Link')
+	local linkmarkers = ScenarioInfo['Naval Link'] or AIGetMarkerLocations('Naval Link')
 	local navalmarkers = table.cat( navalmarkers, linkmarkers )
 	-- and water nodes
-	local nodemarkers = ScenarioInfo.Env.Scenario.MasterChain['Water Path Node'] or AIGetMarkerLocations('Water Path Node')
+	local nodemarkers = ScenarioInfo['Water Path Node'] or AIGetMarkerLocations('Water Path Node')
 	local navalmarkers = table.cat( navalmarkers, nodemarkers )
 
 	-- make a copy of the naval base markers

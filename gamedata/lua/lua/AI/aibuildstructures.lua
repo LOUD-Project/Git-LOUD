@@ -90,7 +90,7 @@ function AIExecuteBuildStructure( aiBrain, engineer, buildingType, closeToBuilde
         
         if not location then
 
-            local markerlist = ScenarioInfo.Env.Scenario.MasterChain[testtype]
+            local markerlist = ScenarioInfo[testtype]
         
             local mlist = {}
             local counter = 0

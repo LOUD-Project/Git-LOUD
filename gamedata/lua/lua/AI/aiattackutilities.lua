@@ -184,7 +184,7 @@ function GetPathGraphs()
 			Amphibious = AIGetMarkerLocationsEx( nil,'Amphibious Path Node') or {},
 		}
 		
-		local adj, newadj, counter
+		local adj, newadj, counter, water
 	
 		-- parse the marker data into our persistent tables --
 		-- by processing each of the 4 layers
@@ -208,7 +208,7 @@ function GetPathGraphs()
                 -- record if a position is in the water or not 
                 -- this is used in pathfinding to give preference to certain movements for
                 -- amphibious platoons
-                local water = false
+                water = nil
                 
                 if InWaterCheck( {marker.position[1], marker.position[2], marker.position[3]} ) then
                     water = true
@@ -474,7 +474,7 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 			end
 			
 			for _,cat in CheckCategory do
-				pointlist = table.cat(pointlist, ScenarioInfo.Env.Scenario.MasterChain[ cat ] or AIGetMarkerLocations( cat ) )
+				pointlist = table.cat(pointlist, ScenarioInfo[ cat ] or AIGetMarkerLocations( cat ) )
 			end
 		
 			if pointlist[1] and PointSource then
