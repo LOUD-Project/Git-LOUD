@@ -1,6 +1,6 @@
 name = "Metal World"
 uid = "25D57D85-7D84-27HT-A501-METALWI0000013"
-version = 1.3
+version = 1.4
 copyright = "© 2014–2018 Sean Wheeldon"
 description = "Removes the restriction from mass extractors, removes mass points."
 author = "Balthazar"

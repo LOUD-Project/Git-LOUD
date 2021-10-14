@@ -1,10 +1,10 @@
 name = "Mass Point RNG"
 uid = "25D57D85-7D84-27HT-A502-MASSRNG00002"
-version = 0.2
+version = 0.3
 copyright = "© 2018 Sean Wheeldon"
 description = "Each mass point is replaced with 0-4 mass points."
 author = "Balthazar"
-icon = "/mods/BrewLAN_RNG/MassRandom/MassRandom.png"
+icon = "/mods/BrewLAN_Gameplay/MassRandom/MassRandom.png"
 selectable = true
 enabled = true
 exclusive = false
