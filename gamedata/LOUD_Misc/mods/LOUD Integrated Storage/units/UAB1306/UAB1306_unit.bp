@@ -36,9 +36,9 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 620,	-- 10% Energy + 2% Health
-        Health = 11500,
-        MaxHealth = 11500,
+        EconomyThreatLevel = 640,	-- 10% Energy + 2% Health
+        Health = 12000,
+        MaxHealth = 12000,
         RegenRate = 6,
     },
 	
@@ -152,10 +152,12 @@ UnitBlueprint {
     Economy = {
         AdjacentStructureEnergyMod = -7,
 		
-        BuildCostEnergy = 63000,
-        BuildCostMass = 10000,
+        BuildCostEnergy = 62700,    -- 5% factional reduction
+        BuildCostMass = 4990,       -- 5% factional reduction
+        
 		BuildRate = 25,
-        BuildTime = 9500,
+        
+        BuildTime = 7500,
 		
         ProductionPerSecondEnergy = 3900,
 		
@@ -268,7 +270,7 @@ UnitBlueprint {
             RULEUCC_Stop = true,
         },
         FactionName = 'Aeon',
-        Icon = 'land',
+        Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
         UnitWeight = 1,
@@ -317,7 +319,7 @@ UnitBlueprint {
 	
     Weapon = {
         {
-            Damage = 5900,
+            Damage = 5000,
             DamageFriendly = true,
             DamageRadius = 12,
             DamageType = 'Normal',

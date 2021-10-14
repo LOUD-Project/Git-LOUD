@@ -46,8 +46,8 @@ UnitBlueprint {
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 670,	-- 10% Energy + 2% Health
-        Health = 13000,
-        MaxHealth = 13000,
+        Health = 13200,             -- 10% factional bonus
+        MaxHealth = 13200,          -- 10% factional bonus
         RegenRate = 4,
     },
 	
@@ -161,10 +161,12 @@ UnitBlueprint {
     Economy = {
         AdjacentStructureEnergyMod = -7,
 		
-        BuildCostEnergy = 64800,
-        BuildCostMass = 10800,
+        BuildCostEnergy = 65000,
+        BuildCostMass = 5250,
+        
 		BuildRate = 25,
-        BuildTime = 9500,
+        
+        BuildTime = 7500,
 		
         ProductionPerSecondEnergy = 3900,
 		
@@ -276,7 +278,7 @@ UnitBlueprint {
             RULEUCC_Stop = true,
         },
         FactionName = 'UEF',
-        Icon = 'land',
+        Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
         UnitWeight = 1,
@@ -318,7 +320,7 @@ UnitBlueprint {
 	
     Weapon = {
         {
-            Damage = 5900,
+            Damage = 5000,
             DamageFriendly = true,
             DamageRadius = 12,
             DamageType = 'Normal',

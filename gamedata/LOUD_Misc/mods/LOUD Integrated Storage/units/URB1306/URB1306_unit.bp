@@ -49,9 +49,9 @@ UnitBlueprint {
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 605,	-- 10% Energy + 2% Health
-        Health = 11500,
-        MaxHealth = 11500,
-        RegenRate = 10,
+        Health = 12000,
+        MaxHealth = 12000,
+        RegenRate = 10,             -- factional bonus
     },
 	
     Description = '<LOC urb1306_desc>Advanced Power Generator & Storage',
@@ -106,10 +106,12 @@ UnitBlueprint {
     Economy = {
         AdjacentStructureEnergyMod = -7,
 		
-        BuildCostEnergy = 65800,
-        BuildCostMass = 10800,
+        BuildCostEnergy = 65000,
+        BuildCostMass = 5250,
+        
 		BuildRate = 25,
-        BuildTime = 9500,
+        
+        BuildTime = 7500,
 		
         ProductionPerSecondEnergy = 3900,
 		
@@ -221,7 +223,7 @@ UnitBlueprint {
             RULEUCC_Stop = true,
         },
         FactionName = 'Cybran',
-        Icon = 'land',
+        Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
         UnitWeight = 1,
@@ -267,7 +269,7 @@ UnitBlueprint {
 	
     Weapon = {
         {
-            Damage = 5900,
+            Damage = 5000,
             DamageFriendly = true,
             DamageRadius = 12,
             DamageType = 'Normal',

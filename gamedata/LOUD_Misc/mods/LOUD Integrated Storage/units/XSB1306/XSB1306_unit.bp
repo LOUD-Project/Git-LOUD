@@ -41,9 +41,9 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 620,	-- 10% Energy + 2% Health
-        Health = 11550,
-        MaxHealth = 11550,
+        EconomyThreatLevel = 677,	-- 10% Energy + 2% Health
+        Health = 12000,
+        MaxHealth = 12000,
         RegenRate = 6,
     },
 	
@@ -155,16 +155,17 @@ UnitBlueprint {
     Economy = {
         AdjacentStructureEnergyMod = -7,
 		
-        BuildCostEnergy = 64800,
-        BuildCostMass = 10800,
+        BuildCostEnergy = 65000,
+        BuildCostMass = 5250,
 		BuildRate = 25,
-        BuildTime = 9500,
+        
+        BuildTime = 7500,
 		
-        ProductionPerSecondEnergy = 4100,
+        ProductionPerSecondEnergy = 4375,   -- +12% factional bonus
 		
         RebuildBonusIds = {'xsb1301'},
 		
-        StorageEnergy = 25000,
+        StorageEnergy = 27500,
     },
 	
 	Enhancements = {
@@ -265,14 +266,13 @@ UnitBlueprint {
 		CapCost = 4,
         Category = 'Economy',
         Classification = 'RULEUC_Resource',
-        CommandCaps = {
-            RULEUCC_Stop = true,
-        },
+        CommandCaps = { RULEUCC_Stop = true },
         FactionName = 'Seraphim',
-        Icon = 'land',
+        Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
         UnitWeight = 1,
+        
         UpgradesFrom = 'xsb1301',
     },
 	
@@ -318,7 +318,7 @@ UnitBlueprint {
 	
     Weapon = {
         {
-            Damage = 5900,
+            Damage = 3750,      -- 25% factional reduction
             DamageFriendly = true,
             DamageRadius = 12,
             DamageType = 'Normal',
