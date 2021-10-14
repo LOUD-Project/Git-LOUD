@@ -151,8 +151,8 @@ UnitBlueprint {
     Economy = {
         AdjacentStructureEnergyMod = -7,
         
-        BuildCostEnergy = 110000,
-        BuildCostMass = 10500,
+        BuildCostEnergy = 104500,       -- 5% factional decrease
+        BuildCostMass = 9975,           -- 5% factional decrease
         
         BuildTime = 15000,
         

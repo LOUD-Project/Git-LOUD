@@ -114,6 +114,7 @@ UnitBlueprint {
                 OffsetZ = -1,
             },
         },
+        
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -129,7 +130,9 @@ UnitBlueprint {
                 },
             },
         },
+        
         SpawnRandomRotation = true,
+        
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar8x_aeon_01_albedo',
@@ -153,8 +156,8 @@ UnitBlueprint {
     Economy = {
         AdjacentStructureEnergyMod = -4,
         
-        BuildCostEnergy = 22000,
-        BuildCostMass = 2200,
+        BuildCostEnergy = 20900,    -- 5% factional discount
+        BuildCostMass = 2090,       -- 5% factional discount
         
         BuildTime = 3000,
         

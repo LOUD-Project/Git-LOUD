@@ -47,9 +47,9 @@ UnitBlueprint {
     
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 440,		-- 10% Energy + 2% Health
-        Health = 10500,
-        MaxHealth = 10500,
+        EconomyThreatLevel = 457,		-- 10% Energy + 2% Health
+        Health = 10000,
+        MaxHealth = 10000,
         RegenRate = 2,
     },
     
@@ -160,9 +160,8 @@ UnitBlueprint {
         
         BuildTime = 15000,
         
-        ProductionPerSecondEnergy = 2550,       -- +250 factional bonus
-        
-		StorageEnergy = 1000,                   -- +150 factional bonus           
+        ProductionPerSecondEnergy = 2575,       -- +12% factional bonus
+		StorageEnergy = 1000,                   -- factional bonus           
     },
     
     Footprint = {
@@ -223,7 +222,7 @@ UnitBlueprint {
     
     Weapon = {
         {
-            Damage = 5000,
+            Damage = 3750,      -- 25% factional reduction
             DamageFriendly = true,
             DamageRadius = 12,
             DamageType = 'Normal',

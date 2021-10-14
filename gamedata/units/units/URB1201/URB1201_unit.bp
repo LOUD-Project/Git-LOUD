@@ -42,7 +42,7 @@ UnitBlueprint {
         EconomyThreatLevel = 74,		-- 10% Energy + 1% Health
         Health = 2400,
         MaxHealth = 2400,
-        RegenRate = 3,
+        RegenRate = 3,          -- factional bonus
     },
     
     Description = '<LOC urb1201_desc>Improved Power Generator',
