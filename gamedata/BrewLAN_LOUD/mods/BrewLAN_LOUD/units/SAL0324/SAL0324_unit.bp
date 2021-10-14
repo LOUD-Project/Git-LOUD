@@ -150,7 +150,7 @@ UnitBlueprint {
     },
     
     Economy = {
-        BuildCostEnergy = 30000*0.9,
+        BuildCostEnergy = 30000,
         BuildCostMass = 2400*0.5,
         BuildTime = 5000,
         
@@ -207,7 +207,7 @@ UnitBlueprint {
         },
         DragCoefficient = 0.2,
         Elevation = 0.25,
-        MaxAcceleration = 3.3,
+        MaxAcceleration = 1.1,
         MaxBrake = 3.3,
         MaxSpeed = 3.3,
         MaxSpeedReverse = 0,
