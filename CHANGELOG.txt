@@ -1,3 +1,32 @@
+### Release 15-10-2021 ###
+Lua 5.4.38
+LOUD_MISC 5.5.05
+
+AI  - hotfix for bug with mass distribution affecting scoreboard
+    - some extensive tweaking with energy production/assisting improving efficiency of overall power curve
+    - addition of T2 Mass Fabrication to MAIN base plan, allow AI to effectively absorb power spikes
+    - improved upgrade response when storage levels are both full
+    - added discrete buff definitions for Mass and Energy Storage but engine prevents proper use - only one storage buff can EVER be active
+    
+Integrated Storage 
+    - the LOUD Integrated Storage mod has been fully reviewed for consistency
+    - enacted all factional bonuses across T2 and T3 power generation 
+        - AEON - 5% cost reduction
+        - UEF  - 10% HP increase
+        - CYB   - increased regen (already present)
+        - SERA  - 10% increased output and storage, decreased volatility 25%
+    - all Integrated Storage versions now have 20% HP
+    - mildly decreased cost for upgrade and shorter duration
+    - LOUD now recognizes the use of IS in various places where storage is specifically requested, now behaves as if it is present
+    
+Metal World and Mass Point RNG
+    - both mutators are now fully usable by the AI
+    - markers are generated and updated to the AI data allowing him to 'see' the new points
+    - in Metal World, each original markers is replaced with 5 hidden markers which greatly improves his ability (better - not ideal)
+    - relocated both mods into the Gameplay secion of the Mod Manager
+    
+Removed the Wreckage Decay mod, Strat Icon Overhaul mod - both are fully integrated
+
 ### Release 7-10-2021 ###
 Lua 5.4.37
 
