@@ -221,8 +221,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
         BuilderConditions = {
         
 			{ EBC, 'LessThanEnergyTrendOverTime', { 50 }},        
-			{ EBC, 'LessThanEconEnergyStorageRatio', { 85 }},
-			{ EBC, 'GreaterThanEconStorageCurrent', { 75, 0 }},
+			{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 75, 1000 }},
             
 			{ UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, categories.ENERGYPRODUCTION + categories.ENERGYSTORAGE - categories.EXPERIMENTAL, categories.ENGINEER + categories.ENERGYSTORAGE + categories.ENERGYPRODUCTION, 120 }},
         },
@@ -839,7 +839,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Active DP',
 		BuilderType = { 'T1','T2','T3','SubCommander' },
 
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 75, 0 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 75, 1000 }},
 
             { UCBC, 'DamagedStructuresInArea', { 'LocationType' }},
         },

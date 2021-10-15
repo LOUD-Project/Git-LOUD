@@ -305,8 +305,8 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ EBC, 'LessThanEnergyTrendOverTime', { 180 }},
-			{ EBC, 'LessThanEconEnergyStorageRatio', { 85 }},
+			{ EBC, 'LessThanEnergyTrendOverTime', { 150 }},
+			{ EBC, 'LessThanEconEnergyStorageRatio', { 70 }},
             
 			{ EBC, 'GreaterThanEconStorageCurrent', { 75, 0 }},
             
@@ -392,9 +392,9 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ EBC, 'LessThanEconEnergyStorageRatio', { 85 }},
+			{ EBC, 'LessThanEconEnergyStorageRatio', { 50 }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 75, 0 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 75, 1000 }},
             
 			{ UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, ENERGYPRODUCTION, ENGINEER + ENERGYPRODUCTION, 75 }},
         },
@@ -427,7 +427,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
             
 			{ EBC, 'LessThanEconMassStorageRatio', { 50 }},            
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 0, 750 }},           
+			{ EBC, 'GreaterThanEconStorageCurrent', { 0, 1000 }},           
             
             { UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, MASSPRODUCTION, MASSPRODUCTION, 75 }},
         },
@@ -529,7 +529,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }}, 
         },
 		
