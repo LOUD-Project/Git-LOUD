@@ -94,48 +94,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
             }
         }
     },
-    
-    Builder {BuilderName = 'Mass Extractor T2 - 750 - Loop',
-	
-        PlatoonTemplate = 'EngineerBuilder',
-        
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-		
-		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
-		
-        Priority = 840,
-        
-        InstanceCount = 1,
-		
-		BuilderType = { 'T2','T3' },
-		
-        BuilderConditions = {
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            
-            { LUTL, 'UnitCapCheckLess', { .85 } },
-
-            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 1000 }},            
-            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 150, 750, -9999, 40, 0, 'AntiSurface', 1 }},
-        },
-		
-        BuilderData = {
-		
-            Construction = {
-				BuildClose = true,
-				LoopBuild = true,
-                
-                MinRange = 150,
-                MaxRange = 750,
-
-				ThreatMax = 40,
-				ThreatRings = 0,
-				ThreatType = 'AntiSurface',
-                
-                BuildStructures = { 'T2Resource' }
-            }
-        }
-    },
-
 
     Builder {BuilderName = 'Mass Extractor T1 - 1500 - Loop',
 	
@@ -225,13 +183,88 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
             }
         }
     },  
-
-
+    
+    Builder {BuilderName = 'Mass Extractor T2 - 750 - Loop',
 	
+        PlatoonTemplate = 'EngineerBuilder',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
+		
+        Priority = 840,
+        
+        InstanceCount = 1,
+		
+		BuilderType = { 'T2','T3' },
+		
+        BuilderConditions = {
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+            
+            { LUTL, 'UnitCapCheckLess', { .85 } },
 
+            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 1000 }},            
+            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 150, 750, -9999, 40, 0, 'AntiSurface', 1 }},
+        },
+		
+        BuilderData = {
+		
+            Construction = {
+				BuildClose = true,
+				LoopBuild = true,
+                
+                MinRange = 150,
+                MaxRange = 750,
+
+				ThreatMax = 40,
+				ThreatRings = 0,
+				ThreatType = 'AntiSurface',
+                
+                BuildStructures = { 'T2Resource' }
+            }
+        }
+    },
+
+    -- build T2 MassFab
+    Builder {BuilderName = 'Mass Fab T2 - Template',
+    
+        PlatoonTemplate = 'EngineerBuilder',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+        
+        Priority = 800,
+
+		BuilderType = { 'T2','T3' },
+
+        BuilderConditions = {
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+            { LUTL, 'UnitCapCheckLess', { .85 } },
+            
+			-- check base massfabs 
+			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 4, categories.MASSFABRICATION, 10, 42 }},
+            
+            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 1000 }},                        
+        },
+
+        BuilderData = {
+
+            Construction = {
+				NearBasePerimeterPoints = true,
+                
+				ThreatMax = 50,
+
+				Iterations = 1,
+                
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
+				BaseTemplate = 'MassFabLayout',
+                
+                BuildStructures = {'T1MassCreation'},
+            }
+        }
+    }, 
 
     -- SACU build MassFab
-    Builder {BuilderName = 'Mass Fab - Template',
+    Builder {BuilderName = 'Mass Fab T3 - Template',
     
         PlatoonTemplate = 'EngineerBuilder',
         
@@ -249,8 +282,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
 			-- there has to be advanced power at this location
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 3, categories.ENERGYPRODUCTION - categories.TECH1 }},
 			
-			{ EBC, 'LessThanEconMassStorageRatio', { 50 }},
-			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 0.3, 1.04 }},
+			--{ EBC, 'LessThanEconMassStorageRatio', { 50 }},
+			--{ EBC, 'GreaterThanEconEfficiencyOverTime', { 0.3, 1.04 }},
         },
 
         BuilderData = {
