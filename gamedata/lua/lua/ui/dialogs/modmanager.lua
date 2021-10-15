@@ -188,7 +188,6 @@ local modSchema = {
         'Machd6c5-cd5c-4e34-b6cc-11503ed5e2da', -- Disperse Move
         '175542E4-D4F5-11DC-B450-11D755D89593', -- HotStats
         'EF3ADDB4-9D34-437F-B1C8-440DAF896802', -- Mass Fab Manager
-        -- 'bc7731b6-1416-11ea-8d71-362b9e155667', -- Selection Depriotizer
         'D000E905-1E97-420D-8ED9-DF083282F59D', -- Sequential Mex Upgrade
         '89BF1572-9EA8-11DC-1313-635F56D89591', -- Supreme Economy
         'HUSSAR-PL-a1e2-c4t4-scfa-ssbmod-v1240', -- Supreme Score Board
@@ -204,7 +203,6 @@ local modSchema = {
         '25D57D85-9JA7-LOUD-BREW-RESEARCH00005', -- BrewLAN: Research and Daiquiris
         '16678e1e-7fc9-11e5-8bcf-waterguard10', -- Water Guard
         '25D57D85-9JA7-D842-GKG4-ASJDKG49G8S70', -- Waterlag
-        '16678e1e-7fc9-11e5-8bcf-wreckageA01' -- Wreckage Decay
     },
     ["Mutators"] = {
         'ffffffff-9d4e-11dc-8314-0800200c0605', -- Enhanced BO Commanders
@@ -228,14 +226,12 @@ local modSchema = {
         '16678e1e-7fc9-11e5-8bcf-scathingbe20', -- Scathing Beetles
         'BREWLANS-a0a7-426d-88f2-SPOMEN00000', -- Spomeniki
         '25D57D85-9JA7-D842-BREW-SUDDEN000001', -- Sudden Death
-        -- '25D57D85-7D84-27HT-A502-TECHRND00000', -- Tech Level Randomiser
     },
     ["Miscellaneous"] = {
         '25D57D85-9JA7-D842-GKG4-ORIGIN0000001', -- BrewLAN Baristas
         '25D57D85-9JA7-D842-GKG4-DAMAGENO00000', -- BrewLAN Damage Numbers
         '2529ea71-93ef-41a6-b552-LOGS0000000009', -- BrewLAN Debug Tools
         'zcbf6277-24e3-437a-b968-Common-v1', -- Common Mod Tools
-        'Z529ea71-93ef-41a6-b552-STRATICON00010', -- Strategic Icon Overhaul
         'eabdfda4-24b5-40dc-8995-LOUD000DEBUG', -- LOUD Debug Tools
         '7be1d5f4-c544-11ea-87d0-noalerts0001', -- No VO Alerts
         'stonksc5-f109-4145-b83f-a0b589087460', -- Stonks
