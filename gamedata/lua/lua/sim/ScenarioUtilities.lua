@@ -931,7 +931,7 @@ function InitializeArmies()
             count = count + 1
         
         end
-
+--[[
         for a, brain in ArmyBrains do
         
             if brain.BrainType == 'AI' and brain.Team == k then
@@ -939,7 +939,7 @@ function InitializeArmies()
             end
             
         end
-        
+--]]        
     end
 
     loudUtils.StartAdaptiveCheatThreads()

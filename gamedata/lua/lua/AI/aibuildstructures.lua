@@ -80,10 +80,10 @@ function AIExecuteBuildStructure( aiBrain, engineer, buildingType, closeToBuilde
             location = location.Position
 
             if CanBuildStructureAt( aiBrain, testunit, location ) then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." Engineer can build at initial mass point at "..repr(location))
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." Engineer can build at initial mass point at "..repr(location))
                 constructionData.MaxRange = 1500
             else
-                LOG("*AI DEBUG "..aiBrain.Nickname.." Engineer CANNOT build at initial mass point at "..repr(location))
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." Engineer CANNOT build at initial mass point at "..repr(location))
                 location = false
             end
         end

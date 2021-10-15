@@ -6822,14 +6822,14 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 						if not unit.Dead then
 					
 							-- if an upgrade was issued and resources were not completely full then delay for the full period --
-                            -- otherwise - if full on mass OR energy - use only half the delay period --
+                            -- otherwise - if full on mass OR energy - use only 1/3 the delay period --
 							if GetEconomyStoredRatio(aiBrain, 'MASS') < 1 and GetEconomyStoredRatio(aiBrain, 'ENERGY') < 1 then
                             
 								ForkThread(SelfUpgradeDelay, aiBrain, aiBrain.UpgradeIssuedPeriod)  -- delay the next upgrade by the full amount
                                 
 							else
                             
-                                ForkThread(SelfUpgradeDelay, aiBrain, aiBrain.UpgradeIssuedPeriod * .5)     -- otherwise halve the delay period
+                                ForkThread(SelfUpgradeDelay, aiBrain, aiBrain.UpgradeIssuedPeriod * .33)     -- otherwise only 1/3 the delay period
                                 
                             end
 

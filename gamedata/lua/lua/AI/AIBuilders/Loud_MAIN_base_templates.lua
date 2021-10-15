@@ -9,10 +9,7 @@
 FactoryLayout = {
 -- UEF Factory Layout
     {
-        {
-            {
-			'T1LandFactory',
-			},
+        {{'T1LandFactory'},
 			{  0, 18 }, 	--# inner ring 12 -- 3 in front
 			{-10, 18 },
 			{ 10, 18 },
@@ -38,10 +35,7 @@ FactoryLayout = {
 			{ 32,-24 },
 			{-32,-24 },
         },
-        {
-            {
-			'T1AirFactory',
-			},
+        {{'T1AirFactory'},
 			{  0, 18 }, 	--# inner ring 12 -- 1 in front ctr
 
 			{-18,  0 },		-- alternating left and right -- ctr, rear then front
@@ -71,19 +65,13 @@ FactoryLayout = {
 			{ 32,-24 },
 			{-32,-24 },
         },
-		{
-			{
-			'T3QuantumGate',
-			},
+		{{'T3QuantumGate'},
 			{ 0, 0 },
 		},
 	},
 -- Aeon Factory Layout
     {
-        {
-            {
-			'T1LandFactory',
-			},
+        {{'T1LandFactory'},
 			{  0, 18 }, 	--# inner ring 12 -- 3 in front
 			{-10, 18 },
 			{ 10, 18 },
@@ -109,10 +97,7 @@ FactoryLayout = {
 			{ 32,-24 },
 			{-32,-24 },
         },
-        {
-            {
-			'T1AirFactory',
-			},
+        {{'T1AirFactory'},
 			{  0, 18 }, 	--# inner ring 12 -- 1 in front ctr
 
 			{-18,  0 },		-- alternating left and right -- ctr, rear then front
@@ -142,20 +127,14 @@ FactoryLayout = {
 			{ 32,-24 },
 			{-32,-24 },
         },
-		{
-			{
-			'T3QuantumGate',
-			},
+		{{'T3QuantumGate'},
 			{ 0, 0 },
 		},
 	},
 
 -- Cybran Factory Layout
     {
-        {
-            {
-			'T1LandFactory',
-			},
+        {{'T1LandFactory'},
 			{  0, 18 }, 	--# inner ring 12 -- 3 in front
 			{-10, 18 },
 			{ 10, 18 },
@@ -181,10 +160,7 @@ FactoryLayout = {
 			{ 32,-24 },
 			{-32,-24 },
         },
-        {
-            {
-			'T1AirFactory',
-			},
+        {{'T1AirFactory'},
 			{  0, 18 }, 	--# inner ring 12 -- 1 in front ctr
 
 			{-18,  0 },		-- alternating left and right -- ctr, rear then front
@@ -214,20 +190,14 @@ FactoryLayout = {
 			{ 32,-24 },
 			{-32,-24 },
         },
-		{
-			{
-			'T3QuantumGate',
-			},
+		{{'T3QuantumGate'},
 			{ 0, 0 },
 		},
 	},
 
 -- Seraphim Factory Layout
     {
-        {
-            {
-			'T1LandFactory',
-			},
+        {{'T1LandFactory'},
 			{  0, 18 }, 	--# inner ring 12 -- 3 in front
 			{-10, 18 },
 			{ 10, 18 },
@@ -253,10 +223,7 @@ FactoryLayout = {
 			{ 32,-24 },
 			{-32,-24 },
         },
-        {
-            {
-			'T1AirFactory',
-			},
+        {{'T1AirFactory'},
 			{  0, 18 }, 	--# inner ring 12 -- 1 in front ctr
 
 			{-18,  0 },		-- alternating left and right -- ctr, rear then front
@@ -286,10 +253,7 @@ FactoryLayout = {
 			{ 32,-24 },
 			{-32,-24 },
         },
-		{
-			{
-			'T3QuantumGate',
-			},
+		{{'T3QuantumGate'},
 			{ 0, 0 },
 		},
 	},
@@ -298,10 +262,7 @@ FactoryLayout = {
 PowerLayout = {
 -- UEF Power Layout
     {
-		{
-			{
-			'T3EnergyProduction',
-			},
+		{{'T3EnergyProduction'},
 			{-10, 10 }, -- inner 4
 			{ 10, 10 },
 			{-10,-10 },
@@ -332,23 +293,17 @@ PowerLayout = {
 			{ 10, 40 },
 			{  0, 40 },
 		},
-		{
-			{
-			'T2EnergyProduction',
-			},
-			{ -17, 17 },	# outside 4 corners
+		{{'T2EnergyProduction'},
+			{ -17, 17 },	-- outside 4 corners
 			{  17, 17 },
 			{ -17,-17 },
 			{  17,-17 },
-			{ -11, 11 },	# inside 4 corners
+			{ -11, 11 },	-- inside 4 corners
 			{  11, 11 },
 			{ -11,-11 },
 			{  11,-11 },
 		},
-		{
-			{
-			'T1EnergyProduction',
-			},
+		{{'T1EnergyProduction'},
 			{ -5, 15 },
 			{ -5, 17 },
 			{ -5, 19 },
@@ -421,10 +376,7 @@ PowerLayout = {
 	},
 -- Aeon Power Layout
     {
-		{
-			{
-			'T3EnergyProduction',
-			},
+		{{'T3EnergyProduction'},
 			{-10, 10 }, -- inner 4
 			{ 10, 10 },
 			{-10,-10 },
@@ -455,10 +407,7 @@ PowerLayout = {
 			{ 10, 40 },
 			{  0, 40 },
 		},
-		{
-			{
-			'T2EnergyProduction',
-			},
+		{{'T2EnergyProduction'},
 			{ -17, 17 },	# outside 4 corners
 			{  17, 17 },
 			{ -17,-17 },
@@ -468,10 +417,7 @@ PowerLayout = {
 			{ -11,-11 },
 			{  11,-11 },
 		},
-		{
-			{
-			'T1EnergyProduction',
-			},
+		{{'T1EnergyProduction'},
 			{ -5, 15 },
 			{ -5, 17 },
 			{ -5, 19 },
@@ -544,10 +490,7 @@ PowerLayout = {
 	},
 -- Cybran Power Layout
     {
-		{
-			{
-			'T3EnergyProduction',
-			},
+		{{'T3EnergyProduction'},
 			{-10, 10 }, -- inner 4
 			{ 10, 10 },
 			{-10,-10 },
@@ -578,10 +521,7 @@ PowerLayout = {
 			{ 10, 40 },
 			{  0, 40 },
 		},
-		{
-			{
-			'T2EnergyProduction',
-			},
+		{{'T2EnergyProduction'},
 			{ -17, 17 },	# outside 4 corners
 			{  17, 17 },
 			{ -17,-17 },
@@ -591,10 +531,7 @@ PowerLayout = {
 			{ -11,-11 },
 			{  11,-11 },
 		},
-		{
-			{
-			'T1EnergyProduction',
-			},
+		{{'T1EnergyProduction'},
 			{ -5, 15 },
 			{ -5, 17 },
 			{ -5, 19 },
@@ -667,10 +604,7 @@ PowerLayout = {
 	},
 -- Seraphim Power Layout
     {
-		{
-			{
-			'T3EnergyProduction',
-			},
+		{{'T3EnergyProduction'},
 			{-10, 10 }, -- inner 4
 			{ 10, 10 },
 			{-10,-10 },
@@ -701,10 +635,7 @@ PowerLayout = {
 			{ 10, 40 },
 			{  0, 40 },
 		},
-		{
-			{
-			'T2EnergyProduction',
-			},
+		{{'T2EnergyProduction'},
 			{ -17, 17 },	# outside 4 corners
 			{  17, 17 },
 			{ -17,-17 },
@@ -714,10 +645,7 @@ PowerLayout = {
 			{ -11,-11 },
 			{  11,-11 },
 		},
-		{
-			{
-			'T1EnergyProduction',
-			},
+		{{'T1EnergyProduction'},
 			{ -5, 15 },
 			{ -5, 17 },
 			{ -5, 19 },
@@ -793,10 +721,7 @@ PowerLayout = {
 MassFabLayout = {
 -- UEF
     {
-		{
-			{
-			'T3MassCreation',
-			},
+		{{'T3MassCreation'},
 			{-17, 17 },	-- front 2 corners
 			{ 17, 17 },
 			{-33, 11 }, -- outer ring 8 - left 2
@@ -808,13 +733,16 @@ MassFabLayout = {
 			{-11, 33 },	-- front 2
 			{ 11, 33 },
 		},
+		{{'T1MassCreation'},
+			{  7,-23 },
+			{ -7,-23 },
+			{  9,-23 },
+			{ -9,-23 },
+		},        
 	},
 -- Aeon
     {
-		{
-			{
-			'T3MassCreation',
-			},
+		{{'T3MassCreation'},
 			{-17, 17 },	-- front 2 corners
 			{ 17, 17 },
 			{-33, 11 }, -- outer ring 8 - left 2
@@ -826,13 +754,16 @@ MassFabLayout = {
 			{-11, 33 },	-- front 2
 			{ 11, 33 },
 		},
+		{{'T1MassCreation'},
+			{  7,-23 },
+			{ -7,-23 },
+			{  9,-23 },
+			{ -9,-23 },
+        },
 	},
 -- Cybran
     {
-		{
-			{
-			'T3MassCreation',
-			},
+		{{'T3MassCreation'},
 			{-17, 17 },	-- front 2 corners
 			{ 17, 17 },
 			{-33, 11 }, -- outer ring 8 - left 2
@@ -843,14 +774,17 @@ MassFabLayout = {
 			{ 33,-11 },
 			{-11, 33 },	-- front 2
 			{ 11, 33 },
+		},
+		{{'T1MassCreation'},
+			{  7,-23 },
+			{ -7,-23 },
+			{  9,-23 },
+			{ -9,-23 },
 		},
 	},
 -- Sera
     {
-		{
-			{
-			'T3MassCreation',
-			},
+		{{'T3MassCreation'},
 			{-17, 17 },	-- front 2 corners
 			{ 17, 17 },
 			{-33, 11 }, -- outer ring 8 - left 2
@@ -861,6 +795,12 @@ MassFabLayout = {
 			{ 33,-11 },
 			{-11, 33 },	-- front 2
 			{ 11, 33 },
+		},
+		{{'T1MassCreation'},
+			{  7,-23 },
+			{ -7,-23 },
+			{  9,-23 },
+			{ -9,-23 },
 		},
 	},
 }
@@ -868,10 +808,7 @@ MassFabLayout = {
 MassStorageLayout = {
 -- UEF
     {
-		{
-			{
-			'MassStorage',
-			},
+		{{'MassStorage'},
 			{ -7, 35 },
 			{ -7, 33 },
 			{ -7, 31 },
@@ -923,11 +860,8 @@ MassStorageLayout = {
 		},
 	},
 --Aeon
-		{
-		{
-			{
-			'MassStorage',
-			},
+	{
+		{{'MassStorage'},
 			{ -7, 35 },
 			{ -7, 33 },
 			{ -7, 31 },
@@ -979,11 +913,8 @@ MassStorageLayout = {
 		},
     },
 -- Cybran
-		{
-		{
-			{
-			'MassStorage',
-			},
+	{
+		{{'MassStorage'},
 			{ -7, 35 },
 			{ -7, 33 },
 			{ -7, 31 },
@@ -1036,10 +967,7 @@ MassStorageLayout = {
     },
 -- Seraphim
     {
-		{
-			{
-			'MassStorage',
-			},
+		{{'MassStorage'},
 			{ -7, 35 },
 			{ -7, 33 },
 			{ -7, 31 },
@@ -1095,149 +1023,105 @@ MassStorageLayout = {
 ShieldLayoutInner = {
 -- UEF Inner Shield Layout
     {
-		{
-			{
-			'T2ShieldDefense',
-			'T3ShieldDefense',
-			},
-			{ 0, 9 }, # inner 4
+		{{'T2ShieldDefense','T3ShieldDefense'},
+			{ 0, 9 }, -- inner 4
 			{ 0,-9 },
 			{-9, 0 },
 			{ 9, 0 },
 		},
-		{
-			{
-			'EnergyStorage',
-			'T3Storage',
-			},
-			{  0,  5 },	# inner 4 shields with 3 each
+		{{'EnergyStorage','T3Storage'},
+			{  0,  5 },	-- inner 4 shields with 3 each
 			{ -2,  5 },
 			{  2,  5 },
-			{  0, -5 },	#
+			{  0, -5 },	
 			{ -2, -5 },
 			{  2, -5 },
-			{ -5, -2 },	#
+			{ -5, -2 },
 			{ -5,  0 },
 			{ -5,  2 },
-			{  5, -2 },	#
+			{  5, -2 },
 			{  5,  0 },
 			{  5,  2 },
 		},
-		{
-			{
-			'T4ShieldDefense',
-			},
+		{{'T4ShieldDefense'},
 			{ 0, 0 },
 		},
 	},
 -- Aeon Inner Shield Layout
     {
-		{
-			{
-			'T2ShieldDefense',
-			'T3ShieldDefense',
-			},
-			{ 0, 9 }, # inner 4
+		{{'T2ShieldDefense','T3ShieldDefense'},
+			{ 0, 9 }, -- inner 4
 			{ 0,-9 },
 			{-9, 0 },
 			{ 9, 0 },
 		},
-		{
-			{
-			'EnergyStorage',
-			'T3Storage',
-			},
-			{  0,  5 },	# inner 4 shields with 3 each
+		{{'EnergyStorage','T3Storage'},
+			{  0,  5 },	-- inner 4 shields with 3 each
 			{ -2,  5 },
 			{  2,  5 },
-			{  0, -5 },	#
+			{  0, -5 },
 			{ -2, -5 },
 			{  2, -5 },
-			{ -5, -2 },	#
+			{ -5, -2 },
 			{ -5,  0 },
 			{ -5,  2 },
-			{  5, -2 },	#
+			{  5, -2 },
 			{  5,  0 },
 			{  5,  2 },
 		},
-		{
-			{
-			'T4ShieldDefense',
-			},
+		{{'T4ShieldDefense',},
 			{ 0, 0 },
 		},
 	},
 -- Cybran Inner Shield Layout
     {
-		{
-			{
-			'T2ShieldDefense',
-			'T3ShieldDefense',
-			},
-			{ 0, 9 }, # inner 4
+		{{'T2ShieldDefense','T3ShieldDefense'},
+			{ 0, 9 }, --inner 4
 			{ 0,-9 },
 			{-9, 0 },
 			{ 9, 0 },
 		},
-		{
-			{
-			'EnergyStorage',
-			'T3Storage',
-			},
-			{  0,  5 },	# inner 4 shields with 3 each
+		{{'EnergyStorage','T3Storage'},
+			{  0,  5 },	-- inner 4 shields with 3 each
 			{ -2,  5 },
 			{  2,  5 },
-			{  0, -5 },	#
+			{  0, -5 },
 			{ -2, -5 },
 			{  2, -5 },
-			{ -5, -2 },	#
+			{ -5, -2 },
 			{ -5,  0 },
 			{ -5,  2 },
-			{  5, -2 },	#
+			{  5, -2 },
 			{  5,  0 },
 			{  5,  2 },
 		},
-		{
-			{
-			'T4ShieldDefense',
-			},
+		{{'T4ShieldDefense'},
 			{ 0, 0 },
 		},
 	},
 -- Seraphim Inner Shield Layout
     {
-		{
-			{
-			'T2ShieldDefense',
-			'T3ShieldDefense',
-			},
-			{ 0, 9 }, # inner 4
+		{{'T2ShieldDefense','T3ShieldDefense'},
+			{ 0, 9 }, -- inner 4
 			{ 0,-9 },
 			{-9, 0 },
 			{ 9, 0 },
 		},
-		{
-			{
-			'EnergyStorage',
-			'T3Storage',
-			},
-			{  0,  5 },	# inner 4 shields with 3 each
+		{{'EnergyStorage','T3Storage'},
+			{  0,  5 },	-- inner 4 shields with 3 each
 			{ -2,  5 },
 			{  2,  5 },
-			{  0, -5 },	#
+			{  0, -5 },
 			{ -2, -5 },
 			{  2, -5 },
-			{ -5, -2 },	#
+			{ -5, -2 },
 			{ -5,  0 },
 			{ -5,  2 },
-			{  5, -2 },	#
+			{  5, -2 },
 			{  5,  0 },
 			{  5,  2 },
 		},
-		{
-			{
-			'T4ShieldDefense',
-			},
+		{{'T4ShieldDefense'},
 			{ 0, 0 },
 		},
 	},
@@ -1247,44 +1131,36 @@ ShieldLayoutInner = {
 ShieldLayout = {
 -- UEF Shield Layout
     {
-		{
-			{
-			'T2ShieldDefense',
-			'T3ShieldDefense',
-			},
-			{-33,  0 }, # outer 4 cardinal points
+		{{'T2ShieldDefense','T3ShieldDefense'},
+			{-33,  0 }, -- outer 4 cardinal points
 			{ 33,  0 },
 			{  0,-33 },
 			{  0, 33 },
-			{-26, 33 }, # additional corners 4
+			{-26, 33 }, -- additional corners 4
 			{ 26, 33 },
 			{-26,-33 },		
 			{ 26,-33 },
 		},
-		{
-			{
-			'EnergyStorage',
-			'T3Storage',
-			},
-			{ 24, 37 },	# outer 4 corners w 6 each
+		{{'EnergyStorage','T3Storage'},
+			{ 24, 37 },	-- outer 4 corners w 6 each
 			{ 26, 37 },
 			{ 28, 37 },
 			{ 30, 35 },
 			{ 30, 33 },
 			{ 30, 31 },
-			{-30, 31 },	#
+			{-30, 31 },
 			{-30, 33 },
 			{-30, 35 },
 			{-24, 37 },
 			{-26, 37 },
 			{-28, 37 },
-			{-30,-31 },	#
+			{-30,-31 },
 			{-30,-33 },
 			{-30,-35 },
 			{-28,-37 },
 			{-26,-37 },
 			{-24,-37 },
-			{ 30,-35 },	#
+			{ 30,-35 },
 			{ 30,-33 },
 			{ 30,-31 },
 			{ 24,-37 },
@@ -1294,44 +1170,36 @@ ShieldLayout = {
 	},
 -- Aeon Shield Layout
     {
-		{
-			{
-			'T2ShieldDefense',
-			'T3ShieldDefense',
-			},
-			{-33,  0 }, # outer 4 cardinal points
+		{{'T2ShieldDefense','T3ShieldDefense'},
+			{-33,  0 }, -- outer 4 cardinal points
 			{ 33,  0 },
 			{  0,-33 },
 			{  0, 33 },
-			{-26, 33 }, # additional corners 4
+			{-26, 33 }, -- additional corners 4
 			{ 26, 33 },
 			{-26,-33 },		
 			{ 26,-33 },
 		},
-		{
-			{
-			'EnergyStorage',
-			'T3Storage',
-			},
-			{ 24, 37 },	# outer 4 corners w 6 each
+		{{'EnergyStorage','T3Storage'},
+			{ 24, 37 },	-- outer 4 corners w 6 each
 			{ 26, 37 },
 			{ 28, 37 },
 			{ 30, 35 },
 			{ 30, 33 },
 			{ 30, 31 },
-			{-30, 31 },	#
+			{-30, 31 },
 			{-30, 33 },
 			{-30, 35 },
 			{-24, 37 },
 			{-26, 37 },
 			{-28, 37 },
-			{-30,-31 },	#
+			{-30,-31 },
 			{-30,-33 },
 			{-30,-35 },
 			{-28,-37 },
 			{-26,-37 },
 			{-24,-37 },
-			{ 30,-35 },	#
+			{ 30,-35 },
 			{ 30,-33 },
 			{ 30,-31 },
 			{ 24,-37 },
@@ -1341,44 +1209,36 @@ ShieldLayout = {
     },
 -- Cybran Shield Layout
     {
-		{
-			{
-			'T2ShieldDefense',
-			'T3ShieldDefense',
-			},
-			{-33,  0 }, # outer 4 cardinal points
+		{{'T2ShieldDefense','T3ShieldDefense'},
+			{-33,  0 }, -- outer 4 cardinal points
 			{ 33,  0 },
 			{  0,-33 },
 			{  0, 33 },
-			{-26, 33 }, # additional corners 4
+			{-26, 33 }, -- additional corners 4
 			{ 26, 33 },
 			{-26,-33 },		
 			{ 26,-33 },
 		},
-		{
-			{
-			'EnergyStorage',
-			'T3Storage',
-			},
-			{ 24, 37 },	# outer 4 corners w 6 each
+		{{'EnergyStorage','T3Storage'},
+			{ 24, 37 },	-- outer 4 corners w 6 each
 			{ 26, 37 },
 			{ 28, 37 },
 			{ 30, 35 },
 			{ 30, 33 },
 			{ 30, 31 },
-			{-30, 31 },	#
+			{-30, 31 },
 			{-30, 33 },
 			{-30, 35 },
 			{-24, 37 },
 			{-26, 37 },
 			{-28, 37 },
-			{-30,-31 },	#
+			{-30,-31 },
 			{-30,-33 },
 			{-30,-35 },
 			{-28,-37 },
 			{-26,-37 },
 			{-24,-37 },
-			{ 30,-35 },	#
+			{ 30,-35 },
 			{ 30,-33 },
 			{ 30,-31 },
 			{ 24,-37 },
@@ -1388,44 +1248,36 @@ ShieldLayout = {
     },
 -- Seraphim Shield Layout
     {
-		{
-			{
-			'T2ShieldDefense',
-			'T3ShieldDefense',
-			},
-			{-33,  0 }, # outer 4 cardinal points
+		{{'T2ShieldDefense','T3ShieldDefense'},
+			{-33,  0 }, -- outer 4 cardinal points
 			{ 33,  0 },
 			{  0,-33 },
 			{  0, 33 },
-			{-26, 33 }, # additional corners 4
+			{-26, 33 }, -- additional corners 4
 			{ 26, 33 },
 			{-26,-33 },		
 			{ 26,-33 },
 		},
-		{
-			{
-			'EnergyStorage',
-			'T3Storage',
-			},
-			{ 24, 37 },	# outer 4 corners w 6 each
+		{{'EnergyStorage','T3Storage'},
+			{ 24, 37 },	-- outer 4 corners w 6 each
 			{ 26, 37 },
 			{ 28, 37 },
 			{ 30, 35 },
 			{ 30, 33 },
 			{ 30, 31 },
-			{-30, 31 },	#
+			{-30, 31 },
 			{-30, 33 },
 			{-30, 35 },
 			{-24, 37 },
 			{-26, 37 },
 			{-28, 37 },
-			{-30,-31 },	#
+			{-30,-31 },
 			{-30,-33 },
 			{-30,-35 },
 			{-28,-37 },
 			{-26,-37 },
 			{-24,-37 },
-			{ 30,-35 },	#
+			{ 30,-35 },
 			{ 30,-33 },
 			{ 30,-31 },
 			{ 24,-37 },
