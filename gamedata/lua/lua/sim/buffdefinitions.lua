@@ -662,7 +662,7 @@ BuffBlueprint { Name = 'CheatEnergyStorage',
 		EnergyStorage = {
 		    BuffCheckFunction = AdjBuffFuncs.EnergyStorageBuffCheck,
 			Add = 0,
-			Mult = 0.01,
+			Mult = 1,
 		},
 	},
 }
@@ -675,7 +675,7 @@ BuffBlueprint { Name = 'CheatMassStorage',
 		MassStorage = {
 		    BuffCheckFunction = AdjBuffFuncs.MassStorageBuffCheck,
 			Add = 0,
-			Mult = 0.01,
+			Mult = 1,
 		},
 	},
 }
@@ -702,6 +702,33 @@ BuffBlueprint { Name = 'CheatCDROmni',
 		},    
     },        
 }
+
+BuffBlueprint { Name = 'CheatCDREnergyStorage',
+	BuffType = 'STORAGE',
+	Stacks = 'STACKS',
+	Duration = -1,
+	Affects = {
+		EnergyStorage = {
+		    BuffCheckFunction = AdjBuffFuncs.EnergyStorageBuffCheck,
+			Add = 0,
+			Mult = 0.01,
+		},
+	},
+}
+
+BuffBlueprint { Name = 'CheatCDRMassStorage',
+	BuffType = 'STORAGE',
+	Stacks = 'STACKS',
+	Duration = -1,
+	Affects = {
+		MassStorage = {
+		    BuffCheckFunction = AdjBuffFuncs.MassStorageBuffCheck,
+			Add = 0,
+			Mult = 0.01,
+		},
+	},
+}
+
 
 BuffBlueprint { Name = 'CheatENG',
     BuffType = 'ENGINEERCHEAT',
