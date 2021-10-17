@@ -145,93 +145,105 @@ function AutoSelectShieldDrone(SuperClass)
                 WaitSeconds(1)
             end
 			
-            if not self:IsDead() and not self.GUnit:IsDead() and self.GUnit.HasDrone ~= true then                  
+            if not self:IsDead() and not self.GUnit:IsDead() and self.GUnit.HasDrone ~= true then
+            
                 -- Removes any residual commands
                 IssueClearCommands({self})                              
+                
                 -- Start Sound effects
                 self:PlayUnitSound('EnhanceStart')                
+                
                 -- Kicks off beam effects
                 self:ForkThread(self.BeamThread)
+                
                 -- Area FX 
                 CreateAttachedEmitter( self, 'xsa0201', self:GetArmy(), '/effects/emitters/seraphim_shield_generator_t3_03_emit.bp'):ScaleEmitter(0.5) 
-                CreateAttachedEmitter( self, 'xsa0201', self:GetArmy(), '/effects/emitters/seraphim_shield_generator_t3_04_emit.bp'):ScaleEmitter(0.5)                                                                  
+                CreateAttachedEmitter( self, 'xsa0201', self:GetArmy(), '/effects/emitters/seraphim_shield_generator_t3_04_emit.bp'):ScaleEmitter(0.5)
+                
                 WaitSeconds(2)
 				
-                if not self:IsDead() and not self.GUnit:IsDead() and self.GUnit.HasDrone ~= true then                                                
+                if not self:IsDead() and not self.GUnit:IsDead() and self.GUnit.HasDrone ~= true then
+                
                     -- Disables user control 
-                    self.SetUnSelectable(self, true)                                                                          
-                    -- Sets a flag so the guarded units can not possibly have more then one shield drone                                  
-                    self.GUnit.HasDrone = true                                                                                    
+                    self.SetUnSelectable(self, true)
+                    
+                    -- Sets a flag so the guarded units can not possibly have more then one shield drone
+                    self.GUnit.HasDrone = true
+                    
                     -- Removal of build beams
-                    if self.BuildEffectsBag then
-                        for k,v in self.BuildEffectsBag do                
-                            v:Destroy()
-                        end 			
-                    end                     
+                    if self.BuildEffectsBag[1] then
+                        self.BuildEffectsBag:Destroy()
+                    end
+
                     -- End Sound effects
                     self:PlayUnitSound('EnhanceEnd')
-					
+
                     -- Select the shield type to provide the unit (Disabled as this is a WIP)                                                                           
-                    #if table.find(self.GUnit:GetBlueprint().Categories,'FACTORY') and not table.find(self.GUnit:GetBlueprint().Categories,'EXPERIMENTAL') 
-                    #and not table.find(self.GUnit:GetBlueprint().Categories,'NAVAL') then                    
-                    #    ### Creates a bubble shield on the guarded structure
-                    #    self.GUnit:SpawnDomeShield()     
-                    #else                                                     
-                        ### Creates a personal shield on the guarded unit
-						
-                        self.GUnit:SpawnPersonalShield()
-						
-                    #end
-					
+                    self.GUnit:SpawnPersonalShield()
+
                     self:PlayUnitSound('Warp')
                     WaitSeconds(0.2)
-					
+
                     if self:IsDead() then return end       
-					
-                    self:HideBone('xsa0201', true)                                        
+
+                    self:HideBone('xsa0201', true)
+
                     -- Small delay before drone removal
-                    WaitSeconds(0.3)                                                                         
+                    WaitSeconds(0.3)
+
                     -- Removes the drone
                     if not self:IsDead() then                                
                         self:Destroy()	
                     end
+
                 else
                     self:Failure()
                 end
+
             else
                 self:Failure()
             end
+
         else
             self:Failure()
         end
+        
     end,
     
     -- Build beam special effects   
     BeamThread = function( self )
+    
 	    local army = self:GetArmy()
+        
         local bones = self:GetBlueprint().General.BuildBones.BuildEffectBones
+        
         for kBone, vBone in bones do
+        
             for k, v in EffectTemplate.SeraphimBuildBeams01 do
+            
                 local beamEffect = AttachBeamEntityToEntity(self, kBone, self.GUnit, -1, army, v )
+                
                 self.BuildEffectsBag:Add(beamEffect)
             end
-	    end             
+            
+	    end 
+        
     end,    
-       
+
     -- Simple distance check function                     
     ReturnDist = function(self, unit)
+    
         local myPos = self:GetPosition()
         local tarPos = unit:GetPosition()
         local distance = VDist2(myPos[1], myPos[3], tarPos[1], tarPos[3])
+        
         return distance
     end,
 
     -- Cleanup scripts for build effects if they still exsist        
     RemoveBuildFX = function(self)
         if self.BuildEffectsBag then
-            for k,v in self.BuildEffectsBag do                
-                v:Destroy()
-            end 			
+            self.BuildEffectsBag:Destroy()
         end
     end,
        
