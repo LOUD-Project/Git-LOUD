@@ -382,6 +382,7 @@ end
 
 function AirStrengthRatioGreaterThan( aiBrain, value )
 
+    -- no AIR activity
     if aiBrain.AirRatio <= .01 then
         return true
     end
@@ -391,11 +392,17 @@ end
 
 function AirStrengthRatioLessThan ( aiBrain, value )
 
+    -- no AIR activity
+    if aiBrain.AirRatio <= .01 then
+        return false
+    end
+
 	return aiBrain.AirRatio < value
 end
 
 function LandStrengthRatioGreaterThan( aiBrain, value )
 
+    -- no LAND activity
     if aiBrain.LandRatio <= .01 then
         return true
     end
@@ -405,11 +412,17 @@ end
 
 function LandStrengthRatioLessThan ( aiBrain, value )
 
+    -- no LAND activity
+    if aiBrain.LandRatio <= .01 then
+        return false
+    end
+
 	return aiBrain.LandRatio < value
 end
 
 function NavalStrengthRatioGreaterThan( aiBrain, value )
 
+    -- no NAVAL activity
     if aiBrain.NavalRatio <= .01 then
         return true
     end
@@ -418,6 +431,11 @@ function NavalStrengthRatioGreaterThan( aiBrain, value )
 end
 
 function NavalStrengthRatioLessThan ( aiBrain, value )
+
+    -- no NAVAL activity
+    if aiBrain.NavalRatio <= .01 then
+        return false
+    end
 
     return aiBrain.NavalRatio < value
 end
