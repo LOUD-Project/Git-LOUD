@@ -968,6 +968,7 @@ Unit = Class(moho.unit_methods) {
             self:SetMaintenanceConsumptionInactive()
             self:DisableUnitIntel('Cloak')
 			self:DisableUnitIntel('CloakField')
+
         end
     end,
 
@@ -1029,7 +1030,7 @@ Unit = Class(moho.unit_methods) {
             self:SetMaintenanceConsumptionActive()
             self:EnableUnitIntel('Cloak')
 			self:EnableUnitIntel('CloakField')
-			
+
         end
 		
     end,

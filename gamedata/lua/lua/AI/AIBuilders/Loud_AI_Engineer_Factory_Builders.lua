@@ -197,7 +197,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction',
 			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 2, categories.AIR * categories.TECH1 }},
             { UCBC, 'FactoryRatioGreaterOrEqualAtLocation', { 'LocationType', categories.LAND, categories.AIR } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 4000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.6, 15, 1, 1.01 }},
         },
 		
@@ -271,7 +271,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Expansions',
 			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 1, categories.LAND * categories.TECH1 }},
 			
 			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},			
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.03, 1.03 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 12, 1.02, 1.02 }},
         },
 		
         BuilderType = {'T1','T2','T3','SubCommander' },
@@ -309,7 +309,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Expansions',
             { UCBC, 'FactoryRatioLessAtLocation', { 'LocationType', categories.AIR, categories.LAND } },
 			
 			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},			
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.03, 1.03 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 12, 1.02, 1.02 }},
         },
 		
         BuilderType = {'T1','T2','T3','SubCommander' },
