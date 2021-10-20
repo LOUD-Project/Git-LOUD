@@ -227,7 +227,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
 		
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ EBC, 'LessThanEconEnergyStorageCurrent', { 5750 }},
-			{ EBC, 'GreaterThanEconStorageCurrent', { 75, 0 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 25, 0 }},
 
 			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, ENERGYPRODUCTION - TECH1 }},            
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, ENERGYPRODUCTION * STRUCTURE * TECH3 }},
@@ -427,9 +427,9 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
             
 			{ EBC, 'LessThanEconMassStorageRatio', { 50 }},            
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 0, 1000 }},           
+			{ EBC, 'GreaterThanEconStorageCurrent', { 75, 1250 }},           
             
-            { UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, MASSPRODUCTION, MASSPRODUCTION, 75 }},
+            { UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, MASSPRODUCTION, MASSPRODUCTION, 60 }},
         },
 		
         BuilderType = { 'Commander' },
@@ -463,7 +463,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
             
 			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
             
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }},
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1, 1.01 }},
             
             { UCBC, 'LocationFactoriesBuildingGreater', { 'LocationType', 0, FACTORY }},
         },
@@ -585,7 +585,10 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
 		
         BuilderConditions = {
 			{ EBC, 'LessThanEconMassStorageRatio', { 15 }},
-			{ EBC, 'ReclaimablesInAreaMass', { 'LocationType', 60 }},
+            
+			{ MIBC, 'GreaterThanGameTime', { 210 } },            
+            
+			{ EBC, 'ReclaimablesInAreaMass', { 'LocationType', 50 }},
         },
 		
         BuilderData = {
@@ -595,7 +598,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
         },
     },
 
-    -- just an in-case situation - rarely seen and only first 30 minutes
+    -- just an in-case situation - rarely seen and only first 15 minutes
     Builder {BuilderName = 'CDR T1 AA - Response - Small Maps',
 	
         PlatoonTemplate = 'CommanderBuilder',
@@ -608,17 +611,23 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
 		
 		-- this function removes the builder 
 		PriorityFunction = function(self, aiBrain)
-		
+
+            -- too early (7 mins) -- we don't want Bob wandering around too much this early
+            if aiBrain.CycleTime < 420 then
+                return 0, true
+            end
+
+            -- map is too large
 			if (ScenarioInfo.size[1] >= 1028 or ScenarioInfo.size[2] >= 1028) then
 				return 0, false
 			end
 			
-			-- remove after 30 minutes
-			if aiBrain.CycleTime > 1800 then
+			-- remove after 15 minutes
+			if aiBrain.CycleTime > 900 then
 				return 0, false
 			end
 			
-			return 700, false
+			return self.Priority, true
 		end,
 		
         BuilderConditions = {
@@ -626,8 +635,6 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
             
 			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},			
 
-			{ MIBC, 'GreaterThanGameTime', { 210 } },
-            
 			-- must not have any of the internal T2+ AA structures 
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 1, STRUCTURE * ANTIAIR, 14, 35 }},
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 9, STRUCTURE * ANTIAIR}},
