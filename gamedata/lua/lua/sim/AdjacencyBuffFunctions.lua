@@ -1,7 +1,7 @@
 ---  /lua/sim/AdjacencyBuffFunctions.lua
 
-local LOUDENTITY = EntityCategoryContains
-local LOUDEMPTY = table.empty
+--local LOUDENTITY = EntityCategoryContains
+--local LOUDEMPTY = table.empty
 
 local GetWeapon = moho.unit_methods.GetWeapon
 local GetWeaponCount = moho.unit_methods.GetWeaponCount
@@ -62,19 +62,6 @@ BuildBuffCheck = function(buff, unit)
 
 end
 
-BuildBuffRemove = function(buff, unit, instigator)
-
-	unit:DestroyAdjacentEffects( instigator)
-
-end
-
-BuildBuffAffect = function(buff, unit, instigator)
-
-    unit:CreateAdjacentEffect( instigator)
-
-end
-
-
 --------------------------------------------------------------------------------
 -- Legacy functions
 --------------------------------------------------------------------------------
@@ -83,11 +70,11 @@ EnergyBuildBuffCheck = function(buff, unit)
 end
 
 EnergyBuildBuffRemove = function(buff, unit, instigator)
-    return BuildBuffRemove(buff, unit, instigator)
+    return DefaultBuffRemove(buff, unit, instigator)
 end
 
 EnergyBuildBuffAffect = function(buff, unit, instigator)
-    return BuildBuffAffect(buff, unit, instigator)
+    return DefaultBuffAffect(buff, unit, instigator)
 end
 
 MassBuildBuffCheck = function(buff, unit)
@@ -95,11 +82,11 @@ MassBuildBuffCheck = function(buff, unit)
 end
 
 MassBuildBuffRemove = function(buff, unit, instigator)
-    return BuildBuffRemove(buff, unit, instigator)
+    return DefaultBuffRemove(buff, unit, instigator)
 end
 
 MassBuildBuffAffect = function(buff, unit, instigator)
-    return BuildBuffAffect(buff, unit, instigator)
+    return DefaultBuffAffect(buff, unit, instigator)
 end
 --------------------------------------------------------------------------------
 
@@ -112,18 +99,6 @@ EnergyMaintenanceBuffCheck = function(buff, unit)
     end
 
     return false
-
-end
-
-EnergyMaintenanceBuffRemove = function(buff, unit, instigator)
-
-	unit:DestroyAdjacentEffects(instigator)
-
-end
-
-EnergyMaintenanceBuffAffect = function(buff, unit, instigator)
-
-    unit:CreateAdjacentEffect(instigator)
 
 end
 
@@ -158,18 +133,6 @@ EnergyWeaponBuffCheck = function(buff, unit)
 
 end
 
-EnergyWeaponBuffRemove = function(buff, unit, instigator)
-
-	unit:DestroyAdjacentEffects(instigator)
-
-end
-
-EnergyWeaponBuffAffect = function(buff, unit, instigator)
-
-    unit:CreateAdjacentEffect(instigator)
-
-end
-
 -- Weapon Rate of Fire -- for energy using weapons
 -- this is difficult since many energy using weapons have their
 -- RoF controlled by the charge cycle - and not by RoF
@@ -180,34 +143,10 @@ RateOfFireBuffCheck = function(buff, unit)
 
 end
 
-RateOfFireBuffRemove = function(buff, unit, instigator)
-
-	unit:DestroyAdjacentEffects(instigator)
-
-end
-
-RateOfFireBuffAffect = function(buff, unit, instigator)
-
-    unit:CreateAdjacentEffect(instigator)
-
-end
-
 -- Shield Regeneration -- this is new with LOUDAI
 ShieldRegenBuffCheck = function(buff, unit)
 
 	return __blueprints[unit.BlueprintID].Defense.Shield.ShieldRegenRate > 0
-
-end
-
-ShieldRegenBuffRemove = function(buff, unit, instigator)
-
-	unit:DestroyAdjacentEffects(instigator)
-
-end
-
-ShieldRegenBuffAffect = function(buff, unit, instigator)
-
-	unit:CreateAdjacentEffect(instigator)
 
 end
 
@@ -218,34 +157,10 @@ ShieldSizeBuffCheck = function(buff, unit)
 
 end
 
-ShieldSizeBuffRemove = function(buff, unit, instigator)
-
-	unit:DestroyAdjacentEffects(instigator)
-
-end
-
-ShieldSizeBuffAffect = function(buff, unit, instigator)
-
-	unit:CreateAdjacentEffect(instigator)
-
-end
-
 -- Shield Health -- also new with LOUDAI
 ShieldHealthBuffCheck = function(buff, unit)
 
 	return __blueprints[unit.BlueprintID].Defense.Shield.ShieldMaxHealth > 0
-end
-
-ShieldHealthBuffRemove = function(buff, unit, instigator)
-
-	unit:DestroyAdjacentEffects(instigator)
-
-end
-
-ShieldHealthBuffAffect = function(buff, unit, instigator)
-
-	unit:CreateAdjacentEffect(instigator)
-
 end
 
 -- Energy Production -- for any energy producing structure
@@ -255,34 +170,10 @@ EnergyProductionBuffCheck = function(buff, unit)
 
 end
 
-EnergyProductionBuffRemove = function(buff, unit, instigator)
-
-	unit:DestroyAdjacentEffects(instigator)
-
-end
-
-EnergyProductionBuffAffect = function(buff, unit, instigator)
-
-    unit:CreateAdjacentEffect(instigator)
-
-end
-
 -- Mass Production - any mass producing structure
 MassProductionBuffCheck = function(buff, unit)
 
 	return __blueprints[unit.BlueprintID].Economy.ProductionPerSecondMass > 0
-
-end
-
-MassProductionBuffRemove = function(buff, unit, instigator)
-
-	unit:DestroyAdjacentEffects(instigator)
-
-end
-
-MassProductionBuffAffect = function(buff, unit, instigator)
-
-    unit:CreateAdjacentEffect(instigator)
 
 end
 
