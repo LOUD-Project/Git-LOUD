@@ -1,3 +1,14 @@
+### Release 15-22-2021 ***
+Lua 5.4.39
+
+AI  - Adjust to ACU tasks to promote more attention to early T1 power requirements
+    - Some widespread eco trigger reductions for certain activities (Artillery, Defense, T4 and Factories)
+    - Adjustment to some of the ratio conditions to account for 'no activity'
+    
+Adjacency Functions
+    - Data reduction on a lot of discrete Adjacency functions that were all pointing the same function
+    
+
 ### Release 15-10-2021 ###
 Lua 5.4.38
 LOUD_MISC 5.5.05
