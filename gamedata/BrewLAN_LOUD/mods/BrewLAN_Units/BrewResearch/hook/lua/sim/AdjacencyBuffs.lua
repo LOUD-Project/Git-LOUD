@@ -10,8 +10,8 @@ BuffBlueprint {
     EntityCategory = 'STRUCTURE WINDTURBINE SIZE4',
     ParsedEntityCategory = categories.STRUCTURE * categories.WINDTURBINE * categories.SIZE4,
     BuffCheckFunction = AdjBuffFuncs.EnergyProductionBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.EnergyProductionBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.EnergyProductionBuffRemove,
+    OnBuffAffect = DefaultBuffAffect,
+    OnBuffRemove = DefaultBuffRemove,
     Affects = {
         EnergyProduction = {
             Add = 0.4/4,
@@ -48,8 +48,9 @@ do
            BuffType = 'ENERGYBUILDBONUS',
            Affects = 'EnergyActive',
            BuffCheckFunction = AdjBuffFuncs.EnergyBuildBuffCheck,
-           OnBuffAffect = AdjBuffFuncs.EnergyBuildBuffAffect,
-           OnBuffRemove = AdjBuffFuncs.EnergyBuildBuffRemove,
+            OnBuffAffect = DefaultBuffAffect,
+            OnBuffRemove = DefaultBuffRemove,           
+
            IncludeIn = {
                T2LightPowerGeneratorAdjacencyBuffs,
            },
@@ -71,8 +72,8 @@ do
            BuffType = 'ENERGYMAINTENANCEBONUS',
            Affects = 'EnergyMaintenance',
            BuffCheckFunction = AdjBuffFuncs.EnergyMaintenanceBuffCheck,
-           OnBuffAffect = AdjBuffFuncs.EnergyMaintenanceBuffAffect,
-           OnBuffRemove = AdjBuffFuncs.EnergyMaintenanceBuffRemove,
+            OnBuffAffect = DefaultBuffAffect,
+            OnBuffRemove = DefaultBuffRemove,           
            IncludeIn = {
                T2LightPowerGeneratorAdjacencyBuffs,
            },
@@ -94,8 +95,8 @@ do
            BuffType = 'ENERGYWEAPONBONUS',
            Affects = 'EnergyWeapon',
            BuffCheckFunction = AdjBuffFuncs.EnergyWeaponBuffCheck,
-           OnBuffAffect = AdjBuffFuncs.EnergyWeaponBuffAffect,
-           OnBuffRemove = AdjBuffFuncs.EnergyWeaponBuffRemove,
+            OnBuffAffect = DefaultBuffAffect,
+            OnBuffRemove = DefaultBuffRemove,
            IncludeIn = {
                T2LightPowerGeneratorAdjacencyBuffs,
            },
@@ -153,8 +154,8 @@ BuffBlueprint {Name = 'Tier2ResearchEnergyBuildBonus',
     EntityCategory = 'STRUCTURE',
     ParsedEntityCategory = categories.STRUCTURE,
     BuffCheckFunction = AdjBuffFuncs.EnergyBuildBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.EnergyBuildBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.EnergyBuildBuffRemove,
+    OnBuffAffect = DefaultBuffAffect,
+    OnBuffRemove = DefaultBuffRemove,
     Affects = {
         EnergyActive = {
             Add = -0.375/8,
@@ -171,8 +172,8 @@ BuffBlueprint {Name = 'ResearchEnergyBuildNerf',
     EntityCategory = 'STRUCTURE',
     ParsedEntityCategory = categories.STRUCTURE,
     BuffCheckFunction = AdjBuffFuncs.EnergyBuildBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.EnergyBuildBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.EnergyBuildBuffRemove,
+    OnBuffAffect = DefaultBuffAffect,
+    OnBuffRemove = DefaultBuffRemove,
     Affects = {
         EnergyActive = {
             Add = 0.125/8,
@@ -189,8 +190,8 @@ BuffBlueprint {Name = 'Tier2ResearchMassBuildBonus',
     EntityCategory = 'STRUCTURE',
     ParsedEntityCategory = categories.STRUCTURE,
     BuffCheckFunction = AdjBuffFuncs.MassBuildBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.MassBuildBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.MassBuildBuffRemove,
+    OnBuffAffect = DefaultBuffAffect,
+    OnBuffRemove = DefaultBuffRemove,
     Affects = {
         MassActive = {
             Add = -0.375/8,
@@ -207,8 +208,8 @@ BuffBlueprint {Name = 'ResearchMassBuildBonusNerf',
     EntityCategory = 'STRUCTURE',
     ParsedEntityCategory = categories.STRUCTURE,
     BuffCheckFunction = AdjBuffFuncs.MassBuildBuffCheck,
-    OnBuffAffect = AdjBuffFuncs.MassBuildBuffAffect,
-    OnBuffRemove = AdjBuffFuncs.MassBuildBuffRemove,
+    OnBuffAffect = DefaultBuffAffect,
+    OnBuffRemove = DefaultBuffRemove,
     Affects = {
         MassActive = {
             Add = 0.125/8,

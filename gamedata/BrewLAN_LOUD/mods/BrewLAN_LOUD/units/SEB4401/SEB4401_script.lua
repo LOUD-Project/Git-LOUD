@@ -11,7 +11,20 @@ local GetRandomFloat = utilities.GetRandomFloat
 local explosion = import('/lua/defaultexplosions.lua')
 local CreateDeathExplosion = explosion.CreateDefaultHitExplosionAtBone
 local EffectTemplate = import('/lua/EffectTemplates.lua')
-local ScorchSplatTextures = import('/lua/defaultexplosions.lua').ScorchSplatTextures
+
+local ScorchSplatTextures = {
+    'scorch_001_albedo',
+    'scorch_002_albedo',
+    'scorch_003_albedo',
+    'scorch_004_albedo',
+    'scorch_005_albedo',
+    'scorch_006_albedo',
+    'scorch_007_albedo',
+    'scorch_008_albedo',
+    'scorch_009_albedo',
+    'scorch_010_albedo',
+}
+
 --------------------------------------------------------------------------------
 SEB4401 = Class(TShieldStructureUnit) {
 
