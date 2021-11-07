@@ -1,4 +1,17 @@
-### Release 15-22-2021 ***
+### Release 06-11-2021 ###
+Lua 5.4.40
+
+AI  - additional eco trigger adjustments
+    - some logging reporting the number of loaded builders (temporary)
+    - reactivated other logging for sorting of builders (activated thru AI Debug)
+
+BrewLAN - Ver 0.8.8.9.2 LOUD
+    - some corrections to accomodate LOUD's simplified adjacency functions
+    - relocated some textures 
+    - implementation of additional hover costs (10% Energy) into blueprints
+    
+
+### Release 22-10-2021 ***
 Lua 5.4.39
 
 AI  - Adjust to ACU tasks to promote more attention to early T1 power requirements

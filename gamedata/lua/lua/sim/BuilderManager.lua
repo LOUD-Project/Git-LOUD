@@ -225,9 +225,9 @@ BuilderManager = Class {
 		-- sort the builders list if needed
 		if self.BuilderData[BuilderType].NeedSort then
         
-            --if PriorityDialog then
-              --  LOG("*AI DEBUG "..aiBrain.Nickname.." "..ManagerType.." sorting "..BuilderType.." tasks")
-            --end
+            if PriorityDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..ManagerType.." sorting "..LOUDGETN(self.BuilderData[BuilderType].Builders).." "..BuilderType.." tasks")
+            end
 
 			LOUDSORT( self.BuilderData[BuilderType].Builders, function(a,b) return a.Priority > b.Priority end )
 --[[
@@ -486,7 +486,7 @@ BuilderManager = Class {
             conditioncounttotal = 0
     
             --if PriorityDialog then
-              --  LOG("*AI DEBUG "..brain.Nickname.." "..self.ManagerType.." "..LocationType.." Begins cycle at "..GetGameTimeSeconds().." seconds. Cycle will be "..(duration/10).." - BCM cycle is "..(brain.ConditionsMonitor.ThreadWaitDuration/10) )
+              --  LOG("*AI DEBUG "..brain.Nickname.." "..self.ManagerType.." "..LocationType.." with "..self.NumBuilders.." tasks. Begins cycle at "..GetGameTimeSeconds().." seconds. Cycle will be "..(duration/10).." - BCM cycle is "..(brain.ConditionsMonitor.ThreadWaitDuration/10) )
             --end
 			
             -- there must be units in the Pool or there will be nothing to form

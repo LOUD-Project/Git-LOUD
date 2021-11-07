@@ -20,6 +20,8 @@
 -- since we already know the faction index of the brain
 function AddGlobalBaseTemplate(aiBrain, locationType, baseBuilderName)
 
+    local buildercount = 0
+
 	local function AddGlobalBuilderGroup(builderGroupName)
 
 		if BuilderGroups[builderGroupName] then
@@ -46,6 +48,8 @@ function AddGlobalBaseTemplate(aiBrain, locationType, baseBuilderName)
 				if k != 'BuildersType' and k != 'BuilderGroupName' then
 		
 					aiBrain.BuilderManagers[locationType][tableType]:AddBuilder( aiBrain, Builders[v], locationType)
+                    
+                    buildercount = buildercount + 1
 			
 				end
 		
@@ -146,6 +150,8 @@ function AddGlobalBaseTemplate(aiBrain, locationType, baseBuilderName)
 	
 	-- store the settings for this base
     aiBrain.BuilderManagers[locationType].BaseSettings = BaseBuilderTemplates[baseBuilderName].BaseSettings
+    
+    LOG("*AI DEBUG "..aiBrain.Nickname.." loaded "..buildercount.." builders for base "..repr(locationType))
 	
 	-- get rid of the data sets that we build this from - they get reloaded if needed
 	BaseBuilderTemplates = nil

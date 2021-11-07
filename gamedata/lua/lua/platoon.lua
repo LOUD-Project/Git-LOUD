@@ -6418,14 +6418,38 @@ Platoon = Class(moho.platoon_methods) {
 		end
 		
 		if not eng.Dead then
-		
-			self:Stop()
+--[[        
+            if EntityCategoryContains( categories.AEON * categories.ENGINEER * categories.TECH1, eng ) and eng.UnitBeingBuilt then
+            
+                if (not eng.UnitBeingBuilt.Dead) and EntityCategoryContains( categories.STRUCTURE * categories.ENERGYPRODUCTION, eng.UnitBeingBuilt ) then
+                
+                    if not eng.UnitBeingBuilt:GetFractionComplete() != 1 then
+                    
+                        local bUnit = GetEntityById(eng.UnitBeingBuilt.Sync.id)
+            
+                        LOG("*AI DEBUG Unit being built by T1 AEON Engineer is "..repr(bUnit:GetBlueprint().Description) )
+                        
+                        self:Stop()
+                        
+                        IssueSacrifice( self, {} )
+                        
+                        return
+                        
+                    end
+                    
+                end
+                
+            else
+--]]
+                self:Stop()
 			
-			IssueClearCommands(self)
+                IssueClearCommands(self)
 			
-			eng.AssistPlatoon = nil
+                eng.AssistPlatoon = nil
 			
-			return self:SetAIPlan('ReturnToBaseAI',aiBrain)
+                return self:SetAIPlan('ReturnToBaseAI',aiBrain)
+                
+            --end
 			
 		end
 		
