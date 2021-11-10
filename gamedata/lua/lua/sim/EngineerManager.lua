@@ -710,15 +710,15 @@ EngineerManager = Class(BuilderManager) {
 
 		self.BaseMonitor = {
 	
-			BaseMonitorInterval = 8, 					-- how often the base monitor will do threat checks to raise alerts in seconds
+			BaseMonitorInterval = 6, 					-- how often the base monitor will do threat checks to raise alerts in seconds
 
 			ActiveAlerts = 0,							-- number of active alerts at this base
 			AlertLevel = 6,								-- threat must be this size to trigger an alert
-			AlertTimeout = 16,							-- time it takes for a created alert to expire in seconds
+			AlertTimeout = 12,							-- time it takes for a created alert to expire in seconds
 		
 			AlertRange = math.min( math.floor(self.Radius * 2), 150 ),		-- radius at which base will consider targets for an alert
 		
-			AlertResponseTime = 15,						-- time it allows to pass before sending more responses to an active alert in seconds
+			AlertResponseTime = 11,						-- time it allows to pass before sending more responses to an active alert in seconds
 		
 			AlertsTable = {},							-- stores the data for each threat (position, amount of threat, type of threat)
             
