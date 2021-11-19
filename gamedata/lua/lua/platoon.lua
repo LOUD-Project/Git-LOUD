@@ -950,7 +950,6 @@ Platoon = Class(moho.platoon_methods) {
 	--			NoStartNode - can't find a node near start position
 	--			NoEndNode - can't find a node near destination
 	--
-	--	I added a feature to store bad paths so they are instantly reported as fails instead of recalculated - stored globally as part of ScenarioInfo (deprecated)
     -- May 2020 - added the pathcost to the return value for Land and Amphib paths
 	PlatoonGenerateSafePathToLOUD = function( aiBrain, platoon, platoonLayer, start, destination, threatallowed, MaxMarkerDist)
 
@@ -8208,6 +8207,9 @@ Platoon = Class(moho.platoon_methods) {
 						continue	-- allow only the targets listed above
 					end
 					
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." evaluating "..Target.Type.." threat at distance "..repr(VDist3( Target.Position, pos)))
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." Threat Data is "..repr(Target.Threats))
+                    
 					if VDist3( Target.Position, pos ) > MaximumAttackRange then
 						break	-- all additional targets are beyond attack range
 					end
@@ -8323,6 +8325,8 @@ Platoon = Class(moho.platoon_methods) {
                             
                         end
 
+                    --else
+                        --LOG("*AI DEBUG "..aiBrain.Nickname.." finds no "..self.MovementLayer.." path to "..repr(Target.Position).." using my threat of "..mythreat)
                     end
 					
 					WaitTicks(2)

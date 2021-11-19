@@ -1240,6 +1240,15 @@ function SetPrimaryLandAttackBase( aiBrain )
         local Primary
         
         local currentgoaldistance = aiBrain.PrimaryLandAttackBaseDistance or 99999       -- default in case current primary doesn't exist --
+        
+        
+        local currentlandbasemode = false   -- assume all bases are in amphibious mode
+        
+        if aiBrain.AttackPlan.Method == "Land" then
+        
+            currentlandbasemode = true      -- bases will be in land mode - rather than amphibious
+            
+        end
 		
 		-- make a table of all land bases
         for k,v in aiBrain.BuilderManagers do
@@ -1286,7 +1295,7 @@ function SetPrimaryLandAttackBase( aiBrain )
             -- make this base the Primary
             Primary = Bases[1].BaseName
             
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(Primary).." is now the Primary Land Attack Base")
+            LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(Primary).." is now the Primary Land Attack Base - mode LAND is "..repr(currentlandbasemode))
             
             -- set the distance trigger
             currentgoaldistance = Bases[1].Distance
@@ -1302,6 +1311,7 @@ function SetPrimaryLandAttackBase( aiBrain )
             local builderManager
         
             -- loop thru all the potential bases - set Primary, clear all others
+            -- set the base mode according to the attack plan method
             for k,v in Bases do
 			
                 builderManager = aiBrain.BuilderManagers[v.BaseName].PlatoonFormManager
@@ -1332,10 +1342,20 @@ function SetPrimaryLandAttackBase( aiBrain )
                     builderManager:ForkThread( ClearOutBase, aiBrain )
                     
                 end
+                
+                -- all bases will be set to the current attack plan mode (land or amphibious)
+                -- this should enable LOUD to switch over to a pure LAND based attack when
+                -- his primary base is connected, by land, to the current goal
+                -- and revert to amphibious building otherwise
+                aiBrain.BuilderManagers[v.BaseName].LandMode = currentlandbasemode
             end
             
         else
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(aiBrain.PrimaryLandAttackBase).." remains the Primary Land Attack Base")
+        
+            aiBrain.BuilderManagers[aiBrain.PrimaryLandAttackBase].LandMode = currentlandbasemode        
+            
+            LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(aiBrain.PrimaryLandAttackBase).." remains the Primary Land Attack Base - LAND mode is "..repr(currentlandbasemode) )
+
         end
     end
 	
@@ -5089,7 +5109,7 @@ function CreateAttackPlan( self, enemyPosition )
     else
     
         if ScenarioInfo.AttackPlanDialog then
-            LOG("*AI DEBUG "..self.Nickname.." finds "..pathtype.." path from "..repr(CurrentPoint).." to "..repr(Goal).." pathlength is "..pathlength)
+            LOG("*AI DEBUG "..self.Nickname.." finds "..pathtype.." path from "..repr(CurrentPoint).." to "..repr(Goal).." pathlength is "..pathlength.." path is "..repr(path) )
         end
         
         CurrentBestPathLength = pathlength
@@ -5111,7 +5131,7 @@ function CreateAttackPlan( self, enemyPosition )
         end
     
     	-- if current point is within stagesize of goal we're done
-        if VDist2Sq(CurrentPoint[1],CurrentPoint[3], Goal[1],Goal[3]) <= (stagesize*stagesize) then
+        if VDist2Sq(CurrentPoint[1],CurrentPoint[3], Goal[1],Goal[3]) <= maxstagesize then
 		
             GoalReached = true
 			
@@ -5195,6 +5215,8 @@ function CreateAttackPlan( self, enemyPosition )
                             positions[counter] = {Name = v.Name, Position = v.Position, Pathvalue = holdpathlength, Type = pathtype, Path = path}
                             
                             CurrentBestPathLength = holdpathlength
+                            
+                            self.AttackPlan.Method = pathtype
 
                         end
 
@@ -5318,18 +5340,24 @@ function CreateAttackPlan( self, enemyPosition )
 				CurrentPoint = table.copy(positions[1].Position)
                 CurrentPointDistance = VDist2(CurrentPoint[1],CurrentPoint[3], Goal[1],Goal[3])
                 
+                pathtype = "Land"
                 path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerLand6', 'Land', CurrentPoint, Goal, 99999, 160 )
                 
                 if not path then
+                    pathtype = "Amphibious"
                     path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerAmphib6', 'Amphibious', CurrentPoint, Goal, 99999, 250 )
                 end
                 
                 if path then
                     CurrentPointDistance = pathlength
+                    self.AttackPlan.Method = pathtype
+                    
                 else
+                
                     if ScenarioInfo.AttackPlanDialog then
                         LOG("*AI DEBUG "..self.Nickname.." finds no path from "..repr(CurrentPoint).." to goal position "..repr(Goal))
                     end
+                    
                 end
 				
 			else
