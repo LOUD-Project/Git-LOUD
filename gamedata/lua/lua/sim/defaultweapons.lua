@@ -1216,7 +1216,7 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
 	
         self.Beams = {}
         
-        local counter = 0
+        local counter = 1
 		
         -- we use the standard GetBlueprint since this is performed BEFORE OnCreate - why ?
         local bp = GetBlueprint(self)

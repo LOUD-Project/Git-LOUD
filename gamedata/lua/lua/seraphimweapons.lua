@@ -348,10 +348,14 @@ SDFGapingMaw = Class(DefaultBeamWeapon) {
 
     PlayFxBeamStart = function(self, muzzle)
     
+        if self.unit.Dead then
+            return
+        end
+    
         local target = self:GetCurrentTarget()
         
         local bp = self.bp
-        
+ 
         if not target or not EntityCategoryContains(categories.ALLUNITS - categories.STRUCTURE, target) then
             -- Since this is now survivable, and has a fixed size max I don't feel bad about allowing:
             -- - categories.SUBCOMMANDER - categories.COMMAND - categories.EXPERIMENTAL
@@ -371,6 +375,7 @@ SDFGapingMaw = Class(DefaultBeamWeapon) {
         DefaultBeamWeapon.PlayFxBeamStart(self, muzzle)
 
         self.TT1 = self:ForkThread(self.TractorThread, target)
+        
         self:ForkThread(self.TractorWatchThread, target, bp.MandibleMaxHoldTimeTicks or 20)
     end,
 
@@ -378,7 +383,7 @@ SDFGapingMaw = Class(DefaultBeamWeapon) {
     GetRealTarget = function(self, target)
     
         if target and not IsUnit(target) then
-        
+
             local unitTarget = target:GetSource()
             local unitPos = unitTarget:GetPosition()
             local reconPos = target:GetPosition()
@@ -405,11 +410,12 @@ SDFGapingMaw = Class(DefaultBeamWeapon) {
     end,
 
     TractorThread = function(self, target)
+
         local beam = self.Beams[1].Beam
         if not beam then return end
 
         local bp = self.bp
-        
+
         local muzzle = bp.MuzzleSpecial
         if not muzzle then return end
 
@@ -418,15 +424,19 @@ SDFGapingMaw = Class(DefaultBeamWeapon) {
         local pos0 = beam:GetPosition(0)
         local pos1 = beam:GetPosition(1)
         local dist = VDist3(pos0, pos1)
+        
                     --CreateSlider(unit,      bone, [goal_x, goal_y, goal_z, [speed,
         self.Slider = CreateSlider(self.unit, muzzle, 0, 0, dist, -1, true)
+        
         if not self.Animator and bp.AnimationAttack and bp.AnimationEat then
             self.Animator = CreateAnimator(self.unit)
             self.NomAnimator = CreateAnimator(self.unit)
             self.unit.Trash:Add(self.Animator)
             self.unit.Trash:Add(self.NomAnimator)
         end
+        
         self.Animator:PlayAnim(bp.AnimationAttack, false):SetRate(1.5)
+        
         coroutine.yield(1)
         WaitFor(self.Slider)
         WaitFor(self.Animator)
@@ -673,8 +683,9 @@ SMeleeBladeBeamWeapon = Class(Weapon) {
     
         self.Beams = {}
         
-        local bp = self.bp
-        local counter = 0
+        local bp = self:GetBlueprint()
+        
+        local counter = 1
         
         for i, blade in bp.Blades do
         
@@ -700,11 +711,12 @@ SMeleeBladeBeamWeapon = Class(Weapon) {
                 beam:Disable()
             end
         end
-        
+
         BareBonesWeapon.OnCreate(self)
     end,
 
     OnFire = function(self)
+
         --Set up
         if not self.Blades then
             self.Blades = self:GetBlueprint().Blades
@@ -782,7 +794,7 @@ SMeleeBladeBeamWeapon = Class(Weapon) {
     end,
 
     PlayFxBeamStart = function(self, muzzle)
-    
+
         local army = self.unit.Sync.army
         local bp = self.bp
         
