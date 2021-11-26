@@ -1,3 +1,16 @@
+### Release 26-11-2021
+Lua 5.4.41
+Textures 6.7
+
+AI  - Various economic tweaks to behavior
+    - addition of attack 'mode' which allows LOUD to switch production dynamically
+    - tweaks to torpedo bomber production, recognition of attack 'mode'
+    - LOUD now permitted to add air factories even when land ratio stops more land factories
+    - tweaks to various threat/distance based behaviors and build conditions
+
+Textures    - some mistakenly removed textures were re-added
+
+
 ### Release 06-11-2021 ###
 Lua 5.4.40
 
