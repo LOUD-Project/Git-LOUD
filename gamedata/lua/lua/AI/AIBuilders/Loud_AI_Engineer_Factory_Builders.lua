@@ -217,7 +217,47 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction',
             }
         }
     },
+   
+	-- Note how Air Factories have higher priority but are limited by the Ratio Check
+	-- this insures that when eco conditions are met - this will get built ahead of land factories
+    -- this builder only comes into play if production of land factories is halted by ratio
+    -- allowing us to build more air factories even so
+    Builder {BuilderName = 'Air Factory Balance - Land Ratio High',
 	
+        PlatoonTemplate = 'EngineerBuilder',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+        Priority = 801,
+		
+        BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .75 } },
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 4 } },
+            
+			{ UCBC, 'FactoryCapCheck', { 'LocationType', 'AIR' }},
+			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 2, categories.AIR * categories.TECH1 }},
+
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.6, 15, 1, 1.01 }},
+        },
+		
+        BuilderType = { 'Commander','T1','T2','T3','SubCommander' },
+
+        BuilderData = {
+		
+            Construction = {
+				NearBasePerimeterPoints = true,
+				
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
+				BaseTemplate = 'FactoryLayout',
+				
+				ThreatMax = 30,
+				
+                BuildStructures = {'T1AirFactory' },
+            }
+        }
+    },
+		
 }
 
 BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Expansions',
