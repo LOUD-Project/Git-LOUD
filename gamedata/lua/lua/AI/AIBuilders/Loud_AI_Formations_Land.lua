@@ -878,6 +878,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 			UseFormation = 'AttackFormation',
 			
             AggressiveMove = true,
+            
+            MaxAttackRange = 900,
         },
     },
 
@@ -951,7 +953,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 			
             AggressiveMove = true,
             
-            MaxAttackRange = 500,
+            MaxAttackRange = 400,
         },
     },
 
@@ -2463,9 +2465,12 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Base Guards',
         BuilderType = 'Any',
 		
         BuilderConditions = { 
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},		
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+            
             { LUTL, 'UnitCapCheckLess', { .95 } },
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 350, 10, 'Land' }},
+            
+			{ TBC, 'ThreatCloserThan', { 'LocationType', 400, 75, 'Land' }},
+            
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 14, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS - categories.ENGINEER - categories.EXPERIMENTAL }},
         },
 		
