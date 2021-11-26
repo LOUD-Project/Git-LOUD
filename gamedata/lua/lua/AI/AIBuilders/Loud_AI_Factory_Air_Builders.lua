@@ -330,7 +330,9 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Torpedo Bombers',
         BuilderConditions = {
 
             { LUTL, 'NavalStrengthRatioLessThan', { 3 } },
-			{ LUTL, 'AirStrengthRatioGreaterThan', { 1 } },            
+			{ LUTL, 'AirStrengthRatioGreaterThan', { 1.2 } }, 
+
+            { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},
 			
 			-- dont start production until you have at least 3+ T2/T3 factories at location
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},
@@ -353,8 +355,10 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Torpedo Bombers',
         BuilderConditions = {
 
             { LUTL, 'NavalStrengthRatioLessThan', { 3 } },
-			{ LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
-			
+			{ LUTL, 'AirStrengthRatioGreaterThan', { 1.2 } },
+        
+            { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},
+
 			-- dont produce unless you have 3+ T3 Air factories overall
 			{ LUTL, 'HaveGreaterThanUnitsWithCategory', { 2, categories.FACTORY * categories.AIR * categories.TECH3 }},
 
@@ -470,7 +474,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .75 } },
-            { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 1.2 } },
 			
             { UCBC, 'ArmyNeedsTransports', { true } },
 
@@ -516,7 +520,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .85 } },
-            { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 1.2 } },
 			
             { UCBC, 'ArmyNeedsTransports', { true } },
 			
