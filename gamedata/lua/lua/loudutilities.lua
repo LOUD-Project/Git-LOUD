@@ -1295,7 +1295,7 @@ function SetPrimaryLandAttackBase( aiBrain )
             -- make this base the Primary
             Primary = Bases[1].BaseName
             
-            LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(Primary).." is now the Primary Land Attack Base - mode LAND is "..repr(currentlandbasemode))
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(Primary).." is now the Primary Land Attack Base - mode LAND is "..repr(currentlandbasemode))
             
             -- set the distance trigger
             currentgoaldistance = Bases[1].Distance
@@ -1347,14 +1347,20 @@ function SetPrimaryLandAttackBase( aiBrain )
                 -- this should enable LOUD to switch over to a pure LAND based attack when
                 -- his primary base is connected, by land, to the current goal
                 -- and revert to amphibious building otherwise
+                if aiBrain.BuilderManagers[v.BaseName].LandMode != currentlandbasemode then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(v.BaseName).." switching Land mode to "..repr(currentlandbasemode) )
+                end
+                
                 aiBrain.BuilderManagers[v.BaseName].LandMode = currentlandbasemode
             end
             
         else
         
-            aiBrain.BuilderManagers[aiBrain.PrimaryLandAttackBase].LandMode = currentlandbasemode        
+            if aiBrain.BuilderManagers[aiBrain.PrimaryLandAttackBase].LandMode != currentlandbasemode then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(aiBrain.PrimaryLandAttackBase).." PRIMARY - switching Land mode to "..repr(currentlandbasemode) )
+            end
             
-            LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(aiBrain.PrimaryLandAttackBase).." remains the Primary Land Attack Base - LAND mode is "..repr(currentlandbasemode) )
+            aiBrain.BuilderManagers[aiBrain.PrimaryLandAttackBase].LandMode = currentlandbasemode        
 
         end
     end

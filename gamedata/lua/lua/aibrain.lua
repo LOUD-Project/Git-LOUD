@@ -1565,7 +1565,9 @@ AIBrain = Class(moho.aibrain_methods) {
 			
         }
 
-        LOG("*AI DEBUG "..self.Nickname.." "..repr(baseName).." Created")
+		if ScenarioInfo.BaseMonitorDialog then
+            LOG("*AI DEBUG "..self.Nickname.." "..repr(baseName).." Created")
+        end
         
 		-- increment the total number of bases used by this brain
 		self.NumBases = self.NumBases + 1

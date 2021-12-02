@@ -7872,8 +7872,11 @@ Platoon = Class(moho.platoon_methods) {
 								-- start the new base --
 								if AINewExpansionBase( aiBrain, eng.NewExpansion[1], eng.NewExpansion[2], eng, eng.NewExpansion[3] ) then
                                 
-                                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName).." Eng "..eng.Sync.id.." creates new base "..repr(eng.NewExpansion[1]).." at "..repr(eng.NewExpansion[2]))
-                                    --LOG("*AI DEBUG Engineer is presently at "..repr(eng:GetPosition()))
+                               		if ScenarioInfo.BaseMonitorDialog then
+                                
+                                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName).." Eng "..eng.Sync.id.." creates new base "..repr(eng.NewExpansion[1]).." at "..repr(eng.NewExpansion[2]))
+                                        LOG("*AI DEBUG Engineer is presently at "..repr(eng:GetPosition()))
+                                    end
 									
 									platoon.LocationType = eng.NewExpansion[1]
 									platoon.RTBLocation = eng.NewExpansion[1]

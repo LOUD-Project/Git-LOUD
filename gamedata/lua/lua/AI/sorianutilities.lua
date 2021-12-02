@@ -208,6 +208,7 @@ function FinishAIChat(data)
 	
 		AISendChat('allies', aiBrain.Nickname, 'My current ENEMY is '..repr(ArmyBrains[aiBrain:GetCurrentEnemy().ArmyIndex].Nickname) )
 		AISendChat('allies', aiBrain.Nickname, 'My current LAND ratio is '..repr(aiBrain.LandRatio) )
+        AISendChat('allies', aiBrain.Nickname, 'My current AIR ratio is '..repr(aiBrain.AirRatio) )
 		AISendChat('allies', aiBrain.Nickname, 'My current LAND BASE is '..repr(aiBrain.PrimaryLandAttackBase) )
 	
 		if not aiBrain.DeliverStatus then
