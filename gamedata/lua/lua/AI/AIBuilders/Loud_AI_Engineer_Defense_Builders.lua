@@ -168,7 +168,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         BuilderConditions = {
             { EBC, 'GreaterThanEnergyIncome', { 480 }},
             
-            { LUTL, 'AirStrengthRatioLessThan', { 1.1 }},
+            { LUTL, 'AirStrengthRatioLessThan', { 3 }},
             
             { MIBC, 'BaseInPlayableArea', { 'LocationType' }},            
 			
@@ -324,7 +324,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
             { LUTL, 'UnitCapCheckLess', { .80 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 4200 }},
             
-            { LUTL, 'AirStrengthRatioLessThan', { 1.5 } }, 
+            { LUTL, 'AirStrengthRatioLessThan', { 3 } }, 
             
             { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
             
@@ -358,17 +358,18 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 745,
+        Priority = 751,
 
         PriorityFunction = IsEnemyCrushingAir,
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .65 } },
             
-            { LUTL, 'AirStrengthRatioLessThan', { 3 } }, 
+            --{ LUTL, 'AirStrengthRatioLessThan', { 3 } }, 
             
-            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},            
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 25, 1.012, 1.02 }},
+            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
+            
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 8, categories.STRUCTURE * categories.ANTIAIR, 15, 42 }},
         },
 		
@@ -1181,7 +1182,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 		end,
 		
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioLessThan', { 1.1 }},
+            { LUTL, 'AirStrengthRatioLessThan', { 3 }},
             { MIBC, 'BaseInPlayableArea', { 'LocationType' }},            
 			-- dont have any advanced units
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.STRUCTURE - categories.TECH1 }},
@@ -2454,7 +2455,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
         PriorityFunction = IsEnemyCrushingAir,
         
         BuilderConditions = {
-			{ LUTL, 'AirStrengthRatioLessThan', { 1.1 }},
+			{ LUTL, 'AirStrengthRatioLessThan', { 3 }},
 			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
             { LUTL, 'UnitCapCheckLess', { .75 } },
 
