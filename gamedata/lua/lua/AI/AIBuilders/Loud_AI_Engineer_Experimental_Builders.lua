@@ -1433,7 +1433,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Construction - Expansions'
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			
 			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
-			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 3, categories.FACTORY - categories.TECH1 }},
+			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},
 			
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
 		   
@@ -1484,7 +1484,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Construction - Naval',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			
 			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
-			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 3, categories.FACTORY - categories.TECH1 }},			
+			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},			
 			
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 25, 1.012, 1.02 }},
 
