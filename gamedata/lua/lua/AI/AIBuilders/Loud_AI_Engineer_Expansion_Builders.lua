@@ -207,13 +207,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
             
-			{ LUTL, 'GreaterThanEnergyIncome', { 1800 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 480 }},
 
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
             
 			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 0.75, 1.02 }},
             
-			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
+			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},
 			
             { UCBC, 'DefensivePointForExpansion', { 'LocationType', 2000, -999999, 60, 0, 'AntiSurface' }},
         },
@@ -321,13 +321,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
             
-			{ LUTL, 'GreaterThanEnergyIncome', { 1800 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 480 }},
 			
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
             
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 0.75, 1.02 }},
             
-			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
+			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},
 		
 			{ UCBC, 'BaseAreaForDP', { 'LocationType', 2000, -999999, 60, 0, 'AntiSurface' } },
         },
@@ -441,11 +441,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction - Small'
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .95 } },
-			{ LUTL, 'GreaterThanEnergyIncome', { 1800 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 480 }},
 
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 0.75, 1.02 }},
-			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
+			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},
 
             { UCBC, 'DefensivePointForExpansion', { 'LocationType', 2000, -999999, 60, 0, 'AntiSurface' }},
         },
