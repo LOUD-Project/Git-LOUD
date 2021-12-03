@@ -153,7 +153,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction',
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .75 } },
-			{ LUTL, 'LandStrengthRatioLessThan', { 4 } },
+			{ LUTL, 'LandStrengthRatioLessThan', { 5 } },
 
             { UCBC, 'FactoryCapCheck', { 'LocationType', 'LAND' }},
 			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 2, categories.LAND * categories.TECH1 }},

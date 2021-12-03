@@ -1593,6 +1593,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 			{ LUTL, 'NeedTeamMassPointShare', {}},
             
             { LUTL, 'UnitCapCheckLess', { .75 } },
+            
+			{ TBC, 'ThreatFurtherThan', { 'LocationType', 350, 'Land', 125 }},                        
 
 			-- empty mass point within 20km with less than 75 threat 
 			{ EBC, 'CanBuildOnMassAtRange', { 'LocationType', 120, 1000, 0, 75, 1, 'AntiSurface', 1 }},
@@ -1807,6 +1809,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			{ LUTL, 'NeedTeamMassPointShare', {}},
             
             { LUTL, 'UnitCapCheckLess', { .65 } },
+            
+            { LUTL, 'LandStrengthRatioLessThan', { 4 } },
 
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 350, 'Land', 125 }},
             
@@ -1895,6 +1899,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
             
             { LUTL, 'UnitCapCheckLess', { .75 } },
             
+            { LUTL, 'LandStrengthRatioLessThan', { 3 } },
+            
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 350, 'Land', 125 }},                        
             
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS) - categories.SCOUT - categories.EXPERIMENTAL }},
@@ -1973,6 +1979,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
             { LUTL, 'UnitCapCheckLess', { .75 } },
+            
+            { LUTL, 'LandStrengthRatioLessThan', { 4 } },
 
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 350, 'Land', 125 }},                        
 
@@ -2055,6 +2063,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
             { LUTL, 'UnitCapCheckLess', { .75 } },
+            
+            { LUTL, 'LandStrengthRatioLessThan', { 4 } },
             
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 350, 'Land', 125 }},                        
 			
@@ -2139,6 +2149,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
             { LUTL, 'UnitCapCheckLess', { .85 } },
+            
+            { LUTL, 'LandStrengthRatioLessThan', { 4 } },
 
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 350, 'Land', 125 }},                        
 
@@ -2215,11 +2227,12 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         BuilderType = 'Any',
 		
         BuilderConditions = {
-			{ LUTL, 'LandStrengthRatioLessThan', { 0.8 } },
             
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
             { LUTL, 'UnitCapCheckLess', { .85 } },
+            
+            { LUTL, 'LandStrengthRatioLessThan', { 4 } },
 
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 350, 'Land', 125 }},                        
 
@@ -2297,7 +2310,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         BuilderType = 'Any',
 		
         BuilderConditions = {
-            { LUTL, 'LandStrengthRatioLessThan', { 1.1 } },
+            { LUTL, 'LandStrengthRatioLessThan', { 4 } },
             
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
