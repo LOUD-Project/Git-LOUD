@@ -20,7 +20,7 @@ end
 -- this function will turn a builder off if the enemy is not active in the water
 local IsEnemyNavalActive = function( self, aiBrain, manager )
 
-	if aiBrain.NavalRatio and (aiBrain.NavalRatio > .01 and aiBrain.NavalRatio <= 10) then
+	if aiBrain.NavalRatio and (aiBrain.NavalRatio > .01 and aiBrain.NavalRatio < 10) then
         --LOG("*AI DEBUG "..aiBrain.Nickname.." enemy naval is active at "..repr(aiBrain.NavalRatio))
 		return 600, true
 
@@ -33,7 +33,7 @@ end
 -- this function will turn a builder off if the enemy is not active in the air
 local IsEnemyAirActive = function(self,aiBrain,manager)
 
-	if aiBrain.AirRatio and (aiBrain.AirRatio > .01 and aiBrain.AirRatio <= 10) then
+	if aiBrain.AirRatio and (aiBrain.AirRatio > .01 and aiBrain.AirRatio < 10) then
 	
 		return 600, true
 
@@ -334,7 +334,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Torpedo Bombers',
 
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},
 			
-			-- dont start production until you have at least 3+ T2/T3 factories at location
+			-- dont start production until you have at least 2+ T2/T3 factories at location
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},
 
             -- one of the few places where I use a % ratio to control the number of units
