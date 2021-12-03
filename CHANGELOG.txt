@@ -1,3 +1,20 @@
+### Release 03-12-2021
+Lua 5.4.42
+
+AI  - Correction to upgraded AI Mass Fab behaviors not being properly controlled
+    - Fixed cause of overbuilding of torpedo bombers
+    - Expansion requirements lowered
+    - LOUD will now recognize a number of edge conditions better;
+        - turtling
+        - teching up
+        - naval avoidance
+        - aeriel focus
+        
+    - and subsequently react more aggressively against those conditions both
+    - in formations and production
+    - requirements for T4 Economic production at expansions lowered
+
+
 ### Release 26-11-2021
 Lua 5.4.41
 Textures 6.7
