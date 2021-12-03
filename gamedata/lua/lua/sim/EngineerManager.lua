@@ -9,7 +9,6 @@ local BuilderManager = import('/lua/sim/BuilderManager.lua').BuilderManager
 
 local RandomLocation = import('/lua/ai/aiutilities.lua').RandomLocation
 
-local MassFabThread = import('/lua/ai/aibehaviors.lua').MassFabThread
 local TMLThread = import('/lua/ai/aibehaviors.lua').TMLThread
 local RiftGateBehavior = import('/lua/ai/aibehaviors.lua').RiftGateBehavior
 local EyeBehavior = import('/lua/ai/aibehaviors.lua').EyeBehavior
@@ -587,15 +586,7 @@ EngineerManager = Class(BuilderManager) {
 				-- if upgradeID available then launch upgrade thread
 				finishedUnit:LaunchUpgradeThread( aiBrain )
 			end
-			
-			-- massfabricators --
-			if LOUDENTITY( categories.MASSFABRICATION - categories.EXPERIMENTAL, finishedUnit ) then
-			
-				if not finishedUnit.AIThread then
-					finishedUnit.AIThread = finishedUnit:ForkThread( MassFabThread, aiBrain)
-				end
-			end 
-		
+
 			-- TMLs --
 			if LOUDENTITY( categories.TACTICALMISSILEPLATFORM, finishedUnit ) then
 			

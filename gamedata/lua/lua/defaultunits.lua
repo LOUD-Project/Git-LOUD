@@ -678,7 +678,7 @@ StructureUnit = Class(Unit) {
 
 		end
 
-		-- mass extractors and fabricators --
+		-- mass extractors --
         if EntityCategoryContains( categories.MASSPRODUCTION - categories.EXPERIMENTAL, finishedUnit ) then
 
 			-- each mex gets it's own platoon so we can enable PlatoonDistress calls for them
@@ -2868,8 +2868,50 @@ MassFabricationUnit = Class(StructureUnit) {
         self:SetMaintenanceConsumptionActive()
 
         self:SetProductionActive(true)
+        
+        self.AIThread = self:ForkThread( MassFabricationUnit.MassFabThread )
     end,
 
+    MassFabThread = function(unit)
+    
+        local aiBrain = GetAIBrain(unit)
+
+        -- filter out the Paragon and humans --
+        if aiBrain.BrainType == 'Human' or EntityCategoryContains(categories.EXPERIMENTAL, unit) then
+            return
+        end
+	
+        local massfabison = true
+        local GetEconomyStoredRatio = moho.aibrain_methods.GetEconomyStoredRatio
+        local GetEconomyTrend = moho.aibrain_methods.GetEconomyTrend
+	
+        WaitTicks(50)
+    
+        local EnergyStoredRatio, MassStoredRatio, EnergyTrend
+	
+        while not unit.Dead do
+	
+            EnergyStoredRatio = ((GetEconomyStoredRatio( aiBrain, 'ENERGY' )) * 100)
+            MassStoredRatio = ((GetEconomyStoredRatio( aiBrain, 'MASS' )) * 100)
+        
+            EnergyTrend = GetEconomyTrend( aiBrain, 'ENERGY' ) * 10     -- all trend values are *10 to get actual values
+		
+            if (MassStoredRatio > 95 or (EnergyStoredRatio < 25 and EnergyTrend < 700)) and massfabison then
+        
+                massfabison = false
+                unit:OnProductionPaused()
+            
+            elseif (MassStoredRatio <= 95 and (EnergyStoredRatio > 50 and EnergyTrend > 350)) and not massfabison then
+        
+                massfabison = true
+                unit:OnProductionUnpaused()
+            
+            end
+
+            WaitTicks(41)	-- check every 4 seconds
+        end   
+    end,
+    
     OnConsumptionActive = function(self)
 
         --StructureUnit.OnConsumptionActive(self)

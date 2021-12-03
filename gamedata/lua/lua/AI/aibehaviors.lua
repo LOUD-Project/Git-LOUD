@@ -5293,43 +5293,6 @@ function EngineerTransferAI( self, aiBrain )
 	
 end
 
--- === SPECIFIC UNIT BEHAVIORS ===
--- this thread monitors the economy and turns mass fabs on and off as needed
-function MassFabThread( unit, aiBrain )
-
-	-- filter out the Paragon
-	if EntityCategoryContains(categories.EXPERIMENTAL, unit) then
-		return
-	end
-	
-	local massfabison = true
-	
-	WaitTicks(50)
-    
-    local EnergyStoredRatio, MassStoredRatio, EnergyTrend
-	
-	while not unit.Dead do
-	
-		EnergyStoredRatio = ((GetEconomyStoredRatio( aiBrain, 'ENERGY' )) * 100)
-		MassStoredRatio = ((GetEconomyStoredRatio( aiBrain, 'MASS' )) * 100)
-        
-		EnergyTrend = GetEconomyTrend( aiBrain, 'ENERGY' ) * 10     -- all trend values are *10 to get actual values
-		
-		if (MassStoredRatio > 95 or (EnergyStoredRatio < 25 and EnergyTrend < 500)) and massfabison then
-        
-			massfabison = false
-			unit:OnProductionPaused()
-            
-		elseif (MassStoredRatio <= 95 and (EnergyStoredRatio > 50 and EnergyTrend > 350)) and not massfabison then
-        
-			massfabison = true
-			unit:OnProductionUnpaused()
-            
-		end
-
-		WaitTicks(41)	-- check every 4 seconds
-	end
-end
 
 -- uses the Eye of Rhianne as an intelligence tools
 function EyeBehavior( unit, aiBrain )
