@@ -2,8 +2,8 @@
 -- and it is initiated in the OnCreateAI function
 function ExecutePlan(aiBrain)
 
-    WaitTicks(5)
-
+    --WaitTicks(5)
+--[[
     -- put some initial threat at all enemy positions
     for k,brain in ArmyBrains do
     
@@ -14,7 +14,7 @@ function ExecutePlan(aiBrain)
             local place = brain:GetStartVector3f()
             local threatlayer = 'AntiAir'
             
-            --LOG("*AI DEBUG "..brain.Nickname.." "..brain.BrainType.." enemy found at "..repr(place).." posting Economy threat")
+            LOG("*AI DEBUG "..brain.Nickname.." "..brain.BrainType.." enemy found at "..repr(place).." posting Economy threat")
             
             -- assign 500 ecothreat for 10 minutes
 			aiBrain:AssignThreatAtPosition( place, 5000, 0.005, 'Economy' )
@@ -74,6 +74,7 @@ function ExecutePlan(aiBrain)
 --]]
         end
     end
+--]]
     
     WaitTicks(5)	
 

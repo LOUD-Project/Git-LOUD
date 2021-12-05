@@ -587,7 +587,23 @@ function InitializeArmies()
         if self.BrainType == 'Human' then
             return
         end
+
+        -- put some initial threat at all enemy positions
+        for k,brain in ArmyBrains do
+    
+            --LOG("*AI DEBUG Reviewing Brain "..repr(brain.Nickname).." "..repr(brain) )
         
+            if self.ArmyIndex != brain.ArmyIndex and brain.Nickname != 'civilian' and (not brain:IsDefeated()) and (not IsAlly(self.ArmyIndex, brain.ArmyIndex)) then
+        
+                local place = brain:GetStartVector3f()
+                local threatlayer = 'AntiAir'
+            
+                --LOG("*AI DEBUG "..brain.Nickname.." "..brain.BrainType.." enemy found at "..repr(place).." posting Economy threat")
+            
+                -- assign 500 ecothreat for 10 minutes
+                self:AssignThreatAtPosition( place, 5000, 0.005, 'Economy' )
+            end
+        end
 
         if ScenarioInfo.Options.AIResourceSharing == 'off' then
         
@@ -612,9 +628,6 @@ function InitializeArmies()
         else
             self:SetResourceSharing(true)
         end
-
-		-- build table of scout locations and set some starting threat at all enemy locations
-		--loudUtils.BuildScoutLocations(self)
 
         -- Create the Condition monitor
         self.ConditionsMonitor = import('/lua/sim/BrainConditionsMonitor.lua').CreateConditionsMonitor(self)

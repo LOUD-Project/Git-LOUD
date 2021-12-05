@@ -2532,6 +2532,8 @@ function GetBasePerimeterPoints( aiBrain, location, radius, orientation, positio
 			local threats = aiBrain:GetThreatsAroundPosition( location, 16, true, 'Economy' )
 			
 			LOUDSORT( threats, function(a,b) return VDist2(a[1],a[2],location[1],location[3]) + a[3] < VDist2(b[1],b[2],location[1],location[3]) + b[3] end )
+            
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." Sorted threats are "..repr(threats))
 			
 			for _,v in threats do
 			
