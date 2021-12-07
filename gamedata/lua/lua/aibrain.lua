@@ -56,7 +56,7 @@
     LOG("*AI DEBUG      Attack Plan Dialog to log is "..repr(ScenarioInfo.AttackPlanDialog))
 
     -- the Intel thread will dialog calculated LAND,AIR and NAVAL ratios to the LOG file on each Intel Thread cycle
-	ScenarioInfo.ReportRatios = false
+	ScenarioInfo.ReportRatios = true
 	LOG("*AI DEBUG		Report Layer Ratios to Log is "..repr(ScenarioInfo.ReportRatios))
 
 

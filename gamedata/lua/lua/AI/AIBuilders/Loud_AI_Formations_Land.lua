@@ -1856,7 +1856,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			AssistRange = 3,
 			
 			GuardRadius = 80,				-- range at which platoon will engage targets
-			GuardTimer = 240,				-- platoon will guard 3 minutes
+			GuardTimer = 150,				-- platoon will guard 2.5 minutes
 			
 			MissionTime = 960,				-- platoon will operate 15 minutes
 			

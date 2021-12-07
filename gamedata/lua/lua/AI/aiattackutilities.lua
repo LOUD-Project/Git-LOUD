@@ -314,18 +314,25 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
     
     local ThreatMaxIMAPAdjustment = 1
     
+    -- number of rings to use in GetThreatAtPosition calls
+    -- based upon mapsize (and therefore size of IMAP blocks)
+    local ThreatRingIMAPSize = 1
+    
     -- maps less than or greater than 20K alter the effect of the ThreatMax value
     if ScenarioInfo.IMAPSize < 60 then
     
         ThreatMaxIMAPAdjustment = 0.8
+        ThreatRingIMAPSize = 2
         
     elseif ScenarioInfo.IMAPSize > 120 then
     
         ThreatMaxIMAPAdjustment = 1.2
+        ThreatRingIMAPSize = 1
         
     elseif ScenarioInfo.IMAPSize > 250 then
     
         ThreatMaxIMAPAdjustment = 1.66
+        ThreatRingIMAPSize = 0
         
     end
     
@@ -559,7 +566,7 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 			-- threat checks can be bypassed entirely with these values
 			if threatmin != -999999 and threatmax != 999999 then
 			
-				local threatatpoint = GetThreatAtPosition( aiBrain, {v[1],v[2],v[3]}, 2, true, threattype )
+				local threatatpoint = GetThreatAtPosition( aiBrain, {v[1],v[2],v[3]}, ThreatRingIMAPSize, true, threattype )
 	
 				if (threatatpoint < threatmin or threatatpoint > threatmax) then
 
@@ -617,8 +624,6 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
         
             -- sort by safest + closest
             LOUDSORT(positions, function(a,b)   return (a[6]+ (a[4]+a[5])) <  (b[6]+ (b[4]+b[5]))  end)
-
-			--LOUDSORT(positions, function(a,b)	return (a[4]+a[5]) < (b[4]+b[5]) end)
 			
 		elseif PointSort == 'Furthest' then
 		
