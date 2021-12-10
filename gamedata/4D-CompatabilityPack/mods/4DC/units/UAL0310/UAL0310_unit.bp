@@ -127,7 +127,7 @@ UnitBlueprint {
         BuildCostEnergy = 13500,
         BuildCostMass = 900,
         BuildRate = 15, -- T3 engineer BuildRate  
-        BuildTime = 4500,
+        BuildTime = 450,
 		
     },
 	
@@ -141,12 +141,9 @@ UnitBlueprint {
                 x = -2,
                 y = -5,
             },
-			LCH = {
-			},
-			RCH = {
-			},
-			Command = {
-			},
+			LCH = {},
+			RCH = {},
+			Command = {},
         },    
 		
         ShieldDomeAdd = {

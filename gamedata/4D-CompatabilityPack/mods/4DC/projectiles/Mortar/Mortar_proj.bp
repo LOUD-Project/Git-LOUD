@@ -2,7 +2,7 @@ ProjectileBlueprint {
     Audio = {
         Impact = Sound {
             Bank = 'Impacts',
-            Cue = 'UEF_Expl_Med_Impact',
+            Cue = 'UEF_Expl_Sml_Impact',
             LodCutoff = 'Weapon_LodCutoff',
         },
         ImpactTerrain = Sound {
@@ -24,7 +24,7 @@ ProjectileBlueprint {
     Display = {
         CameraFollowsProjectile = false,
         ImpactEffects = {
-            Type = 'Medium02',
+            Type = 'Small01',
         },
         MeshBlueprint = '/projectiles/TIFMortar01/TIFMortar01_mesh.bp',
         StrategicIconSize = 1,

@@ -103,12 +103,6 @@ UnitBlueprint {
         UniformScale = 0.022,
     },
 	
-	Footprint = {
-		SizeX = 1,
-		SizeZ = 1,
-	},
-	
-	
     Economy = {
         BuildCostEnergy = 22000,
         BuildCostMass = 2400,
@@ -116,7 +110,12 @@ UnitBlueprint {
 		
         RebuildBonusIds = {'ueb2306'},
     },
-
+	
+	Footprint = {
+		SizeX = 1,
+		SizeZ = 1,
+	},
+	
     General = {
 		CapCost = 2,
         Category = 'Defense',

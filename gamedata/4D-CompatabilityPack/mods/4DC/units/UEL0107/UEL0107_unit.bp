@@ -50,10 +50,10 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Normal',
-        Health = 240,
-        MaxHealth = 240,
+        Health = 195,
+        MaxHealth = 195,
         RegenRate = 0,
-        SurfaceThreatLevel = 2.9,
+        SurfaceThreatLevel = 3,
     },
 	
     Description = '<LOC uel0107_desc>Mortar Hovercraft',
@@ -117,9 +117,9 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 660,
-        BuildCostMass = 75,
-        BuildTime = 375,
+        BuildCostEnergy = 680,
+        BuildCostMass = 65,
+        BuildTime = 81,
     },
 	
     General = {
@@ -162,9 +162,9 @@ UnitBlueprint {
         },
         DragCoefficient = 0.2,
         Elevation = 0.125,
-        MaxAcceleration = 1.7,
+        MaxAcceleration = 0.8,
         MaxBrake = 1.7,
-        MaxSpeed = 3.4,
+        MaxSpeed = 3.2,
         MaxSpeedReverse = 0,
         MaxSteerForce = 1000,
         MeshExtentsX = 0.60,
@@ -173,9 +173,9 @@ UnitBlueprint {
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Hover',
         RotateBodyWhileMoving = true,
-        TurnFacingRate = 120,
+        TurnFacingRate = 60,
         TurnRadius = 0,
-        TurnRate = 40,
+        TurnRate = 45,
         WobbleFactor = 0.003,
         WobbleSpeed = 0.01,
     },
@@ -220,7 +220,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 45,
+            Damage = 14,
             DamageRadius = 0.8,
             DamageType = 'Normal',
 			
@@ -231,24 +231,24 @@ UnitBlueprint {
                 Water = 'Land|Water|Seabed',
             },
 			
-            FiringRandomness = 0.9,
-            FiringRandomnessWhileMoving = 4,
+            FiringRandomness = 1.8,
+            FiringRandomnessWhileMoving = 3,
 			
             FiringTolerance = 1,
 			
             Label = 'Mortar',
 			
-            MaxRadius = 30,
+            MaxRadius = 32,
             MinRadius = 5,
 			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-            MuzzleVelocity = 14,
+            MuzzleSalvoDelay = 0.4,
+            MuzzleSalvoSize = 4,
+            MuzzleVelocity = 12.5,
             MuzzleVelocityRandomness = 2.0,
             MuzzleVelocityReduceDistance = 1,
 			
             ProjectileId = '/mods/4DC/projectiles/Mortar/Mortar_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 2.8,
+            ProjectileLifetimeUsesMultiplier = 3,
 			
             RackBones = {
                 {
@@ -256,38 +256,22 @@ UnitBlueprint {
                         'Muzzle',
                     },
                     RackBone = 'Barrel_Outer',
-                    TelescopeBone = 'Barrel_Inner',
-                    TelescopeRecoilDistance = -1.0,
-                },
-                {
-                    MuzzleBones = {
-                        'Muzzle',
-                    },
-                    RackBone = 'Barrel_Outer',
-                    TelescopeBone = 'Barrel_Inner',
-                    TelescopeRecoilDistance = -1.0,
-                },
-                {
-                    MuzzleBones = {
-                        'Muzzle',
-                    },
-                    RackBone = 'Barrel_Outer',
-                    TelescopeBone = 'Barrel_Inner',
-                    TelescopeRecoilDistance = -1.0,
+                    --TelescopeBone = 'Barrel_Inner',
+                    --TelescopeRecoilDistance = -1.0,
                 },
             },
 
-            RackFireTogether = false,
-            RackRecoilDistance = -0.5,
-            RackReloadTimeout = 10,
+            --RackFireTogether = false,
+            --RackRecoilDistance = -0.5,
+            RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 2.1,
+            RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,	-- 3 shots then 2.1 second reload = 3 rounds over 5 seconds = 27
+            RateOfFire = 0.5,	-- 4 shots over 2 seconds = 56/2 = 28
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -310,7 +294,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 50,
+            TurretYawSpeed = 55,
 			
             Turreted = true,
         },

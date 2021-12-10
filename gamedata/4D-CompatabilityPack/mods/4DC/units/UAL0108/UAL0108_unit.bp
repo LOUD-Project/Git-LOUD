@@ -129,7 +129,7 @@ UnitBlueprint {
         BuildCostEnergy = 550,
         BuildCostMass = 75,
         BuildRate = 5,  -- T1 Engineer BuildRate        
-        BuildTime = 375,
+        BuildTime = 94,
     },
 	
     Enhancements = {
@@ -139,12 +139,9 @@ UnitBlueprint {
                 x = -2,
                 y = -5,
             },
-			LCH = {
-			},
-			RCH = {
-			},
-			Command = {
-			},
+			LCH = {},
+			RCH = {},
+			Command = {},
         },    
         PersonalShield = {
 		

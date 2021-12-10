@@ -113,7 +113,7 @@ UnitBlueprint {
         BuildCostEnergy = 3850,
         BuildCostMass = 320,
         BuildRate = 10,  -- T2 Engineer BuildRate           
-        BuildTime = 1600,
+        BuildTime = 229,
     },
 	
     Enhancements = {
