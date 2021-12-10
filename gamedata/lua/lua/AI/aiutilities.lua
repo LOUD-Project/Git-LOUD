@@ -1344,18 +1344,23 @@ function ApplyCheatBuffs(unit)
                     buffAffects.MassStorage.Mult = math.max( aiBrain.CheatValue - 1, 0) + (outnumberratio - 1)
 
                     ApplyBuff(unit, 'CheatIncome'..aiBrain.ArmyIndex)  -- 2nd instance of resource cheat for ACU
+
+                    ApplyBuff(unit, 'CheatCDREnergyStorage'..aiBrain.ArmyIndex)
+                
                 end
 
-                ApplyBuff(unit, 'CheatCDREnergyStorage'..aiBrain.ArmyIndex)
-
 				ApplyBuff(unit, 'CheatCDROmni'..aiBrain.ArmyIndex)
+                
+                if aiBrain.OutnumberedRatio > 1 then
 
-                -- because the 2nd Storage buff will remove the first we'll wait 45 seconds
-                WaitTicks(450)
+                    -- because the 2nd Storage buff will remove the first we'll wait 45 seconds
+                    WaitTicks(450)
                 
-                RemoveBuff( unit, 'CheatCDREnergyStorage'..aiBrain.ArmyIndex )
+                    RemoveBuff( unit, 'CheatCDREnergyStorage'..aiBrain.ArmyIndex )
                 
-                ApplyBuff(unit, 'CheatCDRMassStorage'..aiBrain.ArmyIndex)
+                    ApplyBuff(unit, 'CheatCDRMassStorage'..aiBrain.ArmyIndex)
+                    
+                end
 			end
 
         end
