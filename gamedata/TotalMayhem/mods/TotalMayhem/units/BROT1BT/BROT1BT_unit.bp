@@ -46,8 +46,8 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Normal',
-        Health = 220,
-        MaxHealth = 220,
+        Health = 210,
+        MaxHealth = 210,
         RegenRate = 0.5,
         SurfaceThreatLevel = 3.4,
     },
@@ -74,9 +74,9 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 605,
+        BuildCostEnergy = 680,
         BuildCostMass = 65,
-        BuildTime = 325,
+        BuildTime = 82,
     },
 	
     General = {
@@ -117,9 +117,9 @@ UnitBlueprint {
         },
         DragCoefficient = 0.2,
         Elevation = 0.2,
-        MaxAcceleration = 1.7,
-        MaxBrake = 1.7,
-        MaxSpeed = 3.4,
+        MaxAcceleration = 0.7,
+        MaxBrake = 1.6,
+        MaxSpeed = 3.2,
         MaxSpeedReverse = 0,
         MaxSteerForce = 1000,
         MeshExtentsX = 0.75,
@@ -129,9 +129,9 @@ UnitBlueprint {
         MotionType = 'RULEUMT_Hover',
         RotateBodyWhileMoving = true,
         RotateOnSpot = false,
-        TurnFacingRate = 90,
+        TurnFacingRate = 60,
         TurnRadius = 0,
-        TurnRate = 60,
+        TurnRate = 55,
         WobbleFactor = 0.01,
         WobbleSpeed = 0.01,
     },
@@ -168,7 +168,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 42,
+            Damage = 41,
             DamageRadius = 0,
             DamageType = 'Normal',
 			
