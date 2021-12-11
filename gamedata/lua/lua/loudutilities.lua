@@ -862,7 +862,7 @@ function RatioAdaptiveCheatThread()
 					break
 				end
 
-				LOG("*AI DEBUG Ratio ACT: "..aiBrain.Nickname.." from "..aiBrain:TotalCheat())
+				--LOG("*AI DEBUG Ratio ACT: "..aiBrain.Nickname.." from "..aiBrain:TotalCheat())
 
 				local prev = aiBrain.FeedbackCheat
 
@@ -884,10 +884,12 @@ function RatioAdaptiveCheatThread()
 
 				-- Don't apply army pool buff if FeedbackCheat didn't change
 				if prev ~= aiBrain.FeedbackCheat then
+                
 					SetArmyPoolBuff(aiBrain, aiBrain:TotalCheat())
+                    
+                    LOG("*AI DEBUG Ratio ACT: "..aiBrain.Nickname.." to "..aiBrain:TotalCheat())
 				end
 
-				LOG("*AI DEBUG Ratio ACT: "..aiBrain.Nickname.." to "..aiBrain:TotalCheat())
 			end
 		end
 

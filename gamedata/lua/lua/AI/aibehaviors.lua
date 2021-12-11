@@ -1993,7 +1993,7 @@ function NukeAI( self, aiBrain )
 		-- now we need to find a target
 		while nukesavailable > 0 do
 		
-			--LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI searching for targets with "..LOUDGETN(GetPlatoonUnits(self)).." launchers and "..nukesavailable.." missiles")
+			LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI searching for targets with "..LOUDGETN(GetPlatoonUnits(self)).." launchers and "..nukesavailable.." missiles")
 			
 			local minimumvalue = 500
 			
@@ -2011,7 +2011,7 @@ function NukeAI( self, aiBrain )
 			
 			LOUDSORT(targetlist, function(a,b)  return a.Distance < b.Distance  end )
 			
-			--LOG("*AI DEBUG Targetlist is "..repr(targetlist))
+			LOG("*AI DEBUG Nuke Targetlist is "..repr(targetlist))
 			
 			-- evaluate the targetlist
 			for _, target in targetlist do

@@ -1370,6 +1370,10 @@ end
 
 function SetArmyPoolBuff(aiBrain, AIMult)
 
+    if not aiBrain.OriginalUpgradeIssuedPeriod then
+        aiBrain.OriginalUpgradeIssuedPeriod = aiBrain.UpgradeIssuedPeriod
+    end
+
     -- alter the AI's delay between upgrades by an additional amount equal to 25% of the AI Mult
     -- but no reductions (this formula differs from the base calcuation at game start)
     -- it compounds over time but at a more subtle rate
@@ -1378,7 +1382,7 @@ function SetArmyPoolBuff(aiBrain, AIMult)
     modifier = 1.0 + modifier
 	
 	-- reduce the waiting period between upgrades
-	aiBrain.UpgradeIssuedPeriod = math.floor(aiBrain.UpgradeIssuedPeriod * ( 1 / modifier ))
+	aiBrain.UpgradeIssuedPeriod = math.floor(aiBrain.OriginalUpgradeIssuedPeriod * ( 1 / modifier ))
     
     LOG("*AI DEBUG "..aiBrain.Nickname.." Upgrade Issue Period is "..aiBrain.UpgradeIssuedPeriod)
 
