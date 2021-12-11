@@ -1,3 +1,21 @@
+### Release 10-12-2021
+Lua 5.4.43
+TM for LOUD Ver 6.1.6
+4th Dimension Ver 4.1.2
+
+TM and 4th Dimension
+    - the HOVER changes are now part of the base data
+    - buildtimes harmonized with EVENFLOW for those units
+    - details for specific units can be found in the GIT
+
+AI  - fixes to initial base orientation so that base faces nearest enemy
+    - altered a key function for GUARDPOINT behaviors to respond to threatened positions ahead of unthreatened points
+    - ACT (Advanced Cheat Thread) was repeatedly lowering the UpgradeIssuedPeriod - it now properly restores the original value
+    - improved ACT logging so that it only reports when a change takes place
+    - AI Artillery builders had mismatched eco conditions that discouraged the building of Nukes even when it was indicated
+    - turned on some of the NUKEAI logging to help track a possible crash issue
+
+
 ### Release 03-12-2021
 Lua 5.4.42
 
