@@ -6695,9 +6695,9 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 		local bypassecon = false
 	end
 	
-	--if ScenarioInfo.StructureUpgradeDialog then
-		--LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." starts thread to upgrade to "..repr(upgradeID).." initial delay is "..initialdelay)
-	--end
+	if ScenarioInfo.StructureUpgradeDialog then
+		LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." "..unit:GetBlueprint().Description.." starts thread to upgrade to "..repr(upgradeID).." initial delay is "..initialdelay)
+	end
 
     -- basic costs of upgraded unit
 	local MassNeeded = upgradebp.Economy.BuildCostMass
@@ -6724,7 +6724,14 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 		-- uses the same values as factories do for units
 		if GetEconomyStored( aiBrain, 'MASS') >= 200 and GetEconomyStored( aiBrain, 'ENERGY') >= 2500 and unit:GetFractionComplete() == 1 then
 			init_delay = init_delay + 10
-		end
+		else
+            -- units which are permitted to bypass the more stringent eco tests can advance
+            -- the initial delay by 2 seconds (rather than 10) even when the gateway fails
+            if bypassecon then
+                init_delay = init_delay + 2
+            end
+
+        end
 		
 		WaitTicks(100)
 	end
@@ -6743,6 +6750,10 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 	while ((not unit.Dead) or unit.Sync.id) and upgradeable and (not upgradeIssued) do
 	
 		WaitTicks(checkrate * 10)
+        
+        if ScenarioInfo.StructureUpgradeDialog then
+            LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." "..unit:GetBlueprint().Description.." cycles upgrade check")
+        end
 		
         if aiBrain.UpgradeIssued < aiBrain.UpgradeIssuedLimit and (not unit.BeingReclaimed) then
 
@@ -6821,6 +6832,10 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
                         
                     end
                     
+                else
+                    if ScenarioInfo.StructureUpgradeDialog then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." "..unit:GetBlueprint().Description.." can upgrade BUT fails base resources required check")
+                    end
                 end
                 
             else
@@ -6932,8 +6947,7 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 		end
 
         KillThread( unit.UpgradeThread )
-
-	end
+    end
 end
 
 -- SELF UPGRADE DELAY
