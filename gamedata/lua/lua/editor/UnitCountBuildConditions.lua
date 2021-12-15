@@ -342,6 +342,11 @@ function PoolGreaterAtLocation( aiBrain, locationType, unitCount, testCat)
 end
 
 function EngineerLessAtLocation( aiBrain, locationType, unitCount, testCat)
+
+    if aiBrain.OutnumberedRatio > 1 then
+        unitCount = unitCount + 1
+    end
+    
 	return EntityCategoryCount( testCat, aiBrain.BuilderManagers[locationType].EngineerManager.EngineerList ) < unitCount
 end
 
