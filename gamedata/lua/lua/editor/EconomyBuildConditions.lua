@@ -184,7 +184,7 @@ function GreaterThanMassTrend(aiBrain, mTrend)
     return (GetEconomyTrend( aiBrain, 'MASS' ) *10) >= mTrend
 end
 
-function GreaterThanEnergyIncome(aiBrain, mIncome)
+function GreaterThanMassIncome(aiBrain, mIncome)
 	return (GetEconomyIncome( aiBrain, 'MASS') *10) >= mIncome
 end
 
