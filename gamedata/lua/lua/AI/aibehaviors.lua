@@ -6203,6 +6203,11 @@ function TMLThread( unit, aiBrain )
                                 
                             end
                             
+                        else
+                            
+                            target = false
+                            targPos = false
+
                         end
                         
                     end
@@ -6213,6 +6218,8 @@ function TMLThread( unit, aiBrain )
                 WaitTicks(26)
                 
 			end
+            
+            targetUnits = nil
             
 		end
 		
