@@ -233,7 +233,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
                 AssisteeType = 'Any',
 				AssisteeCategory = categories.ENGINEER + categories.ENERGYSTORAGE + categories.ENERGYPRODUCTION,
                 BeingBuiltCategories = {categories.ENERGYPRODUCTION + categories.ENERGYSTORAGE - categories.EXPERIMENTAL},
-                Time = 120,
+                Time = 100,
 
             },
         },
@@ -348,7 +348,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 
         BuilderConditions = {
             
-			{ EBC, 'LessThanEconEnergyStorageCurrent', { 5000 }},
+			{ EBC, 'LessThanEconEnergyStorageCurrent', { 6000 }},
             
 			{ MIBC, 'ReclaimablesInAreaEnergy', { 'LocationType', 140 }},
 

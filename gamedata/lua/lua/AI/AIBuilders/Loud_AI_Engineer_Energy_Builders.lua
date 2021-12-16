@@ -44,13 +44,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
 		
         InstanceCount = 2,
 		
-        Priority = 700,
+        Priority = 761,
 		
 		PriorityFunction = First45Minutes,
 		
         BuilderConditions = {
 		
-			{ EBC, 'LessThanEconEnergyStorageCurrent', { 5750 }},
+			{ EBC, 'LessThanEconEnergyStorageCurrent', { 6000 }},
 			{ EBC, 'GreaterThanEconStorageCurrent', { 75, 0 }},
             
 			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION - categories.TECH1 }},                        
