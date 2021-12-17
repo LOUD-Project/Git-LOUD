@@ -678,7 +678,7 @@ StructureUnit = Class(Unit) {
 
 		end
 
-		-- mass extractors --
+		-- mass extractors & fabricators --
         if EntityCategoryContains( categories.MASSPRODUCTION - categories.EXPERIMENTAL, finishedUnit ) then
 
 			-- each mex gets it's own platoon so we can enable PlatoonDistress calls for them
@@ -694,7 +694,7 @@ StructureUnit = Class(Unit) {
 
 			if not finishedUnit.UpgradeThread then
 
-				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, .73, 1.02, 9999, 9999, 18, 90, true )
+				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, .73, 1.015, 9999, 9999, 18, 90, true )
 
 			end
 
