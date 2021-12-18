@@ -2821,7 +2821,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval',
             { LUTL, 'UnitCapCheckLess', { .65 } },
             
             -- obsolete once T2 or better available
-			{ LUTL, 'FactoryLessAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},
+			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},
             
 			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 1500 }},
 

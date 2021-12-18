@@ -1,3 +1,16 @@
+### Release 10-18-2021
+Lua 5.4.44
+
+AI  - OK - LOUD will just win all the time now - just kidding
+    - improvements to structure upgrade logic, fixes upgrades to mass fabricators
+    - 'outnumbered' logic responds better, creating additional engineers at start of game
+    - fixed duplicated function 'GreaterThanEnergyIncome' which was testing mass - not energy - high cost energy items now build as expected
+    - TML thread would continue to fire at previous enemy positions after a reload cycle
+    - improved AI Debug dialogs for Priority and Build Condition tracking
+    - tweaks to AI Defense builders for improved early response at MAIN and NAVAL yards
+    - tweaks to economic triggers for expansion bases
+
+
 ### Release 10-12-2021
 Lua 5.4.43
 TM for LOUD Ver 6.1.6

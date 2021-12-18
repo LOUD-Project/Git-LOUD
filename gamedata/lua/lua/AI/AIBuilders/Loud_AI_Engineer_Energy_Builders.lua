@@ -163,7 +163,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
         
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .65 } },
-			{ LUTL, 'HaveLessThanUnitsWithCategory', { 3, categories.HYDROCARBON }},
+			{ LUTL, 'HaveLessThanUnitsWithCategory', { 3, categories.HYDROCARBON * categories.STRUCTURE }},
 			
             { EBC, 'CanBuildOnHydroLessThanDistance',  { 'LocationType', 350, -9999, 30, 0, 'AntiSurface', 1 }},
         },
