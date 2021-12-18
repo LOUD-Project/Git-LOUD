@@ -91,7 +91,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 		
 		InstanceCount = 1,
 		
-        Priority = 700,
+        Priority = 760,
 		
 		PriorityFunction = function(self, aiBrain)
 		
@@ -109,12 +109,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 		end,
 		
         BuilderConditions = {
-			{ EBC, 'GreaterThanEnergyIncome', { 480 }},
+			{ EBC, 'GreaterThanEnergyIncome', { 240 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 1500 }},
             
             { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
 			
 			-- dont build if we have built any advanced power -- obsolete
-			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION * categories.STRUCTURE * categories.TECH3 }},
+			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION * categories.STRUCTURE - categories.TECH1 }},
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 9, categories.DEFENSE * categories.STRUCTURE * categories.DIRECTFIRE, 30, 50}},
         },
 		
@@ -148,7 +149,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 		
 		InstanceCount = 1,
 		
-        Priority = 700,
+        Priority = 760,
 		
 		PriorityFunction = function(self, aiBrain)
 		
@@ -166,14 +167,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 		end,
 		
         BuilderConditions = {
-            { EBC, 'GreaterThanEnergyIncome', { 480 }},
-            
-            { LUTL, 'AirStrengthRatioLessThan', { 3 }},
-            
+            { EBC, 'GreaterThanEnergyIncome', { 240 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 1500 }},
+
             { MIBC, 'BaseInPlayableArea', { 'LocationType' }},            
 			
 			-- dont build if we have built any advanced power -- obsolete
-			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION * categories.STRUCTURE * categories.TECH3 }},
+			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION * categories.STRUCTURE - categories.TECH1 }},
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 9, categories.DEFENSE * categories.STRUCTURE * categories.DIRECTFIRE, 30, 50}},
         },
 		
@@ -251,8 +251,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
             { LUTL, 'UnitCapCheckLess', { .80 } },
             
             { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
+
+			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 1500 }},
             
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 25, 1.012, 1.02 }},
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 10, categories.STRUCTURE * categories.ANTIMISSILE * categories.TECH2, 14, 42 }},
         },
 		
@@ -369,7 +370,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
             
             { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
             
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 1500 }},
+
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 8, categories.STRUCTURE * categories.ANTIAIR, 15, 42 }},
         },
 		
@@ -1072,7 +1074,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
             { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
             
 			-- dont have any advanced power built -- makes this gun obsolete
-			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION * categories.STRUCTURE * categories.TECH3 }},
+			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION * categories.STRUCTURE - categories.TECH1 }},
 			-- the 12 accounts for the 12 T1 Base PD that may get built in this ring
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 12, categories.DEFENSE * categories.STRUCTURE * categories.DIRECTFIRE, 50, 75}},
         },
@@ -2798,14 +2800,31 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 750,
+        Priority = 800,
+		
+		PriorityFunction = function(self, aiBrain)
+		
+			if self.Priority != 0 then
 
+				-- remove after 40 minutes
+				if aiBrain.CycleTime > 2400 then
+					return 0, false
+				end
+				
+			end
+			
+			return self.Priority
+			
+		end,
+		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .75 } },
-			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},
+            { LUTL, 'UnitCapCheckLess', { .65 } },
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 450, 30, 'Naval' }},
+            -- obsolete once T2 or better available
+			{ LUTL, 'FactoryLessAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},
+            
+			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 1500 }},
+
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 9, categories.STRUCTURE * categories.ANTINAVY, 50, 85 }},
         },
 		
@@ -2839,15 +2858,17 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 750,
+        Priority = 751,
 		
 		PriorityFunction = IsEnemyNavalActive,		
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .65 } },
+            { LUTL, 'UnitCapCheckLess', { .75 } },
+            
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},
 
-			{ TBC, 'ThreatCloserThan', { 'LocationType', 450, 30, 'Naval' }},
+			--{ TBC, 'ThreatCloserThan', { 'LocationType', 450, 30, 'Naval' }},
+            
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 18, categories.STRUCTURE * categories.ANTINAVY * categories.TECH2, 50, 85 }},
         },
 		
@@ -2881,21 +2902,24 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 750,
-		
-		PriorityFunction = IsEnemyNavalActive,		
+        Priority = 751,
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .75 } },
+            
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},
             
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 15, 1.012, 1.025 }}, 
+			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
+            
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 9, categories.STRUCTURE * categories.ANTIAIR * categories.TECH2, 50, 85 }},
         },
 		
 		BuilderType = { 'T2','T3' },
 
         BuilderData = {
+        
+            DesireAssist = true,
+            
             Construction = {
 			
 				Radius = 63,
@@ -2924,15 +2948,16 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 750,
+        Priority = 751,
 		
-		--PriorityFunction = IsEnemyNavalActive,		
+		PriorityFunction = IsEnemyNavalActive,		
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .75 } },
-			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
             
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 15, 1.012, 1.025 }},
+			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
+
+			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
 
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 9, categories.STRUCTURE * categories.ANTIAIR * categories.TECH3, 50, 85 }},
         },
@@ -2971,21 +2996,22 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 750,
-		
-		PriorityFunction = IsEnemyNavalActive,		
+        Priority = 751,
 
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
+            
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},
 
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 15, 1.012, 1.025 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
+
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 8, categories.STRUCTURE * categories.ANTIAIR * categories.TECH3, 1, 40 }},
         },
 		
 		BuilderType = { 'T3','SubCommander'},
 
         BuilderData = {
+        
 			DesiresAssist = true,
 			
             Construction = {
@@ -3010,20 +3036,21 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
         Priority = 850,
-		
-		PriorityFunction = IsEnemyNavalActive,		
 
         BuilderConditions = {
 			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
+            
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 3, categories.FACTORY - categories.TECH1 }},
             
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
+            
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ANTIMISSILE * categories.SILO * categories.STRUCTURE * categories.TECH3 }},
         },
 		
         BuilderType = {'SubCommander'},
 		
         BuilderData = {
+        
 			DesiresAssist = true,
 			
             Construction = {
