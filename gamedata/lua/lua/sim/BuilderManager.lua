@@ -193,6 +193,10 @@ BuilderManager = Class {
         local ResultTable = aiBrain.ConditionsMonitor.ResultTable
 
 		local continuesearching = true
+        
+        local BuilderType = unit.BuilderType
+        local ManagerType = self.ManagerType
+        local PriorityDialog = ScenarioInfo.PriorityDialog
 
 		-- function that checks all the conditions of a builder
 		-- only returns true if all conditions pass 
@@ -203,6 +207,9 @@ BuilderManager = Class {
 				if not ResultTable[value].Instant then
 				
 					if not ResultTable[value].Status then
+                        --if ManagerType == 'FBM' then
+                          --  LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(value).." is false in "..repr(BuilderConditions) )
+                        --end
 						return false
 					end
 				else
@@ -210,6 +217,9 @@ BuilderManager = Class {
                     conditionschecked = conditionschecked + 1
 
 					if not ResultTable[value]:GetStatus(aiBrain) then
+                        --if ManagerType == 'FBM' then
+                          --  LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(value).." is false in "..repr(BuilderConditions) )
+                        --end
 						return false
 					end
 				end
@@ -217,10 +227,6 @@ BuilderManager = Class {
 			
 			return true
 		end
-        
-        local BuilderType = unit.BuilderType
-        local ManagerType = self.ManagerType
-        local PriorityDialog = ScenarioInfo.PriorityDialog
 
 		-- sort the builders list if needed
 		if self.BuilderData[BuilderType].NeedSort then
@@ -230,7 +236,7 @@ BuilderManager = Class {
             end
 
 			LOUDSORT( self.BuilderData[BuilderType].Builders, function(a,b) return a.Priority > b.Priority end )
---[[
+
             if PriorityDialog then
             
                 if not self.BuilderData[BuilderType].displayed then
@@ -239,13 +245,13 @@ BuilderManager = Class {
                     
                     for k,v in self.BuilderData[BuilderType].Builders do
                     
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..ManagerType.." "..v.BaseName.." "..v.Priority.." "..v.BuilderName)
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..ManagerType.." "..self.LocationType.." "..v.Priority.." "..v.BuilderName)
                     end
                     
                     self.BuilderData[BuilderType].displayed = true
                 end
             end
---]]
+
 			self.BuilderData[BuilderType].NeedSort = false
         end
         
@@ -271,6 +277,10 @@ BuilderManager = Class {
                             possibleBuilders[counter] = k
 
                         end
+                    else
+                        if PriorityDialog then
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." "..ManagerType.." "..self.LocationType.." "..repr(task.BuilderName).." fails")
+                        end
                     end
                     
                 elseif found and Priority < found then
@@ -279,7 +289,7 @@ BuilderManager = Class {
                 
             else
 
-				if task.Priority == 0 and not task.OldPriority then
+				if Priority == 0 and not task.OldPriority then
 
 					if PriorityDialog then
 						LOG("*AI DEBUG "..aiBrain.Nickname.." "..ManagerType.." "..self.LocationType.." Removing "..repr(self.BuilderData[BuilderType].Builders[k].BuilderName) )
