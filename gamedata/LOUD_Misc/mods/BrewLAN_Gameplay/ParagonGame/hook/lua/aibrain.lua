@@ -96,11 +96,15 @@ AIBrain = Class(AIBrain) {
         end
 
         if paragonunits then
+        
             for j, u in paragonunits do
+            
                 local count = 0
+                
                 while count < u[2] do
-                    local distance = math.min(60, math.max(20, ScenarioInfo.size[1]/50))
-                    local dangerzone = distance + 10
+                
+                    local distance = math.min(60, math.max(45, ScenarioInfo.size[1]/50))
+                    local dangerzone = distance + 30
 
                     local MapSizeX = ScenarioInfo.size[1]
                     local MapSizeY = ScenarioInfo.size[2]
@@ -109,24 +113,33 @@ AIBrain = Class(AIBrain) {
 
                     --Slight improvement; on previous way: wherever it spawns the paragon, it targets the other units there instead of where it was targetting for the paragon.
                     if not self.PARAGONPOS then
+                    
                         if posY < dangerzone or posX < dangerzone or posY > (MapSizeY - dangerzone) or posX > (MapSizeX - dangerzone) then
+                        
                             --build towards the center if we are too close to the edge
-                             unit = self:CreateUnitNearSpot(u[1], posX - math.sin(math.atan2(posX - (MapSizeX / 2),posY - (MapSizeY / 2)))*distance, posY - math.cos(math.atan2(posX - (MapSizeX / 2),posY - (MapSizeY / 2)))*distance)
+                            unit = self:CreateUnitNearSpot(u[1], posX - math.sin(math.atan2(posX - (MapSizeX / 2),posY - (MapSizeY / 2)))*distance, posY - math.cos(math.atan2(posX - (MapSizeX / 2),posY - (MapSizeY / 2)))*distance)
+                            
                             if not unit then
                                 --If it fails try slightly closer to spawn
                                 unit = self:CreateUnitNearSpot(u[1], posX - math.sin(math.atan2(posX - (MapSizeX / 2),posY - (MapSizeY / 2)))*(distance-3), posY - math.cos(math.atan2(posX - (MapSizeX / 2),posY - (MapSizeY / 2)))*(distance-3))
                             end
+                            
                         elseif VDist2(MapSizeX / 2, MapSizeY / 2, posX, posY) / 2 < distance then
+                        
                             --build between here and center if we are within the 'distance' of the center
                             unit = self:CreateUnitNearSpot(u[1], (posX + (MapSizeX/2) ) / 2, (posY + (MapSizeY/2) ) / 2 )
+                            
                         else
                             --build away from the center
                             unit = self:CreateUnitNearSpot(u[1], posX + math.sin(math.atan2(posX - (MapSizeX / 2),posY - (MapSizeY / 2)))*distance, posY + math.cos(math.atan2(posX - (MapSizeX / 2),posY - (MapSizeY / 2)))*distance)
+                            
                             if not unit then
                                 --If it fails try slightly closer to spawn
                                 unit = self:CreateUnitNearSpot(u[1], posX + math.sin(math.atan2(posX - (MapSizeX / 2),posY - (MapSizeY / 2)))*(distance-3), posY + math.cos(math.atan2(posX - (MapSizeX / 2),posY - (MapSizeY / 2)))*(distance-3))
                             end
+                            
                         end
+                        
                         if not unit then
                             --Try one last time, but this time, right where they start, because the fancy shit clearly isn't working.
                             unit = self:CreateUnitNearSpot(u[1], posX, posY )
