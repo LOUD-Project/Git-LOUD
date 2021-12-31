@@ -767,7 +767,9 @@ CDepthChargeProjectile = Class(OnWaterEntryEmitterProjectile) {
         for k, v in self.FxEnterWater do
             CreateEmitterAtEntity( self, self.Army, v )
         end
-
+        
+        self:SetCollisionShape('Sphere', 0, 0, 0, 1.0)
+        
         self:TrackTarget(false)
         self:StayUnderwater(true)
         self:SetTurnRate(0)

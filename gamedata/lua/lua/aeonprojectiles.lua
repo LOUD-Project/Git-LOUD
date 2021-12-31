@@ -132,6 +132,8 @@ ADepthChargeProjectile = Class(OnWaterEntryEmitterProjectile) {
 
     OnEnterWater = function(self)
         OnWaterEntryEmitterProjectile.OnEnterWater(self)
+        
+        self:SetCollisionShape('Sphere', 0, 0, 0, 1.0)
 		
         for _, v in self.FxEnterWater do 
             CreateEmitterAtEntity(self, self.Army, v)
