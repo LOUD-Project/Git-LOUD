@@ -47,12 +47,12 @@ PlatoonTemplate { Name = 'BomberAttack',
 }
 PlatoonTemplate { Name = 'BomberAttack Large',
     GlobalSquads = {
-        { AIRBOMBER, 24, 36, 'Attack', 'AttackFormation' },
+        { AIRBOMBER, 24, 40, 'Attack', 'AttackFormation' },
     }
 }
 PlatoonTemplate { Name = 'BomberAttack Super',
     GlobalSquads = {
-        { AIRBOMBER, 36, 48, 'Attack', 'AttackFormation' },
+        { AIRBOMBER, 36, 60, 'Attack', 'AttackFormation' },
     }
 }
 PlatoonTemplate { Name = 'Experimental Bomber',

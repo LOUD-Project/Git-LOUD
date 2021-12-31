@@ -466,11 +466,9 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         InstanceCount = 2,
 
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioGreaterThan', { 1.2 } },
-
-            { LUTL, 'PoolGreater', { 19, AIRBOMBER }},
+            { LUTL, 'PoolGreater', { 24, AIRBOMBER }},
 			
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 19, AIRBOMBER }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 24, AIRBOMBER }},
 
 			-- none of the major SUPER triggers can be true
 			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType',  1, categories.NUKE + categories.ANTIMISSILE - categories.TECH2, 2000 }},
