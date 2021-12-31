@@ -4805,7 +4805,11 @@ function BuildScoutLocations( self )
                         opponentStarts['ARMY_' .. i] = startPos
                         numOpponents = numOpponents + 1
 
+                        -- add it to the Hi Priority list --
                         LOUDINSERT(self.IL.HiPri, { Position = startPos, Type = 'Economy', LastScouted = 1200, LastUpdate = 1200, Threat = 5000, Permanent = true } )
+                        
+                        -- add it to the MustScout list --
+                        LOUDINSERT(self.IL.MustScout, { Created = GetGameTimeSeconds(), Position = startPos, TaggedBy = false } )
                     else
                         allyStarts['ARMY_' .. i] = startPos
                         numAllies = numAllies + 1
@@ -4839,6 +4843,10 @@ function BuildScoutLocations( self )
                         numOpponents = numOpponents + 1
 
                         LOUDINSERT(self.IL.HiPri, { Position = startPos, Type = 'Economy', LastScouted = 1200, LastUpdate = 0, Threat = 5000, Permanent = false } )
+                        
+                        -- add it to the MustScout list --
+                        LOUDINSERT(self.IL.MustScout, { Created = GetGameTimeSeconds(), Position = startPos, TaggedBy = false } )                        
+                        
                     else
                         allyStarts['ARMY_' .. i] = startPos
                         numAllies = numAllies + 1
