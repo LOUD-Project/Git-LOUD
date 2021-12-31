@@ -1,4 +1,13 @@
-### Release 10-18-2021
+### Release 30-12-2021
+Lua 5.4.45
+
+AI  - LOUD adds initial start locations to his MUSTSCOUT list
+    - added collision spheres to some depth charges (need follow up tests)
+    - tweaks to defense building triggers
+    - increased limits on some bomber formations
+    
+
+### Release 18-12-2021
 Lua 5.4.44
 
 AI  - OK - LOUD will just win all the time now - just kidding
