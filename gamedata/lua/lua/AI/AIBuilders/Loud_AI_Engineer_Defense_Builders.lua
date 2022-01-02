@@ -327,7 +327,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
             { LUTL, 'UnitCapCheckLess', { .80 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 4200 }},
             
-            { LUTL, 'AirStrengthRatioLessThan', { 3 } }, 
+            { LUTL, 'AirStrengthRatioLessThan', { 4.5 } }, 
             
             { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
             
@@ -1186,10 +1186,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 		end,
 		
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioLessThan', { 3 }},
+            { LUTL, 'AirStrengthRatioLessThan', { 4.5 }},
+            
             { MIBC, 'BaseInPlayableArea', { 'LocationType' }},            
+            
 			-- dont have any advanced units
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.STRUCTURE - categories.TECH1 }},
+            
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 18, categories.STRUCTURE * categories.ANTIAIR, 45, 75}},
         },
 		
@@ -1363,11 +1366,16 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
         PriorityFunction = IsEnemyCrushingAir,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .80 } },		
-			{ LUTL, 'AirStrengthRatioLessThan', { 1.5 }},
+            { LUTL, 'UnitCapCheckLess', { .80 } },
+            
+			{ LUTL, 'AirStrengthRatioLessThan', { 3 }},
+            
 			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
-            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},            
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.02, 1.04 }}, 
+            
+            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
+            
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.02, 1.04 }},
+            
 			-- check outer perimeter for maximum T3 AA
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 36, categories.STRUCTURE * categories.ANTIAIR * categories.TECH3, 55, 88 }},
         },
@@ -1450,10 +1458,15 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .80 } },
-			{ LUTL, 'AirStrengthRatioLessThan', { 3 }},			
+            
+			{ LUTL, 'AirStrengthRatioLessThan', { 3 }},
+            
 			{ LUTL, 'GreaterThanEnergyIncome', { 50000 }},
-            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},            
+            
+            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
+            
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
+            
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 9, categories.STRUCTURE * categories.EXPERIMENTAL * categories.ANTIAIR, 50, 88 }},
         },
 		
@@ -2459,8 +2472,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
         PriorityFunction = IsEnemyCrushingAir,
         
         BuilderConditions = {
-			{ LUTL, 'AirStrengthRatioLessThan', { 3 }},
+        
+			{ LUTL, 'AirStrengthRatioLessThan', { 4.5 }},
+            
 			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
+            
             { LUTL, 'UnitCapCheckLess', { .75 } },
 
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.02, 1.04 }}, 

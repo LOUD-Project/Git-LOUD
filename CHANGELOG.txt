@@ -1,3 +1,13 @@
+### Release 02-01-2022
+Lua 5.4.46
+LOUD_MISC 5.5.06
+
+Paragon Game
+    - gameplay mod now places Paragon further out to avoid conflicts with base layout
+    
+AI  - minor trigger changes to defense builders
+    - turned off some logging that had been left on
+
 ### Release 30-12-2021
 Lua 5.4.45
 

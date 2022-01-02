@@ -174,7 +174,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
 		PriorityFunction = HaveLessThanThreeT2AirFactory,
 		
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioLessThan', { 3 } },
+            { LUTL, 'AirStrengthRatioLessThan', { 4.5 } },
 			-- stop making them if enemy has T2 AA of any kind
 			{ UCBC, 'HaveLessThanUnitsWithCategoryAndAlliance', { 1, categories.ANTIAIR - categories.TECH1, 'Enemy' }},
         },
@@ -204,7 +204,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
 		PriorityFunction = HaveLessThanThreeT3AirFactory,
 		
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioLessThan', { 3 } },
+            { LUTL, 'AirStrengthRatioLessThan', { 4.5 } },
         },
 		
         BuilderType =  {'AirT2','AirT3'},
