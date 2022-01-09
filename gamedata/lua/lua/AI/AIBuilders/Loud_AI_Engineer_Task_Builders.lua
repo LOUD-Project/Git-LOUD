@@ -93,6 +93,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
         BuilderType = { 'SubCommander' },
 		
         BuilderConditions = {
+            { LUTL, 'LandStrengthRatioLessThan', { 1.1 } },
+            
 			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},
             
             { UCBC, 'LocationEngineerNeedsBuildingAssistanceInRange', { 'LocationType', categories.LAND * categories.EXPERIMENTAL - categories.ENERGYPRODUCTION, categories.ENGINEER, 125 }},
@@ -127,6 +129,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
         BuilderConditions = {
 			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},
             
+            { LUTL, 'AirStrengthRatioLessThan', { 3 } },
+            
             { UCBC, 'LocationEngineerNeedsBuildingAssistanceInRange', { 'LocationType', categories.AIR * categories.EXPERIMENTAL - categories.ENERGYPRODUCTION, categories.ENGINEER, 125 }},
         },
 		
@@ -152,7 +156,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 		
         Priority = 750,
 		
-        InstanceCount = 2,
+        InstanceCount = 3,
 		
         BuilderType = { 'SubCommander' },
 		
