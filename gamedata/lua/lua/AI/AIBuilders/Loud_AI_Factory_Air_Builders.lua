@@ -116,6 +116,9 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .65 } },
+            
+            -- don't build T1 air scouts if we can built better ones
+            { UCBC, 'FactoryLessAtLocation', { 'LocationType', 1, categories.AIR - categories.TECH1 }},
 			
 			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 8, [512] = 12, [1024] = 18, [2048] = 20, [4096] = 20}, categories.AIR * categories.SCOUT}},
 			
@@ -174,6 +177,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
 		
         BuilderConditions = {
             { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
+            
 			-- stop making them if enemy has T2 AA of any kind
 			{ UCBC, 'HaveLessThanUnitsWithCategoryAndAlliance', { 1, categories.ANTIAIR - categories.TECH1, 'Enemy' }},
         },
@@ -190,6 +194,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
 		
         BuilderConditions = {
             { LUTL, 'AirStrengthRatioLessThan', { 4.5 } },
+            
 			-- stop making them if enemy has T2 AA of any kind
 			{ UCBC, 'HaveLessThanUnitsWithCategoryAndAlliance', { 1, categories.ANTIAIR - categories.TECH1, 'Enemy' }},
         },
@@ -308,7 +313,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Torpedo Bombers',
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY * categories.AIR - categories.TECH1 }},
 
             -- one of the few places where I use a % ratio to control the number of units
-			{ UCBC, 'HaveLessThanUnitsAsPercentageOfUnitCap', { 5, categories.ANTINAVY * categories.AIR }},
+			{ UCBC, 'HaveLessThanUnitsAsPercentageOfUnitCap', { 4.5, categories.ANTINAVY * categories.AIR }},
         },
 		
         BuilderType =  {'AirT2','SeaT2'},
@@ -327,7 +332,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Torpedo Bombers',
 			-- dont produce unless you have 3+ T3 Air factories overall
 			{ LUTL, 'HaveGreaterThanUnitsWithCategory', { 2, categories.FACTORY * categories.AIR * categories.TECH3 }},
 
-			{ UCBC, 'HaveLessThanUnitsAsPercentageOfUnitCap', { 5, categories.ANTINAVY * categories.AIR }},
+			{ UCBC, 'HaveLessThanUnitsAsPercentageOfUnitCap', { 4.5, categories.ANTINAVY * categories.AIR }},
         },
 		
         BuilderType =  {'AirT3','SeaT3'},
@@ -353,7 +358,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Torpedo Bombers',
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},
 
             -- one of the few places where I use a % ratio to control the number of units
-			{ UCBC, 'HaveLessThanUnitsAsPercentageOfUnitCap', { 5, categories.ANTINAVY * categories.AIR }},            
+			{ UCBC, 'HaveLessThanUnitsAsPercentageOfUnitCap', { 4.5, categories.ANTINAVY * categories.AIR }},            
         },
 		
         BuilderType =  {'AirT2','SeaT2'},
@@ -378,7 +383,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Torpedo Bombers',
 			{ LUTL, 'HaveGreaterThanUnitsWithCategory', { 2, categories.FACTORY * categories.AIR * categories.TECH3 }},
 
             -- one of the few places where I use a % ratio to control the number of units
-			{ UCBC, 'HaveLessThanUnitsAsPercentageOfUnitCap', { 5, categories.ANTINAVY * categories.AIR }},            
+			{ UCBC, 'HaveLessThanUnitsAsPercentageOfUnitCap', { 4.5, categories.ANTINAVY * categories.AIR }},            
         },
 		
         BuilderType =  {'AirT3','SeaT3'},
@@ -402,9 +407,13 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .75 } },
+            
+			-- stop making them if enemy has T2 AA of any kind
+			{ UCBC, 'HaveLessThanUnitsWithCategoryAndAlliance', { 1, categories.ANTIAIR - categories.TECH1, 'Enemy' }},            
 			
 			-- stop making them if we have more than 3 T2/T3 air plants - anywhere
             { UCBC, 'HaveLessThanUnitsWithCategory', { 2, categories.FACTORY * categories.AIR - categories.TECH1 }},
+            
 			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 1, [512] = 1, [1024] = 1, [2048] = 2, [4096] = 2}, categories.TRANSPORTFOCUS * categories.TECH1}},
         },
 		
@@ -426,9 +435,13 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
             { LUTL, 'UnitCapCheckLess', { .75 } },
 			
             { UCBC, 'ArmyNeedsTransports', { true } },
+            
+			-- stop making them if enemy has T2 AA of any kind
+			{ UCBC, 'HaveLessThanUnitsWithCategoryAndAlliance', { 1, categories.ANTIAIR - categories.TECH1, 'Enemy' }},
 			
 			-- stop making them if we have more than 2 T2/T3 air plants - anywhere
             { UCBC, 'HaveLessThanUnitsWithCategory', { 2, categories.FACTORY * categories.AIR - categories.TECH1 }},
+            
 			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 2, [512] = 2, [1024] = 3, [2048] = 4, [4096] = 4}, categories.TRANSPORTFOCUS * categories.TECH1}},
         },
 		
@@ -445,7 +458,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .75 } },
-            { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },            
+            
+            { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },            
 
 			{ UCBC, 'HaveLessThanUnitsForMapSize', { { [256] = 1, [512] = 2, [1024] = 3, [2048] = 5, [4096] = 8 }, categories.TRANSPORTFOCUS * categories.TECH2}},
             
@@ -468,7 +482,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},		
             { LUTL, 'UnitCapCheckLess', { .75 } },
-            { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
+            
+            { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
             
 			{ UCBC, 'HaveLessThanUnitsWithCategory', { 20, categories.uea0203 }},
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.uea0203, categories.AIR - categories.TECH1 }},
@@ -489,7 +504,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .75 } },
-            { LUTL, 'AirStrengthRatioGreaterThan', { 1.2 } },
+            
+            { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
 			
             { UCBC, 'ArmyNeedsTransports', { true } },
 
@@ -508,7 +524,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .85 } },
-            { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
+            
+            { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
 			
 			-- this tends to prevent overbuilding of transports when they're not really needed --
 			-- but you'll notice that this builder doesn't reset the NeedsTransports flag --
@@ -535,7 +552,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .85 } },
-            { LUTL, 'AirStrengthRatioGreaterThan', { 1.2 } },
+            
+            { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
 			
             { UCBC, 'ArmyNeedsTransports', { true } },
 			
