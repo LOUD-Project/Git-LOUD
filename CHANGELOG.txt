@@ -1,3 +1,19 @@
+### Release 15-01-2022
+Lua 5.4.47
+LOUD_MISC 5.5.07
+
+AI  - a number of minor category and AI tweaks of inconsequential nature
+    - increased T3 artillery builds to 3, from 2
+    - general assistance for land and air experimentals only occurs during low ratio periods (specific assistance still permitted)
+    - LOUD_MISC (AI Debug module) now has an option to push the nuke dialog to the log file
+    - new function for factoryaddfunctions USEBUILDERONCE - new air builder insures T1 air scout production is done first demonstrates this feature
+    - GetBuilderData can now return nil instead of creating an empty table
+    - reorganized bomber formations to better define the divide between defensive and offensive tasks and their operating pararmeters
+    - restructured air unit production along those same lines to keep production better focused on the current role
+    - % allocation for torpedo bombers reduced to 4.5% from 5% - capping production sooner
+    - transport production curtailed during low air ratio conditions
+
+
 ### Release 02-01-2022
 Lua 5.4.46
 LOUD_MISC 5.5.06
