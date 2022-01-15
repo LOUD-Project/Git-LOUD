@@ -161,6 +161,9 @@
 	
 	ScenarioInfo.WeaponDialog = false
 	LOG("*AI DEBUG		Report  Weapon Dialog to Log is "..repr(ScenarioInfo.WeaponDialog))
+    
+    ScenarioInfo.NukeDialog = false
+    LOG("*AI DEBUG      Report  Nuke Dialog to Log is "..repr(ScenarioInfo.NukeDialog))
 
 
 
@@ -346,6 +349,7 @@ function SetAIDebug(data)
             'AttackPlanDialog',
             'ReportRatios',
             'IntelDialog',
+            'NukeDialog',
             'DisplayIntelPoints',
             'DisplayBaseNames',
             'BaseMonitorDialog',

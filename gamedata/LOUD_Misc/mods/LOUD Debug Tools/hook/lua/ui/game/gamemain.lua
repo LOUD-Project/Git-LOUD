@@ -30,6 +30,7 @@ do
 		'ReportRatios',
 		"* INTEL/THREAT *",
 		'IntelDialog',
+        'NukeDialog',
 		'DisplayIntelPoints',
 	}
 

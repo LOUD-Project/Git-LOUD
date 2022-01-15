@@ -1992,8 +1992,10 @@ function NukeAI( self, aiBrain )
 		
 		-- now we need to find a target
 		while nukesavailable > 0 do
-		
-			LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI searching for targets with "..LOUDGETN(GetPlatoonUnits(self)).." launchers and "..nukesavailable.." missiles")
+        
+            if ScenarioInfo.NukeDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI searching for targets with "..LOUDGETN(GetPlatoonUnits(self)).." launchers and "..nukesavailable.." missiles")
+            end
 			
 			local minimumvalue = 500
 			
@@ -2010,8 +2012,10 @@ function NukeAI( self, aiBrain )
 			local allthreat, antinukes, value
 			
 			LOUDSORT(targetlist, function(a,b)  return a.Distance < b.Distance  end )
-			
-			LOG("*AI DEBUG Nuke Targetlist is "..repr(targetlist))
+
+            if ScenarioInfo.NukeDialog then
+                LOG("*AI DEBUG Nuke Targetlist is "..repr(targetlist))
+            end
 			
 			-- evaluate the targetlist
 			for _, target in targetlist do
@@ -2019,14 +2023,18 @@ function NukeAI( self, aiBrain )
 				-- check threat levels (used to calculate value of target) - land/naval units worth 35% more - air worth only 50%
 				allthreat = target.Threats.Eco + ((target.Threats.Sub + target.Threats.Sur) * 1.35) + (target.Threats.Air * 0.5)
 				
-				--LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI says value of target at distance "..repr(LOUDSQUARE(target.Distance)).." is "..repr(allthreat).."  Needed value is "..repr(minimumvalue))
-				
+                if ScenarioInfo.NukeDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI says value of target at distance "..repr(LOUDSQUARE(target.Distance)).." is "..repr(allthreat).."  Needed value is "..repr(minimumvalue))
+				end
+                
 				-- factor in distance to make near targets worth more
 				-- LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI map size / distance calc is "..repr(aiBrain.dist_comp).." / "..repr(target.Distance))
 				
 				allthreat = allthreat * LOUDSQUARE(aiBrain.dist_comp/target.Distance)
-				
-				--LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI says value after distance adjust is "..repr(allthreat))					
+                
+                if ScenarioInfo.NukeDialog then				
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI says value after distance adjust is "..repr(allthreat))
+                end
 				
 				-- ignore it if less than minimumvalue
 				if allthreat < minimumvalue then
@@ -2038,9 +2046,9 @@ function NukeAI( self, aiBrain )
 				
 				--antinukes = GetUnitsAroundPoint( aiBrain, categories.ANTIMISSILE * categories.SILO, target.Position, 90, 'Enemy')
 				
-				--if antinukes > 0 then
-					--LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI says there are "..antinukes.." antinukes along path to this target")
-				--end
+                if ScenarioInfo.NukeDialog and antinukes > 0 then
+					LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI says there are "..antinukes.." antinukes along path to this target")
+				end
 
 				-- if too many antinukes
 				if antinukes >= nukesavailable then
@@ -2054,8 +2062,10 @@ function NukeAI( self, aiBrain )
 				-- value of target is divided by number of anti-nukes in area
 				value = ( allthreat/ math.max(antinukes,1) )
 
-				--LOG("*AI DEBUG NukeAI says there are "..repr(antinukes - 0.9).." AntiNukes within range of target")
-				--LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI modified value is "..repr(value))
+                if ScenarioInfo.NukeDialog then
+                    LOG("*AI DEBUG NukeAI says there are "..repr(antinukes - 0.9).." AntiNukes within range of target")
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI modified value is "..repr(value))
+                end
 
 				-- if this is a better target then store it
 				if value > targetvalue then
@@ -2063,7 +2073,9 @@ function NukeAI( self, aiBrain )
 					-- if its not the same as our last shot
 					if not LOUDEQUAL(target.Position,lasttarget) then
 					
-						--LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI sees this as a NEW target -- New "..repr(target.Position).." Antis is "..(antinukes - 0.85).." Last Scouted "..repr(target.LastScouted))
+                        if ScenarioInfo.NukeDialog then
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI sees this as a NEW target -- New "..repr(target.Position).." Antis is "..(antinukes - 0.85).." Last Scouted "..repr(target.LastScouted))
+                        end
 
 						targetvalue = value
 						targetantis = antinukes
@@ -2072,8 +2084,10 @@ function NukeAI( self, aiBrain )
 					-- if same as our last target and we've scouted it since then it's ok to fire again
 					-- otherwise don't fire nukes at same target twice without scouting it
 					elseif LOUDEQUAL(target.Position,lasttarget) and target.LastScouted > lasttargettime then
-						
-						--LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI sees this as SAME target -- Old "..repr(lasttarget).."  New "..repr(target.Position).." Last Scouted "..repr(target.LastScouted))
+                    
+                        if ScenarioInfo.NukeDialog then
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI sees this as SAME target -- Old "..repr(lasttarget).."  New "..repr(target.Position).." Last Scouted "..repr(target.LastScouted))
+                        end
 
 						targetvalue = value
 						targetantis = antinukes
@@ -2087,7 +2101,7 @@ function NukeAI( self, aiBrain )
 						break
 					end
 					
-					if not targetunit then
+		            if ScenarioInfo.NukeDialog and not targetunit then
 						LOG("*AI DEBUG All values good but cannot find targetunit within 40 of "..repr(nukePos))
 					end
 				end
@@ -2127,8 +2141,10 @@ function NukeAI( self, aiBrain )
 
 				-- if we have enough launches to overcome expected antinukes
 				if launches > targetantis then
-				
-					LOG("*AI DEBUG "..aiBrain.Nickname.." has "..launches.." missiles available for target with "..targetantis.." antinukes")
+                
+                    if ScenarioInfo.NukeDialog then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." has "..launches.." missiles available for target with "..targetantis.." antinukes")
+                    end
 					
 					-- store the target and time
 					lasttarget = nukePos
@@ -2147,8 +2163,10 @@ function NukeAI( self, aiBrain )
 					
 					local lastflighttime = launchers[1].flighttime
 					local firednukes = 0
-					
-					--LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI says longest flighttime is "..repr( lastflighttime))
+                    
+		            if ScenarioInfo.NukeDialog then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." NukeAI says longest flighttime is "..repr( lastflighttime))
+                    end
 
 					-- fire them with appropriate delays and only as many as needed
 					for _,u in launchers do
@@ -2161,8 +2179,10 @@ function NukeAI( self, aiBrain )
 								
 							end
 
-							--LOG("*AI DEBUG "..aiBrain.Nickname.." Firing Nuke "..(firednukes + 1).." after "..(lastflighttime - u.flighttime).." seconds - target is "..repr(nukePos))
-							
+                            if ScenarioInfo.NukeDialog then
+                                LOG("*AI DEBUG "..aiBrain.Nickname.." Firing Nuke "..(firednukes + 1).." after "..(lastflighttime - u.flighttime).." seconds - target is "..repr(nukePos))
+							end
+                            
 							IssueNuke( {u.unit}, nukePos )
 						
 							lastflighttime = u.flighttime
