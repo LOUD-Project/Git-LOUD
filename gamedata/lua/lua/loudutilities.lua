@@ -516,6 +516,26 @@ function GetFreeUnitsAroundPoint( aiBrain, category, location, radius, useRefuel
     return retUnits,counter-1
 end
 
+-- this function will set a FACTORY builder priority to 0 permanently for later removal
+function UseBuilderOnce( aiBrain, factory, builder)
+
+    --LOG("*AI DEBUG UseBuilderOnce for "..repr(factory.LocationType).." "..repr(factory.BuilderType).." "..repr(builder))
+	
+    local manager = 'FactoryManager'
+
+	local buildertable = aiBrain.BuilderManagers[factory.LocationType][manager]['BuilderData'][factory.BuilderType]
+
+	for a,b in buildertable['Builders'] do
+		
+		if b.BuilderName == builder.BuilderName then
+            LOG("*AI DEBUG Setting "..builder.BuilderName.." to zero")
+			b:SetPriority(0,false)
+			break
+		end
+	end    
+
+end
+
 --	The SpawnWave is a bonus given only to the AIx
 -- 	Essentially every spawndelay period, the AI will receive a few 'free' air units (based upon AIx cheat bonus.
 --  The number gradually grows with each iteration over the course of the game and the period between

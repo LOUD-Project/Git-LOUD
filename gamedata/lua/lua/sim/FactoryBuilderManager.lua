@@ -256,9 +256,18 @@ FactoryBuilderManager = Class(BuilderManager) {
 					factory.addbehavior = nil
 				
 					factory.failedbuilds = 0
+                    
+                    -- we now will carry forward BuilderData from the builder definition and into the factory
+                    -- we use the existing feature for platoons and engineers even though this is not really a platoon
+                    -- just to keep the visibility of the mechanic high and neutral
+                    -- this will normally just pass an empty table
+                    factory.PlatoonData = builder:GetBuilderData(self.LocationType)
 
 					local buildplatoonsqty = 1
-
+                    
+                    -- factory plans and behaviors are stored on the factory here
+                    -- note how only ONE of each is supported at the moment
+                    -- and they are only executed upon COMPLETION of the build
 					if Builders[builder.BuilderName].PlatoonAddPlans then
 				
 						for _, papv in Builders[builder.BuilderName].PlatoonAddPlans do
@@ -284,11 +293,13 @@ FactoryBuilderManager = Class(BuilderManager) {
 
 					aiBrain:BuildPlatoon( buildplatoon, {factory}, buildplatoonsqty )
 
+                    -- unlike the Plans & Behaviors, we can execute multiple functions against the factory
+                    -- also unlike the above, functions begin executing immediately
 					if Builders[builder.BuilderName].PlatoonAddFunctions then
 				
 						for _, pafv in Builders[builder.BuilderName].PlatoonAddFunctions do
-					
-							ForkThread( import( pafv[1])[ pafv[2] ], aiBrain )
+
+							ForkThread( import( pafv[1])[ pafv[2] ], aiBrain, factory, builder )
 						end
 					end
 					

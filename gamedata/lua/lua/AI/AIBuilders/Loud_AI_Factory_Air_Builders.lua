@@ -92,6 +92,21 @@ end
 BuilderGroup {BuilderGroupName = 'Factory Production - Air',
     BuildersType = 'FactoryBuilder',
 	
+    Builder {BuilderName = 'Air Scout T1 - Initial',
+	
+        PlatoonTemplate = 'T1AirScout',
+        
+        PlatoonAddFunctions = { { LUTL, 'UseBuilderOnce' }, },
+
+        Priority = 610,
+
+        BuilderConditions = {
+			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 1, categories.AIR * categories.SCOUT } },
+        },
+
+        BuilderType =  {'AirT1'},
+    },
+	
     Builder {BuilderName = 'Air Scout T1',
 	
         PlatoonTemplate = 'T1AirScout',
