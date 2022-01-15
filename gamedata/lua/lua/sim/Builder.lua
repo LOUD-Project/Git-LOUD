@@ -164,7 +164,7 @@ Builder = Class {
   
     GetBuilderData = function(self, locationType, builderData )
 
-        local returnData = {}
+        local returnData = false
         local type = type
 		
         builderData = builderData or Builders[self.BuilderName].BuilderData
@@ -172,9 +172,17 @@ Builder = Class {
         for k,v in builderData do
 
             if type(v) == 'table' then
+            
+                if not returnData then
+                    returnData = {}
+                end
 			
                 returnData[k] = self:GetBuilderData(locationType, v )
             else
+
+                if not returnData then
+                    returnData = {}
+                end
 			
                 if type(v) == 'string' and v == 'LocationType' then
                     returnData[k] = locationType
@@ -184,7 +192,11 @@ Builder = Class {
             end
         end
 
-        return returnData
+        if returnData then
+            return returnData
+        else
+            return nil
+        end
     end,
 
 --[[
