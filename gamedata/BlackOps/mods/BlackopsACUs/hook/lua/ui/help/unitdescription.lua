@@ -111,7 +111,7 @@ Description['erl0001-exrgec1'] = "Heavy Microwave Laser\nThe Microwave Laser or 
 Description['erl0001-exrgec2'] = "Alternating Laser Assembly\nThis system pairs the original maser system with a twin that functions in alternating bursts of energy. While not noticeable to those viewing the system in action it helps ensure higher power settings can be run while reducing maintenance demands caused by a single coil overheating.\n\n+150 Microwave Damage\nInstalls Ripper Jury Rigging"
 Description['erl0001-exrgec3'] = "Superconductive Power Conduits\nBy running additional feeds directly to the main power systems it is possible to overcharge the laser assembly and bring out the weapons extremely destructive aspects. At these higher power levels the system simply melts the armor off the target and flash fries their electronics.\n\n+600 Microwave Damage"
 
-Description['erl0001-exbsh1'] = "Armor Plating\Additional armor is the easiest way to get additional defensive systems in battle.\n\n+7000 Health\nInstalls Two Anti-Air Lasers"
+Description['erl0001-exbsh1'] = "Armor Plating\nAdditional armor is the easiest way to get additional defensive systems in battle.\n\n+7000 Health\nInstalls Two Anti-Air Lasers"
 Description['erl0001-exbsh2'] = "Structural Integrity\nIntegrating several tiny force field generators, damage is localized.\n\n+11000 Health\nInstalls Two Additional Anti-Air Lasers"
 Description['erl0001-exbsh3'] = "Nanite Materials\nThe use of nanite-laced materials makes it possible to increase the amount of armor the chassis can support.\n\n+18000 Health"
 Description['erl0001-exbsh4'] = "Empty"
@@ -138,7 +138,7 @@ Description['esl0001-exles3'] = "Experimental Engineering\nThis is a standard en
 
 Description['esl0001-exlce1'] = "Combat Engineering\nUnlike the standard engineering, combat engineering enhances the armor and regen of the ACU and installs area regeneration systems that heals your nearby units.\n\nUnlock Tech 2 Construction\n+10000 health\n25 Armor Regen\n20 Build Speed\nInstalls Regen Aura"
 Description['esl0001-exlce2'] = "Assault Engineering\nFurther upgrades to armor and regeneration gives the command chassis an incredible ability to repair itself and engage in combat.\n\nUnlock Tech 3 Construction\n+20000 health\n60 Armor Regen\n45 Build Speed"
-Description['esl0001-exlce3'] = "Apocalyptic Engineering\nThis further increases the area regen capabilities of the ACU and provides a significant increase in armor and regen for the command chassis.\n\nUnlock Experimental Construction\n+30000 health\n100 Armor Regen\n90 Build Speed\mUpgrades the Regen Aura"
+Description['esl0001-exlce3'] = "Apocalyptic Engineering\nThis further increases the area regen capabilities of the ACU and provides a significant increase in armor and regen for the command chassis.\n\nUnlock Experimental Construction\n+30000 health\n100 Armor Regen\n90 Build Speed\nUpgrades the Regen Aura"
 
 Description['esl0001-exrtorp1'] = "Torpedo Launcher\nWhen forced to fight underwater a run of the mill torpedo system is a commanders best friend. Unfortunately installing such systems hampers the total combat effectiveness on land but there are times when that is not a bad thing.\n\nInstalls Torpedo Launcher"
 Description['esl0001-exrtorp2'] = "Improved Reloader\nIncreasing the torpedoes rate of fire helps to slightly overcome anti torpedo counter measures as well as overall increases in destructive power output.\n\n+100 Chronoton Damage\n+25 Torpedo Damage\n+100% Torpedo Rate of Fire\nInstalls Chronoton Jury Rigging"
