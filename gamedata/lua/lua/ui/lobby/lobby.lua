@@ -1614,8 +1614,10 @@ local function TryLaunch(skipNoObserversCheck, skipSandboxCheck, skipTimeLimitCh
     for k, v in GUI.slots do
         if v.mult:IsHidden() then
             -- Skip this slot
-        elseif not (string.find(v.mult:GetText(), "^%d+%.%d+$") or string.find(v.mult:GetText(), "^%d+$")) then
-            AddChatText("Not all AI cheat multipliers are valid (Valid examples: 1, 1.0, 1.225). Can not launch.")
+        elseif not (string.find(v.mult:GetText(), "^%d+%.%d+$") or
+                    string.find(v.mult:GetText(), "^%.%d+$") or
+                    string.find(v.mult:GetText(), "^%d+$")) then
+            AddChatText("Not all AI cheat multipliers are valid (Valid examples: '1', '1.0', '.95'). Can not launch.")
             return
         end
     end
