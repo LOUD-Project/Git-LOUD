@@ -8,7 +8,9 @@ local RebuildBonusCheckCallback = import('/lua/sim/RebuildBonusCallback.lua').Ru
 
 local ForkThread = ForkThread
 
+local LOUDINSERT = table.insert
 local LOUDMAX = math.max
+
 local GetBlueprint = moho.entity_methods.GetBlueprint
 
 Prop = Class(moho.prop_methods, Entity) {
@@ -204,10 +206,13 @@ Prop = Class(moho.prop_methods, Entity) {
     SplitOnBonesByName = function(self, dirprefix)
 	
         if not dirprefix then
+
             -- default dirprefix to parent dir of our own blueprint
-            dirprefix = self:GetBlueprint().BlueprintId
+            dirprefix = __blueprints[self.BlueprintId].SingleTreeDir or self:GetBlueprint().BlueprintId
+
             -- trim ".../groups/blah_prop.bp" to just ".../"
             dirprefix = string.gsub(dirprefix, "[^/]*/[^/]*$", "")
+
         end
 
         local newprops = {}
@@ -221,11 +226,12 @@ Prop = Class(moho.prop_methods, Entity) {
             local p = safecall("Creating prop", self.CreatePropAtBone, self, ibone, dirprefix .. string.gsub( self:GetBoneName(ibone), "_?[0-9]+$", "") .. "_prop.bp")
 			
             if p then
-                table.insert(newprops, p)
+                LOUDINSERT(newprops, p)
             end
         end
 
         self:Destroy()
+        
         return newprops
     end,
     
