@@ -1073,6 +1073,8 @@ Platoon = Class(moho.platoon_methods) {
 				
 					-- if we're within the stepcheck ogrids of the destination then we found it
 					if VDist2Sq(start[1] - (xstep * i), start[3] - (ystep * i), destination[1], destination[3]) < stepcheck then
+                    
+                        --LOG("*AI DEBUG Destination "..repr(destination).." is within "..repr(stepcheck).." of "..repr( {start[1] - (xstep * i), start[3] - (ystep * i)} ) )
 					
 						return true
 					end
@@ -1275,7 +1277,7 @@ Platoon = Class(moho.platoon_methods) {
 
 		if not endNode then
 		
-			--LOG("*AI DEBUG "..aiBrain.Nickname.." GenerateSafePath "..repr(platoon.BuilderName or platoon).." "..threatallowed.." finds no safe "..platoonLayer.." endnode within "..MaxMarkerDist.." of "..repr(destination).." - failing")
+			LOG("*AI DEBUG "..aiBrain.Nickname.." GenerateSafePath "..repr(platoon.BuilderName or platoon).." "..threatallowed.." finds no safe "..platoonLayer.." endnode within "..MaxMarkerDist.." of "..repr(destination).." - failing")
             
 			WaitTicks(1)
 			return false, 'NoPath', 0, 0
@@ -1297,6 +1299,8 @@ Platoon = Class(moho.platoon_methods) {
 		-- if the nodes are not in the bad path cache generate a path for them
 		-- Generate the safest path between the start and destination nodes
 		if not BadPath[startNodeName][endNodeName] then
+        
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName).." Requesting "..repr(platoonLayer).." path from "..repr(startNode.position).." to "..repr(endNode.position).." for destination "..repr(destination))
 
 			-- add the platoons request for a path to the respective path generator for that layer
 			LOUDINSERT(aiBrain.PathRequests[platoonLayer], {
@@ -7334,7 +7338,7 @@ Platoon = Class(moho.platoon_methods) {
 			local WaitTicks = coroutine.yield
 			
 			-- this allows me to specify acceptable threat levels in the engineer task
-			local mythreat = platoon.PlatoonData.Construction.ThreatMax or (GetBlueprint(eng).Defense.SurfaceThreatLevel + 10)
+			local mythreat = platoon.PlatoonData.Construction.ThreatMax or (__blueprints[eng.BlueprintID].Defense.SurfaceThreatLevel + 10)
 			
 			local viewrange = math.min(math.max(10,eng:GetIntelRadius('Vision')), 70) -- between 10 and 70 -- but never 0
 			
@@ -7393,12 +7397,18 @@ Platoon = Class(moho.platoon_methods) {
 						stuckCount = 0
 						
 					end
+                    
+                    if eng:IsIdleState() then
+                    
+                        eng.failedmoves = eng.failedmoves + 1
+                        
+                    end
 			
 					engLastPos = LOUDCOPY(engPos)
 					
 				end
 				
-				--LOG("*AI DEBUG Eng "..eng.Sync.id.." exitting WFNB")
+				--LOG("*AI DEBUG Eng "..eng.Sync.id.." exitting WFNB failedmoves is "..eng.failedmoves)
 				
 				if (not BeenDestroyed(eng)) and (not eng.Dead) and ( eng:IsIdleState() or eng.Fighting ) then
 					
@@ -7716,11 +7726,13 @@ Platoon = Class(moho.platoon_methods) {
 							
 							end
 						
-							if count == 12 then
+							if count == 12 or eng.failedmoves > 2 then
+                            
+                                --LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." calls for transport")
 						
 								local distance = VDist2( eng:GetPosition()[1],eng:GetPosition()[3], buildlocation[1],buildlocation[3] )
 							
-								if distance > 200 and not LOUDENTITY( categories.COMMAND, eng ) then
+								if (distance > 200 or eng.failedmoves > 0) and not LOUDENTITY( categories.COMMAND, eng ) then
 
 									-- we use a random location within 8 so that we dont drop right on the target but near it 
 									-- had to do this becuase engies would land on MEX points (causing CanBuildAtLocation to fail)
@@ -7728,6 +7740,13 @@ Platoon = Class(moho.platoon_methods) {
 							
 									-- a successful transport will clear the waypoint callback and end the loop --
 									if platoon:SendPlatoonWithTransportsLOUD( aiBrain, randomlocation, 1, false ) then
+                                    
+                                        -- clear failedmoves on transport call
+                                        if eng.failedmoves > 2 then
+                                        
+                                            eng.failedmoves = 0
+                                            
+                                        end
 
 										WaitTicks(2)
 
@@ -7759,7 +7778,7 @@ Platoon = Class(moho.platoon_methods) {
 
 					ForkTo( AIAddMustScoutArea, aiBrain, buildlocation )
                     
-   					--LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." too many failures")
+   					LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." too many failures")
 					
 					return false
 					
@@ -7921,7 +7940,7 @@ Platoon = Class(moho.platoon_methods) {
 
 								else
 
-									--WARN("*AI DEBUG Eng "..eng.Sync.id.." fails CanBuildStructureAt "..repr(buildLocation))
+									WARN("*AI DEBUG Eng "..eng.Sync.id.." fails CanBuildStructureAt "..repr(buildLocation))
 
 									-- remove the item via PBC --
 									if not eng.Dead then
@@ -7958,7 +7977,7 @@ Platoon = Class(moho.platoon_methods) {
 
 						-- move onto next item to build
 						
-						--LOG("*AI DEBUG "..repr(self.BuilderName).." Failed to build")
+						LOG("*AI DEBUG "..repr(self.BuilderName).." Failed to build")
 						
 						self:ProcessBuildCommand( eng,true )
 						
