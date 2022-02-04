@@ -90,7 +90,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
 			{ EBC, 'LessThanEnergyTrendOverTime', { 50 }},
 			{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},
             
-			{ UCBC, 'HaveLessThanUnitsWithCategory', { 1, categories.ENERGYPRODUCTION * categories.TECH3 }},
+			{ UCBC, 'HaveLessThanUnitsWithCategory', { 1, categories.ENERGYPRODUCTION * categories.TECH3 - categories.HYDROCARBON }},
 			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION - categories.TECH1 }},            
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 6, categories.ENERGYPRODUCTION - categories.TECH1 }},
         },
