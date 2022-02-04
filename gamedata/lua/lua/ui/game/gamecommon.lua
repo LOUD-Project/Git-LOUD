@@ -72,7 +72,6 @@ end
 -- Now also prefetches the icons and keeps them in the cache
 function InitializeUnitIconBitmaps(prefetchTable)
 
-
     local alreadyFound = {}
 	
     for i,v in __blueprints do

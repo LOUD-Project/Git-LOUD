@@ -3366,29 +3366,29 @@ function PathGeneratorAmphibious(aiBrain)
 	local closed = {}
     
     local queueitem, Node, position, destination, stepsize, adjacentnodes, newnode, testposition, threat, fork, stepcostadjust
-    local steps, checkrange, xstep, ystep
+    local steps, xstep, ystep, dist
 
 
 	local function DestinationBetweenPoints()
 
-		steps = LOUDFLOOR( VDist2( position[1], position[3], testposition[1], testposition[3]) / stepsize )
-	
-		if steps > 0 then
+		steps = LOUDFLOOR( VDist2( position[1], position[3], testposition[1], testposition[3]) / stepsize ) + 1
         
-            local VDist2Sq = VDist2Sq
-        
-            checkrange = (stepsize * stepsize)
-            
-			xstep = ( position[1] - testposition[1]) / steps
-			ystep = ( position[3] - testposition[3]) / steps
-	
-			for i = 1, steps do
+        --LOG("*AI DEBUG Amphib pathfinder finds "..repr(steps).." steps of "..repr(stepsize).." between "..repr(position).." and "..repr(testposition))
 
-				if VDist2Sq( position[1] - (xstep * i), position[3] - (ystep * i), destination[1], destination[3]) <= checkrange then
-					return true
-				end
-			end	
-		end
+        xstep = ( position[1] - testposition[1]) / steps
+		ystep = ( position[3] - testposition[3]) / steps
+
+		for i = 0, steps - 1 do
+        
+            dist = VDist2( position[1] - (xstep * i), position[3] - (ystep * i), destination[1], destination[3])
+
+            if dist <= stepsize then
+                --LOG("*AI DEBUG Amphib pathfinder finds destination "..repr(destination).." on step "..repr(i).." at "..repr(dist).." from "..repr( {position[1]-(xstep*i), position[3]-(ystep*i)} ) )
+                return true
+            else
+                --LOG("*AI DEBUG Amphib pathfinder fails between points - distance is "..repr(dist).." on step "..repr(i) )
+            end
+		end	
 	
 		return false
 	end
@@ -3426,6 +3426,8 @@ function PathGeneratorAmphibious(aiBrain)
 			end
 
 			testposition = LOUDCOPY(graph[newnode].position)
+            
+            --LOG("*AI DEBUG Amphib pathfinder evaluating from "..repr(position).." to node at "..repr(testposition))
 
 			if data.Testpath and DestinationBetweenPoints() then
             
@@ -4637,7 +4639,7 @@ function ParseIntelThread( aiBrain )
                     
                             bp = ALLBPS[v.BlueprintID].Defense
                         
-                            oldthreat = oldthreat + bp.AirThreatLevel + bp.SurfaceThreatLevel
+                            oldthreat = oldthreat + bp.AirThreatLevel + (bp.SurfaceThreatLevel * .6)
 
                         end
                         
@@ -4649,7 +4651,7 @@ function ParseIntelThread( aiBrain )
                     
                             bp = ALLBPS[v.BlueprintID].Defense
                         
-                            totalThreat = totalThreat + bp.AirThreatLevel + bp.SurfaceThreatLevel
+                            totalThreat = totalThreat + bp.AirThreatLevel + (bp.SurfaceThreatLevel * .6)
                         end                    
                     end
                 end

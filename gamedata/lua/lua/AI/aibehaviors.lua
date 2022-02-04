@@ -2238,6 +2238,84 @@ function NukeAI( self, aiBrain )
 	
 end
 
+function SetLoiterPosition( self, aiBrain, startposition, searchradius, minthreat, mythreat, threatseek, threatavoid )
+
+    local loiterposition = LOUDCOPY(startposition)
+
+    if aiBrain:GetCurrentEnemy() then
+
+        -- first step - get all the threatseek threats within 8 times the searchradius - why 8 times ?
+        -- because that will let us react to air threats within reasonable range of the startposition
+        -- without necessarily pulling us all the way across the map - therefore ScenarioInfo.IMAPSize comes in handy
+        -- here as it tells us how big each block will be so we can adjust the blocks value according to that radius
+     
+        local threats = aiBrain:GetThreatsAroundPosition( startposition, math.floor( (searchradius * 8)/ScenarioInfo.IMAPSize), true, threatseek )
+
+        -- filter them down to those above 5 threat and capture the AA threat at that position
+        if threats then
+
+            local results = {}
+            local count = 0
+
+            for k,v in threats do
+
+                if v[3] > minthreat then
+
+                    LOUDINSERT(results, { v[1],v[2],v[3],aiBrain:GetThreatAtPosition( {v[1],0,v[2]}, 0, true, threatavoid ) } )
+
+                    count = count + 1
+
+                end
+
+            end
+
+            -- take the highest threat position
+            if count > 0 then
+
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." used searchradius "..repr(searchradius).." with ratio of "..aiBrain.AirRatio)
+
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." got all AIR threats from "..repr(startposition).." for "..math.floor(searchradius*8/ScenarioInfo.IMAPSize).." blocks")
+
+                LOUDSORT(results, function (a,b) return (a[3] > b[3]) end )
+
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." threats are "..repr(results) )
+
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." lerp factor is "..(searchradius*8).." to distance "..VDist3(self.anchorposition, {results[1][1], 0, results[1][2]}) )
+
+                local lerpresult = math.min(1, math.min(1,(searchradius * 8) / VDist3( startposition, {results[1][1], 0, results[1][2]})))
+                
+                -- factor in threatavoidance to reduce the tether --
+                -- I wonder if we should apply this against the threatseek value prior to sorting the table ? --
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." threat reduction is "..repr(math.min( 1, mythreat/math.max( 1,results[1][4]))))
+                
+                -- the tether is reduced by comparing mythreat against the avoided threat and factoring in the AirRatio
+                -- this will reduce the lerp and keep us further away from those threats when the ratio is low while still allowing 
+                -- some forward deployment
+                lerpresult = lerpresult * math.min( 1, math.min(mythreat, mythreat*aiBrain.AirRatio) / math.max(1, results[1][4]) )
+
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." Lerp value is "..repr(lerpresult))
+
+                loiterposition = { math.floor(MATH_Lerp(lerpresult, startposition[1], results[1][1] )), 0, math.floor(MATH_Lerp( lerpresult, startposition[3], results[1][2])) } 
+
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." selects loiterposition "..repr(loiterposition).." distance is "..repr(math.floor(VDist3(loiterposition, startposition))))
+
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." sets loiter at "..repr(loiterposition))
+    
+            end
+
+        end
+
+    end
+
+	IssueClearCommands( GetPlatoonUnits(self) )
+
+	self:MoveToLocation( loiterposition, false)
+
+	IssueGuard( GetSquadUnits( self,'Attack'), loiterposition)
+
+    return loiterposition
+end
+
 
 -- Basic Air attack logic
 -- Now includes code for escorting fighters --
@@ -2247,8 +2325,9 @@ function AirForceAILOUD( self, aiBrain )
 	local GetFuelRatio = moho.unit_methods.GetFuelRatio
 	
 	local AIFindTargetInRangeInCategoryWithThreatFromPosition = import('/lua/ai/aiattackutilities.lua').AIFindTargetInRangeInCategoryWithThreatFromPosition
+    local SetLoiterPosition = import('/lua/ai/aibehaviors.lua').SetLoiterPosition
 
-    local Searchradius = self.PlatoonData.SearchRadius or 250
+    local Searchradius = self.PlatoonData.SearchRadius or 200
     
     local missiontime = self.PlatoonData.MissionTime or 600
     local mergelimit = self.PlatoonData.MergeLimit or false
@@ -2313,26 +2392,26 @@ function AirForceAILOUD( self, aiBrain )
 
     -- a copy of where this platoon originated
 	self.anchorposition = LOUDCOPY( GetPlatoonPosition(self) )
-	
+    
+	local loiterposition = false
+    
 	-- force the plan name
 	self.PlanName = 'AirForceAILOUD'
 
 	-- local function --
 	local DestinationBetweenPoints = function( destination, start, finish, stepsize )
 
-		local steps = LOUDFLOOR( VDist2(start[1], start[3], finish[1], finish[3]) / stepsize )
+		local steps = LOUDFLOOR( VDist2(start[1], start[3], finish[1], finish[3]) / stepsize ) + 1
 	
-		if steps > 0 then
-			local xstep = (start[1] - finish[1]) / steps
-			local ystep = (start[3] - finish[3]) / steps
+		local xstep = (start[1] - finish[1]) / steps
+		local ystep = (start[3] - finish[3]) / steps
 
-			for i = 1, steps  do
+		for i = 0, steps - 1  do
 			
-				if VDist2Sq(start[1] - (xstep * i), start[3] - (ystep * i), destination[1], destination[3]) < (stepsize * stepsize) then
-					return true
-				end
-			end	
-		end
+			if VDist2Sq(start[1] - (xstep * i), start[3] - (ystep * i), destination[1], destination[3]) < (stepsize * stepsize) then
+				return true
+			end
+		end	
 		
 		return false
 	end
@@ -2351,9 +2430,12 @@ function AirForceAILOUD( self, aiBrain )
     -- if no target, we advance the multiplier and do it again for the next ring
     -- notice how the minimum range of the ring is carried forward from the previous iteration 
     local mythreat = 0
-    local threatcompare = 'AntiAir'
+    
+    local threatcompare = 'Air'
+    local threatavoid = 'AntiAir'
+    
     local mult = { 1, 2, 3 }				-- this multiplies the range of the platoon when searching for targets
-	local difficulty = { .7, 1, 1.2 }   		-- this multiplies the threat of the platoon so that easier targets are selected first
+	local difficulty = { 1.25, 1, 0.65 } 		-- this divides the base threat of the platoon, by deflating it and then increasing it, so that easier targets are selected first
     local minrange = 0
 
     local Rangemult, Threatmult, strikerange
@@ -2390,6 +2472,10 @@ function AirForceAILOUD( self, aiBrain )
             if mythreat < 5 then
                 mythreat = 5
             end
+            
+            -- the searchradius adapts to the current air ratio
+            local searchradius = math.max(Searchradius, (Searchradius *  math.max(1, aiBrain.AirRatio/3) ))
+            local usethreat = 0
 
 			-- the anchorposition is the start position of the platoon
 			-- where the platoon returns to if it should be drawn away
@@ -2398,46 +2484,31 @@ function AirForceAILOUD( self, aiBrain )
 			
 				if not loiter then
                 
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." sets loiter at "..repr(self.anchorposition))
+                    loiterposition = SetLoiterPosition( self, aiBrain, self.anchorposition, searchradius, 5, mythreat, 'AIR', 'ANTIAIR' )
                     
-                    --local dog = aiBrain:GetCurrentEnemy()
-                    
-                    --if dog then
-                    
-                        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." gets highest threat position "..repr(dog:GetHighestThreatPosition( 16, true, 'AIR' )))
-                    
-                        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." threats around postion are "..repr(aiBrain:GetThreatsAroundPosition(self.anchorposition, 16, true, 'AIR' )))
-                        
-                    --end
+                    loiter = true
 
-					IssueClearCommands( platoonUnits )
-				
-					self:MoveToLocation( self.anchorposition, false)
-					
-					IssueGuard( GetSquadUnits( self,'Attack'), self.anchorposition)
-					
-					loiter = true
 				end
                 
 			else
 				return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 			end
-
             
-            -- the searchradius adapts to the current air ratio AND the outnumbered ratio
-            local searchradius = math.max(Searchradius, (Searchradius * aiBrain.AirRatio)/aiBrain.OutnumberedRatio )
-            
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." searching at radius "..searchradius)
-
             
 			-- locate a target -- starting with the closest -- least dangerous ones 
             for _,rangemult in mult do
 
 				for _,threatmult in difficulty do
                 
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." cycles rangemultiplier at "..repr(rangemult).." threatmultiplier at "..repr(threatmult) )
+                    usethreat = ( mythreat/threatmult ) / rangemult
+                
+                    -- we make longer ranges harder by reducing OUR threat for each range change
+                    -- while our threat is initially deflated, forcing selection of targets we can better overwhelm, we inflate it to try and concentrate on closer targets
+                    -- this should make easier short range targets get selected first --
+                    
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." cycles rangemultiplier at "..repr(rangemult).." mythreat multiplier at "..repr(usethreat) )
 
-					target,targetposition = AIFindTargetInRangeInCategoryWithThreatFromPosition(aiBrain, self.anchorposition, self, 'Attack', minrange, searchradius * rangemult, categoryList, mythreat * (threatmult - (.05 * rangemult)), threatcompare, threatcheckradius )
+					target,targetposition = AIFindTargetInRangeInCategoryWithThreatFromPosition(aiBrain, loiterposition, self, 'Attack', minrange, searchradius * rangemult, categoryList, usethreat, threatcompare, threatcheckradius, threatavoid )
 
 					if not PlatoonExists(aiBrain, self) then
 						return
@@ -2479,6 +2550,9 @@ function AirForceAILOUD( self, aiBrain )
                 TertiaryTargets = GetUnitsAroundPoint( aiBrain, categories.BOMBER, targetposition, threatcheckradius, 'Enemy')
                 
                 --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." with "..LOUDGETN(GetSquadUnits( self,'Attack')).." units has target at "..repr(targetposition))
+                
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." finds "..math.max(aiBrain:GetThreatAtPosition( targetposition, 0, true, threatavoid )).." threat at that position - mythreat is "..usethreat)
+                
                 --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." used RangeMult of "..Rangemult.." and Difficulty of "..Threatmult)
                 
                 if SecondaryAATargets[1] then
@@ -2532,7 +2606,7 @@ function AirForceAILOUD( self, aiBrain )
                         end
                     end
                     
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." has path "..repr(path))
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." has path "..reason.." "..repr(path))
                     --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." vs using "..repr(newpath))
 
                     -- if we have a path - versus direct which will have zero path entries --
@@ -2540,6 +2614,8 @@ function AirForceAILOUD( self, aiBrain )
 
                         -- move the platoon to within strikerange in formation
                         self.MoveThread = self:ForkThread( self.MovePlatoon, newpath, 'AttackFormation', false, 70)
+                        
+                        loiter = false
 
                         -- wait for the movement orders to execute --
                         while PlatoonExists(aiBrain, self) and self.MoveThread and not target.Dead do
@@ -2722,8 +2798,7 @@ function AirForceAILOUD( self, aiBrain )
 		if loiter then
         
 			WaitTicks(11)
-            
-            loiter = false
+
 		end
     end
 

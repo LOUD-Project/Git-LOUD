@@ -753,7 +753,7 @@ end
 -- targets are threat filtered and range filtered (both MAX and MIN) allowing 'banded' searches
 -- any shields within a targets vicinity increase it's threat --
 -- This function can use a great deal of CPU so be careful
-function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position, platoon, squad, minRange, maxRange, attackcategories, threatself, threattype, threatradius)
+function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position, platoon, squad, minRange, maxRange, attackcategories, threatself, threattype, threatradius, threatavoid)
 
 	-- if position not supplied use platoon position or exit
     if not position then
@@ -777,21 +777,21 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
 	
 	local AIGetThreatLevelsAroundPoint = function(unitposition)
 
-		if threattype == 'AntiAir' then
+		if threattype == 'AntiAir' or threattype == 'Air' then
 		
-			return GetThreatAtPosition( aiBrain, unitposition, 0, true, 'AntiAir')	--airthreat
+			return math.max( 1, GetThreatAtPosition( aiBrain, unitposition, 0, true, 'AntiAir'))	--airthreat
 			
 		elseif threattype == 'AntiSurface' then
 		
-			return GetThreatAtPosition( aiBrain, unitposition, 0, true, 'AntiSurface')	--surthreat
+			return math.max( 1, GetThreatAtPosition( aiBrain, unitposition, 0, true, 'AntiSurface'))	--surthreat
 			
 		elseif threattype == 'AntiSub' then
 		
-			return GetThreatAtPosition( aiBrain, unitposition, 0, true, 'AntiSub')	--subthreat
+			return math.max( 1, GetThreatAtPosition( aiBrain, unitposition, 0, true, 'AntiSub'))	--subthreat
 			
 		elseif threattype == 'Economy' then
 		
-			return GetThreatAtPosition( aiBrain, unitposition, 0, true, 'Economy')	--ecothreat
+			return math.max( 1, GetThreatAtPosition( aiBrain, unitposition, 0, true, 'Economy'))	--ecothreat
 			
 		else
 		
@@ -884,7 +884,7 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
                                 
                                         -- if the shield is On and it covers the target
                                         if s:ShieldIsOn() and VDist2(s:GetPosition()[1],s:GetPosition()[3],unitposition[1],unitposition[3]) < s.MyShield.Size then
-                                            enemythreat = enemythreat + (s.MyShield:GetHealth() * .02)	-- threat plus 2% of shield strength
+                                            enemythreat = enemythreat + (s.MyShield:GetHealth() * .0225)	-- threat plus 2.25% of shield strength
                                         end
                                     
                                     end

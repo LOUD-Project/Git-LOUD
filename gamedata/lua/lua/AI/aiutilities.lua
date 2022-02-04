@@ -1028,7 +1028,7 @@ end
 -- to do it after we figured out how many armies are in the biggest team
 function SetupAICheatUnitCap(aiBrain, biggestTeamSize)
 
-	local PlayerDiff = (biggestTeamSize or 1)/(aiBrain.TeamSize)
+	local PlayerDiff = math.max( 1,(biggestTeamSize or 1)/(aiBrain.TeamSize) )
     
     aiBrain.OutnumberedRatio = PlayerDiff
    

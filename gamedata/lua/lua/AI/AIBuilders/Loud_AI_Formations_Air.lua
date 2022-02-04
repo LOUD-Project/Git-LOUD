@@ -352,7 +352,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			
 			SearchRadius = 100,	
 			
-            UseFormation = 'Growth',
+            UseFormation = 'GrowthFormation',
         },
 		
         BuilderType = 'Any',
@@ -396,7 +396,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			
 			SearchRadius = 65,
 			
-            UseFormation = 'Growth',
+            UseFormation = 'GrowthFormation',
         },
 		
         BuilderType = 'Any',
@@ -508,7 +508,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
     },
 
 	-- ALL SUPER groups are specifically targeted and come into play when the selected targets are available
-	-- the DO NOT respond to distress calls	-- 
+	-- they DO NOT respond to distress calls	-- 
 	-- they all have short mission timers so they go - fight - and go home
     -- affectionately called 'Cambodia Raids'
 
@@ -824,7 +824,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
     -- small size short range groups that can merge quickly
     -- operates at ANY kind of base 
     
-    -- upto 12 ASF for local air defense against Bombers and Gunships
+    -- upto 16 ASF for local air defense
     Builder {BuilderName = 'Hunt Fighters Defensive',
 	
         PlatoonTemplate = 'FighterAttack Small',
@@ -836,69 +836,68 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 		PlatoonAIPlan = 'AttackForceAI',		
 		
         Priority = 700,
-        InstanceCount = 3,
+        InstanceCount = 2,
 		
         BuilderConditions = {
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, AIRFIGHTER }},
         },
 		
         BuilderData = {
-			DistressRange = 160,
+			DistressRange = 120,
             DistressReactionTime = 6,            
 			DistressTypes = 'Air',
-			DistressThreshold = 4,
+			DistressThreshold = 3,
 			
 			LocationType = 'LocationType',
 			
-            MergeLimit = 32,
+            MergeLimit = 16,
 			
-            MissionTime = 90,
+            MissionTime = 75,
 			
-            PrioritizedCategories = { categories.AIR - categories.INTELLIGENCE - categories.TRANSPORTFOCUS, categories.TRANSPORTFOCUS },
+            PrioritizedCategories = { categories.AIR - categories.INTELLIGENCE - categories.TRANSPORTFOCUS, categories.INTELLIGENCE, categories.TRANSPORTFOCUS },
 			
 			SearchRadius = 45,	
 			
-            UseFormation = 'AttackFormation',
+            UseFormation = 'GrowthFormation',
         },
 		
         BuilderType = 'Any',
     },
 
-    -- upto 12 ASF for local air defense against Spy Planes
+    -- upto 16 ASF for hunting air scouts
     Builder {BuilderName = 'Hunt Fighters Defensive - Intel First',
 	
         PlatoonTemplate = 'FighterAttack Small',
         
 		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 		
-		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
+		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
 
 		PlatoonAIPlan = 'AttackForceAI',		
 		
         Priority = 700,
+        
         InstanceCount = 1,
 		
         BuilderConditions = {
+            { LUTL, 'AirStrengthRatioGreaterThan', { 3 } },
+            
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, AIRFIGHTER }},
             
 			{ LUTL, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, categories.AIR * categories.INTELLIGENCE, 'Enemy' }},
         },
 		
         BuilderData = {
-			DistressRange = 160,
-            DistressReactionTime = 6,
-			DistressTypes = 'Air',
-			DistressThreshold = 4,
-			
+
 			LocationType = 'LocationType',
 			
             MergeLimit = 16,
 			
-            MissionTime = 90,
+            MissionTime = 120,
 			
             PrioritizedCategories = { categories.AIR * categories.INTELLIGENCE, categories.TRANSPORTFOCUS },
 			
-			SearchRadius = 55,	
+			SearchRadius = 75,	
 			
             UseFormation = 'AttackFormation',
         },
@@ -906,41 +905,40 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         BuilderType = 'Any',
     },
 
-    -- upto 12 ASF for local air defense against Transports
+    -- upto 16 ASF for hunting Transports
     Builder {BuilderName = 'Hunt Fighters Defensive - Transport First',
 	
         PlatoonTemplate = 'FighterAttack Small',
         
 		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 		
-		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
+		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
 		
 		PlatoonAIPlan = 'AttackForceAI',		
 		
         Priority = 700,
+        
         InstanceCount = 1,
 		
         BuilderConditions = {
+            { LUTL, 'AirStrengthRatioGreaterThan', { 3 } },
+            
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, AIRFIGHTER }},
             
 			{ LUTL, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, categories.TRANSPORTFOCUS, 'Enemy' }},
         },
 		
         BuilderData = {
-			DistressRange = 160,
-            DistressReactionTime = 6,
-			DistressTypes = 'Air',
-			DistressThreshold = 4,
 			
 			LocationType = 'LocationType',
 			
             MergeLimit = 16,
 			
-            MissionTime = 90,
+            MissionTime = 120,
 			
             PrioritizedCategories = { categories.TRANSPORTFOCUS, categories.AIR * categories.INTELLIGENCE },
 			
-			SearchRadius = 55,	
+			SearchRadius = 75,	
 			
             UseFormation = 'AttackFormation',
         },
@@ -972,22 +970,22 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         },
 		
         BuilderData = {
-			DistressRange = 200,
+			DistressRange = 150,
             DistressReactionTime = 6,
 			DistressTypes = 'Air',
-			DistressThreshold = 6,
+			DistressThreshold = 3,
 			
 			LocationType = 'LocationType',
 			
             MergeLimit = 32,
 			
-            MissionTime = 150,
+            MissionTime = 110,
 			
-            PrioritizedCategories = { categories.MOBILE * categories.AIR, categories.TRANSPORTFOCUS},
+            PrioritizedCategories = { categories.AIR - categories.INTELLIGENCE - categories.TRANSPORTFOCUS, categories.INTELLIGENCE, categories.TRANSPORTFOCUS},
 			
 			SearchRadius = 70,
 			
-            UseFormation = 'AttackFormation',
+            UseFormation = 'GrowthFormation',
         },
 		
         BuilderType = 'Any',
@@ -1016,22 +1014,22 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         },
 		
         BuilderData = {
-			DistressRange = 250,
+			DistressRange = 200,
             DistressReactionTime = 6,
 			DistressTypes = 'Air',
-			DistressThreshold = 10,
+			DistressThreshold = 3,
             
 			LocationType = 'LocationType',
             
-            MergeLimit = 36,
+            MergeLimit = 48,
             
-            MissionTime = 200,
+            MissionTime = 135,
             
-            PrioritizedCategories = { categories.MOBILE * categories.AIR * categories.EXPERIMENTAL, categories.MOBILE * categories.AIR - categories.INTELLIGENCE, categories.TRANSPORTFOCUS },
+            PrioritizedCategories = { categories.AIR * categories.EXPERIMENTAL, categories.AIR - categories.INTELLIGENCE - categories.TRANSPORTFOCUS, categories.TRANSPORTFOCUS },
             
 			SearchRadius = 90,
             
-            UseFormation = 'AttackFormation',
+            UseFormation = 'GrowthFormation',
         },
 		
         BuilderType = 'Any',
