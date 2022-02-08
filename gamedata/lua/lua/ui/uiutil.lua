@@ -1123,3 +1123,34 @@ function CreateDialogBrackets(parent, leftOffset, topOffset, rightOffset, bottom
     
     return ret
 end
+
+-- All functions hereafter are borrowed from FAF -------------------------------
+
+--- Surround the given control with an eight-patch dynamically-scaling Border constructed using
+ -- standard names from the given texture path.
+ -- The expected names of texture components are:
+ -- topLeft.dds, topRight.dds, bottomLeft.dds, bottomRight.dds, left.dds, right.dds, top.dds.
+ -- @see Border for an explanation of how the textures are arranged.
+ --
+ -- @param control The control to surround with the border images.
+ -- @param texturePath The path relative to the skinning root where the textue files are located.
+ -- @param fudgeX The amount of overlap in the X direction the border textures shall have with the
+ --               control. The default fudgefactors are suitable for use with the widely-used
+ --               "laser box" borders.
+ -- @param fudgeY As fudgeX, but in the Y direction.
+ --
+ function SurroundWithBorder(control, texturePath, fudgeX, fudgeY)
+    local border = Border(control,
+        SkinnableFile(texturePath .. 'topLeft.dds'),
+        SkinnableFile(texturePath .. 'topRight.dds'),
+        SkinnableFile(texturePath .. 'bottomLeft.dds'),
+        SkinnableFile(texturePath .. 'bottomRight.dds'),
+        SkinnableFile(texturePath .. 'left.dds'),
+        SkinnableFile(texturePath .. 'right.dds'),
+        SkinnableFile(texturePath .. 'top.dds'),
+        SkinnableFile(texturePath .. 'bottom.dds')
+    )
+
+    border:Surround(control, fudgeX or 62, fudgeY or 62)
+    LayoutHelpers.DepthOverParent(border, control, 2)
+end

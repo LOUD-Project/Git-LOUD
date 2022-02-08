@@ -290,3 +290,13 @@ function table.empty(t)
     return next(t) == nil
 
 end
+
+-- All functions hereafter are borrowed from FAF -------------------------------
+
+--- "explode" a string into a series of tokens, using a separator character `sep`
+function StringSplit(str, sep)
+    local sep, fields = sep or ":", {}
+    local pattern = string.format("([^%s]+)", sep)
+    str:gsub(pattern, function(c) fields[table.getn(fields)+1] = c end)
+    return fields
+end

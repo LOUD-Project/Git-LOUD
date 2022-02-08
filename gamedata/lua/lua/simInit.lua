@@ -133,6 +133,9 @@ end
 --# the initial units and any other gameplay state we need.
 function BeginSession()
 
+    -- JIP: make sure the hook happens before scripts start working
+    import("/lua/sim/MarkerUtilities.lua")
+
     local focusarmy = GetFocusArmy()
 	
     if focusarmy>=0 and ArmyBrains[focusarmy] then

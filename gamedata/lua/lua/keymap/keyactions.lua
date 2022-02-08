@@ -53,8 +53,10 @@ keyActions = {
         category = 'ui', order = 23,},
     ['toggle_disconnect_screen'] = {action = 'UI_Lua import("/lua/ui/game/connectivity.lua").CreateUI()',
         category = 'ui', order = 24,},
-    ['show_fps'] = {action = 'UI_Lua import("/lua/debug/uidebug.lua").ShowFPS()',
+    ['toggle_markers_screen'] = {action = 'UI_Lua import("/lua/ui/dialogs/marker_utils_view.lua").OpenWindow()',
         category = 'ui', order = 25,},
+    ['show_fps'] = {action = 'UI_Lua import("/lua/debug/uidebug.lua").ShowFPS()',
+        category = 'ui', order = 26,},
 
     ['group1'] = {action = 'UI_ApplySelectionSet 1',
         category = 'selection', order = 1,},

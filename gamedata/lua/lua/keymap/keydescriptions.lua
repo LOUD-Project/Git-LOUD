@@ -9,6 +9,7 @@ keyDescriptions = {
     ['pause'] = 'Toggles Game Pause',
     ['cap_frame'] = 'Take a screen shot',
     ['show_fps'] = "Toggle the display of frames rendered per second",
+    ['toggle_markers_screen'] = "Toggle AI Marker Debug Utilities Screen",
     
     ['group1'] = 'Recall Group 1',
     ['group2'] = 'Recall Group 2',

@@ -43,6 +43,14 @@ Callbacks.PingGroupClick = import('/lua/simpinggroup.lua').OnClickCallback
 
 Callbacks.SetAIDebug = import('/lua/aibrain.lua').SetAIDebug
 
+Callbacks.ToggleDebugChainByName = function(data, units)
+    LOG("ToggleDebugChainByName")
+end
+
+Callbacks.ToggleDebugMarkersByType = function(data, units)
+    import("/lua/sim/MarkerUtilities.lua").ToggleDebugMarkersByType(data.Type)
+end
+
 Callbacks.NoteSimSpeedChange = function(data)
 	UpdateSimSpeed(data)
 end
