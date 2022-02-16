@@ -19,6 +19,7 @@ local LOUDGETN = table.getn
 local LOUDINSERT = table.insert
 local LOUDREMOVE = table.remove
 local LOUDFLOOR = math.floor
+local LOUDMAX = math.max
 local LOUDSORT = table.sort
 local LOUDSQUARE = math.sqrt
 local LOUDTIME = GetGameTimeSeconds
@@ -160,7 +161,7 @@ function LifeThread( aiBrain, cdr )
     
     local MATHMIN = math.min
     
-    local cheatmult = math.max( 1, aiBrain.CheatValue)
+    local cheatmult = LOUDMAX( 1, aiBrain.CheatValue)
 
     while true do
     
@@ -2060,7 +2061,7 @@ function NukeAI( self, aiBrain )
 				antinukes = antinukes
 
 				-- value of target is divided by number of anti-nukes in area
-				value = ( allthreat/ math.max(antinukes,1) )
+				value = ( allthreat/ LOUDMAX(antinukes,1) )
 
                 if ScenarioInfo.NukeDialog then
                     LOG("*AI DEBUG NukeAI says there are "..repr(antinukes - 0.9).." AntiNukes within range of target")
@@ -2241,68 +2242,63 @@ end
 function SetLoiterPosition( self, aiBrain, startposition, searchradius, minthreat, mythreat, threatseek, threatavoid )
 
     local loiterposition = LOUDCOPY(startposition)
-
-    if aiBrain:GetCurrentEnemy() then
-
-        -- first step - get all the threatseek threats within 8 times the searchradius - why 8 times ?
-        -- because that will let us react to air threats within reasonable range of the startposition
-        -- without necessarily pulling us all the way across the map - therefore ScenarioInfo.IMAPSize comes in handy
-        -- here as it tells us how big each block will be so we can adjust the blocks value according to that radius
-     
-        local threats = aiBrain:GetThreatsAroundPosition( startposition, math.floor( (searchradius * 8)/ScenarioInfo.IMAPSize), true, threatseek )
-
-        -- filter them down to those above 5 threat and capture the AA threat at that position
-        if threats then
-
-            local results = {}
-            local count = 0
-
-            for k,v in threats do
-
-                if v[3] > minthreat then
-
-                    LOUDINSERT(results, { v[1],v[2],v[3],aiBrain:GetThreatAtPosition( {v[1],0,v[2]}, 0, true, threatavoid ) } )
-
-                    count = count + 1
-
-                end
-
-            end
-
-            -- take the highest threat position
-            if count > 0 then
-
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." used searchradius "..repr(searchradius).." with ratio of "..aiBrain.AirRatio)
-
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." got all AIR threats from "..repr(startposition).." for "..math.floor(searchradius*8/ScenarioInfo.IMAPSize).." blocks")
-
-                LOUDSORT(results, function (a,b) return (a[3] > b[3]) end )
-
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." threats are "..repr(results) )
-
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." lerp factor is "..(searchradius*8).." to distance "..VDist3(self.anchorposition, {results[1][1], 0, results[1][2]}) )
-
-                local lerpresult = math.min(1, math.min(1,(searchradius * 8) / VDist3( startposition, {results[1][1], 0, results[1][2]})))
-                
-                -- factor in threatavoidance to reduce the tether --
-                -- I wonder if we should apply this against the threatseek value prior to sorting the table ? --
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." threat reduction is "..repr(math.min( 1, mythreat/math.max( 1,results[1][4]))))
-                
-                -- the tether is reduced by comparing mythreat against the avoided threat and factoring in the AirRatio
-                -- this will reduce the lerp and keep us further away from those threats when the ratio is low while still allowing 
-                -- some forward deployment
-                lerpresult = lerpresult * math.min( 1, math.min(mythreat, mythreat*aiBrain.AirRatio) / math.max(1, results[1][4]) )
-
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." Lerp value is "..repr(lerpresult))
-
-                loiterposition = { math.floor(MATH_Lerp(lerpresult, startposition[1], results[1][1] )), 0, math.floor(MATH_Lerp( lerpresult, startposition[3], results[1][2])) } 
-
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." selects loiterposition "..repr(loiterposition).." distance is "..repr(math.floor(VDist3(loiterposition, startposition))))
-
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." sets loiter at "..repr(loiterposition))
     
+    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." with "..LOUDGETN(GetPlatoonUnits(self)).." seeking loiter - my threat "..mythreat.." search radius "..searchradius.." for "..threatseek.." targets")
+
+    -- first step - get all the threatseek threats within 8 times the searchradius - why 8 times ?
+    -- because that will let us react to air threats within reasonable range of the startposition
+    -- without necessarily pulling us all the way across the map - therefore ScenarioInfo.IMAPSize comes in handy
+    -- here as it tells us how big each block will be so we can adjust the blocks value according to that radius
+
+    local threats = aiBrain:GetThreatsAroundPosition( startposition, LOUDFLOOR( (searchradius * 8)/ScenarioInfo.IMAPSize), true, threatseek )
+
+    -- filter them down to those above min threat and capture the threatavoid threat at that position
+    if threats[1] then
+        
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." gets "..repr(threatseek).." threats around "..repr(startposition).." which are "..repr(threats))
+
+        local results = {}
+        local count = 0
+
+        for k,v in threats do
+
+            if v[3] > minthreat then
+
+                LOUDINSERT(results, { v[1],v[2],v[3],aiBrain:GetThreatAtPosition( {v[1],0,v[2]}, LOUDFLOOR(128/ScenarioInfo.IMAPSize), true, threatavoid ) } )
+
+                count = count + 1
+
             end
 
+        end
+
+        -- take the highest threat position
+        if count > 0 then
+
+            LOUDSORT(results, function (a,b) return (a[3]-a[4] > b[3]-b[4]) end )
+
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." used searchradius "..repr(searchradius).." with ratio of "..aiBrain.AirRatio)
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." summary "..threatseek.." threats from "..repr(startposition).." for "..LOUDFLOOR(searchradius*8/ScenarioInfo.IMAPSize).." blocks")
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." threats are "..repr(results) )
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." lerp factor is "..(searchradius*8).." to distance "..VDist3(self.anchorposition, {results[1][1], 0, results[1][2]}) )
+
+            local lerpresult = math.min(1, math.min(1,(searchradius * 8) / VDist3( startposition, {results[1][1], 0, results[1][2]})))
+
+            -- factor in threatavoidance to reduce the tether --
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." threat reduction is "..repr(math.min( 1, mythreat/LOUDMAX( 1,results[1][4]))))
+
+            -- the tether is reduced by comparing mythreat against the avoided threat and factoring in the AirRatio
+            -- this will reduce the lerp and keep us further away from those threats when the ratio is low while still allowing 
+            
+            -- some forward deployment
+            lerpresult = lerpresult * math.min( 0.5, math.min(mythreat, mythreat*(aiBrain.AirRatio/3)) / LOUDMAX(1, results[1][4]) )
+
+            loiterposition = { LOUDFLOOR(MATH_Lerp(lerpresult, startposition[1], results[1][1] )), 0, LOUDFLOOR(MATH_Lerp( lerpresult, startposition[3], results[1][2])) } 
+
+            LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." Lerp value is "..repr(lerpresult))
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." selects loiterposition "..repr(loiterposition).." distance is "..repr(LOUDFLOOR(VDist3(loiterposition, startposition))))
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." sets loiter at "..repr(loiterposition))
+    
         end
 
     end
@@ -2333,8 +2329,6 @@ function AirForceAILOUD( self, aiBrain )
     local mergelimit = self.PlatoonData.MergeLimit or false
     local PlatoonFormation = self.PlatoonData.UseFormation or 'No Formation'
 
-    local platoonUnits = LOUDCOPY(GetPlatoonUnits(self))
-
     local categoryList = {}
     local count = 0
     
@@ -2346,15 +2340,7 @@ function AirForceAILOUD( self, aiBrain )
         end
     end
 
-    local target = false
-	local targetposition = false
-
-	local loiter = false
-
-    local MissionStartTime = LOUDTIME()
-    local threatcheckradius = 90
-	local maxrange = 0						-- this will be set when a target is selected and will be used to keep the platoon from wandering too far
-
+    local platoonUnits = LOUDCOPY(GetPlatoonUnits(self))
     local oldNumberOfUnitsInPlatoon = LOUDGETN(platoonUnits)
 
 	for _,v in platoonUnits do 
@@ -2371,8 +2357,7 @@ function AirForceAILOUD( self, aiBrain )
 		end
 	end
 
-    -- setup escorting fighters if any 
-	-- pulls out any units in the platoon that are coded as 'guard' in the platoon template
+    -- setup escorting fighters if any - pulls out any units in the platoon that are coded as 'guard' in the platoon template
 	-- and places them into a seperate platoon with its own behavior
     local guardplatoon = false
 	local guardunits = GetSquadUnits( self,'guard')
@@ -2390,14 +2375,6 @@ function AirForceAILOUD( self, aiBrain )
 		guardplatoon:SetAIPlan( 'GuardPlatoonAI', aiBrain)
     end
 
-    -- a copy of where this platoon originated
-	self.anchorposition = LOUDCOPY( GetPlatoonPosition(self) )
-    
-	local loiterposition = false
-    
-	-- force the plan name
-	self.PlanName = 'AirForceAILOUD'
-
 	-- local function --
 	local DestinationBetweenPoints = function( destination, start, finish, stepsize )
 
@@ -2409,7 +2386,9 @@ function AirForceAILOUD( self, aiBrain )
 		for i = 0, steps - 1  do
 			
 			if VDist2Sq(start[1] - (xstep * i), start[3] - (ystep * i), destination[1], destination[3]) < (stepsize * stepsize) then
-				return true
+
+				return { start[1] - (xstep * i), destination[2], start[3] - (ystep * i) }
+                
 			end
 		end	
 		
@@ -2429,25 +2408,49 @@ function AirForceAILOUD( self, aiBrain )
     -- if we have more - we have a target - and we drop out
     -- if no target, we advance the multiplier and do it again for the next ring
     -- notice how the minimum range of the ring is carried forward from the previous iteration 
-    local mythreat = 0
+
+	-- force the plan name
+	self.PlanName = 'AirForceAILOUD'
+
+	self.anchorposition = LOUDCOPY( GetPlatoonPosition(self) )
+
+    local MissionStartTime = LOUDTIME()
+    local threatcheckradius = 96
+    
+    -- block based IMAP threat checks are controlled by this - allowing it to scale properly with map sizes
+    local IMAPblocks = LOUDFLOOR(threatcheckradius/ScenarioInfo.IMAPSize)
+
+    local target = false
+	local targetposition = false
+
+	local loiter = false
+	local loiterposition = false
+    
+    local mythreat, atthreat
     
     local threatcompare = 'Air'
     local threatavoid = 'AntiAir'
     
     local mult = { 1, 2, 3 }				-- this multiplies the range of the platoon when searching for targets
 	local difficulty = { 1.25, 1, 0.65 } 		-- this divides the base threat of the platoon, by deflating it and then increasing it, so that easier targets are selected first
-    local minrange = 0
-
-    local Rangemult, Threatmult, strikerange
+    
+    local minrange, maxrange, searchradius, usethreat
+    local Rangemult, Threatmult
+    
     local SecondaryAATargets, SecondaryShieldTargets, TertiaryTargets
     local AACount, ShieldCount, TertiaryCount
+
+	local path, reason, prevposition, paththreat
+    local newpath, pathsize, destiny
+    
+    local strikerange = LOUDMAX( 128, ScenarioInfo.IMAPSize )
 
     while PlatoonExists(aiBrain, self) and (LOUDTIME() - MissionStartTime) <= missiontime do
 
         -- merge with other AirForceAILOUD groups with same plan
         if mergelimit and oldNumberOfUnitsInPlatoon < mergelimit then
 
-			if self.MergeWithNearbyPlatoons( self, aiBrain, 'AirForceAILOUD', 100, false, mergelimit) then
+			if self.MergeWithNearbyPlatoons( self, aiBrain, 'AirForceAILOUD', 96, false, mergelimit) then
 
 				self:SetPlatoonFormationOverride(PlatoonFormation)
 				oldNumberOfUnitsInPlatoon = LOUDGETN(GetPlatoonUnits(self))
@@ -2462,20 +2465,17 @@ function AirForceAILOUD( self, aiBrain )
 
         if (not target or target.Dead) and PlatoonExists(aiBrain, self) then
 
-            -- determine threat values
-			-- and the distance to use for direct strikes (no path used)
-            mythreat = self:CalculatePlatoonThreat('AntiSurface', categories.ALLUNITS)
-            mythreat = mythreat + self:CalculatePlatoonThreat('AntiAir', categories.ALLUNITS)
-
-			strikerange = 125
+            mythreat = self:CalculatePlatoonThreat('Surface', categories.ALLUNITS)
+            mythreat = mythreat + self:CalculatePlatoonThreat('Air', categories.ALLUNITS)
 
             if mythreat < 5 then
                 mythreat = 5
             end
             
             -- the searchradius adapts to the current air ratio
-            local searchradius = math.max(Searchradius, (Searchradius *  math.max(1, aiBrain.AirRatio/3) ))
-            local usethreat = 0
+            searchradius = LOUDMAX(Searchradius, (Searchradius *  LOUDMAX(1, aiBrain.AirRatio/3) ))
+            usethreat = 0
+            minrange = 0
 
 			-- the anchorposition is the start position of the platoon
 			-- where the platoon returns to if it should be drawn away
@@ -2494,19 +2494,12 @@ function AirForceAILOUD( self, aiBrain )
 				return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 			end
             
-            
 			-- locate a target -- starting with the closest -- least dangerous ones 
             for _,rangemult in mult do
 
 				for _,threatmult in difficulty do
                 
                     usethreat = ( mythreat/threatmult ) / rangemult
-                
-                    -- we make longer ranges harder by reducing OUR threat for each range change
-                    -- while our threat is initially deflated, forcing selection of targets we can better overwhelm, we inflate it to try and concentrate on closer targets
-                    -- this should make easier short range targets get selected first --
-                    
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." cycles rangemultiplier at "..repr(rangemult).." mythreat multiplier at "..repr(usethreat) )
 
 					target,targetposition = AIFindTargetInRangeInCategoryWithThreatFromPosition(aiBrain, loiterposition, self, 'Attack', minrange, searchradius * rangemult, categoryList, usethreat, threatcompare, threatcheckradius, threatavoid )
 
@@ -2515,6 +2508,9 @@ function AirForceAILOUD( self, aiBrain )
 					end					
 
 					if target then
+                    
+                        self.UsingTransport = true
+                        
                         Threatmult = threatmult
 						break
 					end
@@ -2530,10 +2526,12 @@ function AirForceAILOUD( self, aiBrain )
 				end
 
                 minrange = searchradius * rangemult
+                
+                WaitTicks(1)
             end
 
             -- if we have a target - find secondary targets near it
-            if target then
+			if target and not target.Dead and PlatoonExists(aiBrain, self) then
             
                 SecondaryAATargets = false
                 AACount = 0
@@ -2550,58 +2548,62 @@ function AirForceAILOUD( self, aiBrain )
                 TertiaryTargets = GetUnitsAroundPoint( aiBrain, categories.BOMBER, targetposition, threatcheckradius, 'Enemy')
                 
                 --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." with "..LOUDGETN(GetSquadUnits( self,'Attack')).." units has target at "..repr(targetposition))
-                
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." finds "..math.max(aiBrain:GetThreatAtPosition( targetposition, 0, true, threatavoid )).." threat at that position - mythreat is "..usethreat)
-                
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." finds "..LOUDMAX(aiBrain:GetThreatAtPosition( targetposition, 0, true, threatavoid )).." threat at that position - mythreat is "..usethreat)
                 --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." used RangeMult of "..Rangemult.." and Difficulty of "..Threatmult)
                 
                 if SecondaryAATargets[1] then
                     AACount = LOUDGETN(SecondaryAATargets)
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." finds "..AACount.." fighters")
                 end
                 
                 if SecondaryShieldTargets[1] then
                     ShieldCount = LOUDGETN(SecondaryShieldTargets)
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." finds "..ShieldCount.." gunships")
                 end
                 
                 if TertiaryTargets[1] then
                     TertiaryCount = LOUDGETN(TertiaryTargets)
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." finds "..TertiaryCount.." bombers")
                 end
 
-            end
+                -- Have a target - plot path to target - Use airthreat vs. mythreat for path
+                -- use strikerange to determine point from which to switch into attack mode
+				prevposition = LOUDCOPY(GetPlatoonPosition(self))
 
-			-- Have a target - plot path to target - Use airthreat vs. mythreat for path
-			-- use strikerange to determine point from which to switch into attack mode
-			if target and not target.Dead and PlatoonExists(aiBrain, self) then
+				paththreat = (oldNumberOfUnitsInPlatoon * 1) + self:CalculatePlatoonThreat('Air', categories.ALLUNITS)
 
-				local path, reason
-
-				local prevposition = LOUDCOPY(GetPlatoonPosition(self))
-
-				local paththreat = (oldNumberOfUnitsInPlatoon * 1) + self:CalculatePlatoonThreat('AntiAir', categories.ALLUNITS)
-
-                path, reason = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, self.MovementLayer, prevposition, targetposition, paththreat, 250 )
+                path, reason = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, self.MovementLayer, prevposition, targetposition, paththreat, strikerange )
 
                 if path then
 
                     IssueClearCommands( platoonUnits )
 
-                    local newpath = {}
-                    local count = 0
-                    local pathsize = LOUDGETN(path)
+                    newpath = {}
+                    count = 0
+                    pathsize = LOUDGETN(path)
 
                     -- build a newpath that gets the platoon to within strikerange
                     for waypoint,p in path do
+                    
+                        destiny = DestinationBetweenPoints( targetposition, prevposition, p, strikerange )
 
-                        if waypoint < pathsize and VDist2(p[1],p[3], targetposition[1],targetposition[3]) > strikerange and not DestinationBetweenPoints( targetposition, prevposition, p, 150 ) then
+                        if waypoint < pathsize and destiny then
 
                             count = count + 1
                             newpath[count] = p
 
                             prevposition = p
 						else
+                        
+                            if destiny then
+                            
+                                -- if path breakoff point is not the same as the prevposition - add it to the path
+                                if destiny[1] != prevposition[1] and destiny[3] != prevposition[3] then
+                            
+                                    count = count + 1
+                                    newpath[count] = table.copy(destiny)
+                                    
+                                end
+                                
+                            end
+
                             break
                         end
                     end
@@ -2620,13 +2622,18 @@ function AirForceAILOUD( self, aiBrain )
                         -- wait for the movement orders to execute --
                         while PlatoonExists(aiBrain, self) and self.MoveThread and not target.Dead do
                         
-                            WaitTicks(2)
+                            WaitTicks(1)
                             
                             if target.Dead then
-                                target = false
+                            
+                                loiter = false
+                                
                                 break
                             end
                         end
+                        
+                    else
+                        WaitTicks(10)
                     end
                     
                     if self.MoveThread then
@@ -2759,47 +2766,52 @@ function AirForceAILOUD( self, aiBrain )
 
 		-- Attack until target is dead, beyond maxrange, or retreat
 		while (target and not target.Dead) and PlatoonExists(aiBrain, self) do
-
-			loiter = false
-			
-			WaitTicks(3)
-			
-			if PlatoonExists(aiBrain, self) and (not target.Dead) then
-
-				if GetPlatoonPosition(self) and self.anchorposition then
+         
+            mythreat = self:CalculatePlatoonThreat('Air', categories.ALLUNITS)
+            atthreat = 0
+            
+            for _, v in aiBrain:GetThreatsAroundPosition( GetPlatoonPosition(self), LOUDFLOOR(IMAPblocks/2), true, threatavoid ) do
+            
+                atthreat = atthreat + v[3]
                 
-                    if VDist3( GetPlatoonPosition(self), self.anchorposition ) > maxrange then
+                if atthreat > mythreat then
+                
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." AA threat too high "..atthreat.." - aborting - my threat "..mythreat.." using "..LOUDFLOOR(IMAPblocks/2).." IMAP blocks")
+                    
+                    return self:SetAIPlan('ReturnToBaseAI',aiBrain)
+                end
+            end
 
-                        IssueClearCommands( platoonUnits )
-				
-                        target = false
-
-                        self:MoveToLocation( self.anchorposition, false )
-                        
-                    end
-				end
-			end
+			WaitTicks(3)
+            
+            if VDist3( GetPlatoonPosition(self), loiterposition ) > maxrange then
+            
+                break
+                
+            end
+   
 		end
 
-        -- target is destroyed
 		if target and PlatoonExists(aiBrain, self) then
+        
+            IssueClearCommands(self)
 
 			target = false
             
-            loiter = false
+            loiter = true
             
-            self:MoveToLocation( self.anchorposition, false )
+            self:MoveToLocation( loiterposition, false )
 
 		end
 
-		-- loiter will be true if we did not find a target
-		-- or we couldn't get to the target - we should 
-        -- still be guarding the anchorposition
 		if loiter then
         
-			WaitTicks(11)
+			WaitTicks(8)
 
 		end
+        
+        self.UsingTransport = false
+        
     end
 
     if PlatoonExists(aiBrain, self) then
@@ -2815,8 +2827,9 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
 	local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
     
 	local AIFindTargetInRangeInCategoryWithThreatFromPosition = import('/lua/ai/aiattackutilities.lua').AIFindTargetInRangeInCategoryWithThreatFromPosition
-
-    local Searchradius = self.PlatoonData.SearchRadius or 250
+    local SetLoiterPosition = import('/lua/ai/aibehaviors.lua').SetLoiterPosition
+    
+    local Searchradius = self.PlatoonData.SearchRadius or 200
     
     local missiontime = self.PlatoonData.MissionTime or 600
     local mergelimit = self.PlatoonData.MergeLimit or false
@@ -2834,15 +2847,6 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
             categoryList[count] = v
         end
     end
-
-    local target = false
-	local targetposition = false
-
-	local loiter = false
-
-    local MissionStartTime = LOUDTIME()
-    local threatcheckradius = 75
-	local maxrange = 0						-- this will be set when a target is selected and will be used to keep the platoon from wandering too far
 
     local oldNumberOfUnitsInPlatoon = LOUDGETN(platoonUnits)
 
@@ -2879,50 +2883,69 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
 		guardplatoon:SetAIPlan( 'GuardPlatoonAI', aiBrain)
     end
 
-	self.anchorposition = LOUDCOPY( GetPlatoonPosition(self) )
-	
-	-- force the plan name onto the platoon
-	self.PlanName = 'AirForceAI_Bomber_LOUD'
-
-	-- local function --
 	local DestinationBetweenPoints = function( destination, start, finish, stepsize )
 
-		local steps = LOUDFLOOR( VDist2(start[1], start[3], finish[1], finish[3]) / stepsize )
+		local steps = LOUDFLOOR( VDist2(start[1], start[3], finish[1], finish[3]) / stepsize ) + 1
 	
-		if steps > 0 then
-			local xstep = (start[1] - finish[1]) / steps
-			local ystep = (start[3] - finish[3]) / steps
+		local xstep = (start[1] - finish[1]) / steps
+		local ystep = (start[3] - finish[3]) / steps
 
-			for i = 1, steps  do
+		for i = 0, steps - 1  do
 			
-				if VDist2Sq(start[1] - (xstep * i), start[3] - (ystep * i), destination[1], destination[3]) < (stepsize * stepsize) then
-					return true
-				end
-			end	
-		end
+			if VDist2Sq(start[1] - (xstep * i), start[3] - (ystep * i), destination[1], destination[3]) < (stepsize * stepsize) then
+            
+				return { start[1] - (xstep * i), destination[2], start[3] - (ystep * i) }
+                
+			end
+		end	
 		
 		return false
 	end
-
 	
 	-- Select a target using priority list and by looping thru range and difficulty multipliers until target is found
 	-- occurs to me we could pass the multipliers and difficulties from the platoondata if we wished
-    local mythreat = 0
-    local threatcompare = 'AntiAir'
-    local mult = { 1, 2, 3 }				-- this multiplies the range of the platoon when searching for targets
-	local difficulty = { .7, 1, 1.2 }		-- this multiplies the threat of the platoon so that easier targets are selected first
-    local minrange = 0
+	-- force the plan name onto the platoon
+	self.PlanName = 'AirForceAI_Bomber_LOUD'
 
-    local Rangemult, Threatmult, strikerange
+	self.anchorposition = LOUDCOPY( GetPlatoonPosition(self) )
+
+    local MissionStartTime = LOUDTIME()
+    local threatcheckradius = 96
+    
+    -- block based IMAP threat checks are controlled by this - allowing it to scale properly with map sizes
+    local IMAPblocks = LOUDFLOOR(threatcheckradius/ScenarioInfo.IMAPSize)
+
+    local target = false
+	local targetposition = false
+
+	local loiter = false
+	local loiterposition = false
+    
+    local mythreat, atthreat
+    
+    local threatcompare = 'AntiAir'
+    local threatavoid = 'AntiAir'
+    
+    local mult = { 1, 2, 3 }				-- this multiplies the range of the platoon when searching for targets
+	local difficulty = { 1.25, 1, 0.65 } 		-- this divides the base threat of the platoon, by deflating it and then increasing it, so that easier targets are selected first
+    
+    local minrange, maxrange, searchradius, usethreat
+    local Rangemult, Threatmult
+    
     local SecondaryAATargets, SecondaryShieldTargets, TertiaryTargets
     local AACount, ShieldCount, TertiaryCount
+
+	local path, reason, prevposition, paththreat
+    local newpath, pathsize, destiny
+    
+    strikerange = LOUDMAX( 96, ScenarioInfo.IMAPSize )
 	
     while PlatoonExists(aiBrain, self) and (LOUDTIME() - MissionStartTime) <= missiontime do
 
-        -- merge with other AirForceAILOUD groups with same plan
+        -- merge with other AirForceAI_Bomber_LOUD groups with same plan within 80
         if mergelimit and oldNumberOfUnitsInPlatoon < mergelimit then
 
-			if self.MergeWithNearbyPlatoons( self, aiBrain, 'AirForceAI_Bomber_LOUD', 100, false, mergelimit) then
+			if self.MergeWithNearbyPlatoons( self, aiBrain, 'AirForceAI_Bomber_LOUD', 80, false, mergelimit) then
 
 				self:SetPlatoonFormationOverride(PlatoonFormation)
 				oldNumberOfUnitsInPlatoon = LOUDGETN(GetPlatoonUnits(self))
@@ -2937,15 +2960,17 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
 
         if (not target or target.Dead) and PlatoonExists(aiBrain, self) then
 
-            mythreat = self:CalculatePlatoonThreat('Surface', categories.ALLUNITS) * .33    -- use only 1/3 of surface threat for target search 
-            
+            mythreat = self:CalculatePlatoonThreat('Surface', categories.ALLUNITS) * .5   -- use only 1/2 of surface threat for target search 
             mythreat = mythreat + self:CalculatePlatoonThreat('Air', categories.ALLUNITS)   -- plus any air threat
 
-			strikerange = 125
-            
             if mythreat < 5 then
                 mythreat = 5
             end
+            
+            -- the searchradius adapts to the current air ratio
+            searchradius = LOUDMAX(Searchradius, (Searchradius *  LOUDMAX(1, aiBrain.AirRatio/3) ))
+            usethreat = 0
+            minrange = 0
 
 			-- the anchorposition is the start position of the platoon
 			-- where the platoon returns to
@@ -2953,33 +2978,33 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
 			if GetPlatoonPosition(self) then
 			
 				if not loiter then
+                
+                    loiterposition = SetLoiterPosition( self, aiBrain, self.anchorposition, searchradius, 3, mythreat, 'LAND', 'ANTIAIR' )
+                    
+                    loiter = true
 
-					IssueClearCommands( platoonUnits )
-				
-					self:MoveToLocation( self.anchorposition, false)
-					
-					IssueGuard( GetSquadUnits( self,'Attack'), self.anchorposition)
-					
-					loiter = true
 				end
                 
 			else
 				return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 			end
-            
-            local searchradius = math.max(Searchradius, (Searchradius * aiBrain.AirRatio)/aiBrain.OutnumberedRatio )
-            
+
             for _,rangemult in mult do
 
 				for _,threatmult in difficulty do
+                
+                    usethreat = ( mythreat/threatmult ) / rangemult
 
-					target,targetposition = AIFindTargetInRangeInCategoryWithThreatFromPosition(aiBrain, self.anchorposition, self, 'Attack', minrange, searchradius * rangemult, categoryList, mythreat * (threatmult - (.05 * rangemult)), threatcompare, threatcheckradius )
+					target,targetposition = AIFindTargetInRangeInCategoryWithThreatFromPosition(aiBrain, loiterposition, self, 'Attack', minrange, searchradius * rangemult, categoryList, usethreat, threatcompare, threatcheckradius, threatavoid )
 
 					if not PlatoonExists(aiBrain, self) then
 						return
 					end					
 
 					if target then
+                    
+                        self.UsingTransport = true  -- general 'busy' flag - prevents merging with other platoons
+                        
                         Threatmult = threatmult
 						break
 					end
@@ -2995,22 +3020,25 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
 				end
 
                 minrange = searchradius * rangemult
+                
+                WaitTicks(1)                
             end
+        
+			if target and not target.Dead and PlatoonExists(aiBrain, self) then
             
-            SecondaryAATargets = false
-            AACount = 0
-            SecondaryShieldTargets = false
-            ShieldCount = 0
-            TertiaryTargets = false
-            TertiaryCount = 0
-            
-            if target then
+                SecondaryAATargets = false
+                AACount = 0
+                SecondaryShieldTargets = false
+                ShieldCount = 0
+                TertiaryTargets = false
+                TertiaryCount = 0
             
                 SecondaryAATargets = GetUnitsAroundPoint( aiBrain, categories.ANTIAIR - categories.AIR, targetposition, threatcheckradius/2, 'Enemy')
                 SecondaryShieldTargets = GetUnitsAroundPoint( aiBrain, categories.SHIELD, targetposition, threatcheckradius/2, 'Enemy')
                 TertiaryTargets = GetUnitsAroundPoint( aiBrain, categories.ALLUNITS - categories.ANTIAIR - categories.AIR - categories.SHIELD - categories.WALL, targetposition, threatcheckradius/4, 'Enemy')
                 
                 --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." with "..LOUDGETN(GetSquadUnits( self,'Attack')).." bombers has target at "..repr(targetposition))
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." target is "..repr(target:GetBlueprint().Description))
                 --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." used RangeMult of "..Rangemult.." and Difficulty of "..Threatmult)
                 
                 if SecondaryAATargets[1] then
@@ -3025,40 +3053,49 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
                     TertiaryCount = LOUDGETN(TertiaryTargets)
                 end
 
-            end
+                -- Have a target - plot path to target - Use airthreat vs. mythreat for path
+                -- use strikerange to determine point from which to switch into attack mode
+				prevposition = LOUDCOPY(GetPlatoonPosition(self))
 
-			-- Have a target - plot path to target - Use airthreat vs. mythreat for path
-			-- use strikerange to determine point from which to switch into attack mode
-			if target and not target.Dead and PlatoonExists(aiBrain, self) then
+				paththreat = (oldNumberOfUnitsInPlatoon * 1) + self:CalculatePlatoonThreat('Air', categories.ALLUNITS)
 
-				local path, reason
+                path, reason = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, self.MovementLayer, prevposition, targetposition, paththreat, strikerange )
 
-				local prevposition = LOUDCOPY(GetPlatoonPosition(self))
-
-				local paththreat = (oldNumberOfUnitsInPlatoon * 1) + self:CalculatePlatoonThreat('Air', categories.ALLUNITS)
-
-                path, reason = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, self.MovementLayer, prevposition, targetposition, paththreat, 250 )
-
-                if path then
+                if path and PlatoonExists(aiBrain, self) then
 
                     IssueClearCommands( platoonUnits )
                     
-                    local newpath = {}
-                    local count = 0
-                    
-                    local pathsize = LOUDGETN(path)
+                    newpath = {}
+                    count = 0
+                    pathsize = LOUDGETN(path)
 
                     -- build a newpath that gets the platoon to within strikerange
                     -- rather than going all the way to target
                     for waypoint,p in path do
+                    
+                        destiny = DestinationBetweenPoints( targetposition, prevposition, p, strikerange )
 
-                        if waypoint < pathsize and VDist2(p[1],p[3], targetposition[1],targetposition[3]) > strikerange and not DestinationBetweenPoints( targetposition, prevposition, p, 150 ) then
+                        if waypoint < pathsize and not destiny then
 
                             count = count + 1
                             newpath[count] = p
 
                             prevposition = p
+                            
 						else
+                        
+                            if destiny then
+                            
+                                -- if path breakoff point is not the same as the prevposition - add it to the path
+                                if destiny[1] != prevposition[1] and destiny[3] != prevposition[3] then
+                            
+                                    count = count + 1
+                                    newpath[count] = table.copy(destiny)
+                                    
+                                end
+                                
+                            end
+                            
                             break
                         end
                     end
@@ -3069,19 +3106,24 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
                     -- if we have a path - versus direct which will have zero path entries --
                     if newpath[1] then
 
-                        -- move the platoon to within strikerange in formation
-                        self.MoveThread = self:ForkThread( self.MovePlatoon, newpath, 'AttackFormation', false, 70)
+                        -- move the platoon to within strikerange in formation - the slackvalue is based on the strikerange
+                        self.MoveThread = self:ForkThread( self.MovePlatoon, newpath, 'AttackFormation', false, strikerange * .4)
 
                         -- wait for the movement orders to execute --
                         while PlatoonExists(aiBrain, self) and self.MoveThread and not target.Dead do
                         
-                            WaitTicks(2)
-                            
+                            WaitTicks(1)
+
                             if target.Dead then
-                                target = false
+
+                                loiter = false
+                                
                                 break
                             end
                         end
+                        
+                    else
+                        WaitTicks(10)   -- let direct move execute for one second
                     end
 
                     if self.MoveThread then
@@ -3094,10 +3136,11 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
                 end
 
                 if PlatoonExists(aiBrain, self) and target and not target.Dead then
-
-                    -- we assign 25% of the units to attack shields & AA first
-                    -- then another 15% of the units to attack AA first
-                    -- the remaining 60% will attack the primary first
+                
+                    -- we assign 30% of the units to attack shields first
+                    -- then another 20% of the units to attack AA first
+                    -- and another 15% for incidentals
+                    -- the remaining 35% will attack the primary first
                     local attackers = GetSquadUnits( self,'Attack')
                     local attackercount = LOUDGETN(attackers)
                     
@@ -3134,8 +3177,8 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
                             
                                 attackissued = false
 
-                                -- first 20% of attacks go for the shields
-                                if key < attackercount * .2 and SecondaryShieldTargets[shield] then
+                                -- first 30% of attacks go for the shields
+                                if key < attackercount * .3 and SecondaryShieldTargets[shield] then
                         
                                     if not SecondaryShieldTargets[shield].Dead then
                                         IssueAttack( {u}, SecondaryShieldTargets[shield] )
@@ -3150,8 +3193,8 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
                                     end 
                                 end
                         
-                                -- next 15% go for AA units
-                                if not attackissued and key <= attackercount * .35 and SecondaryAATargets[aa] then
+                                -- next 20% go for AA units
+                                if not attackissued and key <= attackercount * .5 and SecondaryAATargets[aa] then
 
                                     if not SecondaryAATargets[aa].Dead then
                                         IssueAttack( {u}, SecondaryAATargets[aa] )
@@ -3167,7 +3210,7 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
                                 end
                             
                                 -- next 15% for tertiary targets --
-                                if not attackissued and key <= attackercount * .5 and TertiaryTargets[tertiary] then
+                                if not attackissued and key <= attackercount * .65 and TertiaryTargets[tertiary] then
                             
                                     if not TertiaryTargets[tertiary].Dead and self:CanAttackTarget('Attack', TertiaryTargets[tertiary]) then
                                         IssueAttack( {u}, TertiaryTargets[tertiary] )
@@ -3196,44 +3239,55 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
                                 end
                             end
                         end
+                        
                     end
+                    
                 end
+                
 			end
+            
         end
 
 		-- Attack until target is dead, beyond maxrange or retreat
-		while (target and not target.Dead) and PlatoonExists(aiBrain, self) do
+		while (target and not target.Dead) and PlatoonExists(aiBrain, self) and (VDist3( target:GetPosition(), loiterposition ) <= maxrange) do
 
-			loiter = false
-			
-			WaitTicks(6)
-			
-			if PlatoonExists(aiBrain, self) then
-
-				if GetPlatoonPosition(self) and self.anchorposition then
-
-                    if VDist3( GetPlatoonPosition(self), self.anchorposition ) > maxrange then
+            mythreat = self:CalculatePlatoonThreat('Surface', categories.ALLUNITS) * .5   -- use only 1/2 of surface threat
+            mythreat = mythreat + self:CalculatePlatoonThreat('Air', categories.ALLUNITS)   -- plus any air threat
+            
+            atthreat = 0
+            
+            for _, v in aiBrain:GetThreatsAroundPosition( GetPlatoonPosition(self), LOUDFLOOR(IMAPblocks/2), true, threatavoid ) do
+            
+                atthreat = atthreat + v[3]
+                
+                if atthreat > mythreat then
+                
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." AA threat too high "..atthreat.." - aborting - my threat "..mythreat.." using "..LOUDFLOOR(IMAPblocks/2).." IMAP blocks")
                     
-                        IssueClearCommands( platoonUnits )
-				
-                        target = false
+                    return self:SetAIPlan('ReturnToBaseAI',aiBrain)
+                end
+            end
 
-                        self:MoveToLocation( self.anchorposition, false )
-                        
-                    end
-				end
-			end
-
+			WaitTicks(5)
+            
+            if VDist3( GetPlatoonPosition(self), loiterposition ) > maxrange then
+            
+                break
+                
+            end
+   
 		end
 
         -- we had a target and target is destroyed
 		if target and PlatoonExists(aiBrain, self) then
+        
+            IssueClearCommands(self)
 
 			target = false
             
-            loiter = false
+            loiter = true
             
-            self:MoveToLocation( self.anchorposition, false )
+            self:MoveToLocation( loiterposition, false )
 
 		end
 
@@ -3241,8 +3295,13 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
 		-- or we couldn't get to the target - we should 
         -- still be guarding the anchorposition
 		if loiter then
-			WaitTicks(12)
+
+			WaitTicks(10)
+            
 		end
+
+        self.UsingTransport = false
+        
     end
 
     if PlatoonExists(aiBrain, self) then
@@ -3258,8 +3317,10 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
 	local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
     
 	local AIFindTargetInRangeInCategoryWithThreatFromPosition = import('/lua/ai/aiattackutilities.lua').AIFindTargetInRangeInCategoryWithThreatFromPosition
-
-    local Searchradius = self.PlatoonData.SearchRadius or 250
+    local SetLoiterPosition = import('/lua/ai/aibehaviors.lua').SetLoiterPosition
+    
+    local Searchradius = self.PlatoonData.SearchRadius or 200
+    
     local missiontime = self.PlatoonData.MissionTime or 600
     local mergelimit = self.PlatoonData.MergeLimit or false
     local PlatoonFormation = self.PlatoonData.UseFormation or 'No Formation'
@@ -3272,20 +3333,10 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
     if self.PlatoonData.PrioritizedCategories then
 	
         for _,v in self.PlatoonData.PrioritizedCategories do
-        
             count = count + 1
             categoryList[count] = v
         end
     end
-
-    local target = false
-	local targetposition = false
-
-	local loiter = false
-
-    local MissionStartTime = LOUDTIME()
-    local threatcheckradius = 70
-	local maxrange = 0						-- this will be set when a target is selected and will be used to keep the platoon from wandering too far
 
     local oldNumberOfUnitsInPlatoon = LOUDGETN(platoonUnits)
 
@@ -3322,50 +3373,69 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
 		guardplatoon:SetAIPlan( 'GuardPlatoonAI', aiBrain)
     end
 
-	self.anchorposition = LOUDCOPY( GetPlatoonPosition(self) )
-	
-	-- force the plan name onto the platoon
-	self.PlanName = 'AirForceAI_Gunship_LOUD'
-
-	-- local function --
 	local DestinationBetweenPoints = function( destination, start, finish, stepsize )
 
-		local steps = LOUDFLOOR( VDist2(start[1], start[3], finish[1], finish[3]) / stepsize )
+		local steps = LOUDFLOOR( VDist2(start[1], start[3], finish[1], finish[3]) / stepsize ) + 1
 	
-		if steps > 0 then
-			local xstep = (start[1] - finish[1]) / steps
-			local ystep = (start[3] - finish[3]) / steps
+		local xstep = (start[1] - finish[1]) / steps
+		local ystep = (start[3] - finish[3]) / steps
 
-			for i = 1, steps  do
+		for i = 0, steps - 1  do
 			
-				if VDist2Sq(start[1] - (xstep * i), start[3] - (ystep * i), destination[1], destination[3]) < (stepsize * stepsize) then
-					return true
-				end
-			end	
-		end
+			if VDist2Sq(start[1] - (xstep * i), start[3] - (ystep * i), destination[1], destination[3]) < (stepsize * stepsize) then
+            
+				return { start[1] - (xstep * i), destination[2], start[3] - (ystep * i) }
+                
+			end
+		end	
 		
 		return false
 	end
-
 	
 	-- Select a target using priority list and by looping thru range and difficulty multipliers until target is found
 	-- occurs to me we could pass the multipliers and difficulties from the platoondata if we wished
-    local mythreat = 0
-    local threatcompare = 'AntiAir'
-    local mult = { 1, 2, 3 }				-- this multiplies the range of the platoon when searching for targets
-	local difficulty = { .7, .95, 1.1 }		-- this multiplies the threat of the platoon so that easier targets are selected first
-    local minrange = 0
+	-- force the plan name onto the platoon
+	self.PlanName = 'AirForceAI_Gunship_LOUD'
 
-    local Rangemult, Threatmult, strikerange
+	self.anchorposition = LOUDCOPY( GetPlatoonPosition(self) )
+
+    local MissionStartTime = LOUDTIME()
+    local threatcheckradius = 96
+    
+    -- block based IMAP threat checks are controlled by this - allowing it to scale properly with map sizes
+    local IMAPblocks = LOUDFLOOR(threatcheckradius/ScenarioInfo.IMAPSize)
+
+    local target = false
+	local targetposition = false
+
+	local loiter = false
+	local loiterposition = false
+    
+    local mythreat, atthreat
+    
+    local threatcompare = 'AntiAir'
+    local threatavoid = 'AntiAir'
+    
+    local mult = { 1, 2, 3 }				-- this multiplies the range of the platoon when searching for targets
+	local difficulty = { 1.25, 1, 0.65 } 		-- this divides the base threat of the platoon, by deflating it and then increasing it, so that easier targets are selected first
+    
+    local minrange, maxrange, searchradius, usethreat
+    local Rangemult, Threatmult
+    
     local SecondaryAATargets, SecondaryShieldTargets, TertiaryTargets
     local AACount, ShieldCount, TertiaryCount
+
+	local path, reason, prevposition, paththreat
+    local newpath, pathsize, destiny
+    
+    strikerange = LOUDMAX( 96, ScenarioInfo.IMAPSize )
 	
     while PlatoonExists(aiBrain, self) and (LOUDTIME() - MissionStartTime) <= missiontime do
 
-        -- merge with other AirForceAILOUD groups with same plan
+        -- merge with other AirForceAI_Bomber_LOUD groups with same plan within 80
         if mergelimit and oldNumberOfUnitsInPlatoon < mergelimit then
 
-			if self.MergeWithNearbyPlatoons( self, aiBrain, 'AirForceAI_Gunship_LOUD', 100, false, mergelimit) then
+			if self.MergeWithNearbyPlatoons( self, aiBrain, 'AirForceAI_Gunship_LOUD', 80, false, mergelimit) then
 
 				self:SetPlatoonFormationOverride(PlatoonFormation)
 				oldNumberOfUnitsInPlatoon = LOUDGETN(GetPlatoonUnits(self))
@@ -3380,14 +3450,17 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
 
         if (not target or target.Dead) and PlatoonExists(aiBrain, self) then
 
-            mythreat = self:CalculatePlatoonThreat('AntiSurface', categories.ALLUNITS) * .5     -- use half of surface threat for target search
-            mythreat = mythreat + self:CalculatePlatoonThreat('AntiAir', categories.ALLUNITS)   -- but all of antiair if any
-
-			strikerange = 125
+            mythreat = self:CalculatePlatoonThreat('Surface', categories.ALLUNITS) * .65   -- use only 1/2 of surface threat for target search 
+            mythreat = mythreat + self:CalculatePlatoonThreat('Air', categories.ALLUNITS)   -- plus any air threat
 
             if mythreat < 5 then
                 mythreat = 5
             end
+            
+            -- the searchradius adapts to the current air ratio
+            searchradius = LOUDMAX(Searchradius, (Searchradius *  LOUDMAX(1, aiBrain.AirRatio/3) ))
+            usethreat = 0
+            minrange = 0
 
 			-- the anchorposition is the start position of the platoon
 			-- where the platoon returns to
@@ -3395,35 +3468,33 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
 			if GetPlatoonPosition(self) then
 			
 				if not loiter then
+                
+                    loiterposition = SetLoiterPosition( self, aiBrain, self.anchorposition, searchradius, 3, mythreat, 'LAND', 'ANTIAIR' )
+                    
+                    loiter = true
 
-					IssueClearCommands( platoonUnits )
-
-					self:MoveToLocation( self.anchorposition, false)
-					
-					IssueGuard( GetSquadUnits( self,'Attack'), self.anchorposition)
-					
-					loiter = true
 				end
                 
 			else
 				return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 			end
 
-
-            local searchradius = math.max(Searchradius, (Searchradius * aiBrain.AirRatio)/aiBrain.OutnumberedRatio )
-
-
             for _,rangemult in mult do
 
 				for _,threatmult in difficulty do
+                
+                    usethreat = ( mythreat/threatmult ) / rangemult
 
-					target,targetposition = AIFindTargetInRangeInCategoryWithThreatFromPosition(aiBrain, self.anchorposition, self, 'Attack', minrange, searchradius * rangemult, categoryList, mythreat * (threatmult - (.05 * rangemult)), threatcompare, threatcheckradius )
+					target,targetposition = AIFindTargetInRangeInCategoryWithThreatFromPosition(aiBrain, loiterposition, self, 'Attack', minrange, searchradius * rangemult, categoryList, usethreat, threatcompare, threatcheckradius, threatavoid )
 
 					if not PlatoonExists(aiBrain, self) then
 						return
 					end					
 
 					if target then
+                    
+                        self.UsingTransport = true  -- general 'busy' flag - prevents merging with other platoons
+                        
                         Threatmult = threatmult
 						break
 					end
@@ -3439,20 +3510,26 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
 				end
 
                 minrange = searchradius * rangemult
+                
+                WaitTicks(1)                
             end
+        
+			if target and not target.Dead and PlatoonExists(aiBrain, self) then
             
-            SecondaryAATargets = false
-            AACount = 0
-            SecondaryShieldTargets = false
-            ShieldCount = 0
-            TertiaryTargets = false
-            TertiaryCount = 0
-            
-            if target then
+                SecondaryAATargets = false
+                AACount = 0
+                SecondaryShieldTargets = false
+                ShieldCount = 0
+                TertiaryTargets = false
+                TertiaryCount = 0
             
                 SecondaryAATargets = GetUnitsAroundPoint( aiBrain, categories.ANTIAIR - categories.AIR, targetposition, threatcheckradius/2, 'Enemy')
                 SecondaryShieldTargets = GetUnitsAroundPoint( aiBrain, categories.SHIELD, targetposition, threatcheckradius/2, 'Enemy')
                 TertiaryTargets = GetUnitsAroundPoint( aiBrain, categories.ALLUNITS - categories.ANTIAIR - categories.AIR - categories.SHIELD - categories.WALL, targetposition, threatcheckradius/4, 'Enemy')
+                
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." with "..LOUDGETN(GetSquadUnits( self,'Attack')).." bombers has target at "..repr(targetposition))
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." target is "..repr(target:GetBlueprint().Description))
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." used RangeMult of "..Rangemult.." and Difficulty of "..Threatmult)
                 
                 if SecondaryAATargets[1] then
                     AACount = LOUDGETN(SecondaryAATargets)
@@ -3466,42 +3543,49 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
                     TertiaryCount = LOUDGETN(TertiaryTargets)
                 end
 
-            end
+                -- Have a target - plot path to target - Use airthreat vs. mythreat for path
+                -- use strikerange to determine point from which to switch into attack mode
+				prevposition = LOUDCOPY(GetPlatoonPosition(self))
 
-			-- Have a target - plot path to target - Use airthreat vs. mythreat for path
-			-- use strikerange to determine point from which to switch into attack mode
-			if target and not target.Dead and PlatoonExists(aiBrain, self) then
+				paththreat = (oldNumberOfUnitsInPlatoon * 1) + self:CalculatePlatoonThreat('Air', categories.ALLUNITS)
 
-				local path, reason
+                path, reason = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, self.MovementLayer, prevposition, targetposition, paththreat, strikerange )
 
-				local prevposition = LOUDCOPY(GetPlatoonPosition(self))
-
-				local paththreat = (oldNumberOfUnitsInPlatoon * 1) + self:CalculatePlatoonThreat('AntiAir', categories.ALLUNITS)
-
-                -- note the use of the ScenarioInfo.MaxMapDimension / 16 - this controls point searching as a function of IMAP size - which is what the air grid should be 
-                path, reason = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, self.MovementLayer, prevposition, targetposition, paththreat, 250 )
-
-                if path then
+                if path and PlatoonExists(aiBrain, self) then
 
                     IssueClearCommands( platoonUnits )
-                
-                    local newpath = {}
-                    local count = 0
                     
-                    local pathsize = LOUDGETN(path)
+                    newpath = {}
+                    count = 0
+                    pathsize = LOUDGETN(path)
 
                     -- build a newpath that gets the platoon to within strikerange
                     -- rather than going all the way to target
                     for waypoint,p in path do
+                    
+                        destiny = DestinationBetweenPoints( targetposition, prevposition, p, strikerange )
 
-                        if waypoint < pathsize and VDist2(p[1],p[3], targetposition[1],targetposition[3]) > strikerange and not DestinationBetweenPoints( targetposition, prevposition, p, 150 ) then
+                        if waypoint < pathsize and not destiny then
 
                             count = count + 1
                             newpath[count] = p
 
                             prevposition = p
-
+                            
 						else
+                        
+                            if destiny then
+                            
+                                -- if path breakoff point is not the same as the prevposition - add it to the path
+                                if destiny[1] != prevposition[1] and destiny[3] != prevposition[3] then
+                            
+                                    count = count + 1
+                                    newpath[count] = table.copy(destiny)
+                                    
+                                end
+                                
+                            end
+                            
                             break
                         end
                     end
@@ -3512,34 +3596,41 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
                     -- if we have a path - versus direct which will have zero path entries --
                     if newpath[1] then
 
-                        -- move the platoon to within strikerange in formation
-                        self.MoveThread = self:ForkThread( self.MovePlatoon, newpath, 'AttackFormation', false, 70)
+                        -- move the platoon to within strikerange in formation - the slackvalue is based on the strikerange
+                        self.MoveThread = self:ForkThread( self.MovePlatoon, newpath, 'AttackFormation', false, strikerange * .4)
 
                         -- wait for the movement orders to execute --
                         while PlatoonExists(aiBrain, self) and self.MoveThread and not target.Dead do
-                            WaitTicks(2)
-                            
+                        
+                            WaitTicks(1)
+
                             if target.Dead then
-                                target = false
+
+                                loiter = false
+                                
                                 break
                             end
                         end
                         
+                    else
+                        WaitTicks(10)   -- let direct move execute for one second
                     end
 
                     if self.MoveThread then
                         self:KillMoveThread()
                     end
+
                 else
 
 					target = false
                 end
 
                 if PlatoonExists(aiBrain, self) and target and not target.Dead then
-
-                    -- we assign 25% of the units to attack shields & AA first
-                    -- then another 15% of the units to attack AA first
-                    -- the remaining 60% will attack the primary first
+                
+                    -- we assign 30% of the units to attack shields first
+                    -- then another 20% of the units to attack AA first
+                    -- and another 15% for incidentals
+                    -- the remaining 35% will attack the primary first
                     local attackers = GetSquadUnits( self,'Attack')
                     local attackercount = LOUDGETN(attackers)
                     
@@ -3547,130 +3638,146 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
                     local aa = 1
                     local tertiary = 1
 
-                    local squad = GetPlatoonPosition(self)
+                    local squad = GetPlatoonPosition(self) or false
                     
-                    targetposition = target:GetPosition()
+                    targetposition = target:GetPosition() or false
                     
-                    local midpointx = (squad[1]+targetposition[1])/2
-                    local midpointy = (squad[2]+targetposition[2])/2
-                    local midpointz = (squad[3]+targetposition[3])/2
+                    if squad and targetposition then
                     
-					local Direction = import('/lua/utilities.lua').GetDirectionInDegrees( squad, targetposition )
+                        local midpointx = (squad[1]+targetposition[1])/2
+                        local midpointy = (squad[2]+targetposition[2])/2
+                        local midpointz = (squad[3]+targetposition[3])/2
+                    
+                        local Direction = import('/lua/utilities.lua').GetDirectionInDegrees( squad, targetposition )
 
-                    -- this gets them moving to a point halfway to the targetposition - hopefully
-                    IssueFormMove( GetPlatoonUnits(self), { midpointx, midpointy, midpointz }, 'AttackFormation', Direction )
+                        -- this gets them moving to a point halfway to the targetposition - hopefully
+                        IssueFormMove( GetPlatoonUnits(self), { midpointx, midpointy, midpointz }, 'AttackFormation', Direction )
 
-                    -- sort the bombers by farthest from target -- we'll send them just ahead of the others to get tighter wave integrity
-                    LOUDSORT( attackers, function (a,b) return VDist3(a:GetPosition(),targetposition) > VDist3(b:GetPosition(),targetposition) end )
-                    
-                    local attackissued = false
-                    local attackissuedcount = 0
+                        -- sort the bombers by farthest from target -- we'll send them just ahead of the others to get tighter wave integrity
+                        LOUDSORT( attackers, function (a,b) return VDist3(a:GetPosition(),targetposition) > VDist3(b:GetPosition(),targetposition) end )
+                   
+                        local attackissued = false
+                        local attackissuedcount = 0
 
-                    for key,u in attackers do
+                        for key,u in attackers do
                     
-                        if not u.Dead then
+                            if not u.Dead then
                         
-                            IssueClearCommands( {u} )
+                                IssueClearCommands( {u} )
                             
-                            attackissued = false
+                                attackissued = false
 
-                            -- first 25% of attacks go for the shields
-                            if key < attackercount * .25 and SecondaryShieldTargets[shield] then
+                                -- first 30% of attacks go for the shields
+                                if key < attackercount * .3 and SecondaryShieldTargets[shield] then
                         
-                                if not SecondaryShieldTargets[shield].Dead then
-                                    IssueAttack( {u}, SecondaryShieldTargets[shield] )
-                                    attackissued = true
-                                    attackissuedcount = attackissuedcount + 1
-                                end
+                                    if not SecondaryShieldTargets[shield].Dead then
+                                        IssueAttack( {u}, SecondaryShieldTargets[shield] )
+                                        attackissued = true
+                                        attackissuedcount = attackissuedcount + 1
+                                    end
 
-                                if shield >= ShieldCount then
-                                    shield = 1
-                                else
-                                    shield = shield + 1
-                                end 
-                            end
+                                    if shield >= ShieldCount then
+                                        shield = 1
+                                    else
+                                        shield = shield + 1
+                                    end 
+                                end
                         
-                            -- next 20% go for AA units
-                            if not attackissued and key <= attackercount * .45 and SecondaryAATargets[aa] then
+                                -- next 20% go for AA units
+                                if not attackissued and key <= attackercount * .5 and SecondaryAATargets[aa] then
 
-                                if not SecondaryAATargets[aa].Dead then
-                                    IssueAttack( {u}, SecondaryAATargets[aa] )
-                                    attackissued = true
-                                    attackissuedcount = attackissuedcount + 1
+                                    if not SecondaryAATargets[aa].Dead then
+                                        IssueAttack( {u}, SecondaryAATargets[aa] )
+                                        attackissued = true
+                                        attackissuedcount = attackissuedcount + 1
+                                    end
+                            
+                                    if aa >= AACount then
+                                        aa = 1
+                                    else
+                                        aa = aa + 1
+                                    end
                                 end
                             
-                                if aa >= AACount then
-                                    aa = 1
-                                else
-                                    aa = aa + 1
-                                end
-                            end
+                                -- next 15% for tertiary targets --
+                                if not attackissued and key <= attackercount * .65 and TertiaryTargets[tertiary] then
                             
-                            -- next 15% for tertiary targets --
-                            if not attackissued and key <= attackercount * .6 and TertiaryTargets[tertiary] then
-                            
-                                if not TertiaryTargets[tertiary].Dead and self:CanAttackTarget('Attack', TertiaryTargets[tertiary]) then
-                                    IssueAttack( {u}, TertiaryTargets[tertiary] )
-                                    attackissued = true
-                                    attackissuedcount = attackissuedcount + 1
-                                end
+                                    if not TertiaryTargets[tertiary].Dead and self:CanAttackTarget('Attack', TertiaryTargets[tertiary]) then
+                                        IssueAttack( {u}, TertiaryTargets[tertiary] )
+                                        attackissued = true
+                                        attackissuedcount = attackissuedcount + 1
+                                    end
                                 
-                                if tertiary >= TertiaryCount then
-                                    tertiary = 1
-                                else 
-                                    tertiary = tertiary + 1
+                                    if tertiary >= TertiaryCount then
+                                        tertiary = 1
+                                    else 
+                                        tertiary = tertiary + 1
+                                    end
                                 end
-                            end
                         
-                            -- all others go for primary
-                            if not target.Dead and not attackissued then
-                                IssueAttack( {u}, target )
-                                attackissued = true
-                                attackissuedcount = attackissuedcount + 1
-                            end
+                                -- all others go for primary
+                                if not target.Dead and not attackissued then
+
+                                    IssueAttack( {u}, target )
+                                    attackissued = true
+                                    attackissuedcount = attackissuedcount + 1
+                                end
                     
-                            if attackissuedcount > 3 then
-                                WaitTicks(1)
-                                attackissuedcount = 0
+                                if attackissuedcount > 3 then
+                                    WaitTicks(1)
+                                    attackissuedcount = 0
+                                end
                             end
                         end
+                        
                     end
+                    
                 end
+                
 			end
+            
         end
 
-		-- Attack until target is dead, beyond maxrange, or retreat
-		while (target and not target.Dead) and PlatoonExists(aiBrain, self) do
-
-			loiter = false
-			
-			WaitTicks(6)
-			
-			if PlatoonExists(aiBrain, self) then
-
-                if GetPlatoonPosition(self) and self.anchorposition then
+		-- Attack until target is dead, beyond maxrange or retreat
+		while (target and not target.Dead) and PlatoonExists(aiBrain, self) and (VDist3( target:GetPosition(), loiterposition ) <= maxrange) do
+           
+            mythreat = self:CalculatePlatoonThreat('Surface', categories.ALLUNITS) * .65   -- use 65% of surface threat
+            mythreat = mythreat + self:CalculatePlatoonThreat('Air', categories.ALLUNITS)   -- plus any air threat
+            
+            atthreat = 0
+            
+            for _, v in aiBrain:GetThreatsAroundPosition( GetPlatoonPosition(self), LOUDFLOOR(IMAPblocks/2), true, threatavoid ) do
+            
+                atthreat = atthreat + v[3]
                 
-                    if VDist3( GetPlatoonPosition(self), self.anchorposition ) > maxrange then
+                if atthreat > mythreat then
+                
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." AA threat too high "..atthreat.." - aborting - my threat "..mythreat.." using "..LOUDFLOOR(IMAPblocks/2).." IMAP blocks")
+                    
+                    return self:SetAIPlan('ReturnToBaseAI',aiBrain)
+                end
+            end
 
-                        IssueClearCommands( platoonUnits )
-				
-                        target = false
-
-                        self:MoveToLocation( self.anchorposition, false )
-                    end
-				end
-			end
-
+			WaitTicks(4)
+            
+            if VDist3( GetPlatoonPosition(self), loiterposition ) > maxrange then
+            
+                break
+                
+            end
+    
 		end
 
         -- we had a target and target is destroyed
 		if target and PlatoonExists(aiBrain, self) then
         
+            IssueClearCommands(self)
+
 			target = false
             
-            loiter = false
+            loiter = true
             
-            self:MoveToLocation( self.anchorposition, false )
+            self:MoveToLocation( loiterposition, false )
 
 		end
 
@@ -3678,8 +3785,13 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
 		-- or we couldn't get to the target - we should 
         -- still be guarding the anchorposition
 		if loiter then
-			WaitTicks(12)
+
+			WaitTicks(10)
+            
 		end
+
+        self.UsingTransport = false
+        
     end
 
     if PlatoonExists(aiBrain, self) then
@@ -3694,8 +3806,9 @@ function AirForceAI_Torpedo_LOUD( self, aiBrain )
 	local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
     
 	local AIFindTargetInRangeInCategoryWithThreatFromPosition = import('/lua/ai/aiattackutilities.lua').AIFindTargetInRangeInCategoryWithThreatFromPosition
-
-    local Searchradius = self.PlatoonData.SearchRadius or 250
+    local SetLoiterPosition = import('/lua/ai/aibehaviors.lua').SetLoiterPosition
+    
+    local Searchradius = self.PlatoonData.SearchRadius or 200
     
     local missiontime = self.PlatoonData.MissionTime or 600
     local mergelimit = self.PlatoonData.MergeLimit or false
@@ -3709,20 +3822,10 @@ function AirForceAI_Torpedo_LOUD( self, aiBrain )
     if self.PlatoonData.PrioritizedCategories then
 	
         for _,v in self.PlatoonData.PrioritizedCategories do
-        
             count = count + 1
             categoryList[count] = v
         end
     end
-
-    local target = false
-	local targetposition = false
-
-	local loiter = false
-
-    local MissionStartTime = LOUDTIME()
-    local threatcheckradius = 75
-	local maxrange = 0						-- this will be set when a target is selected and will be used to keep the platoon from wandering too far
 
     local oldNumberOfUnitsInPlatoon = LOUDGETN(platoonUnits)
 
@@ -3759,47 +3862,66 @@ function AirForceAI_Torpedo_LOUD( self, aiBrain )
 		guardplatoon:SetAIPlan( 'GuardPlatoonAI', aiBrain)
     end
 
-	self.anchorposition = LOUDCOPY( GetPlatoonPosition(self) )
-	
-	-- force the plan name onto the platoon
-	self.PlanName = 'AirForceAI_Torpedo_LOUD'
-
-	-- local function --
 	local DestinationBetweenPoints = function( destination, start, finish, stepsize )
 
-		local steps = LOUDFLOOR( VDist2(start[1], start[3], finish[1], finish[3]) / stepsize )
+		local steps = LOUDFLOOR( VDist2(start[1], start[3], finish[1], finish[3]) / stepsize ) + 1
 	
-		if steps > 0 then
-			local xstep = (start[1] - finish[1]) / steps
-			local ystep = (start[3] - finish[3]) / steps
+		local xstep = (start[1] - finish[1]) / steps
+		local ystep = (start[3] - finish[3]) / steps
 
-			for i = 1, steps  do
+		for i = 0, steps - 1  do
 			
-				if VDist2Sq(start[1] - (xstep * i), start[3] - (ystep * i), destination[1], destination[3]) < (stepsize * stepsize) then
-					return true
-				end
-			end	
-		end
+			if VDist2Sq(start[1] - (xstep * i), start[3] - (ystep * i), destination[1], destination[3]) < (stepsize * stepsize) then
+            
+				return { start[1] - (xstep * i), destination[2], start[3] - (ystep * i) }
+                
+			end
+		end	
 		
 		return false
 	end
-
 	
 	-- Select a target using priority list and by looping thru range and difficulty multipliers until target is found
 	-- occurs to me we could pass the multipliers and difficulties from the platoondata if we wished
-    local mythreat = 0
-    local threatcompare = 'AntiAir'
-    local mult = { 1, 2, 3 }				-- this multiplies the range of the platoon when searching for targets
-	local difficulty = { .7, 1, 1.2 }		-- this multiplies the threat of the platoon so that easier targets are selected first
-    local minrange = 0
+	-- force the plan name onto the platoon
+	self.PlanName = 'AirForceAI_Torpedo_LOUD'
 
-    local Rangemult, Threatmult, strikerange
+	self.anchorposition = LOUDCOPY( GetPlatoonPosition(self) )
+
+    local MissionStartTime = LOUDTIME()
+    local threatcheckradius = 96
+    
+    -- block based IMAP threat checks are controlled by this - allowing it to scale properly with map sizes
+    local IMAPblocks = LOUDFLOOR(threatcheckradius/ScenarioInfo.IMAPSize)
+
+    local target = false
+	local targetposition = false
+
+	local loiter = false
+	local loiterposition = false
+    
+    local mythreat, atthreat
+    
+    local threatcompare = 'AntiAir'
+    local threatavoid = 'AntiAir'
+    
+    local mult = { 1, 2, 3 }				-- this multiplies the range of the platoon when searching for targets
+	local difficulty = { 1.25, 1, 0.65 } 		-- this divides the base threat of the platoon, by deflating it and then increasing it, so that easier targets are selected first
+    
+    local minrange, maxrange, searchradius, usethreat
+    local Rangemult, Threatmult
+    
     local SecondaryAATargets, SecondaryShieldTargets, TertiaryTargets
     local AACount, ShieldCount, TertiaryCount
+
+	local path, reason, prevposition, paththreat
+    local newpath, pathsize, destiny
+    
+    strikerange = LOUDMAX( 128, ScenarioInfo.IMAPSize )
 	
     while PlatoonExists(aiBrain, self) and (LOUDTIME() - MissionStartTime) <= missiontime do
 
-        -- merge with other AirForceAILOUD groups with same plan
+        -- merge with other AirForceAI_Bomber_LOUD groups with same plan within 80
         if mergelimit and oldNumberOfUnitsInPlatoon < mergelimit then
 
 			if self.MergeWithNearbyPlatoons( self, aiBrain, 'AirForceAI_Torpedo_LOUD', 100, false, mergelimit) then
@@ -3817,14 +3939,17 @@ function AirForceAI_Torpedo_LOUD( self, aiBrain )
 
         if (not target or target.Dead) and PlatoonExists(aiBrain, self) then
 
-            mythreat = self:CalculatePlatoonThreat('AntiSurface', categories.ALLUNITS)
-            mythreat = mythreat + self:CalculatePlatoonThreat('AntiSub', categories.ALLUNITS)
-
-			strikerange = 125
+            mythreat = self:CalculatePlatoonThreat('Surface', categories.ALLUNITS) * .65   -- use 65% of surface threat for target search 
+            mythreat = mythreat + self:CalculatePlatoonThreat('Air', categories.ALLUNITS)   -- plus any air threat
 
             if mythreat < 5 then
                 mythreat = 5
             end
+            
+            -- the searchradius adapts to the current air ratio
+            searchradius = LOUDMAX(Searchradius, (Searchradius *  LOUDMAX(1, aiBrain.AirRatio/3) ))
+            usethreat = 0
+            minrange = 0
 
 			-- the anchorposition is the start position of the platoon
 			-- where the platoon returns to
@@ -3832,33 +3957,33 @@ function AirForceAI_Torpedo_LOUD( self, aiBrain )
 			if GetPlatoonPosition(self) then
 			
 				if not loiter then
+                
+                    loiterposition = SetLoiterPosition( self, aiBrain, self.anchorposition, searchradius, 3, mythreat, 'NAVAL', 'ANTIAIR' )
+                    
+                    loiter = true
 
-					IssueClearCommands( platoonUnits )
-				
-					self:MoveToLocation( self.anchorposition, false)
-					
-					IssueGuard( GetSquadUnits( self,'Attack'), self.anchorposition)
-					
-					loiter = true
 				end
                 
 			else
 				return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 			end
-            
-            local searchradius = math.max(Searchradius, (Searchradius * aiBrain.AirRatio)/aiBrain.OutnumberedRatio )
-            
+
             for _,rangemult in mult do
 
 				for _,threatmult in difficulty do
+                
+                    usethreat = ( mythreat/threatmult ) / rangemult
 
-					target,targetposition = AIFindTargetInRangeInCategoryWithThreatFromPosition(aiBrain, self.anchorposition, self, 'Attack', minrange, searchradius * rangemult, categoryList, mythreat * (threatmult - (.05 * rangemult)), threatcompare, threatcheckradius )
+					target,targetposition = AIFindTargetInRangeInCategoryWithThreatFromPosition(aiBrain, loiterposition, self, 'Attack', minrange, searchradius * rangemult, categoryList, usethreat, threatcompare, threatcheckradius, threatavoid )
 
 					if not PlatoonExists(aiBrain, self) then
 						return
 					end					
 
 					if target then
+                    
+                        self.UsingTransport = true  -- general 'busy' flag - prevents merging with other platoons
+                        
                         Threatmult = threatmult
 						break
 					end
@@ -3874,22 +3999,25 @@ function AirForceAI_Torpedo_LOUD( self, aiBrain )
 				end
 
                 minrange = searchradius * rangemult
+                
+                WaitTicks(1)                
             end
+        
+			if target and not target.Dead and PlatoonExists(aiBrain, self) then
             
-            SecondaryAATargets = false
-            AACount = 0
-            SecondaryShieldTargets = false
-            ShieldCount = 0
-            TertiaryTargets = false
-            TertiaryCount = 0
+                SecondaryAATargets = false
+                AACount = 0
+                SecondaryShieldTargets = false
+                ShieldCount = 0
+                TertiaryTargets = false
+                TertiaryCount = 0
             
-            if target then
-            
-                SecondaryAATargets = GetUnitsAroundPoint( aiBrain, categories.ANTIAIR - categories.AIR, targetposition, threatcheckradius/2, 'Enemy')
+                SecondaryAATargets = GetUnitsAroundPoint( aiBrain, categories.CRUISER, targetposition, threatcheckradius/2, 'Enemy')
                 SecondaryShieldTargets = GetUnitsAroundPoint( aiBrain, categories.SHIELD, targetposition, threatcheckradius/2, 'Enemy')
                 TertiaryTargets = GetUnitsAroundPoint( aiBrain, categories.ALLUNITS - categories.ANTIAIR - categories.AIR - categories.SHIELD - categories.WALL, targetposition, threatcheckradius/4, 'Enemy')
                 
                 --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." with "..LOUDGETN(GetSquadUnits( self,'Attack')).." bombers has target at "..repr(targetposition))
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." target is "..repr(target:GetBlueprint().Description))
                 --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." used RangeMult of "..Rangemult.." and Difficulty of "..Threatmult)
                 
                 if SecondaryAATargets[1] then
@@ -3904,40 +4032,49 @@ function AirForceAI_Torpedo_LOUD( self, aiBrain )
                     TertiaryCount = LOUDGETN(TertiaryTargets)
                 end
 
-            end
+                -- Have a target - plot path to target - Use airthreat vs. mythreat for path
+                -- use strikerange to determine point from which to switch into attack mode
+                prevposition = LOUDCOPY(GetPlatoonPosition(self))
 
-			-- Have a target - plot path to target - Use airthreat vs. mythreat for path
-			-- use strikerange to determine point from which to switch into attack mode
-			if target and not target.Dead and PlatoonExists(aiBrain, self) then
+				paththreat = (oldNumberOfUnitsInPlatoon * 1) + self:CalculatePlatoonThreat('Air', categories.ALLUNITS)
 
-				local path, reason
+                path, reason = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, self.MovementLayer, prevposition, targetposition, paththreat, strikerange )
 
-				local prevposition = LOUDCOPY(GetPlatoonPosition(self))
-
-				local paththreat = (oldNumberOfUnitsInPlatoon * 1) + self:CalculatePlatoonThreat('AntiAir', categories.ALLUNITS)
-
-                path, reason = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, self.MovementLayer, prevposition, targetposition, paththreat, 250 )
-
-                if path then
+                if path and PlatoonExists(aiBrain, self) then
 
                     IssueClearCommands( platoonUnits )
                     
-                    local newpath = {}
-                    local count = 0
-                    
-                    local pathsize = LOUDGETN(path)
+                    newpath = {}
+                    count = 0
+                    pathsize = LOUDGETN(path)
 
                     -- build a newpath that gets the platoon to within strikerange
                     -- rather than going all the way to target
                     for waypoint,p in path do
+                    
+                        destiny = DestinationBetweenPoints( targetposition, prevposition, p, strikerange )
 
-                        if waypoint < pathsize and VDist2(p[1],p[3], targetposition[1],targetposition[3]) > strikerange and not DestinationBetweenPoints( targetposition, prevposition, p, 150 ) then
+                        if waypoint < pathsize and not destiny then
 
                             count = count + 1
                             newpath[count] = p
 
                             prevposition = p
+                            
 						else
+                        
+                            if destiny then
+                            
+                                -- if path breakoff point is not the same as the prevposition - add it to the path
+                                if destiny[1] != prevposition[1] and destiny[3] != prevposition[3] then
+                            
+                                    count = count + 1
+                                    newpath[count] = table.copy(destiny)
+                                    
+                                end
+                                
+                            end
+                            
                             break
                         end
                     end
@@ -3948,33 +4085,41 @@ function AirForceAI_Torpedo_LOUD( self, aiBrain )
                     -- if we have a path - versus direct which will have zero path entries --
                     if newpath[1] then
 
-                        -- move the platoon to within strikerange in formation
-                        self.MoveThread = self:ForkThread( self.MovePlatoon, newpath, 'AttackFormation', false, 70)
+                        -- move the platoon to within strikerange in formation - the slackvalue is based on the strikerange
+                        self.MoveThread = self:ForkThread( self.MovePlatoon, newpath, 'AttackFormation', false, strikerange * .4)
 
                         -- wait for the movement orders to execute --
                         while PlatoonExists(aiBrain, self) and self.MoveThread and not target.Dead do
-                            WaitTicks(2)
-                            
+                        
+                            WaitTicks(1)
+
                             if target.Dead then
-                                target = false
+
+                                loiter = false
+                                
                                 break
                             end
                         end
+                        
+                    else
+                        WaitTicks(10)   -- let direct move execute for one second
                     end
 
                     if self.MoveThread then
                         self:KillMoveThread()
                     end
+
                 else
 
 					target = false
                 end
 
                 if PlatoonExists(aiBrain, self) and target and not target.Dead then
-
-                    -- we assign 25% of the units to attack shields & AA first
-                    -- then another 15% of the units to attack AA first
-                    -- the remaining 60% will attack the primary first
+                
+                    -- we assign 30% of the units to attack shields first
+                    -- then another 20% of the units to attack AA first
+                    -- and another 15% for incidentals
+                    -- the remaining 35% will attack the primary first
                     local attackers = GetSquadUnits( self,'Attack')
                     local attackercount = LOUDGETN(attackers)
                     
@@ -3982,130 +4127,146 @@ function AirForceAI_Torpedo_LOUD( self, aiBrain )
                     local aa = 1
                     local tertiary = 1
 
-                    local squad = GetPlatoonPosition(self)
+                    local squad = GetPlatoonPosition(self) or false
                     
-                    targetposition = target:GetPosition()
+                    targetposition = target:GetPosition() or false
                     
-                    local midpointx = (squad[1]+targetposition[1])/2
-                    local midpointy = (squad[2]+targetposition[2])/2
-                    local midpointz = (squad[3]+targetposition[3])/2
+                    if squad and targetposition then
                     
-					local Direction = import('/lua/utilities.lua').GetDirectionInDegrees( squad, targetposition )
+                        local midpointx = (squad[1]+targetposition[1])/2
+                        local midpointy = (squad[2]+targetposition[2])/2
+                        local midpointz = (squad[3]+targetposition[3])/2
+                    
+                        local Direction = import('/lua/utilities.lua').GetDirectionInDegrees( squad, targetposition )
 
-                    -- this gets them moving to a point halfway to the targetposition - hopefully
-                    IssueFormMove( GetPlatoonUnits(self), { midpointx, midpointy, midpointz }, 'AttackFormation', Direction )
+                        -- this gets them moving to a point halfway to the targetposition - hopefully
+                        IssueFormMove( GetPlatoonUnits(self), { midpointx, midpointy, midpointz }, 'AttackFormation', Direction )
 
-                    -- sort the bombers by farthest from target -- we'll send them just ahead of the others to get tighter wave integrity
-                    LOUDSORT( attackers, function (a,b) return VDist3(a:GetPosition(),targetposition) > VDist3(b:GetPosition(),targetposition) end )
+                        -- sort the bombers by farthest from target -- we'll send them just ahead of the others to get tighter wave integrity
+                        LOUDSORT( attackers, function (a,b) return VDist3(a:GetPosition(),targetposition) > VDist3(b:GetPosition(),targetposition) end )
                    
-                    local attackissued = false
-                    local attackissuedcount = 0
+                        local attackissued = false
+                        local attackissuedcount = 0
 
-                    for key,u in attackers do
+                        for key,u in attackers do
                     
-                        if not u.Dead then
+                            if not u.Dead then
                         
-                            IssueClearCommands( {u} )
+                                IssueClearCommands( {u} )
                             
-                            attackissued = false
+                                attackissued = false
 
-                            -- first 20% of attacks go for the shields
-                            if key < attackercount * .2 and SecondaryShieldTargets[shield] then
+                                -- first 30% of attacks go for the shields
+                                if key < attackercount * .3 and SecondaryShieldTargets[shield] then
                         
-                                if not SecondaryShieldTargets[shield].Dead then
-                                    IssueAttack( {u}, SecondaryShieldTargets[shield] )
-                                    attackissued = true
-                                    attackissuedcount = attackissuedcount + 1
-                                end
+                                    if not SecondaryShieldTargets[shield].Dead then
+                                        IssueAttack( {u}, SecondaryShieldTargets[shield] )
+                                        attackissued = true
+                                        attackissuedcount = attackissuedcount + 1
+                                    end
 
-                                if shield >= ShieldCount then
-                                    shield = 1
-                                else
-                                    shield = shield + 1
-                                end 
-                            end
+                                    if shield >= ShieldCount then
+                                        shield = 1
+                                    else
+                                        shield = shield + 1
+                                    end 
+                                end
                         
-                            -- next 15% go for AA units
-                            if not attackissued and key <= attackercount * .35 and SecondaryAATargets[aa] then
+                                -- next 20% go for AA units
+                                if not attackissued and key <= attackercount * .5 and SecondaryAATargets[aa] then
 
-                                if not SecondaryAATargets[aa].Dead then
-                                    IssueAttack( {u}, SecondaryAATargets[aa] )
-                                    attackissued = true
-                                    attackissuedcount = attackissuedcount + 1
+                                    if not SecondaryAATargets[aa].Dead then
+                                        IssueAttack( {u}, SecondaryAATargets[aa] )
+                                        attackissued = true
+                                        attackissuedcount = attackissuedcount + 1
+                                    end
+                            
+                                    if aa >= AACount then
+                                        aa = 1
+                                    else
+                                        aa = aa + 1
+                                    end
                                 end
                             
-                                if aa >= AACount then
-                                    aa = 1
-                                else
-                                    aa = aa + 1
-                                end
-                            end
+                                -- next 15% for tertiary targets --
+                                if not attackissued and key <= attackercount * .65 and TertiaryTargets[tertiary] then
                             
-                            -- next 15% for tertiary targets --
-                            if not attackissued and key <= attackercount * .5 and TertiaryTargets[tertiary] then
-                            
-                                if not TertiaryTargets[tertiary].Dead and self:CanAttackTarget('Attack', TertiaryTargets[tertiary]) then
-                                    IssueAttack( {u}, TertiaryTargets[tertiary] )
-                                    attackissued = true
-                                    attackissuedcount = attackissuedcount + 1
-                                end
+                                    if not TertiaryTargets[tertiary].Dead and self:CanAttackTarget('Attack', TertiaryTargets[tertiary]) then
+                                        IssueAttack( {u}, TertiaryTargets[tertiary] )
+                                        attackissued = true
+                                        attackissuedcount = attackissuedcount + 1
+                                    end
                                 
-                                if tertiary >= TertiaryCount then
-                                    tertiary = 1
-                                else 
-                                    tertiary = tertiary + 1
+                                    if tertiary >= TertiaryCount then
+                                        tertiary = 1
+                                    else 
+                                        tertiary = tertiary + 1
+                                    end
                                 end
-                            end
                         
-                            -- all others go for primary
-                            if not target.Dead and not attackissued then
-                                IssueAttack( {u}, target )
-                                attackissued = true
-                                attackissuedcount = attackissuedcount + 1
-                            end
+                                -- all others go for primary
+                                if not target.Dead and not attackissued then
+
+                                    IssueAttack( {u}, target )
+                                    attackissued = true
+                                    attackissuedcount = attackissuedcount + 1
+                                end
                     
-                            if attackissuedcount > 3 then
-                                WaitTicks(1)
-                                attackissuedcount = 0
+                                if attackissuedcount > 3 then
+                                    WaitTicks(1)
+                                    attackissuedcount = 0
+                                end
                             end
                         end
+                        
                     end
+                    
                 end
+                
 			end
+            
         end
 
-		-- Attack until target is dead, beyond maxrange, or retreat
-		while (target and not target.Dead) and PlatoonExists(aiBrain, self) do
+		-- Attack until target is dead, beyond maxrange or retreat
+		while (target and not target.Dead) and PlatoonExists(aiBrain, self) and (VDist3( target:GetPosition(), loiterposition ) <= maxrange) do
+           
+            mythreat = self:CalculatePlatoonThreat('Surface', categories.ALLUNITS) * .5   -- use only 1/2 of surface threat
+            mythreat = mythreat + self:CalculatePlatoonThreat('Air', categories.ALLUNITS)   -- plus any air threat
+            
+            atthreat = 0
+            
+            for _, v in aiBrain:GetThreatsAroundPosition( GetPlatoonPosition(self), IMAPblocks/2, true, threatavoid ) do
+            
+                atthreat = atthreat + v[3]
+                
+                if atthreat > mythreat then
+                
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." AA threat too high "..atthreat.." - aborting - my threat "..mythreat.." using "..(IMAPblocks/2).." IMAP blocks")
+                    
+                    return self:SetAIPlan('ReturnToBaseAI',aiBrain)
+                end
+            end
 
-			loiter = false
-			
-			WaitTicks(6)
-			
-			if PlatoonExists(aiBrain, self) then
+			WaitTicks(4)
+            
+            if VDist3( GetPlatoonPosition(self), loiterposition ) > maxrange then
+            
+                break
+                
+            end
+    
+		end
 
-                if GetPlatoonPosition(self) and self.anchorposition then
-
-                    if VDist3( GetPlatoonPosition(self), self.anchorposition ) > maxrange then
-
-                        IssueClearCommands( platoonUnits )
-				
-                        target = false
-
-                        self:MoveToLocation( self.anchorposition, false )
-                    end
-				end
-			end
-
-        end
-        
         -- we had a target and target is destroyed
 		if target and PlatoonExists(aiBrain, self) then
+        
+            IssueClearCommands(self)
 
 			target = false
             
-            loiter = false
+            loiter = true
             
-            self:MoveToLocation( self.anchorposition, false )
+            self:MoveToLocation( loiterposition, false )
 
 		end
 
@@ -4113,8 +4274,13 @@ function AirForceAI_Torpedo_LOUD( self, aiBrain )
 		-- or we couldn't get to the target - we should 
         -- still be guarding the anchorposition
 		if loiter then
-			WaitTicks(12)
+
+			WaitTicks(10)
+            
 		end
+
+        self.UsingTransport = false
+        
     end
 
     if PlatoonExists(aiBrain, self) then
@@ -5312,7 +5478,7 @@ function EngineerTransferAI( self, aiBrain )
 			capCheck = v.BaseSettings.EngineerCount[Eng_Type] or 1
             
             -- use maximum amount but never let it go below the base value due to AI multiplier being less than 1
-            capCheck = math.max(capCheck, math.floor(capCheck * (aiBrain.CheatValue) * aiBrain.CheatValue))
+            capCheck = LOUDMAX(capCheck, LOUDFLOOR(capCheck * (aiBrain.CheatValue) * aiBrain.CheatValue))
 			
 			if aiBrain.StartingUnitCap >= 1000 then
 			

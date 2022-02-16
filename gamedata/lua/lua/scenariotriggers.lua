@@ -573,6 +573,8 @@ function PlatoonToPositionDistanceTriggerThread( cb, platoon, marker, distance, 
     -- hmm..ok - this initial wait really impairs resolving the end of platoon moves
     -- most notably engineers starting another base
     -- mostly related to Naval Areas that are VERY close to the start base especially --
+    
+    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName).." begins TriggerThread")
 
 	WaitTicks(10)
 
@@ -595,7 +597,7 @@ function PlatoonToPositionDistanceTriggerThread( cb, platoon, marker, distance, 
 				
 			end
             
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName).." at "..repr(position).." Distance to marker is "..VDist2Sq( position[1], position[3], marker[1], marker[3] ).." distancecheck "..distancecheck)
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." at "..repr(position).." Distance to marker "..VDist2( position[1], position[3], marker[1], marker[3] ).." distancecheck "..distance)
 
             if VDist2Sq( position[1], position[3], marker[1], marker[3] ) <= distancecheck then
 
