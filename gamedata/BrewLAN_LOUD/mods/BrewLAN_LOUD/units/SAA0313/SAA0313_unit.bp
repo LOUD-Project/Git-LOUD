@@ -1,0 +1,440 @@
+UnitBlueprint {
+    AI = {
+        GuardReturnRadius = 80,
+        GuardScanRadius = 40,
+    },
+    
+    Air = {
+        AutoLandTime = 1.4,
+        BankFactor = 5,
+        BankForward = false,
+        
+        BreakOffDistance = 15,
+        BreakOffTrigger = 20,
+        
+        CanFly = true,
+        
+        CombatTurnSpeed = 1.9,
+        
+        EngageDistance = 45,
+        
+        KLift = 3,
+        KLiftDamping = 2.5,
+        
+        KMove = 1.5,
+        KMoveDamping = 1,
+        
+        KRoll = 1.5,
+        KRollDamping = 1,
+        
+        KTurn = 1.5,
+        KTurnDamping = 2.3,
+        
+        LiftFactor = 8.5,
+        
+        MaxAirspeed = 28,
+        MinAirspeed = 12,
+        
+        StartTurnDistance = 5,
+        
+        TightTurnMultiplier = 1.13,
+        
+        TurnSpeed = 1.7,
+        
+        Winged = true,
+    },
+    
+    Audio = {
+        AirUnitWaterImpact = Sound { Bank = 'Explosions', Cue = 'Expl_Water_Lrg_01',      LodCutoff = 'UnitMove_LodCutoff' },
+                 Destroyed = Sound { Bank = 'UAADestroy', Cue = 'UAA_Destroy_Air',        LodCutoff = 'UnitMove_LodCutoff' },
+                    Killed = Sound { Bank = 'UAADestroy', Cue = 'UAA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff' },
+               AmbientMove = Sound { Bank = 'UAA',        Cue = 'UAA0303_Move_Loop',      LodCutoff = 'UnitMove_LodCutoff' },
+                   Landing = Sound { Bank = 'UAA',        Cue = 'UAA0303_Move_Land',      LodCutoff = 'UnitMove_LodCutoff' },
+                 Refueling = Sound { Bank = 'UEA',        Cue = 'UEA_Repair_Refuel',      LodCutoff = 'UnitMove_LodCutoff' },
+                 StartMove = Sound { Bank = 'UAA',        Cue = 'UAA0303_Move_Start',     LodCutoff = 'UnitMove_LodCutoff' },
+                  StopMove = Sound { Bank = 'UAA',        Cue = 'UAA0303_Move_Stop',      LodCutoff = 'UnitMove_LodCutoff' },
+                  Thruster = Sound { Bank = 'UAA',        Cue = 'UAA0303_Move_Thruster',  LodCutoff = 'UnitMove_LodCutoff' },
+               UISelection = Sound { Bank = 'Interface',  Cue = 'Aeon_Select_Air',        LodCutoff = 'UnitMove_LodCutoff' },
+    },
+    
+    Buffs = {
+        Regen = {
+            Level1 = 6,
+            Level2 = 12,
+            Level3 = 18,
+            Level4 = 24,
+            Level5 = 30,
+        },
+    },
+    
+    BuildIconSortPriority = 32,
+    
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER3FACTORY',
+        'AEON',
+        'MOBILE',
+        'AIR',
+        'HIGHALTAIR',
+        'SPECIALHIGHPRI',
+        'TECH3',
+        'ANTIAIR',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'RESEARCHLOCKED',
+    },
+    
+    Defense = {
+        MissileDetector = {
+            AttachBone = 'MissileDetector',
+        },
+        
+        AirThreatLevel = 95,
+        ArmorType = 'Light',
+        Health = 3855,
+        MaxHealth = 3855,
+        RegenRate = 7,
+    },
+    
+    Description = '<LOC sa0313_desc>Penetration Fighter',
+    
+    Display = {
+        Abilities = {
+            '<LOC ability_aa>Anti-Air',
+            '<LOC ability_missiledef>Missile Defense',
+            '<LOC ability_personalstealth>Personal Stealth',
+        },
+        LayerChangeEffects = {
+            AirLand = {
+                Effects = {
+                    { Bones = {0}, Type = 'Landing01' },
+                },
+            },
+            LandAir = {
+                Effects = {
+                    { Bones = {0}, Type = 'TakeOff01' },
+                },
+            },
+        },
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                { LODCutoff = 120, ShaderName = 'Aeon' },
+                { LODCutoff = 215, ShaderName = 'Aeon' },
+            },
+        },
+        MovementEffects = {
+            Air = {
+                Contrails = {
+                    Bones = {
+                        'Contrail_L',
+                        'Contrail_R',
+                    },
+                },
+                Effects = {
+                    {
+                        Bones = { 'Engine_001' },
+                        Type = 'AirMoveExhaust01',
+                    },
+                },
+            },
+        },
+        UniformScale = 0.012,
+    },
+    
+    Economy = {
+        BuildCostEnergy = 90000,
+        BuildCostMass = 1250,
+        BuildTime = 1385,
+        
+        ResearchMultEnergy = 0.2,
+        MaintenanceConsumptionPerSecondEnergy = 35,
+    },
+    
+    Footprint = {
+        MaxSlope = 0.25,
+        SizeX = 2,
+        SizeZ = 2,
+    },
+    
+    General = {
+        Category = 'Fighter',
+        Classification = 'RULEUC_MilitaryAircraft',
+        CommandCaps = {
+            RULEUCC_Attack = true,
+            RULEUCC_CallTransport = true,
+            RULEUCC_Dock = true,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Patrol = true,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+        },
+        FactionName = 'Aeon',
+        Icon = 'air',
+        OrderOverrides = {
+            RULEUTC_StealthToggle = {
+                bitmapId = 'stealth-personal',
+                helpText = 'toggle_stealth_personal',
+            },
+        },
+        TechLevel = 'RULEUTL_Secret',
+        ToggleCaps = {
+            RULEUTC_StealthToggle = true,
+        },
+        UnitName = '<LOC saa0313_name>Helios',
+        UnitWeight = 1,
+    },
+    
+    Intel = {
+        RadarStealth = true,
+        Cloak = true,
+        VisionRadius = 32,
+    },
+    
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 0.7,
+    LifeBarSize = 1.5,
+    
+    Physics = {
+        Elevation = 25,
+        FuelRechargeRate = 5,
+        FuelUseTime = 480,
+        GroundCollisionOffset = 3.1415,
+        MaxSpeed = 0.5,
+        MotionType = 'RULEUMT_Air',
+    },
+    
+    SelectionSizeX = 1.2,
+    SelectionSizeZ = 0.8,
+    SelectionCenterOffsetX = 0,
+    SelectionCenterOffsetZ = -0.15,
+    SelectionThickness = 0.36,
+    
+    SizeSphere = 2.85,
+    
+    SizeX = 1,
+    SizeY = 0.3,
+    SizeZ = 1,
+    
+    StrategicIconName = 'icon_fighter3_antiair',
+    StrategicIconSortPriority = 55,
+    
+    Transport = {
+        AirClass = true,
+        TransportClass = 3,
+    },
+    
+    Veteran = {
+        Level1 = 12,
+        Level2 = 24,
+        Level3 = 36,
+        Level4 = 48,
+        Level5 = 60,
+    },
+    
+    Weapon = {
+        {
+            AlwaysRecheckTarget = true,
+            Audio = {
+                BeamLoop = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Loop', LodCutoff = 'Weapon_LodCutoff' },
+               BeamStart = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Fire', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStop = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Stop', LodCutoff = 'Weapon_LodCutoff' },
+                  Unpack = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Charge', LodCutoff = 'Weapon_LodCutoff' },
+            },
+            AutoInitiateAttackCommand = true,
+            
+            BallisticArc = 'RULEUBA_None',
+            
+            BeamCollisionDelay = 0.1,
+            BeamLifetime = 1,
+            
+            CannotAttackGround = true,
+            CollideFriendly = false,
+            ContinuousBeam = true,
+            
+            Damage = 99,
+            DamageType = 'Normal',
+            
+            DisplayName = 'Focused Phason Laser',
+            
+            DoNotCollideList = {'MISSILE'},
+            
+            EnergyDrainPerSecond = 250,
+            EnergyRequired = 250,
+            
+            FireTargetLayerCapsTable = {
+                Land = 'Air',
+                Air = 'Air',
+            },
+            
+            FiringTolerance = 10,
+            
+            Label = 'AAGun',
+            
+            MaxRadius = 40,
+            
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            
+            NeedPrep = true,
+            
+            RackBones = {
+                { MuzzleBones = {'Muzzle_L'}, RackBone = 'Barrel_L' },
+            },
+
+            RackRecoilDistance = 1,
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            
+            RangeCategory = 'UWRC_AntiAir',
+            
+            RateOfFire = 0.5,       -- 495 DPS
+            
+            SlavedToBody = true,
+            SlavedToBodyArcRange = 10,
+            
+            TargetCheckInterval = 1.5,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'HIGHPRIAIR',
+                'EXPERIMENTAL',
+                'BOMBER',
+                'GROUNDATTACK',
+                'TRANSPORTATION',
+                'SPECIALLOWPRI',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TargetRestrictOnlyAllow = 'AIR',
+            
+            TurretBoneMuzzle = 'Muzzle_L',
+            TurretBonePitch = 'Muzzle_L',
+            TurretBoneYaw = 'Muzzle_L',
+            TurretDualManipulators = false,
+            
+            TurretPitch = 0,
+            TurretPitchRange = 30,
+            TurretPitchSpeed = 180,
+            
+            TurretYaw = 0,
+            TurretYawRange = 10,
+            TurretYawSpeed = 180,
+            
+            Turreted = true,
+        },
+        {
+            AlwaysRecheckTarget = true,
+            Audio = {
+                BeamLoop = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Loop', LodCutoff = 'Weapon_LodCutoff' },
+               BeamStart = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Fire', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStop = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Stop', LodCutoff = 'Weapon_LodCutoff' },
+                  Unpack = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Charge', LodCutoff = 'Weapon_LodCutoff' },
+            },
+            
+            BallisticArc = 'RULEUBA_None',
+            
+            BeamCollisionDelay = 0.1,
+            BeamLifetime = 1,
+            
+            CannotAttackGround = true,
+            CollideFriendly = false,
+            ContinuousBeam = true,
+            
+            Damage = 99,
+            DamageType = 'Normal',
+            
+            DisplayName = 'Focused Phason Laser',
+            
+            DoNotCollideList = {'MISSILE'},
+            
+            EnergyDrainPerSecond = 250,
+            EnergyRequired = 250,
+            
+            FireTargetLayerCapsTable = {
+                Land = 'Air',
+                Air = 'Air',
+            },
+            
+            FiringTolerance = 10,
+            
+            Label = 'AAGun',
+            
+            MaxRadius = 40,
+            
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            
+            NeedPrep = true,
+            
+            RackBones = {
+                { MuzzleBones = {'Muzzle_R'}, RackBone = 'Barrel_R' },
+            },
+            
+
+            RackRecoilDistance = 1,
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+
+            RangeCategory = 'UWRC_AntiAir',
+            
+            RateOfFire = 0.5,       -- another 495
+            
+            SlavedToBody = true,
+            SlavedToBodyArcRange = 10,
+            
+            TargetCheckInterval = 1.5,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'HIGHPRIAIR',
+                'EXPERIMENTAL',
+                'BOMBER',
+                'GROUNDATTACK',
+                'TRANSPORTATION',
+                'SPECIALLOWPRI',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            
+            TurretBoneMuzzle = 'Muzzle_R',
+            TurretBonePitch = 'Muzzle_R',
+            TurretBoneYaw = 'Muzzle_R',
+            TurretDualManipulators = false,
+            
+            TurretPitch = 0,
+            TurretPitchRange = 30,
+            TurretPitchSpeed = 180,
+            
+            TurretYaw = 0,
+            TurretYawRange = 10,
+            TurretYawSpeed = 180,
+            
+            Turreted = true,
+        },
+        {
+            AboveWaterTargetsOnly = true,
+            Damage = 500,
+            DamageFriendly = true,
+            DamageRadius = 2.5,
+            DamageType = 'Normal',
+            DisplayName = 'Air Crash',
+            DummyWeapon = true,
+            FiringTolerance = 2,
+            Label = 'DeathImpact',
+            WeaponCategory = 'Death',
+        },
+    },
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0,
+        HealthMult = 0.3,
+        MassMult = 0.3,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Land = true,
+        },
+    },
+}
