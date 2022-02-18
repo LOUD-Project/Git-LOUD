@@ -519,8 +519,6 @@ end
 -- this function will set a FACTORY builder priority to 0 permanently for later removal
 function UseBuilderOnce( aiBrain, factory, builder)
 
-    --LOG("*AI DEBUG UseBuilderOnce for "..repr(factory.LocationType).." "..repr(factory.BuilderType).." "..repr(builder))
-	
     local manager = 'FactoryManager'
 
 	local buildertable = aiBrain.BuilderManagers[factory.LocationType][manager]['BuilderData'][factory.BuilderType]
@@ -528,7 +526,6 @@ function UseBuilderOnce( aiBrain, factory, builder)
 	for a,b in buildertable['Builders'] do
 		
 		if b.BuilderName == builder.BuilderName then
-            LOG("*AI DEBUG Setting "..builder.BuilderName.." to zero")
 			b:SetPriority(0,false)
 			break
 		end
@@ -1942,7 +1939,7 @@ function AirUnitRefitThread( unit, aiBrain )
 						IssueStop ( {unit} )
 						IssueClearCommands( {unit} )
 
-                        local safePath, reason = returnpool.PlatoonGenerateSafePathToLOUD(aiBrain, returnpool, 'Air', unit:GetPosition(), aiBrain.BuilderManagers[baseposition].Position, 14, 250)
+                        local safePath, reason = returnpool.PlatoonGenerateSafePathToLOUD(aiBrain, returnpool, 'Air', unit:GetPosition(), aiBrain.BuilderManagers[baseposition].Position, 16, 256)
 			
                         if safePath then
 
@@ -2020,7 +2017,7 @@ function AirStagingThread( unit, airstage, aiBrain )
 			IssueStop( {unit} )
 			IssueClearCommands( {unit} )
 
-            local safePath, reason = aiBrain.TransportPool.PlatoonGenerateSafePathToLOUD(aiBrain, unit.PlatoonHandle, 'Air', unit:GetPosition(), GetPosition(airstage), 16, 240)
+            local safePath, reason = aiBrain.TransportPool.PlatoonGenerateSafePathToLOUD(aiBrain, unit.PlatoonHandle, 'Air', unit:GetPosition(), GetPosition(airstage), 20, 256)
             
             if not unit.Dead then
 			

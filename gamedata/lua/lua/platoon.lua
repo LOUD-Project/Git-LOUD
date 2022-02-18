@@ -294,12 +294,18 @@ Platoon = Class(moho.platoon_methods) {
 			for wpidx, waypointPath in pathcopy do
 
                 LOUDREMOVE( path, 1)  -- remove the currently executing step from the original path - the original platoon can see this and keep tabs on it's progress
+                
+                --LOG("*AI DEBUG MovePlatoon executing "..repr(waypointPath).." remaining path is "..repr(path))
 			
 				if self.MoveThread then
+                
+                    --LOG("*AI DEBUG Setting up WaypointCallback for "..repr(waypointPath).." slack is "..pathslack)
 
 					self.WaypointCallback = self:SetupPlatoonAtWaypointCallbacks( waypointPath, pathslack )
 			
 					Direction = GetDirection( prevpoint, waypointPath )
+                    
+                    IssueClearCommands( GetPlatoonUnits(self))
 
 					if AggroMove then
 
@@ -375,14 +381,12 @@ Platoon = Class(moho.platoon_methods) {
 
 					while self.MovingToWaypoint do
 
-						WaitTicks(10)
+						WaitTicks(2)
                         
                     end
                     
 				end
-				
-				IssueClearCommands( GetPlatoonUnits(self))
-				
+			
 				if self.WaypointCallback then
 				
 					KillThread(self.WaypointCallback)
@@ -702,9 +706,11 @@ Platoon = Class(moho.platoon_methods) {
 			-- we also pull the value from the threat map so we can get an idea of how often it's a better value
 			-- I'm thinking of mixing the two values so that it will error on the side of caution
 			local GetRealThreatAtPosition = function( position, range )
+            
+                local IMAPblocks = math.floor( range / ScenarioInfo.IMAPSize )
 
-				local sfake = GetThreatAtPosition( aiBrain, position, 0, true, 'AntiSurface' )
-				local afake = GetThreatAtPosition( aiBrain, position, 0, true, 'AntiAir' )
+				local sfake = GetThreatAtPosition( aiBrain, position, IMAPblocks, true, 'AntiSurface' )
+				local afake = GetThreatAtPosition( aiBrain, position, IMAPblocks, true, 'AntiAir' )
                 
                 airthreat = 0
                 surthreat = 0
@@ -757,7 +763,7 @@ Platoon = Class(moho.platoon_methods) {
 				for _, v in markerlist do
 
 					-- test the real values for that position
-					stest, atest = GetRealThreatAtPosition( v.Position, 75 )
+					stest, atest = GetRealThreatAtPosition( v.Position, 80 )
 		
 					if stest <= threatMax and atest <= airthreatMax then
 
@@ -770,11 +776,17 @@ Platoon = Class(moho.platoon_methods) {
                             path = false
                             pathlength = 0
 
-							path, reason, pathlength = PlatoonGenerateSafePathToLOUD( aiBrain, transportplatoon, 'Air', v.Position, self:GetPlatoonPosition(), airthreatMax, 250 )
+							path, reason, pathlength = PlatoonGenerateSafePathToLOUD( aiBrain, transportplatoon, 'Air', v.Position, self:GetPlatoonPosition(), airthreatMax, 256 )
 						
 							if path then
 								return v.Position, v.Name
-							end
+							else
+                                LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." got transports but they cannot find a safe drop point")
+                                
+                                if platoonpath then
+                                    LOG("*AI DEBUG "..aBrain.Nickname.." "..self.BuilderName.." has a path of it's own "..repr(platoonpath))
+                                end
+                            end
 						end
 					end
 				end
@@ -965,15 +977,21 @@ Platoon = Class(moho.platoon_methods) {
 
 		-- threatallowed controls how much threat is considered acceptable at any point
 		local threatallowed = threatallowed or 5
+        
+        -- the number of blocks to use for threat lookups - based on IMAP size
+        -- basically 2, 2, 1, 0 for 5k, 10k, 20k, 40k+
+        local IMAPblocks = math.floor( 64/ScenarioInfo.IMAPSize )
 		
 		-- step size is used when making DestinationBetweenPoints checks
-		-- the value of 70 is relatively safe to use to avoid intervening terrain issues
-		local stepsize = 100
+		local stepsize = 96
 
 		-- air platoons can look much further off the line since they generally ignore terrain anyway
 		-- this larger step makes looking for destination much less costly in processing
 		if platoonLayer == 'Air' then
-			stepsize = 240
+        
+            -- modified to adapt to smaller IMAP sizes - will now range from 96 to 256
+			stepsize = math.min( math.max( 96, ScenarioInfo.IMAPSize*1.5 ), 256 )
+            
 		end
 		
 		if start and destination then
@@ -986,7 +1004,7 @@ Platoon = Class(moho.platoon_methods) {
 				
 			elseif platoonLayer == 'Amphibious' then
 			
-				stepsize = 125
+				stepsize = 96
 				
 				if distance <= stepsize then
 					return {destination}, 'Direct', distance, 0
@@ -994,16 +1012,14 @@ Platoon = Class(moho.platoon_methods) {
 				
 			elseif platoonLayer == 'Water' then
 			
-				stepsize = 175
+				stepsize = 128
 				
 				if distance <= stepsize then
 					return {destination}, 'Direct', distance, 0
 				end
 				
 			elseif platoonLayer == 'Air' then
-			
-				stepsize = 250
-				
+
 				if distance <= stepsize then
 					return {destination}, 'Direct', distance, 0
 				end
@@ -1016,6 +1032,7 @@ Platoon = Class(moho.platoon_methods) {
 				LOG("*AI DEBUG "..aiBrain.Nickname.." Generate Safe Path "..platoonLayer.." had a bad destination "..repr(destination))
                 
 				return false, 'Badlocations', 0, 0
+                
 			else
 			
                 if platoon != 'AttackPlanner' or (platoon and platoon.BuilderName != nil) then
@@ -1029,9 +1046,9 @@ Platoon = Class(moho.platoon_methods) {
 		-- MaxMarkerDist controls the range we look for markers AND the range we use when making threat checks
 		local MaxMarkerDist = MaxMarkerDist or 160
 		local radiuscheck = MaxMarkerDist * MaxMarkerDist
-		local threatradius = MaxMarkerDist * .33
 		
 		local stepcheck = stepsize * stepsize
+        local steps, xstep, ystep
 		
 		-- get all the layer markers -- table format has 5 values (posX,posY,posZ, nodeName, graph)
 		local markerlist = ScenarioInfo.PathGraphs['RawPaths'][platoonLayer] or false
@@ -1039,47 +1056,43 @@ Platoon = Class(moho.platoon_methods) {
 		
 		--** A Whole set of localized function **--
 		-------------------------------------------
-		local AIGetThreatLevelsAroundPoint = function( position, threatradius )
-	
+		local AIGetThreatLevelsAroundPoint = function( position )
+
 			if threattype == 'AntiAir' then
-				return aiBrain:GetThreatAtPosition( position, 0, true, 'AntiAir')	--airthreat
+				return aiBrain:GetThreatAtPosition( position, IMAPblocks, true, 'AntiAir')	--airthreat
 			elseif threattype == 'AntiSurface' then
-				return aiBrain:GetThreatAtPosition( position, 0, true, 'AntiSurface')	--surthreat
+				return aiBrain:GetThreatAtPosition( position, IMAPblocks, true, 'AntiSurface')	--surthreat
 			elseif threattype == 'AntiSub' then
-				return aiBrain:GetThreatAtPosition( position, 0, true, 'AntiSub')	--subthreat
+				return aiBrain:GetThreatAtPosition( position, IMAPblocks, true, 'AntiSub')	--subthreat
 			elseif threattype == 'Economy' then
-				return aiBrain:GetThreatAtPosition( position, 0, true, 'Economy')	--ecothreat
+				return aiBrain:GetThreatAtPosition( position, IMAPblocks, true, 'Economy')	--ecothreat
 			else
-				return aiBrain:GetThreatAtPosition( position, 0, true, 'Overall')	--airthreat + ecothreat + surthreat + subthreat
+				return aiBrain:GetThreatAtPosition( position, IMAPblocks, true, 'Overall')	--airthreat + ecothreat + surthreat + subthreat
 			end
 	
 		end
 
 		-- checks if destination is somewhere between two points
+        -- if it is, return the point at which we located the destination
 		local DestinationBetweenPoints = function( destination, start, finish )
 
 			-- using the distance between two nodes
 			-- calc how many steps there will be in the line
-			local steps = LOUDFLOOR( VDist2(start[1], start[3], finish[1], finish[3]) / stepsize )
+			steps = LOUDFLOOR( VDist2(start[1], start[3], finish[1], finish[3]) / stepsize ) + 1
+
+			-- and the size of each step
+			xstep = (start[1] - finish[1]) / steps
+			ystep = (start[3] - finish[3]) / steps
 	
-			if steps > 0 then
-			
-				-- and the size of each step
-				local xstep = (start[1] - finish[1]) / steps
-				local ystep = (start[3] - finish[3]) / steps
-	
-				-- check the steps from start to one less than then destination
-				for i = 1, steps - 1 do
+			-- check the steps from start to one less than then destination
+			for i = 0, steps - 1 do
 				
-					-- if we're within the stepcheck ogrids of the destination then we found it
-					if VDist2Sq(start[1] - (xstep * i), start[3] - (ystep * i), destination[1], destination[3]) < stepcheck then
-                    
-                        --LOG("*AI DEBUG Destination "..repr(destination).." is within "..repr(stepcheck).." of "..repr( {start[1] - (xstep * i), start[3] - (ystep * i)} ) )
-					
-						return true
-					end
-				end	
-			end
+				-- if we're within the stepcheck ogrids of the destination then we found it
+				if VDist2Sq(start[1] - (xstep * i), start[3] - (ystep * i), destination[1], destination[3]) < stepcheck then
+
+					return { start[1] - (xstep * i), destination[2], start[3] - (ystep * i) }
+				end
+			end	
 			
 			return false
 		end
@@ -1094,10 +1107,10 @@ Platoon = Class(moho.platoon_methods) {
             end
 
 			-- This gives us the number of approx. 6 ogrid steps in the distance
-			local steps = math.floor( VDist2(pos[1], pos[3], targetPos[1], targetPos[3]) / 6 )
+			steps = math.floor( VDist2(pos[1], pos[3], targetPos[1], targetPos[3]) / 6 )
 	
-			local xstep = (pos[1] - targetPos[1]) / steps -- how much the X value will change from step to step
-			local ystep = (pos[3] - targetPos[3]) / steps -- how much the Y value will change from step to step
+			xstep = (pos[1] - targetPos[1]) / steps -- how much the X value will change from step to step
+			ystep = (pos[3] - targetPos[3]) / steps -- how much the Y value will change from step to step
 			
 			local lastpos = {pos[1], 0, pos[3]}
             local nextpos, lastposHeight, nextposHeight
@@ -1138,7 +1151,10 @@ Platoon = Class(moho.platoon_methods) {
 				local counter = 0
 			
 				local VDist3Sq = VDist3Sq
-                local testdistance, obstructed
+                local testdistance, obstructed, thisthreat
+                local maxthreat = (threatallowed * threatmodifier)
+                
+                local nomarkers = true
 				
 				-- sort the table by closest to the given location
 				LOUDSORT(markerlist, function(a,b) return VDist3Sq( a.position, location ) < VDist3Sq( b.position, location ) end)
@@ -1152,6 +1168,8 @@ Platoon = Class(moho.platoon_methods) {
 					-- process only those entries within the radius
 					if testdistance <= radiuscheck then
                     
+                        nomarkers = false
+               
                         obstructed = false
                     
                         -- we should do an OBSTRUCTED test here -- but only for land movement --
@@ -1163,26 +1181,34 @@ Platoon = Class(moho.platoon_methods) {
                         end
                         
                         if not obstructed then
-			
+
                             -- add only those with acceptable threat to the new list
                             -- if seeksafest or goalseek flag is set we'll build a table of points with allowable threats
                             -- otherwise we'll just take the closest one
-                            if AIGetThreatLevelsAroundPoint( v.position, threatradius) <= (threatallowed * threatmodifier) then
+                            thisthreat = aiBrain:GetThreatBetweenPositions( location, v.position, nil, threattype )
+                          
+                            if thisthreat <= maxthreat then
 
                                 if seeksafest or goalseek then
 
                                     counter = counter + 1						
-                                    positions[counter] = { AIGetThreatLevelsAroundPoint( v.position, threatradius), v.node, v.position }
+                                    positions[counter] = { thisthreat, v.node, v.position }
 
                                 else
                                     return ScenarioInfo.PathGraphs[platoonLayer][v.node], v.node or GetPathGraphs()[platoonLayer][v.node], v.node
                                 end
 
+                            else
+                                --LOG("*AI DEBUG marker "..repr(v.node).." at "..repr(v.position).." distance "..math.sqrt(testdistance).." not safe to reach location "..repr(location).." threat is "..thisthreat )
+                                --LOG("*AI DEBUG Threats around "..repr(v.position).." for "..IMAPblocks.." blocks are "..repr(aiBrain:GetThreatsAroundPosition( v.position, IMAPblocks, false, threattype )))
+                                --LOG("*AI DEBUG Threats BETWEEN are "..repr(aiBrain:GetThreatBetweenPositions( location, v.position, false, threattype )))
                             end
                             
                         end
                         
-					end
+					else
+                        break   -- markers are sorted by range from location so we've exhausted any that are close enough
+                    end
                     
 				end
 			
@@ -1192,7 +1218,7 @@ Platoon = Class(moho.platoon_methods) {
 					LOUDSORT(positions, function(a,b) return VDist2Sq( a[3][1],a[3][3], goalseek[1],goalseek[3] ) < VDist2Sq( b[3][1],b[3][3], goalseek[1],goalseek[3] ) end)
 				end
 			
-				local bestThreat = (threatallowed * threatmodifier)
+				local bestThreat = maxthreat
 				local bestMarker = positions[1][2]	-- default to the one closest to goal
 			
 				-- loop thru to find one with lowest threat	-- if all threats are equal we'll end up with the closest
@@ -1208,9 +1234,22 @@ Platoon = Class(moho.platoon_methods) {
 				end
 
 				if bestMarker then
+                
 					return ScenarioInfo.PathGraphs[platoonLayer][bestMarker],bestMarker or GetPathGraphs()[platoonLayer][bestMarker],bestMarker
-				end
-			end
+                    
+				else
+                
+                    if nomarkers then
+                        WARN("*MAP DEBUG No "..repr(platoonLayer).." markers found within "..MaxMarkerDist.." range of "..repr(location))
+                    else
+                        if ScenarioInfo.PathFindingDialog then
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." No safe "..repr(platoonLayer).." marker near "..repr(location).." available markers were "..repr(positions))
+                        end
+                    end
+                    
+                end
+
+            end
 			
 			return false, false
 		end	
@@ -1277,7 +1316,7 @@ Platoon = Class(moho.platoon_methods) {
 
 		if not endNode then
 		
-			LOG("*AI DEBUG "..aiBrain.Nickname.." GenerateSafePath "..repr(platoon.BuilderName or platoon).." "..threatallowed.." finds no safe "..platoonLayer.." endnode within "..MaxMarkerDist.." of "..repr(destination).." - failing")
+			--LOG("*AI DEBUG "..aiBrain.Nickname.." GenerateSafePath "..repr(platoon.BuilderName or platoon).." "..threatallowed.." finds no safe "..platoonLayer.." endnode within "..MaxMarkerDist.." of "..repr(destination).." - failing")
             
 			WaitTicks(1)
 			return false, 'NoPath', 0, 0
@@ -3388,7 +3427,7 @@ Platoon = Class(moho.platoon_methods) {
             path = false
             pathlength = 0
 
-			path, reason, pathlength = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, self.MovementLayer, platLoc, marker, OriginalThreat * ThreatMaxRatio, 250)
+			path, reason, pathlength = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, self.MovementLayer, platLoc, marker, OriginalThreat * ThreatMaxRatio, 256)
 			
 			if PlatoonExists(aiBrain, self) then
 			
@@ -7777,9 +7816,7 @@ Platoon = Class(moho.platoon_methods) {
 				if not eng.Dead and eng.failedmoves >= 10 then
 
 					ForkTo( AIAddMustScoutArea, aiBrain, buildlocation )
-                    
-   					LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." too many failures")
-					
+
 					return false
 					
 				end
@@ -7977,7 +8014,7 @@ Platoon = Class(moho.platoon_methods) {
 
 						-- move onto next item to build
 						
-						LOG("*AI DEBUG "..repr(self.BuilderName).." Failed to build")
+						--LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." Failed to build")
 						
 						self:ProcessBuildCommand( eng,true )
 						
@@ -9275,7 +9312,7 @@ Platoon = Class(moho.platoon_methods) {
 	
 		platoon.MovingToWaypoint = true
         
-        --LOG("*AI DEBUG "..platoon.BuilderName.." sets up WaypointCallback")
+        --LOG("*AI DEBUG "..platoon.BuilderName.." sets up WaypointCallback for "..repr(waypoint).." trigger dist "..distance)
 		
 		return import('/lua/scenariotriggers.lua').CreatePlatoonToPositionDistanceTrigger( platoon.PlatoonAtWaypoint, platoon, waypoint, distance)
 	end,

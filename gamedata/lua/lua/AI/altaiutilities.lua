@@ -2394,11 +2394,11 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
 		
 		if platpos then
 
-			local airthreatMax = counter * 4.5
+			local airthreatMax = counter * 4.4
 			
 			airthreatMax = airthreatMax + ( airthreatMax * math.log10(counter))
 
-            local safePath, reason, pathlength, pathcost = transports.PlatoonGenerateSafePathToLOUD(aiBrain, transports, 'Air', platpos, location, airthreatMax, 250)
+            local safePath, reason, pathlength, pathcost = transports.PlatoonGenerateSafePathToLOUD(aiBrain, transports, 'Air', platpos, location, airthreatMax, 256)
 
             if TransportDialog then
             
@@ -2772,7 +2772,7 @@ function ReturnTransportsToPool( aiBrain, units, move )
 
                 if VDist3( baseposition, unitposition ) > 100 then
 
-                    local safePath, reason = returnpool.PlatoonGenerateSafePathToLOUD(aiBrain, returnpool, 'Air', unitposition, baseposition, 20, 240)
+                    local safePath, reason = returnpool.PlatoonGenerateSafePathToLOUD(aiBrain, returnpool, 'Air', unitposition, baseposition, 20, 256)
 
                     if safePath then
 

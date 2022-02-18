@@ -960,7 +960,7 @@ function AirScoutingAI( self, aiBrain )
 			-- use an elevated threat level in order to find paths for the air scouts --
 			local threatlevel = 24 + ( LOUDGETN(GetPlatoonUnits(self) )) * LOUDGETN( GetPlatoonUnits(self))
 		
-			local path, reason = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, 'Air', scoutposition, dest, threatlevel, 250)
+			local path, reason = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, 'Air', scoutposition, dest, threatlevel, 256)
 		
 			if path then
 		
@@ -2295,7 +2295,7 @@ function SetLoiterPosition( self, aiBrain, startposition, searchradius, minthrea
 
             loiterposition = { LOUDFLOOR(MATH_Lerp(lerpresult, startposition[1], results[1][1] )), 0, LOUDFLOOR(MATH_Lerp( lerpresult, startposition[3], results[1][2])) } 
 
-            LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." Lerp value is "..repr(lerpresult))
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." Lerp value is "..repr(lerpresult))
             --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." selects loiterposition "..repr(loiterposition).." distance is "..repr(LOUDFLOOR(VDist3(loiterposition, startposition))))
             --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." sets loiter at "..repr(loiterposition))
     
