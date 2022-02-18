@@ -1,3 +1,14 @@
+### Release 18-02-2022
+Lua 6.0.0
+
+AI  - introduction of new 'air loitering' mechanic for AI
+    - enhanced handling of props and blueprints, reducing memory footprint and increased access speed
+    - minor changes to energy builders
+    - pathfinding corrections and changes (re: plateaus)
+    - introduction of a debug utility allowing the viewing of marker data (use numeric pad 7 to invoke) - thanks to Jip and Rat Circus
+    
+
+
 ### Release 15-01-2022
 Lua 5.4.47
 LOUD_MISC 5.5.07
