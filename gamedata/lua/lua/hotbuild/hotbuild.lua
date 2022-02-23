@@ -193,7 +193,12 @@ function init()
 
     -- turns on the Build Item letters --
     -- which are incorrect at the moment --
-    --import('/lua/ui/game/construction.lua').ShowBuildModeKeys(true)    
+    --import('/lua/ui/game/construction.lua').ShowBuildModeKeys(true)
+    
+    
+	-- this feature comes from BO Unleashed all credit to original author
+	import('/lua/spreadattack.lua').Init()	
+
 
 end
 

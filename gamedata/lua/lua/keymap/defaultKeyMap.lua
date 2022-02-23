@@ -130,6 +130,7 @@ defaultKeyMap = {
     ['Shift-S']             = 'shift_stop',
     ['Shift-D']             = 'shift_dive',
     ['Shift-F']             = 'shift_ferry',
+    ['Shift-G']             = 'spreadattack',
     ['Shift-I']             = 'shift_guard',
     ['Shift-U']             = 'shift_transport',
     ['Shift-L']             = 'shift_launch_tactical',

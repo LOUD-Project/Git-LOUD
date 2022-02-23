@@ -40,9 +40,11 @@ hotbuildDefaultKeyMap = {
   ['Shift-F'] = 'build__Zulan_23_F_shift',
   ['Alt-F'] = 'build__Zulan_23_F_alt',
 
+--[[
   G = 'build__Zulan_24_G',
   ['Shift-G'] = 'build__Zulan_24_G_shift',
   ['Alt-G'] = 'build__Zulan_24_G_alt',
+--]]
 
   H = 'build__Zulan_25_H',
   ['Shift-H'] = 'build__Zulan_25_H_shift',
@@ -89,7 +91,7 @@ hotbuildDefaultKeyMap = {
   Q = 'patrol',  ['Shift-Q'] = 'shift_patrol',
   A = 'reclaim', ['Shift-A'] = 'shift_reclaim',
   Tab = 'pause_unit',
-  ---['SGP'] = 'toggle_repeat_build', -- Does unfortunately not work
+
   Y = 'toggle_repeat_build',
   Backslash = 'toggle_all', -- ^° on german keyboard
 
@@ -97,7 +99,6 @@ hotbuildDefaultKeyMap = {
   F3 = 'escape',
   
   -- Actions done rarely, still useful
-  ['Alt-L'] = 'show_enemy_life', -- Evil :)
   ['Alt-P'] = 'track_unit_second_mon',
 
   -- Diplomacy

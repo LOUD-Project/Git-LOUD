@@ -272,6 +272,8 @@ keyActions = {
         category = 'orders', order = 32,},
     ['area_reclaim'] = {action = 'UI_Lua import("/lua/ui/game/gamemain.lua").AreaReclaim()', 
         category = 'orders', order = 33, },
+    ['spreadattack'] = {action = 'UI_Lua import("/lua/spreadattack.lua").SpreadAttack()',
+        category = 'orders', order = 34, },
 
     ['decrease_game_speed'] = {action = 'UI_Lua import("/lua/ui/uimain.lua").DecreaseGameSpeed()',
         category = 'game', order = 1,},
