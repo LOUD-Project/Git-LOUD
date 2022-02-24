@@ -158,6 +158,8 @@ function OnFirstUpdate()
 			ConExecute('fog_DistanceFog')
             
             ConExecute('d3d_WindowsCursor true')
+            
+            ConExecute('cam_SetLOD WorldCamera 0.5')
 
         end
     )

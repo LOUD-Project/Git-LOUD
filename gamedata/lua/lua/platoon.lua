@@ -6418,6 +6418,7 @@ Platoon = Class(moho.platoon_methods) {
 		
 		local eng = false
 
+        -- isolate the engineer in the platoon
 		for _,v in GetPlatoonUnits(self) do
 		
 			if not v.Dead and LOUDENTITY( ENGINEERS, v) then
@@ -6437,12 +6438,13 @@ Platoon = Class(moho.platoon_methods) {
 			-- we have an assist platoon store it on the engineer
 			eng.AssistPlatoon = self
 		
-			-- go out and find an assist target
+			-- go out and find an assist target and and guard it
 			self:ForkThread( import('/lua/ai/altaiutilities.lua').AssistBody, eng, aiBrain)
 		
 			local assistcount = 0
 			local assisttime = self.PlatoonData.Assist.Time or 90
 		
+            -- continue to guard until eco runs short, eng death, timer runs out, or eng loses guard
 			repeat
 			
 				WaitTicks(50)
@@ -6460,38 +6462,14 @@ Platoon = Class(moho.platoon_methods) {
 		end
 		
 		if not eng.Dead then
---[[        
-            if EntityCategoryContains( categories.AEON * categories.ENGINEER * categories.TECH1, eng ) and eng.UnitBeingBuilt then
-            
-                if (not eng.UnitBeingBuilt.Dead) and EntityCategoryContains( categories.STRUCTURE * categories.ENERGYPRODUCTION, eng.UnitBeingBuilt ) then
-                
-                    if not eng.UnitBeingBuilt:GetFractionComplete() != 1 then
-                    
-                        local bUnit = GetEntityById(eng.UnitBeingBuilt.Sync.id)
-            
-                        LOG("*AI DEBUG Unit being built by T1 AEON Engineer is "..repr(bUnit:GetBlueprint().Description) )
-                        
-                        self:Stop()
-                        
-                        IssueSacrifice( self, {} )
-                        
-                        return
-                        
-                    end
-                    
-                end
-                
-            else
---]]
-                self:Stop()
+
+            self:Stop()
 			
-                IssueClearCommands(self)
+            IssueClearCommands(self)
 			
-                eng.AssistPlatoon = nil
+            eng.AssistPlatoon = nil
 			
-                return self:SetAIPlan('ReturnToBaseAI',aiBrain)
-                
-            --end
+            return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 			
 		end
 		
@@ -9172,13 +9150,7 @@ Platoon = Class(moho.platoon_methods) {
 			aPlat.UsingTransport = false
 
         end
-
-        --if PlatoonMergeDialog then
-          --  if count > 0 then
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." MERGE_WITH reviewed "..count.." platoons")
-            --end
-        --end
-        
+    
         self.UsingTransport = false
         
 		return mergedunits
