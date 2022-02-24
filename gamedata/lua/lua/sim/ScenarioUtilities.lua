@@ -80,6 +80,8 @@ end
 
 function CreateProps()
 
+    LOG("*AI DEBUG Creating Props")
+
 	local memstart = gcinfo()
 	
     for i, tblData in pairs(ScenarioInfo.Env.Scenario['Props']) do
@@ -94,6 +96,105 @@ function CreateProps()
 	-- we dont need the prop data anymore
 	ScenarioInfo.Env.Scenario['Props'] = nil
 
+	local temptable = {}
+	local LOUDINSERT = table.insert
+	local type = type
+
+	for k,v in __blueprints do
+		
+		if v != nil then
+			
+			if type(k) == 'string' then
+				
+				temptable[k] = v
+
+			else
+				
+				LOUDINSERT(temptable, v)
+
+			end
+
+		end
+
+	end
+    
+    __blueprints = table.copy(temptable)
+    
+    temptable = {}
+
+    LOG("*AI DEBUG __Blueprints initialized with "..table.getn(__blueprints))
+   
+    LOG("*AI DEBUG logging duplicate ID - used " .. ( (gcinfo()*1024) ) .. " bytes")
+    
+    local count = 0
+    local countb = 0
+
+    for id, bp in __blueprints do
+    
+        if id ~= bp.BlueprintId then
+
+            __blueprints[id] = __blueprints[bp.BlueprintId]
+            
+            if string.find(bp.BlueprintId,"/props/") or string.find(bp.BlueprintId,"/effects/") then
+            
+                count = count + 1
+                --LOG("*AI DEBUG removing "..bp.BlueprintId )
+            
+                __blueprints[bp.BlueprintId] = nil
+                
+                if string.find(bp.BlueprintId,"/effects/") then
+                
+                    countb = countb + 1
+                    --LOG("*AI DEBUG removing "..id )
+                
+                    __blueprints[id] = nil
+                    
+                else
+                
+                    if string.find(bp.BlueprintId,"/trees/groups/") then
+                    
+                        __blueprints[id].SingleTreeDir = string.gsub(bp.BlueprintId, "[^/]*/[^/]*$", "")
+                        
+                    end
+                    
+                end
+ 
+            end
+
+        end
+        
+    end
+
+    LOG("*AI DEBUG removed "..count.." blueprints by blueprintID and "..countb.." blueprints by id")
+
+	temptable = {}
+
+	for k,v in __blueprints do
+		
+		if v != nil then
+		
+			if type(k) == 'string' then
+				
+				temptable[k] = v
+
+			else
+				
+				LOUDINSERT(temptable, v)
+
+			end
+
+		end
+
+	end
+    
+    __blueprints = table.copy(temptable)
+    
+    temptable = nil
+
+    LOG("*AI DEBUG __Blueprints rebuilt with "..table.getn(__blueprints))    
+	
+    LOG("*AI DEBUG After clearing duplicates - used ".. (gcinfo()*1024 ) .." bytes")
+    
 end
 
 function CreateResources()
@@ -509,7 +610,9 @@ function CreateResources()
     
     LOG("*AI DEBUG Number of Players is "..ScenarioInfo.Options.PlayerCount)
     
-    ScenarioInfo.MassPointShare = math.floor(ScenarioInfo.NumMassPoints/ScenarioInfo.Options.PlayerCount)
+    -- mass point share is how many mass points should be considered necessary before offensive actions can commence - max is 10 + number of players
+    -- this is useful in driving offensive action on mass heavy maps where the mex count might be stupidly large or low player counts on large maps
+    ScenarioInfo.MassPointShare = math.min( 10 + ScenarioInfo.Options.PlayerCount, math.floor(ScenarioInfo.NumMassPoints/ScenarioInfo.Options.PlayerCount))
     
     LOG("*AI DEBUG Player Mass Point Share is "..ScenarioInfo.MassPointShare)
 	

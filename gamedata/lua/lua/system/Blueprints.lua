@@ -431,12 +431,58 @@ function ExtractAllMeshBlueprints()
 		--ExtractPhaseMeshBlueprint(bp)
     end
 
+    local count = 0
+    local countb = 0
+    
     for id,bp in original_blueprints.Prop do
+    
+        countb = countb + 1
+    
+        bp.Interface = nil
+    
+        if bp.Economy.ReclaimMassMax and bp.Economy.ReclaimMassMax < 1 then
+            bp.Economy.ReclaimMassMax = nil
+        end
+        
+        if bp.Economy.ReclaimEnergyMax and bp.Economy.ReclaimEnergyMax < 1 then
+            bp.Economy.ReclaimEnergyMax = nil
+        end
+        
+        if bp.Economy.ReclaimEnergyMax == '' then
+            bp.Economy.ReclaimEnergyMax = nil
+        end
+        
+        if bp.Economy.ReclaimMassMax == '' then
+            bp.Economy.ReclaimMassMax = nil
+        end
+        
+        if bp.Economy.ReclaimEnergyMax then
+        
+            if (bp.Economy.ReclaimEnergyMax/bp.Economy.ReclaimTime) > 30 then
+                LOG("*AI DEBUG Prop BP RECLAIMTIME TOO LOW for ENERGY "..bp.Economy.ReclaimEnergyMax.." time is "..bp.Economy.ReclaimTime.." "..repr(bp.BlueprintId))
+                bp.Economy.ReclaimTime = math.ceil(bp.Economy.ReclaimEnergyMax/30)
+                count = count + 1
+            end
+
+        end
+
+        if bp.Economy.ReclaimMassMax then
+        
+            if (bp.Economy.ReclaimMassMax/bp.Economy.ReclaimTime) > 6 then
+                LOG("*AI DEBUG Prop BP RECLAIMTIME TOO LOW for MASS "..bp.Economy.ReclaimMassMax.." time is "..bp.Economy.ReclaimTime.." "..repr(bp.BlueprintId))
+                bp.Economy.ReclaimTime = math.ceil(bp.Economy.ReclaimMassMax/6)
+                count = count + 1
+            end
+
+        end
+        
 	
         ExtractMeshBlueprint(bp)
         ExtractWreckageBlueprint(bp)
 		
     end
+    
+    LOG("*AI DEBUG Props with resource rate errors "..count.." of "..countb)
 
     for id,bp in original_blueprints.Projectile do
 	
@@ -1051,8 +1097,8 @@ function LoadBlueprints()
 		
             BlueprintLoaderUpdateProgress()
 			
-			--LOG("loading resource "..file..' '..repr(doscript))
-			
+            --LOG("loading resource "..file..' '..repr(doscript))
+
             safecall("loading blueprint "..file, doscript, file)
 			
 			count = count + 1

@@ -42,7 +42,7 @@ function ReclaimablesInArea(aiBrain, locType, range)
 		end	
 		
 		for _,v in ents do
-			if ( (v.MassReclaim and v.MassReclaim > 0) or (v.EnergyReclaim and v.EnergyReclaim > 0) ) and ((not aiBrain.BadReclaimables[v]) and (not v.BeingReclaimed)) then
+			if ( (v.MassReclaim and v.MassReclaim > 1) or (v.EnergyReclaim and v.EnergyReclaim > 0) ) and ((not aiBrain.BadReclaimables[v]) and (not v.BeingReclaimed)) then
 				return true
 			end
 		end
@@ -62,7 +62,7 @@ function ReclaimablesInAreaEnergy(aiBrain, locType)
 		end	
 		
 		for _,v in ents do
-			if (v.EnergyReclaim and v.EnergyReclaim > 0) and ((not aiBrain.BadReclaimables[v]) and (not v.BeingReclaimed)) then
+			if (v.EnergyReclaim and v.EnergyReclaim > 1) and ((not aiBrain.BadReclaimables[v]) and (not v.BeingReclaimed)) then
 				return true
 			end
 		end

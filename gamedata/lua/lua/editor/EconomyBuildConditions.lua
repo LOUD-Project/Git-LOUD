@@ -24,7 +24,7 @@ function ReclaimablesInAreaMass(aiBrain, locType, range)
 		end	
 		
 		for _,v in ents do
-			if (v.MassReclaim and v.MassReclaim > 0) and ((not aiBrain.BadReclaimables[v]) and (not v.BeingReclaimed)) then
+			if (v.MassReclaim and v.MassReclaim > 1) and ((not aiBrain.BadReclaimables[v]) and (not v.BeingReclaimed)) then
 				return true
 			end
 		end
