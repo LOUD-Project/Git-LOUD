@@ -1,3 +1,13 @@
+### Release 25-02-2022
+Lua 6.0.1
+
+AI  - Hotbuild was overriding the SpreadAttack keybind - fixed
+    - added SpreadAttack to the keybind choices
+    - LOD change - setLOD WorldCamera 0.5 - increases elevation at where props begin to appear
+    - reclaim rates on props are highly erratic and excessive on some props - adjusted time on some to temper that 
+    - minor changes to some Land platoon formations
+
+
 ### Release 18-02-2022
 Lua 6.0.0
 
