@@ -138,30 +138,6 @@ Builder = Class {
 
     end,
 
---[[    
-    CalculatePriority = function(self, builderManager)
-	
-        self.PriorityAltered = nil
-        
-		if Builders[self.BuilderName].PriorityFunction then
-        
-            LOG("*AI DEBUG reviewing priority function for "..repr(self.BuilderName))
-		
-			local newPri = false
-			local temporary = true
-
-			local newPri, temporary = Builders[self.BuilderName]:PriorityFunction(self.Brain)
-
-			if newPri and newPri != self.Priority then
-				builderManager:SetBuilderPriority(self.BuilderName, newPri, temporary)
-			end
-
-		end
-		
-        return self.PriorityAltered or false
-    end,
---]]
-  
     GetBuilderData = function(self, locationType, builderData )
 
         local returnData = false
@@ -199,7 +175,29 @@ Builder = Class {
         end
     end,
 
---[[
+--[[    
+    CalculatePriority = function(self, builderManager)
+	
+        self.PriorityAltered = nil
+        
+		if Builders[self.BuilderName].PriorityFunction then
+        
+            LOG("*AI DEBUG reviewing priority function for "..repr(self.BuilderName))
+		
+			local newPri = false
+			local temporary = true
+
+			local newPri, temporary = Builders[self.BuilderName]:PriorityFunction(self.Brain)
+
+			if newPri and newPri != self.Priority then
+				builderManager:SetBuilderPriority(self.BuilderName, newPri, temporary)
+			end
+
+		end
+		
+        return self.PriorityAltered or false
+    end,
+
     GetPlatoonTemplate = function(self)
         return Builders[self.BuilderName].PlatoonTemplate or false
     end,

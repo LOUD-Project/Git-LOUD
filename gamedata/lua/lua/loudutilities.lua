@@ -4111,14 +4111,14 @@ function ParseIntelThread( aiBrain )
 	local checkspertick = 1		-- number of threat entries to be processed per tick - this really affects game performance if moved up
 	
     -- this rate is important since it must be able to keep up with the shift in fast moving air units
-	local parseinterval = 50    -- the rate of a single iteration in ticks - essentially every 6 seconds (which is relative to the IMAP update cycle which is 3 seconds)
+	local parseinterval = 55    -- the rate of a single iteration in ticks - essentially every 6 seconds (which is relative to the IMAP update cycle which is 3 seconds)
 
     -- the current iteration value
     local iterationcount = 0 
     local iterationmax = 15
 
     -- Create EnemyData array - stores history of totalthreat by threattype over a period of time
-	-- and the History value controls how much history is kept -- about 450 seconds of history
+	-- and the History value controls how much history is kept 
 	aiBrain.EnemyData = { ['History'] = 100 }		
 
 	-- create the record for each type of intel within the array
@@ -4604,7 +4604,7 @@ function ParseIntelThread( aiBrain )
             
 		else
         
-			if checkspertick < 10 then
+			if checkspertick < 15 then
             
 				checkspertick = checkspertick + 1
                 
