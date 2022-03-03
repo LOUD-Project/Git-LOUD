@@ -57,6 +57,10 @@ keyActions = {
         category = 'ui', order = 25,},
     ['show_fps'] = {action = 'UI_Lua import("/lua/debug/uidebug.lua").ShowFPS()',
         category = 'ui', order = 26,},
+    ['toggle_profiler'] = {action = 'UI_Lua import("/lua/ui/game/Profiler.lua").ToggleProfiler()',
+        category = 'debug', order = 27},
+    ['toggle_profiler_window'] = {action = 'UI_Lua import("/lua/ui/game/Profiler.lua").OpenWindow()',
+        category = 'debug', order = 28},
 
     ['group1'] = {action = 'UI_ApplySelectionSet 1',
         category = 'selection', order = 1,},

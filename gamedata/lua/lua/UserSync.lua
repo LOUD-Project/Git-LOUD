@@ -31,6 +31,22 @@ local CurrentSimSpeed = 0	-- record the current sim speed rate and use this to d
 -- Here's an opportunity for user side script to examine the Sync table for the new tick
 function OnSync()
 
+    if Sync.ProfilerData then 
+        import("/lua/ui/game/Profiler.lua").ReceiveData(Sync.ProfilerData)
+    end
+
+    if Sync.Benchmarks then 
+        import("/lua/ui/game/Profiler.lua").ReceiveBenchmarks(Sync.Benchmarks)
+    end
+
+    if Sync.BenchmarkOutput then 
+        import("/lua/ui/game/Profiler.lua").ReceiveBenchmarkOutput(Sync.BenchmarkOutput)
+    end
+
+    if Sync.GameHasAIs ~= nil then 
+        import("/lua/ui/game/gamemain.lua").GameHasAIs = Sync.GameHasAIs
+    end
+
     if not tempty(Sync.CameraRequests) then
         import('/lua/UserCamera.lua').ProcessCameraRequests(Sync.CameraRequests)
     end

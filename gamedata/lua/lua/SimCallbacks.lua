@@ -118,3 +118,20 @@ function Callbacks.UpdateSelectedUnits(data)
 		end
 	end
 end
+
+-- Benchmarking (courtesy of Willem "Jip" Wijnia) ------------------------------
+
+--- Toggles the profiler on / off
+Callbacks.ToggleProfiler = function (data)
+    import("/lua/sim/profiler.lua").ToggleProfiler(data.Army, data.ForceEnable or false )
+end
+
+-- Allows searching for benchmarks
+Callbacks.FindBenchmarks = function (data)
+    import("/lua/sim/profiler.lua").FindBenchmarks(data.Army)
+end
+
+-- Allows a benchmark to be run in the sim
+Callbacks.RunBenchmarks = function (data)
+    import("/lua/sim/profiler.lua").RunBenchmarks(data.Info)
+end

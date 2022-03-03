@@ -125,7 +125,7 @@ In approximate chronological order of first contribution.
 - PhilipJFry (PhilipJFryFAF)
 	- Default map fix, shield-piercing check fix
 - Willem "Jip" Wijnia (Garanas)
-	- Bug fixes, GUI polish, lobby map options refinement
+	- Bug fixes, GUI polish, lobby map options refinement, AI marker debug menu, profiler and its window
 - Lohkrim#5559
 	- GUI polish, mod icons
 

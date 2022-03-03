@@ -132,9 +132,12 @@ end
 --# any units yet) and we're ready to start the game. It's responsible for setting up
 --# the initial units and any other gameplay state we need.
 function BeginSession()
-
+    
     -- JIP: make sure the hook happens before scripts start working
     import("/lua/sim/MarkerUtilities.lua")
+
+    -- brains can have adjusted this value by now, ready to sync
+    Sync.GameHasAIs = ScenarioInfo.GameHasAIs
 
     local focusarmy = GetFocusArmy()
 	

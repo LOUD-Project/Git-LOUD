@@ -10,6 +10,8 @@ keyDescriptions = {
     ['cap_frame'] = 'Take a screen shot',
     ['show_fps'] = "Toggle the display of frames rendered per second",
     ['toggle_markers_screen'] = "Toggle AI Marker Debug Utilities Screen",
+    ['toggle_profiler'] = 'Toggle Profiler',
+    ['toggle_profiler_window'] = 'Toggle Profiler Window',
     
     ['group1'] = 'Recall Group 1',
     ['group2'] = 'Recall Group 2',

@@ -3,7 +3,7 @@
 --* Author: Chris Blackwell
 --* Summary: functions that make it simpler to set up control layouts.
 --*
---* Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
+--* Copyright ï¿½ 2005 Gas Powered Games, Inc.  All rights reserved.
 --*****************************************************************************
 
 --* Percentage versus offset
@@ -452,4 +452,12 @@ end
 function DepthUnderParent(control, parent, depth)
     depth = depth or 1
     control.Depth:Set(function() return parent.Depth() - depth end)
+end
+
+local Prefs = import('/lua/user/prefs.lua')
+local pixelScaleFactor = Prefs.GetFromCurrentProfile('options').ui_scale or 1
+
+-- RAT: This only exists as a stand-in for FAF UI scaling logic which LOUD lacks. 
+function ScaleNumber(number)
+    return math.floor(number * pixelScaleFactor)
 end

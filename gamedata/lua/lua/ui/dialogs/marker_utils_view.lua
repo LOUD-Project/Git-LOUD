@@ -1,5 +1,6 @@
--- Author: Willem "Jip" Wijnia
--- This file is borrowed from FAF's codebase with the author's consent.
+-- Author(s): Willem "Jip" Wijnia
+-- As of 03/02/2022, FAF's Lua code is distributed without license, and used as such.
+-- Consent of the author(s) was granted for this usage.
 
 local UIUtil = import('/lua/ui/uiutil.lua')
 local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
