@@ -1,5 +1,5 @@
 -- Author(s): Willem "Jip" Wijnia
--- As of 03/02/2022, FAF's Lua code is distributed without license, and used as such.
+-- As of 03/03/2022, FAF's Lua code is distributed without license, and used as such.
 -- Consent of the author(s) was granted for this usage.
 
 -- JIP: implementation of the observable pattern as described on:

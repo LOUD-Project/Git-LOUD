@@ -137,11 +137,10 @@ function BeginSession()
     import("/lua/sim/MarkerUtilities.lua")
 
     -- brains can have adjusted this value by now, ready to sync
-    Sync.GameHasAIs = ScenarioInfo.GameHasAIs
 
     local focusarmy = GetFocusArmy()
 	
-    if focusarmy>=0 and ArmyBrains[focusarmy] then
+    if focusarmy >= 0 and ArmyBrains[focusarmy] then
         LocGlobals.PlayerName = ArmyBrains[focusarmy].Nickname
     end
 
@@ -157,7 +156,7 @@ function BeginSession()
             if not teams[army.Team] then
                 teams[army.Team] = {}
             end
-            table.insert(teams[army.Team],army.ArmyIndex)
+            table.insert(teams[army.Team], army.ArmyIndex)
         end
     end
 

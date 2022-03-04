@@ -1,5 +1,5 @@
 -- Author(s): Willem "Jip" Wijnia
--- As of 03/02/2022, FAF's Lua code is distributed without license, and used as such.
+-- As of 03/03/2022, FAF's Lua code is distributed without license, and used as such.
 -- Consent of the author(s) was granted for this usage.
 
 -- Useful sources to read: 
@@ -26,20 +26,12 @@ local data = CreateEmptyProfilerTable()
 function ToggleProfiler(army, forceEnable)
 
     -- basic checks for toggling the profiler
-    local gameHasAIs = ScenarioInfo.GameHasAIs
     local cheatsEnabled = CheatsEnabled()
 
     -- return if conditions are not met
-    if not (gameHasAIs or cheatsEnabled) then 
+    if not cheatsEnabled then 
         return
-    end
-
-    -- inform us why profiler can be toggled
-    if gameHasAIs then 
-        SPEW("Profiler can be toggled: game has AIs")
-    end
-
-    if cheatsEnabled then 
+    else
         SPEW("Profiler can be toggled: game has cheats enabled")
     end
 

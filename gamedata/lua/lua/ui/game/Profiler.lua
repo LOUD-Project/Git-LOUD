@@ -1,5 +1,5 @@
 -- Author(s): Willem "Jip" Wijnia
--- As of 03/02/2022, FAF's Lua code is distributed without license, and used as such.
+-- As of 03/03/2022, FAF's Lua code is distributed without license, and used as such.
 -- Consent of the author(s) was granted for this usage.
 
 local UIUtil = import('/lua/ui/uiutil.lua')
@@ -486,9 +486,8 @@ end
 --- Opens up the window
 function OpenWindow()
 
-    local gameHasAIs = GameMain.GameHasAIs 
     local cheatsOn = sessionInfo.Options.CheatsEnabled
-    if not (gameHasAIs or cheatsOn) then 
+    if not cheatsOn then 
         WARN("Unable to open Profiler window: no AIs or no cheats")
         return 
     end

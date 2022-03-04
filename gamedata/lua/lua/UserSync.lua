@@ -43,10 +43,6 @@ function OnSync()
         import("/lua/ui/game/Profiler.lua").ReceiveBenchmarkOutput(Sync.BenchmarkOutput)
     end
 
-    if Sync.GameHasAIs ~= nil then 
-        import("/lua/ui/game/gamemain.lua").GameHasAIs = Sync.GameHasAIs
-    end
-
     if not tempty(Sync.CameraRequests) then
         import('/lua/UserCamera.lua').ProcessCameraRequests(Sync.CameraRequests)
     end

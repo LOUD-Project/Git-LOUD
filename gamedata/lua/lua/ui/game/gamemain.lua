@@ -34,8 +34,6 @@ local waitingDialog = false
 -- Allows detection of whether someone was originally an observer or a player
 OriginalFocusArmy = -1
 
-GameHasAIs = false
-
 -- from All Your Voice mod
 local GetOption = import('/lua/user/prefs.lua').GetOption
 local Ping = import("/lua/ui/game/ping.lua").DoPingOnPosition
