@@ -60,6 +60,38 @@ local CDRbuildsT3 = function( self, aiBrain, unit )
 	return self.Priority, false
 end
 
+-- This is mostly for the players that rush him but this should also effect how prepared his bases are.
+local IsEnemyCrushingLand = function( builder, aiBrain, unit )
+
+    if aiBrain.LandRatio <= 1.0 and aiBrain.CycleTime > 300 then
+
+		return builder.Priority + 100, true	
+
+    end
+    
+    local IMAPblocks = math.floor( 96/ScenarioInfo.IMAPSize )
+
+    if aiBrain:GetThreatAtPosition( unit:GetPosition(), IMAPblocks, true, 'AntiSurface' ) > 30 then
+    
+        LOG("*AI DEBUG Threat at IMAPblocks "..IMAPblocks.." range > 30")
+
+        return builder.Priority + 100, true
+        
+    end
+    
+    return builder.Priority, false
+end
+
+local IsEnemyCrushingAir = function( builder, aiBrain, unit )
+
+    if aiBrain.AirRatio <= 1.0 and aiBrain.CycleTime > 300 then
+	
+		return builder.Priority + 100, true	
+
+    end
+    
+    return builder.Priority, false
+end
 
 -- Some notes here about the syntax of the Construction section of the builder task
 
@@ -457,6 +489,8 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
 		PlatoonAIPlan = 'EngineerAssistAI',
 		
         Priority = 755,
+        
+        PriorityFunction = IsEnemyCrushingLand,
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
@@ -525,7 +559,9 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
 		PlatoonAIPlan = 'EngineerAssistAI',
 		
         Priority = 754,
-		
+        
+        PriorityFunction = IsEnemyCrushingLand,
+
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
@@ -588,13 +624,13 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
             
 			{ MIBC, 'GreaterThanGameTime', { 210 } },            
             
-			{ EBC, 'ReclaimablesInAreaMass', { 'LocationType', 50 }},
+			{ EBC, 'ReclaimablesInAreaMass', { 'LocationType', 45 }},
         },
 		
         BuilderData = {
 			ReclaimTime = 45,
 			ReclaimType = 'Mass',
-            ReclaimRange = 60,
+            ReclaimRange = 50,
         },
     },
 
@@ -614,7 +650,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
 
             -- too early (7 mins) -- we don't want Bob wandering around too much this early
             if aiBrain.CycleTime < 420 then
-                return 0, true
+                return 10, true
             end
 
             -- map is too large
