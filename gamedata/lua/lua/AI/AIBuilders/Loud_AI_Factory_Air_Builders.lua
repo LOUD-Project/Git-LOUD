@@ -99,6 +99,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
         PlatoonAddFunctions = { { LUTL, 'UseBuilderOnce' }, },
 
         Priority = 610,
+        
+        PriorityFunction = First45Minutes, 
 
         BuilderConditions = {
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 1, categories.AIR * categories.SCOUT } },
@@ -112,12 +114,14 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
         PlatoonTemplate = 'T1AirScout',
         
         Priority = 600,
+        
+        PriorityFunction = First45Minutes, 
 
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .65 } },
             
-            -- don't build T1 air scouts if we can built better ones
+            -- don't build T1 air scouts if we can build better ones
             { UCBC, 'FactoryLessAtLocation', { 'LocationType', 1, categories.AIR - categories.TECH1 }},
 			
 			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 8, [512] = 12, [1024] = 18, [2048] = 20, [4096] = 20}, categories.AIR * categories.SCOUT}},

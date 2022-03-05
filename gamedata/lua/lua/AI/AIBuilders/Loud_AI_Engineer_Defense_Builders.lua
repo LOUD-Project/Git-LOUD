@@ -54,26 +54,36 @@ end
 
 -- These 2 New Functions will enable LOUD to prioritize defenses if land ratio below a certain value
 -- This is mostly for the players that rush him but this should also effect how prepared his bases are.
-local IsEnemyCrushingLand = function(self,aiBrain,manager)
+local IsEnemyCrushingLand = function( builder, aiBrain, unit )
 
     if aiBrain.LandRatio <= 1.0 then
 	
-		return self.Priority + 100, true	
+		return builder.Priority + 100, true	
 
     end
     
-    return self.Priority, false
+    local IMAPblocks = math.floor( 96/ScenarioInfo.IMAPSize )
+
+    if aiBrain:GetThreatAtPosition( unit:GetPosition(), IMAPblocks, true, 'AntiSurface' ) > 30 then
+    
+        LOG("*AI DEBUG Threat at IMAPblocks "..IMAPblocks.." range > 30")
+
+        return builder.Priority + 100, true
+        
+    end
+    
+    return builder.Priority, false
 end
 
-local IsEnemyCrushingAir = function(self,aiBrain,manager)
+local IsEnemyCrushingAir = function( builder, aiBrain, unit )
 
     if aiBrain.AirRatio <= 1.0 then
 	
-		return self.Priority + 100, true	
+		return builder.Priority + 100, true	
 
     end
     
-    return self.Priority, false
+    return builder.Priority, false
 end
 
 ---------------------
@@ -135,6 +145,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 				BaseTemplate = 'PerimeterDefenseTemplates',
 				
                 BuildStructures = {
+                    'T1AADefense',
 					'T1GroundDefense',
 					'T1Artillery',
 				},
@@ -142,6 +153,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         }
     },	
 
+--[[
     Builder {BuilderName = 'T1 Base Defense - AA',
 	
         PlatoonTemplate = 'EngineerBuilder',
@@ -199,6 +211,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
             }
         }
     },
+--]]
 
     Builder {BuilderName = 'T2 Base PD - Base Template',
 	
@@ -216,8 +229,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
             { LUTL, 'UnitCapCheckLess', { .65 } },
             
             { MIBC, 'BaseInPlayableArea', { 'LocationType' }},            
-            
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
+
+			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
+
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 20, categories.STRUCTURE * categories.DIRECTFIRE * categories.TECH2, 15, 42 }},
         },
 		
@@ -254,7 +268,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
             
             { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 175, 1750 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
             
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 10, categories.STRUCTURE * categories.ANTIMISSILE * categories.TECH2, 14, 42 }},
         },
@@ -290,7 +304,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
             
             { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
             
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.7, 12, 1, 1.01 }},
 			
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 18, categories.STRUCTURE * categories.DIRECTFIRE * categories.TECH3, 15, 42 }},
         },
@@ -331,7 +345,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
             
             { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
             
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 25, 1.012, 1.02 }},
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.7, 12, 1, 1.01 }},
 			
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 12, categories.STRUCTURE * categories.ANTIAIR * categories.TECH3, 15, 42 }},
         },
@@ -835,7 +849,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS',
 			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
             { LUTL, 'UnitCapCheckLess', { .95 } },
             { MIBC, 'BaseInPlayableArea', { 'LocationType' }},			
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 12, 1.01, 1.02 }},
 
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 3, categories.FACTORY * categories.STRUCTURE}},
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 4, categories.STRUCTURE * categories.SHIELD, 5, 16 }},
@@ -1742,7 +1756,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Point Defense Construction',
 		
             { LUTL, 'UnitCapCheckLess', { .75 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 4200 }},
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 12, 1.01, 1.02 }},
 			{ UCBC, 'MassExtractorHasStorageAndLessDefense', { 'LocationType', 150, 1000, 2, 4, categories.STRUCTURE * categories.DEFENSE }},
 
         },
@@ -1789,7 +1803,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Point Defense Construction',
 			{ LUTL, 'NeedTeamMassPointShare', {}},
             { LUTL, 'UnitCapCheckLess', { .75 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 12, 1.01, 1.02 }},
 			{ UCBC, 'MassExtractorHasStorageAndLessDefense', { 'LocationType', 150, 1000, 3, 3, categories.STRUCTURE * categories.DEFENSE * categories.TECH3 }},
         },
 		
@@ -1846,7 +1860,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
             
 			--{ TBC, 'ThreatCloserThan', { 'LocationType', 400, 75, 'Land' }},
 
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }}, 
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 12, 1.01, 1.02 }}, 
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 16, categories.STRUCTURE * categories.DIRECTFIRE * categories.TECH2, 14, 48 }},
         },
 		
@@ -1879,7 +1893,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core - Ex
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .75 } },
             
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }}, 
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 12, 1.01, 1.02 }}, 
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 8, categories.STRUCTURE * categories.ANTIAIR * categories.TECH2, 14, 48 }},
         },
 		

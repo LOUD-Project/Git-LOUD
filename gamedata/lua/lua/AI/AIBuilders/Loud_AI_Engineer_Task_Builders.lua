@@ -196,13 +196,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 		
         BuilderConditions = {
 			{ EBC, 'LessThanEconMassStorageRatio', { 50 }},
-			{ EBC, 'ReclaimablesInAreaMass', { 'LocationType', 180 }},
+			{ EBC, 'ReclaimablesInAreaMass', { 'LocationType', 145 }},
         },
 		
         BuilderData = {
 			ReclaimTime = 90,
 			ReclaimType = 'Mass',
-            ReclaimRange = 180,
+            ReclaimRange = 150,
         },
     },
 
@@ -786,7 +786,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Active DP',
 			--{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			
 			{ EBC, 'LessThanEconMassStorageRatio', { 50 }},			
-			{ EBC, 'ReclaimablesInAreaMass', { 'LocationType', 90 }},
+			{ EBC, 'ReclaimablesInAreaMass', { 'LocationType', 75 }},
         },
 		
         BuilderData = {
