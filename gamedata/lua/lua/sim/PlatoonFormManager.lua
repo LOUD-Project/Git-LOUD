@@ -163,23 +163,24 @@ PlatoonFormManager = Class(BuilderManager) {
         
         local PlatoonDialog = ScenarioInfo.PlatoonDialog or false
         
+        local Location = self.Location
         local LocationType = self.LocationType
+        local Radius = self.Radius
         
         local BuilderName = builder.BuilderName
         local Builder = Builders[BuilderName]
 
-
-		if aiBrain.BuilderManagers[LocationType] then
+		if aiBrain.BuilderManagers[LocationType] and Location and Radius then
 		
 			local template = self.GetPlatoonTemplate( self, Builder.PlatoonTemplate, aiBrain )
 		
-			if template and self.Location and self.Radius and CanFormPlatoon( aiBrain.ArmyPool, template, 1, self.Location, self.Radius) then
+			if template and CanFormPlatoon( aiBrain.ArmyPool, template, 1, Location, Radius) then
 
 				if PlatoonDialog then
 					LOG("*AI DEBUG "..aiBrain.Nickname.." PFM "..LocationType.." forms "..repr(BuilderName).." using "..repr(template[1]))
 				end
 
-				local hndl = FormPlatoon( aiBrain.ArmyPool, template, 1, self.Location, self.Radius)
+				local hndl = FormPlatoon( aiBrain.ArmyPool, template, 1, Location, Radius)
 				
 				if not builder:StoreHandle( hndl, self, 'Any' ) then
 				
@@ -251,9 +252,9 @@ PlatoonFormManager = Class(BuilderManager) {
 				end
 
 			else
-                
-                LOG("*AI DEBUG "..aiBrain.Nickname.." PFM "..LocationType.." unable to form platoon "..repr(template[1]))
-                
+                if PlatoonDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." PFM "..LocationType.." unable to form "..repr(BuilderName).." template "..repr(template[1]).." location "..repr(Location).." radius "..repr(Radius) )
+                end
 			end
         end
     end,

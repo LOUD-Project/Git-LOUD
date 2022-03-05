@@ -219,7 +219,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-		InstanceCount = 2,
+		InstanceCount = 1,
 		
         Priority = 751,
 

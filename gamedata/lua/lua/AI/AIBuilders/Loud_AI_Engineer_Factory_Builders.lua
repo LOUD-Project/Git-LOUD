@@ -237,7 +237,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction',
 			{ UCBC, 'FactoryCapCheck', { 'LocationType', 'AIR' }},
 			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 2, categories.AIR * categories.TECH1 }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.7, 12, 1, 1.01 }},
         },
 		
@@ -469,7 +469,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Quantum Gate Construction',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .75 } },
 			
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
 			
             { UCBC, 'FactoryLessAtLocation', { 'LocationType', 1, categories.TECH3 * categories.GATE }},
 			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, categories.TECH3 * categories.GATE }},
@@ -516,7 +516,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Quantum Gate Construction - Small Bas
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .75 } },
 			
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
 			
             { UCBC, 'FactoryLessAtLocation', { 'LocationType', 1, categories.TECH3 * categories.GATE }},
 			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, categories.TECH3 * categories.GATE }},

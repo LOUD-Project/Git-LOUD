@@ -10,7 +10,7 @@ FactoryLayout = {
 -- UEF Factory Layout
     {
         {{'T1LandFactory'},
-			{  0, 18 }, 	--# inner ring 12 -- 3 in front
+			{  0, 18 }, 	-- inner ring -- 3 in front
 			{-10, 18 },
 			{ 10, 18 },
 			{-18, 10 },		-- left side front
@@ -19,18 +19,19 @@ FactoryLayout = {
 			{ 18,  0 },		-- right side centre
 			{-18,-10 },		-- left side rear
 			{ 18,-10 },		-- right side rear
-			{-10,-18 },		-- 3 in rear
-			{  0,-18 },
+			{-10,-18 },		-- 2 in rear flanks
 			{ 10,-18 },
-			{-10, 26 }, # outer ring 8
+            
+			{-10, 26 },     -- outer ring 4
 			{ 10, 26 },
 			{-10,-26 },
-			{ 10,-26 },
-			{ 26, 10 },
+			{  0,-18 },
+			{ 10,-26 },     -- back middle
+			{ 26, 10 },     -- another outer ring 4
 			{ 26,-10 },
 			{-26, 10 },
 			{-26,-10 },
-			{-32, 24 }, # additional corner 4
+			{-32, 24 },     -- additional corner 4
 			{ 32, 24 },
 			{ 32,-24 },
 			{-32,-24 },
@@ -45,22 +46,22 @@ FactoryLayout = {
 			{-18, 10 },
 			{ 18, 10 },
 			
-			{-10,-18 },		-- 3 in rear
+			{-10,-18 },		-- 2 in rear flanks
 			{ 10,-18 },
-			{  0,-18 },
 			
 			{-10, 18 },		-- final 2 in front
 			{ 10, 18 },
 
-			{-10, 26 }, # outer ring 8
+			{-10, 26 },     -- outer ring 4
 			{ 10, 26 },
 			{-10,-26 },
 			{ 10,-26 },
-			{ 26, 10 },
+			{  0,-18 },     -- back middle            
+			{ 26, 10 },     -- another outer ring 4
 			{ 26,-10 },
 			{-26, 10 },
 			{-26,-10 },
-			{-32, 24 }, # additional corner 4
+			{-32, 24 },     -- additional corner 4
 			{ 32, 24 },
 			{ 32,-24 },
 			{-32,-24 },
@@ -72,7 +73,7 @@ FactoryLayout = {
 -- Aeon Factory Layout
     {
         {{'T1LandFactory'},
-			{  0, 18 }, 	--# inner ring 12 -- 3 in front
+			{  0, 18 }, 	-- inner ring -- 3 in front
 			{-10, 18 },
 			{ 10, 18 },
 			{-18, 10 },		-- left side front
@@ -81,18 +82,19 @@ FactoryLayout = {
 			{ 18,  0 },		-- right side centre
 			{-18,-10 },		-- left side rear
 			{ 18,-10 },		-- right side rear
-			{-10,-18 },		-- 3 in rear
-			{  0,-18 },
+			{-10,-18 },		-- 2 in rear flanks
 			{ 10,-18 },
-			{-10, 26 }, # outer ring 8
+            
+			{-10, 26 },     -- outer ring 4
 			{ 10, 26 },
 			{-10,-26 },
-			{ 10,-26 },
-			{ 26, 10 },
+			{  0,-18 },
+			{ 10,-26 },     -- back middle
+			{ 26, 10 },     -- another outer ring 4
 			{ 26,-10 },
 			{-26, 10 },
 			{-26,-10 },
-			{-32, 24 }, # additional corner 4
+			{-32, 24 },     -- additional corner 4
 			{ 32, 24 },
 			{ 32,-24 },
 			{-32,-24 },
@@ -107,22 +109,22 @@ FactoryLayout = {
 			{-18, 10 },
 			{ 18, 10 },
 			
-			{-10,-18 },		-- 3 in rear
+			{-10,-18 },		-- 2 in rear flanks
 			{ 10,-18 },
-			{  0,-18 },
 			
 			{-10, 18 },		-- final 2 in front
 			{ 10, 18 },
 
-			{-10, 26 }, # outer ring 8
+			{-10, 26 },     -- outer ring 4
 			{ 10, 26 },
 			{-10,-26 },
 			{ 10,-26 },
-			{ 26, 10 },
+			{  0,-18 },     -- back middle            
+			{ 26, 10 },     -- another outer ring 4
 			{ 26,-10 },
 			{-26, 10 },
 			{-26,-10 },
-			{-32, 24 }, # additional corner 4
+			{-32, 24 },     -- additional corner 4
 			{ 32, 24 },
 			{ 32,-24 },
 			{-32,-24 },
@@ -135,7 +137,7 @@ FactoryLayout = {
 -- Cybran Factory Layout
     {
         {{'T1LandFactory'},
-			{  0, 18 }, 	--# inner ring 12 -- 3 in front
+			{  0, 18 }, 	-- inner ring -- 3 in front
 			{-10, 18 },
 			{ 10, 18 },
 			{-18, 10 },		-- left side front
@@ -144,18 +146,19 @@ FactoryLayout = {
 			{ 18,  0 },		-- right side centre
 			{-18,-10 },		-- left side rear
 			{ 18,-10 },		-- right side rear
-			{-10,-18 },		-- 3 in rear
-			{  0,-18 },
+			{-10,-18 },		-- 2 in rear flanks
 			{ 10,-18 },
-			{-10, 26 }, # outer ring 8
+            
+			{-10, 26 },     -- outer ring 4
 			{ 10, 26 },
 			{-10,-26 },
-			{ 10,-26 },
-			{ 26, 10 },
+			{  0,-18 },
+			{ 10,-26 },     -- back middle
+			{ 26, 10 },     -- another outer ring 4
 			{ 26,-10 },
 			{-26, 10 },
 			{-26,-10 },
-			{-32, 24 }, # additional corner 4
+			{-32, 24 },     -- additional corner 4
 			{ 32, 24 },
 			{ 32,-24 },
 			{-32,-24 },
@@ -170,22 +173,22 @@ FactoryLayout = {
 			{-18, 10 },
 			{ 18, 10 },
 			
-			{-10,-18 },		-- 3 in rear
+			{-10,-18 },		-- 2 in rear flanks
 			{ 10,-18 },
-			{  0,-18 },
 			
 			{-10, 18 },		-- final 2 in front
 			{ 10, 18 },
 
-			{-10, 26 }, # outer ring 8
+			{-10, 26 },     -- outer ring 4
 			{ 10, 26 },
 			{-10,-26 },
 			{ 10,-26 },
-			{ 26, 10 },
+			{  0,-18 },     -- back middle            
+			{ 26, 10 },     -- another outer ring 4
 			{ 26,-10 },
 			{-26, 10 },
 			{-26,-10 },
-			{-32, 24 }, # additional corner 4
+			{-32, 24 },     -- additional corner 4
 			{ 32, 24 },
 			{ 32,-24 },
 			{-32,-24 },
@@ -198,7 +201,7 @@ FactoryLayout = {
 -- Seraphim Factory Layout
     {
         {{'T1LandFactory'},
-			{  0, 18 }, 	--# inner ring 12 -- 3 in front
+			{  0, 18 }, 	-- inner ring -- 3 in front
 			{-10, 18 },
 			{ 10, 18 },
 			{-18, 10 },		-- left side front
@@ -207,18 +210,19 @@ FactoryLayout = {
 			{ 18,  0 },		-- right side centre
 			{-18,-10 },		-- left side rear
 			{ 18,-10 },		-- right side rear
-			{-10,-18 },		-- 3 in rear
-			{  0,-18 },
+			{-10,-18 },		-- 2 in rear flanks
 			{ 10,-18 },
-			{-10, 26 }, # outer ring 8
+            
+			{-10, 26 },     -- outer ring 4
 			{ 10, 26 },
 			{-10,-26 },
-			{ 10,-26 },
-			{ 26, 10 },
+			{  0,-18 },
+			{ 10,-26 },     -- back middle
+			{ 26, 10 },     -- another outer ring 4
 			{ 26,-10 },
 			{-26, 10 },
 			{-26,-10 },
-			{-32, 24 }, # additional corner 4
+			{-32, 24 },     -- additional corner 4
 			{ 32, 24 },
 			{ 32,-24 },
 			{-32,-24 },
@@ -233,22 +237,22 @@ FactoryLayout = {
 			{-18, 10 },
 			{ 18, 10 },
 			
-			{-10,-18 },		-- 3 in rear
+			{-10,-18 },		-- 2 in rear flanks
 			{ 10,-18 },
-			{  0,-18 },
 			
 			{-10, 18 },		-- final 2 in front
 			{ 10, 18 },
 
-			{-10, 26 }, # outer ring 8
+			{-10, 26 },     -- outer ring 4
 			{ 10, 26 },
 			{-10,-26 },
 			{ 10,-26 },
-			{ 26, 10 },
+			{  0,-18 },     -- back middle            
+			{ 26, 10 },     -- another outer ring 4
 			{ 26,-10 },
 			{-26, 10 },
 			{-26,-10 },
-			{-32, 24 }, # additional corner 4
+			{-32, 24 },     -- additional corner 4
 			{ 32, 24 },
 			{ 32,-24 },
 			{-32,-24 },

@@ -1,3 +1,13 @@
+### Release 05-03-2022
+Lua 6.0.2
+
+AI  - uncovered an edge situation in ParseIntel that would cause severe stuttering in high unit count conditions
+    - merged Profiler with UI - courtesy of Jip, implemented by Rat Circus - need to bind hotkey to use it
+    - some tweaks to ACU builders to better focus the activity of the ACU during 'nearby' threat conditions
+    - likewise, tweaks to Engineering tasks during 'nearby' threat conditions
+    - BuilderManager process resequenced to provide immediate resolution of 'priorityfunctions' and removal of 0 priority tasks
+
+
 ### Release 25-02-2022
 Lua 6.0.1
 
