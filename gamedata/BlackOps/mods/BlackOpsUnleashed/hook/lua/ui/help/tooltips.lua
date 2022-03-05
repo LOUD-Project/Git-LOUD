@@ -18,9 +18,9 @@ Tooltips['fire_wep'] = {
 	title = "Fire Main Weapon",
 	description = "Fires the Special Weapon",
 }
-Tooltips['transform_stationary'] = {
-	title = "Stationary Mode",
-	description = "Transforms the unit into a stationary mode.",
+Tooltips['transform_siege'] = {
+	title = "Siege Mode",
+	description = "Transforms the unit into a non-stationary siege mode.",
 }
 Tooltips['transform_mobile'] = {
 	title = "Mobile Mode",
