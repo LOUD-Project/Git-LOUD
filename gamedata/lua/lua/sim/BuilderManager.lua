@@ -189,7 +189,7 @@ BuilderManager = Class {
 		local counter = 0
         local conditionschecked = 0
 		
-		local TaskList = self.BuilderData[unit.BuilderType].Builders or {}
+
         local ResultTable = aiBrain.ConditionsMonitor.ResultTable
 
 		local continuesearching = true
@@ -228,24 +228,48 @@ BuilderManager = Class {
 			return true
 		end
 
+        local RebuildTable = function(oldtable)
+	
+            local temptable = {}
+            local LOUDINSERT = table.insert
+            local type = type
+		
+            for k,v in oldtable do
+		
+                if v != nil then
+			
+                    if type(k) == 'string' then
+				
+                        temptable[k] = v
+                    else
+                        LOUDINSERT(temptable, v)
+                    end
+                end
+            end
+		
+            return temptable
+        end
+        
 		-- sort the builders list if needed
 		if self.BuilderData[BuilderType].NeedSort then
         
+            self.BuilderData[BuilderType].Builders = RebuildTable( self.BuilderData[BuilderType].Builders )
+        
             if PriorityDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..ManagerType.." sorting "..LOUDGETN(self.BuilderData[BuilderType].Builders).." "..BuilderType.." tasks")
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..ManagerType.." "..BuilderType.." sorting "..LOUDGETN(self.BuilderData[BuilderType].Builders).." tasks")
             end
-
+    
 			LOUDSORT( self.BuilderData[BuilderType].Builders, function(a,b) return a.Priority > b.Priority end )
 
             if PriorityDialog then
             
                 if not self.BuilderData[BuilderType].displayed then
                 
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..ManagerType.." "..self.LocationType.." SORTED "..BuilderType.." Builders are ")
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..ManagerType.." "..BuilderType.." "..self.LocationType.." SORTED "..BuilderType.." Builders are ")
                     
                     for k,v in self.BuilderData[BuilderType].Builders do
                     
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..ManagerType.." "..self.LocationType.." "..v.Priority.." "..v.BuilderName)
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..ManagerType.." "..BuilderType.." "..self.LocationType.." "..v.Priority.." "..v.BuilderName)
                     end
                     
                     self.BuilderData[BuilderType].displayed = true
@@ -254,7 +278,8 @@ BuilderManager = Class {
 
 			self.BuilderData[BuilderType].NeedSort = false
         end
-        
+
+		local TaskList = self.BuilderData[unit.BuilderType].Builders or {}        
         local Priority, newPri, temporary
 
         for k,task in TaskList do
@@ -262,6 +287,36 @@ BuilderManager = Class {
             conditionschecked = 0
             
             Priority = task.Priority
+			
+            -- first step, process any PriorityFunction for this task
+            -- if there is a new priority and it's not 0 then act on this task with it's new priority
+            -- if the new priority is 0 - process it normally but this task will be removed on the next cycle
+			if Builders[task.BuilderName].PriorityFunction then
+
+				newPri = false
+				temporary = true
+
+				newPri,temporary = Builders[task.BuilderName]:PriorityFunction( aiBrain, unit )
+
+				-- if the priority function reports a different priority than current priority
+				if newPri and newPri != Priority and (task.InstanceAvailable > 0 or ManagerType == 'FBM') then
+				
+					if PriorityDialog then
+						LOG("*AI DEBUG "..aiBrain.Nickname.." "..ManagerType.." "..BuilderType.." "..self.LocationType.." PriorityFunction for "..repr(self.BuilderData[BuilderType].Builders[k].BuilderName).." changes to "..newPri.." from "..Priority )
+					end
+
+					self.BuilderData[BuilderType].Builders[k]:SetPriority( newPri, temporary )
+					
+					self.BuilderData[BuilderType].NeedSort = true
+                    self.BuilderData[BuilderType].displayed = false
+                    
+                    if newPri != 0 then
+                        Priority = newPri
+                    end
+
+                end
+			end
+
 		
 			if Priority > 100 and (task.InstanceAvailable > 0 or ManagerType == 'FBM') and continuesearching then
 			
@@ -278,9 +333,9 @@ BuilderManager = Class {
 
                         end
                     else
-                        if PriorityDialog then
-                            LOG("*AI DEBUG "..aiBrain.Nickname.." "..ManagerType.." "..self.LocationType.." "..repr(task.BuilderName).." fails")
-                        end
+                        --if PriorityDialog then
+                            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..ManagerType.." "..BuilderType.." "..self.LocationType.." "..repr(task.BuilderName).." fails")
+                        --end
                     end
                     
                 elseif found and Priority < found then
@@ -292,38 +347,20 @@ BuilderManager = Class {
 				if Priority == 0 and not task.OldPriority then
 
 					if PriorityDialog then
-						LOG("*AI DEBUG "..aiBrain.Nickname.." "..ManagerType.." "..self.LocationType.." Removing "..repr(self.BuilderData[BuilderType].Builders[k].BuilderName) )
+						LOG("*AI DEBUG "..aiBrain.Nickname.." "..ManagerType.." "..BuilderType.." "..self.LocationType.." Removing "..repr(task.BuilderName) )
 					end
 					
-					LOUDREMOVE(self.BuilderData[BuilderType].Builders,k)
+                    self.BuilderData[BuilderType].Builders[k] = nil
 
 					self.BuilderData[BuilderType].NeedSort = true
+                    self.BuilderData[BuilderType].displayed = false
 				end
 			end
-			
-			if Builders[TaskList[k].BuilderName].PriorityFunction then
+            
+            --if PriorityDialog then
+              --  LOG("*AI DEBUG "..aiBrain.Nickname.." "..ManagerType.." "..BuilderType.." "..self.LocationType.." Examined task "..k.." "..repr(task.BuilderName) )
+            --end
 
-				newPri = false
-				temporary = true
-                
-                --if PriorityDialog then
-                  --  LOG("*AI DEBUG "..aiBrain.Nickname.." "..ManagerType.." "..self.LocationType.." PriorityFunction for "..repr(self.BuilderData[BuilderType].Builders[k].BuilderName) )    
-                --end
-				
-				newPri,temporary = Builders[TaskList[k].BuilderName]:PriorityFunction( aiBrain, unit )
-
-				-- if the priority function reports a different priority than current priority
-				if newPri and newPri != Priority and (task.InstanceAvailable > 0 or ManagerType == 'FBM') then
-				
-					if PriorityDialog then
-						LOG("*AI DEBUG "..aiBrain.Nickname.." "..ManagerType.." "..self.LocationType.." PriorityFunction for "..repr(self.BuilderData[BuilderType].Builders[k].BuilderName).." changes to "..newPri.." from "..Priority )
-					end
-
-					self.BuilderData[BuilderType].Builders[k]:SetPriority( newPri, temporary )
-					
-					self.BuilderData[BuilderType].NeedSort = true
-				end
-			end
         end
 
         if counter > 0 then 
@@ -337,7 +374,7 @@ BuilderManager = Class {
         return false
     end,
 	
-	RebuildTable = function(self,oldtable)
+	RebuildTable = function(oldtable)
 	
 		local temptable = {}
 		local LOUDINSERT = table.insert
@@ -500,7 +537,7 @@ BuilderManager = Class {
             --end
 			
             -- there must be units in the Pool or there will be nothing to form
-			if PoolGreaterAtLocation( brain, LocationType, 0, categories.ALLUNITS - categories.ENGINEER ) then
+			if PoolGreaterAtLocation( brain, LocationType, 0, categories.ALLUNITS - categories.ENGINEER ) and brain:GetNoRushTicks() < 300 then
 		
                 if self.BuilderData['Any'].NeedSort then
     
@@ -551,7 +588,7 @@ BuilderManager = Class {
                 duration = brain.ConditionsMonitor.ThreadWaitDuration
 
                 if PriorityDialog then
-                    LOG("*AI DEBUG "..brain.Nickname.." "..self.ManagerType.." "..LocationType.." NO POOL UNITS - delaying "..duration ) 
+                    LOG("*AI DEBUG "..brain.Nickname.." "..self.ManagerType.." "..LocationType.." NO POOL UNITS or NO RUSH TIMER IN EFFECT - delaying "..duration ) 
                 end
 
             end
