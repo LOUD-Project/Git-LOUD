@@ -19,6 +19,7 @@ local GetAIBrain = moho.unit_methods.GetAIBrain
 
 local LOUDGETN  = table.getn
 local LOUDINSERT = table.insert
+local LOUDREMOVE = table.remove
 
 local LOUDENTITY = EntityCategoryContains
 local EntityCategoryCount = EntityCategoryCount

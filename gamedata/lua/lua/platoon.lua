@@ -82,6 +82,7 @@ local LOUDTIME = GetGameTimeSeconds
 
 local VDist2Sq = VDist2Sq
 local VDist3 = VDist3
+local VDist3Sq = VDist3Sq
 
 local ForkThread = ForkThread
 local ForkTo = ForkThread

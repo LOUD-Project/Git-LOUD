@@ -4,6 +4,11 @@
 
 -- Diplomacy
 
+local next = next
+local LOUDEMPTY = table.empty
+local LOUDGETN = table.getn
+local LOUDINSERT = table.insert
+
 function BreakAlliance( data )
 
     -- You can't change alliances in a team game
@@ -210,7 +215,7 @@ function AreaReclaim(data, units)
 		data.MousePos[1] + data.Size or 3.5, 
 		data.MousePos[3] + data.Size or 3.5))
         
-    if not allReclaimables or table.empty(allReclaimables) then
+    if not allReclaimables or LOUDEMPTY(allReclaimables) then
         return
     end
     
@@ -221,8 +226,8 @@ function AreaReclaim(data, units)
         end
     end
     
-	local numRecs = table.getn(allReclaimables)
-	local numUnits = table.getn(units)
+	local numRecs = LOUDGETN(allReclaimables)
+	local numUnits = LOUDGETN(units)
 
 	local recArrays = {}
 
@@ -237,7 +242,7 @@ function AreaReclaim(data, units)
 	local i, rec = next(allReclaimables, nil)
     
 	while i do
-		table.insert(recArrays[j], rec)
+		LOUDINSERT(recArrays[j], rec)
         i, rec = next(allReclaimables, i)
         j = j + 1
         if j > numUnits then j = 1 end

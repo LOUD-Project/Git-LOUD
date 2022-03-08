@@ -260,6 +260,7 @@ BuffField = Class(Entity) {
         
         local LOUDCOPY = table.copy
 		local LOUDMERGE = table.merged
+        local WaitTicks = coroutine.yield
 		
 		local aiBrain = Owner:GetAIBrain()
 		
@@ -352,6 +353,8 @@ BuffField = Class(Entity) {
 			unit.HasBuffFieldThreadHandle[bp.Name] = true
 
 			local GetPosition = moho.entity_methods.GetPosition
+            local VDist3 = VDist3
+            local WaitTicks = coroutine.yield
 
 			while (not unit.Dead) and (not Owner.Dead) and Field.Enabled do
             

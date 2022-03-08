@@ -10,6 +10,7 @@ local LOUDGETN = table.getn
 local LOUDINSERT = table.insert
 local LOUDREMOVE = table.remove
 local LOUDSORT = table.sort
+local VDist3 = VDist3
 
 --[[
 function AddToBuildQueue(aiBrain, eng, whatToBuild, buildLocation, relative)

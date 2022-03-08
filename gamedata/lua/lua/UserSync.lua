@@ -15,6 +15,7 @@ scoreData = { ['current'] = {} }
 
 local tmerge = table.merged
 local tempty = table.empty
+local dcopy = table.deepcopy
 
 --local IsHeadPlaying = import('/lua/ui/game/missiontext.lua').IsHeadPlaying
 
@@ -153,7 +154,7 @@ function OnSync()
 	-- update the scoreboard if the data has been accumulated
     if Sync.FullScoreSync then
 	
-        scoreData.current = table.deepcopy(Sync.Score)
+        scoreData.current = dcopy(Sync.Score)
 		Sync.FullScoreSync = false
     end
 

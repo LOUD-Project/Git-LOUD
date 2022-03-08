@@ -18,7 +18,6 @@ local ForkTo = ForkThread
 local VDist2 = VDist2
 local VDist2Sq = VDist2Sq
 local VDist3 = VDist3
-local VDist3Sq = VDist3Sq
 
 local WaitTicks = coroutine.yield
 
@@ -52,6 +51,8 @@ function AssistBody(self, eng, aiBrain)
 
 	local ass_count = 0
 	local beingbuiltcategory, assistList, platoonPos
+    
+    local VDist3Sq = VDist3Sq
 	
 	-- this function will locate units needing assistance of the specific type --
 	local function GetAssistees( beingbuiltcategory )

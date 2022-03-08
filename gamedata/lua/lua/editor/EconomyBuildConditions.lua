@@ -12,6 +12,9 @@ local GetEconomyIncome = moho.aibrain_methods.GetEconomyIncome
 local GetEconomyRequested = moho.aibrain_methods.GetEconomyRequested
 local GetEconomyStored = moho.aibrain_methods.GetEconomyStored
 
+local VDist3 = VDist3
+local LOUDSORT = table.sort
+
 
 function ReclaimablesInAreaMass(aiBrain, locType, range)
 
@@ -43,7 +46,7 @@ function CanBuildOnMassAtRange(aiBrain, locationType, mindistance, maxdistance, 
 		local counter = 0
         local position = aiBrain.BuilderManagers[locationType].Position
         
-        table.sort( markerlist, function (a,b) return VDist3( a.Position, position ) < VDist3( b.Position, position ) end )
+        LOUDSORT( markerlist, function (a,b) return VDist3( a.Position, position ) < VDist3( b.Position, position ) end )
 
 		local CanBuildStructureAt = moho.aibrain_methods.CanBuildStructureAt
     

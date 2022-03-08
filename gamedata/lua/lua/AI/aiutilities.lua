@@ -81,6 +81,7 @@ function AIPickEnemyLogic( self, brainbool )
   	local GetThreatsAroundPosition = moho.aibrain_methods.GetThreatsAroundPosition
     local MATHEXP = math.exp
     local MATHMAX = math.max
+    local VDist3 = VDist3
     
     for k,v in Brains do
 	

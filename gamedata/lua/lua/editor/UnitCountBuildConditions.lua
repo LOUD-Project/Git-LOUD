@@ -40,8 +40,6 @@ local LOUDTYPE = type
 
 local MATHMAX = math.max
 
-local VDist3 = VDist3
-
 function PreBuiltBase(aiBrain)
 	return aiBrain.PreBuilt
 end
@@ -975,6 +973,7 @@ end
 function MassExtractorInRangeHasLessThanDefense(aiBrain, locationType, mindistance, maxdistance, defenseunits, threatmin, threatmax, threatrings)
 
     local pos = aiBrain.BuilderManagers[ locationType ].Position
+    local VDist3 = VDist3
 	
 	-- get your own extractors around the point
 	for k,v in GetOwnUnitsAroundPoint(aiBrain, categories.MASSEXTRACTION, pos, maxdistance) do

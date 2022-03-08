@@ -15,6 +15,7 @@ local AISendPing = import('/lua/ai/altaiutilities.lua').AISendPing
 
 local Game = import('game.lua')
 
+local LOUDCOPY = table.copy
 local LOUDENTITY = EntityCategoryContains
 local LOUDGETN = table.getn
 local LOUDINSERT = table.insert
@@ -73,7 +74,7 @@ function FactoriesGreaterThan( aiBrain, unitCount, testCat )
 	for k,v in aiBrain.BuilderManagers do
 		result = result + EntityCategoryCount( testCat, v.FactoryManager.FactoryList )
 	end
-    
+
 	return result > unitCount
 end
 
@@ -136,7 +137,7 @@ function BaseInPlayableArea( aiBrain, location )
 
         local PlayableArea = ScenarioInfo.MapData.PlayableRect
         
-        local managerposition = table.copy(location)
+        local managerposition = LOUDCOPY(location)
 
         if managerposition[1] < PlayableArea[1] or managerposition[1] > PlayableArea[3] then
  
@@ -1896,6 +1897,7 @@ function AirUnitRefitThread( unit, aiBrain )
 		local rtbissued = false
 
         local GetFuelRatio = moho.unit_methods.GetFuelRatio
+        local VDist3Sq = VDist3Sq
 
 		while (not unit.Dead) do
 		
@@ -1907,7 +1909,7 @@ function AirUnitRefitThread( unit, aiBrain )
 				-- check for any airpads -- ignore mobile ones 
 				if GetCurrentUnits( aiBrain, categories.AIRSTAGINGPLATFORM - categories.MOBILE) > 0 then
 				
-					unitPos = table.copy(GetPosition(unit))
+					unitPos = LOUDCOPY(GetPosition(unit))
 					
 					-- now limit to airpads within 30k
 					plats = import('/lua/ai/aiutilities.lua').GetOwnUnitsAroundPoint( aiBrain, categories.AIRSTAGINGPLATFORM - categories.MOBILE, unitPos, 1536 )
@@ -2515,7 +2517,7 @@ function GetBasePerimeterPoints( aiBrain, location, radius, orientation, positio
 		Orient = aiBrain.BuilderManagers[location].Orientation or false
 		
 		if newloc then
-			location = table.copy(newloc)
+			location = LOUDCOPY(newloc)
 		end
 		
 	end
@@ -2862,7 +2864,7 @@ function SetBaseRallyPoints( aiBrain, basename, basetype, rallypointradius, orie
 	end
 	
 	local rallypointtable = {}
-    local baseposition = table.copy(aiBrain.BuilderManagers[basename].Position)
+    local baseposition = LOUDCOPY(aiBrain.BuilderManagers[basename].Position)
 	
 	for _,v in GetBasePerimeterPoints( aiBrain, basename, rallypointradius, orientation ) do
 
@@ -3122,7 +3124,7 @@ function PathGeneratorAir( aiBrain )
 	local GetThreatBetweenPositions = moho.aibrain_methods.GetThreatBetweenPositions
     local PlatoonExists = moho.aibrain_methods.PlatoonExists
 
-	local LOUDCOPY = table.copy
+	local LOUDCOPY = LOUDCOPY
     local LOUDEQUAL = table.equal
 	local LOUDFLOOR = math.floor
     local MATHMAX = math.max
@@ -3336,7 +3338,7 @@ function PathGeneratorAmphibious(aiBrain)
 	local GetThreatBetweenPositions = moho.aibrain_methods.GetThreatBetweenPositions
     local PlatoonExists = moho.aibrain_methods.PlatoonExists
 
-	local LOUDCOPY = table.copy
+	local LOUDCOPY = LOUDCOPY
     local LOUDEQUAL = table.equal
 	local LOUDFLOOR = math.floor
     local MATHMAX = math.max
@@ -3547,7 +3549,7 @@ function PathGeneratorLand(aiBrain)
 	local GetThreatBetweenPositions = moho.aibrain_methods.GetThreatBetweenPositions
     local PlatoonExists = moho.aibrain_methods.PlatoonExists
 
-	local LOUDCOPY = table.copy
+	local LOUDCOPY = LOUDCOPY
     local LOUDEQUAL = table.equal
 	local LOUDFLOOR = math.floor
     local MATHMAX = math.max
@@ -3741,7 +3743,7 @@ function PathGeneratorWater(aiBrain)
 	local GetThreatBetweenPositions = moho.aibrain_methods.GetThreatBetweenPositions
     local PlatoonExists = moho.aibrain_methods.PlatoonExists
 
-	local LOUDCOPY = table.copy
+	local LOUDCOPY = LOUDCOPY
     local LOUDEQUAL = table.equal
 	local LOUDFLOOR = math.floor
 
@@ -5374,7 +5376,7 @@ function CreateAttackPlan( self, enemyPosition )
 				
 				LOUDINSERT(StagePoints, positions[1])
 
-				CurrentPoint = table.copy(positions[1].Position)
+				CurrentPoint = LOUDCOPY(positions[1].Position)
                 CurrentPointDistance = VDist2(CurrentPoint[1],CurrentPoint[3], Goal[1],Goal[3])
                 
                 pathtype = "Land"
@@ -5569,11 +5571,11 @@ function DrawPath ( origin, path, destination )
  
     for i = 0, 250 do
     
-        local lastpoint = table.copy(origin)
+        local lastpoint = LOUDCOPY(origin)
         
         for _, v in path do
             DrawLinePop( lastpoint, v, 'ffffff' )
-            lastpoint = table.copy(v)
+            lastpoint = LOUDCOPY(v)
         end
         
         DrawLinePop( lastpoint, destination, 'ff0000' )
