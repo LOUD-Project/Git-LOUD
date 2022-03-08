@@ -229,7 +229,7 @@ BuilderManager = Class {
 		end
 
         local RebuildTable = function(oldtable)
-	
+
             local temptable = {}
             local LOUDINSERT = table.insert
             local type = type

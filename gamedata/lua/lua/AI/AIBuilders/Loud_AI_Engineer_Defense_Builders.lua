@@ -56,7 +56,7 @@ end
 -- This is mostly for the players that rush him but this should also effect how prepared his bases are.
 local IsEnemyCrushingLand = function( builder, aiBrain, unit )
 
-    if aiBrain.LandRatio <= 1.0 then
+    if aiBrain.LandRatio <= 1.0 and aiBrain.CycleTime > 300 then
 	
 		return builder.Priority + 100, true	
 
@@ -66,7 +66,7 @@ local IsEnemyCrushingLand = function( builder, aiBrain, unit )
 
     if aiBrain:GetThreatAtPosition( unit:GetPosition(), IMAPblocks, true, 'AntiSurface' ) > 30 then
     
-        LOG("*AI DEBUG Threat at IMAPblocks "..IMAPblocks.." range > 30")
+        LOG("*AI DEBUG "..aiBrain.Nickname.." Threat at "..unit.LocationType.." IMAPblocks "..IMAPblocks.." range > 30")
 
         return builder.Priority + 100, true
         
@@ -77,7 +77,7 @@ end
 
 local IsEnemyCrushingAir = function( builder, aiBrain, unit )
 
-    if aiBrain.AirRatio <= 1.0 then
+    if aiBrain.AirRatio <= 1.0 and aiBrain.CycleTime > 300 then
 	
 		return builder.Priority + 100, true	
 
@@ -723,22 +723,24 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction',
         PlatoonTemplate = 'EngineerBuilder',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
-        Priority = 800,
+        Priority = 820,
 
         PriorityFunction = IsEnemyCrushingLand,
 
         InstanceCount = 1,
         
         BuilderConditions = {
-			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
+            
             { LUTL, 'UnitCapCheckLess', { .95 } },
             
             { MIBC, 'BaseInPlayableArea', { 'LocationType' }},			
             
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 25, 1.012, 1.02 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 12, 1.01, 1.02 }},
 
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 3, categories.FACTORY * categories.STRUCTURE}},
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 4, categories.STRUCTURE * categories.SHIELD, 5, 16 }},
+            
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 4, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY, 5, 16 }},
         },
 		
         BuilderType = {'T2','T3','SubCommander'},
@@ -765,6 +767,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
         Priority = 800,
+
+        PriorityFunction = IsEnemyCrushingLand,
 		
 		InstanceCount = 1,
         
@@ -773,11 +777,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction',
             
             { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
             
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.02, 1.04 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 25, 1.005, 1.012 }},
+            
 			-- must have 4 inner shields
-			{ UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 3, categories.STRUCTURE * categories.SHIELD, 5, 16 }},
+			{ UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 3, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY, 5, 16 }},
+            
 			-- and less than 8 shields in the Base - Outer ring
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 8, categories.STRUCTURE * categories.SHIELD, 16, 45 }},
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 8, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY, 16, 45 }},
         },
 		
         BuilderType = {'T3','SubCommander'},
@@ -798,7 +804,136 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction',
             }
         }
     },
+
+    Builder {BuilderName = 'T3 Artillery Defense Shield - UEF',
 	
+        PlatoonTemplate = 'EngineerBuilder',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+        
+        FactionIndex = 1,
+        
+        Priority = 800,
+
+        PriorityFunction = IsEnemyCrushingLand,
+		
+        BuilderConditions = {
+			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
+            { LUTL, 'UnitCapCheckLess', { .90 } },
+            
+            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
+            
+			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 8, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY }},
+			
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 25, 1.005, 1.012 }},
+
+			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 3, categories.STRUCTURE * categories.SHIELD * categories.ANTIARTILLERY }},
+        },
+		
+        BuilderType = {'T3','SubCommander'},
+		
+        BuilderData = {
+			DesiresAssist = true,
+            NumAssistees = 1,
+			
+            Construction = {
+				NearBasePerimeterPoints = true,
+				MaxThreat = 75,
+				
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
+				BaseTemplate = 'ShieldLayout',
+				
+                BuildStructures = {'T3ArtilleryDefenseShield'},
+            }
+        }
+    },
+    
+    Builder {BuilderName = 'T3 Artillery Defense Shield - Aeon',
+	
+        PlatoonTemplate = 'EngineerBuilder',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+        
+        FactionIndex = 2,
+        
+        Priority = 800,
+		
+        BuilderConditions = {
+			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
+            { LUTL, 'UnitCapCheckLess', { .90 } },
+            
+            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
+            
+			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 8, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY }},
+			
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 25, 1.012, 1.02 }},
+
+			-- must have at least 1 Experimental level defense ?
+			--{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 0, categories.EXPERIMENTAL * categories.DEFENSE * categories.STRUCTURE }},
+            
+			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 3, categories.STRUCTURE * categories.SHIELD * categories.ANTIARTILLERY }},
+        },
+		
+        BuilderType = {'SubCommander'},
+		
+        BuilderData = {
+			DesiresAssist = true,
+            NumAssistees = 1,
+			
+            Construction = {
+				NearBasePerimeterPoints = true,
+				MaxThreat = 75,
+				
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
+				BaseTemplate = 'ShieldLayout',
+				
+                BuildStructures = {'T3ArtilleryDefenseShield'},
+            }
+        }
+    },
+    
+    Builder {BuilderName = 'T3 Artillery Defense Shield - Cybran',
+	
+        PlatoonTemplate = 'EngineerBuilder',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+        
+        FactionIndex = 3,
+        
+        Priority = 800,
+		
+        BuilderConditions = {
+			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
+            { LUTL, 'UnitCapCheckLess', { .90 } },
+            
+            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
+            
+			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 8, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY }},
+			
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 25, 1.005, 1.012 }},
+            
+			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 3, categories.STRUCTURE * categories.SHIELD * categories.ANTIARTILLERY }},
+        },
+		
+        BuilderType = {'T3','SubCommander'},
+		
+        BuilderData = {
+			DesiresAssist = true,
+            NumAssistees = 1,
+			
+            Construction = {
+				NearBasePerimeterPoints = true,
+				MaxThreat = 75,
+				
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
+				BaseTemplate = 'ShieldLayout',
+				
+                BuildStructures = {'T3ArtilleryDefenseShield'},
+            }
+        }
+    },
+    
+
 	Builder {BuilderName = 'Shield Augmentations',
     
         PlatoonTemplate = 'EngineerBuilder',
@@ -814,7 +949,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction',
             { MIBC, 'BaseInPlayableArea', { 'LocationType' }},			
             
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.05, 1.1 }},
-			{ UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 10, categories.STRUCTURE * categories.SHIELD, 0,45 }},
+            
+			{ UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 10, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY, 0,45 }},
         },
 		
         BuilderType = {'T3','SubCommander'},
@@ -834,7 +970,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction',
 BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS',
     BuildersType = 'EngineerBuilder',
 	
-    Builder {BuilderName = 'Shields - Inner - IS ',
+    Builder {BuilderName = 'Shields - Core - IS ',
     
         PlatoonTemplate = 'EngineerBuilder',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
@@ -846,13 +982,17 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS',
 		InstanceCount = 1,
 		
         BuilderConditions = {
-			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
+            
             { LUTL, 'UnitCapCheckLess', { .95 } },
+            
             { MIBC, 'BaseInPlayableArea', { 'LocationType' }},			
+            
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 12, 1.01, 1.02 }},
 
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 3, categories.FACTORY * categories.STRUCTURE}},
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 4, categories.STRUCTURE * categories.SHIELD, 5, 16 }},
+            
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 4, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY, 5, 16 }},
         },
 		
         BuilderType = {'T2','T3','SubCommander'},
@@ -876,6 +1016,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS',
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
         Priority = 800,
+
+        PriorityFunction = IsEnemyCrushingLand,
 		
 		InstanceCount = 1,
 		
@@ -884,11 +1026,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS',
             
             { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
             
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.02, 1.04 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 25, 1.005, 1.012 }},
+            
 			-- must have 4 inner shields
-			{ UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 3, categories.STRUCTURE * categories.SHIELD, 5, 16 }},
+			{ UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 3, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY, 5, 16 }},
+            
 			-- and less than 8 shields in the Base - Outer ring
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 8, categories.STRUCTURE * categories.SHIELD, 16, 45 }},
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 8, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY, 16, 45 }},
         },
 		
         BuilderType = {'T3','SubCommander'},
@@ -904,7 +1048,128 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS',
                 BuildStructures = {'T3ShieldDefense'},
             }
         }
-    },	
+    },
+
+    Builder {BuilderName = 'T3 Artillery Defense Shield - UEF',
+	
+        PlatoonTemplate = 'EngineerBuilder',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+        
+        FactionIndex = 1,
+        
+        Priority = 800,
+
+        PriorityFunction = IsEnemyCrushingLand,
+		
+        BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .90 } },
+            
+			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 8, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY }},
+			
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 25, 1.005, 1.012 }},
+
+			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 3, categories.STRUCTURE * categories.SHIELD * categories.ANTIARTILLERY }},
+        },
+		
+        BuilderType = {'T3','SubCommander'},
+		
+        BuilderData = {
+			DesiresAssist = true,
+            NumAssistees = 1,
+			
+            Construction = {
+				NearBasePerimeterPoints = true,
+				MaxThreat = 75,
+				
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
+				BaseTemplate = 'ShieldLayout',
+				
+                BuildStructures = {'T3ArtilleryDefenseShield'},
+            }
+        }
+    },
+    
+    Builder {BuilderName = 'T3 Artillery Defense Shield - Aeon',
+	
+        PlatoonTemplate = 'EngineerBuilder',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+        
+        FactionIndex = 2,
+        
+        Priority = 800,
+		
+        BuilderConditions = {
+
+            { LUTL, 'UnitCapCheckLess', { .90 } },
+            
+			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 8, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY }},
+			
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 25, 1.012, 1.02 }},
+
+			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 3, categories.STRUCTURE * categories.SHIELD * categories.ANTIARTILLERY }},
+        },
+		
+        BuilderType = {'SubCommander'},
+		
+        BuilderData = {
+			DesiresAssist = true,
+            NumAssistees = 1,
+			
+            Construction = {
+				NearBasePerimeterPoints = true,
+				MaxThreat = 75,
+				
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
+				BaseTemplate = 'ShieldLayout',
+				
+                BuildStructures = {'T3ArtilleryDefenseShield'},
+            }
+        }
+    },
+    
+    Builder {BuilderName = 'T3 Artillery Defense Shield - Cybran',
+	
+        PlatoonTemplate = 'EngineerBuilder',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+        
+        FactionIndex = 3,
+        
+        Priority = 800,
+		
+        BuilderConditions = {
+
+            { LUTL, 'UnitCapCheckLess', { .90 } },
+
+			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 8, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY }},
+			
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 25, 1.005, 1.012 }},
+            
+			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 3, categories.STRUCTURE * categories.SHIELD * categories.ANTIARTILLERY }},
+        },
+		
+        BuilderType = {'T3','SubCommander'},
+		
+        BuilderData = {
+			DesiresAssist = true,
+            NumAssistees = 1,
+			
+            Construction = {
+				NearBasePerimeterPoints = true,
+				MaxThreat = 75,
+				
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
+				BaseTemplate = 'ShieldLayout',
+				
+                BuildStructures = {'T3ArtilleryDefenseShield'},
+            }
+        }
+    },
+    
+	
+    
 }
 
 BuilderGroup {BuilderGroupName = 'Engineer T4 Shield Construction',
@@ -939,7 +1204,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Shield Construction',
             { LUTL, 'UnitCapCheckLess', { .90 } },
             
             { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
-			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 8, categories.STRUCTURE * categories.SHIELD }},
+			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 8, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY }},
 			
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
 			
@@ -967,6 +1232,8 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Shield Construction',
             }
         }
     },
+    
+
 }
 
 -- AIRSTAGING, etc. --
@@ -1433,7 +1700,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
             { MIBC, 'BaseInPlayableArea', { 'LocationType' }},            
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
 			-- check the outer perimeter for shields
-			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 18, categories.STRUCTURE * categories.SHIELD, 60, 88 }},
+			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 18, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY, 60, 88 }},
         },
 		
 		BuilderType = { 'SubCommander' },
@@ -1654,7 +1921,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Augmentation - Perimeter',
             { MIBC, 'BaseInPlayableArea', { 'LocationType' }},			
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.02, 1.04 }}, 
 			-- check the outer perimeter for shields
-			{ UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 6, categories.STRUCTURE * categories.SHIELD, 60, 80 }},
+			{ UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 6, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY, 60, 80 }},
 			-- check outer perimeter for storage
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 54, categories.ENERGYSTORAGE * categories.TECH3, 60, 80 }}, 
         },
@@ -2232,7 +2499,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - Expansions',
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.02, 1.04 }},
 
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 1, categories.FACTORY * categories.STRUCTURE}},
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 4, categories.STRUCTURE * categories.SHIELD, 5, 16 }},
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 4, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY, 5, 16 }},
         },
 		
         BuilderType = {'T2','T3','SubCommander'},
@@ -2272,9 +2539,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - Expansions',
 			
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.02, 1.04 }},
 			-- must have 4 inner shields
-			{ UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 3, categories.STRUCTURE * categories.SHIELD, 5, 16 }},
+			{ UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 3, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY, 5, 16 }},
 			-- and less than 8 shields in the Base - Outer ring
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 8, categories.STRUCTURE * categories.SHIELD, 16, 45 }},
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 8, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY, 16, 45 }},
         },
 		
         BuilderType = {'T3','SubCommander'},
@@ -2322,7 +2589,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - Expansions - LO
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.02, 1.04 }},
 
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 1, categories.FACTORY * categories.STRUCTURE}},
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 4, categories.STRUCTURE * categories.SHIELD, 5, 16 }},
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 4, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY, 5, 16 }},
         },
 		
         BuilderType = {'T2','T3','SubCommander'},
@@ -2357,9 +2624,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - Expansions - LO
 			
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.02, 1.04 }},
 			-- must have 4 inner shields
-			{ UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 3, categories.STRUCTURE * categories.SHIELD, 5, 16 }},
+			{ UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 3, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY, 5, 16 }},
 			-- and less than 8 shields in the Base - Outer ring
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 8, categories.STRUCTURE * categories.SHIELD, 16, 45 }},
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 8, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY, 16, 45 }},
         },
 		
         BuilderType = {'T3','SubCommander'},
@@ -2393,7 +2660,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Shield Construction - Expansions',
 		
         BuilderConditions = {
 			{ LUTL, 'GreaterThanEnergyIncome', { 50000 }},
-			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 8, categories.STRUCTURE * categories.SHIELD }},
+			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 8, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY }},
             
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 60, 1.02, 1.04 }},
 			
@@ -3242,7 +3509,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
             { LUTL, 'UnitCapCheckLess', { .85 } },
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 15, 1.012, 1.025 }},
-            { UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 0, categories.STRUCTURE * categories.SHIELD, 0, 24 }},			
+            { UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 0, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY, 0, 24 }},			
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 1, categories.ENERGYPRODUCTION - categories.TECH1, 0, 28 }},
         },
 		
@@ -3378,7 +3645,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.02, 1.04 }},
             
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 2, categories.STRUCTURE * categories.SHIELD, 0, 24 }},
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 2, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY, 0, 24 }},
         },
 		
 		BuilderType = { 'T3','SubCommander' },
@@ -3567,7 +3834,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
             
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 60, 1.02, 1.04 }},
 			-- must have shields here
-            { UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 0, categories.STRUCTURE * categories.SHIELD, 0, 24 }},
+            { UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 0, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY, 0, 24 }},
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 2, categories.STRUCTURE * categories.ANTIAIR * categories.EXPERIMENTAL, 0, 24 }},
         },
 		
@@ -3605,7 +3872,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
 			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
             
 			-- must have shields here
-            { UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 0, categories.STRUCTURE * categories.SHIELD, 0, 24 }},
+            { UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 0, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY, 0, 24 }},
 			{ UCBC, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, categories.NUKE + categories.ANTIMISSILE - categories.TECH2, 'Enemy' }},
         },
 		
@@ -3756,7 +4023,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Small',
             
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 30, 1.02, 1.04 }},
             
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 1, categories.STRUCTURE * categories.SHIELD, 0, 24 }},
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 1, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY, 0, 24 }},
         },
 		
 		BuilderType = { 'T2','T3','SubCommander' },
@@ -3903,7 +4170,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Small',
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 60, 1.02, 1.04 }},
             
 			-- must have shields here
-            { UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 0, categories.STRUCTURE * categories.SHIELD, 0, 24 }},
+            { UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 0, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY, 0, 24 }},
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 1, categories.STRUCTURE * categories.ANTIAIR * categories.EXPERIMENTAL, 0, 24 }},
         },
 		
@@ -3943,7 +4210,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Small',
 		    { UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ANTIMISSILE * categories.SILO * categories.STRUCTURE * categories.TECH3 }},			
 
 			-- must have shields here
-            { UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 0, categories.STRUCTURE * categories.SHIELD, 0, 24 }},
+            { UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 0, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY, 0, 24 }},
 			{ UCBC, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, categories.NUKE + categories.ANTIMISSILE - categories.TECH2, 'Enemy' }},
         },
 		

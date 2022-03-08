@@ -1134,6 +1134,7 @@ ShieldLayoutInner = {
 
 ShieldLayout = {
 -- UEF Shield Layout
+-- with included ArtilleryDefenseShield
     {
 		{{'T2ShieldDefense','T3ShieldDefense'},
 			{-33,  0 }, -- outer 4 cardinal points
@@ -1145,6 +1146,11 @@ ShieldLayout = {
 			{-26,-33 },		
 			{ 26,-33 },
 		},
+        {{'T3ArtilleryDefenseShield'},
+            {-48,  0 },
+            { 48,  0 },
+            {  0, 48 },
+        },
 		{{'EnergyStorage','T3Storage'},
 			{ 24, 37 },	-- outer 4 corners w 6 each
 			{ 26, 37 },
@@ -1184,6 +1190,11 @@ ShieldLayout = {
 			{-26,-33 },		
 			{ 26,-33 },
 		},
+        {{'T3ArtilleryDefenseShield'},
+            {-48,  0 },
+            { 48,  0 },
+            {  0, 48 },
+        },        
 		{{'EnergyStorage','T3Storage'},
 			{ 24, 37 },	-- outer 4 corners w 6 each
 			{ 26, 37 },
@@ -1223,6 +1234,11 @@ ShieldLayout = {
 			{-26,-33 },		
 			{ 26,-33 },
 		},
+        {{'T3ArtilleryDefenseShield'},
+            {-48,  0 },
+            { 48,  0 },
+            {  0, 48 },
+        },        
 		{{'EnergyStorage','T3Storage'},
 			{ 24, 37 },	-- outer 4 corners w 6 each
 			{ 26, 37 },
@@ -1262,6 +1278,11 @@ ShieldLayout = {
 			{-26,-33 },		
 			{ 26,-33 },
 		},
+        {{'T3ArtilleryDefenseShield'},
+            {-48,  0 },
+            { 48,  0 },
+            {  0, 48 },
+        },        
 		{{'EnergyStorage','T3Storage'},
 			{ 24, 37 },	-- outer 4 corners w 6 each
 			{ 26, 37 },

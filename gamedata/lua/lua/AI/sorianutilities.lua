@@ -1017,7 +1017,7 @@ function AIFindUndefendedBrainTargetInRangeSorian( aiBrain, platoon, squad, maxR
             if not unit:IsDead() and EntityCategoryContains( category, unit ) and platoon:CanAttackTarget( squad, unit ) then
 			
                 local unitPos = unit:GetPosition()
-				local numShields = aiBrain:GetNumUnitsAroundPoint( categories.STRUCTURE * categories.SHIELD, unitPos, 46, 'Enemy' )
+				local numShields = aiBrain:GetNumUnitsAroundPoint( categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY, unitPos, 46, 'Enemy' )
 				
 				-- see if they are shielded -- always store the one with the LEAST amount of shields that has LESS shields than the maxShields calculated above
                 if numShields < maxShields and (not retUnit or numShields < targetShields or (numShields == targetShields and XZDistanceTwoVectors( position, unitPos ) < distance)) then

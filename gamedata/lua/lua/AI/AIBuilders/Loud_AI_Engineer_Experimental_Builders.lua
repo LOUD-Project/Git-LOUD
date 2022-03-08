@@ -145,7 +145,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Land Construction',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.9 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
-			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 4, categories.STRUCTURE * categories.SHIELD }},
+			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 4, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY }},
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 3, 60, 1.025, 1.04 }},
         },
 		
@@ -185,7 +185,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Land Construction',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
-			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 4, categories.STRUCTURE * categories.SHIELD }},
+			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 4, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY }},
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 4, 80, 1.03, 1.04 }},
         },
 		
@@ -305,7 +305,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Land Construction - Expansions',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.9 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
-			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 4, categories.STRUCTURE * categories.SHIELD }},
+			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 4, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY }},
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 3, 60, 1.025, 1.04 }},
         },
 		
@@ -344,7 +344,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Land Construction - Expansions',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
-			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 6, categories.STRUCTURE * categories.SHIELD }},
+			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 6, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY }},
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 4, 80, 1.03, 1.04 }},
         },
 		
@@ -600,7 +600,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Air Construction - Expansions',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ LUTL, 'AirStrengthRatioGreaterThan', { 0.9 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
-			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 4, categories.STRUCTURE * categories.SHIELD }},
+			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 4, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY }},
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
         },
 		
@@ -639,7 +639,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Air Construction - Expansions',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
 			{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
-			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 4, categories.STRUCTURE * categories.SHIELD }},
+			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 4, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY }},
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
         },
 		
@@ -979,7 +979,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Construction',
 			
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 25, 1.012, 1.02 }},
 		   
-			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 2, (categories.STRUCTURE * categories.SHIELD) }},
+			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 2, (categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY) }},
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.EXPERIMENTAL * categories.ECONOMIC }},
 			
         },
@@ -1047,7 +1047,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Construction - Small Base'
 			
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 25, 1.012, 1.02 }},
 		   
-			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 2, (categories.STRUCTURE * categories.SHIELD) }},
+			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 2, (categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY) }},
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.EXPERIMENTAL * categories.ECONOMIC }},
 			
         },
@@ -1111,7 +1111,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Defense Construction',
 		
             { LUTL, 'UnitCapCheckLess', { .85 } },
 			{ UCBC, 'BuildingGreaterAtLocation', { 'LocationType', 0, categories.EXPERIMENTAL * categories.ECONOMIC}},
-			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 2, (categories.STRUCTURE * categories.SHIELD) }},
+			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 2, (categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY) }},
 			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }},
 			
         },
@@ -1212,7 +1212,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Defense Construction - LOU
 		
             { LUTL, 'UnitCapCheckLess', { .85 } },
 			{ UCBC, 'BuildingGreaterAtLocation', { 'LocationType', 0, categories.EXPERIMENTAL * categories.ECONOMIC}},
-			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 2, (categories.STRUCTURE * categories.SHIELD) }},
+			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 2, (categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY) }},
 			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }}, 
 			
         },
@@ -1270,7 +1270,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Defense Construction - Sma
 		
             { LUTL, 'UnitCapCheckLess', { .85 } },
 			{ UCBC, 'BuildingGreaterAtLocation', { 'LocationType', 0, categories.EXPERIMENTAL * categories.ECONOMIC}},
-			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 2, (categories.STRUCTURE * categories.SHIELD) }},
+			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 2, (categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY) }},
 			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }},
 			
         },
@@ -1371,7 +1371,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Defense Construction - LOU
 		
             { LUTL, 'UnitCapCheckLess', { .85 } },
 			{ UCBC, 'BuildingGreaterAtLocation', { 'LocationType', 0, categories.EXPERIMENTAL * categories.ECONOMIC}},
-			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 2, (categories.STRUCTURE * categories.SHIELD) }},
+			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 2, (categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY) }},
 			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }}, 
 			
         },
@@ -1437,7 +1437,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Economy Construction - Expansions'
 			
 			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.02, 1.02 }},
 		   
-			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 10, (categories.STRUCTURE * categories.SHIELD) }},
+			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 10, (categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY) }},
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.EXPERIMENTAL * categories.ECONOMIC }},
 			
         },

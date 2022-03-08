@@ -7,6 +7,7 @@
 BuildingTemplates = {
 
 -- UEF Building List
+-- with included T3ArtilleryDefenseShield
     {
     -- Power Structures
         { 'T1EnergyProduction', 'ueb1101' },
@@ -62,6 +63,7 @@ BuildingTemplates = {
     -- Shields
         { 'T2ShieldDefense', 'ueb4202'    },
         { 'T3ShieldDefense', 'ueb4301'    },
+        { 'T3ArtilleryDefenseShield',      },
         { 'T4ShieldDefense', },
     -- Missile Defense
         { 'T2MissileDefense','ueb4201'    },

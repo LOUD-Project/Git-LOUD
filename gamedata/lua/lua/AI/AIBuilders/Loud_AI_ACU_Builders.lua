@@ -72,8 +72,6 @@ local IsEnemyCrushingLand = function( builder, aiBrain, unit )
     local IMAPblocks = math.floor( 96/ScenarioInfo.IMAPSize )
 
     if aiBrain:GetThreatAtPosition( unit:GetPosition(), IMAPblocks, true, 'AntiSurface' ) > 30 then
-    
-        LOG("*AI DEBUG Threat at IMAPblocks "..IMAPblocks.." range > 30")
 
         return builder.Priority + 100, true
         

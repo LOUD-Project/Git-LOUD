@@ -959,7 +959,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Active DP',
             { UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 0, categories.ANTIMISSILE * categories.SILO * categories.TECH3, 1, 24 }},
             { UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 1, categories.STRUCTURE * categories.EXPERIMENTAL * categories.ANTIAIR, 1, 24 }},			
             { UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 1, categories.STRUCTURE * categories.DEFENSE * categories.TECH3 * categories.DIRECTFIRE, 1, 24 }},
-            { UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 1, categories.STRUCTURE * categories.SHIELD, 1, 24 }},
+            { UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 1, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY, 1, 24 }},
         },
 		
         BuilderData = {
