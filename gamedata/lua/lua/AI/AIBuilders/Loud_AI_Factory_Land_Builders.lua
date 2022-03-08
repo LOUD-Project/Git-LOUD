@@ -260,14 +260,14 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
         BuilderConditions = {
 		
             { LUTL, 'UnitCapCheckLess', { .95 } },
-			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.LAND * categories.TECH3 }},
+			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.LAND * categories.TECH3 }},
 			
 			{ LUTL, 'PoolLess', { 10, categories.LAND * categories.MOBILE * categories.SHIELD }},
             
             -- must have some Directfire in the Pool at this location
             { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.LAND * categories.MOBILE * categories.DIRECTFIRE }},
 
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.LAND * categories.MOBILE * categories.SHIELD, categories.LAND }},
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.SHIELD, categories.LAND }},
 
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1, 1.01 }},			
         },
@@ -285,14 +285,14 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
         BuilderConditions = {
 		
             { LUTL, 'UnitCapCheckLess', { .95 } },
-			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.LAND * categories.TECH3 }},
+			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.LAND * categories.TECH3 }},
 			
 			{ LUTL, 'PoolLess', { 10, categories.LAND * categories.MOBILE * categories.SHIELD }},
 
             -- must have some Directfire in the Pool at this location
             { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.LAND * categories.MOBILE * categories.DIRECTFIRE }},
 
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.LAND * categories.MOBILE * categories.SHIELD, categories.LAND }},
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.SHIELD, categories.LAND }},
 
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1, 1.01 }},			
         },
@@ -335,14 +335,14 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
         BuilderConditions = {
 		
             { LUTL, 'UnitCapCheckLess', { .95 } },
-			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.LAND * categories.TECH3 }},
+			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.LAND * categories.TECH3 }},
 			
 			{ LUTL, 'PoolLess', { 10, categories.LAND * categories.MOBILE * categories.SHIELD }},
 
             -- must have some Directfire in the Pool at this location
             { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.LAND * categories.MOBILE * categories.DIRECTFIRE }},
             
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.LAND * categories.MOBILE * categories.SHIELD, categories.LAND }},
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.SHIELD, categories.LAND }},
 
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1, 1.01 }},			
         },
@@ -525,8 +525,9 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
             
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			{ LUTL, 'LandStrengthRatioLessThan', { 5.5 } },
-			{ LUTL, 'FactoriesGreaterThan', { 1, categories.LAND * categories.TECH3 }},
-			
+			{ LUTL, 'FactoriesGreaterThan', { 2, categories.LAND * categories.TECH3 }},
+            
+ 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS), categories.LAND * categories.TECH3 }},				
         },
 		
         BuilderType =  {'LandT3','Gate'},	-- this allows Gates to make them as well
@@ -575,7 +576,7 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
             
 			{ LUTL, 'PoolLess', { 30, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE }},
             
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.xel0306, categories.LAND * categories.TECH3 }},
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.xel0306, categories.LAND * categories.TECH3 }},
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 14, categories.xel0306 }},
 			
         },
