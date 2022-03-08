@@ -1050,7 +1050,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS',
         }
     },
 
-    Builder {BuilderName = 'T3 Artillery Defense Shield - UEF',
+    Builder {BuilderName = 'T3 Artillery Defense Shield - UEF - IS',
 	
         PlatoonTemplate = 'EngineerBuilder',
         
@@ -1090,7 +1090,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS',
         }
     },
     
-    Builder {BuilderName = 'T3 Artillery Defense Shield - Aeon',
+    Builder {BuilderName = 'T3 Artillery Defense Shield - Aeon - IS',
 	
         PlatoonTemplate = 'EngineerBuilder',
         
@@ -1129,7 +1129,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS',
         }
     },
     
-    Builder {BuilderName = 'T3 Artillery Defense Shield - Cybran',
+    Builder {BuilderName = 'T3 Artillery Defense Shield - Cybran - IS',
 	
         PlatoonTemplate = 'EngineerBuilder',
         
