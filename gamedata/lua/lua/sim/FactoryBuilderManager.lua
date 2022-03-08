@@ -183,17 +183,14 @@ FactoryBuilderManager = Class(BuilderManager) {
 			
 				self:FactoryFinishBuilding(factory, finishedUnit)
 			end
-            
-			--LOG("*AI DEBUG Adding FactoryWorkFinish callback to factory "..repr(factory))
-            
+
 			factory:AddOnUnitBuiltCallback( factoryWorkFinish, categories.ALLUNITS )
-            
 			
 			-- this section applies only to static factories - mobile factories dont need any of this
 			if not LOUDENTITY( categories.MOBILE, factory) then
 			
 				factory.DesiresAssist = true		-- default factory to desire assist
-				factory.NumAssistees = 4			-- default factory to 4 assistees			
+				factory.NumAssistees = 3			-- default factory to 4 assistees			
 			
 				-- handles removal of the factory from the factory manager on death
 				local factoryDestroyed = function( factory )
@@ -208,10 +205,9 @@ FactoryBuilderManager = Class(BuilderManager) {
 				ForkThread( self.SetRallyPoint, self, factory )
 			
 				LOUDINSERT(self.FactoryList, factory)
-			
+
 				ForkThread( self.DelayBuildOrder, self, factory )
 
-				self.FactoryList = self:RebuildTable( self.FactoryList )
 			end
 		end
 	end,
@@ -224,13 +220,14 @@ FactoryBuilderManager = Class(BuilderManager) {
 			
 				if (not v.Sync.id) or v.Dead then
 				
-					self.FactoryList[k] = nil
-					break
+					LOUDREMOVE(self.FactoryList, k)
+
 				end
+                
 			end
-		
-			self.FactoryList = self:RebuildTable( self.FactoryList )
+
 		end
+        
     end,
     
     -- this is the function which actually finds and builds something
@@ -241,10 +238,6 @@ FactoryBuilderManager = Class(BuilderManager) {
 	
 		if factory.Sync.id and not factory.Upgrading then
 
-            -- this line has me a bit puzzled - not sure if this needs to be done
-            -- since only a new/removed builder or a priority change would make it necessary
-			--self.BuilderData[factory.BuilderType].NeedSort = true
-			
 			local builder = self:GetHighestBuilder( factory, aiBrain )
 		
 			if builder then
@@ -427,14 +420,15 @@ FactoryBuilderManager = Class(BuilderManager) {
                counter = counter + 1
 			else
 
-				self.FactoryList[k] = nil
+				LOUDREMOVE(self.FactoryList, k)
 				changed = true
 			end
 		end
 		
         if changed then
-		
-			self.FactoryList = self:RebuildTable( self.FactoryList )
+
+            LOG("*AI DEBUG Removed a factory factory - list is now "..repr(self.FactoryList))
+
 		end
 
 		return counter
