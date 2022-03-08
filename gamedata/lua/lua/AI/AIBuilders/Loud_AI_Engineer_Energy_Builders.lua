@@ -141,7 +141,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
             Construction = {
 			
 				NearBasePerimeterPoints = true,
-				ThreatMax = 55,				
+				ThreatMax = 60,				
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
 				BaseTemplate = 'PowerLayout',
@@ -193,11 +193,12 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
-        Priority = 900,
+        Priority = 840,
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ LUTL, 'GreaterThanEnergyIncome', { 50000 }},
+            
+			{ LUTL, 'GreaterThanEnergyIncome', { 33600 }},
             
 			{ EBC, 'LessThanEnergyTrend', { 180 }},			
 			{ EBC, 'LessThanEnergyTrendOverTime', { 240 }},
@@ -205,8 +206,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
 			
 			-- must have much of the inner core power systems complete
             { UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 20, (categories.ENERGYPRODUCTION * categories.TECH3) - categories.HYDROCARBON, 0, 59 }},
+            
 			-- must have less than 9 T3 power in the perimeter already
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 9, categories.ENERGYPRODUCTION * categories.TECH3, 60, 80 }},
+            
 			{ UCBC, 'HaveLessThanUnitsInCategoryBeingBuilt', { 1, categories.ENERGYPRODUCTION * categories.TECH3 }},
         },
 		
@@ -218,7 +221,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
             Construction = {
 			
 				Radius = 68,
+                
                 NearBasePerimeterPoints = true,
+                
+                ThreatMax = 55,
 				
 				BasePerimeterSelection = true,
 				
