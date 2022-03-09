@@ -1,3 +1,47 @@
+### Release 08-03-2022
+Lua 6.0.3
+Projectiles 3.2.4
+BrewLAN 0.8.8.9.3 LOUD
+
+AI  - a large slew of very minor optimizations
+    - Artillery Shields added to MAIN base for UEF, Aeon and Cybran (first introduction)
+    - Factory Builder Manager reworked to remove table rebuild requirement (solution to recent issue involving mass T2 units)
+    - Reworked T3 Energy Builder triggers
+    - Revised triggers for building new factories - to limit overbuilding and better support those already built
+    - Revised the trigger point for full on T3 building, permitting T2 to continue production until 3 T3 land factories are present
+
+Projectiles - updated projectile from Triseptitron, reducing size and duration of impact decal
+    
+BrewLAN - added Anti Artillery Shields to AI Building table - UEF, Aeon & Cybran
+
+    - Pillar of Prominence reworked to be a more affordable shield alternative
+        - now T3 technology
+        - Effect Radius 37 >> 40
+        - HP 2450 >> 1450 (more like other shield structures), HP Regen 8 >> 5
+        - Total Shield Health 42500 >> 31000, RechargeTime 37 >> 33, Regen 287 >> 235
+        - Reduced footprint to Size12 - same as other shield structures
+        - Massive cost reductions E 200k >> 52.5K, M 29430 >> 18435
+        - Energy Consumption 1591 >> 1135
+        
+    - Iron Curtain repositioned as an alternative larger shield to fill the 'AntiArtillery' role
+        - now T3 technology
+        - Shield Recharge Time 19 >> 17
+        - Shield Regen 303 >> 338
+        - Mass Cost 4493 >> 4875
+        - Energy Consumption 2086 >> 2283
+        
+    - Triseptitron moved more into the body of the mobile artillery class
+        - HP 1850 >> 1500, Regen 3 >> 2
+        - Mass cost 700 >> 780
+        - Weapon AOE 2 >> 1.8
+        - EnergyDrain 2800 >> 2600, Range 84 >> 82
+
+    - Amillary Aeon Mobile T3 Beam AA
+        - HP 2150 >> 2000
+        - Weapon Range 39 >> 38
+        - Turret Yaw Speed 75 >> 65
+
+
 ### Release 05-03-2022
 Lua 6.0.2
 
