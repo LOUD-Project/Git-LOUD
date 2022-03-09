@@ -189,7 +189,7 @@ UnitBlueprint {
 			
             Label = 'AAGun',
 			
-            MaxRadius = 38,
+            MaxRadius = 35,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -267,12 +267,12 @@ UnitBlueprint {
                 Land = 'Land|Water',
             },
 			
-            FiringRandomness = 1.05,
-            FiringTolerance = 0.6,
+            FiringRandomness = 1,
+            FiringTolerance = 0.5,
 			
             Label = 'GroundGun',
 			
-            MaxRadius = 18,
+            MaxRadius = 16,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,

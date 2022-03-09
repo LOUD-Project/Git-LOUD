@@ -197,7 +197,7 @@ UnitBlueprint {
             Label = 'AAGun',
 			LeadTarget = true,
 			
-            MaxRadius = 40,
+            MaxRadius = 38,
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 2,

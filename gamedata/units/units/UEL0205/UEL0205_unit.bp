@@ -165,7 +165,7 @@ UnitBlueprint {
             CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 36,
+            Damage = 40,
             DamageFriendly = false,
             DamageRadius = 1.6,
             DamageType = 'Normal',
@@ -183,7 +183,7 @@ UnitBlueprint {
             Label = 'AAGun',
 			LeadTarget = true,
 			
-            MaxRadius = 40,
+            MaxRadius = 38,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,

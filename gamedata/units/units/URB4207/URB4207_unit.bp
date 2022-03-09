@@ -35,7 +35,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SHOWQUEUE',
         'OVERLAYDEFENSE',
-        'SORTSTRATEGIC',
+        'SORTDEFENSE',
     },
 	
     CollisionOffsetY = -0.25,

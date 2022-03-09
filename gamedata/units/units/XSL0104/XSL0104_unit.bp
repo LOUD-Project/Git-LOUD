@@ -201,7 +201,7 @@ UnitBlueprint {
 			
 			LeadTarget = true,
 			
-            MaxRadius = 34,
+            MaxRadius = 30,
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 2,

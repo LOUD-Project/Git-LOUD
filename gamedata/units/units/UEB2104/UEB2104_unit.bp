@@ -196,7 +196,7 @@ UnitBlueprint {
             MuzzleVelocity = 60,
 			
             ProjectileId = '/projectiles/TAARailgun01/TAARailgun01_proj.bp',
-			ProjectileLifetime = 1,
+			ProjectileLifetime = 0.9,
 			
             RackBones = {
                 {
@@ -225,7 +225,9 @@ UnitBlueprint {
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            
             TrackingRadius = 1.4,
+            
             TurretBoneMuzzle = 'Turret_Muzzle_01',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',

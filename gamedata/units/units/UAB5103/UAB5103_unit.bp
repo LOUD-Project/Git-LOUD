@@ -4,6 +4,7 @@ UnitBlueprint {
         'STRUCTURE',
         'TECH3',
         'SIZE4',
+        'ANTIARTILLERY',
         'TELEPORTBEACON',
         'VISIBLETORECON',
 		'INSIGNIFICANTUNIT',
