@@ -324,7 +324,7 @@ UnitBlueprint {
             Audio = {
                 Fire = Sound {
                     Bank = 'URSWeapon',
-                    Cue = 'URS0103_Cannon_Electron',
+                    Cue = 'URB2104_Cannon_Electron',
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
@@ -332,33 +332,29 @@ UnitBlueprint {
             CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 9,
-			DamageFriendly = false,
-			DamageRadius = 1.5,
+            Damage = 21,
             DamageType = 'Normal',
 			
-			DetonatesAtTargetHeight = true,
-			
-            DisplayName = 'Light Quad Electron Flak',
+            DisplayName = 'Electron Autocannon',
 			
             FireTargetLayerCapsTable = {
                 Water = 'Air',
             },
 			
-            FiringRandomness = 1,
-            FiringTolerance = 0.3,
+            FiringTolerance = 0.1,
 			
             Label = 'AAGun',
+            
             LeadTarget = true,
 			
-            MaxRadius = 44,
+            MaxRadius = 36,
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 8,
-            MuzzleVelocity = 70,
-			
-            ProjectileId = '/projectiles/CAABurstCloud01/CAABurstCloud01_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 0.7,
+            MuzzleVelocity = 60,
+            
+            ProjectileId = '/projectiles/CAAAutocannon01/CAAAutocannon01_proj.bp',
+			ProjectileLifetime = 1,			
 
             RackBones = {
                 {
@@ -381,14 +377,10 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 1,		-- 72 DPS Air
+            RateOfFire = 1,		-- 84 DPS Air
             TargetCheckInterval = 0.5,
 			
             TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE GROUNDATTACK',
                 'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
@@ -401,11 +393,11 @@ UnitBlueprint {
 			
             TurretPitch = 45,
             TurretPitchRange = 60,
-            TurretPitchSpeed = 90,
+            TurretPitchSpeed = 100,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 80,
+            TurretYawSpeed = 100,
 			
             Turreted = true,
         },

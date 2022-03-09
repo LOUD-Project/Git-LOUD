@@ -327,7 +327,7 @@ UnitBlueprint {
             CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 12,
+            Damage = 21,
             DamageType = 'Normal',
 			
             DisplayName = 'Shleo AA AutoGun',
@@ -336,8 +336,7 @@ UnitBlueprint {
                 Water = 'Air',
             },
 			
-            FiringRandomness = 0,
-            FiringTolerance = 0,
+            FiringTolerance = 0.05,
 			
             HeadingArcCenter = 0,
             HeadingArcRange = 360,
@@ -346,14 +345,14 @@ UnitBlueprint {
 			
 			LeadTarget = true,
 			
-            MaxRadius = 44,
+            MaxRadius = 36,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 2,
-            MuzzleVelocity = 72,
+            MuzzleVelocity = 60,
 			
             ProjectileId = '/projectiles/SAAShleoAAGatlingGun02/SAAShleoAAGatlingGun02_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 0.6,
+            ProjectileLifetimeUsesMultiplier = 0.8,
 			
             RackBones = {
                 {
@@ -366,7 +365,7 @@ UnitBlueprint {
             },
 			
             RackFireTogether = false,
-            RackRecoilDistance = -0.5,
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
@@ -375,14 +374,11 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 3,		-- 72 DPS Air
+            RateOfFire = 2,		-- 84 DPS Air
 			
             TargetCheckInterval = 0.3,
 			
             TargetPriorities = {
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE GROUNDATTACK',
-                'AIR MOBILE -SCOUT',
 				'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',

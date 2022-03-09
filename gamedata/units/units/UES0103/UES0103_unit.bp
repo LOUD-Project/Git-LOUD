@@ -323,7 +323,7 @@ UnitBlueprint {
             CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 18,
+            Damage = 21,
 			DamageFriendly = false,
 			DamageRadius = 0,
             DamageType = 'Normal',
@@ -334,18 +334,17 @@ UnitBlueprint {
                 Water = 'Air',
             },
 			
-            FiringRandomness = 0,
-            FiringTolerance = 0,
+            FiringTolerance = 0.1,
 			
             Label = 'AAGun',
 			
 			LeadTarget = true,
 			
-            MaxRadius = 44,
+            MaxRadius = 36,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 2,
-            MuzzleVelocity = 66,
+            MuzzleVelocity = 60,
 			
             ProjectileId = '/projectiles/TAARailgun01/TAARailgun01_proj.bp',
             ProjectileLifetimeUsesMultiplier = 0.8,
@@ -375,14 +374,11 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 2,		-- 72 DPS Air
+            RateOfFire = 2,		-- 84 DPS Air
 			
             TargetCheckInterval = 0.3,
 			
             TargetPriorities = {
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE GROUNDATTACK',
-                'AIR MOBILE -SCOUT',
 				'AIR MOBILE',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
@@ -395,15 +391,14 @@ UnitBlueprint {
             TurretDualManipulators = false,
 			
             TurretPitch = 45,
-            TurretPitchRange = 55,
+            TurretPitchRange = 60,
             TurretPitchSpeed = 90,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 90,
+            TurretYawSpeed = 100,
             
 			Turreted = true,
-			
         },
     },
 }
