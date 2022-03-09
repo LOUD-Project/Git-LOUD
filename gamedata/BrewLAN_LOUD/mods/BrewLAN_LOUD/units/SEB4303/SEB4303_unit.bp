@@ -75,7 +75,7 @@ UnitBlueprint {
 
     },
 	
-    Description = '<LOC deb4303_desc>Artillery Defense Grid',
+    Description = '<LOC deb4303_desc>Artillery Defense Shield',
 	
     Display = {
         Abilities = {

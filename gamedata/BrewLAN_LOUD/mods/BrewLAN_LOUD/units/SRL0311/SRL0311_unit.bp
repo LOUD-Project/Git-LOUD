@@ -39,10 +39,10 @@ UnitBlueprint {
     Defense = {
         ArmorType = 'Normal',
 
-        Health = 1850,
-        MaxHealth = 1850,
+        Health = 1500,
+        MaxHealth = 1500,
         
-        RegenRate = 3,        SurfaceThreatLevel = 12,
+        RegenRate = 2,        SurfaceThreatLevel = 12,
     },
     
     Description = '<LOC srl0311_desc>Mobile Rocket Platform',
@@ -93,9 +93,9 @@ UnitBlueprint {
     
     Economy = {
         BuildCostEnergy = 9500,
-        BuildCostMass = 700,
+        BuildCostMass = 780,
         
-        BuildTime = 2400,
+        BuildTime = 600,
         
         TeleportEnergyMod = 0.15,
         TeleportMassMod = 1,
@@ -187,15 +187,15 @@ UnitBlueprint {
             
             Damage = 125,
             DamageFriendly = true,
-            DamageRadius = 2,
+            DamageRadius = 1.8,
             DamageType = 'Normal',
             
             DisplayName = 'Iridium Rocket Barrage',
             
             EffectiveRadius = 80,
             
-            EnergyDrainPerSecond = 140,
-            EnergyRequired = 2800,
+            EnergyDrainPerSecond = 130,
+            EnergyRequired = 2600,
             
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -206,7 +206,7 @@ UnitBlueprint {
             
             Label = 'MainGun',
             
-            MaxRadius = 84,
+            MaxRadius = 82,
             MinRadius = 25,
             
             MuzzleChargeDelay = .5,

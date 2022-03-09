@@ -70,8 +70,8 @@ UnitBlueprint {
     Defense = {
         AirThreatLevel = 40,
         ArmorType = 'Normal',
-        Health = 2150,
-        MaxHealth = 2150,
+        Health = 2000,
+        MaxHealth = 2000,
         RegenRate = 2,
     },
 	
@@ -292,7 +292,7 @@ UnitBlueprint {
 			
             Label = 'AAGun',
 			
-            MaxRadius = 39,
+            MaxRadius = 38,
 			
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0,
@@ -341,7 +341,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 75,
+            TurretYawSpeed = 65,
 			
             Turreted = true,
 

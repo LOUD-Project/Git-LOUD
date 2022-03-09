@@ -12,6 +12,12 @@ T3GroundDefense = {
 	Cybran = {'srb2306', 25 },
 },
 
+T3ArtilleryDefenseShield = {
+    UEF = {'seb4303', 100},
+    Aeon = {'sab4401', 100},
+    Cybran = {'srb4401', 100},
+},
+
 T3NavalDefense = {
 	UEF = {'seb2308', 100},
 	Aeon = {'sab2308',100},

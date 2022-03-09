@@ -22,12 +22,14 @@ UnitBlueprint {
 	
     Categories = {
         'SELECTABLE',
-        'BUILTBYTIER4COMMANDER',
+        'BUILTBYTIER3ENGINEER',
+        'BUILTBYTIER3COMMANDER',
         'CYBRAN',
         'STRUCTURE',
         'DEFENSE',
-        'EXPERIMENTAL',
+        'TECH3',
         'SHIELD',
+        'ANTIARTILLERY',
         'SIZE12',
         'VISIBLETORECON',
         'RECLAIMABLE',
@@ -39,7 +41,7 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 150,
+        EconomyThreatLevel = 125,
         Health = 850,
         MaxHealth = 850,
         RegenRate = 5,
@@ -53,17 +55,17 @@ UnitBlueprint {
 			
             ShieldEnergyDrainRechargeTime = 5,
             ShieldMaxHealth = 23000,
-            ShieldRechargeTime = 19,
-            ShieldRegenRate = 303,
+            ShieldRechargeTime = 17,
+            ShieldRegenRate = 338,
             ShieldRegenStartTime = 1,
             ShieldSize = 55,
-            ShieldVerticalOffset = -3,
+            ShieldVerticalOffset = -1,
         },
 		
-        SurfaceThreatLevel = 185.5,
+        SurfaceThreatLevel = 175.5,
     },
 	
-    Description = '<LOC srb4401>Experimental Shield Generator',
+    Description = '<LOC srb4401>Heavy Shield Generator',
 	
     Display = {
 	
@@ -123,10 +125,10 @@ UnitBlueprint {
 	
     Economy = {
         BuildCostEnergy = 32000,
-        BuildCostMass = 4493,
+        BuildCostMass = 4875,
         BuildTime = 2600,
 		
-        MaintenanceConsumptionPerSecondEnergy = 2086,
+        MaintenanceConsumptionPerSecondEnergy = 2283,
 		
         RebuildBonusIds = {'srb4401'},	
     },
@@ -161,7 +163,7 @@ UnitBlueprint {
     },
 
     Interface = {
-        HelpText = '<LOC srb4401>Experimental Shield Generator',
+        HelpText = '<LOC srb4401>Heavy Shield Generator',
     },
 	
     LifeBarHeight = 0.075,
@@ -198,7 +200,7 @@ UnitBlueprint {
     SizeY = 5.5,
     SizeZ = 2.5,
 	
-    StrategicIconName = 'icon_structure4_shield',
+    StrategicIconName = 'icon_structure3_shield',
     StrategicIconSortPriority = 100,
 	
     Wreckage = {

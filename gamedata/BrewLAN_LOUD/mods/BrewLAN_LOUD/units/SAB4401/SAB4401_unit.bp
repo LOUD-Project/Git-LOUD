@@ -1,7 +1,7 @@
 UnitBlueprint {
     AI = {
-        GuardScanRadius = 37,
-        StagingPlatformScanRadius = 37,
+        GuardScanRadius = 40,
+        StagingPlatformScanRadius = 40,
 		TargetBones = {
             'Base',
 			'Ring_1',
@@ -48,14 +48,15 @@ UnitBlueprint {
         'DEFENSE',
         'EXPERIMENTAL',
         'SHIELD',
+        'ANTIARTILLERY',
         'DRAGBUILD',
-        'SIZE16',
+        'SIZE12',
         'VISIBLETORECON',
         'RECLAIMABLE',
         'SHOWQUEUE',
         'OVERLAYDEFENSE',
         'OVERLAYMISC',
-        'SORTDEFENSE',
+        'SORTSTRATEGIC',
         'RESEARCHLOCKED',
     },
 	
@@ -67,11 +68,11 @@ UnitBlueprint {
 		
         EconomyThreatLevel = 200,
 		
-        Health = 2450,
-        MaxHealth = 2450,
+        Health = 1450,
+        MaxHealth = 1450,
 		
-        RegenRate = 8,
-        SurfaceThreatLevel = 299.5,
+        RegenRate = 5,
+        SurfaceThreatLevel = 170.5,
 		
         Shield = {
             ImpactEffects = 'AeonShieldHit01',
@@ -81,13 +82,15 @@ UnitBlueprint {
             RegenAssistMult = 60,
 			
             ShieldEnergyDrainRechargeTime = 8,
-            ShieldMaxHealth = 42500,
-            ShieldRechargeTime = 37,
-            ShieldRegenRate = 287,
+            ShieldMaxHealth = 31000,
+            ShieldRechargeTime = 33,
+            ShieldRegenRate = 235,
             ShieldRegenStartTime = 1,
             ShieldSize = 7.9,
             ShieldVerticalOffset = 0,
-            ShieldProjectionRadius = 35,
+            
+            ShieldProjectionRadius = 40,
+            
             ShieldTargetBeam = '/effects/emitters/collossus_tractor_beam_01_emit.bp',
         },
 		
@@ -99,16 +102,16 @@ UnitBlueprint {
             RegenAssistMult = 60,
 			
             ShieldEnergyDrainRechargeTime = 8,
-            ShieldMaxHealth = 42500,
-            ShieldRechargeTime = 37,
-            ShieldRegenRate = 287,
+            ShieldMaxHealth = 31000,
+            ShieldRechargeTime = 33,
+            ShieldRegenRate = 235,
             ShieldRegenStartTime = 1,
             ShieldSize = 10,
             ShieldVerticalOffset = 0,
         },
     },
 	
-    Description = '<LOC srb4401>Experimental Shield Generator',
+    Description = '<LOC srb4401>Projected Shield Generator',
 	
     Display = {
         AINames = {
@@ -201,22 +204,22 @@ UnitBlueprint {
                 Width = 12.8,
             },
         },
-        UniformScale = 0.115,
+        UniformScale = 0.08,
     },
 	
     Economy = {
-        BuildCostEnergy = 200000,
-        BuildCostMass = 29430,
-        BuildTime = 3400,
+        BuildCostEnergy = 52500,
+        BuildCostMass = 18435,
+        BuildTime = 1845,
 		
-        MaintenanceConsumptionPerSecondEnergy = 1591,
+        MaintenanceConsumptionPerSecondEnergy = 1135,
 		
         RebuildBonusIds = {'sab4401'},
     },
 	
     Footprint = {
-        SizeX = 5,
-        SizeZ = 5,
+        SizeX = 1,
+        SizeZ = 1,
     },
 	
     General = {
@@ -261,10 +264,10 @@ UnitBlueprint {
         MaxSteerForce = 0,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_None',
-        SkirtOffsetX = -1.5,
-        SkirtOffsetZ = -1.5,
-        SkirtSizeX = 8,
-        SkirtSizeZ = 8,
+        SkirtOffsetX = -2.5,
+        SkirtOffsetZ = -2.5,
+        SkirtSizeX = 6,
+        SkirtSizeZ = 6,
         TurnRate = 0,
     },
 	
@@ -272,11 +275,11 @@ UnitBlueprint {
     SelectionSizeZ = 3.1,
     SelectionThickness = 0.35,
 	
-    SizeX = 3.8,
-    SizeY = 6,
-    SizeZ = 3.8,
+    SizeX = 3.4,
+    SizeY = 5.5,
+    SizeZ = 3.4,
 	
-    StrategicIconName = 'icon_structure4_shield',
+    StrategicIconName = 'icon_structure3_shield',
     StrategicIconSortPriority = 100,
 	
     Wreckage = {

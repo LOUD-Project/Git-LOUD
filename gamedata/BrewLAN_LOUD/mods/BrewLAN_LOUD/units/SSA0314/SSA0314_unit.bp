@@ -113,7 +113,7 @@ UnitBlueprint {
         },
     },
 	
-    BuildIconSortPriority = 41.5,
+    BuildIconSortPriority = 41,
 	
     Categories = {
         'PRODUCTBREWLANRND',

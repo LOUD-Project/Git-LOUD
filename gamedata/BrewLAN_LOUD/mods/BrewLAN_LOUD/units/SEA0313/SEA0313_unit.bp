@@ -75,7 +75,6 @@ UnitBlueprint {
     BuildIconSortPriority = 32,
     
     Categories = {
-        'PRODUCTBREWLANRND',
         'SELECTABLE',
         'BUILTBYTIER3FACTORY',
         'UEF',
