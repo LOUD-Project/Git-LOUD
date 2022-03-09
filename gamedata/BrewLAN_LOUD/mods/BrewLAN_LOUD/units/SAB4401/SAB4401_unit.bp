@@ -42,11 +42,12 @@ UnitBlueprint {
 	
     Categories = {
         'SELECTABLE',
-        'BUILTBYTIER4COMMANDER',
+        'BUILTBYTIER3ENGINEER',
+        'BUILTBYTIER3COMMANDER',
         'AEON',
         'STRUCTURE',
         'DEFENSE',
-        'EXPERIMENTAL',
+        'TECH3',
         'SHIELD',
         'ANTIARTILLERY',
         'DRAGBUILD',

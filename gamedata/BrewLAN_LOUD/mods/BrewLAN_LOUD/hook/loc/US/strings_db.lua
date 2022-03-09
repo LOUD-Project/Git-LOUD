@@ -502,9 +502,9 @@ srb2401_name="Scathis Mark II"
 ssb2404_name="Suthanus"
 Unit_Description_BrewLAN_T4B002="Experimental rapid-fire artillery. Consumes massive amounts of Energy with each shot."
 
-srb4401="Experimental Shield Generator"
+srb4401="Heavy Shield Generator"
 srb4401_name="Iron Curtain"
-Unit_Description_BrewLAN_T4B003="Experimental shield generator. Protects a large area."
+Unit_Description_BrewLAN_T4B003="Heavy shield generator. Protects a large area."
 
 srs0401="Experimental Battleship"
 srs0401_name="Abyssal Persecutor"
