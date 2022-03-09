@@ -1267,7 +1267,9 @@ EngineerManager = Class(BuilderManager) {
 			
 			local lastpos = {pos[1], 0, pos[3]}
             local nextpos, lastposHeight, nextposHeight
+            
             local LOUDABS = math.abs
+            local GetTerrainHeight = GetTerrainHeight
 	
 			-- Iterate thru the number of steps - starting at the pos and adding xstep and ystep to each point
 			for i = 0, steps do

@@ -10,6 +10,8 @@ local Cinematics = import('/lua/cinematics.lua')
 local SimUIVars = import('/lua/sim/SimUIState.lua')
 local Utilities = import('/lua/Utilities.lua') # enabled so we can hide strat icons during NISs
 
+local GetUnitsInRect = GetUnitsInRect
+
 --PingGroups = import('/lua/SimPingGroup.lua')
 --Objectives = import('/lua/SimObjectives.lua')
 

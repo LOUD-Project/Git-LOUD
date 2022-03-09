@@ -62,6 +62,8 @@ BrainConditionsMonitor = Class {
             self.ConditionData[cFilename][cFunctionName] = {}
         end
         
+        local LOUDEQUAL = table.equal
+        
         -- Check if the cData matches up to an existing function --
         for _,index in self.ConditionData[cFilename][cFunctionName] do
 		

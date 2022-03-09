@@ -1,5 +1,7 @@
 --**  File     :  /lua/AI/aiattackutilities.lua
 
+local IsAlly = IsAlly
+
 local LOUDCOPY = table.copy
 local LOUDPARSE = ParseEntityCategory
 local LOUDSORT = table.sort
@@ -10,6 +12,9 @@ local WaitTicks = coroutine.yield
 
 local GetPlatoonPosition = moho.platoon_methods.GetPlatoonPosition
 local GetPlatoonUnits = moho.platoon_methods.GetPlatoonUnits
+
+local GetTerrainHeight = GetTerrainHeight
+local GetSurfaceHeight = GetSurfaceHeight
 
 local ALLBUTWALLS = categories.ALLUNITS - categories.WALL
 local SHIELDS = categories.SHIELD * categories.STRUCTURE
@@ -136,6 +141,7 @@ end
 function GetClosestPathNodeInRadiusByLayer(location, layer)
 
 	local nodes = ScenarioInfo.PathGraphs['RawPaths'][layer] or false
+    local VDist2Sq = VDist2Sq
 	
 	if nodes then
 

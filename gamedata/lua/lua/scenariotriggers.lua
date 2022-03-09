@@ -5,6 +5,8 @@ local AreaToRect = import('/lua/sim/scenarioutilities.lua').AreaToRect
 local MarkerToPosition = import('/lua/sim/scenarioutilities.lua').MarkerToPosition
 
 local ForkThread = ForkThread
+local GetUnitsInRect = GetUnitsInRect
+local type = type
 local WaitTicks = coroutine.yield
 
 function CreateAreaTrigger(callbackFunction, rectangle, category, onceOnly, invert, aiBrain, number, requireBuilt)

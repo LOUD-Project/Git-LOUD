@@ -82,7 +82,6 @@ local LOUDTIME = GetGameTimeSeconds
 
 local VDist2Sq = VDist2Sq
 local VDist3 = VDist3
-local VDist3Sq = VDist3Sq
 
 local ForkThread = ForkThread
 local ForkTo = ForkThread
@@ -1423,6 +1422,7 @@ Platoon = Class(moho.platoon_methods) {
 		
 		local VDist3 = VDist3
 		local VDist2 = VDist2
+  		local VDist2Sq = VDist2Sq
 		
 		if not aiBrain then
 			aiBrain = GetBrain(self)
@@ -2567,6 +2567,8 @@ Platoon = Class(moho.platoon_methods) {
 	-- It's always a larger value than the IMAPRadius that was used to find targets originally and allows this
 	-- routine to return TRUE on moving HiPri targets
 	RecheckHiPriTarget = function( aiBrain, targetlocation, targetclass, pos)
+    
+   		local VDist2Sq = VDist2Sq
 
 		local targetlist = GetHiPriTargetList( aiBrain, pos )
 		
@@ -6984,6 +6986,8 @@ Platoon = Class(moho.platoon_methods) {
 	end,
 	
     EngineerBuildMassDefenseAdjacencyAI = function( self, aiBrain )
+    
+		local VDist2Sq = VDist2Sq    
         
         local eng
 		
@@ -8104,6 +8108,7 @@ Platoon = Class(moho.platoon_methods) {
 		--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." enters Land Force AI")	
 		
 		local LOUDGETN = LOUDGETN
+		local VDist2Sq = VDist2Sq        
 		local VDist3 = VDist3
         
         local platoonUnits = GetPlatoonUnits(self)
@@ -8561,6 +8566,7 @@ Platoon = Class(moho.platoon_methods) {
     AmphibForceAILOUD = function( self, aiBrain )
 
 		local LOUDGETN = LOUDGETN
+		local VDist2Sq = VDist2Sq        
 		local VDist3 = VDist3
 		
         local platoonUnits = GetPlatoonUnits(self)
@@ -9019,6 +9025,8 @@ Platoon = Class(moho.platoon_methods) {
 		
 		local platPos = LOUDCOPY(GetPlatoonPosition(self))
         local radiusSq = radius*radius	-- maximum range to check allied platoons --
+        
+   		local VDist2Sq = VDist2Sq
 
 		-- get a list of all the platoons for this brain
 		local GetPlatoonsList = moho.aibrain_methods.GetPlatoonsList
@@ -9198,6 +9206,8 @@ Platoon = Class(moho.platoon_methods) {
         local Squads = { 'Scout','Attack','Artillery','Guard','Support' }
         local validUnits, counter, units
         local SQUADUNITS
+        
+		local VDist2Sq = VDist2Sq        
 		
 		LOUDSORT(AlliedPlatoons, function(a,b) return VDist2Sq(GetPlatoonPosition(a)[1],GetPlatoonPosition(a)[3], platPos[1],platPos[3]) < VDist2Sq(GetPlatoonPosition(b)[1],GetPlatoonPosition(b)[3], platPos[1],platPos[3]) end)
 
@@ -9569,6 +9579,8 @@ Platoon = Class(moho.platoon_methods) {
 	-- the one which is closest to the Attack Planner goal
     ReinforceAmphibAI = function( self )
     
+		local VDist3Sq = VDist3Sq    
+        
         self:Stop()
 		
         local aiBrain = GetBrain(self)

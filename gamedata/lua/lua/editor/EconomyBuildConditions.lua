@@ -87,6 +87,7 @@ function CanBuildOnHydroLessThanDistance(aiBrain, locationType, distance, tMin, 
 		local counter = 0
 	
 		local CanBuildStructureAt = moho.aibrain_methods.CanBuildStructureAt
+        local VDist2Sq = VDist2Sq
     
 		for _,v in markerlist do
 			if CanBuildStructureAt( aiBrain, 'ueb1102', v.Position ) then
@@ -96,6 +97,7 @@ function CanBuildOnHydroLessThanDistance(aiBrain, locationType, distance, tMin, 
 		end
 	
 		if counter > 0 then
+        
 			local position = aiBrain.BuilderManagers[locationType].Position
 			local markerTable = AISortMarkersFromLastPosWithThreatCheck(aiBrain, mlist, maxNum, tMin, tMax, tRings, tType, position)
 	    

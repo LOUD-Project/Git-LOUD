@@ -886,6 +886,9 @@ function AirScoutingAI( self, aiBrain )
 	local GetNumUnitsAroundPoint = moho.aibrain_methods.GetNumUnitsAroundPoint
 	
 	local GetThreatsAroundPosition = moho.aibrain_methods.GetThreatsAroundPosition
+    
+    local LOUDEQUAL = table.equal
+    
 	local VDist3 = VDist3
     
     local UNITCHECK = categories.ALLUNITS - categories.WALL
@@ -1954,7 +1957,10 @@ function NukeAI( self, aiBrain )
 	local UnitLeadTarget = import('/lua/ai/sorianutilities.lua').UnitLeadTarget
 	
     local aiBrain = GetBrain(self)
+    
+    local LOUDEQUAL = table.equal
 	local LOUDGETN = LOUDGETN
+    
 	local AvailableLaunches = {}
 	local nukesavailable = 0
     local count = 0

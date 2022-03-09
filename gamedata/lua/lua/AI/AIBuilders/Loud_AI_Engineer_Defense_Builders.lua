@@ -932,7 +932,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction',
             }
         }
     },
-    
 
 	Builder {BuilderName = 'Shield Augmentations',
     
@@ -965,6 +964,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction',
             }
         }
     },
+
 }
 
 BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS',
@@ -1168,8 +1168,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS',
         }
     },
     
-	
-    
 }
 
 BuilderGroup {BuilderGroupName = 'Engineer T4 Shield Construction',
@@ -1232,7 +1230,6 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Shield Construction',
             }
         }
     },
-    
 
 }
 

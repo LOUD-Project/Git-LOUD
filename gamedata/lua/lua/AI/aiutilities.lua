@@ -13,6 +13,8 @@ local VDist2 = VDist2
 local VDist2Sq = VDist2Sq
 
 local GetAIBrain = moho.unit_methods.GetAIBrain
+local GetTerrainHeight = GetTerrainHeight
+local GetSurfaceHeight = GetSurfaceHeight
 
 
 -- Adds an area to the brains MustScout table
@@ -63,7 +65,10 @@ function AIPickEnemyLogic( self, brainbool )
 
 	local allyEnemy = false
     local armyStrengthTable = {}
+    
+    local IsAlly = IsAlly
 	local IsEnemy = IsEnemy
+    
     local selfIndex = self.ArmyIndex
 	
 	local threattypes = {'StructuresNotMex','Land','Naval'} --'OverallNotAssigned'
@@ -79,23 +84,29 @@ function AIPickEnemyLogic( self, brainbool )
     local Brains = ArmyBrains
     
   	local GetThreatsAroundPosition = moho.aibrain_methods.GetThreatsAroundPosition
+    
     local MATHEXP = math.exp
     local MATHMAX = math.max
+    
+    local VDist2Sq = VDist2Sq
     local VDist3 = VDist3
+    
+    local armyindex, insertTable, threats
+    local distance, threatWeight
     
     for k,v in Brains do
 	
-        local armyindex = v.ArmyIndex
+        armyindex = v.ArmyIndex
 		
         if not v:IsDefeated() and selfIndex != armyindex and not IsAlly( selfIndex, armyindex) then
 		
 			if IsEnemy(selfIndex, armyindex) then
             
-                local insertTable = { Enemy = true, Strength = 0, Position = false, Brain = k, Alias = v.Nickname }    
+                insertTable = { Enemy = true, Strength = 0, Position = false, Brain = k, Alias = v.Nickname }    
             
                 for _,threattype in threattypes do
 			
-                    local threats = GetThreatsAroundPosition( self, self.BuilderManagers.MAIN.Position, 32, true, threattype, armyindex)
+                    threats = GetThreatsAroundPosition( self, self.BuilderManagers.MAIN.Position, 32, true, threattype, armyindex)
                 
                     -- sort the threats for closest
                     LOUDSORT( threats, function(a,b) return VDist2Sq(a[1],a[2],testposition[1],testposition[3]) < VDist2Sq(b[1],b[2],testposition[1],testposition[3]) end )
@@ -112,10 +123,10 @@ function AIPickEnemyLogic( self, brainbool )
                             -- closer targets are worth more - much more
                
                             -- distance of this enemy from current PRIMARY position
-                            local distance = VDist3( testposition, {data[1],0,data[2]} )
+                            distance = VDist3( testposition, {data[1],0,data[2]} )
                 
                             -- adjust the strength according to distance result against the maximum possible distance on this map
-                            local threatWeight = MATHEXP((self.dist_comp/ distance )-1)
+                            threatWeight = MATHEXP((self.dist_comp/ distance )-1)
 
                             threatWeight = threatWeight * data[3]
                             

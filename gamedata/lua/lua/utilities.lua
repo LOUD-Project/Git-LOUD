@@ -8,8 +8,11 @@ local LOUDPI = math.pi
 local LOUDPOW = math.pow
 local LOUDSQRT = math.sqrt
 local LOUDINSERT = table.insert
+
 local Random = Random
+
 local VDist2 = VDist2
+local VDist2Sq = VDist2Sq
 local VDist3 = VDist3
 
 function GetDistanceBetweenTwoEntities(entity1, entity2)
@@ -32,18 +35,25 @@ function GetEnemyUnitsInSphere(unit, position, radius)
 	local counter = 0
     local army = unit.Sync.army
 	local checkrange = radius * radius
+    local pos
 	
     for _, v in UnitsinRec do
-		local pos = GetPosition(v)
+    
+		pos = GetPosition(v)
 		
 		if (army != v.Sync.army) and ( VDist2Sq(position[1],position[3], pos[1],pos[3] ) <= checkrange) then
+        
 			RadEntities[counter+1] = v
 			counter = counter + 1
+            
 		end
+        
 	end
+    
 	if counter > 0 then 
 		return RadEntities
 	end
+    
 	return false
 end
 

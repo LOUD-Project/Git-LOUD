@@ -26,6 +26,7 @@ local LOUDFLOOR = math.floor
 local ForkThread = ForkThread
 local WaitSeconds = WaitSeconds
 local WaitTicks = coroutine.yield
+local VDist2Sq = VDist2Sq
 local VDist3 = VDist3
 
 local GetAIBrain = moho.unit_methods.GetAIBrain
@@ -34,6 +35,9 @@ local GetListOfUnits = moho.aibrain_methods.GetListOfUnits
 local GetPosition = moho.entity_methods.GetPosition
 local GetNumUnitsAroundPoint = moho.aibrain_methods.GetNumUnitsAroundPoint
 local GetEconomyIncome = moho.aibrain_methods.GetEconomyIncome
+local GetTerrainHeight = GetTerrainHeight
+
+local GetUnitsInRect = GetUnitsInRect
 
 local AssignUnitsToPlatoon = moho.aibrain_methods.AssignUnitsToPlatoon
 local MakePlatoon = moho.aibrain_methods.MakePlatoon
@@ -3939,7 +3943,6 @@ function ParseIntelThread( aiBrain )
 	WaitTicks(Random(1,7))	-- to avoid all the AI running at exactly the same tick
 
 	-- local this global function
-	local GetUnitsInRect = GetUnitsInRect
 	local IsEnemy = IsEnemy
 
 	local LOUDFLOOR = math.floor

@@ -53,7 +53,7 @@ local LOUDATTACHEMITTER = CreateAttachedEmitter
 local LOUDATTACHBEAMENTITY = AttachBeamEntityToEntity
 
 local DamageArea = DamageArea
-local GetTerrainHeight = GetTerrainHeight
+
 local GetTerrainType = GetTerrainType
 
 local PlatoonExists = moho.aibrain_methods.PlatoonExists
