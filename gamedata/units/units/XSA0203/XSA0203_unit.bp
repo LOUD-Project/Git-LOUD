@@ -31,7 +31,7 @@ UnitBlueprint {
 		
         LiftFactor = 5,
 		
-        MaxAirspeed = 12,
+        MaxAirspeed = 10.5,
         MinAirspeed = 3,
 		
         StartTurnDistance = 5,
@@ -81,8 +81,8 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Light',
-        Health = 1500,
-        MaxHealth = 1500,
+        Health = 1450,
+        MaxHealth = 1450,
         RegenRate = 5,
         SurfaceThreatLevel = 7,
     },
@@ -114,7 +114,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 14000,
         BuildCostMass = 355,
-        BuildTime = 3000,
+        BuildTime = 600,
     },
 	
     Footprint = {

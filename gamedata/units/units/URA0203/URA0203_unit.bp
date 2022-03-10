@@ -81,8 +81,8 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Light',
-        Health = 1500,
-        MaxHealth = 1500,
+        Health = 1400,
+        MaxHealth = 1400,
         RegenRate = 6,
         SurfaceThreatLevel = 6.4,
     },
@@ -113,7 +113,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 14000,
         BuildCostMass = 355,
-        BuildTime = 3000,
+        BuildTime = 600,
     },
 	
     Footprint = {
@@ -221,7 +221,7 @@ UnitBlueprint {
             },
 			
             FiringRandomness = 0.15,
-            FiringTolerance = 0.3,
+            FiringTolerance = 0.2,
 			
             Label = 'Missile01',
 			
