@@ -83,8 +83,8 @@ UnitBlueprint {
     Defense = {
         AirThreatLevel = 8,
         ArmorType = 'Light',
-        Health = 2250,
-        MaxHealth = 2250,
+        Health = 2400,
+        MaxHealth = 2400,
         RegenRate = 6,
         SurfaceThreatLevel = 3,
     },
@@ -118,9 +118,9 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 12100,
-        BuildCostMass = 340,
-        BuildTime = 2593,
+        BuildCostEnergy = 13200,
+        BuildCostMass = 380,
+        BuildTime = 600,
     },
 	
     Footprint = {
