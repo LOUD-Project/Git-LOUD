@@ -1,3 +1,8 @@
+### Release 10-03-2022
+Textures 6.7.1
+
+Textures - updated to include new T3 Aeon Pen Fighter
+
 ### Release 08-03-2022
 Lua 6.0.3
 Projectiles 3.2.4
@@ -13,6 +18,8 @@ AI  - a large slew of very minor optimizations
 Projectiles - updated projectile from Triseptitron, reducing size and duration of impact decal
     
 BrewLAN - added Anti Artillery Shields to AI Building table - UEF, Aeon & Cybran
+
+    Added T3 Aeon Penetration Fighter
 
     - Pillar of Prominence reworked to be a more affordable shield alternative
         - now T3 technology
