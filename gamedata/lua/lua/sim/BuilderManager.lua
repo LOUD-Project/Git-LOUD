@@ -7,13 +7,14 @@ local LOUDCOPY = table.copy
 local LOUDGETN = table.getn
 local LOUDINSERT = table.insert
 local LOUDREMOVE = table.remove
-
 local LOUDSORT = table.sort
 
 local ForkThread = ForkThread
 local ForkTo = ForkThread
 
 local Random = Random
+
+local WaitTicks = coroutine.yield
 
 BuilderManager = Class {
 
@@ -197,6 +198,8 @@ BuilderManager = Class {
         local BuilderType = unit.BuilderType
         local ManagerType = self.ManagerType
         local PriorityDialog = ScenarioInfo.PriorityDialog
+        
+        local LOUDSORT = LOUDSORT
 
 		-- function that checks all the conditions of a builder
 		-- only returns true if all conditions pass 
@@ -207,9 +210,6 @@ BuilderManager = Class {
 				if not ResultTable[value].Instant then
 				
 					if not ResultTable[value].Status then
-                        --if ManagerType == 'FBM' then
-                          --  LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(value).." is false in "..repr(BuilderConditions) )
-                        --end
 						return false
 					end
 				else
@@ -217,9 +217,6 @@ BuilderManager = Class {
                     conditionschecked = conditionschecked + 1
 
 					if not ResultTable[value]:GetStatus(aiBrain) then
-                        --if ManagerType == 'FBM' then
-                          --  LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(value).." is false in "..repr(BuilderConditions) )
-                        --end
 						return false
 					end
 				end

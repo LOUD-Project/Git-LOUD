@@ -23,20 +23,27 @@ local LOUDREMOVE = table.remove
 local LOUDSORT = table.sort
 local LOUDFLOOR = math.floor
 
+local EntityCategoryCount = EntityCategoryCount
 local ForkThread = ForkThread
+local Vector = Vector
 local WaitSeconds = WaitSeconds
 local WaitTicks = coroutine.yield
 local VDist2Sq = VDist2Sq
 local VDist3 = VDist3
 
 local GetAIBrain = moho.unit_methods.GetAIBrain
+
 local GetCurrentUnits = moho.aibrain_methods.GetCurrentUnits
 local GetListOfUnits = moho.aibrain_methods.GetListOfUnits
+
+local GetPlatoonPosition = moho.platoon_methods.GetPlatoonPosition
+
 local GetPosition = moho.entity_methods.GetPosition
+
 local GetNumUnitsAroundPoint = moho.aibrain_methods.GetNumUnitsAroundPoint
 local GetEconomyIncome = moho.aibrain_methods.GetEconomyIncome
-local GetTerrainHeight = GetTerrainHeight
 
+local GetTerrainHeight = GetTerrainHeight
 local GetUnitsInRect = GetUnitsInRect
 
 local AssignUnitsToPlatoon = moho.aibrain_methods.AssignUnitsToPlatoon
@@ -167,6 +174,7 @@ function AIFindClosestBuilderManagerPosition( aiBrain, position)
 	local closest = false
     
     local BM = aiBrain.BuilderManagers
+    local VDist2Sq = VDist2Sq
 
     for k,v in BM do
 	
@@ -193,6 +201,7 @@ function FindClosestBaseName( aiBrain, position, allownavalbases, onlynavalbases
 	local closest = false
     
     local BM = aiBrain.BuilderManagers
+    local VDist2Sq = VDist2Sq
 	
     for k,v in BM do
 	
@@ -283,7 +292,7 @@ end
 -- if the AI has its share of mass points
 function HasMassPointShare( aiBrain, multiple )
 
-    local units = aiBrain:GetListOfUnits(categories.ECONOMIC, false)
+    local units = GetListOfUnits( aiBrain, categories.ECONOMIC, false)
     
     local extractorCount = 0
     
@@ -308,7 +317,7 @@ end
 -- a variant of the above
 function NeedMassPointShare( aiBrain, multiple )
 
-    local units = aiBrain:GetListOfUnits( categories.ECONOMIC, false)
+    local units = GetListOfUnits( aiBrain, categories.ECONOMIC, false)
     
     local extractorCount = 0
 	
@@ -608,7 +617,7 @@ function SpawnWaveThread( aiBrain )
 	
 		WaitSeconds(60)
 	
-		local T3AirFacs = aiBrain:GetListOfUnits( categories.AIR * categories.FACTORY * categories.TECH3, false )
+		local T3AirFacs = GetListOfUnits( aiBrain, categories.AIR * categories.FACTORY * categories.TECH3, false )
 		
 		if T3AirFacs[1] then
 		
@@ -629,7 +638,7 @@ function SpawnWaveThread( aiBrain )
 
 	while initialUnits do
     
-		local T3AirFacs = aiBrain:GetListOfUnits( categories.AIR * categories.FACTORY * categories.TECH3, false )
+		local T3AirFacs = GetListOfUnits( aiBrain, categories.AIR * categories.FACTORY * categories.TECH3, false )
 	
         -- the spawnwave cannot happen unless a T3 Air Factory is present
 		if LOUDGETN(T3AirFacs) == 0 then
@@ -1217,14 +1226,14 @@ function DisperseUnitsToRallyPoints( aiBrain, units, position, rallypointtable, 
 		
 		if returnpool.MovementLayer == "Land" then
 			-- dont use naval bases for land --
-			returnpool.BuilderLocation = FindClosestBaseName( aiBrain, returnpool:GetPlatoonPosition(), false )
+			returnpool.BuilderLocation = FindClosestBaseName( aiBrain, GetPlatoonPosition(returnpool), false )
 		else
 			if returnpool.MovementLayer == "Air" or returnpool.PlatoonLayer == "Amphibious" then
 				-- use any kind of base --
-				returnpool.BuilderLocation = FindClosestBaseName( aiBrain, returnpool:GetPlatoonPosition(), true, false )
+				returnpool.BuilderLocation = FindClosestBaseName( aiBrain, GetPlatoonPosition(returnpool), true, false )
 			else
 				-- use only naval bases --
-				returnpool.BuilderLocation = FindClosestBaseName( aiBrain, returnpool:GetPlatoonPosition(), true, true )
+				returnpool.BuilderLocation = FindClosestBaseName( aiBrain, GetPlatoonPosition(returnpool), true, true )
 			end
 		end
 
@@ -1901,7 +1910,13 @@ function AirUnitRefitThread( unit, aiBrain )
 		local rtbissued = false
 
         local GetFuelRatio = moho.unit_methods.GetFuelRatio
+        local GetCurrentUnits = moho.aibrain_methods.GetCurrentUnits
+        
+        local LOUDCOPY = table.copy
+        local LOUDSORT = table.sort
+        
         local VDist3Sq = VDist3Sq
+        local WaitTicks = coroutine.yield
 
 		while (not unit.Dead) do
 		
@@ -1921,7 +1936,7 @@ function AirUnitRefitThread( unit, aiBrain )
 					-- Locate closest airpad
 					if plats[1] then
                     
-                        LOUDSORT( plats, function(a,b) return VDist3Sq(a:GetPosition(),unitPos) < VDist3Sq(b:GetPosition(),unitPos) end )
+                        LOUDSORT( plats, function(a,b) return VDist3Sq(GetPosition(a),unitPos) < VDist3Sq(GetPosition(b),unitPos) end )
                         
                         closestairpad = plats[1]
 
@@ -1938,14 +1953,14 @@ function AirUnitRefitThread( unit, aiBrain )
 					rtbissued = true
 
 					-- find closest base
-					local baseposition = FindClosestBaseName( aiBrain, unit:GetPosition(), true, false)
+					local baseposition = FindClosestBaseName( aiBrain, GetPosition(unit), true, false)
 
 					if baseposition then
 
 						IssueStop ( {unit} )
 						IssueClearCommands( {unit} )
 
-                        local safePath, reason = returnpool.PlatoonGenerateSafePathToLOUD(aiBrain, returnpool, 'Air', unit:GetPosition(), aiBrain.BuilderManagers[baseposition].Position, 16, 256)
+                        local safePath, reason = returnpool.PlatoonGenerateSafePathToLOUD(aiBrain, returnpool, 'Air', GetPosition(unit), aiBrain.BuilderManagers[baseposition].Position, 16, 256)
 			
                         if safePath then
 
@@ -2137,12 +2152,13 @@ function TeleportLocationBlocked( self, location )
 	local aiBrain = GetAIBrain(self)
     
     local BRAINS = ArmyBrains
+    local VDist2 = VDist2
 	
 	for num, brain in BRAINS do
 	
 		if not IsAlly( aiBrain.ArmyIndex, brain.ArmyIndex ) and aiBrain.Armyindex != brain.ArmyIndex then
 		
-			local unitList = brain:GetListOfUnits(categories.ANTITELEPORT, false)
+			local unitList = GetListOfUnits( brain, categories.ANTITELEPORT, false)
 			
 			for i, unit in unitList do
 			
@@ -2387,7 +2403,7 @@ function EconomyMonitor( aiBrain )
     local GetEconomyIncome = moho.aibrain_methods.GetEconomyIncome
     local GetEconomyRequested = moho.aibrain_methods.GetEconomyRequested
 	local GetEconomyTrend = moho.aibrain_methods.GetEconomyTrend
-    local GetEconomyStoredRatio = moho.aibrain_methods.GetEconomyStoredRatio
+    --local GetEconomyStoredRatio = moho.aibrain_methods.GetEconomyStoredRatio
 
 	local LOUDMIN = math.min
 

@@ -46,7 +46,15 @@ function CanBuildOnMassAtRange(aiBrain, locationType, mindistance, maxdistance, 
 		local counter = 0
         local position = aiBrain.BuilderManagers[locationType].Position
         
-        LOUDSORT( markerlist, function (a,b) return VDist3( a.Position, position ) < VDist3( b.Position, position ) end )
+        local VDist3 = VDist3
+
+        local a,b
+        
+        local function DOSORT(a,b)
+            return VDist3( a.Position, position) < VDist3( b.Position, position)
+        end
+        
+        LOUDSORT( markerlist, DOSORT )
 
 		local CanBuildStructureAt = moho.aibrain_methods.CanBuildStructureAt
     

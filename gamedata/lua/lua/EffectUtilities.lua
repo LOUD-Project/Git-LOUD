@@ -42,6 +42,7 @@ local LOUDEMITATBONE = CreateEmitterAtBone
 local LOUDATTACHEMITTER = CreateAttachedEmitter
 local LOUDATTACHBEAMENTITY = AttachBeamEntityToEntity
 
+local Vector = Vector
 local WaitTicks = coroutine.yield
 
 local ALLBPS = __blueprints
@@ -159,7 +160,12 @@ end
 
 function CreateBuildCubeThread( unitBeingBuilt, builder, OnBeingBuiltEffectsBag )
 
+	local BeenDestroyed = moho.entity_methods.BeenDestroyed
+    local CreateProjectile = moho.entity_methods.CreateProjectile
+	local GetFractionComplete = moho.entity_methods.GetFractionComplete
+
 	local LOUDABS = math.abs
+    local WaitTicks = coroutine.yield
 	
     local bp = ALLBPS[unitBeingBuilt.BlueprintID]
 	local pos = unitBeingBuilt:GetPosition()
@@ -218,12 +224,12 @@ function CreateBuildCubeThread( unitBeingBuilt, builder, OnBeingBuiltEffectsBag 
     end
 	
     local cComplete = GetFractionComplete(unitBeingBuilt)
-	local BeenDestroyed = moho.entity_methods.BeenDestroyed
 
     -- Create glow slice cuts and resize base cube
     while not unitBeingBuilt.Dead and cComplete < 1.0 do
 	
         if lComplete < cComplete and not BeenDestroyed(BuildBaseEffect) then
+        
 	        proj = CreateProjectile( BuildBaseEffect, '/effects/Entities/UEFBuildEffect/UEFBuildEffect02_proj.bp',0,y * (1-cComplete),0, nil, nil, nil )
 			
 			OnBeingBuiltEffectsBag:Add(proj)
@@ -231,6 +237,7 @@ function CreateBuildCubeThread( unitBeingBuilt, builder, OnBeingBuiltEffectsBag 
             slice = LOUDABS(lComplete - cComplete)
             proj:SetScale(x, y * slice, z)
             BuildBaseEffect:SetScale(x, y * (1-cComplete), z)
+            
         end
 		
         WaitTicks(SlicePeriod * 10)
@@ -257,6 +264,9 @@ function CreateUEFBuildSliceBeams( builder, unitBeingBuilt, BuildEffectBones, Bu
 
     local army = builder.Sync.army
     local BeamBuildEmtBp = '/effects/emitters/build_beam_01_emit.bp'
+    
+    local BeenDestroyed = moho.entity_methods.BeenDestroyed
+    local WaitTicks = coroutine.yield
     
     local buildbp = ALLBPS[unitBeingBuilt.BlueprintID]
 
@@ -341,6 +351,11 @@ function CreateUEFCommanderBuildSliceBeams( builder, unitBeingBuilt, BuildEffect
 
     local army = builder.Sync.army
     local BeamBuildEmtBp = '/effects/emitters/build_beam_01_emit.bp'
+    
+    local BeenDestroyed = moho.entity_methods.BeenDestroyed
+    local LOUDWARP = Warp
+    local WaitTicks = coroutine.yield
+    
     local buildbp = ALLBPS[unitBeingBuilt.BlueprintID]
 	local pos = unitBeingBuilt:GetPosition()
 	local x = pos[1]
@@ -428,6 +443,9 @@ end
 function CreateDefaultBuildBeams( builder, unitBeingBuilt, BuildEffectBones, BuildEffectsBag )
 
     local BeamBuildEmtBp = '/effects/emitters/build_beam_01_emit.bp'
+    local BeenDestroyed = moho.entity_methods.BeenDestroyed
+    local WaitTicks = coroutine.yield
+
 	local pos = unitBeingBuilt:GetPosition()
 	local ox = pos[1]
 	local oy = pos[2]
@@ -469,6 +487,9 @@ end
 
 -- effects used when building structures
 function CreateAeonBuildBaseThread( unitBeingBuilt, builder, EffectsBag )
+
+    local BeenDestroyed = moho.entity_methods.BeenDestroyed
+    local WaitTicks = coroutine.yield
 
 	local army = builder.Sync.army
     local bp = ALLBPS[unitBeingBuilt.BlueprintID]
@@ -535,6 +556,9 @@ end
 
 
 function CreateCybranBuildBeams( builder, unitBeingBuilt, BuildEffectBones, BuildEffectsBag )
+
+    local BeenDestroyed = moho.entity_methods.BeenDestroyed
+    local WaitTicks = coroutine.yield
 
     if BuildEffectBones then
 	
@@ -648,6 +672,7 @@ function CreateCybranEngineerBuildEffects( builder, BuildBones, BuildBots, Build
     if BuildBones then
 	
         local army = builder.Sync.army
+        local WaitTicks = coroutine.yield
 		
         for _, vBone in BuildBones do
             for _, vEffect in CybranBuildUnitBlink01 do
@@ -846,6 +871,9 @@ function CreateSeraphimUnitEngineerBuildingEffects( builder, unitBeingBuilt, Bui
 end
 
 function CreateSeraphimFactoryBuildingEffects( builder, unitBeingBuilt, BuildEffectBones, BuildBone, EffectsBag )
+
+    local BeenDestroyed = moho.entity_methods.BeenDestroyed
+    local WaitTicks = coroutine.yield
 
     local bp = ALLBPS[unitBeingBuilt.BlueprintID]
     local army = builder.Sync.army
@@ -1215,21 +1243,30 @@ end
 
 function CreateCybranQuantumGateEffect( unit, bone1, bone2, TrashBag, startwaitSeed )
 
+    local BeenDestroyed = moho.entity_methods.BeenDestroyed
+
     -- Adding a quick wait here so that unit bone positions are correct
     WaitTicks( startwaitSeed * 10 )
     
     local BeamEmtBp = '/effects/emitters/cybran_gate_beam_01_emit.bp'
+    
+    local BeenDestroyed = moho.entity_methods.BeenDestroyed
+    local WaitTicks = coroutine.yield
+
     local pos1 = unit:GetPosition(bone1)
     local pos2 = unit:GetPosition(bone2)
+    
     pos1[2] = pos1[2] - 0.72
     pos2[2] = pos2[2] - 0.72
 
     -- Create a projectile for the end of build effect and LOUDWARP it to the unit
     local BeamStartEntity = unit:CreateProjectile('/effects/entities/UEFBuild/UEFBuild01_proj.bp',0,0,0,nil,nil,nil)
+    
     TrashBag:Add( BeamStartEntity )
     LOUDWARP( BeamStartEntity, pos1)
     
     local BeamEndEntity = unit:CreateProjectile('/effects/entities/UEFBuild/UEFBuild01_proj.bp',0,0,0,nil,nil,nil)
+    
     TrashBag:Add( BeamEndEntity )
     LOUDWARP( BeamEndEntity, pos2)    
 
@@ -1238,12 +1275,12 @@ function CreateCybranQuantumGateEffect( unit, bone1, bone2, TrashBag, startwaitS
 
     -- Determine a the velocity of our projectile, used for the scaning effect
     local velY = 1
-    BeamEndEntity:SetVelocity( 0, velY, 0 )
+    BeamEndEntity:SetVelocity( 0, 1, 0 )
 
     local flipDirection = true
 
     -- LOUDWARP our projectile back to the initial corner and lower based on build completeness
-    while not unit:BeenDestroyed() do
+    while not BeenDestroyed(unit) do
 
         if flipDirection then
             BeamStartEntity:SetVelocity( 0, velY, 0 )

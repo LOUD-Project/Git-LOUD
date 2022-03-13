@@ -228,7 +228,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
 		PriorityFunction = HaveLessThanThreeT3AirFactory,
 		
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioLessThan', { 4.5 } },
+            { LUTL, 'AirStrengthRatioLessThan', { 5 } },
         },
 		
         BuilderType =  {'AirT2','AirT3'},
@@ -256,7 +256,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
         
         BuilderConditions = {
             { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
-			{ LUTL, 'HaveGreaterThanUnitsWithCategory', { 2, categories.FACTORY * categories.AIR * categories.TECH3 }},
+			{ LUTL, 'HaveGreaterThanUnitsWithCategory', { 3, categories.FACTORY * categories.AIR * categories.TECH3 }},
         },
 		
         BuilderType =  {'AirT3'},
@@ -271,7 +271,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
 
         BuilderConditions = {
             { LUTL, 'HaveLessThanUnitsWithCategory', { 120, categories.HIGHALTAIR * categories.ANTIAIR }},
-			{ LUTL, 'HaveGreaterThanUnitsWithCategory', { 1, categories.FACTORY * categories.AIR * categories.TECH3 }},
+			{ LUTL, 'HaveGreaterThanUnitsWithCategory', { 2, categories.FACTORY * categories.AIR * categories.TECH3 }},
             
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 3, categories.HIGHALTAIR * categories.ANTIAIR, categories.AIR * categories.TECH3 }},			
         },
@@ -287,7 +287,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
         BuilderConditions = {
 
             { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
-			{ LUTL, 'HaveGreaterThanUnitsWithCategory', { 2, categories.FACTORY * categories.AIR * categories.TECH3 }},
+			{ LUTL, 'HaveGreaterThanUnitsWithCategory', { 3, categories.FACTORY * categories.AIR * categories.TECH3 }},
         },
 		
         BuilderType =  {'AirT3'},

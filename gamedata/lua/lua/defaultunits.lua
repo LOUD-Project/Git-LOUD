@@ -61,6 +61,7 @@ local LOUDATTACHBEAMENTITY = AttachBeamEntityToEntity
 local WaitTicks = coroutine.yield
 local VDist2 = VDist2
 
+local BeenDestroyed = moho.entity_methods.BeenDestroyed
 local DisableIntel = moho.entity_methods.DisableIntel
 local EnableIntel = moho.entity_methods.EnableIntel
 
@@ -887,7 +888,7 @@ StructureUnit = Class(Unit) {
 
 				-- adjacency beams persist until either unit has been destroyed
 				-- even if one of them is a production unit that might be turned off
-				if unit:BeenDestroyed() or unit.Dead or self:BeenDestroyed() or self.Dead then
+				if BeenDestroyed(unit) or unit.Dead or BeenDestroyed(self) or self.Dead then
 					v.Trash:Destroy()
 					self.AdjacencyBeamsBag[k] = nil
 				end
@@ -1055,7 +1056,7 @@ MobileUnit = Class(Unit) {
 			self.ReclaimEffectsBag:Destroy()
 		end
 		
-		if target and not target:BeenDestroyed() and target.BeingReclaimed then
+		if target and not BeenDestroyed(target) and target.BeingReclaimed then
 		
 			target:RevertRegenRate()
 			target.BeingReclaimed = false
@@ -2107,7 +2108,7 @@ FactoryUnit = Class(StructureUnit) {
 
         StructureUnit.OnKilled(self, instigator, type, overkillRatio)
 
-        if self.UnitBeingBuilt and not self.UnitBeingBuilt:BeenDestroyed() and self.UnitBeingBuilt:GetFractionComplete() < 1 then
+        if self.UnitBeingBuilt and not BeenDestroyed(self.UnitBeingBuilt) and self.UnitBeingBuilt:GetFractionComplete() < 1 then
 
             self.UnitBeingBuilt:Destroy()
 
@@ -4226,7 +4227,7 @@ ConstructionUnit = Class(MobileUnit) {
 
             if self.OnStopBuildWasRun then
 
-                if unitBeingBuilt and not unitBeingBuilt:BeenDestroyed() then
+                if unitBeingBuilt and not BeenDestroyed(unitBeingBuilt) then
 
                     unitBeingBuilt:Destroy()
 

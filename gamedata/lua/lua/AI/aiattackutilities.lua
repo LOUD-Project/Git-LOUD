@@ -2,7 +2,10 @@
 
 local IsAlly = IsAlly
 
+local STRINGFIND = string.find
+
 local LOUDCOPY = table.copy
+local LOUDFLOOR = math.floor
 local LOUDPARSE = ParseEntityCategory
 local LOUDSORT = table.sort
 
@@ -10,8 +13,9 @@ local VDist2 = VDist2
 local VDist2Sq = VDist2Sq
 local WaitTicks = coroutine.yield
 
+local GetNumUnitsAroundPoint = moho.aibrain_methods.GetNumUnitsAroundPoint
+
 local GetPlatoonPosition = moho.platoon_methods.GetPlatoonPosition
-local GetPlatoonUnits = moho.platoon_methods.GetPlatoonUnits
 
 local GetTerrainHeight = GetTerrainHeight
 local GetSurfaceHeight = GetSurfaceHeight
@@ -39,8 +43,8 @@ function GetNavalPlatoonMaxRange(aiBrain, platoon)
 				end
         
 				-- we'll exclude any weapon that can target the Air layer -- 
-				local AttackAir = string.find(weapon.FireTargetLayerCapsTable.Water, 'Air', 1, true)
-				local AttackSur = string.find(weapon.FireTargetLayerCapsTable.Water, 'Land',1, true)
+				local AttackAir = STRINGFIND( weapon.FireTargetLayerCapsTable.Water, 'Air', 1, true)
+				local AttackSur = STRINGFIND( weapon.FireTargetLayerCapsTable.Water, 'Land',1, true)
             
 				if (not AttackAir) and AttackSur and weapon.MaxRadius > maxRange then
 				
@@ -84,6 +88,8 @@ end
 -- A change here to save a lot of processing - if the layer is already set just
 -- return otherwise we'll pass thru and set the platoon layer by looking at every unit
 function GetMostRestrictiveLayer(platoon)
+
+    local GetPlatoonUnits = moho.platoon_methods.GetPlatoonUnits
 
 	if platoon.Movementlayer then
 
@@ -172,6 +178,8 @@ end
 function GetPathGraphs()
 
     local LOUDINSERT = table.insert
+    local unpack = unpack
+    local VDist2 = VDist2
 
     if not ScenarioInfo.PathGraphs then 
 		
@@ -269,7 +277,7 @@ function GetPathGraphs()
 						
 							counter = counter + 1
 						
-							local DComp = math.floor( VDist2( mdata.position[1],mdata.position[3], ScenarioInfo.PathGraphs[gk][adj].position[1], ScenarioInfo.PathGraphs[gk][adj].position[3] ) )
+							local DComp = LOUDFLOOR( VDist2( mdata.position[1],mdata.position[3], ScenarioInfo.PathGraphs[gk][adj].position[1], ScenarioInfo.PathGraphs[gk][adj].position[3] ) )
 						
 							ScenarioInfo.PathGraphs[gk][mn].adjacent[k] = { adj, DComp }
 						else
@@ -347,12 +355,15 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 	
 	local AIGetMarkerLocations = import('/lua/ai/aiutilities.lua').AIGetMarkerLocations
 	local GetOwnUnitsAroundPoint = import('/lua/ai/aiutilities.lua').GetOwnUnitsAroundPoint
-	
+    
+    local GetPosition = moho.entity_methods.GetPosition	
 	local GetThreatAtPosition = moho.aibrain_methods.GetThreatAtPosition
 	local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
 
 	local LOUDV2 = VDist2
 	local LOUDV3 = VDist3
+    local LOUDSORT = table.sort
+    local type = type
 	
 	-- Checks radius around base to see if marker is sufficiently far away
 	-- this function is used to filter out positions that
@@ -451,7 +462,7 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
         -- filter out points by distance from source --
 		for k,v in pointlist do
 		
-			pos = v:GetPosition()
+			pos = GetPosition(v)
             
 			distance = LOUDV2(PointSource[1],PointSource[3], pos[1],pos[3])
 
@@ -544,6 +555,8 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 	if counter > 1 then
 	
 		local previous = nil
+        local GetTerrainHeight = GetTerrainHeight
+        local GetSurfaceHeight = GetSurfaceHeight
 
 		--- Filter points for duplications, underwater and general threatlevels
 		-- The duplicate check removes the flaw that has items that are upgrading appear twice in the list
@@ -664,7 +677,7 @@ function FindTargetInRange( self, aiBrain, squad, maxRange, attackcategories, no
     if PlatoonExists( aiBrain, self) then
 
         -- are there any enemy units ?
-        if aiBrain:GetNumUnitsAroundPoint( ALLBUTWALLS, position, maxRange, 'Enemy' ) < 1 then
+        if GetNumUnitsAroundPoint( aiBrain, ALLBUTWALLS, position, maxRange, 'Enemy' ) < 1 then
             return false, false
         end
 
@@ -673,12 +686,14 @@ function FindTargetInRange( self, aiBrain, squad, maxRange, attackcategories, no
         -- a rapid elevation change over a very short distance
 		local function CheckBlockingTerrain( pos, targetPos )  
         
+            local LOUDABS = math.abs
+        
             if self.MovementLayer == 'Air' then
                 return false
             end
 	
 			-- This gives us the number of approx. 6 ogrid steps in the distance
-			local steps = math.floor( VDist2(pos[1], pos[3], targetPos[1], targetPos[3]) / 6 )
+			local steps = LOUDFLOOR( VDist2(pos[1], pos[3], targetPos[1], targetPos[3]) / 6 )
 	
 			local xstep = (pos[1] - targetPos[1]) / steps -- how much the X value will change from step to step
 			local ystep = (pos[3] - targetPos[3]) / steps -- how much the Y value will change from step to step
@@ -700,7 +715,7 @@ function FindTargetInRange( self, aiBrain, squad, maxRange, attackcategories, no
 					local nextposHeight = GetTerrainHeight( nextpos[1], nextpos[3] )
 					
 					-- if more than 3.6 ogrids change in height over 6 ogrids distance
-					if math.abs(lastposHeight - nextposHeight) > 3.6 or InWater then
+					if LOUDABS(lastposHeight - nextposHeight) > 3.6 or InWater then
 						
 						-- we are obstructed
 						return true
@@ -772,7 +787,7 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
     end
 	
 	-- are there any enemy units ?
-	if aiBrain:GetNumUnitsAroundPoint( ALLBUTWALLS, position, maxRange, 'Enemy' ) < 1 then
+	if GetNumUnitsAroundPoint( aiBrain, ALLBUTWALLS, position, maxRange, 'Enemy' ) < 1 then
 		return false, false
 	end
 
@@ -780,24 +795,25 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
 	
     local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
 	local GetThreatAtPosition = moho.aibrain_methods.GetThreatAtPosition
+    local LOUDMAX = math.max
 	
 	local AIGetThreatLevelsAroundPoint = function(unitposition)
 
 		if threattype == 'AntiAir' or threattype == 'Air' then
 		
-			return math.max( 1, GetThreatAtPosition( aiBrain, unitposition, 0, true, 'AntiAir'))	--airthreat
+			return LOUDMAX( 1, GetThreatAtPosition( aiBrain, unitposition, 0, true, 'AntiAir'))	--airthreat
 			
 		elseif threattype == 'AntiSurface' then
 		
-			return math.max( 1, GetThreatAtPosition( aiBrain, unitposition, 0, true, 'AntiSurface'))	--surthreat
+			return LOUDMAX( 1, GetThreatAtPosition( aiBrain, unitposition, 0, true, 'AntiSurface'))	--surthreat
 			
 		elseif threattype == 'AntiSub' then
 		
-			return math.max( 1, GetThreatAtPosition( aiBrain, unitposition, 0, true, 'AntiSub'))	--subthreat
+			return LOUDMAX( 1, GetThreatAtPosition( aiBrain, unitposition, 0, true, 'AntiSub'))	--subthreat
 			
 		elseif threattype == 'Economy' then
 		
-			return math.max( 1, GetThreatAtPosition( aiBrain, unitposition, 0, true, 'Economy'))	--ecothreat
+			return LOUDMAX( 1, GetThreatAtPosition( aiBrain, unitposition, 0, true, 'Economy'))	--ecothreat
 			
 		else
 		
@@ -813,10 +829,14 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
     end
 
 	local CanAttackTarget = moho.platoon_methods.CanAttackTarget
+    local EntityCategoryFilterDown = EntityCategoryFilterDown
+    local GetPosition = moho.entity_methods.GetPosition
 
 	local LOUDSORT = table.sort
 	local VDist2Sq = VDist2Sq
 	local VDist2 = VDist2
+    
+    local WaitTicks = coroutine.yield
 	
     -- get a count of all shields within the list
 	local shieldcount = EntityCategoryCount( SHIELDS, enemyunits )
@@ -835,7 +855,7 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
 		if targetUnits[1] then	
         
 			-- sort them by distance -- 
-			LOUDSORT( targetUnits, function(a,b) return VDist2Sq(a:GetPosition()[1],a:GetPosition()[3], position[1],position[3]) < VDist2Sq(b:GetPosition()[1],b:GetPosition()[3], position[1],position[3]) end)
+			LOUDSORT( targetUnits, function(a,b) return VDist2Sq(GetPosition(a)[1],GetPosition(a)[3], position[1],position[3]) < VDist2Sq(GetPosition(b)[1],GetPosition(b)[3], position[1],position[3]) end)
 		
 			local unitchecks, checkspertick, unitposition
 			local enemythreat, enemyshields, totalshieldvalueattarget
@@ -882,14 +902,14 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
 					
                                     enemyshields = GetUnitsAroundPoint( aiBrain, SHIELDS, unitposition, 100, 'Enemy')
 								
-                                    LOUDSORT(enemyshields, function(a,b) return VDist2Sq(a:GetPosition()[1],a:GetPosition()[3], unitposition[1],unitposition[3]) < VDist2Sq(b:GetPosition()[1],b:GetPosition()[3], unitposition[1],unitposition[3]) end)
+                                    LOUDSORT(enemyshields, function(a,b) return VDist2Sq(GetPosition(a)[1],GetPosition(a)[3], unitposition[1],unitposition[3]) < VDist2Sq(GetPosition(b)[1],GetPosition(b)[3], unitposition[1],unitposition[3]) end)
 							
                                     totalshieldvalueattarget = 0
 							
                                     for _,s in enemyshields do
                                 
                                         -- if the shield is On and it covers the target
-                                        if s:ShieldIsOn() and VDist2(s:GetPosition()[1],s:GetPosition()[3],unitposition[1],unitposition[3]) < s.MyShield.Size then
+                                        if s:ShieldIsOn() and VDist2(GetPosition(s)[1],GetPosition(s)[3],unitposition[1],unitposition[3]) < s.MyShield.Size then
                                             enemythreat = enemythreat + (s.MyShield:GetHealth() * .0225)	-- threat plus 2.25% of shield strength
                                         end
                                     
@@ -915,9 +935,7 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
                         else    -- otherwise select the first target
                         
                             return u, LOUDCOPY(unitposition)
-                            --retPosition = LOUDCOPY(unitposition)
-                            --break
-                            
+
                         end
 					end
 			
@@ -974,7 +992,7 @@ function AIFindNumberOfUnitsBetweenPoints( aiBrain, start, finish, unitCat, step
 	-- number of steps to take based on distance divided by stepby ( min. 1)
 	
 	-- break the distance up into equal steps BUT each step is 125% of the stepby distance (so we reduce the overlap)
-	local steps = math.floor( VDist2(start[1], start[3], finish[1], finish[3]) / (stepby * 1.25) ) + 1
+	local steps = LOUDFLOOR( VDist2(start[1], start[3], finish[1], finish[3]) / (stepby * 1.25) ) + 1
 	
 	local xstep, ystep
 	

@@ -17,6 +17,7 @@ local IsEnemy = IsEnemy
 local KillThread = KillThread
 
 local CreateEmitterAtBone = CreateEmitterAtBone
+local Vector = Vector
 local WaitTicks = coroutine.yield
 local Warp = Warp
 
@@ -313,7 +314,9 @@ Shield = Class(moho.shield_methods,Entity) {
 				ImpactMesh:SetDrawScale(self.Size)
 				ImpactMesh:SetOrientation(OrientFromDir(Vector(-vector.x,-vector.y,-vector.z)),true)
 			end
-		
+            
+            local CreateEmitterAtBone = CreateEmitterAtBone
+
 			if not self.Dead then
 				for k, v in self.ImpactEffects do
 					CreateEmitterAtBone( ImpactMesh, -1, self.Army, v ):OffsetEmitter(0, 0, GetVectorLength(vector) )

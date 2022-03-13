@@ -40,6 +40,8 @@ local LOUDTYPE = type
 
 local MATHMAX = math.max
 
+local Vector = Vector
+
 function PreBuiltBase(aiBrain)
 	return aiBrain.PreBuilt
 end
@@ -91,13 +93,14 @@ end
 function HaveLessThanUnitsInCategoryBeingBuilt(aiBrain, numunits, category)
 
 	local LOUDENTITY = EntityCategoryContains
+	local IsUnitState = moho.unit_methods.IsUnitState
 	
     local unitlist = GetListOfUnits(aiBrain, categories.CONSTRUCTION, false )
 	local numBuilding = 0
 	
     for _,unit in unitlist do
 	
-        if not unit.Dead and unit:IsUnitState('Building') then
+        if not unit.Dead and IsUnitState( unit, 'Building') then
 		
             if unit.UnitBeingBuilt and not unit.UnitBeingBuilt.Dead and LOUDENTITY( category, unit.UnitBeingBuilt ) then
 				numBuilding = numBuilding + 1	
@@ -107,7 +110,7 @@ function HaveLessThanUnitsInCategoryBeingBuilt(aiBrain, numunits, category)
 		-- hmm -- seems odd that we would test construction units that are NOT in a building state - but we do
 		-- this was likely to be a test of the engineers build queue
 		
-		if not unit.Dead and not unit:IsUnitState('Building') then
+		if not unit.Dead and not IsUnitState( unit,'Building') then
 
             if unit.UnitBeingBuilt and not unit.UnitBeingBuilt.Dead and LOUDENTITY( category, unit.UnitBeingBuilt ) then
 				numBuilding = numBuilding + 1	

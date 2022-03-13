@@ -31,16 +31,7 @@ ComboFormations = {
 
 --================ LAND DATA ==============#
 
-local LOUDCEIL = math.ceil
-local LOUDCOS = math.cos
-local LOUDENTITY = EntityCategoryContains
-local LOUDFLOOR = math.floor
 local LOUDGETN = table.getn
-
-local LOUDMAX = math.max
-local LOUDMOD = math.mod
-local LOUDPI = math.pi
-local LOUDSIN = math.sin
 
 local RemainingCategory = { 'RemainingCategory', }
 
@@ -977,6 +968,10 @@ end
 function BlockFormation( formationUnits )
 
 	--LOG("*AI DEBUG Creating Block Formation")
+
+    local LOUDCEIL = math.ceil
+    local LOUDFLOOR = math.floor
+    local LOUDMOD = math.mod
 	
     local rotate = true
     local smallUnitsList = {}
@@ -1047,6 +1042,11 @@ end
 
 function CircleFormation( formationUnits )
 
+    local LOUDCOS = math.cos
+    local LOUDMAX = math.max
+    local LOUDPI = math.pi
+    local LOUDSIN = math.sin
+    
 	--LOG("*AI DEBUG Creating Circle Formation")
 
     local rotate = false
@@ -1073,6 +1073,11 @@ end
 
 function GuardFormation( formationUnits )
 
+    local LOUDENTITY = EntityCategoryContains
+    local LOUDCOS = math.cos
+    local LOUDPI = math.pi
+    local LOUDSIN = math.sin
+    
 	--LOG("*AI DEBUG Creating Guard Formation")
 	
     local rotate = false
@@ -1084,12 +1089,16 @@ function GuardFormation( formationUnits )
 
     local naval = false
     local sizeMult = 3
+    
     for k,v in formationUnits do
+    
         if not v.Dead and LOUDENTITY( categories.NAVAL * categories.MOBILE, v ) then
+        
             naval = true
             sizeMult = 8
             break
         end
+        
     end
 
     local ringChange = 5
@@ -1131,6 +1140,11 @@ end
 
 function DMSCircleFormation( formationUnits )
 
+    local LOUDCOS = math.cos
+    local LOUDMAX = math.max
+    local LOUDPI = math.pi
+    local LOUDSIN = math.sin
+    
 	--LOG("*AI DEBUG Creating DMSCircle Formation")
 
     local rotate = false
@@ -1208,6 +1222,11 @@ function LOUDClusterFormation( formationUnits )
 end
 
 function ScatterFormation( formationUnits )
+
+    local LOUDENTITY = EntityCategoryContains
+    local LOUDCOS = math.cos
+    local LOUDPI = math.pi
+    local LOUDSIN = math.sin    
 
 	--LOG("*AI DEBUG Creating Scatter Formation")
 
@@ -1621,6 +1640,7 @@ end
 
 --=========== NAVAL UNIT BLOCKS ============#
 function NavalBlocks( unitsList, navyType )
+
     local Carriers = true
     local Battleships = true
     local Cruisers = true
@@ -1815,6 +1835,8 @@ end
 -- data usage and processing
 function CategorizeAirUnits( formationUnits )
 
+    local LOUDENTITY = EntityCategoryContains
+
     local unitsList = { StdAirUnits = 0, T4AirUnits = 0, UnitTotal = 0 }
 	
     for i,u in formationUnits do
@@ -1839,6 +1861,8 @@ end
 
 function CategorizeTransportUnits( formationUnits )
 
+    local LOUDENTITY = EntityCategoryContains
+
     local unitsList = { Trans1 = 0, Trans2 = 0, Trans3 = 0, Trans4 = 0, UnitTotal = 0 }
 	
     for i,u in formationUnits do
@@ -1861,6 +1885,8 @@ function CategorizeTransportUnits( formationUnits )
 end
 
 function CategorizeSeaUnits( formationUnits )
+
+    local LOUDENTITY = EntityCategoryContains
 
     local unitsList = { UnitTotal = 0, BattleshipCount = 0, CarrierCount = 0, CruiserCount = 0, DestroyerCount = 0, FrigateCount = 0, LightCount = 0, MobileSonarCount = 0, SubCount = 0, NukeSubCount = 0, RemainingCategory = 0 }
 

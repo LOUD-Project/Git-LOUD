@@ -6,6 +6,8 @@ local TABLECAT = table.cat
 local LOUDDEEPCOPY = table.deepcopy
 local LOUDFLOOR = math.floor
 local LOUDINSERT = table.insert
+local LOUDMAX = math.max
+local LOUDMIN = math.min
 local LOUDPARSE = ParseEntityCategory
 local LOUDSORT = table.sort
 
@@ -16,7 +18,6 @@ local GetAIBrain = moho.unit_methods.GetAIBrain
 local GetTerrainHeight = GetTerrainHeight
 local GetSurfaceHeight = GetSurfaceHeight
 
-
 -- Adds an area to the brains MustScout table
 function AIAddMustScoutArea( aiBrain, location )
 
@@ -24,6 +25,8 @@ function AIAddMustScoutArea( aiBrain, location )
     local MustScoutList = aiBrain.IL.MustScout or false
 
 	if location and MustScoutList then
+        
+        local VDist2Sq = VDist2Sq
 
 		for k,v in MustScoutList do
         
@@ -84,6 +87,9 @@ function AIPickEnemyLogic( self, brainbool )
     local Brains = ArmyBrains
     
   	local GetThreatsAroundPosition = moho.aibrain_methods.GetThreatsAroundPosition
+    local GetPosition = moho.entity_methods.GetPosition	
+   
+    local LOUDSORT = LOUDSORT
     
     local MATHEXP = math.exp
     local MATHMAX = math.max
@@ -238,7 +244,7 @@ function AIPickEnemyLogic( self, brainbool )
 
 					counter = counter + 1
 
-					local unitPos = v:GetPosition()
+					local unitPos = GetPosition(v)
                     
 					if unitPos and not v.Dead then
 						x1 = x1 + unitPos[1]
@@ -288,7 +294,12 @@ end
 
 function AISortMarkersFromLastPosWithThreatCheck(aiBrain, markerlist, maxNumber, tMin, tMax, tRings, tType, position)
 
+    local GetThreatAtPosition = moho.aibrain_methods.GetThreatAtPosition
+
 	local LOUDREMOVE = table.remove
+    local LOUDSORT = LOUDSORT
+    
+    local VDist2Sq = VDist2Sq
     
     local threatCheck = false
     local threatMax = 999999
@@ -309,9 +320,13 @@ function AISortMarkersFromLastPosWithThreatCheck(aiBrain, markerlist, maxNumber,
 		startPosX = aiBrain.StartPosX
 		startPosZ = aiBrain.StartPosZ
 	end
+
+    local function SortVDist2Sq( a, b )
+        return VDist2Sq(a.Position[1],a.Position[3], startPosX,startPosZ) < VDist2Sq(b.Position[1],b.Position[3], startPosX,startPosZ)
+    end
     
 	-- sort this list from the starting position
-    LOUDSORT(markerlist, function(a,b) return VDist2Sq(a.Position[1],a.Position[3], startPosX,startPosZ) < VDist2Sq(b.Position[1],b.Position[3], startPosX,startPosZ) end)    
+    LOUDSORT(markerlist, SortVDist2Sq)    
 
     local mlist = {}
 	local counter = 0
@@ -323,7 +338,7 @@ function AISortMarkersFromLastPosWithThreatCheck(aiBrain, markerlist, maxNumber,
         
         if threatCheck then
 		
-			threat = aiBrain:GetThreatAtPosition( point, 0, true, 'AntiSurface')
+			threat = GetThreatAtPosition( aiBrain, point, 0, true, 'AntiSurface')
 
 			if threat > threatMax then
 				break
@@ -344,9 +359,12 @@ function AISortMarkersFromLastPosWithThreatCheck(aiBrain, markerlist, maxNumber,
 		end
 
         LOUDREMOVE(markerlist, 1)   -- remove the first entry from MarkerList
+
+        local startPosX = point[1]
+        local startPosZ = point[3]
         
 		-- sort the list from the new position
-        LOUDSORT(markerlist, function(a,b) return VDist2Sq(a.Position[1],a.Position[3], point[1],point[3]) < VDist2Sq(b.Position[1],b.Position[3], point[1],point[3]) end)
+        LOUDSORT(markerlist, SortVDist2Sq)
 
     end
 	
@@ -445,16 +463,18 @@ function AIGetMarkersAroundLocation( aiBrain, markerType, pos, radius, threatMin
 
     local tempMarkers = ScenarioInfo[markerType] or AIGetMarkerLocations( markerType )
 	
+	if not tempMarkers then
+		return {}
+	end
+	
     local markerlist = {}
 	local counter = 0
 	
 	local VDist2Sq = VDist2Sq
     local GetThreatAtPosition = moho.aibrain_methods.GetThreatAtPosition
+    
 	local checkdistance = radius * radius
-	
-	if not tempMarkers then
-		return {}
-	end
+    local threat
 	
 	LOUDSORT(tempMarkers, function(a,b) return VDist2Sq( pos[1],pos[3], a.Position[1],a.Position[3] ) < VDist2Sq( pos[1],pos[3], b.Position[1],b.Position[3] ) end)
 
@@ -469,7 +489,7 @@ function AIGetMarkersAroundLocation( aiBrain, markerType, pos, radius, threatMin
 
             else
 			
-                local threat = GetThreatAtPosition( aiBrain, v.Position, threatRings, true, threatType or 'Overall' )
+                threat = GetThreatAtPosition( aiBrain, v.Position, threatRings, true, threatType or 'Overall' )
 				
                 if threat >= threatMin and threat <= threatMax then
                 
@@ -520,6 +540,7 @@ end
 function AIFindMarkerNeedsEngineer( aiBrain, pos, positions )
 
     local filterpositions = AIFilterAlliedBases( aiBrain, positions )
+    local VDist2Sq = VDist2Sq
 	
 	LOUDSORT(filterpositions, function(a,b) return VDist2Sq(a.Position[1],a.Position[3], pos[1],pos[3]) < VDist2Sq(b.Position[1],b.Position[3], pos[1],pos[3]) end)
 	
@@ -551,6 +572,8 @@ function AIFindDefensivePointNeedsStructureFromPoint( aiBrain, point, radius, ca
     local positions = AIGetMarkersAroundLocation( aiBrain, 'Defensive Point', point, radius, tMin, tMax, tRings, tType)
     
 	positions = TABLECAT(positions, AIGetMarkersAroundLocation( aiBrain, 'Expansion Area', point, radius, tMin, tMax, tRings, tType))
+    
+    local VDist2Sq = VDist2Sq
 
     LOUDSORT(positions, function(a,b) return VDist2Sq(a.Position[1],a.Position[3], point[1],point[3]) < VDist2Sq(b.Position[1],b.Position[3], point[1],point[3]) end)
     
@@ -697,8 +720,8 @@ function GetOwnUnitsAroundPointWithThreatCheck( aiBrain, category, location, rad
 	
 	local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
 	local GetThreatAtPosition = moho.aibrain_methods.GetThreatAtPosition
-
 	local GetFractionComplete = moho.entity_methods.GetFractionComplete
+    local GetPosition = moho.entity_methods.GetPosition	
 	
     local mlist = {}
 	local counter = 0
@@ -710,7 +733,7 @@ function GetOwnUnitsAroundPointWithThreatCheck( aiBrain, category, location, rad
 
 			if tmin and tmax then
 			
-				threat = GetThreatAtPosition( aiBrain, v:GetPosition(), rings or 1, true, tType or 'Overall' )
+				threat = GetThreatAtPosition( aiBrain, GetPosition(v), rings or 1, true, tType or 'Overall' )
 				
 				if threat >= tmin and threat <= tmax then
 			
@@ -814,6 +837,9 @@ function AIFindBrainTargetAroundPoint( aiBrain, position, maxRange, category )
         return false
     end
     
+    local GetPosition = moho.entity_methods.GetPosition	
+    local VDist2 = VDist2
+    
     local testCat = category
 	
     if type(testCat) == 'string' then
@@ -824,13 +850,14 @@ function AIFindBrainTargetAroundPoint( aiBrain, position, maxRange, category )
     
     local retUnit = false
     local distance = false
+    
     local unitPos, newdist
 	
     for num, unit in targetUnits do
 	
         if not unit.Dead then
 		
-            unitPos = unit:GetPosition()
+            unitPos = GetPosition(unit)
 			newdist = VDist2( position[1],position[3], unitPos[1],unitPos[3] )
 			
             if not retUnit or newdist < distance then
@@ -1093,7 +1120,7 @@ function SetupAICheat(aiBrain, biggestTeamSize)
 
     -- Veterancy mult is always 1 or higher
     -- and represents the 'base' Cheat value for this AI --
-    aiBrain.VeterancyMult = math.max( 1, aiBrain.CheatValue)
+    aiBrain.VeterancyMult = LOUDMAX( 1, aiBrain.CheatValue)
 
 	-- CREATE THE BUFFS THAT WILL BE USED BY THE AI
     local modifier = 1
@@ -1110,9 +1137,9 @@ function SetupAICheat(aiBrain, biggestTeamSize)
     -- and only when multiplier > 1
     -- so this value will always be 0 or negative
     -- put a floor of -0.60 on this -- since we're reaching near zero consumption
-    modifier = math.min(0, 1 - aiBrain.CheatValue)
+    modifier = LOUDMIN(0, 1 - aiBrain.CheatValue)
     modifier = 0.67 * modifier
-    modifier = math.max( -0.60, modifier )
+    modifier = LOUDMAX( -0.60, modifier )
 
 	newbuff.Affects.EnergyMaintenance.Add = modifier
 	newbuff.Affects.EnergyActive.Add = modifier
@@ -1175,7 +1202,7 @@ function SetupAICheat(aiBrain, biggestTeamSize)
     
     newbuff.Name = 'CheatCDREnergyStorage'..aiBrain.ArmyIndex
     
-	newbuff.Affects.EnergyStorage.Mult = math.max( aiBrain.CheatValue - 1, 0.01)
+	newbuff.Affects.EnergyStorage.Mult = LOUDMAX( aiBrain.CheatValue - 1, 0.01)
     
     if not Buffs[newbuff.Name] then
 		
@@ -1193,7 +1220,7 @@ function SetupAICheat(aiBrain, biggestTeamSize)
     
     newbuff.Name = 'CheatCDRMassStorage'..aiBrain.ArmyIndex
     
-	newbuff.Affects.MassStorage.Mult = math.max( aiBrain.CheatValue - 1, 0.01)
+	newbuff.Affects.MassStorage.Mult = LOUDMAX( aiBrain.CheatValue - 1, 0.01)
     
     if not Buffs[newbuff.Name] then
 		
@@ -1212,7 +1239,7 @@ function SetupAICheat(aiBrain, biggestTeamSize)
     
     newbuff.Name = 'CheatEnergyStorage'..aiBrain.ArmyIndex
     
-	newbuff.Affects.EnergyStorage.Mult = math.max( aiBrain.CheatValue, 1)
+	newbuff.Affects.EnergyStorage.Mult = LOUDMAX( aiBrain.CheatValue, 1)
     
     if not Buffs[newbuff.Name] then
 		
@@ -1230,7 +1257,7 @@ function SetupAICheat(aiBrain, biggestTeamSize)
     
     newbuff.Name = 'CheatCDRMassStorage'..aiBrain.ArmyIndex
     
-	newbuff.Affects.MassStorage.Mult = math.max( aiBrain.CheatValue, 1)
+	newbuff.Affects.MassStorage.Mult = LOUDMAX( aiBrain.CheatValue, 1)
     
     if not Buffs[newbuff.Name] then
 		
@@ -1247,7 +1274,7 @@ function SetupAICheat(aiBrain, biggestTeamSize)
     -- affects vision, radar, sonar, omni
     newbuff = LOUDDEEPCOPY(Buffs['CheatIntel'])
 	
-	modifier = math.max( 0, aiBrain.CheatValue - 1.0 )
+	modifier = LOUDMAX( 0, aiBrain.CheatValue - 1.0 )
 	modifier = 0.34 * modifier
 	modifier = 1.0 + modifier
     
@@ -1277,7 +1304,7 @@ function SetupAICheat(aiBrain, biggestTeamSize)
     
     newbuff.Name = 'CheatALL'..aiBrain.ArmyIndex
 	
-	modifier = math.max( 0, aiBrain.CheatValue - 1.0 )
+	modifier = LOUDMAX( 0, aiBrain.CheatValue - 1.0 )
 	modifier = 0.34 * modifier
 	modifier = 1.0 + modifier
 
@@ -1300,12 +1327,12 @@ function SetupAICheat(aiBrain, biggestTeamSize)
 
     -- alter the AI's delay between upgrades by 65% of the cheat
     -- positive cheats will reduce the delay -- negatives will increase the delay
-    modifier = math.max( -0.2, aiBrain.CheatValue - 1.0 )
+    modifier = LOUDMAX( -0.2, aiBrain.CheatValue - 1.0 )
     modifier = 0.65 * modifier
     modifier = 1.0 + modifier
 	
 	-- reduce the waiting period between upgrades by 50% of the AIMult
-	aiBrain.UpgradeIssuedPeriod = math.floor(aiBrain.UpgradeIssuedPeriod * ( 1 / modifier ))
+	aiBrain.UpgradeIssuedPeriod = LOUDFLOOR(aiBrain.UpgradeIssuedPeriod * ( 1 / modifier ))
     
     LOG("*AI DEBUG "..aiBrain.Nickname.." Upgrade Issue Period is "..aiBrain.UpgradeIssuedPeriod)
     
@@ -1349,11 +1376,11 @@ function ApplyCheatBuffs(unit)
                     -- this will add the difference of the outnumbered ratio to the MULT of of the cheat value
                     -- so if outnumbered 2 to 1 -- with a 10% cheat - the mult will be set to 1.1 which will 
                     -- result in a bonus equal to the starting value (ie. - 5000) plus another 10% (total 5500)
-                    buffAffects.EnergyStorage.Mult = math.max( aiBrain.CheatValue - 1, 0) + (outnumberratio - 1)
+                    buffAffects.EnergyStorage.Mult = LOUDMAX( aiBrain.CheatValue - 1, 0) + (outnumberratio - 1)
                     
                     buffDef = Buffs['CheatCDRMassStorage'..aiBrain.ArmyIndex]
                     buffAffects = buffDef.Affects
-                    buffAffects.MassStorage.Mult = math.max( aiBrain.CheatValue - 1, 0) + (outnumberratio - 1)
+                    buffAffects.MassStorage.Mult = LOUDMAX( aiBrain.CheatValue - 1, 0) + (outnumberratio - 1)
 
                     ApplyBuff(unit, 'CheatIncome'..aiBrain.ArmyIndex)  -- 2nd instance of resource cheat for ACU
 
@@ -1486,7 +1513,13 @@ end
 -- this function has been revised to factor in the value of friendly units --
 function AIFindBrainNukeTargetInRangeSorian( aiBrain, launcher, maxRange, atkPri, nukeCount, oldTarget )
 
+	local EntityCategoryContains = EntityCategoryContains
+
     local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
+    local GetPosition = moho.entity_methods.GetPosition
+    
+    local VDist2Sq = VDist2Sq
+    local VDist3 = VDist3
 	
 	local massCost = 15000	-- target must be worth at least this much mass
 
@@ -1515,9 +1548,9 @@ function AIFindBrainNukeTargetInRangeSorian( aiBrain, launcher, maxRange, atkPri
 		return massValue > massCost
     end
 	
-	local position = launcher:GetPosition()
+	local position = GetPosition(launcher)
 	
-    local targetUnits = aiBrain:GetUnitsAroundPoint( categories.ALLUNITS - categories.WALL, position, maxRange, 'Enemy' )
+    local targetUnits = GetUnitsAroundPoint( aiBrain, categories.ALLUNITS - categories.WALL, position, maxRange, 'Enemy' )
 	
 	local category, retUnit, retPostion, retAntis, distance
 	local unitPos, antinukes, dupTarget
@@ -1534,7 +1567,7 @@ function AIFindBrainNukeTargetInRangeSorian( aiBrain, launcher, maxRange, atkPri
 		
             if not unit.Dead and EntityCategoryContains( category, unit ) then
 			
-                unitPos = unit:GetPosition()
+                unitPos = GetPosition(unit)
 
 				antiNukes = SUtils.NumberofUnitsBetweenPoints(aiBrain, position, unitPos, categories.ANTIMISSILE * categories.SILO, 90, 'Enemy')
 				
@@ -1543,12 +1576,10 @@ function AIFindBrainNukeTargetInRangeSorian( aiBrain, launcher, maxRange, atkPri
 				end
 				
 				dupTarget = false
-				
-				local XZDistanceTwoVectors = import('/lua/utilities.lua').XZDistanceTwoVectors
-				
+
 				for x,z in oldTarget do
 				
-					if unit == z or (not z.Dead and XZDistanceTwoVectors( z:GetPosition(), unitPos ) < 30) then
+					if unit == z or (not z.Dead and VDist3( GetPosition(z), unitPos ) < 30) then
 						dupTarget = true
 					end
 				end
@@ -1565,14 +1596,14 @@ function AIFindBrainNukeTargetInRangeSorian( aiBrain, launcher, maxRange, atkPri
 					end
 				end
 				
-                if (not retUnit or (distance and XZDistanceTwoVectors( position, unitPos ) < distance)) and ((antiNukes + 2 < nukeCount or antiNukes == 0) and not dupTarget) then
+                if (not retUnit or (distance and VDist3( position, unitPos ) < distance)) and ((antiNukes + 2 < nukeCount or antiNukes == 0) and not dupTarget) then
 				
                     retUnit = unit
 					retPosition = unitPos
 					retAntis = antiNukes
-                    distance = XZDistanceTwoVectors( position, unitPos )
+                    distance = VDist3( position, unitPos )
 					
-				elseif (not retUnit or (distance and XZDistanceTwoVectors( position, unitPos ) < distance)) and not dupTarget then
+				elseif (not retUnit or (distance and VDist3( position, unitPos ) < distance)) and not dupTarget then
 				
 					for i=-1,1 do
 					
@@ -1588,7 +1619,7 @@ function AIFindBrainNukeTargetInRangeSorian( aiBrain, launcher, maxRange, atkPri
 									retUnit = unit
 									retPosition = pos
 									retAntis = antiNukes
-									distance = XZDistanceTwoVectors( position, unitPos )
+									distance = VDist3( position, unitPos )
 								end
 							end
 							

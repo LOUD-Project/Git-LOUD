@@ -162,8 +162,11 @@ BuffField = Class(Entity) {
 	
         local GetEconomyStored = moho.aibrain_methods.GetEconomyStored
 		local GetResourceConsumed = moho.unit_methods.GetResourceConsumed
+        local WaitTicks = coroutine.yield
 
 		local aiBrain = Owner:GetAIBrain()
+        
+        local MaintenanceConsumption = __blueprints[self.BlueprintID].MaintenanceConsumptionPerSecondEnergy
 		
         local on = true
 
@@ -178,7 +181,7 @@ BuffField = Class(Entity) {
 				on = false
 			end
 			
-			if not on and (GetEconomyStored(aiBrain, 'ENERGY') > self:GetBlueprint().MaintenanceConsumptionPerSecondEnergy) then
+			if not on and (GetEconomyStored(aiBrain, 'ENERGY') > MaintenanceConsumption ) then
 				
 				Owner:AddToggleCap('RULEUTC_ShieldToggle')
 				Owner:SetScriptBit('RULEUTC_ShieldToggle',true)

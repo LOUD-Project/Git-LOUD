@@ -5,7 +5,6 @@
 local AIUtils = import('/lua/ai/aiutilities.lua')
 local AltAIUtils = import('/lua/ai/altaiutilities.lua')
 
-local XZDistanceTwoVectors = import('/lua/utilities.lua').XZDistanceTwoVectors
 local AIChatText = import('/lua/ai/sorianlang.lua').AIChatText
 
 local LOUDABS = math.abs
@@ -21,6 +20,7 @@ local ForkThread = ForkThread
 local GetTerrainHeight = GetTerrainHeight
 local VDist2 = VDist2
 local VDist2Sq = VDist2Sq
+local VDist3 = VDist3
 
 -- Table of AI taunts orginized by faction
 local AITaunts = {
@@ -376,7 +376,6 @@ function LeadTarget( position, target)
 
 	local TMLRandom = tonumber(ScenarioInfo.Options.TMLRandom) or 0
 	
-	--local position = platoon:GetPlatoonPosition() or platoon:GetPosition()
 	local pos = target:GetPosition()
 	
 	--Get firing position height
@@ -1000,6 +999,7 @@ function AIFindUndefendedBrainTargetInRangeSorian( aiBrain, platoon, squad, maxR
 	
 	-- maxShields set to number of platoon units divided by 7
 	local maxShields = LOUDCEIL( LOUDGETN(platoon:GetPlatoonUnits()) / 7)
+    
 	-- get all the units within maxRange of platoon 
     local targetUnits = aiBrain:GetUnitsAroundPoint( categories.ALLUNITS, position, maxRange, 'Enemy' )
 	
@@ -1021,9 +1021,9 @@ function AIFindUndefendedBrainTargetInRangeSorian( aiBrain, platoon, squad, maxR
 				local numShields = aiBrain:GetNumUnitsAroundPoint( categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY, unitPos, 46, 'Enemy' )
 				
 				-- see if they are shielded -- always store the one with the LEAST amount of shields that has LESS shields than the maxShields calculated above
-                if numShields < maxShields and (not retUnit or numShields < targetShields or (numShields == targetShields and XZDistanceTwoVectors( position, unitPos ) < distance)) then
+                if numShields < maxShields and (not retUnit or numShields < targetShields or (numShields == targetShields and VDist3( position, unitPos ) < distance)) then
                     retUnit = unit
-                    distance = XZDistanceTwoVectors( position, unitPos )
+                    distance = VDist3( position, unitPos )
 					targetShields = numShields
                 end
             end

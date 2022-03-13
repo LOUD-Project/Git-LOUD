@@ -2,6 +2,8 @@
 ---  A common way to do damage other than direct damage, ie: Dots, area dots, etc.
 
 local WaitTicks = coroutine.yield
+local BeenDestroyed = moho.entity_methods.BeenDestroyed
+
 
 -- damage a unit X amount repeated over a period of time
 UnitDoTThread = function(instigator, unit, pulses, pulseTime, damage, damType, friendly)
@@ -11,7 +13,7 @@ UnitDoTThread = function(instigator, unit, pulses, pulseTime, damage, damType, f
 	local unitpos = unit:GetPosition()
 	
     for i = 1, pulses do
-        if unit and not unit:BeenDestroyed() then
+        if unit and not BeenDestroyed(unit) then
             LOUDDAMAGE(instigator, unitpos, unit, damage, damType )
         else
             break

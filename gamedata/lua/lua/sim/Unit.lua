@@ -56,6 +56,8 @@ local DamageArea = DamageArea
 
 local GetTerrainType = GetTerrainType
 
+local IsUnitState = moho.unit_methods.IsUnitState
+
 local PlatoonExists = moho.aibrain_methods.PlatoonExists
 local SetMesh = moho.entity_methods.SetMesh
 
@@ -1045,7 +1047,7 @@ Unit = Class(moho.unit_methods) {
 
     OnUnpaused = function(self)
 		
-        if self:IsUnitState('Building') or self:IsUnitState('Upgrading') or self:IsUnitState('Repairing') then
+        if IsUnitState( self, 'Building') or IsUnitState( self, 'Upgrading') or IsUnitState( self, 'Repairing') then
 		
             self:SetActiveConsumptionActive()
             --self:PlayUnitAmbientSound( 'ConstructLoop' )
@@ -1369,7 +1371,7 @@ Unit = Class(moho.unit_methods) {
 
 				local focus = self:GetFocusUnit()
 				
-				if focus and self.WorkItem and self.WorkProgress < 1 and (focus:IsUnitState('Enhancing') or focus:IsUnitState('Building')) then
+				if focus and self.WorkItem and self.WorkProgress < 1 and (IsUnitState(focus,'Enhancing') or IsUnitState(focus,'Building')) then
 				
 					self.WorkItem = focus.WorkItem    #-- set our workitem to the focus unit work item, is specific for enhancing
 					
@@ -1385,7 +1387,7 @@ Unit = Class(moho.unit_methods) {
 					time, energy, mass = Game.GetConstructEconomyModel(self, self.WorkItem)
 				
 				-- if the unit is assisting something that is building ammo
-				elseif focus and focus:IsUnitState('SiloBuildingAmmo') then
+				elseif focus and IsUnitState(focus,'SiloBuildingAmmo') then
 					
 					--GPG: If building silo ammo; create the energy and mass costs based on build rate
 					--of the silo against the build rate of the assisting unit

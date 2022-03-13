@@ -200,6 +200,8 @@ function ApplyBuff(unit, buffName, instigator)
     if newbuff and Buffs[buffName].Effects then
     
         local bufffx
+        
+        local CreateAttachedEmitter= CreateAttachedEmitter
 
 		for k, fx in Buffs[buffName].Effects do
 
@@ -1006,6 +1008,8 @@ function PlayBuffEffect(unit, buffName, data)
     end
     
     local bufffx
+    
+    local CreateAttachedEmitter= CreateAttachedEmitter
 
     for k, fx in Buffs[buffName].Effects do
 

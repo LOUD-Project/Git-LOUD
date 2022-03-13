@@ -10,7 +10,6 @@ local GetOwnUnitsAroundPoint = import('/lua/ai/aiutilities.lua').GetOwnUnitsArou
 local RandomLocation = import('/lua/ai/aiutilities.lua').RandomLocation
 local GetBasePerimeterPoints = import('/lua/loudutilities.lua').GetBasePerimeterPoints
 
-local XZDistanceTwoVectors = import('/lua/utilities.lua').XZDistanceTwoVectors
 local CreateUnitDestroyedTrigger = import('/lua/scenarioframework.lua').CreateUnitDestroyedTrigger
 
 local LOUDCOPY = table.copy
@@ -43,7 +42,11 @@ local GetEconomyTrend = moho.aibrain_methods.GetEconomyTrend
 
 local GetPlatoonPosition = moho.platoon_methods.GetPlatoonPosition
 local GetPlatoonUnits = moho.platoon_methods.GetPlatoonUnits
+local GetPosition = moho.entity_methods.GetPosition	
 local GetSquadUnits = moho.platoon_methods.GetSquadUnits
+    
+local GetTerrainHeight = GetTerrainHeight
+local GetSurfaceHeight = GetSurfaceHeight
 
 local MakePlatoon = moho.aibrain_methods.MakePlatoon
 local PlatoonExists = moho.aibrain_methods.PlatoonExists
@@ -70,7 +73,7 @@ function CommanderThread( platoon, aiBrain )
 	
 	local NextTaunt = GetGameTimeSeconds() + 660 + Random(1,660)
     
-	cdr.CDRHome = LOUDCOPY(cdr:GetPosition())
+	cdr.CDRHome = LOUDCOPY(GetPosition(cdr))
     
     ForkThread ( LifeThread, aiBrain, cdr )
 	
@@ -253,7 +256,7 @@ function CDROverCharge( aiBrain, cdr )
 		end
 	
 		-- if the distress location is within allowed range
-		if distressLoc and XZDistanceTwoVectors( distressLoc, cdr.CDRHome ) < distressRange then
+		if distressLoc and VDist3( distressLoc, cdr.CDRHome ) < distressRange then
 
 			-- store anything he might be building
 			cdr.UnitBeingBuiltBehavior = cdr.UnitBeingBuilt or false
@@ -327,7 +330,7 @@ function CDROverCharge( aiBrain, cdr )
 			while continueFighting and not cdr.Dead do
 			
 				local overcharging = false
-				local cdrCurrentPos = cdr:GetPosition()
+				local cdrCurrentPos = GetPosition(cdr)
 				
 				-- range check --
 				if CDRReturnHome( aiBrain, cdr, .9 ) then
@@ -351,7 +354,7 @@ function CDROverCharge( aiBrain, cdr )
 				WaitTicks(30)
 				
 				-- if ready to fire and not target, or target is dead, or target is out of range - look for a new target
-				if counter >= overchargedelay and ( (not target) or (target.Dead) or (target and (not target.Dead) and  LOUDV3(cdr:GetPosition(), target:GetPosition()) > maxRadius)) then
+				if counter >= overchargedelay and ( (not target) or (target.Dead) or (target and (not target.Dead) and  LOUDV3(GetPosition(cdr), GetPosition(target)) > maxRadius)) then
 					
 					-- find a priority target in weapon range
 					for k,v in priList do
@@ -360,7 +363,7 @@ function CDROverCharge( aiBrain, cdr )
 						
 							target = plat:FindClosestUnit( 'Attack', 'Enemy', true, v )
 					
-							if target and LOUDV3(cdr:GetPosition(), target:GetPosition()) < maxRadius then
+							if target and LOUDV3(GetPosition(cdr), GetPosition(target)) < maxRadius then
 						
 								local cdrLayer = cdr:GetCurrentLayer()
 								local targetLayer = target:GetCurrentLayer()
@@ -388,14 +391,14 @@ function CDROverCharge( aiBrain, cdr )
 					-- found a priority target in weapon range --
 					if target then
 					
-						local targetPos = target:GetPosition()
+						local targetPos = GetPosition(target)
 					
 						enemyThreat = GetThreatAtPosition( aiBrain, targetPos, 0, true, 'AntiSurface')
 						friendlyThreat = GetThreatAtPosition( GetAIBrain(target), targetPos, 0, true, 'AntiSurface')
 						
 						--LOG("*AI DEBUG Commander "..aiBrain.Nickname.." - threat numbers - enemy "..enemyThreat.." - friendly "..friendlyThreat + cdrThreat)
 		
-						if target and (aiBrain:GetEconomyStored('ENERGY') >= weapon.EnergyRequired) and (not target.Dead) and (LOUDV3(cdr:GetPosition(), target:GetPosition()) <= weapRange) then
+						if target and (aiBrain:GetEconomyStored('ENERGY') >= weapon.EnergyRequired) and (not target.Dead) and (LOUDV3(GetPosition(cdr), GetPosition(target)) <= weapRange) then
 						
 							FloatingEntityText(id,'Eat some of this...')
 							
@@ -409,7 +412,7 @@ function CDROverCharge( aiBrain, cdr )
 						elseif target and not target.Dead then
 					
 							--LOG("*AI DEBUG " .. aiBrain.Nickname .. " Commander target out of overcharge range - moving to attack")
-							local tarPos = target:GetPosition()
+							local tarPos = GetPosition(target)
 							IssueClearCommands( {cdr} )
 							IssueAttack( {cdr}, target )
 							
@@ -532,7 +535,7 @@ function CDRRunAway( aiBrain, cdr )
 		-- immediate threats nearby - time to run		
         if nmeAir > 5 or nmeLand > 0 or nmeHardcore > 0 then
 		
-			local cdrPos = cdr:GetPosition()
+			local cdrPos = GetPosition(cdr)
 		
 			if not aiBrain.CDRDistress then
 		
@@ -615,7 +618,7 @@ function CDRRunAway( aiBrain, cdr )
 				-- retest the run away conditions
                 if not cdr.Dead then
 				
-                    cdrPos = cdr:GetPosition()
+                    cdrPos = GetPosition(cdr)
 					
 					nmeAir = GetNumUnitsAroundPoint( aiBrain, categories.BOMBER + categories.GROUNDATTACK - categories.ANTINAVY, cdr.CDRHome, 75, 'Enemy' )
 					nmeLand = GetNumUnitsAroundPoint( aiBrain, categories.COMMAND + (categories.LAND - categories.ANTIAIR), cdr.CDRHome, 75, 'Enemy' )
@@ -652,7 +655,7 @@ end
 function CDRReturnHome( aiBrain, cdr, Mult )
 
 	local radius = 80
-	local distance = XZDistanceTwoVectors(cdr:GetPosition(), cdr.CDRHome)
+	local distance = VDist3(GetPosition(cdr), cdr.CDRHome)
 	
     if (not cdr.Dead) and distance > (radius*Mult) then
 		
@@ -933,7 +936,7 @@ function AirScoutingAI( self, aiBrain )
 	-- should that not work scouts will report false and pass on trying to scout this area
 	local function DoAirScoutVecs( scout, targetposition )
 	
-		local scoutposition = LOUDCOPY(scout:GetPosition())
+		local scoutposition = LOUDCOPY(GetPosition(scout))
 		
 		if scoutposition then
 		
@@ -1014,7 +1017,7 @@ function AirScoutingAI( self, aiBrain )
 		-- see if we already have a MUSTSCOUT mission underway
 		if not aiBrain.IL.LastAirScoutMust then
 			
-			local unknownThreats = GetThreatsAroundPosition( aiBrain, scout:GetPosition(), 2, true, 'Unknown')
+			local unknownThreats = GetThreatsAroundPosition( aiBrain, GetPosition(scout), 2, true, 'Unknown')
 			
 			-- add all unknown threats over 25 to the MUSTSCOUT list
 			if unknownThreats[1] then
@@ -1235,6 +1238,9 @@ function LandScoutingAI( self, aiBrain )
 
 	local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
 	local GetNumUnitsAroundPoint = moho.aibrain_methods.GetNumUnitsAroundPoint
+    
+    local GetTerrainHeight = GetTerrainHeight
+    local GetSurfaceHeight = GetSurfaceHeight
 
 	local curPos = nil
 	local usedTransports = false
@@ -1572,6 +1578,9 @@ function NavalScoutingAI( self, aiBrain )
 
 	local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
 	local GetNumUnitsAroundPoint = moho.aibrain_methods.GetNumUnitsAroundPoint
+    
+    local GetTerrainHeight = GetTerrainHeight
+    local GetSurfaceHeight = GetSurfaceHeight
 
 	local curPos = nil
 	local scout = nil
@@ -2126,7 +2135,7 @@ function NukeAI( self, aiBrain )
 					
 					nukePos = UnitLeadTarget( u, targetunit )
 					
-					local launcherposition = u:GetPosition() or false
+					local launcherposition = GetPosition(u) or false
 					
 					if launcherposition and nukePos then
 
@@ -2665,7 +2674,7 @@ function AirForceAILOUD( self, aiBrain )
 
                     local squad = GetPlatoonPosition(self) or false
                     
-                    targetposition = target:GetPosition() or false
+                    targetposition = GetPosition(target) or false
                     
                     if squad and targetposition then
 
@@ -2679,7 +2688,7 @@ function AirForceAILOUD( self, aiBrain )
                         IssueFormMove( GetPlatoonUnits(self), { midpointx, midpointy, midpointz }, 'AttackFormation', Direction )
 
                         -- sort the fighters by farthest from target -- we'll send them just ahead of the others to get tighter wave integrity
-                        LOUDSORT( attackers, function (a,b) return VDist3(a:GetPosition(),targetposition) > VDist3(b:GetPosition(),targetposition) end )
+                        LOUDSORT( attackers, function (a,b) return VDist3(GetPosition(a),targetposition) > VDist3(GetPosition(b),targetposition) end )
                    
                         local attackissued = false
                         local attackissuedcount = 0
@@ -3156,7 +3165,7 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
 
                     local squad = GetPlatoonPosition(self) or false
                     
-                    targetposition = target:GetPosition() or false
+                    targetposition = GetPosition(target) or false
                     
                     if squad and targetposition then
                     
@@ -3255,7 +3264,7 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
         end
 
 		-- Attack until target is dead, beyond maxrange or retreat
-		while (target and not target.Dead) and PlatoonExists(aiBrain, self) and (VDist3( target:GetPosition(), loiterposition ) <= maxrange) do
+		while (target and not target.Dead) and PlatoonExists(aiBrain, self) and (VDist3( GetPosition(target), loiterposition ) <= maxrange) do
 
             mythreat = self:CalculatePlatoonThreat('Surface', categories.ALLUNITS) * .5   -- use only 1/2 of surface threat
             mythreat = mythreat + self:CalculatePlatoonThreat('Air', categories.ALLUNITS)   -- plus any air threat
@@ -3646,7 +3655,7 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
 
                     local squad = GetPlatoonPosition(self) or false
                     
-                    targetposition = target:GetPosition() or false
+                    targetposition = GetPosition(target) or false
                     
                     if squad and targetposition then
                     
@@ -3660,7 +3669,7 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
                         IssueFormMove( GetPlatoonUnits(self), { midpointx, midpointy, midpointz }, 'AttackFormation', Direction )
 
                         -- sort the bombers by farthest from target -- we'll send them just ahead of the others to get tighter wave integrity
-                        LOUDSORT( attackers, function (a,b) return VDist3(a:GetPosition(),targetposition) > VDist3(b:GetPosition(),targetposition) end )
+                        LOUDSORT( attackers, function (a,b) return VDist3(GetPosition(a),targetposition) > VDist3(GetPosition(b),targetposition) end )
                    
                         local attackissued = false
                         local attackissuedcount = 0
@@ -3745,7 +3754,7 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
         end
 
 		-- Attack until target is dead, beyond maxrange or retreat
-		while (target and not target.Dead) and PlatoonExists(aiBrain, self) and (VDist3( target:GetPosition(), loiterposition ) <= maxrange) do
+		while (target and not target.Dead) and PlatoonExists(aiBrain, self) and (VDist3( GetPosition(target), loiterposition ) <= maxrange) do
            
             mythreat = self:CalculatePlatoonThreat('Surface', categories.ALLUNITS) * .65   -- use 65% of surface threat
             mythreat = mythreat + self:CalculatePlatoonThreat('Air', categories.ALLUNITS)   -- plus any air threat
@@ -4135,7 +4144,7 @@ function AirForceAI_Torpedo_LOUD( self, aiBrain )
 
                     local squad = GetPlatoonPosition(self) or false
                     
-                    targetposition = target:GetPosition() or false
+                    targetposition = GetPosition(target) or false
                     
                     if squad and targetposition then
                     
@@ -4149,7 +4158,7 @@ function AirForceAI_Torpedo_LOUD( self, aiBrain )
                         IssueFormMove( GetPlatoonUnits(self), { midpointx, midpointy, midpointz }, 'AttackFormation', Direction )
 
                         -- sort the bombers by farthest from target -- we'll send them just ahead of the others to get tighter wave integrity
-                        LOUDSORT( attackers, function (a,b) return VDist3(a:GetPosition(),targetposition) > VDist3(b:GetPosition(),targetposition) end )
+                        LOUDSORT( attackers, function (a,b) return VDist3(GetPosition(a),targetposition) > VDist3(GetPosition(b),targetposition) end )
                    
                         local attackissued = false
                         local attackissuedcount = 0
@@ -4234,7 +4243,7 @@ function AirForceAI_Torpedo_LOUD( self, aiBrain )
         end
 
 		-- Attack until target is dead, beyond maxrange or retreat
-		while (target and not target.Dead) and PlatoonExists(aiBrain, self) and (VDist3( target:GetPosition(), loiterposition ) <= maxrange) do
+		while (target and not target.Dead) and PlatoonExists(aiBrain, self) and (VDist3( GetPosition(target), loiterposition ) <= maxrange) do
            
             mythreat = self:CalculatePlatoonThreat('Surface', categories.ALLUNITS) * .5   -- use only 1/2 of surface threat
             mythreat = mythreat + self:CalculatePlatoonThreat('Air', categories.ALLUNITS)   -- plus any air threat
@@ -4316,6 +4325,9 @@ function NavalForceAILOUD( self, aiBrain )
 	local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
 	
 	local VDist3 = VDist3
+    
+    local GetTerrainHeight = GetTerrainHeight
+    local GetSurfaceHeight = GetSurfaceHeight
 
     local data = self.PlatoonData
 
@@ -4766,7 +4778,7 @@ function NavalForceAILOUD( self, aiBrain )
 					
 					if not v.Dead and LOUDENTITY ( categories.AIRSTAGINGPLATFORM, v) then
 
-						if GetOwnUnitsAroundPoint( aiBrain, categories.AIR * categories.MOBILE - categories.TRANSPORTFOCUS, v:GetPosition(), 32) then
+						if GetOwnUnitsAroundPoint( aiBrain, categories.AIR * categories.MOBILE - categories.TRANSPORTFOCUS, GetPosition(v), 32) then
 							
 							waitneeded = true
 
@@ -4813,7 +4825,7 @@ function NavalForceAILOUD( self, aiBrain )
 			updatedtargetposition = false
 
 			if not target.Dead then
-				updatedtargetposition = LOUDCOPY(target:GetPosition())
+				updatedtargetposition = LOUDCOPY(GetPosition(target))
 			end
 
 			if target.Dead or (not updatedtargetposition) or VDist3( updatedtargetposition, GetPlatoonPosition(self) ) > SearchRadius * 1.25 then
@@ -5356,7 +5368,7 @@ function NavalBombardAILOUD( self, aiBrain )
 
 			if not target.Dead then
 			
-				updatedtargetposition = LOUDCOPY(target:GetPosition())
+				updatedtargetposition = LOUDCOPY(GetPosition(target))
 				
 			end
 
@@ -5952,7 +5964,7 @@ function CarrierThread ( carrier, aiBrain )
 				if not carrier.Dead then
 				
 					-- create the unit just above the carrier
-					cpos = carrier:GetPosition()
+					cpos = GetPosition(carrier)
 					unitBeingBuilt = CreateUnitHPR( unitToBuild, aiBrain.Name, cpos[1], cpos[2] + 5, cpos[3], 0, 0, 0 )
 				
 					-- we built something - put it into a platoon
@@ -6408,7 +6420,7 @@ function TMLThread( unit, aiBrain )
     --LOG("*AI DEBUG "..aiBrain.Nickname.." TMLThread")
     
     local maxRadius = unit:GetBlueprint().Weapon[1].MaxRadius
-	local position = LOUDCOPY(unit:GetPosition())
+	local position = LOUDCOPY(GetPosition(unit))
 
 	local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
 	local UnitLeadTarget = import('/lua/ai/sorianutilities.lua').LeadTarget	-- this uses the specific one for TMLs
@@ -7435,7 +7447,7 @@ function FindExperimentalTarget( self, aiBrain )
 
 				for _,unit in unitsAtBase do
 				
-					if not unit.Dead and unit:GetPosition() then
+					if not unit.Dead and GetPosition(unit) then
 					
 						notDeadUnit = unit
 						numUnitsAtBase = numUnitsAtBase + 1
@@ -7455,7 +7467,7 @@ function FindExperimentalTarget( self, aiBrain )
 						
 					else
 	
-						local myPos = self:GetPlatoonPosition()
+						local myPos = GetPlatoonPosition(self)
 						
 						local dist1 = LOUDV3( myPos, base.Position )
 						local dist2 = LOUDV3( myPos, bestBase.Position )
@@ -7478,7 +7490,7 @@ function FindExperimentalTarget( self, aiBrain )
 						
 					elseif numUnitsAtBase == mostUnits then
 					
-						local myPos = self:GetPlatoonPosition()
+						local myPos = GetPlatoonPosition(self)
 						local dist1 = LOUDV3( myPos, base.Position )
 						local dist2 = LOUDV3( myPos, bestBase.Position )
                     
@@ -7626,7 +7638,7 @@ function FindLandExperimentalTargetLOUD( self, aiBrain )
             
             for _,unit in EntityCategoryFilterDown( ParseEntityCategory(priority), unitsAtBase) do
 			
-                if not unit.Dead and unit:GetPosition() then
+                if not unit.Dead and GetPosition(unit) then
 	                notDeadUnit = unit
 					break
 	            end
@@ -7715,15 +7727,15 @@ CzarBehaviorSorian = function(self, aiBrain)
         if (targetUnit and targetUnit != oldTargetUnit) or not self:IsCommandsActive(cmd) then
 
 			-- move towards the target --
-			if targetUnit and VDist3( targetUnit:GetPosition(), self:GetPlatoonPosition() ) > 100 then
+			if targetUnit and VDist3( GetPosition(targetUnit), GetPlatoonPosition(self) ) > 100 then
 			
 			    IssueClearCommands(platoonUnits)
 				
 				-- interesting way to get the Czar moving towards target --
-				cmd = ExpPathToLocation(aiBrain, self, 'Air', targetUnit:GetPosition(), false, 300)
+				cmd = ExpPathToLocation(aiBrain, self, 'Air', GetPosition(targetUnit), false, 300)
 				
 			-- in range of the target, issue attack order --
-			elseif targetUnit and VDist3( targetUnit:GetPosition(), self:GetPlatoonPosition() ) <= 100 then
+			elseif targetUnit and VDist3( GetPosition(targetUnit), GetPlatoonPosition(self) ) <= 100 then
 
                 cmd = self:AttackTarget( targetUnit )
 				
@@ -7794,7 +7806,7 @@ CommanderOverrideCheckSorian = function(self, aiBrain)
 		return false
 	end
 
-    local commanders = aiBrain:GetUnitsAroundPoint(categories.COMMAND, self:GetPlatoonPosition(), 50, 'Enemy')
+    local commanders = aiBrain:GetUnitsAroundPoint(categories.COMMAND, GetPlatoonPosition(self), 50, 'Enemy')
     
     if LOUDGETN(commanders) == 0 or commanders[1]:IsDead() or commanders[1]:GetCurrentLayer() == 'Seabed' then
 	
@@ -7835,7 +7847,7 @@ ExpPathToLocation = function(aiBrain, platoon, layer, dest, aggro, markerdist)
 
 	local cmd = false
 
-	local path, reason = platoon.PlatoonGenerateSafePathToLOUD(aiBrain, platoon, layer, platoon:GetPlatoonPosition(), dest, 150, markerdist )
+	local path, reason = platoon.PlatoonGenerateSafePathToLOUD(aiBrain, platoon, layer, GetPlatoonPosition(platoon), dest, 150, markerdist )
 	
 	if not path then
 	
@@ -7885,7 +7897,7 @@ end
 -- returns true if the platoon is presently in the water
 function InWaterCheck(platoon)
 
-	local t4Pos = platoon:GetPlatoonPosition()
+	local t4Pos = GetPlatoonPosition(platoon)
 	
 	return GetTerrainHeight(t4Pos[1], t4Pos[3]) < GetSurfaceHeight(t4Pos[1], t4Pos[3])
 end
@@ -7987,7 +7999,7 @@ function BehemothBehavior(self)
 		
             IssueClearCommands({experimental})
 			
-			local path, reason = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, 'Amphibious', self:GetPlatoonPosition(), targetLocation, 150, 200)
+			local path, reason = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, 'Amphibious', GetPlatoonPosition(self), targetLocation, 150, 200)
 
 			if path then
 				local pathsize = LOUDGETN(path)

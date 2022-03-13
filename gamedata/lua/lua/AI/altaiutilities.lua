@@ -52,6 +52,9 @@ function AssistBody(self, eng, aiBrain)
 	local ass_count = 0
 	local beingbuiltcategory, assistList, platoonPos
     
+    local GetPosition = moho.entity_methods.GetPosition
+    
+    local VDist3 = VDist3
     local VDist3Sq = VDist3Sq
 	
 	-- this function will locate units needing assistance of the specific type --
@@ -94,7 +97,7 @@ function AssistBody(self, eng, aiBrain)
 			-- we'll use the base position rather than the engineer --
 			platoonPos = aiBrain.BuilderManagers[locationType].Position or false
 			
-            LOUDSORT(assistList, function(a,b) return VDist3Sq( a:GetPosition(), platoonPos ) < VDist3Sq( b:GetPosition(), platoonPos ) end )
+            LOUDSORT(assistList, function(a,b) return VDist3Sq( GetPosition(a), platoonPos ) < VDist3Sq( GetPosition(b), platoonPos ) end )
 
             for _,v in assistList do
 			
@@ -102,7 +105,7 @@ function AssistBody(self, eng, aiBrain)
 
 					ass_count = ass_count + 1					
 					
-                    if VDist3(v:GetPosition(), platoonPos) <= assistRange then
+                    if VDist3( GetPosition(v), platoonPos) <= assistRange then
 					
                         assistee = v
                         break
@@ -239,6 +242,9 @@ function AIFindBaseAreaForExpansion( aiBrain, locationType, radius, tMin, tMax, 
 	end
 	
 	if Position then
+    
+        local VDist2Sq = VDist2Sq
+        local VDist3 = VDist3
 
 		local positions = {}
 
@@ -314,7 +320,10 @@ function AIFindBaseAreaForDP( aiBrain, locationType, radius, tMin, tMax, tRings,
 	end
 	
 	if Position then
-	
+
+        local VDist2Sq = VDist2Sq
+        local VDist3 = VDist3
+        
 		local positions = {}
 	
 		positions = LOUDCONCAT(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Blank Marker', Position, radius, tMin, tMax, tRings, tType))	
@@ -334,8 +343,6 @@ function AIFindBaseAreaForDP( aiBrain, locationType, radius, tMin, tMax, tRings,
 			removed = false
 
 			for index,brain in Brains do
-			
-				--LOG("*AI DEBUG "..aiBrain.Nickname.." testing "..repr(marker.Name).." at "..repr( NormalToBuildLocation( marker.Position )).." with "..brain.Nickname.." at "..repr( NormalToBuildLocation( brain.BuilderManagers['MAIN'].Position ) ))
         
 				-- if someone else owns it or the co-ordinates are the same as this brains 'MAIN' position -- 
 				if brain.BuilderManagers[marker.Name] or ( marker.Position[1] == brain.BuilderManagers['MAIN'].Position[1] and marker.Position[3] == brain.BuilderManagers['MAIN'].Position[3] ) then
@@ -381,6 +388,9 @@ function AIFindDefensivePointForDP( aiBrain, locationType, radius, tMin, tMax, t
 	end
 	
     if Position and aiBrain.PrimaryLandAttackBase and aiBrain.AttackPlan.Goal then
+    
+        local VDist2Sq = VDist2Sq
+        local VDist3 = VDist3
 	
 		-- this is the range that the current primary base is from the goal - new bases must be closer than this
         -- we'll use the current PRIMARY LAND BASE as the centrepoint for radius
@@ -409,9 +419,7 @@ function AIFindDefensivePointForDP( aiBrain, locationType, radius, tMin, tMax, t
 			removed = false
 
 			for index,brain in Brains do
-			
-				--LOG("*AI DEBUG "..aiBrain.Nickname.." testing "..repr(marker.Name).." at "..repr( NormalToBuildLocation( marker.Position )).." with "..brain.Nickname)
-        		
+
 				if brain.BuilderManagers[marker.Name] then
 			
                     --LOG("*AI DEBUG "..aiBrain.Nickname.." "..marker.Name.." already taken")
@@ -459,6 +467,9 @@ function AIFindNavalDefensivePointForDP( aiBrain, locationType, radius, tMin, tM
 	
     if Position then
 
+        local VDist2Sq = VDist2Sq
+        local VDist3 = VDist3
+        
 		-- this is the range that the current primary base is from the goal - new bases must be closer than this
         -- we'll use the current PRIMARY LAND BASE as the centrepoint for radius
         local test_position = aiBrain.BuilderManagers[aiBrain.PrimarySeaAttackBase].Position or Position
@@ -536,7 +547,10 @@ function AIFindNavalAreaForExpansion( aiBrain, locationType, radius, tMin, tMax,
 		Position = eng
 	end
 	
-    if Position then
+    if Position then 
+    
+        local VDist2Sq = VDist2Sq
+        local VDist3 = VDist3
 		
 		local positions = {}
 	
@@ -603,6 +617,8 @@ function AIFindBasePointNeedsStructure( aiBrain, locationType, radius, category,
     local Position = aiBrain.BuilderManagers[locationType].Position or false
 	
     if Position then
+    
+        local VDist2Sq = VDist2Sq
 	
 		local positions = {}
 	
@@ -633,6 +649,8 @@ function AIFindDefensivePointNeedsStructure( aiBrain, locationType, radius, cate
     local Position = aiBrain.BuilderManagers[locationType].Position or false
 
     if Position then
+    
+        local VDist2Sq = VDist2Sq
 	
 		local positions = {}
 	
@@ -660,6 +678,8 @@ function AIFindExpansionPointNeedsStructure( aiBrain, locationType, radius, cate
     local Position = aiBrain.BuilderManagers[locationType].Position or false
 
     if Position then
+    
+        local VDist2Sq = VDist2Sq
 	
 		local positions = {}
 	
@@ -688,6 +708,10 @@ function AIFindNavalDefensivePointNeedsStructure( aiBrain, locationType, radius,
 	
     if Position and  ( aiBrain.PrimarySeaAttackBase or aiBrain.PrimaryLandAttackBase ) and aiBrain.AttackPlan.Goal and ( aiBrain.BuilderManagers[aiBrain.PrimarySeaAttackBase].Position or aiBrain.BuilderManagers[aiBrain.PrimaryLandAttackBase].Position) then
 		
+        local VDist2 = VDist2
+        local VDist2Sq = VDist2Sq
+        local VDist3 = VDist3
+        
 		local test_range = false
         local test_position = false
         
@@ -762,6 +786,8 @@ function AIFindStartPointNeedsStructure( aiBrain, locationType, radius, category
     local Position = aiBrain.BuilderManagers[locationType].Position or false
 
     if Position then
+    
+        local VDist2Sq = VDist2Sq
 	
 		local positions = {}
 	
@@ -995,7 +1021,13 @@ function GetTransports( platoon, aiBrain)
 
 	local LOUDCOPY = table.copy
 	local LOUDENTITY = EntityCategoryContains
+    
+    local VDist2 = VDist2
+    
 	local WaitTicks = coroutine.yield
+    
+    local GetPlatoonPosition = moho.platoon_methods.GetPlatoonPosition
+
     
 	platoon.UsingTransport = true	-- this will keep the platoon from doing certain things while it's looking for transport
 	
@@ -1769,7 +1801,11 @@ function WatchTransportTravel( transport, destination, aiBrain )
 	local unitsdead = false
 	local watchcount = 0
 	
-	local GetPosition = moho.entity_methods.GetPosition	
+	local GetPosition = moho.entity_methods.GetPosition
+    
+    local VDist2 = VDist2
+    
+    local WaitTicks = coroutine.yield
 	
 	transport.StuckCount = 0
 	transport.LastPosition = table.copy(GetPosition(transport))
@@ -1876,6 +1912,8 @@ function WatchUnitUnload( transport, unitlist, destination, aiBrain )
 	
 	local watchcount = 0
     
+    local WaitTicks = coroutine.yield
+    
     transport.Unloading = true
 	
 	IssueTransportUnload( {transport}, destination)
@@ -1957,6 +1995,9 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
 	
 	local PlatoonExists = moho.aibrain_methods.PlatoonExists
 	local GetBlueprint = moho.entity_methods.GetBlueprint
+    local GetPlatoonPosition = moho.platoon_methods.GetPlatoonPosition
+    local GetPlatoonUnits = moho.platoon_methods.GetPlatoonUnits
+
 	
     local transportTable = {}	
 	local counter = 0
@@ -2738,6 +2779,8 @@ function ReturnTransportsToPool( aiBrain, units, move )
 		units = aiBrain:RebuildTable(units)
 
         local unitposition, baseposition, safepath, reason
+        
+        local VDist3 = VDist3
 	
 		for k,v in units do
 		
@@ -2845,6 +2888,9 @@ function CheckTransportPool( aiBrain )
 	local TransportPool = aiBrain.TransportPool
     
     local TransportDialog = ScenarioInfo.TransportDialog
+    
+	local IsIdleState = moho.unit_methods.IsIdleState
+    local PlatoonExists = moho.aibrain_methods.PlatoonExists
 
 	-- get all idle, fully built transports except UEF gunship --
 	local unitlist = aiBrain:GetListOfUnits(((categories.AIR * categories.TRANSPORTFOCUS - categories.uea0203)), true, true)
@@ -2862,9 +2908,9 @@ function CheckTransportPool( aiBrain )
 				oldplatoonname = platoon.BuilderName or false
 			end
 			
-			if (not v:IsIdleState()) or v.InUse or v.Assigning or (platoon and PlatoonExists(aiBrain,platoon)) then
+			if (not IsIdleState(v)) or v.InUse or v.Assigning or (platoon and PlatoonExists(aiBrain,platoon)) then
 			
-				if not v:IsIdleState() then
+				if not IsIdleState(v) then
 					continue
 				end
 				

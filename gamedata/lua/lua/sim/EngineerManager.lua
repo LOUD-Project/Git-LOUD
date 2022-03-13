@@ -737,6 +737,9 @@ EngineerManager = Class(BuilderManager) {
 
 		local DrawC = DrawCircle
 
+        local LOUDFLOOR = math.floor
+        local LOUDLOG10 = math.log10
+        local LOUDMAX = math.max
 		local LOUDMIN = math.min
 		local LOUDSORT = table.sort
 		
@@ -834,10 +837,10 @@ EngineerManager = Class(BuilderManager) {
                         if LoopType == 'Land' then
                         
                             -- mult by current LandRatio
-                            highThreat = highThreat * math.max( 0.8, aiBrain.LandRatio or 1)
+                            highThreat = highThreat * LOUDMAX( 0.8, aiBrain.LandRatio or 1)
                             
                             -- and again by the base AIMult (carried in VeterancyMult) --
-                            highThreat = highThreat * ( 1 + math.log10( aiBrain.VeterancyMult))
+                            highThreat = highThreat * ( 1 + LOUDLOG10( aiBrain.VeterancyMult))
                         end
                         
                         if LoopType == 'Air' then
@@ -847,17 +850,17 @@ EngineerManager = Class(BuilderManager) {
                             highThreat = highThreat * 3         -- AIR threats MUST be thrice the normal size to trigger --
                         
                             -- NOTE -- This is an interesting application point since if AirRatio is bad - he'll throw alerts all the time --
-                            highThreat = highThreat * math.max( 0.8, aiBrain.AirRatio or 1)      -- The AirRatio will modify his alert trigger - even down if bad
+                            highThreat = highThreat * LOUDMAX( 0.8, aiBrain.AirRatio or 1)      -- The AirRatio will modify his alert trigger - even down if bad
                             
-                            highThreat = highThreat * ( 1 + math.log10( aiBrain.VeterancyMult))     -- higher mult means AIR threats must be larger to trigger
+                            highThreat = highThreat * ( 1 + LOUDLOG10( aiBrain.VeterancyMult))     -- higher mult means AIR threats must be larger to trigger
                             
                         end
                         
                         if LoopType == 'Naval' then
                         
-                            highThreat = highThreat * math.max( 0.8, aiBrain.NavalRatio or 1)
+                            highThreat = highThreat * LOUDMAX( 0.8, aiBrain.NavalRatio or 1)
                             
-                            highThreat = highThreat * ( 1 + math.log10( aiBrain.VeterancyMult))
+                            highThreat = highThreat * ( 1 + LOUDLOG10( aiBrain.VeterancyMult))
                         
                         end
                         
