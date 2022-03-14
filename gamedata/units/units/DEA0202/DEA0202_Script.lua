@@ -7,7 +7,7 @@ DEA0202 = Class(TAirUnit) {
     Weapons = {
 	
         AAGun = Class(TAirToAirLinkedRailgun) {},
-		
+--[[		
         Bomb = Class(TIFCarpetBombWeapon) {
 
             IdleState = State (TIFCarpetBombWeapon.IdleState) {
@@ -59,8 +59,9 @@ DEA0202 = Class(TAirUnit) {
                 self.unit:SetSpeedMult(speedMulti)
             end,        
         },
+--]]
     },
-	
+--[[	
     GetSpeedModifier = function(self)
 	
         # this returns 1 when the plane has fuel or 0.25 when it doesn't have fuel. The movement speed penalty for
@@ -137,6 +138,7 @@ DEA0202 = Class(TAirUnit) {
             end
         end
     end,
+--]]
 }
 
 TypeClass = DEA0202

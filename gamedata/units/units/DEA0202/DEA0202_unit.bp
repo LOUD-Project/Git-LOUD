@@ -28,7 +28,7 @@ UnitBlueprint {
 		
         LiftFactor = 7,
 		
-        MaxAirspeed = 15,
+        MaxAirspeed = 17.5,
         MinAirspeed = 10,
 		
         PredictAheadForBombDrop = 3,
@@ -82,7 +82,7 @@ UnitBlueprint {
         'UEF',
         'MOBILE',
         'AIR',
-        'BOMBER',
+        --'BOMBER',
         'HIGHALTAIR',
         'TECH2',
         'ANTIAIR',
@@ -96,12 +96,12 @@ UnitBlueprint {
     CollisionOffsetY = 0,
 	
     Defense = {
-        AirThreatLevel = 6,
+        AirThreatLevel = 14,
         ArmorType = 'Light',
-        Health = 1320,
-        MaxHealth = 1320,
+        Health = 1600,
+        MaxHealth = 1600,
         RegenRate = 4,
-        SurfaceThreatLevel = 4,
+        --SurfaceThreatLevel = 4,
     },
 	
     Description = '<LOC dea0202_desc>Fighter/Bomber',
@@ -160,7 +160,7 @@ UnitBlueprint {
 	
     Economy = {
         BuildCostEnergy = 14000,
-        BuildCostMass = 300,
+        BuildCostMass = 280,
         BuildTime = 3000,
     },
 	
@@ -197,7 +197,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Fighter/Bomber',
+        HelpText = 'Fighter',
     },
 	
     LifeBarHeight = 0.07,
@@ -264,7 +264,7 @@ UnitBlueprint {
             CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 15,
+            Damage = 18,
             DamageFriendly = false,
             DamageRadius = 0,
 			
@@ -276,18 +276,18 @@ UnitBlueprint {
                 Land = 'Air|Land',
             },
 			
-            FiringTolerance = 0.2,
+            FiringTolerance = 0.1,
 			
             Label = 'AAGun',
 			
             MaxRadius = 33,
 			
             MuzzleSalvoDelay = 0.1,
-            MuzzleSalvoSize = 4,
-            MuzzleVelocity = 80,
+            MuzzleSalvoSize = 2,
+            MuzzleVelocity = 70,
 			
             ProjectileId = '/projectiles/TAARailgun03/TAARailgun03_proj.bp',
-            ProjectileLifetime = 0.5,
+            ProjectileLifetime = 0.6,
 			
             RackBones = {
                 {
@@ -304,7 +304,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 1,		-- 60 DPS Air
+            RateOfFire = 2,		-- 72 DPS Air
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 50,
@@ -320,6 +320,7 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,NAVAL,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
             TrackingRadius = 1.35,
+            
             TurretBoneMuzzle = 'Left_Muzzle',
             TurretBonePitch = 'Left_Muzzle',
             TurretBoneYaw = 'Left_Muzzle',
@@ -327,11 +328,11 @@ UnitBlueprint {
 			
             TurretPitch = 0,
             TurretPitchRange = 80,
-            TurretPitchSpeed = 60,
+            TurretPitchSpeed = 80,
 			
             TurretYaw = 0,
             TurretYawRange = 50,
-            TurretYawSpeed = 60,
+            TurretYawSpeed = 75,
 			
             Turreted = true,
         },
@@ -346,30 +347,34 @@ UnitBlueprint {
             },
 
             BallisticArc = 'RULEUBA_None',
+            
             CannotAttackGround = true,
             CollideFriendly = false,
-            Damage = 15,
+            
+            Damage = 18,
             DamageFriendly = false,
             DamageRadius = 0,
             DamageType = 'Normal',
+            
             DisplayName = 'Linked Railgun',
+            
             FireTargetLayerCapsTable = {
                 Air = 'Air|Land',
                 Land = 'Air|Land',
             },
 			
-            FiringTolerance = 1,
+            FiringTolerance = 0.2,
 			
             Label = 'AAGun',
 			
             MaxRadius = 33,
 			
             MuzzleSalvoDelay = 0.1,
-            MuzzleSalvoSize = 4,
-            MuzzleVelocity = 80,
+            MuzzleSalvoSize = 2,
+            MuzzleVelocity = 70,
 			
             ProjectileId = '/projectiles/TAARailgun03/TAARailgun03_proj.bp',
-            ProjectileLifetime = 0.5,
+            ProjectileLifetime = 0.6,
 			
             RackBones = {
                 {
@@ -384,10 +389,11 @@ UnitBlueprint {
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
 
-            RateOfFire = 1,
+            RateOfFire = 2,
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 50,
+            
             TargetCheckInterval = 1,
 			
             TargetPriorities = {
@@ -409,11 +415,15 @@ UnitBlueprint {
             TurretPitch = 0,
             TurretPitchRange = 80,
             TurretPitchSpeed = 80,
+            
             TurretYaw = 0,
             TurretYawRange = 55,
-            TurretYawSpeed = 55,
+            TurretYawSpeed = 75,
+            
             Turreted = true,
         },
+        
+--[[
         {
             AboveWaterTargetsOnly = true,
             Audio = {
@@ -493,6 +503,7 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.25,
         },
+--]]
         {
             AboveWaterTargetsOnly = true,
             Damage = 150,
