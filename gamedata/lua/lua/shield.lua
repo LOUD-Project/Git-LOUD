@@ -21,8 +21,11 @@ local IsEnemy = IsEnemy
 local KillThread = KillThread
 
 local CreateEmitterAtBone = CreateEmitterAtBone
-local Vector = Vector
+
+local VectorCached = { 0, 0, 0 }
+
 local WaitTicks = coroutine.yield
+
 local Warp = Warp
 
 local AdjustHealth = moho.entity_methods.AdjustHealth
@@ -316,18 +319,25 @@ Shield = Class(moho.shield_methods,Entity) {
 				ImpactMesh:SetMesh(self.ImpactMeshBp)
 				
 				ImpactMesh:SetDrawScale(self.Size)
-				ImpactMesh:SetOrientation(OrientFromDir(Vector(-vector.x,-vector.y,-vector.z)),true)
+                
+                local vec = VectorCached
+                vec[1] = -vector.x
+                vec[2] = -vector.y
+                vec[3] = -vector.z
+                
+				ImpactMesh:SetOrientation( OrientFromDir( vec ), true)
 			end
             
             local CreateEmitterAtBone = CreateEmitterAtBone
 
 			if not self.Dead then
 				for k, v in self.ImpactEffects do
-					CreateEmitterAtBone( ImpactMesh, -1, self.Army, v ):OffsetEmitter(0, 0, GetVectorLength(vector) )
+					CreateEmitterAtBone( ImpactMesh, -1, self.Army, v ):OffsetEmitter(0, 0, LOUDSQRT( LOUDPOW( vector[1], 2 ) + LOUDPOW( vector[2], 2 ) + LOUDPOW(vector[3], 2 ) )  )
 				end
 			end
 			
 			WaitTicks(17)
+            
 			ImpactMesh:Destroy()
 		end
     end,
@@ -417,13 +427,18 @@ Shield = Class(moho.shield_methods,Entity) {
 		self:SetCollisionShape( 'Sphere', 0, 0, 0, self.Size/2)
 
 		self:SetMesh(self.MeshBp)
+        
+        local vec = VectorCached
+        vec[1] = 0
+        vec[2] = self.ShieldVerticalOffset
+        vec[3] = 0
 		
-		self:SetParentOffset(Vector(0,self.ShieldVerticalOffset,0))
+		self:SetParentOffset( vec )
 		self:SetDrawScale(self.Size)
 
 		if self.MeshZ == nil then
 		
-			self.MeshZ = Entity { }		--Owner = self.Owner }
+			self.MeshZ = Entity { }
 			
 			self.MeshZ:SetMesh(self.MeshZBp)
 			
@@ -431,7 +446,12 @@ Shield = Class(moho.shield_methods,Entity) {
 			
 			self.MeshZ:SetDrawScale(self.Size)
 			self.MeshZ:AttachBoneTo(-1,self.Owner,-1)
-			self.MeshZ:SetParentOffset(Vector(0,self.ShieldVerticalOffset,0))
+            
+            vec[1] = 0
+            vec[2] = self.ShieldVerticalOffset
+            vec[3] = 0
+            
+			self.MeshZ:SetParentOffset( vec )
 
 			self.MeshZ:SetVizToFocusPlayer('Always')
 			self.MeshZ:SetVizToEnemies('Intel')
@@ -870,12 +890,17 @@ ProjectedShield = Class(Shield){
     end,
 
     CreateImpactEffect = function(self, vector)
+    
+        local WaitTicks = coroutine.yield
 
         if not self.Dead then
         
             local army = GetArmy(self)
-            local OffsetLength = GetVectorLength(vector)
+            
+            local OffsetLength = LOUDSQRT( LOUDPOW( vector[1], 2 ) + LOUDPOW( vector[2], 2 ) + LOUDPOW(vector[3], 2 ) )
+            
             local ImpactMesh = Entity { Owner = self.Owner }
+            
             local beams = {}
 	
             for i, Pillar in self.Owner.Projectors do
@@ -888,9 +913,16 @@ ProjectedShield = Class(Shield){
             Warp( ImpactMesh, self:GetPosition())
 		
             if self.ImpactMeshBp ~= '' then
+            
                 ImpactMesh:SetMesh(self.ImpactMeshBp)
                 ImpactMesh:SetDrawScale(self.Size)
-                ImpactMesh:SetOrientation(OrientFromDir(Vector(-vector.x,-vector.y,-vector.z)),true)
+                
+                local vec = VectorCached
+                vec[1] = -vector.x
+                vec[2] = -vector.y
+                vec[3] = -vector.z
+                
+                ImpactMesh:SetOrientation(OrientFromDir( vec ),true)
             end
 		
             for k, v in self.ImpactEffects do

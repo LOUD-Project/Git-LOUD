@@ -58,6 +58,8 @@ local CreateEmitterAtEntity = CreateEmitterAtEntity
 local CreateEmitterAtBone = CreateEmitterAtBone
 local LOUDATTACHBEAMENTITY = AttachBeamEntityToEntity
 
+local VectorCached = { 0, 0, 0 }
+
 local WaitTicks = coroutine.yield
 local VDist2 = VDist2
 
@@ -1924,10 +1926,13 @@ FactoryUnit = Class(StructureUnit) {
     end,
 
     RollOffUnit = function(self)
+        
+        local vec = VectorCached
+        local spin
+        
+        spin, vec[1], vec[2], vec[3] = self:CalculateRollOffPoint()
 
-        local spin, x, y, z = self:CalculateRollOffPoint()
-
-        self.MoveCommand = IssueMove( { self.UnitBeingBuilt }, Vector(x, y, z))
+        self.MoveCommand = IssueMove( { self.UnitBeingBuilt }, vec )
 
     end,
 

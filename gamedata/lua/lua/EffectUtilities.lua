@@ -21,30 +21,33 @@ local CybranBuildFlash01 = import('/lua/EffectTemplates.lua').CybranBuildFlash01
 local CybranBuildUnitBlink01 = import('/lua/EffectTemplates.lua').CybranBuildUnitBlink01
 local SeraphimBuildBeams01 = import('/lua/EffectTemplates.lua').SeraphimBuildBeams01
 
-local LOUDABS = math.abs
-local LOUDCOS = math.cos
 local LOUDGETN = table.getn
-local LOUDINSERT = table.insert
-local LOUDPI = math.pi
 local LOUDREMOVE = table.remove
-local LOUDSIN = math.sin
+local VDist3Sq = VDist3Sq
 local LOUDWARP = Warp
+
+local BeenDestroyed = moho.entity_methods.BeenDestroyed
 local CreateLightParticle = CreateLightParticle
 local CreateProjectile = moho.entity_methods.CreateProjectile
+local GetFractionComplete = moho.entity_methods.GetFractionComplete
+local GetPosition = moho.entity_methods.GetPosition
+local SetVelocity = moho.projectile_methods.SetVelocity
+
+local LOUDFLOOR = math.floor	
+local WaitTicks = coroutine.yield
+
 local LOUDEMITONENTITY = CreateEmitterOnEntity
 local LOUDEMITATENTITY = CreateEmitterAtEntity
 local LOUDEMITATBONE = CreateEmitterAtBone
 local LOUDATTACHEMITTER = CreateAttachedEmitter
 local LOUDATTACHBEAMENTITY = AttachBeamEntityToEntity
 
-local Vector = Vector
-local WaitTicks = coroutine.yield
-
 local ALLBPS = __blueprints
 
-local GetFractionComplete = moho.entity_methods.GetFractionComplete
-local BeenDestroyed = moho.entity_methods.BeenDestroyed
-local SetVelocity = moho.projectile_methods.SetVelocity
+-- credit to Jip for this re-use technique
+-- modified to use simple table rather than Vector
+local VectorCached = { 0, 0, 0 }
+
 
 function CreateEffects( obj, army, EffectTable )
 
@@ -193,7 +196,15 @@ function CreateBuildCubeThread( unitBeingBuilt, builder, OnBeingBuiltEffectsBag 
 	OnBeingBuiltEffectsBag:Add(BuildBaseEffect)
 
 	unitBeingBuilt.Trash:Add(BuildBaseEffect)
-	LOUDWARP( BuildBaseEffect, Vector(xPos, yPos-y, zPos))
+
+    local vec = VectorCached
+    
+    vec[1] = pos[1]
+	vec[2] = pos[2] + (bp.Physics.MeshExtentsOffsetY or 0) - y
+	vec[3] = pos[3]
+    
+	LOUDWARP( BuildBaseEffect, vec )
+    
 	BuildBaseEffect:SetScale(x, y, z)
 	BuildBaseEffect:SetVelocity(0, 1.4 * y, 0)
 
@@ -249,6 +260,7 @@ function CreateBuildCubeThread( unitBeingBuilt, builder, OnBeingBuiltEffectsBag 
 	if not BeenDestroyed(BuildBaseEffect) then
 		BuildBaseEffect:Destroy()
 	end
+    
 end
 
 function CreateUEFUnitBeingBuiltEffects( builder, unitBeingBuilt, BuildEffectsBag )
@@ -281,33 +293,69 @@ function CreateUEFBuildSliceBeams( builder, unitBeingBuilt, BuildEffectBones, Bu
 
     -- Create build beams
     if BuildEffectBones != nil then
-        local beamEffect = nil
+        
         for i, BuildBone in BuildEffectBones do
-            BuildEffectsBag:Add( LOUDATTACHBEAMENTITY( builder, BuildBone, BeamEndEntity, -1, army, BeamBuildEmtBp ) )
-            BuildEffectsBag:Add( LOUDATTACHEMITTER( builder, BuildBone, army, '/effects/emitters/flashing_blue_glow_01_emit.bp' ) )             
+        
+            BuildEffectsBag:Add( LOUDATTACHBEAMENTITY( builder, BuildBone, BeamEndEntity, -1, army, '/effects/emitters/build_beam_01_emit.bp' ) )
+            BuildEffectsBag:Add( LOUDATTACHEMITTER( builder, BuildBone, army, '/effects/emitters/flashing_blue_glow_01_emit.bp' ) )
+            
         end
+        
     end
 
     -- Determine beam positioning on build cube, this should match sizes of CreateBuildCubeThread
-    local mul = 1.05
-    local ox = buildbp.SizeX or buildbp.Physics.MeshExtentsX or (buildbp.Footprint.SizeX * mul) 
-    local oz = buildbp.SizeZ or buildbp.Physics.MeshExtentsZ or (buildbp.Footprint.SizeZ * mul) 
+    local ox = buildbp.SizeX or buildbp.Physics.MeshExtentsX or (buildbp.Footprint.SizeX * 1.02) 
+    local oz = buildbp.SizeZ or buildbp.Physics.MeshExtentsZ or (buildbp.Footprint.SizeZ * 1.02) 
     local oy = buildbp.SizeY or buildbp.Physics.MeshExtentsY or ((0.5 + (ox + oz) * 0.1))
 
     ox = ox * 0.5
     oz = oz * 0.5
 
     -- Determine the the 2 closest edges of the build cube and use those for the location of laser
-    local VectorExtentsList = { Vector(x + ox, y + oy, z + oz), Vector(x + ox, y + oy, z - oz), Vector(x - ox, y + oy, z + oz), Vector(x - ox, y + oy, z - oz) }
-    local endVec1 = GetClosestVector(builder:GetPosition(), VectorExtentsList )
+    local VectorExtentsList = { {x + ox, y + oy, z + oz}, {x + ox, y + oy, z - oz}, {x - ox, y + oy, z + oz}, {x - ox, y + oy, z - oz} }
+    
+    local builderPos = GetPosition(builder)
+    
+    -- originally housed in utils
+    local function GetClosestVector()
 
-    for k,v in VectorExtentsList do
-        if(v == endVec1) then
-            LOUDREMOVE(VectorExtentsList, k)
+        local cDist, retVec
+    
+        local dist = 99999999
+    
+        for kTo, vTo in VectorExtentsList do
+    
+            cDist = VDist3Sq( builderPos, vTo )
+        
+            if cDist < dist then
+        
+                dist = cDist
+                retVec = vTo
+            
+            end 
         end
+    
+        return retVec
     end
 
-    local endVec2 = GetClosestVector(builder:GetPosition(), VectorExtentsList )
+    -- get the closest vector to the builder
+    local endVec1 = GetClosestVector()
+
+    -- remove the closest vector
+    for k,v in VectorExtentsList do
+    
+        if(v == endVec1) then
+            LOUDREMOVE(VectorExtentsList, k)
+            break
+        end
+        
+    end
+
+    -- get the 2nd closest vector
+    local endVec2 = GetClosestVector()
+    
+    VectorExtentsList = nil
+    
     local cx1 = endVec1[1]
 	local cy1 = endVec1[2]
 	local cz1 = endVec1[3]
@@ -316,12 +364,20 @@ function CreateUEFBuildSliceBeams( builder, unitBeingBuilt, BuildEffectBones, Bu
 	local cz2 = endVec2[3]
 
     #-- Determine a the velocity of our projectile, used for the scanning effect
-    local velX = 2 * (endVec2.x - endVec1.x)
-    local velY = 2 * (endVec2.y - endVec1.y)
-    local velZ = 2 * (endVec2.z - endVec1.z)
+    local velX = 2 * ( cx2 - cx1 )
+    local velY = 2 * ( cy2 - cy1 )
+    local velZ = 2 * ( cz2 - cz1 )
+    
+    local vec = VectorCached
 
-    if unitBeingBuilt:GetFractionComplete() == 0 then
-        LOUDWARP( BeamEndEntity, Vector( (cx1 + cx2) * 0.5, ((cy1 + cy2) * 0.5) - oy, (cz1 + cz2) * 0.5 ) ) 
+    if GetFractionComplete(unitBeingBuilt) == 0 then
+
+        vec[1] = (cx1 + cx2) * 0.5
+        vec[2] = (cy1 + cy2) * 0.5
+        vec[3] = (cz1 + cz2) * 0.5
+    
+        LOUDWARP( BeamEndEntity, vec ) 
+        
         WaitTicks(8)   
     end 
 
@@ -329,13 +385,27 @@ function CreateUEFBuildSliceBeams( builder, unitBeingBuilt, BuildEffectBones, Bu
 
     #-- WARP our projectile back to the initial corner and lower based on build completeness
     while not BeenDestroyed(builder) and not BeenDestroyed(unitBeingBuilt) do
+    
         if flipDirection then
-            LOUDWARP( BeamEndEntity, Vector( cx1, (cy1 - (oy * unitBeingBuilt:GetFractionComplete())), cz1 ) )
+        
+            vec[1] = cx1
+            vec[2] = cy1 - (oy * GetFractionComplete(unitBeingBuilt))
+            vec[3] = cz1
+        
+            LOUDWARP( BeamEndEntity, vec )
             BeamEndEntity:SetVelocity( velX, velY, velZ )
+            
             flipDirection = false
+            
         else
-            LOUDWARP( BeamEndEntity, Vector( cx2, (cy2 - (oy * unitBeingBuilt:GetFractionComplete())), cz2 ) )
+            
+            vec[1] = cx2
+            vec[2] = cy2 - (oy * GetFractionComplete(unitBeingBuilt))
+            vec[3] = cz2
+        
+            LOUDWARP( BeamEndEntity, vec )
             BeamEndEntity:SetVelocity( -velX, -velY, -velZ )
+            
             flipDirection = true
         end
 		
@@ -346,6 +416,7 @@ end
 function CreateUEFCommanderBuildSliceBeams( builder, unitBeingBuilt, BuildEffectBones, BuildEffectsBag )
 
     local army = builder.Sync.army
+    
     local BeamBuildEmtBp = '/effects/emitters/build_beam_01_emit.bp'
     
     local BeenDestroyed = moho.entity_methods.BeenDestroyed
@@ -353,48 +424,84 @@ function CreateUEFCommanderBuildSliceBeams( builder, unitBeingBuilt, BuildEffect
     local WaitTicks = coroutine.yield
     
     local buildbp = ALLBPS[unitBeingBuilt.BlueprintID]
-	local pos = unitBeingBuilt:GetPosition()
+
+    local vec = VectorCached
+	local pos = GetPosition(unitBeingBuilt)
+    
 	local x = pos[1]
 	local y = pos[2]
 	local z = pos[3]
+    
     y = y + (buildbp.Physics.MeshExtentsOffsetY or 0)    
 
     -- Create a projectile for the end of build effect and WARP it to the unit
     local BeamEndEntity = unitBeingBuilt:CreateProjectile('/effects/entities/UEFBuild/UEFBuild01_proj.bp',0,0,0,nil,nil,nil)
     local BeamEndEntity2 = unitBeingBuilt:CreateProjectile('/effects/entities/UEFBuild/UEFBuild01_proj.bp',0,0,0,nil,nil,nil)
+    
     BuildEffectsBag:Add( BeamEndEntity )
     BuildEffectsBag:Add( BeamEndEntity2 )
     
     -- Create build beams
     if BuildEffectBones != nil then
-        local beamEffect = nil
+
         for i, BuildBone in BuildEffectBones do
-            BuildEffectsBag:Add( LOUDATTACHBEAMENTITY( builder, BuildBone, BeamEndEntity, -1, army, BeamBuildEmtBp ) )
-            BuildEffectsBag:Add( LOUDATTACHBEAMENTITY( builder, BuildBone, BeamEndEntity2, -1, army, BeamBuildEmtBp ) )
-            BuildEffectsBag:Add( LOUDATTACHEMITTER( builder, BuildBone, army, '/effects/emitters/flashing_blue_glow_01_emit.bp' ) )                                    
+        
+            BuildEffectsBag:Add( LOUDATTACHBEAMENTITY( builder, BuildBone, BeamEndEntity, -1, army, '/effects/emitters/build_beam_01_emit.bp' ) )
+            BuildEffectsBag:Add( LOUDATTACHBEAMENTITY( builder, BuildBone, BeamEndEntity2, -1, army, '/effects/emitters/build_beam_01_emit.bp' ) )
+            BuildEffectsBag:Add( LOUDATTACHEMITTER( builder, BuildBone, army, '/effects/emitters/flashing_blue_glow_01_emit.bp' ) )
+            
         end
+        
     end
 
     -- Determine beam positioning on build cube, this should match sizes of CreateBuildCubeThread
-    local mul = 1.05
-    local ox = buildbp.SizeX or buildbp.Physics.MeshExtentsX or (buildbp.Footprint.SizeX * mul)
-    local oz = buildbp.SizeZ or buildbp.Physics.MeshExtentsZ or (buildbp.Footprint.SizeZ * mul)
+    local ox = buildbp.SizeX or buildbp.Physics.MeshExtentsX or (buildbp.Footprint.SizeX * 1.02)
+    local oz = buildbp.SizeZ or buildbp.Physics.MeshExtentsZ or (buildbp.Footprint.SizeZ * 1.02)
     local oy = buildbp.SizeY or buildbp.Physics.MeshExtentsY or ((0.5 + (ox + oz) * 0.1))
 
     ox = ox * 0.5
     oz = oz * 0.5
 
     -- Determine the the 2 closest edges of the build cube and use those for the location of our laser
-    local VectorExtentsList = { Vector(x + ox, y + oy, z + oz), Vector(x + ox, y + oy, z - oz), Vector(x - ox, y + oy, z + oz), Vector(x - ox, y + oy, z - oz) }
-    local endVec1 = GetClosestVector(builder:GetPosition(), VectorExtentsList )
+    local VectorExtentsList = { {x + ox, y + oy, z + oz}, {x + ox, y + oy, z - oz}, {x - ox, y + oy, z + oz}, {x - ox, y + oy, z - oz} }
+    
+    local builderPos = GetPosition(builder)
+    
+    -- originally housed in utils
+    local function GetClosestVector()
+
+        local cDist, retVec
+    
+        local dist = 99999999
+    
+        for kTo, vTo in VectorExtentsList do
+    
+            cDist = VDist3Sq( builderPos, vTo )
+        
+            if cDist < dist then
+        
+                dist = cDist
+                retVec = vTo
+            
+            end 
+        end
+    
+        return retVec
+    end
+    
+    local endVec1 = GetClosestVector()
 
     for k,v in VectorExtentsList do
+    
         if(v == endVec1) then
             LOUDREMOVE(VectorExtentsList, k)
+            break
         end
+        
     end
 
-    local endVec2 = GetClosestVector(builder:GetPosition(), VectorExtentsList )
+    local endVec2 = GetClosestVector()
+    
     local cx1 = endVec1[1]
 	local cy1 = endVec1[2]
 	local cz1 = endVec1[3]
@@ -403,13 +510,24 @@ function CreateUEFCommanderBuildSliceBeams( builder, unitBeingBuilt, BuildEffect
 	local cz2 = endVec2[3]
 
     -- Determine a the velocity of our projectile, used for the scaning effect
-    local velX = 2 * (endVec2.x - endVec1.x)
-    local velY = 2 * (endVec2.y - endVec1.y)
-    local velZ = 2 * (endVec2.z - endVec1.z)
+    local velX = 2 * ( cx2 - cx1 )
+    local velY = 2 * ( cy2 - cy1 )
+    local velZ = 2 * ( cz2 - cz1 )
 
     if GetFractionComplete(unitBeingBuilt) == 0 then
-        LOUDWARP( BeamEndEntity, Vector( cx1, cy1 - oy, cz1 ) ) 
-        LOUDWARP( BeamEndEntity2, Vector( cx2, cy2 - oy, cz2 ) )
+    
+        vec[1] = cx1
+        vec[2] = cy1 - oy
+        vec[3] = cz1
+        
+        LOUDWARP( BeamEndEntity, vec) 
+        
+        vec[1] = cx2
+        vec[2] = cy2 - oy
+        vec[3] = cz2
+        
+        LOUDWARP( BeamEndEntity2, vec )
+        
         WaitTicks(8)   
     end    
 
@@ -417,17 +535,42 @@ function CreateUEFCommanderBuildSliceBeams( builder, unitBeingBuilt, BuildEffect
 
     -- WARP our projectile back to the initial corner and lower based on build completeness
     while not BeenDestroyed(builder) and not BeenDestroyed(unitBeingBuilt) do
+    
+        local frac = GetFractionComplete(unitBeingBuilt)
+        
         if flipDirection then
-            LOUDWARP( BeamEndEntity, Vector( cx1, (cy1 - (oy * unitBeingBuilt:GetFractionComplete())), cz1 ) )
+        
+            vec[1] = cx1
+            vec[2] = cy1 - (oy * frac)
+            vec[3] = cz1
+        
+            LOUDWARP( BeamEndEntity, vec )
             BeamEndEntity:SetVelocity( velX, velY, velZ )
-            LOUDWARP( BeamEndEntity2, Vector( cx2, (cy2 - (oy * unitBeingBuilt:GetFractionComplete())), cz2 ) )
+            
+            vec[1] = cx2
+            vec[2] = cy2 - (oy * frac)
+            vec[3] = cz2
+            
+            LOUDWARP( BeamEndEntity2, vec )
             BeamEndEntity2:SetVelocity( -velX, -velY, -velZ )
+            
             flipDirection = false
+            
         else
-            LOUDWARP( BeamEndEntity, Vector( cx2, (cy2 - (oy * unitBeingBuilt:GetFractionComplete())), cz2 ) )
-            BeamEndEntity:SetVelocity( -velX, -velY, -velZ )
-            LOUDWARP( BeamEndEntity2, Vector( cx1, (cy1 - (oy * unitBeingBuilt:GetFractionComplete())), cz1 ) )
-            BeamEndEntity2:SetVelocity( velX, velY, velZ )            
+            vec[1] = cx2
+            vec[2] = cy2 - (oy * frac)
+            vec[3] = cz2
+            
+            LOUDWARP( BeamEndEntity2, vec )
+            BeamEndEntity2:SetVelocity( -velX, -velY, -velZ )
+            
+            vec[1] = cx1
+            vec[2] = cy1 - (oy * frac)
+            vec[3] = cz1
+        
+            LOUDWARP( BeamEndEntity, vec )
+            BeamEndEntity:SetVelocity( velX, velY, velZ )
+
             flipDirection = true
         end
 		
@@ -438,47 +581,55 @@ end
 
 function CreateDefaultBuildBeams( builder, unitBeingBuilt, BuildEffectBones, BuildEffectsBag )
 
-    local BeamBuildEmtBp = '/effects/emitters/build_beam_01_emit.bp'
-    local BeenDestroyed = moho.entity_methods.BeenDestroyed
+    local BeenDestroyed = BeenDestroyed
+    local LOUDWARP = LOUDWARP
     local WaitTicks = coroutine.yield
+    
+	local pos = GetPosition(unitBeingBuilt)
 
-	local pos = unitBeingBuilt:GetPosition()
-	local ox = pos[1]
-	local oy = pos[2]
-	local oz = pos[3]
-
-    local BeamEndEntity = Entity()
     local army = builder.Sync.army
-	
-	local GetRandomFloat = GetRandomFloat
-	
+    
+    local BeamEndEntity = Entity()
+
     BuildEffectsBag:Add( BeamEndEntity )
-    LOUDWARP( BeamEndEntity, Vector(ox, oy, oz))   
-   
-    local BuildBeams = {}
-    local count = 0
+    
+    LOUDWARP( BeamEndEntity, pos )
 
     -- Create build beams
     if BuildEffectBones != nil then
+    
         local beamEffect = nil
 		
         for i, BuildBone in BuildEffectBones do
-            local beamEffect = LOUDATTACHBEAMENTITY(builder, BuildBone, BeamEndEntity, -1, army, BeamBuildEmtBp )
-            count = count + 1
-            BuildBeams[count] = beamEffect
+        
+            local beamEffect = LOUDATTACHBEAMENTITY(builder, BuildBone, BeamEndEntity, -1, army, '/effects/emitters/build_beam_01_emit.bp' )
+            
             BuildEffectsBag:Add(beamEffect)
         end
+        
     end    
 
     LOUDEMITONENTITY( BeamEndEntity, builder.Sync.army, '/effects/emitters/sparks_08_emit.bp')
 	
-    local waitTime = GetRandomFloat( 0.8, 1.6 ) * 10
+    local waitTime = (1 + Random()) * 10    -- result 10 to 20
+    
+    local x,y,z
 
+    local vec = VectorCached    -- reusable table
+    
     while not BeenDestroyed(builder) and not BeenDestroyed(unitBeingBuilt) do
-        local x, y, z = builder.GetRandomOffset(unitBeingBuilt, 1 )
-        LOUDWARP( BeamEndEntity, Vector(ox + x, oy + y, oz + z))
+    
+        x, y, z = builder.GetRandomOffset(unitBeingBuilt, 1 )
+        
+        vec[1] = pos[1]+x
+        vec[2] = pos[2]+y
+        vec[3] = pos[3]+z
+        
+        LOUDWARP( BeamEndEntity, vec )
+        
         WaitTicks(waitTime)
     end
+    
 end
 
 -- effects used when building structures
@@ -489,25 +640,27 @@ function CreateAeonBuildBaseThread( unitBeingBuilt, builder, EffectsBag )
 
 	local army = builder.Sync.army
     local bp = ALLBPS[unitBeingBuilt.BlueprintID]
-	local pos = unitBeingBuilt:GetPosition()
-	
-	local x = pos[1]
-	local y = pos[2]
-	local z = pos[3]
+
+    WaitTicks(1)
+    
+    local vec = VectorCached
+	local pos = GetPosition(unitBeingBuilt)
+
+    -- Create a pool mercury that slowly draws into the build unit
+    local BuildBaseEffect = CreateProjectile( unitBeingBuilt, '/effects/entities/AeonBuildEffect/AeonBuildEffect01_proj.bp', nil, 0, 0, nil, nil, nil )
 
     local sx = bp.Physics.MeshExtentsX or bp.SizeX or bp.Footprint.SizeX * 0.5
     local sz = bp.Physics.MeshExtentsZ or bp.SizeZ or bp.Footprint.SizeZ * 0.5
     local sy = bp.Physics.MeshExtentsY or bp.SizeY or sx + sz
-
-    WaitTicks(1)
-
-    -- Create a pool mercury that slowly draws into the build unit
-    local BuildBaseEffect = CreateProjectile( unitBeingBuilt, '/effects/entities/AeonBuildEffect/AeonBuildEffect01_proj.bp', nil, 0, 0, nil, nil, nil )
 	
 	-- size the pool so that its slightly larger on the Y
     BuildBaseEffect:SetScale(sx, sy * 1.5, sz)
 	
-    LOUDWARP( BuildBaseEffect, Vector(x,y,z))
+	vec[1] = pos[1]
+	vec[2] = pos[2]
+	vec[3] = pos[3]
+	
+    LOUDWARP( BuildBaseEffect, vec )
 	
     BuildBaseEffect:SetOrientation(unitBeingBuilt:GetOrientation(), true)    
 	
@@ -530,8 +683,10 @@ function CreateAeonBuildBaseThread( unitBeingBuilt, builder, EffectsBag )
 
     -- while we are less than 95% complete, raise the model in small steps
     while not unitBeingBuilt.Dead and GetFractionComplete(unitBeingBuilt) < 0.95 do
+    
 		slider:SetGoal( 0, -sy + ( sy * GetFractionComplete(unitBeingBuilt)), 0 )
         WaitTicks(5)
+        
     end
 	
 	slider:SetGoal( 0, 0, 0 )
@@ -554,18 +709,16 @@ end
 function CreateCybranBuildBeams( builder, unitBeingBuilt, BuildEffectBones, BuildEffectsBag )
 
     local BeenDestroyed = moho.entity_methods.BeenDestroyed
+    local LOUDWARP = LOUDWARP
     local WaitTicks = coroutine.yield
 
     if BuildEffectBones then
 	
 		WaitTicks(2)    -- this delay seems to be necessary so that the position of the unit is correct
-		
-		local BeamBuildEmtBp = '/effects/emitters/build_beam_02_emit.bp'
 
-		local pos = unitBeingBuilt:GetPosition()
-		local ox = pos[1]
-		local oy = pos[2]
-		local oz = pos[3]
+        local vec = VectorCached    -- reusable table
+        
+		local pos = GetPosition(unitBeingBuilt)
 
 		local army = builder.Sync.army
 	
@@ -583,24 +736,32 @@ function CreateCybranBuildBeams( builder, unitBeingBuilt, BuildEffectBones, Buil
 			
             BuildEffectsBag:Add( beamEnd )
 			
-            LOUDWARP( beamEnd, Vector(ox, oy, oz))
+            LOUDWARP( beamEnd, pos )
 			
             LOUDEMITONENTITY( beamEnd, army, CybranBuildSparks01 )
             LOUDEMITONENTITY( beamEnd, army, CybranBuildFlash01 )
 			
-            BuildEffectsBag:Add( LOUDATTACHBEAMENTITY( builder, BuildBone, beamEnd, -1, army, BeamBuildEmtBp ) )
+            BuildEffectsBag:Add( LOUDATTACHBEAMENTITY( builder, BuildBone, beamEnd, -1, army, '/effects/emitters/build_beam_02_emit.bp' ) )
 			
         end
 		
+        local x,y,z
+        
 		-- move the beams around every 16 ticks
 		while not BeenDestroyed(builder) and not BeenDestroyed(unitBeingBuilt) do
-		
+
 			for k, v in BeamEndEntities do
 		
-				local x, y, z = builder.GetRandomOffset(unitBeingBuilt, 1 )
+				x, y, z = builder.GetRandomOffset(unitBeingBuilt, 1 )
+                
+                vec[1] = pos[1] + x
+                vec[2] = pos[2] + y
+                vec[3] = pos[3] + z
 			
 				if v and not BeenDestroyed(v) then
-					LOUDWARP( v, Vector(ox + x, oy + y, oz + z))
+                
+					LOUDWARP( v, vec )
+                    
 				end
 			
 			end
@@ -686,6 +847,7 @@ function CreateCybranEngineerBuildEffects( builder, BuildBones, BuildBots, Build
         local i = 1
 		
         for _, vBot in BuildBots do
+        
             if not vBot or BeenDestroyed(vBot) then
                 continue
             end
@@ -737,12 +899,19 @@ function CreateAeonConstructionUnitBuildingEffects( builder, unitBeingBuilt, Bui
     BuildEffectsBag:Add( LOUDEMITONENTITY(builder, builder.Sync.army,'/effects/emitters/aeon_build_01_emit.bp') )
 
     local beamEnd = Entity()
+    
     BuildEffectsBag:Add(beamEnd)
-    LOUDWARP( beamEnd, unitBeingBuilt:GetPosition() )
+    
+    LOUDWARP( beamEnd, GetPosition(unitBeingBuilt) )
+    
+    local beamEffect
 
     for _, v in AeonBuildBeams01 do
-		local beamEffect = LOUDATTACHBEAMENTITY(builder, 0, beamEnd, -1, builder.Sync.army, v )
+    
+		beamEffect = LOUDATTACHBEAMENTITY(builder, 0, beamEnd, -1, builder.Sync.army, v )
+        
 		beamEffect:SetEmitterParam( 'POSITION_Z', 0.45 )
+        
 		BuildEffectsBag:Add(beamEffect)
 	end
 end
@@ -750,14 +919,21 @@ end
 function CreateAeonCommanderBuildingEffects( builder, unitBeingBuilt, BuildEffectBones, BuildEffectsBag )
 
     local beamEnd = Entity()
+    
     BuildEffectsBag:Add(beamEnd)
-    LOUDWARP( beamEnd, unitBeingBuilt:GetPosition() )
+    
+    LOUDWARP( beamEnd, GetPosition(unitBeingBuilt) )
+    
+    local beamEffect
 
     for _, vBone in BuildEffectBones do
+    
 		BuildEffectsBag:Add( LOUDATTACHEMITTER( builder, vBone, builder.Sync.army, '/effects/emitters/aeon_build_02_emit.bp' ) )
 
     	for _, v in AeonBuildBeams01 do
-			local beamEffect = LOUDATTACHBEAMENTITY(builder, vBone, beamEnd, -1, builder.Sync.army, v )
+        
+			beamEffect = LOUDATTACHBEAMENTITY(builder, vBone, beamEnd, -1, builder.Sync.army, v )
+            
 			BuildEffectsBag:Add(beamEffect)
 		end
 	end
@@ -780,98 +956,47 @@ function CreateAeonFactoryBuildingEffects( builder, unitBeingBuilt, BuildEffectB
     local sz = bp.Physics.MeshExtentsZ or bp.SizeZ or bp.Footprint.SizeZ
     local sy = bp.Physics.MeshExtentsY or bp.SizeY or sx + sz
 
-    -- Create a pool mercury that slowly draws into the build unit
-    --local BuildBaseEffect = CreateProjectile( unitBeingBuilt, '/effects/entities/AeonBuildEffect/AeonBuildEffect01_proj.bp', 0, 0, 1, nil, nil, nil )
-	
-    --BuildBaseEffect:SetScale(sx, 1, sz)
-    --LOUDWARP( BuildBaseEffect, Vector( x, y + 0.05 ,z ))
-	
-	--LOG("*AI DEBUG AeonFactoryBuildingEffects says "..repr( {x,y,z} ).."  unit is at "..repr(unitBeingBuilt:GetPosition()).."  Factory is at "..repr(builder.CachePosition) )
-	
-    --unitBeingBuilt.Trash:Add(BuildBaseEffect)
-    --EffectsBag:Add(BuildBaseEffect)
-
-    --LOUDEMITONENTITY(BuildBaseEffect, builder.Sync.army, '/effects/emitters/aeon_being_built_ambient_02_emit.bp')
-    --:SetEmitterCurveParam('X_POSITION_CURVE', 0, sx * 1.5)
-    --:SetEmitterCurveParam('Z_POSITION_CURVE', 0, sz * 1.5)
-    
-    --LOUDEMITONENTITY(BuildBaseEffect, builder.Sync.army, '/effects/emitters/aeon_being_built_ambient_03_emit.bp')
-    --:ScaleEmitter( (sx + sz) * 0.3 )    
-
     for _, vBone in BuildEffectBones do
 		
 		if EffectsBag then
+        
+            local beamEffect
 		
 			EffectsBag:Add( LOUDATTACHEMITTER( builder, vBone, army, '/effects/emitters/aeon_build_03_emit.bp' ) )
 		
 			for _, vBeam in AeonBuildBeams02 do
 			
-				local beamEffect = LOUDATTACHBEAMENTITY(builder, vBone, builder, BuildBone, army, vBeam )
+				beamEffect = LOUDATTACHBEAMENTITY(builder, vBone, builder, BuildBone, army, vBeam )
 				
 				EffectsBag:Add(beamEffect)
 				
 			end
-			
 		end
 	end
 
-	-- create a slider that will govern the Y value of the units position
---    local slider = CreateSlider( unitBeingBuilt, 0 )
-	
-    --unitBeingBuilt.Trash:Add(slider)
-    --EffectsBag:Add(slider)    
-	
---    slider:SetWorldUnits(true)
-	
-	-- bury the unit underground
-    --slider:SetGoal(0, -sy, 0)
-    --slider:SetSpeed(-1)
-    --WaitFor(slider)
-	
-	-- set the slider move up now
-	--slider:SetSpeed(1)
-	
-	-- set the slider goal to bring the unit to the surface
-	-- at a rate of .05 units per what ? tick ? second ? this is not very clear
-	-- the problem here is that the actual progress of the unit has nothing to do with this
-	-- so more expensive units will look 'almost' finished when they aren't even close and
-	-- really cheap units will go from almost nothing visible to practically complete in short order
---    if not unitBeingBuilt.Dead then 
-  --      slider:SetGoal(0,0,0)
-  --      slider:SetSpeed(.05)
---    end
-
-    -- Wait till we are 80% done building
-	--repeat
---		slider:SetGoal( 0, -sy + ( sy * GetFractionComplete(unitBeingBuilt)), 0 )
-		--LOG("*AI DEBUG Slider Y is now "..repr( -sy + ( sy * GetFractionComplete(unitBeingBuilt))))
-		--WaitTicks(5)
-	
-    --until unitBeingBuilt.Dead or GetFractionComplete(unitBeingBuilt) > 0.8
-	
-	--BuildBaseEffect:SetScaleVelocity(-0.2, -0.2, -0.2)    
-
     repeat
-		--slider:SetGoal( 0, -sy + ( sy * GetFractionComplete(unitBeingBuilt)), 0 )
 
-		--LOG("*AI DEBUG Slider Y is now "..repr( -sy + ( sy * GetFractionComplete(unitBeingBuilt))))
 	    WaitTicks(5)
 		
 	until unitBeingBuilt.Dead or GetFractionComplete(unitBeingBuilt) == 1
-	
-    --slider:Destroy()
-    --BuildBaseEffect:Destroy()
+
 end
 
 
 function CreateSeraphimUnitEngineerBuildingEffects( builder, unitBeingBuilt, BuildEffectBones, BuildEffectsBag )
+
 	local army = builder.Sync.army
 
     for _, vBone in BuildEffectBones do
+    
 		BuildEffectsBag:Add( LOUDATTACHEMITTER( builder, vBone, army, '/effects/emitters/seraphim_build_01_emit.bp' ) )
+        
+        local beamEffect
 
     	for _, v in SeraphimBuildBeams01 do
-			local beamEffect = LOUDATTACHBEAMENTITY(builder, vBone, unitBeingBuilt, -1, army, v )
+        
+			beamEffect = LOUDATTACHBEAMENTITY(builder, vBone, unitBeingBuilt, -1, army, v )
+            
 			BuildEffectsBag:Add(beamEffect)
 		end
 	end
@@ -960,17 +1085,20 @@ end
 
 function CreateSeraphimBuildBaseThread( unitBeingBuilt, builder, EffectsBag )
 
+    local WaitTicks = coroutine.yield
+    
     local army = builder.Sync.army
     local bp = ALLBPS[unitBeingBuilt.BlueprintID]
     
+    local vec = VectorCached
 	local pos = unitBeingBuilt:GetPosition()
+    
 	local x = pos[1]
 	local y = pos[2]
 	local z = pos[3]
 
-    local mul = 0.5
-    local sx = bp.Physics.MeshExtentsX or bp.SizeX or bp.Footprint.SizeX * mul
-    local sz = bp.Physics.MeshExtentsZ or bp.SizeZ or bp.Footprint.SizeZ * mul
+    local sx = bp.Physics.MeshExtentsX or bp.SizeX or bp.Footprint.SizeX * 0.5
+    local sz = bp.Physics.MeshExtentsZ or bp.SizeZ or bp.Footprint.SizeZ * 0.5
     local sy = bp.Physics.MeshExtentsY or bp.SizeY or sx + sz
 
     WaitTicks(1)
@@ -979,13 +1107,14 @@ function CreateSeraphimBuildBaseThread( unitBeingBuilt, builder, EffectsBag )
 	
     BuildBaseEffect:SetScale(sx, 1, sz)
     BuildBaseEffect:SetOrientation( unitBeingBuilt:GetOrientation(), true)    
-    LOUDWARP( BuildBaseEffect, Vector(x,y,z))
+    
+    LOUDWARP( BuildBaseEffect, pos )
+    
     unitBeingBuilt.Trash:Add(BuildBaseEffect)
+    
     EffectsBag:Add(BuildBaseEffect)
 
-    local BuildEffectBaseEmitters = {
-        '/effects/emitters/seraphim_being_built_ambient_01_emit.bp',
-    }
+    local BuildEffectBaseEmitters = {'/effects/emitters/seraphim_being_built_ambient_01_emit.bp'}
 
     local BuildEffectsEmitters = {
         '/effects/emitters/seraphim_being_built_ambient_02_emit.bp',
@@ -1051,20 +1180,24 @@ function CreateSeraphimBuildBaseThread( unitBeingBuilt, builder, EffectsBag )
     end
 
     unitBeingBuilt:CreateTarmac(true, true, true, false, false)
+    
     WaitTicks(5)
+    
     BuildBaseEffect:Destroy()
 end
 
 function CreateSeraphimExperimentalBuildBaseThread( unitBeingBuilt, builder, EffectsBag )
+
     local bp = ALLBPS[unitBeingBuilt.BlueprintID]
-	local pos = unitBeingBuilt:GetPosition()
+    
+	local pos = GetPosition(unitBeingBuilt)
+    
 	local x = pos[1]
 	local y = pos[2]
 	local z = pos[3]
 
-    local mul = 0.5
-    local sx = bp.Physics.MeshExtentsX or bp.Footprint.SizeX * mul
-    local sz = bp.Physics.MeshExtentsZ or bp.Footprint.SizeZ * mul
+    local sx = bp.Physics.MeshExtentsX or bp.Footprint.SizeX * 0.5
+    local sz = bp.Physics.MeshExtentsZ or bp.Footprint.SizeZ * 0.5
     local sy = bp.Physics.MeshExtentsY or sx + sz
 
     WaitTicks(1)
@@ -1072,14 +1205,14 @@ function CreateSeraphimExperimentalBuildBaseThread( unitBeingBuilt, builder, Eff
     local BuildBaseEffect = CreateProjectile( unitBeingBuilt, '/effects/entities/SeraphimBuildEffect01/SeraphimBuildEffect01_proj.bp', nil, 0, 0, nil, nil, nil )
 	
     BuildBaseEffect:SetScale(sx, 1, sz)
-    BuildBaseEffect:SetOrientation( unitBeingBuilt:GetOrientation(), true)    
-    LOUDWARP( BuildBaseEffect, Vector(x,y,z))
+    BuildBaseEffect:SetOrientation( unitBeingBuilt:GetOrientation(), true)
+    
+    LOUDWARP( BuildBaseEffect, pos )
+    
     unitBeingBuilt.Trash:Add(BuildBaseEffect)
     EffectsBag:Add(BuildBaseEffect)
 
-    local BuildEffectBaseEmitters = {
-        '/effects/emitters/seraphim_being_built_ambient_01_emit.bp',
-    }
+    local BuildEffectBaseEmitters = {'/effects/emitters/seraphim_being_built_ambient_01_emit.bp'}
 
     local BuildEffectsEmitters = {
         '/effects/emitters/seraphim_being_built_ambient_02_emit.bp',
@@ -1292,7 +1425,7 @@ function CreateCybranQuantumGateEffect( unit, bone1, bone2, TrashBag, startwaitS
     LOUDWARP( BeamEndEntity, pos2)    
 
     -- Create beam effect
-    TrashBag:Add(LOUDATTACHBEAMENTITY(BeamStartEntity, -1, BeamEndEntity, -1, unit.Sync.army, BeamEmtBp ))
+    TrashBag:Add(LOUDATTACHBEAMENTITY(BeamStartEntity, -1, BeamEndEntity, -1, unit.Sync.army, '/effects/emitters/cybran_gate_beam_01_emit.bp' ))
 
     -- Determine a the velocity of our projectile, used for the scaning effect
     local velY = 1

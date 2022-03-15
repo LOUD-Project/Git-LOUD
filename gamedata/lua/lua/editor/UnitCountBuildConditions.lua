@@ -40,7 +40,7 @@ local LOUDTYPE = type
 
 local MATHMAX = math.max
 
-local Vector = Vector
+local VectorCached = { 0, 0, 0 }
 
 function PreBuiltBase(aiBrain)
 	return aiBrain.PreBuilt
@@ -298,15 +298,15 @@ function UnitsGreaterAtLocationInRange( aiBrain, locationType, unitCount, testCa
 end
 
 function HaveGreaterThanUnitsWithCategoryAndAlliance(aiBrain, numReq, testCat, alliance)
-	return GetNumUnitsAroundPoint( aiBrain, testCat, Vector(0,0,0), 999999, alliance ) > numReq
+	return GetNumUnitsAroundPoint( aiBrain, testCat, VectorCached, 999999, alliance ) > numReq
 end
 
 function HaveLessThanUnitsWithCategoryAndAlliance(aiBrain, numReq, testCat, alliance)
-	return GetNumUnitsAroundPoint( aiBrain, testCat, Vector(0,0,0), 999999, alliance ) < numReq
+	return GetNumUnitsAroundPoint( aiBrain, testCat, VectorCached, 999999, alliance ) < numReq
 end
 
 function HaveLessThanUnitsWithCategoryAndAllianceInRange(aiBrain, numReq, testCat, alliance, range)
-	return GetNumUnitsAroundPoint( aiBrain, testCat, Vector(0,0,0), range, alliance ) < numReq
+	return GetNumUnitsAroundPoint( aiBrain, testCat, VectorCached, range, alliance ) < numReq
 end
 
 function PoolLess( aiBrain, unitCount, testCat)

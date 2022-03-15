@@ -25,7 +25,9 @@ local LOUDFLOOR = math.floor
 
 local EntityCategoryCount = EntityCategoryCount
 local ForkThread = ForkThread
-local Vector = Vector
+
+local VectorCached = { 0, 0, 0 }
+
 local WaitSeconds = WaitSeconds
 local WaitTicks = coroutine.yield
 local VDist2Sq = VDist2Sq
@@ -116,7 +118,7 @@ function HaveGreaterThanUnitsWithCategory(aiBrain, numReq, testCat, idleReq)
 end
 
 function HaveGreaterThanUnitsWithCategoryAndAlliance(aiBrain, numReq, testCat, alliance)
-	return GetNumUnitsAroundPoint( aiBrain, testCat, Vector(0,0,0), 999999, alliance ) > numReq
+	return GetNumUnitsAroundPoint( aiBrain, testCat, VectorCached, 999999, alliance ) > numReq
 end
 
 function HaveLessThanUnitsWithCategory(aiBrain, numReq, testCat, idleReq)
@@ -342,7 +344,7 @@ end
 function TeamMassPointShare( aiBrain, bool )
 
     -- the Extractor count is increased by the AIMult so we trigger this earlier than the count would indicate
-	local TeamExtractors = LOUDGETN(aiBrain:GetUnitsAroundPoint( categories.MASSEXTRACTION, Vector(0,0,0), 9999, 'Ally' )) * aiBrain.VeterancyMult
+	local TeamExtractors = LOUDGETN(aiBrain:GetUnitsAroundPoint( categories.MASSEXTRACTION, VectorCached, 9999, 'Ally' )) * aiBrain.VeterancyMult
     
 	local TeamNeeded = aiBrain.MassPointShare * aiBrain.TeamSize
 	
@@ -366,7 +368,7 @@ end
 -- modified this so that T1 mass extractors DONT count
 function NeedTeamMassPointShare( aiBrain )
 
-	local TeamExtractors = LOUDGETN(aiBrain:GetUnitsAroundPoint( categories.MASSEXTRACTION - categories.TECH1, Vector(0,0,0), 9999, 'Ally' )) * aiBrain.VeterancyMult
+	local TeamExtractors = LOUDGETN(aiBrain:GetUnitsAroundPoint( categories.MASSEXTRACTION - categories.TECH1, VectorCached, 9999, 'Ally' )) * aiBrain.VeterancyMult
     
 	local TeamNeeded = aiBrain.MassPointShare * aiBrain.TeamSize
 
