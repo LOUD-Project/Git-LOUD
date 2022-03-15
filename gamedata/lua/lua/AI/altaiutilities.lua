@@ -96,8 +96,12 @@ function AssistBody(self, eng, aiBrain)
 
 			-- we'll use the base position rather than the engineer --
 			platoonPos = aiBrain.BuilderManagers[locationType].Position or false
-			
-            LOUDSORT(assistList, function(a,b) return VDist3Sq( GetPosition(a), platoonPos ) < VDist3Sq( GetPosition(b), platoonPos ) end )
+        
+            local function DOSORT(a,b)
+                return VDist3Sq( GetPosition(a), platoonPos) < VDist3Sq( GetPosition(b), platoonPos)
+            end
+ 			
+            LOUDSORT( assistList, DOSORT )
 
             for _,v in assistList do
 			
