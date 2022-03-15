@@ -1,0 +1,16 @@
+UnitBlueprint {
+
+    Merge = true,
+    BlueprintId = "uab5103",
+
+    Categories = {
+        'AEON',
+        'STRUCTURE',
+        'TECH3',
+        'SIZE4',
+        'ANTIARTILLERY',
+        'TELEPORTBEACON',
+        'VISIBLETORECON',
+		'INSIGNIFICANTUNIT',
+    },
+}

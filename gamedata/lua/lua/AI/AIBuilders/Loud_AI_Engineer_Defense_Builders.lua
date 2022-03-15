@@ -805,6 +805,38 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction',
         }
     },
 
+	Builder {BuilderName = 'Shield Augmentations',
+    
+        PlatoonTemplate = 'EngineerBuilder',
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+        
+        Priority = 745,
+		
+		InstanceCount = 2,
+        
+        BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .75 } },
+            
+            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},			
+            
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.05, 1.1 }},
+            
+			{ UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 10, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY, 0,45 }},
+        },
+		
+        BuilderType = {'T3','SubCommander'},
+		
+        BuilderData = {
+            Construction = {
+				NearBasePerimeterPoints = true,
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
+				BaseTemplate = 'ShieldLayout',
+                
+                BuildStructures = {'EnergyStorage'},
+            }
+        }
+    },
+
     Builder {BuilderName = 'T3 Artillery Defense Shield - UEF',
 	
         PlatoonTemplate = 'EngineerBuilder',
@@ -932,39 +964,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction',
             }
         }
     },
-
-	Builder {BuilderName = 'Shield Augmentations',
-    
-        PlatoonTemplate = 'EngineerBuilder',
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-        
-        Priority = 745,
-		
-		InstanceCount = 2,
-        
-        BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .75 } },
-            
-            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},			
-            
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.05, 1.1 }},
-            
-			{ UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 10, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY, 0,45 }},
-        },
-		
-        BuilderType = {'T3','SubCommander'},
-		
-        BuilderData = {
-            Construction = {
-				NearBasePerimeterPoints = true,
-				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
-				BaseTemplate = 'ShieldLayout',
-                
-                BuildStructures = {'EnergyStorage'},
-            }
-        }
-    },
-
 }
 
 BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS',
@@ -1167,7 +1166,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Shield Construction - LOUD_IS',
             }
         }
     },
-    
 }
 
 BuilderGroup {BuilderGroupName = 'Engineer T4 Shield Construction',
