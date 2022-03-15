@@ -127,7 +127,7 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval',
         },
     },
 	
-    Builder {BuilderName = 'T2 Sub - UEF',	-- UEF Torpedo Boat
+    Builder {BuilderName = 'T2 Sub - UEF',
 	
         PlatoonTemplate = 'T2SeaSub',
 		
@@ -140,10 +140,10 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval',
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .95 } },
 
-            { LUTL, 'HaveLessThanUnitsWithCategory', { 70, (categories.xes0102 + categories.SUBMARINE) * categories.NAVAL }},
+            { LUTL, 'HaveLessThanUnitsWithCategory', { 70, (categories.SUBMARINE + categories.xes0102) * categories.NAVAL }},
 
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 18, (categories.SUBMARINE + categories.xes0102) }},
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, (categories.SUBMARINE + categories.xes0102), categories.NAVAL - categories.TECH1 }},			
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 3, (categories.SUBMARINE + categories.xes0102), categories.NAVAL - categories.TECH1 }},			
         },
     },
 	
@@ -206,7 +206,7 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval',
             { LUTL, 'HaveLessThanUnitsWithCategory', { 70, categories.SUBMARINE * categories.NAVAL }},
 
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 18, categories.SUBMARINE } },			
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.SUBMARINE, categories.NAVAL - categories.TECH1 }},			
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 3, categories.SUBMARINE, categories.NAVAL - categories.TECH1 }},			
         },
     },
 

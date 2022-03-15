@@ -204,7 +204,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
         BuilderConditions = {
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
 
-            { LUTL, 'PoolGreater', { 6, categories.SUBMARINE + categories.xes0102 }},
+            --{ LUTL, 'PoolGreater', { 6, categories.SUBMARINE + categories.xes0102 }},
             
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.DESTROYER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, categories.CRUISER }},
@@ -400,13 +400,13 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
             
             { LUTL, 'PoolGreater', { 0, categories.BATTLESHIP }},
-            { LUTL, 'PoolGreater', { 6, categories.SUBMARINE + categories.xes0102 }},
+            --{ LUTL, 'PoolGreater', { 6, categories.SUBMARINE + categories.xes0102 }},
             
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.BATTLESHIP}},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.DESTROYER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.CRUISER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.FRIGATE }},			
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},
+			--{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.DEFENSIVEBOAT }},
         },
 		
