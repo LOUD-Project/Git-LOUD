@@ -79,9 +79,8 @@ SAirFactoryUnit = Class(FactoryUnit) {
         if EntityCategoryContains( categories.AIR, self.UnitBeingBuilt ) then
 		
             local spin, x, y, z = self:CalculateRollOffPoint()
-            local units = { self.UnitBeingBuilt }
 			
-            self.MoveCommand = IssueMove(units, Vector(x, y, z))
+            self.MoveCommand = IssueMove( {self.UnitBeingBuilt}, Vector(x, y, z))
         end
     end,
 

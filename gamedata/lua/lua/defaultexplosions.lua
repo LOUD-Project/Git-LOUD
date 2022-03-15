@@ -126,7 +126,7 @@ function CreateScalableUnitExplosion( unit, overKillRatio )
 	if not BeenDestroyed(unit) then
 	
 		if IsUnit(unit) then 
-			ForkThread( _CreateScalableUnitExplosion, CreateUnitExplosionEntity( unit, overKillRatio, unit.Sync.army, unit:GetPosition() ))
+			ForkThread( _CreateScalableUnitExplosion, CreateUnitExplosionEntity( unit, overKillRatio, unit.Sync.army, GetPosition(unit) ))
 		end
 		
     end
@@ -200,7 +200,7 @@ function CreateUnitExplosionEntity( unit, overKillRatio, army, pos )
 
     local localentity = Entity(MakeExplosionEntitySpec( unit, overKillRatio, army ))
 
-    Warp( localentity, pos or unit:GetPosition())
+    Warp( localentity, pos or GetPosition(unit))
 	
     return localentity
 end

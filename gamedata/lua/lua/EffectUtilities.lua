@@ -116,8 +116,11 @@ function CreateBoneEffectsOffset( obj, bone, army, EffectTable, x, y, z )
 end
 
 function CreateBoneTableEffects( obj, BoneTable, army, EffectTable )
+
+    local LOUDINSERT = table.insert
 	
     for _, vBone in BoneTable do
+    
         for _, vEffect in EffectTable do
             LOUDINSERT(emitters,LOUDEMITATBONE( obj, vBone, army, vEffect ))
         end
@@ -167,24 +170,21 @@ function CreateBuildCubeThread( unitBeingBuilt, builder, OnBeingBuiltEffectsBag 
     local WaitTicks = coroutine.yield
 	
     local bp = ALLBPS[unitBeingBuilt.BlueprintID]
-	local pos = unitBeingBuilt:GetPosition()
-	
-    local xPos = pos[1]
-	local yPos = pos[2]
-	local zPos = pos[3]
+    
+	local pos = GetPosition(unitBeingBuilt)
+    
     local proj, slice = nil
-	
-    yPos = yPos + (bp.Physics.MeshExtentsOffsetY or 0)
 
-    local x = bp.Physics.MeshExtentsX or bp.SizeX or (bp.Footprint.SizeX * 1.05) 
-    local z = bp.Physics.MeshExtentsZ or bp.SizeZ or (bp.Footprint.SizeZ * 1.05) 
+    local x = bp.Physics.MeshExtentsX or bp.SizeX or (bp.Footprint.SizeX * 1.02) 
+    local z = bp.Physics.MeshExtentsZ or bp.SizeZ or (bp.Footprint.SizeZ * 1.02) 
     local y = bp.Physics.MeshExtentsY or bp.SizeY or (0.5 + (x + z) * 0.1) 
 
     local SlicePeriod = 1.5
     
     -- Create a quick glow effect at location where unit is goig to be built
     proj = unitBeingBuilt:CreateProjectile('/effects/Entities/UEFBuildEffect/UEFBuildEffect02_proj.bp',0,0,0, nil, nil, nil )
-    proj:SetScale(x * 1.05, y * 0.2, z * 1.05)
+    proj:SetScale(x * 1.02, y * 0.2, z * 1.02)
+    
     WaitTicks(1)
 	
     if unitBeingBuilt.Dead then
@@ -271,20 +271,18 @@ end
 function CreateUEFBuildSliceBeams( builder, unitBeingBuilt, BuildEffectBones, BuildEffectsBag )
 
     local army = builder.Sync.army
-    local BeamBuildEmtBp = '/effects/emitters/build_beam_01_emit.bp'
     
     local BeenDestroyed = moho.entity_methods.BeenDestroyed
+    
     local WaitTicks = coroutine.yield
     
     local buildbp = ALLBPS[unitBeingBuilt.BlueprintID]
-
-	local pos = unitBeingBuilt:GetPosition()
+    
+	local pos = GetPosition(unitBeingBuilt)
 
 	local x = pos[1]
-	local y = pos[2]
+	local y = pos[2] + (buildbp.Physics.MeshExtentsOffsetY or 0)
 	local z = pos[3]
-    
-    y = y + (buildbp.Physics.MeshExtentsOffsetY or 0)    
 
     -- Create a projectile for the end of build effect and WARP it to the unit
     local BeamEndEntity = unitBeingBuilt:CreateProjectile('/effects/entities/UEFBuild/UEFBuild01_proj.bp',0,0,0,nil,nil,nil)
@@ -777,18 +775,18 @@ function SpawnBuildBots( builder, unitBeingBuilt, numBots,  BuildEffectsBag )
 
     local army = builder.Sync.army
 	
-	local pos = builder:GetPosition()
+	local pos = GetPosition(builder)
+    
 	local x = pos[1]
 	local y = pos[2]
 	local z = pos[3]
 
 	pos = builder:GetOrientation()
+    
 	local qx = pos[1]
 	local qy = pos[2]
 	local qz = pos[3]
 	local qw = pos[4]
-
-    local angle = (2*LOUDPI) / numBots
 
     local xVec = 0
     local yVec = ALLBPS[builder.BlueprintID].SizeY * 0.5
@@ -798,6 +796,13 @@ function SpawnBuildBots( builder, unitBeingBuilt, numBots,  BuildEffectsBag )
 	local counter = 1
 	
     local tunit = nil
+    
+    local LOUDCOS = math.cos
+    local LOUDSIN = math.sin
+    
+    local LOUDPI = math.pi
+    
+    local angle = (2*LOUDPI) / numBots
 
     for i = 0, (numBots - 1) do
 	
@@ -1009,33 +1014,41 @@ function CreateSeraphimFactoryBuildingEffects( builder, unitBeingBuilt, BuildEff
 
     local bp = ALLBPS[unitBeingBuilt.BlueprintID]
     local army = builder.Sync.army
+    
 	local pos = builder:GetPosition(BuildBone)
+    
 	local x = pos[1]
 	local y = pos[2]
 	local z = pos[3]
 
-    local mul = 1
-    local sx = bp.Physics.MeshExtentsX or bp.SizeX or bp.Footprint.SizeX * mul
-    local sz = bp.Physics.MeshExtentsZ or bp.SizeZ or bp.Footprint.SizeZ * mul
+    local sx = bp.Physics.MeshExtentsX or bp.SizeX or bp.Footprint.SizeX
+    local sz = bp.Physics.MeshExtentsZ or bp.SizeZ or bp.Footprint.SizeZ
     local sy = bp.Physics.MeshExtentsY or bp.SizeY or sx + sz
 
     -- Create a seraphim whispy cloud effect that swirls around the build unit
     local BuildBaseEffect = CreateProjectile( unitBeingBuilt, '/effects/entities/SeraphimBuildEffect01/SeraphimBuildEffect01_proj.bp', nil, 0, 0, nil, nil, nil )
 	
     BuildBaseEffect:SetScale(sx, 1, sz)
-    BuildBaseEffect:SetOrientation( unitBeingBuilt:GetOrientation(), true)    
-    LOUDWARP( BuildBaseEffect, Vector(x,y-0.05,z))
+    BuildBaseEffect:SetOrientation( unitBeingBuilt:GetOrientation(), true)
+    
+    LOUDWARP( BuildBaseEffect, pos )
+    
     unitBeingBuilt.Trash:Add(BuildBaseEffect)
+    
     EffectsBag:Add(BuildBaseEffect)
 
     for _, vBone in BuildEffectBones do
+    
 		EffectsBag:Add( LOUDATTACHEMITTER( builder, vBone, army, '/effects/emitters/seraphim_build_01_emit.bp' ) )
+        
 		for _, vBeam in SeraphimBuildBeams01 do
+        
 			EffectsBag:Add(LOUDATTACHBEAMENTITY(builder, vBone, unitBeingBuilt, -1, army, vBeam ))
 			EffectsBag:Add(LOUDATTACHEMITTER( unitBeingBuilt, -1, army, '/effects/emitters/seraphim_being_built_ambient_02_emit.bp'))
 			EffectsBag:Add(LOUDATTACHEMITTER( unitBeingBuilt, -1, army, '/effects/emitters/seraphim_being_built_ambient_03_emit.bp'))			
 			EffectsBag:Add(LOUDATTACHEMITTER( unitBeingBuilt, -1, army, '/effects/emitters/seraphim_being_built_ambient_04_emit.bp'))						
 			EffectsBag:Add(LOUDATTACHEMITTER( unitBeingBuilt, -1, army, '/effects/emitters/seraphim_being_built_ambient_05_emit.bp'))				
+            
 		end
 	end
 

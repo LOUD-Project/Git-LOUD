@@ -215,7 +215,8 @@ SLaanseTacticalMissile = Class(SinglePolyTrailProjectile) {
 
     OnCreate = function(self)
         SinglePolyTrailProjectile.OnCreate(self)
-        self:SetCollisionShape('Sphere', 0, 0, 0, 1.0)
+        
+        SetCollisionShape( self, 'Sphere', 0, 0, 0, 1.0)
     end,
 }
 
@@ -302,7 +303,7 @@ SShleoAACannon = Class(EmitterProjectile) {
     OnCreate = function(self)
         EmitterProjectile.OnCreate(self)
 		
-        local PolytrailGroup = self.PolyTrails[RandomInt(1,table.getn( self.PolyTrails ))]
+        local PolytrailGroup = self.PolyTrails[RandomInt(1, LOUDGETN( self.PolyTrails ))]
 
         for k, v in PolytrailGroup do
             CreateTrail(self, -1, self.Army, v )
@@ -358,7 +359,9 @@ SAnaitTorpedo = Class(MultiPolyTrailProjectile) {
     PolyTrailOffset =		{0,0},
     
     OnCreate = function(self, inWater)
-        self:SetCollisionShape('Sphere', 0, 0, 0, 1.0)
+    
+        SetCollisionShape( self, 'Sphere', 0, 0, 0, 1.0)
+        
         MultiPolyTrailProjectile.OnCreate(self, inWater)
     end,
 }
@@ -375,7 +378,9 @@ SHeavyCavitationTorpedo = Class(MultiPolyTrailProjectile) {
     PolyTrailOffset =		{0,0},	
 
     OnCreate = function(self, inWater)
-        self:SetCollisionShape('Sphere', 0, 0, 0, 1.0)
+    
+        SetCollisionShape( self, 'Sphere', 0, 0, 0, 1.0)
+        
         MultiPolyTrailProjectile.OnCreate(self, inWater)
     end,
 }
@@ -390,7 +395,9 @@ SUallCavitationTorpedo = Class(SinglePolyTrailProjectile) {
     PolyTrail =				EffectTemplate.SUallTorpedoPolyTrail,
     
     OnCreate = function(self, inWater)
-        self:SetCollisionShape('Sphere', 0, 0, 0, 1.0)
+    
+        SetCollisionShape( self, 'Sphere', 0, 0, 0, 1.0)
+        
         SinglePolyTrailProjectile.OnCreate(self, inWater)
     end,
 }
@@ -526,7 +533,8 @@ SAnjelluTorpedoDefenseProjectile = Class(MultiPolyTrailProjectile) {
 	
     OnCreate = function(self, inWater)
 	
-        self:SetCollisionShape('Sphere', 0, 0, 0, 1.0)
+        SetCollisionShape( self, 'Sphere', 0, 0, 0, 1.0 )
+        
         EmitterProjectile.OnCreate(self, inWater)
 		
     end,    

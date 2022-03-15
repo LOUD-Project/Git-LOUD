@@ -62,7 +62,7 @@ BrainConditionsMonitor = Class {
             self.ConditionData[cFilename][cFunctionName] = {}
         end
         
-        local LOUDEQUAL = table.equal
+        local LOUDEQUAL = LOUDEQUAL
         
         -- Check if the cData matches up to an existing function --
         for _,index in self.ConditionData[cFilename][cFunctionName] do
@@ -243,7 +243,7 @@ Condition = Class {
     end,
 
 	SetStatus = function(self,brain)
-    
+        
         local elements = self.FunctionDataElements
         local filename = self.Filename
         local funcname = self.FunctionName

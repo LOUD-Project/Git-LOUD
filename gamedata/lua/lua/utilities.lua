@@ -30,6 +30,7 @@ function GetEnemyUnitsInSphere(unit, position, radius)
 	
 	local GetArmy = moho.entity_methods.GetArmy
 	local GetPosition = moho.entity_methods.GetPosition
+    local VDist2Sq = VDist2Sq
 	
 	local RadEntities = {}
 	local counter = 0
@@ -79,9 +80,10 @@ function NormalizeVector( v )
 		v = {v.x, v.y, v.z}
 	end
 	
-    local length = LOUDSQRT( math.pow( v[1], 2 ) + math.pow( v[2], 2 ) + math.pow(v[3], 2 ) )
+    local length = LOUDSQRT( LOUDPOW( v[1], 2 ) + LOUDPOW( v[2], 2 ) + LOUDPOW(v[3], 2 ) )
 	
     if length > 0 then
+    
         local invlength = 1 / length
         return Vector( v[1] * invlength, v[2] * invlength, v[3] * invlength )
     else
@@ -99,7 +101,7 @@ end
 
 function GetDirectionInDegrees( v1, v2 )
 
-	local vec = GetDirectionVector( v1, v2)
+	local vec = NormalizeVector( Vector(v1[1] - v2[1], v1[2] - v2[2], v1[3] - v2[3]) )  --GetDirectionVector( v1, v2)
 	
 	if vec[1] >= 0 then
 		return LOUDACOS(vec[3]) * (360/(LOUDPI*2))
@@ -134,18 +136,25 @@ function GetRandomOffset( sx, sy, sz, scalar )
 end
 
 function GetClosestVector( vFrom, vToList )
+
     local dist, cDist, retVec = 0
+    local VDist3Sq = VDist3Sq
+    
     if( vToList ) then
-        dist = VDist3( vFrom, vToList[1] )
+        dist = VDist3Sq( vFrom, vToList[1] )
         retVec = vToList[1]
     end
+    
     for kTo, vTo in vToList do
-        cDist = VDist3( vFrom, vTo )
+    
+        cDist = VDist3Sq( vFrom, vTo )
+        
         if( dist > cDist) then
             dist = cDist
             retVec = vTo
         end 
     end
+    
     return retVec
 end
 

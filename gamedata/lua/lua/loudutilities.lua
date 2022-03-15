@@ -1906,7 +1906,7 @@ function AirUnitRefitThread( unit, aiBrain )
 		local fuellimit = .75
 		local healthlimit = .80
 
-		local fuel, health, unitpos, plats, closestairpad, distance
+		local fuel, health, unitPos, plats, closestairpad, distance
 		local platpos, tempDist
 
 		local rtbissued = false
@@ -3958,8 +3958,6 @@ end
 -- to adjust the length of data collection period
 function ParseIntelThread( aiBrain )
 
-	WaitTicks(Random(1,7))	-- to avoid all the AI running at exactly the same tick
-
 	-- local this global function
 	local IsEnemy = IsEnemy
 
@@ -3971,7 +3969,8 @@ function ParseIntelThread( aiBrain )
 	local VD2 = VDist2Sq
 	local WaitTicks = coroutine.yield
 
-
+	WaitTicks(Random(1,7))	-- to avoid all the AI running at exactly the same tick
+    
 	ScenarioInfo.MaxMapDimension = math.max(ScenarioInfo.size[1],ScenarioInfo.size[2])
 
     -- set values according to mapsize
@@ -4175,7 +4174,7 @@ function ParseIntelThread( aiBrain )
 	-- this moves all the local creation up front so NO locals need to be declared in
 	-- the primary loop - probably doesn't mean much - but I did it anyway
     -- it also lets me see all the variables I might be using and better re-use them 
-	local totalThreat, threats, gametime, units, counter, x1,x2,x3, dupe, oldthreat, newthreat, newtime, bp, rebuild
+	local totalThreat, threats, gametime, units, counter, x1,x2,x3, dupe, oldthreat, newthreat, newtime, bp, rebuild, newPos
 	local DisplayIntelPoints, IntelDialog, ReportRatios
     local Type, Position, Threat, LastUpdate
     

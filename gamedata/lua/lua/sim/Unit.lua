@@ -692,13 +692,17 @@ Unit = Class(moho.unit_methods) {
 
     GetRandomOffset = function(self, scalar)
 
-		local LOUDCOS = math.cos
-		local LOUDSIN = math.sin
-		
-        local sx, sy, sz = self:GetUnitSizes()
-        local heading = self:GetHeading()
+        local bp = ALLBPS[self.BlueprintID]
+
+        local sx = bp.SizeX or 0.5
+        local sy = bp.SizeY or 0.5
+        local sz = bp.SizeZ or 0.5
+
+        local heading = GetHeading(self)
+        
 		local LC = LOUDCOS(heading)
 		local LS = LOUDSIN(heading)
+        
 		local RD = Random()
 
         sx = sx * scalar
@@ -706,11 +710,11 @@ Unit = Class(moho.unit_methods) {
         sz = sz * scalar
 		
         local rx = RD * sx - (sx * 0.5)
-        local y  = RD * sy + (ALLBPS[self.BlueprintID].CollisionOffsetY or 0)
+        local y  = RD * sy + (bp.CollisionOffsetY or 0)
         local rz = RD * sz - (sz * 0.5)
+        
         local x = LC*rx - LS*rz
         local z = LS*rx - LC*rz
-
 
         return x,y,z
 		

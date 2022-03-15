@@ -1729,6 +1729,9 @@ EngineerManager = Class(BuilderManager) {
 	-- We check all 3 - Commanders, Bases then platoons
 	-- function returns a position, a threattype and a threat amount -- false if no distress 
 	BaseMonitorGetDistressLocation = function( self, aiBrain, baseposition, radius, threshold, threattype )
+    
+        local VDist2Sq = VDist2Sq
+        local VDist3 = VDist3
 	
 		-- Commander Distress is 1st priority --
 		if aiBrain.CDRDistress then
