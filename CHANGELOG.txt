@@ -1,7 +1,17 @@
+### Release 15-03-2022
+Lua 6.0.5
+
+AI  - A temporary blueprint merge has been installed here to circumvent the ANTIARTILLERY category problem which required BrewLAN to be turned on
+    - Numerous optimization and refactors (see GitHub for complete details)
+    - Reprioritized submarine production to increase output.  AI was having trouble forming combat flotillas due to composition shortages
+    - Removed submarine requirement condition on Naval Surface flotillas
+
+
 ### Release 10-03-2022
 Textures 6.7.1
 
 Textures - updated to include new T3 Aeon Pen Fighter
+
 
 ### Release 08-03-2022
 Lua 6.0.3
@@ -78,7 +88,6 @@ AI  - introduction of new 'air loitering' mechanic for AI
     - pathfinding corrections and changes (re: plateaus)
     - introduction of a debug utility allowing the viewing of marker data (use numeric pad 7 to invoke) - thanks to Jip and Rat Circus
     
-
 
 ### Release 15-01-2022
 Lua 5.4.47
@@ -230,6 +239,7 @@ Metal World and Mass Point RNG
     
 Removed the Wreckage Decay mod, Strat Icon Overhaul mod - both are fully integrated
 
+
 ### Release 7-10-2021 ###
 Lua 5.4.37
 
@@ -255,6 +265,7 @@ Lua 5.4.36
 
 AI  - Hotfix to solve performance issue with Ecomonitor changes from previous version
 
+
 ### Release 24-09-2021 ###
 Lua 5.4.35
 Projectiles 3.2.3
@@ -269,6 +280,7 @@ Projectiles 3.2.3
 - Fix damage multiplier against shields not being applied.
 - Fix precision of the time interval between player score updates.
 
+
 ### Release 18-09-2021 ###
 Lua 5.4.34
 Projectiles LOUD 3.2.2
@@ -276,6 +288,7 @@ Projectiles LOUD 3.2.2
 - Reduced lifetime of the Triseptitron (Cybran Tech 3 Mobile Rocket Platform) missile's impact decal.
 - AI: minor response improvement to fighter behaviours.
 - Many optimizations (pathfinders, projectiles, weapons, build condition monitors).
+
 
 ### Release 11-09-2021 ###
 Lua 5.4.32
@@ -327,6 +340,7 @@ Total Mayhem 6.1.5
 - Even more code optimisations.
 - Fix: Templates couldn't be built via Hotbuild unless the keybinding menu had been opened first.
 
+
 ### Release 29-08-2021 ###
 Lua 5.4.31
 US Localization 1.0.2
@@ -339,6 +353,7 @@ Projectiles 3.2.1
 - Fix: Incorrect names were being applied to certain unit restrictions.
 - Fix: Engineers built from Seraphim Air Factories were not rolling off the pad.
 
+
 ### Release 13-08-2021 ###
 Lua 5.4.29
 
@@ -346,16 +361,19 @@ Lua 5.4.29
 - AI: Less likelihood to build mobile anti-air if there are no direct-fire units to support them.
 - AI: More early aggression on small maps.
 
+
 ### Patch 10-08-2021 ###
 Projectiles 3.2
 
 - Internal code changes only; no new features or fixes.
+
 
 ### Patch 06-08-2021 ###
 Lua 5.4.27
 
 - Fix matches not ending when all enemy AI are dead.
 - Fix Salvation (Aeon Experimental Artillery) not getting power generator adjacency benefits.
+
 
 ### Release 04-08-2021 ###
 Lua 5.4.26
@@ -372,6 +390,7 @@ BrewLAN LOUD 0.9.02
 - AI: Upper limit for torpedo bomber building is now 5% of unit cap (down from 9%).
 - Fix the Ivan (UEF Experimental Unit Cannon) not having a strategic icon.
 - Fix the icon of the Seraphim's Tech 3 power generator when LOUD Integrated Storage is enabled.
+
 
 ### Release 23-07-2021 ###
 Lua 5.4.25
@@ -391,6 +410,7 @@ Lua 5.4.25
 - AI: Fix some platoons receiving incorrect destinations for move orders.
 - Fix AI intel cheats applying at 3 times the intended rate.
 
+
 ### Release 16-07-2021 ###
 Lua 5.4.23
 Total Mayhem 6.1.3
@@ -402,6 +422,7 @@ Total Mayhem 6.1.3
 - AI: Increase the effiency of units forming platoons and getting from bases to the field.
 - Fix a crash related to dead-but-not-yet-destroyed units wrongly receiving orders.
 - Fix AI players wrongly surviving destruction of all their units under the "Supremacy" victory condition.
+
 
 ### Release 08-07-2021 ###
 Total Mayhem 6.1.2
@@ -432,6 +453,7 @@ Wyvern Battle Pack 1.1
 - AI: Better main base building choices on maps with large amounts of water.
 - AI: Minor adjustments to the weighting on decisions to produce Total Mayhem units.
 
+
 ### Release 23-06-2021 ###
 Effects 3.1
 LOUD Units 1.1.1
@@ -440,6 +462,7 @@ LOUD Units 1.1.1
 - Reduce the rate-of-fire buff given by T3 combined storage buildings to energy weapons from 5% to 4%.
 - Fix combined storage units not giving the right buff when LOUD Integrated Storage is enabled.
 - Fix the Cybran T3 Air Factory not having a description for its radar enhancement when LOUD Structure Enhancements is enabled.
+
 
 ### Release 12-06-2021 ###
 Lua 5.4.21
@@ -481,6 +504,7 @@ LOUD Misc 5.5.03
 - AI: Certain Experimental units may now appear in both attack- and artillery-type formations.
 - Fix: The "LOUD Standard" button in the mod manager didn't visually update the mod list.
 - Fix: Units with energy charge cycles were able to almost instantly restart their firing cycle without recharging by changing target.
+
 
 ### Release 05-06-2021 ###
 Lua 5.4.20
@@ -528,6 +552,7 @@ Units 6.1.01
 - AI: Fix units starting upgrades when they are marked to be reclaimed.
 - Fixes to the grid alignment on some vanilla Forged Alliance units.
 
+
 ### Release 29-05-2021 ###
 Lua 5.4.19
 Total Mayhem 6.1.1
@@ -550,6 +575,7 @@ Total Mayhem 6.1.1
  |--> Thanks to Discord user MostLostNoob#6672 for noticing and correcting these problems.
 - Fixes to the targeting of the Mayhem, Pavestone, and Transoma (Aeon Tech 3 Amphibious Battle Tank).
 
+
 ### Patch 21-05-2021 ###
 Lua 5.4.18
 BlackOps 6.1.1
@@ -571,6 +597,7 @@ LOUD Misc 5.5.01
 - Fix: The "Tanksy's Experiments" mod no longer conflicts with itself.
 - Fix: The Wraith (Aeon Tech 3 Hover Tanky) now has the correct icon background.
 - Fix: BrewLAN's engineering ships can no longer be built at non-naval factories.
+
 
 ### Release 15-05-2021 ###
 Lua 5.4.17
@@ -766,6 +793,7 @@ Wyvern Battle Pack 1.1
 - All manner of typo, grammar, spelling, punctuation, and clarity fixes to user interface text.
 - Corrections to unit bounding rectangles for better pathfinding.
 
+
 ### Release 23-04-2021 ###
 Lua 5.4.14
 
@@ -774,6 +802,7 @@ Lua 5.4.14
 - AI: Higher chances of building torpedo bombers when they would be beneficial.
 - AI: Hydrocarbon plants get units assigned to them and will call for help when under attack.
 - Fixed unit wreckages spawned at game start lasting only 15 minutes instead of the intended 30.
+
 
 ### Release 16-04-2021 ###
 Lua 5.4.13
@@ -789,11 +818,13 @@ Lua 5.4.13
 - AI: Improved decision-making on when to build base defenses and naval bases.
 - AI: Outnumbered AI will more quickly build bases on unoccupied start locations.
 
+
 ### Patch 03-04-2021 ###
 Lua 5.4.12
 
 - AI: Some refinement of air formation target acquisition.
 - Fixed a bug preventing changing of factory queue template icons.
+
 
 ### Release 19-03-2021 ###
 Lua 5.4.11
@@ -815,6 +846,7 @@ Lua 5.4.11
 - Fix: Templates with localization tags were not getting formatted to their actual translation.
 - Fixed a bug preventing changing of structure template icons.
 
+
 ### Release 05-03-2021 ###
 Lua 5.4.10
 LOUD Misc 5.4.3
@@ -829,6 +861,7 @@ LOUD Misc 5.4.3
 - Fix certain unit construction tooltips having a comma between "Tactical" and "Missile".
 - Fix a bug preventing control group icons (right side of screen) from appearing.
  |--> This also fixes the game failing to load saves with control groups in them.
+
 
 ### Release 26-02-2021 ###
 Lua 5.4.09
@@ -848,6 +881,7 @@ LOUD Misc 5.4.2
 - Fixed a bug casuing the keybinding menu to break when closing while the search box had text in it.
 - Fixed names of templates not getting localized if doing do was possible.
 - Waterlag should now work more consistently on any given unit.
+
 
 ### Release 19-02-2021 ###
 Lua 5.4.08
@@ -900,6 +934,7 @@ Textures 6.3.2
 - Fix: Some maps could not show a minimap or cartographic view. Thanks to code from FAF, this has been resolved.
 - Fix: Arrow key scrolling through the map selection list doesn't reset upon selecting a folder anymore.
 
+
 ### Patch 06-02-2021 ###
 Lua 5.4.06
 
@@ -909,6 +944,7 @@ Lua 5.4.06
  |--> Expansion bases use more threat-driven triggers to suppress construction of certain defensive works.
  |--> Naval Reinforcement now triggered by lower requirements.
 - AI: Threat Build conditions revised.
+
 
 ### Release 05-02-2021 ###
 Lua 5.4.05
@@ -945,6 +981,7 @@ Lua 5.4.05
  |--> This has no effect on game performance or appearance, except for saving about 8 MB of RAM.
 - Now that BrewLAN Baristas is under the "Miscellaneous" folder, its "UTIL" prefix is redundant, and has been removed.
 
+
 ### Patch 01-02-2021 ###
 Lua 5.4.04
 
@@ -963,6 +1000,7 @@ Lua 5.4.04
  |--> Double-clicking no longer shows mod details (since this tended to happen by accident). Instead, right-clicking does this.
  |--> Usermods get sorted alphabetically.
  |--> Folders have tooltips to better explain them.
+
 
 ### Release 30-01-2021 ###
 Lua 5.4.03
@@ -993,6 +1031,7 @@ LOUD Mods 5.4
  |--> "Realistic Nukes" is now "Enhanced Nukes".
  |--> "Resource Rich" is now "Enhanced Resources".
 
+
 ### Release 22-01-2021 ###
 Lua 5.4.02
 Textures 6.3
@@ -1016,6 +1055,7 @@ LOUD Mods 5.3.01
 - FIX: If civilians are given transports, either as units or wrecks, they are added to the TransportPool.
 - FIX: Some missing LODs and bones from LOUD Integrated Storage have been restored.
 
+
 ### Patch 16-01-2021 ###
 Lua 5.4.01
 
@@ -1023,6 +1063,7 @@ Lua 5.4.01
 - Adjust AI sensitivity to threat, cheat multiplier when considering whether to form a platoon.
 - Make AI base alerts less likely to happen with an AI is currently stronger.
 - Some of the AI's largest platoon templates can now be built while a base alert is active.
+
 
 ### Release 15-01-2021 ###
 Lua 5.4
@@ -1100,6 +1141,7 @@ BlackOps 6.0
 - Banshee (TM, UEF T2 Amphibious Assault Bot) no longer makes a nuclear explosion sound when it dies.
 - Fixes to unit descriptions, ability lists, names, icon backgrounds, building skirts (footprints), selection priorities, and selection box offsets.
 
+
 ### Release 02-01-2021 ###
 Lua 5.3.34
 
@@ -1112,6 +1154,7 @@ Lua 5.3.34
 - AI will cease ASF construction at 120 ASFs.
 - Tweaks to some AI unit building conditions.
 - More pathfinding footprints for some of the biggest units.
+
 
 ### Release 24-12-2020 ###
 Lua 5.3.33
@@ -1126,6 +1169,7 @@ Textures 6.2
 - For stabiltiy, the AI's cheat multiplier can no longer be set higher than 99, even if the user enters in 100 or higher in the lobby text field.
 - Tooltips for the "Fog of War" lobby option are now more descriptive.
 - Large-scale reorganization of AI unit compositions and building priorities.
+
 
 ### Release 18-12-2020 ###
 Lua 5.3.30
@@ -1157,6 +1201,7 @@ Lua 5.3.30
 - AI: ECO requirments for ENG Transfers increased.
 - AI: Resequenced some build conditions and builds.
 - AI: Lowered energy requirements for some tasks, and lowered eco requirements for certain jobs out at DP.
+
 
 ### Release 11-12-2020 ###
 Lua 5.3.29
@@ -1213,6 +1258,7 @@ Textures 6.1
 - Default values for anti-teleportation field range.
 - Numerous other bug fixes which improve the AI's capabilities.
 
+
 ### Release 04-12-2020 ###
 Textures 6.01
 BrewLAN 0.84
@@ -1241,6 +1287,7 @@ Lua 5.3.28
 - Buffs are now prevented from applying to civilian units.
 - Revised and described most of the DEBUG switches available in LOUD.
 - Some AI debug functions have been better documented.
+
 
 ### Release 27-11-2020 ###
 Lua 5.3.27
