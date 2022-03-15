@@ -1526,7 +1526,7 @@ Unit = Class(moho.unit_methods) {
             
             --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self:GetBlueprint().Description).." Calling for Help - platoon is "..repr(aiBrain:PlatoonExists(self.PlatoonHandle)) )
 			
-			if (not platoon.DistressCall) and (not platoon.UnderAttack) and aiBrain:PlatoonExists( self.PlatoonHandle ) then
+			if (not platoon.DistressCall) and (not platoon.UnderAttack) and PlatoonExists( aiBrain, self.PlatoonHandle ) then
 			
 				-- turn on the UnderAttack flag and process it
 				self.PlatoonHandle:ForkThread( platoon.PlatoonUnderAttack, aiBrain)

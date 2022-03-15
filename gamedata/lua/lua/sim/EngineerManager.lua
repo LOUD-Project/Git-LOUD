@@ -21,6 +21,8 @@ local AssignUnitsToPlatoon = moho.aibrain_methods.AssignUnitsToPlatoon
 local BeenDestroyed = moho.entity_methods.BeenDestroyed
 local GetAIBrain = moho.unit_methods.GetAIBrain
 local MakePlatoon = moho.aibrain_methods.MakePlatoon
+local PlatoonExists = moho.aibrain_methods.PlatoonExists	
+
 
 local LOUDFLOOR = math.floor
 local LOUDCOPY = table.copy
@@ -316,7 +318,7 @@ EngineerManager = Class(BuilderManager) {
         
 			if (unit.PlatoonHandle and unit.PlatoonHandle != aiBrain.ArmyPool) and (unit.PlatoonHandle and unit.PlatoonHandle != aiBrain.StructurePool) then
 				
-				if aiBrain:PlatoonExists(unit.PlatoonHandle) then
+				if PlatoonExists( aiBrain, unit.PlatoonHandle ) then
 					aiBrain:DisbandPlatoon(unit.PlatoonHandle)
 				end
 			
@@ -630,7 +632,7 @@ EngineerManager = Class(BuilderManager) {
 		
             if not v.Dead and v.AssistPlatoon then
 			
-                if aiBrain:PlatoonExists(v.AssistPlatoon) then
+                if PlatoonExists( aiBrain, v.AssistPlatoon ) then
 				
                     v.AssistPlatoon = nil
                 end

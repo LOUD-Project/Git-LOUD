@@ -55,7 +55,7 @@ local SetCustomName = moho.unit_methods.SetCustomName
 
 function CommanderThread( platoon, aiBrain )
 
-	local cdr = platoon:GetPlatoonUnits()[1]
+	local cdr = GetPlatoonUnits(platoon)[1]
 
 	if platoon.PlatoonData.aggroCDR then
 
@@ -359,7 +359,7 @@ function CDROverCharge( aiBrain, cdr )
 					-- find a priority target in weapon range
 					for k,v in priList do
 					
-						if aiBrain:PlatoonExists(plat) then
+						if PlatoonExists( aiBrain, plat ) then
 						
 							target = plat:FindClosestUnit( 'Attack', 'Enemy', true, v )
 					
@@ -892,6 +892,10 @@ function AirScoutingAI( self, aiBrain )
     
     local LOUDEQUAL = table.equal
     
+ 	local PlatoonExists = PlatoonExists	
+    local GetPlatoonPosition = GetPlatoonPosition
+    local GetPlatoonUnits = GetPlatoonUnits
+   
 	local VDist3 = VDist3
     
     local UNITCHECK = categories.ALLUNITS - categories.WALL
@@ -1241,6 +1245,10 @@ function LandScoutingAI( self, aiBrain )
     
     local GetTerrainHeight = GetTerrainHeight
     local GetSurfaceHeight = GetSurfaceHeight
+    
+	local PlatoonExists = PlatoonExists	
+    local GetPlatoonPosition = GetPlatoonPosition
+    local GetPlatoonUnits = GetPlatoonUnits    
 
 	local curPos = nil
 	local usedTransports = false
@@ -1579,8 +1587,13 @@ function NavalScoutingAI( self, aiBrain )
 	local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
 	local GetNumUnitsAroundPoint = moho.aibrain_methods.GetNumUnitsAroundPoint
     
+    local GetPlatoonPosition = GetPlatoonPosition
+    local GetPlatoonUnits = GetPlatoonUnits
+    
     local GetTerrainHeight = GetTerrainHeight
     local GetSurfaceHeight = GetSurfaceHeight
+    
+	local PlatoonExists = PlatoonExists	
 
 	local curPos = nil
 	local scout = nil
@@ -1881,6 +1894,9 @@ end
 function RetreatAI( self, aiBrain )
 
     WaitTicks(50)  -- Wait 5 seconds before beginning
+    
+    local GetPlatoonUnits = GetPlatoonUnits    
+	local PlatoonExists = PlatoonExists	
 
     if not PlatoonExists( aiBrain, self ) then
         return
@@ -1897,7 +1913,7 @@ function RetreatAI( self, aiBrain )
     
         CurrentSize = 0
     
-        for _, u in self:GetPlatoonUnits() do
+        for _, u in GetPlatoonUnits(self) do
     
             if not u.Dead then
                 CurrentSize = CurrentSize + 1
@@ -1969,6 +1985,9 @@ function NukeAI( self, aiBrain )
     
     local LOUDEQUAL = table.equal
 	local LOUDGETN = LOUDGETN
+    
+    local GetPlatoonUnits = GetPlatoonUnits    
+	local PlatoonExists = PlatoonExists	
     
 	local AvailableLaunches = {}
 	local nukesavailable = 0
@@ -2334,6 +2353,10 @@ function AirForceAILOUD( self, aiBrain )
 
 	local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
 	local GetFuelRatio = moho.unit_methods.GetFuelRatio
+    
+    local GetPlatoonPosition = GetPlatoonPosition  
+    local GetPlatoonUnits = GetPlatoonUnits    
+   	local PlatoonExists = PlatoonExists	
 	
 	local AIFindTargetInRangeInCategoryWithThreatFromPosition = import('/lua/ai/aiattackutilities.lua').AIFindTargetInRangeInCategoryWithThreatFromPosition
     local SetLoiterPosition = import('/lua/ai/aibehaviors.lua').SetLoiterPosition
@@ -2841,6 +2864,10 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
 	local GetFuelRatio = moho.unit_methods.GetFuelRatio
 	local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
     
+    local GetPlatoonPosition = GetPlatoonPosition    
+    local GetPlatoonUnits = GetPlatoonUnits    
+	local PlatoonExists = PlatoonExists	
+    
 	local AIFindTargetInRangeInCategoryWithThreatFromPosition = import('/lua/ai/aiattackutilities.lua').AIFindTargetInRangeInCategoryWithThreatFromPosition
     local SetLoiterPosition = import('/lua/ai/aibehaviors.lua').SetLoiterPosition
     
@@ -3331,6 +3358,10 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
 	local GetFuelRatio = moho.unit_methods.GetFuelRatio
 	local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
     
+    local GetPlatoonPosition = GetPlatoonPosition
+    local GetPlatoonUnits = GetPlatoonUnits    
+	local PlatoonExists = PlatoonExists	
+    
 	local AIFindTargetInRangeInCategoryWithThreatFromPosition = import('/lua/ai/aiattackutilities.lua').AIFindTargetInRangeInCategoryWithThreatFromPosition
     local SetLoiterPosition = import('/lua/ai/aibehaviors.lua').SetLoiterPosition
     
@@ -3819,6 +3850,10 @@ function AirForceAI_Torpedo_LOUD( self, aiBrain )
 
 	local GetFuelRatio = moho.unit_methods.GetFuelRatio
 	local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
+    
+    local GetPlatoonPosition = GetPlatoonPosition
+    local GetPlatoonUnits = GetPlatoonUnits    
+	local PlatoonExists = PlatoonExists	
     
 	local AIFindTargetInRangeInCategoryWithThreatFromPosition = import('/lua/ai/aiattackutilities.lua').AIFindTargetInRangeInCategoryWithThreatFromPosition
     local SetLoiterPosition = import('/lua/ai/aibehaviors.lua').SetLoiterPosition
@@ -4317,6 +4352,10 @@ function NavalForceAILOUD( self, aiBrain )
 
 	local LOUDGETN = LOUDGETN
 	local LOUDPARSE = ParseEntityCategory
+    
+    local GetPlatoonPosition = GetPlatoonPosition
+    local GetPlatoonUnits = GetPlatoonUnits    
+	local PlatoonExists = PlatoonExists	
 	
 	local FindTargetInRange = import('/lua/ai/aiattackutilities.lua').FindTargetInRange
 	local AIGetMarkerLocations = import('/lua/ai/aiutilities.lua').AIGetMarkerLocations
@@ -4940,6 +4979,9 @@ end
 -- NAVAL BOMBARDMENT --
 function NavalBombardAILOUD( self, aiBrain )
 
+    local GetPlatoonPosition = GetPlatoonPosition
+    local GetPlatoonUnits = GetPlatoonUnits    
+    
 	if not GetPlatoonPosition(self) then
 	
         return self:SetAIPlan('ReturnToBaseAI',aiBrain)
@@ -6512,6 +6554,9 @@ end
 function BroadcastPlatoonPlan ( platoon, aiBrain )
 
     local originalplan
+    
+	local PlatoonExists = PlatoonExists
+    local GetPlatoonUnits = GetPlatoonUnits	
 	
 	local DisplayPlatoonPlans = ScenarioInfo.DisplayPlatoonPlans or false
 	
@@ -6556,6 +6601,7 @@ end
 function PlatoonWatchPrimarySeaAttackBase ( platoon, aiBrain )
 
     local GetPrimarySeaAttackBase = import('/lua/loudutilities.lua').GetPrimarySeaAttackBase
+	local PlatoonExists = PlatoonExists	
     
     -- set the Primary base at the start
     local Base = GetPrimarySeaAttackBase(aiBrain)
@@ -7787,7 +7833,7 @@ end
 
 CommanderOverrideCheckSorian = function(self, aiBrain)
 
-	local platoonUnits = self:GetPlatoonUnits()
+	local platoonUnits = GetPlatoonUnits(self)
     local experimental
 	
 	-- identify if we have an experimental or not
