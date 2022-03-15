@@ -10,9 +10,15 @@ local SingleCompositeEmitterProjectile = import('/lua/sim/defaultprojectiles.lua
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 local DepthCharge = import('/lua/defaultantiprojectile.lua').DepthCharge
 
-local GetRandomFloat = import('utilities.lua').GetRandomFloat
+--local GetRandomFloat = import('utilities.lua').GetRandomFloat
 
 local LOUDPI = math.pi
+local Random = Random
+
+local function GetRandomFloat( Min, Max )
+    return Min + (Random() * (Max-Min) )
+end
+
 local ForkThread = ForkThread
 local DamageArea = DamageArea
 local CreateDecal = CreateDecal
@@ -81,7 +87,7 @@ TArtilleryAntiMatterProjectile = Class(SinglePolyTrailProjectile) {
         local army = self.Army
         
 		local pos = self:GetPosition()
-		local rf = GetRandomFloat(0,2*math.pi)
+		local rf = (Random() * (2*LOUDPI))
 		local CreateDecal = CreateDecal
 		local DamageArea = DamageArea
 		
@@ -109,7 +115,7 @@ TArtilleryAntiMatterProjectile02 = Class(TArtilleryAntiMatterProjectile) {
         local army = self.Army
         
         local pos = self:GetPosition()
-		local rf = GetRandomFloat(0,2*math.pi)
+		local rf = (Random() * (2*LOUDPI))
 		local CreateDecal = CreateDecal
 		local DamageArea = DamageArea
         

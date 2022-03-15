@@ -16,8 +16,8 @@ local CreateUnitExplosionEntity = import('defaultexplosions.lua').CreateUnitExpl
 local GetAverageBoundingXZRadius = import('defaultexplosions.lua').GetAverageBoundingXZRadius
 local GetAverageBoundingXYZRadius = import('defaultexplosions.lua').GetAverageBoundingXYZRadius
 
-local GetRandomFloat = import('utilities.lua').GetRandomFloat
-local GetRandomInt = import('utilities.lua').GetRandomInt
+--local GetRandomFloat = import('utilities.lua').GetRandomFloat
+--local GetRandomInt = import('utilities.lua').GetRandomInt
 
 local GetRandomOffset = Unit.GetRandomOffset
 
@@ -71,6 +71,14 @@ local GetWeapon = moho.unit_methods.GetWeapon
 local GetWeaponCount = moho.unit_methods.GetWeaponCount
 
 
+local Random = Random
+
+local function GetRandomFloat( Min, Max )
+    return Min + (Random() * (Max-Min) )
+end
+local function GetRandomInt( nmin, nmax)
+    return LOUDFLOOR(Random() * (nmax - nmin + 1) + nmin)
+end
 
 DummyUnit = Class(Unit) {
 
@@ -3253,7 +3261,8 @@ SubUnit = Class(MobileUnit) {
 
                     local rx, ry, rz = GetRandomOffset( self, 0.25 )
 					local rs = Random(vol * 0.5, vol*2) / (vol*2)
-                    local randBone = GetRandomInt( 0, numBones)
+                    
+                    local randBone = LOUDFLOOR(Random() * (numBones + 1))
 
                     CreateEmitterAtBone( self, randBone, army, '/effects/emitters/destruction_underwater_explosion_flash_01_emit.bp'):ScaleEmitter(rs):OffsetEmitter(rx, ry, rz)
 
@@ -3261,7 +3270,8 @@ SubUnit = Class(MobileUnit) {
 
                     CreateEmitterAtBone( self, 0, army, '/effects/emitters/destruction_underwater_sinking_wash_01_emit.bp'):ScaleEmitter(sx* 0.5):OffsetEmitter(rx, ry, rz)
 
-                    WaitSeconds(GetRandomFloat( 0.4+i, 1.0+i))
+                    WaitSeconds(0.4 + i + (Random() * (0.6 + i) ))
+                    
                     i = i + 0.3
                 end
             end)
@@ -3437,7 +3447,8 @@ SeaUnit = Class(MobileUnit) {
 
                     local rx, ry, rz = GetRandomOffset( self, 0.25)
 					local rs = Random(vol * 0.5, vol*2) / (vol*2)
-                    local randBone = GetRandomInt( 0, numBones)
+                    
+                    local randBone = LOUDFLOOR(Random() * (numBones + 1))
 
                     CreateEmitterAtBone( self, randBone, army, '/effects/emitters/destruction_underwater_explosion_flash_01_emit.bp'):ScaleEmitter(rs):OffsetEmitter(rx, ry, rz)
 
@@ -3445,7 +3456,7 @@ SeaUnit = Class(MobileUnit) {
 
                     CreateEmitterAtBone( self, 0, army, '/effects/emitters/destruction_underwater_sinking_wash_01_emit.bp'):ScaleEmitter(sx* 0.5):OffsetEmitter(rx, ry, rz)
 
-                    WaitSeconds(GetRandomFloat( 0.4 + i, 1.0 + i))
+                    WaitSeconds( 0.4 + i + (Random() * (0.6 + i) ) )
 
                     i = i + 0.3
                 end
@@ -3475,7 +3486,7 @@ SeaUnit = Class(MobileUnit) {
 
     ExplosionThread = function(self)
 
-        local i = GetRandomInt(4,11)		 	-- number of above surface explosions. timed to animation
+        local i = LOUDFLOOR(Random() * (8) + 4)		 	-- number of above surface explosions. timed to animation
         local d = 0 							-- delay offset after surface explosions cease
         local sx, sy, sz = self:GetUnitSizes()
         local vol = sx * sy * sz
@@ -3493,7 +3504,7 @@ SeaUnit = Class(MobileUnit) {
                 local rx, ry, rz = GetRandomOffset( self, 1)
                 local rs = Random(vol*0.5, vol*2) / (vol*2)
 
-                CreateDefaultHitExplosionAtBone( self, GetRandomInt( 0, numBones), 1.0 )
+                CreateDefaultHitExplosionAtBone( self, LOUDFLOOR(Random() * (numBones + 1)), 1.0 )
 
             else
 
@@ -3506,12 +3517,13 @@ SeaUnit = Class(MobileUnit) {
 
             local rx, ry, rz = GetRandomOffset( self, 0.25)
             local rs = Random(vol*0.5, vol*2) / (vol*2)
-            local randBone = GetRandomInt( 0, numBones)
+            
+            local randBone = LOUDFLOOR(Random() * (numBones + 1))
 
             CreateEmitterAtBone( self, randBone, army, '/effects/emitters/destruction_underwater_explosion_flash_01_emit.bp'):OffsetEmitter(rx, ry, rz):ScaleEmitter(rs)
             CreateEmitterAtBone( self, randBone, army, '/effects/emitters/destruction_underwater_explosion_splash_01_emit.bp'):OffsetEmitter(rx, ry, rz):ScaleEmitter(rs)
 
-            WaitTicks(GetRandomFloat( 4, 10))
+            WaitTicks( 4 + (Random() * (6) ))
         end
     end,
 
@@ -3940,7 +3952,8 @@ AirUnit = Class(MobileUnit) {
 
 				local rx, ry, rz = GetRandomOffset( self, 1 )
 				local rs = Random(vol, vol*2) / (vol)
-				local randBone = GetRandomInt( 0, numBones)
+                
+				local randBone = LOUDFLOOR(Random() * (numBones + 1))
 
 				CreateEmitterAtBone( self, randBone, army, '/effects/emitters/destruction_underwater_explosion_flash_01_emit.bp'):ScaleEmitter(rs):OffsetEmitter(rx, ry, rz)
 
@@ -3948,7 +3961,7 @@ AirUnit = Class(MobileUnit) {
 
 				CreateEmitterAtBone( self, 0, army, '/effects/emitters/destruction_underwater_sinking_wash_01_emit.bp'):ScaleEmitter(sx * 0.5):OffsetEmitter(rx, ry, rz)
 
-				WaitSeconds(GetRandomFloat( 0.4 + i, 1 + i ))
+				WaitSeconds(0.4 + i + (Random() * (0.6 + i) ))
 
 				i = i + 0.3
 			end

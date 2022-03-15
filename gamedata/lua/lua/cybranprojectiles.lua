@@ -12,7 +12,8 @@ local NullShell = import('/lua/sim/defaultprojectiles.lua').NullShell
 local DepthCharge = import('/lua/defaultantiprojectile.lua').DepthCharge
 
 local EffectTemplate = import('/lua/EffectTemplates.lua')
-local RandomFloat = import('/lua/utilities.lua').GetRandomFloat
+
+--local RandomFloat = import('/lua/utilities.lua').GetRandomFloat
 
 local CreateDecal = CreateDecal
 local CreateTrail = CreateTrail

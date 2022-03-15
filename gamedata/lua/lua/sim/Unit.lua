@@ -14,7 +14,6 @@ local CreateUnitDestructionDebris = import('/lua/EffectUtilities.lua').CreateUni
 local Game = import('/lua/game.lua')
 
 local GetEnemyUnitsInSphere = import('/lua/utilities.lua').GetEnemyUnitsInSphere
-local GetRandomFloat = import('/lua/utilities.lua').GetRandomFloat
 
 local Shield = import('/lua/shield.lua').Shield
 local UnitShield = import('/lua/shield.lua').UnitShield
@@ -56,6 +55,7 @@ local DamageArea = DamageArea
 
 local GetTerrainType = GetTerrainType
 
+local GetHeading = moho.unit_methods.GetHeading
 local IsUnitState = moho.unit_methods.IsUnitState
 
 local PlatoonExists = moho.aibrain_methods.PlatoonExists

@@ -4,10 +4,14 @@
 local Entity = import('/lua/sim/Entity.lua').Entity
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 
-local GetVectorLength = import('utilities.lua').GetVectorLength
+--local GetVectorLength = import('utilities.lua').GetVectorLength
 
 local ChangeState = ChangeState
+
 local LOUDMIN = math.min
+local LOUDPOW = math.pow
+local LOUDSQRT = math.sqrt
+
 local EntityCategoryContains = EntityCategoryContains
 
 local ForkThread = ForkThread

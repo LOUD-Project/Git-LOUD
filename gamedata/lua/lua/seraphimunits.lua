@@ -116,8 +116,8 @@ SAirFactoryUnit = Class(FactoryUnit) {
             if not unitBuilding.Dead then
                 unitBuilding:DetachFrom(true)
                 self:DetachAll(bp.Display.BuildAttachBone or 0)
-                #local worldPos = self:CalculateWorldPositionFromRelative({0, 0, -15})
-                #IssueMoveOffFactory({unitBuilding}, worldPos)
+                --local worldPos = self:CalculateWorldPositionFromRelative({0, 0, -15})
+                --IssueMoveOffFactory({unitBuilding}, worldPos)
             end
 			
             if self.AttachmentSliderManip then

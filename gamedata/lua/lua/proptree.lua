@@ -5,7 +5,14 @@ local Prop = import('/lua/sim/Prop.lua').Prop
 
 local FireEffects = import('/lua/EffectTemplates.lua').TreeBurning01
 local CreateScorchMarkSplat = import('/lua/defaultexplosions.lua').CreateScorchMarkSplat
-local GetRandomFloat = import('/lua/utilities.lua').GetRandomFloat
+
+--local GetRandomFloat = import('/lua/utilities.lua').GetRandomFloat
+
+local Random = Random
+
+local function GetRandomFloat( Min, Max )
+    return Min + (Random() * (Max-Min) )
+end
 
 local ChangeState = ChangeState
 

@@ -7,7 +7,19 @@ local EmitterProjectile = import('/lua/sim/defaultprojectiles.lua').EmitterProje
 
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 
-local RandomInt = import('utilities.lua').GetRandomInt
+local Random = Random
+local LOUDFLOOR = math.floor
+local LOUDGETN = table.getn
+
+local function GetRandomInt( nmin, nmax)
+    return LOUDFLOOR(Random() * (nmax - nmin + 1) + nmin)
+end
+
+local RandomInt = GetRandomInt
+
+local SetCollisionShape = moho.entity_methods.SetCollisionShape
+
+
 
 local CreateTrail = CreateTrail
 

@@ -4187,8 +4187,6 @@ function ParseIntelThread( aiBrain )
 	-- in a perfect world we would check all 8 threat types every parseinterval 
 	-- however, only AIR will be checked every cycle -- the others will be checked every other cycle or on the 3rd or 4th
     while true do
-    
-        --LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL Begins cycle at "..GetGameTimeSeconds())
 
 		numchecks = 0
 		usedticks = 0
@@ -4318,6 +4316,7 @@ function ParseIntelThread( aiBrain )
 						-- used as two other values that would then be looped to cycle their values
 					
                         -- collect all the enemy units within that IMAP block
+                        
 						-- just NOTE - this will report ALL units - even those you don't see
 						units = GetEnemyUnitsInRect( aiBrain, threat[1]-IMAPRadius, threat[2]-IMAPRadius, threat[1]+IMAPRadius, threat[2]+IMAPRadius)
 						

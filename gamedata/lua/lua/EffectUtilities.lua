@@ -6,12 +6,7 @@ local import = import
 
 local util = import('utilities.lua')
 
-local Cross = import('utilities.lua').Cross
-local GetClosestVector = import('utilities.lua').GetClosestVector
-
-local GetRandomFloat = import('utilities.lua').GetRandomFloat
-local GetRandomInt = import('utilities.lua').GetRandomInt
-local GetScaledDirectionVector = import('utilities.lua').GetScaledDirectionVector
+local Random = Random
 
 local Entity = import('/lua/sim/Entity.lua').Entity
 
@@ -130,7 +125,7 @@ function CreateBoneTableRangedScaleEffects( obj, BoneTable, EffectTable, army, S
 	
     for _, vBone in BoneTable do
         for _, vEffect in EffectTable do
-            LOUDEMITATBONE( obj, vBone, army, vEffect ):ScaleEmitter(GetRandomFloat(ScaleMin, ScaleMax))
+            LOUDEMITATBONE( obj, vBone, army, vEffect ):ScaleEmitter(ScaleMin + (Random() * (ScaleMax - ScaleMin)))
         end
     end
 end
@@ -143,7 +138,8 @@ function CreateRandomEffects( obj, army, EffectTable, NumEffects )
 	local counter = 1
 	
     for i = 1, NumEffects do
-        emitters[counter] = LOUDEMITONENTITY( obj, army, EffectTable[GetRandomInt(1,NumTableEntries)] )
+    
+        emitters[counter] = LOUDEMITONENTITY( obj, army, EffectTable[ 1 + LOUDFLOOR( Random() * (NumTableEntries)) ] )
 		counter = counter + 1
     end
 	
@@ -151,9 +147,9 @@ function CreateRandomEffects( obj, army, EffectTable, NumEffects )
 end
 
 function ScaleEmittersParam( Emitters, param, minRange, maxRange )
-	
+
     for _, v in Emitters do
-        v:SetEmitterParam( param, GetRandomFloat( minRange, maxRange ) )
+        v:SetEmitterParam( param, minRange + (Random()*(maxRange - minRange)) )
     end
 end
 
@@ -675,10 +671,12 @@ function CreateCybranEngineerBuildEffects( builder, BuildBones, BuildBots, Build
         local WaitTicks = coroutine.yield
 		
         for _, vBone in BuildBones do
+        
             for _, vEffect in CybranBuildUnitBlink01 do
                 BuildEffectsBag:Add( LOUDATTACHEMITTER(builder,vBone,army,vEffect))
             end
-            WaitTicks( (GetRandomFloat(0.5, 1.1) * 10) )
+            
+            WaitTicks( (0.5 + (Random() * 0.6)) * 10 )
         end
 
         if BeenDestroyed(builder) then
@@ -706,24 +704,31 @@ function CreateCybranFactoryBuildEffects( builder, unitBeingBuilt, BuildBones, B
     local army = builder.Sync.army
     
     for _,vB in BuildBones.BuildEffectBones do
+    
         for _, vE in BuildEffects do
             BuildEffectsBag:Add( LOUDATTACHEMITTER(builder,vB,army,vE) )
         end 
+        
     end
     
     BuildEffectsBag:Add( LOUDATTACHEMITTER( builder, BuildBones.BuildAttachBone, army, '/effects/emitters/cybran_factory_build_01_emit.bp' ) )
 
     -- Add sparks to the collision box of the unit being built
     local sx, sy, sz = 0
-	
+    
+    local GetFractionComplete = GetFractionComplete
+	local WaitTicks = coroutine.yield
+
     while not unitBeingBuilt.Dead and GetFractionComplete(unitBeingBuilt) < 1 do
+    
         sx, sy, sz = unitBeingBuilt:GetRandomOffset(1)
 		
         for _, vE in UnitBuildEffects do
             LOUDEMITONENTITY(unitBeingBuilt,army,vE):OffsetEmitter(sx,sy,sz) 
-        end         
-        WaitTicks((GetRandomFloat( 0.6, 1.0 ) *10 ) )
-    end    
+        end
+        
+        WaitTicks( (0.6 + (Random() * 0.4)) * 10 )
+    end 
 end
 
 
@@ -762,7 +767,9 @@ end
 function CreateAeonFactoryBuildingEffects( builder, unitBeingBuilt, BuildEffectBones, BuildBone, EffectsBag )
 
     local bp = ALLBPS[unitBeingBuilt.BlueprintID]
+    
     local army = builder.Sync.army
+    
 	local pos = table.copy(builder.CachePosition)
 	
 	local x = pos[1]
@@ -993,16 +1000,22 @@ function CreateSeraphimBuildBaseThread( unitBeingBuilt, builder, EffectsBag )
     local effect = nil
 	
     for _, vEffect in BuildEffectsEmitters do
+    
         effect = LOUDATTACHEMITTER( unitBeingBuilt, -1, army, vEffect)
+        
         count = count + 1
         AdjustedEmitters[count] = effect
+        
         EffectsBag:Add(effect)
     end
 
     for _, vEffect in BuildEffectBaseEmitters do
+    
         effect = LOUDATTACHEMITTER( BuildBaseEffect, -1, army, vEffect)
+        
         count = count + 1
         AdjustedEmitters[count] = effect
+        
         EffectsBag:Add(effect)
     end
 
@@ -1011,6 +1024,7 @@ function CreateSeraphimBuildBaseThread( unitBeingBuilt, builder, EffectsBag )
     local unitScaleMetric = unitBeingBuilt:GetFootPrintSize() * 0.65
 	
     while not unitBeingBuilt.Dead and fractionComplete < 1.0 do
+    
         WaitTicks(10)
         fractionComplete = GetFractionComplete(unitBeingBuilt)
 		
@@ -1024,9 +1038,11 @@ function CreateSeraphimBuildBaseThread( unitBeingBuilt, builder, EffectsBag )
     local focusArmy = GetFocusArmy()
 
     if focusArmy == -1 or IsAlly(unitsArmy,focusArmy) then
+    
         CreateLightParticle( unitBeingBuilt, -1, unitsArmy, footprintsize * 7, 8, 'glow_02', 'ramp_blue_22' ) 
 		
     elseif IsEnemy(unitsArmy,focusArmy) then
+    
         local blip = unitBeingBuilt:GetBlip(focusArmy)
 		
         if blip ~= nil and blip:IsSeenNow(focusArmy) then
@@ -1075,23 +1091,20 @@ function CreateSeraphimExperimentalBuildBaseThread( unitBeingBuilt, builder, Eff
     local AdjustedEmitters = {}
 	local counter = 1
 	
-    local effect = nil
+    local effect
 	
     for _, vEffect in BuildEffectsEmitters do
+    
         effect = LOUDATTACHEMITTER( unitBeingBuilt, -1, builder.Sync.army, vEffect ):ScaleEmitter(2)
+        
         AdjustedEmitters[counter] = effect
 		counter = counter + 1
+        
         EffectsBag:Add(effect)
     end
 
-    -- for k, vEffect in BuildEffectBaseEmitters do
-        -- effect = LOUDATTACHEMITTER( BuildBaseEffect, -1, builder.Sync.army, vEffect ):ScaleEmitter(2)
-        -- LOUDINSERT( AdjustedEmitters, effect )
-        -- EffectsBag:Add(effect)
-    -- end
 
-
-    #-- Poll the unit being built every second to adjust the effects to match
+    -- Poll the unit being built every second to adjust the effects to match
     local fractionComplete = GetFractionComplete(unitBeingBuilt)
     local unitScaleMetric = unitBeingBuilt:GetFootPrintSize() * 0.65
 	
@@ -1106,20 +1119,25 @@ function CreateSeraphimExperimentalBuildBaseThread( unitBeingBuilt, builder, Eff
     end
 
     local unitsArmy = unitBeingBuilt.Sync.army
+    
 	local footprintsize = unitBeingBuilt:GetFootPrintSize()
     local focusArmy = GetFocusArmy()
 	
     if focusArmy == -1 or IsAlly(unitsArmy,focusArmy) then
+    
         CreateLightParticle( unitBeingBuilt, -1, unitsArmy, footprintsize  * 4, 6, 'glow_02', 'ramp_blue_22' ) 
 		
     elseif IsEnemy(unitsArmy,focusArmy) then
+    
         local blip = unitBeingBuilt:GetBlip(focusArmy)
+        
         if blip ~= nil and blip:IsSeenNow(focusArmy) then
             CreateLightParticle( unitBeingBuilt, -1, unitsArmy, footprintsize * 4, 6, 'glow_02', 'ramp_blue_22' ) 
         end
     end
 
     WaitTicks(5)
+    
     BuildBaseEffect:Destroy()
 end
 
@@ -1198,10 +1216,15 @@ function PlayReclaimEffects( reclaimer, reclaimed, BuildEffectBones, EffectsBag 
     EffectsBag:Add(beamEnd)
     
     LOUDWARP( beamEnd, pos )
+    
+    local beamEffect
 
     for _, vBone in BuildEffectBones do
+    
 		for _, vEmit in ReclaimBeams do
-			local beamEffect = LOUDATTACHBEAMENTITY(reclaimer, vBone, beamEnd, -1, reclaimer.Sync.army, vEmit )
+        
+			beamEffect = LOUDATTACHBEAMENTITY(reclaimer, vBone, beamEnd, -1, reclaimer.Sync.army, vEmit )
+            
 			EffectsBag:Add(beamEffect)
 		end
 	end
@@ -1247,9 +1270,7 @@ function CreateCybranQuantumGateEffect( unit, bone1, bone2, TrashBag, startwaitS
 
     -- Adding a quick wait here so that unit bone positions are correct
     WaitTicks( startwaitSeed * 10 )
-    
-    local BeamEmtBp = '/effects/emitters/cybran_gate_beam_01_emit.bp'
-    
+
     local BeenDestroyed = moho.entity_methods.BeenDestroyed
     local WaitTicks = coroutine.yield
 
@@ -1291,6 +1312,7 @@ function CreateCybranQuantumGateEffect( unit, bone1, bone2, TrashBag, startwaitS
             BeamEndEntity:SetVelocity( 0, -velY, 0 )
             flipDirection = true
         end
+        
         WaitTicks( 40 )
     end
 end

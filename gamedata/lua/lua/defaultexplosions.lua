@@ -7,8 +7,8 @@ local EffectTemplate = import('/lua/EffectTemplates.lua')
 
 local TableCat = import('utilities.lua').TableCat
 
-local GetRandomFloat = import('utilities.lua').GetRandomFloat
-local GetRandomInt = import('utilities.lua').GetRandomInt
+local Random = Random
+
 local GetRandomOffset = import('utilities.lua').GetRandomOffset
 
 local CreateEffects = import('EffectUtilities.lua').CreateEffects
@@ -19,15 +19,17 @@ local CreateBoneEffectsOffset = import('EffectUtilities.lua').CreateBoneEffectsO
 local CreateRandomEffects = import('EffectUtilities.lua').CreateRandomEffects
 
 local LOUDFLOOR = math.floor
-
 local LOUDPI = math.pi
 local LOUDSIN = math.sin
 local LOUDCOS = math.cos
+
 local LOUDSPLAT = CreateSplat
 local LOUDDECAL = CreateDecal
+
 local CreateAttachedEmitter = CreateAttachedEmitter
 local CreateEmitterOnEntity = CreateEmitterOnEntity
 local CreateEmitterAtEntity = CreateEmitterAtEntity
+
 local LOUDPARTICLE = CreateLightParticle
 local ForkThread = ForkThread
 local WaitTicks = coroutine.yield
@@ -37,6 +39,13 @@ local CreateProjectile = moho.entity_methods.CreateProjectile
 
 local GetArmy = moho.entity_methods.GetArmy
 local GetPosition = moho.entity_methods.GetPosition
+
+local function GetRandomFloat( Min, Max )
+    return Min + (Random() * (Max-Min) )
+end
+local function GetRandomInt( nmin, nmax)
+    return LOUDFLOOR(Random() * (nmax - nmin + 1) + nmin)
+end
 
 local ScorchSplatTextures = {
     'scorch_001_albedo',
@@ -95,11 +104,16 @@ function GetAverageBoundingXYZRadius( unit )
 end
 
 function QuatFromRotation( rotation, x, y, z )
+
     local angleRot, qw, qx, qy, qz, angle
+    
 	local LOUDSIN = math.sin
 	local LOUDCOS = math.cos
+    
     angle = 0.00872664625 * rotation
+    
     angleRot = LOUDSIN( angle )
+    
     qw = LOUDCOS( angle )
     qx = x * angleRot
     qy = y * angleRot
@@ -124,7 +138,7 @@ function CreateDefaultHitExplosion( obj, scale )
 	
 		local army = obj.Sync.army
 	
-		LOUDPARTICLE( obj, -1, army, GetRandomFloat(3,5), GetRandomFloat(8.5, 12.5), 'glow_03', 'ramp_flare_02' )
+		LOUDPARTICLE( obj, -1, army, 3 + (Random() * (2) ), 8.5 + (Random() * (4) ), 'glow_03', 'ramp_flare_02' )
 		
         CreateEffects( obj, army, EffectTemplate.FireCloudMed01 )
 		
@@ -144,7 +158,7 @@ function CreateDefaultHitExplosionAtBone( obj, boneName, scale )
 	
 		local army = obj.Sync.army
 		
-		LOUDPARTICLE( obj, boneName, army, GetRandomFloat(3,5), GetRandomFloat(8.5, 12.5), 'glow_03', 'ramp_flare_02' )
+		LOUDPARTICLE( obj, boneName, army, 3 + (Random() * (2) ), 8.5 + (Random() * (4) ), 'glow_03', 'ramp_flare_02' )
 
 		CreateBoneEffects( obj, boneName, army, EffectTemplate.FireCloudMed01 )
 	end
@@ -155,7 +169,8 @@ function CreateTimedStuctureUnitExplosion( obj )
 	local LOUDFLOOR = math.floor
 	local WaitTicks = coroutine.yield
 	
-    local numExplosions = LOUDFLOOR( GetAverageBoundingXYZRadius(obj) * GetRandomInt(2,5) )
+    local numExplosions = LOUDFLOOR( GetAverageBoundingXYZRadius(obj) * (Random() * (4) + 2) )
+    
     local x,y,z = GetUnitSizes(obj)
 	
     obj:ShakeCamera( 30, 1, 0, 0.45 * numExplosions )
@@ -163,7 +178,7 @@ function CreateTimedStuctureUnitExplosion( obj )
     for i = 0, numExplosions do
         CreateDefaultHitExplosionOffset( obj, 1.0, unpack({GetRandomOffset(x,y,z,1.2)}))
         obj:PlayUnitSound('DeathExplosion')
-        WaitTicks( GetRandomFloat( 2, 6 ))
+        WaitTicks( 2 + (Random() * (4) ) )
     end
 end
 
@@ -231,7 +246,7 @@ function _CreateScalableUnitExplosion( obj )
 	
 
     -- Create Light particle flash
-	LOUDPARTICLE( obj, -1, army, GetRandomFloat(6,10) * scale, GetRandomFloat(8.5, 12.5), 'glow_03', 'ramp_flare_02' )
+	LOUDPARTICLE( obj, -1, army, 6 + (Random() * (4)) * scale, 8.5 + (Random() * (4) ), 'glow_03', 'ramp_flare_02' )
 
     -- Create scorch mark on land
     if layer == 'Land' then
@@ -268,19 +283,19 @@ function GetUnitEnvironmentalExplosionEffects( layer, scale )
 end
 
 function CreateFlash( obj, bone, scale, army )
-    LOUDPARTICLE( obj, bone, army, GetRandomFloat(6,10) * scale, GetRandomFloat(8.5, 12.5), 'glow_03', 'ramp_flare_02' )
+    LOUDPARTICLE( obj, bone, army, 6 + (Random() * (4) ) * scale, 8.5 + (Random() * (4) ), 'glow_03', 'ramp_flare_02' )
 end
 
 function CreateScorchMarkSplat( obj, scale, army )
-    LOUDSPLAT( obj:GetPosition(), GetRandomFloat( 0, 6.28 ), ScorchSplatTextures[ GetRandomInt( 1, 10) ], scale * 4, scale * 4, 110, GetRandomFloat(45,150), army )
+    LOUDSPLAT( GetPosition(obj), (Random() * (6.28) ), ScorchSplatTextures[ LOUDFLOOR(Random() * (10) + 1) ], scale * 4, scale * 4, 110, 45 + (Random() * (105) ), army )
 end
 
 function CreateScorchMarkDecal( obj, scale, army )
-    LOUDDECAL( obj:GetPosition(), GetRandomFloat( 0, 6.28 ), ScorchDecalTextures[ GetRandomInt( 1, 10) ], '', 'Albedo', scale * 3, scale * 3, 110, GetRandomFloat(45,150), army)
+    LOUDDECAL( GetPosition(obj), (Random() * (6.28) ), ScorchDecalTextures[ LOUDFLOOR(Random() * (10) + 1) ], '', 'Albedo', scale * 3, scale * 3, 110, 45 + (Random() * (105) ), army)
 end
 
 function CreateRandomScorchSplatAtObject( obj, scale, LOD, lifetime, army )
-    LOUDSPLAT( obj:GetPosition(), GetRandomFloat( 0, 6.28 ), ScorchSplatTextures[ GetRandomInt( 1, 10) ], scale, scale, LOD, lifetime, army )
+    LOUDSPLAT( GetPosition(obj), (Random() * (6.28) ), ScorchSplatTextures[ LOUDFLOOR(Random() * (10) + 1) ], scale, scale, LOD, lifetime, army )
 end
 
 function CreateWreckageEffects( obj, prop )
@@ -311,8 +326,8 @@ function CreateWreckageEffects( obj, prop )
 
 		-- random lifetime and scale
 		for _, v in Emitters do
-			v:SetEmitterParam( 'LIFETIME', GetRandomFloat( 30, 120 ) )
-			v:ScaleEmitter(GetRandomFloat(0.25,1))
+			v:SetEmitterParam( 'LIFETIME', 30 + (Random() * (90) ))
+			v:ScaleEmitter(0.25 + (Random() * (0.75) ))
 		end
 
     end
@@ -324,7 +339,7 @@ function CreateDebrisProjectiles( obj, volume, dimensions )
 	local sy = dimensions[2]
 	local sz = dimensions[3]
 
-    for i = 1, GetRandomInt( 1 + (volume * 2), (volume * 6) ) do
+    for i = 1, LOUDFLOOR(Random() * ( (volume*6) - (1 + volume*2) + 1) + (1 + (volume*2)) ) do
 	
         local xpos, xpos, zpos = GetRandomOffset( sx, sy, sz, 1 )
         local xdir,ydir,zdir = GetRandomOffset( sx, sy, sz, 10 )
@@ -336,7 +351,7 @@ end
 
 function CreateDefaultExplosion( unit, scale, overKillRatio )
 
-    local spec = { Position = unit:GetPosition(), Dimensions = GetUnitSizes( unit ), Volume = GetUnitVolume( unit ), }
+    --local spec = { Position = GetPosition(unit), Dimensions = GetUnitSizes( unit ), Volume = GetUnitVolume( unit ), }
 
     CreateConcussionRing( Explosion, scale )
 
@@ -346,7 +361,7 @@ function CreateDestructionFire( object, scale )
 
     local proj = CreateProjectile( object, '/effects/entities/DestructionFire01/DestructionFire01_proj.bp', 0, 0, 0, nil, nil, nil)
 	
-    proj:SetBallisticAcceleration(GetRandomFloat(-2, -3)):SetCollision(false)
+    proj:SetBallisticAcceleration(-2 + (Random() * (-1) )):SetCollision(false)
 	
     CreateEmitterOnEntity( proj, GetArmy(proj), '/effects/emitters/destruction_explosion_fire_01_emit.bp'):ScaleEmitter(scale)
 end
@@ -356,11 +371,11 @@ function CreateDestructionSparks( object, scale )
     local proj
 	local army = GetArmy(object)
 	
-    for i = 1, GetRandomInt(3, 7) do
+    for i = 1, LOUDFLOOR(Random() * (5) + 3) do
 	
         proj = CreateProjectile( object, '/effects/entities/DestructionSpark01/DestructionSpark01_proj.bp', 0, 0, 0, nil, nil, nil)
 		
-        proj:SetBallisticAcceleration(GetRandomFloat(-2, -3)):SetCollision(false)
+        proj:SetBallisticAcceleration(-2 + (Random() * (-1) )):SetCollision(false)
 		
         CreateEmitterOnEntity( proj, army,'/effects/emitters/destruction_explosion_sparks_02_emit.bp'):ScaleEmitter(scale)
     end
@@ -371,15 +386,16 @@ function CreateFirePlume( object, scale )
     local proj
 	local army = GetArmy(object)
 	
-    for i = 1, GetRandomInt(3, 7) do
+    for i = 1, LOUDFLOOR(Random() * (5) + 3) do
 	
         proj = CreateProjectile( object, '/effects/entities/DestructionFirePlume01/DestructionFirePlume01_proj.bp', 0, 0, 0, nil, nil, nil)
 		
-        proj:SetBallisticAcceleration(GetRandomFloat(-2, -3)):SetCollision(false)
+        proj:SetBallisticAcceleration(-2 + (Random() * (-1) )):SetCollision(false)
 		
         local emitter = CreateEmitterOnEntity( proj, army,'/effects/emitters/destruction_explosion_fire_plume_02_emit.bp')
 
-        local lifetime = GetRandomFloat( 10, 20 )
+        local lifetime = 10 + (Random() * (10) )
+        
         emitter:SetEmitterParam('REPEATTIME',lifetime)
         emitter:SetEmitterParam('LIFETIME', lifetime)
     end
@@ -438,12 +454,12 @@ function CreateCompositeExplosionMeshes( object )
     local scalingmin = 0.065
     local scalingmax = 0.135
 	
-	local GetRandomFloat = GetRandomFloat
+	local GF = 0.1 + (Random() * (0.1) )
 
-    explosionMeshProjectiles[1] = CreateExplosionMesh( object, '/effects/Explosion/Explosion01_a_proj.bp', 0.4, 0.4, 0.4, GetRandomFloat( 0.1, 0.2 ), GetRandomFloat( scalingmin, scalingmax ), lifetime, 0.1, 0.1, 0.1, -45, 1,0,0 )
-    explosionMeshProjectiles[2] = CreateExplosionMesh( object, '/effects/Explosion/Explosion01_b_proj.bp', -0.4, 0.4, 0.4, GetRandomFloat( 0.1, 0.2 ), GetRandomFloat( scalingmin, scalingmax ), lifetime, -0.1, 0.1, 0.1, -80, 1, 0, -1  )
-    explosionMeshProjectiles[3] = CreateExplosionMesh( object, '/effects/Explosion/Explosion01_c_proj.bp', -0.2, 0.4, -0.4, GetRandomFloat( 0.1, 0.2 ), GetRandomFloat( scalingmin, scalingmax ), lifetime, -0.04, 0.1, -0.1, -90, -1,0,0 )
-    explosionMeshProjectiles[4] = CreateExplosionMesh( object, '/effects/Explosion/Explosion01_d_proj.bp', 0.0, 0.7, 0.4, GetRandomFloat( 0.1, 0.14 ), GetRandomFloat( scalingmin, scalingmax ), lifetime, 0, 0.1, 0, 90, 1,0,0 )
+    explosionMeshProjectiles[1] = CreateExplosionMesh( object, '/effects/Explosion/Explosion01_a_proj.bp', 0.4, 0.4, 0.4, GF, scalingmin + (Random() * (scalingmax - scalingmin)), lifetime, 0.1, 0.1, 0.1, -45, 1,0,0 )
+    explosionMeshProjectiles[2] = CreateExplosionMesh( object, '/effects/Explosion/Explosion01_b_proj.bp', -0.4, 0.4, 0.4, GF, scalingmin + (Random() * (scalingmax - scalingmin)), lifetime, -0.1, 0.1, 0.1, -80, 1, 0, -1  )
+    explosionMeshProjectiles[3] = CreateExplosionMesh( object, '/effects/Explosion/Explosion01_c_proj.bp', -0.2, 0.4, -0.4, GF( 0.1, 0.2 ), scalingmin + (Random() * (scalingmax - scalingmin)), lifetime, -0.04, 0.1, -0.1, -90, -1,0,0 )
+    explosionMeshProjectiles[4] = CreateExplosionMesh( object, '/effects/Explosion/Explosion01_d_proj.bp', 0.0, 0.7, 0.4, 0.1 + (Random() * (.04) ), scalingmin + (Random() * (scalingmax - scalingmin)), lifetime, 0, 0.1, 0, 90, 1,0,0 )
 
     #-- Slow down scaling of secondary meshes
     WaitTicks( 3 )
@@ -472,6 +488,6 @@ function OldCreateWreckageEffects( object )
     local Effects = {'/effects/emitters/destruction_explosion_smoke_08_emit.bp'}
 
     for k, v in Effects do
-        CreateEmitterAtEntity( object, GetArmy(object), v):SetEmitterParam('LIFETIME', GetRandomFloat( 60, 150 ))
+        CreateEmitterAtEntity( object, GetArmy(object), v):SetEmitterParam('LIFETIME', 60 + (Random() * (90) ) )
     end
 end
