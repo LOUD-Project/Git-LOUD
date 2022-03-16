@@ -34,6 +34,9 @@ local SetIntelRadius = moho.entity_methods.SetIntelRadius
 
 local RequestRefreshUI = moho.entity_methods.RequestRefreshUI
 
+local TrashBag = TrashBag
+local TrashAdd = TrashBag.Add
+
 -- The Unit's BuffTable for applied buffs looks like this:
 --
 -- Unit.Buffs = {
@@ -219,7 +222,7 @@ function ApplyBuff(unit, buffName, instigator)
 				data.Count = 1
 			end
 
-			data.Trash:Add(bufffx)
+			TrashAdd( data.Trash, bufffx )
 
 		end
 
@@ -725,7 +728,8 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 				end
 
 				shield.RegenThread = shield:ForkThread( shield.RegenStartThread )
-				shield.Owner.Trash:Add(shield.RegenThread)
+                
+				TrashAdd( shield.Owner.Trash, shield.RegenThread )
 			end
 
         elseif atype == 'Stun' and not afterRemove then
@@ -1019,9 +1023,9 @@ function PlayBuffEffect(unit, buffName, data)
             bufffx:ScaleEmitter(Buffs[buffName].EffectsScale)
         end
 
-        data.Trash:Add(bufffx)
+        TrashAdd( data.Trash, bufffx )
 
-        unit.Trash:Add(bufffx)
+        TrashAdd( unit.Trash, bufffx )
     end
 end
 

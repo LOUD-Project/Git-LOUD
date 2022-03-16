@@ -16,9 +16,6 @@ local CreateUnitExplosionEntity = import('defaultexplosions.lua').CreateUnitExpl
 local GetAverageBoundingXZRadius = import('defaultexplosions.lua').GetAverageBoundingXZRadius
 local GetAverageBoundingXYZRadius = import('defaultexplosions.lua').GetAverageBoundingXYZRadius
 
---local GetRandomFloat = import('utilities.lua').GetRandomFloat
---local GetRandomInt = import('utilities.lua').GetRandomInt
-
 local GetRandomOffset = Unit.GetRandomOffset
 
 local EffectUtilities = import('/lua/EffectUtilities.lua')
@@ -45,12 +42,16 @@ local LOUDFLOOR = math.floor
 local LOUDCOPY = table.copy
 local LOUDGETN = table.getn
 local LOUDINSERT = table.insert
+
+local LOUDFIND = string.find
+local LOUDSUB = string.sub
+
 local ChangeState = ChangeState
 
 local ForkThread = ForkThread
 local ForkTo = ForkThread
-
 local KillThread = KillThread
+
 local CreateDecal = CreateDecal
 local CreateAnimator = CreateAnimator
 local CreateAttachedEmitter = CreateAttachedEmitter
@@ -62,18 +63,28 @@ local VectorCached = { 0, 0, 0 }
 
 local WaitTicks = coroutine.yield
 local VDist2 = VDist2
+local VDist2Sq = VDist2Sq
+local VDist3 = VDist3
 
 local BeenDestroyed = moho.entity_methods.BeenDestroyed
 local DisableIntel = moho.entity_methods.DisableIntel
 local EnableIntel = moho.entity_methods.EnableIntel
 
 local GetAIBrain = moho.unit_methods.GetAIBrain
+local GetFractionComplete = moho.entity_methods.GetFractionComplete
 local GetPosition = moho.entity_methods.GetPosition
 local GetWeapon = moho.unit_methods.GetWeapon
 local GetWeaponCount = moho.unit_methods.GetWeaponCount
+local IsBeingBuilt = moho.unit_methods.IsBeingBuilt
 
+
+local AssignUnitsToPlatoon = moho.aibrain_methods.AssignUnitsToPlatoon
+local MakePlatoon = moho.aibrain_methods.MakePlatoon
 
 local Random = Random
+
+local TrashBag = TrashBag
+local TrashAdd = TrashBag.Add
 
 local function GetRandomFloat( Min, Max )
     return Min + (Random() * (Max-Min) )
@@ -118,13 +129,11 @@ StructureUnit = Class(Unit) {
 
                 local unitBuilding = self.UnitBeingBuilt
                 
-               	local GetFractionComplete = moho.entity_methods.GetFractionComplete
-                
                 local fractionOfComplete = GetFractionComplete(unitBuilding)
 
                 self.AnimatorUpgradeManip = CreateAnimator(self)
 
-                self.Trash:Add(self.AnimatorUpgradeManip)
+                TrashAdd( self.Trash, self.AnimatorUpgradeManip )
 
                 self:StartUpgradeEffects(unitBuilding)
 
@@ -154,7 +163,7 @@ StructureUnit = Class(Unit) {
 
             self:EnableDefaultToggleCaps()
 
-            if unitBuilding:GetFractionComplete() == 1 then
+            if GetFractionComplete(unitBuilding) == 1 then
 
                 NotifyUpgrade(self, unitBuilding)
 
@@ -427,30 +436,24 @@ StructureUnit = Class(Unit) {
         local tarmac
         local bp = __blueprints[self.BlueprintID].Display.Tarmacs
 
-		local LOUDGETN = table.getn
+		local LOUDGETN = LOUDGETN
 		local Random = Random
 
         if not specTarmac then
 		
             if bp[1] then
-			
-                local num = Random(1, LOUDGETN(bp))
-				
-                tarmac = bp[num]
+
+                tarmac = bp[Random(1, LOUDGETN(bp))]
 				
             else
-			
                 return false
-				
             end
 			
         else
-		
             tarmac = specTarmac
-			
         end
 		
-		local LOUDINSERT = table.insert
+		local LOUDINSERT = LOUDINSERT
 		local CreateDecal = CreateDecal
 
         local army = self.Sync.army
@@ -476,11 +479,8 @@ StructureUnit = Class(Unit) {
 				tarmac.Orientations = nil
 				
             else
-			
                 orient = 0
-				
             end
-			
         end
 
         local GetTarmac = import('/lua/tarmacs.lua').GetTarmacType
@@ -493,7 +493,8 @@ StructureUnit = Class(Unit) {
         end
 
         local factionTable = {e=1, a=2, r=3, s=4}
-        local faction  = factionTable[string.sub(self.BlueprintID,2,2)]
+        
+        local faction  = factionTable[ LOUDSUB(self.BlueprintID,2,2)]
 
         if albedo and tarmac.Albedo then
 		
@@ -503,7 +504,7 @@ StructureUnit = Class(Unit) {
                 albedo2 = albedo2 .. GetTarmac(faction, terrain)
             end
 
-            local tarmacHndl = CreateDecal( GetPosition(self), orient, tarmac.Albedo..GetTarmac(faction, terrainName) , albedo2 or '', 'Albedo', w, l, fadeout, lifeTime or 300, army, 0)
+            local tarmacHndl = CreateDecal( pos, orient, tarmac.Albedo..GetTarmac(faction, terrainName) , albedo2 or '', 'Albedo', w, l, fadeout, lifeTime or 300, army, 0)
 
 			if not self.TarmacBag then
 		
@@ -514,13 +515,13 @@ StructureUnit = Class(Unit) {
             LOUDINSERT( self.TarmacBag.Decals, tarmacHndl )
 			
             if tarmac.RemoveWhenDead then
-                self.Trash:Add(tarmacHndl)
+                TrashAdd( self.Trash, tarmacHndl )
             end
         end
 
         if normal and tarmac.Normal then
 		
-            local tarmacHndl = CreateDecal(GetPosition(self), orient, tarmac.Normal .. GetTarmac(faction, terrainName), '', 'Alpha Normals', w, l, fadeout, lifeTime or 300, army, 0)
+            local tarmacHndl = CreateDecal( pos, orient, tarmac.Normal .. GetTarmac(faction, terrainName), '', 'Alpha Normals', w, l, fadeout, lifeTime or 300, army, 0)
 
 			if not self.TarmacBag then
 		
@@ -531,14 +532,14 @@ StructureUnit = Class(Unit) {
             LOUDINSERT(self.TarmacBag.Decals, tarmacHndl)
 			
             if tarmac.RemoveWhenDead then
-                self.Trash:Add(tarmacHndl)
+                TrashAdd( self.Trash, tarmacHndl )
             end
 			
         end
 
         if glow and tarmac.Glow then
 		
-            local tarmacHndl = CreateDecal(GetPosition(self), orient, tarmac.Glow .. GetTarmac(faction, terrainName), '', 'Glow', w, l, fadeout, lifeTime or 300, army, 0)
+            local tarmacHndl = CreateDecal( pos, orient, tarmac.Glow .. GetTarmac(faction, terrainName), '', 'Glow', w, l, fadeout, lifeTime or 300, army, 0)
 
 			if not self.TarmacBag then
 			
@@ -549,7 +550,7 @@ StructureUnit = Class(Unit) {
             LOUDINSERT(self.TarmacBag.Decals, tarmacHndl)
 			
             if tarmac.RemoveWhenDead then
-                self.Trash:Add(tarmacHndl)
+                TrashAdd( self.Trash, tarmacHndl )
             end
 			
         end
@@ -598,6 +599,7 @@ StructureUnit = Class(Unit) {
     OnStartBuild = function(self, unitBeingBuilt, order )
 
         Unit.OnStartBuild(self,unitBeingBuilt, order)
+        
 		self.UnitBeingBuilt = unitBeingBuilt
 
 		if order == 'Upgrade' then
@@ -650,9 +652,7 @@ StructureUnit = Class(Unit) {
             end
 
 			if not finishedUnit.UpgradeThread then
-
 				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, 1.0075, 1.015, 9999, 9999, checkrate, initialdelay, false )
-
 			end
 		end
 
@@ -664,20 +664,19 @@ StructureUnit = Class(Unit) {
 				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, 1.0075, 0.88, 9999, 1.75, 27, 180, true )
 
 			end
-
 		end
 
 		-- hydrocarbon --
 		if EntityCategoryContains( categories.HYDROCARBON, finishedUnit ) then
 
 			-- each hydro gets it's own platoon so we can enable PlatoonDistress calls for them
-			local Mexplatoon = aiBrain:MakePlatoon('HYDROPlatoon'..tostring(finishedUnit.Sync.id), 'none')
+			local Mexplatoon = MakePlatoon( aiBrain, 'HYDROPlatoon'..tostring(finishedUnit.Sync.id), 'none')
 
 			Mexplatoon.BuilderName = 'HYDROPlatoon'..tostring(finishedUnit.Sync.id)
 			Mexplatoon.MovementLayer = 'Land'
             Mexplatoon.UsingTransport = true        -- never review this platoon during a merge
 
-            aiBrain:AssignUnitsToPlatoon( Mexplatoon, {finishedUnit}, 'Support', 'none' )
+            AssignUnitsToPlatoon( aiBrain, Mexplatoon, {finishedUnit}, 'Support', 'none' )
 
 			Mexplatoon:ForkThread( PlatoonCallForHelpAI, aiBrain )
 
@@ -686,20 +685,19 @@ StructureUnit = Class(Unit) {
 				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, 1.010, 1.01, 9999, 1.5, 18, 90, true )
 
 			end
-
 		end
 
 		-- mass extractors & fabricators --
         if EntityCategoryContains( categories.MASSPRODUCTION - categories.EXPERIMENTAL, finishedUnit ) then
 
 			-- each mex gets it's own platoon so we can enable PlatoonDistress calls for them
-			local Mexplatoon = aiBrain:MakePlatoon('MEXPlatoon'..tostring(finishedUnit.Sync.id), 'none')
+			local Mexplatoon = MakePlatoon( aiBrain, 'MEXPlatoon'..tostring(finishedUnit.Sync.id), 'none')
 
 			Mexplatoon.BuilderName = 'MEXPlatoon'..tostring(finishedUnit.Sync.id)
 			Mexplatoon.MovementLayer = 'Land'
             Mexplatoon.UsingTransport = true        -- never review this platoon during a merge
 
-            aiBrain:AssignUnitsToPlatoon( Mexplatoon, {finishedUnit}, 'Support', 'none' )
+            AssignUnitsToPlatoon( aiBrain, Mexplatoon, {finishedUnit}, 'Support', 'none' )
 
 			Mexplatoon:ForkThread( PlatoonCallForHelpAI, aiBrain )
 
@@ -708,7 +706,6 @@ StructureUnit = Class(Unit) {
 				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, .73, 1.015, 9999, 9999, 18, 90, true )
 
 			end
-
         end
 
 		-- shields --
@@ -719,7 +716,6 @@ StructureUnit = Class(Unit) {
 				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, 1.010, 1.02, 9999, 9999, 24, 180, false )
 
 			end
-
         end
 
 		-- radar and sonar --
@@ -730,27 +726,23 @@ StructureUnit = Class(Unit) {
 			    finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, 1.010, 1.02, 9999, 9999, 24, 180, false )
 
 			end
-
         end
 
 		-- pick up any structure that has an upgrade not covered by above
 		if __blueprints[finishedUnit.BlueprintID].General.UpgradesTo != '' and not finishedUnit.UpgradeThread then
 
 			finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, 1.012, 1.03, 9999, 9999, 36, 360, false )
-
 		end
 
 		-- add thread to the units trash
 		if finishedUnit.UpgradeThread then
 
-			finishedUnit.Trash:Add(finishedUnit.UpgradeThread)
-
+			TrashAdd( finishedUnit.Trash, finishedUnit.UpgradeThread )
 		end
 
 		if finishedUnit.EnhanceThread then
 
-			finishedUnit.Trash:Add(finishedUnit.EnhanceThread)
-
+			TrashAdd( finishedUnit.Trash, finishedUnit.EnhanceThread)
 		end
 
 	end,
@@ -826,7 +818,7 @@ StructureUnit = Class(Unit) {
     -- When we're adjacent, try all the possible bonuses.
     OnAdjacentTo = function(self, adjacentUnit, triggerUnit)
 
-        if self:IsBeingBuilt() or adjacentUnit:IsBeingBuilt() then
+        if IsBeingBuilt(self) or IsBeingBuilt(adjacentUnit) then
 			return
 		end
 
@@ -1006,7 +998,7 @@ MobileUnit = Class(Unit) {
         if not self.CaptureEffectsBag then
             self.CaptureEffectsBag = TrashBag()
         end
-		self.CaptureEffectsBag:Add( self:ForkThread( self.CreateCaptureEffects, target ) )
+		TrashAdd( self.CaptureEffectsBag, self:ForkThread( self.CreateCaptureEffects, target ) )
     end,
 
     CreateCaptureEffects = function( self, target )
@@ -1043,7 +1035,7 @@ MobileUnit = Class(Unit) {
             self.ReclaimEffectsBag = TrashBag()
         end
 
-		self.ReclaimEffectsBag:Add( self:ForkThread( self.CreateReclaimEffects, target ) )
+		TrashAdd( self.ReclaimEffectsBag, self:ForkThread( self.CreateReclaimEffects, target ) )
 
         --self:PlayUnitSound('StartReclaim')
 		
@@ -1091,7 +1083,7 @@ MobileUnit = Class(Unit) {
             self.ReclaimEffectsBag = TrashBag()
         end
 
-		self.ReclaimEffectsBag:Add( self:ForkThread( self.CreateReclaimEffects, target ) )
+		TrashAdd( self.ReclaimEffectsBag, self:ForkThread( self.CreateReclaimEffects, target ) )
     end,
 
     StopReclaimEffects = function( self, target )
@@ -1237,7 +1229,8 @@ MobileUnit = Class(Unit) {
     CreateFootFallManipulators = function( self, footfall )
 
         self.Detector = CreateCollisionDetector(self)
-        self.Trash:Add(self.Detector)
+        
+        TrashAdd( self.Trash, self.Detector )
 
         for k, v in footfall.Bones do
 		
@@ -1520,7 +1513,8 @@ MobileUnit = Class(Unit) {
 			
                 if not self.TransAnimation then
                     self.TransAnimation = CreateAnimator(self)
-                    self.Trash:Add(self.TransAnimation)
+                    
+                    TrashAdd( self.Trash, self.TransAnimation )
                 end
 
                 self.TransAnimation:PlayAnim(animBlock.Animation)
@@ -1541,7 +1535,7 @@ MobileUnit = Class(Unit) {
         local nBones = self:GetBoneCount() - 1
 
         for k = 1, nBones do
-            if string.find(self:GetBoneName(k), 'Attachpoint_') then
+            if LOUDFIND(self:GetBoneName(k), 'Attachpoint_') then
                 self:EnableManipulators(k, false)
             end
         end
@@ -1877,7 +1871,9 @@ FactoryUnit = Class(StructureUnit) {
         if bpAnim and EntityCategoryContains(categories.LAND, unitBeingBuilt) then
 
             self.RollOffAnim = CreateAnimator(self):PlayAnim(bpAnim)
-            self.Trash:Add(self.RollOffAnim)
+            
+            TrashAdd( self.Trash, self.RollOffAnim )
+            
             WaitTicks(1)
 
             WaitFor(self.RollOffAnim)
@@ -2037,7 +2033,7 @@ FactoryUnit = Class(StructureUnit) {
 
             self.BuildBoneRotator = CreateRotator(self, bone, 'y', spin, 10000)
 			
-            self.Trash:Add(self.BuildBoneRotator)
+            TrashAdd( self.Trash, self.BuildBoneRotator )
         end
     end,
 
@@ -2121,7 +2117,7 @@ FactoryUnit = Class(StructureUnit) {
 
         StructureUnit.OnKilled(self, instigator, type, overkillRatio)
 
-        if self.UnitBeingBuilt and not BeenDestroyed(self.UnitBeingBuilt) and self.UnitBeingBuilt:GetFractionComplete() < 1 then
+        if self.UnitBeingBuilt and not BeenDestroyed(self.UnitBeingBuilt) and GetFractionComplete(self.UnitBeingBuilt) < 1 then
 
             self.UnitBeingBuilt:Destroy()
 
@@ -4077,11 +4073,11 @@ ConstructionUnit = Class(MobileUnit) {
 						EM:UnitConstructionFinished( eng, finishedUnit )
 					end
 
-					if unit.IssuedBuildCommand and finishedUnit:GetFractionComplete() == 1 then
+					if unit.IssuedBuildCommand and GetFractionComplete(finishedUnit) == 1 then
 
 						if not unit.NotBuildingThread then
 
-							if string.find(unit.PlatoonHandle.PlanName, 'EngineerBuild') then
+							if LOUDFIND(unit.PlatoonHandle.PlanName, 'EngineerBuild') then
 								unit.PlatoonHandle:ProcessBuildCommand( unit, true)
 							end
 
@@ -4094,7 +4090,7 @@ ConstructionUnit = Class(MobileUnit) {
 
 				if unit.PlatoonHandle and unit.PlatoonHandle.PlanName then
 
-					if string.find(unit.PlatoonHandle.PlanName, 'EngineerBuild') then
+					if LOUDFIND(unit.PlatoonHandle.PlanName, 'EngineerBuild') then
 						unit.PlatoonHandle:ProcessBuildCommand( unit, false)
 					end
 
@@ -4106,7 +4102,7 @@ ConstructionUnit = Class(MobileUnit) {
 
 				if unit.PlatoonHandle and unit.PlatoonHandle.PlanName then
 
-					if string.find(unit.PlatoonHandle.PlanName, 'EngineerBuild') then
+					if LOUDFIND(unit.PlatoonHandle.PlanName, 'EngineerBuild') then
 
 						unit.PlatoonHandle:ProcessBuildCommand( unit, false )
 
@@ -4124,7 +4120,7 @@ ConstructionUnit = Class(MobileUnit) {
 
 						if unit.IssuedBuildCommand then
 
-							if string.find(unit.PlatoonHandle.PlanName, 'EngineerBuild') then
+							if LOUDFIND(unit.PlatoonHandle.PlanName, 'EngineerBuild') then
 								unit.PlatoonHandle:ProcessBuildCommand( unit, true)
 							end
 
@@ -4175,7 +4171,7 @@ ConstructionUnit = Class(MobileUnit) {
 
             self.BuildingOpenAnimManip = CreateAnimator(self):PlayAnim(self.BuildingOpenAnim):SetRate(0)
 
-			self.Trash:Add(self.BuildingOpenAnimManip)
+			TrashAdd( self.Trash, self.BuildingOpenAnimManip )
 
 			self.BuildingOpenAnim = nil
 

@@ -34,8 +34,8 @@ local GetFractionComplete = moho.entity_methods.GetFractionComplete
 local GetPosition = moho.entity_methods.GetPosition
 local SetVelocity = moho.projectile_methods.SetVelocity
 
-local LOUDFLOOR = math.floor	
 local WaitTicks = coroutine.yield
+local VDist3Sq = VDist3Sq
 
 local LOUDEMITONENTITY = CreateEmitterOnEntity
 local LOUDEMITATENTITY = CreateEmitterAtEntity
@@ -43,12 +43,16 @@ local LOUDEMITATBONE = CreateEmitterAtBone
 local LOUDATTACHEMITTER = CreateAttachedEmitter
 local LOUDATTACHBEAMENTITY = AttachBeamEntityToEntity
 
+local TrashBag = TrashBag
+local TrashAdd = TrashBag.Add
+local TrashDestroy = TrashBag.Destroy
+
 local ALLBPS = __blueprints
 
 -- credit to Jip for this re-use technique
 -- modified to use simple table rather than Vector
 local VectorCached = { 0, 0, 0 }
-
+local VecExtCached = { {}, {}, {}, {} }
 
 function CreateEffects( obj, army, EffectTable )
 
@@ -314,58 +318,24 @@ function CreateUEFBuildSliceBeams( builder, unitBeingBuilt, BuildEffectBones, Bu
     oz = oz * 0.5
 
     -- Determine the the 2 closest edges of the build cube and use those for the location of laser
-    local VectorExtentsList = { {x + ox, y + oy, z + oz}, {x + ox, y + oy, z - oz}, {x - ox, y + oy, z + oz}, {x - ox, y + oy, z - oz} }
+    local VectorExtentsList = VecExtCached
     
-    local builderPos = GetPosition(builder)
-    
-    -- originally housed in utils
-    local function GetClosestVector()
+    VectorExtentsList[1] = {x + ox, y + oy, z + oz}
+    VectorExtentsList[2] = {x + ox, y + oy, z - oz}
+    VectorExtentsList[3] = {x - ox, y + oy, z + oz}
+    VectorExtentsList[4] = {x - ox, y + oy, z - oz}
 
-        local cDist, retVec
+    LOUDSORT( VectorExtentsList, function(a,b) local builderPos = GetPosition(builder) return VDist3Sq( a, builderPos) < VDist3Sq( b, builderPos ) end )
     
-        local dist = 99999999
+    local cx1 = VectorExtentsList[1][1]
+	local cy1 = VectorExtentsList[1][2]
+	local cz1 = VectorExtentsList[1][3]
     
-        for kTo, vTo in VectorExtentsList do
-    
-            cDist = VDist3Sq( builderPos, vTo )
-        
-            if cDist < dist then
-        
-                dist = cDist
-                retVec = vTo
-            
-            end 
-        end
-    
-        return retVec
-    end
+    local cx2 = VectorExtentsList[2][1]
+	local cy2 = VectorExtentsList[2][2]
+	local cz2 = VectorExtentsList[2][3]
 
-    -- get the closest vector to the builder
-    local endVec1 = GetClosestVector()
-
-    -- remove the closest vector
-    for k,v in VectorExtentsList do
-    
-        if(v == endVec1) then
-            LOUDREMOVE(VectorExtentsList, k)
-            break
-        end
-        
-    end
-
-    -- get the 2nd closest vector
-    local endVec2 = GetClosestVector()
-    
-    VectorExtentsList = nil
-    
-    local cx1 = endVec1[1]
-	local cy1 = endVec1[2]
-	local cz1 = endVec1[3]
-    local cx2 = endVec2[1]
-	local cy2 = endVec2[2]
-	local cz2 = endVec2[3]
-
-    #-- Determine a the velocity of our projectile, used for the scanning effect
+    -- Determine a the velocity of our projectile, used for the scan effect
     local velX = 2 * ( cx2 - cx1 )
     local velY = 2 * ( cy2 - cy1 )
     local velZ = 2 * ( cz2 - cz1 )
@@ -462,54 +432,25 @@ function CreateUEFCommanderBuildSliceBeams( builder, unitBeingBuilt, BuildEffect
     ox = ox * 0.5
     oz = oz * 0.5
 
-    -- Determine the the 2 closest edges of the build cube and use those for the location of our laser
-    local VectorExtentsList = { {x + ox, y + oy, z + oz}, {x + ox, y + oy, z - oz}, {x - ox, y + oy, z + oz}, {x - ox, y + oy, z - oz} }
+    -- Determine the the 2 closest edges of the build cube and use those for the location of laser
+    local VectorExtentsList = VecExtCached
     
-    local builderPos = GetPosition(builder)
-    
-    -- originally housed in utils
-    local function GetClosestVector()
+    VectorExtentsList[1] = {x + ox, y + oy, z + oz}
+    VectorExtentsList[2] = {x + ox, y + oy, z - oz}
+    VectorExtentsList[3] = {x - ox, y + oy, z + oz}
+    VectorExtentsList[4] = {x - ox, y + oy, z - oz}
 
-        local cDist, retVec
+    LOUDSORT( VectorExtentsList, function(a,b) local builderPos = GetPosition(builder) return VDist3Sq( a, builderPos) < VDist3Sq( b, builderPos ) end )
     
-        local dist = 99999999
+    local cx1 = VectorExtentsList[1][1]
+	local cy1 = VectorExtentsList[1][2]
+	local cz1 = VectorExtentsList[1][3]
     
-        for kTo, vTo in VectorExtentsList do
-    
-            cDist = VDist3Sq( builderPos, vTo )
-        
-            if cDist < dist then
-        
-                dist = cDist
-                retVec = vTo
-            
-            end 
-        end
-    
-        return retVec
-    end
-    
-    local endVec1 = GetClosestVector()
+    local cx2 = VectorExtentsList[2][1]
+	local cy2 = VectorExtentsList[2][2]
+	local cz2 = VectorExtentsList[2][3]
 
-    for k,v in VectorExtentsList do
-    
-        if(v == endVec1) then
-            LOUDREMOVE(VectorExtentsList, k)
-            break
-        end
-        
-    end
-
-    local endVec2 = GetClosestVector()
-    
-    local cx1 = endVec1[1]
-	local cy1 = endVec1[2]
-	local cz1 = endVec1[3]
-    local cx2 = endVec2[1]
-	local cy2 = endVec2[2]
-	local cz2 = endVec2[3]
-
-    -- Determine a the velocity of our projectile, used for the scaning effect
+    -- Determine a the velocity of our projectile, used for the scan effect
     local velX = 2 * ( cx2 - cx1 )
     local velY = 2 * ( cy2 - cy1 )
     local velZ = 2 * ( cz2 - cz1 )

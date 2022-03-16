@@ -11,11 +11,16 @@ local LOUDSORT = table.sort
 
 local VDist2 = VDist2
 local VDist2Sq = VDist2Sq
+local VDist3Sq = VDist3Sq
+
 local WaitTicks = coroutine.yield
 
 local GetNumUnitsAroundPoint = moho.aibrain_methods.GetNumUnitsAroundPoint
 
 local GetPlatoonPosition = moho.platoon_methods.GetPlatoonPosition
+local GetPlatoonUnits = moho.platoon_methods.GetPlatoonUnits
+local GetPosition = moho.entity_methods.GetPosition
+local PlatoonExists = moho.aibrain_methods.PlatoonExists	
 
 local GetTerrainHeight = GetTerrainHeight
 local GetSurfaceHeight = GetSurfaceHeight
@@ -23,8 +28,34 @@ local GetSurfaceHeight = GetSurfaceHeight
 local ALLBUTWALLS = categories.ALLUNITS - categories.WALL
 local SHIELDS = categories.SHIELD * categories.STRUCTURE
 
--- determines the max range of a naval platoon and returns the weapon arc and turret pitch range
+local LayerLimits = { Air = 300, Amphibious = 200, Land = 160, Water = 250 }
 
+
+--	Gets the name of the closest pathing node (within radius distance of location) on the layer we specify.
+--	Returns:  true/false and position of closest node
+function GetClosestPathNodeInRadiusByLayer(location, layer)
+
+	local nodes = ScenarioInfo.PathGraphs['RawPaths'][layer] or false
+    local VDist2Sq = VDist2Sq
+	
+	if nodes then
+		
+		local radius = LayerLimits[layer]
+
+		-- sort the markers for this layer by closest to location
+		LOUDSORT( nodes, function(a,b) return VDist2Sq(a.position[1],a.position[3], location[1],location[3]) < VDist2Sq(b.position[1],b.position[3], location[1],location[3]) end )
+
+		-- if the first result is within radius then respond
+		if VDist2Sq( nodes[1].position[1],nodes[1].position[3], location[1],location[3]) <= (radius*radius) then
+			return true, nodes[1].position
+        end
+        
+	end
+
+	return false, nil
+end
+
+-- determines the max range of a naval platoon and returns the weapon arc and turret pitch range
 function GetNavalPlatoonMaxRange(aiBrain, platoon)
 
     local maxRange = 0
@@ -89,7 +120,7 @@ end
 -- return otherwise we'll pass thru and set the platoon layer by looking at every unit
 function GetMostRestrictiveLayer(platoon)
 
-    local GetPlatoonUnits = moho.platoon_methods.GetPlatoonUnits
+    local GetPlatoonUnits = GetPlatoonUnits
 
 	if platoon.Movementlayer then
 
@@ -142,31 +173,6 @@ function GetMostRestrictiveLayer(platoon)
     return
 end
 
---	Gets the name of the closest pathing node (within radius distance of location) on the layer we specify.
---	Returns:  true/false and position of closest node
-function GetClosestPathNodeInRadiusByLayer(location, layer)
-
-	local nodes = ScenarioInfo.PathGraphs['RawPaths'][layer] or false
-    local VDist2Sq = VDist2Sq
-	
-	if nodes then
-
-		local LayerLimits = { Air = 300, Amphibious = 200, Land = 160, Water = 250 }
-		local radius = LayerLimits[layer]
-
-		-- sort the markers for this layer by closest to location
-		LOUDSORT( nodes, function(a,b) return VDist2Sq(a.position[1],a.position[3], location[1],location[3]) < VDist2Sq(b.position[1],b.position[3], location[1],location[3]) end )
-
-		-- if the first result is within radius then respond
-		if VDist2Sq( nodes[1].position[1],nodes[1].position[3], location[1],location[3]) <= (radius*radius) then
-			return true, nodes[1].position
-        end
-        
-	end
-
-	return false, nil
-end
-
 --	This function uses Graph Node markers in the map to fill in some global data for pathfinding - generally only runs once
 --	Returns: A table of graphs. Table format is: 
 --           ScenarioInfo.PathGraphs -> Graph Layer -> Graph Name          -> Marker Name -> Marker Data
@@ -177,13 +183,14 @@ end
 -- ceased storing the graph name in the RawPaths table since it wasn't used
 function GetPathGraphs()
 
-    local LOUDINSERT = table.insert
-    local unpack = unpack
-    local VDist2 = VDist2
-
     if not ScenarioInfo.PathGraphs then 
+    
+        local LOUDINSERT = table.insert
+        local unpack = unpack
+        local VDist2 = VDist2
 		
 		local AIGetMarkerLocationsEx = import('/lua/ai/aiutilities.lua').AIGetMarkerLocationsEx
+        
         local InWaterCheck = LocationInWaterCheck
 
 		-- create the persistent tables --
@@ -246,6 +253,7 @@ function GetPathGraphs()
 		counter = 0
 		
 		local badpoint,x,y,z
+        local DComp
 		
 		for gk, graph in ScenarioInfo.PathGraphs do
 		
@@ -277,16 +285,16 @@ function GetPathGraphs()
 						
 							counter = counter + 1
 						
-							local DComp = LOUDFLOOR( VDist2( mdata.position[1],mdata.position[3], ScenarioInfo.PathGraphs[gk][adj].position[1], ScenarioInfo.PathGraphs[gk][adj].position[3] ) )
+							DComp = LOUDFLOOR( VDist2( mdata.position[1],mdata.position[3], ScenarioInfo.PathGraphs[gk][adj].position[1], ScenarioInfo.PathGraphs[gk][adj].position[3] ) )
 						
 							ScenarioInfo.PathGraphs[gk][mn].adjacent[k] = { adj, DComp }
+                            
 						else
 						
 							WARN("*AI DEBUG adjacent marker "..repr(gk).." "..repr(adj).." reports no position in data for "..repr(mn))
 							mdata.adjacent[k] = nil	-- the adjacent node does not exist -- remove it from the RawPaths data --
                             
 						end
-                        
 					end
 
 					if badpoint then
@@ -356,13 +364,14 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 	local AIGetMarkerLocations = import('/lua/ai/aiutilities.lua').AIGetMarkerLocations
 	local GetOwnUnitsAroundPoint = import('/lua/ai/aiutilities.lua').GetOwnUnitsAroundPoint
     
-    local GetPosition = moho.entity_methods.GetPosition	
+    local GetPosition = GetPosition	
+    
 	local GetThreatAtPosition = moho.aibrain_methods.GetThreatAtPosition
 	local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
 
 	local LOUDV2 = VDist2
 	local LOUDV3 = VDist3
-    local LOUDSORT = table.sort
+    local LOUDSORT = LOUDSORT
     local type = type
 	
 	-- Checks radius around base to see if marker is sufficiently far away
@@ -664,8 +673,6 @@ end
 -- this function locates a target for a squad within a given range and list of priority target types
 -- returning an actual unit and its position -- modified to include the nolayercheck option
 function FindTargetInRange( self, aiBrain, squad, maxRange, attackcategories, nolayercheck )
-
-	local PlatoonExists = moho.aibrain_methods.PlatoonExists	
 	
 	-- check if platoon exists --
     local position = GetPlatoonPosition(self) or false
@@ -728,7 +735,7 @@ function FindTargetInRange( self, aiBrain, squad, maxRange, attackcategories, no
 			return false
 		end
 	
-        local GetPosition = moho.entity_methods.GetPosition
+        local GetPosition = GetPosition
         local CanAttackTarget = moho.platoon_methods.CanAttackTarget
         local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
         local EntityCategoryFilterDown = EntityCategoryFilterDown
@@ -830,13 +837,14 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
 
 	local CanAttackTarget = moho.platoon_methods.CanAttackTarget
     local EntityCategoryFilterDown = EntityCategoryFilterDown
-    local GetPosition = moho.entity_methods.GetPosition
+    local GetPosition = GetPosition
 
-	local LOUDSORT = table.sort
+	local LOUDSORT = LOUDSORT
 	local VDist2Sq = VDist2Sq
 	local VDist2 = VDist2
+    local VDist3Sq = VDist3Sq
     
-    local WaitTicks = coroutine.yield
+    local WaitTicks = WaitTicks
 	
     -- get a count of all shields within the list
 	local shieldcount = EntityCategoryCount( SHIELDS, enemyunits )
@@ -855,7 +863,7 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
 		if targetUnits[1] then	
         
 			-- sort them by distance -- 
-			LOUDSORT( targetUnits, function(a,b) return VDist2Sq(GetPosition(a)[1],GetPosition(a)[3], position[1],position[3]) < VDist2Sq(GetPosition(b)[1],GetPosition(b)[3], position[1],position[3]) end)
+			LOUDSORT( targetUnits, function(a,b) return VDist3Sq(GetPosition(a), position) < VDist3Sq(GetPosition(b), position) end)
 		
 			local unitchecks, checkspertick, unitposition
 			local enemythreat, enemyshields, totalshieldvalueattarget

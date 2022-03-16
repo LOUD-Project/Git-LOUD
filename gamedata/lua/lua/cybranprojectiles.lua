@@ -7,13 +7,12 @@ local MultiBeamProjectile = import('/lua/sim/defaultprojectiles.lua').MultiBeamP
 local SinglePolyTrailProjectile = import('/lua/sim/defaultprojectiles.lua').SinglePolyTrailProjectile
 local MultiPolyTrailProjectile = import('/lua/sim/defaultprojectiles.lua').MultiPolyTrailProjectile 
 local SingleCompositeEmitterProjectile = import('/lua/sim/defaultprojectiles.lua').SingleCompositeEmitterProjectile
+
 local NullShell = import('/lua/sim/defaultprojectiles.lua').NullShell
 
 local DepthCharge = import('/lua/defaultantiprojectile.lua').DepthCharge
 
 local EffectTemplate = import('/lua/EffectTemplates.lua')
-
---local RandomFloat = import('/lua/utilities.lua').GetRandomFloat
 
 local CreateDecal = CreateDecal
 local CreateTrail = CreateTrail
@@ -81,7 +80,7 @@ CIFProtonBombProjectile = Class(NullShell) {
             
             DamageRing( self, pos, 0.1, self.DamageData.DamageRadius, 10, 'Fire', false, false) 
             
-            CreateDecal( pos, RandomFloat(0.0,6.28), 'scorch_011_albedo', '', 'Albedo', 12, 12, 150, 200, army )            
+            CreateDecal( pos, (Random() * 6.28), 'scorch_011_albedo', '', 'Albedo', 12, 12, 150, 200, army )            
         end
 
         local blanketSides = 12
@@ -90,8 +89,10 @@ CIFProtonBombProjectile = Class(NullShell) {
         local blanketVelocity = 6.25
 
         for i = 0, (blanketSides-1) do
+        
             local blanketX = LOUDSIN(i*blanketAngle)
             local blanketZ = LOUDCOS(i*blanketAngle)
+            
             self:CreateProjectile('/effects/entities/EffectProtonAmbient01/EffectProtonAmbient01_proj.bp', blanketX, 0.5, blanketZ, blanketX, 0, blanketZ)
                 :SetVelocity(blanketVelocity):SetAcceleration(-0.3)
         end

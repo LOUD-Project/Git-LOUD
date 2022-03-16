@@ -1560,13 +1560,13 @@ Unit = Class(moho.unit_methods) {
 
     DoTakeDamage = function(self, instigator, amount, vector, damageType)
 
-		local GetHealth = moho.entity_methods.GetHealth
+		local GetHealth = GetHealth
 	
         local preAdjHealth = GetHealth(self)
 		
         moho.entity_methods.AdjustHealth( self, instigator, -amount)
 		
-        if moho.entity_methods.GetHealth(self) < 1 then
+        if GetHealth(self) < 1 then
 		
             if damageType == 'Reclaimed' then
 			
@@ -3749,7 +3749,7 @@ Unit = Class(moho.unit_methods) {
     CreateTerrainTypeEffects = function( self, effectTypeGroups, FxBlockType, FxBlockKey, TypeSuffix, EffectBag, TerrainType )
 	
 		-- if simspeed drops too low suspend terrain effects --
-		if Sync.SimData.SimSpeed < -1 then return end
+		if Sync.SimData.SimSpeed < 0 then return end
 
         for _, vTypeGroup in effectTypeGroups do
 		

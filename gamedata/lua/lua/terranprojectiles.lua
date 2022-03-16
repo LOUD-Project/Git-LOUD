@@ -10,8 +10,6 @@ local SingleCompositeEmitterProjectile = import('/lua/sim/defaultprojectiles.lua
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 local DepthCharge = import('/lua/defaultantiprojectile.lua').DepthCharge
 
---local GetRandomFloat = import('utilities.lua').GetRandomFloat
-
 local LOUDPI = math.pi
 local Random = Random
 

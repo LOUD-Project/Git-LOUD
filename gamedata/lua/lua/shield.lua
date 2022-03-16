@@ -24,6 +24,9 @@ local CreateEmitterAtBone = CreateEmitterAtBone
 
 local VectorCached = { 0, 0, 0 }
 
+local TrashBag = TrashBag
+local TrashAdd = TrashBag.Add
+
 local WaitTicks = coroutine.yield
 
 local Warp = Warp
@@ -98,7 +101,7 @@ Shield = Class(moho.shield_methods,Entity) {
 	
     ForkThread = function(self, fn, ...)
         local thread = ForkThread(fn, self, unpack(arg))
-        self.Owner.Trash:Add(thread)
+        TrashAdd( self.Owner.Trash, thread )
 		return thread
     end,
 	

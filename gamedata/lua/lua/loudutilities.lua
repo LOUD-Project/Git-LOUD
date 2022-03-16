@@ -37,13 +37,15 @@ local GetAIBrain = moho.unit_methods.GetAIBrain
 
 local GetCurrentUnits = moho.aibrain_methods.GetCurrentUnits
 local GetListOfUnits = moho.aibrain_methods.GetListOfUnits
-
+local GetFuelRatio = moho.unit_methods.GetFuelRatio
 local GetPlatoonPosition = moho.platoon_methods.GetPlatoonPosition
 
 local GetPosition = moho.entity_methods.GetPosition
 
 local GetNumUnitsAroundPoint = moho.aibrain_methods.GetNumUnitsAroundPoint
 local GetEconomyIncome = moho.aibrain_methods.GetEconomyIncome
+
+local IsBeingBuilt = moho.unit_methods.IsBeingBuilt
 
 local GetTerrainHeight = GetTerrainHeight
 local GetUnitsInRect = GetUnitsInRect
@@ -517,7 +519,7 @@ function GetFreeUnitsAroundPoint( aiBrain, category, location, radius, useRefuel
 	
 		for k,v in units do
 		
-			if not v.Dead and not v:IsBeingBuilt() and GetAIBrain(v).ArmyIndex == aiBrain.ArmyIndex then
+			if not v.Dead and not IsBeingBuilt(v) and GetAIBrain(v).ArmyIndex == aiBrain.ArmyIndex then
 			
 				-- select only units in the Army pool or not attached
 				if not v.PlatoonHandle or (v.PlatoonHandle == aiBrain.ArmyPool) or (useRefuelPool and v.PlatoonHandle == aiBrain.RefuelPool) then
@@ -1862,9 +1864,9 @@ end
 -- or during the ReturnToBaseAI function 
 function ProcessAirUnits( unit, aiBrain )
 
-	if (not unit.Dead) and (not unit:IsBeingBuilt()) then
+	if (not unit.Dead) and (not IsBeingBuilt(unit)) then
 
-        local fuel = unit:GetFuelRatio()
+        local fuel = GetFuelRatio(unit)
 
 		if ( fuel > -1 and fuel < .75 ) or unit:GetHealthPercent() < .80 then
 
@@ -1925,7 +1927,7 @@ function AirUnitRefitThread( unit, aiBrain )
 
 		local rtbissued = false
 
-        local GetFuelRatio = moho.unit_methods.GetFuelRatio
+        local GetFuelRatio = GetFuelRatio
         local GetCurrentUnits = moho.aibrain_methods.GetCurrentUnits
         
         local LOUDCOPY = table.copy
@@ -2096,7 +2098,7 @@ function AirStagingThread( unit, airstage, aiBrain )
 	-- loop until unit attached, idle, dead or it's fixed itself
 	while (not unit.Dead) and (not airstage.Dead) do
 		
-		if (( unit:GetFuelRatio() < .75 and unit:GetFuelRatio() != -1) or unit:GetHealthPercent() < .80) and (not airstage.Dead) then
+		if (( GetFuelRatio(unit) < .75 and GetFuelRatio(unit) != -1) or unit:GetHealthPercent() < .80) and (not airstage.Dead) then
 		
 			WaitTicks(11)
             waitcount = waitcount + 1
@@ -2127,7 +2129,7 @@ function AirStagingThread( unit, airstage, aiBrain )
 			
 			while (not ready) and (not airstage.Dead) do
             
-                local fuel = unit:GetFuelRatio()
+                local fuel = GetFuelRatio(unit)
 			
 				if (not unit.Dead) and ( fuel > -1 and fuel > .85 and unit:GetHealthPercent() > .85)  then
 					ready = true

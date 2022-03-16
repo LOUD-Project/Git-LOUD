@@ -14,6 +14,9 @@ local ForkTo = ForkThread
 
 local Random = Random
 
+local TrashBag = TrashBag
+local TrashAdd = TrashBag.Add
+
 local WaitTicks = coroutine.yield
 
 BuilderManager = Class {
@@ -45,7 +48,7 @@ BuilderManager = Class {
 	
         local thread = ForkThread(fn, self, unpack(arg))
         
-		self.Trash:Add(thread)
+		TrashAdd( self.Trash, thread )
     end,
 
     SetEnabled = function(self, brain, enable)

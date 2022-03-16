@@ -5,6 +5,8 @@ local LOUDINSERT = table.insert
 local LOUDEQUAL = table.equal
 local LOUDGETN = table.getn
 
+local TrashBag = TrashBag
+local TrashAdd = TrashBag.Add
 
 local import = import
 local type = type
@@ -38,7 +40,7 @@ BrainConditionsMonitor = Class {
 		self.Brain = brain
 
 		-- start the Condition Monitor Thread
-		self.Trash:Add(ForkThread( self.ConditionMonitorThread, self, brain))
+		TrashAdd( self.Trash, ForkThread( self.ConditionMonitorThread, self, brain ) )
 		
     end,
 	

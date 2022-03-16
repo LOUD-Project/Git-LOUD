@@ -187,6 +187,10 @@ local CreatePlatoonFormManager = import('/lua/sim/PlatoonFormManager.lua').Creat
 local LOUDINSERT = table.insert
 local LOUDSTRING = string.find
 
+local TrashBag = TrashBag
+local TrashAdd = TrashBag.Add
+local unpack = unpack
+
 local ForkThread = ForkThread
 local WaitTicks = coroutine.yield
 
@@ -422,7 +426,7 @@ function SetAIDebug(data)
                     --LOG("*AI DEBUG "..brain.Nickname.." BrainType is "..repr(brain.BrainType).." Civilian is "..repr(ArmyIsCivilian(brain.ArmyIndex)) )
                 
                     if brain.BrainType == 'AI' and not ArmyIsCivilian(brain.ArmyIndex) and not brain.IntelDebugThread then
-                        brain.IntelDebugThread = brain:ForkThread(LoudUtils.DrawIntel, 50)
+                        brain.IntelDebugThread = ForkThread( brain, LoudUtils.DrawIntel, 50)
                     end
                 end
                 
@@ -1003,7 +1007,7 @@ AIBrain = Class(moho.aibrain_methods) {
 
         local thread = ForkThread(fn, self, unpack(arg))
 		
-        self.Trash:Add(thread)
+        TrashAdd( self.Trash, thread )
 		
         return thread
 		
@@ -1011,7 +1015,7 @@ AIBrain = Class(moho.aibrain_methods) {
     
     ForkThread1 = function(self, fn)
 	
-        self.Trash:Add(ForkThread(fn, self))
+        TrashAdd( self.Trash, ForkThread(fn, self))
 		
     end,
 

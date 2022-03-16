@@ -47,6 +47,9 @@ local ForkThread = ForkThread
 local KillThread = KillThread
 local WaitTicks = coroutine.yield
 
+local TrashBag = TrashBag
+local TrashAdd = TrashBag.Add
+
 TAirFactoryUnit = Class(FactoryUnit) {
     
     CreateBuildEffects = function( self, unitBeingBuilt, order )
@@ -54,8 +57,9 @@ TAirFactoryUnit = Class(FactoryUnit) {
         WaitTicks(1)
 		
         for k, v in __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones do
-            self.BuildEffectsBag:Add( CreateAttachedEmitter( self, v, self.Sync.army, '/effects/emitters/flashing_blue_glow_01_emit.bp' ) )         
-            self.BuildEffectsBag:Add( self:ForkThread( CreateDefaultBuildBeams, unitBeingBuilt, {v}, self.BuildEffectsBag ) )
+        
+            TrashAdd( self.BuildEffectsBag, CreateAttachedEmitter( self, v, self.Sync.army, '/effects/emitters/flashing_blue_glow_01_emit.bp' ) )         
+            TrashAdd( self.BuildEffectsBag, self:ForkThread( CreateDefaultBuildBeams, unitBeingBuilt, {v}, self.BuildEffectsBag ) )
         end
 		
     end,
@@ -114,8 +118,8 @@ TLandFactoryUnit = Class(FactoryUnit) {
 		
         for k, v in __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones do
 		
-            self.BuildEffectsBag:Add( CreateAttachedEmitter( self, v, army, '/effects/emitters/flashing_blue_glow_01_emit.bp' ) ) 
-            self.BuildEffectsBag:Add( self:ForkThread( CreateDefaultBuildBeams, unitBeingBuilt, {v}, self.BuildEffectsBag ) )
+            TrashAdd( self.BuildEffectsBag, CreateAttachedEmitter( self, v, army, '/effects/emitters/flashing_blue_glow_01_emit.bp' ) ) 
+            TrashAdd( self.BuildEffectsBag, self:ForkThread( CreateDefaultBuildBeams, unitBeingBuilt, {v}, self.BuildEffectsBag ) )
 			
         end
     end,
@@ -139,9 +143,10 @@ TConstructionUnit = Class(ConstructionUnit) {
 		
         #-- If we are assisting an upgrading unit, or repairing a unit, play seperate effects
         if (order == 'Repair' and not unitBeingBuilt:IsBeingBuilt()) or (UpgradesFrom and UpgradesFrom != 'none' and self:IsUnitState('Guarding'))then
-            self.BuildEffectsBag:Add( self:ForkThread( CreateDefaultBuildBeams, unitBeingBuilt, __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones, self.BuildEffectsBag ) )
+        
+            TrashAdd( self.BuildEffectsBag, self:ForkThread( CreateDefaultBuildBeams, unitBeingBuilt, __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones, self.BuildEffectsBag ) )
         else
-            self.BuildEffectsBag:Add( self:ForkThread( CreateUEFBuildSliceBeams, unitBeingBuilt, __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones, self.BuildEffectsBag ) )
+            TrashAdd( self.BuildEffectsBag, self:ForkThread( CreateUEFBuildSliceBeams, unitBeingBuilt, __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones, self.BuildEffectsBag ) )
         end           
     end,
 
@@ -168,7 +173,7 @@ TConstructionUnit = Class(ConstructionUnit) {
         
         if not self.TransformManipulator then
             self.TransformManipulator = CreateAnimator(self)
-            self.Trash:Add( self.TransformManipulator )
+            TrashAdd( self.Trash, self.TransformManipulator )
         end
 
         if water then
@@ -202,7 +207,7 @@ TMassCollectionUnit = Class(MassCollectionUnit) {
         if __blueprints[self.BlueprintID].General.UpgradesFrom != builder.BlueprintID then
         
 			self:HideBone(0, true)        
-            self.OnBeingBuiltEffectsBag:Add( self:ForkThread( CreateBuildCubeThread, builder, self.OnBeingBuiltEffectsBag ))
+            TrashAdd( self.OnBeingBuiltEffectsBag, self:ForkThread( CreateBuildCubeThread, builder, self.OnBeingBuiltEffectsBag ))
             
         end
 		
@@ -222,7 +227,7 @@ TMobileFactoryUnit = Class(MobileUnit) {
         if __blueprints[self.BlueprintID].General.UpgradesFrom != builder.BlueprintID then
         
 			self:HideBone(0, true)        
-            self.OnBeingBuiltEffectsBag:Add( self:ForkThread( CreateBuildCubeThread, builder, self.OnBeingBuiltEffectsBag ))
+            TrashAdd( self.OnBeingBuiltEffectsBag, self:ForkThread( CreateBuildCubeThread, builder, self.OnBeingBuiltEffectsBag ))
             
         end
     end,   
@@ -245,7 +250,7 @@ TShieldStructureUnit = Class(ShieldStructureUnit) {
         if builder and EntityCategoryContains(categories.MOBILE, builder) then
 		
             self:HideBone(0, true)
-            self.OnBeingBuiltEffectsBag:Add( self:ForkThread( CreateBuildCubeThread, builder, self.OnBeingBuiltEffectsBag )	)	
+            TrashAdd( self.OnBeingBuiltEffectsBag, self:ForkThread( CreateBuildCubeThread, builder, self.OnBeingBuiltEffectsBag )	)	
 			
         end
 		
@@ -259,7 +264,7 @@ TRadarJammerUnit = Class(RadarJammerUnit) {
     OnIntelEnabled = function(self)
         if not self.MySpinner then
             self.MySpinner = CreateRotator(self, 'Spinner', 'y', nil, 0, 45, 180)
-            self.Trash:Add(self.MySpinner)
+            TrashAdd( self.Trash, self.MySpinner )
         end
         RadarJammerUnit.OnIntelEnabled(self)
         self.MySpinner:SetTargetSpeed(180)
@@ -375,7 +380,7 @@ TPodTowerUnit = Class(TStructureUnit) {
             
             if not self.OpenAnim then
                 self.OpenAnim = CreateAnimator(self)
-                self.Trash:Add(self.OpenAnim)
+                TrashAdd( self.Trash, self.OpenAnim )
             end
             
             self.OpenAnim:PlayAnim(bp.Display.AnimationOpen, false):SetRate(2.0)
@@ -406,13 +411,13 @@ TPodTowerUnit = Class(TStructureUnit) {
     
         local bp = __blueprints[self.BlueprintID]
         
-        #-- Get build rate of tower
+        -- Get build rate of tower
         local buildRate = bp.Economy.BuildRate
         
         local energy_rate = ( podData.BuildCostEnergy / podData.BuildTime ) * buildRate
         local mass_rate = ( podData.BuildCostMass / podData.BuildTime ) * buildRate
         
-        #-- Set Consumption - Buff system will replace this here
+        -- Set Consumption - Buff system will replace this here
         self:SetConsumptionPerSecondEnergy(energy_rate)
         self:SetConsumptionPerSecondMass(mass_rate)
         self:SetConsumptionActive(true)
@@ -582,7 +587,8 @@ TPodTowerUnit = Class(TStructureUnit) {
                 local unitBuilding = self.UnitBeingBuilt
 				
                 self.AnimatorUpgradeManip = CreateAnimator(self)
-                self.Trash:Add(self.AnimatorUpgradeManip)
+                
+                TrashAdd( self.Trash, self.AnimatorUpgradeManip )
 				
                 local fractionOfComplete = 0
 				

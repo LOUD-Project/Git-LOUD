@@ -2,7 +2,11 @@
 ---  Summary  :  Visibility Entities
 
 local Entity = import('/lua/sim/Entity.lua').Entity
+
 local WaitTicks = coroutine.yield
+
+local VectorCached = { 0, 0, 0 }
+local Warp = Warp
 
 VizMarker = Class(Entity) {
 
@@ -22,8 +26,14 @@ VizMarker = Class(Entity) {
     OnCreate = function(self)
 	
         Entity.OnCreate(self)
+        
+        local vec = VectorCached
+        
+        vec[1] = self.X
+        vec[2] = 0
+        vec[3] = self.Z
 
-        Warp(self, Vector(self.X, 0, self.Z))
+        Warp( self, vec )
 		
         if self.Omni != false then
             self:InitIntel(self.Army, 'Omni', self.Radius)

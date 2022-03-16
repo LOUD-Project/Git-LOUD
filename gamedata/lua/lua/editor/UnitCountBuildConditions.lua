@@ -24,6 +24,7 @@ local AreaToRect = import('/lua/sim/scenarioutilities.lua').AreaToRect
 local GetCurrentUnits = moho.aibrain_methods.GetCurrentUnits
 local GetListOfUnits = moho.aibrain_methods.GetListOfUnits
 local GetNumUnitsAroundPoint = moho.aibrain_methods.GetNumUnitsAroundPoint
+local GetPosition = moho.entity_methods.GetPosition	
 local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
 
 local PlatoonCategoryCount = moho.platoon_methods.PlatoonCategoryCount
@@ -92,7 +93,7 @@ end
 
 function HaveLessThanUnitsInCategoryBeingBuilt(aiBrain, numunits, category)
 
-	local LOUDENTITY = EntityCategoryContains
+	local LOUDENTITY = LOUDENTITY
 	local IsUnitState = moho.unit_methods.IsUnitState
 	
     local unitlist = GetListOfUnits(aiBrain, categories.CONSTRUCTION, false )
@@ -230,11 +231,13 @@ end
 function UnitsLessAtLocationInRange( aiBrain, locationType, unitCount, testCat, rangemin, rangemax)
 
     local BM = aiBrain.BuilderManagers[locationType]
+
     
 	if BM.EngineerManager.Active then
 
 		local managerposition = BM.Position
 		local numUnits = 0
+        local GetPosition = GetPosition
         local VDist2Sq = VDist2Sq
 		
 		local units = GetUnitsAroundPoint( aiBrain, testCat, managerposition, rangemax, 'Ally' )
@@ -244,7 +247,7 @@ function UnitsLessAtLocationInRange( aiBrain, locationType, unitCount, testCat, 
         
 		for _, v in units do
         
-			pos = v:GetPosition()
+			pos = GetPosition(v)
             
 			if VDist2Sq( managerposition[1],managerposition[3], pos[1],pos[3] ) >= rangetest then
 				numUnits = numUnits + 1
@@ -275,6 +278,7 @@ function UnitsGreaterAtLocationInRange( aiBrain, locationType, unitCount, testCa
 	
 		local managerposition = aiBrain.BuilderManagers[locationType].Position
 		local numUnits = 0
+        local GetPosition = GetPosition
         local VDist2Sq = VDist2Sq
 		
 		local units = GetUnitsAroundPoint( aiBrain, testCat, managerposition, rangemax, 'Ally' )
@@ -284,7 +288,7 @@ function UnitsGreaterAtLocationInRange( aiBrain, locationType, unitCount, testCa
         
 		for _, v in units do
         
-			pos = v:GetPosition()
+			pos = GetPosition(v)
             
 			if VDist2Sq( managerposition[1],managerposition[3], pos[1],pos[3] ) >= rangetest then
 				numUnits = numUnits + 1
@@ -417,7 +421,7 @@ local function GetNumberOfUnitsBeingBuilt( aiBrain, location, buildingCategory, 
 
     local filterUnits = GetOwnUnitsAroundPoint( aiBrain, builderCategory, BM.Position, range or BM.Radius )
 
-    local LOUDENTITY = EntityCategoryContains
+    local LOUDENTITY = LOUDENTITY
 	local IsUnitState = moho.unit_methods.IsUnitState
 
 	local counter = 0
@@ -487,7 +491,8 @@ end
 -- is there an engineer, at this base, building unitCategory, needing assistance, within unitRange of the base
 function LocationEngineerNeedsBuildingAssistanceInRange( aiBrain, locationType, unitCategory, engCat, unitRange )
 
-	local LOUDGETN = table.getn
+    local GetPosition = GetPosition
+	local LOUDGETN = LOUDGETN
 	local VDist2 = VDist2
 
     local engineerManager = aiBrain.BuilderManagers[locationType].EngineerManager
@@ -507,7 +512,7 @@ function LocationEngineerNeedsBuildingAssistanceInRange( aiBrain, locationType, 
 
 		for _,v in engUnits do
 		
-			if VDist2( engineerManagerPos[1], engineerManagerPos[3], v:GetPosition()[1], v:GetPosition()[3] ) <= unitRange then
+			if VDist2( engineerManagerPos[1], engineerManagerPos[3], GetPosition(v)[1], GetPosition(v)[3] ) <= unitRange then
 			
 				return true
 			end
@@ -662,11 +667,10 @@ end
 
 function AdjacencyCheck( aiBrain, locationType, category, radius, testUnit )
 
-    local LOUDCOPY = table.copy
-	local LOUDGETN = table.getn
-
-	local LOUDPARSE = ParseEntityCategory
-	local LOUDTYPE = type
+    local LOUDCOPY = LOUDCOPY
+	local LOUDGETN = LOUDGETN
+	local LOUDPARSE = LOUDPARSE
+	local LOUDTYPE = LOUDTYPE
 	
 	local CanBuildStructureAt = moho.aibrain_methods.CanBuildStructureAt
 
@@ -882,7 +886,8 @@ function UnfinishedUnits(aiBrain, locationType, category)
 end
 
 function GetGuards(aiBrain, Unit)
-	local engs = GetUnitsAroundPoint(aiBrain, categories.ENGINEER, Unit:GetPosition(), 15, 'Ally' )
+
+	local engs = GetUnitsAroundPoint(aiBrain, categories.ENGINEER, GetPosition(Unit), 15, 'Ally' )
 	local count = 0
     
 	local UpgradesFrom = __blueprints[Unit.BlueprintID].General.UpgradesFrom
@@ -895,7 +900,7 @@ function GetGuards(aiBrain, Unit)
     
 	if UpgradesFrom and UpgradesFrom != 'none' then -- Used to filter out upgrading units
 		local oldCat = LOUDPARSE(UpgradesFrom)
-		local oldUnit = GetUnitsAroundPoint(aiBrain, oldCat, Unit:GetPosition(), 0, 'Ally' )
+		local oldUnit = GetUnitsAroundPoint(aiBrain, oldCat, GetPosition(Unit), 0, 'Ally' )
 		if oldUnit then
 			count = count + 1
 		end
@@ -913,7 +918,8 @@ function MassExtractorHasStorageAndLessDefense(aiBrain, locationType, mindistanc
 	
 	for _,v in GetOwnUnitsAroundPoint(aiBrain, categories.MASSEXTRACTION - categories.TECH1, position, maxdistance) do
 	
-		mexposition = LOUDCOPY(v:GetPosition())
+		mexposition = v.CachePosition   --LOUDCOPY(GetPosition(v))
+        
 		distance = VDist2Sq( position[1],position[3], mexposition[1],mexposition[3])
 		
 		if distance >= (mindistance*mindistance) then
@@ -945,7 +951,8 @@ function MassExtractorInRangeHasLessThanStorage(aiBrain, locationType, mindistan
 	
 	for k,v in Mexs do
     
-		mexposition = v:GetPosition()
+		mexposition = v.CachePosition
+        
 		distance = VDist2Sq( pos[1],pos[3], mexposition[1],mexposition[3] )
 		
 		if distance >= (mindistance*mindistance) and distance <= (maxdistance*maxdistance) then
@@ -979,7 +986,8 @@ function MassExtractorInRangeHasLessThanEnergy(aiBrain, locationType, mindistanc
 	
 	for k,v in Mexs do
     
-		mexposition = v:GetPosition()
+		mexposition = v.CachePosition
+        
 		distance = VDist2Sq( pos[1],pos[3], mexposition[1],mexposition[3] )
 		
 		if distance >= (mindistance*mindistance) and distance <= (maxdistance*maxdistance) then
@@ -1006,7 +1014,8 @@ function MassExtractorInRangeHasLessThanDefense(aiBrain, locationType, mindistan
 	-- get your own extractors around the point
 	for k,v in GetOwnUnitsAroundPoint(aiBrain, categories.MASSEXTRACTION, pos, maxdistance) do
 	
-		mexposition = v:GetPosition()
+		mexposition = v.CachePosition
+        
 		distance = VDist3( pos, mexposition )
         threat = 0
 		

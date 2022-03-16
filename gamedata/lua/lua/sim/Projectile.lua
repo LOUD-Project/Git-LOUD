@@ -45,6 +45,9 @@ local GetPosition = moho.entity_methods.GetPosition
 local SetHealth = moho.entity_methods.SetHealth
 local SetMaxHealth = moho.entity_methods.SetMaxHealth
 
+local TrashBag = TrashBag
+local TrashAdd = TrashBag.Add
+
 
 local PlaySound = moho.entity_methods.PlaySound
 
@@ -94,7 +97,7 @@ Projectile = Class(moho.projectile_methods, Entity) {
 
         local thread = ForkThread(fn, self, unpack(arg))
 		
-        self.Trash:Add(thread)
+        TrashAdd( self.Trash, thread )
 		
         return thread
 		
@@ -104,7 +107,7 @@ Projectile = Class(moho.projectile_methods, Entity) {
 	
         local thread = ForkThread(fn, self, opt1, opt2, opt3)
 		
-        self.Trash:Add(thread)
+        TrashAdd( self.Trash, thread )
 		
     end,
 
@@ -817,7 +820,7 @@ Projectile = Class(moho.projectile_methods, Entity) {
 			
 		end
 		
-        self.Trash:Add(self.MyFlare)
+        TrashAdd( self.Trash, self.MyFlare )
 		
     end,
 

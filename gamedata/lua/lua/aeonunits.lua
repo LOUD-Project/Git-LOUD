@@ -32,11 +32,14 @@ local CreateAeonFactoryBuildingEffects = import('/lua/EffectUtilities.lua').Crea
 
 local ForkThread = ForkThread
 
+local TrashBag = TrashBag
+local TrashAdd = TrashBag.Add
+
 
 AeonFactoryUnit = Class(FactoryUnit) {
 
     StartBuildFx = function( self, unitBeingBuilt )
-        unitBeingBuilt.Trash:Add( self:ForkThread( CreateAeonFactoryBuildingEffects, unitBeingBuilt, __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones, self.Buildbone, self.BuildEffectsBag ) )        
+        TrashAdd( unitBeingBuilt.Trash, self:ForkThread( CreateAeonFactoryBuildingEffects, unitBeingBuilt, __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones, self.Buildbone, self.BuildEffectsBag ) )        
     end,
 }
 
@@ -98,12 +101,12 @@ AShieldStructureUnit = Class(ShieldStructureUnit) {
         if not self.OpenAnim then
             self.OpenAnim = CreateAnimator(self)
             self.OpenAnim:PlayAnim(bpAnim)
-            self.Trash:Add(self.OpenAnim)
+            TrashAdd( self.Trash, self.OpenAnim )
         end
 		
         if not self.Rotator then
             self.Rotator = CreateRotator(self, 'Pod', 'z', nil, 0, 50, 0)
-            self.Trash:Add(self.Rotator)
+            TrashAdd( self.Trash, self.Rotator )
         end
 		
         self.Rotator:SetSpinDown(false)
@@ -153,11 +156,11 @@ ARadarJammerUnit = Class(RadarJammerUnit) {
         if not self.OpenAnim then
             self.OpenAnim = CreateAnimator(self)
             self.OpenAnim:PlayAnim(bpAnim)
-            self.Trash:Add(self.OpenAnim)
+            TrashAdd( self.Trash, self.OpenAnim )
         end
         if not self.Rotator then
             self.Rotator = CreateRotator(self, 'B02', 'z', nil, 0, 50, 0)
-            self.Trash:Add(self.Rotator)
+            TrashAdd( self.Trash, self.Rotator )
         end
     end,
     
@@ -170,7 +173,7 @@ ARadarJammerUnit = Class(RadarJammerUnit) {
         end
         if not self.Rotator then
             self.Rotator = CreateRotator(self, 'B02', 'z', nil, 0, 50, 0)
-            self.Trash:Add(self.Rotator)
+            TrashAdd( self.Trash, self.Rotator )
         end
 		
         self.Rotator:SetSpinDown(false)

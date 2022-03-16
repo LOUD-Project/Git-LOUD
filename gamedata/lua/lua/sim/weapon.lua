@@ -13,6 +13,9 @@ local LOUDCREATEPROJECTILE = moho.weapon_methods.CreateProjectile
 local ForkThread = ForkThread
 local ForkTo = ForkThread
 
+local TrashBag = TrashBag
+local TrashAdd = TrashBag.Add
+
 local WaitSeconds = WaitSeconds
 local WaitTicks = coroutine.yield
 
@@ -37,8 +40,11 @@ Weapon = Class(moho.weapon_methods) {
     end,
 
     ForkThread = function(self, fn, ...)
+    
         local thread = ForkThread(fn, self, unpack(arg))
-		self.Trash:Add(thread)
+        
+		TrashAdd( self.Trash, thread )
+        
         return thread
     end,
 
@@ -94,9 +100,10 @@ Weapon = Class(moho.weapon_methods) {
                     end
 				
                     self:SetFireControl('Right')
-                    self.Trash:Add(self.AimControl)
-                    self.Trash:Add(self.AimRight)
-                    self.Trash:Add(self.AimLeft)
+                    
+                    TrashAdd( self.Trash, self.AimControl )
+                    TrashAdd( self.Trash, self.AimRight )
+                    TrashAdd( self.Trash, self.AimLeft )
 				
                 else
                 
@@ -110,7 +117,8 @@ Weapon = Class(moho.weapon_methods) {
                         self.AimControl:SetResetPoseTime(9999999)
                     end
 				
-                    self.unit.Trash:Add(self.AimControl)
+                    TrashAdd( self.unit.Trash, self.AimControl )
+                    
                     self.AimControl:SetPrecedence(precedence)
 				
                     if bp.RackSlavedToTurret and bp.RackBones[1] then
@@ -119,7 +127,8 @@ Weapon = Class(moho.weapon_methods) {
                             if v.RackBone != pitchBone then
                                 local slaver = CreateSlaver(self.unit, v.RackBone, pitchBone)
                                 slaver:SetPrecedence(precedence-1)
-                                self.Trash:Add(slaver)
+                                
+                                TrashAdd( self.Trash, slaver )
                             end
                         end
                     end

@@ -23,6 +23,7 @@ local WaitTicks = coroutine.yield
 
 local AssignUnitsToPlatoon = moho.aibrain_methods.AssignUnitsToPlatoon
 local BeenDestroyed = moho.entity_methods.BeenDestroyed
+local IsBeingBuilt = moho.unit_methods.IsBeingBuilt
 local IsUnitState = moho.unit_methods.IsUnitState
 
 local GetNumUnitsAroundPoint = moho.aibrain_methods.GetNumUnitsAroundPoint
@@ -1166,7 +1167,7 @@ function GetTransports( platoon, aiBrain)
 	local Collected = { Large = 0, Medium = 0, Small = 0 }
 
 	local GetFuelRatio = moho.unit_methods.GetFuelRatio
-	local IsBeingBuilt = moho.unit_methods.IsBeingBuilt
+	local IsBeingBuilt = IsBeingBuilt
 	local GetPosition = moho.entity_methods.GetPosition
 	
 	local out_of_range = false
@@ -2680,7 +2681,7 @@ function AssignTransportToPool( unit, aiBrain )
 
 			unit.PlatoonHandle = aiBrain.TransportPool
             
-            if not unit:IsBeingBuilt() then
+            if not IsBeingBuilt(unit) then
                 ForkTo( ReturnTransportsToPool, aiBrain, {unit}, true )
                 return
             end
@@ -2688,7 +2689,7 @@ function AssignTransportToPool( unit, aiBrain )
         
 	else
     
-        if not unit.Dead and (not unit:IsBeingBuilt()) then
+        if not unit.Dead and (not IsBeingBuilt(unit)) then
             LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..unit.Sync.id.." already in Transport Pool")
         end
     end
@@ -2712,7 +2713,7 @@ function ReturnTransportsToPool( aiBrain, units, move )
             LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..v.Sync.id.." processing "..repr(v.PlatoonHandle.BuilderName).." InUse is "..repr(v.InUse) )
         end
 
-        if v:IsBeingBuilt() then
+        if IsBeingBuilt(v) then
             units[v] = nil
             continue
         end

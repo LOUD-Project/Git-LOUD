@@ -32,10 +32,17 @@ local CreateEmitterAtBone = CreateEmitterAtBone
 local AttachBeamEntityToEntity = AttachBeamEntityToEntity
 local EntityCategoryContains = EntityCategoryContains
 
+local LOUDINSERT = table.insert
+
+local VectorCached = { 0, 0, 0 }
+
 local WaitSeconds = WaitSeconds
 local WaitTicks = coroutine.yield
 
 local ForkThread = ForkThread
+
+local TrashBag = TrashBag
+local TrashAdd = TrashBag.Add
 
 
 SAirFactoryUnit = Class(FactoryUnit) {
@@ -45,7 +52,7 @@ SAirFactoryUnit = Class(FactoryUnit) {
 		local BuildBones = __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones
         
         local thread = self:ForkThread( EffectUtil.CreateSeraphimFactoryBuildingEffects, unitBeingBuilt, BuildBones, 'Attachpoint', self.BuildEffectsBag )
-        unitBeingBuilt.Trash:Add( thread )
+        TrashAdd( unitBeingBuilt.Trash, thread )
     end,
 
     CreateRollOffEffects = function(self)
@@ -56,15 +63,21 @@ SAirFactoryUnit = Class(FactoryUnit) {
         if not self.ReleaseEffectsBag then self.ReleaseEffectsBag = {} end
 		
         for k, v in self.RollOffBones do
+        
             local fx = AttachBeamEntityToEntity(self, v, unitB, -1, army, EffectTemplate.TTransportBeam01)
-            table.insert( self.ReleaseEffectsBag, fx)
-            self.Trash:Add(fx)
+            
+            LOUDINSERT( self.ReleaseEffectsBag, fx)
+            TrashAdd( self.Trash, fx )
+            
             fx = AttachBeamEntityToEntity( unitB, -1, self, v, army, EffectTemplate.TTransportBeam02)
-            table.insert( self.ReleaseEffectsBag, fx)
-            self.Trash:Add(fx)
+            
+            LOUDINSERT( self.ReleaseEffectsBag, fx)
+            TrashAdd( self.Trash, fx )
+            
             fx = CreateEmitterAtBone( self, v, army, EffectTemplate.TTransportGlow01)
-            table.insert( self.ReleaseEffectsBag, fx)
-            self.Trash:Add(fx)
+            
+            LOUDINSERT( self.ReleaseEffectsBag, fx)
+            TrashAdd( self.Trash, fx )
         end
     end,
 
@@ -76,12 +89,17 @@ SAirFactoryUnit = Class(FactoryUnit) {
     end,
 
     RollOffUnit = function(self)
+    
         if EntityCategoryContains( categories.AIR, self.UnitBeingBuilt ) then
+        
+            local vec = VectorCached
+            local spin
 		
-            local spin, x, y, z = self:CalculateRollOffPoint()
+            spin, vec[1], vec[2], vec[3] = self:CalculateRollOffPoint()
 			
             self.MoveCommand = IssueMove( {self.UnitBeingBuilt}, Vector(x, y, z))
         end
+        
     end,
 
     RolloffBody = function(self)
@@ -102,7 +120,7 @@ SAirFactoryUnit = Class(FactoryUnit) {
 			
             if not self.AttachmentSliderManip then
                 self.AttachmentSliderManip = CreateSlider(self, bp.Display.BuildAttachBone or 0)
-				self.Trash:Add(self.AttachmentSliderManip)
+				TrashAdd( self.Trash, self.AttachmentSliderManip )
             end
 			
             self:CreateRollOffEffects()
@@ -214,7 +232,7 @@ SLandFactoryUnit = Class(FactoryUnit) {
     
 		local BuildBones = __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones
         local thread = self:ForkThread( EffectUtil.CreateSeraphimFactoryBuildingEffects, unitBeingBuilt, BuildBones, 'Attachpoint', self.BuildEffectsBag )
-        unitBeingBuilt.Trash:Add( thread )
+        TrashAdd( unitBeingBuilt.Trash, thread )
     end,
     
     OnStartBuild = function(self, unitBeingBuilt, order )
@@ -285,7 +303,7 @@ SSeaFactoryUnit = Class(FactoryUnit) {
     
 		local BuildBones = __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones
         local thread = self:ForkThread( EffectUtil.CreateSeraphimFactoryBuildingEffects, unitBeingBuilt, BuildBones, 'Attachpoint', self.BuildEffectsBag )
-        unitBeingBuilt.Trash:Add( thread )
+        TrashAdd( unitBeingBuilt.Trash, thread )
     end,
 
     OnStartBuild = function(self, unitBeingBuilt, order )
@@ -414,10 +432,12 @@ SConstructionUnit = Class(ConstructionUnit) {
             self.BuildArm2Manipulator = CreateBuilderArmController(self, bp.General.BuildBonesAlt1.YawBone or 0 , bp.General.BuildBonesAlt1.PitchBone or 0, bp.General.BuildBonesAlt1.AimBone or 0)
             self.BuildArm2Manipulator:SetAimingArc(bp.General.BuildBonesAlt1.YawMin or -180, bp.General.BuildBonesAlt1.YawMax or 180, bp.General.BuildBonesAlt1.YawSlew or 360, bp.General.BuildBonesAlt1.PitchMin or -90, bp.General.BuildBonesAlt1.PitchMax or 90, bp.General.BuildBonesAlt1.PitchSlew or 360)
             self.BuildArm2Manipulator:SetPrecedence(5)
+            
             if self.BuildingOpenAnimManip and self.Build2ArmManipulator then
                 self.BuildArm2Manipulator:Disable()
             end
-            self.Trash:Add(self.BuildArm2Manipulator)
+            
+            TrashAdd( self.Trash, self.BuildArm2Manipulator )
         end
     end,
 
@@ -497,9 +517,12 @@ SShieldStructureUnit = Class(ShieldStructureUnit) {
         
         if not self.AnimationManipulator then
             self.AnimationManipulator = CreateAnimator(self)
-            self.Trash:Add(self.AnimationManipulator)
+            
+            TrashAdd( self.Trash, self.AnimationManipulator )
+            
             self.AnimationManipulator:PlayAnim(__blueprints[self.BlueprintID].Display.AnimationActivate, false)
         end
+        
         self.AnimationManipulator:SetRate(1)
     end,
     
@@ -578,7 +601,7 @@ SEnergyBallUnit = Class(SHoverLandUnit) {
 				
 		        for k,v in targets do
 		            if VDist3( location, v:GetPosition() ) >= weaponMinRange and v ~= self then
-                        table.insert( filteredUnits, v )
+                        LOUDINSERT( filteredUnits, v )
                     end
                 end
 				

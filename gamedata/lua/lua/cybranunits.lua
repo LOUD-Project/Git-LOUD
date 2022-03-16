@@ -35,6 +35,9 @@ local ForkThread = ForkThread
 local KillThread = KillThread
 local WaitSeconds = WaitSeconds
 
+local TrashBag = TrashBag
+local TrashAdd = TrashBag.Add
+
 local WaitTicks = coroutine.yield
 
 local CreateAttachedEmitter = CreateAttachedEmitter
@@ -59,7 +62,7 @@ CAirFactoryUnit = Class(FactoryUnit) {
         if not self.BuildAnimManip then
             self.BuildAnimManip = CreateAnimator(self)
             self.BuildAnimManip:PlayAnim( __blueprints[self.BlueprintID].Display.AnimationBuild, true):SetRate(0)
-            self.Trash:Add(self.BuildAnimManip)
+            TrashAdd( self.Trash, self.BuildAnimManip )
         end
         
         self.BuildAnimManip:SetRate(1)
@@ -96,7 +99,7 @@ CLandFactoryUnit = Class(FactoryUnit) {
         if not self.BuildAnimManip then
             self.BuildAnimManip = CreateAnimator(self)
             self.BuildAnimManip:PlayAnim( __blueprints[self.BlueprintID].Display.AnimationBuild, true):SetRate(0)
-            self.Trash:Add(self.BuildAnimManip)
+            TrashAdd( self.Trash, self.BuildAnimManip )
         end
 
         self.BuildAnimManip:SetRate(1)
@@ -119,7 +122,7 @@ CLandFactoryUnit = Class(FactoryUnit) {
 CSeaFactoryUnit = Class(FactoryUnit) {
     
     StartBuildingEffects = function( self, unitBeingBuilt, order )
-        self.BuildEffectsBag:Add( self:ForkThread( CreateCybranBuildBeams, unitBeingBuilt, __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones, self.BuildEffectsBag ) )
+        TrashAdd( self.BuildEffectsBag, self:ForkThread( CreateCybranBuildBeams, unitBeingBuilt, __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones, self.BuildEffectsBag ) )
     end,
 
     OnPaused = function(self)
@@ -230,7 +233,7 @@ CConstructionUnit = Class(ConstructionUnit){
         
         if not self.TransformManipulator then
             self.TransformManipulator = CreateAnimator(self)
-            self.Trash:Add( self.TransformManipulator )
+            TrashAdd( self.Trash, self.TransformManipulator )
         end
 
         if water then
@@ -303,13 +306,16 @@ CConstructionEggUnit = Class(StructureUnit) {
 		
         ForkThread( function()
                         self.OpenAnimManip = CreateAnimator(self)
-                        self.Trash:Add(self.OpenAnimManip)
+                        
+                        TrashAdd( self.Trash, self.OpenAnimManip )
+                        
                         self.OpenAnimManip:PlayAnim( bp.Display.AnimationOpen, false):SetRate(0.25)
 
                         WaitFor(self.OpenAnimManip)
                         
                         self.EggSlider = CreateSlider(self, 0, 0, -20, 0, 10)
-                        self.Trash:Add(self.EggSlider)
+                        
+                        TrashAdd( self.Trash, self.EggSlider )
                         
                         WaitFor(self.EggSlider)
                         
