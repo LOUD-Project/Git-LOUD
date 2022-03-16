@@ -1,3 +1,13 @@
+### Release 16-03-2022
+Lua 6.0.6
+
+Fix - a bug with an optimization caused Cybran bomb to break on the blast decal
+    - A whole slew of additional optimizations
+    - Timed ACT now affects AI's unit cap as well
+    - Minor adjustment to Threat distance conditions so that AI will form platoons when enemy is closer than previously
+    - An incorrect UnitID was appearing for Aeon T3 PD when no mods were turned on - fixed.
+
+
 ### Release 15-03-2022
 Lua 6.0.5
 
