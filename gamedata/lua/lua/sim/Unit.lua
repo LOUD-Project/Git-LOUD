@@ -30,6 +30,9 @@ local BuffFieldBlueprints = import('/lua/sim/BuffField.lua').BuffFieldBlueprints
 
 local RRBC = import('/lua/sim/RebuildBonusCallback.lua').RegisterRebuildBonusCheck
 
+local TrashBag = TrashBag
+local TrashAdd = TrashBag.Add
+
 -- from Domino Mod Support
 local __DMSI = import('/mods/Domino_Mod_Support/lua/initialize.lua') or false
 local AvailableToggles = {} --  __DMSI.Custom_Toggles() or {}
@@ -420,7 +423,7 @@ Unit = Class(moho.unit_methods) {
 
         local thread = ForkThread(fn, self, unpack(arg))
 		
-        self.Trash:Add(thread)
+        TrashAdd( self.Trash,thread)
 		
         return thread
 		
@@ -1852,7 +1855,7 @@ Unit = Class(moho.unit_methods) {
 				
                 self.DeathAnimManip = CreateAnimator(self):PlayAnim(animBlock.Animation):SetRate(rate)
 
-                self.Trash:Add(self.DeathAnimManip)
+                TrashAdd( self.Trash,self.DeathAnimManip)
 				
                 WaitFor(self.DeathAnimManip)
 				
@@ -2910,7 +2913,7 @@ Unit = Class(moho.unit_methods) {
 		if bp.Display.AnimationPermOpen then
 		
 			self.PermOpenAnimManipulator = CreateAnimator(self):PlayAnim(bp.Display.AnimationPermOpen)
-			self.Trash:Add(self.PermOpenAnimManipulator)
+			TrashAdd( self.Trash,self.PermOpenAnimManipulator)
 			
 		end
 
@@ -3060,7 +3063,7 @@ Unit = Class(moho.unit_methods) {
 			
         end
 		
-        self.Trash:Add(self.BuildArmManipulator)
+        TrashAdd( self.Trash,self.BuildArmManipulator)
 		
     end,
 
@@ -3122,13 +3125,7 @@ Unit = Class(moho.unit_methods) {
     end,
 
     OnStopBuild = function(self, unitBeingBuilt)
---[[
-		if unitBeingBuilt then
-			LOG("*AI DEBUG OnStopBuild "..repr(unitBeingBuilt.Sync.id).." "..repr(unitBeingBuilt:GetBlueprint().Description).." by "..self:GetBlueprint().Description)
-		else
-			LOG("*AI DEBUG OnStopBuild for "..self:GetBlueprint().Description.." no unitBeingBuilt")
-		end
---]]
+
         self:DoOnUnitBuiltCallbacks(unitBeingBuilt)
 
         self:StopBuildingEffects(unitBeingBuilt)
@@ -3136,6 +3133,7 @@ Unit = Class(moho.unit_methods) {
         self:SetActiveConsumptionInactive()
 	
         --self:StopUnitAmbientSound('ConstructLoop')
+        
         self:PlayUnitSound('ConstructStop')
         
         self.CurrentBuildOrder = false
@@ -3148,11 +3146,10 @@ Unit = Class(moho.unit_methods) {
     end,
 
     OnFailedToBuild = function(self)
-    
-        --LOG("*AI DEBUG OnFailedToBuild "..GetAIBrain(self).Nickname.." "..repr(self.PlatoonHandle.BuilderName))
-	
+
         self:DoOnFailedToBuildCallbacks()
         self:SetActiveConsumptionInactive()
+        
         --self:StopUnitAmbientSound('ConstructLoop')
 		
     end,
@@ -3162,7 +3159,7 @@ Unit = Class(moho.unit_methods) {
 
     StartBuildingEffects = function(self, unitBeingBuilt, order)
 	
-        self.BuildEffectsBag:Add( self:ForkThread( self.CreateBuildEffects, unitBeingBuilt, order ) )
+        TrashAdd( self.BuildEffectsBag, self:ForkThread( self.CreateBuildEffects, unitBeingBuilt, order ) )
 		
     end,
 
@@ -3223,8 +3220,6 @@ Unit = Class(moho.unit_methods) {
             if self.IntelDisables[intel] == 0 then
 			
 				self.IntelDisables[intel] = 1
-			
-				--LOG("*AI DEBUG UNIT DisableUnitIntel for "..repr(intel))
 				
 				self:DisableIntel(intel)
 				
@@ -3241,9 +3236,7 @@ Unit = Class(moho.unit_methods) {
                 if self.IntelDisables[k] == 0 then
 				
 					self.IntelDisables[k] = 1
-				
-					--LOG("*AI DEBUG basic Intel "..repr(k).." set off")
-					
+
                     self:DisableIntel(k)
 					
                     intDisabled = true
@@ -3290,9 +3283,7 @@ Unit = Class(moho.unit_methods) {
 				if intel then
 			
 					if self.IntelDisables[intel] == 1 then
-					
-						--LOG("*AI DEBUG UNIT EnableUnitIntel for "..repr(intel))
-						
+
 						EnableIntel(self,intel)
 						
 						intEnabled = true
@@ -3311,9 +3302,7 @@ Unit = Class(moho.unit_methods) {
 							EnableIntel(self,k)
 
 							if self:IsIntelEnabled(k) then
-							
-								--LOG("*AI DEBUG basic Intel "..repr(k).." enabled")
-								
+
 								intEnabled = true
 								
 								self.IntelDisables[k] = 0
@@ -3590,9 +3579,7 @@ Unit = Class(moho.unit_methods) {
     end,
 
     CreateEnhancement = function(self, enh)
-	
-		--LOG("*AI DEBUG CreateEnhancment for "..self:GetBlueprint().Description.." "..repr(enh))
-		
+
         local bp = ALLBPS[self.BlueprintID].Enhancements[enh]
 		
         if not bp then
@@ -3705,7 +3692,6 @@ Unit = Class(moho.unit_methods) {
 
     HasEnhancement = function(self, enh)
 	
-        --local entId = self.Sync.id  --GetEntityId(self)
         local unitEnh = SimUnitEnhancements[self.Sync.id]
 		
         if unitEnh then
@@ -4056,7 +4042,7 @@ Unit = Class(moho.unit_methods) {
         if not self.AmbientSounds[sound] then
             local sndEnt = Entity {}
             self.AmbientSounds[sound] = sndEnt
-            self.Trash:Add(sndEnt)
+            TrashAdd( self.Trash,sndEnt)
             sndEnt:AttachTo(self,-1)
         end
         self.AmbientSounds[sound]:SetAmbientSound( bp.Audio[sound], nil )
@@ -4783,7 +4769,7 @@ Unit = Class(moho.unit_methods) {
 			
             self:EnableShield()
 			
-            self.Trash:Add( self.MyShield )
+            TrashAdd( self.Trash, self.MyShield )
 
         end
 		
@@ -4825,7 +4811,7 @@ Unit = Class(moho.unit_methods) {
 				
                 self:EnableShield()
 				
-                self.Trash:Add(self.MyShield)
+                TrashAdd( self.Trash,self.MyShield)
 				
             else
 			
@@ -4869,7 +4855,7 @@ Unit = Class(moho.unit_methods) {
 			
             self:EnableShield()
 			
-            self.Trash:Add(self.MyShield)
+            TrashAdd( self.Trash,self.MyShield)
 			
         end
 		
@@ -4907,7 +4893,7 @@ Unit = Class(moho.unit_methods) {
 			
             self:EnableShield()
 			
-            self.Trash:Add(self.MyHunkerShield)
+            TrashAdd( self.Trash,self.MyHunkerShield)
 
         end
 		
@@ -4949,7 +4935,7 @@ Unit = Class(moho.unit_methods) {
 				
                 self:EnableShield()
 				
-                self.Trash:Add(self.MyHunkerShield)
+                TrashAdd( self.Trash,self.MyHunkerShield)
 
             else
                 LOG('*WARNING: TRYING TO CREATE HUNKER SHIELD ON UNIT ',repr(self.BlueprintID),', but it does not have an OwnerShieldMesh=<meshBpName> defined in the Blueprint.')
@@ -4988,7 +4974,7 @@ Unit = Class(moho.unit_methods) {
             }, self)
             self:SetFocusEntity(self.MyShield)
             self:EnableShield()
-            self.Trash:Add(self.MyShield)
+            TrashAdd( self.Trash,self.MyShield)
         end
     end,
 
@@ -5381,7 +5367,7 @@ Unit = Class(moho.unit_methods) {
 		
 			local fx = CreateEmitterAtEntity(self, army, v):OffsetEmitter(0, yOffset, 0):ScaleEmitter(scaleFactor)
 			
-			self.Trash:Add(fx)
+			TrashAdd( self.Trash,fx)
 			
 			table.insert(self.TeleportChargeBag, fx)
 			
@@ -5666,7 +5652,7 @@ Unit = Class(moho.unit_methods) {
             self:SetFocusEntity(self.MyShield) 
             self:EnableShield() 
 			
-            self.Trash:Add(self.MyShield)      
+            TrashAdd( self.Trash,self.MyShield)      
 			
         end 
 		
@@ -5775,7 +5761,7 @@ Unit = Class(moho.unit_methods) {
 			ForkTo( FloatingEntityText, self.Sync.id, "Initiating Personal Shield - "..sldHealth.." strength")
 			
             self:EnableShield()
-            self.Trash:Add(self.MyShield)                               
+            TrashAdd( self.Trash,self.MyShield)                               
         end              
     end,
 

@@ -17,6 +17,7 @@ local LOUDENTITY = EntityCategoryContains
 local LOUDEMITATENTITY = CreateEmitterAtEntity
 local LOUDEMITATBONE = CreateEmitterAtBone
 local LOUDPARSE = ParseEntityCategory
+
 local ForkThread = ForkThread
 local ForkTo = ForkThread
 

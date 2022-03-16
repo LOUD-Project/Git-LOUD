@@ -239,9 +239,10 @@ function CreateBuildCubeThread( unitBeingBuilt, builder, OnBeingBuiltEffectsBag 
         
 	        proj = CreateProjectile( BuildBaseEffect, '/effects/Entities/UEFBuildEffect/UEFBuildEffect02_proj.bp',0,y * (1-cComplete),0, nil, nil, nil )
 			
-			OnBeingBuiltEffectsBag:Add(proj)
+			TrashAdd( OnBeingBuiltEffectsBag, proj)
 			
             slice = LOUDABS(lComplete - cComplete)
+            
             proj:SetScale(x, y * slice, z)
             BuildBaseEffect:SetScale(x, y * (1-cComplete), z)
             
@@ -589,7 +590,7 @@ function CreateDefaultBuildBeams( builder, unitBeingBuilt, BuildEffectBones, Bui
     
     local BeamEndEntity = Entity()
 
-    BuildEffectsBag:Add( BeamEndEntity )
+    TrashAdd( BuildEffectsBag, BeamEndEntity )
     
     LOUDWARP( BeamEndEntity, pos )
 
@@ -602,7 +603,7 @@ function CreateDefaultBuildBeams( builder, unitBeingBuilt, BuildEffectBones, Bui
         
             local beamEffect = LOUDATTACHBEAMENTITY(builder, BuildBone, BeamEndEntity, -1, army, '/effects/emitters/build_beam_01_emit.bp' )
             
-            BuildEffectsBag:Add(beamEffect)
+            TrashAdd( BuildEffectsBag, beamEffect )
         end
         
     end    
@@ -662,9 +663,9 @@ function CreateAeonBuildBaseThread( unitBeingBuilt, builder, EffectsBag )
 	
     BuildBaseEffect:SetOrientation(unitBeingBuilt:GetOrientation(), true)    
 	
-    unitBeingBuilt.Trash:Add(BuildBaseEffect)
+    TrashAdd( unitBeingBuilt.Trash, BuildBaseEffect)
 	
-    EffectsBag:Add(BuildBaseEffect)
+    TrashAdd( EffectsBag, BuildBaseEffect)
 
     LOUDEMITONENTITY(BuildBaseEffect, army,'/effects/emitters/aeon_being_built_ambient_01_emit.bp'):SetEmitterCurveParam('X_POSITION_CURVE', 0, sx * 1.5):SetEmitterCurveParam('Z_POSITION_CURVE', 0, sz * 1.5)
     
@@ -727,19 +728,19 @@ function CreateCybranBuildBeams( builder, unitBeingBuilt, BuildEffectBones, Buil
 		
             local beamEnd = Entity()
 			
-            builder.Trash:Add(beamEnd)
+            TrashAdd( builder.Trash, beamEnd )
 			
             BeamEndEntities[counter] = beamEnd
 			counter = counter + 1
 			
-            BuildEffectsBag:Add( beamEnd )
+            TrashAdd( BuildEffectsBag, beamEnd )
 			
             LOUDWARP( beamEnd, pos )
 			
             LOUDEMITONENTITY( beamEnd, army, CybranBuildSparks01 )
             LOUDEMITONENTITY( beamEnd, army, CybranBuildFlash01 )
 			
-            BuildEffectsBag:Add( LOUDATTACHBEAMENTITY( builder, BuildBone, beamEnd, -1, army, '/effects/emitters/build_beam_02_emit.bp' ) )
+            TrashAdd( BuildEffectsBag, LOUDATTACHBEAMENTITY( builder, BuildBone, beamEnd, -1, army, '/effects/emitters/build_beam_02_emit.bp' ) )
 			
         end
 		
@@ -818,7 +819,7 @@ function SpawnBuildBots( builder, unitBeingBuilt, numBots,  BuildEffectsBag )
         BuilderUnits[counter] = tunit
 		counter = counter + 1
 		
-        BuildEffectsBag:Add(tunit)
+        TrashAdd( BuildEffectsBag, tunit )
 		
     end
 	
@@ -839,7 +840,7 @@ function CreateCybranEngineerBuildEffects( builder, BuildBones, BuildBots, Build
         for _, vBone in BuildBones do
         
             for _, vEffect in CybranBuildUnitBlink01 do
-                BuildEffectsBag:Add( LOUDATTACHEMITTER(builder,vBone,army,vEffect))
+                TrashAdd( BuildEffectsBag, LOUDATTACHEMITTER(builder,vBone,army,vEffect))
             end
             
             WaitTicks( (0.5 + (Random() * 0.6)) * 10 )
@@ -857,7 +858,7 @@ function CreateCybranEngineerBuildEffects( builder, BuildBones, BuildBots, Build
                 continue
             end
             
-            BuildEffectsBag:Add(LOUDATTACHBEAMENTITY(builder, BuildBones[i], vBot, -1, army, '/effects/emitters/build_beam_03_emit.bp'))        
+            TrashAdd( BuildEffectsBag, LOUDATTACHBEAMENTITY(builder, BuildBones[i], vBot, -1, army, '/effects/emitters/build_beam_03_emit.bp'))        
             i = i + 1
         end
     end
@@ -873,12 +874,12 @@ function CreateCybranFactoryBuildEffects( builder, unitBeingBuilt, BuildBones, B
     for _,vB in BuildBones.BuildEffectBones do
     
         for _, vE in BuildEffects do
-            BuildEffectsBag:Add( LOUDATTACHEMITTER(builder,vB,army,vE) )
+            TrashAdd( BuildEffectsBag, LOUDATTACHEMITTER(builder,vB,army,vE) )
         end 
         
     end
     
-    BuildEffectsBag:Add( LOUDATTACHEMITTER( builder, BuildBones.BuildAttachBone, army, '/effects/emitters/cybran_factory_build_01_emit.bp' ) )
+    TrashAdd( BuildEffectsBag, LOUDATTACHEMITTER( builder, BuildBones.BuildAttachBone, army, '/effects/emitters/cybran_factory_build_01_emit.bp' ) )
 
     -- Add sparks to the collision box of the unit being built
     local sx, sy, sz = 0
@@ -901,11 +902,11 @@ end
 
 function CreateAeonConstructionUnitBuildingEffects( builder, unitBeingBuilt, BuildEffectsBag )
 
-    BuildEffectsBag:Add( LOUDEMITONENTITY(builder, builder.Sync.army,'/effects/emitters/aeon_build_01_emit.bp') )
+    TrashAdd( BuildEffectsBag, LOUDEMITONENTITY(builder, builder.Sync.army,'/effects/emitters/aeon_build_01_emit.bp') )
 
     local beamEnd = Entity()
     
-    BuildEffectsBag:Add(beamEnd)
+    TrashAdd( BuildEffectsBag, beamEnd )
     
     LOUDWARP( beamEnd, GetPosition(unitBeingBuilt) )
     
@@ -917,7 +918,7 @@ function CreateAeonConstructionUnitBuildingEffects( builder, unitBeingBuilt, Bui
         
 		beamEffect:SetEmitterParam( 'POSITION_Z', 0.45 )
         
-		BuildEffectsBag:Add(beamEffect)
+		TrashAdd( BuildEffectsBag, beamEffect )
 	end
 end
 
@@ -925,7 +926,7 @@ function CreateAeonCommanderBuildingEffects( builder, unitBeingBuilt, BuildEffec
 
     local beamEnd = Entity()
     
-    BuildEffectsBag:Add(beamEnd)
+    TrashAdd( BuildEffectsBag, beamEnd )
     
     LOUDWARP( beamEnd, GetPosition(unitBeingBuilt) )
     
@@ -933,13 +934,13 @@ function CreateAeonCommanderBuildingEffects( builder, unitBeingBuilt, BuildEffec
 
     for _, vBone in BuildEffectBones do
     
-		BuildEffectsBag:Add( LOUDATTACHEMITTER( builder, vBone, builder.Sync.army, '/effects/emitters/aeon_build_02_emit.bp' ) )
+		TrashAdd( BuildEffectsBag, LOUDATTACHEMITTER( builder, vBone, builder.Sync.army, '/effects/emitters/aeon_build_02_emit.bp' ) )
 
     	for _, v in AeonBuildBeams01 do
         
 			beamEffect = LOUDATTACHBEAMENTITY(builder, vBone, beamEnd, -1, builder.Sync.army, v )
             
-			BuildEffectsBag:Add(beamEffect)
+			TrashAdd( BuildEffectsBag, beamEffect )
 		end
 	end
 end
@@ -967,13 +968,13 @@ function CreateAeonFactoryBuildingEffects( builder, unitBeingBuilt, BuildEffectB
         
             local beamEffect
 		
-			EffectsBag:Add( LOUDATTACHEMITTER( builder, vBone, army, '/effects/emitters/aeon_build_03_emit.bp' ) )
+			TrashAdd( EffectsBag, LOUDATTACHEMITTER( builder, vBone, army, '/effects/emitters/aeon_build_03_emit.bp' ) )
 		
 			for _, vBeam in AeonBuildBeams02 do
 			
 				beamEffect = LOUDATTACHBEAMENTITY(builder, vBone, builder, BuildBone, army, vBeam )
 				
-				EffectsBag:Add(beamEffect)
+				TrashAdd( EffectsBag, beamEffect )
 				
 			end
 		end
@@ -994,7 +995,7 @@ function CreateSeraphimUnitEngineerBuildingEffects( builder, unitBeingBuilt, Bui
 
     for _, vBone in BuildEffectBones do
     
-		BuildEffectsBag:Add( LOUDATTACHEMITTER( builder, vBone, army, '/effects/emitters/seraphim_build_01_emit.bp' ) )
+		TrashAdd( BuildEffectsBag, LOUDATTACHEMITTER( builder, vBone, army, '/effects/emitters/seraphim_build_01_emit.bp' ) )
         
         local beamEffect
 
@@ -1002,7 +1003,7 @@ function CreateSeraphimUnitEngineerBuildingEffects( builder, unitBeingBuilt, Bui
         
 			beamEffect = LOUDATTACHBEAMENTITY(builder, vBone, unitBeingBuilt, -1, army, v )
             
-			BuildEffectsBag:Add(beamEffect)
+			TrashAdd( BuildEffectsBag, beamEffect )
 		end
 	end
 end
@@ -1033,30 +1034,30 @@ function CreateSeraphimFactoryBuildingEffects( builder, unitBeingBuilt, BuildEff
     
     LOUDWARP( BuildBaseEffect, pos )
     
-    unitBeingBuilt.Trash:Add(BuildBaseEffect)
+    TrashAdd( unitBeingBuilt.Trash, BuildBaseEffect )
     
-    EffectsBag:Add(BuildBaseEffect)
+    TrashAdd( EffectsBag, BuildBaseEffect )
 
     for _, vBone in BuildEffectBones do
     
-		EffectsBag:Add( LOUDATTACHEMITTER( builder, vBone, army, '/effects/emitters/seraphim_build_01_emit.bp' ) )
+		TrashAdd( EffectsBag, LOUDATTACHEMITTER( builder, vBone, army, '/effects/emitters/seraphim_build_01_emit.bp' ) )
         
 		for _, vBeam in SeraphimBuildBeams01 do
         
-			EffectsBag:Add(LOUDATTACHBEAMENTITY(builder, vBone, unitBeingBuilt, -1, army, vBeam ))
-			EffectsBag:Add(LOUDATTACHEMITTER( unitBeingBuilt, -1, army, '/effects/emitters/seraphim_being_built_ambient_02_emit.bp'))
-			EffectsBag:Add(LOUDATTACHEMITTER( unitBeingBuilt, -1, army, '/effects/emitters/seraphim_being_built_ambient_03_emit.bp'))			
-			EffectsBag:Add(LOUDATTACHEMITTER( unitBeingBuilt, -1, army, '/effects/emitters/seraphim_being_built_ambient_04_emit.bp'))						
-			EffectsBag:Add(LOUDATTACHEMITTER( unitBeingBuilt, -1, army, '/effects/emitters/seraphim_being_built_ambient_05_emit.bp'))				
+			TrashAdd( EffectsBag, LOUDATTACHBEAMENTITY(builder, vBone, unitBeingBuilt, -1, army, vBeam ))
+			TrashAdd( EffectsBag, LOUDATTACHEMITTER( unitBeingBuilt, -1, army, '/effects/emitters/seraphim_being_built_ambient_02_emit.bp'))
+			TrashAdd( EffectsBag, LOUDATTACHEMITTER( unitBeingBuilt, -1, army, '/effects/emitters/seraphim_being_built_ambient_03_emit.bp'))			
+			TrashAdd( EffectsBag, LOUDATTACHEMITTER( unitBeingBuilt, -1, army, '/effects/emitters/seraphim_being_built_ambient_04_emit.bp'))						
+			TrashAdd( EffectsBag, LOUDATTACHEMITTER( unitBeingBuilt, -1, army, '/effects/emitters/seraphim_being_built_ambient_05_emit.bp'))				
             
 		end
 	end
 
     local slider = CreateSlider( unitBeingBuilt, 0 )
 	
-    unitBeingBuilt.Trash:Add(slider)
+    TrashAdd( unitBeingBuilt.Trash, slider )
 	
-    EffectsBag:Add(slider)
+    TrashAdd( EffectsBag, slider )
 	
     slider:SetWorldUnits(true)
     slider:SetGoal(0, sy, 0)
@@ -1123,9 +1124,9 @@ function CreateSeraphimBuildBaseThread( unitBeingBuilt, builder, EffectsBag )
     
     LOUDWARP( BuildBaseEffect, pos )
     
-    unitBeingBuilt.Trash:Add(BuildBaseEffect)
+    TrashAdd( unitBeingBuilt.Trash, BuildBaseEffect )
     
-    EffectsBag:Add(BuildBaseEffect)
+    TrashAdd( EffectsBag, BuildBaseEffect)
 
     local BuildEffectBaseEmitters = {'/effects/emitters/seraphim_being_built_ambient_01_emit.bp'}
 
@@ -1148,7 +1149,7 @@ function CreateSeraphimBuildBaseThread( unitBeingBuilt, builder, EffectsBag )
         count = count + 1
         AdjustedEmitters[count] = effect
         
-        EffectsBag:Add(effect)
+        TrashAdd( EffectsBag, effect )
     end
 
     for _, vEffect in BuildEffectBaseEmitters do
@@ -1158,7 +1159,7 @@ function CreateSeraphimBuildBaseThread( unitBeingBuilt, builder, EffectsBag )
         count = count + 1
         AdjustedEmitters[count] = effect
         
-        EffectsBag:Add(effect)
+        TrashAdd( EffectsBag, effect )
     end
 
     -- Poll the unit being built every second to adjust the effects to match
@@ -1222,8 +1223,9 @@ function CreateSeraphimExperimentalBuildBaseThread( unitBeingBuilt, builder, Eff
     
     LOUDWARP( BuildBaseEffect, pos )
     
-    unitBeingBuilt.Trash:Add(BuildBaseEffect)
-    EffectsBag:Add(BuildBaseEffect)
+    TrashAdd( unitBeingBuilt.Trash, BuildBaseEffect )
+    
+    TrashAdd( EffectsBag, BuildBaseEffect )
 
     local BuildEffectBaseEmitters = {'/effects/emitters/seraphim_being_built_ambient_01_emit.bp'}
 
@@ -1246,7 +1248,7 @@ function CreateSeraphimExperimentalBuildBaseThread( unitBeingBuilt, builder, Eff
         AdjustedEmitters[counter] = effect
 		counter = counter + 1
         
-        EffectsBag:Add(effect)
+        TrashAdd( EffectsBag, effect )
     end
 
 
@@ -1319,8 +1321,8 @@ function CreateAdjacencyBeams( unit, adjacentUnit )
     
         local beam = LOUDATTACHBEAMENTITY( unit, -1, adjacentUnit, -1, army, beamEffect )
         
-        info.Trash:Add(beam)
-        unit.Trash:Add(beam)
+        TrashAdd( info.Trash, beam )
+        TrashAdd( unit.Trash, beam )
     end
 
 	LOUDINSERT( unit.AdjacencyBeamsBag, info)
@@ -1335,7 +1337,7 @@ function PlaySacrificingEffects( unit, target_unit )
 
 	if faction == 'Aeon' then
 		for _, v in EffectTemplate.ASacrificeOfTheAeon01 do
-			unit.Trash:Add( LOUDEMITONENTITY( unit, unit.Sync.army, v) )
+			TrashAdd( unit.Trash, LOUDEMITONENTITY( unit, unit.Sync.army, v) )
 		end
 	end
 end
@@ -1359,7 +1361,7 @@ function PlayReclaimEffects( reclaimer, reclaimed, BuildEffectBones, EffectsBag 
 
     local beamEnd = Entity()
     
-    EffectsBag:Add(beamEnd)
+    TrashAdd( EffectsBag,beamEnd )
     
     LOUDWARP( beamEnd, pos )
     
@@ -1371,12 +1373,12 @@ function PlayReclaimEffects( reclaimer, reclaimed, BuildEffectBones, EffectsBag 
         
 			beamEffect = LOUDATTACHBEAMENTITY(reclaimer, vBone, beamEnd, -1, reclaimer.Sync.army, vEmit )
             
-			EffectsBag:Add(beamEffect)
+			TrashAdd( EffectsBag, beamEffect )
 		end
 	end
 	
 	for _, v in ReclaimObjectAOE do
-	    EffectsBag:Add( LOUDEMITONENTITY( reclaimed, reclaimer.Sync.army, v ) )
+	    TrashAdd( EffectsBag, LOUDEMITONENTITY( reclaimed, reclaimer.Sync.army, v ) )
 	end
 end
 
@@ -1403,14 +1405,14 @@ function PlayCaptureEffects( capturer, captive, BuildEffectBones, EffectsBag )
     for _, vBone in BuildEffectBones do
     
 		for _, vEmit in EffectTemplate.CaptureBeams do
-			EffectsBag:Add(LOUDATTACHBEAMENTITY(capturer, vBone, captive, -1, army, vEmit ))
+			TrashAdd( EffectsBag, LOUDATTACHBEAMENTITY(capturer, vBone, captive, -1, army, vEmit ) )
 		end
         
 	end
 end
 
 
-function CreateCybranQuantumGateEffect( unit, bone1, bone2, TrashBag, startwaitSeed )
+function CreateCybranQuantumGateEffect( unit, bone1, bone2, EffectsBag, startwaitSeed )
 
     local BeenDestroyed = moho.entity_methods.BeenDestroyed
 
@@ -1463,21 +1465,21 @@ function CreateCybranQuantumGateEffect( unit, bone1, bone2, TrashBag, startwaitS
     end
 end
 
-function CreateEnhancementEffectAtBone( unit, bone, TrashBag )
+function CreateEnhancementEffectAtBone( unit, bone, EffectsBag )
 
     for _, vEffect in EffectTemplate.UpgradeBoneAmbient do
 	
-        TrashBag:Add(LOUDATTACHEMITTER( unit, bone, unit.Sync.army, vEffect ))
+        TrashAdd( EffectsBag, LOUDATTACHEMITTER( unit, bone, unit.Sync.army, vEffect ))
 		
     end
 	
 end
 
-function CreateEnhancementUnitAmbient( unit, bone, TrashBag )
+function CreateEnhancementUnitAmbient( unit, bone, EffectsBag )
 
     for _, vEffect in EffectTemplate.UpgradeUnitAmbient do
 	
-        TrashBag:Add(LOUDATTACHEMITTER( unit, bone, unit.Sync.army, vEffect ))
+        TrashAdd( EffectsBag, LOUDATTACHEMITTER( unit, bone, unit.Sync.army, vEffect ))
 		
     end
 	
@@ -1563,8 +1565,11 @@ function PlayTeleportChargeEffects(self)
     local count = 0
 
     for k, v in EffectTemplate.GenericTeleportCharge01 do
+    
         local fx = LOUDEMITATENTITY( self, army, v ):OffsetEmitter(0, ( bp.Physics.MeshExtentsY or 1 ) * 0.5, 0)
-        self.Trash:Add(fx)
+        
+        TrashAdd( self.Trash, fx )
+        
         count = count + 1
         self.TeleportChargeBag[count] = fx
     end
