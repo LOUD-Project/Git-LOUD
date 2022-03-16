@@ -155,8 +155,8 @@ BuildingTemplates = {
         { 'T1GroundDefense', 'uab2101'  },
         { 'T2GroundDefense', 'uab2301'  },
         { 'T2GroundDefenseAmphibious', 'uab2301'  },
-		{ 'T3GroundDefense', 'bab2301'  },
-		{ 'T4GroundDefense', 'bab2301'  },
+		{ 'T3GroundDefense', 'uab2301'  },
+		{ 'T4GroundDefense', 'uab2301'  },
     -- Naval Defense
         { 'T1NavalDefense', 'uab2109'   },
         { 'T2NavalDefense', 'uab2205'   },
