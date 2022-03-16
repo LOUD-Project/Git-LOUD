@@ -945,8 +945,8 @@ function TimeAdaptiveCheatThread()
 	-- - Multiplicative
 	-- - Use ratios to slow or speed time-based increase
     
-	local startDelay = 10 * 60 * tonumber(ScenarioInfo.Options.ACTStartDelay) + 1
-    local interval = 10 * 60 * tonumber(ScenarioInfo.Options.ACTTimeDelay)
+	local startDelay = 10 * 60 * tonumber(ScenarioInfo.Options.ACTStartDelay)
+    local interval = 10 * 60 * tonumber(ScenarioInfo.Options.ACTTimeDelay) + 1
     local cheatInc = tonumber(ScenarioInfo.Options.ACTTimeAmount)
 	local cheatLimit = tonumber(ScenarioInfo.Options.ACTTimeCap)
     
@@ -1026,13 +1026,27 @@ function TimeAdaptiveCheatThread()
                     
 				end
 
-				LOG("*AI DEBUG Time ACT: "..aiBrain.Nickname.." from "..aiBrain:TotalCheat())
+				LOG("*AI DEBUG Time ACT: "..aiBrain.Nickname.." cheat goes from "..aiBrain:TotalCheat())
 				
 				aiBrain.TimeCheat = aiBrain.TimeCheat + cheatInc
-				
+                
+                -- adjust unit cap but only ever upwards - never down
+                if cheatInc > 0 then
+                
+                    local c = aiBrain.StartingUnitCap 
+                
+                    local a = GetArmyUnitCap(aiBrain.ArmyIndex)
+                    
+                    local b = a + (c * cheatInc )
+                    
+                    SetArmyUnitCap(aiBrain.ArmyIndex, b)
+                    
+                    LOG("*AI DEBUG Time ACT: "..aiBrain.Nickname.." Unit Cap is now "..repr(b))
+				end
+                
 				SetArmyPoolBuff(aiBrain, aiBrain:TotalCheat())
 				
-				LOG("*AI DEBUG Time ACT: "..aiBrain.Nickname.." to "..aiBrain:TotalCheat())
+				LOG("*AI DEBUG Time ACT: "..aiBrain.Nickname.." cheat goes to "..aiBrain:TotalCheat())
 			end
 		end
 
