@@ -2,6 +2,8 @@ UnitBlueprint {
     AI = {
         GuardRadius = 10,
         TargetBones = { 'Torso' },
+        
+		StagingPlatformScanRadius = 500, --Teleport Range
     },
 	
     Abilities = {
@@ -97,6 +99,7 @@ UnitBlueprint {
         'ANTITELEPORT',
         'OVERLAYCOUNTERINTEL',
         'OVERLAYANTIAIR',
+        'OVERLAYMISC',
     },
 	
     Defense = {
