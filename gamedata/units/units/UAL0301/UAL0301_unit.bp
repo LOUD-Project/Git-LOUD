@@ -6,6 +6,7 @@ UnitBlueprint {
             'Leg_Right_B02',
             'Torso',
         },
+		StagingPlatformScanRadius = 350, --Teleport Range
     },
 	
     Audio = {
@@ -61,6 +62,7 @@ UnitBlueprint {
         'PATROLHELPER',
         'SHOWQUEUE',
         'OVERLAYOMNI',
+        'OVERLAYMISC',
     },
 	
     Defense = {
