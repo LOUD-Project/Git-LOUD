@@ -8,7 +8,7 @@ Description = {
 	['uel0001-ees'] = "Adds the ability to construct T3 units and increases the ACU's build speed to 90, maximum health by 3K, and regen to 45.",
 	['uel0001-hamc'] = "Increases main cannon's damage output by several factors. Also increases range of main cannon and Overcharge.",
 	['uel0001-srtn'] = "Adds a short-range tactical nuke.",
-	['uel0001-pqt'] = "Adds teleporter. Requires considerable Energy to activate.",
+	['uel0001-pqt'] = "Adds teleporter. Requires considerable Energy to activate.\n\n(Overlay: Miscellaneous)",
 	['uel0001-sgf'] = "Expands the radius of the ACU's personal shield. Requires Energy to run.",
 	['uel0001-isb'] = "Increases ACU's resource generation.",
 	['uel0001-psg'] = "Creates a protective shield around the ACU. Requires Energy to run.",
@@ -139,7 +139,7 @@ Description = {
 	['url0001-ras'] = "Increases ACU's resource generation.",
 	['url0001-pcg'] = "Cloaks the ACU from optical sensors and increases maximum health. Can be detected by Omni Sensors. Requires Energy to run.",
 	['url0001-psg'] = "Hides the ACU from radar. Requires Energy to run.",
-	['url0001-pqt'] = "Adds teleporter. Requires considerable Energy to activate.",
+	['url0001-pqt'] = "Adds teleporter. Requires considerable Energy to activate.\n\n(Overlay: Miscellaneous)",
 	['url0001-aes'] = "Adds the ability to construct T2 units and increases the ACU's build speed to 30, maximum health by 3K, and regen to 25.",
 	['url0001-ees'] = "Adds the ability to construct T3 units and increases the ACU's build speed to 90, maximum health by 3K, and regen to 40.",
 	['url0001-acu'] = "Increases main cannon's rate of fire and range. Also increases range of the Molecular Ripper and Overcharge.",
@@ -281,7 +281,7 @@ Description = {
 	['ual0001-eras'] = "Requires Resource Allocation System. Further increases ACU's resource generation.",
 	['ual0001-ptsg'] = "Creates a protective shield around the ACU. Requires Energy to run.",
 	['ual0001-phtsg'] = "Enhances the protective shield around the ACU. Requires Energy to run.",
-	['ual0001-pqt'] = "Adds teleporter. Requires considerable Energy to activate.",
+	['ual0001-pqt'] = "Adds teleporter. Requires considerable Energy to activate.\n\n(Overlay: Miscellaneous)",
 	['ual0001-exles3'] = "Adds the ability to construct T4 units and increases the ACU's build speed to 120, maximum health by 4K, and regen to 60. Movement speed increased by 10%",
 
 	-- Support Commanders
@@ -293,7 +293,7 @@ Description = {
 	['ual0301-htsg'] = "Upgrades the SACU's protective shield. Requires Energy to run.",
 	['ual0301-ss'] = "Equips the standard SACU's Reacton cannon with area-of-effect damage.",
 	['ual0301-sic'] = "Greatly increases the speed at which the SACU repairs itself.",
-	['ual0301-pqt'] = "Adds teleporter. Requires considerable Energy to activate.",
+	['ual0301-pqt'] = "Adds teleporter. Requires considerable Energy to activate.\n\n(Overlay: Miscellaneous)",
 
 	--Land
 	['ual0101'] = "Fast, lightly armored reconnaissance vehicle. Armed with a laser and a state-of-the-art sensor suite.",
@@ -400,7 +400,7 @@ Description = {
 --SERAPHIM UNITS
 	--Seraphim Commanders
 	['xsl0001'] = "Houses Commander. Combination barracks and command center. Contains all the blueprints necessary to build a basic army from scratch.",
-	['xsl0001-pqt'] = "Adds teleporter. Requires considerable Energy to activate.",
+	['xsl0001-pqt'] = "Adds teleporter. Requires considerable Energy to activate.\n\n(Overlay: Miscellaneous)",
     ['xsl0001-dss'] = "Increases the speed at which the ACU repairs itself. Also increases hit points.",
 	['xsl0001-adss'] = "Further increases the speed at which the ACU repairs itself. Also increases hitpoints.",
 	['xsl0001-ras'] = "Increases ACU's resource generation.",
@@ -420,7 +420,7 @@ Description = {
 	['xsl0301-sre'] = "Greatly expands the range of the standard onboard SACU sensor systems, including Omni.",
 	['xsl0301-efm'] = "Speeds up all engineering-related functions.",
 	['xsl0301-sp'] = "Adds a personal shield generator to the SACU.",
-    ['xsl0301-pqt'] = "Adds teleporter. Requires considerable Energy to activate.",
+	['xsl0301-pqt'] = "Adds teleporter. Requires considerable Energy to activate.\n\n(Overlay: Miscellaneous)",
 	['xsl0301-oc'] = "Single shot destroys most units. Consumes large amount of Energy.",
 
 	--Land Units
