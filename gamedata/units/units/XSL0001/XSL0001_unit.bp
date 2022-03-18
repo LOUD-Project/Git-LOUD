@@ -9,6 +9,7 @@ UnitBlueprint {
             'Left_Leg_B01',
             'Right_Leg_B01',
         },
+		StagingPlatformScanRadius = 350, --Teleport Range
     },
     Abilities = {
         TargetLocation = {
@@ -77,6 +78,7 @@ UnitBlueprint {
         'PATROLHELPER',
         'SHOWQUEUE',
         'OVERLAYOMNI',
+        'OVERLAYMISC',
     },
 	
     Defense = {
