@@ -1,0 +1,130 @@
+UnitBlueprint {
+	
+	Merge = true,
+	BlueprintId="eal0001", # BO ACU: Aeon
+	
+	AI = {
+		StagingPlatformScanRadius = 500,
+	},
+    Categories = {
+        'OVERLAYMISC',
+    },
+}
+
+UnitBlueprint {
+	
+	Merge = true,
+	BlueprintId="erl0001", # BO ACU: Cybran
+	
+	AI = {
+		StagingPlatformScanRadius = 500,
+	},
+    Categories = {
+        'OVERLAYMISC',
+    },
+}
+
+UnitBlueprint {
+	
+	Merge = true,
+	BlueprintId="esl0001", # BO ACU: Seraphim
+	
+	AI = {
+		StagingPlatformScanRadius = 500,
+	},
+    Categories = {
+        'OVERLAYMISC',
+    },
+}
+
+UnitBlueprint {
+	
+	Merge = true,
+	BlueprintId="eel0001", # BO ACU: UEF
+	
+	AI = {
+		StagingPlatformScanRadius = 500,
+	},
+    Categories = {
+        'OVERLAYMISC',
+    },
+}
+
+UnitBlueprint {
+	
+	Merge = true,
+	BlueprintId="ual0001", # UNITS: Aeon ACU
+	
+	AI = {
+		StagingPlatformScanRadius = 350,
+	},
+    Categories = {
+        'OVERLAYMISC',
+    },
+}
+
+UnitBlueprint {
+	
+	Merge = true,
+	BlueprintId="ual0301", # UNITS: Aeon SACU
+	
+	AI = {
+		StagingPlatformScanRadius = 350,
+	},
+    Categories = {
+        'OVERLAYMISC',
+    },
+}
+
+UnitBlueprint {
+	
+	Merge = true,
+	BlueprintId="url0001", # UNITS: Cybran ACU
+	
+	AI = {
+		StagingPlatformScanRadius = 350,
+	},
+    Categories = {
+        'OVERLAYMISC',
+    },
+}
+
+UnitBlueprint {
+	
+	Merge = true,
+	BlueprintId="xsl0001", # UNITS: Seraphim ACU
+	
+	AI = {
+		StagingPlatformScanRadius = 350,
+	},
+    Categories = {
+        'OVERLAYMISC',
+    },
+}
+
+UnitBlueprint {
+	
+	Merge = true,
+	BlueprintId="xsl0301", # UNITS: Seraphim SACU
+	
+	AI = {
+		StagingPlatformScanRadius = 350,
+	},
+    Categories = {
+        'OVERLAYMISC',
+    },
+}
+
+UnitBlueprint {
+	
+	Merge = true,
+	BlueprintId="uel0001", # UNITS: UEF ACU
+	
+	AI = {
+		StagingPlatformScanRadius = 350,
+	},
+    Categories = {
+        'OVERLAYMISC',
+    },
+}
+
