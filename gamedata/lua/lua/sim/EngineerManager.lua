@@ -709,7 +709,7 @@ EngineerManager = Class(BuilderManager) {
 			BaseMonitorInterval = 6, 					-- how often the base monitor will do threat checks to raise alerts in seconds
 
 			ActiveAlerts = 0,							-- number of active alerts at this base
-			AlertLevel = 6,								-- threat must be this size to trigger an alert
+			AlertLevel = 2,								-- threat must be this size to trigger an alert
 			AlertTimeout = 12,							-- time it takes for a created alert to expire in seconds
 		
 			AlertRange = math.min( math.floor(self.Radius * 2), 150 ),		-- radius at which base will consider targets for an alert

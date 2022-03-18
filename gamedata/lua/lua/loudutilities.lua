@@ -4131,14 +4131,14 @@ function ParseIntelThread( aiBrain )
 		-- ThreatType	= { threat min, timeout (-1 = never) in seconds, category for exact pos, parse every x iterations, color, AI Debug flag }
 		-- note that some categories dont have a dynamic threat threshold - just air,land,naval and structures - since you can only pack so many in a smaller IMAP block
         
-		Air 			    = { 20 * ThresholdMult, 4.5, categories.AIR - categories.SATELLITE - categories.SCOUT - categories.TRANSPORTFOCUS, 1,'ff76bdff', true},
-		Land 			    = { 10 * ThresholdMult, 13.5, categories.MOBILE - categories.AIR - categories.ANTIAIR - categories.SCOUT, 3,'9000ff00', true },
-		Naval 		    	= { 20 * ThresholdMult, 18, categories.MOBILE - categories.AIR - categories.ANTIAIR - categories.SCOUT, 4,'ff0060ff', true },
+		Air 			    = { 15 * ThresholdMult, 4.5, categories.AIR - categories.SATELLITE - categories.SCOUT - categories.TRANSPORTFOCUS, 1,'ff76bdff', true},
+		Land 			    = { 8 * ThresholdMult, 13.5, categories.MOBILE - categories.AIR - categories.ANTIAIR - categories.SCOUT, 3,'9000ff00', true },
+		Naval 		    	= { 8 * ThresholdMult, 18, categories.MOBILE - categories.AIR - categories.ANTIAIR - categories.SCOUT, 4,'ff0060ff', true },
         AntiAir             = { 20 * ThresholdMult, 22.5, categories.ANTIAIR - categories.AIR, 5, 'e0ff0000', true},
 
-		Economy	    		= { 60, 33.8, categories.ECONOMIC + categories.FACTORY, 7,'90ff7000', true },
+		Economy	    		= { 50, 33.8, categories.ECONOMIC + categories.FACTORY, 7,'90ff7000', true },
 		StructuresNotMex    = { 100, 67.5, categories.STRUCTURE - categories.WALL - categories.ECONOMIC - categories.CIVILIAN - categories.ANTIAIR, 11, '90ffff00', true },
-		Commander 	    	= { 60, 67.5, categories.COMMAND, 13,'90ffffff', true },
+		Commander 	    	= { 50, 67.5, categories.COMMAND, 13,'90ffffff', true },
         
 		--Experimental  	= { 50, 26, (categories.EXPERIMENTAL * categories.MOBILE), 4,'ff00fec3', false },        
         --AntiSurface       = { 20 * ThresholdMult, 26, categories.STRUCTURE - categories.WALL, 4, 'ffaf00ff', true},
@@ -4151,7 +4151,7 @@ function ParseIntelThread( aiBrain )
 	local checkspertick = 1		-- number of threat entries to be processed per tick - this really affects game performance if moved up
 	
     -- this rate is important since it must be able to keep up with the shift in fast moving air units
-	local parseinterval = 55    -- the rate of a single iteration in ticks - essentially every 6 seconds (which is relative to the IMAP update cycle which is 3 seconds)
+	local parseinterval = 56    -- the rate of a single iteration in ticks - essentially every 5.5 seconds (which is relative to the IMAP update cycle which is 3 seconds)
 
     -- the current iteration value
     local iterationcount = 0 

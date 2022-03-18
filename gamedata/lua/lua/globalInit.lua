@@ -46,8 +46,12 @@ doscript '/lua/system/collapse.lua'
 -- classes yet, just lists of exported methods and base classes. Turn them into
 -- real classes.
 for name,cclass in moho do
+
     --SPEW('C->lua ',name)
-    ConvertCClassToLuaClass(cclass)
+    
+    local g = ConvertCClassToLuaClass(cclass)
+    
+    --LOG("AI DEBUG "..name.." is "..repr(g))
 end
 
 LOG("*DEBUG Mohodata globalInit Complete")

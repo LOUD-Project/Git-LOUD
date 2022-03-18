@@ -124,7 +124,11 @@ end
 
 
 local function InsertIndexFields(c, index, wherefrom)
+
     local fakederived = nil
+    
+    local type = type
+    
     for k,v in c.__spec do
 	
         if type(k)=='string' then
@@ -162,10 +166,14 @@ local function InsertIndexFields(c, index, wherefrom)
             InsertIndexFields(base, index, wherefrom)
         end
     end
+
 end
 
 
 local function SetupClassFields(c, bases, spec, meta)
+
+    --LOG("*AI DEBUG meta is "..repr(meta))
+    
     c.__index = c
     c.__spec = spec
     c.__bases = bases
@@ -215,12 +223,20 @@ local function StateProxiesToClasses(c)
     end
 end
 
+
 local function MakeClass(bases, spec)
     -- if spec[1] then
         -- error 'Class specification contains indexed elements; it should contain only name=value elements'
     -- end
+
     local c = SetupClassFields({}, bases, spec, Class)
+
+    --LOG("*AI DEBUG MakeClass with "..repr(c))    
+
     StateProxiesToClasses(c)
+    
+    --LOG("*AI DEBUG After Stating Proxies we have "..repr(c))
+    
     return c
 end
 
@@ -247,6 +263,9 @@ function ClassMeta:__call(...)
     -- end
     local temp = { unpack(arg) }
     setmetatable(temp, IntermediateClassMeta)
+    
+    --LOG("*AI DEBUG The temp is "..repr(temp))
+    
     return temp
 end
 
@@ -377,22 +396,30 @@ function ChangeState(obj, newstate)
 end
 
 function ConvertCClassToLuaClass(cclass)
-    # check if already done
+
+    -- check if already done
     if getmetatable(cclass)==Class then
         return
     end
 
+    --LOG("*AI DEBUG Original cclass is "..repr(cclass))
+    
     for i,base in ipairs(cclass) do
         ConvertCClassToLuaClass(base)
     end
 
-    # copy the C class into a temp variable to use as the class spec, then turn the C class into an actual instance
+    -- copy the C class into a temp variable to use as the class spec, then turn the C class into an actual instance
     local spec = {}
+    
     for k,v in cclass do
         spec[k] = v
     end
+
     for k,v in spec do
         cclass[k] = nil
     end
-    SetupClassFields(cclass,spec,spec,Class)
+    
+    local c = SetupClassFields(cclass,spec,spec,Class)
+    
+    return c
 end
