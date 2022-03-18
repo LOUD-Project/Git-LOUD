@@ -553,7 +553,7 @@ function AIFindMarkerNeedsEngineer( aiBrain, pos, positions )
 		
             local managers = aiBrain.BuilderManagers[v.Name]
 			
-            if managers.EngineerManager.EngineerList.Count == 0 and managers.FactoryManager:GetNumCategoryFactories(categories.FACTORY) < 1 then 
+            if managers.EngineerManager.EngineerList.Count == 0 and EntityCategoryCount( categories.FACTORY, managers.FactoryManager.FactoryList ) < 1 then 
 				return v.Position,v.Name
             end
         end

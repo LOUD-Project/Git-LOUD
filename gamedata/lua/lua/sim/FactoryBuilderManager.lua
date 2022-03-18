@@ -22,9 +22,15 @@ local LOUDINSERT = table.insert
 local LOUDREMOVE = table.remove
 
 local LOUDENTITY = EntityCategoryContains
+
 local EntityCategoryCount = EntityCategoryCount
 local EntityCategoryFilterDown = EntityCategoryFilterDown
+	
+local IsIdleState = moho.unit_methods.IsIdleState
+local IsUnitState = moho.unit_methods.IsUnitState
 
+local GetEconomyStored = moho.aibrain_methods.GetEconomyStored
+	
 local WaitTicks = coroutine.yield
 
 local PlatoonTemplates = PlatoonTemplates
@@ -120,7 +126,7 @@ FactoryBuilderManager = Class(BuilderManager) {
             WaitTicks(100)
         end
 
-		local LOUDENTITY = EntityCategoryContains
+		local LOUDENTITY = LOUDENTITY
 
 		if not factory.Dead and not factory.BuildLevel then
 			
@@ -347,13 +353,14 @@ FactoryBuilderManager = Class(BuilderManager) {
 			return
 		end
 	
-		local WaitTicks = coroutine.yield
-		local IsIdleState = moho.unit_methods.IsIdleState
-		local IsUnitState = moho.unit_methods.IsUnitState
+		local WaitTicks = WaitTicks
+
+		local GetEconomyStored = GetEconomyStored
+		local IsIdleState = IsIdleState
+		local IsUnitState = IsUnitState
 		
-		local aiBrain = GetAIBrain(factory)		
-		local GetEconomyStored = moho.aibrain_methods.GetEconomyStored
-	
+		local aiBrain = GetAIBrain(factory)
+
         -- this is the dynamic delay controlled - minimum delay is ALWAYS 2 --
         -- basically higher tier factories have less delay periods
         
@@ -434,6 +441,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 		return counter
 	end,
     
+--[[    
 	GetNumCategoryFactories = function(self, category)
 	
 		return EntityCategoryCount( category, self.FactoryList ) or 0
@@ -472,7 +480,8 @@ FactoryBuilderManager = Class(BuilderManager) {
 		
 		return counter
 	end,
-    
+--]]   
+ 
 	GetFactoriesBuildingCategory = function(self, category, facCategory )
 	
 		local units = {}
@@ -485,7 +494,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 				continue
 			end
             
-			if not v:IsUnitState('Upgrading') and not v:IsUnitState('Building') then
+			if not IsUnitState( v, 'Upgrading' ) and not IsUnitState( v, 'Building' ) then
 			
 				continue
 			end
@@ -515,7 +524,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 		local units = {}
 		local counter = 0
 		
-		for _,v in self:GetFactoriesBuildingCategory(category, facCatgory ) do
+		for _,v in self.GetFactoriesBuildingCategory( self, category, facCatgory ) do
 		
 			if v.DesiresAssist == false then
 			
@@ -752,7 +761,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 	-- since we control the jobs presented to the factories in advance 
     BuilderParamCheck = function( self, builder, factory )
 		
-		if factory.Upgrading or factory:IsUnitState('Upgrading') then
+		if factory.Upgrading or IsUnitState( factory, 'Upgrading' ) then
 		
 			return false
 		end
@@ -768,7 +777,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 		
 		if not factory.Dead then
 
-			local position = factory:GetPosition()
+			local position = factory.CachePosition
 			
 			local rally = false
 		

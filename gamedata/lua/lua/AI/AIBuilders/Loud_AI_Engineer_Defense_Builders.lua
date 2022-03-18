@@ -8,6 +8,8 @@ local EBC = '/lua/editor/EconomyBuildConditions.lua'
 local TBC = '/lua/editor/ThreatBuildConditions.lua'
 local LUTL = '/lua/loudutilities.lua'
 
+local LOUDFLOOR = math.floor
+
 -- Just a note -- many of these builders use the 'BasePerimeterSelection = true' function
 -- This will direct the AI to build only one of these positions at a time -- selecting randomly
 -- from the available positions (which depends upon the BasePerimeterOrientation)
@@ -62,11 +64,11 @@ local IsEnemyCrushingLand = function( builder, aiBrain, unit )
 
     end
     
-    local IMAPblocks = math.floor( 96/ScenarioInfo.IMAPSize )
+    local IMAPblocks = LOUDFLOOR( 96/ScenarioInfo.IMAPSize )
 
     if aiBrain:GetThreatAtPosition( unit:GetPosition(), IMAPblocks, true, 'AntiSurface' ) > 30 then
     
-        LOG("*AI DEBUG "..aiBrain.Nickname.." Threat at "..unit.LocationType.." IMAPblocks "..IMAPblocks.." range > 30")
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." Threat at "..unit.LocationType.." IMAPblocks "..IMAPblocks.." range > 30")
 
         return builder.Priority + 100, true
         

@@ -20,6 +20,7 @@ local CreateEngineerBuilder = import('/lua/sim/Builder.lua').CreateEngineerBuild
 local AssignUnitsToPlatoon = moho.aibrain_methods.AssignUnitsToPlatoon
 local BeenDestroyed = moho.entity_methods.BeenDestroyed
 local GetAIBrain = moho.unit_methods.GetAIBrain
+local IsUnitState = moho.unit_methods.IsUnitState
 local MakePlatoon = moho.aibrain_methods.MakePlatoon
 local PlatoonExists = moho.aibrain_methods.PlatoonExists	
 
@@ -355,21 +356,22 @@ EngineerManager = Class(BuilderManager) {
 				WaitTicks(50)
 			end
 
-			if (not unit.Dead) and ( (not unit:IsIdleState() ) or unit:IsUnitState('Attached') ) then
+			if (not unit.Dead) and ( (not unit:IsIdleState() ) or IsUnitState( unit, 'Attached' ) ) then
 			
-				if unit:IsUnitState('Attached') then
-				
-					--LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..unit.Sync.id.." is attached ")
+				if IsUnitState( unit, 'Attached' ) then
+
 					WaitTicks(31)	
 				end
 			end
         end
     end,
-	
+    
+--[[	
     GetNumCategoryUnits = function( self, category )
 	
         return EntityCategoryCount( category, self.EngineerList ) or 0
     end,
+
     
     GetNumCategoryBeingBuilt = function( self, category, engCategory )
 	
@@ -380,7 +382,7 @@ EngineerManager = Class(BuilderManager) {
 
         for _,v in engs do
 		
-            if not v.Dead  and v:IsUnitState('Building') then
+            if not v.Dead  and IsUnitState( v, 'Building' ) then
             
 				beingBuiltUnit = v.UnitBeingBuilt
 			
@@ -395,6 +397,7 @@ EngineerManager = Class(BuilderManager) {
 
         return counter
     end,
+--]]
 	
     -- ok - this routine should find engineers which are building an item of a given category
 	-- problem is - actively - it doesn't account for them having that item in
@@ -416,7 +419,7 @@ EngineerManager = Class(BuilderManager) {
 
         for _,v in engs do
 		
-            if not v.Dead  and v:IsUnitState('Building') then
+            if not v.Dead  and IsUnitState( v, 'Building') then
             
 				beingBuiltUnit = v.UnitBeingBuilt
 			

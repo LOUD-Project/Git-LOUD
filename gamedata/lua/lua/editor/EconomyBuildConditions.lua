@@ -13,6 +13,13 @@ local GetEconomyRequested = moho.aibrain_methods.GetEconomyRequested
 local GetEconomyStored = moho.aibrain_methods.GetEconomyStored
 
 local VDist3 = VDist3
+
+local LOUDENTITY = EntityCategoryContains
+local EntityCategoryCount = EntityCategoryCount
+local EntityCategoryFilterDown = EntityCategoryFilterDown
+
+local IsUnitState = moho.unit_methods.IsUnitState
+
 local LOUDSORT = table.sort
 
 
@@ -251,7 +258,65 @@ function MassToFactoryRatioBaseCheck( aiBrain, locationType, massefficiency, ene
 			return false
 		end
 	end
+    
+    local function GetNumCategoryBeingBuiltByEngineers( EM, category, engCategory )
+
+		local counter = 0
+        local beingBuiltUnit
+
+        for _,v in EntityCategoryFilterDown( engCategory, EM.EngineerList ) do
+		
+            if not v.Dead and IsUnitState( v, 'Building' ) then
+            
+				beingBuiltUnit = v.UnitBeingBuilt
+			
+				if beingBuiltUnit and not beingBuiltUnit.Dead then
+            
+					if LOUDENTITY( category, beingBuiltUnit ) then
+						counter = counter + 1
+					end
+				end
+			end
+        end
+
+        return counter
+    end
+
+    local function GetNumCategoryBeingBuiltByFactories( FBM, category, facCategory )
+
+		local counter = 0
+        local beingBuiltUnit
 	
+		for _,v in EntityCategoryFilterDown( facCategory, FBM.FactoryList ) do
+		
+			if v.Dead then
+			
+				continue
+			end
+            
+			if not IsUnitState( v, 'Upgrading' ) and not IsUnitState( v, 'Building' ) then
+			
+				continue
+			end
+            
+			beingBuiltUnit = v.UnitBeingBuilt	
+			
+			if not beingBuiltUnit or beingBuiltUnit.Dead then
+			
+				continue
+			end
+            
+			if not LOUDENTITY( category, beingBuiltUnit ) then
+			
+				continue
+			end
+            
+			counter = counter + 1
+		end
+		
+		return counter    
+    end
+
 	-- this function used to be part of aibrain.lua
 	-- brought it in here and I now use it to get values from both engineers and factories
 	local function GetManagerUnitsBeingBuilt( category )
@@ -259,8 +324,8 @@ function MassToFactoryRatioBaseCheck( aiBrain, locationType, massefficiency, ene
 		local unitcount = 0
 		
 	    for k,v in aiBrain.BuilderManagers do
-			unitcount = unitcount + v.EngineerManager:GetNumCategoryBeingBuilt( category, categories.ENGINEER )
-			unitcount = unitcount + v.FactoryManager:GetNumCategoryBeingBuilt( category, categories.FACTORY )
+			unitcount = unitcount + GetNumCategoryBeingBuiltByEngineers( v.EngineerManager, category, categories.ENGINEER )
+			unitcount = unitcount + GetNumCategoryBeingBuiltByFactories( v.FactoryManager, category, categories.FACTORY )
 		end	
 		return unitcount
 	end

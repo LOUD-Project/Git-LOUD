@@ -184,7 +184,7 @@ function AIFindClosestBuilderManagerPosition( aiBrain, position)
 	
 		if v.EngineerManager.Active then
 		
-			if v.EngineerManager.EngineerList.Count > 0 or v.FactoryManager:GetNumCategoryFactories(categories.FACTORY - categories.NAVAL) > 0 then
+			if v.EngineerManager.EngineerList.Count > 0 or EntityCategoryCount( categories.FACTORY - categories.NAVAL, v.FactoryManager.FactoryList ) > 0 then
 			
 				if VDist2Sq( position[1],position[3], v.Position[1],v.Position[3] ) <= distance then
 					distance = VDist2Sq( position[1],position[3], v.Position[1],v.Position[3] )
@@ -2953,6 +2953,8 @@ function DeadBaseMonitor( aiBrain )
     
 	WaitTicks(1800)	#-- dont start for 3 minutes
 
+    local EntityCategoryCount = EntityCategoryCount
+    
 	local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
     local RebuildTable = aiBrain.RebuildTable
     
@@ -3008,11 +3010,11 @@ function DeadBaseMonitor( aiBrain )
             end
 
 			-- if a base has no factories
-			if (v.CountedBase and FM:GetNumCategoryFactories(categories.FACTORY) <= 0) or
+			if (v.CountedBase and EntityCategoryCount( categories.FACTORY, FM.FactoryList ) <= 0) or
 				(not v.CountedBase and structurecount < 1) then
                 
                 -- if the base has no engineers - increase the no factory count
-                if EM:GetNumCategoryUnits(ALLUNITS) <= 0 then 
+                if EntityCategoryCount( ALLUNITS, EM.EngineerList ) <= 0 then 
                 
                     if DeadBaseMonitorDialog then
                         LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(v.BaseName).." DBM - no factories or Engineers "..repr(BM[k].nofactorycount + 1))
@@ -3022,7 +3024,7 @@ function DeadBaseMonitor( aiBrain )
                 end
 
 				-- if base has no engineers AND has had no factories for about 250 seconds
-				if EM:GetNumCategoryUnits(ALLUNITS) <= 0 and BM[k].nofactorycount >= 10 then
+				if EntityCategoryCount( ALLUNITS, EM.EngineerList ) <= 0 and BM[k].nofactorycount >= 10 then
 				
                     if DeadBaseMonitorDialog then
                         LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(v.BaseName).." DBM - removing base" )

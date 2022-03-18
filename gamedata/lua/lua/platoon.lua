@@ -1585,7 +1585,7 @@ Platoon = Class(moho.platoon_methods) {
                 end
 				
 				-- default attached processing (something is not doing this properly)
-				if v:IsUnitState('Attached') then
+				if IsUnitState( v, 'Attached') then
 				
 					v:DetachFrom()
 					v:SetCanTakeDamage(true)
@@ -7585,9 +7585,9 @@ Platoon = Class(moho.platoon_methods) {
 			
 					if (not BeenDestroyed(eng)) and (not eng.Dead) and engLastPos then
 					
-						if (not eng:IsUnitState("Capturing")) and (not eng:IsUnitState("Reclaiming"))
-							and (not eng:IsUnitState("Repairing")) and (not eng:IsUnitState("Moving"))
-							and (not eng:IsUnitState("Building")) and GetWorkProgress(eng) == 0
+						if (not IsUnitState( eng, "Capturing" )) and (not IsUnitState( eng, "Reclaiming" ))
+							and (not IsUnitState( eng, "Repairing" )) and (not IsUnitState( eng, "Moving" ))
+							and (not IsUnitState( eng, "Building" )) and GetWorkProgress(eng) == 0
 							and VDist2Sq( engLastPos[1],engLastPos[3], engPos[1],engPos[3] ) < 1
 							then
 				
@@ -9467,7 +9467,7 @@ Platoon = Class(moho.platoon_methods) {
 
 			for _,u in units do
 			
-                if (not u.Dead) and (not u:IsUnitState( 'Attached' )) then
+                if (not u.Dead) and (not IsUnitState( u, 'Attached' )) then
 				
 					counter = counter + 1
                     validUnits[counter] = u

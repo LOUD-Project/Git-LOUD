@@ -27,11 +27,15 @@ local GetNumUnitsAroundPoint = moho.aibrain_methods.GetNumUnitsAroundPoint
 local GetPosition = moho.entity_methods.GetPosition	
 local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
 
+local IsUnitState = moho.unit_methods.IsUnitState
+
 local PlatoonCategoryCount = moho.platoon_methods.PlatoonCategoryCount
 local PlatoonCategoryCountAroundPosition = moho.platoon_methods.PlatoonCategoryCountAroundPosition
 
 local LOUDCOPY = table.copy
 local LOUDENTITY = EntityCategoryContains
+local EntityCategoryCount = EntityCategoryCount
+local EntityCategoryFilterDown = EntityCategoryFilterDown
 local LOUDFLOOR = math.floor
 local LOUDGETN = table.getn
 
@@ -42,6 +46,62 @@ local LOUDTYPE = type
 local MATHMAX = math.max
 
 local VectorCached = { 0, 0, 0 }
+
+    
+local function GetNumCategoryBeingBuiltByEngineers( EM, category, engCategory )
+
+    local counter = 0
+    local beingBuiltUnit
+
+    for _,v in EntityCategoryFilterDown( engCategory, EM.EngineerList ) do
+		
+        if not v.Dead and IsUnitState( v, 'Building' ) then
+            
+            beingBuiltUnit = v.UnitBeingBuilt
+			
+			if beingBuiltUnit and not beingBuiltUnit.Dead then
+            
+				if LOUDENTITY( category, beingBuiltUnit ) then
+					counter = counter + 1
+				end
+			end
+		end
+    end
+
+    return counter
+end
+
+local function GetNumCategoryBeingBuiltByFactories( FBM, category, facCategory )
+
+	local counter = 0
+    local beingBuiltUnit
+	
+	for _,v in EntityCategoryFilterDown( facCategory, FBM.FactoryList ) do
+		
+		if v.Dead then
+			continue
+		end
+
+		if not IsUnitState( v, 'Upgrading' ) and not IsUnitState( v, 'Building' ) then
+			continue
+		end
+
+		beingBuiltUnit = v.UnitBeingBuilt	
+		
+		if not beingBuiltUnit or beingBuiltUnit.Dead then
+			continue
+		end
+
+		if not LOUDENTITY( category, beingBuiltUnit ) then
+			continue
+		end
+
+		counter = counter + 1
+	end
+
+	return counter    
+end
+
 
 function PreBuiltBase(aiBrain)
 	return aiBrain.PreBuilt
@@ -325,14 +385,14 @@ function PoolLessAtLocation( aiBrain, locationType, unitCount, testCat)
 
     local BM = aiBrain.BuilderManagers[locationType]
     local numUnits = PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, testCat, BM.Position, BM.Radius)
-	
+
+    -- the PlatoonCategoryCountAroundPosition includes units under construction
+    -- we must remove those from the unit count
 	if numUnits > 0 then
 	
-		local engbeingbuilt = BM.EngineerManager:GetNumCategoryBeingBuilt(testCat, categories.ENGINEER)
-		local facbeingbuilt = BM.FactoryManager:GetNumCategoryBeingBuilt(testCat, categories.FACTORY)
-	
-		numUnits = numUnits - (engbeingbuilt + facbeingbuilt)
-		
+		numUnits = numUnits - GetNumCategoryBeingBuiltByEngineers( BM.EngineerManager, testCat, categories.ENGINEER)
+		numUnits = numUnits - GetNumCategoryBeingBuiltByFactories( BM.FactoryManager, testCat, categories.FACTORY)
+
 		return numUnits < unitCount
 	end
     
@@ -346,11 +406,11 @@ function PoolGreaterAtLocation( aiBrain, locationType, unitCount, testCat)
 	if BM != nil then
 
 		local numUnits = PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, testCat, BM.Position, BM.Radius)
-
-		local engbeingbuilt = BM.EngineerManager:GetNumCategoryBeingBuilt(testCat, categories.ENGINEER)
-		local facbeingbuilt = BM.FactoryManager:GetNumCategoryBeingBuilt(testCat, categories.FACTORY)
 	
-		return numUnits - (engbeingbuilt + facbeingbuilt) > unitCount
+		numUnits = numUnits - GetNumCategoryBeingBuiltByEngineers( BM.EngineerManager, testCat, categories.ENGINEER)
+		numUnits = numUnits - GetNumCategoryBeingBuiltByFactories( BM.FactoryManager, testCat, categories.FACTORY)
+
+		return numUnits > unitCount
 	end
     
 	return false
@@ -358,7 +418,9 @@ end
 
 function EngineerLessAtLocation( aiBrain, locationType, unitCount, testCat)
 
-    if aiBrain.OutnumberedRatio > 1 then
+    if aiBrain.OutnumberedRatio >= 2 then
+        unitCount = unitCount + 2
+    elseif aiBrain.OutnumberedRatio > 1 then
         unitCount = unitCount + 1
     end
     
@@ -403,15 +465,15 @@ function FactoryGreaterAtLocation( aiBrain, locationType, unitCount, testCat)
 end
 
 function FactoryRatioGreaterOrEqualAtLocation( aiBrain, locationType, unitCategory, unitCategory2)
-    return aiBrain.BuilderManagers[locationType].FactoryManager:GetNumCategoryFactories(unitCategory) >= aiBrain.BuilderManagers[locationType].FactoryManager:GetNumCategoryFactories(unitCategory2)
+    return EntityCategoryCount( unitCategory, aiBrain.BuilderManagers[locationType].FactoryManager.FactoryList ) >= EntityCategoryCount( unitCategory2, aiBrain.BuilderManagers[locationType].FactoryManager.FactoryList )
 end
 
 function FactoryRatioLessAtLocation( aiBrain, locationType, unitCategory, unitCategory2)
-    return aiBrain.BuilderManagers[locationType].FactoryManager:GetNumCategoryFactories(unitCategory) < aiBrain.BuilderManagers[locationType].FactoryManager:GetNumCategoryFactories(unitCategory2)
+    return EntityCategoryCount( unitCategory, aiBrain.BuilderManagers[locationType].FactoryManager.FactoryList ) < EntityCategoryCount( unitCategory2, aiBrain.BuilderManagers[locationType].FactoryManager.FactoryList )
 end
 
 function FactoryRatioGreaterAtLocation( aiBrain, locationType, unitCategory, unitCategory2)
-    return aiBrain.BuilderManagers[locationType].FactoryManager:GetNumCategoryFactories(unitCategory) > aiBrain.BuilderManagers[locationType].FactoryManager:GetNumCategoryFactories(unitCategory2)
+    return EntityCategoryCount( unitCategory, aiBrain.BuilderManagers[locationType].FactoryManager.FactoryList ) > EntityCategoryCount( unitCategory2, aiBrain.BuilderManagers[locationType].FactoryManager.FactoryList )
 end
 
  
@@ -481,11 +543,11 @@ function BuildingGreaterAtLocationAtRange( aiBrain, locationType, unitCount, tes
 end
 
 function LocationFactoriesBuildingLess( aiBrain, locationType, unitCount, testCat, facCat)
-    return aiBrain.BuilderManagers[locationType].FactoryManager:GetNumCategoryBeingBuilt(testCat, facCat or categories.FACTORY) < unitCount
+    return GetNumCategoryBeingBuiltByFactories( aiBrain.BuilderManagers[locationType].FactoryManager, testCat, facCat or categories.FACTORY) < unitCount
 end
 
 function LocationFactoriesBuildingGreater( aiBrain, locationType, unitCount, testCat, facCat)
-    return aiBrain.BuilderManagers[locationType].FactoryManager:GetNumCategoryBeingBuilt(testCat, facCat or categories.FACTORY) > unitCount
+    return GetNumCategoryBeingBuiltByFactories( aiBrain.BuilderManagers[locationType].FactoryManager, testCat, facCat or categories.FACTORY) > unitCount
 end
 
 -- is there an engineer, at this base, building unitCategory, needing assistance, within unitRange of the base
@@ -550,11 +612,11 @@ function FactoryCapCheck(aiBrain, locationType, factoryType)
 	
 	if factoryManager.Active == true then
 		-- this should give you the total number of factories at this location
-		numUnits = factoryManager:GetNumCategoryFactories(catCheck)
+		numUnits = EntityCategoryCount( catCheck, factoryManager.FactoryList )
 
 		local engineerManager = BM.EngineerManager
 
-		numUnits = numUnits + engineerManager:GetNumCategoryBeingBuilt( catCheck, categories.ALLUNITS )
+		numUnits = numUnits + GetNumCategoryBeingBuiltByEngineers( engineerManager, catCheck, categories.ALLUNITS )
 	end
 
     if numUnits < BM.BaseSettings.FactoryCount[factoryType] then

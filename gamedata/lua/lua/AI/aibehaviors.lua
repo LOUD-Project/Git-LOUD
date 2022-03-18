@@ -5530,7 +5530,7 @@ function EngineerTransferAI( self, aiBrain )
 			engineerManager = v.EngineerManager
 			factoryManager = v.FactoryManager
             
-			numUnits = engineerManager:GetNumCategoryUnits( Eng_Cat )
+			numUnits = EntityCategoryCount( Eng_Cat, engineerManager.EngineerList )
             
 			structurecount = LOUDGETN(aiBrain:GetUnitsAroundPoint( categories.STRUCTURE - categories.WALL, v.Position, 40, 'Ally'))
 			factorycount = LOUDGETN(factoryManager.FactoryList)
