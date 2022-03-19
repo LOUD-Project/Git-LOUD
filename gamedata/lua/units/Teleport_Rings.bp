@@ -1,64 +1,36 @@
 UnitBlueprint {
 	
 	Merge = true,
-	BlueprintId="eal0001", # BO ACU: Aeon
+	BlueprintId="ual0001", --#UNITS: Aeon ACU
 	
 	AI = {
-		StagingPlatformScanRadius = 500,
-	},
-    Categories = {
-        'OVERLAYMISC',
-    },
-}
-
-UnitBlueprint {
-	
-	Merge = true,
-	BlueprintId="erl0001", # BO ACU: Cybran
-	
-	AI = {
-		StagingPlatformScanRadius = 500,
-	},
-    Categories = {
-        'OVERLAYMISC',
-    },
-}
-
-UnitBlueprint {
-	
-	Merge = true,
-	BlueprintId="esl0001", # BO ACU: Seraphim
-	
-	AI = {
-		StagingPlatformScanRadius = 500,
-	},
-    Categories = {
-        'OVERLAYMISC',
-    },
-}
-
-UnitBlueprint {
-	
-	Merge = true,
-	BlueprintId="eel0001", # BO ACU: UEF
-	
-	AI = {
-		StagingPlatformScanRadius = 500,
-	},
-    Categories = {
-        'OVERLAYMISC',
-    },
-}
-
-UnitBlueprint {
-	
-	Merge = true,
-	BlueprintId="ual0001", # UNITS: Aeon ACU
-	
-	AI = {
+        GuardRadius = 10,
+        TargetBones = {
+            'Head',
+            'Right_Arm_B01',
+            'Left_Arm_B01',
+            'Torso',
+            'Left_Leg_B01',
+            'Right_Leg_B01',
+        },
 		StagingPlatformScanRadius = 350,
 	},
     Categories = {
+        'SELECTABLE',
+        'AEON',
+        'MOBILE',
+        'COMMAND',
+        'REPAIR',
+        'ENGINEER',
+        'CONSTRUCTION',
+        'RECLAIM',
+        'CAPTURE',
+        'LAND',
+        'VISIBLETORECON',
+        'PATROLHELPER',
+        'SHOWQUEUE',
+        'OVERLAYOMNI',
+		'ANTITELEPORT',
         'OVERLAYMISC',
     },
 }
@@ -66,12 +38,35 @@ UnitBlueprint {
 UnitBlueprint {
 	
 	Merge = true,
-	BlueprintId="ual0301", # UNITS: Aeon SACU
+	BlueprintId="ual0301", --#UNITS: Aeon SACU
 	
 	AI = {
+        TargetBones = {
+            'AttachPoint',
+            'Leg_Left_B02',
+            'Leg_Right_B02',
+            'Torso',
+        },
 		StagingPlatformScanRadius = 350,
 	},
     Categories = {
+        'SELECTABLE',
+        'AEON',
+        'MOBILE',
+        'LAND',
+        'TECH3',
+        'ENGINEER',
+        'CONSTRUCTION',
+        'REPAIR',
+        'RECLAIM',
+--        'REBUILDER',
+        'BUILTBYQUANTUMGATE',
+        'CAPTURE',
+        'VISIBLETORECON',
+        'SUBCOMMANDER',
+        'PATROLHELPER',
+        'SHOWQUEUE',
+        'OVERLAYOMNI',
         'OVERLAYMISC',
     },
 }
@@ -79,12 +74,36 @@ UnitBlueprint {
 UnitBlueprint {
 	
 	Merge = true,
-	BlueprintId="url0001", # UNITS: Cybran ACU
+	BlueprintId="url0001", --#UNITS: Cybran ACU
 	
 	AI = {
+        GuardRadius = 10,
+        TargetBones = {
+            'Head',
+            'Torso',
+            'Right_Arm_B01',
+            'Left_Arm_B01',
+            'Back_Upgrade',
+            'Left_Leg_B01',
+            'Right_Leg_B01',
+        },
 		StagingPlatformScanRadius = 350,
 	},
     Categories = {
+        'SELECTABLE',
+        'CYBRAN',
+        'MOBILE',
+        'COMMAND',
+        'REPAIR',
+        'ENGINEER',
+        'CONSTRUCTION',
+        'RECLAIM',
+        'CAPTURE',
+        'LAND',
+        'VISIBLETORECON',
+        'PATROLHELPER',
+        'SHOWQUEUE',
+        'OVERLAYOMNI',
         'OVERLAYMISC',
     },
 }
@@ -92,12 +111,35 @@ UnitBlueprint {
 UnitBlueprint {
 	
 	Merge = true,
-	BlueprintId="xsl0001", # UNITS: Seraphim ACU
+	BlueprintId="xsl0001", --#UNITS: Seraphim ACU
 	
 	AI = {
+        GuardRadius = 10,
+        TargetBones = {
+            'Head',
+            'Right_Arm_B01',
+            'Left_Arm_B01',
+            'Torso',
+            'Left_Leg_B01',
+            'Right_Leg_B01',
+        },
 		StagingPlatformScanRadius = 350,
 	},
     Categories = {
+        'SELECTABLE',
+        'SERAPHIM',
+        'MOBILE',
+        'COMMAND',
+        'REPAIR',
+        'ENGINEER',
+        'CONSTRUCTION',
+        'RECLAIM',
+        'CAPTURE',
+        'LAND',
+        'VISIBLETORECON',
+        'PATROLHELPER',
+        'SHOWQUEUE',
+        'OVERLAYOMNI',
         'OVERLAYMISC',
     },
 }
@@ -105,12 +147,35 @@ UnitBlueprint {
 UnitBlueprint {
 	
 	Merge = true,
-	BlueprintId="xsl0301", # UNITS: Seraphim SACU
+	BlueprintId="xsl0301", --#UNITS: Seraphim SACU
 	
 	AI = {
+        TargetBones = {
+            'Back_Upgrade',
+            'Left_Leg_B02',
+            'Right_Leg_B02',
+        },
 		StagingPlatformScanRadius = 350,
 	},
     Categories = {
+        'SELECTABLE',
+        'SERAPHIM',
+        'MOBILE',
+        'LAND',
+        'TECH3',
+        'ENGINEER',
+        'CONSTRUCTION',
+        'REPAIR',
+        'SILO',
+        'RECLAIM',
+--        'REBUILDER',
+        'BUILTBYQUANTUMGATE',
+        'CAPTURE',
+        'VISIBLETORECON',
+        'SUBCOMMANDER',
+        'PATROLHELPER',
+        'SHOWQUEUE',
+        'OVERLAYOMNI',
         'OVERLAYMISC',
     },
 }
@@ -118,12 +183,39 @@ UnitBlueprint {
 UnitBlueprint {
 	
 	Merge = true,
-	BlueprintId="uel0001", # UNITS: UEF ACU
+	BlueprintId="uel0001", --#UNITS: UEF ACU
 	
 	AI = {
+        GuardRadius = 10,
+		InitialAutoMode = true,
+        TargetBones = {
+            'Head',
+            'Right_Arm_B01',
+            'Left_Arm_B01',
+            'Torso',
+            'Left_Leg_B01',
+            'Right_Leg_B01',
+        },
 		StagingPlatformScanRadius = 350,
 	},
     Categories = {
+        'SELECTABLE',
+        'UEF',
+        'MOBILE',
+        'COMMAND',
+        'REPAIR',
+        'ENGINEER',
+        'CONSTRUCTION',
+        'RECLAIM',
+        'CAPTURE',
+        'PODSTAGINGPLATFORM',
+        'VERIFYMISSILEUI',
+		'SILO',
+        'LAND',
+        'VISIBLETORECON',
+        'PATROLHELPER',
+        'SHOWQUEUE',
+        'OVERLAYOMNI',
         'OVERLAYMISC',
     },
 }
