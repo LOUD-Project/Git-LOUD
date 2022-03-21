@@ -88,7 +88,6 @@ UnitBlueprint {
         'CONSTRUCTION',
         'RECLAIM',
         'CAPTURE',
-        --'DIRECTFIRE',
         'LAND',
         'VISIBLETORECON',
         'PATROLHELPER',
@@ -105,13 +104,13 @@ UnitBlueprint {
     Defense = {
         ArmorType = 'Commander',
         
-        EconomyThreatLevel = 300,
+        EconomyThreatLevel = 640,
         
         Health = 30500,
         MaxHealth = 30500,
         RegenRate = 12,
         
-        SurfaceThreatLevel = 75,
+        SurfaceThreatLevel = 36,
         
 		NoTeleDistance = 55,
 		MaxTeleRange = 500,

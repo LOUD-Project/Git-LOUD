@@ -104,13 +104,13 @@ UnitBlueprint {
     Defense = {
         ArmorType = 'Commander',
 		
-        EconomyThreatLevel = 200,
+        EconomyThreatLevel = 620,
 		
         Health = 29500,
         MaxHealth = 29500,
         RegenRate = 10,
         
-        SurfaceThreatLevel = 75,
+        SurfaceThreatLevel = 36,
 		
 		NoTeleDistance = 55,
 		MaxTeleRange = 500,
