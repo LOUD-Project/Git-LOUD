@@ -1,7 +1,7 @@
 local explosion = import('/lua/defaultexplosions.lua')
 local util = import('/lua/utilities.lua')
 
-local TAirUnit = import('/lua/terranunits.lua').TAirUnit
+local TAirUnit = import('/lua/defaultunits.lua').AirUnit
 
 local TSAMLauncher = import('/lua/terranweapons.lua').TSAMLauncher
 local TDFHeavyPlasmaCannonWeapon = import('/lua/terranweapons.lua').TDFHeavyPlasmaCannonWeapon

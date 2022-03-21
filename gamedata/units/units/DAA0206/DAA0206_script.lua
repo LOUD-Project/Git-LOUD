@@ -1,4 +1,5 @@
-local AAirUnit = import('/lua/aeonunits.lua').AAirUnit
+local AAirUnit = import('/lua/defaultunits.lua').AirUnit
+
 local DefaultProjectileWeapon = import('/lua/sim/defaultweapons.lua').DefaultProjectileWeapon
 
 DAA0206 = Class(AAirUnit) {

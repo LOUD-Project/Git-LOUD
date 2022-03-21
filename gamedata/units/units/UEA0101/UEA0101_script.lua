@@ -1,4 +1,4 @@
-local TAirUnit = import('/lua/terranunits.lua').TAirUnit
+local TAirUnit = import('/lua/defaultunits.lua').AirUnit
 
 UEA0101 = Class(TAirUnit) {}
 

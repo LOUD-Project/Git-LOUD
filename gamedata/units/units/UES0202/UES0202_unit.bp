@@ -242,6 +242,9 @@ UnitBlueprint {
             DamageType = 'Normal',
 			
             DisplayName = 'Cruise Missile',
+            
+            EnergyRequired = 50,
+            EnergyDrainPerSecond = 5,
 			
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
@@ -322,7 +325,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.1,		---- 4 missiles every 10 seconds = 100 DPS
+            RateOfFire = 1,		---- 4 missiles every 10 seconds = 100 DPS - controlled by charge
             RenderFireClock = true,
 			
             TargetCheckInterval = 5,

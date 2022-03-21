@@ -274,7 +274,10 @@ UnitBlueprint {
             DamageType = 'Normal',
 			
             DisplayName = 'Gauss Cannon',
-			
+            
+            EnergyRequired = 250,
+            EnergyDrainPerSecond = 25,
+
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
             },
@@ -291,7 +294,7 @@ UnitBlueprint {
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 33,
             MuzzleVelocityRandom = 0.3,
-			
+
             ProjectileId = '/projectiles/TDFGauss03/TDFGauss03_proj.bp',
 
             RackBones = {
@@ -331,7 +334,7 @@ UnitBlueprint {
             
             RangeCategory = 'UWRC_DirectFire',
             
-            RateOfFire = 0.1,		-- 144 DPS
+            RateOfFire = 1,		-- 144 DPS - controlled by charge
             
             SlavedToBody = true,
             SlavedToBodyArcRange = 135,
@@ -393,6 +396,9 @@ UnitBlueprint {
             
             DisplayName = 'Gauss Cannon',
             
+            EnergyRequired = 250,
+            EnergyDrainPerSecond = 25,
+            
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
             },
@@ -447,7 +453,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 
-            RateOfFire = 0.1,		---- another 144 DPS
+            RateOfFire = 1,		---- another 144 DPS - controlled by charge
             
             SlavedToBody = true,
             SlavedToBodyArcRange = 135,
@@ -517,9 +523,14 @@ UnitBlueprint {
             FiringRandomness = 0.2,
             FiringTolerance = 2,
             
+            EnergyRequired = 1330,
+            EnergyDrainPerSecond = 398,
+            
             Label = 'Turret',
             
-            MaxRadius = 100,
+            NotExclusive = true,
+
+            MaxRadius = 105,
             MinRadius = 4,
             
 			MuzzleChargeDelay = 0,
@@ -566,7 +577,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 
-            RateOfFire = 0.3,		-- 288 DPS
+            RateOfFire = 1,		-- 288 DPS - rate controlled by charge
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 135,
@@ -614,7 +625,7 @@ UnitBlueprint {
 			
             Damage = 30,
 			DamageFriendly = false,
-			DamageRadius = 2,
+			DamageRadius = 1.8,
             DamageType = 'Normal',
 			
 			DetonatesAtTargetHeight = true,
@@ -635,7 +646,7 @@ UnitBlueprint {
 			
 			LeadTarget = true,
 			
-            MaxRadius = 50,
+            MaxRadius = 45,
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 2,
@@ -683,11 +694,11 @@ UnitBlueprint {
 			
             TurretPitch = 45,
             TurretPitchRange = 90,
-            TurretPitchSpeed = 180,
+            TurretPitchSpeed = 90,
 			
             TurretYaw = 0,
             TurretYawRange = 100,
-            TurretYawSpeed = 180,
+            TurretYawSpeed = 90,
 			
             Turreted = true,
         },
@@ -706,7 +717,7 @@ UnitBlueprint {
 			
             Damage = 30,
 			DamageFriendly = false,
-			DamageRadius = 2,
+			DamageRadius = 1.8,
             DamageType = 'Normal',
 			
 			DetonatesAtTargetHeight = true,
@@ -727,7 +738,7 @@ UnitBlueprint {
 			
 			LeadTarget = true,
 			
-            MaxRadius = 50,
+            MaxRadius = 45,
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 2,
@@ -773,11 +784,11 @@ UnitBlueprint {
             
             TurretPitch = 45,
             TurretPitchRange = 45,
-            TurretPitchSpeed = 180,
+            TurretPitchSpeed = 90,
             
             TurretYaw = 0,
             TurretYawRange = 100,
-            TurretYawSpeed = 180,
+            TurretYawSpeed = 90,
             
             Turreted = true,
         },
@@ -796,7 +807,7 @@ UnitBlueprint {
 			
             Damage = 30,
 			DamageFriendly = false,
-			DamageRadius = 2,
+			DamageRadius = 1.8,
             DamageType = 'Normal',
 			
 			DetonatesAtTargetHeight = true,
@@ -816,7 +827,7 @@ UnitBlueprint {
 			
 			LeadTarget = true,
 			
-            MaxRadius = 50,
+            MaxRadius = 45,
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 2,
@@ -862,11 +873,11 @@ UnitBlueprint {
             
             TurretPitch = 45,
             TurretPitchRange = 90,
-            TurretPitchSpeed = 180,
+            TurretPitchSpeed = 90,
             
             TurretYaw = 0,
             TurretYawRange = 100,
-            TurretYawSpeed = 180,
+            TurretYawSpeed = 90,
             
             Turreted = true,
         },
@@ -885,7 +896,7 @@ UnitBlueprint {
 			
             Damage = 30,
 			DamageFriendly = false,
-			DamageRadius = 2,
+			DamageRadius = 1.8,
             DamageType = 'Normal',
 			
 			DetonatesAtTargetHeight = true,
@@ -906,7 +917,7 @@ UnitBlueprint {
 			
 			LeadTarget = true,
 			
-            MaxRadius = 55,
+            MaxRadius = 45,
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 2,
@@ -953,11 +964,11 @@ UnitBlueprint {
             
             TurretPitch = 45,
             TurretPitchRange = 80,
-            TurretPitchSpeed = 180,
+            TurretPitchSpeed = 90,
             
             TurretYaw = 0,
             TurretYawRange = 100,
-            TurretYawSpeed = 180,
+            TurretYawSpeed = 90,
             
             Turreted = true,
         },

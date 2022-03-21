@@ -91,11 +91,11 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Commander',
-        EconomyThreatLevel = 5,
+        EconomyThreatLevel = 270,
         Health = 12000,
         MaxHealth = 12000,
         RegenRate = 10,
-        SurfaceThreatLevel = 75,
+        SurfaceThreatLevel = 35,
     },
 	
     Description = '<LOC uel0001_desc>Armored Command Unit',

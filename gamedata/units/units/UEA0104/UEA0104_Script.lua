@@ -4,7 +4,8 @@ local GetRandomFloat = import('/lua/utilities.lua').GetRandomFloat
 local GetRandomInt = import('/lua/utilities.lua').GetRandomInt
 local WeaponsFile = import('/lua/terranweapons.lua')
 
-local TAirUnit = import('/lua/terranunits.lua').TAirUnit
+local TAirUnit = import('/lua/defaultunits.lua').AirUnit
+
 local TAirToAirLinkedRailgun = WeaponsFile.TAirToAirLinkedRailgun
 local TDFRiotWeapon = WeaponsFile.TDFRiotWeapon
 

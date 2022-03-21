@@ -1,5 +1,5 @@
+local SAirUnit = import('/lua/defaultunits.lua').AirUnit
 
-local SAirUnit = import('/lua/seraphimunits.lua').SAirUnit
 local SeraphimWeapons = import('/lua/seraphimweapons.lua')
 local SAAShleoCannonWeapon = SeraphimWeapons.SAAShleoCannonWeapon
 

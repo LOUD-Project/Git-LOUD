@@ -1,7 +1,6 @@
+local SeaUnit =  import('/lua/defaultunits.lua').SeaUnit
 
-local TShieldSeaUnit = import('/lua/terranunits.lua').TShieldSeaUnit
-
-XES0205 = Class(TShieldSeaUnit) {
+XES0205 = Class(SeaUnit) {
 
     ShieldEffects = {
         '/effects/emitters/terran_shield_generator_shipmobile_01_emit.bp',
@@ -9,12 +8,12 @@ XES0205 = Class(TShieldSeaUnit) {
     },
 
     OnStopBeingBuilt = function(self,builder,layer)
-        TShieldSeaUnit.OnStopBeingBuilt(self,builder,layer)
+        SeaUnit.OnStopBeingBuilt(self,builder,layer)
 		self.ShieldEffectsBag = {}
     end,
 
     OnShieldEnabled = function(self)
-        TShieldSeaUnit.OnShieldEnabled(self)
+        SeaUnit.OnShieldEnabled(self)
 
         if self.ShieldEffectsBag then
             for k, v in self.ShieldEffectsBag do
@@ -33,7 +32,7 @@ XES0205 = Class(TShieldSeaUnit) {
     end,
 
     OnShieldDisabled = function(self)
-        TShieldSeaUnit.OnShieldDisabled(self)
+        SeaUnit.OnShieldDisabled(self)
 
         if self.ShieldEffectsBag then
             for k, v in self.ShieldEffectsBag do

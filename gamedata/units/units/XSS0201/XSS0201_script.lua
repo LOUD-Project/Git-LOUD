@@ -1,4 +1,5 @@
-local SSubUnit = import('/lua/seraphimunits.lua').SSubUnit
+local SSubUnit =  import('/lua/defaultunits.lua').SubUnit
+
 local SeraphimWeapons = import('/lua/seraphimweapons.lua')
 
 local SDFUltraChromaticBeamGenerator = SeraphimWeapons.SDFUltraChromaticBeamGenerator02

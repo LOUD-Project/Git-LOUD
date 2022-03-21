@@ -1,5 +1,5 @@
+local AAirUnit = import('/lua/defaultunits.lua').AirUnit
 
-local AAirUnit = import('/lua/aeonunits.lua').AAirUnit
 local AAAAutocannonQuantumWeapon = import('/lua/aeonweapons.lua').AAALightDisplacementAutocannonMissileWeapon
 
 XAA0202 = Class(AAirUnit) {

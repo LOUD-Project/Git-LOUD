@@ -1,4 +1,4 @@
-local ASubUnit = import('/lua/aeonunits.lua').ASubUnit
+local ASubUnit =  import('/lua/defaultunits.lua').SubUnit
 
 local AANChronoTorpedoWeapon = import('/lua/aeonweapons.lua').AANChronoTorpedoWeapon
 local AIFQuasarAntiTorpedoWeapon = import('/lua/aeonweapons.lua').AIFQuasarAntiTorpedoWeapon

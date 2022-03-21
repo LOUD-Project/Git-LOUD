@@ -1,4 +1,4 @@
-local CSubUnit = import('/lua/cybranunits.lua').CSubUnit
+local CSubUnit =  import('/lua/defaultunits.lua').SubUnit
 
 local CybranWeapons = import('/lua/cybranweapons.lua')
 

@@ -1,4 +1,5 @@
-local SSeaUnit = import('/lua/seraphimunits.lua').SSeaUnit
+local SSeaUnit =  import('/lua/defaultunits.lua').SeaUnit
+
 local SWeapon = import('/lua/seraphimweapons.lua')
 
 XSS0103 = Class(SSeaUnit) {

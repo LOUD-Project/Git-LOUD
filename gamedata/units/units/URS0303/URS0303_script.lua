@@ -1,4 +1,4 @@
-local CSeaUnit = import('/lua/cybranunits.lua').CSeaUnit
+local CSeaUnit =  import('/lua/defaultunits.lua').SeaUnit
 
 local CAAAutocannon = import('/lua/cybranweapons.lua').CAAAutocannon
 local CAMZapperWeapon = import('/lua/cybranweapons.lua').CAMZapperWeapon

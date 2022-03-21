@@ -270,16 +270,19 @@ UnitBlueprint {
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
             },
+            
+            EnergyRequired = 175,
+            EnergyDrainPerSecond = 135,
 			
             FiringRandomness = 0.35,
             FiringTolerance = 0.6,
 			
             Label = 'Cannon',
 			
-            MaxRadius = 100,
+            MaxRadius = 105,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 35,
+            MuzzleVelocity = 36,
 			MuzzleVelocityReduceDistance = 100,
             
             NotExclusive = true,
@@ -317,7 +320,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.75,		-- 1050 dmg every 4 seconds = 262 DPS Surface
+            RateOfFire = 1,		-- 1050 dmg every 4 seconds = 262 DPS Surface - controlled by charge
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 140,
@@ -342,7 +345,7 @@ UnitBlueprint {
             
             TurretYaw = 0,
             TurretYawRange = 145,
-            TurretYawSpeed = 45,
+            TurretYawSpeed = 42,
             
             Turreted = true,
         },
@@ -373,6 +376,9 @@ UnitBlueprint {
             DamageType = 'Normal',
 			
             DisplayName = 'Proton Cannon',
+            
+            EnergyRequired = 175,
+            EnergyDrainPerSecond = 135,
 			
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
@@ -422,7 +428,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 			
-            RateOfFire = 0.75,		-- 1050 dmg every 4 seconds = 262 DPS Surface
+            RateOfFire = 1,		-- 262 DPS Surface - controlled by charge
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 130,
@@ -466,7 +472,7 @@ UnitBlueprint {
 			
             Damage = 15,
 			DamageFriendly = false,
-			DamageRadius = 2,
+			DamageRadius = 1.8,
             DamageType = 'Normal',
 			
             DisplayName = 'Quad Electron Autocannon',
@@ -480,7 +486,7 @@ UnitBlueprint {
             Label = 'AAGun',
 			
             LeadTarget = true,
-            MaxRadius = 50,
+            MaxRadius = 45,
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 4,
@@ -556,7 +562,7 @@ UnitBlueprint {
 			
             Damage = 15,
 			DamageFriendly = false,
-			DamageRadius = 2,
+			DamageRadius = 1.8,
             DamageType = 'Normal',
 			
             DisplayName = 'Quad Electron Autocannon',
@@ -572,7 +578,7 @@ UnitBlueprint {
 			
             LeadTarget = true,
 			
-            MaxRadius = 50,
+            MaxRadius = 45,
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 4,

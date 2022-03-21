@@ -1,4 +1,5 @@
-local TSeaUnit = import('/lua/terranunits.lua').TSeaUnit
+local TSeaUnit =  import('/lua/defaultunits.lua').SeaUnit
+
 local TAALinkedRailgun = import('/lua/terranweapons.lua').TAALinkedRailgun
 local TDFGaussCannonWeapon = import('/lua/terranweapons.lua').TDFGaussCannonWeapon
 local Entity = import('/lua/sim/Entity.lua').Entity

@@ -118,7 +118,7 @@ UnitBlueprint {
             RULEUCC_Patrol = true,
             RULEUCC_Stop = true,
         },
-        FactionName = 'UEF',
+        FactionName = 'Seraphim',
         Icon = 'air',
         SelectionPriority = 6,
         TechLevel = 'RULEUTL_Basic',

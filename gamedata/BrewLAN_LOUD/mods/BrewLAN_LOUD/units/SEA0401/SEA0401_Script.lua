@@ -1,7 +1,8 @@
 --------------------------------------------------------------------------------
 -- Centurion script
 --------------------------------------------------------------------------------
-local               TAirUnit = import('/lua/terranunits.lua').TAirUnit
+local TAirUnit = import('/lua/defaultunits.lua').AirUnit
+
 local               TWeapons = import('/lua/terranweapons.lua')
 --------------------------------------------------------------------------------
 local TAAFlakArtilleryCannon = TWeapons.TAAFlakArtilleryCannon

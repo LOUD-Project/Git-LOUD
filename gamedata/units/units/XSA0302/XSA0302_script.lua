@@ -1,6 +1,4 @@
-
-
-local SAirUnit = import('/lua/seraphimunits.lua').SAirUnit
+local SAirUnit = import('/lua/defaultunits.lua').AirUnit
 
 XSA0302 = Class(SAirUnit) {
 }

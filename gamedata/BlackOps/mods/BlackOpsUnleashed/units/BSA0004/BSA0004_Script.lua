@@ -1,7 +1,8 @@
 --UEF Goliath Assault Bot drone script by the Blackops team, revamped by Mithy
 --rev. 3
 
-local SAirUnit = import('/lua/seraphimunits.lua').SAirUnit
+local SAirUnit = import('/lua/defaultunits.lua').AirUnit
+
 local Weapons2 = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua')
 local TDFGoliathShoulderBeam = Weapons2.TDFGoliathShoulderBeam
 local TIFArtilleryWeapon = import('/lua/terranweapons.lua').TIFArtilleryWeapon

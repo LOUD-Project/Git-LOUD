@@ -1,4 +1,5 @@
-local AAirUnit = import('/lua/aeonunits.lua').AAirUnit
+local AAirUnit = import('/lua/defaultunits.lua').AirUnit
+
 local CreateDefaultHitExplosionAtBone = import('/lua/defaultexplosions.lua').CreateDefaultHitExplosionAtBone
 
 local util = import('/lua/utilities.lua')

@@ -1,4 +1,5 @@
-local ASeaUnit = import('/lua/aeonunits.lua').ASeaUnit
+local ASeaUnit =  import('/lua/defaultunits.lua').SeaUnit
+
 local AIFQuasarAntiTorpedoWeapon = import('/lua/aeonweapons.lua').AIFQuasarAntiTorpedoWeapon
 
 UAS0305 = Class(ASeaUnit) {

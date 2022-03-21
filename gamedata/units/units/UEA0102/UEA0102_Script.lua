@@ -1,5 +1,5 @@
+local TAirUnit = import('/lua/defaultunits.lua').AirUnit
 
-local TAirUnit = import('/lua/terranunits.lua').TAirUnit
 local TAirToAirLinkedRailgun = import('/lua/terranweapons.lua').TAirToAirLinkedRailgun
 
 UEA0102 = Class(TAirUnit) {

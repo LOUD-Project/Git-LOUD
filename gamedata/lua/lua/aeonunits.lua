@@ -15,7 +15,7 @@ local MassFabricationUnit = import('defaultunits.lua').MassFabricationUnit
 
 local MobileUnit = import('defaultunits.lua').MobileUnit
 local RadarUnit = import('defaultunits.lua').RadarUnit
-local SeaUnit = import('defaultunits.lua').SeaUnit
+local SeaUnit = import('/lua/defaultunits.lua').SeaUnit
 local SeaFactoryUnit = import('defaultunits.lua').FactoryUnit
 
 local ShieldStructureUnit = import('defaultunits.lua').ShieldStructureUnit

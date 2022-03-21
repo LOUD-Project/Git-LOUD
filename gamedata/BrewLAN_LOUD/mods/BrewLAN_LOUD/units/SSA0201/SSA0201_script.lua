@@ -1,7 +1,4 @@
---------------------------------------------------------------------------------
---  Summary  :  Aeon Spy Plane Script
---------------------------------------------------------------------------------
-local SAirUnit = import('/lua/seraphimunits.lua').SAirUnit
+local SAirUnit = import('/lua/defaultunits.lua').AirUnit
 
 SSA0201 = Class(SAirUnit) {}
 

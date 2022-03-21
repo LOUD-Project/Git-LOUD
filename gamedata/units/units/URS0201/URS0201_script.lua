@@ -1,5 +1,7 @@
+
 local CWalkingLandUnit = import('/lua/cybranunits.lua').CWalkingLandUnit
-local CSeaUnit = import('/lua/cybranunits.lua').CSeaUnit
+
+local CSeaUnit =  import('/lua/defaultunits.lua').SeaUnit
 
 local CybranWeapons = import('/lua/cybranweapons.lua')
 

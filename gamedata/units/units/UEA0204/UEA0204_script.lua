@@ -1,4 +1,5 @@
-local TAirUnit = import('/lua/terranunits.lua').TAirUnit
+local TAirUnit = import('/lua/defaultunits.lua').AirUnit
+
 local TANTorpedoAngler = import('/lua/terranweapons.lua').TANTorpedoAngler
 
 

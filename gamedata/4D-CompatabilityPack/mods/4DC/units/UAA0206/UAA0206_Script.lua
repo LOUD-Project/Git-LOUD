@@ -1,4 +1,4 @@
-local AAirUnit = import('/lua/aeonunits.lua').AAirUnit
+local AAirUnit = import('/lua/defaultunits.lua').AirUnit
 
 AAirUnit = import('/mods/4DC/lua/CustomAbilities/4D_DefensiveTeleportation/4D_DefensiveTeleportation.lua').DefensiveTeleportation( AAirUnit ) 
 

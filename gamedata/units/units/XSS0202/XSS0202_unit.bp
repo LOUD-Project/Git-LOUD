@@ -215,6 +215,9 @@ UnitBlueprint {
             DamageType = 'Normal',
 			
             DisplayName = 'Laanse Tactical Missile Launcher',
+            
+            EnergyRequired = 500,
+            EnergyDrainPerSecond = 65,
 			
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
@@ -251,8 +254,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.15,		-- 150 DPS
-            RenderFireClock = true,
+            RateOfFire = 1,		-- 4 missiles every 7.7 seconds = 130 DPS
 			
             TargetCheckInterval = 2,
 			
@@ -278,7 +280,7 @@ UnitBlueprint {
 			
             Damage = 50,
             DamageFriendly = false,
-            DamageRadius = 2,
+            DamageRadius = 1.8,
             DamageType = 'Normal',
 			
             DetonatesAtTargetHeight = true,
@@ -299,7 +301,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 65,
+            MuzzleVelocity = 58,
 			
             ProjectileId = '/projectiles/SAAOlarisAAArtillery04/SAAOlarisAAArtillery04_proj.bp',
 			ProjectileLifetime = 1,
@@ -348,7 +350,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 100,
+            TurretYawSpeed = 80,
 			
             Turreted = true,
         },
@@ -386,7 +388,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 2,
-            MuzzleVelocity = 75,
+            MuzzleVelocity = 72,
 			
             ProjectileId = '/projectiles/SAAShleoAAGatlingGun01/SAAShleoAAGatlingGun01_proj.bp',
             ProjectileLifetimeUsesMultiplier = 0.8,
@@ -435,7 +437,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 100,
+            TurretYawSpeed = 80,
 			
             Turreted = true,
         },
@@ -509,7 +511,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 130,
+            TurretYawSpeed = 110,
 			
             Turreted = true,
         },

@@ -1,4 +1,4 @@
-local AAirUnit = import('/lua/aeonunits.lua').AAirUnit
+local AAirUnit = import('/lua/defaultunits.lua').AirUnit
 
 local AANTorpedoCluster = import('/lua/aeonweapons.lua').AANTorpedoCluster
 

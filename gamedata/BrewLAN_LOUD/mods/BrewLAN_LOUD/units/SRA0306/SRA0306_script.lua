@@ -1,7 +1,7 @@
 --------------------------------------------------------------------------------
 --  Summary  :  Cybran T3 Air Transport Script
 --------------------------------------------------------------------------------
-local CAirUnit = import('/lua/cybranunits.lua').CAirUnit
+local CAirUnit = import('/lua/defaultunits.lua').AirUnit
 
 local EffectUtil = import('/lua/EffectUtilities.lua')
 local explosion = import('/lua/defaultexplosions.lua')

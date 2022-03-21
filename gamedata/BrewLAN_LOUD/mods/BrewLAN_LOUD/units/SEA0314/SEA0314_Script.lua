@@ -1,5 +1,6 @@
 --------------------------------------------------------------------------------
-local TAirUnit = import('/lua/terranunits.lua').TAirUnit
+local TAirUnit = import('/lua/defaultunits.lua').AirUnit
+
 local MissileFlare = import('/lua/defaultunits.lua').BaseDirectionalAntiMissileFlare
 --------------------------------------------------------------------------------
 local terranweapons = import('/lua/terranweapons.lua')

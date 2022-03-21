@@ -1,4 +1,5 @@
-local ASeaUnit = import('/lua/aeonunits.lua').ASeaUnit
+local ASeaUnit =  import('/lua/defaultunits.lua').SeaUnit
+
 local AeonWeapons = import('/lua/aeonweapons.lua')
 
 local ADFCannonOblivionWeapon = AeonWeapons.ADFCannonOblivionWeapon

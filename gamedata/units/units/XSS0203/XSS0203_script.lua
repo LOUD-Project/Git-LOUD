@@ -1,4 +1,5 @@
-local SSubUnit = import('/lua/seraphimunits.lua').SSubUnit
+local SSubUnit =  import('/lua/defaultunits.lua').SubUnit
+
 local SWeapons = import('/lua/seraphimweapons.lua')
 
 local SANUallCavitationTorpedo = SWeapons.SANUallCavitationTorpedo

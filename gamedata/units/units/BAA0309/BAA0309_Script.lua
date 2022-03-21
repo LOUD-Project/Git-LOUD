@@ -1,4 +1,5 @@
-local AAirUnit = import('/lua/aeonunits.lua').AAirUnit
+local AAirUnit = import('/lua/defaultunits.lua').AirUnit
+
 local explosion = import('/lua/defaultexplosions.lua')
 
 local GetRandomInt = import('/lua/utilities.lua').GetRandomInt

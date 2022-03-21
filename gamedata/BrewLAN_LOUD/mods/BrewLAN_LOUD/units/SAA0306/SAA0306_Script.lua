@@ -2,7 +2,8 @@
 --  Author:  Sean Wheeldon
 --  Summary  :  Aeon T3 Transport Script
 --------------------------------------------------------------------------------
-local AAirUnit = import('/lua/aeonunits.lua').AAirUnit
+local AAirUnit = import('/lua/defaultunits.lua').AirUnit
+
 local AAATemporalFizzWeapon = import('/lua/aeonweapons.lua').AAATemporalFizzWeapon
 local explosion = import('/lua/defaultexplosions.lua')
 

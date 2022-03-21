@@ -1,4 +1,5 @@
-local CSeaUnit = import('/lua/cybranunits.lua').CSeaUnit
+local CSeaUnit =  import('/lua/defaultunits.lua').SeaUnit
+
 local CIFSmartCharge = import('/lua/cybranweapons.lua').CIFSmartCharge
 
 XRS0205 = Class(CSeaUnit) {

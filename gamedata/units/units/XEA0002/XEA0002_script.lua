@@ -1,4 +1,4 @@
-local TAirUnit = import('/lua/terranunits.lua').TAirUnit
+local TAirUnit = import('/lua/defaultunits.lua').AirUnit
 
 local VizMarker = import('/lua/sim/VizMarker.lua').VizMarker
 

@@ -1,5 +1,5 @@
+local TSeaUnit =  import('/lua/defaultunits.lua').SeaUnit
 
-local TSeaUnit = import('/lua/terranunits.lua').TSeaUnit
 local WeaponFile = import('/lua/terranweapons.lua')
 local TSAMLauncher = WeaponFile.TSAMLauncher
 local TDFGaussCannonWeapon = WeaponFile.TDFGaussCannonWeapon

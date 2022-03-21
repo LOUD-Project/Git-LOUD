@@ -1,4 +1,4 @@
-local AAirUnit = import('/lua/aeonunits.lua').AAirUnit
+local AAirUnit = import('/lua/defaultunits.lua').AirUnit
 
 local ADFQuadLaserLightWeapon = import('/lua/aeonweapons.lua').ADFQuadLaserLightWeapon
 local AAAZealot02MissileWeapon = import('/lua/aeonweapons.lua').AAAZealot02MissileWeapon

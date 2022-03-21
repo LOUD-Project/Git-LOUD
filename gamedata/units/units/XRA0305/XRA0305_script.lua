@@ -1,5 +1,5 @@
+local CAirUnit = import('/lua/defaultunits.lua').AirUnit
 
-local CAirUnit = import('/lua/cybranunits.lua').CAirUnit
 local CAAMissileNaniteWeapon = import('/lua/cybranweapons.lua').CAAMissileNaniteWeapon
 local CDFLaserDisintegratorWeapon = import('/lua/cybranweapons.lua').CDFLaserDisintegratorWeapon02
 

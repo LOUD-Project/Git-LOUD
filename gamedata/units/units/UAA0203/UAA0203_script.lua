@@ -1,4 +1,5 @@
-local AAirUnit = import('/lua/aeonunits.lua').AAirUnit
+local AAirUnit = import('/lua/defaultunits.lua').AirUnit
+
 local ADFLaserLightWeapon = import('/lua/aeonweapons.lua').ADFLaserLightWeapon
 
 UAA0203 = Class(AAirUnit) {

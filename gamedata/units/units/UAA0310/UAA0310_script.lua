@@ -1,6 +1,4 @@
-
-
-local AAirUnit = import('/lua/aeonunits.lua').AAirUnit
+local AAirUnit = import('/lua/defaultunits.lua').AirUnit
 local aWeapons = import('/lua/aeonweapons.lua')
 local AQuantumBeamGenerator = aWeapons.AQuantumBeamGenerator
 local AAAZealotMissileWeapon = aWeapons.AAAZealotMissileWeapon

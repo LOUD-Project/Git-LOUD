@@ -1,6 +1,7 @@
-
 local AeonWeapons = import('/lua/aeonweapons.lua')
-local ASeaUnit = import('/lua/aeonunits.lua').ASeaUnit
+
+local ASeaUnit =  import('/lua/defaultunits.lua').SeaUnit
+
 local AAAZealotMissileWeapon = AeonWeapons.AAAZealotMissileWeapon
 local ADFCannonQuantumWeapon = AeonWeapons.ADFCannonQuantumWeapon
 local AAMWillOWisp = AeonWeapons.AAMWillOWisp

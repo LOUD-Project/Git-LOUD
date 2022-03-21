@@ -1,14 +1,4 @@
------------------------------------------------------------------------------
---  File     : /units/XSA0201/XSA0201_script.lua
---
---  Author(s): EbolaSoup, Resin Smoker, Optimus Prime, Vissroid 
---
---  Summary  : Shield Drone 
---
---  Copyright © 2010 4DC  All rights reserved.
------------------------------------------------------------------------------
-
-local SAirUnit = import('/lua/seraphimunits.lua').SAirUnit
+local SAirUnit = import('/lua/defaultunits.lua').AirUnit
 
 SAirUnit = import('/mods/4DC/lua/CustomAbilities/4D_ShieldDroneSuperClass/4D_ShieldDroneSuperClass.lua').AutoSelectShieldDrone( SAirUnit )
 

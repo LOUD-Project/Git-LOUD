@@ -1,6 +1,6 @@
 local SeraphimWeapons = import('/lua/seraphimweapons.lua')
 
-local SSeaUnit = import('/lua/seraphimunits.lua').SSeaUnit
+local SSeaUnit =  import('/lua/defaultunits.lua').SeaUnit
 
 local SLaanseMissileWeapon = SeraphimWeapons.SLaanseMissileWeapon
 local SAAOlarisCannonWeapon = SeraphimWeapons.SAAOlarisCannonWeapon

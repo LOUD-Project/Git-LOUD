@@ -1,4 +1,4 @@
-local SAirUnit = import('/lua/seraphimunits.lua').SAirUnit
+local SAirUnit = import('/lua/defaultunits.lua').AirUnit
 
 local SAALosaareAutoCannonWeapon = import('/lua/seraphimweapons.lua').SAALosaareAutoCannonWeaponAirUnit
 local SDFThauCannon = import('/lua/seraphimweapons.lua').SDFThauCannon

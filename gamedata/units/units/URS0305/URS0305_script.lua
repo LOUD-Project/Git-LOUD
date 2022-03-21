@@ -1,5 +1,4 @@
-
-local CSeaUnit = import('/lua/cybranunits.lua').CSeaUnit
+local CSeaUnit =  import('/lua/defaultunits.lua').SeaUnit
 
 URB3302 = Class(CSeaUnit) {
 

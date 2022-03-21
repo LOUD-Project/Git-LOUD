@@ -1,5 +1,5 @@
+local ASeaUnit =  import('/lua/defaultunits.lua').SeaUnit
 
-local ASeaUnit = import('/lua/aeonunits.lua').ASeaUnit
 local AAASonicPulseBatteryWeapon = import('/lua/aeonweapons.lua').AAASonicPulseBatteryWeapon
 
 UAS0102 = Class(ASeaUnit) {

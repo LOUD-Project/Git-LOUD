@@ -1,5 +1,5 @@
+local CAirUnit = import('/lua/defaultunits.lua').AirUnit
 
-local CAirUnit = import('/lua/cybranunits.lua').CAirUnit
 local CreateCybranBuildBeams = import('/lua/EffectUtilities.lua').CreateCybranBuildBeams
 
 URA0001 = Class(CAirUnit) {
