@@ -1,10 +1,8 @@
-local CWalkingLandUnit = import('/lua/cybranunits.lua').CWalkingLandUnit
+local CWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
 WRL0207 = Class(CWalkingLandUnit) {
 
-	ShieldEffects = {
-		'/mods/BattlePack/effects/emitters/ex_cybran_shieldgen_01_emit.bp',
-    },
+	ShieldEffects = {'/mods/BattlePack/effects/emitters/ex_cybran_shieldgen_01_emit.bp'},
 
 	OnStopBeingBuilt = function(self,builder,layer)
         CWalkingLandUnit.OnStopBeingBuilt(self,builder,layer)

@@ -62,8 +62,8 @@ UnitBlueprint {
         AirThreatLevel = 40,
         ArmorType = 'Normal',
 
-        Health = 3200,
-        MaxHealth = 3200,
+        Health = 3400,
+        MaxHealth = 3400,
         RegenRate = 3,
     },
     
@@ -119,9 +119,9 @@ UnitBlueprint {
     },
     
     Economy = {
-        BuildCostEnergy = 8000,
-        BuildCostMass = 800,
-        BuildTime = 4200,
+        BuildCostEnergy = 11000,
+        BuildCostMass = 950,
+        BuildTime = 600,
     },
     
     General = {

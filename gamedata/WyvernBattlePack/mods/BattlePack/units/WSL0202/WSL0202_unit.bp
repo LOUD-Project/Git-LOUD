@@ -61,7 +61,7 @@ UnitBlueprint {
 
         Health = 1250,
         MaxHealth = 1250,
-        RegenRate = 1.5,
+        RegenRate = 2,
 
         SurfaceThreatLevel = 10.6,
     },
@@ -136,12 +136,6 @@ UnitBlueprint {
         },
         FactionName = 'Seraphim',
         Icon = 'land',
-        OrderOverrides = {
-            RULEUTC_ShieldToggle = {
-                bitmapId = 'shield-personal',
-                helpText = 'toggle_shield_personal',
-            },
-        },
         TechLevel = 'RULEUTL_Secret',
         UnitName = 'Onyzum',
         UnitWeight = 1,
@@ -152,7 +146,7 @@ UnitBlueprint {
     },
     
     Interface = {
-        HelpText = '<LOC xsl0303_help>Siege Tank',
+        HelpText = '<LOC xsl0303_help>Rapid Assault Tank',
     },
     
     LifeBarHeight = 0.075,
@@ -216,7 +210,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
             
-            Damage = 90,
+            Damage = 36,
             DamageType = 'Normal',
             
             DisplayName = 'Thau Cannon',
@@ -235,7 +229,6 @@ UnitBlueprint {
             MuzzleVelocity = 33,
             
             ProjectileId = '/projectiles/SDFTauCannon01/SDFTauCannon01_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 1.15,
 
             RackBones = {
                 {
@@ -253,9 +246,9 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_DirectFire',
             
-            RateOfFire = 0.25,
+            RateOfFire = 2,
             
-            TargetCheckInterval = 0.6,
+            TargetCheckInterval = 1,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
@@ -276,7 +269,7 @@ UnitBlueprint {
             
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 90,
+            TurretYawSpeed = 75,
             Turreted = true,
         },
     },

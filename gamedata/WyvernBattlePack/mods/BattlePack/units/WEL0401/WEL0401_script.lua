@@ -1,4 +1,5 @@
-local TMobileFactoryUnit = import('/lua/terranunits.lua').TMobileFactoryUnit
+local TMobileFactoryUnit = import('/lua/defaultunits.lua').MobileUnit
+
 local WeaponsFile = import('/lua/terranweapons.lua')
 
 local TIFArtilleryWeapon = import('/lua/terranweapons.lua').TIFArtilleryWeapon

@@ -1,4 +1,5 @@
-local TSeaUnit = import('/lua/terranunits.lua').TSeaUnit
+local TSeaUnit = import('/lua/defaultunits.lua').SeaUnit
+
 local TerranWeaponFile = import('/lua/terranweapons.lua')
 
 local TDFIonizedPlasmaCannon = TerranWeaponFile.TDFIonizedPlasmaCannon
