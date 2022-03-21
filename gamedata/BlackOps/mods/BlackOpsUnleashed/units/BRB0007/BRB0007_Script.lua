@@ -1,5 +1,5 @@
+local SStructureUnit = import('/lua/defaultunits.lua').StructureUnit
 
-local SStructureUnit = import('/lua/seraphimunits.lua').SStructureUnit
 local CreateAttachedEmitter = CreateAttachedEmitter
 
 BRB0003 = Class(SStructureUnit) {
@@ -15,12 +15,12 @@ end,
        '/mods/BlackOpsUnleashed/effects/emitters/cybran_shield_03_generator_02_emit.bp',
        '/mods/BlackOpsUnleashed/effects/emitters/cybran_shield_05_generator_01_emit.bp',
        '/mods/BlackOpsUnleashed/effects/emitters/cybran_shield_05_generator_02_emit.bp',
-       '/mods/BlackOpsUnleashed/effects/emitters/cybran_shield_05_generator_03_emit.bp', #flashes
+       '/mods/BlackOpsUnleashed/effects/emitters/cybran_shield_05_generator_03_emit.bp',
        '/mods/BlackOpsUnleashed/effects/emitters/cybran_shield_02_generator_02_emit.bp',
-       '/mods/BlackOpsUnleashed/effects/emitters/cybran_shield_02_generator_03_emit.bp',# flash rest are lightning
+       '/mods/BlackOpsUnleashed/effects/emitters/cybran_shield_02_generator_03_emit.bp',
        '/mods/BlackOpsUnleashed/effects/emitters/cybran_shield_01_generator_02_emit.bp',
        '/mods/BlackOpsUnleashed/effects/emitters/cybran_shield_04_generator_02_emit.bp',
-       '/mods/BlackOpsUnleashed/effects/emitters/cybran_shield_04_generator_03_emit.bp',# flashes
+       '/mods/BlackOpsUnleashed/effects/emitters/cybran_shield_04_generator_03_emit.bp',
     },
 	   OnCreate = function(self, builder, layer)
         SStructureUnit.OnCreate(self, builder, layer)

@@ -1,14 +1,15 @@
 --------------------------------------------------------------------------------
 --   Author:  Sean 'Balthazar' Wheeldon
 --------------------------------------------------------------------------------
-local TStructureUnit = import('/lua/terranunits.lua').TStructureUnit
+local TStructureUnit = import('/lua/defaultunits.lua').StructureUnit
+
 local VizMarker = import('/lua/sim/VizMarker.lua').VizMarker
 local AIUtils = import('/lua/ai/aiutilities.lua')
 local AnimationThread = import('/lua/effectutilities.lua').IntelDishAnimationThread
---------------------------------------------------------------------------------
+
 local BrewLANPath = import( '/lua/game.lua' ).BrewLANPath()
 local Buff = import(BrewLANPath .. '/lua/legacy/VersionCheck.lua').Buff
---------------------------------------------------------------------------------
+
 SEB3404 = Class(TStructureUnit) {
 
     OnStopBeingBuilt = function(self, ...)

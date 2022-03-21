@@ -1,5 +1,6 @@
 --------------------------------------------------------------------------------
-local AAirUnit = import('/lua/aeonunits.lua').AAirUnit
+local AAirUnit = import('/lua/defaultunits.lua').AirUnit
+
 local MissileFlare = import('/lua/defaultunits.lua').BaseDirectionalAntiMissileFlare
 --------------------------------------------------------------------------------
 local ADFPhasonLaser = import('/lua/aeonweapons.lua').ADFPhasonLaser

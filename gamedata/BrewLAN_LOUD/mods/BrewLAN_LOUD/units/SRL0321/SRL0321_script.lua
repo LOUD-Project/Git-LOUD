@@ -1,7 +1,8 @@
 --------------------------------------------------------------------------------
 --  Summary  :  Cybran Mobile Missile Launcher Script
 --------------------------------------------------------------------------------
-local CLandUnit = import('/lua/cybranunits.lua').CLandUnit
+local CLandUnit = import('/lua/defaultunits.lua').MobileUnit
+
 local CAMEMPMissileWeapon = import('/lua/cybranweapons.lua').CAMEMPMissileWeapon
 
 SRL0321 = Class(CLandUnit) {

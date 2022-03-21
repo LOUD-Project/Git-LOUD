@@ -1,4 +1,5 @@
-local SWalkingLandUnit = import('/lua/seraphimunits.lua').SWalkingLandUnit
+local SWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
+
 local SeraphimBuffField = import('/lua/seraphimweapons.lua').SeraphimBuffField
 
 local Buff = import('/lua/sim/Buff.lua')

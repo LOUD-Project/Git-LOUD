@@ -25,8 +25,6 @@ SSB4401 = Class(SShieldStructureUnit) {
 	
         self:CleanUp()
 		
-		LOG("*AI DEBUG Enabled")
-		
         SShieldStructureUnit.OnShieldEnabled(self)
 		
         local army = self:GetArmy()
@@ -36,8 +34,6 @@ SSB4401 = Class(SShieldStructureUnit) {
         end
 		
         local drones, radius
-		
-		LOG("*AI DEBUG Create Drones")
 		
         for setI, set in {{LDNo, 22, 'ssb4401_large'},{sdNo, 38, 'ssb4401_small'}} do
 		
@@ -86,8 +82,6 @@ SSB4401 = Class(SShieldStructureUnit) {
 		
         self:CleanUp()
 		
-		LOG("*AI DEBUG Disabled")
-		
         SShieldStructureUnit.OnShieldDisabled(self)
     end,
 
@@ -106,8 +100,6 @@ SSB4401 = Class(SShieldStructureUnit) {
     end,
 
     CleanUp = function(self, deathcleanup)
-	
-		LOG("*AI DEBUG Cleanup")
 	
         for i, v in {'ShieldEffectsBag', 'ShieldDroneBag'} do
 		

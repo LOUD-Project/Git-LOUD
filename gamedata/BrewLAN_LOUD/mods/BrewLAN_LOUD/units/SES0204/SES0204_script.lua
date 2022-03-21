@@ -1,8 +1,11 @@
-local TSubUnit = import('/lua/terranunits.lua').TSubUnit
+local TSubUnit =  import('/lua/defaultunits.lua').SubUnit
+
 local WeaponFile = import('/lua/terranweapons.lua')
+
 local TANTorpedoAngler = WeaponFile.TANTorpedoAngler
 local TIFSmartCharge = WeaponFile.TIFSmartCharge
 local TAAFlakArtilleryCannon = WeaponFile.TAAFlakArtilleryCannon
+
 WeaponFile = nil
 
 SES0204 = Class(TSubUnit) {

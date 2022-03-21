@@ -1,15 +1,14 @@
---------------------------------------------------------------------------------
---  Summary:  Field engineer ship
---------------------------------------------------------------------------------
-local TSeaUnit = import('/lua/terranunits.lua').TSeaUnit
+local TSeaUnit =  import('/lua/defaultunits.lua').SeaUnit
+
 local WeaponFile = import('/lua/terranweapons.lua')
+
 local TAALinkedRailgun = WeaponFile.TAALinkedRailgun
 local TANTorpedoAngler = WeaponFile.TANTorpedoAngler
 local TIFSmartCharge = WeaponFile.TIFSmartCharge
---------------------------------------------------------------------------------
+
 local BrewLANLOUDPath = import( '/lua/game.lua' ).BrewLANLOUDPath()
 local AssistThread = import(BrewLANLOUDPath .. '/lua/fieldengineers.lua').AssistThread
---------------------------------------------------------------------------------
+
 SES0319 = Class(TSeaUnit) {
     DestructionTicks = 200,
     Weapons = {

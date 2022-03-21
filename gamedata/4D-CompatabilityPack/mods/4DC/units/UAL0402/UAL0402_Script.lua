@@ -1,4 +1,4 @@
-local AWalkingLandUnit = import('/lua/aeonunits.lua').AWalkingLandUnit
+local AWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
 local utilities = import('/lua/utilities.lua')
 local RandomFloat = utilities.GetRandomFloat

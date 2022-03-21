@@ -1,4 +1,4 @@
-local AStructureUnit = import('/lua/aeonunits.lua').AStructureUnit
+local AStructureUnit = import('/lua/defaultunits.lua').StructureUnit
 
 local AIFArtilleryMiasmaShellWeapon = import('/lua/aeonweapons.lua').AIFArtilleryMiasmaShellWeapon
 

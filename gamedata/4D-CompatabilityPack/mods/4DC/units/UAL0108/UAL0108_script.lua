@@ -1,4 +1,4 @@
-local AWalkingLandUnit = import('/lua/aeonunits.lua').AWalkingLandUnit 
+local AWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
 local ADFLaserLightWeapon = import('/lua/aeonweapons.lua').ADFLaserLightWeapon
 local AAAZealotMissileWeapon = import('/lua/aeonweapons.lua').AAAZealotMissileWeapon 

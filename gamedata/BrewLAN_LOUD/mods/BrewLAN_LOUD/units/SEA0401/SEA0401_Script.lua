@@ -1,19 +1,16 @@
---------------------------------------------------------------------------------
--- Centurion script
---------------------------------------------------------------------------------
 local TAirUnit = import('/lua/defaultunits.lua').AirUnit
 
 local               TWeapons = import('/lua/terranweapons.lua')
---------------------------------------------------------------------------------
+
 local TAAFlakArtilleryCannon = TWeapons.TAAFlakArtilleryCannon
 local           TSAMLauncher = TWeapons.TSAMLauncher
 local    TDFHiroPlasmaCannon = TWeapons.TDFHiroPlasmaCannon
 local  TDFPlasmaCannonWeapon = TWeapons.TDFPlasmaCannonWeapon
---------------------------------------------------------------------------------
+
 local             EffectUtil = import('/lua/EffectUtilities.lua')
 local                Effects = import('/lua/effecttemplates.lua')
 local  CreateBuildCubeThread = EffectUtil.CreateBuildCubeThread
---------------------------------------------------------------------------------
+
 SEA0401 = Class(TAirUnit) {
 
     BeamExhaustCruise = import( '/lua/game.lua' ).BrewLANLOUDPath() .. '/effects/emitters/brewlan_missile_exhaust_fire_beam_01_emit.bp',

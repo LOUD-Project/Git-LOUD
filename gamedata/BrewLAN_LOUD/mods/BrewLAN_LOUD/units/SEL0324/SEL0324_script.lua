@@ -1,4 +1,5 @@
-local TLandUnit = import('/lua/terranunits.lua').TLandUnit
+local TLandUnit = import('/lua/defaultunits.lua').MobileUnit
+
 local TSAMLauncher = import('/lua/terranweapons.lua').TSAMLauncher
 
 SEL0324 = Class(TLandUnit) {

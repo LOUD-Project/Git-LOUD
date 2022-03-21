@@ -1,4 +1,4 @@
-local AWalkingLandUnit = import('/lua/aeonunits.lua').AWalkingLandUnit
+local AWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
 local EffectUtils = import('/lua/EffectUtilities.lua')
 local EffectTemplate = import('/lua/effecttemplates.lua')

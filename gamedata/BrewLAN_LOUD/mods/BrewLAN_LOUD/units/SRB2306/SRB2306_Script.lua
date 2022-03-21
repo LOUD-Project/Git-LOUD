@@ -5,8 +5,8 @@
 -- time it fires - by 10 - until it reaches 800 - where it will overheat
 -- and damage itself.   It then has a forced cooldown for several seconds
 -- before continuing to fire normally again.
+local CStructureUnit = import('/lua/defaultunits.lua').StructureUnit
 
-local CStructureUnit = import('/lua/cybranunits.lua').CStructureUnit
 local CDFHeavyMicrowaveLaserGeneratorCom = import('/lua/cybranweapons.lua').CDFHeavyMicrowaveLaserGeneratorCom
 local explosion = import('/lua/defaultexplosions.lua') 
 

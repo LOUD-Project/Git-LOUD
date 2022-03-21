@@ -1,4 +1,4 @@
-local SSeaUnit = import('/lua/seraphimunits.lua').SSeaUnit
+local SSeaUnit = import('/lua/defaultunits.lua').SeaUnit
 
 local SIFSuthanusArtilleryCannon = import('/lua/seraphimweapons.lua').SIFSuthanusMobileArtilleryCannon
 local SAAOlarisCannonWeapon = import('/lua/seraphimweapons.lua').SAAOlarisCannonWeapon

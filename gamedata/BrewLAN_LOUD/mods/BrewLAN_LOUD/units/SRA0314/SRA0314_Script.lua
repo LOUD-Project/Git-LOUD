@@ -6,9 +6,7 @@ local CybranWeapons = import('/lua/cybranweapons.lua')
 local CIFBombNeutronWeapon = CybranWeapons.CIFBombNeutronWeapon
 local CDFRocketIridiumWeapon = CybranWeapons.CDFRocketIridiumWeapon
 local CIFNaniteTorpedoWeapon = CybranWeapons.CIFNaniteTorpedoWeapon
---------------------------------------------------------------------------------
--- Cybran Penetrator Bomber
---------------------------------------------------------------------------------
+
 SRA0314 = Class(CAirUnit, MissileFlare) {
     Weapons = {
         Bomb = Class(CIFBombNeutronWeapon) {},
@@ -24,5 +22,5 @@ SRA0314 = Class(CAirUnit, MissileFlare) {
         self:CreateMissileDetector()
     end,
 }
---------------------------------------------------------------------------------
+
 TypeClass = SRA0314

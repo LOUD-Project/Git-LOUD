@@ -1,5 +1,5 @@
-
 local CEnergyCreationUnit = import('/lua/cybranunits.lua').CEnergyCreationUnit
+
 local CreateAttachedEmitter = CreateAttachedEmitter
 
 URB1102 = Class(CEnergyCreationUnit) {

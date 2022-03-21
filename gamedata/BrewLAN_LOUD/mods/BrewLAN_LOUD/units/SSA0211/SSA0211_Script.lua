@@ -1,7 +1,5 @@
---------------------------------------------------------------------------------
---  Summary  :  Seraphim Strategic Bomber Script
---------------------------------------------------------------------------------
-local SAirUnit = import('/lua/seraphimunits.lua').SAirUnit
+local SAirUnit = import('/lua/defaultunits.lua').AirUnit
+
 local SIFBombZhanaseeWeapon = import('/lua/seraphimweapons.lua').SIFBombZhanaseeWeapon
 
 SSA0211 = Class(SAirUnit) {

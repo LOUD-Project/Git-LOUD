@@ -1,5 +1,7 @@
 local SAirStagingPlatformUnit = import('/lua/seraphimunits.lua').SAirStagingPlatformUnit
+
 local EffectTemplates = import('/lua/EffectTemplates.lua')
+
 local SeraphimAirStagePlat02 = EffectTemplates.SeraphimAirStagePlat02
 local SeraphimAirStagePlat01 = EffectTemplates.SeraphimAirStagePlat01
 

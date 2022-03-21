@@ -1,7 +1,7 @@
---------------------------------------------------------------------------------
-local SAirUnit = import('/lua/seraphimunits.lua').SAirUnit
+local SAirUnit = import('/lua/defaultunits.lua').AirUnit
+
 local MissileFlare = import('/lua/defaultunits.lua').BaseDirectionalAntiMissileFlare
---------------------------------------------------------------------------------
+
 local SeraphimWeapons = import('/lua/seraphimweapons.lua')
 local SAALosaareAutoCannonWeapon = SeraphimWeapons.SAALosaareAutoCannonWeaponAirUnit
 local SDFUnstablePhasonBeam = SeraphimWeapons.SDFUnstablePhasonBeam

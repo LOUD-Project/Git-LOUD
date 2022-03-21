@@ -1,4 +1,5 @@
-local ALandUnit = import('/lua/aeonunits.lua').ALandUnit
+local ALandUnit = import('/lua/defaultunits.lua').MobileUnit
+
 local ADFAlchemistPhasonLaser = import(import( '/lua/game.lua' ).BrewLANLOUDPath() .. '/lua/weapons.lua').ADFAlchemistPhasonLaser
 
 SAL0320 = Class(ALandUnit) {

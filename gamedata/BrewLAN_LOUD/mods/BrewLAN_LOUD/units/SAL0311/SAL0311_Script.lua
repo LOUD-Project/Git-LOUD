@@ -1,7 +1,5 @@
---------------------------------------------------------------------------------
---	Summary	: Aeon Heavy Assault Tank Script
---------------------------------------------------------------------------------
-local ALandUnit = import('/lua/aeonunits.lua').ALandUnit
+local ALandUnit = import('/lua/defaultunits.lua').MobileUnit
+
 local ADFCannonOblivionWeapon = import('/lua/aeonweapons.lua').ADFCannonOblivionWeapon
 --------------------------------------------------------------------------------
 SAL0311 = Class(ALandUnit) {

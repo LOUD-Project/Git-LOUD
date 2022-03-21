@@ -1,5 +1,5 @@
-
 local SEnergyCreationUnit = import('/lua/seraphimunits.lua').SEnergyCreationUnit
+
 local CreateAttachedEmitter = CreateAttachedEmitter
 
 BSB1202 = Class(SEnergyCreationUnit) {

@@ -1,7 +1,5 @@
---------------------------------------------------------------------------------
---  Summary  :  UEF Mobile Missile Platform Script
---------------------------------------------------------------------------------
-local TLandUnit = import('/lua/terranunits.lua').TLandUnit
+local TLandUnit = import('/lua/defaultunits.lua').MobileUnit
+
 local TOrbitalDeathLaserBeamWeapon = import('/lua/terranweapons.lua').TOrbitalDeathLaserBeamWeapon
 local CDFParticleCannonWeapon = import('/lua/cybranweapons.lua').CDFParticleCannonWeapon
 

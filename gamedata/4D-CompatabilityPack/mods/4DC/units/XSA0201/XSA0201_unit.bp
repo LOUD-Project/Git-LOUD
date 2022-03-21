@@ -184,7 +184,7 @@ UnitBlueprint {
             RULEUCC_Move = true,
             RULEUCC_Stop = true,
         },
-        FactionName = 'Aeon',
+        FactionName = 'Seraphim',
         Icon = 'air',           
         SelectionPriority = 2,
         TechLevel = 'RULEUTL_Advanced',     

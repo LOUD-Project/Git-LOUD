@@ -1,4 +1,5 @@
-local CLandUnit = import('/lua/cybranunits.lua').CLandUnit
+local CLandUnit = import('/lua/defaultunits.lua').MobileUnit
+
 local CAAMissileNaniteWeapon = import('/lua/cybranweapons.lua').CAAMissileNaniteWeapon
 local EffectUtil = import('/lua/EffectUtilities.lua')
 

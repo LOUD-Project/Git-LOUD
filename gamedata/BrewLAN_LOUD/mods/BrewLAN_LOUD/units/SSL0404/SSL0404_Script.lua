@@ -1,4 +1,5 @@
-local SWalkingLandUnit = import('/lua/seraphimunits.lua').SWalkingLandUnit
+local SWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
+
 local ChonkChromBeam = import('/lua/seraphimweapons.lua').BrewLANUltraChonkChromBeamGenerator
 local TracerChromBeam = import('/lua/seraphimweapons.lua').BrewLANTracerChromBeamGenerator
 local EffectUtil = import('/lua/EffectUtilities.lua')

@@ -1,7 +1,5 @@
---------------------------------------------------------------------------------
---  Summary  :  UEF Battleship Script
---------------------------------------------------------------------------------
-local TStructureUnit = import('/lua/terranunits.lua').TStructureUnit
+local TStructureUnit = import('/lua/defaultunits.lua').StructureUnit
+
 local TDFShipGaussCannonWeapon = import('/lua/terranweapons.lua').TDFShipGaussCannonWeapon
 
 SEB2311 = Class(TStructureUnit) {

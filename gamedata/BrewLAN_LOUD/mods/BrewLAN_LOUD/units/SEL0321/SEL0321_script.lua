@@ -1,15 +1,17 @@
---------------------------------------------------------------------------------
---  Summary  :  UEF Mobile Strategic Missile Defence Platform Script
---------------------------------------------------------------------------------
-local TLandUnit = import('/lua/terranunits.lua').TLandUnit
+local TLandUnit = import('/lua/defaultunits.lua').MobileUnit
+
 local TAMInterceptorWeapon = import('/lua/terranweapons.lua').TAMInterceptorWeapon
 
 SEL0321 = Class(TLandUnit) {
     Weapons = {
         AntiNuke = Class(TAMInterceptorWeapon) {
+        
             RackSalvoFireReadyState = State(TAMInterceptorWeapon.RackSalvoFireReadyState) {
+            
                 Main = function(self)
+                
                     if self.unit:GetTacticalSiloAmmoCount() < 2 then
+                    
                         self:ForkThread(
                             function(self)
                                 WaitTicks(1)

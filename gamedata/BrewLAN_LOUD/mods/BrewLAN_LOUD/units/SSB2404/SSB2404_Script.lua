@@ -1,7 +1,8 @@
 --------------------------------------------------------------------------------
 --   Author:  Sean 'Balthazar' Wheeldon
 --------------------------------------------------------------------------------
-local SStructureUnit = import('/lua/seraphimunits.lua').SStructureUnit
+local SStructureUnit = import('/lua/defaultunits.lua').StructureUnit
+
 local SIFSuthanusArtilleryCannon = import('/lua/seraphimweapons.lua').SIFSuthanusArtilleryCannon
 
 SSB2404 = Class(SStructureUnit) {

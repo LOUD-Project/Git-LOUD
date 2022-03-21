@@ -1,14 +1,4 @@
---****************************************************************************
---**
---**  File     :  /cdimage/units/UAS0401/UAS0401_script.lua
---**  Author(s):  John Comes
---**
---**  Summary  :  Aeon Experimental Sub
---**
---**  Copyright � 2005 Gas Powered Games, Inc.  All rights reserved.
---****************************************************************************
-
-local AStructureUnit = import('/lua/aeonunits.lua').AStructureUnit
+local AStructureUnit = import('/lua/defaultunits.lua').StructureUnit
 
 SAB2311 = Class(AStructureUnit) {
     Weapons = {

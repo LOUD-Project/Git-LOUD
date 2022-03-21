@@ -1,4 +1,5 @@
-local SStructureUnit = import('/lua/seraphimunits.lua').SStructureUnit
+local SStructureUnit = import('/lua/defaultunits.lua').StructureUnit
+
 local SeraphimWeapons = import('/lua/seraphimweapons.lua')
 
 local SDFHeavyQuarnonCannon = SeraphimWeapons.SDFHeavyQuarnonCannon

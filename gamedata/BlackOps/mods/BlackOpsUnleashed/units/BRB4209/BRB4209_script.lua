@@ -1,5 +1,5 @@
+local CStructureUnit = import('/lua/defaultunits.lua').StructureUnit
 
-local CStructureUnit = import('/lua/cybranunits.lua').CStructureUnit
 local Shield = import('/lua/shield.lua').Shield
 
 local ForkThread = ForkThread

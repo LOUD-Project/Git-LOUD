@@ -1,6 +1,7 @@
+local CWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
-local CWalkingLandUnit = import('/lua/cybranunits.lua').CWalkingLandUnit
 local CybranWeaponsFile = import('/lua/cybranweapons.lua')
+
 local CAANanoDartWeapon = CybranWeaponsFile.CAANanoDartWeapon
 local TargetingLaser = CybranWeaponsFile.CDFParticleCannonWeapon
 

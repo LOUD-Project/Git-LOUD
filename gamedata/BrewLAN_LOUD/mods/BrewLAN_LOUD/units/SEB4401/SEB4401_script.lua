@@ -1,13 +1,8 @@
---------------------------------------------------------------------------------
--- Description: UEF Experimental Shield
--- Author: Sean 'Balthazar' Wheeldon
--- GPG Authors: John Comes, David Tomandl, Jessica St. Croix, Gordon Duclos
---------------------------------------------------------------------------------
 local TShieldStructureUnit = import('/lua/terranunits.lua').TShieldStructureUnit
---------------------------------------------------------------------------------
+
 local utilities = import('/lua/Utilities.lua')
 local GetRandomFloat = utilities.GetRandomFloat
---------------------------------------------------------------------------------
+
 local explosion = import('/lua/defaultexplosions.lua')
 local CreateDeathExplosion = explosion.CreateDefaultHitExplosionAtBone
 local EffectTemplate = import('/lua/EffectTemplates.lua')

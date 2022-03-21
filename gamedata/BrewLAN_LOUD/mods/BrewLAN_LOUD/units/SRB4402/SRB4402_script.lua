@@ -1,8 +1,5 @@
---------------------------------------------------------------------------------
---  Summary:  Cybran Omni Disrupter
---   Author:  Sean 'Balthazar' Wheeldon
---------------------------------------------------------------------------------
 local CRadarJammerUnit = import('/lua/cybranunits.lua').CRadarJammerUnit
+
 local BareBonesWeapon = import('/lua/sim/defaultweapons.lua').BareBonesWeapon
 local Utilities = import('/lua/utilities.lua')
 

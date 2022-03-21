@@ -1,10 +1,8 @@
---------------------------------------------------------------------------------
---  Summary  :  Seraphim Mobile AA/TMD
---------------------------------------------------------------------------------
-local SLandUnit = import('/lua/seraphimunits.lua').SLandUnit
+local SLandUnit = import('/lua/defaultunits.lua').MobileUnit
+
 local SAALosaareAutoCannonWeapon = import('/lua/seraphimweapons.lua').SAALosaareAutoCannonWeapon
 local SAMElectrumMissileDefense = import('/lua/seraphimweapons.lua').SAMElectrumMissileDefense
---------------------------------------------------------------------------------
+
 SSL0320 = Class(SLandUnit) {
     Weapons = {
         AntiMissile = Class(SAMElectrumMissileDefense) {

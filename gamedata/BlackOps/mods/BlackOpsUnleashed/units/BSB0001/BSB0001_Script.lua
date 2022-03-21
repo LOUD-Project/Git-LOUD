@@ -1,4 +1,4 @@
-local SShieldLandUnit = import('/lua/seraphimunits.lua').SShieldLandUnit
+local SShieldLandUnit = import('/lua/defaultunits.lua').MobileUnit
 
 local SeraLambdaFieldRedirector = import('/mods/BlackOpsUnleashed/lua/BlackOpsdefaultantiprojectile.lua').SeraLambdaFieldRedirector
 local SeraLambdaFieldDestroyer = import('/mods/BlackOpsUnleashed/lua/BlackOpsdefaultantiprojectile.lua').SeraLambdaFieldDestroyer

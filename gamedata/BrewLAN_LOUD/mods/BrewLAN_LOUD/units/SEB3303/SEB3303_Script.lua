@@ -1,4 +1,5 @@
-local TStructureUnit = import('/lua/terranunits.lua').TAirFactoryUnit
+local TStructureUnit = import('/lua/defaultunits.lua').StructureUnit
+
 
 SEB3303 = Class(TStructureUnit) {
     DeathThreadDestructionWaitTime = 0,

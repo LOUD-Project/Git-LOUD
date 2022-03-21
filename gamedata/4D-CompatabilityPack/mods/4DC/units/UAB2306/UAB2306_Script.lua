@@ -1,4 +1,5 @@
-local AStructureUnit = import('/lua/aeonunits.lua').AStructureUnit
+local AStructureUnit = import('/lua/defaultunits.lua').StructureUnit
+
 local BFGShellWeapon = import('/mods/4DC/lua/4D_weapons.lua').BFGShellWeapon
 
 UAB2306 = Class(AStructureUnit) {

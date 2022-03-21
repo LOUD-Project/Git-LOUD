@@ -1,4 +1,4 @@
-local SShieldStructureUnit = import('/lua/seraphimunits.lua').SShieldStructureUnit
+local SShieldStructureUnit = import('/lua/defaultunits.lua').SShieldStructureUnit
 
 local WeaponsFile = import ('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua')
 

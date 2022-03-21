@@ -1,4 +1,5 @@
-local SStructureUnit = import('/lua/seraphimunits.lua').SStructureUnit
+local SStructureUnit = import('/lua/defaultunits.lua').StructureUnit
+
 local DisarmBeamWeapon = import('/lua/sim/defaultweapons.lua').DisarmBeamWeapon
 
 SSB2380 = Class(SStructureUnit) {

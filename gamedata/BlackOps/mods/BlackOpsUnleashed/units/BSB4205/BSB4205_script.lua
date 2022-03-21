@@ -1,4 +1,5 @@
-local SStructureUnit = import('/lua/seraphimunits.lua').SStructureUnit
+local SStructureUnit = import('/lua/defaultunits.lua').StructureUnit
+
 local Buff = import('/lua/sim/Buff.lua')
 
 local SeraphimBuffField = import('/lua/seraphimweapons.lua').SeraphimBuffField

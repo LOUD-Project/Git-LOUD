@@ -1,4 +1,4 @@
-local SStructureUnit = import('/lua/seraphimunits.lua').SStructureUnit
+local SStructureUnit = import('/lua/defaultunits.lua').StructureUnit
 
 local CreateAttachedEmitter = CreateAttachedEmitter
 

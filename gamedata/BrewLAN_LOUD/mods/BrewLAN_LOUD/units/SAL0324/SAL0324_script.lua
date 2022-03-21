@@ -2,7 +2,8 @@
 --  Summary:  Aeon Mobile Radar script
 --   Author:  Sean 'Balthazar' Wheeldon
 --------------------------------------------------------------------------------
-local ALandUnit = import('/lua/aeonunits.lua').ALandUnit
+
+local ALandUnit = import('/lua/defaultunits.lua').MobileUnit
 
 SAL0324 = Class(ALandUnit) {
 

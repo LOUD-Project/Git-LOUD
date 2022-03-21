@@ -1,5 +1,4 @@
-
-local SShieldLandUnit = import('/lua/seraphimunits.lua').SShieldLandUnit
+local SShieldLandUnit = import('/lua/defaultunits.lua').MobileUnit
 
 BSB0003 = Class(SShieldLandUnit) {
 

@@ -1,4 +1,4 @@
-local AEnergyCreationUnit = import('/lua/aeonunits.lua').AEnergyCreationUnit
+local AEnergyCreationUnit = import('/lua/defaultunits.lua').StructureUnit
 
 BAB1302 = Class(AEnergyCreationUnit) {
 

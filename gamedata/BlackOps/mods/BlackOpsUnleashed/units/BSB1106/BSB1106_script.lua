@@ -1,4 +1,4 @@
-local SMassStorageUnit = import('/lua/seraphimunits.lua').SMassStorageUnit
+local SMassStorageUnit = import('/lua/defaultunits.lua').StructureUnit
 
 BSB1106 = Class(SMassStorageUnit) {
 

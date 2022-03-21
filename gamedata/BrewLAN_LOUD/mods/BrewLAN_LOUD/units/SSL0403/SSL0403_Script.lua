@@ -3,9 +3,13 @@
 --   Author:  Sean 'Balthazar' Wheeldon
 --------------------------------------------------------------------------------
 local SConstructionUnit = import('/lua/seraphimunits.lua').SConstructionUnit
-local SLandUnit = import('/lua/seraphimunits.lua').SLandUnit
+
+local SLandUnit = import('/lua/defaultunits.lua').MobileUnit
+
 local EffectUtil = import('/lua/EffectUtilities.lua')
+
 local SDFUltraChromaticBeamGenerator = import('/lua/seraphimweapons.lua').SDFUltraChromaticBeamGenerator
+
 local tablefind = table.find -- local this to lower the overhead slightly.
 local BrewLANLOUDPath = import('/lua/game.lua').BrewLANLOUDPath()
 local VersionIsFAF = import(BrewLANLOUDPath .. "/lua/legacy/versioncheck.lua").VersionIsFAF()

@@ -1,7 +1,8 @@
 --------------------------------------------------------------------------------
 -- Summary  :  Cybran Cloakable Mobile Radar Stealth Script
 --------------------------------------------------------------------------------
-local CLandUnit = import('/lua/cybranunits.lua').CLandUnit
+local CLandUnit = import('/lua/defaultunits.lua').MobileUnit
+
 local EffectUtil = import('/lua/EffectUtilities.lua')
 
 SRL0316 = Class(CLandUnit) {

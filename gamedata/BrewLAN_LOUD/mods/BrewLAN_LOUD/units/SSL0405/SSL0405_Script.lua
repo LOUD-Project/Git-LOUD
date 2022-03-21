@@ -1,6 +1,7 @@
-local SLandUnit = import('/lua/seraphimunits.lua').SLandUnit
---------------------------------------------------------------------------------
+local SLandUnit = import('/lua/defaultunits.lua').MobileUnit
+
 local WeaponsFile = import('/lua/seraphimweapons.lua')
+
 local SDFSinnuntheWeapon = WeaponsFile.SDFSinnuntheWeapon
 local SAAOlarisCannonWeapon = WeaponsFile.SAAOlarisCannonWeapon
 local SDFAireauBolterWeapon = WeaponsFile.SDFAireauBolterWeapon02
@@ -9,11 +10,9 @@ local SANUallCavitationTorpedo = WeaponsFile.SANUallCavitationTorpedo
 local SDFAjelluAntiTorpedoDefense = WeaponsFile.SDFAjelluAntiTorpedoDefense
 local SDFGapingMaw = WeaponsFile.SDFGapingMaw
 local SMeleeBladeBeamWeapon = WeaponsFile.SMeleeBladeBeamWeapon
---------------------------------------------------------------------------------
---local utilities = import('/lua/utilities.lua')
+
 local EffectUtil = import('/lua/EffectUtilities.lua')
---local explosion = import('/lua/defaultexplosions.lua')
---------------------------------------------------------------------------------
+
 SSL0405 = Class(SLandUnit) {
 
     BpId = 'ssl0405',

@@ -1,5 +1,7 @@
-local CStructureUnit = import('/lua/cybranunits.lua').CStructureUnit
+local CStructureUnit = import('/lua/defaultunits.lua').StructureUnit
+
 local CDFParticleCannonWeapon = import('/lua/cybranweapons.lua').CDFParticleCannonWeapon
+
 local Weapon = import('/lua/sim/Weapon.lua').Weapon
 local EffectUtil = import('/lua/EffectUtilities.lua')
 

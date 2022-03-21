@@ -1,15 +1,15 @@
-local ASeaUnit = import('/lua/aeonunits.lua').ASeaUnit
---------------------------------------------------------------------------------
+local ASeaUnit = import('/lua/defaultunits.lua').SeaUnit
+
 local WeaponsFile = import('/lua/aeonweapons.lua')
 local ADFCannonOblivionWeapon = WeaponsFile.ADFCannonOblivionWeapon
 local AIFQuanticArtillery = WeaponsFile.AIFQuanticArtillery
 local AAAZealotMissileWeapon = WeaponsFile.AAAZealotMissileWeapon
 local ADFDisruptorCannonWeapon = WeaponsFile.ADFDisruptorWeapon
 local AIFQuasarAntiTorpedoWeapon = WeaponsFile.AIFQuasarAntiTorpedoWeapon
---------------------------------------------------------------------------------
+
 local CleanShieldBag = function(self) if self.ShieldEffect then self.ShieldEffect:Destroy() self.ShieldEffect = nil end end
 local NegPos = function(b) if math.random(0, 1) then return b else return -b end end --return b * (1 - 2 * math.random(0, 1))
---------------------------------------------------------------------------------
+
 local ShipNumber = 0
 
 SAS0401 = Class(ASeaUnit) {

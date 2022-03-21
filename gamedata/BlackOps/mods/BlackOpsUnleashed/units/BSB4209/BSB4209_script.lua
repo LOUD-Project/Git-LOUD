@@ -1,5 +1,4 @@
-
-local SStructureUnit = import('/lua/seraphimunits.lua').SStructureUnit
+local SStructureUnit = import('/lua/defaultunits.lua').StructureUnit
 
 BSB4209 = Class(SStructureUnit) {
 

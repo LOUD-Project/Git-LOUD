@@ -1,8 +1,6 @@
---------------------------------------------------------------------------------
---  Summary  :  Seraphim T3 Mobile Radar Script
---------------------------------------------------------------------------------
 local SRadarUnit = import('/lua/seraphimunits.lua').SRadarUnit
-local SHoverLandUnit = import('/lua/seraphimunits.lua').SHoverLandUnit
+
+local SHoverLandUnit = import('/lua/defaultunits.lua').MobileUnit
 
 SSL0324 = Class(SHoverLandUnit) {
     OnCreate = function(self)

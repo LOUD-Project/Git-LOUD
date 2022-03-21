@@ -1,5 +1,5 @@
+local CWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
-local CWalkingLandUnit = import('/lua/cybranunits.lua').CWalkingLandUnit
 local CIFMissileLoaTacticalWeapon = import('/lua/cybranweapons.lua').CIFMissileLoaTacticalWeapon
 
 BRL0307 = Class(CWalkingLandUnit) {

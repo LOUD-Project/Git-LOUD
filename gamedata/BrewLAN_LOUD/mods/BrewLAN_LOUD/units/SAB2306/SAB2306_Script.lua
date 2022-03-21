@@ -1,7 +1,8 @@
 --------------------------------------------------------------------------------
 --  Summary  :  Lazy Laser Eye Point Defence script
 --------------------------------------------------------------------------------
-local AStructureUnit = import('/lua/aeonunits.lua').AStructureUnit
+local AStructureUnit = import('/lua/defaultunits.lua').StructureUnit
+
 local ADFPhasonLaser = import('/lua/aeonweapons.lua').ADFPhasonLaser
 local utilities = import('/lua/utilities.lua')
 

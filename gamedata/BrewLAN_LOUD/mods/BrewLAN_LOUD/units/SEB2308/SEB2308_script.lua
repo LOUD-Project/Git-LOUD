@@ -1,9 +1,7 @@
---------------------------------------------------------------------------------
---  Summary  :  UEF Heavy Torpedo Launcher Script
---------------------------------------------------------------------------------
-local TStructureUnit = import('/lua/terranunits.lua').TStructureUnit
+local TStructureUnit = import('/lua/defaultunits.lua').StructureUnit
+
 local TANTorpedoAngler = import('/lua/terranweapons.lua').TANTorpedoAngler
---------------------------------------------------------------------------------
+
 SEB2308 = Class(TStructureUnit) {
     UpsideDown = false,
     Weapons = {

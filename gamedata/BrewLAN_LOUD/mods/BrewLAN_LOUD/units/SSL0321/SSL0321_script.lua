@@ -1,13 +1,5 @@
---****************************************************************************
---**
---**  File     :  /cdimage/units/XSL0111/XSL0111_script.lua
---**  Author(s):  Drew Staltman, Gordon Duclos
---**
---**  Summary  :  Seraphim Mobile Missile Launcher Script
---**
---**  Copyright � 2007 Gas Powered Games, Inc.  All rights reserved.
---****************************************************************************
-local SLandUnit = import('/lua/seraphimunits.lua').SLandUnit
+local SLandUnit = import('/lua/defaultunits.lua').MobileUnit
+
 local SIFHuAntiNukeWeapon = import('/lua/seraphimweapons.lua').SIFHuAntiNukeWeapon
 
 SSL0321 = Class(SLandUnit) {

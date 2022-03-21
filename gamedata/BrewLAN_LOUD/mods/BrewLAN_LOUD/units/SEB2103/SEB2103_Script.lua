@@ -1,7 +1,5 @@
---------------------------------------------------------------------------------
---  Summary  :  UEF Light Artillery Script
---------------------------------------------------------------------------------
-local TStructureUnit = import('/lua/terranunits.lua').TStructureUnit
+local TStructureUnit = import('/lua/defaultunits.lua').StructureUnit
+
 local TIFArtilleryWeapon = import('/lua/terranweapons.lua').TIFArtilleryWeapon
 
 SEB2103 = Class(TStructureUnit) {

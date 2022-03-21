@@ -1,6 +1,3 @@
---------------------------------------------------------------------------------
---  Summary  :  UEF Combat Engineer T1
---------------------------------------------------------------------------------
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 local TConstructionUnit = import('/lua/terranunits.lua').TConstructionUnit
 local TDFRiotWeapon = import('/lua/terranweapons.lua').TDFRiotWeapon

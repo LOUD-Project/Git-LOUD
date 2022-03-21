@@ -1,4 +1,4 @@
-local AHoverLandUnit = import('/lua/aeonunits.lua').AHoverLandUnit
+local AHoverLandUnit = import('/lua/defaultunits.lua').MobileUnit
 
 local ADFDisruptorWeapon = import('/lua/aeonweapons.lua').ADFDisruptorWeapon
 local ADFCannonQuantumWeapon = import('/lua/aeonweapons.lua').ADFCannonQuantumWeapon

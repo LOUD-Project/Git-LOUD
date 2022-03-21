@@ -1,7 +1,8 @@
 --------------------------------------------------------------------------------
 -- YOU SEE IVAN, WHEN GUN FIRE SMALLER GUN 
 --------------------------------------------------------------------------------
-local TStructureUnit = import('/lua/terranunits.lua').TLandFactoryUnit
+local TStructureUnit = import('/lua/defaultunits.lua').StructureUnit
+
 local TIFArtilleryWeapon = import('/lua/terranweapons.lua').TIFArtilleryWeapon
 
 SEB2404 = Class(TStructureUnit) {

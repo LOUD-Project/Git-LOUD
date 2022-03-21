@@ -1,13 +1,12 @@
---------------------------------------------------------------------------------
 local TAirUnit = import('/lua/defaultunits.lua').AirUnit
 
 local MissileFlare = import('/lua/defaultunits.lua').BaseDirectionalAntiMissileFlare
---------------------------------------------------------------------------------
+
 local terranweapons = import('/lua/terranweapons.lua')
 local TIFSmallYieldNuclearBombWeapon = terranweapons.TIFSmallYieldNuclearBombWeapon
 local TIFCruiseMissileLauncher = terranweapons.TIFCruiseMissileLauncher
 local TANTorpedoAngler = terranweapons.TANTorpedoAngler
---------------------------------------------------------------------------------
+
 SEA0314 = Class(TAirUnit, MissileFlare) {
     Weapons = {
         Bomb = Class(TIFSmallYieldNuclearBombWeapon) {},

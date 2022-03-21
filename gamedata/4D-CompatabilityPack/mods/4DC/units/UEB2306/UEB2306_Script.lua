@@ -1,6 +1,6 @@
+local TStructureUnit = import('/lua/defaultunits.lua').StructureUnit
 
 local TerranWeaponFile = import('/lua/terranweapons.lua')
-local TStructureUnit = import('/lua/terranunits.lua').TStructureUnit
 local TDFIonizedPlasmaCannon = TerranWeaponFile.TDFIonizedPlasmaCannon
 
 UEB2306 = Class(TStructureUnit) {

@@ -1,4 +1,5 @@
-local CLandUnit = import('/lua/cybranunits.lua').CLandUnit
+local CLandUnit = import('/lua/defaultunits.lua').MobileUnit
+
 local CybranWeaponsFile = import('/lua/cybranweapons.lua')
 local CIFMissileLoaWeapon = CybranWeaponsFile.CIFMissileLoaWeapon
 local CDFProtonCannonWeapon = CybranWeaponsFile.CDFProtonCannonWeapon

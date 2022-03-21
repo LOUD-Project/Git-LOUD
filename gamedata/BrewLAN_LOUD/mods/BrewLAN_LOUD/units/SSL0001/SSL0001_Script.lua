@@ -1,4 +1,4 @@
-local SLandUnit = import('/lua/seraphimunits.lua').SLandUnit
+local SLandUnit = import('/lua/defaultunits.lua').MobileUnit
 
 SSL0001 = Class(SLandUnit) {}
 

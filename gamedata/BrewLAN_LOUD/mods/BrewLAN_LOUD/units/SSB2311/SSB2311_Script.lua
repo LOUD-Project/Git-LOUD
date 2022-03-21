@@ -1,5 +1,7 @@
-local SStructureUnit = import('/lua/seraphimunits.lua').SStructureUnit
+local SStructureUnit = import('/lua/defaultunits.lua').StructureUnit
+
 local SDFSinnuntheWeapon = import('/lua/seraphimweapons.lua').SDFSinnuntheWeapon
+
 local utilities = import('/lua/utilities.lua')
 local EffectUtil = import('/lua/EffectUtilities.lua')
 local explosion = import('/lua/defaultexplosions.lua')

@@ -1,4 +1,5 @@
-local SLandUnit = import('/lua/seraphimunits.lua').SLandUnit
+local SLandUnit = import('/lua/defaultunits.lua').MobileUnit
+
 local SLaanseMissileWeapon = import('/lua/seraphimweapons.lua').SLaanseMissileWeapon
 
 local ForkThread = ForkThread

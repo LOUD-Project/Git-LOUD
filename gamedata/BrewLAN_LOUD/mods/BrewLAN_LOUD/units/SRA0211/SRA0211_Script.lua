@@ -1,7 +1,5 @@
---------------------------------------------------------------------------------
---  Summary  :  Cybran Strategic Bomber Script
---------------------------------------------------------------------------------
-local CAirUnit = import('/lua/cybranunits.lua').CAirUnit
+local CAirUnit = import('/lua/defaultunits.lua').AirUnit
+
 local CIFBombNeutronWeapon = import('/lua/cybranweapons.lua').CIFBombNeutronWeapon
 
 SRA0211 = Class(CAirUnit) {

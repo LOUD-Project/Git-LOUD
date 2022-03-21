@@ -1,5 +1,5 @@
+local THoverLandUnit = import('/lua/defaultunits.lua').MobileUnit
 
-local THoverLandUnit = import('/lua/terranunits.lua').THoverLandUnit
 local MortarWeapon = import('/lua/terranweapons.lua').TDFFragmentationGrenadeLauncherWeapon
 
 UEL0107 = Class(THoverLandUnit) {
@@ -9,8 +9,8 @@ UEL0107 = Class(THoverLandUnit) {
     },
 
     OnStopBeingBuilt = function(self,builder,layer)
-        #-- After being  built this script sets the units speed multi based 
-        #-- upon what it is built on as it should be faster on water then land
+        -- After being  built this script sets the units speed multi based 
+        -- upon what it is built on as it should be faster on water then land
         local layer = self:GetCurrentLayer()
 		
         if(layer == 'Land') then
@@ -24,13 +24,13 @@ UEL0107 = Class(THoverLandUnit) {
     end,
 
     OnLayerChange = function(self, new, old)
-        #-- Detects the layer trasition and adjusts the units speed accordingly
+        -- Detects the layer trasition and adjusts the units speed accordingly
         THoverLandUnit.OnLayerChange(self, new, old)
         if( new == 'Land' ) then
-            #-- Enables Land multi
+            -- Enables Land multi
             self:SetSpeedMult(1.0)
         elseif ( new == 'Water' ) then
-            #-- Enables Sea multi
+            -- Enables Sea multi
             self:SetSpeedMult(1.25)
         end
     end,

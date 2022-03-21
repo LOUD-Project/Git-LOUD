@@ -1,5 +1,5 @@
+local SStructureUnit = import('/lua/defaultunits.lua').StructureUnit
 
-local SStructureUnit = import('/lua/seraphimunits.lua').SStructureUnit
 local SSeraphimSubCommanderGateway02 = import('/lua/EffectTemplates.lua').SeraphimSubCommanderGateway02
 
 

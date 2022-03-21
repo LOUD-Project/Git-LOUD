@@ -2,9 +2,11 @@
 --  Summary:  Cybran Mobile Radar script
 --   Author:  Sean 'Balthazar' Wheeldon
 --------------------------------------------------------------------------------
+local CLandUnit = import('/lua/defaultunits.lua').MobileUnit
+
 local CUnitsDoc = import('/lua/cybranunits.lua')
-local CLandUnit = CUnitsDoc.CLandUnit
 local CRadarUnit = CUnitsDoc.CRadarUnit
+
 local CDFElectronBolterWeapon = import('/lua/cybranweapons.lua').CDFElectronBolterWeapon
 local BrewLANLOUDPath = import( '/lua/game.lua' ).BrewLANLOUDPath()
 

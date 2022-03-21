@@ -1,4 +1,4 @@
-local AMassStorageUnit = import('/lua/aeonunits.lua').AMassStorageUnit
+local AMassStorageUnit = import('/lua/defaultunits.lua').StructureUnit
 
 BAB1106 = Class(AMassStorageUnit) {
 

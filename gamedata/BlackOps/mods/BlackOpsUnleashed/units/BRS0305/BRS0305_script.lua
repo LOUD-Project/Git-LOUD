@@ -1,4 +1,5 @@
-local CSubUnit = import('/lua/cybranunits.lua').CSubUnit
+local CSubUnit = import('/lua/defaultunits.lua').SubUnit
+
 local WeaponsFile = import('/lua/cybranweapons.lua')
 
 local CANNaniteTorpedoWeapon = WeaponsFile.CANNaniteTorpedoWeapon
