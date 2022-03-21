@@ -189,11 +189,11 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 33500,
-        BuildCostMass = 1400,
+        BuildCostEnergy = 35000,
+        BuildCostMass = 1515,
         BuildTime = 700,
 		
-        MaintenanceConsumptionPerSecondEnergy = 75,
+        MaintenanceConsumptionPerSecondEnergy = 100,
     },
 	
     Footprint = {
@@ -203,6 +203,7 @@ UnitBlueprint {
     },
 	
     General = {
+        CapCost = 2,
         Category = 'Transport',
         Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
@@ -317,8 +318,8 @@ UnitBlueprint {
             ChargeDelay = 0.5,
             CollideFriendly = false,
 			
-            Damage = 30,
-			DamageRadius = 1.5,
+            Damage = 25,
+			DamageRadius = 1,
             DamageType = 'Normal',
 			
             DisplayName = 'EMP Pulse Laser',
@@ -328,7 +329,7 @@ UnitBlueprint {
             },
 			
 			FiringRandomness = 0.35,
-            FiringTolerance = 0.1,
+            FiringTolerance = 0.2,
 			
             Label = 'EMPCannon',
 			
@@ -360,7 +361,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,		-- 90 DPS Ground
+            RateOfFire = 1,		-- 75 DPS Ground
 			
             TargetCheckInterval = 0.5,
 			

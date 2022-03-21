@@ -132,8 +132,8 @@ UnitBlueprint {
     },
 
     Economy = {
-        BuildCostEnergy = 31500,
-        BuildCostMass = 1375,
+        BuildCostEnergy = 34800,
+        BuildCostMass = 1515,
         BuildTime = 8250,
     },
 
@@ -144,6 +144,7 @@ UnitBlueprint {
     },
 
     General = {
+        CapCost = 2,
         Category = 'Transport',
         Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {

@@ -99,8 +99,8 @@ UnitBlueprint {
             Mesh = '/effects/entities/SeraphimShield01/SeraphimShield01_mesh',
             MeshZ = '/effects/entities/Shield01/Shield01z_mesh',
             RegenAssistMult = 60,
-            ShieldEnergyDrainRechargeTime = 5,
-            ShieldMaxHealth = 3500,
+            ShieldEnergyDrainRechargeTime = 9,
+            ShieldMaxHealth = 3900,
             ShieldRechargeTime = 20,
             ShieldRegenRate = 93,
             ShieldRegenStartTime = 1,
@@ -189,11 +189,11 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 36500,
-        BuildCostMass = 1500,
+        BuildCostEnergy = 40150,
+        BuildCostMass = 1625,
         BuildTime = 750,
 		
-        MaintenanceConsumptionPerSecondEnergy = 200,
+        MaintenanceConsumptionPerSecondEnergy = 150,
 		
     },
 	
@@ -204,6 +204,7 @@ UnitBlueprint {
     },
 	
     General = {
+        CapCost = 2,
         Category = 'Transport',
         Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
@@ -319,12 +320,13 @@ UnitBlueprint {
                 Air = 'Land|Water|Seabed',
             },
 			
+            FiringRandomness = 0.4,
             FiringTolerance = 0.1,
 			
             Label = 'AutoGun',
             LeadTarget = true,
 			
-            MaxRadius = 36,
+            MaxRadius = 34,
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 2,
@@ -369,7 +371,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 80,
+            TurretYawSpeed = 40,
 			
             Turreted = true,
         },	
@@ -530,9 +532,9 @@ UnitBlueprint {
 
         {
             AboveWaterTargetsOnly = true,
-            Damage = 25,
+            Damage = 525,
             DamageFriendly = true,
-            DamageRadius = 1,
+            DamageRadius = 4,
             DamageType = 'Normal',
             DisplayName = 'Air Crash',
             DummyWeapon = true,

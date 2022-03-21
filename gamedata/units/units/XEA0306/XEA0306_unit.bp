@@ -107,9 +107,9 @@ UnitBlueprint {
             Mesh = '/effects/entities/Shield01/Shield01_mesh',
             MeshZ = '/effects/entities/Shield01/Shield01z_mesh',
             RegenAssistMult = 60,
-            ShieldEnergyDrainRechargeTime = 5,
+            ShieldEnergyDrainRechargeTime = 10,
             ShieldMaxHealth = 4400,
-            ShieldRechargeTime = 15,
+            ShieldRechargeTime = 25,
             ShieldRegenRate = 110,
             ShieldRegenStartTime = 1,
             ShieldSize = 9,
@@ -153,11 +153,11 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 34500,
-        BuildCostMass = 1475,
+        BuildCostEnergy = 37950,
+        BuildCostMass = 1625,
         BuildTime = 8850,
 		
-        MaintenanceConsumptionPerSecondEnergy = 75,
+        MaintenanceConsumptionPerSecondEnergy = 120,
     },
 	
     Footprint = {
@@ -167,6 +167,7 @@ UnitBlueprint {
     },
 	
     General = {
+        CapCost = 2,
         Category = 'Transport',
         Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
@@ -274,9 +275,9 @@ UnitBlueprint {
 			
             CollideFriendly = false,
 			
-            Damage = 35,
+            Damage = 30,
 			DamageRadius = 0,
-            DamageType = 'Normal',
+            DamageType = 'ShieldMult0.8',
 			
             DisplayName = 'Plasma Cannon',
 			
@@ -284,15 +285,15 @@ UnitBlueprint {
                 Air = 'Air|Land|Water',
             },
 			
-			FiringRandomness = 0.35,
-            FiringTolerance = 0,
+			FiringRandomness = 0.5,
+            FiringTolerance = 0.2,
 			
             HeadingArcCenter = 0,
             HeadingArcRange = 120,
 			
             Label = 'PlasmaGun',
 			
-            MaxRadius = 33,
+            MaxRadius = 32,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -316,7 +317,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1.0,		---- 35 DPS Ground
+            RateOfFire = 0.8,		---- 24 DPS Ground
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -336,7 +337,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 120,
-            TurretYawSpeed = 60,
+            TurretYawSpeed = 25,
 			
             Turreted = true,
         },
@@ -353,9 +354,9 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 35,
+            Damage = 30,
 			DamageRadius = 0,
-            DamageType = 'Normal',
+            DamageType = 'ShieldMult0.8',
 			
             DisplayName = 'Heavy Plasma Cannon',
 			
@@ -363,15 +364,15 @@ UnitBlueprint {
                 Air = 'Land|Water|Seabed',
             },
 			
-			FiringRandomness = 0.35,
-            FiringTolerance = 0.1,
+			FiringRandomness = 0.5,
+            FiringTolerance = 0.2,
 			
             HeadingArcCenter = 0,
             HeadingArcRange = 120,
 			
             Label = 'PlasmaGun',
 			
-            MaxRadius = 33,
+            MaxRadius = 32,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -393,7 +394,7 @@ UnitBlueprint {
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
 
-            RateOfFire = 1.0,		---- 35 DPS Ground
+            RateOfFire = 0.8,		---- 24 DPS Ground
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -413,7 +414,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 120,
-            TurretYawSpeed = 45,
+            TurretYawSpeed = 25,
 			
             Turreted = true,
         },
