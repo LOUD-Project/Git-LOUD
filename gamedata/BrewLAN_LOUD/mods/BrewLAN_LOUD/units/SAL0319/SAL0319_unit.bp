@@ -163,7 +163,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 7260,
         BuildCostMass = 950,
-        BuildRate = 18,
+        BuildRate = 16,
         BuildTime = 4500,
 		
         BuildableCategory = {
@@ -173,8 +173,8 @@ UnitBlueprint {
             'BUILTBYTIER3FIELD AEON',
         },
 		
-        SacrificeEnergyMult = 0.85,
-        SacrificeMassMult = 0.85,
+        SacrificeEnergyMult = 0.9,
+        SacrificeMassMult = 0.9,
 		
         MaintenanceConsumptionPerSecondEnergy = 10,
 		MaxBuildDistance = 5,
