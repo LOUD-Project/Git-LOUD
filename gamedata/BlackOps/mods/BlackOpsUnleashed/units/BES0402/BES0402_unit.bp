@@ -204,7 +204,7 @@ UnitBlueprint {
     LifeBarSize = 4.0,
 	
     Physics = {
-        BackUpDistance = 10,
+        BackUpDistance = 14,
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Water = true,
@@ -233,7 +233,7 @@ UnitBlueprint {
     SelectionSizeZ = 8,
     SelectionThickness = 0.18,
 	
-    SizeX = 2.8,	--2.85,
+    SizeX = 2.8,
     SizeY = 1.80,
     SizeZ = 11.5,
 	
@@ -290,6 +290,9 @@ UnitBlueprint {
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
             },
+            
+            EnergyRequired = 5000,
+            EnergyDrainPerSecond = 1000,
 			
             FiringRandomness = 1,
             FiringTolerance = 0.2,
@@ -328,7 +331,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.2,		---- 600 DPS
+            RateOfFire = 1,		---- 600 DPS - controlled by charge
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 135,
@@ -359,7 +362,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 140,
-            TurretYawSpeed = 25,
+            TurretYawSpeed = 22,
 			
             Turreted = true,
         },
@@ -404,7 +407,10 @@ UnitBlueprint {
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
             },
-			
+            
+            EnergyRequired = 5000,
+            EnergyDrainPerSecond = 1000,
+
             FiringRandomness = 1,
             FiringTolerance = 0.2,
 			
@@ -442,7 +448,7 @@ UnitBlueprint {
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 5,
 
-            RateOfFire = 0.2,		---- 600 dps
+            RateOfFire = 1,		---- 600 dps - controlled by charge
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 180,
@@ -473,7 +479,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 140,
-            TurretYawSpeed = 25,
+            TurretYawSpeed = 22,
 			
             Turreted = true,
         },
@@ -514,7 +520,10 @@ UnitBlueprint {
             DamageType = 'Normal',
 			
             DisplayName = 'ZCannon',
-			
+            
+            EnergyRequired = 5000,
+            EnergyDrainPerSecond = 1000,
+
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
             },
@@ -556,7 +565,7 @@ UnitBlueprint {
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 5,
 
-            RateOfFire = 0.2,		---- another 600 DPS
+            RateOfFire = 1,		---- another 600 DPS - controlled by charge
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 180,
@@ -586,7 +595,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 140,
-            TurretYawSpeed = 25,
+            TurretYawSpeed = 22,
 			
             Turreted = true,
         },
@@ -619,7 +628,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 300,
-            DamageRadius = 1.5,
+            DamageRadius = 1.2,
             DamageType = 'Normal',
 			
             DisplayName = 'Gauss Cannon',
@@ -633,7 +642,7 @@ UnitBlueprint {
 			
             Label = 'Deckgun',
 			
-            MaxRadius = 110,
+            MaxRadius = 105,
 			
             HeadingArcCenter = 0,
             HeadingArcRange = 240,
@@ -735,7 +744,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 300,
-            DamageRadius = 1.5,
+            DamageRadius = 1.2,
             DamageType = 'Normal',
 			
             DisplayName = 'Gauss Cannon',
@@ -749,7 +758,7 @@ UnitBlueprint {
 			
             Label = 'Deckgun',
 			
-            MaxRadius = 110,
+            MaxRadius = 105,
 			
             HeadingArcCenter = 90,
             HeadingArcRange = 120,
@@ -850,7 +859,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 300,
-            DamageRadius = 1.5,
+            DamageRadius = 1.2,
             DamageType = 'Normal',
 			
             DisplayName = 'Gauss Cannon',
@@ -864,7 +873,7 @@ UnitBlueprint {
 			
             Label = 'Deckgun',
 			
-            MaxRadius = 110,
+            MaxRadius = 105,
 			
             HeadingArcCenter = 90,
             HeadingArcRange = 120,
@@ -965,7 +974,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 300,
-            DamageRadius = 1.5,
+            DamageRadius = 1.2,
             DamageType = 'Normal',
 			
             DisplayName = 'Gauss Cannon',
@@ -979,7 +988,7 @@ UnitBlueprint {
 			
             Label = 'Deckgun',
 			
-            MaxRadius = 110,
+            MaxRadius = 105,
 			
             HeadingArcCenter = 90,
             HeadingArcRange = 120,
@@ -1080,7 +1089,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 300,
-            DamageRadius = 1.5,
+            DamageRadius = 1.2,
             DamageType = 'Normal',
 			
             DisplayName = 'Gauss Cannon',
@@ -1094,7 +1103,7 @@ UnitBlueprint {
 			
             Label = 'Deckgun',
 			
-            MaxRadius = 110,
+            MaxRadius = 105,
 			
             HeadingArcCenter = 180,
             HeadingArcRange = 145,
@@ -1195,7 +1204,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 300,
-            DamageRadius = 1.5,
+            DamageRadius = 1.2,
             DamageType = 'Normal',
 			
             DisplayName = 'Gauss Cannon',
@@ -1209,7 +1218,7 @@ UnitBlueprint {
 			
             Label = 'Deckgun',
 			
-            MaxRadius = 110,
+            MaxRadius = 105,
 			
             HeadingArcCenter = -90,
             HeadingArcRange = 120,
@@ -1310,7 +1319,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 300,
-            DamageRadius = 1.5,
+            DamageRadius = 1.2,
             DamageType = 'Normal',
 			
             DisplayName = 'Gauss Cannon',
@@ -1324,7 +1333,7 @@ UnitBlueprint {
 			
             Label = 'Deckgun',
 			
-            MaxRadius = 110,
+            MaxRadius = 105,
 			
             HeadingArcCenter = -90,
             HeadingArcRange = 120,
@@ -1425,7 +1434,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 300,
-            DamageRadius = 1.5,
+            DamageRadius = 1.2,
             DamageType = 'Normal',
 			
             DisplayName = 'Gauss Cannon',
@@ -1439,7 +1448,7 @@ UnitBlueprint {
 			
             Label = 'Deckgun',
 			
-            MaxRadius = 110,
+            MaxRadius = 105,
 			
             HeadingArcCenter = -90,
             HeadingArcRange = 120,
@@ -1530,8 +1539,8 @@ UnitBlueprint {
 			
             Damage = 50,
 			DamageFriendly = false,
-			DamageRadius = 2.5,
-            DamageType = 'Normal',
+			DamageRadius = 2.2,
+            DamageType = 'ShieldMult1.2',
 			
 			DetonatesAtTargetHeight = true,
 			
@@ -1551,7 +1560,7 @@ UnitBlueprint {
             HeadingArcCenter = 40,
             HeadingArcRange = 145,
 			
-            MaxRadius = 48,
+            MaxRadius = 45,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 2,
@@ -1622,8 +1631,8 @@ UnitBlueprint {
 			
             Damage = 50,
 			DamageFriendly = false,
-			DamageRadius = 2.5,
-            DamageType = 'Normal',
+			DamageRadius = 2.2,
+            DamageType = 'ShieldMult1.2',
 			
 			DetonatesAtTargetHeight = true,
 			
@@ -1643,7 +1652,7 @@ UnitBlueprint {
             HeadingArcCenter = 45,
             HeadingArcRange = 140,
 			
-            MaxRadius = 48,
+            MaxRadius = 45,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 2,
@@ -1712,8 +1721,8 @@ UnitBlueprint {
 			
             Damage = 50,
 			DamageFriendly = false,
-			DamageRadius = 2.5,
-            DamageType = 'Normal',
+			DamageRadius = 2.2,
+            DamageType = 'ShieldMult1.2',
 			
 			DetonatesAtTargetHeight = true,
 			
@@ -1733,7 +1742,7 @@ UnitBlueprint {
             HeadingArcCenter = 90,
             HeadingArcRange = 120,
 			
-            MaxRadius = 48,
+            MaxRadius = 45,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 2,
@@ -1802,8 +1811,8 @@ UnitBlueprint {
 			
             Damage = 50,
 			DamageFriendly = false,
-			DamageRadius = 4,
-            DamageType = 'Normal',
+			DamageRadius = 2.2,
+            DamageType = 'ShieldMult1.2',
 			
 			DetoantesAtTargetHeight = true,
 			
@@ -1823,7 +1832,7 @@ UnitBlueprint {
             HeadingArcCenter = 120,
             HeadingArcRange = 125,
 			
-            MaxRadius = 48,
+            MaxRadius = 45,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 2,
@@ -1891,8 +1900,8 @@ UnitBlueprint {
 			
             Damage = 50,
 			DamageFriendly = false,
-			DamageRadius = 2.5,
-            DamageType = 'Normal',
+			DamageRadius = 2.2,
+            DamageType = 'ShieldMult1.2',
 			
 			DetonatesAtTargetHeight = true,
 			
@@ -1910,7 +1919,7 @@ UnitBlueprint {
             HeadingArcCenter = -40,
             HeadingArcRange = 145,
 			
-            MaxRadius = 48,
+            MaxRadius = 45,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 2,
@@ -1979,8 +1988,8 @@ UnitBlueprint {
 			
             Damage = 50,
 			DamageFriendly = false,
-			DamageRadius = 2.5,
-            DamageType = 'Normal',
+			DamageRadius = 2.2,
+            DamageType = 'ShieldMult1.2',
 			
 			DetonatesAtTargetHeight = true,
 			
@@ -1998,7 +2007,7 @@ UnitBlueprint {
             HeadingArcCenter = -45,
             HeadingArcRange = 140,
 			
-            MaxRadius = 48,
+            MaxRadius = 45,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 2,
@@ -2067,8 +2076,8 @@ UnitBlueprint {
 			
             Damage = 50,
 			DamageFriendly = false,
-			DamageRadius = 2.5,
-            DamageType = 'Normal',
+			DamageRadius = 2.2,
+            DamageType = 'ShieldMult1.2',
 			
 			DetonatesAtTargetHeight = true,
 			
@@ -2086,7 +2095,7 @@ UnitBlueprint {
             HeadingArcCenter = -90,
             HeadingArcRange = 120,
 			
-            MaxRadius = 48,
+            MaxRadius = 45,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 2,
@@ -2152,8 +2161,8 @@ UnitBlueprint {
 			
             Damage = 50,
 			DamageFriendly = false,
-			DamageRadius = 2.5,
-            DamageType = 'Normal',
+			DamageRadius = 2.2,
+            DamageType = 'ShieldMult1.2',
 			
 			DetonatesAtTargetHeight = true,
 			
@@ -2171,7 +2180,7 @@ UnitBlueprint {
             HeadingArcCenter = -120,
             HeadingArcRange = 125,
 			
-            MaxRadius = 48,
+            MaxRadius = 45,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 2,

@@ -59,7 +59,8 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
         'CRUISER',
-        'OVERLAYRADAR','OVERLAYSONAR',
+        'OVERLAYRADAR',
+        'OVERLAYSONAR',
     },
 	
     CollisionOffsetY = -0.29,
@@ -680,7 +681,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 100,
-            DamageType = 'Normal',
+            DamageType = 'ShieldMult1.2',
 			
             DisplayName = 'Nanodart Launcher AA',
 			
@@ -692,7 +693,8 @@ UnitBlueprint {
 			
             Label = 'AAGun',
 			
-            MaxRadius = 65,
+            MaxRadius = 60,
+            
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 6,
             MuzzleVelocity = 40,
@@ -748,7 +750,7 @@ UnitBlueprint {
             TurretPitchSpeed = 180,
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 180,
+            TurretYawSpeed = 50,
             Turreted = true,
         },
         {
@@ -934,7 +936,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 60,
+            Damage = 120,
             DamageType = 'Normal',
 			
             DisplayName = 'Nanite Torpedo',
@@ -950,7 +952,7 @@ UnitBlueprint {
 			
             MaxRadius = 40,
 			
-            MuzzleSalvoDelay = 0.4,
+            MuzzleSalvoDelay = 0.5,
             MuzzleSalvoSize = 4,
             MuzzleVelocity = 3,
 			
@@ -975,9 +977,10 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
+            
             RangeCategory = 'UWRC_AntiNavy',
 			
-			RateOfFire = 0.5,	-- 120 DPS Sub/Surface
+			RateOfFire = 0.3,	-- 144 DPS Sub/Surface
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 30,
@@ -986,10 +989,10 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'MOBILE SUBMARINE',
-				'MOBILE NAVAL',
+                'SUBMARINE',
+				'NAVAL',
 				'MOBILE',
-                'STRUCTURE DEFENSE',
+                'DEFENSE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',

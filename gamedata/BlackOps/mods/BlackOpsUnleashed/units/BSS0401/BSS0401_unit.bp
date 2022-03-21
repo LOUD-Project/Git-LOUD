@@ -59,7 +59,8 @@ UnitBlueprint {
         'SILO',
         'BATTLESHIP',
         'BOMBARDMENT',
-        'OVERLAYRADAR','OVERLAYSONAR',
+        'OVERLAYRADAR',
+        'OVERLAYSONAR',
     },
 	
     CollisionOffsetY = -1,
@@ -208,7 +209,7 @@ UnitBlueprint {
     LifeBarSize = 4,
 	
     Physics = {
-        BackUpDistance = 10,
+        BackUpDistance = 14,
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Water = true,
@@ -285,7 +286,10 @@ UnitBlueprint {
             DamageType = 'Normal',
 			
             DisplayName = 'Heavy Quarnon Cannon',
-			
+
+            EnergyRequired = 2400,
+            EnergyDrainPerSecond = 960,
+            
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
             },
@@ -330,7 +334,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.4,	-- 600 DPS 
+            RateOfFire = 1,	-- 600 DPS -- every 2.5 seconds controlled by charge
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 155,
@@ -392,7 +396,10 @@ UnitBlueprint {
             DamageType = 'Normal',
 			
             DisplayName = 'Heavy Quarnon Cannon',
-			
+
+            EnergyRequired = 2400,
+            EnergyDrainPerSecond = 960,
+  			
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
             },
@@ -435,7 +442,7 @@ UnitBlueprint {
             RackSalvoFiresAfterCharge = false,
             RackSalvoReloadTime = 1,
 
-            RateOfFire = 0.4,	-- 600 DPS since BSL0404 does 1500 damage over it's lifetime
+            RateOfFire = 1,	-- 600 DPS since BSL0404 does 1500 damage over it's lifetime - controlled by charge
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 155,
@@ -1233,7 +1240,7 @@ UnitBlueprint {
 			
             Damage = 50,
             DamageFriendly = false,
-            DamageRadius = 2.5,
+            DamageRadius = 2,
             DamageType = 'Normal',
 			
             DetonatesAtTargetHeight = true,
@@ -1250,7 +1257,7 @@ UnitBlueprint {
             Label = 'AAGun',
 			LeadTarget = true,
 			
-            MaxRadius = 44,
+            MaxRadius = 43,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -1327,7 +1334,7 @@ UnitBlueprint {
 			
             Damage = 50,
             DamageFriendly = false,
-            DamageRadius = 2.5,
+            DamageRadius = 2,
             DamageType = 'Normal',
 			
             DetonatesAtTargetHeight = true,
@@ -1344,7 +1351,7 @@ UnitBlueprint {
             Label = 'AAGun',
 			LeadTarget = true,
 			
-            MaxRadius = 44,
+            MaxRadius = 43,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -1419,7 +1426,7 @@ UnitBlueprint {
 			
             Damage = 50,
             DamageFriendly = false,
-            DamageRadius = 2.5,
+            DamageRadius = 2,
             DamageType = 'Normal',
 			
             DetonatesAtTargetHeight = true,
@@ -1436,7 +1443,7 @@ UnitBlueprint {
             Label = 'AAGun',
 			LeadTarget = true,
 			
-            MaxRadius = 44,
+            MaxRadius = 43,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -1511,7 +1518,7 @@ UnitBlueprint {
 			
             Damage = 50,
             DamageFriendly = false,
-            DamageRadius = 2.5,
+            DamageRadius = 2,
             DamageType = 'Normal',
 			
             DetonatesAtTargetHeight = true,
@@ -1528,7 +1535,7 @@ UnitBlueprint {
             Label = 'AAGun',
 			LeadTarget = true,
 			
-            MaxRadius = 44,
+            MaxRadius = 43,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -1666,7 +1673,7 @@ UnitBlueprint {
 		
         {
             AboveWaterTargetsOnly = true,
-            Damage = 6500,
+            Damage = 5500,
             DamageFriendly = true,
             DamageRadius = 10,
             DamageType = 'Normal',

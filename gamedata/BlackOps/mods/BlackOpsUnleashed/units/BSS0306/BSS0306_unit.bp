@@ -725,7 +725,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 50,
-			DamageRadius = 2,
+			DamageRadius = 1.8,
             DamageType = 'Normal',
 			
             DisplayName = 'Losaare AA Autocannon',
@@ -741,7 +741,7 @@ UnitBlueprint {
 			
 			LeadTarget = true,
 			
-            MaxRadius = 55,
+            MaxRadius = 52,
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 4,
@@ -813,7 +813,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 50,
-			DamageRadius = 2,
+			DamageRadius = 1.8,
             DamageType = 'Normal',
 			
             DisplayName = 'Losaare AA Autocannon',
@@ -829,7 +829,7 @@ UnitBlueprint {
 			
 			LeadTarget = true,
 			
-            MaxRadius = 55,
+            MaxRadius = 52,
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 3,
@@ -902,7 +902,10 @@ UnitBlueprint {
             DamageType = 'Normal',
 			
             DisplayName = 'Suthanus Heavy Artillery Cannon',
-			
+
+            EnergyRequired = 4000,
+            EnergyDrainPerSecond = 800,
+            
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water',
             },
@@ -912,13 +915,13 @@ UnitBlueprint {
 			
             Label = 'BombardTurret',
 			
-            MaxRadius = 110,
+            MaxRadius = 116,
             MinRadius = 30,
 			
             MuzzleChargeDelay = 0.25,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 25,
+            MuzzleVelocity = 26,
 			
             MuzzleVelocityReduceDistance = 85,
 			
@@ -943,8 +946,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.2,
-            RenderFireClock = true,
+            RateOfFire = 1, -- controlled by charge every 5 seconds
 			
             TargetCheckInterval = 2.0,
             TargetPriorities = {

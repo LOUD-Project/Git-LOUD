@@ -67,7 +67,8 @@ UnitBlueprint {
         'RECLAIMABLE',
         'BATTLESHIP',
         'BOMBARDMENT',
-        'OVERLAYRADAR','OVERLAYSONAR',
+        'OVERLAYRADAR',
+        'OVERLAYSONAR',
     },
 	
     CollisionOffsetY = -0.8,
@@ -75,10 +76,10 @@ UnitBlueprint {
     Defense = {
         AirThreatLevel = 120,
         ArmorType = 'Normal',
-        Health = 72500,
-        MaxHealth = 72500,
-        RegenRate = 60,
-        SubThreatLevel = 15,
+        Health = 70500,
+        MaxHealth = 70500,
+        RegenRate = 40,
+        SubThreatLevel = 14.5,
         SurfaceThreatLevel = 303,
     },
 	
@@ -93,6 +94,7 @@ UnitBlueprint {
             'Radar & Sonar & Tactical Missile Defense',
             'Air Staging',
             'Torpedoes',
+            'Massive Energy Drain for Primary Weapons',
         },
 		
         AnimationDeath = {
@@ -240,9 +242,9 @@ UnitBlueprint {
         },
         CatchUpAcc = 7,
         DragCoefficient = 0.2,
-        MaxAcceleration = 1,
+        MaxAcceleration = 0.9,
         MaxBrake = 2.5,
-        MaxSpeed = 3.7,
+        MaxSpeed = 3.6,
         MaxSpeedReverse = 3.7,
         MaxSteerForce = 5,
         SkirtOffsetX = -0.5,
@@ -314,7 +316,10 @@ UnitBlueprint {
             DamageType = 'Normal',
 			
             DisplayName = 'Loa Tactical Missile',
-			
+
+            EnergyRequired = 1800,
+            EnergyDrainPerSecond = 180,
+            
             FireTargetLayerCapsTable = {
                 Sub = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
@@ -359,7 +364,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.1,		-- 9 missiles * 500 = 4500 dmg / 10 = 450 DPS Surface
+            RateOfFire = 1,		-- 9 missiles * 500 = 4500 dmg / 10 = 450 DPS Surface - controlled by charge
             TargetCheckInterval = 2,
 			
             TargetPriorities = {
@@ -450,7 +455,7 @@ UnitBlueprint {
                     },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
-                    Duration = 2,
+                    Duration = 1.3,
                     Radius = 2,
                     TargetAllow = 'LAND,NAVAL',
                     TargetDisallow = 'COMMAND,WALL',
@@ -465,7 +470,10 @@ UnitBlueprint {
             DamageType = 'Normal',
 			
             DisplayName = 'Y Cannon',
-			
+
+            EnergyRequired = 2250,
+            EnergyDrainPerSecond = 1125,
+  			
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
             },
@@ -510,14 +518,14 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.5,		-- 700 DPS Surface
+            RateOfFire = 1,		-- 700 DPS Surface - controlled by charge
 			
             TargetCheckInterval = 1.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'NAVAL EXPERIMENTAL',
-                'NAVAL MOBILE',
-                'TECH3 MOBILE',
+                'EXPERIMENTAL',
+                'NAVAL',
+                'TECH3',
                 'ARTILLERY',
                 'SHIELD',
                 'FACTORY',
@@ -539,7 +547,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 190,
-            TurretYawSpeed = 36,
+            TurretYawSpeed = 28,
 			
             Turreted = true,
         },
@@ -604,7 +612,7 @@ UnitBlueprint {
                     },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
-                    Duration = 2,
+                    Duration = 1.3,
                     Radius = 2,
                     TargetAllow = 'LAND,NAVAL',
                     TargetDisallow = 'COMMAND,WALL',
@@ -619,7 +627,10 @@ UnitBlueprint {
             DamageType = 'Normal',
 			
             DisplayName = 'Y Cannon',
-			
+
+            EnergyRequired = 2250,
+            EnergyDrainPerSecond = 1125,
+  			
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
             },
@@ -662,7 +673,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 
-            RateOfFire = 0.5,		-- 700 DPS Surface
+            RateOfFire = 1,		-- 700 DPS Surface controlled by charge
 			
             TargetCheckInterval = 1.5,
             TargetPriorities = {
@@ -692,7 +703,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 190,
-            TurretYawSpeed = 36,
+            TurretYawSpeed = 28,
 			
             Turreted = true,
         },
@@ -1290,7 +1301,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 60,
+            Damage = 120,
             DamageType = 'Normal',
 			
             DisplayName = 'Nanite Torpedo',
@@ -1305,7 +1316,7 @@ UnitBlueprint {
 			
             MaxRadius = 45,
 			
-            MuzzleSalvoDelay = 0.3,
+            MuzzleSalvoDelay = 0.5,
             MuzzleSalvoSize = 12,
             MuzzleVelocity = 3,
 			
@@ -1340,7 +1351,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.2,		-- 144 DPS Sub/Surface
+            RateOfFire = 0.1,		-- 144 DPS Sub/Surface
 			
             TargetCheckInterval = 3.0,
 			
@@ -1460,7 +1471,7 @@ UnitBlueprint {
             HeadingArcRange = 160,
 			
             Damage = 40,
-            DamageType = 'Normal',
+            DamageType = 'ShieldMult1.2',
 			
             DisplayName = 'Heavy Microwave Laser',
 			
@@ -1473,7 +1484,7 @@ UnitBlueprint {
             Label = 'AALaser',
 			LeadTarget = false,
 			
-            MaxRadius = 55,
+            MaxRadius = 52,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -1549,7 +1560,7 @@ UnitBlueprint {
             HeadingArcRange = 160,
 			
             Damage = 40,
-            DamageType = 'Normal',
+            DamageType = 'ShieldMult1.2',
 			
             DisplayName = 'Heavy Microwave Laser',
 			
@@ -1562,7 +1573,7 @@ UnitBlueprint {
             Label = 'AALaser',
 			LeadTarget = false,
 			
-            MaxRadius = 55,
+            MaxRadius = 52,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -1635,7 +1646,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 40,
-            DamageType = 'Normal',
+            DamageType = 'ShieldMult1.2',
 			
             DisplayName = 'Heavy Microwave Laser',
 			
@@ -1648,7 +1659,7 @@ UnitBlueprint {
             Label = 'AALaser',
 			LeadTarget = false,
 			
-            MaxRadius = 55,
+            MaxRadius = 52,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -1719,7 +1730,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 40,
-            DamageType = 'Normal',
+            DamageType = 'ShieldMult1.2',
 			
             DisplayName = 'Heavy Microwave Laser',
 			
@@ -1732,7 +1743,7 @@ UnitBlueprint {
             Label = 'AALaser',
 			LeadTarget = false,
 			
-            MaxRadius = 55,
+            MaxRadius = 52,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -1806,7 +1817,7 @@ UnitBlueprint {
             HeadingArcRange = 150,
 			
             Damage = 40,
-            DamageType = 'Normal',
+            DamageType = 'ShieldMult1.2',
 			
             DisplayName = 'Heavy Microwave Laser',
 			
@@ -1819,7 +1830,7 @@ UnitBlueprint {
             Label = 'AALaser',
 			LeadTarget = false,
 			
-            MaxRadius = 55,
+            MaxRadius = 52,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -1893,7 +1904,7 @@ UnitBlueprint {
 			
             Damage = 40,
             DamageRadius = 0,
-            DamageType = 'Normal',
+            DamageType = 'ShieldMult1.2',
 			
             DisplayName = 'Heavy Microwave Laser',
 			
@@ -1906,7 +1917,7 @@ UnitBlueprint {
             Label = 'AALaser',
 			LeadTarget = false,
 			
-            MaxRadius = 55,
+            MaxRadius = 52,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,

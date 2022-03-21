@@ -78,7 +78,7 @@ UnitBlueprint {
             MeshZ = '/mods/brewlan_LOUD/units/sas0401/sas0401_personalshieldz_mesh',
             ImpactMesh = '/mods/brewlan_LOUD/units/sas0401/sas0401_psimpact_',
             RegenAssistMult = 60,
-            ShieldEnergyDrainRechargeTime = 5,
+            ShieldEnergyDrainRechargeTime = 7,
             ShieldMaxHealth = 27000,
             ShieldRechargeTime = 36,
             ShieldRegenRate = 280,
@@ -509,12 +509,12 @@ UnitBlueprint {
             
             Damage = 120,       -- approx 620 DPS -- a smaller casing delivers less damage per shell
             DamageRadius = 1.6,
-            DamageType = 'Normal',
+            DamageType = 'ShieldMult0.8',
             
             DisplayName = 'Rapid-Fire Artillery Cannon',
             
-            EnergyDrainPerSecond = 2000,
-            EnergyRequired = 11000,     -- 5.5 second charge cycle
+            EnergyDrainPerSecond = 815,
+            EnergyRequired = 4500,     -- 5.5 second charge cycle
             
             EnergyChargeForFirstShot = false,
             
@@ -563,7 +563,6 @@ UnitBlueprint {
             RangeCategory = 'UWRC_IndirectFire',
             
             RateOfFire = 5,     -- fires determined by charge and delays
-            RenderFireClock = true,
             
             TargetCheckInterval = 2,
             
@@ -615,7 +614,7 @@ UnitBlueprint {
             
             Label = 'Zealot',
             
-            MaxRadius = 65,
+            MaxRadius = 62,
             
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -695,7 +694,7 @@ UnitBlueprint {
             
             Label = 'Zealot',
             
-            MaxRadius = 65,
+            MaxRadius = 62,
             
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,

@@ -68,7 +68,7 @@ UnitBlueprint {
         Health = 68500,
         MaxHealth = 68500,
         RegenRate = 40,
-		SubThreatLevel = 18,
+		SubThreatLevel = 24,
         SurfaceThreatLevel = 287,
     },
 	
@@ -82,7 +82,7 @@ UnitBlueprint {
             '2 Quad Electro-Flas Anti-Air',
             'Extended Range Nanite Torpedo Barrage',			
             'Radar & Sonar & Tactical Missile Defense',
-
+            'Massive Energy Drain for Primary Weapons',
         },
 		
         AnimationDeath = {
@@ -166,7 +166,7 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 650000,
+        BuildCostEnergy = 665000,
         BuildCostMass = 39500,
         BuildTime = 27600,
     },
@@ -314,7 +314,7 @@ UnitBlueprint {
                     },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
-                    Duration = 2,
+                    Duration = 1.3,
                     Radius = 2,
                     TargetAllow = 'LAND,NAVAL',
                     TargetDisallow = 'COMMAND,WALL',
@@ -324,16 +324,21 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 1400,
-            DamageRadius = 4,
+            DamageRadius = 4,       -- this is huge AOE - explains the power drain
             DamageType = 'Normal',
 			
             DisplayName = 'Proton Cannon',
+            
+            EnergyRequired = 5800,
+            EnergyDrainPerSecond = 2900,
 			
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
             },
 			
             FiringRandomness = 0.3,
+            FiringRandomnessWhileMoving = .8,
+            
             FiringTolerance = 1,
 			
             Label = 'MainCannon',
@@ -370,7 +375,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.5,		-- 700 DPS
+            RateOfFire = 1,		-- 700 DPS - controlled by charge every 2 seconds
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 140,
@@ -402,7 +407,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 145,
-            TurretYawSpeed = 36,
+            TurretYawSpeed = 28,
 			
             Turreted = true,
         },
@@ -467,7 +472,7 @@ UnitBlueprint {
                     },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
-                    Duration = 2,
+                    Duration = 1.3,
                     Radius = 2,
                     TargetAllow = 'LAND,NAVAL',
                     TargetDisallow = 'COMMAND,WALL',
@@ -480,12 +485,16 @@ UnitBlueprint {
             DamageRadius = 4,
             DamageType = 'Normal',
             DisplayName = 'Proton Cannon',
-			
+            
+            EnergyRequired = 5800,
+            EnergyDrainPerSecond = 2900,
+
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
             },
 			
             FiringRandomness = 0.3,
+            FiringRandomnessWhileMoving = 0.8,
             FiringTolerance = 2,
 			
             Label = 'MainCannon',
@@ -522,7 +531,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 
-            RateOfFire = 0.5,		-- another 700 DPS
+            RateOfFire = 1,		-- another 700 DPS - every 2 seconds controlled by charge
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 130,
@@ -587,16 +596,21 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 280,
-            DamageRadius = 4,
-            DamageType = 'Normal',
+            DamageRadius = 4,       -- massive AOE again - huge power drain --
+            DamageType = 'ShieldMult0.8',
 			
             DisplayName = 'SeaDragon Bombardment Cannon',
-			
+            
+            EnergyRequired = 3600,
+            EnergyDrainPerSecond = 3600,
+
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
             },
 			
             FiringRandomness = 1.3,
+            FiringRandomnessWhileMoving = 1.8,
+            
             FiringTolerance = 2,
 			
             Label = 'BackCannon',
@@ -674,7 +688,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 135,
-            TurretYawSpeed = 40,
+            TurretYawSpeed = 28,
 			
             Turreted = true,
         },
@@ -719,7 +733,7 @@ UnitBlueprint {
 			
             Label = 'SecondaryCannon',
 			
-            MaxRadius = 110,
+            MaxRadius = 105,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -823,7 +837,7 @@ UnitBlueprint {
 			
             Label = 'SecondaryCannon',
 			
-            MaxRadius = 110,
+            MaxRadius = 105,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -911,7 +925,7 @@ UnitBlueprint {
 			
             CollideFriendly = false,
 			
-            Damage = 100,
+            Damage = 105,
             DamageRadius = 1,
             DamageType = 'Normal',
 			
@@ -1030,7 +1044,7 @@ UnitBlueprint {
 			
             Label = 'SecondaryCannon',
 			
-            MaxRadius = 110,
+            MaxRadius = 105,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -1113,7 +1127,7 @@ UnitBlueprint {
 			
             Damage = 40,
 			DamageFriendly = false,
-			DamageRadius = 2.2,
+			DamageRadius = 2,
             DamageType = 'Normal',
 			
 			DetonatesAtTargetHeight = true,
@@ -1130,7 +1144,7 @@ UnitBlueprint {
             Label = 'AAGun',
             LeadTarget = true,
 			
-            MaxRadius = 48,
+            MaxRadius = 44,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 4,
@@ -1202,7 +1216,7 @@ UnitBlueprint {
 			
             Damage = 40,
 			DamageFriendly = false,
-			DamageRadius = 2.2,
+			DamageRadius = 2,
             DamageType = 'Normal',
 			
 			DetonatesAtTargetHeight = true,
@@ -1219,7 +1233,7 @@ UnitBlueprint {
 			
             LeadTarget = true,
 			
-            MaxRadius = 48,
+            MaxRadius = 44,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 4,
@@ -1288,7 +1302,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 100,
+            Damage = 200,
             DamageType = 'Normal',
 			
             DisplayName = 'LR Medium Nanite Torpedo',
@@ -1303,7 +1317,7 @@ UnitBlueprint {
 			
             MaxRadius = 55,
 			
-            MuzzleSalvoDelay = 0.3,
+            MuzzleSalvoDelay = 0.5,
             MuzzleSalvoSize = 12,
             MuzzleVelocity = 3,
 			MuzzleVelocityRandom = 1,
@@ -1339,7 +1353,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.2,		-- 240 DPS Sub
+            RateOfFire = 0.1,		-- 240 DPS Sub
             TargetCheckInterval = 1,
 			
             TargetPriorities = {
@@ -1506,5 +1520,15 @@ UnitBlueprint {
             Turreted = true,
         },
 		
+        {
+            AboveWaterTargetsOnly = true,
+            Damage = 5500,
+            DamageFriendly = true,
+            DamageRadius = 10,
+            DamageType = 'Normal',
+            DisplayName = 'Collossus Death',
+            DummyWeapon = true,
+            Label = 'CollossusDeath',
+        },				
     },
 }
