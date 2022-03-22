@@ -14,7 +14,9 @@ local MassCollectionUnit = DefaultUnitsFile.MassCollectionUnit
 local MassFabricationUnit = DefaultUnitsFile.MassFabricationUnit
 local MobileUnit = DefaultUnitsFile.MobileUnit
 local RadarUnit = DefaultUnitsFile.RadarUnit
-local ShieldStructureUnit = DefaultUnitsFile.ShieldStructureUnit
+
+local ShieldStructureUnit = DefaultUnitsFile.StructureUnit
+
 local SonarUnit = DefaultUnitsFile.SonarUnit
 local StructureUnit = DefaultUnitsFile.StructureUnit
 local QuantumGateUnit = DefaultUnitsFile.QuantumGateUnit

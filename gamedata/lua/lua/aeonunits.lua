@@ -18,7 +18,8 @@ local RadarUnit = import('defaultunits.lua').RadarUnit
 local SeaUnit = import('/lua/defaultunits.lua').SeaUnit
 local SeaFactoryUnit = import('defaultunits.lua').FactoryUnit
 
-local ShieldStructureUnit = import('defaultunits.lua').ShieldStructureUnit
+local ShieldStructureUnit = import('defaultunits.lua').StructureUnit
+
 local SubUnit = import('defaultunits.lua').SubUnit
 local SonarUnit = import('defaultunits.lua').SonarUnit
 local StructureUnit = import('defaultunits.lua').StructureUnit

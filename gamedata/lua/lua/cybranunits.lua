@@ -19,7 +19,8 @@ local SeaUnit = DefaultUnitsFile.SeaUnit
 local SubUnit = DefaultUnitsFile.SubUnit
 local WalkingLandUnit = DefaultUnitsFile.WalkingLandUnit
 
-local ShieldStructureUnit = DefaultUnitsFile.ShieldStructureUnit
+local ShieldStructureUnit = DefaultUnitsFile.StructureUnit
+
 local StructureUnit = DefaultUnitsFile.StructureUnit
 local QuantumGateUnit = DefaultUnitsFile.QuantumGateUnit
 local RadarJammerUnit = DefaultUnitsFile.RadarJammerUnit

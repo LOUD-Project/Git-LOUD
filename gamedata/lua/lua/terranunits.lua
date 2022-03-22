@@ -23,7 +23,8 @@ local RadarUnit = DefaultUnitsFile.RadarUnit
 
 local SeaUnit = DefaultUnitsFile.SeaUnit
 
-local ShieldStructureUnit = DefaultUnitsFile.ShieldStructureUnit
+local ShieldStructureUnit = DefaultUnitsFile.StructureUnit
+
 local SonarUnit = DefaultUnitsFile.SonarUnit
 local StructureUnit = DefaultUnitsFile.StructureUnit
 local SubUnit = DefaultUnitsFile.SubUnit
@@ -293,19 +294,19 @@ TCivilianStructureUnit = Class(StructureUnit) {}
 
 TShieldSeaUnit = Class(SeaUnit) {}
 
-TPodTowerUnit = Class(TStructureUnit) {
+TPodTowerUnit = Class(StructureUnit) {
 
     OnStopBeingBuilt = function(self, builder, layer)
 	
 		--self.EventCallbacks.OnTransportAttach = {}
 		--self.EventCallbacks.OnTransportDetach = {}
 		
-        TStructureUnit.OnStopBeingBuilt(self, builder, layer)
+        StructureUnit.OnStopBeingBuilt(self, builder, layer)
         ChangeState( self, self.FinishedBeingBuilt )
     end,
     
     PodTransfer = function(self, pod, podData)
-        #-- Set the pod as active, set new parent and creator for the pod, store the pod handle
+        -- Set the pod as active, set new parent and creator for the pod, store the pod handle
         if not self.PodData[pod.PodName].Active then
             if not self.PodData then
                 self.PodData = {}
@@ -324,12 +325,12 @@ TPodTowerUnit = Class(TStructureUnit) {
             if v.Active then
                 v.Active = false
             
-                # store off the pod name so we can give to new unit
+                -- store off the pod name so we can give to new unit
                 local podName = k
                 local newPod = import('/lua/scenarioframework.lua').GiveUnitToArmy( v.PodHandle, captor.Sync.army )
                 newPod.PodName = podName
                 
-                #-- create a callback for when the unit is flipped.  set creator for the new pod to the new tower
+                -- create a callback for when the unit is flipped.  set creator for the new pod to the new tower
                 self:AddUnitCallback(
                     function(newUnit, captor)
                         newUnit:PodTransfer( newPod, v )
@@ -340,12 +341,12 @@ TPodTowerUnit = Class(TStructureUnit) {
         end
         
         -- Calling the parent OnCaptured will cause all the callbacks to happen and happiness will reign !
-        TStructureUnit.OnCaptured(self, captor)
+        StructureUnit.OnCaptured(self, captor)
     end,
     
     OnDestroy = function(self)
-        TStructureUnit.OnDestroy(self)
-        #-- Iterate through pod data, kill all the pods and set them inactive
+        StructureUnit.OnDestroy(self)
+        -- Iterate through pod data, kill all the pods and set them inactive
         if self.PodData then
             for k,v in self.PodData do
                 if v.Active and not v.PodHandle.Dead then
@@ -356,7 +357,8 @@ TPodTowerUnit = Class(TStructureUnit) {
     end,
     
     OnStartBuild = function(self, unitBeingBuilt, order )
-        TStructureUnit.OnStartBuild(self,unitBeingBuilt,order)
+    
+        StructureUnit.OnStartBuild(self,unitBeingBuilt,order)
         
         local unitid = __blueprints[self.BlueprintID].General.UpgradesTo
         
@@ -617,7 +619,7 @@ TPodTowerUnit = Class(TStructureUnit) {
         
         OnStopBuild = function(self, unitBuilding)
 		
-            TStructureUnit.OnStopBuild(self, unitBuilding)
+            StructureUnit.OnStopBuild(self, unitBuilding)
 			
             self:EnableDefaultToggleCaps()
 			
@@ -642,7 +644,7 @@ TPodTowerUnit = Class(TStructureUnit) {
 
         OnFailedToBuild = function(self)
 		
-            TStructureUnit.OnFailedToBuild(self)
+            StructureUnit.OnFailedToBuild(self)
 			
             self:EnableDefaultToggleCaps()
             self.AnimatorUpgradeManip:Destroy()
