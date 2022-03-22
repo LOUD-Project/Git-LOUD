@@ -1,5 +1,4 @@
-
-local TStructureUnit = import('/lua/terranunits.lua').TStructureUnit
+local TStructureUnit = import('/lua/defaultunits.lua').StructureUnit
 
 local AWeapons = import('/lua/aeonweapons.lua')
 

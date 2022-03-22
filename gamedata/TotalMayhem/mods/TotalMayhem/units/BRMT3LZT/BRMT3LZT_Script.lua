@@ -1,4 +1,5 @@
-local TLandUnit = import('/lua/terranunits.lua').TLandUnit
+local TLandUnit = import('/lua/defaultunits.lua').MobileUnit
+
 local CWeapons = import('/lua/cybranweapons.lua')
 local CDFHeavyDisintegratorWeapon = CWeapons.CDFHeavyDisintegratorWeapon
 

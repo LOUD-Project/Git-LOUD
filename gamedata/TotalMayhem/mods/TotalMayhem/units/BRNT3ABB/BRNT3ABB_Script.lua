@@ -4,7 +4,6 @@ local WeaponsFile = import('/lua/terranweapons.lua')
 
 local TDFGaussCannonWeapon = WeaponsFile.TDFLandGaussCannonWeapon
 
-
 BRNT3ABB = Class(TWalkingLandUnit) {
 
     Weapons = {

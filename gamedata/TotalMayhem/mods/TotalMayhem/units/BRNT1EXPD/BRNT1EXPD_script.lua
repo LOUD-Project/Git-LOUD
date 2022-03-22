@@ -1,4 +1,5 @@
-local TStructureUnit = import('/lua/terranunits.lua').TStructureUnit
+local TStructureUnit = import('/lua/defaultunits.lua').StructureUnit
+
 local TAMPhalanxWeapon = import('/lua/terranweapons.lua').TAMPhalanxWeapon
 
 local CreateRotator = CreateRotator

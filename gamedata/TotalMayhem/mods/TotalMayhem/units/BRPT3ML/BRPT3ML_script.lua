@@ -1,5 +1,5 @@
+local SWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
-local SWalkingLandUnit = import('/lua/seraphimunits.lua').SWalkingLandUnit
 local SDFHeavyQuarnonCannon = import('/lua/seraphimweapons.lua').SDFHeavyQuarnonCannon
 
 local EffectTemplate = import('/lua/EffectTemplates.lua')

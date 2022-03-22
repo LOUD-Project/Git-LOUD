@@ -1,9 +1,7 @@
-
-local CWalkingLandUnit = import('/lua/cybranunits.lua').CWalkingLandUnit
+local CWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
 local TMWeaponsFile = import('/mods/TotalMayhem/lua/TMAeonWeapons.lua')
 local TMAmizurabluelaserweapon = TMWeaponsFile.TMAmizurabluelaserweapon
---local TMAnovacatgreenlaserweapon = TMWeaponsFile.TMAnovacatgreenlaserweapon
 
 BROT2ASB = Class(CWalkingLandUnit) {
 

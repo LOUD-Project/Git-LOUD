@@ -81,9 +81,9 @@ UnitBlueprint {
     Defense = {
         AirThreatLevel = 27,
         ArmorType = 'Experimental',
-        Health = 260000,
-        MaxHealth = 260000,
-        RegenRate = 125,
+        Health = 222000,
+        MaxHealth = 222000,
+        RegenRate = 65,
         SurfaceThreatLevel = 2623.3,
     },
 	
@@ -94,6 +94,7 @@ UnitBlueprint {
             'Amphibious',
 			'Factory',
             'Omni Sensor',
+            'Massive Energy required for ranged weapons',
         },
         AnimationDeath = {
             {
@@ -256,9 +257,9 @@ UnitBlueprint {
                         Radius = 28,
                     },
                     Damage = {
-                        Amount = 4500,
+                        Amount = 4200,
                         DamageFriendly = false,
-                        Radius = 2.5,
+                        Radius = 2.2,
                         Type = 'ExperimentalFootfall',
                     },
                 },
@@ -270,7 +271,7 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 2600000,
+        BuildCostEnergy = 2850000,
         BuildCostMass = 120000,
         BuildRate = 250,
         BuildTime = 260001,
@@ -341,7 +342,7 @@ UnitBlueprint {
         },
         DragCoefficient = 0.1,
 		
-        MaxAcceleration = 1.2,
+        MaxAcceleration = 0.6,
         MaxBrake = 2.3,
         MaxSpeed = 2.3,
         MaxSpeedReverse = 2.3,
@@ -360,9 +361,9 @@ UnitBlueprint {
         SkirtSizeZ = 12,
 		
         TurnRadius = 18,
-        TurnRate = 30,
+        TurnRate = 24,
 		
-		WaterSpeedMultiplier = 1.30,
+		WaterSpeedMultiplier = 1.2,
     },
 	
     SelectionCenterOffsetX = 0,
@@ -379,11 +380,11 @@ UnitBlueprint {
     StrategicIconSortPriority = 115,
 	
     Veteran = {
-        Level1 = 100,
-        Level2 = 200,
-        Level3 = 300,
-        Level4 = 400,
-        Level5 = 500,
+        Level1 = 120,
+        Level2 = 240,
+        Level3 = 360,
+        Level4 = 480,
+        Level5 = 600,
     },
 	
     Transport = {
@@ -419,14 +420,14 @@ UnitBlueprint {
             DamageRadius = 3,
             DamageType = 'Normal',
             
-            EnergyDrainPerSecond = 1600,
-            EnergyRequired = 4000,          -- 2.5 second energy drain
+            EnergyDrainPerSecond = 6120,
+            EnergyRequired = 15300,          -- 2.5 second energy drain
 
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
             },
 			
-            FiringRandomness = 0,
+            FiringRandomness = 0.1,
             FiringTolerance = 2,
 			
             Label = 'TopTurretCannon',
@@ -490,7 +491,7 @@ UnitBlueprint {
             
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 50,
+            TurretYawSpeed = 35,
             
             Turreted = true,
         },
@@ -520,8 +521,8 @@ UnitBlueprint {
             DamageRadius = 1.5,
             DamageType = 'Normal',
             
-            EnergyDrainPerSecond = 800,
-            EnergyRequired = 1600,          -- 2 second energy drain
+            EnergyDrainPerSecond = 1425,
+            EnergyRequired = 2850,          -- 2 second energy drain
   			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -589,7 +590,7 @@ UnitBlueprint {
             
             TurretYaw = 0,
             TurretYawRange = 150,
-            TurretYawSpeed = 55,
+            TurretYawSpeed = 35,
             
             Turreted = true,
         },
@@ -845,7 +846,10 @@ UnitBlueprint {
             DamageRadius = 3,
             DamageType = 'Normal',
             DamageFriendly = true,
-			
+            
+            EnergyDrainPerSecond = 900,
+            EnergyRequired = 9000,          -- 10 second energy drain
+  			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
@@ -888,8 +892,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.1,	-- 12 of 600dmg every 10 seconds = 720dps
-			RenderFireClock = true,
+            RateOfFire = 1,	-- 12 of 600dmg every 10 seconds = 720dps - controlled by charge
 
             TargetCheckInterval = 2,
 			
@@ -918,7 +921,7 @@ UnitBlueprint {
             TurretPitchSpeed = 45,
             TurretYaw = 0,
             TurretYawRange = 45,
-            TurretYawSpeed = 45,
+            TurretYawSpeed = 28,
             
             Turreted = true,
 		},
@@ -941,7 +944,10 @@ UnitBlueprint {
             DamageRadius = 3,
             DamageType = 'Normal',
             DamageFriendly = true,
-			
+            
+            EnergyDrainPerSecond = 900,
+            EnergyRequired = 9000,          -- 10 second energy drain
+
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
@@ -983,7 +989,7 @@ UnitBlueprint {
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
 
-            RateOfFire = 0.1,	-- 720dps
+            RateOfFire = 1,	-- 720dps
 
             TargetCheckInterval = 2,
 			
@@ -1012,16 +1018,16 @@ UnitBlueprint {
             
             TurretYaw = 0,
             TurretYawRange = 45,
-            TurretYawSpeed = 45,
+            TurretYawSpeed = 28,
             
             Turreted = true,
 		},	   
 
         {
             AboveWaterTargetsOnly = true,
-            Damage = 11500,
+            Damage = 12000,
             DamageFriendly = true,
-            DamageRadius = 14,
+            DamageRadius = 16,
             DamageType = 'Normal',
             DisplayName = 'Megalith Death',
             DummyWeapon = true,

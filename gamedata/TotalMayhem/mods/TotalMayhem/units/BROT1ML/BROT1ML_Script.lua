@@ -1,5 +1,4 @@
-
-local TLandUnit = import('/lua/terranunits.lua').TLandUnit
+local TLandUnit = import('/lua/defaultunits.lua').MobileUnit
 
 local WeaponsFile = import('/lua/terranweapons.lua')
 local TDFGaussCannonWeapon = WeaponsFile.TDFLandGaussCannonWeapon

@@ -1,5 +1,4 @@
-
-local CWalkingLandUnit = import('/lua/cybranunits.lua').CWalkingLandUnit
+local CWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
 local TDFGaussCannonWeapon = import('/lua/terranweapons.lua').TDFLandGaussCannonWeapon
 local EffectTemplate = import('/lua/EffectTemplates.lua')

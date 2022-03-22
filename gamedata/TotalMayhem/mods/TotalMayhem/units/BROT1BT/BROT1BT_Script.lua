@@ -1,4 +1,4 @@
-local AHoverLandUnit = import('/lua/aeonunits.lua').AHoverLandUnit
+local AHoverLandUnit = import('/lua/defaultunits.lua').MobileUnit
 
 local TDFGaussCannonWeapon = import('/lua/terranweapons.lua').TDFLandGaussCannonWeapon
 

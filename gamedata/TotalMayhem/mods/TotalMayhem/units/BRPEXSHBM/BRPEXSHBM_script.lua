@@ -1,4 +1,4 @@
-local SWalkingLandUnit = import('/lua/seraphimunits.lua').SWalkingLandUnit
+local SWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
 local SDFUltraChromaticBeamGenerator = import('/lua/seraphimweapons.lua').SDFUltraChromaticBeamGenerator02
 local SIFZthuthaamArtilleryCannon = import('/lua/seraphimweapons.lua').SIFZthuthaamArtilleryCannon

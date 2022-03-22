@@ -1,4 +1,5 @@
-local TStructureUnit = import('/lua/terranunits.lua').TStructureUnit
+local TStructureUnit = import('/lua/defaultunits.lua').StructureUnit
+
 local TDFGaussCannonWeapon = import('/lua/terranweapons.lua').TDFLandGaussCannonWeapon
 
 BRNT2PD2 = Class(TStructureUnit) {

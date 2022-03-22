@@ -1,5 +1,5 @@
+local TLandUnit = import('/lua/defaultunits.lua').MobileUnit
 
-local TLandUnit = import('/lua/terranunits.lua').TLandUnit
 local aWeapons = import('/lua/aeonweapons.lua')
 local AAASonicPulseBatteryWeapon = aWeapons.AAASonicPulseBatteryWeapon
 
