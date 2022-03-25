@@ -459,7 +459,7 @@ function ExtractAllMeshBlueprints()
         if bp.Economy.ReclaimEnergyMax then
         
             if (bp.Economy.ReclaimEnergyMax/bp.Economy.ReclaimTime) > 30 then
-                LOG("*AI DEBUG Prop BP RECLAIMTIME TOO LOW for ENERGY "..bp.Economy.ReclaimEnergyMax.." time is "..bp.Economy.ReclaimTime.." "..repr(bp.BlueprintId))
+                --LOG("*AI DEBUG Prop BP RECLAIMTIME TOO LOW for ENERGY "..bp.Economy.ReclaimEnergyMax.." time is "..bp.Economy.ReclaimTime.." "..repr(bp.BlueprintId))
                 bp.Economy.ReclaimTime = math.ceil(bp.Economy.ReclaimEnergyMax/30)
                 count = count + 1
             end
@@ -469,7 +469,7 @@ function ExtractAllMeshBlueprints()
         if bp.Economy.ReclaimMassMax then
         
             if (bp.Economy.ReclaimMassMax/bp.Economy.ReclaimTime) > 6 then
-                LOG("*AI DEBUG Prop BP RECLAIMTIME TOO LOW for MASS "..bp.Economy.ReclaimMassMax.." time is "..bp.Economy.ReclaimTime.." "..repr(bp.BlueprintId))
+                --LOG("*AI DEBUG Prop BP RECLAIMTIME TOO LOW for MASS "..bp.Economy.ReclaimMassMax.." time is "..bp.Economy.ReclaimTime.." "..repr(bp.BlueprintId))
                 bp.Economy.ReclaimTime = math.ceil(bp.Economy.ReclaimMassMax/6)
                 count = count + 1
             end
@@ -807,12 +807,12 @@ function ModBlueprints(all_blueprints)
 								bp.Economy.BuildCostEnergy = bp.Economy.BuildCostEnergy + (bp.Economy.BuildCostEnergy * econScale)
 								bp.Economy.BuildCostMass = bp.Economy.BuildCostMass + (bp.Economy.BuildCostMass * econScale)
 							end
-
+--[[
                             if bp.Physics.MotionType == 'RULEUMT_Hover' then
                                 LOG("*AI DEBUG Hover unit adjustment in "..repr(bp.Description))
                                 bp.Economy.BuildCostEnergy = bp.Economy.BuildCostEnergy * 1.1
                             end
-							
+--]]							
 							if bp.SizeY and not bp.Physics.LayerChangeOffsetHeight then
 								bp.Physics.LayerChangeOffsetHeight = bp.SizeY/2 * -1
 							end
