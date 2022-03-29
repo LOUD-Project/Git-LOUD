@@ -4003,7 +4003,7 @@ function ParseIntelThread( aiBrain )
         ScenarioInfo.IMAPSize = 16
         ResolveBlocks = 0
 		ThresholdMult = .45
-		Rings = 2
+		Rings = 5
         
     elseif ScenarioInfo.MaxMapDimension == 512 then
     
@@ -4011,7 +4011,7 @@ function ParseIntelThread( aiBrain )
         ScenarioInfo.IMAPSize = 32
         ResolveBlocks = 0
 		ThresholdMult = .7
-		Rings = 1
+		Rings = 3
         
     elseif ScenarioInfo.MaxMapDimension == 1024 then
     
@@ -4019,7 +4019,7 @@ function ParseIntelThread( aiBrain )
         ScenarioInfo.IMAPSize = 64
         ResolveBlocks = 0
 		ThresholdMult = 1
-		Rings = 0
+		Rings = 1
         
     elseif ScenarioInfo.MaxMapDimension == 2048 then
     
@@ -4048,7 +4048,7 @@ function ParseIntelThread( aiBrain )
 
 	-- save the current resolution globally - it will be used by other routines to follow moving intel targets
 	ScenarioInfo.IMAPRadius = IMAPRadius
-    ScenarioInfo.RingSize = Rings
+    ScenarioInfo.IMAPBlocks = Rings
 
 	
     -- when turned on - this function will highlight the IMAP block 

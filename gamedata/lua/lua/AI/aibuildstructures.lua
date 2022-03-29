@@ -31,9 +31,9 @@ function AIExecuteBuildStructure( aiBrain, engineer, buildingType, closeToBuilde
 
     if not whatToBuild or engineer.Dead then
     
-        if not eng.Dead then
+        if not engineer.Dead then
 	
-            LOG("*AI DEBUG AIEXBuildStructure "..aiBrain.Nickname.." failed DecideWhatToBuild - "..repr(buildingType).."  template "..repr(buildingTemplate).."  platoon ".. repr(engineer.BuilderName) .." - ".. engineer.Sync.id)
+            LOG("*AI DEBUG AIExecuteBuildStructure "..aiBrain.Nickname.." failed DecideWhatToBuild - "..repr(buildingType).."  template "..repr(buildingTemplate).."  platoon ".. repr(engineer.BuilderName) .." - ".. engineer.Sync.id)
             
         end
 		

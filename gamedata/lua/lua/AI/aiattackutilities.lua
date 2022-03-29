@@ -20,6 +20,9 @@ local GetNumUnitsAroundPoint = moho.aibrain_methods.GetNumUnitsAroundPoint
 local GetPlatoonPosition = moho.platoon_methods.GetPlatoonPosition
 local GetPlatoonUnits = moho.platoon_methods.GetPlatoonUnits
 local GetPosition = moho.entity_methods.GetPosition
+
+local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
+
 local PlatoonExists = moho.aibrain_methods.PlatoonExists	
 
 local GetTerrainHeight = GetTerrainHeight
@@ -333,28 +336,25 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 	if not platpos then
 		return false
 	end
-    
+
     local ThreatMaxIMAPAdjustment = 1
     
     -- number of rings to use in GetThreatAtPosition calls
     -- based upon mapsize (and therefore size of IMAP blocks)
-    local ThreatRingIMAPSize = 1
+    local ThreatRingIMAPSize = ScenarioInfo.IMAPBlocks
     
     -- maps less than or greater than 20K alter the effect of the ThreatMax value
     if ScenarioInfo.IMAPSize < 60 then
     
         ThreatMaxIMAPAdjustment = 0.8
-        ThreatRingIMAPSize = 2
         
     elseif ScenarioInfo.IMAPSize > 120 then
     
         ThreatMaxIMAPAdjustment = 1.2
-        ThreatRingIMAPSize = 1
         
     elseif ScenarioInfo.IMAPSize > 250 then
     
         ThreatMaxIMAPAdjustment = 1.66
-        ThreatRingIMAPSize = 0
         
     end
     
@@ -388,7 +388,7 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 			for _, brain in Brains do
 			
 				-- if not defeated and it's ourselves or an Ally
-				if not brain:IsDefeated() and ( aiBrain.ArmyIndex == brain.ArmyIndex or IsAlly(aiBrain.ArmyIndex, brain.ArmyIndex)) then
+				if not ArmyIsOutOfGame(brain.ArmyIndex) and ( aiBrain.ArmyIndex == brain.ArmyIndex or IsAlly(aiBrain.ArmyIndex, brain.ArmyIndex)) then
 				
 					-- loop thru his bases
 					for _,base in brain.BuilderManagers do

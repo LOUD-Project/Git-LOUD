@@ -10,6 +10,9 @@ local LUTL = '/lua/loudutilities.lua'
 
 local LOUDFLOOR = math.floor
 
+local GetThreatAtPosition = moho.aibrain_methods.GetThreatAtPosition
+local GetPosition = moho.entity_methods.GetPosition
+
 -- Just a note -- many of these builders use the 'BasePerimeterSelection = true' function
 -- This will direct the AI to build only one of these positions at a time -- selecting randomly
 -- from the available positions (which depends upon the BasePerimeterOrientation)
@@ -64,11 +67,11 @@ local IsEnemyCrushingLand = function( builder, aiBrain, unit )
 
     end
     
-    local IMAPblocks = LOUDFLOOR( 96/ScenarioInfo.IMAPSize )
+    local threat = GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks, true, 'AntiSurface' )
 
-    if aiBrain:GetThreatAtPosition( unit:GetPosition(), IMAPblocks, true, 'AntiSurface' ) > 30 then
+    if threat > 30 then
     
-        --LOG("*AI DEBUG "..aiBrain.Nickname.." Threat at "..unit.LocationType.." IMAPblocks "..IMAPblocks.." range > 30")
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." Threat at "..unit.LocationType.." IMAPblocks "..ScenarioInfo.IMAPBlocks.." range > 30 is "..threat)
 
         return builder.Priority + 100, true
         

@@ -1238,7 +1238,7 @@ Platoon = Class(moho.platoon_methods) {
                             -- add only those with acceptable threat to the new list
                             -- if seeksafest or goalseek flag is set we'll build a table of points with allowable threats
                             -- otherwise we'll just take the closest one
-                            thisthreat = aiBrain:GetThreatBetweenPositions( location, v.position, nil, threattype )
+                            thisthreat = GetThreatBetweenPositions( aiBrain, location, v.position, nil, threattype )
                           
                             if thisthreat <= maxthreat then
 
@@ -1254,7 +1254,7 @@ Platoon = Class(moho.platoon_methods) {
                             else
                                 --LOG("*AI DEBUG marker "..repr(v.node).." at "..repr(v.position).." distance "..math.sqrt(testdistance).." not safe to reach location "..repr(location).." threat is "..thisthreat )
                                 --LOG("*AI DEBUG Threats around "..repr(v.position).." for "..IMAPblocks.." blocks are "..repr(aiBrain:GetThreatsAroundPosition( v.position, IMAPblocks, false, threattype )))
-                                --LOG("*AI DEBUG Threats BETWEEN are "..repr(aiBrain:GetThreatBetweenPositions( location, v.position, false, threattype )))
+                                --LOG("*AI DEBUG Threats BETWEEN are "..repr( GetThreatBetweenPositions( aiBrain, location, v.position, false, threattype )))
                             end
                             
                         end

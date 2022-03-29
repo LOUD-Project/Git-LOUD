@@ -9,6 +9,10 @@ local TBC = '/lua/editor/ThreatBuildConditions.lua'
 local BHVR = '/lua/ai/aibehaviors.lua'
 local LUTL = '/lua/loudutilities.lua'
 
+local GetThreatAtPosition = moho.aibrain_methods.GetThreatAtPosition
+local GetPosition = moho.entity_methods.GetPosition
+
+
 -- this is here as a test to see if it has any impact I can detect
 -- I don't think it does being that all of this is really just data
 -- that is loaded
@@ -68,10 +72,8 @@ local IsEnemyCrushingLand = function( builder, aiBrain, unit )
 		return builder.Priority + 100, true	
 
     end
-    
-    local IMAPblocks = math.floor( 96/ScenarioInfo.IMAPSize )
 
-    if aiBrain:GetThreatAtPosition( unit:GetPosition(), IMAPblocks, true, 'AntiSurface' ) > 30 then
+    if GetThreatAtPosition( aiBrain, GetPosition(unit), ScenarioInfo.IMAPBlocks, true, 'AntiSurface' ) > 30 then
 
         return builder.Priority + 100, true
         
