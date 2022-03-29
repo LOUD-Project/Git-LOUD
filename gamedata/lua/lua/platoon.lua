@@ -1157,7 +1157,9 @@ Platoon = Class(moho.platoon_methods) {
             if platoon.MovementLayer == 'Air' then
                 return false
             end
-
+            
+            local GetTerrainHeight = GetTerrainHeight
+            
 			-- This gives us the number of approx. 6 ogrid steps in the distance
 			steps = LOUDFLOOR( VDist2(pos[1], pos[3], targetPos[1], targetPos[3]) / 6 )
 	
@@ -1165,10 +1167,11 @@ Platoon = Class(moho.platoon_methods) {
 			ystep = (pos[3] - targetPos[3]) / steps -- how much the Y value will change from step to step
 			
 			local lastpos = {pos[1], 0, pos[3]}
-            local nextpos, lastposHeight, nextposHeight
+            local lastposHeight = GetTerrainHeight( lastpos[1], lastpos[3] )
+            
+            local nextpos, nextposHeight
             
             local LOUDABS = math.abs
-            local GetTerrainHeight = GetTerrainHeight
 	
 			-- Iterate thru the number of steps - starting at the pos and adding xstep and ystep to each point
 			for i = 0, steps do
@@ -1178,17 +1181,17 @@ Platoon = Class(moho.platoon_methods) {
 					nextpos = { pos[1] - (xstep * i), 0, pos[3] - (ystep * i)}
 			
 					-- Get height for both points
-					lastposHeight = GetTerrainHeight( lastpos[1], lastpos[3] )
 					nextposHeight = GetTerrainHeight( nextpos[1], nextpos[3] )
 					
 					-- if more than 3.6 ogrids change in height over 6 ogrids distance
 					if LOUDABS(lastposHeight - nextposHeight) > 3.6 then
-						
 						-- we are obstructed
 						return true
 					end
-					
+
+                    -- store position data as last position
 					lastpos = nextpos
+                    lastposHeight = nextposHeight
                 end
 			end
 	
@@ -1293,7 +1296,7 @@ Platoon = Class(moho.platoon_methods) {
 				else
                 
                     if nomarkers then
-                        WARN("*MAP DEBUG No "..repr(platoonLayer).." markers found within "..MaxMarkerDist.." range of "..repr(location))
+                        WARN("*MAP DEBUG No "..repr(platoonLayer).." markers found within "..MaxMarkerDist.." range of "..repr(location).." closest marker is "..repr(markerlist[1].position).." at "..repr(VDist3(markerlist[1].position, location)) )
                     else
                         if ScenarioInfo.PathFindingDialog then
                             LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." No safe "..repr(platoonLayer).." marker near "..repr(location).." available markers were "..repr(positions))

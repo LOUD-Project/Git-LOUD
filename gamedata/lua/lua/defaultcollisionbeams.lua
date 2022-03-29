@@ -116,22 +116,25 @@ QuantumBeamGeneratorCollisionBeam = Class(SCCollisionBeam) {
 		local Random = Random
 		
         local size = 3.5 + (Random() * 3.5) 
-        local CurrentPosition = self:GetPosition(1)
+        local CurrentPosition = GetPosition(self,1)
         local LastPosition = Vector(0,0,0)
         local skipCount = 1
 		
         while true do
-            if GetDistanceBetweenTwoVectors( CurrentPosition, LastPosition ) > 0.25 or skipCount > 100 then
-                LOUDSPLAT( CurrentPosition, GetRandomFloat(0,2*LOUDPI), self.SplatTexture, size, size, 250, 250, army )
+        
+            if VDist3( CurrentPosition, LastPosition ) > 0.5 or skipCount > 100 then
+            
+                LOUDSPLAT( CurrentPosition, GetRandomFloat(0,6.28), self.SplatTexture, size, size, 200, 180, army )
                 LastPosition = CurrentPosition
                 skipCount = 1
             else
                 skipCount = skipCount + self.ScorchSplatDropTime
             end
 
-            WaitTicks( self.ScorchSplatDropTime * 10)
+            WaitTicks( 6 )
+            
             size = 3.2 + (Random() * 3.5)
-            CurrentPosition = self:GetPosition(1)
+            CurrentPosition = GetPosition(self,1)
         end
     end,    
 }
@@ -154,7 +157,7 @@ DisruptorBeamCollisionBeam = Class(SCCollisionBeam) {
 MicrowaveLaserCollisionBeam01 = Class(SCCollisionBeam) {
 
     TerrainImpactType = 'LargeBeam01',
-    TerrainImpactScale = 1,
+
     FxBeamStartPoint = EffectTemplate.CMicrowaveLaserMuzzle01,
     FxBeam = {'/effects/emitters/microwave_laser_beam_01_emit.bp'},
     FxBeamEndPoint = EffectTemplate.CMicrowaveLaserEndPoint01,
@@ -162,14 +165,19 @@ MicrowaveLaserCollisionBeam01 = Class(SCCollisionBeam) {
     ScorchSplatDropTime = 0.25,
 
     OnImpact = function(self, impactType, targetEntity)
+    
         if impactType == 'Terrain' then
+        
             if self.Scorching == nil then
                 self.Scorching = self:ForkThread( self.ScorchThread )   
             end
+            
         elseif not impactType == 'Unit' then
+        
             KillThread(self.Scorching)
             self.Scorching = nil
         end
+        
         CollisionBeam.OnImpact(self, impactType, targetEntity)
     end,
 
@@ -180,29 +188,35 @@ MicrowaveLaserCollisionBeam01 = Class(SCCollisionBeam) {
     end,
 
     ScorchThread = function(self)
+    
         local army = self.Sync.army
+        
         local size = 1.5 + (Random() * 1.5) 
-        local CurrentPosition = self:GetPosition(1)
+        local CurrentPosition = GetPosition(self,1)
         local LastPosition = Vector(0,0,0)
         local skipCount = 1
+        
         while true do
-            if GetDistanceBetweenTwoVectors( CurrentPosition, LastPosition ) > 0.25 or skipCount > 100 then
-                LOUDSPLAT( CurrentPosition, GetRandomFloat(0,2*LOUDPI), self.SplatTexture, size, size, 100, 90, army )
+        
+            if VDist3( CurrentPosition, LastPosition ) > 0.5 or skipCount > 100 then
+            
+                LOUDSPLAT( CurrentPosition, GetRandomFloat(0,6.28), self.SplatTexture, size, size, 100, 90, army )
                 LastPosition = CurrentPosition
                 skipCount = 1
             else
                 skipCount = skipCount + self.ScorchSplatDropTime
             end
                 
-            WaitTicks( self.ScorchSplatDropTime * 10)
+            WaitTicks( 4 )
+            
             size = 1.2 + (Random() * 1.5)
-            CurrentPosition = self:GetPosition(1)
+            CurrentPosition = GetPosition(self,1)
         end
     end,
 }
 
 MicrowaveLaserCollisionBeam02 = Class(MicrowaveLaserCollisionBeam01) {
-    TerrainImpactScale = 1,
+
     FxBeamStartPoint = EffectTemplate.CMicrowaveLaserMuzzle01,
     FxBeam = {'/effects/emitters/microwave_laser_beam_02_emit.bp'},
     FxBeamEndPoint = EffectTemplate.CMicrowaveLaserEndPoint01,
@@ -211,7 +225,7 @@ MicrowaveLaserCollisionBeam02 = Class(MicrowaveLaserCollisionBeam01) {
 PhasonLaserCollisionBeam = Class(SCCollisionBeam) {
 
     TerrainImpactType = 'LargeBeam01',
-    TerrainImpactScale = 1,
+
     FxBeamStartPoint = EffectTemplate.APhasonLaserMuzzle01,
     FxBeam = {'/effects/emitters/phason_laser_beam_01_emit.bp'},
     FxBeamEndPoint = EffectTemplate.APhasonLaserImpact01,
@@ -219,14 +233,19 @@ PhasonLaserCollisionBeam = Class(SCCollisionBeam) {
     ScorchSplatDropTime = 0.25,
 
     OnImpact = function(self, impactType, targetEntity)
+    
         if impactType == 'Terrain' then
+        
             if self.Scorching == nil then
                 self.Scorching = self:ForkThread( self.ScorchThread )   
             end
+            
         elseif not impactType == 'Unit' then
+        
             KillThread(self.Scorching)
             self.Scorching = nil
         end
+        
         CollisionBeam.OnImpact(self, impactType, targetEntity)
     end,
     
@@ -237,23 +256,29 @@ PhasonLaserCollisionBeam = Class(SCCollisionBeam) {
     end,
 
     ScorchThread = function(self)
+    
         local army = self.Sync.army
+        
         local size = 1.5 + (Random() * 1.5) 
-        local CurrentPosition = self:GetPosition(1)
+        local CurrentPosition = GetPosition(self,1)
         local LastPosition = Vector(0,0,0)
         local skipCount = 1
+        
         while true do
-            if GetDistanceBetweenTwoVectors( CurrentPosition, LastPosition ) > 0.25 or skipCount > 100 then
-                LOUDSPLAT( CurrentPosition, GetRandomFloat(0,2*LOUDPI), self.SplatTexture, size, size, 100, 90, army )
+        
+            if VDist3( CurrentPosition, LastPosition ) > 0.5 or skipCount > 100 then
+            
+                LOUDSPLAT( CurrentPosition, GetRandomFloat(0,6.28), self.SplatTexture, size, size, 100, 90, army )
                 LastPosition = CurrentPosition
                 skipCount = 1
             else
                 skipCount = skipCount + self.ScorchSplatDropTime
             end
-                
-            WaitTicks( self.ScorchSplatDropTime * 10)
+
+            WaitTicks( 4 )
+            
             size = 1.2 + (Random() * 1.5)
-            CurrentPosition = self:GetPosition(1)
+            CurrentPosition = GetPosition(self,1)
         end
     end,
 }
@@ -270,14 +295,19 @@ ExperimentalPhasonLaserCollisionBeam = Class(SCCollisionBeam) {
     ScorchSplatDropTime = 0.1,
 
     OnImpact = function(self, impactType, targetEntity)
+    
         if impactType == 'Terrain' then
+        
             if self.Scorching == nil then
                 self.Scorching = self:ForkThread( self.ScorchThread )   
             end
+            
         elseif not impactType == 'Unit' then
+        
             KillThread(self.Scorching)
             self.Scorching = nil
         end
+        
         CollisionBeam.OnImpact(self, impactType, targetEntity)
     end,
     
@@ -345,14 +375,19 @@ UnstablePhasonLaserCollisionBeam = Class(SCCollisionBeam) {
     ScorchSplatDropTime = 0.25,
 
     OnImpact = function(self, impactType, targetEntity)
+    
         if impactType == 'Terrain' then
+        
             if self.Scorching == nil then
                 self.Scorching = self:ForkThread( self.ScorchThread )   
             end
+            
         elseif not impactType == 'Unit' then
+        
             KillThread(self.Scorching)
             self.Scorching = nil
         end
+        
         CollisionBeam.OnImpact(self, impactType, targetEntity)
     end,
 
@@ -363,23 +398,28 @@ UnstablePhasonLaserCollisionBeam = Class(SCCollisionBeam) {
     end,
 
     ScorchThread = function(self)
+    
         local army = self.Sync.army
+        
         local size = 1.5 + (Random() * 1.5) 
-        local CurrentPosition = self:GetPosition(1)
+        local CurrentPosition = GetPosition(self,1)
         local LastPosition = Vector(0,0,0)
         local skipCount = 1
+        
         while true do
-            if GetDistanceBetweenTwoVectors( CurrentPosition, LastPosition ) > 0.25 or skipCount > 100 then
-                LOUDSPLAT( CurrentPosition, GetRandomFloat(0,2*LOUDPI), self.SplatTexture, size, size, 100, 90, army )
+            if VDist3( CurrentPosition, LastPosition ) > 0.5 or skipCount > 100 then
+            
+                LOUDSPLAT( CurrentPosition, GetRandomFloat(0,6.28), self.SplatTexture, size, size, 100, 90, army )
                 LastPosition = CurrentPosition
                 skipCount = 1
             else
                 skipCount = skipCount + self.ScorchSplatDropTime
             end
-                
-            WaitTicks( self.ScorchSplatDropTime * 10)
+
+            WaitTicks( 4 )
+            
             size = 1.2 + (Random() * 1.5)
-            CurrentPosition = self:GetPosition(1)
+            CurrentPosition = GetPosition(self,1)
         end
     end,
 }
@@ -419,26 +459,29 @@ UltraChromaticBeamGeneratorCollisionBeam = Class(SCCollisionBeam) {
     end,
 
     ScorchThread = function(self)
+    
         local army = self.Sync.army
+        
         local size = 0.75 + (Random() * 0.75) 
-        local CurrentPosition = self:GetPosition(1)
+        local CurrentPosition = GetPosition(self,1)
         local LastPosition = Vector(0,0,0)
         local skipCount = 1
 		
         while true do
 		
-            if GetDistanceBetweenTwoVectors( CurrentPosition, LastPosition ) > 0.25 or skipCount > 100 then
+            if VDist3( CurrentPosition, LastPosition ) > 0.5 or skipCount > 100 then
 
-                LOUDSPLAT( CurrentPosition, GetRandomFloat(0,2*LOUDPI), self.SplatTexture, size, size, 100, 90, army )
+                LOUDSPLAT( CurrentPosition, GetRandomFloat(0,6.28), self.SplatTexture, size, size, 100, 90, army )
                 LastPosition = CurrentPosition
                 skipCount = 1
             else
                 skipCount = skipCount + self.ScorchSplatDropTime
             end
 
-            WaitTicks( self.ScorchSplatDropTime * 10)
+            WaitTicks( 4 )
+            
             size = 1.2 + (Random() * 1.5)
-            CurrentPosition = self:GetPosition(1)
+            CurrentPosition = GetPosition(self,1)
         end
     end,
 }
@@ -460,7 +503,7 @@ TractorClawCollisionBeam = Class(CollisionBeam) {
 TDFHiroCollisionBeam = Class(CollisionBeam) {
 
     TerrainImpactType = 'LargeBeam01',
-    TerrainImpactScale = 1,
+
     FxBeamStartPoint = EffectTemplate.TDFHiroGeneratorMuzzle01,
     FxBeam = EffectTemplate.TDFHiroGeneratorBeam,
     FxBeamEndPoint = EffectTemplate.TDFHiroGeneratorHitLand,
@@ -468,14 +511,19 @@ TDFHiroCollisionBeam = Class(CollisionBeam) {
     ScorchSplatDropTime = 0.25,
 
     OnImpact = function(self, impactType, targetEntity)
+    
         if impactType == 'Terrain' then
+        
             if self.Scorching == nil then
                 self.Scorching = self:ForkThread( self.ScorchThread )   
             end
+            
         elseif not impactType == 'Unit' then
+        
             KillThread(self.Scorching)
             self.Scorching = nil
         end
+        
         CollisionBeam.OnImpact(self, impactType, targetEntity)
     end,
     
@@ -486,25 +534,29 @@ TDFHiroCollisionBeam = Class(CollisionBeam) {
     end,
 
     ScorchThread = function(self)
+    
         local army = self.Sync.army
+        
         local size = 0.75 + (Random() * 0.75) 
-        local CurrentPosition = self:GetPosition(1)
+        local CurrentPosition = GetPosition(self,1)
         local LastPosition = Vector(0,0,0)
         local skipCount = 1
 		
         while true do
-            if GetDistanceBetweenTwoVectors( CurrentPosition, LastPosition ) > 0.25 or skipCount > 100 then
+        
+            if VDist3( CurrentPosition, LastPosition ) > 0.5 or skipCount > 100 then
 			
-                LOUDSPLAT( CurrentPosition, GetRandomFloat(0,2*LOUDPI), self.SplatTexture, size, size, 100, 90, army )
+                LOUDSPLAT( CurrentPosition, GetRandomFloat(0,6.28), self.SplatTexture, size, size, 100, 90, army )
                 LastPosition = CurrentPosition
                 skipCount = 1
             else
                 skipCount = skipCount + self.ScorchSplatDropTime
             end
 
-            WaitTicks( self.ScorchSplatDropTime * 10)
+            WaitTicks( 4 )
+            
             size = 1.2 + (Random() * 1.5)
-            CurrentPosition = self:GetPosition(1)
+            CurrentPosition = GetPosition(self,1)
         end
     end,
 }
@@ -512,7 +564,6 @@ TDFHiroCollisionBeam = Class(CollisionBeam) {
 ---   ORBITAL DEATH LASER COLLISION BEAM
 OrbitalDeathLaserCollisionBeam = Class(SCCollisionBeam) {
     TerrainImpactType = 'LargeBeam02',
-    TerrainImpactScale = 1,
 
     FxBeam = {'/effects/emitters/uef_orbital_death_laser_beam_01_emit.bp'},
 	
@@ -557,25 +608,29 @@ OrbitalDeathLaserCollisionBeam = Class(SCCollisionBeam) {
     end,
 
     ScorchThread = function(self)
+    
         local army = self.Sync.army
+        
         local size = 3.5 + (Random() * 3.5) 
-        local CurrentPosition = self:GetPosition(1)
+        local CurrentPosition = GetPosition(self,1)
         local LastPosition = Vector(0,0,0)
         local skipCount = 1
 		
         while true do
-            if GetDistanceBetweenTwoVectors( CurrentPosition, LastPosition ) > 0.25 or skipCount > 100 then
+        
+            if VDist3( CurrentPosition, LastPosition ) > 0.5 or skipCount > 100 then
 			
-                LOUDSPLAT( CurrentPosition, GetRandomFloat(0,2*LOUDPI), self.SplatTexture, size, size, 250, 15, army )
+                LOUDSPLAT( CurrentPosition, GetRandomFloat(0,6.28), self.SplatTexture, size, size, 250, 15, army )
                 LastPosition = CurrentPosition
                 skipCount = 1
             else
                 skipCount = skipCount + self.ScorchSplatDropTime
             end
 
-            WaitTicks( self.ScorchSplatDropTime * 10)
+            WaitTicks( 6 )
+            
             size = 3.2 + (Random() * 3.5)
-            CurrentPosition = self:GetPosition(1)
+            CurrentPosition = GetPosition(self,1)
         end
     end,    
 }

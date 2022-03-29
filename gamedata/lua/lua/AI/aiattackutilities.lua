@@ -32,6 +32,7 @@ local ALLBUTWALLS = categories.ALLUNITS - categories.WALL
 local SHIELDS = categories.SHIELD * categories.STRUCTURE
 
 local LayerLimits = { Air = 300, Amphibious = 200, Land = 160, Water = 250 }
+local VectorCached = { 0, 0, 0 }
 
 
 --	Gets the name of the closest pathing node (within radius distance of location) on the layer we specify.
@@ -411,18 +412,22 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
         return true
     end	
 	
+--[[
 	if PointType == 'Unit' and type(PointCategory) == 'string' then
+        LOG("*AI DEBUG Parsing Point Category "..repr(self.BuilderName))
 		PointCategory = LOUDPARSE(PointCategory)
 	end
 	
 	if type(StrCategory) == 'string' then
+        LOG("*AI DEBUG Parsing Structure Category "..repr(self.BuilderName))
 		StrCategory = LOUDPARSE(StrCategory)
 	end
 	
 	if type(UntCategory) == 'string' then
+        LOG("*AI DEBUG Parsing Unit Category "..repr(self.BuilderName))
 		UntCategory = LOUDPARSE(UntCategory)
 	end
-	
+--]]	
 	--- Assemble the basic list of points either for Units or Markers and then for Self or not Self within that
 	-- filter for distance now and filter for Allied bases if AvoidBases is true
 
@@ -680,71 +685,94 @@ function FindTargetInRange( self, aiBrain, squad, maxRange, attackcategories, no
 	if not position or not maxRange then
 		return false,false
 	end
-	
+
     if PlatoonExists( aiBrain, self) then
+	
+		local enemyunits = GetUnitsAroundPoint( aiBrain, ALLBUTWALLS, position, maxRange, 'Enemy')
 
         -- are there any enemy units ?
-        if GetNumUnitsAroundPoint( aiBrain, ALLBUTWALLS, position, maxRange, 'Enemy' ) < 1 then
+        if not enemyunits[1] then
             return false, false
         end
 
 		-- the intent of this function is to make sure that we don't try and respond over mountains
 		-- and rivers and other serious terrain blockages -- these are generally identified by
         -- a rapid elevation change over a very short distance
-		local function CheckBlockingTerrain( pos, targetPos )  
-        
-            local LOUDABS = math.abs
+		local function CheckBlockingTerrain( targetPos )  
         
             if self.MovementLayer == 'Air' then
                 return false
             end
 	
 			-- This gives us the number of approx. 6 ogrid steps in the distance
-			local steps = LOUDFLOOR( VDist2(pos[1], pos[3], targetPos[1], targetPos[3]) / 6 )
+			local steps = LOUDFLOOR( VDist2(position[1], position[3], targetPos[1], targetPos[3]) / 6 )
 	
-			local xstep = (pos[1] - targetPos[1]) / steps -- how much the X value will change from step to step
-			local ystep = (pos[3] - targetPos[3]) / steps -- how much the Y value will change from step to step
+			local xstep = (position[1] - targetPos[1]) / steps -- how much the X value will change from step to step
+			local ystep = (position[3] - targetPos[3]) / steps -- how much the Y value will change from step to step
 			
-			local lastpos = {pos[1], 0, pos[3]}
+			local lastpos = { position[1], 0, position[3] }
+            local lastposHeight = GetTerrainHeight( lastpos[1], lastpos[3] )
+            
+            local nextpos
+            local nextposHeight
+        
+            local LOUDABS = math.abs
 	
 			-- Iterate thru the number of steps - starting at the pos and adding xstep and ystep to each point
 			for i = 0, steps do
 	
 				if i > 0 then
+                
+                    -- In Water is obstructed --
+                    if lastposHeight < (GetSurfaceHeight( lastpos[1], lastpos[3] ) - 1) then
+                        return true
+                    end
 		
-					local nextpos = { pos[1] - (xstep * i), 0, pos[3] - (ystep * i)}
-			
-					-- Get height for both points
-					local lastposHeight = GetTerrainHeight( lastpos[1], lastpos[3] )
+					nextpos =  VectorCached
+                    nextpos[1] = position[1] - (xstep * i)
+                    nextpos[3] = position[3] - (ystep * i)
                     
-                    local InWater = lastposHeight < (GetSurfaceHeight( lastpos[1], lastpos[3] ) - 1)
-                    
-					local nextposHeight = GetTerrainHeight( nextpos[1], nextpos[3] )
+					nextposHeight = GetTerrainHeight( nextpos[1], nextpos[3] )
 					
 					-- if more than 3.6 ogrids change in height over 6 ogrids distance
-					if LOUDABS(lastposHeight - nextposHeight) > 3.6 or InWater then
-						
+					if LOUDABS(lastposHeight - nextposHeight) > 3.6 then
 						-- we are obstructed
 						return true
 					end
-					
-					lastpos = nextpos
+			
+                    -- store the most recently checked point
+					lastpos[1] = nextpos[1]
+                    lastpos[3] = nextpos[3]
+
+					lastposHeight = nextposHeight
                 end
 			end
 	
 			return false
 		end
+
+        local function CanGraphTo( destinationposition )
+
+            -- if there is a layer node within range of start position
+            if GetClosestPathNodeInRadiusByLayer( position, self.MovementLayer or 'Land') then
+	
+                -- see if there is a layer node within range of the destination
+                return GetClosestPathNodeInRadiusByLayer( destinationposition, self.MovementLayer or 'Land')
+            end
+	
+            return false, nil
+        end
 	
         local GetPosition = GetPosition
         local CanAttackTarget = moho.platoon_methods.CanAttackTarget
-        local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
-        local EntityCategoryFilterDown = EntityCategoryFilterDown
-        local VDist2Sq = VDist2Sq
-	
-		local enemyunits = GetUnitsAroundPoint( aiBrain, ALLBUTWALLS, position, maxRange, 'Enemy')
 
+        local EntityCategoryFilterDown = EntityCategoryFilterDown
+        local VDist3Sq = VDist3Sq
+        
 		-- sort them by distance
-		LOUDSORT(enemyunits, function(a,b) return VDist2Sq( GetPosition(a)[1],GetPosition(a)[3], position[1],position[3] ) < VDist2Sq( GetPosition(b)[1],GetPosition(b)[3], position[1],position[3]) end)
+		LOUDSORT(enemyunits, function(a,b) return VDist3Sq( GetPosition(a), position ) < VDist3Sq( GetPosition(b), position ) end)
+        
+        local u_position = false
 
 		for _,v in attackcategories do
 
@@ -755,13 +783,15 @@ function FindTargetInRange( self, aiBrain, squad, maxRange, attackcategories, no
 				
 					-- if can attack this kind of target and get somewhere close to it ? (I don't like this function)
 					if CanAttackTarget( self, squad, u ) then
+                    
+                        u_position = GetPosition(u)
 
 						if nolayercheck then 
-							return u, GetPosition(u)
+							return u, u_position
                         end
 
-						if CanGraphTo( position, GetPosition(u), self.MovementLayer ) and not CheckBlockingTerrain( position, GetPosition(u)) then
-							return u, GetPosition(u)
+						if CanGraphTo( u_position ) and not CheckBlockingTerrain( u_position ) then
+							return u, u_position
                         end
                         
                     end
@@ -877,7 +907,7 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
 			-- loop thru the targets
 			for _,u in targetUnits do
 				
-				unitposition = u:GetPosition()
+				unitposition = GetPosition(u)
 			
 				-- if target is not dead and it's outside the minimum range
 				if (not u.Dead) and VDist2Sq(unitposition[1],unitposition[3], position[1],position[3]) >= minimumrange then
