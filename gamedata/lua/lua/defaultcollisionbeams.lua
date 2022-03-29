@@ -4,47 +4,47 @@
 local CollisionBeam = import('/lua/sim/CollisionBeam.lua').CollisionBeam
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 
-local GetDistanceBetweenTwoVectors = import('utilities.lua').GetDistanceBetweenTwoVectors
 local GetRandomFloat = import('utilities.lua').GetRandomFloat
 
 local LOUDINSERT = table.insert
-local LOUDPI = math.pi
+
 local LOUDSPLAT = CreateSplat
 local ForkThread = ForkThread
 local KillThread = KillThread
 local Random = Random
+local VDist3 = VDist3
 local WaitTicks = coroutine.yield
 
 local GetPosition = moho.entity_methods.GetPosition
 
---   Base class that defines supreme commander specific defaults
+local TrashBag = TrashBag
+local TrashAdd = TrashBag.Add
+local TrashDestroy = TrashBag.Destroy
+
+local function GetRandomFloat( Min, Max )
+    return Min + (Random() * (Max-Min) )
+end
+
 SCCollisionBeam = Class(CollisionBeam) {
     FxImpactUnit = EffectTemplate.DefaultProjectileLandUnitImpact,
-    FxImpactLand = {},
     FxImpactWater = EffectTemplate.DefaultProjectileWaterImpact,
     FxImpactUnderWater = EffectTemplate.DefaultProjectileUnderWaterImpact,
     FxImpactAirUnit = EffectTemplate.DefaultProjectileAirUnitImpact,
-    FxImpactProp = {},
-    FxImpactShield = {},    
-    FxImpactNone = {},
 }
 
---   Ginsu COLLISION BEAM
 GinsuCollisionBeam = Class(SCCollisionBeam) {
+
     FxBeam = {'/effects/emitters/riot_gun_beam_01_emit.bp',
               '/effects/emitters/riot_gun_beam_02_emit.bp',},
     FxBeamEndPoint = {'/effects/emitters/sparks_02_emit.bp',},
-
 
     FxImpactUnit = {'/effects/emitters/riotgun_hit_flash_01_emit.bp',},
     FxUnitHitScale = 0.125,
     FxImpactLand = {'/effects/emitters/destruction_land_hit_puff_01_emit.bp',
                     '/effects/emitters/destruction_explosion_flash_01_emit.bp'},
     FxLandHitScale = 0.1625,
-    FxImpactUnderWater = {},
 }
 
---   PARTICLE CANNON COLLISION BEAM
 ParticleCannonCollisionBeam = Class(SCCollisionBeam) {
     FxBeam = {
 		'/effects/emitters/particle_cannon_beam_01_emit.bp',
@@ -284,33 +284,47 @@ ExperimentalPhasonLaserCollisionBeam = Class(SCCollisionBeam) {
     end,
 
     ScorchThread = function(self)
+    
         local army = self.Sync.army
+        
         local size = 4.0 + (Random() * 1.0) 
-        local CurrentPosition = self:GetPosition(1)
+        local CurrentPosition = GetPosition(self,1)
         local LastPosition = Vector(0,0,0)
         local skipCount = 1
+        
         while true do
-            if GetDistanceBetweenTwoVectors( CurrentPosition, LastPosition ) > 0.25 or skipCount > 100 then
-                LOUDSPLAT( CurrentPosition, GetRandomFloat(0,2*LOUDPI), self.SplatTexture, size, size, 100, 90, army )
+        
+            if VDist3( CurrentPosition, LastPosition ) > 0.5 or skipCount > 100 then
+            
+                LOUDSPLAT( CurrentPosition, GetRandomFloat(0,6.28), self.SplatTexture, size, size, 100, 90, army )
                 LastPosition = CurrentPosition
                 skipCount = 1
             else
                 skipCount = skipCount + self.ScorchSplatDropTime
             end
                 
-            WaitTicks( self.ScorchSplatDropTime * 10)
+            WaitTicks( 3 )
+            
             size = 4.0 + (Random() * 1.0)
-            CurrentPosition = self:GetPosition(1)
+            CurrentPosition = GetPosition(self,1)
         end
     end,
     
     CreateBeamEffects = function(self)
+    
         SCCollisionBeam.CreateBeamEffects(self)
+        
         local army = self.Sync.army
+        
         for _, v in EffectTemplate.SExperimentalPhasonLaserBeam do
 			local fxBeam = CreateBeamEntityToEntity(self, 0, self, 1, army, v )
 			LOUDINSERT( self.BeamEffectsBag, fxBeam )
-			self.Trash:Add(fxBeam)
+            
+            if not self.Trash then
+                self.Trash = TrashBag()
+            end
+            
+			TrashAdd( self.Trash, fxBeam )
         end
 
     end, 

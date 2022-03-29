@@ -92,6 +92,10 @@ local ForkTo = ForkThread
 
 local KillThread = KillThread
 
+local TrashBag = TrashBag
+local TrashAdd = TrashBag.Add
+local TrashDestroy = TrashBag.Destroy
+
 local WaitTicks = coroutine.yield
 
 local AIRUNITS = categories.AIR * categories.MOBILE - categories.EXPERIMENTAL
@@ -129,7 +133,7 @@ Platoon = Class(moho.platoon_methods) {
 
         local thread = ForkThread(fn, self, unpack(arg))
 		
-        self.Trash:Add(thread)
+        TrashAdd( self.Trash, thread )
 		
         return thread
     end,
@@ -225,7 +229,7 @@ Platoon = Class(moho.platoon_methods) {
             end
         end		
 
-        self.Trash:Destroy()
+        TrashDestroy(self.Trash)
     end,
 
     WatchPlatoonSize = function(self, startsize, triggervalue)

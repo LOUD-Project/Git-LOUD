@@ -4,8 +4,6 @@
 local Entity = import('/lua/sim/Entity.lua').Entity
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 
---local GetVectorLength = import('utilities.lua').GetVectorLength
-
 local ChangeState = ChangeState
 
 local LOUDMIN = math.min

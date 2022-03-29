@@ -7,6 +7,7 @@ local LOUDGETN = table.getn
 
 local TrashBag = TrashBag
 local TrashAdd = TrashBag.Add
+local TrashDestroy = TrashBag.Destroy
 
 local import = import
 local type = type
@@ -46,7 +47,7 @@ BrainConditionsMonitor = Class {
 	
 	Destroy = function(self)
 	
-		self.Trash:Destroy()
+		TrashDestroy( self.Trash )
 		
     end,
 

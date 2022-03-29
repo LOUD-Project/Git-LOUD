@@ -20,6 +20,11 @@ local GetArmy = moho.entity_methods.GetArmy
 local STRINGSUB = string.sub
 local TONUMBER = tonumber
 
+local TrashBag = TrashBag
+local TrashAdd = TrashBag.Add
+local TrashDestroy = TrashBag.Destroy
+
+
 CollisionBeam = Class(moho.CollisionBeamEntity) {
 
     FxBeam = {},
@@ -48,17 +53,13 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
 	
         self.Army = GetArmy(self)
         
-        self.DamageData = { DamageAmount = false, DamageType = 'Normal' }    
-
-        self.LastTerrainType = nil
         self.BeamEffectsBag = {}
         self.TerrainEffectsBag = {}
-        self.Trash = TrashBag()
     end,
 
     OnDestroy = function(self)
         if self.Trash then
-            self.Trash:Destroy()
+            TrashDestroy(self.Trash)
         end
     end,
 
@@ -128,13 +129,18 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
 		local LOUDINSERT = table.insert
         
         local fx
+        
+        if not self.Trash then
+            self.Trash = TrashBag()
+        end
 		
         for k, y in self.FxBeamStartPoint do
         
             fx = LOUDATTACHEMITTER(self, 0, army, y ):ScaleEmitter(self.FxBeamStartPointScale)
             
             LOUDINSERT( self.BeamEffectsBag, fx)
-            self.Trash:Add(fx)
+            
+            TrashAdd( self.Trash, fx )
         end
 		
         for k, y in self.FxBeamEndPoint do
@@ -142,7 +148,8 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
             fx = LOUDATTACHEMITTER(self, 1, army, y ):ScaleEmitter(self.FxBeamEndPointScale)
             
             LOUDINSERT( self.BeamEffectsBag, fx)
-            self.Trash:Add(fx)
+            
+            TrashAdd( self.Trash, fx )
         end
 		
         if LOUDGETN(self.FxBeam) != 0 then
@@ -158,7 +165,8 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
             self:SetBeamFx(fxBeam, self.Weapon.bp.BeamLifetime <= 0 )
             
             LOUDINSERT( self.BeamEffectsBag, fxBeam )
-            self.Trash:Add(fxBeam)
+            
+            TrashAdd( self.Trash, fxBeam )
         end
     end,
 
@@ -402,9 +410,13 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
     end,
 
     ForkThread = function(self, fn, ...)
+    
         if fn then
+        
             local thread = ForkThread(fn, self, unpack(arg))
-            self.Trash:Add(thread)
+            
+            TrashAdd( self.Trash, thread )
+
             return thread
         else
             return nil

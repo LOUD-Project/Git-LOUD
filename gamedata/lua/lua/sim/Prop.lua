@@ -8,21 +8,27 @@ local RebuildBonusCheckCallback = import('/lua/sim/RebuildBonusCallback.lua').Ru
 
 local ForkThread = ForkThread
 
+local LOUDCOPY = table.copy
 local LOUDINSERT = table.insert
 local LOUDMAX = math.max
+
+local TrashBag = TrashBag
+local TrashAdd = TrashBag.Add
+local TrashDestroy = TrashBag.Destroy
 
 local GetBlueprint = moho.entity_methods.GetBlueprint
 
 Prop = Class(moho.prop_methods, Entity) {
 
-    __init = function(self,spec)
-    end,
-    __post_init = function(self,spec)
-    end,
+    __init = false,
+    
+    __post_init = false,
 
     OnCreate = function(self)
+    
         Entity.OnCreate(self)
-        self.Trash = TrashBag()
+        
+        --self.Trash = TrashBag()
 		
 		local bp = GetBlueprint(self).Economy
 		
@@ -33,7 +39,7 @@ Prop = Class(moho.prop_methods, Entity) {
         self.MaxMassReclaim = bp.ReclaimMassMax or 0
         self.MaxEnergyReclaim = bp.ReclaimEnergyMax or 0
 		
-        self.CachePosition = table.copy(moho.entity_methods.GetPosition(self))
+        self.CachePosition = LOUDCOPY(moho.entity_methods.GetPosition(self))
 
         local bp = GetBlueprint(self).Defense
 		
@@ -58,8 +64,12 @@ Prop = Class(moho.prop_methods, Entity) {
     ForkThread = function(self, fn, ...)
 
         local thread = ForkThread(fn, self, unpack(arg))
+        
+        if not self.Trash then
+            self.Trash = TrashBag()
+        end
 		
-        self.Trash:Add(thread)
+        TrashAdd( self.Trash, thread )
 		
         return thread
 		
@@ -102,12 +112,16 @@ Prop = Class(moho.prop_methods, Entity) {
 	
     OnDestroy = function(self)
         if self.IsWreckage and not self.DestroyCalled then
-            RebuildBonusCheckCallback(self:GetPosition(), self.AssociatedBP)
+            RebuildBonusCheckCallback( self.CachePosition, self.AssociatedBP)
         end
-        self.Trash:Destroy()
+        
+        if self.Trash then
+            TrashDestroy( self.Trash )
+        end
     end,
 
     OnDamage = function(self, instigator, amount, direction, damageType)
+    
         if not self.CanTakeDamage then
 			return
 		end
@@ -162,6 +176,7 @@ Prop = Class(moho.prop_methods, Entity) {
         self.CollisionCenterY = centery
         self.CollisionCenterZ = centerz
         self.CollisionShape = shape
+        
         if radius and shape == 'Sphere' then
             self:SetCollisionShape(shape, centerx, centery, centerz, sizex, sizey, sizez, radius)
         else
@@ -236,11 +251,14 @@ Prop = Class(moho.prop_methods, Entity) {
     end,
     
     PlayPropSound = function(self, sound)
+    
         local bp = self:GetBlueprint().Audio
+        
         if bp and bp[sound] then
             self:PlaySound(bp[sound])
             return true
         end
+        
         return false
     end,
 

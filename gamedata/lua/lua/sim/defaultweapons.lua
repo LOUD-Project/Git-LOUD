@@ -203,9 +203,7 @@ DefaultProjectileWeapon = Class(Weapon) {
 
 	-- passed in the bp data to save the call
     StartEconomyDrain = function(self)
-    
-        --LOG("*AI DEBUG Start Economy Drain "..repr(self.FirstShot).." EconDrain is "..repr(self.EconDrain) )
-	
+
         if self.FirstShot then return end
 		
         local bp = self.bp
@@ -522,6 +520,8 @@ DefaultProjectileWeapon = Class(Weapon) {
     end,
 
     OnWeaponFired = function(self)
+    
+        --LOG("*AI DEBUG DefaultWeapon OnWeaponFired")
 
 		Weapon.OnWeaponFired(self)
 		
@@ -1163,6 +1163,8 @@ DefaultProjectileWeapon = Class(Weapon) {
         -- Override so that it doesn't play the firing sound when
         -- we're not actually creating the projectile yet
         OnFire = function(self)
+        
+            --LOG("*AI DEBUG Weapon WeaponPackingState OnFire")
 		
             if self.bp.CountedProjectile == true and not self.bp.ForceSingleFire then
 			

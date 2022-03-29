@@ -16,6 +16,7 @@ local Random = Random
 
 local TrashBag = TrashBag
 local TrashAdd = TrashBag.Add
+local TrashDestroy = TrashBag.Destroy
 
 local WaitTicks = coroutine.yield
 
@@ -41,7 +42,7 @@ BuilderManager = Class {
             end
         end
 
-        self.Trash:Destroy()
+        TrashDestroy( self.Trash )
     end,
     
     ForkThread = function(self, fn, ...)
@@ -60,8 +61,9 @@ BuilderManager = Class {
 
         elseif not enable then
 
-			self.Active = false		
-			self.Trash:Destroy()
+			self.Active = false	
+            
+			TrashDestroy( self.Trash )
         end
 	end,
 

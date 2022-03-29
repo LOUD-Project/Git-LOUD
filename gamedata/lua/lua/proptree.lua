@@ -6,13 +6,16 @@ local Prop = import('/lua/sim/Prop.lua').Prop
 local FireEffects = import('/lua/EffectTemplates.lua').TreeBurning01
 local CreateScorchMarkSplat = import('/lua/defaultexplosions.lua').CreateScorchMarkSplat
 
---local GetRandomFloat = import('/lua/utilities.lua').GetRandomFloat
-
 local Random = Random
 
 local function GetRandomFloat( Min, Max )
     return Min + (Random() * (Max-Min) )
 end
+
+local LOUDINSERT = table.insert
+
+local TrashBag = TrashBag
+local TrashAdd = TrashBag.Add
 
 local ChangeState = ChangeState
 
@@ -107,14 +110,27 @@ Tree = Class(Prop) {
             local bp = self:GetBlueprint()
 			
             for k, v in FireEffects do
+            
                 fx = CreateEmitterAtEntity(self, -1, v ):OffsetEmitter(0, 0.5, 0):ScaleEmitter(4)
-                table.insert(effects, fx)
-                self.Trash:Add(fx)
+                
+                LOUDINSERT(effects, fx)
+                
+                if not self.Trash then
+                    self.Trash = TrashBag()
+                end
+                
+                TrashAdd( self.Trash, fx )
             end
 			
             fx = CreateLightParticleIntel( self, -1, -1, 1.5, 10, 'glow_03', 'ramp_flare_02' )
-            table.insert(effects, fx)
-            self.Trash:Add(fx)
+            
+            LOUDINSERT(effects, fx)
+
+            if not self.Trash then
+                self.Trash = TrashBag()
+            end
+
+            TrashAdd( self.Trash, fx )            
 
             self:PlayPropSound('BurnStart')
             self:PlayPropAmbientSound('BurnLoop')
@@ -126,17 +142,29 @@ Tree = Class(Prop) {
 			end
 			
             for i = 5, 1, -1 do
+            
                 for k, v in effects do
                     v:Destroy()
                 end
+                
                 for k, v in FireEffects do
+                
                     local fx = CreateAttachedEmitter(self, -2, -1, v ):OffsetEmitter(0, 0, 0.3):ScaleEmitter(i * 0.5)
-                    table.insert(effects, fx)
-                    self.Trash:Add(fx)
+                    
+                    LOUDINSERT(effects, fx)
+                
+                    if not self.Trash then
+                        self.Trash = TrashBag()
+                    end
+                
+                    TrashAdd( self.Trash, fx )                    
+
                 end
+                
                 WaitSeconds(3 + Random(1, 10) * 0.1)
+                
                 if not self.BurnFromNuke and i == 3 then
-                    DamageArea(self, self:GetCachePosition(), 1, 1, 'Fire', true)    
+                    DamageArea(self, self.CachePosition, 1, 1, 'Fire', true)    
                 end
             end
 			
@@ -146,7 +174,7 @@ Tree = Class(Prop) {
 			
             CreateScorchMarkSplat( self, 0.5, -1 )
 			
-            DamageArea(self, self:GetCachePosition(), 1, 1, 'Fire', true)
+            DamageArea(self, self.CachePosition, 1, 1, 'Fire', true)
 			
             self:PlayPropAmbientSound(nil)
 			

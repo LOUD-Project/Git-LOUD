@@ -7,6 +7,7 @@ local SinglePolyTrailProjectile = import('/lua/sim/defaultprojectiles.lua').Sing
 local MultiPolyTrailProjectile = import('/lua/sim/defaultprojectiles.lua').MultiPolyTrailProjectile
 local SingleCompositeEmitterProjectile = import('/lua/sim/defaultprojectiles.lua').SingleCompositeEmitterProjectile
 local MultiCompositeEmitterProjectile = import('/lua/sim/defaultprojectiles.lua').MultiCompositeEmitterProjectile
+
 local NullShell = import('/lua/sim/defaultprojectiles.lua').NullShell
 
 local CreateScorchMarkSplat = import('defaultexplosions.lua').CreateScorchMarkSplat
@@ -21,13 +22,17 @@ local CreateLightParticle = CreateLightParticle
 
 local DamageArea = DamageArea
 local ForkThread = ForkThread
-local WaitSeconds = WaitSeconds
+
+local LOUDINSERT = table.insert
+
+local TrashBag = TrashBag
+local TrashAdd = TrashBag.Add
+local TrashDestroy = TrashBag.Destroy
+
 local WaitTicks = coroutine.yield
 
-local GetArmy = moho.entity_methods.GetArmy
-
-
 ASaintAntiNuke = Class(SinglePolyTrailProjectile) {
+
     PolyTrail = '/effects/emitters/aeon_missile_trail_02_emit.bp',
     FxTrails = {'/effects/emitters/saint_munition_01_emit.bp'},
 
@@ -149,12 +154,10 @@ ADepthChargeProjectile = Class(OnWaterEntryEmitterProjectile) {
         self.MyDepthCharge = DepthCharge { Owner = self, Radius = tbl.Radius or 10 }
 		
 		if not self.Trash then
-		
 			self.Trash = TrashBag()
-			
 		end
 
-        self.Trash:Add(self.MyDepthCharge)
+        TrashAdd( self.Trash, self.MyDepthCharge )
     end,
 }
 
@@ -205,7 +208,7 @@ AIMFlareProjectile = Class(EmitterProjectile) {
 		
         if TargetType == 'Terrain' or TargetType == 'Water' or TargetType == 'Prop' then
             if self.Trash then
-                self.Trash:Destroy()
+                TrashDestroy(self.Trash)
             end
             self:Destroy()
         end
@@ -441,11 +444,15 @@ AAAQuantumDisplacementCannonProjectile = Class(NullShell) {
     CreateTrailFX = function(self, army)
 		
         if (self.PolyTrail) then
-            table.insert( self.TrailEmitters, CreateTrail(self, -1, army, self.PolyTrail ))
+            LOUDINSERT( self.TrailEmitters, CreateTrail(self, -1, army, self.PolyTrail ))
+        end
+        
+        if not self.FxTrails then
+            self.FxTrails = {}
         end
         
         for i in self.FxTrails do
-            table.insert( self.TrailEmitters, CreateEmitterOnEntity(self, army, self.FxTrails[i]))
+            LOUDINSERT( self.TrailEmitters, CreateEmitterOnEntity(self, army, self.FxTrails[i]))
         end
     end,
 

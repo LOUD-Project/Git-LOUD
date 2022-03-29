@@ -32,6 +32,7 @@ local RRBC = import('/lua/sim/RebuildBonusCallback.lua').RegisterRebuildBonusChe
 
 local TrashBag = TrashBag
 local TrashAdd = TrashBag.Add
+local TrashDestroy = TrashBag.Destroy
 
 -- from Domino Mod Support
 local __DMSI = import('/mods/Domino_Mod_Support/lua/initialize.lua') or false
@@ -338,7 +339,7 @@ Unit = Class(moho.unit_methods) {
         --self.BeamExhaustEffectsBag = {}
         --self.TransportBeamEffectsBag = {}
 
-        self.BuildEffectsBag = TrashBag()
+        --self.BuildEffectsBag = TrashBag()
 
         self.OnBeingBuiltEffectsBag = TrashBag()
 
@@ -357,9 +358,7 @@ Unit = Class(moho.unit_methods) {
 		self.CanBeKilled = true
 		
         if bp.Display.AnimationDeath[1] then
-		
 			self.PlayDeathAnimation = true
-			
         end
 
         --self.VeteranLevel = 0
@@ -372,11 +371,9 @@ Unit = Class(moho.unit_methods) {
             self:ForkThread(ApplyCheatBuffs)
         end
 	
-        -- from All Your Voice mod
-		-- this routine gets launched on EVERY unit
-		-- since it really only does anything if the blueprint has the
-		-- correct audio section - then this should only be launched if
-		-- that is the case - instead of every unit        
+        -- from All Your Voice mod -- this routine gets launched on EVERY unit
+		-- since it really only does anything if the blueprint has the correct audio section
+        -- then this should only be launched if that is the case - instead of every unit        
         if ArmyIsCivilian( aiBrain.ArmyIndex ) == false then
 
             for _,faction in {'UEF', 'Aeon', 'Cybran', 'Seraphim'} do
@@ -1788,7 +1785,8 @@ Unit = Class(moho.unit_methods) {
 		
 		if self.BuildEffectsBag then
 		
-			self.BuildEffectsBag:Destroy()
+			TrashDestroy(self.BuildEffectsBag)
+            
 			self.BuildEffectsBag = nil
 		end
 
@@ -2375,35 +2373,35 @@ Unit = Class(moho.unit_methods) {
         
 		if self.BuildEffectsBag then
 		
-			self.BuildEffectsBag:Destroy()
+			TrashDestroy(self.BuildEffectsBag)
 			self.BuildEffectsBag = nil
 			
 		end
 		
 		if self.CaptureEffectsBag then
 		
-			self.CaptureEffectsBag:Destroy()
+			TrashDestroy(self.CaptureEffectsBag)
 			self.CaptureEffectsBag = nil
 			
 		end
 		
 		if self.ReclaimEffectsBag then
 		
-			self.ReclaimEffectsBag:Destroy()
+			TrashDestroy(self.ReclaimEffectsBag)
 			self.ReclaimEffectsBag = nil
 			
 		end
 		
 		if self.OnBeingBuiltEffectsBag then
 		
-			self.OnBeingBuiltEffectsBag:Destroy()
+			TrashDestroy(self.OnBeingBuiltEffectsBag)
 			self.OnBeingBuiltEffectsBag = nil
 			
 		end
 		
 		if self.UpgradeEffectsBag then
 		
-			self.UpgradeEffectsBag:Destroy()
+			TrashDestroy(self.UpgradeEffectsBag)
 			self.UpgradeEffectsBag = nil
 			
 		end 
@@ -2416,7 +2414,7 @@ Unit = Class(moho.unit_methods) {
         
 		RemoveAllUnitEnhancements(self)
         
-		self.Trash:Destroy()
+		TrashDestroy(self.Trash)
 		
 		LOUDSTATE(self, self.DeadState)
 		
@@ -3009,7 +3007,7 @@ Unit = Class(moho.unit_methods) {
 		
 		if self.OnBeingBuiltEffectsBag then
 		
-			self.OnBeingBuiltEffectsBag:Destroy()
+			TrashDestroy(self.OnBeingBuiltEffectsBag)
 			self.OnBeingBuiltEffectsBag = nil
 			
 		end
@@ -3127,9 +3125,13 @@ Unit = Class(moho.unit_methods) {
     OnStopBuild = function(self, unitBeingBuilt)
 
         self:DoOnUnitBuiltCallbacks(unitBeingBuilt)
+    
+        if self.BuildEffectsBag then
+	
+            TrashDestroy(self.BuildEffectsBag)
+        
+        end
 
-        self:StopBuildingEffects(unitBeingBuilt)
-		
         self:SetActiveConsumptionInactive()
 	
         --self:StopUnitAmbientSound('ConstructLoop')
@@ -3158,6 +3160,12 @@ Unit = Class(moho.unit_methods) {
     end,
 
     StartBuildingEffects = function(self, unitBeingBuilt, order)
+    
+        if not self.BuildEffectsBag then
+        
+            self.BuildEffectsBag = TrashBag()
+            
+        end
 	
         TrashAdd( self.BuildEffectsBag, self:ForkThread( self.CreateBuildEffects, unitBeingBuilt, order ) )
 		
@@ -3167,8 +3175,10 @@ Unit = Class(moho.unit_methods) {
     end,
 
     StopBuildingEffects = function(self, unitBeingBuilt)
-	
-        self.BuildEffectsBag:Destroy()
+    
+        if self.BuildEffectsBag then
+            TrashDestroy(self.BuildEffectsBag)
+        end
 		
     end,
 
@@ -3683,7 +3693,7 @@ Unit = Class(moho.unit_methods) {
 	
 		if self.UpgradeEffectsBag then
 		
-			self.UpgradeEffectsBag:Destroy()
+			TrashDestroy(self.UpgradeEffectsBag)
 			self.UpgradeEffectsBag = nil
 			
 		end

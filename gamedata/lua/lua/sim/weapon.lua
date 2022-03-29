@@ -36,6 +36,7 @@ local STRUCTURE = categories.STRUCTURE
 Weapon = Class(moho.weapon_methods) {
 
     __init = function(self, unit)
+        -- this captures the parent unit of the weapon
         self.unit = unit
     end,
 

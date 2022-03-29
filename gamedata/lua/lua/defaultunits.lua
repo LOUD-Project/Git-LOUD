@@ -85,6 +85,7 @@ local Random = Random
 
 local TrashBag = TrashBag
 local TrashAdd = TrashBag.Add
+local TrashDestroy = TrashBag.Destroy
 
 local function GetRandomFloat( Min, Max )
     return Min + (Random() * (Max-Min) )
@@ -1007,7 +1008,7 @@ MobileUnit = Class(Unit) {
 
     StopCaptureEffects = function( self, target )
 		if self.CaptureEffectsBag then
-			self.CaptureEffectsBag:Destroy()
+			TrashDestroy(self.CaptureEffectsBag)
 		end
     end,
 	
@@ -1055,7 +1056,7 @@ MobileUnit = Class(Unit) {
         self:DoUnitCallbacks('OnStopReclaim', target)
 
 		if self.ReclaimEffectsBag then
-			self.ReclaimEffectsBag:Destroy()
+			TrashDestroy(self.ReclaimEffectsBag)
 		end
 		
 		if target and not BeenDestroyed(target) and target.BeingReclaimed then

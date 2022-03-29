@@ -10,7 +10,6 @@ local SingleCompositeEmitterProjectile = import('/lua/sim/defaultprojectiles.lua
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 local DepthCharge = import('/lua/defaultantiprojectile.lua').DepthCharge
 
-local LOUDPI = math.pi
 local Random = Random
 
 local function GetRandomFloat( Min, Max )
@@ -19,65 +18,57 @@ end
 
 local ForkThread = ForkThread
 local DamageArea = DamageArea
+
 local CreateDecal = CreateDecal
 local CreateLightParticle = CreateLightParticle
 local CreateSplat = CreateSplat
 local CreateEmitterAtEntity = CreateEmitterAtEntity
 local CreateEmitterAtBone = CreateEmitterAtBone
 
-local GetArmy = moho.entity_methods.GetArmy
+local TrashBag = TrashBag
+local TrashAdd = TrashBag.Add
+local TrashDestroy = TrashBag.Destroy
 
 TFragmentationGrenade= Class(EmitterProjectile) {
+
     FxImpactUnit = EffectTemplate.THeavyFragmentationGrenadeUnitHit,
     FxImpactLand = EffectTemplate.THeavyFragmentationGrenadeHit,
     FxImpactWater = EffectTemplate.THeavyFragmentationGrenadeHit,
     FxImpactNone = EffectTemplate.THeavyFragmentationGrenadeHit,
     FxImpactProp = EffectTemplate.THeavyFragmentationGrenadeUnitHit,
-    FxImpactUnderWater = {},
     FxTrails= EffectTemplate.THeavyFragmentationGrenadeFxTrails,
 }
 
-TIFMissileNuke = Class(SingleBeamProjectile) {
-    BeamName = '/effects/emitters/missile_exhaust_fire_beam_01_emit.bp',
-    FxImpactUnit = {},
-    FxImpactLand = {},
-    FxImpactUnderWater = {},
-}
+TIFMissileNuke = Class(SingleBeamProjectile) { BeamName = '/effects/emitters/missile_exhaust_fire_beam_01_emit.bp' }
 
-TIFTacticalNuke = Class(EmitterProjectile) {
-    FxImpactUnit = {},
-    FxImpactLand = {},
-    FxImpactUnderWater = {},
-}
+TIFTacticalNuke = Class(EmitterProjectile) {}
 
 TAAGinsuRapidPulseBeamProjectile = Class(SingleBeamProjectile) {
+
     BeamName = '/effects/emitters/laserturret_munition_beam_03_emit.bp',
     FxImpactUnit = EffectTemplate.TAAGinsuHitUnit,
     FxImpactProp = EffectTemplate.TAAGinsuHitUnit,
     FxImpactLand = EffectTemplate.TAAGinsuHitLand,
-    FxImpactUnderWater = {},
 }
 
 TAALightFragmentationProjectile = Class(SingleCompositeEmitterProjectile) {
+
     BeamName = '/effects/emitters/antiair_munition_beam_01_emit.bp',
     PolyTrail = '/effects/emitters/default_polytrail_01_emit.bp',
-    PolyTrailOffset = 0,
+
     FxTrails = {'/effects/emitters/terran_flack_fxtrail_01_emit.bp'},
     FxImpactAirUnit = EffectTemplate.TFragmentationShell01,
     FxImpactNone = EffectTemplate.TFragmentationShell01,
-    FxImpactUnderWater = {},
 }
 
 TArtilleryAntiMatterProjectile = Class(SinglePolyTrailProjectile) {
-	FxImpactTrajectoryAligned = false,
+
     PolyTrail = '/effects/emitters/antimatter_polytrail_01_emit.bp',
-    PolyTrailOffset = 0,
 
     FxImpactUnit = EffectTemplate.TAntiMatterShellHit01,
     FxImpactProp = EffectTemplate.TAntiMatterShellHit01,
     FxImpactLand = EffectTemplate.TAntiMatterShellHit01,
-    FxLandHitScale = 1,
-    FxImpactUnderWater = {},
+
     FxSplatScale = 8,
 
     OnImpact = function(self, targetType, targetEntity)
@@ -85,9 +76,7 @@ TArtilleryAntiMatterProjectile = Class(SinglePolyTrailProjectile) {
         local army = self.Army
         
 		local pos = self:GetPosition()
-		local rf = (Random() * (2*LOUDPI))
-		local CreateDecal = CreateDecal
-		local DamageArea = DamageArea
+		local rf = (Random() * 6.28)
 		
         if targetType == 'Terrain' then
             CreateDecal( pos, rf, 'nuke_scorch_001_normals', '', 'Alpha Normals', self.FxSplatScale, self.FxSplatScale, 150, 50, army )
@@ -102,6 +91,7 @@ TArtilleryAntiMatterProjectile = Class(SinglePolyTrailProjectile) {
 }
 
 TArtilleryAntiMatterProjectile02 = Class(TArtilleryAntiMatterProjectile) {
+
 	PolyTrail = '/effects/emitters/default_polytrail_07_emit.bp',
 
     FxImpactUnit = EffectTemplate.TAntiMatterShellHit02,
@@ -113,9 +103,7 @@ TArtilleryAntiMatterProjectile02 = Class(TArtilleryAntiMatterProjectile) {
         local army = self.Army
         
         local pos = self:GetPosition()
-		local rf = (Random() * (2*LOUDPI))
-		local CreateDecal = CreateDecal
-		local DamageArea = DamageArea
+		local rf = Random() * 6.28
         
         if targetType == 'Terrain' then
             CreateDecal( pos, rf, 'nuke_scorch_001_normals', '', 'Alpha Normals', self.FxSplatScale, self.FxSplatScale, 150, 30, army )
@@ -187,10 +175,8 @@ TDepthChargeProjectile = Class(OnWaterEntryEmitterProjectile) {
         OnWaterEntryEmitterProjectile.OnEnterWater(self)
 		
         local army = self.Army
-        
-		local CreateEmitterAtEntity = CreateEmitterAtEntity
 
-        for k, v in self.FxEnterWater do #--splash
+        for k, v in self.FxEnterWater do
             CreateEmitterAtEntity(self,army,v)
         end
 
@@ -213,49 +199,42 @@ TDepthChargeProjectile = Class(OnWaterEntryEmitterProjectile) {
 			
 		end
 
-        self.Trash:Add(self.MyDepthCharge)
+        TrashAdd( self.Trash, self.MyDepthCharge )
     end,
 }
 
 TDFGaussCannonProjectile = Class(MultiPolyTrailProjectile) {
-    FxTrails = {},
+
     PolyTrails = EffectTemplate.TGaussCannonPolyTrail,
-    PolyTrailOffset = {0,0},
+
     FxImpactUnit = EffectTemplate.TGaussCannonHitUnit01,
     FxImpactProp = EffectTemplate.TGaussCannonHitUnit01,
     FxImpactLand = EffectTemplate.TGaussCannonHitLand01,
-    FxTrailOffset = 0,
-    FxImpactUnderWater = {},
 }
 
 TDFShipGaussCannonProjectile = Class(MultiPolyTrailProjectile) {
-	FxImpactTrajectoryAligned = false,
-    FxTrails = {},
+
     PolyTrails = EffectTemplate.TGaussCannonPolyTrail,
-    PolyTrailOffset = {0,0},
+
     FxImpactUnit = EffectTemplate.TShipGaussCannonHitUnit01,
     FxImpactProp = EffectTemplate.TShipGaussCannonHit01,
     FxImpactLand = EffectTemplate.TShipGaussCannonHit01,
-    FxTrailOffset = 0,
-    FxImpactUnderWater = {},
 }
 
 TDFLandGaussCannonProjectile = Class(MultiPolyTrailProjectile) {
-	FxImpactTrajectoryAligned = false,
-    FxTrails = {},
+
     PolyTrails = EffectTemplate.TGaussCannonPolyTrail,
-    PolyTrailOffset = {0,0},
+
     FxImpactUnit = EffectTemplate.TLandGaussCannonHitUnit01,
     FxImpactProp = EffectTemplate.TLandGaussCannonHit01,
     FxImpactLand = EffectTemplate.TLandGaussCannonHit01,
     FxTrailOffset = 0,
-    FxImpactUnderWater = {},
 }
 
 THeavyPlasmaCannonProjectile = Class(MultiPolyTrailProjectile) {
     FxTrails = EffectTemplate.TPlasmaCannonHeavyMunition,
     RandomPolyTrails = 1,
-    PolyTrailOffset = {0,0,0},
+
     PolyTrails = EffectTemplate.TPlasmaCannonHeavyPolyTrails,
     FxImpactUnit = EffectTemplate.TPlasmaCannonHeavyHitUnit01,
     FxImpactProp = EffectTemplate.TPlasmaCannonHeavyHitUnit01,
