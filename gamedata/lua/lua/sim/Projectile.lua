@@ -244,7 +244,7 @@ Projectile = Class(moho.projectile_methods, Entity) {
 		local bp = ALLBPS[other.BlueprintID]
         
         if bp.Physics.HitAssignedTarget then
-            if other:GetTrackingTarget() != self then
+            if GetTrackingTarget(other) != self then
                 return false
             end
         end
@@ -293,27 +293,30 @@ Projectile = Class(moho.projectile_methods, Entity) {
     OnDestroy = function(self)
 	
 		if ScenarioInfo.ProjectileDialog then
-			LOG("*AI DEBUG Projectile OnDestroy for "..repr(self) )
+			LOG("*AI DEBUG Projectile OnDestroy for "..repr(self) ) --..' -- '..repr(proj) )
 		end
 	
 		if self.DamageData and not LOUDEMPTY(self.DamageData) then
+        
+            if self.DamageData.advancedTracking then
 		
-			-- from adv missile track and retarget
-			local target = self:GetTrackingTarget()
+                -- from adv missile track and retarget
+                local target = GetTrackingTarget(self)
 		
-			if target and not target.Dead and self.advancedTrackinglock and target.IncommingDamage then
+                if target and not target.Dead and self.advancedTrackinglock and target.IncommingDamage then
 		
-				-- reduce the amount of damage incoming to this target
-				target.IncommingDamage = target.IncommingDamage - self.DamageData.DamageAmount
+                    -- reduce the amount of damage incoming to this target
+                    target.IncommingDamage = target.IncommingDamage - self.DamageData.DamageAmount
 			
-				if target.IncommingDamage <= 0 then
-					target.IncommingDamage = nil
-				end
-			end	
-		end
+                    if target.IncommingDamage <= 0 then
+                        target.IncommingDamage = nil
+                    end
+                end	
+            end
+        end
 
 		if self.Trash then
-			self.Trash:Destroy()
+			TrashDestroy(self.Trash)
 		end
 
     end,
@@ -750,6 +753,11 @@ Projectile = Class(moho.projectile_methods, Entity) {
 		
 		if damageData.ArtilleryShieldBlocks then
 			self.DamageData.ArtilleryShieldBlocks = damageData.ArtilleryShieldBlocks
+		end
+		
+		-- for adv missile track and retarget
+		if self.DamageData.advancedTracking then
+			ForkTo( self.Tracking, self )
 		end
 		
 		if ScenarioInfo.ProjectileDialog then
