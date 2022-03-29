@@ -179,20 +179,27 @@ CANNaniteTorpedoWeapon = Class(DefaultProjectileWeapon) {
         local damageTable = self.damageTable
         
         local bp = self.bp
+        local data = false
         
-        local data = {
-
-            Damage = bp.DoTDamage,
-            Duration = bp.DoTDuration,
-            Frequency = bp.DoTFrequency,
-            Type = 'Normal',
-            PreDamageEffects = {},
-            DuringDamageEffects = {},
-            PostDamageEffects = {},
-        }
+        if bp.DoTDamage then
+        
+            data = {
+                Damage = bp.DoTDamage,
+                Duration = bp.DoTDuration,
+                Frequency = bp.DoTFrequency,
+                Type = 'Normal',
+                PreDamageEffects = {},
+                DuringDamageEffects = {},
+                PostDamageEffects = {},
+            }
+        end
         
         if projectile and not projectile:BeenDestroyed() then
-            projectile:PassData(data)
+
+            if data then
+                projectile:PassData(data)
+            end
+
             projectile:PassDamageData(damageTable)
         end
         
@@ -329,19 +336,24 @@ CAABurstCloudFlakArtilleryWeapon = Class(DefaultProjectileWeapon) {
         local damageTable = self.damageTable
         
         local blueprint = self.bp
+        local data = false
         
-        local data = {
-
-            Damage = blueprint.DoTDamage,
-            Duration = blueprint.DoTDuration,
-            Frequency = blueprint.DoTFrequency,
-            Radius = blueprint.DamageRadius,
-            Type = 'Normal',
-            DamageFriendly = blueprint.DamageFriendly,
-        }
+        if blueprint.DoTDamage then
+        
+            data = {
+                Damage = blueprint.DoTDamage,
+                Duration = blueprint.DoTDuration,
+                Frequency = blueprint.DoTFrequency,
+                Radius = blueprint.DamageRadius,
+                Type = 'Normal',
+                DamageFriendly = blueprint.DamageFriendly,
+            }
+        end
         
         if projectile and not projectile:BeenDestroyed() then
-            projectile:PassData(data)
+            if data then
+                projectile:PassData(data)
+            end
             projectile:PassDamageData(damageTable)
         end
         
@@ -382,21 +394,27 @@ CIFNaniteTorpedoWeapon = Class(DefaultProjectileWeapon) {
         local damageTable = self.damageTable
         
         local bp = self.bp
+        local data = false
         
-        local data = {
+        if bp.DoTDamage then
         
-            Damage = bp.DoTDamage,
-            Duration = bp.DoTDuration,
-            Frequency = bp.DoTFrequency,
-            Type = 'Normal',
-            PreDamageEffects = {},
-            DuringDamageEffects = {},
-            PostDamageEffects = {},
-        }
+            data = {
+                Damage = bp.DoTDamage,
+                Duration = bp.DoTDuration,
+                Frequency = bp.DoTFrequency,
+                Type = 'Normal',
+                PreDamageEffects = {},
+                DuringDamageEffects = {},
+                PostDamageEffects = {},
+            }
+        end
 
         if proj and not proj:BeenDestroyed() then
             proj:PassDamageData(damageTable)
-            proj:PassData(data)
+            
+            if data then
+                proj:PassData(data)
+            end
         end
         
         return proj

@@ -285,20 +285,27 @@ AIFArtilleryMiasmaShellWeapon = Class(DefaultProjectileWeapon) {
         local damageTable = self.damageTable
         
         local blueprint = self.bp
+        local data = false
         
-        local data = {
-
+        if blueprint.DoTDamage then
+        
+            data = {
                 Damage = blueprint.DoTDamage,
                 Duration = blueprint.DoTDuration,
                 Frequency = blueprint.DoTFrequency,
                 Radius = blueprint.DamageRadius,
                 Type = 'Normal',
                 DamageFriendly = blueprint.DamageFriendly,
-        }
+            }
+        end
 
         if proj and not proj:BeenDestroyed() then
+        
             proj:PassDamageData(damageTable)
-            proj:PassData(data)
+            
+            if data then
+                proj:PassData(data)
+            end
         end
 
         return proj
@@ -327,8 +334,11 @@ AANDepthChargeBombWeapon = Class(DefaultProjectileWeapon) {
         local damageTable = self.damageTable
         
         local blueprint = self.bp
+        local data = false
         
-        local data = {
+        if blueprint.DoTDamage then
+        
+            data = {
                 Army = self.unit.Sync.army,
                 StartRadius = blueprint.DOTStartRadius,
                 EndRadius = blueprint.DOTEndRadius,
@@ -338,10 +348,14 @@ AANDepthChargeBombWeapon = Class(DefaultProjectileWeapon) {
                 Frequency = blueprint.DoTFrequency,
                 Type = 'Normal',
             }
+        end
 
         if proj and not proj:BeenDestroyed() then
             proj:PassDamageData(damageTable)
-            proj:PassData(data)
+            
+            if data then
+                proj:PassData(data)
+            end
         end
         
         return proj
@@ -358,8 +372,11 @@ AANTorpedoCluster = Class(DefaultProjectileWeapon) {
         local damageTable = self.damageTable
         
         local blueprint = self.bp
+        local data = false
+
+        if blueprint.DoTDamage then
         
-        local data = {
+            data = {
                 Army = self.unit.Sync.army,
                 StartRadius = blueprint.DOTStartRadius,
                 EndRadius = blueprint.DOTEndRadius,
@@ -369,10 +386,13 @@ AANTorpedoCluster = Class(DefaultProjectileWeapon) {
                 Frequency = blueprint.DoTFrequency,
                 Type = 'Normal',
             }
+        end
 
         if proj and not proj:BeenDestroyed() then
             proj:PassDamageData(damageTable)
-            proj:PassData(data)
+            if data then
+                proj:PassData(data)
+            end
         end
         
         return proj

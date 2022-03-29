@@ -1828,8 +1828,8 @@ FactoryUnit = Class(StructureUnit) {
 
     OnStartBuild = function(self, unitBeingBuilt, order )
 
-        --self:ChangeBlinkingLights('Yellow')
         StructureUnit.OnStartBuild(self, unitBeingBuilt, order )
+        
         self.BuildingUnit = true
 
         if order != 'Upgrade' then

@@ -57,8 +57,8 @@ ParticleCannonCollisionBeam = Class(SCCollisionBeam) {
     FxBeamEndPointScale = 1,
 }
 
---  ZAPPER COLLISION BEAM
 ZapperCollisionBeam = Class(SCCollisionBeam) {
+
     FxBeam = {'/effects/emitters/zapper_beam_01_emit.bp'},
     FxBeamEndPoint = {'/effects/emitters/cannon_muzzle_flash_01_emit.bp',
                        '/effects/emitters/sparks_07_emit.bp',},
@@ -68,7 +68,6 @@ ZapperCollisionBeam = Class(SCCollisionBeam) {
 QuantumBeamGeneratorCollisionBeam = Class(SCCollisionBeam) {
 
     TerrainImpactType = 'LargeBeam02',
-    TerrainImpactScale = 1,
 
     FxBeam = {'/effects/emitters/quantum_generator_beam_01_emit.bp'},
     FxBeamEndPoint = {
@@ -88,14 +87,19 @@ QuantumBeamGeneratorCollisionBeam = Class(SCCollisionBeam) {
     ScorchSplatDropTime = 0.5,
 
     OnImpact = function(self, impactType, targetEntity)
+    
         if impactType == 'Terrain' then
+        
             if self.Scorching == nil then
                 self.Scorching = self:ForkThread( self.ScorchThread )   
             end
+            
         elseif not impactType == 'Unit' then
+        
             KillThread(self.Scorching)
             self.Scorching = nil
         end
+        
         CollisionBeam.OnImpact(self, impactType, targetEntity)
     end,
 
@@ -392,14 +396,19 @@ UltraChromaticBeamGeneratorCollisionBeam = Class(SCCollisionBeam) {
     ScorchSplatDropTime = 0.25,
 
     OnImpact = function(self, impactType, targetEntity)
+    
         if impactType == 'Terrain' then
+        
             if self.Scorching == nil then
                 self.Scorching = self:ForkThread( self.ScorchThread )   
             end
+            
         elseif not impactType == 'Unit' then
+        
             KillThread(self.Scorching)
             self.Scorching = nil
         end
+        
         CollisionBeam.OnImpact(self, impactType, targetEntity)
     end,
     

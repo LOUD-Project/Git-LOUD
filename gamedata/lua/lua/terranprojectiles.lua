@@ -118,13 +118,14 @@ TArtilleryAntiMatterProjectile02 = Class(TArtilleryAntiMatterProjectile) {
 }
 
 TArtilleryAntiMatterSmallProjectile = Class(TArtilleryAntiMatterProjectile02) {
+
     FxLandHitScale = 0.5,
     FxUnitHitScale = 0.5,
     FxSplatScale = 4,
 }
 
 TArtilleryProjectile = Class(EmitterProjectile) {
-    FxImpactTrajectoryAligned = false,
+
     FxTrails = {'/effects/emitters/mortar_munition_01_emit.bp',},
     FxImpactUnit = EffectTemplate.TPlasmaCannonHeavyHitUnit01,
     FxImpactProp = EffectTemplate.TPlasmaCannonHeavyHitUnit01,
@@ -132,20 +133,15 @@ TArtilleryProjectile = Class(EmitterProjectile) {
 }
 
 TArtilleryProjectilePolytrail = Class(SinglePolyTrailProjectile) {
+
     FxImpactUnit = EffectTemplate.TPlasmaCannonHeavyHitUnit01,
     FxImpactProp = EffectTemplate.TPlasmaCannonHeavyHitUnit01,
     FxImpactLand = EffectTemplate.TPlasmaCannonHeavyHit01,
 }
 
-TCannonSeaProjectile = Class(SingleBeamProjectile) {
-    BeamName = '/effects/emitters/cannon_munition_ship_beam_01_emit.bp',
-    FxImpactUnderWater = {},
-}
+TCannonSeaProjectile = Class(SingleBeamProjectile) { BeamName = '/effects/emitters/cannon_munition_ship_beam_01_emit.bp' }
 
-TCannonTankProjectile = Class(SingleBeamProjectile) {
-    BeamName = '/effects/emitters/cannon_munition_tank_beam_01_emit.bp',
-    FxImpactUnderWater = {},
-}
+TCannonTankProjectile = Class(SingleBeamProjectile) { BeamName = '/effects/emitters/cannon_munition_tank_beam_01_emit.bp' }
 
 TDepthChargeProjectile = Class(OnWaterEntryEmitterProjectile) {
 
@@ -153,13 +149,12 @@ TDepthChargeProjectile = Class(OnWaterEntryEmitterProjectile) {
     FxTrails = {'/effects/emitters/torpedo_underwater_wake_01_emit.bp',},
     TrailDelay = 0,
 
-    FxImpactLand = {},
     FxUnitHitScale = 1.25,
     FxImpactUnit = EffectTemplate.TTorpedoHitUnit01,
     FxImpactProp = EffectTemplate.TTorpedoHitUnit01,
     FxImpactUnderWater = EffectTemplate.TTorpedoHitUnit01,
     FxImpactProjectile = EffectTemplate.TTorpedoHitUnit01,
-    FxImpactNone = {},
+
     FxEnterWater= EffectTemplate.WaterSplash01,
 
     OnCreate = function(self, inWater)
@@ -242,20 +237,17 @@ THeavyPlasmaCannonProjectile = Class(MultiPolyTrailProjectile) {
 }
 
 TIFSmallYieldNuclearBombProjectile = Class(EmitterProjectile) {
-    FxTrails = {},
+
     FxImpactUnit = EffectTemplate.TSmallYieldNuclearBombHit01,
     FxImpactProp = EffectTemplate.TSmallYieldNuclearBombHit01,
     FxImpactLand = EffectTemplate.TSmallYieldNuclearBombHit01,
-    FxImpactUnderWater = {},
 
     OnImpact = function(self, TargetType, TargetEntity)
-    
-        local army = self.Army
-        
-        CreateLightParticle( self, -1, army, 2.75, 4, 'sparkle_03', 'ramp_fire_03' )
+
+        CreateLightParticle( self, -1, self.Army, 2.75, 4, 'sparkle_03', 'ramp_fire_03' )
         
         if TargetType == 'Terrain' then
-            CreateSplat( self:GetPosition(), 0, 'scorch_008_albedo', 6, 6, 200, 120, army )
+            CreateSplat( self:GetPosition(), 0, 'scorch_008_albedo', 6, 6, 200, 120, self.Army )
         end
         
         EmitterProjectile.OnImpact( self, TargetType, TargetEntity )
@@ -263,26 +255,27 @@ TIFSmallYieldNuclearBombProjectile = Class(EmitterProjectile) {
 }
 
 TLaserBotProjectile = Class(MultiPolyTrailProjectile) {
+
     PolyTrails = EffectTemplate.TLaserPolytrail01,
-    PolyTrailOffset = {0,0,0},
+
     FxTrails = EffectTemplate.TLaserFxtrail01,
     FxImpactUnit = EffectTemplate.TLaserHitUnit02,
     FxImpactProp = EffectTemplate.TLaserHitUnit02,
     FxImpactLand = EffectTemplate.TLaserHitLand02,
-    FxImpactUnderWater = {},
 }
 
 TLaserProjectile = Class(SingleBeamProjectile) {
+
     BeamName = '/effects/emitters/laserturret_munition_beam_02_emit.bp',
     FxImpactUnit = EffectTemplate.TLaserHitUnit01,
     FxImpactProp = EffectTemplate.TLaserHitUnit01,
     FxImpactLand = EffectTemplate.TLaserHitLand01,
-    FxImpactUnderWater = {},
 }
 
 TMachineGunProjectile = Class(SinglePolyTrailProjectile) {
+
     PolyTrail = EffectTemplate.TMachineGunPolyTrail,
-    FxTrails = {},
+
     FxImpactUnit = {
 		'/effects/emitters/gauss_cannon_muzzle_flash_01_emit.bp',
 		'/effects/emitters/flash_05_emit.bp',
@@ -312,10 +305,10 @@ TMissileAAProjectile = Class(EmitterProjectile) {
     FxImpactAirUnit = EffectTemplate.TMissileHit02,
     FxImpactProp = EffectTemplate.TMissileHit02,    
     FxImpactLand = EffectTemplate.TMissileHit02,
-    FxImpactUnderWater = {},
 }
 
 TAntiNukeInterceptorProjectile = Class(SingleBeamProjectile) {
+
     BeamName = '/effects/emitters/missile_exhaust_fire_beam_02_emit.bp',
     FxTrails = EffectTemplate.TMissileExhaust03,
 
@@ -324,11 +317,10 @@ TAntiNukeInterceptorProjectile = Class(SingleBeamProjectile) {
     FxImpactLand = EffectTemplate.TMissileHit01,
     FxImpactProjectile = EffectTemplate.TMissileHit01,
     FxProjectileHitScale = 5,
-    FxImpactUnderWater = {},
 }
 
 TMissileCruiseProjectile = Class(SingleBeamProjectile) {
-    --DestroyOnImpact = false,
+
     FxTrails = EffectTemplate.TMissileExhaust02,
     FxTrailOffset = -1,
     BeamName = '/effects/emitters/missile_munition_exhaust_beam_01_emit.bp',
@@ -336,13 +328,13 @@ TMissileCruiseProjectile = Class(SingleBeamProjectile) {
     FxImpactUnit = EffectTemplate.TMissileHit01,
     FxImpactLand = EffectTemplate.TMissileHit01,
     FxImpactProp = EffectTemplate.TMissileHit01,
-    FxImpactUnderWater = {},
 
     OnImpact = function(self, targetType, targetEntity)
         SingleBeamProjectile.OnImpact(self, targetType, targetEntity)
     end,
-
+--[[
     CreateImpactEffects = function( self, army, EffectTable, EffectScale )
+    
         local emit = nil
 		local CreateEmitterAtEntity = CreateEmitterAtEntity
 		
@@ -353,11 +345,11 @@ TMissileCruiseProjectile = Class(SingleBeamProjectile) {
             end
         end
     end,
+--]]    
 }
 
 TMissileCruiseProjectile02 = Class(SingleBeamProjectile) {
-	FxImpactTrajectoryAligned = false,
-    --DestroyOnImpact = false,
+
     FxTrails = EffectTemplate.TMissileExhaust02,
     FxTrailOffset = -1,
     BeamName = '/effects/emitters/missile_munition_exhaust_beam_01_emit.bp',
@@ -365,12 +357,11 @@ TMissileCruiseProjectile02 = Class(SingleBeamProjectile) {
     FxImpactUnit = EffectTemplate.TShipGaussCannonHitUnit02,
     FxImpactProp = EffectTemplate.TShipGaussCannonHit02,
     FxImpactLand = EffectTemplate.TShipGaussCannonHit02,
-    FxImpactUnderWater = {},
 
     OnImpact = function(self, targetType, targetEntity)
         SingleBeamProjectile.OnImpact(self, targetType, targetEntity)
     end,
-
+--[[
     CreateImpactEffects = function( self, army, EffectTable, EffectScale )
     
         local emit = nil
@@ -386,9 +377,11 @@ TMissileCruiseProjectile02 = Class(SingleBeamProjectile) {
             end
         end
     end,
+--]]    
 }
 
 TMissileCruiseSubProjectile = Class(SingleBeamProjectile) {
+
     FxExitWaterEmitter = EffectTemplate.TIFCruiseMissileLaunchExitWater,
     FxTrailOffset = -0.35,
 
@@ -398,23 +391,19 @@ TMissileCruiseSubProjectile = Class(SingleBeamProjectile) {
     FxImpactUnit = EffectTemplate.TMissileHit01,
     FxImpactLand = EffectTemplate.TMissileHit01,
     FxImpactProp = EffectTemplate.TMissileHit01,
-    FxImpactUnderWater = {},
 
     OnExitWater = function(self)
     
 		EmitterProjectile.OnExitWater(self)
-        
-		local army = self.Army
-        
-		local CreateEmitterAtBone = CreateEmitterAtBone
 		
 		for k, v in self.FxExitWaterEmitter do
-			CreateEmitterAtBone(self,-2,army,v)
+			CreateEmitterAtBone(self, -2, self.Army, v)
 		end
     end,
 }
 
 TMissileProjectile = Class(SingleBeamProjectile) {
+
     FxTrails = {'/effects/emitters/missile_munition_trail_01_emit.bp',},
     FxTrailOffset = -1,
     BeamName = '/effects/emitters/missile_munition_exhaust_beam_01_emit.bp',
@@ -422,38 +411,31 @@ TMissileProjectile = Class(SingleBeamProjectile) {
     FxImpactUnit = EffectTemplate.TMissileHit01,
     FxImpactProp = EffectTemplate.TMissileHit01,
     FxImpactLand = EffectTemplate.TMissileHit01,
-    FxImpactUnderWater = {},
 }
 
 TNapalmCarpetBombProjectile = Class(SinglePolyTrailProjectile) {
-    FxTrails = {},
-    
-    FxImpactTrajectoryAligned = false,
 
     FxImpactUnit = EffectTemplate.TNapalmCarpetBombHitLand01,
     FxImpactProp = EffectTemplate.TNapalmCarpetBombHitLand01,
     FxImpactLand = EffectTemplate.TNapalmCarpetBombHitLand01,
     FxImpactWater = EffectTemplate.TNapalmHvyCarpetBombHitWater01,
-    FxImpactUnderWater = {},
+
     PolyTrail = '/effects/emitters/default_polytrail_01_emit.bp',
 }
 
 TNapalmHvyCarpetBombProjectile = Class(SinglePolyTrailProjectile) {
-    FxTrails = {},
-    
-    FxImpactTrajectoryAligned = false,
 
     FxImpactUnit = EffectTemplate.TNapalmHvyCarpetBombHitLand01,
     FxImpactProp = EffectTemplate.TNapalmHvyCarpetBombHitLand01,
     FxImpactLand = EffectTemplate.TNapalmHvyCarpetBombHitLand01,
     FxImpactWater = EffectTemplate.TNapalmHvyCarpetBombHitWater01,
-    FxImpactUnderWater = {},
+
     PolyTrail = '/effects/emitters/default_polytrail_01_emit.bp',
 }
 
 TPlasmaCannonProjectile = Class(SinglePolyTrailProjectile) {
     FxTrails = EffectTemplate.TPlasmaCannonLightMunition,
-    PolyTrailOffset = 0,
+
     PolyTrail = EffectTemplate.TPlasmaCannonLightPolyTrail,
     FxImpactUnit = EffectTemplate.TPlasmaCannonLightHitUnit01,
     FxImpactProp = EffectTemplate.TPlasmaCannonLightHitUnit01,
@@ -461,28 +443,30 @@ TPlasmaCannonProjectile = Class(SinglePolyTrailProjectile) {
 }
 
 TRailGunProjectile = Class(SinglePolyTrailProjectile) {
+
     PolyTrail = '/effects/emitters/railgun_polytrail_01_emit.bp',
     FxTrailScale = 1,
-    FxTrailOffset = 0,
-    FxImpactUnderWater = {},
+
     FxImpactUnit = EffectTemplate.TRailGunHitGround01,
     FxImpactProp = EffectTemplate.TRailGunHitGround01,
 	FxImpactAirUnit = EffectTemplate.TRailGunHitAir01,
 }
 
 TShellPhalanxProjectile = Class(MultiPolyTrailProjectile) {
+
     PolyTrails = EffectTemplate.TPhalanxGunPolyTrails,
     PolyTrailOffset = EffectTemplate.TPhalanxGunPolyTrailsOffsets,
     FxImpactUnit = EffectTemplate.TRiotGunHitUnit01,
     FxImpactProp = EffectTemplate.TRiotGunHitUnit01,
     FxImpactNone = EffectTemplate.FireCloudSml01,
     FxImpactLand = EffectTemplate.TRiotGunHit01,
-    FxImpactUnderWater = {},
+
     FxImpactProjectile = EffectTemplate.TMissileHit02,
     FxProjectileHitScale = 0.7,
 }
 
 TShellRiotProjectile = Class(MultiPolyTrailProjectile) {
+
     PolyTrails = EffectTemplate.TRiotGunPolyTrails,
     PolyTrailOffset = EffectTemplate.TRiotGunPolyTrailsOffsets,
     FxTrails = EffectTemplate.TRiotGunMunition01,
@@ -490,35 +474,31 @@ TShellRiotProjectile = Class(MultiPolyTrailProjectile) {
     FxImpactUnit = EffectTemplate.TRiotGunHitUnit01,
     FxImpactProp = EffectTemplate.TRiotGunHitUnit01,
     FxImpactLand = EffectTemplate.TRiotGunHit01,
-    FxImpactUnderWater = {},
 }
 
 TShellRiotProjectileLand = Class(MultiPolyTrailProjectile) {
+
     PolyTrails = EffectTemplate.TRiotGunPolyTrailsTank,
     PolyTrailOffset = EffectTemplate.TRiotGunPolyTrailsOffsets,
-    FxTrails = {},
+
     RandomPolyTrails = 1,
     FxImpactUnit = EffectTemplate.TRiotGunHitUnit02,
     FxImpactProp = EffectTemplate.TRiotGunHitUnit02,
     FxImpactLand = EffectTemplate.TRiotGunHit02,
-    FxImpactUnderWater = {},
 }
 
-TShellRiotProjectileLand02 = Class(TShellRiotProjectileLand) {
-    PolyTrails = EffectTemplate.TRiotGunPolyTrailsEngineer,
-}
+TShellRiotProjectileLand02 = Class(TShellRiotProjectileLand) { PolyTrails = EffectTemplate.TRiotGunPolyTrailsEngineer }
 
 TTorpedoShipProjectile = Class(OnWaterEntryEmitterProjectile) {
+
     FxInitial = {},
     FxTrails = {'/effects/emitters/torpedo_underwater_wake_01_emit.bp',},
     TrailDelay = 0,
 
-    FxImpactLand = {},
     FxUnitHitScale = 1.25,
     FxImpactUnit = EffectTemplate.TTorpedoHitUnit01,
     FxImpactProp = EffectTemplate.TTorpedoHitUnit01,
     FxImpactUnderWater = EffectTemplate.TTorpedoHitUnitUnderwater01,
-    FxImpactNone = {},
     FxEnterWater= EffectTemplate.WaterSplash01,
 
     OnCreate = function(self, inWater)
@@ -532,13 +512,9 @@ TTorpedoShipProjectile = Class(OnWaterEntryEmitterProjectile) {
     OnEnterWater = function(self)
         OnWaterEntryEmitterProjectile.OnEnterWater(self)
         self:SetCollisionShape('Sphere', 0, 0, 0, 1.0)
-		
-        local army = self.Army
-        
-		local CreateEmitterAtEntity = CreateEmitterAtEntity
 
-        for k, v in self.FxEnterWater do #splash
-            CreateEmitterAtEntity(self,army,v)
+        for k, v in self.FxEnterWater do
+            CreateEmitterAtEntity(self, self.Army, v)
         end
         
         self:TrackTarget(true)
@@ -555,13 +531,14 @@ TTorpedoShipProjectile = Class(OnWaterEntryEmitterProjectile) {
 }
 
 TTorpedoSubProjectile = Class(EmitterProjectile) {
+
     FxTrails = {'/effects/emitters/torpedo_munition_trail_01_emit.bp',},
-    FxImpactLand = {},
+
     FxUnitHitScale = 1.25,
     FxImpactUnit = EffectTemplate.TTorpedoHitUnit01,
     FxImpactProp = EffectTemplate.TTorpedoHitUnit01,
     FxImpactUnderWater = EffectTemplate.TTorpedoHitUnit01,
-    FxImpactNone = {},
+
     OnCreate = function(self, inWater)
         self:SetCollisionShape('Sphere', 0, 0, 0, 1.0)
         EmitterProjectile.OnCreate(self, inWater)
@@ -569,11 +546,12 @@ TTorpedoSubProjectile = Class(EmitterProjectile) {
 }
 
 TBaseTempProjectile = Class(SinglePolyTrailProjectile) {
+
     FxImpactLand = EffectTemplate.AMissileHit01,
     FxImpactNone = EffectTemplate.AMissileHit01,
     FxImpactProjectile = EffectTemplate.ASaintImpact01,
     FxImpactProp = EffectTemplate.AMissileHit01,    
-    FxImpactUnderWater = {},
+
     FxImpactUnit = EffectTemplate.AMissileHit01,    
     FxTrails = {
         '/effects/emitters/aeon_laser_fxtrail_01_emit.bp',
@@ -583,6 +561,7 @@ TBaseTempProjectile = Class(SinglePolyTrailProjectile) {
 }
 
 TGatlingPlasmaCannonProjectile = Class(MultiPolyTrailProjectile) {
+
     PolyTrailOffset = EffectTemplate.TPlasmaGatlingCannonPolyTrailsOffsets,
     FxImpactNone = EffectTemplate.TPlasmaGatlingCannonUnitHit,
     FxImpactUnit = EffectTemplate.TPlasmaGatlingCannonUnitHit,
@@ -595,6 +574,7 @@ TGatlingPlasmaCannonProjectile = Class(MultiPolyTrailProjectile) {
 }
 
 TIonizedPlasmaGatlingCannon = Class(SinglePolyTrailProjectile) {
+
     FxImpactWater = EffectTemplate.TIonizedPlasmaGatlingCannonHit,
     FxImpactLand = EffectTemplate.TIonizedPlasmaGatlingCannonHit,
     FxImpactNone = EffectTemplate.TIonizedPlasmaGatlingCannonHit,
@@ -602,32 +582,25 @@ TIonizedPlasmaGatlingCannon = Class(SinglePolyTrailProjectile) {
     FxImpactUnit = EffectTemplate.TIonizedPlasmaGatlingCannonUnitHit,    
     FxTrails = EffectTemplate.TIonizedPlasmaGatlingCannonFxTrails,
     PolyTrail = EffectTemplate.TIonizedPlasmaGatlingCannonPolyTrail,
-    FxImpactProjectile = {},
-    FxImpactUnderWater = {},
 }
 
 THeavyPlasmaGatlingCannon = Class(SinglePolyTrailProjectile) {
-    FxImpactTrajectoryAligned = false,
+
     FxImpactUnit = EffectTemplate.THeavyPlasmaGatlingCannonHit,
     FxImpactProp = EffectTemplate.THeavyPlasmaGatlingCannonHit,
     FxImpactWater = EffectTemplate.THeavyPlasmaGatlingCannonHit,
     FxImpactLand = EffectTemplate.THeavyPlasmaGatlingCannonHit,
-    FxImpactUnderWater = {},
     FxTrails = EffectTemplate.THeavyPlasmaGatlingCannonFxTrails,
     PolyTrail = EffectTemplate.THeavyPlasmaGatlingCannonPolyTrail,
 }
 
 THiroLaser = Class(SinglePolyTrailProjectile) {
-    
-    FxTrailOffset = 0,
+
     FxImpactUnit = EffectTemplate.THiroLaserUnitHit,
     FxImpactProp = EffectTemplate.THiroLaserHit,
     FxImpactLand = EffectTemplate.THiroLaserLandHit,
     FxImpactWater = EffectTemplate.THiroLaserLandHit,
-    FxImpactUnderWater = {},
     
     FxTrails = EffectTemplate.THiroLaserFxtrails,
     PolyTrail = EffectTemplate.THiroLaserPolytrail,
 }
-
-

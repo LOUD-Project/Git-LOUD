@@ -4,7 +4,7 @@
 local LOUDACOS = math.acos
 local LOUDFLOOR = math.floor
 local LOUDGETN = table.getn
-local LOUDPI = math.pi
+
 local LOUDPOW = math.pow
 local LOUDSQRT = math.sqrt
 local LOUDINSERT = table.insert
@@ -85,8 +85,14 @@ function NormalizeVector( v )
     if length > 0 then
     
         local invlength = 1 / length
-        return Vector( v[1] * invlength, v[2] * invlength, v[3] * invlength )
+        
+        v[1] = v[1]*invlength
+        v[2] = v[2]*invlength
+        v[3] = v[3]*invlength
+        
+        return v    --Vector( v[1] * invlength, v[2] * invlength, v[3] * invlength )
     else
+    
         return Vector( 0,0,0 )
     end
 end
@@ -101,13 +107,13 @@ end
 
 function GetDirectionInDegrees( v1, v2 )
 
-	local vec = NormalizeVector( Vector(v1[1] - v2[1], v1[2] - v2[2], v1[3] - v2[3]) )  --GetDirectionVector( v1, v2)
+	local vec = NormalizeVector( Vector(v1[1] - v2[1], v1[2] - v2[2], v1[3] - v2[3]) )
 	
 	if vec[1] >= 0 then
-		return LOUDACOS(vec[3]) * (360/(LOUDPI*2))
+		return LOUDACOS(vec[3]) * (360/ 6.28)
 	end
 	
-	return 360 - (LOUDACOS(vec[3]) * (360/(LOUDPI*2)))
+	return 360 - (LOUDACOS(vec[3]) * (360/ 6.28))
 end
 
 function GetScaledDirectionVector( v1, v2, scale )
@@ -167,7 +173,7 @@ function DotP( v1, v2 )
 end
 
 function GetAngleInBetween(v1, v2)
-    return LOUDACOS( DotP( NormalizeVector(v1), NormalizeVector(v2) ) ) * ( 360/(LOUDPI*2) )
+    return LOUDACOS( DotP( NormalizeVector(v1), NormalizeVector(v2) ) ) * ( 360/6.28 )
 end
 
 function UserConRequest(string)

@@ -119,19 +119,28 @@ TAAFlakArtilleryCannon = Class(DefaultProjectileWeapon) {
         local damageTable = self.damageTable
         
         local blueprint = self.bp
-        local data = {
+        local data = false
+        
+        if blueprint.DOTDamage then
+        
+            data = {
 
-            Damage = blueprint.DoTDamage,
-            Duration = blueprint.DoTDuration,
-            Frequency = blueprint.DoTFrequency,
-            Radius = blueprint.DamageRadius,
-            Type = 'Normal',
-            DamageFriendly = blueprint.DamageFriendly,
-        }
+                Damage = blueprint.DoTDamage,
+                Duration = blueprint.DoTDuration,
+                Frequency = blueprint.DoTFrequency,
+                Radius = blueprint.DamageRadius,
+                Type = 'Normal',
+                DamageFriendly = blueprint.DamageFriendly,
+            }
+        end
 
         if proj and not proj:BeenDestroyed() then
+        
             proj:PassDamageData(damageTable)
-            proj:PassData(data)
+            
+            if data then
+                proj:PassData(data)
+            end
         end
 
         return proj
@@ -243,18 +252,24 @@ TIFCarpetBombWeapon = Class(DefaultProjectileWeapon) {
         local damageTable = self.damageTable
         
         local blueprint = self.bp
-        local data = {
-
-            Damage = blueprint.DoTDamage,
-            Duration = blueprint.DoTDuration,
-            Frequency = blueprint.DoTFrequency,
-            Radius = blueprint.DamageRadius,
-            Type = 'Normal',
-            DamageFriendly = blueprint.DamageFriendly,
-        }
+        local data = false
+        
+        if blueprint.DoTDamage then
+        
+            data = {
+                Damage = blueprint.DoTDamage,
+                Duration = blueprint.DoTDuration,
+                Frequency = blueprint.DoTFrequency,
+                Radius = blueprint.DamageRadius,
+                Type = 'Normal',
+                DamageFriendly = blueprint.DamageFriendly,
+            }
+        end
         
         if projectile and not projectile:BeenDestroyed() then
-            projectile:PassData(data)
+            if data then
+                projectile:PassData(data)
+            end
             projectile:PassDamageData(damageTable)
         end
         

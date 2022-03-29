@@ -41,12 +41,15 @@ local GetMaxHealth = moho.entity_methods.GetMaxHealth
 
 local GetLauncher = moho.projectile_methods.GetLauncher
 local GetPosition = moho.entity_methods.GetPosition
+local GetTrackingTarget= moho.projectile_methods.GetTrackingTarget
+local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
 
 local SetHealth = moho.entity_methods.SetHealth
 local SetMaxHealth = moho.entity_methods.SetMaxHealth
 
 local TrashBag = TrashBag
 local TrashAdd = TrashBag.Add
+local TrashDestroy = TrashBag.Destroy
 
 
 local PlaySound = moho.entity_methods.PlaySound
@@ -57,43 +60,18 @@ local ALLBPS = __blueprints
 
 Projectile = Class(moho.projectile_methods, Entity) {
 
-    __init = function(self,spec)
-    end,
-    __post_init = function(self,spec)
-    end,
+    __init = false,
+    __post_init = false,
 
     DestroyOnImpact = true,
 	
     FxImpactTrajectoryAligned = true,
 
-    FxImpactAirUnit = {},
-    FxImpactLand = {},
-    FxImpactNone = {},
-    FxImpactProp = {},
-    FxImpactShield = {},
-    FxImpactWater = {},
-    FxImpactUnderWater = {},
-    FxImpactUnit = {},
-    FxImpactProjectile = {},
-    FxImpactProjectileUnderWater = {},
-    FxOnKilled = {},
-
-    FxAirUnitHitScale = 1,
-    FxLandHitScale = 1,
-    FxNoneHitScale = 1,
-    FxPropHitScale = 1,
-    FxProjectileHitScale = 1,
-    FxProjectileUnderWaterHitScale = 1,
-    FxShieldHitScale = 1,
-    FxUnderWaterHitScale = 0.25,
-    FxUnitHitScale = 1,
-    FxWaterHitScale = 1,
-    FxOnKilledScale = 1,
-
-    FxImpactLandScorch = false,
-    FxImpactLandScorchScale = 1.0,
-
     ForkThread = function(self, fn, ...)
+    
+        if not self.Trash then
+            self.Trash = TrashBag()
+        end
 
         local thread = ForkThread(fn, self, unpack(arg))
 		
@@ -104,6 +82,10 @@ Projectile = Class(moho.projectile_methods, Entity) {
     end,
 	
     ForkThread4 = function(fn, self, opt1, opt2, opt3)
+    
+        if not self.Trash then
+            self.Trash = TrashBag()
+        end
 	
         local thread = ForkThread(fn, self, opt1, opt2, opt3)
 		
@@ -113,28 +95,20 @@ Projectile = Class(moho.projectile_methods, Entity) {
 
     OnCreate = function(self, inWater)
 
-        self.Army = GetArmy(self)
-	
-        self.DamageData = { DamageAmount = false, DamageType = 'Normal' }
-
-        self.Trash = TrashBag()
-		
 		local bp = GetBlueprint(self)
         
+        self.Army = GetArmy(self)        
         self.BlueprintID = bp.BlueprintId
 		
+        SetMaxHealth( self, bp.Defense.MaxHealth or 1)
+        SetHealth( self, self, GetMaxHealth(self))
+	
 		if ScenarioInfo.ProjectileDialog then
 			LOG("*AI DEBUG Projectile OnCreate blueprint is "..repr(bp.BlueprintId))
 		end
-		
-        SetMaxHealth( self, bp.Defense.MaxHealth or 1)
-		
-        SetHealth( self, self, GetMaxHealth(self))
 	
         if bp.Audio.ExistLoop then
-		
             self:SetAmbientSound( bp.Audio.ExistLoop, nil)
-			
         end
         
         if bp.Physics.TrackTargetGround and bp.Physics.TrackTargetGround == true then
@@ -143,102 +117,109 @@ Projectile = Class(moho.projectile_methods, Entity) {
 			
             pos[2] = GetSurfaceHeight( pos[1], pos[3] )
             self:SetNewTargetGround(pos)
-			
         end
-		
-		-- for adv missile track and retarget
-		-- THIS REALLY NEEDS TO BE RELOCATED TO THE PASSDAMAGEDATA FUNCTION
-		if self.DamageData.advancedTracking then
-		
-			ForkTo( self.Tracking, self )
-			
-		end
-
-		
+        
     end,
 
 	-- adv missile track and retarget
 	Tracking = function(self)
-    
-    	local target = self:GetTrackingTarget() 
-        local position = self:GetPosition() 
-        local targetlist
+
+  	    local launcher = GetLauncher(self)
+        
+        if not launcher then return end
+        
+    	local aiBrain = launcher:GetAIBrain()
+        
+    	local target = GetTrackingTarget(self)
+        
+        if not target then return end
+
+        local BeenDestroyed = moho.entity_methods.BeenDestroyed
+        local GetHealth = moho.entity_methods.GetHealth
+        local GetPosition = GetPosition
+        local SetNewTarget = moho.projectile_methods.SetNewTarget
+        local WaitTicks = WaitTicks
+        
+
+        local function Retarget()
+
+            local position = GetPosition(self)
+        
+            self.advancedTrackinglock = nil
 		
-        local rangedecrement = self.DamageData.TrackingRadius / self.DamageData.ProjectileLifetime * 2
+            local targetlist = GetUnitsAroundPoint( aiBrain, categories.AIR - categories.SATELLITE, position, self.range ,'ENEMY') 
 		
-        self.range = 60 	-- now using maxradius & tracking radius #--self.DamageData.TrackingRadius
+            if targetlist[1] then
+
+                SetNewTarget( self, targetlist[1] )
+			
+                for k, v in targetlist do
+			
+                    if not v.IncommingDamage then
+				
+                        SetNewTarget( self, v )
+                    
+                        v.IncommingDamage = self.DamageData.DamageAmount
+                    
+                        self.advancedTrackinglock = true
+                        break
+                    
+                    else
+                
+                        if v.IncommingDamage < GetHealth(v)*2 then
+					
+                            SetNewTarget( self, v )	
+                            
+                            v.IncommingDamage = v.IncommingDamage + self.DamageData.DamageAmount
+                            
+                            self.advancedTrackinglock = true
+                            break
+                        end 
+                    end
+                end
+                
+            else
+                Destroy(self) 
+            end  
+        end
+
+
+        self.range = 60 	-- now using maxradius & tracking radius
 		
-		rangedecrement = 60 / (5*2) 	-- this controls the retargeting range of the missile, shrinking by 6 every .5 seconds
+		local rangedecrement = 6    -- this controls the retargeting range of the missile, shrinking by 6 every .5 seconds
         
 		-- if the target already has damage assigned to it
         if target.IncommingDamage then
 		
 			-- if that damage is less the 2x target health then assign to this target
-        	if target.IncommingDamage < target:GetHealth() * 2 then
+        	if target.IncommingDamage < GetHealth(target) * 2 then
 			
         		target.IncommingDamage = target.IncommingDamage + self.DamageData.DamageAmount
+                
         		self.advancedTrackinglock = true
-			-- else look for another target
+                
         	else
-        		self.advancedTrackinglock = nil
-        		self:Retarget()
+        		Retarget()
         	end
 			
-		-- assign incoming damage to this target
         else 
         	target.IncommingDamage = self.DamageData.DamageAmount
+            
         	self.advancedTrackinglock = true
         end
         
-        while not BeenDestroyed(self) do 
-		
+        while not BeenDestroyed(self) and self.advancedTrackinglock do 
+            
+			self.range = self.range - rangedecrement
+
         	if target.Dead then
-        		self:Retarget()   		
+        		Retarget()   		
         	end
 			
         	WaitTicks(5)
-			
-			--if not BeenDestroyed(self) then
-				self.range = self.range - rangedecrement
-			--end
+
         end
 		
-    end,
-    
-	-- adv missile track and retarget for AA missiles
-    Retarget = function(self)
-	
-  	    local launcher = self:GetLauncher()
-    	local aiBrain = launcher:GetAIBrain() 
-    	local position = self:GetPosition()
-		
-    	local targetlist = aiBrain:GetUnitsAroundPoint( categories.AIR - categories.SATELLITE, position, self.range ,'ENEMY') 
-		
-        if targetlist[1] then
-		
-          	self:SetNewTarget(targetlist[1])
-			
-          	for k, v in targetlist do
-			
-          		if not v.IncommingDamage then
-				
-          			self:SetNewTarget(v)
-          			v.IncommingDamage = self.DamageData.DamageAmount
-          			self.advancedTrackinglock = true
-          			break
-          		else
-          			if v.IncommingDamage < v:GetHealth()*2 then
-					
-        				self:SetNewTarget(v)	
-          				v.IncommingDamage = v.IncommingDamage + self.DamageData.DamageAmount
-          				self.advancedTrackinglock = true
-          				break
-        			end 
-          		end
-            end
-        else
-          	Destroy(self) 
-      	end  
     end,
 	
     OnCollisionCheck = function(self,other)
@@ -369,8 +350,12 @@ Projectile = Class(moho.projectile_methods, Entity) {
     end,
 
     OnKilled = function(self, instigator, type, overkillRatio)
+    
+        if self.FXOnKilled then
 	
-        self:CreateImpactEffects( self.Army, self.FxOnKilled, self.FxOnKilledScale )
+            self:CreateImpactEffects( self.Army, self.FxOnKilled, self.FxOnKilledScale or 1 )
+            
+        end
 		
         Destroy(self)
 		
@@ -416,6 +401,8 @@ Projectile = Class(moho.projectile_methods, Entity) {
     end,
 
     CreateImpactEffects = function( self, army, EffectTable, EffectScale )
+    
+        if not EffectTable then return end
 
         for _,v in EffectTable do
 
@@ -512,72 +499,63 @@ Projectile = Class(moho.projectile_methods, Entity) {
     --  'Projectile'
     --  'ProjectileUnderWater'
     OnImpact = function(self, targetType, targetEntity)
+    
+        if self.DamageData.DamageAmount then
 
-		if targetType == 'Shield' then
+            if targetType == 'Shield' then
 
-            -- LOUD 'marshmallow shield effect' all AOE to 0 on shields
-            if self.DamageData.DamageRadius > 0 then
-                self.DamageData.DamageRadius = nil
+                -- LOUD 'marshmallow shield effect' all AOE to 0 on shields
+                if self.DamageData.DamageRadius > 0 then
+                    self.DamageData.DamageRadius = nil
+                end
+
+                -- LOUD ShieldMult effect
+                if STRINGSUB(self.DamageData.DamageType, 1, 10) == 'ShieldMult' then
+
+                    local mult = TONUMBER( STRINGSUB(self.DamageData.DamageType, 11) ) or 1
+                    self.DamageData.DamageAmount = self.DamageData.DamageAmount * mult
+
+                end
             end
 
-            -- LOUD ShieldMult effect
-            if STRINGSUB(self.DamageData.DamageType, 1, 10) == 'ShieldMult' then
-
-                local mult = TONUMBER( STRINGSUB(self.DamageData.DamageType, 11) ) or 1
-                self.DamageData.DamageAmount = self.DamageData.DamageAmount * mult
-
-            end
-
-		end
-
-		if ScenarioInfo.ProjectileDialog then
+            if ScenarioInfo.ProjectileDialog then
 		
-			LOG("*AI DEBUG Projectile OnImpact targetType is "..repr(targetType))
-			LOG("*AI DEGUG Projectile OnImpact data is "..repr(self.DamageData))
+                LOG("*AI DEBUG Projectile OnImpact targetType is "..repr(targetType))
+                LOG("*AI DEGUG Projectile OnImpact data is "..repr(self.DamageData))
 			
-			if targetEntity then
-				LOG("*AI DEBUG Projectile Target entity is "..repr(targetEntity.BlueprintID))
-			end
-		end
+                if targetEntity then
+                    LOG("*AI DEBUG Projectile Target entity is "..repr(targetEntity.BlueprintID))
+                end
+            end
 
-		if self.DamageData.Buffs then
-			self:DoUnitImpactBuffs( GetPosition(self), targetEntity )
-		end		
-		
-		if self.DamageData.DamageAmount and self.DamageData.DamageAmount > 0 then
+            if self.DamageData.Buffs then
+                self:DoUnitImpactBuffs( GetPosition(self), targetEntity )
+            end		
+
 			self:DoDamage( GetLauncher(self) or self, self.DamageData, targetEntity)
 		end
 
         local bp = ALLBPS[self.BlueprintID]
 		
         if bp.Audio['Impact'..targetType] then
-		
             PlaySound( self, bp.Audio['Impact'..targetType] )
-			
         elseif bp.Audio.Impact then
-		
             PlaySound( self, bp.Audio.Impact)
-			
         end
 		
 		-- when simspeed drops too low turn off visual impact effects
 		if Sync.SimData.SimSpeed > -1 then
 
-			local ImpactEffects = {}
-			local ImpactEffectScale = 1
+			local ImpactEffects = false
+			local ImpactEffectScale = 1     -- default scaling
 	
 			local army = self.Army
 	
 			--ImpactEffects
-			if targetType == 'Water' then
+			if targetType == 'Shield' then
 		
-				ImpactEffects = self.FxImpactWater
-				ImpactEffectScale = self.FxWaterHitScale
-			
-			elseif targetType == 'Underwater' or targetType == 'UnitUnderwater' then
-		
-				ImpactEffects = self.FxImpactUnderWater
-				ImpactEffectScale = self.FxUnderWaterHitScale
+				ImpactEffects = self.FxImpactShield
+				ImpactEffectScale = self.FxShieldHitScale
 			
 			elseif targetType == 'Unit' then
 		
@@ -600,6 +578,22 @@ Projectile = Class(moho.projectile_methods, Entity) {
 				
 				end
 			
+			elseif targetType == 'Prop' then
+		
+				ImpactEffects = self.FxImpactProp
+				ImpactEffectScale = self.FxPropHitScale
+
+			elseif targetType == 'Water' then
+		
+				ImpactEffects = self.FxImpactWater
+				ImpactEffectScale = self.FxWaterHitScale
+
+			elseif targetType == 'Underwater' or targetType == 'UnitUnderwater' then
+		
+				ImpactEffects = self.FxImpactUnderWater
+				ImpactEffectScale = self.FxUnderWaterHitScale
+			
+
 			elseif targetType == 'Air' then
 		
 				ImpactEffects = self.FxImpactNone
@@ -615,26 +609,18 @@ Projectile = Class(moho.projectile_methods, Entity) {
 				ImpactEffects = self.FxImpactProjectileUnderWater
 				ImpactEffectScale = self.FxProjectileUnderWaterHitScale			
 			
-			elseif targetType == 'Prop' then
-		
-				ImpactEffects = self.FxImpactProp
-				ImpactEffectScale = self.FxPropHitScale
-			
-			elseif targetType == 'Shield' then
-		
-				ImpactEffects = self.FxImpactShield
-				ImpactEffectScale = self.FxShieldHitScale
-			
 			end
 
-			if targetType != 'Shield' then
+			if ImpactEffects then
+            
+                if targetType != 'Shield' then
 
-				if ScenarioInfo.ProjectileDialog then
-					LOG("*AI DEBUG Projectile CreateImpactEffects for "..repr(targetType))
-				end
+                    if ScenarioInfo.ProjectileDialog then
+                        LOG("*AI DEBUG Projectile CreateImpactEffects for "..repr(targetType))
+                    end
 
-				self:CreateImpactEffects( army, ImpactEffects, ImpactEffectScale )
-			
+                    self:CreateImpactEffects( army, ImpactEffects, ImpactEffectScale )
+                end
 			end
 
 			if bp.Display.ImpactEffects.Type then
@@ -642,9 +628,7 @@ Projectile = Class(moho.projectile_methods, Entity) {
 				local TerrainType = DefaultTerrainType
 			
 				if TerrainType.FXImpact[targetType][bp.Display.ImpactEffects.Type] == nil then
-			
 					TerrainType = DefaultTerrainType
-				
 				end
 			
 				local TerrainEffect = TerrainType.FXImpact[targetType][bp.Display.ImpactEffects.Type] or false
@@ -652,16 +636,11 @@ Projectile = Class(moho.projectile_methods, Entity) {
 				if TerrainEffect then
 			
 					if (not LOUDEMPTY(TerrainEffect)) and (not BeenDestroyed(self)) then
-
-						ForkTo( self.CreateTerrainEffects, self, army, TerrainEffect, bp.Display.ImpactEffects.Scale or 1 )
-			
+                        ForkTo( self.CreateTerrainEffects, self, army, TerrainEffect, bp.Display.ImpactEffects.Scale or 1 )
 					end
-				
 				end
-
 			end
-			
-		end
+        end
 
         -- Railgun damage drops by 20% per target it collides with
 		if self.DamageData.DamageType == 'Railgun' then
@@ -669,7 +648,6 @@ Projectile = Class(moho.projectile_methods, Entity) {
 			self.DamageData.DamageAmount = self.DamageData.DamageAmount * 0.8
 			
 			bp.Physics.ImpactTimeout = 0.1
-
 		end
 
         if bp.Physics.ImpactTimeout and (targetType == 'Terrain' or targetType == 'Air' or targetType == 'Underwater') then
@@ -679,11 +657,8 @@ Projectile = Class(moho.projectile_methods, Entity) {
         else
 
 			if self.DamageData.DamageType != 'Railgun' then
-
 				self:OnImpactDestroy( targetType, targetEntity)
-				
 			end 
-
         end
 		
     end,
@@ -694,9 +669,7 @@ Projectile = Class(moho.projectile_methods, Entity) {
             (not self.DestroyOnImpact and targetEntity and not LOUDENTITY(categories.ANTIMISSILE * categories.ALLPROJECTILES, targetEntity)) then
 
             Destroy(self)
-			
         end 
-		
     end,
 
     ImpactTimeoutThread = function(self, seconds)
@@ -704,7 +677,6 @@ Projectile = Class(moho.projectile_methods, Entity) {
         WaitSeconds(seconds)
 
         Destroy(self)
-		
     end,
 
     -- When this projectile impacts, do any buffs that have been passed to it.
@@ -735,19 +707,18 @@ Projectile = Class(moho.projectile_methods, Entity) {
     end,
 
     PassData = function(self, data)
+        --LOG("*AI DEBUG Passing extra data for "..repr(self.BlueprintID).." -- "..repr(data))
         self.Data = data
     end,
 
 	-- modified to carry only active data so any fields which are
 	-- empty won't be created
     PassDamageData = function(self, damageData)
+
+        self.DamageData = { DamageAmount = false, DamageType = 'Normal' }
 		
-		if ScenarioInfo.ProjectileDialog then
-			LOG("*AI DEBUG Projectile PassDamageData DATA is "..repr(damageData))
-		end
-		
-        self.DamageData.DamageAmount = damageData.DamageAmount or 0.1
-        self.DamageData.DamageType = damageData.DamageType
+        self.DamageData.DamageAmount = damageData.DamageAmount
+        self.DamageData.DamageType = damageData.DamageType or 'Normal'
 
 		if damageData.DamageRadius then
 			self.DamageData.DamageRadius = damageData.DamageRadius

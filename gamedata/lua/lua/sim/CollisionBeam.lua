@@ -33,18 +33,7 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
     FxBeamEndPoint = {},
     FxBeamEndPointScale = 1,
 
-    FxImpactProp = {},
-    FxImpactShield = {},    
-    FxImpactNone = {},
-
-    FxUnitHitScale = 1,
-    FxLandHitScale = 1,
-    FxWaterHitScale = 1,
     FxUnderWaterHitScale = 0.25,
-    FxAirUnitHitScale = 1,
-    FxPropHitScale = 1,
-    FxShieldHitScale = 1,
-    FxNoneHitScale = 1,
 
     TerrainImpactType = 'Default',
     TerrainImpactScale = 1,
@@ -54,7 +43,7 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
         self.Army = GetArmy(self)
         
         self.BeamEffectsBag = {}
-        self.TerrainEffectsBag = {}
+
     end,
 
     OnDestroy = function(self)
@@ -179,16 +168,15 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
 
     CreateImpactEffects = function( self, army, EffectTable, EffectScale )
     
-        local emit = nil
-        
-        EffectTable = EffectTable or {}
-        EffectScale = EffectScale or 1
-        
+        if not EffectTable then return end
+    
+        local emit
+
         for k, v in EffectTable do
         
             emit = LOUDEMITATBONE(self,1,army,v)
             
-            if emit and EffectScale != 1 then
+            if emit and EffectScale and EffectScale != 1 then
                 emit:ScaleEmitter(EffectScale)
             end
             
@@ -203,6 +191,11 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
         for k, v in EffectTable do
         
             emit = LOUDATTACHEMITTER(self,1,army,v)
+            
+            if not self.TerrainEffectsBag then
+                self.TerrainEffectsBag = {}
+            end
+            
             LOUDINSERT(self.TerrainEffectsBag, emit )
             
             if emit and EffectScale != 1 then
@@ -219,7 +212,7 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
             v:Destroy()
         end
         
-        self.TerrainEffectsBag = {}
+        self.TerrainEffectsBag = nil
     end,
 
     UpdateTerrainCollisionEffects = function( self, TargetType )
@@ -265,43 +258,42 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
 
         -- set the damage parameters from the blueprint
         self:SetDamageTable()
+        
+        if self.DamageData.DamageAmount then
 
-		if impactType == 'Shield' then
+            if impactType == 'Shield' then
 
-            -- LOUD 'marshmallow shield effect' all AOE to 0 on shields
-            if self.DamageData.DamageRadius > 0 then
-                self.DamageData.DamageRadius = nil
+                -- LOUD 'marshmallow shield effect' all AOE to 0 on shields
+                if self.DamageData.DamageRadius > 0 then
+                    self.DamageData.DamageRadius = nil
+                end
+
+                -- LOUD ShieldMult effect
+                if STRINGSUB(self.DamageData.DamageType, 1, 10) == 'ShieldMult' then
+
+                    local mult = TONUMBER( STRINGSUB(self.DamageData.DamageType, 11) ) or 1
+                    self.DamageData.DamageAmount = self.DamageData.DamageAmount * mult
+                end
             end
 
-            -- LOUD ShieldMult effect
-            if STRINGSUB(self.DamageData.DamageType, 1, 10) == 'ShieldMult' then
-
-                local mult = TONUMBER( STRINGSUB(self.DamageData.DamageType, 11) ) or 1
-                self.DamageData.DamageAmount = self.DamageData.DamageAmount * mult
-
-            end
-
-		end
-
-		if ScenarioInfo.ProjectileDialog then
+            if ScenarioInfo.ProjectileDialog then
 		
-			LOG("*AI DEBUG Beam OnImpact targetType is "..repr(targetType))
-			LOG("*AI DEGUG Beam OnImpact data is "..repr(self.DamageData))
+                LOG("*AI DEBUG Beam OnImpact targetType is "..repr(impactType))
+                LOG("*AI DEGUG Beam OnImpact data is "..repr(self.DamageData))
 			
-			if targetEntity then
-				LOG("*AI DEBUG Beam Target entity is "..repr(targetEntity.BlueprintID))
-			end
-		end
+                if targetEntity then
+                    LOG("*AI DEBUG Beam Target entity is "..repr(targetEntity.BlueprintID))
+                end
+            end
 
-		if self.DamageData.Buffs then
-			self:DoUnitImpactBuffs( targetEntity )
-		end		
-		
-		if self.DamageData.DamageAmount and self.DamageData.DamageAmount > 0 then
+            if self.DamageData.Buffs then
+                self:DoUnitImpactBuffs( targetEntity )
+            end		
+
 			self:DoDamage( self:GetLauncher() or self, self.DamageData, targetEntity)
 		end
 
-        local ImpactEffects = {}
+        local ImpactEffects = false
         local ImpactEffectScale = 1
 
         if impactType == 'Unit' then
@@ -338,7 +330,10 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
             
         end
 		
-        self:CreateImpactEffects( self.Army, ImpactEffects, ImpactEffectScale )
+        if ImpactEffects then
+            self:CreateImpactEffects( self.Army, ImpactEffects, ImpactEffectScale )
+        end
+        
         self:UpdateTerrainCollisionEffects( impactType )
     end,
 
@@ -349,10 +344,8 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
     SetDamageTable = function(self)
     
         local damageData = self.Weapon.bp
-		
-		if ScenarioInfo.ProjectileDialog then
-			LOG("*AI DEBUG CollisionBeam PassDamageData DATA is "..repr(damageData))
-		end
+        
+        self.DamageData = { DamageAmount = false, DamageType = 'Normal' }
 		
         self.DamageData.DamageAmount = damageData.Damage or 0.1
         self.DamageData.DamageType = damageData.DamageType
@@ -390,7 +383,7 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
 		end
 		
 		if ScenarioInfo.ProjectileDialog then
-			LOG("*AI DEBUG CollisionBeam PassDamageData is "..repr(self.DamageData))
+			LOG("*AI DEBUG CollisionBeam SetDamageTable is "..repr(self.DamageData))
 		end
 
     end,
