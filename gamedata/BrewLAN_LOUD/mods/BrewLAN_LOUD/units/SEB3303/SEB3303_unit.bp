@@ -28,6 +28,7 @@ UnitBlueprint {
         'RALLYPOINT',
         'SHOWQUEUE',
         --'GATE',
+        'NONSUPREMACY',
     },
 	
     Defense = {
