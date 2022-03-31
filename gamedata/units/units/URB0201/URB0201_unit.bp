@@ -128,7 +128,7 @@ UnitBlueprint {
                 'Arm01_Muzzle',
                 'Arm02_Muzzle',
                 'Arm03_Muzzle',
-                'Arm03_Muzzle',
+                'Arm04_Muzzle',
             },
         },
         Category = 'Factory',
