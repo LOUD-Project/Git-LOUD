@@ -74,6 +74,7 @@ UnitBlueprint {
         'OVERLAYDIRECTFIRE',
         'OVERLAYDEFENSE',
         'OVERLAYOMNI',
+        'SUPREMACY',
     },
 	
 	CollisionOffsetY = 1.6,

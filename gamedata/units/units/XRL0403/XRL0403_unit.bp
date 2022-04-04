@@ -78,6 +78,7 @@ UnitBlueprint {
         'SHOWQUEUE',
 		'OVERLAYRADAR',
         'OVERLAYSONAR',
+        'SUPREMACY',
     },
     
     CollisionOffsetY = 2,

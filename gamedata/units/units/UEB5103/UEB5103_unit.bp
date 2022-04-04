@@ -6,6 +6,9 @@ UnitBlueprint {
         'SIZE4',
         'TELEPORTBEACON',
         'VISIBLETORECON',
+        'HEAVYWALLGATE',
+        'RESEARCHCENTRE',
+        'NONSUPREMACY',
     },
     CollisionOffsetY = -0.25,
     Defense = {

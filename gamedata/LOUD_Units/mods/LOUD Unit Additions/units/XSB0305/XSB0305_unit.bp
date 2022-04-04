@@ -42,6 +42,7 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
         'SORTINTEL',
+        'NONSUPREMACY',
     },
 	
     CollisionOffsetZ = 0,
