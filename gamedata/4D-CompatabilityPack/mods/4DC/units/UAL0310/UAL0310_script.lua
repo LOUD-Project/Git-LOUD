@@ -42,7 +42,7 @@ ual0310 = Class(AWalkingLandUnit) {
 	
         AWalkingLandUnit.CreateEnhancement(self, enh)
 		
-        local bp = self:GetBlueprint().Enhancements[enh]      
+        local bp = __blueprints[self.BlueprintID].Enhancements[enh]      
 		
         if enh == 'ShieldDomeAdd' then
 		

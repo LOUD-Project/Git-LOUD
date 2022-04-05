@@ -1,7 +1,6 @@
 local CWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
-local cWeapons = import('/lua/cybranweapons.lua')
-local CDFLaserDisintegratorWeapon = cWeapons.CDFLaserDisintegratorWeapon01
+local CDFLaserDisintegratorWeapon = import('/lua/cybranweapons.lua').CDFLaserDisintegratorWeapon01
 
 URL0305 = Class(CWalkingLandUnit) {
     Weapons = {

@@ -2,8 +2,10 @@ local AWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
 local utilities = import('/lua/utilities.lua')
 local RandomFloat = utilities.GetRandomFloat
+
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 local explosion = import('/lua/defaultexplosions.lua')
+
 local CreateDeathExplosion = explosion.CreateDefaultHitExplosionAtBone
 
 -- Local weapon files
@@ -31,14 +33,20 @@ UAL0402 = Class(AWalkingLandUnit) {
     },
 
     OnCreate = function(self,builder,layer)
+    
         AWalkingLandUnit.OnCreate(self)
+        
         self:SetWeaponEnabledByLabel('ChronoDampener', false)
-        Army = self:GetArmy()
+        
+        Army = self.Army
     end,
     
     CreateEnhancement = function(self, enh)
+    
         AWalkingLandUnit.CreateEnhancement(self, enh)
-        local bp = self:GetBlueprint().Enhancements[enh]
+        
+        local bp = __blueprints[self.BlueprintID].Enhancements[enh]
+        
         --Chrono Dampener
         if enh == 'ChronoDampener' then
             self:SetWeaponEnabledByLabel('ChronoDampener', true)
@@ -57,66 +65,87 @@ UAL0402 = Class(AWalkingLandUnit) {
     },
  
     CreateDamageEffects = function(self, bone, Army )
+    
         for k, v in EffectTemplate.AMiasmaField01 do   
             CreateAttachedEmitter( self, bone, Army, v ):ScaleEmitter(0.5)
         end
     end,
 
     CreateExplosionDebris = function( self, bone, Army )
+    
         for k, v in EffectTemplate.ExplosionEffectsSml01 do
             CreateAttachedEmitter( self, bone, Army, v ):ScaleEmitter(1.5)
         end
     end,
     
     CreateFirePlumesAeons = function( self, Army, bones, yBoneOffset )
+    
         local proj, position, offset, velocity
         local basePosition = self:GetPosition()
+        
         for k, vBone in bones do
+        
             position = self:GetPosition(vBone)
+            
             offset = utilities.GetDifferenceVector( position, basePosition )
+            
             velocity = utilities.GetDirectionVector( position, basePosition ) 
             velocity.x = velocity.x + utilities.GetRandomFloat(-0.45, 0.45)
             velocity.z = velocity.z + utilities.GetRandomFloat(-0.45, 0.45)
             velocity.y = velocity.y + utilities.GetRandomFloat( 0.0, 0.45)
+            
             proj = self:CreateProjectile('/effects/entities/DestructionFirePlume01/DestructionFirePlume01_proj.bp', offset.x, offset.y + yBoneOffset, offset.z, velocity.x, velocity.y, velocity.z)
-            proj:SetBallisticAcceleration(utilities.GetRandomFloat(-1, 1)):SetVelocity(utilities.GetRandomFloat(1, 2)):SetCollision(false)           
-            local emitter = CreateEmitterOnEntity(proj, Army, '/mods/4DC/effects/emitters/destruction_explosion_fire_plume_03_emit.bp')
-            local lifetime = utilities.GetRandomFloat( 5, 25 )
+            proj:SetBallisticAcceleration(utilities.GetRandomFloat(-1, 1)):SetVelocity(utilities.GetRandomFloat(1, 2)):SetCollision(false)
+
+            CreateEmitterOnEntity(proj, Army, '/mods/4DC/effects/emitters/destruction_explosion_fire_plume_03_emit.bp')
+
         end
     end,
 
 	InitialRandomExplosionsAeons = function(self)
+    
         local position = self:GetPosition()
         local numExplosions =  math.floor( table.getn( self.DestructionEffectBones ) * 0.9 )
-		CreateAttachedEmitter(self, 0, self:GetArmy(), '/effects/emitters/nuke_concussion_ring_01_emit.bp'):ScaleEmitter(0.175)
+        
+		CreateAttachedEmitter(self, 0, self.Army, '/effects/emitters/nuke_concussion_ring_01_emit.bp'):ScaleEmitter(0.175)
+        
         -- Create small explosions all over
         for i = 0, numExplosions do
+        
             local ranBone = utilities.GetRandomInt( 1, numExplosions )
             local duration = utilities.GetRandomFloat( 0.2, 0.5 )
+            
             self:CreateFirePlumesAeons( Army, {ranBone}, Random(0,2) )
             self:CreateDamageEffects( ranBone, Army )
+            
             self:ShakeCamera(2, 0.5, 0.25, duration)
+            
             WaitSeconds( duration )
+            
             self:CreateFirePlumesAeons( Army, {ranBone}, Random(0,2) )
         end
     end,
 
     DeathThread = function( self, overkillRatio , instigator)
-        -- Create Initial explosion effects
+
         self:PlayUnitSound('Destroyed')
         self:InitialRandomExplosionsAeons()   
      	
         if self.DeathAnimManip then
             WaitFor(self.DeathAnimManip)
         end
+        
         WaitSeconds(0.5)
         explosion.CreateDefaultHitExplosionAtBone( self, 'UAL0402', 5.0 )
+        
         WaitSeconds(0.5)
+        
         self:DestroyAllDamageEffects()
+        
         self:CreateWreckage( overkillRatio )
 
         CreateAttachedEmitter(self, 1, Army, '/effects/emitters/shockwave_smoke_01_emit.bp' )
-        -- Starts the corpse effects
+
         if( self.ShowUnitDestructionDebris and overkillRatio ) then
             if overkillRatio <= 1 then
                 self.CreateUnitDestructionDebris( self, true, true, false )

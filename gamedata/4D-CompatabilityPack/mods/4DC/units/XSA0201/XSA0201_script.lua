@@ -2,6 +2,8 @@ local SAirUnit = import('/lua/defaultunits.lua').AirUnit
 
 SAirUnit = import('/mods/4DC/lua/CustomAbilities/4D_ShieldDroneSuperClass/4D_ShieldDroneSuperClass.lua').AutoSelectShieldDrone( SAirUnit )
 
+local LOUDINSERT = table.insert
+
 XSA0201 = Class(SAirUnit) {
 
     OnStopBeingBuilt = function(self, builder, layer)
@@ -27,14 +29,14 @@ XSA0201 = Class(SAirUnit) {
     InitializeFX = function(self)
 	
      -- Sphere energy effects
-        local FX1 = CreateAttachedEmitter(self, 'orb', self:GetArmy(), '/effects/emitters/seraphim_experimental_phasonproj_fxtrails_02_emit.bp'):ScaleEmitter(0.5)-- Bright Blue Glow                      
-        local FX2 = CreateAttachedEmitter(self, 'orb', self:GetArmy(), '/effects/emitters/seraphim_experimental_phasonproj_fxtrails_03_emit.bp'):ScaleEmitter(0.4)-- Dark FX Aura                             
-        local FX3 = CreateAttachedEmitter(self, 'orb', self:GetArmy(), '/effects/emitters/seraphim_experimental_phasonproj_fxtrails_06_emit.bp'):ScaleEmitter(0.25)-- Electricity Sphere Aura 
+        local FX1 = CreateAttachedEmitter(self, 'orb', self.Army, '/effects/emitters/seraphim_experimental_phasonproj_fxtrails_02_emit.bp'):ScaleEmitter(0.5)-- Bright Blue Glow                      
+        local FX2 = CreateAttachedEmitter(self, 'orb', self.Army, '/effects/emitters/seraphim_experimental_phasonproj_fxtrails_03_emit.bp'):ScaleEmitter(0.4)-- Dark FX Aura                             
+        local FX3 = CreateAttachedEmitter(self, 'orb', self.Army, '/effects/emitters/seraphim_experimental_phasonproj_fxtrails_06_emit.bp'):ScaleEmitter(0.25)-- Electricity Sphere Aura 
 		
      -- Save FX into table for later use
-        table.insert(self.SphereFxBag, FX1)
-        table.insert(self.SphereFxBag, FX2)
-        table.insert(self.SphereFxBag, FX3)
+        LOUDINSERT( self.SphereFxBag, FX1)
+        LOUDINSERT( self.SphereFxBag, FX2)
+        LOUDINSERT( self.SphereFxBag, FX3)
 		
      -- Clean up       
         self.Trash:Add(FX1, FX2, FX3)

@@ -4,11 +4,16 @@ local CMobileKamikazeBombWeapon = import('/lua/cybranweapons.lua').CMobileKamika
 local CMobileKamikazeBombDeathWeapon = import('/lua/cybranweapons.lua').CMobileKamikazeBombDeathWeapon
 
 ues0206 = Class(TSubUnit) {
+
     DestroyOnKilled = false,
+    
     Weapons = {
+    
         DeathWeapon = Class(CMobileKamikazeBombDeathWeapon) {},   
+        
         Suicide = Class(CMobileKamikazeBombWeapon) { 
-            OnFire = function(self)			
+        
+            OnFire = function(self)
                 -- Disable death weapon after initial firing
                 if not self.unit.AlreadyDetonated then
                     self.unit.AlreadyDetonated = true
@@ -23,35 +28,43 @@ ues0206 = Class(TSubUnit) {
     },
 
     OnCreate = function(self,builder,layer)
+    
         TSubUnit.OnCreate(self)
+        
         -- enable cloaking and stealth  
         self:EnableIntel('Cloak') 
         self:EnableIntel('RadarStealth')
     end,
 
     OnStopBeingBuilt = function(self,builder,layer)
+    
         TSubUnit.OnStopBeingBuilt(self,builder,layer)
+        
         -- Allows the mine to sink if not already underwater
-        if not self:IsDead() and self:GetCurrentLayer() == 'Water' then 
-	    IssueDive({self})
+        if not self.Dead and self:GetCurrentLayer() == 'Water' then 
+        
+            IssueDive({self})
             self:ForkThread(self.DiveEffects)
         end
+        
     end,
 
     DiveEffects = function(self)
-        if not self:IsDead() then
-            local effects = CreateAttachedEmitter(self, 'ues0206', self:GetArmy(), '/effects/emitters/underwater_vent_bubbles_02_emit.bp'):ScaleEmitter(1.0)
-            -- Short delay to allow the dive effects to complete
+    
+        if not self.Dead then
+        
+            local effects = CreateAttachedEmitter(self, 'ues0206', self.Army, '/effects/emitters/underwater_vent_bubbles_02_emit.bp'):ScaleEmitter(1.0)
+
             WaitSeconds(2)
-            if not self:IsDead() then
-                -- Removes old dive effects
+            
+            if not self.Dead then
                 effects:Destroy()
             end
         end
     end,
 
     DeathThread = function(self)
-        -- Removes unused bones after the unit has detonated
+
         self:HideBone('ues0206', true)
 
         -- Disables cloaking and stealth
@@ -83,13 +96,13 @@ ues0206 = Class(TSubUnit) {
     MineDetonation = function(self)
         -- Mine detonation and special effects
         self:ShakeCamera(6, 2.0, 1.0, 2)
-        CreateAttachedEmitter(self, 'ues0206', self:GetArmy(), '/effects/emitters/destruction_underwater_explosion_flash_01_emit.bp'):ScaleEmitter(5.0)
-        CreateAttachedEmitter(self, 'ues0206', self:GetArmy(), '/effects/emitters/destruction_underwater_explosion_flash_02_emit.bp'):ScaleEmitter(5.0)
-        CreateAttachedEmitter(self, 'ues0206', self:GetArmy(), '/effects/emitters/water_splash_plume_01_emit.bp'):ScaleEmitter(5.0)
-        CreateAttachedEmitter(self, 'ues0206', self:GetArmy(), '/effects/emitters/water_splash_plume_02_emit.bp'):ScaleEmitter(5.0)
-        CreateAttachedEmitter(self, 'ues0206', self:GetArmy(), '/effects/emitters/water_splash_ripples_ring_01_emit.bp'):ScaleEmitter(5.0)
-        CreateAttachedEmitter(self, 'ues0206', self:GetArmy(), '/effects/emitters/water_splash_ripples_ring_02_emit.bp'):ScaleEmitter(5.0)
-        CreateAttachedEmitter(self, 'ues0206', self:GetArmy(), '/effects/emitters/underwater_bubbles_01_emit.bp'):ScaleEmitter(5.0) 
+        CreateAttachedEmitter(self, 'ues0206', self.Army, '/effects/emitters/destruction_underwater_explosion_flash_01_emit.bp'):ScaleEmitter(5.0)
+        CreateAttachedEmitter(self, 'ues0206', self.Army, '/effects/emitters/destruction_underwater_explosion_flash_02_emit.bp'):ScaleEmitter(5.0)
+        CreateAttachedEmitter(self, 'ues0206', self.Army, '/effects/emitters/water_splash_plume_01_emit.bp'):ScaleEmitter(5.0)
+        CreateAttachedEmitter(self, 'ues0206', self.Army, '/effects/emitters/water_splash_plume_02_emit.bp'):ScaleEmitter(5.0)
+        CreateAttachedEmitter(self, 'ues0206', self.Army, '/effects/emitters/water_splash_ripples_ring_01_emit.bp'):ScaleEmitter(5.0)
+        CreateAttachedEmitter(self, 'ues0206', self.Army, '/effects/emitters/water_splash_ripples_ring_02_emit.bp'):ScaleEmitter(5.0)
+        CreateAttachedEmitter(self, 'ues0206', self.Army, '/effects/emitters/underwater_bubbles_01_emit.bp'):ScaleEmitter(5.0) 
     end,
 }
 TypeClass = ues0206

@@ -285,6 +285,7 @@ UnitBlueprint {
     		Label = 'DeathWeapon',
     	}, 
     },
+    
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.3,
