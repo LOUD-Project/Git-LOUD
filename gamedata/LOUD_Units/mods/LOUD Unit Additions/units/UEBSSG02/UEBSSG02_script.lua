@@ -1,32 +1,41 @@
 local TShieldStructureUnit = import('/lua/terranunits.lua').TShieldStructureUnit
+
 local Entity = import('/lua/sim/Entity.lua').Entity
-local EffectTemplate = import('/lua/EffectTemplates.lua')
-local Util = import('/lua/utilities.lua')
 
 UEBSSG02 = Class(TShieldStructureUnit) {
+
 	ShieldEffects = {
 		'/effects/emitters/terran_shield_generator_t2_01_emit.bp',
 		'/effects/emitters/terran_shield_generator_t2_02_emit.bp',
 	},
 	
     OnStopBeingBuilt = function(self,builder,layer)
+    
         TShieldStructureUnit.OnStopBeingBuilt(self,builder,layer)
+        
 		self.ShieldEffectsBag = {}
 		
 		local OldCreateShieldMesh = self.MyShield.CreateShieldMesh
+        
 		self.MyShield.CreateShieldMesh = function(self)
 			OldCreateShieldMesh(self)
 			self:SetCollisionShape( 'Box', 0,0,0,self.Size/2,self.Size/2,self.Size/2)
 	    end
+        
 		local OldCreateImpactEffect = self.MyShield.CreateImpactEffect
+        
 	    self.MyShield.CreateImpactEffect = function(self, vector)
+        
 	        local army = self:GetArmy()
 			local ImpactMesh = Entity { Owner = self.Owner }
+            
 			Warp( ImpactMesh, Vector(self:GetPosition().x-vector.x,self:GetPosition().y-vector.y,self:GetPosition().z-vector.z))
 			
 			if self.ImpactMeshBp != '' then
+            
 				ImpactMesh:SetMesh(self.ImpactMeshBp)
 				ImpactMesh:SetDrawScale(self.Size)
+                
 				if math.floor(vector.x+0.5) == self.Size/2 then
 					ImpactMesh:SetOrientation(OrientFromDir(Vector(-1,0,0)),true)
 				elseif math.floor(vector.x+0.5) == -self.Size/2 then
@@ -78,9 +87,7 @@ UEBSSG02 = Class(TShieldStructureUnit) {
 						self:GetPosition().z - vector.z
 						))
 				end
-				
-					
-					
+
 			end
 	
 			for k, v in self.ImpactEffects do

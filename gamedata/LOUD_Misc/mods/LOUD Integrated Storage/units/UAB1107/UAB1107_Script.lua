@@ -1,5 +1,4 @@
-
-local AMassFabricationUnit = import('/lua/aeonunits.lua').AMassFabricationUnit
+local AMassFabricationUnit = import('/lua/defaultunits.lua').MassFabricationUnit
 
 local ChangeState = ChangeState
 
@@ -41,7 +40,7 @@ UAB1104 = Class(AMassFabricationUnit) {
             end
             self.Goal = Random(120,300)
             
-            # Ambient effects
+            -- Ambient effects
 			self.AmbientEffects = CreateEmitterAtEntity(self, self:GetArmy(), '/effects/emitters/aeon_t1_massfab_ambient_01_emit.bp')
 			self.Trash:Add(self.AmbientEffects)
 

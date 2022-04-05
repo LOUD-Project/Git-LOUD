@@ -1,5 +1,5 @@
 
-local CEnergyCreationUnit = import('/lua/cybranunits.lua').CEnergyCreationUnit
+local CEnergyCreationUnit = import('/lua/defaultunits.lua').EnergyCreationUnit
 local CreateAttachedEmitter = CreateAttachedEmitter
 
 BRB1304 = Class(CEnergyCreationUnit) {

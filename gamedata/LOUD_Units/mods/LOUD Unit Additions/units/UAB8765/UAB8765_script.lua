@@ -1,4 +1,4 @@
-local AEnergyStorageUnit = import('/lua/aeonunits.lua').AEnergyStorageUnit
+local AEnergyStorageUnit = import('/lua/defaultunits.lua').StructureUnit
 
 local AWeapons = import('/lua/aeonweapons.lua')
 

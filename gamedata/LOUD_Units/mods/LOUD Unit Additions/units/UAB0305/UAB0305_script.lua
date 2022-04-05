@@ -1,5 +1,5 @@
+local AQuantumGateUnit = import('/lua/defaultunits.lua').QuantumGateUnit
 
-local AQuantumGateUnit = import('/lua/aeonunits.lua').AQuantumGateUnit
 local AQuantumGateAmbient = import('/lua/EffectTemplates.lua').AQuantumGateAmbient
 
 UAB0305 = Class(AQuantumGateUnit) {

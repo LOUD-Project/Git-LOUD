@@ -1,4 +1,5 @@
-local CEnergyStorageUnit= import('/lua/cybranunits.lua').CEnergyStorageUnit
+local CEnergyStorageUnit= import('/lua/defaultunits.lua').StructureUnit
+
 local CWeapons = import('/lua/cybranweapons.lua')
 local CIFCommanderDeathWeapon = CWeapons.CIFCommanderDeathWeapon
 

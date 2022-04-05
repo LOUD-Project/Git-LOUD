@@ -1,4 +1,4 @@
-local SHoverLandUnit = import('/lua/seraphimunits.lua').SHoverLandUnit
+local SHoverLandUnit = import('/lua/defaultunits.lua').MobileUnit
 
 local WeaponsFile = import('/lua/seraphimweapons.lua')
 local SDFThauCannon = WeaponsFile.SDFThauCannon

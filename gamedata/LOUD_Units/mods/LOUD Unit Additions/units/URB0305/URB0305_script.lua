@@ -1,4 +1,4 @@
-local CQuantumGateUnit = import('/lua/cybranunits.lua').CQuantumGateUnit
+local CQuantumGateUnit = import('/lua/defaultunits.lua').QuantumGateUnit
 
 local CreateCybranQuantumGateEffect = import('/lua/EffectUtilities.lua').CreateCybranQuantumGateEffect
 

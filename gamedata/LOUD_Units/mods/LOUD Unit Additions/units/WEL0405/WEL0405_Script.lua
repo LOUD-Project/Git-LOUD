@@ -1,4 +1,4 @@
-local ExperimentalMobileUnit = import('/lua/terranunits.lua').TWalkingLandUnit
+local ExperimentalMobileUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
 local DefaultProjectileWeapon = import('/lua/sim/defaultweapons.lua').DefaultProjectileWeapon
 

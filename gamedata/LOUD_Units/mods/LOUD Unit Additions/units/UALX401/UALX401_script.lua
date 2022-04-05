@@ -1,4 +1,4 @@
-local AShieldHoverLandUnit = import('/lua/aeonunits.lua').AShieldHoverLandUnit
+local AShieldHoverLandUnit = import('/lua/defaultunits.lua').MobileUnit
 
 local AAMSaintWeapon = import('/lua/aeonweapons.lua').AAMSaintWeapon
 local nukeFiredOnGotTarget = false

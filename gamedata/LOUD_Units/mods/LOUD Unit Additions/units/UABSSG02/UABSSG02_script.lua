@@ -1,4 +1,5 @@
 local AShieldStructureUnit = import('/lua/aeonunits.lua').AShieldStructureUnit
+
 local Entity = import('/lua/sim/Entity.lua').Entity
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 local Util = import('/lua/utilities.lua')

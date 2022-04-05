@@ -1,11 +1,8 @@
-local TEnergyStorageUnit = import('/lua/terranunits.lua').TEnergyStorageUnit
-local TWalkingLandUnit = import('/lua/terranunits.lua').TWalkingLandUnit
-local TerranWeaponFile = import('/lua/terranweapons.lua')
-local TIFCommanderDeathWeapon = TerranWeaponFile.TIFCommanderDeathWeapon
-local EffectTemplate = import('/lua/EffectTemplates.lua')
-local EffectUtil = import('/lua/EffectUtilities.lua')
-local Buff = import('/lua/sim/Buff.lua')
+local TEnergyStorageUnit = import('/lua/defaultunits.lua').StructureUnit
 
+local TIFCommanderDeathWeapon = import('/lua/terranweapons.lua').TIFCommanderDeathWeapon
+
+local Buff = import('/lua/sim/Buff.lua')
 
 UEB8765 = Class(TEnergyStorageUnit) {
 

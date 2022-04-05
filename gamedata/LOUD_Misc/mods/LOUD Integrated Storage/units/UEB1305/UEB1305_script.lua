@@ -1,4 +1,4 @@
-local TMassFabricationUnit = import('/lua/terranunits.lua').TMassFabricationUnit
+local TMassFabricationUnit = import('/lua/defaultunits.lua').MassFabricationUnit
 
 UEB1305 = Class(TMassFabricationUnit) {
 

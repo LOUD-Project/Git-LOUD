@@ -4,14 +4,8 @@ UEB4304 = Class(TRadarJammerUnit) {
 
     IntelEffects = {
 		{
-			Bones = {
-				'UEB4203',
-			},
-			Offset = {
-				0,
-				0,
-				3,
-			},
+			Bones = {'UEB4203'},
+			Offset = {0,0,3},
 			Type = 'Jammer01',
 		},
     },
