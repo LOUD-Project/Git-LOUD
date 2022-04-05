@@ -19,6 +19,8 @@ local WeaponSteam01 = import('/lua/effecttemplates.lua').WeaponSteam01
 local CreateRotator = CreateRotator
 local CreateAttachedEmitter = CreateAttachedEmitter
 
+local LOUDINSERT = table.insert
+
 BEL0307 = Class(TLandUnit) {
 	
     Weapons = {
@@ -100,7 +102,6 @@ BEL0307 = Class(TLandUnit) {
 
         local layer = self:GetCurrentLayer()
         
-        #-- If created with F2 on land, then play the transform anim.
         if(layer == 'Land') then
             self:CreateUnitAmbientEffect(layer)
         elseif (layer == 'Seabed') then
@@ -147,13 +148,13 @@ BEL0307 = Class(TLandUnit) {
 			
 	    elseif layer == 'Seabed' then
 		
-	        local army = self:GetArmy()
+	        local army = self.Army
 			local CreateAttachedEmitter = CreateAttachedEmitter
 			
 			for kE, vE in self.AmbientSeabedExhaustEffects do
 			
 				for kB, vB in self.AmbientExhaustBones do
-					table.insert( self.AmbientExhaustEffectsBag, CreateAttachedEmitter(self, vB, army, vE ):ScaleEmitter(1) )
+					LOUDINSERT( self.AmbientExhaustEffectsBag, CreateAttachedEmitter(self, vB, army, vE ):ScaleEmitter(1) )
 				end
 				
 			end	
@@ -163,7 +164,7 @@ BEL0307 = Class(TLandUnit) {
 	
 	UnitLandAmbientEffectThread = function(self)
 	
-        local army = self:GetArmy()	
+        local army = self.Army	
 		local CreateAttachedEmitter = CreateAttachedEmitter
 	
 		while not self.Dead do
@@ -172,7 +173,7 @@ BEL0307 = Class(TLandUnit) {
 			
 				for kB, vB in self.AmbientExhaustBones do
 				
-					table.insert( self.AmbientExhaustEffectsBag, CreateAttachedEmitter(self, vB, army, vE ):ScaleEmitter(0.5) )
+					LOUDINSERT( self.AmbientExhaustEffectsBag, CreateAttachedEmitter(self, vB, army, vE ):ScaleEmitter(0.5) )
 					
 				end
 			end

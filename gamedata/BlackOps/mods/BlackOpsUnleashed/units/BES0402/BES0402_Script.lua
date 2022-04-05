@@ -8,6 +8,7 @@ local TAALinkedRailgun = import('/lua/terranweapons.lua').TAALinkedRailgun
 local BlackOpsEffectTemplate = import('/mods/BlackOpsUnleashed/lua/BlackOpsEffectTemplates.lua')
 
 local CreateAttachedEmitter = CreateAttachedEmitter
+local LOUDINSERT = table.insert
 
 BES0402 = Class(TSeaUnit) {
 
@@ -31,7 +32,7 @@ BES0402 = Class(TSeaUnit) {
 
 					for k, v in self.unit.SteamEffects do
 					
-						table.insert( self.unit.SteamEffectsBag, CreateAttachedEmitter( self.unit, fxname, self.unit:GetArmy(), v ))
+						LOUDINSERT( self.unit.SteamEffectsBag, CreateAttachedEmitter( self.unit, fxname, self.unit:GetArmy(), v ))
 						
 					end
 					
@@ -57,7 +58,7 @@ BES0402 = Class(TSeaUnit) {
 					end
 
 					for k, v in self.unit.SteamEffects do
-						table.insert( self.unit.SteamEffectsBag, CreateAttachedEmitter( self.unit, fxname, self.unit:GetArmy(), v ))
+						LOUDINSERT( self.unit.SteamEffectsBag, CreateAttachedEmitter( self.unit, fxname, self.unit:GetArmy(), v ))
 					end
 					
 				end
@@ -82,7 +83,7 @@ BES0402 = Class(TSeaUnit) {
 					end
 
 					for k, v in self.unit.SteamEffects do
-						table.insert( self.unit.SteamEffectsBag, CreateAttachedEmitter( self.unit, fxname, self.unit:GetArmy(), v ))
+						LOUDINSERT( self.unit.SteamEffectsBag, CreateAttachedEmitter( self.unit, fxname, self.unit:GetArmy(), v ))
 					end
 					
 				end

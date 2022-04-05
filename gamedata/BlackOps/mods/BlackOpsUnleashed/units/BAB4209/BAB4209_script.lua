@@ -4,6 +4,8 @@ local LOUDINSERT = table.insert
 local CreateRotator = CreateRotator
 local ForkThread = ForkThread
 
+local TrashAdd = TrashBag.Add
+
 BAB4209 = Class(AStructureUnit) {
 
 	AntiTeleportEffects = {
@@ -25,9 +27,9 @@ BAB4209 = Class(AStructureUnit) {
 		
         self:ForkThread(self.ResourceThread)
         
-        self.Trash:Add(CreateRotator(self, 'Sphere', 'x', nil, 0, 15, 80 + Random(0, 20)))
-        self.Trash:Add(CreateRotator(self, 'Sphere', 'y', nil, 0, 15, 80 + Random(0, 20)))
-        self.Trash:Add(CreateRotator(self, 'Sphere', 'z', nil, 0, 15, 80 + Random(0, 20)))
+        TrashAdd( self.Trash, CreateRotator(self, 'Sphere', 'x', nil, 0, 15, 80 + Random(0, 20)) )
+        TrashAdd( self.Trash, CreateRotator(self, 'Sphere', 'y', nil, 0, 15, 80 + Random(0, 20)) )
+        TrashAdd( self.Trash, CreateRotator(self, 'Sphere', 'z', nil, 0, 15, 80 + Random(0, 20)) )
         
     end,
     
@@ -82,7 +84,7 @@ BAB4209 = Class(AStructureUnit) {
 
     	if not self.Dead then
 		
-        	WaitSeconds(0.5)
+        	WaitTicks(6)
 
         	if not self.Dead then
 
@@ -90,7 +92,7 @@ BAB4209 = Class(AStructureUnit) {
             
             	local location = self:GetPosition('BAB4209')
 
-            	local antiteleportEmitter = CreateUnit('bab0004', self:GetArmy(), location[1], location[2] + 1, location[3], platOrient[1], platOrient[2], platOrient[3], platOrient[4], 'Land') 
+            	local antiteleportEmitter = CreateUnit('bab0004', self.Army, location[1], location[2] + 1, location[3], platOrient[1], platOrient[2], platOrient[3], platOrient[4], 'Land') 
 
             	LOUDINSERT (self.antiteleportEmitterTable, antiteleportEmitter)
 

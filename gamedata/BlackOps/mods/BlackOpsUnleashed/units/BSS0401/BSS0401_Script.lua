@@ -178,7 +178,7 @@ BSS0401 = Class(SSeaUnit) {
 	
     DeathThread = function( self, overkillRatio , instigator)
 
-        local bp = self:GetBlueprint()
+        local bp = __blueprints[self.BlueprintID]
 		
         for i, numWeapons in bp.Weapon do
 		

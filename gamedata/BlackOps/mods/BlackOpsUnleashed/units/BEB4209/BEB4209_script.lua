@@ -2,6 +2,8 @@ local TStructureUnit = import('/lua/defaultunits.lua').StructureUnit
 
 local CreateAttachedEmitter = CreateAttachedEmitter
 
+local LOUDINSERT = table.insert
+
 BEB4209 = Class(TStructureUnit) {
 
 	AntiTeleport = {
@@ -50,24 +52,24 @@ BEB4209 = Class(TStructureUnit) {
 		    self.AntiTeleportBag = {}
 		end
         
-        local army = self:GetArmy()
+        local army = self.Army
 		local CreateAttachedEmitter = CreateAttachedEmitter
         
         for k, v in self.AntiTeleport do
-            table.insert( self.AntiTeleportBag, CreateAttachedEmitter( self, 'Effect01', army, v ):ScaleEmitter(0.1) )
-            table.insert( self.AntiTeleportBag, CreateAttachedEmitter( self, 'Effect01', army, v ):ScaleEmitter(0.1):OffsetEmitter(0, -0.5, 0) )
-            table.insert( self.AntiTeleportBag, CreateAttachedEmitter( self, 'Effect01', army, v ):ScaleEmitter(0.1):OffsetEmitter(0, 0.5, 0) )
-            table.insert( self.AntiTeleportBag, CreateAttachedEmitter( self, 'Effect02', army, v ):ScaleEmitter(0.1) )
-            table.insert( self.AntiTeleportBag, CreateAttachedEmitter( self, 'Effect02', army, v ):ScaleEmitter(0.1):OffsetEmitter(0, -0.5, 0) )
-            table.insert( self.AntiTeleportBag, CreateAttachedEmitter( self, 'Effect02', army, v ):ScaleEmitter(0.1):OffsetEmitter(0, 0.5, 0) )
-            table.insert( self.AntiTeleportBag, CreateAttachedEmitter( self, 'Effect03', army, v ):ScaleEmitter(0.1) )
-            table.insert( self.AntiTeleportBag, CreateAttachedEmitter( self, 'Effect03', army, v ):ScaleEmitter(0.1):OffsetEmitter(0, 0.5, 0) )
-            table.insert( self.AntiTeleportBag, CreateAttachedEmitter( self, 'Effect04', army, v ):ScaleEmitter(0.1) )
-            table.insert( self.AntiTeleportBag, CreateAttachedEmitter( self, 'Effect04', army, v ):ScaleEmitter(0.1):OffsetEmitter(0, -0.5, 0) )
-            table.insert( self.AntiTeleportBag, CreateAttachedEmitter( self, 'Effect05', army, v ):ScaleEmitter(0.1) )
-            table.insert( self.AntiTeleportBag, CreateAttachedEmitter( self, 'Effect05', army, v ):ScaleEmitter(0.1):OffsetEmitter(0, 0.5, 0) )
-            table.insert( self.AntiTeleportBag, CreateAttachedEmitter( self, 'Effect06', army, v ):ScaleEmitter(0.1) )
-            table.insert( self.AntiTeleportBag, CreateAttachedEmitter( self, 'Effect06', army, v ):ScaleEmitter(0.1):OffsetEmitter(0, -0.5, 0) )
+            LOUDINSERT( self.AntiTeleportBag, CreateAttachedEmitter( self, 'Effect01', army, v ):ScaleEmitter(0.1) )
+            LOUDINSERT( self.AntiTeleportBag, CreateAttachedEmitter( self, 'Effect01', army, v ):ScaleEmitter(0.1):OffsetEmitter(0, -0.5, 0) )
+            LOUDINSERT( self.AntiTeleportBag, CreateAttachedEmitter( self, 'Effect01', army, v ):ScaleEmitter(0.1):OffsetEmitter(0, 0.5, 0) )
+            LOUDINSERT( self.AntiTeleportBag, CreateAttachedEmitter( self, 'Effect02', army, v ):ScaleEmitter(0.1) )
+            LOUDINSERT( self.AntiTeleportBag, CreateAttachedEmitter( self, 'Effect02', army, v ):ScaleEmitter(0.1):OffsetEmitter(0, -0.5, 0) )
+            LOUDINSERT( self.AntiTeleportBag, CreateAttachedEmitter( self, 'Effect02', army, v ):ScaleEmitter(0.1):OffsetEmitter(0, 0.5, 0) )
+            LOUDINSERT( self.AntiTeleportBag, CreateAttachedEmitter( self, 'Effect03', army, v ):ScaleEmitter(0.1) )
+            LOUDINSERT( self.AntiTeleportBag, CreateAttachedEmitter( self, 'Effect03', army, v ):ScaleEmitter(0.1):OffsetEmitter(0, 0.5, 0) )
+            LOUDINSERT( self.AntiTeleportBag, CreateAttachedEmitter( self, 'Effect04', army, v ):ScaleEmitter(0.1) )
+            LOUDINSERT( self.AntiTeleportBag, CreateAttachedEmitter( self, 'Effect04', army, v ):ScaleEmitter(0.1):OffsetEmitter(0, -0.5, 0) )
+            LOUDINSERT( self.AntiTeleportBag, CreateAttachedEmitter( self, 'Effect05', army, v ):ScaleEmitter(0.1) )
+            LOUDINSERT( self.AntiTeleportBag, CreateAttachedEmitter( self, 'Effect05', army, v ):ScaleEmitter(0.1):OffsetEmitter(0, 0.5, 0) )
+            LOUDINSERT( self.AntiTeleportBag, CreateAttachedEmitter( self, 'Effect06', army, v ):ScaleEmitter(0.1) )
+            LOUDINSERT( self.AntiTeleportBag, CreateAttachedEmitter( self, 'Effect06', army, v ):ScaleEmitter(0.1):OffsetEmitter(0, -0.5, 0) )
         end
     end,
     
@@ -104,7 +106,7 @@ BEB4209 = Class(TStructureUnit) {
 
             	local antiteleportEmitter = CreateUnit('beb0004', self:GetArmy(), location[1], location[2], location[3], platOrient[1], platOrient[2], platOrient[3], platOrient[4], 'Land') 
 
-            	table.insert (self.antiteleportEmitterTable, antiteleportEmitter)
+            	LOUDINSERT (self.antiteleportEmitterTable, antiteleportEmitter)
 
             	antiteleportEmitter:SetParent(self, 'beb4209')
             	antiteleportEmitter:SetCreator(self)  

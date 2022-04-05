@@ -23,7 +23,7 @@ BSL0310 = Class(SWalkingLandUnit) {
 	
         SWalkingLandUnit.OnScriptBitSet(self, bit)
 		
-        local army =  self:GetArmy()
+        local army =  self.Army
 		
         if bit == 0 then 
 			self:SetMaintenanceConsumptionActive()

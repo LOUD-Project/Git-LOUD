@@ -9,6 +9,8 @@ local explosion = import('/lua/defaultexplosions.lua')
 
 local BlackOpsEffectTemplate = import('/mods/BlackOpsUnleashed/lua/BlackOpsEffectTemplates.lua')
 
+local VectorCached = { 0, 0, 0 }
+
 BAL0401 = Class(AWalkingLandUnit) {
 
 	ChargeEffects01 = {
@@ -57,17 +59,9 @@ BAL0401 = Class(AWalkingLandUnit) {
                     self.unit.Trash:Add(self.SpinManip1)
                 end
 				
-                if self.SpinManip1 then
-                    self.SpinManip1:SetTargetSpeed(200)
-                end
-				
 				if not self.SpinManip2 then 
                     self.SpinManip2 = CreateRotator(self.unit, 'Spinner_2', 'y', nil, -270, 180, 60)
                     self.unit.Trash:Add(self.SpinManip2)
-                end
-				
-                if self.SpinManip2 then
-                    self.SpinManip2:SetTargetSpeed(-200)
                 end
 				
 				if not self.SpinManip3 then 
@@ -75,18 +69,16 @@ BAL0401 = Class(AWalkingLandUnit) {
                     self.unit.Trash:Add(self.SpinManip3)
                 end
 				
-                if self.SpinManip3 then
-                    self.SpinManip3:SetTargetSpeed(300)
-                end
+                self.SpinManip1:SetTargetSpeed(200)
+
+                self.SpinManip2:SetTargetSpeed(-200)
+
+                self.SpinManip3:SetTargetSpeed(300)
 				
                 CDFLaserHeavyWeapon.PlayFxWeaponUnpackSequence(self)
             end,
 			
 			CreateProjectileForWeapon = function(self, bone)
-			
-				local bp = self:GetBlueprint()
-				
-				local numProjectiles = bp.ProjectilesCreated 
 
 				local pos0 = self:GetCurrentTargetPos()
 				
@@ -95,29 +87,34 @@ BAL0401 = Class(AWalkingLandUnit) {
 					pos0 = self.unit:GetPosition()
 				end
 
-				local pos = table.copy(pos0)
-				
 				local xadj = { [0] = 0, 0, 0, 7,-7, 7,-7,-7, 7}
 				local zadj = { [0] = 0,-7, 7, 0, 0,-7, 7,-7, 7}
 				
-				if pos then
-				
-					for i = 0, (numProjectiles - 1) do
-					
-						WaitTicks( bp.ProjectileIntervalTicks )
-						
-						pos[2] = pos0[2] + 65 or 65
-						pos[1] = pos0[1] + xadj[i]
-						pos[3] = pos0[3] + zadj[i]
+				if pos0 then
+                    
+                    local shellpos
+                    
+                    local LOUDWARP = Warp
+                    local WaitTicks = WaitTicks
+                    
+					for i = 0, 8 do
+
+						WaitTicks( 6 )
 						
 						local proj = CDFLaserHeavyWeapon.CreateProjectileForWeapon(self, bone)
+    
+                        shellpos = VectorCached
+						
+						shellpos[2] = pos0[2] + 65 or 65
+						shellpos[1] = pos0[1] + xadj[i]
+						shellpos[3] = pos0[3] + zadj[i]
 					
-						Warp(proj,pos)
+						LOUDWARP( proj, shellpos )
 
 						self.unit:PlayUnitSound('WarpingProjectile')
 						
-						CreateLightParticle(self.unit, 'Bombard', self.unit:GetArmy(), 5, 2, 'beam_white_01', 'ramp_white_07' )
-						CreateAttachedEmitter(self.unit, 'Bombard', self.unit:GetArmy(), '/effects/emitters/destruction_explosion_concussion_ring_03_emit.bp'):ScaleEmitter(0.08)
+						CreateLightParticle(self.unit, 'Bombard', self.unit.Army, 5, 2, 'beam_white_01', 'ramp_white_07' )
+						CreateAttachedEmitter(self.unit, 'Bombard', self.unit.Army, '/effects/emitters/destruction_explosion_concussion_ring_03_emit.bp'):ScaleEmitter(0.08)
 					end
 				end
 			end,
@@ -192,7 +189,7 @@ BAL0401 = Class(AWalkingLandUnit) {
 
 		self:CreateProjectileAtBone('/mods/BlackOpsUnleashed/effects/entities/InqDeathEffectController01/InqDeathEffectController01_proj.bp', 'Body'):SetCollision(false)
        
-		local bp = self:GetBlueprint()
+		local bp = __blueprints[self.BlueprintID]
 		
         for i, numWeapons in bp.Weapon do
             if(bp.Weapon[i].Label == 'CollossusDeath') then
@@ -204,10 +201,6 @@ BAL0401 = Class(AWalkingLandUnit) {
         self:DestroyAllDamageEffects()
         self:CreateWreckage( overkillRatio )
 
-        # CURRENTLY DISABLED UNTIL DESTRUCTION
-        # Create destruction debris out of the mesh, currently these projectiles look like crap,
-        # since projectile rotation and terrain collision doesn't work that great. These are left in
-        # hopes that this will look better in the future.. =)
         if( self.ShowUnitDestructionDebris and overkillRatio ) then
             if overkillRatio <= 1 then
                 self.CreateUnitDestructionDebris( self, true, true, false )

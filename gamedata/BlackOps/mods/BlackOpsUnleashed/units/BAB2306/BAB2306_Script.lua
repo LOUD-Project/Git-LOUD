@@ -17,9 +17,8 @@ BAB2306 = Class(AStructureUnit) {
             self.Trash:Add(self.SpinManip)
         end
 
-        if self.SpinManip then
-			self.SpinManip:SetTargetSpeed(320)
-        end
+		self.SpinManip:SetTargetSpeed(320)
+
     end,
 	
 }

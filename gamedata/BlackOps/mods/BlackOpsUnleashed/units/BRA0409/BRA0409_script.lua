@@ -124,7 +124,7 @@ BRA0409 = Class(CAirUnit) {
 			local ExhaustBeamLarge = '/mods/BlackOpsUnleashed/effects/emitters/missile_exhaust_fire_beam_10_emit.bp'
 			local ExhaustBeamSmall = '/effects/emitters/missile_exhaust_fire_beam_03_emit.bp'
 			
-			local army = self:GetArmy()	
+			local army = self.Army	
 
 			local CreateAttachedEmitter = CreateAttachedEmitter
 			local CreateBeamEmitterOnEntity = CreateBeamEmitterOnEntity

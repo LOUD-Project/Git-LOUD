@@ -11,7 +11,6 @@ BSL0404 = Class(SEnergyBallUnit) {
         SEnergyBallUnit.OnCreate(self)
 		
         for k, v in EffectTemplate.OthuyAmbientEmanation do
-            --- XSL0404
             CreateAttachedEmitter(self,'Outer_Tentaclebase', self:GetArmy(), v):ScaleEmitter(0.5)
         end
 		

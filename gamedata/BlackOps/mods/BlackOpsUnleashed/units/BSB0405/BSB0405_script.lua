@@ -10,6 +10,7 @@ local SSeraphimSubCommanderGateway03 = import('/lua/EffectTemplates.lua').Seraph
 local explosion = import('/lua/defaultexplosions.lua')
 
 local CreateAttachedEmitter = CreateAttachedEmitter
+local LOUDINSERT = table.insert
 
 BSB0405 = Class(SShieldStructureUnit) {
 
@@ -32,7 +33,7 @@ BSB0405 = Class(SShieldStructureUnit) {
     
     OnStopBeingBuilt = function(self, builder, layer)
     
-        local army = self:GetArmy()
+        local army = self.Army
         
         for k, v in SSeraphimSubCommanderGateway01 do
             CreateAttachedEmitter(self, 'Light04', army, v):ScaleEmitter(0.5)
@@ -69,7 +70,7 @@ BSB0405 = Class(SShieldStructureUnit) {
 	
         SShieldStructureUnit.OnScriptBitSet(self, bit)
         
-        local army =  self:GetArmy()
+        local army =  self.Army
         
         if bit == 0 then 
             self:SetMaintenanceConsumptionActive()
@@ -88,7 +89,7 @@ BSB0405 = Class(SShieldStructureUnit) {
 		end
 		
         for k, v in self.LambdaEffects do
-            table.insert( self.LambdaEffectsBag, CreateAttachedEmitter( self, 0, army, v ):ScaleEmitter(0.8) )
+            LOUDINSERT( self.LambdaEffectsBag, CreateAttachedEmitter( self, 0, army, v ):ScaleEmitter(0.8) )
         end
     end,
     
@@ -126,7 +127,7 @@ BSB0405 = Class(SShieldStructureUnit) {
 				local lambdaEmitter = CreateUnit('bsb0001', self:GetArmy(), location[1], location[2], location[3], platOrient[1], platOrient[2], platOrient[3], platOrient[4], 'Land') 
 
 				-- Adds the created lambdaEmitter to the parent platforms lambdaEmitter table
-				table.insert (self.lambdaEmitterTable, lambdaEmitter)
+				LOUDINSERT(self.lambdaEmitterTable, lambdaEmitter)
 
 				-- Sets the platform as the lambdaEmitter parent
 				lambdaEmitter:SetParent(self, 'bsb0405')
@@ -173,7 +174,7 @@ BSB0405 = Class(SShieldStructureUnit) {
             WaitTicks(Random(1,3))
         end
         
-        local bp = self:GetBlueprint()
+        local bp = __blueprints[self.BlueprintID]
 		
         for i, numWeapons in bp.Weapon do
             if(bp.Weapon[i].Label == 'CollossusDeath') then

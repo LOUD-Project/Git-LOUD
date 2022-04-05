@@ -45,9 +45,9 @@ BAL0403 = Class(AWalkingLandUnit) {
 				
             	local wep = self.unit:GetWeaponByLabel('MainGun')
         		local bp = wep:GetBlueprint()
-                local army = self.unit:GetArmy()
+                local army = self.unit.Army
 				
-				local LOUDINSERT = table.insert
+				local LOUDINSERT = LOUDINSERT
 				local LOUDATTACHEMITTER = CreateAttachedEmitter
 				local AttachBeamEntityToEntity = AttachBeamEntityToEntity
                 
@@ -241,7 +241,7 @@ BAL0403 = Class(AWalkingLandUnit) {
             WaitFor(self.DeathAnimManip)
         end
     
-        local bp = self:GetBlueprint()
+        local bp = __blueprints[self.BlueprintID]
 		
         for i, numWeapons in bp.Weapon do
             if(bp.Weapon[i].Label == 'CollossusDeath') then
@@ -253,10 +253,6 @@ BAL0403 = Class(AWalkingLandUnit) {
         self:DestroyAllDamageEffects()
         self:CreateWreckage( overkillRatio )
 
-        --# CURRENTLY DISABLED UNTIL DESTRUCTION
-        --# Create destruction debris out of the mesh, currently these projectiles look like crap,
-        --# since projectile rotation and terrain collision doesn't work that great. These are left in
-        --# hopes that this will look better in the future.. =)
         if( self.ShowUnitDestructionDebris and overkillRatio ) then
             if overkillRatio <= 1 then
                 self.CreateUnitDestructionDebris( self, true, true, false )

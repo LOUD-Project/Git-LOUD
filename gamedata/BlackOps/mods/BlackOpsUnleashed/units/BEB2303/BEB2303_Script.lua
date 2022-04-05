@@ -12,7 +12,9 @@ BEB2303 = Class(TStructureUnit) {
 
     OnStopBeingBuilt = function(self,builder,layer)
         TStructureUnit.OnStopBeingBuilt(self,builder,layer)
-        local bp = self:GetBlueprint()
+        
+        local bp = __blueprints[self.BlueprintID]
+        
         if bp.Audio.Activate then
             self:PlaySound(bp.Audio.Activate)
         end
@@ -35,7 +37,7 @@ BEB2303 = Class(TStructureUnit) {
                 -- Select the barrel to recoil 
                 recoilTbl.MuzzleBones = muzzleBones[self.CurrentBarrel]                
                 recoilTbl.RackBone = recoilgroup1[self.CurrentBarrel] 
-                --recoilTbl.TelescopeBone = recoilgroup2[self.CurrentBarrel]              
+
                 table.insert( rackList, recoilTbl ) 
 
                 BOHellstormGun.PlayRackRecoil(self, rackList)

@@ -1,11 +1,11 @@
-local AHoverLandUnit = import('/lua/defaultunits.lua').MobileUnit
+--local AHoverLandUnit = import('/lua/defaultunits.lua').MobileUnit
 
-local ADFReactonCannon = import('/lua/aeonweapons.lua').ADFReactonCannon
+--local ADFReactonCannon = import('/lua/aeonweapons.lua').ADFReactonCannon
 
-BAL0206 = Class(AHoverLandUnit) {
+BAL0206 = Class(import('/lua/defaultunits.lua').MobileUnit) {
 
     Weapons = {
-        AAGun = Class(ADFReactonCannon) {},
+        AAGun = Class(import('/lua/aeonweapons.lua').ADFReactonCannon) {},
     },
 }
 

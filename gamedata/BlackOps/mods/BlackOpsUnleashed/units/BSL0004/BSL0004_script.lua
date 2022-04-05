@@ -30,7 +30,7 @@ BSL0004 = Class(SLandUnit) {
                     return
                 end
                 
-                local bp = self:GetBlueprint()
+                local bp = __blueprints[self.BlueprintID]
 
                 if bp.WeaponUnpacks then
                     ChangeState(self, self.WeaponPackingState)

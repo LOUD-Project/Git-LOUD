@@ -2,11 +2,8 @@ local SStructureUnit = import('/lua/defaultunits.lua').StructureUnit
 
 BSB4209 = Class(SStructureUnit) {
 
-AntiTeleport = {
-       '/effects/emitters/op_seraphim_quantum_jammer_tower_emit.bp',
-    },
+AntiTeleport = {'/effects/emitters/op_seraphim_quantum_jammer_tower_emit.bp'},
     
-
     OnStopBeingBuilt = function(self,builder,layer)
     	SStructureUnit.OnStopBeingBuilt(self,builder,layer)
         self:SetScriptBit('RULEUTC_ShieldToggle', true)

@@ -8,7 +8,7 @@ BSB2402 = Class(SLandFactoryUnit) {
 	
 		SLandFactoryUnit.OnStopBeingBuilt(self,builder,layer)
 		
-		local army = self:GetArmy()
+		local army = self.Army
 		local scale = 0.35
 
     	self.EffectsBag = {}

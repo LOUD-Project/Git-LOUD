@@ -1,4 +1,4 @@
-local AStructureUnit = import('/lua/aeonunits.lua').AStructureUnit
+local AStructureUnit = import('/lua/defaultunits.lua').StructureUnit
 
 local LOUDINSERT = table.insert
 local CreateRotator = CreateRotator
@@ -86,7 +86,7 @@ BAB4309 = Class(AStructureUnit) {
 	    	self.AntiTeleportEffectsBag = {}
 		end
         
-        local army = self:GetArmy()
+        local army = self.Army
         
         for k, v in self.AntiTeleportEffects do
             LOUDINSERT( self.AntiTeleportEffectsBag, CreateAttachedEmitter( self, 'Effect01', army, v ):ScaleEmitter(0.3) )

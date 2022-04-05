@@ -1,4 +1,4 @@
-local CEnergyCreationUnit = import('/lua/cybranunits.lua').CEnergyCreationUnit
+local CEnergyCreationUnit = import('/lua/defaultunits.lua').EnergyCreationUnit
 
 local CreateAttachedEmitter = CreateAttachedEmitter
 
@@ -20,16 +20,17 @@ URB1102 = Class(CEnergyCreationUnit) {
             local bones = {}
             local scale = .5
 
-            # Play the "activate" sound
-            local myBlueprint = self:GetBlueprint()
+            local myBlueprint = __blueprints[self.BlueprintID]
+            
             if myBlueprint.Audio.Activate then
                 self:PlaySound(myBlueprint.Audio.Activate)
             end
 
-            if self:GetCurrentLayer() == 'Land' then
+            if self.CacheLayer == 'Land' then
                 effects = self.AirEffects
                 bones = self.AirEffectsBones
-            elseif self:GetCurrentLayer() == 'Seabed' then
+                
+            elseif self.CacheLayer == 'Seabed' then
                 effects = self.WaterEffects
                 bones = self.WaterEffectsBones
                 scale = 2

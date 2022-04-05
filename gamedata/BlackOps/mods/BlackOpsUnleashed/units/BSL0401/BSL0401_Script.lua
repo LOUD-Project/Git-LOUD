@@ -13,6 +13,8 @@ local AttachBeamEntityToEntity = AttachBeamEntityToEntity
 local CreateAttachedEmitter = CreateAttachedEmitter
 local ForkThread = ForkThread
 
+local LOUDINSERT = table.insert
+
 BSL0401 = Class(SHoverLandUnit) {
 
     SpawnEffects = {
@@ -50,25 +52,25 @@ BSL0401 = Class(SHoverLandUnit) {
 					self.unit.BeamChargeEffects1 = {}
 				end
                 
-                local army = self.unit:GetArmy()
+                local army = self.unit.Army
 
-				table.insert( self.unit.BeamChargeEffects1, AttachBeamEntityToEntity(self.unit, 'Focus_Beam01_Emitter01', self.unit, 'Focus_Beam01_Emitter02', army, '/mods/BlackOpsUnleashed/effects/emitters/seraphim_expirimental_laser_charge_beam_emit.bp') )
+				LOUDINSERT( self.unit.BeamChargeEffects1, AttachBeamEntityToEntity(self.unit, 'Focus_Beam01_Emitter01', self.unit, 'Focus_Beam01_Emitter02', army, '/mods/BlackOpsUnleashed/effects/emitters/seraphim_expirimental_laser_charge_beam_emit.bp') )
 				
         		for k, v in self.unit.ChargeEffects01 do
-            		table.insert( self.unit.ChargeEffects01Bag, CreateAttachedEmitter( self.unit, 'Focus_Beam01_Emitter01', army, v ):ScaleEmitter(0.5))
+            		LOUDINSERT( self.unit.ChargeEffects01Bag, CreateAttachedEmitter( self.unit, 'Focus_Beam01_Emitter01', army, v ):ScaleEmitter(0.5))
         		end
 
-				table.insert( self.unit.BeamChargeEffects1, AttachBeamEntityToEntity(self.unit, 'Focus_Beam01_Emitter02', self.unit, 'Focus_Beam01_Emitter03', army, '/mods/BlackOpsUnleashed/effects/emitters/seraphim_expirimental_laser_charge_beam_emit.bp') )
+				LOUDINSERT( self.unit.BeamChargeEffects1, AttachBeamEntityToEntity(self.unit, 'Focus_Beam01_Emitter02', self.unit, 'Focus_Beam01_Emitter03', army, '/mods/BlackOpsUnleashed/effects/emitters/seraphim_expirimental_laser_charge_beam_emit.bp') )
 				
 				for k, v in self.unit.ChargeEffects01 do
-					table.insert( self.unit.ChargeEffects01Bag, CreateAttachedEmitter( self.unit, 'Focus_Beam01_Emitter02', army, v ):ScaleEmitter(0.5))
+					LOUDINSERT( self.unit.ChargeEffects01Bag, CreateAttachedEmitter( self.unit, 'Focus_Beam01_Emitter02', army, v ):ScaleEmitter(0.5))
         		end
 
-				table.insert( self.unit.BeamChargeEffects1, AttachBeamEntityToEntity(self.unit, 'Focus_Beam01_Emitter03', self.unit, 'Beam_Point_Focus01', army, '/mods/BlackOpsUnleashed/effects/emitters/seraphim_expirimental_laser_charge_beam_emit.bp') )
+				LOUDINSERT( self.unit.BeamChargeEffects1, AttachBeamEntityToEntity(self.unit, 'Focus_Beam01_Emitter03', self.unit, 'Beam_Point_Focus01', army, '/mods/BlackOpsUnleashed/effects/emitters/seraphim_expirimental_laser_charge_beam_emit.bp') )
 				
 				for k, v in self.unit.ChargeEffects01 do
-					table.insert( self.unit.ChargeEffects01Bag, CreateAttachedEmitter( self.unit, 'Focus_Beam01_Emitter03', army, v ):ScaleEmitter(0.5))
-					table.insert( self.unit.ChargeEffects01Bag, CreateAttachedEmitter( self.unit, 'Beam_Point_Focus01', army, v ):ScaleEmitter(0.5))
+					LOUDINSERT( self.unit.ChargeEffects01Bag, CreateAttachedEmitter( self.unit, 'Focus_Beam01_Emitter03', army, v ):ScaleEmitter(0.5))
+					LOUDINSERT( self.unit.ChargeEffects01Bag, CreateAttachedEmitter( self.unit, 'Beam_Point_Focus01', army, v ):ScaleEmitter(0.5))
         		end
 			end,
 			
@@ -111,25 +113,25 @@ BSL0401 = Class(SHoverLandUnit) {
 					self.unit.BeamChargeEffects2 = {}
 				end
                 
-                local army = self.unit:GetArmy()
+                local army = self.unit.Army
 
-				table.insert( self.unit.BeamChargeEffects2, AttachBeamEntityToEntity(self.unit, 'Focus_Beam02_Emitter01', self.unit, 'Focus_Beam02_Emitter02', army, '/mods/BlackOpsUnleashed/effects/emitters/seraphim_expirimental_laser_charge_beam_emit.bp') )
+				LOUDINSERT( self.unit.BeamChargeEffects2, AttachBeamEntityToEntity(self.unit, 'Focus_Beam02_Emitter01', self.unit, 'Focus_Beam02_Emitter02', army, '/mods/BlackOpsUnleashed/effects/emitters/seraphim_expirimental_laser_charge_beam_emit.bp') )
 				
         		for k, v in self.unit.ChargeEffects01 do
-            		table.insert( self.unit.ChargeEffects02Bag, CreateAttachedEmitter( self.unit, 'Focus_Beam02_Emitter01', army, v ):ScaleEmitter(0.5))
+            		LOUDINSERT( self.unit.ChargeEffects02Bag, CreateAttachedEmitter( self.unit, 'Focus_Beam02_Emitter01', army, v ):ScaleEmitter(0.5))
         		end
 
-				table.insert( self.unit.BeamChargeEffects2, AttachBeamEntityToEntity(self.unit, 'Focus_Beam02_Emitter02', self.unit, 'Focus_Beam02_Emitter03', army, '/mods/BlackOpsUnleashed/effects/emitters/seraphim_expirimental_laser_charge_beam_emit.bp') )
+				LOUDINSERT( self.unit.BeamChargeEffects2, AttachBeamEntityToEntity(self.unit, 'Focus_Beam02_Emitter02', self.unit, 'Focus_Beam02_Emitter03', army, '/mods/BlackOpsUnleashed/effects/emitters/seraphim_expirimental_laser_charge_beam_emit.bp') )
 				
 				for k, v in self.unit.ChargeEffects01 do
-					table.insert( self.unit.ChargeEffects02Bag, CreateAttachedEmitter( self.unit, 'Focus_Beam02_Emitter02', army, v ):ScaleEmitter(0.5))
+					LOUDINSERT( self.unit.ChargeEffects02Bag, CreateAttachedEmitter( self.unit, 'Focus_Beam02_Emitter02', army, v ):ScaleEmitter(0.5))
         		end
 
-				table.insert( self.unit.BeamChargeEffects2, AttachBeamEntityToEntity(self.unit, 'Focus_Beam02_Emitter03', self.unit, 'Beam_Point_Focus02', army, '/mods/BlackOpsUnleashed/effects/emitters/seraphim_expirimental_laser_charge_beam_emit.bp') )
+				LOUDINSERT( self.unit.BeamChargeEffects2, AttachBeamEntityToEntity(self.unit, 'Focus_Beam02_Emitter03', self.unit, 'Beam_Point_Focus02', army, '/mods/BlackOpsUnleashed/effects/emitters/seraphim_expirimental_laser_charge_beam_emit.bp') )
 				
 				for k, v in self.unit.ChargeEffects01 do
-					table.insert( self.unit.ChargeEffects02Bag, CreateAttachedEmitter( self.unit, 'Focus_Beam02_Emitter03', army, v ):ScaleEmitter(0.5))
-					table.insert( self.unit.ChargeEffects02Bag, CreateAttachedEmitter( self.unit, 'Beam_Point_Focus02', army, v ):ScaleEmitter(0.5))
+					LOUDINSERT( self.unit.ChargeEffects02Bag, CreateAttachedEmitter( self.unit, 'Focus_Beam02_Emitter03', army, v ):ScaleEmitter(0.5))
+					LOUDINSERT( self.unit.ChargeEffects02Bag, CreateAttachedEmitter( self.unit, 'Beam_Point_Focus02', army, v ):ScaleEmitter(0.5))
         		end
 			end,
 			
@@ -174,25 +176,25 @@ BSL0401 = Class(SHoverLandUnit) {
 					self.unit.BeamChargeEffects3 = {}
 				end
                 
-                local army = self.unit:GetArmy()
+                local army = self.unit.Army
 
-				table.insert( self.unit.BeamChargeEffects3, AttachBeamEntityToEntity(self.unit, 'Focus_Beam03_Emitter01', self.unit, 'Focus_Beam03_Emitter02', army, '/mods/BlackOpsUnleashed/effects/emitters/seraphim_expirimental_laser_charge_beam_emit.bp') )
+				LOUDINSERT( self.unit.BeamChargeEffects3, AttachBeamEntityToEntity(self.unit, 'Focus_Beam03_Emitter01', self.unit, 'Focus_Beam03_Emitter02', army, '/mods/BlackOpsUnleashed/effects/emitters/seraphim_expirimental_laser_charge_beam_emit.bp') )
 				
         		for k, v in self.unit.ChargeEffects01 do
-            		table.insert( self.unit.ChargeEffects03Bag, CreateAttachedEmitter( self.unit, 'Focus_Beam03_Emitter01', army, v ):ScaleEmitter(0.5))
+            		LOUDINSERT( self.unit.ChargeEffects03Bag, CreateAttachedEmitter( self.unit, 'Focus_Beam03_Emitter01', army, v ):ScaleEmitter(0.5))
         		end
 
-				table.insert( self.unit.BeamChargeEffects3, AttachBeamEntityToEntity(self.unit, 'Focus_Beam03_Emitter02', self.unit, 'Focus_Beam03_Emitter03', army, '/mods/BlackOpsUnleashed/effects/emitters/seraphim_expirimental_laser_charge_beam_emit.bp') )
+				LOUDINSERT( self.unit.BeamChargeEffects3, AttachBeamEntityToEntity(self.unit, 'Focus_Beam03_Emitter02', self.unit, 'Focus_Beam03_Emitter03', army, '/mods/BlackOpsUnleashed/effects/emitters/seraphim_expirimental_laser_charge_beam_emit.bp') )
 				
 				for k, v in self.unit.ChargeEffects01 do
-					table.insert( self.unit.ChargeEffects03Bag, CreateAttachedEmitter( self.unit, 'Focus_Beam03_Emitter02', army, v ):ScaleEmitter(0.5))
+					LOUDINSERT( self.unit.ChargeEffects03Bag, CreateAttachedEmitter( self.unit, 'Focus_Beam03_Emitter02', army, v ):ScaleEmitter(0.5))
         		end
 
-				table.insert( self.unit.BeamChargeEffects3, AttachBeamEntityToEntity(self.unit, 'Focus_Beam03_Emitter03', self.unit, 'Beam_Point_Focus03', army, '/mods/BlackOpsUnleashed/effects/emitters/seraphim_expirimental_laser_charge_beam_emit.bp') )
+				LOUDINSERT( self.unit.BeamChargeEffects3, AttachBeamEntityToEntity(self.unit, 'Focus_Beam03_Emitter03', self.unit, 'Beam_Point_Focus03', army, '/mods/BlackOpsUnleashed/effects/emitters/seraphim_expirimental_laser_charge_beam_emit.bp') )
 				
 				for k, v in self.unit.ChargeEffects01 do
-					table.insert( self.unit.ChargeEffects03Bag, CreateAttachedEmitter( self.unit, 'Focus_Beam03_Emitter03', army, v ):ScaleEmitter(0.5))
-					table.insert( self.unit.ChargeEffects03Bag, CreateAttachedEmitter( self.unit, 'Beam_Point_Focus03', army, v ):ScaleEmitter(0.5))
+					LOUDINSERT( self.unit.ChargeEffects03Bag, CreateAttachedEmitter( self.unit, 'Focus_Beam03_Emitter03', army, v ):ScaleEmitter(0.5))
+					LOUDINSERT( self.unit.ChargeEffects03Bag, CreateAttachedEmitter( self.unit, 'Beam_Point_Focus03', army, v ):ScaleEmitter(0.5))
         		end
 			end,
 			
@@ -226,7 +228,6 @@ BSL0401 = Class(SHoverLandUnit) {
 		self:ForkThread( EffectUtil.CreateSeraphimExperimentalBuildBaseThread, builder, self.OnBeingBuiltEffectsBag )
     end,  
 	
-	--+ Unit Callbacks +--
 	OnStopBeingBuilt = function(self,builder,layer)
 	
 		SHoverLandUnit.OnStopBeingBuilt(self,builder,layer)		
@@ -255,7 +256,8 @@ BSL0401 = Class(SHoverLandUnit) {
 	
 	--Places the Goliath's first drone-targetable attacker into a global
 	OnDamage = function(self, instigator, amount, vector, damagetype)
-		if not self:IsDead() --if not dead
+    
+		if not self.Dead --if not dead
 		and self.MyAttacker == nil --no existing attacker
 		and self:IsValidDroneTarget(instigator) then --attacker is a valid drone target
 			self.MyAttacker = instigator
@@ -292,19 +294,19 @@ BSL0401 = Class(SHoverLandUnit) {
 	
 	--Handles drone docking
     OnTransportAttach = function(self, attachBone, unit)
-    	--LOG("Mithy: OnTransportAttach: " .. unit.Name .. " docked at " .. attachBone)
+
     	self.DroneData[unit.Name].Docked = attachBone
     	unit:SetDoNotTarget(true)
-    	--unit.DisallowCollisions = true --too problematic, disabled
+
         SHoverLandUnit.OnTransportAttach(self, attachBone, unit)
     end,
     
     --Handles drone undocking, also called when docked drones die
     OnTransportDetach = function(self, attachBone, unit)
-    	--LOG("Mithy: OnTransportDetach: " .. unit.Name .. " undocked from " .. attachBone)
+
 	    self.DroneData[unit.Name].Docked = false
 	    unit:SetDoNotTarget(false)
-    	--unit.DisallowCollisions = false --too problematic, disabled
+
 		--Cancel any in-progress repairs for undocking/dying drones
 		if unit.Name == self.BuildingDrone then
 			self:CleanupDroneMaintenance(self.BuildingDrone)
@@ -314,11 +316,11 @@ BSL0401 = Class(SHoverLandUnit) {
 
 	--Cleans up threads and drones on death
 	OnKilled = function(self, instigator, type, overkillRatio)
-		--Kill our heartbeat thread
+
 		KillThread(self.HeartBeatThread)
-		--Clean up any in-progress construction
+
 		ChangeState(self, self.DeadState)
-		--Immediately kill existing drones
+
 		if next(self.DroneTable) then
 			for name, drone in self.DroneTable do
 				IssueClearCommands({drone})
@@ -327,16 +329,13 @@ BSL0401 = Class(SHoverLandUnit) {
 		end 
         SHoverLandUnit.OnKilled(self, instigator, type, overkillRatio)
 	end,
-	
-	
-	--+ Drone Setup / Creation +--
+
 
 	--Initial drone setup - loads globals, DroneData table, and creates drones
 	DroneSetup = function(self)
-		--Drone handle table, used to issue orders to all drones at once
+
 		self.DroneTable = {}
 		
-		--Drone construction globals
 		self.BuildingDrone = false	--Holds the name (string) of the drone currently being repaired or rebuilt
 		
 		--Drone control parameters (inherited by drones in SetParent)
@@ -352,7 +351,7 @@ BSL0401 = Class(SHoverLandUnit) {
 		
 		--Load other data from drone BP and spawn drones
 		for droneName, droneData in self.DroneData do
-			--Set drone name variable
+
 			if not droneData.Name then
 				droneData.Name = droneName
 			end
@@ -360,7 +359,6 @@ BSL0401 = Class(SHoverLandUnit) {
 			droneData.Economy = droneData.Blueprint.Economy
 			droneData.BuildProgress = 1	--Holds the progress of drone rebuilds
 
-			--Create this drone
 			self:ForkThread(self.CreateDrone, droneName)
 		end
 			
@@ -373,13 +371,17 @@ BSL0401 = Class(SHoverLandUnit) {
 	
 	--Creates specified drone from its entry in DroneData and creates handles
 	CreateDrone = function(self, droneName)
-		if not self:IsDead() and not self.DroneTable[droneName] and not self.DroneData[droneName].Active then
+    
+		if not self.Dead and not self.DroneTable[droneName] and not self.DroneData[droneName].Active then
+        
 			if not self:IsValidBone(self.DroneData[droneName].Attachpoint) then
 				error("*ERROR: Attachpoint '" .. self.DroneData[droneName].Attachpoint .. "' not a valid bone!", 2)
 				return
 			end
+            
 			local location = self:GetPosition(self.DroneData[droneName].Attachpoint)
 			local newdrone = CreateUnitHPR(self.DroneData[droneName].UnitID, self:GetArmy(), location[1], location[2], location[3], 0, 0, 0)
+            
 			newdrone:SetParent(self, self.DroneData[droneName].Name)
 			newdrone:SetCreator(self)
 			self.DroneTable[droneName] = newdrone
@@ -394,7 +396,7 @@ BSL0401 = Class(SHoverLandUnit) {
 	
 	--Clears all handles and active DroneData variables for the calling drone.
 	NotifyOfDroneDeath = function(self,droneName)
-		--LOG("Mithy: NotifyOfDroneDeath: " .. droneName)
+
 		self.DroneTable[droneName] = nil
 		self.DroneData[droneName].Active = false
 		self.DroneData[droneName].Docked = false
@@ -403,19 +405,20 @@ BSL0401 = Class(SHoverLandUnit) {
 	end,
 
 
-
-	--+ Drone Maintenance/Reconstruction +--
-
 	DroneMaintenanceState = State {
+    
 		Main = function(self)
+        
 			self.DroneMaintenance = true			
-			--Resume any interrupted drone rebuilds
+
 			if self.BuildingDrone then
 				ChangeState(self, self.DroneRebuildingState)
 			end			
-			--Check for dead or damaged drones
-			while self and not self:IsDead() and not self.BuildingDrone do
+
+			while self and not self.Dead and not self.BuildingDrone do
+            
 				for droneName, droneData in self.DroneData do
+                
 					if not droneData.Active or (droneData.Active and droneData.Damaged and droneData.Docked) then
 						self.BuildingDrone = droneName
 						ChangeState(self, self.DroneRebuildingState)
@@ -432,52 +435,65 @@ BSL0401 = Class(SHoverLandUnit) {
 	
 	--Active construction/repair state - consumes resources and advances progress
 	DroneRebuildingState = State {
+    
 		Main = function(self)
-			--Flag as repair if drone is alive and damaged
+
 			local isRepair = self.DroneData[self.BuildingDrone].Active and self.DroneData[self.BuildingDrone].Damaged
-			--Calculate build time from buildrate
+
 			local buildTimeSeconds = self.DroneData[self.BuildingDrone].Economy.BuildTime / self.BuildRate
-			--Enable econ consumption
+
 			self:EnableResourceConsumption(self.DroneData[self.BuildingDrone].Economy)
 			
 			--Begin or resume construction if not repair
 			if not isRepair then
+            
 				self:CreateDroneEffects(self.DroneData[self.BuildingDrone].Attachpoint)
-				--Set progress bar/variable to 0 for fresh drone construction
+
 				if not self.DroneData[self.BuildingDrone].BuildProgress then
 					self:SetWorkProgress(0.01)
 				end
-				--Construction runs until buildprogress >= 1
-				while self and not self:IsDead()
+
+				while self and not self.Dead
 				and self.DroneData[self.BuildingDrone].BuildProgress < 1 do
+                
 					WaitTicks(1)
+                    
 					local tickprogress = (self:GetResourceConsumed() * 0.1) / buildTimeSeconds
+                    
 					self.DroneData[self.BuildingDrone].BuildProgress = self.DroneData[self.BuildingDrone].BuildProgress + tickprogress
 					self:SetWorkProgress(self.DroneData[self.BuildingDrone].BuildProgress)
 				end
+                
 				self:CreateDrone(self.BuildingDrone)
-			--Otherwise begin repair
+
 			elseif isRepair then
+            
 				self:CreateDroneEffects(self.DroneData[self.BuildingDrone].Docked)
+                
 				local repairingDrone = self.DroneData[self.BuildingDrone].Active
 				local maxhealth = repairingDrone:GetMaxHealth()
-				--Repair runs while drone is alive, damaged, and docked
-				while self and not self:IsDead()
+
+				while self and not self.Dead
 				and self.DroneData[self.BuildingDrone].Damaged
 				and self.DroneData[self.BuildingDrone].Docked
 				and repairingDrone and not repairingDrone:IsDead() do
+                
 					WaitTicks(1)
+                    
 					local restorehealth = ((self:GetResourceConsumed() * 0.1) / buildTimeSeconds) * maxhealth
+                    
 					repairingDrone:AdjustHealth(self, restorehealth)
-					--Repair progress = drone health percent, and the progressbar reflects this
+
 					local totalprogress = repairingDrone:GetHealth() / maxhealth
+                    
 					self:SetWorkProgress(totalprogress)
+                    
 					if totalprogress >= 1 then
 						self.DroneData[self.BuildingDrone].Damaged = false
 					end
 				end
 			end
-			--Return to Maintenance State to check/wait for other jobs
+
 			self:CleanupDroneMaintenance(self.BuildingDrone)
 			ChangeState(self, self.DroneMaintenanceState)
 		end,
@@ -510,8 +526,10 @@ BSL0401 = Class(SHoverLandUnit) {
 	
 	--Enables economy drain
 	EnableResourceConsumption = function(self, econdata)
+    
 		local energy_rate = econdata.BuildCostEnergy / (econdata.BuildTime / self.BuildRate)
 		local mass_rate = econdata.BuildCostMass / (econdata.BuildTime / self.BuildRate)
+        
 		self:SetConsumptionPerSecondEnergy(energy_rate)
 		self:SetConsumptionPerSecondMass(mass_rate)
 		self:SetConsumptionActive(true)
@@ -519,6 +537,7 @@ BSL0401 = Class(SHoverLandUnit) {
 
 	--Disables economy drain
 	DisableResourceConsumption = function(self)
+    
 		self:SetConsumptionPerSecondEnergy(0)
 		self:SetConsumptionPerSecondMass(0)
 		self:SetConsumptionActive(false)
@@ -527,6 +546,7 @@ BSL0401 = Class(SHoverLandUnit) {
 	--Resets resume/progress data, clears effects
 	--Used to clean up finished construction and repair, and to interrupt repairs when undocking
 	CleanupDroneMaintenance = function(self, droneName, deadState)
+    
 		if deadState or (droneName and droneName == self.BuildingDrone) then
 			self:SetWorkProgress(0)
 			self.BuildingDrone = false
@@ -536,34 +556,27 @@ BSL0401 = Class(SHoverLandUnit) {
 	end,
 
     CreateDroneEffects = function(self, bone)
-    	--Crappy placeholder effects - please replace me!
-        #EffectUtil.CreateEnhancementEffectAtBone(self, bone, self.BuildEffectsBag)
     end,
 
 	CleanupDroneEffects = function(self)
-		#if self.BuildEffectsBag and not table.empty(self.BuildEffectsBag) then
-		#	self.BuildEffectsBag:Destroy()
-		#end
 	end,
-
-
-	--+ Drone Assist Management
 	
 	--Manages drone assistance and firestate propagation
 	AssistHeartBeat = function(self)
+    
 		local SuspendAssist = 0
 		local LastFireState
 		local LastDroneTarget
-		--The Goliath's current weapon target is now used for better, earlier drone deployment
-		--Best results achieved so far have been with the missile launcher, due to range
+
 		local TargetWeapon = self:GetWeaponByLabel('EyeWeapon01')
 		
-		while not self:IsDead() do
-			--Refresh current firestate and check for holdfire
+		while not self.Dead do
+        
 			local MyFireState = self:GetFireState()
 			local HoldFire = MyFireState == 1
 			--De-blip our weapon target, nil MyTarget if none
 			local TargetBlip = TargetWeapon:GetCurrentTarget()
+            
 			if TargetBlip != nil then
 				self.MyTarget = self:GetRealTarget(TargetBlip)
 			else
@@ -593,27 +606,30 @@ BSL0401 = Class(SHoverLandUnit) {
 			-- submerged, recently taken-off highaltair, or out-of-range target.  Likewise, when the Goliath submerges, the drones will
 			-- continue engaging only until the last assigned target is destroyed, at which point they will dock with the underwater Goliath.
 			if self.DroneAssist and not HoldFire and SuspendAssist <= 0 then
+            
 				local NewDroneTarget
 				
 				local GunshipTarget = self:SearchForGunshipTarget(self.AirMonitorRange)
-				if GunshipTarget and not GunshipTarget:IsDead() then
+                
+				if GunshipTarget and not GunshipTarget.Dead then
+                
 					if GunshipTarget != LastDroneTarget then
-						--LOG("Mithy: Heartbeat - DroneAssist: GunshipTarget")
 						NewDroneTarget = GunshipTarget
 					end
-				elseif self.MyTarget != nil and not self.MyTarget:IsDead() then
+                    
+				elseif self.MyTarget != nil and not self.MyTarget.Dead then
+                
 					if self.MyTarget != LastDroneTarget then
-						--LOG("Mithy: Heartbeat - DroneAssist: MyTarget")
 						NewDroneTarget = self.MyTarget
 					end
-				elseif self.MyAttacker != nil and not self.MyAttacker:IsDead() and self:IsTargetInRange(self.MyAttacker) then
+                    
+				elseif self.MyAttacker != nil and not self.MyAttacker.Dead and self:IsTargetInRange(self.MyAttacker) then
+                
 					if self.MyAttacker != LastDroneTarget then
-						--LOG("Mithy: Heartbeat - DroneAssist: MyAttacker")
 						NewDroneTarget = self.MyAttacker
 					end
 				--If our previous attacker is no longer valid, clear MyAttacker to re-enable the OnDamage check
 				elseif self.MyAttacker != nil then
-					--LOG("Mithy: Heartbeat - DroneAssist: MyAttacker = nil")
 					self.MyAttacker = nil
 				end
 				
@@ -694,7 +710,7 @@ BSL0401 = Class(SHoverLandUnit) {
 		if next(self.DroneTable) then
 			for id, drone in self.DroneTable do
 				if drone and not drone:IsDead() and self.DroneData[id].Docked then
-					table.insert(docked, id)
+					LOUDINSERT(docked, id)
 				end
 			end
 		end
@@ -767,35 +783,35 @@ BSL0401 = Class(SHoverLandUnit) {
         WaitSeconds(0.2)
         
         local RandBoneIter = RandomIter(explosionBones)
+        
         for i=1,Random(4,6) do
             local bone = RandBoneIter()
             explosion.CreateDefaultHitExplosionAtBone( self, bone, 1.0 )
             WaitTicks(Random(0.1,1))
         end
         
-        local bp = self:GetBlueprint()
+        local bp = __blueprints[self.BlueprintID]
+        
         for i, numWeapons in bp.Weapon do
+        
             if(bp.Weapon[i].Label == 'CollossusDeath') then
                 DamageArea(self, self:GetPosition(), bp.Weapon[i].DamageRadius, bp.Weapon[i].Damage, bp.Weapon[i].DamageType, bp.Weapon[i].DamageFriendly)
                 break
             end
         end
+        
         WaitSeconds(0.5)
         explosion.CreateDefaultHitExplosionAtBone( self, 'BSL0401', 5.0 )        
 
         if self.DeathAnimManip then
             WaitFor(self.DeathAnimManip)
         end
-
     
         self:DestroyAllDamageEffects()
         self:CreateWreckage( overkillRatio )
 
-        # CURRENTLY DISABLED UNTIL DESTRUCTION
-        # Create destruction debris out of the mesh, currently these projectiles look like crap,
-        # since projectile rotation and terrain collision doesn't work that great. These are left in
-        # hopes that this will look better in the future.. =)
         if( self.ShowUnitDestructionDebris and overkillRatio ) then
+        
             if overkillRatio <= 1 then
                 self.CreateUnitDestructionDebris( self, true, true, false )
             elseif overkillRatio <= 2 then
@@ -807,12 +823,10 @@ BSL0401 = Class(SHoverLandUnit) {
             end
         end
 
-        
-        # Spawn an engineer (temp energy being)
         local position = self:GetPosition()
         local spiritUnit = CreateUnitHPR('XSL0402', self:GetArmy(), position[1], position[2], position[3], 0, 0, 0)
         
-        # Create effects for spawning of energy being
+
 		for k, v in self.SpawnEffects do
 			CreateAttachedEmitter(spiritUnit, -1, self:GetArmy(), v )
 		end	

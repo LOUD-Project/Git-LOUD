@@ -1,10 +1,15 @@
 local CMassStorageUnit = import('/lua/defaultunits.lua').StructureUnit
 
 BRB1106 = Class(CMassStorageUnit) {
+
     OnStopBeingBuilt = function(self,builder,layer)
+    
         CMassStorageUnit.OnStopBeingBuilt(self,builder,layer)
+        
         self:ForkThread(self.AnimThread)
-        local myBlueprint = self:GetBlueprint()
+        
+        local myBlueprint = __blueprints[self.BlueprintID]
+        
         if myBlueprint.Audio.Activate then
             self:PlaySound(myBlueprint.Audio.Activate)
         end

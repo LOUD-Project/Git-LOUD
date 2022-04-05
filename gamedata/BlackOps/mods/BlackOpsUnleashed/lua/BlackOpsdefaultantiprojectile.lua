@@ -34,7 +34,7 @@ SeraLambdaFieldRedirector = Class(Entity) {
         end,
     },
 
-    #-- Return true to process this collision, false to ignore it.
+    -- Return true to process this collision, false to ignore it.
     WaitingState = State{
         OnCollisionCheck = function(self, other)
         
@@ -148,7 +148,7 @@ SeraLambdaFieldDestroyer = Class(Entity) {
         end,
     },
 
-    #-- Return true to process this collision, false to ignore it.
+    -- Return true to process this collision, false to ignore it.
     WaitingState = State{
 	
         OnCollisionCheck = function(self, other)

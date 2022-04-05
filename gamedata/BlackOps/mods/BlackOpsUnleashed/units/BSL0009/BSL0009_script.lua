@@ -24,7 +24,7 @@ BSL0009 = Class(SLandUnit) {
 	
 		SLandUnit.OnStopBeingBuilt(self,builder,layer)
 		
-        local army =  self:GetArmy()
+        local army =  self.Army
 		
         if self.AmbientEffects then
             for k, v in EffectTemplate[self.AmbientEffects] do

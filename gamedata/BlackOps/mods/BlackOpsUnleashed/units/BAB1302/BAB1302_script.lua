@@ -1,5 +1,7 @@
 local AEnergyCreationUnit = import('/lua/defaultunits.lua').StructureUnit
 
+local TrashAdd = TrashBag.Add
+
 BAB1302 = Class(AEnergyCreationUnit) {
 
     OnStopBeingBuilt = function(self,builder,layer)
@@ -10,14 +12,16 @@ BAB1302 = Class(AEnergyCreationUnit) {
         local bones = {'Extension02','Extension06','Extension18','Extension14','Extension10'}
         local scale = 0.75
 		
-        if self:GetCurrentLayer() == 'Seabed' then
+        if self.CacheLayer == 'Seabed' then
             effects = {'/effects/emitters/underwater_idle_bubbles_01_emit.bp'}
             scale = 3
         end
 		
-        for keys, values in effects do
-            for keysbones, valuesbones in bones do
-                self.Trash:Add(CreateAttachedEmitter(self, valuesbones, self:GetArmy(), values):ScaleEmitter(scale):OffsetEmitter(0,-0.2,1))
+        for _, values in effects do
+        
+            for _, valuesbones in bones do
+            
+                TrashAdd( self.Trash, CreateAttachedEmitter( self, valuesbones, self.Army, values ):ScaleEmitter(scale):OffsetEmitter(0,-0.2,1))
             end
         end
     end,

@@ -234,12 +234,14 @@ BRL0401 = Class(CWalkingLandUnit) {
     end,
 	
     CreateDeathExplosionDustRing = function( self )
+    
         local blanketSides = 18
-        local blanketAngle = (2*math.pi) / blanketSides
+        local blanketAngle = 6.28 / blanketSides
         local blanketStrength = 1
         local blanketVelocity = 2.8
 
         for i = 0, (blanketSides-1) do
+        
             local blanketX = math.sin(i*blanketAngle)
             local blanketZ = math.cos(i*blanketAngle)
 
@@ -252,7 +254,7 @@ BRL0401 = Class(CWalkingLandUnit) {
 
         local vx, vy, vz = self:GetVelocity()
         local num_projectiles = 16        
-        local horizontal_angle = (2*math.pi) / num_projectiles
+        local horizontal_angle = 6.28 / num_projectiles
         local angleInitial = RandomFloat( 0, horizontal_angle )  
         local xVec, zVec
         local offsetMultiple = 5
@@ -274,7 +276,7 @@ BRL0401 = Class(CWalkingLandUnit) {
 	CreateFireBalls = function(self)
 	
 		local num_projectiles = 2        
-        local horizontal_angle = (2*math.pi) / num_projectiles
+        local horizontal_angle = 6.28 / num_projectiles
         local angleInitial = RandomFloat( 0, horizontal_angle )  
         local xVec, yVec, zVec
         local angleVariation = 0.1        
@@ -298,7 +300,7 @@ BRL0401 = Class(CWalkingLandUnit) {
 	CreateHeadConvectionSpinners = function(self)
 	
         local sides = 8
-        local angle = (2*math.pi) / sides
+        local angle = 6.28 / sides
         local HeightOffset = 0
         local velocity = 1
         local OffsetMod = 10
@@ -351,7 +353,7 @@ BRL0401 = Class(CWalkingLandUnit) {
 
         self:PlayUnitSound('Destroyed')
 		
-        local army = self:GetArmy()
+        local army = self.Army
         local position = self:GetPosition()
 
         --Start off with a single Large explosion and several small ones
@@ -445,7 +447,7 @@ BRL0401 = Class(CWalkingLandUnit) {
         local FireballDomeYOffset = -7
         self:CreateProjectile('/mods/BlackOpsUnleashed/effects/entities/BasiliskNukeEffect01/BasiliskNukeEffect01_proj.bp',0,FireballDomeYOffset,0,0,0,1)
         
-		local bp = self:GetBlueprint()
+		local bp = __blueprints[self.BlueprintID]
 		
         for i, numWeapons in bp.Weapon do
             if(bp.Weapon[i].Label == 'BasiliskDeathNuck') then

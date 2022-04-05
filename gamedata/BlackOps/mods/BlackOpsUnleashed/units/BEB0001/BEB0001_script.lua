@@ -1,4 +1,4 @@
-local TAirStagingPlatformUnit = import('/lua/terranunits.lua').TAirStagingPlatformUnit
+local TAirStagingPlatformUnit = import('/lua/defaultunits.lua').AirStagingPlatformUnit
 
 BEB0001 = Class(TAirStagingPlatformUnit) {
 

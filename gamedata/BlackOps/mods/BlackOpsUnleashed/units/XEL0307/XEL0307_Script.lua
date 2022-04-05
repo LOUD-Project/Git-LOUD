@@ -129,6 +129,14 @@ XEL0307 = Class(TLandUnit) {
 
     end,
 
+    OnShieldIsUp = function (self)
+        self:SetCanTakeDamage(false)
+    end,
+
+    OnShieldIsDown = function (self)
+        self:SetCanTakeDamage(true) 
+    end,
+    
 	OnLayerChange = function(self, new, old)
 	
 		TLandUnit.OnLayerChange(self, new, old)
@@ -162,19 +170,26 @@ XEL0307 = Class(TLandUnit) {
         local army = self.Sync.army
         local exeff = self.AmbientLandExhaustEffects
         local ambones = self.AmbientExhaustBones
+        
         local LOUDINSERT = table.insert
+        local Random = Random
+        local WaitTicks = coroutine.yield
 		local CreateAttachedEmitter = CreateAttachedEmitter
         
-		while not self:IsDead() do
+		while not self.Dead do
+        
 			for _, vE in exeff do
+            
 				for _, vB in ambones do
 					LOUDINSERT( self.AmbientExhaustEffectsBag, CreateAttachedEmitter(self, vB, army, vE ):ScaleEmitter(0.5) )
 				end
 			end
 			
-			WaitSeconds(2)
+			WaitTicks(21)
+            
 			CleanupEffectBag(self,'AmbientExhaustEffectsBag')
-			WaitSeconds(GetRandomFloat(1,7))
+            
+			WaitTicks( Random( 11,71 ))
 		end		
 	end,
 

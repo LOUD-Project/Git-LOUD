@@ -1,4 +1,4 @@
-local TEnergyCreationUnit = import('/lua/terranunits.lua').TEnergyCreationUnit
+local TEnergyCreationUnit = import('/lua/defaultunits.lua').EnergyCreationUnit
 
 BEB1202 = Class(TEnergyCreationUnit) {
 
@@ -20,7 +20,7 @@ BEB1202 = Class(TEnergyCreationUnit) {
 	
         Main = function(self)
 
-            local myBlueprint = self:GetBlueprint()
+            local myBlueprint = __blueprints[self.BlueprintID]
 
             self.AnimManip:PlayAnim(myBlueprint.Display.AnimationOpen, false):SetRate(1)
 			
@@ -30,7 +30,7 @@ BEB1202 = Class(TEnergyCreationUnit) {
             local bones = {'Exhaust01'}
             local scale = 1
 			
-            if  self:GetCurrentLayer() == 'Seabed' then
+            if  self.CacheLayer == 'Seabed' then
                 effects = {'/effects/emitters/underwater_idle_bubbles_01_emit.bp'}
                 scale = 3
             end

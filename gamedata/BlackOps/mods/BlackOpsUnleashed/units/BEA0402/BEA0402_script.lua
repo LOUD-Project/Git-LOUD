@@ -104,9 +104,7 @@ BEA0402 = Class(TAirUnit) {
     OnStopBeingBuilt = function(self,builder,layer)
 	
 		self.AirPadTable = {}
-		
-		--self:ForkThread(self.AirPad)
-		
+
         TAirUnit.OnStopBeingBuilt(self,builder,layer)
 		
     end,

@@ -89,7 +89,7 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 16500,
+        BuildCostEnergy = 18100,
         BuildCostMass = 1375,
         BuildTime = 5500,
     },
@@ -132,10 +132,12 @@ UnitBlueprint {
         },
         DragCoefficient = 0.2,
         Elevation = 0.3,
+        
         MaxAcceleration = 1.5,
         MaxBrake = 1.5,
-        MaxSpeed = 2.9,
-        MaxSpeedReverse = 2.9,
+        MaxSpeed = 3,
+        MaxSpeedReverse = 3,
+        
         MaxSteerForce = 100,
         MeshExtentsX = 1.1,
         MeshExtentsY = 0.7,
@@ -144,6 +146,7 @@ UnitBlueprint {
         MotionType = 'RULEUMT_Hover',
         RotateBodyWhileMoving = true,
         RotateOnSpot = false,
+        
         TurnFacingRate = 28,
         TurnRadius = 0,
         TurnRate = 22,
@@ -193,6 +196,9 @@ UnitBlueprint {
             DamageType = 'Normal',
 			
             DisplayName = 'Sonance Artillery',
+            
+            EnergyRequired = 440,
+            EnergyDrainPerSecond = 132,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -204,13 +210,13 @@ UnitBlueprint {
 			
             Label = 'MainGun',
 			
-            MaxRadius = 48,
+            MaxRadius = 49,
             LeadTarget = true,
 			
-            MuzzleChargeDelay = 0.25,
+            MuzzleChargeDelay = 0.2,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 22,
+            MuzzleVelocity = 24,
 			
             NotExclusive = true,
 			
@@ -234,8 +240,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.3,	-- 240dps
-			RenderFireClock = true,
+            RateOfFire = 1,	-- 240dps   -- controlled by charge
 			
             TargetCheckInterval = 2,
             TargetPriorities = {
@@ -362,9 +367,9 @@ UnitBlueprint {
     },
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.2,
+        EnergyMult = 0.35,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.35,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,

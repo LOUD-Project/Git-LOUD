@@ -36,7 +36,7 @@ BSS0306 = Class(SSeaUnit) {
 		
 		self.Trash:Add(CreateRotator(self, 'Orb_Spinner', 'y', nil, 90, 0, 0))
 		
-        local army =  self:GetArmy()
+        local army =  self.Army
 		local CreateAttachedEmitter = CreateAttachedEmitter
 		
         if self.AmbientEffects then

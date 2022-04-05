@@ -1,5 +1,5 @@
+local CRadarUnit = import('/lua/defaultunits.lua').RadarUnit
 
-local CRadarUnit = import('/lua/cybranunits.lua').CRadarUnit
 local cWeapons = import('/lua/cybranweapons.lua')
 local CDFLaserHeavyWeapon = cWeapons.CDFLaserHeavyWeapon
 local StunZapperWeapon = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua').StunZapperWeapon
@@ -54,7 +54,7 @@ BRB2306 = Class(CRadarUnit) {
 		    		self.unit.ChargeEffects01Bag = {}
 				end
                 
-                local army = self.unit:GetArmy()
+                local army = self.unit.Army
                 
         		for k, v in self.unit.ChargeEffects01 do
             		table.insert( self.unit.ChargeEffects01Bag, CreateAttachedEmitter( self.unit, 'FocusBeam01_start', army, v ):ScaleEmitter(0.2))

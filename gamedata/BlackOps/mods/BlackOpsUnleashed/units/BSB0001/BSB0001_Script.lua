@@ -32,7 +32,7 @@ ShieldEffects = {
 		    self.ShieldEffectsBag = {}
 		end
         
-        local army = self:GetArmy()
+        local army = self.Army
         
         for k, v in self.ShieldEffects do
             table.insert( self.ShieldEffectsBag, CreateAttachedEmitter( self, 0, army, v ):ScaleEmitter(0.6) )

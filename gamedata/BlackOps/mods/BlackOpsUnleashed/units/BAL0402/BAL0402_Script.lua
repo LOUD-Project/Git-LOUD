@@ -63,25 +63,11 @@ BAL0402 = Class(AHoverLandUnit) {
 			self.MaelstromEffects01 = {}
 		end
         
-        local army = self:GetArmy()
+        local army = self.Army
 		local LOUDINSERT = table.insert
 		local LOUDATTACHEMITTER = CreateAttachedEmitter
         
---		LOUDINSERT( self.MaelstromEffects01, LOUDATTACHEMITTER( self, 'Maelstrom', army, '/mods/BlackopsUnleashed/effects/emitters/genmaelstrom_aura_01_emit.bp' ):ScaleEmitter(1):OffsetEmitter(0, -2, 0) )
 		LOUDINSERT( self.MaelstromEffects01, LOUDATTACHEMITTER( self, 'Maelstrom', army, '/mods/BlackopsUnleashed/effects/emitters/genmaelstrom_aura_02_emit.bp' ):ScaleEmitter(1):OffsetEmitter(0, -2.75, 0) )
---		LOUDINSERT( self.MaelstromEffects01, LOUDATTACHEMITTER( self, 'Effect01', army, '/effects/emitters/seraphim_being_built_ambient_02_emit.bp' ):ScaleEmitter(0.35):OffsetEmitter(0, -0.05, 0) )
---		LOUDINSERT( self.MaelstromEffects01, LOUDATTACHEMITTER( self, 'Effect01', army, '/effects/emitters/seraphim_being_built_ambient_03_emit.bp' ):ScaleEmitter(0.35):OffsetEmitter(0, -0.05, 0) )
---		LOUDINSERT( self.MaelstromEffects01, LOUDATTACHEMITTER( self, 'Effect01', army, '/effects/emitters/seraphim_being_built_ambient_04_emit.bp' ):ScaleEmitter(0.35):OffsetEmitter(0, -0.05, 0) )
---		LOUDINSERT( self.MaelstromEffects01, LOUDATTACHEMITTER( self, 'Effect02', army, '/effects/emitters/seraphim_being_built_ambient_02_emit.bp' ):ScaleEmitter(0.35):OffsetEmitter(0, -0.05, 0) )
---		LOUDINSERT( self.MaelstromEffects01, LOUDATTACHEMITTER( self, 'Effect02', army, '/effects/emitters/seraphim_being_built_ambient_03_emit.bp' ):ScaleEmitter(0.35):OffsetEmitter(0, -0.05, 0) )
---		LOUDINSERT( self.MaelstromEffects01, LOUDATTACHEMITTER( self, 'Effect02', army, '/effects/emitters/seraphim_being_built_ambient_04_emit.bp' ):ScaleEmitter(0.35):OffsetEmitter(0, -0.05, 0) )
---		LOUDINSERT( self.MaelstromEffects01, LOUDATTACHEMITTER( self, 'Effect03', army, '/effects/emitters/seraphim_being_built_ambient_02_emit.bp' ):ScaleEmitter(0.35):OffsetEmitter(0, -0.05, 0) )
---		LOUDINSERT( self.MaelstromEffects01, LOUDATTACHEMITTER( self, 'Effect03', army, '/effects/emitters/seraphim_being_built_ambient_03_emit.bp' ):ScaleEmitter(0.35):OffsetEmitter(0, -0.05, 0) )
---		LOUDINSERT( self.MaelstromEffects01, LOUDATTACHEMITTER( self, 'Effect03', army, '/effects/emitters/seraphim_being_built_ambient_04_emit.bp' ):ScaleEmitter(0.35):OffsetEmitter(0, -0.05, 0) )
---		LOUDINSERT( self.MaelstromEffects01, LOUDATTACHEMITTER( self, 'Effect04', army, '/effects/emitters/seraphim_being_built_ambient_02_emit.bp' ):ScaleEmitter(0.35):OffsetEmitter(0, -0.05, 0) )
---		LOUDINSERT( self.MaelstromEffects01, LOUDATTACHEMITTER( self, 'Effect04', army, '/effects/emitters/seraphim_being_built_ambient_03_emit.bp' ):ScaleEmitter(0.35):OffsetEmitter(0, -0.05, 0) )
---		LOUDINSERT( self.MaelstromEffects01, LOUDATTACHEMITTER( self, 'Effect04', army, '/effects/emitters/seraphim_being_built_ambient_04_emit.bp' ):ScaleEmitter(0.35):OffsetEmitter(0, -0.05, 0) )
-
 		
 		AHoverLandUnit.OnStopBeingBuilt(self,builder,layer)
 		
@@ -108,7 +94,9 @@ BAL0402 = Class(AHoverLandUnit) {
 		end
 	
 	end,	
+    
 	DeathThread = function( self, overkillRatio , instigator)
+    
         explosion.CreateDefaultHitExplosionAtBone( self, 'BAL0402', 4.0 )
         explosion.CreateDebrisProjectiles(self, explosion.GetAverageBoundingXYZRadius(self), {self:GetUnitSizes()})           
         WaitSeconds(0.8)
@@ -130,8 +118,10 @@ BAL0402 = Class(AHoverLandUnit) {
             WaitFor(self.DeathAnimManip)
         end
     
-        local bp = self:GetBlueprint()
+        local bp = __blueprints[self.BlueprintID]
+        
         for i, numWeapons in bp.Weapon do
+        
             if(bp.Weapon[i].Label == 'CollossusDeath') then
                 DamageArea(self, self:GetPosition(), bp.Weapon[i].DamageRadius, bp.Weapon[i].Damage, bp.Weapon[i].DamageType, bp.Weapon[i].DamageFriendly)
                 break
@@ -141,10 +131,6 @@ BAL0402 = Class(AHoverLandUnit) {
         self:DestroyAllDamageEffects()
         self:CreateWreckage( overkillRatio )
 
-        # CURRENTLY DISABLED UNTIL DESTRUCTION
-        # Create destruction debris out of the mesh, currently these projectiles look like crap,
-        # since projectile rotation and terrain collision doesn't work that great. These are left in
-        # hopes that this will look better in the future.. =)
         if( self.ShowUnitDestructionDebris and overkillRatio ) then
             if overkillRatio <= 1 then
                 self.CreateUnitDestructionDebris( self, true, true, false )
