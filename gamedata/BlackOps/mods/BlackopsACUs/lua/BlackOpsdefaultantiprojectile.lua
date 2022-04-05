@@ -1,12 +1,11 @@
---****************************************************************************
---**
+
 --**  File     :  /lua/defaultantimissile.lua
 --**  Author(s):  Gordon Duclos
 --**
 --**  Summary  :  Default definitions collision beams
 --**
 --**  Copyright � 2005 Gas Powered Games, Inc.  All rights reserved.
---****************************************************************************
+
 local Entity = import('/lua/sim/Entity.lua').Entity
 local EXEffectTemplate = import('/mods/BlackopsACUs/lua/EXBlackOpsEffectTemplates.lua')
 
@@ -17,9 +16,6 @@ SeraLambdaFieldRedirector = Class(Entity) {
     EndPointEffects = {'/effects/emitters/particle_cannon_end_01_emit.bp',},
 	LambdaEffects = EXEffectTemplate.EXLambdaRedirector,
     
-    #AttachBone = function( AttachBone )
-    #    self:AttachTo(spec.Owner, self.AttachBone)
-    #end, 
 
     OnCreate = function(self, spec)
         Entity.OnCreate(self, spec)
@@ -46,7 +42,7 @@ SeraLambdaFieldRedirector = Class(Entity) {
         end,
     },
 
-    # Return true to process this collision, false to ignore it.
+    -- Return true to process this collision, false to ignore it.
 
     WaitingState = State{
         OnCollisionCheck = function(self, other)
@@ -136,10 +132,6 @@ SeraLambdaFieldDestroyer = Class(Entity) {
                    '/mods/BlackOpsACUs/effects/emitters/invisible_cannon_beam_02_emit.bp'},
     EndPointEffects = {'/effects/emitters/particle_cannon_end_01_emit.bp',},
 	LambdaEffects = EXEffectTemplate.EXLambdaDestoyer,
-    
-    #AttachBone = function( AttachBone )
-    #    self:AttachTo(spec.Owner, self.AttachBone)
-    #end, 
 
     OnCreate = function(self, spec)
         Entity.OnCreate(self, spec)
@@ -166,8 +158,6 @@ SeraLambdaFieldDestroyer = Class(Entity) {
         Main = function(self)
         end,
     },
-
-    # Return true to process this collision, false to ignore it.
 
     WaitingState = State{
         OnCollisionCheck = function(self, other)

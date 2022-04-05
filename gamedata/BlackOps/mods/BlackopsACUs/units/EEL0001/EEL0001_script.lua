@@ -1,4 +1,4 @@
-local TWalkingLandUnit = import('/lua/terranunits.lua').TWalkingLandUnit
+local TWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
 local TerranWeaponFile = import('/lua/terranweapons.lua')
 
@@ -23,6 +23,14 @@ local EffectUtil = import('/lua/EffectUtilities.lua')
 local EffectUtils = import('/lua/effectutilities.lua')
 local Effects = import('/lua/effecttemplates.lua')
 
+local LOUDINSERT = table.insert
+
+local TrashBag = TrashBag
+local TrashAdd = TrashBag.Add
+local TrashDestroy = TrashBag.Destroy
+
+local WaitTicks = coroutine.yield
+
 
 EEL0001 = Class(TWalkingLandUnit) {
 
@@ -46,48 +54,59 @@ EEL0001 = Class(TWalkingLandUnit) {
         EXAntiMatterCannon03 = Class(UEFACUAntiMatterWeapon) {},
 		
         EXGattlingEnergyCannon01 = Class(UEFACUHeavyPlasmaGatlingCannonWeapon) {
+        
             OnCreate = function(self)
+            
                 UEFACUHeavyPlasmaGatlingCannonWeapon.OnCreate(self)
+                
                 if not self.unit.SpinManip then 
                     self.unit.SpinManip = CreateRotator(self.unit, 'Gatling_Cannon_Barrel', 'z', nil, 270, 300, 60)
-                    self.unit.Trash:Add(self.unit.SpinManip)
+                    TrashAdd( self.unit.Trash, self.unit.SpinManip )
                 end
+                
                 if self.unit.SpinManip then
                     self.unit.SpinManip:SetTargetSpeed(0)
                 end
             end,
+            
             PlayFxRackSalvoChargeSequence = function(self)
                 if self.unit.SpinManip then
                     self.unit.SpinManip:SetTargetSpeed(500)
                 end
                 UEFACUHeavyPlasmaGatlingCannonWeapon.PlayFxRackSalvoChargeSequence(self)
             end,
+            
             PlayFxRackSalvoReloadSequence = function(self)
                 if self.unit.SpinManip then
                     self.unit.SpinManip:SetTargetSpeed(0)
                 end
-                self.ExhaustEffects = EffectUtils.CreateBoneEffects( self.unit, 'Exhaust', self.unit:GetArmy(), Effects.WeaponSteam01 )
+                self.ExhaustEffects = EffectUtils.CreateBoneEffects( self.unit, 'Exhaust', self.unit.Army, Effects.WeaponSteam01 )
                 UEFACUHeavyPlasmaGatlingCannonWeapon.PlayFxRackSalvoChargeSequence(self)
             end,    
 		},
 		
         EXGattlingEnergyCannon02 = Class(UEFACUHeavyPlasmaGatlingCannonWeapon) {
             OnCreate = function(self)
+            
                 UEFACUHeavyPlasmaGatlingCannonWeapon.OnCreate(self)
+                
                 if not self.unit.SpinManip then 
                     self.unit.SpinManip = CreateRotator(self.unit, 'Gatling_Cannon_Barrel', 'z', nil, 270, 300, 60)
-                    self.unit.Trash:Add(self.unit.SpinManip)
+                    TrashAdd( self.unit.Trash, self.unit.SpinManip )
                 end
+                
                 if self.unit.SpinManip then
                     self.unit.SpinManip:SetTargetSpeed(0)
                 end
             end,
+            
             PlayFxRackSalvoChargeSequence = function(self)
                 if self.unit.SpinManip then
                     self.unit.SpinManip:SetTargetSpeed(500)
                 end
                 UEFACUHeavyPlasmaGatlingCannonWeapon.PlayFxRackSalvoChargeSequence(self)
             end,
+            
             PlayFxRackSalvoReloadSequence = function(self)
                 if self.unit.SpinManip then
                     self.unit.SpinManip:SetTargetSpeed(0)
@@ -99,21 +118,26 @@ EEL0001 = Class(TWalkingLandUnit) {
 		
         EXGattlingEnergyCannon03 = Class(UEFACUHeavyPlasmaGatlingCannonWeapon) {
             OnCreate = function(self)
+            
                 UEFACUHeavyPlasmaGatlingCannonWeapon.OnCreate(self)
+                
                 if not self.unit.SpinManip then 
                     self.unit.SpinManip = CreateRotator(self.unit, 'Gatling_Cannon_Barrel', 'z', nil, 270, 300, 60)
-                    self.unit.Trash:Add(self.unit.SpinManip)
+                    TrashAdd( self.unit.Trash, self.unit.SpinManip )
                 end
+                
                 if self.unit.SpinManip then
                     self.unit.SpinManip:SetTargetSpeed(0)
                 end
             end,
+            
             PlayFxRackSalvoChargeSequence = function(self)
                 if self.unit.SpinManip then
                     self.unit.SpinManip:SetTargetSpeed(500)
                 end
                 UEFACUHeavyPlasmaGatlingCannonWeapon.PlayFxRackSalvoChargeSequence(self)
             end,
+            
             PlayFxRackSalvoReloadSequence = function(self)
                 if self.unit.SpinManip then
                     self.unit.SpinManip:SetTargetSpeed(0)
@@ -133,14 +157,18 @@ EEL0001 = Class(TWalkingLandUnit) {
         OverCharge = Class(TDFOverchargeWeapon) {
 		
             OnCreate = function(self)
+            
                 TDFOverchargeWeapon.OnCreate(self)
                 self:SetWeaponEnabled(false)
                 self.AimControl:SetEnabled(false)
                 self.AimControl:SetPrecedence(0)
                 self.unit:SetOverchargePaused(false)
             end,
+            
             OnEnableWeapon = function(self)
+            
                 if self:BeenDestroyed() then return end
+                
                 self:SetWeaponEnabled(true)
                 self.unit:SetWeaponEnabledByLabel('RightZephyr', false)
                 self.unit:ResetWeaponByLabel('RightZephyr')
@@ -150,13 +178,18 @@ EEL0001 = Class(TWalkingLandUnit) {
                 self.unit.BuildArmManipulator:SetPrecedence(0)
                 self.AimControl:SetHeadingPitch( self.unit:GetWeaponManipulatorByLabel('RightZephyr'):GetHeadingPitch() )
             end,
+            
             OnWeaponFired = function(self)
+            
                 TDFOverchargeWeapon.OnWeaponFired(self)
                 self:OnDisableWeapon()
                 self:ForkThread(self.PauseOvercharge)
             end,
+            
             OnDisableWeapon = function(self)
+            
                 if self.unit:BeenDestroyed() then return end
+                
                 self:SetWeaponEnabled(false)
                 self.unit:SetWeaponEnabledByLabel('RightZephyr', true)
                 self.unit:BuildManipulatorSetEnabled(false)
@@ -165,19 +198,25 @@ EEL0001 = Class(TWalkingLandUnit) {
                 self.unit.BuildArmManipulator:SetPrecedence(0)
                 self.unit:GetWeaponManipulatorByLabel('RightZephyr'):SetHeadingPitch( self.AimControl:GetHeadingPitch() )
             end,
+            
             PauseOvercharge = function(self)
+            
                 if not self.unit:IsOverchargePaused() then
                     self.unit:SetOverchargePaused(true)
                     WaitSeconds(1/self:GetBlueprint().RateOfFire)
                     self.unit:SetOverchargePaused(false)
                 end
             end,
+            
             OnFire = function(self)
+            
                 if not self.unit:IsOverchargePaused() then
                     TDFOverchargeWeapon.OnFire(self)
                 end
             end,
+            
             IdleState = State(TDFOverchargeWeapon.IdleState) {
+            
                 OnGotTarget = function(self)
                     if not self.unit:IsOverchargePaused() then
                         TDFOverchargeWeapon.IdleState.OnGotTarget(self)
@@ -189,7 +228,9 @@ EEL0001 = Class(TWalkingLandUnit) {
                     end
                 end,
             },
+            
             RackSalvoFireReadyState = State(TDFOverchargeWeapon.RackSalvoFireReadyState) {
+            
                 OnFire = function(self)
                     if not self.unit:IsOverchargePaused() then
                         TDFOverchargeWeapon.RackSalvoFireReadyState.OnFire(self)
@@ -198,6 +239,7 @@ EEL0001 = Class(TWalkingLandUnit) {
             },            
             
         },
+        
         TacMissile = Class(TIFCruiseMissileLauncher) {
             CreateProjectileAtMuzzle = function(self)
 				muzzle = self:GetBlueprint().RackBones[1].MuzzleBones[1]
@@ -211,6 +253,7 @@ EEL0001 = Class(TWalkingLandUnit) {
 				self.slider:Destroy()
             end,
         },
+        
         TacNukeMissile = Class(TIFCruiseMissileLauncher) {
              CreateProjectileAtMuzzle = function(self)
 				muzzle = self:GetBlueprint().RackBones[1].MuzzleBones[1]
@@ -223,11 +266,13 @@ EEL0001 = Class(TWalkingLandUnit) {
 				WaitFor(self.slider)
 				self.slider:Destroy()
             end,
-       },
+        },
     },
 
     OnCreate = function(self)
+    
         TWalkingLandUnit.OnCreate(self)
+        
         self:SetCapturable(false)
         self:HideBone('Engineering_Suite', true)
         self:HideBone('Flamer', true)
@@ -244,14 +289,16 @@ EEL0001 = Class(TWalkingLandUnit) {
         self:SetupBuildBones()
         self.HasLeftPod = false
         self.HasRightPod = false
-        # Restrict what enhancements will enable later
+        
+        -- Restrict what enhancements will enable later
         self:AddBuildRestriction( categories.UEF * (categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER) )
         self:AddBuildRestriction( categories.UEF * (categories.BUILTBYTIER4COMMANDER) )
     end,
 
     OnPrepareArmToBuild = function(self)
-        --TWalkingLandUnit.OnPrepareArmToBuild(self)
-        if self:BeenDestroyed() then return end
+
+        if self.Dead then return end
+        
         self:BuildManipulatorSetEnabled(true)
         self.BuildArmManipulator:SetPrecedence(20)
         self.wcBuildMode = true
@@ -260,8 +307,11 @@ EEL0001 = Class(TWalkingLandUnit) {
     end,
 
     OnStopCapture = function(self, target)
+    
         TWalkingLandUnit.OnStopCapture(self, target)
-        if self:BeenDestroyed() then return end
+        
+        if self.Dead then return end
+        
         self:BuildManipulatorSetEnabled(false)
         self.BuildArmManipulator:SetPrecedence(0)
         self.wcBuildMode = false
@@ -270,7 +320,9 @@ EEL0001 = Class(TWalkingLandUnit) {
     end,
 
     OnFailedCapture = function(self, target)
+    
         TWalkingLandUnit.OnFailedCapture(self, target)
+        
         self:BuildManipulatorSetEnabled(false)
         self.BuildArmManipulator:SetPrecedence(0)
         self.wcBuildMode = false
@@ -279,8 +331,11 @@ EEL0001 = Class(TWalkingLandUnit) {
     end,
 
     OnStopReclaim = function(self, target)
+    
         TWalkingLandUnit.OnStopReclaim(self, target)
-        if self:BeenDestroyed() then return end
+        
+        if self.Dead then return end
+        
         self:BuildManipulatorSetEnabled(false)
         self.BuildArmManipulator:SetPrecedence(0)
         self.wcBuildMode = false
@@ -290,21 +345,26 @@ EEL0001 = Class(TWalkingLandUnit) {
 
     GiveInitialResources = function(self)
         WaitTicks(5)
-        self:GetAIBrain():GiveResource('Energy', self:GetBlueprint().Economy.StorageEnergy)
-        self:GetAIBrain():GiveResource('Mass', self:GetBlueprint().Economy.StorageMass)
+        self:GetAIBrain():GiveResource('Energy', __blueprints[self.BlueprintID].Economy.StorageEnergy)
+        self:GetAIBrain():GiveResource('Mass', __blueprints[self.BlueprintID].Economy.StorageMass)
     end,
 
     OnStopBeingBuilt = function(self,builder,layer)
+    
         TWalkingLandUnit.OnStopBeingBuilt(self,builder,layer)
-        if self:BeenDestroyed() then return end
+        
+        if self.Dead then return end
+        
         self.Animator = CreateAnimator(self)
         self.Animator:SetPrecedence(0)
+        
         if self.IdleAnim then
-            self.Animator:PlayAnim(self:GetBlueprint().Display.AnimationIdle, true)
+            self.Animator:PlayAnim( __blueprints[self.BlueprintID].Display.AnimationIdle, true)
             for k, v in self.DisabledBones do
                 self.Animator:SetBoneEnabled(v, false)
             end
         end
+        
         self:BuildManipulatorSetEnabled(false)
         self:DisableUnitIntel('Radar')
         self:DisableUnitIntel('Sonar')
@@ -313,15 +373,19 @@ EEL0001 = Class(TWalkingLandUnit) {
         self:DisableUnitIntel('SonarStealth')
         self:DisableUnitIntel('Cloak')
         self:DisableUnitIntel('CloakField')
+        
 		self:SetMaintenanceConsumptionInactive()
+        
         self.Rotator1 = CreateRotator(self, 'Back_ShieldPack_Spinner01', 'z', nil, 0, 20, 0)
         self.Rotator2 = CreateRotator(self, 'Back_ShieldPack_Spinner02', 'z', nil, 0, 40, 0)
         self.RadarDish1 = CreateRotator(self, 'Back_IntelPack_Dish', 'y', nil, 0, 20, 0)
-        self.Trash:Add(self.Rotator1)
-        self.Trash:Add(self.Rotator2)
-        self.Trash:Add(self.RadarDish1)
-		self.ShieldEffectsBag2 = {}
+        
+        TrashAdd( self.Trash, self.Rotator1 )
+        TrashAdd( self.Trash, self.Rotator2 )
+        TrashAdd( self.Trash, self.RadarDish1 )
+        
 		self.FlamerEffectsBag = {}
+        
 		self.wcBuildMode = false
 		self.wcOCMode = false
 		self.wcFlamer01 = false
@@ -374,9 +438,13 @@ EEL0001 = Class(TWalkingLandUnit) {
     end,
 
     WarpInEffectThread = function(self)
+    
         self:PlayUnitSound('CommanderArrival')
+        
         self:CreateProjectile( '/effects/entities/UnitTeleport01/UnitTeleport01_proj.bp', 0, 1.35, 0, nil, nil, nil):SetCollision(false)
-        WaitSeconds(2.1)
+        
+        WaitTicks(22)
+        
         self:SetMesh('/mods/BlackOpsACUs/units/eel0001/EEL0001_PhaseShield_mesh', true)
         self:ShowBone(0, true)
         self:HideBone('Engineering_Suite', true)
@@ -396,30 +464,39 @@ EEL0001 = Class(TWalkingLandUnit) {
         self:SetBlockCommandQueue(false)
 
         local totalBones = self:GetBoneCount() - 1
-        local army = self:GetArmy()
+        
+        local army = self.Army
+        
         for k, v in EffectTemplate.UnitTeleportSteam01 do
             for bone = 1, totalBones do
                 CreateAttachedEmitter(self,bone,army, v)
             end
         end
 
-        WaitSeconds(6)
-        self:SetMesh(self:GetBlueprint().Display.MeshBlueprint, true)
+        WaitTicks(61)
+        
+        self:SetMesh(__blueprints[self.BlueprintID].Display.MeshBlueprint, true)
     end,
 
     OnStartBuild = function(self, unitBeingBuilt, order)
+    
         TWalkingLandUnit.OnStartBuild(self, unitBeingBuilt, order)
+        
         if self.Animator then
             self.Animator:SetRate(0)
         end
+        
         self.UnitBeingBuilt = unitBeingBuilt
         self.UnitBuildOrder = order
         self.BuildingUnit = true        
     end,
 
     OnFailedToBuild = function(self)
+    
         TWalkingLandUnit.OnFailedToBuild(self)
-        if self:BeenDestroyed() then return end
+        
+        if self.Dead then return end
+        
         self:BuildManipulatorSetEnabled(false)
         self.BuildArmManipulator:SetPrecedence(0)
         self.wcBuildMode = false
@@ -428,22 +505,18 @@ EEL0001 = Class(TWalkingLandUnit) {
     end,
 
     CreateBuildEffects = function( self, unitBeingBuilt, order )
-        local UpgradesFrom = unitBeingBuilt:GetBlueprint().General.UpgradesFrom
-        # If we are assisting an upgrading unit, or repairing a unit, play seperate effects
-        if (order == 'Repair' and not unitBeingBuilt:IsBeingBuilt()) or (UpgradesFrom and UpgradesFrom != 'none' and self:IsUnitState('Guarding'))then
-            EffectUtil.CreateDefaultBuildBeams( self, unitBeingBuilt, self:GetBlueprint().General.BuildBones.BuildEffectBones, self.BuildEffectsBag )
-        else
-            EffectUtil.CreateUEFCommanderBuildSliceBeams( self, unitBeingBuilt, self:GetBlueprint().General.BuildBones.BuildEffectBones, self.BuildEffectsBag )        
-        end           
+
+        EffectUtil.CreateUEFCommanderBuildSliceBeams( self, unitBeingBuilt, __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones, self.BuildEffectsBag )        
+
     end,
 
     OnStopBuild = function(self, unitBeingBuilt)
 	
         TWalkingLandUnit.OnStopBuild(self, unitBeingBuilt)
 		
-        if self:BeenDestroyed() then return end
+        if self.Dead then return end
 		
-        if (self.IdleAnim and not self:IsDead()) then
+        if self.IdleAnim then
             self.Animator:PlayAnim(self.IdleAnim, true)
         end
 		
@@ -514,7 +587,7 @@ EEL0001 = Class(TWalkingLandUnit) {
 
 			self.Satellite:AttachTo(self, 'Back_IntelPack')
 			
-			self.Trash:Add(self.Satellite)
+			TrashAdd( self.Trash, self.Satellite )
 			
 			self.Satellite.Parent = self
 			self.Satellite:SetParent(self, 'SpySat')
@@ -527,20 +600,27 @@ EEL0001 = Class(TWalkingLandUnit) {
     end,
 
     OnScriptBitClear = function(self, bit)
-        if bit == 0 then # shield toggle
+    
+        if bit == 0 then    -- shield toggle
+        
 			self.Rotator1:SetTargetSpeed(0)
 			self.Rotator2:SetTargetSpeed(0)
+            
 			if self.ShieldEffectsBag2 then
+            
 				for k, v in self.ShieldEffectsBag2 do
 					v:Destroy()
 				end
-				self.ShieldEffectsBag2 = {}
+				self.ShieldEffectsBag2 = false
 			end
+            
 			self:DisableShield()
 			self:StopUnitAmbientSound( 'ActiveLoop' )
+            
         elseif bit == 2 then 
 
-        elseif bit == 8 then # cloak toggle
+        elseif bit == 8 then    -- cloak toggle
+        
             self:PlayUnitAmbientSound( 'ActiveLoop' )
             self:SetMaintenanceConsumptionActive()
             self:EnableUnitIntel('Radar')
@@ -550,30 +630,40 @@ EEL0001 = Class(TWalkingLandUnit) {
     end,
 
     OnScriptBitSet = function(self, bit)
-        if bit == 0 then # shield toggle
+    
+        if bit == 0 then
+        
 			self.Rotator1:SetTargetSpeed(90)
 			self.Rotator2:SetTargetSpeed(-180)
+            
 			if self.ShieldEffectsBag2 then
+            
 				for k, v in self.ShieldEffectsBag2 do
 					v:Destroy()
 				end
-				self.ShieldEffectsBag2 = {}
+
 			end
+            
+            self.ShieldEffectsBag2 = {}
+            
 			for k, v in self.ShieldEffects2 do
-				table.insert( self.ShieldEffectsBag2, CreateAttachedEmitter( self, 'Back_ShieldPack_Emitter01', self:GetArmy(), v ) )
-				table.insert( self.ShieldEffectsBag2, CreateAttachedEmitter( self, 'Back_ShieldPack_Emitter02', self:GetArmy(), v ) )
-				table.insert( self.ShieldEffectsBag2, CreateAttachedEmitter( self, 'Back_ShieldPack_Emitter03', self:GetArmy(), v ) )
-				table.insert( self.ShieldEffectsBag2, CreateAttachedEmitter( self, 'Back_ShieldPack_Emitter04', self:GetArmy(), v ) )
-				table.insert( self.ShieldEffectsBag2, CreateAttachedEmitter( self, 'Back_ShieldPack_Emitter05', self:GetArmy(), v ) )
-				table.insert( self.ShieldEffectsBag2, CreateAttachedEmitter( self, 'Back_ShieldPack_Emitter06', self:GetArmy(), v ) )
-				table.insert( self.ShieldEffectsBag2, CreateAttachedEmitter( self, 'Back_ShieldPack_Emitter07', self:GetArmy(), v ) )
-				table.insert( self.ShieldEffectsBag2, CreateAttachedEmitter( self, 'Back_ShieldPack_Emitter08', self:GetArmy(), v ) )
+				LOUDINSERT( self.ShieldEffectsBag2, CreateAttachedEmitter( self, 'Back_ShieldPack_Emitter01', self:GetArmy(), v ) )
+				LOUDINSERT( self.ShieldEffectsBag2, CreateAttachedEmitter( self, 'Back_ShieldPack_Emitter02', self:GetArmy(), v ) )
+				LOUDINSERT( self.ShieldEffectsBag2, CreateAttachedEmitter( self, 'Back_ShieldPack_Emitter03', self:GetArmy(), v ) )
+				LOUDINSERT( self.ShieldEffectsBag2, CreateAttachedEmitter( self, 'Back_ShieldPack_Emitter04', self:GetArmy(), v ) )
+				LOUDINSERT( self.ShieldEffectsBag2, CreateAttachedEmitter( self, 'Back_ShieldPack_Emitter05', self:GetArmy(), v ) )
+				LOUDINSERT( self.ShieldEffectsBag2, CreateAttachedEmitter( self, 'Back_ShieldPack_Emitter06', self:GetArmy(), v ) )
+				LOUDINSERT( self.ShieldEffectsBag2, CreateAttachedEmitter( self, 'Back_ShieldPack_Emitter07', self:GetArmy(), v ) )
+				LOUDINSERT( self.ShieldEffectsBag2, CreateAttachedEmitter( self, 'Back_ShieldPack_Emitter08', self:GetArmy(), v ) )
 			end
+            
 			self:EnableShield()
             self:PlayUnitAmbientSound( 'ActiveLoop' )
+            
 		elseif bit == 2 then
 
-		elseif bit == 8 then # cloak toggle
+		elseif bit == 8 then
+        
             self:StopUnitAmbientSound( 'ActiveLoop' )
             self:SetMaintenanceConsumptionInactive()
             self:DisableUnitIntel('Radar')
@@ -850,7 +940,7 @@ EEL0001 = Class(TWalkingLandUnit) {
 	
         TWalkingLandUnit.CreateEnhancement(self, enh)
 		
-        local bp = self:GetBlueprint().Enhancements[enh]
+        local bp = __blueprints[self.BlueprintID].Enhancements[enh]
 
         if enh =='EXImprovedEngineering' then
 		
@@ -1035,17 +1125,17 @@ EEL0001 = Class(TWalkingLandUnit) {
 		elseif enh =='EXZephyrBooster' then
             local wepZephyr = self:GetWeaponByLabel('RightZephyr')
             wepZephyr:AddDamageMod(50)
-			wepZephyr:ChangeMaxRadius(self:GetBlueprint().Weapon[1].MaxRadius + 5)
+			wepZephyr:ChangeMaxRadius(__blueprints[self.BlueprintID].Weapon[1].MaxRadius + 5)
 			local wepOvercharge = self:GetWeaponByLabel('OverCharge')
-            wepOvercharge:ChangeMaxRadius(self:GetBlueprint().Weapon[2].MaxRadius + 5)
+            wepOvercharge:ChangeMaxRadius(__blueprints[self.BlueprintID].Weapon[2].MaxRadius + 5)
 			self:ShowBone('Zephyr_Amplifier', true)
 			
         elseif enh =='EXZephyrBoosterRemove' then
             local wepZephyr = self:GetWeaponByLabel('RightZephyr')
             wepZephyr:AddDamageMod(-50)
-			wepZephyr:ChangeMaxRadius(self:GetBlueprint().Weapon[1].MaxRadius)
+			wepZephyr:ChangeMaxRadius(__blueprints[self.BlueprintID].Weapon[1].MaxRadius)
 			local wepOvercharge = self:GetWeaponByLabel('OverCharge')
-            wepOvercharge:ChangeMaxRadius(self:GetBlueprint().Weapon[2].MaxRadius)
+            wepOvercharge:ChangeMaxRadius(__blueprints[self.BlueprintID].Weapon[2].MaxRadius)
 			self:HideBone('Zephyr_Amplifier', true)
 			
         elseif enh =='EXTorpedoLauncher' then
@@ -1187,21 +1277,23 @@ EEL0001 = Class(TWalkingLandUnit) {
             RemoveUnitEnhancement(self, 'EXShieldBatteryRemove')
             self:SetMaintenanceConsumptionInactive()
             self:RemoveToggleCap('RULEUTC_ShieldToggle')
+            
 			if self.ShieldEffectsBag2 then
 				for k, v in self.ShieldEffectsBag2 do
 					v:Destroy()
 				end
-				self.ShieldEffectsBag2 = {}
+				self.ShieldEffectsBag2 = false
 			end
+            
 			self.Rotator1:SetTargetSpeed(0)
 			self.Rotator2:SetTargetSpeed(0)
 
         elseif enh == 'EXActiveShielding' then
+        
             self:DestroyShield()
-            ForkThread(function()
-                WaitTicks(1)
-				self:CreatePersonalShield(bp)
-            end)
+            
+            ForkThread(function() WaitTicks(2) self:CreatePersonalShield(bp) end)
+            
             self:SetEnergyMaintenanceConsumptionOverride(bp.MaintenanceConsumptionPerSecondEnergy or 0)
             self:SetMaintenanceConsumptionActive()
 			self.wcLance01 = true
@@ -1210,16 +1302,22 @@ EEL0001 = Class(TWalkingLandUnit) {
 			self:ForkThread(self.WeaponConfigCheck)
 
         elseif enh == 'EXActiveShieldingRemove' then
+        
             self:DestroyShield()
+            
             RemoveUnitEnhancement(self, 'EXActiveShieldingRemove')
+            
             self:SetMaintenanceConsumptionInactive()
+            
             self:RemoveToggleCap('RULEUTC_ShieldToggle')
+            
 			if self.ShieldEffectsBag2 then
 				for k, v in self.ShieldEffectsBag2 do
 					v:Destroy()
 				end
-				self.ShieldEffectsBag2 = {}
+				self.ShieldEffectsBag2 = false
 			end
+            
 			self.Rotator1:SetTargetSpeed(0)
 			self.Rotator2:SetTargetSpeed(0)
 			self.wcLance01 = false
@@ -1228,25 +1326,31 @@ EEL0001 = Class(TWalkingLandUnit) {
 			self:ForkThread(self.WeaponConfigCheck)
 
         elseif enh == 'EXImprovedShieldBattery' then
+        
             self:DestroyShield()
-            ForkThread(function()
-                WaitTicks(1)
-				self:CreatePersonalShield(bp)
-            end)
+            
+            ForkThread(function() WaitTicks(2) self:CreatePersonalShield(bp) end)
+            
             self:SetEnergyMaintenanceConsumptionOverride(bp.MaintenanceConsumptionPerSecondEnergy or 0)
             self:SetMaintenanceConsumptionActive()
 
         elseif enh == 'EXImprovedShieldBatteryRemove' then
+        
             self:DestroyShield()
+            
             RemoveUnitEnhancement(self, 'EXImprovedShieldBatteryRemove')
+            
             self:SetMaintenanceConsumptionInactive()
+            
             self:RemoveToggleCap('RULEUTC_ShieldToggle')
+            
 			if self.ShieldEffectsBag2 then
 				for k, v in self.ShieldEffectsBag2 do
 					v:Destroy()
 				end
-				self.ShieldEffectsBag2 = {}
+				self.ShieldEffectsBag2 = false
 			end
+            
 			self.Rotator1:SetTargetSpeed(0)
 			self.Rotator2:SetTargetSpeed(0)
 			self.wcLance01 = false
@@ -1256,23 +1360,27 @@ EEL0001 = Class(TWalkingLandUnit) {
 
         elseif enh == 'EXShieldExpander' then
             self:DestroyShield()
-            ForkThread(function()
-                WaitTicks(1)
-                self:CreateShield(bp)
-            end)
+            
+            ForkThread(function() WaitTicks(2) self:CreateShield(bp) end)
+            
             self:SetEnergyMaintenanceConsumptionOverride(bp.MaintenanceConsumptionPerSecondEnergy or 0)
             self:SetMaintenanceConsumptionActive()
 
         elseif enh == 'EXShieldExpanderRemove' then
+        
             self:DestroyShield()
+            
             self:SetMaintenanceConsumptionInactive()
+            
             self:RemoveToggleCap('RULEUTC_ShieldToggle')
+            
 			if self.ShieldEffectsBag2 then
 				for k, v in self.ShieldEffectsBag2 do
 					v:Destroy()
 				end
-				self.ShieldEffectsBag2 = {}
+				self.ShieldEffectsBag2 = false
 			end
+            
 			self.Rotator1:SetTargetSpeed(0)
 			self.Rotator2:SetTargetSpeed(0)
 			self.wcLance01 = false
@@ -1294,7 +1402,9 @@ EEL0001 = Class(TWalkingLandUnit) {
 			self:ForkThread(self.WeaponConfigCheck)
 
         elseif enh == 'EXElectronicsEnhancmentRemove' then
-            local bpIntel = self:GetBlueprint().Intel
+        
+            local bpIntel = __blueprints[self.BlueprintID].Intel
+            
             self:SetIntelRadius('Vision', bpIntel.VisionRadius or 26)
             self:SetIntelRadius('Omni', bpIntel.OmniRadius or 26)
 			self.RadarDish1:SetTargetSpeed(0)
@@ -1344,7 +1454,7 @@ EEL0001 = Class(TWalkingLandUnit) {
             self.CloakEnh = false 
             self.StealthFieldEffects = false
             self.CloakingEffects = false     
-            local bpIntel = self:GetBlueprint().Intel
+            local bpIntel = __blueprints[self.BlueprintID].Intel
             self:SetIntelRadius('Vision', bpIntel.VisionRadius or 26)
             self:SetIntelRadius('Omni', bpIntel.OmniRadius or 26)
 			self.RadarDish1:SetTargetSpeed(0)
@@ -1377,7 +1487,7 @@ EEL0001 = Class(TWalkingLandUnit) {
             self.StealthFieldEffects = false
             self.CloakingEffects = false     
             self:RemoveCommandCap('RULEUCC_Teleport')
-            local bpIntel = self:GetBlueprint().Intel
+            local bpIntel = __blueprints[self.BlueprintID].Intel
             self:SetIntelRadius('Vision', bpIntel.VisionRadius or 26)
             self:SetIntelRadius('Omni', bpIntel.OmniRadius or 26)
 			self.RadarDish1:SetTargetSpeed(0)
@@ -1495,26 +1605,35 @@ EEL0001 = Class(TWalkingLandUnit) {
 			self.RBComTier3 = false
 
         elseif enh == 'LeftPod' or enh == 'RightPod' then
-            TWalkingLandUnit.CreateEnhancement(self, enh) # moved from top to here so this happens only once for each enhancement
+        
+            TWalkingLandUnit.CreateEnhancement(self, enh) -- moved from top to here so this happens only once for each enhancement
+            
             -- making sure we have up to date information (dont delete! needed for bug fix below)
             if not self.LeftPod or self.LeftPod:IsDead() then
                 self.HasLeftPod = false
             end
+            
             if not self.RightPod or self.RightPod:IsDead() then
                 self.HasRightPod = false
             end
+            
             -- fix for a bug that occurs when pod 1 is destroyed while upgrading to get pod 2
             if enh == 'RightPod' and (not self.HasLeftPod or not self.HasRightPod) then
                 TWalkingLandUnit.CreateEnhancement(self, 'RightPodRemove')
                 TWalkingLandUnit.CreateEnhancement(self, 'LeftPod')
             end
+            
             -- add new pod to left or right
             if not self.HasLeftPod then
+            
                 local location = self:GetPosition('AttachSpecial02')
                 local pod = CreateUnitHPR('UEA0001', self:GetArmy(), location[1], location[2], location[3], 0, 0, 0)
+                
                 pod:SetCreator(self)
                 pod:SetParent(self, 'LeftPod')
-                self.Trash:Add(pod)
+                
+                TrashAdd( self.Trash, pod )
+                
                 self.LeftPod = pod
                 self.HasLeftPod = true
             else
@@ -1522,7 +1641,9 @@ EEL0001 = Class(TWalkingLandUnit) {
                 local pod = CreateUnitHPR('UEA0001', self:GetArmy(), location[1], location[2], location[3], 0, 0, 0)
                 pod:SetCreator(self)
                 pod:SetParent(self, 'RightPod')
-                self.Trash:Add(pod)
+                
+                TrashAdd( self.Trash, pod )
+                
                 self.RightPod = pod
                 self.HasRightPod = true
             end
@@ -1532,8 +1653,10 @@ EEL0001 = Class(TWalkingLandUnit) {
             else
                 TWalkingLandUnit.CreateEnhancement(self, 'LeftPod')
             end
+            
         -- for removing the pod upgrades
         elseif enh == 'RightPodRemove' then
+        
             TWalkingLandUnit.CreateEnhancement(self, enh) # moved from top to here so this happens only once for each enhancement
             if self.RightPod and not self.RightPod:IsDead() then
                 self.RightPod:Kill()
@@ -1543,6 +1666,7 @@ EEL0001 = Class(TWalkingLandUnit) {
                 self.LeftPod:Kill()
                 self.HasLeftPod = false
             end
+            
         elseif enh == 'LeftPodRemove' then
             TWalkingLandUnit.CreateEnhancement(self, enh) # moved from top to here so this happens only once for each enhancement
             if self.LeftPod and not self.LeftPod:IsDead() then
@@ -1597,16 +1721,18 @@ EEL0001 = Class(TWalkingLandUnit) {
     },
 	
     OnIntelEnabled = function(self)
+    
         TWalkingLandUnit.OnIntelEnabled(self)
+        
         if self.CloakEnh and self:IsIntelEnabled('Cloak') then 
-            self:SetEnergyMaintenanceConsumptionOverride(self:GetBlueprint().Enhancements['EXCloakingSubsystems'].MaintenanceConsumptionPerSecondEnergy or 1)
+            self:SetEnergyMaintenanceConsumptionOverride(__blueprints[self.BlueprintID].Enhancements['EXCloakingSubsystems'].MaintenanceConsumptionPerSecondEnergy or 1)
             self:SetMaintenanceConsumptionActive()
             if not self.IntelEffectsBag then
 			    self.IntelEffectsBag = {}
 			    self.CreateTerrainTypeEffects( self, self.IntelEffects.Cloak, 'FXIdle',  self:GetCurrentLayer(), nil, self.IntelEffectsBag )
 			end            
         elseif self.StealthEnh and self:IsIntelEnabled('RadarStealth') and self:IsIntelEnabled('SonarStealth') then
-            self:SetEnergyMaintenanceConsumptionOverride(self:GetBlueprint().Enhancements['EXElectronicCountermeasures'].MaintenanceConsumptionPerSecondEnergy or 1)
+            self:SetEnergyMaintenanceConsumptionOverride(__blueprints[self.BlueprintID].Enhancements['EXElectronicCountermeasures'].MaintenanceConsumptionPerSecondEnergy or 1)
             self:SetMaintenanceConsumptionActive()  
             if not self.IntelEffectsBag then 
 	            self.IntelEffectsBag = {}
@@ -1617,7 +1743,9 @@ EEL0001 = Class(TWalkingLandUnit) {
     end,
 
     OnIntelDisabled = function(self)
+    
         TWalkingLandUnit.OnIntelDisabled(self)
+        
         if self.IntelEffectsBag then
             EffectUtil.CleanupEffectBag(self,'IntelEffectsBag')
             self.IntelEffectsBag = nil
@@ -1631,6 +1759,7 @@ EEL0001 = Class(TWalkingLandUnit) {
     end,
 
     OnKilled = function(self, instigator, type, overkillRatio)
+    
         if self.Satellite and not self.Satellite:IsDead() and not self.Satellite.IsDying then
             self.Satellite:Kill()
 			self.Satellite = nil
@@ -1639,6 +1768,7 @@ EEL0001 = Class(TWalkingLandUnit) {
     end,
     
     OnDestroy = function(self)
+    
         if self.Satellite and not self.Satellite:IsDead() and not self.Satellite.IsDying then
             self.Satellite:Destroy()
 			self.Satellite = nil
@@ -1647,26 +1777,24 @@ EEL0001 = Class(TWalkingLandUnit) {
     end,
 
     OnPaused = function(self)
+    
         TWalkingLandUnit.OnPaused(self)
         if self.BuildingUnit then
-            TWalkingLandUnit.StopBuildingEffects(self, self:GetUnitBeingBuilt())
+            TWalkingLandUnit.StopBuildingEffects(self, self.UnitBeingBuilt)
         end    
     end,
     
     OnUnpaused = function(self)
+    
         if self.BuildingUnit then
-            TWalkingLandUnit.StartBuildingEffects(self, self:GetUnitBeingBuilt(), self.UnitBuildOrder)
+            TWalkingLandUnit.StartBuildingEffects(self, self.UnitBeingBuilt, self.UnitBuildOrder)
         end
         TWalkingLandUnit.OnUnpaused(self)
     end,      
 
-    ShieldEffects2 = {
-        '/mods/BlackopsACUs/effects/emitters/ex_uef_shieldgen_01_emit.bp',
-    },
+    ShieldEffects2 = {'/mods/BlackopsACUs/effects/emitters/ex_uef_shieldgen_01_emit.bp'},
 
-    FlamerEffects = {
-        '/mods/BlackopsACUs/effects/emitters/ex_flamer_torch_01.bp',
-    },
+    FlamerEffects = {'/mods/BlackopsACUs/effects/emitters/ex_flamer_torch_01.bp'},
 
 }
 

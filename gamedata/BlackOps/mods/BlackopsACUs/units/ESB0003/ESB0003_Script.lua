@@ -1,13 +1,5 @@
---****************************************************************************
---** 
---**  File     :  /cdimage/units/XSB0001/XSB0001_script.lua 
---**  Author(s):  John Comes, David Tomandl 
---** 
---**  Summary  :  UEF Wall Piece Script 
---** 
---**  Copyright � 2005 Gas Powered Games, Inc.  All rights reserved.
---****************************************************************************
 local SStructureUnit = import('/lua/seraphimunits.lua').SStructureUnit
+
 local SeraLambdaField = import('/mods/BlackOpsACUs/lua/BlackOpsdefaultantiprojectile.lua').SeraLambdaFieldDestroyer
 
 

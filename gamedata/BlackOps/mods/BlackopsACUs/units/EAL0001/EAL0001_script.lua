@@ -1,4 +1,4 @@
-local AWalkingLandUnit = import('/lua/aeonunits.lua').AWalkingLandUnit
+local AWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
 local AeonBuffField = import('/lua/aeonweapons.lua').AeonBuffField
 local Buff = import('/lua/sim/Buff.lua')
@@ -17,6 +17,8 @@ local ADFOverchargeWeapon = AWeapons.ADFOverchargeWeapon
 
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 local EffectUtil = import('/lua/EffectUtilities.lua')
+
+local CreateAeonCommanderBuildingEffects = EffectUtil.CreateAeonCommanderBuildingEffects
 
 local Weapon = import('/lua/sim/Weapon.lua').Weapon
 
@@ -179,9 +181,21 @@ EAL0001 = Class(AWalkingLandUnit) {
         
     end,
 
+    GiveInitialResources = function(self)
+    
+        WaitTicks(2)
+        self:GetAIBrain():GiveResource('Energy', self:GetBlueprint().Economy.StorageEnergy)
+        self:GetAIBrain():GiveResource('Mass', self:GetBlueprint().Economy.StorageMass)
+    end,
+    
+    CreateBuildEffects = function( self, unitBeingBuilt, order )
+        CreateAeonCommanderBuildingEffects( self, unitBeingBuilt, __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones, self.BuildEffectsBag )
+    end,  
+
     OnPrepareArmToBuild = function(self)
-        --AWalkingLandUnit.OnPrepareArmToBuild(self)
-        if self:BeenDestroyed() then return end
+
+        if self.Dead then return end
+        
         self:BuildManipulatorSetEnabled(true)
         self.BuildArmManipulator:SetPrecedence(20)
         self.wcBuildMode = true
@@ -189,9 +203,58 @@ EAL0001 = Class(AWalkingLandUnit) {
         self.BuildArmManipulator:SetHeadingPitch( self:GetWeaponManipulatorByLabel('RightDisruptor'):GetHeadingPitch() )
     end,
 
+    OnFailedToBuild = function(self)
+    
+        AWalkingLandUnit.OnFailedToBuild(self)
+        
+        if self.Dead then return end
+        
+        self:BuildManipulatorSetEnabled(false)
+        self.BuildArmManipulator:SetPrecedence(0)
+        self.wcBuildMode = false
+		self:ForkThread(self.WeaponConfigCheck)
+        self:GetWeaponManipulatorByLabel('RightDisruptor'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
+    end,
+    
+    OnStartBuild = function(self, unitBeingBuilt, order)
+    
+        AWalkingLandUnit.OnStartBuild(self, unitBeingBuilt, order)
+        
+        self.UnitBeingBuilt = unitBeingBuilt
+        self.UnitBuildOrder = order
+        self.BuildingUnit = true     
+    end,
+    
+    OnStopBuild = function(self, unitBeingBuilt)
+        
+        for _, emit in self.BuildEmitters do
+            emit:ScaleEmitter( 0.01 )
+        end
+    
+        if self.BuildProjectile then
+            self.BuildProjectile:AttachTo( self, self.BuildPoint )
+        end
+        
+        AWalkingLandUnit.OnStopBuild(self, unitBeingBuilt)
+        
+        if self.Dead then return end
+        
+        self:BuildManipulatorSetEnabled(false)
+        self.BuildArmManipulator:SetPrecedence(0)
+        self.wcBuildMode = false
+		self:ForkThread(self.WeaponConfigCheck)
+        self:GetWeaponManipulatorByLabel('RightDisruptor'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
+        self.UnitBeingBuilt = nil
+        self.UnitBuildOrder = nil
+        self.BuildingUnit = false          
+    end,
+
     OnStopCapture = function(self, target)
+    
         AWalkingLandUnit.OnStopCapture(self, target)
-        if self:BeenDestroyed() then return end
+
+        if self.Dead then return end
+        
         self:BuildManipulatorSetEnabled(false)
         self.BuildArmManipulator:SetPrecedence(0)
         self.wcBuildMode = false
@@ -200,8 +263,11 @@ EAL0001 = Class(AWalkingLandUnit) {
     end,
 
     OnFailedCapture = function(self, target)
+    
         AWalkingLandUnit.OnFailedCapture(self, target)
-        if self:BeenDestroyed() then return end
+
+        if self.Dead then return end
+        
         self:BuildManipulatorSetEnabled(false)
         self.BuildArmManipulator:SetPrecedence(0)
         self.wcBuildMode = false
@@ -210,8 +276,11 @@ EAL0001 = Class(AWalkingLandUnit) {
     end,
 
     OnStopReclaim = function(self, target)
+    
         AWalkingLandUnit.OnStopReclaim(self, target)
-        if self:BeenDestroyed() then return end
+
+        if self.Dead then return end
+        
         self:BuildManipulatorSetEnabled(false)
         self.BuildArmManipulator:SetPrecedence(0)
         self.wcBuildMode = false
@@ -318,7 +387,9 @@ EAL0001 = Class(AWalkingLandUnit) {
     end,
 
     OnKilled = function(self, instigator, type, overkillRatio)
+    
         AWalkingLandUnit.OnKilled(self, instigator, type, overkillRatio)
+        
         if self.RemoteViewingData.Satellite then
             self.RemoteViewingData.Satellite:DisableIntel('Vision')
             self.RemoteViewingData.Satellite:Destroy()
@@ -326,6 +397,7 @@ EAL0001 = Class(AWalkingLandUnit) {
     end,
 
     DisableRemoteViewingButtons = function(self)
+    
         self.Sync.Abilities = self:GetBlueprint().Abilities
         self.Sync.Abilities.EXScryTarget.Active = false
         self:AddToggleCap('RULEUTC_IntelToggle')
@@ -333,6 +405,7 @@ EAL0001 = Class(AWalkingLandUnit) {
     end,
 
     EnableRemoteViewingButtons = function(self)
+    
         self.Sync.Abilities = self:GetBlueprint().Abilities
         self.Sync.Abilities.EXScryTarget.Active = true
         self:AddToggleCap('RULEUTC_IntelToggle')
@@ -340,6 +413,7 @@ EAL0001 = Class(AWalkingLandUnit) {
     end,
 
     EXRemoteCheck = function(self)
+    
         if self.RBIntTier2 and self.ScryActive then
 			self:DisableRemoteViewingButtons()
 			WaitSeconds(10)
@@ -377,15 +451,18 @@ EAL0001 = Class(AWalkingLandUnit) {
 
     CreateVisibleEntity = function(self)
 	
-        # Only give a visible area if we have a location and intel button enabled
+        -- Only give a visible area if we have a location and intel button enabled
         if not self.RemoteViewingData.VisibleLocation then
             return
         end
 
         if self.RemoteViewingData.VisibleLocation and self.RemoteViewingData.DisableCounter == 0 and self.RemoteViewingData.IntelButton then
-            local bp = self:GetBlueprint()
-            # Create new visible area
+        
+            local bp = __blueprints[self.BlueprintID]
+            
+            -- Create new visible area
             if not self.RemoteViewingData.Satellite then
+            
                 local spec = {
                     X = self.RemoteViewingData.VisibleLocation[1],
                     Z = self.RemoteViewingData.VisibleLocation[3],
@@ -396,10 +473,11 @@ EAL0001 = Class(AWalkingLandUnit) {
                     Vision = true,
                     Army = self:GetAIBrain():GetArmyIndex(),
                 }
+                
                 self.RemoteViewingData.Satellite = VizMarker(spec)
                 self.Trash:Add(self.RemoteViewingData.Satellite)
             else
-                # Move and reactivate old visible area
+                -- Move and reactivate old visible area
                 if not self.RemoteViewingData.Satellite:BeenDestroyed() then
                     Warp( self.RemoteViewingData.Satellite, self.RemoteViewingData.VisibleLocation )
                     self.RemoteViewingData.Satellite:EnableIntel('Vision')
@@ -411,58 +489,19 @@ EAL0001 = Class(AWalkingLandUnit) {
 
     DisableVisibleEntity = function(self)
 	
-        # visible entity already off
+        -- visible entity already off
 		WaitSeconds(5)
 		
         if self.RemoteViewingData.DisableCounter > 1 then return end
 		
-        # disable vis entity and monitor resources
+        -- disable vis entity and monitor resources
         if not self:IsDead() and self.RemoteViewingData.Satellite then
             self.RemoteViewingData.Satellite:DisableIntel('Vision')
         end
     end,
 
-    OnFailedToBuild = function(self)
-        AWalkingLandUnit.OnFailedToBuild(self)
-        if self:BeenDestroyed() then return end
-        self:BuildManipulatorSetEnabled(false)
-        self.BuildArmManipulator:SetPrecedence(0)
-        self.wcBuildMode = false
-		self:ForkThread(self.WeaponConfigCheck)
-        self:GetWeaponManipulatorByLabel('RightDisruptor'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
-    end,
-    
-    OnStartBuild = function(self, unitBeingBuilt, order)
-        AWalkingLandUnit.OnStartBuild(self, unitBeingBuilt, order)
-        self.UnitBeingBuilt = unitBeingBuilt
-        self.UnitBuildOrder = order
-        self.BuildingUnit = true     
-    end,
-
-    OnStopBuild = function(self, unitBeingBuilt)
-        AWalkingLandUnit.OnStopBuild(self, unitBeingBuilt)
-        if self:BeenDestroyed() then return end
-        self:BuildManipulatorSetEnabled(false)
-        self.BuildArmManipulator:SetPrecedence(0)
-        self.wcBuildMode = false
-		self:ForkThread(self.WeaponConfigCheck)
-        self:GetWeaponManipulatorByLabel('RightDisruptor'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
-        self.UnitBeingBuilt = nil
-        self.UnitBuildOrder = nil
-        self.BuildingUnit = false          
-    end,
-
-    GiveInitialResources = function(self)
-        WaitTicks(2)
-        self:GetAIBrain():GiveResource('Energy', self:GetBlueprint().Economy.StorageEnergy)
-        self:GetAIBrain():GiveResource('Mass', self:GetBlueprint().Economy.StorageMass)
-    end,
-    
-    CreateBuildEffects = function( self, unitBeingBuilt, order )
-        EffectUtil.CreateAeonCommanderBuildingEffects( self, unitBeingBuilt, self:GetBlueprint().General.BuildBones.BuildEffectBones, self.BuildEffectsBag )
-    end,  
-
     PlayCommanderWarpInEffect = function(self)
+    
         self:HideBone(0, true)
         self:SetUnSelectable(true)
         self:SetBusy(true)
@@ -471,6 +510,7 @@ EAL0001 = Class(AWalkingLandUnit) {
     end,
 
     WarpInEffectThread = function(self)
+    
         self:PlayUnitSound('CommanderArrival')
         self:CreateProjectile( '/effects/entities/UnitTeleport01/UnitTeleport01_proj.bp', 0, 1.35, 0, nil, nil, nil):SetCollision(false)
         WaitSeconds(2.1)
