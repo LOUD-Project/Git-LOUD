@@ -1,7 +1,6 @@
-
 local AStructureUnit = import('/lua/defaultunits.lua').StructureUnit
-local AIFParagonDeathWeapon = import('/lua/aeonweapons.lua').AIFParagonDeathWeapon
 
+local AIFParagonDeathWeapon = import('/lua/aeonweapons.lua').AIFParagonDeathWeapon
 
 SSB1401 = Class(AStructureUnit) {
     AmbientEffects = 'ST3PowerAmbient',
@@ -10,7 +9,7 @@ SSB1401 = Class(AStructureUnit) {
         DeathWeapon = Class(AIFParagonDeathWeapon) {},
     },
 
-	#-- prevent construction of a Paragon within 164 of an existing paragon owned by self or 100 owned by ally
+	-- prevent construction of a Paragon within 164 of an existing paragon owned by self or 100 owned by ally
 	OnStartBeingBuilt = function(self, builder, layer)
 	
 		local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
