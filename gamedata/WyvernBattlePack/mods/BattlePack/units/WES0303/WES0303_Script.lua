@@ -20,13 +20,14 @@ Weapons = {
         TMD = Class(TAMPhalanxWeapon) {
         
             PlayFxWeaponUnpackSequence = function(self)
+            
                 if not self.SpinManip then 
                     self.SpinManip = CreateRotator(self.unit, 'TMD_Turret_Barrel', 'z', nil, 270, 180, 60)
                     self.unit.Trash:Add(self.SpinManip)
                 end
-                if self.SpinManip then
-                    self.SpinManip:SetTargetSpeed(500):SetPrecedence(100)
-                end
+                
+                self.SpinManip:SetTargetSpeed(500):SetPrecedence(100)
+
                 TAMPhalanxWeapon.PlayFxWeaponUnpackSequence(self)
             end,
 

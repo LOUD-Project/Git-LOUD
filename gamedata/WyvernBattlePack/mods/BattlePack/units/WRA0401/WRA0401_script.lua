@@ -54,13 +54,17 @@ WRA0401 = Class(CAirUnit) {
     end,
     
     MovementAmbientExhaustThread = function(self)
-		while not self:IsDead() do
+    
+		while not self.Dead do
+        
 			local ExhaustEffects = {
 				'/effects/emitters/dirty_exhaust_smoke_01_emit.bp',
 				'/effects/emitters/dirty_exhaust_sparks_01_emit.bp',			
 			}
+            
 			local ExhaustBeam = '/effects/emitters/missile_exhaust_fire_beam_03_emit.bp'
-			local army = self:GetArmy()			
+            
+			local army = self.Army			
 			
 			for kE, vE in ExhaustEffects do
 				for kB, vB in self.MovementAmbientExhaustBones do
@@ -70,8 +74,9 @@ WRA0401 = Class(CAirUnit) {
 			end
 			
 			WaitSeconds(2)
+            
 			fxutil.CleanupEffectBag(self,'MovementAmbientExhaustEffectsBag')
-							
+
 			WaitSeconds(util.GetRandomFloat(1,7))
 		end	
     end,

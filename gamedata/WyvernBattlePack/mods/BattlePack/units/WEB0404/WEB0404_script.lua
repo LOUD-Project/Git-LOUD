@@ -8,8 +8,6 @@ local TIFSmartCharge = WeaponsFile.TIFSmartCharge
 
 WEB0404 = Class(TStructureUnit) {
 
-    UpsideDown = false,
-
     Weapons = {
         Turret = Class(TDFGaussCannonWeapon) {},
 

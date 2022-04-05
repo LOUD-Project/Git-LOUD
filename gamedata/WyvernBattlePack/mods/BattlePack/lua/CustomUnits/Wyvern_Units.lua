@@ -60,7 +60,7 @@ UnitList = {
     },
     
     T4LandExperimental4 = {
-        UEF = {'wel0416', 60 },     -- Dragonite
+        UEF = {'wel0416', 50 },     -- Dragonite
         Cybran = {'wrl1466', 60},   -- Storm Strider
     },
 

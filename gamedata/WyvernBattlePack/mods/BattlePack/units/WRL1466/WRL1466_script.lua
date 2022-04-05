@@ -37,17 +37,23 @@ WRL1466 = Class(CWalkingLandUnit) {
     },
 	
 	OnStartBeingBuilt = function(self, builder, layer)
+    
         CWalkingLandUnit.OnStartBeingBuilt(self, builder, layer)
+        
         if not self.AnimationManipulator then
             self.AnimationManipulator = CreateAnimator(self)
             self.Trash:Add(self.AnimationManipulator)
         end
-        self.AnimationManipulator:PlayAnim(self:GetBlueprint().Display.AnimationActivate, false):SetRate(0)
+        
+        self.AnimationManipulator:PlayAnim(__blueprints[self.BlueprintID].Display.AnimationActivate, false):SetRate(0)
     end,
 	
 	OnStopBeingBuilt = function(self,builder,layer)
+    
         CWalkingLandUnit.OnStopBeingBuilt(self,builder,layer)
+        
         local bp = self:GetBlueprint().Defense.AntiMissile
+        
         local antiMissile = MissileRedirect {
             Owner = self,
             Radius = bp.Radius,
@@ -76,8 +82,9 @@ WRL1466 = Class(CWalkingLandUnit) {
     end,	
 
     CreateDeathExplosionDustRing = function( self )
+    
         local blanketSides = 18
-        local blanketAngle = (2*math.pi) / blanketSides
+        local blanketAngle = 6.28 / blanketSides
         local blanketStrength = 1
         local blanketVelocity = 2.8
 
@@ -91,15 +98,20 @@ WRL1466 = Class(CWalkingLandUnit) {
     end,
 
     CreateFirePlumes = function( self, army, bones, yBoneOffset )
+    
         local proj, position, offset, velocity
         local basePosition = self:GetPosition()
+        
         for k, vBone in bones do
+        
             position = self:GetPosition(vBone)
+            
             offset = utilities.GetDifferenceVector( position, basePosition )
             velocity = utilities.GetDirectionVector( position, basePosition ) # 
             velocity.x = velocity.x + utilities.GetRandomFloat(-0.3, 0.3)
             velocity.z = velocity.z + utilities.GetRandomFloat(-0.3, 0.3)
             velocity.y = velocity.y + utilities.GetRandomFloat( 0.0, 0.3)
+            
             proj = self:CreateProjectile('/effects/entities/DestructionFirePlume01/DestructionFirePlume01_proj.bp', offset.x, offset.y + yBoneOffset, offset.z, velocity.x, velocity.y, velocity.z)
             proj:SetBallisticAcceleration(utilities.GetRandomFloat(-1, -2)):SetVelocity(utilities.GetRandomFloat(3, 4)):SetCollision(false)
             
@@ -110,6 +122,7 @@ WRL1466 = Class(CWalkingLandUnit) {
     end,
 
     CreateExplosionDebris = function( self, army )
+    
         for k, v in EffectTemplate.ExplosionDebrisLrg01 do
             CreateAttachedEmitter( self, 'XRL0403', army, v ):OffsetEmitter( 0, 5, 0 )
         end
@@ -118,7 +131,7 @@ WRL1466 = Class(CWalkingLandUnit) {
     DeathThread = function(self)
         self:PlayUnitSound('Destroyed')
         
-        local army = self:GetArmy()
+        local army = self.Army
 
         -- Create Initial explosion effects
         explosion.CreateFlash( self, 'Left_Leg01_B01', 3.5, army )
@@ -128,8 +141,6 @@ WRL1466 = Class(CWalkingLandUnit) {
         CreateAttachedEmitter(self,'XRL0403', army, '/effects/emitters/distortion_ring_01_emit.bp')
         
         self:CreateFirePlumes( army, {'XRL0403'}, 0 )
-
-        --self:CreateFirePlumes( army, {'Right_Leg01_B01','Right_Leg02_B01','Left_Leg02_B01',}, 0.5 )
 
         WaitSeconds(0.4)
         
@@ -145,10 +156,6 @@ WRL1466 = Class(CWalkingLandUnit) {
         self:CreateDeathExplosionDustRing()
         
         WaitSeconds(0.2)
-
-        # When the spider bot impacts with the ground
-        # Effects: Explosion on turret, dust effects on the muzzle tip, large dust ring around unit
-        # Other: Damage force ring to force trees over and camera shake
         
         self:ShakeCamera(40, 4, 1, 3.8)
         

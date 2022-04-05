@@ -24,9 +24,12 @@ WAL0401 = Class(AWalkingLandUnit) {
     },
 
     OnKilled = function(self, instigator, type, overkillRatio)
+    
         AWalkingLandUnit.OnKilled(self, instigator, type, overkillRatio)
+        
         local wep = self:GetWeaponByLabel('EyeWeapon')
         local bp = wep:GetBlueprint()
+        
         if bp.Audio.BeamStop then
             wep:PlaySound(bp.Audio.BeamStop)
         end
@@ -39,6 +42,7 @@ WAL0401 = Class(AWalkingLandUnit) {
     end,
 
     DeathThread = function( self, overkillRatio , instigator)
+    
         explosion.CreateDefaultHitExplosionAtBone( self, 'Torso', 4.0 )
         explosion.CreateDebrisProjectiles(self, explosion.GetAverageBoundingXYZRadius(self), {self:GetUnitSizes()})           
         WaitSeconds(2)
@@ -58,7 +62,7 @@ WAL0401 = Class(AWalkingLandUnit) {
             WaitFor(self.DeathAnimManip)
         end
     
-        local bp = self:GetBlueprint()
+        local bp = __blueprints[self.BlueprintID].Description
         
         for i, numWeapons in bp.Weapon do
             if(bp.Weapon[i].Label == 'CollossusDeath') then
@@ -70,11 +74,8 @@ WAL0401 = Class(AWalkingLandUnit) {
         self:DestroyAllDamageEffects()
         self:CreateWreckage( overkillRatio )
 
-        # CURRENTLY DISABLED UNTIL DESTRUCTION
-        # Create destruction debris out of the mesh, currently these projectiles look like crap,
-        # since projectile rotation and terrain collision doesn't work that great. These are left in
-        # hopes that this will look better in the future.. =)
         if( self.ShowUnitDestructionDebris and overkillRatio ) then
+        
             if overkillRatio <= 1 then
                 self.CreateUnitDestructionDebris( self, true, true, false )
             elseif overkillRatio <= 2 then

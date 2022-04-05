@@ -1,9 +1,9 @@
+local TWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
+
 local TerranWeaponFile = import('/lua/terranweapons.lua')
 
 local BattlePackWeaponFile = import('/mods/BattlePack/lua/BattlePackweapons.lua')
 local BattlePackEffectTemplates = import('/mods/BattlePack/lua/BattlePackEffectTemplates.lua')
-
-local TWalkingLandUnit = import('/lua/terranunits.lua').TWalkingLandUnit
 
 local EffectUtil = import('/lua/EffectUtilities.lua')
 local Effects = import('/lua/effecttemplates.lua')
@@ -30,9 +30,10 @@ WEL0416 = Class(TWalkingLandUnit) {
     
 		EXTargetPainter = Class(EXCEMPArrayBeam01) {},
         
-		HeadWeapon = Class(EXCEMPArrayBeam01)
-        {
+		HeadWeapon = Class(EXCEMPArrayBeam01) {
+        
             OnWeaponFired = function(self, muzzle)
+            
                 if not self.JawTopRotator then 
                     self.JawBottomRotator = CreateRotator(self.unit, 'Jaw_Bone', 'x')
                     
@@ -65,17 +66,23 @@ WEL0416 = Class(TWalkingLandUnit) {
     },
 	
 	OnCreate = function(self,builder,layer)
+    
         TWalkingLandUnit.OnCreate(self)
-			Army = self:GetArmy()
+        
+		Army = self.Army
     end,
 	
 	StartBeingBuiltEffects = function(self, builder, layer)
+    
 		TWalkingLandUnit.StartBeingBuiltEffects(self, builder, layer)
+        
 		self.OnBeingBuiltEffectsBag:Add( self:ForkThread( CreateBuildCubeThread, builder, self.OnBeingBuiltEffectsBag )	)			
     end,
 	
 	OnStopBeingBuilt = function(self,builder,layer)
+    
 		TWalkingLandUnit.OnStopBeingBuilt(self,builder,layer)
+        
         self.Rotator1 = CreateRotator(self, 'Jaw_Bone', 'x')
         self.Rotator2 = CreateRotator(self, 'Head', 'x')
         self.Rotator3 = CreateRotator(self, 'Head', 'y')
@@ -94,28 +101,35 @@ WEL0416 = Class(TWalkingLandUnit) {
 		if self.Rotator4 then
             self.Rotator4:SetGoal(-30):SetSpeed(50)
         end
+        
         self:ForkThread(function()
         	WaitSeconds(1)
                     
         	self.Rotator4:SetGoal(0):SetSpeed(25)
         end)
+        
 		if self.Rotator5 then
             self.Rotator5:SetGoal(30):SetSpeed(50)
         end
+        
 		if self.Rotator7 then
             self.Rotator7:SetGoal(30):SetSpeed(50)
         end
+        
         self:ForkThread(function()
         	WaitSeconds(1)
             self.Rotator5:SetGoal(0):SetSpeed(25)        
         	self.Rotator7:SetGoal(0):SetSpeed(25)
         end)
+        
 		if self.Rotator6 then
             self.Rotator6:SetGoal(30):SetSpeed(50)
         end
+        
 		if self.Rotator8 then
             self.Rotator8:SetGoal(-30):SetSpeed(50)
         end
+        
         self:ForkThread(function()
         	WaitSeconds(1)
             self.Rotator6:SetGoal(0):SetSpeed(25)			
@@ -126,22 +140,27 @@ WEL0416 = Class(TWalkingLandUnit) {
         if self.Rotator1 then
             self.Rotator1:SetGoal(30):SetSpeed(100)
         end
+        
         self:ForkThread(function()
         	WaitSeconds(1)
                     
         	self.Rotator1:SetGoal(0):SetSpeed(50)
         end)
+        
         if self.Rotator2 then
             self.Rotator2:SetGoal(-40):SetSpeed(100)
         end
+        
         self:ForkThread(function()
         	WaitSeconds(1)
                     
         	self.Rotator2:SetGoal(0):SetSpeed(50)
         end)
+        
         if self.Rotator3 then
             self.Rotator3:SetGoal(-20):SetSpeed(100)
         end
+        
         self:ForkThread(function()
         	WaitSeconds(1)
                     
@@ -157,12 +176,13 @@ WEL0416 = Class(TWalkingLandUnit) {
     DestructionPartsHighToss = {
         'Left_MissileRack','Right_MissileRack','Left_Gauss_TurretYaw','Right_Gauss_TurretYaw','Right_Gauss_TurretPitch','Left_Gauss_TurretPitch','Right_PlasmaGun',
         'Left_PlasmaGun',
-        },
+    },
+    
     DestructionPartsLowToss = {
         'Left_AAYaw','Right_AAYaw','Left_Cannon','Right_Cannon','Right_Cannont_Recoil',
 		'Left_Cannon_Recoil','ChinGun_Pitch','Left_ChinGun','Right_ChinGun',
 		'KneeGuard_Right','KneeGuard_Left','Leg_Addon001_Left','Leg_Addon002_Right','Head',
-        },
+    },
 
     MechDestructionEffectBones = {
         'Left_MissileMuzzle001','Left_MissileMuzzle002','Left_MissileMuzzle003','Left_MissileMuzzle004',
@@ -185,54 +205,68 @@ WEL0416 = Class(TWalkingLandUnit) {
 		'ChinGun_Pitch','Left_ChinGun','Right_ChinGun','KneeGuard_Right','KneeGuard_Left','Leg_Addon001_Left',
 		'Leg_Addon002_Right','Head','Left_MissileRack','Right_MissileRack','Left_Gauss_TurretYaw','Right_Gauss_TurretYaw',
 		'Right_Gauss_TurretPitch','Left_Gauss_TurretPitch','Right_PlasmaGun','Left_PlasmaGun',
-        },
+    },
 
     OnKilled = function(self, inst, type, okr)
+    
         self.Trash:Destroy()
         self.Trash = TrashBag()
+        
         if self.AmbientExhaustEffectsBag then
             EffectUtil.CleanupEffectBag(self,'AmbientExhaustEffectsBag')
         end
+        
         TWalkingLandUnit.OnKilled(self, inst, type, okr)
     end,
 
     CreateDamageEffects = function(self, bone, Army )
+    
         for k, v in EffectTemplate.TNapalmCarpetBombHitLand01 do  
             CreateAttachedEmitter( self, bone, Army, v ):ScaleEmitter(0.3)
         end
     end,
 
     CreateExplosionDebris = function( self, Army )
+    
         for k, v in EffectTemplate.ExplosionEffectsSml01 do
             CreateAttachedEmitter( self, 'NewTorso', Army, v )
         end
     end,
 
     CreateFirePlumes = function( self, Army, bones, yBoneOffset )
+    
         local proj, position, offset, velocity
         local basePosition = self:GetPosition()
+        
         for k, vBone in bones do
+        
             position = self:GetPosition(vBone)
             offset = utilities.GetDifferenceVector( position, basePosition )
+            
             velocity = utilities.GetDirectionVector( position, basePosition )  
             velocity.x = velocity.x + utilities.GetRandomFloat(-0.45, 0.45)
             velocity.z = velocity.z + utilities.GetRandomFloat(-0.45, 0.45)
             velocity.y = velocity.y + utilities.GetRandomFloat( 0.0, 0.45)
+            
             proj = self:CreateProjectile('/effects/entities/DestructionFirePlume01/DestructionFirePlume01_proj.bp', offset.x, offset.y + yBoneOffset, offset.z, velocity.x, velocity.y, velocity.z)
             proj:SetBallisticAcceleration(utilities.GetRandomFloat(-1, -2)):SetVelocity(utilities.GetRandomFloat(1, 4)):SetCollision(false)            
+            
             local emitter = CreateEmitterOnEntity(proj, Army, '/effects/emitters/destruction_explosion_fire_plume_01_emit.bp')
             local lifetime = utilities.GetRandomFloat( 10, 20 )
         end
     end,
 
     InitialRandomExplosions = function(self)
+    
         local position = self:GetPosition()
         local numExplosions = math.floor( table.getn( self.MechDestructionEffectBones ) * 0.3 )
 
         -- Create small explosions all over
         for i = 0, numExplosions do
+        
             local ranBone = utilities.GetRandomInt( 1, numExplosions )
             local duration = utilities.GetRandomFloat( 0.2, 0.5 )
+            
             self:PlayUnitSound('Destroyed')
             explosion.CreateDefaultHitExplosionAtBone( self, self.MechDestructionEffectBones[ ranBone ], Random(0.125,0.5) )
             self:CreateFirePlumes( Army, {ranBone}, Random(0,2) )
@@ -259,6 +293,7 @@ WEL0416 = Class(TWalkingLandUnit) {
     end,
 
     NukeExplosion = function(self)
+    
         local position = self:GetPosition()
 
         -- Create full-screen glow flash
@@ -272,7 +307,7 @@ WEL0416 = Class(TWalkingLandUnit) {
         CreateLightParticle(self, -1, Army, 20, 250, 'glow_03', 'ramp_nuke_04')
       
         -- Create ground decals
-        local orientation = RandomFloat( 0, 2 * math.pi )
+        local orientation = RandomFloat( 0, 6.28 )
         CreateDecal(position, orientation, 'Crater01_albedo', '', 'Albedo', 8, 8, 400, 120, Army)
         CreateDecal(position, orientation, 'Crater01_normals', '', 'Normals', 8, 8, 400, 120, Army)      
         CreateDecal(position, orientation, 'nuke_scorch_003_albedo', '', 'Albedo', 12, 12, 400, 120, Army)
@@ -289,11 +324,13 @@ WEL0416 = Class(TWalkingLandUnit) {
     end,
 
     CreateOuterRingWaveSmokeRing = function(self)
+    
         local sides = 24
-        local angle = (2*math.pi) / sides
+        local angle = 6.28 / sides
         local velocity = 1.2
         local OffsetMod = 4
         local projectiles = {}
+        
         for i = 0, (sides-1) do
             local X = math.sin(i*angle)
             local Z = math.cos(i*angle)
@@ -301,7 +338,9 @@ WEL0416 = Class(TWalkingLandUnit) {
                 :SetVelocity(velocity)
             table.insert( projectiles, proj )
         end       
+        
         WaitSeconds( 3 )
+        
         -- Slow projectiles down to normal speed
         for k, v in projectiles do
             v:SetAcceleration(-0.45)
@@ -310,11 +349,11 @@ WEL0416 = Class(TWalkingLandUnit) {
 
 
     DeathThread = function(self)
-        -- Create Initial explosion effects
+
         self:InitialRandomExplosions()       
-        -- Nuke detonation
+
         self:NukeExplosion()   
-        -- Removes the unwanted bones and starts the corpse effects
+
         self:HideBone('NewTorso', true)
         self:CreateWreckage(Random(0.1,1))
         self:Destroy()
@@ -322,7 +361,4 @@ WEL0416 = Class(TWalkingLandUnit) {
 	
 }
 	
-
-
-
 TypeClass = WEL0416

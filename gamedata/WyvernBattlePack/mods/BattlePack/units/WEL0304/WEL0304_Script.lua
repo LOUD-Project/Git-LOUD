@@ -11,6 +11,7 @@ local Effects = import('/lua/effecttemplates.lua')
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 
 WEL0304 = Class(TLandUnit) {
+
     Weapons = {
         
         AssaultCannon = Class(TDFGaussCannonWeapon) {},
@@ -18,10 +19,12 @@ WEL0304 = Class(TLandUnit) {
         MiniGun = Class(TDFHeavyPlasmaCannonWeapon) {
         
             PlayFxWeaponPackSequence = function(self)
+            
                 if self.SpinManip then
                     self.SpinManip:SetTargetSpeed(0)
                 end
-                self.ExhaustEffects = EffectUtils.CreateBoneEffects( self.unit, 'Machine_Gun_Muzzle01', self.unit:GetArmy(), Effects.WeaponSteam01 )
+                
+                self.ExhaustEffects = EffectUtils.CreateBoneEffects( self.unit, 'Machine_Gun_Muzzle01', self.unit.Army, Effects.WeaponSteam01 )
                 TDFHeavyPlasmaCannonWeapon.PlayFxWeaponPackSequence(self)
             end,
 
@@ -29,22 +32,24 @@ WEL0304 = Class(TLandUnit) {
             FxMuzzleFlash = EffectTemplate.TPlasmaGatlingCannonMuzzleFlash,
 
             PlayFxRackSalvoChargeSequence = function(self)
+            
                 if not self.SpinManip then 
                     self.SpinManip = CreateRotator(self.unit, 'spinner', 'z', nil, 270, 180, 60)
                     self.unit.Trash:Add(self.SpinManip)
                 end
                 
-                if self.SpinManip then
-                    self.SpinManip:SetTargetSpeed(500)
-                end
+                self.SpinManip:SetTargetSpeed(500)
+
                 TDFHeavyPlasmaCannonWeapon.PlayFxRackSalvoChargeSequence(self)
             end,
            
             PlayFxRackSalvoReloadSequence = function(self)
+            
                 if self.SpinManip then
                     self.SpinManip:SetTargetSpeed(200)
                 end
-                self.ExhaustEffects = EffectUtils.CreateBoneEffects( self.unit, 'Machine_Gun_Muzzle01', self.unit:GetArmy(), Effects.WeaponSteam01 )
+                
+                self.ExhaustEffects = EffectUtils.CreateBoneEffects( self.unit, 'Machine_Gun_Muzzle01', self.unit.Army, Effects.WeaponSteam01 )
                 TDFHeavyPlasmaCannonWeapon.PlayFxRackSalvoChargeSequence(self)
             end, 
         },
@@ -52,11 +57,11 @@ WEL0304 = Class(TLandUnit) {
     },
 
     OnStopBeingBuilt = function(self,builder,layer)
+    
         TLandUnit.OnStopBeingBuilt(self,builder,layer)
 
         local layer = self:GetCurrentLayer()
         
-        # If created with F2 on land, then play the transform anim.
         if(layer == 'Land') then
             self:CreateUnitAmbientEffect(layer)
         elseif (layer == 'Seabed') then
@@ -79,19 +84,11 @@ WEL0304 = Class(TLandUnit) {
 		end
 	end,
     
-    AmbientExhaustBones = {
-		'Exhaust01',
-		'Exhaust02',
-    },	
+    AmbientExhaustBones = {'Exhaust01','Exhaust02'},	
     
-    AmbientLandExhaustEffects = {
-		'/effects/emitters/dirty_exhaust_smoke_02_emit.bp',
---		'/effects/emitters/dirty_exhaust_sparks_02_emit.bp',			
-	},
+    AmbientLandExhaustEffects = {'/effects/emitters/dirty_exhaust_smoke_02_emit.bp'},
 	
-    AmbientSeabedExhaustEffects = {
-		'/effects/emitters/underwater_vent_bubbles_02_emit.bp',			
-	},	
+    AmbientSeabedExhaustEffects = {'/effects/emitters/underwater_vent_bubbles_02_emit.bp'},
 	
 	CreateUnitAmbientEffect = function(self, layer)
     
@@ -112,7 +109,7 @@ WEL0304 = Class(TLandUnit) {
             
 	    elseif layer == 'Seabed' then
         
-	        local army = self:GetArmy()
+	        local army = self.Army
             
 			for kE, vE in self.AmbientSeabedExhaustEffects do
 				for kB, vB in self.AmbientExhaustBones do
@@ -123,8 +120,10 @@ WEL0304 = Class(TLandUnit) {
 	end, 
 	
 	UnitLandAmbientEffectThread = function(self)
-		while not self:IsDead() do
-            local army = self:GetArmy()			
+    
+		while not self.Dead do
+        
+            local army = self.Army			
 			
 			for kE, vE in self.AmbientLandExhaustEffects do
 				for kB, vB in self.AmbientExhaustBones do
