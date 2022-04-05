@@ -4,13 +4,10 @@ local TMEffectTemplate = import('/mods/TotalMayhem/lua/TMEffectTemplates.lua')
 
 TMCollisionBeam = Class(CollisionBeam) {
     FxImpactUnit = EffectTemplate.DefaultProjectileLandUnitImpact,
-    FxImpactLand = {},
+
     FxImpactWater = EffectTemplate.DefaultProjectileWaterImpact,
     FxImpactUnderWater = EffectTemplate.DefaultProjectileUnderWaterImpact,
     FxImpactAirUnit = EffectTemplate.DefaultProjectileAirUnitImpact,
-    FxImpactProp = {},
-    FxImpactShield = {},    
-    FxImpactNone = {},
 }
 
 TMNovaCatBlueLaserBeam = Class(TMCollisionBeam) {

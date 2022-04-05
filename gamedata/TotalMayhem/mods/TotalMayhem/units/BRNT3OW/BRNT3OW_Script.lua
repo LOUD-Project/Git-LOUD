@@ -1,4 +1,4 @@
-local TWalkingLandUnit = import('/lua/terranunits.lua').TWalkingLandUnit
+local TWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
 local WeaponsFile = import('/lua/terranweapons.lua')
 
