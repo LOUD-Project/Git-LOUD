@@ -1,4 +1,5 @@
-local TLandUnit = import('/lua/terranunits.lua').TLandUnit
+local TLandUnit = import('/lua/defaultunits.lua').MobileUnit
+
 local TAALinkedRailgun = import('/lua/terranweapons.lua').TAALinkedRailgun
 
 UEL0104 = Class(TLandUnit) {

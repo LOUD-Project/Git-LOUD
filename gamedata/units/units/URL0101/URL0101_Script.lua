@@ -1,4 +1,4 @@
-local CWalkingLandUnit = import('/lua/cybranunits.lua').CWalkingLandUnit
+local CWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 local Entity = import('/lua/sim/Entity.lua').Entity
 
 URL0101 = Class(CWalkingLandUnit) {

@@ -1,7 +1,4 @@
-
-local AShieldHoverLandUnit = import('/lua/aeonunits.lua').AShieldHoverLandUnit
-
-
+local AShieldHoverLandUnit = import('/lua/defaultunits.lua').MobileUnit
 
 UAL0308 = Class(AShieldHoverLandUnit) {
     

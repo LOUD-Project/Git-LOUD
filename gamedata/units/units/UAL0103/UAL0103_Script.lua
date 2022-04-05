@@ -1,4 +1,4 @@
-local ALandUnit = import('/lua/aeonunits.lua').ALandUnit
+local ALandUnit = import('/lua/defaultunits.lua').MobileUnit
 
 local AIFMortarWeapon = import('/lua/aeonweapons.lua').AIFMortarWeapon
 

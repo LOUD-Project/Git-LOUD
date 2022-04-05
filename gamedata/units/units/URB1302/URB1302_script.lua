@@ -1,5 +1,5 @@
 
-local CMassCollectionUnit = import('/lua/cybranunits.lua').CMassCollectionUnit
+local CMassCollectionUnit = import('/lua/defaultunits.lua').MassCollectionUnit
 
 URB1302 = Class(CMassCollectionUnit) {
 

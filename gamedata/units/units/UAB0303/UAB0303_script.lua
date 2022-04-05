@@ -1,10 +1,11 @@
-
-local ASeaFactoryUnit = import('/lua/aeonunits.lua').ASeaFactoryUnit
+local ASeaFactoryUnit = import('/lua/aeonunits.lua').AeonFactoryUnit
 
 local AIFQuasarAntiTorpedoWeapon = import('/lua/aeonweapons.lua').AIFQuasarAntiTorpedoWeapon
 
 UAB0303 = Class(ASeaFactoryUnit) {
 
+    Buildbone = 'Attachpoint01',
+    
     Weapons = {
         AntiTorpedo = Class(AIFQuasarAntiTorpedoWeapon) {},
     },

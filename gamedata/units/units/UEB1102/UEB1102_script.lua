@@ -1,4 +1,4 @@
-local TEnergyCreationUnit = import('/lua/terranunits.lua').TEnergyCreationUnit
+local TEnergyCreationUnit = import('/lua/defaultunits.lua').EnergyCreationUnit
 
 local LOUDSTATE = ChangeState
 local LOUDINSERT = table.insert

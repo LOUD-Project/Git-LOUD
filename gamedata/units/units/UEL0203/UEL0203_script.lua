@@ -1,5 +1,6 @@
+local THoverLandUnit = import('/lua/defaultunits.lua').MobileUnit
+
 local TRiotGunMuzzleFxTank = import('/lua/EffectTemplates.lua').TRiotGunMuzzleFxTank
-local THoverLandUnit = import('/lua/terranunits.lua').THoverLandUnit
 local TDFRiotWeapon = import('/lua/terranweapons.lua').TDFRiotWeapon
 
 UEL0203 = Class(THoverLandUnit) {

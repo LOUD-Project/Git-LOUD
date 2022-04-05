@@ -1,4 +1,4 @@
-local CWalkingLandUnit = import('/lua/cybranunits.lua').CWalkingLandUnit
+local CWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 local CWeapons = import('/lua/cybranweapons.lua')
 
 local CCannonMolecularWeapon = CWeapons.CCannonMolecularWeapon
@@ -13,6 +13,10 @@ local EffectUtil = import('/lua/EffectUtilities.lua')
 local Buff = import('/lua/sim/Buff.lua')
 
 local Entity = import('/lua/sim/Entity.lua').Entity
+
+local TrashBag = TrashBag
+local TrashAdd = TrashBag.Add
+local TrashDestroy = TrashBag.Destroy
 
 URL0001 = Class(CWalkingLandUnit) {
     DeathThreadDestructionWaitTime = 2,
@@ -115,10 +119,13 @@ URL0001 = Class(CWalkingLandUnit) {
     },
 
     OnCreate = function(self)
+    
         CWalkingLandUnit.OnCreate(self)
+        
         self:SetCapturable(false)
         self:HideBone('Back_Upgrade', true)
         self:HideBone('Right_Upgrade', true)
+        
         if self:GetBlueprint().General.BuildBones then
             self:SetupBuildBones()
         end
@@ -129,8 +136,9 @@ URL0001 = Class(CWalkingLandUnit) {
 
 
     OnPrepareArmToBuild = function(self)
-        --CWalkingLandUnit.OnPrepareArmToBuild(self)
-        if self:BeenDestroyed() then return end
+    
+        if self.Dead then return end
+        
         self:BuildManipulatorSetEnabled(true)
         self.BuildArmManipulator:SetPrecedence(20)
         self:SetWeaponEnabledByLabel('RightRipper', false)
@@ -138,9 +146,16 @@ URL0001 = Class(CWalkingLandUnit) {
         self.BuildArmManipulator:SetHeadingPitch( self:GetWeaponManipulatorByLabel('RightRipper'):GetHeadingPitch() )
     end,
 
+    CreateBuildEffects = function( self, unitBeingBuilt, order )
+       EffectUtil.CreateCybranBuildBeams( self, unitBeingBuilt, self:GetBlueprint().General.BuildBones.BuildEffectBones, self.BuildEffectsBag )
+    end,
+
     OnStopCapture = function(self, target)
+    
         CWalkingLandUnit.OnStopCapture(self, target)
-        if self:BeenDestroyed() then return end
+        
+        if self.Dead then return end        
+
         self:BuildManipulatorSetEnabled(false)
         self.BuildArmManipulator:SetPrecedence(0)
         self:SetWeaponEnabledByLabel('RightRipper', true)
@@ -149,8 +164,11 @@ URL0001 = Class(CWalkingLandUnit) {
     end,
 
     OnFailedCapture = function(self, target)
+    
         CWalkingLandUnit.OnFailedCapture(self, target)
-        if self:BeenDestroyed() then return end
+        
+        if self.Dead then return end
+        
         self:BuildManipulatorSetEnabled(false)
         self.BuildArmManipulator:SetPrecedence(0)
         self:SetWeaponEnabledByLabel('RightRipper', true)
@@ -159,8 +177,11 @@ URL0001 = Class(CWalkingLandUnit) {
     end,
 
     OnStopReclaim = function(self, target)
+    
         CWalkingLandUnit.OnStopReclaim(self, target)
-        if self:BeenDestroyed() then return end
+        
+        if self.Dead then return end
+        
         self:BuildManipulatorSetEnabled(false)
         self.BuildArmManipulator:SetPrecedence(0)
         self:SetWeaponEnabledByLabel('RightRipper', true)
@@ -169,7 +190,9 @@ URL0001 = Class(CWalkingLandUnit) {
     end,
 
     OnStopBeingBuilt = function(self,builder,layer)
+    
         CWalkingLandUnit.OnStopBeingBuilt(self,builder,layer)
+        
         self:SetWeaponEnabledByLabel('RightRipper', true)
         self:SetWeaponEnabledByLabel('MLG', false)
         self:SetWeaponEnabledByLabel('Torpedo', false)
@@ -184,8 +207,11 @@ URL0001 = Class(CWalkingLandUnit) {
     end,
 
     OnFailedToBuild = function(self)
+    
         CWalkingLandUnit.OnFailedToBuild(self)
-        if self:BeenDestroyed() then return end
+        
+        if self.Dead then return end
+
         self:BuildManipulatorSetEnabled(false)
         self.BuildArmManipulator:SetPrecedence(0)
         self:SetWeaponEnabledByLabel('RightRipper', true)
@@ -194,15 +220,32 @@ URL0001 = Class(CWalkingLandUnit) {
     end,
 
     OnStartBuild = function(self, unitBeingBuilt, order)    
+    
         CWalkingLandUnit.OnStartBuild(self, unitBeingBuilt, order)
+        
         self.UnitBeingBuilt = unitBeingBuilt
         self.UnitBuildOrder = order
         self.BuildingUnit = true        
     end,    
 
     OnStopBuild = function(self, unitBeingBuilt)
+    
         CWalkingLandUnit.OnStopBuild(self, unitBeingBuilt)
-        if self:BeenDestroyed() then return end
+        
+        if self.Dead then return end
+
+        -- reattach the permanent projectile
+        for _, v in self.BuildProjectile do 
+        
+            TrashDestroy ( v.BuildEffectsBag )
+        
+            v:AttachTo( self, v.Name )
+            
+            -- and scale down the emitters
+            v.Emitter:ScaleEmitter(0.05)
+            v.Sparker:ScaleEmitter(0.05)
+        end
+
         self:BuildManipulatorSetEnabled(false)
         self.BuildArmManipulator:SetPrecedence(0)
         self:SetWeaponEnabledByLabel('RightRipper', true)
@@ -214,6 +257,7 @@ URL0001 = Class(CWalkingLandUnit) {
     end,
 
     PlayCommanderWarpInEffect = function(self)
+    
         self:HideBone(0, true)
         self:SetUnSelectable(true)
         self:SetBusy(true)        
@@ -222,6 +266,7 @@ URL0001 = Class(CWalkingLandUnit) {
     end,
 
     WarpInEffectThread = function(self)
+    
         self:PlayUnitSound('CommanderArrival')
         self:CreateProjectile( '/effects/entities/UnitTeleport01/UnitTeleport01_proj.bp', 0, 1.35, 0, nil, nil, nil):SetCollision(false)
         WaitSeconds(2.1)
@@ -235,6 +280,7 @@ URL0001 = Class(CWalkingLandUnit) {
 
         local totalBones = self:GetBoneCount() - 1
         local army = self:GetArmy()
+        
         for k, v in EffectTemplate.UnitTeleportSteam01 do
             for bone = 1, totalBones do
                 CreateAttachedEmitter(self,bone,army, v)
@@ -246,14 +292,16 @@ URL0001 = Class(CWalkingLandUnit) {
     end,    
 
     GiveInitialResources = function(self)
+    
         WaitTicks(2)
         self:GetAIBrain():GiveResource('Energy', self:GetBlueprint().Economy.StorageEnergy)
         self:GetAIBrain():GiveResource('Mass', self:GetBlueprint().Economy.StorageMass)
     end,
     
     OnScriptBitSet = function(self, bit)
+    
         if bit == 8 then # cloak toggle
-            --self:StopUnitAmbientSound( 'ActiveLoop' )
+
             self:SetMaintenanceConsumptionInactive()
             self:DisableUnitIntel('Cloak')
             self:DisableUnitIntel('RadarStealth')
@@ -264,8 +312,9 @@ URL0001 = Class(CWalkingLandUnit) {
     end,
 
     OnScriptBitClear = function(self, bit)
+    
         if bit == 8 then # cloak toggle
-            --self:PlayUnitAmbientSound( 'ActiveLoop' )
+
             self:SetMaintenanceConsumptionActive()
             self:EnableUnitIntel('Cloak')
             self:EnableUnitIntel('RadarStealth')
@@ -273,11 +322,6 @@ URL0001 = Class(CWalkingLandUnit) {
             self:EnableUnitIntel('SonarStealth')
             self:EnableUnitIntel('SonarStealthField')
         end
-    end,
-
-    CreateBuildEffects = function( self, unitBeingBuilt, order )
-       --EffectUtil.SpawnBuildBots( self, unitBeingBuilt, 5, self.BuildEffectsBag )
-       EffectUtil.CreateCybranBuildBeams( self, unitBeingBuilt, self:GetBlueprint().General.BuildBones.BuildEffectBones, self.BuildEffectsBag )
     end,
 
     CreateEnhancement = function(self, enh)
@@ -468,9 +512,6 @@ URL0001 = Class(CWalkingLandUnit) {
         end             
     end,
     
-    # **********
-    # Intel
-    # **********    
     IntelEffects = {
 		Cloak = {
 		    {
@@ -517,17 +558,24 @@ URL0001 = Class(CWalkingLandUnit) {
     },
     
     OnIntelEnabled = function(self)
+    
         CWalkingLandUnit.OnIntelEnabled(self)
+        
         if self.CloakEnh and self:IsIntelEnabled('Cloak') then 
+        
             self:SetEnergyMaintenanceConsumptionOverride(self:GetBlueprint().Enhancements['CloakingGenerator'].MaintenanceConsumptionPerSecondEnergy or 0)
             self:SetMaintenanceConsumptionActive()
+            
             if not self.IntelEffectsBag then
 			    self.IntelEffectsBag = {}
 			    self.CreateTerrainTypeEffects( self, self.IntelEffects.Cloak, 'FXIdle',  self:GetCurrentLayer(), nil, self.IntelEffectsBag )
 			end            
+            
         elseif self.StealthEnh and self:IsIntelEnabled('RadarStealth') and self:IsIntelEnabled('SonarStealth') then
+        
             self:SetEnergyMaintenanceConsumptionOverride(self:GetBlueprint().Enhancements['StealthGenerator'].MaintenanceConsumptionPerSecondEnergy or 0)
             self:SetMaintenanceConsumptionActive()  
+            
             if not self.IntelEffectsBag then 
 	            self.IntelEffectsBag = {}
 		        self.CreateTerrainTypeEffects( self, self.IntelEffects.Field, 'FXIdle',  self:GetCurrentLayer(), nil, self.IntelEffectsBag )
@@ -536,48 +584,60 @@ URL0001 = Class(CWalkingLandUnit) {
     end,
 
     OnIntelDisabled = function(self)
+    
         CWalkingLandUnit.OnIntelDisabled(self)
+        
         if self.IntelEffectsBag then
             EffectUtil.CleanupEffectBag(self,'IntelEffectsBag')
             self.IntelEffectsBag = nil
         end
+        
         if self.CloakEnh and not self:IsIntelEnabled('Cloak') then
+        
             self:SetMaintenanceConsumptionInactive()
+            
         elseif self.StealthEnh and not self:IsIntelEnabled('RadarStealth') and not self:IsIntelEnabled('SonarStealth') then
+        
             self:SetMaintenanceConsumptionInactive()
         end          
     end,
-        
-    # *****
-    # Death
-    # *****
+
     OnKilled = function(self, instigator, type, overkillRatio)
+    
         local bp
+        
         for k, v in self:GetBlueprint().Buffs do
             if v.Add.OnDeath then
                 bp = v
             end
         end 
-        #if we could find a blueprint with v.Add.OnDeath, then add the buff 
+        
+        --if we could find a blueprint with v.Add.OnDeath, then add the buff 
         if bp != nil then 
-            #Apply Buff
+            --Apply Buff
 			self:AddBuff(bp)
         end
-        #otherwise, we should finish killing the unit
+        
+        --otherwise, we should finish killing the unit
         CWalkingLandUnit.OnKilled(self, instigator, type, overkillRatio)
     end,
     
     OnPaused = function(self)
+    
         CWalkingLandUnit.OnPaused(self)
+        
         if self.BuildingUnit then
-            CWalkingLandUnit.StopBuildingEffects(self, self:GetUnitBeingBuilt())
+            CWalkingLandUnit.StopBuildingEffects(self, self.UnitBeingBuilt)
         end    
+        
     end,
     
     OnUnpaused = function(self)
+    
         if self.BuildingUnit then
-            CWalkingLandUnit.StartBuildingEffects(self, self:GetUnitBeingBuilt(), self.UnitBuildOrder)
+            CWalkingLandUnit.StartBuildingEffects(self, self.UnitBeingBuilt, self.UnitBuildOrder)
         end
+        
         CWalkingLandUnit.OnUnpaused(self)
     end,     
 }   

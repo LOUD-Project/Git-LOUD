@@ -1,4 +1,4 @@
-local TMassStorageUnit = import('/lua/terranunits.lua').TMassStorageUnit
+local TMassStorageUnit = import('/lua/defaultunits.lua').StructureUnit
 
 UEB1106 = Class(TMassStorageUnit) {
 

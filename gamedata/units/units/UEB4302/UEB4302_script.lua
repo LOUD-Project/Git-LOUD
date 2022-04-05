@@ -1,4 +1,4 @@
-local TStructureUnit = import('/lua/terranunits.lua').TStructureUnit
+local TStructureUnit = import('/lua/defaultunits.lua').StructureUnit
 local TAMInterceptorWeapon = import('/lua/terranweapons.lua').TAMInterceptorWeapon
 local nukeFiredOnGotTarget = false
 

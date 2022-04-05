@@ -1,7 +1,9 @@
+local TWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
+
 local TerranWeaponFile = import('/lua/terranweapons.lua')
-local TWalkingLandUnit = import('/lua/terranunits.lua').TWalkingLandUnit
+
 local TDFHeavyPlasmaCannonWeapon = TerranWeaponFile.TDFHeavyPlasmaCannonWeapon
-local TSAMLauncher = TerranWeaponFile.TSAMLauncher
+--local TSAMLauncher = TerranWeaponFile.TSAMLauncher
 
 UEL0303 = Class(TWalkingLandUnit) {
 
@@ -12,10 +14,16 @@ UEL0303 = Class(TWalkingLandUnit) {
                 'ArmL_B02', 'Barrel_L', 'ArmL_B03', 'ArmL_B04',
             },
         },
-        AntiAirMissiles = Class(TSAMLauncher) {
-        },
+        --AntiAirMissiles = Class(TSAMLauncher) {},
     },
-    
+
+    OnShieldIsUp = function (self)
+        self:SetCanTakeDamage(false)
+    end,
+
+    OnShieldIsDown = function (self)
+        self:SetCanTakeDamage(true) 
+    end,    
 }
 
 TypeClass = UEL0303

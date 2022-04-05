@@ -1,4 +1,4 @@
-local AWallStructureUnit = import('/lua/aeonunits.lua').AWallStructureUnit
+local AWallStructureUnit = import('/lua/defaultunits.lua').WallStructureUnit
 
 UAM0004 = Class(AWallStructureUnit) {}
 

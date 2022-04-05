@@ -1,8 +1,5 @@
-local TWallStructureUnit = import('/lua/terranunits.lua').TWallStructureUnit
+local TWallStructureUnit = import('/lua/defaultunits.lua').WallStructureUnit
 
-UEB5101 = Class(TWallStructureUnit) {
-}
-
+UEB5101 = Class(TWallStructureUnit) {}
 
 TypeClass = UEB5101
-

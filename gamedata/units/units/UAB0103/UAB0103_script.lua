@@ -1,5 +1,5 @@
+local ASeaFactoryUnit = import('/lua/aeonunits.lua').AeonFactoryUnit
 
-local ASeaFactoryUnit = import('/lua/aeonunits.lua').ASeaFactoryUnit
-UAB0103 = Class(ASeaFactoryUnit) {}
+UAB0103 = Class(ASeaFactoryUnit) { Buildbone = 'Attachpoint01' }
 
 TypeClass = UAB0103

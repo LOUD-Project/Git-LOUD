@@ -1,4 +1,4 @@
-local TPodTowerUnit = import('/lua/terranunits.lua').TStructureUnit
+local TPodTowerUnit = import('/lua/defaultunits.lua').StructureUnit
 
 local CreateDefaultBuildBeams = import('/lua/EffectUtilities.lua').CreateDefaultBuildBeams
 local CreateUEFBuildSliceBeams = import('/lua/EffectUtilities.lua').CreateUEFBuildSliceBeams

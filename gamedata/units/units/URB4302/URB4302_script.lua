@@ -1,5 +1,5 @@
 
-local CStructureUnit = import('/lua/cybranunits.lua').CStructureUnit
+local CStructureUnit = import('/lua/defaultunits.lua').StructureUnit
 local CAMEMPMissileWeapon = import('/lua/cybranweapons.lua').CAMEMPMissileWeapon
 local CAntiNukeLaunch01 = import('/lua/EffectTemplates.lua').CAntiNukeLaunch01
 local nukeFiredOnGotTarget = false

@@ -1,5 +1,5 @@
+local AStructureUnit = import('/lua/defaultunits.lua').StructureUnit
 
-local AStructureUnit = import('/lua/aeonunits.lua').AStructureUnit
 local AAATemporalFizzWeapon = import('/lua/aeonweapons.lua').AAATemporalFizzWeapon
 
 local CreateAttachedEmitter = CreateAttachedEmitter

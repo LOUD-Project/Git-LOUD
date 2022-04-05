@@ -6,7 +6,7 @@ UEB0102 = Class(TAirFactoryUnit) {
     
     StartArmsMoving = function(self)
         TAirFactoryUnit.StartArmsMoving(self)
-        #local unitBldg = self.UnitBeingBuilt
+
         if not self.ArmSlider then
             self.ArmSlider = CreateSlider(self, 'Arm01')
             self.Trash:Add(self.ArmSlider)

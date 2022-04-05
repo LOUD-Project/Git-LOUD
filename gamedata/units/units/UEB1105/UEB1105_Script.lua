@@ -1,4 +1,4 @@
-local TEnergyStorageUnit = import('/lua/terranunits.lua').TEnergyStorageUnit
+local TEnergyStorageUnit = import('/lua/defaultunits.lua').StructureUnit
 
 UEB1105 = Class(TEnergyStorageUnit) {
 

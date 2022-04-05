@@ -39,8 +39,8 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Normal',
-        Health = 540,
-        MaxHealth = 540,
+        Health = 720,
+        MaxHealth = 720,
         RegenRate = 4,
 		
         Shield = {
@@ -118,15 +118,19 @@ UnitBlueprint {
         UnitName = '<LOC xsl0307_name>Athanah',
         UnitWeight = 1,
     },
+    
     Intel = {
         VisionRadius = 22,
     },
+    
     Interface = {
         HelpText = 'Shield Generator Hovertank',
     },
+    
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.45,
     LifeBarSize = 0.8,
+    
     Physics = {
         BankingSlope = 0.5,
         BuildOnLayerCaps = {
@@ -134,31 +138,40 @@ UnitBlueprint {
         },
         DragCoefficient = 0.2,
         Elevation = 0.25,
-        MaxAcceleration = 1.7,
-        MaxBrake = 3.4,
-        MaxSpeed = 3.4,
+        
+        MaxAcceleration = 1.1,
+        MaxBrake = 1.1,
+        MaxSpeed = 3.3,
         MaxSpeedReverse = 0,
+        
         MaxSteerForce = 1000,
+        
         MeshExtentsX = 1,
         MeshExtentsY = 0.65,
         MeshExtentsZ = 1,
+        
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Hover',
         RotateBodyWhileMoving = true,
         RotateOnSpot = true,
         RotateOnSpotThreshold = 0.1,
-        TurnFacingRate = 120,
+        
+        TurnFacingRate = 90,
         TurnRadius = 0,
-        TurnRate = 150,
+        TurnRate = 90,
     },
+    
     SelectionSizeX = 0.5,
     SelectionSizeZ = 0.7,
     SelectionThickness = 0.58,
+    
     SizeX = 0.8,
     SizeY = 0.5,
     SizeZ = 0.8,
+    
     StrategicIconName = 'icon_surface3_shield',
     StrategicIconSortPriority = 125,
+    
     Transport = {
         TransportClass = 3,
     },

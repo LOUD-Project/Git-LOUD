@@ -1,4 +1,4 @@
-local TRadarUnit = import('/lua/terranunits.lua').TRadarUnit
+local TRadarUnit = import('/lua/defaultunits.lua').RadarUnit
 
 UEB3201 = Class(TRadarUnit) {
 

@@ -1,5 +1,5 @@
+local AHoverLandUnit = import('/lua/defaultunits.lua').MobileUnit
 
-local AHoverLandUnit = import('/lua/aeonunits.lua').AHoverLandUnit
 local ADFLaserLightWeapon = import('/lua/aeonweapons.lua').ADFLaserLightWeapon
 
 UAL0101 = Class(AHoverLandUnit) {

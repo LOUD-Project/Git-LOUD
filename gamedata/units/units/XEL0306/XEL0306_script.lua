@@ -1,5 +1,5 @@
+local TLandUnit = import('/lua/defaultunits.lua').MobileUnit
 
-local TLandUnit = import('/lua/terranunits.lua').TLandUnit
 local TIFCruiseMissileUnpackingLauncher = import('/lua/terranweapons.lua').TIFCruiseMissileUnpackingLauncher
 
 local ForkThread = ForkThread
@@ -23,9 +23,9 @@ XEL0306 = Class(TLandUnit) {
                 end,            
             },            
 
-			#-- changed so that it can pack the weapon
-			#-- just after lost target - no need to be complicated
-			#-- no reason it cant be moving & pack weapon at same time
+			-- changed so that it can pack the weapon
+			-- just after lost target - no need to be complicated
+			-- no reason it cant be moving & pack weapon at same time
             LostTargetThread = function(self)
 			
 --                local bp = self:GetBlueprint().Weapon[1]			

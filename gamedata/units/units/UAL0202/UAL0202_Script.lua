@@ -1,4 +1,5 @@
-local ALandUnit = import('/lua/aeonunits.lua').ALandUnit
+local ALandUnit = import('/lua/defaultunits.lua').MobileUnit
+
 local ADFCannonQuantumWeapon = import('/lua/aeonweapons.lua').ADFCannonQuantumWeapon
 
 UAL0202 = Class(ALandUnit) {

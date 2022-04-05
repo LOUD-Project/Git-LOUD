@@ -1,6 +1,4 @@
-local Shield = import('/lua/shield.lua').Shield
-
-local TWalkingLandUnit = import('/lua/terranunits.lua').TWalkingLandUnit
+local TWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 local TerranWeaponFile = import('/lua/terranweapons.lua')
 
 local TDFZephyrCannonWeapon = TerranWeaponFile.TDFZephyrCannonWeapon
@@ -11,9 +9,22 @@ local TDFOverchargeWeapon = TerranWeaponFile.TDFOverchargeWeapon
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 local EffectUtil = import('/lua/EffectUtilities.lua')
 
-local Buff = import('/lua/sim/Buff.lua')
+local CreateUEFCommanderBuildSliceBeams = EffectUtil.CreateUEFCommanderBuildSliceBeams
 
-UEL0001 = Class(TWalkingLandUnit) {    
+local Buff = import('/lua/sim/Buff.lua')
+local Shield = import('/lua/shield.lua').Shield
+
+local LOUDINSERT = table.insert
+
+local TrashBag = TrashBag
+local TrashAdd = TrashBag.Add
+local TrashDestroy = TrashBag.Destroy
+
+local WaitTicks = coroutine.yield
+
+
+UEL0001 = Class(TWalkingLandUnit) { 
+   
     DeathThreadDestructionWaitTime = 2,
 
     Weapons = {
@@ -105,7 +116,9 @@ UEL0001 = Class(TWalkingLandUnit) {
     },
 
     OnCreate = function(self)
+    
         TWalkingLandUnit.OnCreate(self)
+        
         self:SetCapturable(false)
         self:HideBone('Right_Upgrade', true)
         self:HideBone('Left_Upgrade', true)
@@ -122,7 +135,7 @@ UEL0001 = Class(TWalkingLandUnit) {
     
         TWalkingLandUnit.OnStopBeingBuilt(self,builder,layer)
         
-        if self:BeenDestroyed() then return end
+        if self.Dead then return end
         
         self.Animator = CreateAnimator(self)
         self.Animator:SetPrecedence(0)
@@ -145,8 +158,9 @@ UEL0001 = Class(TWalkingLandUnit) {
     end,
 
     OnPrepareArmToBuild = function(self)
-        --TWalkingLandUnit.OnPrepareArmToBuild(self)
-        if self:BeenDestroyed() then return end
+
+        if self.Dead then return end
+        
         self:BuildManipulatorSetEnabled(true)
         self.BuildArmManipulator:SetPrecedence(20)
         --self:SetWeaponEnabledByLabel('RightZephyr', false)
@@ -154,11 +168,26 @@ UEL0001 = Class(TWalkingLandUnit) {
         self.BuildArmManipulator:SetHeadingPitch( self:GetWeaponManipulatorByLabel('RightZephyr'):GetHeadingPitch() )
     end,
 
+    CreateBuildEffects = function( self, unitBeingBuilt, order )
+	
+        local UpgradesFrom = unitBeingBuilt:GetBlueprint().General.UpgradesFrom
+		
+        -- If we are assisting an upgrading unit, or repairing a unit, play seperate effects
+        --if (order == 'Repair' and not unitBeingBuilt:IsBeingBuilt()) or (UpgradesFrom and UpgradesFrom != 'none' and self:IsUnitState('Guarding'))then
+          --  EffectUtil.CreateDefaultBuildBeams( self, unitBeingBuilt, self:GetBlueprint().General.BuildBones.BuildEffectBones, self.BuildEffectsBag )
+        --else
+            CreateUEFCommanderBuildSliceBeams( self, unitBeingBuilt, __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones, self.BuildEffectsBag )        
+        --end           
+    end,
+
     OnStartBuild = function(self, unitBeingBuilt, order)
+    
         TWalkingLandUnit.OnStartBuild(self, unitBeingBuilt, order)
+        
         if self.Animator then
             self.Animator:SetRate(0)
         end
+        
         self.UnitBeingBuilt = unitBeingBuilt
         self.UnitBuildOrder = order
         self.BuildingUnit = true        
@@ -167,9 +196,9 @@ UEL0001 = Class(TWalkingLandUnit) {
     OnStopBuild = function(self, unitBeingBuilt)
 	
         TWalkingLandUnit.OnStopBuild(self, unitBeingBuilt)
-		
-        if self:BeenDestroyed() then return end
-		
+
+        if self.Dead then return end
+
         if (self.IdleAnim and not self:IsDead()) then
             self.Animator:PlayAnim(self.IdleAnim, true)
         end
@@ -187,8 +216,11 @@ UEL0001 = Class(TWalkingLandUnit) {
     end,
 
     OnFailedToBuild = function(self)
+    
         TWalkingLandUnit.OnFailedToBuild(self)
-        if self:BeenDestroyed() then return end
+
+        if self.Dead then return end
+
         self:BuildManipulatorSetEnabled(false)
         self.BuildArmManipulator:SetPrecedence(0)
         --self:SetWeaponEnabledByLabel('RightZephyr', true)
@@ -197,8 +229,11 @@ UEL0001 = Class(TWalkingLandUnit) {
     end,
 
     OnStopCapture = function(self, target)
+    
         TWalkingLandUnit.OnStopCapture(self, target)
-        if self:BeenDestroyed() then return end
+
+        if self.Dead then return end
+
         self:BuildManipulatorSetEnabled(false)
         self.BuildArmManipulator:SetPrecedence(0)
         --self:SetWeaponEnabledByLabel('RightZephyr', true)
@@ -207,7 +242,9 @@ UEL0001 = Class(TWalkingLandUnit) {
     end,
 
     OnFailedCapture = function(self, target)
+    
         TWalkingLandUnit.OnFailedCapture(self, target)
+        
         self:BuildManipulatorSetEnabled(false)
         self.BuildArmManipulator:SetPrecedence(0)
         --self:SetWeaponEnabledByLabel('RightZephyr', true)
@@ -216,8 +253,11 @@ UEL0001 = Class(TWalkingLandUnit) {
     end,
 
     OnStopReclaim = function(self, target)
+    
         TWalkingLandUnit.OnStopReclaim(self, target)
-        if self:BeenDestroyed() then return end
+
+        if self.Dead then return end
+
         self:BuildManipulatorSetEnabled(false)
         self.BuildArmManipulator:SetPrecedence(0)
         --self:SetWeaponEnabledByLabel('RightZephyr', true)
@@ -226,12 +266,14 @@ UEL0001 = Class(TWalkingLandUnit) {
     end,
 
     GiveInitialResources = function(self)
+    
         WaitTicks(5)
         self:GetAIBrain():GiveResource('Energy', self:GetBlueprint().Economy.StorageEnergy)
         self:GetAIBrain():GiveResource('Mass', self:GetBlueprint().Economy.StorageMass)
     end,
 
     PlayCommanderWarpInEffect = function(self)
+    
         self:HideBone(0, true)
         self:SetUnSelectable(true)
         self:SetBusy(true)
@@ -240,6 +282,7 @@ UEL0001 = Class(TWalkingLandUnit) {
     end,
 
     WarpInEffectThread = function(self)
+    
         self:PlayUnitSound('CommanderArrival')
         self:CreateProjectile( '/effects/entities/UnitTeleport01/UnitTeleport01_proj.bp', 0, 1.35, 0, nil, nil, nil):SetCollision(false)
         WaitSeconds(2.1)
@@ -264,18 +307,6 @@ UEL0001 = Class(TWalkingLandUnit) {
         self:SetMesh(self:GetBlueprint().Display.MeshBlueprint, true)
     end,
 
-    CreateBuildEffects = function( self, unitBeingBuilt, order )
-	
-        local UpgradesFrom = unitBeingBuilt:GetBlueprint().General.UpgradesFrom
-		
-        -- If we are assisting an upgrading unit, or repairing a unit, play seperate effects
-        if (order == 'Repair' and not unitBeingBuilt:IsBeingBuilt()) or (UpgradesFrom and UpgradesFrom != 'none' and self:IsUnitState('Guarding'))then
-            EffectUtil.CreateDefaultBuildBeams( self, unitBeingBuilt, self:GetBlueprint().General.BuildBones.BuildEffectBones, self.BuildEffectsBag )
-        else
-            EffectUtil.CreateUEFCommanderBuildSliceBeams( self, unitBeingBuilt, self:GetBlueprint().General.BuildBones.BuildEffectBones, self.BuildEffectsBag )        
-        end           
-    end,
-
 -- Brute51 Pod Fix part 1/2 ---------------------------------
 -- In this fix I'm seperating 'Left pod' from the left should pod (first upgrade) and the 'Right pod' from the 
 -- right shoulder pod (second upgrade). This way if a pod is destroyed I dont have to reset the other pod so now it
@@ -285,18 +316,19 @@ UEL0001 = Class(TWalkingLandUnit) {
     NotifyOfPodDeath = function(self, pod)
 
         if self.HasLeftPod and self.HasRightPod then
-            # we have 2 pods and one dies
+        
+            -- we have 2 pods and one dies
 
-            # So we need to go back to 1 enhancement icon being lit insted of
-            # both. If I make the left one dark then the right one turns dark aswell.
-            # Bypassing the ACUs createenhancement function because that destroys both pods
+            -- So we need to go back to 1 enhancement icon being lit insted of
+            -- both. If I make the left one dark then the right one turns dark aswell.
+            -- Bypassing the ACUs createenhancement function because that destroys both pods
             TWalkingLandUnit.CreateEnhancement(self, 'RightPodRemove') # darkens both pod enhancement icons
             TWalkingLandUnit.CreateEnhancement(self, 'LeftPod') # makes the correct enhancement icon light up again
 
         else
-            # we have 1 pod and it dies
+            -- we have 1 pod and it dies
 
-            # since we have just 1 pod only the left enhancement icon is lit. 
+            -- since we have just 1 pod only the left enhancement icon is lit. 
             self:CreateEnhancement('LeftPodRemove')
         end
 
@@ -313,12 +345,12 @@ UEL0001 = Class(TWalkingLandUnit) {
 
     CreateEnhancement = function(self, enh)
         
-        local bp = self:GetBlueprint().Enhancements[enh]
+        local bp = __blueprints[self.BlueprintID].Enhancements[enh]
         if not bp then return end
 
         if enh == 'LeftPod' or enh == 'RightPod' then
 
-            # making sure we have up to date information
+            -- making sure we have up to date information
             if not self.LeftPod or self.LeftPod:IsDead() then
                 self.HasLeftPod = false
             end
@@ -326,8 +358,8 @@ UEL0001 = Class(TWalkingLandUnit) {
                 self.HasRightPod = false
             end
 
-            # when we're enhancing to the 2nd pod enhancement ( = right pod) but the first pod is destroyed then 
-            # change to 1st pod ( = left pod)
+            -- when we're enhancing to the 2nd pod enhancement ( = right pod) but the first pod is destroyed then 
+            -- change to 1st pod ( = left pod)
             if enh == 'RightPod' and not self.HasLeftPod and not self.HasRightPod then
                 TWalkingLandUnit.CreateEnhancement(self, 'RightPodRemove')  # no pod enhancement icons lit
                 enh = 'LeftPod'
@@ -353,11 +385,11 @@ UEL0001 = Class(TWalkingLandUnit) {
                 self.HasRightPod = true
             end
 
-        # for removing the pod upgrades
+        -- for removing the pod upgrades
         elseif enh == 'RightPodRemove' or enh == 'LeftPodRemove' then
 
-            # this is only run when the ACU has only 1 pod enhancement or when we're dumping an enhancement for
-            # another one. In both cases it's ok if we destroy both living pods.
+            -- this is only run when the ACU has only 1 pod enhancement or when we're dumping an enhancement for
+            -- another one. In both cases it's ok if we destroy both living pods.
 
             TWalkingLandUnit.CreateEnhancement(self, enh)
 
@@ -372,8 +404,10 @@ UEL0001 = Class(TWalkingLandUnit) {
 
 
         elseif enh =='DamageStablization' then
-            # added by brute51 - fix for bug SCU regen upgrade doesnt stack with veteran bonus [140]
+        
+            -- added by brute51 - fix for bug SCU regen upgrade doesnt stack with veteran bonus [140]
             TWalkingLandUnit.CreateEnhancement(self, enh)
+            
             local bpRegenRate = bp.NewRegenRate or 0
             if not Buffs['UefACURegenerateBonus'] then
                BuffBlueprint {
@@ -621,13 +655,13 @@ UEL0001 = Class(TWalkingLandUnit) {
     OnPaused = function(self)
         TWalkingLandUnit.OnPaused(self)
         if self.BuildingUnit then
-            TWalkingLandUnit.StopBuildingEffects(self, self:GetUnitBeingBuilt())
+            TWalkingLandUnit.StopBuildingEffects(self, self.UnitBeingBuilt)
         end    
     end,
     
     OnUnpaused = function(self)
         if self.BuildingUnit then
-            TWalkingLandUnit.StartBuildingEffects(self, self:GetUnitBeingBuilt(), self.UnitBuildOrder)
+            TWalkingLandUnit.StartBuildingEffects(self, self.UnitBeingBuilt, self.UnitBuildOrder)
         end
         TWalkingLandUnit.OnUnpaused(self)
     end,      

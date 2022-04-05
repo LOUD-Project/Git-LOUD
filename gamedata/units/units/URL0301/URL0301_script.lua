@@ -1,5 +1,5 @@
 
-local CWalkingLandUnit = import('/lua/cybranunits.lua').CWalkingLandUnit
+local CWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 local CWeapons = import('/lua/cybranweapons.lua')
 
 local SpawnBuildBots = import('/lua/EffectUtilities.lua').SpawnBuildBots

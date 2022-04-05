@@ -1,5 +1,5 @@
-local TWalkingLandUnit = import('/lua/terranunits.lua').TWalkingLandUnit
-local Unit = import('/lua/sim/Unit.lua').Unit
+local TWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
+
 local TDFMachineGunWeapon = import('/lua/terranweapons.lua').TDFMachineGunWeapon
 
 

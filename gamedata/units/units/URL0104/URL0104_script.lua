@@ -1,11 +1,13 @@
+local CLandUnit = import('/lua/defaultunits.lua').MobileUnit
 
-local CLandUnit = import('/lua/cybranunits.lua').CLandUnit
 local CAANanoDartWeapon = import('/lua/cybranweapons.lua').CAANanoDartWeapon
 
 URL0104 = Class(CLandUnit) {
     Weapons = {
         AAGun = Class(CAANanoDartWeapon) {},
+        
         GroundGun = Class(CAANanoDartWeapon) {
+        
             SetOnTransport = function(self, transportstate)
                 CAANanoDartWeapon.SetOnTransport(self, transportstate)
                 self.unit:SetScriptBit('RULEUTC_WeaponToggle', false)
@@ -19,7 +21,9 @@ URL0104 = Class(CLandUnit) {
     end,
     
     OnScriptBitSet = function(self, bit)
+    
         CLandUnit.OnScriptBitSet(self, bit)
+        
         if bit == 1 then 
             self:SetWeaponEnabledByLabel('GroundGun', true)
             self:SetWeaponEnabledByLabel('AAGun', false)
@@ -28,6 +32,7 @@ URL0104 = Class(CLandUnit) {
     end,
 
     OnScriptBitClear = function(self, bit)
+    
         CLandUnit.OnScriptBitClear(self, bit)
         if bit == 1 then 
             self:SetWeaponEnabledByLabel('GroundGun', false)

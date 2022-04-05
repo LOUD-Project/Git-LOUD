@@ -1,5 +1,5 @@
 
-local CMassFabricationUnit = import('/lua/cybranunits.lua').CMassFabricationUnit
+local CMassFabricationUnit = import('/lua/defaultunits.lua').MassFabricationUnit
 
 URB1104 = Class(CMassFabricationUnit) {
     DestructionPartsLowToss = {'Blade',},

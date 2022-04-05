@@ -1,4 +1,4 @@
-local CLandUnit = import('/lua/cybranunits.lua').CLandUnit
+local CLandUnit = import('/lua/defaultunits.lua').MobileUnit
 local EffectUtil = import('/lua/EffectUtilities.lua')
 
 URL0306 = Class(CLandUnit) {

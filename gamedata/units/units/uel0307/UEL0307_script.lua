@@ -1,4 +1,4 @@
-local TShieldLandUnit = import('/lua/terranunits.lua').TShieldLandUnit
+local TShieldLandUnit = import('/lua/defaultunits.lua').MobileUnit
 
 local CreateRotator = CreateRotator
 

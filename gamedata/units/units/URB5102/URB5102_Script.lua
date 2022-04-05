@@ -1,5 +1,5 @@
 
-local CTransportBeaconUnit = import('/lua/cybranunits.lua').CTransportBeaconUnit
+local CTransportBeaconUnit = import('/lua/defaultunits.lua').TransportBeaconUnit
 
 URB5102 = Class(CTransportBeaconUnit) {
 }

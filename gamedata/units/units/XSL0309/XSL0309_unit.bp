@@ -99,14 +99,14 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 4400,
+        BuildCostEnergy = 4800,
         BuildCostMass = 625,
         BuildRate = 15,
         BuildTime = 3125,
 		
         BuildableCategory = {'BUILTBYTIER3ENGINEER SERAPHIM',},
 		
-        NeedToFaceTargetToBuild = true,
+        --NeedToFaceTargetToBuild = true,
 		
         StorageEnergy = 300,
         StorageMass = 30,
@@ -171,22 +171,26 @@ UnitBlueprint {
         },
         DragCoefficient = 0.2,
         Elevation = 0.5,
-        MaxAcceleration = 2,
+        
+        MaxAcceleration = 1.8,
         MaxBrake = 2.6,
         MaxSpeed = 2.6,
         MaxSpeedReverse = 0,
+        
         MaxSteerForce = 1000,
         MeshExtentsX = 1.1,
         MeshExtentsY = 0.65,
         MeshExtentsZ = 1.1,
+        
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Hover',
         RotateBodyWhileMoving = true,
         RotateOnSpot = true,
+        
         RotateOnSpotThreshold = 0.1,
-        TurnFacingRate = 120,
+        TurnFacingRate = 90,
         TurnRadius = 0,
-        TurnRate = 120,
+        TurnRate = 65,
     },
 	
     SelectionCenterOffsetY = -0.5,
@@ -208,9 +212,9 @@ UnitBlueprint {
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.35,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.35,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,

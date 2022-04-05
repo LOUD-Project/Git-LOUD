@@ -1,5 +1,5 @@
 
-local CRadarJammerUnit = import('/lua/cybranunits.lua').CRadarJammerUnit
+local CRadarJammerUnit = import('/lua/defaultunits.lua').RadarJammerUnit
 
 URB4203 = Class(CRadarJammerUnit) {
     IntelEffects = {

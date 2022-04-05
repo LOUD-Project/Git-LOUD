@@ -1,6 +1,4 @@
-
-
-local AMassStorageUnit = import('/lua/aeonunits.lua').AMassStorageUnit
+local AMassStorageUnit = import('/lua/defaultunits.lua').StructureUnit
 
 UAB1106 = Class(AMassStorageUnit) {
 
@@ -9,9 +7,6 @@ UAB1106 = Class(AMassStorageUnit) {
         self.Trash:Add(CreateStorageManip(self, 'B01', 'MASS', 0, 0, 0, 0, 0, .574))
     end,
 
-    AnimThread = function(self)
-        
-    end,
 }
 
 TypeClass = UAB1106

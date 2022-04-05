@@ -1,5 +1,5 @@
 
-local CMassFabricationUnit = import('/lua/cybranunits.lua').CMassFabricationUnit
+local CMassFabricationUnit = import('/lua/defaultunits.lua').MassFabricationUnit
 
 URB1303 = Class(CMassFabricationUnit) {
 

@@ -1,4 +1,4 @@
-local CLandUnit = import('/lua/cybranunits.lua').CLandUnit
+local CLandUnit = import('/lua/defaultunits.lua').MobileUnit
 local EffectUtil = import('/lua/EffectUtilities.lua')
 
 local Buff = import('/lua/sim/Buff.lua')

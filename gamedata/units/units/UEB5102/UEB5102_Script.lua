@@ -1,6 +1,3 @@
-local TTransportBeaconUnit = import('/lua/terranunits.lua').TTransportBeaconUnit
-
-UEB5102 = Class(TTransportBeaconUnit) {
-}
+UEB5102 = Class(import('/lua/defaultunits.lua').TransportBeaconUnit) {}
 
 TypeClass = UEB5102

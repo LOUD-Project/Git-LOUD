@@ -1,4 +1,4 @@
-local CRadarUnit = import('/lua/cybranunits.lua').CRadarUnit
+local CRadarUnit = import('/lua/defaultunits.lua').RadarUnit
 
 local VizMarker = import('/lua/sim/VizMarker.lua').VizMarker
 

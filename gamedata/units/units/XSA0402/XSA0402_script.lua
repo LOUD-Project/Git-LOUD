@@ -13,6 +13,7 @@ XSA0402 = Class(SAirUnit) {
     Weapons = {
 	
         Bomb = Class(SB0OhwalliExperimentalStrategicBombWeapon) {},
+        
         Autocannon = Class(SAALosaareAutoCannonWeapon) {},
 		
     },

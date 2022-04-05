@@ -1,5 +1,4 @@
-
-local AMassFabricationUnit = import('/lua/aeonunits.lua').AMassFabricationUnit
+local AMassFabricationUnit = import('/lua/defaultunits.lua').MassFabricationUnit
 
 local ChangeState = ChangeState
 

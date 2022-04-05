@@ -1,4 +1,4 @@
-local CEnergyStorageUnit= import('/lua/cybranunits.lua').CEnergyStorageUnit
+local CEnergyStorageUnit= import('/lua/defaultunits.lua').StructureUnit
 
 URB1105 = Class(CEnergyStorageUnit) {
     DestructionPartsChassisToss = {'URB1105'},

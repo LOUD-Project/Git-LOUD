@@ -1,4 +1,4 @@
-local TStructureUnit = import('/lua/terranunits.lua').TStructureUnit
+local TStructureUnit = import('/lua/defaultunits.lua').StructureUnit
 
 UEB5103 = Class(TStructureUnit) {
 	FxTransportBeacon = {'/effects/emitters/red_beacon_light_01_emit.bp'},

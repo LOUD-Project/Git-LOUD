@@ -1,4 +1,4 @@
-local CStructureUnit = import('/lua/cybranunits.lua').CStructureUnit
+local CStructureUnit = import('/lua/defaultunits.lua').StructureUnit
 local CAAAutocannon = import('/lua/cybranweapons.lua').CAAAutocannon
 
 URB2104 = Class(CStructureUnit) {

@@ -1,5 +1,4 @@
-
-local TMassFabricationUnit = import('/lua/terranunits.lua').TMassFabricationUnit
+local TMassFabricationUnit = import('/lua/defaultunits.lua').MassFabricationUnit
 local CreateRotator = CreateRotator
 
 UEB1303 = Class(TMassFabricationUnit) {

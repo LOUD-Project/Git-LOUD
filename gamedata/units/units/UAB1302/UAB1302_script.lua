@@ -1,5 +1,4 @@
-
-local AMassCollectionUnit = import('/lua/aeonunits.lua').AMassCollectionUnit
+local AMassCollectionUnit = import('/lua/defaultunits.lua').MassCollectionUnit
 
 local ChangeState = ChangeState
 

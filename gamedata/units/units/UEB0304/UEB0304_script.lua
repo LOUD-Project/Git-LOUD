@@ -1,4 +1,4 @@
-local TQuantumGateUnit = import('/lua/terranunits.lua').TQuantumGateUnit
+local TQuantumGateUnit = import('/lua/defaultunits.lua').QuantumGateUnit
 
 UEB0304 = Class(TQuantumGateUnit) {
 

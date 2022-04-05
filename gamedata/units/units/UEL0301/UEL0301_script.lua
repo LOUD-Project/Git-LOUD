@@ -1,11 +1,10 @@
 local Shield = import('/lua/shield.lua').Shield
 
---local EffectUtil = import('/lua/EffectUtilities.lua')
 local CleanupEffectBag = import('/lua/EffectUtilities.lua').CleanupEffectBag
 local CreateDefaultBuildBeams = import('/lua/EffectUtilities.lua').CreateDefaultBuildBeams
 local CreateUEFCommanderBuildSliceBeams = import('/lua/EffectUtilities.lua').CreateUEFCommanderBuildSliceBeams
 
-local TWalkingLandUnit = import('/lua/terranunits.lua').TWalkingLandUnit
+local TWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
 local TWeapons = import('/lua/terranweapons.lua')
 local TDFHeavyPlasmaCannonWeapon = TWeapons.TDFHeavyPlasmaCannonWeapon

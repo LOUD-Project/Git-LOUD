@@ -1,5 +1,5 @@
+local AStructureUnit = import('/lua/defaultunits.lua').StructureUnit
 
-local AStructureUnit = import('/lua/aeonunits.lua').AStructureUnit
 local AAMSaintWeapon = import('/lua/aeonweapons.lua').AAMSaintWeapon
 local nukeFiredOnGotTarget = false
 
@@ -18,7 +18,8 @@ UAB4302 = Class(AStructureUnit) {
                     end
                     AAMSaintWeapon.IdleState.OnGotTarget(self)
                 end,
-                # uses OnGotTarget, so we shouldn't do this.
+                
+                -- uses OnGotTarget, so we shouldn't do this.
                 OnFire = function(self)
                     if not nukeFiredOnGotTarget then
                         AAMSaintWeapon.IdleState.OnFire(self)

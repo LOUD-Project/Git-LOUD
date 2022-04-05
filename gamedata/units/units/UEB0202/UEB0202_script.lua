@@ -2,7 +2,6 @@ local TAirFactoryUnit = import('/lua/terranunits.lua').TAirFactoryUnit
 
 local WaitFor = WaitFor
 
-
 UEB0202 = Class(TAirFactoryUnit) {
     
     StartArmsMoving = function(self)

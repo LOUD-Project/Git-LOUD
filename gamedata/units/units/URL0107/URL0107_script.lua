@@ -1,25 +1,48 @@
-
-local CWalkingLandUnit = import('/lua/cybranunits.lua').CWalkingLandUnit
+local CWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
 local CDFLaserHeavyWeapon = import('/lua/cybranweapons.lua').CDFLaserHeavyWeapon
 
-local SpawnBuildBots = import('/lua/EffectUtilities.lua').SpawnBuildBots
 local CreateCybranBuildBeams = import('/lua/EffectUtilities.lua').CreateCybranBuildBeams
 
+local ScaleEmitter = moho.IEffect.ScaleEmitter
+local TrashDestroy = TrashBag.Destroy
 
 URL0107 = Class(CWalkingLandUnit) {
+
     Weapons = {
         LaserArms = Class(CDFLaserHeavyWeapon) {},
     },
+    
     OnCreate = function(self)
+    
         CWalkingLandUnit.OnCreate(self)
-        if self:GetBlueprint().General.BuildBones then
+        
+        if __blueprints[self.BlueprintID].General.BuildBones then
             self:SetupBuildBones()
         end
     end,
+    
     CreateBuildEffects = function( self, unitBeingBuilt, order )
-       SpawnBuildBots( self, unitBeingBuilt, 1, self.BuildEffectsBag )
-       CreateCybranBuildBeams( self, unitBeingBuilt, self:GetBlueprint().General.BuildBones.BuildEffectBones, self.BuildEffectsBag )
+       CreateCybranBuildBeams( self, unitBeingBuilt, __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones, self.BuildEffectsBag )
+    end,
+    
+    OnStopBuild = function( self, unitBeingBuilt )
+
+        if self.BuildProjectile then
+        
+            for _, v in self.BuildProjectile do
+            
+                TrashDestroy( v.BuildEffectsBag )
+                
+                ScaleEmitter( v.Emitter, .1)
+                ScaleEmitter( v.Sparker, .1)
+
+                v:AttachTo( self, v.Name )
+            end
+        end
+        
+        CWalkingLandUnit.OnStopBuild( self, unitBeingBuilt )
+
     end,
     
 }

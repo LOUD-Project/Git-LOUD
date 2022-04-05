@@ -1,4 +1,3 @@
-
 local AShieldStructureUnit = import('/lua/aeonunits.lua').AShieldStructureUnit
 
 local LOUDINSERT = table.insert

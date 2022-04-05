@@ -1,4 +1,4 @@
-local AEnergyStorageUnit = import('/lua/aeonunits.lua').AEnergyStorageUnit
+local AEnergyStorageUnit = import('/lua/defaultunits.lua').StructureUnit
 
 UAB1105 = Class(AEnergyStorageUnit) {
 

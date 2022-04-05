@@ -1,16 +1,26 @@
+local AWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
-local AWalkingLandUnit = import('/lua/aeonunits.lua').AWalkingLandUnit
 local ADFLaserHighIntensityWeapon = import('/lua/aeonweapons.lua').ADFLaserHighIntensityWeapon
 local CreateAeonCommanderBuildingEffects = import('/lua/EffectUtilities.lua').CreateAeonCommanderBuildingEffects
 
-UAL0303 = Class(AWalkingLandUnit) {    
+UAL0303 = Class(AWalkingLandUnit) { 
+   
     Weapons = {
         FrontTurret01 = Class(ADFLaserHighIntensityWeapon) {}
     },
     
     CreateBuildEffects = function( self, unitBeingBuilt, order )
-        CreateAeonCommanderBuildingEffects( self, unitBeingBuilt, self:GetBlueprint().General.BuildBones.BuildEffectBones, self.BuildEffectsBag )
-    end,  
+        CreateAeonCommanderBuildingEffects( self, unitBeingBuilt, __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones, self.BuildEffectsBag )
+    end,
+
+    -- handle the permanent projectile & emitters
+    OnStopBuild = function(self, unitBeingBuilt)
+    
+        if self.BuildProjectile then
+            self.BuildProjectile:AttachTo( self, self.BuildPoint )
+        end
+
+    end,    
 
     OnShieldIsUp = function (self)
         self:SetCanTakeDamage(false)

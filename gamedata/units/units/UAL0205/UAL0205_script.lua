@@ -1,8 +1,6 @@
+local ALandUnit = import('/lua/defaultunits.lua').MobileUnit
 
-local ALandUnit = import('/lua/aeonunits.lua').ALandUnit
 local AAATemporalFizzWeapon = import('/lua/aeonweapons.lua').AAATemporalFizzWeapon
-
-
 
 UAL0205 = Class(ALandUnit) {
     KickupBones = {},

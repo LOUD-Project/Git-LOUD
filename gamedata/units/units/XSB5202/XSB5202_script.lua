@@ -1,4 +1,4 @@
-local SAirStagingPlatformUnit = import('/lua/seraphimunits.lua').SAirStagingPlatformUnit
+local SAirStagingPlatformUnit = import('/lua/defaultunits.lua').AirStagingPlatformUnit
 
 local Buff = import('/lua/sim/Buff.lua')
 local BuffField = import('/lua/defaultbufffield.lua').DefaultBuffField

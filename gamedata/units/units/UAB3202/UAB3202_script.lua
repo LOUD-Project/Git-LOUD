@@ -1,5 +1,4 @@
-
-local ASonarUnit = import('/lua/aeonunits.lua').ASonarUnit
+local ASonarUnit = import('/lua/defaultunits.lua').SonarUnit
 
 UAB3202 = Class(ASonarUnit) {
     TimedSonarTTIdleEffects = {

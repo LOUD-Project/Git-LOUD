@@ -1,4 +1,4 @@
-local TStructureUnit = import('/lua/terranunits.lua').TStructureUnit
+local TStructureUnit = import('/lua/defaultunits.lua').StructureUnit
 
 local TANTorpedoLandWeapon = import('/lua/terranweapons.lua').TANTorpedoLandWeapon
 

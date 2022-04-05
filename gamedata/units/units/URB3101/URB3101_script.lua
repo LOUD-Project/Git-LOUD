@@ -1,5 +1,5 @@
 
-local CRadarUnit = import('/lua/cybranunits.lua').CRadarUnit
+local CRadarUnit = import('/lua/defaultunits.lua').RadarUnit
 
 local WaitFor = WaitFor
 local WaitTicks = coroutine.yield

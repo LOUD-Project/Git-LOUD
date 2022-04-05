@@ -1,5 +1,5 @@
+local TWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
-local TWalkingLandUnit = import('/lua/terranunits.lua').TWalkingLandUnit
 local TDFPlasmaCannonWeapon = import('/lua/terranweapons.lua').TDFPlasmaCannonWeapon
 local TIFFragLauncherWeapon = import('/lua/terranweapons.lua').TDFFragmentationGrenadeLauncherWeapon
 

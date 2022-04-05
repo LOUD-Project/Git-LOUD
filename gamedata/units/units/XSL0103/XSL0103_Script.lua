@@ -1,4 +1,4 @@
-local SHoverLandUnit = import('/lua/seraphimunits.lua').SHoverLandUnit
+local SHoverLandUnit = import('/lua/defaultunits.lua').MobileUnit
 
 local SIFThunthoCannonWeapon = import('/lua/seraphimweapons.lua').SIFThunthoCannonWeapon
 

@@ -1,4 +1,4 @@
-local AMassCollectionUnit = import('/lua/aeonunits.lua').AMassCollectionUnit
+local AMassCollectionUnit = import('/lua/defaultunits.lua').MassCollectionUnit
 
 UAB1103 = Class(AMassCollectionUnit) {
 

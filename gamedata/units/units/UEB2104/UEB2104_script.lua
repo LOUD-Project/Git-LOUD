@@ -1,4 +1,4 @@
-local TStructureUnit = import('/lua/terranunits.lua').TStructureUnit
+local TStructureUnit = import('/lua/defaultunits.lua').StructureUnit
 local TAALinkedRailgun = import('/lua/terranweapons.lua').TAALinkedRailgun
 
 UEB2104 = Class(TStructureUnit) {

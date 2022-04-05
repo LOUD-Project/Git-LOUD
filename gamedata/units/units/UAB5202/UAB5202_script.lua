@@ -1,10 +1,9 @@
-
-local AAirStagingPlatformUnit = import('/lua/aeonunits.lua').AAirStagingPlatformUnit
+local AirStagingPlatformUnit = import('/lua/defaultunits.lua').AirStagingPlatformUnit
 
 local Buff = import('/lua/sim/Buff.lua')
 local BuffField = import('/lua/defaultbufffield.lua').DefaultBuffField
 
-UAB5202 = Class(AAirStagingPlatformUnit) {
+UAB5202 = Class(AirStagingPlatformUnit) {
 
 	BuffFields = {
 	
@@ -19,7 +18,7 @@ UAB5202 = Class(AAirStagingPlatformUnit) {
 
     OnStopBeingBuilt = function(self)
  
-        AAirStagingPlatformUnit.OnStopBeingBuilt(self)
+        AirStagingPlatformUnit.OnStopBeingBuilt(self)
 		
 		self:GetBuffFieldByName('AirStagingBuffField'):Enable()		
 

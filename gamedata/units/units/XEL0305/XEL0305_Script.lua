@@ -1,6 +1,7 @@
+local TWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
 local TerranWeaponFile = import('/lua/terranweapons.lua')
-local TWalkingLandUnit = import('/lua/terranunits.lua').TWalkingLandUnit
+
 local TDFIonizedPlasmaCannon = TerranWeaponFile.TDFIonizedPlasmaCannon
 
 XEL0305 = Class(TWalkingLandUnit) {

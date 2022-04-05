@@ -1,5 +1,5 @@
+local AWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
-local AWalkingLandUnit = import('/lua/aeonunits.lua').AWalkingLandUnit
 local WeaponsFile = import ('/lua/aeonweapons.lua')
 local ADFPhasonLaser = WeaponsFile.ADFPhasonLaser
 local ADFTractorClaw = WeaponsFile.ADFTractorClaw

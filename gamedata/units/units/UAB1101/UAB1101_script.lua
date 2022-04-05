@@ -1,5 +1,5 @@
 
-local AEnergyCreationUnit = import('/lua/aeonunits.lua').AEnergyCreationUnit
+local AEnergyCreationUnit = import('/lua/defaultunits.lua').EnergyCreationUnit
 
 UAB1101 = Class(AEnergyCreationUnit) {
     AmbientEffects = 'AT1PowerAmbient',

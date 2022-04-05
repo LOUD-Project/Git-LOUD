@@ -1,4 +1,4 @@
-local SEnergyStorageUnit = import('/lua/seraphimunits.lua').SEnergyStorageUnit
+local SEnergyStorageUnit = import('/lua/defaultnits.lua').StructureUnit
 
 XSB1105 = Class(SEnergyStorageUnit) {
 

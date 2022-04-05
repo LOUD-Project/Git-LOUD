@@ -1,4 +1,4 @@
-local CMassStorageUnit = import('/lua/cybranunits.lua').CMassStorageUnit
+local CMassStorageUnit = import('/lua/defaultunits.lua').StructureUnit
 
 URB1106 = Class(CMassStorageUnit) {
     OnStopBeingBuilt = function(self,builder,layer)

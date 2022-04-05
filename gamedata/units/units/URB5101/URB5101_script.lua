@@ -1,4 +1,4 @@
-local CWallStructureUnit = import('/lua/cybranunits.lua').CWallStructureUnit
+local CWallStructureUnit = import('/lua/defaultunits.lua').WallStructureUnit
 
 URB5101 = Class(CWallStructureUnit) {
 }

@@ -5,7 +5,7 @@
 --** 
 --**  Copyright � 2007 Gas Powered Games, Inc.  All rights reserved.
 --****************************************************************************
-local CCivilianStructureUnit = import('/lua/cybranunits.lua').CCivilianStructureUnit
+local CCivilianStructureUnit = import('/lua/defaultunits.lua').StructureUnit
 local Util = import('/lua/utilities.lua')
 local RandomFloat = Util.GetRandomFloat
 local explosion = import('/lua/defaultexplosions.lua')
