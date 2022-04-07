@@ -20,12 +20,16 @@ CAANanoDart01 = Class(CAANanoDartProjectile) {
         WaitSeconds(0.35)
         self:SetMaxSpeed(2)
         self:SetBallisticAcceleration(-0.5)
-		
-        local army = self:GetArmy()
-		local CreateEmitterOnEntity = CreateEmitterOnEntity
 
-        for i in self.FxTrails do
-            CreateEmitterOnEntity(self,army,self.FxTrails[i])
+        if self.FxTrails then
+        
+            local army = self:GetArmy()
+            local CreateEmitterOnEntity = CreateEmitterOnEntity
+
+            for i in self.FxTrails do
+                CreateEmitterOnEntity(self,army,self.FxTrails[i])
+            end
+            
         end
 
         WaitSeconds(0.5)

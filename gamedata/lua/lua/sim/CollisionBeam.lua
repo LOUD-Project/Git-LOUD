@@ -208,11 +208,14 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
 
     DestroyTerrainEffects = function( self )
     
-        for k, v in self.TerrainEffectsBag do
-            v:Destroy()
-        end
+        if self.TerrainEffectsBag then
+    
+            for k, v in self.TerrainEffectsBag do
+                v:Destroy()
+            end
         
-        self.TerrainEffectsBag = nil
+            self.TerrainEffectsBag = nil
+        end
     end,
 
     UpdateTerrainCollisionEffects = function( self, TargetType )

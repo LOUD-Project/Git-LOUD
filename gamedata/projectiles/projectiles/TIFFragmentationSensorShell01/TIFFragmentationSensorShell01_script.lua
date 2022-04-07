@@ -7,8 +7,8 @@ local RandomFloat = import('/lua/utilities.lua').GetRandomFloat
 local VizMarker = import('/lua/sim/VizMarker.lua').VizMarker
 
 local CreateEmitterAtEntity = CreateEmitterAtEntity
+
 local LOUDCOS = math.cos
-local LOUDPI = math.pi
 local LOUDSIN = math.sin
 
 
@@ -21,12 +21,11 @@ TIFFragmentationSensorShell01 = Class(TArtilleryProjectile) {
 
 		local CreateEmitterAtEntity = CreateEmitterAtEntity
 		local LOUDCOS = math.cos
-		local LOUDPI = math.pi
 		local LOUDSIN = math.sin		
         
         -- Split effects
         for k, v in FxFragEffect do
-            CreateEmitterAtEntity( self, self:GetArmy(), v )
+            CreateEmitterAtEntity( self, self.Army, v )
         end
 
 		-- original projectile will become 4
@@ -42,7 +41,7 @@ TIFFragmentationSensorShell01 = Class(TArtilleryProjectile) {
         self:CreateChildProjectile(ChildProjectileBP):SetVelocity(vx, vy, vz):SetVelocity(velocity):PassDamageData(self.DamageData)
    		
 		-- Create remainder in a dispersal pattern
-        local angle = (2*LOUDPI) / numProjectiles
+        local angle = 6.28 / numProjectiles
         local angleInitial = RandomFloat( 0, angle )
         
         -- Randomization of the spread

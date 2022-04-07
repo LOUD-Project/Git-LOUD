@@ -3,8 +3,9 @@
 
 local LOUDENTITY = EntityCategoryContains
 local ParseEntityCategory = ParseEntityCategory
-local LOUDCOPY = table.copy
 
+local LOUDCOPY = table.copy
+local LOUDFLOOR = math.floor
 local LOUDINSERT = table.insert
 local LOUDREMOVE = table.remove
 
@@ -23,7 +24,12 @@ local BeenDestroyed = moho.entity_methods.BeenDestroyed
 local GetBlueprint = moho.weapon_methods.GetBlueprint
 local PlaySound = moho.weapon_methods.PlaySound
 
+local SetBoneEnabled = moho.AnimationManipulator.SetBoneEnabled
+local SetEnabled = moho.AimManipulator.SetEnabled
+local SetFiringArc = moho.AimManipulator.SetFiringArc
+
 local SetFireTargetLayerCaps = moho.weapon_methods.SetFireTargetLayerCaps
+local SetResetPoseTime = moho.AimManipulator.SetResetPoseTime
 local SetTargetingPriorities = moho.weapon_methods.SetTargetingPriorities
 
 local PassDamageData = import('/lua/sim/Projectile.lua').Projectile.PassDamageData
@@ -50,6 +56,10 @@ Weapon = Class(moho.weapon_methods) {
     end,
 
     OnCreate = function(self)
+    
+        local LOUDCOPY = LOUDCOPY
+        local LOUDFLOOR = LOUDFLOOR
+        local WaitTicks = WaitTicks
 
 		-- use the trash on the parent unit
 		self.Trash = self.unit.Trash
@@ -63,6 +73,7 @@ Weapon = Class(moho.weapon_methods) {
         if bp.Turreted == true then
 		
             local CreateAimController = CreateAimController
+            local SetPrecedence = moho.manipulator_methods.SetPrecedence
             
             local yawBone = bp.TurretBoneYaw
             local pitchBone = bp.TurretBonePitch
@@ -92,12 +103,12 @@ Weapon = Class(moho.weapon_methods) {
                     self.AimRight = CreateAimController(self, 'Right', pitchBone, pitchBone, muzzleBone)
                     self.AimLeft = CreateAimController(self, 'Left', pitchBone2, pitchBone2, muzzleBone2)
 				
-                    self.AimControl:SetPrecedence(precedence)
-                    self.AimRight:SetPrecedence(precedence)
-                    self.AimLeft:SetPrecedence(precedence)
+                    SetPrecedence( self.AimControl, precedence )
+                    SetPrecedence( self.AimRight, precedence)
+                    SetPrecedence( self.AimLeft, precedence)
 				
                     if LOUDENTITY(STRUCTURE, self.unit) then
-                        self.AimControl:SetResetPoseTime(9999999)
+                        SetResetPoseTime( self.AimControl, 9999999 )
                     end
 				
                     self:SetFireControl('Right')
@@ -115,19 +126,21 @@ Weapon = Class(moho.weapon_methods) {
                     end
 				
                     if LOUDENTITY(STRUCTURE, self.unit) then
-                        self.AimControl:SetResetPoseTime(9999999)
+                        SetResetPoseTime( self.AimControl,9999999 )
                     end
 				
                     TrashAdd( self.unit.Trash, self.AimControl )
                     
-                    self.AimControl:SetPrecedence(precedence)
+                    SetPrecedence( self.AimControl, precedence)
 				
                     if bp.RackSlavedToTurret and bp.RackBones[1] then
                     
                         for k, v in bp.RackBones do
                             if v.RackBone != pitchBone then
+                            
                                 local slaver = CreateSlaver(self.unit, v.RackBone, pitchBone)
-                                slaver:SetPrecedence(precedence-1)
+                                
+                                SetPrecedence( slaver, precedence-1 )
                                 
                                 TrashAdd( self.Trash, slaver )
                             end
@@ -169,18 +182,16 @@ Weapon = Class(moho.weapon_methods) {
         
             if numbersexist then
 		
-                self.AimControl:SetFiringArc(turretyawmin, turretyawmax, turretyawspeed, turretpitchmin, turretpitchmax, turretpitchspeed)
+                SetFiringArc( self.AimControl, turretyawmin, turretyawmax, turretyawspeed, turretpitchmin, turretpitchmax, turretpitchspeed)
 			
                 if self.AimRight then
-                    self.AimRight:SetFiringArc(turretyawmin/12, turretyawmax/12, turretyawspeed, turretpitchmin, turretpitchmax, turretpitchspeed)
+                    SetFiringArc( self.AimRight, turretyawmin/12, turretyawmax/12, turretyawspeed, turretpitchmin, turretpitchmax, turretpitchspeed)
                 end
 			
                 if self.AimLeft then
-                    self.AimLeft:SetFiringArc(turretyawmin/12, turretyawmax/12, turretyawspeed, turretpitchmin, turretpitchmax, turretpitchspeed)
+                    SetFiringArc( self.AimLeft, turretyawmin/12, turretyawmax/12, turretyawspeed, turretpitchmin, turretpitchmax, turretpitchspeed)
                 end
-			
             end
-		
         end
 
 		-- store weapon buffs on the weapon itself so 
@@ -197,7 +208,7 @@ Weapon = Class(moho.weapon_methods) {
 			self.NukeWeapon = true
 		end
 
-        self:SetValidTargetsForCurrentLayer( self.unit:GetCurrentLayer(), bp)
+        self:SetValidTargetsForCurrentLayer( self.unit.CacheLayer, bp)
 		
 		-- next 3 conditions are for adv missile track and retarget
         if bp.advancedTracking then
@@ -245,7 +256,7 @@ Weapon = Class(moho.weapon_methods) {
 
             local function AmmoThread(amount)
 	
-                if not BeenDestroyed(self.unit) then
+                if not self.unit.Dead then
 			
                     WaitTicks(2)
 		
@@ -257,7 +268,7 @@ Weapon = Class(moho.weapon_methods) {
                 end
             end
 			
-            ForkThread( AmmoThread, math.floor(initStore))
+            ForkThread( AmmoThread, LOUDFLOOR(initStore))
         end
 		
 		self:SetDamageTable(bp)
@@ -282,15 +293,13 @@ Weapon = Class(moho.weapon_methods) {
     AimManipulatorSetEnabled = function(self, enabled)
 	
         if self.AimControl then
-            self.AimControl:SetEnabled(enabled)
+            SetEnabled( self.AimControl, enabled )
         end
 		
     end,
 
     GetAimManipulator = function(self)
-	
         return self.AimControl
-		
     end,
 
     SetTurretYawSpeed = function(self, speed)
@@ -300,7 +309,7 @@ Weapon = Class(moho.weapon_methods) {
         local turretpitchspeed = self:GetTurretPitchSpeed()
 		
         if self.AimControl then
-            self.AimControl:SetFiringArc(turretyawmin, turretyawmax, speed, turretpitchmin, turretpitchmax, turretpitchspeed)
+            SetFiringArc( self.AimControl, turretyawmin, turretyawmax, speed, turretpitchmin, turretpitchmax, turretpitchspeed)
         end
     end,
 
@@ -311,7 +320,7 @@ Weapon = Class(moho.weapon_methods) {
         local turretpitchspeed = self:GetTurretYawSpeed()
 		
         if self.AimControl then
-            self.AimControl:SetFiringArc(turretyawmin, turretyawmax, turretyawspeed, turretpitchmin, turretpitchmax, speed)
+            SetFiringArc( self.AimControl, turretyawmin, turretyawmax, turretyawspeed, turretpitchmin, turretpitchmax, speed)
         end
     end,
 
@@ -343,20 +352,6 @@ Weapon = Class(moho.weapon_methods) {
     end,
 	
 	OnWeaponFired = function(self, target)
-
-		if ScenarioInfo.WeaponDialog then
-			LOG("*AI DEBUG Weapon OnWeaponFired for "..repr(__blueprints[self.unit.BlueprintID].Description) )
-		end
-		-- I put this here just to see if it could be trapped (and it is) with the intention
-		-- of discovering if it would be possible to turn cloaking off when a weapon on a
-		-- cloaked unit fires
-        
-		-- just a note - this triggers ONCE per firing cycle - just as firing begins
-		-- so you'll only get one event no matter how many muzzles and projectiles are created
-
-        -- there's some doubt that we'd see this more than once as long as the weapon keeps firing
-        -- at the same target
-        -- This means it's not a really good place for watching if a weapon fires
 	end,
 
     OnEnableWeapon = function(self)
@@ -368,10 +363,8 @@ Weapon = Class(moho.weapon_methods) {
 		
             for _, value in self.DisabledFiringBones do
 			
-                self.unit.Animator:SetBoneEnabled(value, false)
-				
+                SetBoneEnabled( self.unit.Animator, value, false )
             end
-			
         end
 		
     end,
@@ -382,10 +375,8 @@ Weapon = Class(moho.weapon_methods) {
 		
             for _, value in self.DisabledFiringBones do
 			
-                self.unit.Animator:SetBoneEnabled(value, true)
-				
+                SetBoneEnabled( self.unit.Animator, value, true )
             end
-			
         end
 
     end,
@@ -398,7 +389,7 @@ Weapon = Class(moho.weapon_methods) {
         self:PlayWeaponSound('BarrelStop')
 		
         if LOUDENTITY(STRUCTURE, self.unit) then
-            self.AimControl:SetResetPoseTime(9999999)
+            SetResetPoseTime( self.AimControl, 9999999 )
         end
 
     end,
@@ -529,9 +520,7 @@ Weapon = Class(moho.weapon_methods) {
                     NukeOuterRingTotalTime = bp.NukeOuterRingTotalTime or 20,
 
                 }
-				
-                --proj:PassData(data)
-				
+
             end
         end
 		
@@ -541,6 +530,8 @@ Weapon = Class(moho.weapon_methods) {
     SetValidTargetsForCurrentLayer = function(self, newLayer, bp)
 
         local weaponBlueprint = self.bp
+        
+        local SetFireTargetLayerCaps = SetFireTargetLayerCaps
 		
         if weaponBlueprint.FireTargetLayerCapsTable then
 		
@@ -551,7 +542,6 @@ Weapon = Class(moho.weapon_methods) {
             else
 			
                 SetFireTargetLayerCaps( self,'None')
-				
             end
         end
     end,
@@ -559,6 +549,7 @@ Weapon = Class(moho.weapon_methods) {
     SetWeaponPriorities = function(self, priTable)
 	
 		local LOUDPARSE = ParseEntityCategory
+        local SetTargetingPriorities = SetTargetingPriorities 
 		
         if not priTable then
 
@@ -571,7 +562,6 @@ Weapon = Class(moho.weapon_methods) {
                 
                     priorityTable[counter] = LOUDPARSE(v)
 					counter = counter + 1
-                    
                 end
 				
                 SetTargetingPriorities( self, priorityTable )
@@ -588,7 +578,6 @@ Weapon = Class(moho.weapon_methods) {
                 
                     priorityTable[counter] = LOUDPARSE(v)
 					counter = counter + 1
-                    
                 end
 				
                 SetTargetingPriorities( self, priorityTable )
@@ -604,13 +593,10 @@ Weapon = Class(moho.weapon_methods) {
     WeaponUsesEnergy = function(self)
 
         if self.bp.EnergyRequired then
-		
 			return self.bp.EnergyRequired > 0
-			
         end
 		
 		return false
-		
     end,
 
     AddDamageMod = function(self, dmgMod)
@@ -679,7 +665,8 @@ Weapon = Class(moho.weapon_methods) {
         end
 		
         --Disable weapon if on transport and not allowed to fire from it
-        if not self.unit:GetBlueprint().Transport.CanFireFromTransport then
+        if not __blueprints[self.unit.BlueprintID].Transport.CanFireFromTransport then
+        
             if transportstate then
                 self.WeaponDisabledOnTransport = true
                 self:SetWeaponEnabled(false)
@@ -704,10 +691,12 @@ Weapon = Class(moho.weapon_methods) {
             self:SetEnabled(enable)
             return
         end
+        
+        local GetEntityId = moho.entity_methods.GetEntityId
 
         if self.bp.EnabledByEnhancement then
 		
-            local id = self.unit:GetEntityId()
+            local id = GetEntityId(self.unit)
 			
             if SimUnitEnhancements[id] then
 			

@@ -48,10 +48,12 @@ UAB2306 = Class(AStructureUnit) {
         TrashAdd( self.Trash, CreateRotator(self, 'beam_emitter', 'z', nil, 0, 15, 80) )
 
         self:HideBone('sphere', true)
+        
+        local Army = self.Sync.army
 
-        local FX1 = CreateAttachedEmitter(self, 'sphere', self.Army, '/effects/emitters/seraphim_experimental_phasonproj_fxtrails_02_emit.bp'):ScaleEmitter(0.5)-- Bright Blue Glow                      
-        local FX2 = CreateAttachedEmitter(self, 'sphere', self.Army, '/effects/emitters/seraphim_experimental_phasonproj_fxtrails_03_emit.bp'):ScaleEmitter(0.4)-- Dark FX Aura                             
-        local FX3 = CreateAttachedEmitter(self, 'sphere', self.Army, '/effects/emitters/seraphim_experimental_phasonproj_fxtrails_06_emit.bp'):ScaleEmitter(0.25)-- Electricity Sphere Aura 
+        local FX1 = CreateAttachedEmitter(self, 'sphere', Army, '/effects/emitters/seraphim_experimental_phasonproj_fxtrails_02_emit.bp'):ScaleEmitter(0.5)-- Bright Blue Glow                      
+        local FX2 = CreateAttachedEmitter(self, 'sphere', Army, '/effects/emitters/seraphim_experimental_phasonproj_fxtrails_03_emit.bp'):ScaleEmitter(0.4)-- Dark FX Aura                             
+        local FX3 = CreateAttachedEmitter(self, 'sphere', Army, '/effects/emitters/seraphim_experimental_phasonproj_fxtrails_06_emit.bp'):ScaleEmitter(0.25)-- Electricity Sphere Aura 
 
         LOUDINSERT(self.SphereFxBag, FX1)
         LOUDINSERT(self.SphereFxBag, FX2)
@@ -59,9 +61,9 @@ UAB2306 = Class(AStructureUnit) {
 
         self.Trash:Add(FX1, FX2, FX3)                                              
 
-        TrashAdd( self.Trash, AttachBeamEntityToEntity(self, 'beam_point01', self, 'sphere', self.Army, '/mods/4DC/effects/Emitters/bfg_fx_02_beam_emit.bp')) -- Small Energy Beams
-        TrashAdd( self.Trash, AttachBeamEntityToEntity(self, 'beam_point02', self, 'sphere', self.Army, '/mods/4DC/effects/Emitters/bfg_fx_02_beam_emit.bp')) -- Small Energy Beams               
-        TrashAdd( self.Trash, AttachBeamEntityToEntity(self, 'beam_point03', self, 'sphere', self.Army, '/mods/4DC/effects/Emitters/bfg_fx_02_beam_emit.bp')) -- Small Energy Beams     
+        TrashAdd( self.Trash, AttachBeamEntityToEntity(self, 'beam_point01', self, 'sphere', Army, '/mods/4DC/effects/Emitters/bfg_fx_02_beam_emit.bp')) -- Small Energy Beams
+        TrashAdd( self.Trash, AttachBeamEntityToEntity(self, 'beam_point02', self, 'sphere', Army, '/mods/4DC/effects/Emitters/bfg_fx_02_beam_emit.bp')) -- Small Energy Beams               
+        TrashAdd( self.Trash, AttachBeamEntityToEntity(self, 'beam_point03', self, 'sphere', Army, '/mods/4DC/effects/Emitters/bfg_fx_02_beam_emit.bp')) -- Small Energy Beams     
     end,
 
     AddBeamFX = function(self)
@@ -70,8 +72,8 @@ UAB2306 = Class(AStructureUnit) {
 
             self.FxStatus = true
             
-            local FX1 = AttachBeamEntityToEntity(self, 'sphere', self, 'beam_emitter', self.Army, '/mods/4DC/effects/Emitters/bfg_fx_01_beam_emit.bp') -- Large Energy Beams     
-            local FX2 = CreateAttachedEmitter(self, 'sphere', self.Army, '/effects/emitters/seraphim_experimental_phasonproj_fxtrails_05_emit.bp'):ScaleEmitter(0.4) -- Random Arc Effects  
+            local FX1 = AttachBeamEntityToEntity(self, 'sphere', self, 'beam_emitter', self.Sync.army, '/mods/4DC/effects/Emitters/bfg_fx_01_beam_emit.bp') -- Large Energy Beams     
+            local FX2 = CreateAttachedEmitter(self, 'sphere', self.Sync.army, '/effects/emitters/seraphim_experimental_phasonproj_fxtrails_05_emit.bp'):ScaleEmitter(0.4) -- Random Arc Effects  
 
             LOUDINSERT(self.BeamFxBag, FX1)
             LOUDINSERT(self.BeamFxBag, FX2)

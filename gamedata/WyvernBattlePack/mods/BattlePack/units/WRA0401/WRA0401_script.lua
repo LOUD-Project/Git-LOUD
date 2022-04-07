@@ -59,15 +59,17 @@ WRA0401 = Class(CAirUnit) {
         
 			local ExhaustEffects = {
 				'/effects/emitters/dirty_exhaust_smoke_01_emit.bp',
-				'/effects/emitters/dirty_exhaust_sparks_01_emit.bp',			
+				'/effects/emitters/dirty_exhaust_sparks_01_emit.bp',	
 			}
             
 			local ExhaustBeam = '/effects/emitters/missile_exhaust_fire_beam_03_emit.bp'
             
-			local army = self.Army			
+			local army = self.Sync.army			
 			
 			for kE, vE in ExhaustEffects do
+            
 				for kB, vB in self.MovementAmbientExhaustBones do
+                
 					table.insert( self.MovementAmbientExhaustEffectsBag, CreateAttachedEmitter(self, vB, army, vE ))
 					table.insert( self.MovementAmbientExhaustEffectsBag, CreateBeamEmitterOnEntity( self, vB, army, ExhaustBeam ))
 				end

@@ -1,5 +1,4 @@
-
-local AWalkingLandUnit = import('/lua/aeonunits.lua').AWalkingLandUnit
+local AWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
 local Buff = import('/lua/sim/Buff.lua')
 
@@ -12,6 +11,8 @@ local AIFCommanderDeathWeapon = AWeapons.AIFCommanderDeathWeapon
 
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 local EffectUtil = import('/lua/EffectUtilities.lua')
+
+local CreateAeonCommanderBuildingEffects = EffectUtil.CreateAeonCommanderBuildingEffects
 
 UAL0001 = Class(AWalkingLandUnit) {
 
@@ -101,7 +102,9 @@ UAL0001 = Class(AWalkingLandUnit) {
 
 
     OnCreate = function(self)
+    
         AWalkingLandUnit.OnCreate(self)
+        
         self:SetCapturable(false)
         self:SetWeaponEnabledByLabel('ChronoDampener', false)
         self:SetupBuildBones()
@@ -114,8 +117,9 @@ UAL0001 = Class(AWalkingLandUnit) {
     end,
 
     OnPrepareArmToBuild = function(self)
-        --AWalkingLandUnit.OnPrepareArmToBuild(self)
-        if self:BeenDestroyed() then return end
+
+        if self.Dead then return end
+        
         self:BuildManipulatorSetEnabled(true)
         self.BuildArmManipulator:SetPrecedence(20)
         self:SetWeaponEnabledByLabel('RightDisruptor', false)
@@ -124,8 +128,11 @@ UAL0001 = Class(AWalkingLandUnit) {
     end,
 
     OnStopCapture = function(self, target)
+    
         AWalkingLandUnit.OnStopCapture(self, target)
-        if self:BeenDestroyed() then return end
+        
+        if self.Dead then return end
+        
         self:BuildManipulatorSetEnabled(false)
         self.BuildArmManipulator:SetPrecedence(0)
         self:SetWeaponEnabledByLabel('RightDisruptor', true)
@@ -134,8 +141,11 @@ UAL0001 = Class(AWalkingLandUnit) {
     end,
 
     OnFailedCapture = function(self, target)
+    
         AWalkingLandUnit.OnFailedCapture(self, target)
-        if self:BeenDestroyed() then return end
+        
+        if self.Dead then return end
+        
         self:BuildManipulatorSetEnabled(false)
         self.BuildArmManipulator:SetPrecedence(0)
         self:SetWeaponEnabledByLabel('RightDisruptor', true)
@@ -144,8 +154,11 @@ UAL0001 = Class(AWalkingLandUnit) {
     end,
 
     OnStopReclaim = function(self, target)
+    
         AWalkingLandUnit.OnStopReclaim(self, target)
-        if self:BeenDestroyed() then return end
+        
+        if self.Dead then return end
+        
         self:BuildManipulatorSetEnabled(false)
         self.BuildArmManipulator:SetPrecedence(0)
         self:SetWeaponEnabledByLabel('RightDisruptor', true)
@@ -154,14 +167,19 @@ UAL0001 = Class(AWalkingLandUnit) {
     end,
 
     OnStopBeingBuilt = function(self,builder,layer)
+    
         AWalkingLandUnit.OnStopBeingBuilt(self,builder,layer)
+        
         self:SetWeaponEnabledByLabel('RightDisruptor', true)
         self:ForkThread(self.GiveInitialResources)
     end,
 
     OnFailedToBuild = function(self)
+    
         AWalkingLandUnit.OnFailedToBuild(self)
-        if self:BeenDestroyed() then return end
+        
+        if self.Dead then return end
+        
         self:BuildManipulatorSetEnabled(false)
         self.BuildArmManipulator:SetPrecedence(0)
         self:SetWeaponEnabledByLabel('RightDisruptor', true)
@@ -170,15 +188,33 @@ UAL0001 = Class(AWalkingLandUnit) {
     end,
     
     OnStartBuild = function(self, unitBeingBuilt, order)
+    
         AWalkingLandUnit.OnStartBuild(self, unitBeingBuilt, order)
+        
         self.UnitBeingBuilt = unitBeingBuilt
         self.UnitBuildOrder = order
         self.BuildingUnit = true     
     end,
 
     OnStopBuild = function(self, unitBeingBuilt)
+        
+        for _, emit in self.BuildEmitters do
+            emit:ScaleEmitter( 0.01 )
+        end
+    
+        if self.BuildProjectile then
+        
+            if self.BuildProjectile.Detached then
+                self.BuildProjectile:AttachTo( self, self.BuildPoint )
+            end
+            
+            self.BuildProjectile.Detached = false
+        end
+    
         AWalkingLandUnit.OnStopBuild(self, unitBeingBuilt)
-        if self:BeenDestroyed() then return end
+        
+        if self.Dead then return end
+        
         self:BuildManipulatorSetEnabled(false)
         self.BuildArmManipulator:SetPrecedence(0)
         self:SetWeaponEnabledByLabel('RightDisruptor', true)
@@ -190,13 +226,14 @@ UAL0001 = Class(AWalkingLandUnit) {
     end,
 
     GiveInitialResources = function(self)
+    
         WaitTicks(2)
         self:GetAIBrain():GiveResource('Energy', self:GetBlueprint().Economy.StorageEnergy)
         self:GetAIBrain():GiveResource('Mass', self:GetBlueprint().Economy.StorageMass)
     end,
     
     CreateBuildEffects = function( self, unitBeingBuilt, order )
-        EffectUtil.CreateAeonCommanderBuildingEffects( self, unitBeingBuilt, self:GetBlueprint().General.BuildBones.BuildEffectBones, self.BuildEffectsBag )
+        CreateAeonCommanderBuildingEffects( self, unitBeingBuilt, __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones, self.BuildEffectsBag )
     end,  
 
     PlayCommanderWarpInEffect = function(self)
@@ -235,7 +272,7 @@ UAL0001 = Class(AWalkingLandUnit) {
 	
         AWalkingLandUnit.CreateEnhancement(self, enh)
 		
-        local bp = self:GetBlueprint().Enhancements[enh]
+        local bp = __blueprints[self.BlueprintID].Enhancements[enh]
 		
 		-- Resource Allocation
         if enh == 'ResourceAllocation' then

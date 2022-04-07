@@ -24,6 +24,7 @@ local CreateAdjacencyBeams = import('effectutilities.lua').CreateAdjacencyBeams
 local CreateAeonBuildBaseThread = import('effectutilities.lua').CreateAeonBuildBaseThread
 local CreateBuildCubeThread = import('effectutilities.lua').CreateBuildCubeThread
 local CreateEffects = import('effectutilities.lua').CreateEffects
+local PlayAnim = moho.AnimationManipulator.PlayAnim
 local PlayReclaimEndEffects = import('effectutilities.lua').PlayReclaimEndEffects
 local CreateSeraphimBuildBaseThread = import('effectutilities.lua').CreateSeraphimBuildBaseThread
 local CreateUEFUnitBeingBuiltEffects = import('effectutilities.lua').CreateUEFUnitBeingBuiltEffects
@@ -71,10 +72,12 @@ local DisableIntel = moho.entity_methods.DisableIntel
 local EnableIntel = moho.entity_methods.EnableIntel
 
 local GetAIBrain = moho.unit_methods.GetAIBrain
+local GetBoneCount = moho.entity_methods.GetBoneCount
 local GetFractionComplete = moho.entity_methods.GetFractionComplete
 local GetPosition = moho.entity_methods.GetPosition
 local GetWeapon = moho.unit_methods.GetWeapon
 local GetWeaponCount = moho.unit_methods.GetWeaponCount
+local HideBone = moho.unit_methods.HideBone
 local IsBeingBuilt = moho.unit_methods.IsBeingBuilt
 
 
@@ -138,7 +141,7 @@ StructureUnit = Class(Unit) {
 
                 self:StartUpgradeEffects(unitBuilding)
 
-                self.AnimatorUpgradeManip:PlayAnim(bp.AnimationUpgrade, false):SetRate(0)
+                PlayAnim( self.AnimatorUpgradeManip, bp.AnimationUpgrade, false):SetRate(0)
 
                 while fractionOfComplete < 1 and not self.Dead do
 
@@ -756,7 +759,7 @@ StructureUnit = Class(Unit) {
 
 		if bp.FactionName == 'UEF' then
 
-			self:HideBone(0, true)
+			HideBone( self, 0, true)
 			self.BeingBuiltShowBoneTriggered = false
 
 			if bp.UpgradesFrom != builder.BlueprintID then
@@ -793,7 +796,7 @@ StructureUnit = Class(Unit) {
     end,
 
     StartUpgradeEffects = function(self, unitBeingBuilt)
-        unitBeingBuilt:HideBone(0, true)
+        HideBone( unitBeingBuilt, 0, true )
     end,
 
     StopUpgradeEffects = function(self, unitBeingBuilt)
@@ -1513,12 +1516,14 @@ MobileUnit = Class(Unit) {
             if animBlock.Animation then
 			
                 if not self.TransAnimation then
+                
                     self.TransAnimation = CreateAnimator(self)
                     
                     TrashAdd( self.Trash, self.TransAnimation )
                 end
 
-                self.TransAnimation:PlayAnim(animBlock.Animation)
+                PlayAnim( self.TransAnimation, animBlock.Animation )
+                
                 rate = rate or 1
                 self.TransAnimation:SetRate(rate)
 
@@ -1533,7 +1538,7 @@ MobileUnit = Class(Unit) {
 
         -- this cancels the weird attachment bone manipulations, so transported units attach to the correct positions
         -- (probably only useful for custom transport units only). By brute51, this is not a bug fix.
-        local nBones = self:GetBoneCount() - 1
+        local nBones = GetBoneCount(self) - 1
 
         for k = 1, nBones do
             if LOUDFIND(self:GetBoneName(k), 'Attachpoint_') then
@@ -1557,7 +1562,7 @@ MobileUnit = Class(Unit) {
             end
 			
             if surfaceAnim and self.SurfaceAnimator then
-                self.SurfaceAnimator:PlayAnim(surfaceAnim):SetRate(1)
+                PlayAnim( self.SurfaceAnimator, surfaceAnim ):SetRate(1)
             end
         end
 	end,
@@ -1871,7 +1876,9 @@ FactoryUnit = Class(StructureUnit) {
 
         if bpAnim and EntityCategoryContains(categories.LAND, unitBeingBuilt) then
 
-            self.RollOffAnim = CreateAnimator(self):PlayAnim(bpAnim)
+            self.RollOffAnim = CreateAnimator(self)
+            
+            PlayAnim( self.RollOffAnim, bpAnim )
             
             TrashAdd( self.Trash, self.RollOffAnim )
             
@@ -2309,12 +2316,12 @@ QuantumGateUnit = Class(FactoryUnit) {
 		LOG('~Attempting to teleport')
 
 		if not self.TeleportReady then
-			import('/lua/CommonTools.lua').PrintError("Gateway not ready!", self:GetArmy())
+			import('/lua/CommonTools.lua').PrintError("Gateway not ready!", self.Army)
 			return
 		end
 
 		if self.TeleportInProgress then
-			import('/lua/CommonTools.lua').PrintError("Teleport already in progress!", self:GetArmy())
+			import('/lua/CommonTools.lua').PrintError("Teleport already in progress!", self.Army)
 			return
 		end
 
@@ -2322,7 +2329,7 @@ QuantumGateUnit = Class(FactoryUnit) {
 		local possibleGates = import('/lua/CommonTools.lua').GetAlliedGatesInRadius(self, warpLocation, radius)
 
 		if not possibleGates[1] then
-			import('/lua/CommonTools.lua').PrintError("No destination gates found at rally point", self:GetArmy())
+			import('/lua/CommonTools.lua').PrintError("No destination gates found at rally point", self.Army)
 			return
 		end
 
@@ -2330,12 +2337,12 @@ QuantumGateUnit = Class(FactoryUnit) {
 		local destinationGate = possibleGates[1]
 
 		if destinationGate == self then
-			import('/lua/CommonTools.lua').PrintError("Must target a remote gateway with rally point", self:GetArmy())
+			import('/lua/CommonTools.lua').PrintError("Must target a remote gateway with rally point", self.Army)
 			return
 		end
 
 		if destinationGate.TeleportInProgress then
-			import('/lua/CommonTools.lua').PrintError("Target gate already teleporting!", self:GetArmy())
+			import('/lua/CommonTools.lua').PrintError("Target gate already teleporting!", self.Army)
 			return
 		end
 
@@ -3104,6 +3111,10 @@ TransportBeaconUnit = Class(StructureUnit) {
 
 WalkingLandUnit = Class(MobileUnit) {
 
+    WalkingAnimRate = 1,
+    IdleAnimRate = 1,
+    DisabledBones = {},
+    
     IdleAnim = false,
     DeathAnim = false,
 
@@ -3135,7 +3146,8 @@ WalkingLandUnit = Class(MobileUnit) {
 						self.Animator = CreateAnimator(self, true)
 					end
 
-					self.Animator:PlayAnim(bpDisplay.AnimationWalk, true)
+					PlayAnim( self.Animator, bpDisplay.AnimationWalk, true )
+                    
 					self.Animator:SetRate(bpDisplay.AnimationWalkRate or 1)
 
 				end
@@ -3148,7 +3160,7 @@ WalkingLandUnit = Class(MobileUnit) {
 						self.Animator = CreateAnimator(self, true)
 					end
 
-					self.Animator:PlayAnim(self.IdleAnim, true)
+					PlayAnim( self.Animator, self.IdleAnim, true)
 
 				elseif not self.DeathAnim or not self.Dead then
 
@@ -3195,7 +3207,7 @@ SubUnit = Class(MobileUnit) {
 
     -- DESTRUCTION PARAMS
     PlayDestructionEffects = true,
-    ShowUnitDestructionDebris = false,
+    --ShowUnitDestructionDebris = false,
 	
     DeathThreadDestructionWaitTime = 7,	-- 7 seconds
 
@@ -3220,8 +3232,6 @@ SubUnit = Class(MobileUnit) {
 
     DeathThread = function(self, overkillRatio, instigator)
 	
-		--LOG("*AI DEBUG SubUnit DeathThread for "..self:GetBlueprint().Description)
-
         local bp = __blueprints[self.BlueprintID]
 		
         local army = self.Sync.army
@@ -3253,7 +3263,7 @@ SubUnit = Class(MobileUnit) {
 
             self:ForkThread(function()
 
-                local numBones = self:GetBoneCount()-1
+                local numBones = GetBoneCount(self)-1
                 local sx, sy, sz = self:GetUnitSizes()
                 local vol = sx * sy * sz
 
@@ -3299,8 +3309,6 @@ SubUnit = Class(MobileUnit) {
     end,
 
     ExplosionThread = function(self)
-	
-		--LOG("*AI DEBUG SubUnit ExplosionThread for "..repr(self:GetBlueprint().Description))
 
         local d = 0
         local rx, ry, rz = self:GetUnitSizes()
@@ -3381,7 +3389,7 @@ SubUnit = Class(MobileUnit) {
 SeaUnit = Class(MobileUnit) {
 
     DeathThreadDestructionWaitTime = 7,	-- 7 seconds
-    ShowUnitDestructionDebris = false,
+    --ShowUnitDestructionDebris = false,
 
     OnStopBeingBuilt = function(self,builder,layer)
 
@@ -3441,7 +3449,7 @@ SeaUnit = Class(MobileUnit) {
 
                 local i = 0
 
-                local numBones = self:GetBoneCount() - 1
+                local numBones = GetBoneCount(self) - 1
                 local sx, sy, sz = self:GetUnitSizes()
                 local vol = sx * sy * sz
 
@@ -3493,7 +3501,8 @@ SeaUnit = Class(MobileUnit) {
         local sx, sy, sz = self:GetUnitSizes()
         local vol = sx * sy * sz
         local army = self.Sync.army
-        local numBones = self:GetBoneCount() - 1
+        
+        local numBones = GetBoneCount(self) - 1
 
 		local CreateEmitterAtBone = CreateEmitterAtBone
 		local Random = Random
@@ -3570,7 +3579,7 @@ SeaUnit = Class(MobileUnit) {
 
 AirUnit = Class(MobileUnit) {
 
-    ShowUnitDestructionDebris = false,
+    --ShowUnitDestructionDebris = false,
 
     OnCreate = function(self)
 
@@ -3584,9 +3593,7 @@ AirUnit = Class(MobileUnit) {
 		self.HasFuel = true
             
             local aiBrain = GetAIBrain(self)
-            
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." AirUnit OnCreate "..repr(self:GetBlueprint().Description))
-            
+
             if aiBrain.BrainType == 'AI' then
             
                 local LOUDENTITY = EntityCategoryContains
@@ -3943,7 +3950,8 @@ AirUnit = Class(MobileUnit) {
 
 		local seafloor = GetTerrainHeight(pos[1], pos[3])
 		local surface = GetSurfaceHeight(pos[1], pos[3])
-		local numBones = self:GetBoneCount() - 1
+        
+		local numBones = GetBoneCount(self) - 1
 
 		-- this thread will create effects until the slider reaches its goal and then destroys it
 		self:ForkThread(function()
@@ -4001,8 +4009,6 @@ AirUnit = Class(MobileUnit) {
     -- IT ALSO SPAWNS THE WRECKAGE BASED UPON HOW MUCH IT WAS OVERKILLED. UNIT WILL SPIN OUT OF CONTROL TOWARDS GROUND
 	-- The OnImpact event will handle the final destruction
     OnKilled = function(self, instigator, deathtype, overkillRatio)
-	
-		--LOG("*AI DEBUG AirUnit OnKilled for "..self:GetBlueprint().Description.." "..self.Sync.id.." type is "..repr(deathtype).." OK is "..repr(overkillRatio))
 
 		-- 65% of the time aircraft will just disintegrate, experimentals ALWAYS crash to ground
 		-- this is the normal (air crash to ground) path
@@ -4165,12 +4171,15 @@ ConstructionUnit = Class(MobileUnit) {
         end
 
         if __blueprints[self.BlueprintID].Display.AnimationBuild then
+        
             self.BuildingOpenAnim = __blueprints[self.BlueprintID].Display.AnimationBuild
         end
 
         if self.BuildingOpenAnim then
 
-            self.BuildingOpenAnimManip = CreateAnimator(self):PlayAnim(self.BuildingOpenAnim):SetRate(0)
+            self.BuildingOpenAnimManip = CreateAnimator(self)
+            
+            PlayAnim( self.BuildingOpenAnimManip, self.BuildingOpenAnim ):SetRate(0)
 
 			TrashAdd( self.Trash, self.BuildingOpenAnimManip )
 
@@ -4214,6 +4223,8 @@ ConstructionUnit = Class(MobileUnit) {
     end,
 
     OnStartBuild = function(self, unitBeingBuilt, order )
+    
+        --LOG("*AI DEBUG Default OnStartBuild for "..self.Sync.id.." order is "..repr(order))
 
         Unit.OnStartBuild(self,unitBeingBuilt, order)
 
@@ -4235,6 +4246,8 @@ ConstructionUnit = Class(MobileUnit) {
     end,
 
     OnStopBuild = function(self, unitBeingBuilt)
+    
+        --LOG("*AI DEBUG Default OnStopBuild for "..self.Sync.id.." current order is "..repr(self.CurrentBuildOrder) )
 
         Unit.OnStopBuild(self,unitBeingBuilt)
 
@@ -4341,7 +4354,7 @@ BaseDirectionalAntiMissileFlare = Class() {
 
     CreateMissileDetector = function(self)
 
-        local bp = self:GetBlueprint()
+        local bp = __blueprints[self.BlueprintID]
         local MDbp = bp.Defense.MissileDetector
 		
 		-- The effectiveness of the anti-missile system is highly dependent upon the 
@@ -4355,7 +4368,7 @@ BaseDirectionalAntiMissileFlare = Class() {
         if not MissileDetectorRadius[bp.BlueprintId] and MDbp then
 		
             MissileDetectorRadius[bp.BlueprintId] = 1 + math.sqrt(math.pow(VDist3(self:GetPosition(),self:GetPosition(MDbp.AttachBone)),2) + math.pow(bp.SizeSphere, 2))
-            LOG("Missile detector radius for " .. bp.BlueprintId .." set to "..MissileDetectorRadius[bp.BlueprintId])
+            --LOG("Missile detector radius for " .. bp.BlueprintId .." set to "..MissileDetectorRadius[bp.BlueprintId])
 			
         elseif not MissileDetectorRadius and not MDbp then
 		

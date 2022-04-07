@@ -8,6 +8,7 @@ local CalculateBallisticAcceleration = import('/lua/sim/CalcBallisticAcceleratio
 
 local LOUDABS = math.abs
 local LOUDGETN = table.getn
+local LOUDMAX = math.max
 local LOUDINSERT = table.insert
 
 local CreateAnimator = CreateAnimator
@@ -17,17 +18,36 @@ local LOUDSTATE = ChangeState
 local ForkThread = ForkThread
 local KillThread = KillThread
 local WaitSeconds = WaitSeconds
+local WaitTicks = coroutine.yield
 local DamageArea = DamageArea
 
-local GetBlueprint = moho.weapon_methods.GetBlueprint
-local PlaySound = moho.weapon_methods.PlaySound
-local SetBusy = moho.unit_methods.SetBusy
+local BeenDestroyed = moho.entity_methods.BeenDestroyed
 
+local ChangeDetonateAboveHeight = moho.projectile_methods.ChangeDetonateAboveHeight
+local CreateEconomyEvent = CreateEconomyEvent
 local CreateProjectile = moho.weapon_methods.CreateProjectile
 
 local GetAIBrain = moho.entity_methods.GetAIBrain
+local GetBlueprint = moho.weapon_methods.GetBlueprint
+local GetCurrentTargetPos = moho.weapon_methods.GetCurrentTargetPos
 local GetEconomyIncome = moho.aibrain_methods.GetEconomyIncome
 local GetEconomyStored = moho.aibrain_methods.GetEconomyStored
+
+local HideBone = moho.unit_methods.HideBone
+
+local PlayAnim = moho.AnimationManipulator.PlayAnim
+local PlaySound = moho.weapon_methods.PlaySound
+
+local RemoveEconomyEvent = RemoveEconomyEvent
+
+local ScaleEmitter = moho.IEffect.ScaleEmitter
+local SetBusy = moho.unit_methods.SetBusy
+local SetFiringRandomness = moho.weapon_methods.SetFiringRandomness
+local SetPrecedence = moho.manipulator_methods.SetPrecedence
+
+local TrashAdd = TrashBag.Add
+
+local WeaponHasTarget = moho.weapon_methods.WeaponHasTarget
 
 
 DefaultProjectileWeapon = Class(Weapon) {		
@@ -72,9 +92,7 @@ DefaultProjectileWeapon = Class(Weapon) {
                 if LOUDABS(tpDist) > LOUDABS(dist) then
 				
                     dist = tpDist
-					
                 end
-				
             end
 			
             self.RackRecoilReturnSpeed = bp.RackRecoilReturnSpeed or LOUDABS( dist / (( 1 / bp.RateOfFire ) - (bp.MuzzleChargeDelay or 0))) * 1.25
@@ -136,13 +154,13 @@ DefaultProjectileWeapon = Class(Weapon) {
 			end
 		
             if self.bp.FiringRandomnessWhileMoving then
-                self:SetFiringRandomness(bp.FiringRandomnessWhileMoving)
+                SetFiringRandomness( self, bp.FiringRandomnessWhileMoving )
             end
 			
         elseif new == 'Stopped' then
 
 			if self.bp.FiringRandomnessWhileMoving then
-				self:SetFiringRandomness(bp.FiringRandomness or 0)
+				SetFiringRandomness( self, bp.FiringRandomness or 0 )
 			end
         end
     end,
@@ -152,18 +170,20 @@ DefaultProjectileWeapon = Class(Weapon) {
         local proj = self:CreateProjectileForWeapon(muzzle)
         local bp = self.bp
 		
-        if not proj or proj:BeenDestroyed()then
+        if not proj or BeenDestroyed( proj )then
             return proj
         end
 		
         if bp.DetonatesAtTargetHeight == true then
 		
-            local pos = self:GetCurrentTargetPos()
+            local pos = GetCurrentTargetPos(self)
 			
             if pos then
+            
                 local theight = GetSurfaceHeight(pos[1], pos[3])
                 local hght = pos[2] - theight
-                proj:ChangeDetonateAboveHeight(hght)
+                
+                ChangeDetonateAboveHeight( proj, hght )
             end
         end
 		
@@ -171,7 +191,7 @@ DefaultProjectileWeapon = Class(Weapon) {
             proj:AddFlare(bp.Flare)
         end
 		
-        if self.unit:GetCurrentLayer() == 'Water' and bp.Audio.FireUnderWater then
+        if self.unit.CacheLayer == 'Water' and bp.Audio.FireUnderWater then
         
             PlaySound( self, bp.Audio.FireUnderWater )
             
@@ -237,11 +257,7 @@ DefaultProjectileWeapon = Class(Weapon) {
 	
         local weapNRG = (self.bp.EnergyRequired or 0) * (self.AdjEnergyMod or 1)
 
-        if weapNRG < 0 then
-            weapNRG = 0
-        end
-
-        return weapNRG
+        return LOUDMAX( 0, weapNRG )
     end,
 
     GetWeaponEnergyDrain = function(self, bp)
@@ -255,9 +271,15 @@ DefaultProjectileWeapon = Class(Weapon) {
     PlayFxMuzzleSequence = function(self, muzzle)
 	
         local army = self.unit.Sync.army
+        
+        local emit
 		
         for _, v in self.FxMuzzleFlash do
-            LOUDATTACHEMITTER(self.unit, muzzle, army, v):ScaleEmitter(self.FxMuzzleFlashScale)
+            emit = LOUDATTACHEMITTER(self.unit, muzzle, army, v)
+            
+            if self.FxMuzzleFlashScale != 1 then
+                ScaleEmitter( emit, self.FxMuzzleFlashScale )
+            end
         end
     end,
 
@@ -266,8 +288,15 @@ DefaultProjectileWeapon = Class(Weapon) {
 	
         local army = self.unit.Sync.army
 		
+        local emit
+        
         for _, v in self.FxChargeMuzzleFlash do
-            LOUDATTACHEMITTER(self.unit, muzzle, army, v):ScaleEmitter(self.FxChargeMuzzleFlashScale)
+        
+            emit = LOUDATTACHEMITTER(self.unit, muzzle, army, v)
+            
+            if self.FxChargeMuzzleFlashScale != 1 then
+                ScaleEmitter( emit, self.FxChargeMuzzleFlashScale )
+            end
         end
     end,    
 
@@ -277,39 +306,42 @@ DefaultProjectileWeapon = Class(Weapon) {
 	
         local bp = self.bp
         local army = self.unit.Sync.army
+        
+        local emit
 		
         for _, v in self.FxRackChargeMuzzleFlash do
 		
             for _, ev in bp.RackBones[self.CurrentRackSalvoNumber].MuzzleBones do
 			
-                LOUDATTACHEMITTER(self.unit, ev, army, v):ScaleEmitter(self.FxRackChargeMuzzleFlashScale)
-				
+                emit = LOUDATTACHEMITTER(self.unit, ev, army, v)
+                
+                if self.FxRackChargeMuzzleFlashScale != 1 then
+                    ScaleEmitter( emit, self.FxRackChargeMuzzleFlashScale)
+                end
             end
-			
         end
 		
         if bp.Audio.ChargeStart then
 		
             PlaySound( self, bp.Audio.ChargeStart)
-			
         end
 		
         if bp.AnimationCharge and not self.Animator then
 		
             self.Animator = CreateAnimator(self.unit)
-            self.Animator:PlayAnim( bp.AnimationCharge ):SetRate( bp.AnimationChargeRate or 1 )
-			
+            
+            PlayAnim( self.Animator, bp.AnimationCharge ):SetRate( bp.AnimationChargeRate or 1 )
         end
+        
     end,
 
     -- Played when a rack salvo reloads.  Do not put a wait in here or you'll
     -- make the time value in the bp off.  Spawn another thread to do waits.
     PlayFxRackSalvoReloadSequence = function(self, blueprint)
-	
-        local bp = self.bp
-		
+
         self.Animator = CreateAnimator(self.unit)
-		self.Animator:PlayAnim(bp.AnimationReload):SetRate(bp.AnimationReloadRate or 1)
+        
+		PlayAnim( self.Animator, self.bp.AnimationReload):SetRate( self.bp.AnimationReloadRate or 1)
 		
     end,
 
@@ -340,28 +372,37 @@ DefaultProjectileWeapon = Class(Weapon) {
     PlayFxWeaponUnpackSequence = function(self)
 	
         local bp = self.bp
-        local unitBP = self.unit:GetBlueprint()
+        
+        local unitBP = __blueprints[self.unit.BlueprintID].Audio
 		
-        if unitBP.Audio.Activate then
-            PlaySound( self, unitBP.Audio.Activate)
+        if unitBP.Activate then
+            PlaySound( self, unitBP.Activate)
         end
-        if unitBP.Audio.Open then
-            PlaySound( self, unitBP.Audio.Open)
+        if unitBP.Open then
+            PlaySound( self, unitBP.Open)
         end
+        
         if bp.Audio.Unpack then
             PlaySound( self, bp.Audio.Unpack)
         end
+        
         if bp.WeaponUnpackAnimation and not self.UnpackAnimator then
+        
             self.UnpackAnimator = CreateAnimator(self.unit)
-            self.UnpackAnimator:PlayAnim(bp.WeaponUnpackAnimation):SetRate(0)
-            self.UnpackAnimator:SetPrecedence(bp.WeaponUnpackAnimatorPrecedence or 0)
-            self.unit.Trash:Add(self.UnpackAnimator)
+            
+            PlayAnim( self.UnpackAnimator, bp.WeaponUnpackAnimation ):SetRate(0)
+            
+            SetPrecedence( self.UnpackAnimator, bp.WeaponUnpackAnimatorPrecedence or 0)
+            
+            TrashAdd( self.unit.Trash, self.UnpackAnimator )
         end
+        
         if self.UnpackAnimator then
+        
             self.UnpackAnimator:SetRate(bp.WeaponUnpackAnimationRate)
-            --LOG("*AI DEBUG Playing Unpack Animation")
+            
             WaitFor(self.UnpackAnimator)
-            --LOG("*AI DEBUG Unpack Animation Complete")
+
         end
     end,
 
@@ -369,57 +410,77 @@ DefaultProjectileWeapon = Class(Weapon) {
     PlayFxWeaponPackSequence = function(self, blueprint)
 	
         local bp = self.bp
-        local unitBP = self.unit:GetBlueprint()
+        
+        local unitBP = __blueprints[self.unit.BlueprintID].Audio
 		
-        if unitBP.Audio.Close then
-            PlaySound( self, unitBP.Audio.Close)
+        if unitBP.Close then
+            PlaySound( self, unitBP.Close)
         end
+        
         if bp.WeaponUnpackAnimation and self.UnpackAnimator then
             self.UnpackAnimator:SetRate(-bp.WeaponUnpackAnimationRate)
         end
+        
         if self.UnpackAnimator then
-            --LOG("*AI DEBUG Playing Pack Animation")
+
             WaitFor(self.UnpackAnimator)
-            --LOG("*AI DEBUG Pack Animation complete")
+
         end
     end,
 
     PlayRackRecoil = function(self, rackList, blueprint)
-	
-        local bp = self.bp
-		
+    
+        local CreateSlider = CreateSlider
+        local LOUDINSERT = LOUDINSERT
+        local SetPrecedence = SetPrecedence
+        local TrashAdd = TrashAdd
+        
+        local SetGoal = moho.SlideManipulator.SetGoal
+        local SetSpeed = moho.SlideManipulator.SetSpeed
+        
+        local tmpSldr
+        
         for _, v in rackList do
 		
-            local tmpSldr = CreateSlider(self.unit, v.RackBone)
+            tmpSldr = CreateSlider(self.unit, v.RackBone)
 			
-            LOUDINSERT(self.RecoilManipulators, tmpSldr)
+            LOUDINSERT( self.RecoilManipulators, tmpSldr)
 			
-            tmpSldr:SetPrecedence(11)
-            tmpSldr:SetGoal(0, 0, bp.RackRecoilDistance)
-            tmpSldr:SetSpeed(-1)
+            SetPrecedence( tmpSldr, 11 )
+            SetGoal( tmpSldr, 0, 0, self.bp.RackRecoilDistance )
+            SetSpeed( tmpSldr, -1 )
 			
-            self.unit.Trash:Add(tmpSldr)
+            TrashAdd( self.unit.Trash, tmpSldr )
 			
             if v.TelescopeBone then
+            
                 tmpSldr = CreateSlider(self.unit, v.TelescopeBone)
-                LOUDINSERT(self.RecoilManipulators, tmpSldr)
-                tmpSldr:SetPrecedence(11)
-                tmpSldr:SetGoal(0, 0, v.TelescopeRecoilDistance or bp.RackRecoilDistance)
-                tmpSldr:SetSpeed(-1)
-                self.unit.Trash:Add(tmpSldr)
+                
+                LOUDINSERT( self.RecoilManipulators, tmpSldr)
+                
+                SetPrecedence( tmpSldr, 11 )
+                SetGoal( tmpSldr, 0, 0, v.TelescopeRecoilDistance or self.bp.RackRecoilDistance)
+                SetSpeed( tmpSldr, -1)
+                
+                TrashAdd( self.unit.Trash, tmpSldr )
             end
         end
-        self:ForkThread(self.PlayRackRecoilReturn, rackList)
+        
+        self:ForkThread( self.PlayRackRecoilReturn, rackList)
     end,
 
     PlayRackRecoilReturn = function(self, rackList)
 	
         WaitTicks(1)
+        
+        local SetGoal = moho.SlideManipulator.SetGoal
+        local SetSpeed = moho.SlideManipulator.SetSpeed
 		
         for _, v in rackList do
+        
             for _, mv in self.RecoilManipulators do
-                mv:SetGoal(0, 0, 0)
-                mv:SetSpeed(self.RackRecoilReturnSpeed)
+                SetGoal( mv, 0, 0, 0)
+                SetSpeed( mv, self.RackRecoilReturnSpeed)
             end
         end
     end,
@@ -510,11 +571,9 @@ DefaultProjectileWeapon = Class(Weapon) {
         if self.WeaponCanFire then
 		
             return self.WeaponCanFire
-			
         else
 		
             return true
-			
         end
 		
     end,
@@ -547,7 +606,8 @@ DefaultProjectileWeapon = Class(Weapon) {
             
             --LOG("*AI DEBUG Weapon IdleState")
             
-            self.unit:SetBusy(false)
+            SetBusy( self.unit, false 
+            )
             self:WaitForAndDestroyManips()
             
             local bp = self.bp
@@ -660,7 +720,7 @@ DefaultProjectileWeapon = Class(Weapon) {
 		
 			--LOG("*AI DEBUG Weapon Unpacking State")
 		
-            self.unit:SetBusy(true)
+            SetBusy( self.unit, true )
 
             local bp = self.bp
             
@@ -701,20 +761,20 @@ DefaultProjectileWeapon = Class(Weapon) {
 		
 			--LOG("*AI DEBUG Weapon RackSalvo Charge State")
 			
-            self.unit:SetBusy(true)
+            SetBusy( self.unit, true )
 			
             local bp = self.bp
 			
             self:PlayFxRackSalvoChargeSequence(bp)
 			
             if bp.NotExclusive then
-                self.unit:SetBusy(false)
+                SetBusy( self.unit, false )
             end
             
             WaitSeconds(bp.RackSalvoChargeTime)
             
             if bp.NotExclusive then
-                self.unit:SetBusy(true)
+                SetBusy( self.unit, true )
             end
             
             if bp.RackSalvoFiresAfterCharge == true then
@@ -747,10 +807,10 @@ DefaultProjectileWeapon = Class(Weapon) {
 
             if (self.bp.CountedProjectile == true and self.bp.WeaponUnpacks == true) then
 			
-                self.unit:SetBusy(true)
+                SetBusy( self.unit, true )
             else
 			
-                self.unit:SetBusy(false)
+                SetBusy( self.unit, false)
             end
 			
             self.WeaponCanFire = false
@@ -797,7 +857,7 @@ DefaultProjectileWeapon = Class(Weapon) {
 
 			--LOG("*AI DEBUG Weapon RackSalvo Firing State for "..repr(self.CurrentRackSalvoNumber) )
 			
-            self.unit:SetBusy(true)
+            SetBusy( self.unit, true )
 			
             local bp = self.bp
             
@@ -818,7 +878,7 @@ DefaultProjectileWeapon = Class(Weapon) {
             -- this used to be placed AFTER the firing events 
             if bp.RenderFireClock and bp.RateOfFire > 0 then
 			
-	            if not self:BeenDestroyed() and not self.unit.Dead then
+	            if not self.unit.Dead then
 				
                     local rof = 1 / bp.RateOfFire                
                     self:ForkThread(self.RenderClockThread, rof)                
@@ -828,6 +888,13 @@ DefaultProjectileWeapon = Class(Weapon) {
             self:OnWeaponFired()
             
             local rackInfo, MuzzlesToBeFired, numMuzzlesFiring, muzzleIndex, muzzle
+            
+            local HideBone = HideBone
+            local LOUDGETN = LOUDGETN
+            local PlaySound = PlaySound
+            local SetBusy = SetBusy
+           	local ShowBone = moho.unit_methods.ShowBone
+            local WaitSeconds = WaitSeconds
 
             -- Most of the time this will only run once per rack, the only time it doesn't is when racks fire together.
             while self.CurrentRackSalvoNumber <= numRackFiring and not self.HaltFireOrdered do
@@ -855,7 +922,7 @@ DefaultProjectileWeapon = Class(Weapon) {
                     muzzle = rackInfo.MuzzleBones[muzzleIndex]
 					
                     if rackInfo.HideMuzzle == true then
-                        self.unit:ShowBone(muzzle, true)
+                        ShowBone( self.unit, muzzle, true)
                     end
 					
 					-- muzzle charge delay -- 
@@ -868,20 +935,20 @@ DefaultProjectileWeapon = Class(Weapon) {
                         self:PlayFxMuzzleChargeSequence(muzzle)
 						
                         if NotExclusive then
-                            self.unit:SetBusy(false)
+                            SetBusy( self.unit, false )
                         end
 						
                         WaitSeconds(bp.MuzzleChargeDelay)
 						
                         if NotExclusive then
-                            self.unit:SetBusy(true)
+                            SetBusy( self.unit, true )
                         end
                     end
 					
                     self:PlayFxMuzzleSequence(muzzle)                    
 					
                     if rackInfo.HideMuzzle == true then
-                        self.unit:HideBone(muzzle, true)
+                        HideBone( self.unit, muzzle, true)
                     end
 					
                     if self.HaltFireOrdered then
@@ -889,6 +956,7 @@ DefaultProjectileWeapon = Class(Weapon) {
                     end
                 
                     self.FirstShot = false
+                    
                     self:StartEconomyDrain()
 					
 					-- create the projectile --
@@ -916,13 +984,13 @@ DefaultProjectileWeapon = Class(Weapon) {
                     if bp.MuzzleSalvoDelay > 0 then
 					
                         if NotExclusive then
-                            self.unit:SetBusy(false)
+                            SetBusy( self.unit, false )
                         end
 						
                         WaitSeconds(bp.MuzzleSalvoDelay)
 						
                         if NotExclusive then
-                            self.unit:SetBusy(true)
+                            SetBusy( self.unit, true )
                         end
                     end
                 end
@@ -998,13 +1066,9 @@ DefaultProjectileWeapon = Class(Weapon) {
                 LOUDSTATE(self, self.RackSalvoFireReadyState)
 				
             end
-			
         end,
 		
 		OnFire = function(self)
-		
-			--LOG("*AI DEBUG Weapon RackSalvo Firing State OnFire")
-
 		end,
 
         OnLostTarget = function(self)
@@ -1016,9 +1080,7 @@ DefaultProjectileWeapon = Class(Weapon) {
             if self:GetBlueprint().WeaponUnpacks == true then
 			
                 LOUDSTATE(self, self.WeaponPackingState)
-				
             end
-			
         end,
 
         -- Set a bool so we won't fire if the target reticle is moved
@@ -1054,7 +1116,7 @@ DefaultProjectileWeapon = Class(Weapon) {
 		
 			--LOG("*AI DEBUG Weapon RackSalvo Reload State")		
 
-            self.unit:SetBusy(true)
+            SetBusy( self.unit, true)
 			
             local bp = self.bp
             
@@ -1063,22 +1125,22 @@ DefaultProjectileWeapon = Class(Weapon) {
             end
 			
             if bp.NotExclusive then
-                self.unit:SetBusy(false)
+                SetBusy( self.unit, false )
             end
             
-            WaitSeconds(bp.RackSalvoReloadTime)
+            WaitSeconds( bp.RackSalvoReloadTime )
 			
             self:WaitForAndDestroyManips()
             
             if bp.NotExclusive then
-                self.unit:SetBusy(true)
+                SetBusy( self.unit, true )
             end
 
-            if self:WeaponHasTarget() and bp.RackSalvoChargeTime > 0 and self:CanWeaponFire() then
+            if WeaponHasTarget( self ) and bp.RackSalvoChargeTime > 0 and self:CanWeaponFire() then
 			
                 LOUDSTATE(self, self.RackSalvoChargeState)
 				
-            elseif self:WeaponHasTarget() and self:CanWeaponFire() then
+            elseif WeaponHasTarget( self ) and self:CanWeaponFire() then
 			
 				if not bp.ManualFire then
 			
@@ -1098,7 +1160,7 @@ DefaultProjectileWeapon = Class(Weapon) {
 				
 				end
 				
-            elseif not self:WeaponHasTarget() and bp.WeaponUnpacks == true and bp.WeaponUnpackLocksMotion != true then
+            elseif not WeaponHasTarget( self ) and bp.WeaponUnpacks == true and bp.WeaponUnpackLocksMotion != true then
 			
                 LOUDSTATE(self, self.WeaponPackingState)
 				
@@ -1111,9 +1173,6 @@ DefaultProjectileWeapon = Class(Weapon) {
         end,
 
         OnFire = function(self)
-		
-			--LOG("*AI DEBUG Weapon RackSalvo Reload State OnFire")		
-
         end,
     },
 
@@ -1126,14 +1185,14 @@ DefaultProjectileWeapon = Class(Weapon) {
 
 			--LOG("*AI DEBUG Weapon WeaponPacking State")
 			
-            self.unit:SetBusy(true)
+            SetBusy( self.unit, true )
 
 			-- reset the rack count - this is usually done
             -- in the IdleState --
             self.CurrentRackSalvoNumber = 1
             
 			if self.bp.WeaponRepackTimeout then
-				WaitSeconds(self.bp.WeaponRepackTimeout)
+				WaitSeconds( self.bp.WeaponRepackTimeout )
 			end
 			
             self:AimManipulatorSetEnabled(false)
@@ -1239,12 +1298,11 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
                 self.Beams[counter] = { Beam = beam, Muzzle = mv }
                 counter = counter + 1
 				
-                self.unit.Trash:Add(beam)
+                TrashAdd( self.unit.Trash, beam)
+                
                 beam:SetParentWeapon(self)
                 beam:Disable()
-				
             end
-			
         end
 		
         DefaultProjectileWeapon.OnCreate(self)
@@ -1266,7 +1324,7 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
             self:PlayFxBeamStart(muzzle)
         end
         
-        if self.unit:GetCurrentLayer() == 'Water' and self.bp.Audio.FireUnderWater then
+        if self.unit.CacheLayer == 'Water' and self.bp.Audio.FireUnderWater then
         
             PlaySound( self, self.bp.Audio.FireUnderWater )
             
@@ -1280,9 +1338,7 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
     PlayFxBeamStart = function(self, muzzle)
 	
         local bp = self.bp
-		
-        --self.BeamDestroyables = {}
-		
+
         local beam
         local beamTable
 		
@@ -1297,10 +1353,10 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
 		
         beam:Enable()
 		
-        self.unit.Trash:Add(beam)
+        TrashAdd( self.unit.Trash, beam )
 		
         if bp.BeamLifetime > 0 then
-            self:ForkThread(self.BeamLifetimeThread, beam, bp.BeamLifetime or 1)
+            self:ForkThread( self.BeamLifetimeThread, beam, bp.BeamLifetime or 1)
         end
 		
         if bp.BeamLifetime == 0 then
@@ -1321,6 +1377,7 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
     PlayFxWeaponUnpackSequence = function(self)
 
         if ( self.bp.BeamLifetime > 0 ) or (( self.bp.BeamLifetime <= 0 ) and not self.ContBeamOn) then
+        
             DefaultProjectileWeapon.PlayFxWeaponUnpackSequence(self)
         end
     end,
@@ -1328,8 +1385,11 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
     IdleState = State (DefaultProjectileWeapon.IdleState) {
 	
         Main = function(self)
+        
             DefaultProjectileWeapon.IdleState.Main(self)
+            
             self:PlayFxBeamEnd()
+            
             self:ForkThread(self.ContinuousBeamFlagThread)
         end,
     },
@@ -1374,22 +1434,30 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
         if self.HoldFireThread then
             KillThread(self.HoldFireThread)
         end
+        
     end,
 
     ContinuousBeamFlagThread = function(self)
+    
         WaitTicks(1)
         self.ContBeamOn = false
     end,
 
     BeamLifetimeThread = function(self, beam, lifeTime)
+    
         WaitTicks(lifeTime * 10)
+        
 		WaitTicks(1)
+        
         self:PlayFxBeamEnd(beam)
     end,
     
     WatchForHoldFire = function(self, beam)
+    
 		WaitTicks = coroutine.yield
+        
         while true do
+        
             WaitTicks(10)
 
             if self.unit and self.unit:GetFireState() == 1 then
@@ -1402,6 +1470,7 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
     StartEconomyDrain = function(self)
 
         if not self.EconDrain and self.bp.EnergyRequired and self.bp.EnergyDrainPerSecond then
+        
             if not self:EconomySupportsBeam() then
                 return
             end
@@ -1411,6 +1480,7 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
     end,
     
     OnHaltFire = function(self)
+    
         for _,v in self.Beams do
 
             if not v.Beam:IsEnabled() then
@@ -1422,15 +1492,19 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
     end,
     
     EconomySupportsBeam = function(self)
+    
         local aiBrain = GetAIBrain(self.unit)
-        local energyIncome = GetEconomyIncome( aiBrain, 'ENERGY' ) * 10 # per tick to per seconds
+        
+        local energyIncome = GetEconomyIncome( aiBrain, 'ENERGY' ) * 10
         local energyStored = GetEconomyStored( aiBrain, 'ENERGY' )
+        
         local nrgReq = self:GetWeaponEnergyRequired()
         local nrgDrain = self:GetWeaponEnergyDrain()
 
         if energyStored < nrgReq and energyIncome < nrgDrain then
             return false
         end
+        
         return true    
     end,
     

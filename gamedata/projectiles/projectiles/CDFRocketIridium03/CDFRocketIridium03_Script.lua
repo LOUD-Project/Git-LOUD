@@ -1,5 +1,9 @@
 local CIridiumRocketProjectile = import('/lua/cybranprojectiles.lua').CIridiumRocketProjectile
 
+local function GetRandomFloat( Min, Max )
+    return Min + (Random() * (Max-Min) )
+end
+
 CDFRocketIridium03 = Class(CIridiumRocketProjectile) {
 
     OnCreate = function(self)
@@ -17,9 +21,10 @@ CDFRocketIridium03 = Class(CIridiumRocketProjectile) {
         CreateLightParticle( self, -1, army, 1, 2.6, 'glow_03', 'ramp_antimatter_02' )
         
         if targetType == 'Terrain' or targetType == 'Prop' then
-            CreateDecal( self:GetPosition(), import('/lua/utilities.lua').GetRandomFloat(0.0,6.28), 'scorch_011_albedo', '', 'Albedo', 1.5, 1.5, 160, 120, army )
+            CreateDecal( self:GetPosition(), GetRandomFloat(0,6.28), 'scorch_011_albedo', '', 'Albedo', 1.8, 1.8, 100, 48, army )
         end
     end,
+
 }
 
 TypeClass = CDFRocketIridium03

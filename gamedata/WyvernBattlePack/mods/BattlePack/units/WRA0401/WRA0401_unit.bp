@@ -130,7 +130,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 179,
     },
     
-    Description = 'Experimental Ultra Heavy Siege-Assault Gunship',
+    Description = 'Experimental Siege-Assault Gunship',
     
     Display = {
         Abilities = {
@@ -222,7 +222,7 @@ UnitBlueprint {
     },
     
     Interface = {
-        HelpText = 'Ultra Heavy Siege-Assault Gunship',
+        HelpText = 'Siege-Assault Gunship',
     },
     
     LifeBarHeight = 0.075,

@@ -1,50 +1,66 @@
 ---  /lua/cybranunits.lua
--- CYBRAN DEFAULT UNITS
 
 local DefaultUnitsFile = import('defaultunits.lua')
 
+local StructureUnit = DefaultUnitsFile.StructureUnit
+local DirectionalWalkingLandUnit = DefaultUnitsFile.DirectionalWalkingLandUnit
+
+local FactoryUnit = DefaultUnitsFile.FactoryUnit
+local ConstructionUnit = DefaultUnitsFile.ConstructionUnit
+
+---------------------------------------
+-- these locals should be deprecated --
+---------------------------------------
+--[[
 local AirStagingPlatformUnit = DefaultUnitsFile.AirStagingPlatformUnit
 local AirUnit = DefaultUnitsFile.AirUnit
 local ConcreteStructureUnit = DefaultUnitsFile.ConcreteStructureUnit
 local WallStructureUnit = import('defaultunits.lua').WallStructureUnit
-local ConstructionUnit = DefaultUnitsFile.ConstructionUnit
-local DirectionalWalkingLandUnit = DefaultUnitsFile.DirectionalWalkingLandUnit
-
-local FactoryUnit = DefaultUnitsFile.FactoryUnit
-
 
 local MobileUnit = DefaultUnitsFile.MobileUnit
-
 local SeaUnit = DefaultUnitsFile.SeaUnit
 local SubUnit = DefaultUnitsFile.SubUnit
 local WalkingLandUnit = DefaultUnitsFile.WalkingLandUnit
 
 local ShieldStructureUnit = DefaultUnitsFile.StructureUnit
 
-local StructureUnit = DefaultUnitsFile.StructureUnit
 local QuantumGateUnit = DefaultUnitsFile.QuantumGateUnit
+
 local RadarJammerUnit = DefaultUnitsFile.RadarJammerUnit
 
 local EffectTemplate = import('/lua/EffectTemplates.lua')
+--]]
+----------------------------------------------------------
 
 local CreateCybranBuildBeams = import('EffectUtilities.lua').CreateCybranBuildBeams
 local CreateCybranEngineerBuildEffects = import('EffectUtilities.lua').CreateCybranEngineerBuildEffects
 local CreateCybranFactoryBuildEffects = import('EffectUtilities.lua').CreateCybranFactoryBuildEffects
+
 local SpawnBuildBots = import('EffectUtilities.lua').SpawnBuildBots
 
 local ForkThread = ForkThread
 local KillThread = KillThread
-local WaitSeconds = WaitSeconds
 
 local TrashBag = TrashBag
 local TrashAdd = TrashBag.Add
+local TrashDestroy = TrashBag.Destroy
 
 local WaitTicks = coroutine.yield
 
-local CreateAttachedEmitter = CreateAttachedEmitter
+--local CreateAttachedEmitter = CreateAttachedEmitter
 local GetAIBrain = moho.unit_methods.GetAIBrain
 
 local LOUDGETN = table.getn
+local LOUDWARP = Warp
+
+local ScaleEmitter = moho.IEffect.ScaleEmitter
+
+-------------------------
+
+
+CDirectionalWalkingLandUnit = Class(DirectionalWalkingLandUnit) {}
+
+CStructureUnit = Class(StructureUnit) {}
 
 CAirFactoryUnit = Class(FactoryUnit) {
 
@@ -69,6 +85,21 @@ CAirFactoryUnit = Class(FactoryUnit) {
         self.BuildAnimManip:SetRate(1)
     end,
     
+    OnStopBuild = function(self, unitBeingBuilt)
+    
+        -- shrink all permanent emitters
+        for _,vB in __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones do
+            ScaleEmitter( self.BuildProjectile[vB][1], 0.05 )
+            ScaleEmitter( self.BuildProjectile[vB][2], 0.05 )
+        end
+        
+        ScaleEmitter( self.BuildProjectile.AttachBone, 0.05 )
+        
+        TrashDestroy( self.BuildEffectsBag )
+    
+        FactoryUnit.OnStopBuild(self, unitBeingBuilt)
+    end,
+    
     OnPaused = function(self)
         StructureUnit.OnPaused(self)
         self:StopBuildFx()
@@ -86,7 +117,9 @@ CAirFactoryUnit = Class(FactoryUnit) {
 CLandFactoryUnit = Class(FactoryUnit) {
    
     CreateBuildEffects = function( self, unitBeingBuilt, order )
+    
         if not unitBeingBuilt then return end
+        
         WaitTicks( 1 )
         CreateCybranFactoryBuildEffects( self, unitBeingBuilt, __blueprints[self.BlueprintID].General.BuildBones, self.BuildEffectsBag )
     end,   
@@ -96,7 +129,7 @@ CLandFactoryUnit = Class(FactoryUnit) {
             unitBeingBuilt = self:GetFocusUnit()
         end
         
-        # Start build process
+        -- Start build process
         if not self.BuildAnimManip then
             self.BuildAnimManip = CreateAnimator(self)
             self.BuildAnimManip:PlayAnim( __blueprints[self.BlueprintID].Display.AnimationBuild, true):SetRate(0)
@@ -106,6 +139,22 @@ CLandFactoryUnit = Class(FactoryUnit) {
         self.BuildAnimManip:SetRate(1)
     end,
     
+    OnStopBuild = function(self, unitBeingBuilt)
+    
+        -- shrink both permanent emitters on each BuildEffectBone
+        for _,vB in __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones do
+            ScaleEmitter( self.BuildProjectile[vB][1], 0.05 )
+            ScaleEmitter( self.BuildProjectile[vB][2], 0.05 )
+        end
+        
+        -- shrink the emitter on the AttachBone
+        ScaleEmitter( self.BuildProjectile.AttachBone, 0.05 )
+        
+        TrashDestroy( self.BuildEffectsBag )
+    
+        FactoryUnit.OnStopBuild(self, unitBeingBuilt)
+    end,
+
     OnPaused = function(self)
         StructureUnit.OnPaused(self)
         self:StopBuildFx(self:GetFocusUnit())
@@ -123,7 +172,35 @@ CLandFactoryUnit = Class(FactoryUnit) {
 CSeaFactoryUnit = Class(FactoryUnit) {
     
     StartBuildingEffects = function( self, unitBeingBuilt, order )
-        TrashAdd( self.BuildEffectsBag, self:ForkThread( CreateCybranBuildBeams, unitBeingBuilt, __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones, self.BuildEffectsBag ) )
+
+        if not self.BuildEffectsBag then
+            self.BuildEffectsBag = TrashBag()
+        end
+
+        CreateCybranBuildBeams( self, unitBeingBuilt, __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones, self.BuildEffectsBag ) 
+    end,
+   
+    OnStopBuild = function(self, unitBeingBuilt)
+
+        self:StopArmsMoving()
+        
+        if self.BuildProjectile then
+        
+            for _, v in self.BuildProjectile do
+            
+                TrashDestroy( v.BuildEffectsBag )
+                
+                ScaleEmitter( v.Emitter, .1)
+                ScaleEmitter( v.Sparker, .1)
+                
+                -- return projectile to source
+                LOUDWARP( v, self.CachePosition )
+            end
+        end
+        
+        TrashDestroy( self.BuildEffectsBag )
+        
+        FactoryUnit.OnStopBuild( self, unitBeingBuilt )
     end,
 
     OnPaused = function(self)
@@ -143,11 +220,6 @@ CSeaFactoryUnit = Class(FactoryUnit) {
         if order != 'Upgrade' then
             self:StartArmsMoving()
         end
-    end,
-   
-    OnStopBuild = function(self, unitBuilding)
-        self:StopArmsMoving()
-		FactoryUnit.OnStopBuild(self, unitBuilding)
     end,
 
     OnFailedToBuild = function(self)
@@ -170,26 +242,65 @@ CSeaFactoryUnit = Class(FactoryUnit) {
     end,
 }
 
-
-CAirUnit = Class(AirUnit) {}
-
-CLandUnit = Class(MobileUnit) {}
-
-CSeaUnit = Class(SeaUnit) {}
-
-CShieldLandUnit = Class(MobileUnit) {}
-
-CSubUnit = Class(SubUnit) {}
-
-CWalkingLandUnit = Class(WalkingLandUnit) {}
-
-CDirectionalWalkingLandUnit = Class(DirectionalWalkingLandUnit) {}
-
-CAirStagingPlatformUnit = Class(AirStagingPlatformUnit) {}
-
-CConcreteStructureUnit = Class(ConcreteStructureUnit) {}
-
 CConstructionUnit = Class(ConstructionUnit){
+    
+    CreateBuildEffects = function( self, unitBeingBuilt, order )
+    
+        --LOG("*AI DEBUG CConstructionUnit CreateBuildEffects")
+        
+        local BuildBones = __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones
+	
+        if not self.BuildBots then
+            SpawnBuildBots( self, unitBeingBuilt, LOUDGETN(BuildBones), self.BuildEffectsBag )
+        end
+		
+        CreateCybranEngineerBuildEffects( self, unitBeingBuilt, BuildBones, self.BuildBots, self.BuildEffectsBag )
+    end,
+ 
+    OnStopBuild = function(self, unitBeingBuilt)
+
+        if self.BuildBots then
+
+            for _, bot in self.BuildBots do
+
+                if bot.BuildProjectile then
+                
+                    for _,v in bot.BuildProjectile do
+
+                        TrashDestroy( v.BuildEffectsBag )
+                        
+                        if v.Detached then
+                            v:AttachTo( bot, v.Name )
+                        end
+                        
+                        v.Detached = false
+        
+                        v.Emitter:ScaleEmitter(0.01)
+                        v.Sparker:ScaleEmitter(0.01)
+                    end
+                end    
+        
+                TrashDestroy( bot.BuildEffectsBag )
+                
+                IssueClearCommands( {bot} )
+                
+                if bot.Detached then
+                    bot:AttachTo( self, 0 )
+                end
+                
+                bot.Detached = false
+            end
+            
+            for _, emitter in self.BuildEmitter do
+                emitter:ScaleEmitter( 0.01 )
+            end
+
+        end
+        
+        TrashDestroy( self.BuildEffectsBag )
+        
+        ConstructionUnit.OnStopBuild( self, unitBeingBuilt )
+    end,
 
     OnStopBeingBuilt = function(self,builder,layer)
 	
@@ -253,110 +364,9 @@ CConstructionUnit = Class(ConstructionUnit){
 		
 		self.TerrainLayerTransitionThread = nil
     end,
-    
-    CreateBuildEffects = function( self, unitBeingBuilt, order )
-	
-        local buildbots = SpawnBuildBots( self, unitBeingBuilt, LOUDGETN( __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones), self.BuildEffectsBag )
-		
-        CreateCybranEngineerBuildEffects( self, __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones, buildbots, self.BuildEffectsBag )
-    end,
+
 }
 
-CEnergyCreationUnit = Class(DefaultUnitsFile.EnergyCreationUnit) {}
-
-CEnergyStorageUnit = Class(StructureUnit) {}
-
-CMassCollectionUnit = Class(DefaultUnitsFile.MassCollectionUnit) {}
-
-CMassFabricationUnit = Class(DefaultUnitsFile.MassFabricationUnit) {}
-
-CMassStorageUnit = Class(StructureUnit) {}
-
-CRadarUnit = Class(DefaultUnitsFile.RadarUnit) {}
-
-CSonarUnit = Class(DefaultUnitsFile.SonarUnit) {}
-
-CShieldStructureUnit = Class(ShieldStructureUnit) {}
-
-CStructureUnit = Class(StructureUnit) {}
-
-CTransportBeaconUnit = Class(DefaultUnitsFile.TransportBeaconUnit) {}
-
-CWallStructureUnit = Class(WallStructureUnit) {}
-
-CCivilianStructureUnit = Class(StructureUnit) {}
-
-CQuantumGateUnit = Class(QuantumGateUnit) {}
-
-CRadarJammerUnit = Class(RadarJammerUnit) {}
-
-CConstructionEggUnit = Class(StructureUnit) {
-
-    OnStopBeingBuilt = function(self, builder, layer)
-
-        FactoryUnit.OnStopBeingBuilt(self,builder,layer)
-		
-        local bp = __blueprints[self.BlueprintID]
-        local buildUnit = bp.Economy.BuildUnit
-        
-        local pos = self:GetPosition()
-        
-        local aiBrain = GetAIBrain(self)
-		
-        CreateUnitHPR(buildUnit, aiBrain.Name, pos[1], pos[2], pos[3], 0, 0, 0 )
-		
-        ForkThread( function()
-                        self.OpenAnimManip = CreateAnimator(self)
-                        
-                        TrashAdd( self.Trash, self.OpenAnimManip )
-                        
-                        self.OpenAnimManip:PlayAnim( bp.Display.AnimationOpen, false):SetRate(0.25)
-
-                        WaitFor(self.OpenAnimManip)
-                        
-                        self.EggSlider = CreateSlider(self, 0, 0, -20, 0, 10)
-                        
-                        TrashAdd( self.Trash, self.EggSlider )
-                        
-                        WaitFor(self.EggSlider)
-                        
-                        self:Destroy()
-                    end
-                  )
-        
-        #ChangeState( self, self.EggConstruction )
-    end,
-    
-    EggConstruction = State {
-        Main = function(self)
-        
-            local bp = __blueprints[self.BlueprintID]
-            local buildUnit = bp.Economy.BuildUnit
-            
-            GetAIBrain(self):BuildUnit( self, buildUnit, 1 )
-        end,
-    },
-    
-    OnStopBuild = function(self, unitBeingBuilt, order)
-		--LOG("*AI DEBUG Egg OnStopBuild")
-        --if unitBeingBuilt:GetFractionComplete() == 1 then
-            ForkThread(function()
-                WaitTicks(1)
-                self:Destroy()
-            end)
-        --end
-    end,
-	
-	OnFailedToBuild = function(self)
-		--LOG("*AI DEBUG Egg OnFailedToBuild")
-	end,
-}
-
-
---TODO: This should be made more general and put in defaultunits.lua in case other factions get similar buildings
---
---  CConstructionStructureUnit
---
 CConstructionStructureUnit = Class(StructureUnit) {
    
     OnCreate = function(self)
@@ -412,26 +422,71 @@ CConstructionStructureUnit = Class(StructureUnit) {
     
         local buildbones = __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones
         
-        local buildbots = SpawnBuildBots( self, unitBeingBuilt, LOUDGETN(buildbones), self.BuildEffectsBag )
+        if not self.BuildBots then
+            SpawnBuildBots( self, unitBeingBuilt, LOUDGETN(buildbones), self.BuildEffectsBag )
+        end
         
-        CreateCybranEngineerBuildEffects( self, buildbones, buildbots, self.BuildEffectsBag )
+        CreateCybranEngineerBuildEffects( self, unitBeingBuilt, buildbones, self.BuildBots, self.BuildEffectsBag )
     end,
     
     -- This will only be called if not in StructureUnit's upgrade state
     OnStopBuild = function(self, unitBeingBuilt)
     
-        StructureUnit.OnStopBuild(self, unitBeingBuilt)
+        if self.BuildBots then
+
+            for _, bot in self.BuildBots do
+
+                if bot.BuildProjectile then
+                
+                    for _,v in bot.BuildProjectile do
+
+                        TrashDestroy( v.BuildEffectsBag )
+                        
+                        if v.Detached then
+                            v:AttachTo( bot, v.Name )
+                        end
+                        
+                        v.Detached = false                        
+        
+                        v.Emitter:ScaleEmitter(0.01)
+                        v.Sparker:ScaleEmitter(0.01)
+                    end
+                end    
+        
+                TrashDestroy( bot.BuildEffectsBag )
+                
+                IssueClearCommands( {bot} )
+                
+                bot:AttachTo( self, 0 )
+                bot.Detached = false
+
+            end
+            
+            for _, emitter in self.BuildEmitter do
+                emitter:ScaleEmitter( 0.01 )
+            end
+
+        end
 
         self.UnitBeingBuilt = nil
         self.UnitBuildOrder = nil
 
+        TrashDestroy( self.BuildEffectsBag )
+   
         if self.BuildingOpenAnimManip and self.BuildArmManipulator then
+        
             self.StoppedBuilding = true
+            
         elseif self.BuildingOpenAnimManip then
+        
             self.BuildingOpenAnimManip:SetRate(-1)
+            
         end
 
         self.BuildingUnit = false
+    
+        StructureUnit.OnStopBuild(self, unitBeingBuilt)
+       
     end,
     
     OnPaused = function(self)
@@ -462,3 +517,113 @@ CConstructionStructureUnit = Class(StructureUnit) {
     end,
 
 }
+
+CConstructionEggUnit = Class(StructureUnit) {
+
+    OnStopBeingBuilt = function(self, builder, layer)
+
+        FactoryUnit.OnStopBeingBuilt(self,builder,layer)
+		
+        local bp = __blueprints[self.BlueprintID]
+        local buildUnit = bp.Economy.BuildUnit
+        
+        local pos = self:GetPosition()
+        
+        local aiBrain = GetAIBrain(self)
+		
+        CreateUnitHPR(buildUnit, aiBrain.Name, pos[1], pos[2], pos[3], 0, 0, 0 )
+		
+        ForkThread( function()
+                        self.OpenAnimManip = CreateAnimator(self)
+                        
+                        TrashAdd( self.Trash, self.OpenAnimManip )
+                        
+                        self.OpenAnimManip:PlayAnim( bp.Display.AnimationOpen, false):SetRate(0.25)
+
+                        WaitFor(self.OpenAnimManip)
+                        
+                        self.EggSlider = CreateSlider(self, 0, 0, -20, 0, 10)
+                        
+                        TrashAdd( self.Trash, self.EggSlider )
+                        
+                        WaitFor(self.EggSlider)
+                        
+                        self:Destroy()
+                    end
+        )
+        
+    end,
+    
+    EggConstruction = State {
+        Main = function(self)
+        
+            local bp = __blueprints[self.BlueprintID]
+            local buildUnit = bp.Economy.BuildUnit
+            
+            GetAIBrain(self):BuildUnit( self, buildUnit, 1 )
+        end,
+    },
+    
+    OnStopBuild = function(self, unitBeingBuilt, order)
+		--LOG("*AI DEBUG Egg OnStopBuild")
+        --if unitBeingBuilt:GetFractionComplete() == 1 then
+            ForkThread(function()
+                WaitTicks(1)
+                self:Destroy()
+            end)
+        --end
+    end,
+	
+	OnFailedToBuild = function(self)
+		--LOG("*AI DEBUG Egg OnFailedToBuild")
+	end,
+}
+
+----------------------------------------
+-- all of these should be deprecated ---
+----------------------------------------
+--[[
+
+CAirUnit = Class(AirUnit) {}
+
+CLandUnit = Class(MobileUnit) {}
+
+CSeaUnit = Class(SeaUnit) {}
+
+CShieldLandUnit = Class(MobileUnit) {}
+
+CSubUnit = Class(SubUnit) {}
+
+CWalkingLandUnit = Class(WalkingLandUnit) {}
+
+CAirStagingPlatformUnit = Class(AirStagingPlatformUnit) {}
+
+CConcreteStructureUnit = Class(ConcreteStructureUnit) {}
+
+CEnergyCreationUnit = Class(DefaultUnitsFile.EnergyCreationUnit) {}
+
+CEnergyStorageUnit = Class(StructureUnit) {}
+
+CMassCollectionUnit = Class(DefaultUnitsFile.MassCollectionUnit) {}
+
+CMassFabricationUnit = Class(DefaultUnitsFile.MassFabricationUnit) {}
+
+CMassStorageUnit = Class(StructureUnit) {}
+
+CRadarUnit = Class(DefaultUnitsFile.RadarUnit) {}
+
+CSonarUnit = Class(DefaultUnitsFile.SonarUnit) {}
+
+CShieldStructureUnit = Class(ShieldStructureUnit) {}
+
+CTransportBeaconUnit = Class(DefaultUnitsFile.TransportBeaconUnit) {}
+
+CWallStructureUnit = Class(WallStructureUnit) {}
+
+CCivilianStructureUnit = Class(StructureUnit) {}
+
+CQuantumGateUnit = Class(QuantumGateUnit) {}
+
+CRadarJammerUnit = Class(RadarJammerUnit) {}
+
+--]]

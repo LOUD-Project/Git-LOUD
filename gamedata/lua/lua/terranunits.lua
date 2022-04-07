@@ -6,24 +6,32 @@
 
 local DefaultUnitsFile = import('defaultunits.lua')
 
-local AirStagingPlatformUnit = DefaultUnitsFile.AirStagingPlatformUnit
-local AirUnit = DefaultUnitsFile.AirUnit
-local ConcreteStructureUnit = DefaultUnitsFile.ConcreteStructureUnit
-local WallStructureUnit = import('defaultunits.lua').WallStructureUnit
 local ConstructionUnit = DefaultUnitsFile.ConstructionUnit
-local EnergyCreationUnit = DefaultUnitsFile.EnergyCreationUnit
 
 local FactoryUnit = DefaultUnitsFile.FactoryUnit
 
 local MassCollectionUnit = DefaultUnitsFile.MassCollectionUnit
-local MassFabricationUnit = DefaultUnitsFile.MassFabricationUnit
 
 local MobileUnit = DefaultUnitsFile.MobileUnit
+
+local ShieldStructureUnit = DefaultUnitsFile.StructureUnit
+
+local RadarJammerUnit = DefaultUnitsFile.RadarJammerUnit
+
+----------------
+-- deprecated -- 
+----------------
+--[[
+local AirStagingPlatformUnit = DefaultUnitsFile.AirStagingPlatformUnit
+local AirUnit = DefaultUnitsFile.AirUnit
+local ConcreteStructureUnit = DefaultUnitsFile.ConcreteStructureUnit
+local WallStructureUnit = import('defaultunits.lua').WallStructureUnit
+local EnergyCreationUnit = DefaultUnitsFile.EnergyCreationUnit
+local MassFabricationUnit = DefaultUnitsFile.MassFabricationUnit
+
 local RadarUnit = DefaultUnitsFile.RadarUnit
 
 local SeaUnit = DefaultUnitsFile.SeaUnit
-
-local ShieldStructureUnit = DefaultUnitsFile.StructureUnit
 
 local SonarUnit = DefaultUnitsFile.SonarUnit
 local StructureUnit = DefaultUnitsFile.StructureUnit
@@ -33,35 +41,37 @@ local WalkingLandUnit = DefaultUnitsFile.WalkingLandUnit
 
 local QuantumGateUnit = DefaultUnitsFile.QuantumGateUnit
 
-local RadarJammerUnit = DefaultUnitsFile.RadarJammerUnit
-
 local PlayEffectsAtBones = import('effectutilities.lua').CreateBoneTableRangedScaleEffects
+
+--------------------------------------
+--]]
+
 local CreateBuildCubeThread = import('effectutilities.lua').CreateBuildCubeThread
 local CreateDefaultBuildBeams = import('effectutilities.lua').CreateDefaultBuildBeams
 local CreateUEFBuildSliceBeams = import('effectutilities.lua').CreateUEFBuildSliceBeams
 
-local CreateAttachedEmitter = CreateAttachedEmitter
 local CreateRotator = CreateRotator
+
 local ChangeState = ChangeState
+
 local EntityCategoryContains = EntityCategoryContains
 local ForkThread = ForkThread
 local KillThread = KillThread
 local WaitTicks = coroutine.yield
 
-local TrashBag = TrashBag
+local LOUDWARP = Warp
+
+local HideBone = moho.unit_methods.HideBone
+local ScaleEmitter = moho.IEffect.ScaleEmitter
+local SetMesh = moho.entity_methods.SetMesh
+
 local TrashAdd = TrashBag.Add
 
 TAirFactoryUnit = Class(FactoryUnit) {
     
     CreateBuildEffects = function( self, unitBeingBuilt, order )
-	
-        WaitTicks(1)
-		
-        for k, v in __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones do
-        
-            TrashAdd( self.BuildEffectsBag, CreateAttachedEmitter( self, v, self.Sync.army, '/effects/emitters/flashing_blue_glow_01_emit.bp' ) )         
-            TrashAdd( self.BuildEffectsBag, self:ForkThread( CreateDefaultBuildBeams, unitBeingBuilt, {v}, self.BuildEffectsBag ) )
-        end
+
+        TrashAdd( self.BuildEffectsBag, self:ForkThread( CreateDefaultBuildBeams, unitBeingBuilt, __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones, self.BuildEffectsBag ) )
 		
     end,
    
@@ -85,6 +95,18 @@ TAirFactoryUnit = Class(FactoryUnit) {
     end,
    
     OnStopBuild = function(self, unitBuilding)
+
+        if self.BuildProjectile then
+        
+            for _, v in self.BuildProjectile do
+           
+                ScaleEmitter( v.Emitter, .1)
+                ScaleEmitter( v.Sparker, .1)
+
+                LOUDWARP( v, self.CachePosition )
+            end
+        end
+
         FactoryUnit.OnStopBuild(self, unitBuilding)
         self:StopArmsMoving()
     end,
@@ -112,43 +134,41 @@ TAirFactoryUnit = Class(FactoryUnit) {
 TLandFactoryUnit = Class(FactoryUnit) {
 
     CreateBuildEffects = function( self, unitBeingBuilt, order )
-	
-        WaitTicks(1)
-		
-        local army = self.Sync.army
-		
-        for k, v in __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones do
-		
-            TrashAdd( self.BuildEffectsBag, CreateAttachedEmitter( self, v, army, '/effects/emitters/flashing_blue_glow_01_emit.bp' ) ) 
-            TrashAdd( self.BuildEffectsBag, self:ForkThread( CreateDefaultBuildBeams, unitBeingBuilt, {v}, self.BuildEffectsBag ) )
-			
-        end
+
+        -- the projectile used to attach the beam to, is permanently created - for each bone
+        -- this process creates the sparks on the bone and the projectile, and creates the beam between them
+        -- then launches a thread to move the particle about while the unit is being built
+        TrashAdd( self.BuildEffectsBag, self:ForkThread( CreateDefaultBuildBeams, unitBeingBuilt, __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones, self.BuildEffectsBag ) )
+        
     end,
+
+    OnStopBuild = function(self, unitBeingBuilt)
+
+        if self.BuildProjectile then
+        
+            for _, v in self.BuildProjectile do
+           
+                ScaleEmitter( v.Emitter, .1)
+                ScaleEmitter( v.Sparker, .1)
+                
+                -- return projectile to source
+                LOUDWARP( v, self.CachePosition )
+            end
+        end
+        
+        FactoryUnit.OnStopBuild( self, unitBeingBuilt )
+    end,
+
 }
 
 TSeaFactoryUnit = Class(TAirFactoryUnit) {}
 
-TQuantumGateUnit = Class(QuantumGateUnit) {}
-
-TAirStagingPlatformUnit = Class(AirStagingPlatformUnit) {}
-
-TAirUnit = Class(AirUnit) {}
-
-TConcreteStructureUnit = Class(ConcreteStructureUnit) {}
-
 TConstructionUnit = Class(ConstructionUnit) {
 
     CreateBuildEffects = function( self, unitBeingBuilt, order )
-	
-        local UpgradesFrom = __blueprints[unitBeingBuilt.BlueprintID].General.UpgradesFrom
-		
-        #-- If we are assisting an upgrading unit, or repairing a unit, play seperate effects
-        if (order == 'Repair' and not unitBeingBuilt:IsBeingBuilt()) or (UpgradesFrom and UpgradesFrom != 'none' and self:IsUnitState('Guarding'))then
-        
-            TrashAdd( self.BuildEffectsBag, self:ForkThread( CreateDefaultBuildBeams, unitBeingBuilt, __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones, self.BuildEffectsBag ) )
-        else
-            TrashAdd( self.BuildEffectsBag, self:ForkThread( CreateUEFBuildSliceBeams, unitBeingBuilt, __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones, self.BuildEffectsBag ) )
-        end           
+
+        TrashAdd( self.BuildEffectsBag, self:ForkThread( CreateUEFBuildSliceBeams, unitBeingBuilt, __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones, self.BuildEffectsBag ) )
+
     end,
 
     OnLayerChange = function(self, new, old)
@@ -191,23 +211,15 @@ TConstructionUnit = Class(ConstructionUnit) {
     end,
 }
 
-TEnergyCreationUnit = Class(EnergyCreationUnit) {}
-
-TEnergyStorageUnit = Class(StructureUnit) {}
-
-THoverLandUnit = Class(MobileUnit) {}
-
-TLandUnit = Class(MobileUnit) {}
-
 TMassCollectionUnit = Class(MassCollectionUnit) {
 
     StartBeingBuiltEffects = function(self, builder, layer)
 	
-		self:SetMesh(__blueprints[self.BlueprintID].Display.BuildMeshBlueprint, true)
+		SetMesh( self, __blueprints[self.BlueprintID].Display.BuildMeshBlueprint, true)
 		
         if __blueprints[self.BlueprintID].General.UpgradesFrom != builder.BlueprintID then
         
-			self:HideBone(0, true)        
+			HideBone( self, 0, true)        
             TrashAdd( self.OnBeingBuiltEffectsBag, self:ForkThread( CreateBuildCubeThread, builder, self.OnBeingBuiltEffectsBag ))
             
         end
@@ -215,50 +227,36 @@ TMassCollectionUnit = Class(MassCollectionUnit) {
     end,    
 }
 
-TMassFabricationUnit = Class(MassFabricationUnit) {}
-
-TMassStorageUnit = Class(StructureUnit) {}
-
 TMobileFactoryUnit = Class(MobileUnit) {
 
     StartBeingBuiltEffects = function(self, builder, layer)
 	
-		self:SetMesh(__blueprints[self.BlueprintID].Display.BuildMeshBlueprint, true)
+		SetMesh( self, __blueprints[self.BlueprintID].Display.BuildMeshBlueprint, true)
 		
         if __blueprints[self.BlueprintID].General.UpgradesFrom != builder.BlueprintID then
         
-			self:HideBone(0, true)        
+			HideBone( self, 0, true)        
             TrashAdd( self.OnBeingBuiltEffectsBag, self:ForkThread( CreateBuildCubeThread, builder, self.OnBeingBuiltEffectsBag ))
             
         end
     end,   
 }
 
-TRadarUnit = Class(RadarUnit) {}
-
-TSonarUnit = Class(SonarUnit) {}
-
-TSeaUnit = Class(SeaUnit) {}
-
-TShieldLandUnit = Class(MobileUnit) {}
-
 TShieldStructureUnit = Class(ShieldStructureUnit) {
 
     StartBeingBuiltEffects = function(self,builder,layer)
 	
-    	self:SetMesh(__blueprints[self.BlueprintID].Display.BuildMeshBlueprint, true)
+    	SetMesh( self, __blueprints[self.BlueprintID].Display.BuildMeshBlueprint, true)
 		
         if builder and EntityCategoryContains(categories.MOBILE, builder) then
 		
-            self:HideBone(0, true)
+            HideBone( self, 0, true)
             TrashAdd( self.OnBeingBuiltEffectsBag, self:ForkThread( CreateBuildCubeThread, builder, self.OnBeingBuiltEffectsBag )	)	
 			
         end
 		
     end,
 }
-
-TStructureUnit = Class(StructureUnit) {}
 
 TRadarJammerUnit = Class(RadarJammerUnit) {
 
@@ -277,16 +275,46 @@ TRadarJammerUnit = Class(RadarJammerUnit) {
     end,
 }
 
+----------------
+-- deprecated --
+----------------
+--[[
+
+TQuantumGateUnit = Class(QuantumGateUnit) {}
+
+TAirStagingPlatformUnit = Class(AirStagingPlatformUnit) {}
+
+TAirUnit = Class(AirUnit) {}
+
+TConcreteStructureUnit = Class(ConcreteStructureUnit) {}
+
+TEnergyCreationUnit = Class(EnergyCreationUnit) {}
+
+TEnergyStorageUnit = Class(StructureUnit) {}
+
+THoverLandUnit = Class(MobileUnit) {}
+
+TLandUnit = Class(MobileUnit) {}
+
+TMassFabricationUnit = Class(MassFabricationUnit) {}
+
+TMassStorageUnit = Class(StructureUnit) {}
+
+TRadarUnit = Class(RadarUnit) {}
+
+TSonarUnit = Class(SonarUnit) {}
+
+TSeaUnit = Class(SeaUnit) {}
+
+TShieldLandUnit = Class(MobileUnit) {}
+
+TStructureUnit = Class(StructureUnit) {}
+
 TSubUnit = Class(SubUnit) {}
 
 TTransportBeaconUnit = Class(DefaultUnitsFile.TransportBeaconUnit) {}
 
-TWalkingLandUnit = Class(WalkingLandUnit) {
-
-    WalkingAnimRate = 1,
-    IdleAnimRate = 1,
-    DisabledBones = {},
-}
+TWalkingLandUnit = Class(WalkingLandUnit) {}
 
 TWallStructureUnit = Class(WallStructureUnit) {}
 
@@ -661,4 +689,6 @@ TPodTowerUnit = Class(StructureUnit) {
             end
         end,
     },
+    
 }
+--]]

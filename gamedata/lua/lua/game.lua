@@ -38,18 +38,20 @@ end
 -- Return the total time (in seconds), energy, and mass it will take for the given
 -- builder to create a unit of type target_bp.
 --
--- targetData may also be an "Enhancement" section of a unit's blueprint rather than
+-- EconomyData may also be an "Enhancement" section of a unit's blueprint rather than
 -- a full blueprint.
-function GetConstructEconomyModel(builder, targetData)
+-- added rate to reduce calls - most functions calling this 
+-- have already queried the rate
+function GetConstructEconomyModel(builder, EconomyData, BuildRate)
 
     local builder_bp = __blueprints[builder.BlueprintID]
     
-    -- 'rate' here is how fast we build relative to a unit with build rate of 1
-    local rate = builder:GetBuildRate()
+    -- 'BuildRate' here is how fast we build relative to a unit with build BuildRate of 1
+    local BuildRate = BuildRate or builder:GetBuildRate()
 
-    local time = targetData.BuildTime
-    local mass = targetData.BuildCostMass
-    local energy = targetData.BuildCostEnergy
+    local time = EconomyData.BuildTime
+    local mass = EconomyData.BuildCostMass
+    local energy = EconomyData.BuildCostEnergy
 
     -- apply penalties/bonuses to effective time
     local time_mod = builder.BuildTimeModifier or 0
@@ -80,16 +82,16 @@ function GetConstructEconomyModel(builder, targetData)
 	
 	-- JAN 2019 - while this code affects the visual costs of the upgrade - it does NOT impact the actual costs from what I can see.
 	-- originally - even in the absence of the trigger variables - it was calculating a 50% discount - I made that no discout
-    if builder_bp.BlueprintId == targetData.HalfPriceUpgradeFromID or builder_bp.General.UpgradesTo == targetData.HalfPriceUpgradeFromID or builder_bp.Economy.BuilderDiscountMult then
+    if builder_bp.BlueprintId == EconomyData.HalfPriceUpgradeFromID or builder_bp.General.UpgradesTo == EconomyData.HalfPriceUpgradeFromID or builder_bp.Economy.BuilderDiscountMult then
 	
-        local discount = targetData.UpgradeFromCostDiscount or builder_bp.Economy.BuilderDiscountMult or 1.0	-- if the discount is not specified then no discount is applied
+        local discount = EconomyData.UpgradeFromCostDiscount or builder_bp.Economy.BuilderDiscountMult or 1.0	-- if the discount is not specified then no discount is applied
 		
 		energy = energy * discount
 		mass = mass * discount
 	
 	end
 	
-    return time/rate, energy, mass
+    return time/BuildRate, energy, mass
 end
 
 function UnitRestricted(unit, unitId)

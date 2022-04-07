@@ -337,7 +337,41 @@ SDFSniperShotSniperMode = Class(DefaultProjectileWeapon) {
 	FxMuzzleFlash = EffectTemplate.SDFSniperShotMuzzleFlash,
 }
 
-SB0OhwalliExperimentalStrategicBombWeapon = Class( DefaultProjectileWeapon) {
+SB0OhwalliExperimentalStrategicBombWeapon = Class(DefaultProjectileWeapon) {
+
+    OnWeaponFired = function(self)
+
+        LOG("*AI DEBUG Ahwassa Bomb OnWeaponFired for "..repr(self.unit:GetBlueprint().Description))
+        
+        self.unit:ForkThread( function() local unit = self.unit
+        
+                                        unit:SetBlockCommandQueue(true) 
+        
+                                        while not self.projectile:BeenDestroyed() do
+                                           WaitTicks(3)
+                                        end
+                                        
+                                        self.projectile = nil
+
+                                        unit:SetBlockCommandQueue(false)
+                            end )
+
+        DefaultProjectileWeapon.OnWeaponFired(self)
+        
+    end,
+
+    CreateProjectileForWeapon = function(self, bone)
+    
+        LOG("*AI DEBUG Ahwassa Bomb CreateProjectileForWeapon")
+        
+        local projectile = DefaultProjectileWeapon.CreateProjectileForWeapon(self, bone)
+
+        LOG("*AI DEBUG Ahwassa Bomb Projectile is "..repr(projectile))
+        
+        self.projectile = projectile
+        
+    end,    
+    
 }
 
 -- ALL OF THIS COMES FROM BrewLAN --

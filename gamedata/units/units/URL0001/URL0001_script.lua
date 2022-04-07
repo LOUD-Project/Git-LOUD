@@ -239,7 +239,11 @@ URL0001 = Class(CWalkingLandUnit) {
         
             TrashDestroy ( v.BuildEffectsBag )
         
-            v:AttachTo( self, v.Name )
+            if v.Detached then
+                v:AttachTo( self, v.Name )
+            end
+            
+            v.Detached = false
             
             -- and scale down the emitters
             v.Emitter:ScaleEmitter(0.05)

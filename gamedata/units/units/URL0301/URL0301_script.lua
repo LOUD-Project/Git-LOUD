@@ -1,10 +1,18 @@
-
 local CWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
+
 local CWeapons = import('/lua/cybranweapons.lua')
 
-local SpawnBuildBots = import('/lua/EffectUtilities.lua').SpawnBuildBots
 local CleanupEffectBag = import('/lua/EffectUtilities.lua').CleanupEffectBag
 local CreateCybranBuildBeams = import('/lua/EffectUtilities.lua').CreateCybranBuildBeams
+
+local GetHeadingPitch=moho.BuilderArmManipulator.GetHeadingPitch
+
+local ScaleEmitter = moho.IEffect.ScaleEmitter
+local SetPrecedence = moho.manipulator_methods.SetPrecedence
+
+local TrashBag = TrashBag
+local TrashAdd = TrashBag.Add
+local TrashDestroy = TrashBag.Destroy
 
 local Buff = import('/lua/sim/Buff.lua')
 
@@ -30,99 +38,154 @@ URL0301 = Class(CWalkingLandUnit) {
 
 
     OnCreate = function(self)
+    
         CWalkingLandUnit.OnCreate(self)
+        
         self:SetCapturable(false)
+        
         self:HideBone('AA_Gun', true)
         self:HideBone('Power_Pack', true)
         self:HideBone('Rez_Protocol', true)
         self:HideBone('Torpedo', true)
         self:HideBone('Turbine', true)
+        
         self:SetWeaponEnabledByLabel('NMissile', false)
-        if self:GetBlueprint().General.BuildBones then
+        
+        if __blueprints[self.BlueprintID].General.BuildBones then
             self:SetupBuildBones()
         end
         self.IntelButtonSet = true
     end,
 
     OnPrepareArmToBuild = function(self)
-        --CWalkingLandUnit.OnPrepareArmToBuild(self)
+
         self:BuildManipulatorSetEnabled(true)
-        self.BuildArmManipulator:SetPrecedence(20)
+        SetPrecedence( self.BuildArmManipulator, 20)
+        
         self:SetWeaponEnabledByLabel('RightDisintegrator', false)
         self.BuildArmManipulator:SetHeadingPitch( self:GetWeaponManipulatorByLabel('RightDisintegrator'):GetHeadingPitch() )
+
     end,
     
     OnStopCapture = function(self, target)
+    
         CWalkingLandUnit.OnStopCapture(self, target)
+        
         self:BuildManipulatorSetEnabled(false)
-        self.BuildArmManipulator:SetPrecedence(0)
+        SetPrecedence( self.BuildArmManipulator, 0)
+        
         self:SetWeaponEnabledByLabel('RightDisintegrator', true)
         self:GetWeaponManipulatorByLabel('RightDisintegrator'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
+
     end,
 
     OnFailedCapture = function(self, target)
+    
         CWalkingLandUnit.OnFailedCapture(self, target)
+        
         self:BuildManipulatorSetEnabled(false)
-        self.BuildArmManipulator:SetPrecedence(0)
+        SetPrecedence( self.BuildArmManipulator, 0)
+        
         self:SetWeaponEnabledByLabel('RightDisintegrator', true)
         self:GetWeaponManipulatorByLabel('RightDisintegrator'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
+        
     end,
     
     OnStopReclaim = function(self, target)
+    
         CWalkingLandUnit.OnStopReclaim(self, target)
+        
         self:BuildManipulatorSetEnabled(false)
-        self.BuildArmManipulator:SetPrecedence(0)
+        SetPrecedence( self.BuildArmManipulator, 0)
+        
         self:SetWeaponEnabledByLabel('RightDisintegrator', true)
         self:GetWeaponManipulatorByLabel('RightDisintegrator'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
+        
     end,
 
     # ********
     # Engineering effects
     # ********
     OnStartBuild = function(self, unitBeingBuilt, order)    
+    
         CWalkingLandUnit.OnStartBuild(self, unitBeingBuilt, order)
+        
         self.UnitBeingBuilt = unitBeingBuilt
         self.UnitBuildOrder = order
         self.BuildingUnit = true   
     end,    
 
     OnStopBuild = function(self, unitBeingBuilt)
+    
         CWalkingLandUnit.OnStopBuild(self, unitBeingBuilt)
+        
+        if self.Dead then return end
+
+        -- reattach the permanent projectile
+        for _, v in self.BuildProjectile do 
+        
+            TrashDestroy ( v.BuildEffectsBag )
+        
+            if v.Detached then
+                v:AttachTo( self, v.Name )
+            end
+            
+            v.Detached = false
+            
+            -- and scale down the emitters
+            ScaleEmitter( v.Emitter, 0.05)
+            ScaleEmitter( v.Sparker, 0.05)
+        end
+        
         self.UnitBeingBuilt = nil
         self.UnitBuildOrder = nil
         self.BuildingUnit = false
+        
         self:BuildManipulatorSetEnabled(false)
-        self.BuildArmManipulator:SetPrecedence(0)   
-        self:SetWeaponEnabledByLabel('RightDisintegrator', true)    
+        SetPrecedence( self.BuildArmManipulator, 0)   
+        
+        self:SetWeaponEnabledByLabel('RightDisintegrator', true)
         self:GetWeaponManipulatorByLabel('RightDisintegrator'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
+        
     end,    
     
     OnFailedToBuild = function(self)
+    
         CWalkingLandUnit.OnFailedToBuild(self)
+        
         self:BuildManipulatorSetEnabled(false)
-        self.BuildArmManipulator:SetPrecedence(0)
+        SetPrecedence( self.BuildArmManipulator,0 )
+        
         self:SetWeaponEnabledByLabel('RightDisintegrator', true)
         self:GetWeaponManipulatorByLabel('RightDisintegrator'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
+
     end,
     
     CreateBuildEffects = function( self, unitBeingBuilt, order )
-       --SpawnBuildBots( self, unitBeingBuilt, 3, self.BuildEffectsBag )
-       CreateCybranBuildBeams( self, unitBeingBuilt, self:GetBlueprint().General.BuildBones.BuildEffectBones, self.BuildEffectsBag )
+
+       CreateCybranBuildBeams( self, unitBeingBuilt, __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones, self.BuildEffectsBag )
     end,
 
     OnStopBeingBuilt = function(self,builder,layer)
+    
         CWalkingLandUnit.OnStopBeingBuilt(self,builder,layer)
+        
         self:BuildManipulatorSetEnabled(false)
+        
         self:SetMaintenanceConsumptionInactive()
+        
         self:DisableUnitIntel('RadarStealth')
         self:DisableUnitIntel('SonarStealth')
         self:DisableUnitIntel('Cloak')
+        
         self.LeftArmUpgrade = 'EngineeringArm'
         self.RightArmUpgrade = 'Disintegrator'
     end,
 
     SetupIntel = function(self, layer)
+    
         CWalkingLandUnit.SetupIntel(self)
+        
         if layer == 'Seabed' or layer == 'Sub' then
             self:EnableIntel('WaterVision')
         else
@@ -158,20 +221,23 @@ URL0301 = Class(CWalkingLandUnit) {
             self:EnableUnitIntel('SonarStealthField')
         end
     end,
-           
 
     # ************
     # Enhancements
     # ************
     CreateEnhancement = function(self, enh)
         
-        local bp = self:GetBlueprint().Enhancements[enh]
+        local bp = __blueprints[self.BlueprintID].Enhancements[enh]
+        
         if not bp then return end
 
         if enh == 'SelfRepairSystem' then
-            # added by brute51 - fix for bug SCU regen upgrade doesnt stack with veteran bonus [140]
+        
+            -- added by brute51 - fix for bug SCU regen upgrade doesnt stack with veteran bonus [140]
             CWalkingLandUnit.CreateEnhancement(self, enh)
-            local bpRegenRate = self:GetBlueprint().Enhancements.SelfRepairSystem.NewRegenRate or 0
+            
+            local bpRegenRate = __blueprints[self.BlueprintID].Enhancements.SelfRepairSystem.NewRegenRate or 0
+            
             if not Buffs['CybranSCURegenerateBonus'] then
                BuffBlueprint {
                     Name = 'CybranSCURegenerateBonus',
@@ -187,22 +253,31 @@ URL0301 = Class(CWalkingLandUnit) {
                     },
                 } 
             end
+            
             if Buff.HasBuff( self, 'CybranSCURegenerateBonus' ) then
                 Buff.RemoveBuff( self, 'CybranSCURegenerateBonus' )
             end  
+            
             Buff.ApplyBuff(self, 'CybranSCURegenerateBonus')
+            
         elseif enh == 'SelfRepairSystemRemove' then
-            # added by brute51 - fix for bug SCU regen upgrade doesnt stack with veteran bonus [140]
+        
+            -- added by brute51 - fix for bug SCU regen upgrade doesnt stack with veteran bonus [140]
             CWalkingLandUnit.CreateEnhancement(self, enh)
+            
             if Buff.HasBuff( self, 'CybranSCURegenerateBonus' ) then
                 Buff.RemoveBuff( self, 'CybranSCURegenerateBonus' )
             end
 			
         elseif enh == 'CloakingGenerator' then
+        
 			CWalkingLandUnit.CreateEnhancement(self, enh)
+            
             self.StealthEnh = false
 			self.CloakEnh = true 
+            
             self:EnableUnitIntel('Cloak')
+            
             if not Buffs['CybranSCUCloakBonus'] then
                BuffBlueprint {
                     Name = 'CybranSCUCloakBonus',
@@ -218,58 +293,92 @@ URL0301 = Class(CWalkingLandUnit) {
                     },
                 } 
             end
+            
             if Buff.HasBuff( self, 'CybranSCUCloakBonus' ) then
                 Buff.RemoveBuff( self, 'CybranSCUCloakBonus' )
-            end  
+            end
+            
             Buff.ApplyBuff(self, 'CybranSCUCloakBonus')                		
+            
         elseif enh == 'CloakingGeneratorRemove' then
+        
 			CWalkingLandUnit.CreateEnhancement(self, enh)
+            
             self:DisableUnitIntel('Cloak')
+            
             self.StealthEnh = false
             self.CloakEnh = false 
+            
             self:RemoveToggleCap('RULEUTC_CloakToggle')
+            
             if Buff.HasBuff( self, 'CybranSCUCloakBonus' ) then
                 Buff.RemoveBuff( self, 'CybranSCUCloakBonus' )
             end 
+            
         elseif enh == 'StealthGenerator' then
+        
 			CWalkingLandUnit.CreateEnhancement(self, enh)
+            
             self:AddToggleCap('RULEUTC_CloakToggle')
+            
             if self.IntelEffectsBag then
                 CleanupEffectBag(self,'IntelEffectsBag')
                 self.IntelEffectsBag = nil
             end
+            
             self.CloakEnh = false        
             self.StealthEnh = true
+            
             self:EnableUnitIntel('RadarStealth')
             self:EnableUnitIntel('SonarStealth')          
+            
         elseif enh == 'StealthGeneratorRemove' then
+        
 			CWalkingLandUnit.CreateEnhancement(self, enh)
+            
             self:RemoveToggleCap('RULEUTC_CloakToggle')
             self:DisableUnitIntel('RadarStealth')
-            self:DisableUnitIntel('SonarStealth')           
+            self:DisableUnitIntel('SonarStealth')
+            
             self.StealthEnh = false
             self.CloakEnh = false 
+            
         elseif enh == 'NaniteMissileSystem' then
+        
 			CWalkingLandUnit.CreateEnhancement(self, enh)
+            
             self:ShowBone('AA_Gun', true)
             self:SetWeaponEnabledByLabel('NMissile', true)
+            
         elseif enh == 'NaniteMissileSystemRemove' then
+        
 			CWalkingLandUnit.CreateEnhancement(self, enh)
+            
             self:HideBone('AA_Gun', true)
             self:SetWeaponEnabledByLabel('NMissile', false)
 
         elseif enh =='ResourceAllocation' then
+        
 			CWalkingLandUnit.CreateEnhancement(self, enh)
+            
             local bpEcon = self:GetBlueprint().Economy
+            
             self:SetProductionPerSecondEnergy(bp.ProductionPerSecondEnergy + bpEcon.ProductionPerSecondEnergy or 0)
             self:SetProductionPerSecondMass(bp.ProductionPerSecondMass + bpEcon.ProductionPerSecondMass or 0)
+            
         elseif enh == 'ResourceAllocationRemove' then
+        
 			CWalkingLandUnit.CreateEnhancement(self, enh)
+            
             local bpEcon = self:GetBlueprint().Economy
+            
             self:SetProductionPerSecondEnergy(bpEcon.ProductionPerSecondEnergy or 0)
             self:SetProductionPerSecondMass(bpEcon.ProductionPerSecondMass or 0)
+            
         elseif enh =='Switchback' then
+        
 			CWalkingLandUnit.CreateEnhancement(self, enh)
+            
             if not Buffs['CybranSCUBuildRate'] then
                 BuffBlueprint {
                     Name = 'CybranSCUBuildRate',
@@ -285,29 +394,46 @@ URL0301 = Class(CWalkingLandUnit) {
                     },
                 }
             end
+            
             Buff.ApplyBuff(self, 'CybranSCUBuildRate')
+            
         elseif enh == 'SwitchbackRemove' then
+        
 			CWalkingLandUnit.CreateEnhancement(self, enh)
+            
             if Buff.HasBuff( self, 'CybranSCUBuildRate' ) then
                 Buff.RemoveBuff( self, 'CybranSCUBuildRate' )
             end
+            
         elseif enh == 'FocusConvertor' then
+        
 			CWalkingLandUnit.CreateEnhancement(self, enh)
+            
             local wep = self:GetWeaponByLabel('RightDisintegrator')
             wep:AddDamageMod(self:GetBlueprint().Enhancements.FocusConvertor.NewDamageMod or 0)
+            
         elseif enh == 'FocusConvertorRemove' then
+        
 			CWalkingLandUnit.CreateEnhancement(self, enh)
+            
             local wep = self:GetWeaponByLabel('RightDisintegrator')
             wep:AddDamageMod(0)
+            
         elseif enh == 'EMPCharge' then
+        
 			CWalkingLandUnit.CreateEnhancement(self, enh)
+            
             local wep = self:GetWeaponByLabel('RightDisintegrator')
             wep:ReEnableBuff('STUN')        
+            
         elseif enh == 'EMPChargeRemove' then
+        
 			CWalkingLandUnit.CreateEnhancement(self, enh)
+            
             local wep = self:GetWeaponByLabel('RightDisintegrator')
             wep:DisableBuff('STUN')        
-        end             
+        end
+        
     end,
 
     # *****
@@ -375,42 +501,57 @@ URL0301 = Class(CWalkingLandUnit) {
     },
     
     OnIntelEnabled = function(self)
+    
         CWalkingLandUnit.OnIntelEnabled(self)
+        
         if self.CloakEnh and self:IsIntelEnabled('Cloak') then 
+        
             self:SetEnergyMaintenanceConsumptionOverride(self:GetBlueprint().Enhancements['CloakingGenerator'].MaintenanceConsumptionPerSecondEnergy or 0)
             self:SetMaintenanceConsumptionActive()
+            
             if not self.IntelEffectsBag then
 			    self.IntelEffectsBag = {}
 			    self.CreateTerrainTypeEffects( self, self.IntelEffects.Cloak, 'FXIdle',  self:GetCurrentLayer(), nil, self.IntelEffectsBag )
 			end            
+            
         elseif self.StealthEnh and self:IsIntelEnabled('RadarStealth') and self:IsIntelEnabled('SonarStealth') then
+        
             self:SetEnergyMaintenanceConsumptionOverride(self:GetBlueprint().Enhancements['StealthGenerator'].MaintenanceConsumptionPerSecondEnergy or 0)
             self:SetMaintenanceConsumptionActive()  
+            
             if not self.IntelEffectsBag then 
 	            self.IntelEffectsBag = {}
 		        self.CreateTerrainTypeEffects( self, self.IntelEffects.Field, 'FXIdle',  self:GetCurrentLayer(), nil, self.IntelEffectsBag )
-		    end                  
+		    end
+            
         end		
     end,
 
     OnIntelDisabled = function(self)
+    
         CWalkingLandUnit.OnIntelDisabled(self)
+        
         if self.IntelEffectsBag then
             CleanupEffectBag(self,'IntelEffectsBag')
             self.IntelEffectsBag = nil
         end
+        
         if self.CloakEnh and not self:IsIntelEnabled('Cloak') then
             self:SetMaintenanceConsumptionInactive()
+            
         elseif self.StealthEnh and not self:IsIntelEnabled('RadarStealth') and not self:IsIntelEnabled('SonarStealth') then
             self:SetMaintenanceConsumptionInactive()
         end          
     end,
     
     OnPaused = function(self)
+    
         CWalkingLandUnit.OnPaused(self)
+        
         if self.BuildingUnit then
             CWalkingLandUnit.StopBuildingEffects(self, self:GetUnitBeingBuilt())
-        end    
+        end
+        
     end,
     
     OnUnpaused = function(self)

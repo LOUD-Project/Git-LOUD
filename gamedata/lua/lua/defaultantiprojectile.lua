@@ -5,11 +5,18 @@
 local Entity = import('/lua/sim/Entity.lua').Entity
 
 local LOUDENTITY = EntityCategoryContains
+local LOUDEMITONENTITY = CreateEmitterOnEntity
+local LOUDINSERT = table.insert
+local LOUDPARSE = ParseEntityCategory
 
 local LOUDSTATE = ChangeState
 local WaitSeconds = WaitSeconds
 
+local BeenDestroyed = moho.entity_methods.BeenDestroyed
 local GetArmy = moho.entity_methods.GetArmy
+local GetLauncher = moho.projectile_methods.GetLauncher
+local SetCollisionShape = moho.entity_methods.SetCollisionShape
+local SetDrawScale = moho.entity_methods.SetDrawScale
 
 local WaitTicks = coroutine.yield
 
@@ -17,10 +24,14 @@ Flare = Class(Entity) {
 
     OnCreate = function(self, spec)
 
+        self.Army = spec.Owner.Sync.army
         self.Owner = spec.Owner
         self.Radius = spec.Radius or 5
-        self:SetCollisionShape('Sphere', 0, 0, 0, self.Radius)
-        self:SetDrawScale(self.Radius)
+        
+        SetCollisionShape( self, 'Sphere', 0, 0, 0, self.Radius)
+        
+        SetDrawScale( self, spec.Radius)
+        
         self:AttachTo(spec.Owner, -1)
         self.RedirectCat = spec.Category or 'MISSILE'
 		
@@ -30,7 +41,7 @@ Flare = Class(Entity) {
     -- accepting the collision and causing the hostile projectile to impact.
     OnCollisionCheck = function(self,other)
 	
-        if LOUDENTITY(ParseEntityCategory(self.RedirectCat), other) and (GetArmy(self) != GetArmy(other)) then
+        if LOUDENTITY(LOUDPARSE(self.RedirectCat), other) and ( self.Army != GetArmy(other)) then
             other:SetNewTarget(self.Owner)
         end
 		
@@ -42,25 +53,22 @@ Flare = Class(Entity) {
 AAFlare = Class(Entity) {
 
 	OnCreate = function(self, spec)
-	
-		LOG("*AI DEBUG AAFlare Created")
 
         self.Owner = spec.Owner
         self.Radius = spec.Radius or 3
         self.Army = spec.Owner.Sync.army		
 
-        self:SetCollisionShape('Sphere', 0, 0, 0, self.Radius)
-        self:SetDrawScale(self.Radius)
+        SetCollisionShape( self, 'Sphere', 0, 0, 0, self.Radius)
+        
+        SetDrawScale( self, spec.Radius)
 		
 		self.RedirectCat = categories.MISSILE * categories.ANTIAIR
 
 	end,
 	
 	OnCollisionCheck = function(self,other)
-	
-		LOG("*AI DEBUG FlareCollision")
 		
-        if LOUDENTITY(self.RedirectCat, other) and self.Army ~= other:GetArmy() and not other.Deflected then
+        if LOUDENTITY(self.RedirectCat, other) and self.Army ~= GetArmy(other) and not other.Deflected then
 
 			LOG("*AI DEBUG AAFlare Collision - New target")
 			other:SetNewTarget(self.Owner)
@@ -82,10 +90,14 @@ DepthCharge = Class(Entity) {
 
     OnCreate = function(self, spec)
 	
+        self.Army = spec.Owner.Sync.army		    
         self.Owner = spec.Owner
         self.Radius = spec.Radius
-        self:SetCollisionShape('Sphere', 0, 0, 0, self.Radius)
-        self:SetDrawScale(self.Radius)
+        
+        SetCollisionShape( self, 'Sphere', 0, 0, 0, self.Radius)
+        
+        SetDrawScale( self, spec.Radius)
+        
         self:AttachTo(spec.Owner, -1)
 		
     end,
@@ -94,7 +106,7 @@ DepthCharge = Class(Entity) {
     -- accepting the collision and causing the hostile projectile to impact.
     OnCollisionCheck = function(self,other)
 	
-        if LOUDENTITY(categories.TORPEDO, other) and GetArmy(self) != GetArmy(other) then
+        if LOUDENTITY(categories.TORPEDO, other) and self.Army != GetArmy(other) then
 		
 			if not self.Owner.Dead then
 				
@@ -124,8 +136,9 @@ MissileDetector = Class(Entity) {
 		
 		self.RateOfFire = 1	-- ticks
 		
-        self:SetCollisionShape('Sphere', 0, 0, 0, spec.Radius)
-        self:SetDrawScale(spec.Radius)
+        SetCollisionShape( self, 'Sphere', 0, 0, 0, spec.Radius)
+        
+        SetDrawScale( self, spec.Radius)
 		
         self:AttachTo(spec.Owner, spec.AttachBone)
 		
@@ -148,14 +161,14 @@ MissileDetector = Class(Entity) {
 	    -- Return true to process this collision, false to ignore it.
 		OnCollisionCheck = function(self, other)
 
-            if other != self.EnemyProj and IsEnemy( self.Army, other:GetArmy() ) then
+            if other != self.EnemyProj and IsEnemy( self.Army, GetArmy(other) ) then
 
-                if EntityCategoryContains( categories.MISSILE * categories.ANTIAIR, other) then
+                if LOUDENTITY( categories.MISSILE * categories.ANTIAIR, other) then
 					
 					other:SetVelocity(1)
 					
 					-- ok we can touch the projectile
-					self.Enemy = other:GetLauncher()
+					self.Enemy = GetLauncher(other)
 					self.EnemyProj = other
 				
 					if self.Enemy then
@@ -164,7 +177,7 @@ MissileDetector = Class(Entity) {
 						other:TrackTarget(true)
 						other:SetTurnRate(540)
 
-						ChangeState(self, self.RedirectingState)
+						LOUDSTATE(self, self.RedirectingState)
 					end
 				end
             end
@@ -177,21 +190,21 @@ MissileDetector = Class(Entity) {
 
         Main = function(self)
 
-            if not self or self:BeenDestroyed() 
-				or not self.EnemyProj or self.EnemyProj:BeenDestroyed() 
-				or not self.Owner or self.Owner:IsDead() then
+            if not self or BeenDestroyed(self) 
+				or not self.EnemyProj or BeenDestroyed(self.EnemyProj) 
+				or not self.Owner or self.Owner.Dead then
 				
                 return
             end
 
             local beams = {}
             local count = 0
-            local army = self.Army
+
             
             for _, v in self.RedirectBeams do
             
                 count = count + 1
-                beams[count] = AttachBeamEntityToEntity(self.EnemyProj, -1, self.Owner, self.AttachBone, army, v)
+                beams[count] = AttachBeamEntityToEntity(self.EnemyProj, -1, self.Owner, self.AttachBone, self.Army, v)
                 
             end
             
@@ -202,11 +215,11 @@ MissileDetector = Class(Entity) {
 			    self.EnemyProj.DamageData.DamageSelf = true 
 			end
 			
-            if self.Enemy and not self.Enemy:BeenDestroyed() then
+            if self.Enemy and not BeenDestroyed(self.Enemy) then
 
                 WaitTicks( self.RateOfFire )
 				
-                if not self.EnemyProj:BeenDestroyed() then
+                if not BeenDestroyed(self.EnemyProj) then
                     self.EnemyProj:TrackTarget(false)
                 end
 				
@@ -240,7 +253,6 @@ MissileDetector = Class(Entity) {
 	
 }
 
-
 MissileRedirect = Class(Entity) {
 
     RedirectBeams = {'/effects/emitters/particle_cannon_beam_02_emit.bp'},
@@ -250,11 +262,15 @@ MissileRedirect = Class(Entity) {
 	
         Entity.OnCreate(self, spec)
 		
+        self.Army = spec.Owner.Sync.army
         self.Owner = spec.Owner
         self.Radius = spec.Radius
         self.RedirectRateOfFire = spec.RedirectRateOfFire or 1
-        self:SetCollisionShape('Sphere', 0, 0, 0, self.Radius)
-        self:SetDrawScale(self.Radius)
+        
+        SetCollisionShape( self,'Sphere', 0, 0, 0, self.Radius)
+        
+        SetDrawScale( self, self.Radius)
+        
         self.AttachBone = spec.AttachBone
         self:AttachTo(spec.Owner, spec.AttachBone)
 		
@@ -272,7 +288,7 @@ MissileRedirect = Class(Entity) {
             if type(category) == 'string' then
 			
                 count = count + 1
-                ParsedProjectileCategories[count] = ParseEntityCategory(category)
+                ParsedProjectileCategories[count] = LOUDPARSE(category)
 				
             else
 			
@@ -288,7 +304,7 @@ MissileRedirect = Class(Entity) {
     end,
 	
     GetBlueprint = function(self)
-        return self.Owner:GetBlueprint().Defense.AntiMissile
+        return __blueprints[self.Owner.BlueprintID].Defense.AntiMissile
     end,
 	
     OnDestroy = function(self)
@@ -306,14 +322,14 @@ MissileRedirect = Class(Entity) {
 	    -- Return true to process this collision, false to ignore it.
 		OnCollisionCheck = function(self, other)
 
-            if other != self.EnemyProj and IsEnemy( self:GetArmy(), other:GetArmy() ) then
+            if other != self.EnemyProj and IsEnemy( self.Army, GetArmy(other) ) then
 
                 -- check if we can touch the projectile  [161]
                 local match = false
 				
                 for k, cat in self.ProjectileCategories do
 				
-                    if EntityCategoryContains(cat, other) then
+                    if LOUDENTITY(cat, other) then
                         match = true
                         break
                     end
@@ -325,7 +341,7 @@ MissileRedirect = Class(Entity) {
                 end
 
                 -- ok we can touch the projectile
-                self.Enemy = other:GetLauncher()
+                self.Enemy = GetLauncher(other)
                 self.EnemyProj = other
 				
                 if self.Enemy then
@@ -336,7 +352,7 @@ MissileRedirect = Class(Entity) {
 					
                 end
 				
-                ChangeState(self, self.RedirectingState)
+                LOUDSTATE( self, self.RedirectingState)
             end
 			
             return false
@@ -347,21 +363,18 @@ MissileRedirect = Class(Entity) {
 
         Main = function(self)
 		
-            if not self or self:BeenDestroyed() 
-            or not self.EnemyProj or self.EnemyProj:BeenDestroyed() 
-            or not self.Owner or self.Owner:IsDead() then
+            if not self or BeenDestroyed(self) 
+            or not self.EnemyProj or BeenDestroyed(self.EnemyProj) 
+            or not self.Owner or self.Owner.Dead then
                 return
             end
             
             local beams = {}
             local count = 0
-            
-            local army = GetArmy(self)
-            
+
             for _, v in self.RedirectBeams do
-                
                 count = count + 1
-                beams[count] = AttachBeamEntityToEntity(self.EnemyProj, -1, self.Owner, self.AttachBone, army, v)
+                beams[count] = AttachBeamEntityToEntity(self.EnemyProj, -1, self.Owner, self.AttachBone, self.Army, v)
             end
             
             if self.Enemy then
@@ -371,11 +384,11 @@ MissileRedirect = Class(Entity) {
 			    self.EnemyProj.DamageData.DamageSelf = true 
 			end
 			
-            if self.Enemy and not self.Enemy:BeenDestroyed() then
+            if self.Enemy and not BeenDestroyed(self.Enemy) then
 			
                 WaitTicks( (1/self.RedirectRateOfFire) * 10)
 				
-                if not self.EnemyProj:BeenDestroyed() then
+                if not BeenDestroyed(self.EnemyProj) then
                     self.EnemyProj:TrackTarget(false)
                 end
 				
@@ -395,6 +408,258 @@ MissileRedirect = Class(Entity) {
                 v:Destroy()
             end
 			
+            LOUDSTATE(self, self.WaitingState)
+        end,
+
+        OnCollisionCheck = function(self, other)
+            return false
+        end,
+    },
+
+}
+
+SeraLambdaFieldRedirector = Class(Entity) {
+
+    RedirectBeams = {'/effects/emitters/particle_cannon_beam_02_emit.bp'},
+    LambdaEffects = {},
+
+    OnCreate = function(self, spec)
+        Entity.OnCreate(self, spec)
+        
+        self.Army = spec.Owner.Sync.army
+        self.Owner = spec.Owner
+
+        self.Radius = spec.Radius
+        self.RedirectRateOfFire = spec.RedirectRateOfFire or 1
+        
+        SetCollisionShape( self, 'Sphere', 0, 0, 0, self.Radius)
+        SetDrawScale( self, self.Radius )
+        
+        self.AttachBone = spec.AttachBone
+        self:AttachTo(spec.Owner, spec.AttachBone)
+        
+        LOUDSTATE( self, self.WaitingState)
+        
+		--self.LambdaEffectsBag = {}
+    end,
+
+    OnDestroy = function(self)
+        Entity.OnDestroy(self)
+        LOUDSTATE(self, self.DeadState)
+    end,
+
+    DeadState = State {
+        Main = function(self)
+        end,
+    },
+
+    -- Return true to process this collision, false to ignore it.
+    WaitingState = State{
+    
+        OnCollisionCheck = function(self, other)
+            
+            if other.lastRedirector and other.lastRedirector == self.Army then
+                return false
+            end
+            
+            if LOUDENTITY(categories.PROJECTILE, other)
+            and not LOUDENTITY(categories.STRATEGIC, other) 
+            and other != self.EnemyProj and IsEnemy( self.Army, GetArmy(other) ) then
+            
+                -- mark projectile as having been redirected by us
+                other.lastRedirector = self.Army
+
+                self.Enemy = GetLauncher(other)
+
+                self.EnemyProj = other
+				self.EXFiring = false
+                
+                if self.Enemy then --and (not other.lastRedirector or other.lastRedirector != selfarmy) then
+
+                    --LOG("*AI DEBUG Redirection to launcher")
+                    
+                    other:SetNewTarget(self.Enemy)
+                    other:TrackTarget(true)
+                    other:SetTurnRate(720)
+                    
+					local targetspeed = other:GetCurrentSpeed()
+                    
+					other:SetVelocity( targetspeed * 2)
+
+					self.EXFiring = true
+                end
+                
+				if self.EXFiring then
+					LOUDSTATE(self, self.RedirectingState)
+				end
+                
+            end
+            
+            return false
+        end,
+    },
+
+    RedirectingState = State{
+
+        Main = function(self)
+		
+            if not self or self:BeenDestroyed()
+            or not self.EnemyProj or BeenDestroyed( self.EnemyProj )
+            or not self.Owner or self.Owner.Dead then
+                return
+            end
+            
+            local beams = {}
+            local count = 0
+            
+            for _, v in self.RedirectBeams do
+                count = count + 1
+                beams[count] = AttachBeamEntityToEntity(self.EnemyProj, -1, self.Owner, self.AttachBone, self.Army, v)
+            end
+            
+            if self.Enemy then
+                -- Set collision to friends active so that when the missile reaches its source it can deal damage. 
+			    self.EnemyProj.DamageData.CollideFriendly = true         
+			    self.EnemyProj.DamageData.DamageFriendly = true 
+			    self.EnemyProj.DamageData.DamageSelf = true 
+			end
+            
+            if self.Enemy and not BeenDestroyed(self.Enemy) then
+--[[			
+			    for _, v in self.LambdaEffects do
+                    LOUDINSERT( self.LambdaEffectsBag, LOUDEMITONENTITY( self.EnemyProj, self.Army, v ):ScaleEmitter(0.5) )
+				end
+--]]                
+				WaitTicks(self.RedirectRateOfFire)
+                
+                if not BeenDestroyed( self.EnemyProj ) then
+                    self.EnemyProj:TrackTarget(false)
+                end
+                
+            else	-- just destroy the projectile
+				self.EnemyProj:Destroy()
+            end
+			
+            for _, v in beams do
+                v:Destroy()
+            end
+			
+            LOUDSTATE(self, self.WaitingState)
+            
+        end,
+
+        OnCollisionCheck = function(self, other)
+            return false
+        end,
+    },
+
+}
+
+SeraLambdaFieldDestroyer = Class(Entity) {
+
+    RedirectBeams = {'/effects/emitters/particle_cannon_beam_02_emit.bp'},
+    LambdaEffects = {},
+    
+    OnCreate = function(self, spec)
+        Entity.OnCreate(self, spec)
+        
+        self.Army = GetArmy(self)
+        self.Owner = spec.Owner
+
+        self.Radius = spec.Radius
+        self.RedirectRateOfFire = spec.RedirectRateOfFire or 1
+
+        SetCollisionShape( self, 'Sphere', 0, 0, 0, self.Radius)
+        SetDrawScale( self, self.Radius )
+        
+        self.AttachBone = spec.AttachBone
+        self:AttachTo(spec.Owner, spec.AttachBone)
+		
+        LOUDSTATE(self, self.WaitingState)
+        
+		--self.LambdaEffectsBag = {}
+    end,
+
+    OnDestroy = function(self)
+        Entity.OnDestroy(self)
+        LOUDSTATE(self, self.DeadState)
+    end,
+
+    DeadState = State {
+        Main = function(self)
+        end,
+    },
+
+    -- Return true to process this collision, false to ignore it.
+    WaitingState = State{
+	
+        OnCollisionCheck = function(self, other)
+
+            if other.lastRedirector and other.lastRedirector == self.Army then
+                return false
+            end
+
+            if LOUDENTITY(categories.PROJECTILE, other)
+            and not LOUDENTITY(categories.STRATEGIC, other)
+            and not LOUDENTITY(categories.ANTINAVY, other) 
+            and other != self.EnemyProj and IsEnemy( self.Army, GetArmy(other) ) then
+                
+                self.Enemy = GetLauncher(other)
+                self.EnemyProj = other
+				self.EXFiring = false
+                
+                if self.Enemy then
+                
+                    other.lastRedirector = self.Army
+
+					other:SetVelocity( 2 )
+                    
+                    other:SetNewTarget(self.Enemy)
+                    other:TrackTarget(true)
+                    other:SetTurnRate(720)
+
+                    -- go and destroy projectile
+					LOUDSTATE(self, self.RedirectingState)
+				end
+                
+            end
+            
+            return false
+        end,
+    },
+
+    RedirectingState = State{
+
+        Main = function(self)
+		
+            if not self or self:BeenDestroyed()
+            or not self.EnemyProj or BeenDestroyed( self.EnemyProj )
+            or not self.Owner or self.Owner.Dead then
+                return
+            end
+
+            local beams = {}
+            local count = 0
+
+            for _, v in self.RedirectBeams do
+                count = count + 1
+                beams[count] = AttachBeamEntityToEntity(self.EnemyProj, -1, self.Owner, self.AttachBone, self.Army, v)
+            end
+--[[
+		    for _, v in self.LambdaEffects do
+				LOUDINSERT( self.LambdaEffectsBag, CreateEmitterAtEntity( self.EnemyProj, self.Army, v ):ScaleEmitter(0.8) )
+			end
+--]]            
+            WaitTicks(self.RedirectRateOfFire)
+
+            if not BeenDestroyed( self.EnemyProj) then
+                self.EnemyProj:Destroy()
+            end
+			
+            for _, v in beams do
+                v:Destroy()
+            end
+
             LOUDSTATE(self, self.WaitingState)
         end,
 

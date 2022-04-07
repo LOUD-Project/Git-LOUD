@@ -24,10 +24,15 @@ CAANanoDart01 = Class(CAANanoDartProjectile03) {
         WaitSeconds(0.6)
 		
         local army = self:GetArmy()
-		local CreateEmitterOnEntity = CreateEmitterOnEntity
+        
+        if self.FxTrails then
+        
+            local CreateEmitterOnEntity = CreateEmitterOnEntity
 
-        for i in self.FxTrails do
-            CreateEmitterOnEntity(self,army,self.FxTrails[i])
+            for i in self.FxTrails do
+                CreateEmitterOnEntity(self,army,self.FxTrails[i])
+            end
+            
         end
 
         WaitSeconds(0.2)

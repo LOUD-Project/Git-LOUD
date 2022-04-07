@@ -20,7 +20,7 @@ CAANanoDart04 = Class(CAANanoDartProjectile) {
    OnCreate = function(self)
         CAANanoDartProjectile.OnCreate(self)
         
-        #Set the orientation of this thing to facing the target from the beginning.
+        --Set the orientation of this thing to facing the target from the beginning.
         local ourPos= self:GetPosition()
         local targetPos= self:GetCurrentTargetPosition()
         local orientation= {targetPos[1]-ourPos[1],targetPos[2]-ourPos[2],targetPos[3]-ourPos[3]}         #Aim for the target.
@@ -43,20 +43,25 @@ CAANanoDart04 = Class(CAANanoDartProjectile) {
         
         self:SetBallisticAcceleration(-0.5) #Accelerate the projectile forward (negative is forward for this one).
 		
-        local army = self:GetArmy()         #Set the army affiliation for this projectile.
-		local CreateEmitterOnEntity = CreateEmitterOnEntity
+        if self.FxTrails then
+        
+            local army = self:GetArmy()
+        
+            local CreateEmitterOnEntity = CreateEmitterOnEntity
 
-        #Place fx-emitter trails coming from this projectile for its exhaust trail.
-        for i in self.FxTrails do
-            CreateEmitterOnEntity(self,army,self.FxTrails[i])
+            --Place fx-emitter trails coming from this projectile for its exhaust trail.
+            for i in self.FxTrails do
+                CreateEmitterOnEntity(self,army,self.FxTrails[i])
+            end
+            
         end
-           
-        #Set the mesh for the unfolded-fins missile now.
+        
+        --#Set the mesh for the unfolded-fins missile now.
         self:SetMesh('/projectiles/CAANanoDart01/CAANanoDartUnPacked01_mesh')
         self:SetAcceleration(8 + Random() * 5)
 
-        #Wait a little bit more before letting this missile be able to turn through a full range of rotation
-        # in its tracking.
+        --#Wait a little bit more before letting this missile be able to turn through a full range of rotation
+        --# in its tracking.
         WaitSeconds(0.3)
         self:SetTurnRate(360)
 

@@ -32,6 +32,8 @@ local CreateLightParticle = CreateLightParticle
 local CreateProjectile = moho.entity_methods.CreateProjectile
 local GetFractionComplete = moho.entity_methods.GetFractionComplete
 local GetPosition = moho.entity_methods.GetPosition
+local HideBone = moho.unit_methods.HideBone
+local ScaleEmitter = moho.IEffect.ScaleEmitter
 local SetVelocity = moho.projectile_methods.SetVelocity
 
 local WaitTicks = coroutine.yield
@@ -42,6 +44,8 @@ local LOUDEMITATENTITY = CreateEmitterAtEntity
 local LOUDEMITATBONE = CreateEmitterAtBone
 local LOUDATTACHEMITTER = CreateAttachedEmitter
 local LOUDATTACHBEAMENTITY = AttachBeamEntityToEntity
+
+local AttachBoneToEntityBone = moho.entity_methods.AttachBoneToEntityBone
 
 local TrashBag = TrashBag
 local TrashAdd = TrashBag.Add
@@ -58,6 +62,8 @@ function CreateEffects( obj, army, EffectTable )
 
     local emitters = {}
     local counter = 1
+    
+    local LOUDEMITATENTITY = LOUDEMITATENTITY
 	
     for _, v in EffectTable do
 		emitters[counter] = LOUDEMITATENTITY( obj, army, v )
@@ -71,7 +77,9 @@ function CreateEffectsWithOffset( obj, army, EffectTable, x, y, z )
 
     local emitters = {}
     local counter = 1
-	
+    
+    local LOUDEMITATENTITY = LOUDEMITATENTITY	
+    
     for _, v in EffectTable  do
 		emitters[counter] = LOUDEMITATENTITY( obj, army, v ):OffsetEmitter(x, y, z)
         counter = counter + 1
@@ -84,6 +92,8 @@ function CreateEffectsWithRandomOffset( obj, army, EffectTable, xRange, yRange, 
 
     local emitters = {}
 	local counter = 1
+    
+    local LOUDEMITONENTITY = LOUDEMITONENTITY
 	
     for _, v in EffectTable do
 		emitters[counter] = LOUDEMITONENTITY( obj, army, v ):OffsetEmitter(util.GetRandomOffset(xRange, yRange, zRange, 1))
@@ -98,6 +108,8 @@ function CreateBoneEffects( obj, bone, army, EffectTable )
 
     local emitters = {}
     local counter = 1
+    
+    local LOUDEMITATBONE = LOUDEMITATBONE
 	
     for _, v in EffectTable do
 		emitters[counter] = LOUDEMITATBONE( obj, bone, army, v )
@@ -111,7 +123,9 @@ function CreateBoneEffectsOffset( obj, bone, army, EffectTable, x, y, z )
 
     local emitters = {}
     local counter = 1
-
+    
+    local LOUDEMITATBONE = LOUDEMITATBONE
+    
     for _, v in EffectTable do
 		emitters[counter] = LOUDEMITATBONE( obj, bone, army, v ):OffsetEmitter(x, y, z)
         counter = counter + 1
@@ -123,11 +137,12 @@ end
 function CreateBoneTableEffects( obj, BoneTable, army, EffectTable )
 
     local LOUDINSERT = table.insert
+    local LOUDEMITATBONE = LOUDEMITATBONE
 	
     for _, vBone in BoneTable do
     
         for _, vEffect in EffectTable do
-            LOUDINSERT(emitters,LOUDEMITATBONE( obj, vBone, army, vEffect ))
+            LOUDINSERT( emitters, LOUDEMITATBONE( obj, vBone, army, vEffect ))
         end
     end
 end
@@ -141,12 +156,15 @@ function CreateBoneTableRangedScaleEffects( obj, BoneTable, EffectTable, army, S
     end
 end
 
-
 function CreateRandomEffects( obj, army, EffectTable, NumEffects )
 	
     local NumTableEntries = LOUDGETN(EffectTable)
     local emitters = {}
 	local counter = 1
+    
+    local LOUDEMITONENTITY = LOUDEMITONENTITY
+    local LOUDFLOOR = LOUDFLOOR
+    local Random = Random
 	
     for i = 1, NumEffects do
     
@@ -159,11 +177,244 @@ end
 
 function ScaleEmittersParam( Emitters, param, minRange, maxRange )
 
+    local Random = Random
+
     for _, v in Emitters do
         v:SetEmitterParam( param, minRange + (Random()*(maxRange - minRange)) )
     end
 end
 
+
+--- Aeon Construction Effects --
+
+function CreateAeonBuildBaseThread( unitBeingBuilt, builder, EffectsBag )
+
+    local BeenDestroyed = moho.entity_methods.BeenDestroyed
+    local WaitTicks = coroutine.yield
+
+	local army = builder.Sync.army
+    local bp = ALLBPS[unitBeingBuilt.BlueprintID]
+
+    WaitTicks(1)
+    
+    local vec = VectorCached
+	local pos = GetPosition(unitBeingBuilt)
+
+    -- Create a pool mercury that slowly draws into the build unit
+    local BuildBaseEffect = CreateProjectile( unitBeingBuilt, '/effects/entities/AeonBuildEffect/AeonBuildEffect01_proj.bp', nil, 0, 0, nil, nil, nil )
+
+    local sx = bp.Physics.MeshExtentsX or bp.SizeX or bp.Footprint.SizeX * 0.5
+    local sz = bp.Physics.MeshExtentsZ or bp.SizeZ or bp.Footprint.SizeZ * 0.5
+    local sy = bp.Physics.MeshExtentsY or bp.SizeY or sx + sz
+	
+	-- size the pool so that its slightly larger on the Y
+    BuildBaseEffect:SetScale(sx, sy * 1.5, sz)
+	
+	vec[1] = pos[1]
+	vec[2] = pos[2]
+	vec[3] = pos[3]
+	
+    LOUDWARP( BuildBaseEffect, vec )
+	
+    BuildBaseEffect:SetOrientation(unitBeingBuilt:GetOrientation(), true)    
+	
+    TrashAdd( unitBeingBuilt.Trash, BuildBaseEffect)
+	
+    TrashAdd( EffectsBag, BuildBaseEffect)
+
+    LOUDEMITONENTITY(BuildBaseEffect, army,'/effects/emitters/aeon_being_built_ambient_01_emit.bp'):SetEmitterCurveParam('X_POSITION_CURVE', 0, sx * 1.5):SetEmitterCurveParam('Z_POSITION_CURVE', 0, sz * 1.5)
+    
+    LOUDEMITONENTITY(BuildBaseEffect, army,'/effects/emitters/aeon_being_built_ambient_03_emit.bp'):ScaleEmitter( (sx + sz) * 0.3 )
+
+    local slider = CreateSlider( unitBeingBuilt, 0 )
+	
+    slider:SetWorldUnits(true)
+    slider:SetGoal(0, -sy, 0)
+    slider:SetSpeed(-2)
+    WaitFor(slider)
+	
+    slider:SetSpeed(0.25)
+
+    -- while we are less than 95% complete, raise the model in small steps
+    while not unitBeingBuilt.Dead and GetFractionComplete(unitBeingBuilt) < 0.95 do
+    
+		slider:SetGoal( 0, -sy + ( sy * GetFractionComplete(unitBeingBuilt)), 0 )
+        WaitTicks(5)
+        
+    end
+	
+	slider:SetGoal( 0, 0, 0 )
+
+    if not BuildBaseEffect:BeenDestroyed() then
+	    BuildBaseEffect:SetScaleVelocity(-0.12, -0.12, -0.12)
+	end    
+	
+    slider:SetSpeed(0.3)
+	
+	repeat
+		WaitTicks(3)
+	until unitBeingBuilt.Dead or GetFractionComplete(unitBeingBuilt) == 1
+	
+    slider:Destroy()
+    BuildBaseEffect:Destroy()
+end
+
+function CreateAeonConstructionUnitBuildingEffects( builder, unitBeingBuilt, BuildEffectsBag )
+
+    local army = builder.Sync.army
+    local projectile
+
+    -- create perm projectile 
+    if not builder.BuildProjectile then
+
+        builder.BuildProjectile = Entity()
+        
+        projectile = builder.BuildProjectile
+        
+        projectile:AttachTo( builder, 0 )
+        projectile.Detached = false
+        
+        TrashAdd( builder.Trash, projectile )
+    
+        -- create perm emitters --
+        builder.BuildEmitters = {}
+        
+        local beamEffect
+
+        for _, v in AeonBuildBeams01 do
+    
+            beamEffect = LOUDATTACHBEAMENTITY(builder, 0, projectile, -1, army, v )
+
+            table.insert( builder.BuildEmitters, beamEffect )
+        
+            TrashAdd( builder.Trash, beamEffect )
+        end
+        
+        beamEffect = LOUDEMITONENTITY(builder, army,'/effects/emitters/aeon_build_01_emit.bp')
+
+        table.insert( builder.BuildEmitters, beamEffect )
+        
+        TrashAdd( builder.Trash, beamEffect )
+        
+    end
+    
+    projectile = builder.BuildProjectile
+    
+    projectile:DetachFrom()
+    projectile.Detached = true
+    
+    LOUDWARP( projectile, GetPosition(unitBeingBuilt) )
+    
+    for _, emit in builder.BuildEmitters do
+        ScaleEmitter( emit, 1 )
+    end
+
+end
+
+function CreateAeonCommanderBuildingEffects( builder, unitBeingBuilt, BuildBones, BuildEffectsBag )
+
+    local army = builder.Sync.army
+    local projectile
+    
+    if not builder.BuildProjectile then
+    
+        builder.BuildProjectile = Entity()
+        
+        projectile = builder.BuildProjectile
+        
+        TrashAdd( builder.Trash, projectile )
+        
+        builder.BuildPoint = BuildBones.BuildBones[1]
+        
+        projectile:AttachTo( builder, builder.BuildPoint )
+        projectile.Detached = false
+        
+        builder.BuildEmitters = {}
+    
+        local beamEffect
+
+        for _, vBone in BuildBones do
+
+            for _, v in AeonBuildBeams01 do
+        
+                beamEffect = LOUDATTACHBEAMENTITY( builder, vBone, projectile, -1, army, v )
+                
+                table.insert( builder.BuildEmitters, beamEffect )
+            
+                TrashAdd( builder.Trash, beamEffect )
+            end
+        
+            beamEffect = LOUDATTACHEMITTER( builder, vBone, army, '/effects/emitters/aeon_build_02_emit.bp' )
+            
+            table.insert( builder.BuildEmitters, beamEffect )
+    
+            TrashAdd( builder.Trash, beamEffect )
+            
+        end
+    end
+    
+    projectile = builder.BuildProjectile
+    
+    projectile:DetachFrom()
+    projectile.Detached = true
+
+    LOUDWARP( projectile, GetPosition(unitBeingBuilt) )
+    
+    for _, emit in builder.BuildEmitters do
+        ScaleEmitter( emit, 1 )
+    end
+
+end
+
+function CreateAeonFactoryBuildingEffects( builder, unitBeingBuilt, BuildEffectBones, BuildBone, BuildEffectsBag )
+
+    local army = builder.Sync.army
+
+    -- create the permanent emitter on each BuildEffectBone (build arm)
+    if BuildEffectBones[1] and builder.GetCachePosition and not builder.BuildEmitters then
+        
+        builder.BuildEmitters = {}
+
+        for _, vBone in BuildEffectBones do
+            builder.BuildEmitters[vBone] = LOUDATTACHEMITTER( builder, vBone, army, '/effects/emitters/aeon_build_03_emit.bp' )
+            
+            TrashAdd( builder.Trash, builder.BuildEmitters[vBone] )
+        end
+	end
+    
+    -- scale them to normal size
+    for _, vBone in BuildEffectBones do
+        ScaleEmitter( builder.BuildEmitters[vBone], 1.2 )
+    end
+    
+    local beamEffect
+
+    -- create a temporary beams from each BuildEffectBone to the Bone0 of the factory
+    -- for each of the AeonBuildBeams
+    for _, vBone in BuildEffectBones do
+		
+        for _, vBeam in AeonBuildBeams02 do
+       
+            beamEffect = LOUDATTACHBEAMENTITY(builder, vBone, builder, BuildBone, army, vBeam )
+            
+            TrashAdd( BuildEffectsBag, beamEffect )
+        end
+    end
+    
+    GetFractionComplete = GetFractionComplete
+    WaitTicks = WaitTicks
+    
+    -- wait for the build to complete --
+    repeat
+
+	    WaitTicks(5)
+		
+	until unitBeingBuilt.Dead or GetFractionComplete(unitBeingBuilt) == 1
+
+end
+
+
+--- UEF Construction Effects --
 
 function CreateBuildCubeThread( unitBeingBuilt, builder, OnBeingBuiltEffectsBag )
 
@@ -187,7 +438,7 @@ function CreateBuildCubeThread( unitBeingBuilt, builder, OnBeingBuiltEffectsBag 
     local SlicePeriod = 1.5
     
     -- Create a quick glow effect at location where unit is goig to be built
-    proj = unitBeingBuilt:CreateProjectile('/effects/Entities/UEFBuildEffect/UEFBuildEffect02_proj.bp',0,0,0, nil, nil, nil )
+    proj = CreateProjectile( unitBeingBuilt, '/effects/Entities/UEFBuildEffect/UEFBuildEffect02_proj.bp',0,0,0, nil, nil, nil )
     
     proj:SetScale(x * 1.02, y * 0.2, z * 1.02)
     
@@ -200,7 +451,6 @@ function CreateBuildCubeThread( unitBeingBuilt, builder, OnBeingBuiltEffectsBag 
     local BuildBaseEffect = CreateProjectile( unitBeingBuilt, '/effects/Entities/UEFBuildEffect/UEFBuildEffect03_proj.bp', 0, 0, 0, nil, nil, nil )
 	
 	TrashAdd( OnBeingBuiltEffectsBag, BuildBaseEffect)
-
 	TrashAdd( unitBeingBuilt.Trash, BuildBaseEffect)
 
     local vec = VectorCached
@@ -292,7 +542,7 @@ function CreateUEFBuildSliceBeams( builder, unitBeingBuilt, BuildEffectBones, Bu
 	local y = pos[2] + (buildbp.Physics.MeshExtentsOffsetY or 0)
 	local z = pos[3]
 
-    -- Create a projectile for the end of build effect and WARP it to the unit
+    -- Create a projectile and WARP it to the unit
     local BeamEndEntity = CreateProjectile( unitBeingBuilt, '/effects/entities/UEFBuild/UEFBuild01_proj.bp', 0, 0, 0, nil, nil, nil)
 	
     TrashAdd( BuildEffectsBag, BeamEndEntity )
@@ -304,9 +554,7 @@ function CreateUEFBuildSliceBeams( builder, unitBeingBuilt, BuildEffectBones, Bu
         
             TrashAdd( BuildEffectsBag, LOUDATTACHBEAMENTITY( builder, BuildBone, BeamEndEntity, -1, army, '/effects/emitters/build_beam_01_emit.bp' ) )
             TrashAdd( BuildEffectsBag, LOUDATTACHEMITTER( builder, BuildBone, army, '/effects/emitters/flashing_blue_glow_01_emit.bp' ) )
-            
         end
-        
     end
 
     -- Determine beam positioning on build cube, this should match sizes of CreateBuildCubeThread
@@ -519,435 +767,416 @@ function CreateUEFCommanderBuildSliceBeams( builder, unitBeingBuilt, BuildEffect
     end
 end
 
-
 function CreateDefaultBuildBeams( builder, unitBeingBuilt, BuildEffectBones, BuildEffectsBag )
 
-    local BeenDestroyed = BeenDestroyed
-    local LOUDWARP = LOUDWARP
-    local WaitTicks = coroutine.yield
-    
-	local pos = GetPosition(unitBeingBuilt)
+    local ForkThread = ForkThread
+
+    local Random = Random
+    local RandomOffset = builder.GetRandomOffset
 
     local army = builder.Sync.army
     
-    local BeamEndEntity = Entity()
-
-    TrashAdd( BuildEffectsBag, BeamEndEntity )
+    local function Ungowa(projectile, pos)
     
-    LOUDWARP( BeamEndEntity, pos )
+        local LOUDCOPY = table.copy
+        local LOUDWARP = LOUDWARP    
+        local WaitTicks = WaitTicks
+        
+        WaitTicks(1)
+        
+        local x,y,z
+        local vec = VectorCached    -- reusable table
+        
+        local pos = LOUDCOPY(GetPosition(unitBeingBuilt))
+
+        while not builder.Dead and not unitBeingBuilt.Dead do
+
+            x, y, z = RandomOffset(unitBeingBuilt, 1.02 )
+        
+            vec[1] = pos[1]+x
+            vec[2] = pos[2]+y
+            vec[3] = pos[3]+z
+        
+            LOUDWARP( projectile, vec )
+        
+            WaitTicks( Random( 5, 11 ))
+        end
+    end
 
     -- Create build beams
-    if BuildEffectBones != nil then
+    if BuildEffectBones[1] and builder.CachePosition then
     
-        local beamEffect = nil
-		
         for i, BuildBone in BuildEffectBones do
         
-            local beamEffect = LOUDATTACHBEAMENTITY(builder, BuildBone, BeamEndEntity, -1, army, '/effects/emitters/build_beam_01_emit.bp' )
-            
-            TrashAdd( BuildEffectsBag, beamEffect )
-        end
+            local projectile
         
+            -- create the permanent Projectile and add it to the builder trashbag 
+            -- also, note - unit must have a CachePosition (structure) to use this function
+            if not builder.BuildProjectile[BuildBone] then
+            
+                if not builder.BuildProjectile then
+                    builder.BuildProjectile = {}
+                end
+
+                -- create the projectile
+                builder.BuildProjectile[BuildBone] = Entity()
+                
+                projectile = builder.BuildProjectile[BuildBone]
+                
+                projectile.Name = BuildBone
+                
+                LOUDWARP( projectile, builder.CachePosition )
+                
+                projectile.Trash = TrashBag()
+                projectile.BulidEffectsBag = TrashBag()
+                
+                TrashAdd( builder.Trash, projectile )
+                
+                -- create the spark emitter on the projectile
+                projectile.Emitter = LOUDEMITONENTITY( projectile, army, '/effects/emitters/sparks_08_emit.bp')
+               
+                TrashAdd( builder.Trash, projectile.Emitter )
+                
+                projectile.Sparker = CreateAttachedEmitter( builder, BuildBone, army, '/effects/emitters/flashing_blue_glow_01_emit.bp' )
+                
+                TrashAdd( builder.Trash, projectile.Sparker )
+            end
+
+            projectile = builder.BuildProjectile[BuildBone]
+            
+            ScaleEmitter(projectile.Emitter,1)
+            ScaleEmitter(projectile.Sparker,1)
+            
+            -- create the beam - and attach it to the BuildBone - and the permanent projectile
+            TrashAdd( BuildEffectsBag, LOUDATTACHBEAMENTITY(builder, BuildBone, projectile, -1, army, '/effects/emitters/build_beam_01_emit.bp' ))
+
+            -- thread that moves the projectile around the position of the unit --
+            ForkThread( Ungowa, projectile )
+            
+        end
     end    
 
-    LOUDEMITONENTITY( BeamEndEntity, builder.Sync.army, '/effects/emitters/sparks_08_emit.bp')
-	
-    local waitTime = (1 + Random()) * 10    -- result 10 to 20
-    
-    local x,y,z
-
-    local vec = VectorCached    -- reusable table
-    
-    while not builder.Dead and not unitBeingBuilt.Dead do
-    
-        x, y, z = builder.GetRandomOffset(unitBeingBuilt, 1 )
-        
-        vec[1] = pos[1]+x
-        vec[2] = pos[2]+y
-        vec[3] = pos[3]+z
-        
-        LOUDWARP( BeamEndEntity, vec )
-        
-        WaitTicks(waitTime)
-    end
     
 end
 
--- effects used when building structures
-function CreateAeonBuildBaseThread( unitBeingBuilt, builder, EffectsBag )
 
-    local BeenDestroyed = moho.entity_methods.BeenDestroyed
-    local WaitTicks = coroutine.yield
-
-	local army = builder.Sync.army
-    local bp = ALLBPS[unitBeingBuilt.BlueprintID]
-
-    WaitTicks(1)
-    
-    local vec = VectorCached
-	local pos = GetPosition(unitBeingBuilt)
-
-    -- Create a pool mercury that slowly draws into the build unit
-    local BuildBaseEffect = CreateProjectile( unitBeingBuilt, '/effects/entities/AeonBuildEffect/AeonBuildEffect01_proj.bp', nil, 0, 0, nil, nil, nil )
-
-    local sx = bp.Physics.MeshExtentsX or bp.SizeX or bp.Footprint.SizeX * 0.5
-    local sz = bp.Physics.MeshExtentsZ or bp.SizeZ or bp.Footprint.SizeZ * 0.5
-    local sy = bp.Physics.MeshExtentsY or bp.SizeY or sx + sz
-	
-	-- size the pool so that its slightly larger on the Y
-    BuildBaseEffect:SetScale(sx, sy * 1.5, sz)
-	
-	vec[1] = pos[1]
-	vec[2] = pos[2]
-	vec[3] = pos[3]
-	
-    LOUDWARP( BuildBaseEffect, vec )
-	
-    BuildBaseEffect:SetOrientation(unitBeingBuilt:GetOrientation(), true)    
-	
-    TrashAdd( unitBeingBuilt.Trash, BuildBaseEffect)
-	
-    TrashAdd( EffectsBag, BuildBaseEffect)
-
-    LOUDEMITONENTITY(BuildBaseEffect, army,'/effects/emitters/aeon_being_built_ambient_01_emit.bp'):SetEmitterCurveParam('X_POSITION_CURVE', 0, sx * 1.5):SetEmitterCurveParam('Z_POSITION_CURVE', 0, sz * 1.5)
-    
-    LOUDEMITONENTITY(BuildBaseEffect, army,'/effects/emitters/aeon_being_built_ambient_03_emit.bp'):ScaleEmitter( (sx + sz) * 0.3 )
-
-    local slider = CreateSlider( unitBeingBuilt, 0 )
-	
-    slider:SetWorldUnits(true)
-    slider:SetGoal(0, -sy, 0)
-    slider:SetSpeed(-2)
-    WaitFor(slider)
-	
-    slider:SetSpeed(0.25)
-
-    -- while we are less than 95% complete, raise the model in small steps
-    while not unitBeingBuilt.Dead and GetFractionComplete(unitBeingBuilt) < 0.95 do
-    
-		slider:SetGoal( 0, -sy + ( sy * GetFractionComplete(unitBeingBuilt)), 0 )
-        WaitTicks(5)
-        
-    end
-	
-	slider:SetGoal( 0, 0, 0 )
-
-    if not BuildBaseEffect:BeenDestroyed() then
-	    BuildBaseEffect:SetScaleVelocity(-0.12, -0.12, -0.12)
-	end    
-	
-    slider:SetSpeed(0.3)
-	
-	repeat
-		WaitTicks(3)
-	until unitBeingBuilt.Dead or GetFractionComplete(unitBeingBuilt) == 1
-	
-    slider:Destroy()
-    BuildBaseEffect:Destroy()
-end
-
+--- Cybran Construction Effects --
 
 function CreateCybranBuildBeams( builder, unitBeingBuilt, BuildEffectBones, BuildEffectsBag )
 
-    local BeenDestroyed = moho.entity_methods.BeenDestroyed
-    local LOUDWARP = LOUDWARP
-    local WaitTicks = coroutine.yield
+    local ForkThread = ForkThread
 
-    if BuildEffectBones then
-	
-		WaitTicks(2)    -- this delay seems to be necessary so that the position of the unit is correct
-
-        local vec = VectorCached    -- reusable table
-        
-		local pos = GetPosition(unitBeingBuilt)
-
-		local army = builder.Sync.army
-	
-		local BeamEndEntities = {}
-		local counter = 1
-    
-        for i, BuildBone in BuildEffectBones do
-		
-            local beamEnd = Entity()
-			
-            TrashAdd( builder.Trash, beamEnd )
-			
-            BeamEndEntities[counter] = beamEnd
-			counter = counter + 1
-			
-            TrashAdd( BuildEffectsBag, beamEnd )
-			
-            LOUDWARP( beamEnd, pos )
-			
-            LOUDEMITONENTITY( beamEnd, army, CybranBuildSparks01 )
-            LOUDEMITONENTITY( beamEnd, army, CybranBuildFlash01 )
-			
-            TrashAdd( BuildEffectsBag, LOUDATTACHBEAMENTITY( builder, BuildBone, beamEnd, -1, army, '/effects/emitters/build_beam_02_emit.bp' ) )
-			
-        end
-		
-        local x,y,z
-        
-		-- move the beams around every 16 ticks
-		while not BeenDestroyed(builder) and not BeenDestroyed(unitBeingBuilt) do
-
-			for k, v in BeamEndEntities do
-		
-				x, y, z = builder.GetRandomOffset(unitBeingBuilt, 1 )
-                
-                vec[1] = pos[1] + x
-                vec[2] = pos[2] + y
-                vec[3] = pos[3] + z
-			
-				if v and not BeenDestroyed(v) then
-                
-					LOUDWARP( v, vec )
-                    
-				end
-			
-			end
-			
-			WaitTicks(16)
-		end
-		
-    end
-	
-end
-
-function SpawnBuildBots( builder, unitBeingBuilt, numBots,  BuildEffectsBag )
+    local Random = Random
+    local RandomOffset = unitBeingBuilt.GetRandomOffset
 
     local army = builder.Sync.army
-	
-	local pos = GetPosition(builder)
     
-	local x = pos[1]
-	local y = pos[2]
-	local z = pos[3]
-
-	pos = builder:GetOrientation()
+    local function Ungowa(projectile)
     
-	local qx = pos[1]
-	local qy = pos[2]
-	local qz = pos[3]
-	local qw = pos[4]
-
-    local xVec = 0
-    local yVec = ALLBPS[builder.BlueprintID].SizeY * 0.5
-    local zVec = 0
-	
-    local BuilderUnits = {}
-	local counter = 1
-	
-    local tunit = nil
-    
-    local LOUDCOS = math.cos
-    local LOUDSIN = math.sin
-    
-    local LOUDPI = math.pi
-    
-    local angle = (2*LOUDPI) / numBots
-
-    for i = 0, (numBots - 1) do
-	
-        xVec = LOUDSIN( 180 + (i*angle)) * 0.5
-        zVec = LOUDCOS( 180 + (i*angle)) * 0.5
-		
-        tunit = CreateUnit('ura0001', army, x + xVec, y + yVec, z + zVec, qx, qy, qz, qw, 'Air' )
-
-        -- Make build bots unkillable
-        tunit:SetCanTakeDamage(false)
-        tunit:SetCanBeKilled(false)
+        local LOUDCOPY = table.copy
+        local LOUDWARP = LOUDWARP
+        local WaitTicks = WaitTicks
         
-        BuilderUnits[counter] = tunit
-		counter = counter + 1
-		
-        TrashAdd( BuildEffectsBag, tunit )
-		
+        WaitTicks(1)
+        
+        local x,y,z
+        local vec = VectorCached    -- reusable table
+        
+        local pos = LOUDCOPY(GetPosition(unitBeingBuilt))
+
+        while not builder.Dead and not unitBeingBuilt.Dead do
+
+            x, y, z = RandomOffset( unitBeingBuilt, 1 )
+        
+            vec[1] = pos[1]+x
+            vec[2] = pos[2]+y
+            vec[3] = pos[3]+z
+        
+            LOUDWARP( projectile, vec )
+
+            WaitTicks( Random(5,11) )
+        end
     end
-	
-    IssueGuard( BuilderUnits, unitBeingBuilt )
-	
-    return BuilderUnits
-	
+
+    -- Create build beams
+    if BuildEffectBones[1] then
+    
+        for i, BuildBone in BuildEffectBones do
+        
+            local projectile
+        
+            -- create the permanent Projectile and add it to the builder trashbag 
+            -- also, note - unit must have a CachePosition (structure) to use this function
+            if not builder.BuildProjectile[BuildBone] then
+            
+                if not builder.BuildProjectile then
+                    builder.BuildProjectile = {}
+                end
+
+                -- create the projectile
+                builder.BuildProjectile[BuildBone] = Entity()
+                
+                projectile = builder.BuildProjectile[BuildBone]
+                
+                -- track the name of the bone it's attached to
+                projectile.Name = BuildBone
+                
+                -- attach it to units BuildBone bone
+                projectile:AttachTo( builder, BuildBone )
+                projectile.Detached = false
+
+                projectile.Trash = TrashBag()
+                projectile.BuildEffectsBag = TrashBag()
+           
+                -- add it to units trash
+                TrashAdd( builder.Trash, projectile )
+                
+                -- create the spark emitter on the projectile
+                projectile.Emitter = LOUDEMITONENTITY( projectile, army, CybranBuildSparks01)
+                TrashAdd( projectile.Trash, projectile.Emitter )
+                
+                -- and the flash effect on the projectile
+                projectile.Sparker = CreateAttachedEmitter( projectile, -1, army, CybranBuildFlash01 )
+                TrashAdd( projectile.Trash, projectile.Sparker )
+              
+                --LOG("*AI DEBUG Created Perm. Projectile "..repr(projectile))
+            end
+
+            projectile = builder.BuildProjectile[BuildBone]
+            
+            -- detach the permanent projectile 
+            -- it gets attached to the unit when not building
+            projectile:DetachFrom()
+            projectile.Detached = true
+            
+            --LOG("*AI DEBUG detached Projectile from builder")
+            
+            -- create the build beam - attach to the BuildBone - and the permanent projectile
+            TrashAdd( projectile.BuildEffectsBag, LOUDATTACHBEAMENTITY(builder, BuildBone, projectile, -1, army,'/effects/emitters/build_beam_02_emit.bp' ))
+
+            ScaleEmitter(projectile.Emitter, 1.2)
+            ScaleEmitter(projectile.Sparker, 1.1)
+            
+            projectile.MoveThread = ForkThread( Ungowa, projectile )
+
+            -- thread that moves the projectile around the position of the unit --
+            TrashAdd( projectile.BuildEffectsBag, projectile.MoveThread )
+
+        end
+    end    
+
+
 end
 
-function CreateCybranEngineerBuildEffects( builder, BuildBones, BuildBots, BuildEffectsBag )
+function SpawnBuildBots( builder, unitBeingBuilt, numBots, BuildEffectsBag )
+
+    if not builder.BuildBots then
+
+        local army = builder.Sync.army
+	
+        local pos = GetPosition(builder)
+    
+        local x = pos[1]
+        local y = pos[2]
+        local z = pos[3]
+
+        pos = builder:GetOrientation()
+    
+        local qx = pos[1]
+        local qy = pos[2]
+        local qz = pos[3]
+        local qw = pos[4]
+
+        local xVec = 0
+        local yVec = ALLBPS[builder.BlueprintID].SizeY * 0.5
+        local zVec = 0
+	
+        builder.BuildBots = {}
+	
+        local tunit = nil
+    
+        local LOUDCOS = math.cos
+        local LOUDSIN = math.sin
+    
+        local angle = 6.28 / numBots
+        
+        --LOG("*AI DEBUG Spawning "..(numBots-1).." BuildBots on Bone 0")
+
+        for i = 0, (numBots - 1) do
+	
+            xVec = LOUDSIN( 180 + (i*angle)) * 0.5
+            zVec = LOUDCOS( 180 + (i*angle)) * 0.5
+
+            tunit = CreateUnit('ura0001', army, x + xVec, y + yVec, z + zVec, qx, qy, qz, qw, 'Air' )
+
+            -- Make build bots unkillable
+            tunit:SetCanTakeDamage(false)
+            tunit:SetCanBeKilled(false)
+
+            table.insert (builder.BuildBots, tunit)
+		
+            TrashAdd( builder.Trash, tunit )
+
+            tunit:AttachTo( builder, 0 )
+            tunit.Detached = false
+
+        end
+    end
+end
+
+function CreateCybranEngineerBuildEffects( builder, unitBeingBuilt, BuildBones, BuildBots, BuildEffectsBag )
+
+    if builder.Dead then return end
 
     -- Create constant build effect for each build bone defined
     if BuildBones then
-	
-        local army = builder.Sync.army
-        local WaitTicks = coroutine.yield
-		
-        for _, vBone in BuildBones do
-        
-            for _, vEffect in CybranBuildUnitBlink01 do
-                TrashAdd( BuildEffectsBag, LOUDATTACHEMITTER(builder,vBone,army,vEffect))
-            end
-            
-            WaitTicks( (0.5 + (Random() * 0.6)) * 10 )
-        end
 
-        if BeenDestroyed(builder) then
-            return
-        end
+        -- create permanent blinkers and control beams
+        if not builder.BuildEmitter then
 
-        local i = 1
-		
-        for _, vBot in BuildBots do
+            local army = builder.Sync.army
         
-            if not vBot or BeenDestroyed(vBot) then
-                continue
+            builder.BuildEmitter = {}
+		
+            -- create a permanent blinking light on each BuildBone
+            for _, vBone in BuildBones do
+        
+                for _, vEffect in CybranBuildUnitBlink01 do
+                
+                    builder.BuildEmitter[vBone] = LOUDATTACHEMITTER( builder, vBone, army, vEffect)
+                    
+                    TrashAdd( builder.Trash, builder.BuildEmitter[vBone] )
+                    
+                    -- create a permanent control beam for each bot
+                    for _, vBot in BuildBots do
+
+                        TrashAdd( builder.Trash, LOUDATTACHBEAMENTITY(builder, vBone, vBot, -1, army, '/effects/emitters/build_beam_03_emit.bp'))
+                    end
+                end
             end
-            
-            TrashAdd( BuildEffectsBag, LOUDATTACHBEAMENTITY(builder, BuildBones[i], vBot, -1, army, '/effects/emitters/build_beam_03_emit.bp'))        
-            i = i + 1
         end
+        
+        -- scale blinking light up to full size
+        for _, emitter in builder.BuildEmitter do
+            ScaleEmitter( emitter, 1.2 )
+        end
+    end
+    
+    if BuildBots then
+    
+        for _, bot in BuildBots do
+        
+            --LOG("*AI DEBUG Detach bot from Engineer - unitBeingBuilt is "..repr(unitBeingBuilt.BlueprintID))
+            
+            bot:DetachFrom()
+            bot.Detached = true
+            
+            IssueGuard( {bot}, builder )
+        end
+        
     end
 end
 
 function CreateCybranFactoryBuildEffects( builder, unitBeingBuilt, BuildBones, BuildEffectsBag )
-	
-    local BuildEffects = { '/effects/emitters/sparks_03_emit.bp', '/effects/emitters/flashes_01_emit.bp', }
-    local UnitBuildEffects = { '/effects/emitters/build_cybran_spark_flash_04_emit.bp', '/effects/emitters/build_sparks_blue_02_emit.bp', }
+
+    local Random = Random
+    local RandomOffset = unitBeingBuilt.GetRandomOffset
 	
     local army = builder.Sync.army
+
+    -- this process will create the permanent emitters on the factory
+    -- attach sparks and flashes emitters to each BuildBone in the BuildEffectBones list
+    if not builder.BuildProjectile then
+
+        local BuildEffects = { '/effects/emitters/sparks_03_emit.bp', '/effects/emitters/flashes_01_emit.bp', }
     
-    for _,vB in BuildBones.BuildEffectBones do
-    
-        for _, vE in BuildEffects do
-            TrashAdd( BuildEffectsBag, LOUDATTACHEMITTER(builder,vB,army,vE) )
-        end 
+        builder.BuildProjectile = {}
         
+        for _,vB in BuildBones.BuildEffectBones do
+        
+            builder.BuildProjectile[vB] = {}
+            
+            builder.BuildProjectile[vB][1] = LOUDATTACHEMITTER( builder, vB, army, BuildEffects[1] )
+            builder.BuildProjectile[vB][2] = LOUDATTACHEMITTER( builder, vB, army, BuildEffects[2] )
+
+            TrashAdd( builder.Trash, builder.BuildProjectile[vB][1] )
+            TrashAdd( builder.Trash, builder.BuildProjectile[vB][2] )
+        end
+    
+        -- attach emitter to the BuildAttachBone (factory floor)
+        builder.BuildProjectile.AttachBone = LOUDATTACHEMITTER( builder, BuildBones.BuildAttachBone, army, '/effects/emitters/cybran_factory_build_01_emit.bp' )
+        
+        TrashAdd( builder.Trash, builder.BuildProjectile.AttachBone )
     end
     
-    TrashAdd( BuildEffectsBag, LOUDATTACHEMITTER( builder, BuildBones.BuildAttachBone, army, '/effects/emitters/cybran_factory_build_01_emit.bp' ) )
-
-    -- Add sparks to the collision box of the unit being built
-    local sx, sy, sz = 0
+    -- reset emitters to fullsize
+    for _,vB in BuildBones.BuildEffectBones do
+        ScaleEmitter( builder.BuildProjectile[vB][1], 1.1 )
+        ScaleEmitter( builder.BuildProjectile[vB][2], 1.1 )
+    end
     
+    ScaleEmitter( builder.BuildProjectile.AttachBone, 1.2 )
+
+  
     local GetFractionComplete = GetFractionComplete
 	local WaitTicks = coroutine.yield
-
+    
+    -- Add sparks to the collision box of the unit being built
+    local sx, sy, sz = 0
+    local UnitBuildEffects = { '/effects/emitters/build_cybran_spark_flash_04_emit.bp', '/effects/emitters/build_sparks_blue_02_emit.bp' }
+    
     while not unitBeingBuilt.Dead and GetFractionComplete(unitBeingBuilt) < 1 do
     
-        sx, sy, sz = unitBeingBuilt:GetRandomOffset(1)
+        sx, sy, sz = RandomOffset(unitBeingBuilt,1)
 		
+        -- create 2 different spark effects at some place on the unitBeingBuilt
         for _, vE in UnitBuildEffects do
-            LOUDEMITONENTITY(unitBeingBuilt,army,vE):OffsetEmitter(sx,sy,sz) 
+        
+            builder.vE = LOUDEMITONENTITY(unitBeingBuilt,army,vE):OffsetEmitter(sx,sy,sz) 
+            TrashAdd( BuildEffectsBag, builder.vE )
         end
         
-        WaitTicks( (0.6 + (Random() * 0.4)) * 10 )
+        WaitTicks( Random(2,11) )
     end 
 end
 
 
-function CreateAeonConstructionUnitBuildingEffects( builder, unitBeingBuilt, BuildEffectsBag )
-
-    TrashAdd( BuildEffectsBag, LOUDEMITONENTITY(builder, builder.Sync.army,'/effects/emitters/aeon_build_01_emit.bp') )
-
-    local beamEnd = Entity()
-    
-    TrashAdd( BuildEffectsBag, beamEnd )
-    
-    LOUDWARP( beamEnd, GetPosition(unitBeingBuilt) )
-    
-    local beamEffect
-
-    for _, v in AeonBuildBeams01 do
-    
-		beamEffect = LOUDATTACHBEAMENTITY(builder, 0, beamEnd, -1, builder.Sync.army, v )
-        
-		beamEffect:SetEmitterParam( 'POSITION_Z', 0.45 )
-        
-		TrashAdd( BuildEffectsBag, beamEffect )
-	end
-end
-
-function CreateAeonCommanderBuildingEffects( builder, unitBeingBuilt, BuildEffectBones, BuildEffectsBag )
-
-    local beamEnd = Entity()
-    
-    TrashAdd( BuildEffectsBag, beamEnd )
-    
-    LOUDWARP( beamEnd, GetPosition(unitBeingBuilt) )
-    
-    local beamEffect
-
-    for _, vBone in BuildEffectBones do
-    
-		TrashAdd( BuildEffectsBag, LOUDATTACHEMITTER( builder, vBone, builder.Sync.army, '/effects/emitters/aeon_build_02_emit.bp' ) )
-
-    	for _, v in AeonBuildBeams01 do
-        
-			beamEffect = LOUDATTACHBEAMENTITY(builder, vBone, beamEnd, -1, builder.Sync.army, v )
-            
-			TrashAdd( BuildEffectsBag, beamEffect )
-		end
-	end
-end
-
--- effects used by Factories building units
-function CreateAeonFactoryBuildingEffects( builder, unitBeingBuilt, BuildEffectBones, BuildBone, EffectsBag )
-
-    local bp = ALLBPS[unitBeingBuilt.BlueprintID]
-    
-    local army = builder.Sync.army
-    
-	local pos = table.copy(builder.CachePosition)
-	
-	local x = pos[1]
-	local y = pos[2]
-	local z = pos[3]
-
-    local sx = bp.Physics.MeshExtentsX or bp.SizeX or bp.Footprint.SizeX
-    local sz = bp.Physics.MeshExtentsZ or bp.SizeZ or bp.Footprint.SizeZ
-    local sy = bp.Physics.MeshExtentsY or bp.SizeY or sx + sz
-
-    for _, vBone in BuildEffectBones do
-		
-		if EffectsBag then
-        
-            local beamEffect
-		
-			TrashAdd( EffectsBag, LOUDATTACHEMITTER( builder, vBone, army, '/effects/emitters/aeon_build_03_emit.bp' ) )
-		
-			for _, vBeam in AeonBuildBeams02 do
-			
-				beamEffect = LOUDATTACHBEAMENTITY(builder, vBone, builder, BuildBone, army, vBeam )
-				
-				TrashAdd( EffectsBag, beamEffect )
-				
-			end
-		end
-	end
-
-    repeat
-
-	    WaitTicks(5)
-		
-	until unitBeingBuilt.Dead or GetFractionComplete(unitBeingBuilt) == 1
-
-end
-
+--- Sera Construction Effects --
 
 function CreateSeraphimUnitEngineerBuildingEffects( builder, unitBeingBuilt, BuildEffectBones, BuildEffectsBag )
 
 	local army = builder.Sync.army
-
-    for _, vBone in BuildEffectBones do
     
-		TrashAdd( BuildEffectsBag, LOUDATTACHEMITTER( builder, vBone, army, '/effects/emitters/seraphim_build_01_emit.bp' ) )
+    if not builder.BuildEmitters then
+    
+        builder.BuildEmitters = {}
         
         local beamEffect
 
-    	for _, v in SeraphimBuildBeams01 do
+        for _, vBone in BuildEffectBones do
         
-			beamEffect = LOUDATTACHBEAMENTITY(builder, vBone, unitBeingBuilt, -1, army, v )
+            beamEffect = LOUDATTACHEMITTER( builder, vBone, army, '/effects/emitters/seraphim_build_01_emit.bp' ) 
+
+            table.insert( builder.BuildEmitters, beamEffect )
             
-			TrashAdd( BuildEffectsBag, beamEffect )
+            TrashAdd( builder.Trash, beamEffect )
+
 		end
 	end
+    
+    for _, emit in builder.BuildEmitters do
+        ScaleEmitter( emit, 1 )
+    end
+
+    for _, vBone in BuildEffectBones do
+    
+        for _, v in SeraphimBuildBeams01 do
+        
+            beamEffect = LOUDATTACHBEAMENTITY( builder, vBone, unitBeingBuilt, -1, army, v )
+
+            TrashAdd( BuildEffectsBag, beamEffect )
+        end
+    end    
 end
 
 function CreateSeraphimFactoryBuildingEffects( builder, unitBeingBuilt, BuildEffectBones, BuildBone, EffectsBag )
@@ -972,6 +1201,7 @@ function CreateSeraphimFactoryBuildingEffects( builder, unitBeingBuilt, BuildEff
     local BuildBaseEffect = CreateProjectile( unitBeingBuilt, '/effects/entities/SeraphimBuildEffect01/SeraphimBuildEffect01_proj.bp', nil, 0, 0, nil, nil, nil )
 	
     BuildBaseEffect:SetScale(sx, 1, sz)
+    
     BuildBaseEffect:SetOrientation( unitBeingBuilt:GetOrientation(), true)
     
     LOUDWARP( BuildBaseEffect, pos )
@@ -1042,12 +1272,14 @@ end
 function CreateSeraphimBuildBaseThread( unitBeingBuilt, builder, EffectsBag )
 
     local WaitTicks = coroutine.yield
+
+    WaitTicks(1)
     
     local army = builder.Sync.army
-    local bp = ALLBPS[unitBeingBuilt.BlueprintID]
     
-    local vec = VectorCached
-	local pos = unitBeingBuilt:GetPosition()
+    local bp = ALLBPS[unitBeingBuilt.BlueprintID]
+
+	local pos = GetPosition(unitBeingBuilt)
     
 	local x = pos[1]
 	local y = pos[2]
@@ -1056,8 +1288,6 @@ function CreateSeraphimBuildBaseThread( unitBeingBuilt, builder, EffectsBag )
     local sx = bp.Physics.MeshExtentsX or bp.SizeX or bp.Footprint.SizeX * 0.5
     local sz = bp.Physics.MeshExtentsZ or bp.SizeZ or bp.Footprint.SizeZ * 0.5
     local sy = bp.Physics.MeshExtentsY or bp.SizeY or sx + sz
-
-    WaitTicks(1)
 
     local BuildBaseEffect = CreateProjectile( unitBeingBuilt, '/effects/entities/SeraphimBuildEffect01/SeraphimBuildEffect01_proj.bp', nil, 0, 0, nil, nil, nil )
 	
@@ -1106,6 +1336,7 @@ function CreateSeraphimBuildBaseThread( unitBeingBuilt, builder, EffectsBag )
 
     -- Poll the unit being built every second to adjust the effects to match
     local fractionComplete = GetFractionComplete(unitBeingBuilt)
+    
     local unitScaleMetric = unitBeingBuilt:GetFootPrintSize() * 0.65
 	
     while not unitBeingBuilt.Dead and fractionComplete < 1.0 do
@@ -1114,7 +1345,7 @@ function CreateSeraphimBuildBaseThread( unitBeingBuilt, builder, EffectsBag )
         fractionComplete = GetFractionComplete(unitBeingBuilt)
 		
         for _, vEffect in AdjustedEmitters do
-            vEffect:ScaleEmitter( 1 + (unitScaleMetric * fractionComplete))	    
+            ScaleEmitter( vEffect, 1 + (unitScaleMetric * fractionComplete))	    
         end        
     end
 	
@@ -1204,7 +1435,7 @@ function CreateSeraphimExperimentalBuildBaseThread( unitBeingBuilt, builder, Eff
         fractionComplete = GetFractionComplete(unitBeingBuilt)
 		
         for _, vEffect in AdjustedEmitters do
-            vEffect:ScaleEmitter( 2 + (unitScaleMetric * fractionComplete) )	    
+            ScaleEmitter( vEffect, 2 + (unitScaleMetric * fractionComplete) )	    
         end        
     end
 
@@ -1230,6 +1461,8 @@ function CreateSeraphimExperimentalBuildBaseThread( unitBeingBuilt, builder, Eff
     
     BuildBaseEffect:Destroy()
 end
+
+
 
 -- I modded this to reduce the number of entities created by the adjacency beams
 -- only Sera effect remains untouched
@@ -1436,7 +1669,6 @@ function CleanupEffectBag( self, EffectBag )
 	if self[EffectBag] then
 	
 		for _, v in self[EffectBag] do
-
 			v:Destroy()
 		end
 		
@@ -1448,7 +1680,7 @@ end
 
 function SeraphimRiftIn( unit )
 
-	unit:HideBone(0, true)
+	HideBone( unit, 0, true)
 	
 	for _, v in EffectTemplate.SerRiftIn_Small do
 		LOUDATTACHEMITTER ( unit, -1, unit.Sync.army, v )
@@ -1467,7 +1699,7 @@ end
 
 function SeraphimRiftInLarge( unit )
 
-	unit:HideBone(0, true)
+	HideBone( unit, 0, true)
 	
 	for _, v in EffectTemplate.SerRiftIn_Large do
 		LOUDATTACHEMITTER ( unit, -1, unit.Sync.army, v )

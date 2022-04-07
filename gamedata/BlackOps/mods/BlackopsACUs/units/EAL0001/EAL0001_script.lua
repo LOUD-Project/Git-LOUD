@@ -232,7 +232,13 @@ EAL0001 = Class(AWalkingLandUnit) {
         end
     
         if self.BuildProjectile then
-            self.BuildProjectile:AttachTo( self, self.BuildPoint )
+        
+            if self.BuildProjectile.Detached then
+            
+                self.BuildProjectile:AttachTo( self, self.BuildPoint )
+            end
+            
+            self.BuildProjectile.Detached = false
         end
         
         AWalkingLandUnit.OnStopBuild(self, unitBeingBuilt)
