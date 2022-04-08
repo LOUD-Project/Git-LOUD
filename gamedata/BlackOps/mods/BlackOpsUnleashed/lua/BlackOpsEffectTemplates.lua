@@ -590,7 +590,7 @@ EXLambdaDestoyer = {
     EmtBpPathAlt .. 'lambda_distortion_01.bp',
     EmtBpPathAlt .. 'lambda_destroy_dark_01.bp',
     EmtBpPathAlt .. 'lambda_destroy_dark_02.bp',
-    #EmtBpPathAlt .. 'lambda_destroy_dark_03a.bp',
+    --EmtBpPathAlt .. 'lambda_destroy_dark_03a.bp',
     EmtBpPathAlt .. 'lambda_destroy_dark_03b.bp',
     EmtBpPathAlt .. 'lambda_destroy_dark_04.bp',
     EmtBpPathAlt .. 'lambda_destroy_bright_01.bp',

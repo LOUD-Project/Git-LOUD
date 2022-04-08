@@ -1,5 +1,5 @@
 EmitterBlueprint {
-	BlueprintId = 'lambda_distortion',
+	BlueprintId = 'lambda_distortion_01',
 	Lifetime = 7.00,
 	Repeattime = 2.00,
 	TextureFramecount = 1.00,
