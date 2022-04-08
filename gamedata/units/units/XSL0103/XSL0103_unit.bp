@@ -149,21 +149,25 @@ UnitBlueprint {
         },
         DragCoefficient = 0.2,
         Elevation = 0.11,
-        MaxAcceleration = 1.6,
-        MaxBrake = 3.2,
+        MaxAcceleration = 1.1,
+        MaxBrake = 1.1,
         MaxSpeed = 3.2,
         MaxSpeedReverse = 2,
+        
         MaxSteerForce = 10,
         MeshExtentsX = 0.55,
         MeshExtentsY = 0.35,
         MeshExtentsZ = 0.65,
+        
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Hover',
         RotateBodyWhileMoving = true,
+        
         RotateOnSpot = false,
-        TurnFacingRate = 120,
+        
+        TurnFacingRate = 60,
         TurnRadius = 2,
-        TurnRate = 90,
+        TurnRate = 45,
     },
 	
     SelectionSizeX = 0.35,
@@ -209,6 +213,9 @@ UnitBlueprint {
             DamageType = 'Normal',
 			
             DisplayName = 'Cannon',
+            
+            EnergyRequired = 45,
+            EnergyDrainPerSecond = 9,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
@@ -220,7 +227,7 @@ UnitBlueprint {
 			
             Label = 'MainGun',
 			
-            MaxRadius = 36,
+            MaxRadius = 37,
             MinRadius = 5,
 			
             MuzzleSalvoDelay = 0,
@@ -250,7 +257,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.2,
+            RateOfFire = 1,   -- every 5 seconds controlled by charge
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 40,
@@ -272,11 +279,11 @@ UnitBlueprint {
 			
             TurretPitch = 45,
             TurretPitchRange = 90,
-            TurretPitchSpeed = 70,
+            TurretPitchSpeed = 55,
 			
             TurretYaw = 0,
             TurretYawRange = 90,
-            TurretYawSpeed = 30,
+            TurretYawSpeed = 28,
 			
             Turreted = true,
         },

@@ -73,13 +73,13 @@ UnitBlueprint {
     Defense = {
         ArmorType = 'Experimental',
         EconomyThreatLevel = 490,
-        Health = 42500,
-        MaxHealth = 42500,
-        RegenRate = 15,
+        Health = 34500,
+        MaxHealth = 34500,
+        RegenRate = 12,
         SurfaceThreatLevel = 383.3,
     },
 	
-    Description = '<LOC sal0401>Experimental Heavy Siege Tank',
+    Description = '<LOC sal0401>Experimental Mobile Artillery Hover',
 	
     Display = {
 	
@@ -211,7 +211,7 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 380000,
+        BuildCostEnergy = 418000,
         BuildCostMass = 22500,
         BuildTime = 7400,
     },
@@ -247,7 +247,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = '<LOC sal0401_desc>Heavy Siege Tank',
+        HelpText = '<LOC sal0401_desc>Mobile Artillery Hover',
     },
 	
     LifeBarHeight = 0.075,
@@ -289,9 +289,9 @@ UnitBlueprint {
         SkirtSizeX = 4,
         SkirtSizeZ = 4,
 		
-        TurnFacingRate = 80,
+        TurnFacingRate = 60,
         TurnRadius = 0,
-        TurnRate = 36,
+        TurnRate = 34,
     },
 	
     SelectionSizeX = 2,
@@ -310,11 +310,11 @@ UnitBlueprint {
     },
     
     Veteran = {
-        Level1 = 25,
-        Level2 = 50,
-        Level3 = 75,
-        Level4 = 100,
-        Level5 = 125,
+        Level1 = 30,
+        Level2 = 60,
+        Level3 = 90,
+        Level4 = 120,
+        Level5 = 150,
     },
 	
     Weapon = {
@@ -349,15 +349,15 @@ UnitBlueprint {
             
             BallisticArc = 'RULEUBA_LowArc',
 			
-            -- Yes - it stuns other T4 for 1 second --
+            -- Yes - it stuns other T4 for 1.3 second --
             -- this is a unique bonus
             Buffs = {
                 {
                     Add = { OnImpact = true },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
-                    Duration = 1,
-                    Radius = 2.5,
+                    Duration = 1.3,
+                    Radius = 2.2,
                     TargetAllow = 'ALLUNITS',
                     TargetDisallow = 'COMMAND,SUBCOMMANDER,AIR,MISSILE,WALL',
                 },
@@ -389,7 +389,7 @@ UnitBlueprint {
             
 			LeadTarget = true,
 			
-            MaxRadius = 120,
+            MaxRadius = 115,
 			MinRadius = 18,
 			
             MuzzleChargeDelay = 0.5,        -- 0.5 seconds delay
@@ -397,7 +397,7 @@ UnitBlueprint {
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 28,
 			MuzzleVelocityRandom = 2,
-            MuzzleVelocityReduceDistance = 132,
+            MuzzleVelocityReduceDistance = 100,
 			
             NotExclusive = true,
 			
@@ -545,9 +545,9 @@ UnitBlueprint {
     },
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.3,
         HealthMult = 0.5,
-        MassMult = 0.5,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,

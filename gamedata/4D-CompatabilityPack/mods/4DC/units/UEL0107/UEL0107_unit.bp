@@ -117,7 +117,7 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 680,
+        BuildCostEnergy = 720,
         BuildCostMass = 65,
         BuildTime = 81,
     },
@@ -162,10 +162,12 @@ UnitBlueprint {
         },
         DragCoefficient = 0.2,
         Elevation = 0.125,
+        
         MaxAcceleration = 0.8,
         MaxBrake = 1.7,
         MaxSpeed = 3.2,
         MaxSpeedReverse = 0,
+        
         MaxSteerForce = 1000,
         MeshExtentsX = 0.60,
         MeshExtentsY = 0.44,
@@ -173,9 +175,11 @@ UnitBlueprint {
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Hover',
         RotateBodyWhileMoving = true,
-        TurnFacingRate = 60,
+        
+        TurnFacingRate = 48,
         TurnRadius = 0,
-        TurnRate = 45,
+        TurnRate = 36,
+        
         WobbleFactor = 0.003,
         WobbleSpeed = 0.01,
     },
@@ -238,7 +242,7 @@ UnitBlueprint {
 			
             Label = 'Mortar',
 			
-            MaxRadius = 32,
+            MaxRadius = 33,
             MinRadius = 5,
 			
             MuzzleSalvoDelay = 0.4,
@@ -256,13 +260,9 @@ UnitBlueprint {
                         'Muzzle',
                     },
                     RackBone = 'Barrel_Outer',
-                    --TelescopeBone = 'Barrel_Inner',
-                    --TelescopeRecoilDistance = -1.0,
                 },
             },
 
-            --RackFireTogether = false,
-            --RackRecoilDistance = -0.5,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
@@ -290,20 +290,20 @@ UnitBlueprint {
 			
             TurretPitch = 0,
             TurretPitchRange = 45,
-            TurretPitchSpeed = 45,
+            TurretPitchSpeed = 36,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 55,
+            TurretYawSpeed = 36,
 			
             Turreted = true,
         },
     },
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.1,
+        EnergyMult = 0.35,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.35,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,

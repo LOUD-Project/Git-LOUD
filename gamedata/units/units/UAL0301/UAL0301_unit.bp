@@ -258,18 +258,13 @@ UnitBlueprint {
             ShieldEnergyDrainRechargeTime = 5,
             ShieldMaxHealth = 20000,
             ShieldRechargeTime = 190,
-            ShieldRegenRate = 40,
+            ShieldRegenRate = 105,
             ShieldRegenStartTime = 1,
-            ShowBones = {
-                'Turbine',
-            },
+            
+            ShowBones = {'Turbine'},
             Slot = 'Back',
-            UpgradeEffectBones = {
-                'Turbine',
-            },
-            UpgradeUnitAmbientBones = {
-                'UAL0301',
-            },
+            UpgradeEffectBones = {'Turbine'},
+            UpgradeUnitAmbientBones = {'UAL0301'},
         },
         
         ShieldRemove = {
@@ -299,18 +294,14 @@ UnitBlueprint {
             Name = '<LOC enhancements_0029>Heavy Personal Shield Generator',
             OwnerShieldMesh = '/units/ual0301/ual0301_personalshield_mesh',
             Prerequisite = 'Shield',
-            ShieldEnergyDrainRechargeTime = 5,
-            ShieldMaxHealth = 35000,
-            ShieldRechargeTime = 180,
-            ShieldRegenRate = 120,
+            ShieldEnergyDrainRechargeTime = 9,
+            ShieldMaxHealth = 32000,
+            ShieldRechargeTime = 200,
+            ShieldRegenRate = 160,
             ShieldRegenStartTime = 1,
             Slot = 'Back',
-            UpgradeEffectBones = {
-                'Turbine',
-            },
-            UpgradeUnitAmbientBones = {
-                'UAL0301',
-            },
+            UpgradeEffectBones = {'Turbine'},
+            UpgradeUnitAmbientBones = {'UAL0301'},
         },
         
         ShieldHeavyRemove = {

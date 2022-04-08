@@ -110,12 +110,14 @@ UnitBlueprint {
         BuildCostEnergy = 1550,
         BuildCostMass = 235,
 		
-        BuildRate = 5,
+        BuildRate = 3,
 		
         BuildTime = 940,
 		
-        MaintenanceConsumptionPerSecondEnergyStealth = 20,
-        MaintenanceConsumptionPerSecondEnergyCloak = 30,
+        MaintenanceConsumptionPerSecondEnergy = 12,
+        
+        MaintenanceConsumptionPerSecondEnergyCloak = 32,
+        
         NeedToFaceTargetToBuild = true,
     },
 	
@@ -156,7 +158,7 @@ UnitBlueprint {
         RadarRadius = 50,
         RadarStealth = true,
         CloakWaitTime = 1,
-        VisionRadius = 25,
+        VisionRadius = 28,
     },
 	
     Interface = {
@@ -181,7 +183,7 @@ UnitBlueprint {
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Land',
         TurnRadius = 2,
-        TurnRate = 80,
+        TurnRate = 75,
     },
 	
     SelectionCenterOffsetX = 0,
@@ -223,11 +225,11 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 14,
+            Damage = 24,
             DamageRadius = 0,
             DamageType = 'Normal',
 			
-            DisplayName = 'Light Pulse Laser',
+            DisplayName = 'Pulse Laser',
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -241,7 +243,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 25,
+            MuzzleVelocity = 30,
 			
             ProjectileId = '/projectiles/CDFLaserHeavy01/CDFLaserHeavy01_proj.bp',
 
@@ -272,7 +274,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 2,	-- 28dps
+            RateOfFire = 1,	-- 24dps
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -282,7 +284,9 @@ UnitBlueprint {
 				'STRUCTURE,-WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
+            
             TrackingRadius = 1.1,
+            
             TurretBoneMuzzle = 'Turret01_Muzzle01',
             TurretBonePitch = 'Turret01',
             TurretBoneYaw = 'Turret01',
@@ -290,11 +294,11 @@ UnitBlueprint {
 			
             TurretPitch = 0,
             TurretPitchRange = 45,
-            TurretPitchSpeed = 100,
+            TurretPitchSpeed = 45,
 			
             TurretYaw = 0,
             TurretYawRange = 52,
-            TurretYawSpeed = 80,
+            TurretYawSpeed = 60,
 			
             Turreted = true,
         },
@@ -323,7 +327,7 @@ UnitBlueprint {
             },
 
             CollideFriendly = false,
-            Damage = 45,
+            Damage = 90,
             DamageType = 'Normal',
 			
             DisplayName = 'Disintegrator Pulse Laser',
@@ -336,14 +340,12 @@ UnitBlueprint {
             Label = 'Disintigrator01',
 			
             LeadTarget = true,
-			
-            AddCloakDelay = 1,
-			
-            MaxRadius = 25,
+
+            MaxRadius = 27,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 35,
+            MuzzleVelocity = 36,
 			
             PrefersPrimaryWeaponTarget = true,
             ProjectileId = '/projectiles/CDFBolter02/CDFBolter02_proj.bp',
@@ -367,7 +369,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,	---- 45 dps
+            RateOfFire = 0.5,	---- 45 dps
 			
             TargetCheckInterval = 0.65,
             TargetPriorities = {
@@ -379,6 +381,7 @@ UnitBlueprint {
                 'ALLUNITS,-WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
+            
             TurretBoneMuzzle = 'Tail_Muzzle01',
             TurretBonePitch = 'Tail_Turret',
             TurretBoneYaw = 'Tail_Turret',
@@ -386,11 +389,12 @@ UnitBlueprint {
 			
             TurretPitch = 0,
             TurretPitchRange = 25,
-            TurretPitchSpeed = 60,
+            TurretPitchSpeed = 30,
 			
             TurretYaw = 0,
             TurretYawRange = 130,
-            TurretYawSpeed = 90,
+            TurretYawSpeed = 75,
+            
             Turreted = true,
         },
     },

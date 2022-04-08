@@ -87,7 +87,7 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 2200,
+        BuildCostEnergy = 2420,
         BuildCostMass = 400,
         BuildTime = 2000,
     },
@@ -130,8 +130,8 @@ UnitBlueprint {
 		
         Elevation = 0.125,
 		
-        MaxAcceleration = 2,
-        MaxBrake = 2,
+        MaxAcceleration = 1.2,
+        MaxBrake = 1.2,
 		
         MaxSpeed = 3.5,
         MaxSpeedReverse = 3.5,
@@ -145,9 +145,9 @@ UnitBlueprint {
 		
         RotateBodyWhileMoving = true,
 		
-        TurnFacingRate = 45,
+        TurnFacingRate = 40,
         TurnRadius = 0,
-        TurnRate = 55,
+        TurnRate = 48,
     },
 	
     SelectionSizeX = 0.5,

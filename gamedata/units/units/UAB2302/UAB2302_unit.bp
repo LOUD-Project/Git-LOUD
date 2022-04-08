@@ -107,7 +107,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 630000,
         BuildCostMass = 32500,
-        BuildTime = 39500,	---- was 30K
+        BuildTime = 39500,
 		
         RebuildBonusIds = { 'uab2302' },
     },
@@ -216,9 +216,9 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_HighArc',
 			
             CameraShakeDuration = 0.5,
-            CameraShakeMax = 1.5,
+            CameraShakeMax = 1.2,
             CameraShakeMin = 0,
-            CameraShakeRadius = 20,
+            CameraShakeRadius = 15,
 			
             CollideFriendly = false,
 			

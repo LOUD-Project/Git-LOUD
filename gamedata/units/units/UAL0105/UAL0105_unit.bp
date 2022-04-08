@@ -60,7 +60,10 @@ UnitBlueprint {
         Abilities = {
             'Sacrifice',
         },
+        
         AnimationBuild = '/units/ual0105/ual0105_aopen01.sca',
+        AnimationBuildRate = 3,
+        
         IdleEffects = {
             Land = {
                 Effects = {
@@ -214,9 +217,9 @@ UnitBlueprint {
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,

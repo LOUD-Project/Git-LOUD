@@ -74,7 +74,7 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 680,
+        BuildCostEnergy = 710,
         BuildCostMass = 65,
         BuildTime = 82,
     },
@@ -117,24 +117,31 @@ UnitBlueprint {
         },
         DragCoefficient = 0.2,
         Elevation = 0.2,
+        
         MaxAcceleration = 0.7,
         MaxBrake = 1.6,
         MaxSpeed = 3.2,
         MaxSpeedReverse = 0,
         MaxSteerForce = 1000,
+        
         MeshExtentsX = 0.75,
         MeshExtentsY = 0.5,
         MeshExtentsZ = 0.9,
+        
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Hover',
+        
         RotateBodyWhileMoving = true,
         RotateOnSpot = false,
-        TurnFacingRate = 60,
+        
+        TurnFacingRate = 50,
         TurnRadius = 0,
-        TurnRate = 55,
+        TurnRate = 45,
+        
         WobbleFactor = 0.01,
         WobbleSpeed = 0.01,
     },
+    
     SelectionSizeX = 0.55,
     SelectionSizeZ = 0.75,
     SelectionThickness = 0.38,
@@ -145,6 +152,7 @@ UnitBlueprint {
 	
     StrategicIconName = 'icon_surface1_directfire',
     StrategicIconSortPriority = 135,
+    
     Veteran = {
         Level1 = 3,
         Level2 = 6,
@@ -152,9 +160,11 @@ UnitBlueprint {
         Level4 = 12,
         Level5 = 15,
     },
+    
     Transport = {
         TransportClass = 1,
     },
+    
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -168,8 +178,9 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 41,
+            Damage = 82,
             DamageRadius = 0,
+            
             DamageType = 'Normal',
 			
             DisplayName = 'Disruptor Cannon',
@@ -179,7 +190,7 @@ UnitBlueprint {
                 Water = 'Land|Water|Seabed',
             },
 			
-			FiringRandomnessWhileMoving = 2,
+			FiringRandomnessWhileMoving = 1.4,
             FiringTolerance = 2,
 			
             Label = 'MainGun',
@@ -218,7 +229,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1.0,	-- 30 DPS
+            RateOfFire = 0.5,
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 10,
@@ -239,20 +250,20 @@ UnitBlueprint {
 			
             TurretPitch = 0,
             TurretPitchRange = 35,
-            TurretPitchSpeed = 60,
+            TurretPitchSpeed = 35,
 			
             TurretYaw = 0,
             TurretYawRange = 10,
-            TurretYawSpeed = 60,
+            TurretYawSpeed = 35,
 			
             Turreted = true,
         },
     },
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.1,
+        EnergyMult = 0.35,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.35,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,

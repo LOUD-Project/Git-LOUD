@@ -49,9 +49,9 @@ UnitBlueprint {
     Defense = {
         AirThreatLevel = 14,
         ArmorType = 'Normal',
-        Health = 1000,
-        MaxHealth = 1000,
-        RegenRate = 0,
+        Health = 920,
+        MaxHealth = 920,
+        RegenRate = 1,
     },
 	
     Description = '<LOC xsl0205_desc>AA Hovertank',
@@ -79,7 +79,7 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 880,
+        BuildCostEnergy = 965,
         BuildCostMass = 200,
         BuildTime = 1000,
     },
@@ -118,26 +118,33 @@ UnitBlueprint {
     Physics = {
 		BackUpDistance = 4,
         BankingSlope = 0.5,
-        BuildOnLayerCaps = {
-            LAYER_Land = true,
-        },
+        
+        BuildOnLayerCaps = { LAYER_Land = true },
+        
         DragCoefficient = 0.2,
         Elevation = 0.25,
-        MaxAcceleration = 3.3,
-        MaxBrake = 3.3,
+        
+        MaxAcceleration = 1.1,
+        MaxBrake = 1.1,
+        
         MaxSpeed = 3.3,
         MaxSpeedReverse = 3,
+        
         MaxSteerForce = 1000,
+        
         MeshExtentsX = 1.1,
         MeshExtentsY = 0.5,
         MeshExtentsZ = 1.25,
+        
         MinSpeedPercent = 0,
+        
         MotionType = 'RULEUMT_Hover',
+        
         RotateBodyWhileMoving = true,
         RotateOnSpot = false,
-        TurnFacingRate = 180,
+        TurnFacingRate = 50,
         TurnRadius = 0,
-        TurnRate = 120,
+        TurnRate = 45,
     },
 	
     SelectionSizeX = 0.5,
@@ -247,20 +254,21 @@ UnitBlueprint {
 			
             TurretPitch = 35,
             TurretPitchRange = 60,
-            TurretPitchSpeed = 180,
+            TurretPitchSpeed = 120,
 			
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 120,
+            TurretYawSpeed = 65,
 			
             Turreted = true,
         },
     },
+    
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.9,
+        EnergyMult = 0.5,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,

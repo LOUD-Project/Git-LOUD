@@ -74,9 +74,10 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Experimental',
-        Health = 48000,
-        MaxHealth = 48000,
-        RegenRate = 18,
+        Health = 46500,
+        MaxHealth = 46500,
+        RegenRate = 12,
+        
         SurfaceThreatLevel = 804.2,
     },
 	
@@ -141,7 +142,7 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 350000,
+        BuildCostEnergy = 385000,
         BuildCostMass = 19000,
         BuildTime = 10500,
     },
@@ -203,10 +204,10 @@ UnitBlueprint {
         DragCoefficient = 0.1,		
 		Elevation = 0.5,
 
-        MaxAcceleration = 1.2,
-        MaxBrake = 1.2,
-        MaxSpeed = 3.3,
-        MaxSpeedReverse = 3.3,
+        MaxAcceleration = 1.1,
+        MaxBrake = 1.1,
+        MaxSpeed = 3.2,
+        MaxSpeedReverse = 3.2,
 		
         MaxSteerForce = 24,
         MeshExtentsX = 2,
@@ -224,9 +225,9 @@ UnitBlueprint {
         RotateBodyWhileMoving = true,
         RotateOnSpot = false,
 		
-        TurnFacingRate = 60,
+        TurnFacingRate = 40,
         TurnRadius = 0,
-        TurnRate = 36,
+        TurnRate = 30,
     },
 	
     SelectionSizeX = 1.8,
@@ -266,7 +267,10 @@ UnitBlueprint {
             DamageType = 'Normal',
 			
             DisplayName = 'Serpentine Missile',
-			
+
+            EnergyRequired = 3200,
+            EnergyDrainPerSecond = 320,
+            
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
@@ -312,8 +316,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.1,	-- 900 dps
-            RenderFireClock = true,
+            RateOfFire = 1,	-- 900 dps - controlled by charge
 			
             SlavedToBody = false,
 			
@@ -350,13 +353,16 @@ UnitBlueprint {
             DamageType = 'Normal',
 			
             DisplayName = 'Sonance Artillery',
-			
+
+            EnergyRequired = 720,
+            EnergyDrainPerSecond = 216,
+            
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
 			
-            FiringRandomness = 0.9,
+            FiringRandomness = 0.4,
             FiringTolerance = 0.5,
 			
             Label = 'MainGun',
@@ -399,7 +405,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.3,	-- 480 dps
+            RateOfFire = 1,	-- 480 dps - controlled by charge
 			
             TargetCheckInterval = 1,
 			
@@ -681,9 +687,9 @@ UnitBlueprint {
 	
 	Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.3,
+        EnergyMult = 0.35,
         HealthMult = 0.9,
-        MassMult = 0.3,
+        MassMult = 0.35,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,

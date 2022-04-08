@@ -44,7 +44,6 @@ UnitBlueprint {
         'MOBILE',
         'LAND',
         'TECH2',
-        --'ANTIMISSILE',
 		'AMPHIBIOUS',
         'HOVER',
         'VISIBLETORECON',
@@ -55,11 +54,11 @@ UnitBlueprint {
     Defense = {
         ArmorType = 'Light',
         EconomyThreatLevel = 2,
-        Health = 480,
-        MaxHealth = 480,
+        Health = 550,
+        MaxHealth = 550,
     },
 	
-    Description = '<LOC sl0323_desc>Mobile Tactical Missile Defense',
+    Description = '<LOC sal0323_desc>Mobile Tactical Missile Defense',
 	
     Display = {
         Abilities = {
@@ -133,7 +132,7 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 3850,
+        BuildCostEnergy = 4200,
         BuildCostMass = 320,
         BuildTime = 660,
     },
@@ -181,16 +180,18 @@ UnitBlueprint {
         },
         DragCoefficient = 0.2,
         Elevation = 0.25,
-        MaxAcceleration = 1.8,
-        MaxBrake = 1.8,
+        MaxAcceleration = 1.2,
+        MaxBrake = 1.2,
         MaxSpeed = 3.4,
         MaxSpeedReverse = 0,
         MaxSteerForce = 1000,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Hover',
-        TurnFacingRate = 180,
+        
+        TurnFacingRate = 90,
         TurnRadius = 0,
-        TurnRate = 120,
+        TurnRate = 60,
+        
         WobbleFactor = 0,
         WobbleSpeed = 0,
     },
@@ -288,9 +289,9 @@ UnitBlueprint {
     },
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.35,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.35,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,

@@ -127,7 +127,7 @@ UnitBlueprint {
     },
 
     Economy = {
-        BuildCostEnergy = 30000*0.9,
+        BuildCostEnergy = 33000*0.9,
         BuildCostMass = 2400*0.5,
         BuildTime = 5000,
 
@@ -189,17 +189,19 @@ UnitBlueprint {
             LAYER_Land = true,
         },
         DragCoefficient = 0.2,
-        MaxAcceleration = 2,
-        MaxBrake = 3.3,
+        
+        MaxAcceleration = 1.1,
+        MaxBrake = 1.1,
         MaxSpeed = 3.3,
         MaxSpeedReverse = 0,
+        
         MaxSteerForce = 10,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Land',
         RotateOnSpot = false,
         RotateOnSpotThreshold = 1,
         TurnRadius = 0,
-        TurnRate = 75,
+        TurnRate = 60,
     },
 
     SelectionSizeX = 0.8,

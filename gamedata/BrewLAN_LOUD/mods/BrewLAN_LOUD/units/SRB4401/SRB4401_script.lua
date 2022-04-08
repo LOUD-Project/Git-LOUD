@@ -1,4 +1,4 @@
-local CShieldStructureUnit = import('/lua/cybranunits.lua').CShieldStructureUnit
+local CShieldStructureUnit = import('/lua/defaultunits.lua').StructureUnit
 
 SRB4401 = Class(CShieldStructureUnit) {
     

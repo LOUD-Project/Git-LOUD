@@ -169,7 +169,7 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 560,
+        BuildCostEnergy = 610,
         BuildCostMass = 72,
         BuildTime = 90,
     },
@@ -228,9 +228,9 @@ UnitBlueprint {
         RotateBodyWhileMoving = true,
         RotateOnSpot = false,
 		
-        TurnFacingRate = 120,
+        TurnFacingRate = 80,
         TurnRadius = 2,
-        TurnRate = 90,
+        TurnRate = 60,
     },
 	
     SelectionSizeX = 0.35,
@@ -280,14 +280,14 @@ UnitBlueprint {
                 Water = 'Land|Water|Seabed',
             },
 			
-			FiringRandomness = 0.4,
+			FiringRandomness = 0.3,
 			FiringRandomnessWhileMoving = 0.8,
 			
             FiringTolerance = 2,
 			
             Label = 'TauCannon01',
 			
-            MaxRadius = 23,
+            MaxRadius = 24,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -347,9 +347,9 @@ UnitBlueprint {
     },
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.3,
+        EnergyMult = 0.35,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.35,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,

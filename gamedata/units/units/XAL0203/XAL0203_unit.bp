@@ -50,9 +50,9 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Normal',
-        Health = 890,
-        MaxHealth = 890,
-        RegenRate = 1.5,
+        Health = 900,
+        MaxHealth = 900,
+        RegenRate = 2,
         SurfaceThreatLevel = 8.8,
     },
 	
@@ -84,7 +84,7 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 2090,
+        BuildCostEnergy = 2150,
         BuildCostMass = 250,
         BuildTime = 1250,
     },
@@ -146,9 +146,9 @@ UnitBlueprint {
         RotateBodyWhileMoving = true,
 		
         RotateOnSpot = false,
-        TurnFacingRate = 65,
+        TurnFacingRate = 60,
         TurnRadius = 0,
-        TurnRate = 48,
+        TurnRate = 46,
         WobbleFactor = 0.02,
         WobbleSpeed = 0.01,
     },
@@ -262,16 +262,16 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 10,
-            TurretYawSpeed = 60,
+            TurretYawSpeed = 50,
 			
             Turreted = true,
         },
     },
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.2,
+        EnergyMult = 0.35,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.35,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,

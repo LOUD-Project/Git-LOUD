@@ -77,7 +77,7 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 40,
+        BuildCostEnergy = 44,
         BuildCostMass = 8,
         BuildTime = 40,
     },
@@ -101,17 +101,21 @@ UnitBlueprint {
         UnitName = '<LOC ual0101_name>Spirit',
         UnitWeight = 1,
     },
+    
     Intel = {
 		FreeIntel = true,
         RadarRadius = 50,
         VisionRadius = 28,
     },
+    
     Interface = {
         HelpText = 'Land Scout',
     },
+    
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.25,
     LifeBarSize = 0.5,
+    
     Physics = {
         BackUpDistance = 2,
         BankingSlope = 0.5,
@@ -120,10 +124,12 @@ UnitBlueprint {
         },
         DragCoefficient = 0.2,
         Elevation = 0.25,
-        MaxAcceleration = 5,
-        MaxBrake = 5,
+        
+        MaxAcceleration = 2,
+        MaxBrake = 2,
         MaxSpeed = 5,
         MaxSpeedReverse = 3,
+        
         MaxSteerForce = 1000,
         MeshExtentsX = 0.5,
         MeshExtentsY = 0.22,
@@ -131,18 +137,23 @@ UnitBlueprint {
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Hover',
         RotateBodyWhileMoving = true,
-        TurnFacingRate = 90,
+        
+        TurnFacingRate = 75,
         TurnRadius = 5,
-        TurnRate = 90,
+        TurnRate = 60,
     },
+    
     SelectionSizeX = 0.4,
     SelectionSizeZ = 0.4,
     SelectionThickness = 0.9,
+    
     SizeX = 0.45,
     SizeY = 0.27,
     SizeZ = 0.54,
+    
     StrategicIconName = 'icon_surface1_intel',
     StrategicIconSortPriority = 135,
+    
     Transport = {
         TransportClass = 1,
     },	

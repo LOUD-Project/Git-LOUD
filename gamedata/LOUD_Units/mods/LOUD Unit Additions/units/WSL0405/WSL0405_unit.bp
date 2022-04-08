@@ -65,10 +65,12 @@ UnitBlueprint {
 	
     Defense = {
         AirThreatLevel = 100,
+        
         ArmorType = 'Experimental',
-        Health = 80000,
-        MaxHealth = 80000,
-        RegenRate = 32,
+        
+        Health = 78000,
+        MaxHealth = 78000,
+        RegenRate = 30,
 		
         Shield = {
             ImpactEffects = 'SeraphimShieldHit01',
@@ -214,7 +216,7 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 1200000,
+        BuildCostEnergy = 1320000,
         BuildCostMass = 72500,
         BuildTime = 20000,
 		
@@ -275,7 +277,7 @@ UnitBlueprint {
 		
         Elevation = 0.3,
 		
-        MaxAcceleration = 0.9,
+        MaxAcceleration = 0.85,
         MaxBrake = 0.7,
         MaxSpeed = 2.6,
 		
@@ -299,7 +301,7 @@ UnitBlueprint {
         
         TurnFacingRate = 25,
         TurnRadius = 30,
-        TurnRate = 60,
+        TurnRate = 48,
 		
         WobbleFactor = 0.03,
         WobbleSpeed = 0.01,
@@ -348,6 +350,9 @@ UnitBlueprint {
             DamageType = 'Normal',
 			
             DisplayName = 'Thau Cannon',
+            
+            EnergyRequired = 4400,
+            EnergyDrainPerSecond = 2200,
 			
             FireTargetLayerCapsTable = {
                 Air = 'Land|Water|Seabed',
@@ -360,7 +365,7 @@ UnitBlueprint {
 			
             Label = 'MainTurret',
 			
-            MaxRadius = 72,
+            MaxRadius = 74,
 			MinRadius = 10,
 			
             MuzzleSalvoDelay = 0.2,
@@ -386,7 +391,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.5,   -- 2 x 2200 = 4400 Damage / 2 = 2200 DPS
+            RateOfFire = 1,   -- 2 x 2200 = 4400 Damage / 2 = 2200 DPS - controlled by charge
 			
             TargetCheckInterval = 1,
             TargetPriorities = {
@@ -764,7 +769,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 200,
-            DamageRadius = 1.6,
+            DamageRadius = 2,
             
             DetonatesAtTargetHeight = true,
             
@@ -782,7 +787,7 @@ UnitBlueprint {
             Label = 'AAGun',
             LeadTarget = true,
 			
-            MaxRadius = 48,
+            MaxRadius = 45,
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 2,
@@ -851,9 +856,9 @@ UnitBlueprint {
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.75,
+        MassMult = 0.35,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Land = true,

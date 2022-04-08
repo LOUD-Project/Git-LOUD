@@ -70,8 +70,8 @@ UnitBlueprint {
     Defense = {
         AirThreatLevel = 40,
         ArmorType = 'Normal',
-        Health = 2000,
-        MaxHealth = 2000,
+        Health = 1800,
+        MaxHealth = 1800,
         RegenRate = 2,
     },
 	
@@ -143,7 +143,7 @@ UnitBlueprint {
 	
     Economy = {
         BuildCostEnergy = 18100,
-        BuildCostMass = 1100,
+        BuildCostMass = 1050,
         BuildTime = 550,
     },
 	
@@ -203,9 +203,10 @@ UnitBlueprint {
         RotateBodyWhileMoving = true,
         RotateOnSpot = true,
         RotateOnSpotThreshold = 0.5,
-        TurnFacingRate = 180,
+        
+        TurnFacingRate = 60,
         TurnRadius = 0,
-        TurnRate = 120,
+        TurnRate = 60,
 		
         WobbleFactor = 0,
         WobbleSpeed = 0,
@@ -351,7 +352,7 @@ UnitBlueprint {
         {
             Damage = 500,
             DamageFriendly = true,
-            DamageRadius = 1,
+            DamageRadius = 2,
             DamageType = 'Normal',
             DisplayName = 'Death Weapon',
             DummyWeapon = true,
@@ -361,9 +362,9 @@ UnitBlueprint {
     },
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.35,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.35,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,

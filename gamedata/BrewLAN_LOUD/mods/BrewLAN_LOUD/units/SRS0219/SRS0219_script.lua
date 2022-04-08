@@ -1,13 +1,12 @@
---------------------------------------------------------------------------------
 --  Summary:  Field engineer boat
---------------------------------------------------------------------------------
-local CSeaUnit = import('/lua/cybranunits.lua').CSeaUnit
+
+local SeaUnit = import('/lua/defaultunits.lua').SeaUnit
 local CAAAutocannon = import('/lua/cybranweapons.lua').CAAAutocannon
---------------------------------------------------------------------------------
+
 local BrewLANLOUDPath = import( '/lua/game.lua' ).BrewLANLOUDPath()
 local AssistThread = import(BrewLANLOUDPath .. '/lua/fieldengineers.lua').AssistThread
 local EffectUtil = import('/lua/EffectUtilities.lua')
---------------------------------------------------------------------------------
+
 SRS0219 = Class(CSeaUnit) {
     DestructionTicks = 200,
 

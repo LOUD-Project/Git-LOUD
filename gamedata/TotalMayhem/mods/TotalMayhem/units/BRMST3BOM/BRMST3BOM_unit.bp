@@ -156,6 +156,7 @@ UnitBlueprint {
     },
 	
     General = {
+        CapCost = 3,
         Category = 'Ship',
         Classification = 'RULEUC_MilitaryShip',
         CommandCaps = {

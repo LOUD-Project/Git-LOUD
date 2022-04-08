@@ -1,16 +1,16 @@
---------------------------------------------------------------------------------
 --  Summary  :  Cybran Destroyer Script
---------------------------------------------------------------------------------
-local CSeaUnit = import('/lua/cybranunits.lua').CSeaUnit
+
+local CSeaUnit = import('/lua/defaultunits.lua').SeaUnit
+
 local CybranWeapons = import('/lua/cybranweapons.lua')
 local CAAAutocannon = CybranWeapons.CAAAutocannon
 local CANNaniteTorpedoWeapon = import('/lua/cybranweapons.lua').CANNaniteTorpedoWeapon
 local CIFSmartCharge = import('/lua/cybranweapons.lua').CIFSmartCharge
---------------------------------------------------------------------------------
+
 local BrewLANLOUDPath = import( '/lua/game.lua' ).BrewLANLOUDPath()
 local AssistThread = import(BrewLANLOUDPath .. '/lua/fieldengineers.lua').AssistThread
 local EffectUtil = import('/lua/EffectUtilities.lua')
---------------------------------------------------------------------------------
+
 SRS0319 = Class(CSeaUnit) {
     SwitchAnims = true,
     Walking = false,
@@ -121,7 +121,7 @@ SRS0319 = Class(CSeaUnit) {
         CSeaUnit.OnKilled(self, instigator, type, overkillRatio)
     end,
 
-     DeathThread = function(self, overkillRatio)
+    DeathThread = function(self, overkillRatio)
         if (self:GetCurrentLayer() != 'Water') then
             self:PlayUnitSound('Destroyed')
             local army = self:GetArmy()

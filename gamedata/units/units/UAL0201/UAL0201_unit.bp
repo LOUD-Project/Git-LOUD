@@ -118,10 +118,12 @@ UnitBlueprint {
         },
         DragCoefficient = 0.2,
         Elevation = 0.25,
+        
         MaxAcceleration = 1.7,
         MaxBrake = 1.7,
         MaxSpeed = 3.4,
         MaxSpeedReverse = 1.7,
+        
         MaxSteerForce = 1000,
         MeshExtentsX = 0.75,
         MeshExtentsY = 0.5,
@@ -131,22 +133,27 @@ UnitBlueprint {
         RotateBodyWhileMoving = true,
         RotateOnSpot = false,
 		
-        TurnFacingRate = 70,
+        TurnFacingRate = 60,
 		
         TurnRadius = 0,
-        TurnRate = 70,
+        TurnRate = 60,
     },
+    
     SelectionSizeX = 0.5,
     SelectionSizeZ = 0.7,
     SelectionThickness = 0.58,
+    
     SizeX = 0.7,
     SizeY = 0.4,
     SizeZ = 0.9,
+    
     StrategicIconName = 'icon_surface1_directfire',
     StrategicIconSortPriority = 135,
+    
     Transport = {
         TransportClass = 1,
     },	
+    
     Veteran = {
         Level1 = 3,
         Level2 = 6,
@@ -154,6 +161,7 @@ UnitBlueprint {
         Level4 = 12,
         Level5 = 15,
     },
+    
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -182,12 +190,12 @@ UnitBlueprint {
 			
             Label = 'MainGun',
 			
-			FiringRandomness = 0.2,
+			FiringRandomness = 0.1,
 			FiringRandomnessWhileMoving = 0.4,
 			
             MaxRadius = 22,
 			
-            MuzzleChargeDelay = 0.5,
+            MuzzleChargeDelay = 0.3,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 30,
@@ -237,16 +245,16 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 10,
-            TurretYawSpeed = 60,
+            TurretYawSpeed = 50,
 			
             Turreted = true,
         },
     },
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.1,
+        EnergyMult = 0.35,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.35,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,

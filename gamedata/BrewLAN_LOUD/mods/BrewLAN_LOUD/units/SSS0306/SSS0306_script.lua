@@ -1,4 +1,4 @@
-SSS0306 = Class(import('/lua/seraphimunits.lua').SHoverLandUnit) {
+SSS0306 = Class(import('/lua/defaultunits.lua').MobileUnit) {
 
     Weapons = {
         TorpedoTurrets = Class(import('/lua/seraphimweapons.lua').SANHeavyCavitationTorpedo) {},

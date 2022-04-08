@@ -219,9 +219,9 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 2420,
+        BuildCostEnergy = 2450,
         BuildCostMass = 360,
-        BuildRate = 12,
+        BuildRate = 11,
         BuildTime = 1000,
         BuildableCategory = {
             'BUILTBYTIER2ENGINEER DEFENSE AEON',
@@ -289,8 +289,10 @@ UnitBlueprint {
         },
         DragCoefficient = 0.2,
         Elevation = 0.5,
-        MaxAcceleration = 1.9,
-        MaxBrake = 2.1,
+        
+        MaxAcceleration = 1.1,
+        MaxBrake = 1.1,
+        
         MaxSpeed = 2.1,
         MaxSpeedReverse = 0,
         MaxSteerForce = 1000,
@@ -302,9 +304,9 @@ UnitBlueprint {
         RotateBodyWhileMoving = true,
         RotateOnSpot = true,
         RotateOnSpotThreshold = 0.1,
-        TurnFacingRate = 120,
+        TurnFacingRate = 100,
         TurnRadius = 0,
-        TurnRate = 120,
+        TurnRate = 100,
     },
 	
     SelectionCenterOffsetY = -0.5,
@@ -325,9 +327,9 @@ UnitBlueprint {
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.35,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.35,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,

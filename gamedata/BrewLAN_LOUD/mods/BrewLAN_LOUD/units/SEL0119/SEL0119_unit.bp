@@ -208,7 +208,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 265,
         BuildCostMass = 60,
-        BuildRate = 5,
+        BuildRate = 6,
         BuildTime = 265,
         BuildableCategory = {
             'BUILTBYTIER1ENGINEER DEFENSE UEF',

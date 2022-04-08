@@ -62,11 +62,11 @@ UnitBlueprint {
 
     Buffs = {
         Regen = {
-            Level1 = 10,
-            Level2 = 20,
-            Level3 = 30,
-            Level4 = 40,
-            Level5 = 50,
+            Level1 = 15,
+            Level2 = 30,
+            Level3 = 40,
+            Level4 = 50,
+            Level5 = 55,
         },
     },
 
@@ -96,14 +96,14 @@ UnitBlueprint {
 
         SeraLambdaFieldRedirector01 = {
             AttachBone = 'XSA0309',
-            Radius = 9,
-            RedirectRateOfFire = 2.7,	-- note: This is NOT the redirections rate of fire but rather how long the redirection process will take so lower values means faster
+            Radius = 12,
+            RedirectRateOfFire = 2,	-- note: This is NOT the redirections rate of fire but rather ticks between operation
         },
 
         SeraLambdaFieldDestroyer01 = {
             AttachBone = 'XSA0309',
             Radius = 6,
-            RedirectRateOfFire = 3.1,
+            RedirectRateOfFire = 3,
         },
 
         ArmorType = 'Light',
@@ -251,7 +251,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 
-            Damage = 40,
+            Damage = 20,
             DamageType = 'Normal',
 
             DisplayName = 'Phasic Autogun',
@@ -267,8 +267,8 @@ UnitBlueprint {
 
             MaxRadius = 33,
 
-            MuzzleSalvoDelay = 0.3,
-            MuzzleSalvoSize = 2,
+            MuzzleSalvoDelay = 0.1,
+            MuzzleSalvoSize = 4,
             MuzzleVelocity = 39,
 
             ProjectileId = '/projectiles/SDFHeavyPhasicAutogun01/SDFHeavyPhasicAutogun01_proj.bp',
@@ -295,6 +295,7 @@ UnitBlueprint {
 
             TargetPriorities = {
                 'SPECIALHIGHPRI',
+                'ANTIAIR',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'HIGHALTAIR,WALL,UNTARGETABLE',

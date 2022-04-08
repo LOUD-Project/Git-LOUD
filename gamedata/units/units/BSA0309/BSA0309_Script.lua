@@ -7,8 +7,8 @@ local SeraphimWeapons = import('/lua/seraphimweapons.lua')
 local SAAShleoCannonWeapon = SeraphimWeapons.SAAShleoCannonWeapon
 local SDFHeavyPhasicAutoGunWeapon = SeraphimWeapons.SDFHeavyPhasicAutoGunWeapon
 
-local SeraLambdaFieldRedirector = import('/mods/BlackOpsUnleashed/lua/BlackOpsdefaultantiprojectile.lua').SeraLambdaFieldRedirector
-local SeraLambdaFieldDestroyer = import('/mods/BlackOpsUnleashed/lua/BlackOpsdefaultantiprojectile.lua').SeraLambdaFieldDestroyer
+local SeraLambdaFieldRedirector = import('/lua/defaultantiprojectile.lua').SeraLambdaFieldRedirector
+local SeraLambdaFieldDestroyer = import('/lua/defaultantiprojectile.lua').SeraLambdaFieldDestroyer
 
 local ForkThead = ForkThread
 
@@ -25,8 +25,8 @@ BSA0309 = Class(SAirUnit) {
 	
 	OnStopBeingBuilt = function(self, builder, layer)
 	
-        local bp = self:GetBlueprint().Defense.SeraLambdaFieldRedirector01
-        local bp3 = self:GetBlueprint().Defense.SeraLambdaFieldDestroyer01
+        local bp = __blueprints[self.BlueprintID].Defense.SeraLambdaFieldRedirector01
+        local bp3 = __blueprints[self.BlueprintID].Defense.SeraLambdaFieldDestroyer01
 		
         local SeraLambdaFieldRedirector01 = SeraLambdaFieldRedirector {
             Owner = self,

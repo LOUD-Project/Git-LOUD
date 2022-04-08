@@ -57,9 +57,9 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Experimental',
-        Health = 48000,
-        MaxHealth = 48000,
-        RegenRate = 18,
+        Health = 44000,
+        MaxHealth = 44000,
+        RegenRate = 15,
 		NoTeleDistance = 55,
 		
         Shield = {
@@ -117,14 +117,14 @@ UnitBlueprint {
     },
 	
     Economy = {
-		BuildCostEnergy = 750000,
+		BuildCostEnergy = 825000,
         BuildCostMass = 43500,
 		
         BuildRate = 1950,
 		
         BuildTime = 12500,
 		
-        MaintenanceConsumptionPerSecondEnergy = 4750, -- for shield, radar and anti-teleport
+        MaintenanceConsumptionPerSecondEnergy = 4350, -- for shield, radar and anti-teleport
     },
 	
     Footprint = {
@@ -182,7 +182,7 @@ UnitBlueprint {
         },
         DragCoefficient = 0.2,
         Elevation = 0.6,
-        MaxAcceleration = 0.8,
+        MaxAcceleration = 0.6,
         MaxBrake = 1.6,
         MaxSpeed = 2.4,
         MaxSpeedReverse = 1.0,

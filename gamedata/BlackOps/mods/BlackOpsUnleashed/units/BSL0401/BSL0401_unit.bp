@@ -64,10 +64,14 @@ UnitBlueprint {
 	
     Defense = {
         AirThreatLevel = 40,
+        
         ArmorType = 'Experimental',
+        
         Health = 52000,
         MaxHealth = 52000,
-        RegenRate = 24,
+        
+        RegenRate = 20,
+        
         SurfaceThreatLevel = 509,
     },
 	
@@ -148,7 +152,7 @@ UnitBlueprint {
     }, 
 	
     Economy = {
-        BuildCostEnergy = 385000,
+        BuildCostEnergy = 423000,
         BuildCostMass = 18000,
         BuildTime = 6500,
 		
@@ -210,10 +214,10 @@ UnitBlueprint {
         DragCoefficient = 0.2,
 		Elevation = 1,
         
-        MaxAcceleration = 1.2,
-        MaxBrake = 3.2,
-        MaxSpeed = 3.2,
-        MaxSpeedReverse = 2.8,
+        MaxAcceleration = 1.1,
+        MaxBrake = 1.1,
+        MaxSpeed = 3.3,
+        MaxSpeedReverse = 3.3,
         
         MaxSteerForce = 10,
         
@@ -607,7 +611,7 @@ UnitBlueprint {
 			
             Damage = 50,
             DamageFriendly = false,
-            DamageRadius = 2.5,
+            DamageRadius = 2.2,
             DamageType = 'Normal',
 			
             DetonatesAtTargetHeight = true,
@@ -629,7 +633,7 @@ UnitBlueprint {
             Label = 'AA',
 			LeadTarget = true,
 			
-            MaxRadius = 45,
+            MaxRadius = 42,
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 2,
@@ -677,7 +681,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 90,
-            TurretYawSpeed = 80,
+            TurretYawSpeed = 65,
 			
             Turreted = true,
         },
@@ -697,7 +701,7 @@ UnitBlueprint {
 			
             Damage = 50,
             DamageFriendly = false,
-            DamageRadius = 2.5,
+            DamageRadius = 2.2,
             DamageType = 'Normal',
 			
             DetonatesAtTargetHeight = true,
@@ -720,7 +724,7 @@ UnitBlueprint {
             Label = 'AA',
 			LeadTarget = true,
 			
-            MaxRadius = 45,
+            MaxRadius = 42,
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 2,
@@ -766,7 +770,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 90,
-            TurretYawSpeed = 80,
+            TurretYawSpeed = 65,
 			
             Turreted = true,
         },
@@ -785,9 +789,9 @@ UnitBlueprint {
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.2,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.35,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,

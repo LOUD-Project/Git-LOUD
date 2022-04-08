@@ -47,9 +47,9 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Normal',
-        Health = 1200,
-        MaxHealth = 1200,
-        RegenRate = 0,
+        Health = 1280,
+        MaxHealth = 1280,
+        RegenRate = 1,
         SurfaceThreatLevel = 6,
     },
 	
@@ -80,13 +80,9 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 4800,
+        BuildCostEnergy = 5280,
         BuildCostMass = 420,
         BuildTime = 2100,
-		
-        TeleportEnergyMod = 0.15,
-        TeleportMassMod = 1,
-        TeleportTimeMod = 0.01,
     },
 	
     General = {
@@ -128,10 +124,12 @@ UnitBlueprint {
         },
         DragCoefficient = 0.2,
         Elevation = 0.25,
-        MaxAcceleration = 3.5,
-        MaxBrake = 3.5,
+        
+        MaxAcceleration = 1.2,
+        MaxBrake = 1.2,
         MaxSpeed = 3.5,
         MaxSpeedReverse = 3,
+        
         MaxSteerForce = 50,
         MeshExtentsX = 0.75,
         MeshExtentsY = 0.5,
@@ -140,9 +138,10 @@ UnitBlueprint {
         MotionType = 'RULEUMT_Hover',
         RotateBodyWhileMoving = true,
         RotateOnSpot = false,
-        TurnFacingRate = 120,
+        
+        TurnFacingRate = 60,
         TurnRadius = 0,
-        TurnRate = 90,
+        TurnRate = 60,
     },
 	
     SelectionSizeX = 0.6,
@@ -202,7 +201,7 @@ UnitBlueprint {
             MuzzleChargeDelay = 0.5,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 30,
+            MuzzleVelocity = 33,
             
             ProjectileId = '/projectiles/ADFShieldDisruptor01/ADFShieldDisruptor01_proj.bp',
             ProjectileLifetimeUsesMultiplier = 2,
@@ -240,20 +239,23 @@ UnitBlueprint {
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'Turret',
             TurretDualManipulators = false,
+            
             TurretPitch = 0,
             TurretPitchRange = 20,
             TurretPitchSpeed = 60,
+            
             TurretYaw = 0,
             TurretYawRange = 10,
-            TurretYawSpeed = 60,
+            TurretYawSpeed = 48,
+            
             Turreted = true,
         },
     },
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.3,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.35,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,
