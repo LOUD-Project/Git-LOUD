@@ -22,7 +22,6 @@ AANTorpedoCluster01 = Class(ATorpedoCluster) {
 
     OnEnterWater = function(self) 
 		
-		local LOUDPI = math.pi
 		local LOUDCOS = math.cos
 		local LOUDSIN = math.sin
 
@@ -32,7 +31,7 @@ AANTorpedoCluster01 = Class(ATorpedoCluster) {
 		
         local ChildProjectileBP = '/projectiles/AANTorpedoClusterSplit01/AANTorpedoClusterSplit01_proj.bp'  
 		
-        local angleRange = LOUDPI * 0.25
+        local angleRange = .785
         local angleInitial = -angleRange / 2
         local angleIncrement = angleRange / NumberOfChildProjectiles
         local angleVariation = angleIncrement * 0.4
@@ -53,11 +52,7 @@ AANTorpedoCluster01 = Class(ATorpedoCluster) {
             proj = self:CreateChildProjectile(ChildProjectileBP)
 			
             proj:PassDamageData(self.DamageData)
-			
-            mul = RandomFloat(1,3)
-			
-            #proj:SetVelocity( x * mul, Vely * mul, z * mul )
-			
+
         end            
 
         ATorpedoCluster.OnEnterWater(self)

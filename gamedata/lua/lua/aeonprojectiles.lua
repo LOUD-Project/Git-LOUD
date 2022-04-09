@@ -25,6 +25,8 @@ local ForkThread = ForkThread
 
 local LOUDINSERT = table.insert
 
+local SetCollisionShape = moho.entity_methods.SetCollisionShape
+
 local TrashBag = TrashBag
 local TrashAdd = TrashBag.Add
 local TrashDestroy = TrashBag.Destroy
@@ -130,9 +132,10 @@ ADepthChargeProjectile = Class(OnWaterEntryEmitterProjectile) {
     end,
 
     OnEnterWater = function(self)
+    
         OnWaterEntryEmitterProjectile.OnEnterWater(self)
         
-        self:SetCollisionShape('Sphere', 0, 0, 0, 1.0)
+        SetCollisionShape( self, 'Sphere', 0, 0, 0, 1.0 )
 		
         for _, v in self.FxEnterWater do 
             CreateEmitterAtEntity(self, self.Army, v)
@@ -327,7 +330,9 @@ AMissileCruiseSubProjectile = Class(EmitterProjectile) {
     FxImpactLand = EffectTemplate.AMissileHit01,
 	
     OnCreate = function(self)
-        self:SetCollisionShape('Sphere', 0, 0, 0, 1.0)
+    
+        SetCollisionShape( self, 'Sphere', 0, 0, 0, 1.0 )
+        
         SinglePolyTrailProjectile.OnCreate(self)
     end,
 }
@@ -344,7 +349,9 @@ AMissileSerpentineProjectile = Class(SingleCompositeEmitterProjectile) {
     FxImpactLand = EffectTemplate.AMissileHit01,
 	
     OnCreate = function(self)
-        self:SetCollisionShape('Sphere', 0, 0, 0, 1.0)
+    
+        SetCollisionShape( self, 'Sphere', 0, 0, 0, 1.0 )
+        
         SingleCompositeEmitterProjectile.OnCreate(self)
     end,
 }
@@ -361,7 +368,9 @@ AMissileSerpentine02Projectile = Class(SingleCompositeEmitterProjectile) {
     FxImpactLand = EffectTemplate.AMissileHit01,
 	
     OnCreate = function(self)
-        self:SetCollisionShape('Sphere', 0, 0, 0, 1.0)
+    
+        SetCollisionShape( self, 'Sphere', 0, 0, 0, 1.0 )
+        
         SingleCompositeEmitterProjectile.OnCreate(self)
     end,
 }
@@ -465,12 +474,14 @@ AAAQuantumDisplacementCannonProjectile = Class(NullShell) {
     UpdateThread = function(self,army)
 
         WaitTicks(3)
+        
         self.DestroyTrailFX(self)
         self.CreateTeleportFX(self, army)
 		
         local emit = CreateEmitterOnEntity(self, army, self.FxInvisible)
 		
         WaitTicks(45)
+        
         emit:Destroy()
         self.CreateTeleportFX(self,army)
         self.CreateTrailFX(self,army)
@@ -643,8 +654,10 @@ ATorpedoShipProjectile = Class(OnWaterEntryEmitterProjectile) {
     end,
     
     OnEnterWater = function(self)
+    
         OnWaterEntryEmitterProjectile.OnEnterWater(self)
-        self:SetCollisionShape('Sphere', 0, 0, 0, 1.0)
+        
+        SetCollisionShape( self, 'Sphere', 0, 0, 0, 1.0 )
     end,    
 }
 
@@ -662,7 +675,8 @@ ATorpedoSubProjectile = Class(OnWaterEntryEmitterProjectile) {
 	
     OnCreate = function(self, inWater)
 	
-        self:SetCollisionShape('Sphere', 0, 0, 0, 1.0)
+        SetCollisionShape( self, 'Sphere', 0, 0, 0, 1.0 )
+        
         EmitterProjectile.OnCreate(self, inWater)
 		
     end,

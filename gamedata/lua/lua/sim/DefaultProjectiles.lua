@@ -9,6 +9,8 @@ local LOUDFLOOR = math.floor
 local LOUDGETN = table.getn
 local LOUDTRAIL = CreateTrail
 
+local WaitTicks = coroutine.yield
+
 
 NullShell = Class(Projectile) {}
 
@@ -22,6 +24,8 @@ EmitterProjectile = Class(Projectile) {
         Projectile.OnCreate(self)
         
         if self.FxTrails then
+        
+            LOUDEMITONENTITY = LOUDEMITONENTITY
 		
             for i in self.FxTrails do
             
@@ -35,7 +39,6 @@ EmitterProjectile = Class(Projectile) {
                     end
                 end
             end
-            
         end
     end,
 }
@@ -61,6 +64,8 @@ MultiBeamProjectile = Class(EmitterProjectile) {
     OnCreate = function(self)
     
         EmitterProjectile.OnCreate(self)
+        
+        LOUDBEAMEMITONENTITY = LOUDBEAMEMITONENTITY
 		
         for _, v in self.Beams do
             LOUDBEAMEMITONENTITY( self, -1, self.Army, v )
@@ -116,7 +121,6 @@ MultiPolyTrailProjectile = Class(EmitterProjectile) {
                     else
                         LOUDTRAIL(self, -1, army, self.PolyTrails[index] )
                     end
-                    
                 end
                 
             else
@@ -129,7 +133,6 @@ MultiPolyTrailProjectile = Class(EmitterProjectile) {
                         LOUDTRAIL(self, -1, army, self.PolyTrails[i] )
                     end
                 end
-                
             end
         end
     end,
@@ -185,6 +188,8 @@ OnWaterEntryEmitterProjectile = Class(Projectile) {
 		
             if self.FxTrails then
             
+                LOUDEMITONENTITY = LOUDEMITONENTITY
+            
                 for i in self.FxTrails do
                 
                     if self.FxTrailOffset then
@@ -216,6 +221,8 @@ OnWaterEntryEmitterProjectile = Class(Projectile) {
         WaitTicks(self.TrailDelay)
 
         if self.FxTrails then
+        
+            LOUDEMITONENTITY = LOUDEMITONENTITY
         
             for i in self.FxTrails do
             

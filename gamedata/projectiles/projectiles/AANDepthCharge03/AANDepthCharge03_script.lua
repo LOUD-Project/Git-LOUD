@@ -30,12 +30,10 @@ AANDepthCharge03 = Class(ADepthChargeProjectile) {
     end,
 
     OnEnterWater = function(self)
+    
+        ADepthChargeProjectile.OnEnterWater(self)
 
         local army = self:GetArmy()
-		
-        for i in self.FxEnterWater do #splash
-            CreateEmitterAtEntity(self,army,self.FxEnterWater[i])
-        end
 
         self:SetAcceleration(1.5)
 		

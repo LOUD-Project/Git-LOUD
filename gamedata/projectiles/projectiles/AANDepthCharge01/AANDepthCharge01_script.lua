@@ -36,10 +36,6 @@ AANDepthCharge01 = Class(ADepthChargeProjectile) {
 
         local army = self:GetArmy()
 
-        for i in self.FxEnterWater do #splash
-            CreateEmitterAtEntity(self,army,self.FxEnterWater[i])
-        end
-
         self:SetMaxSpeed(9)
         self:SetVelocity(1.5)
         self:SetAcceleration(1.25)
@@ -79,14 +75,8 @@ AANDepthCharge01 = Class(ADepthChargeProjectile) {
     end,
 
     OnImpact = function(self, TargetType, TargetEntity)
-	
-        --LOG('Projectile impacted with: ' .. TargetType)
-		
+
         self.HasImpacted = true
-		
-        --local pos = self:GetPosition()
-        --local spec = { X = pos[1], Z = pos[3], Radius = 30, LifeTime = 10, Omni = false, Vision = false, Army = self:GetArmy() }
-		--local vizEntity = VizMarker(spec)
 		
         ADepthChargeProjectile.OnImpact(self, TargetType, TargetEntity)
 		

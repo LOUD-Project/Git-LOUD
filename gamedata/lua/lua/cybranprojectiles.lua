@@ -9,19 +9,22 @@ local MultiPolyTrailProjectile = import('/lua/sim/defaultprojectiles.lua').Multi
 local SingleCompositeEmitterProjectile = import('/lua/sim/defaultprojectiles.lua').SingleCompositeEmitterProjectile
 
 local NullShell = import('/lua/sim/defaultprojectiles.lua').NullShell
-
 local DepthCharge = import('/lua/defaultantiprojectile.lua').DepthCharge
 
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 
 local CreateDecal = CreateDecal
 local CreateTrail = CreateTrail
+
 local CreateLightParticle = CreateLightParticle
 local CreateEmitterAtEntity = CreateEmitterAtEntity
 local CreateEmitterAtBone = CreateEmitterAtBone
 
 local DamageArea = DamageArea
 local ForkThread = ForkThread
+
+local Random = Random
+local SetCollisionShape = moho.entity_methods.SetCollisionShape
 
 local LOUDSIN = math.sin
 local LOUDCOS = math.cos
@@ -415,7 +418,9 @@ CMissileAAProjectile = Class(SingleCompositeEmitterProjectile) {
     FxImpactLand = EffectTemplate.CMissileHit01,
 
     OnCreate = function(self)
-        self:SetCollisionShape('Sphere', 0, 0, 0, 1.0)
+    
+        SetCollisionShape( self, 'Sphere', 0, 0, 0, 1.0)
+        
         SingleBeamProjectile.OnCreate(self)
     end,
 }
@@ -516,19 +521,6 @@ CLOATacticalMissileProjectile = Class(SingleBeamProjectile) {
     FxImpactProp = EffectTemplate.CMissileLOAHit01,
     FxImpactNone = EffectTemplate.CMissileLOAHit01,
 
---[[    
-    CreateImpactEffects = function( self, army, EffectTable, EffectScale )
-        local emit = nil
-		local CreateEmitterAtEntity = CreateEmitterAtEntity
-		
-        for k, v in EffectTable do
-            emit = CreateEmitterAtEntity(self,army,v)
-            if emit and EffectScale != 1 then
-                emit:ScaleEmitter(EffectScale or 1)
-            end
-        end
-    end,
---]]    
     OnExitWater = function(self)
     
 		EmitterProjectile.OnExitWater(self)
@@ -562,7 +554,9 @@ CLOATacticalChildMissileProjectile = Class(SingleBeamProjectile) {
     FxOnKilledScale = 0.375,       
     
     OnCreate = function(self)
-        self:SetCollisionShape('Sphere', 0, 0, 0, 1.0)
+    
+        SetCollisionShape( self, 'Sphere', 0, 0, 0, 1.0)
+        
         SingleBeamProjectile.OnCreate(self)
     end,
     
@@ -572,19 +566,7 @@ CLOATacticalChildMissileProjectile = Class(SingleBeamProjectile) {
         
         SingleBeamProjectile.OnImpact(self, targetType, targetEntity)
     end,
---[[        
-    CreateImpactEffects = function( self, army, EffectTable, EffectScale )
-        local emit = nil
-		local CreateEmitterAtEntity = CreateEmitterAtEntity
-		
-        for k, v in EffectTable do
-            emit = CreateEmitterAtEntity(self,army,v)
-            if emit and EffectScale != 1 then
-                emit:ScaleEmitter(EffectScale or 1)
-            end
-        end
-    end,
---]]    
+
     OnExitWater = function(self)
     
 		EmitterProjectile.OnExitWater(self)
@@ -642,8 +624,10 @@ CTorpedoShipProjectile = Class(OnWaterEntryEmitterProjectile) {
     end,
     
     OnEnterWater = function(self)
+    
         OnWaterEntryEmitterProjectile.OnEnterWater(self)
-        self:SetCollisionShape('Sphere', 0, 0, 0, 1.0)
+        
+        SetCollisionShape( self, 'Sphere', 0, 0, 0, 1.0)
     end,     
 }
 
@@ -658,7 +642,9 @@ CTorpedoSubProjectile = Class(EmitterProjectile) {
     FxLandHitScale = 0.25,
 
     OnCreate = function(self, inWater)
-        self:SetCollisionShape('Sphere', 0, 0, 0, 1.0)
+    
+        SetCollisionShape( self, 'Sphere', 0, 0, 0, 1.0)
+        
         EmitterProjectile.OnCreate(self, inWater)
     end,
 }
@@ -692,7 +678,7 @@ CDepthChargeProjectile = Class(OnWaterEntryEmitterProjectile) {
             CreateEmitterAtEntity( self, self.Army, v )
         end
         
-        self:SetCollisionShape('Sphere', 0, 0, 0, 1.0)
+        SetCollisionShape( self, 'Sphere', 0, 0, 0, 1.0)
         
         self:TrackTarget(false)
         self:StayUnderwater(true)

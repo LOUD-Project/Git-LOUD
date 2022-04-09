@@ -25,6 +25,9 @@ local CreateSplat = CreateSplat
 local CreateEmitterAtEntity = CreateEmitterAtEntity
 local CreateEmitterAtBone = CreateEmitterAtBone
 
+local Random = Random
+local SetCollisionShape = moho.entity_methods.SetCollisionShape
+
 local TrashBag = TrashBag
 local TrashAdd = TrashBag.Add
 local TrashDestroy = TrashBag.Destroy
@@ -511,7 +514,8 @@ TTorpedoShipProjectile = Class(OnWaterEntryEmitterProjectile) {
 
     OnEnterWater = function(self)
         OnWaterEntryEmitterProjectile.OnEnterWater(self)
-        self:SetCollisionShape('Sphere', 0, 0, 0, 1.0)
+        
+        SetCollisionShape( self, 'Sphere', 0, 0, 0, 1.0)
 
         for k, v in self.FxEnterWater do
             CreateEmitterAtEntity(self, self.Army, v)
@@ -540,7 +544,9 @@ TTorpedoSubProjectile = Class(EmitterProjectile) {
     FxImpactUnderWater = EffectTemplate.TTorpedoHitUnit01,
 
     OnCreate = function(self, inWater)
-        self:SetCollisionShape('Sphere', 0, 0, 0, 1.0)
+    
+        SetCollisionShape( self, 'Sphere', 0, 0, 0, 1.0)
+        
         EmitterProjectile.OnCreate(self, inWater)
     end,
 }
