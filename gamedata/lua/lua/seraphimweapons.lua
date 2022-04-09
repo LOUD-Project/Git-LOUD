@@ -528,7 +528,7 @@ SDFGapingMaw = Class(DefaultBeamWeapon) {
             self.Slider = nil
         end
         
-        self.unit:DetachAll(self:GetBlueprint().MuzzleSpecial or 0)
+        self.unit:DetachAll(self.bp.MuzzleSpecial or 0)
         self:ResetTarget()
         self.AimControl:SetResetPoseTime(2)
         
@@ -666,7 +666,7 @@ InvisibleCollisionBeam = Class(moho.CollisionBeamEntity) {
 
     SetDamageTable = function(self)
     
-        local weaponBlueprint = self.Weapon:GetBlueprint()
+        local weaponBlueprint = self.Weapon.bp  --:GetBlueprint()
         
         self.DamageData = {}
         self.DamageData.DamageRadius = weaponBlueprint.DamageRadius

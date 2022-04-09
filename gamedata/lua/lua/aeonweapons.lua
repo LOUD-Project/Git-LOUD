@@ -110,7 +110,7 @@ ADFTractorClaw = Class(DefaultBeamWeapon) {
 			
             if (weap != self) then
                 if self:GetRealTarget( GetCurrentTarget(weap) ) == target then
-                    --LOG("Target already used by ", repr(weap:GetBlueprint().Label))
+                    --LOG("Target already used by ", repr(weap.bp.Label))
                     return true
                 end
             end
@@ -145,7 +145,7 @@ ADFTractorClaw = Class(DefaultBeamWeapon) {
         if not beam then return end
 
 
-        local muzzle = self:GetBlueprint().MuzzleSpecial
+        local muzzle = self.bp.MuzzleSpecial
         if not muzzle then return end
 
         target:SetDoNotTarget(true)
@@ -203,7 +203,7 @@ ADFTractorClaw = Class(DefaultBeamWeapon) {
             self.Slider = nil
         end
 		
-        self.unit:DetachAll(self:GetBlueprint().MuzzleSpecial or 0)
+        self.unit:DetachAll(self.bp.MuzzleSpecial or 0)
         self:ResetTarget()
         self.AimControl:SetResetPoseTime(2)
     end,

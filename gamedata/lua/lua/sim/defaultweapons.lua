@@ -1077,7 +1077,7 @@ DefaultProjectileWeapon = Class(Weapon) {
 		
             Weapon.OnLostTarget(self)
 			
-            if self:GetBlueprint().WeaponUnpacks == true then
+            if self.bp.WeaponUnpacks == true then
 			
                 LOUDSTATE(self, self.WeaponPackingState)
             end
@@ -1094,7 +1094,7 @@ DefaultProjectileWeapon = Class(Weapon) {
         RenderClockThread = function(self, rof)
 		
             local clockTime = rof
-			local WaitTicks = coroutine.yield
+			local WaitTicks = WaitTicks
 			
             while clockTime > 0.0 and not self:BeenDestroyed() and not self.unit.Dead do
                 
@@ -1454,7 +1454,7 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
     
     WatchForHoldFire = function(self, beam)
     
-		WaitTicks = coroutine.yield
+		WaitTicks = WaitTicks
         
         while true do
         

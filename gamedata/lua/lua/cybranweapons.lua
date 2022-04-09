@@ -8,10 +8,17 @@ local DefaultBeamWeapon = import('/lua/sim/DefaultWeapons.lua').DefaultBeamWeapo
 local CollisionBeamFile = import('defaultcollisionbeams.lua')
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 
+local Entity = import('/lua/sim/Entity.lua').Entity
+
 local CreateAttachedEmitter = CreateAttachedEmitter
 local CreateProjectile = moho.weapon_methods.CreateProjectile
 
 local DefaultBuffField = import('/lua/defaultbufffield.lua').DefaultBuffField
+
+local BeenDestroyed = moho.entity_methods.BeenDestroyed
+
+local TrashAdd = TrashBag.Add
+
 
 CybranBuffField = Class(DefaultBuffField) {
 	AmbientEffects = '/effects/emitters/jammer_ambient_01_emit.bp',
@@ -96,12 +103,12 @@ CDFHeavyMicrowaveLaserGenerator = Class(DefaultBeamWeapon) {
     
         if not self.SliderManip then
             self.SliderManip = CreateSlider(self.unit, 'Center_Turret_Barrel')
-            self.unit.Trash:Add(self.SliderManip)
+            TrashAdd( self.unit.Trash, self.SliderManip )
         end
         
         if not self.RotatorManip then
             self.RotatorManip = CreateRotator(self.unit, 'Center_Turret_Barrel', 'z')
-            self.unit.Trash:Add(self.RotatorManip)
+            TrashAdd( self.unit.Trash, self.RotatorManip )
         end
         
         self.RotatorManip:SetSpeed(180)
@@ -152,7 +159,7 @@ CIFSmartCharge = Class(DefaultProjectileWeapon) {
 	
         local proj = DefaultProjectileWeapon.CreateProjectileAtMuzzle(self, muzzle)
 		
-        if not proj or proj:BeenDestroyed() then
+        if not proj or BeenDestroyed(proj) then
             return proj
         end
 		
@@ -174,7 +181,7 @@ CANNaniteTorpedoWeapon = Class(DefaultProjectileWeapon) {
 
     CreateProjectileForWeapon = function(self, bone)
     
-        local projectile = CreateProjectile( self, bone )
+        local projectile = DefaultProjectileWeapon.CreateProjectileForWeapon( self, bone )
         
         local damageTable = self.damageTable
         
@@ -194,7 +201,7 @@ CANNaniteTorpedoWeapon = Class(DefaultProjectileWeapon) {
             }
         end
         
-        if projectile and not projectile:BeenDestroyed() then
+        if projectile and not BeenDestroyed(projectile) then
 
             if data then
                 projectile:PassData(data)
@@ -279,6 +286,7 @@ CDFLaserHeavyWeapon02 = Class(DefaultProjectileWeapon) {
 }
 
 CDFLaserDisintegratorWeapon01 = Class(DefaultProjectileWeapon) {
+
     FxChargeMuzzleFlash = {
 		'/effects/emitters/disintegrator_muzzle_charge_01_emit.bp',
 		'/effects/emitters/disintegrator_muzzle_charge_02_emit.bp',
@@ -292,6 +300,7 @@ CDFLaserDisintegratorWeapon01 = Class(DefaultProjectileWeapon) {
 }
 
 CDFLaserDisintegratorWeapon02 = Class(DefaultProjectileWeapon) {
+
     FxChargeMuzzleFlash = {
 		'/effects/emitters/disintegrator_muzzle_charge_03_emit.bp',
         '/effects/emitters/disintegrator_muzzle_charge_04_emit.bp',
@@ -303,7 +312,9 @@ CDFLaserDisintegratorWeapon02 = Class(DefaultProjectileWeapon) {
 }
 
 CDFHeavyDisintegratorWeapon = Class(DefaultProjectileWeapon) {
+
     FxChargeMuzzleFlash = {},
+    
     FxMuzzleFlash = {
 		'/effects/emitters/disintegratorhvy_muzzle_flash_01_emit.bp',
 		'/effects/emitters/disintegratorhvy_muzzle_flash_02_emit.bp',
@@ -316,6 +327,7 @@ CDFHeavyDisintegratorWeapon = Class(DefaultProjectileWeapon) {
 CAAAutocannon = Class(DefaultProjectileWeapon) {}
 
 CAANanoDartWeapon = Class(DefaultProjectileWeapon) {
+
     FxMuzzleFlash = {
         '/effects/emitters/cannon_muzzle_flash_04_emit.bp',
         '/effects/emitters/cannon_muzzle_smoke_11_emit.bp',
@@ -323,10 +335,12 @@ CAANanoDartWeapon = Class(DefaultProjectileWeapon) {
 }
 
 CAABurstCloudFlakArtilleryWeapon = Class(DefaultProjectileWeapon) {
+
     FxMuzzleFlash = {
 		'/effects/emitters/default_muzzle_flash_01_emit.bp',
         '/effects/emitters/default_muzzle_flash_02_emit.bp' 
     },
+    
     FxMuzzleFlashScale = 1.5,
 
     CreateProjectileForWeapon = function(self, bone)
@@ -350,7 +364,7 @@ CAABurstCloudFlakArtilleryWeapon = Class(DefaultProjectileWeapon) {
             }
         end
         
-        if projectile and not projectile:BeenDestroyed() then
+        if projectile and not BeenDestroyed(projectile) then
             if data then
                 projectile:PassData(data)
             end
@@ -385,6 +399,7 @@ CIFBombNeutronWeapon = Class(DefaultProjectileWeapon) {
 }
 
 CIFNaniteTorpedoWeapon = Class(DefaultProjectileWeapon) {
+
     FxMuzzleFlash = {'/effects/emitters/antiair_muzzle_fire_02_emit.bp',},
     
     CreateProjectileForWeapon = function(self, bone)
@@ -409,7 +424,7 @@ CIFNaniteTorpedoWeapon = Class(DefaultProjectileWeapon) {
             }
         end
 
-        if proj and not proj:BeenDestroyed() then
+        if proj and not BeenDestroyed(proj) then
             proj:PassDamageData(damageTable)
             
             if data then
@@ -440,20 +455,23 @@ CAMZapperWeapon = Class(DefaultBeamWeapon) {
     SphereEffectBone = 'Turret_Muzzle',
     
     OnCreate = function(self)
+    
         DefaultBeamWeapon.OnCreate(self)
 
-        self.SphereEffectEntity = import('/lua/sim/Entity.lua').Entity()
-        self.SphereEffectEntity:AttachBoneTo( -1, self.unit,self:GetBlueprint().RackBones[1].MuzzleBones[1] )
+        self.SphereEffectEntity = Entity()
+        
+        self.SphereEffectEntity:AttachBoneTo( -1, self.unit, self.bp.RackBones[1].MuzzleBones[1] )
         self.SphereEffectEntity:SetMesh(self.SphereEffectIdleMesh)
         self.SphereEffectEntity:SetDrawScale(0.6)
+        
         self.SphereEffectEntity:SetVizToAllies('Intel')
         self.SphereEffectEntity:SetVizToNeutrals('Intel')
         self.SphereEffectEntity:SetVizToEnemies('Intel')
         
         local emit = CreateAttachedEmitter( self.unit, self.bp.RackBones[1].MuzzleBones[1], self.unit.Sync.army, self.SphereEffectBp )
 
-        self.unit.Trash:Add(self.SphereEffectEntity)
-        self.unit.Trash:Add(emit)
+        TrashAdd( self.unit.Trash, self.SphereEffectEntity )
+        TrashAdd( self.unit.Trash, emit )
     end,
 
     IdleState = State (DefaultBeamWeapon.IdleState) {

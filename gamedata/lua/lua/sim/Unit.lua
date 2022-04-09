@@ -479,7 +479,7 @@ Unit = Class(moho.unit_methods) {
         for i = 1, self.WeaponCount do
 		
             local wep = self:GetWeapon(i)
-            local bp = wep:GetBlueprint()
+            local bp = wep.bp
 			
             if bp.CountedProjectile then
 			
@@ -702,7 +702,7 @@ Unit = Class(moho.unit_methods) {
 		
             local wep = GetWeapon(self,i)
             
-            for onLayer, targetLayers in wep:GetBlueprint().FireTargetLayerCapsTable do
+            for onLayer, targetLayers in wep.bp.FireTargetLayerCapsTable do
 			
                 if string.find(targetLayers, 'Land') then
 				
@@ -1972,7 +1972,7 @@ Unit = Class(moho.unit_methods) {
 		local LOUDENTITY = EntityCategoryContains
 		local LOUDPARSE = ParseEntityCategory
 
-		local GetArmy = moho.entity_methods.GetArmy
+		local GetArmy = GetArmy
 		
         if LOUDENTITY(PROJECTILE, other) then
 
@@ -2075,13 +2075,13 @@ Unit = Class(moho.unit_methods) {
         end		
 		
 
-		local bp = firingWeapon:GetBlueprint()
+		local bp = firingWeapon.bp  --:GetBlueprint()
         local collidefriendly = bp.CollideFriendly
 
 		-- check for allied passthrough if same army or allied army
 		if not collidefriendly then
 		
-			local GetArmy = moho.entity_methods.GetArmy
+			local GetArmy = GetArmy
 		
 			local army1 = self.Sync.army
 			local army2 = GetArmy(firingWeapon.unit)
@@ -2531,7 +2531,7 @@ Unit = Class(moho.unit_methods) {
 		
             wep = GetWeapon(self,i)
 			
-            if (wep:GetBlueprint().Label == label) then 
+            if (wep.bp.Label == label) then 
 
                 return wep
 				
@@ -2696,7 +2696,7 @@ Unit = Class(moho.unit_methods) {
 	
     UnitBuiltPercentageCallbackThread = function(self, percent, callback)
 	
-		local WaitTicks = coroutine.yield
+		local WaitTicks = WaitTicks
 
         while not self.Dead and self:GetHealthPercent() < percent do
 		
@@ -3300,7 +3300,8 @@ Unit = Class(moho.unit_methods) {
 		local GetScriptBit = moho.unit_methods.GetScriptBit
 		local IsIntelEnabled = moho.entity_methods.IsIntelEnabled
 		local TestToggleCaps = moho.unit_methods.TestToggleCaps
-		local WaitTicks = coroutine.yield
+        
+		local WaitTicks = WaitTicks
 		
 		local bpVal = self:GetConsumptionPerSecondEnergy()
 		local intelTypeTbl = {'Radar','Sonar','Omni','RadarStealthField','SonarStealthField','CloakField','Jammer','Cloak','Spoof','RadarStealth','SonarStealth'}
@@ -4382,7 +4383,7 @@ Unit = Class(moho.unit_methods) {
 			
         elseif bt == 'MAXRADIUS' then
 		
-            weapon:ChangeMaxRadius(buffTable.Value or weapon:GetBlueprint().MaxRadius)
+            weapon:ChangeMaxRadius(buffTable.Value or weapon.bp.MaxRadius)
 			
         elseif bt == 'FIRINGRANDOMNESS' then
 		

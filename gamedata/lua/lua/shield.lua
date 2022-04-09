@@ -6,11 +6,12 @@ local EffectTemplate = import('/lua/EffectTemplates.lua')
 
 local ChangeState = ChangeState
 
+local LOUDENTITY = EntityCategoryContains
+local LOUDMAX = math.max
 local LOUDMIN = math.min
+local LOUDPARSE = ParseEntityCategory	
 local LOUDPOW = math.pow
 local LOUDSQRT = math.sqrt
-
-local EntityCategoryContains = EntityCategoryContains
 
 local ForkThread = ForkThread
 local ForkTo = ForkThread
@@ -21,6 +22,15 @@ local KillThread = KillThread
 local CreateEmitterAtBone = CreateEmitterAtBone
 
 local VectorCached = { 0, 0, 0 }
+	
+local AdjustHealth = moho.entity_methods.AdjustHealth
+local SetShieldRatio = moho.unit_methods.SetShieldRatio
+local GetArmorMult = moho.unit_methods.GetArmorMult
+local GetArmy = moho.entity_methods.GetArmy        
+local GetBlueprint = moho.entity_methods.GetBlueprint
+local GetHealth = moho.entity_methods.GetHealth
+local GetMaxHealth = moho.entity_methods.GetMaxHealth
+local SetMesh = moho.entity_methods.SetMesh
 
 local TrashBag = TrashBag
 local TrashAdd = TrashBag.Add
@@ -29,14 +39,6 @@ local WaitTicks = coroutine.yield
 
 local Warp = Warp
 
-local AdjustHealth = moho.entity_methods.AdjustHealth
-local GetArmy = moho.entity_methods.GetArmy
-local GetBlueprint = moho.entity_methods.GetBlueprint
-local GetHealth = moho.entity_methods.GetHealth
-local GetMaxHealth = moho.entity_methods.GetMaxHealth
-
-local SetMesh = moho.entity_methods.SetMesh
-local SetShieldRatio = moho.unit_methods.SetShieldRatio
 
 
 Shield = Class(moho.shield_methods,Entity) {
@@ -50,10 +52,11 @@ Shield = Class(moho.shield_methods,Entity) {
     OnCreate = function( self, spec )
 
         --self.Trash = self.Owner.Trash	-- so the shield itself has a trashbag -- why not use the Owners ?
-        self.Owner = spec.Owner
+
 		self.Army = GetArmy(self)
 		self.Dead = false
-
+        self.Owner = spec.Owner
+        
         self.MeshBp = spec.Mesh
         self.MeshZBp = spec.MeshZ
         self.ImpactMeshBp = spec.ImpactMesh
@@ -69,7 +72,7 @@ Shield = Class(moho.shield_methods,Entity) {
         self:SetMaxHealth(spec.ShieldMaxHealth)
         self:SetHealth(self, spec.ShieldMaxHealth)
 
-		self.Owner:SetShieldRatio( 1 )
+		SetShieldRatio( self.Owner, 1 )
 		
         self.ShieldRechargeTime = spec.ShieldRechargeTime or 5
         self.ShieldEnergyDrainRechargeTime = spec.ShieldEnergyDrainRechargeTime or 5
@@ -128,12 +131,10 @@ Shield = Class(moho.shield_methods,Entity) {
 	
         if value >= 0 then
 		
-            self.Owner:SetShieldRatio( value )
-			
+            SetShieldRatio( self.Owner, value )
         else
 		
-            self.Owner:SetShieldRatio( GetHealth(self)/GetMaxHealth(self) )
-			
+            SetShieldRatio( self.Owner, GetHealth(self)/GetMaxHealth(self) )
         end
 		
     end,
@@ -163,7 +164,7 @@ Shield = Class(moho.shield_methods,Entity) {
 
     OnCollisionCheckWeapon = function(self, firingWeapon)
 
-		local GetArmy = moho.entity_methods.GetArmy
+		local GetArmy = GetArmy
 	
 		if IsAlly( self.Army, GetArmy(firingWeapon.unit) ) then
 		
@@ -171,7 +172,7 @@ Shield = Class(moho.shield_methods,Entity) {
 			
 		end
 	
-		local weaponBP = firingWeapon:GetBlueprint()
+		local weaponBP = firingWeapon.bp
 --[[
         if not weaponBP.CollideFriendly then
 		
@@ -186,8 +187,8 @@ Shield = Class(moho.shield_methods,Entity) {
         if weaponBP.DoNotCollideList then
 			--LOG("*AI DEBUG Processing Shield DNC List "..repr(weaponBP.DoNotCollideList))
 			
-			local LOUDENTITY = EntityCategoryContains
-			local LOUDPARSE = ParseEntityCategory	
+			local LOUDENTITY = LOUDENTITY
+			local LOUDPARSE = LOUDPARSE
 			
 			for _, v in weaponBP.DoNotCollideList do
 				if LOUDENTITY(LOUDPARSE(v), self) then
@@ -204,13 +205,16 @@ Shield = Class(moho.shield_methods,Entity) {
 
     OnDamage =  function(self,instigator,amount,vector,type)
 	
-		local GetArmorMult = moho.unit_methods.GetArmorMult
-		local GetHealth = moho.entity_methods.GetHealth
-		local GetMaxHealth = moho.entity_methods.GetMaxHealth
-		local LOUDMIN = math.min
-		local LOUDMAX = math.max
+		local AdjustHealth = AdjustHealth
+		local SetShieldRatio = SetShieldRatio
+		local GetArmorMult = GetArmorMult
+		local GetHealth = GetHealth
+		local GetMaxHealth = GetMaxHealth
+        
+		local LOUDMIN = LOUDMIN
+		local LOUDMAX = LOUDMAX
 
-        local absorbed = amount * ( self.Owner:GetArmorMult( type ))
+        local absorbed = amount * ( GetArmorMult( self.Owner, type ) )
 
         absorbed = LOUDMIN( GetHealth(self), absorbed )
 		
@@ -220,7 +224,7 @@ Shield = Class(moho.shield_methods,Entity) {
 
         if self.PassOverkillDamage and (amount-absorbed) > 0 then
 
-			local overkill = (amount-absorbed) * ( self.Owner:GetArmorMult( type ))
+			local overkill = (amount-absorbed) * ( GetArmorMult( self.Owner, type ))
 
 			overkill = LOUDMAX( overkill, 0 )
 			
@@ -240,7 +244,7 @@ Shield = Class(moho.shield_methods,Entity) {
         
         AdjustHealth( self, instigator, -absorbed) 
 		
-		self.Owner:SetShieldRatio( GetHealth(self)/GetMaxHealth(self) )
+		SetShieldRatio( self.Owner, GetHealth(self)/GetMaxHealth(self) )
         
         if self.RegenThread then
            KillThread(self.RegenThread)
@@ -273,11 +277,12 @@ Shield = Class(moho.shield_methods,Entity) {
 
     RegenStartThread = function(self)
 	
-		local AdjustHealth = moho.entity_methods.AdjustHealth
-		local GetHealth = moho.entity_methods.GetHealth
-		local GetMaxHealth = moho.entity_methods.GetMaxHealth
-		local SetShieldRatio = moho.unit_methods.SetShieldRatio
-		local WaitTicks = coroutine.yield
+		local AdjustHealth = AdjustHealth
+		local GetHealth = GetHealth
+		local GetMaxHealth = GetMaxHealth
+		local SetShieldRatio = SetShieldRatio
+        
+		local WaitTicks = WaitTicks
 		
 		if ScenarioInfo.ShieldDialog then
 			LOG("*AI DEBUG Shield Starts Regen Thread on "..repr(self.Owner.BlueprintID).." "..repr(__blueprints[self.Owner.BlueprintID].Description).." - start delay is "..repr(self.RegenStartTime) )
@@ -297,11 +302,10 @@ Shield = Class(moho.shield_methods,Entity) {
 			
 				AdjustHealth( self, self.Owner, self.RegenRate )
 				
-				self.Owner:SetShieldRatio( GetHealth(self)/GetMaxHealth(self) )
+				SetShieldRatio( self.Owner, GetHealth(self)/GetMaxHealth(self) )
 		
 				-- wait one second
 				WaitTicks(10)
-
 			end
         end
 		
@@ -374,7 +378,7 @@ Shield = Class(moho.shield_methods,Entity) {
 	
 		-- credit Balthazar and PhilipJFry for diagnosing and repairing
 		if categories.SHIELDPIERCING then
-			if EntityCategoryContains( categories.SHIELDPIERCING, other ) then
+			if LOUDENTITY( categories.SHIELDPIERCING, other ) then
 				return false
 			end
         end
@@ -470,14 +474,14 @@ Shield = Class(moho.shield_methods,Entity) {
         self.Owner:OnShieldIsCharging()
     
 		local GetResourceConsumed = moho.unit_methods.GetResourceConsumed
-		local SetShieldRatio = moho.unit_methods.SetShieldRatio
-		local WaitTicks = coroutine.yield
+		local SetShieldRatio = SetShieldRatio
+		local WaitTicks = WaitTicks
         
         while not self.Dead and curProgress < time do
 			
             curProgress = curProgress + GetResourceConsumed( self.Owner )
 			
-			self.Owner:SetShieldRatio( curProgress/time )
+			SetShieldRatio( self.Owner, curProgress/time )
 			
             WaitTicks(10)
         end    
@@ -487,12 +491,12 @@ Shield = Class(moho.shield_methods,Entity) {
 	
         Main = function(self)
 		
-			local GetHealth = moho.entity_methods.GetHealth
-			local GetMaxHealth = moho.entity_methods.GetMaxHealth
+			local GetHealth = GetHealth
+			local GetMaxHealth = GetMaxHealth
 			local GetResourceConsumed = moho.unit_methods.GetResourceConsumed
             local GetEconomyStored = moho.aibrain_methods.GetEconomyStored
-			local SetShieldRatio = moho.unit_methods.SetShieldRatio
-			local WaitTicks = coroutine.yield
+			local SetShieldRatio = SetShieldRatio
+			local WaitTicks = WaitTicks
 			
 			local aiBrain = self.Owner:GetAIBrain()
 			
@@ -515,7 +519,7 @@ Shield = Class(moho.shield_methods,Entity) {
             -- We are no longer turned off
             self.OffHealth = -1
 			
-            self.Owner:SetShieldRatio( GetHealth(self)/GetMaxHealth(self) )
+            SetShieldRatio( self.Owner, GetHealth(self)/GetMaxHealth(self) )
 			
             self.Owner:OnShieldEnabled()
 			self:CreateShieldMesh()
@@ -527,21 +531,18 @@ Shield = Class(moho.shield_methods,Entity) {
 			
 				WaitTicks(5)
 				
-				self.Owner:SetShieldRatio( GetHealth(self)/GetMaxHealth(self) )
+				SetShieldRatio( self.Owner, GetHealth(self)/GetMaxHealth(self) )
 				
                 if GetResourceConsumed( self.Owner ) != 1 and GetEconomyStored(aiBrain, 'ENERGY') < 1 then
 					
 					break
-					
 				end
-				
             end
             
             -- Record the amount of health on the shield here so when the unit tries to turn its shield
             -- back on and off it has the amount of health from before.
 
             ChangeState(self, self.EnergyDrainRechargeState)
-			
         end,
 
         IsOn = function(self)
@@ -714,7 +715,7 @@ AntiArtilleryShield = Class(Shield){
 
     OnCollisionCheckWeapon = function(self, firingWeapon)
 
-        local bp = firingWeapon:GetBlueprint()
+        local bp = firingWeapon.bp
 		
         if not bp.CollideFriendly then
 		
@@ -731,7 +732,7 @@ AntiArtilleryShield = Class(Shield){
 		
 			for _,v in bp.DoNotCollideList do
 			
-				if EntityCategoryContains(ParseEntityCategory(v), self) then
+				if LOUDENTITY( LOUDPARSE(v), self) then
 				
 					return false
 					
@@ -878,7 +879,7 @@ ProjectedShield = Class(Shield){
 			
             --If it looked like too much damage, remove it from the projector list, and count the overkill
             if ProjectorHealth <= damageToDeal then
-                overKillDamage = overKillDamage + math.max(damageToDeal - ProjectorHealth, 0)
+                overKillDamage = overKillDamage + LOUDMAX(damageToDeal - ProjectorHealth, 0)
                 projector.ShieldProjectionEnabled = false
                 projector:ClearShieldProjections()
             end

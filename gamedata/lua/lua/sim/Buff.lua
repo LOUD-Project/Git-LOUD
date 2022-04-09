@@ -652,7 +652,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
         
             for i = 1, unit:GetWeaponCount() do
                 local wep = unit:GetWeapon(i)
-                local wepbp = wep:GetBlueprint()
+                local wepbp = wep.bp
                 local weprof = wepbp.RateOfFire
 
                 -- Set new rate of fire based on blueprint rate of fire.
@@ -757,7 +757,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 
                 local wep = unit:GetWeapon(i)
                 if wep.Label != 'DeathWeapon' and wep.Label != 'DeathImpact' then
-                    local wepbp = wep:GetBlueprint()
+                    local wepbp = wep.bp
                     local wepdam = wepbp.Damage
                     local val = BuffCalculate(unit, buffName, 'Damage', wepdam)
 
@@ -779,7 +779,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
             for i = 1, unit:GetWeaponCount() do
 
                 local wep = unit:GetWeapon(i)
-                local wepbp = wep:GetBlueprint()
+                local wepbp = wep.bp
                 local weprad = wepbp.DamageRadius
                 local val = BuffCalculate(unit, buffName, 'DamageRadius', weprad)
 
@@ -791,7 +791,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
             for i = 1, unit:GetWeaponCount() do
             
                 local wep = unit:GetWeapon(i)
-                local wepbp = wep:GetBlueprint()
+                local wepbp = wep.bp
                 local wepfr = wepbp.FiringRandomness
 
                 local val = BuffCalculate(unit, buffName, 'FiringRandomness', 1)
@@ -807,7 +807,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
             for i = 1, unit:GetWeaponCount() do
 
                 local wep = unit:GetWeapon(i)
-                local wepbp = wep:GetBlueprint()
+                local wepbp = wep.bp
                 local weprad = wepbp.MaxRadius
                 local val = BuffCalculate(unit, buffName, 'MaxRadius', weprad)
 
