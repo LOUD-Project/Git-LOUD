@@ -752,7 +752,7 @@ EngineerManager = Class(BuilderManager) {
         
         local BaseMonitorDialog = ScenarioInfo.BaseMonitorDialog or false
 		
-		local WaitTicks = coroutine.yield
+		local WaitTicks = WaitTicks
 
 		-- this function will draw a visible radius around the base
 		-- equal to the alert radius of the base each time the base
@@ -1043,7 +1043,7 @@ EngineerManager = Class(BuilderManager) {
 		local LOUDFLOOR = math.floor
 
 		
-		local WaitTicks = coroutine.yield
+		local WaitTicks = WaitTicks
 	
 		local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
 		
@@ -1229,7 +1229,7 @@ EngineerManager = Class(BuilderManager) {
 			end		
 		end
 	
-		local WaitTicks = coroutine.yield
+		local WaitTicks = WaitTicks
         
         local BaseMonitorDialog = ScenarioInfo.BaseMonitorDialog or false
         local BaseDistressResponseDialog = ScenarioInfo.BaseDistressResponseDialog or false

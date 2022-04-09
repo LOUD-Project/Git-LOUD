@@ -5,6 +5,9 @@
 
 local AIGetMarkersAroundLocation = import('/lua/ai/aiutilities.lua').AIGetMarkersAroundLocation
 local AIPickEnemyLogic = import('/lua/ai/aiutilities.lua').AIPickEnemyLogic
+
+--local PlatoonGenerateSafePathToLOUD = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD
+
 local RandomLocation = import('/lua/ai/aiutilities.lua').RandomLocation
 local SetArmyPoolBuff = import('ai/aiutilities.lua').SetArmyPoolBuff
 
@@ -36,14 +39,14 @@ local VDist3 = VDist3
 local GetAIBrain = moho.unit_methods.GetAIBrain
 
 local GetCurrentUnits = moho.aibrain_methods.GetCurrentUnits
-local GetListOfUnits = moho.aibrain_methods.GetListOfUnits
-local GetFuelRatio = moho.unit_methods.GetFuelRatio
-local GetPlatoonPosition = moho.platoon_methods.GetPlatoonPosition
-
-local GetPosition = moho.entity_methods.GetPosition
-
-local GetNumUnitsAroundPoint = moho.aibrain_methods.GetNumUnitsAroundPoint
 local GetEconomyIncome = moho.aibrain_methods.GetEconomyIncome
+local GetFuelRatio = moho.unit_methods.GetFuelRatio
+local GetListOfUnits = moho.aibrain_methods.GetListOfUnits
+local GetNumUnitsAroundPoint = moho.aibrain_methods.GetNumUnitsAroundPoint
+local GetPlatoonPosition = moho.platoon_methods.GetPlatoonPosition
+local GetPosition = moho.entity_methods.GetPosition
+local GetThreatAtPosition = moho.aibrain_methods.GetThreatAtPosition
+local GetThreatsAroundPosition = moho.aibrain_methods.GetThreatsAroundPosition
 
 local IsBeingBuilt = moho.unit_methods.IsBeingBuilt
 
@@ -234,7 +237,7 @@ function GetBaseWithGreatestThreatAtDistance( aiBrain, threattype, threatcutoff,
     
     local ringcheck = LOUDFLOOR(distance/ScenarioInfo.IMAPSize)
     
-   	local GetThreatsAroundPosition = moho.aibrain_methods.GetThreatsAroundPosition
+   	local GetThreatsAroundPosition = GetThreatsAroundPosition
     
     local BM = aiBrain.BuilderManagers
     
@@ -251,7 +254,6 @@ function GetBaseWithGreatestThreatAtDistance( aiBrain, threattype, threatcutoff,
                 if v[3] > threatcutoff then
                 
                     threatamount = threatamount + v[3]
-                    
                 end
            
             end
@@ -260,17 +262,11 @@ function GetBaseWithGreatestThreatAtDistance( aiBrain, threattype, threatcutoff,
             
                 bestname = base.BaseName
                 bestthreat = threatamount
-                
             end
-
         end
-        
     end
     
-    --LOG("*AI DEBUG "..aiBrain.Nickname.." GetBaseWithGreatestThreatAtDistance returns "..repr(bestname).." with "..bestthreat.." rings is "..ringcheck)
-    
     return bestname, bestthreat
-    
 end
 
 -- Sorts the list of scouting areas by time since scouted, and then distance from main base.
@@ -311,7 +307,6 @@ function HasMassPointShare( aiBrain, multiple )
         -- The Extractor count is increased by the AIMult (which is carried in aiBrain.VeterancyMult)
         -- so an AI with a high cheat will consider itself to have it's share sooner
         extractorCount = extractorCount * aiBrain.VeterancyMult
-        
     end
 
     -- the addition of the multiple allows us to test for an ownership % relationship
@@ -336,7 +331,6 @@ function NeedMassPointShare( aiBrain, multiple )
         -- The Extractor count is increased by the AIMult (which is carried in aiBrain.VeterancyMult)
         -- so an AI with a high cheat will consider itself to have it's share sooner
         extractorCount = extractorCount * aiBrain.VeterancyMult
-        
     end
 
 	return extractorCount < ( aiBrain.MassPointShare * (multiple or 1))
@@ -500,7 +494,7 @@ function GetFreeUnitsAroundPoint( aiBrain, category, location, radius, useRefuel
 
     local units = aiBrain:GetUnitsAroundPoint( category, location, radius, 'Ally' )
     
-    local GetThreatAtPosition = moho.aibrain_methods.GetThreatAtPosition
+    local GetThreatAtPosition = GetThreatAtPosition
 	
     local retUnits = {}
 	local counter = 1
@@ -1273,6 +1267,8 @@ function SetPrimaryLandAttackBase( aiBrain )
         aiBrain.PrimaryLandAttackBase = false
         aiBrain.PrimaryLandAttackBaseDistance = 99999
     end
+    
+    local PlatoonGenerateSafePathToLOUD = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD
 
     if aiBrain.AttackPlan.Goal then
     
@@ -1310,7 +1306,7 @@ function SetPrimaryLandAttackBase( aiBrain )
                 pathlength = 0
                 
 				-- here is the distance calculation 
-                path,reason,pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( aiBrain, 'PrimaryLandBaseFinderfrom'..v.BaseName, 'Amphibious', v.Position, goal, 99999, 200)
+                path,reason,pathlength = PlatoonGenerateSafePathToLOUD( aiBrain, 'PrimaryLandBaseFinderfrom'..v.BaseName, 'Amphibious', v.Position, goal, 99999, 200)
                 
                 if path then
 
@@ -1447,6 +1443,8 @@ function SetPrimarySeaAttackBase( aiBrain )
         aiBrain.PrimarySeaAttackBase = false
         aiBrain.PrimarySeaAttackBaseDistance = 99999
     end
+    
+    local PlatoonGenerateSafePathToLOUD = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD
 
     if aiBrain.AttackPlan.Goal then
     
@@ -1475,7 +1473,7 @@ function SetPrimarySeaAttackBase( aiBrain )
                 pathlength = 0
 			
 				-- here is the distance calculation
-                path,reason,pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( aiBrain, 'PrimarySeaBaseFinderfrom'..v.BaseName, 'Amphibious', v.Position, goal, 99999, 200)
+                path,reason,pathlength = PlatoonGenerateSafePathToLOUD( aiBrain, 'PrimarySeaBaseFinderfrom'..v.BaseName, 'Amphibious', v.Position, goal, 99999, 200)
                 
                 if path then
                 
@@ -1935,6 +1933,8 @@ function AirUnitRefitThread( unit, aiBrain )
         
         local VDist3Sq = VDist3Sq
         local WaitTicks = coroutine.yield
+        
+        
 
 		while (not unit.Dead) do
 		
@@ -3160,7 +3160,7 @@ end
 -- which makes path selections sensitive to threat that might prevent them from getting to a goal
 function PathGeneratorAir( aiBrain )
 	
-    local GetThreatAtPosition = moho.aibrain_methods.GetThreatAtPosition
+    local GetThreatAtPosition = GetThreatAtPosition
 	local GetThreatBetweenPositions = moho.aibrain_methods.GetThreatBetweenPositions
     local PlatoonExists = moho.aibrain_methods.PlatoonExists
 
@@ -3374,7 +3374,7 @@ end
 
 function PathGeneratorAmphibious(aiBrain)
 
-    local GetThreatAtPosition = moho.aibrain_methods.GetThreatAtPosition
+    local GetThreatAtPosition = GetThreatAtPosition
 	local GetThreatBetweenPositions = moho.aibrain_methods.GetThreatBetweenPositions
     local PlatoonExists = moho.aibrain_methods.PlatoonExists
 
@@ -3585,7 +3585,7 @@ end
 
 function PathGeneratorLand(aiBrain)
 
-    local GetThreatAtPosition = moho.aibrain_methods.GetThreatAtPosition
+    local GetThreatAtPosition = GetThreatAtPosition
 	local GetThreatBetweenPositions = moho.aibrain_methods.GetThreatBetweenPositions
     local PlatoonExists = moho.aibrain_methods.PlatoonExists
 
@@ -3779,7 +3779,7 @@ end
 -- this pathgenerator also takes into account casualties along the route
 function PathGeneratorWater(aiBrain)
 
-    local GetThreatAtPosition = moho.aibrain_methods.GetThreatAtPosition	
+    local GetThreatAtPosition = GetThreatAtPosition	
 	local GetThreatBetweenPositions = moho.aibrain_methods.GetThreatBetweenPositions
     local PlatoonExists = moho.aibrain_methods.PlatoonExists
 
@@ -4179,11 +4179,12 @@ function ParseIntelThread( aiBrain )
 
     -- local the repetitive functions		
 	local EntityCategoryFilterDown = EntityCategoryFilterDown
-	local GETTHREATATPOSITION = moho.aibrain_methods.GetThreatAtPosition
+    
+	local GETTHREATATPOSITION = GetThreatAtPosition
 	local GetListOfUnits = moho.aibrain_methods.GetListOfUnits
 	local GetPosition = moho.entity_methods.GetPosition
 	local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
-	local GetThreatsAroundPosition = moho.aibrain_methods.GetThreatsAroundPosition
+	local GetThreatsAroundPosition = GetThreatsAroundPosition
 
 	local LOUDMAX = math.max
 	local LOUDMIN = math.min
@@ -5041,9 +5042,16 @@ end
 
 function CreateAttackPlan( self, enemyPosition )
 
-    local LOUDCOPY = table.copy
+    local GetSurfaceHeight = GetSurfaceHeight
+    local GetTerrainHeight = GetTerrainHeight
+
+    local LOUDCOPY = LOUDCOPY
+    local LOUDFLOOR = LOUDFLOOR
     local VDist2 = VDist2
     local VDist2Sq = VDist2Sq
+    local WaitTicks = WaitTicks
+    
+    local PlatoonGenerateSafePathToLOUD = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD
     
 	if self.DeliverStatus then
 		ForkThread( AISendChat, 'allies', self.Nickname, 'Creating Attack Plan for '..ArmyBrains[self:GetCurrentEnemy().ArmyIndex].Nickname )
@@ -5164,12 +5172,12 @@ function CreateAttackPlan( self, enemyPosition )
     
     -- FIRST - see if we can path from start to the goal using LAND --
     pathtype = 'Land'
-    path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerLand', 'Land', CurrentPoint, Goal, 99999, 160)
+    path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerLand', 'Land', CurrentPoint, Goal, 99999, 160)
     
     -- if not - try AMPHIB --
     if not path then
         pathtype = 'Amphibious'
-        path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerAmphib', 'Amphibious', CurrentPoint, Goal, 99999, 250)
+        path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerAmphib', 'Amphibious', CurrentPoint, Goal, 99999, 250)
     end
     
     if not path then
@@ -5250,12 +5258,12 @@ function CreateAttackPlan( self, enemyPosition )
 
                     -- get the pathlength of this position to the Goal position -- using LAND
                     if (not LocationInWaterCheck(Goal)) and (not LocationInWaterCheck(v.Position)) then
-                        path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerLand2', 'Land', Goal, v.Position, 99999, 160)
+                        path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerLand2', 'Land', Goal, v.Position, 99999, 160)
                     end
                 
                     -- then try AMPHIB --
                     if not path then
-                        path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerAmphib2', 'Amphibious', Goal, v.Position, 99999, 250)
+                        path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerAmphib2', 'Amphibious', Goal, v.Position, 99999, 250)
                     end
  
                     -- if we have a path and its closer to goal than the best so far
@@ -5269,7 +5277,7 @@ function CreateAttackPlan( self, enemyPosition )
                         if (not LocationInWaterCheck(CurrentPoint)) and (not LocationInWaterCheck(v.Position)) then
                         
                             pathtype = "Land"
-                            path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerLand3', 'Land', CurrentPoint, v.Position, 99999, 160)
+                            path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerLand3', 'Land', CurrentPoint, v.Position, 99999, 160)
                             
                         end
 					
@@ -5277,7 +5285,7 @@ function CreateAttackPlan( self, enemyPosition )
                         if not path then
                         
                             pathtype = "Amphibious"
-                            path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerAmphib3', 'Amphibious', CurrentPoint, v.Position, 99999, 250)
+                            path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerAmphib3', 'Amphibious', CurrentPoint, v.Position, 99999, 250)
                             
                         end
 
@@ -5372,12 +5380,12 @@ function CreateAttackPlan( self, enemyPosition )
                 else
                 
                     pathtype = "Land"
-                    path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerLand4', 'Land', CurrentPoint, landposition[1].Position, 99999, 160)
+                    path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerLand4', 'Land', CurrentPoint, landposition[1].Position, 99999, 160)
                     
                     if not path then
                     
                         pathtype = "Amphibious"
-                        path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerAmphib4', 'Amphibious', CurrentPoint, landposition[1].Position, 99999, 250)
+                        path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerAmphib4', 'Amphibious', CurrentPoint, landposition[1].Position, 99999, 250)
                     end
 				
                     LOUDINSERT(positions, { Name = "FakeLAND", Position = landposition[1].Position, Pathvalue = pathlength, Type = pathtype, Path = path})
@@ -5392,12 +5400,12 @@ function CreateAttackPlan( self, enemyPosition )
                     end
                     
                     pathtype = "Land"
-                    path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerLand5', 'Land', CurrentPoint, fakeposition[1].Position, 99999, 160)
+                    path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerLand5', 'Land', CurrentPoint, fakeposition[1].Position, 99999, 160)
                     
                     if not path then
                     
                         pathtype = "Amphibious"
-                        path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerAmphib5', 'Amphibious', CurrentPoint, fakeposition[1].Position, 99999, 250)
+                        path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerAmphib5', 'Amphibious', CurrentPoint, fakeposition[1].Position, 99999, 250)
                     end
 
                     LOUDINSERT(positions, {Name = "FakeNAVAL", Position = fakeposition[1].Position, Pathvalue = pathlength, Type = pathtype, Path = path})
@@ -5417,11 +5425,11 @@ function CreateAttackPlan( self, enemyPosition )
                 CurrentPointDistance = VDist2(CurrentPoint[1],CurrentPoint[3], Goal[1],Goal[3])
                 
                 pathtype = "Land"
-                path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerLand6', 'Land', CurrentPoint, Goal, 99999, 160 )
+                path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerLand6', 'Land', CurrentPoint, Goal, 99999, 160 )
                 
                 if not path then
                     pathtype = "Amphibious"
-                    path, reason, pathlength = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerAmphib6', 'Amphibious', CurrentPoint, Goal, 99999, 250 )
+                    path, reason, pathlength = PlatoonGenerateSafePathToLOUD( self, 'AttackPlannerAmphib6', 'Amphibious', CurrentPoint, Goal, 99999, 250 )
                 end
                 
                 if path then
@@ -5548,8 +5556,10 @@ function AttackPlanMonitor(self)
 
     --LOG("*AI DEBUG "..self.Nickname.." starting AttackPlanMonitor to "..repr(self.AttackPlan.Goal))
     
-    local GetThreatsAroundPosition = self.GetThreatsAroundPosition
+    local GetThreatsAroundPosition = GetThreatsAroundPosition
     local CurrentEnemyIndex = self:GetCurrentEnemy():GetArmyIndex()
+    
+    local WaitTicks = WaitTicks
 
     while self.AttackPlan.Goal do
     

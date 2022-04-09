@@ -6,6 +6,7 @@ local STRINGFIND = string.find
 
 local LOUDCOPY = table.copy
 local LOUDFLOOR = math.floor
+local LOUDMAX = math.max
 local LOUDPARSE = ParseEntityCategory
 local LOUDSORT = table.sort
 
@@ -15,12 +16,15 @@ local VDist3Sq = VDist3Sq
 
 local WaitTicks = coroutine.yield
 
+local CanAttackTarget = moho.platoon_methods.CanAttackTarget
+
 local GetNumUnitsAroundPoint = moho.aibrain_methods.GetNumUnitsAroundPoint
 
 local GetPlatoonPosition = moho.platoon_methods.GetPlatoonPosition
 local GetPlatoonUnits = moho.platoon_methods.GetPlatoonUnits
 local GetPosition = moho.entity_methods.GetPosition
 
+local GetThreatAtPosition = moho.aibrain_methods.GetThreatAtPosition
 local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
 
 local PlatoonExists = moho.aibrain_methods.PlatoonExists	
@@ -53,7 +57,6 @@ function GetClosestPathNodeInRadiusByLayer(location, layer)
 		if VDist2Sq( nodes[1].position[1],nodes[1].position[3], location[1],location[3]) <= (radius*radius) then
 			return true, nodes[1].position
         end
-        
 	end
 
 	return false, nil
@@ -367,12 +370,14 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
     
     local GetPosition = GetPosition	
     
-	local GetThreatAtPosition = moho.aibrain_methods.GetThreatAtPosition
-	local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
+	local GetThreatAtPosition = GetThreatAtPosition
+	local GetUnitsAroundPoint = GetUnitsAroundPoint
 
 	local LOUDV2 = VDist2
+    local VDist2Sq = VDist2Sq
 	local LOUDV3 = VDist3
     local LOUDSORT = LOUDSORT
+    local LOUDCAT = table.cat
     local type = type
 	
 	-- Checks radius around base to see if marker is sufficiently far away
@@ -399,35 +404,15 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 						
 							return false
 						end
-                        
 					end
-                    
 				end
-                
 			end
-            
 		end
 		
 		-- position is ok (not within radius of an Allied base)
         return true
     end	
-	
---[[
-	if PointType == 'Unit' and type(PointCategory) == 'string' then
-        LOG("*AI DEBUG Parsing Point Category "..repr(self.BuilderName))
-		PointCategory = LOUDPARSE(PointCategory)
-	end
-	
-	if type(StrCategory) == 'string' then
-        LOG("*AI DEBUG Parsing Structure Category "..repr(self.BuilderName))
-		StrCategory = LOUDPARSE(StrCategory)
-	end
-	
-	if type(UntCategory) == 'string' then
-        LOG("*AI DEBUG Parsing Unit Category "..repr(self.BuilderName))
-		UntCategory = LOUDPARSE(UntCategory)
-	end
---]]	
+
 	--- Assemble the basic list of points either for Units or Markers and then for Self or not Self within that
 	-- filter for distance now and filter for Allied bases if AvoidBases is true
 
@@ -454,7 +439,6 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
             if intelpoint[3] < PlayableArea[2] or intelpoint[3] > PlayableArea[4] then
                 return false
             end
-
         end
         
         return true
@@ -492,9 +476,7 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 					positions[counter] = {pos[1], pos[2], pos[3], distance, platdistance } 
 					counter = counter + 1
 				end
-                
 			end
-            
 		end
 		
 	elseif PointType == 'Marker' then
@@ -512,7 +494,7 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 			end
 			
 			for _,cat in CheckCategory do
-				pointlist = table.cat(pointlist, ScenarioInfo[ cat ] or AIGetMarkerLocations( cat ) )
+				pointlist = LOUDCAT(pointlist, ScenarioInfo[ cat ] or AIGetMarkerLocations( cat ) )
 			end
 		
 			if pointlist[1] and PointSource then
@@ -543,18 +525,14 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 							
                                     counter = counter + 1
                                 end
-                                
                             end
                             
                         else
                         
                             break -- beyond max distance stop checking --
                         end
-                        
                     end
-                    
                 end
-                
             end
             
 		else
@@ -793,15 +771,10 @@ function FindTargetInRange( self, aiBrain, squad, maxRange, attackcategories, no
 						if CanGraphTo( u_position ) and not CheckBlockingTerrain( u_position ) then
 							return u, u_position
                         end
-                        
                     end
-                    
 				end
-                
 			end
-			
 		end
-        
 	end
 	
 	return false, false
@@ -830,9 +803,9 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
 
 	local minimumrange = (minRange * minRange)
 	
-    local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
-	local GetThreatAtPosition = moho.aibrain_methods.GetThreatAtPosition
-    local LOUDMAX = math.max
+    local GetUnitsAroundPoint = GetUnitsAroundPoint
+	local GetThreatAtPosition = GetThreatAtPosition
+    local LOUDMAX = LOUDMAX
 	
 	local AIGetThreatLevelsAroundPoint = function(unitposition)
 
@@ -865,7 +838,7 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
         return false, false
     end
 
-	local CanAttackTarget = moho.platoon_methods.CanAttackTarget
+	local CanAttackTarget = CanAttackTarget
     local EntityCategoryFilterDown = EntityCategoryFilterDown
     local GetPosition = GetPosition
 
@@ -918,8 +891,6 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
 					-- if can attack this type of target
 					if CanAttackTarget( platoon, squad, u ) then
 
-                        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(squad).." finds "..repr(u:GetBlueprint().Description).." at "..VDist3(unitposition, position).." from position "..repr(position))
-
                         -- if threat values are provided, use them to filter the targets
                         if threatself then
 					
@@ -950,9 +921,7 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
                                         if s:ShieldIsOn() and VDist2(GetPosition(s)[1],GetPosition(s)[3],unitposition[1],unitposition[3]) < s.MyShield.Size then
                                             enemythreat = enemythreat + (s.MyShield:GetHealth() * .0225)	-- threat plus 2.25% of shield strength
                                         end
-                                    
                                     end
-                                
                                 end
 					
                                 -- cap low end of threat so we dont chase low value targets
@@ -990,9 +959,7 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
 			else
 				retUnit = false
 			end
-            
 		end
-        
 	end
 	
 	return false,false
@@ -1019,10 +986,10 @@ end
 
 function AIFindNumberOfUnitsBetweenPoints( aiBrain, start, finish, unitCat, stepby, alliance)
 
-	local GetNumUnitsAroundPoint = moho.aibrain_methods.GetNumUnitsAroundPoint
+	local GetNumUnitsAroundPoint = GetNumUnitsAroundPoint
 
     if type(unitCat) == 'string' then
-        unitCat = ParseEntityCategory(unitCat)
+        unitCat = LOUDPARSE(unitCat)
     end
 
 	local returnNum = 0

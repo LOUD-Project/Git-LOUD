@@ -10,26 +10,36 @@ local LOUDFLOOR = math.floor
 local LOUDGETN = table.getn
 
 local LOUDCONCAT = table.cat
+local LOUDEQUAL = table.equal
+local LOUDINSERT = table.insert
 local LOUDPARSE = ParseEntityCategory
 local LOUDREMOVE = table.remove
 local LOUDSORT = table.sort
+
 local ForkTo = ForkThread
 
 local VDist2 = VDist2
 local VDist2Sq = VDist2Sq
 local VDist3 = VDist3
+local VDist3Sq = VDist3Sq
 
 local WaitTicks = coroutine.yield
 
 local AssignUnitsToPlatoon = moho.aibrain_methods.AssignUnitsToPlatoon
-local BeenDestroyed = moho.entity_methods.BeenDestroyed
+
 local IsBeingBuilt = moho.unit_methods.IsBeingBuilt
 local IsUnitState = moho.unit_methods.IsUnitState
 
+local GetFractionComplete = moho.entity_methods.GetFractionComplete
+local GetListOfUnits = moho.aibrain_methods.GetListOfUnits
 local GetNumUnitsAroundPoint = moho.aibrain_methods.GetNumUnitsAroundPoint
-local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
+local GetPosition = moho.entity_methods.GetPosition
 local GetPlatoonPosition = moho.platoon_methods.GetPlatoonPosition
 local GetPlatoonUnits = moho.platoon_methods.GetPlatoonUnits
+local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
+
+local IsIdleState = moho.unit_methods.IsIdleState
+
 local PlatoonExists = moho.aibrain_methods.PlatoonExists
 
 
@@ -53,7 +63,7 @@ function AssistBody(self, eng, aiBrain)
 	local ass_count = 0
 	local beingbuiltcategory, assistList, platoonPos
     
-    local GetPosition = moho.entity_methods.GetPosition
+    local GetPosition = GetPosition
     
     local VDist3 = VDist3
     local VDist3Sq = VDist3Sq
@@ -119,13 +129,9 @@ function AssistBody(self, eng, aiBrain)
 					
 						LOG("*AI DEBUG Assistee at "..repr(v:GetPosition()).." beyond eng from "..eng.LocationType.." at "..repr(platoonPos).." assist range of "..assistRange)
 						break
-						
 					end
-					
                 end
-				
             end
-			
         end
 
         if assistee then
@@ -142,7 +148,6 @@ function AssistBody(self, eng, aiBrain)
 		if LOUDENTITY( categories.SUBCOMMANDER, eng ) then
 		
 			IssueGuard( {eng}, assistee )
-			
 		end
     else
 		--LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." "..repr(self.BuilderName).." unable to find anything to assist")
@@ -166,7 +171,7 @@ function UnfinishedBody(self, eng, aiBrain)
 
     local function FindUnfinishedUnits(category)
 
-        local GetFractionComplete = moho.entity_methods.GetFractionComplete
+        local GetFractionComplete = GetFractionComplete
 	
         local unfinished = GetUnitsAroundPoint( aiBrain, category, position, range or 80, 'Ally' )
 	
@@ -720,7 +725,7 @@ function AIFindNavalDefensivePointNeedsStructure( aiBrain, locationType, radius,
 		local test_range = false
         local test_position = false
         
-        local Goal = table.copy(aiBrain.AttackPlan.Goal)
+        local Goal = LOUDCOPY(aiBrain.AttackPlan.Goal)
 		
 		-- this is the range that the current primary base is from the goal - new bases must be closer than this
         -- and we'll use the current PRIMARY base as the centre of our test range
@@ -839,7 +844,7 @@ function AIFindDefensiveAreaSorian( aiBrain, unit, category, range, runShield )
         local highPoint = false
         local highNum = -999999
 		
-        local unitPos = unit:GetPosition()
+        local unitPos = GetPosition(unit)
 		
         local distance
 		
@@ -1024,14 +1029,14 @@ function GetTransports( platoon, aiBrain)
     end
 
 
-	local LOUDCOPY = table.copy
-	local LOUDENTITY = EntityCategoryContains
+	local LOUDCOPY = LOUDCOPY
+	local LOUDENTITY = LOUDENTITY
     
     local VDist2 = VDist2
     
-	local WaitTicks = coroutine.yield
+	local WaitTicks = WaitTicks
     
-    local GetPlatoonPosition = moho.platoon_methods.GetPlatoonPosition
+    local GetPlatoonPosition = GetPlatoonPosition
 
     
 	platoon.UsingTransport = true	-- this will keep the platoon from doing certain things while it's looking for transport
@@ -1168,7 +1173,7 @@ function GetTransports( platoon, aiBrain)
 
 	local GetFuelRatio = moho.unit_methods.GetFuelRatio
 	local IsBeingBuilt = IsBeingBuilt
-	local GetPosition = moho.entity_methods.GetPosition
+	local GetPosition = GetPosition
 	
 	local out_of_range = false
 	
@@ -1601,9 +1606,9 @@ function WatchUnitLoading( transport, units, aiBrain )
 	
 	local reloads = 0
 	local reissue = 0
-	local newunits = table.copy(units)
+	local newunits = LOUDCOPY(units)
 	
-	local GetPosition = moho.entity_methods.GetPosition
+	local GetPosition = GetPosition
 	local watchcount = 0
     
     transport.Loading = true
@@ -1611,7 +1616,7 @@ function WatchUnitLoading( transport, units, aiBrain )
 	IssueClearCommands( {transport} )
 	
     -- At this point we really should safepath to the position
-	IssueMove( {transport}, units[1]:GetPosition() )
+	IssueMove( {transport}, GetPosition(units[1]) )
     
     if TransportDialog then
         LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..transport.Sync.id.." moving to "..repr(units[1]:GetPosition()).." for pickup - distance "..VDist3( transport:GetPosition(), units[1]:GetPosition()))
@@ -1768,7 +1773,7 @@ function WatchUnitLoading( transport, units, aiBrain )
 				
 					LOG("*AI DEBUG "..aiBrain.Nickname.." reloads is "..reloads.." goload is "..repr(goload).." for "..transport:GetBlueprint().Description)
 					
-					ForkTo( AISendPing, transport:GetPosition(),'warning', aiBrain.ArmyIndex )
+					ForkTo( AISendPing, GetPosition(transport),'warning', aiBrain.ArmyIndex )
 				end
 				
 			else
@@ -1793,7 +1798,7 @@ function WatchUnitLoading( transport, units, aiBrain )
     
         if (not transport.Dead) then
             -- have the transport guard his loading spot until everyone else has loaded up
-            IssueGuard( {transport}, transport:GetPosition() )
+            IssueGuard( {transport}, GetPosition(transport) )
         end
         
     end
@@ -1806,14 +1811,14 @@ function WatchTransportTravel( transport, destination, aiBrain )
 	local unitsdead = false
 	local watchcount = 0
 	
-	local GetPosition = moho.entity_methods.GetPosition
+	local GetPosition = GetPosition
     
     local VDist2 = VDist2
     
-    local WaitTicks = coroutine.yield
+    local WaitTicks = WaitTicks
 	
 	transport.StuckCount = 0
-	transport.LastPosition = table.copy(GetPosition(transport))
+	transport.LastPosition = LOUDCOPY(GetPosition(transport))
     transport.Travelling = true
 	
 	while (not unitsdead) do
@@ -1871,7 +1876,7 @@ function WatchTransportTravel( transport, destination, aiBrain )
 				end
 			end
 
-			if (transport:IsIdleState() or transport.StuckCount > 8) then
+			if (IsIdleState(transport) or transport.StuckCount > 8) then
 		
 				if transport.StuckCount > 8 then
 				
@@ -1890,7 +1895,7 @@ function WatchTransportTravel( transport, destination, aiBrain )
 				transport.PlatoonHandle.AtGoal = true
 			end
 		
-			transport.LastPosition = table.copy(transport:GetPosition())
+			transport.LastPosition = LOUDCOPY(transport:GetPosition())
 		end
 	end
 	
@@ -1917,7 +1922,7 @@ function WatchUnitUnload( transport, unitlist, destination, aiBrain )
 	
 	local watchcount = 0
     
-    local WaitTicks = coroutine.yield
+    local WaitTicks = WaitTicks
     
     transport.Unloading = true
 	
@@ -1970,11 +1975,11 @@ function WatchUnitUnload( transport, unitlist, destination, aiBrain )
 				elseif watchcount >= 10 then
 				
 					LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(transport.Sync.id).." "..repr(transport.PlatoonHandle.BuilderName).." watched unload for "..watchcount.." seconds")
-					IssueTransportUnload( {transport}, transport:GetPosition())
+					IssueTransportUnload( {transport}, GetPosition(transport))
 					
 				elseif watchcount > 5 then
 				
-					IssueTransportUnload( {transport}, transport:GetPosition())
+					IssueTransportUnload( {transport}, GetPosition(transport))
 				end
 			end
 		end
@@ -1991,19 +1996,18 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
 
     local TransportDialog = ScenarioInfo.TransportDialog or false
 
-	local LOUDCOPY = table.copy
-	local LOUDENTITY = EntityCategoryContains
-	local LOUDGETN = table.getn
-	local LOUDINSERT = table.insert
+	local LOUDCOPY = LOUDCOPY
+	local LOUDENTITY = LOUDENTITY
+	local LOUDGETN = LOUDGETN
+	local LOUDINSERT = LOUDINSERT
 
-	local WaitTicks = coroutine.yield
+	local WaitTicks = WaitTicks
 	
-	local PlatoonExists = moho.aibrain_methods.PlatoonExists
+	local PlatoonExists = PlatoonExists
 	local GetBlueprint = moho.entity_methods.GetBlueprint
-    local GetPlatoonPosition = moho.platoon_methods.GetPlatoonPosition
-    local GetPlatoonUnits = moho.platoon_methods.GetPlatoonUnits
+    local GetPlatoonPosition = GetPlatoonPosition
+    local GetPlatoonUnits = GetPlatoonUnits
 
-	
     local transportTable = {}	
 	local counter = 0
 	
@@ -2894,17 +2898,18 @@ function CheckTransportPool( aiBrain )
     
     local TransportDialog = ScenarioInfo.TransportDialog
     
-	local IsIdleState = moho.unit_methods.IsIdleState
-    local PlatoonExists = moho.aibrain_methods.PlatoonExists
+	local IsIdleState = IsIdleState
+    
+    local PlatoonExists = PlatoonExists
 
 	-- get all idle, fully built transports except UEF gunship --
-	local unitlist = aiBrain:GetListOfUnits(((categories.AIR * categories.TRANSPORTFOCUS - categories.uea0203)), true, true)
+	local unitlist = GetListOfUnits( aiBrain,(categories.AIR * categories.TRANSPORTFOCUS - categories.uea0203), true, true)
     
     local platoon, oldplatoonname
 	
 	for k,v in unitlist do
         
-		if v and v.PlatoonHandle != TransportPool and v.PlatoonHandle != RefuelPool and v:GetFractionComplete() == 1 then
+		if v and v.PlatoonHandle != TransportPool and v.PlatoonHandle != RefuelPool and GetFractionComplete(v) == 1 then
 		
 			platoon = v.PlatoonHandle or false
 			oldplatoonname = false
@@ -2971,7 +2976,7 @@ function CheckTransportPool( aiBrain )
     -- I know - this isn't the most suitable place for this function
     for k,v in aiBrain.PathRequests['Replies'] do
 
-        if ((not type(k)=='string') and not aiBrain:PlatoonExists(k)) or (k.CreationTime and (gametime > k.CreationTime + 180)) then
+        if ((not type(k)=='string') and not PlatoonExists( aiBrain, k )) or (k.CreationTime and (gametime > k.CreationTime + 180)) then
         
             aiBrain.PathRequests['Replies'][k] = nil
         end
@@ -2981,9 +2986,9 @@ end
 
 function GetGuards( aiBrain, Unit)
 
-	local engs = GetUnitsAroundPoint( aiBrain, categories.ENGINEER, Unit:GetPosition(), 20, 'Ally' )
+	local engs = GetUnitsAroundPoint( aiBrain, categories.ENGINEER, GetPosition(Unit), 20, 'Ally' )
 	local count = 0
-	local UpgradesFrom = Unit:GetBlueprint().General.UpgradesFrom
+	local UpgradesFrom = __blueprints[Unit.BlueprintID].General.UpgradesFrom
 
 	for k,v in engs do
 	
@@ -2996,7 +3001,7 @@ function GetGuards( aiBrain, Unit)
 	if UpgradesFrom and UpgradesFrom != 'none' then -- Used to filter out upgrading units
 	
 		local oldCat = LOUDPARSE(UpgradesFrom)
-		local oldUnit = GetUnitsAroundPoint( aiBrain, oldCat, Unit:GetPosition(), 0, 'Ally' )
+		local oldUnit = GetUnitsAroundPoint( aiBrain, oldCat, GetPosition(Unit), 0, 'Ally' )
 		
 		if oldUnit then
 			count = count + 1
@@ -3025,9 +3030,9 @@ function GetHiPriTargetList(aiBrain, location)
     end
 
 	local VDist2 = VDist2Sq
-	local LOUDCOPY = table.copy
-	local LOUDEQUAL = table.equal
-	local WaitTicks = coroutine.yield
+	local LOUDCOPY = LOUDCOPY
+	local LOUDEQUAL = LOUDEQUAL
+	local WaitTicks = WaitTicks
 
     local threatlist = LOUDCOPY(aiBrain.IL.HiPri)
 	

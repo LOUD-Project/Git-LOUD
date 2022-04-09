@@ -1057,7 +1057,7 @@ AIBrain = Class(moho.aibrain_methods) {
 				-- only transfer to human allies still in game --
 				if v.BrainType != 'AI' and ( IsAlly(self.ArmyIndex, v:GetArmyIndex() ) and self.ArmyIndex != v:GetArmyIndex() and not v:IsDefeated()) then
 				
-					local units = self:GetListOfUnits(categories.ALLUNITS -categories.SUBCOMMANDER - categories.WALL - categories.COMMAND, false)
+					local units = GetListOfUnits( self, categories.ALLUNITS -categories.SUBCOMMANDER - categories.WALL - categories.COMMAND, false)
 					
 					import('/lua/SimUtils.lua').TransferUnitsOwnership( units, v:GetArmyIndex())
 					
@@ -1067,7 +1067,7 @@ AIBrain = Class(moho.aibrain_methods) {
 			
 			WaitTicks(5)
 			
-			local killacu = self:GetListOfUnits(categories.ALLUNITS, false)
+			local killacu = GetListOfUnits( self, categories.ALLUNITS, false)
 			
             for index,unit in killacu do
 			
@@ -1475,7 +1475,7 @@ AIBrain = Class(moho.aibrain_methods) {
     
     OnPlayCommanderUnderAttackVO = function(self)
 	
-        if GetFocusArmy() == self:GetArmyIndex() then
+        if GetFocusArmy() == self.ArmyIndex then
 		
             local Voice = Sound { Bank = 'XGG', Cue = 'Computer_Computer_Commanders_01314' }
 
@@ -1501,7 +1501,7 @@ AIBrain = Class(moho.aibrain_methods) {
 
     NuclearLaunchDetected = function(self, sound)
 	
-		if GetFocusArmy() == self:GetArmyIndex() then
+		if GetFocusArmy() == self.ArmyIndex then
 		
 			local Voice = Sound { Bank = 'XGG',	Cue = 'Computer_Computer_MissileLaunch_01351' }
 

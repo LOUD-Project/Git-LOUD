@@ -34,6 +34,7 @@ local GetFractionComplete = moho.entity_methods.GetFractionComplete
 local GetPosition = moho.entity_methods.GetPosition
 local HideBone = moho.unit_methods.HideBone
 local ScaleEmitter = moho.IEffect.ScaleEmitter
+local SetMesh = moho.entity_methods.SetMesh
 local SetVelocity = moho.projectile_methods.SetVelocity
 
 local WaitTicks = coroutine.yield
@@ -1821,7 +1822,9 @@ function EXTeleportChargeEffects(self)
 			end
 
 			if self.EXPhaseCharge == 1 then
-				self:SetMesh(bpDisplay.Phase1MeshBlueprint, true)
+            
+				SetMesh( self, bpDisplay.Phase1MeshBlueprint, true)
+                
 				self.EXPhaseShieldPercentage = 33
 				WaitTicks(self.EXTeleTimeMod2)
 			end
@@ -1839,7 +1842,8 @@ function EXTeleportChargeEffects(self)
 			end
 			
 			if self.EXPhaseCharge == 1 then
-				self:SetMesh(bpDisplay.Phase2MeshBlueprint, true)
+            
+				SetMesh( self, bpDisplay.Phase2MeshBlueprint, true)
 			end
 		end
     end
@@ -1861,19 +1865,24 @@ function EXTeleportCooldownEffects(self)
 
 		if self.EXPhaseCharge == 0 then
 			self.EXPhaseShieldPercentage = 100
-			self:SetMesh(bpDisplay.Phase1MeshBlueprint, true)
+            
+			SetMesh( self, bpDisplay.Phase1MeshBlueprint, true)
 			WaitTicks(8)
 		end
 		
 		if self.EXPhaseCharge == 0 then
 			self.EXPhaseShieldPercentage = 75
-			self:SetMesh(bpDisplay.Phase1MeshBlueprint, true)
+            
+			SetMesh( self, bpDisplay.Phase1MeshBlueprint, true)
+            
 			WaitTicks(25)
 		end
 
 		if self.EXPhaseCharge == 0 then
 			self.EXPhaseShieldPercentage = 50
-			self:SetMesh(bpDisplay.MeshBlueprint, true)
+            
+			SetMesh( self, bpDisplay.MeshBlueprint, true)
+            
 			WaitTicks(10)
 			self.EXPhaseShieldPercentage = 0
 			self.EXPhaseEnabled = nil

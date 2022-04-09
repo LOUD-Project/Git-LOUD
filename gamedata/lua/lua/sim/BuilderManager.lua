@@ -425,7 +425,7 @@ BuilderManager = Class {
 		local LOUDFLOOR = math.floor
         local LOUDGETN = table.getn
         local LOUDSORT = table.sort
-        local WaitTicks = coroutine.yield
+        local WaitTicks = WaitTicks
        
         local ManagerLoopBody = self.ManagerLoopBody
 
