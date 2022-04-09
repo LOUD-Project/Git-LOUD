@@ -240,7 +240,7 @@ UnitBlueprint {
 			
             DisplayName = 'Nanite Torpedo',
 			
-			EffectiveRadius = 25,
+			EffectiveRadius = 36,
 			
             DoTPulses = 5,	--- so 50 x 5 = 250 damage
             DoTTime = 2,	--- over 2 seconds --
