@@ -6,6 +6,8 @@ local LUTL = '/lua/loudutilities.lua'
 local TBC = '/lua/editor/ThreatBuildConditions.lua'
 
 local LOUDGETN = table.getn
+local GetListOfUnits = moho.aibrain_methods.GetListOfUnits
+
 
 -- imbedded into the Builder
 local First45Minutes = function( self, aiBrain )
@@ -52,7 +54,7 @@ local HaveLessThanThreeT2AirFactory = function( self, aiBrain )
 		
 	end
 	
-	if LOUDGETN( aiBrain:GetListOfUnits( categories.FACTORY * categories.AIR - categories.TECH1, false, true )) < 3 then
+	if LOUDGETN( GetListOfUnits( aiBrain, categories.FACTORY * categories.AIR - categories.TECH1, false, true )) < 3 then
 	
 		return 600, true
 		
@@ -65,7 +67,7 @@ end
 
 local HaveLessThanThreeT3AirFactory = function( self, aiBrain )
 
-	if LOUDGETN( aiBrain:GetListOfUnits( categories.FACTORY * categories.AIR * categories.TECH3, false, true )) < 3 then
+	if LOUDGETN( GetListOfUnits( aiBrain, categories.FACTORY * categories.AIR * categories.TECH3, false, true )) < 3 then
 	
 		return 600, true
 		
@@ -404,7 +406,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
 	
         PlatoonTemplate = 'T1AirTransport',
 		
-        Priority = 600, 
+        Priority = 610, 
 		
 		PriorityFunction = First45Minutes,
 
@@ -413,12 +415,12 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
             { LUTL, 'UnitCapCheckLess', { .75 } },
             
 			-- stop making them if enemy has T2 AA of any kind
-			{ UCBC, 'HaveLessThanUnitsWithCategoryAndAlliance', { 1, categories.ANTIAIR - categories.TECH1, 'Enemy' }},            
+			--{ UCBC, 'HaveLessThanUnitsWithCategoryAndAlliance', { 1, categories.ANTIAIR - categories.TECH1, 'Enemy' }},            
 			
 			-- stop making them if we have more than 3 T2/T3 air plants - anywhere
-            { UCBC, 'HaveLessThanUnitsWithCategory', { 2, categories.FACTORY * categories.AIR - categories.TECH1 }},
+            { UCBC, 'HaveLessThanUnitsWithCategory', { 3, categories.FACTORY * categories.AIR - categories.TECH1 }},
             
-			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 1, [512] = 1, [1024] = 1, [2048] = 2, [4096] = 2}, categories.TRANSPORTFOCUS * categories.TECH1}},
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 1, [512] = 1, [1024] = 2, [2048] = 4, [4096] = 4}, categories.TRANSPORTFOCUS * categories.TECH1}},
         },
 		
         BuilderType =  {'AirT1'},
@@ -444,9 +446,9 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
 			{ UCBC, 'HaveLessThanUnitsWithCategoryAndAlliance', { 1, categories.ANTIAIR - categories.TECH1, 'Enemy' }},
 			
 			-- stop making them if we have more than 2 T2/T3 air plants - anywhere
-            { UCBC, 'HaveLessThanUnitsWithCategory', { 2, categories.FACTORY * categories.AIR - categories.TECH1 }},
+            { UCBC, 'HaveLessThanUnitsWithCategory', { 3, categories.FACTORY * categories.AIR - categories.TECH1 }},
             
-			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 2, [512] = 2, [1024] = 3, [2048] = 4, [4096] = 4}, categories.TRANSPORTFOCUS * categories.TECH1}},
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 2, [512] = 2, [1024] = 4, [2048] = 5, [4096] = 5}, categories.TRANSPORTFOCUS * categories.TECH1}},
         },
 		
         BuilderType =  {'AirT1'},
@@ -462,10 +464,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .75 } },
-            
-            { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },            
 
-			{ UCBC, 'HaveLessThanUnitsForMapSize', { { [256] = 1, [512] = 2, [1024] = 3, [2048] = 5, [4096] = 8 }, categories.TRANSPORTFOCUS * categories.TECH2}},
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { { [256] = 1, [512] = 2, [1024] = 3, [2048] = 6, [4096] = 8 }, categories.TRANSPORTFOCUS * categories.TECH2}},
             
 			-- note -- this condition - unlike the T3 condition - counts ONLY traditional T2 transports --
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.TRANSPORTFOCUS - categories.TECH1 - categories.GROUNDATTACK, categories.AIR - categories.TECH1 }},
@@ -509,7 +509,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .75 } },
             
-            { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 1.2 } },
 			
             { UCBC, 'ArmyNeedsTransports', { true } },
 
@@ -529,7 +529,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .85 } },
             
-            { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 0.9 } },
 			
 			-- this tends to prevent overbuilding of transports when they're not really needed --
 			-- but you'll notice that this builder doesn't reset the NeedsTransports flag --
@@ -539,7 +539,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.TRANSPORTFOCUS - categories.TECH1 - categories.GROUNDATTACK, categories.AIR * categories.TECH3 }},
 
 			-- note -- this condition counts ALL T2, T3 and T4 transports --
-			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 3, [512] = 6, [1024] = 12, [2048] = 18, [4096] = 24}, categories.TRANSPORTFOCUS - categories.TECH1 - categories.GROUNDATTACK}},
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 3, [512] = 6, [1024] = 12, [2048] = 16, [4096] = 20}, categories.TRANSPORTFOCUS - categories.TECH1 - categories.GROUNDATTACK}},
         },
 		
         BuilderType =  {'AirT3'},
@@ -557,7 +557,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .85 } },
             
-            { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 1.2 } },
 			
             { UCBC, 'ArmyNeedsTransports', { true } },
 			

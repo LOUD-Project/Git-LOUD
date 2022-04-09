@@ -7,6 +7,7 @@ local EBC = '/lua/editor/EconomyBuildConditions.lua'
 local LUTL = '/lua/loudutilities.lua'
 
 local LOUDGETN = table.getn
+local GetListOfUnits = moho.aibrain_methods.GetListOfUnits
 
 -- this function will turn a builder off if the enemy is not active in the water
 local IsEnemyNavalActive = function( self, aiBrain, manager )
@@ -26,7 +27,7 @@ local HaveZeroAirFactories = function( self, aiBrain )
 
     if aiBrain.CycleTime > 120 then
 	
-        if LOUDGETN( aiBrain:GetListOfUnits( categories.FACTORY * categories.AIR, false, true )) < 1 then
+        if LOUDGETN( GetListOfUnits( aiBrain, categories.FACTORY * categories.AIR, false, true )) < 1 then
 	
             return 990, true
 		
@@ -42,7 +43,7 @@ local HaveZeroLandFactories = function( self, aiBrain )
 
     if aiBrain.CycleTime > 120 then
 	
-        if LOUDGETN( aiBrain:GetListOfUnits( categories.FACTORY * categories.LAND, false, true )) < 1 then
+        if LOUDGETN( GetListOfUnits( aiBrain, categories.FACTORY * categories.LAND, false, true )) < 1 then
 
             return 990, true
 		
@@ -58,7 +59,7 @@ local HaveZeroNavalFactories = function( self, aiBrain )
 
     if aiBrain.CycleTime > 120 then
 	
-        if LOUDGETN( aiBrain:GetListOfUnits( categories.FACTORY * categories.NAVAL, false, true )) < 1 then
+        if LOUDGETN( GetListOfUnits( aiBrain, categories.FACTORY * categories.NAVAL, false, true )) < 1 then
 	
             return 990, true
 		
