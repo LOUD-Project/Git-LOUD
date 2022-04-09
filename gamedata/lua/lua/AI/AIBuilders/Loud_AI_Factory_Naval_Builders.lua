@@ -56,7 +56,7 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval',
 		
         Priority = 610,
 		
-        BuilderType = {'SeaT1','SeaT2','SeaT3'},
+        BuilderType = {'SeaT1','SeaT2'},
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .95 } },
@@ -67,7 +67,26 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval',
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.FRIGATE, categories.NAVAL }},
         },
     },
+
+
+    Builder {BuilderName = 'T1 Frigate at T3 factory',
 	
+        PlatoonTemplate = 'T1SeaFrigate',
+		
+        Priority = 600,
+		
+        BuilderType = {'SeaT3'},
+		
+        BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .95 } },
+            
+            { LUTL, 'HaveLessThanUnitsWithCategory', { 72, categories.FRIGATE * categories.NAVAL }},
+			
+			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 8, categories.FRIGATE }},
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.FRIGATE, categories.NAVAL }},
+        },
+    },
+		
     Builder {BuilderName = 'T1 Naval Anti-Air - AEON',
 	
         PlatoonTemplate = 'T1SeaAntiAir',
@@ -247,9 +266,9 @@ BuilderGroup { BuilderGroupName = 'Factory Production - Naval',
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
 
-            { LUTL, 'HaveLessThanUnitsWithCategory', { 40, categories.xrs0205 * categories.NAVAL }},
+            { LUTL, 'HaveLessThanUnitsWithCategory', { 30, categories.xrs0205 * categories.NAVAL }},
 			
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 6, categories.xrs0205 * categories.NAVAL }},
+			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 5, categories.xrs0205 * categories.NAVAL }},
             
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.xrs0205 * categories.NAVAL, categories.NAVAL - categories.TECH1 }},
         },
