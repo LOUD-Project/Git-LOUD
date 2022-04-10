@@ -17,8 +17,11 @@ local AIUtils = import('/lua/AI/aiutilities.lua')
 local Buff = import('/lua/sim/Buff.lua')
 
 WAL0401 = Class(AWalkingLandUnit) {
+
     Weapons = {
+    
         EyeWeapon = Class(SC2PhasonLaser) {},
+        
         RightArmTractor = Class(ADFTractorClaw) {},
         LeftArmTractor = Class(ADFTractorClaw) {},
     },
@@ -28,14 +31,16 @@ WAL0401 = Class(AWalkingLandUnit) {
         AWalkingLandUnit.OnKilled(self, instigator, type, overkillRatio)
         
         local wep = self:GetWeaponByLabel('EyeWeapon')
-        local bp = wep:GetBlueprint()
+        local bp = wep.bp
         
         if bp.Audio.BeamStop then
             wep:PlaySound(bp.Audio.BeamStop)
         end
+        
         if bp.Audio.BeamLoop and wep.Beams[1].Beam then
             wep.Beams[1].Beam:SetAmbientSound(nil, nil)
         end
+        
         for k, v in wep.Beams do
             v.Beam:Disable()
         end     
@@ -62,10 +67,11 @@ WAL0401 = Class(AWalkingLandUnit) {
             WaitFor(self.DeathAnimManip)
         end
     
-        local bp = __blueprints[self.BlueprintID].Description
+        local bp = __blueprints[self.BlueprintID]
         
         for i, numWeapons in bp.Weapon do
-            if(bp.Weapon[i].Label == 'CollossusDeath') then
+        
+            if (bp.Weapon[i].Label == 'CollossusDeath') then
                 DamageArea(self, self:GetPosition(), bp.Weapon[i].DamageRadius, bp.Weapon[i].Damage, bp.Weapon[i].DamageType, bp.Weapon[i].DamageFriendly)
                 break
             end
