@@ -15,6 +15,10 @@ local CleanupEffectBag = import('/lua/EffectUtilities.lua').CleanupEffectBag
 local CANTorpedoLauncherWeapon = CybranWeaponsFile.CANTorpedoLauncherWeapon
 local Entity = import('/lua/sim/Entity.lua').Entity
 
+local function GetRandomFloat( Min, Max )
+    return Min + (Random() * (Max-Min) )
+end
+
 
 URL0402 = Class(CWalkingLandUnit) {
     WalkingAnimRate = 1.2,
@@ -178,7 +182,7 @@ URL0402 = Class(CWalkingLandUnit) {
 			
 			CleanupEffectBag(self,'AmbientExhaustEffectsBag')
 
-			WaitSeconds(utilities.GetRandomFloat(1,7))
+			WaitSeconds( GetRandomFloat(1,7) )
 		end		
 	end,
 
@@ -201,12 +205,14 @@ URL0402 = Class(CWalkingLandUnit) {
     end,
 
     CreateDeathExplosionDustRing = function( self )
+    
         local blanketSides = 18
-        local blanketAngle = (2*math.pi) / blanketSides
+        local blanketAngle = 6.28 / blanketSides
         local blanketStrength = 1
         local blanketVelocity = 2.8
 
         for i = 0, (blanketSides-1) do
+        
             local blanketX = math.sin(i*blanketAngle)
             local blanketZ = math.cos(i*blanketAngle)
 
@@ -218,35 +224,44 @@ URL0402 = Class(CWalkingLandUnit) {
     CreateFirePlumes = function( self, army, bones, yBoneOffset )
 	
         local proj, position, offset, velocity
+        
         local basePosition = self:GetPosition()
 		
         for k, vBone in bones do
+        
             position = self:GetPosition(vBone)
+            
             offset = utilities.GetDifferenceVector( position, basePosition )
-            velocity = utilities.GetDirectionVector( position, basePosition ) # 
-            velocity.x = velocity.x + utilities.GetRandomFloat(-0.3, 0.3)
-            velocity.z = velocity.z + utilities.GetRandomFloat(-0.3, 0.3)
-            velocity.y = velocity.y + utilities.GetRandomFloat( 0.0, 0.3)
-            proj = self:CreateProjectile('/effects/entities/DestructionFirePlume01/DestructionFirePlume01_proj.bp', offset.x, offset.y + yBoneOffset, offset.z, velocity.x, velocity.y, velocity.z)
-            proj:SetBallisticAcceleration(utilities.GetRandomFloat(-1, -2)):SetVelocity(utilities.GetRandomFloat(3, 4)):SetCollision(false)
+            velocity = utilities.GetDirectionVector( position, basePosition )
+            
+            velocity[1] = velocity[1] + GetRandomFloat(-0.3, 0.3)
+            velocity[2] = velocity[2] + GetRandomFloat(-0.3, 0.3)
+            velocity[3] = velocity[3] + GetRandomFloat( 0.0, 0.3)
+            
+            proj = self:CreateProjectile('/effects/entities/DestructionFirePlume01/DestructionFirePlume01_proj.bp', offset.x, offset.y + yBoneOffset, offset.z, velocity[1], velocity[2], velocity[3] )
+            proj:SetBallisticAcceleration(GetRandomFloat(-1, -2)):SetVelocity(GetRandomFloat(3, 4)):SetCollision(false)
             
             local emitter = CreateEmitterOnEntity(proj, army, '/effects/emitters/destruction_explosion_fire_plume_02_emit.bp')
 
-            local lifetime = utilities.GetRandomFloat( 12, 22 )
+            local lifetime = GetRandomFloat( 12, 22 )
         end
     end,
 
     CreateExplosionDebris = function( self, army )
+    
         for k, v in EffectTemplate.ExplosionDebrisLrg01 do
             CreateAttachedEmitter( self, 'URL0402', army, v )
         end
+        
     end,
 
     DeathThread = function(self)
+    
         self:PlayUnitSound('Destroyed')
-        local army = self:GetArmy()
+        
+        local army = self.Army
 
-        # Create Initial explosion effects
+
         explosion.CreateFlash( self, 'Center_Turret', 4.5, army )
         CreateAttachedEmitter(self, 'URL0402', army, '/effects/emitters/destruction_explosion_concussion_ring_03_emit.bp')
         CreateAttachedEmitter(self,'URL0402', army, '/effects/emitters/explosion_fire_sparks_02_emit.bp')
@@ -260,7 +275,7 @@ URL0402 = Class(CWalkingLandUnit) {
 
         WaitSeconds(1)
         
-        # Create damage effects on turret bone
+
         CreateDeathExplosion( self, 'Center_Turret', 1.5)
         self:CreateDamageEffects( 'Center_Turret_B01', army )
         self:CreateDamageEffects( 'Center_Turret_Barrel', army )
@@ -272,11 +287,13 @@ URL0402 = Class(CWalkingLandUnit) {
         WaitSeconds(0.4)
 
 
-        # When the spider bot impacts with the ground
-        # Effects: Explosion on turret, dust effects on the muzzle tip, large dust ring around unit
-        # Other: Damage force ring to force trees over and camera shake
+        -- When the spider bot impacts with the ground
+        -- Effects: Explosion on turret, dust effects on the muzzle tip, large dust ring around unit
+        -- Other: Damage force ring to force trees over and camera shake
         self:ShakeCamera(50, 5, 0, 1)
+        
         CreateDeathExplosion( self, 'Left_Turret_Muzzle', 1)
+        
         for k, v in EffectTemplate.FootFall01 do
             CreateAttachedEmitter(self,'Center_Turret_Muzzle',army, v):ScaleEmitter(2)          
             CreateAttachedEmitter(self,'Center_Turret_Muzzle',army, v):ScaleEmitter(2) 
@@ -288,14 +305,15 @@ URL0402 = Class(CWalkingLandUnit) {
 
         local x, y, z = unpack(self:GetPosition())
         z = z + 3
+        
         DamageRing(self, {x,y,z}, 0.1, 3, 1, 'Force', true)
         WaitSeconds(0.5)
         CreateDeathExplosion( self, 'Center_Turret', 2)
 
-        # Finish up force ring to push trees
+        -- Finish up force ring to push trees
         DamageRing(self, {x,y,z}, 0.1, 3, 1, 'Force', true)
 
-        # Explosion on and damage fire on various bones
+        -- Explosion on and damage fire on various bones
         CreateDeathExplosion( self, 'Right_Leg0' .. Random(1,3) .. '_B0' .. Random(1,3), 0.25)
         CreateDeathExplosion( self, 'Left_Projectile01', 2)
         self:CreateFirePlumes( army, {'Left_Projectile01'}, -1 )
