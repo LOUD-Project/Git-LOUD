@@ -521,7 +521,7 @@ Description = {
 	['xsb3104'] = "High-end intelligence system. Provides maximum radar and sonar coverage. Counters enemy intelligence systems.",
 
 	-- Patch Units
-	['dea0202'] = "Combination fighter/bomber designed to engage both land and aerial units. Armed with linked AA railguns and heavy napalm carpet bombs.",
+	['dea0202'] = "Dedicated fighter. Armed with linked AA railguns.",
 	['dra0202'] = "Combination fighter/bomber designed to engage both land and aerial units. Armed with Nano Dart launcher and separate missile launcher.",
 	['daa0206'] = "The volatile and destructive nature of the Mercy's weapon system forced Aeon scientists to create a simple, expendable delivery system. As a result, the payload is attached to what is little more than a guided missile.",
 	['del0204'] = "Fast moving, heavily armed assault bot. Armed with both a gatling plasma cannon and a heavy fragmentation grenade launcher.",

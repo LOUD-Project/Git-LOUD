@@ -429,7 +429,6 @@ buildingTab = {
 ["T3_Shield_Disruptor"] = {
 "dal0310",},
 ["T2_Fighter/Bomber"] = {
-"dea0202",
 "dra0202",
 "xsa0202",},
 ["T2_Gatling_Bot"] = {
@@ -595,7 +594,8 @@ buildingTab = {
 ["T2_Mobile_Stealth_Field_System"] = {
 "url0306",},
 ["T2_Combat_Fighter"] = {
-"xaa0202",},
+"xaa0202",
+"dea0202",},
 ["T3_AA_Gunship"] = {
 "xaa0305",},
 ["T3_Torpedo_Bomber"] = {
