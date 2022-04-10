@@ -1,3 +1,17 @@
+### Release 10-04-2022
+LUA 6.2.01
+
+    - additional last-minute minor optimizations, Janus to fighter only descriptions and rollovers
+
+Hotfixes
+
+    - Monkeylord death animation
+    - Universal Collosus death animation
+    - Yenzotha Weapon firing
+    - Janus text descriptions
+    - Eye of Rhianne script error
+
+
 ### Release 09-04-2022
 
 4th Dimension Units for LOUD 4.1.2
@@ -47,6 +61,7 @@ UNITS
     - UEF 'Paragon' equivalent now buildable underwater
     - UEF T1 Hover 'Caiman' reduced turnrate, reduced turret speed, maxrange 32 >> 33
     - UEF T2 Hover 'Riptide' improved firing randomness when stationary
+    - UEF T2 Fighter/Bomber 'Janus' now becomes a pure fighter - ending problems caused by 'transformation' 
     - UEF T3 Tank 'Juggernaut', T3 Bot 'Titan' - Personal shield now conforms to Shield formula
     - Cybran T2 Ambush Bot 'Scorpion' - Energy for cloaking 25 >> 32, vision 25 >> 28, range 25 > 27, slower turn & turret, DPS 73 >> 69
     - Cybran T3 Mobile Rocket 'Triseptitron' - reload cycle slightly longer, AOE reduced 1.8 > 1.6 - less randomness

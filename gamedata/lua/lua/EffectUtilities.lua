@@ -193,7 +193,7 @@ end
 function CreateAeonBuildBaseThread( unitBeingBuilt, builder, EffectsBag )
 
     local BeenDestroyed = BeenDestroyed
-    local WaitTicks = WaitTickets
+    local WaitTicks = WaitTicks
 
 	local army = builder.Sync.army
     local bp = ALLBPS[unitBeingBuilt.BlueprintID]
