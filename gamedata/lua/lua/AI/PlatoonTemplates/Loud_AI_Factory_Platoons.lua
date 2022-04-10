@@ -183,9 +183,7 @@ PlatoonTemplate { Name = 'T1Bomber',
 
 PlatoonTemplate { Name = 'T2Bomber',
     FactionSquads = {
-        UEF = {
-            { 'dea0202', 1, 2, 'Attack', 'none' }
-        },
+        UEF = {},
 		Aeon = {},
         Cybran = {
             { 'dra0202', 1, 2, 'Attack', 'none' }
@@ -233,7 +231,7 @@ PlatoonTemplate { Name = 'T1Fighter',
 PlatoonTemplate { Name = 'T2Fighter',
     FactionSquads = {
         UEF = {
-            { 'dea0202', 1, 2, 'Attack', 'none' },	-- Ftr/Bmbr
+            { 'dea0202', 1, 2, 'Attack', 'none' },	-- Ftr
         },
         Aeon = {
             { 'xaa0202', 1, 2, 'Attack', 'none' },

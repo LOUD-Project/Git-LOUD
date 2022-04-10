@@ -9,6 +9,11 @@ local GetUnitsInRect = GetUnitsInRect
 local type = type
 local WaitTicks = coroutine.yield
 
+local GetPlatoonPosition = moho.platoon_methods.GetPlatoonPosition
+local GetPlatoonUnits = moho.platoon_methods.GetPlatoonUnits
+local GetPosition = moho.entity_methods.GetPosition
+local PlatoonExists = moho.aibrain_methods.PlatoonExists
+
 function CreateAreaTrigger(callbackFunction, rectangle, category, onceOnly, invert, aiBrain, number, requireBuilt)
 
     return ForkThread(AreaTriggerThread, callbackFunction, {rectangle}, category, onceOnly, invert, aiBrain, number, requireBuilt)
@@ -557,10 +562,12 @@ end
 function PlatoonToPositionDistanceTriggerThread( cb, platoon, marker, distance, name )
 
 	local aiBrain = platoon:GetBrain()
-	local GetPlatoonPosition = moho.platoon_methods.GetPlatoonPosition
-	local GetPlatoonUnits = moho.platoon_methods.GetPlatoonUnits
-	local GetPosition = moho.entity_methods.GetPosition
-	local PlatoonExists = moho.aibrain_methods.PlatoonExists
+    
+	local GetPlatoonPosition = GetPlatoonPosition
+	local GetPlatoonUnits = GetPlatoonUnits
+	local GetPosition = GetPosition
+	local PlatoonExists = PlatoonExists
+    
 	local VDist2Sq = VDist2Sq
 
     if type(marker) == 'string' then

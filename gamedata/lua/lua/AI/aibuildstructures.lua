@@ -6,17 +6,16 @@ local BaseTemplates = import('/lua/basetemplates.lua').BaseTemplates
 local BuildingTemplates = import('/lua/buildingtemplates.lua').BuildingTemplates
 
 local LOUDCOPY = table.copy
+local LOUDFLOOR = math.floor
 local LOUDGETN = table.getn
 local LOUDINSERT = table.insert
+local LOUDMAX = math.max
+local LOUDMIN = math.min
+local LOUDPARSE = ParseEntityCategory
 local LOUDREMOVE = table.remove
+local LOUDUPPER = string.upper
 local LOUDSORT = table.sort
 local VDist3 = VDist3
-
---[[
-function AddToBuildQueue(aiBrain, eng, whatToBuild, buildLocation, relative)
-    LOUDINSERT(eng.EngineerBuildQueue, { whatToBuild, buildLocation } )
-end
---]]
 
 function IsResource(buildingType)
     return buildingType == 'Resource' or buildingType == 'T1HydroCarbon' or buildingType == 'T1Resource' or buildingType == 'T2Resource' or buildingType == 'T3Resource'
@@ -184,11 +183,9 @@ function AIExecuteBuildStructure( aiBrain, engineer, buildingType, closeToBuilde
         LOUDINSERT(engineer.EngineerBuildQueue, { whatToBuild, {relativeLoc[1], relativeLoc[3], 0 } } )
 		
 		return true
-		
     end
 	
 	return false
-	
 end
 
 function AIBuildBaseTemplate( aiBrain, builder, buildingType , closeToBuilder, relative, buildingTemplate, baseTemplate, reference, constructionData)
@@ -214,7 +211,6 @@ function AIBuildBaseTemplate( aiBrain, builder, buildingType , closeToBuilder, r
 	end
 	
     return false
-	
 end
 
 -- This function will attempt to build units in the order specified in the base template
@@ -245,13 +241,10 @@ function AIBuildBaseTemplateOrdered( aiBrain, eng, buildingType, closeToBuilder,
 						eng.IssuedReclaimCommand = false
 						
 						return true
-
 					end
-
 				end
 
 				return false
-
 			end
 			
             for _,bType in baseTemplate do
@@ -279,19 +272,14 @@ function AIBuildBaseTemplateOrdered( aiBrain, eng, buildingType, closeToBuilder,
                         end
 						
                         break
-						
                     end 
-					
                 end
-				
             end
-			
         end
 		
     else
 	
 		WARN("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." failed DecideWhatToBuild - "..repr(buildingType).."  platoon ".. repr(eng.BuilderName)	.." template is "..repr(buildingTemplate))
-
 	end
 
     return false
@@ -299,7 +287,7 @@ end
 
 function AIBuildBaseTemplateFromLocation( baseTemplate, location )
 
-	local LOUDFLOOR = math.floor
+	local LOUDFLOOR = LOUDFLOOR
     local baseT = {}
 	
     if location and baseTemplate then
@@ -330,17 +318,17 @@ function AIBuildBaseTemplateFromLocation( baseTemplate, location )
     end
 	
     return baseT
-	
 end
 
 function AIBuildAdjacency( aiBrain, builder, buildingType, closeToBuilder, relative, buildingTemplate, baseTemplate, reference, constructionData)
 
     local whatToBuild = aiBrain:DecideWhatToBuild( builder, buildingType, buildingTemplate )
+    local LOUDINSERT = LOUDINSERT
 
     if whatToBuild and not builder.Dead then
 	
-        local upperString = ParseEntityCategory( string.upper(whatToBuild) )
-        local unitSize = aiBrain:GetUnitBlueprint( whatToBuild ).Physics
+        local upperString = LOUDPARSE( STRINGUPPER(whatToBuild) )
+        local unitSize = __blueprints[whatToBuild].Physics
         local template = {}
 		
         LOUDINSERT( template, {} )
@@ -388,7 +376,6 @@ function AIBuildAdjacency( aiBrain, builder, buildingType, closeToBuilder, relat
         if builder.BuildManagerData and builder.BuildManagerData.EngineerManager then
 		
             baseLocation = builder.BuildManagerdata.EngineerManager.Location
-			
         end        
 		
         local location = aiBrain:FindPlaceToBuild(buildingType, whatToBuild, template, false, builder, baseLocation[1], baseLocation[3])
@@ -399,16 +386,13 @@ function AIBuildAdjacency( aiBrain, builder, buildingType, closeToBuilder, relat
             LOUDINSERT(builder.EngineerBuildQueue, { whatToBuild, location } )
 			
             return true
-			
         end
 		
         -- Build in a regular spot if adjacency not found - commented out by LOUD so that build fails when adjacency fails
 		LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..builder.Sync.id.." Unable to build "..repr(buildingType).." adjacent to "..repr(reference).." near base at "..repr(baseLocation))
-		
     end
 
     return false, false
-	
 end
 
 -- I modded this function to pick up two new values -- ExpansionRadius &  RallyPointRadius from the builder spec
@@ -433,9 +417,8 @@ function AINewExpansionBase( aiBrain, baseName, position, engineer, construction
 		
 			-- set the expansion base POOL radius according to map size
 			-- should help minimize overlap on maps where bases might be crowded in
-			expansionradius = math.max(100, (ScenarioInfo.size[1]/16))	#-- should give a value between 100 and 256
-			expansionradius = math.min(expansionradius, 150)	#-- will limit it to 150 maximum for Expansions (MAIN minimum is 200)
-			
+			expansionradius = LOUDMAX(100, (ScenarioInfo.size[1]/16))	#-- should give a value between 100 and 256
+			expansionradius = LOUDMIN(expansionradius, 150)	#-- will limit it to 150 maximum for Expansions (MAIN minimum is 200)
 		end
         
         local basevalue, island
@@ -471,7 +454,6 @@ function AINewExpansionBase( aiBrain, baseName, position, engineer, construction
 			
                 count = count + 1
 				validNames[count] = {Base = v.Base, Island = v.Island}
-				
 			end
 		end
 		
@@ -499,9 +481,7 @@ function AINewExpansionBase( aiBrain, baseName, position, engineer, construction
 			aiBrain.BuilderManagers[baseName].EngineerManager:AddEngineerUnit(engineer, true)
 			
 			return true
-            
 		end
-        
 	end
 
 	return false

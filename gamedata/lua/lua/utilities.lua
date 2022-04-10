@@ -93,7 +93,7 @@ function NormalizeVector( v )
         return v    --Vector( v[1] * invlength, v[2] * invlength, v[3] * invlength )
     else
     
-        return Vector( 0,0,0 )
+        return { 0,0,0 }
     end
 end
 

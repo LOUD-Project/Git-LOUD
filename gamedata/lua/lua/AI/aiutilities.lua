@@ -45,18 +45,13 @@ function AIAddMustScoutArea( aiBrain, location )
 			
                         -- dont add it
                         return
-				
                     end
-                    
                 end
-                
             end
-			
 		end
 		
         -- otherwise -- add it
 		LOUDINSERT( aiBrain.IL.MustScout,	{ Created = GetGameTimeSeconds(), Position = location, TaggedBy = false	} )
-		
 	end
 	
 end
@@ -92,7 +87,7 @@ function AIPickEnemyLogic( self, brainbool )
     local LOUDSORT = LOUDSORT
     
     local MATHEXP = math.exp
-    local MATHMAX = math.max
+    local MATHMAX = LOUDMAX
     
     local VDist2Sq = VDist2Sq
     local VDist3 = VDist3
@@ -286,8 +281,6 @@ function AIPickEnemyLogic( self, brainbool )
                 end
 			end
         end
-		
-
     end
 	
 end
@@ -677,11 +670,8 @@ function GetOwnUnitsAroundPoint( aiBrain, category, location, radius )
 
 				counter = counter + 1            
 				mlist[counter] = v
-
 			end
-            
 		end
-        
 	end
 	
     return mlist
@@ -706,11 +696,8 @@ function GetAlliedUnitsAroundPoint( aiBrain, category, location, radius )
             
 				counter = counter + 1
 				mlist[counter] = v
-
 			end
-            
 		end
-        
 	end
 	
     return mlist
@@ -739,18 +726,14 @@ function GetOwnUnitsAroundPointWithThreatCheck( aiBrain, category, location, rad
 			
 					counter = counter + 1
 					mlist[counter] = v
-				
 				end
 				
 			else
 
 				counter = counter + 1			
 				mlist[counter] = v
-				
             end
-			
         end
-		
     end
 	
     return mlist
@@ -822,7 +805,6 @@ function CheckUnitPathingEx( destPos, curlocation, unit )
         if pathingType == 'Water' or pathingType == 'Amphibious' then
 		
             result, bestGoal = unit:CanPathTo( finalPos )  
-			
         end
 		
     end
@@ -1054,7 +1036,6 @@ function GetThreatDistance(aiBrain, position, threatCutoff )
         else
 		
 			break
-			
 		end
 		
     end
@@ -1398,12 +1379,9 @@ function ApplyCheatBuffs(unit)
                     RemoveBuff( unit, 'CheatCDREnergyStorage'..aiBrain.ArmyIndex )
                 
                     ApplyBuff(unit, 'CheatCDRMassStorage'..aiBrain.ArmyIndex)
-                    
                 end
 			end
-
         end
-        
 	end
 end
 
@@ -1424,7 +1402,6 @@ function SetArmyPoolBuff(aiBrain, AIMult)
 	aiBrain.UpgradeIssuedPeriod = math.floor(aiBrain.OriginalUpgradeIssuedPeriod * ( 1 / modifier ))
     
     LOG("*AI DEBUG "..aiBrain.Nickname.." Upgrade Issue Period is "..aiBrain.UpgradeIssuedPeriod)
-
 
     local ApplyBuff = import('/lua/sim/buff.lua').ApplyBuff
     local RemoveBuff = import('/lua/sim/buff.lua').RemoveBuff

@@ -27,9 +27,7 @@ Prop = Class(moho.prop_methods, Entity) {
     OnCreate = function(self)
     
         Entity.OnCreate(self)
-        
-        --self.Trash = TrashBag()
-		
+
 		local bp = GetBlueprint(self).Economy
 		
         self.MassReclaim = bp.ReclaimMassMax or 0

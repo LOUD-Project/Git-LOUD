@@ -5421,7 +5421,7 @@ Platoon = Class(moho.platoon_methods) {
         local LOUDINSERT = LOUDINSERT
         
         local VDist3 = VDist3
-        local WaitTicks = coroutine.yield
+        local WaitTicks = WaitTicks
 		
         local checkinterval = 12	-- every 1.2 seconds
 		

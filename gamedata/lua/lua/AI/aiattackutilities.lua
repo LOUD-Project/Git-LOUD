@@ -742,7 +742,7 @@ function FindTargetInRange( self, aiBrain, squad, maxRange, attackcategories, no
         end
 	
         local GetPosition = GetPosition
-        local CanAttackTarget = moho.platoon_methods.CanAttackTarget
+        local CanAttackTarget = CanAttackTarget
 
         local EntityCategoryFilterDown = EntityCategoryFilterDown
         local VDist3Sq = VDist3Sq

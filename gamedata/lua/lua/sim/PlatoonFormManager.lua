@@ -15,8 +15,14 @@ local CreatePlatoonBuilder = import('/lua/sim/Builder.lua').CreatePlatoonBuilder
 
 local factionnames = { 'UEF','Aeon','Cybran','Seraphim' }
 
+local CanFormPlatoon = moho.platoon_methods.CanFormPlatoon
+local FormPlatoon = moho.platoon_methods.FormPlatoon
+        
 local LOUDCOPY = table.copy
+local LOUDFLOOR = math.floor
 local LOUDGETN = table.getn
+local LOUDMAX = math.max
+local LOUDMIN = math.min
 
 function CreatePlatoonFormManager(brain, lType, position, radius)
 
@@ -97,7 +103,7 @@ PlatoonFormManager = Class(BuilderManager) {
             
                 if k > 2 then
                 
-                    v[3] = math.floor(math.max( 1, v[3] * aiBrain.CheatValue ))
+                    v[3] = LOUDFLOOR( LOUDMAX( 1, v[3] * aiBrain.CheatValue ))
                 end
             end
 
@@ -158,8 +164,8 @@ PlatoonFormManager = Class(BuilderManager) {
     -- either way - the loop that runs this function can be found in BUILDERMANAGER
     ManagerLoopBody = function( self, builder, bType, aiBrain)
 		
-		local CanFormPlatoon = moho.platoon_methods.CanFormPlatoon
-		local FormPlatoon = moho.platoon_methods.FormPlatoon
+		local CanFormPlatoon = CanFormPlatoon
+		local FormPlatoon = FormPlatoon
         
         local PlatoonDialog = ScenarioInfo.PlatoonDialog or false
         

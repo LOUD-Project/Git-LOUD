@@ -21,8 +21,10 @@ local CybranBuildFlash01 = import('/lua/EffectTemplates.lua').CybranBuildFlash01
 local CybranBuildUnitBlink01 = import('/lua/EffectTemplates.lua').CybranBuildUnitBlink01
 local SeraphimBuildBeams01 = import('/lua/EffectTemplates.lua').SeraphimBuildBeams01
 
+local LOUDCOPY = table.copy
 local LOUDFLOOR = math.floor	
 local LOUDGETN = table.getn
+local LOUDINSERT = table.insert
 local LOUDREMOVE = table.remove
 local LOUDSORT = table.sort
 local LOUDWARP = Warp
@@ -137,7 +139,7 @@ end
 
 function CreateBoneTableEffects( obj, BoneTable, army, EffectTable )
 
-    local LOUDINSERT = table.insert
+    local LOUDINSERT = LOUDINSERT
     local LOUDEMITATBONE = LOUDEMITATBONE
 	
     for _, vBone in BoneTable do
@@ -190,8 +192,8 @@ end
 
 function CreateAeonBuildBaseThread( unitBeingBuilt, builder, EffectsBag )
 
-    local BeenDestroyed = moho.entity_methods.BeenDestroyed
-    local WaitTicks = coroutine.yield
+    local BeenDestroyed = BeenDestroyed
+    local WaitTicks = WaitTickets
 
 	local army = builder.Sync.army
     local bp = ALLBPS[unitBeingBuilt.BlueprintID]
@@ -264,6 +266,8 @@ function CreateAeonConstructionUnitBuildingEffects( builder, unitBeingBuilt, Bui
 
     local army = builder.Sync.army
     local projectile
+    
+    local LOUDINSERT = LOUDINSERT
 
     -- create perm projectile 
     if not builder.BuildProjectile then
@@ -286,14 +290,14 @@ function CreateAeonConstructionUnitBuildingEffects( builder, unitBeingBuilt, Bui
     
             beamEffect = LOUDATTACHBEAMENTITY(builder, 0, projectile, -1, army, v )
 
-            table.insert( builder.BuildEmitters, beamEffect )
+            LOUDINSERT( builder.BuildEmitters, beamEffect )
         
             TrashAdd( builder.Trash, beamEffect )
         end
         
         beamEffect = LOUDEMITONENTITY(builder, army,'/effects/emitters/aeon_build_01_emit.bp')
 
-        table.insert( builder.BuildEmitters, beamEffect )
+        LOUDINSERT( builder.BuildEmitters, beamEffect )
         
         TrashAdd( builder.Trash, beamEffect )
         
@@ -316,6 +320,8 @@ function CreateAeonCommanderBuildingEffects( builder, unitBeingBuilt, BuildBones
 
     local army = builder.Sync.army
     local projectile
+    
+    local LOUDINSERT = LOUDINSERT
     
     if not builder.BuildProjectile then
     
@@ -340,14 +346,14 @@ function CreateAeonCommanderBuildingEffects( builder, unitBeingBuilt, BuildBones
         
                 beamEffect = LOUDATTACHBEAMENTITY( builder, vBone, projectile, -1, army, v )
                 
-                table.insert( builder.BuildEmitters, beamEffect )
+                LOUDINSERT( builder.BuildEmitters, beamEffect )
             
                 TrashAdd( builder.Trash, beamEffect )
             end
         
             beamEffect = LOUDATTACHEMITTER( builder, vBone, army, '/effects/emitters/aeon_build_02_emit.bp' )
             
-            table.insert( builder.BuildEmitters, beamEffect )
+            LOUDINSERT( builder.BuildEmitters, beamEffect )
     
             TrashAdd( builder.Trash, beamEffect )
             
@@ -419,12 +425,12 @@ end
 
 function CreateBuildCubeThread( unitBeingBuilt, builder, OnBeingBuiltEffectsBag )
 
-	local BeenDestroyed = moho.entity_methods.BeenDestroyed
-    local CreateProjectile = moho.entity_methods.CreateProjectile
-	local GetFractionComplete = moho.entity_methods.GetFractionComplete
+	local BeenDestroyed = BeenDestroyed
+    local CreateProjectile = CreateProjectile
+	local GetFractionComplete = GetFractionComplete
 
 	local LOUDABS = math.abs
-    local WaitTicks = coroutine.yield
+    local WaitTicks = WaitTicks
 	
     local bp = ALLBPS[unitBeingBuilt.BlueprintID]
     
@@ -502,7 +508,6 @@ function CreateBuildCubeThread( unitBeingBuilt, builder, OnBeingBuiltEffectsBag 
             
             proj:SetScale(x, y * slice, z)
             BuildBaseEffect:SetScale(x, y * (1-cComplete), z)
-            
         end
 		
         WaitTicks(SlicePeriod * 10)
@@ -531,7 +536,7 @@ function CreateUEFBuildSliceBeams( builder, unitBeingBuilt, BuildEffectBones, Bu
     local GetFractionComplete = GetFractionComplete
     local LOUDWARP = LOUDWARP
     local SetVelocity = SetVelocity
-    local WaitTicks = coroutine.yield
+    local WaitTicks = WaitTicks
 
 
     local army = builder.Sync.army
@@ -639,7 +644,7 @@ function CreateUEFCommanderBuildSliceBeams( builder, unitBeingBuilt, BuildEffect
     local GetFractionComplete = GetFractionComplete
     local LOUDWARP = LOUDWARP
     local SetVelocity = SetVelocity
-    local WaitTicks = coroutine.yield
+    local WaitTicks = WaitTicks
 
     local army = builder.Sync.army
 
@@ -779,7 +784,7 @@ function CreateDefaultBuildBeams( builder, unitBeingBuilt, BuildEffectBones, Bui
     
     local function Ungowa(projectile, pos)
     
-        local LOUDCOPY = table.copy
+        local LOUDCOPY = LOUDCOPY
         local LOUDWARP = LOUDWARP    
         local WaitTicks = WaitTicks
         
@@ -874,7 +879,7 @@ function CreateCybranBuildBeams( builder, unitBeingBuilt, BuildEffectBones, Buil
     
     local function Ungowa(projectile)
     
-        local LOUDCOPY = table.copy
+        local LOUDCOPY = LOUDCOPY
         local LOUDWARP = LOUDWARP
         local WaitTicks = WaitTicks
         
@@ -962,10 +967,8 @@ function CreateCybranBuildBeams( builder, unitBeingBuilt, BuildEffectBones, Buil
 
             -- thread that moves the projectile around the position of the unit --
             TrashAdd( projectile.BuildEffectsBag, projectile.MoveThread )
-
         end
     end    
-
 
 end
 
@@ -1000,8 +1003,6 @@ function SpawnBuildBots( builder, unitBeingBuilt, numBots, BuildEffectsBag )
         local LOUDSIN = math.sin
     
         local angle = 6.28 / numBots
-        
-        --LOG("*AI DEBUG Spawning "..(numBots-1).." BuildBots on Bone 0")
 
         for i = 0, (numBots - 1) do
 	
@@ -1014,7 +1015,7 @@ function SpawnBuildBots( builder, unitBeingBuilt, numBots, BuildEffectsBag )
             tunit:SetCanTakeDamage(false)
             tunit:SetCanBeKilled(false)
 
-            table.insert (builder.BuildBots, tunit)
+            LOUDINSERT(builder.BuildBots, tunit)
 		
             TrashAdd( builder.Trash, tunit )
 
@@ -1066,9 +1067,7 @@ function CreateCybranEngineerBuildEffects( builder, unitBeingBuilt, BuildBones, 
     if BuildBots then
     
         for _, bot in BuildBots do
-        
-            --LOG("*AI DEBUG Detach bot from Engineer - unitBeingBuilt is "..repr(unitBeingBuilt.BlueprintID))
-            
+
             bot:DetachFrom()
             bot.Detached = true
             
@@ -1120,7 +1119,7 @@ function CreateCybranFactoryBuildEffects( builder, unitBeingBuilt, BuildBones, B
 
   
     local GetFractionComplete = GetFractionComplete
-	local WaitTicks = coroutine.yield
+	local WaitTicks = WaitTicks
     
     -- Add sparks to the collision box of the unit being built
     local sx, sy, sz = 0
@@ -1158,7 +1157,7 @@ function CreateSeraphimUnitEngineerBuildingEffects( builder, unitBeingBuilt, Bui
         
             beamEffect = LOUDATTACHEMITTER( builder, vBone, army, '/effects/emitters/seraphim_build_01_emit.bp' ) 
 
-            table.insert( builder.BuildEmitters, beamEffect )
+            LOUDINSERT( builder.BuildEmitters, beamEffect )
             
             TrashAdd( builder.Trash, beamEffect )
 
@@ -1182,8 +1181,8 @@ end
 
 function CreateSeraphimFactoryBuildingEffects( builder, unitBeingBuilt, BuildEffectBones, BuildBone, EffectsBag )
 
-    local BeenDestroyed = moho.entity_methods.BeenDestroyed
-    local WaitTicks = coroutine.yield
+    local BeenDestroyed = BeenDestroyed
+    local WaitTicks = WaitTicks
 
     local bp = ALLBPS[unitBeingBuilt.BlueprintID]
     local army = builder.Sync.army
@@ -1272,7 +1271,7 @@ end
 
 function CreateSeraphimBuildBaseThread( unitBeingBuilt, builder, EffectsBag )
 
-    local WaitTicks = coroutine.yield
+    local WaitTicks = WaitTicks
 
     WaitTicks(1)
     
@@ -1472,7 +1471,7 @@ end
 -- and getting rid of all this complex calculation for position and intermediate nodes
 function CreateAdjacencyBeams( unit, adjacentUnit )
 
-	local LOUDINSERT = table.insert
+	local LOUDINSERT = LOUDINSERT
 	local LOUDATTACHEMITTER = CreateAttachedEmitter
 
 	local info = { Unit = adjacentUnit.Sync.id, Trash = TrashBag(), }
@@ -1590,13 +1589,13 @@ end
 
 function CreateCybranQuantumGateEffect( unit, bone1, bone2, EffectsBag, startwaitSeed )
 
-    local BeenDestroyed = moho.entity_methods.BeenDestroyed
+    local BeenDestroyed = BeenDestroyed
 
     -- Adding a quick wait here so that unit bone positions are correct
     WaitTicks( startwaitSeed * 10 )
 
-    local BeenDestroyed = moho.entity_methods.BeenDestroyed
-    local WaitTicks = coroutine.yield
+    local BeenDestroyed = BeenDestroyed
+    local WaitTicks = WaitTicks
 
     local pos1 = unit:GetPosition(bone1)
     local pos2 = unit:GetPosition(bone2)
@@ -1897,8 +1896,8 @@ function CreateUnitDestructionDebris( self, high, low, chassis )
     local ChassisDestructionParts = LOUDGETN(self.DestructionPartsChassisToss)
 
 	local ShowBone = moho.unit_methods.ShowBone
-	local CreateProjectileAtBone = moho.entity_methods.CreateProjectileAtBone
-	local AttachBoneToEntityBone = moho.entity_methods.AttachBoneToEntityBone
+	local CreateProjectileAtBone = CreateProjectileAtBone
+	local AttachBoneToEntityBone = AttachBoneToEntityBone
 
     -- Create projectiles and accelerate them out and away from the unit
     if high and (HighDestructionParts > 0) then

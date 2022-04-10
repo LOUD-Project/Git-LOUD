@@ -1,8 +1,5 @@
 ---  /lua/sim/AdjacencyBuffFunctions.lua
 
---local LOUDENTITY = EntityCategoryContains
---local LOUDEMPTY = table.empty
-
 local GetWeapon = moho.unit_methods.GetWeapon
 local GetWeaponCount = moho.unit_methods.GetWeaponCount
 
