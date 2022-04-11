@@ -97,6 +97,8 @@ UnitBlueprint {
             'uab1202',
             'uab1302',
         },
+        StorageEnergy = 60,
+        StorageMass = 6,        
     },
     
     General = {

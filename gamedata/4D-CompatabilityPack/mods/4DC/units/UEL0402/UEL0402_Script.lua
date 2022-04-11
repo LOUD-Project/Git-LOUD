@@ -26,6 +26,12 @@ local TANTorpedoAngler = WeaponsFile.TANTorpedoAngler
 local LOUDINSERT = table.insert
 local WaitTicks = coroutine.yield
 
+
+local function GetRandomFloat( Min, Max )
+    return Min + (Random() * (Max-Min) )
+end
+
+
 uel0402 = Class(TWalkingLandUnit) {
 
     Weapons = {
@@ -60,9 +66,9 @@ uel0402 = Class(TWalkingLandUnit) {
 			
                 self.SpinManip1:SetTargetSpeed(360)			
 
-				self.ExhaustEffects = CreateBoneEffects( self.unit, 'auto_cannon_spinner_right', self.Army, WeaponSteam01 )
-				self.ExhaustEffects = CreateBoneEffects( self.unit, 'auto_cannon_muzzle_right', self.Army, WeaponSteam01 )
-				self.ExhaustEffects = CreateBoneEffects( self.unit, 'auto_cannon_barrel_right', self.Army, WeaponSteam01 )
+				self.ExhaustEffects = CreateBoneEffects( self.unit, 'auto_cannon_spinner_right', self.Sync.army, WeaponSteam01 )
+				self.ExhaustEffects = CreateBoneEffects( self.unit, 'auto_cannon_muzzle_right', self.Sync.army, WeaponSteam01 )
+				self.ExhaustEffects = CreateBoneEffects( self.unit, 'auto_cannon_barrel_right', self.Sync.army, WeaponSteam01 )
 				
                 TDFHeavyPlasmaCannonWeapon.PlayFxRackSalvoChargeSequence(self)
             end,
@@ -71,9 +77,9 @@ uel0402 = Class(TWalkingLandUnit) {
 			
                 self.SpinManip1:SetTargetSpeed(0)
 				
-				self.ExhaustEffects = CreateBoneEffects( self.unit, 'auto_cannon_spinner_right', self.Army, WeaponSteam01 )
-				self.ExhaustEffects = CreateBoneEffects( self.unit, 'auto_cannon_muzzle_right', self.Army, WeaponSteam01 )
-				self.ExhaustEffects = CreateBoneEffects( self.unit, 'auto_cannon_barrel_right', self.Army, WeaponSteam01 )				
+				self.ExhaustEffects = CreateBoneEffects( self.unit, 'auto_cannon_spinner_right', self.Sync.army, WeaponSteam01 )
+				self.ExhaustEffects = CreateBoneEffects( self.unit, 'auto_cannon_muzzle_right', self.Sync.army, WeaponSteam01 )
+				self.ExhaustEffects = CreateBoneEffects( self.unit, 'auto_cannon_barrel_right', self.Sync.army, WeaponSteam01 )				
 				
                 TDFHeavyPlasmaCannonWeapon.PlayFxWeaponPackSequence(self)
             end,
@@ -106,9 +112,9 @@ uel0402 = Class(TWalkingLandUnit) {
 
                 self.SpinManip2:SetTargetSpeed(360)
 
-				self.ExhaustEffects = CreateBoneEffects( self.unit, 'auto_cannon_spinner_left', self.Army, WeaponSteam01 )
-				self.ExhaustEffects = CreateBoneEffects( self.unit, 'auto_cannon_muzzle_left', self.Army, WeaponSteam01 )
-				self.ExhaustEffects = CreateBoneEffects( self.unit, 'auto_cannon_barrel_left', self.Army, WeaponSteam01 )
+				self.ExhaustEffects = CreateBoneEffects( self.unit, 'auto_cannon_spinner_left', self.Sync.army, WeaponSteam01 )
+				self.ExhaustEffects = CreateBoneEffects( self.unit, 'auto_cannon_muzzle_left', self.Sync.army, WeaponSteam01 )
+				self.ExhaustEffects = CreateBoneEffects( self.unit, 'auto_cannon_barrel_left', self.Sync.army, WeaponSteam01 )
 				
                 TDFHeavyPlasmaCannonWeapon.PlayFxRackSalvoChargeSequence(self)
             end,
@@ -117,9 +123,9 @@ uel0402 = Class(TWalkingLandUnit) {
 			
                 self.SpinManip2:SetTargetSpeed(0)
 				
-				self.ExhaustEffects = CreateBoneEffects( self.unit, 'auto_cannon_spinner_left', self.Army, WeaponSteam01 )
-				self.ExhaustEffects = CreateBoneEffects( self.unit, 'auto_cannon_muzzle_left', self.Army, WeaponSteam01 )
-				self.ExhaustEffects = CreateBoneEffects( self.unit, 'auto_cannon_barrel_left', self.Army, WeaponSteam01 )				
+				self.ExhaustEffects = CreateBoneEffects( self.unit, 'auto_cannon_spinner_left', self.Sync.army, WeaponSteam01 )
+				self.ExhaustEffects = CreateBoneEffects( self.unit, 'auto_cannon_muzzle_left', self.Sync.army, WeaponSteam01 )
+				self.ExhaustEffects = CreateBoneEffects( self.unit, 'auto_cannon_barrel_left', self.Sync.army, WeaponSteam01 )				
 				
                 TDFHeavyPlasmaCannonWeapon.PlayFxWeaponPackSequence(self)
 
@@ -169,6 +175,7 @@ uel0402 = Class(TWalkingLandUnit) {
         --Disables user control until startup animation has completed
         self.SetUnSelectable(self, true)  
     end,
+    
 
     OnStopBeingBuilt = function(self,builder,layer)
         -- starts the animation sequence
@@ -196,19 +203,19 @@ uel0402 = Class(TWalkingLandUnit) {
 		
             self:PlayUnitSound('FootFallGeneric')
 			
-            LOUDINSERT(effectsBag, CreateAttachedEmitter(self, 'foot_left', self.Army, '/effects/emitters/dust_cloud_06_emit.bp' ))
+            LOUDINSERT(effectsBag, CreateAttachedEmitter(self, 'foot_left', self.Sync.army, '/effects/emitters/dust_cloud_06_emit.bp' ))
 			
             DamageRing(self, position, 0.1, 3, 10, 'Force', false)
 			
-            WaitTicks(6)
+            WaitTicks(5)
 			
             self:PlayUnitSound('FootFallGeneric')
 			
-            LOUDINSERT(effectsBag, CreateAttachedEmitter(self, 'foot_right', self.Army, '/effects/emitters/dust_cloud_06_emit.bp' ))
+            LOUDINSERT(effectsBag, CreateAttachedEmitter(self, 'foot_right', self.Sync.army, '/effects/emitters/dust_cloud_06_emit.bp' ))
 			
             DamageRing(self, position, 0.1, 3, 10, 'Force', false)
 			
-            WaitTicks(6)
+            WaitTicks(5)
         end
 		
         -- Clean up of Stomp effects
@@ -220,6 +227,7 @@ uel0402 = Class(TWalkingLandUnit) {
         self.SetUnSelectable(self, false)
 		
     end,
+    
 
     OnLayerChange = function(self, new, old)
 	
@@ -283,25 +291,20 @@ uel0402 = Class(TWalkingLandUnit) {
 			
                 for kB, vB in self.AmbientSeaExhaustBones do
 				
-                    LOUDINSERT( self.AmbientExhaustEffectsBag, CreateAttachedEmitter(self, vB, self.Army, vE ))
-					
+                    LOUDINSERT( self.AmbientExhaustEffectsBag, CreateAttachedEmitter(self, vB, self.Sync.army, vE ))
                 end
-				
             end
 			
             for kE, vE in self.AmbientwakeCenterEffects do
 			
                 for kB, vB in self.AmbientWakeCenterBones do
 				
-                    LOUDINSERT( self.AmbientExhaustEffectsBag, CreateAttachedEmitter(self, vB, self.Army, vE ))
-					
+                    LOUDINSERT( self.AmbientExhaustEffectsBag, CreateAttachedEmitter(self, vB, self.Sync.army, vE ))
                 end
-				
             end 
-			
         end
-		
     end,
+    
 
     UnitLandAmbientEffectThread = function(self)
 	
@@ -311,10 +314,8 @@ uel0402 = Class(TWalkingLandUnit) {
 			
                 for kB, vB in self.AmbientLandExhaustBones do
 				
-                    LOUDINSERT( self.AmbientExhaustEffectsBag, CreateAttachedEmitter(self, vB, self.Army, vE ))
-					
+                    LOUDINSERT( self.AmbientExhaustEffectsBag, CreateAttachedEmitter(self, vB, self.Sync.army, vE ))
                 end
-				
             end
 			
             WaitTicks(20)
@@ -322,9 +323,7 @@ uel0402 = Class(TWalkingLandUnit) {
             EffectUtil.CleanupEffectBag(self,'AmbientExhaustEffectsBag')
 			
             WaitTicks( Random(11, 71) )
-			
         end
-		
     end,
 
     DestroyOnKilled = false,
@@ -353,6 +352,7 @@ uel0402 = Class(TWalkingLandUnit) {
         'missile_L12','missile_R10','missile_R11','missile_R12','missile_L13','missile_L14','missile_L15',
         'missile_R13','missile_R14','missile_R15','exhaust_left','exhaust_right',
     },
+    
 
     OnKilled = function(self, inst, type, okr)
 	
@@ -365,20 +365,24 @@ uel0402 = Class(TWalkingLandUnit) {
 		
         TWalkingLandUnit.OnKilled(self, inst, type, okr)
     end,
+    
+    CreateDamageEffects = function( self, bone, army )
 
-    CreateDamageEffects = function(self, bone, self.Army )
         for k, v in EffectTemplate.TNapalmCarpetBombHitLand01 do  
-            CreateAttachedEmitter( self, bone, self.Army, v ):ScaleEmitter(0.3)
+        
+            CreateAttachedEmitter( self, bone, army, v ):ScaleEmitter(0.3)
         end
     end,
+    
 
-    CreateExplosionDebris = function( self, self.Army )
+    CreateExplosionDebris = function( self, army )
+    
         for k, v in EffectTemplate.ExplosionEffectsSml01 do
-            CreateAttachedEmitter( self, 'uel0402', self.Army, v )
+            CreateAttachedEmitter( self, 'uel0402', self.Sync.army, v )
         end
     end,
 
-    CreateFirePlumes = function( self, self.Army, bones, yBoneOffset )
+    CreateFirePlumes = function( self, army, bones, yBoneOffset )
     
         local proj, position, offset, velocity
         local basePosition = self:GetPosition()
@@ -388,14 +392,15 @@ uel0402 = Class(TWalkingLandUnit) {
             offset = utilities.GetDifferenceVector( position, basePosition )
             
             velocity = utilities.GetDirectionVector( position, basePosition )  
-            velocity.x = velocity.x + utilities.GetRandomFloat(-0.45, 0.45)
-            velocity.z = velocity.z + utilities.GetRandomFloat(-0.45, 0.45)
-            velocity.y = velocity.y + utilities.GetRandomFloat( 0.0, 0.45)
             
-            proj = self:CreateProjectile('/effects/entities/DestructionFirePlume01/DestructionFirePlume01_proj.bp', offset.x, offset.y + yBoneOffset, offset.z, velocity.x, velocity.y, velocity.z)
-            proj:SetBallisticAcceleration(utilities.GetRandomFloat(-1, -2)):SetVelocity(utilities.GetRandomFloat(1, 4)):SetCollision(false)            
+            velocity[1] = velocity[1] + GetRandomFloat(-0.45, 0.45)
+            velocity[2] = velocity[2] + GetRandomFloat(-0.45, 0.45)
+            velocity[3] = velocity[3] + GetRandomFloat( 0.0, 0.45)
             
-            CreateEmitterOnEntity(proj, self.Army, '/effects/emitters/destruction_explosion_fire_plume_01_emit.bp')
+            proj = self:CreateProjectile('/effects/entities/DestructionFirePlume01/DestructionFirePlume01_proj.bp', offset[1], offset[2] + yBoneOffset, offset[3], velocity[1], velocity[2], velocity[3] )
+            proj:SetBallisticAcceleration( GetRandomFloat(-1,-2)):SetVelocity( GetRandomFloat(1, 4)):SetCollision(false)            
+            
+            CreateEmitterOnEntity(proj, army, '/effects/emitters/destruction_explosion_fire_plume_01_emit.bp')
         end
     end,
 
@@ -406,30 +411,46 @@ uel0402 = Class(TWalkingLandUnit) {
 
         -- Create small explosions all over
         for i = 0, numExplosions do
+        
             local ranBone = utilities.GetRandomInt( 1, numExplosions )
-            local duration = utilities.GetRandomFloat( 0.2, 0.5 )
+            local duration = GetRandomFloat( 0.2, 0.5 )
+            
             self:PlayUnitSound('Destroyed')
+            
             explosion.CreateDefaultHitExplosionAtBone( self, self.MechDestructionEffectBones[ ranBone ], Random(0.125,0.5) )
-            self:CreateFirePlumes( self.Army, {ranBone}, Random(0,2) )
-            self:CreateDamageEffects( ranBone, self.Army )
-            self:CreateExplosionDebris( self.Army )
+            
+            self:CreateFirePlumes( self.Sync.army, {ranBone}, Random(0,2) )
+            
+            self:CreateDamageEffects( ranBone, self.Sync.army )
+            
+            self:CreateExplosionDebris( self.Sync.army )
+            
             self:ShakeCamera(1, 0.5, 0.25, duration)
+            
             WaitSeconds( duration )
         end
 
         -- Create main body explosions
         CreateDeathExplosion( self, 'missile_pod_left', Random(1,5))
-        self:CreateDamageEffects( 'missile_pod_left', self.Army )
-        self:ShakeCamera(2, 1, 0.5, 0.5)
+        
+        self:CreateDamageEffects( 'missile_pod_left', self.Sync.army )
+        self:ShakeCamera(2, 1, 0.5, 0.3)
+        
         self:PlayUnitSound('Destroyed')  
+        
         CreateDeathExplosion( self, 'missile_pod_right', Random(1,5))
-        self:CreateDamageEffects( 'missile_pod_right', self.Army )
-        self:ShakeCamera(2, 1, 0.5, 0.5)
+        
+        self:CreateDamageEffects( 'missile_pod_right', self.Sync.army )
+        self:ShakeCamera(2, 1, 0.5, 0.3)
+        
         self:PlayUnitSound('Destroyed')
-        WaitSeconds( 0.5 )
-        CreateDeathExplosion( self, 'body', Random(1,10))
-        self:CreateDamageEffects( 'body', self.Army )
-        self:ShakeCamera(4, 2, 1, 1)
+        
+        WaitTicks(4)
+        
+        CreateDeathExplosion( self, 'body', Random(1,8))
+        self:CreateDamageEffects( 'body', self.Sync.army )
+        self:ShakeCamera(4, 2, 1, 0.6)
+        
         self:PlayUnitSound('Destroyed')
     end,
 
@@ -440,24 +461,24 @@ uel0402 = Class(TWalkingLandUnit) {
         -- Create full-screen glow flash
         self:PlayUnitSound('Nuke')
         
-        CreateAttachedEmitter(self, 'uel0402', self.Army, '/effects/emitters/destruction_explosion_concussion_ring_03_emit.bp'):ScaleEmitter(0.2)
+        CreateAttachedEmitter(self, 'uel0402', self.Sync.army, '/effects/emitters/destruction_explosion_concussion_ring_03_emit.bp'):ScaleEmitter(0.2)
         
         self:ForkThread(self.CreateOuterRingWaveSmokeRing)
         
-        CreateLightParticle(self, -1, self.Army, 10, 4, 'glow_02', 'ramp_red_02')
+        CreateLightParticle(self, -1, self.Sync.army, 10, 4, 'glow_02', 'ramp_red_02')
         WaitTicks(2)
         
-        CreateLightParticle(self, -1, self.Army, 10, 20, 'glow_03', 'ramp_fire_06')
-        WaitTicks(6)
+        CreateLightParticle(self, -1, self.Sync.army, 10, 20, 'glow_03', 'ramp_fire_06')
+        WaitTicks(5)
         
-        CreateLightParticle(self, -1, self.Army, 20, 250, 'glow_03', 'ramp_nuke_04')
+        CreateLightParticle(self, -1, self.Sync.army, 20, 250, 'glow_03', 'ramp_nuke_04')
       
         -- Create ground decals
         local orientation = RandomFloat( 0, 6.28 )
         
-        CreateDecal(position, orientation, 'Crater01_albedo', '', 'Albedo', 8, 8, 400, 120, self.Army)
-        CreateDecal(position, orientation, 'Crater01_normals', '', 'Normals', 8, 8, 400, 120, self.Army)      
-        CreateDecal(position, orientation, 'nuke_scorch_003_albedo', '', 'Albedo', 12, 12, 400, 120, self.Army)
+        CreateDecal(position, orientation, 'Crater01_albedo', '', 'Albedo', 8, 8, 400, 120, self.Sync.army)
+        CreateDecal(position, orientation, 'Crater01_normals', '', 'Normals', 8, 8, 400, 120, self.Sync.army)      
+        CreateDecal(position, orientation, 'nuke_scorch_003_albedo', '', 'Albedo', 12, 12, 400, 120, self.Sync.army)
    
         -- Knockdown force rings
         DamageRing(self, position, 0.1, 20, 1, 'Force', false)
@@ -469,7 +490,7 @@ uel0402 = Class(TWalkingLandUnit) {
 		DamageRing(self, position, 0.1, 6, 2000, 'Force', true)
 		DamageRing(self, position, 0.1, 4, 3000, 'Force', true)
         
-        self:ShakeCamera(6, 3, 2, 2)  
+        self:ShakeCamera(4, 2, 1.5, 1.2)  
     end,
 
     CreateOuterRingWaveSmokeRing = function(self)
@@ -488,7 +509,7 @@ uel0402 = Class(TWalkingLandUnit) {
             table.insert( projectiles, proj )
         end
         
-        WaitTicks(31)
+        WaitTicks(27)
         
         -- Slow projectiles down to normal speed
         for k, v in projectiles do
@@ -514,5 +535,7 @@ uel0402 = Class(TWalkingLandUnit) {
         self:CreateWreckage(Random(0.1,1))
         self:Destroy()
     end,
+
 }
+
 TypeClass = uel0402

@@ -1,4 +1,4 @@
-local TWalkingLandUnit = import('/lua/terranunits.lua').TWalkingLandUnit
+local TWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
 local TIFCruiseMissileUnpackingLauncher = import('/lua/terranweapons.lua').TIFCruiseMissileUnpackingLauncher
 local HawkGaussCannonWeapon = import('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua').HawkGaussCannonWeapon
@@ -132,7 +132,7 @@ BEL0402 = Class(TWalkingLandUnit) {
     end,
 
 	CreateAmmoCookOff = function( self, Army, bones, yBoneOffset )
-		### Fire plume effects
+
 		local basePosition = self:GetPosition()
         
 		for k, vBone in bones do
@@ -141,11 +141,11 @@ BEL0402 = Class(TWalkingLandUnit) {
 			local offset = utilities.GetDifferenceVector( position, basePosition )
             
 			velocity = utilities.GetDirectionVector( position, basePosition ) 
-			velocity.x = velocity.x + GetRandomFloat(-0.45, 0.45)
-			velocity.z = velocity.z + GetRandomFloat(-0.45, 0.45)
-			velocity.y = velocity.y + GetRandomFloat( 0.0, 0.65)
+            
+			velocity[1] = velocity[1] + GetRandomFloat(-0.45, 0.45)
+			velocity[2] = velocity[2] + GetRandomFloat(-0.45, 0.45)
+			velocity[3] = velocity[3] + GetRandomFloat( 0.0, 0.65)
 
-			### Ammo Cookoff projectiles and damage
 			self.DamageData = {
 				BallisticArc = 'RULEUBA_LowArc',
 				UseGravity = true, 
@@ -156,9 +156,10 @@ BEL0402 = Class(TWalkingLandUnit) {
 				DoTPulses = 15,
 				DoTTime = 2.5, 
 				DamageType = 'Normal',
-				} 
-			ammocookoff = self:CreateProjectile('/mods/BlackOpsUnleashed/projectiles/NapalmProjectile01/Napalm01_proj.bp', offset.x, offset.y + yBoneOffset, offset.z, velocity.x, velocity.y, velocity.z)
-			### SetVelocity controls how far away the ammo will be thrown
+			} 
+
+			ammocookoff = self:CreateProjectile('/mods/BlackOpsUnleashed/projectiles/NapalmProjectile01/Napalm01_proj.bp', offset.x, offset.y + yBoneOffset, offset.z, velocity[1], velocity[2], velocity[3])
+
 			ammocookoff:SetVelocity(Random(2,5))  
 			ammocookoff:SetLifetime(20) 
 			ammocookoff:PassDamageData(self.DamageData)
@@ -167,33 +168,34 @@ BEL0402 = Class(TWalkingLandUnit) {
 	end,
 	
 	CreateGroundPlumeConvectionEffects = function(self,army)
-    for k, v in EffectTemplate.TNukeGroundConvectionEffects01 do
-          CreateEmitterAtEntity(self, army, v ) 
-    end
     
-    local sides = 10
-    local angle = 6.28 / sides
-    local inner_lower_limit = 2
+        for k, v in EffectTemplate.TNukeGroundConvectionEffects01 do
+            CreateEmitterAtEntity(self, army, v ) 
+        end
+    
+        local sides = 10
+        local angle = 6.28 / sides
+        local inner_lower_limit = 2
         local outer_lower_limit = 2
         local outer_upper_limit = 2
     
-    local inner_lower_height = 1
-    local inner_upper_height = 3
-    local outer_lower_height = 2
-    local outer_upper_height = 3
+        local inner_lower_height = 1
+        local inner_upper_height = 3
+        local outer_lower_height = 2
+        local outer_upper_height = 3
 
-    sides = 8
-    angle = 6.28 / sides
+        sides = 8
+        angle = 6.28 / sides
     
-    for i = 0, (sides-1)
-    do
-        local magnitude = RandomFloat(outer_lower_limit, outer_upper_limit)
-        local x = LOUDSIN(i*angle+RandomFloat(-angle/2, angle/4)) * magnitude
-        local z = LOUDCOS(i*angle+RandomFloat(-angle/2, angle/4)) * magnitude
-        local velocity = RandomFloat( 1, 3 ) * 3
-        self:CreateProjectile('/effects/entities/UEFNukeEffect05/UEFNukeEffect05_proj.bp', x, RandomFloat(outer_lower_height, outer_upper_height), z, x, 0, z)
-            :SetVelocity(x * velocity, 0, z * velocity)
-    end 
+        for i = 0, (sides-1) do
+        
+            local magnitude = RandomFloat(outer_lower_limit, outer_upper_limit)
+            local x = LOUDSIN(i*angle+RandomFloat(-angle/2, angle/4)) * magnitude
+            local z = LOUDCOS(i*angle+RandomFloat(-angle/2, angle/4)) * magnitude
+            local velocity = RandomFloat( 1, 3 ) * 3
+            self:CreateProjectile('/effects/entities/UEFNukeEffect05/UEFNukeEffect05_proj.bp', x, RandomFloat(outer_lower_height, outer_upper_height), z, x, 0, z)
+                :SetVelocity(x * velocity, 0, z * velocity)
+        end 
     end,
 	
 	CreateInitialFireballSmokeRing = function(self)
@@ -227,13 +229,13 @@ BEL0402 = Class(TWalkingLandUnit) {
         
         WaitSeconds( 3 )
 
-        # Slow projectiles down to normal speed
         for k, v in projectiles do
             v:SetAcceleration(-0.45)
         end         
     end,      
     
     CreateFlavorPlumes = function(self)
+    
         local numProjectiles = 8
         local angle = 6.28 / numProjectiles
         local angleInitial = RandomFloat( 0, angle )

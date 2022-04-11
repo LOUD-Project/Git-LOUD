@@ -79,6 +79,8 @@ UnitBlueprint {
             'ueb1202',
             'ueb1302',
         },
+        StorageEnergy = 120,
+        StorageMass = 12,        
     },
     General = {
         Category = 'Economy',

@@ -243,11 +243,11 @@ UnitBlueprint {
                 helpText = 'toggle_shield_dome',
             },
         },
-        SelectionPriority = 5,
+        
+        --SelectionPriority = 5,
+        
         TechLevel = 'RULEUTL_Advanced',
-        ToggleCaps = {
-            RULEUTC_ShieldToggle = true,
-        },
+        ToggleCaps = { RULEUTC_ShieldToggle = true },
         UnitName = '<LOC wsl0405_name>Echibum',
         UnitWeight = 1,
     },

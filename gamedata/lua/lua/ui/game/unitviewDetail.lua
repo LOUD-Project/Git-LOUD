@@ -8,7 +8,7 @@ local Prefs = import('/lua/user/prefs.lua')
 local UnitDescriptions = import('/lua/ui/help/unitdescription.lua').Description
 local TitleCase = import('/lua/utilities.lua').LOUD_TitleCase
 
-local __DMSI = import('/mods/Domino_Mod_Support/lua/initialize.lua') or false
+local __DMSI = false    --import('/mods/Domino_Mod_Support/lua/initialize.lua') or false
 
 local enhancementSlotNames = {}
 

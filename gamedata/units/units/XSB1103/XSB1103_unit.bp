@@ -112,6 +112,8 @@ UnitBlueprint {
             'xsb1202',
             'xsb1302',
         },
+        StorageEnergy = 60,
+        StorageMass = 6,        
     },
 	
     General = {

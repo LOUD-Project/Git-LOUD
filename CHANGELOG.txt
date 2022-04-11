@@ -2,6 +2,11 @@
 LUA 6.2.01
 
     - additional last-minute minor optimizations, Janus to fighter only descriptions and rollovers
+    - Rampage script error
+    - Wyvern UEF Dragonite death animation
+    - Wyvern Cybran Storm Strider death animiation
+    - Megalith death animation
+    - Echibum selection priority with other T4 Experimentals
 
 Hotfixes
 

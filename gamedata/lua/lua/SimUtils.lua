@@ -242,6 +242,7 @@ function AreaReclaim(data, units)
 	local i, rec = next(allReclaimables, nil)
     
 	while i do
+    
 		LOUDINSERT(recArrays[j], rec)
         i, rec = next(allReclaimables, i)
         j = j + 1

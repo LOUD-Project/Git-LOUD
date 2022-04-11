@@ -77,6 +77,8 @@ UnitBlueprint {
             'urb1202',
             'urb1302',
         },
+        StorageEnergy = 120,
+        StorageMass = 12,        
     },
     General = {
         Category = 'Economy',

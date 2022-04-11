@@ -12,7 +12,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+    
     BuildIconSortPriority = 40,
+    
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3ENGINEER',
@@ -28,7 +30,9 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SORTECONOMY',
     },
+    
     CollisionOffsetY = 0,
+    
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 540,		-- 1000% MassOutput + 2% Healt
@@ -36,7 +40,9 @@ UnitBlueprint {
         MaxHealth = 9000,
         RegenRate = 3,
     },
+    
     Description = '<LOC urb1302_desc>Advanced Mass Extractor',
+    
     Display = {
         AnimationOpen = '/units/urb1302/urb1302_Apump.sca',
         AnimationUpgrade = '/units/urb1302/urb1302_Aupgrade.sca',
@@ -71,6 +77,9 @@ UnitBlueprint {
         ProductionPerSecondMass = 18,
 		
         RebuildBonusIds = {'urb1302'},
+        
+        StorageEnergy = 180,
+        StorageMass = 15,
     },
 	
     General = {
@@ -86,12 +95,15 @@ UnitBlueprint {
         UnitWeight = 1,
         UpgradesFrom = 'urb1202',
     },
+    
     Interface = {
         HelpText = 'Advanced Mass Extractor',
     },
+    
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.55,
     LifeBarSize = 1.25,
+    
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -110,14 +122,18 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+    
     SelectionSizeX = 0.65,
     SelectionSizeZ = 0.65,
     SelectionThickness = 0.6,
+    
     SizeX = 0.75,
     SizeY = 1.8,
     SizeZ = 0.75,
+    
     StrategicIconName = 'icon_structure3_mass',
     StrategicIconSortPriority = 245,
+    
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

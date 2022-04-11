@@ -31,7 +31,7 @@ local BuffFieldBlueprints = import('/lua/sim/BuffField.lua').BuffFieldBlueprints
 local RRBC = import('/lua/sim/RebuildBonusCallback.lua').RegisterRebuildBonusCheck
 
 -- from Domino Mod Support
-local __DMSI = import('/mods/Domino_Mod_Support/lua/initialize.lua') or false
+local __DMSI = false    --import('/mods/Domino_Mod_Support/lua/initialize.lua') or false
 local AvailableToggles = {} --  __DMSI.Custom_Toggles() or {}
 
 if __DMSI then
@@ -199,6 +199,8 @@ Unit = Class(moho.unit_methods) {
         setmetatable( self.Sync, SyncMeta )
 		
 		local bp = GetBlueprint(self)
+        
+        self.Army = self.Sync.army
 		
 		self.BlueprintID = bp.BlueprintId
         

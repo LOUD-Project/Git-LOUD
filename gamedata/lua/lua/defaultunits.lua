@@ -67,6 +67,7 @@ local VDist2 = VDist2
 local VDist2Sq = VDist2Sq
 local VDist3 = VDist3
 
+local AssignUnitsToPlatoon = moho.aibrain_methods.AssignUnitsToPlatoon
 local BeenDestroyed = moho.entity_methods.BeenDestroyed
 local DisableIntel = moho.entity_methods.DisableIntel
 local EnableIntel = moho.entity_methods.EnableIntel
@@ -77,12 +78,14 @@ local GetFractionComplete = moho.entity_methods.GetFractionComplete
 local GetPosition = moho.entity_methods.GetPosition
 local GetWeapon = moho.unit_methods.GetWeapon
 local GetWeaponCount = moho.unit_methods.GetWeaponCount
+
 local HideBone = moho.unit_methods.HideBone
 local IsBeingBuilt = moho.unit_methods.IsBeingBuilt
 
-
-local AssignUnitsToPlatoon = moho.aibrain_methods.AssignUnitsToPlatoon
 local MakePlatoon = moho.aibrain_methods.MakePlatoon
+
+local SetConsumptionPerSecondMass = moho.unit_methods.SetConsumptionPerSecondMass
+local SetProductionPerSecondMass = moho.unit_methods.SetProductionPerSecondMass
 
 local Random = Random
 
@@ -93,6 +96,7 @@ local TrashDestroy = TrashBag.Destroy
 local function GetRandomFloat( Min, Max )
     return Min + (Random() * (Max-Min) )
 end
+
 local function GetRandomInt( nmin, nmax)
     return LOUDFLOOR(Random() * (nmax - nmin + 1) + nmin)
 end
@@ -2805,6 +2809,7 @@ MassCollectionUnit = Class(StructureUnit) {
     OnStopBeingBuilt = function(self,builder,layer)
 
         StructureUnit.OnStopBeingBuilt(self,builder,layer)
+        
         self:SetMaintenanceConsumptionActive()
     end,
 
@@ -2830,9 +2835,9 @@ MassCollectionUnit = Class(StructureUnit) {
 
             KillThread(self.UpgradeWatcher)
 
-            self:SetConsumptionPerSecondMass(0)
+            SetConsumptionPerSecondMass( self, 0 )
 
-            self:SetProductionPerSecondMass(__blueprints[self.BlueprintID].Economy.ProductionPerSecondMass or 0)
+            SetProductionPerSecondMass( self, __blueprints[self.BlueprintID].Economy.ProductionPerSecondMass or 0)
         end
     end,
 
@@ -2845,35 +2850,83 @@ MassCollectionUnit = Class(StructureUnit) {
         local GetEconomyStored = moho.aibrain_methods.GetEconomyStored
 		local GetResourceConsumed = moho.unit_methods.GetResourceConsumed
 		local IsPaused = moho.unit_methods.IsPaused
-		local WaitTicks = coroutine.yield
+		local WaitTicks = WaitTicks
+        
+        local resettonormal = true
 
         while true do
-
+            
+            -- if not paused 
             if not IsPaused(self) then
 
+                -- if we dont get 100% of what we need --
                 if GetResourceConsumed(self) != 1 then
+                
+                    --LOG("*AI DEBUG WE are short of resources")
+                
+                    -- flag a reset to normal when conditions normalize
+                    resettonormal = true
 
+                    -- if we are 100% out of energy
                     if GetEconomyStored(aiBrain, 'ENERGY') <= 1 then
-                        self:SetProductionPerSecondMass(massProduction)
-                        self:SetConsumptionPerSecondMass(massConsumption)
+                    
+                        --LOG("*AI DEBUG We are out of ENERGY")
+                    
+                        -- turn off both production and consumption
+                        SetProductionPerSecondMass( self, 0 )    --massProduction)
+                        SetConsumptionPerSecondMass( self, 0 )   --massConsumption)
+                        
                     else
-                        if GetResourceConsumed(self) != 0 then
-                            self:SetConsumptionPerSecondMass(massConsumption)
-                            self:SetProductionPerSecondMass(massProduction / GetResourceConsumed(self))
+                    -- we must be out of mass then --
+                    
+                        local massprod = math.min(1, GetEconomyStored(aiBrain,'ENERGY')/ self:GetConsumptionPerSecondEnergy())
+
+                        --LOG("*AI DEBUG ResourceConsumed is "..repr(GetResourceConsumed(self)))
+                    
+                        -- if we had at least 1% we must have some of the mass 
+                        if GetResourceConsumed(self) > .01 then
+                        
+                            --LOG("*AI DEBUG we have SOME mass")
+                        
+                            -- consumption will be set to normal --
+                            SetConsumptionPerSecondMass( self, massConsumption)
+                            
+                            --LOG("*AI DEBUG Production set to "..(massProduction * massprod) )
+                            
+                            -- BUT production will be set to % of energy required
+                            SetProductionPerSecondMass( self, (massProduction * massprod ) )
+                            
                         else
-                            self:SetProductionPerSecondMass(0)
+                            
+                            --LOG("*AI DEBUG we have no Mass - no consumption")
+                            --  turn it off
+                            SetConsumptionPerSecondMass( self, 0)
                         end
                     end
                 else
-                    self:SetConsumptionPerSecondMass(massConsumption)
-                    self:SetProductionPerSecondMass(massProduction)
+                
+                    if resettonormal then
+                    
+                        --LOG("*AI DEBUG Returning to normal upgrade")
+                        
+                        -- resume normal production and consumption
+                        SetConsumptionPerSecondMass( self, massConsumption)
+                        SetProductionPerSecondMass( self, massProduction)
+                        
+                        resettonormal = false
+                    end
+                    
                 end
 
             else
-                self:SetProductionPerSecondMass(massProduction)
+            
+                --LOG("*AI DEBUG Pausing during an upgrade")
+                
+                -- pausing just seems to leave things alone while upgrading?
+                SetProductionPerSecondMass( self, massProduction )
             end
 
-            WaitTicks(5) #-- Seconds(0.2)
+            WaitTicks(2)
         end
     end,
 }

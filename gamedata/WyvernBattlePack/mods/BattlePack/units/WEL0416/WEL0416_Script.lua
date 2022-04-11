@@ -244,11 +244,12 @@ WEL0416 = Class(TWalkingLandUnit) {
             offset = utilities.GetDifferenceVector( position, basePosition )
             
             velocity = utilities.GetDirectionVector( position, basePosition )  
-            velocity.x = velocity.x + utilities.GetRandomFloat(-0.45, 0.45)
-            velocity.z = velocity.z + utilities.GetRandomFloat(-0.45, 0.45)
-            velocity.y = velocity.y + utilities.GetRandomFloat( 0.0, 0.45)
             
-            proj = self:CreateProjectile('/effects/entities/DestructionFirePlume01/DestructionFirePlume01_proj.bp', offset.x, offset.y + yBoneOffset, offset.z, velocity.x, velocity.y, velocity.z)
+            velocity[1] = velocity[1] + utilities.GetRandomFloat(-0.45, 0.45)
+            velocity[2] = velocity[2] + utilities.GetRandomFloat(-0.45, 0.45)
+            velocity[3] = velocity[3] + utilities.GetRandomFloat( 0.0, 0.45)
+            
+            proj = self:CreateProjectile('/effects/entities/DestructionFirePlume01/DestructionFirePlume01_proj.bp', offset.x, offset.y + yBoneOffset, offset.z, velocity[1], velocity[2], velocity[3])
             proj:SetBallisticAcceleration(utilities.GetRandomFloat(-1, -2)):SetVelocity(utilities.GetRandomFloat(1, 4)):SetCollision(false)            
             
             local emitter = CreateEmitterOnEntity(proj, Army, '/effects/emitters/destruction_explosion_fire_plume_01_emit.bp')
