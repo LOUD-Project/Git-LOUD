@@ -7,6 +7,8 @@ LUA 6.2.01
     - Wyvern Cybran Storm Strider death animiation
     - Megalith death animation
     - Echibum selection priority with other T4 Experimentals
+    - BrewLAN Aeon Gantry script fix
+    - IMPORT process debugged for saved games
 
 Hotfixes
 

@@ -1,7 +1,6 @@
--- Copyright ï¿½ 2005 Gas Powered Games, Inc.  All rights reserved.
---
--- Implement import()
-
+# Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
+#
+# Implement import()
 
 
 -- Table of all loaded modules, indexed by name.
@@ -13,82 +12,64 @@ __module_metatable = {
     __index = _G
 }
 
-
 local setmetatable = setmetatable
 local LOUDSUB = string.sub
 local FCP = FileCollapsePath
 
-local ALL_MODULES = __modules
-
 
 function import(name)
 
-    if ALL_MODULES[name] then   --__modules[name] then
-        return ALL_MODULES[name]    --__modules[name]
+    -- First check if the module already exists
+    name = string.lower(name)
+    
+    local existing = __modules[name]
+    
+    if existing then
+        return existing
     end
 
-    --LOG("*AI DEBUG Starting Import for "..repr(name))
+    SPEW("Loading module '", name, "'")
     
-    --local LOUDSUB = LOUDSUB
-    --local FCP = FCP
-
     -- Set up an environment for the new module
     local env
-	
+    
     env = {
         __moduleinfo = { name = name, used_by = {}, track_imports = true },
 
-        -- Define a new 'import' function customized for the module, to track import dependencies
-		-- and also to check against existing imported modules
+        -- Define a new 'import' function customized for the module, to track import dependencies.
         import = function(name2)
         
-            local FCP = FCP
-            local LOUDSUB = LOUDSUB
-
             if LOUDSUB(name2,1,1)!='/' then
                 name2 = FCP(name .. '/../' .. name2)
             end
             
-			if ALL_MODULES[name2] then      --__modules[name2] then
-				return ALL_MODULES[name2]   --__modules[name2]
-			end
-
-            if DiskGetFileInfo(name2) then
-                
-                local m2 = import(name2)    -- this will use the global import
-			
-                if env.__moduleinfo.track_imports then
-                    m2.__moduleinfo.used_by[name] = true
-                end
-			
-                return m2
-            else
-                LOG("*IMPORT file "..name.." "..name2.." FAILS "..repr(DiskGetFileInfo(name2)) )
-                return false
+            local m2 = import(name2) -- this will use the standard import function
+            
+            if env.__moduleinfo.track_imports then
+                m2.__moduleinfo.used_by[name] = true
             end
+            
+            return m2
         end,
     }
-	
+    
     setmetatable(env, __module_metatable)
 
     __modules[name] = env
-	
-	--LOG("*AI DEBUG Importing "..repr(name).." "..repr(env).." "..repr(doscript))
 
     local ok, msg = pcall(doscript, name, env)
-	
+    
     if not ok then
         __modules[name] = nil
         WARN(msg)
         error("Error importing '" .. name .. "'", 2)
-		return false
     end
 
     -- Once we've imported successfully, stop tracking dependencies. This means that importing from
     -- within a function will not create a dependency, which is usually what you want. (You can
     -- explicitly set __moduleinfo.track_imports = true to switch tracking back on.)
     env.__moduleinfo.track_imports = false
-
+    
     return env
 end
 

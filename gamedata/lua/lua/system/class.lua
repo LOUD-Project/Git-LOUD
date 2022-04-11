@@ -68,7 +68,6 @@ State machines
     Even though B's definition didn't redefine state S3, we need to create a new class to represent B.S3,
     because B.S3 is always derived from B.
 
-'
 ]]
 
 
@@ -78,30 +77,22 @@ local getn = table.getn
 local ForkThread = ForkThread
 local type = type
 
---
 -- Class is a callable object for defining new classes, and the metatable for class objects.
---
 Class = {}
 
---
 -- ClassMeta is the metatable for Class.
---
 local ClassMeta = {}
 setmetatable(Class, ClassMeta)
 
---
 -- StateProxyTag is the metaclass of temporary 'state' placeholders returned by State().
 -- These get turned into class definitions when their containing class is defined.
---
 StateProxyTag = {}
 State = {}
 local StateMeta = {}
 setmetatable(State, StateMeta)
 
 
---
 -- Returns true if class 'derived' is derived from class 'base'
---
 local function IsDerived(derived, base)
     if base==derived then return true end
     if not derived.__bases then return false end
@@ -114,10 +105,8 @@ local function IsDerived(derived, base)
 end
 
 
---
 -- Returns true if object 'obj' is an instance of class 'class',
 -- or of any of its subclasses.
---
 function IsInstance(obj,class)
     return IsDerived(getmetatable(obj),class)
 end
@@ -172,8 +161,6 @@ end
 
 local function SetupClassFields(c, bases, spec, meta)
 
-    --LOG("*AI DEBUG meta is "..repr(meta))
-    
     c.__index = c
     c.__spec = spec
     c.__bases = bases
@@ -187,38 +174,46 @@ end
 
 
 local function StateProxiesToClasses(c)
-    #
-    # States are handled specially. Each state is basically a class derived from the containing class.
-    # Switching states switches our metatable, i.e. changes the type of the object.
-    #
-    # The State{} function is just a syntactic placeholder that marks the state spec as a proxy object.
-    # It can't actually create the state class, because the containing class hasn't been created yet.
-    # This function is used during the containing class creation to create real states in place of the proxy objects.
-    #
+
+    -- States are handled specially. Each state is basically a class derived from the containing class.
+    -- Switching states switches our metatable, i.e. changes the type of the object.
+
+    -- The State{} function is just a syntactic placeholder that marks the state spec as a proxy object.
+    -- It can't actually create the state class, because the containing class hasn't been created yet.
+    -- This function is used during the containing class creation to create real states in place of the proxy objects.
+
     local new_states = {}
 	
     assert(c.__index == c)
 	
     for k,v in c do
-        # Class specs should never have actual states as fields coming into this function, because the behavior
-        # won't be what you expect.
+    
+        -- Class specs should never have actual states as fields coming into this function, because the behavior
+        -- won't be what you expect.
         assert(getmetatable(v) ~= State)
 
         if getmetatable(v) == StateProxyTag then
+        
             local s = SetupClassFields({}, {c,unpack(v.__bases or {})}, v.__spec, State)
+            
             s.__state = k
             new_states[k] = s
         end
     end
 
     for k,s in new_states do
+    
         assert(getmetatable(c[k])==StateProxyTag)
         assert(getmetatable(s)==State)
+        
         c[k] = s
+        
         for k2,s2 in new_states do
+        
             assert(getmetatable(s[k2])==StateProxyTag)
             assert(getmetatable(s2)==State)
             s[k2] = s2
+            
         end
     end
 end
@@ -228,14 +223,12 @@ local function MakeClass(bases, spec)
     -- if spec[1] then
         -- error 'Class specification contains indexed elements; it should contain only name=value elements'
     -- end
+    
+    --LOG("*AI DEBUG MakeClass with "..repr(spec))
 
     local c = SetupClassFields({}, bases, spec, Class)
 
-    --LOG("*AI DEBUG MakeClass with "..repr(c))    
-
     StateProxiesToClasses(c)
-    
-    --LOG("*AI DEBUG After Stating Proxies we have "..repr(c))
     
     return c
 end
@@ -252,80 +245,75 @@ local IntermediateClassMeta = { __call = MakeClass }
 --   Class(Base1,Base2,...BaseN)                 for a class with base classes
 --
 function ClassMeta:__call(...)
+
     if arg.n==1 and getmetatable(arg[1])==getmetatable {} then
         return MakeClass(nil, arg[1])
     end
-
-    -- for i,base in ipairs(arg) do
-        -- if getmetatable(base) ~= Class and getmetatable(base) ~= State then
-            -- error 'Something other than a Class or State was used for a base class'
-        -- end
-    -- end
-    local temp = { unpack(arg) }
-    setmetatable(temp, IntermediateClassMeta)
     
-    --LOG("*AI DEBUG The temp is "..repr(temp))
+    local temp = { unpack(arg) }
+    
+    setmetatable(temp, IntermediateClassMeta)
     
     return temp
 end
 
 
---
 -- Invoking a class (note: this is not the same as invoking Class itself)
 -- creates a new instance of the class.
---
 function Class:__call(...)
-    #
-    # create the new object
-    #
+
+    -- create the new object
     local newobject = {}
+    
     setmetatable(newobject, self)
 
-    #
-    # call the class constructor, if one was defined
-    #
+    -- call the class constructor, if one was defined
     local initfn = self.__init
+    
     if initfn then
         initfn(newobject,unpack(arg))
     end
+    
     local postinitfn = self.__post_init
+    
     if postinitfn then
         postinitfn(newobject,unpack(arg))
     end
+    
     return newobject
 end
 
---
 -- Disallow setting fields on a class after the fact. Unfortunately we can't catch all changes here--if the
 -- field already exists, Lua will allow it to be changed without triggering any hooks. But we can at least
 -- catch attempts to add new fields.
---
 function Class:__newindex(key,value)
     error('Attempted to add field "'..tostring(key)..'" after class was defined.')
 end
 
---
+
 -- Invoking State() creates a placeholder for a new state. It doesn't become
 -- a "real" state until its containing class is created.
---
 local function MakeStateProxy(bases, spec)
     -- if spec[1] then
         -- error 'State specification contains indexed elements; it should contain only name=value elements'
     -- end
 
-    # sanity check: a state's definition should not contain other states or state proxies, or things will break
+    -- sanity check: a state's definition should not contain other states or state proxies, or things will break
     -- for k,v in spec do
         -- assert(getmetatable(v) ~= StateProxyTag)
         -- assert(getmetatable(v) ~= State)
     -- end
+    
     local proxy = { __bases=bases, __spec=spec }
     setmetatable(proxy, StateProxyTag)
     return proxy
 end
+
 local IntermediateStateMeta = { __call = MakeStateProxy }
 
 
 function StateMeta:__call(...)
+
     if arg.n==1 and getmetatable(arg[1])==getmetatable {} then
         return MakeStateProxy(nil, arg[1])
     end
@@ -335,6 +323,7 @@ function StateMeta:__call(...)
             -- error 'Something other than a Class or State was used for a base class'
         -- end
     -- end
+    
     local temp = { unpack(arg) }
     setmetatable(temp, IntermediateStateMeta)
     return temp

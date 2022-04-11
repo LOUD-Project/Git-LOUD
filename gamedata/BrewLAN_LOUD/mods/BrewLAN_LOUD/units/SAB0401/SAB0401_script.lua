@@ -2,7 +2,7 @@
 --  Summary:  The Independence Engine script
 --   Author:  Sean 'Balthazar' Wheeldon
 --------------------------------------------------------------------------------
-local AAirFactoryUnit = import('/lua/aeonunits.lua').AAirFactoryUnit
+local AAirFactoryUnit = import('/lua/aeonunits.lua').AeonFactoryUnit
 
 local CreateAeonCommanderBuildingEffects = import('/lua/EffectUtilities.lua').CreateAeonCommanderBuildingEffects
 local EffectTemplate = import('/lua/EffectTemplates.lua')
