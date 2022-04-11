@@ -4,7 +4,7 @@ EmitterBlueprint {
 	Repeattime = 4.00,
 	Blendmode = 3.00,
 	LocalVelocity = true,
-	LODCutoff = -1.00,
+	LODCutoff = 240.00,
 	ParticleResistance = true,
 	LowFidelity = false,
 	Texture = [[/mods/BattlePack/textures/particles/ser_plasma08.dds]],

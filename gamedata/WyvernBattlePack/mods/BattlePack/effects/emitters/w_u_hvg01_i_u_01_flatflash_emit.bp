@@ -5,7 +5,7 @@ EmitterBlueprint {
 	Blendmode = 3.00,
 	LocalVelocity = true,
 	Flat = true,
-	LODCutoff = 2500.00,
+	LODCutoff = 250.00,
 	InterpolateEmission = false,
 	SortOrder = 1.00,
 	Texture = [[/mods/BattlePack/textures/particles/glow_02.dds]],

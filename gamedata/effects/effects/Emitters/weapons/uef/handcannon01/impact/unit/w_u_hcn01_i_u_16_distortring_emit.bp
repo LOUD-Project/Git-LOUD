@@ -4,7 +4,7 @@ EmitterBlueprint {
 	Repeattime = 2.00,
 	Blendmode = 5.00,
 	Flat = true,
-	LODCutoff = 830.00,
+	LODCutoff = 300.00,
 	InterpolateEmission = false,
 	SortOrder = 1.00,
 	LowFidelity = false,

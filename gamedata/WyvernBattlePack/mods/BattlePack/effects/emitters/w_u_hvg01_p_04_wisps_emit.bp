@@ -5,7 +5,7 @@ EmitterBlueprint {
 	Blendmode = 3.00,
 	LocalVelocity = true,
 	AlignRotation = true,
-	LODCutoff = 830.00,
+	LODCutoff = 340.00,
 	ParticleResistance = true,
 	TextureStripcount = 4.00,
 	SortOrder = -1.00,

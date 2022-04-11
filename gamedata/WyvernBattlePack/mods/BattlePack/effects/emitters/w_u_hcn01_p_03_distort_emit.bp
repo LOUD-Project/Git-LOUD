@@ -4,7 +4,7 @@ EmitterBlueprint {
 	Repeattime = 9.00,
 	Blendmode = 5.00,
 	LocalVelocity = true,
-	LODCutoff = 830.00,
+	LODCutoff = 340.00,
 	ParticleResistance = true,
 	TextureStripcount = 2.00,
 	SortOrder = 5.00,

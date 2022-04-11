@@ -5,7 +5,7 @@ EmitterBlueprint {
 	Blendmode = 3.00,
 	LocalVelocity = true,
 	LocalAcceleration = true,
-	LODCutoff = 830.00,
+	LODCutoff = 340.00,
 	EmitIfVisible = false,
 	CatchupEmit = false,
 	SnapToWaterline = true,

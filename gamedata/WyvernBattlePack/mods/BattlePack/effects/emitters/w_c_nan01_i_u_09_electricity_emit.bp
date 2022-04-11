@@ -3,7 +3,7 @@ EmitterBlueprint {
 	Lifetime = 1.00,
 	Repeattime = 1.00,
 	Blendmode = 1.00,
-	LODCutoff = 830.00,
+	LODCutoff = 340.00,
 	ParticleResistance = true,
 	InterpolateEmission = false,
 	SortOrder = 2.00,

@@ -16,7 +16,7 @@ TrailEmitterBlueprint {
     SortOrder = 0.0,
     BlendMode = 0, 
     TextureRepeatRate = 0.15, 
-    LODCutoff = 150, 
+    LODCutoff = 200, 
 	RepeatTexture = [[/mods/4DC/textures/particles/trail_redorangeblack_03.dds]],
 	RampTexture = [[/mods/4DC/textures/particles/ramp_test_01.dds]],
 }

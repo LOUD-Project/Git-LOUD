@@ -4,7 +4,7 @@ EmitterBlueprint {
 	Repeattime = 1.00,
 	Blendmode = 3.00,
 	LocalVelocity = true,
-	LODCutoff = -1.00,
+	LODCutoff = 240.00,
 	InterpolateEmission = false,
 	SortOrder = 1.00,
 	Texture = [[/mods/BattlePack/textures/particles/gl_0001_33.dds]],

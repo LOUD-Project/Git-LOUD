@@ -4,7 +4,7 @@ EmitterBlueprint {
 	Repeattime = 1.00,
 	Blendmode = 3.00,
 	LocalVelocity = true,
-	LODCutoff = -300,
+	LODCutoff = 240,
 	SnapToWaterline = true,
 	InterpolateEmission = false,
 	Texture = [[/mods/BattlePack/textures/particles/glow.dds]],

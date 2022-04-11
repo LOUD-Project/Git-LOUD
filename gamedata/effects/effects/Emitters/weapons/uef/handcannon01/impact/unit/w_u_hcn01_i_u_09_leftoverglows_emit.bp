@@ -3,7 +3,7 @@ EmitterBlueprint {
 	Lifetime = 1.00,
 	Repeattime = 1.00,
 	Blendmode = 3.00,
-	LODCutoff = 830.00,
+	LODCutoff = 300.00,
 	InterpolateEmission = false,
 	SortOrder = 3.00,
 	Texture = [[/textures/particles/glow/gl_0001_33.dds]],

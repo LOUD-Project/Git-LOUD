@@ -3,7 +3,7 @@ EmitterBlueprint {
 	Lifetime = 2.00,
 	Repeattime = 2.00,
 	Blendmode = 3.00,
-	LODCutoff = 830.00,
+	LODCutoff = 300.00,
 	InterpolateEmission = false,
 	SortOrder = 1.00,
 	Texture = [[/textures/particles/ring/rn_0004_55.dds]],

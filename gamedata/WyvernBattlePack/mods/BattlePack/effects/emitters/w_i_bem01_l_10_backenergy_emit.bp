@@ -5,7 +5,7 @@ EmitterBlueprint {
 	Blendmode = 0.00,
 	LocalVelocity = true,
 	AlignRotation = true,
-	LODCutoff = -1.00,
+	LODCutoff = 240.00,
 	InterpolateEmission = false,
 	LowFidelity = false,
 	Texture = [[/mods/BattlePack/textures/particles/glow_streak.dds]],

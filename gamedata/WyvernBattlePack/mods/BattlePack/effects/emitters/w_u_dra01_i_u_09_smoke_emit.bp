@@ -3,7 +3,7 @@ EmitterBlueprint {
 	Lifetime = 1.00,
 	Repeattime = 1.00,
 	Blendmode = 0.00,
-	LODCutoff = 830.00,
+	LODCutoff = 340.00,
 	ParticleResistance = true,
 	InterpolateEmission = false,
 	Texture = [[/mods/BattlePack/textures/particles/sm_0012_55.dds]],

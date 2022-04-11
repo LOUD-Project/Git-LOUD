@@ -5,7 +5,7 @@ EmitterBlueprint {
 	Blendmode = 3.00,
 	LocalVelocity = true,
 	AlignRotation = true,
-	LODCutoff = 830.00,
+	LODCutoff = 340.00,
 	ParticleResistance = true,
 	SortOrder = 1.00,
 	Texture = [[/mods/BattlePack/textures/particles/rb_0003_33.dds]],

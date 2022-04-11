@@ -17,5 +17,5 @@ BeamBlueprint {
     Length = 1000,
     UShift = 0.0,
     VShift = 0.0, 
-    LODCutoff = 400,       
+    LODCutoff = 300,       
 }

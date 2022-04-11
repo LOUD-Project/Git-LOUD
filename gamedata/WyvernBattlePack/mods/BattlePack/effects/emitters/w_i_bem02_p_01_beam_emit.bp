@@ -9,7 +9,7 @@ BeamBlueprint {
     UShift = 0.0,
     VShift = -0.18,
 	Blendmode = 3.0,
-	LODCutoff = 830.00,
+	LODCutoff = 340.00,
 	EmitIfVisible = false,
 	CatchupEmit = false,
 }

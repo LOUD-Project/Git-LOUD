@@ -5,7 +5,7 @@ EmitterBlueprint {
 	Blendmode = 3.00,
 	LocalVelocity = true,
 	AlignRotation = true,
-	LODCutoff = 830.00,
+	LODCutoff = 340.00,
 	EmitIfVisible = false,
 	Texture = [[/mods/BattlePack/textures/particles/rn_0031_44.dds]],
 	RampTexture = [[/mods/BattlePack/textures/particles/ra_0039_blue.dds]],
