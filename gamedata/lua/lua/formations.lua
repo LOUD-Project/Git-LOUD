@@ -29,11 +29,25 @@ ComboFormations = {
 }
 
 
---================ LAND DATA ==============#
 
+
+local LOUDCEIL = math.ceil
+local LOUDCOS = math.cos
+local LOUDENTITY = EntityCategoryContains
+local LOUDFLOOR = math.floor
 local LOUDGETN = table.getn
+local LOUDINSERT = table.insert
+local LOUDMAX = math.max
+local LOUDMOD = math.mod
+local LOUDPI = math.pi
+local LOUDSIN = math.sin
 
 local RemainingCategory = { 'RemainingCategory', }
+
+
+
+--================ LAND DATA ==============#
+
 
 --=== LAND CATEGORIES ===#
 local AntiAir = ( categories.ANTIAIR - ( categories.EXPERIMENTAL + categories.DIRECTFIRE ) ) * categories.LAND
@@ -713,26 +727,40 @@ function AttackFormation( formationUnits )
 	if landUnitsList.UnitTotal > 0 then
 	
 		local landBlock
+        local defaultspacing = 1.2
     
-		if landUnitsList.UnitTotal <= 16 then # 8 wide
+		if landUnitsList.UnitTotal <= 16 then       -- 8 wide
 			landBlock = TwoRowAttackFormationBlock
-		elseif landUnitsList.UnitTotal <= 30 then # 10 wide
+            
+		elseif landUnitsList.UnitTotal <= 30 then   -- 10 wide
 			landBlock = ThreeRowAttackFormationBlock
-		elseif landUnitsList.UnitTotal <= 48 then # 12 wide
+            defaultspacing = 1.1            
+            
+		elseif landUnitsList.UnitTotal <= 48 then   -- 12 wide
 			landBlock = FourRowAttackFormationBlock
-		elseif landUnitsList.UnitTotal <= 70 then # 14 wide
+            defaultspacing = 1.02
+            
+		elseif landUnitsList.UnitTotal <= 70 then   -- 14 wide
 			landBlock = FiveRowAttackFormationBlock
-		elseif landUnitsList.UnitTotal <= 96 then # 16 wide
+            defaultspacing = 0.96
+            
+		elseif landUnitsList.UnitTotal <= 96 then   -- 16 wide
 			landBlock = SixRowAttackFormationBlock
-		elseif landUnitsList.UnitTotal <= 126 then # 18 wide
+            defaultspacing = 0.92
+            
+		elseif landUnitsList.UnitTotal <= 126 then  -- 18 wide
 			landBlock = SevenRowAttackFormationBlock
-		elseif landUnitsList.UnitTotal <= 160 then # 20 wide
+            defaultspacing = 0.90            
+            
+		elseif landUnitsList.UnitTotal <= 160 then  -- 20 wide
 			landBlock = EightRowAttackFormationBlock
+            defaultspacing = 0.84            
 		else
 			landBlock = NineRowAttackFormationBlock
+            defaultspacing = 0.82            
 		end
     
-		BlockBuilderLand(landUnitsList, landBlock, LandCategories, FormationPos)
+		BlockBuilderLand(landUnitsList, landBlock, LandCategories, FormationPos, defaultspacing)
 	
 	end
 
@@ -794,7 +822,6 @@ function AttackFormation( formationUnits )
 		
 	end
 
-	
 	if airUnitsList.UnitTotal > 0 then
 		BlockBuilderAir(airUnitsList, StaggeredChevronBlock, FormationPos)
 	end
@@ -969,9 +996,9 @@ function BlockFormation( formationUnits )
 
 	--LOG("*AI DEBUG Creating Block Formation")
 
-    local LOUDCEIL = math.ceil
-    local LOUDFLOOR = math.floor
-    local LOUDMOD = math.mod
+    local LOUDCEIL = LOUDCEIL
+    local LOUDFLOOR = LOUDFLOOR
+    local LOUDMOD = LOUDMOD
 	
     local rotate = true
     local smallUnitsList = {}
@@ -1042,10 +1069,10 @@ end
 
 function CircleFormation( formationUnits )
 
-    local LOUDCOS = math.cos
-    local LOUDMAX = math.max
-    local LOUDPI = math.pi
-    local LOUDSIN = math.sin
+    local LOUDCOS = LOUDCOS
+    local LOUDMAX = LOUDMAX
+    local LOUDPI = LOUDPI
+    local LOUDSIN = LOUDSIN
     
 	--LOG("*AI DEBUG Creating Circle Formation")
 
@@ -1073,10 +1100,10 @@ end
 
 function GuardFormation( formationUnits )
 
-    local LOUDENTITY = EntityCategoryContains
-    local LOUDCOS = math.cos
-    local LOUDPI = math.pi
-    local LOUDSIN = math.sin
+    local LOUDENTITY = LOUDENTITY
+    local LOUDCOS = LOUDCOS
+    local LOUDPI = LOUDPI
+    local LOUDSIN = LOUDSIN
     
 	--LOG("*AI DEBUG Creating Guard Formation")
 	
@@ -1140,10 +1167,9 @@ end
 
 function DMSCircleFormation( formationUnits )
 
-    local LOUDCOS = math.cos
-    local LOUDMAX = math.max
-    local LOUDPI = math.pi
-    local LOUDSIN = math.sin
+    local LOUDCOS = LOUDCOS
+    local LOUDMAX = LOUDMAX
+    local LOUDSIN = LOUDSIN
     
 	--LOG("*AI DEBUG Creating DMSCircle Formation")
 
@@ -1156,11 +1182,11 @@ function DMSCircleFormation( formationUnits )
 
 	local sizeMult = LOUDMAX(1.0, numUnits * 0.2)
 
-    #-- make circle around center point
+    --- make circle around center point
     for i in formationUnits do
 	
-        offsetX = sizeMult * LOUDSIN( lerp( i/numUnits, 0.0, LOUDPI * 2.0 ) )
-        offsetY = sizeMult * LOUDCOS( lerp( i/numUnits, 0.0, LOUDPI * 2.0 ) )
+        offsetX = sizeMult * LOUDSIN( lerp( i/numUnits, 0.0, 6.28 ) )
+        offsetY = sizeMult * LOUDCOS( lerp( i/numUnits, 0.0, 6.28 ) )
 		
 		counter = counter + 1
         FormationPos[counter] = { offsetX, offsetY, categories.ALLUNITS, 0, rotate }
@@ -1174,11 +1200,10 @@ function LOUDClusterFormation( formationUnits )
 
 	--LOG("*AI DEBUG Creating LOUDCluster Formation")
 
-	local LOUDCOS = math.cos
-	local LOUDSIN = math.sin
-	local LOUDPI = math.pi
-	local LOUDMAX = math.max
-	local LOUDGETN = table.getn
+	local LOUDCOS = LOUDCOS
+	local LOUDSIN = LOUDSIN
+	local LOUDMAX = LOUDMAX
+	local LOUDGETN = LOUDGETN
 	
     local rotate = false
 	
@@ -1196,8 +1221,8 @@ function LOUDClusterFormation( formationUnits )
     for i in formationUnits do
        
 		
-        offsetX = sizeMult * LOUDSIN( lerp( unitCount/ringChange, 0.0, LOUDPI * 2.0 ) )
-        offsetY = sizeMult * LOUDCOS( lerp( unitCount/ringChange, 0.0, LOUDPI * 2.0 ) )
+        offsetX = sizeMult * LOUDSIN( lerp( unitCount/ringChange, 0.0, 6.28 ) )
+        offsetY = sizeMult * LOUDCOS( lerp( unitCount/ringChange, 0.0, 6.28 ) )
 		
 		counter = counter + 1
         FormationPos[counter] = { offsetX, offsetY, categories.ALLUNITS, 0, rotate }
@@ -1223,10 +1248,9 @@ end
 
 function ScatterFormation( formationUnits )
 
-    local LOUDENTITY = EntityCategoryContains
-    local LOUDCOS = math.cos
-    local LOUDPI = math.pi
-    local LOUDSIN = math.sin    
+    local LOUDENTITY = LOUDENTITY
+    local LOUDCOS = LOUDCOS
+    local LOUDSIN = LOUDSIN
 
 	--LOG("*AI DEBUG Creating Scatter Formation")
 
@@ -1272,8 +1296,8 @@ function ScatterFormation( formationUnits )
             unitCount = 1
         end
 		
-        offsetX = sizeMult * LOUDSIN( lerp( unitCount/ringChange, 0.0, LOUDPI * 2.0 ))
-        offsetY = sizeMult * LOUDCOS( lerp( unitCount/ringChange, 0.0, LOUDPI * 2.0 ))
+        offsetX = sizeMult * LOUDSIN( lerp( unitCount/ringChange, 0.0, 6.28 ))
+        offsetY = sizeMult * LOUDCOS( lerp( unitCount/ringChange, 0.0, 6.28 ))
 		
         --LOG('*FORMATION DEBUG: X=' .. offsetX .. ', Y=' .. offsetY )
 		
@@ -1291,15 +1315,21 @@ end
 
 
 --=========== LAND BLOCK BUILDING =================#
-function BlockBuilderLand( unitsList, formationBlock, categoryTable, FormationPos, spacing)
+function BlockBuilderLand( unitsList, formationBlock, categoryTable, FormationPos, spacing, linespacing)
 
-	local LOUDFLOOR = math.floor
-    local LOUDGETN = table.getn
-	local LOUDCEIL = math.ceil
-	local LOUDINSERT = table.insert
-	local LOUDMOD = math.mod
+	local LOUDFLOOR = LOUDFLOOR
+    local LOUDGETN = LOUDGETN
+	local LOUDCEIL = LOUDCEIL
+	local LOUDINSERT = LOUDINSERT
+	local LOUDMOD = LOUDMOD
 	
+    -- between units --
     local spacing = spacing or .8
+    
+    -- between lines of units --
+    -- this feature not yet implemented --
+    -- LineBreak should still work if it's part of the data
+    local linespacing = spacing or .8
 	
     local numRows = LOUDGETN(formationBlock)
 	
@@ -1458,7 +1488,7 @@ function BlockBuilderLand( unitsList, formationBlock, categoryTable, FormationPo
 						
 						
 						-- notice the use of whichRow to determine the movement delay between rows --
-                        LOUDINSERT( FormationPos, { xPos * spacing, -formationLength * spacing, categoryTable[group], (whichRow-1), true} )
+                        LOUDINSERT( FormationPos, { xPos * spacing, -formationLength, categoryTable[group], (whichRow-1), true} )
 						
                         inserted = true
 						
@@ -1495,8 +1525,8 @@ end
 --============ AIR BLOCK BUILDING =============#
 function BlockBuilderAir(unitsList, airBlock, FormationPos)
 
-	local LOUDGETN = table.getn
-	local LOUDINSERT = table.insert
+	local LOUDGETN = LOUDGETN
+	local LOUDINSERT = LOUDINSERT
 	
     local numRows = LOUDGETN(airBlock)
     local i = 1
@@ -1606,8 +1636,8 @@ end
 
 function GetChevronPosition(chevronPos, currCol, currRowLen, formationLen)
 
-	local LOUDFLOOR = math.floor
-	local LOUDMOD = math.mod
+	local LOUDFLOOR = LOUDFLOOR
+	local LOUDMOD = LOUDMOD
 	
     local offset = LOUDFLOOR(chevronPos* 0.5) * .375
     local xPos = offset
@@ -1745,8 +1775,9 @@ function NavalBlocks( unitsList, navyType )
 
     i = unitNum
 
-    # Figure out how many left we have to assign
+    -- Figure out how many left we have to assign
     local numLeft = unitsList.UnitTotal - i + 1
+    
     if numLeft == 2 then
         sideIndex = 2
     end
@@ -1835,7 +1866,7 @@ end
 -- data usage and processing
 function CategorizeAirUnits( formationUnits )
 
-    local LOUDENTITY = EntityCategoryContains
+    local LOUDENTITY = LOUDENTITY
 
     local unitsList = { StdAirUnits = 0, T4AirUnits = 0, UnitTotal = 0 }
 	
@@ -1861,7 +1892,7 @@ end
 
 function CategorizeTransportUnits( formationUnits )
 
-    local LOUDENTITY = EntityCategoryContains
+    local LOUDENTITY = LOUDENTITY
 
     local unitsList = { Trans1 = 0, Trans2 = 0, Trans3 = 0, Trans4 = 0, UnitTotal = 0 }
 	
@@ -1886,7 +1917,7 @@ end
 
 function CategorizeSeaUnits( formationUnits )
 
-    local LOUDENTITY = EntityCategoryContains
+    local LOUDENTITY = LOUDENTITY
 
     local unitsList = { UnitTotal = 0, BattleshipCount = 0, CarrierCount = 0, CruiserCount = 0, DestroyerCount = 0, FrigateCount = 0, LightCount = 0, MobileSonarCount = 0, SubCount = 0, NukeSubCount = 0, RemainingCategory = 0 }
 
@@ -1924,7 +1955,7 @@ function CategorizeLandUnits( formationUnits )
 
     local unitsList = { UnitTotal = 0 }
 	
-	local LOUDENTITY = EntityCategoryContains
+	local LOUDENTITY = LOUDENTITY
 	
     for i,u in formationUnits do
 	

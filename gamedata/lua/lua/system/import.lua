@@ -13,6 +13,7 @@ __module_metatable = {
 }
 
 local setmetatable = setmetatable
+local LOUDLOWER = string.lower
 local LOUDSUB = string.sub
 local FCP = FileCollapsePath
 
@@ -20,7 +21,7 @@ local FCP = FileCollapsePath
 function import(name)
 
     -- First check if the module already exists
-    name = string.lower(name)
+    name = LOUDLOWER(name)
     
     local existing = __modules[name]
     
@@ -28,7 +29,7 @@ function import(name)
         return existing
     end
 
-    SPEW("Loading module '", name, "'")
+    --SPEW("Loading module '", name, "'")
     
     -- Set up an environment for the new module
     local env

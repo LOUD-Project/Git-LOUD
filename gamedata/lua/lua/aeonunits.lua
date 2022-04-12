@@ -52,9 +52,11 @@ AeonFactoryUnit = Class(FactoryUnit) {
     
     OnStopBuild = function(self, unitBeingBuilt)
     
-        -- shrink the permanent emitters on each BuildEffectBone
-        for _,vB in __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones do
-            ScaleEmitter( self.BuildEmitters[vB], 0.05 )
+        if self.BuildEmitters then
+            -- shrink the permanent emitters on each BuildEffectBone
+            for _,vB in __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones do
+                ScaleEmitter( self.BuildEmitters[vB], 0.05 )
+            end
         end
     
         FactoryUnit.OnStopBuild(self, unitBeingBuilt)
