@@ -171,6 +171,11 @@ UnitBlueprint {
         BuildTime = 175000,
     },
 	
+    Footprint = {
+        SizeX = 4,
+        SizeZ = 4,
+    },
+		
     General = {
 		CapCost = 7,
         Category = 'Direct Fire',

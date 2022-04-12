@@ -11,19 +11,19 @@ UnitBlueprint {
     }, 
 	
     Audio = {
-       DeathExplosion = Sound {
+        DeathExplosion = Sound {
            Bank = 'Explosions',
            Cue = 'UEF_Nuke_Impact',
            LodCutoff = 'UnitMove_LodCutoff',
-       },
-       Destroyed = Sound {
-           Bank = 'Explosions',
-           Cue = 'UEF_Nuke_Impact',
-           LodCutoff = 'UnitMove_LodCutoff',
-       },
+        },
+        Destroyed = Sound {
+            Bank = 'URLDestroy',
+            Cue = 'URL0402_Destroy',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
         StartMove = Sound {
             Bank = 'URL',
-            Cue = 'URL0303_Move_Start',
+            Cue = 'URL0402_Move_Start',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         UISelection = Sound {
@@ -32,13 +32,13 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
         FootFallGeneric = Sound {
-            Bank = 'TM_UEFWEAPONS',
-            Cue = 'UEFMAYHEMFOOTSTEPFX',
+            Bank = 'URL',
+            Cue = 'URL0402_Move_Footfall',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         FootFallGenericSeabed = Sound {
-            Bank = 'TM_UEFWEAPONS',
-            Cue = 'UEFMAYHEMFOOTSTEPFX',
+            Bank = 'XRL',
+            Cue = 'XRL0403_Move_UW_Step',
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
@@ -103,8 +103,10 @@ UnitBlueprint {
                 Weight = 100,
             },
         },
+        
         AnimationWalk = '/mods/TotalMayhem/units/BRMT3AVA/BRMT3AVA_Walk.sca',
-        AnimationWalkRate = 0.85,
+        AnimationWalkRate = 1.8,
+        
         Mesh = {
             IconFadeInZoom = 230,
             LODs = {
@@ -114,6 +116,7 @@ UnitBlueprint {
                 },
             },
         },
+        
         MovementEffects = {
             Land = {
                 Footfall = {
@@ -251,12 +254,14 @@ UnitBlueprint {
                             Type = 'FootFall01',
                         },
                     },
+                    
                     CameraShake = {
-                        Interval = 0.25,
+                        Interval = 0.2,
                         MaxShakeEpicenter = 0.3,
                         MinShakeAtRadius = 0,
-                        Radius = 28,
+                        Radius = 22,
                     },
+                    
                     Damage = {
                         Amount = 4200,
                         DamageFriendly = false,
@@ -294,8 +299,8 @@ UnitBlueprint {
     },
 	
     Footprint = {
-        SizeX = 4,
-        SizeZ = 4,
+        SizeX = 5,
+        SizeZ = 5,
     },
 	
     General = {
@@ -335,7 +340,7 @@ UnitBlueprint {
     LifeBarSize = 6.25,
 	
     Physics = {
-		BackUpDistance = 15,
+		BackUpDistance = 18,
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Land = true,
@@ -355,13 +360,13 @@ UnitBlueprint {
 		
 		SinkLower = true,
 		
-        SkirtOffsetX = -4.5,
-        SkirtOffsetZ = -3.5,
+        SkirtOffsetX = -3.0,
+        SkirtOffsetZ = -2.5,
 		
         SkirtSizeX = 12,
         SkirtSizeZ = 12,
 		
-        TurnRadius = 18,
+        TurnRadius = 28,
         TurnRate = 24,
 		
 		WaterSpeedMultiplier = 1.2,

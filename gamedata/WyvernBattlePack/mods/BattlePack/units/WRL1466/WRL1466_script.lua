@@ -74,8 +74,9 @@ WRL1466 = Class(CWalkingLandUnit) {
             end)
         end
     end,
+
 	
-	    CreateDamageEffects = function(self, bone, army )
+	CreateDamageEffects = function(self, bone, army )
         for k, v in EffectTemplate.DamageFireSmoke01 do
             CreateAttachedEmitter( self, bone, army, v ):ScaleEmitter(1.5)
         end
@@ -130,6 +131,7 @@ WRL1466 = Class(CWalkingLandUnit) {
     end,
 
     DeathThread = function(self)
+    
         self:PlayUnitSound('Destroyed')
         
         local army = self.Army

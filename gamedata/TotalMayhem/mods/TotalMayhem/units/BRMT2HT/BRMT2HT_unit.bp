@@ -79,8 +79,8 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 1500,
-        BuildCostMass = 305,
+        BuildCostEnergy = 1800,
+        BuildCostMass = 310,
         BuildTime = 1525,
     },
 	
@@ -121,9 +121,9 @@ UnitBlueprint {
             LAYER_Land = true,
         },
         DragCoefficient = 0.2,
-        MaxAcceleration = 2.0,
-        MaxBrake = 2.8,
-        MaxSpeed = 2.8,
+        MaxAcceleration = 1.7,
+        MaxBrake = 2.6,
+        MaxSpeed = 2.6,
         MaxSpeedReverse = 2,
         MaxSteerForce = 10,
         MeshExtentsX = 0.75,
@@ -174,7 +174,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 75,
-            DamageRadius = 1.5,
+            DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'Gauss Cannon',
@@ -184,6 +184,8 @@ UnitBlueprint {
             },
 			
 			FiringRandomness = 0.2,
+            FiringRandomnessWhileMoving = 0.35,
+            
             FiringTolerance = 1,
 			
             Label = 'MainGun',
@@ -252,10 +254,10 @@ UnitBlueprint {
                     Add = { OnImpact = true },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
-                    Duration = 0.5,
+                    Duration = 0.4,
                     Radius = 1,
                     TargetAllow = 'LAND,NAVAL,TECH1,TECH2',
-                    TargetDisallow = 'WALL,COMMAND,EXPERIMENTAL',
+                    TargetDisallow = 'WALL,AIR,COMMAND,EXPERIMENTAL',
                 },
             },
             CollideFriendly = false,
@@ -272,7 +274,9 @@ UnitBlueprint {
             },
 			
             FiringTolerance = 1,
-            FiringRandomness = 1.8,
+            
+            FiringRandomness = 1.9,
+            FiringRandomnessWhileMoving = 2.3,
 			
             Label = 'rocket',
 			
