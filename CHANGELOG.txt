@@ -1,3 +1,13 @@
+### Release 12-04-2022
+LUA 6.2.02
+
+    Additional Hotfixes to all unit mods
+    - applied LOD standards across all effects emitters 
+    - several script error repairs
+    - new death animations for Cybran Avalanche
+    - revised attack formation spacing to let smaller formations 'breathe' more
+    -
+    
 ### Release 10-04-2022
 LUA 6.2.01
 
@@ -13,7 +23,7 @@ LUA 6.2.01
 Hotfixes
 
     - Monkeylord death animation
-    - Universal Collosus death animation
+    - UEF UC 'Bert' death animation
     - Yenzotha Weapon firing
     - Janus text descriptions
     - Eye of Rhianne script error
