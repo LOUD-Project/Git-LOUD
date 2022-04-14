@@ -94,11 +94,11 @@ SEB4401 = Class(TShieldStructureUnit) {
             offset = utilities.GetDifferenceVector( position, basePosition )
             velocity = utilities.GetDirectionVector( position, basePosition )
 			
-            velocity.x = velocity.x + GetRandomFloat(-0.3, 0.3)
-            velocity.z = velocity.z + GetRandomFloat(-0.3, 0.3)
-            velocity.y = velocity.y + GetRandomFloat( 0.0, 0.3)
+            velocity[1] = velocity[1] + GetRandomFloat(-0.3, 0.3)
+            velocity[2] = velocity[2] + GetRandomFloat(-0.3, 0.3)
+            velocity[3] = velocity[3] + GetRandomFloat( 0.0, 0.3)
 			
-            proj = self:CreateProjectile('/effects/entities/DestructionFirePlume01/DestructionFirePlume01_proj.bp', offset.x, offset.y + yBoneOffset, offset.z, velocity.x, velocity.y, velocity.z)
+            proj = self:CreateProjectile('/effects/entities/DestructionFirePlume01/DestructionFirePlume01_proj.bp', offset.x, offset.y + yBoneOffset, offset.z, velocity[1], velocity[2], velocity[3])
             proj:SetBallisticAcceleration(GetRandomFloat(-1, -2)):SetVelocity(GetRandomFloat(3, 4)):SetCollision(false)
 			
             local emitter = CreateEmitterOnEntity(proj, army, '/effects/emitters/destruction_explosion_fire_plume_02_emit.bp')

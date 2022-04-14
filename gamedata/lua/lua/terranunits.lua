@@ -21,7 +21,7 @@ local RadarJammerUnit = DefaultUnitsFile.RadarJammerUnit
 ----------------
 -- deprecated -- 
 ----------------
---[[
+
 local AirStagingPlatformUnit = DefaultUnitsFile.AirStagingPlatformUnit
 local AirUnit = DefaultUnitsFile.AirUnit
 local ConcreteStructureUnit = DefaultUnitsFile.ConcreteStructureUnit
@@ -278,7 +278,7 @@ TRadarJammerUnit = Class(RadarJammerUnit) {
 ----------------
 -- deprecated --
 ----------------
---[[
+
 
 TQuantumGateUnit = Class(QuantumGateUnit) {}
 

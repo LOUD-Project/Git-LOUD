@@ -11,7 +11,7 @@ local ConstructionUnit = DefaultUnitsFile.ConstructionUnit
 ---------------------------------------
 -- these locals should be deprecated --
 ---------------------------------------
---[[
+
 local AirStagingPlatformUnit = DefaultUnitsFile.AirStagingPlatformUnit
 local AirUnit = DefaultUnitsFile.AirUnit
 local ConcreteStructureUnit = DefaultUnitsFile.ConcreteStructureUnit
@@ -141,14 +141,19 @@ CLandFactoryUnit = Class(FactoryUnit) {
     
     OnStopBuild = function(self, unitBeingBuilt)
     
-        -- shrink both permanent emitters on each BuildEffectBone
-        for _,vB in __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones do
-            ScaleEmitter( self.BuildProjectile[vB][1], 0.05 )
-            ScaleEmitter( self.BuildProjectile[vB][2], 0.05 )
-        end
+        -- shrink permanent emitters on each BuildEffectBone
+        if self.BuildProjectile then
         
-        -- shrink the emitter on the AttachBone
-        ScaleEmitter( self.BuildProjectile.AttachBone, 0.05 )
+            for _,vB in __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones do
+            
+                ScaleEmitter( self.BuildProjectile[vB][1], 0.05 )
+                ScaleEmitter( self.BuildProjectile[vB][2], 0.05 )
+            end
+        
+            -- shrink the emitter on the AttachBone
+            ScaleEmitter( self.BuildProjectile.AttachBone, 0.05 )
+            
+        end
         
         TrashDestroy( self.BuildEffectsBag )
     
@@ -582,7 +587,7 @@ CConstructionEggUnit = Class(StructureUnit) {
 ----------------------------------------
 -- all of these should be deprecated ---
 ----------------------------------------
---[[
+
 
 CAirUnit = Class(AirUnit) {}
 

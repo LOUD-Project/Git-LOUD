@@ -4,8 +4,7 @@
 --------------------------------------------------------------------------------
 local CLandUnit = import('/lua/defaultunits.lua').MobileUnit
 
-local CUnitsDoc = import('/lua/cybranunits.lua')
-local CRadarUnit = CUnitsDoc.CRadarUnit
+local CRadarUnit = import('/lua/defaultunits.lua').RadarUnit
 
 local CDFElectronBolterWeapon = import('/lua/cybranweapons.lua').CDFElectronBolterWeapon
 local BrewLANLOUDPath = import( '/lua/game.lua' ).BrewLANLOUDPath()

@@ -91,6 +91,8 @@ local IsBeingBuilt = moho.unit_methods.IsBeingBuilt
 local MakePlatoon = moho.aibrain_methods.MakePlatoon
 
 local SetConsumptionPerSecondMass = moho.unit_methods.SetConsumptionPerSecondMass
+
+local SetProductionActive = moho.unit_methods.SetProductionActive
 local SetProductionPerSecondMass = moho.unit_methods.SetProductionPerSecondMass
 
 local Random = Random
@@ -2939,7 +2941,7 @@ MassCollectionUnit = Class(StructureUnit) {
                 SetProductionPerSecondMass( self, massProduction )
             end
 
-            WaitTicks(2)
+            WaitTicks(3)
         end
     end,
 }
@@ -2949,9 +2951,10 @@ MassFabricationUnit = Class(StructureUnit) {
     OnStopBeingBuilt = function(self,builder,layer)
 
         StructureUnit.OnStopBeingBuilt(self,builder,layer)
+        
         self:SetMaintenanceConsumptionActive()
 
-        self:SetProductionActive(true)
+        SetProductionActive( self, true)
         
         self.AIThread = self:ForkThread( MassFabricationUnit.MassFabThread )
     end,
@@ -2966,8 +2969,11 @@ MassFabricationUnit = Class(StructureUnit) {
         end
 	
         local massfabison = true
+        
         local GetEconomyStoredRatio = moho.aibrain_methods.GetEconomyStoredRatio
         local GetEconomyTrend = moho.aibrain_methods.GetEconomyTrend
+        
+        local WaitTicks = WaitTicks
 	
         WaitTicks(50)
     
@@ -2998,18 +3004,16 @@ MassFabricationUnit = Class(StructureUnit) {
     
     OnConsumptionActive = function(self)
 
-        --StructureUnit.OnConsumptionActive(self)
         self:SetMaintenanceConsumptionActive()
 
-        self:SetProductionActive(true)
+        SetProductionActive( self, true)
     end,
 
     OnConsumptionInActive = function(self)
 
-        --StructureUnit.OnConsumptionInActive(self)
         self:SetMaintenanceConsumptionInactive()
 
-        self:SetProductionActive(false)
+        SetProductionActive( self, false)
     end,
 }
 

@@ -3,7 +3,7 @@
 --------------------------
 -- these are deprecated --
 --------------------------
---[[
+
 local AirFactoryUnit = import('defaultunits.lua').FactoryUnit
 local AirStagingPlatformUnit = import('defaultunits.lua').AirStagingPlatformUnit
 local AirUnit = import('defaultunits.lua').AirUnit
@@ -189,7 +189,7 @@ AHoverLandUnit = Class(MobileUnit) {}
 ------------------
 -- deprecated ----
 ------------------
---[[
+
 AAirFactoryUnit = Class(AeonFactoryUnit) {  Buildbone = 'Attachpoint' }
 
 ALandFactoryUnit = Class(AeonFactoryUnit) { Buildbone = 'Attachpoint' }
