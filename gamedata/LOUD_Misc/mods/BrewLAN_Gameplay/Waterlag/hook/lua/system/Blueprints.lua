@@ -18,8 +18,11 @@ end
 --------------------------------------------------------------------------------
 
 function Waterlag(all_bps)
+
     for id, bp in all_bps do
+    
         if bp.Categories and table.find(bp.Categories, 'STRUCTURE') then
+        
             if not table.find(bp.Categories, 'FACTORY')
             and not table.find(bp.Categories, 'WALL')
             and not table.find(bp.Categories, 'HEAVYWALL')
@@ -37,16 +40,23 @@ function Waterlag(all_bps)
                     and not bp.Physics.BuildOnLayerCaps.LAYER_Seabed
                     and not bp.Physics.BuildOnLayerCaps.LAYER_Sub
                     then
+                    
                         if not bp.Display then bp.Display = {} end
+                        
                         if not bp.Display.Abilities then bp.Display.Abilities = {} end
+                        
                         if not table.find(bp.Display.Abilities, '<LOC ability_aquatic>Aquatic') then
                             table.insert(bp.Display.Abilities, '<LOC ability_aquatic>Aquatic')
                         end
+                        
                         if bp.General.Icon == 'land' then bp.General.Icon = 'amph' end
+                        
                         bp.Physics.BuildOnLayerCaps.LAYER_Water = true
+                        
                         if bp.Wreckage.WreckageLayers.Land then
                             bp.Wreckage.WreckageLayers.Water = true
                         end
+                        
                         if bp.CollisionOffsetY and bp.CollisionOffsetY > 0 then
                             table.insert(bp.Categories, 'HOVER')
                         else

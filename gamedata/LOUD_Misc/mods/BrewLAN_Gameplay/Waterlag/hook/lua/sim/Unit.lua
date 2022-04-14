@@ -2,25 +2,38 @@ do
     local UnitOld = Unit
 
     Unit = Class(UnitOld) {
+    
         OnCreate = function(self)
+        
+            UnitOld.OnCreate(self)
+        
             --Should this have legs?
-            local bp = self:GetBlueprint()
+            local bp = __blueprints[self.BlueprintID]
+            
             if  not self:IsValidBone('Floatation')
-                and self:GetCurrentLayer() == 'Water'
+                and self.CacheLayer == 'Water'
                 and bp.Display.GiveMeLegs
+                
             then
                 --Leg entity script
                 local LEGS = function(self, floatation, size)
+                
                     self.Floatation = import('/lua/sim/Entity.lua').Entity({Owner = self,})
-                    Warp(self.Floatation,self:GetPosition())
+
+                    Warp( self.Floatation, self:GetPosition())
+                    
                     --self.Floatation:AttachBoneTo( -1, self, 0 )
+                    
                     self.Floatation:SetMesh('/mods/BrewLAN_Gameplay/Waterlag/effects/entities/' .. floatation .. '/' .. floatation ..'_mesh')
+                    
                     self.Floatation:SetDrawScale(size)
                     self.Floatation:SetVizToAllies('Intel')
                     self.Floatation:SetVizToNeutrals('Intel')
                     self.Floatation:SetVizToEnemies('Intel')
+                    
                     self.Trash:Add(self.Floatation)
                 end
+                
                 local switchcase = {
                     UEF = function()
                         if self:GetBlueprint().Footprint.SizeX >= 3.5 and self:GetBlueprint().Footprint.SizeZ >= 3.5 then
@@ -46,7 +59,8 @@ do
                     switchcase[bp.General.FactionName]()
                 end
             end
-            return UnitOld.OnCreate(self)
+            
+            return 
         end,
     }
 end
