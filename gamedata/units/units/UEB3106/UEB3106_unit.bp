@@ -1,5 +1,6 @@
 UnitBlueprint {
     Adjacency = 'T3MassStorageAdjacencyBuffs',
+    
     Audio = {
         Destroyed = Sound {
             Bank = 'UELDestroy',
@@ -17,7 +18,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+    
     BuildIconSortPriority = 60,
+    
     Categories = {
         'SELECTABLE',
         'UEF',
@@ -28,6 +31,7 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
     },
+    
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 108,
@@ -35,7 +39,9 @@ UnitBlueprint {
         MaxHealth = 9600,
         RegenRate = 3,
     },
+    
     Description = '<LOC ueb1106_desc>Advanced Mass Storage',
+    
     Display = {
         Abilities = {
 			'Adjacency bonuses to Mass Production',
@@ -65,6 +71,7 @@ UnitBlueprint {
         SpawnRandomRotation = true,
         UniformScale = 0.175,
     },
+    
     Economy = {
         AdjacentMassProductionMod = 0.75,
         BuildCostEnergy = 13500,
@@ -75,8 +82,9 @@ UnitBlueprint {
         },
         StorageMass = 950,
     },
+    
     General = {
-		CapCost = .25,
+		CapCost = .5,
         Category = 'Economy',
         Classification = 'RULEUC_Resource',
         CommandCaps = {
@@ -90,12 +98,15 @@ UnitBlueprint {
         UpgradesFrom = 'ueb2106',
         UpgradesFromBase = 'ueb1106',
     },
+    
     Interface = {
         HelpText = 'Advanced Mass Storage',
     },
+    
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.35,
     LifeBarSize = 0.9,
+    
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -116,14 +127,18 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+    
     SelectionSizeX = 0.65,
     SelectionSizeZ = 0.65,
     SelectionThickness = 0.6,
+    
     SizeX = 0.9,
     SizeY = 1.1,
     SizeZ = 0.9,
+    
     StrategicIconName = 'icon_node3_mass',
     StrategicIconSortPriority = 250,
+    
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
@@ -133,7 +148,7 @@ UnitBlueprint {
         WreckageLayers = {
             Air = false,
             Land = true,
-            Seabed = false,
+            Seabed = true,
             Sub = false,
             Water = false,
         },

@@ -121,20 +121,24 @@ URL0301 = Class(CWalkingLandUnit) {
         
         if self.Dead then return end
 
-        -- reattach the permanent projectile
-        for _, v in self.BuildProjectile do 
+        if self.BuildProjectile then
         
-            TrashDestroy ( v.BuildEffectsBag )
+            -- reattach the permanent projectile
+            -- and rescale the emitters
+            for _, v in self.BuildProjectile do 
         
-            if v.Detached then
-                v:AttachTo( self, v.Name )
+                TrashDestroy ( v.BuildEffectsBag )
+        
+                if v.Detached then
+                    v:AttachTo( self, v.Name )
+                end
+            
+                v.Detached = false
+            
+                -- and scale down the emitters
+                ScaleEmitter( v.Emitter, 0.05)
+                ScaleEmitter( v.Sparker, 0.05)
             end
-            
-            v.Detached = false
-            
-            -- and scale down the emitters
-            ScaleEmitter( v.Emitter, 0.05)
-            ScaleEmitter( v.Sparker, 0.05)
         end
         
         self.UnitBeingBuilt = nil

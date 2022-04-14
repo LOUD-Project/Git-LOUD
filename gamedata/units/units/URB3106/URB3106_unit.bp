@@ -35,7 +35,9 @@ UnitBlueprint {
         MaxHealth = 9600,
         RegenRate = 3,
     },
+    
     Description = '<LOC urb1106_desc>Advanced Mass Storage',
+    
     Display = {
         Abilities = {
 			'Adjacency bonuses to Mass Production',
@@ -65,6 +67,7 @@ UnitBlueprint {
         SpawnRandomRotation = true,
         UniformScale = 0.675,
     },
+    
     Economy = {
         AdjacentMassProductionMod = 0.75,
         BuildCostEnergy = 13500,
@@ -75,8 +78,9 @@ UnitBlueprint {
         },
         StorageMass = 950,
     },
+    
     General = {
-		CapCost = .25,
+		CapCost = .5,
         Category = 'Economy',
         Classification = 'RULEUC_Resource',
         CommandCaps = {
@@ -90,36 +94,47 @@ UnitBlueprint {
         UpgradesFrom = 'urb2106',
         UpgradesFromBase = 'urb1106',
     },
+    
     Interface = {
         HelpText = 'Advanced Mass Storage',
     },
+    
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.35,
     LifeBarSize = 1,
+    
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Land = true,
+            LAYER_Seabed = true,
         },
         DragCoefficient = 0.2,
+        
         FlattenSkirt = true,
+        
         MaxSteerForce = 0,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_None',
+        
         SkirtOffsetX = -0.5,
         SkirtOffsetZ = -0.5,
         SkirtSizeX = 2,
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+    
     SelectionSizeX = 0.65,
     SelectionSizeZ = 0.65,
     SelectionThickness = 0.6,
+    
     SizeX = 1,
     SizeY = 0.9,
     SizeZ = 0.8,
+    
     StrategicIconName = 'icon_node3_mass',
     StrategicIconSortPriority = 250,
+    
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

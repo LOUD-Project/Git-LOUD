@@ -1,4 +1,3 @@
-
 local CEnergyStorageUnit= import('/lua/defaultunits.lua').StructureUnit
 
 URB1105 = Class(CEnergyStorageUnit) {
@@ -10,8 +9,9 @@ URB1105 = Class(CEnergyStorageUnit) {
     end,
 
     AnimThread = function(self)
-        # Play the "activate" sound
-        local myBlueprint = self:GetBlueprint()
+
+        local myBlueprint = __blueprints[self.BlueprintID]
+        
         if myBlueprint.Audio.Activate then
             self:PlaySound(myBlueprint.Audio.Activate)
         end

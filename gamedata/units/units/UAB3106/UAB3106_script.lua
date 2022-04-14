@@ -7,9 +7,6 @@ UAB1106 = Class(AMassStorageUnit) {
         self.Trash:Add(CreateStorageManip(self, 'B01', 'MASS', 0, 0, 0, 0, 0, .738))
     end,
 
-    AnimThread = function(self)
-        
-    end,
 }
 
 TypeClass = UAB1106

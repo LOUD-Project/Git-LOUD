@@ -405,25 +405,30 @@ UnitBlueprint {
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 115,
+            
             TargetCheckInterval = 3,
+            
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'NAVAL MOBILE',
-                
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.15,
+            
             TurretBoneMuzzle = 'Front_Turret01_Muzzle',
             TurretBonePitch = 'Front_Turret01_Barrel01',
             TurretBoneYaw = 'Front_Turret01',
             TurretDualManipulators = false,
+            
             TurretPitch = 10,
             TurretPitchRange = 20,
             TurretPitchSpeed = 30,
+            
             TurretYaw = 0,
             TurretYawRange = 120,
             TurretYawSpeed = 90,
+            
             Turreted = true,
         },
         {

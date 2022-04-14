@@ -105,6 +105,7 @@ UnitBlueprint {
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.5,
     LifeBarSize = 1.1,
+    
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -125,14 +126,18 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+    
     SelectionSizeX = 0.65,
     SelectionSizeZ = 0.65,
     SelectionThickness = 0.6,
+    
     SizeX = 0.7,
     SizeY = 0.7,
     SizeZ = 0.7,
+    
     StrategicIconName = 'icon_node2_energy',
     StrategicIconSortPriority = 250,
+    
     Weapon = {
         {
             Damage = 2500,
