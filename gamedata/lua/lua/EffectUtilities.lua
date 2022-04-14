@@ -268,6 +268,8 @@ function CreateAeonConstructionUnitBuildingEffects( builder, unitBeingBuilt, Bui
     local projectile
     
     local LOUDINSERT = LOUDINSERT
+    local LOUDWARP = LOUDWARP
+    local ScaleEmitter = ScaleEmitter
 
     -- create perm projectile 
     if not builder.BuildProjectile then
@@ -322,6 +324,8 @@ function CreateAeonCommanderBuildingEffects( builder, unitBeingBuilt, BuildBones
     local projectile
     
     local LOUDINSERT = LOUDINSERT
+    local LOUDWARP = LOUDWARP
+    local ScaleEmitter = ScaleEmitter
     
     if not builder.BuildProjectile then
     
@@ -376,6 +380,10 @@ end
 function CreateAeonFactoryBuildingEffects( builder, unitBeingBuilt, BuildEffectBones, BuildBone, BuildEffectsBag )
 
     local army = builder.Sync.army
+    
+    local LOUDATTACHBEAMENTITY = LOUDATTACHBEAMENTITY
+    local LOUDATTACHEMITTER = LOUDATTACHEMITTER
+    local ScaleEmitter = ScaleEmitter
 
     -- create the permanent emitter on each BuildEffectBone (build arm)
     if BuildEffectBones[1] and builder.GetCachePosition and not builder.BuildEmitters then
@@ -430,6 +438,7 @@ function CreateBuildCubeThread( unitBeingBuilt, builder, OnBeingBuiltEffectsBag 
 	local GetFractionComplete = GetFractionComplete
 
 	local LOUDABS = math.abs
+    local LOUDWARP = LOUDWARP
     local WaitTicks = WaitTicks
 	
     local bp = ALLBPS[unitBeingBuilt.BlueprintID]
@@ -536,6 +545,7 @@ function CreateUEFBuildSliceBeams( builder, unitBeingBuilt, BuildEffectBones, Bu
     local GetFractionComplete = GetFractionComplete
     local LOUDWARP = LOUDWARP
     local SetVelocity = SetVelocity
+    local VDist3Sq = VDist3Sq
     local WaitTicks = WaitTicks
 
 
@@ -642,8 +652,10 @@ end
 function CreateUEFCommanderBuildSliceBeams( builder, unitBeingBuilt, BuildEffectBones, BuildEffectsBag )
 
     local GetFractionComplete = GetFractionComplete
+    local LOUDATTACHBEAMENTITY = LOUDATTACHBEAMENTITY
     local LOUDWARP = LOUDWARP
     local SetVelocity = SetVelocity
+    local VDist3Sq = VDist3Sq
     local WaitTicks = WaitTicks
 
     local army = builder.Sync.army
@@ -1532,7 +1544,7 @@ end
 
 function PlayReclaimEffects( reclaimer, reclaimed, BuildEffectBones, EffectsBag )
 
-    local pos = reclaimed:GetPosition()
+    local pos = GetPosition(reclaimed)
 
     local beamEnd = Entity()
     

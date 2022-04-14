@@ -6,43 +6,62 @@
 local import = import
 
 local BuilderManager = import('/lua/sim/BuilderManager.lua').BuilderManager
-
-local RandomLocation = import('/lua/ai/aiutilities.lua').RandomLocation
-
-local TMLThread = import('/lua/ai/aibehaviors.lua').TMLThread
-local RiftGateBehavior = import('/lua/ai/aibehaviors.lua').RiftGateBehavior
-local EyeBehavior = import('/lua/ai/aibehaviors.lua').EyeBehavior
-local FatBoyAI = import('/lua/ai/aibehaviors.lua').FatBoyAI
-local CzarCarrierThread = import('/lua/ai/aibehaviors.lua').CzarCarrierThread
+local BuildingTemplates = import('/lua/buildingtemplates.lua').BuildingTemplates
 
 local CreateEngineerBuilder = import('/lua/sim/Builder.lua').CreateEngineerBuilder
+local CzarCarrierThread = import('/lua/ai/aibehaviors.lua').CzarCarrierThread
+local DisperseUnitsToRallyPoints = import('/lua/loudutilities.lua').DisperseUnitsToRallyPoints
+local EyeBehavior = import('/lua/ai/aibehaviors.lua').EyeBehavior
+local FatBoyAI = import('/lua/ai/aibehaviors.lua').FatBoyAI
+local GetFreeUnitsAroundPoint = import('/lua/loudutilities.lua').GetFreeUnitsAroundPoint
+local RandomLocation = import('/lua/ai/aiutilities.lua').RandomLocation
+local RiftGateBehavior = import('/lua/ai/aibehaviors.lua').RiftGateBehavior
+local TMLThread = import('/lua/ai/aibehaviors.lua').TMLThread
 
 local AssignUnitsToPlatoon = moho.aibrain_methods.AssignUnitsToPlatoon
 local BeenDestroyed = moho.entity_methods.BeenDestroyed
+local DecideWhatToBuild = moho.aibrain_methods.DecideWhatToBuild
 local GetAIBrain = moho.unit_methods.GetAIBrain
+local GetGuards = moho.unit_methods.GetGuards
+local GetPosition = moho.entity_methods.GetPosition
+local GetThreatAtPosition = moho.aibrain_methods.GetThreatAtPosition
 local IsUnitState = moho.unit_methods.IsUnitState
 local MakePlatoon = moho.aibrain_methods.MakePlatoon
 local PlatoonExists = moho.aibrain_methods.PlatoonExists	
 
-
-local LOUDFLOOR = math.floor
+local LOUDABS = math.abs
 local LOUDCOPY = table.copy
+local LOUDENTITY = EntityCategoryContains
+local LOUDFLOOR = math.floor
+local LOUDGETN = table.getn
 local LOUDINSERT = table.insert
+local LOUDMAX = math.max
+local LOUDMIN = math.min
 local LOUDREMOVE = table.remove
 local LOUDSORT = table.sort
-local LOUDENTITY = EntityCategoryContains
 
 local VDist2Sq = VDist2Sq
-
 local ForkThread = ForkThread
-
 local WaitTicks = coroutine.yield
 
 -- add support for builderType (ie. Any, Commander)	-- so now we can specify as follows;
 local builderTypes = { 'Any','T1','T2','T3','SubCommander','Commander' }
 
 local COMMAND = categories.COMMAND
+local FACTORY = categories.FACTORY * categories.STRUCTURE - categories.EXPERIMENTAL
+local T4FACTORIES = categories.FACTORY * categories.STRUCTURE * categories.EXPERIMENTAL
+local GENERALSTRUCTURE = categories.STRUCTURE - categories.NUKE - (categories.ARTILLERY * categories.STRATEGIC)
+local RHIANNE = categories.STRUCTURE * categories.AEON * categories.OPTICS
 local SUBCOMMANDER = categories.SUBCOMMANDER
+
+local LANDUNITS = categories.LAND * categories.MOBILE
+local AIRUNITS = categories.AIR * categories.MOBILE
+local SEAUNITS = categories.NAVAL * categories.MOBILE
+
+local LANDRESPONSE = (categories.LAND * categories.MOBILE) - categories.ANTIAIR - categories.COUNTERINTELLIGENCE - categories.ENGINEER - categories.COMMAND
+local SEARESPONSE = (categories.NAVAL * categories.MOBILE) - categories.STRUCTURE - categories.ENGINEER - categories.CARRIER
+local GROUNDATTACK = categories.BOMBER + categories.GROUNDATTACK - categories.ANTINAVY
+local NAVALATTACK = categories.TORPEDOBOMBER + categories.GROUNDATTACK
 
 local PlatoonTemplates = PlatoonTemplates
 
@@ -411,6 +430,8 @@ EngineerManager = Class(BuilderManager) {
     GetEngineersBuildingCategory = function( self, engCategory, buildingcategory )
 		
 		local engs = EntityCategoryFilterDown( engCategory, self.EngineerList ) or {}
+        
+        local LOUDENTITY = LOUDENTITY
 
         local units = {}
 		local counter = 1
@@ -438,8 +459,10 @@ EngineerManager = Class(BuilderManager) {
     end,
 	
     GetBuildingId = function( self, engineer, buildingType )
+    
+        local aiBrain = GetAIBrain(engineer)
 	
-        return GetAIBrain(engineer):DecideWhatToBuild( engineer, buildingType, import('/lua/buildingtemplates.lua').BuildingTemplates[GetAIBrain(engineer).FactionIndex] )
+        return DecideWhatToBuild( aiBrain, engineer, buildingType, BuildingTemplates[ aiBrain.FactionIndex ] )
     end,
     
     GetEngineersQueued = function( self, buildingType )
@@ -464,13 +487,9 @@ EngineerManager = Class(BuilderManager) {
                             
 							break
 						end
-                        
 					end
-                    
 				end
-                
 			end
-            
         end
 		
         return units
@@ -478,8 +497,8 @@ EngineerManager = Class(BuilderManager) {
 
     GetEngineersWantingAssistanceWithBuilding = function( self, buildingcategory, engCategory )
 	
-		local GetGuards = moho.unit_methods.GetGuards
-		local LOUDGETN = table.getn
+		local GetGuards = GetGuards
+		local LOUDGETN = LOUDGETN
 		
 		-- get all the engineers building this category from this base
         local testUnits = self:GetEngineersBuildingCategory( engCategory, buildingcategory )
@@ -496,7 +515,6 @@ EngineerManager = Class(BuilderManager) {
 				
 					counter = counter + 1
 					retUnits[counter] = v
-
 				end
 			end
         end
@@ -559,7 +577,7 @@ EngineerManager = Class(BuilderManager) {
 		
 		finishedUnit.ConstructionComplete = true
 	
-		local LOUDENTITY = EntityCategoryContains
+		local LOUDENTITY = LOUDENTITY
 		local ForkThread = ForkThread
 		
         local aiBrain = GetAIBrain(unit)
@@ -567,7 +585,7 @@ EngineerManager = Class(BuilderManager) {
         local faction = aiBrain.FactionIndex
 		local StructurePool = aiBrain.StructurePool
 
-		if LOUDENTITY( categories.FACTORY * categories.STRUCTURE - categories.EXPERIMENTAL, finishedUnit ) and GetAIBrain(finishedUnit).ArmyIndex == aiBrain.ArmyIndex then
+		if LOUDENTITY( FACTORY, finishedUnit ) and GetAIBrain(finishedUnit).ArmyIndex == aiBrain.ArmyIndex then
 
 			-- this was a tricky problem for engineers starting new bases since it was getting
 			-- the LocationType from the platoon (which came from the original base not the new base)
@@ -578,7 +596,7 @@ EngineerManager = Class(BuilderManager) {
 		end
 
 		-- if STRUCTURE see if Upgrade Thread should start - excluding NUKES & Strat Artillery (they get formed into their own platoons)
-		if LOUDENTITY( categories.STRUCTURE - categories.NUKE - (categories.ARTILLERY * categories.STRATEGIC), finishedUnit ) then
+		if LOUDENTITY( GENERALSTRUCTURE, finishedUnit ) then
 		
 			finishedUnit.DesiresAssist = true
 
@@ -601,14 +619,14 @@ EngineerManager = Class(BuilderManager) {
 			end	
 		
 			-- Sera Rift Gate --
-			if LOUDENTITY( categories.STRUCTURE * categories.EXPERIMENTAL * categories.FACTORY, finishedUnit ) then
+			if LOUDENTITY( T4FACTORIES, finishedUnit ) then
 			
 				local FBM = aiBrain.BuilderManagers[unit.LocationType].FactoryManager
 				finishedUnit.AIThread = finishedUnit:ForkThread( RiftGateBehavior, aiBrain, FBM)
 			end
 	
 			-- Aeon Eye of Rhianne --
-			if LOUDENTITY( categories.STRUCTURE * categories.AEON * categories.OPTICS, finishedUnit ) then
+			if LOUDENTITY( RHIANNE, finishedUnit ) then
 			
 				finishedUnit.AIThread = finishedUnit:ForkThread( EyeBehavior, aiBrain)
 			end
@@ -629,7 +647,7 @@ EngineerManager = Class(BuilderManager) {
 			--finishedUnit.CarrierThread = finishedUnit:ForkThread( AtlantisCarrierThread, aiBrain )
 		end
 		
-        local guards = unit:GetGuards()
+        local guards = GetGuards(unit)
 		
         for k,v in guards do
 		
@@ -652,7 +670,7 @@ EngineerManager = Class(BuilderManager) {
 		local bestname 
 		local distance = false
 		
-		local unitPos = unit:GetPosition()
+		local unitPos = GetPosition(unit)
         local checkDistance
         
         local VDist3 = VDist3
@@ -742,16 +760,18 @@ EngineerManager = Class(BuilderManager) {
 
 		local DrawC = DrawCircle
 
-        local LOUDFLOOR = math.floor
+        local LOUDCOPY = LOUDCOPY
+        local LOUDFLOOR = LOUDFLOOR
         local LOUDLOG10 = math.log10
-        local LOUDMAX = math.max
-		local LOUDMIN = math.min
-		local LOUDSORT = table.sort
+        local LOUDMAX = LOUDMAX
+		local LOUDMIN = LOUDMIN
+		local LOUDSORT = LOUDSORT
 		
 		local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
         
         local BaseMonitorDialog = ScenarioInfo.BaseMonitorDialog or false
 		
+        local VDist2Sq = VDist2Sq
 		local WaitTicks = WaitTicks
 
 		-- this function will draw a visible radius around the base
@@ -1039,10 +1059,12 @@ EngineerManager = Class(BuilderManager) {
         
         local LocationType = self.LocationType
         
-        local LOUDCOPY = table.copy
-		local LOUDFLOOR = math.floor
+        local GetPosition = GetPosition
+        
+        local LOUDCOPY = LOUDCOPY
+		local LOUDFLOOR = LOUDFLOOR
 
-		
+		local VDist2Sq = VDist2Sq
 		local WaitTicks = WaitTicks
 	
 		local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
@@ -1058,13 +1080,13 @@ EngineerManager = Class(BuilderManager) {
         
 			-- look for units of the threattype
 			if threattype == 'Land' then
-				targetUnits = GetUnitsAroundPoint( aiBrain, (categories.MOBILE * categories.LAND), pos, 120, 'Enemy')
+				targetUnits = GetUnitsAroundPoint( aiBrain, LANDUNITS, pos, 120, 'Enemy')
 			
 			elseif threattype == 'Air' then
-				targetUnits = GetUnitsAroundPoint( aiBrain, (categories.AIR * categories.MOBILE), pos, 120, 'Enemy')
+				targetUnits = GetUnitsAroundPoint( aiBrain, AIRUNITS, pos, 120, 'Enemy')
 			
 			elseif threattype == 'Naval' then
-				targetUnits = GetUnitsAroundPoint( aiBrain, categories.NAVAL * categories.MOBILE, pos, 120, 'Enemy')
+				targetUnits = GetUnitsAroundPoint( aiBrain, SEAUNITS, pos, 120, 'Enemy')
 			end
 
 			x1 = 0
@@ -1079,7 +1101,7 @@ EngineerManager = Class(BuilderManager) {
 		
 				if not nearunit.Dead then
 		
-					unitpos = nearunit:GetPosition()
+					unitpos = GetPosition(nearunit)
 
 					if unitpos then
 						x1 = x1 + unitpos[1]
@@ -1191,6 +1213,15 @@ EngineerManager = Class(BuilderManager) {
 	-- be between responses from the AI - I grow it by 10 seconds per cycle
 	BaseMonitorDistressResponseThread = function( self, aiBrain )
 	
+        local GetPosition = GetPosition
+        local LOUDABS = LOUDABS
+        local LOUDFLOOR = LOUDFLOOR
+        local VDist2 = VDist2
+        local VDist2Sq = VDist2Sq
+		local WaitTicks = WaitTicks
+        
+        local GetThreatAtPosition = GetThreatAtPosition
+
 		local GetThreatOfGroup = function( group, distressType )
 	
 			local totalThreat = 0
@@ -1228,8 +1259,6 @@ EngineerManager = Class(BuilderManager) {
 				return totalThreat	
 			end		
 		end
-	
-		local WaitTicks = WaitTicks
         
         local BaseMonitorDialog = ScenarioInfo.BaseMonitorDialog or false
         local BaseDistressResponseDialog = ScenarioInfo.BaseDistressResponseDialog or false
@@ -1248,18 +1277,13 @@ EngineerManager = Class(BuilderManager) {
 		local distress_land = false
 		local distress_naval = false
 	
-		--local distressrepeats = 0	-- each time we fail to respond to a distress, increase the wait time before we try again
-		
 		local DistressTypes = { 'Air', 'Land', 'Naval' }
 		
 		local distressLocation, distressType, threatamount
 	
 		local grouplnd, groupair, groupsea, groupftr
 		local grouplndcount, groupaircount, groupseacount, groupfrtcount
-		
-		local DisperseUnitsToRallyPoints = import('/lua/loudutilities.lua').DisperseUnitsToRallyPoints
-		local GetFreeUnitsAroundPoint = import('/lua/loudutilities.lua').GetFreeUnitsAroundPoint
-        
+
         local RallyPoints = aiBrain.BuiderManagers[LocationType].RallyPoints
 		
 		-- the intent of this function is to make sure that we don't try and respond over mountains
@@ -1268,7 +1292,7 @@ EngineerManager = Class(BuilderManager) {
 		local function CheckBlockingTerrain( pos, targetPos )
 	
 			-- This gives us the number of approx. 6 ogrid steps in the distance
-			local steps = math.floor( VDist2(pos[1], pos[3], targetPos[1], targetPos[3]) / 6 )
+			local steps = LOUDFLOOR( VDist2(pos[1], pos[3], targetPos[1], targetPos[3]) / 6 )
 	
 			local xstep = (pos[1] - targetPos[1]) / steps -- how much the X value will change from step to step
 			local ystep = (pos[3] - targetPos[3]) / steps -- how much the Y value will change from step to step
@@ -1276,7 +1300,6 @@ EngineerManager = Class(BuilderManager) {
 			local lastpos = {pos[1], 0, pos[3]}
             local nextpos, lastposHeight, nextposHeight
             
-            local LOUDABS = math.abs
             local GetTerrainHeight = GetTerrainHeight
 	
 			-- Iterate thru the number of steps - starting at the pos and adding xstep and ystep to each point
@@ -1345,16 +1368,16 @@ EngineerManager = Class(BuilderManager) {
 					-- respond with land units
 					if distressType == 'Land' then
 
-						grouplnd, grouplndcount = GetFreeUnitsAroundPoint( aiBrain, (categories.LAND * categories.MOBILE) - categories.ANTIAIR - categories.COUNTERINTELLIGENCE - categories.ENGINEER - categories.COMMAND, baseposition, radius )
+						grouplnd, grouplndcount = GetFreeUnitsAroundPoint( aiBrain, LANDRESPONSE, baseposition, radius )
 					
 						if grouplndcount > 4 then
 						
 							if BaseDistressResponseDialog then
-								LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASE DISTRESS RESPONSE to "..distressType.." value "..aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSurface' ).." my assets are "..GetThreatOfGroup(grouplnd,'Land'))
+								LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASE DISTRESS RESPONSE to "..distressType.." value "..GetThreatAtPosition( aiBrain, distressLocation, 0, true, 'AntiSurface' ).." my assets are "..GetThreatOfGroup(grouplnd,'Land'))
 							end
 							
 							-- only send response if we can muster 70% of enemy threat
-							if GetThreatOfGroup(grouplnd,'Land') >= (aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSurface' ) * .70) then
+							if GetThreatOfGroup(grouplnd,'Land') >= ( GetThreatAtPosition( aiBrain, distressLocation, 0, true, 'AntiSurface' ) * .70) then
 							
 								-- must have a clear unobstructed path to location --
 								if not CheckBlockingTerrain( baseposition, distressLocation ) then
@@ -1367,12 +1390,12 @@ EngineerManager = Class(BuilderManager) {
                                     -- put those into new list and then sort for furthest
                                     
                                     -- sort all the response units so that the farthest will be first in the list
-                                    LOUDSORT( grouplnd, function(a,b) return VDist2Sq(a:GetPosition()[1],a:GetPosition()[3], distressLocation[1],distressLocation[3]) > VDist2Sq(b:GetPosition()[1],b:GetPosition()[3], distressLocation[1],distressLocation[3]) end)
+                                    LOUDSORT( grouplnd, function(a,b) return VDist2Sq(GetPosition(a)[1],GetPosition(a)[3], distressLocation[1],distressLocation[3]) > VDist2Sq(GetPosition(b)[1],GetPosition(b)[3], distressLocation[1],distressLocation[3]) end)
 
                                     counter = 0
                                     totalthreatsent = 0
                                     
-                                    threatlimit = (aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSurface' ) * 2)
+                                    threatlimit = ( GetThreatAtPosition( aiBrain, distressLocation, 0, true, 'AntiSurface' ) * 2)
                                     
                                     -- send 5 per second to the distressLocation --
                                     for _,u in grouplnd do
@@ -1416,28 +1439,28 @@ EngineerManager = Class(BuilderManager) {
 					-- respond with naval units
 					if distressType == 'Naval' then
 				
-						groupsea, groupseacount = GetFreeUnitsAroundPoint( aiBrain, (categories.NAVAL * categories.MOBILE) - categories.STRUCTURE - categories.ENGINEER - categories.CARRIER, baseposition, radius )
+						groupsea, groupseacount = GetFreeUnitsAroundPoint( aiBrain, SEARESPONSE, baseposition, radius )
 					
 						if groupseacount > 2 then
                         
-                            local enemynavalthreat = aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSurface') + aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSub')
+                            local enemynavalthreat = GetThreatAtPosition( aiBrain, distressLocation, 0, true, 'AntiSurface') + GetThreatAtPosition( aiBrain, distressLocation, 0, true, 'AntiSub')
 						
 							if BaseDistressResponseDialog then
 								LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASE DISTRESS RESPONSE to "..enemynavalthreat.." my assets are "..repr(GetThreatOfGroup(groupsea,'Naval') ) )
 							end
 				
                             -- only send response if we can muster 70% of enemy threat
-							if GetThreatOfGroup(groupsea,'Naval') >= (enemynavalthreat * .70) then  -- (( aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSurface' ) + aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSub') )/1.5) then
+							if GetThreatOfGroup(groupsea,'Naval') >= (enemynavalthreat * .70) then
 
 								-- Move the naval group to the distress location and then back to the location of the base
 								IssueClearCommands( groupsea )
 
                                 -- sort all the response units so that the farthest will be first in the list
-                                LOUDSORT( groupsea, function(a,b) return VDist2Sq(a:GetPosition()[1],a:GetPosition()[3], distressLocation[1],distressLocation[3]) > VDist2Sq(b:GetPosition()[1],b:GetPosition()[3], distressLocation[1],distressLocation[3]) end)
+                                LOUDSORT( groupsea, function(a,b) return VDist2Sq(GetPosition(a)[1],GetPosition(a)[3], distressLocation[1],distressLocation[3]) > VDist2Sq(GetPosition(b)[1],GetPosition(b)[3], distressLocation[1],distressLocation[3]) end)
 
                                 counter = 0
                                 totalthreatsent = 0
-                                threatlimit = (aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSurface' ) + aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiSub'))
+                                threatlimit = ( GetThreatAtPosition( aiBrain, distressLocation, 0, true, 'AntiSurface' ) + GetThreatAtPosition( aiBrain, distressLocation, 0, true, 'AntiSub'))
 
                                 -- send 5 per 3 tick to the distressLocation --
                                 for _,u in groupsea do
@@ -1487,7 +1510,7 @@ EngineerManager = Class(BuilderManager) {
                                 if distressType !='Naval' then
 						
                                     -- get all bombers and gunships not already in platoons
-                                    groupair, groupaircount = GetFreeUnitsAroundPoint( aiBrain, categories.BOMBER + categories.GROUNDATTACK - categories.ANTINAVY, baseposition, radius, true  )
+                                    groupair, groupaircount = GetFreeUnitsAroundPoint( aiBrain, GROUNDATTACK, baseposition, radius, true  )
 
                                     if groupaircount > 1 then
 
@@ -1516,7 +1539,7 @@ EngineerManager = Class(BuilderManager) {
                                 else
 						
                                     -- get all torpedobombers and gunships not already in platoons
-                                    groupair, groupaircount = GetFreeUnitsAroundPoint( aiBrain, categories.TORPEDOBOMBER + categories.GROUNDATTACK, baseposition, radius, true )
+                                    groupair, groupaircount = GetFreeUnitsAroundPoint( aiBrain, NAVALATTACK, baseposition, radius, true )
 
                                     if groupaircount > 2 then
 
@@ -1559,7 +1582,7 @@ EngineerManager = Class(BuilderManager) {
 								end
 						
 								-- and we can match at least 66% of the enemy threat
-								if GetThreatOfGroup(groupftr,'Air') >= (aiBrain:GetThreatAtPosition( distressLocation, 0, true, 'AntiAir' )/1.5) then
+								if GetThreatOfGroup(groupftr,'Air') >= ( GetThreatAtPosition( aiBrain, distressLocation, 0, true, 'AntiAir' )/1.5) then
 					
 									-- Move the fighter group to the distress location 
 									IssueClearCommands( groupftr )
@@ -1601,7 +1624,7 @@ EngineerManager = Class(BuilderManager) {
 				-- as a base responds to a continued alert I want to gradually slow the response loop
 				-- this allows a base more time to gather additional units before sending them out 
 				-- this will reduce the effect of 'kiting' the AI out of his base by triggering an alert
-				BaseMonitor.DistressRepeats = math.min(BaseMonitor.DistressRepeats + 1, 8)
+				BaseMonitor.DistressRepeats = LOUDMIN(BaseMonitor.DistressRepeats + 1, 8)
                 
 			else
                 BaseMonitor.DistressRepeats = 0
@@ -1733,6 +1756,7 @@ EngineerManager = Class(BuilderManager) {
 	-- function returns a position, a threattype and a threat amount -- false if no distress 
 	BaseMonitorGetDistressLocation = function( self, aiBrain, baseposition, radius, threshold, threattype )
     
+        local LOUDCOPY = LOUDCOPY
         local VDist2Sq = VDist2Sq
         local VDist3 = VDist3
 	
@@ -1751,7 +1775,7 @@ EngineerManager = Class(BuilderManager) {
 		-- Platoon Distress calls -- 
 		if aiBrain.PlatoonDistress.AlertSounded then
 	
-			local PlatoonExists = moho.aibrain_methods.PlatoonExists
+			local PlatoonExists = PlatoonExists
 	
 			local returnPos = false
 			local returnThreat = 0

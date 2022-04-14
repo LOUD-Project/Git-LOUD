@@ -19,13 +19,19 @@ local GetAverageBoundingXYZRadius = import('defaultexplosions.lua').GetAverageBo
 local GetRandomOffset = Unit.GetRandomOffset
 
 local EffectUtilities = import('/lua/EffectUtilities.lua')
+
 local CleanupEffectBag = import('effectutilities.lua').CleanupEffectBag
 local CreateAdjacencyBeams = import('effectutilities.lua').CreateAdjacencyBeams
 local CreateAeonBuildBaseThread = import('effectutilities.lua').CreateAeonBuildBaseThread
 local CreateBuildCubeThread = import('effectutilities.lua').CreateBuildCubeThread
+
 local CreateEffects = import('effectutilities.lua').CreateEffects
+
 local PlayAnim = moho.AnimationManipulator.PlayAnim
+
+local PlayReclaimEffects = import('effectutilities.lua').PlayReclaimEffects
 local PlayReclaimEndEffects = import('effectutilities.lua').PlayReclaimEndEffects
+
 local CreateSeraphimBuildBaseThread = import('effectutilities.lua').CreateSeraphimBuildBaseThread
 local CreateUEFUnitBeingBuiltEffects = import('effectutilities.lua').CreateUEFUnitBeingBuiltEffects
 
@@ -92,6 +98,13 @@ local Random = Random
 local TrashBag = TrashBag
 local TrashAdd = TrashBag.Add
 local TrashDestroy = TrashBag.Destroy
+
+local AIRUNITS = (categories.AIR * categories.MOBILE) - categories.INSIGNIFICANTUNIT
+local FACTORIES = categories.FACTORY - categories.EXPERIMENTAL
+local ENERGYPRODUCTION = categories.ENERGYPRODUCTION - categories.HYDROCARBON - categories.EXPERIMENTAL
+local MASSPRODUCTION = categories.MASSPRODUCTION - categories.EXPERIMENTAL
+local INTEL = categories.INTELLIGENCE - categories.OPTICS
+local SERAPHIMAIR = categories.SERAPHIM * categories.AIR
 
 local function GetRandomFloat( Min, Max )
     return Min + (Random() * (Max-Min) )
@@ -634,6 +647,7 @@ StructureUnit = Class(Unit) {
 	PlayActiveAnimation = function(self)
 	end,
 
+
 	-- LAUNCH SELF UPGRADES --
 	-- syntax reference :  unit, faction, brain, masslowtrigger, energylowtrigger, masshightrigger, energyhightrigger, checkrate(seconds), initialdelay(seconds), bypassecon check
 
@@ -646,7 +660,7 @@ StructureUnit = Class(Unit) {
         local PlatoonCallForHelpAI = import('/lua/platoon.lua').Platoon.PlatoonCallForHelpAI
 
 		-- factories --
-		if EntityCategoryContains( categories.FACTORY - categories.EXPERIMENTAL, finishedUnit ) then
+		if EntityCategoryContains( FACTORIES, finishedUnit ) then
         
             local initialdelay = 150
             local checkrate = 18
@@ -665,7 +679,7 @@ StructureUnit = Class(Unit) {
 		end
 
 		-- power generation --
-		if EntityCategoryContains( categories.ENERGYPRODUCTION - categories.HYDROCARBON - categories.EXPERIMENTAL, finishedUnit ) then
+		if EntityCategoryContains( ENERGYPRODUCTION, finishedUnit ) then
 
 			if not finishedUnit.UpgradeThread then
 
@@ -696,7 +710,7 @@ StructureUnit = Class(Unit) {
 		end
 
 		-- mass extractors & fabricators --
-        if EntityCategoryContains( categories.MASSPRODUCTION - categories.EXPERIMENTAL, finishedUnit ) then
+        if EntityCategoryContains( MASSPRODUCTION, finishedUnit ) then
 
 			-- each mex gets it's own platoon so we can enable PlatoonDistress calls for them
 			local Mexplatoon = MakePlatoon( aiBrain, 'MEXPlatoon'..tostring(finishedUnit.Sync.id), 'none')
@@ -727,7 +741,7 @@ StructureUnit = Class(Unit) {
         end
 
 		-- radar and sonar --
-        if EntityCategoryContains( categories.INTELLIGENCE - categories.OPTICS, finishedUnit ) then
+        if EntityCategoryContains( INTEL, finishedUnit ) then
 
 			if not finishedUnit.UpgradeThread then
 
@@ -1045,14 +1059,13 @@ MobileUnit = Class(Unit) {
 
 		TrashAdd( self.ReclaimEffectsBag, self:ForkThread( self.CreateReclaimEffects, target ) )
 
-        --self:PlayUnitSound('StartReclaim')
+        self:PlayUnitSound('StartReclaim')
 		
 		if IsUnit(target) and not target.BeingReclaimed then
 		
 			target.BeingReclaimed = true
 			
 			target:SetRegenRate(0)
-			
 		end
 
     end,
@@ -1078,7 +1091,7 @@ MobileUnit = Class(Unit) {
     end,
 	
     CreateReclaimEffects = function( self, target )
-        EffectUtilities.PlayReclaimEffects( self, target, __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones or {0,}, self.ReclaimEffectsBag )
+        PlayReclaimEffects( self, target, __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones or {0,}, self.ReclaimEffectsBag )
     end,
 
     CreateReclaimEndEffects = function( self, target )
@@ -1896,7 +1909,7 @@ FactoryUnit = Class(StructureUnit) {
 
             unitBeingBuilt:DetachFrom(true)
         
-            if EntityCategoryContains(categories.SERAPHIM * categories.AIR, unitBeingBuilt) then
+            if EntityCategoryContains( SERAPHIMAIR, unitBeingBuilt) then
             
                 self:DetachAll(bp.Display.BuildAttachBone or 0)
             
@@ -3651,7 +3664,7 @@ AirUnit = Class(MobileUnit) {
             
                 local LOUDENTITY = EntityCategoryContains
 
-                if LOUDENTITY((categories.AIR * categories.MOBILE) - categories.INSIGNIFICANTUNIT, self) then
+                if LOUDENTITY( AIRUNITS, self) then
 		
                     -- all AIR units (except true Transports) will get these callbacks to assist with Airpad functions
                     if not LOUDENTITY((categories.TRANSPORTFOCUS - categories.uea0203), self) then

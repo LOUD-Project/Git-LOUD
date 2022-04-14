@@ -3054,7 +3054,7 @@ function GetHiPriTargetList(aiBrain, location)
 	local targets
 
 	local allthreat, airthreat, ecothreat, subthreat, surthreat
-	local unitpos, x1, x2, x3
+	local unitPos, x1, x2, x3
 	local unitcount = 0
 	local newPos = false
 
@@ -3081,7 +3081,7 @@ function GetHiPriTargetList(aiBrain, location)
 		subthreat = 0.0
 		surthreat = 0.0
 		
-		unitpos = false
+		unitPos = false
 		x1 = 0
 		x2 = 0
 		x3 = 0

@@ -440,7 +440,10 @@ BuilderManager = Class {
 		local numTicks, numTested, numPassed
 		
 		local PoolGreaterAtLocation = import ('/lua/editor/UnitCountBuildConditions.lua').PoolGreaterAtLocation
-
+        local PlatoonGenerateSafePathToLOUD = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD
+        local ResetPFMTasks = import('/lua/loudutilities.lua').ResetPFMTasks
+        
+        local ENGINEERS = categories.ALLUNITS - categories.ENGINEER
 
 		local GetBuilderStatus = function( BuilderConditions, ResultTable )
 
@@ -480,7 +483,7 @@ BuilderManager = Class {
             -- if this is not a naval base - see if mode should change from Amphibious to Land
             if brain.AttackPlan.Goal and ( not self.LastGoalCheck or not LOUDEQUAL(self.LastGoalCheck, brain.AttackPlan.Goal) ) and BuilderManager.BaseType != 'Sea' then
         
-                local path, reason, landpathlength, pathcost = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( brain, 'AttackPlanner', 'Land', BuilderManager.Position, brain.AttackPlan.Goal, 999999, 160 )
+                local path, reason, landpathlength, pathcost = PlatoonGenerateSafePathToLOUD( brain, 'AttackPlanner', 'Land', BuilderManager.Position, brain.AttackPlan.Goal, 999999, 160 )
                 
                 -- IDEALLY - we should evaluate both Land and Amphib paths and choose which is best - 
                 -- but for now - we'll settle for land production if any kind of land connection exists --
@@ -539,13 +542,9 @@ BuilderManager = Class {
             --end
 			
             -- there must be units in the Pool or there will be nothing to form
-			if PoolGreaterAtLocation( brain, LocationType, 0, categories.ALLUNITS - categories.ENGINEER ) and brain:GetNoRushTicks() < 300 then
+			if PoolGreaterAtLocation( brain, LocationType, 0, ENGINEERS ) and brain:GetNoRushTicks() < 300 then
 		
                 if self.BuilderData['Any'].NeedSort then
-    
-                    --if PriorityDialog then
-                      --  LOG("*AI DEBUG "..brain.Nickname.." "..self.ManagerType.." "..LocationType.." Sorting "..LOUDGETN(self.BuilderData['Any'].Builders).." -- Any -- PFM tasks")
-                    --end
 
                     LOUDSORT( self.BuilderData['Any'].Builders, function(a,b) return a.Priority > b.Priority end )
                 
@@ -554,10 +553,6 @@ BuilderManager = Class {
 			
                 -- loop thru all the platoon builders
 				for bType,bTypeData in self.BuilderData do
-                
-                    --if ScenarioInfo.PlatoonDialog or PriorityDialog then
-                      --  LOG("*AI DEBUG "..brain.Nickname.." PFM "..(LocationType).." Begins Processing "..repr(bType).." at "..repr(GetGameTimeSeconds()).." seconds using ticksize of "..ticksize.." between checks" )
-                    --end
 			
 					for _,bData in bTypeData.Builders do
 
@@ -604,8 +599,6 @@ BuilderManager = Class {
 				WaitTicks( duration - numTicks )
 
 			end
-
-            local ResetPFMTasks = import('/lua/loudutilities.lua').ResetPFMTasks
 
             -- reset the tasks with Priority Functions at this PFM
             ResetPFMTasks( self, brain )

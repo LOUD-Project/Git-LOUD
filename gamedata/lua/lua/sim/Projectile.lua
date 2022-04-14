@@ -134,8 +134,8 @@ Projectile = Class(moho.projectile_methods, Entity) {
         
         if not target then return end
 
-        local BeenDestroyed = moho.entity_methods.BeenDestroyed
-        local GetHealth = moho.entity_methods.GetHealth
+        local BeenDestroyed = BeenDestroyed
+        local GetHealth = GetHealth
         local GetPosition = GetPosition
         local SetNewTarget = moho.projectile_methods.SetNewTarget
         local WaitTicks = WaitTicks

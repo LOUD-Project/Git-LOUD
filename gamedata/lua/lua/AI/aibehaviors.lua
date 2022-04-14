@@ -1987,7 +1987,7 @@ function NukeAI( self, aiBrain )
 	local AIFindNumberOfUnitsBetweenPoints = import('/lua/ai/aiattackutilities.lua').AIFindNumberOfUnitsBetweenPoints
 	local AISendChat = import('/lua/ai/sorianutilities.lua').AISendChat
 	local GetHiPriTargetList = import('/lua/ai/altaiutilities.lua').GetHiPriTargetList
-	local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
+	local GetUnitsAroundPoint = GetUnitsAroundPoint
 	local UnitLeadTarget = import('/lua/ai/sorianutilities.lua').UnitLeadTarget
 	
     local aiBrain = GetBrain(self)
@@ -7401,7 +7401,7 @@ function AirLandToggleThread(unit, aiBrain)
     end
 	
 	local position, numAir, numGround, frndAir, frnGround
-	local GetPosition = moho.entity_methods.GetPosition
+	local GetPosition = GetPosition
 	
     while not unit.Dead do
 	

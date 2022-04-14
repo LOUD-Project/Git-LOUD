@@ -5,6 +5,15 @@ local import = import
 local BaseTemplates = import('/lua/basetemplates.lua').BaseTemplates
 local BuildingTemplates = import('/lua/buildingtemplates.lua').BuildingTemplates
 
+local AISortMarkersFromLastPosWithThreatCheck = import('/lua/ai/aiutilities.lua').AISortMarkersFromLastPosWithThreatCheck
+
+local CanBuildStructureAt = moho.aibrain_methods.CanBuildStructureAt
+local DecideWhatToBuild = moho.aibrain_methods.DecideWhatToBuild
+local FindPlaceToBuild = moho.aibrain_methods.FindPlaceToBuild
+local GetFractionComplete = moho.entity_methods.GetFractionComplete
+local GetPosition = moho.entity_methods.GetPosition
+local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
+
 local LOUDCOPY = table.copy
 local LOUDFLOOR = math.floor
 local LOUDGETN = table.getn
@@ -26,7 +35,7 @@ end
 -- Be AWARE - it does not appear to do ANY threat evaluation that I can understand or see working --
 function AIExecuteBuildStructure( aiBrain, engineer, buildingType, closeToBuilder, relative, buildingTemplate, baseTemplate, reference, constructionData)
 
-    local whatToBuild = aiBrain:DecideWhatToBuild( engineer, buildingType, buildingTemplate)
+    local whatToBuild = DecideWhatToBuild( aiBrain, engineer, buildingType, buildingTemplate)
 
     if not whatToBuild or engineer.Dead then
     
@@ -42,7 +51,7 @@ function AIExecuteBuildStructure( aiBrain, engineer, buildingType, closeToBuilde
     local SourcePosition = aiBrain.BuilderManagers[engineer.LocationType].Position or false
 	
     if closeToBuilder then
-        SourcePosition = engineer:GetPosition()
+        SourcePosition = LOUDCOPY(GetPosition(engineer))
     end
 	
     local location = false
@@ -58,10 +67,8 @@ function AIExecuteBuildStructure( aiBrain, engineer, buildingType, closeToBuilde
 		-- I am now passing along the engineers ThreatMax from his platoon (if it's there)
         
         --location = aiBrain:FindPlaceToBuild( buildingType, whatToBuild, baseTemplate, relative, engineer, 'Enemy', SourcePosition[1], SourcePosition[3], constructionData.ThreatMax or 7.5)	
-    
-        local AIUtils = '/lua/ai/aiutilities.lua'
 
-        local CanBuildStructureAt = moho.aibrain_methods.CanBuildStructureAt
+        local CanBuildStructureAt = CanBuildStructureAt
 
         local testunit = 'ueb1102'  -- Hydrocarbon
         local testtype = 'Hydrocarbon'
@@ -102,6 +109,8 @@ function AIExecuteBuildStructure( aiBrain, engineer, buildingType, closeToBuilde
             local tRings = constructionData.ThreatRings or 0
             local tType = constructionData.ThreatType or 'AntiSurface'
             local maxlist = constructionData.MaxChoices or 1
+            
+            local VDist3 = VDist3
         
             LOUDSORT( markerlist, function (a,b) return VDist3( a.Position, SourcePosition ) < VDist3( b.Position, SourcePosition ) end )
 
@@ -115,18 +124,14 @@ function AIExecuteBuildStructure( aiBrain, engineer, buildingType, closeToBuilde
 
                             counter = counter + 1
                             mlist[counter] = v
-
                         end
-                    
                     end
-                
                 end
-            
             end
 		
             if counter > 0 then
             
-                local markerTable = import(AIUtils).AISortMarkersFromLastPosWithThreatCheck(aiBrain, mlist, maxlist, tMin, tMax, tRings, tType, SourcePosition)
+                local markerTable = AISortMarkersFromLastPosWithThreatCheck(aiBrain, mlist, maxlist, tMin, tMax, tRings, tType, SourcePosition)
 
                 if markerTable then
 
@@ -165,7 +170,7 @@ function AIExecuteBuildStructure( aiBrain, engineer, buildingType, closeToBuilde
         
     else
 	
-        location = aiBrain:FindPlaceToBuild( buildingType, whatToBuild, baseTemplate, relative, engineer, nil, SourcePosition[1], SourcePosition[3])
+        location = FindPlaceToBuild( aiBrain, buildingType, whatToBuild, baseTemplate, relative, engineer, nil, SourcePosition[1], SourcePosition[3])
 		
     end
 	
@@ -190,7 +195,7 @@ end
 
 function AIBuildBaseTemplate( aiBrain, builder, buildingType , closeToBuilder, relative, buildingTemplate, baseTemplate, reference, constructionData)
 
-    local whatToBuild = aiBrain:DecideWhatToBuild( builder, buildingType, buildingTemplate)
+    local whatToBuild = DecideWhatToBuild( aiBrain, builder, buildingType, buildingTemplate)
 
     if whatToBuild and not builder.Dead then
 	
@@ -219,7 +224,7 @@ end
 -- loop thru all the the possible locations until you find one you can build at
 function AIBuildBaseTemplateOrdered( aiBrain, eng, buildingType, closeToBuilder, relative, buildingTemplate, baseTemplate, reference, constructionData)
 
-    local whatToBuild = aiBrain:DecideWhatToBuild( eng, buildingType, buildingTemplate)
+    local whatToBuild = DecideWhatToBuild( aiBrain, eng, buildingType, buildingTemplate)
 
     if whatToBuild and not eng.Dead then
 
@@ -228,12 +233,18 @@ function AIBuildBaseTemplateOrdered( aiBrain, eng, buildingType, closeToBuilder,
             return AIExecuteBuildStructure( aiBrain, eng, buildingType, closeToBuilder, relative, buildingTemplate, baseTemplate, reference)
 			
         else
+        
+      		local CanBuildStructureAt = CanBuildStructureAt
+           	local GetFractionComplete = GetFractionComplete
+            local GetUnitsAroundPoint = GetUnitsAroundPoint
+            local LOUDINSERT = LOUDINSERT
+            local LOUDREMOVE = LOUDREMOVE
 		
 			local function EngineerTryRepair( buildlocation )
 
-				for _,v in aiBrain:GetUnitsAroundPoint( categories.STRUCTURE, buildlocation, 1, 'Ally' ) do
+				for _,v in GetUnitsAroundPoint( aiBrain, categories.STRUCTURE, buildlocation, 1, 'Ally' ) do
 			
-					if not v.Dead and v:GetFractionComplete() < 1 then
+					if not v.Dead and GetFractionComplete(v) < 1 then
 					
 						IssueRepair( {eng}, v )
 
@@ -257,9 +268,8 @@ function AIBuildBaseTemplateOrdered( aiBrain, eng, buildingType, closeToBuilder,
 
 							if n > 1 then
 							
-								if not eng.Dead and aiBrain:CanBuildStructureAt( whatToBuild, { position[1], 0, position[2] } ) or EngineerTryRepair( { position[1],0,position[2] } ) then
+								if not eng.Dead and CanBuildStructureAt( aiBrain, whatToBuild, { position[1], 0, position[2] } ) or EngineerTryRepair( { position[1],0,position[2] } ) then
 									
-									--AddToBuildQueue( aiBrain, eng, whatToBuild, position )
                                     LOUDINSERT(eng.EngineerBuildQueue, { whatToBuild, position } )
 									
 									LOUDREMOVE(bType,n)
@@ -322,24 +332,27 @@ end
 
 function AIBuildAdjacency( aiBrain, builder, buildingType, closeToBuilder, relative, buildingTemplate, baseTemplate, reference, constructionData)
 
-    local whatToBuild = aiBrain:DecideWhatToBuild( builder, buildingType, buildingTemplate )
+    local whatToBuild = DecideWhatToBuild( aiBrain, builder, buildingType, buildingTemplate )
+    
     local LOUDINSERT = LOUDINSERT
 
     if whatToBuild and not builder.Dead then
-	
-        local upperString = LOUDPARSE( STRINGUPPER(whatToBuild) )
+
         local unitSize = __blueprints[whatToBuild].Physics
+        
         local template = {}
 		
         LOUDINSERT( template, {} )
         LOUDINSERT( template[1], { buildingType } )
+        
+        local targetSize, targetPos, testPos, testPos2
 		
         for k,v in reference do
 		
             if not v.Dead then
 			
-                local targetSize = v:GetBlueprint().Physics
-                local targetPos = table.copy( v:GetPosition() )
+                targetSize = __blueprints[v.BlueprintID].Physics
+                targetPos = LOUDCOPY( GetPosition(v) )
 				
                 targetPos[1] = targetPos[1] - (targetSize.SkirtSizeX * 0.5)
                 targetPos[3] = targetPos[3] - (targetSize.SkirtSizeZ * 0.5)
@@ -347,8 +360,8 @@ function AIBuildAdjacency( aiBrain, builder, buildingType, closeToBuilder, relat
                 -- check Top/bottom of unit
                 for i=0,((targetSize.SkirtSizeX * 0.5)-1) do
 				
-                    local testPos = { targetPos[1] + 1 + (i * 2), targetPos[3]-(unitSize.SkirtSizeZ * 0.5), 0 }
-                    local testPos2 = { targetPos[1] + 1 + (i * 2), targetPos[3]+targetSize.SkirtSizeZ+(unitSize.SkirtSizeZ* 0.5), 0 }
+                    testPos = { targetPos[1] + 1 + (i * 2), targetPos[3]-(unitSize.SkirtSizeZ * 0.5), 0 }
+                    testPos2 = { targetPos[1] + 1 + (i * 2), targetPos[3]+targetSize.SkirtSizeZ+(unitSize.SkirtSizeZ* 0.5), 0 }
 					
                     LOUDINSERT( template[1], testPos )
                     LOUDINSERT( template[1], testPos2 )
@@ -358,12 +371,11 @@ function AIBuildAdjacency( aiBrain, builder, buildingType, closeToBuilder, relat
                 -- check sides of unit
                 for i=0,((targetSize.SkirtSizeZ * 0.5)-1) do
 				
-                    local testPos = { targetPos[1]+targetSize.SkirtSizeX + (unitSize.SkirtSizeX * 0.5), targetPos[3] + 1 + (i * 2), 0 }
-                    local testPos2 = { targetPos[1]-(unitSize.SkirtSizeX * 0.5), targetPos[3] + 1 + (i*2), 0 }
+                    testPos = { targetPos[1]+targetSize.SkirtSizeX + (unitSize.SkirtSizeX * 0.5), targetPos[3] + 1 + (i * 2), 0 }
+                    testPos2 = { targetPos[1]-(unitSize.SkirtSizeX * 0.5), targetPos[3] + 1 + (i*2), 0 }
 					
                     LOUDINSERT( template[1], testPos )
                     LOUDINSERT( template[1], testPos2 )
-					
                 end
 				
             end
@@ -378,11 +390,10 @@ function AIBuildAdjacency( aiBrain, builder, buildingType, closeToBuilder, relat
             baseLocation = builder.BuildManagerdata.EngineerManager.Location
         end        
 		
-        local location = aiBrain:FindPlaceToBuild(buildingType, whatToBuild, template, false, builder, baseLocation[1], baseLocation[3])
+        local location = FindPlaceToBuild( aiBrain, buildingType, whatToBuild, template, false, builder, baseLocation[1], baseLocation[3])
 		
         if location then
 		
-            --AddToBuildQueue( aiBrain, builder, whatToBuild, location )
             LOUDINSERT(builder.EngineerBuildQueue, { whatToBuild, location } )
 			
             return true

@@ -9,14 +9,27 @@ local LOUDINSERT = table.insert
 local LOUDMAX = math.max
 local LOUDMIN = math.min
 local LOUDPARSE = ParseEntityCategory
+local LOUDREMOVE = table.remove
 local LOUDSORT = table.sort
 
 local VDist2 = VDist2
 local VDist2Sq = VDist2Sq
 
 local GetAIBrain = moho.unit_methods.GetAIBrain
+
+local GetFractionComplete = moho.entity_methods.GetFractionComplete
+local GetNumUnitsAroundPoint = moho.aibrain_methods.GetNumUnitsAroundPoint
+
+local GetPosition = moho.entity_methods.GetPosition	
+    
+local GetThreatsAroundPosition = moho.aibrain_methods.GetThreatsAroundPosition
+local GetThreatAtPosition = moho.aibrain_methods.GetThreatAtPosition
+local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
+ 
 local GetTerrainHeight = GetTerrainHeight
 local GetSurfaceHeight = GetSurfaceHeight
+
+local SEARCHCATS = categories.ALLUNITS - categories.MASSEXTRACTION - categories.MASSSTORAGE - categories.MOBILE - categories.WALL
 
 -- Adds an area to the brains MustScout table
 function AIAddMustScoutArea( aiBrain, location )
@@ -81,8 +94,8 @@ function AIPickEnemyLogic( self, brainbool )
     
     local Brains = ArmyBrains
     
-  	local GetThreatsAroundPosition = moho.aibrain_methods.GetThreatsAroundPosition
-    local GetPosition = moho.entity_methods.GetPosition	
+  	local GetThreatsAroundPosition = GetThreatsAroundPosition
+    local GetPosition = GetPosition	
    
     local LOUDSORT = LOUDSORT
     
@@ -287,9 +300,9 @@ end
 
 function AISortMarkersFromLastPosWithThreatCheck(aiBrain, markerlist, maxNumber, tMin, tMax, tRings, tType, position)
 
-    local GetThreatAtPosition = moho.aibrain_methods.GetThreatAtPosition
+    local GetThreatAtPosition = GetThreatAtPosition
 
-	local LOUDREMOVE = table.remove
+	local LOUDREMOVE = LOUDREMOVE
     local LOUDSORT = LOUDSORT
     
     local VDist2Sq = VDist2Sq
@@ -464,7 +477,7 @@ function AIGetMarkersAroundLocation( aiBrain, markerType, pos, radius, threatMin
 	local counter = 0
 	
 	local VDist2Sq = VDist2Sq
-    local GetThreatAtPosition = moho.aibrain_methods.GetThreatAtPosition
+    local GetThreatAtPosition = GetThreatAtPosition
     
 	local checkdistance = radius * radius
     local threat
@@ -490,15 +503,12 @@ function AIGetMarkersAroundLocation( aiBrain, markerType, pos, radius, threatMin
                     markerlist[counter] = v
 
 				end
-                
             end
 			
         else
         
 			break
-            
 		end
-        
     end
 	
 	return markerlist
@@ -513,12 +523,11 @@ function AIFilterAlliedBases( aiBrain, positions )
     local markerlist = {}
 	local counter = 0
     
-	local GetNumUnitsAroundPoint = moho.aibrain_methods.GetNumUnitsAroundPoint
-    local searchcats = categories.ALLUNITS - categories.MASSEXTRACTION - categories.MASSSTORAGE - categories.MOBILE - categories.WALL
+	local GetNumUnitsAroundPoint = GetNumUnitsAroundPoint
 	
     for k,v in positions do
 	
-        if GetNumUnitsAroundPoint( aiBrain, searchcats, v.Position, 42, 'Ally' ) == 0 then
+        if GetNumUnitsAroundPoint( aiBrain, SEARCHCATS, v.Position, 42, 'Ally' ) == 0 then
 		
 			counter = counter + 1
             markerlist[counter] = v
@@ -614,7 +623,7 @@ function AIGetClosestThreatMarkerLoc(aiBrain, markerType, startX, startZ, threat
 
     local markerlist = ScenarioInfo[markerType] or AIGetMarkerLocations(markerType)
 
-    local GetThreatAtPosition = moho.aibrain_methods.GetThreatAtPosition
+    local GetThreatAtPosition = GetThreatAtPosition
     
     LOUDSORT(markerlist, function(a,b) return VDist2Sq(a.Position[1],a.Position[3],startX,startZ) < VDist2Sq(b.Position[1],b.Position[3],startX,startZ) end)
     
@@ -653,8 +662,8 @@ end
 -- this will return a list of only your units within radius --
 function GetOwnUnitsAroundPoint( aiBrain, category, location, radius )
 	
-	local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
-	local GetFractionComplete = moho.entity_methods.GetFractionComplete
+	local GetUnitsAroundPoint = GetUnitsAroundPoint
+	local GetFractionComplete = GetFractionComplete
 
     local mlist = {}
 	local counter = 0
@@ -680,8 +689,8 @@ end
 -- this will return a list of ALL Allied units (yours and allies)
 function GetAlliedUnitsAroundPoint( aiBrain, category, location, radius )
 	
-	local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
-	local GetFractionComplete = moho.entity_methods.GetFractionComplete
+	local GetUnitsAroundPoint = GetUnitsAroundPoint
+	local GetFractionComplete = GetFractionComplete
 
     local mlist = {}
 	local counter = 0
@@ -705,10 +714,10 @@ end
 
 function GetOwnUnitsAroundPointWithThreatCheck( aiBrain, category, location, radius, tmin, tmax, rings, tType )
 	
-	local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
-	local GetThreatAtPosition = moho.aibrain_methods.GetThreatAtPosition
-	local GetFractionComplete = moho.entity_methods.GetFractionComplete
-    local GetPosition = moho.entity_methods.GetPosition	
+	local GetUnitsAroundPoint = GetUnitsAroundPoint
+	local GetThreatAtPosition = GetThreatAtPosition
+	local GetFractionComplete = GetFractionComplete
+    local GetPosition = GetPosition	
 	
     local mlist = {}
 	local counter = 0
@@ -742,8 +751,8 @@ end
 
 function GetNumberOfOwnUnitsAroundPoint( aiBrain, category, location, radius )
 	
-	local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
-	local GetFractionComplete = moho.entity_methods.GetFractionComplete
+	local GetUnitsAroundPoint = GetUnitsAroundPoint
+	local GetFractionComplete = GetFractionComplete
 	
 	local counter = 0
 	
@@ -819,7 +828,7 @@ function AIFindBrainTargetAroundPoint( aiBrain, position, maxRange, category )
         return false
     end
     
-    local GetPosition = moho.entity_methods.GetPosition	
+    local GetPosition = GetPosition	
     local VDist2 = VDist2
     
     local testCat = category
@@ -828,7 +837,7 @@ function AIFindBrainTargetAroundPoint( aiBrain, position, maxRange, category )
         testCat = LOUDPARSE( testCat )
     end
 
-    local targetUnits = aiBrain:GetUnitsAroundPoint( testCat, position, maxRange, 'Enemy' )
+    local targetUnits = GetUnitsAroundPoint( aiBrain, testCat, position, maxRange, 'Enemy' )
     
     local retUnit = false
     local distance = false
@@ -1017,7 +1026,10 @@ end
 -- This function just returns the distance to the closest IMAP threat position that exceeds the threatCutoff
 function GetThreatDistance(aiBrain, position, threatCutoff )
 
-    local threatTable = aiBrain:GetThreatsAroundPosition( position, 4, true, 'StructuresNotMex')
+    local VDist2 = VDist2
+    
+    local threatTable = GetThreatsAroundPosition( aiBrain, position, 4, true, 'StructuresNotMex')
+    
     local closestHighThreat = 999999
     local dist
 	
@@ -1030,8 +1042,7 @@ function GetThreatDistance(aiBrain, position, threatCutoff )
             if not closestHighThreat or dist < closestHighThreat then
 			
                 closestHighThreat = dist
-				
-            end
+	        end
 			
         else
 		
@@ -1041,14 +1052,13 @@ function GetThreatDistance(aiBrain, position, threatCutoff )
     end
 	
     return closestHighThreat
-	
 end
 
 -- 3+ Teams Unit Cap Fix : That part is moved away from the main SetupAICheat 
 -- to do it after we figured out how many armies are in the biggest team
 function SetupAICheatUnitCap(aiBrain, biggestTeamSize)
 
-	local PlayerDiff = math.max( 1,(biggestTeamSize or 1)/(aiBrain.TeamSize) )
+	local PlayerDiff = LOUDMAX( 1,(biggestTeamSize or 1)/(aiBrain.TeamSize) )
     
     aiBrain.OutnumberedRatio = PlayerDiff
    
@@ -1492,8 +1502,8 @@ function AIFindBrainNukeTargetInRangeSorian( aiBrain, launcher, maxRange, atkPri
 
 	local EntityCategoryContains = EntityCategoryContains
 
-    local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
-    local GetPosition = moho.entity_methods.GetPosition
+    local GetUnitsAroundPoint = GetUnitsAroundPoint
+    local GetPosition = GetPosition
     
     local VDist2Sq = VDist2Sq
     local VDist3 = VDist3

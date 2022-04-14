@@ -396,7 +396,7 @@ Shield = Class(moho.shield_methods,Entity) {
 			other.LastImpact = self.Owner.MyShield:GetEntityId()
 		end
 		
-		local GetArmy = moho.entity_methods.GetArmy
+		local GetArmy = GetArmy
         return IsEnemy( self.Army, GetArmy(other) )
     end,
 

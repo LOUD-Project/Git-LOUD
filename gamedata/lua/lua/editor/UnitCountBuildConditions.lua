@@ -25,6 +25,7 @@ local GetCurrentUnits = moho.aibrain_methods.GetCurrentUnits
 local GetListOfUnits = moho.aibrain_methods.GetListOfUnits
 local GetNumUnitsAroundPoint = moho.aibrain_methods.GetNumUnitsAroundPoint
 local GetPosition = moho.entity_methods.GetPosition	
+local GetThreatAtPosition = moho.aibrain_methods.GetThreatAtPosition
 local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
 
 local IsUnitState = moho.unit_methods.IsUnitState
@@ -38,6 +39,7 @@ local EntityCategoryCount = EntityCategoryCount
 local EntityCategoryFilterDown = EntityCategoryFilterDown
 local LOUDFLOOR = math.floor
 local LOUDGETN = table.getn
+local LOUDMIN = math.min
 
 local LOUDPARSE = ParseEntityCategory
 local LOUDSORT = table.sort
@@ -47,11 +49,15 @@ local MATHMAX = math.max
 
 local VectorCached = { 0, 0, 0 }
 
+local DEFENSESTRUCTURES = categories.STRUCTURE * categories.DEFENSE
+local EXTRACTORS = categories.MASSEXTRACTION - categories.TECH1
+local SHIELDSTRUCTURES = categories.STRUCTURE * categories.SHIELD - categories.TECH2
     
 local function GetNumCategoryBeingBuiltByEngineers( EM, category, engCategory )
 
     local counter = 0
     local beingBuiltUnit
+    local LOUDENTITY = LOUDENTITY
 
     for _,v in EntityCategoryFilterDown( engCategory, EM.EngineerList ) do
 		
@@ -75,6 +81,7 @@ local function GetNumCategoryBeingBuiltByFactories( FBM, category, facCategory )
 
 	local counter = 0
     local beingBuiltUnit
+    local LOUDENTITY = LOUDENTITY
 	
 	for _,v in EntityCategoryFilterDown( facCategory, FBM.FactoryList ) do
 		
@@ -154,7 +161,7 @@ end
 function HaveLessThanUnitsInCategoryBeingBuilt(aiBrain, numunits, category)
 
 	local LOUDENTITY = LOUDENTITY
-	local IsUnitState = moho.unit_methods.IsUnitState
+	local IsUnitState = IsUnitState
 	
     local unitlist = GetListOfUnits(aiBrain, categories.CONSTRUCTION, false )
 	local numBuilding = 0
@@ -192,7 +199,6 @@ end
 function BaseAreaForExpansion( aiBrain, locationType, locationRadius, threatMin, threatMax, threatRings, threatType )
 
     if AIFindBaseAreaForExpansion( aiBrain, locationType, locationRadius, threatMin, threatMax, threatRings, threatType) then
-	
         return true
     end
 	
@@ -203,7 +209,6 @@ end
 function BaseAreaForDP( aiBrain, locationType, locationRadius, threatMin, threatMax, threatRings, threatType )
 
     if AIFindBaseAreaForDP( aiBrain, locationType, locationRadius, threatMin, threatMax, threatRings, threatType) then
-	
         return true
     end
 	
@@ -214,7 +219,6 @@ end
 function DefensivePointForExpansion( aiBrain, locationType, locationRadius, threatMin, threatMax, threatRings, threatType )
 
     if AIFindDefensivePointForDP( aiBrain, locationType, locationRadius, threatMin, threatMax, threatRings, threatType) then
-	
         return true
     end
 	
@@ -448,6 +452,7 @@ end
 function FactoriesLessThan( aiBrain, unitCount, testCat )
 
 	local result = 0
+    local EntityCategoryCount = EntityCategoryCount
 	
 	for k,v in aiBrain.BuilderManagers do
 		result = result + EntityCategoryCount( testCat, v.FactoryManager.FactoryList )
@@ -484,7 +489,8 @@ local function GetNumberOfUnitsBeingBuilt( aiBrain, location, buildingCategory, 
     local filterUnits = GetOwnUnitsAroundPoint( aiBrain, builderCategory, BM.Position, range or BM.Radius )
 
     local LOUDENTITY = LOUDENTITY
-	local IsUnitState = moho.unit_methods.IsUnitState
+    local LOUDGETN = LOUDGETN
+	local IsUnitState = IsUnitState
 
 	local counter = 0
 
@@ -525,21 +531,15 @@ end
 
 
 function BuildingLessAtLocation( aiBrain, locationType, unitCount, testCat, builderCat)
-
     return GetNumberOfUnitsBeingBuilt( aiBrain, locationType, testCat, builderCat or categories.ALLUNITS) < unitCount
-
 end
 
 function BuildingGreaterAtLocation( aiBrain, locationType, unitCount, testCat, builderCat)
-
     return GetNumberOfUnitsBeingBuilt( aiBrain, locationType, testCat, builderCat or categories.ALLUNITS) > unitCount
-
 end
 
 function BuildingGreaterAtLocationAtRange( aiBrain, locationType, unitCount, testCat, builderCat, range)
-
     return GetNumberOfUnitsBeingBuilt( aiBrain, locationType, testCat, builderCat or categories.ALLUNITS, range) > unitCount
-
 end
 
 function LocationFactoriesBuildingLess( aiBrain, locationType, unitCount, testCat, facCat)
@@ -554,7 +554,6 @@ end
 function LocationEngineerNeedsBuildingAssistanceInRange( aiBrain, locationType, unitCategory, engCat, unitRange )
 
     local GetPosition = GetPosition
-	local LOUDGETN = LOUDGETN
 	local VDist2 = VDist2
 
     local engineerManager = aiBrain.BuilderManagers[locationType].EngineerManager
@@ -594,11 +593,11 @@ function FactoryCapCheck(aiBrain, locationType, factoryType)
     local catCheck = false
 	
     if factoryType == 'LAND' then
-        catCheck = landfactory  --categories.LAND * categories.FACTORY * categories.STRUCTURE
+        catCheck = landfactory
     elseif factoryType == 'AIR' then
-        catCheck = airfactory   --categories.AIR * categories.FACTORY * categories.STRUCTURE
+        catCheck = airfactory
     elseif factoryType == 'SEA' then
-        catCheck = seafactory   --categories.NAVAL * categories.FACTORY * categories.STRUCTURE
+        catCheck = seafactory
     elseif factoryType == 'GATE' then
         catCheck = categories.GATE
     else
@@ -674,9 +673,7 @@ function BelowEngineerCapCheck(aiBrain, locationType, techLevel)
 	if aiBrain.StartingUnitCap > 1000 then
 	
         -- at 1000+ units add 1 engineer for every capmult - up to the cap limit --
-		capCheck = capCheck + math.min( 1 + LOUDFLOOR(( aiBrain.StartingUnitCap - 1000) / capmult ), caplimit)
-        
-        --LOG("*AI DEBUG "..aiBrain.Nickname.." Engineer "..repr(techLevel).." at "..repr(locationType).." is "..capCheck)
+		capCheck = capCheck + LOUDMIN( 1 + LOUDFLOOR(( aiBrain.StartingUnitCap - 1000) / capmult ), caplimit)
 	end
 
 	return EntityCategoryCount( catCheck, BM.EngineerManager.EngineerList ) < capCheck
@@ -751,31 +748,46 @@ function AdjacencyCheck( aiBrain, locationType, category, radius, testUnit )
     
     local template = {}
 	local counter = 0
-	
-    local unitSize = aiBrain:GetUnitBlueprint( testUnit ).Physics
+
+    local unitSize = __blueprints[testUnit].Physics
     
+    local testPos, testPos2
+    
+    -- SO -- if we check each position as we make it - we don't have to 
+    -- table the results and process them afterwards - and we can take
+    -- advantage of the VectorCached method to do it
+    
+    -- so this will make a table of ALL the positions which CAN be used
+    -- for adjacency -- note that it's not checking those positions as 
+    -- it goes along
     for k,v in reference do
 	
         if not v.Dead then
 
             local targetSize = __blueprints[v.BlueprintID].Physics
-            local targetPos = LOUDCOPY(v.CachePosition)
+            
+            local targetPos = v.CachePosition
 			
             targetPos[1] = targetPos[1] - (targetSize.SkirtSizeX* 0.5)
             targetPos[3] = targetPos[3] - (targetSize.SkirtSizeZ* 0.5)
 			
-            #-- Top/bottom of unit
+            -- Top/bottom of unit
             for i=0,((targetSize.SkirtSizeX* 0.5)-1) do
-                local testPos = { targetPos[1] + 1 + (i * 2), targetPos[3]-(unitSize.SkirtSizeZ* 0.5), 0 }
-                local testPos2 = { targetPos[1] + 1 + (i * 2), targetPos[3]+targetSize.SkirtSizeZ+(unitSize.SkirtSizeZ* 0.5), 0 }
+            
+                testPos = { targetPos[1] + 1 + (i * 2), targetPos[3]-(unitSize.SkirtSizeZ* 0.5), 0 }
+                testPos2 = { targetPos[1] + 1 + (i * 2), targetPos[3]+targetSize.SkirtSizeZ+(unitSize.SkirtSizeZ* 0.5), 0 }
+                
                 template[counter+1] = testPos
                 template[counter+2] = testPos2
 				counter = counter + 2
             end
-            #-- Sides of unit
+            
+            -- Sides of unit
             for i=0,((targetSize.SkirtSizeZ* 0.5)-1) do
-                local testPos = { targetPos[1]+targetSize.SkirtSizeX + (unitSize.SkirtSizeX* 0.5), targetPos[3] + 1 + (i * 2), 0 }
-                local testPos2 = { targetPos[1]-(unitSize.SkirtSizeX* 0.5), targetPos[3] + 1 + (i*2), 0 }
+            
+                testPos = { targetPos[1]+targetSize.SkirtSizeX + (unitSize.SkirtSizeX* 0.5), targetPos[3] + 1 + (i * 2), 0 }
+                testPos2 = { targetPos[1]-(unitSize.SkirtSizeX* 0.5), targetPos[3] + 1 + (i*2), 0 }
+                
                 template[counter+1] = testPos
                 template[counter+2] = testPos2
 				counter = counter + 2
@@ -783,6 +795,8 @@ function AdjacencyCheck( aiBrain, locationType, category, radius, testUnit )
         end
     end
     
+    -- now we'll check ALL of the possible positions and take the
+    -- first one that actually works -- kind of wasteful really --
     for k,v in template do
         if CanBuildStructureAt( aiBrain, testUnit, { v[1], 0, v[2] } ) then
             return true
@@ -961,8 +975,10 @@ function GetGuards(aiBrain, Unit)
 	end
     
 	if UpgradesFrom and UpgradesFrom != 'none' then -- Used to filter out upgrading units
+    
 		local oldCat = LOUDPARSE(UpgradesFrom)
 		local oldUnit = GetUnitsAroundPoint(aiBrain, oldCat, GetPosition(Unit), 0, 'Ally' )
+        
 		if oldUnit then
 			count = count + 1
 		end
@@ -978,9 +994,9 @@ function MassExtractorHasStorageAndLessDefense(aiBrain, locationType, mindistanc
     
     local mexposition, distance
 	
-	for _,v in GetOwnUnitsAroundPoint(aiBrain, categories.MASSEXTRACTION - categories.TECH1, position, maxdistance) do
+	for _,v in GetOwnUnitsAroundPoint(aiBrain, EXTRACTORS, position, maxdistance) do
 	
-		mexposition = v.CachePosition   --LOUDCOPY(GetPosition(v))
+		mexposition = v.CachePosition
         
 		distance = VDist2Sq( position[1],position[3], mexposition[1],mexposition[3])
 		
@@ -1009,7 +1025,7 @@ function MassExtractorInRangeHasLessThanStorage(aiBrain, locationType, mindistan
     local mexposition, distance, STORS
 	
 	-- get your own extractors around the point
-	local Mexs = GetOwnUnitsAroundPoint(aiBrain, categories.MASSEXTRACTION - categories.TECH1, pos, maxdistance)
+	local Mexs = GetOwnUnitsAroundPoint(aiBrain, EXTRACTORS, pos, maxdistance)
 	
 	for k,v in Mexs do
     
@@ -1044,7 +1060,7 @@ function MassExtractorInRangeHasLessThanEnergy(aiBrain, locationType, mindistanc
     local mexposition, distance, STORS
 	
 	-- get your own extractors around the point
-	local Mexs = GetOwnUnitsAroundPoint(aiBrain, categories.MASSEXTRACTION - categories.TECH1, pos, maxdistance)
+	local Mexs = GetOwnUnitsAroundPoint(aiBrain, EXTRACTORS, pos, maxdistance)
 	
 	for k,v in Mexs do
     
@@ -1066,9 +1082,13 @@ function MassExtractorInRangeHasLessThanEnergy(aiBrain, locationType, mindistanc
 	return false
 end
 
+
 function MassExtractorInRangeHasLessThanDefense(aiBrain, locationType, mindistance, maxdistance, defenseunits, threatmin, threatmax, threatrings)
 
     local pos = aiBrain.BuilderManagers[ locationType ].Position
+    
+    local GetThreatAtPosition = GetThreatAtPosition
+
     local VDist3 = VDist3
     
     local mexposition, distance, threat
@@ -1084,14 +1104,14 @@ function MassExtractorInRangeHasLessThanDefense(aiBrain, locationType, mindistan
 		if distance >= mindistance and distance <= maxdistance then
         
             if threatmin or threatmax then
-                threat = aiBrain:GetThreatAtPosition( mexposition, threatrings or 0, true, 'AntiSurface')
+                threat = GetThreatAtPosition( aiBrain, mexposition, threatrings or 0, true, 'AntiSurface')
             else
                 threatmin = 0
                 threatmax = 999999
             end
             
 			-- get the units around that point
-			if GetNumUnitsAroundPoint(aiBrain, categories.STRUCTURE * categories.DEFENSE, mexposition, 20, 'Ally') < defenseunits then
+			if GetNumUnitsAroundPoint(aiBrain, DEFENSESTRUCTURES, mexposition, 20, 'Ally') < defenseunits then
             
                 if threat >= threatmin and threat <= threatmax then
                     return true
@@ -1103,6 +1123,7 @@ function MassExtractorInRangeHasLessThanDefense(aiBrain, locationType, mindistan
 	return false
 end
 
+
 function ShieldDamaged(aiBrain, locationType)
 
 	local BM = aiBrain.BuilderManagers[locationType]
@@ -1111,7 +1132,7 @@ function ShieldDamaged(aiBrain, locationType)
         return false
     end
 	
-	local shields = aiBrain:GetUnitsAroundPoint( categories.STRUCTURE * categories.SHIELD - categories.TECH2, BM.Position, BM.Radius, 'Ally' )
+	local shields = GetUnitsAroundPoint( aiBrain, SHIELDSTRUCTURES, BM.Position, BM.Radius, 'Ally' )
 	
 	for num, unit in shields do
 	

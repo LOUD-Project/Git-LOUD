@@ -40,7 +40,7 @@ local ENGINEER = categories.ENGINEER
 local LAND = categories.LAND
 local AIR = categories.AIR
 local NAVAL = categories.NAVAL
-
+local TRAFFICUNITS = categories.MOBILE - categories.EXPERIMENTAL - categories.AIR - categories.ENGINEER
 	
 function CreateFactoryBuilderManager(brain, lType, location, basetype)
 
@@ -808,12 +808,17 @@ FactoryBuilderManager = Class(BuilderManager) {
 	-- factory rally point - ordering them into formation if they are not in a platoon
 	-- this helps alleviate traffic issues and 'stuck' unit problems
 	TrafficControlThread = function(factory, factoryposition, rally)
-	
+        
+        local IsIdleState = IsIdleState
+        local LOUDINSERT = LOUDINSERT
+        local LOUDGETN = LOUDGETN
+        local WaitTicks = WaitTicks
+        
 		WaitTicks(30)
 	
 		local GetOwnUnitsAroundPoint = import('/lua/ai/aiutilities.lua').GetOwnUnitsAroundPoint
 		
-		local category = categories.MOBILE - categories.EXPERIMENTAL - categories.AIR - categories.ENGINEER
+		local category = TRAFFICUNITS
 		
 		local rallypoint = { rally[1],rally[2],rally[3] }
 		local factorypoint = { factoryposition[1], factoryposition[2], factoryposition[3] }
@@ -838,23 +843,22 @@ FactoryBuilderManager = Class(BuilderManager) {
 		end
 
 		local aiBrain = GetAIBrain(factory)
+        
+        local unitlist, units
 		
 		while true do
-		
-			local unitlist = nil
-			local units = nil
-			
+
 			WaitTicks(900)
 			
 			units = GetOwnUnitsAroundPoint( aiBrain, category, rallypoint, 16)
 			
 			if LOUDGETN(units) > 10 then
 			
-				local unitlist = {}
+				unitlist = {}
 				
 				for _,unit in units do
 				
-					if (unit.PlatoonHandle == aiBrain.ArmyPool) and unit:IsIdleState() then
+					if (unit.PlatoonHandle == aiBrain.ArmyPool) and IsIdleState(unit) then
 
 						LOUDINSERT( unitlist, unit )
 					end

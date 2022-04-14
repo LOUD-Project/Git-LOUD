@@ -5,12 +5,17 @@ local AIGetMarkerLocations = import('/lua/ai/aiutilities.lua').AIGetMarkerLocati
 local AIGetReclaimablesAroundLocation = import('/lua/ai/aiutilities.lua').AIGetReclaimablesAroundLocation
 local AISortMarkersFromLastPosWithThreatCheck = import('/lua/ai/aiutilities.lua').AISortMarkersFromLastPosWithThreatCheck
 
+local CanBuildStructureAt = moho.aibrain_methods.CanBuildStructureAt
+
+local GetCurrentUnits = moho.aibrain_methods.GetCurrentUnits
+
 local GetEconomyTrend = moho.aibrain_methods.GetEconomyTrend
 local GetEconomyStoredRatio = moho.aibrain_methods.GetEconomyStoredRatio
 local GetEconomyIncome = moho.aibrain_methods.GetEconomyIncome
 
 local GetEconomyRequested = moho.aibrain_methods.GetEconomyRequested
 local GetEconomyStored = moho.aibrain_methods.GetEconomyStored
+
 
 local VDist3 = VDist3
 
@@ -22,7 +27,81 @@ local IsUnitState = moho.unit_methods.IsUnitState
 
 local LOUDSORT = table.sort
 
+local T1FACTORIES = categories.STRUCTURE * categories.TECH1 * categories.FACTORY
+local T2FACTORIES = categories.STRUCTURE * categories.TECH2 * categories.FACTORY
+local T3FACTORIES = categories.STRUCTURE * categories.TECH3 * categories.FACTORY + categories.GATE
+    
+local function GetNumCategoryBeingBuiltByEngineers( EM, category, engCategory )
 
+	local counter = 0
+    local beingBuiltUnit
+
+    for _,v in EntityCategoryFilterDown( engCategory, EM.EngineerList ) do
+		
+        if not v.Dead and IsUnitState( v, 'Building' ) then
+            
+            beingBuiltUnit = v.UnitBeingBuilt
+			
+			if beingBuiltUnit and not beingBuiltUnit.Dead then
+            
+				if LOUDENTITY( category, beingBuiltUnit ) then
+					counter = counter + 1
+				end
+			end
+		end
+    end
+
+    return counter
+end
+
+local function GetNumCategoryBeingBuiltByFactories( FBM, category, facCategory )
+
+	local counter = 0
+    local beingBuiltUnit
+	
+	for _,v in EntityCategoryFilterDown( facCategory, FBM.FactoryList ) do
+		
+		if v.Dead then
+		
+			continue
+		end
+
+		if not IsUnitState( v, 'Upgrading' ) and not IsUnitState( v, 'Building' ) then
+		
+			continue
+		end
+
+		beingBuiltUnit = v.UnitBeingBuilt	
+		
+		if not beingBuiltUnit or beingBuiltUnit.Dead then
+		
+			continue
+		end
+
+		if not LOUDENTITY( category, beingBuiltUnit ) then
+		
+			continue
+		end
+
+		counter = counter + 1
+	end
+	
+	return counter    
+end
+
+-- this function used to be part of aibrain.lua
+-- brought it in here and I now use it to get values from both engineers and factories
+local function GetManagerUnitsBeingBuilt( aiBrain, category )
+	
+	local unitcount = 0
+		
+    for k,v in aiBrain.BuilderManagers do
+		unitcount = unitcount + GetNumCategoryBeingBuiltByEngineers( v.EngineerManager, category, categories.ENGINEER )
+		unitcount = unitcount + GetNumCategoryBeingBuiltByFactories( v.FactoryManager, category, categories.FACTORY )
+	end	
+	return unitcount
+end
+	
 function ReclaimablesInAreaMass(aiBrain, locType, range)
 
     local ents = AIGetReclaimablesAroundLocation( aiBrain, locType, range )
@@ -63,7 +142,7 @@ function CanBuildOnMassAtRange(aiBrain, locationType, mindistance, maxdistance, 
         
         LOUDSORT( markerlist, DOSORT )
 
-		local CanBuildStructureAt = moho.aibrain_methods.CanBuildStructureAt
+		local CanBuildStructureAt = CanBuildStructureAt
     
 		for _,v in markerlist do
             
@@ -101,7 +180,7 @@ function CanBuildOnHydroLessThanDistance(aiBrain, locationType, distance, tMin, 
 		local mlist = {}
 		local counter = 0
 	
-		local CanBuildStructureAt = moho.aibrain_methods.CanBuildStructureAt
+		local CanBuildStructureAt = CanBuildStructureAt
         local VDist2Sq = VDist2Sq
     
 		for _,v in markerlist do
@@ -258,78 +337,7 @@ function MassToFactoryRatioBaseCheck( aiBrain, locationType, massefficiency, ene
 			return false
 		end
 	end
-    
-    local function GetNumCategoryBeingBuiltByEngineers( EM, category, engCategory )
 
-		local counter = 0
-        local beingBuiltUnit
-
-        for _,v in EntityCategoryFilterDown( engCategory, EM.EngineerList ) do
-		
-            if not v.Dead and IsUnitState( v, 'Building' ) then
-            
-				beingBuiltUnit = v.UnitBeingBuilt
-			
-				if beingBuiltUnit and not beingBuiltUnit.Dead then
-            
-					if LOUDENTITY( category, beingBuiltUnit ) then
-						counter = counter + 1
-					end
-				end
-			end
-        end
-
-        return counter
-    end
-
-    local function GetNumCategoryBeingBuiltByFactories( FBM, category, facCategory )
-
-		local counter = 0
-        local beingBuiltUnit
-	
-		for _,v in EntityCategoryFilterDown( facCategory, FBM.FactoryList ) do
-		
-			if v.Dead then
-			
-				continue
-			end
-            
-			if not IsUnitState( v, 'Upgrading' ) and not IsUnitState( v, 'Building' ) then
-			
-				continue
-			end
-            
-			beingBuiltUnit = v.UnitBeingBuilt	
-			
-			if not beingBuiltUnit or beingBuiltUnit.Dead then
-			
-				continue
-			end
-            
-			if not LOUDENTITY( category, beingBuiltUnit ) then
-			
-				continue
-			end
-            
-			counter = counter + 1
-		end
-		
-		return counter    
-    end
-
-	-- this function used to be part of aibrain.lua
-	-- brought it in here and I now use it to get values from both engineers and factories
-	local function GetManagerUnitsBeingBuilt( category )
-	
-		local unitcount = 0
-		
-	    for k,v in aiBrain.BuilderManagers do
-			unitcount = unitcount + GetNumCategoryBeingBuiltByEngineers( v.EngineerManager, category, categories.ENGINEER )
-			unitcount = unitcount + GetNumCategoryBeingBuiltByFactories( v.FactoryManager, category, categories.FACTORY )
-		end	
-		return unitcount
-	end
-	
 	-- mult by 10 to save mult each time during check
 	MassIncome = MassIncome * 10
 	
@@ -340,11 +348,11 @@ function MassToFactoryRatioBaseCheck( aiBrain, locationType, massefficiency, ene
     local t2Drain = cheatmod * (aiBrain.BuilderManagers[locationType].BaseSettings.MassToFactoryValues.T2Value or 13)
     local t3Drain = cheatmod * (aiBrain.BuilderManagers[locationType].BaseSettings.MassToFactoryValues.T3Value or 18)
 	
-	local GetCurrentUnits = moho.aibrain_methods.GetCurrentUnits
+	local GetCurrentUnits = GetCurrentUnits
 
     -- T3 Test
 	-- get a list of all the T3 factories built plus those about to be built and multiply by the T3 drain
-	local factorycount = (GetCurrentUnits( aiBrain, categories.TECH3 * categories.FACTORY + categories.GATE ) + GetManagerUnitsBeingBuilt(categories.TECH3 * categories.FACTORY + categories.GATE))
+	local factorycount = (GetCurrentUnits( aiBrain, T3FACTORIES ) + GetManagerUnitsBeingBuilt( aiBrain, T3FACTORIES ))
     local massTotal = factorycount * t3Drain
 	
 	-- compare the drain to the income
@@ -354,7 +362,7 @@ function MassToFactoryRatioBaseCheck( aiBrain, locationType, massefficiency, ene
 
     -- T2 Test
 	-- add in the consumption of the T2 factories plus those about to be built
-    massTotal = massTotal + ((GetCurrentUnits( aiBrain, categories.TECH2 * categories.FACTORY) + GetManagerUnitsBeingBuilt(categories.TECH2 * categories.FACTORY)) * t2Drain)
+    massTotal = massTotal + ((GetCurrentUnits( aiBrain, T2FACTORIES ) + GetManagerUnitsBeingBuilt( aiBrain, T2FACTORIES )) * t2Drain)
 	
 	-- compare the drain to the income
     if massTotal >  MassIncome then
@@ -363,7 +371,7 @@ function MassToFactoryRatioBaseCheck( aiBrain, locationType, massefficiency, ene
 	
     -- T1 Test
 	-- add in the consumption of the T1 factories plus those about to be built
-    massTotal = massTotal + ((GetCurrentUnits( aiBrain, categories.TECH1 * categories.FACTORY ) + GetManagerUnitsBeingBuilt(categories.TECH1 * categories.FACTORY)) * t1Drain)
+    massTotal = massTotal + ((GetCurrentUnits( aiBrain, T1FACTORIES ) + GetManagerUnitsBeingBuilt( aiBrain, T1FACTORIES )) * t1Drain)
     
 	-- compare the drain to the income
 	-- and add in consumption of the new factory

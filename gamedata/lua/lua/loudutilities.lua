@@ -47,6 +47,7 @@ local GetPlatoonPosition = moho.platoon_methods.GetPlatoonPosition
 local GetPosition = moho.entity_methods.GetPosition
 local GetThreatAtPosition = moho.aibrain_methods.GetThreatAtPosition
 local GetThreatsAroundPosition = moho.aibrain_methods.GetThreatsAroundPosition
+local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
 
 local IsBeingBuilt = moho.unit_methods.IsBeingBuilt
 
@@ -59,6 +60,9 @@ local MakePlatoon = moho.aibrain_methods.MakePlatoon
 local PlatoonCategoryCount = moho.platoon_methods.PlatoonCategoryCount
 local PlatoonExists = moho.aibrain_methods.PlatoonExists
 
+local EXTRACTORS = categories.MASSEXTRACTION - categories.TECH1
+local FABRICATORS = categories.MASSFABRICATION * categories.TECH3
+local PARAGONS = categories.MASSFABRICATION * categories.EXPERIMENTAL
 
 local timeACTBrains = {}
 local ratioACTBrains = {}
@@ -298,11 +302,11 @@ function HasMassPointShare( aiBrain, multiple )
     
     if units[1] then
 	
-        extractorCount = EntityCategoryCount( categories.MASSEXTRACTION - categories.TECH1, units)
+        extractorCount = EntityCategoryCount( EXTRACTORS, units)
     
-        extractorCount = extractorCount + ( EntityCategoryCount( categories.MASSFABRICATION * categories.TECH3, units) * .5)
+        extractorCount = extractorCount + ( EntityCategoryCount( FABRICATORS, units) * .5)
     
-        extractorCount = extractorCount + ( EntityCategoryCount( categories.MASSFABRICATION * categories.EXPERIMENTAL, units) * 4)
+        extractorCount = extractorCount + ( EntityCategoryCount( PARAGONS, units) * 4)
 
         -- The Extractor count is increased by the AIMult (which is carried in aiBrain.VeterancyMult)
         -- so an AI with a high cheat will consider itself to have it's share sooner
@@ -322,11 +326,11 @@ function NeedMassPointShare( aiBrain, multiple )
 	
     if units[1] then
 
-        extractorCount = EntityCategoryCount( categories.MASSEXTRACTION - categories.TECH1, units)
+        extractorCount = EntityCategoryCount( EXTRACTORS, units)
     
-        extractorCount = extractorCount + ( EntityCategoryCount( categories.MASSFABRICATION * categories.TECH3, units) * .5)
+        extractorCount = extractorCount + ( EntityCategoryCount( FABRICATORS, units) * .5)
     
-        extractorCount = extractorCount + ( EntityCategoryCount( categories.MASSFABRICATION * categories.EXPERIMENTAL, units) * 4)
+        extractorCount = extractorCount + ( EntityCategoryCount( PARAGONS, units) * 4)
 
         -- The Extractor count is increased by the AIMult (which is carried in aiBrain.VeterancyMult)
         -- so an AI with a high cheat will consider itself to have it's share sooner
@@ -340,7 +344,7 @@ end
 function TeamMassPointShare( aiBrain, bool )
 
     -- the Extractor count is increased by the AIMult so we trigger this earlier than the count would indicate
-	local TeamExtractors = LOUDGETN(aiBrain:GetUnitsAroundPoint( categories.MASSEXTRACTION, VectorCached, 9999, 'Ally' )) * aiBrain.VeterancyMult
+	local TeamExtractors = LOUDGETN( GetUnitsAroundPoint( aiBrain, categories.MASSEXTRACTION, VectorCached, 9999, 'Ally' )) * aiBrain.VeterancyMult
     
 	local TeamNeeded = aiBrain.MassPointShare * aiBrain.TeamSize
 	
@@ -364,7 +368,7 @@ end
 -- modified this so that T1 mass extractors DONT count
 function NeedTeamMassPointShare( aiBrain )
 
-	local TeamExtractors = LOUDGETN(aiBrain:GetUnitsAroundPoint( categories.MASSEXTRACTION - categories.TECH1, VectorCached, 9999, 'Ally' )) * aiBrain.VeterancyMult
+	local TeamExtractors = LOUDGETN( GetUnitsAroundPoint( aiBrain, EXTRACTORS, VectorCached, 9999, 'Ally' )) * aiBrain.VeterancyMult
     
 	local TeamNeeded = aiBrain.MassPointShare * aiBrain.TeamSize
 
@@ -462,7 +466,7 @@ function GetEnemyUnitsInRect( aiBrain, x1, z1, x2, z2 )
 		local counter = 1
 		
         local IsEnemy = IsEnemy
-		local GetAIBrain = moho.entity_methods.GetAIBrain
+		local GetAIBrain = GetAIBrain
 		
         for _,v in units do
 		
@@ -1120,7 +1124,7 @@ function PlatoonDistressMonitor( aiBrain )
 	-- create the data structure
     aiBrain.PlatoonDistress = { ['AlertSounded'] = false, ['Platoons'] = {} }
 
-    local PlatoonExists = moho.aibrain_methods.PlatoonExists
+    local PlatoonExists = PlatoonExists
 	local LOUDGETN = table.getn
     local RebuildTable = aiBrain.RebuildTable
 
@@ -1926,13 +1930,13 @@ function AirUnitRefitThread( unit, aiBrain )
 		local rtbissued = false
 
         local GetFuelRatio = GetFuelRatio
-        local GetCurrentUnits = moho.aibrain_methods.GetCurrentUnits
+        local GetCurrentUnits = GetCurrentUnits
         
         local LOUDCOPY = table.copy
         local LOUDSORT = table.sort
         
         local VDist3Sq = VDist3Sq
-        local WaitTicks = coroutine.yield
+        local WaitTicks = WaitTicks
         
         
 
@@ -2418,7 +2422,7 @@ function EconomyMonitor( aiBrain )
         --aiBrain.EcoData['MassStorage'][point] = 0        
 	end    
 
-    local GetEconomyIncome = moho.aibrain_methods.GetEconomyIncome
+    local GetEconomyIncome = GetEconomyIncome
     local GetEconomyRequested = moho.aibrain_methods.GetEconomyRequested
 	local GetEconomyTrend = moho.aibrain_methods.GetEconomyTrend
     --local GetEconomyStoredRatio = moho.aibrain_methods.GetEconomyStoredRatio
@@ -2955,7 +2959,7 @@ function DeadBaseMonitor( aiBrain )
 
     local EntityCategoryCount = EntityCategoryCount
     
-	local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
+	local GetUnitsAroundPoint = GetUnitsAroundPoint
     local RebuildTable = aiBrain.RebuildTable
     
   	local GetOwnUnitsAroundPoint = import('/lua/ai/aiutilities.lua').GetOwnUnitsAroundPoint
@@ -3162,7 +3166,7 @@ function PathGeneratorAir( aiBrain )
 	
     local GetThreatAtPosition = GetThreatAtPosition
 	local GetThreatBetweenPositions = moho.aibrain_methods.GetThreatBetweenPositions
-    local PlatoonExists = moho.aibrain_methods.PlatoonExists
+    local PlatoonExists = PlatoonExists
 
 	local LOUDCOPY = LOUDCOPY
     local LOUDEQUAL = table.equal
@@ -3179,7 +3183,7 @@ function PathGeneratorAir( aiBrain )
 	local VDist2 = VDist2
     local VDist3 = VDist3
 
-	local WaitTicks = coroutine.yield
+	local WaitTicks = WaitTicks
 
 	local dist_comp = aiBrain.dist_comp
 	
@@ -3376,7 +3380,7 @@ function PathGeneratorAmphibious(aiBrain)
 
     local GetThreatAtPosition = GetThreatAtPosition
 	local GetThreatBetweenPositions = moho.aibrain_methods.GetThreatBetweenPositions
-    local PlatoonExists = moho.aibrain_methods.PlatoonExists
+    local PlatoonExists = PlatoonExists
 
 	local LOUDCOPY = LOUDCOPY
     local LOUDEQUAL = table.equal
@@ -3392,7 +3396,7 @@ function PathGeneratorAmphibious(aiBrain)
     local VDist2 = VDist2
 	local VDist2Sq = VDist2Sq
     
-	local WaitTicks = coroutine.yield
+	local WaitTicks = WaitTicks
 	
 	local dist_comp = aiBrain.dist_comp
 	
@@ -3587,7 +3591,7 @@ function PathGeneratorLand(aiBrain)
 
     local GetThreatAtPosition = GetThreatAtPosition
 	local GetThreatBetweenPositions = moho.aibrain_methods.GetThreatBetweenPositions
-    local PlatoonExists = moho.aibrain_methods.PlatoonExists
+    local PlatoonExists = PlatoonExists
 
 	local LOUDCOPY = LOUDCOPY
     local LOUDEQUAL = table.equal
@@ -3601,7 +3605,7 @@ function PathGeneratorLand(aiBrain)
 
     local VDist2 = VDist2
 	local VDist2Sq = VDist2Sq
-	local WaitTicks = coroutine.yield
+	local WaitTicks = WaitTicks
 	
 	local dist_comp = aiBrain.dist_comp
     
@@ -4183,7 +4187,7 @@ function ParseIntelThread( aiBrain )
 	local GETTHREATATPOSITION = GetThreatAtPosition
 	local GetListOfUnits = moho.aibrain_methods.GetListOfUnits
 	local GetPosition = moho.entity_methods.GetPosition
-	local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
+	local GetUnitsAroundPoint = GetUnitsAroundPoint
 	local GetThreatsAroundPosition = GetThreatsAroundPosition
 
 	local LOUDMAX = math.max
