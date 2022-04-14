@@ -1553,7 +1553,7 @@ function UpdateAvailableSlots( numAvailStartSpots )
 	
 end
 
-local function TryLaunch(skipNoObserversCheck, skipSandboxCheck, skipTimeLimitCheck)
+local function TryLaunch(skipNoObserversCheck, skipSandboxCheck, skipTimeLimitCheck, skipUnitCapCheck)
 
     if not singlePlayer then
 	
@@ -1666,12 +1666,22 @@ local function TryLaunch(skipNoObserversCheck, skipSandboxCheck, skipTimeLimitCh
         return
     end
 
-    if tonumber(gameInfo.GameOptions['UnitCap']) < 350 then
-        AddChatText("Unit Cap is too low. Please set it between 350 and 5000.")
+    if tonumber(gameInfo.GameOptions['UnitCap']) < 400 then
+        AddChatText("Unit Cap is too low. Please set it between 400 and 5000.")
         return
-    elseif tonumber(gameInfo.GameOptions['UnitCap']) > 5000 then
-        AddChatText("Unit Cap is too high. Please set it between 350 and 5000.")
-        return
+        
+    elseif tonumber(gameInfo.GameOptions['UnitCap']) > 5000 and not skipUnitCapCheck then
+    	
+		UIUtil.QuickDialog(GUI, "Your unit cap is Excessively high. Do you still wish to launch?",
+						   "<LOC _Yes>", function() TryLaunch(false, false, false, true) end,
+						   "<LOC _No>", nil,
+						   nil, nil, 
+						   true,
+						   {worldCover = false, enterButton = 1, escapeButton = 2}
+					   )
+		return	
+        --AddChatText("Unit Cap is too high - this game may crash. We suggest you set it between 400 and 5000.")
+        --return
     end
 
     if gameInfo.GameOptions['Victory'] ~= 'sandbox' then
@@ -1694,7 +1704,7 @@ local function TryLaunch(skipNoObserversCheck, skipSandboxCheck, skipTimeLimitCh
 	elseif gameInfo.GameOptions['Victory'] == 'sandbox'	and not skipSandboxCheck then
 	
 		UIUtil.QuickDialog(GUI, "Victory condition is set to Sandbox. Do you still wish to launch?",
-						   "<LOC _Yes>", function() TryLaunch(false, true, true) end,
+						   "<LOC _Yes>", function() TryLaunch(false, true, true, true) end,
 						   "<LOC _No>", nil,
 						   nil, nil, 
 						   true,
@@ -1706,7 +1716,7 @@ local function TryLaunch(skipNoObserversCheck, skipSandboxCheck, skipTimeLimitCh
 	if gameInfo.GameOptions['Victory'] ~= 'sandbox' and gameInfo.GameOptions['TimeLimitSetting'] ~= "0" and not skipTimeLimitCheck then
 	
 		UIUtil.QuickDialog(GUI, "A Time Limit has been set on this game. Do you still wish to launch?",
-						   "<LOC _Yes>", function() TryLaunch(false, true, true) end,
+						   "<LOC _Yes>", function() TryLaunch(false, true, true, true) end,
 						   "<LOC _No>", nil,
 						   nil, nil, 
 						   true,
