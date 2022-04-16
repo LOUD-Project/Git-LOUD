@@ -47,7 +47,6 @@ local TrashDestroy = TrashBag.Destroy
 
 local WaitTicks = coroutine.yield
 
---local CreateAttachedEmitter = CreateAttachedEmitter
 local GetAIBrain = moho.unit_methods.GetAIBrain
 
 local LOUDGETN = table.getn

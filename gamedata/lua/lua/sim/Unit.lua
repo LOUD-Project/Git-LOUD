@@ -12,6 +12,7 @@ local CleanupEffectBag = import('/lua/EffectUtilities.lua').CleanupEffectBag
 local CreateUnitDestructionDebris = import('/lua/EffectUtilities.lua').CreateUnitDestructionDebris
 
 local Game = import('/lua/game.lua')
+local GetConstructEconomyModel = Game.GetConstructEconomyModel
 
 local GetEnemyUnitsInSphere = import('/lua/utilities.lua').GetEnemyUnitsInSphere
 
@@ -200,7 +201,7 @@ Unit = Class(moho.unit_methods) {
 		
 		local bp = GetBlueprint(self)
         
-        self.Army = self.Sync.army
+        --self.Army = self.Sync.army
 		
 		self.BlueprintID = bp.BlueprintId
         
@@ -560,7 +561,7 @@ Unit = Class(moho.unit_methods) {
                     self.SeenEverDelay[index] = 0
                 end
 				
-                WaitTicks(2)
+                WaitTicks(6)
 				
 			end
 			
@@ -652,29 +653,24 @@ Unit = Class(moho.unit_methods) {
 
         local bp = ALLBPS[self.BlueprintID]
 
-        local sx = bp.SizeX or 0.5
-        local sy = bp.SizeY or 0.5
-        local sz = bp.SizeZ or 0.5
-
+        local sx = scalar * (bp.SizeX or 0.5)
+        local sy = scalar * (bp.SizeY or 0.5)
+        local sz = scalar * (bp.SizeZ or 0.5)
+        
+		local RD = Random()
+		
+        sx = RD * sx - (sx * 0.5)
+        local y  = RD * sy + (bp.CollisionOffsetY or 0)
+        sz = RD * sz - (sz * 0.5)
+        
         local heading = GetHeading(self)
         
 		local LC = LOUDCOS(heading)
 		local LS = LOUDSIN(heading)
         
-		local RD = Random()
+        return LC*sx - LS*sz, y, LS*sx - LC*sz
 
-        sx = sx * scalar
-        sy = sy * scalar
-        sz = sz * scalar
-		
-        local rx = RD * sx - (sx * 0.5)
-        local y  = RD * sy + (bp.CollisionOffsetY or 0)
-        local rz = RD * sz - (sz * 0.5)
-        
-        local x = LC*rx - LS*rz
-        local z = LS*rx - LC*rz
-
-        return x,y,z
+        --return x,y,z
 		
     end,
 
@@ -1332,7 +1328,7 @@ Unit = Class(moho.unit_methods) {
 				-- if the unit is enhancing (as opposed to upgrading ie. - commander, subcommander)
 				if self.WorkItem then
 				
-					time, energy, mass = Game.GetConstructEconomyModel(self, self.WorkItem, rate)
+					time, energy, mass = GetConstructEconomyModel(self, self.WorkItem, rate)
 				
 				-- if the unit is assisting something that is building ammo
 				elseif focus and IsUnitState(focus,'SiloBuildingAmmo') then
@@ -1341,7 +1337,7 @@ Unit = Class(moho.unit_methods) {
 					--of the silo against the build rate of the assisting unit
 					time, energy, mass = focus:GetBuildCosts(focus.SiloProjectile)
 
-					local siloBuildRate = focus:GetBuildRate() or 1
+					local siloBuildRate = GetBuildRate(focus) or 1
 					
 					energy = (energy / siloBuildRate) * rate
 					mass = (mass / siloBuildRate) * rate
@@ -1349,7 +1345,7 @@ Unit = Class(moho.unit_methods) {
 				-- if the unit is building, upgrading or assisting an upgrade, or repairing something
 				elseif focus then
 
-					time, energy, mass = Game.GetConstructEconomyModel( self, ALLBPS[focus.BlueprintID].Economy, rate )
+					time, energy, mass = GetConstructEconomyModel( self, ALLBPS[focus.BlueprintID].Economy, rate )
 					
 				end
 			
@@ -3861,7 +3857,7 @@ Unit = Class(moho.unit_methods) {
     -- Return the total time in seconds, cost in energy, and cost in mass to build the given target type.
     GetBuildCosts = function(self, target_bp)
 
-        return Game.GetConstructEconomyModel(self, target_bp.Economy)
+        return GetConstructEconomyModel(self, target_bp.Economy)
 		
     end,
 
