@@ -35,6 +35,7 @@ local CreateProjectile = moho.entity_methods.CreateProjectile
 local GetFractionComplete = moho.entity_methods.GetFractionComplete
 local GetPosition = moho.entity_methods.GetPosition
 local HideBone = moho.unit_methods.HideBone
+local IsBeingBuilt = moho.unit_methods.IsBeingBuilt
 local ScaleEmitter = moho.IEffect.ScaleEmitter
 local SetMesh = moho.entity_methods.SetMesh
 local SetVelocity = moho.projectile_methods.SetVelocity
@@ -791,6 +792,7 @@ function CreateDefaultBuildBeams( builder, unitBeingBuilt, BuildEffectBones, Bui
 
     local Random = Random
     local RandomOffset = builder.GetRandomOffset
+    local ScaleEmitter = ScaleEmitter
 
     local army = builder.Sync.army
     
@@ -807,7 +809,7 @@ function CreateDefaultBuildBeams( builder, unitBeingBuilt, BuildEffectBones, Bui
         
         local pos = LOUDCOPY(GetPosition(unitBeingBuilt))
 
-        while not builder.Dead and not unitBeingBuilt.Dead do
+        while not builder.Dead and not unitBeingBuilt.Dead and IsBeingBuilt(unitBeingBuilt) do
 
             x, y, z = RandomOffset(unitBeingBuilt, 1.02 )
         
@@ -886,6 +888,7 @@ function CreateCybranBuildBeams( builder, unitBeingBuilt, BuildEffectBones, Buil
 
     local Random = Random
     local RandomOffset = unitBeingBuilt.GetRandomOffset
+    local ScaleEmitter = ScaleEmitter
 
     local army = builder.Sync.army
     
@@ -902,7 +905,7 @@ function CreateCybranBuildBeams( builder, unitBeingBuilt, BuildEffectBones, Buil
         
         local pos = LOUDCOPY(GetPosition(unitBeingBuilt))
 
-        while not builder.Dead and not unitBeingBuilt.Dead do
+        while not builder.Dead and not unitBeingBuilt.Dead and IsBeingBuilt(unitBeingBuilt) do
 
             x, y, z = RandomOffset( unitBeingBuilt, 1 )
         
