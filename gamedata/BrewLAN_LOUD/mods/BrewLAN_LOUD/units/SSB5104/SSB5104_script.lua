@@ -1,4 +1,4 @@
-local SAirStagingPlatformUnit = import('/lua/seraphimunits.lua').SAirStagingPlatformUnit
+local SAirStagingPlatformUnit = import('/lua/defaultunits.lua').AirStagingPlatformUnit
 
 local EffectTemplates = import('/lua/EffectTemplates.lua')
 

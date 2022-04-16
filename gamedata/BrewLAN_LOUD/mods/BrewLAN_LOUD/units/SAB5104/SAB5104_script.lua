@@ -1,4 +1,4 @@
-local AAirStagingPlatformUnit = import('/lua/aeonunits.lua').AAirStagingPlatformUnit
+local AAirStagingPlatformUnit = import('/lua/defaultunits.lua').AirStagingPlatformUnit
 
 SAB5104 = Class(AAirStagingPlatformUnit) {}
 
