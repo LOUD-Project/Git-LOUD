@@ -4,11 +4,15 @@ local import = import
 
 local AIAddMustScoutArea = import('ai/aiutilities.lua').AIAddMustScoutArea
 local AIGetClosestMarkerLocation = import('ai/aiutilities.lua').AIGetClosestMarkerLocation
+local AIGetMarkersAroundLocation = import('ai/aiutilities.lua').AIGetMarkersAroundLocation
 local AIGetReclaimablesAroundLocation = import('ai/aiutilities.lua').AIGetReclaimablesAroundLocation
 local CheckUnitPathingEx = import('ai/aiutilities.lua').CheckUnitPathingEx
+local GetNumberOfOwnUnitsAroundPoint = import('ai/aiutilities.lua').GetNumberOfOwnUnitsAroundPoint
 local GetOwnUnitsAroundPoint = import('ai/aiutilities.lua').GetOwnUnitsAroundPoint
 local GetOwnUnitsAroundPointWithThreatCheck = import('ai/aiutilities.lua').GetOwnUnitsAroundPointWithThreatCheck
-local GetNumberOfOwnUnitsAroundPoint = import('ai/aiutilities.lua').GetNumberOfOwnUnitsAroundPoint
+local RandomLocation = import('ai/aiutilities.lua').RandomLocation
+
+
 
 local AIFindDefensivePointNeedsStructure = import('/lua/ai/altaiutilities.lua').AIFindDefensivePointNeedsStructure
 local AIFindDefensivePointForDP = import('/lua/ai/altaiutilities.lua').AIFindDefensivePointForDP
@@ -19,7 +23,7 @@ local AIFindNavalAreaForExpansion = import('/lua/ai/altaiutilities.lua').AIFindN
 local AIFindNavalDefensivePointNeedsStructure = import('/lua/ai/altaiutilities.lua').AIFindNavalDefensivePointNeedsStructure
 local AIFindStartPointNeedsStructure = import('/lua/ai/altaiutilities.lua').AIFindStartPointNeedsStructure
 local AISendPing = import('/lua/ai/altaiutilities.lua').AISendPing
-
+local AssistBody = import('/lua/ai/altaiutilities.lua').AssistBody
 local GetHiPriTargetList = import('/lua/ai/altaiutilities.lua').GetHiPriTargetList
 local GetTemplateReplacement = import('/lua/ai/altaiutilities.lua').GetTemplateReplacement
 local GetTransports = import('/lua/ai/altaiutilities.lua').GetTransports
@@ -35,6 +39,11 @@ local AINewExpansionBase = import('/lua/ai/aibuildstructures.lua').AINewExpansio
 
 local Behaviors = import('/lua/ai/aibehaviors.lua')
 
+local CreatePlatoonToPositionDistanceTrigger = import('/lua/scenariotriggers.lua').CreatePlatoonToPositionDistanceTrigger
+
+local GetDirection = import('/lua/utilities.lua').GetDirectionInDegrees
+
+local AIFindTargetInRangeInCategoryWithThreatFromPosition = import('/lua/ai/aiattackutilities.lua').AIFindTargetInRangeInCategoryWithThreatFromPosition
 local FindPointMeetsConditions = import('/lua/ai/aiattackutilities.lua').FindPointMeetsConditions
 local FindTargetInRange = import('/lua/ai/aiattackutilities.lua').FindTargetInRange
 local GetMostRestrictiveLayer = import('/lua/ai/aiattackutilities.lua').GetMostRestrictiveLayer
@@ -45,9 +54,16 @@ local FindDamagedShield = import('/lua/ai/sorianutilities.lua').FindDamagedShiel
 local AISendChat = import('/lua/ai/sorianutilities.lua').AISendChat
 
 local BaseInPlayableArea = import('loudutilities.lua').BaseInPlayableArea
+local DisperseUnitsToRallyPoints = import('/lua/loudutilities.lua').DisperseUnitsToRallyPoints
 local FindClosestBaseName = import('loudutilities.lua').FindClosestBaseName
 local GetBasePerimeterPoints = import('/lua/loudutilities.lua').GetBasePerimeterPoints
+local GetBaseWithGreatestThreatAtDistance = import('/lua/loudutilities.lua').GetBaseWithGreatestThreatAtDistance
+local GetPrimaryLandAttackBase = import('/lua/loudutilities.lua').GetPrimaryLandAttackBase
+local GetPrimarySeaAttackBase = import('/lua/loudutilities.lua').GetPrimarySeaAttackBase
 local ProcessAirUnits = import('/lua/loudutilities.lua').ProcessAirUnits
+
+local UnitCapCheckGreater = import('/lua/editor/UnitCountBuildConditions.lua').UnitCapCheckGreater
+
 
 local AssignUnitsToPlatoon = moho.aibrain_methods.AssignUnitsToPlatoon
 local BeenDestroyed = moho.entity_methods.BeenDestroyed
@@ -55,7 +71,6 @@ local BuildStructure = moho.aibrain_methods.BuildStructure
 local CalculatePlatoonThreat = moho.platoon_methods.CalculatePlatoonThreat
 local CanAttackTarget = moho.platoon_methods.CanAttackTarget
 local CanBuildStructureAt = moho.aibrain_methods.CanBuildStructureAt
-
 local GetAIBrain = moho.unit_methods.GetAIBrain
 local GetBlueprint = moho.entity_methods.GetBlueprint
 local GetBrain = moho.platoon_methods.GetBrain
@@ -63,16 +78,12 @@ local GetFractionComplete = moho.entity_methods.GetFractionComplete
 local GetPlatoonPosition = moho.platoon_methods.GetPlatoonPosition
 local GetPlatoonUnits = moho.platoon_methods.GetPlatoonUnits
 local GetPosition = moho.entity_methods.GetPosition
-
 local GetSquadUnits = moho.platoon_methods.GetSquadUnits
-
 local GetThreatAtPosition = moho.aibrain_methods.GetThreatAtPosition
 local GetThreatBetweenPositions = moho.aibrain_methods.GetThreatBetweenPositions
 local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
-
 local IsIdleState = moho.unit_methods.IsIdleState
 local IsUnitState = moho.unit_methods.IsUnitState
-
 local PlatoonCategoryCount = moho.platoon_methods.PlatoonCategoryCount
 local PlatoonCategoryCountAroundPosition = moho.platoon_methods.PlatoonCategoryCountAroundPosition
 local PlatoonExists = moho.aibrain_methods.PlatoonExists
@@ -80,7 +91,6 @@ local PlatoonExists = moho.aibrain_methods.PlatoonExists
 local LOUDABS = math.abs
 local LOUDCAT = table.cat
 local LOUDCEIL = math.ceil
-
 local LOUDCOPY = table.copy
 local LOUDDEEPCOPY = table.deepcopy
 local LOUDENTITY = EntityCategoryContains
@@ -102,18 +112,17 @@ local VDist3 = VDist3
 
 local ForkThread = ForkThread
 local ForkTo = ForkThread
-
 local KillThread = KillThread
-
 local TrashBag = TrashBag
 local TrashAdd = TrashBag.Add
 local TrashDestroy = TrashBag.Destroy
-
 local WaitTicks = coroutine.yield
 
 local AIRUNITS = categories.AIR * categories.MOBILE - categories.EXPERIMENTAL
 local ENGINEERS = categories.ENGINEER
 
+-- types of threat to look at based on composition of platoon
+local ThreatTable = { Land = 'AntiSurface', Water = 'AntiSurface', Amphibious = 'AntiSurface', Air = 'AntiAir', }
 
 Platoon = Class(moho.platoon_methods) {
     
@@ -311,10 +320,9 @@ Platoon = Class(moho.platoon_methods) {
             -- make a copy of the original to use for the primary loop
             local pathcopy = LOUDCOPY(path)
             
-            local GetDirection = import('/lua/utilities.lua').GetDirectionInDegrees
-            
             local Direction, SCOUTS, ATTACKS, ARTILLERY, GUARDS, SUPPORTS
             
+            local GetDirection = GetDirection            
             local GetSquadUnits = GetSquadUnits
             local GetPlatoonUnits = GetPlatoonUnits
             local LOUDCOPY = LOUDCOPY
@@ -442,12 +450,11 @@ Platoon = Class(moho.platoon_methods) {
     -- returns true if a target was prosecuted - false if not
     PlatoonFindTarget = function( self, aiBrain, squad, scanposition, range, attackcategories)
     
-        local GetDirection = import('/lua/utilities.lua').GetDirectionInDegrees
-
+        local GetDirection = GetDirection
         local GetPlatoonPosition = GetPlatoonPosition
         local GetSquadUnits = GetSquadUnits
-
         local PlatoonExists = PlatoonExists
+        
         local VDist3 = VDist3
         local WaitTicks = WaitTicks
         
@@ -672,7 +679,7 @@ Platoon = Class(moho.platoon_methods) {
 
 		if self.MovementLayer == 'Land' or self.MovementLayer == 'Amphibious' then
 		
-			local AIGetMarkersAroundLocation = import('ai/aiutilities.lua').AIGetMarkersAroundLocation
+			local AIGetMarkersAroundLocation = AIGetMarkersAroundLocation
 
             local CalculatePlatoonThreat = CalculatePlatoonThreat
 			local GetThreatAtPosition = GetThreatAtPosition
@@ -682,6 +689,10 @@ Platoon = Class(moho.platoon_methods) {
     
             local GetPlatoonPosition = GetPlatoonPosition
             local GetPlatoonUnits = GetPlatoonUnits
+            
+            local GetSurfaceHeight = GetSurfaceHeight
+            local GetTerrainHeight = GetTerrainHeight
+            
             local PlatoonExists = PlatoonExists
 
             local LOUDCOPY = LOUDCOPY
@@ -698,6 +709,7 @@ Platoon = Class(moho.platoon_methods) {
 			local counter = 0
 			local bUsedTransports = false
 			local transportplatoon = false
+            
 			local IsEngineer = PlatoonCategoryCount( self, ENGINEERS ) > 0
             
             local TESTUNITS = categories.ALLUNITS - categories.FACTORY - categories.ECONOMIC - categories.SHIELD - categories.WALL
@@ -708,8 +720,11 @@ Platoon = Class(moho.platoon_methods) {
 			if self.MovementLayer == 'Land' then
 			
 				if GetTerrainHeight(destination[1], destination[3]) < GetSurfaceHeight(destination[1], destination[3]) - 2 then 
-				
-					LOG("*AI DEBUG SendPlatWTrans says Water for "..repr(destination).." for builder "..repr(self.BuilderName) )
+
+                    if TransportDialog then	
+                        LOG("*AI DEBUG SendPlatWTrans says Water for "..repr(destination).." for builder "..repr(self.BuilderName) )
+                    end
+                    
 					return false
 				end
 			end
@@ -779,6 +794,8 @@ Platoon = Class(moho.platoon_methods) {
 				if afake > 0 and afake > airthreat then
 					airthreat = (airthreat + afake) * .5
 				end
+                
+                return surthreat, airthreat
 			end
 
 			-- a local function to find an alternate Drop point which satisfies both transports and self for threat and a path to the goal
@@ -786,7 +803,7 @@ Platoon = Class(moho.platoon_methods) {
 
 				local markerlist = {}
                 local stest, atest
-                local landpath, reason, pathlength
+                local path, landpath, reason, landreason, pathlength, landpathlength, lastlocationtested
 	
 				-- locate the requested markers within markerrange of the supplied location	that the platoon can safely land at
 				for _,v in markerTypes do
@@ -801,13 +818,27 @@ Platoon = Class(moho.platoon_methods) {
 				-- and a safe path for the transports -- use the first one that satisfies both
 				for _, v in markerlist do
 
+                    if lastlocationtested and LOUDEQUAL(lastlocationtested, v.Position) then
+                        
+                        continue
+                    end
+                    
+                    lastlocationtested = LOUDCOPY( v.Position )
+                    
 					-- test the real values for that position
 					stest, atest = GetRealThreatAtPosition( v.Position, 80 )
+			
+                    if TransportDialog then                    
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..transportplatoon.BuilderName.." examines position "..repr(v.Position).."  Surface threat "..stest.." -- Air threat "..atest)
+                    end
 		
 					if stest <= threatMax and atest <= airthreatMax then
 
+                        landpath = false
+                        landpathlength = 0
+                        
 						-- can the platoon path safely from this marker to the final destination 
-						landpath, reason, pathlength = PlatoonGenerateSafePathToLOUD(aiBrain, self, layer, destination, v.Position, threatMax, 160 )
+						landpath, landreason, landpathlength = PlatoonGenerateSafePathToLOUD(aiBrain, self, layer, destination, v.Position, threatMax, 160 )
 	
 						-- can the transports reach that marker ?
 						if landpath then
@@ -818,9 +849,18 @@ Platoon = Class(moho.platoon_methods) {
 							path, reason, pathlength = PlatoonGenerateSafePathToLOUD( aiBrain, transportplatoon, 'Air', v.Position, GetPlatoonPosition(self), airthreatMax, 256 )
 						
 							if path then
+
+                                if TransportDialog then
+                                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." gets path to "..repr(destination).." from landing at "..repr(v.Position).." path length is "..pathlength.." using threatmax of "..threatMax)
+                                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." path reason "..landreason.." route is "..repr(landpath))
+                                end
+                                
 								return v.Position, v.Name
 							else
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." got transports but they cannot find a safe drop point")
+
+                                if TransportDialog then
+                                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." got transports but they cannot find a safe drop point")
+                                end
                                 
                                 if platoonpath then
                                     LOG("*AI DEBUG "..aBrain.Nickname.." "..self.BuilderName.." has a path of it's own "..repr(platoonpath))
@@ -841,13 +881,13 @@ Platoon = Class(moho.platoon_methods) {
 			
 			-- a threat value for the transports based upon the number of transports
 			local transportcount = LOUDGETN( GetPlatoonUnits(transportplatoon))
-			
+
 			local airthreatMax = transportcount * 5
 			
 			airthreatMax = airthreatMax + ( airthreatMax * LOUDLOG10(transportcount))
 			
             if TransportDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..transportplatoon.BuilderName.." with "..transportcount.." airthreatMax = "..repr(airthreatMax).." calc is "..math.log10(transportcount) )
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..transportplatoon.BuilderName.." with "..transportcount.." airthreatMax = "..repr(airthreatMax).." extra calc was "..math.log10(transportcount) )
             end
 			
 			-- this is the desired drop location
@@ -856,41 +896,55 @@ Platoon = Class(moho.platoon_methods) {
 			-- our own threat
 			local mythreat = CalculatePlatoonThreat( self, 'Surface', categories.ALLUNITS)
 			
-			if not mythreat then 
-				mythreat = 1
+			if not mythreat or mythreat < 5 then 
+				mythreat = 5
 			end
 			
 			-- get the real known threat at the destination within 80 grids
-			GetRealThreatAtPosition( destination, 80 )
+			surthreat, airthreat = GetRealThreatAtPosition( destination, 80 )
 
 			-- if the destination doesn't look good, use alternate or false
 			if surthreat > mythreat or airthreat > airthreatMax then
+            
+                if (mythreat * 1.5) > surthreat then
 			
-				-- we'll look for a safe drop zone at least 25% closer than we already are
-				local markerrange = VDist3( GetPlatoonPosition(self), destination ) * .75
+                    -- otherwise we'll look for a safe drop zone at least 50% closer than we already are
+                    local markerrange = VDist3( GetPlatoonPosition(self), destination ) * .5
 				
-                if TransportDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..transportplatoon.BuilderName.." carrying "..self.BuilderName.." seeking alternate landing zone within "..markerrange.." of destination "..repr(destination))
-                end
-                
-				transportLocation = false
-
-				-- If destination is too hot -- locate the nearest movement marker that is safe
-				if self.MovementLayer == 'Amphibious' then
-				
-					transportLocation = FindSafeDropZoneWithPath( self, transportplatoon, {'Amphibious Path Node','Land Path Node','Transport Marker'}, markerrange, destination, mythreat, airthreatMax, 'AntiSurface', self.MovementLayer)
-				else
-					transportLocation = FindSafeDropZoneWithPath( self, transportplatoon, {'Land Path Node','Transport Marker'}, markerrange, destination, mythreat, airthreatMax, 'AntiSurface', self.MovementLayer)
-				end
-				
-				if transportLocation then
-                
                     if TransportDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..transportplatoon.BuilderName.." finds alternate landing position at "..repr(transportLocation))
-					end
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..transportplatoon.BuilderName.." carrying "..self.BuilderName.." seeking alternate landing zone within "..markerrange.." of destination "..repr(destination))
+                    end
+                    
+                    transportLocation = false
 
-					AISendPing( transportLocation, 'warning', aiBrain.ArmyIndex )
-				end
+                    -- If destination is too hot -- locate the nearest movement marker that is safe
+                    if self.MovementLayer == 'Amphibious' then
+				
+                        transportLocation = FindSafeDropZoneWithPath( self, transportplatoon, {'Amphibious Path Node','Land Path Node','Transport Marker'}, markerrange, destination, mythreat, airthreatMax, 'AntiSurface', self.MovementLayer)
+                    else
+                        transportLocation = FindSafeDropZoneWithPath( self, transportplatoon, {'Land Path Node','Transport Marker'}, markerrange, destination, mythreat, airthreatMax, 'AntiSurface', self.MovementLayer)
+                    end
+				
+                    if transportLocation then
+                
+                        if TransportDialog then
+                            if surthreat > mythreat then
+                                LOG("*AI DEBUG "..aiBrain.Nickname.." "..transportplatoon.BuilderName.." finds alternate landing position at "..repr(transportLocation).." surthreat is "..surthreat.." vs. mine "..mythreat)
+                            else
+                                LOG("*AI DEBUG "..aiBrain.Nickname.." "..transportplatoon.BuilderName.." finds alternate landing position at "..repr(transportLocation).." AIRthreat is "..airthreat.." vs. my max of "..airthreatMax)
+                            end
+
+                            AISendPing( transportLocation, 'warning', aiBrain.ArmyIndex )
+                        end
+                    end
+                else
+                
+                    transportLocation = false
+
+                    if TransportDialog then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." says simply too much threat for me - "..surthreat.." vs "..mythreat.." - aborting transport call")
+                    end
+                end
 			end
 		
 			-- if no alternate, or either self has died, return the transports and abort transport
@@ -1021,9 +1075,7 @@ Platoon = Class(moho.platoon_methods) {
         local VDist3Sq = VDist3Sq
         
         local WaitTicks = WaitTicks
-		
-		-- types of threat to look at based on composition of platoon
-		local ThreatTable = { Land = 'AntiSurface', Water = 'AntiSurface', Amphibious = 'AntiSurface', Air = 'AntiAir', }
+
 		local threattype = ThreatTable[platoonLayer]
 
 		-- threatallowed controls how much threat is considered acceptable at any point
@@ -2051,7 +2103,7 @@ Platoon = Class(moho.platoon_methods) {
 			
 			-- all units are spread out to the rally points except engineers (we want them back to work ASAP)
 			if not engineer then
-				import('/lua/loudutilities.lua').DisperseUnitsToRallyPoints( aiBrain, GetPlatoonUnits(self), RTBLocation, aiBrain.BuilderManagers[bestBaseName].RallyPoints or false )
+				DisperseUnitsToRallyPoints( aiBrain, GetPlatoonUnits(self), RTBLocation, aiBrain.BuilderManagers[bestBaseName].RallyPoints or false )
 			else
 				-- without this, engineers will continue right to the heart of the base
 				self:Stop()
@@ -2341,7 +2393,7 @@ Platoon = Class(moho.platoon_methods) {
             
 		end	
 
-        local AIFindTargetInRangeInCategoryWithThreatFromPosition = import('/lua/ai/aiattackutilities.lua').AIFindTargetInRangeInCategoryWithThreatFromPosition
+        local AIFindTargetInRangeInCategoryWithThreatFromPosition = AIFindTargetInRangeInCategoryWithThreatFromPosition
 
         AssignArtilleryPriorities( SurfacePriorities )
         
@@ -2793,7 +2845,7 @@ Platoon = Class(moho.platoon_methods) {
 		
         self:SetPlatoonFormationOverride(PlatoonFormation)
 		
-		local GetDirectionInDegrees = import('/lua/utilities.lua').GetDirectionInDegrees
+		local GetDirectionInDegrees = GetDirection
 
 		local lastmarker = false
 		local marker
@@ -3079,7 +3131,7 @@ Platoon = Class(moho.platoon_methods) {
                     return aiBrain:DisbandPlatoon(self)
                 end
                 
-                direction = import('/lua/utilities.lua').GetDirectionInDegrees( GetPlatoonPosition(self), marker )
+                direction = GetDirection( GetPlatoonPosition(self), marker )
 
 				-- if not already guarding - setup a guard around the marker point --
 				if (not guarding) and PlatoonExists(aiBrain, self) then
@@ -4043,7 +4095,7 @@ Platoon = Class(moho.platoon_methods) {
 		
         self:SetPlatoonFormationOverride(PlatoonFormation)
 		
-		local GetDirectionInDegrees = import('/lua/utilities.lua').GetDirectionInDegrees		
+		local GetDirectionInDegrees = GetDirection
 		
 		local lastmarker = false
 		local marker
@@ -4303,7 +4355,7 @@ Platoon = Class(moho.platoon_methods) {
 						
 						if position then
 						
-							direction = import('/lua/utilities.lua').GetDirectionInDegrees( GetPlatoonPosition(self), targetposition )
+							direction = GetDirection( GetPlatoonPosition(self), targetposition )
                             
                             ATTACKS = GetSquadUnits(self,'Attack')
                             
@@ -4695,7 +4747,7 @@ Platoon = Class(moho.platoon_methods) {
 		
         self:SetPlatoonFormationOverride(PlatoonFormation)
 		
-		local GetDirectionInDegrees = import('/lua/utilities.lua').GetDirectionInDegrees		
+		local GetDirectionInDegrees = GetDirection
 		
 		local lastmarker = false
 		local marker
@@ -4924,7 +4976,7 @@ Platoon = Class(moho.platoon_methods) {
 						
 						if position then
 						
-							direction = import('/lua/utilities.lua').GetDirectionInDegrees( GetPlatoonPosition(self), targetposition )
+							direction = GetDirection( GetPlatoonPosition(self), targetposition )
                            
                             local ATTACKS = GetSquadUnits(self,'Attack')
                             
@@ -5969,7 +6021,7 @@ Platoon = Class(moho.platoon_methods) {
 							-- move directly to distressLocation
 							if not inWater then
 
-                                direction = import('/lua/utilities.lua').GetDirectionInDegrees( GetPlatoonPosition(self), distressLocation )
+                                direction = GetDirection( GetPlatoonPosition(self), distressLocation )
                                 
                                 ATTACKS = GetSquadUnits(self,'Attack')
                             
@@ -6600,7 +6652,7 @@ Platoon = Class(moho.platoon_methods) {
 			eng.AssistPlatoon = self
 		
 			-- go out and find an assist target and and guard it
-			self:ForkThread( import('/lua/ai/altaiutilities.lua').AssistBody, eng, aiBrain)
+			self:ForkThread( AssistBody, eng, aiBrain)
 		
 			local assistcount = 0
 			local assisttime = self.PlatoonData.Assist.Time or 90
@@ -7197,7 +7249,7 @@ Platoon = Class(moho.platoon_methods) {
 		
         if PlatoonExists(aiBrain, self) then
             
-            if import('/lua/editor/UnitCountBuildConditions.lua').UnitCapCheckGreater( aiBrain, .75 ) then
+            if UnitCapCheckGreater( aiBrain, .75 ) then
 			
 				LOG("*AI DEBUG MassAdjacencyDefenseAI near unit cap")
                 return self:SetAIPlan('ReturnToBaseAI',aiBrain)
@@ -7900,10 +7952,8 @@ Platoon = Class(moho.platoon_methods) {
 
 									-- we use a random location within 8 so that we dont drop right on the target but near it 
 									-- had to do this becuase engies would land on MEX points (causing CanBuildAtLocation to fail)
-									local randomlocation = import('/lua/ai/aiutilities.lua').RandomLocation( buildlocation[1],buildlocation[3], 8 )
-							
 									-- a successful transport will clear the waypoint callback and end the loop --
-									if platoon:SendPlatoonWithTransportsLOUD( aiBrain, randomlocation, 1, false ) then
+									if platoon:SendPlatoonWithTransportsLOUD( aiBrain, RandomLocation( buildlocation[1],buildlocation[3], 8 ), 1, false ) then
                                     
                                         -- clear failedmoves on transport call
                                         if eng.failedmoves > 2 then
@@ -7914,7 +7964,6 @@ Platoon = Class(moho.platoon_methods) {
 										WaitTicks(2)
 
 										break
-										
 									else
 									
 										WaitTicks(12)
@@ -8276,7 +8325,7 @@ Platoon = Class(moho.platoon_methods) {
 		local targetvalue = 0
 		local target = false        
 		
-		local GetPrimaryLandAttackBase = import('/lua/loudutilities.lua').GetPrimaryLandAttackBase
+		local GetPrimaryLandAttackBase = GetPrimaryLandAttackBase
         
         local TARGETSTUFF = {categories.ECONOMIC, categories.LAND + categories.MOBILE, categories.STRUCTURE - categories.WALL}
 		
@@ -8730,14 +8779,12 @@ Platoon = Class(moho.platoon_methods) {
 		local path, reason, pathlength
 		local usedTransports
 		
-		local GetPrimaryLandAttackBase = import('/lua/loudutilities.lua').GetPrimaryLandAttackBase
+		local GetPrimaryLandAttackBase = GetPrimaryLandAttackBase
         
         local TARGETSTUFF = { categories.ECONOMIC, categories.LAND + categories.MOBILE, categories.STRUCTURE - categories.WALL }
 
         while PlatoonExists(aiBrain,self) do
-		
-			--LOG("*AI DEBUG "..aiBrain.Nickname.." AmphibForceAI cycles")
-            
+
 			if self.MoveThread then
 				self:KillMoveThread()
 			end
@@ -9067,7 +9114,7 @@ Platoon = Class(moho.platoon_methods) {
 				
 				if mystrength <= (OriginalSurfaceThreat * .35) then
 				
-					self.MergeIntoNearbyPlatoons( self, aiBrain, 'AmphibForceAILOUD', 100, false)
+					self:MergeIntoNearbyPlatoons( aiBrain, 'AmphibForceAILOUD', 100, false)
 					
 					return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 				end
@@ -9439,10 +9486,8 @@ Platoon = Class(moho.platoon_methods) {
 	SetupPlatoonAtWaypointCallbacks = function( platoon, waypoint, distance )
 	
 		platoon.MovingToWaypoint = true
-        
-        --LOG("*AI DEBUG "..platoon.BuilderName.." sets up WaypointCallback for "..repr(waypoint).." trigger dist "..distance)
-		
-		return import('/lua/scenariotriggers.lua').CreatePlatoonToPositionDistanceTrigger( platoon.PlatoonAtWaypoint, platoon, waypoint, distance)
+
+		return CreatePlatoonToPositionDistanceTrigger( platoon.PlatoonAtWaypoint, platoon, waypoint, distance)
 	end,
 	
 	PlatoonAtWaypoint = function( platoon, params )
@@ -9478,10 +9523,7 @@ Platoon = Class(moho.platoon_methods) {
 	end,
 	
 	SetupPlatoonAtGoalCallbacks = function( platoon, goalposition, distance )
-	
-        local TRIGS = import('/lua/scenariotriggers.lua')
-		
-		TRIGS.CreatePlatoonToPositionDistanceTrigger( platoon.PlatoonOnFinalStep, platoon, goalposition, distance)
+		CreatePlatoonToPositionDistanceTrigger( platoon.PlatoonOnFinalStep, platoon, goalposition, distance)
 	end,
 	
 	PlatoonOnFinalStep = function( self, params )
@@ -9504,8 +9546,8 @@ Platoon = Class(moho.platoon_methods) {
 		
         local aiBrain = GetBrain(self)
 		
-        local AttackBase1, AttackBase1Position = import('/lua/loudutilities.lua').GetPrimaryLandAttackBase(aiBrain)	-- may return a false
-		local AttackBase2, AttackBase2Position = import('/lua/loudutilities.lua').GetPrimarySeaAttackBase(aiBrain) -- may return a false
+        local AttackBase1, AttackBase1Position = GetPrimaryLandAttackBase(aiBrain)	-- may return a false
+		local AttackBase2, AttackBase2Position = GetPrimarySeaAttackBase(aiBrain) -- may return a false
 		
 		local selections = {}
 		local count = 0
@@ -9567,16 +9609,12 @@ Platoon = Class(moho.platoon_methods) {
 				LOG("*AI DEBUG "..aiBrain.Nickname.." REINFORCE_AIR "..repr(self.BuilderName).." got attack base same as source "..repr(self.RTBLocation))
 			end
 		end
-		
-		LOG("*AI DEBUG "..aiBrain.Nickname.." REINFORCE_AIR "..repr(self.Buildername).." gets no reinforce goal - disbanding ")
 
 		return self:PlatoonDisband( aiBrain )
     end,
 	
 	-- this one will reinforce the Primary Land Attack position
     ReinforceAirLandAI = function( self )
-
-        local GetPlatoonUnits = GetPlatoonUnits
         
         local LOUDGETN = LOUDGETN
         local LOUDINSERT = LOUDINSERT
@@ -9587,7 +9625,7 @@ Platoon = Class(moho.platoon_methods) {
 		
         local aiBrain = GetBrain(self)
 		
-        local AttackBase1 = import('/lua/loudutilities.lua').GetPrimaryLandAttackBase(aiBrain)	-- may return a false
+        local AttackBase1 = GetPrimaryLandAttackBase(aiBrain)	-- may return a false
 		local AttackBase2 = false	
 		
 		local selections = {}
@@ -9627,8 +9665,6 @@ Platoon = Class(moho.platoon_methods) {
 					v.LocationType = AttackBase
 				end
 				
-				--LOG("*AI DEBUG "..aiBrain.Nickname.." REINFORCE_AIR_LAND "..self.BuilderName.." reinforcing "..repr(AttackBase))
-				
 				return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 			
 			else
@@ -9636,16 +9672,12 @@ Platoon = Class(moho.platoon_methods) {
 			end
 			
 		end
-		
-		--LOG("*AI DEBUG "..aiBrain.Nickname.." REINFORCE_AIR_LAND "..repr(self.Buildername).." gets no reinforce goal - disbanding ")
 
 		return self:PlatoonDisband( aiBrain )
     end,
 
 	-- this one will reinforce the Primary Sea Attack position
     ReinforceAirNavalAI = function( self )
-
-        local GetPlatoonUnits = GetPlatoonUnits
         
         local LOUDGETN = LOUDGETN
         local LOUDINSERT = LOUDINSERT
@@ -9656,8 +9688,8 @@ Platoon = Class(moho.platoon_methods) {
 		
         local aiBrain = GetBrain(self)
 		
-        local AttackBase1 = import('/lua/loudutilities.lua').GetBaseWithGreatestThreatAtDistance( aiBrain, 'NAVAL', 5, 350 )
-		local AttackBase2 = import('/lua/loudutilities.lua').GetPrimarySeaAttackBase(aiBrain) -- may return a false
+        local AttackBase1 = GetBaseWithGreatestThreatAtDistance( aiBrain, 'NAVAL', 5, 350 )
+		local AttackBase2 = GetPrimarySeaAttackBase(aiBrain) -- may return a false
 		
 		local selections = {}
 		local count = 0
@@ -9687,8 +9719,6 @@ Platoon = Class(moho.platoon_methods) {
 			local AttackBase = selections[choice]
         
 			if AttackBase and AttackBase != self.BuilderLocation then
-			
-				--LOG("*AI DEBUG "..aiBrain.Nickname.." REINFORCE_AIR_NAVAL "..repr(self.BuilderName).." reinforcing "..repr(AttackBase).." from "..repr(self.RTBLocation).." Primary is "..repr(AttackBase2) )
 		
 				self.RTBLocation = AttackBase
 			
@@ -9704,8 +9734,6 @@ Platoon = Class(moho.platoon_methods) {
 				--LOG("*AI DEBUG "..aiBrain.Nickname.." REINFORCE_AIR_NAVAL "..repr(self.BuilderName).." got attack base same as source "..repr(self.RTBLocation))
 			end
 		end
-		
-		--LOG("*AI DEBUG "..aiBrain.Nickname.." REINFORCE_AIR_NAVAL "..self.Buildername.." at "..repr(self.RTBLocation).." gets no reinforce goal - disbanding ")
 
 		return self:PlatoonDisband( aiBrain )
     end,
@@ -9713,8 +9741,6 @@ Platoon = Class(moho.platoon_methods) {
     -- will send reinforcement amphib platoons to a primary attack base ( Primary Land or Primary Sea )
 	-- the one which is closest to the Attack Planner goal
     ReinforceAmphibAI = function( self )
-    
-        local GetPlatoonUnits = GetPlatoonUnits
 
         local LOUDGETN = LOUDGETN
         local LOUDINSERT = LOUDINSERT
@@ -9726,8 +9752,8 @@ Platoon = Class(moho.platoon_methods) {
 		
         local aiBrain = GetBrain(self)
 		
-        local AttackBase1, AttackBase1Position = import('/lua/loudutilities.lua').GetPrimaryLandAttackBase(aiBrain)	-- may return a false
-		local AttackBase2, AttackBase2Position = import('/lua/loudutilities.lua').GetPrimarySeaAttackBase(aiBrain) -- may return a false
+        local AttackBase1, AttackBase1Position = GetPrimaryLandAttackBase(aiBrain)	-- may return a false
+		local AttackBase2, AttackBase2Position = GetPrimarySeaAttackBase(aiBrain) -- may return a false
 
 		local selections = {}
 		local count = 0
@@ -9767,9 +9793,7 @@ Platoon = Class(moho.platoon_methods) {
 				for _,v in units do
 					v.LocationType = AttackBase
 				end
-				
-				--LOG("*AI DEBUG "..aiBrain.Nickname.." REINFORCE_AMPHIB.."..repr(self.BuilderName).." reinforcing "..repr(AttackBase).." from "..repr(self.RTBLocation))
-				
+
 				return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 			
 			else
@@ -9788,13 +9812,11 @@ Platoon = Class(moho.platoon_methods) {
 	-- for example, platoons on the Land layer could have Amphibious bases suppressed or vice versa
 	-- thus allowing the creation of additional bases (ie. PrimaryAmphibBase)
     ReinforceLandAI = function( self )
-
-        local GetPlatoonUnits = GetPlatoonUnits
         
         self:Stop()
 		
         local aiBrain = GetBrain(self)
-        local AttackBase = import('/lua/loudutilities.lua').GetPrimaryLandAttackBase(aiBrain)
+        local AttackBase = GetPrimaryLandAttackBase(aiBrain)
         
         if AttackBase and AttackBase != self.BuilderLocation then
 
@@ -9817,12 +9839,10 @@ Platoon = Class(moho.platoon_methods) {
 	
     ReinforceNavalAI = function( self )
     
-        local GetPlatoonUnits = GetPlatoonUnits
-    
         self:Stop()
 		
         local aiBrain = GetBrain(self)
-        local AttackBase = import('/lua/loudutilities.lua').GetPrimarySeaAttackBase(aiBrain)
+        local AttackBase = GetPrimarySeaAttackBase(aiBrain)
         
         if AttackBase and AttackBase != self.BuilderLocation then
 
