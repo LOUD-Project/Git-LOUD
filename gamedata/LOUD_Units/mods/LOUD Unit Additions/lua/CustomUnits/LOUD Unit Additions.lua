@@ -49,11 +49,11 @@ UnitList = {
     T4LandExperimental4 = {
         Aeon = {'wel0405', 100},
         Cybran = {'wrl0404', 100},
-        Seraphim = {'wsl0405', 100},    
+        Seraphim = {},    
     },
     
     T4AirExperimental1 = {
-        UEF = {'lea0401',100},
+        UEF = {},
         Aeon = {},
         Cybran = {},
         Seraphim = {},    

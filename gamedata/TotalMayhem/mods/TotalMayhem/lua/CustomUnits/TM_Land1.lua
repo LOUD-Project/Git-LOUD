@@ -28,7 +28,6 @@ UnitList = {
 	T3AmphibiousAA = {
         Cybran = {'BRMT3LZT', 100},	    -- Trilobyte
     },
-
 	
 
     T2LandDFTank = {
@@ -40,7 +39,7 @@ UnitList = {
 
     T2AttackTank = {
         UEF = {'BRNT2MT', 40},		    -- Statue Rapid Assault
-        Cybran = {'BRMT2HT', 40},	    -- Hippo
+        Cybran = {'BRMT2HT', 60},	    -- Hippo
     },
     
     -- December 22, 2020 -- T2 Land Amphibious does not exist in Default Factory Platoons.
@@ -49,7 +48,7 @@ UnitList = {
     -- This explains why we would see pure platoons of Wagners, Riptides, etc.
 
     T2LandAmphibTank = {
-        Aeon = {'BROT2ASB', 20},	    -- Amphorak
+        Aeon = {'BROT2ASB', 25},	    -- Amphorak
 		Cybran = {'BRMT2MEDM', 20},	    -- Immortal
         UEF = {'BRNT2BM', 20},		    -- Banshee
         Seraphim = {'BRPT2BTBOT', 20},	-- Iltha
@@ -63,15 +62,13 @@ UnitList = {
     },
 
 
-
-
     T1LandDFTank = {
-        Aeon = {'BROT1BT', 35},         -- Hervour
+        Aeon = {'BROT1BT', 30},         -- Hervour
 		Seraphim = {'BRPT1HT', 70},		-- Yenshavoh
     },
 
     T1LandDFBot = {
-        Aeon = {'BROT1EXM1', 40},       -- Bugbear
+        Aeon = {'BROT1EXM1', 35},       -- Bugbear
         Cybran = {'BRMT1EXM1', 40},	    -- Proton
 		Seraphim = {'BRPT1EXM1', 40},	-- Othazyne
     },

@@ -194,7 +194,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 45,
-            DamageRadius = 0,
+            DamageRadius = 1.2,
             DamageType = 'Normal',
 			
             DisplayName = 'Quad Hi-V Cannon',
@@ -204,7 +204,7 @@ UnitBlueprint {
                 Water = 'Land|Water|Seabed',
             },
 			
-			FiringRandomness = 0.1,
+			FiringRandomness = 0.2,
             FiringTolerance = 1,
 			
             Label = 'MainGun',
@@ -214,7 +214,7 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
 			
-            MuzzleVelocity = 65,
+            MuzzleVelocity = 62,
             MuzzleVelocityRandomness = 5,
 			
             ProjectileId = '/mods/TotalMayhem/projectiles/BRNT1MTproj/BRNT1MTproj_proj.bp',
@@ -259,11 +259,11 @@ UnitBlueprint {
 			
             TurretPitch = 0,
             TurretPitchRange = 45,
-            TurretPitchSpeed = 41,
+            TurretPitchSpeed = 30,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 36,
+            TurretYawSpeed = 34,
 			
             Turreted = true,
  	   },

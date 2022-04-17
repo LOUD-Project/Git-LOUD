@@ -1,7 +1,5 @@
 -- TOTAL MAYHEM Unit Descriptions --
 
-Description['brnt3ow']		=	"The Owens is equipped with radar, rockets & solid AA, making it a cost effective raider and assault support."
-
 Description['brmt1pd']		=	"The Slyfox outranges most T1 units, allowing it to hit first. It's tough, but a slow rate of fire limits its usefulness."
 Description['brmt1expd']	=	"The Pen is the traditional Cybran beam weapon mounted on a solid gimble. Equally capable against air & ground units, the superior range and accuracy is offset by it's high cost"
 Description['brmt1expdt2']	=	"Trying to get more from the Pen, the dual Pen offers more firepower but no AA ability versus its lighter brother. Very costly for its class."
@@ -13,13 +11,11 @@ Description['brmt1bt']		=	"The Mite is a light amphibious tank with reasonable s
 Description['brmt1exm1']	=	"The Proton is arguably the finest low-tier bot - quick and hard hitting with superior range for it's class."
 Description['brmt2ht']		=	"The Hippo is an attempt to improve upon the Rhino. The addition of a Chaos rocket pack gives it some medium range striking power, but the stun effects are minimal."
 Description['brmt2MEDM']	=	"The Immortal was designed to address the weaknesses of the Wagner for amphibious use. Tough and with medium range stand-off mortars, the costly Immortal can be a tough opponent."
-Description['brmt3ml']		=	"The Pavestone is a direct response to the UEF Spearhead. Using the succesful stun rockets from the Hailfire and Agronar platforms, the Pavestone can bombard an area at range, landing chaos all about. Accuracy is not a feature."
 Description['brmt3bm2']		= 	"The Dervish is the peak of Cybran bot tech. Speed for its size, amphibiousness, missile redirection, radar and a hard hitting weapons package that includes Chaos rockets, the Dervish can cause untold mayhem in short order."
 Description['brmt3bt']		=	"The Mastodon is the most recent Cybran tank effort. While not a Super-heavy, it is economical, well balanced and well armed, and the tank fares well in its class."
 Description['brmt3lzt']		=	"The Trilobyte brings the exceptional railgun of the Anode PD to a mobile platform. Designed to fill the need for amphibious AA support, the weapon is effective in both AA and ground roles, and the Trilobyte moves easily through water."
 Description['brmst3bom']	=	"A modified battleship designed for long range high-arc bombardment rather than direct fire."
 Description['brmt3vul']		=	"The Vulture is a small but cost effective experimental unit designed along the lines of the Loyalist as a quick raider."
-Description['brmt3mcm']		=	"The Madcat is based on the same principles as the Vulture. Featuring a significant rocket barrage, the Madcat can get the drop of most opponents."
 Description['brmt3mcm2']	=	"The MadBolo is veritably an up-armoured and up-gunned Madcat. Be wary of its volatility."
 Description['brmt3ava']		=	"The Avalanche is the largest mobile experimental ever constructed. Essentially a factory like the Megalith, it is ponderously slow, but extremely armored and well-gunned. Capable of surviving a direct strike even by tactical nukes."
 

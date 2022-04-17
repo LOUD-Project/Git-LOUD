@@ -3,22 +3,19 @@ UnitList = {
 
     T4LandExperimental1 = {
         Cybran = {'BRMT3VUL', 55},	-- Vulture
-        UEF = {'BRNT3OW', 10},		-- Owens
-        Aeon = {'BROT3HAM', 85},	-- Ezriel
 		Seraphim = {'BRPEXTANK', 100},	-- Yath-Us (Tank)
     },
     
     T4LandExperimental2 = {
-        Cybran = {'BRMT3MCM', 80},	-- MadCat
+        Cybran = {'BRMT3MCM2', 80},	-- MadBolo
         UEF = {'BRNT3BLASP', 100},	-- Blood Asp       
-        Aeon = {'BROT3NCM', 100},	-- Eliash
+        Aeon = {'BROT3SHBM', 60},	-- Eliash
 		Seraphim = {'BRPEXBOT', 60},	-- Yenoh-Iao
     },
     
     T4LandExperimental3 = {
-        Cybran = {'BRMT3MCM2', 90},	-- MadBolo
         UEF = {'BRNT3SHBM', 60},	-- Mayhem Mk.2
-        Aeon = {'BROT3NCM', 85},	-- Eliash
+        Aeon = {'BROT3NCM', 60},	-- Eliash
 		Seraphim = {'BRPEXHVBOT', 50},	-- Athusil
     },
 	

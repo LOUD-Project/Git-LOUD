@@ -20,7 +20,7 @@ UnitList = {
     },
     
     T3LandBot = {
-        UEF = {'wel0302', 20}, -- Wrecker
+        UEF = {'wel0302', 25}, -- Wrecker
     },
 
     
@@ -30,7 +30,7 @@ UnitList = {
 
     -- Amphibious Units --
     T3Amphibious = {
-        UEF = {'wel0304', 10}, -- Rommel
+        UEF = {'wel0304', 40}, -- Rommel
         Cybran = {'wrl0301', 50}, -- Sealion
     },
     
@@ -40,28 +40,29 @@ UnitList = {
 
     -- Naval Units --
 	T3Battlecruiser = {
-        Aeon = {'was0332', 50},
-		UEF = {'wes0303', 50},
+        Aeon = {'was0332', 50}, -- Shadow of Intent
+		UEF = {'wes0303', 40},  -- Poseidon
 	},
 
     
     -- Land Experimentals --
     T4LandExperimental1 = {
 		Aeon = {'wal4404', 100},     -- Maruda
-		Seraphim = {'wsl0404', 50}, -- Yath-Yen        
+		Seraphim = {'wsl0404', 75}, -- Yath-Yen        
     },
     
     T4LandExperimental2 = {
-        UEF = {'wel0401', 55 },     -- Wyvern Fatboy
+        UEF = {'wel0401', 75 },     -- Wyvern Fatboy    -- Star Adder also appears here in other file
     },
     
     T4LandExperimental3 = {
-		Aeon = {'wal0401', 60},     -- Universal Collosus        
+		Aeon = {'wal0401', 50},     -- Universal Collosus
+        UEF = {'wel4404', 40},      -- Star Adder
     },
     
     T4LandExperimental4 = {
-        UEF = {'wel0416', 50 },     -- Dragonite
-        Cybran = {'wrl1466', 60},   -- Storm Strider
+        UEF = {'wel0416', 40 },     -- Dragonite
+        Cybran = {'wrl1466', 65},   -- Storm Strider
     },
 
     -- Air Experimentals --
@@ -70,6 +71,6 @@ UnitList = {
     },
     
     T4AirExperimental2 = {
-        Cybran = {'wra0401', 80},
+        Cybran = {'wra0401', 100},
     },    
 }

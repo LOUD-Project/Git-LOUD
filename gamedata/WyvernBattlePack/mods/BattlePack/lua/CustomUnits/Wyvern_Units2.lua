@@ -1,5 +1,5 @@
 UnitList = {
     T4LandExperimental2 = {
-        UEF = {'wel4404', 65},      -- Star Adder    
+        UEF = {'wel4404', 50},      -- Star Adder    
     },
 }

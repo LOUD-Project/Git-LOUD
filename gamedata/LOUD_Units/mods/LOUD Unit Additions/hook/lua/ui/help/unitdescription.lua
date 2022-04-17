@@ -4,9 +4,6 @@ Description['leb2320'] = "Triple-barrelled Tactical Barrage Artillery. Shorter r
 Description['lrb2320'] = "Triple-barrelled Tactical Barrage Artillery. Shorter range than their heavier cousins, but high rate of fire. Best used defensively."
 Description['lsb2320'] = "Triple-barrelled Tactical Barrage Artillery. Shorter range than their heavier cousins, but high rate of fire. Best used defensively."
 
--- Lucidity Fighter-Cluster Bomber
-Description['lea0401'] = "The Lucidity is an experimental Fighter-Cluster Bomber designed for work against large collections of enemy units in the field. Outstanding AA weapons, and a bucketload of bombs makes it a formidable unit."
-
 -- Quantum Teleporters
 Description['uab0305'] = "Teleports units to other allied teleporters. Enormous energy cost. To use, place rally point on another Quantum Teleporter, surround with units, and activate Teleport ability."
 Description['ueb0305'] = "Teleports units to other allied teleporters. Enormous energy cost. To use, place rally point on another Quantum Teleporter, surround with units, and activate Teleport ability."
@@ -47,7 +44,6 @@ Description['wsb0104'] = "An Tech 3-level engineering assist station that aids c
 -- Abomination Experimentals
 Description['wel0405'] = 'King Kraptor, sporting his "Crown of Thorns", embodies all the religious overtones of the pure Aeon sect. Unique Wave Cannons, Maelstrom field, AA and an Omni sensor; Kraptor is bringing the word.'
 Description['wrl0404'] = "The Megaroach is a typical Cybran insect megabot. Dangerous, quick and hard to stomp out."
-Description['wsl0405'] = "Echibum is the newest and most advanced addition to the Seraphim arsenal. Brings mobility, firepower, range, and is shielded."
 
 -- Experimental Cruiser
 Description['xss0403'] = "The Vergra is a powerful AA cruiser. Tech 3-level surface firepower but superior AA weaponry."

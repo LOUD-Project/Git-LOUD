@@ -4,9 +4,7 @@ The ABOMINATION class Experimentals
 
 - King Kraptor - with it's crown of thorns it reinforces the religious bent of the Way
 - Angel	- an experimental mobile anti-nuke/radar/shield unit 
-- Lucidity - an impressive experimental fighter-cluster bomber -
 - Megalith II - the 'Cockroach' is simply death on legs
-- Echibum - range, mobility and firepower and shielded to boot
 - Vergra - an experimental naval cruiser mounting T4 level AA
 
 Siege Shields for all factions - a T4 level base-sized shield useful in large area shield layering

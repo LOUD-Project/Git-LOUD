@@ -26,7 +26,7 @@ UnitBlueprint {
         SeraLambdaFieldDestroyer01 = {
             AttachBone = 'XSB0001',
             Radius = 5,
-            RedirectRateOfFire = 2,     -- this is actually the delay between firing
+            RedirectRateOfFire = 5,     -- this is actually the delay between firing
         },
         
         ArmorType = 'Structure',
