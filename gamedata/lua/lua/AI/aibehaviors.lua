@@ -3,14 +3,15 @@
 local import = import
 
 local AIAddMustScoutArea = import('/lua/ai/aiutilities.lua').AIAddMustScoutArea
-
-local AISortScoutingAreas = import('/lua/loudutilities.lua').AISortScoutingAreas
-
 local GetOwnUnitsAroundPoint = import('/lua/ai/aiutilities.lua').GetOwnUnitsAroundPoint
 local RandomLocation = import('/lua/ai/aiutilities.lua').RandomLocation
+
+local AISortScoutingAreas = import('/lua/loudutilities.lua').AISortScoutingAreas
 local GetBasePerimeterPoints = import('/lua/loudutilities.lua').GetBasePerimeterPoints
 
 local CreateUnitDestroyedTrigger = import('/lua/scenarioframework.lua').CreateUnitDestroyedTrigger
+
+local AIFindTargetInRangeInCategoryWithThreatFromPosition = import('/lua/ai/aiattackutilities.lua').AIFindTargetInRangeInCategoryWithThreatFromPosition
 
 local LOUDCOPY = table.copy
 local LOUDEQUAL = table.equal
@@ -2385,7 +2386,6 @@ function AirForceAILOUD( self, aiBrain )
     local VDist3 = VDist3
     local WaitTicks = WaitTicks
     
-	local AIFindTargetInRangeInCategoryWithThreatFromPosition = import('/lua/ai/aiattackutilities.lua').AIFindTargetInRangeInCategoryWithThreatFromPosition
     local SetLoiterPosition = import('/lua/ai/aibehaviors.lua').SetLoiterPosition
 
     local Searchradius = self.PlatoonData.SearchRadius or 200
@@ -2538,7 +2538,8 @@ function AirForceAILOUD( self, aiBrain )
             end
             
             -- the searchradius adapts to the current air ratio
-            searchradius = LOUDMAX(Searchradius, (Searchradius *  LOUDMAX(1, aiBrain.AirRatio/3) ))
+            searchradius = LOUDMAX(Searchradius, (Searchradius *  LOUDMAX(1, (aiBrain.AirRatio/3) * LOUDMIN(1, LOUDGETN(platoonUnits)/15) ) ) )
+
             usethreat = 0
             minrange = 0
 
@@ -2889,7 +2890,6 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
     local VDist3 = VDist3
     local WaitTicks = WaitTicks
     
-	local AIFindTargetInRangeInCategoryWithThreatFromPosition = import('/lua/ai/aiattackutilities.lua').AIFindTargetInRangeInCategoryWithThreatFromPosition
     local SetLoiterPosition = import('/lua/ai/aibehaviors.lua').SetLoiterPosition
     
     local Searchradius = self.PlatoonData.SearchRadius or 200
@@ -3029,8 +3029,11 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
                 mythreat = 5
             end
             
-            -- the searchradius adapts to the current air ratio
-            searchradius = LOUDMAX(Searchradius, (Searchradius *  LOUDMAX(1, aiBrain.AirRatio/3) ))
+            -- the searchradius adapts to the current air ratio but is restricted by formation size (15 being the basis of that)
+            -- thus smaller formations won't see much difference even during high AirRatio conditions
+            -- whereas large formations will see the entire benefit
+            searchradius = LOUDMAX(Searchradius, (Searchradius *  LOUDMAX(1, (aiBrain.AirRatio/3) * LOUDMIN(1, LOUDGETN(platoonUnits)/15) ) ) )
+            
             usethreat = 0
             minrange = 0
 
@@ -3380,7 +3383,6 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
     local VDist3 = VDist3
     local WaitTicks = WaitTicks
     
-	local AIFindTargetInRangeInCategoryWithThreatFromPosition = import('/lua/ai/aiattackutilities.lua').AIFindTargetInRangeInCategoryWithThreatFromPosition
     local SetLoiterPosition = import('/lua/ai/aibehaviors.lua').SetLoiterPosition
     
     local Searchradius = self.PlatoonData.SearchRadius or 200
@@ -3521,8 +3523,9 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
                 mythreat = 5
             end
             
-            -- the searchradius adapts to the current air ratio
-            searchradius = LOUDMAX(Searchradius, (Searchradius *  LOUDMAX(1, aiBrain.AirRatio/3) ))
+            -- the searchradius adapts to the current air ratio but is limited by formation size
+            searchradius = LOUDMAX(Searchradius, (Searchradius *  LOUDMAX(1, (aiBrain.AirRatio/3) * LOUDMIN(1, LOUDGETN(platoonUnits)/15) ) ) )
+
             usethreat = 0
             minrange = 0
 
@@ -3885,7 +3888,6 @@ function AirForceAI_Torpedo_LOUD( self, aiBrain )
     local VDist3 = VDist3
     local WaitTicks = WaitTicks
     
-	local AIFindTargetInRangeInCategoryWithThreatFromPosition = import('/lua/ai/aiattackutilities.lua').AIFindTargetInRangeInCategoryWithThreatFromPosition
     local SetLoiterPosition = import('/lua/ai/aibehaviors.lua').SetLoiterPosition
     
     local Searchradius = self.PlatoonData.SearchRadius or 200
@@ -4028,7 +4030,8 @@ function AirForceAI_Torpedo_LOUD( self, aiBrain )
             end
             
             -- the searchradius adapts to the current air ratio
-            searchradius = LOUDMAX(Searchradius, (Searchradius *  LOUDMAX(1, aiBrain.AirRatio/3) ))
+            searchradius = LOUDMAX(Searchradius, (Searchradius *  LOUDMAX(1, (aiBrain.AirRatio/3) * LOUDMIN(1, LOUDGETN(platoonUnits)/15) ) ) )
+
             usethreat = 0
             minrange = 0
 
