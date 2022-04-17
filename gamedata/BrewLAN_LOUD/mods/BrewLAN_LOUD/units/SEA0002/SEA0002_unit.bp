@@ -169,7 +169,7 @@ UnitBlueprint {
     Intel = {
         RadarStealth = true,
         VisionRadius = 0,
-        OrbitIntelRadius = 45,
+        OrbitIntelRadius = 40,
         OrbitVision = true,
         OrbitWaterVision = false,
         OrbitRadar = false,

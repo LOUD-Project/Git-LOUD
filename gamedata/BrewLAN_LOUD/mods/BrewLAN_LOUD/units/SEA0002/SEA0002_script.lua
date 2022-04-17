@@ -12,9 +12,13 @@ SEA0002 = Class(TAirUnit) {
     HideBones = { 'Shell01', 'Shell02', 'Shell03', 'Shell04' },
 
     OnStopBeingBuilt = function(self, ...)
+    
         TAirUnit.OnStopBeingBuilt(self, unpack(arg) )
+        
         --Less fuel for smaller maps. Max fuel only on 81k.
         self:SetFuelRatio(math.max(ScenarioInfo.size[1], ScenarioInfo.size[2]) / 4096)
+        
+        ChangeState( self, self.OpenState )
     end,
 
     PreLaunchSetup = function(self, parent)
