@@ -8,7 +8,6 @@ UnitList = {
     },
    
     T3LandArtillery = {
-        Cybran = {'BRMT3ML', 25},	    -- Pavestone
 		Seraphim = {'BRPT3ML', 40},	    -- Heth-Zthuha
     },
     
