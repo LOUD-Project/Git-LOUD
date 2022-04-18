@@ -160,8 +160,19 @@ BaseBuilderTemplate {
     FirstBaseFunction = function(aiBrain)
 
         local mapSizeX, mapSizeZ = GetMapSize()
+        local startX, startZ = aiBrain:GetArmyStartPos()
 		
 		LOG("*AI DEBUG Map Water Ratio is "..repr(aiBrain:GetMapWaterRatio()).."  Size is "..ScenarioInfo.size[1].."  Unit Cap for "..aiBrain.Nickname.." is "..GetArmyUnitCap(aiBrain.ArmyIndex))
+        LOG("*AI DEBUG "..aiBrain.Nickname.." Start Position is "..repr( { startX, startZ } ))
+        
+        -- too close to the edge of the map for large footprint
+        if (startX < 65 or startX > (mapSizeX - 65)) or (startZ < 65 or startZ > (mapSizeZ - 65)) then
+        
+            LOG("*AI DEBUG "..aiBrain.Nickname.." cannot use Standard base layout at this position - too close to edge of map")
+        
+            return 10, 'loud'
+            
+        end
 
         -- If we're playing on a 5k or 10k map we'll want the Small base
         if mapSizeX <= 512 or mapSizeZ <= 512 or GetArmyUnitCap(aiBrain.ArmyIndex) < 1000 then	--tonumber(ScenarioInfo.Options.UnitCap) < 1000 then
