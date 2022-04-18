@@ -802,13 +802,15 @@ function CreateDefaultBuildBeams( builder, unitBeingBuilt, BuildEffectBones, Bui
         local LOUDWARP = LOUDWARP    
         local WaitTicks = WaitTicks
         
-        WaitTicks(1)
-        
         local x,y,z
         local vec = VectorCached    -- reusable table
         
         local pos = LOUDCOPY(GetPosition(unitBeingBuilt))
-
+        
+        LOUDWARP( projectile, pos )
+        
+        WaitTicks(1)
+  
         while not builder.Dead and not unitBeingBuilt.Dead and IsBeingBuilt(unitBeingBuilt) do
 
             x, y, z = RandomOffset(unitBeingBuilt, 1.02 )
@@ -897,14 +899,16 @@ function CreateCybranBuildBeams( builder, unitBeingBuilt, BuildEffectBones, Buil
         local LOUDCOPY = LOUDCOPY
         local LOUDWARP = LOUDWARP
         local WaitTicks = WaitTicks
-        
-        WaitTicks(1)
-        
+      
         local x,y,z
         local vec = VectorCached    -- reusable table
         
         local pos = LOUDCOPY(GetPosition(unitBeingBuilt))
-
+        
+        LOUDWARP( projectile, pos)
+        
+        WaitTicks(1)
+  
         while not builder.Dead and not unitBeingBuilt.Dead and IsBeingBuilt(unitBeingBuilt) do
 
             x, y, z = RandomOffset( unitBeingBuilt, 1 )
@@ -912,7 +916,7 @@ function CreateCybranBuildBeams( builder, unitBeingBuilt, BuildEffectBones, Buil
             vec[1] = pos[1]+x
             vec[2] = pos[2]+y
             vec[3] = pos[3]+z
-        
+
             LOUDWARP( projectile, vec )
 
             WaitTicks( Random(5,11) )
@@ -959,8 +963,7 @@ function CreateCybranBuildBeams( builder, unitBeingBuilt, BuildEffectBones, Buil
                 -- and the flash effect on the projectile
                 projectile.Sparker = CreateAttachedEmitter( projectile, -1, army, CybranBuildFlash01 )
                 TrashAdd( projectile.Trash, projectile.Sparker )
-              
-                --LOG("*AI DEBUG Created Perm. Projectile "..repr(projectile))
+
             end
 
             projectile = builder.BuildProjectile[BuildBone]
@@ -969,8 +972,6 @@ function CreateCybranBuildBeams( builder, unitBeingBuilt, BuildEffectBones, Buil
             -- it gets attached to the unit when not building
             projectile:DetachFrom()
             projectile.Detached = true
-            
-            --LOG("*AI DEBUG detached Projectile from builder")
             
             -- create the build beam - attach to the BuildBone - and the permanent projectile
             TrashAdd( projectile.BuildEffectsBag, LOUDATTACHBEAMENTITY(builder, BuildBone, projectile, -1, army,'/effects/emitters/build_beam_02_emit.bp' ))
