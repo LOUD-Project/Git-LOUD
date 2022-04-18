@@ -179,8 +179,8 @@ UnitBlueprint {
                     },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
-                    Duration = 0.6,
-                    Radius = 2,
+                    Duration = 0.8,
+                    Radius = 1.6,
                     TargetAllow = 'LAND,NAVAL',
                     TargetDisallow = 'TECH3,EXPERIMENTAL,AIR,COMMAND,WALL',
                 },
@@ -216,10 +216,12 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 24,
+            MuzzleVelocity = 19,
+            MuzzleVelocityRandom = 0.5,
+            MuzzleVelocityReduceDistance = 20,
 			
-            ProjectileId = '/mods/BlackOpsUnleashed/projectiles/CybranHailfire04/CybranHailfire04_proj.bp',
-			ProjectileLifetimeUsesMultiplier = 4,
+            ProjectileId = '/projectiles/CDFRocketIridium03/CDFRocketIridium03_proj.bp',
+			ProjectileLifetimeUsesMultiplier = 4.5,
 
             RackBones = {
                 {
@@ -230,7 +232,7 @@ UnitBlueprint {
                 },
             },
             RackFireTogether = false,
-            RackRecoilDistance = -3,
+            RackRecoilDistance = -1.5,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoFiresAfterCharge = true,
@@ -241,7 +243,6 @@ UnitBlueprint {
             RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 2,			-- controlled by charge cycle -- 120 DPS
-            RenderFireClock = true,
 			
             TargetCheckInterval = 1,
             TargetPriorities = {

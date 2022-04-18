@@ -1032,6 +1032,49 @@ GargEMPWarheadProjectile = Class(SingleBeamProjectile) {
     
 }
 
+RapierNapalmShellProjectile = Class(SinglePolyTrailProjectile) {
+
+	PolyTrail = '/effects/emitters/default_polytrail_07_emit.bp',
+
+    FxImpactUnit = EffectTemplate.TNapalmHvyCarpetBombHitLand01,
+    FxImpactProp = EffectTemplate.TNapalmHvyCarpetBombHitLand01,
+    FxImpactLand = EffectTemplate.TNapalmHvyCarpetBombHitLand01,
+    FxImpactWater = EffectTemplate.TNapalmHvyCarpetBombHitWater01,
+
+    FxLandHitScale = 0.8,
+    FxUnitHitScale = 0.8,
+    FxPropHitScale = 0.8,
+    FxWaterHitScale = 0.8,	
+}
+
+GoliathTMDProjectile = Class(MultiPolyTrailProjectile) {
+
+    PolyTrails = BlackOpsEffectTemplate.GoliathTMD01,
+
+    FxImpactUnit = EffectTemplate.TRiotGunHitUnit01,
+    FxImpactProp = EffectTemplate.TRiotGunHitUnit01,
+    FxImpactNone = EffectTemplate.FireCloudSml01,
+    FxImpactLand = EffectTemplate.TRiotGunHit01,
+
+    FxImpactProjectile = EffectTemplate.TMissileHit02,
+    FxProjectileHitScale = 0.7,
+}
+
+CitadelHVM01Projectile = Class(EmitterProjectile) {
+
+    FxInitial = {},
+    TrailDelay = 0.3,
+    FxTrails = BlackOpsEffectTemplate.CitadelHVM01Trails,
+    FxTrailOffset = -0.3,
+	FxTrailScale = 4,
+
+    FxImpactUnit = EffectTemplate.TMissileHit02,
+    FxImpactAirUnit = EffectTemplate.TMissileHit02,
+    FxImpactProp = EffectTemplate.TMissileHit02,    
+    FxImpactLand = EffectTemplate.TMissileHit02,
+}
+
+--[[
 CybranHailfire01ChildProjectile = Class(SinglePolyTrailProjectile) {
 
     PolyTrail = '/effects/emitters/default_polytrail_05_emit.bp',
@@ -1109,45 +1152,4 @@ CybranHailfire04Projectile = Class(SinglePolyTrailProjectile) {
     FxPropHitScale = 1.5,
     FxWaterHitScale = 1.5,
 }
-
-RapierNapalmShellProjectile = Class(SinglePolyTrailProjectile) {
-
-	PolyTrail = '/effects/emitters/default_polytrail_07_emit.bp',
-
-    FxImpactUnit = EffectTemplate.TNapalmHvyCarpetBombHitLand01,
-    FxImpactProp = EffectTemplate.TNapalmHvyCarpetBombHitLand01,
-    FxImpactLand = EffectTemplate.TNapalmHvyCarpetBombHitLand01,
-    FxImpactWater = EffectTemplate.TNapalmHvyCarpetBombHitWater01,
-
-    FxLandHitScale = 0.8,
-    FxUnitHitScale = 0.8,
-    FxPropHitScale = 0.8,
-    FxWaterHitScale = 0.8,	
-}
-
-GoliathTMDProjectile = Class(MultiPolyTrailProjectile) {
-
-    PolyTrails = BlackOpsEffectTemplate.GoliathTMD01,
-
-    FxImpactUnit = EffectTemplate.TRiotGunHitUnit01,
-    FxImpactProp = EffectTemplate.TRiotGunHitUnit01,
-    FxImpactNone = EffectTemplate.FireCloudSml01,
-    FxImpactLand = EffectTemplate.TRiotGunHit01,
-
-    FxImpactProjectile = EffectTemplate.TMissileHit02,
-    FxProjectileHitScale = 0.7,
-}
-
-CitadelHVM01Projectile = Class(EmitterProjectile) {
-
-    FxInitial = {},
-    TrailDelay = 0.3,
-    FxTrails = BlackOpsEffectTemplate.CitadelHVM01Trails,
-    FxTrailOffset = -0.3,
-	FxTrailScale = 4,
-
-    FxImpactUnit = EffectTemplate.TMissileHit02,
-    FxImpactAirUnit = EffectTemplate.TMissileHit02,
-    FxImpactProp = EffectTemplate.TMissileHit02,    
-    FxImpactLand = EffectTemplate.TMissileHit02,
-}
+--]]

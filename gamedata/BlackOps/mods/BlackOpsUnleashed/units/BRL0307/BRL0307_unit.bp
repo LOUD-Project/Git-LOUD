@@ -269,7 +269,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 80,
-            DamageRadius = 2.2,
+            DamageRadius = 1.8,
 			DamageFriendly = true,
             DamageType = 'Normal',
 			
@@ -293,8 +293,9 @@ UnitBlueprint {
             MuzzleSalvoSize = 9,
             MuzzleVelocity = 18,
             MuzzleVelocityRandom = 0.4,
-			
-            ProjectileId = '/mods/BlackOpsUnleashed/projectiles/CybranHailfire03/CybranHailfire03_proj.bp',
+
+            ProjectileId = '/projectiles/CDFRocketIridium03/CDFRocketIridium03_proj.bp',			
+
             ProjectileLifetimeUsesMultiplier = 4.5,
 
             RackBones = {
