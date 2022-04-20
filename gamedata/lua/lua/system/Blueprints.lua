@@ -552,12 +552,11 @@ function ModBlueprints(all_blueprints)
 			-- Begin Threat Update: overwrite threat with updated values
 			-- details available in:
 			-- https://docs.google.com/document/d/1oMpHiHDKjTID0szO1mvNSH_dAJfg0-DuZkZAYVdr-Ms/edit
-			-- TODO: Update this to handle non-weapon baring units
+			-- TODO: Update this to handle non-weapon bearing units
 			-- TODO: Currently only supports surface threat, update to handle air,sub,surf threats
 			local unitDPS = PhxLib.calcUnitDPS(id,bp)
 			
-			if bp and
-			   bp.Defense and
+			if bp.Defense and
 			   bp.Defense.SurfaceThreatLevel
 			then
                 --[[
@@ -1027,6 +1026,13 @@ function ModBlueprints(all_blueprints)
 		if usermodUnitIcons[i] then
 			bp.Display.IconPath = usermodUnitIcons[i]
 		end
+
+		-- Wonky Resources
+		if bp.Physics and bp.Physics.BuildRestriction then
+            bp.Physics.MaxGroundVariation = 512
+            bp.Physics.FlattenSkirt = false
+            bp.Physics.SlopeToTerrain = true
+        end
 		
 		if bp.Categories then
 		
