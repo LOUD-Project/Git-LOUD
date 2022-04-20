@@ -162,6 +162,12 @@ UnitBlueprint {
         SkirtOffsetZ = -1.5,
         SkirtSizeX = 6,
         SkirtSizeZ = 6,
+        SlopeToTerrain = true,
+        SlopeToTerrainAxis = {
+            Axis1 = 'x',
+            Axis2 = 'z',
+            InvertAxis = { true, false },
+        },
         TurnRate = 0,
     },
     
