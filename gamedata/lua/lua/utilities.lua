@@ -10,7 +10,10 @@ local LOUDSQRT = math.sqrt
 local LOUDINSERT = table.insert
 
 local Random = Random
-
+	
+local GetArmy = moho.entity_methods.GetArmy
+local GetPosition = moho.entity_methods.GetPosition
+    
 local VDist2 = VDist2
 local VDist2Sq = VDist2Sq
 local VDist3 = VDist3
@@ -28,8 +31,8 @@ function GetEnemyUnitsInSphere(unit, position, radius)
 		return false
 	end
 	
-	local GetArmy = moho.entity_methods.GetArmy
-	local GetPosition = moho.entity_methods.GetPosition
+	local GetArmy = GetArmy
+	local GetPosition = GetPosition
     local VDist2Sq = VDist2Sq
 	
 	local RadEntities = {}
@@ -71,7 +74,7 @@ function XZDistanceTwoVectors( v1, v2 )
 end
 
 function GetVectorLength( v )
-    return LOUDSQRT( math.pow( v[1], 2 ) + math.pow( v[2], 2 ) + math.pow(v[3], 2 ) )
+    return LOUDSQRT( LOUDPOW( v[1], 2 ) + LOUDPOW( v[2], 2 ) + LOUDPOW(v[3], 2 ) )
 end
 
 function NormalizeVector( v )
@@ -187,7 +190,7 @@ end
 function TableCat( ... )
     local ret = {}
 	
-	local LOUDINSERT = table.insert
+	local LOUDINSERT = LOUDINSERT
 	
     for index = 1, LOUDGETN(arg) do
 	

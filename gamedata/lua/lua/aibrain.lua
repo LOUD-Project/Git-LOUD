@@ -274,6 +274,7 @@ Marker = function(mType, mposition)
 	
 end
 
+--[[
 function locals()
 
 	local variables = {}
@@ -328,6 +329,7 @@ function upvalues()
 	return variables
 	
 end 
+--]]
 
 function SetAIDebug(data)
 

@@ -64,7 +64,7 @@ function ApplyBuff(unit, buffName, instigator)
 
     local BuffDialog = ScenarioInfo.BuffDialog
 
-    if not unit or unit.Dead or not unit.Buffs.BuffTable then
+    if not unit or unit.Dead or not unit.Buffs.BuffTable or not buffName then
         return
     end
 

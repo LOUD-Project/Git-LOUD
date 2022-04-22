@@ -346,8 +346,7 @@ AQuasarAntiTorpedoPolyTrails = {
     '/effects/emitters/aeon_quasar_antitorpedo_polytrail_02_emit.bp',
 }
 
-AQuasarAntiTorpedoFxTrails= {
-}
+AQuasarAntiTorpedoFxTrails= {}
 
 AQuasarAntiTorpedoFlash= {
 	'/effects/emitters/aeon_quasar_antitorpedo_flash_01_emit.bp',
@@ -389,6 +388,7 @@ ABeamHit01 = {
     '/effects/emitters/beam_hit_sparks_01_emit.bp',
 --    '/effects/emitters/beam_hit_smoke_01_emit.bp',
 }
+
 ABeamHitUnit01 = ABeamHit01
 ABeamHitLand01 = ABeamHit01
 
@@ -511,6 +511,7 @@ ALaserBotHit01 = {
     '/effects/emitters/laserturret_hit_flash_04_emit.bp',
     '/effects/emitters/laserturret_hit_flash_05_emit.bp',
 }
+
 ALaserBotHitUnit01 = TableCat( ALaserBotHit01, UnitHitShrapnel01 )
 ALaserBotHitLand01 = TableCat( ALaserBotHit01 )
 
@@ -1139,17 +1140,20 @@ CMicrowaveLaserEndPoint01 = {
 }
 
 CMissileHit01 = DefaultMissileHit01
+
 CMissileHit02a = {
     '/effects/emitters/cybran_iridium_hit_unit_01_emit.bp',
     '/effects/emitters/cybran_iridium_hit_land_01_emit.bp',
     '/effects/emitters/cybran_iridium_hit_land_02_emit.bp',
     '/effects/emitters/cybran_iridium_hit_ring_01_emit.bp',
 }
+
 CMissileHit02b = {
     '/effects/emitters/cybran_corsair_missile_glow_hit_unit_01_emit.bp',
 }
 
 CMissileHit02 = TableCat( FireCloudSml01, FlashSml01, FlareSml01, CMissileHit02a )
+
 CMissileLOAHit01 = {
     '/effects/emitters/cybran_missile_hit_01_emit.bp',
     '/effects/emitters/cybran_missile_hit_02_emit.bp',

@@ -1,3 +1,50 @@
+### Release 20-04-2022
+
+LUA 6.2.03
+4D 6.2.1
+BO ACU & Unleashed 6.2.1
+BrewLAN 0.8.8.9.5
+LOUD_MISC 6.2.1 
+LOUD_UNITS 1.2
+Total Mayhem 6.2.1
+UNITS 6.2.1
+Wyvern 6.2.1
+Projectiles 6.2.1
+
+    - AI will throttle searchradius gains, based on AirRatio, for smaller formations (< 15 air units), keeping them closer to home
+    - AI will examine starting locations that are close to the map edge - will use smaller base layout if it is (to permit Paragon)
+    - Introduced warning message in the lobby, when Unit Cap is set too high - user prompted to continue
+    - fixed sequence error in rack recoils
+    - continued minor code optimizations
+    - updated the Central Mound map, was missing some amphbious connections to rear mass points
+    
+UNITS
+
+    - deprecated Total Mayhem 'Ezriel' Aeon T4 Light Experimental
+    - deprecated Total Mayhem 'Owens' UEF T4 Light Support Experimental
+    - deprecated Total Mayhem 'Pavestone' Cybran T3 Mobile Rocket Artillery
+    - deprecated Total Mayhem 'Madcat' Cybran T4 Light Experimental
+    - deprecated LOUD Unit 'Echibum' Sera T4 Experimental
+    - deprecated LOUD Unit 'Lucidity' UEF T4 Fighter/Bomber
+    
+    - more script repairs for missed units in previous patches (4DC Overlord death animiation)
+    - fixed issues with BrewLAN satellite unit not deploying it's vision entity upon launch
+    - Effectutility bug was leaving emitters behind during hive/kennel repairs
+    - Total Mayhem 'Angry Ace' T2 PD - AOE Damage radius 2 >> 1.2, Firing Randomness 0.1 >> 0.2
+    - Total Mayhem 'Tripple Shot' T3 PD - Now consumes energy per formula
+        - HP 10500 >> 8900
+        - replaced audio with standard 
+        - changed projectile to standard bolter
+        - DPS 432 >> 412
+    - Cybran Land Scout 'Mole' will now decloak when power runs out (FreeIntel flag was bypassing check)
+    
+MODS
+    - Wonky resources now integrated as standard feature via Blueprints.lua, removed from ModManager
+    - Supreme Scoreboard no longer shows old AI data (was trying to show erroneous Sorian AI data)
+    - BrewLAN - fixed buff application for cloned unit for CrateDrop mod
+    - BrewLAN - Pillar of Prominence - fixed issue with projected shields on factories
+
+
 ### Release 12-04-2022
 LUA 6.2.02
 

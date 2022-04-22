@@ -198,11 +198,11 @@ Unit = Class(moho.unit_methods) {
         self.Sync = { army = GetArmy(self), id = GetEntityId(self) }
 
         setmetatable( self.Sync, SyncMeta )
+
+        self.Army = self.Sync.army
 		
 		local bp = GetBlueprint(self)
-        
-        --self.Army = self.Sync.army
-		
+
 		self.BlueprintID = bp.BlueprintId
         
         self.Dead = false				
@@ -279,8 +279,10 @@ Unit = Class(moho.unit_methods) {
 			
         }
 
+        -- should investigage this for usage, perhaps eliminating it's necessity 
         self.OnBeingBuiltEffectsBag = TrashBag()
 		
+        
 		self.PlatoonHandle = false
 
         if not self.Trash then
@@ -308,6 +310,7 @@ Unit = Class(moho.unit_methods) {
 		self.CanBeKilled = true
 		self.CanTakeDamage = true
 		
+        -- would be nice to reivew this as well
         self.DamageEffectsBag = { {}, {}, {}, }
      
         local damageamounts = 1
@@ -3030,6 +3033,9 @@ Unit = Class(moho.unit_methods) {
         if ALLBPS[unitBeingBuilt.BlueprintID].Physics.FlattenSkirt and not unitBeingBuilt.TarmacBag then
           
             if order != 'Repair' then
+            
+                --LOG("*AI DEBUG Unit being built is "..repr(unitBeingBuilt.BlueprintID).." order is "..repr(order) )
+                
                 unitBeingBuilt:CreateTarmac(true, true, true, false, false)
             end
         end
@@ -4819,6 +4825,8 @@ Unit = Class(moho.unit_methods) {
             
             local size = LOUDMAX(bp.Footprint.SizeX or 0, bp.Footprint.SizeZ or 0, bp.SizeX or 0, bp.SizeX or 0, bp.SizeY or 0, bp.SizeZ or 0, bp.Physics.MeshExtentsX or 0, bp.Physics.MeshExtentsY or 0, bp.Physics.MeshExtentsZ or 0) * 1.414
 
+            --LOG("*AI DEBUG Creating Projected Shield on "..bp.Description)
+            
             self:DestroyShield()
             
             self.MyShield = ProjectedShield ({
@@ -4838,11 +4846,15 @@ Unit = Class(moho.unit_methods) {
                 PassOverkillDamage = shieldSpec.PassOverkillDamage or false,
             }, self)
             
-            self:SetFocusEntity(self.MyShield)
+            if not EntityCategoryContains( categories.FACTORY, self ) then
             
-            self:EnableShield()
+                self:SetFocusEntity(self.MyShield)
             
-            TrashAdd( self.Trash,self.MyShield)
+                self:EnableShield()
+                
+            end
+            
+            TrashAdd( self.Trash, self.MyShield)
         end
     end,
 
@@ -4892,7 +4904,7 @@ Unit = Class(moho.unit_methods) {
 	
         if self.MyShield then
 		
-            self:ClearFocusEntity()
+            --self:ClearFocusEntity()
             self.MyShield:Destroy()
             self.MyShield = nil
 			self.MyShieldType = nil

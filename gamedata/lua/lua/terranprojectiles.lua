@@ -264,7 +264,7 @@ TLaserBotProjectile = Class(MultiPolyTrailProjectile) {
     FxTrails = EffectTemplate.TLaserFxtrail01,
     FxImpactUnit = EffectTemplate.TLaserHitUnit02,
     FxImpactProp = EffectTemplate.TLaserHitUnit02,
-    FxImpactLand = EffectTemplate.TLaserHitLand02,
+    FxImpactLand = EffectTemplate.TLaserHit02,
 }
 
 TLaserProjectile = Class(SingleBeamProjectile) {
@@ -272,7 +272,7 @@ TLaserProjectile = Class(SingleBeamProjectile) {
     BeamName = '/effects/emitters/laserturret_munition_beam_02_emit.bp',
     FxImpactUnit = EffectTemplate.TLaserHitUnit01,
     FxImpactProp = EffectTemplate.TLaserHitUnit01,
-    FxImpactLand = EffectTemplate.TLaserHitLand01,
+    FxImpactLand = EffectTemplate.TLaserHit01,
 }
 
 TMachineGunProjectile = Class(SinglePolyTrailProjectile) {

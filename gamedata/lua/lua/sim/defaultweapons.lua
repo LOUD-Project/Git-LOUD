@@ -994,15 +994,15 @@ DefaultProjectileWeapon = Class(Weapon) {
                         end
                     end
                 end
-     
-                if self.EconDrain then
-                    WaitFor(self.EconDrain)
-                end
                 
                 if bp.CameraShakeRadius or bp.ShipRock or bp.RackRecoilDistance != 0 then
                     self:PlayFxRackReloadSequence(bp)
                 end
-				
+	     
+                if self.EconDrain then
+                    WaitFor(self.EconDrain)
+                end
+			
 				-- advance the rack number --
                 if self.CurrentRackSalvoNumber <= RacksToBeFired then
                     self.CurrentRackSalvoNumber = self.CurrentRackSalvoNumber + 1

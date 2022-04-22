@@ -166,17 +166,10 @@ TSeaFactoryUnit = Class(TAirFactoryUnit) {}
 TConstructionUnit = Class(ConstructionUnit) {
 
     CreateBuildEffects = function( self, unitBeingBuilt, order )
-    
-        LOG("*AI DEBUG CreateBuildEffects for order "..repr(order))
-
         TrashAdd( self.BuildEffectsBag, self:ForkThread( CreateUEFBuildSliceBeams, unitBeingBuilt, __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones, self.BuildEffectsBag ) )
-
     end,
     
     OnStopBuild = function(self, unitBeingBuilt)
-        
-        LOG("*AI DEBUG OnStopBuild TConstructionUnit")
-        
         ConstructionUnit.OnStopBuild(self, unitBeingBuilt)
     end,
 

@@ -51,21 +51,36 @@ Shield = Class(moho.shield_methods,Entity) {
 
     OnCreate = function( self, spec )
 
-        --self.Trash = self.Owner.Trash	-- so the shield itself has a trashbag -- why not use the Owners ?
-
 		self.Army = GetArmy(self)
 		self.Dead = false
-        self.Owner = spec.Owner
         
-        self.MeshBp = spec.Mesh
-        self.MeshZBp = spec.MeshZ
-        self.ImpactMeshBp = spec.ImpactMesh
-		
         if spec.ImpactEffects != '' then
 			self.ImpactEffects = EffectTemplate[spec.ImpactEffects]
 		else
-			self.ImpactEffects = {}
+			self.ImpactEffects = false
 		end
+        
+        if spec.ImpactMesh != '' then
+            self.ImpactMeshBp = spec.ImpactMesh
+        else
+            self.ImpactMeshBp = false
+        end
+
+        -- static table --
+        self.ImpactEntitySpecs = { Owner = spec.Owner }
+        
+        self.MeshBp = spec.Mesh
+        self.MeshZBp = spec.MeshZ
+
+		self.OffHealth = -1
+        
+        self.Owner = spec.Owner
+		self.PassOverkillDamage = spec.PassOverkillDamage
+		
+        self.ShieldRechargeTime = spec.ShieldRechargeTime or 5
+        self.ShieldEnergyDrainRechargeTime = spec.ShieldEnergyDrainRechargeTime or 5
+        
+        self.ShieldVerticalOffset = spec.ShieldVerticalOffset
 
 		self:SetSize(spec.Size)
 		
@@ -73,11 +88,6 @@ Shield = Class(moho.shield_methods,Entity) {
         self:SetHealth(self, spec.ShieldMaxHealth)
 
 		SetShieldRatio( self.Owner, 1 )
-		
-        self.ShieldRechargeTime = spec.ShieldRechargeTime or 5
-        self.ShieldEnergyDrainRechargeTime = spec.ShieldEnergyDrainRechargeTime or 5
-        
-        self.ShieldVerticalOffset = spec.ShieldVerticalOffset
 
         self:SetVizToFocusPlayer('Always')
         self:SetVizToEnemies('Intel')
@@ -88,10 +98,6 @@ Shield = Class(moho.shield_methods,Entity) {
 
         self:SetShieldRegenRate(spec.ShieldRegenRate)
         self:SetShieldRegenStartTime(spec.ShieldRegenStartTime)
-
-		self.OffHealth = -1
-		
-		self.PassOverkillDamage = spec.PassOverkillDamage
 		
 		if ScenarioInfo.ShieldDialog then
 			LOG("*AI DEBUG Shield created on "..__blueprints[self.Owner.BlueprintID].Description) 
@@ -305,7 +311,7 @@ Shield = Class(moho.shield_methods,Entity) {
 				SetShieldRatio( self.Owner, GetHealth(self)/GetMaxHealth(self) )
 		
 				-- wait one second
-				WaitTicks(10)
+				WaitTicks(11)
 			end
         end
 		
@@ -315,11 +321,11 @@ Shield = Class(moho.shield_methods,Entity) {
 
 		if not self.Dead then
 		
-			local ImpactMesh = Entity { Owner = self.Owner }
+			local ImpactMesh = Entity( self.ImpactEntitySpecs )
 
 			Warp( ImpactMesh, self:GetPosition())		
 		
-			if self.ImpactMeshBp != '' then
+			if self.ImpactMeshBp then
 			
 				ImpactMesh:SetMesh(self.ImpactMeshBp)
 				
@@ -332,13 +338,15 @@ Shield = Class(moho.shield_methods,Entity) {
                 
 				ImpactMesh:SetOrientation( OrientFromDir( vec ), true)
 			end
-            
-            local CreateEmitterAtBone = CreateEmitterAtBone
 
-			if not self.Dead then
+			if self.ImpactEffects and not self.Dead then
+            
+                local CreateEmitterAtBone = CreateEmitterAtBone
+                
 				for k, v in self.ImpactEffects do
 					CreateEmitterAtBone( ImpactMesh, -1, self.Army, v ):OffsetEmitter(0, 0, LOUDSQRT( LOUDPOW( vector[1], 2 ) + LOUDPOW( vector[2], 2 ) + LOUDPOW(vector[3], 2 ) )  )
 				end
+                
 			end
 			
 			WaitTicks(17)
@@ -483,7 +491,7 @@ Shield = Class(moho.shield_methods,Entity) {
 			
 			SetShieldRatio( self.Owner, curProgress/time )
 			
-            WaitTicks(10)
+            WaitTicks(11)
         end    
     end,
 
@@ -901,7 +909,7 @@ ProjectedShield = Class(Shield){
             
             local OffsetLength = LOUDSQRT( LOUDPOW( vector[1], 2 ) + LOUDPOW( vector[2], 2 ) + LOUDPOW(vector[3], 2 ) )
             
-            local ImpactMesh = Entity { Owner = self.Owner }
+            local ImpactMesh = Entity( self.ImpactEntitySpecs )
             
             local beams = {}
 	
@@ -914,7 +922,7 @@ ProjectedShield = Class(Shield){
 		
             Warp( ImpactMesh, self:GetPosition())
 		
-            if self.ImpactMeshBp ~= '' then
+            if self.ImpactMeshBp then
             
                 ImpactMesh:SetMesh(self.ImpactMeshBp)
                 ImpactMesh:SetDrawScale(self.Size)
@@ -926,9 +934,12 @@ ProjectedShield = Class(Shield){
                 
                 ImpactMesh:SetOrientation(OrientFromDir( vec ),true)
             end
+            
+            if self.ImpactEffects and not self.Dead then
 		
-            for k, v in self.ImpactEffects do
-                CreateEmitterAtBone( ImpactMesh, -1, army, v ):OffsetEmitter(0,0,OffsetLength)
+                for k, v in self.ImpactEffects do
+                    CreateEmitterAtBone( ImpactMesh, -1, army, v ):OffsetEmitter(0,0,OffsetLength)
+                end
             end
 		
             WaitTicks(5)
