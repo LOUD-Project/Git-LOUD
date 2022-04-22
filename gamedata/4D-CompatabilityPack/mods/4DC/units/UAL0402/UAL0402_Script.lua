@@ -1,12 +1,17 @@
 local AWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
 local utilities = import('/lua/utilities.lua')
-local RandomFloat = utilities.GetRandomFloat
 
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 local explosion = import('/lua/defaultexplosions.lua')
 
 local CreateDeathExplosion = explosion.CreateDefaultHitExplosionAtBone
+
+local Random = Random
+
+local function GetRandomFloat( Min, Max )
+    return Min + (Random() * (Max-Min) )
+end
 
 -- Local weapon files
 local WeaponsFile = import ('/lua/aeonweapons.lua')
@@ -81,6 +86,7 @@ UAL0402 = Class(AWalkingLandUnit) {
     CreateFirePlumesAeons = function( self, Army, bones, yBoneOffset )
     
         local proj, position, offset, velocity
+        
         local basePosition = self:GetPosition()
         
         for k, vBone in bones do
@@ -88,14 +94,14 @@ UAL0402 = Class(AWalkingLandUnit) {
             position = self:GetPosition(vBone)
             
             offset = utilities.GetDifferenceVector( position, basePosition )
+            velocity = utilities.GetDirectionVector( position, basePosition )
             
-            velocity = utilities.GetDirectionVector( position, basePosition ) 
-            velocity.x = velocity.x + utilities.GetRandomFloat(-0.45, 0.45)
-            velocity.z = velocity.z + utilities.GetRandomFloat(-0.45, 0.45)
-            velocity.y = velocity.y + utilities.GetRandomFloat( 0.0, 0.45)
+            velocity[1] = velocity[1] + GetRandomFloat(-0.45, 0.45)
+            velocity[2] = velocity[2] + GetRandomFloat(-0.45, 0.45)
+            velocity[3] = velocity[3] + GetRandomFloat( 0.0, 0.45)
             
-            proj = self:CreateProjectile('/effects/entities/DestructionFirePlume01/DestructionFirePlume01_proj.bp', offset.x, offset.y + yBoneOffset, offset.z, velocity.x, velocity.y, velocity.z)
-            proj:SetBallisticAcceleration(utilities.GetRandomFloat(-1, 1)):SetVelocity(utilities.GetRandomFloat(1, 2)):SetCollision(false)
+            proj = self:CreateProjectile('/effects/entities/DestructionFirePlume01/DestructionFirePlume01_proj.bp', offset.x, offset.y + yBoneOffset, offset.z, velocity[1], velocity[3], velocity[2])
+            proj:SetBallisticAcceleration(GetRandomFloat(-1, 1)):SetVelocity(GetRandomFloat(1, 2)):SetCollision(false)
 
             CreateEmitterOnEntity(proj, Army, '/mods/4DC/effects/emitters/destruction_explosion_fire_plume_03_emit.bp')
 
@@ -112,8 +118,8 @@ UAL0402 = Class(AWalkingLandUnit) {
         -- Create small explosions all over
         for i = 0, numExplosions do
         
-            local ranBone = utilities.GetRandomInt( 1, numExplosions )
-            local duration = utilities.GetRandomFloat( 0.2, 0.5 )
+            local ranBone = Random(1, numExplosions )
+            local duration = GetRandomFloat( 0.2, 0.5 )
             
             self:CreateFirePlumesAeons( Army, {ranBone}, Random(0,2) )
             self:CreateDamageEffects( ranBone, Army )
