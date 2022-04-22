@@ -104,7 +104,6 @@ UnitBlueprint {
     },
 	
     Intel = {
-		FreeIntel = true,
         Cloak = true,
 		RadarStealth = true,
         RadarRadius = 50,

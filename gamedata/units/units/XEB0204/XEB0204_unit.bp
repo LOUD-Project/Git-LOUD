@@ -160,7 +160,6 @@ UnitBlueprint {
             LAYER_Seabed = true,
         },
         DragCoefficient = 0.2,
-        FlattenSkirt = true,
 		
         MaxSteerForce = 0,
 		

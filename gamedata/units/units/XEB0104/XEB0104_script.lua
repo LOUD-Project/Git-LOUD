@@ -1,26 +1,19 @@
-local TPodTowerUnit = import('/lua/defaultunits.lua').StructureUnit
-
-local CreateDefaultBuildBeams = import('/lua/EffectUtilities.lua').CreateDefaultBuildBeams
-local CreateUEFBuildSliceBeams = import('/lua/EffectUtilities.lua').CreateUEFBuildSliceBeams
+local TPodTowerUnit = import('/lua/terranunits.lua').TConstructionUnit
+local StructureUnit = import('/lua/defaultunits.lua').StructureUnit
 
 XEB0104 = Class(TPodTowerUnit) {
 
-    CreateBuildEffects = function( self, unitBeingBuilt, order )
-	
-        local UpgradesFrom = unitBeingBuilt:GetBlueprint().General.UpgradesFrom
-		
-        -- If we are assisting an upgrading unit, or repairing a unit, play seperate effects
-        if (order == 'Repair' and not unitBeingBuilt:IsBeingBuilt()) or (UpgradesFrom and UpgradesFrom != 'none' and self:IsUnitState('Guarding'))then
-		
-            CreateDefaultBuildBeams( self, unitBeingBuilt, self:GetBlueprint().General.BuildBones.BuildEffectBones, self.BuildEffectsBag )
-			
-        else
-		
-            CreateUEFBuildSliceBeams( self, unitBeingBuilt, self:GetBlueprint().General.BuildBones.BuildEffectBones, self.BuildEffectsBag )        
-			
-        end           
+    CreateTarmac = function( self, albedo, normal, glow, orientation, specTarmac, lifetime )
+    
+        StructureUnit.CreateTarmac( self, albedo, normal, glow, orientation, specTarmac, lifetime )
+        
     end,
-	
+    
+    LaunchUpgradeThread = function( finishedUnit, aiBrain )
+    
+        StructureUnit.LaunchUpgradeThread( finishedUnit, aiBrain )
+        
+    end,
 
 }
 
