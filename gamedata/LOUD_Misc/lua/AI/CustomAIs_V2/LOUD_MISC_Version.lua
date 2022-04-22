@@ -1,4 +1,4 @@
 AI = {
 	Name = "LOUD_MISC",
-	Version = "5.6",
+	Version = "6.2.1",
 }

@@ -172,6 +172,7 @@ function InitializeStats()
         
         --if army.civilian or not army.showScore then continue end
         if not army.civilian and army.showScore then 
+        
             if army.human then
                 army.nameshort = army.nickname
                 army.namefull  = army.nickname --GetArmyClan(army.nickname)..army.nickname 
@@ -1890,6 +1891,7 @@ function GetAiData(sessionInfo)
 
     local options = sessionInfo.Options
     ai = {}
+
     -- activate AI when there is at least one AI player
     ai.active = false
     ai.cheat = {}
@@ -1901,7 +1903,7 @@ function GetAiData(sessionInfo)
     ai.info.income = string.format("%01.1f", ai.cheat.income)
     ai.info.build  = string.format("%01.1f", ai.cheat.build)
     ai.info.omni   = (ai.cheat.omni and 'ON' or 'OFF')
-
+    
     return ai
 end
 
