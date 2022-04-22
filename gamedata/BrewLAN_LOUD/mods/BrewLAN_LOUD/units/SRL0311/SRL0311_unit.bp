@@ -201,7 +201,7 @@ UnitBlueprint {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
-            FiringRandomness = 2.1,
+            FiringRandomness = 2,
             FiringTolerance = 4,
             
             Label = 'MainGun',
@@ -212,8 +212,8 @@ UnitBlueprint {
             MuzzleChargeDelay = .5,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 21,
-            MuzzleVelocityRandom = 0.4,
+            MuzzleVelocity = 20,
+            MuzzleVelocityRandom = 0.5,
             MuzzleVelocityReduceDistance = 50,
             
             ProjectileId = '/projectiles/CDFRocketIridium03/CDFRocketIridium03_proj.bp',

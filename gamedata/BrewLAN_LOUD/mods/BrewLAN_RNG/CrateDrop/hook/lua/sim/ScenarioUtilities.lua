@@ -77,7 +77,7 @@ do
             --5000 mass
             --------------------------------------------------------------------
             function(Unit, pos)
-                -- LOG("CRATEDROP: ".."Dat mass")
+                 LOG("CRATEDROP: ".."Dat mass")
                 local aiBrain = Unit:GetAIBrain()
                 local mass = aiBrain:GetEconomyStored('MASS')
                 local ratio = aiBrain:GetEconomyStoredRatio('MASS')
@@ -100,12 +100,17 @@ do
             --Clone at current health
             --------------------------------------------------------------------
             function(Unit, pos)
-                -- LOG("CRATEDROP: Clone")
+            
+                --LOG("CRATEDROP: Clone at "..repr(pos) )
+
                 local clone = CreateUnitHPR(Unit:GetBlueprint().BlueprintId, Unit:GetArmy(), pos[1], pos[2], pos[3], 0, math.random(0,360), 0)
+                
                 for kbuff, vbuff in Unit.Buffs.BuffTable do
+
                     for k, v in vbuff do
-                        Buff.ApplyBuff(clone, v.BuffName)
+                        Buff.ApplyBuff(clone, k)
                     end
+                    
                 end
                 --clone:SetMaxHealth(Unit:GetMaxHealth() )
                 clone:SetHealth(Unit, Unit:GetHealth() )
@@ -597,13 +602,18 @@ do
             --Nemesis dupe
             --------------------------------------------------------------------
             function(Unit, pos)
+            
                 -- LOG("CRATEDROP: Evil Twin")
+                
                 local clone = CreateUnitHPR(Unit:GetBlueprint().BlueprintId, randomEnemyBrain(Unit):GetArmyIndex(), pos[1], pos[2], pos[3], 0, math.random(0,360), 0)
+                
                 for kbuff, vbuff in Unit.Buffs.BuffTable do
+                
                     for k, v in vbuff do
-                        Buff.ApplyBuff(clone, v.BuffName)
+                        Buff.ApplyBuff(clone, k)
                     end
                 end
+                
                 clone:SetHealth(Unit, Unit:GetHealth() )
                 if clone:GetBlueprint().Description then
                     notificationPingis(pos, Unit:GetArmy(), 'EvilClone', '<LOC lobui_0293>Enemy' .. ' ' .. clone:GetBlueprint().Description )

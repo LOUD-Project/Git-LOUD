@@ -86,11 +86,11 @@ SAB4401 = Class(AShieldStructureUnit) {
 			
                 self:ClearShieldProjections()
                 self.ShieldProjectionEnabled = false
-                WaitTicks(10)
+                WaitTicks(11)
 				
             else
 			
-                WaitTicks(10)
+                WaitTicks(11)
 				
             end
 			
