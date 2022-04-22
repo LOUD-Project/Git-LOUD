@@ -59,8 +59,8 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        Health = 10500,
-        MaxHealth = 10500,
+        Health = 8900,
+        MaxHealth = 8900,
         RegenRate = 5,
         SurfaceThreatLevel = 105,
     },
@@ -170,6 +170,7 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+            
             Audio = {
                 BarrelLoop = Sound {
                     Bank = 'UES',
@@ -187,11 +188,12 @@ UnitBlueprint {
                     LodCutoff = 'WeaponBig_LodCutoff',
                 },
                 Fire = Sound {
-                    Bank = 'TM_CYBRANWEAPONS',
-                    Cue = 'BRMT3BTFIRE',
+                    Bank = 'URSWeapon',
+                    Cue = 'URS0302_Cannon',
                     LodCutoff = 'WeaponBig_LodCutoff',
-                },
+                },                
             },
+            
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
@@ -200,11 +202,14 @@ UnitBlueprint {
             DamageType = 'Normal',
 			
             DisplayName = 'Gauss Cannon',
+            
+            EnergyDrainPerSecond = 400,
+            EnergyRequired = 525,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
             },
-            FiringRandomness = 0.1,
+            FiringRandomness = 0.2,
 			
             FiringTolerance = 1.5,
 			
@@ -215,9 +220,11 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 65,
-			
-            ProjectileId = '/mods/TotalMayhem/projectiles/BRMT3PDproj/BRMT3PDproj_proj.bp',
+            MuzzleVelocity = 33,
+
+            ProjectileId = '/projectiles/CDFBolter02/CDFBolter02_proj.bp',
+            --ProjectileId = '/projectiles/CDFProtonCannon05/CDFProtonCannon05_proj.bp',			
+            --ProjectileId = '/mods/TotalMayhem/projectiles/BRMT3PDproj/BRMT3PDproj_proj.bp',
 			
             RackBones = {
                 {
@@ -249,7 +256,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.8,	-- 440 DPS
+            RateOfFire = 1,	-- controlled by charge equals 1.31 seconds = 412 DPS
 			
             TargetCheckInterval = 1.0,
             TargetPriorities = {
@@ -261,25 +268,29 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.15,
+            
             TurretBoneMuzzle = 'Turret_Muzzle',
             TurretBonePitch = 'Turret_barrel',
             TurretBoneYaw = 'Turret',
             TurretDualManipulators = false,
+            
             TurretPitch = 0,
             TurretPitchRange = 45,
-            TurretPitchSpeed = 20,
+            TurretPitchSpeed = 10,
+            
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 25,
+            TurretYawSpeed = 22,
+            
             Turreted = true,
-
- 	   },
+        },
     },
+    
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.5,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,

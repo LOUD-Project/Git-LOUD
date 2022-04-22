@@ -82,9 +82,9 @@ UnitBlueprint {
     Defense = {
         AirThreatLevel = 27,
         ArmorType = 'Experimental',
-        Health = 222000,
-        MaxHealth = 222000,
-        RegenRate = 65,
+        Health = 195000,
+        MaxHealth = 195000,
+        RegenRate = 40,
         SurfaceThreatLevel = 2623.3,
     },
 	
@@ -278,8 +278,8 @@ UnitBlueprint {
 	
     Economy = {
         BuildCostEnergy = 2850000,
-        BuildCostMass = 120000,
-        BuildRate = 250,
+        BuildCostMass = 125000,
+        BuildRate = 220,
         BuildTime = 260001,
 		
         BuildableCategory = {
@@ -299,8 +299,8 @@ UnitBlueprint {
     },
 	
     Footprint = {
-        SizeX = 5,
-        SizeZ = 5,
+        SizeX = 6,
+        SizeZ = 6,
     },
 	
     General = {
@@ -853,8 +853,8 @@ UnitBlueprint {
             DamageType = 'Normal',
             DamageFriendly = true,
             
-            EnergyDrainPerSecond = 900,
-            EnergyRequired = 9000,          -- 10 second energy drain
+            EnergyDrainPerSecond = 750,
+            EnergyRequired = 9000,          -- 12 second energy drain
   			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -898,7 +898,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,	-- 12 of 600dmg every 10 seconds = 720dps - controlled by charge
+            RateOfFire = 1,	-- 12 of 600dmg every 12 seconds = 600dps - controlled by charge
 
             TargetCheckInterval = 2,
 			
@@ -951,8 +951,8 @@ UnitBlueprint {
             DamageType = 'Normal',
             DamageFriendly = true,
             
-            EnergyDrainPerSecond = 900,
-            EnergyRequired = 9000,          -- 10 second energy drain
+            EnergyDrainPerSecond = 750,
+            EnergyRequired = 9000,          -- 12 second energy drain
 
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -995,7 +995,7 @@ UnitBlueprint {
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
 
-            RateOfFire = 1,	-- 720dps
+            RateOfFire = 1,	-- 600dps
 
             TargetCheckInterval = 2,
 			
