@@ -71,7 +71,7 @@ BaseBuilderTemplate {
         MassToFactoryValues = {
             T1Value = 8,
             T2Value = 14,
-            T3Value = 19,
+            T3Value = 20,
         },
 		RallyPointRadius = 40,
     },

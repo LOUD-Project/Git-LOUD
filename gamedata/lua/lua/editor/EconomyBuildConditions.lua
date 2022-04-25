@@ -345,8 +345,8 @@ function MassToFactoryRatioBaseCheck( aiBrain, locationType, massefficiency, ene
     local cheatmod = 1/CheatAdjust
     
     local t1Drain = cheatmod * (aiBrain.BuilderManagers[locationType].BaseSettings.MassToFactoryValues.T1Value or 8)
-    local t2Drain = cheatmod * (aiBrain.BuilderManagers[locationType].BaseSettings.MassToFactoryValues.T2Value or 13)
-    local t3Drain = cheatmod * (aiBrain.BuilderManagers[locationType].BaseSettings.MassToFactoryValues.T3Value or 18)
+    local t2Drain = cheatmod * (aiBrain.BuilderManagers[locationType].BaseSettings.MassToFactoryValues.T2Value or 14)
+    local t3Drain = cheatmod * (aiBrain.BuilderManagers[locationType].BaseSettings.MassToFactoryValues.T3Value or 20)
 	
 	local GetCurrentUnits = GetCurrentUnits
 
@@ -378,6 +378,8 @@ function MassToFactoryRatioBaseCheck( aiBrain, locationType, massefficiency, ene
     if (massTotal + t1Drain) >  MassIncome then
         return false
     end
+    
+    LOG("*AI DEBUG "..aiBrain.Nickname.." massTotal is "..massTotal + t1Drain.."  Income is "..MassIncome)
     
     return true    
 end
