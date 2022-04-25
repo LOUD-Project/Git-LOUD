@@ -458,9 +458,9 @@ function ExtractAllMeshBlueprints()
         
         if bp.Economy.ReclaimEnergyMax then
         
-            if (bp.Economy.ReclaimEnergyMax/bp.Economy.ReclaimTime) > 30 then
+            if (bp.Economy.ReclaimEnergyMax/bp.Economy.ReclaimTime) > 18 then
                 --LOG("*AI DEBUG Prop BP RECLAIMTIME TOO LOW for ENERGY "..bp.Economy.ReclaimEnergyMax.." time is "..bp.Economy.ReclaimTime.." "..repr(bp.BlueprintId))
-                bp.Economy.ReclaimTime = math.ceil(bp.Economy.ReclaimEnergyMax/30)
+                bp.Economy.ReclaimTime = math.ceil(bp.Economy.ReclaimEnergyMax/18)
                 count = count + 1
             end
 
@@ -468,9 +468,9 @@ function ExtractAllMeshBlueprints()
 
         if bp.Economy.ReclaimMassMax then
         
-            if (bp.Economy.ReclaimMassMax/bp.Economy.ReclaimTime) > 6 then
+            if (bp.Economy.ReclaimMassMax/bp.Economy.ReclaimTime) > 3.5 then
                 --LOG("*AI DEBUG Prop BP RECLAIMTIME TOO LOW for MASS "..bp.Economy.ReclaimMassMax.." time is "..bp.Economy.ReclaimTime.." "..repr(bp.BlueprintId))
-                bp.Economy.ReclaimTime = math.ceil(bp.Economy.ReclaimMassMax/6)
+                bp.Economy.ReclaimTime = math.ceil(bp.Economy.ReclaimMassMax/3.5)
                 count = count + 1
             end
 
@@ -482,7 +482,7 @@ function ExtractAllMeshBlueprints()
 		
     end
     
-    LOG("*AI DEBUG Props with resource rate errors "..count.." of "..countb)
+    --LOG("*AI DEBUG Props with resource rate errors "..count.." of "..countb)
 
     for id,bp in original_blueprints.Projectile do
 	

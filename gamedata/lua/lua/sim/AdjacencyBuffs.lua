@@ -17,8 +17,7 @@ T3WeaponBoosterDamageAdjacencyBuffs = {
     'WeaponBoosterEnergyWeaponTradeOff',
 }
 
-BuffBlueprint {
-    Name = 'WeaponBoosterAccuracyBonus',
+BuffBlueprint { Name = 'WeaponBoosterAccuracyBonus',
     DisplayName = 'WeaponBoosterAccuracyBonus',
     BuffType = 'ACCURACYBONUS',
     Stacks = 'ALWAYS',
@@ -36,8 +35,7 @@ BuffBlueprint {
 }
 
 
-BuffBlueprint {
-    Name = 'WeaponBoosterRateOfFireTradeOff',
+BuffBlueprint { Name = 'WeaponBoosterRateOfFireTradeOff',
     DisplayName = 'WeaponBoosterRateOfFireTradeOff',
     BuffType = 'RATEOFFIREADJACENCY',
     Stacks = 'ALWAYS',
@@ -59,8 +57,7 @@ BuffBlueprint {
 }
 
 
-BuffBlueprint {
-    Name = 'WeaponBoosterDamageBonus',
+BuffBlueprint { Name = 'WeaponBoosterDamageBonus',
     DisplayName = 'WeaponBoosterDamageBonus',
     BuffType = 'DAMAGEBONUS',
     Stacks = 'NEVER',
@@ -77,8 +74,7 @@ BuffBlueprint {
     },
 }
 
-BuffBlueprint {
-    Name = 'WeaponBoosterEnergyWeaponTradeOff',
+BuffBlueprint { Name = 'WeaponBoosterEnergyWeaponTradeOff',
     DisplayName = 'WeaponBoosterEnergyWeaponTradeOff',
     BuffType = 'ENERGYWEAPONBONUS',
     Stacks = 'NEVER',

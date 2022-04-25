@@ -390,6 +390,7 @@ AOblivionCannonProjectile = Class(EmitterProjectile) {
 AOblivionCannonProjectile02 = Class(SinglePolyTrailProjectile) {
 
 	FxImpactTrajectoryAligned = false,
+    
     FxTrails = EffectTemplate.AOblivionCannonFXTrails02,
     PolyTrail = EffectTemplate.Aeon_QuanticClusterProjectilePolyTrail,
     FxImpactUnit = EffectTemplate.AOblivionCannonHit02,

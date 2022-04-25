@@ -130,7 +130,7 @@ function OnFirstUpdate()
 			--try to turn on cheating so we can issue path commands (not working)
 			local oldcheat = SessionGetScenarioInfo().Options.CheatsEnabled
 			
-			LOG("*DEBUG Current CheatsEnabled is "..repr(oldcheat))
+			--LOG("*DEBUG Current CheatsEnabled is "..repr(oldcheat))
 			
 			if not Sync.Cheaters then
 			
