@@ -6654,23 +6654,28 @@ Platoon = Class(moho.platoon_methods) {
 			-- go out and find an assist target and and guard it
 			self:ForkThread( AssistBody, eng, aiBrain)
 		
-			local assistcount = 0
 			local assisttime = self.PlatoonData.Assist.Time or 90
+            
+            -- now we can take assist eco limits from the platoon data
+            local assistenergy = self.PlatoonData.Assist.AssistEnergy or 1000
+            local assistmass = self.PlatoonData.Assist.AssistMass or 200
 		
             -- continue to guard until eco runs short, eng death, timer runs out, or eng loses guard
 			repeat
-			
-				WaitTicks(50)
 		
-				if (GetEconomyStored(aiBrain,'MASS') < 200 or GetEconomyStored(aiBrain,'ENERGY') < 2000 ) then
+				if (GetEconomyStored(aiBrain,'MASS') < assistenergy or GetEconomyStored(aiBrain,'ENERGY') < assistmass ) then
 				
 					break
 					
 				end
 
-				assistcount = assistcount + 5
+				assisttime = assisttime - 4
+
+                if assisttime >= 1 then
+                    WaitTicks(41)
+                end
 			
-			until assistcount > assisttime or eng.Dead or (not eng.AssistPlatoon) or IsIdleState(eng)
+			until assisttime < 1 or eng.Dead or (not eng.AssistPlatoon) or IsIdleState(eng)
 			
 		end
 		

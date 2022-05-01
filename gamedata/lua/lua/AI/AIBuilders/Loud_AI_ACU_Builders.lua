@@ -435,6 +435,8 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
 		
         BuilderData = {
             Assist = {
+                AssistEnergy = 100,
+                AssistMass = 50,
 				AssistRange = 80,
                 AssisteeType = 'Any',
 				AssisteeCategory = ENGINEER + ENERGYPRODUCTION,
