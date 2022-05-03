@@ -76,20 +76,21 @@ function getBuildingTab()
     return buildingTab
 end
 
+-- RAT: Unused. Was previously called from lua/ui/dialogs/keybinds.lua
 function getKeyDescriptions()
 
     --LOG("*AI DEBUG Hotbuild getKeyDescriptions")
-    
+
     local kd = {}
-    
-    for name, values in getBuildingTab() do
-    
+
+    for name, _ in getBuildingTab() do
+
         kd["build_" .. name] = "Build " .. name
         kd["build_" .. name .. "_shift"] = "Build(+shift) " .. name
         kd["build_" .. name .. "_alt"] = "Build(+alt) " .. name
-        
+
     end
-    
+
     return kd
 end
 
