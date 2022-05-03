@@ -180,14 +180,17 @@ function ProcessAIChat(to, from, text)
 		end
         
 	elseif to == 'all' then
+
+		local texttl = string.lower(text)
     
 		for i, v in armies.armiesTable do
 			-- Sending one of the tokens below to all chat broadcasts a request
 			-- for the AI to reply with its current cheat multiplier
-			if not v.human and not v.civilian and 
-			string.find(text, "aimult") or 
-			string.find(text, "aicheat") or 
-			string.find(text, "ailevel") then
+			if not v.human and not v.civilian and
+			string.find(texttl, "aimult") or
+			string.find(texttl, "aicheat") or
+			string.find(texttl, "aimulti") or
+			string.find(texttl, "ailevel") then
 				SimCallback({Func = 'AIChat', Args= {Army = i, ToArmy = from, PrintMult = true}})
 				continue
 			end

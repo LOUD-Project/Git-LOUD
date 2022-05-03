@@ -20,9 +20,8 @@ local initDefaultKeyMap = import('/lua/hotbuild/hotbuild.lua').initDefaultKeyMap
 
 LOG("Hotbuild --> Loading keydescriptions")
 
-for key, description in import('/lua/hotbuild/hotbuild.lua').getKeyDescriptions() do
-    keyDesc[key] = description
-end
+-- RAT: In case key descriptions need to be algorithmically generated, do so here;
+-- this is where it was done before
 
 local function initDefaultKeyMap_de()
     initDefaultKeyMap('de')
