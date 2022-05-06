@@ -188,6 +188,7 @@ PlatoonTemplate { Name = 'ReinforceAirExperimental',
 ----- LAND FORMATIONS ----
 --------------------------
 
+local LANDAMPHIB = categories.LAND * categories.MOBILE * categories.AMPHIBIOUS
 local LANDANTIAIR = categories.LAND * categories.MOBILE * categories.ANTIAIR
 local LANDARTILLERY = categories.LAND * categories.MOBILE * categories.INDIRECTFIRE
 local LANDCOUNTERINTEL = categories.LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE
@@ -333,55 +334,55 @@ PlatoonTemplate { Name = 'LandAttackHugeNW',
 
 PlatoonTemplate { Name = 'ReinforceAmphibiousPlatoon',
     GlobalSquads = {
-        { (categories.LAND * categories.AMPHIBIOUS) * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT, 6, 24, 'Attack', 'none' },
-		{ (categories.LAND * categories.AMPHIBIOUS * categories.ANTIAIR), 0, 8, 'Guard', 'none' },
-		{ (categories.LAND * categories.AMPHIBIOUS * categories.SHIELD), 0, 5, 'Support', 'none' },
-        { (categories.LAND * categories.AMPHIBIOUS * categories.COUNTERINTELLIGENCE), 0, 3, 'Support', 'none'},
-		{ (categories.LAND * categories.AMPHIBIOUS * categories.SCOUT), 0,  1, 'Scout', 'none' },
+        { LANDAMPHIB * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT, 6, 24, 'Attack', 'none' },
+		{ LANDAMPHIB * categories.ANTIAIR, 0, 8, 'Guard', 'none' },
+		{ LANDAMPHIB * categories.SHIELD, 0, 5, 'Support', 'none' },
+        { LANDAMPHIB * categories.COUNTERINTELLIGENCE, 0, 3, 'Support', 'none'},
+		{ LANDAMPHIB * categories.SCOUT, 0,  1, 'Scout', 'none' },
 	},
 }
 
 PlatoonTemplate { Name = 'T1AmphibAttack',
     Plan = 'AmphibForceAILOUD',
     GlobalSquads = {
-        { (categories.LAND * categories.AMPHIBIOUS) * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT, 16, 30, 'Attack', 'none' },
-		{ (categories.LAND * categories.AMPHIBIOUS * categories.ANTIAIR), 0, 8, 'Support', 'none' },
-		{ (categories.LAND * categories.AMPHIBIOUS * categories.SHIELD), 0, 5, 'Guard', 'none' },
-        { (categories.LAND * categories.AMPHIBIOUS * categories.COUNTERINTELLIGENCE), 0, 1, 'Guard', 'none'},        
-		{ (categories.LAND * categories.AMPHIBIOUS * categories.SCOUT), 0,  1, 'Scout', 'none' },
+        { LANDAMPHIB * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT, 16, 30, 'Attack', 'none' },
+		{ LANDAMPHIB * categories.ANTIAIR, 0, 8, 'Support', 'none' },
+		{ LANDAMPHIB * categories.SHIELD, 0, 5, 'Guard', 'none' },
+        { LANDAMPHIB * categories.COUNTERINTELLIGENCE, 0, 1, 'Guard', 'none'},        
+		{ LANDAMPHIB * categories.SCOUT, 0,  1, 'Scout', 'none' },
 	},
 }
 
 PlatoonTemplate { Name = 'T2AmphibAttack',
     Plan = 'AmphibForceAILOUD',
     GlobalSquads = {
-        { (categories.LAND * categories.AMPHIBIOUS) * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT, 28, 48, 'Attack', 'none' },
-		{ (categories.LAND * categories.AMPHIBIOUS * categories.ANTIAIR), 0, 8, 'Support', 'none' },
-		{ (categories.LAND * categories.AMPHIBIOUS * categories.SHIELD), 0, 5, 'Guard', 'none' },
-        { (categories.LAND * categories.AMPHIBIOUS * categories.COUNTERINTELLIGENCE), 0, 2, 'Guard', 'none'},        
-		{ (categories.LAND * categories.AMPHIBIOUS * categories.SCOUT), 0,  1, 'Scout', 'none' },
+        { LANDAMPHIB * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT, 28, 48, 'Attack', 'none' },
+		{ LANDAMPHIB * categories.ANTIAIR, 0, 8, 'Support', 'none' },
+		{ LANDAMPHIB * categories.SHIELD, 0, 5, 'Guard', 'none' },
+        { LANDAMPHIB * categories.COUNTERINTELLIGENCE, 0, 2, 'Guard', 'none'},        
+		{ LANDAMPHIB * categories.SCOUT, 0,  1, 'Scout', 'none' },
 	},
 }
 
 PlatoonTemplate { Name = 'T3AmphibAttack',
     Plan = 'AmphibForceAILOUD',
     GlobalSquads = {
-        { (categories.LAND * categories.AMPHIBIOUS) * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT, 40, 60, 'Attack', 'none' },
-		{ (categories.LAND * categories.AMPHIBIOUS * categories.ANTIAIR), 0, 18, 'Guard', 'none' },
-		{ (categories.LAND * categories.AMPHIBIOUS * categories.SHIELD), 0, 10, 'Guard', 'none' },
-        { (categories.LAND * categories.AMPHIBIOUS * categories.COUNTERINTELLIGENCE), 0, 2, 'Guard', 'none'},        
-		{ (categories.LAND * categories.AMPHIBIOUS * categories.SCOUT), 0,  1, 'Scout', 'none' },
+        { LANDAMPHIB * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT, 40, 60, 'Attack', 'none' },
+		{ LANDAMPHIB * categories.ANTIAIR, 0, 18, 'Guard', 'none' },
+		{ LANDAMPHIB * categories.SHIELD, 0, 10, 'Guard', 'none' },
+        { LANDAMPHIB * categories.COUNTERINTELLIGENCE, 0, 2, 'Guard', 'none'},        
+		{ LANDAMPHIB * categories.SCOUT, 0,  1, 'Scout', 'none' },
     },
 }
 
 PlatoonTemplate { Name = 'AmphibAttackHuge',
     Plan = 'AmphibForceAILOUD',
     GlobalSquads = {
-        { (categories.LAND * categories.AMPHIBIOUS) * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT, 60, 90, 'Attack', 'none' },
-		{ (categories.LAND * categories.AMPHIBIOUS * categories.ANTIAIR), 0, 18, 'Guard', 'none' },
-		{ (categories.LAND * categories.AMPHIBIOUS * categories.SHIELD), 0, 10, 'Guard', 'none' },
-        { (categories.LAND * categories.AMPHIBIOUS * categories.COUNTERINTELLIGENCE), 0, 3, 'Guard', 'none'},        
-		{ (categories.LAND * categories.AMPHIBIOUS * categories.SCOUT), 0,  1, 'Scout', 'none' },
+        { LANDAMPHIB * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT, 60, 90, 'Attack', 'none' },
+		{ LANDAMPHIB * categories.ANTIAIR, 0, 18, 'Guard', 'none' },
+		{ LANDAMPHIB * categories.SHIELD, 0, 10, 'Guard', 'none' },
+        { LANDAMPHIB * categories.COUNTERINTELLIGENCE, 0, 3, 'Guard', 'none'},        
+		{ LANDAMPHIB * categories.SCOUT, 0,  1, 'Scout', 'none' },
     },
 }
 
@@ -408,10 +409,11 @@ PlatoonTemplate { Name = 'T1LandScoutForm',
 
     FactionSquads = {
         UEF = {
-            { 'uel0101', 2, 3, 'Scout', 'none' }
+            { 'uel0101', 2, 2, 'Scout', 'none' }
         },
         Aeon = {
-            { 'ual0101', 2, 3, 'Scout', 'none' }
+            { 'ual0101', 2, 4, 'Scout', 'none' },
+            { LANDAMPHIB - categories.SCOUT, 0, 2, 'Attack', 'none' }
         },
         Cybran = {
             { 'url0101', 1, 1, 'Scout', 'none' }
@@ -606,7 +608,7 @@ PlatoonTemplate { Name = 'SeaAttack Medium',
 			{ categories.FRIGATE, 5, 15, 'Attack', 'none' },													# Frigates
 			{ categories.SUBMARINE + categories.LIGHTBOAT, 7, 21, 'Attack', 'none' },							# Submarines and UEF Torp Boat
 			{ categories.MOBILE * categories.NAVAL * categories.CARRIER, 0, 1, 'Guard', 'none' },				# Carriers		
-			{ categories.DEFENSIVEBOAT, 0, 4, 'Guard', 'none' },												# UEF Shield
+			{ categories.DEFENSIVEBOAT, 2, 4, 'Guard', 'none' },												# UEF Shield
 			
 		},
 		

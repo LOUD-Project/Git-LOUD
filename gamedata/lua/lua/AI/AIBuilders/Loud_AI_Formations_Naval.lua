@@ -808,7 +808,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
         BuilderType = 'Any',
 		
         BuilderConditions = {
-			{ LUTL, 'NavalStrengthRatioGreaterThan', { 1 } },
+			{ LUTL, 'NavalStrengthRatioGreaterThan', { 5 } },
 		
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.BOMBARDMENT}},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.CRUISER }},
