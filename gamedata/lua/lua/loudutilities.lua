@@ -3983,17 +3983,31 @@ function ParseIntelThread( aiBrain )
 	-- local this global function
 	local IsEnemy = IsEnemy
 
-	local LOUDFLOOR = math.floor
-	local LOUDGETN = table.getn
-	local LOUDINSERT = table.insert
-	local LOUDSORT = table.sort
+	local LOUDFLOOR = LOUDFLOOR
+	local LOUDGETN = LOUDGETN
+	local LOUDINSERT = LOUDINSERT
+
+	local LOUDMAX = math.max
+	local LOUDMIN = math.min
+	local LOUDMOD = math.mod
+    
+	local LOUDSORT = LOUDSORT
 	local LOUDV2 = VDist2
 	local VD2 = VDist2Sq
-	local WaitTicks = coroutine.yield
+	local WaitTicks = WaitTicks
 
-	WaitTicks(Random(1,7))	-- to avoid all the AI running at exactly the same tick
+    -- local the repetitive functions		
+	local EntityCategoryFilterDown = EntityCategoryFilterDown
     
-	ScenarioInfo.MaxMapDimension = math.max(ScenarioInfo.size[1],ScenarioInfo.size[2])
+	local GETTHREATATPOSITION = GetThreatAtPosition
+	local GetListOfUnits = moho.aibrain_methods.GetListOfUnits
+	local GetPosition = moho.entity_methods.GetPosition
+	local GetUnitsAroundPoint = GetUnitsAroundPoint
+	local GetThreatsAroundPosition = GetThreatsAroundPosition
+    
+    local assign = moho.aibrain_methods.AssignThreatAtPosition
+  
+	ScenarioInfo.MaxMapDimension = LOUDMAX(ScenarioInfo.size[1],ScenarioInfo.size[2])
 
     -- set values according to mapsize
     -- it controls the size of the query when seeking the epicentre of a threat
@@ -4158,7 +4172,7 @@ function ParseIntelThread( aiBrain )
 	local parseinterval = 56    -- the rate of a single iteration in ticks - essentially every 5.5 seconds (which is relative to the IMAP update cycle which is 3 seconds)
 
     -- the current iteration value
-    local iterationcount = 0 
+    local iterationcount = LOUDFLOOR( Random() * 14) -- each AI will likely start on a different iteration - again, to prevent concentrated load 
     local iterationmax = 15
 
     -- Create EnemyData array - stores history of totalthreat by threattype over a period of time
@@ -4181,19 +4195,6 @@ function ParseIntelThread( aiBrain )
 	-- the 3D location of the MAIN base for this AI
 	local HomePosition = aiBrain.BuilderManagers.MAIN.Position
 
-    -- local the repetitive functions		
-	local EntityCategoryFilterDown = EntityCategoryFilterDown
-    
-	local GETTHREATATPOSITION = GetThreatAtPosition
-	local GetListOfUnits = moho.aibrain_methods.GetListOfUnits
-	local GetPosition = moho.entity_methods.GetPosition
-	local GetUnitsAroundPoint = GetUnitsAroundPoint
-	local GetThreatsAroundPosition = GetThreatsAroundPosition
-
-	local LOUDMAX = math.max
-	local LOUDMIN = math.min
-	local LOUDMOD = math.mod
-
 	-- this moves all the local creation up front so NO locals need to be declared in
 	-- the primary loop - probably doesn't mean much - but I did it anyway
     -- it also lets me see all the variables I might be using and better re-use them 
@@ -4208,6 +4209,8 @@ function ParseIntelThread( aiBrain )
     local LANDUNITS = (categories.LAND * categories.MOBILE) - categories.ANTIAIR - categories.ENGINEER - categories.SCOUT
     local NAVALUNITS = (categories.NAVAL * categories.MOBILE) + (categories.NAVAL * categories.FACTORY) + (categories.NAVAL * categories.DEFENSE)
 
+	WaitTicks( LOUDFLOOR(Random() * 25 + 1))	-- to avoid all the AI running at exactly the same tick
+  
 	-- in a perfect world we would check all 8 threat types every parseinterval 
 	-- however, only AIR will be checked every cycle -- the others will be checked every other cycle or on the 3rd or 4th
     while true do
@@ -4298,15 +4301,14 @@ function ParseIntelThread( aiBrain )
                 gametime = LOUDFLOOR(GetGameTimeSeconds())
 				
 				if IntelDialog then
-                
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL "..threatType.." begins on iteration "..repr(iterationcount))
-                    
+
                     if threats[1] then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL "..threatType.." gets "..LOUDGETN(threats).." results at GameSecond "..gametime)
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL "..threatType.." gets "..LOUDGETN(threats).." results on iteration "..repr(iterationcount).." at GameSecond "..gametime)
                     end
 				end
 	
                 -- examine each threat and add those that are high enough to the InterestList if enemy units are found at that location
+                -- but regardless - we add any threat amount to the total - even those we might ignore
                 for _,threat in threats do
 
                     -- add up the threat from each IMAP position - we'll use this as history even if it doesn't result in a InterestList entry
@@ -4395,9 +4397,7 @@ function ParseIntelThread( aiBrain )
                             end
                             
                             if IntelDialog then
-                            
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL "..threatType.." Reviewing threat "..repr(threat).." real units "..counter)
-                            
+
                                 if newthreat != oldthreat then
                                     LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL "..threatType.." reports IMAP threat of "..newthreat.." modifier "..repr(ThresholdMult).." using "..Rings.." rings old is "..repr(oldthreat))
                                 end
@@ -4411,7 +4411,7 @@ function ParseIntelThread( aiBrain )
 								end
 
                                 -- reduce the existing threat by 50% with a 5% decay - IMAP refreshes every 3 seconds
-                                aiBrain:AssignThreatAtPosition( {threat[1],0,threat[2]}, threat[3] * -0.5, 0.05, threatType)                                       
+                                assign( aiBrain, {threat[1],0,threat[2]}, threat[3] * -0.5, 0.05, threatType)                                       
                                 
 								threat[3] = threat[3] * .5
                                 
@@ -4428,21 +4428,19 @@ function ParseIntelThread( aiBrain )
 								end
 
                                 -- reduce the existing threat by 25% with a 5% decay - IMAP refreshes every 3 seconds
-                                aiBrain:AssignThreatAtPosition( {threat[1],0,threat[2]}, threat[3] * -0.25, 0.05, threatType)                                       
+                                assign( aiBrain, {threat[1],0,threat[2]}, threat[3] * -0.25, 0.05, threatType)                                       
                                 
 								newthreat = threat[3] * .75
 
 							else
                             
-                                if IntelDialog then
-                                    LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL "..threatType.." found "..table.getn(units).." visible units at avg centre of threat "..repr(newPos))
-                                end
+                                --if IntelDialog then
+                                  --  LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL "..threatType.." found "..table.getn(units).." visible units at avg centre of threat "..repr(newPos))
+                                --end
                                 
                             end
 
 							newtime = gametime
-                            
-                            
 
                             -- traverse the existing list until you find an entry within merge distance
 							-- we'll update ALL entries that are within the merge distance meaning we may get duplicates
@@ -4524,7 +4522,7 @@ function ParseIntelThread( aiBrain )
 						else
 
                             -- reduce the existing threat by 75% with a 5% decay - IMAP refreshes every 3 seconds
-                            aiBrain:AssignThreatAtPosition( {threat[1],0,threat[2]}, threat[3] * -0.75, 0.05, threatType)                                       
+                            assign( aiBrain, {threat[1],0,threat[2]}, threat[3] * -0.75, 0.05, threatType)                                       
    
                             -- remove or reduce HiPri targets in range --
                             for k,loc in aiBrain.IL.HiPri do
@@ -4557,6 +4555,10 @@ function ParseIntelThread( aiBrain )
                         
                         usedticks = usedticks + 1
 					end
+                    
+                    WaitTicks(2)
+                    
+                    usedticks = usedticks + 1
                     
                 end
 
@@ -4650,12 +4652,21 @@ function ParseIntelThread( aiBrain )
         
 			if checkspertick < 15 then
             
-				checkspertick = checkspertick + 1
+				checkspertick = checkspertick + 3
+            
+                --if checkspertick > 7 then
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL increased CPT to "..checkspertick)
+                --end
+
+			else
+            
+                checkspertick = checkspertick + 1
+            
+                --if checkspertick > 7 then
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL increased CPT to "..checkspertick)
+                --end
                 
-                if checkspertick > 7 then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL increased CPT to "..checkspertick)
-                end
-			end
+            end
             
 		end
 
