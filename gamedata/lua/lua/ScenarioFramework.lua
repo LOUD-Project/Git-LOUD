@@ -791,58 +791,32 @@ end
 -- this function allows you to use scenarioutilities function AreaToRect for the rectangle.
 function SetPlayableArea( rect, voFlag )
 
+    if ScenarioInfo.Playablearea then
+        return
+    end
+
 	local function GenerateOffMapAreas()
     
 		local playablearea = {}
-		local OffMapAreas = {}
 
+        -- this value is only present if we sucessfully set a restricted
+        -- playable area -- otherwise we use map dimensions --
 		if  ScenarioInfo.MapData.PlayableRect then
+        
 			playablearea = ScenarioInfo.MapData.PlayableRect
+       
 		else
+        
+            LOG("*AI DEBUG No playable area was defined - using map size")
+            
 			playablearea = {0, 0, ScenarioInfo.size[1], ScenarioInfo.size[2]}
+            ScenarioInfo.MapData.PlayableRect = playablearea
 		end
+
+		ScenarioInfo.Playablearea = playablearea
         
 		LOG('playable area coordinates are ' .. repr(playablearea))
 
-		local x0 = playablearea[1]
-		local y0 = playablearea[2]
-		local x1 = playablearea[3]
-		local y1 = playablearea[4]
-
-		-- This is a rectangle above the playable area that is longer, left to right, than the playable area
-		local OffMapArea1 = {}
-		OffMapArea1.x0 = (x0 - 100)
-		OffMapArea1.y0 = (y0 - 100)
-		OffMapArea1.x1 = (x1 + 100)
-		OffMapArea1.y1 = y0
-
-		-- This is a rectangle below the playable area that is longer, left to right, than the playable area
-		local OffMapArea2 = {}
-		OffMapArea2.x0 = (x0 - 100)
-		OffMapArea2.y0 = (y1)
-		OffMapArea2.x1 = (x1 + 100)
-		OffMapArea2.y1 = (y1 + 100)
-
-		-- This is a rectangle to the left of the playable area, that is the same height (up to down) as the playable area
-		local OffMapArea3 = {}
-		OffMapArea3.x0 = (x0 - 100)
-		OffMapArea3.y0 = y0
-		OffMapArea3.x1 = x0
-		OffMapArea3.y1 = y1
-
-		-- This is a rectangle to the right of the playable area, that is the same height (up to down) as the playable area
-		local OffMapArea4 = {}
-		OffMapArea4.x0 = x1
-		OffMapArea4.y0 = y0
-		OffMapArea4.x1 = (x1 + 100)
-		OffMapArea4.y1 = y1
-
-		OffMapAreas = {OffMapArea1, OffMapArea2, OffMapArea3, OffMapArea4}
-
-		ScenarioInfo.OffMapAreas = OffMapAreas
-		ScenarioInfo.PlayableArea = playablearea
-
-		LOG('Offmapareas are ' .. repr(OffMapAreas))
 	end
 	
     if (voFlag == nil) then
@@ -865,16 +839,14 @@ function SetPlayableArea( rect, voFlag )
 
     LOG(string.format('Debug: SetPlayableArea before round : %s,%s %s,%s',rect.x0,rect.y0,rect.x1,rect.y1))
     
-    local x0 = rect.x0 - math.mod(rect.x0 , 4)
-    local y0 = rect.y0 - math.mod(rect.y0 , 4)
-    local x1 = rect.x1 - math.mod(rect.x1, 4)
-    local y1 = rect.y1 - math.mod(rect.y1, 4)
+    local x0 = rect.x0 + math.mod(rect.x0 , 3)
+    local y0 = rect.y0 + math.mod(rect.y0 , 3)
+    local x1 = rect.x1 - math.mod(rect.x1, 3)
+    local y1 = rect.y1 - math.mod(rect.y1, 3)
 
 	if not ScenarioInfo.MapData then
 		ScenarioInfo.MapData = {}
 	end
-	
-    ScenarioInfo.MapData.PlayableRect = {x0,y0,x1,y1}
 	
     LOG(string.format('Debug: SetPlayableArea after round : %s,%s %s,%s',x0,y0,x1,y1))
 
@@ -883,18 +855,24 @@ function SetPlayableArea( rect, voFlag )
     rect.y0 = y0
     rect.y1 = y1
 
-    SetPlayableRect( x0, y0, x1, y1 )
+    if x1 != 0 and y1 != 0 then
+    
+        SetPlayableRect( x0, y0, x1, y1 )
 	
-    if voFlag then
-        ForkThread(PlayableRectCameraThread, rect)
-        table.insert(Sync.Voice, {Cue='Computer_Computer_MapExpansion_01380', Bank='XGG'} )
-    end
+        if voFlag then
+            ForkThread(PlayableRectCameraThread, rect)
+            table.insert(Sync.Voice, {Cue='Computer_Computer_MapExpansion_01380', Bank='XGG'} )
+        end
 
-    import('/lua/SimSync.lua').SyncPlayableRect(rect)
+        import('/lua/SimSync.lua').SyncPlayableRect(rect)
     
-	Sync.NewPlayableArea = {x0, y0, x1, y1}
+        Sync.NewPlayableArea = {x0, y0, x1, y1}
+	
+        ScenarioInfo.MapData.PlayableRect = {x0,y0,x1,y1}
     
-	ForkThread(GenerateOffMapAreas)
+    end
+    
+	GenerateOffMapAreas()
 end
 
 function PlayableRectCameraThread( rect )

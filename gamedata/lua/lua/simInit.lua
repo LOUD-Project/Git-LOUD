@@ -84,9 +84,7 @@ doscript '/lua/SimSync.lua'
 --# SetupSession will be called by the engine after ScenarioInfo is set
 --# but before any armies are created.
 function SetupSession()
-
-    --LOG("*AI DEBUG ScenarioInfo is "..repr(ScenarioInfo))
-    
+   
     ArmyBrains = {}
 
 	--# ScenarioInfo.Env is the environment that the save file and scenario script file are loaded into.
@@ -106,6 +104,7 @@ function SetupSession()
     doscript(ScenarioInfo.save, ScenarioInfo.Env)
 
     ResetSyncTable()
+
 end
 
 --# OnCreateArmyBrain() is called by the engine as the brains are created, and we
@@ -132,6 +131,10 @@ end
 --# any units yet) and we're ready to start the game. It's responsible for setting up
 --# the initial units and any other gameplay state we need.
 function BeginSession()
+
+    -- Pass ScenarioInfo into OnPopulate() and OnStart() for backwards compatibility
+    ScenarioInfo.Env.OnPopulate(ScenarioInfo)
+    ScenarioInfo.Env.OnStart(ScenarioInfo)
     
     -- JIP: make sure the hook happens before scripts start working
     import("/lua/sim/MarkerUtilities.lua")
@@ -143,10 +146,6 @@ function BeginSession()
     if focusarmy >= 0 and ArmyBrains[focusarmy] then
         LocGlobals.PlayerName = ArmyBrains[focusarmy].Nickname
     end
-
-    -- Pass ScenarioInfo into OnPopulate() and OnStart() for backwards compatibility
-    ScenarioInfo.Env.OnPopulate(ScenarioInfo)
-    ScenarioInfo.Env.OnStart(ScenarioInfo)
 
     -- Look for teams
     local teams = {}

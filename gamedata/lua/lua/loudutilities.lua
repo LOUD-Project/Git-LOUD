@@ -153,13 +153,11 @@ function UnitCapCheckLess(aiBrain, percent)
 end
 
 -- static version of function with specific location
-function BaseInPlayableArea( aiBrain, location )
+function BaseInPlayableArea( aiBrain, managerposition )
 
-    if ScenarioInfo.MapData.PlayableRect then
+    if ScenarioInfo.Playablearea then
 
-        local PlayableArea = ScenarioInfo.MapData.PlayableRect
-        
-        local managerposition = LOUDCOPY(location)
+        local PlayableArea = ScenarioInfo.Playablearea
 
         if managerposition[1] < PlayableArea[1] or managerposition[1] > PlayableArea[3] then
  
@@ -4809,6 +4807,8 @@ end
 function BuildScoutLocations( self )
 
 	LOG("*AI DEBUG "..self.Nickname.." now BuildingScoutLocations ")
+
+    LOG("*AI DEBUG playable map area is "..repr(ScenarioInfo.Playablearea))
 	
 	local GetMarker = import('/lua/sim/scenarioutilities.lua').GetMarker
 	local AIGetMarkerLocations = import('/lua/ai/aiutilities.lua').AIGetMarkerLocations
@@ -4837,9 +4837,9 @@ function BuildScoutLocations( self )
     
     local function PositionInPlayableArea(intelpoint)
     
-        if ScenarioInfo.MapData.PlayableRect then
+        if ScenarioInfo.Playablearea then
         
-            local PlayableArea = ScenarioInfo.MapData.PlayableRect
+            local PlayableArea = ScenarioInfo.Playablearea
             
             if intelpoint[1] < PlayableArea[1] or intelpoint[1] > PlayableArea[3] then
                 return false
@@ -4895,7 +4895,7 @@ function BuildScoutLocations( self )
 
             for _,v in positions do
                 -- if position is vacant add to hi priority list permanently
-                if not opponentStarts[v.Name] and not allyStarts[v.Name] and PositionInPlayableArea(v.Position) then
+                if (not opponentStarts[v.Name] and not allyStarts[v.Name]) and PositionInPlayableArea(v.Position) then
                     LOUDINSERT(self.IL.HiPri, { Position = {LOUDFLOOR(v.Position[1]), LOUDFLOOR(v.Position[2]), LOUDFLOOR(v.Position[3])}, Type = 'Economy', LastScouted = 0, LastUpdate = 0, Threat = 0, Permanent = true } )
                 end
             end
@@ -4933,7 +4933,7 @@ function BuildScoutLocations( self )
 
 			for _,v in positions do
 
-				if not allyStarts[v.Name] and not IntelPointNearby(v.Position) and PositionInPlayableArea(v.Position) then
+				if (not allyStarts[v.Name] and not IntelPointNearby(v.Position)) and PositionInPlayableArea(v.Position) then
 				
 					LOUDINSERT(self.IL.LowPri, { Position = {LOUDFLOOR(v.Position[1]), LOUDFLOOR(v.Position[2]), LOUDFLOOR(v.Position[3])}, Type = 'Economy', LastScouted = 0, LastUpdate = 0, Threat = 0, Permanent = true } )
 				end
@@ -4960,7 +4960,7 @@ function BuildScoutLocations( self )
 
             for _,v in positions do
 			
-                if not IntelPointNearby(v.Position) and PositionInPlayableArea(v.Position) then
+                if (not IntelPointNearby(v.Position)) and PositionInPlayableArea(v.Position) then
                     LOUDINSERT(self.IL.HiPri, { Position = {LOUDFLOOR(v.Position[1]), LOUDFLOOR(v.Position[2]), LOUDFLOOR(v.Position[3])}, LastScouted = 0, LastUpdate = 0, Threat = 0, Permanent = true } )
                 end
             end
@@ -4976,7 +4976,7 @@ function BuildScoutLocations( self )
 
             for _,v in positions do
 			
-                if not IntelPointNearby(v.Position) and PositionInPlayableArea(v.Position) then
+                if (not IntelPointNearby(v.Position)) and PositionInPlayableArea(v.Position) then
                     LOUDINSERT(self.IL.LowPri, { Position = {LOUDFLOOR(v.Position[1]), LOUDFLOOR(v.Position[2]), LOUDFLOOR(v.Position[3])}, LastScouted = 0, LastUpdate = 0, Threat = 0, Permanent = true } )
                 end
             end
