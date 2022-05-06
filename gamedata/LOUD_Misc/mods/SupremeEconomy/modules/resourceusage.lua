@@ -9,7 +9,7 @@ local ToolTip = import('/lua/ui/game/tooltip.lua')
 local GameMain = import('/lua/ui/game/gamemain.lua')
 
 local modFolder = 'SupremeEconomy'
-local GetScore = import('/mods/' .. modFolder .. '/modules/mciscore.lua').GetScore
+--local GetScore = import('/mods/' .. modFolder .. '/modules/mciscore.lua').GetScore
 local GetAllUnits = import('/mods/' .. modFolder .. '/modules/mciallunits.lua').GetAllUnits
 local CreateGrid = import('/mods/' .. modFolder .. '/modules/mcibuttons.lua').CreateGrid
 local CreateGenericButton = import('/mods/' .. modFolder .. '/modules/mcibuttons.lua').CreateGenericButton

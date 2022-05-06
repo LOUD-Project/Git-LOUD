@@ -126,18 +126,18 @@ function CreateGenericButton(parent)
     LayoutHelpers.AtLeftTopIn(bg.progress, bg, 6, 2)
     
 	
-    bg.income = UIUtil.CreateText(bg.icon, '', 10, UIUtil.bodyFont)
-	bg.income:SetColor('red')
-    bg.income:SetDropShadow(true)
+    bg.income = UIUtil.CreateText(bg.icon, '', 13, UIUtil.bodyFont)
+	bg.income:SetColor('ffff8f00')
+    --bg.income:SetDropShadow(true)
 	
 	LayoutHelpers.AtTopIn(bg.income, bg.icon, 0)
-    LayoutHelpers.AtRightIn(bg.income, bg.icon, 2)
+    LayoutHelpers.AtRightIn(bg.income, bg.icon, 1)
 	
 	CreateTextBG(bg, bg.income, '77000000')
 	
-	bg.count = UIUtil.CreateText(bg.icon, '', 10, UIUtil.bodyFont)
+	bg.count = UIUtil.CreateText(bg.icon, '', 11, UIUtil.bodyFont)
 	bg.count:SetColor('ffffffff')
-    bg.count:SetDropShadow(true)
+    --bg.count:SetDropShadow(true)
 	
 	LayoutHelpers.AtBottomIn(bg.count, bg.icon, 0)
     LayoutHelpers.AtRightIn(bg.count, bg.icon, 2)

@@ -182,6 +182,8 @@ function CreateModUI(isReplay, parent)
 	local yPosition = 420
 	
 	local buttons = CreateGrid(parent, xPosition, yPosition, 3, 3, CreateGenericButton)
+    
+    LOG("*AI DEBUG Mods are "..repr(__active_mods))
 
 	for tech = 1, 3 do
 	
@@ -228,14 +230,20 @@ function CreateModUI(isReplay, parent)
 		
 		updateButton(mexes[categories.TECH2].U.N, buttons[1][2], false, "Select idle T2 Mexes", false)
 		updateButton(mexes[categories.TECH2].U.Y, buttons[2][2], true, "Select T2 Mexes that are being updated", false)
-		updateButton(mexes[categories.TECH2].MS.N, buttons[3][2], false, "Select T2 Mexes that are not surrounded by mass storage", true)
+        
+        --if not ScenarioInfo.LOUD_IS_Installed then
+            updateButton(mexes[categories.TECH2].MS.N, buttons[3][2], false, "Select T2 Mexes that are not surrounded by mass storage", true)
+        --end
 		
 		buttons[1][3]:Hide()
 		buttons[2][3]:Hide()
 		
 		updateButton(mexes[categories.TECH3].U.N, buttons[1][3], false, "Select idle T3 Mexes", false)
 		updateButton(mexes[categories.TECH3].U.Y, buttons[2][3], true, "Select T3 Mexes that are being updated", false)
-		updateButton(mexes[categories.TECH3].MS.N, buttons[3][3], false, "Select T3 Mexes that are not surrounded by mass storage", true)
+        
+        --if not ScenarioInfo.LOUD_IS_Installed then
+            updateButton(mexes[categories.TECH3].MS.N, buttons[3][3], false, "Select T3 Mexes that are not surrounded by mass storage", true)
+        --end
 		
 	end
  
