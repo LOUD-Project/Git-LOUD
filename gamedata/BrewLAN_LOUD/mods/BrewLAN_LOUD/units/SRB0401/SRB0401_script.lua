@@ -44,6 +44,9 @@ SRB0401 = Class(CLandFactoryUnit) {
     end,
 
     OnStopBuild = function(self, unitBeingBuilt)
+    
+        self:StopBuildingEffects(unitBeingBuilt)
+        
         CLandFactoryUnit.OnStopBuild(self, unitBeingBuilt)
         AIControl(self, unitBeingBuilt)
         BuildModeChange(self)
@@ -143,20 +146,26 @@ SRB0401 = Class(CLandFactoryUnit) {
     end,
 
     CreateBuildEffects = function(self, unitBeingBuilt, order)
+    
         if self.ShowThread then
             self.ShowThread:Destroy()
         end
+        
         local bp = unitBeingBuilt:GetBlueprint()
         local ScaleMult = 1/self:GetBlueprint().Display.UniformScale
+        
         local UnitSize = {
             bp.Physics.SkirtSizeX or bp.SizeX, --Width
             bp.SizeY, --Height
             bp.Physics.SkirtSizeZ or bp.SizeZ, --Length
         }
+        
         self.RotateBase = false
+        
         if math.max(UnitSize[1],UnitSize[3]) > 3 and math.max(UnitSize[1],UnitSize[3]) <= 10 and math.abs(UnitSize[1]-UnitSize[3]) <= 2 then
             self.RotateBase = true
         end
+        
         --I want to add something so that when it is a short wide unit, the min pos for length pos is 0, but no units are this shape that I know of.
         local MovementSizes = {
             math.min(math.max(UnitSize[1]-1,0),6)*ScaleMult*0.5, --Width
@@ -164,13 +173,17 @@ SRB0401 = Class(CLandFactoryUnit) {
             math.min(math.max(UnitSize[3]-1,0),10)*ScaleMult*0.5, --Platform
             math.min(math.max(UnitSize[3]-1,1),10)*ScaleMult, --Rear arm
         }
+        
         unitBeingBuilt:HideBone(0, true)
+        
         --ArmN
         self.Sliders[1]:SetGoal(MovementSizes[1],0,0)
         self.Sliders[2]:SetGoal(0,0,-MovementSizes[4])
         self.Sliders[3]:SetGoal(-MovementSizes[1],0,0)
+        
         --Platform
         self.Sliders[4]:SetGoal(0,0,-MovementSizes[3])
+        
         --ArmNB
         self.Sliders[6]:SetGoal(0,MovementSizes[2],0)
         self.Sliders[7]:SetGoal(0,MovementSizes[2],0)
@@ -183,6 +196,7 @@ SRB0401 = Class(CLandFactoryUnit) {
         --1,   2,     6,          10.5
         --all, slink, monkeylord, megalith
         for arrayi, array in self.Platforms do
+        
             for i, bone in array do
                 if arrayi <= math.ceil(math.max(UnitSize[1],UnitSize[3])) then
                     self:ShowBone(bone, true)
@@ -190,42 +204,71 @@ SRB0401 = Class(CLandFactoryUnit) {
                     self:HideBone(bone, true)
                 end
             end
+            
         end
+        
         if self.RotateBase then
+        
             self.Sliders[5]:ClearGoal()
             self.Sliders[5]:SetTargetSpeed(10)
+            
         else
+        
             self.Sliders[5]:SetGoal(0)
+            
         end
+        
         self.AnimateArms = true
+        
         if not self.CraneArmAnimationThread then
             self.CraneArmAnimationThread = self:ForkThread(self.CraneArmAnimation)
         end
+        
         CLandFactoryUnit.CreateBuildEffects(self, unitBeingBuilt, order)
     end,
 
     StopBuildingEffects = function(self, unitBeingBuilt)
-        CLandFactoryUnit.StopBuildingEffects(self, unitBeingBuilt)
+
         self.Sliders[5]:SetGoal(0)
+        
+        for i, v in self.ArmRotators1 do
+            v:SetGoal(0)
+        end
+        
         self.AnimateArms = false
+    
+        CLandFactoryUnit.StopBuildingEffects(self, unitBeingBuilt)
+
     end,
 
     CraneArmAnimation = function(self)
+    
         for i, v in self.ArmRotators1 do
             self.ArmRotators1[i] = CreateRotator(self, v, 'z', 60, 50, 4, 50)
         end
+        
         local unitBeingBuilt
+        
         while true do
+        
             if self.AnimateArms then
+            
                 for i, v in self.ArmRotators1 do
                     if math.random(1,3) != 3 then
                         v:SetGoal(55 + math.random(0,10))
                     end
                 end
+                
+            else 
+            
+            
             end
+            
             WaitTicks(2)
+            
             --Rotation return watch thread, so we don't have two different loops running
             unitBeingBuilt = self:GetFocusUnit()
+            
             if unitBeingBuilt and self.RotateBase and unitBeingBuilt:GetFractionComplete() > 0.8 then
                 self.Sliders[5]:SetGoal(0)
             end
@@ -233,7 +276,6 @@ SRB0401 = Class(CLandFactoryUnit) {
     end,
 
     OnPrepareArmToBuild = function(self)
-        LOG("OnPrepareArmToBuild")
     end,
 
     StartBuildFx = function(self, unitBeingBuilt)

@@ -67,7 +67,7 @@ T3LandBot = {
 },
 
 T3LandArtillery = {
-	Cybran = {'srl0311', 100},	-- Triseptitron
+	Cybran = {'srl0311', 50},	-- Triseptitron
 },
 
 T3AmphibiousArtillery = {
