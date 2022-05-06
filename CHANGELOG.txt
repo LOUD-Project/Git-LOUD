@@ -1,3 +1,50 @@
+LUA 6.2.04
+BlackOps for LOUD 6.2.2
+BrewLAN 0.8.8.9.51
+
+AI
+    - MassToFactory values moved up (used to decide if ok to build a new base)
+    - Improved Assist logic and added feature to permit builder data to specify eco triggers for aborting assist
+    - AI now allowed to build 8 T2 Pgens, up from 6, to cover those games where early power demands might be excessive
+    - fixed issue where maps with restricted playing areas were not recognizing that with respect to scout locations
+    - increase in number of land scout platoons available - AEON formation can now be upto 4 - UEF limited to 2
+    - AEON land scout platoons may now sometimes have amphibious combat units in them
+    - tweaked naval production to stimulate bombardment behavior sooner when the opponent decides to avoid water
+    - AI will de-emphasize naval base defense when the opponent decides to avoid water
+    
+    - ParseIntelThread will now scale up the CPT (Checks per tick) quickly to account for high intel traffic
+        - any sign of increase will move CPT up by 3 (versus 1 previously)
+        - no longer a limit on checks per tick (versus 15 previously)
+        - after CPT hits 15 increases will be limited to 1
+        - decreases are always by 1
+        
+        
+    
+Game
+    - Reclaim rate/times adjusted down (takes slightly longer to reclaim props)
+    - Cybran, UEF Naval factory build beams now properly focused on the building unit
+    - created workaround for map load issue when map specifies an AI for AI starts, we default to LOUD if not
+    - Improved the descriptions in the keybinds for Hotbuild
+    - Chat to the AI now recognizes more variants of 'aimult' and is no longer case sensitive
+
+LOUD_MODS
+    - Supreme Economy uses some larger font sizes in unit counts
+
+LOUD_UNITS
+    - removed some empty factional entries for custom units
+    
+UNITS
+    - BrewLAN Triseptitron SR0311 - categorized as SILO and INDIRECTFIRE, but built as ARTILLERY
+    - BrewLAN Cybran Gantry SRB0401 - stop moving build arms when build is complete
+    - code could never accurately count them so it would overbuild them, removed SILO - added ARTILLERY
+    - reduced appearance to 50% versus 100% as a replacement for the Trebuchet (standard T3 Mobile Artillery)
+    - BlackOps BSL0401 Drone repair script not checking for dead drone
+    - BO antiprojectile was missing re-direct beams for Sera Lambda effect
+    
+MAPS
+    - some pathing and marking updates to Shards
+
+
 ### Release 20-04-2022
 
 LUA 6.2.03
@@ -11,15 +58,16 @@ UNITS 6.2.1
 Wyvern 6.2.1
 Projectiles 6.2.1
 
+AI
     - AI will throttle searchradius gains, based on AirRatio, for smaller formations (< 15 air units), keeping them closer to home
     - AI will examine starting locations that are close to the map edge - will use smaller base layout if it is (to permit Paragon)
-    - Introduced warning message in the lobby, when Unit Cap is set too high - user prompted to continue
-    - fixed sequence error in rack recoils
-    - continued minor code optimizations
+    
+MAPS
     - updated the Central Mound map, was missing some amphbious connections to rear mass points
     
 UNITS
-
+    - fixed sequence error in rack recoils
+    - continued minor code optimizations
     - deprecated Total Mayhem 'Ezriel' Aeon T4 Light Experimental
     - deprecated Total Mayhem 'Owens' UEF T4 Light Support Experimental
     - deprecated Total Mayhem 'Pavestone' Cybran T3 Mobile Rocket Artillery
@@ -39,6 +87,7 @@ UNITS
     - Cybran Land Scout 'Mole' will now decloak when power runs out (FreeIntel flag was bypassing check)
     
 MODS
+    - Introduced warning message in the lobby, when Unit Cap is set too high - user prompted to continue
     - Wonky resources now integrated as standard feature via Blueprints.lua, removed from ModManager
     - Supreme Scoreboard no longer shows old AI data (was trying to show erroneous Sorian AI data)
     - BrewLAN - fixed buff application for cloned unit for CrateDrop mod
