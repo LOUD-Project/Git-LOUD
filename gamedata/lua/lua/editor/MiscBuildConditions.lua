@@ -111,9 +111,9 @@ end
 
 function BaseInPlayableArea( aiBrain, locationType )
 
-    if ScenarioInfo.MapData.PlayableRect then
+    if ScenarioInfo.Playablearea then
 
-        local PlayableArea = ScenarioInfo.MapData.PlayableRect
+        local PlayableArea = ScenarioInfo.Playablearea
         
         local managerposition = aiBrain.BuilderManagers[locationType].Position
 

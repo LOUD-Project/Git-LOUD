@@ -877,10 +877,19 @@ AIBrain = Class(moho.aibrain_methods) {
 		if not civilian then
 
 			if planName and planName != '' then
-			
-				self.AIPlansList = import(planName).AIPlansList
+                
+                -- custom AI settings - check for plan file 
+                -- bypass if the file is not available and use
+                -- LOUD AI natively
+                if DiskGetFileInfo(planName) then
+
+                    LOG("*AI DEBUG Creating AI with plan "..repr(planName))
+
+                    self.AIPlansList = import(planName).AIPlansList
 		
-				self.CurrentPlan = self.AIPlansList[self.FactionIndex][1]
+                    self.CurrentPlan = self.AIPlansList[self.FactionIndex][1]
+                    
+                end
 				
 			end
 
