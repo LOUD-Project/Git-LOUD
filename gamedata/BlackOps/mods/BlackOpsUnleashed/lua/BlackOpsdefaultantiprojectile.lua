@@ -103,8 +103,12 @@ SeraLambdaFieldRedirector = Class(Entity) {
             
             local beams = {}
             
-            for _, v in self.RedirectBeams do               
-                LOUDINSERT(beams, AttachBeamEntityToEntity(self.EnemyProj, -1, self.Owner, self.AttachBone, self.Army, v))
+            if self.RedirectBeams then
+            
+                for _, v in self.RedirectBeams do               
+                    LOUDINSERT(beams, AttachBeamEntityToEntity(self.EnemyProj, -1, self.Owner, self.AttachBone, self.Army, v))
+                end
+                
             end
             
             if self.Enemy then

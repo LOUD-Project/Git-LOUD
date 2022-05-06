@@ -7,9 +7,6 @@ UnitList = {
 
     T2TeleportJammer = {
         UEF = {'beb4209', 100},
-        Aeon = {},
-        Cybran = {},
-        Seraphim = {},
     },
     
     T3TeleportJammer = {
