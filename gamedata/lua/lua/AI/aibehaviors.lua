@@ -3325,7 +3325,7 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
 
 			WaitTicks(5)
             
-            if VDist3( GetPlatoonPosition(self), loiterposition ) > maxrange then
+            if PlatoonExists(aiBrain, self) and VDist3( GetPlatoonPosition(self), loiterposition ) > maxrange then
                 break
             end
    

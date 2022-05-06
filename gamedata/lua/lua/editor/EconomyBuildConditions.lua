@@ -379,7 +379,7 @@ function MassToFactoryRatioBaseCheck( aiBrain, locationType, massefficiency, ene
         return false
     end
     
-    LOG("*AI DEBUG "..aiBrain.Nickname.." massTotal is "..massTotal + t1Drain.."  Income is "..MassIncome)
+    --LOG("*AI DEBUG "..aiBrain.Nickname.." massTotal is "..massTotal + t1Drain.."  Income is "..MassIncome)
     
     return true    
 end

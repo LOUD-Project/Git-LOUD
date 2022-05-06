@@ -7,9 +7,9 @@ local UCBC = '/lua/editor/UnitCountBuildConditions.lua'
 local MIBC = '/lua/editor/MiscBuildConditions.lua'
 local LUTL = '/lua/loudutilities.lua'
 
-local OutNumberedFirst10Minutes = function( self,aiBrain )
+local OutNumberedFirst15Minutes = function( self,aiBrain )
 	
-	if aiBrain.OutnumberedRatio <= 1 or aiBrain.CycleTime > 600 then
+	if aiBrain.OutnumberedRatio <= 1 or aiBrain.CycleTime > 900 then
 		return 0, false
 	end
 	
@@ -62,16 +62,16 @@ BuilderGroup {BuilderGroupName = 'Engineer Land Expansion Construction',
 			-- is there an expansion already underway (we use the Instant Version here for accuracy)
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
             
-			-- this base must have 7+ T2/T3 factories
+			-- this base must have 3+ T2/T3 factories
             { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 3, categories.FACTORY * categories.STRUCTURE - categories.TECH1}},
-            
-			-- must have enough mass input to sustain existing factories and surplus
-			{ EBC, 'MassToFactoryRatioBaseCheck', { 'LocationType', 1.025, 1.015 } },
             
 			-- all other 'counted' land bases must have at least 3 factories
 			{ UCBC, 'ExistingBasesHaveGreaterThanFactory', { 3, 'Land', categories.FACTORY * categories.STRUCTURE * categories.TECH3 }},
             
-			-- there must be an start/expansion area with no engineers
+			-- must have enough mass input to sustain existing factories and surplus
+			{ EBC, 'MassToFactoryRatioBaseCheck', { 'LocationType', 1.05, 1.05 } },
+
+			-- there must be an start/expansion area
             { UCBC, 'BaseAreaForExpansion', { 'LocationType', 2000, -9999, 60, 0, 'AntiSurface' } },
         },
 		
@@ -127,7 +127,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Land Expansion Construction',
    
     -- Builds land expansion bases at both Start and Expansion points
     -- when there are nearby empty start locations
-    -- first 10 minutes only
+    -- first 15 minutes only
     Builder {BuilderName = 'Land Expansion Base - Outnumbered',
 	
         PlatoonTemplate = 'EngineerBuilder',
@@ -136,14 +136,14 @@ BuilderGroup {BuilderGroupName = 'Engineer Land Expansion Construction',
 		
         Priority = 750,
         
-        PriorityFunction = OutNumberedFirst10Minutes,
+        PriorityFunction = OutNumberedFirst15Minutes,
 		
         BuilderConditions = {
             
 			-- is there an expansion already underway (we use the Instant Version here for accuracy)
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
             
-			-- there must be an start/expansion area with no engineers
+			-- there must be an start/expansion area
             { UCBC, 'BaseAreaForExpansion', { 'LocationType', 1000, -9999, 60, 0, 'AntiSurface' } },
         },
 		

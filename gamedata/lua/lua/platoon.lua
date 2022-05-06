@@ -8141,7 +8141,7 @@ Platoon = Class(moho.platoon_methods) {
 
 								else
 
-									WARN("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." fails CanBuildStructureAt "..repr(buildLocation))
+									--WARN("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." fails CanBuildStructureAt "..repr(buildLocation).." for "..repr(buildItem) )
 
 									-- remove the item via PBC --
 									if not eng.Dead then

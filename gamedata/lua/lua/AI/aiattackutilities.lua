@@ -428,9 +428,9 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
     
     local function PositionInPlayableArea(intelpoint)
     
-        if ScenarioInfo.MapData.PlayableRect then
+        if ScenarioInfo.Playablearea then
         
-            local PlayableArea = ScenarioInfo.MapData.PlayableRect
+            local PlayableArea = ScenarioInfo.Playablearea
             
             if intelpoint[1] < PlayableArea[1] or intelpoint[1] > PlayableArea[3] then
                 return false

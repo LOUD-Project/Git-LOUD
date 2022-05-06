@@ -92,7 +92,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
             
 			{ UCBC, 'HaveLessThanUnitsWithCategory', { 1, categories.ENERGYPRODUCTION * categories.TECH3 - categories.HYDROCARBON }},
 			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION - categories.TECH1 }},            
-			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 6, categories.ENERGYPRODUCTION - categories.TECH1 }},
+			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 8, categories.ENERGYPRODUCTION - categories.TECH1 }},
         },
 		
         BuilderType = {'T2'},

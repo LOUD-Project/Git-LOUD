@@ -66,7 +66,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction',
 		
         BuilderData = {
 			DesiresAssist = true,
-            NumAssistees = 4,
+            NumAssistees = 2,
 			
             Construction = {
 				Radius = 52,

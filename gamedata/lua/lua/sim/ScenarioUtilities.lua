@@ -978,7 +978,16 @@ function InitializeArmies()
     import('/lua/sim/scenarioutilities.lua').CreateProps()
     
     import('/lua/sim/scenarioutilities.lua').CreateResources()
-	
+    
+    if ScenarioInfo.Env.Scenario.Areas.AREA_1 then
+    
+        LOG("*AI DEBUG ScenarioInfo Map is "..repr(ScenarioInfo.Env.Scenario.Areas) )
+        
+        
+    
+        import('/lua/scenarioframework.lua').SetPlayableArea( 'AREA_1', false )
+        
+    end
    
     ScenarioInfo.TeamMassPointList = {}
     

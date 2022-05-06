@@ -277,6 +277,8 @@ function AIFindBaseAreaForExpansion( aiBrain, locationType, radius, tMin, tMax, 
     
 		-- loop thru all the positions
 		for m,marker in positions do
+        
+            --LOG("*AI DEBUG Processing position "..repr(marker))
 	
 			removed = false
 		
@@ -311,7 +313,7 @@ function AIFindBaseAreaForExpansion( aiBrain, locationType, radius, tMin, tMax, 
 			end
 		end
 	
-		--LOG("*AI DEBUG "..aiBrain.Nickname.." AIFIND BASE for EXPANSION finds no positions within range of "..repr(Position))	--.." - table is "..repr(positions))
+		--LOG("*AI DEBUG "..aiBrain.Nickname.." AIFIND BASE for EXPANSION finds no positions within "..radius.." range of "..repr(Position))	--.." - table is "..repr(positions))
 	end
 
 	return false, false

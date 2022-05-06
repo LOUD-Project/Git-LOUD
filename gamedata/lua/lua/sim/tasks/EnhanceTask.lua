@@ -54,7 +54,7 @@ EnhanceTask = Class(ScriptTask) {
             
             local obtained = unit:GetResourceConsumed()
 			
-            if obtained > 0 then
+            if obtained > 0 and unit.WorkItemBuildTime then
                 local frac = ( 1 / ( unit.WorkItemBuildTime / unit:GetBuildRate()) ) * obtained * SecondsPerTick()
                 current = current + frac
                 unit.WorkProgress = current

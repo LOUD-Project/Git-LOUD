@@ -341,7 +341,7 @@ SB0OhwalliExperimentalStrategicBombWeapon = Class(DefaultProjectileWeapon) {
 
     OnWeaponFired = function(self)
 
-        LOG("*AI DEBUG Ahwassa Bomb OnWeaponFired for "..repr(self.unit:GetBlueprint().Description))
+        --LOG("*AI DEBUG Ahwassa Bomb OnWeaponFired for "..repr(self.unit:GetBlueprint().Description))
         
         self.unit:ForkThread( function() local unit = self.unit
         
@@ -362,11 +362,11 @@ SB0OhwalliExperimentalStrategicBombWeapon = Class(DefaultProjectileWeapon) {
 
     CreateProjectileForWeapon = function(self, bone)
     
-        LOG("*AI DEBUG Ahwassa Bomb CreateProjectileForWeapon")
+        --LOG("*AI DEBUG Ahwassa Bomb CreateProjectileForWeapon")
         
         local projectile = DefaultProjectileWeapon.CreateProjectileForWeapon(self, bone)
 
-        LOG("*AI DEBUG Ahwassa Bomb Projectile is "..repr(projectile))
+        --LOG("*AI DEBUG Ahwassa Bomb Projectile is "..repr(projectile))
         
         self.projectile = projectile
         
