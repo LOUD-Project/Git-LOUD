@@ -802,15 +802,15 @@ function CreateDefaultBuildBeams( builder, unitBeingBuilt, BuildEffectBones, Bui
         local LOUDWARP = LOUDWARP    
         local WaitTicks = WaitTicks
         
+        WaitTicks(1)
+
         local x,y,z
         local vec = VectorCached    -- reusable table
         
         local pos = LOUDCOPY(GetPosition(unitBeingBuilt))
         
         LOUDWARP( projectile, pos )
-        
-        WaitTicks(1)
-  
+
         while not builder.Dead and not unitBeingBuilt.Dead and IsBeingBuilt(unitBeingBuilt) do
 
             x, y, z = RandomOffset(unitBeingBuilt, 1.02 )
@@ -899,6 +899,8 @@ function CreateCybranBuildBeams( builder, unitBeingBuilt, BuildEffectBones, Buil
         local LOUDCOPY = LOUDCOPY
         local LOUDWARP = LOUDWARP
         local WaitTicks = WaitTicks
+        
+        WaitTicks(1)
       
         local x,y,z
         local vec = VectorCached    -- reusable table
@@ -906,8 +908,6 @@ function CreateCybranBuildBeams( builder, unitBeingBuilt, BuildEffectBones, Buil
         local pos = LOUDCOPY(GetPosition(unitBeingBuilt))
         
         LOUDWARP( projectile, pos)
-        
-        WaitTicks(1)
   
         while not builder.Dead and not unitBeingBuilt.Dead and IsBeingBuilt(unitBeingBuilt) do
 
