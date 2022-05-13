@@ -181,6 +181,8 @@ UnitBlueprint {
         },
         MovementEffects = {
             Land = {
+                Effects = {
+                },
                 Footfall = {
                     Bones = {
                         {
@@ -267,7 +269,7 @@ UnitBlueprint {
         BuildTime = 2400,
         BuildRate = 22,
 		
-		MaxBuildDistance = 8,
+		MaxBuildDistance = 10,
 		
         BuildableCategory = {
             'BUILTBYTIER3ENGINEER NAVAL CYBRAN',
@@ -287,8 +289,8 @@ UnitBlueprint {
 		
         --MaintenanceConsumptionPerSecondEnergy = 15,
 		
-        StorageEnergy = 400,
-        StorageMass = 40,
+        StorageEnergy = 650,
+        StorageMass = 65,
     },
 
     General = {
@@ -324,15 +326,15 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
-		OmniRadius = 5,
-        RadarRadius = 60,
-        SonarRadius = 45,
-        VisionRadius = 32,
-        WaterVisionRadius = 18,
+		OmniRadius = 6,
+        RadarRadius = 72,
+        SonarRadius = 54,
+        VisionRadius = 36,
+        WaterVisionRadius = 24,
     },
 	
     Interface = {
-        HelpText = '<LOC ss0319_desc>Field Engineering Ship',
+        HelpText = '<LOC ss0319_desc>Field Engineering Cruiser',
     },
 	
     LifeBarHeight = 0.075,
@@ -341,7 +343,7 @@ UnitBlueprint {
 	
     Physics = {
         AltMotionType = 'RULEUMT_Water',
-        BackUpDistance = 5,
+        BackUpDistance = 8,
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Water = true,
@@ -354,7 +356,7 @@ UnitBlueprint {
         LayerChangeOffsetHeight = -1,
         LayerTransitionDuration = 4,
 		
-        MaxAcceleration = 2,
+        MaxAcceleration = 1.2,
         MaxBrake = 2.5,
         MaxSpeed = 4.3,
         MaxSpeedReverse = 5,

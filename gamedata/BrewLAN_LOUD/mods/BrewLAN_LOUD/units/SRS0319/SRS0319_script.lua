@@ -11,6 +11,10 @@ local BrewLANLOUDPath = import( '/lua/game.lua' ).BrewLANLOUDPath()
 local AssistThread = import(BrewLANLOUDPath .. '/lua/fieldengineers.lua').AssistThread
 local EffectUtil = import('/lua/EffectUtilities.lua')
 
+local TrashBag = TrashBag
+local TrashAdd = TrashBag.Add
+local TrashDestroy = TrashBag.Destroy
+
 SRS0319 = Class(CSeaUnit) {
     SwitchAnims = true,
     Walking = false,
@@ -32,8 +36,33 @@ SRS0319 = Class(CSeaUnit) {
     end,
 
     CreateBuildEffects = function( self, unitBeingBuilt, order )
-        local buildbots = EffectUtil.SpawnBuildBots( self, unitBeingBuilt, table.getn(self:GetBlueprint().General.BuildBones.BuildEffectBones), self.BuildEffectsBag )
-        EffectUtil.CreateCybranEngineerBuildEffects( self, self:GetBlueprint().General.BuildBones.BuildEffectBones, buildbots, self.BuildEffectsBag )
+        --local buildbots = EffectUtil.SpawnBuildBots( self, unitBeingBuilt, table.getn(self:GetBlueprint().General.BuildBones.BuildEffectBones), self.BuildEffectsBag )
+      --EffectUtil.CreateCybranEngineerBuildEffects( self, self:GetBlueprint().General.BuildBones.BuildEffectBones, buildbots, self.BuildEffectsBag )
+        EffectUtil.CreateCybranBuildBeams( self, unitBeingBuilt, self:GetBlueprint().General.BuildBones.BuildEffectBones, self.BuildEffectsBag )
+    end,
+    
+    OnStopBuild = function(self, unitBeingBuilt)
+    
+        if self.Dead then return end
+
+        -- reattach the permanent projectile
+        for _, v in self.BuildProjectile do 
+        
+            TrashDestroy ( v.BuildEffectsBag )
+        
+            if v.Detached then
+                v:AttachTo( self, v.Name )
+            end
+            
+            v.Detached = false
+            
+            -- and scale down the emitters
+            v.Emitter:ScaleEmitter(0.05)
+            v.Sparker:ScaleEmitter(0.05)
+        end
+        
+        CSeaUnit.OnStopBuild(self, unitBeingBuilt)
+        
     end,
 
     OnMotionHorzEventChange = function(self, new, old)

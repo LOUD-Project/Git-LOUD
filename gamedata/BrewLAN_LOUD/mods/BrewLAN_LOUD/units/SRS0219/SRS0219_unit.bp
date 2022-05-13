@@ -182,8 +182,8 @@ UnitBlueprint {
             'BUILTBYTIER2FIELD SHIELD CYBRAN',
             'BUILTBYTIER2FIELD MINE CYBRAN',
         },
-        StorageEnergy = 150,
-        StorageMass = 25,
+        StorageEnergy = 300,
+        StorageMass = 30,
     },
 
     General = {
