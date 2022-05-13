@@ -296,7 +296,7 @@ TorpRedirectField = Class(Entity) {
         OnCollisionCheck = function(self, other)
 
             if LOUDENTITY(categories.TORPEDO, other) and not LOUDENTITY(categories.STRATEGIC, other) 
-                and other != self.EnemyProj and IsEnemy( selfarmy, GetArmy(other) ) then
+                and other != self.EnemyProj and IsEnemy( self.Army, GetArmy(other) ) then
 
                 self.Enemy = GetLauncher(other)
                 self.EnemyProj = other
