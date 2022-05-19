@@ -248,8 +248,8 @@ UnitBlueprint {
     },
 	
 	Intel = {
-        OmniRadius = 0,
-        RadarRadius = 0,
+        OmniRadius = 1.1,
+        RadarRadius = 1.1,
         ReactivateTime = 5,
 	},
 }

@@ -260,8 +260,8 @@ UnitBlueprint {
     },
 	
 	Intel = {
-        OmniRadius = 0,
-        SonarRadius = 0,
+        OmniRadius = 1.1,
+        SonarRadius = 1.1,
         ReactivateTime = 5,
 	},
 }
