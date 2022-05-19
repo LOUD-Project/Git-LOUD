@@ -2233,7 +2233,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Experimentals',
 		
         Priority = 730,
 		
-		-- this function removes the builder 
+		-- this function turns the builder on either primary base type
 		PriorityFunction = function(self, aiBrain, manager)
 			
 			if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase or aiBrain.BuilderManagers[manager.LocationType].PrimarySeaAttackBase then
@@ -2275,7 +2275,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Experimentals',
 		
         Priority = 730,
 		
-		-- this function removes the builder 
+		-- this function turns the builder on at either primary base type
 		PriorityFunction = function(self, aiBrain, manager)
 			
 			if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase or aiBrain.BuilderManagers[manager.LocationType].PrimarySeaAttackBase then
@@ -2291,7 +2291,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Experimentals',
 		
         BuilderConditions = {
             { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.uaa0310 } },
-            { LUTL, 'AirStrengthRatioGreaterThan', { 6 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 5 } },
 		},
 		
         BuilderData = {
@@ -2299,6 +2299,104 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Experimentals',
         },
     },
 	
+    -- defensive behavior for individual Czars when attack conditions not met
+    -- this is the prototype behavior - but note this - it's only responsive to 'LAND' distress calls
+	Builder {BuilderName = 'Czar Defensive Behavior - Land',
+	
+        PlatoonTemplate = 'CzarTerrorAttack',
+		
+        PlatoonAddBehaviors = {'BroadcastPlatoonPlan' },
+        
+		PlatoonAIPlan = 'PlatoonPatrolPointAI',
+		
+		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI'},
+		
+		FactionIndex = 2,
+
+        Priority = 730,
+
+		-- this function turns the builder on for Primary Land Base
+		PriorityFunction = function(self, aiBrain, manager)
+			
+			if aiBrain.BuilderManagers[manager.LocationType].PrimaryLandAttackBase then
+				return 730, true
+			end
+			
+			return 10, true
+		end,
+        
+        InstanceCount = 3,
+		
+        BuilderType = 'Any',
+		
+        BuilderConditions = {
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.uaa0310 } },
+            { LUTL, 'AirStrengthRatioLessThan', { 5 } },
+		},
+		
+        BuilderData = {
+			DistressRange = 150,
+            DistressReactionTime = 35,
+			DistressTypes = 'Land',
+			DistressThreshold = 10,
+
+			BasePerimeterOrientation = 'FRONT',        
+			Radius = 95,
+			PatrolTime = 420,   -- approx 7 minute patrol --
+            
+            PrioritizedCategories = { 'ANTIAIR', 'ENGINEER', 'EXPERIMENTAL -AIR', 'NAVAL MOBILE', 'LAND MOBILE', 'COMMAND' }, -- list in order
+        },
+    },
+    
+    -- this one should work at naval positions
+	Builder {BuilderName = 'Czar Defensive Behavior - Naval',
+	
+        PlatoonTemplate = 'CzarTerrorAttack',
+		
+        PlatoonAddBehaviors = {'BroadcastPlatoonPlan' },
+        
+		PlatoonAIPlan = 'PlatoonPatrolPointAI',
+		
+		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI'},
+		
+		FactionIndex = 2,
+
+        Priority = 730,
+
+		-- this function turns the builder on for Primary Sea Base 
+		PriorityFunction = function(self, aiBrain, manager)
+			
+			if aiBrain.BuilderManagers[manager.LocationType].PrimarySeaAttackBase then
+				return 730, true
+			end
+			
+			return 10, true
+		end,
+        
+        InstanceCount = 3,
+		
+        BuilderType = 'Any',
+		
+        BuilderConditions = {
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.uaa0310 } },
+            { LUTL, 'AirStrengthRatioLessThan', { 5 } },
+		},
+		
+        BuilderData = {
+			DistressRange = 150,
+            DistressReactionTime = 35,
+			DistressTypes = 'Naval',
+			DistressThreshold = 10,
+
+			BasePerimeterOrientation = 'ALL',        
+			Radius = 82,
+			PatrolTime = 420,   -- approx 7 minute patrol --
+            
+            PrioritizedCategories = { 'ANTIAIR', 'ENGINEER', 'EXPERIMENTAL -AIR', 'NAVAL MOBILE', 'LAND MOBILE', 'COMMAND' }, -- list in order
+        },
+    },
+
+
 	Builder {BuilderName = 'Reinforce Primary - Air Experimental',
 	
 		PlatoonTemplate = 'ReinforceAirExperimental',
