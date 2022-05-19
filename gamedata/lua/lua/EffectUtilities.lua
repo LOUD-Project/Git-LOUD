@@ -808,10 +808,8 @@ function CreateDefaultBuildBeams( builder, unitBeingBuilt, BuildEffectBones, Bui
         local vec = VectorCached    -- reusable table
         
         local pos = LOUDCOPY(GetPosition(unitBeingBuilt))
-        
-        LOUDWARP( projectile, pos )
 
-        while not builder.Dead and not unitBeingBuilt.Dead and IsBeingBuilt(unitBeingBuilt) do
+        while not builder.Dead and not unitBeingBuilt.Dead and IsBeingBuilt(unitBeingBuilt) and not projectile:BeenDestroyed() do
 
             x, y, z = RandomOffset(unitBeingBuilt, 1.02 )
         

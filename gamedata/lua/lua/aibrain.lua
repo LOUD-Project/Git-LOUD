@@ -919,8 +919,6 @@ AIBrain = Class(moho.aibrain_methods) {
         local initialUnits = {}
         local posX, posY = self:GetArmyStartPos()
 
-        LOG("*AI DEBUG initialUnits is "..repr(initialUnits))
-
         if factionIndex == 1 then
 		
 			resourceStructures = { 'UEB1103', 'UEB1103' }
@@ -948,6 +946,8 @@ AIBrain = Class(moho.aibrain_methods) {
 			initialUnits = table.merged(initialUnits,{ 'XSB1101','XSB1101' })
 			
         end
+
+        LOG("*AI DEBUG Spawn PreBuilt Units is "..repr(initialUnits))
 
         if resourceStructures then
 		

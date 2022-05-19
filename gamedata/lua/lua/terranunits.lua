@@ -134,11 +134,14 @@ TAirFactoryUnit = Class(FactoryUnit) {
 TLandFactoryUnit = Class(FactoryUnit) {
 
     CreateBuildEffects = function( self, unitBeingBuilt, order )
+    
+        if order != 'Upgrade' then
 
-        -- the projectile used to attach the beam to, is permanently created - for each bone
-        -- this process creates the sparks on the bone and the projectile, and creates the beam between them
-        -- then launches a thread to move the particle about while the unit is being built
-        TrashAdd( self.BuildEffectsBag, self:ForkThread( CreateDefaultBuildBeams, unitBeingBuilt, __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones, self.BuildEffectsBag ) )
+            -- the projectile used to attach the beam to, is permanently created - for each bone
+            -- this process creates the sparks on the bone and the projectile, and creates the beam between them
+            -- then launches a thread to move the particle about while the unit is being built
+            TrashAdd( self.BuildEffectsBag, self:ForkThread( CreateDefaultBuildBeams, unitBeingBuilt, __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones, self.BuildEffectsBag ) )
+        end
         
     end,
 

@@ -639,6 +639,8 @@ function SpawnWaveThread( aiBrain )
 	while initialUnits do
     
 		local T3AirFacs = GetListOfUnits( aiBrain, categories.AIR * categories.FACTORY * categories.TECH3, false )
+        
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." T3AirFacs is "..repr(T3AirFacs))
 	
         -- the spawnwave cannot happen unless a T3 Air Factory is present
 		if LOUDGETN(T3AirFacs) == 0 then
@@ -650,7 +652,9 @@ function SpawnWaveThread( aiBrain )
 		-- increase the size of the wave each time and vary it with the build cheat level
 		local units = math.floor((wave * 1.5) * aiBrain:TotalCheat() )
         -- insure that there is always at least 1 unit (in case of negative multipliers)
-        local units = math.max( units, 1 ) 
+        local units = math.max( units, 1 )
+        
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." Spawnwave will have "..units.." unit(s)")
 		
 		-- increase the unit cap by the number of units * 5 - accounting for the multiple types
 		SetArmyUnitCap( aiBrain.ArmyIndex, GetArmyUnitCap( aiBrain.ArmyIndex) + (units * 5) )
@@ -725,7 +729,7 @@ function SpawnWaveThread( aiBrain )
         --LOG("*AI DEBUG "..aiBrain.Nickname.." next spawnwave in "..spawndelay.." seconds")
 
 		-- wait for the next spawn wave
-		WaitTicks(spawndelay * 10)
+		WaitTicks(math.floor(spawndelay * 10))
 	end
 	
 	LOG("*AI DEBUG "..aiBrain.Nickname.." Spawnwave disabled")
@@ -3414,7 +3418,7 @@ function PathGeneratorAmphibious(aiBrain)
 
 		steps = LOUDFLOOR( VDist2( position[1], position[3], testposition[1], testposition[3]) / stepsize ) + 1
         
-        --LOG("*AI DEBUG Amphib pathfinder finds "..repr(steps).." steps of "..repr(stepsize).." between "..repr(position).." and "..repr(testposition))
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." Amphib pathfinder finds "..repr(steps).." steps of "..repr(stepsize).." between "..repr(position).." and "..repr(testposition))
 
         xstep = ( position[1] - testposition[1]) / steps
 		ystep = ( position[3] - testposition[3]) / steps
@@ -3424,7 +3428,7 @@ function PathGeneratorAmphibious(aiBrain)
             dist = VDist2( position[1] - (xstep * i), position[3] - (ystep * i), destination[1], destination[3])
 
             if dist <= stepsize then
-                --LOG("*AI DEBUG Amphib pathfinder finds destination "..repr(destination).." on step "..repr(i).." at "..repr(dist).." from "..repr( {position[1]-(xstep*i), position[3]-(ystep*i)} ) )
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." Amphib pathfinder finds destination "..repr(destination).." on step "..repr(i).." at "..repr(dist).." from "..repr( {position[1]-(xstep*i), position[3]-(ystep*i)} ) )
                 return true
             else
                 --LOG("*AI DEBUG Amphib pathfinder fails between points - distance is "..repr(dist).." on step "..repr(i) )
@@ -3468,7 +3472,7 @@ function PathGeneratorAmphibious(aiBrain)
 
 			testposition = LOUDCOPY(graph[newnode].position)
             
-            --LOG("*AI DEBUG Amphib pathfinder evaluating from "..repr(position).." to node at "..repr(testposition))
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." Amphib pathfinder evaluating from "..repr(position).." to node at "..repr(testposition))
 
 			if data.Testpath and DestinationBetweenPoints() then
             

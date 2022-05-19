@@ -1306,9 +1306,11 @@ Platoon = Class(moho.platoon_methods) {
                                 end
 
                             else
-                                --LOG("*AI DEBUG marker "..repr(v.node).." at "..repr(v.position).." distance "..math.sqrt(testdistance).." not safe to reach location "..repr(location).." threat is "..thisthreat )
-                                --LOG("*AI DEBUG Threats around "..repr(v.position).." for "..IMAPblocks.." blocks are "..repr(aiBrain:GetThreatsAroundPosition( v.position, IMAPblocks, false, threattype )))
-                                --LOG("*AI DEBUG Threats BETWEEN are "..repr( GetThreatBetweenPositions( aiBrain, location, v.position, false, threattype )))
+                                if ScenarioInfo.PathFindingDialog then
+                                    LOG("*AI DEBUG marker "..repr(v.node).." at "..repr(v.position).." distance "..math.sqrt(testdistance).." not safe to reach location "..repr(location).." threat is "..thisthreat )
+                                    --LOG("*AI DEBUG Threats around "..repr(v.position).." for "..IMAPblocks.." blocks are "..repr(aiBrain:GetThreatsAroundPosition( v.position, IMAPblocks, false, threattype )))
+                                    LOG("*AI DEBUG Threats BETWEEN are "..repr( GetThreatBetweenPositions( aiBrain, location, v.position, false, threattype )))
+                                end
                             end
                             
                         end
@@ -1318,13 +1320,17 @@ Platoon = Class(moho.platoon_methods) {
                     end
                     
 				end
-			
+
 				-- resort positions to be closest to goalseek position
 				-- just a note here -- the goalseek position is often sent WITHOUT a vertical indication so I had to use VDIST2 rather than VDIST 3 to be sure
 				if goalseek then
 					LOUDSORT(positions, function(a,b) return VDist2Sq( a[3][1],a[3][3], goalseek[1],goalseek[3] ) < VDist2Sq( b[3][1],b[3][3], goalseek[1],goalseek[3] ) end)
 				end
-			
+                
+                if ScenarioInfo.PathFindingDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." goalseek is "..repr(goalseek).." - positions after obstruction/threat checks are "..repr(positions))
+                end
+
 				local bestThreat = maxthreat
 				local bestMarker = positions[1][2]	-- default to the one closest to goal
 			
@@ -1350,7 +1356,7 @@ Platoon = Class(moho.platoon_methods) {
                         WARN("*MAP DEBUG No "..repr(platoonLayer).." markers found within "..MaxMarkerDist.." range of "..repr(location).." closest marker is "..repr(markerlist[1].position).." at "..repr(VDist3(markerlist[1].position, location)) )
                     else
                         if ScenarioInfo.PathFindingDialog then
-                            LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." No safe "..repr(platoonLayer).." marker near "..repr(location).." available markers were "..repr(positions))
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." No safe "..repr(platoonLayer).." marker - using "..maxthreat.." threat - near "..repr(location).." available markers were "..repr(markerlist))
                         end
                     end
                     
@@ -1394,7 +1400,7 @@ Platoon = Class(moho.platoon_methods) {
 
 		if not startNode and platoonLayer == 'Amphibious' then
 		
-			--LOG("*AI DEBUG "..aiBrain.Nickname.." GenerateSafePath "..repr(platoon.BuilderName or platoon).." "..threatallowed.." fails no safe "..platoonLayer.." startnode within "..MaxMarkerDist.." of "..repr(start).." - trying Land")
+			LOG("*AI DEBUG "..aiBrain.Nickname.." GenerateSafePath "..repr(platoon.BuilderName or platoon).." "..threatallowed.." fails no safe "..platoonLayer.." startnode within "..MaxMarkerDist.." of "..repr(start).." - trying Land")
             
 			platoonLayer = 'Land'
 			startNode, startNodeName = GetClosestSafePathNodeInRadiusByLayerLOUD( start, false, destination, 2 )
@@ -1476,7 +1482,7 @@ Platoon = Class(moho.platoon_methods) {
 				waitcount = waitcount + 1
 				
 				if Replies[platoon].path then
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName).." gets path reply")
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName).." gets path reply "..repr(Replies[platoon]) )
 					break
 				end
 			end

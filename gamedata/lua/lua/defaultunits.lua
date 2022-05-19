@@ -1302,6 +1302,10 @@ MobileUnit = Class(Unit) {
 
 			bpTable = bpTable[self.CacheLayer]
 
+			if bpTable.CameraShake then
+				self.CamShakeT1 = self:ForkThread(self.MovementCameraShakeThread, bpTable.CameraShake )
+			end
+
 			if bpTable.Treads then
 				self:CreateTreads( bpTable.Treads )
 			else
@@ -1310,15 +1314,11 @@ MobileUnit = Class(Unit) {
 
 			if not bpTable.Effects[1] then
 
-				if not self.Footfalls and bpTable.Footfall then
-					LOG('*WARNING: No movement effect groups defined for unit ',repr(self.BlueprintID),', Effect groups with bone lists must be defined to play movement effects. Add these to the Display.MovementEffects', self.CacheLayer, '.Effects table in unit blueprint. ' )
-				end
+				--if not self.Footfalls and bpTable.Footfall then
+					--LOG('*WARNING: No movement effect groups defined for unit ',repr(self.BlueprintID),', Effect groups with bone lists must be defined to play movement effects. Add these to the Display.MovementEffects', self.CacheLayer, '.Effects table in unit blueprint. ' )
+				--end
                 
 				return false
-			end
-
-			if bpTable.CameraShake then
-				self.CamShakeT1 = self:ForkThread(self.MovementCameraShakeThread, bpTable.CameraShake )
 			end
 
 			self:CreateTerrainTypeEffects( bpTable.Effects, 'FXMovement', self.CacheLayer, TypeSuffix, EffectsBag, TerrainType )
