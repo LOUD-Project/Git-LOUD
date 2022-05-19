@@ -1648,7 +1648,7 @@ function WatchUnitLoading( transport, units, aiBrain )
 	-- to false after 210 seconds
 	while (not unitsdead) and loading do
 	
-		watchcount = watchcount + 3.0
+		watchcount = watchcount + 1.5
 
 		if watchcount > 210 then
         
@@ -1663,11 +1663,12 @@ function WatchUnitLoading( transport, units, aiBrain )
 			break
 		end
 		
-		WaitTicks(30)
+		WaitTicks(16)
 		
 		tempunits = {}
 		counter = 0
 
+        -- check for death of transport - and verify that units are still awaiting load
 		if not transport.Dead and transport.Loading and ( not IsUnitState(transport,'Moving') or IsUnitState(transport,'TransportLoading') ) then
 		
 			unitsdead = true
@@ -1783,6 +1784,7 @@ function WatchUnitLoading( transport, units, aiBrain )
 				loading = false
 			end
 		end
+        
 	end
 
     if TransportDialog then
@@ -1825,8 +1827,8 @@ function WatchTransportTravel( transport, destination, aiBrain )
 	
 	while (not unitsdead) do
 	
-		WaitTicks(18)
-		watchcount = watchcount + 1.8
+		WaitTicks(16)
+		watchcount = watchcount + 1.5
 		
 		if not transport.Dead then
 		
@@ -2350,7 +2352,7 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
 		
 		while loadwatch do
 		
-			WaitTicks(11)
+			WaitTicks(8)
 			
 			loadwatch = false
 			
@@ -2447,7 +2449,7 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
 		
 		if platpos then
 
-			local airthreatMax = counter * 4.4
+			local airthreatMax = counter * 4.2
 			
 			airthreatMax = airthreatMax + ( airthreatMax * math.log10(counter))
 

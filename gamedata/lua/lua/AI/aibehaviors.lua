@@ -1477,6 +1477,7 @@ function LandScoutingAI( self, aiBrain )
                     cyclecount = 0
 
 					if VDist2Sq(targetArea[1],targetArea[3],curPos[1],curPos[3] ) < 400 then
+                        --LOG("*AI DEBUG "..aiBrain.Nickname.." LandScoutingAI distance to "..repr(targetArea).." is "..repr(VDist2Sq(targetArea[1],targetArea[3],curPos[1],curPos[3] )) )
 						reconcomplete = true
 					end
                     
@@ -1663,6 +1664,8 @@ function NavalScoutingAI( self, aiBrain )
         if not aiBrain.IL.LastScoutHi then
 		
 			local prioritylist = aiBrain.IL.HiPri
+            
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." priority list is "..repr(prioritylist))
 
 			for k,v in prioritylist do
 
@@ -1898,7 +1901,7 @@ function NavalScoutingAI( self, aiBrain )
 
         -- if we didn't find a recon mission wait 5.5 seconds before trying again
         -- otherwise go right back and find another mission
-        if not reconcomplete then
+        if PlatoonExists(aiBrain,self) and not reconcomplete then
         
             LOG("*AI DEBUG "..aiBrain.Nickname.." NavalScoutingAI finds no recon mission")
             WaitTicks(56)
