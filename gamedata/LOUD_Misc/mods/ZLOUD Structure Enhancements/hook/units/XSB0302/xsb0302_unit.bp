@@ -247,4 +247,10 @@ UnitBlueprint {
             Slot = 'Back',
         },			
     },
+	
+	Intel = {
+        OmniRadius = 1,
+        RadarRadius = 1,
+        ReactivateTime = 5,
+	},    
 }
