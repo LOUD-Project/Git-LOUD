@@ -1328,7 +1328,7 @@ Platoon = Class(moho.platoon_methods) {
 				end
                 
                 if ScenarioInfo.PathFindingDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." goalseek is "..repr(goalseek).." - positions after obstruction/threat checks are "..repr(positions))
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." goalseek is "..repr(goalseek).." - positions upto "..repr(MaxMarkerDist).." sorted for closest after obstruction/threat checks are "..repr(positions))
                 end
 
 				local bestThreat = maxthreat
@@ -7822,15 +7822,24 @@ Platoon = Class(moho.platoon_methods) {
 			end
 
 			-- this is a bit different than the MovePlatoon function 
-            -- do a reclaim move towards goal
+            -- do a reclaim move towards goal if there is more than 1 
+            -- stage in the path
 			local function MoveEngineer( platoon, path )
 		
 				local prevpoint
-			
-				for wpidx, waypointPath in path do
 
-					platoon:AggressiveMoveToLocation( waypointPath )
-	
+				for wpidx, waypointPath in path do
+                
+                    if wpidx > 1 then
+
+                        platoon:AggressiveMoveToLocation( waypointPath )
+                        
+                    else
+                    
+                        platoon:MoveToLocation( waypointPath, false )
+                        
+                    end
+
 					prevpoint = LOUDCOPY(waypointPath)
 				end
 			

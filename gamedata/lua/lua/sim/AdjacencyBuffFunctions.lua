@@ -18,25 +18,25 @@ end
 
 WaterVisionBuffCheck = function( buff, unit )
 
-	return __blueprints[unit.BlueprintID].Intel.WaterVisionRadius > 1
+	return __blueprints[unit.BlueprintID].Intel.WaterVisionRadius >= 1
 
 end
 
 RadarRadiusBuffCheck = function( buff, unit )
 
-	return __blueprints[unit.BlueprintID].Intel.RadarRadius > 1
+	return __blueprints[unit.BlueprintID].Intel.RadarRadius >= 1
 
 end
 
 SonarRadiusBuffCheck = function( buff, unit )
 
-	return __blueprints[unit.BlueprintID].Intel.SonarRadius > 1
+	return __blueprints[unit.BlueprintID].Intel.SonarRadius >= 1
 
 end
 
 OmniRadiusBuffCheck = function( buff, unit )
 
-	return __blueprints[unit.BlueprintID].Intel.OmniRadius > 1
+	return __blueprints[unit.BlueprintID].Intel.OmniRadius >= 1
 
 end
 

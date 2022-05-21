@@ -1560,7 +1560,7 @@ function LandScoutingAI( self, aiBrain )
 					
                                     if k == 1 then
                                     
-                                        IssueMove( {scout}, v ) --self:MoveToLocation(v, false)
+                                        IssueMove( {scout}, v )
                                     else
 
                                         IssuePatrol( {scout}, v )
