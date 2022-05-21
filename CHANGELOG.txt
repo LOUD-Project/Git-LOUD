@@ -1,3 +1,26 @@
+LUA 6.2.05
+BrewLAN 0.8.8.9.53
+BO ACU & Unleashed 6.2.21
+LOUD_MISC 6.2.11
+
+AI
+    - CZAR defensive patrol behavior when attack conditions not met
+    - improved detection for platoon death during transport operations
+    - AI engineers will no longer use attack-moves on short paths
+    
+Game
+    - minor effect corrections and additional debug logging features
+    
+UNITS
+    - correction for build effects on Cybran Engineer vessels
+    - correction for BlackOps Sera Lambda antiprojectile 
+    - LOUD_MISC fixes for Cybran Darkness not affecting unit with radar via enhancement (airpads, factories, SAM, etc).
+    - corrected restriction for SAA0313 in LEMLobbyOptions (which is where restrictions are coded)
+
+
+
+### Release 06-05-2022
+
 LUA 6.2.04
 BlackOps for LOUD 6.2.2
 BrewLAN 0.8.8.9.51
@@ -35,9 +58,9 @@ LOUD_UNITS
     
 UNITS
     - BrewLAN Triseptitron SR0311 - categorized as SILO and INDIRECTFIRE, but built as ARTILLERY
-    - BrewLAN Cybran Gantry SRB0401 - stop moving build arms when build is complete
     - code could never accurately count them so it would overbuild them, removed SILO - added ARTILLERY
     - reduced appearance to 50% versus 100% as a replacement for the Trebuchet (standard T3 Mobile Artillery)
+    - BrewLAN Cybran Gantry SRB0401 - stop moving build arms when build is complete    
     - BlackOps BSL0401 Drone repair script not checking for dead drone
     - BO antiprojectile was missing re-direct beams for Sera Lambda effect
     

@@ -59,7 +59,7 @@ GPGrestrictedUnits = {
     },
 
     AIRFIGHTERS = {
-		categories = {"brpat2figbo", "dea0202", "dra0202", "lea0401", "sea0313", "sra0313", "ssa0313", "uaa0102", "uaa0303", "uea0102", "uea0303", "ura0102", "ura0303", "xaa0202", "xsa0102", "xsa0202", "xsa0303"},
+		categories = {"brpat2figbo", "dea0202", "dra0202", "lea0401","saa0313", "sea0313", "sra0313", "ssa0313", "uaa0102", "uaa0303", "uea0102", "uea0303", "ura0102", "ura0303", "xaa0202", "xsa0102", "xsa0202", "xsa0303"},
 		name = "<LOC restricted_units_data_0021>No Air Fighters",
 		tooltip = "restricted_units_air_fighters",
     },
@@ -149,7 +149,7 @@ GPGrestrictedUnits = {
     },
 
     ALTAIR = {
-        categories = {"baa0309", "bra0309", "brpat3gunship", "bsa0309", "bsa0310", "saa0314", "sea0310", "sea0313", "sea0314", "sra0306", "sra0313", "sra0314", "sra0315", "ssa0305", "ssa0306", "ssa0313", "ssa0314", "uaa0304", "uea0304", "uea0305", "ura0304", "xaa0305", "xea0306", "xra0305", "xsa0304"},
+        categories = {"baa0309", "bra0309", "brpat3gunship", "bsa0309", "bsa0310","saa0313", "saa0314", "sea0310", "sea0313", "sea0314", "sra0306", "sra0313", "sra0314", "sra0315", "ssa0305", "ssa0306", "ssa0313", "ssa0314", "uaa0304", "uea0304", "uea0305", "ura0304", "xaa0305", "xea0306", "xra0305", "xsa0304"},
 		name = "<LOC restricted_units_data_0031>T3 Alternative Air Production",
 		tooltip = "restricted_units_altair",
     },
