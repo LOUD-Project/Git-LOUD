@@ -61,7 +61,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Artillery',
         PlatoonTemplate = 'StrategicArtilleryStructure',
         Priority = 600,
 
-        InstanceCount = 12,
+        InstanceCount = 10,
         BuilderType = 'Any',
         
         BuilderConditions = {

@@ -548,7 +548,7 @@ Platoon = Class(moho.platoon_methods) {
 			-- Engage target until dead or target is outside guard radius
 			while target and (not target.Dead) and PlatoonExists(aiBrain, self) do 
 
-				WaitTicks(20)
+				WaitTicks(21)
 
 				if PlatoonExists(aiBrain,self) then
                 
@@ -2176,15 +2176,12 @@ Platoon = Class(moho.platoon_methods) {
         local GetPlatoonUnits = GetPlatoonUnits
         local PlatoonExists = PlatoonExists
         local WaitTicks = WaitTicks
-    
+
+        -- focusing on hardpoints
         local SurfacePriorities = { 
             'STRUCTURE ARTILLERY -TECH2',
-            'MASSEXTRACTION -TECH2',
-            'MASSFABRICATION -TECH2',
             'STRUCTURE INTELLIGENCE -TECH1',
             'ANTIMISSILE -TECH2',
-            'STRUCTURE NUKE',
-            'MOBILE LAND EXPERIMENTAL',
             'SHIELD',
             'DEFENSE STRUCTURE ANTIAIR TECH3',
             'DEFENSE STRUCTURE DIRECTFIRE TECH3',
@@ -2195,6 +2192,20 @@ Platoon = Class(moho.platoon_methods) {
             'MOBILE LAND TECH3',	
             'COMMAND',
             'SUBCOMMANDER',
+        }
+
+        -- economic attack
+        local SurfacePriorities2 = { 
+            'MASSEXTRACTION -TECH2',
+            'ENERGYPRODUCTION STRUCTURE -TECH1',
+            'FACTORY STRUCTURE',
+            'GATE',
+        }
+
+        -- antiair attack
+        local SurfacePriorities3 = { 
+            'DEFENSE STRUCTURE ANTIAIR TECH3',
+            'DEFENSE STRUCTURE ANTIAIR -TECH3',
         }
     
         local DistressPriorities = { 
