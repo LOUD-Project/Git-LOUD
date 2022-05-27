@@ -129,7 +129,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderData = {
 			DistressRange = 200,
-            DistressReactionTime = 45,
+            DistressReactionTime = 32,
 			DistressTypes = 'Naval',
 			DistressThreshold = 8,
 			
@@ -215,7 +215,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderData = {
 			DistressRange = 225,
-            DistressReactionTime = 45,            
+            DistressReactionTime = 32,            
 			DistressTypes = 'Naval',
 			DistressThreshold = 6,
 			
@@ -264,7 +264,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderData = {
 			DistressRange = 225,
-            DistressReactionTime = 45,            
+            DistressReactionTime = 32,            
 			DistressTypes = 'Naval',
 			DistressThreshold = 8,
 			
@@ -313,7 +313,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderData = {
 			DistressRange = 225,
-            DistressReactionTime = 45,            
+            DistressReactionTime = 32,            
 			DistressTypes = 'Naval',
 			DistressThreshold = 8,
 
@@ -361,7 +361,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderData = {
 			DistressRange = 225,
-            DistressReactionTime = 45,            
+            DistressReactionTime = 32,            
 			DistressTypes = 'Naval',
 			DistressThreshold = 8,
 			
@@ -412,7 +412,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderData = {
 			DistressRange = 225,
-            DistressReactionTime = 45,            
+            DistressReactionTime = 32,            
 			DistressTypes = 'Naval',
 			DistressThreshold = 12,
 			
@@ -463,7 +463,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
         BuilderData = {
 		
 			DistressRange = 225,
-            DistressReactionTime = 45,            
+            DistressReactionTime = 32,            
 			DistressTypes = 'Naval',
 			DistressThreshold = 12,
 			
@@ -514,7 +514,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderData = {
 			DistressRange = 225,
-            DistressReactionTime = 45,            
+            DistressReactionTime = 32,            
 			DistressTypes = 'Naval',
 			DistressThreshold = 12,
 			
@@ -564,7 +564,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderData = {
 			DistressRange = 225,
-            DistressReactionTime = 45,            
+            DistressReactionTime = 32,            
 			DistressTypes = 'Naval',
 			DistressThreshold = 12,
 			
@@ -617,7 +617,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderData = {
 			DistressRange = 225,
-            DistressReactionTime = 45,            
+            DistressReactionTime = 32,            
 			DistressTypes = 'Naval',
 			DistressThreshold = 15,
 			
@@ -668,7 +668,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderData = {
 			DistressRange = 225,
-            DistressReactionTime = 45,            
+            DistressReactionTime = 32,            
 			DistressTypes = 'Naval',
 			DistressThreshold = 15,
 			
@@ -720,7 +720,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderData = {
 			DistressRange = 225,
-            DistressReactionTime = 45,            
+            DistressReactionTime = 32,            
 			DistressTypes = 'Naval',
 			DistressThreshold = 15,
 			
@@ -771,7 +771,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderData = {
 			DistressRange = 225,
-            DistressReactionTime = 45,            
+            DistressReactionTime = 32,            
 			DistressTypes = 'Naval',
 			DistressThreshold = 15,
 			
@@ -889,7 +889,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderData = {
 			DistressRange = 200,
-            DistressReactionTime = 45,
+            DistressReactionTime = 32,
 			DistressTypes = 'Naval',
 			DistressThreshold = 6,
 			

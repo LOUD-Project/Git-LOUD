@@ -1520,7 +1520,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 		
         BuilderData = {
 			DistressRange = 150,
-            DistressReactionTime = 30,
+            DistressReactionTime = 20,
 			DistressTypes = 'Land',
 			DistressThreshold = 2,
 			
@@ -1553,7 +1553,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 			
             PrioritizedCategories = {'LAND MOBILE','STRUCTURE -WALL','ENGINEER'},		-- target selection when at point --
 			
-			GuardRadius = 75,				-- range at which platoon will engage targets
+			GuardRadius = 65,				-- range at which platoon will engage targets
 			GuardTimer = 240,				-- period that platoon will guard the point unless triggers are met
 			
 			MissionTime = 960,				-- platoon will operate 16 minutes then RTB
@@ -1648,7 +1648,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 		
         BuilderData = {
 			DistressRange = 150,
-            DistressReactionTime = 30,
+            DistressReactionTime = 20,
 			DistressTypes = 'Land',
 			DistressThreshold = 2,
 			
@@ -1681,7 +1681,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			
             PrioritizedCategories = {'LAND MOBILE','STRUCTURE -WALL','ENGINEER'},		-- target selection when at point --
 			
-			GuardRadius = 75,				-- range at which platoon will engage targets
+			GuardRadius = 65,				-- range at which platoon will engage targets
 			GuardTimer = 240,				-- period that platoon will guard the point unless triggers are met
 			
 			MissionTime = 960,				-- platoon will operate 16 minutes then RTB
@@ -1738,7 +1738,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 		
         BuilderData = {
 			DistressRange = 150,
-            DistressReactionTime = 30,
+            DistressReactionTime = 20,
 			DistressTypes = 'Land',
 			DistressThreshold = 2,
 			
@@ -1771,7 +1771,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			
 			AssistRange = 3,
 			
-			GuardRadius = 80,				-- range at which platoon will engage targets
+			GuardRadius = 65,				-- range at which platoon will engage targets
 			GuardTimer = 150,				-- platoon will guard 2.5 minutes
 			
 			MissionTime = 960,				-- platoon will operate 15 minutes
@@ -1826,7 +1826,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 		
         BuilderData = {
 			DistressRange = 150,
-            DistressReactionTime = 30,
+            DistressReactionTime = 20,
 			DistressTypes = 'Land',
 			DistressThreshold = 6,
 			
@@ -1859,7 +1859,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			
             PrioritizedCategories = {'LAND MOBILE','STRUCTURE -WALL','ENGINEER'},
 			
-			GuardRadius = 75,
+			GuardRadius = 65,
 			GuardTimer = 360,
 			
 			MergeLimit = 22,
@@ -1908,7 +1908,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         BuilderData = {
 		
 			DistressRange = 150,
-            DistressReactionTime = 30,
+            DistressReactionTime = 20,
 			DistressTypes = 'Land',
 			DistressThreshold = 6,
 			
@@ -1941,7 +1941,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			
             PrioritizedCategories = {'LAND MOBILE','STRUCTURE -WALL','ENGINEER'},		-- controls target selection
 			
-			GuardRadius = 75,					-- range at which platoon will engage targets
+			GuardRadius = 65,					-- range at which platoon will engage targets
 			GuardTimer = 1050,					-- period that platoon will guard the point 
 			
 			MergeLimit = 36,					-- limit to which unit merging is allowed - nil = original platoon size
@@ -1993,7 +1993,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         BuilderData = {
 		
 			DistressRange = 150,
-            DistressReactionTime = 30,
+            DistressReactionTime = 20,
 			DistressTypes = 'Land',
 			DistressThreshold = 6,
 			
@@ -2026,7 +2026,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			
             PrioritizedCategories = {'LAND MOBILE','ECONOMIC', 'STRUCTURE -WALL','ENGINEER'},
 			
-			GuardRadius = 80,
+			GuardRadius = 65,
 			GuardTimer = 1050,
 			
 			MergeLimit = 36,
@@ -2111,7 +2111,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			
             PrioritizedCategories = {'LAND MOBILE','STRUCTURE -WALL','ENGINEER'},
 			
-			GuardRadius = 80,
+			GuardRadius = 65,
 			GuardTimer = 480,
 			
 			MergeLimit = 25,
@@ -2192,7 +2192,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			
             PrioritizedCategories = {'LAND MOBILE','STRUCTURE -WALL','ENGINEER'},
 			
-			GuardRadius = 75,
+			GuardRadius = 65,
 			GuardTimer = 900,
 			
 			MergeLimit = 36,
@@ -2274,7 +2274,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			
             PrioritizedCategories = {'LAND MOBILE','STRUCTURE -WALL','ENGINEER'},
 			
-			GuardRadius = 75,				-- range at which platoon will engage targets
+			GuardRadius = 65,				-- range at which platoon will engage targets
 			GuardTimer = 900,				-- period that platoon will guard the point 
 			
 			MergeLimit = 36,				-- trigger level to which merging is allowed - nil = original platoon size
@@ -2324,7 +2324,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         BuilderData = {
 		
 			DistressRange = 150,
-            DistressReactionTime = 35,
+            DistressReactionTime = 24,
 			DistressTypes = 'Land',
 			DistressThreshold = 4,
 			
@@ -2353,7 +2353,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			
             PrioritizedCategories = { 'MASSPRODUCTION','ECONOMIC','ENGINEER'},
 			
-			GuardRadius = 75,
+			GuardRadius = 72,
 			GuardTimer = 25,
 			
 			MergeLimit = 25,
@@ -2405,7 +2405,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Base Guards',
 		
         BuilderData = {
 			DistressRange = 150,
-            DistressReactionTime = 35,
+            DistressReactionTime = 24,
 			DistressTypes = 'Land',
 			DistressThreshold = 4,
 			

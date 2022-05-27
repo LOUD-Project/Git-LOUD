@@ -1059,7 +1059,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 		
         BuilderData = {
 			DistressRange = 120,
-            DistressReactionTime = 12,
+            DistressReactionTime = 10,
 			DistressTypes = 'Land',
 			DistressThreshold = 5,
 			
@@ -1105,7 +1105,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 		
         BuilderData = {
 			DistressRange = 160,
-            DistressReactionTime = 12,
+            DistressReactionTime = 10,
 			DistressTypes = 'Land',
 			DistressThreshold = 10,
 			
@@ -1152,7 +1152,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 		
         BuilderData = {
 			DistressRange = 180,
-            DistressReactionTime = 12,            
+            DistressReactionTime = 10,            
 			DistressTypes = 'Land',
 			DistressThreshold = 10,
 			
@@ -1197,7 +1197,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 		
         BuilderData = {
 			DistressRange = 225,
-            DistressReactionTime = 12,
+            DistressReactionTime = 10,
 			DistressTypes = 'Land',
 			DistressThreshold = 12,
             
@@ -1640,7 +1640,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 		
         BuilderData = {
 			DistressRange = 140,
-            DistressReactionTime = 25,            
+            DistressReactionTime = 20,            
 			DistressTypes = 'Naval',
 			DistressThreshold = 4,
 			
@@ -1682,7 +1682,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 		
         BuilderData = {
 			DistressRange = 175,
-            DistressReactionTime = 25,            
+            DistressReactionTime = 20,            
 			DistressTypes = 'NaVal',
 			DistressThreshold = 8,
 			
@@ -1724,7 +1724,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 		
         BuilderData = {
 			DistressRange = 225,
-            DistressReactionTime = 25,            
+            DistressReactionTime = 20,            
 			DistressTypes = 'NaVal',
 			DistressThreshold = 8,
 			
@@ -1929,7 +1929,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
             AvoidBases = true,      -- don't seek points with a base managers radius --
 
 			DistressRange = 240,
-            DistressReactionTime = 8,            
+            DistressReactionTime = 6,            
 			DistressTypes = 'Air',
 			DistressThreshold = 16,
 			
@@ -2006,7 +2006,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
             AvoidBases = false,     -- get them out onto the field
             
 			DistressRange = 200,
-            DistressReactionTime = 30,            
+            DistressReactionTime = 25,            
 			DistressTypes = 'Naval',
 			DistressThreshold = 8,
         
@@ -2080,7 +2080,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
             AvoidBases = false,      -- we always want our torpedo bombers out there --
             
 			DistressRange = 200,
-            DistressReactionTime = 30,            
+            DistressReactionTime = 25,            
 			DistressTypes = 'Naval',
 			DistressThreshold = 8,
             
@@ -2165,7 +2165,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Experimentals',
 		
         BuilderData = {
 			DistressRange = 250,
-            DistressReactionTime = 30,
+            DistressReactionTime = 25,
 			DistressTypes = 'Land',
 			DistressThreshold = 15,
             
@@ -2209,7 +2209,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Experimentals',
 		
         BuilderData = {
 			DistressRange = 250,
-            DistressReactionTime = 30,            
+            DistressReactionTime = 25,            
 			DistressTypes = 'Land',
 			DistressThreshold = 15,
             MergeLimit = 6,
@@ -2336,7 +2336,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Experimentals',
 		
         BuilderData = {
 			DistressRange = 150,
-            DistressReactionTime = 35,
+            DistressReactionTime = 25,
 			DistressTypes = 'Land',
 			DistressThreshold = 10,
 
@@ -2384,7 +2384,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Experimentals',
 		
         BuilderData = {
 			DistressRange = 150,
-            DistressReactionTime = 35,
+            DistressReactionTime = 25,
 			DistressTypes = 'Naval',
 			DistressThreshold = 10,
 

@@ -2522,7 +2522,8 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
 	
 		-- this sets up the transports platoon ability to call for help and to detect major threats to itself
 		-- we'll also use it to signal an 'abort transport' capability using the DistressCall field
-		transports:ForkThread( transports.PlatoonCallForHelpAI, aiBrain )
+        -- threat trigger is based on number of transports
+		transports:ForkThread( transports.PlatoonCallForHelpAI, aiBrain, LOUDGETN(transporters) )
 		
 		transports.AtGoal = false -- flag to allow unpathed unload of the platoon
 		

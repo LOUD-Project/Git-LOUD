@@ -7293,7 +7293,7 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 			
 			AssignUnitsToPlatoon( aiBrain, Mexplatoon, {unitbeingbuilt}, 'Support', 'none' )
 		
-			Mexplatoon:ForkThread( PlatoonCallForHelpAI, aiBrain )
+			Mexplatoon:ForkThread( PlatoonCallForHelpAI, aiBrain, 3 )
 		
         
 		elseif (not unitbeingbuilt.Dead) and EntityCategoryContains( categories.HYDROCARBON, unitbeingbuilt) then
@@ -7308,7 +7308,7 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 			
 			AssignUnitsToPlatoon( aiBrain, Mexplatoon, {unitbeingbuilt}, 'Support', 'none' )
 		
-			Mexplatoon:ForkThread( PlatoonCallForHelpAI, aiBrain )
+			Mexplatoon:ForkThread( PlatoonCallForHelpAI, aiBrain, 3 )
             
         elseif (not unitbeingbuilt.Dead) then
 

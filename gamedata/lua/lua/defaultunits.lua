@@ -702,7 +702,7 @@ StructureUnit = Class(Unit) {
 
             AssignUnitsToPlatoon( aiBrain, Mexplatoon, {finishedUnit}, 'Support', 'none' )
 
-			Mexplatoon:ForkThread( PlatoonCallForHelpAI, aiBrain )
+			Mexplatoon:ForkThread( PlatoonCallForHelpAI, aiBrain, 3 )
 
 			if not finishedUnit.UpgradeThread then
 
@@ -723,7 +723,7 @@ StructureUnit = Class(Unit) {
 
             AssignUnitsToPlatoon( aiBrain, Mexplatoon, {finishedUnit}, 'Support', 'none' )
 
-			Mexplatoon:ForkThread( PlatoonCallForHelpAI, aiBrain )
+			Mexplatoon:ForkThread( PlatoonCallForHelpAI, aiBrain, 3 )
 
 			if not finishedUnit.UpgradeThread then
 
