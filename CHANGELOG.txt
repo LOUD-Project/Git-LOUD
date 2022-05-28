@@ -1,3 +1,24 @@
+### Release 28-05-2022
+
+LUA 6.2.06
+BO ACU & Unleashed 6.2.22
+
+AI
+    - fixed bug in Guardpoint causing bad movement
+    - added a full set of debug LOG entries for Guardpoint, tightened both timing and distance requirements, new formations
+    - DistressResponseAI gets a full review, shortened distress ranges, reduced reaction times, and revised threat triggers
+    - some preliminary setup work for an upcoming review of ArtilleryAI - new artillery priority choices
+    
+UNITS
+    - correction to BO Cybran ACU - effects bug
+    - BO Citadel Mk.II now qualifies as ANTIAIR unit, removed airpad description (they were disabled long ago)
+
+
+
+
+
+### Release 20-05-2022
+
 LUA 6.2.05
 BrewLAN 0.8.8.9.53
 BO ACU & Unleashed 6.2.21
