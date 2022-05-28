@@ -405,8 +405,11 @@ ERL0001 = Class(CWalkingLandUnit) {
         for _, v in self.BuildProjectile do 
         
             TrashDestroy ( v.BuildEffectsBag )
-        
-            v:AttachTo( self, v.Name )
+            
+            if v.Detached then
+                v:AttachTo( self, v.Name )
+                v.Detached = false
+            end
             
             -- and scale down the emitters
             v.Emitter:ScaleEmitter(0.05)

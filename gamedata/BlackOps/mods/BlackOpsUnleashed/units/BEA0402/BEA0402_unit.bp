@@ -85,6 +85,7 @@ UnitBlueprint {
         'UEF',
         'MOBILE',
         'AIR',
+        'ANTIAIR',
         'EXPERIMENTAL',
         'NEEDMOBILEBUILD',
 		'GROUNDATTACK',
@@ -111,7 +112,6 @@ UnitBlueprint {
     Display = {
         Abilities = {
             'Radar',
-			'4x Air Staging Platforms',
 			'2x Ground-Attack Rail Guns',
 			'4x HV Anti-Air Missiles',
             '4x Flak Cannons',
