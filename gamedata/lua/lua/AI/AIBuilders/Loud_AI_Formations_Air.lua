@@ -1639,20 +1639,20 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
         },
 		
         BuilderData = {
-			DistressRange = 140,
-            DistressReactionTime = 20,            
+			DistressRange = 90,
+            DistressReactionTime = 10,            
 			DistressTypes = 'Naval',
-			DistressThreshold = 4,
+			DistressThreshold = 3,
 			
 			LocationType = 'LocationType',
 			
             MergeLimit = 12,
 			
-            MissionTime = 75,
+            MissionTime = 60,
 			
-            PrioritizedCategories = {categories.SUBMARINE, categories.MOBILE * categories.NAVAL, categories.MOBILE},
+            PrioritizedCategories = {categories.SUBMARINE, categories.MOBILE * categories.NAVAL, categories.SUBMERSIBLE},
 			
-			SearchRadius = 40,	
+			SearchRadius = 35,	
 			
             UseFormation = 'AttackFormation',
         },
@@ -1677,24 +1677,24 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
         InstanceCount = 3,
 
         BuilderConditions = {
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 12, categories.HIGHALTAIR * categories.ANTINAVY }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 15, categories.HIGHALTAIR * categories.ANTINAVY }},
         },
 		
         BuilderData = {
-			DistressRange = 175,
-            DistressReactionTime = 20,            
+			DistressRange = 150,
+            DistressReactionTime = 10,            
 			DistressTypes = 'NaVal',
-			DistressThreshold = 8,
+			DistressThreshold = 6,
 			
 			LocationType = 'LocationType',
 			
-            MergeLimit = 28,
+            MergeLimit = 32,
 			
             MissionTime = 120,
 			
             PrioritizedCategories = { categories.CRUISER, categories.SUBMARINE, categories.MOBILE * categories.NAVAL, categories.MOBILE, categories.STRUCTURE},
 			
-			SearchRadius = 65,
+			SearchRadius = 60,
 			
             UseFormation = 'AttackFormation',
         },
@@ -1719,12 +1719,12 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
         InstanceCount = 2,
 
         BuilderConditions = {
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 29, categories.HIGHALTAIR * categories.ANTINAVY }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 31, categories.HIGHALTAIR * categories.ANTINAVY }},
         },
 		
         BuilderData = {
-			DistressRange = 225,
-            DistressReactionTime = 20,            
+			DistressRange = 180,
+            DistressReactionTime = 12,            
 			DistressTypes = 'NaVal',
 			DistressThreshold = 8,
 			
@@ -1747,7 +1747,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 	-- this one goes after sonar
     Builder {BuilderName = 'Hunt Torps - Sonar',
 	
-        PlatoonTemplate = 'TorpedoBomberAttack',
+        PlatoonTemplate = 'TorpedoAttack',
 		
 		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 		
@@ -1766,7 +1766,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 		
         BuilderConditions = {
 			{ LUTL, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, categories.SONAR * categories.STRUCTURE, 'Enemy' }},			
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 23, categories.HIGHALTAIR * categories.ANTINAVY } },
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 15, categories.HIGHALTAIR * categories.ANTINAVY } },
         },
 		
         BuilderData = {
@@ -1804,7 +1804,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.HIGHALTAIR * categories.ANTINAVY } },
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 2, categories.HIGHALTAIR * categories.ANTINAVY } },
         },
 		
         BuilderData = {
@@ -1821,7 +1821,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 
     Builder {BuilderName = 'Hunt Torps - Nuke Antinuke',
 	
-        PlatoonTemplate = 'TorpedoBomberAttack',
+        PlatoonTemplate = 'TorpedoAttack',
 		
 		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'} },
 		
@@ -1839,7 +1839,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
         BuilderConditions = {
             { LUTL, 'AirStrengthRatioGreaterThan', { 1.2 } },
 			{ LUTL, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, categories.NUKE + categories.ANTIMISSILE - categories.TECH2, 'Enemy' }},
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 23, categories.HIGHALTAIR * categories.ANTINAVY } },			
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 15, categories.HIGHALTAIR * categories.ANTINAVY } },			
         },
 		
         BuilderData = {
@@ -1862,7 +1862,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 
     Builder {BuilderName = 'Hunt Torps - Economic Experimental',
 	
-        PlatoonTemplate = 'TorpedoBomberAttack',
+        PlatoonTemplate = 'TorpedoAttack',
 		
 		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'} },
 		
@@ -1880,7 +1880,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
         BuilderConditions = {
             { LUTL, 'AirStrengthRatioGreaterThan', { 1.2 } },
 			{ LUTL, 'HaveGreaterThanUnitsWithCategoryAndAlliance', { 0, categories.ECONOMIC * categories.EXPERIMENTAL, 'Enemy' }},			
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 23, categories.HIGHALTAIR * categories.ANTINAVY } },
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 15, categories.HIGHALTAIR * categories.ANTINAVY } },
         },
 		
         BuilderData = {
@@ -2072,15 +2072,15 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 		
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},        
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 12, categories.HIGHALTAIR * categories.ANTINAVY } },
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 15, categories.HIGHALTAIR * categories.ANTINAVY } },
 			{ UCBC, 'HaveGreaterThanUnitsWithCategory', { 0, categories.CRUISER + categories.DESTROYER + (categories.NAVAL * categories.CARRIER)}},
         },
 		
         BuilderData = {
             AvoidBases = false,      -- we always want our torpedo bombers out there --
             
-			DistressRange = 200,
-            DistressReactionTime = 25,            
+			DistressRange = 180,
+            DistressReactionTime = 15,            
 			DistressTypes = 'Naval',
 			DistressThreshold = 8,
             

@@ -130,24 +130,19 @@ PlatoonTemplate { Name = 'TorpedoReinforce',
 	}
 }
 
-PlatoonTemplate { Name = 'TorpedoBomberAttack',
-    GlobalSquads = {
-        { TORPBOMBER, 6, 48, 'Attack', 'AttackFormation' },
-    }
-}
 PlatoonTemplate { Name = 'TorpedoAttack Small',
     GlobalSquads = {
-        { TORPBOMBER, 1, 12, 'Attack', 'AttackFormation' },
+        { TORPBOMBER, 1, 15, 'Attack', 'AttackFormation' },
     }
 }
 PlatoonTemplate { Name = 'TorpedoAttack',
     GlobalSquads = {
-        { TORPBOMBER, 13, 29, 'Attack', 'AttackFormation' },
+        { TORPBOMBER, 16, 31, 'Attack', 'AttackFormation' },
     }
 }
 PlatoonTemplate { Name = 'TorpedoAttack Large',
     GlobalSquads = {
-        { TORPBOMBER, 30, 42, 'Attack', 'AttackFormation' },
+        { TORPBOMBER, 32, 48, 'Attack', 'AttackFormation' },
     }
 }
 
