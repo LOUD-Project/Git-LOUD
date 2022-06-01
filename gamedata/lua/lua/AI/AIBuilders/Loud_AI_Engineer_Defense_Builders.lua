@@ -54,11 +54,11 @@ local IsNavalMap = function( self, aiBrain, manager)
 
 end
 
--- These 2 functions need some consideration - as they force the priority up to 850 - which seems like a guess
+-- These 3 functions need some consideration - as they force the priority up by 100 - which seems like a guess
 -- Review the Engineer Builders priorities, 850 blows pretty much all others out of the water
 -- you may wish to consider that it may override some very important tasks (like reclaim or energy)
 
--- These 2 New Functions will enable LOUD to prioritize defenses if land ratio below a certain value
+-- These 2 New Functions will enable LOUD to prioritize defenses if a ratio falls below a certain value
 -- This is mostly for the players that rush him but this should also effect how prepared his bases are.
 local IsEnemyCrushingLand = function( builder, aiBrain, unit )
 
@@ -84,6 +84,17 @@ end
 local IsEnemyCrushingAir = function( builder, aiBrain, unit )
 
     if aiBrain.AirRatio <= 1.0 and aiBrain.CycleTime > 300 then
+	
+		return builder.Priority + 100, true	
+
+    end
+    
+    return builder.Priority, false
+end
+
+local IsEnemyCrushingNaval = function( builder, aiBrain, unit )
+
+    if aiBrain.NavalRatio <= 1.0 and aiBrain.CycleTime > 300 then
 	
 		return builder.Priority + 100, true	
 
@@ -3140,7 +3151,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Expansions',
 ------------------------
 BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval',
     BuildersType = 'EngineerBuilder',
-	
+
+--[[	
     Builder {BuilderName = 'T1 Defenses Naval',
 	
         PlatoonTemplate = 'EngineerBuilder',
@@ -3170,7 +3182,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval',
             -- obsolete once T2 or better available
 			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 175, 1750 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 175, 1250 }},
 
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 9, categories.STRUCTURE * categories.ANTINAVY, 50, 85 }},
         },
@@ -3198,30 +3210,34 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval',
             }
         }
     },
-	
+--]]	
+
     Builder {BuilderName = 'T2 Defenses Naval',
 	
         PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 751,
+        Priority = 750,
 		
 		PriorityFunction = IsEnemyNavalActive,		
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .75 } },
             
-			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},
-
-			--{ TBC, 'ThreatCloserThan', { 'LocationType', 450, 30, 'Naval' }},
+			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY }},
             
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
+
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 18, categories.STRUCTURE * categories.ANTINAVY * categories.TECH2, 50, 85 }},
         },
 		
 		BuilderType = { 'T2','T3','SubCommander'},
 
         BuilderData = {
+		
+			DesiresAssist = true,
+        
             Construction = {
 			
 				Radius = 63,
@@ -3238,6 +3254,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval',
 				
                 BuildStructures = {
 					'T2NavalDefense',
+                    'T2GroundDefenseAmphibious',                
+					'T2MissileDefense',
+                    'T2NavalDefense',
                 },
             }
         }
@@ -3249,16 +3268,18 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 651,
+        Priority = 750,
         
         PriorityFunction = IsEnemyCrushingAir,
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .75 } },
             
-			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},
+            { LUTL, 'AirStrengthRatioLessThan', { 1.5 }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
+			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY }},
+            
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
             
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 9, categories.STRUCTURE * categories.ANTIAIR * categories.TECH2, 50, 85 }},
         },
@@ -3266,8 +3287,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval',
 		BuilderType = { 'T2','T3' },
 
         BuilderData = {
-        
-            DesireAssist = true,
             
             Construction = {
 			
@@ -3285,7 +3304,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval',
 				
                 BuildStructures = {
 					'T2AADefenseAmphibious',
-					'T2MissileDefense',					
                 },
             }
         }
@@ -3297,16 +3315,18 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 751,
+        Priority = 750,
 		
 		PriorityFunction = IsEnemyNavalActive,		
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .75 } },
             
+            { LUTL, 'NavalStrengthRatioLessThan', { 3 } },
+            
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 3000 }},
 
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 9, categories.STRUCTURE * categories.ANTIAIR * categories.TECH3, 50, 85 }},
         },
@@ -3331,10 +3351,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval',
 				BaseTemplateFile = '/lua/ai/aibuilders/loud_perimeter_defense_templates.lua',
 				BaseTemplate = 'NavalPerimeterDefenseTemplate',
 				
-                BuildStructures = {
-					'T3AADefense',
-					'T3NavalDefense',
-				},
+                BuildStructures = {'T3NavalDefense'},
             }
         }
     },
@@ -3345,16 +3362,18 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        Priority = 651,
+        Priority = 750,
         
         PriorityFunction = IsEnemyCrushingAir,
 
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
             
+            { LUTL, 'AirStrengthRatioLessThan', { 1.5 }},
+            
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 3000 }},
 
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 8, categories.STRUCTURE * categories.ANTIAIR * categories.TECH3, 1, 40 }},
         },
@@ -3362,9 +3381,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval',
 		BuilderType = { 'T3','SubCommander'},
 
         BuilderData = {
-        
-			DesiresAssist = true,
-			
+
             Construction = {
                 NearBasePerimeterPoints = true,
 				
