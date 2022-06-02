@@ -30,6 +30,7 @@ local MapHasNavalAreasButNotEstablished = function( self, aiBrain )
 
     if aiBrain.NumBasesNaval < 1 then
     
+        -- this just checks if there are any Naval Area markers on the map
         if ScenarioInfo['Naval Area'][1] then
             return 999, false
         else
@@ -615,6 +616,54 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction',
             }
         }
     },    
+    
+    Builder {BuilderName = 'Naval Base Initial - OutNumbered',
+	
+        PlatoonTemplate = 'EngineerBuilder',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+        Priority = 751,
+		
+		PriorityFunction = OutNumberedFirst15Minutes, 
+		
+        BuilderConditions = {
+
+			{ UCBC, 'IsBaseExpansionUnderway', {false} },
+            
+			{ UCBC, 'NavalBaseCount', { 1, '<' } },
+
+			-- find a safe, unused, naval marker within 12km of this base
+            { UCBC, 'NavalAreaForExpansion', { 'LocationType', 600, -250, 50, 2, 'AntiSurface' } },
+        },
+		
+        BuilderType = { 'T1','T2' },
+		
+        BuilderData = {
+            Construction = {
+				CountedBase = true,
+                
+                ExpansionBase = true,
+                ExpansionRadius = 110,
+                
+				RallyPointRadius = 46,
+				
+                NearMarkerType = 'Naval Area',
+                LocationRadius = 600,
+				
+                ThreatMax = 50,
+                ThreatRings = 2,
+                ThreatType = 'AntiSurface',
+				
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
+				BaseTemplate = 'NavalExpansionBase',
+
+                BuildStructures = {
+					'T1SeaFactory',
+                }
+            }
+        }
+    },        
 }
 
 BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction - Expansions',

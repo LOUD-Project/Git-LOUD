@@ -65,6 +65,7 @@ function AIExecuteBuildStructure( aiBrain, engineer, buildingType, closeToBuilde
 		-- Most certainly it won't be related to any threat check we do elsewhere in our code - as far as I can tell.
 		-- The biggest result - ENGINEERS GO WANDERING INTO HARMS WAY FREQUENTLY -- I'm going to try various values
 		-- I am now passing along the engineers ThreatMax from his platoon (if it's there)
+        -- at this point in time is appears to have NO impact at all 
         
         --location = aiBrain:FindPlaceToBuild( buildingType, whatToBuild, baseTemplate, relative, engineer, 'Enemy', SourcePosition[1], SourcePosition[3], constructionData.ThreatMax or 7.5)	
 
@@ -148,7 +149,6 @@ function AIExecuteBuildStructure( aiBrain, engineer, buildingType, closeToBuilde
 			engineer.PlatoonHandle:SetAIPlan('ReturnToBaseAI', aiBrain)
             
             location = false
-            
 		end
 
         if location then
@@ -161,11 +161,9 @@ function AIExecuteBuildStructure( aiBrain, engineer, buildingType, closeToBuilde
         
             if constructionData.LoopBuild then
             
-                -- loop builders have minimum range to start with
-                -- reduced after first build
+                -- loop builders have minimum range to start with, which is reduced after their first build
                 constructionData.MinRange = 0
             end
-            
 		end
         
     else
@@ -184,7 +182,6 @@ function AIExecuteBuildStructure( aiBrain, engineer, buildingType, closeToBuilde
 			
         end
 
-        --AddToBuildQueue(aiBrain, engineer, whatToBuild, { relativeLoc[1], relativeLoc[3], 0 } )
         LOUDINSERT(engineer.EngineerBuildQueue, { whatToBuild, {relativeLoc[1], relativeLoc[3], 0 } } )
 		
 		return true
@@ -204,15 +201,12 @@ function AIBuildBaseTemplate( aiBrain, builder, buildingType , closeToBuilder, r
             for n,bString in bType[1] do
 			
                 return AIExecuteBuildStructure( aiBrain, builder, buildingType , closeToBuilder, relative, buildingTemplate, baseTemplate, reference)
-				
             end
-			
         end
 		
     else
 	
 		LOG("*AI DEBUG "..aiBrain.Nickname.." failed DecideWhatToBuild - "..repr(buildingType).."  template "..repr(buildingTemplate).."  platoon ".. repr(builder.BuilderName) .." - ".. builder.Sync.id)
-		
 	end
 	
     return false
@@ -318,13 +312,9 @@ function AIBuildBaseTemplateFromLocation( baseTemplate, location )
                 else
 				
                     baseT[templateNum][rowNum] = template[rowNum]
-					
                 end
-				
             end
-			
         end
-		
     end
 	
     return baseT
@@ -377,9 +367,7 @@ function AIBuildAdjacency( aiBrain, builder, buildingType, closeToBuilder, relat
                     LOUDINSERT( template[1], testPos )
                     LOUDINSERT( template[1], testPos2 )
                 end
-				
             end
-			
         end
 		
         -- build near the base the engineer is part of, rather than the engineer location

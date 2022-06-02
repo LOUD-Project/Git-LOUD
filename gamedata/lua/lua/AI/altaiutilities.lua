@@ -269,8 +269,8 @@ function AIFindBaseAreaForExpansion( aiBrain, locationType, radius, tMin, tMax, 
 		-- The idea of this is to give the AI an emphasis on expanding his bases to cover a greater portion of the map rather
 		-- than clumping up - this also avoids overlap of the army pools 
 	
-		-- cap the minimum baserange at 180
-		local minimum_baserange = 180
+		-- cap the minimum baserange at 165
+		local minimum_baserange = 165
 	
 		local Brains = ArmyBrains
         local removed = false
