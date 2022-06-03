@@ -125,8 +125,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
         
             { LUTL, 'UnitCapCheckLess', { .85 } },
             
-			{ EBC, 'LessThanEnergyTrend', { 180 }},        
-			{ EBC, 'LessThanEnergyTrendOverTime', { 240 }},
+			{ EBC, 'LessThanEnergyTrend', { 200 }},        
+			{ EBC, 'LessThanEnergyTrendOverTime', { 260 }},
 			{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},            
 
 			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION * categories.TECH3 }},
@@ -200,8 +200,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
             
 			{ LUTL, 'GreaterThanEnergyIncome', { 33600 }},
             
-			{ EBC, 'LessThanEnergyTrend', { 180 }},			
-			{ EBC, 'LessThanEnergyTrendOverTime', { 240 }},
+			{ EBC, 'LessThanEnergyTrend', { 200 }},			
+			{ EBC, 'LessThanEnergyTrendOverTime', { 260 }},
    			{ EBC, 'LessThanEconEnergyStorageRatio', { 70 }},
 			
 			-- must have much of the inner core power systems complete
@@ -291,8 +291,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Expansions',
             
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
 
-			{ EBC, 'LessThanEnergyTrend', { 180 }},			
-			{ EBC, 'LessThanEnergyTrendOverTime', { 240 }},
+			{ EBC, 'LessThanEnergyTrend', { 200 }},			
+			{ EBC, 'LessThanEnergyTrendOverTime', { 260 }},
    			{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},
             
 			-- don't build T3 power if one is already being built somewhere else
@@ -343,8 +343,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Naval',
 			
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 8, (categories.ENERGYPRODUCTION * categories.TECH3) - categories.HYDROCARBON }},
             
-			{ EBC, 'LessThanEnergyTrend', { 180 }},            
-			{ EBC, 'LessThanEnergyTrendOverTime', { 240 }},
+			{ EBC, 'LessThanEnergyTrend', { 200 }},            
+			{ EBC, 'LessThanEnergyTrendOverTime', { 260 }},
 			{ EBC, 'LessThanEconEnergyStorageRatio', { 70 }},            
         },
         
