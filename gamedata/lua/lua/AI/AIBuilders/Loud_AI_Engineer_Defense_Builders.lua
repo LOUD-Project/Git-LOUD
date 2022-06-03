@@ -3328,7 +3328,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Naval',
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 3000 }},
 
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 9, categories.STRUCTURE * categories.ANTIAIR * categories.TECH3, 50, 85 }},
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 9, categories.STRUCTURE * categories.ANTINAVY * categories.TECH3, 50, 85 }},
         },
 		
 		BuilderType = { 'T3','SubCommander'},
@@ -4339,7 +4339,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval',
 				
                 BuildStructures = {
                     'T2Sonar',
-                    'T2MissileDefense',
                 }
             }
         }
@@ -4356,7 +4355,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval',
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .95 } },
 
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 15, 1.012, 1.025 }}, 
+			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 3000 }},
+
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 1, categories.AIRSTAGINGPLATFORM - categories.MOBILE, 0, 28 }},
         },
 		
@@ -4375,6 +4375,40 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval',
 				
                 BuildStructures = {
 					'T2AirStagingPlatform',
+				}
+            }
+        }
+    },	
+
+    Builder {BuilderName = 'Naval DP TMD',
+	
+        PlatoonTemplate = 'EngineerBuilder',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+        Priority = 760,
+
+        BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .85 } },
+
+			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 3000 }},
+
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 1, categories.ANTIMISSILE * categories.TECH2, 0, 28 }},
+        },
+		
+		BuilderType = { 'T2','T3','SubCommander' },
+
+        BuilderData = {
+            
+            Construction = {
+				NearBasePerimeterPoints = true,
+                
+                ThreatMax = 75,
+				
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
+				BaseTemplate = 'NavalDefensivePoint',
+				
+                BuildStructures = {
 					'T2MissileDefense',
 				}
             }
@@ -4392,7 +4426,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval',
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .75 } },
 
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 15, 1.012, 1.025 }}, 
+            { LUTL, 'AirStrengthRatioLessThan', { 3 }},
+
+			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 3000 }},
+
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 2, categories.STRUCTURE * categories.ANTIAIR * categories.TECH2, 0, 24 }},
         },
 		
@@ -4421,10 +4458,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval',
         Priority = 700,
 		
         BuilderConditions = {
-            { LUTL, 'UnitCapCheckLess', { .75 } },
+            { LUTL, 'UnitCapCheckLess', { .85 } },
 
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 15, 1.012, 1.025 }}, 
-            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 2, categories.STRUCTURE * categories.DEFENSE * categories.DIRECTFIRE, 0, 24 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 3000 }},
+
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 3, categories.STRUCTURE * categories.DEFENSE * categories.DIRECTFIRE, 0, 24 }},
         },
 		
 		BuilderType = { 'T2','T3','SubCommander' },
@@ -4457,8 +4495,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval',
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
+            
+            { LUTL, 'NavalStrengthRatioLessThan', { 1.5 } },
 
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 15, 1.012, 1.025 }}, 
+			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 3000 }},
+
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 2, categories.STRUCTURE * categories.ANTINAVY * categories.TECH2, 0, 24 }},
         },
 		
@@ -4491,7 +4532,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval',
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
 
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 15, 1.012, 1.025 }}, 
+            { LUTL, 'AirStrengthRatioLessThan', { 3 }},
+
+			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 3000 }},
+
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 2, categories.STRUCTURE * categories.ANTIAIR * categories.TECH3, 0, 24 }},
         },
 		
@@ -4512,6 +4556,47 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval',
             }
         }
     },
+    
+    Builder {BuilderName = 'Naval DP T3 Naval Defenses',
+	
+        PlatoonTemplate = 'EngineerBuilder',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+        Priority = 750,
+		
+		PriorityFunction = IsEnemyNavalActive,		
+		
+        BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .85 } },
+            
+            { LUTL, 'NavalStrengthRatioLessThan', { 1.5 } },
+
+			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 3000 }},
+
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 1, categories.STRUCTURE * categories.ANTINAVY * categories.TECH3, 0, 24 }},
+            
+        },
+		
+		BuilderType = { 'T3','SubCommander'},
+
+        BuilderData = {
+		
+			DesiresAssist = true,
+			
+            Construction = {
+
+                NearBasePerimeterPoints = true,
+				
+				ThreatMax = 100,
+
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
+				BaseTemplate = 'NavalDefensivePoint',
+
+                BuildStructures = {'T3NavalDefense'},
+            }
+        }
+    },
 	
     Builder {BuilderName = 'Naval DP Antinuke',
 	
@@ -4525,7 +4610,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Naval',
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .95 } },
-			{ LUTL, 'GreaterThanEnergyIncome', { 50000 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
             
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 60, 1.02, 1.04 }},
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 1, categories.ANTIMISSILE * categories.SILO * categories.STRUCTURE * categories.TECH3, 0, 15 }},

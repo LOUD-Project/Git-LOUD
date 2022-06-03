@@ -1123,7 +1123,7 @@ DefensivePointSmall = {
 
 NavalDefensivePoint = {
 -- UEF 
--- UEF T2 Naval Perimeter Defense Template
+-- UEF T2 Naval DP Template
     {
         {{'T1Sonar','T2Sonar'},
             { 0, 0 },
@@ -1145,8 +1145,8 @@ NavalDefensivePoint = {
 			{-11, 0 },
 		},
 		{{'T2NavalDefense'},
-            { 0,-6 },
-			{ 0, 6 },
+            { 3,-6 },
+			{ 3, 6 },
 		},
 		{{'T2AirStagingPlatform'},
 			{-7, 0 },
@@ -1158,7 +1158,7 @@ NavalDefensivePoint = {
 			{ -7, -7 },
         },
     },
--- Aeon T2 Naval Perimeter Defense Template
+-- Aeon T2 Naval DP Template
     {
         {{'T1Sonar','T2Sonar'},
             { 0, 0 },
@@ -1180,8 +1180,8 @@ NavalDefensivePoint = {
 			{-11, 0 },
 		},
 		{{'T2NavalDefense'},
-            { 0,-6 },
-			{ 0, 6 },
+            { 3,-6 },
+			{ 3, 6 },
 		},
 		{{'T2AirStagingPlatform'},
 			{-7, 0 },
@@ -1193,7 +1193,7 @@ NavalDefensivePoint = {
 			{ -7, -7 },
         },		
     }, 
--- Cybran T2 Naval Perimeter Defense Template
+-- Cybran T2 Naval DP Template
     {
         {{'T1Sonar','T2Sonar'},
             { 0, 0 },
@@ -1215,8 +1215,8 @@ NavalDefensivePoint = {
 			{-11, 0 },
 		},
 		{{'T2NavalDefense'},
-            { 0,-6 },
-			{ 0, 6 },
+            { 3,-6 },
+			{ 3, 6 },
 		},
 		{{'T2AirStagingPlatform'},
 			{-7, 0 },
@@ -1228,7 +1228,7 @@ NavalDefensivePoint = {
 			{ -7, -7 },
         },		
     },
--- Seraphim T2 Naval Perimeter Defense Template
+-- Seraphim T2 Naval DP Template
     {
         {{'T1Sonar','T2Sonar'},
             { 0, 0 },
@@ -1250,8 +1250,8 @@ NavalDefensivePoint = {
 			{-11, 0 },
 		},
 		{{'T2NavalDefense'},
-            { 0,-6 },
-			{ 0, 6 },
+            { 3,-6 },
+			{ 3, 6 },
 		},
 		{{'T2AirStagingPlatform'},
 			{-7, 0 },

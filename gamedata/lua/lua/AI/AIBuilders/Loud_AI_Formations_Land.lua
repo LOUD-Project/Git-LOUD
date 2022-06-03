@@ -2394,7 +2394,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Base Guards',
         BuilderType = 'Any',
 		
         BuilderConditions = { 
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+			--{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
             { LUTL, 'UnitCapCheckLess', { .95 } },
             

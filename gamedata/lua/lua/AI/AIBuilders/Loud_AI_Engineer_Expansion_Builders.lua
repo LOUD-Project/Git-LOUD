@@ -125,6 +125,89 @@ BuilderGroup {BuilderGroupName = 'Engineer Land Expansion Construction',
         }
     }, 
 
+    Builder {BuilderName = 'Land Expansion Base - SACU',
+	
+        PlatoonTemplate = 'EngineerBuilder',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+        Priority = 751,
+		
+        BuilderConditions = {
+            { LUTL, 'UnitCapCheckLess', { .65 } },
+            
+			-- is there an expansion already underway (we use the Instant Version here for accuracy)
+			{ UCBC, 'IsBaseExpansionUnderway', {false} },
+            
+			-- this base must have 3+ T2/T3 factories
+            { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 3, categories.FACTORY * categories.STRUCTURE - categories.TECH1}},
+            
+			-- all other 'counted' land bases must have at least 3 factories
+			{ UCBC, 'ExistingBasesHaveGreaterThanFactory', { 3, 'Land', categories.FACTORY * categories.STRUCTURE * categories.TECH3 }},
+            
+			-- must have enough mass input to sustain existing factories and surplus
+			{ EBC, 'MassToFactoryRatioBaseCheck', { 'LocationType', 1.05, 1.05 } },
+
+			-- there must be an start/expansion area
+            { UCBC, 'BaseAreaForExpansion', { 'LocationType', 2000, -9999, 75, 0, 'AntiSurface' } },
+        },
+		
+        BuilderType = { 'SubCommander' },
+		
+        BuilderData = {
+            Construction = {
+				-- a counted base is included when using ExistingBases functions - otherwise ignored
+				-- this is what allows a base to count or not count against maximum allowed bases
+                -- Counted Bases are typically production centres
+				CountedBase = true,
+                
+				-- this tells the code to start an active base at this location
+                ExpansionBase = true,
+                
+				-- this controls the radius at which this base will draw 'pool' units
+				-- and it forms the basis for the Base Alert radius as well
+                ExpansionRadius = 110,
+                
+				-- this controls the radius for creation of auto-rally points 
+				RallyPointRadius = 40,
+                
+				-- and of course -- the type of markers we're looking for
+                NearMarkerType = 'Large Expansion Area',
+                
+				-- the limit of how far away to include markers when looking for a position
+                LocationRadius = 2000,
+                
+				-- this controls which base layout file to use
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
+				BaseTemplate = 'ExpansionLayout_II',
+                
+				-- these parameters control point selection
+                ThreatMax = 60,
+                ThreatRings = 0,
+                ThreatType = 'AntiSurface',
+				
+				-- what we'll build
+                BuildStructures = {  
+					'T2AirStagingPlatform',
+					'T2GroundDefense',
+					'T2GroundDefense',                    
+					'T1LandFactory',
+                    'T1AirFactory',
+					'T2Radar',
+					'T2GroundDefense',                    
+					'T2GroundDefense',
+                    'T2GroundDefense',
+                    'T2GroundDefense',
+                    'T2MissileDefense',
+                    'T2MissileDefense',
+                    'T1LandFactory',
+                    'T2AADefense',
+                    'T2AADefense',
+                }               
+            },
+        }
+    }, 
+
    
     -- Builds land expansion bases at both Start and Expansion points
     -- when there are nearby empty start locations
@@ -196,7 +279,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
 
     BuildersType = 'EngineerBuilder',
 
-	-- This builder will start an active DP 
+	-- This builder will start an active DP with a T2/T3 engineer
 	Builder {BuilderName = 'DP - Expansion',
 	
 		PlatoonTemplate = 'EngineerBuilder',
@@ -253,6 +336,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
 		}
 	},
     
+    -- this one starts with an SACU - difference between the previous builder - this one needs more factories as a condition
 	Builder {BuilderName = 'DP - Expansion SACU',
 	
 		PlatoonTemplate = 'EngineerBuilder',
@@ -369,6 +453,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
         }
     },
 
+    -- this is the SACU version with higher factory requirements
     Builder {BuilderName = 'DP - Expansion - Start & Expansion Areas - SACU',
 	
         PlatoonTemplate = 'EngineerBuilder',
@@ -383,6 +468,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.2 } },
 			
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
+            
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 0.75, 1.02 }},
             
 			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
@@ -749,11 +835,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction - Naval'
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
 			
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }},
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }},
             
 			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},
             
-			{ UCBC, 'NavalDefensivePointNeedsStructure', { 'LocationType', 1200, 'OVERLAY SONAR INTELLIGENCE', 120, 0, -999999, 75, 1, 'AntiSurface' }},
+			{ UCBC, 'NavalDefensivePointNeedsStructure', { 'LocationType', 1200, 'OVERLAY SONAR INTELLIGENCE', 60, 0, -999999, 75, 1, 'AntiSurface' }},
         },
 		
         BuilderType = { 'T2','T3', },
@@ -781,19 +867,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction - Naval'
 				BaseTemplate = 'NavalDefensivePoint',
 				
                 BuildStructures = {
-					'T2AirStagingPlatform',
-					--'T2Sonar',
-					
-					--'T2MissileDefense',
-
-					--'T2AADefenseAmphibious',
-					--'T2AADefenseAmphibious',
-
-					--'T2NavalDefense',
-					--'T2NavalDefense',
-
-					'T2GroundDefenseAmphibious',
-					'T2GroundDefenseAmphibious',
+					'T2Sonar',
                 }
             }
         }

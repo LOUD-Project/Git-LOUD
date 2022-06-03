@@ -712,7 +712,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Transfers',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'},{ BHVR, 'EngineerTransferAI'}, },
 		
-        Priority = 750,
+        Priority = 840,
 		
         InstanceCount = 1,
 		
@@ -720,10 +720,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Transfers',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
             
 			-- we do an eco check just to make sure we're not transferring just because we're in a eco lock
-			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }},
+			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1, 1.01 }},
 			{ UCBC, 'BaseCount', { 1, '>' } }
         },
 		
@@ -942,7 +942,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Active DP',
 	
         PlatoonTemplate = 'SubCommanderTransfer',
         
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'},{ BHVR, 'EngineerTransferAI'}, },
 		
         Priority = 600,
 		
@@ -950,7 +950,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Active DP',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
 			
 			-- we do an eco check just to make sure we're not transferring just because we're in a eco lock
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }},

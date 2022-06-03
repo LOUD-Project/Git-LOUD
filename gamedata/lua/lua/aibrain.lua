@@ -140,19 +140,25 @@
     -- HARDCORE NERD DATA - only for those who really need to dig into the guts of how things work
 
     
-	-- PRIORITY dialogs - Builder priority changes are dialoged to the LOG
+	-- PRIORITY dialogs - Builder priority changes are dialoged to the LOG - this will also report
+    -- all the builders, at a base, in sorted order - for checking priority sequence
 	ScenarioInfo.PriorityDialog = false
 	LOG("*AI DEBUG      Report Priority Changes to Log is "..repr(ScenarioInfo.PriorityDialog))
 
     -- INSTANCE COUNT dialogs - Instanced Builder count increase/decrease is dialoged to the LOG (very busy)
+    -- this allows you to watch your instance count allocations - and see those that get filled up - or are barely used
     ScenarioInfo.InstanceDialog = false
     LOG("*AI DEBUG      Report Instance Counts to Log is "..repr(ScenarioInfo.InstanceDialog))
 
 	-- UNIT BUFF dialog - show units being buffed and de-buffed (this can be pretty busy)
+    -- this allows you to see the buff activity of things like adjacency, veteran, effect fields - when they are applied - and when they are removed
 	ScenarioInfo.BuffDialog = false
 	LOG("*AI DEBUG      Buff System Dialogs to Log is "..repr(ScenarioInfo.BuffDialog))
 	
-	-- Projectile, Shield and Weapon dialogs (VERY COSTLY)
+	-- Projectile, Shield, Weapon and Nuke dialogs (VERY COSTLY)
+    -- this allows you to see all kinds of details about the creation of, impacts caused by, projectiles, shields and weapons
+    -- each has it's own switch here
+    
 	ScenarioInfo.ProjectileDialog = false
 	LOG("*AI DEBUG      Report  Projectile Dialog to Log is "..repr(ScenarioInfo.ProjectileDialog))
 	

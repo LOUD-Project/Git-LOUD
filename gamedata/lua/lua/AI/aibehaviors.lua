@@ -5629,6 +5629,8 @@ function EngineerTransferAI( self, aiBrain )
 		aiBrain.BuilderManagers[eng.LocationType].EngineerManager:RemoveEngineerUnit(eng)
 		
 		local newbase = possibles[ Random(1,counter) ]
+        
+		--LOG("*AI DEBUG "..aiBrain.Nickname.." ENG_TRANSFER "..Eng_Type.." Transfers From "..repr(eng.LocationType).." To "..repr(newbase) )        
 		
 		-- add him to the selected base - but dont send him to assign task -- setup new engy callbacks
 		aiBrain.BuilderManagers[newbase].EngineerManager:AddEngineerUnit( eng, false )
