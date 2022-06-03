@@ -159,7 +159,7 @@ UnitBlueprint {
 	
     Economy = {
         BuildCostEnergy = 495000,
-        BuildCostMass = 37500,
+        BuildCostMass = 40500,
 		
         BuildRate = 1050,
 		
@@ -194,7 +194,7 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
-        RadarRadius = 128,
+        RadarRadius = 140,
 		SonarRadius = 70,
         VisionRadius = 40,
         WaterVisionRadius = 24,
@@ -216,7 +216,7 @@ UnitBlueprint {
         },
         CatchUpAcc = 8,
         DragCoefficient = 0.2,
-        MaxAcceleration = 0.9,
+        MaxAcceleration = 0.8,
         MaxBrake = 2.2,
         MaxSpeed = 3.6,
         MaxSpeedReverse = 3,
@@ -302,7 +302,7 @@ UnitBlueprint {
 			
             Label = 'FrontMainTurret',
 			
-            MaxRadius = 150,
+            MaxRadius = 155,
             MinRadius = 24,
 			
             MuzzleChargeDelay = 1.5,
@@ -412,7 +412,7 @@ UnitBlueprint {
 			
             Label = 'BackMainTurret',
 			
-            MaxRadius = 150,
+            MaxRadius = 155,
             MinRadius = 24,
 			
             MuzzleChargeDelay = 1.5,
@@ -514,7 +514,7 @@ UnitBlueprint {
 			
             Label = 'SecondaryTurret',
 			
-            MaxRadius = 110,
+            MaxRadius = 100,
 			
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0,
@@ -614,7 +614,7 @@ UnitBlueprint {
 			
             Label = 'SecondaryTurret',
 			
-            MaxRadius = 110,
+            MaxRadius = 100,
 			
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0,
@@ -711,7 +711,7 @@ UnitBlueprint {
 			
             Label = 'SecondaryTurret',
 
-            MaxRadius = 110,
+            MaxRadius = 100,
 			
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0,
@@ -818,7 +818,7 @@ UnitBlueprint {
 			
             Label = 'DeckGun',
 			
-            MaxRadius = 65,
+            MaxRadius = 80,
 			
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0,
@@ -1240,7 +1240,7 @@ UnitBlueprint {
 			
             Damage = 50,
             DamageFriendly = false,
-            DamageRadius = 2,
+            DamageRadius = 2.2,
             DamageType = 'Normal',
 			
             DetonatesAtTargetHeight = true,
@@ -1334,7 +1334,7 @@ UnitBlueprint {
 			
             Damage = 50,
             DamageFriendly = false,
-            DamageRadius = 2,
+            DamageRadius = 2.2,
             DamageType = 'Normal',
 			
             DetonatesAtTargetHeight = true,
@@ -1426,7 +1426,7 @@ UnitBlueprint {
 			
             Damage = 50,
             DamageFriendly = false,
-            DamageRadius = 2,
+            DamageRadius = 2.2,
             DamageType = 'Normal',
 			
             DetonatesAtTargetHeight = true,
@@ -1518,7 +1518,7 @@ UnitBlueprint {
 			
             Damage = 50,
             DamageFriendly = false,
-            DamageRadius = 2,
+            DamageRadius = 2.2,
             DamageType = 'Normal',
 			
             DetonatesAtTargetHeight = true,

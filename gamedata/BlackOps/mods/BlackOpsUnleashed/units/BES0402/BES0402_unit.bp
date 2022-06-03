@@ -159,7 +159,7 @@ UnitBlueprint {
 	
     Economy = {
         BuildCostEnergy = 655000,
-        BuildCostMass = 42000,
+        BuildCostMass = 48300,
         BuildTime = 32800,
     },
 	
@@ -190,7 +190,7 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
-        RadarRadius = 165,
+        RadarRadius = 155,
         VisionRadius = 40,
         WaterVisionRadius = 24,
     },
@@ -211,7 +211,7 @@ UnitBlueprint {
         },
         CatchUpAcc = 8,
         DragCoefficient = 0.2,
-        MaxAcceleration = 0.85,
+        MaxAcceleration = 0.65,
         MaxBrake = 1.6,
         MaxSpeed = 3.3,
         MaxSpeedReverse = 2.5,
@@ -299,7 +299,7 @@ UnitBlueprint {
 			
             Label = 'FrontAMCCannon01',
 			
-            MaxRadius = 165,
+            MaxRadius = 155,
             MinRadius = 25,
 			
             MuzzleChargeDelay = 0.3,
@@ -416,7 +416,7 @@ UnitBlueprint {
 			
             Label = 'FrontAMCCannon02',
 			
-            MaxRadius = 165,
+            MaxRadius = 155,
             MinRadius = 25,
 			
             MuzzleChargeDelay = 0.3,
@@ -533,7 +533,7 @@ UnitBlueprint {
 			
             Label = 'BackAMCCannon',
 			
-            MaxRadius = 165,
+            MaxRadius = 155,
             MinRadius = 25,
 			
             MuzzleChargeDelay = 0.3,
@@ -642,7 +642,7 @@ UnitBlueprint {
 			
             Label = 'Deckgun',
 			
-            MaxRadius = 105,
+            MaxRadius = 95,
 			
             HeadingArcCenter = 0,
             HeadingArcRange = 240,
@@ -758,7 +758,7 @@ UnitBlueprint {
 			
             Label = 'Deckgun',
 			
-            MaxRadius = 105,
+            MaxRadius = 95,
 			
             HeadingArcCenter = 90,
             HeadingArcRange = 120,
@@ -873,7 +873,7 @@ UnitBlueprint {
 			
             Label = 'Deckgun',
 			
-            MaxRadius = 105,
+            MaxRadius = 95,
 			
             HeadingArcCenter = 90,
             HeadingArcRange = 120,
@@ -988,7 +988,7 @@ UnitBlueprint {
 			
             Label = 'Deckgun',
 			
-            MaxRadius = 105,
+            MaxRadius = 95,
 			
             HeadingArcCenter = 90,
             HeadingArcRange = 120,
@@ -1103,7 +1103,7 @@ UnitBlueprint {
 			
             Label = 'Deckgun',
 			
-            MaxRadius = 105,
+            MaxRadius = 95,
 			
             HeadingArcCenter = 180,
             HeadingArcRange = 145,
@@ -1218,7 +1218,7 @@ UnitBlueprint {
 			
             Label = 'Deckgun',
 			
-            MaxRadius = 105,
+            MaxRadius = 95,
 			
             HeadingArcCenter = -90,
             HeadingArcRange = 120,
@@ -1333,7 +1333,7 @@ UnitBlueprint {
 			
             Label = 'Deckgun',
 			
-            MaxRadius = 105,
+            MaxRadius = 95,
 			
             HeadingArcCenter = -90,
             HeadingArcRange = 120,
@@ -1448,7 +1448,7 @@ UnitBlueprint {
 			
             Label = 'Deckgun',
 			
-            MaxRadius = 105,
+            MaxRadius = 95,
 			
             HeadingArcCenter = -90,
             HeadingArcRange = 120,
@@ -1560,14 +1560,14 @@ UnitBlueprint {
             HeadingArcCenter = 40,
             HeadingArcRange = 145,
 			
-            MaxRadius = 45,
+            MaxRadius = 44,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 72,
 			
             ProjectileId = '/projectiles/TAALightFragmentationShell01/TAALightFragmentationShell01_proj.bp',
-			ProjectileLifetime = 1,			
+			ProjectileLifetime = 0.8,			
 
             RackBones = {
                 {
@@ -1652,14 +1652,14 @@ UnitBlueprint {
             HeadingArcCenter = 45,
             HeadingArcRange = 140,
 			
-            MaxRadius = 45,
+            MaxRadius = 44,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 72,
 			
             ProjectileId = '/projectiles/TAALightFragmentationShell01/TAALightFragmentationShell01_proj.bp',
-			ProjectileLifetime = 1,
+			ProjectileLifetime = 0.8,
 			
             RackBones = {
                 {
@@ -1742,14 +1742,14 @@ UnitBlueprint {
             HeadingArcCenter = 90,
             HeadingArcRange = 120,
 			
-            MaxRadius = 45,
+            MaxRadius = 44,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 72,
 			
             ProjectileId = '/projectiles/TAALightFragmentationShell01/TAALightFragmentationShell01_proj.bp',
-			ProjectileLifetime = 1,			
+			ProjectileLifetime = 0.8,			
 
             RackBones = {
                 {
@@ -1832,14 +1832,14 @@ UnitBlueprint {
             HeadingArcCenter = 120,
             HeadingArcRange = 125,
 			
-            MaxRadius = 45,
+            MaxRadius = 44,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 72,
 			
             ProjectileId = '/projectiles/TAALightFragmentationShell01/TAALightFragmentationShell01_proj.bp',
-			ProjectileLifetime = 1,
+			ProjectileLifetime = 0.8,
 			
             RackBones = {
                 {
@@ -1919,14 +1919,14 @@ UnitBlueprint {
             HeadingArcCenter = -40,
             HeadingArcRange = 145,
 			
-            MaxRadius = 45,
+            MaxRadius = 44,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 72,
 			
             ProjectileId = '/projectiles/TAALightFragmentationShell01/TAALightFragmentationShell01_proj.bp',
-			ProjectileLifetime = 1,
+			ProjectileLifetime = 0.8,
 			
             RackBones = {
                 {
@@ -2007,14 +2007,14 @@ UnitBlueprint {
             HeadingArcCenter = -45,
             HeadingArcRange = 140,
 			
-            MaxRadius = 45,
+            MaxRadius = 44,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 72,
 			
             ProjectileId = '/projectiles/TAALightFragmentationShell01/TAALightFragmentationShell01_proj.bp',
-			ProjectileLifetime = 1,
+			ProjectileLifetime = 0.8,
 			
             RackBones = {
                 {
@@ -2095,14 +2095,14 @@ UnitBlueprint {
             HeadingArcCenter = -90,
             HeadingArcRange = 120,
 			
-            MaxRadius = 45,
+            MaxRadius = 44,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 72,
 			
             ProjectileId = '/projectiles/TAALightFragmentationShell01/TAALightFragmentationShell01_proj.bp',
-			ProjectileLifetime = 1,
+			ProjectileLifetime = 0.8,
 			
             RackBones = {
                 {
@@ -2180,14 +2180,14 @@ UnitBlueprint {
             HeadingArcCenter = -120,
             HeadingArcRange = 125,
 			
-            MaxRadius = 45,
+            MaxRadius = 44,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 72,
 			
             ProjectileId = '/projectiles/TAALightFragmentationShell01/TAALightFragmentationShell01_proj.bp',
-			ProjectileLifetime = 1,
+			ProjectileLifetime = 0.8,
 			
             RackBones = {
                 {

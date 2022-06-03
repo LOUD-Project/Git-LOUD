@@ -194,8 +194,8 @@ UnitBlueprint {
             CollideFriendly = false,
             CountedProjectile = true,
 			
-            Damage = 12000,
-            DamageRadius = 3,
+            Damage = 2000,  -- but there will be 6 of these
+            DamageRadius = 4,
             DamageType = 'Normal',
 			
             DisplayName = 'Serpentine Missile',

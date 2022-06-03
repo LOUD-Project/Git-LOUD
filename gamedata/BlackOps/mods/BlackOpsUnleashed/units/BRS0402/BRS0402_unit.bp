@@ -76,9 +76,9 @@ UnitBlueprint {
     Defense = {
         AirThreatLevel = 120,
         ArmorType = 'Normal',
-        Health = 70500,
-        MaxHealth = 70500,
-        RegenRate = 40,
+        Health = 70000,
+        MaxHealth = 70000,
+        RegenRate = 30,
         SubThreatLevel = 14.5,
         SurfaceThreatLevel = 303,
     },
@@ -180,7 +180,7 @@ UnitBlueprint {
 	
     Economy = {
         BuildCostEnergy = 650000,
-        BuildCostMass = 40500,
+        BuildCostMass = 46150,
         BuildTime = 31600,
     },
 	
@@ -220,8 +220,8 @@ UnitBlueprint {
     },
 	
     Intel = {
-        RadarRadius = 165,
-        SonarRadius = 75,
+        RadarRadius = 155,
+        SonarRadius = 70,
         VisionRadius = 40,
         WaterVisionRadius = 24,
     },
@@ -242,7 +242,7 @@ UnitBlueprint {
         },
         CatchUpAcc = 7,
         DragCoefficient = 0.2,
-        MaxAcceleration = 0.9,
+        MaxAcceleration = 0.7,
         MaxBrake = 2.5,
         MaxSpeed = 3.6,
         MaxSpeedReverse = 3.7,
@@ -329,7 +329,7 @@ UnitBlueprint {
 			
             Label = 'CruiseMissile',
 			
-            MaxRadius = 200,
+            MaxRadius = 190,
             MinRadius = 48,
 			
             MuzzleSalvoDelay = 0.7,
@@ -374,7 +374,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
 			
             TurretBoneMuzzle = 'Hailfire_Muzzle01',
             TurretBonePitch = 'Hailfire_Barrels',
@@ -488,7 +488,7 @@ UnitBlueprint {
 			
             LeadTarget = true,
 			
-            MaxRadius = 150,
+            MaxRadius = 145,
 			
             MuzzleChargeDelay = 1.5,
             MuzzleSalvoDelay = 0,
@@ -645,7 +645,7 @@ UnitBlueprint {
 			
             LeadTarget = true,
 			
-            MaxRadius = 150,
+            MaxRadius = 145,
 			
             MuzzleChargeDelay = 1.5,
             MuzzleSalvoDelay = 0,
@@ -746,7 +746,7 @@ UnitBlueprint {
 			
             Label = 'SecondaryCannon',
 			
-            MaxRadius = 100,
+            MaxRadius = 95,
 			
             HeadingArcCenter = 0,
             HeadingArcRange = 145,
@@ -845,7 +845,7 @@ UnitBlueprint {
 			
             Label = 'SecondaryCannon',			
 			
-            MaxRadius = 100,
+            MaxRadius = 95,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -943,7 +943,7 @@ UnitBlueprint {
             HeadingArcCenter = 100,
             HeadingArcRange = 140,
 			
-            MaxRadius = 100,
+            MaxRadius = 95,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -1041,7 +1041,7 @@ UnitBlueprint {
             HeadingArcCenter = -100,
             HeadingArcRange = 140,
 			
-            MaxRadius = 100,
+            MaxRadius = 95,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -1137,7 +1137,7 @@ UnitBlueprint {
 			
             Label = 'SecondaryCannon',
 			
-            MaxRadius = 100,
+            MaxRadius = 95,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -1229,7 +1229,7 @@ UnitBlueprint {
 			
             Label = 'SecondaryCannon',
 			
-            MaxRadius = 100,
+            MaxRadius = 95,
 			
             HeadingArcCenter = 180,
             HeadingArcRange = 160,

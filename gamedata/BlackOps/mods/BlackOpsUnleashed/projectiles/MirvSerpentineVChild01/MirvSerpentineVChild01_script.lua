@@ -8,10 +8,11 @@ MIRVChild01 = Class(MIRVChild01Projectile) {
         MIRVChild01Projectile.OnCreate(self)
         self:SetCollisionShape('Sphere', 0, 0, 0, 2)
     end,
+    
 	OnImpact = function(self, TargetType, targetEntity)
-        local rotation = RandomFloat(0,2*math.pi)
+        local rotation = RandomFloat(0,6.28)
         
-        CreateDecal(self:GetPosition(), rotation, 'scorch_004_albedo', '', 'Albedo', 13, 13, 300, 15, self:GetArmy())
+        CreateDecal(self:GetPosition(), rotation, 'scorch_004_albedo', '', 'Albedo', 8, 8, 280, 20, self:GetArmy())
  
         MIRVChild01Projectile.OnImpact( self, TargetType, targetEntity )
     end,	
