@@ -1,3 +1,22 @@
+### Release 03-06-2022
+
+LUA 6.2.07
+BO ACU & Unleashed 6.2.23
+
+AI
+    - rescaled torpedo bomber formations for greater concentrations, adjusted distress and response ranges
+    - Naval Base defenses broken down into more discrete chunks, added surface defense
+    - Naval DP also benefits from a similar change - allowing a cheaper start to those positions
+    - Outnumbered AI will establish ALL forms of expansion, including the naval base, more aggressively
+    - tweaked the triggers for T3 power generation to improve downturn detection
+    - added SACU expansion builders to push SACU into the field sooner
+    - SACU will now consider transfers even before MAIN is at full complement, lowered eco requirements
+    
+UNITS
+    - Aeon T3 TML was 'shooting blanks' - projectile mechanics repaired
+    - BO Dreadnaughts, in general, see very mild increase (< 10%) in costs, and main gun range reductions (165 > 155 typically)
+    
+
 ### Release 28-05-2022
 
 LUA 6.2.06
