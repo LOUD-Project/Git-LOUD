@@ -7,11 +7,43 @@ local UCBC = '/lua/editor/UnitCountBuildConditions.lua'
 local MIBC = '/lua/editor/MiscBuildConditions.lua'
 local LUTL = '/lua/loudutilities.lua'
 
-local OutNumberedFirst15Minutes = function( self,aiBrain )
+local OutNumbered_First15Minutes_Land = function( self,aiBrain )
 	
 	if aiBrain.OutnumberedRatio <= 1 or aiBrain.CycleTime > 900 then
+    
+        -- permanent removal of builder
 		return 0, false
 	end
+	
+	return self.Priority, true
+end
+
+
+local OutNumbered_First15Minutes_Naval = function( self,aiBrain )
+	
+	if aiBrain.OutnumberedRatio <= 1 or aiBrain.CycleTime > 900 then
+    
+        -- permanent removal of builder    
+		return 0, false
+	end
+    
+    -- 20km maps or less - reduce priority according to
+    -- the amount of water on the map between 0 and 1 (where .5 = 50% is the ideal value)
+    if ScenarioInfo.IMAPSize <= 64 then
+    
+        if ScenarioInfo.MapWaterRatio < .70 then
+        
+            -- as we approach 50% water, the reduction decreases - but the impact is increased by how outnumbered we are
+            -- so even if the water ratio is excellent - the desire to respond decreases with the growth in how outnumbered
+            local adjust = (100 - (( ScenarioInfo.MapWaterRatio * 2 ) * 100) * math.sqrt(aiBrain.OutnumberedRatio))
+            
+            LOG("*AI DEBUG "..aiBrain.Nickname.." map water ratio is "..repr(ScenarioInfo.MapWaterRatio).." reducing priority to "..self.Priority-adjust )
+            
+            return self.Priority-adjust, true
+            
+        end
+        
+    end
 	
 	return self.Priority, true
 end
@@ -220,7 +252,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Land Expansion Construction',
 		
         Priority = 750,
         
-        PriorityFunction = OutNumberedFirst15Minutes,
+        PriorityFunction = OutNumbered_First15Minutes_Land,
 		
         BuilderConditions = {
             
@@ -228,7 +260,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Land Expansion Construction',
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
             
 			-- there must be an start/expansion area
-            { UCBC, 'BaseAreaForExpansion', { 'LocationType', 1000, -9999, 60, 0, 'AntiSurface' } },
+            { UCBC, 'BaseAreaForExpansion', { 'LocationType', 700, -9999, 60, 0, 'AntiSurface' } },
         },
 		
         BuilderType = { 'T1' },
@@ -254,7 +286,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Land Expansion Construction',
                 NearMarkerType = 'Large Expansion Area',
                 
 				-- the limit of how far away to include markers when looking for a position
-                LocationRadius = 1000,
+                LocationRadius = 700,
                 
 				-- this controls which base layout file to use
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
@@ -702,7 +734,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction',
             }
         }
     },    
-    
+   
+    -- in Outnumbered conditions - hurry the naval base a bit
     Builder {BuilderName = 'Naval Base Initial - OutNumbered',
 	
         PlatoonTemplate = 'EngineerBuilder',
@@ -711,7 +744,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction',
 		
         Priority = 751,
 		
-		PriorityFunction = OutNumberedFirst15Minutes, 
+		PriorityFunction = OutNumbered_First15Minutes_Naval, 
 		
         BuilderConditions = {
 
@@ -719,8 +752,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction',
             
 			{ UCBC, 'NavalBaseCount', { 1, '<' } },
 
-			-- find a safe, unused, naval marker within 12km of this base
-            { UCBC, 'NavalAreaForExpansion', { 'LocationType', 600, -250, 50, 2, 'AntiSurface' } },
+			-- find a safe, unused, naval marker within 8km of this base
+            { UCBC, 'NavalAreaForExpansion', { 'LocationType', 400, -250, 50, 2, 'AntiSurface' } },
         },
 		
         BuilderType = { 'T1','T2' },
@@ -735,7 +768,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction',
 				RallyPointRadius = 46,
 				
                 NearMarkerType = 'Naval Area',
-                LocationRadius = 600,
+                LocationRadius = 400,
 				
                 ThreatMax = 50,
                 ThreatRings = 2,
