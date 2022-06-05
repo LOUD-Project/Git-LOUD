@@ -418,11 +418,52 @@ function CreateResources()
                                 
                             end
 						
-						end
+                        -- ALWAYS relocate unused start positions
+						elseif not doit then
+                        
+                            local adjust = 23
+                            
+                            if VDist2(armyposition[1],armyposition[3], tblData.position[1], tblData.position[3]) > 35 then
+                            
+                                adjust = 35
+                                
+                            end
+                        
+                            --LOG("*AI DEBUG Army Position "..repr(armyposition).." is not being used - always relocate resources")
+						
+                            -- fix the X co-ordinate 
+                            if tblData.position[1] < armyposition[1] then
+
+                                tblData.position[1] = armyposition[1] - adjust
+                                
+                            elseif tblData.position[1] >= armyposition[1] then
+
+                                tblData.position[1] = armyposition[1] + adjust
+
+                            end
+
+                            -- fix the Y co-ordinate
+                            if tblData.position[3] < armyposition[3] then
+
+                                tblData.position[3] = armyposition[3] - adjust
+
+                            elseif tblData.position[3] >= armyposition[3] then
+
+                                tblData.position[3] = armyposition[3] + adjust
+
+                            end
+						
+                            tblData.position[2] = GetTerrainHeight( tblData.position[1], tblData.position[3] )
+						
+                            LOG("*AI DEBUG Mass Point moved to "..repr(tblData.position).." -- unused start")
+
+                            tblData.hint = true
+ 
+                        end
 						
 					else
 					
-						LOG("*AI DEBUG Mass Point at "..repr(tblData.position).." was already moved")
+						LOG("*AI DEBUG Mass Point at "..repr(tblData.position).." was already processed")
 					
 					end
 					
