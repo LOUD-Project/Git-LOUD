@@ -4010,6 +4010,14 @@ function ParseIntelThread( aiBrain )
     local assign = moho.aibrain_methods.AssignThreatAtPosition
   
 	ScenarioInfo.MaxMapDimension = LOUDMAX(ScenarioInfo.size[1],ScenarioInfo.size[2])
+    
+    if not ScenarioInfo.MapWaterRatio then
+        
+        ScenarioInfo.MapWaterRatio = aiBrain:GetMapWaterRatio()
+        
+        LOG("*AI DEBUG MapWaterRatio set to "..ScenarioInfo.MapWaterRatio)
+        
+    end
 
     -- set values according to mapsize
     -- it controls the size of the query when seeking the epicentre of a threat
