@@ -1,3 +1,22 @@
+### Release 10-06-2022
+
+LUA 6.2.08
+
+
+AI 
+    - store the MapWaterRatio in ScenarioInfo for later use
+    - split the Outnumbered function in Expansion builders into Land and Naval allowing specific focus
+        - Naval function will dynamically scale the returned task priority according to map and team conditions
+        - allows the AI to react to water maps in a more logical fashion, emphasizing naval if necessary
+    - The Relocate Resource lobby function will now ONLY affect human start locations, unused and AI locations are always relocated
+    - AI will be more defensively pro-active if being rushed
+        - ACU & Engineers will now produce T1 defenses around base with additional priority when rush detected
+        - T1 AA builder is moved to a separate task that triggers on weak air conditions with increased priority
+    - minor adjustment to some formation work
+    - fix for Ahwassa not triggering bomb drop audio
+    
+
+
 ### Release 03-06-2022
 
 LUA 6.2.07
