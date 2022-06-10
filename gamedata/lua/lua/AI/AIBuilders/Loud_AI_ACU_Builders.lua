@@ -568,7 +568,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
 			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }}, 
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }}, 
         },
 		
         BuilderType = { 'Commander' },
@@ -664,6 +664,10 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
 			if aiBrain.CycleTime > 900 then
 				return 0, false
 			end
+            
+            if aiBrain.AirRatio < 1.5 then
+                return self.Priority + 100, true
+            end
 			
 			return self.Priority, true
 		end,
@@ -692,6 +696,72 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
             }
         }
     },
+
+    Builder {BuilderName = 'CDR T1 Base Defense - PD',
+	
+        PlatoonTemplate = 'EngineerBuilder',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+		InstanceCount = 1,
+		
+        Priority = 754,
+		
+		PriorityFunction = function(self, aiBrain)
+		
+			if self.Priority != 0 then
+
+				-- remove after 30 minutes
+				if aiBrain.CycleTime > 1800 then
+					return 0, false
+				end
+				
+			end
+            
+            if aiBrain.LandRatio <= 1.5 then
+                return self.Priority + 100, true
+            end
+			
+			return self.Priority
+			
+		end,
+		
+        BuilderConditions = {
+            
+            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
+            
+            { LUTL, 'LandStrengthRatioLessThan', { 4 }},
+            
+			{ EBC, 'GreaterThanEnergyIncome', { 300 }},
+            
+			{ EBC, 'GreaterThanEconStorageCurrent', { 175, 1750 }},
+			
+			-- dont build if we have built any advanced power -- obsolete
+			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION * categories.STRUCTURE - categories.TECH1 }},
+			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 18, categories.DEFENSE * categories.STRUCTURE * categories.DIRECTFIRE, 30, 50}},
+        },
+		
+        BuilderType = { 'Commander' },
+		
+        BuilderData = {
+            Construction = {
+				Radius = 36,
+                NearBasePerimeterPoints = true,
+				ThreatMax = 50,
+				
+				BasePerimeterOrientation = 'FRONT',
+				BasePerimeterSelection = true,	-- pick a random point from the 9 FRONT rotations
+
+				BaseTemplateFile = '/lua/ai/aibuilders/loud_perimeter_defense_templates.lua',
+				BaseTemplate = 'PerimeterDefenseTemplates',
+				
+                BuildStructures = {
+					'T1GroundDefense',
+					'T1Artillery',
+				},
+            }
+        }
+    },	
 
 
 }

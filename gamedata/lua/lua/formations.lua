@@ -52,7 +52,7 @@ local RemainingCategory = { 'RemainingCategory', }
 --=== LAND CATEGORIES ===#
 local AntiAir = ( categories.ANTIAIR - ( categories.EXPERIMENTAL + categories.DIRECTFIRE ) ) * categories.LAND
 local Artillery = ( categories.ARTILLERY + categories.INDIRECTFIRE - categories.ANTIAIR ) * categories.LAND
-local Construction = ( categories.COMMAND + categories.CONSTRUCTION + categories.ENGINEER ) * categories.LAND
+local Construction = ( categories.COMMAND + categories.CONSTRUCTION + categories.ENGINEER ) * categories.LAND - categories.EXPERIMENTAL
 local DirectFire = (( categories.DIRECTFIRE - categories.CONSTRUCTION ) ) * categories.LAND
 local ShieldCat = categories.SHIELD + categories.ANTIMISSILE
 local UtilityCat = (( ( categories.RADAR + categories.COUNTERINTELLIGENCE ) - categories.DIRECTFIRE ) + categories.SCOUT) * categories.LAND
@@ -1385,6 +1385,8 @@ function BlockBuilderLand( unitsList, formationBlock, categoryTable, FormationPo
 	end
 
 
+    --LOG("*AI DEBUG unitsList is "..repr(unitsList))
+    
 	-- loop thru all the units until all are done
     while unitsList.UnitTotal >= i do
 	
@@ -1441,6 +1443,8 @@ function BlockBuilderLand( unitsList, formationBlock, categoryTable, FormationPo
         local currSlot = formationBlock[whichRow][currColSpot]
 		
         for _, type in currSlot do
+        
+            --LOG("*AI DEBUG Formation slot is "..repr(currSlot).." while Type is "..repr(type))
 
             for _, group in type do
 			
@@ -1488,7 +1492,10 @@ function BlockBuilderLand( unitsList, formationBlock, categoryTable, FormationPo
 						
 						
 						-- notice the use of whichRow to determine the movement delay between rows --
+                        -- each successive row will start moving 1 tick later than the one ahead of it --
                         LOUDINSERT( FormationPos, { xPos * spacing, -formationLength, categoryTable[group], (whichRow-1), true} )
+                        
+                        --LOG("*AI DEBUG Fomation is "..repr({ xPos * spacing, -formationLength, categoryTable[group], (whichRow-1), true}))
 						
                         inserted = true
 						

@@ -1353,7 +1353,7 @@ Platoon = Class(moho.platoon_methods) {
 				else
                 
                     if nomarkers then
-                        WARN("*MAP DEBUG No "..repr(platoonLayer).." markers found within "..MaxMarkerDist.." range of "..repr(location).." closest marker is "..repr(markerlist[1].position).." at "..repr(VDist3(markerlist[1].position, location)) )
+                        WARN("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." -- no "..repr(platoonLayer).." markers found within "..MaxMarkerDist.." range of "..repr(location).." closest marker is "..repr(markerlist[1].position).." at "..repr(VDist3(markerlist[1].position, location)) )
                     else
                         if ScenarioInfo.PathFindingDialog then
                             LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." No safe "..repr(platoonLayer).." marker - using "..maxthreat.." threat - near "..repr(location).." available markers were "..repr(markerlist))
@@ -7884,14 +7884,14 @@ Platoon = Class(moho.platoon_methods) {
 
 			-- this is a bit different than the MovePlatoon function 
             -- do a reclaim move towards goal if there is more than 1 
-            -- stage in the path
+            -- stage in the path except engineers that are starting a new base
 			local function MoveEngineer( platoon, path )
 		
 				local prevpoint
 
 				for wpidx, waypointPath in path do
                 
-                    if wpidx > 1 then
+                    if wpidx > 1 and (not eng.NeedsBaseData) then
 
                         platoon:AggressiveMoveToLocation( waypointPath )
                         

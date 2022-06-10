@@ -341,6 +341,8 @@ SB0OhwalliExperimentalStrategicBombWeapon = Class(DefaultProjectileWeapon) {
 
     OnWeaponFired = function(self)
 
+        DefaultProjectileWeapon.OnWeaponFired(self)
+      
         --LOG("*AI DEBUG Ahwassa Bomb OnWeaponFired for "..repr(self.unit:GetBlueprint().Description))
         
         self.unit:ForkThread( function() local unit = self.unit
@@ -354,24 +356,20 @@ SB0OhwalliExperimentalStrategicBombWeapon = Class(DefaultProjectileWeapon) {
                                         self.projectile = nil
 
                                         unit:SetBlockCommandQueue(false)
-                            end )
-
-        DefaultProjectileWeapon.OnWeaponFired(self)
-        
+        end )
+  
     end,
 
-    CreateProjectileForWeapon = function(self, bone)
+    CreateProjectileAtMuzzle = function(self, bone)
     
-        --LOG("*AI DEBUG Ahwassa Bomb CreateProjectileForWeapon")
+        self.projectile = DefaultProjectileWeapon.CreateProjectileAtMuzzle( self,bone )
         
-        local projectile = DefaultProjectileWeapon.CreateProjectileForWeapon(self, bone)
+        --LOG("*AI DEBUG Ahwassa Bomb CreateProjectileAtMuzzle")
 
-        --LOG("*AI DEBUG Ahwassa Bomb Projectile is "..repr(projectile))
-        
-        self.projectile = projectile
-        
+        --LOG("*AI DEBUG Ahwassa Bomb Projectile is "..repr(self.projectile))
+
     end,    
-    
+--]]
 }
 
 -- ALL OF THIS COMES FROM BrewLAN --

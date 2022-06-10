@@ -128,6 +128,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 				if aiBrain.CycleTime > 1800 then
 					return 0, false
 				end
+                
+                if aiBrain.LandRatio < 1.5 then
+                    return self.Priority + 100, true
+                end
 				
 			end
 			
@@ -145,7 +149,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 			
 			-- dont build if we have built any advanced power -- obsolete
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION * categories.STRUCTURE - categories.TECH1 }},
-			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 9, categories.DEFENSE * categories.STRUCTURE * categories.DIRECTFIRE, 30, 50}},
+			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 18, categories.DEFENSE * categories.STRUCTURE * categories.DIRECTFIRE, 30, 50}},
         },
 		
         BuilderType = { 'T1' },
@@ -163,7 +167,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 				BaseTemplate = 'PerimeterDefenseTemplates',
 				
                 BuildStructures = {
-                    'T1AADefense',
 					'T1GroundDefense',
 					'T1Artillery',
 				},
@@ -171,7 +174,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         }
     },	
 
---[[
     Builder {BuilderName = 'T1 Base Defense - AA',
 	
         PlatoonTemplate = 'EngineerBuilder',
@@ -190,6 +192,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 				if aiBrain.CycleTime > 1800 then
 					return 0, false
 				end
+                
+                if aiBrain.AirRatio < 1.5 then
+                    return self.Priority + 100, true
+                end
 				
 			end
 			
@@ -207,7 +213,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 			
 			-- dont build if we have built any advanced power -- obsolete
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION * categories.STRUCTURE - categories.TECH1 }},
-			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 9, categories.DEFENSE * categories.STRUCTURE * categories.DIRECTFIRE, 30, 50}},
+			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 9, categories.DEFENSE * categories.STRUCTURE * categories.ANTIAIR, 30, 50}},
         },
 		
         BuilderType = { 'T1' },
@@ -230,7 +236,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
             }
         }
     },
---]]
 
     Builder {BuilderName = 'T2 Base PD - Base Template',
 	
@@ -1400,6 +1405,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 				if aiBrain.CycleTime > 1800 then
 					return 0, false
 				end
+                
+                if aiBrain.LandRatio < 1.5 then
+                    return self.Priority + 100, true
+                end
 				
 			end
 			
@@ -1418,7 +1427,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 			-- dont have any advanced power built -- makes this gun obsolete
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION * categories.STRUCTURE - categories.TECH1 }},
 			-- the 12 accounts for the 12 T1 Base PD that may get built in this ring
-			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 12, categories.DEFENSE * categories.STRUCTURE * categories.DIRECTFIRE, 50, 75}},
+			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 18, categories.DEFENSE * categories.STRUCTURE * categories.DIRECTFIRE, 50, 75}},
         },
 		
         BuilderType = { 'T1' },
@@ -1461,6 +1470,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
 				if aiBrain.CycleTime > 1800 then
 					return 0, false
 				end
+                
+                if aiBrain.LandRatio < 1.5 then
+                    return self.Priority + 100, true
+                end
 				
 			end
 			
@@ -1476,7 +1489,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Perimeter
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 15, 1.012, 1.025 }}, 
 			-- dont have any advanced units
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.STRUCTURE - categories.TECH1 }},
-			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 12, categories.DEFENSE * categories.STRUCTURE * categories.DIRECTFIRE}},
+			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 18, categories.DEFENSE * categories.STRUCTURE * categories.DIRECTFIRE}},
         },
 		
         BuilderType = { 'T1' },
