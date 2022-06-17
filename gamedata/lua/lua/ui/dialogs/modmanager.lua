@@ -189,6 +189,7 @@ local modSchema = {
         '175542E4-D4F5-11DC-B450-11D755D89593', -- HotStats
         'EF3ADDB4-9D34-437F-B1C8-440DAF896802', -- Mass Fab Manager
         'D000E905-1E97-420D-8ED9-DF083282F59D', -- Sequential Mex Upgrade
+        'fed32a0d-49e9-44f2-8239-df762c59a58b', -- SUE Keybind
         '89BF1572-9EA8-11DC-1313-635F56D89591', -- Supreme Economy
         'HUSSAR-PL-a1e2-c4t4-scfa-ssbmod-v1240', -- Supreme Score Board
         '022E3DB4-9C00-5ED7-9876-4866D316E015', -- UI Party
