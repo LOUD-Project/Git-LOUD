@@ -1,0 +1,17 @@
+name = "SUE Keybind for LOUD"
+uid = "fed32a0d-49e9-44f2-8239-df762c59a58b"
+version = 2
+copyright = "none"
+description = "This mod adds the keybind 'Start Sequentially Upgrading Extractors function' to the F1 Keybinds menu for the Sequentially Upgrading Extractors mod."
+author = "MostLostNoob"
+url = ""
+icon = "/mods/zSUEKeybind/mod_icon.dds"
+selectable = true
+enabled = true
+exclusive = false
+ui_only = true
+requires = {"D000E905-1E97-420D-8ED9-DF083282F59D"}
+requiresNames = {}
+conflicts = {"bafa0173-4796-4e98-ad51-be7894100aa4"}
+before = {}
+after = {}
