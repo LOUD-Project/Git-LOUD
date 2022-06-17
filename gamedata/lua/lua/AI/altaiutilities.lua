@@ -389,7 +389,7 @@ function AIFindBaseAreaForDP( aiBrain, locationType, radius, tMin, tMax, tRings,
 	return false, false
 end
 
--- finds DP and EXPANSION BASE(regular not LARGE) markers - minimum range to ANY other LAND base is 200
+-- finds DP and EXPANSION BASE(regular not LARGE) markers - minimum range to ANY other LAND base is 180
 -- non-counted bases that operate as forward positions or intel gathering locations
 function AIFindDefensivePointForDP( aiBrain, locationType, radius, tMin, tMax, tRings, tType, eng)
 
@@ -1014,7 +1014,7 @@ function GetTransports( platoon, aiBrain)
 				neededTable.Medium = neededTable.Medium + 0.25
 				neededTable.Large = neededTable.Large + 1.0
                 neededTable.Total = neededTable.Total + 1
-                    
+
 			else
 				LOG("*AI DEBUG "..v:GetBlueprint().Description.." has no transportClass value")
 			end

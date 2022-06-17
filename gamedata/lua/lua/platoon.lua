@@ -2806,7 +2806,7 @@ Platoon = Class(moho.platoon_methods) {
 			PSource = {startx, 0, startz}
 		end
 		
-		local PFaction = self.PlatoonData.PointFaction or 'Ally'	 	-- must be Ally, Enemy or Self determines which Structures and Units to check
+		local PFaction = self.PlatoonData.PointFaction or 'Ally'	 	-- must be Ally, Enemy or Self - determines which Structures and Units to check
 		local PRadius = self.PlatoonData.PointRadius or 999999			-- controls the finding of points based upon distance from PointSource
 		local PSort = self.PlatoonData.PointSort or 'Closest'			-- options are Closest or Furthest
 		local PMin = self.PlatoonData.PointMin or 1						-- allows you to filter found points by range from PointSource
@@ -2846,7 +2846,7 @@ Platoon = Class(moho.platoon_methods) {
 		local MissionTimer = self.PlatoonData.MissionTime or 1200		-- how long platoon will operate before RTB
 
 		local guardRadius = self.PlatoonData.GuardRadius or 75			-- range at which platoon will engage enemy targets around point
-		local MergeLimit = self.PlatoonData.MergeLimit or false			-- trigger point to allow merging
+		local MergeLimit = self.PlatoonData.MergeLimit or false			-- unit count at which to prevent merging
         
         local bAggroMove = self.PlatoonData.AggressiveMove or false
         local PlatoonFormation = self.PlatoonData.UseFormation or 'none'
@@ -2876,10 +2876,20 @@ Platoon = Class(moho.platoon_methods) {
 		
 		local GetDirectionInDegrees = GetDirection
 
+        -- we use lastmarker to identify completed or failed marker positions
+        -- whenever you see me set this value (structure/unit/base breaks) - you know that's what I'm doing
 		local lastmarker = false
+        
+        -- this is the position of the place we're currently trying to get to
 		local marker
+        
+        -- if we are to guard a specific unit
 		local UnitToGuard = false
+        
+        -- are we currently in guard posture ( onsite at the marker )
 		local guarding = false
+        
+        -- the amount of elapsed time we've been on the way to, or at - the desired marker
 		local guardtime	= 0
 		
 		local OriginalThreat, position, pointlist, distance, usedTransports, path, reason, pathlength, choice
@@ -3026,6 +3036,8 @@ Platoon = Class(moho.platoon_methods) {
                         
                             --LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." STRUCTURE Trigger during travel "..repr(StrMax).." - seeking new point")
 						
+                            lastmarker = LOUDCOPY(marker)
+                            
 							marker = false
 							break
 						end
@@ -3036,6 +3048,8 @@ Platoon = Class(moho.platoon_methods) {
 						if self:GuardPointUnitCheck( aiBrain, marker, UntCat, UntRadius, PFaction, UntMin, UntMax) then
 						
                             --LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." UNIT Trigger during travel "..repr(UntMax).." - seeking new point")
+                            
+                            lastmarker = LOUDCOPY(marker)
                             
 							marker = false
 							break
@@ -3055,6 +3069,8 @@ Platoon = Class(moho.platoon_methods) {
 							else
                             
                                 LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." STUCK during travel "..stuckcount.." - seeking new point")
+                                
+                                lastmarker = LOUDCOPY(marker)
                                 
 								marker = false
 								break
@@ -3315,11 +3331,15 @@ Platoon = Class(moho.platoon_methods) {
 				end
 
 				-- check exit parameters --
+                -- while checking the Structure and Unit exit triggers - should also
+                -- be checking for proximity to a base - and exit on that as well
 				if StrCat and StrTrigger then
                 
 					if self:GuardPointStructureCheck( aiBrain, marker, StrCat, StrRadius, PFaction, StrMin, StrMax) then
             
                         --LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." structure trigger during guard")
+                        
+                        lastmarker = LOUDCOPY(marker)
                       
 						guardtime = guardTimer
 					end
@@ -3332,12 +3352,26 @@ Platoon = Class(moho.platoon_methods) {
             
                         --LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." unit trigger during guard")
 
+                        lastmarker = LOUDCOPY(marker)
+                        
 						guardtime = guardTimer
 					end
                     
 				end		
 
-                -- this will allow DistressResponse to run
+                -- check for nearby base --
+                local base, basedistance = FindClosestBaseName( aiBrain, GetPlatoonPosition(self), false )
+                
+                if base and basedistance < 120 then
+                
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." finds base "..repr(base).." at "..basedistance)
+                    
+                    lastmarker = LOUDCOPY(marker)
+                    
+                    guardtime = guardTimer
+                end
+                
+                -- allow DistressResponse to run
                 self.UsingTransport = false 
 
                 -- check for merge
@@ -3387,10 +3421,14 @@ Platoon = Class(moho.platoon_methods) {
 					return aiBrain:DisbandPlatoon(self)
 				end
                 
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." guard cycle wait")
-                
-				WaitTicks(31)
-				guardtime = guardtime + 3
+                -- if not triggered exit 
+                if guardtime < guardTimer then
+
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." guard cycle wait")
+
+                    WaitTicks(31)
+                    guardtime = guardtime + 3
+                end
 
 			end
             
@@ -7897,7 +7935,8 @@ Platoon = Class(moho.platoon_methods) {
 
 				for wpidx, waypointPath in path do
                 
-                    if wpidx > 1 and (not eng.NeedsBaseData) then
+                    -- use aggro move except on first or engineers starting a base
+                    if wpidx > 1 and (not platoon.PlatoonData.Construction.ExpansionBase) then
 
                         platoon:AggressiveMoveToLocation( waypointPath )
                         
