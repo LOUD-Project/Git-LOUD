@@ -1895,9 +1895,15 @@ Platoon = Class(moho.platoon_methods) {
 		
 		local calltransport = 3	-- make immediate call for transport --
         local unitpos
+        
+        local rtbdistance = 60
+        
+        if engineer then
+            rtbdistance = 35
+        end
 		
 		-- Monitor the platoons distance to the base watching for death, stuck or idle, and checking for transports
-        while (not count) and PlatoonExists(aiBrain, self) and distance > (60*60) do
+        while (not count) and PlatoonExists(aiBrain, self) and distance > (rtbdistance * rtbdistance) do
 
 			-- check units for idle or stuck --
             for _,v in GetPlatoonUnits(self) do
@@ -1978,7 +1984,7 @@ Platoon = Class(moho.platoon_methods) {
 			if PlatoonExists(aiBrain, self) and RTBLocation then
 			
 				-- proximity to base --
-				if distance <= (75*75) then
+				if distance <= ( rtbdistance * rtbdistance) then
 				
 					count = true -- we are near the base - trigger the end of the loop
                     break
