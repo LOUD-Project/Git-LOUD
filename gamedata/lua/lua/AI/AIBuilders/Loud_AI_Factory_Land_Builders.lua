@@ -50,6 +50,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
 		
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .85 } },
+            
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.8 } },
 			
 			-- this is here to insure enough scouts for large combat platoons but to avoid flooding
             { UCBC, 'PoolLess', { 6, categories.LAND * categories.SCOUT }},
@@ -72,6 +74,10 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
 		PriorityFunction = First30Minutes,
 		
 		BuilderConditions = {
+        
+            -- don't build LABs for typical combat - but numbers count when you're winning
+            { LUTL, 'LandStrengthRatioGreaterThan', { 1.2 } },
+            
             { LUTL, 'HaveLessThanUnitsWithCategory', { 75, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS }},
 		},
 		
