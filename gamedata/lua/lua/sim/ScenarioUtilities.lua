@@ -903,7 +903,7 @@ function InitializeArmies()
                 if PlayerDiff > 2.0 then
                 
                     self.UpgradeIssuedLimit = self.UpgradeIssuedLimit + 1
-                    self.UpgradeIssuedPerio = self.UpgradeIssuedPeriod - 20
+                    self.UpgradeIssuedPeriod = self.UpgradeIssuedPeriod - 20
                     
                 end
             

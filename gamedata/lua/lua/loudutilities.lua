@@ -210,7 +210,7 @@ function FindClosestBaseName( aiBrain, position, allownavalbases, onlynavalbases
 	local closest = false
     
     local BM = aiBrain.BuilderManagers
-    local VDist2Sq = VDist2Sq
+    local VDist2 = VDist2
 	
     for k,v in BM do
 	
@@ -219,15 +219,15 @@ function FindClosestBaseName( aiBrain, position, allownavalbases, onlynavalbases
 			-- process all bases except 'Sea' unless allownavalbases is true and process only 'Sea' if onlynavalbases
 			if (v.BaseType != 'Sea' and (not onlynavalbases)) or (v.BaseType == 'Sea' and allownavalbases) then
 			
-				if VDist2Sq( position[1],position[3], v.Position[1],v.Position[3] ) < distance then
-					distance = VDist2Sq( position[1],position[3], v.Position[1],v.Position[3] )
+				if VDist2( position[1],position[3], v.Position[1],v.Position[3] ) < distance then
+					distance = VDist2( position[1],position[3], v.Position[1],v.Position[3] )
 					closest = v.BaseName
 				end
 			end
 		end
     end
 
-    return closest
+    return closest, distance
 end
 
 
