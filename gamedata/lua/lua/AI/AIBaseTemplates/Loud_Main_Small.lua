@@ -32,7 +32,7 @@ BaseBuilderTemplate {
         
         # ==== EXPANSIONS ==== #
 		'Engineer Land Expansion Construction',
-		'Engineer Defensive Point Construction - Small',
+		'Engineer Defensive Point Construction STD',
         
         # ==== DEFENSES ==== #
         'Engineer Base Defense Construction - Core',

@@ -9,7 +9,7 @@ BaseBuilderTemplate {
   
 		'Engineer Tasks - Active DP', -- basic reclaim, repair and assist functions
 		
-		'Engineer Defenses DP Small',	-- builds the structures at the active DP
+		'Engineer Defenses DP Standard',	-- builds the structures at the active DP
         
         'Engineer Mass Builders - Defensive Point',
 
@@ -91,10 +91,10 @@ BaseBuilderTemplate {
         local mapSizeX, mapSizeZ = GetMapSize()		
 		local basevalue = 0
 		
-        -- If we're playing on a 20k or less or low pop or this is an island
+        -- If we're playing on a < 20k map OR low pop (< 1000) or this is an island (island marker within 50)
 		-- This means that if it's an island it'll be a 50% chance on a large map since the larger DP will also
 		-- be valued at 100
-        if (mapSizeX <= 1025 or mapSizeZ <= 1025) or tonumber(aiBrain.StartingUnitCap) < 1000 or island then
+        if (mapSizeX <= 512 or mapSizeZ <= 512) or tonumber(aiBrain.StartingUnitCap) < 750 or island then
 		
             basevalue = 100
 			

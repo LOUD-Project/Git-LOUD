@@ -21,7 +21,7 @@ BaseBuilderTemplate {
 
         # Create New Land Bases & Active DP
 		'Engineer Land Expansion Construction',
-		'Engineer Defensive Point Construction - Small',
+		'Engineer Defensive Point Construction STD',
         
         # Build Defenses within the base
         'Engineer Base Defense Construction - Core - Expansions',

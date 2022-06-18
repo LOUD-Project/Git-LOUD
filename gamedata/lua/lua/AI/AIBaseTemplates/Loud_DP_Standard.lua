@@ -92,7 +92,7 @@ BaseBuilderTemplate {
 		local basevalue = 0
 		
         -- If we're playing on a 20k or less or low pop
-        if (mapSizeX <= 1025 or mapSizeZ <= 1025) or tonumber(aiBrain.StartingUnitCap) < 1000 then
+        if (mapSizeX <= 1025 or mapSizeZ <= 1025) or tonumber(aiBrain.StartingUnitCap) < 750 then
 		
             basevalue = 20
 			
