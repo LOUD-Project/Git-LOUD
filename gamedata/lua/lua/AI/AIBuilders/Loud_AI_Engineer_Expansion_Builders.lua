@@ -318,7 +318,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-		Priority = 745,
+		Priority = 750,
 		
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .85 } },
@@ -331,7 +331,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
             
 			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},
 			
-            { UCBC, 'DefensivePointForExpansion', { 'LocationType', 2000, -999999, 60, 0, 'AntiSurface' }},
+            { UCBC, 'DefensivePointForExpansion', { 'LocationType', 1250, -999999, 60, 0, 'AntiSurface' }},
         },
 		
 		BuilderType = { 'T2','T3' },
@@ -346,28 +346,37 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
                 
 				NearMarkerType = 'Defensive Point',
 				
-				LocationRadius = 2000,
+				LocationRadius = 1250,
 				
                 ThreatMax = 60,
                 ThreatRings = 0,
                 ThreatType = 'AntiSurface',
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
-				BaseTemplate = 'DefensivePointStandard',
+				BaseTemplate = 'DefensivePointSmall',
 				
                 BuildStructures = {
-					'T2AirStagingPlatform',
 					'T2GroundDefense',
-                    'T2MissileDefense',
-					'T2GroundDefense',                    
-					'T2AADefense',
-					'T2AADefense',                    
-					'T2Radar',                    
+                    'T2Wall',
+                    'Wall',
+                    'Wall',
+                    'T2Wall',
+                    'Wall',
+                    'Wall',
+                    'T2Wall',
+                    'T2Wall',
+                    'Wall',
+                    'Wall',
+                    'T2Wall',
+                    'Wall',
+                    'Wall',
+                    'T2Wall',
+                    'T2GroundDefense',
 				}
 			}
 		}
 	},
-    
+        
     -- this one starts with an SACU - difference between the previous builder - this one needs more factories as a condition
 	Builder {BuilderName = 'DP - Expansion SACU',
 	
@@ -387,7 +396,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
             
 			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
 			
-            { UCBC, 'DefensivePointForExpansion', { 'LocationType', 2000, -999999, 60, 0, 'AntiSurface' }},
+            { UCBC, 'DefensivePointForExpansion', { 'LocationType', 1250, -999999, 60, 0, 'AntiSurface' }},
         },
 		
 		BuilderType = { 'SubCommander' },
@@ -402,23 +411,99 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
                 
 				NearMarkerType = 'Defensive Point',
 				
-				LocationRadius = 2000,
+				LocationRadius = 1250,
 				
                 ThreatMax = 60,
                 ThreatRings = 0,
                 ThreatType = 'AntiSurface',
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
-				BaseTemplate = 'DefensivePointStandard',
+				BaseTemplate = 'DefensivePointSmall',
 				
                 BuildStructures = {
-					'T2AirStagingPlatform',
 					'T2GroundDefense',
-                    'T2MissileDefense',
-					'T2GroundDefense',                    
 					'T2AADefense',
-					'T2AADefense',                    
-					'T2Radar',                    
+                    'T2Wall',
+                    'Wall',
+                    'Wall',
+                    'T2Wall',
+                    'Wall',
+                    'Wall',
+                    'T2Wall',
+                    'T2MissileDefense',
+                    'T2Wall',
+                    'Wall',
+                    'Wall',
+                    'T2Wall',
+                    'Wall',
+                    'Wall',
+                    'T2Wall',
+                    'T2GroundDefense',
+                    'T2AADefense',
+                    'T2RadarJammer',
+                    'T2EnergyProduction',
+					'T2Radar',
+                    'T2Wall',
+                    'Wall',
+                    'T2Wall',
+                    'T2Wall',
+                    'Wall',
+                    'T2Wall',
+				}
+			}
+		}
+	},
+
+	-- This builder will start an active DP with a T1
+	Builder {BuilderName = 'DP - Expansion - Outnumbered',
+	
+		PlatoonTemplate = 'EngineerBuilder',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+		Priority = 750,
+        
+        PriorityFunction = OutNumbered_First15Minutes_Land,
+
+        BuilderConditions = {
+
+			{ UCBC, 'IsBaseExpansionUnderway', {false} },
+
+            { UCBC, 'DefensivePointForExpansion', { 'LocationType', 1250, -999999, 60, 0, 'AntiSurface' }},
+        },
+		
+		BuilderType = { 'T1' },
+		
+		BuilderData = {
+			Construction = {
+				CountedBase = false,
+				
+				ExpansionBase = true,
+				ExpansionRadius = 100,
+				RallyPointRadius = 23,
+                
+				NearMarkerType = 'Defensive Point',
+				
+				LocationRadius = 1250,
+				
+                ThreatMax = 60,
+                ThreatRings = 0,
+                ThreatType = 'AntiSurface',
+				
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_DP_Templates.lua',
+				BaseTemplate = 'DefensivePointSmall',
+				
+                BuildStructures = {
+					'T1GroundDefense',
+                    'Wall',
+                    'Wall',
+                    'Wall',
+                    'Wall',
+                    'Wall',
+                    'Wall',
+                    'Wall',
+                    'Wall',
+                    'T1GroundDefense',
 				}
 			}
 		}
@@ -545,6 +630,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
     },
 }
 
+--[[
 BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction - Small',
 
     BuildersType = 'EngineerBuilder',
@@ -559,14 +645,20 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction - Small'
 		Priority = 745,
 		
         BuilderConditions = {
+        
             { LUTL, 'UnitCapCheckLess', { .95 } },
+            
 			{ LUTL, 'GreaterThanEnergyIncome', { 480 }},
 
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
+            
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 0.75, 1.02 }},
+            
+            -- allow expansions if there are ANY upgraded factories --
 			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},
 
-            { UCBC, 'DefensivePointForExpansion', { 'LocationType', 2000, -999999, 60, 0, 'AntiSurface' }},
+            -- find a suitable DP within 2000
+            { UCBC, 'DefensivePointForExpansion', { 'LocationType', 1250, -999999, 60, 0, 'AntiSurface' }},
         },
 		
 		BuilderType = { 'T2','T3' },
@@ -581,7 +673,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction - Small'
 				
 				NearMarkerType = 'Defensive Point',
 				
-				LocationRadius = 2000,
+				LocationRadius = 1250,
 				
                 ThreatMax = 60,
                 ThreatRings = 0,
@@ -591,16 +683,40 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction - Small'
 				BaseTemplate = 'DefensivePointSmall',
 				
                 BuildStructures = {
-					'T2AirStagingPlatform',
-					'T2Radar',
 					'T2GroundDefense',
 					'T2AADefense',
+                    'T2Wall',
+                    'Wall',
+                    'Wall',
+                    'T2Wall',
+                    'Wall',
+                    'Wall',
+                    'T2Wall',
+                    'T2MissileDefense',
+                    'T2Wall',
+                    'Wall',
+                    'Wall',
+                    'T2Wall',
+                    'Wall',
+                    'Wall',
+                    'T2Wall',
+                    'T2GroundDefense',
+                    'T2AADefense',
+                    'T2RadarJammer',
+                    'T2EnergyProduction',
+					'T2Radar',
+                    'T2Wall',
+                    'Wall',
+                    'T2Wall',
+                    'T2Wall',
+                    'Wall',
+                    'T2Wall',
 				}
 			}
 		}
 	},
 }
-
+--]]
 
 BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction',
 

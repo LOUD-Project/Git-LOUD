@@ -611,7 +611,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Reclaim Old Structures',
 		
         BuilderConditions = {
 			{ LUTL, 'UnitCapCheckGreater', { .85 } },
+            
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.2 } },
+            
 			{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
 
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 0, categories.TECH2 * categories.STRUCTURE * categories.DEFENSE * categories.DRAGBUILD - categories.WALL - categories.SHIELD - categories.ANTIMISSILE - categories.ARTILLERY - categories.SORTSTRATEGIC}},
@@ -692,7 +696,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Transfers',
 
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
+			--{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
 
 			-- we do an eco check just to make sure we're not transferring just because we're in a eco lock
 			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }},
@@ -720,7 +724,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Transfers',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
+			--{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
             
 			-- we do an eco check just to make sure we're not transferring just because we're in a eco lock
 			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1, 1.01 }},
@@ -756,7 +760,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Active DP',
 		
         BuilderConditions = {
 			{ LUTL, 'UnitCapCheckGreater', { .85 } },
+            
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.2 } },
 
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 0, categories.TECH2 * categories.STRUCTURE * categories.DEFENSE * categories.DRAGBUILD - categories.WALL - categories.SHIELD - categories.ANTIMISSILE }},
         },

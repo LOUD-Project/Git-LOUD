@@ -43,7 +43,7 @@ BuildingTemplates = {
         { 'T4Storage', 'beb1106'          },
 	-- Wall
         { 'Wall', 'ueb5101'        },
-        { 'T2Wall', 'ueb5101'      },
+        { 'T2Wall', 'uem0006'      },
     -- Point Defense
         { 'T1GroundDefense', 'ueb2101'     },
         { 'T2GroundDefense', 'ueb2301'     },
@@ -74,8 +74,8 @@ BuildingTemplates = {
         { 'T3Radar', 'ueb3104'     },
 	-- Jammers
         { 'T2RadarJammer', 'ueb4203'    },
-        { 'T2TeleportJammer', },
-		{ 'T3TeleportJammer', },
+        { 'T2TeleportJammer', 'beb4209'           },
+		{ 'T3TeleportJammer', 'beb4209'          },
 	-- Sonars
         { 'T1Sonar', 'ueb3102'      },
         { 'T2Sonar', 'ueb3202'      },
@@ -91,15 +91,15 @@ BuildingTemplates = {
         { 'T4StrategicMissile', 'ueb2305' },		
         { 'T3StrategicMissileDefense', 'ueb4302' },
 	-- Air Staging
-        { 'T1AirStagingPlatform', },
+        { 'T1AirStagingPlatform',           },
         { 'T2AirStagingPlatform', 'ueb5202' },
-		{ 'T3AirStagingPlatform', },
+		{ 'T3AirStagingPlatform',           },
     -- Experimentals
 	-- Land
 		{ 'T4LandExperimental1', 'uel0401'	},
         { 'T4LandExperimental2', 'uel0401'	},	-- fatboy	
 		{ 'T4LandExperimental3', 'uel0401'	},
-		{ 'T4LandExperimental4', },	-- Fatboy II		
+		{ 'T4LandExperimental4',            },
 	-- Air
 		{ 'T4AirExperimental1',	},
         { 'T4AirExperimentalTransport'},
@@ -150,7 +150,7 @@ BuildingTemplates = {
         { 'T4Storage', 'bab1106'      },
 	-- Walls
         { 'Wall', 'uab5101'     },
-        { 'T2Wall', 'uab5101'   },
+        { 'T2Wall', 'uam0004'   },
 	-- Point Defense
         { 'T1GroundDefense', 'uab2101'  },
         { 'T2GroundDefense', 'uab2301'  },
@@ -255,7 +255,7 @@ BuildingTemplates = {
         { 'T4Storage','brb1106'     },
 	-- Defense Structures
         { 'Wall', 'urb5101'		},
-        { 'T2Wall','urb5101'	},
+        { 'T2Wall','urm0004'	},
 	-- Point Defense
         { 'T1GroundDefense', 'urb2101'      },
         { 'T2GroundDefense', 'urb2301'      },
@@ -357,7 +357,7 @@ BuildingTemplates = {
         { 'T4Storage', 'bsb1106'		},
 	-- Defense Structures
         { 'Wall', 'xsb5101'		},
-        { 'T2Wall', 'xsb5101'	},		
+        { 'T2Wall', 'xsm0001'	},		
 	-- Point Defense
         { 'T1GroundDefense', 'xsb2101'  },
         { 'T2GroundDefense', 'xsb2301'  },
