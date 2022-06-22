@@ -262,6 +262,8 @@ function CreateResources()
     local function CreateSingleResource(tblData)
 
         FlattenMapRect(tblData.position[1]-2, tblData.position[3]-2, 4, 4, tblData.position[2])
+        
+        --LOG("*AI DEBUG Creating Resource using "..repr(tblData))
 
         CreateResourceDeposit( tblData.type, tblData.position[1], tblData.position[2], tblData.position[3],	tblData.size )
 
@@ -293,12 +295,15 @@ function CreateResources()
 
     end
 
+    -- reports the percentage of mass points we'll remove at an Unused Start position
 	local doit_value = tonumber(ScenarioInfo.Options.UnusedResources) or 1
     
     local count = 0
-
-    for i, tblData in pairs(markers) do
     
+    LOG("*AI DEBUG Starting to Create/Relocate Resources ")  --..repr(ScenarioInfo.Env.Scenario.MasterChain._MASTERCHAIN_.Markers) )
+
+    for i, tblData in ScenarioInfo.Env.Scenario.MasterChain._MASTERCHAIN_.Markers do
+
         count = count + 1
 
 		tblData.hint = false
@@ -376,7 +381,7 @@ function CreateResources()
 						
                                 tblData.position[2] = GetTerrainHeight( tblData.position[1], tblData.position[3] )
 						
-                                LOG("*AI DEBUG Mass Point moved to 55 "..repr(tblData.position))
+                                LOG("*AI DEBUG Mass Point "..repr(i).." moved to 55 "..repr(tblData.position))
 							
                                 tblData.hint = true
                             
@@ -412,7 +417,7 @@ function CreateResources()
 						
                                 tblData.position[2] = GetTerrainHeight( tblData.position[1], tblData.position[3] )
 						
-                                LOG("*AI DEBUG Mass Point moved to 35 "..repr(tblData.position))
+                                LOG("*AI DEBUG Mass Point "..repr(i).." moved to 35 "..repr(tblData.position))
 							
                                 tblData.hint = true
                                 
@@ -455,7 +460,7 @@ function CreateResources()
 						
                             tblData.position[2] = GetTerrainHeight( tblData.position[1], tblData.position[3] )
 						
-                            LOG("*AI DEBUG Mass Point moved to "..repr(tblData.position).." -- unused start")
+                            LOG("*AI DEBUG Mass Point "..repr(i).." moved to "..repr(tblData.position).." -- at unused start")
 
                             tblData.hint = true
  
@@ -463,7 +468,7 @@ function CreateResources()
 						
 					else
 					
-						LOG("*AI DEBUG Mass Point at "..repr(tblData.position).." was already processed")
+						LOG("*AI DEBUG Mass Point "..repr(i).." at "..repr(tblData.position).." was already processed")
 					
 					end
 					
@@ -484,7 +489,8 @@ function CreateResources()
 				-- delete the resource point from the masterchain
 				else
 				
-					LOG("*AI DEBUG Removing resource at "..repr(tblData.position))
+					LOG("*AI DEBUG Removing resource "..repr(i).." at "..repr(tblData.position))
+                    
 					ScenarioInfo.Env.Scenario.MasterChain._MASTERCHAIN_.Markers[i] = nil
 					
 				end
@@ -502,17 +508,19 @@ function CreateResources()
                     for _, coord in coordsTbl[math.random(1,table.getn(coordsTbl))] do
                         
                         local newttblsData = table.deepcopy(tblData)
-                            
+
                         newttblsData.position[1] = tblData.position[1] + coord[1]
                         newttblsData.position[3] = tblData.position[3] + coord[2]
                         newttblsData.position[2] = GetTerrainHeight(tblData.position[1],tblData.position[3])
-                            
+
                         -- put the new marker into the marker table
                         table.insert(newmarkers, newttblsData)
 
                     end
 
                     -- remove the source marker from original list
+                    LOG("*AI DEBUG Removing original point "..repr(i).." at "..repr(tblData.position).." for METALWORLD")
+                    
                     ScenarioInfo.Env.Scenario.MasterChain._MASTERCHAIN_.Markers[i] = nil
 
                     continue
@@ -533,17 +541,14 @@ function CreateResources()
                             
                             -- put the new marker into the marker table
                             table.insert(newmarkers, newttblsData)
-                            
-                            CreateSingleResource(newttblsData)
+
                         end
 
                         -- remove the source marker from original list
+                        LOG("*AI DEBUG Removing original point "..repr(i).." at "..repr(tblData.position).." for MassPointRNG")
+                        
                         ScenarioInfo.Env.Scenario.MasterChain._MASTERCHAIN_.Markers[i] = nil
 
-                    else
-
-                        CreateSingleResource(tblData)
-                        
                     end
 			
                 end
@@ -553,8 +558,12 @@ function CreateResources()
         end
 
     end
+    
+    LOG("*AI DEBUG Reviewed "..repr(count).." markers in total")
 
     if newmarkers[1] then
+    
+        LOG("*AI DEBUG New markers were created")
 
         for _, data in newmarkers do
             table.insert(ScenarioInfo.Env.Scenario.MasterChain._MASTERCHAIN_.Markers, data)
@@ -562,15 +571,11 @@ function CreateResources()
         
     end
     
-    markers = GetMarkers()
-    
-    count = 0
+    LOG("*AI DEBUG Checking for empty Start Positions and sanitizing markers")
 
 	-- loop thru all the start positions and eliminate those which
 	-- no longer have any resources within range 75 of them
-    for i, tblData in pairs(markers) do
-    
-        count = count + 1
+    for i, tblData in ScenarioInfo.Env.Scenario.MasterChain._MASTERCHAIN_.Markers do
 		
         if tblData.type == "Blank Marker" then
 		
@@ -593,7 +598,9 @@ function CreateResources()
 			
 			-- if no resources near start position then remove it
 			if not doit then
+            
 				LOG("*AI DEBUG Removing Start Marker "..repr(i).." at "..repr(tblData.position))
+                
 				ScenarioInfo.Env.Scenario.MasterChain._MASTERCHAIN_.Markers[i] = nil
 			end	
 
@@ -611,7 +618,7 @@ function CreateResources()
 			tblData.color = nil
 		end
 		
-		if tblData.size then
+		if tblData.size and not tblData.resource then
 			tblData.size = nil
 		end
 		
@@ -635,20 +642,34 @@ function CreateResources()
     end
 
     ScenarioInfo.Options.RelocateResources = nil
-	
-	LOG("*AI DEBUG Created Resources and used "..( (gcinfo() - memstart)*1024 ).." bytes")
     
+    markers = GetMarkers()
+    
+    LOG("*AI DEBUG Placing Resources on the map")
+    
+    -- put the resources onto the map
+    for i, tblData in markers do
+    
+        if tblData.resource then
+        
+            CreateSingleResource(tblData)
+            
+        end
+        
+    end
+
     -- clear the marker list (forces a rebuild)
+    -- at this point there shouldn't be ANY type of markers at this level of the data anyhow
     ScenarioInfo['Mass'] = nil
-    
-    -- create the initial mass point list - this call will force the mass point marker list to be recreated
-    ScenarioInfo.StartingMassPointList = table.copy(import('/lua/ai/aiutilities.lua').AIGetMarkerLocations('Mass'))
 
 	-- store the number of mass points on the map
 	ScenarioInfo.NumMassPoints = table.getn( import('/lua/ai/aiutilities.lua').AIGetMarkerLocations('Mass') )
 
 	LOG("*AI DEBUG Storing Mass Points = "..ScenarioInfo.NumMassPoints)
     
+    -- create the initial mass point list - this call will force the mass point marker list to be recreated
+    ScenarioInfo.StartingMassPointList = table.copy(import('/lua/ai/aiutilities.lua').AIGetMarkerLocations('Mass'))
+
     LOG("*AI DEBUG Number of Players is "..ScenarioInfo.Options.PlayerCount)
     
     -- mass point share is how many mass points should be considered necessary before offensive actions can commence - max is 10 + number of players
@@ -656,12 +677,35 @@ function CreateResources()
     ScenarioInfo.MassPointShare = math.min( 10 + ScenarioInfo.Options.PlayerCount, math.floor(ScenarioInfo.NumMassPoints/ScenarioInfo.Options.PlayerCount))
     
     LOG("*AI DEBUG Player Mass Point Share is "..ScenarioInfo.MassPointShare)
+  	
+	LOG("*AI DEBUG Created Resources and used "..( (gcinfo() - memstart)*1024 ).." bytes")
 	
 end
 
 function InitializeArmies()
 
     local loudUtils = import('/lua/loudutilities.lua')
+	
+	--Loop through active mods
+	for i, m in __active_mods do
+
+        -- Some custom Scenario variables to support certain mods
+        
+        if m.name == 'Metal World' then
+            LOG("*AI DEBUG METAL WORLD Installed")
+            ScenarioInfo.MetalWorld = true
+        end
+        
+        if m.name == 'Mass Point RNG' then
+            LOG("*AI DEBUG Mass Point RNG Installed")
+            ScenarioInfo.MassPointRNG = true
+        end
+
+    end
+
+    import('/lua/sim/scenarioutilities.lua').CreateProps() 
+
+    import('/lua/sim/scenarioutilities.lua').CreateResources() 
 
     ScenarioInfo.biggestTeamSize = 0
     
@@ -731,6 +775,8 @@ function InitializeArmies()
         if self.BrainType == 'Human' then
             return
         end
+        
+        
 
         -- put some initial threat at all enemy positions
         for k,brain in ArmyBrains do
@@ -913,12 +959,13 @@ function InitializeArmies()
 
     end
 
+
     local tblGroups = {}
     local tblArmy = ListArmies()
 
     local civOpt = ScenarioInfo.Options.CivilianAlliance
     local bCreateInitial = ShouldCreateInitialArmyUnits()
-    
+
     -- setup teams and civilians, add custom units, wrecks
     -- call out to Initialize SkirimishSystems (a great deal of AI setup)
     for iArmy, strArmy in pairs(tblArmy) do
@@ -1015,11 +1062,8 @@ function InitializeArmies()
         
     end
 
-	
-    import('/lua/sim/scenarioutilities.lua').CreateProps()
-    
-    import('/lua/sim/scenarioutilities.lua').CreateResources()
-    
+
+   
     if ScenarioInfo.Env.Scenario.Areas.AREA_1 then
     
         LOG("*AI DEBUG ScenarioInfo Map is "..repr(ScenarioInfo.Env.Scenario.Areas) )
@@ -1063,7 +1107,7 @@ function InitializeArmies()
             
             aiBrain.StartingMassPointList = {}  -- initialize starting mass point list for this brain
             
-            aiBrain.MassPointShare = ScenarioInfo.MassPointShare
+            aiBrain.MassPointShare = math.min( 10 + ScenarioInfo.Options.PlayerCount, math.floor(ScenarioInfo.NumMassPoints/ScenarioInfo.Options.PlayerCount))
 
 		end
         
