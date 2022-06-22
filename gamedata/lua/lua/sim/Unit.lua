@@ -4924,7 +4924,7 @@ Unit = Class(moho.unit_methods) {
 			
         end
     end,
-		
+
 
     ShieldIsOn = function(self)
 	
@@ -5123,21 +5123,39 @@ Unit = Class(moho.unit_methods) {
 	
 	-- issued when a unit tries to start a teleport
     OnTeleportUnit = function(self, teleporter, location, orientation)
+    
+        self.teleported = false
 	
-		LOG("*AI DEBUG OnTeleportUnit")
-	
+        if not self.teleporting then
+        
+            LOG("*AI DEBUG OnTeleportUnit "..repr(self.BlueprintID).." to location "..repr(location) )
+            
+            self.teleporting = true
+
+        else 
+        
+            LOG("*AI DEBUG OnTelportUnit FAILS for "..repr(self.BlueprintID).." to location "..repr(location).." - teleport already in progress")
+        
+            return
+        end
+
+
 		local id = GetEntityId(self)
 		
-		-- Teleport Cooldown Charge
 		-- Range Check to location
-		local maxRange = ALLBPS[self.BlueprintID].Defense.MaxTeleRange or 350
+		local maxRange = ALLBPS[self.BlueprintID].Defense.MaxTeleRange or 900
         
 		local myposition = self:GetPosition()
+        
 		local destRange = VDist2(location[1], location[3], myposition[1], myposition[3])
 		
 		if maxRange and destRange > maxRange then
+        
+            LOG("*AI DEBUG OnTeleportUnit "..repr(self.BlueprintID).." to location "..repr(location).." at "..repr(destRange).." - failed - beyond "..maxRange.." range. " )
 		
 			FloatingEntityText(id,'Destination Out Of Range')
+            
+            self.teleporting = nil
 			
 			return
 			
@@ -5158,25 +5176,37 @@ Unit = Class(moho.unit_methods) {
 				end
 				
 				-- the range at which this unit blocks teleportation
-				local noTeleDistance = unit:GetBlueprint().Defense.NoTeleDistance or 75
+				local noTeleDistance = ALLBPS[unit.BlueprintID].Defense.NoTeleDistance or 75
 				
+                -- the position of the teleblocker
 				local atposition = unit:GetPosition()
-				local selfpos = self:GetPosition()
 				
+                -- the range of the destination to the teleblocker
 				local targetdest = VDist2(location[1], location[3], atposition[1], atposition[3])
 				
-				local sourcecheck = VDist2(selfpos[1], selfpos[3], atposition[1], atposition[3])
+                -- the range of the teleblocker to me
+				local sourcecheck = VDist2(myposition[1], myposition[3], atposition[1], atposition[3])
 				
-				-- if the destination is blocked --
-				if noTeleDistance and noTeleDistance > targetdest then
+				-- if the teleblocker is within range of the destination
+				if noTeleDistance > targetdest then
 				
 					FloatingEntityText(id,'Teleport Destination Scrambled')
+                    
+                    LOG("*AI DEBUG OnTeleportUnit "..repr(self.BlueprintID).." to location "..repr(location).." - failed - destination blocked ")
+                    
+                    self.teleporting = nil
+                    
 					return
 					
-				-- if start point is within a jammer radius --
+				-- if the teleblocker is within range of the unit trying to teleport
 				elseif noTeleDistance and noTeleDistance >= sourcecheck then
 				
 					FloatingEntityText(id,'Teleport Source Scrambled')
+                    
+                    LOG("*AI DEBUG OnTeleportUnit "..repr(self.BlueprintID).." to location "..repr(location).." - failed - source area blocked ")
+                    
+                    self.teleporting = nil
+                    
 					return
 					
 				end
@@ -5188,7 +5218,7 @@ Unit = Class(moho.unit_methods) {
         -- Economy Check and Drain
 		local bp = ALLBPS[self.BlueprintID]
 		
-		local telecost = bp.Economy.TeleportBurstEnergyCost or 5000
+		local telecost = bp.Economy.TeleportBurstEnergyCost or 4000
 		
         local mybrain = GetAIBrain(self)
 		
@@ -5199,11 +5229,20 @@ Unit = Class(moho.unit_methods) {
 			if storedenergy >= telecost then
 			
 				mybrain:TakeResource('ENERGY', telecost)
+                
+                -- this initial charge is only used if a teleport is successful
+                -- so that if it fails you don't pay twice
+                self.TeleportCostPaid = true
 				
 			else
 			
 				FloatingEntityText(id,'Insufficient Energy For Teleportation')
-				return	-- abort teleportation
+
+                LOG("*AI DEBUG OnTeleportUnit "..repr(self.BlueprintID).." to location "..repr(location).." - failed - Insufficient energy - "..repr(telecost).." required to initialize a teleport - storage "..repr(storedenergy) )
+                
+                self.teleporting = nil
+                
+				return
 				
 			end
 			
@@ -5225,9 +5264,11 @@ Unit = Class(moho.unit_methods) {
         end
 		
         EffectUtilities.CleanupTeleportChargeEffects(self)
-
+        
+        LOG("*AI DEBUG OnTeleportUnit "..repr(self.BlueprintID).." Teleport process begins")
+        
 		-- start teleportation sequence --
-        self.TeleportThread = self:ForkThread(self.InitiateTeleportThread, teleporter, location, orientation)
+        self.TeleportThread = self:ForkThread(self.InitiateTeleportThread, teleporter, bp, location, destRange, orientation)
 		
     end,
 	
@@ -5289,7 +5330,9 @@ Unit = Class(moho.unit_methods) {
 	end,
 
     OnFailedTeleport = function(self)
-	
+
+        LOG("*AI DEBUG OnFailedTeleport "..repr(self.BlueprintID))
+        
         if self.TeleportDrain then
 		
             RemoveEconomyEvent( self, self.TeleportDrain)
@@ -5310,7 +5353,12 @@ Unit = Class(moho.unit_methods) {
         self:SetWorkProgress(0.0)
         self:SetImmobile(false)
         
+        -- clear the teleport in process flag
         self.UnitBeingTeleported = nil
+        -- clear the teleport requested flag
+        self.teleporting = nil
+        -- set teleported flag
+        self.teleported = false
 		
 		-- from BO:U
 		if not self.Dead and self.EXPhaseEnabled then   
@@ -5335,12 +5383,11 @@ Unit = Class(moho.unit_methods) {
         self:SetWorkProgress(progress)
     end,
 
-    InitiateTeleportThread = function(self, teleporter, location, orientation)
+    InitiateTeleportThread = function(self, teleporter, bp, location, teledistance, orientation)
 	
         self:OnTeleportCharging(location)
 	
-        local tbp = teleporter:GetBlueprint()
-        local ubp = ALLBPS[self.BlueprintID]
+        local tbp = ALLBPS[teleporter.BlueprintID]
 		
         self.UnitBeingTeleported = self
         
@@ -5348,25 +5395,37 @@ Unit = Class(moho.unit_methods) {
         
         self:PlayUnitSound('TeleportStart')
         --self:PlayUnitAmbientSound('TeleportLoop')
-		
-        local bp = ALLBPS[self.BlueprintID].Economy
-		
+
         local teleportenergy, teleporttime
 		
-        if bp then
+        if bp.Economy then
 		
 			-- calc a resource cost value based on both mass and energy
-            local mass = bp.BuildCostMass * LOUDMIN(.15, bp.TeleportMassMod or 0.15)				-- ie. 18000 mass becomes 2700
-            local energy = bp.BuildCostEnergy * LOUDMIN(.03, bp.TeleportEnergyMod or 0.03)		-- ei. 5m Energy becomes 60,000
+            local mass = bp.Economy.BuildCostMass * LOUDMIN(.15, bp.Economy.TeleportMassMod or 0.15)				-- ie. 18000 mass becomes 2700
+            local energy = bp.Economy.BuildCostEnergy * LOUDMIN(.03, bp.Economy.TeleportEnergyMod or 0.03)		-- ei. 5m Energy becomes 60,000
 			
-            teleportenergy = mass + energy
-			
-			-- teleport never takes more than 15 seconds --
-			-- but according to this comes in at around 1.5% of the resource cost value
-            -- time = math.min(15, teleportvalue * math.max(.001, bp.TeleportTimeMod or 0.015))
-            teleporttime = 12
-			
-			--LOG('*AI DEBUG Teleporting value '..repr(teleportvalue)..' time = '..repr(time).." "..repr(teleportvalue/time).."E per second" )
+            teleportenergy = mass + energy * ( math.max( .2, teledistance/400 ) * math.max( .2, teledistance/400 ) )
+            
+            LOG("*AI DEBUG Teleport distance is "..repr(teledistance).." -- Distance modifier is "..repr( ( math.max( .2, teledistance/400 )) * ( math.max( .2, teledistance/400 ))) )
+            
+            teleportenergy = teleportenergy * ((2 * (math.cos( (3.14*teledistance)/400) )) + 3)
+            
+            LOG("*AI DEBUG Teleport range modifier is ".. (2 * (math.cos( (3.14*teledistance)/400) )) + 3 )
+            
+            local buildrate = teleporter:GetBuildRate()
+            
+            --LOG("*AI DEBUG  the teleporter has "..repr(teleporter:GetBuildRate() ))
+            
+            --teleporttime = 12
+            -- time is now based on how much energy this unit can channel per second
+            -- channeled flow = buildrate * 10
+            -- this tapers nicely with the investment in mass of the unit, since although
+            -- lessers builders can flow as much energy - the energy required of smaller units is much less.
+            -- powerful builders (SACU) can teleport very quickly when they have enhanced build power
+
+            teleporttime = ( teleportenergy / (buildrate * 10) )
+
+			LOG('*AI DEBUG Teleporting value '..repr(teleportenergy)..'  time = '..repr(teleporttime).."  will be using "..repr(teleportenergy/teleporttime).."E per second" )
 			
         end
 
@@ -5405,6 +5464,14 @@ Unit = Class(moho.unit_methods) {
         
         self.UnitBeingTeleported = nil
         self.TeleportThread = nil
+        
+        self.teleporting = nil
+        
+        self.teleported = true
+        
+        self.TeleportCostPaid = nil
+        
+        LOG("*AI DEBUG Teleport cooldown complete "..repr(self.BlueprintID))
 		
         self:OnTeleported(location)
 		

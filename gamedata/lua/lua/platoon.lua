@@ -1823,10 +1823,22 @@ Platoon = Class(moho.platoon_methods) {
             
 			-- engineer teleportation
 			if engineer and engineer:HasEnhancement('Teleporter') then
-			
-				path = {transportLocation}
-				distance = 1
+
 				IssueTeleport( {engineer}, transportLocation )
+
+				WaitTicks(3)
+
+                while engineer.teleporting do
+                    WaitTicks(3)
+                end
+
+                if engineer.teleported then
+                
+                    path = {transportLocation}
+                    distance = 1
+                    
+                end
+                
 			end
 
 			-- if there is no path try transport call
@@ -2943,7 +2955,7 @@ Platoon = Class(moho.platoon_methods) {
 						-- is it the same as last failed marker
 						if LOUDEQUAL( marker, lastmarker ) then
 						
-							LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." trying to select same point "..repr(marker))
+							--LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." trying to select same point "..repr(marker))
 						
 							marker = false
 						end
@@ -5622,7 +5634,7 @@ Platoon = Class(moho.platoon_methods) {
 			
 				if pos then
 				
-					-- Based upon the platoons movement layer determine if a threat exists
+					-- Based upon the platoons movement layer get the local threats
 					if layer == 'Land' then
 					
 						threat = GetThreatAtPosition( aiBrain, pos, 0, true, 'AntiSurface' )
@@ -7973,9 +7985,15 @@ Platoon = Class(moho.platoon_methods) {
 				
 					IssueTeleport( {eng}, buildlocation )
 					
-					WaitTicks(35)
-					
-					return not eng.Dead
+					WaitTicks(2)
+                    
+                    while eng.teleporting do
+                        WaitTicks(3)
+                    end
+                    
+                    if eng.teleported then
+                        return not eng.Dead
+                    end
 				end
 
 				-- path to destination and use move thread
