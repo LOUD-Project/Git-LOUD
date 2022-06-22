@@ -132,6 +132,10 @@ end
 --# the initial units and any other gameplay state we need.
 function BeginSession()
 
+    LOG("*AI DEBUG BeginSession Starts")
+
+    --ForkThread(function() WaitTicks(15) ScenarioInfo.loaded = true LOG("*AI DEBUG BeginSession wait ends") end)
+
     -- Pass ScenarioInfo into OnPopulate() and OnStart() for backwards compatibility
     ScenarioInfo.Env.OnPopulate(ScenarioInfo)
     ScenarioInfo.Env.OnStart(ScenarioInfo)

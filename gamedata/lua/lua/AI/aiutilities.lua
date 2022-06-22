@@ -1411,7 +1411,7 @@ function SetArmyPoolBuff(aiBrain, AIMult)
 	-- reduce the waiting period between upgrades
 	aiBrain.UpgradeIssuedPeriod = math.floor(aiBrain.OriginalUpgradeIssuedPeriod * ( 1 / modifier ))
     
-    LOG("*AI DEBUG "..aiBrain.Nickname.." Upgrade Issue Period is "..aiBrain.UpgradeIssuedPeriod)
+    --LOG("*AI DEBUG "..aiBrain.Nickname.." Upgrade Issue Period is "..aiBrain.UpgradeIssuedPeriod)
 
     local ApplyBuff = import('/lua/sim/buff.lua').ApplyBuff
     local RemoveBuff = import('/lua/sim/buff.lua').RemoveBuff
