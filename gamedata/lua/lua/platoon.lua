@@ -829,7 +829,7 @@ Platoon = Class(moho.platoon_methods) {
 					stest, atest = GetRealThreatAtPosition( v.Position, 80 )
 			
                     if TransportDialog then                    
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..transportplatoon.BuilderName.." examines position "..repr(v.Position).."  Surface threat "..stest.." -- Air threat "..atest)
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..transportplatoon.BuilderName.." examines position "..repr(v.Name).." "..repr(v.Position).."  Surface threat "..stest.." -- Air threat "..atest)
                     end
 		
 					if stest <= threatMax and atest <= airthreatMax then
@@ -887,7 +887,7 @@ Platoon = Class(moho.platoon_methods) {
 			airthreatMax = airthreatMax + ( airthreatMax * LOUDLOG10(transportcount))
 			
             if TransportDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..transportplatoon.BuilderName.." with "..transportcount.." airthreatMax = "..repr(airthreatMax).." extra calc was "..math.log10(transportcount) )
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..transportplatoon.BuilderName.." with "..transportcount.." airthreatMax = "..repr(airthreatMax).." extra calc was "..math.log10(transportcount).." seeking dropzone" )
             end
 			
 			-- this is the desired drop location
@@ -912,7 +912,7 @@ Platoon = Class(moho.platoon_methods) {
                     local markerrange = VDist3( GetPlatoonPosition(self), destination ) * .5
 				
                     if TransportDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..transportplatoon.BuilderName.." carrying "..self.BuilderName.." seeking alternate landing zone within "..markerrange.." of destination "..repr(destination))
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." carried by "..transportplatoon.BuilderName.." seeking alternate landing zone within "..markerrange.." of destination "..repr(destination))
                     end
                     
                     transportLocation = false
@@ -953,11 +953,17 @@ Platoon = Class(moho.platoon_methods) {
 				if PlatoonExists(aiBrain,transportplatoon) then
 				
                     if TransportDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..transportplatoon.BuilderName.." cannot find safe transport position to "..repr(destination).." - "..self.MovementLayer.." - transport request denied")
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..transportplatoon.BuilderName.." cannot find safe transport position to "..repr(destination).." - "..self.MovementLayer.." - transport request denied")
                     end
 					
 					ForkTo( ReturnTransportsToPool, aiBrain, GetPlatoonUnits(transportplatoon), true)
 				end
+                
+                if PlatoonExists(aiBrain,self) then
+
+                    self.UsingTransport = false
+                    
+                end
 
 				return false
 			end

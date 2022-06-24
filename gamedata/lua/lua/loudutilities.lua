@@ -1874,17 +1874,17 @@ function ProcessAirUnits( unit, aiBrain )
 
             if not unit.InRefit then
 
-                if ScenarioInfo.TransportDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." Air Unit "..unit.Sync.id.." assigned to AirUnitRefitThread ")
-                end
+                --if ScenarioInfo.TransportDialog then
+                  --  LOG("*AI DEBUG "..aiBrain.Nickname.." Air Unit "..unit.Sync.id.." assigned to AirUnitRefitThread ")
+                --end
             
                 -- and send it off to the refit thread --
                 unit:ForkThread( AirUnitRefitThread, aiBrain )
                 
                 return true
                 
-            else
-                LOG("*AI DEBUG "..aiBrain.Nickname.." Air Unit "..unit.Sync.id.." "..unit:GetBlueprint().Description.." already in refit Thread")
+            --else
+              --  LOG("*AI DEBUG "..aiBrain.Nickname.." Air Unit "..unit.Sync.id.." "..unit:GetBlueprint().Description.." already in refit Thread")
             end
 		end
 	end
@@ -2038,9 +2038,9 @@ function AirUnitRefitThread( unit, aiBrain )
             
 		else
         
-            if ScenarioInfo.TransportDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." transport "..unit.Sync.id.." leaving Refit thread")
-            end
+            --if ScenarioInfo.TransportDialog then
+              --  LOG("*AI DEBUG "..aiBrain.Nickname.." transport "..unit.Sync.id.." leaving Refit thread")
+            --end
             
 			ForkThread( import('/lua/ai/altaiutilities.lua').ReturnTransportsToPool, aiBrain, {unit}, true )
             
@@ -2066,9 +2066,9 @@ function AirStagingThread( unit, airstage, aiBrain )
 			
                 if safePath then
                 
-                    if ScenarioInfo.TransportDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..unit.Sync.id.." gets RTB path of "..repr(safePath).." to airstaging - unit is "..repr(unit.Dead) )
-                    end
+                    --if ScenarioInfo.TransportDialog then
+                      --  LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..unit.Sync.id.." gets RTB path of "..repr(safePath).." to airstaging - unit is "..repr(unit.Dead) )
+                    --end
 
                     -- use path
                     for _,p in safePath do
@@ -2077,9 +2077,9 @@ function AirStagingThread( unit, airstage, aiBrain )
                 
                 else
             
-                    if ScenarioInfo.TransportDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..unit.Sync.id.." no safe path for RTB -- airstaging -- after drop")
-                    end
+                    --if ScenarioInfo.TransportDialog then
+                      --  LOG("*AI DEBUG "..aiBrain.Nickname.." Transport "..unit.Sync.id.." no safe path for RTB -- airstaging -- after drop")
+                    --end
 
                     -- go direct -- possibly bad
                     IssueMove( {unit}, GetPosition(airstage))
