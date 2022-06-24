@@ -1,3 +1,40 @@
+### Release 24-06-2022
+
+LUA 6.2.09
+
+AI
+    - AI engineers will RTB to a position much closer to their base
+    - correction to AI engineers using Attack-Move during an expand operations - no longer permitted
+    - Production of LAB suppressed during low land-ratio conditions
+    - Guardpoint LAND will now exit guard mode when a base appears nearby - and move on to it's next target - or RTB
+    - Introduction of additional 'Outnumbered' behavior for early DP positions using T1 
+    - Revisions to Extractor Defense routines and layout
+    - LOUD now properly understands the standard T2 Walls and makes use of them 
+    - Complete revamp of the Land DP - new layout, new discrete builders, universal - no more 'small' vs 'large' DP
+    - added Quantum Gateway to Land Expansion base
+    - Land Expansion base is now much shorter build
+    - typo fix that allows heavily outnumbered AI to upgrade a bit more frequently (thanks to Spoon)
+    - Overhaul of the logging for transport functions, and elimination of some edge conditions that leave transports 'stalled'
+    - some tweaks for base defense requirements, T1 defense reclaim will now collect walls
+    - the odd 'disappearing decals' problem appears to be resolved
+    - the LOG entries for ACT actions have been structured for consistency 
+
+    - 1st pass of a new 'Teleport' mechanic
+        - teleportation now has an 'optimal range' set in the unit blueprint (for those that can teleport)
+        - teleports shorter or longer than the optimal range are less 'efficient'
+        - maximum range is no longer entirely hard-capped but, for now, set at about X2 of previous values
+        - teleport costs (and the time it takes to charge) will grow VERY quickly beyond optimal range
+        - teleport charge time is now related to build power, rate capped just like in Evenflow - more build power == faster teleport
+        - the 'burst' charge (about 4k E) is collected up front, before actually teleporting - no longer expended unless teleport works
+        - at this time, that mechanic has NOT been applied to 'teleportation structures' - pending results
+    
+    - the 'Desync Detected' dialog will now completely suppress any additional onscreen indications if you select "Dont Show"
+
+Map Assets
+    - some new map assets have been added to the distribution (Binary)
+
+
+
 ### Release 10-06-2022
 
 LUA 6.2.08
