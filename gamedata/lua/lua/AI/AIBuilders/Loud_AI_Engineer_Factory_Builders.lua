@@ -369,7 +369,44 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Expansions',
             }
         }
     },
+
+    Builder {BuilderName = 'Quantum Gate - Expansion',
 	
+        PlatoonTemplate = 'EngineerBuilder',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+        Priority = 800,
+		
+        BuilderConditions = {
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+            { LUTL, 'UnitCapCheckLess', { .75 } },
+			
+			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
+			
+            { UCBC, 'FactoryLessAtLocation', { 'LocationType', 1, categories.TECH3 * categories.GATE }},
+			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, categories.TECH3 * categories.GATE }},
+        },
+		
+        BuilderType = { 'T3','SubCommander' },
+		
+        BuilderData = {
+			DesiresAssist = true,
+            NumAssistees = 4,
+			
+            Construction = {
+				NearBasePerimeterPoints = true,
+				
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
+				BaseTemplate = 'ExpansionLayout_II',
+				
+				ThreatMax = 50,
+
+                BuildStructures = {'T3QuantumGate'},
+            }
+        }
+    },
+
 }
 
 BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Naval',

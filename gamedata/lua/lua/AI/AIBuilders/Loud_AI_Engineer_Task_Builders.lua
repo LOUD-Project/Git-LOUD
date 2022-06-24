@@ -587,11 +587,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Reclaim Old Structures',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
             
-			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 0, categories.TECH1 * categories.STRUCTURE * categories.DEFENSE * categories.DRAGBUILD - categories.WALL }},
+			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 0, (categories.TECH1 * categories.STRUCTURE * categories.DEFENSE * categories.DRAGBUILD) + (categories.TECH1 * categories.WALL) }},
         },
 		
         BuilderData = {
-			Reclaim = {categories.TECH1 * categories.STRUCTURE * categories.DEFENSE * categories.DRAGBUILD - categories.WALL},
+			Reclaim = { (categories.TECH1 * categories.STRUCTURE * categories.DEFENSE * categories.DRAGBUILD) + (categories.TECH1 * categories.WALL)},
         },
     },
 	

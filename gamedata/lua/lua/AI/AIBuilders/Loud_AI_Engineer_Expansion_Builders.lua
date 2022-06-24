@@ -145,13 +145,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Land Expansion Construction',
 				-- what we'll build
                 BuildStructures = {  
 					'T2AirStagingPlatform',
+                    'T1LandFactory',
+					'T1Radar',
 					'T2GroundDefense',
 					'T2GroundDefense',                    
-					'T1LandFactory',
-                    'T1AirFactory',
-					'T2Radar',
-					'T2GroundDefense',                    
-					'T2GroundDefense',
                 }               
             },
         }
@@ -221,18 +218,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Land Expansion Construction',
 				-- what we'll build
                 BuildStructures = {  
 					'T2AirStagingPlatform',
-					'T2GroundDefense',
-					'T2GroundDefense',                    
 					'T1LandFactory',
                     'T1AirFactory',
-					'T2Radar',
-					'T2GroundDefense',                    
-					'T2GroundDefense',
+					'T1Radar',
                     'T2GroundDefense',
                     'T2GroundDefense',
                     'T2MissileDefense',
                     'T2MissileDefense',
-                    'T1LandFactory',
                     'T2AADefense',
                     'T2AADefense',
                 }               
