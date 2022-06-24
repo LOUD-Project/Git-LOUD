@@ -5138,22 +5138,25 @@ Unit = Class(moho.unit_methods) {
         
             return
         end
-
-
-		local id = GetEntityId(self)
 		
+        local mybrain = GetAIBrain(self)
+
+		local bp = ALLBPS[self.BlueprintID]
+        
 		-- Range Check to location
-		local maxRange = ALLBPS[self.BlueprintID].Defense.MaxTeleRange or 900
+        -- in this respect maxrange is the optimal range - you can go twice that distance
+        -- but as you will see, the costs explode if you do.
+		local teleRange = bp.Defense.MaxTeleRange or 450
         
 		local myposition = self:GetPosition()
         
 		local destRange = VDist2(location[1], location[3], myposition[1], myposition[3])
 		
-		if maxRange and destRange > maxRange then
+		if destRange > (teleRange * 2) then
         
-            LOG("*AI DEBUG OnTeleportUnit "..repr(self.BlueprintID).." to location "..repr(location).." at "..repr(destRange).." - failed - beyond "..maxRange.." range. " )
+            LOG("*AI DEBUG OnTeleportUnit "..repr(self.BlueprintID).." to location "..repr(location).." at "..repr(destRange).." - failed - beyond "..(teleRange*2).." range. " )
 		
-			FloatingEntityText(id,'Destination Out Of Range')
+			FloatingEntityText(self.Sync.id,'Destination Out Of Range')
             
             self.teleporting = nil
 			
@@ -5163,65 +5166,55 @@ Unit = Class(moho.unit_methods) {
 		
 		-- Teleport Interdiction Check
 		for num, brain in BRAINS do
+        
+            if IsEnemy( mybrain.ArmyIndex, brain.ArmyIndex ) then
 		
-			local unitlist = brain:GetListOfUnits(categories.ANTITELEPORT, false)
+                local unitlist = brain:GetListOfUnits(categories.ANTITELEPORT, false)
 			
-			for i, unit in unitlist do
-			
-				--	if it's an ally, then we skip.
-				if not IsEnemy(self.Sync.army, unit.Sync.army) then 
+                for i, unit in unitlist do
 				
-					continue
+                    -- the range at which this unit blocks teleportation
+                    local noTeleDistance = ALLBPS[unit.BlueprintID].Defense.NoTeleDistance or 75
+				
+                    -- the position of the teleblocker
+                    local atposition = unit:GetPosition()
+				
+                    -- the range of the destination to the teleblocker
+                    local targetdest = VDist2(location[1], location[3], atposition[1], atposition[3])
+				
+                    -- the range of the teleblocker to me
+                    local sourcecheck = VDist2(myposition[1], myposition[3], atposition[1], atposition[3])
+				
+                    -- if the teleblocker is within range of the destination
+                    if noTeleDistance > targetdest then
+				
+                        FloatingEntityText(self.Sync.id,'Teleport Destination Scrambled')
+                    
+                        LOG("*AI DEBUG OnTeleportUnit "..repr(self.BlueprintID).." to location "..repr(location).." - failed - destination blocked ")
+                    
+                        self.teleporting = nil
+                    
+                        return
 					
-				end
+                    -- if the teleblocker is within range of the unit trying to teleport
+                    elseif noTeleDistance and noTeleDistance >= sourcecheck then
 				
-				-- the range at which this unit blocks teleportation
-				local noTeleDistance = ALLBPS[unit.BlueprintID].Defense.NoTeleDistance or 75
-				
-                -- the position of the teleblocker
-				local atposition = unit:GetPosition()
-				
-                -- the range of the destination to the teleblocker
-				local targetdest = VDist2(location[1], location[3], atposition[1], atposition[3])
-				
-                -- the range of the teleblocker to me
-				local sourcecheck = VDist2(myposition[1], myposition[3], atposition[1], atposition[3])
-				
-				-- if the teleblocker is within range of the destination
-				if noTeleDistance > targetdest then
-				
-					FloatingEntityText(id,'Teleport Destination Scrambled')
+                        FloatingEntityText(self.Sync.id,'Teleport Source Scrambled')
                     
-                    LOG("*AI DEBUG OnTeleportUnit "..repr(self.BlueprintID).." to location "..repr(location).." - failed - destination blocked ")
+                        LOG("*AI DEBUG OnTeleportUnit "..repr(self.BlueprintID).." to location "..repr(location).." - failed - source area blocked ")
                     
-                    self.teleporting = nil
+                        self.teleporting = nil
                     
-					return
+                        return
 					
-				-- if the teleblocker is within range of the unit trying to teleport
-				elseif noTeleDistance and noTeleDistance >= sourcecheck then
-				
-					FloatingEntityText(id,'Teleport Source Scrambled')
-                    
-                    LOG("*AI DEBUG OnTeleportUnit "..repr(self.BlueprintID).." to location "..repr(location).." - failed - source area blocked ")
-                    
-                    self.teleporting = nil
-                    
-					return
-					
-				end
-				
+                    end
+                end
 			end
-			
 		end
 		
-        -- Economy Check and Drain
-		local bp = ALLBPS[self.BlueprintID]
-		
+        -- Economy Check and Initial Charge
 		local telecost = bp.Economy.TeleportBurstEnergyCost or 4000
-		
-        local mybrain = GetAIBrain(self)
-		
+	
         local storedenergy = mybrain:GetEconomyStored('ENERGY')
 		
 		if telecost > 0 and not self.TeleportCostPaid then
@@ -5236,7 +5229,7 @@ Unit = Class(moho.unit_methods) {
 				
 			else
 			
-				FloatingEntityText(id,'Insufficient Energy For Teleportation')
+				FloatingEntityText(self.Sync.id,'Insufficient Energy Storage ('..telecost..')' )
 
                 LOG("*AI DEBUG OnTeleportUnit "..repr(self.BlueprintID).." to location "..repr(location).." - failed - Insufficient energy - "..repr(telecost).." required to initialize a teleport - storage "..repr(storedenergy) )
                 
@@ -5268,7 +5261,7 @@ Unit = Class(moho.unit_methods) {
         LOG("*AI DEBUG OnTeleportUnit "..repr(self.BlueprintID).." Teleport process begins")
         
 		-- start teleportation sequence --
-        self.TeleportThread = self:ForkThread(self.InitiateTeleportThread, teleporter, bp, location, destRange, orientation)
+        self.TeleportThread = self:ForkThread(self.InitiateTeleportThread, teleporter, bp, location, destRange, teleRange, orientation)
 		
     end,
 	
@@ -5383,7 +5376,7 @@ Unit = Class(moho.unit_methods) {
         self:SetWorkProgress(progress)
     end,
 
-    InitiateTeleportThread = function(self, teleporter, bp, location, teledistance, orientation)
+    InitiateTeleportThread = function(self, teleporter, bp, location, teledistance, teleRange, orientation)
 	
         self:OnTeleportCharging(location)
 	
@@ -5404,9 +5397,15 @@ Unit = Class(moho.unit_methods) {
             local mass = bp.Economy.BuildCostMass * LOUDMIN(.15, bp.Economy.TeleportMassMod or 0.15)				-- ie. 18000 mass becomes 2700
             local energy = bp.Economy.BuildCostEnergy * LOUDMIN(.03, bp.Economy.TeleportEnergyMod or 0.03)		-- ei. 5m Energy becomes 60,000
 			
-            teleportenergy = mass + energy * ( math.max( .2, teledistance/400 ) * math.max( .2, teledistance/400 ) )
-            
-            LOG("*AI DEBUG Teleport distance is "..repr(teledistance).." -- Distance modifier is "..repr( ( math.max( .2, teledistance/400 )) * ( math.max( .2, teledistance/400 ))) )
+            teleportenergy = mass + energy
+
+            if teledistance <= teleRange then
+                teleportenergy = teleportenergy * ( math.max( .25, teledistance/teleRange ) * math.max( .25, teledistance/teleRange ) )
+                LOG("*AI DEBUG Teleport distance is "..teledistance.." -- optimal range is "..teleRange.." -- Distance modifier is "..repr( ( math.max( .25, teledistance/teleRange )) * ( math.max( .25, teledistance/teleRange ))) )
+            else
+                teleportenergy = teleportenergy * teledistance/teleRange
+                LOG("*AI DEBUG Teleport distance is "..teledistance.." -- optimal range is "..teleRange.." -- Distance modifier is "..repr(teledistance/teleRange ) )
+            end
             
             teleportenergy = teleportenergy * ((2 * (math.cos( (3.14*teledistance)/400) )) + 3)
             
@@ -5463,6 +5462,7 @@ Unit = Class(moho.unit_methods) {
         self:SetImmobile(false)
         
         self.UnitBeingTeleported = nil
+        
         self.TeleportThread = nil
         
         self.teleporting = nil

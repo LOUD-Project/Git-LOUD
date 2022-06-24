@@ -6791,6 +6791,10 @@ function SCUSelfEnhanceThread ( unit, faction, aiBrain )
 						if ScenarioInfo.SCUEnhanceDialog then
 							LOG("*AI DEBUG "..aiBrain.Nickname.." SCUEnhance "..unit.Sync.id.." completed "..repr(CurrentEnhancement))
 						end
+                        
+                        if CurrentEnhancement == 'Teleporter' then
+                            unit.CanTeleport = true
+                        end
 					
 					else
 						LOG("*AI DEBUG "..aiBrain.Nickname.." SCU "..unit.Sync.id.." Failed Enhancement "..repr(CurrentEnhancement))
