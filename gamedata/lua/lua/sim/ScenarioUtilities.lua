@@ -289,6 +289,8 @@ function CreateResources()
             CreatePropHPR('/env/common/props/hydrocarbonDeposit01_prop.bp',	tblData.position[1], tblData.position[2], tblData.position[3], Random(0,360), 0, 0 )
 
         end
+        
+        
 
         -- syntax reference -- Position, heading, texture name for albedo, sizex, sizez, LOD, duration, army, misc
         CreateSplat( tblData.position, 0, albedo, sx, sz, lod, 0, -1, 0	)
@@ -652,7 +654,11 @@ function CreateResources()
     
         if tblData.resource then
         
-            CreateSingleResource(tblData)
+            --if ScenarioInfo.MetalWorld and tblData.type == "Mass" then
+              --  continue
+            --else
+                CreateSingleResource(tblData)
+            --end
             
         end
         
@@ -703,9 +709,9 @@ function InitializeArmies()
 
     end
 
-    import('/lua/sim/scenarioutilities.lua').CreateProps() 
-
     import('/lua/sim/scenarioutilities.lua').CreateResources() 
+
+    import('/lua/sim/scenarioutilities.lua').CreateProps() 
 
     ScenarioInfo.biggestTeamSize = 0
     

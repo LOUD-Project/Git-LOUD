@@ -2038,9 +2038,9 @@ function AirUnitRefitThread( unit, aiBrain )
             
 		else
         
-            --if ScenarioInfo.TransportDialog then
-              --  LOG("*AI DEBUG "..aiBrain.Nickname.." transport "..unit.Sync.id.." leaving Refit thread")
-            --end
+            if ScenarioInfo.TransportDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." transport "..unit.Sync.id.." leaving Refit thread")
+            end
             
 			ForkThread( import('/lua/ai/altaiutilities.lua').ReturnTransportsToPool, aiBrain, {unit}, true )
             

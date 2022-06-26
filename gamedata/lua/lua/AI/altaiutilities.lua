@@ -1394,7 +1394,9 @@ function GetTransports( platoon, aiBrain)
                     LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." transport "..transport.Sync.id.." rejected -  In Use "..repr(transport.InUse).." - Assigning "..repr(transport.Assigning).." - BeingBuilt "..repr(IsBeingBuilt(transport)).." or Low Fuel/Health")
                 end
                 
-                ForkThread( ReturnTransportsToPool, aiBrain, {transport}, true )
+                if not transport.Dead then
+                    ForkThread( ReturnTransportsToPool, aiBrain, {transport}, true )
+                end
                 AvailableTransports[k] = nil
             end
 		end
@@ -1580,8 +1582,11 @@ function GetTransports( platoon, aiBrain)
 
                 -- unmark the transport
                 transport.InUse = false
-                -- and return it to the transport pool
-                ForkTo( ReturnTransportsToPool, aiBrain, {transport}, true )
+                
+                if not transport.Dead then
+                    -- and return it to the transport pool
+                    ForkTo( ReturnTransportsToPool, aiBrain, {transport}, true )
+                end
             end
 		end
 
@@ -1866,34 +1871,35 @@ function WatchTransportTravel( transport, destination, aiBrain, UnitPlatoon )
         LOG("*AI DEBUG "..aiBrain.Nickname.." "..UnitPlatoon.BuilderName.." "..transport.PlatoonHandle.BuilderName.." Transport "..transport.Sync.id.." starts travelwatch")
     end
 	
-	while (not unitsdead) and transport.Travelling do
-    
-        if not transport.PlatoonHandle.AtGoal then
-            WaitTicks(11)
-            watchcount = watchcount + 1
-        end
-		
-		if not transport.Dead then
-		
+	while (not transport.Dead) and (not unitsdead) and transport.Travelling do
+	
+		--if not transport.Dead then
+			
 			-- major distress call -- 
 			if transport.PlatoonHandle.DistressCall then
 			
 				-- reassign destination and begin immediate drop --
 				-- this really needs to be sensitive to the platoons layer
 				-- and find an appropriate marker to drop at -- 
+            
+                if TransportDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..UnitPlatoon.BuilderName.." "..transport.PlatoonHandle.BuilderName.." Transport "..transport.Sync.id.." DISTRESS ends travelwatch after "..watchcount)
+                end
+                
 				destination = GetPosition(transport)
+                break
 			end
 			
 			-- someone in transport platoon is close - begin the drop -
 			if transport.PlatoonHandle.AtGoal then
             
                 if TransportDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..UnitPlatoon.BuilderName.." "..transport.PlatoonHandle.BuilderName.." Transport "..transport.Sync.id.." DISTRESS ends travelwatch after "..watchcount)
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..UnitPlatoon.BuilderName.." "..transport.PlatoonHandle.BuilderName.." Transport "..transport.Sync.id.." ARRIVE ends travelwatch after "..watchcount)
                 end
             
 				break
 			end
-			
+        
 			unitsdead = true
 
 			for _,u in transport:GetCargo() do
@@ -1945,19 +1951,20 @@ function WatchTransportTravel( transport, destination, aiBrain, UnitPlatoon )
 		
 			-- this needs some examination -- it should signal the entire transport platoon - not just itself --
 			if VDist2(GetPosition(transport)[1], GetPosition(transport)[3], destination[1],destination[3]) < 100 then
-   
-                if TransportDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..UnitPlatoon.BuilderName.." "..transport.PlatoonHandle.BuilderName.." Transport "..transport.Sync.id.." ARRIVE ends travelwatch after "..watchcount)
-                end
  			
 				transport.PlatoonHandle.AtGoal = true
-                break
 
 			else
 
                 transport.LastPosition = LOUDCOPY(transport:GetPosition())
             end
-		end
+    
+            if not transport.PlatoonHandle.AtGoal then
+                WaitTicks(11)
+                watchcount = watchcount + 1
+            end
+            
+		--end
 
 	end
 
@@ -1980,14 +1987,12 @@ end
 function WatchUnitUnload( transport, unitlist, destination, aiBrain, UnitPlatoon )
 
     local TransportDialog = ScenarioInfo.TransportDialog or false
+  
+    local WaitTicks = WaitTicks
 	
 	local unitsdead = false
 	local unloading = true
-	
-	local watchcount = 0
-    
-    local WaitTicks = WaitTicks
-    
+
     transport.Unloading = true
     
     if TransportDialog then
@@ -1995,13 +2000,17 @@ function WatchUnitUnload( transport, unitlist, destination, aiBrain, UnitPlatoon
     end
 	
 	IssueTransportUnload( {transport}, destination)
+    
+    WaitTicks(4)
+	
+	local watchcount = 0.3
 
 	while (not unitsdead) and unloading and (not transport.Dead) do
 	
-		if not transport.Dead then
+		unitsdead = true
+		unloading = false
 	
-			unitsdead = true
-			unloading = false
+        if not transport.Dead then
 		
 			-- do we have loaded units
 			for _,u in unitlist do
@@ -2063,8 +2072,8 @@ function WatchUnitUnload( transport, unitlist, destination, aiBrain, UnitPlatoon
 			end
 		end
         
-		WaitTicks(4)
-		watchcount = watchcount + 0.3
+		WaitTicks(6)
+		watchcount = watchcount + 0.5
 
 	end
    
@@ -2812,6 +2821,8 @@ function ReturnTransportsToPool( aiBrain, units, move )
     local TransportDialog = ScenarioInfo.TransportDialog or false
 
     local ProcessAirUnits = import('/lua/loudutilities.lua').ProcessAirUnits
+    
+    local unitcount = 0
 
 	-- make sure all units are unloaded
     for k,v in units do
@@ -2839,45 +2850,49 @@ function ReturnTransportsToPool( aiBrain, units, move )
             KillThread( v.WatchUnloadThread)
             v.WatchUnloadThread = nil
         end
-	
-        if v and v.Dead then
-		
-			units[k] = nil
-			
-		elseif v and v.Sync.id then
+        
+        if v.Dead then
+            LOG("*AI DEBUG "..aiBrain.Nickname.." transport "..v.Sync.id.." dead during Return to Pool")
+            units[v] = nil
+            continue
+        end
+        
+        unitcount = unitcount + 1
 
-			-- unload any units it might have
-			if EntityCategoryContains( categories.TRANSPORTFOCUS + categories.uea0203, v ) then
+		-- unload any units it might have
+		if EntityCategoryContains( categories.TRANSPORTFOCUS + categories.uea0203, v ) then
 
-                if LOUDGETN(v:GetCargo()) > 0 then
-				
-                    local unloadedlist = v:GetCargo()
-				
-                    IssueTransportUnload(v, v:GetPosition())
-				
-                    WaitTicks(3)
-				
-                    for _,unloadedunit in unloadedlist do
-                        ForkTo(ReturnUnloadedUnitToPool,aiBrain,unloadedunit)
-                    end
+            if LOUDGETN(v:GetCargo()) > 0 then
+
+                if TransportDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." transport "..v.Sync.id.." has unloaded units")
                 end
+				
+                local unloadedlist = v:GetCargo()
+				
+                IssueTransportUnload(v, v:GetPosition())
+				
+                WaitTicks(3)
+				
+                for _,unloadedunit in unloadedlist do
+                    ForkTo(ReturnUnloadedUnitToPool,aiBrain,unloadedunit)
+                end
+            end
 
-                v.InUse = nil
+            v.InUse = nil
 
-                v.Assigning = nil
+            v.Assigning = nil
                 
-                -- if the transport needs refuel or repair
-                -- remove it from further processing
-                if ProcessAirUnits( v, aiBrain) then
-                    units[k] = nil
-                end
-			end
-
-		end
+            -- if the transport needs refuel or repair
+            -- remove it from further processing
+            if ProcessAirUnits( v, aiBrain) then
+                units[k] = nil
+            end
+        end
         
     end
 
-	if move then
+	if unitcount > 0 and move then
 
 		units = aiBrain:RebuildTable(units)
 

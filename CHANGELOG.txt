@@ -1,3 +1,12 @@
+### Release 25-06-2022
+
+LUA 6.2.10
+
+    - This is a hotfix for two issues
+        - MetalWorld was showing mass points
+        - A logic bomb was causing crashes 
+        
+
 ### Release 24-06-2022
 
 LUA 6.2.09
