@@ -1627,7 +1627,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 		
 		RTBLocation = 'Any',
 		
-        InstanceCount = 4,
+        InstanceCount = 5,
 		
         BuilderType = 'Any',
 		
@@ -1715,7 +1715,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 
 		RTBLocation = 'Any',
 		
-        InstanceCount = 3,
+        InstanceCount = 4,
 
         BuilderType = 'Any',
 		

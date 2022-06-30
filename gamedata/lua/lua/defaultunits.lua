@@ -702,7 +702,8 @@ StructureUnit = Class(Unit) {
 
             AssignUnitsToPlatoon( aiBrain, Mexplatoon, {finishedUnit}, 'Support', 'none' )
 
-			Mexplatoon:ForkThread( PlatoonCallForHelpAI, aiBrain, 3 )
+            -- start a call for help thread triggered by at least 1.5 threat - was 3
+			Mexplatoon:ForkThread( PlatoonCallForHelpAI, aiBrain, 1.5 )
 
 			if not finishedUnit.UpgradeThread then
 
@@ -723,11 +724,11 @@ StructureUnit = Class(Unit) {
 
             AssignUnitsToPlatoon( aiBrain, Mexplatoon, {finishedUnit}, 'Support', 'none' )
 
-			Mexplatoon:ForkThread( PlatoonCallForHelpAI, aiBrain, 3 )
+			Mexplatoon:ForkThread( PlatoonCallForHelpAI, aiBrain, 1.5 )
 
 			if not finishedUnit.UpgradeThread then
 
-				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, .73, 1.015, 9999, 9999, 18, 90, true )
+				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, .745, 1.015, 9999, 9999, 18, 90, true )
 
 			end
         end
