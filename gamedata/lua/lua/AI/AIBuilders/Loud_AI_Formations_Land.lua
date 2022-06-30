@@ -1647,10 +1647,10 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         },
 		
         BuilderData = {
-			DistressRange = 150,
+			DistressRange = 125,
             DistressReactionTime = 20,
 			DistressTypes = 'Land',
-			DistressThreshold = 2,
+			DistressThreshold = 1,
 			
 			PointType = 'Marker',			-- either Unit or Marker
 			PointCategory = 'Mass',
@@ -1686,7 +1686,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			
 			MissionTime = 960,				-- platoon will operate 16 minutes then RTB
 			
-			MergeLimit = 16,				-- level to which merging is allowed
+			MergeLimit = 12,				-- level to which merging is allowed
 			
 			AggressiveMove = true,
 			
@@ -1737,10 +1737,10 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         },
 		
         BuilderData = {
-			DistressRange = 150,
+			DistressRange = 120,
             DistressReactionTime = 20,
 			DistressTypes = 'Land',
-			DistressThreshold = 2,
+			DistressThreshold = 1,
 			
 			PointType = 'Unit',					-- either Unit or Marker
 			PointCategory = categories.MASSEXTRACTION,
@@ -1776,7 +1776,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			
 			MissionTime = 960,				-- platoon will operate 15 minutes
 			
-			MergeLimit = 16,				-- unit count at which merging is denied
+			MergeLimit = 12,				-- unit count at which merging is denied
 			
 			AggressiveMove = true,
 			
@@ -1853,7 +1853,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			UntRadius = 45,
 			UntTrigger = true,				-- unit parameters trigger end to guardtimer
 			UntMin = 0,
-			UntMax = 16,                    -- ignore this point if more than 15 Allied LAND MOBILE units
+			UntMax = 18,                    -- ignore this point if more than 18 Allied LAND MOBILE units
 			
             AssistRange = 2,
 			
@@ -1862,7 +1862,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			GuardRadius = 65,
 			GuardTimer = 360,
 			
-			MergeLimit = 22,
+			MergeLimit = 18,
 			
 			AggressiveMove = true,
 			
@@ -1935,7 +1935,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			UntRadius = 60,
 			UntTrigger = true,					-- unit parameters trigger an early end to guardtimer
 			UntMin = 0,
-			UntMax = 30,
+			UntMax = 26,
 			
             AssistRange = 2,
 			
@@ -1944,7 +1944,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			GuardRadius = 65,					-- range at which platoon will engage targets
 			GuardTimer = 1050,					-- period that platoon will guard the point 
 			
-			MergeLimit = 36,					-- limit to which unit merging is allowed - nil = original platoon size
+			MergeLimit = 26,					-- limit to which unit merging is allowed - nil = original platoon size
 			
 			AggressiveMove = true,
 			
@@ -2029,7 +2029,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			GuardRadius = 65,
 			GuardTimer = 1050,
 			
-			MergeLimit = 36,
+			MergeLimit = 30,
 			
 			AggressiveMove = true,
 			
@@ -2186,7 +2186,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			UntRadius = 60,
 			UntTrigger = true,					-- unit parameters trigger end to guardtimer
 			UntMin = 0,
-			UntMax = 15,
+			UntMax = 12,
 			
             AssistRange = 2,
 			
@@ -2195,7 +2195,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			GuardRadius = 65,
 			GuardTimer = 900,
 			
-			MergeLimit = 36,
+			MergeLimit = 30,
 			
 			AggressiveMove = true,
 			
@@ -2268,7 +2268,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			UntRadius = 60,
 			UntTrigger = true,					-- unit parameters trigger end to guardtimer
 			UntMin = 0,
-			UntMax = 15,
+			UntMax = 12,
 			
             AssistRange = 2,
 			
@@ -2277,7 +2277,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			GuardRadius = 65,				-- range at which platoon will engage targets
 			GuardTimer = 900,				-- period that platoon will guard the point 
 			
-			MergeLimit = 36,				-- trigger level to which merging is allowed - nil = original platoon size
+			MergeLimit = 30,				-- trigger level to which merging is allowed - nil = original platoon size
 			
 			AggressiveMove = true,
 			
@@ -2323,7 +2323,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 		
         BuilderData = {
 		
-			DistressRange = 150,
+			DistressRange = 100,
             DistressReactionTime = 24,
 			DistressTypes = 'Land',
 			DistressThreshold = 4,
@@ -2349,7 +2349,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			UntRadius = 30,
 			UntTrigger = true,
 			UntMin = 0,
-			UntMax = 6,
+			UntMax = 10,
 			
             PrioritizedCategories = { 'MASSPRODUCTION','ECONOMIC','ENGINEER'},
 			
