@@ -86,7 +86,7 @@ function CreateProps()
 	
     for i, tblData in pairs(ScenarioInfo.Env.Scenario['Props']) do
     
-        if (ScenarioInfo.MetalWorld or ScenarioInfo.MassPointRNG) and tblData.type == 'Mass' then
+        if (ScenarioInfo.MetalWorld or ScenarioInfo.MassPointRNG) and tblData.type == "Mass" then
             continue
         else
             CreatePropHPR( tblData.prop, tblData.Position[1], tblData.Position[2], tblData.Position[3], tblData.Orientation[1], tblData.Orientation[2], tblData.Orientation[3] )
@@ -218,10 +218,10 @@ function CreateResources()
     if ScenarioInfo.MetalWorld then
         LOG("*AI DEBUG MetalWorld DETECTED")
         
-        -- we'll replace each existing mass point with 5
+        -- we'll replace each existing mass point with 9
         -- but they'll be hidden
         coordsTbl = {
-            { {-2,-2}, {-2, 2}, { 0, 0}, { 2,-2}, { 2, 2} },
+            { {-2,-2}, {-2, 2}, { 0, 0}, { 2,-2}, { 2, 2}, {-4, 0}, { 4, 0}, { 0,-4}, { 0, 4} },
         } 
     end
     
@@ -261,9 +261,12 @@ function CreateResources()
     
     local function CreateSingleResource(tblData)
 
-        FlattenMapRect(tblData.position[1]-2, tblData.position[3]-2, 4, 4, tblData.position[2])
+        -- don't create Mass Points on MetalWorld
+        if ScenarioInfo.MetalWorld and tblData.type == "Mass" then
+            return
+        end
         
-        --LOG("*AI DEBUG Creating Resource using "..repr(tblData))
+        FlattenMapRect(tblData.position[1]-2, tblData.position[3]-2, 4, 4, tblData.position[2])
 
         CreateResourceDeposit( tblData.type, tblData.position[1], tblData.position[2], tblData.position[3],	tblData.size )
 
@@ -289,8 +292,6 @@ function CreateResources()
             CreatePropHPR('/env/common/props/hydrocarbonDeposit01_prop.bp',	tblData.position[1], tblData.position[2], tblData.position[3], Random(0,360), 0, 0 )
 
         end
-        
-        
 
         -- syntax reference -- Position, heading, texture name for albedo, sizex, sizez, LOD, duration, army, misc
         CreateSplat( tblData.position, 0, albedo, sx, sz, lod, 0, -1, 0	)
@@ -653,13 +654,9 @@ function CreateResources()
     for i, tblData in markers do
     
         if tblData.resource then
-        
-            --if ScenarioInfo.MetalWorld and tblData.type == "Mass" then
-              --  continue
-            --else
-                CreateSingleResource(tblData)
-            --end
-            
+
+            CreateSingleResource(tblData)
+
         end
         
     end
