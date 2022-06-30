@@ -290,15 +290,15 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
 		
         Priority = 775,
 		
-		PriorityFunction = First5Minutes,
+		--PriorityFunction = First5Minutes,
 		
 		BuilderType = { 'Commander' },
 
         BuilderConditions = {
         
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+			--{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 60, -9999, 30, 0, 'AntiSurface', 1 }},
+            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 60, -9999, 35, 0, 'AntiSurface', 1 }},
         },
 		
         BuilderData = {
@@ -310,7 +310,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
                 
                 MaxRange = 60,
 
-				ThreatMax = 25,
+				ThreatMax = 35,
 				ThreatRings = 0,
                 
 				ThreatType = 'AntiSurface',

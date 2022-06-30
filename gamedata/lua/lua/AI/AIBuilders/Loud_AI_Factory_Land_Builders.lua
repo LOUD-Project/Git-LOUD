@@ -85,10 +85,10 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
 		
     },	
 	
-    
     Builder {BuilderName = 'T1 Tanks',
 	
         PlatoonTemplate = 'T1LandDFTank',
+        
         Priority = 550,
 		
 		PriorityFunction = First45Minutes,
