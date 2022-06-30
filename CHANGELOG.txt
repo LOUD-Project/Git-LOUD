@@ -1,3 +1,18 @@
+### Release 30-06-2022
+
+LUA 6.2.11
+
+    - Another hotfix for MetalWorld
+    - MetalWorld now simulates 9 MEX for each original mass point - up from 5
+    - Minor ACU behavioral change - ACU will keep his MEX building task all game now - corrected threat parameter
+    - ACU T1 Pgen building will now continue - if needed - until T3 appears
+    - Skirmish platoons (guards) have had their merge values slightly reduced, to keep more platoons in the field
+    - Some of the Distress parameters have been adjusted - to reduce the response range - but respond to lower threat triggers
+    - The CallForHelpAI parameters for MEX and HYDRO units - has had the threat trigger lowered from 3 to 1.5 (should pickup armed scouts, LABS)
+    - The T1MassGuard formation has it's maximum formation reduced from 5 to 4 to increase formation frequency, but of potentially smaller size
+    
+    
+
 ### Release 25-06-2022
 
 LUA 6.2.10
