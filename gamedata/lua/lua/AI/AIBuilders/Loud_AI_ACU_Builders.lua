@@ -435,8 +435,12 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
 		
         BuilderData = {
             Assist = {
+            
+                -- this allows the builder to continue assist until E drops below this
                 AssistEnergy = 100,
-                AssistMass = 50,
+                -- this allows the builder to continue assist until M drops below this
+                AssistMass = 35,
+                
 				AssistRange = 80,
                 AssisteeType = 'Any',
 				AssisteeCategory = ENGINEER + ENERGYPRODUCTION,
@@ -470,6 +474,12 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
 		
         BuilderData = {
             Assist = {
+            
+                -- this allows the builder to continue assist until E drops below this
+                AssistEnergy = 100,
+                -- this allows the builder to continue assist until M drops below this
+                AssistMass = 35,
+
 				AssistRange = 80,
 				AssisteeType = 'Structure',
 				AssisteeCategory = MASSPRODUCTION,

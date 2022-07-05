@@ -233,6 +233,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 		
         BuilderData = {
             Assist = {
+                -- this allows the builder to continue assist until M drops below this
+                AssistMass = 35,
+                -- this allows the builder to continue assist until E drops below this
+                AssistEnergy = 100,
+            
 				AssistRange = 120,
                 AssisteeType = 'Any',
 				AssisteeCategory = categories.ENGINEER + categories.ENERGYSTORAGE + categories.ENERGYPRODUCTION,
