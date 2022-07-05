@@ -6786,12 +6786,16 @@ Platoon = Class(moho.platoon_methods) {
 			local assisttime = self.PlatoonData.Assist.Time or 90
             
             -- now we can take assist eco limits from the platoon data
+            -- this allows the assist operation to start at one level, and continue
+            -- until we reach these levels, thus giving a little extra assist 'oomph' to this task
+            -- I currently use it in the Assist Energy builders, and in the ACU assist builders for M & E
             local assistenergy = self.PlatoonData.Assist.AssistEnergy or 1000
             local assistmass = self.PlatoonData.Assist.AssistMass or 200
 		
             -- continue to guard until eco runs short, eng death, timer runs out, or eng loses guard
 			repeat
 		
+                -- break-off if either mass or energy storage drops below the trigger point
 				if (GetEconomyStored(aiBrain,'MASS') < assistenergy or GetEconomyStored(aiBrain,'ENERGY') < assistmass ) then
 				
 					break
