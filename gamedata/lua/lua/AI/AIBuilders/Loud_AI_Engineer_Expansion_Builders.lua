@@ -247,6 +247,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Land Expansion Construction',
         PriorityFunction = OutNumbered_First15Minutes_Land,
 		
         BuilderConditions = {
+
+            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 2500 }},
+            
+            { EBC, 'GreaterThanEnergyTrendOverTime', { 16 }},
             
 			-- is there an expansion already underway (we use the Instant Version here for accuracy)
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
@@ -459,6 +463,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
 
         BuilderConditions = {
 
+            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 2500 }},
+    
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
 
             { UCBC, 'DefensivePointForExpansion', { 'LocationType', 1250, -999999, 60, 0, 'AntiSurface' }},
@@ -856,6 +862,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction',
 		
         BuilderConditions = {
 
+            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 2500 }},
+            
+            { EBC, 'GreaterThanEnergyTrendOverTime', { 16 }},
+            
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
             
 			{ UCBC, 'NavalBaseCount', { 1, '<' } },

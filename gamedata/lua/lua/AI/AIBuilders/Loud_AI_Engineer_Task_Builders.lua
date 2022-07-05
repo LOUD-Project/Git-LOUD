@@ -262,6 +262,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
             
 			{ EBC, 'LessThanEconMassStorageRatio', { 50 }},
             
+            { EBC, 'GreaterThanEnergyTrendOverTime', { 4 }},
+            
 			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},            
 
         },
@@ -386,6 +388,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
             
 			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},
             
+            { EBC, 'GreaterThanEnergyTrendOverTime', { 4 }},
+            
             { UCBC, 'LocationFactoriesBuildingGreater', { 'LocationType', 0, categories.MOBILE + categories.FACTORY, categories.FACTORY * categories.AIR }},
         },
 		
@@ -419,6 +423,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
             { LUTL, 'LandStrengthRatioLessThan', { 1.1 } },
             
 			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},
+            
+            { EBC, 'GreaterThanEnergyTrendOverTime', { 4 }},
             
             { UCBC, 'LocationFactoriesBuildingGreater', { 'LocationType', 0, categories.MOBILE + categories.FACTORY, categories.FACTORY * categories.LAND }},
         },
@@ -454,6 +460,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
             
 			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},
             
+            { EBC, 'GreaterThanEnergyTrendOverTime', { 4 }},
+            
             { UCBC, 'LocationFactoriesBuildingGreater', { 'LocationType', 0, categories.MOBILE + categories.FACTORY, categories.FACTORY * categories.NAVAL }},
         },
 		
@@ -485,6 +493,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 		
         BuilderConditions = {
 			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},
+            
+            { EBC, 'GreaterThanEnergyTrendOverTime', { 4 }},
             
             { UCBC, 'LocationFactoriesBuildingGreater', { 'LocationType', 0, categories.MOBILE + categories.FACTORY}},
         },

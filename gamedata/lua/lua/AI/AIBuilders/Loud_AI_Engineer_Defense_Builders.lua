@@ -145,7 +145,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 
 			{ EBC, 'GreaterThanEnergyIncome', { 300 }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 175, 1750 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 175, 2500 }},
 			
 			-- dont build if we have built any advanced power -- obsolete
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION * categories.STRUCTURE - categories.TECH1 }},
@@ -216,7 +216,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
         
             { EBC, 'GreaterThanEnergyIncome', { 300 }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 175, 1750 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 175, 2500 }},
 			
 			-- dont build if we have built any advanced power -- obsolete
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION * categories.STRUCTURE - categories.TECH1 }},
@@ -419,7 +419,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
             
             { LUTL, 'AirStrengthRatioLessThan', { 3 } }, 
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 175, 1750 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 175, 2500 }},
 
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 8, categories.STRUCTURE * categories.ANTIAIR, 15, 42 }},
         },
@@ -454,6 +454,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
             { LUTL, 'UnitCapCheckLess', { .80 } },
             
             { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
+
+			{ EBC, 'GreaterThanEconStorageCurrent', { 175, 2500 }},
             
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 10, 1.02, 1.02 }},
             
@@ -494,6 +496,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 
 			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
 
+			{ EBC, 'GreaterThanEconStorageCurrent', { 175, 2500 }},
+
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 10, 1.02, 1.02 }},
             
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 10, categories.ARTILLERY * categories.STRUCTURE * categories.TECH2, 10, 20 }},			
@@ -530,6 +534,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
             { MIBC, 'BaseInPlayableArea', { 'LocationType' }},			
 
 			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
+
+			{ EBC, 'GreaterThanEconStorageCurrent', { 175, 2500 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 10, 1, 1 }}, 
             
