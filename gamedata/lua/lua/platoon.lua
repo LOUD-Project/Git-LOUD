@@ -8350,17 +8350,29 @@ Platoon = Class(moho.platoon_methods) {
 			
 		    if platoon.PlatoonData.Construction.LoopBuild and platoon.PlanName then
             
-                if aiBrain:GetEconomyStored('ENERGY') > 1000 then
-			
-                    platoon:SetAIPlan( platoon.PlanName, aiBrain)
-				
-                    return
-                    
-                else
+                local LoopMass = platoon.PlatoonData.Construction.LoopMass or 200
+                local LoopEnergy = platoon.PlatoonData.Construction.LoopEnergy or 2500
                 
-                    platoon.PlatoonData.Construction.LoopBuild = false
+                -- this is where engineers actually loop their plan if set to do so
+                -- this energy requirement is hardcoded for now - should be something carried as platoon data
+                -- if the energy requirement is NOT met - then the 'loop' behavior is cancelled and RTB will happen
+
+                -- we could use this process to select other 'plans' - like a 'follow on' behavior
+                -- real roadblock to that, is making sure that the necessary data, to support the 
+                -- follow on AIPlan, is there - otherwise the follow on plan may not function as intended
+                if aiBrain:GetEconomyStored('MASS') >= LoopMass and (aiBrain:GetEconomyStoredRatio('MASS') *100) < 75 then
+                
+                    if aiBrain:GetEconomyStored('ENERGY') >= LoopEnergy then
+			
+                        platoon:SetAIPlan( platoon.PlanName, aiBrain)
+				
+                        return
+                    
+                    end
                     
                 end
+
+                platoon.PlatoonData.Construction.LoopBuild = false
 				
 			end
 			
