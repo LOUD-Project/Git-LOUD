@@ -257,7 +257,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 		
 		PlatoonAIPlan = 'EngineerAssistAI',
 		
-        Priority = 745,
+        Priority = 740,
 		
 		InstanceCount = 3,
 		
@@ -283,6 +283,36 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
                 BeingBuiltCategories = {categories.MASSPRODUCTION - categories.TECH1},
                 Time = 90,
             },
+        },
+    },
+
+    -- when energy is low
+    Builder {BuilderName = 'Reclaim Energy',
+	
+        PlatoonTemplate = 'EngineerGeneral',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+        
+        PlatoonAIPlan = 'EngineerReclaimAI',
+		
+        Priority = 740,
+		
+        InstanceCount = 3,
+		
+        BuilderType = { 'T1','T2','T3' },
+
+        BuilderConditions = {
+            
+			{ EBC, 'LessThanEconEnergyStorageCurrent', { 6000 }},
+            
+			{ MIBC, 'ReclaimablesInAreaEnergy', { 'LocationType', 120 }},
+
+        },
+		
+        BuilderData = {
+			ReclaimTime = 75,
+			ReclaimType = 'Energy',
+            ReclaimRange = 120,
         },
     },
 
@@ -324,7 +354,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 		
         Priority = 660,
 		
-        InstanceCount = 3,
+        InstanceCount = 2,
 		
         BuilderType = { 'T1','T2' },		
 
@@ -341,36 +371,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
             ReclaimRange = 140,
         },
     },    
-
-    -- when there is nothing else to do and energy somewhat low
-    Builder {BuilderName = 'Reclaim Energy',
-	
-        PlatoonTemplate = 'EngineerGeneral',
-        
-		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
-        
-        PlatoonAIPlan = 'EngineerReclaimAI',
-		
-        Priority = 660,
-		
-        InstanceCount = 4,
-		
-        BuilderType = { 'T1','T2','T3' },
-
-        BuilderConditions = {
-            
-			{ EBC, 'LessThanEconEnergyStorageCurrent', { 6000 }},
-            
-			{ MIBC, 'ReclaimablesInAreaEnergy', { 'LocationType', 140 }},
-
-        },
-		
-        BuilderData = {
-			ReclaimTime = 75,
-			ReclaimType = 'Energy',
-            ReclaimRange = 140,
-        },
-    },
 
     -- when there is nothing else to do assist AIR factories
     Builder {BuilderName = 'Assist Factory AIR',

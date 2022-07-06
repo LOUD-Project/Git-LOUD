@@ -258,11 +258,17 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
         BuilderConditions = { 
 		
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ EBC, 'LessThanEconEnergyStorageCurrent', { 5750 }},
-			{ EBC, 'GreaterThanEconStorageCurrent', { 25, 0 }},
+            
+            { EBC, 'LessThanEnergyTrendOverTime', { 6 }},
+            
+			{ EBC, 'GreaterThanEconStorageCurrent', { 50, 0 }},
 
-			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, ENERGYPRODUCTION * TECH3 }},            
+			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, ENERGYPRODUCTION * TECH3 }},
+            
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, ENERGYPRODUCTION * STRUCTURE * TECH3 }},
+            
+            -- this should pick up only factory ring T1 Pgens - and not those at extractors
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 80, categories.ENERGYPRODUCTION * categories.STRUCTURE * categories.TECH1, 0, 33 }},
         },
 		
         BuilderType = { 'Commander' },
@@ -426,9 +432,9 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ EBC, 'LessThanEconEnergyStorageRatio', { 50 }},
+			{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 75, 1000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 50, 500 }},
             
 			{ UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, ENERGYPRODUCTION, ENGINEER + ENERGYPRODUCTION, 75 }},
         },

@@ -42,7 +42,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        InstanceCount = 2,
+        InstanceCount = 5,
 		
         Priority = 761,
 		
@@ -50,11 +50,18 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
 		
         BuilderConditions = {
 		
-			{ EBC, 'LessThanEconEnergyStorageCurrent', { 6000 }},
+			--{ EBC, 'LessThanEconEnergyStorageCurrent', { 6000 }},
+            
 			{ EBC, 'GreaterThanEconStorageCurrent', { 75, 0 }},
             
-			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION - categories.TECH1 }},                        
+            { EBC, 'LessThanEnergyTrendOverTime', { 25 }},
+            
+			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION - categories.TECH1 }},
+            
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION * categories.STRUCTURE * categories.TECH3 }},
+            
+            -- this should pick up only factory ring T1 Pgens - and not those at extractors
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 80, categories.ENERGYPRODUCTION * categories.STRUCTURE * categories.TECH1, 0, 33 }},            
         },
 		
         BuilderType = { 'T1' },
@@ -86,13 +93,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
         
         BuilderConditions = {
         
-			{ EBC, 'LessThanEnergyTrend', { 40 }},        
+			{ EBC, 'LessThanEnergyTrend', { 45 }},        
 			{ EBC, 'LessThanEnergyTrendOverTime', { 50 }},
 			{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},
             
 			{ UCBC, 'HaveLessThanUnitsWithCategory', { 1, categories.ENERGYPRODUCTION * categories.TECH3 - categories.HYDROCARBON }},
 			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION - categories.TECH1 }},            
-			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 8, categories.ENERGYPRODUCTION - categories.TECH1 }},
+			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 9, categories.ENERGYPRODUCTION - categories.TECH1 }},
         },
 		
         BuilderType = {'T2'},
@@ -163,6 +170,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
         
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .65 } },
+            
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
+            
 			{ LUTL, 'HaveLessThanUnitsWithCategory', { 3, categories.HYDROCARBON * categories.STRUCTURE }},
 			
             { EBC, 'CanBuildOnHydroLessThanDistance',  { 'LocationType', 350, -9999, 30, 0, 'AntiSurface', 1 }},
@@ -324,6 +334,51 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Expansions',
 BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Naval',
     BuildersType = 'EngineerBuilder',
 
+    -- in LOUD, T2 & T3 Pgens are capable of building on seafloor - this will do that
+    Builder {BuilderName = 'T2 Power - Naval',
+    
+        PlatoonTemplate = 'EngineerBuilder',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+        
+        Priority = 900,
+        
+        PriorityFunction = First60Minutes,
+		
+        BuilderType = { 'T2' },
+		
+        BuilderConditions = {
+        
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+            { LUTL, 'UnitCapCheckLess', { .75 } },
+            
+			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY }},
+			
+			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 8, (categories.ENERGYPRODUCTION - categories.TECH1) - categories.HYDROCARBON }},
+            
+			{ EBC, 'LessThanEnergyTrend', { 45 }},
+			{ EBC, 'LessThanEnergyTrendOverTime', { 50 }},
+			{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},
+        },
+        
+        BuilderData = {
+			DesiresAssist = true,
+            NumAssistees = 5,
+			
+            Construction = {
+			
+				NearBasePerimeterPoints = true,
+				
+				BasePerimeterOrientation = 'FRONT',
+			
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
+				BaseTemplate = 'NavalExpansionBase',
+				
+                BuildStructures = { 'T2EnergyProduction' },
+            }
+        }
+    },
+    
 	-- this one is different than usual in that there is no check to see if building any other T3 power elsewhere
     Builder {BuilderName = 'T3 Power - Naval',
     
