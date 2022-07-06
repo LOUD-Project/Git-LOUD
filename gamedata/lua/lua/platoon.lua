@@ -7957,8 +7957,8 @@ Platoon = Class(moho.platoon_methods) {
 
 				for wpidx, waypointPath in path do
                 
-                    -- use aggro move except on first or engineers starting a base
-                    if wpidx > 1 and (not platoon.PlatoonData.Construction.ExpansionBase) then
+                    -- use aggro move if allowed except on first move
+                    if wpidx > 1 and platoon.PlatoonData.Construction.AggressiveMove then
 
                         platoon:AggressiveMoveToLocation( waypointPath )
                         

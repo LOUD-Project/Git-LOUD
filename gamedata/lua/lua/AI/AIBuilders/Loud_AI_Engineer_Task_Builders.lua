@@ -190,19 +190,19 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 		
 		Priority = 745,
 		
-        InstanceCount = 3,
+        InstanceCount = 2,
 		
         BuilderType = { 'T1','T2','T3','SubCommander' },
 		
         BuilderConditions = {
 			{ EBC, 'LessThanEconMassStorageRatio', { 50 }},
-			{ EBC, 'ReclaimablesInAreaMass', { 'LocationType', 145 }},
+			{ EBC, 'ReclaimablesInAreaMass', { 'LocationType', 140 }},
         },
 		
         BuilderData = {
 			ReclaimTime = 90,
 			ReclaimType = 'Mass',
-            ReclaimRange = 150,
+            ReclaimRange = 145,
         },
     },
 

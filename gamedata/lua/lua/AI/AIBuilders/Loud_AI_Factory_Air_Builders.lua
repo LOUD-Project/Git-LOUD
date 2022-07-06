@@ -413,9 +413,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .75 } },
-            
-			-- stop making them if enemy has T2 AA of any kind
-			--{ UCBC, 'HaveLessThanUnitsWithCategoryAndAlliance', { 1, categories.ANTIAIR - categories.TECH1, 'Enemy' }},            
+
+            { UCBC, 'ArmyNeedsTransports', { true } },
 			
 			-- stop making them if we have more than 3 T2/T3 air plants - anywhere
             { UCBC, 'HaveLessThanUnitsWithCategory', { 3, categories.FACTORY * categories.AIR - categories.TECH1 }},
