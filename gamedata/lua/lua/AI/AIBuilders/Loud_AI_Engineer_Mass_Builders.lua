@@ -30,15 +30,24 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
             
             { LUTL, 'UnitCapCheckLess', { .85 } },
             
-            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 225, -9999, 50, 0, 'AntiSurface', 1 }},
+            { EBC, 'LessThanEconMassStorageRatio', { 60 }},
+
+            { EBC, 'GreaterThanEconStorageCurrent', { 75, 1750 }},
+
+            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 250, -9999, 50, 0, 'AntiSurface', 1 }},
         },
 		
         BuilderData = {
 		
             Construction = {
 			
-				BuildClose = true,		-- seek points closest to engineer
-				LoopBuild = true,		-- repeat until none in range
+                AggressiveMove = false, -- prevents him from using AttackMove during travel
+            
+				BuildClose = true,		-- seek points closest to the engineers position
+                
+				LoopBuild = true,		-- repeat until none in range or cannot meet M & E
+                LoopMass = 1,
+                LoopEnergy = 500,
                 
                 MaxRange = 250,
 
@@ -47,6 +56,55 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
                 
 				ThreatType = 'AntiSurface',
                 
+                BuildStructures = { 'T1Resource' }
+            }
+        }
+    },
+
+
+    Builder {BuilderName = 'Mass Extractor T1 - 750 - Loop - BuildClose',
+	
+        PlatoonTemplate = 'EngineerBuilder',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
+		
+        Priority = 846,
+        
+        InstanceCount = 1,
+		
+        BuilderType = { 'T1','T2' },
+		
+        BuilderConditions = {
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+            
+            { LUTL, 'UnitCapCheckLess', { .85 } },
+            
+            { EBC, 'LessThanEconMassStorageRatio', { 60 }},
+
+            { EBC, 'GreaterThanEconStorageCurrent', { 75, 2500 }},
+            
+            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 200, 750, -9999, 30, 0, 'AntiSurface', 1 }},
+        },
+		
+        BuilderData = {
+		
+            Construction = {
+				BuildClose = true,      -- seek points according to range from himself
+                MaxChoices = 4,         -- pick from list of up to 4 closest positions
+                
+				LoopBuild = true,		-- repeat until none in range or cannot meet M & E
+                LoopMass = 75,
+                LoopEnergy = 2000,
+
+                MinRange = 200,
+                MaxRange = 750,
+
+				ThreatMax = 30,
+				ThreatRings = 0,
+				ThreatType = 'AntiSurface',
+
                 BuildStructures = { 'T1Resource' }
             }
         }
@@ -62,34 +120,39 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
 		
         Priority = 845,
         
-        InstanceCount = 2,
+        InstanceCount = 1,
 		
-        BuilderType = { 'T1','T2' },
+        BuilderType = { 'T1' },
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
             { LUTL, 'UnitCapCheckLess', { .85 } },
+            
+            { EBC, 'LessThanEconMassStorageRatio', { 50 }},
 
-            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 1000 }},            
-            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 150, 750, -9999, 30, 0, 'AntiSurface', 1 }},
+            { EBC, 'GreaterThanEconStorageCurrent', { 100, 2500 }},
+            
+            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 200, 750, -9999, 30, 0, 'AntiSurface', 1 }},
         },
 		
         BuilderData = {
 		
             Construction = {
-				BuildClose = false,     -- seek points in range of base
-				LoopBuild = true,       -- repeat until none
+				BuildClose = false,     -- seek points according to range from base
+                MaxChoices = 4,         -- pick from list of up to 4 closest positions
                 
-                MaxChoices = 4,         -- pick from list of up to 4 closest
-                
-                MinRange = 150,
+				LoopBuild = true,		-- repeat until none in range or cannot meet M & E
+                LoopMass = 75,
+                LoopEnergy = 2500,
+
+                MinRange = 200,
                 MaxRange = 750,
-                
+
 				ThreatMax = 30,
 				ThreatRings = 0,
 				ThreatType = 'AntiSurface',
-                
+
                 BuildStructures = { 'T1Resource' }
             }
         }
@@ -113,23 +176,30 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
             { LUTL, 'UnitCapCheckLess', { .85 } },
+            
+            { EBC, 'LessThanEconMassStorageRatio', { 50 }},
 
-            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 1000 }},            
-            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 150, 1500, -9999, 15, 1, 'AntiSurface', 1 }},
+            { EBC, 'GreaterThanEconStorageCurrent', { 100, 3000 }},
+            
+            { EBC, 'GreaterThanEnergyTrendOverTime', { 14 }},
+            
+            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 300, 1500, -9999, 20, 1, 'AntiSurface', 1 }},
         },
 		
         BuilderData = {
             Construction = {
 				BuildClose = true,		-- seek points in range of engineer
-				LoopBuild = true,
+                MaxChoices = 6,         -- pick from list of up to 6 closest
                 
-                MaxChoices = 6,         -- pick from list of up to 8 closest
-                
-                MinRange = 150,
+				LoopBuild = true,		-- repeat until none in range or cannot meet M & E
+                LoopMass = 100,
+                LoopEnergy = 3000,
+
+                MinRange = 300,         -- if BuildClose is true then MinRange will be set to zero AFTER first build (so engineer can build groups in same area)
                 MaxRange = 1500,
 
-				ThreatMax = 15,
-				ThreatRings = 0,
+				ThreatMax = 20,
+				ThreatRings = 1,
 				ThreatType = 'AntiSurface',
                 
                 BuildStructures = { 'T1Resource' }
@@ -161,22 +231,29 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
             -- this is likely the only place where I might use this
 			{ LUTL, 'NeedMassPointShare', { .5 } },
             
-            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 1000 }},            
-            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 150, 1500, -9999, 10, 1, 'AntiSurface', 1 }},
+            { EBC, 'LessThanEconMassStorageRatio', { 50 }},
+            
+            { EBC, 'GreaterThanEconStorageCurrent', { 100, 3000 }},
+            
+            { EBC, 'GreaterThanEnergyTrendOverTime', { 16 }},
+            
+            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 300, 1500, -9999, 15, 1, 'AntiSurface', 1 }},
         },
 		
         BuilderData = {
             Construction = {
 				BuildClose = false,		-- seek points in range of base
-				LoopBuild = true,
-                
                 MaxChoices = 6,         -- pick from list of up to 6 closest
                 
-                MinRange = 150,
-                MaxRange = 1500,
+				LoopBuild = true,		-- repeat until none in range or cannot meet M & E
+                LoopMass = 75,
+                LoopEnergy = 3000,
+                
+                MinRange = 300,
+                MaxRange = 2500,
 
 				ThreatMax = 15,
-				ThreatRings = 0,
+				ThreatRings = 1,
 				ThreatType = 'AntiSurface',
                 
                 BuildStructures = { 'T1Resource' }
@@ -184,7 +261,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
         }
     },  
     
-    Builder {BuilderName = 'Mass Extractor T2 - 750 - Loop',
+    Builder {BuilderName = 'Mass Extractor T2 - 750 - Loop - BuildClose',
 	
         PlatoonTemplate = 'EngineerBuilder',
         
@@ -202,18 +279,26 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
             { LUTL, 'UnitCapCheckLess', { .85 } },
+            
+            { EBC, 'LessThanEconMassStorageRatio', { 50 }},
 
-            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 1000 }},            
-            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 150, 750, -9999, 40, 0, 'AntiSurface', 1 }},
+            { EBC, 'GreaterThanEconStorageCurrent', { 100, 3000 }},
+            
+            { EBC, 'GreaterThanEnergyTrendOverTime', { 20 }},
+            
+            { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 200, 750, -9999, 40, 0, 'AntiSurface', 1 }},
         },
 		
         BuilderData = {
 		
             Construction = {
-				BuildClose = true,
-				LoopBuild = true,
+				BuildClose = true,      -- seek points in range of himself
                 
-                MinRange = 150,
+				LoopBuild = true,		-- repeat until none in range or cannot meet M & E
+                LoopMass = 75,
+                LoopEnergy = 3000,
+                
+                MinRange = 200,         -- initial min range - after first build, min becomes zero for groups
                 MaxRange = 750,
 
 				ThreatMax = 40,
@@ -243,7 +328,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
 			-- check base massfabs 
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 4, categories.MASSFABRICATION, 10, 42 }},
             
-            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 1000 }},                        
+            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 2500 }},
+            
+            { EBC, 'GreaterThanEnergyTrendOverTime', { 24 }},
         },
 
         BuilderData = {
@@ -280,7 +367,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
             { LUTL, 'UnitCapCheckLess', { .85 } },
 			
 			{ EBC, 'LessThanEconMassStorageRatio', { 50 }},
-            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 1000 }},
+            
+            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 2500 }},
+            
+            { EBC, 'GreaterThanEnergyTrendOverTime', { 35 }},
 
 			-- check base massfabs 
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 10, categories.MASSFABRICATION * categories.TECH3, 10, 42 }},
@@ -330,7 +420,12 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Defensive Point',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            { LUTL, 'UnitCapCheckLess', { .85 } },			
+            { LUTL, 'UnitCapCheckLess', { .85 } },
+
+            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 2500 }},
+            
+            { EBC, 'GreaterThanEnergyTrendOverTime', { 20 }},
+
             { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 200, -9999, 35, 0, 'AntiSurface', 1 }},
         },
 		
@@ -374,7 +469,12 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Expansions',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            { LUTL, 'UnitCapCheckLess', { .85 } },			
+            { LUTL, 'UnitCapCheckLess', { .85 } },	
+            
+            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 2500 }},
+            
+            { EBC, 'GreaterThanEnergyTrendOverTime', { 5 }},
+
             { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 150, -9999, 60, 0, 'AntiSurface', 1 }},
         },
 		
@@ -411,7 +511,12 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Expansions',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            { LUTL, 'UnitCapCheckLess', { .85 } },			
+            { LUTL, 'UnitCapCheckLess', { .85 } },
+            
+            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 2500 }},
+            
+            { EBC, 'GreaterThanEnergyTrendOverTime', { 20 }},
+
             { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 150, 750, -9999, 30, 0, 'AntiSurface', 1 }},
         },
 		
@@ -456,6 +561,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Naval',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},		
             { LUTL, 'UnitCapCheckLess', { .85 } },
+            
+            { EBC, 'LessThanEconMassStorageRatio', { 50 }},
+            
+            { EBC, 'GreaterThanEconStorageCurrent', { 100, 3000 }},
+            
+            { EBC, 'GreaterThanEnergyTrendOverTime', { 20 }},
+
             { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 750, -9999, 30, 0, 'AntiSurface', 1 }},
         },
 		
@@ -492,7 +604,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Naval',
             { LUTL, 'UnitCapCheckLess', { .85 } },
 
 			{ EBC, 'LessThanEconMassStorageRatio', { 50 }},
-            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 1000 }},
+            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 2500 }},
 
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 8, categories.MASSFABRICATION * categories.TECH3, 10, 40 }},
 
@@ -541,7 +653,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Fab Construction - Expansions',
             { LUTL, 'UnitCapCheckLess', { .85 } },
 
 			{ EBC, 'LessThanEconMassStorageRatio', { 50 }},
-            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 1000 }},
+            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 2500 }},
             
 			-- check base massfabs 
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 8, categories.MASSFABRICATION * categories.TECH3, 10, 42 }},
@@ -596,7 +708,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Fab Construction - Expansions - 
             { LUTL, 'UnitCapCheckLess', { .95 } },
 
 			{ EBC, 'LessThanEconMassStorageRatio', { 50 }},
-            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 1000 }},
+            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 2500 }},
 
 			-- check base massfabs 
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 8, categories.MASSFABRICATION * categories.TECH3, 10, 42 }},
@@ -649,6 +761,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Storage Construction',
             { LUTL, 'UnitCapCheckLess', { .85 } },
 
 			{ UCBC, 'MassExtractorInRangeHasLessThanStorage', {'LocationType', 20, 600, 4 }},
+            
+            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 2500 }},
+            
+            { EBC, 'GreaterThanEnergyTrendOverTime', { 20 }},
+
         },
 		
         BuilderData = {
@@ -694,7 +811,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Storage Construction',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .75 } },
+            
+            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 2500 }},
+            
+            { EBC, 'GreaterThanEnergyTrendOverTime', { 20 }},
+
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 0.75, 1.02 }},
+            
 			{ UCBC, 'MassExtractorInRangeHasLessThanStorage', {'LocationType', 500, 1024, 4 }},
         },
 		
@@ -742,6 +865,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Storage Construction - Active DP
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .85 } },
+            
+            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 2500 }},
+            
+            { EBC, 'GreaterThanEnergyTrendOverTime', { 20 }},
+            
 			{ UCBC, 'MassExtractorInRangeHasLessThanStorage', {'LocationType', 20, 200, 4 }},
         },
 		

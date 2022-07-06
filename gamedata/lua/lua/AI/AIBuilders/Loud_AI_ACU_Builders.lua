@@ -289,15 +289,17 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
 		PlatoonAIPlan = 'EngineerBuildAI',
 		
         Priority = 775,
-		
-		--PriorityFunction = First5Minutes,
-		
+
 		BuilderType = { 'Commander' },
 
         BuilderConditions = {
-        
-			--{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-
+            
+            { EBC, 'LessThanEconMassStorageRatio', { 50 }},
+            
+            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 2500 }},
+            
+            { EBC, 'GreaterThanEnergyTrendOverTime', { 5 }},
+            
             { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 60, -9999, 35, 0, 'AntiSurface', 1 }},
         },
 		
