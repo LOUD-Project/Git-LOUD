@@ -240,7 +240,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks - Start Game',
 BuilderGroup {BuilderGroupName = 'ACU Tasks',
     BuildersType = 'EngineerBuilder',
 
-    -- his most important role for first 30 mins
+    -- his most important role for first 45 mins
     -- if low on power and has sufficient mass stored
     -- and no advanced power of any kind
     Builder {BuilderName = 'CDR - T1 Power',
@@ -259,10 +259,12 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
 		
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
+			{ EBC, 'GreaterThanEconStorageCurrent', { 100, 0 }},
+            
+			{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},
+            
             { EBC, 'LessThanEnergyTrendOverTime', { 6 }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 50, 0 }},
-
 			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, ENERGYPRODUCTION * TECH3 }},
             
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, ENERGYPRODUCTION * STRUCTURE * TECH3 }},
@@ -302,9 +304,9 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
             
             { EBC, 'LessThanEconMassStorageRatio', { 50 }},
             
-            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 2500 }},
+            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 1500 }},
             
-            { EBC, 'GreaterThanEnergyTrendOverTime', { 5 }},
+            { EBC, 'GreaterThanEnergyTrendOverTime', { 4 }},
             
             { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 60, -9999, 35, 0, 'AntiSurface', 1 }},
         },
@@ -348,7 +350,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
 			{ EBC, 'LessThanEnergyTrendOverTime', { 260 }},
 			{ EBC, 'LessThanEconEnergyStorageRatio', { 70 }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 75, 0 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 0 }},
             
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 6, ENERGYPRODUCTION * TECH3 }},
 
@@ -391,7 +393,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
 			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},			
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 75, 0 }},			
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},			
 			{ EBC, 'LessThanEconMassStorageRatio', { 50 }},
 			
 			-- check base massfabs 
@@ -434,7 +436,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
             
 			{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 50, 500 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 75, 500 }},
             
 			{ UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, ENERGYPRODUCTION, ENGINEER + ENERGYPRODUCTION, 75 }},
         },
@@ -471,9 +473,9 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ EBC, 'LessThanEconMassStorageRatio', { 50 }},            
+			{ EBC, 'LessThanEconMassStorageRatio', { 60 }},            
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 75, 1250 }},           
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 1250 }},           
             
             { UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, MASSPRODUCTION, MASSPRODUCTION, 60 }},
         },
@@ -484,9 +486,9 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
             Assist = {
             
                 -- this allows the builder to continue assist until E drops below this
-                AssistEnergy = 100,
+                AssistEnergy = 500,
                 -- this allows the builder to continue assist until M drops below this
-                AssistMass = 35,
+                AssistMass = 200,
 
 				AssistRange = 80,
 				AssisteeType = 'Structure',
@@ -526,6 +528,12 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
 		
         BuilderData = {
             Assist = {
+            
+                -- this allows the builder to continue assist until E drops below this
+                AssistEnergy = 2500,
+                -- this allows the builder to continue assist until M drops below this
+                AssistMass = 200,
+            
 				AssistRange = 75,
 				AssisteeType = 'Factory',
 				AssisteeCategory = FACTORY,
@@ -693,8 +701,10 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
         BuilderConditions = {
             { LUTL, 'AirStrengthRatioLessThan', { 3 }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},			
-
+			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+			
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
+            
 			-- must not have any of the internal T2+ AA structures 
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 1, STRUCTURE * ANTIAIR, 14, 35 }},
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 9, STRUCTURE * ANTIAIR}},
@@ -749,11 +759,11 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
             { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
             
             { LUTL, 'LandStrengthRatioLessThan', { 4 }},
+
+			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
             
-			{ EBC, 'GreaterThanEnergyIncome', { 300 }},
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},			
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 175, 1750 }},
-			
 			-- dont build if we have built any advanced power -- obsolete
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION * categories.STRUCTURE - categories.TECH1 }},
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 18, categories.DEFENSE * categories.STRUCTURE * categories.DIRECTFIRE, 30, 50}},

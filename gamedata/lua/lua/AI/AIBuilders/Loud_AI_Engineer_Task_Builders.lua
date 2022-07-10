@@ -866,7 +866,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Active DP',
 		BuilderType = { 'T1','T2','T3','SubCommander' },
 
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 75, 1000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 1000 }},
 
             { UCBC, 'DamagedStructuresInArea', { 'LocationType' }},
         },

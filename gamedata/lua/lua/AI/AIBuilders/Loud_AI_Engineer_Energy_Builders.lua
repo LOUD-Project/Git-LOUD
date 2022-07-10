@@ -42,17 +42,17 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
 		
-        InstanceCount = 5,
+        InstanceCount = 4,
 		
         Priority = 761,
 		
 		PriorityFunction = First45Minutes,
 		
         BuilderConditions = {
-		
-			--{ EBC, 'LessThanEconEnergyStorageCurrent', { 6000 }},
+
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 0 }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 75, 0 }},
+			{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},            
             
             { EBC, 'LessThanEnergyTrendOverTime', { 25 }},
             
@@ -447,13 +447,19 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Energy Construction',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .85 } },
-
+            
+			{ EBC, 'GreaterThanEconStorageCurrent', { 125, 1250 }},
+            
+            { EBC, 'LessThanEnergyTrendOverTime', { 25 }},
+            
 			{ UCBC, 'MassExtractorInRangeHasLessThanEnergy', {'LocationType', 20, 180, 4 }},
         },
 		
         BuilderData = {
             Construction = {
 				LoopBuild = true,
+                LoopMass = 125,
+                LoopEnergy = 1250,
 				
 				MinRadius = 20,
 				Radius = 180,
