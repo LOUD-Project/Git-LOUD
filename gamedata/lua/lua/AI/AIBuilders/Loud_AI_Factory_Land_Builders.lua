@@ -44,7 +44,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
         PlatoonTemplate = 'T1LandScout',
         Priority = 600,
         
-        PriorityFunction = Map10korLess,
+        --PriorityFunction = Map10korLess,
 
         BuilderConditions = {
 		
@@ -54,14 +54,14 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.8 } },
 			
 			-- this is here to insure enough scouts for large combat platoons but to avoid flooding
-            { UCBC, 'PoolLess', { 6, categories.LAND * categories.SCOUT }},
+            { UCBC, 'PoolLess', { 4, categories.LAND * categories.SCOUT }},
             
 			-- and that we aren't already building some
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.SCOUT * categories.LAND, categories.LAND } },
 			
         }, 
 		
-        BuilderType = {'LandT1','LandT2'},
+        BuilderType = {'LandT1','LandT2','LandT3'},
 		
     },
 
