@@ -2770,6 +2770,14 @@ WallStructureUnit = Class(StructureUnit) {
 	-- all Wall sections follow this -- so it bypasses unit kills
 	-- and a bunch of other not-needed work
     OnKilled = function(self, instigator, type, overkillRatio)
+		
+		-- remove the kill before the instigator has a chance to test veterancy
+		if instigator and IsUnit(instigator) then
+			
+			local kills = instigator:GetStat('KILLS', 0).Value
+
+			instigator:SetStat('KILLS', kills - 1)
+		end    
 
 		self:DestroyAllDamageEffects()
 

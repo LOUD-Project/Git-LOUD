@@ -2827,13 +2827,13 @@ function ReturnTransportsToPool( aiBrain, units, move )
 	-- make sure all units are unloaded
     for k,v in units do
 
-        if TransportDialog then
-            LOG("*AI DEBUG "..aiBrain.Nickname.." transport "..v.Sync.id.." Returning to Pool  InUse is "..repr(v.InUse) )
-        end
-
         if IsBeingBuilt(v) then
             units[v] = nil
             continue
+        end
+
+        if TransportDialog then
+            LOG("*AI DEBUG "..aiBrain.Nickname.." transport "..v.Sync.id.." Returning to Pool  InUse is "..repr(v.InUse) )
         end
     
         if v.WatchLoadingThread then
@@ -2852,7 +2852,11 @@ function ReturnTransportsToPool( aiBrain, units, move )
         end
         
         if v.Dead then
-            LOG("*AI DEBUG "..aiBrain.Nickname.." transport "..v.Sync.id.." dead during Return to Pool")
+        
+            if TransportDialog then
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." transport "..v.Sync.id.." dead during Return to Pool")
+            end
+            
             units[v] = nil
             continue
         end
@@ -2882,7 +2886,7 @@ function ReturnTransportsToPool( aiBrain, units, move )
             v.InUse = nil
 
             v.Assigning = nil
-                
+
             -- if the transport needs refuel or repair
             -- remove it from further processing
             if ProcessAirUnits( v, aiBrain) then

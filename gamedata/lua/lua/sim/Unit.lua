@@ -1721,10 +1721,11 @@ Unit = Class(moho.unit_methods) {
 
         -- Notify instigator that you killed me - do not grant kills for walls
 		if not LOUDENTITY(WALL, self) then
-		
+
 			if instigator and IsUnit(instigator) then
 				instigator:ForkThread( instigator.OnKilledUnit, self )
 			end
+            
 		else
 		
 			-- remove the kill before the instigator has a chance to test veterancy
