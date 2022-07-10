@@ -1,3 +1,19 @@
+### Release 09-07-2022
+
+LUA 6.2.12
+
+    - expanded functionality for both Assisting & LoopBuilding engineer, allowing fine control of economic parameters for break-off
+    - greatly expanded AI postions for T1 Pgens and T2 as well - resequenced for better adjacency during early game
+    - using new assist functionality in AI assist energy tasks (ACU as well) permits more focused assisting for energy builds
+    - a complete review on the focus of early power building - providing a more robust energy base for growth early in the game
+    - mass building gets a full review as well, introducing some economic curbs on building more mass, especially tuned to the power systems
+    - the economic triggers which allow many defense builders have been synced to those used by factories, but insuring continued unit production
+    - engineers have been using 'attack-move' for several months now - this ability is now forced thru a field in the builder data - default is off otherwise
+    - a flaw in the logic of LandStrengthRatioGreaterThan() was corrected (courtesy of Einherjarn)
+    - T1 transports will no longer be built in advance - the builder will only be activated if a request has been made that could not be fullfilled
+    - Walls will no longer grant kills towards veterancy
+
+
 ### Release 30-06-2022
 
 LUA 6.2.11
@@ -10,7 +26,6 @@ LUA 6.2.11
     - Some of the Distress parameters have been adjusted - to reduce the response range - but respond to lower threat triggers
     - The CallForHelpAI parameters for MEX and HYDRO units - has had the threat trigger lowered from 3 to 1.5 (should pickup armed scouts, LABS)
     - The T1MassGuard formation has it's maximum formation reduced from 5 to 4 to increase formation frequency, but of potentially smaller size
-    
     
 
 ### Release 25-06-2022

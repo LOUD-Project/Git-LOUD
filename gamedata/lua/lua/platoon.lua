@@ -8102,7 +8102,7 @@ Platoon = Class(moho.platoon_methods) {
 						
 								local distance = VDist2( GetPosition(eng)[1],GetPosition(eng)[3], buildlocation[1],buildlocation[3] )
 							
-								if (distance > 200 or eng.failedmoves > 0) and not LOUDENTITY( categories.COMMAND, eng ) then
+								if (distance > 160 or eng.failedmoves > 0) and not LOUDENTITY( categories.COMMAND, eng ) then
 
 									-- we use a random location within 8 so that we dont drop right on the target but near it 
 									-- had to do this becuase engies would land on MEX points (causing CanBuildAtLocation to fail)
