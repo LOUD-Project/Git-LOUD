@@ -4699,7 +4699,7 @@ function ParseIntelThread( aiBrain )
                     
                             bp = ALLBPS[v.BlueprintID].Defense
                         
-                            oldthreat = oldthreat + bp.AirThreatLevel + (bp.SurfaceThreatLevel * .6)
+                            oldthreat = oldthreat + (bp.AirThreatLevel or 0) + ((bp.SurfaceThreatLevel or 0) * .6)
 
                         end
                         
@@ -4711,12 +4711,17 @@ function ParseIntelThread( aiBrain )
                     
                             bp = ALLBPS[v.BlueprintID].Defense
                         
-                            totalThreat = totalThreat + bp.AirThreatLevel + (bp.SurfaceThreatLevel * .6)
+                            totalThreat = totalThreat + (bp.AirThreatLevel or 0) + ((bp.SurfaceThreatLevel or 0) * .6)
                         end                    
                     end
                 end
-            
-                aiBrain.AirRatio = LOUDMAX( LOUDMIN( (totalThreat / oldthreat), 10 ), 0.011)
+
+                if oldthreat > 0 then
+                    aiBrain.AirRatio = LOUDMAX( LOUDMIN( (totalThreat / oldthreat), 10 ), 0.011)
+                else
+                    aiBrain.AirRatio = .011
+                end
+                
             else
                 aiBrain.AirRatio = 0.01
             end
@@ -4755,7 +4760,12 @@ function ParseIntelThread( aiBrain )
                     end
                 end
             
-                aiBrain.LandRatio = LOUDMAX( LOUDMIN( (totalThreat / oldthreat), 10 ), 0.011)
+                if oldthreat > 0 then
+                    aiBrain.LandRatio = LOUDMAX( LOUDMIN( (totalThreat / oldthreat), 10 ), 0.011)
+                else
+                    aiBrain.LandRatio = .011
+                end
+                
             else
                 aiBrain.LandRatio = 0.01
             end
@@ -4794,7 +4804,12 @@ function ParseIntelThread( aiBrain )
                     end
                 end
             
-                aiBrain.NavalRatio = LOUDMAX( LOUDMIN( (totalThreat / oldthreat), 10 ), 0.011)
+                if oldthreat > 0 then
+                    aiBrain.NavalRatio = LOUDMAX( LOUDMIN( (totalThreat / oldthreat), 10 ), 0.011)
+                else
+                    aiBrain.NavalRatio = 0.11
+                end
+                
             else
                 aiBrain.NavalRatio = 0.01
             end
