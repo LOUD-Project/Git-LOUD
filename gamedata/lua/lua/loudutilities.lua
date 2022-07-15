@@ -4699,7 +4699,11 @@ function ParseIntelThread( aiBrain )
                     
                             bp = ALLBPS[v.BlueprintID].Defense
                         
+<<<<<<< HEAD
                             oldthreat = oldthreat + bp.AirThreatLevel + bp.SurfaceThreatLevel
+=======
+                            oldthreat = oldthreat + (bp.AirThreatLevel or 0) + ((bp.SurfaceThreatLevel or 0) * .6)
+>>>>>>> master
 
                         end
                         
@@ -4711,7 +4715,11 @@ function ParseIntelThread( aiBrain )
                     
                             bp = ALLBPS[v.BlueprintID].Defense
                         
+<<<<<<< HEAD
                             totalThreat = totalThreat + bp.AirThreatLevel + (bp.SurfaceThreatLevel * .5)
+=======
+                            totalThreat = totalThreat + (bp.AirThreatLevel or 0) + ((bp.SurfaceThreatLevel or 0) * .6)
+>>>>>>> master
                         end                    
                     end
                 end
