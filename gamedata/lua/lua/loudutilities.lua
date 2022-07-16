@@ -417,7 +417,7 @@ end
 function LandStrengthRatioGreaterThan( aiBrain, value )
 
     -- no LAND activity
-    if aiBrain.LandRatio <= .01 or aiBrain.CycleTime < 300 then
+    if aiBrain.LandRatio <= .01 or aiBrain.CycleTime < 240 then
         return true
     end
 

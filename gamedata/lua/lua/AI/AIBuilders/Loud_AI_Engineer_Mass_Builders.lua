@@ -328,7 +328,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
 			-- check base massfabs 
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 4, categories.MASSFABRICATION, 10, 42 }},
             
-            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 2500 }},
+            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 3000 }},
             
             { EBC, 'GreaterThanEnergyTrendOverTime', { 24 }},
         },
@@ -350,36 +350,37 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
         }
     }, 
 
-    -- SACU build MassFab
+    -- build T3 MassFab
     Builder {BuilderName = 'Mass Fab T3 - Template',
     
         PlatoonTemplate = 'EngineerBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
         
-        Priority = 800,
+        Priority = 850,
 
-		BuilderType = { 'SubCommander' },
+		BuilderType = { 'T3','SubCommander' },
 
         BuilderConditions = {
         
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .85 } },
-			
-			{ EBC, 'LessThanEconMassStorageRatio', { 50 }},
-            
-            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 2500 }},
-            
-            { EBC, 'GreaterThanEnergyTrendOverTime', { 35 }},
+
+			{ EBC, 'LessThanEconMassStorageRatio', { 60 }},
+
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 0.3, 1.025 }},
 
 			-- check base massfabs 
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 10, categories.MASSFABRICATION * categories.TECH3, 10, 42 }},
 
 			-- there has to be advanced power at this location
-			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 3, categories.ENERGYPRODUCTION - categories.TECH1 }},
+			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 2, categories.ENERGYPRODUCTION - categories.TECH1 }},
         },
 
         BuilderData = {
+        
+			DesiresAssist = true,
+            NumAssistees = 2,
 
             Construction = {
 				NearBasePerimeterPoints = true,
@@ -603,8 +604,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Naval',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .85 } },
 
-			{ EBC, 'LessThanEconMassStorageRatio', { 50 }},
-            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 2500 }},
+			{ EBC, 'LessThanEconMassStorageRatio', { 60 }},
+            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 3000 }},
 
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 8, categories.MASSFABRICATION * categories.TECH3, 10, 40 }},
 
@@ -645,7 +646,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Fab Construction - Expansions',
         
         Priority = 800,
 		
-		BuilderType = { 'SubCommander' },
+		BuilderType = { 'T3','SubCommander' },
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
@@ -653,18 +654,21 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Fab Construction - Expansions',
             { LUTL, 'UnitCapCheckLess', { .85 } },
 
 			{ EBC, 'LessThanEconMassStorageRatio', { 50 }},
-            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 2500 }},
             
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 100, 0.3, 1.04 }},            
+
 			-- check base massfabs 
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 8, categories.MASSFABRICATION * categories.TECH3, 10, 42 }},
             
 			-- there has to be advanced power at this location
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 3, categories.ENERGYPRODUCTION - categories.TECH1 }},
-
-			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 0.3, 1.04 }},
         },
 		
         BuilderData = {
+
+			DesiresAssist = true,
+            NumAssistees = 2,
+        
             Construction = {
 				NearBasePerimeterPoints = true,
                 
@@ -705,21 +709,25 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Fab Construction - Expansions - 
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            { LUTL, 'UnitCapCheckLess', { .95 } },
+            
+            { LUTL, 'UnitCapCheckLess', { .85 } },
 
 			{ EBC, 'LessThanEconMassStorageRatio', { 50 }},
-            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 2500 }},
+            
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 100, 0.3, 1.04 }},            
 
 			-- check base massfabs 
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 8, categories.MASSFABRICATION * categories.TECH3, 10, 42 }},
 
 			-- there has to be advanced power at this location
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 3, categories.ENERGYPRODUCTION - categories.TECH1 }},
-
-			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 0.3, 1.04 }},
         },
 		
         BuilderData = {
+        
+			DesiresAssist = true,
+            NumAssistees = 2,
+        
             Construction = {
 				NearBasePerimeterPoints = true,
 
@@ -727,6 +735,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Fab Construction - Expansions - 
                 
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
 				BaseTemplate = 'ExpansionLayout_II',
+                
+                Iterations = 1,
 
                 BuildStructures = { 'T3MassCreation' },
             }

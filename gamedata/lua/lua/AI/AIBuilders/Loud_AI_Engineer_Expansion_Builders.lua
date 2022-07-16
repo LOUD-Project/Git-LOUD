@@ -98,7 +98,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Land Expansion Construction',
 			-- this base must have 3+ T2/T3 factories
             { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 3, categories.FACTORY * categories.STRUCTURE - categories.TECH1}},
             
-			-- all other 'counted' land bases must have at least 3 factories
+			-- all other 'counted' land bases must have at least 3 T3 factories
 			{ UCBC, 'ExistingBasesHaveGreaterThanFactory', { 3, 'Land', categories.FACTORY * categories.STRUCTURE * categories.TECH3 }},
             
 			-- must have enough mass input to sustain existing factories and surplus
@@ -323,7 +323,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
 
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
             
-			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 0.75, 1.02 }},
+			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 0.8, 1.01 }},
             
 			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},
 			
@@ -388,7 +388,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.2 } },
 
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
-			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 0.75, 1.02 }},
+			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 0.8, 1.02 }},
             
 			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
 			
@@ -525,7 +525,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
 			
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
             
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 0.75, 1.02 }},
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 0.8, 1.01 }},
             
 			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY - categories.TECH1 }},
 		
@@ -584,7 +584,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
 			
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
             
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 0.75, 1.02 }},
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 0.8, 1.02 }},
             
 			{ UCBC, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
 		
@@ -802,23 +802,25 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction',
             { LUTL, 'UnitCapCheckLess', { .65 } },
 
 			{ UCBC, 'IsBaseExpansionUnderway', {false} },
-            
+
 			{ UCBC, 'NavalBaseCount', { 1, '<' } },
-            
+
 			{ MIBC, 'MapLessThan', { 1028 } },            
 
-			{ EBC, 'MassToFactoryRatioBaseCheck', { 'LocationType', 1.015, 1.015 } },
-      
-            { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 2, categories.FACTORY * categories.STRUCTURE}},
-			
-			-- can't be a major enemy base within 8km of here
-			{ TBC, 'ThreatFurtherThan', { 'LocationType', 400, 'Economy', 200 }},
-			
+			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
+
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.85, 20, 1.012, 1.02 }},
+
+            { UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 1, categories.FACTORY * categories.STRUCTURE}},
+
+			-- can't be a major enemy base within 7km of here
+			{ TBC, 'ThreatFurtherThan', { 'LocationType', 350, 'Economy', 200 }},
+
 			-- find a safe, unused, naval marker within 12km of this base
-            { UCBC, 'NavalAreaForExpansion', { 'LocationType', 600, -250, 50, 2, 'AntiSurface' } },
+            { UCBC, 'NavalAreaForExpansion', { 'LocationType', 600, -250, 50, 1, 'AntiSurface' } },
         },
 		
-        BuilderType = { 'T2','T3' },
+        BuilderType = { 'T1','T2' },
 		
         BuilderData = {
             Construction = {
@@ -833,7 +835,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction',
                 LocationRadius = 600,
 				
                 ThreatMax = 50,
-                ThreatRings = 2,
+                ThreatRings = 1,
                 ThreatType = 'AntiSurface',
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',
@@ -841,9 +843,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction',
 
                 BuildStructures = {
 					'T1SeaFactory',
-					'T2AirStagingPlatform',
-					'T1SeaFactory',
-					'T2Sonar',
                 }
             }
         }
@@ -871,7 +870,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction',
 			{ UCBC, 'NavalBaseCount', { 1, '<' } },
 
 			-- find a safe, unused, naval marker within 8km of this base
-            { UCBC, 'NavalAreaForExpansion', { 'LocationType', 400, -250, 50, 2, 'AntiSurface' } },
+            { UCBC, 'NavalAreaForExpansion', { 'LocationType', 400, -250, 50, 1, 'AntiSurface' } },
         },
 		
         BuilderType = { 'T1','T2' },
@@ -889,7 +888,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction',
                 LocationRadius = 400,
 				
                 ThreatMax = 50,
-                ThreatRings = 2,
+                ThreatRings = 1,
                 ThreatType = 'AntiSurface',
 				
 				BaseTemplateFile = '/lua/ai/aibuilders/Loud_Expansion_Base_Templates.lua',

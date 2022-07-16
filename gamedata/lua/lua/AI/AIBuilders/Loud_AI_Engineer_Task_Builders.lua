@@ -223,10 +223,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
         BuilderType = { 'T1','T2','T3','SubCommander' },
 
         BuilderConditions = {
-        
-			{ EBC, 'LessThanEnergyTrendOverTime', { 50 }},        
+			{ EBC, 'LessThanEnergyTrendOverTime', { 260 }},
+
 			{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},
-			{ EBC, 'GreaterThanEconStorageCurrent', { 75, 1000 }},
+
+			{ EBC, 'GreaterThanEconStorageCurrent', { 75, 1250 }},
             
 			{ UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, categories.ENERGYPRODUCTION + categories.ENERGYSTORAGE - categories.EXPERIMENTAL, categories.ENGINEER + categories.ENERGYSTORAGE + categories.ENERGYPRODUCTION, 120 }},
         },
@@ -242,8 +243,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
                 AssisteeType = 'Any',
 				AssisteeCategory = categories.ENGINEER + categories.ENERGYSTORAGE + categories.ENERGYPRODUCTION,
                 BeingBuiltCategories = {categories.ENERGYPRODUCTION + categories.ENERGYSTORAGE - categories.EXPERIMENTAL},
-                Time = 100,
-
+                Time = 90,
             },
         },
     },
@@ -262,21 +262,25 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 		InstanceCount = 3,
 		
         BuilderConditions = {
-
             { UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, categories.MASSPRODUCTION - categories.TECH1, categories.ENGINEER + categories.MASSPRODUCTION, 120 }},
             
 			{ EBC, 'LessThanEconMassStorageRatio', { 50 }},
             
             { EBC, 'GreaterThanEnergyTrendOverTime', { 4 }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},            
-
+			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},            
         },
 		
         BuilderType = { 'T1','T2','T3','SubCommander' },
 
         BuilderData = {
             Assist = {
+            
+                -- this allows the builder to continue assist until E drops below this
+                AssistEnergy = 500,
+                -- this allows the builder to continue assist until M drops below this
+                AssistMass = 75,
+            
 				AssistRange = 120,
                 AssisteeType = 'Any',
 				AssisteeCategory = categories.ENGINEER + categories.MASSPRODUCTION,
@@ -302,11 +306,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
         BuilderType = { 'T1','T2','T3' },
 
         BuilderConditions = {
-            
 			{ EBC, 'LessThanEconEnergyStorageCurrent', { 6000 }},
+
+            { EBC, 'LessThanEnergyTrendOverTime', { 30 }},
             
 			{ MIBC, 'ReclaimablesInAreaEnergy', { 'LocationType', 120 }},
-
         },
 		
         BuilderData = {
@@ -425,9 +429,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 		BuilderType = { 'T3','SubCommander' },
 		
         BuilderConditions = {
-            { LUTL, 'LandStrengthRatioLessThan', { 1.1 } },
+            { LUTL, 'LandStrengthRatioLessThan', { 3 } },
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
             
             { EBC, 'GreaterThanEnergyTrendOverTime', { 4 }},
             
@@ -461,9 +465,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 		BuilderType = { 'T3','SubCommander' },
 		
         BuilderConditions = {
-            { LUTL, 'NavalStrengthRatioLessThan', { 1.1 } },
+            { LUTL, 'NavalStrengthRatioLessThan', { 3 } },
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
             
             { EBC, 'GreaterThanEnergyTrendOverTime', { 4 }},
             
@@ -497,7 +501,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 		BuilderType = { 'T3','SubCommander' },
 		
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
             
             { EBC, 'GreaterThanEnergyTrendOverTime', { 4 }},
             
@@ -531,18 +535,23 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
         BuilderType = { 'T1' },
 		
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},		
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},		
 
-            { UCBC, 'LocationEngineerNeedsBuildingAssistanceInRange', { 'LocationType', categories.STRUCTURE + categories.EXPERIMENTAL - categories.ENERGYPRODUCTION, categories.ENGINEER, 125 }},
+            { UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, categories.STRUCTURE + categories.EXPERIMENTAL, categories.ENGINEER + categories.FACTORY, 90 }},
+            
+            --{ UCBC, 'LocationEngineerNeedsBuildingAssistanceInRange', { 'LocationType', categories.STRUCTURE + categories.EXPERIMENTAL - categories.ENERGYPRODUCTION, categories.ENGINEER, 125 }},
         },
 		
         BuilderData = {
             Assist = {
-				AssistRange = 125,
-				AssisteeType = 'Engineer',
-				AssisteeCategory = categories.ENGINEER,
-                BeingBuiltCategories = {categories.STRUCTURE, categories.EXPERIMENTAL},
-                Time = 90,
+                AssistEnergy = 2500,
+                AssistMass = 250,
+                
+				AssistRange = 90,
+				AssisteeType = 'Any',
+				AssisteeCategory = categories.ENGINEER + categories.FACTORY,
+                BeingBuiltCategories = {categories.ALLUNITS},
+                Time = 60,
             },
         },
     },
@@ -563,13 +572,16 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 		BuilderType = { 'T2','T3' },
 
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
 
             { UCBC, 'LocationEngineerNeedsBuildingAssistanceInRange', { 'LocationType', categories.STRUCTURE + categories.EXPERIMENTAL - categories.ENERGYPRODUCTION, categories.ENGINEER, 125 }},
         },
 		
         BuilderData = {
             Assist = {
+                AssistEnergy = 2500,
+                AssistMass = 250,
+                
 				AssistRange = 125,
 				AssisteeType = 'Engineer',
 				AssisteeCategory = categories.ENGINEER,
@@ -683,7 +695,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Transfers',
 
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
             
 			-- we do an eco check just to make sure we're not transferring just because we're in a eco lock
 			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }},
@@ -711,7 +723,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Transfers',
 
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			--{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
 
 			-- we do an eco check just to make sure we're not transferring just because we're in a eco lock
 			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }},
@@ -738,11 +749,12 @@ BuilderGroup {BuilderGroupName = 'Engineer Transfers',
         BuilderType = { 'SubCommander' },
 		
         BuilderConditions = {
+        
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-			--{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
             
 			-- we do an eco check just to make sure we're not transferring just because we're in a eco lock
-			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1, 1.01 }},
+			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }},
+            
 			{ UCBC, 'BaseCount', { 1, '>' } }
         },
 		
@@ -925,7 +937,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Active DP',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},			
 			-- we do an eco check just to make sure we're not transferring just because we're in a eco lock
-			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }},
+			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.025 }},
         },
 		
         BuilderData = {
@@ -975,7 +987,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Active DP',
 			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
 			
 			-- we do an eco check just to make sure we're not transferring just because we're in a eco lock
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }},
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.025 }},
             
 			-- check that all the major components are in place
             { UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 0, categories.ANTIMISSILE * categories.SILO * categories.TECH3, 1, 24 }},

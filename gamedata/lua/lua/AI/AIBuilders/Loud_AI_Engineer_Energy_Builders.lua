@@ -51,15 +51,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
         BuilderConditions = {
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 0 }},
-            
 			{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},            
-            
-            { EBC, 'LessThanEnergyTrendOverTime', { 25 }},
+            { EBC, 'LessThanEnergyTrendOverTime', { 30 }},
             
 			{ UCBC, 'BuildingLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION - categories.TECH1 }},
-            
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION * categories.STRUCTURE * categories.TECH3 }},
-            
             -- this should pick up only factory ring T1 Pgens - and not those at extractors
             { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 80, categories.ENERGYPRODUCTION * categories.STRUCTURE * categories.TECH1, 0, 33 }},            
         },
@@ -94,7 +90,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
         BuilderConditions = {
         
 			{ EBC, 'LessThanEnergyTrend', { 45 }},        
-			{ EBC, 'LessThanEnergyTrendOverTime', { 50 }},
+			{ EBC, 'LessThanEnergyTrendOverTime', { 40 }},
 			{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},
             
 			{ UCBC, 'HaveLessThanUnitsWithCategory', { 1, categories.ENERGYPRODUCTION * categories.TECH3 - categories.HYDROCARBON }},
@@ -132,7 +128,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
         
             { LUTL, 'UnitCapCheckLess', { .85 } },
             
-			{ EBC, 'LessThanEnergyTrend', { 200 }},        
+			{ EBC, 'LessThanEnergyTrend', { 300 }},        
 			{ EBC, 'LessThanEnergyTrendOverTime', { 260 }},
 			{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},            
 
@@ -210,8 +206,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders',
             
 			{ LUTL, 'GreaterThanEnergyIncome', { 33600 }},
             
-			{ EBC, 'LessThanEnergyTrend', { 200 }},			
+			{ EBC, 'LessThanEnergyTrend', { 300 }},
+            
 			{ EBC, 'LessThanEnergyTrendOverTime', { 260 }},
+            
    			{ EBC, 'LessThanEconEnergyStorageRatio', { 70 }},
 			
 			-- must have much of the inner core power systems complete
@@ -301,12 +299,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Expansions',
             
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.FACTORY - categories.TECH1 }},
 
-			{ EBC, 'LessThanEnergyTrend', { 200 }},			
+			{ EBC, 'LessThanEnergyTrend', { 300 }},			
 			{ EBC, 'LessThanEnergyTrendOverTime', { 260 }},
    			{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},
             
 			-- don't build T3 power if one is already being built somewhere else
 			{ UCBC, 'HaveLessThanUnitsInCategoryBeingBuilt', { 1, categories.ENERGYPRODUCTION * categories.TECH3 }},
+            
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 16, (categories.ENERGYPRODUCTION * categories.TECH3) - categories.HYDROCARBON }},
         },
         
@@ -398,7 +397,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Energy Builders - Naval',
 			
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 8, (categories.ENERGYPRODUCTION * categories.TECH3) - categories.HYDROCARBON }},
             
-			{ EBC, 'LessThanEnergyTrend', { 200 }},            
+			{ EBC, 'LessThanEnergyTrend', { 300 }},            
 			{ EBC, 'LessThanEnergyTrendOverTime', { 260 }},
 			{ EBC, 'LessThanEconEnergyStorageRatio', { 70 }},            
         },
@@ -448,9 +447,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Energy Construction',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .85 } },
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 125, 1250 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 0 }},
             
-            { EBC, 'LessThanEnergyTrendOverTime', { 25 }},
+            { EBC, 'LessThanEnergyTrendOverTime', { 30 }},
             
 			{ UCBC, 'MassExtractorInRangeHasLessThanEnergy', {'LocationType', 20, 180, 4 }},
         },

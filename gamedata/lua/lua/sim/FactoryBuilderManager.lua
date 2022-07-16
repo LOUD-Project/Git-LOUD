@@ -247,6 +247,10 @@ FactoryBuilderManager = Class(BuilderManager) {
 			local builder = self:GetHighestBuilder( factory, aiBrain )
 		
 			if builder then
+            
+                if ScenarioInfo.DisplayFactoryBuilds then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." "..self.ManagerType.." Factory "..factory.Sync.id.." building "..repr(builder.BuilderName))
+                end
 			
 				local buildplatoon = self:GetFactoryTemplate( Builders[builder.BuilderName].PlatoonTemplate, factory, aiBrain.FactionName )
 			
@@ -308,8 +312,8 @@ FactoryBuilderManager = Class(BuilderManager) {
 					-- as I found from watching the log the for other reasons I cannot fathom - normal jobs just
 					-- sometimes fail the CanBuildPlatoon function - so we'll set the priority to 10 and the 
 					-- priority will return to normal on the next priority sort
-					if ScenarioInfo.PriorityDialog then
-						LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." "..self.ManagerType.." Factory "..repr(factory).." unable to build "..repr(builder.BuilderName))
+					if ScenarioInfo.PriorityDialog or ScenarioInfo.DisplayFactoryBuilds then
+						LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." "..self.ManagerType.." Factory "..repr(factory.Sync.id).." unable to build "..repr(builder.BuilderName))
 					end
 
                     -- if there was a build platoon but we failed anyway - assign a timeout
@@ -335,6 +339,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 			
 				if ScenarioInfo.DisplayFactoryBuilds then
 					ForkThread(FloatingEntityText, factory.Sync.id, "No Job for "..factory.BuilderType )
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." "..self.ManagerType.." Factory "..repr(factory.Sync.id).." finds no job ")
 				end
 				
 				factory.failedbuilds = factory.failedbuilds + 1
@@ -384,6 +389,7 @@ FactoryBuilderManager = Class(BuilderManager) {
         
             if ScenarioInfo.DisplayFactoryBuilds then
                 ForkThread(FloatingEntityText, factory.Sync.id, "Insufficient Resource")
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." "..self.ManagerType.." Factory "..repr(factory.Sync.id).." Insufficient resources -- delaying "..(23 - (factory.BuildLevel * 3)).." ticks")
             end
 	
             -- higher tier factories check more frequently
