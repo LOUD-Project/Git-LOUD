@@ -7273,7 +7273,7 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 							-- if an upgrade was issued and resources were not completely full then delay based upon the condition of storage
                             -- moved the premise of the delay period from a fixed amount - to a period based on the buildtime of the upgrade
 
-                            LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." "..unit:GetBlueprint().Description.." UPGRADING buildtime is "..buildtime.." ticks - cheat is "..aiBrain.MajorCheatModifier)
+                            --LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." "..unit:GetBlueprint().Description.." UPGRADING buildtime is "..buildtime.." ticks - cheat is "..aiBrain.MajorCheatModifier)
 
                             -- if either storage is below the mass or energy limit --
 							if GetEconomyStoredRatio(aiBrain, 'MASS') < masslimit or GetEconomyStoredRatio(aiBrain, 'ENERGY') < energylimit then

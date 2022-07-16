@@ -560,6 +560,9 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 				if (GetTerrainHeight(v[1], v[3])) <= (GetSurfaceHeight(v[1], v[3]) - 1) then
 					positions[k]=nil
 					counter = counter - 1
+                    
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." FindPoint removes position in water")
+                    
 					continue
 				end
 			end
@@ -570,6 +573,9 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 
 					positions[k] = nil
 					counter = counter - 1
+                    
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." FindPoint removes position not in water")
+                    
 					continue
 				end
 			end
@@ -584,6 +590,8 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
                     -- remove this position from list
 					positions[k]=nil
 					counter = counter - 1
+                    
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." FindPoint removes position "..repr({v[1],v[3]}).." due to threat "..threatatpoint.." max allowed "..threatmax)
 					
 					-- track the position thas was just checked
 					previous = v 	-- to prevent duplicates
@@ -600,7 +608,7 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 			
 				if self:GuardPointStructureCheck(  aiBrain, v, StrCategory, StrRadius, PointFaction, StrMin, StrMax) then
                 
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." Find Point for "..self.BuilderName.." removes position "..repr(v).." for structures at "..repr(StrRadius).." - max is "..StrMax )
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." FindPoint removes position "..repr({v[1],v[3]}).." for structure count at "..repr(StrRadius).." - max is "..StrMax )
   
 					positions[k] = nil
 					counter = counter - 1
@@ -613,7 +621,7 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 			
 				if self:GuardPointUnitCheck( aiBrain, v, UntCategory, UntRadius, PointFaction, UntMin, UntMax) then
                 
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." Find Point for "..self.BuilderName.." removes position "..repr(v).." for units at "..repr(UntRadius).." - max is "..UntMax )
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." FindPoint removes position "..repr({v[1],v[3]}).." for unit count at "..repr(UntRadius).." - max is "..UntMax )
   
 					positions[k] = nil
 					counter = counter - 1
@@ -624,7 +632,9 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
             
 		end
 
-    end 
+    else
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." FindPoint finds no positions at range "..DistMax)
+    end
 
 	--- Sort according to distance
 	if counter > 1 then
@@ -648,7 +658,10 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
         end
 		
 		return {positions[1]}
-	end
+        
+    else
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." FindPoint finds no filtered positions")
+    end
 	
 	return false
 end	

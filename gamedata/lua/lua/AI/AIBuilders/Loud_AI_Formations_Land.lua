@@ -1900,7 +1900,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 250, 'Land', 125 }},                        
 
-            { UCBC, 'ExpansionPointNeedsStructure', { 'LocationType', 1250, 'STRUCTURE -ECONOMIC', 60, 6, 0, 100, 0, 'AntiSurface' }},
+            { UCBC, 'ExpansionPointNeedsStructure', { 'LocationType', 1250, 'STRUCTURE -ECONOMIC', 60, 4, 0, 100, 0, 'AntiSurface' }},
             
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS) - categories.SCOUT - categories.EXPERIMENTAL }},
         },
@@ -1988,7 +1988,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS) - categories.SCOUT - categories.EXPERIMENTAL }},
 			
 			-- a starting point within 15km that has <= 6 non-economic structures within 60 and no more than 100 threat
-            { UCBC, 'StartingPointNeedsStructure', { 'LocationType', 1250, 'STRUCTURE -ECONOMIC', 60, 6, 0, 100, 0, 'AntiSurface' }},
+            { UCBC, 'StartingPointNeedsStructure', { 'LocationType', 1250, 'STRUCTURE -ECONOMIC', 60, 4, 0, 100, 0, 'AntiSurface' }},
         },
 		
         BuilderData = {
@@ -2156,7 +2156,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL }},
 
-            { UCBC, 'StartingPointNeedsStructure', { 'LocationType', 1000, 'STRUCTURE -ECONOMIC', 60, 6, 0, 100, 0, 'AntiSurface' }},
+            { UCBC, 'StartingPointNeedsStructure', { 'LocationType', 1000, 'STRUCTURE -ECONOMIC', 60, 4, 0, 100, 0, 'AntiSurface' }},
         },
 		
         BuilderData = {
@@ -2239,7 +2239,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
             
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL }},
 
-            { UCBC, 'ExpansionPointNeedsStructure', { 'LocationType', 1250, 'STRUCTURE -ECONOMIC', 75, 6, 0, 100, 0, 'AntiSurface' }},            
+            { UCBC, 'ExpansionPointNeedsStructure', { 'LocationType', 1250, 'STRUCTURE -ECONOMIC', 75, 4, 0, 100, 0, 'AntiSurface' }},            
         },
 		
         BuilderData = {
@@ -2320,7 +2320,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 250, 'Land', 125 }},                        
 
 			-- enemy mass points within 20km
-			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType', 0, categories.MASSPRODUCTION, 1000 }},
+			{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType', 0, categories.STRUCTURE * (categories.MASSPRODUCTION + categories.HYDROCARBON), 1000 }},
             
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS) - categories.SCOUT - categories.EXPERIMENTAL }},
         },
@@ -2333,12 +2333,12 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			DistressThreshold = 4,
 			
 			PointType = 'Unit',
-			PointCategory = categories.MASSPRODUCTION,
+			PointCategory = categories.STRUCTURE * (categories.MASSPRODUCTION + categories.HYDROCARBON),
 			PointSourceSelf = true,
 			PointFaction = 'Enemy',
 			PointRadius = 1000,
 			PointSort = 'Closest',
-			PointMin = 100,
+			PointMin = 60,
 			PointMax = 1000,
 			
 			StrCategory = categories.STRUCTURE * categories.DEFENSE * categories.DIRECTFIRE,
@@ -2349,19 +2349,19 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
             
             ThreatMaxRatio = 0.9,
 			
-			UntCategory = (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.ENGINEER),
-			UntRadius = 30,
+			UntCategory = (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.ENGINEER - categories.SCOUT),
+			UntRadius = 36,
 			UntTrigger = true,
 			UntMin = 0,
-			UntMax = 10,
+			UntMax = 8,
 			
-            PrioritizedCategories = { 'MASSPRODUCTION','ECONOMIC','ENGINEER'},
+            PrioritizedCategories = { 'MASSPRODUCTION','HYDROCARBON','ECONOMIC','ENGINEER'},
 			
 			GuardRadius = 72,
 			GuardTimer = 25,
 			
 			MergeLimit = 25,
-            MergePlanMatch = false,			
+            MergePlanMatch = false,     -- will take units from other Guardpoint behavior formations
 
 			AggressiveMove = true,
 			

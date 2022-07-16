@@ -1138,7 +1138,7 @@ Platoon = Class(moho.platoon_methods) {
 		
 			if not destination then
 			
-				LOG("*AI DEBUG "..aiBrain.Nickname.." Generate Safe Path "..platoonLayer.." had a bad destination "..repr(destination))
+				LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName or platoon).." Generate Safe "..platoonLayer.." Path has a bad destination "..repr(destination))
                 
 				return false, 'Badlocations', 0, 0
                 
@@ -2972,27 +2972,34 @@ Platoon = Class(moho.platoon_methods) {
 
 					guardtime = 0
 					guarding = false
-				end
+                end
                 
                 --LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." Picked "..repr(PCat).." marker at "..repr(marker))
                 
-			end
+			else
+                break
+            end
 			
 			if not marker then
             
-                LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." could not pick a "..repr(PCat).." marker - RTB")
+                if position then
+            
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." could not pick a "..repr(PCat).." marker from position "..repr(position).." using radius "..repr(PRadius).." - RTB")
 
-                return self:SetAIPlan('ReturnToBaseAI',aiBrain)
-                
+                    return self:SetAIPlan('ReturnToBaseAI',aiBrain)
+                else
+                    
+                    return
+                end
 			end
            
             path = false
             pathlength = 0
-	
-			path, reason, pathlength = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, self.MovementLayer, position, marker, OriginalThreat * ThreatMaxRatio, 160)
-			
-			if PlatoonExists(aiBrain, self) then
-		
+
+			if marker and PlatoonExists(aiBrain, self) then
+
+                path, reason, pathlength = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, self.MovementLayer, position, marker, OriginalThreat * ThreatMaxRatio, 160)
+
                 IssueClearCommands( GetPlatoonUnits(self))
 			
                 usedTransports = false
@@ -3017,8 +3024,9 @@ Platoon = Class(moho.platoon_methods) {
 					end
                     
 				end
-
-			end
+            else
+                break
+            end
 			
 			-- SECOND TASK -- TRAVEL TO THE MARKER --
 			-- checking for exit parameters and stuck condition every second
@@ -3038,6 +3046,7 @@ Platoon = Class(moho.platoon_methods) {
                 if position then
                     distance = VDist3( position, marker )
                 else
+                    marker = false
                     break
                 end
                 
@@ -3156,11 +3165,8 @@ Platoon = Class(moho.platoon_methods) {
 				if PlatoonExists(aiBrain,self) and self.MoveThread then
 					self:KillMoveThread()
 				end
-                
 			else
-            
 				continue
-                
 			end
             
 			-- THIRD TASK -- Set up around marker and guard it until exit parameters, guardtime or exhausted
@@ -3459,11 +3465,14 @@ Platoon = Class(moho.platoon_methods) {
 			WaitTicks(31)
             
 		end
-        
-        -- when about to RTB try to merge into nearby platoons
-        self.MergeIntoNearbyPlatoons( self, aiBrain, 'GuardPoint', 100, false )
 
-		return self:SetAIPlan('ReturnToBaseAI',aiBrain)
+        if PlatoonExists(aiBrain, self) then
+        
+            -- when about to RTB try to merge into nearby platoons
+            self.MergeIntoNearbyPlatoons( self, aiBrain, 'GuardPoint', 100, false )
+
+            return self:SetAIPlan('ReturnToBaseAI',aiBrain)
+        end
         
     end,  
 
