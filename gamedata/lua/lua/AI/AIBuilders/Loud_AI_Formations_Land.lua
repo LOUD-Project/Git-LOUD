@@ -1675,7 +1675,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			UntRadius = 45,
 			UntTrigger = true,				-- unit parameters trigger end to guardtimer
 			UntMin = 0,
-			UntMax = 12,
+			UntMax = 10,
 			
             AssistRange = 3,
 			
@@ -1686,7 +1686,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			
 			MissionTime = 960,				-- platoon will operate 16 minutes then RTB
 			
-			MergeLimit = 12,				-- level to which merging is allowed
+			MergeLimit = 10,				-- level to which merging is allowed
 			
 			AggressiveMove = true,
 			
@@ -1715,7 +1715,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 
 		RTBLocation = 'Any',
 		
-        InstanceCount = 4,
+        InstanceCount = 6,
 
         BuilderType = 'Any',
 		
@@ -1725,15 +1725,13 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			{ LUTL, 'NeedTeamMassPointShare', {}},
             
             { LUTL, 'UnitCapCheckLess', { .65 } },
-            
-            { LUTL, 'LandStrengthRatioLessThan', { 4 } },
 
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 250, 'Land', 125 }},
             
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS) - categories.SCOUT - categories.EXPERIMENTAL }},
             
 			-- we have a mass extractor within 2-10km with less than 4 defense structures 
-            { UCBC, 'MassExtractorInRangeHasLessThanDefense', { 'LocationType', 150, 600, 3, 2.5, 75, 1 }},
+            { UCBC, 'MassExtractorInRangeHasLessThanDefense', { 'LocationType', 75, 650, 3, 0, 50, 1 }},
         },
 		
         BuilderData = {
@@ -1743,13 +1741,13 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			DistressThreshold = 1,
 			
 			PointType = 'Unit',					-- either Unit or Marker
-			PointCategory = categories.MASSEXTRACTION,
+			PointCategory = categories.MASSEXTRACTION + categories.HYDROCARBON,
 			PointSourceSelf = false,			-- true AI will use its base as source, false will use current Enemy Main Base location
 			PointFaction = 'Ally',	 			-- must be either Ally or Enemy - determines which Structures and Units to check
 			PointRadius = 999999,				-- finding of points based upon distance from PointSource
 			PointSort = 'Closest',				-- options are Closest or Furthest
-			PointMin = 150,						-- filter points by range from PointSource
-			PointMax = 750,
+			PointMin = 75,						-- filter points by range from PointSource
+			PointMax = 650,
 			
 			StrCategory = categories.DEFENSE * categories.STRUCTURE,		-- filter points based upon presence of units/strucutres at point
 			StrRadius = 50,
@@ -1757,32 +1755,33 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			StrMin = 0,
 			StrMax = 3,
             
-            ThreatMin = 2.5,                  -- pick points with at least this threat
-            ThreatMaxRatio = 1,                -- and no more than this
+            ThreatMin = 0,                  -- pick points with at least this threat
+            ThreatMaxRatio = 1,             -- and no more than this (based on this platoons threat)
             ThreatRings = 1,                -- at this range
 
-			UntCategory = (categories.LAND * categories.MOBILE - categories.ENGINEER) - categories.SCOUT - categories.EXPERIMENTAL,
-			UntRadius = 45,
+			UntCategory = (categories.LAND * categories.MOBILE - categories.ENGINEER) - categories.EXPERIMENTAL,
+			UntRadius = 35,
 			UntTrigger = true,				-- unit parameters trigger end to guardtimer
 			UntMin = 0,
-			UntMax = 12,
+			UntMax = 7,
 
             PrioritizedCategories = {'LAND MOBILE','STRUCTURE -WALL','ENGINEER'},		# controls target selection
 			
 			AssistRange = 3,
 			
 			GuardRadius = 65,				-- range at which platoon will engage targets
-			GuardTimer = 150,				-- platoon will guard 2.5 minutes
+			GuardTimer = 180,				-- platoon will guard 3 minutes
 			
-			MissionTime = 960,				-- platoon will operate 15 minutes
+			MissionTime = 1200,				-- platoon will operate 20 minutes
 			
-			MergeLimit = 12,				-- unit count at which merging is denied
+			MergeLimit = 6,				-- unit count at which merging is denied
+            MergePlanMatch = true,      -- only merge with other MEX Guard platoons
 			
 			AggressiveMove = true,
 			
 			AllowInWater = false,
 			
-			AvoidBases = true,
+			AvoidBases = true,          -- this will avoid guarding any point within PointMin of an existing base
 			
 			UseFormation = 'BlockFormation',
         },
@@ -1863,7 +1862,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			GuardTimer = 360,
 			
 			MergeLimit = 18,
-			
+            MergePlanMatch = true,			
+
 			AggressiveMove = true,
 			
 			UseFormation = 'LOUDClusterFormation',
@@ -1945,7 +1945,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			GuardTimer = 1050,					-- period that platoon will guard the point 
 			
 			MergeLimit = 26,					-- limit to which unit merging is allowed - nil = original platoon size
-			
+            MergePlanMatch = true,			
+
 			AggressiveMove = true,
 			
 			AvoidBases = true,
@@ -2030,7 +2031,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			GuardTimer = 1050,
 			
 			MergeLimit = 30,
-			
+            MergePlanMatch = true,			
+
 			AggressiveMove = true,
 			
 			AvoidBases = true,
@@ -2115,7 +2117,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			GuardTimer = 480,
 			
 			MergeLimit = 25,
-			
+            MergePlanMatch = true,			
+
 			AggressiveMove = true,
 			
 			UseFormation = 'AttackFormation',
@@ -2143,17 +2146,16 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         BuilderType = 'Any',
 		
         BuilderConditions = {
-            
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            
+
             { LUTL, 'UnitCapCheckLess', { .85 } },
-            
+
             { LUTL, 'LandStrengthRatioLessThan', { 4 } },
 
 			{ TBC, 'ThreatFurtherThan', { 'LocationType', 250, 'Land', 125 }},                        
 
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 3, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.EXPERIMENTAL }},
-            
+
             { UCBC, 'StartingPointNeedsStructure', { 'LocationType', 1000, 'STRUCTURE -ECONOMIC', 60, 6, 0, 100, 0, 'AntiSurface' }},
         },
 		
@@ -2196,7 +2198,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			GuardTimer = 900,
 			
 			MergeLimit = 30,
-			
+            MergePlanMatch = true,			
+
 			AggressiveMove = true,
 			
 			AvoidBases = true,
@@ -2278,7 +2281,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			GuardTimer = 900,				-- period that platoon will guard the point 
 			
 			MergeLimit = 30,				-- trigger level to which merging is allowed - nil = original platoon size
-			
+            MergePlanMatch = true,			
+
 			AggressiveMove = true,
 			
 			AvoidBases = true,
@@ -2357,7 +2361,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			GuardTimer = 25,
 			
 			MergeLimit = 25,
-			
+            MergePlanMatch = false,			
+
 			AggressiveMove = true,
 			
 			AllowInWater = false,
@@ -2418,7 +2423,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Base Guards',
         },
     }, 
     
-    -- AA base patrols appear if our air ratio is below 1.5
+    -- AA base patrols appear if our air ratio is below 3
     Builder {BuilderName = 'Base Guard Patrol - AA',
 	
         PlatoonTemplate = 'BaseGuardAAPatrol',
@@ -2435,7 +2440,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Base Guards',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},		
-			{ LUTL, 'AirStrengthRatioLessThan', { 1.5 }},
+			{ LUTL, 'AirStrengthRatioLessThan', { 3 }},
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
         },
@@ -2443,7 +2448,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Base Guards',
         BuilderData = {
 			DistressRange = 150,
 			DistressTypes = 'Air',
-			DistressThreshold = 6,
+			DistressThreshold = 4,
 			
 			BasePerimeterOrientation = '',
 			
