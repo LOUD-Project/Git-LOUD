@@ -2864,7 +2864,9 @@ Platoon = Class(moho.platoon_methods) {
 		local MissionTimer = self.PlatoonData.MissionTime or 1200		-- how long platoon will operate before RTB
 
 		local guardRadius = self.PlatoonData.GuardRadius or 75			-- range at which platoon will engage enemy targets around point
+        
 		local MergeLimit = self.PlatoonData.MergeLimit or false			-- unit count at which to prevent merging
+        local MergePlanMatch = self.PlatoonData.MergePlanMatch or false -- if merging, the behavior AND the plan name must match.
         
         local bAggroMove = self.PlatoonData.AggressiveMove or false
         local PlatoonFormation = self.PlatoonData.UseFormation or 'none'
@@ -2961,7 +2963,7 @@ Platoon = Class(moho.platoon_methods) {
 						-- is it the same as last failed marker
 						if LOUDEQUAL( marker, lastmarker ) then
 						
-							--LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." trying to select same point "..repr(marker))
+							LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." trying to select same point "..repr(marker))
 						
 							marker = false
 						end
@@ -2978,7 +2980,7 @@ Platoon = Class(moho.platoon_methods) {
 			
 			if not marker then
             
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." could not pick a "..repr(PCat).." marker - RTB")
+                LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." could not pick a "..repr(PCat).." marker - RTB")
 
                 return self:SetAIPlan('ReturnToBaseAI',aiBrain)
                 
@@ -3039,9 +3041,9 @@ Platoon = Class(moho.platoon_methods) {
                     break
                 end
                 
-                if distance <= UntRadius then
+                if distance <= LOUDMAX(UntRadius,StrRadius) then
                 
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." in range "..repr(UntRadius).." of "..repr(PCat).." marker "..repr(marker).." - end movement")
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." in range "..repr(LOUDMAX(UntRadius,StrRadius)).." of "..repr(PCat).." marker "..repr(marker).." - end movement")
                     
                     break
                 end
@@ -3052,7 +3054,7 @@ Platoon = Class(moho.platoon_methods) {
 				
 						if self:GuardPointStructureCheck( aiBrain, marker, StrCat, StrRadius, PFaction, StrMin, StrMax) then
                         
-                            --LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." STRUCTURE Trigger during travel "..repr(StrMax).." - seeking new point")
+                            --LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." STRUCTURE Trigger "..repr(StrMax).." at distance "..repr(StrRadius).." during travel to "..repr(marker).." - seeking new point")
 						
                             lastmarker = LOUDCOPY(marker)
                             
@@ -3065,7 +3067,7 @@ Platoon = Class(moho.platoon_methods) {
 				
 						if self:GuardPointUnitCheck( aiBrain, marker, UntCat, UntRadius, PFaction, UntMin, UntMax) then
 						
-                            --LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." UNIT Trigger during travel "..repr(UntMax).." - seeking new point")
+                            --LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." UNIT Trigger "..repr(UntMax).." at distance "..repr(UntRadius).." during travel to "..repr(marker).." - seeking new point")
                             
                             lastmarker = LOUDCOPY(marker)
                             
@@ -3086,7 +3088,7 @@ Platoon = Class(moho.platoon_methods) {
 								stuckcount = 0
 							else
                             
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." STUCK during travel "..stuckcount.." - seeking new point")
+                                --LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." STUCK during travel "..stuckcount.." - seeking new point")
                                 
                                 lastmarker = LOUDCOPY(marker)
                                 
@@ -3166,9 +3168,9 @@ Platoon = Class(moho.platoon_methods) {
 			guarding = false
 			guardtime = 0
             
-            --if marker then
-              --  LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." GP starts guarding cycle - guardRadius is "..repr(guardRadius))
-            --end
+            if marker then
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." GP starts guarding cycle - guardRadius is "..repr(guardRadius))
+            end
             
             local direction, randlist
             local ATTACKS, ARTILLERY, GUARDS, SUPPORTS, SCOUTS
@@ -3378,9 +3380,9 @@ Platoon = Class(moho.platoon_methods) {
 				end		
 
                 -- check for nearby base --
-                local base, basedistance = FindClosestBaseName( aiBrain, GetPlatoonPosition(self), false )
+                local base, basedistance = FindClosestBaseName( aiBrain, marker, false )
                 
-                if base and basedistance < 120 then
+                if base and basedistance < PMin then
                 
                     --LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." finds base "..repr(base).." at "..basedistance)
                     
@@ -3398,7 +3400,7 @@ Platoon = Class(moho.platoon_methods) {
                     -- MERGE with other GuardPoint Platoons	-- during regular guardtime	-- check randomly about 33%
                     if Random(1,3) == 1 and MergeLimit and (guardtime <= guardTimer) and PlatoonExists(aiBrain, self) then
                        
-						if self.MergeWithNearbyPlatoons( self, aiBrain, 'GuardPoint', 90, false, MergeLimit) then
+						if self.MergeWithNearbyPlatoons( self, aiBrain, 'GuardPoint', 90, MergePlanMatch or false, MergeLimit) then
 
 							units = GetPlatoonUnits(self)
 						
