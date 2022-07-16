@@ -2290,7 +2290,8 @@ end
 
 function HostTryAddObserver( senderID, requestedObserverName, requestedColor )
 
-    local index = 1
+    local index = 18
+    
     while gameInfo.Observers[index] do
         index = index + 1
     end
@@ -2308,6 +2309,8 @@ function HostTryAddObserver( senderID, requestedObserverName, requestedColor )
     SendSystemMessage(LOCF("<LOC lobui_0202>%s has joined as an observer.",observerName))
 
     UpdateGame()
+    
+    LOG("*AI DEBUG Added Observer using Index "..index)
 end
 
 function HostConvertPlayerToObserver(senderID, name, playerSlot)
@@ -2317,7 +2320,7 @@ function HostConvertPlayerToObserver(senderID, name, playerSlot)
     end
 
     -- find a free observer slot
-    local index = 1
+    local index = 18
 	
     while gameInfo.Observers[index] do
         index = index + 1
@@ -2340,6 +2343,8 @@ function HostConvertPlayerToObserver(senderID, name, playerSlot)
     SendSystemMessage(LOCF("<LOC lobui_0226>%s has switched from a player to an observer.", name))
 
     UpdateGame()
+    
+    LOG("*AI DEBUG Moved Player "..repr(playerSlot).." to Observer with index "..index)
 end
 
 function HostConvertObserverToPlayer(senderID, name, fromObserverSlot, toPlayerSlot)
@@ -2377,6 +2382,8 @@ function HostConvertObserverToPlayer(senderID, name, fromObserverSlot, toPlayerS
     SendSystemMessage(LOCF("<LOC lobui_0227>%s has switched from an observer to player.", name))
 
     UpdateGame()
+    
+    LOG("*AI DEBUG Moved Observer "..repr(fromObserverSlot).." to Player "..repr(toPlayerSlot))
 end
 
 function HostClearPlayer(uid)
