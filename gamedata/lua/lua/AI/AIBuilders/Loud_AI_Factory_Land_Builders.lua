@@ -42,55 +42,51 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
     Builder {BuilderName = 'Land Scout', 
 	
         PlatoonTemplate = 'T1LandScout',
+
         Priority = 600,
-        
-        --PriorityFunction = Map10korLess,
 
         BuilderConditions = {
-		
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+
             { LUTL, 'UnitCapCheckLess', { .85 } },
-            
+
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.8 } },
-			
+
 			-- this is here to insure enough scouts for large combat platoons but to avoid flooding
             { UCBC, 'PoolLess', { 4, categories.LAND * categories.SCOUT }},
-            
+
 			-- and that we aren't already building some
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.SCOUT * categories.LAND, categories.LAND } },
-			
         }, 
 		
         BuilderType = {'LandT1','LandT2','LandT3'},
-		
     },
 
     -- LAB are only built for the first 30 minutes
 	Builder {BuilderName = 'T1 Bots',
 	
 		PlatoonTemplate = 'T1LandDFBot',
+
 		Priority = 550,
 
 		PriorityFunction = First30Minutes,
-		
+
 		BuilderConditions = {
-        
             -- don't build LABs for typical combat - but numbers count when you're winning
             { LUTL, 'LandStrengthRatioGreaterThan', { 1.2 } },
-            
+
             { LUTL, 'HaveLessThanUnitsWithCategory', { 75, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS }},
 		},
 		
 		BuilderType = {'LandT1'},
-		
     },	
 	
     Builder {BuilderName = 'T1 Tanks',
 	
         PlatoonTemplate = 'T1LandDFTank',
-        
+
         Priority = 550,
-		
+
 		PriorityFunction = First45Minutes,
 
         BuilderConditions = {
@@ -98,14 +94,14 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
         },
 		
         BuilderType = {'LandT1','LandT2'},
-		
     },
 
     Builder {BuilderName = 'T1 Mobile Artillery',
 	
         PlatoonTemplate = 'T1LandArtillery',
+
         Priority = 550,
-		
+
 		PriorityFunction = First45Minutes,
 
         BuilderConditions = {
@@ -116,30 +112,33 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
         },
 		
         BuilderType = {'LandT1'},
-		
     },
     
     -- T1 MAA is only built for the first 30 minutes --
     Builder {BuilderName = 'T1 Mobile AA - Large Map',
 	
         PlatoonTemplate = 'T1LandAA',
+
         Priority = 550,
-		
+
 		PriorityFunction = First30Minutes,
 
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioLessThan', { 3 } },
-            
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+
+            { LUTL, 'AirStrengthRatioLessThan', { 4.5 } },
+
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.1 } },
+ 
             { UCBC, 'PoolLess', { 4, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
-            
+
             -- must have some Directfire in the Pool at this location
             { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.LAND * categories.MOBILE * categories.DIRECTFIRE }},
-            
+
             { UCBC, 'HaveLessThanUnitsWithCategory', { 1, categories.FACTORY * categories.LAND - categories.TECH1 }},
         },
-		
+
         BuilderType = {'LandT1'},
-		
     },
 	
 	-- on a small map - immediate AA defense a necessity
@@ -147,30 +146,29 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
     Builder {BuilderName = 'T1 Mobile AA - Small Map',
 	
         PlatoonTemplate = 'T1LandAA',
+
         Priority = 550,
-		
+
 		PriorityFunction = First30Minutes,
-		
+
         BuilderConditions = {
-		
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            
-            { LUTL, 'AirStrengthRatioLessThan', { 3 } },            
-		
+
+            { LUTL, 'AirStrengthRatioLessThan', { 4.5 } },            
+
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.1 } },
+ 
 			-- only on 5k-20k maps
 			{ MIBC, 'MapLessThan', { 1028 } },
-            
+
             -- must have some Directfire in the Pool at this location
             { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.LAND * categories.MOBILE * categories.DIRECTFIRE }},
-			
+
 			-- turn off as soon as we have a T2/T3 land factory
             { UCBC, 'HaveLessThanUnitsWithCategory', { 1, categories.FACTORY * categories.LAND - categories.TECH1 }},
-            { UCBC, 'PoolLessAtLocation', { 'LocationType', 6, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
-			
         },
-		
+
         BuilderType = {'LandT1'},
-		
     },
 
 	
@@ -179,79 +177,89 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
     Builder {BuilderName = 'T2 Mobile Shield - UEF',
 	
         PlatoonTemplate = 'T2MobileShields',
+
 		FactionIndex = 1,
+
         Priority = 550,
-		
+
         BuilderConditions = {
-		
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			
 			{ LUTL, 'FactoriesGreaterThan', { 1, categories.LAND - categories.TECH1 }},
+
 			{ LUTL, 'PoolLess', { 10, categories.LAND * categories.MOBILE * categories.SHIELD }},
+            
+            { EBC, 'GreaterThanEnergyTrendOverTime', { 20 }},
 
             -- must have some Directfire in the Pool at this location
             { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.LAND * categories.MOBILE * categories.DIRECTFIRE }},
 
 			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 2, categories.LAND * categories.TECH3 }},
+
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.SHIELD, categories.LAND }},
-            
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1, 1.01 }},            
         },
-		
+
         BuilderType = {'LandT2'},
-		
     },
 	
     Builder {BuilderName = 'T2 Mobile Shield - Aeon',
 	
         PlatoonTemplate = 'T2MobileShields',
+
 		FactionIndex = 2,
+
         Priority = 550,
-		
+
         BuilderConditions = {
-		
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			
 			{ LUTL, 'FactoriesGreaterThan', { 1, categories.LAND - categories.TECH1 }},
+
 			{ LUTL, 'PoolLess', { 10, categories.LAND * categories.MOBILE * categories.SHIELD }},
+            
+            { EBC, 'GreaterThanEnergyTrendOverTime', { 20 }},
 
             -- must have some Directfire in the Pool at this location
             { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.LAND * categories.MOBILE * categories.DIRECTFIRE }},
 
 			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 2, categories.LAND * categories.TECH3 }},
+
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.SHIELD, categories.LAND }},
 			
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1, 1.01 }},
         },
-		
+
         BuilderType = {'LandT2'},
-		
     },
 	
     Builder {BuilderName = 'T2 Mobile Stealth - Cybran',
 	
         PlatoonTemplate = 'T2MobileShields',
+
 		FactionIndex = 3,
+
         Priority = 550,
-		
+
         BuilderConditions = {
-		
             { LUTL, 'UnitCapCheckLess', { .95 } },
 			
 			{ LUTL, 'FactoriesGreaterThan', { 1, categories.LAND - categories.TECH1 }},
+
 			{ LUTL, 'PoolLess', { 7, categories.LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE }},
+            
+            { EBC, 'GreaterThanEnergyTrendOverTime', { 20 }},
 
             -- must have some Directfire in the Pool at this location
             { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.LAND * categories.MOBILE * categories.DIRECTFIRE }},
 
 			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 2, categories.LAND * categories.TECH3 }},
+
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE }},
 
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1, 1.01 }},			
         },
-		
+
         BuilderType = {'LandT2'},
-		
     },
 
 	
@@ -260,16 +268,20 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
     Builder {BuilderName = 'T3 Mobile Shields - UEF',
 	
         PlatoonTemplate = 'T3MobileShields',
+
 		FactionIndex = 1,
+
         Priority = 600,
 		
         BuilderConditions = {
-		
             { LUTL, 'UnitCapCheckLess', { .95 } },
+
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.LAND * categories.TECH3 }},
-			
+
 			{ LUTL, 'PoolLess', { 10, categories.LAND * categories.MOBILE * categories.SHIELD }},
             
+            { EBC, 'GreaterThanEnergyTrendOverTime', { 20 }},
+
             -- must have some Directfire in the Pool at this location
             { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.LAND * categories.MOBILE * categories.DIRECTFIRE }},
 
@@ -279,21 +291,24 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
         },
 		
         BuilderType = {'LandT3'},
-		
     },
 	
     Builder {BuilderName = 'T3 Mobile Shields - AEON',
 	
         PlatoonTemplate = 'T3MobileShields',
+
 		FactionIndex = 2,
+
         Priority = 600,
-		
+
         BuilderConditions = {
-		
             { LUTL, 'UnitCapCheckLess', { .95 } },
+
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.LAND * categories.TECH3 }},
-			
+
 			{ LUTL, 'PoolLess', { 10, categories.LAND * categories.MOBILE * categories.SHIELD }},
+            
+            { EBC, 'GreaterThanEnergyTrendOverTime', { 20 }},
 
             -- must have some Directfire in the Pool at this location
             { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.LAND * categories.MOBILE * categories.DIRECTFIRE }},
@@ -302,23 +317,26 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
 
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1, 1.01 }},			
         },
-		
+
         BuilderType = {'LandT3'},
-		
     },
 	
     Builder {BuilderName = 'T3 Mobile Stealth - CYBRAN',
 	
         PlatoonTemplate = 'T3MobileShields',
+
 		FactionIndex = 3,
+
         Priority = 600,
-		
+
         BuilderConditions = {
-		
             { LUTL, 'UnitCapCheckLess', { .95 } },
+
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.LAND * categories.TECH3 }},
-			
+
 			{ LUTL, 'PoolLess', { 7, categories.LAND * categories.MOBILE * categories.COUNTERINTELLIGENCE }},
+            
+            { EBC, 'GreaterThanEnergyTrendOverTime', { 20 }},
 
             -- must have some Directfire in the Pool at this location
             { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.LAND * categories.MOBILE * categories.DIRECTFIRE }},
@@ -327,34 +345,36 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
 
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1, 1.01 }},
         },
-		
+
         BuilderType = {'LandT3'},
-		
     },
 	
     Builder {BuilderName = 'T3 Mobile Shields - SERA',
 	
         PlatoonTemplate = 'T3MobileShields',
+
 		FactionIndex = 4,
+
         Priority = 600,
-		
+
         BuilderConditions = {
-		
             { LUTL, 'UnitCapCheckLess', { .95 } },
+
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.LAND * categories.TECH3 }},
-			
+
 			{ LUTL, 'PoolLess', { 10, categories.LAND * categories.MOBILE * categories.SHIELD }},
+            
+            { EBC, 'GreaterThanEnergyTrendOverTime', { 20 }},
 
             -- must have some Directfire in the Pool at this location
             { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.LAND * categories.MOBILE * categories.DIRECTFIRE }},
-            
+
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.SHIELD, categories.LAND }},
 
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1, 1.01 }},			
         },
-		
+
         BuilderType = {'LandT3'},
-		
     },
 
 	-- T3 Sniper Bot
@@ -397,63 +417,69 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
     Builder {BuilderName = 'T2 Mobile Flak',
 	
         PlatoonTemplate = 'T2LandAA',
+
         Priority = 550,
 		
         BuilderConditions = {
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
-            
+
             { LUTL, 'UnitCapCheckLess', { .95 } },
-            { LUTL, 'AirStrengthRatioLessThan', { 1.5 } }, 
-            
+
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.1 } },
+ 
+            { LUTL, 'AirStrengthRatioLessThan', { 4.5 } }, 
+
             -- must have some Directfire in the Pool at this Location
             { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.LAND * categories.MOBILE * categories.DIRECTFIRE }},
-            
+
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 10, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
+
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.ANTIAIR - categories.TECH1, categories.LAND }},
-			
         },
 		
         BuilderType = {'LandT2'},
-		
     },	
 	
     -- Tech 2 DirectFire Tank
     Builder {BuilderName = 'T2 Tank',
 	
         PlatoonTemplate = 'T2LandDFTank',
+
         Priority = 550,
 		
         BuilderConditions = {
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
             
             { LUTL, 'UnitCapCheckLess', { .95 } },
+
 			{ LUTL, 'LandStrengthRatioLessThan', { 5.5 } },
             
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 3, categories.DIRECTFIRE * categories.LAND * categories.MOBILE * categories.TECH2, categories.LAND - categories.TECH1 }},
         },
 		
         BuilderType = {'LandT2','LandT3'},
-		
     },
 
     -- Tech 2 Attack Tank - 
     Builder {BuilderName = 'T2 Attack Tank',
 	
         PlatoonTemplate = 'T2AttackTank',
+
         Priority = 550,
 
         BuilderConditions = {
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
             
             { LUTL, 'UnitCapCheckLess', { .95 } },
+
 			{ LUTL, 'LandStrengthRatioLessThan', { 5.5 } },
+
 			{ LUTL, 'FactoriesGreaterThan', { 2, categories.LAND - categories.TECH1 }},
             
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 3, categories.DIRECTFIRE * categories.LAND * categories.MOBILE * categories.TECH2, categories.LAND - categories.TECH1, categories.LAND }},
         },
 		
         BuilderType = {'LandT2','LandT3'},
-		
     },
 	
 	-- Tech 2 Artillery
@@ -466,129 +492,144 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
             
             { LUTL, 'UnitCapCheckLess', { .95 } },
+
 			{ LUTL, 'LandStrengthRatioLessThan', { 5.5 } },
+
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.INDIRECTFIRE * categories.MOBILE * categories.TECH2, categories.LAND * categories.TECH2, categories.LAND }},
-			
         },
-		
+
         BuilderType = {'LandT2'},
-		
     },
 
 	-- T3 Assault Bots
     Builder {BuilderName = 'T3 Armored Assault',
 	
         PlatoonTemplate = 'T3ArmoredAssault',
+
         Priority = 600,
 		
         BuilderConditions = {
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
-            
+
             { LUTL, 'UnitCapCheckLess', { .95 } },
+
 			{ LUTL, 'LandStrengthRatioLessThan', { 5.5 } },
+
 			{ LUTL, 'FactoriesGreaterThan', { 2, categories.LAND * categories.TECH3 }},
+
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.DIRECTFIRE * categories.LAND * categories.MOBILE * categories.TECH3, (categories.LAND * categories.TECH3) + categories.GATE }},
-			
         },
 		
         BuilderType =  {'LandT3','Gate'},	-- this allows Gates to make them as well
-		
     },
 
 	-- T3 Mobile AA
     Builder {BuilderName = 'T3 Mobile AA',
 	
         PlatoonTemplate = 'T3LandAA',
+
         Priority = 600, 
-		
+
         BuilderConditions = {
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
-            
+
             { LUTL, 'UnitCapCheckLess', { .95 } },
-			{ LUTL, 'AirStrengthRatioLessThan', { 1.5 } }, 
+
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.1 } },
+ 
+			{ LUTL, 'AirStrengthRatioLessThan', { 3 } }, 
+
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.LAND * categories.TECH3 }},
-            
+
             -- must have some Directfire in the Pool at this Location
             { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.LAND * categories.MOBILE * categories.DIRECTFIRE }},
-			
+
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.ANTIAIR, categories.LAND * categories.TECH3 }},
+
 			{ LUTL, 'PoolLess', { 32, categories.LAND * categories.MOBILE * categories.ANTIAIR - categories.TECH1 }},
-			
         },
 		
         BuilderType = {'LandT3','Gate'},
-		
     },
 	
     -- T3 Tank - non amphibious T3 Land Units
     Builder {BuilderName = 'Siege Assault Bot T3',
 	
         PlatoonTemplate = 'T3LandBot',
+
         Priority = 600,
 		
         BuilderConditions = {
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
             
             { LUTL, 'UnitCapCheckLess', { .95 } },
+
 			{ LUTL, 'LandStrengthRatioLessThan', { 5.5 } },
+
 			{ LUTL, 'FactoriesGreaterThan', { 2, categories.LAND * categories.TECH3 }},
-            
+
  			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS), categories.LAND * categories.TECH3 }},				
         },
 		
         BuilderType =  {'LandT3','Gate'},	-- this allows Gates to make them as well
-		
     },
 	
     -- T3 Mobile Artillery 
     Builder {BuilderName = 'Mobile Artillery T3',
 	
         PlatoonTemplate = 'T3LandArtillery',
+
         Priority = 600,
 		
         BuilderConditions = {
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
             
             { LUTL, 'UnitCapCheckLess', { .95 } },
+
 			{ LUTL, 'LandStrengthRatioLessThan', { 5.5 } },
+
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
+
 			{ LUTL, 'FactoriesGreaterThan', { 2, categories.LAND * categories.TECH3 }},
             
 			{ LUTL, 'PoolLess', { 30, categories.LAND * categories.MOBILE * categories.ARTILLERY * categories.TECH3 }},
             
  			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.LAND * categories.MOBILE * categories.ARTILLERY * categories.TECH3, categories.LAND * categories.TECH3 }},
+
             { UCBC, 'PoolLessAtLocation', { 'LocationType', 14, categories.LAND * categories.INDIRECTFIRE * categories.MOBILE * categories.TECH3 }},
-			
         },
 		
         BuilderType = {'LandT3'},
-		
     },
 	
 	-- T3 MML - UEF Only
     Builder {BuilderName = 'Mobile Missile T3',
 	
         PlatoonTemplate = 'T3MobileMissile',
+
 		FactionIndex = 1,
+
         Priority = 600,
-		
+
         BuilderConditions = {
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
-            
+
             { LUTL, 'UnitCapCheckLess', { .95 } },
+
 			{ LUTL, 'LandStrengthRatioLessThan', { 5.5 } },
+
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
+
 			{ LUTL, 'FactoriesGreaterThan', { 2, categories.LAND * categories.TECH3 }},
-            
+
 			{ LUTL, 'PoolLess', { 30, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE }},
-            
+
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.xel0306, categories.LAND * categories.TECH3 }},
+
 			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 14, categories.xel0306 }},
-			
         },
-		
+
         BuilderType = {'LandT3'},
-		
     },
 	
 }
@@ -602,22 +643,21 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Water Map',
     Builder {BuilderName = 'T1 Amphibious Tank',
 	
         PlatoonTemplate = 'T1LandAmphibious',
+
         Priority = 550,
-		
+
         BuilderConditions = {
-        
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},
-		
+
             { LUTL, 'UnitCapCheckLess', { .85 } },
-			
+
             { LUTL, 'PoolLess', { 60, categories.AMPHIBIOUS }},
 
             -- ok - we use a very general amphibious check here since units in this class are NOT necessarily DIRECTFIRE
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.AMPHIBIOUS, categories.LAND }},
         },
-		
+
         BuilderType = {'LandT1','LandT2'},
-		
     },
 	
 
@@ -625,110 +665,115 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Water Map',
     Builder {BuilderName = 'T2 Amphibious Tank',
 	
         PlatoonTemplate = 'T2LandAmphibTank',
+
         Priority = 550,
-		
+
         BuilderConditions = {
-        
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},
-		
+
             { LUTL, 'UnitCapCheckLess', { .85 } },
-			
+
             { LUTL, 'PoolLess', { 60, categories.DIRECTFIRE * categories.AMPHIBIOUS * categories.LAND }},
-			
+
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 4, categories.DIRECTFIRE * categories.AMPHIBIOUS * categories.TECH2, categories.LAND }},
         },
-		
+
         BuilderType = {'LandT2','LandT3'},
-		
     },
 	
 	-- T2 Amphibious AA -- builds non-amphib for Cybran & UEF to fill out land formations
     Builder {BuilderName = 'T2 Amphibious AA',
 	
         PlatoonTemplate = 'T2LandAmphibAA',
+
         Priority = 550,
-		
+
         BuilderConditions = {
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},
+
             { LUTL, 'UnitCapCheckLess', { .95 } },
-            
-            { LUTL, 'AirStrengthRatioLessThan', { 1.5 } }, 
+
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.1 } },
+ 
+            { LUTL, 'AirStrengthRatioLessThan', { 4.5 } }, 
+
 			{ LUTL, 'PoolLess', { 20, categories.LAND * categories.MOBILE * categories.ANTIAIR - categories.TECH1 }},
-			
+
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.ANTIAIR, categories.LAND }},
         },
-		
+
         BuilderType = {'LandT2'},
-		
     },
 	
 	-- T2 Amphibious Shield - Aeon Only
     Builder {BuilderName = 'T2 Mobile Amphibious Shield - Aeon',
 	
         PlatoonTemplate = 'T2MobileShields',
+
 		FactionIndex = 2,
+
         Priority = 550,
-		
+
         BuilderConditions = {
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},		
+
             { LUTL, 'UnitCapCheckLess', { .95 } },
-			
+
 			{ LUTL, 'PoolLess', { 15, categories.LAND * categories.MOBILE * categories.SHIELD }},
-            
+
 			{ LUTL, 'FactoriesGreaterThan', { 1, categories.LAND - categories.TECH1 }},
+            
+            { EBC, 'GreaterThanEnergyTrendOverTime', { 20 }},
 
 			{ UCBC, 'FactoryLessAtLocation', { 'LocationType', 2, categories.LAND * categories.TECH3 }},
-            
+
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.SHIELD, categories.LAND }},
         },
-		
+
         BuilderType = {'LandT2'},
-		
     },
 	
     -- Tech 2 DirectFire Tank -- limited output on water maps for some land operations
     Builder {BuilderName = 'T2 Tank - Water',
 	
         PlatoonTemplate = 'T2LandDFTank',
+
         Priority = 550,
-		
+
         BuilderConditions = {
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},
-            
+
             { LUTL, 'UnitCapCheckLess', { .85 } },
 
 			{ LUTL, 'FactoriesGreaterThan', { 2, categories.LAND - categories.TECH1 }},
-			
+
             { LUTL, 'HaveLessThanUnitsWithCategory', { 75, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS }},
-            --{ UCBC, 'HaveLessThanUnitsWithCategory', { 40, (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS) - categories.TECH1 }},
-			
+
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS), categories.LAND }},
         },
-		
-        BuilderType = {'LandT2'},
-		
-    },
 
+        BuilderType = {'LandT2'},
+    },
 	
 	-- Tech 2 Artillery	-- limited output on water maps for land operations
     Builder {BuilderName = 'T2 Artillery - Water',
 	
         PlatoonTemplate = 'T2LandArtilleryWaterMap',
+
         Priority = 550,
-		
+
         BuilderConditions = {
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},
-            
+
             { LUTL, 'UnitCapCheckLess', { .85 } },
 
 			{ LUTL, 'FactoriesGreaterThan', { 2, categories.LAND - categories.TECH1 }},
-            
+
             { LUTL, 'HaveLessThanUnitsWithCategory', { 32, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.AMPHIBIOUS }},
-            --{ UCBC, 'HaveLessThanUnitsWithCategory', { 20, (categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.AMPHIBIOUS) - categories.TECH1 }},
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, (categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.AMPHIBIOUS), categories.LAND }},
         },
-		
+
         BuilderType = {'LandT2'},
     },
 	
@@ -741,59 +786,64 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Water Map',
     Builder {BuilderName = 'T3 Amphibious Assault',
 	
         PlatoonTemplate = 'T3Amphibious',
+
         Priority = 600,
-		
+
         BuilderConditions = {
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},		
+
             { LUTL, 'UnitCapCheckLess', { .95 } },
-            
+
 			{ LUTL, 'FactoriesGreaterThan', { 2, categories.LAND * categories.TECH3 }},
-            
+
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 4, (categories.LAND * categories.AMPHIBIOUS) * categories.DIRECTFIRE }},
-			
         },
-		
+
         BuilderType = {'LandT3','Gate'},
-		
     },	
 	
 	-- T3 Amphibious AA --
     Builder {BuilderName = 'T3 Amphibious AA',
 	
         PlatoonTemplate = 'T3AmphibiousAA',
+
         Priority = 600, 
-		
+
         BuilderConditions = {
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},		
+
             { LUTL, 'UnitCapCheckLess', { .95 } },
-            
-            { LUTL, 'AirStrengthRatioLessThan', { 1.5 } }, 
+
+			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.1 } },
+ 
+            { LUTL, 'AirStrengthRatioLessThan', { 4.5 } }, 
+
 			{ LUTL, 'FactoriesGreaterThan', { 2, categories.LAND * categories.TECH3 }},
-            
+
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.AMPHIBIOUS * categories.ANTIAIR, categories.LAND * categories.TECH3 }},
         },
-		
+
         BuilderType = {'LandT3'},
-		
     },
 	
 	-- T3 Amphibious Artillery --
     Builder {BuilderName = 'T3 Amphibious Artillery',
 	
         PlatoonTemplate = 'T3AmphibiousArtillery',
+
         Priority = 600, 
 		
         BuilderConditions = {
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},		
+
             { LUTL, 'UnitCapCheckLess', { .95 } },
 
 			{ LUTL, 'FactoriesGreaterThan', { 2, categories.LAND * categories.TECH3 }},
-            
+
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.AMPHIBIOUS * categories.INDIRECTFIRE, categories.LAND * categories.TECH3 }},
         },
-		
+
         BuilderType = {'LandT3'},
-		
     },
 
 	-- T3 NON-AMPHIB Production --
@@ -803,73 +853,77 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Water Map',
     Builder {BuilderName = 'Siege Assault Bot T3 - Water',
 	
         PlatoonTemplate = 'T3LandBot',
+
         Priority = 600,
 		
         BuilderConditions = {
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},		
+
             { LUTL, 'UnitCapCheckLess', { .85 } },
-            
+
 			{ LUTL, 'LandStrengthRatioLessThan', { 5.5 } },
-			
+
 			{ LUTL, 'FactoriesGreaterThan', { 3, categories.LAND * categories.TECH3 }},
-            
+
             { LUTL, 'HaveLessThanUnitsWithCategory', { 75, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS }},
 
             -- this insures that we're actually building amphib units first without using priority as a gate
             { UCBC, 'LocationFactoriesBuildingGreater', { 'LocationType', 1, (categories.LAND * categories.AMPHIBIOUS) * categories.DIRECTFIRE }},
-            
+
  			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS), categories.LAND * categories.TECH3 }},			
         },
-		
+
         BuilderType =  {'LandT3'},
-		
     },
 
 	-- T3 Mobile Artillery
     Builder {BuilderName = 'T3 Mobile Artillery - Water',
 	
         PlatoonTemplate = 'T3LandArtillery',
+
         Priority = 600,
-		
+
         BuilderConditions = {
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},		
+
             { LUTL, 'UnitCapCheckLess', { .85 } },
-            
+
 			{ LUTL, 'LandStrengthRatioLessThan', { 5.5 } },			
 
 			{ LUTL, 'FactoriesGreaterThan', { 2, categories.LAND * categories.TECH3 }},
-            
+
             { LUTL, 'HaveLessThanUnitsWithCategory', { 32, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.AMPHIBIOUS }},
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, (categories.LAND * categories.MOBILE * categories.ARTILLERY), categories.LAND * categories.TECH3 }},
         },
-		
+
         BuilderType = {'LandT3'},
-		
     },
 	
 	-- T3 Mobile Missile -- UEF only --
     Builder {BuilderName = 'T3 Mobile Missile - Water',
 	
         PlatoonTemplate = 'T3MobileMissile',
+
 		FactionIndex = 1,
+
         Priority = 600,
-		
+
         BuilderConditions = {
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},		
+
             { LUTL, 'UnitCapCheckLess', { .85 } },
-            
+
 			{ LUTL, 'LandStrengthRatioLessThan', { 5.5 } },
 
 			{ LUTL, 'FactoriesGreaterThan', { 2, categories.LAND * categories.TECH3 }},
-            
+
             { LUTL, 'HaveLessThanUnitsWithCategory', { 32, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE - categories.AMPHIBIOUS }},
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.xel0306, categories.LAND * categories.TECH3 }},
         },
-		
+
         BuilderType = {'LandT3'},
-		
     },
 	
 }
