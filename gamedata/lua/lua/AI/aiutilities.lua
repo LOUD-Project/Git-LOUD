@@ -1298,7 +1298,10 @@ function SetupAICheat(aiBrain, biggestTeamSize)
 	modifier = LOUDMAX( 0, aiBrain.CheatValue - 1.0 )
 	modifier = 0.34 * modifier
 	modifier = 1.0 + modifier
-
+    
+    -- store the minor cheat value (modifier)
+    aiBrain.MinorCheatModifier = modifier
+   
 	newbuff.Affects.MaxHealth.Mult = modifier
     newbuff.Affects.MaxHealth.DoNoFill = true   -- prevents health from being added upon creation
 	newbuff.Affects.RegenPercent.Mult = modifier
@@ -1321,11 +1324,14 @@ function SetupAICheat(aiBrain, biggestTeamSize)
     modifier = LOUDMAX( -0.2, aiBrain.CheatValue - 1.0 )
     modifier = 0.65 * modifier
     modifier = 1.0 + modifier
-	
+    
+    -- store the minor cheat value (modifier)
+    aiBrain.MajorCheatModifier = modifier
+   	
 	-- reduce the waiting period between upgrades by 50% of the AIMult
 	aiBrain.UpgradeIssuedPeriod = LOUDFLOOR(aiBrain.UpgradeIssuedPeriod * ( 1 / modifier ))
-    
-    LOG("*AI DEBUG "..aiBrain.Nickname.." Upgrade Issue Period is "..aiBrain.UpgradeIssuedPeriod)
+ 
+    LOG("*AI DEBUG "..aiBrain.Nickname.." Upgrade Issue Period is "..aiBrain.UpgradeIssuedPeriod.."  MinorCheatModifier is "..aiBrain.MinorCheatModifier.."  Major is "..aiBrain.MajorCheatModifier)
     
 end
 

@@ -676,7 +676,7 @@ StructureUnit = Class(Unit) {
             end
 
 			if not finishedUnit.UpgradeThread then
-				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, 1.0045, 1.0075, 9999, 9999, checkrate, initialdelay, false )
+				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, 1.005, 1.008, 9999, 9999, checkrate, initialdelay, false )
 			end
 		end
 
@@ -685,7 +685,7 @@ StructureUnit = Class(Unit) {
 
 			if not finishedUnit.UpgradeThread then
 
-				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, 1.007, 0.88, 9999, 1.8, 27, 180, true )
+				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, 1.0025, 0.80, 9999, 1.8, 21, 180, true )
 
 			end
 		end
@@ -707,13 +707,13 @@ StructureUnit = Class(Unit) {
 
 			if not finishedUnit.UpgradeThread then
 
-				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, 1.007, 1, 9999, 1.5, 18, 90, true )
+				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, 1.006, 0.80, 9999, 1.8, 18, 90, true )
 
 			end
 		end
 
-		-- mass extractors & fabricators --
-        if EntityCategoryContains( MASSPRODUCTION, finishedUnit ) then
+		-- mass extractors --
+        if EntityCategoryContains( categories.MASSEXTRACTION, finishedUnit ) then
 
 			-- each mex gets it's own platoon so we can enable PlatoonDistress calls for them
 			local Mexplatoon = MakePlatoon( aiBrain, 'MEXPlatoon'..tostring(finishedUnit.Sync.id), 'none')
@@ -728,7 +728,28 @@ StructureUnit = Class(Unit) {
 
 			if not finishedUnit.UpgradeThread then
 
-				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, .75, 1.0045, 1.8, 9999, 18, 90, true )
+				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, .74, 1.0045, 1.8, 9999, 16, 90, true )
+
+			end
+        end
+
+		-- mass fabricators --
+        if EntityCategoryContains( categories.MASSFABRICATION, finishedUnit ) then
+
+			-- each mex gets it's own platoon so we can enable PlatoonDistress calls for them
+			local Mexplatoon = MakePlatoon( aiBrain, 'FABPlatoon'..tostring(finishedUnit.Sync.id), 'none')
+
+			Mexplatoon.BuilderName = 'FABPlatoon'..tostring(finishedUnit.Sync.id)
+			Mexplatoon.MovementLayer = 'Land'
+            Mexplatoon.UsingTransport = true        -- never review this platoon during a merge
+
+            AssignUnitsToPlatoon( aiBrain, Mexplatoon, {finishedUnit}, 'Support', 'none' )
+
+			Mexplatoon:ForkThread( PlatoonCallForHelpAI, aiBrain, 5 )
+
+			if not finishedUnit.UpgradeThread then
+
+				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, .74, 1.002, 9999, 9999, 16, 90, true )
 
 			end
         end
@@ -738,7 +759,7 @@ StructureUnit = Class(Unit) {
 
 			if not finishedUnit.UpgradeThread then
 
-				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, 1.010, 1.02, 9999, 9999, 24, 180, false )
+				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, 1.008, 1.0125, 9999, 9999, 24, 180, false )
 
 			end
         end
@@ -748,7 +769,7 @@ StructureUnit = Class(Unit) {
 
 			if not finishedUnit.UpgradeThread then
 
-			    finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, 1.010, 1.02, 9999, 9999, 24, 180, false )
+			    finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, 1.009, 1.02, 9999, 9999, 24, 180, false )
 
 			end
         end
@@ -929,6 +950,10 @@ StructureUnit = Class(Unit) {
 
     OnTransportDetach = function(self, attachBone, unit)
 		Unit.OnTransportDetach(self, attachBone, unit)
+    end,
+    
+    OnUpgradeComplete = function( self, unitbeingbuilt )
+        --LOG("*AI DEBUG Upgrade Complete to "..unitbeingbuilt.Sync.id.." "..unitbeingbuilt:GetBlueprint().Description.." UPGRADE COMPLETE at game second "..GetGameTimeSeconds() )
     end,
 }
 
