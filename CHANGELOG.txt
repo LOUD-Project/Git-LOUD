@@ -1,3 +1,35 @@
+### Release
+
+LUA 6.2.13
+
+    - fixed a divide by zero error affecting the strength ratio calculations
+    - store intermediate cheat values (MinorCheatModifier, MajorCheatModifier) to be used elsewhere as modifiers 
+    - air strength ratio now evaluating enemy bomber/gunships at full, allied only at half - this helps LOUD better identify enemy bomber/gunship concentration
+    
+    - added some new GUARDPOINT features to control point finding at short distances, and the use of MergePlanMatch during merge operations in that behavior
+        -- allows guarding of points much closer to a base without false exit triggering
+        -- allows tightly controlling merge operations so that they only merge with platoons that not only use the same behavior, but the same builder (ie. - MEX Guard)
+        -- retreating platoons will still attempt free-range merge_into operations with almost any other platoon nearby
+        -- fine tuning of most GUARDPOINT using formations, there were some whose base conditions didn't match with the builder data
+        -- the MEX GUARD formation gets most benefit from this, and we have reviewed its formation sizes and priority, we should see him more actively guarding extractors
+        -- the supporting FindPointMeetsConditions() function gets logging (outcommented) to allow detailed tracking of the filtering process
+    
+    - revised the SelfUpgrade process for more accurate trend prediciton, use of actual buildtime in the delay process, impacted by eco storage conditions
+        -- process now ages older incomplete upgrades by slightly lowering trend requirements, making them more likely to pass eco checks as they age
+        -- moving the upgrade requirement multipliers up, this stabilizes his economy at a higher point, which keeps factories running almost 100% of the time as result
+        -- this was stressing him last week, as sometimes he couldn't transition into T3, resources were too tight - this patch should fix that nicely
+        -- greatly improved the LOG dialog for Structure Upgrades, the AI logging funcion gives you detailed tracking of the decision process if you wish to see it at work
+    
+    - wide ranging additional eco and ratio conditions for engineer builds, assisting, factory production and land formations
+    - adopting the 'outnumbered' approach to the initial naval base build - permitting a T1 engineer to start it earlier but with the minimal build
+    - a full revision of SACU eco requirements for most of their builds, insuring that key decision points sit on similar eco conditions for more unpredictability
+    - a revision of the eco requirements for adding new factories, he's a little slower in adding more, but this prevents premature eco crashing
+    - mass fabricators will appear earlier and more agressively, and his drive to build power infrastructure will keep pace with this demand
+    
+    - alteration to the lobby code to track observers, and deal with observers causing a crash when exiting an ongoing game
+    
+    
+
 ### Release 09-07-2022
 
 LUA 6.2.12
