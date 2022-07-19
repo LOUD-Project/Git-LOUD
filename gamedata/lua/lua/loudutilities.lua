@@ -4718,13 +4718,30 @@ function ParseIntelThread( aiBrain )
                 end
 
                 if oldthreat > 0 then
+                
                     aiBrain.AirRatio = LOUDMAX( LOUDMIN( (totalThreat / oldthreat), 10 ), 0.011)
+                    
                 else
-                    aiBrain.AirRatio = .011
+                
+                    if aiBrain.CycleTime < 600 then
+                    
+                        aiBrain.AirRatio = .011
+                        
+                    else
+                    
+                        aiBrain.AirRatio = 10
+                    end
                 end
                 
             else
-                aiBrain.AirRatio = 0.01
+                if aiBrain.CycleTime < 600 then
+                    
+                    aiBrain.AirRatio = 0.01
+                    
+                else
+                
+                    aiBrain.AirRatio = 10
+                end
             end
 
             --- LAND UNITS ---
@@ -4762,13 +4779,33 @@ function ParseIntelThread( aiBrain )
                 end
             
                 if oldthreat > 0 then
+                
                     aiBrain.LandRatio = LOUDMAX( LOUDMIN( (totalThreat / oldthreat), 10 ), 0.011)
+                    
                 else
-                    aiBrain.LandRatio = .011
+                
+                    if aiBrain.CycleTime < 600 then
+                    
+                        aiBrain.LandRatio = .011
+                        
+                    else
+                    
+                        aiBrain.LandRatio = 10
+                    end
+                    
                 end
                 
             else
-                aiBrain.LandRatio = 0.01
+                
+                if aiBrain.CycleTime < 600 then
+
+                    aiBrain.LandRatio = .011
+
+                else
+
+                    aiBrain.LandRatio = 10
+                end
+
             end
 
             --- NAVAL UNITS ---
@@ -4806,13 +4843,34 @@ function ParseIntelThread( aiBrain )
                 end
             
                 if oldthreat > 0 then
+                
                     aiBrain.NavalRatio = LOUDMAX( LOUDMIN( (totalThreat / oldthreat), 10 ), 0.011)
+                    
                 else
-                    aiBrain.NavalRatio = 0.11
+                
+                    if aiBrain.CycleTime < 600 then
+                    
+                        aiBrain.NavalRatio = .011
+                        
+                    else
+                    
+                        aiBrain.NavalRatio = 10
+                    end                
+
                 end
                 
             else
-                aiBrain.NavalRatio = 0.01
+                
+                if aiBrain.CycleTime < 600 then
+                    
+                    aiBrain.NavalRatio = .011
+
+                else
+
+                    aiBrain.NavalRatio = 10
+
+                end            
+
             end
 
             if ReportRatios then
