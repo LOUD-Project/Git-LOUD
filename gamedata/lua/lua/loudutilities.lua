@@ -1346,7 +1346,7 @@ function SetPrimaryLandAttackBase( aiBrain )
             -- make this base the Primary
             Primary = Bases[1].BaseName
             
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(Primary).." is now the Primary Land Attack Base - mode LAND is "..repr(currentlandbasemode))
+            LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(Primary).." is now the Primary Land Attack Base - mode LAND is "..repr(currentlandbasemode))
             
             -- set the distance trigger
             currentgoaldistance = Bases[1].Distance
@@ -5341,7 +5341,9 @@ function CreateAttackPlan( self, enemyPosition )
                             
                             CurrentBestPathLength = holdpathlength
                             
-                            self.AttackPlan.Method = pathtype
+                            if self.AttackPlan.Method != 'Amphibious' then
+                                self.AttackPlan.Method = pathtype
+                            end
 
                         end
 
@@ -5475,7 +5477,8 @@ function CreateAttackPlan( self, enemyPosition )
                 
                 if path then
                     CurrentPointDistance = pathlength
-                    self.AttackPlan.Method = pathtype
+                    
+                    --self.AttackPlan.Method = pathtype
                     
                 else
                 
