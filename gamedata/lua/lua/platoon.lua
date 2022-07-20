@@ -3040,6 +3040,8 @@ Platoon = Class(moho.platoon_methods) {
             --end
 
 			while PlatoonExists(aiBrain,self) and marker and guardtime < guardTimer do
+            
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." still moving to marker "..repr(marker) )
 				
 				position = GetPlatoonPosition(self) or false
 			
@@ -3063,10 +3065,10 @@ Platoon = Class(moho.platoon_methods) {
 				
 						if self:GuardPointStructureCheck( aiBrain, marker, StrCat, StrRadius, PFaction, StrMin, StrMax) then
                         
-                            --LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." STRUCTURE Trigger "..repr(StrMax).." at distance "..repr(StrRadius).." during travel to "..repr(marker).." - seeking new point")
+                            --LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." STRUCTURE Trigger > "..repr(StrMax).." at distance "..repr(StrRadius).." during travel to "..repr(marker).." - seeking new point")
 						
                             lastmarker = LOUDCOPY(marker)
-                            
+
 							marker = false
 							break
 						end
@@ -3097,7 +3099,7 @@ Platoon = Class(moho.platoon_methods) {
 								stuckcount = 0
 							else
                             
-                                --LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." STUCK during travel "..stuckcount.." - seeking new point")
+                                LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." STUCK during travel "..stuckcount.." - seeking new point")
                                 
                                 lastmarker = LOUDCOPY(marker)
                                 
@@ -3157,15 +3159,13 @@ Platoon = Class(moho.platoon_methods) {
                 
                 --LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." still at "..repr(distance).." from marker "..repr(marker))
 			end
-			
-			-- if marker still valid and we have time left - stop movement
-            -- otherwise continue to finding a new point
-			if marker then
-			
-				if PlatoonExists(aiBrain,self) and self.MoveThread then
-					self:KillMoveThread()
-				end
-			else
+            
+			if PlatoonExists(aiBrain,self) and self.MoveThread then
+				self:KillMoveThread()
+			end
+            
+			-- if marker no longer valid continue to find a new point
+			if not marker then
 				continue
 			end
             
