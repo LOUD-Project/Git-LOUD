@@ -18,6 +18,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Engineers',
     Builder {BuilderName = 'Engineer T1 - Initial',
 	
         PlatoonTemplate = 'T1BuildEngineer',
+        
+        PlatoonAddFunctions = { { LUTL, 'UseBuilderOnce' }, },
 		
         Priority = 900,
 		
@@ -36,6 +38,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Engineers',
     Builder {BuilderName = 'Engineer T2 - Initial',
 	
         PlatoonTemplate = 'T2BuildEngineerInitial',
+        
+        PlatoonAddFunctions = { { LUTL, 'UseBuilderOnce' }, },
 		
         Priority = 900,
 		
@@ -53,6 +57,8 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Engineers',
     Builder {BuilderName = 'Engineer T3 - Initial',
     
         PlatoonTemplate = 'T3BuildEngineerInitial',
+        
+        PlatoonAddFunctions = { { LUTL, 'UseBuilderOnce' }, },
         
         Priority = 900,
         

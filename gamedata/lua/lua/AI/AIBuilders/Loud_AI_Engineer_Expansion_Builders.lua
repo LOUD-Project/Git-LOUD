@@ -37,7 +37,7 @@ local OutNumbered_First15Minutes_Naval = function( self,aiBrain )
             -- so even if the water ratio is excellent - the desire to respond decreases with the growth in how outnumbered
             local adjust = (100 - (( ScenarioInfo.MapWaterRatio * 2 ) * 100) * math.sqrt(aiBrain.OutnumberedRatio))
             
-            LOG("*AI DEBUG "..aiBrain.Nickname.." map water ratio is "..repr(ScenarioInfo.MapWaterRatio).." reducing priority to "..self.Priority-adjust )
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." map water ratio is "..repr(ScenarioInfo.MapWaterRatio).." reducing priority to "..self.Priority-adjust )
             
             return self.Priority-adjust, true
             

@@ -15,8 +15,12 @@ local First45Minutes = function( self, aiBrain )
 	if aiBrain.CycleTime > 2700 then
 		return 0, false
 	end
-	
-	return self.Priority,true
+    
+    if self.Priority > 0 then 
+        return self.Priority,true
+    else
+        return 0, false
+    end
 end
 
 -- this function will turn a builder off if the enemy is not active in the water
@@ -424,9 +428,11 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
     Builder {BuilderName = 'Air Transport T1 - Initial',
 	
         PlatoonTemplate = 'T1AirTransport',
-		
+
+        PlatoonAddFunctions = { { LUTL, 'UseBuilderOnce' }, {LUTL, 'ResetBrainNeedsTransport'}, },
+
         Priority = 610, 
-		
+
 		PriorityFunction = First45Minutes,
 
         BuilderConditions = {
@@ -437,11 +443,6 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
 			{ LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
 
             { UCBC, 'ArmyNeedsTransports', { true } },
-			
-			-- stop making them if we have more than 3 T2/T3 air plants - anywhere
-            { UCBC, 'HaveLessThanUnitsWithCategory', { 3, categories.FACTORY * categories.AIR - categories.TECH1 }},
-            
-			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 1, [512] = 1, [1024] = 2, [2048] = 4, [4096] = 4}, categories.TRANSPORTFOCUS * categories.TECH1}},
         },
 
         BuilderType =  {'AirT1'},
@@ -501,6 +502,29 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
         BuilderType =  {'AirT2','AirT3'},
     },
 	
+    Builder {BuilderName = 'Air Transport T2 - HighNeed',
+	
+        PlatoonTemplate = 'T2AirTransport',
+		
+        PlatoonAddFunctions = { {LUTL, 'ResetBrainNeedsTransport'}, },
+		
+        Priority = 610,
+		
+        BuilderConditions = {
+            { LUTL, 'NoBaseAlert', { 'LocationType' }},
+
+            { LUTL, 'UnitCapCheckLess', { .75 } },
+            
+            { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
+			
+            { UCBC, 'ArmyNeedsTransports', { true } },
+
+            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.TRANSPORTFOCUS - categories.TECH1 - categories.GROUNDATTACK, categories.AIR - categories.TECH1 }},
+        },
+		
+        BuilderType =  {'AirT2'},
+    },
+	
 	-- stop construction of T2 Gunships (for transport) once we have the ability to build T3
     Builder {BuilderName = 'UEF Gunship Transports',
 	
@@ -524,34 +548,12 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
 		
         BuilderType =  {'AirT2'},
     },
-	
-	-- stop construction of T2 Transports (for high need) once we have the ability to build T3 in some numbers
-    Builder {BuilderName = 'Air Transport T2 - HighNeed',
-	
-        PlatoonTemplate = 'T2AirTransport',
-		
-        PlatoonAddFunctions = { {LUTL, 'ResetBrainNeedsTransport'}, },
-		
-        Priority = 610,
-		
-        BuilderConditions = {
-            { LUTL, 'NoBaseAlert', { 'LocationType' }},
-
-            { LUTL, 'UnitCapCheckLess', { .75 } },
-            
-            { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
-			
-            { UCBC, 'ArmyNeedsTransports', { true } },
-
-            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.TRANSPORTFOCUS - categories.TECH1 - categories.GROUNDATTACK, categories.AIR - categories.TECH1 }},
-        },
-		
-        BuilderType =  {'AirT2'},
-    },
 
     Builder {BuilderName = 'Air Transport T3',
 	
         PlatoonTemplate = 'T3AirTransport',
+		
+        PlatoonAddFunctions = { {LUTL, 'ResetBrainNeedsTransport'}, },
 
         Priority = 600,
 		
@@ -559,43 +561,41 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
 
             { LUTL, 'UnitCapCheckLess', { .85 } },
-            
+
             { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
-			
-			-- this tends to prevent overbuilding of transports when they're not really needed --
-			-- but you'll notice that this builder doesn't reset the NeedsTransports flag --
+
             { UCBC, 'ArmyNeedsTransports', { true } },
-			
+
 			-- is someone else is building a transport --
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.TRANSPORTFOCUS - categories.TECH1 - categories.GROUNDATTACK, categories.AIR * categories.TECH3 }},
 
 			-- note -- this condition counts ALL T2, T3 and T4 transports --
-			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 3, [512] = 6, [1024] = 12, [2048] = 16, [4096] = 20}, categories.TRANSPORTFOCUS - categories.TECH1 - categories.GROUNDATTACK}},
+			{ UCBC, 'HaveLessThanUnitsForMapSize', { {[256] = 3, [512] = 6, [1024] = 10, [2048] = 15, [4096] = 20}, categories.TRANSPORTFOCUS - categories.TECH1 - categories.GROUNDATTACK}},
         },
-		
+
         BuilderType =  {'AirT3'},
     },
 	
     Builder {BuilderName = 'Air Transport T3 - HighNeed',
 	
         PlatoonTemplate = 'T3AirTransport',
-		
+
         PlatoonAddFunctions = { {LUTL, 'ResetBrainNeedsTransport'}, },
-		
+
         Priority = 610,
-		
+
         BuilderConditions = {
             { LUTL, 'NoBaseAlert', { 'LocationType' }},
 
             { LUTL, 'UnitCapCheckLess', { .85 } },
-            
+
             { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
-			
+
             { UCBC, 'ArmyNeedsTransports', { true } },
-			
+
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.TRANSPORTFOCUS - categories.TECH1 - categories.GROUNDATTACK, categories.AIR * categories.TECH3 }},
         },
-		
+
         BuilderType =  {'AirT3'},
     },
 }
