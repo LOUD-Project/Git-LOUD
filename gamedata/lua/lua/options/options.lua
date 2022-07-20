@@ -285,6 +285,18 @@ options = {
         key = 'ui',
         items = {
             {
+                title = "Auto-Rename of Replays",
+                key = 'gui_auto_rename_replays',
+                type = 'toggle',
+                default = 1,
+                custom = {
+                    states = {
+                        {text = "On", key = 1},
+                        {text = "Off", key = 0},
+                    },
+                },
+            },        
+            {
                 title = "Display Subtitles",
                 key = 'subtitles',
                 type = 'toggle',
@@ -810,7 +822,7 @@ options = {
                 custom = {
                     states = {
                         { text = "Low", key = 2 },
-                        { text = "Medium", key = 1 },
+                        --{ text = "Medium", key = 1 },     -- later versions of DirectX do not always support this, can lead to crashing
                         { text = "High", key = 0 },
                     },
                 },

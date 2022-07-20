@@ -503,6 +503,10 @@ Tooltips = {
     -- *** Options: Interface
     -- **********************
 
+    options_gui_auto_rename_replays = {
+        title = "Automatic Rename of Replays",
+        description = "When a game ends, a copy of the replay file is saved with the map name and a timestamp",
+    },
     options_subtitles = {
         title = "Display Subtitles",
         description = "Toggles the display of subtitles during movies",
@@ -602,11 +606,11 @@ Tooltips = {
 
     options_primary_adapter = {
         title = "Primary Adapter",
-        description = "Sets the Resolution or Display Mode for the Primary Monitor (1024x768 = fastest)",
+        description = "Sets the Resolution or Display Mode for the Primary Monitor",
     },
     options_secondary_adapter = {
         title = "Secondary Adapter",
-        description = "If available on your system, sets the resolution or display mode for the secondary monitor (full screen only)",
+        description = "If available on your system, sets the resolution for the secondary monitor (Primary Adapter cannot be Windowed)",
     },
     options_fidelity_presets = {
         title = "Fidelity Presets",
@@ -630,7 +634,7 @@ Tooltips = {
     },
     options_texture_level = {
         title = "Texture Detail",
-        description = "Sets the number of Mip Levels that are not Rendered (low = fastest)",
+        description = "Greatly improves visuals when zoomed in - WARNING: HIGH setting uses a lot of game memory",
     },
     options_level_of_detail = {
         title = "Level Of Detail",
