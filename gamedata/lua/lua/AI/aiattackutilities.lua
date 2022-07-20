@@ -636,7 +636,7 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
         --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." FindPoint finds no positions at range "..DistMax)
     end
 
-	--- Sort according to distance
+	--- Sort according to distance or threat or both
 	if counter > 1 then
 	
 		positions = aiBrain:RebuildTable(positions)
@@ -650,6 +650,10 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 		
 			LOUDSORT(positions, function(a,b)	return (a[4]-a[5]) > (b[4]-b[5]) end)
 		
+        elseif PointSort == 'MostThreat' then
+        
+            LOUDSORT(positions, function(a,b)   return( a[6] > b[6] ) end)
+
         else
         
             -- sort by safest + closest
