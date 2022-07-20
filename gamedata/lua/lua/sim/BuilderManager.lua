@@ -293,7 +293,7 @@ BuilderManager = Class {
             -- first step, process any PriorityFunction for this task
             -- if there is a new priority and it's not 0 then act on this task with it's new priority
             -- if the new priority is 0 - process it normally but this task will be removed on the next cycle
-			if Builders[task.BuilderName].PriorityFunction then
+			if Builders[task.BuilderName].PriorityFunction  and Priority > 0 then
 
 				newPri = false
 				temporary = true
