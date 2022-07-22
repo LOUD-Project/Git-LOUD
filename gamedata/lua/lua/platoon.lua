@@ -6800,8 +6800,8 @@ Platoon = Class(moho.platoon_methods) {
             -- this allows the assist operation to start at one level, and continue
             -- until we reach these levels, thus giving a little extra assist 'oomph' to this task
             -- I currently use it in the Assist Energy builders, and in the ACU assist builders for M & E
-            local assistenergy = self.PlatoonData.Assist.AssistEnergy or 1000
-            local assistmass = self.PlatoonData.Assist.AssistMass or 200
+            local assistenergy = self.PlatoonData.Assist.AssistEnergy or 1250
+            local assistmass = self.PlatoonData.Assist.AssistMass or 250
 		
             -- continue to guard until eco runs short, eng death, timer runs out, or eng loses guard
 			repeat
@@ -6816,7 +6816,7 @@ Platoon = Class(moho.platoon_methods) {
 				assisttime = assisttime - 4
 
                 if assisttime >= 1 then
-                    WaitTicks(41)
+                    WaitTicks(31)
                 end
 			
 			until assisttime < 1 or eng.Dead or (not eng.AssistPlatoon) or IsIdleState(eng)
