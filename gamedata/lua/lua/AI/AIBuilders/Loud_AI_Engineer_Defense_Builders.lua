@@ -634,7 +634,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.012, 1.025 }}, 
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.012, 1.02 }}, 
 
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 4, categories.ARTILLERY * categories.TACTICAL }},
         },
@@ -753,7 +753,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.015, 1.025 }},
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.012, 1.02 }},
 
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 4, categories.EXPERIMENTAL * categories.DEFENSE * categories.STRUCTURE * categories.DIRECTFIRE, 10, 42 }},
         },
@@ -798,7 +798,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Base Defense Construction - Core',
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.015, 1.025 }},			
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.012, 1.02 }},			
 
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 4, categories.EXPERIMENTAL * categories.DEFENSE * categories.STRUCTURE * categories.ANTIAIR, 10, 40 }},
         },
@@ -1388,7 +1388,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction',
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .80 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
             
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.AIRSTAGINGPLATFORM }},
         },
@@ -1430,7 +1430,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Misc Construction - Small',
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .95 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
             
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.AIRSTAGINGPLATFORM }},
         },
@@ -2251,9 +2251,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Point Defense Construction',
 
             { LUTL, 'LandStrengthRatioLessThan', { 3 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 20, 1.012, 1.02 }},
 
 			{ UCBC, 'MassExtractorHasStorageAndLessDefense', { 'LocationType', 100, 600, 2, 2, categories.STRUCTURE * categories.DEFENSE }},
         },
@@ -2339,7 +2339,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Point Defense Construction',
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 20, 1.012, 1.02 }},
 
 			{ UCBC, 'MassExtractorHasStorageAndLessDefense', { 'LocationType', 150, 750, 2, 4, categories.STRUCTURE * categories.DEFENSE * categories.TECH2 }},
         },
@@ -2391,7 +2391,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Point Defense Construction',
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 25, 1.012, 1.025 }},
 
 			{ UCBC, 'MassExtractorHasStorageAndLessDefense', { 'LocationType', 150, 750, 3, 3, categories.STRUCTURE * categories.DEFENSE * categories.TECH3 }},
         },
@@ -3856,9 +3856,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
         Priority = 752,
 
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 20, 1.012, 1.02 }},
 
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.ENERGYPRODUCTION * categories.STRUCTURE }},
         },
@@ -3896,9 +3896,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
 
             { LUTL, 'LandStrengthRatioLessThan', { 3 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 20, 1.012, 1.02 }},
 
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 4, categories.STRUCTURE * categories.DEFENSE * categories.TECH2 * categories.DIRECTFIRE }},
         },
@@ -3941,7 +3941,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
 
             { LUTL, 'AirStrengthRatioLessThan', { 3 }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
 
@@ -3996,9 +3996,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
             
             { LUTL, 'UnitCapCheckLess', { .95 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 25, 1.012, 1.025 }},
         },
 		
 		BuilderType = { 'T2','T3','SubCommander' },
@@ -4031,7 +4031,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .75 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
 
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.AIRSTAGINGPLATFORM }},
         },
@@ -4069,7 +4069,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
 
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 20, 1.012, 1.02 }},
             
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY }},
         },
@@ -4229,7 +4229,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .75 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
 
             { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
 
@@ -4307,9 +4307,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Defenses DP Standard',
         BuilderConditions = {
             { LUTL, 'UnitCapCheckLess', { .75 } },
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.8, 15, 1.01, 1.02 }},
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 25, 1.012, 1.025 }},
 
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.COUNTERINTELLIGENCE * categories.STRUCTURE }},
         },

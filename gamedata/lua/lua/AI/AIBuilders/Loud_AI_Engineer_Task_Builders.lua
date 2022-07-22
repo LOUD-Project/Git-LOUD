@@ -227,7 +227,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 
 			{ EBC, 'LessThanEconEnergyStorageRatio', { 80 }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 75, 1250 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 120, 1250 }},
             
 			{ UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, categories.ENERGYPRODUCTION + categories.ENERGYSTORAGE - categories.EXPERIMENTAL, categories.ENGINEER + categories.ENERGYSTORAGE + categories.ENERGYPRODUCTION, 120 }},
         },
@@ -249,7 +249,8 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
     },
     
     -- assist upgrading mass if storage is low
-    Builder {BuilderName = 'Assist Mass Upgrade',
+    -- again we use the 'Any' Assistee type to help either new builds or upgrades
+    Builder {BuilderName = 'Assist Mass',
 	
         PlatoonTemplate = 'EngineerGeneral',
         
@@ -264,7 +265,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
         BuilderConditions = {
             { UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, categories.MASSPRODUCTION - categories.TECH1, categories.ENGINEER + categories.MASSPRODUCTION, 120 }},
             
-			{ EBC, 'LessThanEconMassStorageRatio', { 50 }},
+			{ EBC, 'LessThanEconMassStorageRatio', { 60 }},
             
             { EBC, 'GreaterThanEnergyTrendOverTime', { 4 }},
             
@@ -348,6 +349,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
     },
     
 	-- when there is nothing else to do and storage somewhat low
+    -- this is a shorter ranged version of the 'High' builder
     Builder {BuilderName = 'Reclaim Mass Low',
 	
         PlatoonTemplate = 'EngineerGeneral',
@@ -366,13 +368,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
         
 			{ EBC, 'LessThanEconMassStorageRatio', { 50 }},
             
-			{ EBC, 'ReclaimablesInAreaMass', { 'LocationType', 140 }},
+			{ EBC, 'ReclaimablesInAreaMass', { 'LocationType', 110 }},
         },
 		
         BuilderData = {
 			ReclaimTime = 75,
 			ReclaimType = 'Mass',
-            ReclaimRange = 140,
+            ReclaimRange = 120,
         },
     },    
 
@@ -395,7 +397,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
         
             { LUTL, 'AirStrengthRatioLessThan', { 3 } },
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 5000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 5000 }},
             
             { EBC, 'GreaterThanEnergyTrendOverTime', { 4 }},
             
@@ -431,7 +433,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
         BuilderConditions = {
             { LUTL, 'LandStrengthRatioLessThan', { 3 } },
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 5000 }},
             
             { EBC, 'GreaterThanEnergyTrendOverTime', { 4 }},
             
@@ -467,7 +469,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
         BuilderConditions = {
             { LUTL, 'NavalStrengthRatioLessThan', { 3 } },
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 5000 }},
             
             { EBC, 'GreaterThanEnergyTrendOverTime', { 4 }},
             
@@ -501,7 +503,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
 		BuilderType = { 'T3','SubCommander' },
 		
         BuilderConditions = {
-			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 5000 }},
             
             { EBC, 'GreaterThanEnergyTrendOverTime', { 4 }},
             

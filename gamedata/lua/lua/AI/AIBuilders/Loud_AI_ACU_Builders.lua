@@ -258,7 +258,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
         BuilderConditions = { 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 100, 0 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 120, 0 }},
 
 			{ EBC, 'LessThanEconEnergyStorageRatio', { 90 }},
 
@@ -302,7 +302,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
         BuilderConditions = {
             { EBC, 'LessThanEconMassStorageRatio', { 50 }},
             
-            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 1500 }},
+            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 1250 }},
             
             { EBC, 'GreaterThanEnergyTrendOverTime', { 4 }},
             
@@ -435,7 +435,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
             
 			{ EBC, 'LessThanEconEnergyStorageRatio', { 90 }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 75, 500 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 120, 500 }},
             
 			{ UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, ENERGYPRODUCTION, ENGINEER + ENERGYPRODUCTION, 75 }},
         },
@@ -459,7 +459,7 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
         }
     },
 
-    Builder {BuilderName = 'CDR Assist Mass Upgrade',
+    Builder {BuilderName = 'CDR Assist Mass',
 	
         PlatoonTemplate = 'CommanderBuilder',
         
@@ -474,9 +474,9 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
             
 			{ EBC, 'LessThanEconMassStorageRatio', { 60 }},            
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 1250 }},           
+			{ EBC, 'GreaterThanEconStorageCurrent', { 75, 500 }},           
             
-            { UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, MASSPRODUCTION, MASSPRODUCTION, 60 }},
+            { UCBC, 'BuildingGreaterAtLocationAtRange', { 'LocationType', 0, MASSPRODUCTION, ENGINEER + MASSPRODUCTION, 60 }},
         },
 		
         BuilderType = { 'Commander' },
@@ -485,14 +485,14 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
             Assist = {
             
                 -- this allows the builder to continue assist until E drops below this
-                AssistEnergy = 500,
+                AssistEnergy = 100,
                 -- this allows the builder to continue assist until M drops below this
-                AssistMass = 200,
+                AssistMass = 35,
 
 				AssistRange = 80,
-				AssisteeType = 'Structure',
-				AssisteeCategory = MASSPRODUCTION,
-                BeingBuiltCategories = {MASSPRODUCTION},
+				AssisteeType = 'Any',
+				AssisteeCategory = ENGINEER + MASSPRODUCTION,
+                BeingBuiltCategories = { MASSPRODUCTION },
                 Time = 60,
             },
         }
@@ -516,9 +516,9 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 3000 }},
             
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1, 1.01 }},
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }},
             
             { UCBC, 'LocationFactoriesBuildingGreater', { 'LocationType', 0, FACTORY }},
         },
@@ -534,9 +534,9 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
                 AssistMass = 200,
             
 				AssistRange = 75,
-				AssisteeType = 'Factory',
-				AssisteeCategory = FACTORY,
-				BeingBuiltCategories = {FACTORY},
+				AssisteeType = 'Any',
+				AssisteeCategory = ENGINEER + FACTORY,
+				BeingBuiltCategories = { FACTORY },
                 Time = 75,
             },
         }
@@ -592,7 +592,8 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 250, 2500 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
+
             { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }}, 
         },
 		
@@ -600,6 +601,12 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
 		
         BuilderData = {
             Assist = {
+            
+                -- this allows the builder to continue assist until E drops below this
+                AssistEnergy = 2000,
+                -- this allows the builder to continue assist until M drops below this
+                AssistMass = 200,
+                
 				AssistRange = 80,
 				AssisteeType = 'Factory',
 				AssisteeCategory = FACTORY,
@@ -675,20 +682,20 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
 		-- this function removes the builder 
 		PriorityFunction = function(self, aiBrain)
 
-            -- too early (7 mins) -- we don't want Bob wandering around too much this early
-            if aiBrain.CycleTime < 420 then
-                return 10, true
-            end
-
             -- map is too large
 			if (ScenarioInfo.size[1] >= 1028 or ScenarioInfo.size[2] >= 1028) then
 				return 0, false
 			end
-			
+		
 			-- remove after 15 minutes
 			if aiBrain.CycleTime > 900 then
 				return 0, false
 			end
+	
+            -- too early (7 mins) -- we don't want Bob wandering around too much this early
+            if aiBrain.CycleTime < 420 then
+                return 10, true
+            end
             
             if aiBrain.AirRatio < 1.5 then
                 return self.Priority + 100, true

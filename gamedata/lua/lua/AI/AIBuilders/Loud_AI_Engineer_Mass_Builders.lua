@@ -129,7 +129,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
             
             { LUTL, 'UnitCapCheckLess', { .85 } },
             
-            { EBC, 'LessThanEconMassStorageRatio', { 50 }},
+            { EBC, 'LessThanEconMassStorageRatio', { 60 }},
 
             { EBC, 'GreaterThanEconStorageCurrent', { 100, 2500 }},
             
@@ -449,8 +449,6 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Defensive Point',
 	
 }
 
-
-
 BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Expansions',
     BuildersType = 'EngineerBuilder',
     
@@ -655,7 +653,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Fab Construction - Expansions',
 
 			{ EBC, 'LessThanEconMassStorageRatio', { 50 }},
             
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 100, 0.3, 1.04 }},            
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 50, 0.3, 1.04 }},            
 
 			-- check base massfabs 
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 8, categories.MASSFABRICATION * categories.TECH3, 10, 42 }},
@@ -714,7 +712,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Fab Construction - Expansions - 
 
 			{ EBC, 'LessThanEconMassStorageRatio', { 50 }},
             
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 100, 0.3, 1.04 }},            
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 50, 0.3, 1.04 }},            
 
 			-- check base massfabs 
 			{ UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 8, categories.MASSFABRICATION * categories.TECH3, 10, 42 }},
@@ -922,11 +920,16 @@ BuilderGroup {BuilderGroupName = 'Engineer Eng Station Construction',
 		
         BuilderConditions = {
  			{ MIBC, 'FactionIndex', { 1, 3 } },
+
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+
             { LUTL, 'UnitCapCheckLess', { .75 } },
+
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 8, categories.ENGINEERSTATION}},
+
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 6, categories.ENERGYPRODUCTION * categories.TECH3 }},
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }}, 
+
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.025, 1.04 }}, 
         },
 		
 		BuilderType = { 'T2','T3' },
@@ -955,11 +958,16 @@ BuilderGroup {BuilderGroupName = 'Engineer Eng Station Construction',
 		
         BuilderConditions = {
  			{ MIBC, 'FactionIndex', { 2, 4 } },
+
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+
             { LUTL, 'UnitCapCheckLess', { .75 } },
+
             { UCBC, 'UnitsLessAtLocation', { 'LocationType', 8, categories.ENGINEERSTATION}},
+
 			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 6, categories.ENERGYPRODUCTION * categories.TECH3 }},
-            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.02, 1.04 }}, 
+
+            { EBC, 'GreaterThanEconEfficiencyOverTime', { 1.025, 1.04 }}, 
         },
 		
 		BuilderType = { 'T3' },
