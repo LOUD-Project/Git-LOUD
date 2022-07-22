@@ -103,7 +103,7 @@ local TrashDestroy = TrashBag.Destroy
 
 local AIRUNITS = (categories.AIR * categories.MOBILE) - categories.INSIGNIFICANTUNIT
 local FACTORIES = categories.FACTORY - categories.EXPERIMENTAL
-local ENERGYPRODUCTION = categories.ENERGYPRODUCTION - categories.HYDROCARBON - categories.EXPERIMENTAL
+local ENERGYPRODUCTION = categories.ENERGYPRODUCTION - categories.HYDROCARBON - categories.EXPERIMENTAL - categories.TECH1
 local MASSPRODUCTION = categories.MASSPRODUCTION - categories.EXPERIMENTAL
 local INTEL = categories.INTELLIGENCE - categories.OPTICS
 local SERAPHIMAIR = categories.SERAPHIM * categories.AIR
@@ -684,8 +684,16 @@ StructureUnit = Class(Unit) {
 		if EntityCategoryContains( ENERGYPRODUCTION, finishedUnit ) then
 
 			if not finishedUnit.UpgradeThread then
+            
+                if EntityCategoryContains( categories.TECH2, finishedUnit ) then
 
-				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, 1.0025, 0.80, 9999, 1.8, 21, 180, true )
+                    finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, 1.001, 0.80, 9999, 1.6, 16, 120, false )
+                    
+                else
+                
+                    finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, 0.74, 0.74, 9999, 1.8, 14, 120, true )
+                
+                end
 
 			end
 		end
@@ -707,7 +715,7 @@ StructureUnit = Class(Unit) {
 
 			if not finishedUnit.UpgradeThread then
 
-				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, 1.006, 0.80, 9999, 1.8, 18, 90, true )
+				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, 1.005, 0.80, 9999, 1.6, 18, 90, true )
 
 			end
 		end
@@ -728,7 +736,7 @@ StructureUnit = Class(Unit) {
 
 			if not finishedUnit.UpgradeThread then
 
-				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, .74, 1.0045, 1.8, 9999, 16, 90, true )
+				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, .74, 1.0045, 1.8, 9999, 15, 90, true )
 
 			end
         end

@@ -7279,18 +7279,18 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 							if GetEconomyStoredRatio(aiBrain, 'MASS') < masslimit or GetEconomyStoredRatio(aiBrain, 'ENERGY') < energylimit then
                             
                                 -- we'll use the MajorCheatModifier(66% of the full cheat) to reduce the longest delays
-								ForkThread(SelfUpgradeDelay, aiBrain, math.min(400, buildtime*.42)/aiBrain.MajorCheatModifier )  -- delay the next upgrade by 42% of the upgrade build time
+								ForkThread(SelfUpgradeDelay, aiBrain, math.min(400, buildtime*.40)/aiBrain.MajorCheatModifier )  -- delay the next upgrade by 40% of the upgrade build time
                                 
 							else
                                 -- if either storage is NOT full -- medium delay - unaffected by cheat
                                 if GetEconomyStoredRatio(aiBrain, 'MASS') < 1 or GetEconomyStoredRatio(aiBrain, 'ENERGY') < 1 then
                                 
-                                    ForkThread(SelfUpgradeDelay, aiBrain, math.min(240, buildtime*.21) )   -- otherwise only 21% the delay period   -- aiBrain.UpgradeIssuedPeriod
+                                    ForkThread(SelfUpgradeDelay, aiBrain, math.min(240, buildtime*.2) )   -- otherwise only 20% the delay period   -- aiBrain.UpgradeIssuedPeriod
                                     
                                 else
-                                    -- both storages are full -- tiny 5 second delay - no matter what
+                                    -- both storages are full -- tiny 3 second delay - no matter what
                                     -- the 5 seconds allow this new upgrade to affect the eco values before another executes
-                                    ForkThread(SelfUpgradeDelay, aiBrain, 50 )
+                                    ForkThread(SelfUpgradeDelay, aiBrain, 30 )
                                 end
                             end
 
