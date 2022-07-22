@@ -71,7 +71,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Land Construction',
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
            
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.012, 1.02 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.0125, 1.025 }},
         },
 		
         BuilderType = { 'SubCommander' },
@@ -104,7 +104,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Land Construction',
 
 		PriorityFunction = LessThan20MinutesRemain,
 		
-		InstanceCount = 3,
+		InstanceCount = 2,
 		
         BuilderConditions = {
             
@@ -147,21 +147,21 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Land Construction',
 
 		PriorityFunction = LessThan20MinutesRemain,
 		
-		InstanceCount = 3,
+		InstanceCount = 2,
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.3 } },
             
-			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
             
             -- must have 4 shields up at this base
 			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 4, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY }},
             
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.015, 1.025 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2.5, 100, 1.02, 1.03 }},
         },
 		
         BuilderType = { 'SubCommander' },
@@ -207,7 +207,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Land Construction',
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
             
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2.5, 100, 1.02, 1.03 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 3, 150, 1.02, 1.03 }},
         },
 		
         BuilderType = { 'SubCommander' },
@@ -252,7 +252,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Land Construction - Expansions',
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
             
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.012, 1.02 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.0125, 1.025 }},
         },
 		
         BuilderType = { 'SubCommander' },
@@ -285,7 +285,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Land Construction - Expansions',
 
 		PriorityFunction = LessThan20MinutesRemain,
 
-		InstanceCount = 2,
+		InstanceCount = 1,
 
         BuilderConditions = {
         
@@ -327,7 +327,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Land Construction - Expansions',
 
 		PriorityFunction = LessThan20MinutesRemain,
 
-		InstanceCount = 2,
+		InstanceCount = 1,
 
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
@@ -385,7 +385,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Land Construction - Expansions',
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
             
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2.5, 100, 1.02, 1.03 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 3, 150, 1.02, 1.03 }},
         },
 		
         BuilderType = { 'SubCommander' },
@@ -425,20 +425,20 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Air Construction - Land Only Map',
 
 		PriorityFunction = LessThan20MinutesRemain,
 
-		InstanceCount = 2,
+		InstanceCount = 1,
 
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
             
-			{ LUTL, 'AirStrengthRatioGreaterThan', { 1.1 } },
+			{ LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
 			
 			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
             
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.012, 1.02 }},
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.0125, 1.025 }},
         },
 		
         BuilderType = { 'SubCommander' },
@@ -477,7 +477,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Air Construction - Land Only Map',
             
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
             
-			{ LUTL, 'AirStrengthRatioGreaterThan', { 1.1 } },
+			{ LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
 			
             { UCBC, 'ArmyNeedsTransports', { true } },
 			
@@ -485,7 +485,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Air Construction - Land Only Map',
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
             
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.012, 1.02 }},
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.0125, 1.025 }},
         },
 		
         BuilderType = { 'SubCommander' },
@@ -524,13 +524,13 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Air Construction - Land Only Map',
             
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
             
-			{ LUTL, 'AirStrengthRatioGreaterThan', { 1.1 } },
+			{ LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
 			
 			{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
             
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.012, 1.02 }},
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.0125, 1.025 }},
         },
 		
         BuilderType = { 'SubCommander' },
@@ -571,13 +571,13 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Air Construction - Water Map',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ LUTL, 'AirStrengthRatioGreaterThan', { 1.1 } },
+			{ LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
             
 			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
             
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.012, 1.02 }},
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.0125, 1.025 }},
         },
 		
         BuilderType = { 'SubCommander' },
@@ -614,13 +614,13 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Air Construction - Water Map',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ LUTL, 'AirStrengthRatioGreaterThan', { 1.1 } },
+			{ LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
             
 			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
             
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.012, 1.02 }},
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.0125, 1.025 }},
         },
 
         BuilderType = { 'SubCommander' },
@@ -662,7 +662,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Air Construction - Expansions',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ LUTL, 'AirStrengthRatioGreaterThan', { 1.1 } },
+			{ LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
             
 			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
             
@@ -670,7 +670,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Air Construction - Expansions',
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
             
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.012, 1.02 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.0125, 1.025 }},
         },
 		
         BuilderType = { 'SubCommander' },
@@ -707,7 +707,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Air Construction - Expansions',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ LUTL, 'AirStrengthRatioGreaterThan', { 1.1 } },
+			{ LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
             
 			{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
             
@@ -715,7 +715,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Air Construction - Expansions',
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
             
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.012, 1.02 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.0125, 1.025 }},
         },
 		
         BuilderType = { 'SubCommander' },
@@ -755,13 +755,13 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Air Construction - Water Map - Exp
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ LUTL, 'AirStrengthRatioGreaterThan', { 1.1 } },
+			{ LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
             
-			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
             
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.012, 1.02 }},
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.0125, 1.025 }},
         },
 
         BuilderType = { 'SubCommander' },
@@ -796,13 +796,13 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Air Construction - Water Map - Exp
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ LUTL, 'AirStrengthRatioGreaterThan', { 1.1 } },
+			{ LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
             
 			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
             
-            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.012, 1.02 }},
+            { EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.0125, 1.025 }},
         },
 		
         BuilderType = { 'SubCommander' },
@@ -883,7 +883,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Naval Construction',
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 			
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.012, 1.02 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.0125, 1.03 }},
         },
 		
         BuilderType = { 'SubCommander' },
@@ -915,7 +915,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Naval Construction',
 
 		PriorityFunction = LessThan20MinutesRemain,
 		
-		InstanceCount = 2,
+		InstanceCount = 1,
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
@@ -926,7 +926,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Naval Construction',
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.012, 1.02 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.0125, 1.025 }},
         },
 		
         BuilderType = { 'SubCommander' },
@@ -974,7 +974,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Naval Construction - Expansions',
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.012, 1.02 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.0125, 1.025 }},
 			
         },
 		
@@ -1007,7 +1007,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Naval Construction - Expansions',
 
 		PriorityFunction = LessThan20MinutesRemain,
 		
-		InstanceCount = 2,
+		InstanceCount = 1,
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
@@ -1018,7 +1018,7 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Naval Construction - Expansions',
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
 
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.012, 1.02 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.0125, 1.025 }},
         },
 		
         BuilderType = { 'SubCommander' },
