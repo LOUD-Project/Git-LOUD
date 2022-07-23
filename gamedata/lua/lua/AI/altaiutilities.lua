@@ -951,7 +951,7 @@ end
 function GetTransports( platoon, aiBrain)
 
     if platoon.UsingTransport then
-        LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." already using transports")
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." already using transports")
         return false, false
     end
 
@@ -2697,7 +2697,7 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
         
             if not t.ReturnToPoolCallbackSet then
 
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..UnitPlatoon.BuilderName.." "..transport.PlatoonHandle.BuilderName.." Transport "..transport.Sync.id.." has no RTP Callback set")
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..UnitPlatoon.BuilderName.." "..transport.PlatoonHandle.BuilderName.." Transport "..transport.Sync.id.." has no RTP Callback set")
 
                 ForkTo( ReturnTransportsToPool, aiBrain, {t}, true )
             end

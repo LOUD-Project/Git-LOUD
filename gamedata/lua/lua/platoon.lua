@@ -2963,7 +2963,7 @@ Platoon = Class(moho.platoon_methods) {
 						-- is it the same as last failed marker
 						if LOUDEQUAL( marker, lastmarker ) then
 						
-							LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." trying to select same point "..repr(marker))
+							--LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." trying to select same point "..repr(marker))
 						
 							marker = false
 						end
@@ -2984,7 +2984,7 @@ Platoon = Class(moho.platoon_methods) {
             
                 if position then
             
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." could not pick a "..repr(PCat).." marker from position "..repr(position).." using radius "..repr(PRadius).." - RTB")
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." could not pick a "..repr(PCat).." marker from position "..repr(position).." using radius "..repr(PRadius).." - RTB")
 
                     return self:SetAIPlan('ReturnToBaseAI',aiBrain)
                 else

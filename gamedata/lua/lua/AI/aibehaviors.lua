@@ -2834,7 +2834,7 @@ function AirForceAILOUD( self, aiBrain )
                 
                 if atthreat > mythreat then
                 
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." AA threat too high "..atthreat.." - aborting - my threat "..mythreat.." using "..LOUDFLOOR(IMAPblocks/2).." IMAP blocks")
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." AA threat too high "..atthreat.." - aborting - my threat "..mythreat.." using "..LOUDFLOOR(IMAPblocks/2).." IMAP blocks")
                     
                     return self:SetAIPlan('ReturnToBaseAI',aiBrain)
                 end
@@ -3320,7 +3320,7 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
                 
                 if atthreat > mythreat then
                 
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." AA threat too high "..atthreat.." - aborting - my threat "..mythreat.." using "..LOUDFLOOR(IMAPblocks/2).." IMAP blocks")
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." AA threat too high "..atthreat.." - aborting - my threat "..mythreat.." using "..LOUDFLOOR(IMAPblocks/2).." IMAP blocks")
                     
                     return self:SetAIPlan('ReturnToBaseAI',aiBrain)
                 end
@@ -3822,7 +3822,7 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
                 
                 if atthreat > mythreat then
                 
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." AA threat too high "..atthreat.." - aborting - my threat "..mythreat.." using "..LOUDFLOOR(IMAPblocks/2).." IMAP blocks")
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." AA threat too high "..atthreat.." - aborting - my threat "..mythreat.." using "..LOUDFLOOR(IMAPblocks/2).." IMAP blocks")
                     
                     return self:SetAIPlan('ReturnToBaseAI',aiBrain)
                 end
@@ -4329,7 +4329,7 @@ function AirForceAI_Torpedo_LOUD( self, aiBrain )
                 
                 if atthreat > mythreat then
                 
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." AA threat too high "..atthreat.." - aborting - my threat "..mythreat.." using "..(IMAPblocks/2).." IMAP blocks")
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." AA threat too high "..atthreat.." - aborting - my threat "..mythreat.." using "..(IMAPblocks/2).." IMAP blocks")
                     
                     return self:SetAIPlan('ReturnToBaseAI',aiBrain)
                 end

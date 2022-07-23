@@ -1,5 +1,24 @@
 ### Release
 
+LUA 6.2.14
+
+    - fixed an issue with proper detection of amphibious presentations, resulted in overbuilding land-only units and restricted amphibious operations
+    - fixed an issue with all 3 ratios where if the opponent loses all units (or doesn't build them) the respective ratio could drop to 0.011 (no enemy)
+        -- this is directly opposite to the desired ratio of 10 (we've beaten the snot out of the opponent)
+        -- greatly affects production choices (ie.- overbuild of ASF rather than going bombers/gunships)
+    - initial air production has been revised to address all 3 opening needs (engineers, air scouts, air transport)
+        -- dramatically restores his ability to move/expand quickly onto large maps and correctly identify opponents positions very early
+    - PriorityFunctions, for the PlatoonFormManager (PFM), could reset builders with 0 priority (those to be removed), now ignores those
+    - GUARDPOINT has a new option for PointSort -- MostThreat - allowing platoons to pick a point that is most threatened (useful for MEX Guard)
+        - MostThreat is utilized by FindPointMeetsConditions() to sort the final point list by highest threat first
+    - the MapLessThan20km function was using the wrong value (was not recognizing 20k maps properly)
+    - AI Assist functions now have a higher default gating value (250M, 1250E) and will cycle on 3 second period, down from 4
+    - AI SelfUpgrade function will now prioritize T3 Pgen Upgrades more aggressively than T2, but both have had their test frequency increased
+    - A wide range of adjusted economic triggers for all kinds of engineer work (see Github for greater details)
+    - A revised and narrower schedule of T4 builds, to encourage more assist of current projects, rather than starting more new ones
+
+### Release 16-07-2022
+
 LUA 6.2.13
 
     - fixed a divide by zero error affecting the strength ratio calculations
@@ -26,7 +45,7 @@ LUA 6.2.13
     - a revision of the eco requirements for adding new factories, he's a little slower in adding more, but this prevents premature eco crashing
     - mass fabricators will appear earlier and more agressively, and his drive to build power infrastructure will keep pace with this demand
     
-    - alteration to the lobby code to track observers, and deal with observers causing a crash when exiting an ongoing game
+    - alteration to the lobby code to track observers, and deal with observers causing a crash when exiting an ongoing game (unsuccessful)
     
     
 
