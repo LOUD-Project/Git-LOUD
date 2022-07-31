@@ -56,7 +56,7 @@ local SUBCOMMANDER = categories.SUBCOMMANDER
 
 local LANDUNITS = categories.LAND * categories.MOBILE
 local AIRUNITS = categories.AIR * categories.MOBILE
-local SEAUNITS = categories.NAVAL * categories.MOBILE
+local SEAUNITS = categories.MOBILE - categories.AIR
 
 local LANDRESPONSE = (categories.LAND * categories.MOBILE) - categories.ANTIAIR - categories.COUNTERINTELLIGENCE - categories.ENGINEER - categories.COMMAND
 local SEARESPONSE = (categories.NAVAL * categories.MOBILE) - categories.STRUCTURE - categories.ENGINEER - categories.CARRIER
@@ -1075,18 +1075,26 @@ EngineerManager = Class(BuilderManager) {
 		local targetUnits
 		local x1,x2,x3,count,newpos,unitpos,bp
 
+        local LocationInWaterCheck = function(position)
+            return GetTerrainHeight(position[1], position[3]) < GetSurfaceHeight(position[1], position[3])
+        end    
+
 		-- loop until the alert falls below the trigger or moves outside the alert radius
 		repeat
         
 			-- look for units of the threattype
 			if threattype == 'Land' then
+            
 				targetUnits = GetUnitsAroundPoint( aiBrain, LANDUNITS, pos, 120, 'Enemy')
 			
 			elseif threattype == 'Air' then
+            
 				targetUnits = GetUnitsAroundPoint( aiBrain, AIRUNITS, pos, 120, 'Enemy')
 			
 			elseif threattype == 'Naval' then
-				targetUnits = GetUnitsAroundPoint( aiBrain, SEAUNITS, pos, 120, 'Enemy')
+            
+				targetUnits = GetUnitsAroundPoint( aiBrain, categories.MOBILE - categories.AIR, pos, 120, 'Enemy')
+
 			end
 
 			x1 = 0
@@ -1102,6 +1110,15 @@ EngineerManager = Class(BuilderManager) {
 				if not nearunit.Dead then
 		
 					unitpos = GetPosition(nearunit)
+                    
+                    if threattype == 'Naval' then
+
+                        -- confirm target positions are on the water
+                        if not LocationInWaterCheck(unitpos) then
+                            continue
+                        end
+
+                    end
 
 					if unitpos then
 						x1 = x1 + unitpos[1]
@@ -1131,7 +1148,11 @@ EngineerManager = Class(BuilderManager) {
 			-- update the alerts table, time of last alert, ping interface
 			-- and launch the response thread if not already underway --
 			if count > 0 and threat >= BaseMonitor.AlertLevel then
-		
+
+				if BaseMonitorDialog then
+					LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR "..threattype.." - "..count.." units found with threat of "..threat.." - ALERT !")
+				end
+
 				-- do the average position calculation -- 
 				newpos = { x1/count, x2/count, x3/count }
 			
@@ -1446,7 +1467,7 @@ EngineerManager = Class(BuilderManager) {
                             local enemynavalthreat = GetThreatAtPosition( aiBrain, distressLocation, 0, true, 'AntiSurface') + GetThreatAtPosition( aiBrain, distressLocation, 0, true, 'AntiSub')
 						
 							if BaseDistressResponseDialog then
-								LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASE DISTRESS RESPONSE to "..enemynavalthreat.." my assets are "..repr(GetThreatOfGroup(groupsea,'Naval') ) )
+								LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASE DISTRESS RESPONSE to "..enemynavalthreat.." at "..repr(distressLocation).." - my "..LOUDGETN(groupsea).." assets are valued at "..repr(GetThreatOfGroup(groupsea,'Naval') ).." threat" )
 							end
 				
                             -- only send response if we can muster 70% of enemy threat
@@ -1460,9 +1481,10 @@ EngineerManager = Class(BuilderManager) {
 
                                 counter = 0
                                 totalthreatsent = 0
-                                threatlimit = ( GetThreatAtPosition( aiBrain, distressLocation, 0, true, 'AntiSurface' ) + GetThreatAtPosition( aiBrain, distressLocation, 0, true, 'AntiSub'))
+                                
+                                threatlimit = ( GetThreatAtPosition( aiBrain, distressLocation, 0, true, 'AntiSurface' ) + GetThreatAtPosition( aiBrain, distressLocation, 0, true, 'AntiSub')) + 10
 
-                                -- send 5 per 3 tick to the distressLocation --
+                                -- send upto 5 units every 11 ticks, to the distressLocation --
                                 for _,u in groupsea do
 
                                     if not u.Dead then
@@ -1481,7 +1503,7 @@ EngineerManager = Class(BuilderManager) {
                                     end
                                 end
 
-                                -- then send them back to rally points --
+                                -- then send them back to 2 nearest rally points --
                                 DisperseUnitsToRallyPoints( aiBrain, groupsea, baseposition, RallyPoints, distressLocation, 2 )
 
                                 response = true
