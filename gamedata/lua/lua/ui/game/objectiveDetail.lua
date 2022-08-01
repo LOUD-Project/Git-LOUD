@@ -11,6 +11,7 @@ local WIN_ID = 'Objectives_Log'
 local lobbyoptions = import('/lua/ui/lobby/lobbyOptions.lua')
 
 local isCampaign = import('/lua/ui/campaign/campaignmanager.lua').campaignMode
+
 local savedParent = false
 local DetailWindow = false
 
@@ -92,11 +93,8 @@ function Create()
     GUI.logContainer.top = 0
     
     local titleText = ''
-    if isCampaign then
-        titleText = '<LOC tooltipui0058>'
-    else
-        titleText = '<LOC sel_map_0000>'
-    end
+
+    titleText = '<LOC sel_map_0000>'
     
     GUI.title = UIUtil.CreateText(GUI.bg, LOC(titleText), 20)
     LayoutHelpers.AtLeftTopIn(GUI.title, GUI.bg, 30, 25)
@@ -105,12 +103,14 @@ function Create()
     UIUtil.CreateVertScrollbarFor(GUI.logContainer)
     
     local function CreateObjectiveElements()
+
         if GUI.logEntries then
             for i, v in GUI.logEntries do
                 if v.bg then v.bg:Destroy() end
             end
             GUI.logEntries = {}
         end
+
         local function eventHandler(self, checked)
             if self.id then
                 SetDetailTable(self.id)
@@ -510,125 +510,67 @@ function GetTargetImages(data)
 end
 
 function Refresh()
+
     local primtitle = '<LOC SCORE_0037>'
     local sectitle = '<LOC SCORE_0040>'
     local comtitle = '<LOC objui_0003>'
     local failtitle = '<LOC objui_0004>'
     local mapinfo = '<LOC sel_map_0000>'
-    if isCampaign then
-        Widgets = import('/lua/ui/game/objectives2.lua').Widgets
-        local sortedPrim = {}
-        local sortedSec = {}
-        local sortedCom = {}
-        local sortedFail = {}
-        for i, v in Widgets do
-            if v.ObjData.Status then
-                if v.ObjData.Status == 'complete' then
-                    table.insert(sortedCom, v.ObjData)
-                else
-                    table.insert(sortedFail, v.ObjData)
-                end
-            else
-                if v.ObjData.type == 'primary' then
-                    table.insert(sortedPrim, v.ObjData)
-                else
-                    table.insert(sortedSec, v.ObjData)
-                end
+
+    ObjectiveLogData[1] = {type = 'title', title = mapinfo, color = 'ff5fbde9'}
+
+    local mapinfo = SessionGetScenarioInfo()
+    local mapsizes = import('/lua/ui/dialogs/mapselect.lua').mapFilters[2].Options
+    local retText = ''
+
+    for i, v in mapsizes do
+        if v.key == mapinfo.size[1] then
+            retText = v.text
+        end
+    end
+
+    local invalidOptions = { ScenarioFile=true, }
+
+    ObjectiveLogData[2] = {title = mapinfo.name, HideIcon = true, type = 'setting', description = mapinfo.description, progress = retText }
+
+    local index = 3
+
+    for i, v in mapinfo.Options do
+
+        if not invalidOptions[i] then
+
+            local tablestr = 'globalOpts'
+
+            if i == 'TeamLock' or i == 'TeamSpawn' then
+                tablestr = 'teamOptions'
             end
-        end
-        local index = 1
-        local function SortFunc(t1, t2)
-            return (t1.EndTime or t1.StartTime) > (t2.EndTime or t2.StartTime)
-        end
-        
-        if sortedPrim[1] then
-        
-            ObjectiveLogData[index] = {type = 'title', title = primtitle, color = 'ffe9e45f'}
-            index = index + 1
-            
-            table.sort(sortedPrim, SortFunc)
-            
-            for i, v in sortedPrim do
-                ObjectiveLogData[index] = table.deepcopy(v)
+
+            if ExtractStrings(i, v, tablestr) then
+                ObjectiveLogData[index] = ExtractStrings(i, v, tablestr)
                 index = index + 1
-            end
-            
-        end
-        
-        if sortedSec[1] then
-        
-            ObjectiveLogData[index] = {type = 'title', title = sectitle, color = 'ffe9aa5f'}
-            index = index + 1
-            
-            table.sort(sortedSec, SortFunc)
-            
-            for i, v in sortedSec do
-                ObjectiveLogData[index] = table.deepcopy(v)
-                index = index + 1
-            end
-            
-        end
-        
-        if table.getn(sortedCom) > 0 then
-            ObjectiveLogData[index] = {type = 'title', title = comtitle, color = 'ff5fbde9'}
-            index = index + 1
-            table.sort(sortedCom, SortFunc)
-            for i, v in sortedCom do
-                ObjectiveLogData[index] = table.deepcopy(v)
-                index = index + 1
-            end
-        end
-        if table.getn(sortedFail) > 0 then
-            ObjectiveLogData[index] = {type = 'title', title = failtitle, color = 'ffe95f5f'}
-            index = index + 1
-            table.sort(sortedFail, SortFunc)
-            for i, v in sortedFail do
-                ObjectiveLogData[index] = table.deepcopy(v)
-                index = index + 1
-            end
-        end
-    else
-        ObjectiveLogData[1] = {type = 'title', title = mapinfo, color = 'ff5fbde9'}
-        local mapinfo = SessionGetScenarioInfo()
-        local mapsizes = import('/lua/ui/dialogs/mapselect.lua').mapFilters[2].Options
-        local retText = ''
-        for i, v in mapsizes do
-            if v.key == mapinfo.size[1] then
-                retText = v.text
-            end
-        end
-        local invalidOptions = {
-            ScenarioFile=true,
-        }
-        ObjectiveLogData[2] = {title = mapinfo.name, HideIcon = true, type = 'setting', 
-            description = mapinfo.description, progress = retText}
-        local index = 3
-        for i, v in mapinfo.Options do
-            if not invalidOptions[i] then
-                local tablestr = 'globalOpts'
-                if i == 'TeamLock' or i == 'TeamSpawn' then
-                    tablestr = 'teamOptions'
-                end
-                if ExtractStrings(i, v, tablestr) then
-                    ObjectiveLogData[index] = ExtractStrings(i, v, tablestr)
-                    index = index + 1
-                end
             end
         end
     end
+
 end
 
 function ExtractStrings(key, setting, tablestr)
+
     for i, v in lobbyoptions[tablestr] do
+
         if v.key == key then
+
             local retHelp = ''
             local retText = ''
+
             for index, val in v.values do
+
                 if val.key == setting then
                     retText = val.text
                     retHelp = val.help
                 end
             end
+
             return {title = v.label, HideIcon = true, type = 'setting', description = retHelp, progress = retText}
         end
     end

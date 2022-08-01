@@ -533,12 +533,8 @@ function CreateWldUIProvider()
 				
                     newAlpha = 0
                     self:Destroy()
-					
-                    if not import('/lua/ui/campaign/campaignmanager.lua').campaignMode then
-					
-                        ForkThread(InitialAnimations)
-						
-                    end
+
+                    ForkThread(InitialAnimations)
 					
                 end
 				
@@ -594,9 +590,7 @@ function CreateWldUIProvider()
 		
         CreateUI(isReplay)
 		
-        if not import('/lua/ui/campaign/campaignmanager.lua').campaignMode then
-            HideGameUI('on')
-        end
+        HideGameUI('on')
 		
 		supressExitDialog = false
 		

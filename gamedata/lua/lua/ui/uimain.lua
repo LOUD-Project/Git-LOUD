@@ -9,7 +9,7 @@ local UIUtil = import('uiutil.lua')
 local Prefs = import('/lua/user/prefs.lua')
 local Text = import('/lua/maui/text.lua').Text
 
-local CampaignManager = import('/lua/ui/campaign/campaignmanager.lua')
+--local CampaignManager = import('/lua/ui/campaign/campaignmanager.lua')
 
 local console = false
 local alreadySetup = false
@@ -52,11 +52,9 @@ function StartFrontEndUI()
     end    
     
     -- if there is an auto continue state, then launch op immediately
-    if GetFrontEndData('NextOpBriefing') then
-        CampaignManager.LaunchBriefing(GetFrontEndData('NextOpBriefing'))
-    else
-        import('/lua/ui/menus/main.lua').CreateUI()
-    end
+
+    import('/lua/ui/menus/main.lua').CreateUI()
+
     if GetNumRootFrames() > 1 then
         import('/lua/ui/game/multihead.lua').ShowLogoInHead1()
     end

@@ -179,22 +179,18 @@ local menus = {
 local actions = {
 
     Save = function()
+    
         local saveType
-        if import('/lua/ui/campaign/campaignmanager.lua').campaignMode then
-            saveType = "CampaignSave"
-        else
-            saveType = "SaveGame"
-        end
+
+        saveType = "SaveGame"
 
         import('/lua/ui/dialogs/saveload.lua').CreateSaveDialog(GetFrame(0), nil, saveType)
     end,
 	
     Load = function()
-        if import('/lua/ui/campaign/campaignmanager.lua').campaignMode then
-            saveType = "CampaignSave"
-        else
-            saveType = "SaveGame"
-        end
+
+        saveType = "SaveGame"
+
         import('/lua/ui/dialogs/saveload.lua').CreateLoadDialog(GetFrame(0), nil, saveType)
     end,
 	
@@ -268,44 +264,39 @@ local actions = {
 }
 
 function EndGame()
-    if import('/lua/ui/campaign/campaignmanager.lua').campaignMode then
-        SetFrontEndData('NextOpBriefing', nil)
-        import('/lua/ui/dialogs/score.lua').CreateDialog(nil, nil, nil, true)
-    else
-        import('/lua/ui/dialogs/score.lua').CreateDialog()
-    end
+
+    import('/lua/ui/dialogs/score.lua').CreateDialog()
+
 end
 
 function EndGameSaveWindow()
+
     local saveType
-    if import('/lua/ui/campaign/campaignmanager.lua').campaignMode then
-        saveType = 'CampaignSave'
-    else
-        saveType = 'SaveGame'
-    end
+
+    saveType = 'SaveGame'
+
     function SaveKillBehavior(cancelled)
         if not cancelled then
             EndGame()
         end
     end
-    import('/lua/ui/dialogs/saveload.lua').CreateSaveDialog(GetFrame(0), 
-        SaveKillBehavior, saveType)
+
+    import('/lua/ui/dialogs/saveload.lua').CreateSaveDialog(GetFrame(0), SaveKillBehavior, saveType)
 end
 
 function ExitGameSaveWindow()
+
     local saveType
-    if import('/lua/ui/campaign/campaignmanager.lua').campaignMode then
-        saveType = 'CampaignSave'
-    else
-        saveType = 'SaveGame'
-    end
+
+    saveType = 'SaveGame'
+
     function SaveKillBehavior(cancelled)
         if not cancelled then
             ExitApplication()
         end
     end
-    import('/lua/ui/dialogs/saveload.lua').CreateSaveDialog(GetFrame(0), 
-        SaveKillBehavior, saveType)
+
+    import('/lua/ui/dialogs/saveload.lua').CreateSaveDialog(GetFrame(0), SaveKillBehavior, saveType)
 end
 
 controls = {
@@ -408,17 +399,19 @@ end
 
 function CommonLogic()
     for i, tab in controls.tabs do
-        if tab.Data.disableInCampaign and import('/lua/ui/campaign/campaignmanager.lua').campaignMode then
-            tab:Disable()
-        elseif tab.Data.disableInReplay and SessionIsReplay() then
+    
+        if  tab.Data.disableInReplay and SessionIsReplay() then
             tab:Disable()
         elseif tab.Data.disableForObserver and GetFocusArmy() == -1 then
             tab:Disable()
         end
+        
         if tab.Data.pause then
+
             if not CanUserPause() then
                 tab:Disable()
             end
+
             tab.Glow.Time = 0
             tab.Glow.OnFrame = function(self, delta)
                 self.Time = self.Time + (delta * 10)
