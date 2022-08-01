@@ -7680,8 +7680,10 @@ Platoon = Class(moho.platoon_methods) {
         local LOUDREMOVE = LOUDREMOVE
 	
 		if eng.Dead then return end
-		
-		--LOG("*AI DEBUG Eng "..eng.Sync.id.." enters PBC with "..repr(removeLastBuild) )
+
+        if ScenarioInfo.EngineerDialog then
+            LOG("*AI DEBUG Eng "..eng.Sync.id.." enters PBC with "..repr(removeLastBuild) )
+        end
 
 		local platoon = eng.PlatoonHandle or false
 		
@@ -7696,8 +7698,6 @@ Platoon = Class(moho.platoon_methods) {
 
             LOUDREMOVE(eng.EngineerBuildQueue, 1)
             
-            --LOG("*AI DEBUG Eng "..eng.Sync.id.." build queue after remove is "..repr(eng.EngineerBuildQueue).." count is "..repr(LOUDGETN(eng.EngineerBuildQueue)))
-			
         end
 
         if eng.NotBuildingThread then
@@ -7743,7 +7743,7 @@ Platoon = Class(moho.platoon_methods) {
 			local WaitTicks = WaitTicks
             local VDist2 = VDist2
 			
-			-- this allows me to specify acceptable threat levels in the engineer task
+			-- this allows me to specify acceptable threat levels in the engineer task or have it based on the SurfaceThreatLevel
 			local mythreat = platoon.PlatoonData.Construction.ThreatMax or (__blueprints[eng.BlueprintID].Defense.SurfaceThreatLevel + 10)
 			
 			local viewrange = LOUDMIN(LOUDMAX(10,eng:GetIntelRadius('Vision')), 70) -- between 10 and 70 -- but never 0
@@ -7854,8 +7854,17 @@ Platoon = Class(moho.platoon_methods) {
 			end
 
 			local function EngineerThreatened( buildlocation )
+                
+                local enemythreat = GetThreatAtPosition( aiBrain, buildlocation, 0, true, 'AntiSurface') 
+                
+                if ScenarioInfo.EngineerDialog then
+
+                    if enemythreat > mythreat then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." threat at "..repr(buildlocation).." is "..enemythreat.." my threatmax is "..mythreat)
+                    end
+                end
 			
-				return mythreat <= GetThreatAtPosition( aiBrain, buildlocation, 0, true, 'AntiSurface')
+				return mythreat <= enemythreat
 				
 			end		
 
@@ -8057,15 +8066,19 @@ Platoon = Class(moho.platoon_methods) {
 			-- handles getting the engy safely to his build location and
 			-- checking if the site is valid and safe along the way
 			local function EngineerMoving( buildlocation, builditem )
-			
-				--LOG("*AI DEBUG Eng "..eng.Sync.id.." moving to "..repr(buildlocation) )
 
+                if ScenarioInfo.EngineerDialog then
+                    LOG("*AI DEBUG Eng "..eng.Sync.id.." moving to "..repr(buildlocation) )
+                end
+                
 				if EngineerThreatened( buildlocation ) then
 				
-					eng.failedmoves = 10	-- clear all orders --
+					eng.failedmoves = 10	-- clear this order, but continue looping --
 					
-					--LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." threatened")
-					
+                    if ScenarioInfo.EngineerDialog then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." threatened")
+                    end
+
 					ForkTo( AIAddMustScoutArea, aiBrain, buildlocation )
 					
 					return false
@@ -8073,9 +8086,11 @@ Platoon = Class(moho.platoon_methods) {
 			
 				if not EngineerMoveWithSafePath( buildlocation ) then
 				
-					eng.failedmoves = 10	-- clear all orders --
-					
-					--LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." cannot move with safe path")
+					eng.failedmoves = 10	-- clear this orders --
+
+                    if ScenarioInfo.EngineerDialog then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." cannot move with safe path")
+                    end
 
 					ForkTo( AIAddMustScoutArea, aiBrain, buildlocation )
 					
@@ -8085,6 +8100,7 @@ Platoon = Class(moho.platoon_methods) {
 					local count = 0  --  use this to keep the loop responsive to arrival but not check conditions every iteration
 
 					-- loop in here if there is a movement thread
+                    
 					-- it will continue to check conditions and will call for transport every 12th cycle
 					while (not eng.Dead) and eng.failedmoves < 10 and PlatoonExists(aiBrain, platoon) and platoon.MovingToWaypoint do
 
@@ -8095,7 +8111,9 @@ Platoon = Class(moho.platoon_methods) {
 						
 								eng.failedmoves = eng.failedmoves + 2
                                 
-               					--LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." build invalid")
+                                if ScenarioInfo.EngineerDialog then
+                                    LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." build invalid while moving")
+                                end
 								
 								ForkTo( AIAddMustScoutArea, aiBrain, buildlocation )								
 							
@@ -8104,12 +8122,22 @@ Platoon = Class(moho.platoon_methods) {
 						
 							if EngineerThreatened( buildlocation ) then
 						
-								eng.failedmoves = eng.failedmoves + 2
+								eng.failedmoves = 10    --eng.failedmoves + 2
+
+                                if ScenarioInfo.EngineerDialog then
+                                    LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." threatened while moving")
+                                end
+
+                                ForkTo( AIAddMustScoutArea, aiBrain, buildlocation )
+					
+                                return false                                
 							end
 						
 							if count == 12 or eng.failedmoves > 2 then
-                            
-                                --LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." calls for transport")
+
+                                if ScenarioInfo.EngineerDialog then
+                                    LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." calls for transport")
+                                end
 						
 								local distance = VDist2( GetPosition(eng)[1],GetPosition(eng)[3], buildlocation[1],buildlocation[3] )
 							
@@ -8157,8 +8185,10 @@ Platoon = Class(moho.platoon_methods) {
 				return not eng.Dead
 			end			
 
-			--LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." buildLocation is "..repr(buildLocation))
-			
+            if ScenarioInfo.EngineerDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." buildLocation is "..repr(buildLocation))
+            end
+
 			-- get the engineer moved to the goal --
 			if not eng.Dead and EngineerMoving( buildLocation, buildItem ) then
 			
@@ -8255,7 +8285,7 @@ Platoon = Class(moho.platoon_methods) {
 								-- start the new base --
 								if AINewExpansionBase( aiBrain, eng.NewExpansion[1], eng.NewExpansion[2], eng, eng.NewExpansion[3] ) then
                                 
-                               		if ScenarioInfo.BaseMonitorDialog then
+                               		if ScenarioInfo.BaseMonitorDialog or ScenarioInfo.EngineerDialog then
                                 
                                         LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName).." Eng "..eng.Sync.id.." creates new base "..repr(eng.NewExpansion[1]).." at "..repr(eng.NewExpansion[2]))
                                         LOG("*AI DEBUG Engineer is presently at "..repr(eng:GetPosition()))
@@ -8288,7 +8318,9 @@ Platoon = Class(moho.platoon_methods) {
 							
 								if CanBuildStructureAt( aiBrain, buildItem, buildLocation ) then
 								
-									--LOG("*AI DEBUG Eng "..eng.Sync.id.." orders build of "..repr(buildItem).." at "..repr(NormalToBuildLocation(buildLocation)))
+                                    if ScenarioInfo.EngineerDialog then
+                                        LOG("*AI DEBUG Eng "..eng.Sync.id.." orders build of "..repr(buildItem).." at "..repr(NormalToBuildLocation(buildLocation)))
+                                    end
 
 									eng.IssuedBuildCommand = true
 									eng.IssuedReclaimCommand = false
@@ -8300,8 +8332,9 @@ Platoon = Class(moho.platoon_methods) {
 									eng.NotBuildingThread = eng:ForkThread(WatchForNotBuilding)
 
 								else
-
-									--WARN("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." fails CanBuildStructureAt "..repr(buildLocation).." for "..repr(buildItem) )
+                                    if ScenarioInfo.EngineerDialog then    
+                                        WARN("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." fails CanBuildStructureAt "..repr(buildLocation).." for "..repr(buildItem) )
+                                    end
 
 									-- remove the item via PBC --
 									if not eng.Dead then
@@ -8328,11 +8361,12 @@ Platoon = Class(moho.platoon_methods) {
 				-- and the job will be put in delay so it isn't selected again right away --
 				if not eng.Dead then
 				
-					if eng.failedmoves < 10 then
+					if eng.failedmoves <= 10 then
 
 						-- move onto next item to build
-						
-						--LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." Failed to build")
+						if ScenarioInfo.EngineerDialog then
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." "..repr(self.BuilderName).." Failed to build")
+                        end
 						
 						self:ProcessBuildCommand( eng,true )
 						
@@ -8374,6 +8408,9 @@ Platoon = Class(moho.platoon_methods) {
                 if aiBrain:GetEconomyStored('MASS') >= LoopMass and (aiBrain:GetEconomyStoredRatio('MASS') *100) < 75 then
                 
                     if aiBrain:GetEconomyStored('ENERGY') >= LoopEnergy then
+                    
+                        eng.failedmoves = 0
+                        eng.failedbuilds = 1
 			
                         platoon:SetAIPlan( platoon.PlanName, aiBrain)
 				
@@ -8381,6 +8418,10 @@ Platoon = Class(moho.platoon_methods) {
                     
                     end
                     
+                end
+                
+                if ScenarioInfo.EngineerDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." "..repr(self.BuilderName).." ends loop due to resource shortage")
                 end
 
                 platoon.PlatoonData.Construction.LoopBuild = false

@@ -45,13 +45,14 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
             
 				BuildClose = true,		-- seek points closest to the engineers position
                 
-				LoopBuild = true,		-- repeat until none in range or cannot meet M & E
+				LoopBuild = true,		-- repeat until none in range, threat or cannot meet M & E
+                
                 LoopMass = 1,
                 LoopEnergy = 500,
                 
                 MaxRange = 250,
 
-				ThreatMax = 50,
+				ThreatMax = 10,
 				ThreatRings = 0,
                 
 				ThreatType = 'AntiSurface',
@@ -101,7 +102,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
                 MinRange = 200,
                 MaxRange = 750,
 
-				ThreatMax = 30,
+				ThreatMax = 10,
 				ThreatRings = 0,
 				ThreatType = 'AntiSurface',
 
@@ -143,13 +144,13 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
                 MaxChoices = 4,         -- pick from list of up to 4 closest positions
                 
 				LoopBuild = true,		-- repeat until none in range or cannot meet M & E
-                LoopMass = 75,
+                LoopMass = 10,
                 LoopEnergy = 2500,
 
                 MinRange = 200,
                 MaxRange = 750,
 
-				ThreatMax = 30,
+				ThreatMax = 10,
 				ThreatRings = 0,
 				ThreatType = 'AntiSurface',
 
@@ -198,7 +199,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
                 MinRange = 300,         -- if BuildClose is true then MinRange will be set to zero AFTER first build (so engineer can build groups in same area)
                 MaxRange = 1500,
 
-				ThreatMax = 20,
+				ThreatMax = 10,
 				ThreatRings = 1,
 				ThreatType = 'AntiSurface',
                 
@@ -252,7 +253,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
                 MinRange = 300,
                 MaxRange = 2500,
 
-				ThreatMax = 15,
+				ThreatMax = 10,
 				ThreatRings = 1,
 				ThreatType = 'AntiSurface',
                 
@@ -301,7 +302,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
                 MinRange = 200,         -- initial min range - after first build, min becomes zero for groups
                 MaxRange = 750,
 
-				ThreatMax = 40,
+				ThreatMax = 15,
 				ThreatRings = 0,
 				ThreatType = 'AntiSurface',
                 
@@ -438,7 +439,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Defensive Point',
                 
                 MaxRange = 200,
 
-				ThreatMax = 35,
+				ThreatMax = 15,
 				ThreatRings = 0,
 				ThreatType = 'AntiSurface',
                 
@@ -528,7 +529,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Expansions',
                 MinRange = 150,
                 MaxRange = 750,
 
-				ThreatMax = 30,
+				ThreatMax = 15,
 				ThreatRings = 0,
 				ThreatType = 'AntiSurface',
                 
@@ -579,7 +580,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Naval',
                 
                 MaxRange = 750,
 
-				ThreatMax = 30,
+				ThreatMax = 15,
 				ThreatRings = 0,
 				ThreatType = 'AntiSurface',
                 
