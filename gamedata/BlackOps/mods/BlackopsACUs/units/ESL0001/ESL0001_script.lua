@@ -73,7 +73,7 @@ ESL0001 = Class( SWalkingLandUnit ) {
                 SDFSinnuntheWeapon.PlayFxMuzzleChargeSequence(self, muzzle)
                 
                 self:ForkThread(function()
-                    WaitSeconds(self.unit:GetBlueprint().Weapon[7].MuzzleChargeDelay)
+                    WaitSeconds(self.unit:GetBlueprint().Weapon[8].MuzzleChargeDelay)
                     
                     self.ClawTopRotator:SetGoal(0):SetSpeed(50)
                     self.ClawBottomRotator:SetGoal(0):SetSpeed(50)
@@ -99,7 +99,7 @@ ESL0001 = Class( SWalkingLandUnit ) {
                 SDFSinnuntheWeapon.PlayFxMuzzleChargeSequence(self, muzzle)
                 
                 self:ForkThread(function()
-                    WaitSeconds(self.unit:GetBlueprint().Weapon[8].MuzzleChargeDelay)
+                    WaitSeconds(self.unit:GetBlueprint().Weapon[9].MuzzleChargeDelay)
                     
                     self.ClawTopRotator:SetGoal(0):SetSpeed(50)
                     self.ClawBottomRotator:SetGoal(0):SetSpeed(50)
@@ -125,7 +125,7 @@ ESL0001 = Class( SWalkingLandUnit ) {
                 SDFSinnuntheWeapon.PlayFxMuzzleChargeSequence(self, muzzle)
                 
                 self:ForkThread(function()
-                    WaitSeconds(self.unit:GetBlueprint().Weapon[9].MuzzleChargeDelay)
+                    WaitSeconds(self.unit:GetBlueprint().Weapon[10].MuzzleChargeDelay)
                     
                     self.ClawTopRotator:SetGoal(0):SetSpeed(50)
                     self.ClawBottomRotator:SetGoal(0):SetSpeed(50)
@@ -457,6 +457,8 @@ ESL0001 = Class( SWalkingLandUnit ) {
     end,
 
     WeaponRangeReset = function(self)
+		local wpTarget = self:GetWeaponByLabel('EXTargetPainter')
+		wpTarget:ChangeMaxRadius(self:GetBlueprint().Weapon[2].MaxRadius)
 		if not self.wcTorp01 then
 			local wepTorpedo01 = self:GetWeaponByLabel('EXTorpedoLauncher01')
 			wepTorpedo01:ChangeMaxRadius(1)
@@ -534,6 +536,7 @@ ESL0001 = Class( SWalkingLandUnit ) {
 			self:SetWeaponEnabledByLabel('EXAA01', false)
 			self:SetWeaponEnabledByLabel('EXAA02', false)
 		end
+		local wpTarget = self:GetWeaponByLabel('EXTargetPainter')
 		if not self.wcBuildMode and not self.wcOCMode then
 			self:SetWeaponEnabledByLabel('ChronotronCannon', true)
 			self:SetWeaponEnabledByLabel('OverCharge', false)
@@ -562,6 +565,7 @@ ESL0001 = Class( SWalkingLandUnit ) {
 				self:SetWeaponEnabledByLabel('EXBigBallCannon01', true)
 				local wepAntiMatter01 = self:GetWeaponByLabel('EXBigBallCannon01')
 				wepAntiMatter01:ChangeMaxRadius(35)
+				wpTarget:ChangeMaxRadius(35)
 			else
 				self:SetWeaponEnabledByLabel('EXBigBallCannon01', false)
 			end
@@ -569,6 +573,7 @@ ESL0001 = Class( SWalkingLandUnit ) {
 				self:SetWeaponEnabledByLabel('EXBigBallCannon02', true)
 				local wepAntiMatter02 = self:GetWeaponByLabel('EXBigBallCannon02')
 				wepAntiMatter02:ChangeMaxRadius(40)
+				wpTarget:ChangeMaxRadius(40)
 			else
 				self:SetWeaponEnabledByLabel('EXBigBallCannon02', false)
 			end
@@ -576,6 +581,7 @@ ESL0001 = Class( SWalkingLandUnit ) {
 				self:SetWeaponEnabledByLabel('EXBigBallCannon03', true)
 				local wepAntiMatter03 = self:GetWeaponByLabel('EXBigBallCannon03')
 				wepAntiMatter03:ChangeMaxRadius(45)
+				wpTarget:ChangeMaxRadius(45)
 			else
 				self:SetWeaponEnabledByLabel('EXBigBallCannon03', false)
 			end
@@ -583,6 +589,7 @@ ESL0001 = Class( SWalkingLandUnit ) {
 				self:SetWeaponEnabledByLabel('EXRapidCannon01', true)
 				local wepGattling01 = self:GetWeaponByLabel('EXRapidCannon01')
 				wepGattling01:ChangeMaxRadius(30)
+				wpTarget:ChangeMaxRadius(30)
 			else
 				self:SetWeaponEnabledByLabel('EXRapidCannon01', false)
 			end
@@ -590,6 +597,7 @@ ESL0001 = Class( SWalkingLandUnit ) {
 				self:SetWeaponEnabledByLabel('EXRapidCannon02', true)
 				local wepGattling02 = self:GetWeaponByLabel('EXRapidCannon02')
 				wepGattling02:ChangeMaxRadius(35)
+				wpTarget:ChangeMaxRadius(35)
 			else
 				self:SetWeaponEnabledByLabel('EXRapidCannon02', false)
 			end
@@ -597,6 +605,7 @@ ESL0001 = Class( SWalkingLandUnit ) {
 				self:SetWeaponEnabledByLabel('EXRapidCannon03', true)
 				local wepGattling03 = self:GetWeaponByLabel('EXRapidCannon03')
 				wepGattling03:ChangeMaxRadius(35)
+				wpTarget:ChangeMaxRadius(35)
 			else
 				self:SetWeaponEnabledByLabel('EXRapidCannon03', false)
 			end
@@ -604,6 +613,7 @@ ESL0001 = Class( SWalkingLandUnit ) {
 				self:SetWeaponEnabledByLabel('EXAA01', true)
 				local wepLance01 = self:GetWeaponByLabel('EXAA01')
 				wepLance01:ChangeMaxRadius(35)
+				wpTarget:ChangeMaxRadius(35)
 			else
 				self:SetWeaponEnabledByLabel('EXAA01', false)
 			end
@@ -611,6 +621,7 @@ ESL0001 = Class( SWalkingLandUnit ) {
 				self:SetWeaponEnabledByLabel('EXAA02', true)
 				local wepLance02 = self:GetWeaponByLabel('EXAA02')
 				wepLance02:ChangeMaxRadius(35)
+				wpTarget:ChangeMaxRadius(35)
 			else
 				self:SetWeaponEnabledByLabel('EXAA02', false)
 			end
@@ -837,17 +848,21 @@ ESL0001 = Class( SWalkingLandUnit ) {
 		elseif enh =='EXChronotonBooster' then
             local wepChronotron = self:GetWeaponByLabel('ChronotronCannon')
 			wepChronotron:AddDamageMod(50)
-			wepChronotron:ChangeMaxRadius(self:GetBlueprint().Weapon[1].MaxRadius + 5)
+			wepChronotron:ChangeMaxRadius(self:GetBlueprint().Weapon[2].MaxRadius + 5)
+			local wpTarget = self:GetWeaponByLabel('EXTargetPainter')
+			wpTarget:ChangeMaxRadius(self:GetBlueprint().Weapon[2].MaxRadius)
 			local wepOvercharge = self:GetWeaponByLabel('OverCharge')
-            wepOvercharge:ChangeMaxRadius(self:GetBlueprint().Weapon[2].MaxRadius + 5)
+            wepOvercharge:ChangeMaxRadius(self:GetBlueprint().Weapon[3].MaxRadius + 5)
 			self:ShowBone('Basic_Gun_Up', true)
 			
         elseif enh =='EXChronotonBoosterRemove' then
 			local wepChronotron = self:GetWeaponByLabel('ChronotronCannon')
 			wepChronotron:AddDamageMod(-50)
-			wepChronotron:ChangeMaxRadius(self:GetBlueprint().Weapon[1].MaxRadius)
+			wepChronotron:ChangeMaxRadius(self:GetBlueprint().Weapon[2].MaxRadius)
+			local wpTarget = self:GetWeaponByLabel('EXTargetPainter')
+			wpTarget:ChangeMaxRadius(self:GetBlueprint().Weapon[2].MaxRadius)
 			local wepOvercharge = self:GetWeaponByLabel('OverCharge')
-            wepOvercharge:ChangeMaxRadius(self:GetBlueprint().Weapon[2].MaxRadius)
+            wepOvercharge:ChangeMaxRadius(self:GetBlueprint().Weapon[3].MaxRadius)
 			self:HideBone('Basic_Gun_Up', true)
 
         elseif enh =='EXTorpedoLauncher' then
@@ -1343,7 +1358,7 @@ ESL0001 = Class( SWalkingLandUnit ) {
             end
 
 			local wepOC = self:GetWeaponByLabel('OverCharge')
-            local bpDisruptOCRadius = self:GetBlueprint().Weapon[2].MaxRadius
+            local bpDisruptOCRadius = self:GetBlueprint().Weapon[3].MaxRadius
             wepOC:ChangeMaxRadius(bpDisruptOCRadius or 22)
 			
 			self.RBComTier1 = false
@@ -1393,7 +1408,7 @@ ESL0001 = Class( SWalkingLandUnit ) {
 			end
 			
 			local wepOC = self:GetWeaponByLabel('OverCharge')
-            local bpDisruptOCRadius = self:GetBlueprint().Weapon[2].MaxRadius
+            local bpDisruptOCRadius = self:GetBlueprint().Weapon[3].MaxRadius
             wepOC:ChangeMaxRadius(bpDisruptOCRadius or 22)
 
 			wepOC:ChangeProjectileBlueprint(bp.NewProjectileBlueprint)

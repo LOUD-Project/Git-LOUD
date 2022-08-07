@@ -2,6 +2,7 @@ UnitBlueprint {
     AI = {
 		GuardReturnRadius = 35,
         GuardScanRadius = 30,
+        NeedUnpack = true,
     },
     
     Audio = {
@@ -57,7 +58,7 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Deploys',
+            '<LOC ability_deploys>Deploys',
 			'Large Area Effect',
         },
 		
@@ -208,17 +209,20 @@ UnitBlueprint {
             FiringTolerance = 2,
 			
             Label = 'MainGun',
+            LeadTarget = true,
 			
             MaxRadius = 92,
             MinRadius = 5,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 21,
+            MuzzleVelocity = 25,
             MuzzleVelocityReduceDistance = 85,
+
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/TIFAntiMatterShells02/TIFAntiMatterShells02_proj.bp',
-            ProjectileLifetime = 18,
+            ProjectileLifetime = 20,
 
             RackBones = {
                 {

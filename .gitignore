@@ -32,6 +32,7 @@ bin/*.manifest
 lua_utils/bluePrintExtractor/output*.csv
 
 # IDEs/text editors
+.vs
 .vscode
 .atomignore
 
