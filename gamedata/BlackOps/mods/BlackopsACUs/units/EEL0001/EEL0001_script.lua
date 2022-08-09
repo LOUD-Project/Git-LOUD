@@ -673,6 +673,8 @@ EEL0001 = Class(TWalkingLandUnit) {
     end,
 
     WeaponRangeReset = function(self)
+		local wpTarget = self:GetWeaponByLabel('EXTargetPainter')
+		wpTarget:ChangeMaxRadius(self:GetBlueprint().Weapon[2].MaxRadius)
 		if not self.wcFlamer01 then
 			local wepFlamer01 = self:GetWeaponByLabel('EXFlameCannon01')
 			wepFlamer01:ChangeMaxRadius(1)
@@ -786,7 +788,7 @@ EEL0001 = Class(TWalkingLandUnit) {
 			self:SetWeaponEnabledByLabel('EXEnergyLance01', false)
 			self:SetWeaponEnabledByLabel('EXEnergyLance02', false)
 		end
-		
+		local wpTarget = self:GetWeaponByLabel('EXTargetPainter')
 		if not self.wcBuildMode and not self.wcOCMode then
 		
 			self:SetWeaponEnabledByLabel('RightZephyr', true)
@@ -836,6 +838,7 @@ EEL0001 = Class(TWalkingLandUnit) {
 				self:SetWeaponEnabledByLabel('EXAntiMatterCannon01', true)
 				local wepAntiMatter01 = self:GetWeaponByLabel('EXAntiMatterCannon01')
 				wepAntiMatter01:ChangeMaxRadius(30)
+				wpTarget:ChangeMaxRadius(30)
 			else
 				self:SetWeaponEnabledByLabel('EXAntiMatterCannon01', false)
 			end
@@ -843,6 +846,7 @@ EEL0001 = Class(TWalkingLandUnit) {
 				self:SetWeaponEnabledByLabel('EXAntiMatterCannon02', true)
 				local wepAntiMatter02 = self:GetWeaponByLabel('EXAntiMatterCannon02')
 				wepAntiMatter02:ChangeMaxRadius(30)
+				wpTarget:ChangeMaxRadius(30)
 			else
 				self:SetWeaponEnabledByLabel('EXAntiMatterCannon02', false)
 			end
@@ -850,6 +854,7 @@ EEL0001 = Class(TWalkingLandUnit) {
 				self:SetWeaponEnabledByLabel('EXAntiMatterCannon03', true)
 				local wepAntiMatter03 = self:GetWeaponByLabel('EXAntiMatterCannon03')
 				wepAntiMatter03:ChangeMaxRadius(35)
+				wpTarget:ChangeMaxRadius(35)
 			else
 				self:SetWeaponEnabledByLabel('EXAntiMatterCannon03', false)
 			end
@@ -858,6 +863,7 @@ EEL0001 = Class(TWalkingLandUnit) {
 				self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon01', true)
 				local wepGattling01 = self:GetWeaponByLabel('EXGattlingEnergyCannon01')
 				wepGattling01:ChangeMaxRadius(35)
+				wpTarget:ChangeMaxRadius(35)
 			else
 				self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon01', false)
 			end
@@ -865,6 +871,7 @@ EEL0001 = Class(TWalkingLandUnit) {
 				self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon02', true)
 				local wepGattling02 = self:GetWeaponByLabel('EXGattlingEnergyCannon02')
 				wepGattling02:ChangeMaxRadius(40)
+				wpTarget:ChangeMaxRadius(40)
 			else
 				self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon02', false)
 			end
@@ -872,6 +879,7 @@ EEL0001 = Class(TWalkingLandUnit) {
 				self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon03', true)
 				local wepGattling03 = self:GetWeaponByLabel('EXGattlingEnergyCannon03')
 				wepGattling03:ChangeMaxRadius(45)
+				wpTarget:ChangeMaxRadius(45)
 			else
 				self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon03', false)
 			end
@@ -1125,17 +1133,21 @@ EEL0001 = Class(TWalkingLandUnit) {
 		elseif enh =='EXZephyrBooster' then
             local wepZephyr = self:GetWeaponByLabel('RightZephyr')
             wepZephyr:AddDamageMod(50)
-			wepZephyr:ChangeMaxRadius(__blueprints[self.BlueprintID].Weapon[1].MaxRadius + 5)
+			wepZephyr:ChangeMaxRadius(__blueprints[self.BlueprintID].Weapon[2].MaxRadius + 5)
+			local wpTarget = self:GetWeaponByLabel('EXTargetPainter')
+			wpTarget:ChangeMaxRadius(self:GetBlueprint().Weapon[2].MaxRadius)
 			local wepOvercharge = self:GetWeaponByLabel('OverCharge')
-            wepOvercharge:ChangeMaxRadius(__blueprints[self.BlueprintID].Weapon[2].MaxRadius + 5)
+            wepOvercharge:ChangeMaxRadius(__blueprints[self.BlueprintID].Weapon[3].MaxRadius + 5)
 			self:ShowBone('Zephyr_Amplifier', true)
 			
         elseif enh =='EXZephyrBoosterRemove' then
             local wepZephyr = self:GetWeaponByLabel('RightZephyr')
             wepZephyr:AddDamageMod(-50)
-			wepZephyr:ChangeMaxRadius(__blueprints[self.BlueprintID].Weapon[1].MaxRadius)
+			wepZephyr:ChangeMaxRadius(__blueprints[self.BlueprintID].Weapon[2].MaxRadius)
+			local wpTarget = self:GetWeaponByLabel('EXTargetPainter')
+			wpTarget:ChangeMaxRadius(self:GetBlueprint().Weapon[2].MaxRadius)
 			local wepOvercharge = self:GetWeaponByLabel('OverCharge')
-            wepOvercharge:ChangeMaxRadius(__blueprints[self.BlueprintID].Weapon[2].MaxRadius)
+            wepOvercharge:ChangeMaxRadius(__blueprints[self.BlueprintID].Weapon[3].MaxRadius)
 			self:HideBone('Zephyr_Amplifier', true)
 			
         elseif enh =='EXTorpedoLauncher' then

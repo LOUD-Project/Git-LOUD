@@ -2,6 +2,7 @@ UnitBlueprint {
     AI = {
 		GuardReturnRadius = 35,
         GuardScanRadius = 30,
+        NeedUnpack = true,
     },
     
     Audio = {
@@ -244,6 +245,7 @@ UnitBlueprint {
             FiringTolerance = 2,
 			
             Label = 'MainGun',
+            LeadTarget = true,
 			
             MaxRadius = 92,
             MinRadius = 8,
@@ -251,7 +253,7 @@ UnitBlueprint {
             MuzzleChargeDelay = 0.2,        -- .2 second delay
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 22,
+            MuzzleVelocity = 25,
             MuzzleVelocityReduceDistance = 85,
 			
             ProjectileId = '/projectiles/SIFSuthanusArtilleryShell01/SIFSuthanusArtilleryShell01_proj.bp',
@@ -302,7 +304,7 @@ UnitBlueprint {
 			
             Turreted = true,
 			
-            WeaponRepackTimeout = 0.1,
+            WeaponRepackTimeout = 2,
             WeaponUnpackAnimation = '/units/XSL0304/XSL0304_attack01.sca',
             WeaponUnpackAnimationRate = 1,
             WeaponUnpackLocksMotion = true,

@@ -566,7 +566,8 @@ EAL0001 = Class(AWalkingLandUnit) {
     end,
 
     WeaponRangeReset = function(self)
-	
+		local wpTarget = self:GetWeaponByLabel('EXTargetPainter')
+		wpTarget:ChangeMaxRadius(self:GetBlueprint().Weapon[2].MaxRadius)
 		if not self.wcChrono01 then
 			local wepFlamer01 = self:GetWeaponByLabel('EXChronoDampener01')
 			wepFlamer01:ChangeMaxRadius(1)
@@ -615,7 +616,7 @@ EAL0001 = Class(AWalkingLandUnit) {
     end,
 	
     WeaponConfigCheck = function(self)
-	
+		
 		if self.wcBuildMode then
 		
 			self:SetWeaponEnabledByLabel('EXTargetPainter', false)
@@ -650,7 +651,7 @@ EAL0001 = Class(AWalkingLandUnit) {
 			self:SetWeaponEnabledByLabel('EXPhasonBeam02', false)
 			self:SetWeaponEnabledByLabel('EXPhasonBeam03', false)
 		end
-		
+		local wpTarget = self:GetWeaponByLabel('EXTargetPainter')
 		if not self.wcBuildMode and not self.wcOCMode then
 		
 			self:SetWeaponEnabledByLabel('EXTargetPainter', true)
@@ -692,6 +693,7 @@ EAL0001 = Class(AWalkingLandUnit) {
 				
 				local wepTorpedo01 = self:GetWeaponByLabel('EXTorpedoLauncher01')
 				wepTorpedo01:ChangeMaxRadius(60)
+
 			else
 				self:SetWeaponEnabledByLabel('EXTorpedoLauncher01', false)
 				self:SetWeaponEnabledByLabel('EXAntiTorpedo', false)
@@ -727,6 +729,7 @@ EAL0001 = Class(AWalkingLandUnit) {
 				
 				local wepAntiMatter01 = self:GetWeaponByLabel('EXMiasmaArtillery01')
 				wepAntiMatter01:ChangeMaxRadius(100)
+				wpTarget:ChangeMaxRadius(100)
 			end
 			
 			if self.wcArtillery02 then
@@ -735,6 +738,7 @@ EAL0001 = Class(AWalkingLandUnit) {
 				
 				local wepAntiMatter02 = self:GetWeaponByLabel('EXMiasmaArtillery02')
 				wepAntiMatter02:ChangeMaxRadius(100)
+				wpTarget:ChangeMaxRadius(100)
 			end
 			
 			if self.wcArtillery03 then
@@ -743,6 +747,7 @@ EAL0001 = Class(AWalkingLandUnit) {
 				
 				local wepAntiMatter03 = self:GetWeaponByLabel('EXMiasmaArtillery03')
 				wepAntiMatter03:ChangeMaxRadius(100)
+				wpTarget:ChangeMaxRadius(100)
 			end
 			
 			if self.wcBeam01 then
@@ -751,6 +756,7 @@ EAL0001 = Class(AWalkingLandUnit) {
 			
 				local wepGattling01 = self:GetWeaponByLabel('EXPhasonBeam01')
 				wepGattling01:ChangeMaxRadius(35)
+				wpTarget:ChangeMaxRadius(35)
 			end
 			
 			if self.wcBeam02 then
@@ -759,6 +765,7 @@ EAL0001 = Class(AWalkingLandUnit) {
 			
 				local wepGattling02 = self:GetWeaponByLabel('EXPhasonBeam02')
 				wepGattling02:ChangeMaxRadius(48)
+				wpTarget:ChangeMaxRadius(48)
 			end
 			
 			if self.wcBeam03 then
@@ -767,6 +774,7 @@ EAL0001 = Class(AWalkingLandUnit) {
 			
 				local wepGattling03 = self:GetWeaponByLabel('EXPhasonBeam03')
 				wepGattling03:ChangeMaxRadius(48)
+				wpTarget:ChangeMaxRadius(48)
 			end
 			
 			if self.wcMaelstrom01 then
@@ -1079,6 +1087,8 @@ EAL0001 = Class(AWalkingLandUnit) {
 			local wepDisruptor = self:GetWeaponByLabel('RightDisruptor')
 			wepDisruptor:AddDamageMod(50)
 			wepDisruptor:ChangeMaxRadius(self:GetBlueprint().Weapon[2].MaxRadius + 5)
+			local wpTarget = self:GetWeaponByLabel('EXTargetPainter')
+			wpTarget:ChangeMaxRadius(self:GetBlueprint().Weapon[2].MaxRadius)
 			local wepOvercharge = self:GetWeaponByLabel('OverCharge')
 			wepOvercharge:ChangeMaxRadius(self:GetBlueprint().Weapon[3].MaxRadius + 5)
 			self:ShowBone('Basic_GunUp_Range', true)
@@ -1087,6 +1097,8 @@ EAL0001 = Class(AWalkingLandUnit) {
 			local wepDisruptor = self:GetWeaponByLabel('RightDisruptor')
 			wepDisruptor:AddDamageMod(-50)
 			wepDisruptor:ChangeMaxRadius(self:GetBlueprint().Weapon[2].MaxRadius)
+			local wpTarget = self:GetWeaponByLabel('EXTargetPainter')
+			wpTarget:ChangeMaxRadius(self:GetBlueprint().Weapon[2].MaxRadius)
 			local wepOvercharge = self:GetWeaponByLabel('OverCharge')
 			wepOvercharge:ChangeMaxRadius(self:GetBlueprint().Weapon[3].MaxRadius)
 			self:HideBone('Basic_GunUp_Range', true)

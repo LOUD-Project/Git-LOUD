@@ -501,7 +501,7 @@ ERL0001 = Class(CWalkingLandUnit) {
 
 		if not self.DefaultGunBuffApplied then
 
-			local RipperRate = self:GetBlueprint().Weapon[1].RateOfFire
+			local RipperRate = self:GetBlueprint().Weapon[2].RateOfFire
             --local wepRipper = self:GetWeaponByLabel('RightRipper')
 			self:GetWeaponByLabel('RightRipper'):ChangeRateOfFire(RipperRate * 2)
 
@@ -512,6 +512,8 @@ ERL0001 = Class(CWalkingLandUnit) {
     end,
 
     WeaponRangeReset = function(self)
+		local wpTarget = self:GetWeaponByLabel('EXTargetPainter')
+		wpTarget:ChangeMaxRadius(self:GetBlueprint().Weapon[2].MaxRadius)
 		if not self.wcRocket01 then
 			local wepFlamer01 = self:GetWeaponByLabel('EXRocketPack01')
 			wepFlamer01:ChangeMaxRadius(1)
@@ -620,6 +622,7 @@ ERL0001 = Class(CWalkingLandUnit) {
 			self:SetWeaponEnabledByLabel('EXAA03', false)
 			self:SetWeaponEnabledByLabel('EXAA04', false)
 		end
+		local wpTarget = self:GetWeaponByLabel('EXTargetPainter')
 		if not self.wcBuildMode and not self.wcOCMode then
 			self:SetWeaponEnabledByLabel('RightRipper', true)
 			self:SetWeaponEnabledByLabel('OverCharge', false)
@@ -680,6 +683,7 @@ ERL0001 = Class(CWalkingLandUnit) {
 				wepAntiMatter06:ChangeMaxRadius(35)
 				local wepAntiMatter06 = self:GetWeaponByLabel('EXEMPShot03')
 				wepAntiMatter06:ChangeMaxRadius(35)
+				wpTarget:ChangeMaxRadius(35)
 			elseif self.wcEMP02 then
 				self:SetWeaponEnabledByLabel('EXEMPArray01', true)
 				local wepAntiMatter01 = self:GetWeaponByLabel('EXEMPArray01')
@@ -696,6 +700,7 @@ ERL0001 = Class(CWalkingLandUnit) {
 				wepAntiMatter06:ChangeMaxRadius(40)
 				local wepAntiMatter06 = self:GetWeaponByLabel('EXEMPShot03')
 				wepAntiMatter06:ChangeMaxRadius(40)
+				wpTarget:ChangeMaxRadius(40)
 			elseif self.wcEMP03 then
 				self:SetWeaponEnabledByLabel('EXEMPArray01', true)
 				local wepAntiMatter01 = self:GetWeaponByLabel('EXEMPArray01')
@@ -712,6 +717,7 @@ ERL0001 = Class(CWalkingLandUnit) {
 				wepAntiMatter06:ChangeMaxRadius(45)
 				local wepAntiMatter06 = self:GetWeaponByLabel('EXEMPShot03')
 				wepAntiMatter06:ChangeMaxRadius(45)
+				wpTarget:ChangeMaxRadius(45)
 			elseif not self.wcEMP01 and not self.wcEMP01 and not self.wcEMP01 then
 				self:SetWeaponEnabledByLabel('EXEMPArray01', false)
 			end
@@ -719,6 +725,7 @@ ERL0001 = Class(CWalkingLandUnit) {
 				self:SetWeaponEnabledByLabel('EXMLG01', true)
 				local wepGattling01 = self:GetWeaponByLabel('EXMLG01')
 				wepGattling01:ChangeMaxRadius(30)
+				wpTarget:ChangeMaxRadius(30)
 			else
 				self:SetWeaponEnabledByLabel('EXMLG01', false)
 			end
@@ -726,6 +733,7 @@ ERL0001 = Class(CWalkingLandUnit) {
 				self:SetWeaponEnabledByLabel('EXMLG02', true)
 				local wepGattling02 = self:GetWeaponByLabel('EXMLG02')
 				wepGattling02:ChangeMaxRadius(30)
+				wpTarget:ChangeMaxRadius(30)
 			else
 				self:SetWeaponEnabledByLabel('EXMLG02', false)
 			end
@@ -733,6 +741,7 @@ ERL0001 = Class(CWalkingLandUnit) {
 				self:SetWeaponEnabledByLabel('EXMLG03', true)
 				local wepGattling03 = self:GetWeaponByLabel('EXMLG03')
 				wepGattling03:ChangeMaxRadius(30)
+				wpTarget:ChangeMaxRadius(30)
 			else
 				self:SetWeaponEnabledByLabel('EXMLG03', false)
 			end
@@ -983,17 +992,21 @@ ERL0001 = Class(CWalkingLandUnit) {
 		elseif enh =='EXRipperBooster' then
             local wepRipper = self:GetWeaponByLabel('RightRipper')
 			wepRipper:AddDamageMod(50)
-            wepRipper:ChangeMaxRadius(self:GetBlueprint().Weapon[1].MaxRadius + 5)
+            wepRipper:ChangeMaxRadius(self:GetBlueprint().Weapon[2].MaxRadius + 5)
+			local wpTarget = self:GetWeaponByLabel('EXTargetPainter')
+			wpTarget:ChangeMaxRadius(self:GetBlueprint().Weapon[2].MaxRadius)
 			local wepOvercharge = self:GetWeaponByLabel('OverCharge')
-			wepOvercharge:ChangeMaxRadius(self:GetBlueprint().Weapon[2].MaxRadius + 5)
+			wepOvercharge:ChangeMaxRadius(self:GetBlueprint().Weapon[3].MaxRadius + 5)
 			self:ShowBone('Right_Upgrade', true)
 
         elseif enh =='EXRipperBoosterRemove' then
             local wepRipper = self:GetWeaponByLabel('RightRipper')
 			wepRipper:AddDamageMod(-50)
-            wepRipper:ChangeMaxRadius(self:GetBlueprint().Weapon[1].MaxRadius)
+            wepRipper:ChangeMaxRadius(self:GetBlueprint().Weapon[2].MaxRadius)
+			local wpTarget = self:GetWeaponByLabel('EXTargetPainter')
+			wpTarget:ChangeMaxRadius(self:GetBlueprint().Weapon[2].MaxRadius)
 			local wepOvercharge = self:GetWeaponByLabel('OverCharge')
-			wepOvercharge:ChangeMaxRadius(self:GetBlueprint().Weapon[2].MaxRadius)
+			wepOvercharge:ChangeMaxRadius(self:GetBlueprint().Weapon[3].MaxRadius)
 			self:HideBone('Right_Upgrade', true)
 
         elseif enh =='EXTorpedoLauncher' then

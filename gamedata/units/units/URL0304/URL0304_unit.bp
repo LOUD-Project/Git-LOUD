@@ -2,6 +2,7 @@ UnitBlueprint {
     AI = {
 		GuardReturnRadius = 35,
         GuardScanRadius = 30,
+        NeedUnpack = true,
     },
 	
     Audio = {
@@ -208,17 +209,18 @@ UnitBlueprint {
             FiringTolerance = 2,
 			
             Label = 'MainGun',
+            LeadTarget = true,
 			
             MaxRadius = 92,
             MinRadius = 10,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 22,
+            MuzzleVelocity = 25,
             MuzzleVelocityReduceDistance = 85,
 			
             ProjectileId = '/projectiles/CIFArtilleryProton01/CIFArtilleryProton01_proj.bp',
-			ProjectileLifetime = 10,
+			ProjectileLifetime = 20,
 
             RackBones = {
                 {
@@ -265,7 +267,6 @@ UnitBlueprint {
 			
             Turreted = true,
 
-            WeaponRepackTimeout = 0,
             WeaponUnpackAnimation = '/units/URL0304/URL0304_Aactivate.sca',
             WeaponUnpackAnimationRate = 1,
             WeaponUnpackLocksMotion = true,

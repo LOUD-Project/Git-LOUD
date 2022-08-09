@@ -202,13 +202,14 @@ UnitBlueprint {
             FiringTolerance = 2,
 			
             Label = 'MainGun',
+            LeadTarget = true,
 			
             MaxRadius = 92,
             MinRadius = 8,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 22,
+            MuzzleVelocity = 25,
             MuzzleVelocityReduceDistance = 85,
 			
             ProjectileId = '/projectiles/AIFSonanceShell01/AIFSonanceShell01_proj.bp',

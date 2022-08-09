@@ -1281,6 +1281,86 @@ UnitBlueprint {
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+            Audio = {},
+            BallisticArc = 'RULEUBA_None',
+			
+            BeamCollisionDelay = 0.1,
+            BeamLifetime = 0.1,
+			
+            CollideFriendly = false,
+			
+            Damage = 0.1,
+            DamageRadius = 0,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Target Designator',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Air|Land|Water|Seabed',
+                Seabed = 'Air|Land|Water|Seabed',
+                Water = 'Air|Land|Water|Seabed',
+            },
+            FiringTolerance = 5,
+			
+            HeadingArcCenter = 0,
+            HeadingArcRange = 180,
+			
+            Label = 'EXTargetPainter',
+			
+            MaxRadius = 25, --script must change this to match weapon upgrade range
+			
+            MuzzleChargeDelay = 0,
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'Right_Arm_Muzzle',
+                    },
+                    RackBone = 'Right_Arm_Barrel',
+                },
+            },
+            RackFireTogether = true,
+            RackRecoilDistance = 0,
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = true,
+
+            RateOfFire = 2,
+			
+            TargetCheckInterval = 0.5,
+			
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'MOBILE',
+                'STRUCTURE DEFENSE',
+                'SPECIALLOWPRI',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+
+            TurretBoneMuzzle = 'Right_Arm_Muzzle',
+            TurretBonePitch = 'Right_Arm_Barrel',
+            TurretBoneYaw = 'Torso',
+            TurretDualManipulators = false,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 90,
+            TurretPitchSpeed = 90,
+			
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 90,
+			
+            Turreted = true,
+            UseFiringSolutionInsteadOfAimBone = true,
+        },
+        {
+            AboveWaterFireOnly = true,
+            AboveWaterTargetsOnly = true,
             Audio = {
                 Fire = Sound {
                     Bank = 'UELWeapon',
@@ -1349,11 +1429,11 @@ UnitBlueprint {
             TurretDualManipulators = false,
 			
             TurretPitch = 0,
-            TurretPitchRange = 90,
+            TurretPitchRange = 4,
             TurretPitchSpeed = 90,
 			
             TurretYaw = 0,
-            TurretYawRange = 180,
+            TurretYawRange = 4,
             TurretYawSpeed = 90,
 			
             Turreted = true,
@@ -1432,7 +1512,7 @@ UnitBlueprint {
                 'SPECIALLOWPRI',
                 'ALLUNITS -WALL',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE, COMMAND, STRUCTURE',
+            TargetRestrictDisallow = 'UNTARGETABLE',
 			
             TurretBoneMuzzle = 'Right_Arm_Muzzle',
             TurretBonePitch = 'Right_Arm_Barrel',
@@ -1912,10 +1992,10 @@ UnitBlueprint {
             TurretBoneYaw = 'Torso',
             TurretDualManipulators = false,
             TurretPitch = 0,
-            TurretPitchRange = 90,
+            TurretPitchRange = 4,
             TurretPitchSpeed = 90,
             TurretYaw = 0,
-            TurretYawRange = 180,
+            TurretYawRange = 4,
             TurretYawSpeed = 90,
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
@@ -1984,10 +2064,10 @@ UnitBlueprint {
             TurretBoneYaw = 'Torso',
             TurretDualManipulators = false,
             TurretPitch = 0,
-            TurretPitchRange = 90,
+            TurretPitchRange = 4,
             TurretPitchSpeed = 90,
             TurretYaw = 0,
-            TurretYawRange = 180,
+            TurretYawRange = 4,
             TurretYawSpeed = 90,
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
@@ -2056,10 +2136,10 @@ UnitBlueprint {
             TurretBoneYaw = 'Torso',
             TurretDualManipulators = false,
             TurretPitch = 0,
-            TurretPitchRange = 90,
+            TurretPitchRange = 4,
             TurretPitchSpeed = 90,
             TurretYaw = 0,
-            TurretYawRange = 180,
+            TurretYawRange = 4,
             TurretYawSpeed = 90,
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
@@ -2134,10 +2214,10 @@ UnitBlueprint {
             TurretBoneYaw = 'Torso',
             TurretDualManipulators = false,
             TurretPitch = 0,
-            TurretPitchRange = 90,
+            TurretPitchRange = 4,
             TurretPitchSpeed = 90,
             TurretYaw = 0,
-            TurretYawRange = 180,
+            TurretYawRange = 4,
             TurretYawSpeed = 90,
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
@@ -2209,10 +2289,10 @@ UnitBlueprint {
             TurretBoneYaw = 'Torso',
             TurretDualManipulators = false,
             TurretPitch = 0,
-            TurretPitchRange = 90,
+            TurretPitchRange = 4,
             TurretPitchSpeed = 90,
             TurretYaw = 0,
-            TurretYawRange = 180,
+            TurretYawRange = 4,
             TurretYawSpeed = 90,
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
@@ -2284,10 +2364,10 @@ UnitBlueprint {
             TurretBoneYaw = 'Torso',
             TurretDualManipulators = false,
             TurretPitch = 0,
-            TurretPitchRange = 90,
+            TurretPitchRange = 4,
             TurretPitchSpeed = 90,
             TurretYaw = 0,
-            TurretYawRange = 180,
+            TurretYawRange = 4,
             TurretYawSpeed = 90,
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
