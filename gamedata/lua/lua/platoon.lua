@@ -6506,7 +6506,6 @@ Platoon = Class(moho.platoon_methods) {
 	
 	EngineerReclaimStructureAI = function( self, aiBrain )
 
-
         local GetPlatoonPosition = GetPlatoonPosition
         local GetPlatoonUnits = GetPlatoonUnits
         local GetUnitsAroundPoint = GetUnitsAroundPoint
@@ -6521,12 +6520,13 @@ Platoon = Class(moho.platoon_methods) {
         
         local WaitTicks = WaitTicks
         
+		local baseposition = aiBrain.BuilderManagers[self.BuilderLocation].Position
+        
 		local data = self.PlatoonData
 		
-		local baseradius = aiBrain.BuilderManagers[self.BuilderLocation].EngineerManager.Radius
-		local baseposition = aiBrain.BuilderManagers[self.BuilderLocation].Position
-
+		local baseradius = data.ReclaimRange or aiBrain.BuilderManagers[self.BuilderLocation].EngineerManager.Radius
 		local categories = data.Reclaim
+
         local counter = 0
         
         local units = GetPlatoonUnits(self)
