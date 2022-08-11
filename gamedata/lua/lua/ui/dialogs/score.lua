@@ -20,7 +20,7 @@ local Checkbox = import('/lua/maui/checkbox.lua').Checkbox
 local RadioGroup = import('/lua/maui/mauiutil.lua').RadioGroup
 local Tooltip = import('/lua/ui/game/tooltip.lua')
 local ItemList = import('/lua/maui/itemlist.lua').ItemList
-local CampaignManager = import('/lua/ui/campaign/campaignmanager.lua')
+local CampaignManager = false   -- import('/lua/ui/campaign/campaignmanager.lua')
 local Prefs = import('/lua/user/prefs.lua')
 
 dialog = false
@@ -42,20 +42,7 @@ scoreScreenActive = false
 -- '<LOC SCORE_0059>Combat Report'
 
 local tabs = {
-    {
-        title = "<LOC SCORE_0030>Campaign",
-        button = "campaign",
-        scoreKey = 'campaign',
-        -- TODO: This is here to get loc tags in to database, will make more sense in line when campaign score is done
-        text = {
-            "<LOC SCORE_0031>Restart",
-            "<LOC SCORE_0032>Load",
-            "<LOC SCORE_0033>Continue",
-            "<LOC SCORE_0034>Replay",
-            "<LOC SCORE_0035>Load Replay",
-            "<LOC SCORE_0045>Sort By Team",
-        }
-    },
+
     {
         title = "<LOC SCORE_0000>General",
         button = "general",
@@ -118,11 +105,6 @@ local tabs = {
 local function UpdateDisplay()
     -- show elapsed time
     elapsedTime:SetText(GetGameTime())
-
-    -- check for campaign, handled differently
-    if currentPage.tabData.button == "campaign" then
-        return    
-    end
 
     if not curInfo or not curInfo.scoreData then
         return
@@ -225,150 +207,7 @@ function CreateDialog(victory, showCampaign, operationVictoryTable, midGame)
     StopAllSounds()
     UpdateData()
 
-    campaignScore = tostring(curInfo.scoreData.current[1].general.score)
-
-    if showCampaign then
-    
-        Prefs.SetToCurrentProfile('last_faction', operationVictoryTable.campaignID)
-        
-        ConExecute("ren_Oblivion true")
-        
-        local opData = import('/maps/'..operationVictoryTable.opKey..'/'..operationVictoryTable.opKey..'_operation.lua').operationData
-        
-        local successKey = 'failure'
-        
-        if operationVictoryTable.success then
-            successKey = 'success'
-        end
-        
-        if opData.opMovies.postOpMovies[successKey] then
-        
-            GetCursor():Hide()
-            
-            local subtitleThread = false
-            
-            function DisplaySubtitles(textControl,captions)
-            
-                if subtitleThread then
-                    KillThread(subtitleThread)
-                end
-                
-                subtitleThread = ForkThread(
-                    function()
-                        # Display subtitles
-                        local lastOff = 0
-                        for k,v in captions do
-                            WaitSeconds(v.offset - lastOff)
-                            textControl:DeleteAllItems()
-                            locText = LOC(v.text)
-                            local lines = WrapText(locText, textControl.Width(), function(text) return textControl:GetStringAdvance(text) end)
-                            for i,line in lines do
-                                textControl:AddItem(line)
-                            end
-                            textControl:ScrollToBottom()
-                            lastOff = v.offset
-                        end
-                        subtitleThread = false
-                    end
-                )
-            end
-
-            local faction = operationVictoryTable.campaignID
-            local subtitleSource = import('/lua/ui/game/vo_fmv.lua')
-            
-            local creditData = {
-                uef = {vid = '/movies/Credits_UEF.sfd', sfx = 'X_FMV_UEF_Credits', voice = 'SCX_UEF_Credits_VO', subtitles = subtitleSource.SCX_UEF_Credits_VO.captions},
-                cybran = {vid = '/movies/Credits_Cybran.sfd', sfx = 'X_FMV_Cybran_Credits', voice = 'SCX_Cybran_Credits_VO', subtitles = subtitleSource.SCX_Cybran_Credits_VO.captions},
-                aeon = {vid = '/movies/Credits_Aeon.sfd', sfx = 'X_FMV_Aeon_Credits', voice = 'SCX_Aeon_Credits_VO', subtitles = subtitleSource.SCX_Aeon_Credits_VO.captions},
-            }
-            
-            local movies = {
-                {vid = '/movies/FMV_SCX_Outro.sfd', sfx = 'X_FMV_Outro', voice = 'SCX_Outro_VO'},
-                creditData[faction],
-                {vid = '/movies/FMV_SCX_Post_Outro.sfd', sfx = 'X_FMV_Post_Outro', voice = 'SCX_Post_Outro_VO', subtitles = subtitleSource.SCX_Post_Outro_VO.captions},
-            }
-            
-            local parent = UIUtil.CreateScreenGroup(GetFrame(0), "Campaign Movie ScreenGroup")
-            
-            parent.Depth:Set(GetFrame(0):GetTopmostDepth() + 1)
-            AddInputCapture(parent)
-        
-        	local background = Bitmap(parent)
-            LayoutHelpers.FillParent(background, parent)
-        	background:SetSolidColor('black')
-        
-            local textArea = ItemList(background)
-            textArea:SetFont(UIUtil.bodyFont, 13)
-        
-            textArea:SetColors(UIUtil.fontColor, "00000000", UIUtil.fontColor,  UIUtil.highlightColor)
-    
-            local movie = Movie(background)
-            LayoutHelpers.FillParentPreserveAspectRatio(movie, parent)
-            movie.curMovie = 1
-            
-            local height = 6 * textArea:GetRowHeight()
-            textArea.Height:Set( height )
-            textArea.Top:Set( function() return movie.Bottom() end )
-            textArea.Width:Set( function() return movie.Width() / 2 end )
-            LayoutHelpers.AtHorizontalCenterIn(textArea,parent)
-            textArea.Depth:Set(function() return movie.Depth() + 5 end)
-        
-            movie:DisableHitTest()    -- get clicks to parent group
-
-            movie.OnLoaded = function(self)
-                movie:Play()
-                GetCursor():Hide()
-                if Prefs.GetOption('subtitles') and movies[movie.curMovie].subtitles then
-                    DisplaySubtitles(textArea, movies[movie.curMovie].subtitles)
-                end
-            end
-        
-            local function LeaveMovie()
-                if movies[movie.curMovie + 1] then
-                    movie.curMovie = movie.curMovie + 1
-                    movie:Set(movies[movie.curMovie].vid,
-                              Sound( {Cue = movies[movie.curMovie].sfx, Bank = 'FMV_BG'} ),
-                              Sound( {Cue = movies[movie.curMovie].voice, Bank = 'X_FMV'} ))
-                else
-                    GetCursor():Show()
-                    if subtitleThread then
-                        KillThread(subtitleThread)
-                        subtitleThread = false
-                    end
-                    RemoveInputCapture(parent)
-                    movie:Stop()
-                    parent:Destroy()
-                    CreateSkirmishScreen(victory, showCampaign, operationVictoryTable)
-                end
-            end
-        
-            parent.HandleEvent = function(self, event)
-                -- cancel movie playback on mouse click or key hit
-                if event.Type == "ButtonPress" or event.Type == "KeyDown" then
-                    if event.KeyCode then
-                        if event.KeyCode == UIUtil.VK_ESCAPE or event.KeyCode == UIUtil.VK_ENTER or event.KeyCode == UIUtil.VK_SPACE or event.KeyCode == 1  or event.KeyCode == 3 then
-                        else
-                            return true
-                        end
-                    end 
-                    LeaveMovie()
-                    return true
-                end
-            end
-        
-            movie.OnFinished = function(self)
-                LeaveMovie()
-            end
-
-            movie.curMovie = 0
-            LeaveMovie()
-        else
-            CreateSkirmishScreen(victory, showCampaign, operationVictoryTable)
-        end
-    else
-        CreateSkirmishScreen(victory, showCampaign, operationVictoryTable)
-    end
-    
+    CreateSkirmishScreen(victory, showCampaign, operationVictoryTable)
     
     if not SessionIsReplay() then
     
@@ -486,61 +325,14 @@ function CreateSkirmishScreen(victory, showCampaign, operationVictoryTable)
 	end
     
     bg.continueBtn.OnClick = function(self, modifiers)
+
         ConExecute("ren_Oblivion false")
-        if showCampaign then
-            operationVictoryTable.allPrimary = true
-            operationVictoryTable.allSecondary = true
-            CampaignManager.OperationVictory(operationVictoryTable, true)
-        end
-        # Checking gpgnet too in case we switch to that
-        if HasCommandLineArg("/online") or HasCommandLineArg("/gpgnet") then
-            ExitApplication()
-        else
-            ExitGame()
-        end
+
+        ExitGame()
+
     end
     
     Tooltip.AddButtonTooltip(bg.continueBtn, 'PostScore_Quit')
-    
-    if showCampaign and not operationVictoryTable.success then
-        bg.continueBtn.label:SetText(LOC('<LOC _Skip>Skip'))
-        bg.continueBtn.HandleEvent = bg.continueBtn.oldHandleEvent
-        Tooltip.AddButtonTooltip(bg.continueBtn, 'CampaignScore_Skip')
-        -- set controls that are global to the dialog
-        bg.restartBtn = UIUtil.CreateButtonStd(bg, '/scx_menu/large-no-bracket-btn/large', "<LOC _Restart>Restart", 22, 2, 0, "UI_Menu_MouseDown", "UI_Opt_Affirm_Over")
-    	LayoutHelpers.LeftOf(bg.restartBtn, bg.continueBtn, -40)
-    	bg.continueBtn:UseAlphaHitTest(false)
-    	
-    	bg.restartBtn.glow = Bitmap(bg.restartBtn, UIUtil.UIFile('/scx_menu/large-no-bracket-btn/large_btn_glow.dds'))
-    	LayoutHelpers.AtCenterIn(bg.restartBtn.glow, bg.restartBtn)
-    	bg.restartBtn.glow:SetAlpha(0)
-    	bg.restartBtn.glow:DisableHitTest()
-    	
-        bg.restartBtn.pulse = Bitmap(bg.restartBtn, UIUtil.UIFile('/scx_menu/large-no-bracket-btn/large_btn_glow.dds'))
-    	LayoutHelpers.AtCenterIn(bg.restartBtn.pulse, bg.restartBtn)
-    	bg.restartBtn.pulse:DisableHitTest()
-    	bg.restartBtn.pulse:SetAlpha(.5)
-    	
-        EffectHelpers.Pulse(bg.restartBtn.pulse, 2, .5, 1)
-        
-        bg.restartBtn.OnRolloverEvent = function(self, event) 
-    	   	if event == 'enter' then
-    			EffectHelpers.FadeIn(self.glow, .25, 0, 1)
-    			self.label:SetColor('black')
-    		elseif event == 'down' then
-    			self.label:SetColor('black')
-    		else
-    			EffectHelpers.FadeOut(self.glow, .25, 1, 0)
-    			self.label:SetColor('FFbadbdb')
-    		end
-    	end
-        
-        bg.restartBtn.OnClick = function(self, modifiers)
-            ConExecute("ren_Oblivion false")
-            RestartSession()
-        end
-        Tooltip.AddButtonTooltip(bg.restartBtn, 'CampaignScore_Restart')
-    end
 
     UIUtil.MakeInputModal(dialog, function() bg.continueBtn:OnClick() end, function() bg.continueBtn:OnClick() end)
     
@@ -556,13 +348,13 @@ function CreateSkirmishScreen(victory, showCampaign, operationVictoryTable)
     bg.replayButton.OnClick = function(self, modifiers)
         import('/lua/ui/dialogs/replay.lua').CreateDialog(bg, false, nil)
     end
+    
     Tooltip.AddButtonTooltip(bg.replayButton, "PostScore_Replay")
-    if showCampaign then
-        bg.replayButton:Disable()   -- no replays available in campaigns
-    end
+
     if import('/lua/ui/game/gamemain.lua').IsSavedGame == true then
         bg.replayButton:Disable()
     end
+
     if SessionIsReplay() then
         bg.replayButton:Disable()
     end
@@ -600,8 +392,10 @@ function CreateSkirmishScreen(victory, showCampaign, operationVictoryTable)
         -- if there's a grid to be shown, set it up
         -- Note: currently, only campaign score page won't have a grid
         if tabData.grid then
+
             -- create the grid group/bg
             local gridGroup = Group(currentPage, "scoreGridGroup")
+
             -- no layout info for these sub pages, so position manually
             LayoutHelpers.AtLeftTopIn(gridGroup, currentPage, 43, 102)
             gridGroup.Width:Set(743)
@@ -809,261 +603,7 @@ function CreateSkirmishScreen(victory, showCampaign, operationVictoryTable)
             -- TODO default type? also when these become checkboxes, need to depress type
             -- maybe call SetDataType, but have an updateDisplay function so we don't call UpdateDisplay while creating
             curType = tabData.types[1].scoreKey
-        elseif tabData.button == "campaign" then
-            -- Set up campaign display
-            local opData = import('/maps/'..operationVictoryTable.opKey..'/'..operationVictoryTable.opKey..'_operation.lua').operationData
-            
-            local prefix = {Cybran = {texture = '/icons/comm_cybran.dds', cue = 'UI_Comm_CYB'},
-                Aeon = {texture = '/icons/comm_aeon.dds', cue = 'UI_Comm_AEON'},
-                UEF = {texture = '/icons/comm_uef.dds', cue = 'UI_Comm_UEF'},
-                Seraphim = {texture = '/icons/comm_seraphim.dds', cue = 'UI_Comm_SER'},
-                NONE = {texture = '/icons/comm_allied.dds', cue = 'UI_Comm_UEF'}}
-                
-            local successKey = 'failure'
-            if operationVictoryTable.success then
-                successKey = 'success'
-            end
-            
-            local movieGroup = CreateBorderGroup(currentPage)
-            LayoutHelpers.AtLeftTopIn(movieGroup, currentPage, 40, 120)
-            movieGroup.Height:Set(290)
-            movieGroup.Width:Set(330)
-            
-            local debriefData = opData.opDebriefingFailure[1]
-            if operationVictoryTable.success then
-                debriefData = opData.opDebriefingSuccess[1]
-            end
-            
-            local opDebriefMovie = Movie(movieGroup)
-            LayoutHelpers.AtTopIn(opDebriefMovie, movieGroup, 2)
-            LayoutHelpers.AtHorizontalCenterIn(opDebriefMovie, movieGroup)
-            opDebriefMovie.Height:Set(192)
-            opDebriefMovie.Width:Set(192)
-            opDebriefMovie:Set('/movies/'..debriefData.vid)
-            
-            local opDebriefBitmap = Bitmap(opDebriefMovie, UIUtil.UIFile(prefix[debriefData.faction].texture))
-            LayoutHelpers.FillParent(opDebriefBitmap, opDebriefMovie)
-            opDebriefBitmap.time = 0
-            opDebriefBitmap.first = true
-            opDebriefBitmap.OnFrame = function(self, delta)
-                self.time = self.time + delta
-                if self.first then
-                    PlaySound(Sound({Bank='Interface', Cue=prefix[debriefData.faction].cue..'_In'}))
-                    self.first = false
-                end
-                if self.time > 1 then
-                    self:Hide()
-                    self:SetNeedsFrameUpdate(false)
-                    opDebriefMovie:Play()
-                    bg.voHandle = PlayVoice(Sound({Cue = debriefData.cue, Bank = debriefData.bank}))
-                end
-            end
-            
-            opDebriefMovie.OnLoaded = function(self)
-                opDebriefBitmap:SetNeedsFrameUpdate(true)
-            end
-            
-            opDebriefMovie.OnFinished = function()
-                opDebriefBitmap:Show()
-                PlaySound(Sound({Bank='Interface', Cue=prefix[debriefData.faction].cue..'_Out'}))
-            end
-            
-            local movieBorder = Bitmap(opDebriefMovie, UIUtil.UIFile('/scx_menu/score-victory-defeat/video-frame_bmp.dds'))
-            LayoutHelpers.AtCenterIn(movieBorder, opDebriefMovie)
-            
-            local debriefText = UIUtil.CreateTextBox(movieGroup)
-            LayoutHelpers.AtBottomIn(debriefText, movieGroup)
-            LayoutHelpers.AtHorizontalCenterIn(debriefText, movieGroup, -15)
-            debriefText.Width:Set(function() return movieGroup.Width() - 30 end)
-            debriefText.Height:Set(90)
-            
-            UIUtil.SetTextBoxText(debriefText, debriefData.text)
-            
-            local scoreGroup = CreateBorderGroup(currentPage)
-            LayoutHelpers.AtTopIn(scoreGroup, currentPage, 120)
-            scoreGroup.Height:Set(50)
-            scoreGroup.Width:Set(150)
-            
-            local opScoreLabel = UIUtil.CreateText(scoreGroup, LOC("<LOC SCORE_0043>Operation Score"), 14, UIUtil.bodyFont)
-            LayoutHelpers.AtTopIn(opScoreLabel, scoreGroup, 5)
-            LayoutHelpers.AtHorizontalCenterIn(opScoreLabel, scoreGroup)
-            
-            local opScore = UIUtil.CreateText(scoreGroup, campaignScore, 14, UIUtil.bodyFont)
-            LayoutHelpers.Below(opScore, opScoreLabel, 4)
-            LayoutHelpers.AtHorizontalCenterIn(opScore, scoreGroup)
-            
-            local objGroup = CreateBorderGroup(currentPage)
-            LayoutHelpers.AtLeftTopIn(objGroup, currentPage, 395, 190)
-            objGroup.Height:Set(220)
-            objGroup.Width:Set(535)
-            
-            LayoutHelpers.AtHorizontalCenterIn(scoreGroup, objGroup)
-            
-            local sortedObjectives = {}
-            local tempObjectives = {}
-            local obTable = import('/lua/ui/game/objectives2.lua').GetCurrentObjectiveTable()
-            local hasPrimaries = false
-            local hasSecondaries = false
-            if obTable then
-                for key, objective in obTable do
-                    local compStr
-                    local compColor = 'ffff0000'
-                    if objective.complete == 'complete' then
-                        compStr = "<LOC SCORE_0038>Accomplished"
-                        compColor = 'ff00ff00'
-                    elseif objective.complete == 'failed' then
-                        compStr = "<LOC SCORE_0039>Failed"
-                        compColor = 'ffff0000'
-                    else
-                        compStr = "<LOC SCORE_0054>Incomplete"
-                        compColor = 'ff0000ff'
-                    end
-                    if objective.type == 'primary' then
-                        hasPrimaries = true
-                    elseif objective.type == 'secondary' then
-                        hasSecondaries = true
-                    end
-                    table.insert(tempObjectives, {title = LOC(objective.title), complete = LOC(compStr), completeColor = compColor, type = objective.type})
-                end
-            end
-            
-            if hasPrimaries then
-                table.insert(sortedObjectives, {title = LOC("<LOC SCORE_0037>Primary Objectives"), type = 'header'})
-                for i, v in tempObjectives do
-                    if v.type == 'primary' then
-                        table.insert(sortedObjectives, v)
-                    end
-                end
-            end
-            
-            if hasSecondaries then
-                table.insert(sortedObjectives, {title = LOC("<LOC SCORE_0040>Secondary Objectives"), type = 'header'})
-                for i, v in tempObjectives do
-                    if v.type == 'secondary' then
-                        table.insert(sortedObjectives, v)
-                    end
-                end
-            end
-            
-            objContainer = Group(objGroup)
-            objContainer.Height:Set(function() return objGroup.Height() + 0 end)
-            objContainer.Width:Set(function() return objGroup.Width() - 30 end)
-            objContainer.top = 0
-            
-            LayoutHelpers.AtLeftTopIn(objContainer, objGroup)
-            UIUtil.CreateVertScrollbarFor(objContainer)
-            
-            local objEntries = {}
-            
-            local function CreateElement(index)
-                objEntries[index] = {}
-                objEntries[index].bg = Bitmap(objContainer)
-                objEntries[index].bg.Left:Set(objContainer.Left)
-                objEntries[index].bg.Right:Set(objContainer.Right)
-                
-                objEntries[index].title = UIUtil.CreateText(objEntries[1].bg, '', 16, UIUtil.bodyFont)
-                objEntries[index].title:DisableHitTest()
-                
-                objEntries[index].result = UIUtil.CreateText(objEntries[1].bg, '', 16, UIUtil.bodyFont)
-                objEntries[index].result:DisableHitTest()
-                
-                objEntries[index].bg.Height:Set(function() return objEntries[index].title.Height() + 4 end)
-                
-                LayoutHelpers.AtVerticalCenterIn(objEntries[index].title, objEntries[index].bg)
-                LayoutHelpers.AtVerticalCenterIn(objEntries[index].result, objEntries[index].bg)
-                LayoutHelpers.AtLeftIn(objEntries[index].title, objEntries[index].bg)
-                LayoutHelpers.AtRightIn(objEntries[index].result, objEntries[index].bg, 5)
-            end
-            
-            CreateElement(1)
-            LayoutHelpers.AtTopIn(objEntries[1].bg, objContainer)
-                
-            local index = 2
-            while objEntries[table.getsize(objEntries)].bg.Top() + (2 * objEntries[1].bg.Height()) < objContainer.Bottom() do
-                CreateElement(index)
-                LayoutHelpers.Below(objEntries[index].bg, objEntries[index-1].bg)
-                index = index + 1
-            end
-            
-            local numLines = function() return table.getsize(objEntries) end
-            
-            local function DataSize()
-                return table.getn(sortedObjectives)
-            end
-            
-            -- called when the scrollbar for the control requires data to size itself
-            -- GetScrollValues must return 4 values in this order:
-            -- rangeMin, rangeMax, visibleMin, visibleMax
-            -- aixs can be "Vert" or "Horz"
-            objContainer.GetScrollValues = function(self, axis)
-                local size = DataSize()
-                --LOG(size, ":", self.top, ":", math.min(self.top + numLines, size))
-                return 0, size, self.top, math.min(self.top + numLines(), size)
-            end
-        
-            -- called when the scrollbar wants to scroll a specific number of lines (negative indicates scroll up)
-            objContainer.ScrollLines = function(self, axis, delta)
-                self:ScrollSetTop(axis, self.top + math.floor(delta))
-            end
-        
-            -- called when the scrollbar wants to scroll a specific number of pages (negative indicates scroll up)
-            objContainer.ScrollPages = function(self, axis, delta)
-                self:ScrollSetTop(axis, self.top + math.floor(delta) * numLines())
-            end
-        
-            -- called when the scrollbar wants to set a new visible top line
-            objContainer.ScrollSetTop = function(self, axis, top)
-                top = math.floor(top)
-                if top == self.top then return end
-                local size = DataSize()
-                self.top = math.max(math.min(size - numLines() , top), 0)
-                self:CalcVisible()
-            end
-        
-            -- called to determine if the control is scrollable on a particular access. Must return true or false.
-            objContainer.IsScrollable = function(self, axis)
-                return true
-            end
-            -- determines what controls should be visible or not
-            objContainer.CalcVisible = function(self)
-                local function SetTextLine(line, data, lineID)
-                    if data.type == 'header' then
-                        LayoutHelpers.AtHorizontalCenterIn(line.title, objContainer)
-                        line.bg:SetSolidColor('ff506268')
-                        line.title:SetText(data.title)
-                        line.title:SetFont(UIUtil.titleFont, 16)
-                        line.title:SetColor(UIUtil.fontColor)
-                        line.result:SetText('')
-                    else
-                        LayoutHelpers.AtLeftIn(line.title, line.bg, 5)
-                        line.bg:SetSolidColor('00000000')
-                        line.title:SetText(data.title)
-                        line.title:SetColor('ffffffff')
-                        line.title:SetFont(UIUtil.bodyFont, 14)
-                        line.result:SetText(data.complete or "<LOC key_binding_0001>No action text")
-                        line.result:SetColor(data.completeColor)
-                    end
-                end
-                for i, v in objEntries do
-                    if sortedObjectives[i + self.top] then
-                        SetTextLine(v, sortedObjectives[i + self.top], i + self.top)
-                    else
-                        v.bg:SetSolidColor('00000000')
-                        v.title:SetText('')
-                        v.result:SetText('')
-                    end
-                end
-            end
-            objContainer.HandleEvent = function(control, event)
-                if event.Type == 'WheelRotation' then
-                    local lines = 1
-                    if event.WheelRotation > 0 then
-                        lines = -1
-                    end
-                    control:ScrollLines(nil, lines)
-                end
-            end
-            objContainer:CalcVisible()
+
         end
 
         local victoryString
@@ -1095,13 +635,11 @@ function CreateSkirmishScreen(victory, showCampaign, operationVictoryTable)
     -- set up top level tabs
     local prev = false
     local defaultTab = false
+
     for index, value in tabs do
-        -- don't show campaign button normally
-        if value.button == "campaign" and not showCampaign then
-            continue
-        end
         
         local curButton = UIUtil.CreateButtonStd(bg, '/scx_menu/tab_btn/tab', value.title, 16, nil, nil, "UI_Tab_Click_02", "UI_Tab_Rollover_02")
+
         if prev then
             --curButton.Left:Set(function() return prev.Right() + 0 end)
             --curButton.Bottom:Set(function() return prev.Bottom() end)

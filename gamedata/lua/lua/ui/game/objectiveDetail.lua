@@ -10,7 +10,7 @@ local WinMgr = import('/lua/ui/game/windowmanager.lua')
 local WIN_ID = 'Objectives_Log'
 local lobbyoptions = import('/lua/ui/lobby/lobbyOptions.lua')
 
-local isCampaign = import('/lua/ui/campaign/campaignmanager.lua').campaignMode
+local isCampaign = false    --import('/lua/ui/campaign/campaignmanager.lua').campaignMode
 
 local savedParent = false
 local DetailWindow = false

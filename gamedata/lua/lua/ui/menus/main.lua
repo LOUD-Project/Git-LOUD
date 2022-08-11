@@ -287,7 +287,7 @@ function CreateUI()
         LayoutHelpers.AtBottomIn(headTestBtn, border, 50)
         headTestBtn.OnClick = function()
             parent:Destroy()
-            import('/lua/ui/campaign/_head_test.lua').CreateUI()
+            --import('/lua/ui/campaign/_head_test.lua').CreateUI()
         end
     end
 
