@@ -2632,14 +2632,21 @@ Platoon = Class(moho.platoon_methods) {
 		if PFaction == 'Self' then
 		
 			StructureCount = GetNumberOfOwnUnitsAroundPoint( aiBrain, StrCat, marker, StrRadius )
+            
 		else
 		
 			StructureCount = LOUDGETN( GetUnitsAroundPoint( aiBrain, StrCat, marker, StrRadius, PFaction ) )
+            
 		end
+
+        --if PFaction == "Enemy" then
+          --  LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Structure check is "..StructureCount.." Radius "..StrRadius.." Faction is "..repr(PFaction).." - Max is "..StrMax)
+        --end
 
 		if StructureCount < StrMin or StructureCount > StrMax then
 		
 			return true
+            
 		end
 	
 		return false
@@ -2665,6 +2672,10 @@ Platoon = Class(moho.platoon_methods) {
 				StructureCount = StructureCount + 1
 			end
 		end
+
+        --if PFaction == "Enemy" then
+          --  LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Unit check is "..StructureCount.." Radius "..UntRadius.." Faction is "..repr(PFaction).." - Max is "..UntMax)
+        --end
 	
 		if StructureCount < UntMin or StructureCount > UntMax then
 
@@ -6123,7 +6134,7 @@ Platoon = Class(moho.platoon_methods) {
                                                     alertrange = rangetoalert
                                                 
                                                     if DistressResponseDialog then
-                                                        LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..repr(platoon.MovementLayer).." selects PLATOON ALERT "..repr(alertposition).." threat is "..threat)
+                                                        LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..repr(platoon.MovementLayer).." with "..selfthreat.." threat - selects PLATOON ALERT "..repr(alertposition).." enemy threat is "..threat.." - time "..repr(GetGameTimeSeconds()))
                                                     end
                                                 end
 											end
@@ -6165,10 +6176,6 @@ Platoon = Class(moho.platoon_methods) {
                 distressLocation, distressType, distressplatoon = PlatoonMonitorDistressLocations( self, aiBrain, platoonPos, distressRange, distressTypes, threatThreshold )
 
                 if distressLocation then
-			
-					if DistressResponseDialog then
-						LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." responds to "..distressType.." DISTRESS at "..repr(distressLocation).." distance "..VDist3(platoonPos,distressLocation).." check interval is "..repr(reactionTime * 10) )
-					end
                     
                     if not unit or unit.Dead then
 					
@@ -6204,6 +6211,10 @@ Platoon = Class(moho.platoon_methods) {
 						self.RespondingToDistress = true
                         
                         local ATTACKS, ARTILLERY, GUARDS, SUPPORTS, SCOUTS
+			
+                        if DistressResponseDialog then
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." responds to "..distressType.." DISTRESS at "..repr(distressLocation).." distance "..VDist3(platoonPos,distressLocation).." check interval is "..repr(reactionTime * 10) )
+                        end
 
 						-- Head towards position and repeat until there is no distressLocation
 						while PlatoonExists(aiBrain, self) and distressLocation and self.DistressResponseAIRunning do
@@ -6372,7 +6383,7 @@ Platoon = Class(moho.platoon_methods) {
                                                 local distance = LOUDFLOOR(VDist3( platoonPos, moveLocation ))
 
                                                 if DistressResponseDialog then
-                                                    LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." distance to "..repr(moveLocation).." is "..repr(distance))
+                                                    LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." now at "..repr(distance).." distance to "..repr(moveLocation).." reported threat is "..repr(threatatPos) )
                                                 end
                                             
                                                 -- if within proximity to the distress -check for target
@@ -6389,6 +6400,11 @@ Platoon = Class(moho.platoon_methods) {
                                                     
                                                     -- if no target then threat is likely gone or moved -- we'll need to reacquire the distress location
                                                     if not target then
+
+                                                        if DistressResponseDialog then
+                                                            LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." no target found within "..targetingrange.." of distress position "..repr(moveLocation) )
+                                                        end
+
                                                         moveLocation = false
                                                     end
 
@@ -7412,10 +7428,9 @@ Platoon = Class(moho.platoon_methods) {
 				end
 
 			else
-			
-				--WARN("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." "..repr(self.BuilderName).." unable to build anything in EBAI - RTB")
-				
+
 				eng.EngineerBuildQueue = {}
+
 				eng.failedbuilds = eng.failedbuilds + 1
 				
 				self.CreationTime = LOUDTIME()	-- forces the job into a delay period
@@ -7752,13 +7767,15 @@ Platoon = Class(moho.platoon_methods) {
 	-- which will remove the previous item from the queue
 	-- when the queue is empty the engy will either RTB or repeat his plan (loopbuilders)
     ProcessBuildCommand = function( self, eng, removeLastBuild )
+
+		local aiBrain = GetAIBrain(eng)
     
         local LOUDREMOVE = LOUDREMOVE
 	
 		if eng.Dead then return end
 
         if ScenarioInfo.EngineerDialog then
-            LOG("*AI DEBUG Eng "..eng.Sync.id.." enters PBC with "..repr(removeLastBuild) )
+            LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." "..repr(self.BuilderName).." enters ProcessBuildCommand" )
         end
 
 		local platoon = eng.PlatoonHandle or false
@@ -7771,9 +7788,31 @@ Platoon = Class(moho.platoon_methods) {
 
 		-- remove first item from the build queue
         if removeLastBuild and eng.EngineerBuildQueue[1] then
+        
+            local FOG = LOUDREMOVE(eng.EngineerBuildQueue, 1)
 
-            LOUDREMOVE(eng.EngineerBuildQueue, 1)
+            if ScenarioInfo.EngineerDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." "..repr(self.BuilderName).." removes queue item "..repr(FOG).." lastbuild was "..repr(eng.lastbuild) )
+            end
             
+            if eng.lastbuild and ( FOG[1] == eng.lastbuild[1] and table.equal(FOG[2],eng.lastbuild[2]) ) then
+
+                WARNING("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." trying to build same thing ")
+
+                if platoon.PlatoonData.Construction.LoopBuild then
+                
+                    platoon.PlatoonData.Construction.LoopBuild = false
+                    
+                    eng.failedbuilds = eng.failedbuilds + 1
+                    
+                    eng.EngineerBuildQueue = {}
+                    
+                end
+            end
+        
+            -- record the last item we tried to build
+            eng.lastbuild = LOUDCOPY(FOG)
+
         end
 
         if eng.NotBuildingThread then
@@ -7794,8 +7833,6 @@ Platoon = Class(moho.platoon_methods) {
 		eng.IssuedReclaimCommand = false
 		
         IssueClearCommands({eng})
-
-		local aiBrain = GetAIBrain(eng)
         
         local ENGINEERS = ENGINEERS - categories.COMMAND
         local OTHERSTUFF = categories.STRUCTURE + ( categories.MOBILE * categories.LAND ) - ENGINEERS
@@ -8116,7 +8153,9 @@ Platoon = Class(moho.platoon_methods) {
 						return not eng.Dead
 					else
 					
-						--LOG("*AI DEBUG Eng "..eng.Sync.id.." says reason is "..repr(reason).." distance is "..repr(distance).." returning false")
+                        if ScenarioInfo.EngineerDialog then
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." "..repr(self.BuilderName).." says reason is "..repr(reason).." distance is "..repr(distance).." returning false - mythreat is "..repr(mythreat))
+                        end
 						
 						return false
 					end
@@ -8144,7 +8183,7 @@ Platoon = Class(moho.platoon_methods) {
 			local function EngineerMoving( buildlocation, builditem )
 
                 if ScenarioInfo.EngineerDialog then
-                    LOG("*AI DEBUG Eng "..eng.Sync.id.." moving to "..repr(buildlocation) )
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." "..repr(self.BuilderName).." moving to "..repr(buildlocation) )
                 end
                 
 				if EngineerThreatened( buildlocation ) then
@@ -8255,14 +8294,12 @@ Platoon = Class(moho.platoon_methods) {
 
 					return false
 				end
-                
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName).." Eng "..eng.Sync.id.." exiting EngineerMoving - waypoint callback is "..repr(platoon.MovingToWaypoint))
 				
 				return not eng.Dead
 			end			
 
             if ScenarioInfo.EngineerDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." buildLocation is "..repr(buildLocation))
+                LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." "..repr(self.BuilderName).." buildLocation is "..repr(buildLocation))
             end
 
 			-- get the engineer moved to the goal --
@@ -8395,7 +8432,7 @@ Platoon = Class(moho.platoon_methods) {
 								if CanBuildStructureAt( aiBrain, buildItem, buildLocation ) then
 								
                                     if ScenarioInfo.EngineerDialog then
-                                        LOG("*AI DEBUG Eng "..eng.Sync.id.." orders build of "..repr(buildItem).." at "..repr(NormalToBuildLocation(buildLocation)))
+                                        LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." "..repr(platoon.BuilderName).." orders build of "..repr(buildItem).." at "..repr(NormalToBuildLocation(buildLocation)))
                                     end
 
 									eng.IssuedBuildCommand = true
@@ -8409,7 +8446,7 @@ Platoon = Class(moho.platoon_methods) {
 
 								else
                                     if ScenarioInfo.EngineerDialog then    
-                                        WARN("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." fails CanBuildStructureAt "..repr(buildLocation).." for "..repr(buildItem) )
+                                        WARN("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." "..repr(platoon.BuilderName).." fails CanBuildStructureAt "..repr(buildLocation).." for "..repr(buildItem) )
                                     end
 
 									-- remove the item via PBC --
@@ -8437,7 +8474,7 @@ Platoon = Class(moho.platoon_methods) {
 				-- and the job will be put in delay so it isn't selected again right away --
 				if not eng.Dead then
 				
-					if eng.failedmoves <= 10 then
+					if eng.failedmoves < 10 then
 
 						-- move onto next item to build
 						if ScenarioInfo.EngineerDialog then
@@ -8450,7 +8487,7 @@ Platoon = Class(moho.platoon_methods) {
 
 					else
 					
-						platoon.CreationTime = LOUDTIME()	-- forces the job into a delay period
+						platoon.CreationTime = LOUDTIME()	-- forces the task to appear like an instant disband - forcing a task period
 
 						if platoon.PlatoonData.Construction then
 						
@@ -8521,7 +8558,6 @@ Platoon = Class(moho.platoon_methods) {
 			end
 
 			eng.failedmoves = 0
-			eng.failedbuilds = eng.failedbuilds + 1
 			
 			platoon:SetAIPlan( 'ReturnToBaseAI', aiBrain )
 
