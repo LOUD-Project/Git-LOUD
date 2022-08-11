@@ -130,8 +130,8 @@ EngineerManager = Class(BuilderManager) {
         LOUDINSERT( self.EngineerList, unit )
         
         if ScenarioInfo.EngineerDialog then
-            LOG("*AI DEBUG "..GetAIBrain(unit).Nickname.." Adding Engineer "..unit.Sync.id.." "..__blueprints[unit.BlueprintID].Description.." to "..self.ManagerType.." "..self.LocationType)
-            LOG("*AI DEBUG "..GetAIBrain(unit).Nickname.." Engineer Count is "..self.EngineerList.Count + 1)
+            LOG("*AI DEBUG "..GetAIBrain(unit).Nickname.." Eng "..unit.Sync.id.." "..__blueprints[unit.BlueprintID].Description.." added to "..self.ManagerType.." "..self.LocationType)
+            --LOG("*AI DEBUG "..GetAIBrain(unit).Nickname.." Engineer Count is "..self.EngineerList.Count + 1)
         end
 		
         self.EngineerList.Count = self.EngineerList.Count + 1
@@ -221,10 +221,14 @@ EngineerManager = Class(BuilderManager) {
 		end
 
 		local builder = self:GetHighestBuilder( unit, aiBrain )
-		
+
 		if unit.Dead or unit.AssigningTask or BeenDestroyed(unit) then
 			return
 		end
+
+        if ScenarioInfo.EngineerDialog then
+            LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..unit.Sync.id.." starts AssignEngineerTask at at "..self.LocationType )
+        end
 
 		unit.AssigningTask = true
         
@@ -237,6 +241,10 @@ EngineerManager = Class(BuilderManager) {
 			if PlatoonDialog then
 				LOG("*AI DEBUG "..aiBrain.Nickname.." EM "..self.LocationType.." forms "..repr(builder.BuilderName) )
 			end
+
+            if ScenarioInfo.EngineerDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..unit.Sync.id.." "..repr(builder.BuilderName).." forms at "..self.LocationType )
+            end
 			
             local hndl = MakePlatoon( aiBrain, builder.BuilderName, PlatoonTemplates[Builder.PlatoonTemplate].Plan or 'none' )
 
@@ -344,9 +352,10 @@ EngineerManager = Class(BuilderManager) {
 			
             else
             
-                if PlatoonDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." EM Enginer "..unit.Sync.id.." finds no task")
+                if PlatoonDialog or ScenarioInfo.EngineerDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..unit.Sync.id.." finds NO TASK at EM "..self.LocationType)
                 end
+                
             end
 
             unit.PlatoonHandle = aiBrain.ArmyPool
@@ -364,7 +373,11 @@ EngineerManager = Class(BuilderManager) {
 	-- Delays him before seeking a new task to avoid thrashing the EM
     DelayAssignEngineerTask = function( self, unit, aiBrain )
 
-		WaitTicks(14 + (unit.failedbuilds * 6))
+        if ScenarioInfo.EngineerDialog then
+            LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..unit.Sync.id.." waiting "..(14 + (unit.failedbuilds * 5)).." ticks")
+        end    
+
+		WaitTicks(14 + (unit.failedbuilds * 5))
         
         while unit and not unit.Dead and not unit.AssigningTask do
 
@@ -372,7 +385,7 @@ EngineerManager = Class(BuilderManager) {
 				-- send the engineer off to find a job --
 				return self.AssignEngineerTask( self, unit, aiBrain )
 			else
-				WaitTicks(50)
+				WaitTicks(31)
 			end
 
 			if (not unit.Dead) and ( (not unit:IsIdleState() ) or IsUnitState( unit, 'Attached' ) ) then

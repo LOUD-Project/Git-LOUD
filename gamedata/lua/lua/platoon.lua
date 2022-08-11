@@ -608,12 +608,20 @@ Platoon = Class(moho.platoon_methods) {
 						if self.CreationTime == CurrentTime then
 					
 							if self.BuilderName and not string.find(self.BuilderName, 'Eng RTB') and self.BuilderLocation then
-								
+                                
 								v.failedbuilds = (v.failedbuilds + 1) or 1
+                        
+                                if ScenarioInfo.EngineerDialog then
+                                    LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..v.Sync.id.." "..self.BuilderName.." immediately disbands - assigning TIMEOUT to this task - failedbuilds is "..v.failedbuilds )
+                                end
 								
 								ForkTo( EM.AssignTimeout, EM, self.BuilderName, 300 )
 							end
 						end
+                        
+                        if ScenarioInfo.EngineerDialog then
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..v.Sync.id.." "..repr(self.BuilderName).." disbands - failedbuilds is "..(v.failedbuilds or 0) )
+                        end
                     
 						if ScenarioInfo.NameEngineers then
 						
@@ -1598,6 +1606,10 @@ Platoon = Class(moho.platoon_methods) {
                 
 				-- set the 'engineer' flag
 				if LOUDENTITY( ENGINEERS, v ) then
+                
+                    if ScenarioInfo.EngineerDialog then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..v.Sync.id.." "..repr(v.BuilderName).." now in RTB to "..v.LocationType )                        
+                    end
 				
 					engineer = v
 
@@ -1608,6 +1620,8 @@ Platoon = Class(moho.platoon_methods) {
 							v:SetCustomName("Eng "..v.Sync.id.." RTB from "..v.BuilderName.." to "..v.LocationType )
 						end
                     end
+                    
+                    v.lastbuild = nil
 					
 					-- force CDR to disband - he never leaves home
 	                if LOUDENTITY( categories.COMMAND, v ) then
