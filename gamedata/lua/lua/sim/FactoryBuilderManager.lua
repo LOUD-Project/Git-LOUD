@@ -126,11 +126,13 @@ FactoryBuilderManager = Class(BuilderManager) {
             WaitTicks(100)
         end
 
+
 		local LOUDENTITY = LOUDENTITY
 
 		if not factory.Dead and not factory.BuildLevel then
 			
 			factory.failedbuilds = 0
+            factory.LocationType = self.LocationType
 			
 			if LOUDENTITY( LAND * categories.TECH1, factory ) then
 			
