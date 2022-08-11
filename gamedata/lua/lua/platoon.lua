@@ -330,9 +330,7 @@ Platoon = Class(moho.platoon_methods) {
             local WaitTicks = WaitTicks
 
 			for wpidx, waypointPath in pathcopy do
-
-                LOUDREMOVE( path, 1)  -- remove the currently executing step from the original path - the original platoon can see this and keep tabs on it's progress
-                
+              
                 --LOG("*AI DEBUG MovePlatoon executing "..repr(waypointPath).." remaining path is "..repr(path))
 			
 				if self.MoveThread then
@@ -407,6 +405,7 @@ Platoon = Class(moho.platoon_methods) {
 					else
 			
 						self:MoveToLocation( waypointPath, false )
+                        
 					end
 
 					while self.MovingToWaypoint do
@@ -420,7 +419,10 @@ Platoon = Class(moho.platoon_methods) {
 					KillThread(self.WaypointCallback)
 					self.WaypointCallback = nil
 				end
-			
+
+                -- by doing this - the currently executing step is always the first entry in the remaining path which the source platoon can follow
+                LOUDREMOVE( path, 1)    -- we remove the step, from the original path, as we complete it.
+  			
 				prevpoint = LOUDCOPY(waypointPath)
 			end
 		else
@@ -1877,16 +1879,12 @@ Platoon = Class(moho.platoon_methods) {
 				
 					if self.MovementLayer == 'Land' then
 
-                        --LOG("*AI DEBUG "..aiBrain.Nickname.." No path "..reason.." and no transport during RTB to "..repr(RTBLocation).." - reissuing RTB for "..repr(self.BuilderName).." lifetime stats "..repr( self:GetPlatoonLifetimeStats() ).." Creation Time was "..repr(self.CreationTime).." Currently "..repr(LOUDTIME()))
-						
-						WaitTicks(35)
+						WaitTicks(31)
 						
 						return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 					else
 					
                         self:Stop()
-						
-						--LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." with "..mythreat.." threat - No path - Moving directly to transportLocation "..repr(transportLocation).." in RTB - distance "..repr(math.sqrt(distance)))
 						
 						path = { transportLocation }
                         
@@ -1899,9 +1897,9 @@ Platoon = Class(moho.platoon_methods) {
 			if path then
 			
 				if PlatoonExists(aiBrain, self) then
-				
-                    -- Move using aggressive move
+
 					self.MoveThread = self:ForkThread( self.MovePlatoon, path, UseFormation, false)
+                    
 				end
 			end
             
@@ -1915,8 +1913,7 @@ Platoon = Class(moho.platoon_methods) {
 			end
             
 		end
-		
-		--LOG("*AI DEBUG "..aiBrain.Nickname.." RTB "..repr(self.BuilderName).." Moving to transportLocation - distance "..repr(math.sqrt(distance)))
+
 		
 		-- At this point the platoon is on its way back to base (or may be there)
 		local count = false
@@ -1937,13 +1934,18 @@ Platoon = Class(moho.platoon_methods) {
 		-- Monitor the platoons distance to the base watching for death, stuck or idle, and checking for transports
         while (not count) and PlatoonExists(aiBrain, self) and distance > (rtbdistance * rtbdistance) do
 
+            if not engineer then
+                -- while in RTB -- look for platoons to merge into
+                self.MergeIntoNearbyPlatoons( self, aiBrain, self.PlanName, 60, false )
+            end
+
 			-- check units for idle or stuck --
             for _,v in GetPlatoonUnits(self) do
 				
 				if not v.Dead then
 
-					-- look for stuck units after 90 seconds
-					if (LOUDTIME() - StartMoveTime) > 90 then
+					-- look for stuck units after 75 seconds
+					if (LOUDTIME() - StartMoveTime) > 75 then
 					
 						unitpos = LOUDCOPY(GetPosition(v))
 						
@@ -2010,6 +2012,7 @@ Platoon = Class(moho.platoon_methods) {
 						end
 					end
 				end
+                
 			end
 			
 			-- while moving - check for proximity to base (not transportlocation) --
@@ -2084,8 +2087,6 @@ Platoon = Class(moho.platoon_methods) {
 					returnpool.RTBLocation = self.RTBLocation or false
 					returnpool.MovementLayer = self.MovementLayer
 					
-					--LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." "..repr(StuckCount).." from "..repr(self.BuilderLocation).." at "..repr(GetPlatoonPosition(returnpool)).." Stuck in RTB to "..repr(self.BuilderLocation).." "..math.sqrt(distance))					
-					
 					for _,u in units do
 					
 						if not u.Dead then
@@ -2136,7 +2137,7 @@ Platoon = Class(moho.platoon_methods) {
 				end
 			end
 
-			WaitTicks(55)
+			WaitTicks(51)
         end
         
 		if PlatoonExists(aiBrain, self) then
@@ -2159,8 +2160,6 @@ Platoon = Class(moho.platoon_methods) {
 
 	-- not reviewed by me
     SatelliteAI = function( self, aiBrain)
-	
-		LOG("*AI DEBUG Satellite AI running")
 		
 		local data = self.PlatoonData
 		local atkPri = {}
@@ -2190,7 +2189,7 @@ Platoon = Class(moho.platoon_methods) {
 
                 if target and target != oldTarget and not target.Dead then
 				
-					LOG("*AI DEBUG Satellite AI finds target")
+					--LOG("*AI DEBUG Satellite AI finds target")
 					self:Stop()
 					self:AttackTarget(target)
 					oldTarget = target
@@ -2268,7 +2267,7 @@ Platoon = Class(moho.platoon_methods) {
 
         local DistressResponseDialog = ScenarioInfo.DistressResponseDialog 
 	
-		LOG("*AI DEBUG ArtilleryAI launched")
+		LOG("*AI DEBUG "..aiBrain.Nickname.." ArtilleryAI launched")
 
         local threatThreshold = 125     -- this determines which distress calls we'll look at
         local distressRange = 1000      -- controls how far afield we'll look
@@ -2427,7 +2426,7 @@ Platoon = Class(moho.platoon_methods) {
                                                     alertrange = rangetoalert
                                                 
                                                     if DistressResponseDialog then
-                                                        LOG("*AI DEBUG "..aiBrain.Nickname.." ArtilleryAI DR "..self.BuilderName.." selects Platoon ALERT "..repr(alertposition).." threat is "..threat)
+                                                        LOG("*AI DEBUG "..aiBrain.Nickname.." ArtilleryAI DR "..self.BuilderName.." with threat threshold "..threatThreshold.." threat - selects Platoon ALERT "..repr(alertposition).." reported enemy threat is "..threat.." - time "..repr(GetGameTimeSeconds()) )
                                                     end
                                                 end
 											end
