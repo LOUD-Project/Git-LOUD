@@ -852,7 +852,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			
             MergeLimit = 16,
 			
-            MissionTime = 75,
+            MissionTime = 80,
 			
             PrioritizedCategories = { categories.AIR - categories.INTELLIGENCE - categories.TRANSPORTFOCUS, categories.INTELLIGENCE, categories.TRANSPORTFOCUS },
 			
@@ -875,9 +875,9 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 
 		PlatoonAIPlan = 'AttackForceAI',		
 		
-        Priority = 700,
+        Priority = 710,
         
-        InstanceCount = 1,
+        InstanceCount = 2,
 		
         BuilderConditions = {
             { LUTL, 'AirStrengthRatioGreaterThan', { 3 } },
@@ -893,7 +893,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			
             MergeLimit = 16,
 			
-            MissionTime = 120,
+            MissionTime = 150,
 			
             PrioritizedCategories = { categories.AIR * categories.INTELLIGENCE, categories.TRANSPORTFOCUS },
 			
@@ -916,9 +916,9 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 		
 		PlatoonAIPlan = 'AttackForceAI',		
 		
-        Priority = 700,
+        Priority = 720,
         
-        InstanceCount = 1,
+        InstanceCount = 2,
 		
         BuilderConditions = {
             { LUTL, 'AirStrengthRatioGreaterThan', { 3 } },
@@ -934,7 +934,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			
             MergeLimit = 16,
 			
-            MissionTime = 120,
+            MissionTime = 150,
 			
             PrioritizedCategories = { categories.TRANSPORTFOCUS, categories.AIR * categories.INTELLIGENCE },
 			
@@ -977,11 +977,11 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			
 			LocationType = 'LocationType',
 			
-            MergeLimit = 32,
+            MergeLimit = 30,
 			
-            MissionTime = 110,
+            MissionTime = 120,
 			
-            PrioritizedCategories = { categories.AIR - categories.INTELLIGENCE - categories.TRANSPORTFOCUS, categories.INTELLIGENCE, categories.TRANSPORTFOCUS},
+            PrioritizedCategories = { categories.AIR - categories.INTELLIGENCE - categories.TRANSPORTFOCUS},
 			
 			SearchRadius = 70,
 			
@@ -1021,13 +1021,13 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
             
 			LocationType = 'LocationType',
             
-            MergeLimit = 48,
+            MergeLimit = 42,
             
-            MissionTime = 135,
+            MissionTime = 130,
             
-            PrioritizedCategories = { categories.AIR * categories.EXPERIMENTAL, categories.AIR - categories.INTELLIGENCE - categories.TRANSPORTFOCUS, categories.TRANSPORTFOCUS },
+            PrioritizedCategories = { categories.AIR * categories.EXPERIMENTAL, categories.AIR - categories.INTELLIGENCE - categories.TRANSPORTFOCUS },
             
-			SearchRadius = 90,
+			SearchRadius = 85,
             
             UseFormation = 'GrowthFormation',
         },

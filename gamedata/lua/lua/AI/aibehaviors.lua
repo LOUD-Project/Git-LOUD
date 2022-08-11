@@ -188,8 +188,6 @@ function LifeThread( aiBrain, cdr )
     local WaitTicks = WaitTicks
     
     local MATHMIN = LOUDMIN
-    
-    local cheatmult = LOUDMAX( 1, aiBrain.CheatValue)
 
     while true do
     
@@ -2347,7 +2345,7 @@ function SetLoiterPosition( self, aiBrain, startposition, searchradius, minthrea
             -- this will reduce the lerp and keep us further away from those threats when the ratio is low while still allowing 
             
             -- some forward deployment
-            lerpresult = lerpresult * LOUDMIN( 0.5, LOUDMIN(mythreat, mythreat*(aiBrain.AirRatio/3)) / LOUDMAX(1, results[1][4]) )
+            lerpresult = lerpresult * LOUDMIN( 0.5, LOUDMIN( mythreat, mythreat * LOUDMAX( 0.28, aiBrain.AirRatio/3 ) ) / LOUDMAX(1, results[1][4]) )
 
             loiterposition = { LOUDFLOOR(MATH_Lerp(lerpresult, startposition[1], results[1][1] )), 0, LOUDFLOOR(MATH_Lerp( lerpresult, startposition[3], results[1][2])) } 
 
@@ -2502,7 +2500,7 @@ function AirForceAILOUD( self, aiBrain )
     local threatavoid = 'AntiAir'
     
     local mult = { 1, 2, 3 }				-- this multiplies the range of the platoon when searching for targets
-	local difficulty = { 1.25, 1, 0.65 } 		-- this divides the base threat of the platoon, by deflating it and then increasing it, so that easier targets are selected first
+	local difficulty = { 1.25, 1, 0.8 } 		-- this divides the base threat of the platoon, by deflating it and then increasing it, so that easier targets are selected first
     
     local minrange, maxrange, searchradius, usethreat
     local Rangemult, Threatmult
@@ -2542,20 +2540,20 @@ function AirForceAILOUD( self, aiBrain )
                 mythreat = 5
             end
             
-            -- the searchradius adapts to the current air ratio
-            searchradius = LOUDMAX(Searchradius, (Searchradius *  LOUDMAX(1, (aiBrain.AirRatio/3) * LOUDMIN(1, LOUDGETN(platoonUnits)/15) ) ) )
+            -- the searchradius adapts to the current air ratio and the platoon size
+            searchradius = LOUDMAX(Searchradius, (Searchradius *  LOUDMAX(1, (aiBrain.AirRatio/3) * LOUDMIN(1, LOUDGETN(platoonUnits)/18) ) ) )
 
             usethreat = 0
             minrange = 0
 
-			-- the anchorposition is the start position of the platoon
-			-- where the platoon returns to if it should be drawn away
+			-- the anchorposition is the start position of the platoon - not necessarily the base where it formed
+			-- and is where the platoon returns to if it should be drawn away to attack something
             -- the loiter flag indicates that we are without a target and guarding this position
 			if GetPlatoonPosition(self) then
 			
 				if not loiter then
                 
-                    loiterposition = SetLoiterPosition( self, aiBrain, self.anchorposition, searchradius, 5, mythreat, 'AIR', 'ANTIAIR' )
+                    loiterposition = SetLoiterPosition( self, aiBrain, self.anchorposition, searchradius, 3, mythreat, 'AIR', 'ANTIAIR' )
                     
                     loiter = true
 				end
@@ -2596,7 +2594,7 @@ function AirForceAILOUD( self, aiBrain )
 
                 minrange = searchradius * rangemult
                 
-                WaitTicks(1)
+                --WaitTicks(1)
             end
 
             -- if we have a target - find secondary targets near it
@@ -2813,7 +2811,7 @@ function AirForceAILOUD( self, aiBrain )
                                     attackissuedcount = attackissuedcount + 1
                                 end
                     
-                                if attackissuedcount > 3 then
+                                if attackissuedcount > 5 then
                                     WaitTicks(1)
                                     attackissuedcount = 0
                                 end
@@ -2836,13 +2834,13 @@ function AirForceAILOUD( self, aiBrain )
                 
                 if atthreat > mythreat then
                 
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." AA threat too high "..atthreat.." - aborting - my threat "..mythreat.." using "..LOUDFLOOR(IMAPblocks/2).." IMAP blocks")
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." AA threat too high "..atthreat.." - aborting - my threat "..mythreat.." using "..LOUDFLOOR(IMAPblocks/2).." IMAP blocks")
                     
-                    return self:SetAIPlan('ReturnToBaseAI',aiBrain)
+                    break   --return self:SetAIPlan('ReturnToBaseAI',aiBrain)
                 end
             end
 
-			WaitTicks(3)
+			WaitTicks(2)
             
             if VDist3( GetPlatoonPosition(self), loiterposition ) > maxrange then
                 break
@@ -2861,7 +2859,7 @@ function AirForceAILOUD( self, aiBrain )
 		end
 
 		if loiter then
-			WaitTicks(8)
+			WaitTicks(6)
         end
         
         self.UsingTransport = false
@@ -2994,7 +2992,7 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
     local threatavoid = 'AntiAir'
     
     local mult = { 1, 2, 3 }				-- this multiplies the range of the platoon when searching for targets
-	local difficulty = { 1.25, 1, 0.65 } 		-- this divides the base threat of the platoon, by deflating it and then increasing it, so that easier targets are selected first
+	local difficulty = { 1.25, 1, 0.72 } 		-- this divides the base threat of the platoon, by deflating it and then increasing it, so that easier targets are selected first
     
     local minrange, maxrange, searchradius, usethreat
     local Rangemult, Threatmult
@@ -3488,7 +3486,7 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
     local threatavoid = 'AntiAir'
     
     local mult = { 1, 2, 3 }				-- this multiplies the range of the platoon when searching for targets
-	local difficulty = { 1.25, 1, 0.65 } 		-- this divides the base threat of the platoon, by deflating it and then increasing it, so that easier targets are selected first
+	local difficulty = { 1.25, 1, 0.72 } 		-- this divides the base threat of the platoon, by deflating it and then increasing it, so that easier targets are selected first
     
     local minrange, maxrange, searchradius, usethreat
     local Rangemult, Threatmult
@@ -3993,7 +3991,7 @@ function AirForceAI_Torpedo_LOUD( self, aiBrain )
     local threatavoid = 'AntiAir'
     
     local mult = { 1, 2, 3 }				-- this multiplies the range of the platoon when searching for targets
-	local difficulty = { 1.25, 1, 0.65 } 		-- this divides the base threat of the platoon, by deflating it and then increasing it, so that easier targets are selected first
+	local difficulty = { 1.25, 1, 0.72 } 		-- this divides the base threat of the platoon, by deflating it and then increasing it, so that easier targets are selected first
     
     local minrange, maxrange, searchradius, usethreat
     local Rangemult, Threatmult
