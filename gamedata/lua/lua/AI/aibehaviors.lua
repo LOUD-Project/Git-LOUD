@@ -2833,7 +2833,7 @@ function AirForceAILOUD( self, aiBrain )
                 
                 if atthreat > mythreat then
                 
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." AA threat too high "..atthreat.." - aborting - my threat "..mythreat.." using "..LOUDFLOOR(IMAPblocks/2).." IMAP blocks at "..repr(GetPlatoonPosition(sefl)) )
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." AA threat too high "..atthreat.." - aborting - my threat "..mythreat.." using "..LOUDFLOOR(IMAPblocks/2).." IMAP blocks at "..repr(GetPlatoonPosition(self)) )
         
                     IssueClearCommands(self)
 

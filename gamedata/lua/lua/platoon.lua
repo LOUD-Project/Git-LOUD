@@ -2792,7 +2792,7 @@ Platoon = Class(moho.platoon_methods) {
     -- GuardPoint for land units
     GuardPoint = function( self, aiBrain )
     
-        local GuardpointDialog = true
+        local GuardpointDialog = false
 
         local CalculatePlatoonThreat = CalculatePlatoonThreat
         local GetPlatoonPosition = GetPlatoonPosition

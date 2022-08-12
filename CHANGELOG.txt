@@ -1,4 +1,32 @@
-### Release
+### Release 12-08-2022
+
+LUA 6.2.15
+
+    - removed some redundant Campaign code (menus) and supporting modules that LOUD doesn't require
+    
+    - revised the 'Distress Response' for naval areas, will now properly evaluate HOVER units as threat and respond accordingly
+    - Naval Rally Points and regular land-based Rally Points were interacting at ranges - land ones would overrule naval ones if found
+        -- this was mostly an issue where a land base and a naval base or DP were in moderate proximity (less than 3k)
+
+    - reviewed and revised all acceptable threat levels for engineer builds out in the open field to reduce suicidal engineer behaviors
+    - looping engineers will now properly loop their mission if they break off a build due to threat, they'll find another suitable location (vs RTB)
+
+    - LOUD will no longer build Experimental Artillery on 20k maps or smaller - this includes the Yolona Oss
+    
+    - minor change to how the ACU evaluates his condition when he has a shield (Einherjarn)
+    
+    - A revision to ALL air behaviors (Fighter, Bomber, Gunship & Torp) routines, making it more sensitive the long-range threats (threat modifier goes from .65 to .72)
+    - revised the 'abort' routine for fighters (AirForceAILOUD) to widen the threat check radius while engaging a target (128 from 96)
+    --   fighters should react better to being 'kited' over thick AA positions
+    
+    - revised the AI DEBUG option 'DistressResponseDialog' to give a more detailed report of DR activities by responding platoons    
+    - revised the AI DEBUG option 'EngineerDialog' to give a more verbose trace of activities (great for finding issues, but VERY bulky in the LOG)
+    --   for those wanting to learn about the AI process, this is an invaluable tool for seeing & tracking the processes a single engineer goes thru to build something
+    
+
+
+
+### Release 22-07-2022
 
 LUA 6.2.14
 
@@ -16,6 +44,9 @@ LUA 6.2.14
     - AI SelfUpgrade function will now prioritize T3 Pgen Upgrades more aggressively than T2, but both have had their test frequency increased
     - A wide range of adjusted economic triggers for all kinds of engineer work (see Github for greater details)
     - A revised and narrower schedule of T4 builds, to encourage more assist of current projects, rather than starting more new ones
+
+
+
 
 ### Release 16-07-2022
 
@@ -49,6 +80,7 @@ LUA 6.2.13
     
     
 
+
 ### Release 09-07-2022
 
 LUA 6.2.12
@@ -65,6 +97,8 @@ LUA 6.2.12
     - Walls will no longer grant kills towards veterancy
 
 
+
+
 ### Release 30-06-2022
 
 LUA 6.2.11
@@ -79,14 +113,18 @@ LUA 6.2.11
     - The T1MassGuard formation has it's maximum formation reduced from 5 to 4 to increase formation frequency, but of potentially smaller size
     
 
+
+
 ### Release 25-06-2022
 
 LUA 6.2.10
 
     - This is a hotfix for two issues
-        - MetalWorld was showing mass points
-        - A logic bomb was causing crashes 
-        
+    - MetalWorld was showing mass points
+    - A logic bomb was causing crashes 
+
+
+
 
 ### Release 24-06-2022
 
@@ -122,6 +160,7 @@ AI
 
 Map Assets
     - some new map assets have been added to the distribution (Binary)
+
 
 
 
