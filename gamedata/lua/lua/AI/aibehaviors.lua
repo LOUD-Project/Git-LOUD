@@ -2483,7 +2483,7 @@ function AirForceAILOUD( self, aiBrain )
 	self.anchorposition = LOUDCOPY( GetPlatoonPosition(self) )
 
     local MissionStartTime = LOUDTIME()
-    local threatcheckradius = 96
+    local threatcheckradius = 128
     
     -- block based IMAP threat checks are controlled by this - allowing it to scale properly with map sizes
     local IMAPblocks = LOUDFLOOR(threatcheckradius/ScenarioInfo.IMAPSize)
@@ -2593,8 +2593,7 @@ function AirForceAILOUD( self, aiBrain )
 				end
 
                 minrange = searchradius * rangemult
-                
-                --WaitTicks(1)
+
             end
 
             -- if we have a target - find secondary targets near it
@@ -2691,7 +2690,7 @@ function AirForceAILOUD( self, aiBrain )
                             
                             if target.Dead then
                             
-                                loiter = false
+                                target = false
                                 
                                 break
                             end
@@ -2834,13 +2833,23 @@ function AirForceAILOUD( self, aiBrain )
                 
                 if atthreat > mythreat then
                 
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." AA threat too high "..atthreat.." - aborting - my threat "..mythreat.." using "..LOUDFLOOR(IMAPblocks/2).." IMAP blocks")
-                    
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." AA threat too high "..atthreat.." - aborting - my threat "..mythreat.." using "..LOUDFLOOR(IMAPblocks/2).." IMAP blocks at "..repr(GetPlatoonPosition(sefl)) )
+        
+                    IssueClearCommands(self)
+
+                    target = false
+            
+                    loiter = false
+            
+                    self:MoveToLocation( loiterposition, false )                    
+
                     break   --return self:SetAIPlan('ReturnToBaseAI',aiBrain)
                 end
             end
 
-			WaitTicks(2)
+            if target then
+                WaitTicks(2)
+            end
             
             if VDist3( GetPlatoonPosition(self), loiterposition ) > maxrange then
                 break
