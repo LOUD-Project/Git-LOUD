@@ -653,7 +653,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 			PointMax = 650,
 			
 			StrCategory = categories.STRUCTURE * categories.DEFENSE * categories.DIRECTFIRE,
-			StrRadius = 35,
+			StrRadius = 38,
 			StrTrigger = true,
 			StrMin = 0,
 			StrMax = 2,
@@ -661,7 +661,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
             ThreatMaxRatio = 1.1,
 			
 			UntCategory = (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.ENGINEER),
-			UntRadius = 45,
+			UntRadius = 48,
 			UntTrigger = true,
 			UntMin = 0,
 			UntMax = 6,
@@ -1647,8 +1647,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         },
 		
         BuilderData = {
-			DistressRange = 125,
-            DistressReactionTime = 20,
+			DistressRange = 120,
+            DistressReactionTime = 16,
 			DistressTypes = 'Land',
 			DistressThreshold = 1,
 			
@@ -1735,8 +1735,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         },
 		
         BuilderData = {
-			DistressRange = 120,
-            DistressReactionTime = 20,
+			DistressRange = 110,
+            DistressReactionTime = 16,
 			DistressTypes = 'Land',
 			DistressThreshold = 1,
 			
@@ -1825,7 +1825,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 		
         BuilderData = {
 			DistressRange = 150,
-            DistressReactionTime = 20,
+            DistressReactionTime = 16,
 			DistressTypes = 'Land',
 			DistressThreshold = 6,
 			
@@ -1908,7 +1908,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         BuilderData = {
 		
 			DistressRange = 150,
-            DistressReactionTime = 20,
+            DistressReactionTime = 16,
 			DistressTypes = 'Land',
 			DistressThreshold = 6,
 			
@@ -1994,7 +1994,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         BuilderData = {
 		
 			DistressRange = 150,
-            DistressReactionTime = 20,
+            DistressReactionTime = 16,
 			DistressTypes = 'Land',
 			DistressThreshold = 6,
 			
@@ -2080,7 +2080,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 		
         BuilderData = {
 		
-			DistressRange = 100,
+			DistressRange = 120,
 			DistressTypes = 'Land',
 			DistressThreshold = 6,
 			
@@ -2161,7 +2161,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 		
         BuilderData = {
 		
-			DistressRange = 100,
+			DistressRange = 120,
 			DistressTypes = 'Land',
 			DistressThreshold = 8,
 			
@@ -2244,7 +2244,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 		
         BuilderData = {
 		
-			DistressRange = 100,
+			DistressRange = 120,
 			DistressTypes = 'Land',
 			DistressThreshold = 10,
 			
@@ -2328,7 +2328,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         BuilderData = {
 		
 			DistressRange = 100,
-            DistressReactionTime = 24,
+            DistressReactionTime = 20,
 			DistressTypes = 'Land',
 			DistressThreshold = 4,
 			
@@ -2410,7 +2410,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Base Guards',
 		
         BuilderData = {
 			DistressRange = 150,
-            DistressReactionTime = 24,
+            DistressReactionTime = 22,
 			DistressTypes = 'Land',
 			DistressThreshold = 4,
 			
@@ -2446,7 +2446,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Base Guards',
         },
 		
         BuilderData = {
-			DistressRange = 150,
+			DistressRange = 120,
 			DistressTypes = 'Air',
 			DistressThreshold = 4,
 			
