@@ -616,11 +616,12 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Reclaim Old Structures',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
             
-			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 0, (categories.TECH1 * categories.STRUCTURE * categories.DEFENSE * categories.DRAGBUILD) + (categories.TECH1 * categories.WALL) }},
+			{ UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 0, (categories.TECH1 * categories.STRUCTURE * categories.DEFENSE * categories.DRAGBUILD) + (categories.TECH1 * categories.WALL), 5, 65 }},
         },
 		
         BuilderData = {
 			Reclaim = { (categories.TECH1 * categories.STRUCTURE * categories.DEFENSE * categories.DRAGBUILD) + (categories.TECH1 * categories.WALL)},
+            ReclaimRange = 65,
         },
     },
 	
@@ -647,11 +648,12 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Reclaim Old Structures',
             
 			{ LUTL, 'GreaterThanEnergyIncome', { 18900 }},
 
-			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 0, categories.TECH2 * categories.STRUCTURE * categories.DEFENSE * categories.DRAGBUILD - categories.WALL - categories.SHIELD - categories.ANTIMISSILE - categories.ARTILLERY - categories.SORTSTRATEGIC}},
+			{ UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 0, categories.TECH2 * categories.STRUCTURE * categories.DEFENSE * categories.DRAGBUILD - categories.WALL - categories.SHIELD - categories.ANTIMISSILE - categories.ARTILLERY - categories.SORTSTRATEGIC, 5, 75 }},
         },
 		
         BuilderData = {
 			Reclaim = {categories.TECH2 * categories.STRUCTURE * categories.DEFENSE * categories.DRAGBUILD - categories.WALL - categories.SHIELD - categories.ANTIMISSILE - categories.ARTILLERY - categories.SORTSTRATEGIC},
+            ReclaimRange = 75,
         },
     },
     
@@ -671,11 +673,12 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Reclaim Old Structures',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
 
-			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 0, categories.STRUCTURE * categories.ENERGYPRODUCTION * categories.DRAGBUILD - categories.TECH3 - categories.EXPERIMENTAL - categories.HYDROCARBON}},
+			{ UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 0, categories.STRUCTURE * categories.ENERGYPRODUCTION * categories.DRAGBUILD - categories.TECH3 - categories.EXPERIMENTAL - categories.HYDROCARBON, 5, 75 }},
         },
 		
         BuilderData = {
 			Reclaim = {categories.STRUCTURE * categories.ENERGYPRODUCTION - categories.TECH3 - categories.EXPERIMENTAL - categories.HYDROCARBON},
+            ReclaimRange = 75,
         },
     },
 }
@@ -794,11 +797,12 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks - Active DP',
 
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.2 } },
 
-			{ UCBC, 'UnitsGreaterAtLocation', { 'LocationType', 0, categories.TECH2 * categories.STRUCTURE * categories.DEFENSE * categories.DRAGBUILD - categories.WALL - categories.SHIELD - categories.ANTIMISSILE }},
+			{ UCBC, 'UnitsGreaterAtLocationInRange', { 'LocationType', 0, categories.TECH2 * categories.STRUCTURE * categories.DEFENSE * categories.DRAGBUILD - categories.WALL - categories.SHIELD - categories.ANTIMISSILE, 5, 50 }},
         },
 		
         BuilderData = {
 			Reclaim = {categories.TECH2 * categories.STRUCTURE * categories.DEFENSE * categories.DRAGBUILD - categories.WALL - categories.SHIELD - categories.ANTIMISSILE},
+            ReclaimRange = 50,
         },
     },
 
