@@ -3,7 +3,7 @@
 local UCBC = '/lua/editor/UnitCountBuildConditions.lua'
 local EBC = '/lua/editor/EconomyBuildConditions.lua'
 local LUTL = '/lua/loudutilities.lua'
-
+local MIBC = '/lua/editor/MiscBuildConditions.lua'
 
 local LessThan20MinutesRemain = function(self, aiBrain)
 
@@ -58,11 +58,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction',
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},			
 
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.0125, 1.025 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 75, 1.012, 1.02 }},
 
-			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 3, (categories.STRATEGIC * categories.ARTILLERY * categories.STRUCTURE) - categories.TECH2 }},
+			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 4, (categories.STRATEGIC * categories.ARTILLERY * categories.STRUCTURE) - categories.TECH2 }},
 
-            { UCBC, 'CheckUnitRange', { 'LocationType', 'T3Artillery', (categories.STRUCTURE * categories.TECH3) - categories.MASSEXTRACTION - categories.MASSSTORAGE} },
+            { UCBC, 'CheckUnitRange', { 'LocationType', 'T3Artillery', categories.STRUCTURE - categories.TECH1} },
         },
 		
         BuilderType = {'SubCommander'},
@@ -98,6 +98,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+
+            --- only on maps > 20k
+			{ MIBC, 'MapGreaterThan', { 1024 } },            
 
 			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
             
@@ -153,11 +156,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction - Expansions',
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},			
             
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.0125, 1.025 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 75, 1.012, 1.02 }},
 
-			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 3, (categories.STRATEGIC * categories.ARTILLERY * categories.STRUCTURE) - categories.TECH2 }},
+			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 4, (categories.STRATEGIC * categories.ARTILLERY * categories.STRUCTURE) - categories.TECH2 }},
 
-            { UCBC, 'CheckUnitRange', { 'LocationType', 'T3Artillery', categories.STRUCTURE - categories.MASSEXTRACTION - categories.TECH1} },
+            { UCBC, 'CheckUnitRange', { 'LocationType', 'T3Artillery', categories.STRUCTURE - categories.TECH1} },
         },
 		
         BuilderType = {'SubCommander'},
@@ -192,6 +195,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Artillery Construction - Expansions',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+
+            --- only on maps > 20k
+			{ MIBC, 'MapGreaterThan', { 1024 } },            
 
 			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
 
@@ -242,13 +248,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Nuke Construction',
 
             { LUTL, 'UnitCapCheckLess', { .95 } },		
 
-			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
-            
-			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 4, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},			
 			
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.0125, 1.025 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 75, 1.012, 1.02 }},
 
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 4, categories.NUKE * categories.STRUCTURE }},			
         },
@@ -290,13 +294,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Nuke Construction - Expansions',
 
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ LUTL, 'GreaterThanEnergyIncome', { 21000 }},
-
-			{ LUTL, 'UnitsGreaterAtLocation', { 'LocationType', 4, categories.STRUCTURE * categories.SHIELD - categories.ANTIARTILLERY }},
+			{ LUTL, 'GreaterThanEnergyIncome', { 16800 }},
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},			
 			
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.0125, 1.025 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 75, 1.012, 1.02 }},
 
 			{ UCBC, 'UnitsLessAtLocation', { 'LocationType', 1, categories.NUKE * categories.STRUCTURE }},			
         },

@@ -322,7 +322,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Expansions',
 			
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
             
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 25, 1.012, 1.02 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 75, 1.012, 1.02 }},
         },
 		
         BuilderType = {'T1','T2','T3','SubCommander' },
@@ -361,7 +361,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Expansions',
 			
 			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
             
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 25, 1.012, 1.02 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 75, 1.012, 1.02 }},
         },
 		
         BuilderType = {'T1','T2','T3','SubCommander' },
@@ -450,7 +450,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Factory Construction - Naval',
 			{ UCBC, 'FactoryLessAtLocation',  { 'LocationType', 2, categories.NAVAL * categories.TECH1 }},
 			
 			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 3000 }},
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 25, 1.012, 1.02 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1, 30, 1.012, 1.02 }},
         },
 		
         BuilderType = { 'T1','T2','T3','SubCommander' },
