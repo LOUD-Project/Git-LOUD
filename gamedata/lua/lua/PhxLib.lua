@@ -345,15 +345,18 @@ PhxLib.PhxWeapDPS = function(weapon)
     local DPS = {}
     local Ttime = 0
     local Tdamage = 0
+    
     DPS.Range = weapon.MaxRadius or 0
-    DPS.WeaponName = (weapon.Label or "None") .. 
-                     "/" .. (weapon.DisplayName or "None")
+    
+    DPS.WeaponName = (weapon.Label or "None") .. "/" .. (weapon.DisplayName or "None")
+
     local Warn = ''
 
     local debug = false
 
     local numRackBones = 0
     local numMuzzleBones = 0
+
     if weapon.RackBones then
         numRackBones = table.getn(weapon.RackBones) or 0
 
@@ -591,14 +594,26 @@ PhxLib.calcUnitDPS = function(curShortID,curBP)
     -- Run PhxWeapDPS on each weapon, then calculate threat value 
     --  and accumulate into totals for the unit.
     if curBP.Weapon then
+    
         local NumWeapons = table.getn(curBP.Weapon)
-        if debug then print("**" .. curShortID .. "/" .. PhxLib.cleanUnitName(curBP) 
-            .. " has " .. NumWeapons .. " weapons" 
-            --.. " and is stored in " .. (allFullDirs[curBPid] or "None")
-        ) end
+        
+        if debug then
+            --LOG("**" .. curShortID .. "/" .. PhxLib.cleanUnitName(curBP) .. " has " .. NumWeapons .. " weapons" )  --.. " and is stored in " .. (allFullDirs[curBPid] or "None")
+        end
         
         for curWepID,curWep in ipairs(curBP.Weapon) do
-            local weapDPS = PhxLib.PhxWeapDPS(curWep)
+        
+            local weapDPS
+            
+            if curWep.RateOfFire then
+                weapDPS = PhxLib.PhxWeapDPS(curWep)
+            else
+                if curWep.Label != "DeathWeapon" and curWep.Label != "DeathImpact" and curWep.Label != "CollossusDeath" then
+                    LOG("**" .. curShortID .. "/" .. PhxLib.cleanUnitName(curBP) .. repr(curWep) .. " has NO RateOfFire" )
+                end
+                return 0
+            end
+            
             if debug then print(curShortID ..
                 "/" .. weapDPS.WeaponName ..
                 ': has Damage: ' .. weapDPS.Damage ..
@@ -623,6 +638,7 @@ PhxLib.calcUnitDPS = function(curShortID,curBP)
             unitDPS.Threat.subDam = unitDPS.Threat.subDam + weapDPS.subDPS/20
             unitDPS.Threat.airDam = unitDPS.Threat.airDam + weapDPS.airDPS/20
             if debug then print(" ") end -- End of Weapon Reporting
+
         end --Weapon For Loop
 
         unitDPS.Threat.Speed = (PhxLib.RangeAvgEngage/PhxLib.SpeedT2_KNIFE - PhxLib.RangeAvgEngage/unitDPS.Speed)
@@ -631,8 +647,7 @@ PhxLib.calcUnitDPS = function(curShortID,curBP)
         print(" unitDPS.Threat.Speed = " ..  unitDPS.Threat.Speed)
 
     else
-        print(curShortID .. "/" .. (curBP.Description or "None") .. 
-            " has NO weapons")
+        LOG(curShortID .. "/" .. (curBP.Description or "None") .. " has NO weapons or weapon has NO RateOfFire value")
     end --End if(weapon)
 
     -- Overrides for oddball units
