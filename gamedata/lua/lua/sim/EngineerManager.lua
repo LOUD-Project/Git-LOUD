@@ -743,7 +743,7 @@ EngineerManager = Class(BuilderManager) {
 			AlertLevel = 2,								-- threat must be this size to trigger an alert
 			AlertTimeout = 12,							-- time it takes for a created alert to expire in seconds
 		
-			AlertRange = math.min( math.floor(self.Radius * 2), 150 ),		-- radius at which base will consider targets for an alert
+			AlertRange = math.min( math.floor(self.Radius * 1.2), 150 ),		-- radius at which base will consider targets for an alert (between 108 and 150)
 		
 			AlertResponseTime = 11,						-- time it allows to pass before sending more responses to an active alert in seconds
 		
