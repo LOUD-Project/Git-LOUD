@@ -106,8 +106,8 @@ UnitBlueprint {
         
         EconomyThreatLevel = 640,
         
-        Health = 30500,
-        MaxHealth = 30500,
+        Health = 27500,
+        MaxHealth = 27500,
         RegenRate = 12,
         
         SurfaceThreatLevel = 36,
@@ -1386,15 +1386,15 @@ UnitBlueprint {
         },
         DragCoefficient = 0.2,
         LayerChangeOffsetHeight = -0.9,
-        MaxAcceleration = 1.7,
-        MaxSpeed = 1.4,
+        MaxAcceleration = 1.2,
+        MaxSpeed = 1.2,
         MaxSpeedReverse = 0,
         MaxSteerForce = 12,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Amphibious',
         StandUpright = true,
         TurnRadius = 10,
-        TurnRate = 90,
+        TurnRate = 75,
     },
     
     SelectionCenterOffsetX = 0.15 ,
@@ -1423,7 +1423,6 @@ UnitBlueprint {
         Level3 = 90,
         Level4 = 120,
         Level5 = 150,
-		XPBaseValue = 85321,
     },
 	
     Weapon = {
@@ -1520,7 +1519,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 40,
+            Damage = 35,
             DamageType = 'Normal',
 			
             DisplayName = 'Chronotron Cannon',

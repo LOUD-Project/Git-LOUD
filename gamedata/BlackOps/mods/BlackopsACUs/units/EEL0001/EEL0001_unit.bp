@@ -111,8 +111,8 @@ UnitBlueprint {
         
         EconomyThreatLevel = 670,
         
-        Health = 32000,
-        MaxHealth = 32000,
+        Health = 29000,
+        MaxHealth = 29000,
         RegenRate = 10,
         
         SubThreatLevel = 0,
@@ -133,7 +133,7 @@ UnitBlueprint {
         },
 
         AnimationWalk = '/mods/BlackopsACUs/units/eel0001/eel0001_a001.sca',
-        AnimationWalkRate = 1.7,
+        AnimationWalkRate = 1.5,
 		
         AttackReticleSize = 55,
 		
@@ -1238,15 +1238,15 @@ UnitBlueprint {
         },
         DragCoefficient = 0.2,
         LayerChangeOffsetHeight = -0.95,
-        MaxAcceleration = 1.7,
-        MaxSpeed = 1.4,
+        MaxAcceleration = 1.2,
+        MaxSpeed = 1.2,
         MaxSpeedReverse = 0,
         MaxSteerForce = 12,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Amphibious',
         StandUpright = true,
         TurnRadius = 10,
-        TurnRate = 90,
+        TurnRate = 75,
     },
 	
     SelectionCenterOffsetX = 0.1,
@@ -1371,7 +1371,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 80,
+            Damage = 70,
             DamageType = 'Normal',
 			
             DisplayName = 'Zephyr Anti Matter Cannon',

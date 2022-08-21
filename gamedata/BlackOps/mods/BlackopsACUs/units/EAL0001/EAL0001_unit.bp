@@ -106,8 +106,8 @@ UnitBlueprint {
 		
         EconomyThreatLevel = 620,
 		
-        Health = 29500,
-        MaxHealth = 29500,
+        Health = 27000,
+        MaxHealth = 27000,
         RegenRate = 10,
         
         SurfaceThreatLevel = 36,
@@ -127,7 +127,7 @@ UnitBlueprint {
         },
 		
         AnimationWalk = '/mods/BlackopsACUs/units/eal0001/eal0001_awalk.sca',
-        AnimationWalkRate = 2.5,
+        AnimationWalkRate = 2.2,
 
         Mesh = {
             IconFadeInZoom = 130,
@@ -1337,14 +1337,14 @@ UnitBlueprint {
         DragCoefficient = 0.2,
         LayerChangeOffsetHeight = -0.9,
         MaxAcceleration = 1.7,
-        MaxSpeed = 1.4,
+        MaxSpeed = 1.2,
         MaxSpeedReverse = 0,
         MaxSteerForce = 12,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Amphibious',
         StandUpright = true,
         TurnRadius = 10,
-        TurnRate = 90,
+        TurnRate = 75,
     },
 	
     SelectionCenterOffsetX = 0,
@@ -1470,7 +1470,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 40,
+            Damage = 35,
 			DamageRadius = 0,
             DamageType = 'Normal',
 			
@@ -1945,7 +1945,7 @@ UnitBlueprint {
 			
             Label = 'EXTorpedoLauncher02',
 			
-            MaxRadius = 60,
+            MaxRadius = 66,
 			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 2,
