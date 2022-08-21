@@ -38,11 +38,11 @@ UnitBlueprint {
 	
     Buffs = {
         Regen = {
-            Level1 = 20,
-            Level2 = 30,
-            Level3 = 40,
-            Level4 = 50,
-            Level5 = 60,
+            Level1 = 22,
+            Level2 = 44,
+            Level3 = 66,
+            Level4 = 77,
+            Level5 = 88,
         },
     },
 	
@@ -70,13 +70,13 @@ UnitBlueprint {
     Defense = {
         AirThreatLevel = 102,
         ArmorType = 'Experimental',
-        Health = 121000,
-        MaxHealth = 121000,
-        RegenRate = 100,
+        Health = 105500,
+        MaxHealth = 105500,
+        RegenRate = 65,
         SurfaceThreatLevel = 1387.7,
     },
 	
-    Description = '<LOC wrl0404_desc>Experimental Ultra Heavy Battle Roachbot',
+    Description = '<LOC wrl0404_desc>Experimental Heavy Battle Roachbot',
 	
     Display = {
         Abilities = {
@@ -206,8 +206,8 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 999450,
-        BuildCostMass = 88650,
+        BuildCostEnergy = 1270000,
+        BuildCostMass = 95650,
         BuildTime = 99945,
     },
 	
@@ -227,19 +227,19 @@ UnitBlueprint {
         Icon = 'amph',
         TechLevel = 'RULEUTL_Secret', 
         UnitName = '<LOC wrl0404_name>Megaroach',
-        UnitWeight = 1,
+        UnitWeight = 4,
     },
 	
     Intel = {
 		FreeIntel = true,
 		OmniRadius = 50,
-		RadarRadius = 110,
-        VisionRadius = 46,
+		RadarRadius = 100,
+        VisionRadius = 44,
         WaterVisionRadius = 26,
     },
 	
     Interface = {
-        HelpText = 'Ultra Heavy Battle Roachbot',
+        HelpText = 'Heavy Battle Roachbot',
     },
     
     LifeBarHeight = 0.075,
@@ -295,11 +295,11 @@ UnitBlueprint {
     },
     
     Veteran = {
-        Level1 = 75,
-        Level2 = 150,
-        Level3 = 225,
-        Level4 = 300,
-        Level5 = 375,
+        Level1 = 80,
+        Level2 = 160,
+        Level3 = 240,
+        Level4 = 320,
+        Level5 = 400,
     },
     
     Weapon = {
@@ -400,7 +400,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 50,
+            TurretYawSpeed = 36,
 			
             Turreted = true,
         },
@@ -458,7 +458,7 @@ UnitBlueprint {
 			
             Label = 'RightLaserTurret',
 			
-            MaxRadius = 46,
+            MaxRadius = 45,
             MinRadius = 2,
 			
             MuzzleSalvoDelay = 0.4,
@@ -502,7 +502,7 @@ UnitBlueprint {
 			
             TurretYaw = 85,
             TurretYawRange = 95,
-            TurretYawSpeed = 45,
+            TurretYawSpeed = 40,
 			
             Turreted = true,
         },
@@ -558,7 +558,7 @@ UnitBlueprint {
             
             Label = 'LeftLaserTurret',
             
-            MaxRadius = 46,
+            MaxRadius = 45,
             MinRadius = 2,
             
             MuzzleSalvoDelay = 0.4,
@@ -599,7 +599,7 @@ UnitBlueprint {
             
             TurretYaw = 275,
             TurretYawRange = 95,
-            TurretYawSpeed = 50,
+            TurretYawSpeed = 40,
             
             Turreted = true,
         },		
@@ -687,7 +687,7 @@ UnitBlueprint {
             
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 120,
+            TurretYawSpeed = 100,
             
             Turreted = true,
         },
@@ -773,7 +773,7 @@ UnitBlueprint {
             
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 120,
+            TurretYawSpeed = 100,
             
             Turreted = true,
         },
@@ -857,7 +857,7 @@ UnitBlueprint {
             
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 120,
+            TurretYawSpeed = 100,
             
             Turreted = true,
         },
@@ -942,7 +942,7 @@ UnitBlueprint {
             
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 120,
+            TurretYawSpeed = 100,
             
             Turreted = true,
         },
