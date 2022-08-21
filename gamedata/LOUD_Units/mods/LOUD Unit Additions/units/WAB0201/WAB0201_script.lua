@@ -1,4 +1,4 @@
-local AEnergyCreationUnit = import('/lua/defaultunits.lua').EnergyCreationUnit
+local AEnergyCreationUnit = import('/lua/aeonunits.lua').AConstructionUnit
 
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 local EffectUtil = import('/lua/EffectUtilities.lua')
