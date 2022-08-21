@@ -48,7 +48,7 @@ UnitBlueprint {
         EconomyThreatLevel = 670,	-- 10% Energy + 2% Health
         Health = 13200,             -- 10% factional bonus
         MaxHealth = 13200,          -- 10% factional bonus
-        RegenRate = 4,
+        RegenRate = 6,
     },
 	
     Description = '<LOC ueb1306_desc>Advanced Power Generator & Storage',
@@ -162,7 +162,7 @@ UnitBlueprint {
         AdjacentStructureEnergyMod = -7,
 		
         BuildCostEnergy = 65000,
-        BuildCostMass = 5250,
+        BuildCostMass = 4525,
         
 		BuildRate = 25,
         

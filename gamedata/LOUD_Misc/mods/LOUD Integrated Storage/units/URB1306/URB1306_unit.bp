@@ -107,7 +107,7 @@ UnitBlueprint {
         AdjacentStructureEnergyMod = -7,
 		
         BuildCostEnergy = 65000,
-        BuildCostMass = 5250,
+        BuildCostMass = 4525,
         
 		BuildRate = 25,
         

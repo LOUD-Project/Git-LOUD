@@ -155,8 +155,8 @@ UnitBlueprint {
     Economy = {
         AdjacentStructureEnergyMod = -7,
 		
-        BuildCostEnergy = 65000,
-        BuildCostMass = 5250,
+        BuildCostEnergy = 62700,        -- 5% faction bonus
+        BuildCostMass = 4525,
 		BuildRate = 25,
         
         BuildTime = 7500,
@@ -165,7 +165,7 @@ UnitBlueprint {
 		
         RebuildBonusIds = {'xsb1301'},
 		
-        StorageEnergy = 27500,
+        StorageEnergy = 27500,      -- +10% factional bonus
     },
 	
 	Enhancements = {

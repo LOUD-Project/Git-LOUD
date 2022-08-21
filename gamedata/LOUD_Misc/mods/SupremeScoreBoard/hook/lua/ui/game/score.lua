@@ -350,9 +350,9 @@ function CreateScoreUI(parent)
     
     -- HUSSAR: increased board width to show more columns
     if sessionReplay then
-        boardWidth = 395 --340 -- 380  
+        boardWidth = 395
     else 
-        boardWidth = boardWidth + 40  --280
+        boardWidth = boardWidth + 40
     end    
     controls.bgTop.Width:Set(boardWidth + boardMargin)
     controls.bgBottom.Width:Set(boardWidth + boardMargin)
@@ -408,7 +408,7 @@ function CreateScoreUI(parent)
     controls.unitIcon:SetTexture(modTextures..'units.total.dds')
     Tooltip.AddControlTooltip(controls.units, str.tooltip('units_count'))
     Tooltip.AddControlTooltip(controls.unitIcon, str.tooltip('units_count'))
-	    
+
     SetLayout()
     
     controls.timeIcon.Height:Set(iconSize)
@@ -422,8 +422,9 @@ function CreateScoreUI(parent)
     
     controls.unitIcon.Height:Set(iconSize-3)
     controls.unitIcon.Width:Set(iconSize)
-       
+
     GameMain.AddBeatFunction(_OnBeat)
+    
     controls.bg.OnDestroy = function(self)
         GameMain.RemoveBeatFunction(_OnBeat)
     end
@@ -434,14 +435,19 @@ function CreateScoreUI(parent)
     
     controls.bg:SetNeedsFrameUpdate(true)
     controls.bg.OnFrame = function(self, delta)
+    
         local newRight = self.Right() + (1000*delta)
+        
         if newRight > savedParent.Right() + self.Width() then
             newRight = savedParent.Right() + self.Width()
             self:Hide()
             self:SetNeedsFrameUpdate(false)
         end
+        
         self.Right:Set(newRight)
+        
     end
+    
     controls.collapseArrow:SetCheck(true, true)
     
 end
@@ -457,14 +463,14 @@ function SetupPlayerLines()
     InitializeStats()
     
     local index = 1 -- counter of player/team lines
-     
+
     if not controls.armyLines then 
        controls.armyLines = {}
     end
 
     controls.armyLines[index] = CreateSortLine(100)  
     index = index + 1 
-     
+
     -- army lines always above team lines (armyId between 1 and 12+)
     for armyID, army in Stats.armies do
         if not army.civilian and army.showScore then 
@@ -526,9 +532,11 @@ function SetupPlayerLines()
         observerLine.speedSlider.OnValueChanged = function(self, newValue)
             observerLine.speedText:SetText(string.format("%+d", math.floor(tostring(newValue))))
         end
+        
         observerLine.speedSlider.OnValueSet = function(self, newValue)
             ConExecute("WLD_GameSpeed "..newValue)
         end
+        
         observerLine.speedSlider:SetValue(gameSpeed)
         observerLine.speedText:DisableHitTest()
     
@@ -542,10 +550,7 @@ function SetupPlayerLines()
         controls.armyLines[index] = observerLine 
         index = index + 1 
     end    
-      
-    --controls.armyLines[index] = CreateSeparatorLine(-100) 
-    --index = index + 1 
-        
+
     controls.armyLines[index] = CreateMapLine(-101)  
     controls.armyLines[index].isMapLine = true
     
@@ -687,11 +692,11 @@ function CreateArmyLine(armyID, army)
     local textColor = "FFFFFF"	--army.txtColor --textColorNickname
     --if isPlayerArmy then textColor = army.txtColor end
     --if isTeamArmy   then textColor = army.txtColor end
-      
+
     group.isArmyLine = isPlayerArmy
     group.isTeamLine = isTeamArmy
     group.armyID = armyID
-     
+
     group.faction = Bitmap(group)
     group.faction:SetTexture(GetArmyIcon(army.faction))
     group.faction.Height:Set(iconSize)
@@ -704,8 +709,9 @@ function CreateArmyLine(armyID, army)
     group.color.Depth:Set(function() return group.faction.Depth() - 1 end)
     group.color:DisableHitTest()
     LayoutHelpers.FillParent(group.color, group.faction)
-      
+
     position = position + iconSize + 1
+    
 -- Commented out by Tanksy. We don't need this. 
  -- create rating data column
 --    if army.rating and (isPlayerArmy or isTeamArmy) then
@@ -724,7 +730,7 @@ function CreateArmyLine(armyID, army)
 --        LayoutHelpers.AtVerticalCenterIn(group.rating, group)
 --        position = position + sw - 18 -- offset for rating text 12
 --    end
-            
+
     local armyName = army.namefull -- army.nameshort   
     
     group.nameColumn = UIUtil.CreateText(group, armyName, fontSize, fontName)
@@ -922,7 +928,7 @@ function CreateArmyLine(armyID, army)
         LayoutHelpers.AtRightIn(group.unitColumn, group, position)
         LayoutHelpers.AtVerticalCenterIn(group.unitColumn, group)
     end
-     
+
     --local groupHeight = iconSize + 2
     --if (isObserver) then groupHeight = groupHeight + 10 end
     
