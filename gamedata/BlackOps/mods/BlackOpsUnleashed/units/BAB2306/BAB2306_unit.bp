@@ -258,6 +258,7 @@ UnitBlueprint {
             TurretYawSpeed = 35,
 			
             Turreted = true,
+            WeaponUnpacks = true,
         },
         {
     		Damage = 500,
