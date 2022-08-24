@@ -1058,11 +1058,6 @@ end
 -- to do it after we figured out how many armies are in the biggest team
 function SetupAICheatUnitCap(aiBrain, biggestTeamSize)
 
-	local PlayerDiff = LOUDMAX( 1,(biggestTeamSize or 1)/(aiBrain.TeamSize) )
-    
-    aiBrain.OutnumberedRatio = PlayerDiff
-   
-
 	-- set unit cap and veterancy multiplier --
 	if ScenarioInfo.Options.CapCheat == "unlimited" then
 	
@@ -1078,16 +1073,12 @@ function SetupAICheatUnitCap(aiBrain, biggestTeamSize)
 
         local initialCap = tonumber(ScenarioInfo.Options.UnitCap) or 750
 
-        local cheatCap = initialCap * aiBrain.CheatValue * (math.max(PlayerDiff,1))
+        local cheatCap = initialCap * aiBrain.CheatValue * (math.max(aiBrain.OutnumberedRatio,1))
         
         SetArmyUnitCap( aiBrain.ArmyIndex, math.floor(cheatCap) )
         
         LOG("*AI DEBUG "..aiBrain.Nickname.." Unit cap set to "..cheatCap.." from base of "..initialCap)
         
-    end
-    
-    if aiBrain.OutnumberedRatio > 1 then 
-        LOG("*AI DEBUG "..aiBrain.Nickname.." OutnumberedRatio is "..aiBrain.OutnumberedRatio)
     end
 
 	-- record the starting unit cap
@@ -1101,17 +1092,23 @@ end
 
 
 -- This function creates the cheats used by the AI
--- now creates buffs for EACH AI -- allowing us to move ahead
--- with AI having independant mutlipliers and supporting the
--- more recent adaptive cheat multipliers which require this
--- to work properly
-function SetupAICheat(aiBrain, biggestTeamSize)
+-- now creates buffs for EACH AI -- allowing us to have independant mutlipliers and supporting the
+-- more recent adaptive cheat multipliers which require this to work properly
+function SetupAICheat(aiBrain)
 
-    LOG("*AI DEBUG "..aiBrain.Nickname.." SetupAICheat for ArmyIndex "..repr(aiBrain.ArmyIndex).." Value "..aiBrain.CheatValue)
+    LOG("*AI DEBUG "..aiBrain.Nickname.." StandardCheat is "..aiBrain.CheatValue)
 
     -- Veterancy mult is always 1 or higher
     -- and represents the 'base' Cheat value for this AI --
     aiBrain.VeterancyMult = LOUDMAX( 1, aiBrain.CheatValue)
+    
+    -- store the minor cheat value
+    aiBrain.MinorCheatModifier = (LOUDMAX( 0, aiBrain.CheatValue - 1.0 ) * 0.34) + 1.0
+    
+    -- store the major cheat value
+    aiBrain.MajorCheatModifier = (LOUDMAX( -0.2, aiBrain.CheatValue - 1.0 ) * 0.65) + 1.0
+
+    LOG("*AI DEBUG "..aiBrain.Nickname.." MinorCheatModifier is "..aiBrain.MinorCheatModifier.."  Major is "..aiBrain.MajorCheatModifier)
 
 	-- CREATE THE BUFFS THAT WILL BE USED BY THE AI
     local modifier = 1
@@ -1265,15 +1262,13 @@ function SetupAICheat(aiBrain, biggestTeamSize)
         }
     end
 
-	-- intel range cheat -- applied at 34% of the multiplier
+
     -- affects vision, radar, sonar, omni
     newbuff = LOUDDEEPCOPY(Buffs['CheatIntel'])
-	
-	modifier = LOUDMAX( 0, aiBrain.CheatValue - 1.0 )
-	modifier = 0.34 * modifier
-	modifier = 1.0 + modifier
     
     newbuff.Name = 'CheatIntel'..aiBrain.ArmyIndex
+	
+	modifier = aiBrain.MinorCheatModifier
     
 	newbuff.Affects.VisionRadius.Mult = modifier
     newbuff.Affects.WaterVisionRadius.Mult = modifier
@@ -1293,18 +1288,12 @@ function SetupAICheat(aiBrain, biggestTeamSize)
     end
 
     
-	-- overall cheat buff -- applied at 34% of the multiplier
 	-- alter unit health, shield health and regen rates
     newbuff = LOUDDEEPCOPY(Buffs['CheatALL'])
     
     newbuff.Name = 'CheatALL'..aiBrain.ArmyIndex
 	
-	modifier = LOUDMAX( 0, aiBrain.CheatValue - 1.0 )
-	modifier = 0.34 * modifier
-	modifier = 1.0 + modifier
-    
-    -- store the minor cheat value (modifier)
-    aiBrain.MinorCheatModifier = modifier
+	modifier = aiBrain.MinorCheatModifier
    
 	newbuff.Affects.MaxHealth.Mult = modifier
     newbuff.Affects.MaxHealth.DoNoFill = true   -- prevents health from being added upon creation
@@ -1323,19 +1312,12 @@ function SetupAICheat(aiBrain, biggestTeamSize)
         }
     end
 
-    -- alter the AI's delay between upgrades by 65% of the cheat
-    -- positive cheats will reduce the delay -- negatives will increase the delay
-    modifier = LOUDMAX( -0.2, aiBrain.CheatValue - 1.0 )
-    modifier = 0.65 * modifier
-    modifier = 1.0 + modifier
-    
-    -- store the minor cheat value (modifier)
-    aiBrain.MajorCheatModifier = modifier
-   	
-	-- reduce the waiting period between upgrades by 50% of the AIMult
+    -- alter the AI's delay between upgrades
+    modifier = aiBrain.MajorCheatModifier
+
 	aiBrain.UpgradeIssuedPeriod = LOUDFLOOR(aiBrain.UpgradeIssuedPeriod * ( 1 / modifier ))
  
-    LOG("*AI DEBUG "..aiBrain.Nickname.." Upgrade Issue Period is "..aiBrain.UpgradeIssuedPeriod.."  MinorCheatModifier is "..aiBrain.MinorCheatModifier.."  Major is "..aiBrain.MajorCheatModifier)
+    LOG("*AI DEBUG "..aiBrain.Nickname.." Modified Upgrade Issue Delay Period is "..aiBrain.UpgradeIssuedPeriod)
     
 end
 

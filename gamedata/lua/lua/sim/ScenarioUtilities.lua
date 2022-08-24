@@ -778,8 +778,12 @@ function InitializeArmies()
         if self.BrainType == 'Human' then
             return
         end
-        
-        
+
+		self.OutnumberedRatio = math.max( 1,(self.NumOpponents or 1)/(self.Players - self.NumOpponents) )
+    
+        if self.OutnumberedRatio > 1 then 
+            LOG("*AI DEBUG "..self.Nickname.." OutnumberedRatio is "..self.OutnumberedRatio)
+        end
 
         -- put some initial threat at all enemy positions
         for k,brain in ArmyBrains do
@@ -841,12 +845,39 @@ function InitializeArmies()
 		-- is used to limit the # of self-upgrades that can be issued in a given time
 		-- to avoid having more than X units trying to upgrade at once
 		self.UpgradeIssued = 0
+
 		self.UpgradeIssuedLimit = 1
 		self.UpgradeIssuedPeriod = 225
 
+		-- if outnumbered increase the number of simultaneous upgrades allowed
+		-- and reduce the waiting period by 2 seconds ( about 10% )
+		if self.OutnumberedRatio > 1.0 then
+	
+			self.UpgradeIssuedLimit = self.UpgradeIssuedLimit + 1
+			self.UpgradeIssuedPeriod = self.UpgradeIssuedPeriod - 20
+            
+            -- if really outnumbered do this a second time
+            if self.OutnumberedRatio > 1.5 then
+            
+                self.UpgradeIssuedLimit = self.UpgradeIssuedLimit + 1
+                self.UpgradeIssuedPeriod = self.UpgradeIssuedPeriod - 20
+                
+                -- if really badly outnumbered then we do it a 3rd time
+                if self.OutnumberedRatio > 2.0 then
+                
+                    self.UpgradeIssuedLimit = self.UpgradeIssuedLimit + 1
+                    self.UpgradeIssuedPeriod = self.UpgradeIssuedPeriod - 20
+                    
+                end
+            end
+		end
+        
+        LOG("*AI DEBUG "..self.Nickname.." Upgrade Issued Limit is "..self.UpgradeIssuedLimit.." Standard Upgraded Issued Delay Period is "..self.UpgradeIssuedPeriod )
+
 		-- set the base radius according to map size -- affects platoon formation radius and base alert radius
 		local mapSizex = ScenarioInfo.size[1]
-		local BuilderRadius = math.max(100, (mapSizex/16)) -- should give a range between 100 and 256+
+        
+		local BuilderRadius = math.max(90, (mapSizex/16)) -- should give a range between 90 and 256+
 		local BuilderRadius = math.min(BuilderRadius, 140) -- and then limit it to no more than 140
 		
 		local RallyPointRadius = 49	-- create automatic rally points at 49 from centre
@@ -931,33 +962,6 @@ function InitializeArmies()
   
 		if self.CheatingAI then
 			import('/lua/ai/aiutilities.lua').SetupAICheat( self )
-		end
-		
-		local PlayerDiff = (self.NumOpponents or 1)/(self.Players - self.NumOpponents)		
- 
-		-- if outnumbered increase the number of simultaneous upgrades allowed
-		-- and reduce the waiting period by 2 seconds ( about 10% )
-		if PlayerDiff > 1.0 then
-	
-			self.UpgradeIssuedLimit = self.UpgradeIssuedLimit + 1
-			self.UpgradeIssuedPeriod = self.UpgradeIssuedPeriod - 20
-            
-            -- if really outnumbered do this a second time
-            if PlayerDiff > 1.5 then
-            
-                self.UpgradeIssuedLimit = self.UpgradeIssuedLimit + 1
-                self.UpgradeIssuedPeriod = self.UpgradeIssuedPeriod - 20
-                
-                -- if really badly outnumbered then we do it a 3rd time
-                if PlayerDiff > 2.0 then
-                
-                    self.UpgradeIssuedLimit = self.UpgradeIssuedLimit + 1
-                    self.UpgradeIssuedPeriod = self.UpgradeIssuedPeriod - 20
-                    
-                end
-            
-            end
-	
 		end
 
     end
