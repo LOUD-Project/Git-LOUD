@@ -145,6 +145,10 @@
 	ScenarioInfo.PriorityDialog = false
 	LOG("*AI DEBUG      Report Priority Changes to Log is "..repr(ScenarioInfo.PriorityDialog))
 
+    -- follows the decision process of the GUARDPOINT behavior (for LAND only at this time)
+    ScenarioInfo.GuardPointDialog = true
+    LOG("*AI DEBUG      GuardPoint Behavior Dialog is "..repr(ScenarioInfo.GuardPointDialog))
+    
     -- INSTANCE COUNT dialogs - Instanced Builder count increase/decrease is dialoged to the LOG (very busy)
     -- this allows you to watch your instance count allocations - and see those that get filled up - or are barely used
     ScenarioInfo.InstanceDialog = false
@@ -378,6 +382,7 @@ function SetAIDebug(data)
             'TransportDialog',
             'PathFindingDialog',
             'PriorityDialog',
+            'GuardPointDialog',
             'InstanceDialog',
             'BuffDialog',
             'ProjectileDialog',
