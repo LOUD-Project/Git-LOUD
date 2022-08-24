@@ -1676,7 +1676,9 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 			UntTrigger = true,				-- unit parameters trigger end to guardtimer
 			UntMin = 0,
 			UntMax = 10,
-			
+
+            UseMassPointList = true,        -- use the pre-generated mass point list if populated, ahead of using findpoint
+            
             AssistRange = 3,
 			
             PrioritizedCategories = {'LAND MOBILE','STRUCTURE -WALL','ENGINEER'},		-- target selection when at point --

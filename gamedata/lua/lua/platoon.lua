@@ -2869,6 +2869,8 @@ Platoon = Class(moho.platoon_methods) {
         local ThreatMin = self.PlatoonData.ThreatMin or -999            -- control minimum threat so we can go to points WITH threat if provided
         local ThreatMaxRatio = self.PlatoonData.ThreatMaxRatio or 0.8   -- control maximum threat based on platoon value
         local ThreatRings = self.PlatoonData.ThreatRings or 0           -- allow use of 'rings' value
+        
+        local UseMassPointList = self.PlatoonData.UseMassPointList or false     -- use Starting Mass point list instead of FindPoint if present
 		
 		local UntCat = self.PlatoonData.UntCategory or nil				-- a secondary filter on the presence of units/structures at point
 		local UntRadius = self.PlatoonData.UntRadius or 20
@@ -2965,9 +2967,16 @@ Platoon = Class(moho.platoon_methods) {
 			
 			if position then
 
-				-- Get a list of points that meet all of the required conditions 
-				pointlist = FindPointMeetsConditions( self, aiBrain, PType, PCat, PSource, PRadius, PSort, PFaction, PMin, PMax, AvoidBases, StrCat, StrRadius, StrMin, StrMax, UntCat, UntRadius, UntMin, UntMax, allowinwater, ThreatMin, OriginalThreat * ThreatMaxRatio, 'AntiSurface')
+                if UseMassPointList and aiBrain.StartingMassPointList[1] then
+        
+                    pointlist = LOUDCOPY(aiBrain.StartingMassPointList[1])
 
+                else
+                    -- Get a list of points that meet all of the required conditions 
+                    pointlist = FindPointMeetsConditions( self, aiBrain, PType, PCat, PSource, PRadius, PSort, PFaction, PMin, PMax, AvoidBases, StrCat, StrRadius, StrMin, StrMax, UntCat, UntRadius, UntMin, UntMax, allowinwater, ThreatMin, OriginalThreat * ThreatMaxRatio, 'AntiSurface')
+
+                end
+                
 				-- if pointlist then select random marker but never re-select the same point if it just failed
 				if pointlist then
 
