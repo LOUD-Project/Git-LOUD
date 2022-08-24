@@ -1,183 +1,204 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "eal0001", -- Aeon BO ACU
+    BlueprintId = "eal0001", --#Aeon ACU
 
     Defense = {
 
-        Health = 29700,     -- +10%
-        MaxHealth = 29700,  -- +10%
+        Health = 33550,
+        MaxHealth = 33550,
 
-        SurfaceThreatLevel = 90,    -- from 36
+        SurfaceThreatLevel = 90,
     },
     
     Economy = {
 
-        MaxBuildDistance = 15,      -- from 14
+        MaintenanceConsumptionPerSecondEnergy = 1,
+        MaxBuildDistance = 15,
 
-        StorageEnergy = 5500,       -- +10%
-        StorageMass = 715,          -- +10%
+        ProductionPerSecondMass = 2,
+        
+        StorageEnergy = 5000,
+        StorageMass = 750,
     },
     
-    -- all engineering Enhancements are -10% cost (but not time)
     Enhancements = {
     
         EXImprovedEngineering = {
         
             BuildCostEnergy = 34200,
             BuildCostMass = 3150,
+            BuildTime = 1755,
+
         },
         
         EXAdvancedEngineering = {
         
             BuildCostEnergy = 112500,
             BuildCostMass = 11250,
+            BuildTime = 11250,
+
         },
         
         EXExperimentalEngineering = {
         
             BuildCostEnergy = 675000,
             BuildCostMass = 22500,
+            BuildTime = 33750,
+
         },
         
         EXCombatEngineering = {
         
             BuildCostEnergy = 19800,
             BuildCostMass = 1890,
+            BuildTime = 1620,
+
         },
         
         EXAssaultEngineering = {
         
             BuildCostEnergy = 64800,
             BuildCostMass = 6480,
+            BuildTime = 6480,
+
         },
         
         EXApocalypticEngineering = {
         
             BuildCostEnergy = 145800,
             BuildCostMass = 14580,
+            BuildTime = 14580,
+
         },
 
     },
     
-    -- all basic intel ranges +10%
     Intel = {
 
-        OmniRadius = 29,
-        VisionRadius = 29,
-        WaterVisionRadius = 29,
+        OmniRadius = 30,
+
+        RadarStealth = true,
+        SonarStealth = true,
+        
+        VisionRadius = 30,
+        WaterVisionRadius = 30,
+
     },
     
-    -- more sluggish but a bit faster
-    Physics = {
-    
-        MaxAcceleration = 0.7,
-        MaxSpeed = 1.3,
-    },
-	
-    -- all vet requires 10% more kills
     Veteran = {
-        Level1 = 39,
-        Level2 = 77,
-        Level3 = 116,
-        Level4 = 154,
-        Level5 = 192,
+    
+        Level1 = 30,
+        Level2 = 60,
+        Level3 = 90,
+        Level4 = 120,
+        Level5 = 150,
+
     },
     
     Weapon = {
     
-        -- target designator (dummy weapon)
         {},
-
-        -- basic weapon
+        
         {
-            Damage = 70,            -- x2 damage
 
-            MaxRadius = 28,         -- +10%
+            Damage = 100,
+            DamageRadius = 1,
+            DamageType = 'Normal',
+
+            MaxRadius = 35,
+            MinRadius = 1,
             
-            MuzzleVelocity = 44,    -- + 10%
+            MuzzleVelocity = 45,
         },
         
-        -- Overcharge weapon
         {},
         
-        -- Death weapon
         {},
-
-        -- Chrono Damper I (Stun)
+        
         {
-            MaxRadius = 25,         -- +10%
-            RateOfFire = 0.3,       -- +50% RoF 
-            TargetCheckInterval = 3,
-        },
 
-        -- Chrono Damper II (Stun)
-        {
-            MaxRadius = 35,         -- +15%
-            MuzzleVelocity = 35,    -- +15%
-            RateOfFire = 0.4,       -- +33% RoF
+            EnergyDrainPerSecond = 200,
+            EnergyRequired = 1000,
+
+            MaxRadius = 25,
+            
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 30,
+
+            RateOfFire = 0.5,
             TargetCheckInterval = 2,
+
         },
         
-        -- Torpedo
         {
-            Damage = 500,       -- +30%
+
+            EnergyDrainPerSecond = 350,
+            EnergyRequired = 1050,
+
+            MaxRadius = 35,
+
+            MuzzleVelocity = 30,
+
+            RateOfFire = 0.5,
+            TargetCheckInterval = 2,
+
         },
         
-        -- Torpedo II
         {
-            Damage = 650,       -- +30%
+
+            Damage = 500,
+
+        },
+        
+        {
+
+            Damage = 900,
+
+        },
+        
+        {
+
+            Damage = 2000,
+
+        },
+        
+        {
+
+            Damage = 200,
+
+        },
+        
+        {
+
+            Damage = 500,
+
+        },
+        
+        {
+
+            Damage = 750,
+
+        },
+        
+        {
+
+            Damage = 40,
+
+        },
+        
+        {
+
+            Damage = 80,
+        },
+        
+        {
+
+            Damage = 120,
         },
 
-        -- Torpedo III
-        {
-            Damage = 2000,      -- +30%
-            MaxRadius = 72,     -- +20% range
-        },
-        
-        -- Miasma Artillery
-        {
-            Damage = 120,       -- +20% damage
-        },
-
-        -- Miasma Artillery II
-        {
-            Damage = 440,       -- +10% damage
-            DamageRadius = 2.8, -- +10% AOE
-            
-			EnergyDrainPerSecond = 120,
-			EnergyRequired = 840,
-        },
-        
-        -- Miasma Artillery III
-        {
-            Damage = 720,       -- +20% damage
-            DamageRadius = 2.8, -- +10% AOE
-            
-			EnergyDrainPerSecond = 240,
-			EnergyRequired = 1680,
-        },
-        
-        -- Phason Gun
-        {
-            Damage = 30,        -- +50% damage
-        },
-        
-        -- Phason Gun II
-        {
-            Damage = 60,        -- +50% damage
-            MaxRadius = 45,     -- -10% range
-        },
-        
-        -- Phason Gun III
-        {
-            Damage = 84,        -- +40% damage
-            DamageRadius = 1.2, -- +20% AOE
-        },
-
-        -- anti torpedo
         {},
 
-        -- TMD
         {},
     },
 }
