@@ -4,8 +4,8 @@ UnitBlueprint {
 
     Defense = {
 
-        Health = 36550,
-        MaxHealth = 36550,
+        Health = 31900,
+        MaxHealth = 31900,
 
         SurfaceThreatLevel = 90,
 
@@ -18,8 +18,8 @@ UnitBlueprint {
 
         ProductionPerSecondMass = 2,
         
-        StorageEnergy = 5000,
-        StorageMass = 750,
+        StorageEnergy = 5500,
+        StorageMass = 715,
     },
     
     Enhancements = {
@@ -29,7 +29,6 @@ UnitBlueprint {
             BuildCostEnergy = 34200,
             BuildCostMass = 3150,
             BuildTime = 1755,
-
         },
         
         EXAdvancedEngineering = {
@@ -44,7 +43,6 @@ UnitBlueprint {
             BuildCostEnergy = 675000,
             BuildCostMass = 22500,
             BuildTime = 33750,
-
         },
         
         EXCombatEngineering = {
@@ -52,7 +50,6 @@ UnitBlueprint {
             BuildCostEnergy = 19800,
             BuildCostMass = 1890,
             BuildTime = 1620,
-
         },
         
         EXAssaultEngineering = {
@@ -60,7 +57,6 @@ UnitBlueprint {
             BuildCostEnergy = 64800,
             BuildCostMass = 6480,
             BuildTime = 6480,
-
         },
         
         EXApocalypticEngineering = {
@@ -68,230 +64,159 @@ UnitBlueprint {
             BuildCostEnergy = 145800,
             BuildCostMass = 14580,
             BuildTime = 14580,
-
         },
 
     },
     
+    Physics = {
+        MaxAcceleration = 0.7,
+        MaxSpeed = 1.3,
+    },
+    
     Intel = {
 
-        OmniRadius = 30,
+        OmniRadius = 29,
 
         RadarStealth = true,
         SonarStealth = true,
         
-        VisionRadius = 30,
-        WaterVisionRadius = 30,
+        VisionRadius = 29,
+        WaterVisionRadius = 29,
     },
     
     Veteran = {
-        Level1 = 30,
-        Level2 = 60,
-        Level3 = 90,
-        Level4 = 120,
-        Level5 = 150,
+        Level1 = 39,
+        Level2 = 77,
+        Level3 = 116,
+        Level4 = 154,
+        Level5 = 192,
 
     },
     
     Weapon = {
     
+        {}
+    
         {
-			
-            Damage = 200,
-            DamageRadius = 1,
-            DamageType = 'Normal',
-
-            MaxRadius = 35,
-            MinRadius = 1,
-
-            MuzzleVelocity = 45,
-
+            Damage = 140,
+            MaxRadius = 28,
+            MuzzleVelocity = 49,
         },
         
         {},
         
         {},
         
+        -- FlameThrower I --
         {
-
-            MaxRadius = 25,
-            MinRadius = 1,
-
+            MaxRadius = 25, -- +10%
             MuzzleVelocity = 20,
-
+            RateOfFire = 4, -- +33%
+        },
+        
+        -- FlameThrower II
+        {
+            Damage = 6,     -- +50%
+            MaxRadius = 32, -- +10%
+            MuzzleVelocity = 20,
             RateOfFire = 4,
         },
-        
+
+        -- Torpedo I
         {
-
-            Damage = 5,
-            DamageRadius = 2,
-
-            MaxRadius = 35,
-            MinRadius = 1,
-
-            MuzzleVelocity = 20,
-
-            RateOfFire = 4,
+            Damage = 410,   -- +30%
         },
-        
+
+        -- Torpedo II
         {
-
-            Damage = 500,
-
-            MuzzleVelocity = 10,
-
+            Damage = 485,   -- +30%
+            MuzzleVelocity = 10,    -- +30%
         },
-        
+
+        -- Torpedo III
         {
-
-            Damage = 750,
-
-            MuzzleVelocity = 10,
-
-        },
-        
-        {
-
-            Damage = 1000,
-
-            MaxRadius = 70,
-            MinRadius = 1,
-
-            MuzzleVelocity = 10,
-
+            MaxRadius = 72, -- +20% range
+            MuzzleVelocity = 11,    -- +20%
             ProjectileLifetime = 8,
-
-            RateOfFire = 0.6,
-
+            RateOfFire = 0.6,       -- +20%
         },
-        
+
+        -- Anti Matter I
         {
-
-            Damage = 1000,
-
-            MaxRadius = 45,
-            MinRadius = 1,
-            
-            RateOfFire = 0.3,
-
+            Damage = 720,   -- +20%
+            MaxRadius = 33, -- +10%
+            RateOfFire = 0.3,   -- +20%
         },
-        
+
+        -- Anti Matter II
         {
-
-            Damage = 4000,
-            
-            MaxRadius = 45,
-            MinRadius = 1,
-
-            RateOfFire = 0.3,
-
+            Damage = 3000,  -- +20%
+            MaxRadius = 35, -- +10%
+            RateOfFire = 0.3,   -- +20%
         },
-        
+
+        -- Anti Matter III
         {
-
-            Damage = 12500,
-            
-            MaxRadius = 50,
-            MinRadius = 1,
-
-            RateOfFire = 0.4,
-            
+            Damage = 9600,  -- +20%
+            MaxRadius = 40, -- +10%
+            RateOfFire = 0.3,   -- +20%
         },
-        
+
+        -- Gatling I
         {
-
-            Damage = 100,
-            
-            MaxRadius = 40,
-            MinRadius = 1,
-            
-
+            Damage = 90,    -- +20%
         },
-        
+
+        -- Gatling II
         {
-
-            Damage = 550,
-            
-            MaxRadius = 45,
-            MinRadius = 1,
-            
-            MuzzleSalvoDelay = 0.2,
-            MuzzleSalvoSize = 10,
-
+            Damage = 300,   -- +20%
+            MuzzleSalvoDelay = 0.3, -- -10%
         },
-        
+
+        -- Gatling III
         {
-
-            Damage = 1200,
-            
-            MaxRadius = 50,
-            MinRadius = 1,
-            
-            MuzzleSalvoDelay = 0.2,
-            MuzzleSalvoSize = 10,
-
+            MaxRadius = 50,     -- +10%
+            MuzzleSalvoDelay = 0.2, -- -25%
+            MuzzleVelocity = 35,    -- +10%
             ProjectileLifetimeUsesMultiplier = 1.5,
-
         },
-        
+
+        -- Tac Missile
         {},
-        
+
+        -- Right Shoulder Lance
         {
+            Damage = 65,    -- +30%
+            MaxRadius = 25, -- +10%
+        },
 
-            Damage = 80,
+        -- Left Shoulder Lance
+        {
+            Damage = 65,
+            MaxRadius = 25,
+        },
 
-            MaxRadius = 28,
-            
-            MuzzleSalvoDelay = 0.2,
-            MuzzleSalvoSize = 3,
+        -- Cluster Missiles
+        {
+            Damage = 135,   -- +60%
+        },
+
+        -- Cluster Missiles II
+        {
+            DamageRadius = 3,   -- + 20%
+            MaxRadius = 100,    -- + 10%
+
+            RateOfFire = 0.2,   -- + 30%
 
         },
-        
+
+        -- Cluster Missiles III
         {
-
-            Damage = 80,
-
-            MaxRadius = 28,
-            
-            MuzzleSalvoDelay = 0.2,
-            MuzzleSalvoSize = 3,
-
-        },
-        
-        {
-
-            Damage = 150,
-
-        },
-        
-        {
-
-            Damage = 300,
-            DamageRadius = 3,
-
-            MaxRadius = 100,
-            MinRadius = 30,
-            
-            MuzzleSalvoDelay = 0.4,
-
-            RateOfFire = 0.2,
-
-        },
-        
-        {
-
-            Damage = 500,
-
-            MaxRadius = 100,
-            MinRadius = 30,
-            
+            Damage = 450,       -- +30%
+            MaxRadius = 100,    -- +10%
             MuzzleSalvoDelay = 0.3,
 
-            RateOfFire = 0.3,
-            
-            TargetCheckInterval = 0.5,
-
+            RateOfFire = 0.2,
         },
         
         {},
