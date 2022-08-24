@@ -426,8 +426,8 @@ function CreateResources()
                                 
                             end
 						
-                        -- ALWAYS relocate unused start positions - just a little bit closer than standard
-						elseif not doit then
+                        -- if there are AI then ALWAYS relocate unused start positions  - just a little bit closer than standard
+						elseif AI and not doit then
                         
                             local adjust = 23
                             
