@@ -677,7 +677,7 @@ function CreateResources()
     
     -- mass point share is how many mass points should be considered necessary before offensive actions can commence - max is 10 + number of players
     -- this is useful in driving offensive action on mass heavy maps where the mex count might be stupidly large or low player counts on large maps
-    ScenarioInfo.MassPointShare = math.min( 10 + ScenarioInfo.Options.PlayerCount, math.floor(ScenarioInfo.NumMassPoints/ScenarioInfo.Options.PlayerCount))
+    ScenarioInfo.MassPointShare = math.min( 8 + ScenarioInfo.Options.PlayerCount, math.floor(ScenarioInfo.NumMassPoints/ScenarioInfo.Options.PlayerCount) - 1)
     
     LOG("*AI DEBUG Player Mass Point Share is "..ScenarioInfo.MassPointShare)
   	
@@ -1024,7 +1024,7 @@ function InitializeArmies()
             if not armyIsCiv then
                 loudUtils.AddCustomUnitSupport(GetArmyBrain(strArmy))
             end
-            
+
             SetArmyEconomy( strArmy, tblData.Economy.mass, tblData.Economy.energy)
             
             if not armyIsCiv then
@@ -1110,7 +1110,7 @@ function InitializeArmies()
             
             aiBrain.StartingMassPointList = {}  -- initialize starting mass point list for this brain
             
-            aiBrain.MassPointShare = math.min( 10 + ScenarioInfo.Options.PlayerCount, math.floor(ScenarioInfo.NumMassPoints/ScenarioInfo.Options.PlayerCount))
+            aiBrain.MassPointShare = math.min( 8 + ScenarioInfo.Options.PlayerCount, math.floor(ScenarioInfo.NumMassPoints/ScenarioInfo.Options.PlayerCount) - 1)
 
 		end
         
