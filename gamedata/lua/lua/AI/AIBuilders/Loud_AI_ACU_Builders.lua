@@ -302,9 +302,9 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
         BuilderConditions = {
             { EBC, 'LessThanEconMassStorageRatio', { 50 }},
             
-            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 1250 }},
+            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 1000 }},
             
-            { EBC, 'GreaterThanEnergyTrendOverTime', { 4 }},
+            { EBC, 'GreaterThanEnergyTrendOverTime', { 1 }},
             
             { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 60, -9999, 35, 0, 'AntiSurface', 1 }},
         },
