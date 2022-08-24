@@ -608,7 +608,7 @@ PhxLib.calcUnitDPS = function(curShortID,curBP)
             if curWep.RateOfFire then
                 weapDPS = PhxLib.PhxWeapDPS(curWep)
             else
-                if curWep.Label != "DeathWeapon" and curWep.Label != "DeathImpact" and curWep.Label != "CollossusDeath" then
+                if curWep.Label != "DeathWeapon" and curWep.Label != "DeathImpact" and curWep.Label != "CollossusDeath" and curWep.Label != "Suicide" then
                     LOG("**" .. curShortID .. "/" .. PhxLib.cleanUnitName(curBP) .. repr(curWep) .. " has NO RateOfFire" )
                 end
                 return 0
