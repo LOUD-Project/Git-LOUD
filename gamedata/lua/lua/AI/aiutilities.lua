@@ -1120,11 +1120,15 @@ function SetupAICheat(aiBrain, biggestTeamSize)
     local newbuff = LOUDDEEPCOPY(Buffs['CheatBuildRate'])
     
     newbuff.Name = 'CheatBuildRate'..aiBrain.ArmyIndex
+
+    -- the Outnumbered condition increases a cheating AI's build rate (but nothing else and never less than original )
     
-    newbuff.Affects.BuildRate.Mult = aiBrain.CheatValue
+    if aiBrain.CheatValue >= 1.0 then
+        newbuff.Affects.BuildRate.Mult = aiBrain.CheatValue * math.min( aiBrain.OutnumberedRatio, aiBrain.CheatValue )
+    end
 	
 	-- reduce mass/energy used when building and maintaining
-	-- but only at 75% of the multiplier (ie. at 1.1 this would be a 7.5% reduction
+	-- but at 67% of the multiplier (ie. at 1.1 this would be a 6.7% reduction
     -- and only when multiplier > 1
     -- so this value will always be 0 or negative
     -- put a floor of -0.60 on this -- since we're reaching near zero consumption
