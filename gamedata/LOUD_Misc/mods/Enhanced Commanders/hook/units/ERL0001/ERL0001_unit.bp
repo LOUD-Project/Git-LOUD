@@ -4,6 +4,15 @@ UnitBlueprint {
     
     BlueprintId = "erl0001", --#Cybran ACU
 
+    -- Overrides the new movement nerfs from the downgraded BlackOPS ACU LOUD Standard
+
+    --  this was not altered, but just in case...
+
+    Display = {AnimationWalkRate =  0.43},
+    Physics = {MaxAcceleration = 1.7,
+               MaxSpeed = 1.5,
+               TurnRate = 90},
+
     Defense = {
 
         Health = 33000,

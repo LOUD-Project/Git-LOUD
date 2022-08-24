@@ -2,6 +2,13 @@ UnitBlueprint {
     Merge = true,
     BlueprintId = "esl0001", --#Seraphim ACU
 
+    -- Overrides the new movement nerfs from the downgraded BlackOPS ACU LOUD Standard
+
+    Display = {AnimationWalkRate = 1.1},
+    Physics = {MaxAcceleration = 1.7,
+               MaxSpeed = 1.4,
+               TurnRate = 90},
+
     Defense = {
 
         Health = 34650,
@@ -92,6 +99,9 @@ UnitBlueprint {
         Level3 = 81,
         Level4 = 108,
         Level5 = 135,
+
+        -- BO changes remove this anyway, let's document it though, just in case.
+        -- XPBaseValue = 85321,
 
     },
     

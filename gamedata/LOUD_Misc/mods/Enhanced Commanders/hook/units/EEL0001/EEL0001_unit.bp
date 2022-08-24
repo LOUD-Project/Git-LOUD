@@ -2,6 +2,13 @@ UnitBlueprint {
     Merge = true,
     BlueprintId = "eel0001", --#UEF ACU
 
+    -- Overrides the new movement nerfs from the downgraded BlackOPS ACU LOUD Standard
+
+    Display = {AnimationWalkRate = 1.7},
+    Physics = {MaxAcceleration = 1.7,
+               MaxSpeed = 1.4,
+               TurnRate = 90},
+
     Defense = {
 
         Health = 36550,

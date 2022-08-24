@@ -2,6 +2,12 @@ UnitBlueprint {
     Merge = true,
     BlueprintId = "eal0001", --#Aeon ACU
 
+    -- Overrides the new movement nerfs from the downgraded BlackOPS ACU LOUD Standard
+
+    Display = {AnimationWalkRate = 2.5},
+    Physics = {MaxAcceleration = 1.7,
+               MaxSpeed = 1.4,
+               TurnRate = 90},
     Defense = {
 
         Health = 33550,
@@ -172,6 +178,7 @@ UnitBlueprint {
         {
 
             Damage = 500,
+            MaxRadius = 66, --overrides the LOUD standard BO mod.
 
         },
         
