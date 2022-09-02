@@ -35,21 +35,33 @@ BuffField = Class(Entity) {
 
     -- change these in an inheriting class if you want
     FieldVisualEmitter = '',   -- the FX on the unit that carries the buff field
+    
+    -- this can now be passed in by the field blueprint
 	VisualScale = 1.5,
 	
     __init = function(self, spec)
+    
         Entity.__init(self, spec)
+        
         self.Name = spec.Name or 'NoName'
-        self.Owner = spec.Owner
-        self.Enabled = false
+
         self.DisabledForTransporting = false
+        self.Enabled = false
+        self.Owner = spec.Owner.Sync.id
+        self.Radius = 0
         self.ThreadHandle = false
+        self.VisualScale = 1.5
     end,
 
     OnCreate = function(self)
 
         local Owner = self:GetOwner()
+        
         local bp = self:GetBlueprint()
+        
+        if bp.VisualScale then
+            self.VisualScale = bp.VisualScale
+        end
 		
         if type(bp.AffectsUnitCategories) == 'string' then
 			bp.AffectsUnitCategories = ParseEntityCategory(bp.AffectsUnitCategories)
@@ -70,6 +82,8 @@ BuffField = Class(Entity) {
             WARN('BuffField: [..repr(bp.Name)..] Invalid radius or radius not set!')
             return
         end
+        
+        self.Radius = bp.Radius
 
         -- event stuff
         Entity.OnCreate(self)
@@ -82,12 +96,12 @@ BuffField = Class(Entity) {
             Owner:AddUnitCallback(self.EnableOutTransport, 'OnDetachedToTransport')
         end
 		
-        self:OnCreated()
+        self:OnCreated(bp)
     end,
 
-    OnCreated = function(self)
+    OnCreated = function(self,bp)
 	
-        if self:GetBlueprint().InitiallyEnabled then
+        if bp.InitiallyEnabled then
             self:Enable()
         end
 		
@@ -106,7 +120,7 @@ BuffField = Class(Entity) {
     end,
 
     GetOwner = function(self)
-        return self.Owner
+        return GetEntityById(self.Owner)
     end,
 
     Enable = function(self)
@@ -129,15 +143,17 @@ BuffField = Class(Entity) {
 			end
 
             self.Enabled = true
-            self:OnEnabled()
+            self:OnEnabled(bp)
         end
     end,
 
 	-- fires when the field begins to work -- show field FX and Ambient FX
-    OnEnabled = function(self)
+    OnEnabled = function(self, bp)
         
 		local Owner = self:GetOwner()
 		local Army = Owner.Sync.army
+        
+        --LOG("*AI DEBUG Bufffield is "..repr(self))
 		
         if self.FieldVisualEmitter and type(self.FieldVisualEmitter) == 'string' and self.FieldVisualEmitter != '' then
 
@@ -145,7 +161,7 @@ BuffField = Class(Entity) {
                 Owner.BuffFieldEffectsBag = {}
             end
 
-            LOUDINSERT( Owner.BuffFieldEffectsBag, CreateAttachedEmitter(Owner, 0, Army, self.FieldVisualEmitter):ScaleEmitter(self.VisualScale) )
+            LOUDINSERT( Owner.BuffFieldEffectsBag, CreateAttachedEmitter(Owner, 0, Army, self.FieldVisualEmitter):ScaleEmitter(bp.VisualScale or self.VisualScale) )
         end
 		
 		if self.AmbientEffects and type(self.AmbientEffects) == 'string' and self.AmbientEffects != '' then
@@ -154,7 +170,7 @@ BuffField = Class(Entity) {
                 Owner.BuffFieldEffectsBag = {}
             end
 
-            LOUDINSERT( Owner.BuffFieldEffectsBag, CreateAttachedEmitter(Owner, 0, Army, self.AmbientEffects):ScaleEmitter(self.VisualScale) )
+            LOUDINSERT( Owner.BuffFieldEffectsBag, CreateAttachedEmitter(Owner, 0, Army, self.AmbientEffects):ScaleEmitter(bp.VisualScale or self.VisualScale) )
 		end
     end,
 	
