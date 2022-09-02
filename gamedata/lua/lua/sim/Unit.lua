@@ -364,6 +364,8 @@ Unit = Class(moho.unit_methods) {
         SetConsumptionPerSecondMass( self, bp.Economy.MaintenanceConsumptionPerSecondMass or 0 )
 		
         SetProductionPerSecondEnergy( self, bp.Economy.ProductionPerSecondEnergy or 0 )
+
+        --LOG("*AI DEBUG Setting mass "..bp.Economy.ProductionPerSecondMass)
         SetProductionPerSecondMass( self, bp.Economy.ProductionPerSecondMass or 0 )
 
         SetProductionActive( self, true )

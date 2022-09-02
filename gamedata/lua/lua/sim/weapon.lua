@@ -275,7 +275,7 @@ Weapon = Class(moho.weapon_methods) {
 
 		if ScenarioInfo.WeaponDialog then
 		
-			LOG("*AI DEBUG Weapon OnCreate for "..repr(__blueprints[self.unit.BlueprintID].Description).." "..self.unit.Sync.id )
+			LOG("*AI DEBUG Weapon OnCreate for "..repr(__blueprints[self.unit.BlueprintID].Description).." "..self.unit.Sync.id.." -- "..repr(self.bp.Label) )
 
 		end
 
@@ -343,7 +343,7 @@ Weapon = Class(moho.weapon_methods) {
     OnFire = function(self)
 	
 		if ScenarioInfo.WeaponDialog then
-			LOG("*AI DEBUG Weapon OnFire for "..repr(__blueprints[self.unit.BlueprintID].Description) )
+			LOG("*AI DEBUG Weapon OnFire for "..repr(__blueprints[self.unit.BlueprintID].Description).." "..repr(self.bp.Label) )
 		end
 
 		if self.Buffs then
@@ -481,7 +481,7 @@ Weapon = Class(moho.weapon_methods) {
         end 
 	
 		if ScenarioInfo.WeaponDialog then
-			LOG("*AI DEBUG Weapon SetDamageTable for "..repr(__blueprints[self.unit.BlueprintID].Description).." is "..repr(self.damageTable))
+			LOG("*AI DEBUG Weapon SetDamageTable for "..repr(self.bp.Label).." is "..repr(self.damageTable))
 		end
 
     end,
@@ -494,7 +494,7 @@ Weapon = Class(moho.weapon_methods) {
     CreateProjectileForWeapon = function(self, bone)
 	
 		if ScenarioInfo.WeaponDialog then
-			LOG("*AI DEBUG Weapon CreateProjectileForWeapon for "..repr(__blueprints[self.unit.BlueprintID].Description))
+			LOG("*AI DEBUG Weapon CreateProjectileForWeapon "..repr(self.bp.Label).." for "..repr(__blueprints[self.unit.BlueprintID].Description))
 		end
 
         local proj = LOUDCREATEPROJECTILE( self, bone )
@@ -600,11 +600,11 @@ Weapon = Class(moho.weapon_methods) {
     end,
 
     AddDamageMod = function(self, dmgMod)
-        self.DamageMod = self.DamageMod + (dmgMod or 0)
+        self.DamageMod = (self.DamageMod or 0) + (dmgMod or 0)
     end,
 
     AddDamageRadiusMod = function(self, dmgRadMod)
-        self.DamageRadiusMod = self.DamageRadiusMod + (dmgRadMod or 0)
+        self.DamageRadiusMod = (self.DamageRadiusMod or 0) + (dmgRadMod or 0)
     end,
     
     -- rewritten to have buff data passed in to save the GetBlueprint function call

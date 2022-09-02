@@ -2951,6 +2951,7 @@ MassCollectionUnit = Class(StructureUnit) {
                             --LOG("*AI DEBUG Production set to "..(massProduction * massprod) )
                             
                             -- BUT production will be set to % of energy required
+                            --LOG("*AI DEBUG mass set to "..massProduction * massprod)
                             SetProductionPerSecondMass( self, (massProduction * massprod ) )
                             
                         else

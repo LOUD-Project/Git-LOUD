@@ -146,7 +146,7 @@
 	LOG("*AI DEBUG      Report Priority Changes to Log is "..repr(ScenarioInfo.PriorityDialog))
 
     -- follows the decision process of the GUARDPOINT behavior (for LAND only at this time)
-    ScenarioInfo.GuardPointDialog = true
+    ScenarioInfo.GuardPointDialog = false
     LOG("*AI DEBUG      GuardPoint Behavior Dialog is "..repr(ScenarioInfo.GuardPointDialog))
     
     -- INSTANCE COUNT dialogs - Instanced Builder count increase/decrease is dialoged to the LOG (very busy)
