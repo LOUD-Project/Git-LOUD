@@ -21,7 +21,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
 		
         Priority = 850,
         
-        InstanceCount = 1,
+        InstanceCount = 2,
 		
 		BuilderType = { 'T1','T2','T3' },
 
