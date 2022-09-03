@@ -35,8 +35,8 @@ local DefaultBuffField = import('/lua/defaultbufffield.lua').DefaultBuffField
 local TARGETS = categories.STRUCTURE + categories.COMMAND + categories.EXPERIMENTAL + categories.NAVAL + categories.SUBCOMMANDER
 
 AeonBuffField = Class(DefaultBuffField) {
-	AmbientEffects = '/mods/BlackopsUnleashed/effects/emitters/genmaelstrom_aura_02_emit.bp',
-    FieldVisualEmitter = '/mods/BlackopsUnleashed/effects/emitters/genmaelstrom_aura_01_emit.bp',
+	AmbientEffects = '/effects/emitters/miasma_cloud_03_emit.bp',
+    FieldVisualEmitter = '',
 }
 
 AIFBallisticMortarWeapon = Class(DefaultProjectileWeapon) {

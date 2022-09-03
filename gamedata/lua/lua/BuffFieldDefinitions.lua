@@ -23,9 +23,8 @@ BuffFieldBlueprint { Name = 'AirStagingBuffField',
     MaintenanceConsumptionPerSecondEnergy = 0,
     Radius = 20,
     RadiusOffsetY = 5,
-    Buffs = {
-        'AIRSTAGING',
-    },
+
+    Buffs = {'AIRSTAGING'},
 }
 
 BuffFieldBlueprint { Name = 'AeonMaelstromBuffField',
@@ -37,10 +36,11 @@ BuffFieldBlueprint { Name = 'AeonMaelstromBuffField',
     DisableInTransport = true,
     InitiallyEnabled = false,
     MaintenanceConsumptionPerSecondEnergy = 500,
-    Radius = 26,
-    Buffs = {
-        'AeonMaelstromField',
-    },
+    Radius = 24,
+
+    VisualScale = 7.2,
+
+    Buffs = {'AeonMaelstromField'},
 }
 
 BuffFieldBlueprint { Name = 'AeonMaelstromBuffField2',
@@ -52,10 +52,11 @@ BuffFieldBlueprint { Name = 'AeonMaelstromBuffField2',
     DisableInTransport = true,
     InitiallyEnabled = false,
     MaintenanceConsumptionPerSecondEnergy = 750,
-    Radius = 36,
-    Buffs = {
-        'AeonMaelstromField2',
-    },
+    Radius = 32,
+
+    VisualScale = 9.7,
+
+    Buffs = {'AeonMaelstromField2'},
 }
 
 BuffFieldBlueprint { Name = 'AeonMaelstromBuffField3',
@@ -66,11 +67,12 @@ BuffFieldBlueprint { Name = 'AeonMaelstromBuffField3',
     AffectsSelf = false,
     DisableInTransport = true,
     InitiallyEnabled = false,
-    MaintenanceConsumptionPerSecondEnergy = 1000,
-    Radius = 46,
-    Buffs = {
-        'AeonMaelstromField3',
-    },
+    MaintenanceConsumptionPerSecondEnergy = 1200,
+    Radius = 40,
+
+    VisualScale = 12.3,
+
+    Buffs = {'AeonMaelstromField3'},
 }
 
 BuffFieldBlueprint { Name = 'CybranOpticalDisruptionBuffField',
@@ -81,11 +83,11 @@ BuffFieldBlueprint { Name = 'CybranOpticalDisruptionBuffField',
     AffectsSelf = false,
     DisableInTransport = true,
     InitiallyEnabled = false,
-    MaintenanceConsumptionPerSecondEnergy = 600,
+    MaintenanceConsumptionPerSecondEnergy = 660,
+
     Radius = 80,
-    Buffs = {
-        'CybranOpticalDisruptionField',
-    },
+
+    Buffs = {'CybranOpticalDisruptionField'},
 }
 
 BuffFieldBlueprint { Name = 'SeraphimACURegenBuffField',
@@ -98,9 +100,8 @@ BuffFieldBlueprint { Name = 'SeraphimACURegenBuffField',
     InitiallyEnabled = false,
     MaintenanceConsumptionPerSecondEnergy = 0,
     Radius = 18,
-    Buffs = {
-        'SeraphimACURegenAura',
-    },
+
+    Buffs = {'SeraphimACURegenAura'},
 }
 
 BuffFieldBlueprint { Name = 'SeraphimAdvancedACURegenBuffField',
@@ -113,9 +114,8 @@ BuffFieldBlueprint { Name = 'SeraphimAdvancedACURegenBuffField',
     InitiallyEnabled = false,
     MaintenanceConsumptionPerSecondEnergy = 300,
     Radius = 24,
-    Buffs = {
-        'SeraphimAdvancedACURegenAura',
-    },
+
+    Buffs = {'SeraphimAdvancedACURegenAura'},
 }
 
 BuffFieldBlueprint { Name = 'SeraphimRegenBuffField',
@@ -128,9 +128,8 @@ BuffFieldBlueprint { Name = 'SeraphimRegenBuffField',
     InitiallyEnabled = false,
     MaintenanceConsumptionPerSecondEnergy = 900,
     Radius = 26,
-    Buffs = {
-        'SeraphimRegenFieldMoo',
-    },
+
+    Buffs = {'SeraphimRegenFieldMoo'},
 }
 
 
