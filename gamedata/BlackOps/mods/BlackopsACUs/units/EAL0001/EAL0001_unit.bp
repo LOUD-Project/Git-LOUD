@@ -1,23 +1,18 @@
 UnitBlueprint {
 
     Abilities = {
-        EXScryTarget = {
+        TargetLocation = {
             bitmapId = 'skry-target',
-            helpText = 'EXScryTarget',
+            helpText = 'Scry_target',
         },
     },
 	
     AI = {
         GuardRadius = 10,
-        TargetBones = {
-            'Head',
-            'Right_Arm_B01',
-            'Left_Arm_B01',
-            'Torso',
-            'Left_Leg_B01',
-            'Right_Leg_B01',
-        },
-		StagingPlatformScanRadius = 500, --Teleport Range
+        
+        TargetBones = {'Head','Right_Arm_B01','Left_Arm_B01','Torso','Left_Leg_B01','Right_Leg_B01'},
+
+		--StagingPlatformScanRadius = 500, --Teleport Range
     },
 	
     Audio = {
@@ -65,11 +60,11 @@ UnitBlueprint {
 	
     Buffs = {
         Regen = {
-            Level1 = 10,
-            Level2 = 20,
-            Level3 = 30,
-            Level4 = 40,
-            Level5 = 50,
+            Level1 = 15,        -- +50% per level
+            Level2 = 30,
+            Level3 = 45,
+            Level4 = 60,
+            Level5 = 75,
         },
     },
 	
@@ -95,6 +90,8 @@ UnitBlueprint {
         'SHOWQUEUE',
         'OVERLAYINDIRECTFIRE',
         'OVERLAYOMNI',
+        'OVERLAYRADAR',
+        'OVERLAYSONAR',
         'ANTITELEPORT',
         'OVERLAYCOUNTERINTEL',
         'OVERLAYANTINAVY',
@@ -106,11 +103,11 @@ UnitBlueprint {
 		
         EconomyThreatLevel = 620,
 		
-        Health = 27000,
+        Health = 27000,         -- +245 %
         MaxHealth = 27000,
-        RegenRate = 10,
+        RegenRate = 15,         -- +50%
         
-        SurfaceThreatLevel = 36,
+        SurfaceThreatLevel = 45,
 		
 		NoTeleDistance = 55,
 		MaxTeleRange = 500,
@@ -120,14 +117,15 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Amphibious',
-            'Customizable',
-            'Omni Sensor',
-            'Volatile',
+            '<LOC ability_amphibious>Amphibious',
+            '<LOC ability_customizable>Customizable',
+            '<LOC ability_notcap>Not Capturable',
+            '<LOC ability_omni>Omni Sensor',
+            '<LOC ability_deathaoe>Volatile',
         },
 		
         AnimationWalk = '/mods/BlackopsACUs/units/eal0001/eal0001_awalk.sca',
-        AnimationWalkRate = 2.2,
+        AnimationWalkRate = 2.1,
 
         Mesh = {
             IconFadeInZoom = 130,
@@ -183,8 +181,8 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 1000000,
-        BuildCostMass = 18000,
+        BuildCostEnergy = 100000,
+        BuildCostMass = 10000,
         BuildRate = 10,
 		
         BuildTime = 60000,
@@ -198,24 +196,26 @@ UnitBlueprint {
 		
         MaintenanceConsumptionPerSecondEnergy = 1,
         
-        MaxBuildDistance = 14,
+        MaxBuildDistance = 14,              -- +40%
 		
         NaturalProducer = true,
 		
         NeedToFaceTargetToBuild = false,
+        
         ProductionPerSecondEnergy = 20,
-        ProductionPerSecondMass = 2,
+        ProductionPerSecondMass = 2,        -- +100%
 		
-        StorageEnergy = 5000,
+        StorageEnergy = 5000,               -- +25%
         StorageMass = 650,
-		
-        TeleportEnergyMod = 0.05978,
-        TeleportMassMod = 0.05978,
-        TeleportTimeMod = 0.0001,
-		
+
+        -- for teleporter
 		TeleportBurstEnergyCost = 10000,
 
-        InitialRemoteViewingEnergyDrain = 2500,
+        -- for Eye of Rhianne enhancement
+        InitialRemoteViewingEnergyDrain = 10000,
+        
+        -- for T3 Intel Package & Rhianne Optics when installed
+        MaintenanceConsumptionPerSecondEnergy = 2000,
     },
 	
     Enhancements = {
@@ -245,12 +245,15 @@ UnitBlueprint {
             BuildTime = 1950,
 			
             BuildableCategoryAdds = 'BUILTBYTIER2COMMANDER AEON',
+
             Icon = 'exles1',
 			
             Name = 'Tech 2 Improved Engineering (T1)',
 			
             ShowBones = { 'Engineering' },
+
             Slot = 'LCH',
+
             UpgradeEffectBones = { 'Left_Turret','Left_Turret_Muzzle' },
             UpgradeUnitAmbientBones = { 'UAL0001' },
         },
@@ -262,12 +265,15 @@ UnitBlueprint {
             BuildTime = 0.1,
 			
             HideBones = { 'Engineering' },
+
             Icon = 'exles1',
 			
             Name = 'Remove Engineering Suites',
 			
             Prerequisite = 'EXImprovedEngineering',
+
             RemoveEnhancements = { 'EXImprovedEngineering','EXImprovedEngineeringRemove'},
+
             Slot = 'LCH',
         },
 		
@@ -275,18 +281,24 @@ UnitBlueprint {
 		
             BuildCostEnergy = 125000,
             BuildCostMass = 12500,
-            BuildTime = 12500,
+            BuildTime = 7900,
 
             BuildableCategoryAdds = 'BUILTBYTIER3COMMANDER AEON',
+
             Icon = 'exles2',
 			
             Name = 'Tech 3 Advanced Engineering (T2)',
 			
             Prerequisite = 'EXImprovedEngineering',
+
             ShowBones = { 'Engineering' },
+
             Slot = 'LCH',
+
             UpgradeEffectBones = {'Left_Turret','Left_Turret_Muzzle'},
             UpgradeUnitAmbientBones = { 'UAL0001' },
+
+			NewRegenRate = 12,
         },
 		
         EXAdvancedEngineeringRemove = {
@@ -296,31 +308,40 @@ UnitBlueprint {
             BuildTime = 0.1,
 			
             HideBones = { 'Engineering' },
+
             Icon = 'exles2',
 			
             Name = 'Remove Engineering Suites',
 			
             Prerequisite = 'EXAdvancedEngineering',
+
             RemoveEnhancements = {'EXAdvancedEngineering','EXAdvancedEngineeringRemove'},
+
             Slot = 'LCH',
         },
 		
         EXExperimentalEngineering = {
 		
-            BuildCostEnergy = 750000,
-            BuildCostMass = 25000,
+            BuildCostEnergy = 500000,
+            BuildCostMass = 30000,
             BuildTime = 37500,
 			
             BuildableCategoryAdds = 'BUILTBYTIER4COMMANDER AEON',
+
             Icon = 'exles3',
 			
             Name = 'Tech 4 Experimental Engineering (T3)',
 			
             Prerequisite = 'EXAdvancedEngineering',
+
             ShowBones = { 'Engineering' },
+
             Slot = 'LCH',
+
             UpgradeEffectBones = {'Left_Turret','Left_Turret_Muzzle'},
             UpgradeUnitAmbientBones = { 'UAL0001' },
+            
+			NewRegenRate = 35,
         },
 		
         EXExperimentalEngineeringRemove = {
@@ -330,20 +351,23 @@ UnitBlueprint {
             BuildTime = 0.1,
 			
             HideBones = { 'Engineering' },
+
             Icon = 'exles3',
 			
             Name = 'Remove Engineering Suites',
 			
             Prerequisite = 'EXExperimentalEngineering',
+
             RemoveEnhancements = {'EXExperimentalEngineering','EXExperimentalEngineeringRemove'},
+
             Slot = 'LCH',
         },
 		
         EXCombatEngineering = {
 		
-            BuildCostEnergy = 30000,
-            BuildCostMass = 3000,
-            BuildTime = 2200,
+            BuildCostEnergy = 38000,
+            BuildCostMass = 3500,
+            BuildTime = 1950,
 
             BuildableCategoryAdds = 'BUILTBYTIER2COMMANDER AEON',
             Icon = 'exlce1',
@@ -352,11 +376,13 @@ UnitBlueprint {
 			
             ShowBones = { 'Combat_Engineering' },
             HideBones = { 'Left_Turret_Plates' },
+
             Slot = 'LCH',
+
             UpgradeEffectBones = {'Left_Turret','Left_Turret_Muzzle'},
             UpgradeUnitAmbientBones = { 'UAL0001' },
-			
-			NewRegenRate = 12,
+            
+			NewRegenRate = 12,            
         },
 		
         EXCombatEngineeringRemove = {
@@ -367,34 +393,41 @@ UnitBlueprint {
 			
             ShowBones = { 'Left_Turret_Plates' },
             HideBones = { 'Combat_Engineering' },
+
             Icon = 'exlce1',
 			
             Name = 'Remove Engineering Suites',
 			
             Prerequisite = 'EXCombatEngineering',
+
             RemoveEnhancements = {'EXCombatEngineering','EXCombatEngineeringRemove'},
+
             Slot = 'LCH',
         },
 		
         EXAssaultEngineering = {
 		
-            BuildCostEnergy = 72000,		--90000
-            BuildCostMass = 7200,		--1800
-            BuildTime = 7200,			--5400
+            BuildCostEnergy = 125000,
+            BuildCostMass = 12500,
+            BuildTime = 7900,
 
             BuildableCategoryAdds = 'BUILTBYTIER3COMMANDER AEON',
+
             Icon = 'exlce2',
 			
             Name = 'Tech 3 Assault Engineering (T2)',
 			
 			Prerequisite = 'EXCombatEngineering',
+
             ShowBones = { 'Combat_Engineering' },
             HideBones = { 'Left_Turret_Plates' },
+
             Slot = 'LCH',
+
             UpgradeEffectBones = {'Left_Turret','Left_Turret_Muzzle'},
             UpgradeUnitAmbientBones = { 'UAL0001' },
-			
-			NewRegenRate = 35,		-- just here so interface can show the value
+
+			NewRegenRate = 35,            
         },
 		
         EXAssaultEngineeringRemove = {
@@ -405,22 +438,23 @@ UnitBlueprint {
 			
             ShowBones = { 'Left_Turret_Plates' },
             HideBones = { 'Combat_Engineering' },
+
             Icon = 'exlce2',
 			
             Name = 'Remove Engineering Suites',
 			
             Prerequisite = 'EXAssaultEngineering',
-			FlamerDamageMod = 2,
+
             RemoveEnhancements = {'EXAssaultEngineering','EXAssaultEngineeringRemove'},
+
             Slot = 'LCH',
-			
         },
 		
         EXApocalypticEngineering = {
 		
-            BuildCostEnergy = 162000,
-            BuildCostMass = 16200,
-            BuildTime = 16200,
+            BuildCostEnergy = 575000,
+            BuildCostMass = 35000,
+            BuildTime = 37500,
 			
             BuildableCategoryAdds = 'BUILTBYTIER4COMMANDER AEON',
             Icon = 'exlce3',
@@ -428,13 +462,16 @@ UnitBlueprint {
             Name = 'Tech 4 Apocalyptic Engineering (T3)',
 			
 			Prerequisite = 'EXAssaultEngineering',
+
             ShowBones = { 'Combat_Engineering' },
             HideBones = { 'Left_Turret_Plates' },
+
             Slot = 'LCH',
+
             UpgradeEffectBones = {'Left_Turret','Left_Turret_Muzzle'},
             UpgradeUnitAmbientBones = { 'UAL0001' },
-			
-			NewRegenRate = 60,
+            
+			NewRegenRate = 60,            
         },
 		
         EXApocalypticEngineeringRemove = {
@@ -445,27 +482,28 @@ UnitBlueprint {
 			
             ShowBones = { 'Left_Turret_Plates' },
             HideBones = { 'Combat_Engineering' },
+
             Icon = 'exlce3',
 			
             Name = 'Remove Engineering Suites',
 			
             Prerequisite = 'EXApocalypticEngineering',
-			FlamerDamageMod = 2,
+
             RemoveEnhancements = {'EXApocalypticEngineering','EXApocalypticEngineeringRemove'},
             Slot = 'LCH',
         },
 		
         EXDisruptorrBooster = {
-            BuildCostEnergy = 6000,
-            BuildCostMass = 570,
+            BuildCostEnergy = 7500,
+            BuildCostMass = 750,
             BuildTime = 600,
+            
             Icon = 'exrzb1',
             
-            Name = 'Jury Rigged Disruptor (T1)',
+            Name = 'Jury Rigged Disruptor (T3)',
             
-			ZephyrDamageMod = 100,
-			ZephyrRangeMod = 35,
             Slot = 'RCH',
+            
             UpgradeEffectBones = {'Right_Turret','Right_Turret_Muzzle'},
             UpgradeUnitAmbientBones = {'UAL0001'},
         },
@@ -474,29 +512,30 @@ UnitBlueprint {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
+            
             Icon = 'exrzb1',
             
             Name = 'Remove Jury Rigged Disruptor',
             
             Prerequisite = 'EXDisruptorrBooster',
-			ZephyrDamageMod = 100,
-			ZephyrRangeMod = 35,
+
             RemoveEnhancements = {'EXDisruptorrBooster','EXDisruptorrBoosterRemove'},
+
             Slot = 'RCH',
         },
 		
         EXTorpedoLauncher = {
-            BuildCostEnergy = 45000,
-            BuildCostMass = 1440,
-            BuildTime = 4500,
+            BuildCostEnergy = 35000,
+            BuildCostMass = 1050,
+            BuildTime = 3500,
             Icon = 'exrtorp1',
             
             Name = 'Torpedo Launcher (T2)',
-            
-			ZephyrDamageMod = 100,
-			ZephyrRangeMod = 35,
+
             ShowBones = {'Torpedo_Launcher'},
+            
             Slot = 'RCH',
+            
             UpgradeEffectBones = {'Right_Turret','Right_Turret_Muzzle'},
             UpgradeUnitAmbientBones = {'UAL0001'},
         },
@@ -505,31 +544,35 @@ UnitBlueprint {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
+            
             HideBones = {'Torpedo_Launcher'},
+            
             Icon = 'exrtorp1',
             
             Name = 'Remove Torpedo Launcher',
             
             Prerequisite = 'EXTorpedoLauncher',
-			ZephyrDamageMod = 100,
-			ZephyrRangeMod = 35,
+
             RemoveEnhancements = {'EXTorpedoLauncher','EXTorpedoLauncherRemove'},
+
             Slot = 'RCH',
         },
 		
         EXTorpedoRapidLoader = {
-            BuildCostEnergy = 99000,
-            BuildCostMass = 3300,
-            BuildTime = 9900,
+            BuildCostEnergy = 90000,
+            BuildCostMass = 3000,
+            BuildTime = 7500,
+            
             Icon = 'exrtorp2',
             
             Name = 'Improved Reloader (T3)',
             
 			Prerequisite = 'EXTorpedoLauncher',
-			ZephyrDamageMod = 100,
-			ZephyrRangeMod = 35,
+
             ShowBones = {'Torpedo_Launcher'},
+
             Slot = 'RCH',
+
             UpgradeEffectBones = {'Right_Turret','Right_Turret_Muzzle'},
             UpgradeUnitAmbientBones = {'UAL0001'},
         },
@@ -538,32 +581,35 @@ UnitBlueprint {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
+
             HideBones = {'Torpedo_Launcher'},
+
             Icon = 'exrtorp2',
             
             Name = 'Remove Improved Reloader',
             
             Prerequisite = 'EXTorpedoRapidLoader',
-			ZephyrDamageMod = 100,
-			ZephyrRangeMod = 35,
+
             RemoveEnhancements = {'EXTorpedoLauncher','EXTorpedoRapidLoader','EXTorpedoRapidLoaderRemove'},
+
             Slot = 'RCH',
         },
 		
         EXTorpedoClusterLauncher = {
-            BuildCostEnergy = 216000,
-            BuildCostMass = 6300,
-            BuildTime = 21600,
+            BuildCostEnergy = 180000,
+            BuildCostMass = 7500,
+            BuildTime = 16600,
+
             Icon = 'exrtorp3',
             
             Name = 'Advanced Warheads (T4)',
             
 			Prerequisite = 'EXTorpedoRapidLoader',
 
-			ZephyrDamageMod = 100,
-			ZephyrRangeMod = 35,
             ShowBones = {'Torpedo_Launcher'},
+
             Slot = 'RCH',
+
             UpgradeEffectBones = {'Right_Turret','Right_Turret_Muzzle'},
             UpgradeUnitAmbientBones = {'UAL0001'},
         },
@@ -585,16 +631,16 @@ UnitBlueprint {
         },
 		
         EXArtilleryMiasma = {
-            BuildCostEnergy = 45000,
-            BuildCostMass = 990,
-            BuildTime = 2800,
+            BuildCostEnergy = 35000,
+            BuildCostMass = 1050,
+            BuildTime = 3500,
+
             Icon = 'exramc1',
             
             Name = 'Dual Miasma Artillery (T2)',
-            
-			ZephyrDamageMod = 100,
-			ZephyrRangeMod = 35,
+
             Slot = 'RCH',
+
             UpgradeEffectBones = {'Right_Turret','Right_Turret_Muzzle'},
             UpgradeUnitAmbientBones = {'UAL0001',},
         },
@@ -608,24 +654,25 @@ UnitBlueprint {
             Name = 'Remove Dual Miasma Artillery',
             
             Prerequisite = 'EXArtilleryMiasma',
-			ZephyrDamageMod = 100,
-			ZephyrRangeMod = 35,
+
             RemoveEnhancements = {'EXArtilleryMiasma','EXArtilleryMiasmaRemove'},
+
             Slot = 'RCH',
         },
 		
         EXAdvancedShells = {
-            BuildCostEnergy = 180000,
-            BuildCostMass = 1800,
-            BuildTime = 5600,
+            BuildCostEnergy = 100000,
+            BuildCostMass = 3750,
+            BuildTime = 11000,
+
             Icon = 'exramc2',
             
             Name = 'Advanced Warhead Compression (T3)',
             
 			Prerequisite = 'EXArtilleryMiasma',
-			ZephyrDamageMod = 100,
-			ZephyrRangeMod = 35,
+
             Slot = 'RCH',
+
             UpgradeEffectBones = {'Right_Turret','Right_Turret_Muzzle'},
             UpgradeUnitAmbientBones = {'UAL0001'},
         },
@@ -639,476 +686,439 @@ UnitBlueprint {
             Name = 'Remove Advanced Warhead Compression',
             
             Prerequisite = 'EXAdvancedShells',
-			ZephyrDamageMod = 100,
-			ZephyrRangeMod = 35,
-            RemoveEnhancements = {
-                'EXArtilleryMiasma',
-                'EXAdvancedShells',
-                'EXAdvancedShellsRemove',
-            },
+
+            RemoveEnhancements = {'EXArtilleryMiasma','EXAdvancedShells','EXAdvancedShellsRemove'},
+
             Slot = 'RCH',
         },
 		
         EXImprovedReloader = {
-            BuildCostEnergy = 540000,
-            BuildCostMass = 5400,
-            BuildTime = 16200,
+            BuildCostEnergy = 275000,
+            BuildCostMass = 9800,
+            BuildTime = 30000,
+
             Icon = 'exramc3',
             
             Name = 'Improved Auto Loader (T4)',
             
 			Prerequisite = 'EXAdvancedShells',
-            NewHealth = 6000,
-			ZephyrDamageMod = 100,
-			ZephyrRangeMod = 35,
+
             Slot = 'RCH',
-            UpgradeEffectBones = {
-                'Right_Turret',
-                'Right_Turret_Muzzle',
-            },
-            UpgradeUnitAmbientBones = {
-                'UAL0001',
-            },
+
+            UpgradeEffectBones = {'Right_Turret','Right_Turret_Muzzle'},
+            UpgradeUnitAmbientBones = {'UAL0001'},
         },
 		
         EXImprovedReloaderRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
+
             Icon = 'exramc3',
+
             Name = 'Remove Improved Auto Loader',
+
             Prerequisite = 'EXImprovedReloader',
-			ZephyrDamageMod = 100,
-			ZephyrRangeMod = 35,
-            RemoveEnhancements = {
-                'EXArtilleryMiasma',
-                'EXAdvancedShells',
-                'EXImprovedReloader',
-                'EXImprovedReloaderRemove',
-            },
+
+            RemoveEnhancements = {'EXArtilleryMiasma','EXAdvancedShells','EXImprovedReloader','EXImprovedReloaderRemove'},
+
             Slot = 'RCH',
         },
 		
         EXBeamPhason = {
-            BuildCostEnergy = 6500,
-            BuildCostMass = 540,
-            BuildTime = 880,
+            BuildCostEnergy = 17500,
+            BuildCostMass = 900,
+            BuildTime = 900,
+
             Icon = 'exrgec1',
-            Name = 'Phason Beam Cannon (T2)',
-			ZephyrDamageMod = 100,
-			ZephyrRangeMod = 35,
-            ShowBones = {
-                'Laser_Cannon',
-            },
-            HideBones = {
-                'Right_Turret_Barrel',
-            },
+
+            Name = 'Phason Beam Cannon (T3)',
+
+            ShowBones = {'Laser_Cannon'},
+
+            HideBones = {'Right_Turret_Barrel'},
+
             Slot = 'RCH',
-            UpgradeEffectBones = {
-                'Right_Turret',
-                'Right_Turret_Muzzle',
-            },
-            UpgradeUnitAmbientBones = {
-                'UAL0001',
-            },
+
+            UpgradeEffectBones = {'Right_Turret','Right_Turret_Muzzle'},
+
+            UpgradeUnitAmbientBones = {'UAL0001'},
         },
 		
         EXBeamPhasonRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
-            ShowBones = {
-                'Right_Turret_Barrel',
-            },
-            HideBones = {
-                'Laser_Cannon',
-            },
+
+            ShowBones = {'Right_Turret_Barrel'},
+            HideBones = {'Laser_Cannon'},
+
             Icon = 'exrgec1',
+
             Name = 'Remove Phason Beam Cannon',
+
             Prerequisite = 'EXBeamPhason',
-			ZephyrDamageMod = 100,
-			ZephyrRangeMod = 35,
-            RemoveEnhancements = {
-                'EXBeamPhason',
-                'EXBeamPhasonRemove',
-            },
+
+            RemoveEnhancements = {'EXBeamPhason','EXBeamPhasonRemove'},
+
             Slot = 'RCH',
         },
 		
         EXImprovedCoolingSystem = {
-            BuildCostEnergy = 18400,
-            BuildCostMass = 2400,
+            BuildCostEnergy = 45000,
+            BuildCostMass = 1800,
             BuildTime = 2400,
+
             Icon = 'exrgec2',
-            Name = 'Dual Channel Booster (T3)',
+
+            Name = 'Dual Channel Booster (T3+)',
+
 			Prerequisite = 'EXBeamPhason',
-			ZephyrDamageMod = 100,
-			ZephyrRangeMod = 35,
-            ShowBones = {
-                'Laser_Cannon',
-            },
-            HideBones = {
-                'Right_Turret_Barrel',
-            },
+
+            ShowBones = {'Laser_Cannon'},
+            HideBones = {'Right_Turret_Barrel'},
+
             Slot = 'RCH',
-            UpgradeEffectBones = {
-                'Right_Turret',
-                'Right_Turret_Muzzle',
-            },
-            UpgradeUnitAmbientBones = {
-                'UAL0001',
-            },
+
+            UpgradeEffectBones = {'Right_Turret','Right_Turret_Muzzle'},
+
+            UpgradeUnitAmbientBones = {'UAL0001'},
         },
 		
         EXImprovedCoolingSystemRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
-            ShowBones = {
-                'Right_Turret_Barrel',
-            },
-            HideBones = {
-                'Laser_Cannon',
-            },
+
+            ShowBones = {'Right_Turret_Barrel'},
+
+            HideBones = {'Laser_Cannon'},
+
             Icon = 'exrgec2',
+
             Name = 'Remove Dual Channel Booster',
+
             Prerequisite = 'EXImprovedCoolingSystem',
-			ZephyrDamageMod = 100,
-			ZephyrRangeMod = 35,
-            RemoveEnhancements = {
-                'EXBeamPhason',
-                'EXImprovedCoolingSystem',
-                'EXImprovedCoolingSystemRemove',
-            },
+
+            RemoveEnhancements = {'EXBeamPhason','EXImprovedCoolingSystem','EXImprovedCoolingSystemRemove'},
+
             Slot = 'RCH',
         },
 		
         EXPowerBooster = {
-            BuildCostEnergy = 55200,
-            BuildCostMass = 4400,
+            BuildCostEnergy = 135000,
+            BuildCostMass = 5400,
             BuildTime = 7200,
+
             Icon = 'exrgec3',
+
             Name = 'Molecular Inducer (T4)',
+
 			Prerequisite = 'EXImprovedCoolingSystem',
-			ZephyrDamageMod = 100,
-			ZephyrRangeMod = 35,
-            ShowBones = {
-                'Laser_Cannon',
-            },
-            HideBones = {
-                'Right_Turret_Barrel',
-            },
+
+            ShowBones = {'Laser_Cannon'},
+            HideBones = {'Right_Turret_Barrel'},
+
             Slot = 'RCH',
-            UpgradeEffectBones = {
-                'Right_Turret',
-                'Right_Turret_Muzzle',
-            },
-            UpgradeUnitAmbientBones = {
-                'UAL0001',
-            },
+
+            UpgradeEffectBones = {'Right_Turret','Right_Turret_Muzzle'},
+            UpgradeUnitAmbientBones = {'UAL0001'},
         },
 		
         EXPowerBoosterRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
-            ShowBones = {
-                'Right_Turret_Barrel',
-            },
-            HideBones = {
-                'Laser_Cannon',
-            },
+
+            ShowBones = {'Right_Turret_Barrel'},
+            HideBones = {'Laser_Cannon'},
+
             Icon = 'exrgec3',
+
             Name = 'Remove Molecular Inducer',
+
             Prerequisite = 'EXPowerBooster',
-			ZephyrDamageMod = 100,
-			ZephyrRangeMod = 35,
-            RemoveEnhancements = {
-                'EXBeamPhason',
-                'EXImprovedCoolingSystem',
-                'EXPowerBooster',
-                'EXPowerBoosterRemove',
-            },
+
+            RemoveEnhancements = {'EXBeamPhason','EXImprovedCoolingSystem','EXPowerBooster','EXPowerBoosterRemove'},
+
             Slot = 'RCH',
         },
 		
         EXShieldBattery = {
-            BuildCostEnergy = 45000,
-            BuildCostMass = 840,
-            BuildTime = 1800,
+            BuildCostEnergy = 7500,
+            BuildCostMass = 500,
+            BuildTime = 2500,
+			
             Icon = 'exbsh1',
-            ImpactEffects = 'UEFShieldHit01',
-            Name = 'Shield Battery (T2)',
-            OwnerShieldMesh = '/mods/BlackopsACUs/units/EAL0001/EAL0001_PhaseShield_mesh',
-            PersonalShield = true,
-            RegenAssistMult = 10,
-            MaintenanceConsumptionPerSecondEnergy = 1,
+			
+            ImpactEffects = 'AeonShieldHit01',
+            ImpactMesh = '/effects/entities/ShieldSection01/ShieldSection01_mesh',
+            Mesh = '/effects/entities/AeonShield01/AeonShield01_mesh',
+            MeshZ = '/effects/entities/Shield01/Shield01z_mesh',
+			
+            MaintenanceConsumptionPerSecondEnergy = 200,
+			
+            Name = 'Shield Generator (T2)',
+			
+            RegenAssistMult = 60,            
+			
             ShieldEnergyDrainRechargeTime = 5,
-            ShieldMaxHealth = 8000,
-            ShieldRechargeTime = 180,
-            ShieldRegenRate = 50,
-            ShieldRegenStartTime = 0,
-            ShieldSize = 3,
-            ShieldVerticalOffset = 0,
+            ShieldMaxHealth = 8500,
+            ShieldRechargeTime = 14,
+            ShieldRegenRate = 98,
+            ShieldRegenStartTime = 1,
+            ShieldSize = 8,
+            ShieldVerticalOffset = -2,
+			
             Slot = 'Back',
-            UpgradeEffectBones = {
-                'ShieldPack_Normal',
-            },
-            UpgradeUnitAmbientBones = {
-                'UAL0001',
-            },
+
+            UpgradeEffectBones = {'ShieldPack_Normal'},
+            UpgradeUnitAmbientBones = {'UAL0001'},
         },
 		
         EXShieldBatteryRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
+
             Icon = 'exbsh1',
+
             Name = 'Remove Shield Battery',
+
             Prerequisite = 'EXShieldBattery',
-            RemoveEnhancements = {
-                'EXShieldBattery',
-                'EXShieldBatteryRemove',
-            },
+
+            RemoveEnhancements = {'EXShieldBattery','EXShieldBatteryRemove'},
+
             Slot = 'Back',
-        
 		},
 		
         EXActiveShielding = {
-            BuildCostEnergy = 225000,
-            BuildCostMass = 1800,
-            BuildTime = 8100,
+            BuildCostEnergy = 22000,
+            BuildCostMass = 2240,
+            BuildTime = 1800,
+
             Icon = 'exbsh2',
+
             ImpactEffects = 'UEFShieldHit01',
-            Name = 'Improved Shield Battery (T3)',
+
+            Name = 'Skin Shielding (T3)',
+
 			Prerequisite = 'EXShieldBattery',
-			BaseWeaponRange = 22,
+
             OwnerShieldMesh = '/mods/BlackopsACUs/units/EAL0001/EAL0001_PhaseShield_mesh',
+
             PersonalShield = true,
-            RegenAssistMult = 10,
-            MaintenanceConsumptionPerSecondEnergy = 1,
+
+            RegenAssistMult = 60,
+
+            MaintenanceConsumptionPerSecondEnergy = 550,
+
             ShieldEnergyDrainRechargeTime = 5,
-            ShieldMaxHealth = 22000,
-            ShieldRechargeTime = 180,
-            ShieldRegenRate = 150,
-            ShieldRegenStartTime = 0,
+            ShieldMaxHealth = 18000,
+            ShieldRechargeTime = 24,
+            ShieldRegenRate = 187,
+            ShieldRegenStartTime = 1,
             ShieldSize = 3,
             ShieldVerticalOffset = 0,
             Slot = 'Back',
-            UpgradeEffectBones = {
-                'ShieldPack_Normal',
-            },
-            UpgradeUnitAmbientBones = {
-                'UAL0001',
-            },
+
+            UpgradeEffectBones = {'ShieldPack_Normal'},
+            UpgradeUnitAmbientBones = {'UAL0001'},
         },
 		
         EXActiveShieldingRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
+
             Icon = 'exbsh2',
+
             Name = 'Remove Improved Shield Battery',
+
             Prerequisite = 'EXActiveShielding',
-            RemoveEnhancements = {
-                'EXShieldBattery',
-                'EXActiveShielding',
-                'EXActiveShieldingRemove',
-            },
+
+            RemoveEnhancements = {'EXShieldBattery','EXActiveShielding','EXActiveShieldingRemove'},
+
             Slot = 'Back',
         },
 		
         EXImprovedShieldBattery = {
-            BuildCostEnergy = 420000,
-            BuildCostMass = 3600,
-            BuildTime = 14400,
+            BuildCostEnergy = 24000,
+            BuildCostMass = 3505,
+            BuildTime = 2400,
+
             Icon = 'exbsh3',
+
             ImpactEffects = 'UEFShieldHit01',
-            Name = 'Advanced Shield Battery (T4)',
+
+            Name = 'Advanced Skin Shield Battery (T4)',
+
 			Prerequisite = 'EXActiveShielding',
+
             OwnerShieldMesh = '/mods/BlackopsACUs/units/EAL0001/EAL0001_PhaseShield_mesh',
+
             PersonalShield = true,
-            RegenAssistMult = 10,
-            MaintenanceConsumptionPerSecondEnergy = 1,
+
+            RegenAssistMult = 60,
+
+            MaintenanceConsumptionPerSecondEnergy = 750,
+
             ShieldEnergyDrainRechargeTime = 5,
-            ShieldMaxHealth = 45000,
-            ShieldRechargeTime = 180,
-            ShieldRegenRate = 300,
-            ShieldRegenStartTime = 0,
+            ShieldMaxHealth = 28800,
+            ShieldRechargeTime = 28,
+            ShieldRegenRate = 255,
+            ShieldRegenStartTime = 1,
             ShieldSize = 3,
             ShieldVerticalOffset = 0,
+
             Slot = 'Back',
-            UpgradeEffectBones = {
-                'ShieldPack_Normal',
-            },
-            UpgradeUnitAmbientBones = {
-                'UAL0001',
-            },
+
+            UpgradeEffectBones = {'ShieldPack_Normal'},
+            UpgradeUnitAmbientBones = {'UAL0001'},
         },
 		
         EXImprovedShieldBatteryRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
+
             Icon = 'exbsh3',
+
             Name = 'Remove Advanced Shield Battery',
+
             Prerequisite = 'EXImprovedShieldBattery',
-            RemoveEnhancements = {
-                'EXShieldBattery',
-                'EXActiveShielding',
-                'EXImprovedShieldBattery',
-                'EXImprovedShieldBatteryRemove',
-            },
+
+            RemoveEnhancements = {'EXShieldBattery','EXActiveShielding','EXImprovedShieldBattery','EXImprovedShieldBatteryRemove'},
+
             Slot = 'Back',
         },
 		
         EXElectronicsEnhancment = {
-            BuildCostEnergy = 22500,
-            BuildCostMass = 450,
-            BuildTime = 900,
+            BuildCostEnergy = 30000,
+            BuildCostMass = 2400,
+            BuildTime = 1800,
+
             Icon = 'exbint1',
-            Name = 'Electronic Enhancment (T2)',
-			NewVisionRadius = 50,
-			NewOmniRadius = 50,
-            ShowBones = {
-                'IntelPack_Torso',
-                'IntelPack_Head',
-                'IntelPack_LShoulder',
-                'IntelPack_RShoulder',
-            },
+
+            Name = 'Intel Enhancment (T3)',
+
+			NewVisionRadius = 52,
+            NewRadarRadius = 200,
+			NewOmniRadius = 90,
+
+            ShowBones = {'IntelPack_Torso','IntelPack_Head','IntelPack_LShoulder','IntelPack_RShoulder'},
+
             Slot = 'Back',
-            UpgradeEffectBones = {
-                'IntelPack_Torso',
-                'IntelPack_Head',
-                'IntelPack_LShoulder',
-                'IntelPack_RShoulder',
-            },
-            UpgradeUnitAmbientBones = {
-                'UAL0001',
-            },
+
+            UpgradeEffectBones = {'IntelPack_Torso','IntelPack_Head','IntelPack_LShoulder','IntelPack_RShoulder'},
+            UpgradeUnitAmbientBones = {'UAL0001'},
         },
 		
         EXElectronicsEnhancmentRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
-            HideBones = {
-                'IntelPack_Torso',
-                'IntelPack_Head',
-                'IntelPack_LShoulder',
-                'IntelPack_RShoulder',
-            },
+
+            HideBones = {'IntelPack_Torso','IntelPack_Head','IntelPack_LShoulder','IntelPack_RShoulder'},
+
             Icon = 'exbint1',
-            Name = 'Remove Electronic Enhancment',
+
+            Name = 'Remove Intel Enhancment',
+
             Prerequisite = 'EXElectronicsEnhancment',
-            RemoveEnhancements = {
-                'EXElectronicsEnhancment',
-                'EXElectronicsEnhancmentRemove',
-            },
+
+            RemoveEnhancements = {'EXElectronicsEnhancment','EXElectronicsEnhancmentRemove'},
+
             Slot = 'Back',
         },
 		
         EXElectronicCountermeasures = {
-            BuildCostEnergy = 315000,
-            BuildCostMass = 270,
-            BuildTime = 8100,
+            BuildCostEnergy = 51000,
+            BuildCostMass = 3000,
+            BuildTime = 5100,
+
             Icon = 'exbint2',
-            Name = 'Farsight Optics (T3)',
+
+            Name = 'Rhianne Optics (T3)',
+
 			Prerequisite = 'EXElectronicsEnhancment',
+
 			MaintenanceConsumptionPerSecondEnergy = 1,
-            ShowBones = {
-                'IntelPack_Torso',
-                'IntelPack_Head',
-                'IntelPack_LShoulder',
-                'IntelPack_RShoulder',
-            },
+
+            ShowBones = {'IntelPack_Torso','IntelPack_Head','IntelPack_LShoulder','IntelPack_RShoulder'},
+
             Slot = 'Back',
-            UpgradeEffectBones = {
-                'IntelPack_Torso',
-                'IntelPack_Head',
-                'IntelPack_LShoulder',
-                'IntelPack_RShoulder',
-            },
-            UpgradeUnitAmbientBones = {
-                'UAL0001',
-            },
+
+            UpgradeEffectBones = {'IntelPack_Torso','IntelPack_Head','IntelPack_LShoulder','IntelPack_RShoulder'},
+            UpgradeUnitAmbientBones = {'UAL0001'},
         },
 		
         EXElectronicCountermeasuresRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
-            HideBones = {
-                'IntelPack_Torso',
-                'IntelPack_Head',
-                'IntelPack_LShoulder',
-                'IntelPack_RShoulder',
-            },
+
+            HideBones = {'IntelPack_Torso','IntelPack_Head','IntelPack_LShoulder','IntelPack_RShoulder'},
+
             Icon = 'exbint2',
-            Name = 'Remove Farsight Optics',
+
+            Name = 'Remove Rhianne Optics',
+
             Prerequisite = 'EXElectronicCountermeasures',
-            RemoveEnhancements = {
-                'EXElectronicsEnhancment',
-                'EXElectronicCountermeasures',
-                'EXElectronicCountermeasuresRemove',
-            },
+
+            RemoveEnhancements = {'EXElectronicsEnhancment','EXElectronicCountermeasures','EXElectronicCountermeasuresRemove'},
+
             Slot = 'Back',
         },
 		
         EXCloakingSubsystems = {
-            BuildCostEnergy = 720000,
-            BuildCostMass = 4500,
-            BuildTime = 21600,
+            BuildCostEnergy = 110000,
+            BuildCostMass = 10000,
+            BuildTime = 11500,
+
             Icon = 'exbint3',
-            Name = 'Farjump Teleporter (T4)',
+
+            Name = 'Personal Teleporter (T4)',
+
 			Prerequisite = 'EXElectronicCountermeasures',
+
 			MaintenanceConsumptionPerSecondEnergy = 1,
-            ShowBones = {
-                'IntelPack_Torso',
-                'IntelPack_Head',
-                'IntelPack_LShoulder',
-                'IntelPack_RShoulder',
-            },
+
+            ShowBones = {'IntelPack_Torso','IntelPack_Head','IntelPack_LShoulder','IntelPack_RShoulder',},
+
             Slot = 'Back',
-            UpgradeEffectBones = {
-                'IntelPack_Torso',
-                'IntelPack_Head',
-                'IntelPack_LShoulder',
-                'IntelPack_RShoulder',
-            },
-            UpgradeUnitAmbientBones = {
-                'UAL0001',
-            },
+
+            UpgradeEffectBones = {'IntelPack_Torso','IntelPack_Head','IntelPack_LShoulder',},
+            UpgradeUnitAmbientBones = {'UAL0001'},
         },
 		
         EXCloakingSubsystemsRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
-            HideBones = {
-                'IntelPack_Torso',
-                'IntelPack_Head',
-                'IntelPack_LShoulder',
-                'IntelPack_RShoulder',
-            },
+
+            HideBones = {'IntelPack_Torso','IntelPack_Head','IntelPack_LShoulder','IntelPack_RShoulder'},
+
             Icon = 'exbint3',
-            Name = 'Remove Farjump Teleporter',
+
+            Name = 'Remove Personal Teleporter',
+
             Prerequisite = 'EXCloakingSubsystems',
-            RemoveEnhancements = {
-                'EXElectronicsEnhancment',
-                'EXElectronicCountermeasures',
-                'EXCloakingSubsystems',
-                'EXCloakingSubsystemsRemove',
-            },
+
+            RemoveEnhancements = {'EXElectronicsEnhancment','EXElectronicCountermeasures','EXCloakingSubsystems','EXCloakingSubsystemsRemove'},
+
             Slot = 'Back',
         },
 		
         EXMaelstromQuantum = {
-            BuildCostEnergy = 84000,
-            BuildCostMass = 4200,
-            BuildTime = 8400,
+            BuildCostEnergy = 35000,
+            BuildCostMass = 3500,
+            BuildTime = 3000,
+
             Icon = 'exbbat1',
+
             Name = 'Maelstrom Generator',
+
             ShowBones = {
                 'DamagePack_LArm',
                 'DamagePack_RArm',
@@ -1118,7 +1128,9 @@ UnitBlueprint {
                 'DamagePack_LLeg_B01',
                 'DamagePack_LLeg_B02',
             },
+
             Slot = 'Back',
+
             UpgradeEffectBones = {
                 'DamagePack_LArm',
                 'DamagePack_RArm',
@@ -1128,15 +1140,15 @@ UnitBlueprint {
                 'DamagePack_LLeg_B01',
                 'DamagePack_LLeg_B02',
             },
-            UpgradeUnitAmbientBones = {
-                'UAL0001',
-            },
+
+            UpgradeUnitAmbientBones = {'UAL0001'},
         },
 		
         EXMaelstromQuantumRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
+
             HideBones = {
                 'DamagePack_LArm',
                 'DamagePack_RArm',
@@ -1146,23 +1158,29 @@ UnitBlueprint {
                 'DamagePack_LLeg_B01',
                 'DamagePack_LLeg_B02',
             },
+
             Icon = 'exbbat1',
+
             Name = 'Remove Maelstrom Generator',
+
             Prerequisite = 'EXMaelstromQuantum',
-            RemoveEnhancements = {
-                'EXMaelstromQuantum',
-                'EXMaelstromQuantumRemove',
-            },
+
+            RemoveEnhancements = {'EXMaelstromQuantum','EXMaelstromQuantumRemove'},
+
             Slot = 'Back',
         },
 		
         EXFieldExpander = {
-            BuildCostEnergy = 162000,
-            BuildCostMass = 8400,
-            BuildTime = 16200,
+            BuildCostEnergy = 70000,
+            BuildCostMass = 7000,
+            BuildTime = 6000,
+
             Icon = 'exbbat2',
+
             Name = 'Maelstrom Amplifier',
+
 			Prerequisite = 'EXMaelstromQuantum',
+
             ShowBones = {
                 'DamagePack_LArm',
                 'DamagePack_RArm',
@@ -1172,7 +1190,9 @@ UnitBlueprint {
                 'DamagePack_LLeg_B01',
                 'DamagePack_LLeg_B02',
             },
+
             Slot = 'Back',
+
             UpgradeEffectBones = {
                 'DamagePack_LArm',
                 'DamagePack_RArm',
@@ -1182,15 +1202,15 @@ UnitBlueprint {
                 'DamagePack_LLeg_B01',
                 'DamagePack_LLeg_B02',
             },
-            UpgradeUnitAmbientBones = {
-                'UAL0001',
-            },
+
+            UpgradeUnitAmbientBones = {'UAL0001'},
         },
 		
         EXFieldExpanderRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
+
             HideBones = {
                 'DamagePack_LArm',
                 'DamagePack_RArm',
@@ -1200,24 +1220,29 @@ UnitBlueprint {
                 'DamagePack_LLeg_B01',
                 'DamagePack_LLeg_B02',
             },
+
             Icon = 'exbbat2',
+
             Name = 'Remove Maelstrom Amplifier',
+
             Prerequisite = 'EXFieldExpander',
-            RemoveEnhancements = {
-                'EXMaelstromQuantum',
-                'EXFieldExpander',
-                'EXFieldExpanderRemove',
-            },
+
+            RemoveEnhancements = {'EXMaelstromQuantum','EXFieldExpander','EXFieldExpanderRemove'},
+
             Slot = 'Back',
         },
 		
         EXQuantumInstability = {
-            BuildCostEnergy = 324000,
-            BuildCostMass = 16800,
-            BuildTime = 32400,
+            BuildCostEnergy = 140000,
+            BuildCostMass = 14000,
+            BuildTime = 12000,
+
             Icon = 'exbbat3',
+
             Name = 'Maelstrom Focusing',
+
 			Prerequisite = 'EXFieldExpander',
+
             ShowBones = {
                 'DamagePack_LArm',
                 'DamagePack_RArm',
@@ -1227,7 +1252,9 @@ UnitBlueprint {
                 'DamagePack_LLeg_B01',
                 'DamagePack_LLeg_B02',
             },
+
             Slot = 'Back',
+
             UpgradeEffectBones = {
                 'DamagePack_LArm',
                 'DamagePack_RArm',
@@ -1237,15 +1264,15 @@ UnitBlueprint {
                 'DamagePack_LLeg_B01',
                 'DamagePack_LLeg_B02',
             },
-            UpgradeUnitAmbientBones = {
-                'UAL0001',
-            },
+
+            UpgradeUnitAmbientBones = {'UAL0001'},
         },
 		
         EXQuantumInstabilityRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
+
             HideBones = {
                 'DamagePack_LArm',
                 'DamagePack_RArm',
@@ -1255,15 +1282,15 @@ UnitBlueprint {
                 'DamagePack_LLeg_B01',
                 'DamagePack_LLeg_B02',
             },
+
             Icon = 'exbbat3',
+
             Name = 'Remove Maelstrom Focusing',
+
             Prerequisite = 'EXQuantumInstability',
-            RemoveEnhancements = {
-                'EXMaelstromQuantum',
-                'EXFieldExpander',
-                'EXQuantumInstability',
-                'EXQuantumInstabilityRemove',
-            },
+
+            RemoveEnhancements = {'EXMaelstromQuantum','EXFieldExpander','EXQuantumInstability','EXQuantumInstabilityRemove'},
+
             Slot = 'Back',
         },
 		
@@ -1295,13 +1322,17 @@ UnitBlueprint {
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
         },
+        
         FactionName = 'Aeon',
         Icon = 'amph',
+        
         OrderOverrides = {
-            RULEUTC_WeaponToggle = {
-                helpText = 'Artillery Mode',
-            },
+            -- this is for the T3 Intel Package
+            RULEUTC_StealthToggle = { bitmapId = 'intel', helpText = 'toggle_intel' },
+            -- this is for the Rhianne Optics Package
+            RULEUTC_IntelToggle = { bitmapId = 'skry-toggle', helpText = 'toggle_scrying' },
         },
+        
         QuickSelectPriority = 1,
         SelectionPriority = 3,
         TechLevel = 'RULEUTL_Experimental',
@@ -1309,21 +1340,30 @@ UnitBlueprint {
     },
 	
     Intel = {
-        CloakFieldRadius = 0,
+
+		RadarStealthFieldRadius = 1,	-- this is for the Maelstrom field        
+
         FreeIntel = false,
-        OmniRadius = 26,
+
 		RadarStealth = true,
-        ReactivateTime = 2,
 		SonarStealth = true,
+        
+        OmniRadius = 26,
+        RadarRadius = 50,
+        SonarRadius = 50,
         VisionRadius = 26,
-        WaterVisionRadius = 26,
-        ReactivateTime = 5,
-        RemoteViewingRadius = 20,
+        WaterVisionRadius = 20,
+
+        -- these are here for the Rhianne Optics enhancement
+		Cooldown = 1,					---- time before scry button reappears once scrying begins (in this case they come back on just before the scrying is finished)
+		Viewtime = 30,					---- time that scrying area remains visible	(the scrying buttons disappear once the viewtime begins)
+        ReactivateTime = 10,			---- time between the end of a scry and the start of a new one (a chance to pick a new target before the old one restarts)
+        RemoteViewingRadius = 30,		---- this would normally be the start size of the remote viewing radius
+		RemoteViewingRadiusFinal = 65,	---- and the final radius of the scry (controls the grow/shrink rate)         
+
     },
 	
-    Interface = {
-        HelpText = 'Armored Command Unit',
-    },
+    Interface = { HelpText = 'Armored Command Unit'},
 	
     LifeBarHeight = 0.15,
     LifeBarOffset = 0.5,
@@ -1331,17 +1371,19 @@ UnitBlueprint {
 	
     Physics = {
         BankingSlope = 0,
-        BuildOnLayerCaps = {
-            LAYER_Land = true,
-        },
+        BuildOnLayerCaps = { LAYER_Land = true },
         DragCoefficient = 0.2,
         LayerChangeOffsetHeight = -0.9,
-        MaxAcceleration = 1.7,
-        MaxSpeed = 1.2,
+        
+        MaxAcceleration = 0.45,
+        MaxSpeed = 1.45,
+        
         MaxSpeedReverse = 0,
         MaxSteerForce = 12,
         MinSpeedPercent = 0,
+        
         MotionType = 'RULEUMT_Amphibious',
+        
         StandUpright = true,
         TurnRadius = 10,
         TurnRate = 75,
@@ -1520,9 +1562,6 @@ UnitBlueprint {
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 4,
-
-			--SlavedToBody = true,
-			--SlavedToBodyArcRange = 80,
 			
             TargetCheckInterval = 0.5,
 			
@@ -1596,6 +1635,8 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 25,
+            
+            NotExclusive = true,
 			
             OverChargeWeapon = true,
 			
@@ -1622,9 +1663,6 @@ UnitBlueprint {
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 1,         -- rely totally upon the charge cycle now
-			
-            --SlavedToBody = true,
-			--SlavedToBodyArcRange = 80,
 			
             TargetCheckInterval = 0.2,
 			
@@ -1747,6 +1785,8 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 30,
+            
+            NotExclusive = true,
 			
             ProjectileLifetimeUsesMultiplier = 1.15,
 			
@@ -1825,6 +1865,8 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 30,
+            
+            NotExclusive = true,
 			
             ProjectileLifetimeUsesMultiplier = 1.15,
 			
@@ -1855,6 +1897,7 @@ UnitBlueprint {
 
             Turreted = false,
         },
+
         {
             Audio = {
                 Fire = Sound {
@@ -1867,7 +1910,7 @@ UnitBlueprint {
 			
             CollideFriendly = false,
 			
-            Damage = 380,
+            Damage = 190,
             DamageType = 'Normal',
 			
             DisplayName = 'Chrono Torpedo',
@@ -1881,8 +1924,8 @@ UnitBlueprint {
 			
             MaxRadius = 60,
 			
-            MuzzleSalvoDelay = 0.2,
-            MuzzleSalvoSize = 2,
+            MuzzleSalvoDelay = 0.3,
+            MuzzleSalvoSize = 4,
             MuzzleVelocity = 5,
 			
             ProjectileId = '/projectiles/AANTorpedo01/AANTorpedo01_proj.bp',
@@ -1906,8 +1949,9 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.2,
-            TargetCheckInterval = 0.5,
+            RateOfFire = 0.3,           -- 190 x 4 * .3 = 228 DPS
+            
+            TargetCheckInterval = 1,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -1919,8 +1963,6 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
 			
             TrackingRadius = 1.15,
-
-            Turreted = false,
         },
         {
             Audio = {
@@ -1933,7 +1975,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 500,
+            Damage = 250,
             DamageType = 'Normal',
 			
             DisplayName = 'Chrono Torpedo',
@@ -1947,9 +1989,9 @@ UnitBlueprint {
 			
             MaxRadius = 66,
 			
-            MuzzleSalvoDelay = 0.2,
-            MuzzleSalvoSize = 2,
-            MuzzleVelocity = 5,
+            MuzzleSalvoDelay = 0.3,
+            MuzzleSalvoSize = 4,
+            MuzzleVelocity = 6,
 			
             ProjectileId = '/projectiles/AANTorpedo01/AANTorpedo01_proj.bp',
 			
@@ -1972,9 +2014,10 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.25,
+            RateOfFire = 0.3,      -- 250 x 4 * .3 = 300 DPS
 			
-            TargetCheckInterval = 0.5,
+            TargetCheckInterval = 1,
+            
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
@@ -1984,8 +2027,6 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
             TrackingRadius = 1.15,
-
-            Turreted = false,
         },
         {
             Audio = {
@@ -1999,7 +2040,7 @@ UnitBlueprint {
 			
             CollideFriendly = false,
 			
-            Damage = 1500,
+            Damage = 300,
             DamageType = 'Normal',
 			
             DisplayName = 'Chrono Torpedo',
@@ -2011,11 +2052,11 @@ UnitBlueprint {
 			
             Label = 'EXTorpedoLauncher03',
 			
-            MaxRadius = 60,
+            MaxRadius = 72,
 			
             MuzzleSalvoDelay = 0.2,
-            MuzzleSalvoSize = 2,
-            MuzzleVelocity = 5,
+            MuzzleSalvoSize = 5,
+            MuzzleVelocity = 8,
 			
             ProjectileId = '/projectiles/AANTorpedo01/AANTorpedo01_proj.bp',
 
@@ -2035,11 +2076,12 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_AntiNavy',
-			
-            RateOfFire = 0.5,
-            TargetCheckInterval = 0.5,
+
+            RateOfFire = 0.3,       -- 300 x 5 * .3 = 450 DPS
+
+            TargetCheckInterval = 1,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -2050,8 +2092,6 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
             TrackingRadius = 1.15,
-
-            Turreted = false,
         },
 		
         {
@@ -2072,12 +2112,12 @@ UnitBlueprint {
 			
             Damage = 100,
             DamageFriendly = true,
-            DamageRadius = 2,
+            DamageRadius = 2.2,
             DamageType = 'Normal',
 			
             DisplayName = 'Miasma Artillery',
 			
-            DoTPulses = 5,
+            DoTPulses = 5,          -- 500 damage every 8 seconds = 62.5 DPS
             DoTTime = 2,
 			
             EnergyChargeForFirstShot = false,			
@@ -2090,19 +2130,21 @@ UnitBlueprint {
                 Water = 'Land|Water|Seabed',
             },
 			
-            FiringRandomness = 0.8,
+            FiringRandomness = 0.9,
             FiringTolerance = 1,
 			
             Label = 'EXMiasmaArtillery01',
 			
             MaxRadius = 100,
-            MinRadius = 20,
+            MinRadius = 28,
 			
-            MuzzleChargeDelay = 1,
+            MuzzleChargeDelay = 0.3,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 23,
 			MuzzleVelocityReduceDistance = 75,
+            
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/AIFMiasmaShell01/AIFMiasmaShell01_proj.bp',
 			ProjectileLifetime = 6,
@@ -2136,7 +2178,8 @@ UnitBlueprint {
 			
             RateOfFire = 1,	-- controlled by energy -- every 8 seconds
 			
-            TargetCheckInterval = 1,
+            TargetCheckInterval = 2,
+            
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
@@ -2182,12 +2225,12 @@ UnitBlueprint {
 			
             Damage = 400,
             DamageFriendly = true,
-            DamageRadius = 2.5,
+            DamageRadius = 2.6,
             DamageType = 'Normal',
 			
             DisplayName = 'Miasma Artillery',
 			
-            DoTPulses = 5,
+            DoTPulses = 5,          -- 2000 damage every 8 seconds = 250 DPS
             DoTTime = 2,
 			
             EnergyChargeForFirstShot = false,			
@@ -2199,19 +2242,21 @@ UnitBlueprint {
                 Seabed = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
-            FiringRandomness = 0.9,
+            FiringRandomness = 1,
             FiringTolerance = 1,
 			
             Label = 'EXMiasmaArtillery02',
 			
-            MaxRadius = 100,
-            MinRadius = 20,
+            MaxRadius = 110,
+            MinRadius = 28,
 			
-            MuzzleChargeDelay = 1,
+            MuzzleChargeDelay = 0.3,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 23,
 			MuzzleVelocityReduceDistance = 75,
+            
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/AIFMiasmaShell01/AIFMiasmaShell01_proj.bp',
 			ProjectileLifetime = 6,
@@ -2289,12 +2334,12 @@ UnitBlueprint {
 			
             Damage = 600,
             DamageFriendly = true,
-            DamageRadius = 2.5,
+            DamageRadius = 2.9,
             DamageType = 'Normal',
 			
             DisplayName = 'Miasma Artillery',
 			
-            DoTPulses = 5,
+            DoTPulses = 5,      --- 3000 damage every 7 seconds = 428 DPS
             DoTTime = 2,
 			
             EnergyChargeForFirstShot = false,			
@@ -2306,22 +2351,24 @@ UnitBlueprint {
                 Seabed = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
-            FiringRandomness = 1.1,
+            FiringRandomness = 1.3,
             FiringTolerance = 1,
 			
             Label = 'EXMiasmaArtillery03',
 			
-            MaxRadius = 100,
-            MinRadius = 20,
+            MaxRadius = 125,
+            MinRadius = 28,
 			
-            MuzzleChargeDelay = 1,
+            MuzzleChargeDelay = 0.3,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 23,
+            MuzzleVelocity = 26,
 			MuzzleVelocityReduceDistance = 75,
+            
+            NotExclusive = true,
 
             ProjectileId = '/projectiles/AIFMiasmaShell01/AIFMiasmaShell01_proj.bp',
-            ProjectileLifetime = 6,
+            ProjectileLifetime = 6.5,
 			
             RackBones = {
                 {
@@ -2350,7 +2397,7 @@ UnitBlueprint {
             RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 1,	-- controlled by energy - every 7 seconds
-            TargetCheckInterval = 1,
+            TargetCheckInterval = 2,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -2415,7 +2462,7 @@ UnitBlueprint {
             CollideFriendly = false,
             ContinuousBeam = true,
 			
-            Damage = 20,	-- 200 DPS 
+            Damage = 20,	        -- 200 DPS continuous fire
             DamageRadius = 0,
             DamageType = 'Normal',
 			
@@ -2437,6 +2484,8 @@ UnitBlueprint {
 
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
+            
+            NotExclusive = true,
 			
             RackBones = {
                 {
@@ -2456,10 +2505,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,		-- 200 DPS
-			
-			--SlavedToBody = true,
-			--SlavedToBodyArcRange = 80,
+            RateOfFire = 1,
 			
             TargetCheckInterval = 0.5,
 			
@@ -2525,7 +2571,7 @@ UnitBlueprint {
 			
             ContinuousBeam = true,
 			
-            Damage = 40,		-- 400 DPS continuous fire
+            Damage = 30,		            -- 300 DPS continuous fire
             DamageRadius = 0,
             DamageType = 'Normal',
             DisplayName = 'Phason Laser',
@@ -2542,11 +2588,13 @@ UnitBlueprint {
             Label = 'EXPhasonBeam02',
 			LeadTarget = false,
 			
-            MaxRadius = 48,
+            MaxRadius = 42,
 
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
+            
+            NotExclusive = true,
 			
             RackBones = {
                 {
@@ -2567,9 +2615,6 @@ UnitBlueprint {
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 1,
-			
-			--SlavedToBody = true,
-			--SlavedToBodyArcRange = 80,
 
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -2634,8 +2679,8 @@ UnitBlueprint {
 			
             ContinuousBeam = true,
 			
-            Damage = 60,	-- 600 DPS continuous fire
-            DamageRadius = 1,	-- with damage radius
+            Damage = 45,            	-- 450 DPS continuous fire
+            DamageRadius = 2.2,	        -- with damage radius
             DamageType = 'Normal',
 			
             DisplayName = 'Phason Laser',
@@ -2651,11 +2696,12 @@ UnitBlueprint {
 			LeadTarget = false,
 			
             MaxRadius = 48,
-            MinRadius = 1,
 			
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
+            
+            NotExclusive = true,
 
             RackBones = {
                 {
@@ -2676,9 +2722,6 @@ UnitBlueprint {
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 1,
-			
-			--SlavedToBody = true,
-			--SlavedToBodyArcRange = 80,
 
             TargetCheckInterval = 0.5,
 			
@@ -2732,7 +2775,9 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 2,
-            MuzzleVelocity = 50,
+            MuzzleVelocity = 32,
+            
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/AIMAntiTorpedo01/AIMAntiTorpedo01_proj.bp',
             ProjectileLifetime = 3.5,
@@ -2795,12 +2840,15 @@ UnitBlueprint {
                 Radius = 22,
             },
 			
-            Label = 'EXAntiMissile',            
+            Label = 'EXAntiMissile',
+            
             MaxRadius = 22,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 15,
+            
+            NotExclusive = true,
 			
             ProjectileId = '/projectiles/AIMAntiMissile01/AIMAntiMissile01_proj.bp',
             ProjectileLifetime = 4,
