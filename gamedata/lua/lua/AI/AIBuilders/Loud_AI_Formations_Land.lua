@@ -1623,22 +1623,22 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         
         Priority = 802,
         
-        PriorityFunction = MapSizeLessThan20k,
+        --PriorityFunction = MapSizeLessThan20k,
 		
 		RTBLocation = 'Any',
 		
-        InstanceCount = 5,
+        InstanceCount = 7,
 		
         BuilderType = 'Any',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ LUTL, 'NeedTeamMassPointShare', {}},
+			--{ LUTL, 'NeedTeamMassPointShare', {}},
             
             { LUTL, 'UnitCapCheckLess', { .75 } },
             
-			{ TBC, 'ThreatFurtherThan', { 'LocationType', 250, 'Land', 125 }},                        
+			--{ TBC, 'ThreatFurtherThan', { 'LocationType', 250, 'Land', 125 }},                        
 
 			-- empty mass point within 12km with less than 75 threat 
 			{ EBC, 'CanBuildOnMassAtRange', { 'LocationType', 120, 600, 0, 75, 1, 'AntiSurface', 1 }},
@@ -1713,22 +1713,22 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
 		
         Priority = 802,
         
-        PriorityFunction = MapSizeLessThan20k,
+        --PriorityFunction = MapSizeLessThan20k,
 
 		RTBLocation = 'Any',
 		
-        InstanceCount = 6,
+        InstanceCount = 7,
 
         BuilderType = 'Any',
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ LUTL, 'NeedTeamMassPointShare', {}},
+			--{ LUTL, 'NeedTeamMassPointShare', {}},
             
             { LUTL, 'UnitCapCheckLess', { .65 } },
 
-			{ TBC, 'ThreatFurtherThan', { 'LocationType', 250, 'Land', 125 }},
+			--{ TBC, 'ThreatFurtherThan', { 'LocationType', 250, 'Land', 125 }},
             
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, (categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.AMPHIBIOUS) - categories.SCOUT - categories.EXPERIMENTAL }},
             
