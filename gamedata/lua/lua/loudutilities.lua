@@ -1407,11 +1407,14 @@ function SetPrimaryLandAttackBase( aiBrain )
             
         else
         
-            if aiBrain.BuilderManagers[aiBrain.PrimaryLandAttackBase].LandMode != currentlandbasemode then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(aiBrain.PrimaryLandAttackBase).." PRIMARY - switching Land mode to "..repr(currentlandbasemode) )
-            end
+            if aiBrain.PrimaryLandAttackBase then
             
-            aiBrain.BuilderManagers[aiBrain.PrimaryLandAttackBase].LandMode = currentlandbasemode        
+                if aiBrain.BuilderManagers[aiBrain.PrimaryLandAttackBase].LandMode != currentlandbasemode then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(aiBrain.PrimaryLandAttackBase).." PRIMARY - switching Land mode to "..repr(currentlandbasemode) )
+                end
+            
+                aiBrain.BuilderManagers[aiBrain.PrimaryLandAttackBase].LandMode = currentlandbasemode
+            end
 
         end
     end

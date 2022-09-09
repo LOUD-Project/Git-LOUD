@@ -23,6 +23,7 @@ function RemoteViewing(SuperClass)
             -- makes sure all scrying buttons are visible. sometimes they don't become visible by themselves.
             self.Sync.Abilities = self:GetBlueprint().Abilities --# dont use self:EnableRemoteViewingButtons()
             self.Sync.Abilities.TargetLocation.Active = true
+            
             self:AddToggleCap('RULEUTC_IntelToggle')
         end,
 
@@ -44,16 +45,19 @@ function RemoteViewing(SuperClass)
         DisableRemoteViewingButtons = function(self)
             self.Sync.Abilities = self:GetBlueprint().Abilities
             self.Sync.Abilities.TargetLocation.Active = false
+
             self:RemoveToggleCap('RULEUTC_IntelToggle')
         end,
         
         EnableRemoteViewingButtons = function(self)
             self.Sync.Abilities = self:GetBlueprint().Abilities
             self.Sync.Abilities.TargetLocation.Active = true
+
             self:AddToggleCap('RULEUTC_IntelToggle')
         end,
 
         OnTargetLocation = function(self, location)
+
 			if self.RemoteViewingData.IntelButton then
 			
 				-- Initial energy drain here - we drain resources instantly when an eye is relocated (including initial move)
@@ -257,10 +261,14 @@ function RemoteViewing(SuperClass)
             if time > 0 then
                 self.Sync.Abilities = self:GetBlueprint().Abilities # dont use self:DisableRemoteViewingButtons(), that introduces a bug when using multiple remote viewing units
                 self.Sync.Abilities.TargetLocation.Active = false
+
                 self:RemoveToggleCap('RULEUTC_IntelToggle')
+
                 WaitTicks(time * 10)
+
                 self.Sync.Abilities = self:GetBlueprint().Abilities # dont use self:EnableRemoteViewingButtons()
                 self.Sync.Abilities.TargetLocation.Active = true
+
                 self:AddToggleCap('RULEUTC_IntelToggle')
             end
         end,
