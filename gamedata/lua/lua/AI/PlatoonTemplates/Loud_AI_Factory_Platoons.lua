@@ -421,16 +421,16 @@ PlatoonTemplate { Name = 'T1LandArtillery',
 PlatoonTemplate { Name = 'T1LandDFBot',
     FactionSquads = {
         UEF = {
-            { 'uel0106', 1, 4, 'Attack', 'none' },	#-- LAB
+            { 'uel0106', 1, 5, 'Attack', 'none' },	#-- LAB
         },
         Aeon = {
-            { 'ual0106', 1, 4, 'Attack', 'none' },	#-- LAB
+            { 'ual0106', 1, 5, 'Attack', 'none' },	#-- LAB
         },
         Cybran = {
-            { 'url0106', 1, 4, 'Attack', 'none' },	#-- LAB
+            { 'url0106', 1, 5, 'Attack', 'none' },	#-- LAB
         },
         Seraphim = {
-            { 'xsl0201', 1, 4, 'Attack', 'none' },	#-- Medium Tank
+            { 'xsl0201', 1, 5, 'Attack', 'none' },	#-- Medium Tank
         },        
     }
 }
@@ -442,7 +442,7 @@ PlatoonTemplate { Name = 'T1LandDFTank',
 			{ 'uel0103', 1, 1, 'Artillery', 'none' },	-- artillery
          },
         Aeon = {
-            { 'ual0201', 1, 6, 'Attack', 'none' },		-- Light Hover tank
+            { 'ual0201', 1, 5, 'Attack', 'none' },		-- Light Hover tank
 			{ 'ual0103', 1, 1, 'Artillery', 'none' },	-- artillery
         },
         Cybran = {
@@ -450,7 +450,7 @@ PlatoonTemplate { Name = 'T1LandDFTank',
 			{ 'url0103', 1, 1, 'Artillery', 'none' },	-- artillery
         },
         Seraphim = {
-            { 'xsl0201', 1, 4, 'Attack', 'none' },		-- Medium Tank
+            { 'xsl0201', 1, 5, 'Attack', 'none' },		-- Medium Tank
 			{ 'xsl0103', 1, 1, 'Artillery', 'none' },	-- artillery
         },
     }
@@ -524,20 +524,16 @@ PlatoonTemplate { Name = 'T2LandAA',
 PlatoonTemplate { Name = 'T2LandDFTank',
     FactionSquads = {
         UEF = {
-            { 'uel0202', 1, 5, 'Attack', 'none' },
-			{ 'uel0205', 1, 1, 'Guard', 'none' },
+            { 'uel0202', 1, 2, 'Attack', 'none' },
         },
         Aeon = {
-            { 'ual0202', 1, 3, 'Attack', 'none' },
-			{ 'ual0205', 1, 1, 'Guard', 'none' },
+            { 'ual0202', 1, 2, 'Attack', 'none' },
         },
         Cybran = {
-            { 'url0202', 1, 5, 'Attack', 'none' },
-			{ 'url0205', 1, 1, 'Guard', 'none' },
+            { 'url0202', 1, 2, 'Attack', 'none' },
         },
         Seraphim = {
-            { 'xsl0202', 1, 3, 'Attack', 'none' },
-			{ 'xsl0205', 1, 1, 'Guard', 'none' },
+            { 'xsl0202', 1, 2, 'Attack', 'none' },
         },
     }
 }
@@ -545,14 +541,13 @@ PlatoonTemplate { Name = 'T2LandDFTank',
 PlatoonTemplate { Name = 'T2AttackTank',
     FactionSquads = {
         UEF = {
-			{ 'uel0202', 1, 1, 'Attack', 'none' },
             { 'del0204', 1, 2, 'Attack', 'none' },
         },
         Aeon = {
-            { 'xal0203', 1, 3, 'Attack', 'none' },
+            { 'xal0203', 1, 2, 'Attack', 'none' },
          },
         Cybran = {
-            { 'drl0204', 1, 3, 'Attack', 'none' },
+            { 'drl0204', 1, 2, 'Attack', 'none' },
         },
         Seraphim = {
             { 'xsl0202', 1, 2, 'Attack', 'none' },
