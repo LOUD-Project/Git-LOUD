@@ -846,8 +846,8 @@ function ModBlueprints(all_blueprints)
 							
 							-- this series of adjustments is designed to give the lower tech mobile land units a little more 'oomph' with
 							-- regards to their T3 counterparts both in the form of Health and Speed
-							local T1_Adjustment = 1.20
-							local T2_Adjustment = 1.11
+							local T1_Adjustment = 1.12
+							local T2_Adjustment = 1.06
 							local T3_Adjustment = 1.00
 						
 							for _, cat_mobile in bp.Categories do
