@@ -360,7 +360,7 @@ BuffBlueprint { Name = 'AeonMaelstromField2',
     Affects = {
         Health = {
 			-- damage enemy units every second
-            Add = -80,
+            Add = -75,
             Mult = 1.0,
         },
     },
@@ -374,7 +374,7 @@ BuffBlueprint { Name = 'AeonMaelstromField3',
     Affects = {
         Health = {
 			-- damage enemy units every second
-            Add = -120,
+            Add = -100,
             Mult = 1.0,
         },
     },
