@@ -425,6 +425,11 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 
             local val = BuffCalculate(unit, buffName, 'MoveMult', 1)
 
+            -- display new movement mult if it's not normal speed --
+            if unit.Sync.id and val != 1 then
+                ForkThread(FloatingEntityText, unit.Sync.id, 'Move Mult now '..math.floor((.001+val)*100).."%")
+			end
+
             SetSpeedMult( unit, val )
             SetAccMult( unit, val )
             SetTurnMult( unit, val )
