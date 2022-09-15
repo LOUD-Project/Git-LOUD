@@ -172,6 +172,9 @@
 	ScenarioInfo.WeaponDialog = false
 	LOG("*AI DEBUG      Report  Weapon Dialog to Log is "..repr(ScenarioInfo.WeaponDialog))
     
+    ScenarioInfo.WeaponStateDialog = true
+    LOG("*AI DEBUG      Report  Weapon State Dialog to Log is "..repr(ScenarioInfo.WeaponStateDialog))
+    
     ScenarioInfo.NukeDialog = false
     LOG("*AI DEBUG      Report  Nuke Dialog to Log is "..repr(ScenarioInfo.NukeDialog))
 
@@ -388,6 +391,7 @@ function SetAIDebug(data)
             'ProjectileDialog',
             'ShieldDialog',
             'WeaponDialog',
+            'WeaponStateDialog',
         }
 
         if not table.find(legalVars, data.Switch) then
