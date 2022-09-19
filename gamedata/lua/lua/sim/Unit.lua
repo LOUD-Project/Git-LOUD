@@ -5155,9 +5155,9 @@ Unit = Class(moho.unit_methods) {
         
 		local destRange = VDist2(location[1], location[3], myposition[1], myposition[3])
 		
-		if destRange > (teleRange * 2) then
+		if destRange > (teleRange * 4) then
         
-            LOG("*AI DEBUG OnTeleportUnit "..repr(self.BlueprintID).." to location "..repr(location).." at "..repr(destRange).." - failed - beyond "..(teleRange*2).." range. " )
+            LOG("*AI DEBUG OnTeleportUnit "..repr(self.BlueprintID).." to location "..repr(location).." at "..repr(destRange).." - failed - beyond "..(teleRange*4).." range. " )
 		
 			FloatingEntityText(self.Sync.id,'Destination Out Of Range')
             
@@ -5264,7 +5264,7 @@ Unit = Class(moho.unit_methods) {
         LOG("*AI DEBUG OnTeleportUnit "..repr(self.BlueprintID).." Teleport process begins")
         
 		-- start teleportation sequence --
-        self.TeleportThread = self:ForkThread(self.InitiateTeleportThread, teleporter, bp, location, destRange, teleRange, orientation)
+        self.TeleportThread = self:ForkThread(self.InitiateTeleportThread, teleporter, bp, location, destRange, teleRange, orientation, telecost)
 		
     end,
 	
@@ -5379,7 +5379,7 @@ Unit = Class(moho.unit_methods) {
         self:SetWorkProgress(progress)
     end,
 
-    InitiateTeleportThread = function(self, teleporter, bp, location, teledistance, teleRange, orientation)
+    InitiateTeleportThread = function(self, teleporter, bp, location, teledistance, teleRange, orientation, telecostpaid)
 	
         self:OnTeleportCharging(location)
 	
@@ -5398,8 +5398,12 @@ Unit = Class(moho.unit_methods) {
 		
 			-- calc a resource cost value based on both mass and energy
             local mass = bp.Economy.BuildCostMass * LOUDMIN(.15, bp.Economy.TeleportMassMod or 0.15)				-- ie. 18000 mass becomes 2700
+
             local energy = bp.Economy.BuildCostEnergy * LOUDMIN(.03, bp.Economy.TeleportEnergyMod or 0.03)		-- ei. 5m Energy becomes 60,000
-			
+
+            -- remove the initial E charge already paid
+            energy = LOUDMAX( 0, energy - telecost)
+            
             teleportenergy = mass + energy
 
             if teledistance <= teleRange then
