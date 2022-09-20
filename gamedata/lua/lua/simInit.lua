@@ -24,7 +24,7 @@
 --#   3b. The saved lua state is deserialized
 
 
-LOG("*DEBUG Mohodata simInit ")
+--LOG("*DEBUG Mohodata simInit ")
 
 
 

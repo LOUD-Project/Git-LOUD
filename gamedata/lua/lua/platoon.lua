@@ -7806,7 +7806,7 @@ Platoon = Class(moho.platoon_methods) {
             
             if eng.lastbuild and ( FOG[1] == eng.lastbuild[1] and table.equal(FOG[2],eng.lastbuild[2]) ) then
 
-                WARNING("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." trying to build same thing ")
+                WARN("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." trying to build same thing ")
 
                 if platoon.PlatoonData.Construction.LoopBuild then
                 

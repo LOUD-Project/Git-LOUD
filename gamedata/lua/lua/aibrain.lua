@@ -172,7 +172,7 @@
 	ScenarioInfo.WeaponDialog = false
 	LOG("*AI DEBUG      Report  Weapon Dialog to Log is "..repr(ScenarioInfo.WeaponDialog))
     
-    ScenarioInfo.WeaponStateDialog = true
+    ScenarioInfo.WeaponStateDialog = false
     LOG("*AI DEBUG      Report  Weapon State Dialog to Log is "..repr(ScenarioInfo.WeaponStateDialog))
     
     ScenarioInfo.NukeDialog = false

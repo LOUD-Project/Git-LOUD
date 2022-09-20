@@ -1,4 +1,4 @@
-LOG("*AI DEBUG loading BO Icon Search")
+--LOG("*AI DEBUG loading BO Icon Search")
 
 EXIconPaths = {}
 EXIconPathOverwrites = {}
@@ -11,9 +11,7 @@ EXUpgradeIconTemp = nil
 function BlackopsBlueprintLocator()
 
     EXBuildIconReferenceTables()
-	
-    --EXBlueprintScanner()
-	
+
 end
 
 function EXUnitIconPathCondensor(EXIconID)

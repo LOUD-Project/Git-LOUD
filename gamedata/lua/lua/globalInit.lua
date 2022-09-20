@@ -3,7 +3,7 @@
 -- This is the top-level lua initialization file. It is run at initialization time
 -- to set up all lua state.
 
-LOG("*DEBUG Mohodata globalInit")
+--LOG("*DEBUG Mohodata globalInit")
 
 -- Uncomment this to turn on allocation tracking, so that memreport() in /lua/system/profile.lua
 -- does something useful.
@@ -54,4 +54,4 @@ for name,cclass in moho do
     --LOG("AI DEBUG "..name.." is "..repr(g))
 end
 
-LOG("*DEBUG Mohodata globalInit Complete")
+--LOG("*DEBUG Mohodata globalInit Complete")

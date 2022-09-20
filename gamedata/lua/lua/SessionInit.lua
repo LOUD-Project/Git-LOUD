@@ -5,7 +5,7 @@
 -- file.  It is loaded into a fresh lua state when a new session is
 -- initialized.
 
-LOG("*DEBUG Mohodata SessionInit ")
+--LOG("*DEBUG Mohodata SessionInit ")
 
 InitialRegistration = true
 
@@ -22,4 +22,4 @@ LOG("*DEBUG Active mods in session: "..repr(__active_mods) )
 doscript '/lua/UserSync.lua'
 
 
-LOG("*DEBUG Mohodata SessionInit Complete ")
+--LOG("*DEBUG Mohodata SessionInit Complete ")

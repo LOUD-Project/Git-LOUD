@@ -2,7 +2,7 @@
 --* Author: Chris Blackwell
 --* Summary: Entry point for the in game UI
 
-LOG("*AI DEBUG Loading Gamemain")
+--LOG("*AI DEBUG Loading Gamemain")
 
 local UIUtil = import('/lua/ui/uiutil.lua')
 local LayoutHelpers = import('/lua/maui/layouthelpers.lua')

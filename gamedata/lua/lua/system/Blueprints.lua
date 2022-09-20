@@ -1204,15 +1204,15 @@ function LoadBlueprints()
 	LOG("Loaded "..rcount + mcount.." blueprints in total")
 
     BlueprintLoaderUpdateProgress()
-    LOG('Extracting mesh blueprints...')
+    --LOG('Extracting mesh blueprints...')
     ExtractAllMeshBlueprints()
 
     BlueprintLoaderUpdateProgress()
-    LOG('Modding blueprints...')
+    --LOG('Modding blueprints...')
     ModBlueprints(original_blueprints)
 
     BlueprintLoaderUpdateProgress()
-    LOG('Registering blueprints...')
+    --LOG('Registering blueprints...')
     RegisterAllBlueprints(original_blueprints)
 	
     original_blueprints = nil
