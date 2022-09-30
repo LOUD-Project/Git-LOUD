@@ -5,12 +5,12 @@
 abilities = {
 
 	['TargetLocation'] = {
-        preferredSlot = 7,
+        preferredSlot = 10,
         script = 'TargetLocation',
 	},
 	
 	['EXScryTarget'] = {
-		preferredSlot = 7,
+		preferredSlot = 10,
 		script = 'TargetLocation',
 	},
 }

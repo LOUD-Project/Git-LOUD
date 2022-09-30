@@ -78,6 +78,7 @@ function SetLayout(layout)
     if not isReplay then
         import('/lua/ui/game/orders.lua').SetLayout(layout)
     end
+
     import('/lua/ui/game/unitview.lua').SetLayout(layout)
     import('/lua/ui/game/objectives2.lua').SetLayout(layout)
     import('/lua/ui/game/unitviewdetail.lua').SetLayout(layout, mapGroup)
@@ -636,8 +637,10 @@ function OnSelectionChanged(oldSelection, newSelection, added, removed)
 
     -- Interface option: don't allow air units to get selected alongside land
     if options.land_unit_select_prio == 1 and not IsKeyDown('Shift') then
+
         local selectedLand = false
         local selectedAir = false
+
         -- First check if any land units were selected
         for _, unit in newSelection do
             if unit:IsInCategory('LAND') then
@@ -647,24 +650,28 @@ function OnSelectionChanged(oldSelection, newSelection, added, removed)
                 selectedAir = true
             end
         end
+
         -- If a land unit is in this selection, trim off air
         if selectedLand and selectedAir then
+
             local temp = {}
+
             for _, unit in newSelection do
                 if unit:IsInCategory('LAND') then
                     LOUDINSERT(temp, unit)
                 end
             end
+
             newSelection = temp
-            ForkThread(function()
-                SelectUnits(newSelection)
-                import('/lua/ui/game/selection.lua').PlaySelectionSound(newSelection)
-            end)
+
+            ForkThread(function() SelectUnits(newSelection) import('/lua/ui/game/selection.lua').PlaySelectionSound(newSelection) end)
+
             return
         end
     end
 
     local availableOrders, availableToggles, buildableCategories = GetUnitCommandData(newSelection)
+
     local isOldSelection = table.equal(oldSelection, newSelection)
 
     if not gameUIHidden then

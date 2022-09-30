@@ -7,7 +7,9 @@ Grid = Class(Group) {
     -- controls could be bigger or smaller, it's up to you, but if they're bigger they will overlap as only
     -- the left top is placed, the whole grid is not resized
     __init = function(self, parent, itemWidth, itemHeight)
+
         Group.__init(self, parent, "Grid")
+
         self._itemWidth = itemWidth
         self._itemHeight = itemHeight
         self._items = {}
@@ -31,6 +33,7 @@ Grid = Class(Group) {
         self._lastVisible = {}
         self._lastVisible["Horz"] = 0
         self._lastVisible["Vert"] = 0
+
     end,
 
     OnInit = function(self)
