@@ -15,26 +15,17 @@ do
 	local OrigCreateUI = CreateUI
 
 	local SWITCHES_LEFT = {
-		"* ENGINEER and FACTORY DEBUGS *",
+		"* ENGINEER & FACTORY DEBUGS *",
 		'NameEngineers',
 		'EngineerDialog',
 		'DisplayFactoryBuilds',
+
 		"* ENGI, FAC, STRUCT UPGRADES *",
 		'ACUEnhanceDialog',
 		'SCUEnhanceDialog',
 		'FactoryEnhanceDialog',
 		'StructureUpgradeDialog',
-		"* ATTACK PLANS, STRENGTH RATIOS *",
-		'DisplayAttackPlans',
-		'AttackPlanDialog',
-		'ReportRatios',
-		"* INTEL/THREAT *",
-		'IntelDialog',
-        'NukeDialog',
-		'DisplayIntelPoints',
-	}
 
-	local SWITCHES_RIGHT = {
 		"* BASES & DISTRESS ALERTS *",
 		'DisplayBaseNames',
 		'BaseMonitorDialog',
@@ -42,6 +33,19 @@ do
 		'BaseDistressResponseDialog',
 		'DeadBaseMonitorDialog',
 		'DisplayPingAlerts',
+
+		"* ATTACK PLANS, STRENGTH RATIOS *",
+		'DisplayAttackPlans',
+		'AttackPlanDialog',
+		'ReportRatios',
+	}
+
+	local SWITCHES_RIGHT = {
+		"* INTEL & THREAT DEBUGS *",
+		'IntelDialog',
+        'NukeDialog',
+		'DisplayIntelPoints',
+
 		"* PLATOONS *",
 		'PlatoonDialog',
 		'DisplayPlatoonMembership',
@@ -50,13 +54,16 @@ do
 		'PlatoonMergeDialog',
 		'TransportDialog',
 		'PathFindingDialog',
+
 		"* HARDCORE NERD DATA *",
 		'PriorityDialog',
+        'GuardPointDialog',
 		'InstanceDialog',
 		'BuffDialog',
 		'ProjectileDialog',
 		'ShieldDialog',
 		'WeaponDialog',
+        'WeaponStateDialog',
 	}
 
 	-- ThreatType = { ARGB value }
@@ -125,7 +132,7 @@ do
 		bg.Depth:Set(GetFrame(0):GetTopmostDepth() + 1)
 		LayoutHelpers.AtCenterIn(bg, GetFrame(0))
 		bg.Width:Set(800)
-		bg.Height:Set(448)
+		bg.Height:Set(520)
 		bg:SetSolidColor('AA111111')
 
 		local title = UIUtil.CreateText(bg, "LOUD AI Debug Menu", 16, UIUtil.titleFont)
@@ -145,7 +152,7 @@ do
 		local function CreateSwitchToggleGroup(index, SWITCHES)
         
 			local grp = Group(container)
-			grp.Width:Set(256)
+			grp.Width:Set(265)
 			grp.Height:Set(18)
 			
 			local label = UIUtil.CreateText(grp, SWITCHES[index], 12, UIUtil.bodyFont)
@@ -156,11 +163,13 @@ do
 			
 			-- Just a header
 			if string.find(SWITCHES[index], "*") then
-				grp.Height:Set(24)
+                --LOG("*AI DEBUG Switch is "..repr(SWITCHES[index]))
+				grp.Height:Set(28)
 				return grp
 			end
 			
 			local check = UIUtil.CreateCheckboxStd(grp, '/dialogs/check-box_btn/radio')
+
 			LayoutHelpers.AtRightIn(check, grp)
 			LayoutHelpers.AtVerticalCenterIn(check, grp)
 
@@ -187,22 +196,27 @@ do
 		LayoutHelpers.AtLeftTopIn(listSwitches[1], container, 4, 4)
 
 		local i = 2
+
+        --LOG("*AI DEBUG Populating LEFT SWITCHES "..repr(SWITCHES_LEFT))
+        
 		for j = 2, table.getn(SWITCHES_LEFT) do
+
 			listSwitches[i] = CreateSwitchToggleGroup(j, SWITCHES_LEFT)
 			LayoutHelpers.Below(listSwitches[i], listSwitches[i - 1])
 			i = i + 1
 		end
 
-		listSwitches[i] = CreateSwitchToggleGroup(i, SWITCHES_RIGHT)
-		LayoutHelpers.CenteredRightOf(listSwitches[i], listSwitches[1], 4)
+
+		listSwitches[i] = CreateSwitchToggleGroup( 1, SWITCHES_RIGHT)
+		LayoutHelpers.CenteredRightOf(listSwitches[i], listSwitches[1], 16)
+
 		i = i + 1
 
         -- Create intel header next to first header of right-side switches
         -- while it's easy to do so
-
 		listIntel[1] = Group(container)
-		listIntel[1].Width:Set(256)
-		listIntel[1].Height:Set(24)
+		listIntel[1].Width:Set(220)
+		listIntel[1].Height:Set(18)
 
 		local intelHeaderLabel1 = UIUtil.CreateText(listIntel[1], "* TOGGLE INTEL THREAT COLORS *", 12, UIUtil.bodyFont)
         
@@ -214,6 +228,8 @@ do
 
         -- Populate remainder of right-side switches
 
+        --LOG("*AI DEBUG Populating RIGHT SWITCHES "..repr(SWITCHES_RIGHT))
+        
 		for j = 2, table.getn(SWITCHES_RIGHT) do
 			listSwitches[i] = CreateSwitchToggleGroup(j, SWITCHES_RIGHT)
 			LayoutHelpers.Below(listSwitches[i], listSwitches[i - 1])
@@ -227,8 +243,9 @@ do
 		for idx, key in INTEL_CHECKS do
         
 			listIntel[k] = Group(container)
-			listIntel[k].Width:Set(256)
+			listIntel[k].Width:Set(220)
 			listIntel[k].Height:Set(18)
+
 			LayoutHelpers.Below(listIntel[k], listIntel[k - 1])
 			listIntel[k].key = key
 
@@ -279,10 +296,8 @@ do
 		
         -- Close button for dialog itself
 		
-		local closeBtn = UIUtil.CreateButtonStd(
-			bg, '/lobby/lan-game-lobby/smalltoggle', "Close",
-			12, 2, 0,
-			"UI_Menu_MouseDown", "UI_Menu_Rollover")
+		local closeBtn = UIUtil.CreateButtonStd( bg, '/lobby/lan-game-lobby/smalltoggle', "Close", 12, 2, 0,	"UI_Menu_MouseDown", "UI_Menu_Rollover")
+
 		LayoutHelpers.AtRightTopIn(closeBtn, bg)
         
 		closeBtn.OnClick = function(self, modifiers)
@@ -293,12 +308,12 @@ do
 		
 		bg:Hide()
 
-		local globalToggle = UIUtil.CreateButtonStd(
-			GetFrame(0), '/widgets/toggle', "AI Debug Menu", 
-			12, 2, 0, 
-			"UI_Menu_MouseDown", "UI_Menu_Rollover")
+		local globalToggle = UIUtil.CreateButtonStd( GetFrame(0), '/widgets/toggle', "AI Debug Menu", 12, 2, 0, "UI_Menu_MouseDown", "UI_Menu_Rollover")
+
 		LayoutHelpers.AtLeftTopIn(globalToggle, GetFrame(0), 680, 8)
+
 		globalToggle.Depth:Set(GetFrame(0):GetTopmostDepth() + 1)
+
 		globalToggle.OnClick = function(self, modifiers)
 			if bg:IsHidden() then
 				bg:Show()
