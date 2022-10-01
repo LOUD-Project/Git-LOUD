@@ -4279,6 +4279,7 @@ Unit = Class(moho.unit_methods) {
 	-- and self can either be a target unit or the origin unit of the buff
 	-- this makes it very flexible but tricky to read and you need to know where the call
 	-- was made from before you can follow the flow
+
 	-- the allow and disallow parsing has turned out to be problematic as well needing to be seperated by commas
 	-- and not seeming to recognize the '-' (minus) operator
     AddBuff = function(self, buffTable, PosEntity)
@@ -4357,6 +4358,8 @@ Unit = Class(moho.unit_methods) {
         elseif bt == 'HEALTHREGENRATE' then
 		
             self:SetRegenRate(buffTable.Value or 0)
+            
+            self.CurrentRegenRate = val
 			
         end
 

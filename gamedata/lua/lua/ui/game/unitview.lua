@@ -48,6 +48,7 @@ end
 --INFO:   nukeSiloBuildCount=0,
 --INFO:   nukeSiloMaxStorageCount=1,
 --INFO:   nukeSiloStorageCount=0,
+--INFO:   regenrate=0       -- added by LOUD 
 --INFO:   shieldRatio=0,
 --INFO:   tacticalSiloBuildCount=0,
 --INFO:   tacticalSiloMaxStorageCount=1,
@@ -241,6 +242,7 @@ function UpdateWindow(info)
 	
         local bp = __blueprints[info.blueprintId]
         local path = GameCommon.GetUnitIconPath(bp)
+        
         controls.icon:SetTexture(path)
 
         if DiskGetFileInfo('/textures/ui/common/game/strategicicons/'..bp.StrategicIconName..'_selected.dds') then
@@ -368,8 +370,8 @@ function UpdateWindow(info)
                 controls.healthBar._bar:SetTexture(UIUtil.UIFile('/game/unit-build-over-panel/healthbar_red.dds'))
 				
             end
-			
-            controls.health:SetText(string.format("%d / %d", info.health, info.maxHealth))
+
+            controls.health:SetText(string.format("%d / %d", info.health, info.maxHealth ))
 			
         else
 		
@@ -744,13 +746,13 @@ function CreateUI()
             if selUnits and table.getn(selUnits) == 1 and import('/lua/ui/game/unitviewDetail.lua').View.Hiding then
 
                 info = import("/lua/gaz_ui/modules/selectedinfo.lua").GetUnitRolloverInfo(selUnits[1])
-                --LOG(repr(import('/lua/enhancementcommon.lua').GetEnhancements(info.entityId)))
+
             end
             
         end
         
         if info then
-   
+
             UpdateWindow(info)
 
             if self:GetAlpha() < 1 then

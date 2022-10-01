@@ -397,6 +397,8 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
             local val = BuffCalculate(unit, buffName, 'Regen', bpregn)
 
             SetRegenRate( unit, val )
+            
+            unit.CurrentRegenRate = val
 
 			RequestRefreshUI(unit)
 
@@ -418,6 +420,8 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
             end
 
             SetRegenRate( unit, val )
+            
+            unit.CurrentRegenRate = val
 
 			RequestRefreshUI(unit)
 

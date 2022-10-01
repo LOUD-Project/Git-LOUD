@@ -808,15 +808,15 @@ BuffBlueprint { Name = 'ACU_T2_Engineering',
     Affects = {
         BuildRate = {
             Add =  0,
-            Mult = 3,
+            Mult = 3,       -- from 10 to 30
 		},
         MaxHealth = {
-            Add = 3000,
-            Mult = 1.0,
+            Add = 0,
+            Mult = 1.35,
         },
         Regen = {
-            Add = 20,
-            Mult = 1.0,
+            Add = 0,
+            Mult = 3.0,     -- from 10 to 30
         },
 	},
 
@@ -830,15 +830,15 @@ BuffBlueprint { Name = 'ACU_T3_Engineering',
     Affects = {
         BuildRate = {
             Add =  0,
-            Mult = 9,
+            Mult = 9,       -- from 10 to 90
         },
         MaxHealth = {
-            Add = 6000,
-            Mult = 1.0,
+            Add = 0,
+            Mult = 1.65,
         },
         Regen = {
-            Add = 35,
-            Mult = 1.0,
+            Add = 0,
+            Mult = 6.0,     -- from 10 to 60
         },
     },
 }
@@ -851,19 +851,19 @@ BuffBlueprint { Name = 'ACU_T4_Engineering',
     Affects = {
         BuildRate = {
             Add =  0,
-            Mult = 15,
+            Mult = 15,      -- from 10 to 150
         },
         MaxHealth = {
-            Add = 10000,
-            Mult = 1.0,
+            Add = 0,
+            Mult = 2.0,
         },
 		MoveMult = {
 			Add = 0,
 			Mult = 1.1,
 		},
         Regen = {
-            Add = 50,
-            Mult = 1.0,
+            Add = 0,
+            Mult = 10.0,     -- from 10 to 100
         },
     },
 }
@@ -877,19 +877,19 @@ BuffBlueprint { Name = 'ACU_T2_Imp_Eng',
     Affects = {
         BuildRate = {
             Add =  0,
-            Mult = 3,
+            Mult = 3,       -- from 10 to 30
 		},
 		MassProduction = {
 			Add = 0,
-			Mult = 2,
+			Mult = 2,       -- from 2 to 4
 		},
 		MoveMult = {
 			Add = 0,
 			Mult = 1.06,
 		},        
 		EnergyProduction = {
-			Add = 0,	-- works strangely - actually will add 80 power taking it to 100 - was 11.5 taking Bob to 250
-			Mult = 5,
+			Add = 0,
+			Mult = 5,       -- from 20 to 100
 		},
 	},
 }
@@ -902,23 +902,23 @@ BuffBlueprint { Name = 'ACU_T3_Adv_Eng',
     Affects = {
         BuildRate = {
             Add =  0,
-            Mult = 9,
+            Mult = 9,       -- from 10 to 90
         },
 		EnergyProduction = {
-			Add = 0,	-- will add 400 power taking it to 500 - was 74 and took Bob to 1500
+			Add = 0,	    -- from 20 to 500
 			Mult = 25,
 		},
 		MassProduction = {
 			Add = 0,
-			Mult = 5,
+			Mult = 5,       -- from 2 to 10
 		},
 		MoveMult = {
 			Add = 0,
 			Mult = 1.12,
 		},        
         Regen = {
-            Add = 12,
-            Mult = 1,
+            Add = 0,
+            Mult = 2,     -- from 20 to 40
         },        
     },
 }
@@ -931,23 +931,23 @@ BuffBlueprint { Name = 'ACU_T4_Exp_Eng',
     Affects = {
         BuildRate = {
             Add =  0,
-            Mult = 16,
+            Mult = 16,      -- from 10 to 160
         },
 		EnergyProduction = {
-			Add = 0,	-- will add 1230 power taking it to 1500 - was 114,
+			Add = 0,	    -- from 20 to 1500
 			Mult = 75,
 		},
 		MassProduction = {
 			Add = 0,
-			Mult = 12,
+			Mult = 12,      -- from 2 to 24
 		},
 		MoveMult = {
 			Add = 0,
 			Mult = 1.18,
 		},
         Regen = {
-            Add = 35,
-            Mult = 1,
+            Add = 0,
+            Mult = 3.5,       -- from 20 to 70
         },
     },
 }
@@ -960,19 +960,19 @@ BuffBlueprint { Name = 'ACU_T2_Combat_Eng',
     Affects = {
         BuildRate = {
             Add =  0,
-            Mult = 2.5,
+            Mult = 2.5,     -- from 10 to 25
         },
         MaxHealth = {
-            Add = 8000,
-            Mult = 1,
+            Add = 0,
+            Mult = 1.3, 
         },
 		MoveMult = {
 			Add = 0,
 			Mult = 0.96,
 		},        
         Regen = {
-            Add = 12,
-            Mult = 1,
+            Add = 0,
+            Mult = 2,       -- from 20 to 40
         },
     },
 }
@@ -985,27 +985,27 @@ BuffBlueprint { Name = 'ACU_T3_Combat_Eng',
     Affects = {
         BuildRate = {
             Add =  0,
-            Mult = 5,
+            Mult = 5,       -- from 10 to 50
         },
         MaxHealth = {
-            Add = 20000,
-            Mult = 1.0,
+            Add = 0,
+            Mult = 1.75,
         },
 		MoveMult = {
 			Add = 0,
-			Mult = 0.92,
+			Mult = 0.91,
 		},        
         Regen = {
-            Add = 35,
-            Mult = 1,
+            Add = 0,
+            Mult = 3.5,       -- from 20 to 70
         },
 		MassProduction = {
 			Add = 0,
-			Mult = 2,
+			Mult = 2,       -- from 2 to 4
 		},
 		EnergyProduction = {
-			Add = 0,	-- works strangely - actually will add 80 power taking it to 100
-			Mult = 5,
+			Add = 0,
+			Mult = 5,       -- from 20 to 100
 		},        
     },
 }
@@ -1018,26 +1018,26 @@ BuffBlueprint { Name = 'ACU_T4_Combat_Eng',
     Affects = {
         BuildRate = {
             Add =  0,
-            Mult = 9,
+            Mult = 9,       -- from 10 to 90
         },
         MaxHealth = {
-            Add = 32000,
-            Mult = 1.0,
+            Add = 0,
+            Mult = 2.2,
         },
         Regen = {
-            Add = 70,
-            Mult = 1,
+            Add = 0,
+            Mult = 5,       -- from 20 to 100
         },
 		MoveMult = {
 			Add = 0,
-			Mult = 0.86,
+			Mult = 0.875,
 		},
 		MassProduction = {
 			Add = 0,
-			Mult = 5,
+			Mult = 5,       -- from 2 to 10
 		},
 		EnergyProduction = {
-			Add = 0,	-- will add 400 power taking it to 500
+			Add = 0,        -- from 20 to 500
 			Mult = 25,
 		},        
     },
