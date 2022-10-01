@@ -5405,7 +5405,7 @@ Unit = Class(moho.unit_methods) {
             local energy = bp.Economy.BuildCostEnergy * LOUDMIN(.03, bp.Economy.TeleportEnergyMod or 0.03)		-- ei. 5m Energy becomes 60,000
 
             -- remove the initial E charge already paid
-            energy = LOUDMAX( 0, energy - telecost)
+            energy = LOUDMAX( 0, energy - telecostpaid)
             
             teleportenergy = mass + energy
 

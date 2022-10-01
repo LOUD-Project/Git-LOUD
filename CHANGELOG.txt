@@ -1,3 +1,61 @@
+### Release 03-09-2022
+
+Effects v3.2
+
+    - new visual effect for the Miasma field (AEON BO ACU and BAL0402 Genesis)
+    - mimics the size of field accurately to better represent the area of effect
+    
+Textures v6.7.3
+
+    - new icons added for upcoming Attack-Move button orders
+    - removal of long unused 'Hunker' button orders
+    - addition of some DMS button order icons
+
+LUA 6.2.16
+LOUD_Misc 6.2.12
+    
+    - Resource Relocation will no longer do anything if NO AI are present in a game
+    - The long standing T1 & T2 unit HP buffs (20% and 11% respectively) have been reduced to (12% and 6%)
+    - game log will now report any units with misformed weapon range data
+    - data streamlining and proper recording of the cheat driver values
+
+    - AI DEBUG now has an option for tracking GUARDPOINT behavior
+    - AI DEBUG now has an option for tracking WEAPON STATE changes (useful for debugging stalled weapons)
+    - Weapon States, which could cause some weapons to shutdown during other weapons recharge phases, now fixed
+    
+    - MassPointShare, a value used by the AI to trigger stance change, lowered slightly for earlier aggression
+    - MassPointList, which is a list of initial mass points, now directs Guardpoint thru the early game
+
+    - AI Base radius adjusted down, should narrow base distress ranges
+    - AI ACU Mass builder will now trigger at a lower point, allowing ACU to build early & replacement mass points
+    - AI Outnumbered behavior now gets a very minor BuildRate boost
+    - AI T1 Mass building engineers now 2 instances, instead of 1.
+    - AI has minor revisions to shorten some of the early production queues for better economic response
+
+    - BUFFFIELD structure changes allow removal of circular dependancies, and carry forward key data such as Radius and the VisualScale
+    - BuffField blueprints for AEON Miasma field updated with new visual, slightly reduced range, increased consumption at top end
+
+    - New Buff - MobilityPenalty, which will put a 4% mobility penalty on a unit - to be used in upcoming BO ACU revision
+    - New Buff - ACU_T3_Intel_Package, which when used, gives most of the performance of a T3 OMNI station - to be used in upcoming BO ACU revision
+
+    - revisions to the way buffs are done on ACU (multiples of the base rate now), small reduction in mass gained for top level engineering
+    - this multiple method allows factional bonuses to come thru, resulting in a wider range of values for unit enhancements
+    - mobility buffs will now appear briefly over units when applied, and whenever units take a mobility effect
+    - errors with adjacency buffs being given to EngineerStations which were not eligible have been fixed
+    
+    - the unit 'orders' panel has been increased to 16 slots, from 12, for upcoming features
+    - the presence of the 'Attack-Move' order is in place, but not yet functional
+    - the Overcharge order will now always appear in the 4th slot - along with the other 'attack' orders
+    
+    - the unit 'details' panel will now more clearly show the actual regeneration rates after buffs, etc
+    - as the buff happens, we record the updated regen on the unit, no longer needing to iterate the blueprint to find 'special' values
+    
+    - teleportation is now discounted by the amount of 'precharge' that units require
+    - this effectively reduces the E required for any jump - especially for short ones.
+    - the 'pre-charge' value is now relative to the amount of E storage that a unit may have (ACU)
+    
+
+
 ### Release 12-08-2022
 
 LUA 6.2.15
