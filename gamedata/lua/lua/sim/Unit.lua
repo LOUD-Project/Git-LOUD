@@ -309,6 +309,12 @@ Unit = Class(moho.unit_methods) {
 
 		self.CanBeKilled = true
 		self.CanTakeDamage = true
+        
+        GetStat( self, 'REGEN', bp.Defense.RegenRate )
+        
+        self.CurrentRegenRate = bp.Defense.RegenRate
+        
+        SetStat( self, 'REGEN', self.CurrentRegenRate )
 		
         -- would be nice to reivew this as well
         self.DamageEffectsBag = { {}, {}, {}, }
@@ -4811,6 +4817,12 @@ Unit = Class(moho.unit_methods) {
                 self:EnableShield()
 				
                 TrashAdd( self.Trash,self.MyHunkerShield)
+        
+                GetStat( self,'SHIELDHP', 0 )
+                GetStat( self,'SHIELDREGEN', 0 )
+  
+                SetStat(self,'SHIELDHP', bpShield.ShieldMaxHealth )
+                SetStat(self,'SHIELDREGEN', bpShield.ShieldRegenRate)
 
             else
                 LOG('*WARNING: TRYING TO CREATE HUNKER SHIELD ON UNIT ',repr(self.BlueprintID),', but it does not have an OwnerShieldMesh=<meshBpName> defined in the Blueprint.')

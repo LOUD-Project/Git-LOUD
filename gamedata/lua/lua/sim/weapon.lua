@@ -42,8 +42,10 @@ local STRUCTURE = categories.STRUCTURE
 Weapon = Class(moho.weapon_methods) {
 
     __init = function(self, unit)
+
         -- this captures the parent unit of the weapon
         self.unit = unit
+        
     end,
 
     ForkThread = function(self, fn, ...)
@@ -56,7 +58,7 @@ Weapon = Class(moho.weapon_methods) {
     end,
 
     OnCreate = function(self)
-    
+        
         local LOUDCOPY = LOUDCOPY
         local LOUDFLOOR = LOUDFLOOR
         local WaitTicks = WaitTicks

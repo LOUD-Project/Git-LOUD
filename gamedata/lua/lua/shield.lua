@@ -24,13 +24,18 @@ local CreateEmitterAtBone = CreateEmitterAtBone
 local VectorCached = { 0, 0, 0 }
 	
 local AdjustHealth = moho.entity_methods.AdjustHealth
-local SetShieldRatio = moho.unit_methods.SetShieldRatio
+
 local GetArmorMult = moho.unit_methods.GetArmorMult
 local GetArmy = moho.entity_methods.GetArmy        
 local GetBlueprint = moho.entity_methods.GetBlueprint
 local GetHealth = moho.entity_methods.GetHealth
 local GetMaxHealth = moho.entity_methods.GetMaxHealth
+
+local GetStat = moho.unit_methods.GetStat
+local SetStat = moho.unit_methods.SetStat
+
 local SetMesh = moho.entity_methods.SetMesh
+local SetShieldRatio = moho.unit_methods.SetShieldRatio
 
 local TrashBag = TrashBag
 local TrashAdd = TrashBag.Add
@@ -38,8 +43,6 @@ local TrashAdd = TrashBag.Add
 local WaitTicks = coroutine.yield
 
 local Warp = Warp
-
-
 
 Shield = Class(moho.shield_methods,Entity) {
 
@@ -83,21 +86,28 @@ Shield = Class(moho.shield_methods,Entity) {
         self.ShieldVerticalOffset = spec.ShieldVerticalOffset
 
 		self:SetSize(spec.Size)
+
+        self:AttachBoneTo(-1,spec.Owner,-1)
 		
         self:SetMaxHealth(spec.ShieldMaxHealth)
+
         self:SetHealth(self, spec.ShieldMaxHealth)
 
 		SetShieldRatio( self.Owner, 1 )
+
+        self:SetShieldRegenRate(spec.ShieldRegenRate)
+        self:SetShieldRegenStartTime(spec.ShieldRegenStartTime)
 
         self:SetVizToFocusPlayer('Always')
         self:SetVizToEnemies('Intel')
         self:SetVizToAllies('Always')
         self:SetVizToNeutrals('Intel')
-
-        self:AttachBoneTo(-1,spec.Owner,-1)
-
-        self:SetShieldRegenRate(spec.ShieldRegenRate)
-        self:SetShieldRegenStartTime(spec.ShieldRegenStartTime)
+        
+        GetStat( self.Owner,'SHIELDHP', 0 )
+        GetStat( self.Owner,'SHIELDREGEN', 0 )
+  
+        SetStat( self.Owner,'SHIELDHP', spec.ShieldMaxHealth )
+        SetStat( self.Owner,'SHIELDREGEN', spec.ShieldRegenRate)
 		
 		if ScenarioInfo.ShieldDialog then
 			LOG("*AI DEBUG Shield created on "..__blueprints[self.Owner.BlueprintID].Description) 

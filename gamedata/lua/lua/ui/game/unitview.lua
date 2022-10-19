@@ -85,6 +85,7 @@ end
 
 local statFuncs = {
 
+    -- for massproduced
     function(info)
 	
         if info.massProduced > 0 or info.massRequested > 0 then
@@ -107,6 +108,7 @@ local statFuncs = {
         end
     end,
 	
+    -- for energyproduced
     function(info)
 	
         if info.energyProduced > 0 or info.energyRequested > 0 then
@@ -125,6 +127,7 @@ local statFuncs = {
         end
     end,
 	
+    -- for tactical missiles
     function(info)
 	
         if info.tacticalSiloMaxStorageCount > 0 or info.nukeSiloMaxStorageCount > 0 then
@@ -177,6 +180,7 @@ local statFuncs = {
 		
     end,
 	
+    -- for shields
     function(info, bp)
 	
         if info.shieldRatio > 0 then
@@ -191,6 +195,7 @@ local statFuncs = {
 		
     end,
 	
+    -- for fuel 
     function(info, bp)
 	
         if info.fuelRatio > -1 then
@@ -559,116 +564,60 @@ function UpdateWindow(info)
 		--       controls.StorageEnergy:Hide()
 		--    end
 
-        local getEnh = import('/lua/enhancementcommon.lua')
-
+        -- show the unit health and regen
         if info.userUnit != nil then
+    
+            info.regenrate = info.userUnit:GetStat( 'REGEN' ).Value
+            info.shieldHP = info.userUnit:GetStat('SHIELDHP').Value
+            info.shieldRegen = info.userUnit:GetStat('SHIELDREGEN').Value
 
-            local enhRegen , regenBase = 0 , 0
+            if info.health and info.regenrate > 0 then
 
-            -- get regen rate from any enhancements
-            if getEnh.GetEnhancements(info.entityId) != nil then
-            
-                for k,v in getEnh.GetEnhancements(info.entityId) do
-                
-                    if info.userUnit:GetBlueprint().Enhancements[getEnh.GetEnhancements(info.entityId)[k]].NewRegenRate != nil then
-                        enhRegen = enhRegen + info.userUnit:GetBlueprint().Enhancements[getEnh.GetEnhancements(info.entityId)[k]].NewRegenRate
-                    end
-                    
-                end
+                controls.health:SetText(string.format("%d / %d +%d/s", info.health, info.maxHealth, LOUDFLOOR(info.regenrate) ))
+
             end
 
-            local veterancyLevels = info.userUnit:GetBlueprint().Veteran or veterancyDefaults
-            
-
-            -- get regen rate from any veteran levels
-            if info.kills >= veterancyLevels[string.format('Level%d', 1)] then
-
-                local lvl = 1
-
-                for i = 2,5 do
-                    if info.kills >= veterancyLevels[string.format('Level%d', i)] then
-                        lvl = i
-                    end
-                end
-
-                -- note -- this requires that units have a Buff entry in the blueprint - not always true so default to 0 if not found
-                local addRegen = info.userUnit:GetBlueprint().Buffs.Regen[string.format('Level%d', lvl)] or 0
-                local regenTotal
-
-                if info.userUnit != nil and info.health then
-
-                    if LOUDFLOOR(info.userUnit:GetBlueprint().Defense.RegenRate) > 0 then
-                        regenTotal = LOUDFLOOR(  (info.userUnit:GetBlueprint().Defense.RegenRate) + addRegen )
-                        regenBase = LOUDFLOOR(info.userUnit:GetBlueprint().Defense.RegenRate + enhRegen )
-                    else
-                        regenTotal = LOUDFLOOR(addRegen)
-                    end
-
-                    if regenTotal > 0 and regenBase > 0 then
-                        controls.health:SetText(string.format("%d / %d +%d(%d)/s", info.health, info.maxHealth, regenBase ,regenTotal ))
-                    else
-                        controls.health:SetText(string.format("%d / %d +%d/s", info.health, info.maxHealth ,regenTotal ))
-                    end
-                end
-                
-            else
-            
-                -- display health, maxhealth and total regen values for the unit
-                -- and display it all on the HEALTH bar
-                if info.userUnit != nil and info.health and info.userUnit:GetBlueprint().Defense.RegenRate > 0 then
-                    controls.health:SetText(string.format("%d / %d +%d/s", info.health, info.maxHealth,LOUDFLOOR(info.userUnit:GetBlueprint().Defense.RegenRate + enhRegen)))
-                end
-            end
         end
 
         -- now do all the same for the Shield - showing health, max health and shield regen rate
         -- and display it all on the SHIELD bar
-        if info.shieldRatio > 0 and info.userUnit:GetBlueprint().Defense.Shield.ShieldMaxHealth then
-
-            local ShieldMaxHealth = info.userUnit:GetBlueprint().Defense.Shield.ShieldMaxHealth
+        if info.shieldRatio > 0 and info.shieldHP > 0 then
 
             controls.shieldText:Show()
 
-            if info.userUnit:GetBlueprint().Defense.Shield.ShieldRegenRate then
-                controls.shieldText:SetText(string.format("%d / %d +%d/s", LOUDFLOOR(ShieldMaxHealth*info.shieldRatio), info.userUnit:GetBlueprint().Defense.Shield.ShieldMaxHealth , info.userUnit:GetBlueprint().Defense.Shield.ShieldRegenRate))
+            if info.shieldRegen then
+
+                controls.shieldText:SetText(string.format("%d / %d +%d/s", LOUDFLOOR( info.shieldHP * info.shieldRatio), info.shieldHP , info.shieldRegen ))
+
             else
-                controls.shieldText:SetText(string.format("%d / %d", LOUDFLOOR(ShieldMaxHealth*info.shieldRatio), info.userUnit:GetBlueprint().Defense.Shield.ShieldMaxHealth ))
-            end
-        end
-        
-        if info.shieldRatio > 0 and info.userUnit:GetBlueprint().Defense.Shield.ShieldMaxHealth == nil then
-
-            local ShieldMaxHealth = info.userUnit:GetBlueprint().Enhancements[getEnh.GetEnhancements(info.entityId).Back].ShieldMaxHealth
-
-			if ShieldMaxHealth then
+              
+                controls.shieldText:SetText(string.format("%d / %d", LOUDFLOOR( info.shieldHP * info.shieldRatio), info.shieldHP))
             
-                controls.shieldText:Show()
-
-                if info.userUnit:GetBlueprint().Enhancements[getEnh.GetEnhancements(info.entityId).Back].ShieldRegenRate then
-                    controls.shieldText:SetText(string.format("%d / %d +%d/s", LOUDFLOOR(ShieldMaxHealth*info.shieldRatio), ShieldMaxHealth , info.userUnit:GetBlueprint().Enhancements[getEnh.GetEnhancements(info.entityId).Back].ShieldRegenRate))
-                else
-                    controls.shieldText:SetText(string.format("%d / %d", LOUDFLOOR(ShieldMaxHealth*info.shieldRatio), ShieldMaxHealth ))
-                end
-
             end
         end
-        
+
 
         -- if the unit has BuildRate >= 2 then show it below mass & energy stats
         if info.userUnit != nil and info.userUnit:GetBuildRate() >= 2 then
+
             controls.Buildrate:SetText(string.format("%d",LOUDFLOOR(info.userUnit:GetBuildRate())))
             controls.Buildrate:Show()
             controls.BuildrateIcon:Show()
+
         else
+
             controls.Buildrate:Hide()
             controls.BuildrateIcon:Hide()
+
         end   
 
         controls.SCUType:Hide()
 
         if info.userUnit.SCUType then
+
             controls.SCUType:SetTexture('/lua/gaz_ui/textures/scumanager/'..info.userUnit.SCUType..'_icon.dds')
             controls.SCUType:Show()
+
         end
         
     end

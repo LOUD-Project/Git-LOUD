@@ -24,6 +24,7 @@ local SetRegenRate = moho.unit_methods.SetRegenRate
 
 local SetAccMult = moho.unit_methods.SetAccMult
 local SetSpeedMult = moho.unit_methods.SetSpeedMult
+local SetStat = moho.unit_methods.SetStat
 local SetTurnMult = moho.unit_methods.SetTurnMult
 
 local SetBuildRate = moho.unit_methods.SetBuildRate
@@ -398,6 +399,8 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 
             SetRegenRate( unit, val )
             
+            SetStat( unit, 'REGEN', val )
+            
             unit.CurrentRegenRate = val
 
 			RequestRefreshUI(unit)
@@ -420,6 +423,8 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
             end
 
             SetRegenRate( unit, val )
+            
+            SetStat( unit, 'REGEN', val )
             
             unit.CurrentRegenRate = val
 
@@ -695,6 +700,8 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 				local regenrate = __blueprints[unit.BlueprintID].Defense.Shield.ShieldRegenRate or 1
 
 				unit.MyShield:SetShieldRegenRate(val * regenrate)
+                
+                SetStat( unit, 'SHIELDREGEN', val * regenrate )
 			end
 
 		elseif atype == 'ShieldSize' then
@@ -724,6 +731,8 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 				local shield = unit.MyShield
 
 				SetMaxHealth( shield, val * shieldhealth)
+
+                SetStat( unit, 'SHIELDHP', val * shieldhealth )
 
 				SetShieldRatio( shield.Owner, shield:GetHealth() / shield:GetMaxHealth() )
 

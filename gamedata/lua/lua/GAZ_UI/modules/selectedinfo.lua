@@ -44,18 +44,16 @@ function GetUnitRolloverInfo(unit)
 	info.maxHealth = unit:GetMaxHealth()
 	info.health = unit:GetHealth()
 	info.fuelRatio = unit:GetFuelRatio()
-    
-    info.regenrate = unit.CurrentRegenRate or bp.Defense.RegenRate
-    
+
 	info.shieldRatio = unit:GetShieldRatio()
-	info.workProgress = unit:GetWorkProgress()
+   
+    info.workProgress = unit:GetWorkProgress()
 
 	if unit:GetFocus() then
 		info.focus = GetUnitRolloverInfo(unit:GetFocus())
 	end
    
-	--local killStat = unit:GetStat('KILLS').Value
-	info.kills = unit:GetStat('KILLS').Value    --killStat.Value
+	info.kills = unit:GetStat('KILLS').Value
 
 	local missileInfo = unit:GetMissileInfo()
 
