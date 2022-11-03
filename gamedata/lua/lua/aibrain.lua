@@ -511,75 +511,81 @@ function CollectCurrentScores()
 
 	-- Initialize the score data stucture for each brain
     for index = 1, LOUDGETN(Brains) do
+    
+        if Brains[index].Nickname == 'civilian' then
+            continue
+        end
 	
-       ArmyScore[index] = { general = { score = 0, mass = 0, energy = 0, kills = {}, built = {}, lost = {}, currentunits = {}, currentcap = {} },
+        ArmyScore[index] = { general = { score = 0, mass = 0, energy = 0, kills = {}, built = {}, lost = {}, currentunits = {}, currentcap = {} },
 							units = { cdr = {}, land = {}, air = {}, naval = {}, structures = {}, experimental = {}, },
 							resources = { massin = {}, massout = {}, energyin = {}, energyout = {} }
 		}
 
-       --## General scores ##
-       ArmyScore[index].general.kills.count = 0
-       ArmyScore[index].general.kills.mass = 0
-       ArmyScore[index].general.kills.energy = 0
+        --## General scores ##
+        ArmyScore[index].general.kills.count = 0
+        ArmyScore[index].general.kills.mass = 0
+        ArmyScore[index].general.kills.energy = 0
 	   
-       ArmyScore[index].general.built.count = 0
-       ArmyScore[index].general.built.mass = 0
-       ArmyScore[index].general.built.energy = 0
+        ArmyScore[index].general.built.count = 0
+        ArmyScore[index].general.built.mass = 0
+        ArmyScore[index].general.built.energy = 0
 	   
-       ArmyScore[index].general.lost.count = 0
-       ArmyScore[index].general.lost.mass = 0
-       ArmyScore[index].general.lost.energy = 0
+        ArmyScore[index].general.lost.count = 0
+        ArmyScore[index].general.lost.mass = 0
+        ArmyScore[index].general.lost.energy = 0
 	   
-       ArmyScore[index].general.currentunits.count = 0
+        ArmyScore[index].general.currentunits.count = 0
 	   
-       ArmyScore[index].general.currentcap.count = 0
+        ArmyScore[index].general.currentcap.count = 0
 
-       --## unit scores ##
-       ArmyScore[index].units.cdr.kills = 0
-       ArmyScore[index].units.cdr.built = 0
-       ArmyScore[index].units.cdr.lost = 0
+        --## unit scores ##
+        ArmyScore[index].units.cdr.kills = 0
+        ArmyScore[index].units.cdr.built = 0
+        ArmyScore[index].units.cdr.lost = 0
 	   
-       ArmyScore[index].units.land.kills = 0
-       ArmyScore[index].units.land.built = 0
-       ArmyScore[index].units.land.lost = 0
+        ArmyScore[index].units.land.kills = 0
+        ArmyScore[index].units.land.built = 0
+        ArmyScore[index].units.land.lost = 0
 	   
-       ArmyScore[index].units.air.kills = 0
-       ArmyScore[index].units.air.built = 0
-       ArmyScore[index].units.air.lost = 0
+        ArmyScore[index].units.air.kills = 0
+        ArmyScore[index].units.air.built = 0
+        ArmyScore[index].units.air.lost = 0
 	   
-       ArmyScore[index].units.naval.kills = 0
-       ArmyScore[index].units.naval.built = 0
-       ArmyScore[index].units.naval.lost = 0
+        ArmyScore[index].units.naval.kills = 0
+        ArmyScore[index].units.naval.built = 0
+        ArmyScore[index].units.naval.lost = 0
 	   
-       ArmyScore[index].units.structures.kills = 0
-       ArmyScore[index].units.structures.built = 0
-       ArmyScore[index].units.structures.lost = 0
+        ArmyScore[index].units.structures.kills = 0
+        ArmyScore[index].units.structures.built = 0
+        ArmyScore[index].units.structures.lost = 0
 	   
-       ArmyScore[index].units.experimental.kills = 0
-       ArmyScore[index].units.experimental.built = 0
-       ArmyScore[index].units.experimental.lost = 0
+        ArmyScore[index].units.experimental.kills = 0
+        ArmyScore[index].units.experimental.built = 0
+        ArmyScore[index].units.experimental.lost = 0
 
-       --## resource scores ##
-       ArmyScore[index].resources.massin.total = 0
-       ArmyScore[index].resources.massin.rate = 0
+        --## resource scores ##
+        ArmyScore[index].resources.massin.total = 0
+        ArmyScore[index].resources.massin.rate = 0
 	   
-       ArmyScore[index].resources.massout.total = 0
-       ArmyScore[index].resources.massout.rate = 0
+        ArmyScore[index].resources.massout.total = 0
+        ArmyScore[index].resources.massout.rate = 0
 	   
-       ArmyScore[index].resources.massover = 0
+        ArmyScore[index].resources.massover = 0
 	   
-       ArmyScore[index].resources.energyin.total = 0
-       ArmyScore[index].resources.energyin.rate = 0
+        ArmyScore[index].resources.energyin.total = 0
+        ArmyScore[index].resources.energyin.rate = 0
 	   
-       ArmyScore[index].resources.energyout.total = 0
-       ArmyScore[index].resources.energyout.rate = 0
+        ArmyScore[index].resources.energyout.total = 0
+        ArmyScore[index].resources.energyout.rate = 0
 	   
-       ArmyScore[index].resources.energyover = 0
+        ArmyScore[index].resources.energyover = 0
 	   
     end
 
 	-- local the main functions
 	local GetArmyStat = moho.aibrain_methods.GetArmyStat
+    local SetArmyStat = moho.aibrain_methods.SetArmyStat
+    
 	local GetBlueprintStat = moho.aibrain_methods.GetBlueprintStat
 	local WaitTicks = coroutine.yield
 	
@@ -591,6 +597,20 @@ function CollectCurrentScores()
 	
 	local resourceProduction, resource_waste, unitProduction, battle_kills, battle_losses
 	local battleResults, score
+    
+    local lastmasstotal = {}
+    local lastenergytotal = {}
+    local lastscore = {}
+    local badflag = {}
+    
+    for index, brain in Brains do
+    
+        lastmasstotal[index] = 0
+        lastenergytotal[index] = 0
+        lastscore[index] = 0
+        badflag[index] = false
+    
+    end
 	
 	-- launch the loop that will keep the scores sync'd 
 	ForkThread( SyncCurrentScores, Brains, ArmyScore, ScoreInterval )
@@ -599,15 +619,55 @@ function CollectCurrentScores()
     while true do
 
         for index, brain in Brains do
+ 
+            -- no need to update civilian score
+            if brain.Nickname == 'civilian' then
+                continue
+            end
 
 			mass_total = GetArmyStat( brain,"Economy_TotalProduced_Mass",0.0).Value
+            
 			mass_used = GetArmyStat( brain, "Economy_Output_Mass", 0.0).Value
 			mass_total_waste = GetArmyStat( brain,"Economy_AccumExcess_Mass",0.0).Value
+            
+            if mass_total > 1 and lastmasstotal[index] <= mass_total then
+
+                lastmasstotal[index] = mass_total
+
+                badflag[index] = false
+
+            else
+                
+                if not badflag[index] then
+
+                    LOG("*AI DEBUG Fixing mass_total "..mass_total.." with "..lastmasstotal[index] )
+
+                    badflag[index] = true
+                end
+                
+                mass_total = lastmasstotal[index]
+                
+                SetArmyStat( brain,"Economy_TotalProduced_Mass", mass_total )
+
+            end
 			
 			energy_total = GetArmyStat( brain,"Economy_TotalProduced_Energy",0.0).Value
+
 			energy_used = GetArmyStat( brain, "Economy_Output_Energy", 0.0).Value
 			energy_total_waste = GetArmyStat( brain, "Economy_AccumExcess_Energy",0.0).Value
 			
+            if energy_total > 1 and lastenergytotal[index] <= energy_total then
+            
+                lastenergytotal[index] = energy_total
+                
+            else
+
+                energy_total = lastenergytotal[index]
+
+                SetArmyStat( brain,"Economy_TotalProduced_Energy", energy_total )
+
+            end
+            
 			massSpent = GetArmyStat( brain,"Economy_TotalConsumed_Mass",0.0).Value
 			Unit_massSpent = GetArmyStat( brain,"Units_MassValue_Built",0.0).Value
 			
@@ -636,65 +696,80 @@ function CollectCurrentScores()
 			-- score calculated
 			score = resourceProduction - resource_waste + unitProduction + battleResults
 			
-			if score < 0 then 
-				score = 0
-			end
-			
+			if score > 1 then
+            
+                lastscore[index] = score
+
+			else
+                score = lastscore[index] or 0
+            end
+            
 			ArmyScore[index].general.score = LOUDFLOOR(score)
 
-           ArmyScore[index].general.mass = GetArmyStat( brain, "Economy_TotalProduced_Mass", 0.0).Value
-           ArmyScore[index].general.energy = GetArmyStat( brain, "Economy_TotalProduced_Energy", 0.0).Value
-           ArmyScore[index].general.currentunits.count = GetArmyStat( brain, "UnitCap_Current", 0.0).Value
-           ArmyScore[index].general.currentcap.count = GetArmyStat( brain, "UnitCap_MaxCap", 0.0).Value
+            ArmyScore[index].general.mass = mass_total
+            ArmyScore[index].general.energy = energy_total
 
-           ArmyScore[index].general.kills.count = GetArmyStat( brain, "Enemies_Killed", 0.0).Value
-           ArmyScore[index].general.kills.mass = massValueDestroyed
-           ArmyScore[index].general.kills.energy = energyValueDestroyed
+            ArmyScore[index].general.currentunits.count = GetArmyStat( brain, "UnitCap_Current", 0.0).Value
+            ArmyScore[index].general.currentcap.count = GetArmyStat( brain, "UnitCap_MaxCap", 0.0).Value
 
-           ArmyScore[index].general.built.count = GetArmyStat( brain, "Units_History", 0.0).Value
-           ArmyScore[index].general.built.mass = GetArmyStat( brain, "Units_MassValue_Built", 0.0).Value
-           ArmyScore[index].general.built.energy = GetArmyStat( brain, "Units_EnergyValue_Built", 0.0).Value
-           ArmyScore[index].general.lost.count = GetArmyStat( brain, "Units_Killed", 0.0).Value
-           ArmyScore[index].general.lost.mass = massValueLost
-           ArmyScore[index].general.lost.energy = energyValueLost
+            ArmyScore[index].general.kills.count = GetArmyStat( brain, "Enemies_Killed", 0.0).Value
 
-           ArmyScore[index].units.land.kills = GetBlueprintStat( brain, "Enemies_Killed", categories.LAND)
-           ArmyScore[index].units.land.built = GetBlueprintStat( brain, "Units_History", categories.LAND)
-           ArmyScore[index].units.land.lost = GetBlueprintStat( brain, "Units_Killed", categories.LAND)
+            ArmyScore[index].general.kills.mass = massValueDestroyed
+            ArmyScore[index].general.kills.energy = energyValueDestroyed
 
-           ArmyScore[index].units.air.kills = GetBlueprintStat( brain, "Enemies_Killed", categories.AIR)
-           ArmyScore[index].units.air.built = GetBlueprintStat( brain, "Units_History", categories.AIR)
-           ArmyScore[index].units.air.lost = GetBlueprintStat( brain, "Units_Killed", categories.AIR)
+            ArmyScore[index].general.built.count = GetArmyStat( brain, "Units_History", 0.0).Value
+
+            ArmyScore[index].general.built.mass = Unit_massSpent
+            ArmyScore[index].general.built.energy = Unit_energySpent
+
+            ArmyScore[index].general.lost.count = GetArmyStat( brain, "Units_Killed", 0.0).Value
+
+            ArmyScore[index].general.lost.mass = massValueLost
+            ArmyScore[index].general.lost.energy = energyValueLost
+
+            ArmyScore[index].units.land.kills = GetBlueprintStat( brain, "Enemies_Killed", categories.LAND)
+            ArmyScore[index].units.land.built = GetBlueprintStat( brain, "Units_History", categories.LAND)
+            ArmyScore[index].units.land.lost = GetBlueprintStat( brain, "Units_Killed", categories.LAND)
+
+            ArmyScore[index].units.air.kills = GetBlueprintStat( brain, "Enemies_Killed", categories.AIR)
+            ArmyScore[index].units.air.built = GetBlueprintStat( brain, "Units_History", categories.AIR)
+            ArmyScore[index].units.air.lost = GetBlueprintStat( brain, "Units_Killed", categories.AIR)
 		   
-           ArmyScore[index].units.naval.kills = GetBlueprintStat( brain, "Enemies_Killed", categories.NAVAL)
-           ArmyScore[index].units.naval.built = GetBlueprintStat( brain, "Units_History", categories.NAVAL)
-           ArmyScore[index].units.naval.lost = GetBlueprintStat( brain, "Units_Killed", categories.NAVAL)
+            ArmyScore[index].units.naval.kills = GetBlueprintStat( brain, "Enemies_Killed", categories.NAVAL)
+            ArmyScore[index].units.naval.built = GetBlueprintStat( brain, "Units_History", categories.NAVAL)
+            ArmyScore[index].units.naval.lost = GetBlueprintStat( brain, "Units_Killed", categories.NAVAL)
 
-           ArmyScore[index].units.cdr.kills = GetBlueprintStat( brain, "Enemies_Killed", categories.COMMAND)
-           ArmyScore[index].units.cdr.built = GetBlueprintStat( brain, "Units_History", categories.COMMAND)
-           ArmyScore[index].units.cdr.lost = GetBlueprintStat( brain, "Units_Killed", categories.COMMAND)
+            ArmyScore[index].units.cdr.kills = GetBlueprintStat( brain, "Enemies_Killed", categories.COMMAND)
+            ArmyScore[index].units.cdr.built = GetBlueprintStat( brain, "Units_History", categories.COMMAND)
+            ArmyScore[index].units.cdr.lost = GetBlueprintStat( brain, "Units_Killed", categories.COMMAND)
 		   
-           ArmyScore[index].units.experimental.kills = GetBlueprintStat( brain, "Enemies_Killed", categories.EXPERIMENTAL)
-           ArmyScore[index].units.experimental.built = GetBlueprintStat( brain, "Units_History", categories.EXPERIMENTAL)
-           ArmyScore[index].units.experimental.lost = GetBlueprintStat( brain, "Units_Killed", categories.EXPERIMENTAL)
+            ArmyScore[index].units.experimental.kills = GetBlueprintStat( brain, "Enemies_Killed", categories.EXPERIMENTAL)
+            ArmyScore[index].units.experimental.built = GetBlueprintStat( brain, "Units_History", categories.EXPERIMENTAL)
+            ArmyScore[index].units.experimental.lost = GetBlueprintStat( brain, "Units_Killed", categories.EXPERIMENTAL)
 
-           ArmyScore[index].units.structures.kills = GetBlueprintStat( brain, "Enemies_Killed", categories.STRUCTURE)
-           ArmyScore[index].units.structures.built = GetBlueprintStat( brain, "Units_History", categories.STRUCTURE)
-           ArmyScore[index].units.structures.lost = GetBlueprintStat( brain, "Units_Killed", categories.STRUCTURE)
+            ArmyScore[index].units.structures.kills = GetBlueprintStat( brain, "Enemies_Killed", categories.STRUCTURE)
+            ArmyScore[index].units.structures.built = GetBlueprintStat( brain, "Units_History", categories.STRUCTURE)
+            ArmyScore[index].units.structures.lost = GetBlueprintStat( brain, "Units_Killed", categories.STRUCTURE)
 		   
-           ArmyScore[index].resources.massin.total = GetArmyStat( brain, "Economy_TotalProduced_Mass", 0.0).Value
-           ArmyScore[index].resources.massin.rate = GetArmyStat( brain, "Economy_Income_Mass", 0.0).Value
-           ArmyScore[index].resources.massout.total = massSpent
-           ArmyScore[index].resources.massout.rate = GetArmyStat( brain, "Economy_Output_Mass", 0.0).Value
-           ArmyScore[index].resources.massover = GetArmyStat( brain, "Economy_AccumExcess_Mass", 0.0).Value
+            ArmyScore[index].resources.massin.total = mass_total
 
-           ArmyScore[index].resources.energyin.total = GetArmyStat( brain, "Economy_TotalProduced_Energy", 0.0).Value
-           ArmyScore[index].resources.energyin.rate = GetArmyStat( brain, "Economy_Income_Energy", 0.0).Value
-           ArmyScore[index].resources.energyout.total = energySpent
-           ArmyScore[index].resources.energyout.rate = GetArmyStat( brain, "Economy_Output_Energy", 0.0).Value
-           ArmyScore[index].resources.energyover = GetArmyStat( brain, "Economy_AccumExcess_Energy", 0.0).Value
+            ArmyScore[index].resources.massin.rate = GetArmyStat( brain, "Economy_Income_Mass", 0.0).Value
+
+            ArmyScore[index].resources.massout.total = massSpent
+
+            ArmyScore[index].resources.massout.rate = GetArmyStat( brain, "Economy_Output_Mass", 0.0).Value
+            ArmyScore[index].resources.massover = GetArmyStat( brain, "Economy_AccumExcess_Mass", 0.0).Value
+
+            ArmyScore[index].resources.energyin.total = energy_total
+
+            ArmyScore[index].resources.energyin.rate = GetArmyStat( brain, "Economy_Income_Energy", 0.0).Value
+
+            ArmyScore[index].resources.energyout.total = energySpent
+
+            ArmyScore[index].resources.energyout.rate = GetArmyStat( brain, "Economy_Output_Energy", 0.0).Value
+            ArmyScore[index].resources.energyover = GetArmyStat( brain, "Economy_AccumExcess_Energy", 0.0).Value
 		   
-           WaitTicks(braindelay)
+            WaitTicks(braindelay)
         end
     end
 	
@@ -705,14 +780,34 @@ end
 function SyncCurrentScores( Brains, ArmyScore, ScoreInterval )
 
 	local braincount = table.getn(Brains)
+    local LOUDDEEPCOPY = table.deepcopy
+    
+    local A,lastA
 
     while true do
 	
 	    WaitTicks(ScoreInterval)  	
 		
 		for index = 1, braincount do
-		
-			local A = ArmyScore[index]
+        
+            if Brains[index].Nickname == 'civilian' then
+                continue
+            end
+            
+            -- try and catch the -ve massin bug --
+            if ArmyScore[index].resources.massin.total > 0 then
+            
+                A = ArmyScore[index]
+
+                lastA = LOUDDEEPCOPY(A)
+
+            else
+
+                --LOG("*AI DEBUG fixing massin total "..repr(A.resources.massin.total))
+
+                A = LOUDDEEPCOPY(lastA)
+
+            end
 		
 			Sync.Score[index] = { 	general = { currentunits = { count = 0 }, currentcap = { count = 0 }, kills = { count = 0, mass = 0, energy = 0}, built = { count = 0, mass = 0, energy = 0}, lost = { count = 0, mass = 0, energy = 0} },
 									units = { cdr = { kills = 0, built = 0, lost = 0}, land = { kills = 0, built = 0, lost = 0}, air = { kills = 0, built = 0, lost = 0}, naval = { kills = 0, built = 0, lost = 0}, structures = { kills = 0, built = 0, lost = 0}, experimental = { kills = 0, built = 0, lost = 0} },
@@ -779,10 +874,10 @@ function SyncCurrentScores( Brains, ArmyScore, ScoreInterval )
 			Sync.Score[index].resources.energyout.rate = A.resources.energyout.rate
 			Sync.Score[index].resources.energyover = A.resources.energyover
 			
-			Sync.FullScoreSync = true
-			
 		end
-		
+
+		Sync.FullScoreSync = true		
+
     end
 	
 end

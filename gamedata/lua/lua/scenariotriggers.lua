@@ -420,8 +420,11 @@ function CreateArmyStatTrigger(callbackFunction, aiBrain, name, triggerTable)
             error('*TRIGGER ERROR: Must use unique names for new triggers- Supplied name: '..trigger.Name, 2)
             return
 			
-        end
+        else
+        
+            LOG("*AI DEBUG trigger is "..repr(trigger))
 		
+        end
     end
 	
     for num, triggerData in triggerTable do

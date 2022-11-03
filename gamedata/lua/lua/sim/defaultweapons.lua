@@ -248,6 +248,8 @@ DefaultProjectileWeapon = Class(Weapon) {
                 if time < 0.1 then
                     time = 0.1
                 end
+                
+                --LOG("*AI DEBUG Eco Event for "..nrgReq )
 
                 self.EconDrain = CreateEconomyEvent( self.unit, nrgReq, 0, time, ChargeProgress )
                 self.FirstShot = true

@@ -306,7 +306,7 @@ function _OnBeat()
 	
 		local armiesInfo = GetArmiesTable().armiesTable
 	
-        for index, scoreData in scoreData.current do	--currentScores do
+        for index, scoreData in scoreData.current do
 		
             for _, line in controls.armyLines do
 			

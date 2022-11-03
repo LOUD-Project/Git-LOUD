@@ -27,7 +27,9 @@ function collectSharedScore()
 		
 		-- Initialize shared score data structure
 		local sharedScore = {}
+
 		for i, brain in ArmyBrains do
+
 		   sharedScore[i] = {}
 		   sharedScore[i].visible = true
 		   
@@ -54,6 +56,7 @@ function collectSharedScore()
 
 		-- get current army, if changed
 		if not (ownArmyIndex == GetFocusArmy()) then
+
 			if(GetFocusArmy() == -1) then
 				ownArmyIndex = -1
 				ownArmyBrain = nil
@@ -93,6 +96,7 @@ function collectSharedScore()
 				
 				-- teammate, or allowed observers
 				massReclaim   = brain:GetArmyStat("Economy_Reclaimed_Mass", 0.0).Value or 0
+
 				massStore = brain:GetEconomyStored('MASS')
 				massIncome = brain:GetEconomyIncome('MASS') * ticksPerSecond
 				massRequested = brain:GetEconomyRequested('MASS') * ticksPerSecond
@@ -120,7 +124,7 @@ function collectSharedScore()
 			end
 			
 			sharedScore[army].eco.reclaim.mass = massReclaim
-				
+
 		end
 		
 		-- send everything to the user

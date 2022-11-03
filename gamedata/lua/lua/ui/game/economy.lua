@@ -332,6 +332,18 @@ end
 function _BeatFunction()
 
     local econData = GetEconomyTotals()
+
+    -- this is here to trap the -1.@IND events 
+    -- we'll trigger on the income values which return to normal after
+    -- the event causing it, expires
+    if not (econData.income.MASS >= 0) then
+
+        LOG("*AI DEBUG Economy Totals are "..repr(econData))
+
+        econData.reclaimed.MASS = 0
+        econData.reclaimed.ENERGY = 0
+    end
+    
     local simFrequency = GetSimTicksPerSecond()
 	
 	local LOUDMIN = math.min
@@ -340,14 +352,14 @@ function _BeatFunction()
 	local LOUDFORMAT = string.format
     
     -- fetch & format reclaim values
-    local reclaimedTotalsMass = LOUDCEIL(econData.reclaimed.MASS)
-    local reclaimedTotalsEnergy = LOUDCEIL(econData.reclaimed.ENERGY)
+    local reclaimedTotalsMass = LOUDMAX( 0, LOUDCEIL(econData.reclaimed.MASS))
+    local reclaimedTotalsEnergy = LOUDMAX( 0, LOUDCEIL(econData.reclaimed.ENERGY))
     
     local function DisplayEconData(controls, tableID, viewPref)
 	
         local function FormatRateString(RateVal, StoredVal, IncomeAvg, ActualAvg, RequestedAvg)
 		
-            local retRateStr = LOUDFORMAT('%+d', LOUDMIN( LOUDMAX(RateVal, -99999999), 99999999) )
+            local retRateStr = LOUDFORMAT('%+d', LOUDMIN( LOUDMAX(RateVal, -999999), 99999999) )
             local retEffVal = 0
 			
             if RequestedAvg == 0 then
@@ -366,6 +378,7 @@ function _BeatFunction()
         local maxStorageVal = econData["maxStorage"][tableID]
         local storedVal = econData["stored"][tableID]
         local incomeVal = econData["income"][tableID]
+
         local lastRequestedVal = econData["lastUseRequested"][tableID]
         local lastActualVal = econData["lastUseActual"][tableID]
     
@@ -386,7 +399,7 @@ function _BeatFunction()
             controls.curStorage:SetText(LOUDCEIL(storedVal))
         end
 
-        controls.income:SetText(LOUDFORMAT("+%d", LOUDCEIL(incomeAvg)))
+        controls.income:SetText(LOUDFORMAT("+%d", LOUDMAX( 0,LOUDCEIL(incomeAvg) ) ))
 		
         if storedVal > 0.5 then
             controls.expense:SetText(LOUDFORMAT("-%d", LOUDCEIL(actualAvg)))

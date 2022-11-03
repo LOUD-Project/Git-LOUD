@@ -1177,6 +1177,8 @@ Unit = Class(moho.unit_methods) {
 
 	-- when you are reclaimed
     OnReclaimed = function(self, entity)
+    
+        --LOG("*AI DEBUG OnReclaimed "..repr(entity))
 	
         self:DoUnitCallbacks('OnReclaimed', entity)
         --self.CreateReclaimEndEffects( entity, self )
