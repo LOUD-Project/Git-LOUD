@@ -1,6 +1,7 @@
 local OldOnSync = OnSync
 
 function OnSync()
+
 	OldOnSync()
 
 	if not table.empty(Sync.Score) then
