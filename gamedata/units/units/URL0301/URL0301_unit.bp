@@ -122,9 +122,7 @@ UnitBlueprint {
             'BUILTBYTIER3ENGINEER CYBRAN',
         },
 		
-        MaintenanceConsumptionPerSecondEnergy = 0,
-		
-		MaxBuildDistance = 8,
+        MaxBuildDistance = 8,
 		
         NaturalProducer = true,
 		

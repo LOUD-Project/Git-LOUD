@@ -123,8 +123,6 @@ UnitBlueprint {
             'BUILTBYTIER3ENGINEER UEF',
         },
 		
-        MaintenanceConsumptionPerSecondEnergy = 0,
-		
         NaturalProducer = true,
 		
         ProductionPerSecondEnergy = 200,
