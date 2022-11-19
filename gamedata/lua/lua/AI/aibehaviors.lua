@@ -2833,7 +2833,7 @@ function AirForceAILOUD( self, aiBrain )
                 
                 if atthreat > mythreat then
                 
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." AA threat too high "..atthreat.." - aborting - my threat "..mythreat.." using "..LOUDFLOOR(IMAPblocks/2).." IMAP blocks at "..repr(GetPlatoonPosition(self)) )
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..repr(threatavoid).." threat "..atthreat.." - aborting - mine is "..mythreat.." Threatmult - "..Threatmult.." Rangemult is "..Rangemult.." using "..LOUDFLOOR(IMAPblocks/2).." IMAP blocks - platoon position is "..repr(GetPlatoonPosition(self)).." target is "..repr(targetposition) )
         
                     IssueClearCommands(self)
 
@@ -2848,11 +2848,13 @@ function AirForceAILOUD( self, aiBrain )
             end
 
             if target then
-                WaitTicks(2)
-            end
             
-            if VDist3( GetPlatoonPosition(self), loiterposition ) > maxrange then
-                break
+                if VDist3( GetPlatoonPosition(self), loiterposition ) > maxrange then
+                    break
+                else
+                    WaitTicks(2)
+                end
+                
             end
 		end
 
