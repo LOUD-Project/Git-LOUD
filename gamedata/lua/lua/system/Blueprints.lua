@@ -458,9 +458,11 @@ function ExtractAllMeshBlueprints()
         
         if bp.Economy.ReclaimEnergyMax then
         
-            if (bp.Economy.ReclaimEnergyMax/bp.Economy.ReclaimTime) > 18 then
+            if (bp.Economy.ReclaimEnergyMax/bp.Economy.ReclaimTime) > 10 then
+                
                 --LOG("*AI DEBUG Prop BP RECLAIMTIME TOO LOW for ENERGY "..bp.Economy.ReclaimEnergyMax.." time is "..bp.Economy.ReclaimTime.." "..repr(bp.BlueprintId))
-                bp.Economy.ReclaimTime = math.ceil(bp.Economy.ReclaimEnergyMax/18)
+                
+                bp.Economy.ReclaimTime = math.ceil(bp.Economy.ReclaimEnergyMax/10)
                 count = count + 1
             end
 
@@ -468,9 +470,11 @@ function ExtractAllMeshBlueprints()
 
         if bp.Economy.ReclaimMassMax then
         
-            if (bp.Economy.ReclaimMassMax/bp.Economy.ReclaimTime) > 3.5 then
+            if (bp.Economy.ReclaimMassMax/bp.Economy.ReclaimTime) > 2 then
+                
                 --LOG("*AI DEBUG Prop BP RECLAIMTIME TOO LOW for MASS "..bp.Economy.ReclaimMassMax.." time is "..bp.Economy.ReclaimTime.." "..repr(bp.BlueprintId))
-                bp.Economy.ReclaimTime = math.ceil(bp.Economy.ReclaimMassMax/3.5)
+                
+                bp.Economy.ReclaimTime = math.ceil(bp.Economy.ReclaimMassMax/2)
                 count = count + 1
             end
 

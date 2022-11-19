@@ -182,25 +182,40 @@ Prop = Class(moho.prop_methods, Entity) {
         end
     end,
 
-    -- Prop reclaiming
-    -- time = the greater of either time to reclaim mass or energy
-    -- time to reclaim mass or energy is defined as:
+    -- Prop reclaiming (natural and wreckage)
+
     -- Mass Time =  mass reclaim value / buildrate of thing reclaiming it * BP set mass mult
     -- Energy Time = energy reclaim value / buildrate of thing reclaiming it * BP set energy mult
-    -- The time to reclaim is the highest of the two values above.
-    GetReclaimCosts = function(self, reclaimer)
+    
+    -- Mass can be reclaimed at x2 the rate of building
+    -- Energy can be reclaimed at x2 the rate of building (E is also factored at x10)
 
-        local mtime = self.ReclaimTimeMassMult * (self.MassReclaim / reclaimer:GetBuildRate() )
-        local etime = self.ReclaimTimeEnergyMult * (self.EnergyReclaim / reclaimer:GetBuildRate() )
+    -- The time to reclaim is the highest of the two values above.
+    -- and never less than 0.1 (1 tick)
+    GetReclaimCosts = function(self, reclaimer, buildrate)
+    
+        --LOG("*AI DEBUG Reclaiming Mass "..self.MassReclaim.." at "..self.ReclaimTimeMassMult.." and Energy "..self.EnergyReclaim.." at "..self.ReclaimTimeEnergyMult.." with BuildRate "..buildrate )
+
+        local time, mtime, etime
+        
+        if buildrate >= 0.9 then
+        
+            mtime = self.ReclaimTimeMassMult * (self.MassReclaim / buildrate ) * .5          -- M reclaimed at 2x build rate
+            etime = self.ReclaimTimeEnergyMult * (self.EnergyReclaim / buildrate ) * .05     -- E reclaimed at 20x build rate
 		
-        local time = mtime
-		
-        if mtime < etime then
-		
-            time = etime
+            time = LOUDMAX( mtime, etime, .1 )
+            
+        else
+
+            mtime = self.ReclaimTimeMassMult * ( self.MassReclaim / 0.1 ) * .5               -- M reclaimed at 2x
+            etime = self.ReclaimTimeEnergyMult * ( self.EnergyReclaim / 0.1 ) * .05          -- E reclaimed at 20x
+
+            time = LOUDMAX( mtime, etime, .1 )
+            
         end
-		
-        return (time*.1), self.EnergyReclaim, self.MassReclaim
+
+        return time, self.EnergyReclaim, self.MassReclaim
+        
     end,
 
     -- Split this prop into multiple sub-props, placing one at each of our bone locations.

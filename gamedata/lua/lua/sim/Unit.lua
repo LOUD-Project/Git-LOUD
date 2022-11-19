@@ -1177,9 +1177,7 @@ Unit = Class(moho.unit_methods) {
 
 	-- when you are reclaimed
     OnReclaimed = function(self, entity)
-    
-        --LOG("*AI DEBUG OnReclaimed "..repr(entity))
-	
+
         self:DoUnitCallbacks('OnReclaimed', entity)
         --self.CreateReclaimEndEffects( entity, self )
         self:Destroy()
@@ -2617,6 +2615,8 @@ Unit = Class(moho.unit_methods) {
     end,
 
     GetRebuildBonus = function(self, rebuildUnitBP)
+    
+        --LOG("*AI DEBUG GetRebuildBonus "..repr(rebuildUnitBP))
 	
         -- here 'self' is the engineer building the structure
         self.InitialFractionComplete = CBFP_oldUnit.GetRebuildBonus(self, rebuildUnitBP)
@@ -2669,6 +2669,8 @@ Unit = Class(moho.unit_methods) {
     end,
 
     OnRebuildBonusIsLegal = function(self)
+    
+        --LOG("*AI DEBUG RebuildBonusIsLegal for "..repr(self))
 	
         -- rebuild bonus check 2 [159]
         -- this doesn't always run. In fact, in most of the time it doesn't.
@@ -2681,6 +2683,9 @@ Unit = Class(moho.unit_methods) {
     end,
 
     OnRebuildBonusIsIllegal = function(self)
+    
+        --LOG("*AI DEBUG RebuildBonus ILLEGAL for "..repr(self))
+        
         -- rebuild bonus check 1 and 2 [159]
         -- this doesn't always run. In fact, in most of the time it doesn't.
 		-- self:Destroy()
@@ -3881,29 +3886,41 @@ Unit = Class(moho.unit_methods) {
     -- Return the total time in seconds, cost in energy, and cost in mass to reclaim the given target from 100%.
     -- The energy and mass costs will normally be negative, to indicate that you gain mass/energy back.
     GetReclaimCosts = function(self, target_entity)
-	
-        local bp = ALLBPS[self.BlueprintID]
-        local target_bp = target_entity:GetBlueprint()
+
+        local buildrate = GetBuildRate(self)
+        local time, energy, mass
 		
         if IsUnit(target_entity) then
 
-            local mtime = target_bp.Economy.BuildCostEnergy / GetBuildRate(self)
-            local etime = target_bp.Economy.BuildCostMass / GetBuildRate(self)
-            local time = mtime
-			
-            if mtime < etime then
-			
-                time = etime
-				
-            end
+            local target_bp = target_entity:GetBlueprint()
             
-            time = time * (self.ReclaimTimeMultiplier or 1)
-			
-            return (time/10), target_bp.Economy.BuildCostEnergy, target_bp.Economy.BuildCostMass
+            energy = target_bp.Economy.BuildCostEnergy
+            mass = target_bp.Economy.BuildCostMass
+
+            local etime = (energy / buildrate) * .1
+            local mtime = mass / buildrate
+
+            time = LOUDMAX( mtime, etime, .1 ) * (self.ReclaimTimeMultiplier or 1)
+
+            --if not self.Reclaiming then
+              --  LOG("*AI DEBUG Unit reclaim values are -- Time "..time.." -- E "..energy.." -- M "..mass.." -- buildpower "..buildrate.." -- ReclaimTimeMultiplier is "..(self.ReclaimTimeMultiplier or 1) )			
+            --end
+            
+            -- convert to per-tick cost -- and reflect that it's negative
+            energy = (energy/time) * .1
+            mass = (mass/time) * .1
+        
+            --self.Reclaiming = true
+
+            return time, energy, mass
 			
         elseif IsProp(target_entity) then
 		
-            local time, energy, mass =  target_entity:GetReclaimCosts(self)
+            -- this will report full time (in seconds) of the reclaim --
+            time, energy, mass =  target_entity:GetReclaimCosts(self, buildrate)
+            
+            --LOG("*AI DEBUG Prop reclaim values are -- Time "..time.." -- E "..energy.." -- M "..mass.." -- buildpower "..buildrate )
+            
             return time, energy, mass
 			
         end

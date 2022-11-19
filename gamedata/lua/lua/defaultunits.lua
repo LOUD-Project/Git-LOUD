@@ -1084,8 +1084,6 @@ MobileUnit = Class(Unit) {
 	
 	-- when you start reclaiming
     OnStartReclaim = function(self, target)
-
-        --LOG("*AI DEBUG OnStartReclaim from "..repr(self.BlueprintID).." on target "..repr(target))
         
         self:DoUnitCallbacks('OnStartReclaim', target)
 		
@@ -1106,18 +1104,23 @@ MobileUnit = Class(Unit) {
 			target:SetRegenRate(0)
 		end
 
+        --LOG("*AI DEBUG OnStartReclaim from "..repr(self.BlueprintID).." "..self.Sync.id.." on target "..repr(target.CachePosition).."  Mass "..repr(target.MassReclaim).."  Energy "..repr(target.EnergyReclaim) )
+
     end,
 
 	-- when you stop reclaiming
     OnStopReclaim = function(self, target)
     
-        --LOG("*AI DEBUG stop reclaim from "..repr(self.BlueprintID).." on target "..repr(target) )
+        --LOG("*AI DEBUG OnStopReclaim from "..repr(self.BlueprintID).." "..self.Sync.id )
 
+        self.Reclaiming = nil
+        
         self:DoUnitCallbacks('OnStopReclaim', target)
 
 		if self.ReclaimEffectsBag then
 			TrashDestroy(self.ReclaimEffectsBag)
 		end
+        
 		
 		if target and not BeenDestroyed(target) and target.BeingReclaimed then
 		
