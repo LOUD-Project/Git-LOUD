@@ -1,3 +1,41 @@
+### Release 18-11-2022
+
+LUA 6.2.17
+LOUD_MISC 6.2.13
+
+    - updated ACU enhancement descriptions to match with buff values being applied (thanks LostNoob, others)
+    - trapped the -1.@IND problem in the scoreboard - seems to be internal but applied logging for it (thanks Lohkrim for replay)
+    - more UI work to capture the overcharge weapons better (SERA SACU audio)
+    - cleanup of some code around the order panel change from last patch
+    - the HotStats mod, which I love, has it's sample period go from 10 - to 12 seconds - reducing memory slightly
+    - removal of some redundant campaign code in the Supreme Scoreboard
+    
+    - the UI should now be accurately showing regen values accurately - rather than being drawn from a description field
+    - try driving a Sera unit thru a restoration field now - you should see the values reflect properly
+    - likewise, shields will show proper regen values, as will units that have veterancy
+    - this process removes the need to 'calculate' the regen value, in the UI, during any rollover
+    - that was an intesive blueprint reading process in the past, that occurred super-frequently
+    - units now carry around their current regen values as data, and pass it to the UI, via a SetStat process (thanks Jip)
+    
+    - Reclaiming times, and the process behind reclaim, got a close exam - detail in the loud-github-feed channel, on Discord
+    - reclaim times for structures & units has always been correct - equal to build time (based on the buildpower of reclaimer)
+    - reclaim times for props/wrecks are now 2x of normal build speed (ie. T1 Eng can build about 5 mass/tick - reclaim upto 10 mass/tick)
+
+    - AI position, relative to loiter, checked more closely, to improve recall behavior when it strays
+
+    - some logging to support some examination of some messy UI behavior that shows on very low game resolutions.
+    - added a basic memory report to the game log file - it reports every 8 minutes - see github for more detail
+    
+MAPS
+    - Armed & Dangerous updated with mass point revisions (Binary)
+    
+LAUNCHER FUNCTIONALITY
+
+    - all the icon size files (Small,Medium & Large) are now stored in the BIN folder, where the launcher can move the selected file
+    - the USERMODS folder will be used to house the set you are currently using so the updater won't overwrite your choice
+    - the mounting sequence file has been adapted to see those files specifically and load them ahead of the imbedded icons
+
+
 ### Release 01-10-2022
 
 Effects v3.2
