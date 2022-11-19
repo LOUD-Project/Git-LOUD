@@ -87,7 +87,7 @@ end
 ResetGrid()     -- this sets up the default grid and order slots
 
 -- these variables control the number of slots available for orders
--- from DMS -- making the controls softer (size 14, 18 and 24)
+-- from DMS -- 
 local numSlots = Grid_Params.Grid.numSlots
 local firstAltSlot = Grid_Params.Grid.firstAltSlot
 local vertRows = Grid_Params.Grid.vertRows
@@ -993,12 +993,17 @@ local function TacticalBtnText(button)
 end
 
 function EnterOverchargeMode()
+
     local econData = GetEconomyTotals()
+
     if not currentSelection[1] or currentSelection[1]:IsDead() then return end
+
     local bp = currentSelection[1]:GetBlueprint()
+
     local overchargeLevel = 0
     local overchargeFound = false
     local overchargePaused = currentSelection[1]:IsOverchargePaused()
+
     for index, weapon in bp.Weapon do
         if weapon.OverChargeWeapon then
             overchargeLevel = weapon.EnergyRequired
@@ -1006,6 +1011,7 @@ function EnterOverchargeMode()
             break
         end
     end
+
     if overchargeFound then
         if overchargeLevel > 0 and econData["stored"]["ENERGY"] > overchargeLevel and not overchargePaused then
             ConExecute('StartCommandMode order RULEUCC_Overcharge')
@@ -1019,37 +1025,58 @@ local function OverChargeFrame(self, deltaTime)
 
         if currentSelection[1]:IsDead() then return end
 
-        local econData = GetEconomyTotals()
         local bp = currentSelection[1]:GetBlueprint()
-        local overchargeLevel = 0
-        local overchargePaused = currentSelection[1]:IsOverchargePaused()
 
+        local overchargeLevel = false
+
+        -- find the overcharge weapon --
         for index, weapon in bp.Weapon do
 
             if weapon.OverChargeWeapon then
+
                 overchargeLevel = weapon.EnergyRequired
+                
                 break
             end
         end
 
-        if overchargeLevel > 0 then
+        -- now see if there's enough power to use the weapon --
+        if overchargeLevel then
 
-            if econData["stored"]["ENERGY"] > overchargeLevel and not overchargePaused then
+            --LOG("*AI DEBUG OverchargeFrame")
+            
+            if not currentSelection[1]:IsOverchargePaused() then
 
-                if self:IsDisabled() then
+                local econData = GetEconomyTotals()
 
-                    self:Enable()
+                -- if we have the charge - enable the weapon & play the sound
+                if econData["stored"]["ENERGY"] > overchargeLevel then
 
-                    local armyTable = GetArmiesTable()
-                    local facStr = import('/lua/factions.lua').Factions[armyTable.armiesTable[armyTable.focusArmy].faction + 1].SoundPrefix
-                    local sound = Sound({Bank = 'XGG', Cue = 'Computer_Computer_Basic_Orders_01173'})
-                    PlayVoice(sound)
+                    if self:IsDisabled() then
+
+                        self:Enable()
+
+                        local armyTable = GetArmiesTable()
+                        local facStr = import('/lua/factions.lua').Factions[armyTable.armiesTable[armyTable.focusArmy].faction + 1].SoundPrefix
+                        local sound = Sound({Bank = 'XGG', Cue = 'Computer_Computer_Basic_Orders_01173'})
+
+                        PlayVoice(sound)
+                    end
+
+                else
+                
+                    self:Disable()
+                    
                 end
+
             else
+            
                 if not self:IsDisabled() then
                     self:Disable()
                 end
+            
             end
+
         else
             self:SetNeedsFrameUpdate(false)
         end
@@ -1120,7 +1147,6 @@ local commonOrders = {
     RULEUCC_Move = true,
     RULEUCC_Attack = true,
     AttackMove = true,
-    RULEUCC_Overcharge = true,
     RULEUCC_Patrol = true,
     RULEUCC_Stop = true,
     RULEUCC_Guard = true, 
@@ -1275,7 +1301,6 @@ local function AddOrder(orderInfo, slot, batchMode)
 
     -- calculate row and column, remove old item, add new checkbox
     
-    -- ok - I'm slow, but I figured out where the layouts for the orders box are setup
     local cols, rows = controls.orderButtonGrid:GetDimensions()
     
     local row = math.ceil( slot / cols )
@@ -1648,16 +1673,18 @@ function SetAvailableOrders(availableOrders, availableToggles, newSelection)
             controls.bg.Mini(true)
         end
         
+        currentSelection = false
+
         return
     end
  	
-	-- this block removes stunned units from the selection block
-	-- so they cannot click build or order buttons.. 
-	local SelectedUnits = newSelection
-
 	local AddedToggles = {}
 
+	local SelectedUnits = newSelection
+
 --[[
+	-- this block removes stunned units from the selection block
+	-- so they cannot click build or order buttons.. 
 	for index, unit in SelectedUnits do
 
 		local IsStunned = GetUnitParam(unit, 'IsStunned')
@@ -1670,11 +1697,6 @@ function SetAvailableOrders(availableOrders, availableToggles, newSelection)
 
 	--reset our grid. important.
 	ResetGrid()
-
-   
-    --LOG('available orders: ', repr(availableOrders))
-    --LOG('available toggle: ', repr(availableToggles))
-    --LOG('newselection is ', repr(newSelection))
 
     -- save new selection    
     currentSelection = newSelection
@@ -1761,10 +1783,10 @@ function SetAvailableOrdersMod(availableOrders, availableToggles, newSelection)
 
 	local AddedAbilities = {}
 
+--[[
     -- this block is here to support a DMS feature (not in use)
 	if currentSelection then
 
---[[	
         for index, Unit in currentSelection do
 
 			local UnitId = Unit:GetEntityId()
@@ -1812,8 +1834,9 @@ function SetAvailableOrdersMod(availableOrders, availableToggles, newSelection)
                 end
             end
         end
---]]
+
     end
+--]]
 
 	--clear ALL existing orders
     orderCheckboxMap = {}

@@ -1757,25 +1757,35 @@ function OnClickHandler(button, modifiers)
 
 				UIUtil.QuickDialog(GetFrame(0), "<LOC enhancedlg_0000>Choosing this enhancement will destroy the existing enhancement in this slot.  Are you sure?",
                 "<LOC _Yes>", function()
+
                         ForkThread(function()
+
+                            -- first, we append 'Remove' to whatever is already in the slot
+                            -- and we remove it
                             local orderData = {
                                 -- UserVerifyScript='/lua/ui/game/EnhanceCommand.lua',
                                 TaskName = "EnhanceTask",
                                 Enhancement = existingEnhancements[item.enhTable.Slot]..'Remove',
                             }
                             IssueCommand("UNITCOMMAND_Script", orderData, true)
+
+                            -- then we wait 5 ticks
                             WaitSeconds(.5)
+
+                            -- then we order the requested enhancement
                             orderData = {
                                 -- UserVerifyScript='/lua/ui/game/EnhanceCommand.lua',
                                 TaskName = "EnhanceTask",
                                 Enhancement = item.id,
                             }
                             IssueCommand("UNITCOMMAND_Script", orderData, true)
+                            
                         end)
+
                     end,
-                "<LOC _No>", nil,
-                nil, nil,
-                true,  {worldCover = true, enterButton = 1, escapeButton = 2})
+
+                "<LOC _No>", nil, nil, nil, true,
+                {worldCover = true, enterButton = 1, escapeButton = 2})
 
             end
 

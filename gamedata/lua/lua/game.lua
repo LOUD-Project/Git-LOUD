@@ -90,8 +90,21 @@ function GetConstructEconomyModel(builder, EconomyData, BuildRate)
 		mass = mass * discount
 	
 	end
-	
-    return time/BuildRate, energy, mass
+
+    if BuildRate >= 0.9 then
+    
+        --LOG("*AI DEBUG Construction values are -- Time "..(time/BuildRate).." -- E "..energy.." -- M "..mass.." -- BuildPower is "..BuildRate)
+    
+        return ( time/BuildRate ), energy, mass
+        
+    else
+    
+        --LOG("*AI DEBUG Construction values are -- Time "..(time/.1).." -- E "..energy.." -- M "..mass.." -- BuildPower is .1")        
+        
+        return (time/.1), energy, mass
+        
+    end
+    
 end
 
 function UnitRestricted(unit, unitId)
