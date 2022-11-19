@@ -64,56 +64,89 @@ SpecialGrid = Class(Group) {
         if pagemax then
             self._pageMax = pagemax
             self._pageMax.OnClick = function(control, modifiers)
+            
+           
                 self.top = table.getn(self.DisplayData) - table.getsize(self.Items) + 1
+
+                --LOG("*AI DEBUG _pageMax OnClick - top value is "..self.top )
+
                 self:CalcVisible()
             end
         end
     end,
     
     CalcVisible = function(self)
+
         local maxItemWidth = 0
         local itemIndex = 1
         local minControl = 'Left'
         local maxControl = 'Right'
+
         if self._vertical then
             minControl = 'Top'
             maxControl = 'Bottom'
         end
+        
+        --LOG("*AI DEBUG DisplayData has "..table.getn(self.DisplayData))
+
         for i = self.top, table.getn(self.DisplayData) do
+
             local index = i
+
             if not self.Items[itemIndex] then
+
                 self.Items[itemIndex] = self.CreateElement()
+
                 if self._vertical then
+
                     if index == 1 then
+
                         LayoutHelpers.AtTopIn(self.Items[itemIndex], self)
                         LayoutHelpers.AtHorizontalCenterIn(self.Items[itemIndex], self)
+
                     else
+
                         LayoutHelpers.Below(self.Items[itemIndex], self.Items[itemIndex-1])
                         LayoutHelpers.AtHorizontalCenterIn(self.Items[itemIndex], self)
+
                     end
+
                 else
+
                     if index == 1 then
+
                         LayoutHelpers.AtLeftIn(self.Items[itemIndex], self)
                         LayoutHelpers.AtVerticalCenterIn(self.Items[itemIndex], self)
+
                     else
+
                         LayoutHelpers.RightOf(self.Items[itemIndex], self.Items[itemIndex-1])
                         LayoutHelpers.AtVerticalCenterIn(self.Items[itemIndex], self)
+
                     end
+
                 end
             end
+
             if itemIndex == 1 or self.Items[itemIndex-1][maxControl]() + maxItemWidth < self[maxControl]() then
+
                 local data = self.DisplayData[index]
                 local control = self.Items[itemIndex]
+
                 control:Show()
                 control.Data = data
+
                 self.SetControlToType(control, data.type)
+
                 if control.OptionMenu then
                     control.OptionMenu:Destroy()
                     control.OptionMenu = nil
                 end
+
                 if control.Width() > maxItemWidth then
                     maxItemWidth = control.Width()
                 end
+
             else
                 -- if an item is found that can't fit it needs to be destroyed because it won't display
                 -- ideally the calculation as to whether it can fit would be done before creating the item
@@ -122,30 +155,54 @@ SpecialGrid = Class(Group) {
                 self.Items[itemIndex] = nil
                 break
             end
+
             itemIndex = itemIndex + 1
         end
+
+        -- disable the ScrollMin button if we're at the far left of the list
         if self._scrollMin and self.top == 1 then
+
             self._scrollMin:Disable()
             self._pageMin:Disable()
+
         elseif self._scrollMin then
+
             self._scrollMin:Enable()
             self._pageMin:Enable()
         end
+
+        -- disable the ScrollMax button if we're at the far right of the list
         if self._scrollMax and (table.getn(self.DisplayData) - self.top) >= table.getsize(self.Items) then
+
             self._scrollMax:Enable()
             self._pageMax:Enable()
+
         elseif self._scrollMax then
+
             self._scrollMax:Disable()
             self._pageMax:Disable()
         end
+
         for i = itemIndex, table.getsize(self.Items) do
+
             local index = i
-            self.Items[index]:Hide()
+
+            if self.Items[index] then    
+                self.Items[index]:Hide()
+            else
+                --LOG("*AI DEBUG index is "..index.." Number of Items is "..table.getsize(self.Items))
+            end
+
             if self.Items[index][maxControl]() > self[maxControl]() then
+
                 self.Items[index]:Destroy()
-                self.Items[index] = nil
+                
+                if self.Items[index] then
+                    self.Items[index] = nil
+                end
             end
         end
+
     end,
     
     ClearItems = function(self)

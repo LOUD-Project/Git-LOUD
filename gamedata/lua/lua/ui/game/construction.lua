@@ -162,12 +162,15 @@ end
 function CreateUI()
 
     controls.constructionGroup = Group(controlClusterGroup)
+    
     controls.minBG = Bitmap(controls.constructionGroup)
     controls.maxBG = Bitmap(controls.constructionGroup)
     controls.midBG1 = Bitmap(controls.constructionGroup)
     controls.midBG2 = Bitmap(controls.constructionGroup)
     controls.midBG3 = Bitmap(controls.constructionGroup)
+
     controls.choices = SpecialGrid(controls.constructionGroup, false)
+    
     controls.choicesBGMin = Bitmap(controls.constructionGroup)
     controls.choicesBGMid = Bitmap(controls.constructionGroup)
     controls.choicesBGMax = Bitmap(controls.constructionGroup)
