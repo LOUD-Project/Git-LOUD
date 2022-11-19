@@ -3,9 +3,7 @@ Description = {
 	--Commanders
 	['uel0001'] = "Houses Commander. Combination barracks and command center. Contains all the blueprints necessary to build a basic army from scratch.",
 	['uel0001-tm'] = "Mounts a tactical cruise missile launcher onto the back of the ACU.",
-	['uel0001-aes'] = "Adds the ability to construct T2 units and increases the ACU's build speed to 30, maximum health by 3K, and regen to 30.",
 	['uel0001-dsu'] = "Greatly increases the speed at which the ACU repairs itself.",
-	['uel0001-ees'] = "Adds the ability to construct T3 units and increases the ACU's build speed to 90, maximum health by 3K, and regen to 45.",
 	['uel0001-hamc'] = "Increases main cannon's damage output by several factors. Also increases range of main cannon and Overcharge.",
 	['uel0001-srtn'] = "Adds a short-range tactical nuke.",
 	['uel0001-pqt'] = "Adds teleporter. Requires considerable Energy to activate.\n\n(Overlay: Miscellaneous)",
@@ -14,7 +12,9 @@ Description = {
 	['uel0001-psg'] = "Creates a protective shield around the ACU. Requires Energy to run.",
 	['uel0001-led'] = "Engineering Drone acts as a secondary Engineer. Assists the ACU where applicable.",
 	['uel0001-red'] = "Adds a second Engineering Drone. Requires an initial Engineering Drone.",
-	['uel0001-exles3'] = "Adds the ability to construct T4 units and increases the ACU's build speed to 120, maximum health by 4K, and regen to 60. Movement speed increased by 10%",
+	['uel0001-aes'] = "Adds the ability to construct T2 units, triples build power and regen, adds 35% to maximum health.",
+	['uel0001-ees'] = "Adds the ability to construct T3 units, triples build power and doubles regen. Health increased by 65% from base value.",
+	['uel0001-exles3'] = "Adds the ability to construct T4 units and increases build power to 15x, regen by 10x and health doubled, from the base values. Movement speed increased by 10%",
 
 	--Support Commanders
 	['uel0301'] = "A multi-purpose construction, repair, capture and reclamation unit with superior build power and access to Experimental blueprints. ",
@@ -140,12 +140,12 @@ Description = {
 	['url0001-pcg'] = "Cloaks the ACU from optical sensors and increases maximum health. Can be detected by Omni Sensors. Requires Energy to run.",
 	['url0001-psg'] = "Hides the ACU from radar. Requires Energy to run.",
 	['url0001-pqt'] = "Adds teleporter. Requires considerable Energy to activate.\n\n(Overlay: Miscellaneous)",
-	['url0001-aes'] = "Adds the ability to construct T2 units and increases the ACU's build speed to 30, maximum health by 3K, and regen to 25.",
-	['url0001-ees'] = "Adds the ability to construct T3 units and increases the ACU's build speed to 90, maximum health by 3K, and regen to 40.",
 	['url0001-acu'] = "Increases main cannon's rate of fire and range. Also increases range of the Molecular Ripper and Overcharge.",
 	['url0001-mlg'] = "ACU can generate a beam laser that sweeps over enemy units.",
 	['url0001-ntt'] = "Equips the ACU with a standard Cybran Nanite torpedo tube and sonar.",
-	['url0001-exles3'] = "Adds the ability to construct T4 units and increases the ACU's build speed to 120, maximum health by 4K, and regen to 65. Movement speed increased by 10%",
+	['url0001-aes'] = "Adds the ability to construct T2 units, triples build power and regen, adds 35% to maximum health.",
+	['url0001-ees'] = "Adds the ability to construct T3 units, triples build power and doubles regen. Health increased by 65% from base value.",
+	['url0001-exles3'] = "Adds the ability to construct T4 units and increases build power to 15x, regen by 10x and health doubled, from the base values. Movement speed increased by 10%",
 
     --Support Commanders
 	['url0301'] = "A multi-purpose construction, repair, capture and reclamation unit with superior build power and access to Experimental blueprints. ",
@@ -271,18 +271,18 @@ Description = {
 --AEON UNITS
 	--Commanders
 	['ual0001'] = "Houses Commander. Combination barracks and command center. Contains all the blueprints necessary to build a basic army from scratch.",
-	['ual0001-aes'] = "Adds the ability to construct T2 units and increases the ACU's build speed to 30, maximum health by 3K, and regen to 30.",
 	['ual0001-cd'] = "Creates a Quantum Stasis Field around the ACU. Immobilizes enemy units within its radius. High Energy Consumption.",
 	['ual0001-cba'] = "Enhances the ACU's Quantum Disrupter beam. Nearly doubles its range.",
 	['ual0001-ess'] = "Greatly expands the range of the standard onboard ACU sensor systems.",
-	['ual0001-ees'] = "Adds the ability to construct T3 units and increases the ACU's build speed to 90, maximum health by 3K, and regen to 45.",
 	['ual0001-hsa'] = "Rapidly cools the Quantum Disruptor beam. Increases rate of fire.",
 	['ual0001-ras'] = "Increases ACU's resource generation.",
 	['ual0001-eras'] = "Requires Resource Allocation System. Further increases ACU's resource generation.",
 	['ual0001-ptsg'] = "Creates a protective shield around the ACU. Requires Energy to run.",
 	['ual0001-phtsg'] = "Enhances the protective shield around the ACU. Requires Energy to run.",
 	['ual0001-pqt'] = "Adds teleporter. Requires considerable Energy to activate.\n\n(Overlay: Miscellaneous)",
-	['ual0001-exles3'] = "Adds the ability to construct T4 units and increases the ACU's build speed to 120, maximum health by 4K, and regen to 60. Movement speed increased by 10%",
+	['ual0001-aes'] = "Adds the ability to construct T2 units, triples build power and regen, adds 35% to maximum health.",
+	['ual0001-ees'] = "Adds the ability to construct T3 units, triples build power and doubles regen. Health increased by 65% from base value.",
+	['ual0001-exles3'] = "Adds the ability to construct T4 units and increases build power to 15x, regen by 10x and health doubled, from the base values. Movement speed increased by 10%",
 
 	-- Support Commanders
 	['ual0301'] = "A multi-purpose construction, repair, capture and reclamation unit with superior build power and access to Experimental blueprints. ",
@@ -405,14 +405,14 @@ Description = {
 	['xsl0001-adss'] = "Further increases the speed at which the ACU repairs itself. Also increases hitpoints.",
 	['xsl0001-ras'] = "Increases ACU's resource generation.",
 	['xsl0001-eras'] = "Requires Resource Allocation System. Further increases ACU's resource generation.",
-	['xsl0001-aes'] = "Adds the ability to construct T2 units and increases the ACU's build speed to 30, maximum health by 3K, and regen to 30.",
-	['xsl0001-ees'] = "Adds the ability to construct T3 units and increases the ACU's build speed to 90, maximum health by 3K, and regen to 45.",
-	['xsl0001-exles3'] = "Adds the ability to construct T4 units and increases the ACU's build speed to 120, maximum health by 4K, and regen to 60. Movement speed increased by 10%",
 	['xsl0001-cba'] = "Increases the damage inflicted by ACU's primary weapon. Adds area-of-effect damage.",
 	['xsl0001-nrf'] = "Automatically speeds up the repair speed of nearby units.",
     ['xsl0001-anrf'] = "Further speeds up the repair speed of nearby units. Increases maximum health of nearby units.",
 	['xsl0001-hsa'] = "Increases main cannon's rate of fire and range. Also increases range of Overcharge.",
 	['xsl0001-tml'] = "Mounts a tactical cruise missile launcher onto the back of the ACU.",
+	['xsl0001-aes'] = "Adds the ability to construct T2 units, triples build power and regen, adds 35% to maximum health.",
+	['xsl0001-ees'] = "Adds the ability to construct T3 units, triples build power and doubles regen. Health increased by 65% from base value.",
+	['xsl0001-exles3'] = "Adds the ability to construct T4 units and increases build power to 15x, regen by 10x and health doubled, from the base values. Movement speed increased by 10%",
 
 	['xsl0301'] = "A multi-purpose construction, repair, capture and reclamation unit with superior build power and access to Experimental blueprints. ",
     ['xsl0301-tmu'] = "Mounts a tactical cruise missile launcher onto the back of the SACU.",
