@@ -551,6 +551,22 @@ function ModBlueprints(all_blueprints)
 
     for id, bp in all_blueprints.Unit do
 
+	do
+		local tpc = bp.Transport and bp.Transport.TransportClass or 1
+		local sizes = {'Small', 'Medium', 'Large', [5]='Drone'}
+
+		if bp.General.CommandCaps.RULEUCC_CallTransport
+		and sizes[tpc]
+		and bp.Categories
+		and not table.find(bp.Categories, 'TECH'..tpc)
+		then
+			if not bp.Display           then bp.Display = {}           end
+			if not bp.Display.Abilities then bp.Display.Abilities = {} end
+			table.insert(bp.Display.Abilities, 'Transport hook size: '..sizes[tpc])
+		end
+	end
+		
+		
         if bp.Weapon then
 
 			-- Begin Threat Update: overwrite threat with updated values
