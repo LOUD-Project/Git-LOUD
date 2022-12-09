@@ -81,11 +81,12 @@ UnitBlueprint {
     Display = {
 	
         Abilities = {
-            '<LOC ability_amphibious>Amphibious',
             '<LOC ability_aa>Anti-Air',
+            '<LOC ability_amphibious>Amphibious',
             '<LOC ability_stealthfield>Stealth Field',
             '<LOC ability_torpedo>Torpedoes',
             '<LOC ability_transport>Transport',
+            'Ground Attack',
         },
 		
         AnimationDeath = {

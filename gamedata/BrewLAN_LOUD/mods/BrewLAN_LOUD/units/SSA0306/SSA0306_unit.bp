@@ -120,6 +120,7 @@ UnitBlueprint {
             '<LOC ability_aa>Anti-Air',
             '<LOC ability_shielddome>Shield Dome',
             '<LOC ability_transport>Transport',
+            'Ground Attack',
         },
 		
         ForcedBuildSpin = 90,
