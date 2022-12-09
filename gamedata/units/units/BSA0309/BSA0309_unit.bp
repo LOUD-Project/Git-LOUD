@@ -118,10 +118,10 @@ UnitBlueprint {
 
     Display = {
         Abilities = {
-            'Projectile Reflector Field',
+            '<LOC ability_aa>Anti-Air',
+			'Ground Attack',
             'Projectile Nullifier Field',
-			'Ground Attack Autocannon',
-            '4 x AA Guns',
+            'Projectile Reflector Field',
         },
 
         ForcedBuildSpin = 90,

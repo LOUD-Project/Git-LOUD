@@ -93,8 +93,10 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-			'Radar Stealth',
-            'AA & EMP Ground Attack',
+			'<LOC ability_aa>Anti-Air',
+            '<LOC ability_personalstealth>Personal Stealth',
+            '<LOC ability_stun>EMP Weapon',
+            '<LOC ability_transport>Transport',
         },
 		
         AnimationIdle = '/units/URA0104/ura0104_Aidle.sca',

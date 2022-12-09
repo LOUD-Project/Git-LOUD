@@ -123,10 +123,10 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            '2 Ground Attack Cannons',
-			'4 SAM Launchers',
-            'Shielded',
-            'Transport 8 T3 units',
+            '<LOC ability_aa>Anti-Air',
+            '<LOC ability_shielddome>Shield Dome',
+            '<LOC ability_transport>Transport',
+            'Ground Attack',
         },
 		
         AnimationLand = '/units/UEA0104/UEA0104_atakeoff01.sca',

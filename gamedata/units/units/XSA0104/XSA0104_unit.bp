@@ -95,7 +95,9 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Anti-Air',
+            '<LOC ability_aa>Anti-Air',
+            '<LOC ability_transport>Transport',
+			'Ground Attack',
         },
         ForcedBuildSpin = 90,
         Mesh = {

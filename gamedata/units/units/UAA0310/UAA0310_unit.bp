@@ -138,9 +138,14 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-			'Radar & Sonar',
-			'Death Ray, AA and Torpedoes',
-            'Air Carrier & Air Factory',
+			'<LOC ability_aa>Anti-Air',
+            '<LOC ability_airstaging>Air Staging',
+            '<LOC ability_carrier>Carrier',
+            '<LOC ability_depthcharge>Depth Charges',
+            '<LOC ability_factory>Factory',
+            '<LOC ability_radar>Radar',
+            '<LOC ability_sonar>Sonar',
+			'Ground Attack',
         },
 		
         --AnimationOpen = '/units/UAA0310/UAA0310_aopen.sca',

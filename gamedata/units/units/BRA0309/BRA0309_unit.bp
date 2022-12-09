@@ -101,10 +101,11 @@ UnitBlueprint {
 
     Display = {
         Abilities = {
-			'EMP Ground Attack',
-            'Anti-Air',
-            'Transports 3 T3 units',
-            'Cloak & Radar Stealth',
+			'<LOC ability_aa>Anti-Air',
+            '<LOC ability_cloak>Cloaking',
+            '<LOC ability_personalstealth>Personal Stealth',
+            '<LOC ability_stun>EMP Weapon',
+            '<LOC ability_transport>Transport',
         },
 
         AnimationOpen = '/mods/BlackOpsUnleashed/units/BRA0309/BRA0309_Aopen.sca',
