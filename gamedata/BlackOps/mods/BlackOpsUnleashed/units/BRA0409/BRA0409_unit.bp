@@ -109,10 +109,12 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            '6 x AA Lasers',
-			'4 x Heavy Plasma Autocannon',
-			'Hi-Yield EMP Area Stun Missile',
-            'Transports 20',
+            '<LOC ability_aa>Anti-Air',
+            '<LOC ability_radar>Radar',
+            '<LOC ability_stealthfield>Stealth Field',
+            '<LOC ability_stun>EMP Weapon',
+            '<LOC ability_transport>Transport',
+            'Ground Attack',
         },
 		
         AnimationOpen = '/mods/BlackOpsUnleashed/units/BRA0409/BRA0409_AOpen.sca',

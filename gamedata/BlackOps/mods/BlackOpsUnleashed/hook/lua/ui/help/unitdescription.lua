@@ -2,7 +2,6 @@
 
 --Aeon
 
-Description['baa0309'] = "The Illuminate can ferry large amounts of units across the battlefield. This special transport makes up for its lack of armor through agility."
 Description['bal0110'] = "This basic Aeon sniper unit must be stationary to fire its long range weapon. Its low rate of fire makes it vulnerable in skirmish situations."
 Description['bab2306'] = "Aria is the advanced version of the Oblivion point defense emplacement. With greater range its high powered continuous beam weapon is capable of inflicting awesome damage."
 Description['bal0206'] = "The Zealot is the standard Aeon ground support/assault unit. Good speed, armor and decent firepower make it quite effective."
@@ -41,8 +40,7 @@ Description['brl0307'] = "Medium Range Artillery Unit. The Hailfire fires a salv
 Description['brl0401'] = "The ultimate weapon in the Cybran Military, derived from the original Basilisk design. While in assault mode it is armed with an Experimental Electron Accelerator Cannon, a pair of Electron Scrambler Cannons, two Electron Bolters, Nanite swarm missiles and Microwave Nanite Anti-air missiles. In Siege mode it sports the original Plasma cannon and LOA TML system. The AI is still known to occasionally wander off on its own to attack the enemy."
 Description['brs0304'] = "The Reaper serves as an escort and a battlecriuser, capable of fighting every type of enemy."
 Description['brs0402'] = "The pride of the Cybran Navy, the SeaDragon is armed with 2 X-Cannons, several deck cannons, AA, and torpedoes; enemies shake in fear at the sight of this vessel. Also able to repair and refuel aircraft in the field."
-Description['ura0309'] = "The Vanisher is the Cybran's covert operations transport, equipped with a cloak generator; it can become very useful to a clever Commander. Suffers from limited capacity."
-Description['bra0409'] = "The Gargantuan transport, capable of transporting up to 20 tier 3 units. Equipped with multiple AA lasers, ground attack cannons and a unique EMP weapon, Gargantua can get you where you need to go."
+Description['bra0409'] = "The Gargantuan transport, capable of transporting up to 20 units of any hook size. Equipped with multiple AA lasers, ground attack cannons and a unique EMP weapon, Gargantua can get you where you need to go."
 Description['brb2303'] = "Static Hailfire rocket launcher. Showers the target area with low yield EMP-based explosives, uses energy to fire."
 Description['brb2306'] = "Fires a Microwave laser along with a high concentration of electromagnetic energy into the target, causing it to explode damaging and shutting down all units in the affected area."
 Description['brs0305'] = "Heavy attack sub. Armed with the latest advanced Krill torpedos from the Cybran Navy. Uses twin bolters when surfaced and come equiped with a Torpedo Redirection System."
