@@ -1,0 +1,16 @@
+name = "Build Range Preview"
+version = 1
+copyright = "MIT licensed"
+description = "Shows the build range of the selected unit when queuing orders"
+author = "Sheikah"
+uid = "9e0e482a-ebbd-40ed-95e0-9619ccdc4d13"
+icon = "/mods/buildRangePreview/icon.png"
+selectable = true
+enabled = true
+exclusive = false
+ui_only = true
+requires = {}
+requiresNames = {}
+conflicts = {}
+before = {}
+after = {}
