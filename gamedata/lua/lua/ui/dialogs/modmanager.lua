@@ -185,6 +185,7 @@ local modSchema = {
         '9a9C61C0-1787-10DF-A0AD-BATTLEPACK002', -- Wyvern Battle Pack
     },
     ["User Interface"] = {
+        '9e0e482a-ebbd-40ed-95e0-9619ccdc4d13', -- Build Range Preview
         'Machd6c5-cd5c-4e34-b6cc-11503ed5e2da', -- Disperse Move
         '175542E4-D4F5-11DC-B450-11D755D89593', -- HotStats
         'EF3ADDB4-9D34-437F-B1C8-440DAF896802', -- Mass Fab Manager
