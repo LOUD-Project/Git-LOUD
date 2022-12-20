@@ -2,7 +2,7 @@
 --* Author: Chris Blackwell
 --* Summary: The entry point for UI scripting
 --*
---* Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
+--* Copyright ï¿½ 2005 Gas Powered Games, Inc.  All rights reserved.
 
 local UIUtil = import('uiutil.lua')
 
@@ -250,15 +250,21 @@ function StopCursorText()
     if cursorText then cursorText:Destroy() end
 end
 
-function IncreaseGameSpeed()
+function ChangeSimRate(rate)
     if not WorldIsLoading() and (import('/lua/ui/game/gamemain.lua').supressExitDialog != true) then
-        ConExecute('WLD_IncreaseSimRate')
+        ConExecute("WLD_GameSpeed " .. (GetSimRate() + rate))
     end    
 end
 
 function DecreaseGameSpeed()
     if not WorldIsLoading() and (import('/lua/ui/game/gamemain.lua').supressExitDialog != true) then
         ConExecute('WLD_DecreaseSimRate')
+    end    
+end
+
+function IncreaseGameSpeed()
+    if not WorldIsLoading() and (import('/lua/ui/game/gamemain.lua').supressExitDialog != true) then
+        ConExecute('WLD_IncreaseSimRate')
     end    
 end
 

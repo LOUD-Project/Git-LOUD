@@ -147,8 +147,13 @@ defaultKeyMap = {
     ['Ctrl-K']              = 'suicide',
 
     ['NumMinus']            = 'decrease_game_speed',
+    ['Shift-NumMinus']      = 'decrease_game_speed_by_3',
     ['NumPlus']             = 'increase_game_speed',
+    ['Shift-NumPlus']       = 'increase_game_speed_by_3',
     ['NumStar']             = 'reset_game_speed',
+    ['Ctrl-Shift-NumMinus'] = 'set_game_speed_minus_10',
+    ['Ctrl-Shift-NumPlus']  = 'set_game_speed_plus_10',
+    ['Shift-NumStar']       = 'toggle_the_wind',
 
     ['PageUp']              = 'chat_page_up',
     ['PageDown']            = 'chat_page_down',

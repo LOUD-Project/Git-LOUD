@@ -134,8 +134,14 @@ keyDescriptions = {
     ['area_reclaim'] = 'Reclaim Everything Around Cursor',
 
     ['decrease_game_speed'] = 'Decrease game speed',
+    ['decrease_game_speed_by_3'] = 'Decrease game speed by -3',
     ['increase_game_speed'] = 'Increase game speed',
+    ['increase_game_speed_by_3'] = 'Increase game speed by +3',
     ['reset_game_speed'] 	= 'Reset game speed to 0 (Normal Speed)',
+    ['set_game_speed_minus_10'] = 'Set game speed to -10',
+    ['set_game_speed_plus_10'] = 'Set game speed to +10',
+    ['toggle_the_wind'] = 'Toggle Run With The Wind',
+
     ['focus_window_primary'] = 'Set focus to the Primary Monitor',
     ['focus_window_secondary'] = 'Set focus to the Secondary Monitor',
 
