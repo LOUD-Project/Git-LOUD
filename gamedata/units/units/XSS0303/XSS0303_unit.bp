@@ -70,9 +70,12 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Anti-Air',
-            'Factory',
-            'Radar & Sonar',
+            '<LOC ability_aa>Anti-Air',
+            '<LOC ability_airstaging>Air Staging',
+            '<LOC ability_carrier>Carrier',
+            '<LOC ability_factory>Factory',
+            '<LOC ability_radar>Radar',
+            '<LOC ability_sonar>Sonar',
 			'Tactical Missile Launcher',
         },
         AnimationDeath = {

@@ -87,6 +87,9 @@ UnitBlueprint {
     Description = '<LOC xsa0107_desc>Light Air Transport',
 	
     Display = {
+        Abilities = {
+            '<LOC ability_transport>Transport',
+        },
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {

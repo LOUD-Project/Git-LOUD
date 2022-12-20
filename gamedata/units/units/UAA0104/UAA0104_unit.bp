@@ -98,7 +98,8 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            'Anti-Air',
+            '<LOC ability_aa>Anti-Air',
+            '<LOC ability_transport>Transport',
         },
 		
         AnimationPermOpen = '/units/UAA0104/UAA0104_aopen01.sca',

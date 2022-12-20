@@ -107,10 +107,10 @@ UnitBlueprint {
 	
     Display = {
         Abilities = {
-            '<LOC ability_stun>EMP Weapon',		
             '<LOC ability_aa>Anti-Air',
-			'Transports up to 4 T3 Units',
             '<LOC ability_stealthfield>Stealth Field',
+			'<LOC ability_stun>EMP Weapon',
+            '<LOC ability_transport>Transport',
         },
 		
         AnimationIdle = '/units/ura0104/ura0104_Aidle.sca',

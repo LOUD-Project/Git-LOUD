@@ -87,6 +87,9 @@ UnitBlueprint {
     Description = '<LOC uaa0107_desc>Light Air Transport',
 	
     Display = {
+        Abilities = {
+            '<LOC ability_transport>Transport',
+        },
         AnimationOpen = '/units/UAA0104/UAA0104_aopen01.sca',
         Mesh = {
             IconFadeInZoom = 130,

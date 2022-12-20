@@ -86,6 +86,9 @@ UnitBlueprint {
     Description = '<LOC uea0107_desc>Light Air Transport',
 	
     Display = {
+        Abilities = {
+            '<LOC ability_transport>Transport',
+        },
         AnimationLand = '/units/UEA0107/UEA0107_atakeoff01.sca',
         ForcedBuildSpin = 90,
         Mesh = {

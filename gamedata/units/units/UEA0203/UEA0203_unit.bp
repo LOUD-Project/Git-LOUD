@@ -92,10 +92,10 @@ UnitBlueprint {
 	
     Description = '<LOC uea0203_desc>Gunship',
 	
-    Display = {
-	
+    Display = {	
         Abilities = {
-            'Can Transport up to 1 T2 unit',
+            '<LOC ability_transport>Transport',
+            'Ground Attack',
         },
 		
         ForcedBuildSpin = 0,

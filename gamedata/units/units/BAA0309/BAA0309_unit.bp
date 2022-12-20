@@ -107,10 +107,11 @@ UnitBlueprint {
 
     Display = {
         Abilities = {
-			'2 Ground Attack Autocannon',
-            '4 Hi-V AA Guns',
-			'Transport up to 6 T3 units',
-			'Radar & Radar Stealth',
+			'<LOC ability_aa>Anti-Air',
+            '<LOC ability_radar>Radar',
+            '<LOC ability_stealthfield>Stealth Field',
+            '<LOC ability_transport>Transport',
+            'Ground Attack',
         },
 
         AnimationPermOpen = '/units/BAA0309/BAA0309_aopen01.sca',
