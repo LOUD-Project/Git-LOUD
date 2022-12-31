@@ -1,4 +1,5 @@
 UnitBlueprint {
+
     Audio = {
         Destroyed = Sound {
             Bank = 'UELDestroy',
@@ -27,15 +28,32 @@ UnitBlueprint {
     },
 	
     Defense = {
-        ArmorType = 'Normal',
-        Health = 6000,
-        MaxHealth = 6000,
+        ArmorType = 'Structure',
+        Health = 4750,
+        MaxHealth = 4750,
+        RegenRate = 1,        
     },
 	
-    Description = '<LOC ueb5101_desc>Wall Section',
+    Description = '<LOC ueb5101_desc>T2 Wall Section',
 	
     Display = {
         BuildMeshBlueprint = '/props/UEB5101/UEB5101_prop.bp',
+
+        DamageEffects = {
+            {
+                Bone = 0,
+                OffsetX = 0.25,
+                OffsetY = 0.4,
+                OffsetZ = 0.25,
+            },
+            {
+                Bone = 0,
+                OffsetX = -0.25,
+                OffsetY = 0.4,
+                OffsetZ = -0.25,
+            },
+        },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -52,45 +70,37 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.15,
     },
 	
     Economy = {
-        BuildCostEnergy = 100,
-        BuildCostMass = 20,
-        BuildTime = 50,
+        BuildCostEnergy = 155,
+        BuildCostMass = 40,
+
+        BuildTime = 55,
 		
         RebuildBonusIds = {'uem0006'},
     },
 	
     General = {
         CapCost = 0.2,
-        Category = 'Defense',
-        Classification = 'RULEUC_MiscSupport',
+
         FactionName = 'UEF',
-        TechLevel = 'RULEUTL_Advanced',
-        UnitName = '<LOC uem0006_name>Calcicrete 2.0',
-        UnitWeight = 1,
+        Icon = 'land',
+        SelectionPriority = 5,
     },
 	
     Intel = {
         VisionRadius = 0,
     },
 	
-    Interface = {
-        HelpText = 'Wall Section',
-    },
-	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0,
-    LifeBarSize = 0.075,
+    LifeBarSize = 0.4,
 	
     Physics = {
         BankingSlope = 0,
-        BuildOnLayerCaps = {
-            LAYER_Land = true,
-        },
+        BuildOnLayerCaps = { LAYER_Land = true },
         DragCoefficient = 0.2,
         MaxGroundVariation = 50,
         MaxSteerForce = 0,
@@ -120,16 +130,12 @@ UnitBlueprint {
     Wreckage = {
         Blueprint = '/env/Wreckage/props/Walls/UEB5101_prop.bp',
         EnergyMult = 0,
-        HealthMult = 0.2,
-        MassMult = 0.9,
+        HealthMult = 0.1,
+        MassMult = 0.1,
         ReclaimTimeMultiplier = 1,
         UseCustomMesh = true,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

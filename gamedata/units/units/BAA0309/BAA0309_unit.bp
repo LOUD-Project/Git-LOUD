@@ -20,7 +20,7 @@ UnitBlueprint {
         KLift = 4,
         KLiftDamping = 6.5,
 
-        KMove = 1.0,
+        KMove = 1.1,
         KMoveDamping = 1.4,
 
         KRoll = 0.6,
@@ -100,6 +100,7 @@ UnitBlueprint {
         MaxHealth = 5900,
         RegenRate = 15,
         SurfaceThreatLevel = 9,
+
         MaxTeleRange = 600,
     },
 
@@ -165,9 +166,7 @@ UnitBlueprint {
         SelectionPriority = 2,
         TechLevel = 'RULEUTL_Advanced',
 
-        ToggleCaps = {
-            RULEUTC_StealthToggle = true,
-        },
+        ToggleCaps = { RULEUTC_StealthToggle = true },
 
         UnitName = '<LOC baa0309_name>Illuminate',
         UnitWeight = 1,
@@ -182,26 +181,25 @@ UnitBlueprint {
 		WaterVisionRadius = 0,
     },
 
-    Interface = {
-        HelpText = 'Heavy Air Transport',
-    },
+    Interface = { HelpText = 'Heavy Air Transport' },
 
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.5,
     LifeBarSize = 2,
 
     Physics = {
-        BuildOnLayerCaps = {
-            LAYER_Air = true,
-        },
+        BuildOnLayerCaps = { LAYER_Air = true },
+
 		Elevation = 14.0,
 		
         FuelRechargeRate = 30,
         FuelUseTime = 800,
 		
         MaxSpeed = 0.55,
+
         MeshExtentsX = 2.9,
         MeshExtentsY = 1.8,
+
         MeshExtentsZ = 4.0,
         MotionType = 'RULEUMT_Air',
     },
@@ -254,9 +252,7 @@ UnitBlueprint {
 
             DisplayName = 'Sonic Pulse Battery',
 
-            FireTargetLayerCapsTable = {
-                Air = 'Air|Land|Water',
-            },
+            FireTargetLayerCapsTable = { Air = 'Air|Land|Water' },
 
 			FiringRandomness = 0.3,
             FiringTolerance = 0.5,
@@ -275,9 +271,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Muzzle_R01',
-                    },
+                    MuzzleBones = { 'Muzzle_R01' },
                     RackBone = 'Turret_Right01',
                 },
             },
@@ -299,7 +293,7 @@ UnitBlueprint {
 
             TargetRestrictDisallow = 'UNTARGETABLE,WALL,HIGHALTAIR,SATELLITE',
 
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.2,
 
             TurretBoneMuzzle = 'Muzzle_R01',
             TurretBonePitch = 'Turret_Right01',
@@ -335,9 +329,7 @@ UnitBlueprint {
 
             DisplayName = 'Sonic Pulse Battery',
 
-            FireTargetLayerCapsTable = {
-                Air = 'Land|Water|Seabed',
-            },
+            FireTargetLayerCapsTable = { Air = 'Air|Land|Water' },
 
 			FiringRandomness = 0.35,
             FiringTolerance = 0,
@@ -356,9 +348,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Muzzle_L',
-                    },
+                    MuzzleBones = {'Muzzle_L'},
                     RackBone = 'Turret_Left',
                 },
             },
@@ -378,7 +368,7 @@ UnitBlueprint {
 
             TargetRestrictDisallow = 'UNTARGETABLE,WALL,HIGHALTAIR,SATELLITE',
 
-            TrackingRadius = 1.4,
+            TrackingRadius = 1.2,
 
             TurretBoneMuzzle = 'Muzzle_L',
             TurretBonePitch = 'Turret_Left',
@@ -416,14 +406,13 @@ UnitBlueprint {
 
             DisplayName = 'Sonic Pulse Battery',
 
-            FireTargetLayerCapsTable = {
-                Air = 'Air',
-            },
+            FireTargetLayerCapsTable = { Air = 'Air'},
 
 			FiringRandomness = 0.1,
-            FiringTolerance = 0,
+            FiringTolerance = 0.2,
 
             Label = 'SonicPulseBattery',
+
 			LeadTarget = true,
 
             MaxRadius = 36,
@@ -436,9 +425,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Muzzle_F',
-                    },
+                    MuzzleBones = {'Muzzle_F'},
                     RackBone = 'Turret_Front',
                 },
             },
@@ -459,14 +446,14 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
 
-            TrackingRadius = 1.5,
+            TrackingRadius = 1.3,
 
             TurretBoneMuzzle = 'Muzzle_F',
             TurretBonePitch = 'Turret_Front',
             TurretBoneYaw = 'Turret_Front',
             TurretDualManipulators = false,
 
-            TurretPitch = 45,
+            TurretPitch = 25,
             TurretPitchRange = 90,
             TurretPitchSpeed = 180,
 
@@ -486,6 +473,7 @@ UnitBlueprint {
                 },
             },
             AutoInitiateAttackCommand = false,
+
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
@@ -495,14 +483,14 @@ UnitBlueprint {
             DamageType = 'Normal',
 
             DisplayName = 'Heavy Sonic Pulse Battery',
-            FireTargetLayerCapsTable = {
-                Air = 'Air',
-            },
+
+            FireTargetLayerCapsTable = { Air = 'Air' },
 
 			FiringRandomness = 0.1,
-            FiringTolerance = 0,
+            FiringTolerance = 0.1,
 
             Label = 'SonicPulseBattery',
+
 			LeadTarget = true,
 
             MaxRadius = 36,
@@ -515,9 +503,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Muzzle_B',
-                    },
+                    MuzzleBones = {'Muzzle_B'},
                     RackBone = 'Turret_Back',
                 },
             },
@@ -538,14 +524,14 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
 
-            TrackingRadius = 1.5,
+            TrackingRadius = 1.3,
 
             TurretBoneMuzzle = 'Muzzle_B',
             TurretBonePitch = 'Turret_Back',
             TurretBoneYaw = 'Turret_Back',
             TurretDualManipulators = false,
-            TurretPitch = 45,
 
+            TurretPitch = 25,
             TurretPitchRange = 90,
             TurretPitchSpeed = 180,
             TurretYaw = 0,
@@ -574,14 +560,13 @@ UnitBlueprint {
 
             DisplayName = 'Heavy Sonic Pulse Battery',
 
-            FireTargetLayerCapsTable = {
-                Air = 'Air',
-            },
+            FireTargetLayerCapsTable = { Air = 'Air' },
 
 			FiringRandomness = 0.1,
-            FiringTolerance = 0,
+            FiringTolerance = 0.2,
 
             Label = 'SonicPulseBattery',
+
 			LeadTarget = true,
 
             MaxRadius = 36,
@@ -594,9 +579,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Muzzle_F01',
-                    },
+                    MuzzleBones = {'Muzzle_F01'},
                     RackBone = 'Turret_Front01',
                 },
             },
@@ -617,14 +600,14 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
 
-            TrackingRadius = 1.5,
+            TrackingRadius = 1.3,
 
             TurretBoneMuzzle = 'Muzzle_F01',
             TurretBonePitch = 'Turret_Front01',
             TurretBoneYaw = 'Turret_Front01',
             TurretDualManipulators = false,
 
-            TurretPitch = 45,
+            TurretPitch = 25,
             TurretPitchRange = 90,
             TurretPitchSpeed = 180,
 
@@ -654,11 +637,10 @@ UnitBlueprint {
 
             DisplayName = 'Heavy Sonic Pulse Battery',
 
-            FireTargetLayerCapsTable = {
-                Air = 'Air',
-            },
+            FireTargetLayerCapsTable = { Air = 'Air' },
 
-            FiringTolerance = 0.5,
+			FiringRandomness = 0.1,
+            FiringTolerance = 0.2,
 
             Label = 'SonicPulseBattery',
 
@@ -674,9 +656,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Muzzle_B01',
-                    },
+                    MuzzleBones = { 'Muzzle_B01' },
                     RackBone = 'Turret_Back01',
                 },
             },
@@ -696,14 +676,14 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TargetRestrictOnlyAllow = 'AIR',
 
-            TrackingRadius = 1.5,
+            TrackingRadius = 1.3,
 
             TurretBoneMuzzle = 'Muzzle_B01',
             TurretBonePitch = 'Turret_Back01',
             TurretBoneYaw = 'Turret_Back01',
             TurretDualManipulators = false,
 
-            TurretPitch = 45,
+            TurretPitch = 25,
             TurretPitchRange = 90,
             TurretPitchSpeed = 180,
 
@@ -726,11 +706,12 @@ UnitBlueprint {
             WeaponCategory = 'Death',
         },
     },
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0.3,
         HealthMult = 0.8,
-        MassMult = 0.8,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,

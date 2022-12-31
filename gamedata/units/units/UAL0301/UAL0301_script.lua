@@ -103,10 +103,13 @@ UAL0301 = Class(AWalkingLandUnit) {
         AWalkingLandUnit.OnFailedToBuild(self)
         
         self:BuildManipulatorSetEnabled(false)
-        SetPrecedence( self.BuildArmManipulator, 0)
         
-        self:SetWeaponEnabledByLabel('RightReactonCannon', true)
-        self:GetWeaponManipulatorByLabel('RightReactonCannon'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
+        if not self.Dead then
+            SetPrecedence( self.BuildArmManipulator, 0)
+        
+            self:SetWeaponEnabledByLabel('RightReactonCannon', true)
+            self:GetWeaponManipulatorByLabel('RightReactonCannon'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
+        end
     end,
     
     OnCreate = function(self)

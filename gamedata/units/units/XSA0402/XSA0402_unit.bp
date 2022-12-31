@@ -323,12 +323,12 @@ UnitBlueprint {
             },
 			
             FiringRandomness = 3,
-            FiringTolerance = 0.275,
+            FiringTolerance = 0.295,
 			
 			--FixBombTrajectory = true,
 			
 			HeadingArcCenter = 0,
-			HeadingArcRange = 35,
+			HeadingArcRange = 32,
 			
             Label = 'Bomb',
 			
@@ -368,7 +368,7 @@ UnitBlueprint {
                 'ALLUNITS -WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,WALL',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
         },
 		
 		-- Right Left AA

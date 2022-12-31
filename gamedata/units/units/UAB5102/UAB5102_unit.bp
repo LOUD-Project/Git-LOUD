@@ -5,7 +5,9 @@ UnitBlueprint {
         'FERRYBEACON',
 		'INSIGNIFICANTUNIT',
     },
+
     CollisionOffsetY = -0.25,
+
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 0.1,
@@ -13,7 +15,9 @@ UnitBlueprint {
         MaxHealth = 10,
         RegenRate = 0,
     },
+
     Description = '<LOC uab5102_desc>Aeon Transport Beacon',
+
     Display = {
         Mesh = {
             IconFadeInZoom = 105,
@@ -28,9 +32,9 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = false,
         UniformScale = 0.3,
     },
+
     Economy = {
         BuildCostEnergy = 50,
         BuildCostMass = 5,
@@ -39,26 +43,24 @@ UnitBlueprint {
             'uab5102',
         },
     },
+
     General = {
         CapCost = 0,
-        Category = 'Defense',
-        Classification = 'RULEUC_MiscSupport',
+
         FactionName = 'Aeon',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
-        UnitWeight = 1,
     },
+
     Intel = {
         VisionRadius = 0,
     },
-    Interface = {
-        HelpText = '<LOC uab5102_help>Aeon Transport Beacon',
-    },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 1,
     LifeBarRender = false,
     LifeBarSize = 0,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -74,14 +76,18 @@ UnitBlueprint {
         SkirtSizeZ = 1,
         TurnRate = 0,
     },
+
     SelectionSizeX = 1,
     SelectionSizeZ = 1,
     SelectionThickness = 0.4,
     SelectionYOffset = 1,
+
     SizeX = 0.5,
     SizeY = 0.75,
+
     SizeZ = 0.5,
     StrategicIconName = 'icon_strategic_ferrypoint',
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

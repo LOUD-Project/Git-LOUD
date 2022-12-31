@@ -5,19 +5,17 @@ UnitBlueprint {
             'Lid',
         },
     },
+
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
         UISelection = Sound {
             Bank = 'Interface',
             Cue = 'Aeon_Select_Structure',
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     BuildIconSortPriority = 260,
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1ENGINEER',
@@ -29,19 +27,20 @@ UnitBlueprint {
         'DRAGBUILD',
         'TECH1',
         'WALL',
+        'BENIGN',
         'VISIBLETORECON',
         'RECLAIMABLE',
         'SORTSTRATEGIC',
     },
+
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 0,
-        Health = 4000,
-        MaxHealth = 4000,
-        RegenRate = 1,
-        ThreatLevel = 0,
+        Health = 3000,
+        MaxHealth = 3000,
     },
+
     Description = '<LOC uab5101_desc>Wall Section',
+
     Display = {
         DamageEffects = {
             {
@@ -57,6 +56,7 @@ UnitBlueprint {
                 OffsetZ = -0.25,
             },
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -73,41 +73,37 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.15,
     },
+    
     Economy = {
-        BuildCostEnergy = 10,
-        BuildCostMass = 2,
-        BuildTime = 10,
-        RebuildBonusIds = {
-            'uab5101',
-        },
+        BuildCostEnergy = 70,
+        BuildCostMass = 15,
+        
+        BuildTime = 15,
+        
+        RebuildBonusIds = {'uab5101'},
     },
+    
     General = {
         CapCost = 0.1,
-        Category = 'Defense',
-        Classification = 'RULEUC_MiscSupport',
+
         FactionName = 'Aeon',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
-        UnitWeight = 1,
     },
+    
     Intel = {
         VisionRadius = 0,
     },
-    Interface = {
-        HelpText = 'Wall Section',
-    },
+    
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.5,
-    LifeBarSize = 0.8,
+    LifeBarSize = 0.6,
+    
     Physics = {
         BankingSlope = 0,
-        BuildOnLayerCaps = {
-            LAYER_Land = true,
-        },
+        BuildOnLayerCaps = { LAYER_Land = true },
         DragCoefficient = 0.2,
         MaxGroundVariation = 50,
         MaxSteerForce = 0,
@@ -122,27 +118,27 @@ UnitBlueprint {
         SkirtSizeZ = 1,
         TurnRate = 0,
     },
+    
     SelectionSizeX = 0.6,
     SelectionSizeZ = 0.6,
     SelectionThickness = 0.66,
+    
     SizeX = 1,
     SizeY = 0.4,
     SizeZ = 1,
+    
     StrategicIconName = 'icon_structure_wall',
     StrategicIconSortPriority = 210,
+    
     Wreckage = {
         Blueprint = '/env/Wreckage/props/Walls/UEB5101_prop.bp',
         EnergyMult = 0,
-        HealthMult = 0.9,
-        MassMult = 0.9,
+        HealthMult = 0.1,
+        MassMult = 0.1,
         ReclaimTimeMultiplier = 1,
         UseCustomMesh = true,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

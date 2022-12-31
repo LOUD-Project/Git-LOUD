@@ -1,13 +1,14 @@
 UnitBlueprint {
     AI = {
-        GuardRadius = 10,
+
         TargetBones = {
-            'Head',
+            'Head',         -- intentionally missable
             'Right_Arm01',
             'Left_Arm01',
-            'Torso',
             'Left_Thigh',
             'Right_Thigh',
+            'Left_Leg',
+            'Right_Leg',            
         },
     },
     
@@ -129,7 +130,7 @@ UnitBlueprint {
         ProductionPerSecondEnergy = 200,
         ProductionPerSecondMass = 2,
 		
-        StorageEnergy = 1000,
+        StorageEnergy = 3000,
         StorageMass = 200,
     },
     
@@ -433,9 +434,9 @@ UnitBlueprint {
         },
         DragCoefficient = 0.2,
         LayerChangeOffsetHeight = -0.9,
-        MaxAcceleration = 2.4,
-        MaxBrake = 2.4,
-        MaxSpeed = 2.4,
+        MaxAcceleration = 1.4,
+        MaxBrake = 2.2,
+        MaxSpeed = 2.2,
         MaxSpeedReverse = 0,
         MaxSteerForce = 12,
         MinSpeedPercent = 0,
@@ -452,9 +453,10 @@ UnitBlueprint {
     SelectionThickness = 0.7,
     SelectionYOffset = 0,
     
-    SizeX = 0.7,
-    SizeY = 1.4,
-    SizeZ = 0.4,
+    SizeX = 0.75,
+    SizeY = 1.5,
+    SizeZ = 0.45,
+
     StrategicIconName = 'icon_subcommander_generic',
     StrategicIconSortPriority = 1,
     

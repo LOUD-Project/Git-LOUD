@@ -6,7 +6,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+    
     BuildIconSortPriority = 260,
+    
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1ENGINEER',
@@ -18,27 +20,22 @@ UnitBlueprint {
         'DRAGBUILD',
         'TECH1',
         'WALL',
+        'BENIGN',
         'VISIBLETORECON',
         'RECLAIMABLE',
 		'SORTSTRATEGIC',
     },
+    
     Defense = {
         ArmorType = 'Structure',
-        Health = 4000,
-        MaxHealth = 4000,
-        RegenRate = 0,
-        ThreatLevel = 0,
+        Health = 3000,
+        MaxHealth = 3000,
     },
+    
     Description = '<LOC xsb5101_desc>Wall Section',
+    
     Display = {
---        AnimationDeath = {
---            {
---                Animation = '/units/xsb5101/xsb5101_ADeath.sca',
---                AnimationRateMax = 1.5,
---                AnimationRateMin = 0.5,
---                Weight = 100,
---            },
---        },
+
         DamageEffects = {
             {
                 Bone = 0,
@@ -53,6 +50,7 @@ UnitBlueprint {
                 OffsetZ = -0.25,
             },
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -71,42 +69,36 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.14,
     },
+    
     Economy = {
-        BuildCostEnergy = 10,
-        BuildCostMass = 2,
-        BuildTime = 10,
-        RebuildBonusIds = {
-            'xsb5101',
-        },
+        BuildCostEnergy = 75,
+        BuildCostMass = 17,
+        BuildTime = 17,
+        
+        RebuildBonusIds = {'xsb5101'},
     },
+    
     General = {
         CapCost = 0.1,
-        Category = 'Defense',
-        Classification = 'RULEUC_MiscSupport',
+
         FactionName = 'Seraphim',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
-        UnitName = '<LOC xsb5101_name>Haas',
-        UnitWeight = 1,
     },
+    
     Intel = {
         VisionRadius = 0,
     },
-    Interface = {
-        HelpText = '<LOC xsb5101_help>Wall Section',
-    },
+    
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.55,
-    LifeBarSize = 0.8,
+    LifeBarSize = 0.4,
+    
     Physics = {
         BankingSlope = 0,
-        BuildOnLayerCaps = {
-            LAYER_Land = true,
-        },
+        BuildOnLayerCaps = { LAYER_Land = true },
         DragCoefficient = 0.2,
         MaxGroundVariation = 50,
         MaxSteerForce = 0,
@@ -121,27 +113,27 @@ UnitBlueprint {
         SkirtSizeZ = 1,
         TurnRate = 0,
     },
+    
     SelectionSizeX = 0.6,
     SelectionSizeZ = 0.6,
     SelectionThickness = 0.66,
+    
     SizeX = 1,
     SizeY = 0.4,
     SizeZ = 1,
+    
     StrategicIconName = 'icon_structure_wall',
     StrategicIconSortPriority = 210,
+    
     Wreckage = {
         Blueprint = '/env/Wreckage/props/Walls/UEB5101_prop.bp',
         EnergyMult = 0,
-        HealthMult = 0.9,
-        MassMult = 0.9,
+        HealthMult = 0.1,
+        MassMult = 0.1,
         ReclaimTimeMultiplier = 1,
         UseCustomMesh = true,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

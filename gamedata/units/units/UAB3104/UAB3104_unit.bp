@@ -11,7 +11,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     BuildIconSortPriority = 200,
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3ENGINEER',
@@ -28,7 +30,9 @@ UnitBlueprint {
         'OVERLAYRADAR',
         'SORTINTEL',
     },
+
     CollisionOffsetY = -0.25,
+
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 35,
@@ -36,7 +40,9 @@ UnitBlueprint {
         MaxHealth = 60,
         RegenRate = 1,
     },
+
     Description = '<LOC uab3104_desc>Omni Sensor Array',
+
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -54,9 +60,9 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.25,
     },
+
     Economy = {
         BuildCostEnergy = 30000,
         BuildCostMass = 2400,
@@ -66,30 +72,27 @@ UnitBlueprint {
 		
         RebuildBonusIds = {'uab3104'},
     },
+
     Footprint = {
         SizeX = 1,
         SizeZ = 1,
     },
+
     General = {
-        Category = 'Intelligence',
-        Classification = 'RULEUC_Sensor',
         FactionName = 'Aeon',
         Icon = 'land',
+
         OrderOverrides = {
-            RULEUTC_IntelToggle = {
-                bitmapId = 'omni',
-                helpText = 'toggle_omni',
-            },
+            RULEUTC_IntelToggle = { bitmapId = 'omni', helpText = 'toggle_omni' },
         },
+
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
-        ToggleCaps = {
-            RULEUTC_IntelToggle = true,
-        },
-        UnitName = '<LOC uab3104_name>Oculus',
-        UnitWeight = 1,
+
+        ToggleCaps = { RULEUTC_IntelToggle = true },
+
         UpgradesFrom = 'uab3201',
     },
+
     Intel = {
         OmniRadius = 140,
         RadarRadius = 325,
@@ -97,12 +100,11 @@ UnitBlueprint {
         ShowIntelOnSelect = true,
         VisionRadius = 46,
     },
-    Interface = {
-        HelpText = 'Omni Sensor Array',
-    },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.5,
     LifeBarSize = 1.25,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -122,14 +124,18 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+
     SelectionSizeX = 0.75,
     SelectionSizeZ = 0.75,
     SelectionThickness = 0.5,
+
     SizeX = 0.5,
     SizeY = 2.8,
     SizeZ = 0.5,
+
     StrategicIconName = 'icon_structure3_intel',
     StrategicIconSortPriority = 225,
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

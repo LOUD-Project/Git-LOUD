@@ -1,11 +1,16 @@
 UnitBlueprint {
     AI = {
         TargetBones = {
-            'Back_Upgrade',
+            'AttachPoint',      -- this point is intentionally missable
             'Left_Leg_B02',
             'Right_Leg_B02',
+            'Left_Leg_B01',
+            'Right_Leg_B01',
+            'Right_Arm',
+            'Left_Arm',
         },
-		StagingPlatformScanRadius = 350, --Teleport Range
+
+		StagingPlatformScanRadius = 300, --Teleport Range
     },
 	
     Audio = {
@@ -135,7 +140,7 @@ UnitBlueprint {
         ProductionPerSecondEnergy = 300,
         ProductionPerSecondMass = 3,
 		
-        StorageEnergy = 1000,
+        StorageEnergy = 3000,
         StorageMass = 200,
     },
 	
@@ -377,39 +382,40 @@ UnitBlueprint {
         },
 
         Teleporter = {
-            BuildCostEnergy = 750000,
-            BuildCostMass = 7500,
-            BuildTime = 12000,
+        
+            BuildCostEnergy = 150000,
+            BuildCostMass = 10000,
+            BuildTime = 11500,
+
             Icon = 'pqt',
-            MaintenanceConsumptionPerSecondEnergy = 300,
+
+            --MaintenanceConsumptionPerSecondEnergy = 300,
+
             Name = 'Personal Teleporter',
-            ShowBones = {
-                'Back_Upgrade',
-            },
+
+            ShowBones = {'Back_Upgrade'},
+
             Slot = 'RCH',
-            UpgradeEffectBones = {
-                'Right_Arm_Muzzle',
-                'Right_Arm_Barrel',
-            },
-            UpgradeUnitAmbientBones = {
-                'Torso',
-            },
+
+            UpgradeEffectBones = {'Right_Arm_Muzzle','Right_Arm_Barrel'},
+            UpgradeUnitAmbientBones = {'Torso'},
         },
         
         TeleporterRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
-            HideBones = {
-                'Back_Upgrade',
-            },
+
+            HideBones = {'Back_Upgrade'},
+
             Icon = 'pqt',
+
             Name = 'Remove Personal Teleporter',
+
             Prerequisite = 'Teleporter',
-            RemoveEnhancements = {
-                'Teleporter',
-                'TeleporterRemove',
-            },
+
+            RemoveEnhancements = {'Teleporter','TeleporterRemove'},
+
             Slot = 'RCH',
         },
     },
@@ -425,7 +431,9 @@ UnitBlueprint {
 		CapCost = -3,
 		
         Category = 'Command',
+
         Classification = 'RULEUC_Commander',
+
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -439,15 +447,20 @@ UnitBlueprint {
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
         },
+
         ConstructionBar = true,
+
         FactionName = 'Seraphim',
+
         Icon = 'amph',
+
         OrderOverrides = {
             RULEUTC_ShieldToggle = {
                 bitmapId = 'shield-personal',
                 helpText = 'toggle_shield_personal',
             },
         },
+
         SelectionPriority = 3,
         TechLevel = 'RULEUTL_Secret',
         UnitWeight = 0,
@@ -475,9 +488,9 @@ UnitBlueprint {
         },
         DragCoefficient = 0.2,
         LayerChangeOffsetHeight = -0.85,
-        MaxAcceleration = 2.4,
-        MaxBrake = 2.4,
-        MaxSpeed = 2.4,
+        MaxAcceleration = 1.4,
+        MaxBrake = 2.2,
+        MaxSpeed = 2.2,
         MaxSpeedReverse = 0,
         MaxSteerForce = 12,
         MeshExtentsX = 0.9,
@@ -495,9 +508,9 @@ UnitBlueprint {
     SelectionThickness = 0.7,
     SelectionYOffset = 0,
 	
-    SizeX = 0.75,
-    SizeY = 1.4,
-    SizeZ = 0.4,
+    SizeX = 0.85,
+    SizeY = 1.6,
+    SizeZ = 0.45,
 	
     StrategicIconName = 'icon_subcommander_generic',
     StrategicIconSortPriority = 1,
@@ -788,7 +801,7 @@ UnitBlueprint {
         EnergyMult = 0.3,
         HealthMult = 0.3,
         MassMult = 0.3,
-        ReclaimTimeMultiplier = 0.5,
+        ReclaimTimeMultiplier = 0.4,
         WreckageLayers = {
             Air = false,
             Land = true,

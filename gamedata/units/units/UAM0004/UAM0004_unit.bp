@@ -30,13 +30,15 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        Health = 6000,
-        MaxHealth = 6000,
+        Health = 4500,
+        MaxHealth = 4500,
+        RegenRate = 1,        
     },
 	
-    Description = '<LOC uab5101_desc>Wall Section',
+    Description = '<LOC uab5101_desc>T2 Wall Section',
 	
     Display = {
+
         DamageEffects = {
             {
                 Bone = 0,
@@ -51,6 +53,7 @@ UnitBlueprint {
                 OffsetZ = -0.25,
             },
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -67,13 +70,13 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.15,
     },
 	
     Economy = {
-        BuildCostEnergy = 100,
-        BuildCostMass = 20,
+        BuildCostEnergy = 140,
+        BuildCostMass = 36,
+
         BuildTime = 50,
 		
         RebuildBonusIds = {'uam0004'},
@@ -81,32 +84,23 @@ UnitBlueprint {
 	
     General = {
         CapCost = 0.2,
-        Category = 'Defense',
-        Classification = 'RULEUC_MiscSupport',
+
         FactionName = 'Aeon',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
-        UnitWeight = 1,
     },
 	
     Intel = {
         VisionRadius = 0,
     },
 	
-    Interface = {
-        HelpText = 'Wall Section',
-    },
-	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0,
-    LifeBarSize = 0.075,
+    LifeBarSize = 0.4,
 	
     Physics = {
         BankingSlope = 0,
-        BuildOnLayerCaps = {
-            LAYER_Land = true,
-        },
+        BuildOnLayerCaps = { LAYER_Land = true },
         DragCoefficient = 0.2,
         MaxGroundVariation = 50,
         MaxSteerForce = 0,
@@ -136,16 +130,12 @@ UnitBlueprint {
     Wreckage = {
         Blueprint = '/env/Wreckage/props/Walls/UEB5101_prop.bp',
         EnergyMult = 0,
-        HealthMult = 0.9,
-        MassMult = 0.9,
+        HealthMult = 0.1,
+        MassMult = 0.1,
         ReclaimTimeMultiplier = 1,
         UseCustomMesh = true,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

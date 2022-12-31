@@ -2,10 +2,13 @@ UnitBlueprint {
     AI = {
         ShowAssistRangeOnSelect = true,
         TargetBones = {
-            'Head',
-            'UEL0301',
+            'Head',             -- intentionally missable
             'Left_Left_B02',
             'Left_Right_B02',
+            'Left_Left_B01',
+            'Left_Right_B01',            
+            'Arm_Left_B01',
+            'Arm_Right_B01',
         },
     },
 	
@@ -128,7 +131,7 @@ UnitBlueprint {
         ProductionPerSecondEnergy = 200,
         ProductionPerSecondMass = 2,
 		
-        StorageEnergy = 1000,
+        StorageEnergy = 2500,
         StorageMass = 200,
     },
 	
@@ -519,9 +522,9 @@ UnitBlueprint {
         },
         DragCoefficient = 0.2,
         LayerChangeOffsetHeight = -0.85,
-        MaxAcceleration = 2.4,
-        MaxBrake = 2.4,
-        MaxSpeed = 2.4,
+        MaxAcceleration = 1.4,
+        MaxBrake = 2.2,
+        MaxSpeed = 2.2,
         MaxSpeedReverse = 0,
         MaxSteerForce = 12,
         MeshExtentsX = 0.95,

@@ -116,10 +116,14 @@ UEL0301 = Class(TWalkingLandUnit) {
         TWalkingLandUnit.OnFailedToBuild(self)
         
         self:BuildManipulatorSetEnabled(false)
-        SetPrecedence( self.BuildArmManipulator, 0)
         
-        self:SetWeaponEnabledByLabel('RightHeavyPlasmaCannon', true)
-        self:GetWeaponManipulatorByLabel('RightHeavyPlasmaCannon'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
+        if not self.Dead then
+        
+            SetPrecedence( self.BuildArmManipulator, 0)
+        
+            self:SetWeaponEnabledByLabel('RightHeavyPlasmaCannon', true)
+            self:GetWeaponManipulatorByLabel('RightHeavyPlasmaCannon'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
+        end
     end,
     
     CreateBuildEffects = function( self, unitBeingBuilt, order )

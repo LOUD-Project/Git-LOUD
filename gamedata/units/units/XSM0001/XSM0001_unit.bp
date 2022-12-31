@@ -29,13 +29,15 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Structure',
-        Health = 6000,
-        MaxHealth = 6000,
+        Health = 4500,
+        MaxHealth = 4500,
+        RegenRate = 1,        
     },
 	
-    Description = '<LOC xsb5101_desc>Wall Section',
+    Description = '<LOC xsb5101_desc>T2 Wall Section',
 	
     Display = {
+
         AnimationDeath = {
             {
                 Animation = '/units/xsb5101/xsb5101_ADeath.sca',
@@ -44,6 +46,7 @@ UnitBlueprint {
                 Weight = 100,
             },
         },
+
         DamageEffects = {
             {
                 Bone = 0,
@@ -58,6 +61,7 @@ UnitBlueprint {
                 OffsetZ = -0.25,
             },
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -76,47 +80,36 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.14,
     },
 	
     Economy = {
-        BuildCostEnergy = 100,
-        BuildCostMass = 20,
-        BuildTime = 50,
+        BuildCostEnergy = 155,
+        BuildCostMass = 40,
+        BuildTime = 55,
 		
         RebuildBonusIds = {'xsm0001'},
     },
 	
     General = {
         CapCost = 0.2,
-        Category = 'Defense',
-        Classification = 'RULEUC_MiscSupport',
+
         FactionName = 'Seraphim',
         Icon = 'land',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
-        UnitName = '<LOC xsm0001_name>Sele-haas',
-        UnitWeight = 1,
     },
 	
     Intel = {
         VisionRadius = 0,
     },
 	
-    Interface = {
-        HelpText = '<LOC xsm0001_help>Wall Section',
-    },
-	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0,
-    LifeBarSize = 0.075,
+    LifeBarSize = 0.4,
 	
     Physics = {
         BankingSlope = 0,
-        BuildOnLayerCaps = {
-            LAYER_Land = true,
-        },
+        BuildOnLayerCaps = { LAYER_Land = true },
         DragCoefficient = 0.2,
         MaxGroundVariation = 50,
         MaxSteerForce = 0,
@@ -146,16 +139,12 @@ UnitBlueprint {
     Wreckage = {
         Blueprint = '/env/Wreckage/props/Walls/UEB5101_prop.bp',
         EnergyMult = 0,
-        HealthMult = 0.9,
-        MassMult = 0.9,
+        HealthMult = 0.1,
+        MassMult = 0.1,
         ReclaimTimeMultiplier = 1,
         UseCustomMesh = true,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

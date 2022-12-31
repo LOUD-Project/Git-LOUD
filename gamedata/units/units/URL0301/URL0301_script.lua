@@ -158,10 +158,15 @@ URL0301 = Class(CWalkingLandUnit) {
         CWalkingLandUnit.OnFailedToBuild(self)
         
         self:BuildManipulatorSetEnabled(false)
-        SetPrecedence( self.BuildArmManipulator,0 )
         
-        self:SetWeaponEnabledByLabel('RightDisintegrator', true)
-        self:GetWeaponManipulatorByLabel('RightDisintegrator'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
+        if not self.Dead then
+        
+            SetPrecedence( self.BuildArmManipulator,0 )
+        
+            self:SetWeaponEnabledByLabel('RightDisintegrator', true)
+            self:GetWeaponManipulatorByLabel('RightDisintegrator'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
+            
+        end
 
     end,
     

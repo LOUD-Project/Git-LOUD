@@ -3,6 +3,7 @@ UnitBlueprint {
 		GuardReturnRadius = 35,
         GuardScanRadius = 30,
     },
+
     Audio = {
         Destroyed = Sound {
             Bank = 'UELDestroy',
@@ -30,9 +31,11 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     Buffs = {},
 	
     BuildIconSortPriority = 100,
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2FACTORY',
@@ -45,6 +48,7 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
     },
+
     Defense = {
         ArmorType = 'Normal',
         Health = 825,
@@ -52,7 +56,9 @@ UnitBlueprint {
         RegenRate = 0,
         SurfaceThreatLevel = 13.6,
     },
+
     Description = '<LOC uel0111_desc>Mobile Missile Launcher',
+
     Display = {
         AnimationOpen = '/units/uel0111/uel0111_aopen01.sca',
         Mesh = {
@@ -72,17 +78,17 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = false,
         UniformScale = 0.1,
     },
+
     Economy = {
         BuildCostEnergy = 1600,
         BuildCostMass = 200,
         BuildTime = 1000,
     },
+
     General = {
-        Category = 'Indirect Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
+
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -92,21 +98,22 @@ UnitBlueprint {
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
         },
+
         FactionName = 'UEF',
+
         Icon = 'land',
-        TechLevel = 'RULEUTL_Advanced',
+
         UnitName = '<LOC uel0111_name>Flapjack',
-        UnitWeight = 1,
     },
+
     Intel = {
         VisionRadius = 21,
     },
-    Interface = {
-        HelpText = 'Mobile Missile Launcher',
-    },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.45,
     LifeBarSize = 0.75,
+
     Physics = {
         BackUpDistance = 4,
         BankingSlope = 0,
@@ -127,17 +134,22 @@ UnitBlueprint {
         TurnRadius = 0,
         TurnRate = 90,
     },
+
     SelectionSizeX = 0.45,
     SelectionSizeZ = 0.9,
     SelectionThickness = 0.47,
+
     SizeX = 0.6,
     SizeY = 0.6,
     SizeZ = 1.3,
+
     StrategicIconName = 'icon_land2_missile',
     StrategicIconSortPriority = 125,
+
     Transport = {
         TransportClass = 2,
     },
+
     Veteran = {
         Level1 = 5,
         Level2 = 10,
@@ -145,16 +157,15 @@ UnitBlueprint {
         Level4 = 20,
         Level5 = 25,
     },
+
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEL0111_Missile_Cruise',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEL0111_Missile_Cruise', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 
@@ -185,18 +196,13 @@ UnitBlueprint {
             RackBones = {
                 {
                     HideMuzzle = true,
-                    MuzzleBones = {
-                        'Missile',
-                    },
+                    MuzzleBones = { 'Missile' },
                     RackBone = 'Missile',
                 },
             },
             
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 			
             RangeCategory = 'UWRC_IndirectFire',
 			

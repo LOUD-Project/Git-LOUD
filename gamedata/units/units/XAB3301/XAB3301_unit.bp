@@ -3,8 +3,11 @@ UnitBlueprint {
         TargetLocation = {
             bitmapId = 'skry-target',
             helpText = 'scry_target',
+            preferredSlot = 11,
+            script = 'TargetLocation',
         },
     },
+    
     Audio = {
         DeathExplosion = Sound {
             Bank = 'UALDestroy',
@@ -22,7 +25,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+    
     BuildIconSortPriority = 200,
+    
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3ENGINEER',
@@ -38,15 +43,19 @@ UnitBlueprint {
         'ABILITYBUTTON',
         'SORTINTEL',
     },
+    
     CollisionOffsetY = -0.25,
+    
     Defense = {
         ArmorType = 'Structure',
         EconomyThreatLevel = 400,
-        Health = 1200,	---- 250,
-        MaxHealth = 1200,	----	250,
+        Health = 1200,
+        MaxHealth = 1200,
         RegenRate = 2,
     },
+    
     Description = '<LOC xab3301_desc>Quantum Optics Facility',
+    
     Display = {
         DamageEffects = {
             {
@@ -80,6 +89,7 @@ UnitBlueprint {
                 OffsetZ = -0.5,
             },
         },
+        
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -95,8 +105,7 @@ UnitBlueprint {
                 },
             },
         },
-
-        SpawnRandomRotation = true,
+        
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar8x_aeon_01_albedo',
@@ -114,6 +123,7 @@ UnitBlueprint {
                 Width = 12,
             },
         },
+        
         UniformScale = 0.07,
     },
 	
@@ -121,11 +131,12 @@ UnitBlueprint {
         BuildCostEnergy = 51000,
         BuildCostMass = 3000,
         BuildTime = 3900,
+        
         InitialRemoteViewingEnergyDrain = 10000,
-        MaintenanceConsumptionPerSecondEnergy = 5000,
-        RebuildBonusIds = {
-            'xab3301',
-        },
+        
+        MaintenanceConsumptionPerSecondEnergy = 2000,
+        
+        RebuildBonusIds = {'xab3301'},
     },
 	
     Footprint = {
@@ -134,38 +145,33 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Intelligence',
-        Classification = 'RULEUC_Sensor',
+
         FactionName = 'Aeon',
         Icon = 'land',
         OrderOverrides = {
-            RULEUTC_IntelToggle = {
-                bitmapId = 'skry-toggle',
-                helpText = 'toggle_scrying',
-            },
+            RULEUTC_IntelToggle = { bitmapId = 'skry-toggle', helpText = 'toggle_scrying' },
         },
+
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
-        ToggleCaps = {
-            RULEUTC_IntelToggle = true,
-        },
+
+        ToggleCaps = { RULEUTC_IntelToggle = true },
+
         UnitName = '<LOC xab3301_name>Eye of Rhianne',
-        UnitWeight = 1,
     },
+    
     Intel = {
 		Cooldown = 1,					---- time before scry button reappears once scrying begins (in this case they come back on just before the scrying is finished)
 		Viewtime = 30,					---- time that scrying area remains visible	(the scrying buttons disappear once the viewtime begins)
         ReactivateTime = 10,			---- time between the end of a scry and the start of a new one (a chance to pick a new target before the old one restarts)
         RemoteViewingRadius = 30,		---- this would normally be the start size of the remote viewing radius
-		RemoteViewingRadiusFinal = 70,	---- and the final radius of the scry (controls the grow/shrink rate) 
+		RemoteViewingRadiusFinal = 65,	---- and the final radius of the scry (controls the grow/shrink rate) 
         VisionRadius = 10,				---- this is just the vision range of the tower itself
     },
-    Interface = {
-        HelpText = 'Quantum Optics Facility',
-    },
+    
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.9,
     LifeBarSize = 1.25,
+    
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -185,16 +191,20 @@ UnitBlueprint {
         SkirtSizeZ = 6,
         TurnRate = 0,
     },
+    
     SelectionCenterOffsetX = 0.05,
     SelectionCenterOffsetZ = 0,
     SelectionSizeX = 1.5,
     SelectionSizeZ = 1.5,
     SelectionThickness = 0.45,
+    
     SizeX = 2,
     SizeY = 5,
     SizeZ = 2,
+    
     StrategicIconName = 'icon_structure3_intel',
     StrategicIconSortPriority = 225,
+    
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
