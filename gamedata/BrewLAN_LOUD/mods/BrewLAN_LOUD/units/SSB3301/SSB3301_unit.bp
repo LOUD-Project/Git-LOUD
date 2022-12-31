@@ -4,6 +4,7 @@ UnitBlueprint {
         TargetLocation = {
             bitmapId = 'skry-target',
             helpText = 'scry_spy_target',
+            preferredSlot = 11,
         },
     },
 	

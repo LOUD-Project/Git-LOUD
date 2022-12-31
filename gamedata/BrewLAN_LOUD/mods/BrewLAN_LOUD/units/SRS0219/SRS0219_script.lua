@@ -1,9 +1,10 @@
 --  Summary:  Field engineer boat
 
-local SeaUnit = import('/lua/defaultunits.lua').SeaUnit
+local CSeaUnit = import('/lua/defaultunits.lua').SeaUnit
 local CAAAutocannon = import('/lua/cybranweapons.lua').CAAAutocannon
 
 local BrewLANLOUDPath = import( '/lua/game.lua' ).BrewLANLOUDPath()
+
 local AssistThread = import(BrewLANLOUDPath .. '/lua/fieldengineers.lua').AssistThread
 local EffectUtil = import('/lua/EffectUtilities.lua')
 
@@ -23,8 +24,6 @@ SRS0219 = Class(CSeaUnit) {
     end,
 
     CreateBuildEffects = function( self, unitBeingBuilt, order )
-        --local buildbots = EffectUtil.SpawnBuildBots( self, unitBeingBuilt, table.getn(self:GetBlueprint().General.BuildBones.BuildEffectBones), self.BuildEffectsBag )
-        --EffectUtil.CreateCybranEngineerBuildEffects( self, self:GetBlueprint().General.BuildBones.BuildEffectBones, buildbots, self.BuildEffectsBag )
        EffectUtil.CreateCybranBuildBeams( self, unitBeingBuilt, self:GetBlueprint().General.BuildBones.BuildEffectBones, self.BuildEffectsBag )
     end,
     

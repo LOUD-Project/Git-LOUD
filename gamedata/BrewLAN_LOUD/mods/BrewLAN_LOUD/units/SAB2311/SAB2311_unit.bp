@@ -90,7 +90,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = false,
         UniformScale = 0.024,
     },
 	
@@ -110,28 +109,24 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 3,
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
+
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
         },
+
         FactionName = 'Aeon',
         Icon = 'amph',
+
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
+
         UnitName = '<LOC sab2311_name>Nihiloid',
-        UnitWeight = 1,
     },
 	
     Intel = {
         VisionRadius = 30,
 		WaterVisionRadius = 20,
-    },
-	
-    Interface = {
-        HelpText = '<LOC sbui2311_desc>Oblivion Field Artillery',
     },
 	
     LifeBarHeight = 0.075,
@@ -250,25 +245,18 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
+                    MuzzleBones = { 'Turret_Muzzle' },
                     RackBone = 'Turret_Barrel02',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -3,
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 1,	-- 5 second cycle = 360 DPS
-			
-            SlavedToBody = false,
 			
             TargetCheckInterval = 2,
             TargetPriorities = {
@@ -299,9 +287,9 @@ UnitBlueprint {
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
+        EnergyMult = 0.1,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.7,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,
