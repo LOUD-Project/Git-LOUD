@@ -20,7 +20,7 @@ UnitList = {
     },
 	
 	T4LandExperimental4 = {
-        Cybran = {'BRMT3AVA', 40},	-- Avalanche
+        Cybran = {'BRMT3AVA', 20},	-- Avalanche
         UEF = {'BRNT3SHBM', 100},	-- Mayhem Mk.2		
 		Seraphim = { 'BRPEXSHBM', 85},	-- Thaez-Atha
 	},

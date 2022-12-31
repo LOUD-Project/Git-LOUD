@@ -111,9 +111,9 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 1000,
-        BuildCostMass = 180,
-        BuildTime = 225,
+        BuildCostEnergy = 1050,
+        BuildCostMass = 190,
+        BuildTime = 235,
     },
 	
     General = {
@@ -154,7 +154,7 @@ UnitBlueprint {
         },
         DragCoefficient = 0.2,
 		
-        MaxAcceleration = 1.6,
+        MaxAcceleration = 1.1,
         MaxBrake = 3.2,
         MaxSpeed = 3.2,
         MaxSpeedReverse = 3,
@@ -164,7 +164,7 @@ UnitBlueprint {
         MotionType = 'RULEUMT_Land',
         StandUpright = true,
         TurnRadius = 20,
-        TurnRate = 65,
+        TurnRate = 62,
     },
 	
     SelectionSizeX = 0.38,
@@ -179,11 +179,11 @@ UnitBlueprint {
     StrategicIconSortPriority = 115,
 	
     Veteran = {
-        Level1 = 3,
-        Level2 = 6,
-        Level3 = 9,
-        Level4 = 12,
-        Level5 = 15,
+        Level1 = 4,
+        Level2 = 8,
+        Level3 = 12,
+        Level4 = 16,
+        Level5 = 20,
     },
 	
     Transport = {
@@ -203,7 +203,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 9,
+            Damage = 8.5,
 			DamageRadius = 0,
             DamageType = 'Normal',
 			
@@ -220,11 +220,11 @@ UnitBlueprint {
 			
             Label = 'HeavyBolter',
 			
-            MaxRadius = 28,
+            MaxRadius = 26,
 			
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 3,
-            MuzzleVelocity = 50,
+            MuzzleVelocity = 48,
 			
             ProjectileId = '/projectiles/CDFLaserHeavy01/CDFLaserHeavy01_proj.bp',
 
@@ -252,7 +252,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 2,	-- 54 dps
+            RateOfFire = 2,	-- 51 dps
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -264,7 +264,7 @@ UnitBlueprint {
 			
             TargetRestrictDisallow = 'UNTARGETABLE',
 			
-            TrackingRadius = 1.2,
+            TrackingRadius = 1.1,
 			
             TurretBoneDualMuzzle = 'lefthand_muzzle1',
             TurretBoneDualPitch = 'gun01',
@@ -279,7 +279,7 @@ UnitBlueprint {
             TurretYaw = 0,
 			
             TurretYawRange = 180,
-            TurretYawSpeed = 55,
+            TurretYawSpeed = 48,
             Turreted = true,
 		},
     },
