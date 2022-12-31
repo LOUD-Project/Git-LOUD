@@ -598,9 +598,9 @@ UnitBlueprint {
 			
 			Turreted = true,
 			
-			WeaponRepackTimeout = 1,
+			WeaponRepackTimeout = 2,
 			WeaponUnpackAnimation = '/mods/4DC/units/ual0310/ual0310_topGunOpen.sca',
-			WeaponUnpackAnimationRate = 3,
+			WeaponUnpackAnimationRate = 2,
 			WeaponUnpackAnimatorPrecedence = 0,
 			WeaponUnpackLocksMotion = false,
 			WeaponUnpackTimeout = 0.1,

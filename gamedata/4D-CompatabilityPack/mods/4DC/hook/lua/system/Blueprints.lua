@@ -82,11 +82,11 @@ do
                     lod.LookupName = '/effects/entities/PhaseShield/PhaseShieldLookup.dds'                                               
                 end
                 -- Verify the end result of mesh via the WARN but comment out if not needed
-                #if pshieldmeshbp.LODs then          
-                #    for k, v in pshieldmeshbp.LODs do 
-                #        WARN(k .. " = " ..  repr(v)) 
-                #    end        
-                #end                 
+                --if pshieldmeshbp.LODs then          
+                --    for k, v in pshieldmeshbp.LODs do 
+                --        WARN(k .. " = " ..  repr(v)) 
+                --    end        
+                --end                 
             end
         end
         pshieldmeshbp.BlueprintId = meshid .. '_PhaseShield'
