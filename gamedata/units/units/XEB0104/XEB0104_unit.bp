@@ -7,19 +7,9 @@ UnitBlueprint {
     },
 	
     Audio = {
-        Close = Sound {
-            Bank = 'XEB',
-            Cue = 'XEB0104_Close',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
         Destroyed = Sound {
             Bank = 'UELDestroy',
             Cue = 'UEB_Destroy_Med_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Open = Sound {
-            Bank = 'XEB',
-            Cue = 'XEB0104_Open',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         UISelection = Sound {
@@ -51,13 +41,12 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SHOWQUEUE',
         'ENGINEERSTATION',
-        'OVERLAYMISC',
         'SORTCONSTRUCTION',
     },
 	
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 100,
+        EconomyThreatLevel = 114,
         Health = 1400,
         MaxHealth = 1400,
         RegenRate = 2,
@@ -77,20 +66,10 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 100,
-                    ShaderName = 'Unit',
-                },
-                {
-                    AlbedoName = 'xeb0104_lod1_albedo.dds',
-                    LODCutoff = 215,
-                    ShaderName = 'Unit',
-                    SpecularName = 'xeb0104_lod1_specteam.dds',
-                },
+                { LODCutoff = 100, ShaderName = 'Unit' },
+                { AlbedoName = 'xeb0104_lod1_albedo.dds', LODCutoff = 215, ShaderName = 'Unit', SpecularName = 'xeb0104_lod1_specteam.dds' },
             },
         },
-
-        SpawnRandomRotation = true,
 
         UniformScale = 0.05,
     },
@@ -99,7 +78,7 @@ UnitBlueprint {
         BuildCostEnergy = 4500,
         BuildCostMass = 900,
         BuildRate = 10,
-        BuildTime = 1750,
+        BuildTime = 450,
 		
         BuildableCategory = {'xeb0204'},
 
@@ -115,17 +94,10 @@ UnitBlueprint {
 	
     General = {
 	
-        BuildBones = {
-            AimBone = 0,
-            BuildEffectBones = {
-                'B04_Tower',
-            },
-        },
+        BuildBones = { AimBone = 0, BuildEffectBones = { 'B04_Tower' } },
 		
 		CapCost = 2,
 		
-        Category = 'Construction',
-        Classification = 'RULEUC_Engineer',
         CommandCaps = {
             RULEUCC_Capture = true,
             RULEUCC_Guard = true,
@@ -139,10 +111,7 @@ UnitBlueprint {
         Icon = 'amph',
 		
         OrderOverrides = {
-            RULEUTC_ProductionToggle = {
-                bitmapId = 'area-assist',
-                helpText = 'toggle_area_assist',
-            },
+            RULEUTC_ProductionToggle = { bitmapId = 'area-assist', helpText = 'toggle_area_assist' },
         },
 		
         ToggleCaps = {
@@ -150,9 +119,9 @@ UnitBlueprint {
         },
 		
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
+
         UnitName = '<LOC xeb0104_name>Kennel',
-        UnitWeight = 1,
+
         UpgradesTo = 'xeb0204',
     },
 	
@@ -209,15 +178,12 @@ UnitBlueprint {
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
-        HealthMult = 0.9,
-        MassMult = 0.9,
+        HealthMult = 0.5,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

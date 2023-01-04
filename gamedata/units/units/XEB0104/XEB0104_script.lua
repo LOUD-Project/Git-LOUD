@@ -1,20 +1,27 @@
-local TPodTowerUnit = import('/lua/terranunits.lua').TConstructionUnit
-local StructureUnit = import('/lua/defaultunits.lua').StructureUnit
+local ConstructionStructureUnit = import('/lua/terranunits.lua').TConstructionStructureUnit
 
-XEB0104 = Class(TPodTowerUnit) {
+XEB0104 = Class(ConstructionStructureUnit) {
 
-    CreateTarmac = function( self, albedo, normal, glow, orientation, specTarmac, lifetime )
-    
-        StructureUnit.CreateTarmac( self, albedo, normal, glow, orientation, specTarmac, lifetime )
-        
+    OnStartBuild = function(self, unitBeingBuilt, order)
+
+        local myArmy = self:GetAIBrain().ArmyIndex
+        local otherArmy = unitBeingBuilt:GetAIBrain().ArmyIndex
+		
+        if order != 'Repair' or (IsAlly( myArmy, otherArmy) and not ArmyIsCivilian( otherArmy)) then
+		
+			ConstructionStructureUnit.OnStartBuild(self, unitBeingBuilt, order)
+			
+        else
+            IssueStop( {self} )
+            IssueClearCommands( {self} )
+        end
     end,
     
-    LaunchUpgradeThread = function( finishedUnit, aiBrain )
+    OnStopBuild = function(self, unitBeingBuilt)
     
-        StructureUnit.LaunchUpgradeThread( finishedUnit, aiBrain )
-        
-    end,
+        ConstructionStructureUnit.OnStopBuild(self, unitBeingBuilt)
 
+    end,
 }
 
 TypeClass = XEB0104
