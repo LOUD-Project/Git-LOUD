@@ -1,33 +1,14 @@
-UnitBlueprint {
+UnitBlueprint{
+    Description = "<LOC ual0204_desc>Sniper Bot",
     AI = {
-        TargetBones = {
-            'body',
-        },
+        TargetBones = { "body" },
     },
-	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAL_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0303_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0303_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Bot',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UALDestroy', Cue = 'UAL_Destroy_Land',   LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'UAL',        Cue = 'UAL0303_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        StopMove    = Sound { Bank = 'UAL',        Cue = 'UAL0303_Move_Stop',  LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface',  Cue = 'Aeon_Select_Bot',    LodCutoff = 'UnitMove_LodCutoff' },
     },
-	
     Buffs = {
         Regen = {
             Level1 = 2,
@@ -37,50 +18,44 @@ UnitBlueprint {
             Level5 = 10,
         },
     },
-	
     BuildIconSortPriority = 20,
-	
     Categories = {
-        'AEON',           
-        'DIRECTFIRE',
-        'BUILTBYTIER2FACTORY',
-        'BUILTBYTIER3FACTORY',
-        'LAND',
-        'MOBILE',
-		'SNIPER',
-        'RECLAIMABLE',        
-        'SELECTABLE',       
-        'TECH2',                
-        'VISIBLETORECON',
+        "AEON",
+        "BUILTBYTIER2FACTORY",
+        "BUILTBYTIER3FACTORY",
+        "DIRECTFIRE",
+        "LAND",
+        "MOBILE",
+        "RECLAIMABLE",
+        "SELECTABLE",
+        "SNIPER",
+        "TECH2",
+        "VISIBLETORECON",
     },
-	
-    Defense = {       
-        ArmorType = 'Normal',
+    Defense = {
+        ArmorType = "Normal",
         Health = 750,
         MaxHealth = 750,
         RegenRate = 1,
-        SurfaceThreatLevel = 19.7, 
+        SurfaceThreatLevel = 19.7,
     },
-	
-    Description = '<LOC ual0204_desc>Sniper Bot',
-	
     Display = {
         Abilities = {
-            'Customizable',  
-            'Personal Stealth',                      
-        },       
-        AnimationWalk = '/mods/4DC/units/UAL0204/ual0204_awalk.sca',
-        AnimationWalkRate = 3.92, 
+            "<LOC ability_customizable>Customizable",
+            "<LOC ability_personalstealth>Personal Stealth",
+        },
+        AnimationWalk = "/mods/4DC/units/UAL0204/ual0204_awalk.sca",
+        AnimationWalkRate = 3.92,
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
                 {
-                    MeshName = '/mods/4DC/units/UAL0204/UAL0204_lod0.scm',
-	                AlbedoName = '/mods/4DC/units/UAL0204/UAL0204_Albedo.dds',
-	                NormalsName = '/mods/4DC/units/UAL0204/UAL0204_normalsTS.dds',
-	                SpecularName = '/mods/4DC/units/UAL0204/UAL0204_SpecTeam.dds',
-	                LODCutoff = 215,
-                    ShaderName = 'Aeon',	                
+                    LODCutoff = 215,
+                    ShaderName = "Aeon",
+                    MeshName = "/mods/4DC/units/UAL0204/UAL0204_lod0.scm",
+                    AlbedoName = "/mods/4DC/units/UAL0204/UAL0204_Albedo.dds",
+                    NormalsName = "/mods/4DC/units/UAL0204/UAL0204_normalsTS.dds",
+                    SpecularName = "/mods/4DC/units/UAL0204/UAL0204_SpecTeam.dds",
                 },
             },
         },
@@ -89,107 +64,88 @@ UnitBlueprint {
                 Effects = {
                     {
                         Bones = {
-                            'Foot1',
-                            'Foot2',
-                            'Foot3',
-                            'Foot4',                            
+                            "Foot1",
+                            "Foot2",
+                            "Foot3",
+                            "Foot4",
                         },
-                        Offset = {
-                            0,
-                            0,
-                            0,
-                        },
-                        Type = 'GroundKickup01',
+                        Offset = { 0, 0, 0 },
+                        Type = "GroundKickup01",
                     },
                 },
             },
         },
-
-        SpawnRandomRotation = true,
         UniformScale = 0.007,
     },
-	
     Economy = {
         BuildCostEnergy = 3850,
         BuildCostMass = 320,
-        BuildRate = 10,  -- T2 Engineer BuildRate           
+        BuildRate = 10,
         BuildTime = 229,
     },
-	
     Enhancements = {
-        Slots = {
-			Back = {},
-			Command = {},
-            LCH = {
-                name = '<LOC _LCH>',
-                x = 50,
-                y = -10,
-            }, 
-            RCH = {
-                name = '<LOC _RCH>',
-                x = -12,
-                y = -10,
-            },                   
-        }, 
-        EnhancedWeapon = {
-            BuildCostEnergy = 667,
-            BuildCostMass = 117,
-            BuildTime = 667,
-            Icon = 'cba',
-            Name = 'Enhanced Weapon Range & Damage',
-            Slot = 'LCH',
-            UpgradeUnitAmbientBones = {
-                'sniper_barrel',
-            },
-            UpgradeEffectBones = {
-                'sniper_barrel',
-            },          
-        },
-        EnhancedWeaponRemove = {
-            BuildCostEnergy = 1,
-            BuildCostMass = 1,
-            BuildTime = 0.1,
-            Icon = 'cba',
-            Name = 'Remove Enhanced Weapon',
-            Prerequisite = 'EnhancedWeapon',
-            RemoveEnhancements = {
-                'EnhancedWeapon',
-                'EnhancedWeaponRemove',
-            },    
-            Slot = 'LCH',
-        },                           
         EnhancedSensors = {
             BuildCostEnergy = 667,
             BuildCostMass = 117,
             BuildTime = 667,
-            Icon = 'ess',
-            Name = 'Enhanced Sensor System',
-            Slot = 'RCH',
-            UpgradeUnitAmbientBones = {
-                'body',
-            },
-            UpgradeEffectBones = {
-                'body',
-            },
+            Icon = "ess",
+            Name = "Enhanced Sensor System",
+            Slot = "RCH",
+            UpgradeEffectBones = { "body" },
+            UpgradeUnitAmbientBones = { "body" },
         },
         EnhancedSensorsRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
-            Icon = 'ess',
-            Name = 'Remove Enhanced Sensor System',
-            Prerequisite = 'EnhancedSensors',
+            Icon = "ess",
+            Name = "Remove Enhanced Sensor System",
+            Prerequisite = "EnhancedSensors",
             RemoveEnhancements = {
-                'EnhancedSensors',
-                'EnhancedSensorsRemove',
+                "EnhancedSensors",
+                "EnhancedSensorsRemove",
             },
-            Slot = 'RCH',
-        },                              
+            Slot = "RCH",
+        },
+        EnhancedWeapon = {
+            BuildCostEnergy = 667,
+            BuildCostMass = 117,
+            BuildTime = 667,
+            Icon = "cba",
+            Name = "Enhanced Weapon Range & Damage",
+            Slot = "LCH",
+            UpgradeEffectBones = { "sniper_barrel" },
+            UpgradeUnitAmbientBones = { "sniper_barrel" },
+        },
+        EnhancedWeaponRemove = {
+            BuildCostEnergy = 1,
+            BuildCostMass = 1,
+            BuildTime = 0.1,
+            Icon = "cba",
+            Name = "Remove Enhanced Weapon",
+            Prerequisite = "EnhancedWeapon",
+            RemoveEnhancements = {
+                "EnhancedWeapon",
+                "EnhancedWeaponRemove",
+            },
+            Slot = "LCH",
+        },
+        Slots = {
+            Back = {},
+            Command = {},
+            LCH = {
+                name = "<LOC _LCH>",
+                x = 50,
+                y = -10,
+            },
+            RCH = {
+                name = "<LOC _RCH>",
+                x = -12,
+                y = -10,
+            },
+        },
     },
-	
     General = {
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -199,63 +155,46 @@ UnitBlueprint {
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
         },
-        FactionName = 'Aeon',
-        TechLevel = 'RULEUTL_Advanced',
-        UnitName = '<LOC ual0204_name>Predator',
-        UnitWeight = 1,
+        FactionName = "Aeon",
+        UnitName = "<LOC ual0204_name>Predator",
     },
-	
     Intel = {
-		FreeIntel = true,
-        VisionRadius = 26,
+        FreeIntel = true,
+        RadarStealth = true,
         StealthStartsOn = true,
-        RadarStealth = true,               
+        VisionRadius = 26,
     },
-	
-    Interface = {
-    	HelpText = 'Predator',
-    },    
-	
     LifeBarHeight = 0.05,
     LifeBarOffset = 0.75,
     LifeBarSize = 0.75,
-	
     Physics = {
         BankingSlope = 0,
-        BuildOnLayerCaps = {
-            LAYER_Land = true,
-        },
         DragCoefficient = 0.2,
-        MaxAcceleration = 2,  
-        MaxBrake = 4.0, 
-        MaxSpeed = 4.0, 
+        MaxAcceleration = 2,
+        MaxBrake = 4.0,
+        MaxSpeed = 4.0,
         MaxSpeedReverse = 2,
         MaxSteerForce = 10,
         MeshExtentsX = 1,
         MeshExtentsY = 1.25,
         MeshExtentsZ = 1,
         MinSpeedPercent = 0,
-        MotionType = 'RULEUMT_Land',
+        MotionType = "RULEUMT_Land",
         TurnRadius = 2,
         TurnRate = 66,
     },
-	
     SelectionSizeX = 0.7,
     SelectionSizeZ = 0.75,
     SelectionThickness = 0.6,
-	
     SizeX = 0.6,
     SizeY = 0.8,
     SizeZ = 0.4,
-	
-    StrategicIconName = 'icon_land2_sniper',
+    StrategicIconName = "icon_land2_sniper",
     StrategicIconSortPriority = 115,
-	
     Transport = {
         CanFireFromTransport = false,
         TransportClass = 2,
     },
-	
     Veteran = {
         Level1 = 5,
         Level2 = 10,
@@ -263,74 +202,41 @@ UnitBlueprint {
         Level4 = 20,
         Level5 = 25,
     },
-	
     Weapon = {
-		-- Sniper Rifle with Shield Piercing Projectile
         {
             AboveWaterTargetsOnly = true,
-            AimsStraightOnDisable = true,                 
+            AimsStraightOnDisable = true,
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'UAB',
-                    Cue = 'UAB2302_Turret_Loop',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'UAB',
-                    Cue = 'UAB2302_Turret_Start',
-                    LodCutoff = 'WeaponBig_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAB2302_Artillery_Sonance',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                MuzzleChargeStart = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAB2302_Artillery_Son_Charge',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },  
+                BarrelLoop        = Sound { Bank = 'UAB',       Cue = 'UAB2302_Turret_Loop',          LodCutoff = 'WeaponBig_LodCutoff' },
+                BarrelStart       = Sound { Bank = 'UAB',       Cue = 'UAB2302_Turret_Start',         LodCutoff = 'WeaponBig_LodCutoff' },
+                Fire              = Sound { Bank = 'UALWeapon', Cue = 'UAB2302_Artillery_Sonance',    LodCutoff = 'Weapon_LodCutoff' },
+                MuzzleChargeStart = Sound { Bank = 'UALWeapon', Cue = 'UAB2302_Artillery_Son_Charge', LodCutoff = 'Weapon_LodCutoff' },
             },
-			
-            BallisticArc = 'RULEUBA_None',
+            BallisticArc = "RULEUBA_None",
             CollideFriendly = false,
-			
-            Damage = 700,           
+            Damage = 700,
             DamageRadius = 1,
-            DamageType = 'Normal',
-			
-            DisplayName = 'Sniper Piercing',
-			
-            EnergyChargeForFirstShot = false,            
+            DamageType = "Normal",
+            DisplayName = "Sniper Piercing",
+            EnergyChargeForFirstShot = false,
             EnergyDrainPerSecond = 250,
-            EnergyRequired = 1000,     
-			
-            FireTargetLayerCapsTable = {
-                Land = 'Land|Water',
-            },
-			
+            EnergyRequired = 1000,
+            FireTargetLayerCapsTable = { Land = "Land|Water" },
             FiringRandomnessWhileMoving = 0.4,
             FiringTolerance = 1,
-			
-            Label = 'Sniper_Piercing_Rifle',
-			
+            Label = "Sniper_Piercing_Rifle",
             MaxRadius = 42,
             MinRadius = 5,
-			
-            MuzzleSalvoDelay = 0,
             MuzzleChargeDelay = 0,
+            MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 60,
-			
-            ProjectileId = '/mods/4DC/projectiles/Sniper_Piercing/Sniper_Piercing_proj.bp',
-			ProjectileLifetime = 1,
-
+            ProjectileId = "/mods/4DC/projectiles/Sniper_Piercing/Sniper_Piercing_proj.bp",
+            ProjectileLifetime = 1,
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'sniper_muzzle',
-                    },
-                    RackBone = 'sniper_barrel',
+                    MuzzleBones = { "sniper_muzzle" },
+                    RackBone = "sniper_barrel",
                 },
             },
             RackFireTogether = false,
@@ -340,37 +246,29 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_DirectFire',
-			
-            RateOfFire = 0.2,			---- 140 dps
+            RangeCategory = "UWRC_DirectFire",
+            RateOfFire = 0.2,
             RenderFireClock = true,
-
             TargetCheckInterval = 0.5,
             TargetPriorities = {
-                'EXPERIMENTAL',
-                'SHIELD',
-                'DEFENSE',
-                'MOBILE',
+                "EXPERIMENTAL",
+                "SHIELD",
+                "DEFENSE",
+                "MOBILE",
             },
-			
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = "UNTARGETABLE",
             TrackingRadius = 1.1,
-			
-            TurretBoneMuzzle = 'sniper_muzzle',
-            TurretBonePitch = 'sniper_pitch',
-            TurretBoneYaw = 'body',
+            TurretBoneMuzzle = "sniper_muzzle",
+            TurretBonePitch = "sniper_pitch",
+            TurretBoneYaw = "body",
             TurretDualManipulators = false,
-			
             TurretPitch = 0,
             TurretPitchRange = 50,
             TurretPitchSpeed = 30,
-			
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 90,
-			
             Turreted = true,
-        },                
+        },
     },
 }

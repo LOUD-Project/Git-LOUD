@@ -1,7 +1,7 @@
-UnitBlueprint {
-
+UnitBlueprint{
+    Description = "<LOC xsa0201_desc>Shield Drone",
     Air = {
-        AutoLandTime = 0,       
+        AutoLandTime = 0,
         BankFactor = 0.1,
         BankForward = false,
         CanFly = true,
@@ -11,125 +11,69 @@ UnitBlueprint {
         CirclingRadiusChangeMinRatio = 0.6,
         CirclingRadiusVsAirMult = 0.66,
         CirclingTurnMult = 3,
-		
         KLift = 3,
         KLiftDamping = 1,
-		
         KMove = 4,
         KMoveDamping = 1,
-		
         KTurn = 4,
         KTurnDamping = 2,
-		
         LiftFactor = 7,
-		
         MaxAirspeed = 2.6,
-        MinAirspeed = 0,        
-		
+        MinAirspeed = 0,
         StartTurnDistance = 5,
         Winged = false,
     },
-	
     Audio = {
-        AirUnitWaterImpact = Sound {
-            Bank = 'Explosions',
-            Cue = 'Expl_Water_Lrg_01',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'XSA_Destroy',
-            Cue = 'XSA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Killed = Sound {
-            Bank = 'XSA_Destroy',
-            Cue = 'XSA_Destroy_Air_Killed',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSA',
-            Cue = 'XSA0302_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'XSA',
-            Cue = 'XSA0302_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Thruster = Sound {
-            Bank = 'XSA',
-            Cue = 'XSA0302_Move_Thruster',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Warp = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Air',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },           
+        AirUnitWaterImpact = Sound { Bank = 'Explosions',     Cue = 'Expl_Water_Lrg_01',      LodCutoff = 'UnitMove_LodCutoff' },
+        Destroyed          = Sound { Bank = 'XSA_Destroy',    Cue = 'XSA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff' },
+        Killed             = Sound { Bank = 'XSA_Destroy',    Cue = 'XSA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove          = Sound { Bank = 'XSA',            Cue = 'XSA0302_Move_Start',     LodCutoff = 'UnitMove_LodCutoff' },
+        StopMove           = Sound { Bank = 'XSA',            Cue = 'XSA0302_Move_Stop',      LodCutoff = 'UnitMove_LodCutoff' },
+        Thruster           = Sound { Bank = 'XSA',            Cue = 'XSA0302_Move_Thruster',  LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection        = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Air',    LodCutoff = 'UnitMove_LodCutoff' },
+        Warp               = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Air',    LodCutoff = 'UnitMove_LodCutoff' },
     },
-	
     BuildIconSortPriority = 50,
-	
-    Categories = { 
-        'AIR',
-        'BUILTBYTIER2FACTORY',                      
-        'BUILTBYTIER3FACTORY',
-        'CANNOTUSEAIRSTAGING',
-        'DRONE',
-        'MOBILE', 
-        'RECLAIMABLE',  
-        'SELECTABLE',                      
-        'SERAPHIM', 
-        'TECH2',                                 
-        'VISIBLETORECON',                  
+    Categories = {
+        "AIR",
+        "BUILTBYTIER2FACTORY",
+        "BUILTBYTIER3FACTORY",
+        "CANNOTUSEAIRSTAGING",
+        "DRONE",
+        "MOBILE",
+        "RECLAIMABLE",
+        "SELECTABLE",
+        "SERAPHIM",
+        "TECH2",
+        "VISIBLETORECON",
     },
-	
-    CollisionOffsetY = -0.7,
-	
     Defense = {
-        ArmorType = 'Light',
+        ArmorType = "Light",
         Health = 10,
         MaxHealth = 10,
         RegenRate = 0,
-        SurfaceThreatLevel = 0, 
+        SurfaceThreatLevel = 0,
     },
-	
-    Description = '<LOC xsa0201_desc>Shield Drone',
-	
     Display = {
         Abilities = {
-            'One-Shot Projected Shield Generator',
-			'Merges with other units',
+            "One-Shot Projected Shield Generator",
+            "Merges with other units",
         },
-		
         LayerChangeEffects = {
             AirLand = {
                 Effects = {
                     {
-                        Bones = {
-                            0,
-                        },
-                        Offset = {
-                            0,
-                            0,
-                            0,
-                        },
-                        Type = 'Landing01',
+                        Bones = { 0 },
+                        Offset = { 0, 0, 0 },
+                        Type = "Landing01",
                     },
                 },
             },
             LandAir = {
                 Effects = {
                     {
-                        Bones = {
-							0,
-                        },
-                        Type = 'TakeOff01',
+                        Bones = { 0 },
+                        Type = "TakeOff01",
                     },
                 },
             },
@@ -138,99 +82,76 @@ UnitBlueprint {
             IconFadeInZoom = 130,
             LODs = {
                 {
-                    MeshName = 'xsa0201_lod0.scm',
                     LODCutoff = 100,
-                    ShaderName = 'Seraphim',	                
+                    ShaderName = "Seraphim",
+                    MeshName = "xsa0201_lod0.scm",
                 },
                 {
-                    MeshName = 'xsa0201_lod1.scm',
                     LODCutoff = 150,
-                    ShaderName = 'Seraphim',	                
-                }, 
+                    ShaderName = "Seraphim",
+                    MeshName = "xsa0201_lod1.scm",
+                },
                 {
-                    MeshName = 'xsa0201_lod2.scm',
                     LODCutoff = 200,
-                    ShaderName = 'Seraphim',	                
-                },                },
-        },         
-
-        SpawnRandomRotation = false,
+                    ShaderName = "Seraphim",
+                    MeshName = "xsa0201_lod2.scm",
+                },
+            },
+        },
         UniformScale = 0.06,
     },
-	
     Economy = {
         BuildCostEnergy = 4800,
         BuildCostMass = 450,
-        BuildTime = 450, 
+        BuildTime = 450,
     },
-	
     Footprint = {
         MaxSlope = 0.25,
         SizeX = 1,
         SizeZ = 4,
     },
-	
     General = {
         BuildBones = {
-            AimBone = 'xsa0201',
-            BuildEffectBones = {'xsa0201'},
-            PitchBone = 'xsa0201',
-            YawBone = 'xsa0201',
-        },    
-        Category = 'Utility',
-        Classification = 'RULEUC_MilitaryAircraft',
+            AimBone = "xsa0201",
+            BuildEffectBones = { "xsa0201" },
+            PitchBone = "xsa0201",
+            YawBone = "xsa0201",
+        },
         CommandCaps = {
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
             RULEUCC_Stop = true,
         },
-        FactionName = 'Seraphim',
-        Icon = 'air',           
+        FactionName = "Seraphim",
+        Icon = "air",
         SelectionPriority = 2,
-        TechLevel = 'RULEUTL_Advanced',     
-        UnitName = '<LOC xsa0201_name>Shyeld',
-        UnitWeight = 1,
+        UnitName = "<LOC xsa0201_name>Shyeld",
     },
-	
-    Intel = {
-        VisionRadius = 10,
-    },
-	
-    Interface = {
-        HelpText = 'Shyeld',
-    },
-	
+    Intel = { VisionRadius = 10 },
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.45,
-    LifeBarSize = 0.5,
     LifeBarRender = false,
-	
+    LifeBarSize = 0.5,
     Physics = {
-        BuildOnLayerCaps = {
-            LAYER_Air = true,
-        },
         Elevation = 6,
         MaxSpeed = 0.7,
         MeshExtentsX = 0.5,
         MeshExtentsY = 1,
         MeshExtentsZ = 0.5,
-        MotionType = 'RULEUMT_Air',
+        MotionType = "RULEUMT_Air",
         RotateBodyWhileMoving = true,
         TurnFacingRate = 100,
         TurnRadius = 360,
-        TurnRate = 180,      
+        TurnRate = 180,
     },
-	
     SelectionSizeX = 0.5,
     SelectionSizeZ = 0.5,
-    SelectionThickness = 0.22, 
-	
+    SelectionThickness = 0.22,
+    CollisionOffsetY = -0.7,
     SizeSphere = 0.6,
-	
     SizeX = 0.5,
     SizeY = 1.0,
     SizeZ = 0.5,
-	
-    StrategicIconName = 'icon_land2_shield',
+    StrategicIconName = "icon_land2_shield",
     StrategicIconSortPriority = 65,
 }

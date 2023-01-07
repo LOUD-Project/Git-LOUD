@@ -1,43 +1,16 @@
-UnitBlueprint {
+UnitBlueprint{
+    Description = "<LOC ual0108_desc>Light Assault Walker",
     AI = {
-        TargetBones = {
-            'bodyBase',
-        },
+        TargetBones = { "bodyBase" },
     },
-	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAL_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        ShieldOff = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0202_Shield_Off',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        ShieldOn = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0202_Shield_On',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },               
-        StartMove = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0106_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0106_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Bot',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UALDestroy', Cue = 'UAL_Destroy_Land',   LodCutoff = 'UnitMove_LodCutoff' },
+        ShieldOff   = Sound { Bank = 'UAL',        Cue = 'UAL0202_Shield_Off', LodCutoff = 'UnitMove_LodCutoff' },
+        ShieldOn    = Sound { Bank = 'UAL',        Cue = 'UAL0202_Shield_On',  LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'UAL',        Cue = 'UAL0106_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        StopMove    = Sound { Bank = 'UAL',        Cue = 'UAL0106_Move_Stop',  LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface',  Cue = 'Aeon_Select_Bot',    LodCutoff = 'UnitMove_LodCutoff' },
     },
-	
     Buffs = {
         Regen = {
             Level1 = 1,
@@ -47,145 +20,120 @@ UnitBlueprint {
             Level5 = 5,
         },
     },
-	
     BuildIconSortPriority = 30,
-	
     Categories = {
-        'AEON',
-        'BOT',
-        'BUILTBYTIER1FACTORY',
-        'BUILTBYTIER2FACTORY',
-        'BUILTBYTIER3FACTORY',
-        'DIRECTFIRE',
-        'LAND',
-        'MOBILE',
-        'RECLAIMABLE',
-        'SELECTABLE',
-        'TECH1',
-        'VISIBLETORECON',
+        "AEON",
+        "BOT",
+        "BUILTBYTIER1FACTORY",
+        "BUILTBYTIER2FACTORY",
+        "BUILTBYTIER3FACTORY",
+        "DIRECTFIRE",
+        "LAND",
+        "MOBILE",
+        "RECLAIMABLE",
+        "SELECTABLE",
+        "TECH1",
+        "VISIBLETORECON",
     },
-	
     Defense = {
-        ArmorType = 'Normal',
+        ArmorType = "Normal",
         Health = 210,
         MaxHealth = 210,
         SurfaceThreatLevel = 3.2,
     },
-	
-    Description = '<LOC ual0108_desc>Light Assault Walker',  
-        Display = {
-        Abilities = {
-            'Customizable',
-        },
+    Display = {
+        Abilities = { "<LOC ability_customizable>Customizable", },
         AnimationDeath = {
             {
-            -- Knocked back and falls forward
-                Animation = '/mods/4DC/units/ual0108/ual0108_Adeath01.sca',
+                Animation = "/mods/4DC/units/ual0108/ual0108_Adeath01.sca",
                 AnimationRateMax = 1.75,
                 AnimationRateMin = 1.15,
                 Weight = 30,
             },
             {
-            -- Knocked into the air and lands on head
-                Animation = '/mods/4DC/units/ual0108/ual0108_Adeath02.sca',
+                Animation = "/mods/4DC/units/ual0108/ual0108_Adeath02.sca",
                 AnimationRateMax = 1.25,
                 AnimationRateMin = 0.75,
                 Weight = 20,
             },
             {
-            -- Collapses in a heap
-                Animation = '/mods/4DC/units/ual0108/ual0108_Adeath03.sca',
+                Animation = "/mods/4DC/units/ual0108/ual0108_Adeath03.sca",
                 AnimationRateMax = 1.15,
                 AnimationRateMin = 0.75,
                 Weight = 40,
             },
             {
-            -- Head knocked into the air and lands on unit.
-            -- Max and Min rate shouldn't vary too much because bodies in freefall would not vary given constant gravity.
-                Animation = '/mods/4DC/units/ual0108/ual0108_Adeath04.sca',
+                Animation = "/mods/4DC/units/ual0108/ual0108_Adeath04.sca",
                 AnimationRateMax = 1.45,
                 AnimationRateMin = 1.35,
                 Weight = 10,
             },
         },
-        AnimationWalk = '/mods/4DC/units/ual0108/ual0108_awalk01.sca',
+        AnimationWalk = "/mods/4DC/units/ual0108/ual0108_awalk01.sca",
         AnimationWalkRate = 1.6,
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
                 {
                     LODCutoff = 215,
-                    Scrolling = false,                     
-                    ShaderName = 'Aeon',
+                    Scrolling = false,
+                    ShaderName = "Aeon",
                 },
             },
         },
-
-        SpawnRandomRotation = true,
         UniformScale = 0.05,
     },
-	
     Economy = {
         BuildCostEnergy = 550,
         BuildCostMass = 75,
-        BuildRate = 5,  -- T1 Engineer BuildRate        
+        BuildRate = 5,
         BuildTime = 94,
     },
-	
     Enhancements = {
-        Slots = {
-            Back = {
-                name = '<LOC _Back>',
-                x = -2,
-                y = -5,
-            },
-			LCH = {},
-			RCH = {},
-			Command = {},
-        },    
         PersonalShield = {
-		
             BuildCostEnergy = 475,
             BuildCostMass = 35,
             BuildTime = 167,
-            Icon = 'ptsg',
-            ImpactEffects = 'AeonShieldHit01',
-			
+            Icon = "ptsg",
+            ImpactEffects = "AeonShieldHit01",
             MaintenanceConsumptionPerSecondEnergy = 8,
-			
-            Name = 'Personal Shield Generator',
-            OwnerShieldMesh = '/mods/4DC/units/UAL0108/UAL0108_PersonalShield_mesh',
+            Name = "Personal Shield Generator",
+            OwnerShieldMesh = "/mods/4DC/units/UAL0108/UAL0108_PersonalShield_mesh",
             RegenAssistMult = 10,
             ShieldEnergyDrainRechargeTime = 4,
             ShieldMaxHealth = 200,
             ShieldRechargeTime = 7,
             ShieldRegenRate = 30,
             ShieldRegenStartTime = 1,
-            Slot = 'Back',
-            UpgradeUnitAmbientBones = {
-                'bodyBase',
-            },
-            UpgradeEffectBones = {
-                'bodyBase',
-            },
+            Slot = "Back",
+            UpgradeEffectBones = { "bodyBase" },
+            UpgradeUnitAmbientBones = { "bodyBase" },
         },
         PersonalShieldRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
-            Icon = 'ptsg',
-            Name = 'Remove Personal Shield',
-            Prerequisite = 'PersonalShield',
+            Icon = "ptsg",
+            Name = "Remove Personal Shield",
+            Prerequisite = "PersonalShield",
             RemoveEnhancements = {
-                'PersonalShield',
-                'PersonalShieldRemove',
+                "PersonalShield",
+                "PersonalShieldRemove",
             },
-            Slot = 'Back',
+            Slot = "Back",
         },
-    },    
+        Slots = {
+            Back = {
+                name = "<LOC _Back>",
+                x = -2,
+                y = -5,
+            },
+            Command = {},
+            LCH = {},
+            RCH = {},
+        },
+    },
     General = {
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -195,30 +143,16 @@ UnitBlueprint {
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
         },
-        FactionName = 'Aeon',
-        Icon = 'land',
-        TechLevel = 'RULEUTL_Basic',
-        UnitName = '<LOC ual0108_name>Artos',
-        UnitWeight = 1,
+        FactionName = "Aeon",
+        Icon = "land",
+        UnitName = "<LOC ual0108_name>Artos",
     },
-	
-    Intel = {
-        VisionRadius = 20,
-    },
-	
-    Interface = {
-        HelpText = 'Light Assault Walker',
-    },
-	
+    Intel = { VisionRadius = 20 },
     LifeBarHeight = 0.07,
     LifeBarOffset = 0.7,
     LifeBarSize = 0.45,
-	
     Physics = {
         BankingSlope = 0,
-        BuildOnLayerCaps = {
-            LAYER_Land = true,
-        },
         DragCoefficient = 0.2,
         MaxAcceleration = 1.6,
         MaxBrake = 1.6,
@@ -226,7 +160,7 @@ UnitBlueprint {
         MaxSpeedReverse = 1.6,
         MaxSteerForce = 7,
         MinSpeedPercent = 0,
-        MotionType = 'RULEUMT_Land',
+        MotionType = "RULEUMT_Land",
         RotateBodyWhileMoving = true,
         RotateOnSpot = true,
         StandUpright = false,
@@ -234,25 +168,20 @@ UnitBlueprint {
         TurnRadius = 1,
         TurnRate = 60,
     },
-	
     SelectionCenterOffsetX = 0,
     SelectionCenterOffsetZ = 0.1,
     SelectionSizeX = 0.55,
     SelectionSizeZ = 0.55,
     SelectionThickness = 0.5,
-	
     SizeX = 0.3,
-    SizeY = 1.04, 
+    SizeY = 1.04,
     SizeZ = 0.44,
-	
-    StrategicIconName = 'icon_land1_directfire',
+    StrategicIconName = "icon_land1_directfire",
     StrategicIconSortPriority = 135,
-	
     Transport = {
         CanFireFromTransport = false,
-		TransportClass = 1,
+        TransportClass = 1,
     },
-	
     Veteran = {
         Level1 = 3,
         Level2 = 6,
@@ -260,179 +189,123 @@ UnitBlueprint {
         Level4 = 12,
         Level5 = 15,
     },
-	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
                 Fire = Sound { Bank = 'UAAWeapon', Cue = 'UAA0203_Laser_Lgt', LodCutoff = 'Weapon_LodCutoff' },
             },
-			
-            BallisticArc = 'RULEUBA_None',
+            BallisticArc = "RULEUBA_None",
             CollideFriendly = false,
-			
             Damage = 20,
             DamageRadius = 0,
-            DamageType = 'Normal',
-			
-            DisplayName = 'Pulse Laser',
-			
-            FireTargetLayerCapsTable = {
-                Land = 'Land|Water',
-            },
-			
+            DamageType = "Normal",
+            DisplayName = "Pulse Laser",
+            FireTargetLayerCapsTable = { Land = "Land|Water" },
             FiringRandomness = 0.5,
             FiringRandomnessWhileMoving = 1.0,
-			
             FiringTolerance = 2,
-			
-            Label = 'MainGun',
-			
+            Label = "MainGun",
             MaxRadius = 18,
-			
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 4,
             MuzzleVelocity = 30,
-			
-            ProjectileId = '/projectiles/ADFLaserLight01/ADFLaserLight01_proj.bp',
-			ProjectileLifetime = 0.8,
-			
+            ProjectileId = "/projectiles/ADFLaserLight01/ADFLaserLight01_proj.bp",
+            ProjectileLifetime = 0.8,
             RackBones = {
                 {
-                    MuzzleBones = { 'turretMuzzle' },
-                    RackBone = 'turretBarrel',
+                    MuzzleBones = { "turretMuzzle" },
+                    RackBone = "turretBarrel",
                 },
             },
-			
-            RangeCategory = 'UWRC_DirectFire',
-			
             RackFireTogether = false,
-            
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-			
-            RateOfFire = 0.4,			---- 4 times 20 = 80 * .4 = about 32 DPS
-			
+            RangeCategory = "UWRC_DirectFire",
+            RateOfFire = 0.4,
             SlavedToBody = false,
             TargetCheckInterval = 0.6,
             TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'MOBILE',
-                'DEFENSE -WALL',
-                'ALLUNITS -WALL',
+                "SPECIALHIGHPRI",
+                "MOBILE",
+                "DEFENSE -WALL",
+                "ALLUNITS -WALL",
             },
+            TargetRestrictDisallow = "UNTARGETABLE",
             TrackingRadius = 1.1,
-            TargetRestrictDisallow = 'UNTARGETABLE',
-			
-            TurretBoneMuzzle = 'turretMuzzle',
-            TurretBonePitch = 'bodyTop',
-            TurretBoneYaw = 'bodyTop',
+            TurretBoneMuzzle = "turretMuzzle",
+            TurretBonePitch = "bodyTop",
+            TurretBoneYaw = "bodyTop",
             TurretDualManipulators = false,
-			
             TurretPitch = 0,
             TurretPitchRange = 15,
             TurretPitchSpeed = 30,
-			
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 60,
-			
             Turreted = true,
         },
         {
             AlwaysRecheckTarget = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAB2304_SAM',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                Open = Sound {
-                    Bank = 'UAB',
-                    Cue = 'UAB2304_Activate',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UALWeapon', Cue = 'UAB2304_SAM',      LodCutoff = 'Weapon_LodCutoff' },
+                Open = Sound { Bank = 'UAB',       Cue = 'UAB2304_Activate', LodCutoff = 'Weapon_LodCutoff' },
             },
-            BallisticArc = 'RULEUBA_None',
+            BallisticArc = "RULEUBA_None",
             CollideFriendly = false,
-			
             Damage = 30,
             DamageRadius = 1,
-            DamageType = 'Normal',
-			
-            DisplayName = 'Missile',
-			
-            FireTargetLayerCapsTable = {
-                Land = 'Land|Water',
-            },
+            DamageType = "Normal",
+            DisplayName = "Missile",
+            FireTargetLayerCapsTable = { Land = "Land|Water" },
             FiringTolerance = 10,
-			
-            Label = 'RocketBackpack',
-			
+            Label = "RocketBackpack",
             MaxRadius = 32,
             MinRadius = 5,
-			
             MuzzleSalvoDelay = 0.5,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 5,
-			
-            ProjectileId = '/projectiles/AAAZealotMissile01/AAAZealotMissile01_proj.bp',
+            ProjectileId = "/projectiles/AAAZealotMissile01/AAAZealotMissile01_proj.bp",
             ProjectileLifetime = 3,
-
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'missileMuzzleLeft',
-                    },
-                    RackBone = 'bodyTop',
+                    MuzzleBones = { "missileMuzzleLeft" },
+                    RackBone = "bodyTop",
                 },
                 {
-                    MuzzleBones = {
-                        'missileMuzzleRight',
-                    },
-                    RackBone = 'bodyTop',
+                    MuzzleBones = { "missileMuzzleRight" },
+                    RackBone = "bodyTop",
                 },
             },
-			
-            RangeCategory = 'UWRC_IndirectFire',
-			
             RackFireTogether = false,
-            
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
-			
-            RateOfFire = 0.2,			---- 60 every 5 seconds about 12 dps
-			
+            RangeCategory = "UWRC_IndirectFire",
+            RateOfFire = 0.2,
             TargetCheckInterval = 0.3,
             TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'COMMAND',
-                'MOBILE',
-                'DEFENSE',
-                'ALLUNITS,-WALL',
+                "SPECIALHIGHPRI",
+                "COMMAND",
+                "MOBILE",
+                "DEFENSE",
+                "ALLUNITS,-WALL",
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = "UNTARGETABLE",
             Turreted = false,
         },
     },
     Wreckage = {
-        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        Blueprint = "/props/DefaultWreckage/DefaultWreckage_prop.bp",
         EnergyMult = 0.1,
         HealthMult = 0.9,
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
-        WreckageLayers = {
-            Air = false,
-            Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
-        },
+        WreckageLayers = { Land = true },
     },
-} 
+}
