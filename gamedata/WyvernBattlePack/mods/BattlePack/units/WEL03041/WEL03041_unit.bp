@@ -1,34 +1,16 @@
-UnitBlueprint {
+UnitBlueprint{
+    Description = "Amphibious Heavy Artillery",
     AI = {
         GuardScanRadius = 30,
         NeedUnpack = true,
-        TargetBones = {
-            'MainTurret_Yaw',
-        },
+        TargetBones = { "MainTurret_Yaw" },
     },
     Audio = {
-        Activate = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0304_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEL_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0304_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Vehicle',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Activate    = Sound { Bank = 'UEL',        Cue = 'UEL0304_Activate',   LodCutoff = 'UnitMove_LodCutoff' },
+        Destroyed   = Sound { Bank = 'UELDestroy', Cue = 'UEL_Destroy_Huge',   LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'UEL',        Cue = 'UEL0304_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface',  Cue = 'UEF_Select_Vehicle', LodCutoff = 'UnitMove_LodCutoff' },
     },
-    
     Buffs = {
         Regen = {
             Level1 = 3,
@@ -38,72 +20,55 @@ UnitBlueprint {
             Level5 = 15,
         },
     },
-    
     BuildIconSortPriority = 31,
-    
     Categories = {
-        'SELECTABLE',
-        'BUILTBYTIER3FACTORY',
-        'UEF',
-        'MOBILE',
-        'LAND',
-        'AMPHIBIOUS',
-        'SUBMERSIBLE',
-        'TECH3',
-        'INDIRECTFIRE',
-        'ARTILLERY',
-        'VISIBLETORECON',
-        'RECLAIMABLE',
-        'SHOWATTACKRETICLE',
+        "AMPHIBIOUS",
+        "ARTILLERY",
+        "BUILTBYTIER3FACTORY",
+        "INDIRECTFIRE",
+        "LAND",
+        "MOBILE",
+        "RECLAIMABLE",
+        "SELECTABLE",
+        "SHOWATTACKRETICLE",
+        "SUBMERSIBLE",
+        "TECH3",
+        "UEF",
+        "VISIBLETORECON",
     },
-    
     Defense = {
-
-        ArmorType = 'Normal',
-
+        ArmorType = "Normal",
         Health = 1100,
         MaxHealth = 1100,
         RegenRate = 1,
-
         SurfaceThreatLevel = 27,
     },
-    
-    Description = 'Amphibious Heavy Artillery',
-    
     Display = {
         Abilities = {
-            'Amphibious',
-            '<LOC ability_deploys>Deploys',
-            'Huge AOE',
+            "<LOC ability_amphibious>Amphibious",
+            "<LOC ability_deploys>Deploys",
+            "Huge AOE",
         },
-        
-        AnimationOpen = '/units/UEL0304/uel0304_aactivate.sca',
-        
+        AnimationOpen = "/units/UEL0304/uel0304_aactivate.sca",
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
                 {
                     LODCutoff = 215,
                     Scrolling = true,
-                    ShaderName = 'Unit',
+                    ShaderName = "Unit",
                 },
             },
         },
-
-        SpawnRandomRotation = false,
         UniformScale = 0.045,
     },
-    
     Economy = {
         BuildCostEnergy = 12500,
         BuildCostMass = 800,
         BuildTime = 400,
     },
-    
     General = {
         CapCost = 2,
-        Category = 'Indirect Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -113,69 +78,44 @@ UnitBlueprint {
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
         },
-        FactionName = 'UEF',
-        Icon = 'amph',
-        TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Walrus',
-        UnitWeight = 1,
+        FactionName = "UEF",
+        Icon = "amph",
+        UnitName = "Walrus",
     },
-    
     Intel = {
         VisionRadius = 28,
         WaterVisionRadius = 10,
     },
-    
-    Interface = {
-        HelpText = 'Amphibious Heavy Artillery',
-    },
-    
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.7,
     LifeBarSize = 1.25,
-    
     Physics = {
         BankingSlope = 0,
-        BuildOnLayerCaps = {
-            LAYER_Land = true,
-        },
         DragCoefficient = 0.2,
-        
         MaxAcceleration = 2.8,
         MaxBrake = 2.8,
         MaxSpeed = 2.8,
         MaxSpeedReverse = 2,
-        
         MaxSteerForce = 10,
-        
         MeshExtentsX = 0.9,
         MeshExtentsY = 0.7,
         MeshExtentsZ = 1.6,
-        
         MinSpeedPercent = 0,
-        
-        MotionType = 'RULEUMT_Amphibious',
-
+        MotionType = "RULEUMT_Amphibious",
         TurnRadius = 0,
         TurnRate = 75,
     },
-    
     SelectionCenterOffsetX = 0,
     SelectionCenterOffsetZ = -0.05,
     SelectionSizeX = 0.6,
     SelectionSizeZ = 0.95,
     SelectionThickness = 0.45,
-    
     SizeX = 1.0,
     SizeY = 0.75,
     SizeZ = 1.5,
-    
-    StrategicIconName = 'icon_seabed3_artillery',
+    StrategicIconName = "icon_seabed3_artillery",
     StrategicIconSortPriority = 115,
-    
-    Transport = {
-        TransportClass = 3,
-    },
-    
+    Transport = { TransportClass = 3 },
     Veteran = {
         Level1 = 10,
         Level2 = 20,
@@ -183,131 +123,90 @@ UnitBlueprint {
         Level4 = 40,
         Level5 = 50,
     },
-    
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
             AimsStraightOnDisable = true,
             ArtilleryShieldBlocks = true,
-            
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEL0304_Artillery_AM',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEL0304_Artillery_AM', LodCutoff = 'Weapon_LodCutoff' },
             },
-            BallisticArc = 'RULEUBA_HighArc',
-
+            BallisticArc = "RULEUBA_HighArc",
             CollideFriendly = false,
-            
             Damage = 700,
             DamageFriendly = true,
             DamageRadius = 4.5,
-            
-            DamageType = 'Normal',
-            
-            DisplayName = 'Anti Matter Artillery',
-            
+            DamageType = "Normal",
+            DisplayName = "Anti Matter Artillery",
+            EnergyDrainPerSecond = 572,
             EnergyRequired = 4000,
-            EnergyDrainPerSecond = 572,     -- 7 seconds to charge
-
-            FireTargetLayerCapsTable = {
-                Land = 'Land|Water|Seabed',
-            },
+            FireTargetLayerCapsTable = { Land = "Land|Water|Seabed" },
             FiringRandomness = 0.7,
             FiringTolerance = 2,
-            
-            Label = 'MainGun',
+            Label = "MainGun",
             LeadTarget = true,
-            
             MaxRadius = 92,
             MinRadius = 5,
-            
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 25,
             MuzzleVelocityReduceDistance = 85,
-            
-			NotExclusive = true,
-            
-            ProjectileId = '/projectiles/TIFAntiMatterShells02/TIFAntiMatterShells02_proj.bp',
+            NotExclusive = true,
+            ProjectileId = "/projectiles/TIFAntiMatterShells02/TIFAntiMatterShells02_proj.bp",
             ProjectileLifetime = 20,
-
-			RackBones = {
+            RackBones = {
                 {
-                    MuzzleBones = {
-                        'ArtyMuzzle01',
-                    },
-                    RackBone = 'TopArtyrecoil01',
-                    TelescopeBone = 'TopArtyrecoil02',
+                    MuzzleBones = { "ArtyMuzzle01" },
+                    RackBone = "TopArtyrecoil01",
+                    TelescopeBone = "TopArtyrecoil02",
                     TelescopeRecoilDistance = -4,
                 },
                 {
-                    MuzzleBones = {
-                        'ArtyMuzzle02',
-                    },
-                    RackBone = 'BottomArtyrecoil01',
-                    TelescopeBone = 'BottomArtyrecoil02',
+                    MuzzleBones = { "ArtyMuzzle02" },
+                    RackBone = "BottomArtyrecoil01",
+                    TelescopeBone = "BottomArtyrecoil02",
                     TelescopeRecoilDistance = -4,
                 },
             },
-
             RackRecoilDistance = -4,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            
-            RangeCategory = 'UWRC_IndirectFire',
-            
-            RateOfFire = 1,     -- controlled by charge - 7 seconds -- 105 DPS
-
+            RangeCategory = "UWRC_IndirectFire",
+            RateOfFire = 1,
             TargetCheckInterval = 1,
-            
             TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'SHIELD',
-                'ARTILLERY',
-                'INDIRECTFIRE',
-                'DEFENSE',
-                'ALLUNITS -WALL',
+                "SPECIALHIGHPRI",
+                "SHIELD",
+                "ARTILLERY",
+                "INDIRECTFIRE",
+                "DEFENSE",
+                "ALLUNITS -WALL",
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
-            
-			TurretBoneMuzzle = 'Turret_Pitch',
-            TurretBonePitch = 'Turret_Pitch',
-            TurretBoneYaw = 'MainTurret_Yaw',
+            TargetRestrictDisallow = "UNTARGETABLE",
+            TurretBoneMuzzle = "Turret_Pitch",
+            TurretBonePitch = "Turret_Pitch",
+            TurretBoneYaw = "MainTurret_Yaw",
             TurretDualManipulators = false,
-            
             TurretPitch = 30,
             TurretPitchRange = 45,
             TurretPitchSpeed = 22,
-            
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 30,
-            
             Turreted = true,
-
-            WeaponUnpackAnimation = '/units/UEL0304/uel0304_aactivate.sca',
+            WeaponUnpackAnimation = "/units/UEL0304/uel0304_aactivate.sca",
             WeaponUnpackAnimationRate = 2,
             WeaponUnpackLocksMotion = true,
             WeaponUnpacks = true,
         },
     },
-    
     Wreckage = {
-        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        Blueprint = "/props/DefaultWreckage/DefaultWreckage_prop.bp",
         EnergyMult = 0.2,
         HealthMult = 0.9,
         MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
-        WreckageLayers = {
-            Air = false,
-            Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
-        },
+        WreckageLayers = { Land = true },
     },
 }

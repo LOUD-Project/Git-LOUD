@@ -1,28 +1,13 @@
-UnitBlueprint {
+UnitBlueprint{
+    Description = "Rapid Assault Tank",
     AI = {
-        TargetBones = {
-            'Turret',
-        },
+        TargetBones = { "Turret" },
     },
-
     Audio = {
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSL_Destroy_Land_Lrg',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0303_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Tank',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'XSL_Destroy',    Cue = 'XSL_Destroy_Land_Lrg', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'XSL',            Cue = 'XSL0303_Move_Start',   LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Tank', LodCutoff = 'UnitMove_LodCutoff' },
     },
-    
     Buffs = {
         Regen = {
             Level1 = 3,
@@ -32,51 +17,38 @@ UnitBlueprint {
             Level5 = 15,
         },
     },
-
     BuildIconSortPriority = 21,
-    
     Categories = {
-        'SELECTABLE',
-        'BUILTBYTIER3FACTORY',
-        'SERAPHIM',
-        'MOBILE',
-        'LAND',
-        'TECH3',
-        'DIRECTFIRE',
-        'VISIBLETORECON',
-        'RECLAIMABLE',
-        'TANK',
+        "BUILTBYTIER3FACTORY",
+        "DIRECTFIRE",
+        "LAND",
+        "MOBILE",
+        "RECLAIMABLE",
+        "SELECTABLE",
+        "SERAPHIM",
+        "TANK",
+        "TECH3",
+        "VISIBLETORECON",
     },
-    
-    CollisionOffsetY = 0,
-    
     Defense = {
-        ArmorType = 'Normal',
-
+        ArmorType = "Normal",
         Health = 3200,
         MaxHealth = 3200,
-        
         RegenRate = 3,
-
         SurfaceThreatLevel = 37.8,
     },
-    
-    Description = 'Rapid Assault Tank',
-    
     Display = {
-        Abilities = {
-		    '<LOC ability_stun>EMP Weapon',
-        },
+        Abilities = { "<LOC ability_stun>EMP Weapon" },
         IdleEffects = {
             Seabed = {
                 Effects = {
                     {
                         Bones = {
-                            'Exhaust_Center',
-                            'WSL0309',
+                            "Exhaust_Center",
+                            "WSL0309",
                         },
                         Scale = 1,
-                        Type = 'UnderWater01',
+                        Type = "UnderWater01",
                     },
                 },
             },
@@ -86,16 +58,16 @@ UnitBlueprint {
             LODs = {
                 {
                     LODCutoff = 100,
-                    LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
+                    LookupName = "/textures/environment/Falloff_seraphim_lookup.dds",
                     Scrolling = true,
-                    ShaderName = 'Seraphim',
+                    ShaderName = "Seraphim",
                 },
                 {
-                    AlbedoName = 'WSL0308_lod1_albedo.dds',
                     LODCutoff = 215,
-                    LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
-                    ShaderName = 'Seraphim',
-                    SpecularName = 'WSL0308_lod1_specteam.dds',
+                    LookupName = "/textures/environment/Falloff_seraphim_lookup.dds",
+                    ShaderName = "Seraphim",
+                    AlbedoName = "WSL0308_lod1_albedo.dds",
+                    SpecularName = "WSL0308_lod1_specteam.dds",
                 },
             },
         },
@@ -104,72 +76,50 @@ UnitBlueprint {
                 Effects = {
                     {
                         Bones = {
-                            'Exhaust_Left',
-                            'Exhaust_Center',
-                            'Exhaust_Right',
+                            "Exhaust_Left",
+                            "Exhaust_Center",
+                            "Exhaust_Right",
                         },
-                        Offset = {
-                            0,
-                            -0.4,
-                            0,
-                        },
-                        Type = 'GroundKickup01',
+                        Offset = { 0, -0.4, 0 },
+                        Type = "GroundKickup01",
                     },
                 },
                 Treads = {
                     ScrollTreads = true,
                     TreadMarks = {
                         {
-                            TreadMarks = 'tank_treads03_albedo',
+                            TreadMarks = "tank_treads03_albedo",
                             TreadMarksInterval = 0.09,
                             TreadMarksSizeX = 0.6,
                             TreadMarksSizeZ = 1.6,
-                            TreadOffset = {
-                                0,
-                                0,
-                                -0.5,
-                            },
+                            TreadOffset = { 0, 0, -0.5 },
                         },
                         {
-                            TreadMarks = 'tank_treads03_albedo',
+                            TreadMarks = "tank_treads03_albedo",
                             TreadMarksInterval = 0.09,
                             TreadMarksSizeX = 0.3,
                             TreadMarksSizeZ = 1.6,
-                            TreadOffset = {
-                                -0.5,
-                                0,
-                                -1,
-                            },
+                            TreadOffset = { -0.5, 0, -1 },
                         },
                         {
-                            TreadMarks = 'tank_treads03_albedo',
+                            TreadMarks = "tank_treads03_albedo",
                             TreadMarksInterval = 0.09,
                             TreadMarksSizeX = 0.3,
                             TreadMarksSizeZ = 1.6,
-                            TreadOffset = {
-                                0.5,
-                                0,
-                                -1,
-                            },
+                            TreadOffset = { 0.5, 0, -1 },
                         },
                     },
                 },
             },
         },
-
-        SpawnRandomRotation = true,
         UniformScale = 0.05,
     },
-    
     Economy = {
         BuildCostEnergy = 6850,
         BuildCostMass = 650,
         BuildTime = 330,
     },
-    
     General = {
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -179,30 +129,16 @@ UnitBlueprint {
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
         },
-        FactionName = 'Seraphim',
-        Icon = 'land',
-        TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Otheeka',
-        UnitWeight = 1,
+        FactionName = "Seraphim",
+        Icon = "land",
+        UnitName = "Otheeka",
     },
-    
-    Intel = {
-        VisionRadius = 30,
-    },
-    
-    Interface = {
-        HelpText = 'Rpaid Assault Tank',
-    },
-    
+    Intel = { VisionRadius = 30 },
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.95,
     LifeBarSize = 1.2,
-    
     Physics = {
         BankingSlope = 0,
-        BuildOnLayerCaps = {
-            LAYER_Land = true,
-        },
         DragCoefficient = 0.2,
         MaxAcceleration = 2.5,
         MaxBrake = 2.5,
@@ -213,30 +149,26 @@ UnitBlueprint {
         MeshExtentsY = 1.25,
         MeshExtentsZ = 1,
         MinSpeedPercent = 0,
-        MotionType = 'RULEUMT_Land',
+        MotionType = "RULEUMT_Land",
         RotateOnSpot = true,
         RotateOnSpotThreshold = 0.1,
         StandUpright = false,
         TurnRadius = 0,
         TurnRate = 75,
     },
-    
     SelectionSizeX = 0.9,
     SelectionSizeZ = 1.3,
     SelectionThickness = 0.3,
-    
+    CollisionOffsetY = 0,
     SizeX = 0.8,
     SizeY = 0.6,
     SizeZ = 1.6,
-    
-    StrategicIconName = 'icon_land3_directfire',
+    StrategicIconName = "icon_land3_directfire",
     StrategicIconSortPriority = 115,
-    
     Transport = {
         CanFireFromTransport = false,
         TransportClass = 3,
     },
-    
     Veteran = {
         Level1 = 9,
         Level2 = 18,
@@ -244,126 +176,87 @@ UnitBlueprint {
         Level4 = 36,
         Level5 = 45,
     },
-    
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0303_Bolter',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0303_Bolter', LodCutoff = 'Weapon_LodCutoff' },
             },
-            
-			Buffs = {
+            BallisticArc = "RULEUBA_LowArc",
+            Buffs = {
                 {
-                    Add = {
-                        OnImpact = true,
-                    },
+                    Add = { OnImpact = true },
                     AppliedToTarget = true,
-                    BuffType = 'STUN',
+                    BuffType = "STUN",
                     Duration = 1,
                     Radius = 1,
-                    TargetAllow = 'MOBILE',
-                    TargetDisallow = 'EXPERIMENTAL,COMMAND',
+                    TargetAllow = "MOBILE",
+                    TargetDisallow = "EXPERIMENTAL,COMMAND",
                 },
             },
-            
             CollideFriendly = false,
-            BallisticArc = 'RULEUBA_LowArc',
-            
             Damage = 200,
             DamageRadius = 1,
-            DamageType = 'Normal',
-            
-            DisplayName = 'Thau Cannon',
-            
-            FireTargetLayerCapsTable = {
-                Land = 'Land|Water|Seabed',
-            },
+            DamageType = "Normal",
+            DisplayName = "Thau Cannon",
+            FireTargetLayerCapsTable = { Land = "Land|Water|Seabed" },
             FiringRandomness = 0.2,
             FiringRandomnessWhileMoving = 0.5,
             FiringTolerance = 1,
-            
-            Label = 'MainTurret',
-            
+            Label = "MainTurret",
             LeadTarget = true,
-            
             MaxRadius = 32,
-            
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 40,
-            
-            ProjectileId = '/projectiles/SDFTauCannon01/SDFTauCannon01_proj.bp',
+            ProjectileId = "/projectiles/SDFTauCannon01/SDFTauCannon01_proj.bp",
             ProjectileLifetimeUsesMultiplier = 1,
-
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'TahuMuzzle01',
-                    },
-                    RackBone = 'TurretPitch',
+                    MuzzleBones = { "TahuMuzzle01" },
+                    RackBone = "TurretPitch",
                 },
                 {
-                    MuzzleBones = {
-                        'TahuMuzzle02',
-                    },
-                    RackBone = 'TurretPitch2',
+                    MuzzleBones = { "TahuMuzzle02" },
+                    RackBone = "TurretPitch2",
                 },
             },
-            
             RackRecoilDistance = -1,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-
-            RangeCategory = 'UWRC_DirectFire',
-            
-            RateOfFire = 1.5,   -- 300 DPS
-            
+            RangeCategory = "UWRC_DirectFire",
+            RateOfFire = 1.5,
             TargetCheckInterval = 0.25,
             TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'MOBILE',
-                'DEFENSE',
-                'ALLUNITS -WALL',
+                "SPECIALHIGHPRI",
+                "MOBILE",
+                "DEFENSE",
+                "ALLUNITS -WALL",
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = "UNTARGETABLE",
             TrackingRadius = 1.15,
-            
-            TurretBoneDualMuzzle = 'TahuMuzzle02',
-            TurretBoneDualPitch = 'TurretPitch2',
-            TurretBoneMuzzle = 'TahuMuzzle01',
-            TurretBonePitch = 'TurretPitch',
-            TurretBoneYaw = 'Turret',
+            TurretBoneDualMuzzle = "TahuMuzzle02",
+            TurretBoneDualPitch = "TurretPitch2",
+            TurretBoneMuzzle = "TahuMuzzle01",
+            TurretBonePitch = "TurretPitch",
+            TurretBoneYaw = "Turret",
             TurretDualManipulators = true,
-            
             TurretPitch = 10,
             TurretPitchRange = 60,
             TurretPitchSpeed = 30,
-            
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 54,
-            
             Turreted = true,
         },
     },
-    
     Wreckage = {
-        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        Blueprint = "/props/DefaultWreckage/DefaultWreckage_prop.bp",
         EnergyMult = 0,
         HealthMult = 0.9,
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
-        WreckageLayers = {
-            Air = false,
-            Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
-        },
+        WreckageLayers = { Land = true },
     },
 }
