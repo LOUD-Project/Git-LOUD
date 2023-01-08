@@ -1,46 +1,21 @@
-UnitBlueprint {
+UnitBlueprint{
+    Description = "Experimental Heavy Assault Bot",
     AI = {
         TargetBones = {
-            'NewHead',
-            'Torso',
-            'Left_Footfall',
-            'Right_Leg_B02',
+            "NewHead",
+            "Torso",
+            "Left_Footfall",
+            "Right_Leg_B02",
         },
     },
-	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAL0401_Destroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        FootFallGeneric = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0401_Move_Step',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        FootFallGenericSeabed = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0401_Move_UW_Step',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0401_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0401_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Bot',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed             = Sound { Bank = 'UALDestroy', Cue = 'UAL0401_Destroy',      LodCutoff = 'UnitMove_LodCutoff' },
+        FootFallGeneric       = Sound { Bank = 'UAL',        Cue = 'UAL0401_Move_Step',    LodCutoff = 'UnitMove_LodCutoff' },
+        FootFallGenericSeabed = Sound { Bank = 'UAL',        Cue = 'UAL0401_Move_UW_Step', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove             = Sound { Bank = 'UAL',        Cue = 'UAL0401_Move_Start',   LodCutoff = 'UnitMove_LodCutoff' },
+        StopMove              = Sound { Bank = 'UAL',        Cue = 'UAL0401_Move_Stop',    LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection           = Sound { Bank = 'Interface',  Cue = 'Aeon_Select_Bot',      LodCutoff = 'UnitMove_LodCutoff' },
     },
-    
     Buffs = {
         Regen = {
             Level1 = 15,
@@ -50,56 +25,45 @@ UnitBlueprint {
             Level5 = 75,
         },
     },
-    
     BuildIconSortPriority = 101,
-    
     Categories = {
-        'SELECTABLE',
-        'BUILTBYTIER4COMMANDER',
-        'AEON',
-        'MOBILE',
-        'LAND',
-        'AMPHIBIOUS',
-        'DIRECTFIRE',
-        'EXPERIMENTAL',
-        'NEEDMOBILEBUILD',
-        'VISIBLETORECON',
-        'RECLAIMABLE',
-        'DRAGBUILD',
-        'OVERLAYRADAR',
-        'OVERLAYOMNI',
+        "AEON",
+        "AMPHIBIOUS",
+        "BUILTBYTIER4COMMANDER",
+        "DIRECTFIRE",
+        "DRAGBUILD",
+        "EXPERIMENTAL",
+        "LAND",
+        "MOBILE",
+        "NEEDMOBILEBUILD",
+        "OVERLAYOMNI",
+        "OVERLAYRADAR",
+        "RECLAIMABLE",
+        "SELECTABLE",
+        "VISIBLETORECON",
     },
-    
-    CollisionOffsetY = 0,
-    
     Defense = {
-
-        ArmorType = 'Experimental',
-
+        ArmorType = "Experimental",
         Health = 115000,
         MaxHealth = 115000,
         RegenRate = 30,
-
         SurfaceThreatLevel = 737.2,
     },
-    
-    Description = 'Experimental Heavy Assault Bot',
-    
     Display = {
         Abilities = {
-            '<LOC ability_amphibious>Amphibious',
-            '<LOC ability_omni>Omni Sensor',
+            "<LOC ability_amphibious>Amphibious",
+            "<LOC ability_omni>Omni Sensor",
         },
-        AnimationActivate = '/mods/BattlePack/units/WAL0401/WAL0401_aactivate.sca',
+        AnimationActivate = "/mods/BattlePack/units/WAL0401/WAL0401_aactivate.sca",
         AnimationDeath = {
             {
-                Animation = '/mods/BattlePack/units/WAL0401/WAL0401_Adeath01.sca',
+                Animation = "/mods/BattlePack/units/WAL0401/WAL0401_Adeath01.sca",
                 AnimationRateMax = 1,
                 AnimationRateMin = 1,
                 Weight = 1,
             },
         },
-        AnimationWalk = '/mods/BattlePack/units/WAL0401/WAL0401_Awalk.sca',
+        AnimationWalk = "/mods/BattlePack/units/WAL0401/WAL0401_Awalk.sca",
         AnimationWalkRate = 2,
         Mesh = {
             IconFadeInZoom = 130,
@@ -107,7 +71,7 @@ UnitBlueprint {
                 {
                     LODCutoff = 500,
                     Scrolling = true,
-                    ShaderName = 'Aeon',
+                    ShaderName = "Aeon",
                 },
             },
         },
@@ -116,73 +80,56 @@ UnitBlueprint {
                 Footfall = {
                     Bones = {
                         {
-                            FootBone = 'Right_Footfall',
-                            HipBone = 'Right_Leg_B01',
-                            KneeBone = 'Right_Leg_B02',
+                            FootBone = "Right_Footfall",
+                            HipBone = "Right_Leg_B01",
+                            KneeBone = "Right_Leg_B02",
                             MaxFootFall = -0.25,
-                            Offset = {
-                                z = -1,
-                            },
+                            Offset = { z = -1 },
                             StraightLegs = false,
                             Tread = {
                                 TreadLifeTime = 135,
-                                TreadMarks = 'collosus_tread_02',
+                                TreadMarks = "collosus_tread_02",
                                 TreadMarksSizeX = 1.7,
                                 TreadMarksSizeZ = 1.7,
-                                TreadOffset = {
-                                    -0.95,
-                                    0,
-                                    0.85,
-                                },
+                                TreadOffset = { -0.95, 0, 0.85 },
                             },
-                            Type = 'FootFall01',
+                            Type = "FootFall01",
                         },
                         {
-                            FootBone = 'Left_Footfall',
-                            HipBone = 'Left_Leg_B01',
-                            KneeBone = 'Left_Leg_B02',
+                            FootBone = "Left_Footfall",
+                            HipBone = "Left_Leg_B01",
+                            KneeBone = "Left_Leg_B02",
                             MaxFootFall = -0.25,
-                            Offset = {
-                                z = -1,
-                            },
+                            Offset = { z = -1 },
                             StraightLegs = false,
                             Tread = {
                                 TreadLifeTime = 135,
-                                TreadMarks = 'collosus_tread_01',
+                                TreadMarks = "collosus_tread_01",
                                 TreadMarksSizeX = 1.7,
                                 TreadMarksSizeZ = 1.7,
-                                TreadOffset = {
-                                    1,
-                                    0,
-                                    0.85,
-                                },
+                                TreadOffset = { 1, 0, 0.85 },
                             },
-                            Type = 'FootFall01',
+                            Type = "FootFall01",
                         },
                     },
                     Damage = {
                         Amount = 2900,
                         DamageFriendly = false,
                         Radius = 1,
-                        Type = 'ExperimentalFootfall',
+                        Type = "ExperimentalFootfall",
                     },
                 },
             },
         },
-        SpawnRandomRotation = true,
         UniformScale = 0.095,
     },
-    
     Economy = {
-        BuildCostEnergy = 525000, 
+        BuildCostEnergy = 525000,
         BuildCostMass = 48000,
         BuildTime = 8400,
     },
-    
     General = {
         CapCost = 6,
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Guard = true,
@@ -191,77 +138,54 @@ UnitBlueprint {
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
         },
-        FactionName = 'Aeon',
-        Icon = 'amph',
-        TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Universal Colossus',
-        UnitWeight = 1,
+        FactionName = "Aeon",
+        Icon = "amph",
+        UnitName = "Universal Colossus",
     },
-    
     Intel = {
         FreeIntel = true,
-        RadarRadius = 100,
         OmniRadius = 60,
+        RadarRadius = 100,
         VisionRadius = 42,
         WaterVisionRadius = 21,
     },
-    
-    Interface = {
-        HelpText = 'Experimental Heavy Assault Bot',
-    },
-    
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.55,
     LifeBarSize = 3.25,
-    
     Physics = {
         BankingSlope = 0,
-        BuildOnLayerCaps = {
-            LAYER_Land = true,
-            LAYER_Seabed = true,
-        },
         DragCoefficient = 0.2,
         LayerChangeOffsetHeight = -3.25,
-        
         MaxAcceleration = 0.8,
         MaxBrake = 2.4,
         MaxSpeed = 2.4,
         MaxSpeedReverse = 1.6,
-        
         MaxSteerForce = 10,
         MeshExtentsX = 2.75,
         MeshExtentsY = 6.75,
         MeshExtentsZ = 3,
         MinSpeedPercent = 0,
-        MotionType = 'RULEUMT_Amphibious',
+        MotionType = "RULEUMT_Amphibious",
         SkirtOffsetX = -1.5,
         SkirtOffsetZ = -1.5,
         SkirtSizeX = 6,
         SkirtSizeZ = 6,
         StandUpright = true,
-        
         TurnRadius = 3,
         TurnRate = 36,
     },
-    
     SelectionCenterOffsetX = 0,
     SelectionCenterOffsetZ = -0.25,
-    
     SelectionSizeX = 2.2,
     SelectionSizeZ = 1.6,
     SelectionThickness = 0.32,
-    
+    CollisionOffsetY = 0,
     SizeX = 2.5,
     SizeY = 6.8,
     SizeZ = 2.5,
-    
-    StrategicIconName = 'icon_seabed4_directfire',
+    StrategicIconName = "icon_seabed4_directfire",
     StrategicIconSortPriority = 115,
-    
-    Transport = {
-        TransportClass = 4,
-    },
-    
+    Transport = { TransportClass = 4 },
     Veteran = {
         Level1 = 40,
         Level2 = 80,
@@ -269,289 +193,192 @@ UnitBlueprint {
         Level4 = 160,
         Level5 = 200,
     },
-    
     Weapon = {
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             AimsStraightOnDisable = true,
             Audio = {
-                BeamLoop = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Phason_Laser_Loop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStart = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Phason_Laser_Fire',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStop = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Phason_Laser_Stop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                Unpack = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Phason_Laser_Charge',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BeamLoop  = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Loop',   LodCutoff = 'Weapon_LodCutoff' },
+                BeamStart = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Fire',   LodCutoff = 'Weapon_LodCutoff' },
+                BeamStop  = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Stop',   LodCutoff = 'Weapon_LodCutoff' },
+                Unpack    = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Charge', LodCutoff = 'Weapon_LodCutoff' },
             },
-            
             AutoInitiateAttackCommand = true,
-            
-            BallisticArc = 'RULEUBA_None',
-            
+            BallisticArc = "RULEUBA_None",
             BeamCollisionDelay = 0.1,
             BeamLifetime = 0,
-            
             CollideFriendly = false,
             ContinuousBeam = true,
-            
             Damage = 310,
             DamageRadius = 0,
-            DamageType = 'Normal',
-            
-            DisplayName = 'Phason Laser',
-
+            DamageType = "Normal",
+            DisplayName = "Phason Laser",
             FireTargetLayerCapsTable = {
-                Land = 'Land|Water|Seabed',
-                Seabed = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
+                Land = "Land|Water|Seabed",
+                Seabed = "Land|Water|Seabed",
+                Water = "Land|Water|Seabed",
             },
-            
             FiringTolerance = 2,
-            
-            Label = 'EyeWeapon',
-            
+            Label = "EyeWeapon",
             MaxRadius = 43,
             MinRadius = 2,
-            
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'PhasonMuzzle01',
-                    },
-                    RackBone = 'NewHead',
+                    MuzzleBones = { "PhasonMuzzle01" },
+                    RackBone = "NewHead",
                 },
             },
-            
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            
-            RangeCategory = 'UWRC_DirectFire',
-            
-            RateOfFire = 3,     -- 3100 DPS
-            
+            RangeCategory = "UWRC_DirectFire",
+            RateOfFire = 3,
             SlavedToBody = true,
             SlavedToBodyArcRange = 65,
-            
             TargetCheckInterval = 0.25,
             TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'TECH3 MOBILE',
-                'MOBILE',
-                'DEFENSE',
-                'ALLUNITS',
+                "SPECIALHIGHPRI",
+                "TECH3 MOBILE",
+                "MOBILE",
+                "DEFENSE",
+                "ALLUNITS",
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
-            
-            TurretBoneMuzzle = 'PhasonMuzzle01',
-            TurretBonePitch = 'NewHead',
-            TurretBoneYaw = 'NewHead',
+            TargetRestrictDisallow = "UNTARGETABLE",
+            TurretBoneMuzzle = "PhasonMuzzle01",
+            TurretBonePitch = "NewHead",
+            TurretBoneYaw = "NewHead",
             TurretDualManipulators = false,
-            
             TurretPitch = -20,
             TurretPitchRange = 70,
             TurretPitchSpeed = 60,
-            
             TurretYaw = 0,
             TurretYawRange = 70,
             TurretYawSpeed = 70,
-            
             Turreted = true,
         },
-        
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Tractor_Beam',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Tractor_Beam', LodCutoff = 'Weapon_LodCutoff' },
             },
-            BallisticArc = 'RULEUBA_None',
-            
+            BallisticArc = "RULEUBA_None",
             BeamCollisionDelay = 0.1,
             BeamLifetime = 0,
-            
             Damage = 0.01,
             DamageRadius = 0,
-            DamageType = 'Normal',
-            
-            DisplayName = 'Right Tractor Claw',
-            
+            DamageType = "Normal",
+            DisplayName = "Right Tractor Claw",
             FireTargetLayerCapsTable = {
-                Land = 'Land|Water|Seabed',
-                Seabed = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
+                Land = "Land|Water|Seabed",
+                Seabed = "Land|Water|Seabed",
+                Water = "Land|Water|Seabed",
             },
             FiringTolerance = 5,
-            
             HeadingArcCenter = -35,
             HeadingArcRange = 35,
-            
-            Label = 'RightArmTractor',
-            
+            Label = "RightArmTractor",
             MaxRadius = 40,
             MinRadius = 2,
-            
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleSpecial = 'Right_Arm_Muzzle02',
-            
+            MuzzleSpecial = "Right_Arm_Muzzle02",
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_Arm_Muzzle01',
-                    },
-                    RackBone = 'Right_Arm_B02',
+                    MuzzleBones = { "Right_Arm_Muzzle01" },
+                    RackBone = "Right_Arm_B02",
                 },
             },
-
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            
             RateOfFire = 1,
-            
             TargetCheckInterval = 0.3,
             TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'TECH3 MOBILE',
-                'TECH2 MOBILE',
-                'TECH1 MOBILE',
+                "SPECIALHIGHPRI",
+                "TECH3 MOBILE",
+                "TECH2 MOBILE",
+                "TECH1 MOBILE",
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = "UNTARGETABLE",
             TrackingRadius = 1.15,
-            
-            TurretBoneMuzzle = 'Right_Arm_Muzzle01',
-            TurretBonePitch = 'Right_Arm_B02',
-            TurretBoneYaw = 'Right_Arm_B01',
+            TurretBoneMuzzle = "Right_Arm_Muzzle01",
+            TurretBonePitch = "Right_Arm_B02",
+            TurretBoneYaw = "Right_Arm_B01",
             TurretDualManipulators = false,
-            
             TurretPitch = 0,
             TurretPitchRange = 70,
             TurretPitchSpeed = 180,
-            
             TurretYaw = -25,
             TurretYawRange = 65,
             TurretYawSpeed = 20,
-            
             Turreted = true,
         },
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             Audio = {
-                BeamLoop = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Phason_Laser_Loop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStart = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Phason_Laser_Fire',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Tractor_Beam',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                Unpack = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Phason_Laser_Charge',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BeamLoop  = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Loop',   LodCutoff = 'Weapon_LodCutoff' },
+                BeamStart = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Fire',   LodCutoff = 'Weapon_LodCutoff' },
+                Fire      = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Tractor_Beam',        LodCutoff = 'Weapon_LodCutoff' },
+                Unpack    = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Charge', LodCutoff = 'Weapon_LodCutoff' },
             },
-            BallisticArc = 'RULEUBA_None',
-            
+            BallisticArc = "RULEUBA_None",
             BeamCollisionDelay = 0.1,
             BeamLifetime = 0,
-            
             Damage = 0.01,
             DamageRadius = 0,
-            DamageType = 'Normal',
-            
-            DisplayName = 'Tractor Claw',
-            
+            DamageType = "Normal",
+            DisplayName = "Tractor Claw",
             FireTargetLayerCapsTable = {
-                Land = 'Land|Water|Seabed',
-                Seabed = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
+                Land = "Land|Water|Seabed",
+                Seabed = "Land|Water|Seabed",
+                Water = "Land|Water|Seabed",
             },
             FiringTolerance = 5,
-            
             HeadingArcCenter = 35,
             HeadingArcRange = 35,
-            
-            Label = 'LeftArmTractor',
-            
+            Label = "LeftArmTractor",
             MaxRadius = 40,
             MinRadius = 2,
-            
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleSpecial = 'Left_Arm_Muzzle02',
-            
+            MuzzleSpecial = "Left_Arm_Muzzle02",
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Left_Arm_Muzzle01',
-                    },
-                    RackBone = 'Left_Arm_B02',
+                    MuzzleBones = { "Left_Arm_Muzzle01" },
+                    RackBone = "Left_Arm_B02",
                 },
             },
-
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            
             RateOfFire = 1,
-            
             TargetCheckInterval = 0.3,
             TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'TECH3 MOBILE',
-                'TECH2 MOBILE',
-                'TECH1 MOBILE',
+                "SPECIALHIGHPRI",
+                "TECH3 MOBILE",
+                "TECH2 MOBILE",
+                "TECH1 MOBILE",
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = "UNTARGETABLE",
             TrackingRadius = 1.15,
-            
-            TurretBoneMuzzle = 'Left_Arm_Muzzle01',
-            TurretBonePitch = 'Left_Arm_B02',
-            TurretBoneYaw = 'Left_Arm_B01',
+            TurretBoneMuzzle = "Left_Arm_Muzzle01",
+            TurretBonePitch = "Left_Arm_B02",
+            TurretBoneYaw = "Left_Arm_B01",
             TurretDualManipulators = false,
-            
             TurretPitch = 0,
             TurretPitchRange = 70,
             TurretPitchSpeed = 180,
-            
             TurretYaw = 25,
             TurretYawRange = 65,
             TurretYawSpeed = 20,
-            
             Turreted = true,
         },
         {
@@ -559,24 +386,21 @@ UnitBlueprint {
             Damage = 7800,
             DamageFriendly = true,
             DamageRadius = 7,
-            DamageType = 'Normal',
-            DisplayName = 'Collossus Death',
+            DamageType = "Normal",
+            DisplayName = "Collossus Death",
             DummyWeapon = true,
-            Label = 'CollossusDeath',
+            Label = "CollossusDeath",
         },
     },
     Wreckage = {
-        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        Blueprint = "/props/DefaultWreckage/DefaultWreckage_prop.bp",
         EnergyMult = 0,
         HealthMult = 0.9,
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

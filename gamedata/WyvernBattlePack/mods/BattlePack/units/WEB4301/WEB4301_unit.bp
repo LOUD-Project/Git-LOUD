@@ -1,119 +1,71 @@
-UnitBlueprint {
+UnitBlueprint{
+    Description = "Beam-based Tac Missile Defense",
     AI = {
-        TargetBones = {
-            'Turret',
-        },
+        TargetBones = { "Turret" },
     },
-	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'UEB',
-            Cue = 'UEB4201_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed      = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Huge', LodCutoff = 'UnitMove_LodCutoff' },
+        DoneBeingBuilt = Sound { Bank = 'UEB',        Cue = 'UEB4201_Activate', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection    = Sound { Bank = 'Interface',  Cue = 'UEF_Select_Gun',   LodCutoff = 'UnitMove_LodCutoff' },
     },
-    
     BuildIconSortPriority = 155,
-    
     Categories = {
-        'SELECTABLE',
-        'BUILTBYTIER3ENGINEER',
-        'BUILTBYTIER3COMMANDER',
-        'UEF',
-        'STRUCTURE',
-        'DEFENSE',
-        'TECH3',
-        'ANTIMISSILE',
-        'DRAGBUILD',
-        'SIZE4',
-        'VISIBLETORECON',
-        'RECLAIMABLE',
-        'OVERLAYDEFENSE',
-        'SORTSTRATEGIC',
+        "ANTIMISSILE",
+        "BUILTBYTIER3COMMANDER",
+        "BUILTBYTIER3ENGINEER",
+        "DEFENSE",
+        "DRAGBUILD",
+        "RECLAIMABLE",
+        "SELECTABLE",
+        "SIZE4",
+        "SORTSTRATEGIC",
+        "STRUCTURE",
+        "TECH3",
+        "UEF",
+        "VISIBLETORECON",
     },
-    
-    CollisionOffsetY = -0.25,
-    
     Defense = {
-        ArmorType = 'Structure',
-        
+        ArmorType = "Structure",
         EconomyThreatLevel = 12,
-
         Health = 1800,
         MaxHealth = 1800,
         RegenRate = 2,
     },
-    
-    Description = 'Beam-based Tac Missile Defense',
-    
     Display = {
         Abilities = {
-            '<LOC ability_aquatic>Aquatic',
-            '<LOC ability_tacmissiledef>Tactical Missile Defense',
+            "<LOC ability_aquatic>Aquatic",
+            "<LOC ability_tacmissiledef>Tactical Missile Defense",
         },
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
                 {
                     LODCutoff = 230,
-                    ShaderName = 'Unit',
+                    ShaderName = "Unit",
                 },
             },
         },
-
-        SpawnRandomRotation = true,
         UniformScale = 0.16,
     },
-    
     Economy = {
         BuildCostEnergy = 12800,
         BuildCostMass = 950,
         BuildTime = 950,
-        
-        RebuildBonusIds = {'web4301'},
+        RebuildBonusIds = { "web4301" },
     },
-    
-    Footprint = {
-        MinWaterDepth = 2,
-    },
-    
+    Footprint = { MinWaterDepth = 2 },
     General = {
         CapCost = 2,
-        Category = 'Defense',
-        Classification = 'RULEUC_CounterMeasure',
-        CommandCaps = {
-            RULEUCC_RetaliateToggle = true,
-        },
-        FactionName = 'UEF',
-        Icon = 'amph',
+        CommandCaps = { RULEUCC_RetaliateToggle = true },
+        FactionName = "UEF",
+        Icon = "amph",
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Protector',
-        UnitWeight = 1,
+        UnitName = "Protector",
     },
-    
-    Intel = {
-        VisionRadius = 28,
-    },
-    
-    Interface = {
-        HelpText = 'Beam-based Tac Missile Defense',
-    },
-    
+    Intel = { VisionRadius = 28 },
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.6,
     LifeBarSize = 1.25,
-    
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -127,117 +79,85 @@ UnitBlueprint {
         MeshExtentsY = 1.5,
         MeshExtentsZ = 1.5,
         MinSpeedPercent = 0,
-        MotionType = 'RULEUMT_None',
+        MotionType = "RULEUMT_None",
         SkirtOffsetX = -0.5,
         SkirtOffsetZ = -0.5,
         SkirtSizeX = 2,
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
-    
     SelectionSizeX = 0.9,
     SelectionSizeZ = 0.9,
     SelectionThickness = 0.3,
-    
+    CollisionOffsetY = -0.25,
     SizeX = 1,
     SizeY = 1.2,
     SizeZ = 1,
-    
-    StrategicIconName = 'icon_structure3_antimissile',
+    StrategicIconName = "icon_structure3_antimissile",
     StrategicIconSortPriority = 200,
-    
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'BattlePackSB',
-                    Cue = 'UEFRevampTank_AntiMissile_Fire',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'BattlePackSB', Cue = 'UEFRevampTank_AntiMissile_Fire', LodCutoff = 'Weapon_LodCutoff' },
             },
-            BallisticArc = 'RULEUBA_None',
-            
+            BallisticArc = "RULEUBA_None",
             BeamCollisionDelay = 0.1,
             BeamLifetime = 0.1,
-            
             CollideFriendly = false,
-            
             Damage = 3,
-            DamageType = 'Normal',
-            
-            DisplayName = 'Zapper Anti Missile',
-            
+            DamageType = "Normal",
+            DisplayName = "Zapper Anti Missile",
             FireTargetLayerCapsTable = {
-                Land = 'Air',
-                Water = 'Air',
+                Land = "Air",
+                Water = "Air",
             },
             FiringTolerance = 0,
-            
-            Label = 'Turret01',
-            
+            Label = "Turret01",
             MaxRadius = 36,
-            
             MaximumBeamLength = 36,
-            
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            
             NeedPrep = true,
-            
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
-                    RackBone = 'Turret_Barrel',
+                    MuzzleBones = { "Turret_Muzzle" },
+                    RackBone = "Turret_Barrel",
                 },
             },
-
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
-            
-            RangeCategory = 'UWRC_Countermeasure',
-            
+            RangeCategory = "UWRC_Countermeasure",
             RateOfFire = 1.5,
-            
             TargetCheckInterval = 0.1,
-            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TargetRestrictOnlyAllow = 'TACTICAL MISSILE',
-            TargetType = 'RULEWTT_Projectile',
+            TargetRestrictDisallow = "UNTARGETABLE,SATELLITE",
+            TargetRestrictOnlyAllow = "TACTICAL MISSILE",
+            TargetType = "RULEWTT_Projectile",
             TrackingRadius = 1.5,
-            
-            TurretBoneMuzzle = 'Turret_Muzzle',
-            TurretBonePitch = 'Turret_Barrel',
-            TurretBoneYaw = 'Turret',
+            TurretBoneMuzzle = "Turret_Muzzle",
+            TurretBonePitch = "Turret_Barrel",
+            TurretBoneYaw = "Turret",
             TurretDualManipulators = false,
-            
             TurretPitch = 45,
             TurretPitchRange = 90,
             TurretPitchSpeed = 110,
-            
             TurretYaw = 0,
             TurretYawRange = 360,
             TurretYawSpeed = 150,
-            
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
         },
     },
-    
     Wreckage = {
-        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        Blueprint = "/props/DefaultWreckage/DefaultWreckage_prop.bp",
         EnergyMult = 0.5,
         HealthMult = 0.9,
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
             Water = true,
         },
     },

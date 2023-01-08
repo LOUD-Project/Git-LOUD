@@ -1,27 +1,12 @@
-
-UnitBlueprint {
-    AI = { 
-        TargetBones = {
-            'Turret',
-        },
+UnitBlueprint{
+    Description = "<LOC ueb2306_desc>Heavy Point Defense",
+    AI = {
+        TargetBones = { "Turret" },
     },
-	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Med_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'UEB',
-            Cue = 'UEB2301_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed      = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Med_Land', LodCutoff = 'UnitMove_LodCutoff' },
+        DoneBeingBuilt = Sound { Bank = 'UEB',        Cue = 'UEB2301_Activate',     LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection    = Sound { Bank = 'Interface',  Cue = 'UEF_Select_Gun',       LodCutoff = 'UnitMove_LodCutoff' },
     },
     Buffs = {
         Regen = {
@@ -34,117 +19,86 @@ UnitBlueprint {
     },
     BuildIconSortPriority = 110,
     Categories = {
-        'BUILTBYTIER3ENGINEER',
-        'BUILTBYTIER3COMMANDER',
-        'DEFENSE',        
-        'DIRECTFIRE',
-        'DRAGBUILD',        
-        'OVERLAYDIRECTFIRE',
-        'RECLAIMABLE',        
-        'SELECTABLE',
-        'SIZE4',
-        'SORTDEFENSE',
-        'STRUCTURE',        
-        'TECH3',        
-        'UEF',                       
-        'VISIBLETORECON',
+        "BUILTBYTIER3COMMANDER",
+        "BUILTBYTIER3ENGINEER",
+        "DEFENSE",
+        "DIRECTFIRE",
+        "DRAGBUILD",
+        "RECLAIMABLE",
+        "SELECTABLE",
+        "SIZE4",
+        "SORTDEFENSE",
+        "STRUCTURE",
+        "TECH3",
+        "UEF",
+        "VISIBLETORECON",
     },
-	
-    CollisionOffsetY = -0.4,
-	
     Defense = {
-        ArmorType = 'Structure',
+        ArmorType = "Structure",
         Health = 7500,
         MaxHealth = 7500,
         RegenRate = 3,
         SurfaceThreatLevel = 82.7,
     },
-	
-    Description = '<LOC ueb2306_desc>Heavy Point Defense',
-	
     Display = {
         Abilities = {
-			'Aquatic',
-			'Heavy Area Damage',
-			'Requires Energy to fire',
+            "<LOC ability_aquatic>Aquatic",
+            "Heavy Area Damage",
+            "Requires Energy to fire",
         },
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
                 {
                     LODCutoff = 120,
-                    ShaderName = 'Unit',
+                    ShaderName = "Unit",
                 },
                 {
                     LODCutoff = 215,
-                    ShaderName = 'Unit',
+                    ShaderName = "Unit",
                 },
             },
         },
         Tarmacs = {
             {
-                Albedo = 'Tarmacs/Tar6x_01_albedo',
+                Albedo = "Tarmacs/Tar6x_01_albedo",
                 DeathLifetime = 300,
                 FadeOut = 500,
                 Length = 8,
-                Normal = 'Tarmacs/Tar6x_01_normals',
-                Orientations = {
-                    0,
-                    90,
-                    180,
-                    270,
-                },
+                Normal = "Tarmacs/Tar6x_01_normals",
+                Orientations = { 0, 90, 180, 270 },
                 RemoveWhenDead = false,
                 Width = 8,
             },
         },
-
-        SpawnRandomRotation = true,
         UniformScale = 0.022,
     },
-	
     Economy = {
         BuildCostEnergy = 22000,
         BuildCostMass = 2400,
         BuildTime = 2000,
-		
-        RebuildBonusIds = {'ueb2306'},
+        RebuildBonusIds = { "ueb2306" },
     },
-	
-	Footprint = {
-		SizeX = 1,
-		SizeZ = 1,
-	},
-	
+    Footprint = {
+        SizeX = 1,
+        SizeZ = 1,
+    },
     General = {
-		CapCost = 2,
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
+        CapCost = 2,
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
         },
-        FactionName = 'UEF',
-        Icon = 'amph',
+        FactionName = "UEF",
+        Icon = "amph",
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
-        UnitName = '<LOC ueb2306_name>Brimstone',
-        UnitWeight = 1,
+        UnitName = "<LOC ueb2306_name>Brimstone",
     },
-	
-    Intel = {
-        VisionRadius = 38,
-    },
-	
-    Interface = {
-        HelpText = 'Brimstone',
-    },
-	
+    Intel = { VisionRadius = 38 },
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.0,
     LifeBarSize = 1.25,
-	
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -158,29 +112,25 @@ UnitBlueprint {
         MeshExtentsY = 1.5,
         MeshExtentsZ = 1.5,
         MinSpeedPercent = 0,
-        MotionType = 'RULEUMT_None',
+        MotionType = "RULEUMT_None",
         SkirtOffsetX = -0.5,
         SkirtOffsetZ = -0.5,
         SkirtSizeX = 2,
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
-	
+    SelectionCenterOffsetZ = -0.25,
     SelectionCenterOffsetx = 0,
-    SelectionCenterOffsety = 0,  
-    SelectionCenterOffsetZ = -0.25,     
-	
+    SelectionCenterOffsety = 0,
     SelectionSizeX = 1.1,
     SelectionSizeZ = 1.1,
     SelectionThickness = 0.45,
-	
+    CollisionOffsetY = -0.4,
     SizeX = 1.2,
     SizeY = 1.65,
     SizeZ = 1.2,
-	
-    StrategicIconName = 'icon_structure3_directfire',
+    StrategicIconName = "icon_structure3_directfire",
     StrategicIconSortPriority = 200,
-	
     Veteran = {
         Level1 = 16,
         Level2 = 32,
@@ -192,109 +142,86 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound { Bank = 'XEL_Weapons',  Cue = 'XEL0305_Plasma_Cannon', LodCutoff = 'Weapon_LodCutoff' },
+                Fire = Sound { Bank = 'XEL_Weapons', Cue = 'XEL0305_Plasma_Cannon', LodCutoff = 'Weapon_LodCutoff' },
             },
-            BallisticArc = 'RULEUBA_LowArc',
+            BallisticArc = "RULEUBA_LowArc",
             CollideFriendly = false,
-			
             Damage = 720,
             DamageFriendly = false,
-			DamageRadius = 3,
-            DamageType = 'Normal',
-			
-            DisplayName = 'Dread Cannon',
-			
+            DamageRadius = 3,
+            DamageType = "Normal",
+            DisplayName = "Dread Cannon",
             EnergyDrainPerSecond = 300,
             EnergyRequired = 600,
-			
             FireTargetLayerCapsTable = {
-                Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
+                Land = "Land|Water|Seabed",
+                Water = "Land|Water|Seabed",
             },
             FiringRandomness = 0.1,
             FiringTolerance = 1,
-			
-            Label = 'Gauss01',
+            Label = "Gauss01",
             LeadTarget = true,
-			
             MaxRadius = 65,
-			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 40,
-			
-            ProjectileId = '/projectiles/TDFIonizedPlasmaGatlingCannon01/TDFIonizedPlasmaGatlingCannon01_proj.bp',
+            ProjectileId = "/projectiles/TDFIonizedPlasmaGatlingCannon01/TDFIonizedPlasmaGatlingCannon01_proj.bp",
             ProjectileLifetimeUsesMultiplier = 1.7,
-
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Muzzle1',
-                    },
-                    RackBone = 'Barrel1',
+                    MuzzleBones = { "Muzzle1" },
+                    RackBone = "Barrel1",
                 },
-				{
-                    MuzzleBones = {
-                        'Muzzle2',
-                    },
-                    RackBone = 'Barrel2',
-                },                
+                {
+                    MuzzleBones = { "Muzzle2" },
+                    RackBone = "Barrel2",
+                },
             },
-
             RackRecoilDistance = -8,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-
-            RangeCategory = 'UWRC_DirectFire',
-			
-            RateOfFire = 10,		---- every 2 seconds = 360 DPS
-			
+            RangeCategory = "UWRC_DirectFire",
+            RateOfFire = 10,
             TargetCheckInterval = 2,
             TargetPriorities = {
-                'SPECIALHIGHPRI',
-				'EXPERIMENTAL',
-                'MOBILE',
-                'DEFENSE',
-                'ALLUNITS',
+                "SPECIALHIGHPRI",
+                "EXPERIMENTAL",
+                "MOBILE",
+                "DEFENSE",
+                "ALLUNITS",
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.2,           
-            TurretBoneMuzzle = 'Muzzle',
-            TurretBonePitch = 'Sleeve',
-            TurretBoneYaw = 'Turret',
+            TargetRestrictDisallow = "UNTARGETABLE",
+            TrackingRadius = 1.2,
+            TurretBoneMuzzle = "Muzzle",
+            TurretBonePitch = "Sleeve",
+            TurretBoneYaw = "Turret",
             TurretDualManipulators = false,
-			
             TurretPitch = 0,
             TurretPitchRange = 40,
             TurretPitchSpeed = 26,
-			
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 26,
-			
             Turreted = true,
         },
         {
-    		Damage = 350,
-    		DamageFriendly = true,
-    		DamageRadius = 3,
-    		DamageType = 'Normal',
-    		DummyWeapon = true,
-    		Label = 'DeathWeapon',
-    	}, 
+            Damage = 350,
+            DamageFriendly = true,
+            DamageRadius = 3,
+            DamageType = "Normal",
+            DummyWeapon = true,
+            Label = "DeathWeapon",
+        },
     },
     Wreckage = {
-        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        Blueprint = "/props/DefaultWreckage/DefaultWreckage_prop.bp",
         EnergyMult = 0.3,
         HealthMult = 0.9,
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
             Water = true,
         },
     },

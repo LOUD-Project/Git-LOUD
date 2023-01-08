@@ -1,126 +1,88 @@
-UnitBlueprint {
-    AI = { 
-        TargetBones = {
-            'Turret',
-        },
+UnitBlueprint{
+    Description = "<LOC uel0108_desc>Assault Tank",
+    AI = {
+        TargetBones = { "Turret" },
     },
-	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEL_Destroy_Med_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0201_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0201_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Tank',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'UELDestroy', Cue = 'UEL_Destroy_Med_Land', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'UEL',        Cue = 'UEL0201_Move_Start',   LodCutoff = 'UnitMove_LodCutoff' },
+        StopMove    = Sound { Bank = 'UEL',        Cue = 'UEL0201_Move_Stop',    LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface',  Cue = 'UEF_Select_Tank',      LodCutoff = 'UnitMove_LodCutoff' },
     },
-	
-	Buffs = {},
-   
+    Buffs = {},
     BuildIconSortPriority = 40,
-	
     Categories = {
-        'BUILTBYTIER1FACTORY',
-        'BUILTBYTIER2FACTORY',
-        'BUILTBYTIER3FACTORY',
-        'DIRECTFIRE',
-        'LAND',        
-        'MOBILE',
-        'RECLAIMABLE',        
-        'SELECTABLE',        
-        'TECH1',
-        'UEF',        
-        'VISIBLETORECON',
+        "BUILTBYTIER1FACTORY",
+        "BUILTBYTIER2FACTORY",
+        "BUILTBYTIER3FACTORY",
+        "DIRECTFIRE",
+        "LAND",
+        "MOBILE",
+        "RECLAIMABLE",
+        "SELECTABLE",
+        "TECH1",
+        "UEF",
+        "VISIBLETORECON",
     },
-	
-    Defense = {       
-        ArmorType = 'Normal',
+    Defense = {
+        ArmorType = "Normal",
         Health = 450,
         MaxHealth = 450,
         RegenRate = 0.2,
-        SurfaceThreatLevel = 3.9, 
+        SurfaceThreatLevel = 3.9,
     },
-	
-    Description = '<LOC uel0108_desc>Assault Tank',
-	
     Display = {
-	
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
                 {
                     LODCutoff = 130,
                     Scrolling = true,
-                    ShaderName = 'Unit',
+                    ShaderName = "Unit",
                 },
                 {
-                    AlbedoName = 'uel0108_albedo.dds',
                     LODCutoff = 130,
-                    ShaderName = 'Unit',
-                    SpecularName = 'uel0108_specteam.dds',
+                    ShaderName = "Unit",
+                    AlbedoName = "uel0108_albedo.dds",
+                    SpecularName = "uel0108_specteam.dds",
                 },
             },
         },
-		
         MovementEffects = {
             Land = {
                 Effects = {
                     {
                         Bones = {
-                            'Exhaust1',
-                            'Exhaust2',
+                            "Exhaust1",
+                            "Exhaust2",
                         },
-                        Type = 'GroundKickup01',
+                        Type = "GroundKickup01",
                     },
                 },
                 Treads = {
-                    ScrollMultiplier = 0.60,
+                    ScrollMultiplier = 0.6,
                     ScrollTreads = true,
                     TreadMarks = {
                         {
-                            BoneName = 'UEL0201',
-                            TreadMarks = 'tank_treads_albedo',
+                            BoneName = "UEL0201",
+                            TreadMarks = "tank_treads_albedo",
                             TreadMarksInterval = 0.2,
                             TreadMarksSizeX = 0.6,
                             TreadMarksSizeZ = 0.6,
-                            TreadOffset = {
-                                0,
-                                0,
-                                0,
-                            },
+                            TreadOffset = { 0, 0, 0 },
                         },
                     },
                 },
             },
         },
-
-        SpawnRandomRotation = false,
         UniformScale = 0.016,
-		
     },
-	
     Economy = {
         BuildCostEnergy = 600,
         BuildCostMass = 130,
         BuildTime = 94,
     },
-	
     General = {
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -130,65 +92,44 @@ UnitBlueprint {
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
         },
-        FactionName = 'UEF',
-        TechLevel = 'RULEUTL_Basic',
-        UnitName = '<LOC uel0108_name>Crusher',
-        UnitWeight = 1,
+        FactionName = "UEF",
+        UnitName = "<LOC uel0108_name>Crusher",
     },
-	
-    Intel = {
-        VisionRadius = 23,
-    },
-	
-    Interface = {
-        HelpText = 'Assault Tank',
-    },
-	
+    Intel = { VisionRadius = 23 },
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.35,
     LifeBarSize = 0.65,
-	
     Physics = {
         BankingSlope = 0,
-        BuildOnLayerCaps = {
-            LAYER_Land = true,
-        },
         DragCoefficient = 0.2,
         MaxAcceleration = 2.0,
         MaxBrake = 2.0,
         MaxSpeed = 3.0,
         MaxSpeedReverse = 3.0,
         MaxSteerForce = 10,
-		
         MeshExtentsX = 0.5,
         MeshExtentsY = 0.25,
         MeshExtentsZ = 0.7,
-		
         MinSpeedPercent = 0,
-        MotionType = 'RULEUMT_Land',
+        MotionType = "RULEUMT_Land",
         RotateOnSpot = false,
         RotateOnSpotThreshold = 0.1,
         TurnRadius = 0,
         TurnRate = 40,
     },
-	
     SelectionCenterOffsetZ = -0.0,
     SelectionSizeX = 0.35,
     SelectionSizeZ = 0.55,
     SelectionThickness = 0.5,
-	
     SizeX = 0.45,
     SizeY = 0.3,
     SizeZ = 0.64,
-	
-    StrategicIconName = 'icon_land1_directfire2',
+    StrategicIconName = "icon_land1_directfire2",
     StrategicIconSortPriority = 135,
-	
     Transport = {
         CanFireFromTransport = false,
         TransportClass = 1,
-    },	
-	
+    },
     Veteran = {
         Level1 = 3,
         Level2 = 6,
@@ -196,99 +137,69 @@ UnitBlueprint {
         Level4 = 12,
         Level5 = 15,
     },
-	
     Weapon = {
         {
             Audio = {
                 Fire = Sound { Bank = 'UELWeapon', Cue = 'UEL0202_Cannon_Dbl', LodCutoff = 'Weapon_LodCutoff' },
             },
-            BallisticArc = 'RULEUBA_LowArc',
+            BallisticArc = "RULEUBA_LowArc",
             CollideFriendly = false,
-			
             Damage = 88,
+            DamageFriendly = false,
             DamageRadius = 1.0,
-            DamageType = 'Normal',
-			DamageFriendly = false,
-			
-            DisplayName = 'Gauss Cannon',
-			
-            FireTargetLayerCapsTable = {
-                Land = 'Land|Water',
-            },
-			
+            DamageType = "Normal",
+            DisplayName = "Gauss Cannon",
+            FireTargetLayerCapsTable = { Land = "Land|Water" },
             FiringRandomness = 0.1,
-			FiringRandomnessWhileMoving = 0.6,
-			
+            FiringRandomnessWhileMoving = 0.6,
             FiringTolerance = 2,
-			
-            Label = 'MainGun',
-			
+            Label = "MainGun",
             MaxRadius = 23,
-			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 25,
-			
-            ProjectileId = '/projectiles/TDFGauss01/TDFGauss01_proj.bp',
-
+            ProjectileId = "/projectiles/TDFGauss01/TDFGauss01_proj.bp",
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Muzzle',
-                    },
-                    RackBone = 'Barrel',
+                    MuzzleBones = { "Muzzle" },
+                    RackBone = "Barrel",
                 },
             },
-			
-            RangeCategory = 'UWRC_DirectFire',
-			
             RackRecoilDistance = -8,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-
-            RateOfFire = 0.5,	-- 44 DPS
-			
+            RangeCategory = "UWRC_DirectFire",
+            RateOfFire = 0.5,
             TargetCheckInterval = 0.5,
             TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'COMMAND',
-                'MOBILE',
-                'DEFENSE',
-                'ALLUNITS',
+                "SPECIALHIGHPRI",
+                "COMMAND",
+                "MOBILE",
+                "DEFENSE",
+                "ALLUNITS",
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = "UNTARGETABLE",
             TrackingRadius = 1.2,
-			
-            TurretBoneMuzzle = 'Muzzle',
-            TurretBonePitch = 'Sleeve',
-            TurretBoneYaw = 'Turret',
+            TurretBoneMuzzle = "Muzzle",
+            TurretBonePitch = "Sleeve",
+            TurretBoneYaw = "Turret",
             TurretDualManipulators = false,
-			
             TurretPitch = 0,
             TurretPitchRange = 45,
             TurretPitchSpeed = 40,
-			
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 48,
-			
             Turreted = true,
         },
     },
-	
     Wreckage = {
-        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        Blueprint = "/props/DefaultWreckage/DefaultWreckage_prop.bp",
         EnergyMult = 0.2,
         HealthMult = 0.9,
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
-        WreckageLayers = {
-            Air = false,
-            Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
-        },
+        WreckageLayers = { Land = true },
     },
 }

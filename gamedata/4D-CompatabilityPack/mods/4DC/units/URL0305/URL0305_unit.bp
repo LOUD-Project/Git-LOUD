@@ -1,27 +1,11 @@
-UnitBlueprint {
+UnitBlueprint{
+    Description = "<LOC url0305_desc>Amphibious Attack Bot",
     Audio = {
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URL_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URL',
-            Cue = 'URL0107_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'URL',
-            Cue = 'URL0107_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Bot',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'URLDestroy', Cue = 'URL_Destroy_Land',   LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'URL',        Cue = 'URL0107_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        StopMove    = Sound { Bank = 'URL',        Cue = 'URL0107_Move_Stop',  LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface',  Cue = 'Cybran_Select_Bot',  LodCutoff = 'UnitMove_LodCutoff' },
     },
-	
     Buffs = {
         Regen = {
             Level1 = 3,
@@ -31,85 +15,69 @@ UnitBlueprint {
             Level5 = 15,
         },
     },
-	
     BuildIconSortPriority = 19,
-	
     Categories = {
-        'BUILTBYTIER3FACTORY',
-        'CYBRAN',
-        'DIRECTFIRE',  
-        'LAND',
-		'AMPHIBIOUS',
-		'SUBMERSIBLE',
-        'MOBILE',
-        'RECLAIMABLE',       
-        'SELECTABLE', 
-        'TECH3',      
-        'VISIBLETORECON',
+        "AMPHIBIOUS",
+        "BUILTBYTIER3FACTORY",
+        "CYBRAN",
+        "DIRECTFIRE",
+        "LAND",
+        "MOBILE",
+        "RECLAIMABLE",
+        "SELECTABLE",
+        "SUBMERSIBLE",
+        "TECH3",
+        "VISIBLETORECON",
     },
-	
-    CollisionOffsetZ = -0.075,
-	
-    Defense = {      
-        ArmorType = 'Normal',
+    Defense = {
+        ArmorType = "Normal",
         Health = 2250,
         MaxHealth = 2250,
         RegenRate = 2,
         SurfaceThreatLevel = 18.4,
     },
-	
-    Description = '<LOC url0305_desc>Amphibious Attack Bot',
-	
     Display = {
-		Abilities = {
-			'Amphibious',
-		},
-		AnimationDeath = {
+        Abilities = { "<LOC ability_amphibious>Amphibious", },
+        AnimationDeath = {
             {
-                Animation = '/mods/4DC/units/URL0305/url0305_death1.sca',
+                Animation = "/mods/4DC/units/URL0305/url0305_death1.sca",
                 AnimationRateMax = 1.75,
                 AnimationRateMin = 1,
                 Weight = 100,
             },
             {
-                Animation = '/mods/4DC/units/URL0305/url0305_death2.sca',
+                Animation = "/mods/4DC/units/URL0305/url0305_death2.sca",
                 AnimationRateMax = 1.25,
                 AnimationRateMin = 0.75,
                 Weight = 100,
             },
-        },    
+        },
+        AnimationWalk = "/mods/4DC/units/URL0305/URL0305_awalk.sca",
+        AnimationWalkRate = 2.5,
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
                 {
                     LODCutoff = 130,
                     Scrolling = true,
-                    ShaderName = 'Insect',
+                    ShaderName = "Insect",
                 },
                 {
-                    AlbedoName = 'URL0305_Albedo.dds',
                     LODCutoff = 130,
-                    ShaderName = 'Insect',
-                    SpecularName = 'URL0305_SpecTeam.dds',
+                    ShaderName = "Insect",
+                    AlbedoName = "URL0305_Albedo.dds",
+                    SpecularName = "URL0305_SpecTeam.dds",
                 },
             },
         },
-        AnimationWalk = '/mods/4DC/units/URL0305/URL0305_awalk.sca', 
-        AnimationWalkRate = 2.5,
-
-        SpawnRandomRotation = true,
         UniformScale = 0.01,
     },
-	
     Economy = {
         BuildCostEnergy = 7250,
         BuildCostMass = 725,
         BuildTime = 362,
     },
-	
     General = {
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -119,31 +87,19 @@ UnitBlueprint {
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
         },
-        FactionName = 'Cybran',
-		Icon = 'amph',
-        TechLevel = 'RULEUTL_Advanced',
-        UnitName = '<LOC url0305_name>Crawfish',
-        UnitWeight = 1,
+        FactionName = "Cybran",
+        Icon = "amph",
+        UnitName = "<LOC url0305_name>Crawfish",
     },
-	
     Intel = {
         VisionRadius = 28,
-		WaterVisionRadius = 23,
+        WaterVisionRadius = 23,
     },
-	
-    Interface = {
-        HelpText = 'Basic Amphibious Walker',
-    },
-	
     LifeBarHeight = 0.09,
     LifeBarOffset = 0.3,
     LifeBarSize = 1,
-	
     Physics = {
         BankingSlope = 0,
-        BuildOnLayerCaps = {
-            LAYER_Land = true,
-        },
         DragCoefficient = 0.2,
         MaxAcceleration = 3.2,
         MaxBrake = 3.2,
@@ -151,30 +107,26 @@ UnitBlueprint {
         MaxSpeedReverse = 3,
         MaxSteerForce = 10,
         MinSpeedPercent = 0,
-        MotionType = 'RULEUMT_Amphibious',
+        MotionType = "RULEUMT_Amphibious",
         TurnRadius = 5,
         TurnRate = 70,
-		WaterSpeedMultiplier = 1.1,
+        WaterSpeedMultiplier = 1.1,
     },
-	
     SelectionCenterOffsetX = 0,
     SelectionCenterOffsetZ = -0.075,
     SelectionSizeX = 0.75,
     SelectionSizeZ = 0.95,
     SelectionThickness = 0.6,
-	
+    CollisionOffsetZ = -0.075,
     SizeX = 1.0,
     SizeY = 1.0,
     SizeZ = 1.0,
-	
-    StrategicIconName = 'icon_seabed3_directfire',
+    StrategicIconName = "icon_seabed3_directfire",
     StrategicIconSortPriority = 125,
-	
     Transport = {
-    	CanFireFromTransport = false,
+        CanFireFromTransport = false,
         TransportClass = 3,
     },
-	
     Veteran = {
         Level1 = 10,
         Level2 = 20,
@@ -182,113 +134,83 @@ UnitBlueprint {
         Level4 = 40,
         Level5 = 50,
     },
-	
     Weapon = {
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URB2101_Laser_Auto',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URLWeapon', Cue = 'URB2101_Laser_Auto', LodCutoff = 'Weapon_LodCutoff' },
             },
-            BallisticArc = 'RULEUBA_LowArc',
+            BallisticArc = "RULEUBA_LowArc",
             CollideFriendly = false,
-			
             Damage = 90,
-            DamageType = 'Normal',
-			
-            DisplayName = 'Laser',
-			
+            DamageType = "Normal",
+            DisplayName = "Laser",
             FireTargetLayerCapsTable = {
-                Land = 'Land|Water',
-                Water = 'Land|Water',
+                Land = "Land|Water",
+                Water = "Land|Water",
             },
-			
+            FiringRandomness = 0.1,
+            FiringTolerance = 2,
             HeadingArcCenter = 0,
             HeadingArcRange = 120,
-
-            FiringTolerance = 2,
-            FiringRandomness = 0.1,
-			
-            Label = 'MainGun',
-			
+            Label = "MainGun",
             MaxRadius = 28,
-			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 40,
-			
-            ProjectileId = '/projectiles/CDFLaserDisintegrator04/CDFLaserDisintegrator04_proj.bp',
-			ProjectileLifetime = 1,
-			
+            ProjectileId = "/projectiles/CDFLaserDisintegrator04/CDFLaserDisintegrator04_proj.bp",
+            ProjectileLifetime = 1,
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'MuzzleRight',
-                    },
-                    RackBone = 'BarrelRight1',
-                    TelescopeBone = 'BarrelRight2',
-                    TelescopeRecoilDistance = -10,                    
+                    MuzzleBones = { "MuzzleRight" },
+                    RackBone = "BarrelRight1",
+                    TelescopeBone = "BarrelRight2",
+                    TelescopeRecoilDistance = -10,
                 },
                 {
-                    MuzzleBones = {
-                        'MuzzleLeft',
-                    },
-                    RackBone = 'BarrelLeft1',
-                    TelescopeBone = 'BarrelLeft2',
-                    TelescopeRecoilDistance = -10,                    
+                    MuzzleBones = { "MuzzleLeft" },
+                    RackBone = "BarrelLeft1",
+                    TelescopeBone = "BarrelLeft2",
+                    TelescopeRecoilDistance = -10,
                 },
             },
-
             RackRecoilDistance = -12,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-
-            RangeCategory = 'UWRC_DirectFire',
-			
-            RateOfFire = 2,				----- 180 DPS
-			
+            RangeCategory = "UWRC_DirectFire",
+            RateOfFire = 2,
             TargetCheckInterval = 0.5,
             TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'COMMAND',
-                'MOBILE',
-                'DEFENSE',
-                'ALLUNITS,-WALL',
+                "SPECIALHIGHPRI",
+                "COMMAND",
+                "MOBILE",
+                "DEFENSE",
+                "ALLUNITS,-WALL",
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = "UNTARGETABLE",
             TrackingRadius = 1.1,
-			
-            TurretBoneMuzzle = 'Muzzle',
-            TurretBonePitch = 'sleeve',
-            TurretBoneYaw = 'turret',
+            TurretBoneMuzzle = "Muzzle",
+            TurretBonePitch = "sleeve",
+            TurretBoneYaw = "turret",
             TurretDualManipulators = false,
-			
             TurretPitch = 10,
             TurretPitchRange = 55,
             TurretPitchSpeed = 80,
-			
             TurretYaw = 0,
             TurretYawRange = 120,
             TurretYawSpeed = 90,
-			
             Turreted = true,
         },
     },
     Wreckage = {
-        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        Blueprint = "/props/DefaultWreckage/DefaultWreckage_prop.bp",
         EnergyMult = 0.2,
         HealthMult = 0.9,
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

@@ -1,33 +1,14 @@
-UnitBlueprint {
+UnitBlueprint{
+    Description = "Heavy Amphibious Stealth Tank",
     AI = {
-        TargetBones = {
-            'Turret',
-        },
+        TargetBones = { "Turret" },
     },
-	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URL_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URL',
-            Cue = 'URL0304_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'URL',
-            Cue = 'URL0304_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Tank',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'URLDestroy', Cue = 'URL_Destroy_Land',   LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'URL',        Cue = 'URL0304_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        StopMove    = Sound { Bank = 'URL',        Cue = 'URL0304_Move_Stop',  LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface',  Cue = 'Cybran_Select_Tank', LodCutoff = 'UnitMove_LodCutoff' },
     },
-
     Buffs = {
         Regen = {
             Level1 = 4,
@@ -37,89 +18,68 @@ UnitBlueprint {
             Level5 = 64,
         },
     },
-    
     BuildIconSortPriority = 30,
-    
     Categories = {
-        'SELECTABLE',
-        'BUILTBYTIER3FACTORY',
-        'CYBRAN',
-        'MOBILE',
-        'LAND',
-        'AMPHIBIOUS',
-        'SUBMERSIBLE',
-        'TECH3',
-        'DIRECTFIRE',
-        'VISIBLETORECON',
-        'RECLAIMABLE',
-        'TANK',
-        'OVERLAYDIRECTFIRE',
+        "AMPHIBIOUS",
+        "BUILTBYTIER3FACTORY",
+        "CYBRAN",
+        "DIRECTFIRE",
+        "LAND",
+        "MOBILE",
+        "RECLAIMABLE",
+        "SELECTABLE",
+        "SUBMERSIBLE",
+        "TANK",
+        "TECH3",
+        "VISIBLETORECON",
     },
-
     Defense = {
-        ArmorType = 'Normal',
-
+        ArmorType = "Normal",
         Health = 4000,
         MaxHealth = 4000,
-        
         RegenRate = 3,
-
         SurfaceThreatLevel = 39.1,
     },
-    
-    Description = 'Heavy Amphibious Stealth Tank',
-    
     Display = {
         Abilities = {
-            '<LOC ability_personalstealth>Personal Stealth',
-			'Amphibious',
+            "<LOC ability_amphibious>Amphibious",
+            "<LOC ability_personalstealth>Personal Stealth",
         },
-        
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
                 {
                     LODCutoff = 215,
                     Scrolling = true,
-                    ShaderName = 'Insect',
+                    ShaderName = "Insect",
                     Silhouette = true,
                 },
             },
         },
-        
         MovementEffects = {
             Land = {
                 Effects = {
                     {
                         Bones = {
-                            'Exhaust_Left',
-                            'Exhaust_Right',
-                            'Exhaust_Center',
+                            "Exhaust_Left",
+                            "Exhaust_Right",
+                            "Exhaust_Center",
                         },
-                        Type = 'GroundKickup03',
+                        Type = "GroundKickup03",
                     },
                 },
-                Treads = {
-                    ScrollTreads = true,
-                },
+                Treads = { ScrollTreads = true },
             },
         },
-
-        SpawnRandomRotation = true,
         UniformScale = 0.35,
     },
-    
     Economy = {
         BuildCostEnergy = 13700,
         BuildCostMass = 1280,
         BuildTime = 4800,
-        
         MaintenanceConsumptionPerSecondEnergy = 25,
     },
-    
     General = {
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -129,42 +89,28 @@ UnitBlueprint {
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
         },
-        FactionName = 'Cybran',
-        Icon = 'amph',
+        FactionName = "Cybran",
+        Icon = "amph",
         OrderOverrides = {
             RULEUTC_StealthToggle = {
-                bitmapId = 'stealth-personal',
-                helpText = 'toggle_stealth_personal',
+                bitmapId = "stealth-personal",
+                helpText = "toggle_stealth_personal",
             },
         },
-        TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'SeaLion',
-        ToggleCaps = {
-            RULEUTC_StealthToggle = true,
-        },
-        UnitWeight = 1,
+        ToggleCaps = { RULEUTC_StealthToggle = true },
+        UnitName = "SeaLion",
     },
-    
     Intel = {
         RadarStealth = true,
-        VisionRadius = 30,
         SonarStealth = true,
+        VisionRadius = 30,
         WaterVisionRadius = 18,
     },
-    
-    Interface = {
-        HelpText = 'Heavy Amphibious Stealth Tank',
-    },
-    
     LifeBarHeight = 0.09,
     LifeBarOffset = 0.5,
     LifeBarSize = 1.2,
-    
     Physics = {
         BankingSlope = 0,
-        BuildOnLayerCaps = {
-            LAYER_Land = true,
-        },
         DragCoefficient = 0.2,
         MaxAcceleration = 2,
         MaxBrake = 2,
@@ -172,31 +118,26 @@ UnitBlueprint {
         MaxSpeedReverse = 0,
         MaxSteerForce = 3,
         MinSpeedPercent = 0,
-        MotionType = 'RULEUMT_Amphibious',
+        MotionType = "RULEUMT_Amphibious",
         RotateOnSpot = true,
         RotateOnSpotThreshold = 0.1,
         TurnRadius = 0,
         TurnRate = 80,
     },
-    
     SelectionCenterOffsetX = 0,
     SelectionCenterOffsetZ = 0,
     SelectionSizeX = 0.7,
     SelectionSizeZ = 0.7,
     SelectionThickness = 0.7,
-    
     SizeX = 1.3,
     SizeY = 0.6,
     SizeZ = 1.4,
-    
-    StrategicIconName = 'icon_seabed3_directfire',
+    StrategicIconName = "icon_seabed3_directfire",
     StrategicIconSortPriority = 115,
-    
     Transport = {
         CanFireFromTransport = false,
         TransportClass = 3,
     },
-    
     Veteran = {
         Level1 = 10,
         Level2 = 20,
@@ -204,121 +145,79 @@ UnitBlueprint {
         Level4 = 40,
         Level5 = 50,
     },
-    
     Weapon = {
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             Audio = {
-                BarrelLoop = Sound {
-                    Bank = 'URS',
-                    Cue = 'URS_Turret_Sml_Loop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BarrelStart = Sound {
-                    Bank = 'URS',
-                    Cue = 'URS_Turret_Sml_Start',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                Fire = Sound {
-                    Bank = 'XRL_Weapon',
-                    Cue = 'XRL0403_Proton_Cannon',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BarrelLoop  = Sound { Bank = 'URS',        Cue = 'URS_Turret_Sml_Loop',   LodCutoff = 'Weapon_LodCutoff' },
+                BarrelStart = Sound { Bank = 'URS',        Cue = 'URS_Turret_Sml_Start',  LodCutoff = 'Weapon_LodCutoff' },
+                Fire        = Sound { Bank = 'XRL_Weapon', Cue = 'XRL0403_Proton_Cannon', LodCutoff = 'Weapon_LodCutoff' },
             },
-            
-            BallisticArc = 'RULEUBA_LowArc',
+            BallisticArc = "RULEUBA_LowArc",
             CollideFriendly = false,
-            
             Damage = 600,
             DamageRadius = 0,
-            DamageType = 'Normal',
-            
-            DisplayName = 'Proton Cannon',
-            
+            DamageType = "Normal",
+            DisplayName = "Proton Cannon",
             FireTargetLayerCapsTable = {
-                Land = 'Land|Water|Seabed',
-                Seabed = 'Land|Water|Seabed',
+                Land = "Land|Water|Seabed",
+                Seabed = "Land|Water|Seabed",
             },
             FiringRandomness = 0.2,
             FiringRandomnessWhileMoving = 0.4,
             FiringTolerance = 0.6,
-            
-            Label = 'MainGun',
-
+            Label = "MainGun",
             MaxRadius = 35,
-            
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 35,
             MuzzleVelocityRandom = 3,
-            
             NoPause = true,
-            
-            ProjectileId = '/projectiles/CDFProtonCannon05/CDFProtonCannon05_proj.bp',
+            ProjectileId = "/projectiles/CDFProtonCannon05/CDFProtonCannon05_proj.bp",
             ProjectileLifetimeUsesMultiplier = 1.2,
-
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
-                    RackBone = 'Recoil',
+                    MuzzleBones = { "Turret_Muzzle" },
+                    RackBone = "Recoil",
                 },
             },
-
             RackRecoilDistance = -1.5,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-
-            RangeCategory = 'UWRC_DirectFire',
-            
+            RangeCategory = "UWRC_DirectFire",
             RateOfFire = 0.5,
-            
             ReTargetOnMiss = true,
-            
             TargetCheckInterval = 0.5,
             TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'MOBILE',
-                'DEFENSE',
-                'ALLUNITS -WALL',
+                "SPECIALHIGHPRI",
+                "MOBILE",
+                "DEFENSE",
+                "ALLUNITS -WALL",
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = "UNTARGETABLE",
             TrackingRadius = 1.2,
-            
-            TurretBoneMuzzle = 'Turret_Muzzle',
-            TurretBonePitch = 'Turret_Pitch',
-            TurretBoneYaw = 'Turret',
+            TurretBoneMuzzle = "Turret_Muzzle",
+            TurretBonePitch = "Turret_Pitch",
+            TurretBoneYaw = "Turret",
             TurretDualManipulators = false,
-            
             TurretPitch = 10,
             TurretPitchRange = 50,
             TurretPitchSpeed = 30,
-            
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 40,
-            
             Turreted = true,
-            
             UseFiringSolutionInsteadOfAimBone = true,
         },
     },
-    
     Wreckage = {
-        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        Blueprint = "/props/DefaultWreckage/DefaultWreckage_prop.bp",
         EnergyMult = 0,
         HealthMult = 0.9,
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
-        WreckageLayers = {
-            Air = false,
-            Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
-        },
+        WreckageLayers = { Land = true },
     },
 }
