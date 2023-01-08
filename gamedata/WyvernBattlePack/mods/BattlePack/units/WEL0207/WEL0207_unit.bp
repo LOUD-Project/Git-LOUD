@@ -1,73 +1,49 @@
-UnitBlueprint {
+UnitBlueprint{
+    Description = "Mobile Tac-Missile Defense",
     AI = {
-        TargetBones = {
-            'MainTurret',
-        },
+        TargetBones = { "MainTurret" },
     },
-
     Audio = {
-        Killed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEL_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0304_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Tank',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed      = Sound { Bank = 'UELDestroy', Cue = 'UEL_Destroy_Huge',   LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'UEL',        Cue = 'UEL0304_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface',  Cue = 'UEF_Select_Tank',    LodCutoff = 'UnitMove_LodCutoff' },
     },
-    
     Buffs = {},
-
     BuildIconSortPriority = 20,
-    
     Categories = {
-        'SELECTABLE',
-        'BUILTBYTIER2FACTORY',
-        'BUILTBYTIER3FACTORY',
-        'UEF',
-        'MOBILE',
-        'LAND',
-        'TECH2',
-        'ANTIMISSILE',
-        'VISIBLETORECON',
-        'RECLAIMABLE',
-        'OVERLAYDEFENSE',
+        "ANTIMISSILE",
+        "BUILTBYTIER2FACTORY",
+        "BUILTBYTIER3FACTORY",
+        "LAND",
+        "MOBILE",
+        "RECLAIMABLE",
+        "SELECTABLE",
+        "TECH2",
+        "UEF",
+        "VISIBLETORECON",
     },
-    
     Defense = {
-        ArmorType = 'Normal',
+        ArmorType = "Normal",
         Health = 900,
         MaxHealth = 900,
         RegenRate = 0.5,
         SurfaceThreatLevel = 0.1,
     },
-    
-    Description = 'Mobile Tac-Missile Defense',
-    
     Display = {
-        Abilities = {
-            '<LOC ability_tacmissiledef>Tactical Missile Defense',
-        },
+        Abilities = { "<LOC ability_tacmissiledef>Tactical Missile Defense" },
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
                 {
                     LODCutoff = 120,
                     Scrolling = true,
-                    ShaderName = 'Unit',
+                    ShaderName = "Unit",
                 },
                 {
-                    AlbedoName = 'wel0207_lod1_albedo.dds',
                     LODCutoff = 215,
-                    ShaderName = 'Unit',
-                    SpecularName = 'wel0207_lod1_specteam.dds',
+                    ShaderName = "Unit",
+                    AlbedoName = "wel0207_lod1_albedo.dds",
+                    SpecularName = "wel0207_lod1_specteam.dds",
                 },
             },
         },
@@ -76,30 +52,23 @@ UnitBlueprint {
                 Effects = {
                     {
                         Bones = {
-                            'Dust01',
-                            'Dust02',
+                            "Dust01",
+                            "Dust02",
                         },
-                        Type = 'GroundKickup01',
+                        Type = "GroundKickup01",
                     },
                 },
-                Treads = {
-                    ScrollTreads = true,
-                },                
+                Treads = { ScrollTreads = true },
             },
         },
-        SpawnRandomRotation = false,
         UniformScale = 0.07,
     },
-    
     Economy = {
         BuildCostEnergy = 3600,
         BuildCostMass = 280,
         BuildTime = 400,
     },
-    
     General = {
-        Category = 'Defense',
-        Classification = 'RULEUC_CounterMeasure',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -109,30 +78,16 @@ UnitBlueprint {
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
         },
-        FactionName = 'UEF',
-        Icon = 'land',
-        TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Sharp Shooter',
-        UnitWeight = 1,
+        FactionName = "UEF",
+        Icon = "land",
+        UnitName = "Sharp Shooter",
     },
-    
-    Intel = {
-        VisionRadius = 24,
-    },
-    
-    Interface = {
-        HelpText = 'Mobile Tac-Missile Defense',
-    },
-    
+    Intel = { VisionRadius = 24 },
     LifeBarHeight = 0.1,
     LifeBarOffset = 0.5,
     LifeBarSize = 1,
-    
     Physics = {
         BankingSlope = 0,
-        BuildOnLayerCaps = {
-            LAYER_Land = true,
-        },
         DragCoefficient = 0.2,
         MaxAcceleration = 3,
         MaxBrake = 3,
@@ -143,29 +98,21 @@ UnitBlueprint {
         MeshExtentsY = 1.2,
         MeshExtentsZ = 0.75,
         MinSpeedPercent = 0,
-        MotionType = 'RULEUMT_Land',
-        
+        MotionType = "RULEUMT_Land",
         TurnRadius = 0,
         TurnRate = 90,
     },
-    
     SelectionCenterOffsetX = 0,
     SelectionCenterOffsetZ = 0,
     SelectionSizeX = 0.55,
     SelectionSizeZ = 0.75,
     SelectionThickness = 0.7,
-    
     SizeX = 0.85,
     SizeY = 0.78,
     SizeZ = 1.0,
-    
-    StrategicIconName = 'icon_land2_antimissile',
+    StrategicIconName = "icon_land2_antimissile",
     StrategicIconSortPriority = 125,
-    
-    Transport = {
-        TransportClass = 2,
-    },
-    
+    Transport = { TransportClass = 2 },
     Veteran = {
         Level1 = 6,
         Level2 = 12,
@@ -173,98 +120,63 @@ UnitBlueprint {
         Level4 = 24,
         Level5 = 30,
     },
-    
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'BattlePackSB',
-                    Cue = 'UEFRevampTank_AntiMissile_Fire',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'BattlePackSB', Cue = 'UEFRevampTank_AntiMissile_Fire', LodCutoff = 'Weapon_LodCutoff' },
             },
-            BallisticArc = 'RULEUBA_None',
-            
+            BallisticArc = "RULEUBA_None",
             BeamCollisionDelay = 0.1,
             BeamLifetime = 0.1,
-            
             CollideFriendly = false,
-            
             Damage = 2,
-            DamageType = 'Normal',
-            
-            DisplayName = 'Zapper Anti Missile',
-            
-            FireTargetLayerCapsTable = {
-                Land = 'Air',
-            },
+            DamageType = "Normal",
+            DisplayName = "Zapper Anti Missile",
+            FireTargetLayerCapsTable = { Land = "Air" },
             FiringTolerance = 0.2,
-            
-            Label = 'TMD',
-            
+            Label = "TMD",
             MaxRadius = 28,
-            
             MaximumBeamLength = 28,
-            
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            
             NeedPrep = false,
-
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'TMDOrb',
-                    },
-                    RackBone = 'TMDOrb',
+                    MuzzleBones = { "TMDOrb" },
+                    RackBone = "TMDOrb",
                 },
             },
-
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            
-            RangeCategory = 'UWRC_Countermeasure',
-            
+            RangeCategory = "UWRC_Countermeasure",
             RateOfFire = 0.6,
-            
             TargetCheckInterval = 0.2,
-            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TargetRestrictOnlyAllow = 'TACTICAL MISSILE',
-            TargetType = 'RULEWTT_Projectile',
+            TargetRestrictDisallow = "UNTARGETABLE,SATELLITE",
+            TargetRestrictOnlyAllow = "TACTICAL MISSILE",
+            TargetType = "RULEWTT_Projectile",
             TrackingRadius = 1.5,
-            
-            TurretBoneMuzzle = 'TMDOrb',
-            TurretBonePitch = 'TMDOrb',
-            TurretBoneYaw = 'MainTurret',
+            TurretBoneMuzzle = "TMDOrb",
+            TurretBonePitch = "TMDOrb",
+            TurretBoneYaw = "MainTurret",
             TurretDualManipulators = false,
-            
             TurretPitch = 45,
             TurretPitchRange = 90,
             TurretPitchSpeed = 120,
-            
             TurretYaw = 0,
             TurretYawRange = 360,
             TurretYawSpeed = 140,
-            
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
         },
     },
-    
     Wreckage = {
-        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        Blueprint = "/props/DefaultWreckage/DefaultWreckage_prop.bp",
         EnergyMult = 0,
         HealthMult = 0.9,
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
-        WreckageLayers = {
-            Air = false,
-            Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
-        },
+        WreckageLayers = { Land = true },
     },
 }

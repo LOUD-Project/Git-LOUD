@@ -1,33 +1,14 @@
-UnitBlueprint {
+UnitBlueprint{
+    Description = "Mobile Anti-Air Tank",
     AI = {
-        TargetBones = {
-            'Turret_Yaw',
-        },
+        TargetBones = { "Turret_Yaw" },
     },
-
     Audio = {
-        Destroyed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URL_Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URL',
-            Cue = 'URL0205_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'URL',
-            Cue = 'URL0205_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Vehicle',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'URLDestroy', Cue = 'URL_Destroy_Land',      LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'URL',        Cue = 'URL0205_Move_Start',    LodCutoff = 'UnitMove_LodCutoff' },
+        StopMove    = Sound { Bank = 'URL',        Cue = 'URL0205_Move_Stop',     LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface',  Cue = 'Cybran_Select_Vehicle', LodCutoff = 'UnitMove_LodCutoff' },
     },
-	
     Buffs = {
         Regen = {
             Level1 = 3,
@@ -37,93 +18,72 @@ UnitBlueprint {
             Level5 = 15,
         },
     },
-    
     BuildIconSortPriority = 30,
-    
     Categories = {
-        'SELECTABLE',
-        'BUILTBYTIER3FACTORY',
-        'CYBRAN',
-        'MOBILE',
-        'LAND',
-        'TECH3',
-        'ANTIAIR',
-        'VISIBLETORECON',
-        'RECLAIMABLE',
-        'OVERLAYANTIAIR',
-        'OVERLAYRADAR',
+        "ANTIAIR",
+        "BUILTBYTIER3FACTORY",
+        "CYBRAN",
+        "LAND",
+        "MOBILE",
+        "OVERLAYRADAR",
+        "RECLAIMABLE",
+        "SELECTABLE",
+        "TECH3",
+        "VISIBLETORECON",
     },
-    
     Defense = {
         AirThreatLevel = 36,
-        ArmorType = 'Normal',
-
+        ArmorType = "Normal",
         Health = 2400,
         MaxHealth = 2400,
         RegenRate = 3,
     },
-    
-    Description = 'Mobile Anti-Air Tank',
-    
     Display = {
-        Abilities = {
-            '<LOC ability_aa>Anti-Air',
-        },
-        
+        Abilities = { "<LOC ability_aa>Anti-Air" },
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
                 {
                     LODCutoff = 215,
                     Scrolling = true,
-                    ShaderName = 'Insect',
+                    ShaderName = "Insect",
                 },
             },
         },
-        
         MovementEffects = {
             Land = {
                 Effects = {
                     {
                         Bones = {
-                            'Exhaust_Left',
-                            'Exhaust_Right',
+                            "Exhaust_Left",
+                            "Exhaust_Right",
                         },
-                        Type = 'GroundKickup01',
+                        Type = "GroundKickup01",
                     },
                 },
                 Treads = {
                     ScrollTreads = true,
                     TreadMarks = {
                         {
-                            BoneName = 'WRL0309',
-                            TreadMarks = 'tank_treads_albedo',
+                            BoneName = "WRL0309",
+                            TreadMarks = "tank_treads_albedo",
                             TreadMarksInterval = 0.5,
                             TreadMarksSizeX = 1.2,
                             TreadMarksSizeZ = 0.7,
-                            TreadOffset = {
-                                0,
-                                0,
-                                -0.2,
-                            },
+                            TreadOffset = { 0, 0, -0.2 },
                         },
                     },
                 },
             },
         },
-        SpawnRandomRotation = true,
         UniformScale = 0.15,
     },
-    
     Economy = {
         BuildCostEnergy = 9600,
         BuildCostMass = 900,
         BuildTime = 450,
     },
-    
     General = {
-        Category = 'Anti Air',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -133,66 +93,44 @@ UnitBlueprint {
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
         },
-        FactionName = 'Cybran',
-        Icon = 'land',
-        TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Python',
-        UnitWeight = 1,
+        FactionName = "Cybran",
+        Icon = "land",
+        UnitName = "Python",
     },
-    
     Intel = {
         FreeIntel = true,
         RadarRadius = 65,
         VisionRadius = 32,
     },
-    
-    Interface = {
-        HelpText = 'Mobile SAM',
-    },
-    
     LifeBarHeight = 0.1,
     LifeBarOffset = 0.8,
     LifeBarSize = 1.3,
-    
     Physics = {
         BankingSlope = 0,
-        BuildOnLayerCaps = {
-            LAYER_Land = true,
-        },
         DragCoefficient = 0.2,
-        
         MaxAcceleration = 2,
         MaxBrake = 2,
         MaxSpeed = 3.8,
         MaxSpeedReverse = 0,
         MaxSteerForce = 5,
         MinSpeedPercent = 0,
-        MotionType = 'RULEUMT_Land',
-        
+        MotionType = "RULEUMT_Land",
         RotateOnSpot = true,
         RotateOnSpotThreshold = 0.1,
-        
         TurnRadius = 0,
         TurnRate = 90,
     },
-    
     SelectionCenterOffsetX = 0,
     SelectionCenterOffsetZ = 0,
     SelectionSizeX = 0.8,
     SelectionSizeZ = 1,
     SelectionThickness = 0.6,
-    
     SizeX = 1.2,
     SizeY = 0.7,
     SizeZ = 1.5,
-    
-    StrategicIconName = 'icon_land3_antiair',
+    StrategicIconName = "icon_land3_antiair",
     StrategicIconSortPriority = 125,
-    
-    Transport = {
-        TransportClass = 3,
-    },
-    
+    Transport = { TransportClass = 3 },
     Veteran = {
         Level1 = 10,
         Level2 = 20,
@@ -204,98 +142,68 @@ UnitBlueprint {
         {
             AlwaysRecheckTarget = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'URSWeapon',
-                    Cue = 'URS0202_Nano_Dart',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URSWeapon', Cue = 'URS0202_Nano_Dart', LodCutoff = 'Weapon_LodCutoff' },
             },
-            BallisticArc = 'RULEUBA_None',
+            BallisticArc = "RULEUBA_None",
             CannotAttackGround = true,
             CollideFriendly = false,
-            
             Damage = 120,
-            DamageType = 'Normal',
-            
-            DisplayName = 'Nanite Missile System',
-            
-            FireTargetLayerCapsTable = {
-                Land = 'Air',
-            },
-            
+            DamageType = "Normal",
+            DisplayName = "Nanite Missile System",
+            FireTargetLayerCapsTable = { Land = "Air" },
             FiringTolerance = 10,
-            
-            Label = 'MainGun',
-            
+            Label = "MainGun",
             MaxRadius = 50,
-            
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 6,
             MuzzleVelocity = 22,
-            
-            ProjectileId = '/projectiles/CAAMissileNanite02/CAAMissileNanite02_proj.bp',
+            ProjectileId = "/projectiles/CAAMissileNanite02/CAAMissileNanite02_proj.bp",
             ProjectileLifetime = 4,
-
             RackBones = {
                 {
                     MuzzleBones = {
-						'Left_Muzzle001',
-						'Left_Muzzle002',						
-						'Left_Muzzle003',					
-						'Right_Muzzle001',
-						'Right_Muzzle002',
-						'Right_Muzzle003',
+                        "Left_Muzzle001",
+                        "Left_Muzzle002",
+                        "Left_Muzzle003",
+                        "Right_Muzzle001",
+                        "Right_Muzzle002",
+                        "Right_Muzzle003",
                     },
-                    RackBone = 'Turret_Rack',
+                    RackBone = "Turret_Rack",
                 },
             },
-
             RackReloadTimeout = 1,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-
-            RangeCategory = 'UWRC_AntiAir',
-            
-            RateOfFire = 0.5,   -- 6 * 120 = 720 / 2 = 360 DPS Air   
-            
+            RangeCategory = "UWRC_AntiAir",
+            RateOfFire = 0.5,
             TargetCheckInterval = 0.3,
             TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'AIR',
+                "SPECIALHIGHPRI",
+                "AIR",
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TargetRestrictOnlyAllow = 'AIR',	            
+            TargetRestrictDisallow = "UNTARGETABLE,SATELLITE",
+            TargetRestrictOnlyAllow = "AIR",
             TrackingRadius = 1.4,
-            
-            TurretBoneMuzzle = 'Turret_Rack',
-            TurretBonePitch = 'Turret_Rack',
-            TurretBoneYaw = 'Turret_Yaw',
+            TurretBoneMuzzle = "Turret_Rack",
+            TurretBonePitch = "Turret_Rack",
+            TurretBoneYaw = "Turret_Yaw",
             TurretDualManipulators = false,
-            
             TurretPitch = 45,
             TurretPitchRange = 50,
             TurretPitchSpeed = 60,
-            
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 60,
-            
             Turreted = true,
         },
     },
-    
     Wreckage = {
-        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        Blueprint = "/props/DefaultWreckage/DefaultWreckage_prop.bp",
         EnergyMult = 0,
         HealthMult = 0.9,
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
-        WreckageLayers = {
-            Air = false,
-            Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
-        },
+        WreckageLayers = { Land = true },
     },
 }

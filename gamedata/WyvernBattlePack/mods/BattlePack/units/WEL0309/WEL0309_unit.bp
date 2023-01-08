@@ -1,38 +1,15 @@
-UnitBlueprint {
+UnitBlueprint{
+    Description = "Heavy AA Tank",
     AI = {
-        TargetBones = {
-            'Turret_Yaw',
-        },
+        TargetBones = { "Turret_Yaw" },
     },
-	
     Audio = {
-        AmbientMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0202_Move_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEL_Destroy_Med_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0202_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0202_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Tank',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        AmbientMove = Sound { Bank = 'UEL',        Cue = 'UEL0202_Move_Loop',    LodCutoff = 'UnitMove_LodCutoff' },
+        Destroyed   = Sound { Bank = 'UELDestroy', Cue = 'UEL_Destroy_Med_Land', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'UEL',        Cue = 'UEL0202_Move_Start',   LodCutoff = 'UnitMove_LodCutoff' },
+        StopMove    = Sound { Bank = 'UEL',        Cue = 'UEL0202_Move_Stop',    LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface',  Cue = 'UEF_Select_Tank',      LodCutoff = 'UnitMove_LodCutoff' },
     },
-    
     Buffs = {
         Regen = {
             Level1 = 3,
@@ -42,44 +19,35 @@ UnitBlueprint {
             Level5 = 15,
         },
     },
-    
     BuildIconSortPriority = 20,
-    
     Categories = {
-        'SELECTABLE',
-        'BUILTBYTIER3FACTORY',
-        'UEF',
-        'MOBILE',
-        'LAND',
-        'TECH3',
-        'ANTIAIR',
-        'VISIBLETORECON',
-        'RECLAIMABLE',
-        'TANK',
+        "ANTIAIR",
+        "BUILTBYTIER3FACTORY",
+        "LAND",
+        "MOBILE",
+        "RECLAIMABLE",
+        "SELECTABLE",
+        "TANK",
+        "TECH3",
+        "UEF",
+        "VISIBLETORECON",
     },
-    
     Defense = {
         AirThreatLevel = 40,
-        ArmorType = 'Normal',
-
+        ArmorType = "Normal",
         Health = 3400,
         MaxHealth = 3400,
         RegenRate = 3,
     },
-    
-    Description = 'Heavy AA Tank',
-    
     Display = {
-        Abilities = {
-            'Anti-Air',
-        },
+        Abilities = { "<LOC ability_aa>Anti-Air", },
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
                 {
                     LODCutoff = 215,
                     Scrolling = true,
-                    ShaderName = 'Unit',
+                    ShaderName = "Unit",
                 },
             },
         },
@@ -88,45 +56,35 @@ UnitBlueprint {
                 Effects = {
                     {
                         Bones = {
-                            'Exhaust_Right',
-                            'Exhaust_Left',
+                            "Exhaust_Right",
+                            "Exhaust_Left",
                         },
-                        Type = 'GroundKickup01',
+                        Type = "GroundKickup01",
                     },
                 },
                 Treads = {
                     ScrollTreads = true,
                     TreadMarks = {
                         {
-                            BoneName = 'WEL0309',
-                            TreadMarks = 'tank_treads_albedo',
+                            BoneName = "WEL0309",
+                            TreadMarks = "tank_treads_albedo",
                             TreadMarksInterval = 0.2,
                             TreadMarksSizeX = 0.9,
                             TreadMarksSizeZ = 0.5,
-                            TreadOffset = {
-                                0,
-                                0,
-                                0,
-                            },
+                            TreadOffset = { 0, 0, 0 },
                         },
                     },
                 },
             },
         },
-        
-        SpawnRandomRotation = false,
         UniformScale = 0.12,
     },
-    
     Economy = {
         BuildCostEnergy = 11000,
         BuildCostMass = 950,
         BuildTime = 600,
     },
-    
     General = {
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -136,64 +94,41 @@ UnitBlueprint {
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
         },
-        FactionName = 'UEF',
-        Icon = 'land',
-        TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Banisher',
-        UnitWeight = 1,
+        FactionName = "UEF",
+        Icon = "land",
+        UnitName = "Banisher",
     },
-    
-    Intel = {
-        VisionRadius = 32,
-    },
-    
-    Interface = {
-        HelpText = 'Heavy AA Tank',
-    },
-    
+    Intel = { VisionRadius = 32 },
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.5,
     LifeBarSize = 0.95,
-    
     Physics = {
         BankingSlope = 0,
-        BuildOnLayerCaps = {
-            LAYER_Land = true,
-        },
         DragCoefficient = 0.2,
-        
         MaxAcceleration = 3,
         MaxBrake = 3,
         MaxSpeed = 3,
         MaxSpeedReverse = 0,
-        
         MaxSteerForce = 3,
         MeshExtentsX = 0.75,
         MeshExtentsY = 0.45,
         MeshExtentsZ = 1.25,
         MinSpeedPercent = 0,
-        MotionType = 'RULEUMT_Land',
+        MotionType = "RULEUMT_Land",
         RotateOnSpot = true,
         RotateOnSpotThreshold = 0.1,
         TurnRadius = 0,
         TurnRate = 90,
     },
-    
     SelectionSizeX = 0.6,
     SelectionSizeZ = 0.8,
     SelectionThickness = 0.3,
-    
     SizeX = 0.9,
     SizeY = 0.9,
     SizeZ = 1.2,
-    
-    StrategicIconName = 'icon_land3_antiair',
+    StrategicIconName = "icon_land3_antiair",
     StrategicIconSortPriority = 125,
-    
-    Transport = {
-        TransportClass = 3,
-    },
-    
+    Transport = { TransportClass = 3 },
     Veteran = {
         Level1 = 9,
         Level2 = 18,
@@ -201,132 +136,89 @@ UnitBlueprint {
         Level4 = 36,
         Level5 = 45,
     },
-    
     Weapon = {
         {
             AlwaysRecheckTarget = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB2304_Missile_Flayer',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB2304_Missile_Flayer', LodCutoff = 'Weapon_LodCutoff' },
             },
-            BallisticArc = 'RULEUBA_None',
+            BallisticArc = "RULEUBA_None",
             CannotAttackGround = true,
             CollideFriendly = false,
-            
             Damage = 200,
             DamageFriendly = false,
             DamageRadius = 2.5,
-            DamageType = 'Normal',
-            
+            DamageType = "Normal",
             DetonatesAtTargetHeight = true,
-            
-            DisplayName = 'Short Range SAM',
-            
-            FireTargetLayerCapsTable = {
-                Land = 'Air',
-            },
+            DisplayName = "Short Range SAM",
+            FireTargetLayerCapsTable = { Land = "Air" },
             FiringRandomness = 2,
             FiringTolerance = 2,
-            
-            Label = 'AA',
-            
+            Label = "AA",
             MaxRadius = 40,
-            
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 28,
-            
-            ProjectileId = '/mods/BattlePack/projectiles/WBPSmallAAMissile/WBPSmallAAMissile_proj.bp',
+            ProjectileId = "/mods/BattlePack/projectiles/WBPSmallAAMissile/WBPSmallAAMissile_proj.bp",
             ProjectileLifetime = 3,
-
             RackBones = {
                 {
-					HideMuzzle = true,
-                    MuzzleBones = {
-                        'Left_Missile_001',
-						
-                    },
-                    RackBone = 'Turret_Yaw',
+                    HideMuzzle = true,
+                    MuzzleBones = { "Left_Missile_001" },
+                    RackBone = "Turret_Yaw",
                 },
-				{
-					HideMuzzle = true,
-                    MuzzleBones = {
-						'Left_Missile_002',
-						
-                    },
-                    RackBone = 'Turret_Yaw',
+                {
+                    HideMuzzle = true,
+                    MuzzleBones = { "Left_Missile_002" },
+                    RackBone = "Turret_Yaw",
                 },
-				{
-					HideMuzzle = true,
-                    MuzzleBones = {
-						'Right_Missile_001',
-						
-                    },
-                    RackBone = 'Turret_Yaw',
+                {
+                    HideMuzzle = true,
+                    MuzzleBones = { "Right_Missile_001" },
+                    RackBone = "Turret_Yaw",
                 },
-				{
-					HideMuzzle = true,
-                    MuzzleBones = {
-						'Right_Missile_002',
-						
-                    },
-                    RackBone = 'Turret_Yaw',
+                {
+                    HideMuzzle = true,
+                    MuzzleBones = { "Right_Missile_002" },
+                    RackBone = "Turret_Yaw",
                 },
             },
-
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            
-            RangeCategory = 'UWRC_AntiAir',
-            
-            RateOfFire = 2.5,       -- 500 DPS
-            
+            RangeCategory = "UWRC_AntiAir",
+            RateOfFire = 2.5,
             TargetCheckInterval = 0.3,
             TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'HIGHPRIAIR',
-                'GROUNDATTACK',
-                'BOMBER',
-                'AIR MOBILE',
+                "SPECIALHIGHPRI",
+                "HIGHPRIAIR",
+                "GROUNDATTACK",
+                "BOMBER",
+                "AIR MOBILE",
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TargetRestrictDisallow = "UNTARGETABLE,SATELLITE",
             TrackingRadius = 1.4,
-            
-			TurretBoneDualMuzzle = 'Turret_Left',
-            TurretBoneDualPitch = 'Turret_Left',
-            TurretBoneMuzzle = 'Turret_Right',
-            TurretBonePitch = 'Turret_Right',
-            TurretBoneYaw = 'Turret_Yaw',
+            TurretBoneDualMuzzle = "Turret_Left",
+            TurretBoneDualPitch = "Turret_Left",
+            TurretBoneMuzzle = "Turret_Right",
+            TurretBonePitch = "Turret_Right",
+            TurretBoneYaw = "Turret_Yaw",
             TurretDualManipulators = true,
-            
             TurretPitch = 45,
             TurretPitchRange = 90,
             TurretPitchSpeed = 120,
-            
             TurretYaw = 0,
             TurretYawRange = 360,
             TurretYawSpeed = 100,
-            
             Turreted = true,
         },
     },
-    
     Wreckage = {
-        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        Blueprint = "/props/DefaultWreckage/DefaultWreckage_prop.bp",
         EnergyMult = 0,
         HealthMult = 0.9,
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
-        WreckageLayers = {
-            Air = false,
-            Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
-        },
+        WreckageLayers = { Land = true },
     },
 }

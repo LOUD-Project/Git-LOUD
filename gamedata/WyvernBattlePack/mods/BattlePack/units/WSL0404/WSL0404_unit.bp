@@ -1,41 +1,20 @@
-UnitBlueprint {
+UnitBlueprint{
+    Description = "Experimental Light Mobile Artillery",
     AI = {
         TargetBones = {
-            'PowerOrb',
-            'PowerOrb_FrontRight',
-            'PowerOrb_Left001',
-            'WSL0404',
+            "PowerOrb",
+            "PowerOrb_FrontRight",
+            "PowerOrb_Left001",
+            "WSL0404",
         },
     },
-	
     Audio = {
-        AmbientMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0201_Move_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSL_Destroy_Land_Sml',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0201_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0201_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Tank',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        AmbientMove = Sound { Bank = 'XSL',            Cue = 'XSL0201_Move_Loop',    LodCutoff = 'UnitMove_LodCutoff' },
+        Destroyed   = Sound { Bank = 'XSL_Destroy',    Cue = 'XSL_Destroy_Land_Sml', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'XSL',            Cue = 'XSL0201_Move_Start',   LodCutoff = 'UnitMove_LodCutoff' },
+        StopMove    = Sound { Bank = 'XSL',            Cue = 'XSL0201_Move_Stop',    LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Tank', LodCutoff = 'UnitMove_LodCutoff' },
     },
-    
     Buffs = {
         Regen = {
             Level1 = 15,
@@ -45,52 +24,43 @@ UnitBlueprint {
             Level5 = 75,
         },
     },
-    
     BuildIconSortPriority = 20,
-    
     Categories = {
-        'SELECTABLE',
-        'BUILTBYTIER4COMMANDER',
-        'SERAPHIM',
-        'MOBILE',
-        'LAND',
-        'AMPHIBIOUS',
-        'INDIRECTFIRE',
-        'ARTILLERY',
-        'EXPERIMENTAL',
-        'NEEDMOBILEBUILD',
-        'VISIBLETORECON',
-        'RECLAIMABLE',
-        'DRAGBUILD',
-    },   
-    
+        "AMPHIBIOUS",
+        "ARTILLERY",
+        "BUILTBYTIER4COMMANDER",
+        "DRAGBUILD",
+        "EXPERIMENTAL",
+        "INDIRECTFIRE",
+        "LAND",
+        "MOBILE",
+        "NEEDMOBILEBUILD",
+        "RECLAIMABLE",
+        "SELECTABLE",
+        "SERAPHIM",
+        "VISIBLETORECON",
+    },
     Defense = {
         AirThreatLevel = 14,
-        
-        ArmorType = 'Normal',
-
+        ArmorType = "Experimental",
         Health = 21000,
         MaxHealth = 21000,
         RegenRate = 12,
-
         SurfaceThreatLevel = 427.9,
     },
-    
-    Description = 'Experimental Light Mobile Artillery',
-    
     Display = {
-		Abilities = {
-            '<LOC ability_aa>Anti-Air',
-            '<LOC ability_radar>Radar',
+        Abilities = {
+            "<LOC ability_aa>Anti-Air",
+            "<LOC ability_radar>Radar",
         },
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
                 {
                     LODCutoff = 215,
-                    LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
+                    LookupName = "/textures/environment/Falloff_seraphim_lookup.dds",
                     Scrolling = true,
-                    ShaderName = 'Seraphim',
+                    ShaderName = "Seraphim",
                 },
             },
         },
@@ -99,33 +69,25 @@ UnitBlueprint {
                 Effects = {
                     {
                         Bones = {
-                            'Exhaust_Right',
-                            'Exhaust_Left',
-							'Exhaust_Center',
+                            "Exhaust_Right",
+                            "Exhaust_Left",
+                            "Exhaust_Center",
                         },
-                        Type = 'GroundKickup03',
+                        Type = "GroundKickup03",
                     },
                 },
-                Treads = {
-                    ScrollTreads = true,
-                },
+                Treads = { ScrollTreads = true },
             },
         },
-
-        SpawnRandomRotation = true,
         UniformScale = 0.04,
     },
-    
     Economy = {
         BuildCostEnergy = 165000,
         BuildCostMass = 13500,
         BuildTime = 2500,
     },
-    
     General = {
         CapCost = 4,
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -135,74 +97,50 @@ UnitBlueprint {
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
         },
-        FactionName = 'Seraphim',
-        Icon = 'amph',
-        TechLevel = 'RULEUTL_Advanced',
-        UnitName = 'Yath-Yen',
-        UnitWeight = 1,
+        FactionName = "Seraphim",
+        Icon = "amph",
+        UnitName = "Yath-Yen",
     },
-    
     Intel = {
         VisionRadius = 37,
         WaterVisionRadius = 24,
     },
-    
-    Interface = {
-        HelpText = 'Light Mobile Artillery',
-    },
-    
     LifeBarHeight = 0.15,
     LifeBarOffset = 2.5,
     LifeBarSize = 4,
-    
     Physics = {
         BackUpDistance = 8,
         BankingSlope = 0,
-        BuildOnLayerCaps = {
-            LAYER_Land = true,
-            LAYER_Seabed = true,
-        },
         DragCoefficient = 0.2,
-        
         MaxAcceleration = 0.75,
         MaxBrake = 3,
         MaxSpeed = 3,
-        MaxSpeedReverse = 1.50,
-        
+        MaxSpeedReverse = 1.5,
         MaxSteerForce = 10,
         MeshExtentsX = 3,
         MeshExtentsY = 3.75,
         MeshExtentsZ = 3,
         MinSpeedPercent = 0,
-        
-        MotionType = 'RULEUMT_Amphibious',
-        
-		SkirtOffsetX = -0.5,
+        MotionType = "RULEUMT_Amphibious",
+        SkirtOffsetX = -0.5,
         SkirtOffsetZ = -0.5,
-        
         SkirtSizeX = 4,
         SkirtSizeZ = 4,
-
         TurnRadius = 15,
         TurnRate = 45,
     },
-    
     SelectionSizeX = 2.4,
     SelectionSizeZ = 2.4,
     SelectionThickness = 0.3,
-    
     SizeX = 3.2,
     SizeY = 1.3,
     SizeZ = 3.5,
-    
-    StrategicIconName = 'icon_seabed4_artillery',
+    StrategicIconName = "icon_seabed4_artillery",
     StrategicIconSortPriority = 115,
-    
     Transport = {
         CanFireFromTransport = false,
         TransportClass = 10,
     },
-    
     Veteran = {
         Level1 = 25,
         Level2 = 50,
@@ -210,298 +148,206 @@ UnitBlueprint {
         Level4 = 100,
         Level5 = 125,
     },
-    
     Weapon = {
-        {   
+        {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
             AimsStraightOnDisable = true,
-            
             ArtilleryShieldBlocks = true,
-            
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0401_Exp_Phason_Fire',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                MuzzleChargeStart = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0401_Exp_Phason_Charge',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire              = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0401_Exp_Phason_Fire',   LodCutoff = 'Weapon_LodCutoff' },
+                MuzzleChargeStart = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0401_Exp_Phason_Charge', LodCutoff = 'Weapon_LodCutoff' },
             },
-            
             AutoInitiateAttackCommand = true,
-            
-            BallisticArc = 'RULEUBA_HighArc',
+            BallisticArc = "RULEUBA_HighArc",
             CollideFriendly = false,
-            
             Damage = 5000,
             DamageFriendly = true,
             DamageRadius = 3.5,
-            DamageType = 'ShieldMult1.2',       -- unique bonus --
-            
-            DisplayName = 'Suthanus Field Mortar',
-            
-            EnergyDrainPerSecond = 2143,    -- the E drain for this unit is partly offset by energy being created in the unit
-            EnergyRequired = 7500,          -- 3.5 second energy drain
-            
+            DamageType = "ShieldMult1.2",
+            DisplayName = "Suthanus Field Mortar",
+            EnergyDrainPerSecond = 2143,
+            EnergyRequired = 7500,
             FireTargetLayerCapsTable = {
-                Land = 'Land|Water|Seabed',
-                Seabed = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
+                Land = "Land|Water|Seabed",
+                Seabed = "Land|Water|Seabed",
+                Water = "Land|Water|Seabed",
             },
             FiringRandomness = 1.3,
             FiringTolerance = 2,
-            
-            Label = 'MainWeapon',
-            
+            Label = "MainWeapon",
             MaxRadius = 90,
             MinRadius = 8,
-            
-            MuzzleChargeDelay = 1.5,        -- 1.5 second charge delay
+            MuzzleChargeDelay = 1.5,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-			MuzzleVelocity = 22,
+            MuzzleVelocity = 22,
             MuzzleVelocityReduceDistance = 99,
-            
             NotExclusive = true,
-			
-            ProjectileId = '/projectiles/SIFSuthanusArtilleryShell01/SIFSuthanusArtilleryShell01_proj.bp',
-			ProjectileLifetime = 20,
-
+            ProjectileId = "/projectiles/SIFSuthanusArtilleryShell01/SIFSuthanusArtilleryShell01_proj.bp",
+            ProjectileLifetime = 20,
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'MainTurret_Pitch_Muzzle',
-                    },
-                    RackBone = 'MainTurret_Pitch',
+                    MuzzleBones = { "MainTurret_Pitch_Muzzle" },
+                    RackBone = "MainTurret_Pitch",
                 },
             },
-
             RackRecoilDistance = -1,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-
-            RangeCategory = 'UWRC_IndirectFire',
-            
-            RateOfFire = 1,       -- controlled by charge -- 5000 / 5 = 1000 DPS
-            
+            RangeCategory = "UWRC_IndirectFire",
+            RateOfFire = 1,
             TargetCheckInterval = 0.5,
             TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'MOBILE',
-                'DEFENSE',
-                'ALLUNITS',
+                "SPECIALHIGHPRI",
+                "MOBILE",
+                "DEFENSE",
+                "ALLUNITS",
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
-            
-            TurretBoneMuzzle = 'MainTurret_Pitch_Muzzle',
-            TurretBonePitch = 'MainTurret_Pitch',
-            TurretBoneYaw = 'MainTurret_Yaw',
+            TargetRestrictDisallow = "UNTARGETABLE",
+            TurretBoneMuzzle = "MainTurret_Pitch_Muzzle",
+            TurretBonePitch = "MainTurret_Pitch",
+            TurretBoneYaw = "MainTurret_Yaw",
             TurretDualManipulators = false,
-            
             TurretPitch = 35,
             TurretPitchRange = 50,
             TurretPitchSpeed = 32,
-            
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 32,
-            
             Turreted = true,
         },
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                BeamLoop = Sound {
-                    Bank = 'XSB_Weapon',
-                    Cue = 'XSB2301_Ultrachromatic_Beam',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStart = Sound {
-                    Bank = 'XSB_Weapon',
-                    Cue = 'XSB2301_Ultrachromatic_Beam_Start',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStop = Sound {
-                    Bank = 'XSB_Weapon',
-                    Cue = 'XSB2301_Ultrachromatic_Beam_Stop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BeamLoop  = Sound { Bank = 'XSB_Weapon', Cue = 'XSB2301_Ultrachromatic_Beam',       LodCutoff = 'Weapon_LodCutoff' },
+                BeamStart = Sound { Bank = 'XSB_Weapon', Cue = 'XSB2301_Ultrachromatic_Beam_Start', LodCutoff = 'Weapon_LodCutoff' },
+                BeamStop  = Sound { Bank = 'XSB_Weapon', Cue = 'XSB2301_Ultrachromatic_Beam_Stop',  LodCutoff = 'Weapon_LodCutoff' },
             },
-            BallisticArc = 'RULEUBA_None',
-            
+            BallisticArc = "RULEUBA_None",
             BeamCollisionDelay = 0.1,
             BeamLifetime = 0.4,
-            
             CollideFriendly = false,
-            
             Damage = 200,
             DamageRadius = 0,
-            DamageType = 'Normal',
-            
-            DisplayName = 'Ultrachromatic Beam Generator',
-            
+            DamageType = "Normal",
+            DisplayName = "Ultrachromatic Beam Generator",
             FireTargetLayerCapsTable = {
-                Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
+                Land = "Land|Water|Seabed",
+                Water = "Land|Water|Seabed",
             },
-            
             FiringRandomness = 0,
             FiringTolerance = 0,
-            
-            Label = 'RightTurret',
-            
+            Label = "RightTurret",
             MaxRadius = 44,
-            
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            
             ProjectileLifetimeUsesMultiplier = 1.15,
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'TMD_LaserMuzzle',
-                    },
-                    RackBone = 'TMD_LaserRack',
+                    MuzzleBones = { "TMD_LaserMuzzle" },
+                    RackBone = "TMD_LaserRack",
                 },
             },
-
             RackRecoilDistance = 0,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoFiresAfterCharge = false,
             RackSalvoReloadTime = 0,
-
-            RangeCategory = 'UWRC_DirectFire',
-            
-            RateOfFire = 0.4,       -- 320 DPS
-            
+            RangeCategory = "UWRC_DirectFire",
+            RateOfFire = 0.4,
             TargetCheckInterval = 1,
             TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'MOBILE',
-                'DEFENSE',
-                'ALLUNITS',
+                "SPECIALHIGHPRI",
+                "MOBILE",
+                "DEFENSE",
+                "ALLUNITS",
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = "UNTARGETABLE",
             TrackingRadius = 1.15,
-            
-            TurretBoneMuzzle = 'TMD_LaserMuzzle',
-            TurretBonePitch = 'TMD_LaserRack',
-            TurretBoneYaw = 'TMD_LaserYaw',
+            TurretBoneMuzzle = "TMD_LaserMuzzle",
+            TurretBonePitch = "TMD_LaserRack",
+            TurretBoneYaw = "TMD_LaserYaw",
             TurretDualManipulators = false,
-            
             TurretPitch = 0,
             TurretPitchRange = 50,
             TurretPitchSpeed = 50,
-            
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 36,
-            
             Turreted = true,
         },
         {
             AlwaysRecheckTarget = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSB_Weapon',
-                    Cue = 'XSB2104_Shleo_AA_Autogun',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSB_Weapon', Cue = 'XSB2104_Shleo_AA_Autogun', LodCutoff = 'Weapon_LodCutoff' },
             },
-            BallisticArc = 'RULEUBA_None',
+            BallisticArc = "RULEUBA_None",
             CannotAttackGround = true,
             CollideFriendly = false,
-            
             Damage = 20,
-            DamageType = 'Normal',
-            
-            DisplayName = 'Shleo AA AutoGun',
-            
+            DamageType = "Normal",
+            DisplayName = "Shleo AA AutoGun",
             FireTargetLayerCapsTable = {
-                Air = 'Air',
-                Land = 'Air',
-                Water = 'Air',
+                Air = "Air",
+                Land = "Air",
+                Water = "Air",
             },
-            
             FiringRandomness = 0,
             FiringTolerance = 0.5,
-            
-            Label = 'AAGun',
-            
+            Label = "AAGun",
             MaxRadius = 40,
-            
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 45,
-            
-            ProjectileId = '/projectiles/SAAShleoAAGatlingGun02/SAAShleoAAGatlingGun02_proj.bp',
+            ProjectileId = "/projectiles/SAAShleoAAGatlingGun02/SAAShleoAAGatlingGun02_proj.bp",
             ProjectileLifetimeUsesMultiplier = 1.25,
             ProjectilesPerOnFire = 2,
-            
             RackBones = {
                 {
                     MuzzleBones = {
-                        'AATurret_Muzzle01',
-                        'AATurret_Muzzle02',
+                        "AATurret_Muzzle01",
+                        "AATurret_Muzzle02",
                     },
-                    RackBone = 'AATurret_Barrel',
+                    RackBone = "AATurret_Barrel",
                 },
             },
             RackRecoilDistance = 0,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-
-            RangeCategory = 'UWRC_AntiAir',
-            
-            RateOfFire = 3.5,   -- 140 DPS Air
-            
+            RangeCategory = "UWRC_AntiAir",
+            RateOfFire = 3.5,
             TargetCheckInterval = 0.3,
             TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'BOMBER',
-                'GROUNDATTACK',
-                'AIR MOBILE',
+                "SPECIALHIGHPRI",
+                "BOMBER",
+                "GROUNDATTACK",
+                "AIR MOBILE",
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TargetRestrictDisallow = "UNTARGETABLE,SATELLITE",
             TrackingRadius = 1.4,
-            
-            TurretBoneMuzzle = 'AATurret_Aiming_Bone',
-            TurretBonePitch = 'AATurret_Barrel',
-            TurretBoneYaw = 'AATurret',
+            TurretBoneMuzzle = "AATurret_Aiming_Bone",
+            TurretBonePitch = "AATurret_Barrel",
+            TurretBoneYaw = "AATurret",
             TurretDualManipulators = false,
-            
             TurretPitch = 45,
             TurretPitchRange = 45,
             TurretPitchSpeed = 180,
-            
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 180,
-            
             Turreted = true,
         },
     },
-    
     Wreckage = {
-        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        Blueprint = "/props/DefaultWreckage/DefaultWreckage_prop.bp",
         EnergyMult = 0,
         HealthMult = 0.9,
         MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
-        WreckageLayers = {
-            Air = false,
-            Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
-        },
+        WreckageLayers = { Land = true },
     },
 }

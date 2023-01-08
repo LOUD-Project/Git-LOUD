@@ -1,28 +1,13 @@
-UnitBlueprint {
+UnitBlueprint{
+    Description = "Shielded Protector Bot",
     AI = {
-        TargetBones = {
-            'Body',
-        },
+        TargetBones = { "Body" },
     },
-
     Audio = {
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSL_Destroy_Land_Sml',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0104_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Bot',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed   = Sound { Bank = 'XSL_Destroy',    Cue = 'XSL_Destroy_Land_Sml', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'XSL',            Cue = 'XSL0104_Move_Start',   LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Bot',  LodCutoff = 'UnitMove_LodCutoff' },
     },
-    
     Buffs = {
         Regen = {
             Level1 = 2,
@@ -32,35 +17,30 @@ UnitBlueprint {
             Level5 = 10,
         },
     },
-
     BuildIconSortPriority = 51,
-    
     Categories = {
-        'SELECTABLE',
-        'BUILTBYTIER2FACTORY',
-        'BUILTBYTIER3FACTORY',
-        'SERAPHIM',
-        'MOBILE',
-        'LAND',
-        'TECH2',
-        'SPECIALHIGHPRI',
-        'DIRECTFIRE',
-        'VISIBLETORECON',
-        'RECLAIMABLE',
+        "BUILTBYTIER2FACTORY",
+        "BUILTBYTIER3FACTORY",
+        "DIRECTFIRE",
+        "LAND",
+        "MOBILE",
+        "RECLAIMABLE",
+        "SELECTABLE",
+        "SERAPHIM",
+        "SPECIALHIGHPRI",
+        "TECH2",
+        "VISIBLETORECON",
     },
-    
     Defense = {
-
-        ArmorType = 'Normal',
-
+        ArmorType = "Normal",
         Health = 1150,
         MaxHealth = 1150,
-        
+        RegenRate = 3,
         Shield = {
-            ImpactEffects = 'SeraphimShieldHit01',
-            ImpactMesh = '/effects/entities/ShieldSection01/ShieldSection01_mesh',
-            Mesh = '/effects/entities/SeraphimShield01/SeraphimShield01_mesh',
-            MeshZ = '/effects/entities/Shield01/Shield01z_mesh',
+            ImpactEffects = "SeraphimShieldHit01",
+            ImpactMesh = "/effects/entities/ShieldSection01/ShieldSection01_mesh",
+            Mesh = "/effects/entities/SeraphimShield01/SeraphimShield01_mesh",
+            MeshZ = "/effects/entities/Shield01/Shield01z_mesh",
             RegenAssistMult = 60,
             ShieldEnergyDrainRechargeTime = 5,
             ShieldMaxHealth = 450,
@@ -70,47 +50,43 @@ UnitBlueprint {
             ShieldSize = 3,
             ShieldVerticalOffset = -0.75,
         },
-        RegenRate = 3,
         SurfaceThreatLevel = 10.6,
     },
-    
-    Description = 'Shielded Protector Bot',
-    
     Display = {
         Abilities = {
-            'Anti-Air',
-            'Shield Dome',
+            "<LOC ability_aa>Anti-Air",
+            "<LOC ability_shielddome>Shield Dome",
         },
         AnimationDeath = {
             {
-                Animation = '/mods/BattlePack/units/WSL0205/WSL0205_ADeath01.sca',
+                Animation = "/mods/BattlePack/units/WSL0205/WSL0205_ADeath01.sca",
                 AnimationRateMax = 1.5,
                 AnimationRateMin = 0.5,
                 Weight = 100,
             },
             {
-                Animation = '/mods/BattlePack/units/WSL0205/WSL0205_ADeath02.sca',
+                Animation = "/mods/BattlePack/units/WSL0205/WSL0205_ADeath02.sca",
                 AnimationRateMax = 1.5,
                 AnimationRateMin = 0.5,
                 Weight = 100,
             },
         },
-        AnimationWalk = '/mods/BattlePack/units/WSL0205/WSL0205_AWalk01.sca',
+        AnimationWalk = "/mods/BattlePack/units/WSL0205/WSL0205_AWalk01.sca",
         AnimationWalkRate = 3,
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
                 {
                     LODCutoff = 215,
-                    LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
-                    ShaderName = 'Seraphim',
+                    LookupName = "/textures/environment/Falloff_seraphim_lookup.dds",
+                    ShaderName = "Seraphim",
                 },
                 {
-                    AlbedoName = 'wsl0205_lod1_albedo.dds',
                     LODCutoff = 215,
-                    LookupName = '/textures/environment/Falloff_seraphim_lookup.dds',
-                    ShaderName = 'Seraphim',
-                    SpecularName = 'wsl0205_lod1_specteam.dds',
+                    LookupName = "/textures/environment/Falloff_seraphim_lookup.dds",
+                    ShaderName = "Seraphim",
+                    AlbedoName = "wsl0205_lod1_albedo.dds",
+                    SpecularName = "wsl0205_lod1_specteam.dds",
                 },
             },
         },
@@ -119,34 +95,28 @@ UnitBlueprint {
                 Effects = {
                     {
                         Bones = {
-                            'Leg_Foot_01',
-                            'Leg_Foot_02',
-                            'Leg_Foot_03',
-                            'Leg_Foot_04',
-                            'Leg_Foot_05',
-                            'Leg_Foot_06',
+                            "Leg_Foot_01",
+                            "Leg_Foot_02",
+                            "Leg_Foot_03",
+                            "Leg_Foot_04",
+                            "Leg_Foot_05",
+                            "Leg_Foot_06",
                         },
                         Scale = 0.75,
-                        Type = 'GroundKickup01',
+                        Type = "GroundKickup01",
                     },
                 },
             },
         },
-        SpawnRandomRotation = true,
         UniformScale = 0.05,
     },
-    
     Economy = {
         BuildCostEnergy = 2000,
         BuildCostMass = 315,
         BuildTime = 225,
-        
         MaintenanceConsumptionPerSecondEnergy = 10,
     },
-    
     General = {
-        Category = 'Anti Air',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -156,39 +126,23 @@ UnitBlueprint {
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
         },
-        FactionName = 'Seraphim',
-        Icon = 'land',
+        FactionName = "Seraphim",
+        Icon = "land",
         OrderOverrides = {
             RULEUTC_ShieldToggle = {
-                bitmapId = 'shield-dome',
-                helpText = 'toggle_shield_dome',
+                bitmapId = "shield-dome",
+                helpText = "toggle_shield_dome",
             },
         },
-        TechLevel = 'RULEUTL_Basic',
-        UnitName = 'Beshlas',
-        ToggleCaps = {
-            RULEUTC_ShieldToggle = true,
-        },
-        UnitWeight = 1,
+        ToggleCaps = { RULEUTC_ShieldToggle = true },
+        UnitName = "Beshlas",
     },
-    
-    Intel = {
-        VisionRadius = 22,
-    },
-    
-    Interface = {
-        HelpText = 'Shielded Protector Bot',
-    },
-    
+    Intel = { VisionRadius = 22 },
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.25,
     LifeBarSize = 0.7,
-    
     Physics = {
         BankingSlope = 0,
-        BuildOnLayerCaps = {
-            LAYER_Land = true,
-        },
         DragCoefficient = 0.2,
         MaxAcceleration = 3.3,
         MaxBrake = 3.3,
@@ -199,28 +153,21 @@ UnitBlueprint {
         MeshExtentsY = 0.5,
         MeshExtentsZ = 0.8,
         MinSpeedPercent = 0,
-        MotionType = 'RULEUMT_Land',
+        MotionType = "RULEUMT_Land",
         RotateOnSpot = false,
         RotateOnSpotThreshold = 0,
         TurnRadius = 5,
         TurnRate = 90,
     },
-    
     SelectionSizeX = 0.35,
     SelectionSizeZ = 0.45,
     SelectionThickness = 0.6,
-    
     SizeX = 1.0,
     SizeY = 0.8,
     SizeZ = 1.0,
-    
-    StrategicIconName = 'icon_land2_shield',
+    StrategicIconName = "icon_land2_shield",
     StrategicIconSortPriority = 135,
-    
-    Transport = {
-        TransportClass = 2,
-    },
-    
+    Transport = { TransportClass = 2 },
     Veteran = {
         Level1 = 4,
         Level2 = 8,
@@ -228,97 +175,65 @@ UnitBlueprint {
         Level4 = 16,
         Level5 = 20,
     },
-    
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0101_PhasicAutogun',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0101_PhasicAutogun', LodCutoff = 'Weapon_LodCutoff' },
             },
-            BallisticArc = 'RULEUBA_LowArc',
+            BallisticArc = "RULEUBA_LowArc",
             CollideFriendly = false,
-            
             Damage = 35,
-            DamageType = 'Normal',
-            DisplayName = 'Phasic Autogun',
-            
-            FireTargetLayerCapsTable = {
-                Land = 'Land|Water|Seabed|Air',
-            },
-            
+            DamageType = "Normal",
+            DisplayName = "Phasic Autogun",
+            FireTargetLayerCapsTable = { Land = "Land|Water|Seabed|Air" },
             FiringTolerance = 2,
-            
-            Label = 'MainGun',
-            
+            Label = "MainGun",
             MaxRadius = 26,
-            
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 25,
-			
-            ProjectileId = '/projectiles/SDFPhasicAutogun01/SDFPhasicAutogun01_proj.bp',
-			ProjectileLifetime = 1.2,
-
+            ProjectileId = "/projectiles/SDFPhasicAutogun01/SDFPhasicAutogun01_proj.bp",
+            ProjectileLifetime = 1.2,
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Barrel_Muzzle',
-                    },
-                    RackBone = 'TurretBarrel01',
+                    MuzzleBones = { "Turret_Barrel_Muzzle" },
+                    RackBone = "TurretBarrel01",
                 },
             },
-
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-
-            RangeCategory = 'UWRC_DirectFire',
-            
-            RateOfFire = 1.1,   -- 77 DPS
-            
+            RangeCategory = "UWRC_DirectFire",
+            RateOfFire = 1.1,
             TargetCheckInterval = 0.5,
             TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'MOBILE',
-                'DEFENSE',
-                'ALLUNITS -WALL',
+                "SPECIALHIGHPRI",
+                "MOBILE",
+                "DEFENSE",
+                "ALLUNITS -WALL",
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = "UNTARGETABLE",
             TrackingRadius = 1.15,
-            
-            TurretBoneMuzzle = 'Turret_Barrel_Muzzle',
-            TurretBonePitch = 'TurretBarrel01',
-            TurretBoneYaw = 'Turret01',
+            TurretBoneMuzzle = "Turret_Barrel_Muzzle",
+            TurretBonePitch = "TurretBarrel01",
+            TurretBoneYaw = "Turret01",
             TurretDualManipulators = false,
-            
             TurretPitch = 0,
             TurretPitchRange = 80,
             TurretPitchSpeed = 85,
-            
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 50,
-            
             Turreted = true,
         },
-
     },
     Wreckage = {
-        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        Blueprint = "/props/DefaultWreckage/DefaultWreckage_prop.bp",
         EnergyMult = 0,
         HealthMult = 0.9,
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
-        WreckageLayers = {
-            Air = false,
-            Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
-        },
+        WreckageLayers = { Land = true },
     },
 }

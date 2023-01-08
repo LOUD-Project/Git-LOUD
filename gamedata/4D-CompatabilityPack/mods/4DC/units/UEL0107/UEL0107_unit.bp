@@ -1,74 +1,47 @@
-UnitBlueprint {
-
+UnitBlueprint{
+    Description = "<LOC uel0107_desc>Mortar Hovercraft",
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEL_Destroy_Med_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        HoverKilledOnWater = Sound {
-            Bank = 'Explosions',
-            Cue = 'Expl_Water_Lrg_01',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0203_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0203_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Tank',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed          = Sound { Bank = 'UELDestroy', Cue = 'UEL_Destroy_Med_Land', LodCutoff = 'UnitMove_LodCutoff' },
+        HoverKilledOnWater = Sound { Bank = 'Explosions', Cue = 'Expl_Water_Lrg_01',    LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove          = Sound { Bank = 'UEL',        Cue = 'UEL0203_Move_Start',   LodCutoff = 'UnitMove_LodCutoff' },
+        StopMove           = Sound { Bank = 'UEL',        Cue = 'UEL0203_Move_Stop',    LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection        = Sound { Bank = 'Interface',  Cue = 'UEF_Select_Tank',      LodCutoff = 'UnitMove_LodCutoff' },
     },
-	
     Buffs = {},
-	
     BuildIconSortPriority = 25,
-	
     Categories = {
-        'BUILTBYTIER1FACTORY',
-        'BUILTBYTIER2FACTORY',
-        'BUILTBYTIER3FACTORY',
-        'HOVER',
-		'AMPHIBIOUS',
-        'DIRECTFIRE',
-        'LAND',
-        'MOBILE',
-        'TECH1',
-        'RECLAIMABLE',
-        'SELECTABLE',
-        'UEF',
-        'VISIBLETORECON',
+        "AMPHIBIOUS",
+        "BUILTBYTIER1FACTORY",
+        "BUILTBYTIER2FACTORY",
+        "BUILTBYTIER3FACTORY",
+        "DIRECTFIRE",
+        "HOVER",
+        "LAND",
+        "MOBILE",
+        "RECLAIMABLE",
+        "SELECTABLE",
+        "TECH1",
+        "UEF",
+        "VISIBLETORECON",
     },
-	
     Defense = {
-        ArmorType = 'Normal',
+        ArmorType = "Normal",
         Health = 195,
         MaxHealth = 195,
         RegenRate = 0,
         SurfaceThreatLevel = 3,
     },
-	
-    Description = '<LOC uel0107_desc>Mortar Hovercraft',
-	
     Display = {
         Abilities = {
-            'Hover',
-            'Rapid Fire Mortar',
+            "<LOC ability_hover>Hover",
+            "Rapid Fire Mortar",
         },
         Mesh = {
             IconFadeInZoom = 180,
             LODs = {
                 {
                     LODCutoff = 180,
-                    ShaderName = 'Unit',
+                    ShaderName = "Unit",
                 },
             },
         },
@@ -76,55 +49,37 @@ UnitBlueprint {
             Water = {
                 Effects = {
                     {
-                        Bones = {
-                            'Wake_Left',
-                        },
+                        Bones = { "Wake_Left" },
                         Scale = 0.5,
-                        Type = 'LeftFrontWake',
+                        Type = "LeftFrontWake",
                     },
                     {
-                        Bones = {
-                            'Wake_Right',
-                        },
+                        Bones = { "Wake_Right" },
                         Scale = 0.5,
-                        Type = 'RightFrontWake',
+                        Type = "RightFrontWake",
                     },
                     {
-                        Bones = {
-                            'uel0107',
-                        },
+                        Bones = { "uel0107" },
                         Scale = 0.5,
-                        Type = 'BackWake',
+                        Type = "BackWake",
                     },
-                   	{
-                        Bones = {
-                            'uel0107',
-                        },
-                        Offset = {
-                            0,
-                            -0.01,
-                            0,
-                        },
+                    {
+                        Bones = { "uel0107" },
+                        Offset = { 0, -0.01, 0 },
                         Scale = 0.5,
-                        Type = 'Hover01',
+                        Type = "Hover01",
                     },
                 },
             },
         },
-
-        SpawnRandomRotation = false,
         UniformScale = 0.08,
     },
-	
     Economy = {
         BuildCostEnergy = 720,
         BuildCostMass = 65,
         BuildTime = 81,
     },
-	
     General = {
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -134,72 +89,48 @@ UnitBlueprint {
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
         },
-        FactionName = 'UEF',
-        Icon = 'amph',
-        TechLevel = 'RULEUTL_Basic',
-        UnitName = '<LOC uel0107_name>Caiman',
-        UnitWeight = 1,
+        FactionName = "UEF",
+        Icon = "amph",
+        UnitName = "<LOC uel0107_name>Caiman",
     },
-	
-    Intel = {
-        VisionRadius = 20,
-    },
-	
-    Interface = {
-        HelpText = 'Mortar Hovercraft',
-    },
-	
+    Intel = { VisionRadius = 20 },
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.4,
     LifeBarSize = 0.65,
-	
     Physics = {
         BackUpDistance = 0,
         BankingSlope = 0,
-        BuildOnLayerCaps = {
-            LAYER_Land = true,
-            LAYER_Seabed = true,
-        },
         DragCoefficient = 0.2,
         Elevation = 0.125,
-        
         MaxAcceleration = 0.8,
         MaxBrake = 1.7,
         MaxSpeed = 3.2,
         MaxSpeedReverse = 0,
-        
         MaxSteerForce = 1000,
-        MeshExtentsX = 0.60,
+        MeshExtentsX = 0.6,
         MeshExtentsY = 0.44,
         MeshExtentsZ = 0.64,
         MinSpeedPercent = 0,
-        MotionType = 'RULEUMT_Hover',
+        MotionType = "RULEUMT_Hover",
         RotateBodyWhileMoving = true,
-        
         TurnFacingRate = 48,
         TurnRadius = 0,
         TurnRate = 36,
-        
         WobbleFactor = 0.003,
         WobbleSpeed = 0.01,
     },
-	
     SelectionSizeX = 0.4,
     SelectionSizeZ = 0.5,
     SelectionThickness = 0.4,
-	
     SizeX = 0.4,
     SizeY = 0.25,
     SizeZ = 0.7,
-	
-    StrategicIconName = 'icon_surface1_directfire',
+    StrategicIconName = "icon_surface1_directfire",
     StrategicIconSortPriority = 125,
-	
     Transport = {
         CanFireFromTransport = false,
         TransportClass = 1,
     },
-	
     Veteran = {
         Level1 = 3,
         Level2 = 6,
@@ -207,110 +138,77 @@ UnitBlueprint {
         Level4 = 12,
         Level5 = 15,
     },
-	
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEL0103_Mortar',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEL0103_Mortar', LodCutoff = 'Weapon_LodCutoff' },
             },
-			
             AutoInitiateAttackCommand = false,
-			
-            BallisticArc = 'RULEUBA_LowArc',
+            BallisticArc = "RULEUBA_LowArc",
             CollideFriendly = false,
-			
             Damage = 14,
             DamageRadius = 0.8,
-            DamageType = 'Normal',
-			
-            DisplayName = 'Grenade Launcher',
-			
+            DamageType = "Normal",
+            DisplayName = "Grenade Launcher",
             FireTargetLayerCapsTable = {
-                Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
+                Land = "Land|Water|Seabed",
+                Water = "Land|Water|Seabed",
             },
-			
             FiringRandomness = 1.8,
             FiringRandomnessWhileMoving = 3,
-			
             FiringTolerance = 1,
-			
-            Label = 'Mortar',
-			
+            Label = "Mortar",
             MaxRadius = 33,
             MinRadius = 5,
-			
             MuzzleSalvoDelay = 0.4,
             MuzzleSalvoSize = 4,
             MuzzleVelocity = 12.5,
             MuzzleVelocityRandomness = 2.0,
             MuzzleVelocityReduceDistance = 1,
-			
-            ProjectileId = '/mods/4DC/projectiles/Mortar/Mortar_proj.bp',
+            ProjectileId = "/mods/4DC/projectiles/Mortar/Mortar_proj.bp",
             ProjectileLifetimeUsesMultiplier = 3,
-			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Muzzle',
-                    },
-                    RackBone = 'Barrel_Outer',
+                    MuzzleBones = { "Muzzle" },
+                    RackBone = "Barrel_Outer",
                 },
             },
-
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_DirectFire',
-			
-            RateOfFire = 0.5,	-- 4 shots over 2 seconds = 56/2 = 28
-			
+            RangeCategory = "UWRC_DirectFire",
+            RateOfFire = 0.5,
             TargetCheckInterval = 0.5,
             TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'MOBILE',
-                'DEFENSE',
-                'ALLUNITS',
+                "SPECIALHIGHPRI",
+                "MOBILE",
+                "DEFENSE",
+                "ALLUNITS",
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = "UNTARGETABLE",
             TrackingRadius = 1.15,
-			
-            TurretBoneMuzzle = 'Muzzle',
-            TurretBonePitch = 'Barrel_Housing_Pitch',
-            TurretBoneYaw = 'Turret_Yaw',
+            TurretBoneMuzzle = "Muzzle",
+            TurretBonePitch = "Barrel_Housing_Pitch",
+            TurretBoneYaw = "Turret_Yaw",
             TurretDualManipulators = false,
-			
             TurretPitch = 0,
             TurretPitchRange = 45,
             TurretPitchSpeed = 36,
-			
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 36,
-			
             Turreted = true,
         },
     },
     Wreckage = {
-        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        Blueprint = "/props/DefaultWreckage/DefaultWreckage_prop.bp",
         EnergyMult = 0.35,
         HealthMult = 0.9,
         MassMult = 0.35,
         ReclaimTimeMultiplier = 1,
-        WreckageLayers = {
-            Air = false,
-            Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
-        },
+        WreckageLayers = { Land = true },
     },
 }

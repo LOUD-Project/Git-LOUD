@@ -1,114 +1,82 @@
-UnitBlueprint {    
-	AI = { 
-        TargetBones = {
-            'Turret',
-        },
+UnitBlueprint{
+    Description = "<LOC xel0308_desc>Amphibious SAM Launcher",
+    AI = {
+        TargetBones = { "Turret" },
     },
-	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEL_Destroy_Med_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0202_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0202_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Tank',
-            LodCutoff = 'UnitMove_LodCutoff',
+        Destroyed   = Sound { Bank = 'UELDestroy', Cue = 'UEL_Destroy_Med_Land', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'UEL',        Cue = 'UEL0202_Move_Start',   LodCutoff = 'UnitMove_LodCutoff' },
+        StopMove    = Sound { Bank = 'UEL',        Cue = 'UEL0202_Move_Stop',    LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface',  Cue = 'UEF_Select_Tank',      LodCutoff = 'UnitMove_LodCutoff' },
+    },
+    Buffs = {
+        Regen = {
+            Level1 = 3,
+            Level2 = 6,
+            Level3 = 9,
+            Level4 = 12,
+            Level5 = 15,
         },
     },
-	
-	Buffs = {
-       Regen = {
-           Level1 = 3,
-           Level2 = 6,
-           Level3 = 9,
-           Level4 = 12,
-           Level5 = 15,
-       },
-	},
-	
     BuildIconSortPriority = 20,
-	
     Categories = {
-        'ANTIAIR',
-        'BUILTBYTIER3FACTORY',
-        'MOBILE',
-        'LAND',
-		'AMPHIBIOUS',
-		'SUBMERSIBLE',
-        'RECLAIMABLE',
-        'SELECTABLE',        
-        'TECH3',  
-        'UEF',              
-        'VISIBLETORECON',
-		'OVERLAYRADAR',
+        "AMPHIBIOUS",
+        "ANTIAIR",
+        "BUILTBYTIER3FACTORY",
+        "LAND",
+        "MOBILE",
+        "OVERLAYRADAR",
+        "RECLAIMABLE",
+        "SELECTABLE",
+        "SUBMERSIBLE",
+        "TECH3",
+        "UEF",
+        "VISIBLETORECON",
     },
-	
-    Defense = {       
-        AirThreatLevel = 36,        
-        ArmorType = 'Normal',
+    Defense = {
+        AirThreatLevel = 36,
+        ArmorType = "Normal",
         Health = 2950,
         MaxHealth = 2950,
         RegenRate = 3,
         SurfaceThreatLevel = 7.5,
     },
-	
-    Description = '<LOC xel0308_desc>Amphibious SAM Launcher',
-	
     Display = {
-		Abilities = {
-			'Amphibious',
-			'Anti Air Missiles',
-			'Ground Defense',
-			'Radar',
-		},
-
+        Abilities = {
+            "<LOC ability_aa>Anti-Air",
+            "<LOC ability_amphibious>Amphibious",
+            "<LOC ability_radar>Radar",
+            "Ground Defense",
+        },
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {                            
-                    AlbedoName = 'XEL0308_Albedo.dds',              
-                    MeshName = 'XEL0308_lod0.scm',                
+                {
                     LODCutoff = 100,
                     Scrolling = true,
-                    ShaderName = 'Unit',
-                    SpecularName = 'XEL0308_SpecTeam.dds',                     
+                    ShaderName = "Unit",
+                    MeshName = "XEL0308_lod0.scm",
+                    AlbedoName = "XEL0308_Albedo.dds",
+                    SpecularName = "XEL0308_SpecTeam.dds",
                 },
                 {
-                    AlbedoName = 'XEL0308_Albedo.dds',              
-                    MeshName = 'XEL0308_lod1.scm', 
                     LODCutoff = 215,
-                    ShaderName = 'Unit',
-                    SpecularName = 'XEL0308_SpecTeam.dds',
-                },             
+                    ShaderName = "Unit",
+                    MeshName = "XEL0308_lod1.scm",
+                    AlbedoName = "XEL0308_Albedo.dds",
+                    SpecularName = "XEL0308_SpecTeam.dds",
+                },
             },
         },
-
-        SpawnRandomRotation = false,
         UniformScale = 0.01,
     },
-	
     Economy = {
         BuildCostEnergy = 10500,
         BuildCostMass = 1000,
         BuildTime = 500,
     },
-	
     General = {
-		CapCost = 2,
-        Category = 'Anti Air',
-        Classification = 'RULEUC_MilitaryVehicle',
+        CapCost = 2,
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -118,67 +86,45 @@ UnitBlueprint {
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
         },
-        FactionName = 'UEF',
-		Icon = 'amph',
-        TechLevel = 'RULEUTL_Advanced',
-        UnitName = '<LOC xel0308_name>Hermes',
-        UnitWeight = 1,
+        FactionName = "UEF",
+        Icon = "amph",
+        UnitName = "<LOC xel0308_name>Hermes",
     },
-	
     Intel = {
-		FreeIntel = true,
+        FreeIntel = true,
+        RadarRadius = 75,
         VisionRadius = 32,
-		RadarRadius = 75,
     },
-	
-    Interface = {
-        HelpText = 'Amphibious SAM Launcher',
-    },
-	
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.8,
     LifeBarSize = 0.8,
-	
     Physics = {
         BankingSlope = 0,
-        BuildOnLayerCaps = {
-            LAYER_Land = true,
-        },
         DragCoefficient = 0.2,
-		
         MaxAcceleration = 1.5,
         MaxBrake = 2.5,
         MaxSpeed = 2.5,
         MaxSpeedReverse = 2.5,
-		
         MaxSteerForce = 5,
         MeshExtentsX = 0.9,
         MeshExtentsY = 0.55,
         MeshExtentsZ = 1.05,
         MinSpeedPercent = 0,
-        MotionType = 'RULEUMT_Amphibious',
+        MotionType = "RULEUMT_Amphibious",
         RotateOnSpot = false,
         TurnRadius = 15,
         TurnRate = 45,
-		WaterSpeedMultiplier = 1.2,
+        WaterSpeedMultiplier = 1.2,
     },
-	
     SelectionSizeX = 1.0,
     SelectionSizeZ = 1.15,
-	
     SelectionThickness = 0.6,
-	
     SizeX = 1.1,
     SizeY = 0.65,
     SizeZ = 1.4,
-	
-    StrategicIconName = 'icon_seabed3_antiair',
+    StrategicIconName = "icon_seabed3_antiair",
     StrategicIconSortPriority = 125,
-	
-    Transport = {
-        TransportClass = 3,
-    },
-	
+    Transport = { TransportClass = 3 },
     Veteran = {
         Level1 = 10,
         Level2 = 20,
@@ -186,104 +132,74 @@ UnitBlueprint {
         Level4 = 40,
         Level5 = 50,
     },
-	
-	---- Fires a volley of 12 missiles every 2 seconds = 720/2 or 360 DPS
-
     Weapon = {
         {
-			advancedTracking = true,
             AlwaysRecheckTarget = true,
-			
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB2304_Missile_Flayer',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB2304_Missile_Flayer', LodCutoff = 'Weapon_LodCutoff' },
             },
-			
-            BallisticArc = 'RULEUBA_None',
-			
+            BallisticArc = "RULEUBA_None",
             CollideFriendly = false,
-			
             Damage = 60,
-            DamageType = 'Normal',
-			
-            DisplayName = 'SAM Launcher',
-			
-            FireTargetLayerCapsTable = {
-                Land = 'Air',
-            },
-			
+            DamageType = "Normal",
+            DisplayName = "SAM Launcher",
+            FireTargetLayerCapsTable = { Land = "Air" },
             FiringTolerance = 60,
-			
-            Label = 'MissileRack01',
-			LeadTarget = false,
-			
+            Label = "MissileRack01",
+            LeadTarget = false,
             MaxRadius = 55,
-			
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 6,
             MuzzleVelocity = 40,
-			
-            ProjectileId = '/projectiles/TAAMissileFlayer01/TAAMissileFlayer01_proj.bp',
+            ProjectileId = "/projectiles/TAAMissileFlayer01/TAAMissileFlayer01_proj.bp",
             ProjectileLifetime = 2.8,
-			
             RackBones = {
                 {
                     MuzzleBones = {
-                        'Missile1',
-						'Missile2',
-						'Missile3',
-						'Missile4',
-						'Missile5',
-						'Missile6',
+                        "Missile1",
+                        "Missile2",
+                        "Missile3",
+                        "Missile4",
+                        "Missile5",
+                        "Missile6",
                     },
-                    RackBone = 'MissilePod',
+                    RackBone = "MissilePod",
                 },
                 {
                     MuzzleBones = {
-                        'Missile7',
-						'Missile8',
-						'Missile9',
-						'Missile10',
-						'Missile11',
-						'Missile12',
+                        "Missile7",
+                        "Missile8",
+                        "Missile9",
+                        "Missile10",
+                        "Missile11",
+                        "Missile12",
                     },
-                    RackBone = 'MissilePod',
-                },                
+                    RackBone = "MissilePod",
+                },
             },
             RackFireTogether = true,
-            
             RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0, -- Delay before firing begins
-            RackSalvoReloadTime = 0, -- Delays after firing ends
-
-            RangeCategory = 'UWRC_AntiAir',
-			
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RangeCategory = "UWRC_AntiAir",
             RateOfFire = 0.5,
-			RenderFireClock = true,
-			
+            RenderFireClock = true,
             TargetCheckInterval = 0.25,
-
             TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'HIGHPRIAIR',
-                'BOMBER',
-                'GROUNDATTACK',
-                'TRANSPORTATION',
-                'MOBILE',
-            },			
-
-            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+                "SPECIALHIGHPRI",
+                "HIGHPRIAIR",
+                "BOMBER",
+                "GROUNDATTACK",
+                "TRANSPORTATION",
+                "MOBILE",
+            },
+            TargetRestrictDisallow = "UNTARGETABLE,SATELLITE",
             TrackingRadius = 1.3,
-			
-            TurretBoneMuzzle = 'Missile1',
-            TurretBonePitch = 'MissilePod',
-            TurretBoneYaw = 'MissileTurret',
+            TurretBoneMuzzle = "Missile1",
+            TurretBonePitch = "MissilePod",
+            TurretBoneYaw = "MissileTurret",
             TurretDualManipulators = false,
-			
             TurretPitch = 25,
             TurretPitchRange = 90,
             TurretPitchSpeed = 70,
@@ -291,76 +207,54 @@ UnitBlueprint {
             TurretYawRange = 360,
             TurretYawSpeed = 48,
             Turreted = true,
+            advancedTracking = true,
         },
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEL0202_Cannon_Dbl',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEL0202_Cannon_Dbl', LodCutoff = 'Weapon_LodCutoff' },
             },
-            BallisticArc = 'RULEUBA_None',
+            BallisticArc = "RULEUBA_None",
             CollideFriendly = false,
-			
             Damage = 75,
             DamageRadius = 0,
-            DamageType = 'Normal',
-			
-            DisplayName = 'Gauss Cannon',
-			
+            DamageType = "Normal",
+            DisplayName = "Gauss Cannon",
             FireTargetLayerCapsTable = {
-                Land = 'Land|Water',
-                Water = 'Land|Water',
+                Land = "Land|Water",
+                Water = "Land|Water",
             },
-			
             FiringRandomnessWhileMoving = 0.25,
             FiringTolerance = 2,
-			
-            Label = 'MainGun',
+            Label = "MainGun",
             MaxRadius = 25,
-			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 46,
-			
-            ProjectileId = '/projectiles/TDFGauss01/TDFGauss01_proj.bp',
-			
+            ProjectileId = "/projectiles/TDFGauss01/TDFGauss01_proj.bp",
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Muzzle',
-                    },
-                    RackBone = 'Barrel',
+                    MuzzleBones = { "Muzzle" },
+                    RackBone = "Barrel",
                 },
             },
-			
             RackRecoilDistance = -6,
-			
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-			
+            RangeCategory = "UWRC_DirectFire",
             RateOfFire = 1,
-			
             TargetCheckInterval = 0.5,
-			
             TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'MOBILE',
-                'DEFENSE',
-                'ALLUNITS',
+                "SPECIALHIGHPRI",
+                "MOBILE",
+                "DEFENSE",
+                "ALLUNITS",
             },
-			
-            RangeCategory = 'UWRC_DirectFire',
-			
-            TargetRestrictDisallow = 'UNTARGETABLE',
-			
+            TargetRestrictDisallow = "UNTARGETABLE",
             TrackingRadius = 1.1,
-			
-            TurretBoneMuzzle = 'Muzzle',
-            TurretBonePitch = 'Sleeve',
-            TurretBoneYaw = 'Turret',
+            TurretBoneMuzzle = "Muzzle",
+            TurretBonePitch = "Sleeve",
+            TurretBoneYaw = "Turret",
             TurretDualManipulators = false,
             TurretPitch = 0,
             TurretPitchRange = 45,
@@ -369,20 +263,14 @@ UnitBlueprint {
             TurretYawRange = 180,
             TurretYawSpeed = 40,
             Turreted = true,
-        },        
+        },
     },
     Wreckage = {
-        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        Blueprint = "/props/DefaultWreckage/DefaultWreckage_prop.bp",
         EnergyMult = 0.2,
         HealthMult = 0.9,
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
-        WreckageLayers = {
-            Air = false,
-            Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
-        },
+        WreckageLayers = { Land = true },
     },
 }

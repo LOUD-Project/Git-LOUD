@@ -1,32 +1,19 @@
-UnitBlueprint {
-    AI = { 
-        GuardScanRadius = 70, 
-		TargetBones = {
-            'TopGun',
-            'ChinGun',
-            'Leg06',
-            'Leg02',
-        },
-    }, 
-	
-    Audio = {
-        Killed = Sound {
-            Bank = 'URLDestroy',
-            Cue = 'URL0402_Destroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'URL',
-            Cue = 'URL0303_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Bot',
-            LodCutoff = 'UnitMove_LodCutoff',
+UnitBlueprint{
+    Description = "Experimental Light Assault Bot",
+    AI = {
+        GuardScanRadius = 70,
+        TargetBones = {
+            "TopGun",
+            "ChinGun",
+            "Leg06",
+            "Leg02",
         },
     },
-    
+    Audio = {
+        Killed      = Sound { Bank = 'URLDestroy', Cue = 'URL0402_Destroy',    LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove   = Sound { Bank = 'URL',        Cue = 'URL0303_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'Interface',  Cue = 'Cybran_Select_Bot',  LodCutoff = 'UnitMove_LodCutoff' },
+    },
     Buffs = {
         Regen = {
             Level1 = 12,
@@ -36,60 +23,48 @@ UnitBlueprint {
             Level5 = 60,
         },
     },
-    
     BuildIconSortPriority = 18,
-    
     Categories = {
-        'SELECTABLE',
-        'BUILTBYTIER4COMMANDER',
-        'AEON',
-        'MOBILE',
-        'LAND',
-        'AMPHIBIOUS',
-        'EXPERIMENTAL',
-        'DIRECTFIRE',
-        'VISIBLETORECON',
-        'RECLAIMABLE',
-        'NEEDMOBILEBUILD',
-        'DRAGBUILD',
+        "AEON",
+        "AMPHIBIOUS",
+        "BUILTBYTIER4COMMANDER",
+        "DIRECTFIRE",
+        "DRAGBUILD",
+        "EXPERIMENTAL",
+        "LAND",
+        "MOBILE",
+        "NEEDMOBILEBUILD",
+        "RECLAIMABLE",
+        "SELECTABLE",
+        "VISIBLETORECON",
     },
-    
     Defense = {
         AirThreatLevel = 22,
-        
-        ArmorType = 'Experimental',
-
+        ArmorType = "Experimental",
         Health = 34000,
         MaxHealth = 34000,
         RegenRate = 12,
-
         SurfaceThreatLevel = 186.4,
     },
-    
-    Description = 'Experimental Light Assault Bot',
-    
     Display = {
         Abilities = {
-            'Anti-Air',
-            '<LOC ability_amphibious>Amphibious',
+            "<LOC ability_aa>Anti-Air",
+            "<LOC ability_amphibious>Amphibious",
         },
-        
         AnimationDeath = {
             {
-                Animation = '/mods/BattlePack/units/WAL4404/WAL4404_Death.sca',
+                Animation = "/mods/BattlePack/units/WAL4404/WAL4404_Death.sca",
                 Weight = 100,
             },
         },
-        
-        AnimationWalk = '/mods/BattlePack/units/WAL4404/WAL4404_Walk.sca',
+        AnimationWalk = "/mods/BattlePack/units/WAL4404/WAL4404_Walk.sca",
         AnimationWalkRate = 2.15,
-        
         Mesh = {
             IconFadeInZoom = 230,
             LODs = {
                 {
                     LODCutoff = 450,
-                    ShaderName = 'Aeon',
+                    ShaderName = "Aeon",
                 },
             },
         },
@@ -98,51 +73,42 @@ UnitBlueprint {
                 Footfall = {
                     Bones = {
                         {
-                            FootBone = 'Exhaust_Right',
-                            HipBone = 'Exhaust_Right',
-                            KneeBone = 'Exhaust_Right',
+                            FootBone = "Exhaust_Right",
+                            HipBone = "Exhaust_Right",
+                            KneeBone = "Exhaust_Right",
                             MaxFootFall = -0.25,
-                            Offset = {
-                                z = -1,
-                            },
+                            Offset = { z = -1 },
                             StraightLegs = false,
-                            Type = 'FootFall01',
+                            Type = "FootFall01",
                         },
                         {
-                            FootBone = 'Exhaust_Left',
-                            HipBone = 'Exhaust_Left',
-                            KneeBone = 'Exhaust_Left',
+                            FootBone = "Exhaust_Left",
+                            HipBone = "Exhaust_Left",
+                            KneeBone = "Exhaust_Left",
                             MaxFootFall = -0.25,
-                            Offset = {
-                                z = -1,
-                            },
+                            Offset = { z = -1 },
                             StraightLegs = false,
-                            Type = 'FootFall01',
+                            Type = "FootFall01",
                         },
                     },
                     Damage = {
                         Amount = 650,
                         DamageFriendly = false,
                         Radius = 1.5,
-                        Type = 'ExperimentalFootfall',
+                        Type = "ExperimentalFootfall",
                     },
                 },
             },
         },
-        SpawnRandomRotation = true,
         UniformScale = 0.12,
     },
-    
     Economy = {
         BuildCostEnergy = 132000,
         BuildCostMass = 12500,
         BuildTime = 2200,
     },
-    
     General = {
         CapCost = 3,
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Guard = true,
@@ -151,61 +117,43 @@ UnitBlueprint {
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
         },
-        FactionName = 'Aeon',
-        Icon = 'amph',
-        TechLevel = 'RULEUTL_Secret',
-        UnitName = 'Maruda',
-        UnitWeight = 1,
+        FactionName = "Aeon",
+        Icon = "amph",
+        UnitName = "Maruda",
     },
-    
     Intel = {
         VisionRadius = 35,
         WaterVisionRadius = 21,
     },
-    
-    Interface = {
-        HelpText = 'Light Assault Bot',
-    },
-    
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.55,
     LifeBarSize = 3,
-    
     Physics = {
         BankingSlope = 0,
-        BuildOnLayerCaps = {
-            LAYER_Land = true,
-            LAYER_Seabed = true,
-        },
         DragCoefficient = 0.2,
-        
         MaxAcceleration = 1.1,
         MaxBrake = 3.3,
         MaxSpeed = 3.3,
         MaxSpeedReverse = 2.2,
-        
         MaxSteerForce = 10,
         MinSpeedPercent = 0,
-        MotionType = 'RULEUMT_Amphibious',
-        SkirtOffsetX = -.5,
-        SkirtOffsetZ = -.5,
+        MotionType = "RULEUMT_Amphibious",
+        SkirtOffsetX = -0.5,
+        SkirtOffsetZ = -0.5,
         SkirtSizeX = 4,
         SkirtSizeZ = 4,
         TurnRadius = 5,
         TurnRate = 42,
     },
-
     SelectionSizeX = 2.2,
     SelectionSizeZ = 2.2,
     SelectionThickness = 0.3,
-    
-	SizeX = 2.2,
+    SizeX = 2.2,
     SizeY = 3.2,
     SizeZ = 2.2,
-    
-    StrategicIconName = 'icon_seabed4_directfire',
+    StrategicIconName = "icon_seabed4_directfire",
     StrategicIconSortPriority = 114,
-    
+    Transport = { TransportClass = 4 },
     Veteran = {
         Level1 = 25,
         Level2 = 50,
@@ -213,458 +161,324 @@ UnitBlueprint {
         Level4 = 100,
         Level5 = 125,
     },
-    
-    Transport = {
-        TransportClass = 4,
-    },
-    
-	Weapon = {
-		{
+    Weapon = {
+        {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'BattlePackSB',
-                    Cue = 'AeonRevampBot_MainCannon_Fire',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'BattlePackSB', Cue = 'AeonRevampBot_MainCannon_Fire', LodCutoff = 'Weapon_LodCutoff' },
             },
-            BallisticArc = 'RULEUBA_LowArc',
+            BallisticArc = "RULEUBA_LowArc",
             CollideFriendly = false,
-            
             Damage = 75,
-            DamageType = 'Normal',
-            
-            DisplayName = 'Chrono Cannon',
-            
+            DamageType = "Normal",
+            DisplayName = "Chrono Cannon",
             FireTargetLayerCapsTable = {
-                Land = 'Land|Water|Seabed',
-                Seabed = 'Land|Water|Seabed',                
-                Water = 'Land|Water|Seabed',
+                Land = "Land|Water|Seabed",
+                Seabed = "Land|Water|Seabed",
+                Water = "Land|Water|Seabed",
             },
             FiringRandomness = 0.3,
             FiringRandomnessWhileMoving = 0.6,
             FiringTolerance = 2,
-            
-            Label = 'ChinGun',
-            
+            Label = "ChinGun",
             MaxRadius = 40,
-            
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 30,
-            
-			NotExclusive = true,
-            
-            ProjectileId = '/mods/BattlePack/projectiles/IChronCannon02/IChronCannon02_proj.bp',
+            NotExclusive = true,
+            ProjectileId = "/mods/BattlePack/projectiles/IChronCannon02/IChronCannon02_proj.bp",
             ProjectileLifetimeUsesMultiplier = 1.8,
-
             RackBones = {
                 {
-                    MuzzleBones = {'ChinGun_Muzzle'},
-                    RackBone = 'ChinGun',
+                    MuzzleBones = { "ChinGun_Muzzle" },
+                    RackBone = "ChinGun",
                 },
             },
-
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            
-            RateOfFire = 2,     -- 150 DPS
-            
+            RateOfFire = 2,
             TargetCheckInterval = 0.5,
             TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'MOBILE',
-                'ALLUNITS -WALL',
+                "SPECIALHIGHPRI",
+                "MOBILE",
+                "ALLUNITS -WALL",
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
-            
+            TargetRestrictDisallow = "UNTARGETABLE",
             TrackingRadius = 1.2,
-            
-            TurretBoneMuzzle = 'ChinGun_Muzzle',
-            TurretBonePitch = 'ChinGun',
-            TurretBoneYaw = 'MainTorso',
+            TurretBoneMuzzle = "ChinGun_Muzzle",
+            TurretBonePitch = "ChinGun",
+            TurretBoneYaw = "MainTorso",
             TurretDualManipulators = false,
-            
             TurretPitch = 10,
             TurretPitchRange = 55,
             TurretPitchSpeed = 30,
-            
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 38,
-            
             Turreted = true,
-			UseFiringSolutionInsteadOfAimBone = true,
+            UseFiringSolutionInsteadOfAimBone = true,
         },
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAB2301_Cannon_Oblivion_Fire',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                MuzzleChargeStart = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAB2301_Cannon_Oblivion_Charge',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire              = Sound { Bank = 'UALWeapon', Cue = 'UAB2301_Cannon_Oblivion_Fire',   LodCutoff = 'Weapon_LodCutoff' },
+                MuzzleChargeStart = Sound { Bank = 'UALWeapon', Cue = 'UAB2301_Cannon_Oblivion_Charge', LodCutoff = 'Weapon_LodCutoff' },
             },
-            BallisticArc = 'RULEUBA_LowArc',
+            BallisticArc = "RULEUBA_LowArc",
             CollideFriendly = false,
-            
-            Damage = 300,       -- 150 DPS Surface
-            DamageFriendly = false,
-            DamageRadius = 2,
-            DamageType = 'Normal',
-            
-            DisplayName = 'Oblivion Cannon',
-            
-            FireTargetLayerCapsTable = {
-                Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
-            },
-            FiringRandomness = 0.3,
-            FiringRandomnessWhileMoving = 0.6,
-            FiringTolerance = 0.5,
-            
-            Label = 'Arm',
-            
-            MaxRadius = 44,
-            
-            MuzzleChargeDelay = 1,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-            MuzzleVelocity = 36,
-            
-			NotExclusive = true,
-            
-            ProjectileId = '/projectiles/ADFOblivionCannon03/ADFOblivionCannon03_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 1.5,
-
-            RackBones = {
-                {
-                    MuzzleBones = {
-                        'Top_Right_CannonMuzzle',
-                    },
-                    RackBone = 'Right_Gun',
-                },
-				{
-                    MuzzleBones = {
-                        'Bottom_Right_CannonMuzzle',
-                    },
-                    RackBone = 'Right_Gun',
-                },
-            },
-
-            RackRecoilDistance = -0.9,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            
-            RangeCategory = 'UWRC_DirectFire',
-            
-            RateOfFire = 0.5,
-            
-            ReTargetOnMiss = true,
-            
-            TargetCheckInterval = 1,
-            TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'MOBILE -AIR',
-                'DEFENSE',
-                'ALLUNITS -WALL',
-            },
-            TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.15,
-            
-			TurretBoneDualMuzzle = 'Top_Right_CannonMuzzle',
-            TurretBoneDualPitch = 'Right_Gun',
-            TurretBoneMuzzle = 'Bottom_Right_CannonMuzzle',
-            TurretBonePitch = 'Right_Gun',
-            TurretBoneYaw = 'Right_Gun',
-            TurretDualManipulators = true,
-            
-            TurretPitch = 0,
-            TurretPitchRange = 80,
-            TurretPitchSpeed = 35,
-            
-            TurretYaw = 0,
-            TurretYawRange = 180,
-            TurretYawSpeed = 35,
-            
-            Turreted = true,
-        },
-		{
-            AboveWaterTargetsOnly = true,
-            Audio = {
-                Fire = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAB2301_Cannon_Oblivion_Fire',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                MuzzleChargeStart = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAB2301_Cannon_Oblivion_Charge',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-            },
-            BallisticArc = 'RULEUBA_LowArc',
-            CollideFriendly = false,
-            
             Damage = 300,
             DamageFriendly = false,
             DamageRadius = 2,
-            DamageType = 'Normal',
-            
-            DisplayName = 'Oblivion Cannon',
-            
+            DamageType = "Normal",
+            DisplayName = "Oblivion Cannon",
             FireTargetLayerCapsTable = {
-                Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
+                Land = "Land|Water|Seabed",
+                Water = "Land|Water|Seabed",
             },
             FiringRandomness = 0.3,
             FiringRandomnessWhileMoving = 0.6,
             FiringTolerance = 0.5,
-            
-            Label = 'Arm',
-            
+            Label = "Arm",
             MaxRadius = 44,
-            
             MuzzleChargeDelay = 1,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 36,
-            
-			NotExclusive = true,
-            
-            ProjectileId = '/projectiles/ADFOblivionCannon03/ADFOblivionCannon03_proj.bp',
+            NotExclusive = true,
+            ProjectileId = "/projectiles/ADFOblivionCannon03/ADFOblivionCannon03_proj.bp",
             ProjectileLifetimeUsesMultiplier = 1.5,
-
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Top_Left_CannonMuzzle',
-                    },
-                    RackBone = 'Left_Gun',
+                    MuzzleBones = { "Top_Right_CannonMuzzle" },
+                    RackBone = "Right_Gun",
                 },
-				                {
-                    MuzzleBones = {
-                        'Bottom_Left_CannonMuzzle',
-                    },
-                    RackBone = 'Left_Gun',
+                {
+                    MuzzleBones = { "Bottom_Right_CannonMuzzle" },
+                    RackBone = "Right_Gun",
                 },
             },
-
             RackRecoilDistance = -0.9,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            
-            RateOfFire = 0.5,       -- another 150DPS
-            
+            RangeCategory = "UWRC_DirectFire",
+            RateOfFire = 0.5,
             ReTargetOnMiss = true,
-            
-            TargetCheckInterval = 0.5,
+            TargetCheckInterval = 1,
             TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'MOBILE -AIR',
-                'DEFENSE',
-                'ALLUNITS -WALL',
+                "SPECIALHIGHPRI",
+                "MOBILE -AIR",
+                "DEFENSE",
+                "ALLUNITS -WALL",
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = "UNTARGETABLE",
             TrackingRadius = 1.15,
-            
-			TurretBoneDualMuzzle = 'Top_Left_CannonMuzzle',
-            TurretBoneDualPitch = 'Left_Gun',
-            TurretBoneMuzzle = 'Bottom_Left_CannonMuzzle',
-            TurretBonePitch = 'Left_Gun',
-            TurretBoneYaw = 'Left_Gun',
+            TurretBoneDualMuzzle = "Top_Right_CannonMuzzle",
+            TurretBoneDualPitch = "Right_Gun",
+            TurretBoneMuzzle = "Bottom_Right_CannonMuzzle",
+            TurretBonePitch = "Right_Gun",
+            TurretBoneYaw = "Right_Gun",
             TurretDualManipulators = true,
-            
             TurretPitch = 0,
             TurretPitchRange = 80,
             TurretPitchSpeed = 35,
-            
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 35,
-            
             Turreted = true,
         },
-		{
+        {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'XAL_Weapon',
-                    Cue = 'XAL0203_QuantumAutogun',
-                    LodCutoff = 'Weapon_LodCutoff',
+                Fire              = Sound { Bank = 'UALWeapon', Cue = 'UAB2301_Cannon_Oblivion_Fire',   LodCutoff = 'Weapon_LodCutoff' },
+                MuzzleChargeStart = Sound { Bank = 'UALWeapon', Cue = 'UAB2301_Cannon_Oblivion_Charge', LodCutoff = 'Weapon_LodCutoff' },
+            },
+            BallisticArc = "RULEUBA_LowArc",
+            CollideFriendly = false,
+            Damage = 300,
+            DamageFriendly = false,
+            DamageRadius = 2,
+            DamageType = "Normal",
+            DisplayName = "Oblivion Cannon",
+            FireTargetLayerCapsTable = {
+                Land = "Land|Water|Seabed",
+                Water = "Land|Water|Seabed",
+            },
+            FiringRandomness = 0.3,
+            FiringRandomnessWhileMoving = 0.6,
+            FiringTolerance = 0.5,
+            Label = "Arm",
+            MaxRadius = 44,
+            MuzzleChargeDelay = 1,
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 36,
+            NotExclusive = true,
+            ProjectileId = "/projectiles/ADFOblivionCannon03/ADFOblivionCannon03_proj.bp",
+            ProjectileLifetimeUsesMultiplier = 1.5,
+            RackBones = {
+                {
+                    MuzzleBones = { "Top_Left_CannonMuzzle" },
+                    RackBone = "Left_Gun",
+                },
+                {
+                    MuzzleBones = { "Bottom_Left_CannonMuzzle" },
+                    RackBone = "Left_Gun",
                 },
             },
-            BallisticArc = 'RULEUBA_LowArc',
+            RackRecoilDistance = -0.9,
+            RackReloadTimeout = 10,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RateOfFire = 0.5,
+            ReTargetOnMiss = true,
+            TargetCheckInterval = 0.5,
+            TargetPriorities = {
+                "SPECIALHIGHPRI",
+                "MOBILE -AIR",
+                "DEFENSE",
+                "ALLUNITS -WALL",
+            },
+            TargetRestrictDisallow = "UNTARGETABLE",
+            TrackingRadius = 1.15,
+            TurretBoneDualMuzzle = "Top_Left_CannonMuzzle",
+            TurretBoneDualPitch = "Left_Gun",
+            TurretBoneMuzzle = "Bottom_Left_CannonMuzzle",
+            TurretBonePitch = "Left_Gun",
+            TurretBoneYaw = "Left_Gun",
+            TurretDualManipulators = true,
+            TurretPitch = 0,
+            TurretPitchRange = 80,
+            TurretPitchSpeed = 35,
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 35,
+            Turreted = true,
+        },
+        {
+            AboveWaterTargetsOnly = true,
+            Audio = {
+                Fire = Sound { Bank = 'XAL_Weapon', Cue = 'XAL0203_QuantumAutogun', LodCutoff = 'Weapon_LodCutoff' },
+            },
+            BallisticArc = "RULEUBA_LowArc",
             CollideFriendly = false,
-            
             Damage = 20,
             DamageRadius = 0,
-            DamageType = 'Normal',
-            
-            DisplayName = 'Quantum Autoguns',
-            
+            DamageType = "Normal",
+            DisplayName = "Quantum Autoguns",
             FireTargetLayerCapsTable = {
-                Seabed = 'Land|Water|Seabed',
-                Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
+                Land = "Land|Water|Seabed",
+                Seabed = "Land|Water|Seabed",
+                Water = "Land|Water|Seabed",
             },
             FiringTolerance = 2,
-            
-            Label = 'TopCannon',
-            
+            Label = "TopCannon",
             MaxRadius = 36,
             MinRadius = 8,
-            
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 0,
             MuzzleVelocity = 55,
-            
-			NotExclusive = true,
-            
-            ProjectileId = '/projectiles/ADFQuatumAutoGun01/ADFQuatumAutoGun01_proj.bp',
+            NotExclusive = true,
+            ProjectileId = "/projectiles/ADFQuatumAutoGun01/ADFQuatumAutoGun01_proj.bp",
             ProjectileLifetime = 1,
-
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'TopGun_BottomMuzzle001',
-                    },
-                    RackBone = 'TopGun',
+                    MuzzleBones = { "TopGun_BottomMuzzle001" },
+                    RackBone = "TopGun",
                 },
                 {
-                    MuzzleBones = {
-						'TopGun_BottomMuzzle002',
-                    },
-                    RackBone = 'TopGun',
-                },               
+                    MuzzleBones = { "TopGun_BottomMuzzle002" },
+                    RackBone = "TopGun",
+                },
             },
-
             RackRecoilDistance = 0,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-
-            RateOfFire = 4,     -- 80 DPS
-            
+            RateOfFire = 4,
             TargetCheckInterval = 0.6,
             TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'MOBILE',
-                'ALLUNITS -WALL',
+                "SPECIALHIGHPRI",
+                "MOBILE",
+                "ALLUNITS -WALL",
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = "UNTARGETABLE",
             TrackingRadius = 1.15,
-            
-            TurretBoneMuzzle = 'TopGun_TopMuzzle001',
-            TurretBonePitch = 'TopGun',
-            TurretBoneYaw = 'TopGun',
+            TurretBoneMuzzle = "TopGun_TopMuzzle001",
+            TurretBonePitch = "TopGun",
+            TurretBoneYaw = "TopGun",
             TurretDualManipulators = false,
-            
             TurretPitch = 40,
             TurretPitchRange = 60,
             TurretPitchSpeed = 80,
-            
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 80,
-            
             Turreted = true,
         },
-		{
+        {
             AlwaysRecheckTarget = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAB2304_SAM',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UALWeapon', Cue = 'UAB2304_SAM', LodCutoff = 'Weapon_LodCutoff' },
             },
-            BallisticArc = 'RULEUBA_None',
+            BallisticArc = "RULEUBA_None",
             CannotAttackGround = true,
             CollideFriendly = false,
-            
             Damage = 110,
-            DamageType = 'Normal',
-            
-            DisplayName = 'Zealot AA Missile',
-            
-            FireTargetLayerCapsTable = {
-                Land = 'Air',
-            },
+            DamageType = "Normal",
+            DisplayName = "Zealot AA Missile",
+            FireTargetLayerCapsTable = { Land = "Air" },
             FiringTolerance = 1,
-            
-            Label = 'AntiAirMissiles01',
-            
+            Label = "AntiAirMissiles01",
             MaxRadius = 60,
-            
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 40,
-            
-			NotExclusive = true,
-            
-            ProjectileId = '/projectiles/AAAZealotMissile01/AAAZealotMissile01_proj.bp',
+            NotExclusive = true,
+            ProjectileId = "/projectiles/AAAZealotMissile01/AAAZealotMissile01_proj.bp",
             ProjectileLifetime = 5,
-
             RackBones = {
                 {
                     MuzzleBones = {
-                        'AA_Muzzle001',
-						'AA_Muzzle002',
+                        "AA_Muzzle001",
+                        "AA_Muzzle002",
                     },
-                    RackBone = 'AA_Rack',
+                    RackBone = "AA_Rack",
                 },
             },
-
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
-            
-            RangeCategory = 'UWRC_AntiAir',
-            
-            RateOfFire = 1,     -- 220 DPS Air
-            
+            RangeCategory = "UWRC_AntiAir",
+            RateOfFire = 1,
             TargetCheckInterval = 0.5,
             TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'HIGHPRIAIR',
-                'BOMBER',
-                'GROUNDATTACK',
-                'AIR MOBILE',
+                "SPECIALHIGHPRI",
+                "HIGHPRIAIR",
+                "BOMBER",
+                "GROUNDATTACK",
+                "AIR MOBILE",
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
+            TargetRestrictDisallow = "UNTARGETABLE,SATELLITE",
             TrackingRadius = 1.4,
-            
-            TurretBoneMuzzle = 'AA_Rack',
-            TurretBonePitch = 'AA_Rack',
-            TurretBoneYaw = 'AA_Rack',
+            TurretBoneMuzzle = "AA_Rack",
+            TurretBonePitch = "AA_Rack",
+            TurretBoneYaw = "AA_Rack",
             TurretDualManipulators = false,
-            
             Turreted = false,
         },
     },
-    
     Wreckage = {
-        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        Blueprint = "/props/DefaultWreckage/DefaultWreckage_prop.bp",
         EnergyMult = 0.2,
         HealthMult = 0.9,
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }
