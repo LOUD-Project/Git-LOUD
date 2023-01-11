@@ -2,8 +2,8 @@ UnitBlueprint {
 
     AI = {
 		GuardRadius = 100,
-        GuardReturnRadius = 125,
-        GuardScanRadius = 150,
+        GuardReturnRadius = 115,
+        GuardScanRadius = 100,
     },
 	
     Air = {
@@ -162,8 +162,8 @@ UnitBlueprint {
 		
         Elevation = 11,
 		
-        FuelRechargeRate = 7,
-        FuelUseTime = 240,
+        FuelRechargeRate = 6,
+        FuelUseTime = 215,
 		
         GroundCollisionOffset = 1.6,
 		

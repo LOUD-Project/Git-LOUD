@@ -1,13 +1,13 @@
 UnitBlueprint {
     AI = {
-        GuardReturnRadius = 150,
+        GuardReturnRadius = 115,
         GuardScanRadius = 100,
         BeaconName = 'UEB5102',
     },
 	
     Air = {
 	
-        AutoLandTime = 1.1,
+        AutoLandTime = 1.2,
         BankFactor = 0.1,
         BankForward = false,
         CanFly = true,
@@ -161,7 +161,7 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 16050,
+        BuildCostEnergy = 16950,
         BuildCostMass = 355,
         BuildTime = 600,
     },
@@ -212,8 +212,8 @@ UnitBlueprint {
         },
         Elevation = 8.5,
 		
-        FuelRechargeRate = 8,
-        FuelUseTime = 280,	-- 15% more than standard 
+        FuelRechargeRate = 6,
+        FuelUseTime = 245,	-- 15% more than standard 
 		
         GroundCollisionOffset = 1.6,
         MaxSpeed = 0.5,
