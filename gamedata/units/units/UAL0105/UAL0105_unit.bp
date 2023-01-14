@@ -1,11 +1,7 @@
 UnitBlueprint {
     AI = {
-        TargetBones = {
-            'Panel_01',
-            'Panel_02',
-            'Panel_03',
-            'Panel_04',
-        },
+        StagingPlatformScanRadius = 2.9,
+        TargetBones = { 'Panel_01', 'Panel_02', 'Panel_03', 'Panel_04' },
     },
 	
     Audio = {
@@ -42,6 +38,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'PATROLHELPER',
         'SHOWQUEUE',
+        'OVERLAYMISC',
     },
 	
     CollisionOffsetY = -0.25,

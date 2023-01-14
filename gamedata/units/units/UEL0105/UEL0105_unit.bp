@@ -35,7 +35,9 @@ UnitBlueprint {
         'RECLAIMABLE',
         'PATROLHELPER',
         'SHOWQUEUE',
+        'OVERLAYMISC',
     },
+
     CollisionOffsetY = -0.25,
     CollisionOffsetZ = -0.1,
     
@@ -47,7 +49,7 @@ UnitBlueprint {
         RegenRate = 0,
     },
     
-    Description = '<LOC uel0105_desc>T1 Engineer',
+    Description = '<LOC uel0105_desc>Engineer',
     
     Display = {
         AnimationBuild = '/units/UEL0105/uel0105_aopen.sca',
@@ -70,7 +72,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = false,
         UniformScale = 0.075,
     },
 	
@@ -91,9 +92,7 @@ UnitBlueprint {
     General = {
         BuildBones = {
             AimBone = 0,
-            BuildEffectBones = {
-                'Turret_Muzzle',
-            },
+            BuildEffectBones = {'Turret_Muzzle'},
             PitchBone = 'Turret_Barrel',
             YawBone = 'Turret',
         },
@@ -125,7 +124,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'T1 Engineer',
+        HelpText = 'Engineer',
     },
 	
     LifeBarHeight = 0.075,

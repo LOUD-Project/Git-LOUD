@@ -1,8 +1,6 @@
 UnitBlueprint {
     AI = {
-        TargetBones = {
-            'XSL0105',
-        },
+        TargetBones = {'XSL0105'},
     },
     
     Audio = {
@@ -39,6 +37,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'PATROLHELPER',
         'SHOWQUEUE',
+        'OVERLAYMISC',
     },
 	
     CollisionOffsetY = -0.25,
@@ -51,12 +50,9 @@ UnitBlueprint {
         RegenRate = 0,
     },
 	
-    Description = '<LOC xsl0105_desc>T1 Engineer',
+    Description = '<LOC xsl0105_desc>Engineer',
 	
     Display = {
-    
-        --AnimationBuild = '/units/ual0105/ual0105_aopen01.sca',
-        --AnimationBuildRate = 5,
         
         Mesh = {
             IconFadeInZoom = 130,
@@ -75,7 +71,7 @@ UnitBlueprint {
                 },
             },
         },
-        SpawnRandomRotation = true,
+
         UniformScale = 0.067,
     },
     
@@ -88,8 +84,6 @@ UnitBlueprint {
         BuildableCategory = {'BUILTBYTIER1ENGINEER SERAPHIM',},
 		
 		MaxBuildDistance = 2.9,
-		
-        --NeedToFaceTargetToBuild = true,
 		
         StorageEnergy = 25,
         StorageMass = 5,
@@ -130,7 +124,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'T1 Engineer',
+        HelpText = 'Engineer',
     },
 	
     LifeBarHeight = 0.075,

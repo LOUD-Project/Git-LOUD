@@ -32,6 +32,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'PATROLHELPER',
         'SHOWQUEUE',
+        'OVERLAYMISC',
     },
 	
     CollisionOffsetY = -0.25,
@@ -44,22 +45,17 @@ UnitBlueprint {
         RegenRate = 0.2,
     },
 	
-    Description = '<LOC url0105_desc>T1 Engineer',
+    Description = '<LOC url0105_desc>Engineer',
 	
     Display = {
         AnimationWater = '/units/URL0105/url0105_awheels.sca',
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 215,
-                    Scrolling = true,
-                    ShaderName = 'Insect',
-                },
+                {LODCutoff = 215,Scrolling = true,ShaderName = 'Insect'},
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.09,
     },
 	
@@ -79,9 +75,7 @@ UnitBlueprint {
 	
     General = {
         BuildBones = {
-            BuildEffectBones = {
-                'Buildpoint_Center',
-            },
+            BuildEffectBones = {'Buildpoint_Center'},
             PitchBone = 'Buildpoint_Center',
             YawBone = 'Buildpoint_Center',
         },
@@ -113,7 +107,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'T1 Engineer',
+        HelpText = 'Engineer',
     },
 	
     LifeBarHeight = 0.075,

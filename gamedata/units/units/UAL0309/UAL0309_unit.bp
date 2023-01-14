@@ -1,10 +1,6 @@
 UnitBlueprint {
     AI = {
-        TargetBones = {
-            'Spinner_01',
-            'Spinner_02',
-            'Spinner_03',
-        },
+        TargetBones = {'Spinner_01','Spinner_02','Spinner_03'},
     },
 	
     Audio = {
@@ -39,6 +35,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'PATROLHELPER',
         'SHOWQUEUE',
+        'OVERLAYMISC',
     },
 	
     CollisionOffsetY = -0.25,
@@ -51,7 +48,7 @@ UnitBlueprint {
         RegenRate = 3,
     },
 	
-    Description = '<LOC ual0309_desc>T3 Engineer',
+    Description = '<LOC ual0309_desc>Engineer',
 	
     Display = {
         Abilities = {
@@ -124,7 +121,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'T3 Engineer',
+        HelpText = 'Engineer',
     },
 	
     LifeBarHeight = 0.075,

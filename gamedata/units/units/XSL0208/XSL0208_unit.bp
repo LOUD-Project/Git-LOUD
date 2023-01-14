@@ -1,8 +1,6 @@
 UnitBlueprint {
     AI = {
-        TargetBones = {
-            'XSL0208',
-        },
+        TargetBones = {'XSL0208'},
     },
 	
     Audio = {
@@ -38,6 +36,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'PATROLHELPER',
         'SHOWQUEUE',
+        'OVERLAYMISC',
     },
 	
     CollisionOffsetY = -0.25,
@@ -50,7 +49,7 @@ UnitBlueprint {
         RegenRate = 2,
     },
 	
-    Description = '<LOC xsl0208_desc>T2 Engineer',
+    Description = '<LOC xsl0208_desc>Engineer',
 	
     Display = {
         IdleEffects = {
@@ -95,7 +94,7 @@ UnitBlueprint {
                 },
             },
         },
-        SpawnRandomRotation = false,
+
         UniformScale = 0.069,
     },
 	
@@ -108,8 +107,6 @@ UnitBlueprint {
         BuildableCategory = {'BUILTBYTIER2ENGINEER SERAPHIM',},
 		
 		MaxBuildDistance = 4.1,
-		
-        --NeedToFaceTargetToBuild = true,
 		
         StorageEnergy = 120,
         StorageMass = 20,

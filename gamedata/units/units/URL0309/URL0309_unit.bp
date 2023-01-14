@@ -30,6 +30,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'PATROLHELPER',
         'SHOWQUEUE',
+        'OVERLAYMISC',
     },
 	
     CollisionOffsetY = -0.25,
@@ -42,7 +43,7 @@ UnitBlueprint {
         RegenRate = 3,
     },
 	
-    Description = '<LOC url0309_desc>T3 Engineer',
+    Description = '<LOC url0309_desc>Engineer',
 	
     Display = {
         AnimationWater = '/units/URL0309/url0309_Awheels.sca',
@@ -68,6 +69,8 @@ UnitBlueprint {
         BuildTime = 3125,
 		
         BuildableCategory = {'BUILTBYTIER3ENGINEER CYBRAN',},
+		
+		MaxBuildDistance = 5,
 		
         StorageEnergy = 300,
         StorageMass = 30,
@@ -111,7 +114,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'T3 Engineer',
+        HelpText = 'Engineer',
     },
 	
     LifeBarHeight = 0.075,

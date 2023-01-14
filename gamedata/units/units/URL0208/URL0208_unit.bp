@@ -31,6 +31,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'PATROLHELPER',
         'SHOWQUEUE',
+        'OVERLAYMISC',
     },
 	
     CollisionOffsetY = -0.25,
@@ -43,7 +44,7 @@ UnitBlueprint {
         RegenRate = 2,
     },
 	
-    Description = '<LOC url0208_desc>T2 Engineer',
+    Description = '<LOC url0208_desc>Engineer',
 	
     Display = {
         AnimationWater = '/units/URL0208/url0208_Awheels.sca',
@@ -58,7 +59,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.117,
     },
 	
@@ -113,7 +113,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'T2 Engineer',
+        HelpText = 'Engineer',
     },
 	
     LifeBarHeight = 0.075,

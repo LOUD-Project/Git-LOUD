@@ -1,9 +1,6 @@
 UnitBlueprint {
     AI = {
-        TargetBones = {
-            'Spinner_01',
-            'Spinner_02',
-        },
+        TargetBones = {'Spinner_01','Spinner_02'},
     },
     Audio = {
         StartMove = Sound {
@@ -36,6 +33,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'PATROLHELPER',
         'SHOWQUEUE',
+        'OVERLAYMISC',
     },
 	
     CollisionOffsetY = -0.25,
@@ -70,7 +68,7 @@ UnitBlueprint {
                 },
             },
         },
-        SpawnRandomRotation = false,
+
         UniformScale = 0.08,
     },
 	

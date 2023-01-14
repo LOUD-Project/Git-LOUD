@@ -1,9 +1,9 @@
 UnitBlueprint {
     AI = {
-        TargetBones = {
-            'Turret',
-        },
+        ShowAssistRangeOnSelect = true,
+        TargetBones = { 'Turret' },
     },
+
     Audio = {
         StartMove = Sound {
             Bank = 'UEL',
@@ -16,7 +16,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     BuildIconSortPriority = 10,
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3FACTORY',
@@ -33,7 +35,9 @@ UnitBlueprint {
         'RECLAIMABLE',
         'PATROLHELPER',
         'SHOWQUEUE',
+        'OVERLAYMISC',
     },
+
     CollisionOffsetY = -0.25,
     CollisionOffsetZ = -0.1,
 	
@@ -45,7 +49,7 @@ UnitBlueprint {
         RegenRate = 3,
     },
 	
-    Description = '<LOC uel0309_desc>T3 Engineer',
+    Description = '<LOC uel0309_desc>Engineer',
 	
     Display = {
         AnimationBuild = '/units/UEL0309/uel0309_aopen.sca',
@@ -95,7 +99,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = false,
         UniformScale = 0.1,
     },
 	
@@ -106,6 +109,8 @@ UnitBlueprint {
         BuildTime = 3125,
 		
         BuildableCategory = {'BUILTBYTIER3ENGINEER UEF',},
+		
+		MaxBuildDistance = 5,
 		
         StorageEnergy = 300,
         StorageMass = 30,
@@ -150,7 +155,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'T3 Engineer',
+        HelpText = 'Engineer',
     },
 	
     LifeBarHeight = 0.075,

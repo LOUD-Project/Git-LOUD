@@ -1,9 +1,8 @@
 UnitBlueprint {
     AI = {
-        TargetBones = {
-            'Turret',
-        },
+        TargetBones = {'Turret'},
     },
+
     Audio = {
         StartMove = Sound {
             Bank = 'UEL',
@@ -16,7 +15,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     BuildIconSortPriority = 10,
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2FACTORY',
@@ -34,6 +35,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'PATROLHELPER',
         'SHOWQUEUE',
+        'OVERLAYMISC',
     },
 	
     CollisionOffsetY = -0.25,
@@ -47,7 +49,7 @@ UnitBlueprint {
         RegenRate = 2,
     },
 	
-    Description = '<LOC uel0208_desc>T2 Engineer',
+    Description = '<LOC uel0208_desc>Engineer',
 	
     Display = {
         AnimationBuild = '/units/UEL0208/uel0208_aopen.sca',
@@ -97,7 +99,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = false,
         UniformScale = 0.08,
     },
 	
@@ -118,10 +119,7 @@ UnitBlueprint {
     General = {
         BuildBones = {
             AimBone = 0,
-            BuildEffectBones = {
-                'Turret_Muzzle_01',
-                'Turret_Muzzle_02',
-            },
+            BuildEffectBones = {'Turret_Muzzle_01','Turret_Muzzle_02'},
             PitchBone = 'Turret_Barrel',
             YawBone = 'Turret',
         },
@@ -153,7 +151,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'T2 Engineer',
+        HelpText = 'Engineer',
     },
 	
     LifeBarHeight = 0.075,
