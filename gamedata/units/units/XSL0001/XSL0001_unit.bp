@@ -9,15 +9,13 @@ UnitBlueprint {
             'Left_Leg_B01',
             'Right_Leg_B01',
         },
-		StagingPlatformScanRadius = 350, --Teleport Range
+
     },
+
     Abilities = {
-        TargetLocation = {
-            Active = false,
-            bitmapId = 'intel-counter',
-            helpText = 'toggle_cloak',
-        },
+        TargetLocation = { Active = false, bitmapId = 'intel-counter', helpText = 'toggle_cloak' },
     },
+
     Audio = {
         CommanderArrival = Sound {
             Bank = 'UAL',
@@ -50,10 +48,12 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     BuffFields = {
         RegenField = 'SeraphimACURegenBuffField',
         AdvancedRegenField = 'SeraphimAdvancedACURegenBuffField',
     },
+
     Buffs = {
         Regen = {
             Level1 = 13,
@@ -63,6 +63,7 @@ UnitBlueprint {
             Level5 = 25,
         },
     },
+
     Categories = {
         'SELECTABLE',
         'SERAPHIM',
@@ -77,17 +78,25 @@ UnitBlueprint {
         'VISIBLETORECON',
         'PATROLHELPER',
         'SHOWQUEUE',
+        'ANTITELEPORT',
         'OVERLAYOMNI',
         'OVERLAYMISC',
     },
 	
     Defense = {
         ArmorType = 'Commander',
+
         EconomyThreatLevel = 260,
+
         Health = 11500,
         MaxHealth = 11500,
+
         RegenRate = 10,
+
         SurfaceThreatLevel = 35,
+		
+		NoTeleDistance = 55,
+		MaxTeleRange = 350,
     },
 	
     Description = '<LOC xsl0001_desc>Armored Command Unit',
@@ -151,8 +160,6 @@ UnitBlueprint {
                 },
             },
         },
-
-        SpawnRandomRotation = true,
 		
         TransportAnimation = {
             {
@@ -185,8 +192,8 @@ UnitBlueprint {
         InitialRemoteViewingEnergyDrain = 3000,
 		
         MaxBuildDistance = 10,
+
         NaturalProducer = true,
-        NeedToFaceTargetToBuild = false,
 		
         ProductionPerSecondEnergy = 20,
         ProductionPerSecondMass = 1,
@@ -194,9 +201,8 @@ UnitBlueprint {
         StorageEnergy = 4500,
         StorageMass = 715,
 		
-        TeleportEnergyMod = 0.03,
-        TeleportMassMod = 0.01,
-        TeleportTimeMod = 0.0001,
+        -- for teleporter
+		TeleportBurstEnergyCost = 5000,
     },
 	
     Enhancements = {

@@ -9,7 +9,7 @@ UnitBlueprint {
             'Left_Leg_B01',
             'Right_Leg_B01',
         },
-		StagingPlatformScanRadius = 350, --Teleport Range
+
     },
     Audio = {
         CommanderArrival = Sound {
@@ -76,19 +76,29 @@ UnitBlueprint {
         'VISIBLETORECON',
         'PATROLHELPER',
         'SHOWQUEUE',
-        'OVERLAYOMNI',
 		'ANTITELEPORT',
+        'OVERLAYOMNI',
         'OVERLAYMISC',
     },
+
     Defense = {
         ArmorType = 'Commander',
+
         EconomyThreatLevel = 250,
+
         Health = 11000,
         MaxHealth = 11000,
+
         RegenRate = 10,
+
         SurfaceThreatLevel = 35,
+		
+		NoTeleDistance = 55,
+		MaxTeleRange = 350,        
     },
+
     Description = '<LOC ual0001_desc>Armored Command Unit',
+
     Display = {
         Abilities = {
             '<LOC ability_amphibious>Amphibious',
@@ -149,8 +159,6 @@ UnitBlueprint {
                 },
             },
         },
-
-        SpawnRandomRotation = true,
 		
         TransportAnimation = {
             {
@@ -172,6 +180,7 @@ UnitBlueprint {
         BuildCostEnergy = 100000,
         BuildCostMass = 15000,
         BuildRate = 10,
+
         BuildTime = 10000,
 		
         BuildableCategory = {
@@ -182,14 +191,17 @@ UnitBlueprint {
         },
 		
         MaxBuildDistance = 10,
+
         NaturalProducer = true,
-        NeedToFaceTargetToBuild = false,
 		
         ProductionPerSecondEnergy = 20,
         ProductionPerSecondMass = 1,
 		
         StorageEnergy = 4000,
         StorageMass = 650,
+		
+        -- for teleporter
+		TeleportBurstEnergyCost = 5000,
     },
 	
     Enhancements = {

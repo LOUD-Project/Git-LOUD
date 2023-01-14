@@ -10,8 +10,9 @@ UnitBlueprint {
             'Left_Leg_B01',
             'Right_Leg_B01',
         },
-		StagingPlatformScanRadius = 350, --Teleport Range
+
     },
+
     Audio = {
         CommanderArrival = Sound {
             Bank = 'UEL',
@@ -59,6 +60,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     Buffs = {
         Regen = {
             Level1 = 12,
@@ -85,17 +87,25 @@ UnitBlueprint {
         'VISIBLETORECON',
         'PATROLHELPER',
         'SHOWQUEUE',
+		'ANTITELEPORT',
         'OVERLAYOMNI',
         'OVERLAYMISC',
     },
 	
     Defense = {
         ArmorType = 'Commander',
+
         EconomyThreatLevel = 270,
+
         Health = 12000,
         MaxHealth = 12000,
+
         RegenRate = 10,
+
         SurfaceThreatLevel = 35,
+		
+		NoTeleDistance = 55,
+		MaxTeleRange = 350,
     },
 	
     Description = '<LOC uel0001_desc>Armored Command Unit',
@@ -179,8 +189,6 @@ UnitBlueprint {
                 },
             },
         },
-
-        SpawnRandomRotation = true,
 		
         TransportAnimation = {
             {
@@ -211,8 +219,8 @@ UnitBlueprint {
         },
 		
         MaxBuildDistance = 10,
+
         NaturalProducer = true,
-        NeedToFaceTargetToBuild = false,
 		
         ProductionPerSecondEnergy = 20,
         ProductionPerSecondMass = 1,
@@ -220,9 +228,8 @@ UnitBlueprint {
         StorageEnergy = 4000,
         StorageMass = 650,
 		
-        TeleportEnergyMod = 0.03,
-        TeleportMassMod = 0.01,
-        TeleportTimeMod = 0.0001,
+        -- for teleporter
+		TeleportBurstEnergyCost = 5000,		
     },
 	
     Enhancements = {
