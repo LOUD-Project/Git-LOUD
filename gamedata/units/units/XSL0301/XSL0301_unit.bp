@@ -9,8 +9,6 @@ UnitBlueprint {
             'Right_Arm',
             'Left_Arm',
         },
-
-		StagingPlatformScanRadius = 300, --Teleport Range
     },
 	
     Audio = {
@@ -38,12 +36,26 @@ UnitBlueprint {
 	
     Buffs = {
         Regen = {
-            Level1 = 15,
-            Level2 = 20,
-            Level3 = 25,
-            Level4 = 30,
-            Level5 = 35,
+            Level1 = 5,
+            Level2 = 10,
+            Level3 = 16,
+            Level4 = 22,
+            Level5 = 29,
         },
+        VisionRadius = {
+            Level1 = 2,
+            Level2 = 2,
+            Level3 = 3,
+            Level4 = 3,
+            Level5 = 3,        
+        },
+        WaterVisionRadius = {
+            Level1 = 2,
+            Level2 = 2,
+            Level3 = 3,
+            Level4 = 3,
+            Level5 = 3,        
+        },        
     },
 	
     BuildIconSortPriority = 10,
@@ -72,11 +84,18 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Normal',
-        EconomyThreatLevel = 180 + 620,		-- BuildRate *3 + 2% of health
-        Health = 31000 - 6200,
-        MaxHealth = 31000 - 6200,
-        RegenRate = 30,
-        SurfaceThreatLevel = 25,
+
+        EconomyThreatLevel = 180 + 432,		-- BuildRate *3 + 2% of health
+
+        Health = 21600,
+        MaxHealth = 21600,
+
+		MaxTeleRange = 300,
+		NoTeleDistance = 35,    -- if equipped with antiteleport
+
+        RegenRate = 24,
+
+        SurfaceThreatLevel = 32,
     },
 	
     Description = '<LOC xsl0301_desc>Support Armored Command Unit',
@@ -108,7 +127,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         TransportAnimation = {
             {
                 Animation = '/units/XSL0301/XSL0301_afold.sca',
@@ -125,23 +143,29 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 117000,
-        BuildCostMass = 9300,
+        BuildCostEnergy = 120000,
+        BuildCostMass = 9150,
         BuildRate = 60,
-        BuildTime = 46500,
+
+        BuildTime = 48000,
 		
         BuildableCategory = {
             'BUILTBYTIER3ENGINEER SERAPHIM',
             'BUILTBYTIER4COMMANDER SERAPHIM',
         },
 		
+		MaxBuildDistance = 8,
+		
         NaturalProducer = true,
 		
         ProductionPerSecondEnergy = 300,
         ProductionPerSecondMass = 3,
 		
-        StorageEnergy = 3000,
-        StorageMass = 200,
+        StorageEnergy = 3300,
+        StorageMass = 220,
+		
+        -- for teleporter
+		TeleportBurstEnergyCost = 5000,
     },
 	
     Enhancements = {
@@ -455,19 +479,17 @@ UnitBlueprint {
         Icon = 'amph',
 
         OrderOverrides = {
-            RULEUTC_ShieldToggle = {
-                bitmapId = 'shield-personal',
-                helpText = 'toggle_shield_personal',
-            },
+            RULEUTC_ShieldToggle = { bitmapId = 'shield-personal', helpText = 'toggle_shield_personal' },
         },
 
         SelectionPriority = 3,
         TechLevel = 'RULEUTL_Secret',
-        UnitWeight = 0,
     },
 	
     Intel = {
+
         FreeIntel = true,
+
         OmniRadius = 18,
         VisionRadius = 33,
         WaterVisionRadius = 18,
@@ -488,7 +510,7 @@ UnitBlueprint {
         },
         DragCoefficient = 0.2,
         LayerChangeOffsetHeight = -0.85,
-        MaxAcceleration = 1.4,
+        MaxAcceleration = 1.1,
         MaxBrake = 2.2,
         MaxSpeed = 2.2,
         MaxSpeedReverse = 0,
@@ -500,13 +522,12 @@ UnitBlueprint {
         MotionType = 'RULEUMT_Amphibious',
         StandUpright = true,
         TurnRadius = 10,
-        TurnRate = 150,
+        TurnRate = 70,
     },
 	
     SelectionSizeX = 0.55,
     SelectionSizeZ = 0.5,
     SelectionThickness = 0.7,
-    SelectionYOffset = 0,
 	
     SizeX = 0.85,
     SizeY = 1.6,
@@ -521,26 +542,24 @@ UnitBlueprint {
     },
 	
     Veteran = {
-        Level1 = 30,
-        Level2 = 60,
-        Level3 = 90,
-        Level4 = 120,
-        Level5 = 150,
+        Level1 = 27,
+        Level2 = 54,
+        Level3 = 81,
+        Level4 = 108,
+        Level5 = 135,
     },
 	
     Weapon = {
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0301_ Chronatron_Cannon',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound {Bank = 'XSL_Weapon',Cue = 'XSL0301_ Chronatron_Cannon',LodCutoff = 'Weapon_LodCutoff'},
             },
+
             BallisticArc = 'RULEUBA_LowArc',
-            ChargeDelay = 0.3,
+
             CollideFriendly = false,
             
             Damage = 200,
@@ -557,33 +576,23 @@ UnitBlueprint {
             
             Label = 'LightChronatronCannon',
             
-            MaxRadius = 30,
+            MaxRadius = 33,
             MinRadius = 1,
             
             MuzzleChargeDelay = 0.2,
-            MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 28,
+            MuzzleVelocity = 33,
             MuzzleVelocityReduceDistance = 5,
             
             ProjectileId = '/projectiles/SDFLightChronatronCannon01/SDFLightChronatronCannon01_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 1.15,
+            ProjectileLifetimeUsesMultiplier = 1.25,
 
             RackBones = {
-                {
-                    MuzzleBones = {
-                        'Right_Arm_Muzzle',
-                    },
-                    RackBone = 'Right_Arm',
-                },
+                { MuzzleBones = {'Right_Arm_Muzzle'}, RackBone = 'Right_Arm' },
             },
-            RackFireTogether = false,
             
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
             
             RangeCategory = 'UWRC_DirectFire',
             
@@ -601,7 +610,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Right_Arm_Muzzle',
             TurretBonePitch = 'Right_Arm',
             TurretBoneYaw = 'Torso',
-            TurretDualManipulators = false,
             
             TurretPitch = 0,
             TurretPitchRange = 160,
@@ -609,7 +617,7 @@ UnitBlueprint {
             
             TurretYaw = 0,
             TurretYawRange = 360,
-            TurretYawSpeed = 180,
+            TurretYawSpeed = 60,
             
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
@@ -617,13 +625,11 @@ UnitBlueprint {
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0301_ Chronatron_Cannon',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0301_ Chronatron_Cannon', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
             
@@ -632,7 +638,7 @@ UnitBlueprint {
             DamageRadius = 2.5,
             DamageType = 'Overcharge',
             
-            DisplayName = 'Light Chronotron Overcharge Cannon',
+            DisplayName = 'Light Overcharge Cannon',
             
             EnergyChargeForFirstShot = false,
             EnergyDrainPerSecond = 5000,
@@ -650,38 +656,27 @@ UnitBlueprint {
             
             ManualFire = true,
             
-            MaxRadius = 28,
+            MaxRadius = 30,
             
-            MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 22,
+            MuzzleVelocity = 24,
             
             OverChargeWeapon = true,
             
             ProjectileId = '/projectiles/SDFLightChronatronCannon02/SDFLightChronatronCannon02_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 1.15,
+            ProjectileLifetimeUsesMultiplier = 1.25,
             
             RackBones = {
-                {
-                    MuzzleBones = {
-                        'Right_Arm_Muzzle',
-                    },
-                    RackBone = 'Right_Arm',
-                },
+                { MuzzleBones = { 'Right_Arm_Muzzle' }, RackBone = 'Right_Arm' },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -0.5,
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
             
             RangeCategory = 'UWRC_DirectFire',
             
             RateOfFire = 0.4,
-            
-            SlavedToBody = false,
             
             TargetCheckInterval = 1,
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -689,7 +684,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Right_Arm_Muzzle',
             TurretBonePitch = 'Right_Arm',
             TurretBoneYaw = 'Torso',
-            TurretDualManipulators = false,
             
             TurretPitch = 0,
             TurretPitchRange = 60,
@@ -697,21 +691,18 @@ UnitBlueprint {
             
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 90,
+            TurretYawSpeed = 60,
             
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
-
         },
         {
             AboveWaterTargetsOnly = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0301_LaanseMissile',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0301_LaanseMissile', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
             CountedProjectile = true,
@@ -722,8 +713,6 @@ UnitBlueprint {
             DamageType = 'Normal',
             
             DisplayName = 'Laanse Tactical Missile Launcher',
-            
-            EffectiveRadius = 0,
             
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -752,20 +741,11 @@ UnitBlueprint {
             ProjectileLifetime = 80,
 
             RackBones = {
-                {
-                    MuzzleBones = {
-                        'back_missile',
-                    },
-                    RackBone = 'back_missile',
-                },
+                { MuzzleBones = {'back_missile' }, RackBone = 'back_missile' }
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
             
             RangeCategory = 'UWRC_IndirectFire',
             
@@ -778,10 +758,7 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            
-            Turreted = false,
-            
-            WeaponCategory = 'Missile',
+
             WeaponRepackTimeout = 5,
             WeaponUnpacks = true,
         },
@@ -803,11 +780,8 @@ UnitBlueprint {
         MassMult = 0.3,
         ReclaimTimeMultiplier = 0.4,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }

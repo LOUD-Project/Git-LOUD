@@ -26,13 +26,17 @@ URL0301 = Class(CWalkingLandUnit) {
 
     Weapons = {
         DeathWeapon = Class(CIFCommanderDeathWeapon) {},
+
         RightDisintegrator = Class(CDFLaserDisintegratorWeapon) {
+
             OnCreate = function(self)
                 CDFLaserDisintegratorWeapon.OnCreate(self)
-                #Disable buff 
+
+                -- Disable buff 
                 self:DisableBuff('STUN')
             end,
         },
+
         NMissile = Class(CAAMissileNaniteWeapon) {},
     },
 

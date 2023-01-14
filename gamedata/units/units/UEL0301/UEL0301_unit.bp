@@ -1,6 +1,5 @@
 UnitBlueprint {
     AI = {
-        ShowAssistRangeOnSelect = true,
         TargetBones = {
             'Head',             -- intentionally missable
             'Left_Left_B02',
@@ -37,12 +36,26 @@ UnitBlueprint {
 	
     Buffs = {
         Regen = {
-            Level1 = 25,
-            Level2 = 28,
-            Level3 = 31,
-            Level4 = 34,
-            Level5 = 35,
+            Level1 = 5,
+            Level2 = 10,
+            Level3 = 15,
+            Level4 = 20,
+            Level5 = 25,
         },
+        VisionRadius = {
+            Level1 = 1,
+            Level2 = 1,
+            Level3 = 2,
+            Level4 = 2,
+            Level5 = 2,        
+        },
+        WaterVisionRadius = {
+            Level1 = 1,
+            Level2 = 1,
+            Level3 = 2,
+            Level4 = 2,
+            Level5 = 2,        
+        },        
     },
 	
     BuildIconSortPriority = 5,
@@ -66,17 +79,25 @@ UnitBlueprint {
         'PATROLHELPER',
         'SHOWQUEUE',
         'OVERLAYOMNI',
+        'OVERLAYMISC',
     },
 	
     CollisionOffsetZ = -0.25,
 	
     Defense = {
         ArmorType = 'Normal',
-        EconomyThreatLevel = 180 + 700,		-- BuildRate * 3 + 2% of health
-        Health = 35000 - 7000,
-        MaxHealth = 35000 - 7000,
-        RegenRate = 25,
-        SurfaceThreatLevel = 65,
+
+        EconomyThreatLevel = 180 + 480,		-- BuildRate * 3 + 2% of health
+
+        Health = 24000,
+        MaxHealth = 24000,
+
+		MaxTeleRange = 300,
+		NoTeleDistance = 35,    -- if equipped with antiteleport
+
+        RegenRate = 22,
+
+        SurfaceThreatLevel = 35,
     },
 	
     Description = '<LOC uel0301_desc>Support Armored Command Unit',
@@ -105,7 +126,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         TransportAnimation = {
             {
                 Animation = '/units/UEL0301/UEL0301_afold.sca',
@@ -116,9 +136,10 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 114000,
+        BuildCostEnergy = 123000,
         BuildCostMass = 9600,
         BuildRate = 60,
+
         BuildTime = 48000,
 		
         BuildableCategory = {
@@ -126,13 +147,18 @@ UnitBlueprint {
             'BUILTBYTIER3ENGINEER UEF',
         },
 		
+		MaxBuildDistance = 8,
+		
         NaturalProducer = true,
 		
         ProductionPerSecondEnergy = 200,
         ProductionPerSecondMass = 2,
 		
-        StorageEnergy = 2500,
+        StorageEnergy = 3000,
         StorageMass = 200,
+		
+        -- for teleporter
+		TeleportBurstEnergyCost = 5000,
     },
 	
     Enhancements = {
@@ -496,12 +522,12 @@ UnitBlueprint {
     },
 	
     Intel = {
+
         FreeIntel = true,
-        JamRadius = {
-            Max = 26,
-            Min = 26,
-        },
+
+        JamRadius = { Max = 26, Min = 26 },
         JammerBlips = 10,
+
         OmniRadius = 18,
         VisionRadius = 33,
         WaterVisionRadius = 18,
@@ -522,9 +548,9 @@ UnitBlueprint {
         },
         DragCoefficient = 0.2,
         LayerChangeOffsetHeight = -0.85,
-        MaxAcceleration = 1.4,
-        MaxBrake = 2.2,
-        MaxSpeed = 2.2,
+        MaxAcceleration = 1.05,
+        MaxBrake = 2.1,
+        MaxSpeed = 2.1,
         MaxSpeedReverse = 0,
         MaxSteerForce = 12,
         MeshExtentsX = 0.95,
@@ -534,7 +560,7 @@ UnitBlueprint {
         MotionType = 'RULEUMT_Amphibious',
         StandUpright = true,
         TurnRadius = 10,
-        TurnRate = 150,
+        TurnRate = 70,
     },
 	
     SelectionCenterOffsetZ = -0.2,
@@ -567,13 +593,11 @@ UnitBlueprint {
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEL0301_BG_Gun',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEL0301_BG_Gun', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
             
@@ -592,42 +616,31 @@ UnitBlueprint {
             
             Label = 'RightHeavyPlasmaCannon',
             
-            MaxRadius = 30,
+            MaxRadius = 33,
             MinRadius = 1,
-            
-            MuzzleSalvoDelay = 0,
+
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 25,
+            MuzzleVelocity = 28,
             
             ProjectileId = '/projectiles/TDFPlasmaHeavy03/TDFPlasmaHeavy03_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 1.15,
+            ProjectileLifetimeUsesMultiplier = 1.3,
 
             RackBones = {
-                {
-                    MuzzleBones = {
-                        'Arm_Left_Muzzle',
-                    },
-                    RackBone = 'Arm_Left_Barrel02',
-                },
+                { MuzzleBones = {'Arm_Left_Muzzle'}, RackBone = 'Arm_Left_Barrel02' },
             },
-            RackFireTogether = true,
+
             RackRecoilDistance = -0.7,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
             
             RangeCategory = 'UWRC_DirectFire',
             
-            RateOfFire = 1,
+            RateOfFire = 2,
             
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-                
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -635,7 +648,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Arm_Left_Muzzle',
             TurretBonePitch = 'Arm_Left_Barrel01',
             TurretBoneYaw = 'Torso',
-            TurretDualManipulators = false,
             
             TurretPitch = 0,
             TurretPitchRange = 90,
@@ -643,13 +655,10 @@ UnitBlueprint {
             
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 180,
+            TurretYawSpeed = 60,
             
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
-
-            WeaponRepackTimeout = 0,
-            WeaponUnpacks = false,
         },
         {
             Damage = 4500,
@@ -667,13 +676,10 @@ UnitBlueprint {
         EnergyMult = 0.3,
         HealthMult = 0.3,
         MassMult = 0.3,
-        ReclaimTimeMultiplier = 0.5,
+        ReclaimTimeMultiplier = 0.4,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = true,
-            Sub = false,
-            Water = false,
         },
     },
 }
