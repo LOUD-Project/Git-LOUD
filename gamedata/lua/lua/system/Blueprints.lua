@@ -661,7 +661,7 @@ function ModBlueprints(all_blueprints)
 				bp.AI = {}
 			end
 		
-			bp.AI.GuardReturnRadius = 20
+			bp.AI.GuardReturnRadius = 30
 		end
 		
 		if bp.AI.GuardScanRadius then
@@ -671,13 +671,27 @@ function ModBlueprints(all_blueprints)
 				bp.AI.GuardScanRadius = 40
 			end
 		else
-			bp.AI.GuardScanRadius = 15
+			bp.AI.GuardScanRadius = 25
 		end
 		
 		if bp.Economy.MaxBuildDistance and bp.Economy.MaxBuildDistance < 3 then
 
 			bp.Economy.MaxBuildDistance = 3
-		
+            
+        end
+
+        -- anything that builds has it's StagingPlatformScanRadius set to it's build distance
+        -- for use as the build range indication
+        if bp.Economy.BuildRate >= 2 and bp.Economy.MaxBuildDistance then
+            
+            if not bp.AI.StagingPlatformScanRadius then
+
+                --LOG("*AI DEBUG Setting ScanRadius on "..repr(bp.Description).." to "..bp.Economy.MaxBuildDistance )
+
+                bp.AI.StagingPlatformScanRadius = bp.Economy.MaxBuildDistance
+
+            end
+
 		end
 	
 		if bp.Categories then
