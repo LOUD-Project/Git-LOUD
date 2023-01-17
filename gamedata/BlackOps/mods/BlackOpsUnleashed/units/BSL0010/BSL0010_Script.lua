@@ -3,37 +3,40 @@ local SWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 local SDFThauCannon = import('/lua/seraphimweapons.lua').SDFThauCannon
 local SAMElectrumMissileDefense = import('/lua/seraphimweapons.lua').SAMElectrumMissileDefense
 
-local ForkThread = ForkThread
+local SeraLambdaFieldDestroyer = import('/lua/defaultantiprojectile.lua').SeraLambdaFieldDestroyer
 
 BSL0010 = Class(SWalkingLandUnit) {
+
+    LambdaEffects = {'/effects/emitters/seraphim_rift_in_small_01_emit.bp','/effects/emitters/seraphim_rift_in_small_02_emit.bp'},
+
     Weapons = {
         MainGun = Class(SDFThauCannon) {},
         AntiMissile = Class(SAMElectrumMissileDefense) {},
     },
     
-    
     OnStopBeingBuilt = function(self,builder,layer)
 	
         SWalkingLandUnit.OnStopBeingBuilt(self,builder,layer)
-		
-		self.lambdaEmitterTable = {}
-		self:SetScriptBit('RULEUTC_ShieldToggle', true)
+
+        local bp = self:GetBlueprint().Defense.SeraLambdaFieldDestroyer01
+
+        self.Lambda1 = SeraLambdaFieldDestroyer {
+            Owner = self,
+            Radius = bp.Radius,
+            AttachBone = bp.AttachBone,
+            RedirectRateOfFire = bp.RedirectRateOfFire
+        }
+
+        self.Trash:Add(self.Lambda1)   
+
+		self:SetScriptBit('RULEUTC_SpecialToggle', true)
 		
         if not self.Dead then
-            self:SetMaintenanceConsumptionActive()
-            self:ForkThread(self.ResourceThread)
             self:SetVeterancy(5)
-			self.Brain = self:GetAIBrain()
         end
-		
     end,
 
     OnKilled = function(self, instigator, type, overkillRatio)
-	
-        self:SetWeaponEnabledByLabel('MainTurret', false)
-        self:SetWeaponEnabledByLabel('Torpedo01', false)
-        self:SetWeaponEnabledByLabel('LeftTurret', false)
-        self:SetWeaponEnabledByLabel('RightTurret', false)
 		
         IssueClearCommands(self)
 		
@@ -44,10 +47,19 @@ BSL0010 = Class(SWalkingLandUnit) {
 	
         SWalkingLandUnit.OnScriptBitSet(self, bit)
 		
-        local army =  self.Army
-		
-        if bit == 0 then 
-			self:ForkThread(self.LambdaEmitter)
+        if bit == 7 then 
+
+            self.Lambda1:Enable()
+
+            -- the Elite unit cannot toggle energy consumption
+            -- so we remove the toggle but run the consumption thread
+            -- which will not only disable the field, but kill the unit
+            self:RemoveToggleCap('RULEUTC_SpecialToggle')
+
+            if not self.ConsumptionThread then
+                self.ConsumptionThread = self:ForkThread( self.WatchConsumption )
+            end
+
     	end
     end,
     
@@ -55,112 +67,65 @@ BSL0010 = Class(SWalkingLandUnit) {
 	
         SWalkingLandUnit.OnScriptBitClear(self, bit)
 		
-        if bit == 0 then 
-			self:ForkThread(self.KillLambdaEmitter)
-			self:SetMaintenanceConsumptionInactive()
+        if bit == 7 then 
+            self.Lambda1:Disable()
     	end
-    end,
-    
-	LambdaEmitter = function(self)
-
-		if not self.Dead then
-	
-			WaitSeconds(0.5)
         
-			if not self.Dead then
+        KillThread(self.ConsumptionThread)
+        self.ConsumptionThread = nil
+        
+        self:Kill()
 
-				local platOrient = self:GetOrientation()
+    end,
 
-				local location = self:GetPosition('Torso')
+    -- this thread is launched when the lambda is turned on
+    -- and will disable it, and remove the toggle, if the power drops out
+    -- and will restore it once the power returns
+    WatchConsumption = function(self)
+	
+        local GetEconomyStored = moho.aibrain_methods.GetEconomyStored
+		local GetResourceConsumed = moho.unit_methods.GetResourceConsumed
+        local WaitTicks = coroutine.yield
 
-				local lambdaEmitter = CreateUnit('bsb0005', self:GetArmy(), location[1], location[2], location[3], platOrient[1], platOrient[2], platOrient[3], platOrient[4], 'Land') 
+        local MaintenanceConsumption = __blueprints[self.BlueprintID].MaintenanceConsumptionPerSecondEnergy
+    
+        local on = true
+        local count
 
-				table.insert (self.lambdaEmitterTable, lambdaEmitter)
+        local aiBrain = self:GetAIBrain()
+        local army =  self.Army
+
+        self.Effects = {}    
+
+        while true do
+
+            count = 0
+
+            for _,v in self.LambdaEffects do
+                count = count + 1
+                self.Effects[count] = CreateEmitterOnEntity( self, army, v ):ScaleEmitter(0.9)
+            end
             
-				lambdaEmitter:AttachTo(self, 'Torso') 
+            WaitTicks(11)
+            
+            if GetResourceConsumed(self) != 1 and GetEconomyStored(aiBrain,'Energy') < 1 then
+            
+                self.Lambda1:Disable()
+                self:SetMaintenanceConsumptionInactive()
 
-				lambdaEmitter:SetParent(self, 'bsl0010')
-				lambdaEmitter:SetCreator(self)  
+                self.OnScriptBitClear( self, 7 )
+                --self:SetScriptBit('RULEUTC_SpecialToggle', false)
 
-				self.Trash:Add(lambdaEmitter)
-			end
-		end 
-	end,
+                on = false
+            end
 
-	KillLambdaEmitter = function(self, instigator, type, overkillRatio)
-
-		if table.getn({self.lambdaEmitterTable}) > 0 then
-		
-			for k, v in self.lambdaEmitterTable do 
-				IssueClearCommands({self.lambdaEmitterTable[k]}) 
-				IssueKillSelf({self.lambdaEmitterTable[k]})
-			end
-			
-		end
-	end,
-	
-	ResourceThread = function(self) 
-
-    	if not self.Dead then
-		
-        	local energy = self:GetAIBrain():GetEconomyStored('Energy')
-
-        	if  energy <= 10 then 
-
-            	self:ForkThread(self.KillFactory)
-            	self:SetScriptBit('RULEUTC_ShieldToggle', false)
-            	self:ForkThread(self.ResourceThread2)
-
-        	else
-            	self:ForkThread(self.EconomyWaitUnit)
-        	end
-    	end    
-	end,
-
-	EconomyWaitUnit = function(self)
-	
-    	if not self.Dead then
-		
-			WaitSeconds(2)
-
-        	if not self.Dead then
-            	self:ForkThread(self.ResourceThread)
-        	end
-    	end
-	end,
-
-	KillFactory = function(self)
-    	self:Kill()
-	end,
-	
-	ResourceThread2 = function(self) 
-
-    	if not self.Dead then
-		
-        	local energy = self:GetAIBrain():GetEconomyStored('Energy')
-
-        	if  energy > 300 then 
-
-            	self:SetScriptBit('RULEUTC_ShieldToggle', true)
-            	self:ForkThread(self.ResourceThread)
-
-        	else
-            	self:ForkThread(self.EconomyWaitUnit2)
-        	end
-    	end    
-	end,
-
-	EconomyWaitUnit2 = function(self)
-	
-    	if not self.Dead then
-		
-			WaitSeconds(2)
-
-        	if not self:IsDead() then
-            	self:ForkThread(self.ResourceThread2)
-        	end
-    	end
-	end,
+            for _,v in self.Effects do
+                v:Destroy()
+            end
+            
+        end
+        
+    end,	
 
 }
 TypeClass = BSL0010

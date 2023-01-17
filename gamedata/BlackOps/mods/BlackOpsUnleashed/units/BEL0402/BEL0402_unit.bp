@@ -293,7 +293,7 @@ UnitBlueprint {
                 Water = 'Land|Water|Seabed',
             },
 			
-			FiringRandomness = 3,
+			FiringRandomness = 3.3,
             FiringTolerance = 180,
 			
             Label = 'MissileWeapon',

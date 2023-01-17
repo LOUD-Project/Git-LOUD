@@ -180,7 +180,7 @@ UnitBlueprint {
     },
     
     Intel = {
-		CloakFieldRadius = 40,	-- this is for the Maelstrom field
+		CloakFieldRadius = 32,	-- this is for the Maelstrom field
         VisionRadius = 36,
     },
 	

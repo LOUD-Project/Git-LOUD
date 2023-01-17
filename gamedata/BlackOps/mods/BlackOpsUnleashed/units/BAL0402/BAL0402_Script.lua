@@ -56,6 +56,7 @@ BAL0402 = Class(AHoverLandUnit) {
 	OnStopBeingBuilt = function(self,builder,layer)
 
 		self.MaelstromEffects01 = {}
+        
 		if self.MaelstromEffects01 then
 				for k, v in self.MaelstromEffects01 do
 					v:Destroy()

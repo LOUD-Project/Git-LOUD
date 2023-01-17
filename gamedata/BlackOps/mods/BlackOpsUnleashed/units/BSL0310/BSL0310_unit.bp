@@ -1,34 +1,29 @@
 UnitBlueprint {
 	AI = {
-        TargetBones = {
-            'Pelvis',
-        },
+        TargetBones = { 'Pelvis' },
     },
+
     Audio = {
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSL_Destroy_Land_Med',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'XSL',
-            Cue = 'XSL0202_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Bot',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed = Sound { Bank = 'XSL_Destroy', Cue = 'XSL_Destroy_Land_Med', LodCutoff = 'UnitMove_LodCutoff' },
+        Killed = Sound { Bank = 'XSL_Destroy', Cue = 'XSL_Destroy_Land_Med', LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove = Sound { Bank = 'XSL', Cue = 'XSL0202_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Bot', LodCutoff = 'UnitMove_LodCutoff' },
     },
 	
     Buffs = {
         Regen = {
             Level1 = 3,
             Level2 = 6,
-            Level3 = 8,
-            Level4 = 10,
-            Level5 = 12,
+            Level3 = 9,
+            Level4 = 12,
+            Level5 = 15,
+        },
+        VisionRadius = {
+            Level1 = 1,
+            Level2 = 2,
+            Level3 = 3,
+            Level4 = 4,
+            Level5 = 5,
         },
     },
 	
@@ -48,14 +43,17 @@ UnitBlueprint {
         'OVERLAYDEFENSE',
     },
 	
-	-- unit script will create BSB0005 emitter for Lambda defense --
-	
     Defense = {
+
+        SeraLambdaFieldDestroyer01 = { AttachBone = 'L_Arm_Muzzle', Radius = 4.3, RedirectRateOfFire = 3 },
+    
         ArmorType = 'Normal',
-        dontOKControl = true,
-        Health = 5100,
-        MaxHealth = 5100,
-        RegenRate = 2,
+
+        Health = 5050,
+        MaxHealth = 5050,
+
+        RegenRate = 4,
+
         SurfaceThreatLevel = 49,
     },
 	
@@ -64,7 +62,7 @@ UnitBlueprint {
     Display = {
 	
     	Abilities = {
-            'Projectile Nullifier Field',
+            'Lambda Destruction Field',
 			'Tactical Missile Defense',
         },
 		
@@ -92,21 +90,19 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.065,
     },
 	
     Economy = {
-        BuildCostEnergy = 21000,
-        BuildCostMass = 1660,
+        BuildCostEnergy = 22500,
+        BuildCostMass = 1590,
         BuildTime = 830,
 		
         MaintenanceConsumptionPerSecondEnergy = 40,
     },
 	
     General = {
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
+
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -116,23 +112,19 @@ UnitBlueprint {
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
         },
+
         FactionName = 'Seraphim',
         Icon = 'land',
 		
-        TechLevel = 'RULEUTL_Advanced',
-		
         ToggleCaps = {
-            RULEUTC_ShieldToggle = true,
+            RULEUTC_SpecialToggle = true,
         },
 		
         OrderOverrides = {
-            RULEUTC_ShieldToggle = {
-                bitmapId = 'shield-personal',
-                helpText = 'lambda_field',
-            },
+            RULEUTC_SpecialToggle = { bitmapId = 'area-assist', helpText = 'Toggle Lambda Field' },
         },
+
         UnitName = '<LOC bsl0310_name>Ilthysathuum',
-        UnitWeight = 1,
     },
 	
     Intel = {
@@ -148,25 +140,25 @@ UnitBlueprint {
     LifeBarSize = 0.95,
 	
     Physics = {
-		BackUpDistance = 2,
+		BackUpDistance = 5,
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Land = true,
         },
         DragCoefficient = 0.2,
-        MaxAcceleration = 2.5,
-        MaxBrake = 2.5,
-        MaxSpeed = 2.5,
-        MaxSpeedReverse = 2,
-        MaxSteerForce = 3,
+        MaxAcceleration = 2.6,
+        MaxBrake = 2.6,
+        MaxSpeed = 2.6,
+        MaxSpeedReverse = 2.6,
+        MaxSteerForce = 6,
         MeshExtentsX = 1,
         MeshExtentsY = 0.5,
         MeshExtentsZ = 1,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Land',
         RotateOnSpot = false,
-        TurnRadius = 1,
-        TurnRate = 100,
+        TurnRadius = 5,
+        TurnRate = 85,
     },
 	
     SelectionSizeX = 0.55,
@@ -195,18 +187,15 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0303_Bolter',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSL_Weapon', Cue = 'XSL0303_Bolter', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 320,
-            DamageRadius = 0,
+            Damage = 225,
             DamageType = 'Normal',
 			
             DisplayName = 'Aire-au Bolter',
@@ -219,10 +208,8 @@ UnitBlueprint {
 			
             Label = 'MainGun',
 			
-            MaxRadius = 30,
-			
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
+            MaxRadius = 33,
+
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 30,
 			
@@ -231,29 +218,22 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Barrel01_Muzzle',
-                    },
+                    MuzzleBones = {'Barrel01_Muzzle'},
                     RackBone = 'Barrel_01',
                 },
                 {
-                    MuzzleBones = {
-                        'Barrel02_Muzzle',
-                    },
+                    MuzzleBones = {'Barrel02_Muzzle'},
                     RackBone = 'Barrel_02',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -1,
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1.4,		---- 448 DPS
+            RateOfFire = 2,		---- 448 DPS
 			
             TargetCheckInterval = 1,
 			
@@ -270,7 +250,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Barrel01_Muzzle',
             TurretBonePitch = 'R_Arm_B01',
             TurretBoneYaw = 'Torso',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 60,
@@ -286,11 +265,7 @@ UnitBlueprint {
         },
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSB_Weapon',
-                    Cue = 'XSB4201_Eleathrun_TMD',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound {Bank = 'XSB_Weapon',Cue = 'XSB4201_Eleathrun_TMD',LodCutoff = 'Weapon_LodCutoff'},
             },
             BallisticArc = 'RULEUBA_None',
 			
@@ -310,9 +285,8 @@ UnitBlueprint {
 			
             Label = 'AntiMissile',
 			
-            MaxRadius = 24,
-			
-            MuzzleSalvoDelay = 0,
+            MaxRadius = 25,
+
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 35,
 			
@@ -321,17 +295,12 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'L_Arm_Muzzle',
-                    },
+                    MuzzleBones = {'L_Arm_Muzzle'},
                     RackBone = 'L_Arm_Muzzle',
                 },
             },
-            RackFireTogether = false,
             
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
 			
             RangeCategory = 'UWRC_Countermeasure',
@@ -349,7 +318,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'L_Arm_Muzzle',
             TurretBonePitch = 'L_Arm_B01',
             TurretBoneYaw = 'L_Arm_B01',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 90,
@@ -370,11 +338,7 @@ UnitBlueprint {
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }
