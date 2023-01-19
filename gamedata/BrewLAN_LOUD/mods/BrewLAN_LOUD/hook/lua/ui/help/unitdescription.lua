@@ -59,6 +59,10 @@ Description['sea0201'] = "<LOC Unit_Description_BrewLAN_T2A002>Tactical reconnai
 Description['ssa0201'] = "<LOC Unit_Description_BrewLAN_T2A002>Tactical reconnaissance aircraft."
 Description['sra0201'] = "<LOC Unit_Description_BrewLAN_T2A003>Tactical counter-intelligence and reconnaissance aircraft. Equipped with a stealth field generator."
 
+Description['sea0212'] = "<LOC Unit_Description_BrewPen_001>Mid-level Interceptor. Excellent AA capabilities but short range. Effective against enemy gunships and bombers."
+Description['sra0212'] = "<LOC Unit_Description_BrewPen_001>Mid-level Interceptor. Excellent AA capabilities but short range. Effective against enemy gunships and bombers."
+
+
 --Tech 2 naval units
 Description['sas0219'] = "<LOC Unit_Description_BrewLAN_T2S001>Tech 2 naval construction, repair, capture and reclaimation unit. Equipped with a single AA weapon."
 Description['ses0219'] = "<LOC Unit_Description_BrewLAN_T2S002>Tech 2 naval construction, repair, capture, reclaimation, and mine layer unit."
