@@ -1,12 +1,6 @@
 UnitBlueprint {
 
-    Audio = {
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Structure',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-    },
+    Audio = {},
 	
     BuildIconSortPriority = 130,
 	
@@ -23,7 +17,7 @@ UnitBlueprint {
         ArmorType = 'Structure',
         Health = 1,
         MaxHealth = 1,
-        RegenRate = 0,
+
     	NoTeleDistance = 45,
     },
 	
@@ -33,14 +27,10 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-        		{
-            	ShaderName = 'Unit',
-            	LODCutoff = 195,
-        		},
+        		{ShaderName = 'Unit',LODCutoff = 195},
         	},
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.001,
     },
 	
@@ -52,26 +42,15 @@ UnitBlueprint {
 	
     General = {
     	CapCost = 0,
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         FactionName = 'Cybran',
         Icon = 'land',
-        SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
-        UnitWeight = 1,
-    },
-	
-    Interface = {
-        HelpText = 'Anti-Teleport Emitter',
     },
 	
     LifeBarRender = false,
 	
     Physics = {
         BankingSlope = 0,
-        BuildOnLayerCaps = {
-            LAYER_Sub = true,
-        },
+        BuildOnLayerCaps = {LAYER_Sub = true},
         DragCoefficient = 0.2,
         MaxSteerForce = 0,
         MeshExtentsX = 1.1,

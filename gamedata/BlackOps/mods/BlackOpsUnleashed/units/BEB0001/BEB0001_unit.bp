@@ -10,23 +10,7 @@ UnitBlueprint {
         StagingPlatformScanRadius = 300,
     },
 	
-    Audio = {
-        DeathExplosion = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Structure',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-    },
+    Audio = {},
 	
     BuildIconSortPriority = 210,
 	
@@ -58,15 +42,11 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 600,
-                    ShaderName = 'Unit',
-                },
+                {LODCutoff = 600,ShaderName = 'Unit'},
             },
         },
 
-        SpawnRandomRotation = true,
-        UniformScale = 0.40,
+        UniformScale = 0.25,
     },
 	
     Economy = {
@@ -77,38 +57,29 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 0,
-        Category = 'Strategic',
-        Classification = 'RULEUC_MiscSupport',
+
         CommandCaps = {
             RULEUCC_Transport = true,
         },
+
         FactionName = 'UEF',
         Icon = 'land',
+
         OrderOverrides = {
             RULEUCC_Transport = {
                 bitmapId = 'deploy',
                 helpText = 'deploy',
             },
         },
-        SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
-        UnitWeight = 1,
     },
 	
-    Interface = {
-        HelpText = 'Air Staging Facility',
-    },
-	
-	Intel = {
-		RadarStealth = true,
-	},
+	Intel = { RadarStealth = true },
 	
     LifeBarRender = false,
 	
     Physics = {
         BankingSlope = 0,
-        BuildOnLayerCaps = {
-        },
+        BuildOnLayerCaps = {},
         DragCoefficient = 0.2,
         MaxSteerForce = 0,
         MeshExtentsX = 3.2,

@@ -1,6 +1,6 @@
 local SStructureUnit = import('/lua/defaultunits.lua').StructureUnit
 
-BAB0003 = Class(SStructureUnit) {
+BAB0004 = Class(SStructureUnit) {
 
 Parent = nil,
 
@@ -24,5 +24,5 @@ end,
 }
 
 
-TypeClass = BAB0003
+TypeClass = BAB0004
 

@@ -17,6 +17,7 @@ UnitBlueprint {
         ArmorType = 'Structure',
         Health = 1,
         MaxHealth = 1,
+
     	NoTeleDistance = 70,
     },
 	
@@ -33,7 +34,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.001,
     },
 	
@@ -45,26 +45,15 @@ UnitBlueprint {
 	
     General = {
     	CapCost = 0,
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
         FactionName = 'UEF',
         Icon = 'land',
-        SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
-        UnitWeight = 1,
-    },
-	
-    Interface = {
-        HelpText = 'Advanced Anti-Teleport Emitter',
     },
 	
     LifeBarRender = false,
 	
     Physics = {
         BankingSlope = 0,
-        BuildOnLayerCaps = {
-            LAYER_Sub = true,
-        },
+        BuildOnLayerCaps = {LAYER_Sub = true},
         DragCoefficient = 0.2,
         MaxSteerForce = 0,
         MeshExtentsX = 1.1,

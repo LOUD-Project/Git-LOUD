@@ -32,19 +32,6 @@ BAB4209 = Class(AStructureUnit) {
         TrashAdd( self.Trash, CreateRotator(self, 'Sphere', 'z', nil, 0, 15, 80 + Random(0, 20)) )
         
     end,
-    
-    OnScriptBitSet = function(self, bit)
-	
-        AStructureUnit.OnScriptBitSet(self, bit)
-
-        if bit == 0 then
-		
-        	self:ForkThread(self.antiteleportEmitter)
-        	self:ForkThread(self.AntiteleportEffects)
-
-        	self:SetMaintenanceConsumptionActive()
-		end
-	end,
 	
 	AntiteleportEffects = function(self)
 	
@@ -59,6 +46,19 @@ BAB4209 = Class(AStructureUnit) {
             LOUDINSERT( self.AmbientEffectsBag, CreateAttachedEmitter( self, 'BAB4209', self:GetArmy(), v ):ScaleEmitter(0.4) )
         end
     end,
+    
+    OnScriptBitSet = function(self, bit)
+	
+        AStructureUnit.OnScriptBitSet(self, bit)
+
+        if bit == 0 then
+		
+        	self:ForkThread(self.antiteleportEmitter)
+        	self:ForkThread(self.AntiteleportEffects)
+
+        	self:SetMaintenanceConsumptionActive()
+		end
+	end,
     
 	OnScriptBitClear = function(self, bit)
 	
