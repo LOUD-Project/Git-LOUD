@@ -27,16 +27,24 @@ TIFMissileCruise05 = Class(TMissileCruiseProjectile) {
     FxOnKilledScale = 0.65,
     
     OnCreate = function(self)
+
         TMissileCruiseProjectile.OnCreate(self)
+
         self:SetCollisionShape('Sphere', 0, 0, 0, 2)
+
         self.MoveThread = self:ForkThread(self.MovementThread)
     end,
 
     MovementThread = function(self)        
+
         self.WaitTime = 0.1
+
         self.Distance = self:GetDistanceToTarget()
-        self:SetTurnRate(8)
+
+        self:SetTurnRate(10)
+
         WaitSeconds(0.3)        
+
         while not self:BeenDestroyed() do
             self:SetTurnRateByDist()
             WaitSeconds(self.WaitTime)
@@ -44,25 +52,40 @@ TIFMissileCruise05 = Class(TMissileCruiseProjectile) {
     end,
 
     SetTurnRateByDist = function(self)
+
         local dist = self:GetDistanceToTarget()
-        if dist > self.Distance then
-        	self:SetTurnRate(50)
-        	WaitSeconds(3)
+
+        if dist >= self.Distance then
+
+        	self:SetTurnRate(35)
+            
+            local var = math.random(2,15)
+            WaitTicks(var)
+
+        	WaitSeconds(1)
+
         	self:SetTurnRate(8)
+
         	self.Distance = self:GetDistanceToTarget()
         end
-        if dist > 50 then        
-            #Freeze the turn rate as to prevent steep angles at long distance targets
-            WaitSeconds(2)
+
+        if dist > 64 then        
+
+            WaitSeconds(1.2)
             self:SetTurnRate(10)
-        elseif dist > 30 and dist <= 50 then
-						self:SetTurnRate(12)
-						WaitSeconds(1.5)
-            self:SetTurnRate(12)
-        elseif dist > 10 and dist <= 25 then
-            WaitSeconds(0.3)
-            self:SetTurnRate(50)
-				elseif dist > 0 and dist <= 10 then         
+
+        elseif dist > 32 and dist <= 64 then
+
+			self:SetTurnRate(20)
+			WaitSeconds(0.8)
+
+        elseif dist > 12 and dist <= 32 then
+
+            self:SetTurnRate(35)
+            WaitSeconds(0.1)
+
+		elseif dist > 0 and dist <= 12 then         
+
             self:SetTurnRate(100)   
             KillThread(self.MoveThread)         
         end

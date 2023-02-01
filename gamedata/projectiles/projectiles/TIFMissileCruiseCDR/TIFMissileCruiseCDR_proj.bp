@@ -16,6 +16,7 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+
     Categories = {
         'UEF',
         'PROJECTILE',
@@ -24,40 +25,48 @@ ProjectileBlueprint {
         'MISSILE',
         'NOSPLASHDAMAGE',
     },
+
     Defense = {
-        Health = 2,
-        MaxHealth = 2,
+        Health = 3,
+        MaxHealth = 3,
     },
-	DesiredShooterCap = 2,
+
     Display = {
         CameraFollowTimeout = 2,
         CameraFollowsProjectile = true,
-        ImpactEffects = {
-            Type = 'Medium01',
+        Mesh = {
+            LODs = {
+                {
+                    AlbedoName = '/projectiles/tifmissilecruise01/tifmissilecruise01_albedo.dds',
+                    MeshName = '/projectiles/tifmissilecruise01/tifmissilecruise01_lod0.scm',
+                    ShaderName = 'TMeshAlpha',
+                },
+            },
         },
-        MeshBlueprint = '/projectiles/tifmissilecruise01/tifmissilecruise01_mesh.bp',
         StrategicIconSize = 2,
-        UniformScale = 0.075,
+        UniformScale = 0.15,
     },
+
+    Economy = {
+        BuildCostEnergy = 4300,
+        BuildCostMass = 180,
+        BuildTime = 430,
+    },
+
     General = {
-        Category = 'Missile',
         Faction = 'UEF',
     },
-    Interface = {
-        HelpText = 0,
-    },
+
     Physics = {
         Acceleration = 3,
-        DestroyOnWater = true,
-        InitialSpeed = 5,
-        LifeTime = 30,
-        MaxSpeed = 15,
+        DestroyOnWater = false,
+        InitialSpeed = 3,
+        MaxSpeed = 12,
         RotationalVelocity = 0,
         RotationalVelocityRange = 0,
-		OnLostTargetLifetime = 2,
         TrackTarget = true,
-        #TrackTargetGround = true,
-        TurnRate = 45,
+        TrackTargetGround = true,
+        TurnRate = 0,
         UseGravity = false,
         VelocityAlign = true,
     },
