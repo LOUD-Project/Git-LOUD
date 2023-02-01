@@ -1,17 +1,7 @@
 UnitBlueprint {
-    AI = {
-        TargetBones = {
-            'Wall01',
-            'Lid',
-        },
-    },
 
-    Audio = {
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Structure',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+    AI = {
+        TargetBones = {'Wall01','Lid'},
     },
 
     BuildIconSortPriority = 260,

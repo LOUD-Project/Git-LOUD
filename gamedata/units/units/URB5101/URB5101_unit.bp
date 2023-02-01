@@ -1,12 +1,4 @@
 UnitBlueprint {
-
-    Audio = {
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Cybran_Select_Structure',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-    },
     
     BuildIconSortPriority = 260,
     

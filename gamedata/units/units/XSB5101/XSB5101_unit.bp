@@ -1,11 +1,4 @@
 UnitBlueprint {
-    Audio = {
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Structure',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-    },
     
     BuildIconSortPriority = 260,
     

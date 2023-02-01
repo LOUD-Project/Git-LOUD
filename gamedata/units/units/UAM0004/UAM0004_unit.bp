@@ -1,12 +1,7 @@
 UnitBlueprint {
 
     Audio = {
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-
+        Destroyed = Sound {Bank = 'UALDestroy',Cue = 'UAB_Destroy_Huge',LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 290,
@@ -95,8 +90,8 @@ UnitBlueprint {
     },
 	
     LifeBarHeight = 0.075,
-    LifeBarOffset = 0,
-    LifeBarSize = 0.4,
+    LifeBarOffset = 0.5,
+    LifeBarSize = 0.6,
 	
     Physics = {
         BankingSlope = 0,
@@ -118,7 +113,7 @@ UnitBlueprint {
 	
     SelectionSizeX = 0.6,
     SelectionSizeZ = 0.6,
-    SelectionThickness = 0.3,
+    SelectionThickness = 0.66,
 	
     SizeX = 1,
     SizeY = 1.1,

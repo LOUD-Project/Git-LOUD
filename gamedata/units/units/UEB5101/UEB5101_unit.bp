@@ -1,11 +1,4 @@
 UnitBlueprint {
-    Audio = {
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'UEF_Select_Structure',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-    },
     
     BuildIconSortPriority = 260,
     
