@@ -443,14 +443,45 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
             SetAccMult( unit, val )
             SetTurnMult( unit, val )
 
+        elseif atype == 'SpeedMult' then
+
+            local val = BuffCalculate(unit, buffName, 'SpeedMult', 1)
+
+            -- display new movement mult if it's not normal speed --
+            if unit.Sync.id and val != 1 then
+                ForkThread(FloatingEntityText, unit.Sync.id, 'Speed Mult now '..math.floor((.001+val)*100).."%")
+			end
+
+            SetSpeedMult( unit, val )
+
+        elseif atype == 'AccelMult' then
+
+            local val = BuffCalculate(unit, buffName, 'AccelMult', 1)
+
+            -- display new movement mult if it's not normal speed --
+            if unit.Sync.id and val != 1 then
+                ForkThread(FloatingEntityText, unit.Sync.id, 'Accel Mult now '..math.floor((.001+val)*100).."%")
+			end
+
+            SetAccMult( unit, val )
+
+        elseif atype == 'TurnMult' then
+
+            local val = BuffCalculate(unit, buffName, 'TurnMult', 1)
+
+            -- display new movement mult if it's not normal speed --
+            if unit.Sync.id and val != 1 then
+                ForkThread(FloatingEntityText, unit.Sync.id, 'Turn Mult now '..math.floor((.001+val)*100).."%")
+			end
+
+            SetTurnMult( unit, val )
+
         elseif atype == 'VisionRadius' then
 
             local val = BuffCalculate(unit, buffName, 'VisionRadius', __blueprints[unit.BlueprintID].Intel.VisionRadius or 0)
 
 			if val > 0 then
-
 				SetIntelRadius( unit, 'Vision', val)
-
 			end
 
 		elseif atype == 'WaterVisionRadius' then
@@ -458,9 +489,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 			local val = BuffCalculate(unit, buffName, 'WaterVisionRadius', __blueprints[unit.BlueprintID].Intel.WaterVisionRadius or 0)
 
 			if val > 0 then
-
 				SetIntelRadius( unit, 'WaterVision', val)
-
 				EnableIntel( unit, 'WaterVision')
 			end
 
@@ -469,17 +498,11 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
             local val = BuffCalculate(unit, buffName, 'RadarRadius', __blueprints[unit.BlueprintID].Intel.RadarRadius or 0)
 
 			if val > 0 then
-
 				if not unit:IsIntelEnabled('Radar') then
-
 					unit:InitIntel(unit.Sync.army,'Radar', val)
-
 					EnableIntel( unit, 'Radar')
-
 				else
-
 					SetIntelRadius( unit, 'Radar', val)
-
 					EnableIntel( unit, 'Radar')
 				end
 
@@ -492,16 +515,11 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
             local val = BuffCalculate(unit, buffName, 'SonarRadius', __blueprints[unit.BlueprintID].Intel.SonarRadius or 0)
 
 			if val > 0 then
-
 				if not unit:IsIntelEnabled('Sonar') then
-
 					unit:InitIntel(unit.Sync.army,'Sonar', val)
-
 					EnableIntel( unit, 'Sonar')
 				else
-
 					SetIntelRadius( unit, 'Sonar', val)
-
 					EnableIntel( unit, 'Sonar')
 				end
 
@@ -514,16 +532,11 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
             local val = BuffCalculate(unit, buffName, 'OmniRadius', __blueprints[unit.BlueprintID].Intel.OmniRadius or 0)
 
 			if val > 0 then
-
 				if not unit:IsIntelEnabled('Omni') then
-
 					unit:InitIntel(unit.Sync.army,'Omni', val)
-
 					EnableIntel( unit, 'Omni')
 				else
-
 					SetIntelRadius( unit, 'Omni', val )
-
 					EnableIntel( unit, 'Omni')
 				end
 
