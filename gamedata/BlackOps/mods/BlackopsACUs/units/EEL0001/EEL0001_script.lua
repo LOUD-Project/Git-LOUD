@@ -10,7 +10,7 @@ local TDFOverchargeWeapon = TerranWeaponFile.TDFOverchargeWeapon
 
 local Weapons2 = import('/mods/BlackOpsACUs/lua/EXBlackOpsweapons.lua')
 
-local EXFlameCannonWeapon = Weapons2.HawkGaussCannonWeapon
+local EXFlameCannonWeapon = Weapons2.UEFACUFlamerWeapon
 local UEFACUAntiMatterWeapon = Weapons2.UEFACUAntiMatterWeapon
 local UEFACUHeavyPlasmaGatlingCannonWeapon = Weapons2.UEFACUHeavyPlasmaGatlingCannonWeapon
 local PDLaserGrid = Weapons2.PDLaserGrid2
@@ -25,16 +25,24 @@ local Effects = import('/lua/effecttemplates.lua')
 
 local LOUDINSERT = table.insert
 
+local MissileRedirect = import('/lua/defaultantiprojectile.lua').MissileTorpDestroy
+
 local TrashBag = TrashBag
 local TrashAdd = TrashBag.Add
 local TrashDestroy = TrashBag.Destroy
 
 local WaitTicks = coroutine.yield
 
+local wep, wpTarget
+
 
 EEL0001 = Class(TWalkingLandUnit) {
 
     DeathThreadDestructionWaitTime = 2,
+
+    ShieldEffects2 = {'/mods/BlackopsACUs/effects/emitters/ex_uef_shieldgen_01_emit.bp'},
+
+    FlamerEffects = {'/mods/BlackopsACUs/effects/emitters/ex_flamer_torch_01.bp'},
 
     Weapons = {
 	
@@ -274,21 +282,8 @@ EEL0001 = Class(TWalkingLandUnit) {
         TWalkingLandUnit.OnCreate(self)
         
         self:SetCapturable(false)
-        self:HideBone('Engineering_Suite', true)
-        self:HideBone('Flamer', true)
-        self:HideBone('HAC', true)
-        self:HideBone('Gatling_Cannon', true)
-        self:HideBone('Back_MissilePack_B01', true)
-        self:HideBone('Back_SalvoLauncher', true)
-        self:HideBone('Back_ShieldPack', true)
-        self:HideBone('Left_Lance_Turret', true)
-        self:HideBone('Right_Lance_Turret', true)
-        self:HideBone('Zephyr_Amplifier', true)
-        self:HideBone('Back_IntelPack', true)
-        self:HideBone('Torpedo_Launcher', true)
+
         self:SetupBuildBones()
-        self.HasLeftPod = false
-        self.HasRightPod = false
         
         -- Restrict what enhancements will enable later
         self:AddBuildRestriction( categories.UEF * (categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER) )
@@ -300,9 +295,13 @@ EEL0001 = Class(TWalkingLandUnit) {
         if self.Dead then return end
         
         self:BuildManipulatorSetEnabled(true)
+
         self.BuildArmManipulator:SetPrecedence(20)
+
         self.wcBuildMode = true
+
 		self:ForkThread(self.WeaponConfigCheck)
+
         self.BuildArmManipulator:SetHeadingPitch( self:GetWeaponManipulatorByLabel('RightZephyr'):GetHeadingPitch() )
     end,
 
@@ -366,19 +365,26 @@ EEL0001 = Class(TWalkingLandUnit) {
         end
         
         self:BuildManipulatorSetEnabled(false)
-        self:DisableUnitIntel('Radar')
-        self:DisableUnitIntel('Sonar')
-        self:DisableUnitIntel('Spoof')
-        self:DisableUnitIntel('RadarStealth')
-        self:DisableUnitIntel('SonarStealth')
+
         self:DisableUnitIntel('Cloak')
         self:DisableUnitIntel('CloakField')
+
+        self:HideBone('Engineering_Suite', true)
+        self:HideBone('Flamer', true)
+        self:HideBone('HAC', true)
+        self:HideBone('Gatling_Cannon', true)
+        self:HideBone('Back_MissilePack_B01', true)
+        self:HideBone('Back_SalvoLauncher', true)
+        self:HideBone('Back_ShieldPack', true)
+        self:HideBone('Left_Lance_Turret', true)
+        self:HideBone('Right_Lance_Turret', true)
+        self:HideBone('Zephyr_Amplifier', true)
+        self:HideBone('Back_IntelPack', true)
+        self:HideBone('Torpedo_Launcher', true)
         
-		self:SetMaintenanceConsumptionInactive()
-        
-        self.Rotator1 = CreateRotator(self, 'Back_ShieldPack_Spinner01', 'z', nil, 0, 20, 0)
-        self.Rotator2 = CreateRotator(self, 'Back_ShieldPack_Spinner02', 'z', nil, 0, 40, 0)
-        self.RadarDish1 = CreateRotator(self, 'Back_IntelPack_Dish', 'y', nil, 0, 20, 0)
+        self.Rotator1 = CreateRotator(self, 'Back_ShieldPack_Spinner01', 'z', nil, 5, 15)
+        self.Rotator2 = CreateRotator(self, 'Back_ShieldPack_Spinner02', 'z', nil, 10, 15)
+        self.RadarDish1 = CreateRotator(self, 'Back_IntelPack_Dish', 'y', nil, 1, 4, 2)
         
         TrashAdd( self.Trash, self.Rotator1 )
         TrashAdd( self.Trash, self.Rotator2 )
@@ -388,45 +394,57 @@ EEL0001 = Class(TWalkingLandUnit) {
         
 		self.wcBuildMode = false
 		self.wcOCMode = false
+
 		self.wcFlamer01 = false
 		self.wcFlamer02 = false
+
 		self.wcTorp01 = false
 		self.wcTorp02 = false
 		self.wcTorp03 = false
+
 		self.wcAMC01 = false
 		self.wcAMC02 = false
 		self.wcAMC03 = false
+
 		self.wcGatling01 = false
 		self.wcGatling02 = false
 		self.wcGatling03 = false
-		self.wcLance01 = false
-		self.wcLance02 = false
+
 		self.wcCMissiles01 = false
 		self.wcCMissiles02 = false
 		self.wcCMissiles03 = false
+
 		self.wcTMissiles01 = false
 		self.wcNMissiles01 = false
+		
+		self.IntelPackage = false
+        self.IntelPackageOn = false
+		
+		self.Shield = false
+        self.ShieldOn = false
+
+		wpTarget = self:GetWeaponByLabel('EXTargetPainter')
+
+		wpTarget:ChangeMaxRadius(100)
+
 		self:ForkThread(self.WeaponConfigCheck)
 		self:ForkThread(self.WeaponRangeReset)
-        self:ForkThread(self.GiveInitialResources)
-		self.RBImpEngineering = false
-		self.RBAdvEngineering = false
-		self.RBExpEngineering = false
-		self.RBComEngineering = false
-		self.RBAssEngineering = false
-		self.RBApoEngineering = false
-		self.RBDefTier1 = false
-		self.RBDefTier2 = false
-		self.RBDefTier3 = false
-		self.RBComTier1 = false
-		self.RBComTier2 = false
-		self.RBComTier3 = false
-		self.RBIntTier1 = false
-		self.RBIntTier2 = false
-		self.RBIntTier3 = false
-		self.SpysatEnabled = false
-		self.regenammount = 0
 
+        self:ForkThread(self.GiveInitialResources)
+
+		self.SpysatEnabled = false
+		
+        self.EnergyConsumption = { Total = 0, Back = 0, Command = 0, LCH = 0, RCH = 0 }
+        
+        self:RemoveToggleCap('RULEUTC_IntelToggle')
+        self:RemoveToggleCap('RULEUTC_ShieldToggle')
+        self:RemoveToggleCap('RULEUTC_SpecialToggle')
+        
+        local bp = __blueprints[self.BlueprintID].Defense.MissileTorpDestroy
+
+        local antiMissile = MissileRedirect { Owner = self, Radius = bp.Radius, AttachBone = bp.AttachBone, RedirectRateOfFire = bp.RedirectRateOfFire }
+
+        TrashAdd( self.Trash, antiMissile)
     end,
 
     PlayCommanderWarpInEffect = function(self)
@@ -534,53 +552,10 @@ EEL0001 = Class(TWalkingLandUnit) {
         self.BuildingUnit = false          
     end,
 
-    NotifyOfPodDeath = function(self, pod)
-
-        if pod == 'LeftPod' then
-		
-            if self.HasRightPod then
-                TWalkingLandUnit.CreateEnhancement(self, 'RightPodRemove') # cant use CreateEnhancement function
-                TWalkingLandUnit.CreateEnhancement(self, 'LeftPod') #makes the correct upgrade icon light up
-                if self.LeftPod and not self.LeftPod:IsDead() then
-                    self.LeftPod:Kill()
-                end
-            else
-                self:CreateEnhancement('LeftPodRemove')
-            end
-			
-            self.HasLeftPod = false
-			
-        elseif pod == 'RightPod' then   #basically the same as above but we can use the CreateEnhancement function this time
-		
-            if self.HasLeftPod then
-                TWalkingLandUnit.CreateEnhancement(self, 'RightPodRemove') # cant use CreateEnhancement function
-                TWalkingLandUnit.CreateEnhancement(self, 'LeftPod') #makes the correct upgrade icon light up
-                if self.LeftPod and not self.LeftPod:IsDead() then
-                    self.RightPod:Kill()
-                end
-            else
-                self:CreateEnhancement('LeftPodRemove')
-            end
-			
-            self.HasRightPod = false
-
-        elseif pod == 'SpySat' and self.SpysatEnabled then
-
-			self:ForkThread(self.EXSatSpawn)
-        end
-		
-        self:RequestRefreshUI()
-    end,
-
     EXSatSpawn = function(self)
 
-        if self.SpysatEnabled then
-		
-			-- for respawns --
-			if self.Satellite then
-				WaitTicks(300)
-			end
-		
+        while self.SpysatEnabled and self.IntelPackageOn and not self.Dead do
+	
 			local location = self:GetPosition('Back_IntelPack')
 			
 			self.Satellite = CreateUnitHPR('EEA0002', self:GetArmy(), location[1], location[2], location[3], 0,0,0 )
@@ -596,12 +571,387 @@ EEL0001 = Class(TWalkingLandUnit) {
 			
 			self.Satellite:DetachFrom()
 			self.Satellite:Open()
+            
+			-- for respawns --
+			while not self.Satellite.Dead and self.IntelPackageOn do
+				WaitTicks(100)
+			end
+	
         end
+    end,
+
+    WeaponRangeReset = function(self)
+
+		wpTarget:ChangeMaxRadius(self:GetBlueprint().Weapon[2].MaxRadius)
+
+		if not self.wcFlamer01 then
+			wep = self:GetWeaponByLabel('EXFlameCannon01')
+			wep:ChangeMaxRadius(1)
+		end
+		if not self.wcFlamer02 then
+			wep = self:GetWeaponByLabel('EXFlameCannon02')
+			wep:ChangeMaxRadius(1)
+		end
+		if not self.wcTorp01 then
+			wep = self:GetWeaponByLabel('EXTorpedoLauncher01')
+			wep:ChangeMaxRadius(1)
+		end
+		if not self.wcTorp02 then
+			wep = self:GetWeaponByLabel('EXTorpedoLauncher02')
+			wep:ChangeMaxRadius(1)
+		end
+		if not self.wcTorp03 then
+			wep = self:GetWeaponByLabel('EXTorpedoLauncher03')
+			wep:ChangeMaxRadius(1)
+		end
+		if not self.wcAMC01 then
+			wep = self:GetWeaponByLabel('EXAntiMatterCannon01')
+			wep:ChangeMaxRadius(1)
+		end
+		if not self.wcAMC02 then
+			wep = self:GetWeaponByLabel('EXAntiMatterCannon02')
+			wep:ChangeMaxRadius(1)
+		end
+		if not self.wcAMC03 then
+			wep = self:GetWeaponByLabel('EXAntiMatterCannon03')
+			wep:ChangeMaxRadius(1)
+		end
+		if not self.wcGatling01 then
+			wep = self:GetWeaponByLabel('EXGattlingEnergyCannon01')
+			wep:ChangeMaxRadius(1)
+		end
+		if not self.wcGatling02 then
+			wep = self:GetWeaponByLabel('EXGattlingEnergyCannon02')
+			wep:ChangeMaxRadius(1)
+		end
+		if not self.wcGatling03 then
+			wep = self:GetWeaponByLabel('EXGattlingEnergyCannon03')
+			wep:ChangeMaxRadius(1)
+		end
+		if not self.wcLance01 then
+			wep = self:GetWeaponByLabel('EXEnergyLance01')
+			wep:ChangeMaxRadius(1)
+		end
+		if not self.wcLance02 then
+			wep = self:GetWeaponByLabel('EXEnergyLance02')
+			wep:ChangeMaxRadius(1)
+		end
+		if not self.wcCMissiles01 then
+			wep = self:GetWeaponByLabel('EXClusterMissles01')
+			wep:ChangeMaxRadius(1)
+		end
+		if not self.wcCMissiles02 then
+			wep = self:GetWeaponByLabel('EXClusterMissles02')
+			wep:ChangeMaxRadius(1)
+		end
+		if not self.wcCMissiles03 then
+			wep = self:GetWeaponByLabel('EXClusterMissles03')
+			wep:ChangeMaxRadius(1)
+		end
+		if not self.wcTMissiles01 then
+			wep = self:GetWeaponByLabel('TacMissile')
+			wep:ChangeMaxRadius(1)
+		end
+		if not self.wcNMissiles01 then
+			wep = self:GetWeaponByLabel('TacNukeMissile')
+			wep:ChangeMaxRadius(1)
+		end
+    end,
+
+    WeaponConfigCheck = function(self)
+    
+		if self.wcBuildMode then
+
+			self:SetWeaponEnabledByLabel('EXTargetPainter', false)
+			self:SetWeaponEnabledByLabel('RightZephyr', false)
+			self:SetWeaponEnabledByLabel('OverCharge', false)
+
+			self:SetWeaponEnabledByLabel('EXFlameCannon01', false)
+			self:SetWeaponEnabledByLabel('EXFlameCannon02', false)
+
+			self:SetWeaponEnabledByLabel('EXTorpedoLauncher01', false)
+			self:SetWeaponEnabledByLabel('EXTorpedoLauncher02', false)
+			self:SetWeaponEnabledByLabel('EXTorpedoLauncher03', false)
+
+			self:SetWeaponEnabledByLabel('EXAntiMatterCannon01', false)
+			self:SetWeaponEnabledByLabel('EXAntiMatterCannon02', false)
+			self:SetWeaponEnabledByLabel('EXAntiMatterCannon03', false)
+
+			self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon01', false)
+			self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon02', false)
+			self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon03', false)
+
+			--self:SetWeaponEnabledByLabel('EXEnergyLance01', false)
+			--self:SetWeaponEnabledByLabel('EXEnergyLance02', false)
+
+			self:SetWeaponEnabledByLabel('EXClusterMissles01', false)
+			self:SetWeaponEnabledByLabel('EXClusterMissles02', false)
+			self:SetWeaponEnabledByLabel('EXClusterMissles03', false)
+
+			self:SetWeaponEnabledByLabel('TacMissile', false)
+			self:SetWeaponEnabledByLabel('TacNukeMissile', false)
+		end
+
+		if self.wcOCMode then
+
+			self:SetWeaponEnabledByLabel('EXTargetPainter', false)
+			self:SetWeaponEnabledByLabel('RightZephyr', false)
+
+			self:SetWeaponEnabledByLabel('EXFlameCannon01', false)
+			self:SetWeaponEnabledByLabel('EXFlameCannon02', false)
+
+			self:SetWeaponEnabledByLabel('EXTorpedoLauncher01', false)
+			self:SetWeaponEnabledByLabel('EXTorpedoLauncher02', false)
+			self:SetWeaponEnabledByLabel('EXTorpedoLauncher03', false)
+
+			self:SetWeaponEnabledByLabel('EXAntiMatterCannon01', false)
+			self:SetWeaponEnabledByLabel('EXAntiMatterCannon02', false)
+			self:SetWeaponEnabledByLabel('EXAntiMatterCannon03', false)
+
+			self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon01', false)
+			self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon02', false)
+			self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon03', false)
+
+			--self:SetWeaponEnabledByLabel('EXEnergyLance01', false)
+			--self:SetWeaponEnabledByLabel('EXEnergyLance02', false)
+		end
+
+		if not self.wcBuildMode and not self.wcOCMode then
+		
+			self:SetWeaponEnabledByLabel('RightZephyr', true)
+			self:SetWeaponEnabledByLabel('OverCharge', false)
+			
+			if self.wcFlamer01 then
+
+				self:SetWeaponEnabledByLabel('EXFlameCannon01', true)
+                self:ShowBone('Flamer',true)
+
+                self.FlamerEffectsBag[1] = CreateAttachedEmitter( self, 'Flamer_Torch', self:GetArmy(), self.FlamerEffects[1] ):ScaleEmitter(0.0625)
+
+				wep = self:GetWeaponByLabel('EXFlameCannon01')
+				wep:ChangeMaxRadius(self:GetBlueprint().Weapon[5].MaxRadius)
+			else
+                for k, v in self.FlamerEffectsBag do
+                    v:Destroy()
+                end
+
+				self:SetWeaponEnabledByLabel('EXFlameCannon01', false)
+			end
+			
+			if self.wcFlamer02 then
+
+				self:SetWeaponEnabledByLabel('EXFlameCannon02', true)
+                self:ShowBone('Flamer',true)
+
+                self.FlamerEffectsBag[1] = CreateAttachedEmitter( self, 'Flamer_Torch', self:GetArmy(), self.FlamerEffects[1] ):ScaleEmitter(0.0625)
+
+				wep = self:GetWeaponByLabel('EXFlameCannon02')
+				wep:ChangeMaxRadius(self:GetBlueprint().Weapon[6].MaxRadius)
+			else
+                for k, v in self.FlamerEffectsBag do
+                    v:Destroy()
+                end
+
+				self:SetWeaponEnabledByLabel('EXFlameCannon02', false)
+			end
+			
+			if self.wcTorp01 then
+
+				self:SetWeaponEnabledByLabel('EXTorpedoLauncher01', true)
+
+				wep = self:GetWeaponByLabel('EXTorpedoLauncher01')
+				wep:ChangeMaxRadius(self:GetBlueprint().Weapon[7].MaxRadius)
+			else
+				self:SetWeaponEnabledByLabel('EXTorpedoLauncher01', false)
+			end
+			
+			if self.wcTorp02 then
+
+				self:SetWeaponEnabledByLabel('EXTorpedoLauncher02', true)
+
+				wep = self:GetWeaponByLabel('EXTorpedoLauncher02')
+				wep:ChangeMaxRadius(self:GetBlueprint().Weapon[8].MaxRadius)
+			else
+				self:SetWeaponEnabledByLabel('EXTorpedoLauncher02', false)
+			end
+			
+			if self.wcTorp03 then
+
+				self:SetWeaponEnabledByLabel('EXTorpedoLauncher03', true)
+
+				wep = self:GetWeaponByLabel('EXTorpedoLauncher03')
+				wep:ChangeMaxRadius(self:GetBlueprint().Weapon[9].MaxRadius)
+			else
+				self:SetWeaponEnabledByLabel('EXTorpedoLauncher03', false)
+			end
+			
+			if self.wcAMC01 then
+
+				self:SetWeaponEnabledByLabel('EXAntiMatterCannon01', true)
+       			self:SetWeaponEnabledByLabel('RightZephyr', false)
+                
+				wep = self:GetWeaponByLabel('EXAntiMatterCannon01')
+				wep:ChangeMaxRadius(self:GetBlueprint().Weapon[10].MaxRadius)
+			else
+				self:SetWeaponEnabledByLabel('EXAntiMatterCannon01', false)
+			end
+            
+			if self.wcAMC02 then
+
+				self:SetWeaponEnabledByLabel('EXAntiMatterCannon02', true)
+       			self:SetWeaponEnabledByLabel('RightZephyr', false)                
+
+				wep = self:GetWeaponByLabel('EXAntiMatterCannon02')
+				wep:ChangeMaxRadius(self:GetBlueprint().Weapon[11].MaxRadius)
+
+				wpTarget:ChangeMaxRadius(self:GetBlueprint().Weapon[11].MaxRadius)
+			else
+				self:SetWeaponEnabledByLabel('EXAntiMatterCannon02', false)
+			end
+
+			if self.wcAMC03 then
+
+				self:SetWeaponEnabledByLabel('EXAntiMatterCannon03', true)
+       			self:SetWeaponEnabledByLabel('RightZephyr', false)
+                
+				wep = self:GetWeaponByLabel('EXAntiMatterCannon03')
+				wep:ChangeMaxRadius(self:GetBlueprint().Weapon[12].MaxRadius)
+
+				wpTarget:ChangeMaxRadius(self:GetBlueprint().Weapon[12].MaxRadius)
+			else
+				self:SetWeaponEnabledByLabel('EXAntiMatterCannon03', false)
+			end
+
+			if self.wcGatling01 then
+
+				self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon01', true)
+
+				wep = self:GetWeaponByLabel('EXGattlingEnergyCannon01')
+				wep:ChangeMaxRadius(self:GetBlueprint().Weapon[13].MaxRadius)
+
+				wpTarget:ChangeMaxRadius(self:GetBlueprint().Weapon[13].MaxRadius)
+			else
+				self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon01', false)
+			end
+
+			if self.wcGatling02 then
+
+				self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon02', true)
+
+				wep = self:GetWeaponByLabel('EXGattlingEnergyCannon02')
+				wep:ChangeMaxRadius(self:GetBlueprint().Weapon[14].MaxRadius)
+
+				wpTarget:ChangeMaxRadius(self:GetBlueprint().Weapon[14].MaxRadius)
+			else
+				self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon02', false)
+			end
+
+			if self.wcGatling03 then
+
+				self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon03', true)
+
+				wep = self:GetWeaponByLabel('EXGattlingEnergyCannon03')
+				wep:ChangeMaxRadius(self:GetBlueprint().Weapon[15].MaxRadius)
+
+				wpTarget:ChangeMaxRadius(self:GetBlueprint().Weapon[15].MaxRadius)
+			else
+				self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon03', false)
+			end
+			
+			if self.wcCMissiles01 then
+
+				self:SetWeaponEnabledByLabel('EXClusterMissles01', true)
+
+				wep = self:GetWeaponByLabel('EXClusterMissles01')
+				wep:ChangeMaxRadius(self:GetBlueprint().Weapon[20].MaxRadius)
+
+				wpTarget:ChangeMaxRadius(self:GetBlueprint().Weapon[20].MaxRadius)
+			else
+				self:SetWeaponEnabledByLabel('EXClusterMissles01', false)
+			end
+
+			if self.wcCMissiles02 then
+                
+				self:SetWeaponEnabledByLabel('EXClusterMissles02', true)
+
+				wep = self:GetWeaponByLabel('EXClusterMissles02')
+				wep:ChangeMaxRadius(self:GetBlueprint().Weapon[21].MaxRadius)
+
+				wpTarget:ChangeMaxRadius(self:GetBlueprint().Weapon[21].MaxRadius)
+			else
+				self:SetWeaponEnabledByLabel('EXClusterMissles02', false)
+			end
+
+			if self.wcCMissiles03 then
+
+				self:SetWeaponEnabledByLabel('EXClusterMissles03', true)
+
+				wep = self:GetWeaponByLabel('EXClusterMissles03')
+				wep:ChangeMaxRadius(self:GetBlueprint().Weapon[22].MaxRadius)
+
+				wpTarget:ChangeMaxRadius(self:GetBlueprint().Weapon[22].MaxRadius)
+			else
+				self:SetWeaponEnabledByLabel('EXClusterMissles03', false)
+			end
+			
+			if self.wcTMissiles01 then
+
+				self:SetWeaponEnabledByLabel('TacMissile', true)
+
+				wep = self:GetWeaponByLabel('TacMissile')
+				wep:ChangeMaxRadius(self:GetBlueprint().Weapon[16].MaxRadius)
+			else
+				self:SetWeaponEnabledByLabel('TacMissile', false)
+			end
+
+			if self.wcNMissiles01 then
+
+				self:SetWeaponEnabledByLabel('TacNukeMissile', true)
+
+				wep = self:GetWeaponByLabel('TacNukeMissile')
+				wep:ChangeMaxRadius(self:GetBlueprint().Weapon[17].MaxRadius)
+			else
+				self:SetWeaponEnabledByLabel('TacNukeMissile', false)
+			end			
+
+			if self.wcLance01 then
+
+				self:SetWeaponEnabledByLabel('EXEnergyLance01', true)
+                self:ShowBone('Right_Lance_Turret', true)
+
+				wep = self:GetWeaponByLabel('EXEnergyLance01')
+				wep:ChangeMaxRadius(self:GetBlueprint().Weapon[18].MaxRadius)
+			else
+				self:SetWeaponEnabledByLabel('EXEnergyLance01', false)
+                self:HideBone('Right_Lance_Turret', true)
+			end
+
+			if self.wcLance02 then
+
+				self:SetWeaponEnabledByLabel('EXEnergyLance02', true)
+                self:ShowBone('Left_Lance_Turret', true)
+
+				wep = self:GetWeaponByLabel('EXEnergyLance02')
+				wep:ChangeMaxRadius(self:GetBlueprint().Weapon[19].MaxRadius)
+			else
+				self:SetWeaponEnabledByLabel('EXEnergyLance02', false)
+                self:HideBone('Left_Lance_Turret', true)
+			end
+
+		end
+    end,
+
+    OnTransportDetach = function(self, attachBone, unit)
+
+        TWalkingLandUnit.OnTransportDetach(self, attachBone, unit)
+
+		self:StopSiloBuild()
+        self:ForkThread(self.WeaponConfigCheck)
     end,
 
     OnScriptBitClear = function(self, bit)
     
-        if bit == 0 then    -- shield toggle
+        if bit == 0 and self.Shield and self.ShieldOn then    -- shield toggle
         
 			self.Rotator1:SetTargetSpeed(0)
 			self.Rotator2:SetTargetSpeed(0)
@@ -615,26 +965,46 @@ EEL0001 = Class(TWalkingLandUnit) {
 			end
             
 			self:DisableShield()
-			self:StopUnitAmbientSound( 'ActiveLoop' )
-            
-        elseif bit == 2 then 
 
-        elseif bit == 8 then    -- cloak toggle
-        
-            self:PlayUnitAmbientSound( 'ActiveLoop' )
-            self:SetMaintenanceConsumptionActive()
+            -- remove back slot consumption when shield turned off
+            self.EnergyConsumption['Total'] = self.EnergyConsumption['Total'] - self.EnergyConsumption['Back']
+
+            self.ShieldOn = false
+
+        elseif bit == 3 and self.IntelPackage and not self.IntelPackageOn then    -- Radar & Rhianne Intel
+
+            -- add command slot consumption when radar turned on
+            self.EnergyConsumption['Total'] = self.EnergyConsumption['Total'] + self.EnergyConsumption['Command']
+
             self:EnableUnitIntel('Radar')
             self:EnableUnitIntel('Sonar')
-			self.RadarDish1:SetTargetSpeed(45)
+            self:EnableUnitIntel('Omni')
+
+			self.RadarDish1:SetTargetSpeed(32)            
+
+            self.IntelPackageOn = true
+            
+            if self.SpysatEnabled then
+                self:ForkThread(self.EXSatSpawn)
+            end
         end
+
+        self:SetEnergyMaintenanceConsumptionOverride( self.EnergyConsumption['Total'] )
+        
+        if self.EnergyConsumption['Total'] > 0 then
+            self:SetMaintenanceConsumptionActive()
+        else
+            self:SetMaintenanceConsumptionInactive()
+        end
+
     end,
 
     OnScriptBitSet = function(self, bit)
     
-        if bit == 0 then
+        if bit == 0 and self.Shield and not self.ShieldOn then
         
-			self.Rotator1:SetTargetSpeed(90)
-			self.Rotator2:SetTargetSpeed(-180)
+			self.Rotator1:SetTargetSpeed(45)
+			self.Rotator2:SetTargetSpeed(-80)
             
 			if self.ShieldEffectsBag2 then
             
@@ -658,290 +1028,37 @@ EEL0001 = Class(TWalkingLandUnit) {
 			end
             
 			self:EnableShield()
-            self:PlayUnitAmbientSound( 'ActiveLoop' )
             
-		elseif bit == 2 then
+            self.EnergyConsumption['Total'] = self.EnergyConsumption['Total'] + self.EnergyConsumption['Back']
 
-		elseif bit == 8 then
-        
-            self:StopUnitAmbientSound( 'ActiveLoop' )
-            self:SetMaintenanceConsumptionInactive()
+            self.ShieldOn = true
+
+        elseif bit == 3 and self.IntelPackage and self.IntelPackageOn then
+
+            self.EnergyConsumption['Total'] = self.EnergyConsumption['Total'] - self.EnergyConsumption['Command']
+
             self:DisableUnitIntel('Radar')
             self:DisableUnitIntel('Sonar')
-			self.RadarDish1:SetTargetSpeed(0)
+            self:DisableUnitIntel('Omni')
+
+			self.RadarDish1:SetTargetSpeed(0)            
+
+            self.IntelPackageOn = false
+            
+            if self.SpysatEnabled and self.Satellite then
+                self.Satellite:Kill()
+                self.Satellite = nil
+            end
         end
-    end,
 
-    WeaponRangeReset = function(self)
-		local wpTarget = self:GetWeaponByLabel('EXTargetPainter')
-		wpTarget:ChangeMaxRadius(self:GetBlueprint().Weapon[2].MaxRadius)
-		if not self.wcFlamer01 then
-			local wepFlamer01 = self:GetWeaponByLabel('EXFlameCannon01')
-			wepFlamer01:ChangeMaxRadius(1)
-		end
-		if not self.wcFlamer02 then
-			local wepFlamer02 = self:GetWeaponByLabel('EXFlameCannon02')
-			wepFlamer02:ChangeMaxRadius(1)
-		end
-		if not self.wcTorp01 then
-			local wepTorpedo01 = self:GetWeaponByLabel('EXTorpedoLauncher01')
-			wepTorpedo01:ChangeMaxRadius(1)
-		end
-		if not self.wcTorp02 then
-			local wepTorpedo02 = self:GetWeaponByLabel('EXTorpedoLauncher02')
-			wepTorpedo02:ChangeMaxRadius(1)
-		end
-		if not self.wcTorp03 then
-			local wepTorpedo03 = self:GetWeaponByLabel('EXTorpedoLauncher03')
-			wepTorpedo03:ChangeMaxRadius(1)
-		end
-		if not self.wcAMC01 then
-			local wepAntiMatter01 = self:GetWeaponByLabel('EXAntiMatterCannon01')
-			wepAntiMatter01:ChangeMaxRadius(1)
-		end
-		if not self.wcAMC02 then
-			local wepAntiMatter02 = self:GetWeaponByLabel('EXAntiMatterCannon02')
-			wepAntiMatter02:ChangeMaxRadius(1)
-		end
-		if not self.wcAMC03 then
-			local wepAntiMatter03 = self:GetWeaponByLabel('EXAntiMatterCannon03')
-			wepAntiMatter03:ChangeMaxRadius(1)
-		end
-		if not self.wcGatling01 then
-			local wepGattling01 = self:GetWeaponByLabel('EXGattlingEnergyCannon01')
-			wepGattling01:ChangeMaxRadius(1)
-		end
-		if not self.wcGatling02 then
-			local wepGattling02 = self:GetWeaponByLabel('EXGattlingEnergyCannon02')
-			wepGattling02:ChangeMaxRadius(1)
-		end
-		if not self.wcGatling03 then
-			local wepGattling03 = self:GetWeaponByLabel('EXGattlingEnergyCannon03')
-			wepGattling03:ChangeMaxRadius(1)
-		end
-		if not self.wcLance01 then
-			local wepLance01 = self:GetWeaponByLabel('EXEnergyLance01')
-			wepLance01:ChangeMaxRadius(1)
-		end
-		if not self.wcLance02 then
-			local wepLance02 = self:GetWeaponByLabel('EXEnergyLance02')
-			wepLance02:ChangeMaxRadius(1)
-		end
-		if not self.wcCMissiles01 then
-			local wepClusterMiss01 = self:GetWeaponByLabel('EXClusterMissles01')
-			wepClusterMiss01:ChangeMaxRadius(1)
-		end
-		if not self.wcCMissiles02 then
-			local wepClusterMiss02 = self:GetWeaponByLabel('EXClusterMissles02')
-			wepClusterMiss02:ChangeMaxRadius(1)
-		end
-		if not self.wcCMissiles03 then
-			local wepClusterMiss03 = self:GetWeaponByLabel('EXClusterMissles03')
-			wepClusterMiss03:ChangeMaxRadius(1)
-		end
-		if not self.wcTMissiles01 then
-			local wepTacMiss = self:GetWeaponByLabel('TacMissile')
-			wepTacMiss:ChangeMaxRadius(1)
-		end
-		if not self.wcNMissiles01 then
-			local wepNukeMiss = self:GetWeaponByLabel('TacNukeMissile')
-			wepNukeMiss:ChangeMaxRadius(1)
-		end
-    end,
+        self:SetEnergyMaintenanceConsumptionOverride( self.EnergyConsumption['Total'] )
+        
+        if self.EnergyConsumption['Total'] > 0 then
+            self:SetMaintenanceConsumptionActive()
+        else
+            self:SetMaintenanceConsumptionInactive()
+        end
 
-    WeaponConfigCheck = function(self)
-		if self.wcBuildMode then
-			self:SetWeaponEnabledByLabel('RightZephyr', false)
-			self:SetWeaponEnabledByLabel('OverCharge', false)
-			self:SetWeaponEnabledByLabel('EXFlameCannon01', false)
-			self:SetWeaponEnabledByLabel('EXFlameCannon02', false)
-			self:SetWeaponEnabledByLabel('EXTorpedoLauncher01', false)
-			self:SetWeaponEnabledByLabel('EXTorpedoLauncher02', false)
-			self:SetWeaponEnabledByLabel('EXTorpedoLauncher03', false)
-			self:SetWeaponEnabledByLabel('EXAntiMatterCannon01', false)
-			self:SetWeaponEnabledByLabel('EXAntiMatterCannon02', false)
-			self:SetWeaponEnabledByLabel('EXAntiMatterCannon03', false)
-			self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon01', false)
-			self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon02', false)
-			self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon03', false)
-			self:SetWeaponEnabledByLabel('EXEnergyLance01', false)
-			self:SetWeaponEnabledByLabel('EXEnergyLance02', false)
-			self:SetWeaponEnabledByLabel('EXClusterMissles01', false)
-			self:SetWeaponEnabledByLabel('EXClusterMissles02', false)
-			self:SetWeaponEnabledByLabel('EXClusterMissles03', false)
-			self:SetWeaponEnabledByLabel('TacMissile', false)
-			self:SetWeaponEnabledByLabel('TacNukeMissile', false)
-		end
-		if self.wcOCMode then
-			self:SetWeaponEnabledByLabel('RightZephyr', false)
-			self:SetWeaponEnabledByLabel('EXFlameCannon01', false)
-			self:SetWeaponEnabledByLabel('EXFlameCannon02', false)
-			self:SetWeaponEnabledByLabel('EXTorpedoLauncher01', false)
-			self:SetWeaponEnabledByLabel('EXTorpedoLauncher02', false)
-			self:SetWeaponEnabledByLabel('EXTorpedoLauncher03', false)
-			self:SetWeaponEnabledByLabel('EXAntiMatterCannon01', false)
-			self:SetWeaponEnabledByLabel('EXAntiMatterCannon02', false)
-			self:SetWeaponEnabledByLabel('EXAntiMatterCannon03', false)
-			self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon01', false)
-			self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon02', false)
-			self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon03', false)
-			self:SetWeaponEnabledByLabel('EXEnergyLance01', false)
-			self:SetWeaponEnabledByLabel('EXEnergyLance02', false)
-		end
-		local wpTarget = self:GetWeaponByLabel('EXTargetPainter')
-		if not self.wcBuildMode and not self.wcOCMode then
-		
-			self:SetWeaponEnabledByLabel('RightZephyr', true)
-			self:SetWeaponEnabledByLabel('OverCharge', false)
-			
-			if self.wcFlamer01 then
-				self:SetWeaponEnabledByLabel('EXFlameCannon01', true)
-				local wepFlamer01 = self:GetWeaponByLabel('EXFlameCannon01')
-				wepFlamer01:ChangeMaxRadius(22)
-			else
-				self:SetWeaponEnabledByLabel('EXFlameCannon01', false)
-			end
-			
-			if self.wcFlamer02 then
-				self:SetWeaponEnabledByLabel('EXFlameCannon02', true)
-				local wepFlamer02 = self:GetWeaponByLabel('EXFlameCannon02')
-				wepFlamer02:ChangeMaxRadius(30)
-			else
-				self:SetWeaponEnabledByLabel('EXFlameCannon02', false)
-			end
-			
-			if self.wcTorp01 then
-				self:SetWeaponEnabledByLabel('EXTorpedoLauncher01', true)
-				local wepTorpedo01 = self:GetWeaponByLabel('EXTorpedoLauncher01')
-				wepTorpedo01:ChangeMaxRadius(60)
-			else
-				self:SetWeaponEnabledByLabel('EXTorpedoLauncher01', false)
-			end
-			
-			if self.wcTorp02 then
-				self:SetWeaponEnabledByLabel('EXTorpedoLauncher02', true)
-				local wepTorpedo02 = self:GetWeaponByLabel('EXTorpedoLauncher02')
-				wepTorpedo02:ChangeMaxRadius(60)
-			else
-				self:SetWeaponEnabledByLabel('EXTorpedoLauncher02', false)
-			end
-			
-			if self.wcTorp03 then
-				self:SetWeaponEnabledByLabel('EXTorpedoLauncher03', true)
-				local wepTorpedo03 = self:GetWeaponByLabel('EXTorpedoLauncher03')
-				wepTorpedo03:ChangeMaxRadius(60)
-			else
-				self:SetWeaponEnabledByLabel('EXTorpedoLauncher03', false)
-			end
-			
-			if self.wcAMC01 then
-				self:SetWeaponEnabledByLabel('EXAntiMatterCannon01', true)
-				local wepAntiMatter01 = self:GetWeaponByLabel('EXAntiMatterCannon01')
-				wepAntiMatter01:ChangeMaxRadius(30)
-				wpTarget:ChangeMaxRadius(30)
-			else
-				self:SetWeaponEnabledByLabel('EXAntiMatterCannon01', false)
-			end
-			if self.wcAMC02 then
-				self:SetWeaponEnabledByLabel('EXAntiMatterCannon02', true)
-				local wepAntiMatter02 = self:GetWeaponByLabel('EXAntiMatterCannon02')
-				wepAntiMatter02:ChangeMaxRadius(30)
-				wpTarget:ChangeMaxRadius(30)
-			else
-				self:SetWeaponEnabledByLabel('EXAntiMatterCannon02', false)
-			end
-			if self.wcAMC03 then
-				self:SetWeaponEnabledByLabel('EXAntiMatterCannon03', true)
-				local wepAntiMatter03 = self:GetWeaponByLabel('EXAntiMatterCannon03')
-				wepAntiMatter03:ChangeMaxRadius(35)
-				wpTarget:ChangeMaxRadius(35)
-			else
-				self:SetWeaponEnabledByLabel('EXAntiMatterCannon03', false)
-			end
-			
-			if self.wcGatling01 then
-				self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon01', true)
-				local wepGattling01 = self:GetWeaponByLabel('EXGattlingEnergyCannon01')
-				wepGattling01:ChangeMaxRadius(35)
-				wpTarget:ChangeMaxRadius(35)
-			else
-				self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon01', false)
-			end
-			if self.wcGatling02 then
-				self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon02', true)
-				local wepGattling02 = self:GetWeaponByLabel('EXGattlingEnergyCannon02')
-				wepGattling02:ChangeMaxRadius(40)
-				wpTarget:ChangeMaxRadius(40)
-			else
-				self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon02', false)
-			end
-			if self.wcGatling03 then
-				self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon03', true)
-				local wepGattling03 = self:GetWeaponByLabel('EXGattlingEnergyCannon03')
-				wepGattling03:ChangeMaxRadius(45)
-				wpTarget:ChangeMaxRadius(45)
-			else
-				self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon03', false)
-			end
-			
-			if self.wcLance01 then
-				self:SetWeaponEnabledByLabel('EXEnergyLance01', true)
-				local wepLance01 = self:GetWeaponByLabel('EXEnergyLance01')
-				wepLance01:ChangeMaxRadius(22)
-			else
-				self:SetWeaponEnabledByLabel('EXEnergyLance01', false)
-			end
-			if self.wcLance02 then
-				self:SetWeaponEnabledByLabel('EXEnergyLance02', true)
-				local wepLance02 = self:GetWeaponByLabel('EXEnergyLance02')
-				wepLance02:ChangeMaxRadius(22)
-			else
-				self:SetWeaponEnabledByLabel('EXEnergyLance02', false)
-			end
-			
-			if self.wcCMissiles01 then
-				self:SetWeaponEnabledByLabel('EXClusterMissles01', true)
-				local wepClusterMiss01 = self:GetWeaponByLabel('EXClusterMissles01')
-				wepClusterMiss01:ChangeMaxRadius(90)
-			else
-				self:SetWeaponEnabledByLabel('EXClusterMissles01', false)
-			end
-			if self.wcCMissiles02 then
-				self:SetWeaponEnabledByLabel('EXClusterMissles02', true)
-				local wepClusterMiss02 = self:GetWeaponByLabel('EXClusterMissles02')
-				wepClusterMiss02:ChangeMaxRadius(90)
-			else
-				self:SetWeaponEnabledByLabel('EXClusterMissles02', false)
-			end
-			if self.wcCMissiles03 then
-				self:SetWeaponEnabledByLabel('EXClusterMissles03', true)
-				local wepClusterMiss03 = self:GetWeaponByLabel('EXClusterMissles03')
-				wepClusterMiss03:ChangeMaxRadius(90)
-			else
-				self:SetWeaponEnabledByLabel('EXClusterMissles03', false)
-			end
-			
-			if self.wcTMissiles01 then
-				self:SetWeaponEnabledByLabel('TacMissile', true)
-				local wepTacMiss = self:GetWeaponByLabel('TacMissile')
-				wepTacMiss:ChangeMaxRadius(256)
-			else
-				self:SetWeaponEnabledByLabel('TacMissile', false)
-			end
-			if self.wcNMissiles01 then
-				self:SetWeaponEnabledByLabel('TacNukeMissile', true)
-				local wepNukeMiss = self:GetWeaponByLabel('TacNukeMissile')
-				wepNukeMiss:ChangeMaxRadius(256)
-			else
-				self:SetWeaponEnabledByLabel('TacNukeMissile', false)
-			end
-		end
-    end,
-
-    OnTransportDetach = function(self, attachBone, unit)
-        TWalkingLandUnit.OnTransportDetach(self, attachBone, unit)
-		self:StopSiloBuild()
-        self:ForkThread(self.WeaponConfigCheck)
     end,
 
     CreateEnhancement = function(self, enh)
@@ -955,24 +1072,22 @@ EEL0001 = Class(TWalkingLandUnit) {
             self:RemoveBuildRestriction(ParseEntityCategory(bp.BuildableCategoryAdds))
 			
             Buff.ApplyBuff(self, 'ACU_T2_Imp_Eng')
-			
-			self.RBImpEngineering = true
-			self.RBAdvEngineering = false
-			self.RBExpEngineering = false
+
+            self.wcLance01 = true
+            self.wcLance02 = false
 			
         elseif enh =='EXImprovedEngineeringRemove' then
 			
             if Buff.HasBuff( self, 'ACU_T2_Imp_Eng' ) then
                 Buff.RemoveBuff( self, 'ACU_T2_Imp_Eng' )
             end
+
+            self.wcLance01 = false
+            self.wcLance02 = false
 			
             self:RestoreBuildRestrictions()
             self:AddBuildRestriction( categories.UEF * (categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER) )
             self:AddBuildRestriction( categories.UEF * ( categories.BUILTBYTIER4COMMANDER) )
-
-			self.RBImpEngineering = false
-			self.RBAdvEngineering = false
-			self.RBExpEngineering = false
 			
         elseif enh =='EXAdvancedEngineering' then
 		
@@ -980,23 +1095,21 @@ EEL0001 = Class(TWalkingLandUnit) {
 			
             Buff.ApplyBuff(self, 'ACU_T3_Adv_Eng')
 
-			self.RBImpEngineering = true
-			self.RBAdvEngineering = true
-			self.RBExpEngineering = false
-			
+            self.wcLance01 = false
+            self.wcLance02 = true
+
         elseif enh =='EXAdvancedEngineeringRemove' then
 		
             if Buff.HasBuff( self, 'ACU_T3_Adv_Eng' ) then
                 Buff.RemoveBuff( self, 'ACU_T3_Adv_Eng' )
             end
-			
+
+            self.wcLance01 = false
+            self.wcLance02 = false
+
             self:RestoreBuildRestrictions()
             self:AddBuildRestriction( categories.UEF * ( categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER) )
             self:AddBuildRestriction( categories.UEF * ( categories.BUILTBYTIER4COMMANDER) )
-
-			self.RBImpEngineering = false
-			self.RBAdvEngineering = false
-			self.RBExpEngineering = false
 			
         elseif enh =='EXExperimentalEngineering' then
 		
@@ -1004,23 +1117,21 @@ EEL0001 = Class(TWalkingLandUnit) {
 			
             Buff.ApplyBuff(self, 'ACU_T4_Exp_Eng')			
 
-			self.RBImpEngineering = true
-			self.RBAdvEngineering = true
-			self.RBExpEngineering = true
-			
+            self.wcLance01 = true
+            self.wcLance02 = true
+
 		elseif enh =='EXExperimentalEngineeringRemove' then
 		
             if Buff.HasBuff( self, 'ACU_T4_Exp_Eng' ) then
                 Buff.RemoveBuff( self, 'ACU_T4_Exp_Eng' )
             end		
 
+            self.wcLance01 = false
+            self.wcLance02 = false
+
             self:RestoreBuildRestrictions()
             self:AddBuildRestriction( categories.UEF * ( categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER) )
             self:AddBuildRestriction( categories.UEF * ( categories.BUILTBYTIER4COMMANDER) )
-
-			self.RBImpEngineering = false
-			self.RBAdvEngineering = false
-			self.RBExpEngineering = false
 
         elseif enh =='EXCombatEngineering' then
 		
@@ -1030,13 +1141,6 @@ EEL0001 = Class(TWalkingLandUnit) {
 
 			self.wcFlamer01 = true
 			self.wcFlamer02 = false
-			
-			self:ForkThread(self.WeaponRangeReset)
-			self:ForkThread(self.WeaponConfigCheck)
-			
-			self.RBComEngineering = true
-			self.RBAssEngineering = false
-			self.RBApoEngineering = false
 			
         elseif enh =='EXCombatEngineeringRemove' then
 		
@@ -1051,13 +1155,6 @@ EEL0001 = Class(TWalkingLandUnit) {
 			self.wcFlamer01 = false
 			self.wcFlamer02 = false
 			
-			self:ForkThread(self.WeaponRangeReset)
-			self:ForkThread(self.WeaponConfigCheck)
-			
-			self.RBComEngineering = false
-			self.RBAssEngineering = false
-			self.RBApoEngineering = false
-			
         elseif enh =='EXAssaultEngineering' then
 		
             self:RemoveBuildRestriction(ParseEntityCategory(bp.BuildableCategoryAdds))
@@ -1066,13 +1163,6 @@ EEL0001 = Class(TWalkingLandUnit) {
 
 			self.wcFlamer01 = false
 			self.wcFlamer02 = true
-			
-			self:ForkThread(self.WeaponRangeReset)
-			self:ForkThread(self.WeaponConfigCheck)
-			
-			self.RBComEngineering = true
-			self.RBAssEngineering = true
-			self.RBApoEngineering = false
 			
         elseif enh =='EXAssaultEngineeringRemove' then
 		
@@ -1087,13 +1177,6 @@ EEL0001 = Class(TWalkingLandUnit) {
 			self.wcFlamer01 = false
 			self.wcFlamer02 = false
 			
-			self:ForkThread(self.WeaponRangeReset)
-			self:ForkThread(self.WeaponConfigCheck)
-			
-			self.RBComEngineering = false
-			self.RBAssEngineering = false
-			self.RBApoEngineering = false
-			
         elseif enh =='EXApocalypticEngineering' then
 
             self:RemoveBuildRestriction(ParseEntityCategory(bp.BuildableCategoryAdds))
@@ -1102,13 +1185,6 @@ EEL0001 = Class(TWalkingLandUnit) {
 			
 			self.wcFlamer01 = false
 			self.wcFlamer02 = true
-			
-			self:ForkThread(self.WeaponRangeReset)
-			self:ForkThread(self.WeaponConfigCheck)
-
-			self.RBComEngineering = true
-			self.RBAssEngineering = true
-			self.RBApoEngineering = true
 			
         elseif enh =='EXApocalypticEngineeringRemove' then
 		
@@ -1122,570 +1198,572 @@ EEL0001 = Class(TWalkingLandUnit) {
 
 			self.wcFlamer01 = false
 			self.wcFlamer02 = false
-			
-			self:ForkThread(self.WeaponRangeReset)
-			self:ForkThread(self.WeaponConfigCheck)
-			
-			self.RBComEngineering = false
-			self.RBAssEngineering = false
-			self.RBApoEngineering = false
 
 		elseif enh =='EXZephyrBooster' then
+
             local wepZephyr = self:GetWeaponByLabel('RightZephyr')
-            wepZephyr:AddDamageMod(50)
+            
+            -- increase the damage 50%
+			wepZephyr:AddDamageMod( self:GetBlueprint().Weapon[2].Damage * .5 )
+
 			wepZephyr:ChangeMaxRadius(__blueprints[self.BlueprintID].Weapon[2].MaxRadius + 5)
-			local wpTarget = self:GetWeaponByLabel('EXTargetPainter')
+            
+            Buff.ApplyBuff(self,'MobilityPenalty')
+
 			wpTarget:ChangeMaxRadius(self:GetBlueprint().Weapon[2].MaxRadius)
+
 			local wepOvercharge = self:GetWeaponByLabel('OverCharge')
+
             wepOvercharge:ChangeMaxRadius(__blueprints[self.BlueprintID].Weapon[3].MaxRadius + 5)
+
 			self:ShowBone('Zephyr_Amplifier', true)
 			
         elseif enh =='EXZephyrBoosterRemove' then
+
             local wepZephyr = self:GetWeaponByLabel('RightZephyr')
-            wepZephyr:AddDamageMod(-50)
-			wepZephyr:ChangeMaxRadius(__blueprints[self.BlueprintID].Weapon[2].MaxRadius)
-			local wpTarget = self:GetWeaponByLabel('EXTargetPainter')
+
+            -- remove damage boost
+			wepZephyr:AddDamageMod( -0.5 * self:GetBlueprint().Weapon[2].Damage )
+
+			wepZephyr:ChangeMaxRadius(__blueprints[self.BlueprintID].Weapon[2].MaxRadius)            
+
+            if Buff.HasBuff( self, 'MobilityPenalty' ) then
+                Buff.RemoveBuff( self, 'MobilityPenalty' )
+            end
+
 			wpTarget:ChangeMaxRadius(self:GetBlueprint().Weapon[2].MaxRadius)
+
 			local wepOvercharge = self:GetWeaponByLabel('OverCharge')
+
             wepOvercharge:ChangeMaxRadius(__blueprints[self.BlueprintID].Weapon[3].MaxRadius)
+
 			self:HideBone('Zephyr_Amplifier', true)
 			
         elseif enh =='EXTorpedoLauncher' then
 			self.wcTorp01 = true
 			self.wcTorp02 = false
 			self.wcTorp03 = false
-			self:ForkThread(self.WeaponRangeReset)
-			self:ForkThread(self.WeaponConfigCheck)
 
         elseif enh =='EXTorpedoLauncherRemove' then
 			self.wcTorp01 = false
 			self.wcTorp02 = false
 			self.wcTorp03 = false
-			self:ForkThread(self.WeaponRangeReset)
-			self:ForkThread(self.WeaponConfigCheck)
 
         elseif enh =='EXTorpedoRapidLoader' then
 			self.wcTorp01 = false
 			self.wcTorp02 = true
 			self.wcTorp03 = false
-			self:ForkThread(self.WeaponRangeReset)
-			self:ForkThread(self.WeaponConfigCheck)
 			
         elseif enh =='EXTorpedoRapidLoaderRemove' then
 			self.wcTorp01 = false
 			self.wcTorp02 = false
 			self.wcTorp03 = false
-			self:ForkThread(self.WeaponRangeReset)
-			self:ForkThread(self.WeaponConfigCheck)
 
 		elseif enh =='EXTorpedoClusterLauncher' then
 			self.wcTorp01 = false
 			self.wcTorp02 = false
 			self.wcTorp03 = true
-			self:ForkThread(self.WeaponRangeReset)
-			self:ForkThread(self.WeaponConfigCheck)
+            
+            Buff.ApplyBuff(self,'MobilityPenalty')
 
         elseif enh =='EXTorpedoClusterLauncherRemove' then
 			self.wcTorp01 = false
 			self.wcTorp02 = false
 			self.wcTorp03 = false
-			self:ForkThread(self.WeaponRangeReset)
-			self:ForkThread(self.WeaponConfigCheck)
-
-        elseif enh =='EXAntiMatterCannon' then
-			self.wcAMC01 = true
-			self.wcAMC02 = false
-			self.wcAMC03 = false
-			self:ForkThread(self.WeaponRangeReset)
-			self:ForkThread(self.WeaponConfigCheck)
-
-        elseif enh =='EXAntiMatterCannonRemove' then
-			self.wcAMC01 = false
-			self.wcAMC02 = false
-			self.wcAMC03 = false
-			self:ForkThread(self.WeaponRangeReset)
-			self:ForkThread(self.WeaponConfigCheck)
-
-        elseif enh =='EXImprovedContainmentBottle' then
-			self.wcAMC01 = false
-			self.wcAMC02 = true
-			self.wcAMC03 = false
-			self:ForkThread(self.WeaponRangeReset)
-			self:ForkThread(self.WeaponConfigCheck)
-			
-        elseif enh =='EXImprovedContainmentBottleRemove' then    
-			self.wcAMC01 = false
-			self.wcAMC02 = false
-			self.wcAMC03 = false
-			self:ForkThread(self.WeaponRangeReset)
-			self:ForkThread(self.WeaponConfigCheck)
-
-        elseif enh =='EXPowerBooster' then
-            self.wcAMC01 = false
-			self.wcAMC02 = false
-			self.wcAMC03 = true
-			self:ForkThread(self.WeaponRangeReset)
-			self:ForkThread(self.WeaponConfigCheck)     
-
-        elseif enh =='EXPowerBoosterRemove' then    
-			self.wcAMC01 = false
-			self.wcAMC02 = false
-			self.wcAMC03 = false
-			self:ForkThread(self.WeaponRangeReset)
-			self:ForkThread(self.WeaponConfigCheck)
-
-        elseif enh =='EXGattlingEnergyCannon' then
-			self.wcGatling01 = true
-			self.wcGatling02 = false
-			self.wcGatling03 = false
-			self:ForkThread(self.WeaponRangeReset)
-			self:ForkThread(self.WeaponConfigCheck)
-
-        elseif enh =='EXGattlingEnergyCannonRemove' then
-			self.wcGatling01 = false
-			self.wcGatling02 = false
-			self.wcGatling03 = false
-			self:ForkThread(self.WeaponRangeReset)
-			self:ForkThread(self.WeaponConfigCheck)
-
-        elseif enh =='EXImprovedCoolingSystem' then
-            self.wcGatling01 = false
-			self.wcGatling02 = true
-			self.wcGatling03 = false
-			self:ForkThread(self.WeaponRangeReset)
-			self:ForkThread(self.WeaponConfigCheck)
-			
-        elseif enh =='EXImprovedCoolingSystemRemove' then
-			self.wcGatling01 = false
-			self.wcGatling02 = false
-			self.wcGatling03 = false
-			self:ForkThread(self.WeaponRangeReset)
-			self:ForkThread(self.WeaponConfigCheck)
-
-        elseif enh =='EXEnergyShellHardener' then
-            self.wcGatling01 = false
-			self.wcGatling02 = false
-			self.wcGatling03 = true
-			self:ForkThread(self.WeaponRangeReset)
-			self:ForkThread(self.WeaponConfigCheck)
-
-        elseif enh =='EXEnergyShellHardenerRemove' then
-			self.wcGatling01 = false
-			self.wcGatling02 = false
-			self.wcGatling03 = false
-			self:ForkThread(self.WeaponRangeReset)
-			self:ForkThread(self.WeaponConfigCheck)
-
-        elseif enh == 'EXShieldBattery' then
-            self:AddToggleCap('RULEUTC_ShieldToggle')
-            self:CreatePersonalShield(bp)
-            self:SetEnergyMaintenanceConsumptionOverride(bp.MaintenanceConsumptionPerSecondEnergy or 0)
-            self:SetMaintenanceConsumptionActive()
-			self.Rotator1:SetTargetSpeed(90)
-			self.Rotator2:SetTargetSpeed(-180)
-
-		elseif enh == 'EXShieldBatteryRemove' then
-            self:DestroyShield()
-            RemoveUnitEnhancement(self, 'EXShieldBatteryRemove')
-            self:SetMaintenanceConsumptionInactive()
-            self:RemoveToggleCap('RULEUTC_ShieldToggle')
             
-			if self.ShieldEffectsBag2 then
-				for k, v in self.ShieldEffectsBag2 do
-					v:Destroy()
-				end
-				self.ShieldEffectsBag2 = false
-			end
-            
-			self.Rotator1:SetTargetSpeed(0)
-			self.Rotator2:SetTargetSpeed(0)
-
-        elseif enh == 'EXActiveShielding' then
-        
-            self:DestroyShield()
-            
-            ForkThread(function() WaitTicks(2) self:CreatePersonalShield(bp) end)
-            
-            self:SetEnergyMaintenanceConsumptionOverride(bp.MaintenanceConsumptionPerSecondEnergy or 0)
-            self:SetMaintenanceConsumptionActive()
-			self.wcLance01 = true
-			self.wcLance02 = false
-			self:ForkThread(self.WeaponRangeReset)
-			self:ForkThread(self.WeaponConfigCheck)
-
-        elseif enh == 'EXActiveShieldingRemove' then
-        
-            self:DestroyShield()
-            
-            RemoveUnitEnhancement(self, 'EXActiveShieldingRemove')
-            
-            self:SetMaintenanceConsumptionInactive()
-            
-            self:RemoveToggleCap('RULEUTC_ShieldToggle')
-            
-			if self.ShieldEffectsBag2 then
-				for k, v in self.ShieldEffectsBag2 do
-					v:Destroy()
-				end
-				self.ShieldEffectsBag2 = false
-			end
-            
-			self.Rotator1:SetTargetSpeed(0)
-			self.Rotator2:SetTargetSpeed(0)
-			self.wcLance01 = false
-			self.wcLance02 = false
-			self:ForkThread(self.WeaponRangeReset)
-			self:ForkThread(self.WeaponConfigCheck)
-
-        elseif enh == 'EXImprovedShieldBattery' then
-        
-            self:DestroyShield()
-            
-            ForkThread(function() WaitTicks(2) self:CreatePersonalShield(bp) end)
-            
-            self:SetEnergyMaintenanceConsumptionOverride(bp.MaintenanceConsumptionPerSecondEnergy or 0)
-            self:SetMaintenanceConsumptionActive()
-
-        elseif enh == 'EXImprovedShieldBatteryRemove' then
-        
-            self:DestroyShield()
-            
-            RemoveUnitEnhancement(self, 'EXImprovedShieldBatteryRemove')
-            
-            self:SetMaintenanceConsumptionInactive()
-            
-            self:RemoveToggleCap('RULEUTC_ShieldToggle')
-            
-			if self.ShieldEffectsBag2 then
-				for k, v in self.ShieldEffectsBag2 do
-					v:Destroy()
-				end
-				self.ShieldEffectsBag2 = false
-			end
-            
-			self.Rotator1:SetTargetSpeed(0)
-			self.Rotator2:SetTargetSpeed(0)
-			self.wcLance01 = false
-			self.wcLance02 = false
-			self:ForkThread(self.WeaponRangeReset)
-			self:ForkThread(self.WeaponConfigCheck)
-
-        elseif enh == 'EXShieldExpander' then
-            self:DestroyShield()
-            
-            ForkThread(function() WaitTicks(2) self:CreateShield(bp) end)
-            
-            self:SetEnergyMaintenanceConsumptionOverride(bp.MaintenanceConsumptionPerSecondEnergy or 0)
-            self:SetMaintenanceConsumptionActive()
-
-        elseif enh == 'EXShieldExpanderRemove' then
-        
-            self:DestroyShield()
-            
-            self:SetMaintenanceConsumptionInactive()
-            
-            self:RemoveToggleCap('RULEUTC_ShieldToggle')
-            
-			if self.ShieldEffectsBag2 then
-				for k, v in self.ShieldEffectsBag2 do
-					v:Destroy()
-				end
-				self.ShieldEffectsBag2 = false
-			end
-            
-			self.Rotator1:SetTargetSpeed(0)
-			self.Rotator2:SetTargetSpeed(0)
-			self.wcLance01 = false
-			self.wcLance02 = false
-			self:ForkThread(self.WeaponRangeReset)
-			self:ForkThread(self.WeaponConfigCheck)
-
-        elseif enh == 'EXElectronicsEnhancment' then
-            self:SetIntelRadius('Vision', bp.NewVisionRadius or 50)
-            self:SetIntelRadius('Omni', bp.NewOmniRadius or 50)
-			self.RadarDish1:SetTargetSpeed(45)
-
-			self.wcLance01 = true
-			self.wcLance02 = false
-			self.RBIntTier1 = true
-			self.RBIntTier2 = false
-			self.RBIntTier3 = false
-			self:ForkThread(self.WeaponRangeReset)
-			self:ForkThread(self.WeaponConfigCheck)
-
-        elseif enh == 'EXElectronicsEnhancmentRemove' then
-        
-            local bpIntel = __blueprints[self.BlueprintID].Intel
-            
-            self:SetIntelRadius('Vision', bpIntel.VisionRadius or 26)
-            self:SetIntelRadius('Omni', bpIntel.OmniRadius or 26)
-			self.RadarDish1:SetTargetSpeed(0)
-
-			self.wcLance01 = false
-			self.wcLance02 = false
-			self.RBIntTier1 = false
-			self.RBIntTier2 = false
-			self.RBIntTier3 = false
-			self:ForkThread(self.WeaponRangeReset)
-			self:ForkThread(self.WeaponConfigCheck)
-			
-        elseif enh == 'EXElectronicCountermeasures' then
-		
-			self.SpysatEnabled = true
-			self.Satellite = false
-			
-			self:ForkThread(self.EXSatSpawn)
-			
-            if self.IntelEffectsBag then
-                EffectUtil.CleanupEffectBag(self,'IntelEffectsBag')
-                self.IntelEffectsBag = nil
+            if Buff.HasBuff( self, 'MobilityPenalty' ) then
+                Buff.RemoveBuff( self, 'MobilityPenalty' )
             end
-			
-            self.CloakEnh = false        
-            self.StealthEnh = true
-
-			self.wcLance01 = true
-			self.wcLance02 = true
-			self.RBIntTier1 = true
-			self.RBIntTier2 = true
-			self.RBIntTier3 = false
-			self:ForkThread(self.WeaponRangeReset)
-			self:ForkThread(self.WeaponConfigCheck)
-
-        elseif enh == 'EXElectronicCountermeasuresRemove' then
-		
-			self.SpysatEnabled = false
-			
-			if self.Satellite and not self.Satellite:IsDead() and not self.Satellite.IsDying then
-				self.Satellite:Kill()
-			end
-			
-			self.Satellite = nil
-			
-			self.StealthEnh = false
-            self.CloakEnh = false 
-            self.StealthFieldEffects = false
-            self.CloakingEffects = false     
-            local bpIntel = __blueprints[self.BlueprintID].Intel
-            self:SetIntelRadius('Vision', bpIntel.VisionRadius or 26)
-            self:SetIntelRadius('Omni', bpIntel.OmniRadius or 26)
-			self.RadarDish1:SetTargetSpeed(0)
-
-			self.wcLance01 = false
-			self.wcLance02 = false
-			self.RBIntTier1 = false
-			self.RBIntTier2 = false
-			self.RBIntTier3 = false
-			self:ForkThread(self.WeaponRangeReset)
-			self:ForkThread(self.WeaponConfigCheck)
-
-        elseif enh == 'EXCloakingSubsystems' then
-            self:AddCommandCap('RULEUCC_Teleport')
-
-			self.RBIntTier1 = true
-			self.RBIntTier2 = true
-			self.RBIntTier3 = true
-			self:ForkThread(self.WeaponRangeReset)
-			self:ForkThread(self.WeaponConfigCheck)
-
-        elseif enh == 'EXCloakingSubsystemsRemove' then
-			self.SpysatEnabled = false
-			if self.Satellite and not self.Satellite:IsDead() and not self.Satellite.IsDying then
-				self.Satellite:Kill()
-			end
-			self.Satellite = nil
-            self.StealthEnh = false
-            self.CloakEnh = false 
-            self.StealthFieldEffects = false
-            self.CloakingEffects = false     
-            self:RemoveCommandCap('RULEUCC_Teleport')
-            local bpIntel = __blueprints[self.BlueprintID].Intel
-            self:SetIntelRadius('Vision', bpIntel.VisionRadius or 26)
-            self:SetIntelRadius('Omni', bpIntel.OmniRadius or 26)
-			self.RadarDish1:SetTargetSpeed(0)
-
-			self.wcLance01 = false
-			self.wcLance02 = false
-			self.RBIntTier1 = false
-			self.RBIntTier2 = false
-			self.RBIntTier3 = false
-			self:ForkThread(self.WeaponRangeReset)
-			self:ForkThread(self.WeaponConfigCheck)
 
         elseif enh =='EXClusterMisslePack' then
 			self.wcCMissiles01 = true
 			self.wcCMissiles02 = false
 			self.wcCMissiles03 = false
-			self.wcTMissiles01 = false
-			self.wcNMissiles01 = false
-			self:ForkThread(self.WeaponRangeReset)
-			self:ForkThread(self.WeaponConfigCheck)
-			self.RBComTier1 = true
-			self.RBComTier2 = false
-			self.RBComTier3 = false
 
         elseif enh =='EXClusterMisslePackRemove' then
 			self.wcCMissiles01 = false
 			self.wcCMissiles02 = false
 			self.wcCMissiles03 = false
-			self.wcTMissiles01 = false
-			self.wcNMissiles01 = false
-			self:ForkThread(self.WeaponRangeReset)
-			self:ForkThread(self.WeaponConfigCheck)
-			self:StopSiloBuild()
-			self.RBComTier1 = false
-			self.RBComTier2 = false
-			self.RBComTier3 = false
 
-        elseif enh =='EXTacticalMisslePack' then
-            self:AddCommandCap('RULEUCC_Tactical')
-            self:AddCommandCap('RULEUCC_SiloBuildTactical')
-
-            self.wcCMissiles01 = false
+        elseif enh =='EXClusterMisslesPack' then
+			self.wcCMissiles01 = false
 			self.wcCMissiles02 = true
 			self.wcCMissiles03 = false
-			self.wcTMissiles01 = true
-			self.wcNMissiles01 = false
-			self:ForkThread(self.WeaponRangeReset)
-			self:ForkThread(self.WeaponConfigCheck)     
-			self.RBComTier1 = true
-			self.RBComTier2 = true
-			self.RBComTier3 = false
 
-        elseif enh =='EXTacticalNukeSubstitution' then
-            self:RemoveCommandCap('RULEUCC_Tactical')
-            self:RemoveCommandCap('RULEUCC_SiloBuildTactical')
-            self:AddCommandCap('RULEUCC_Nuke')
-            self:AddCommandCap('RULEUCC_SiloBuildNuke')
-            local amt = self:GetTacticalSiloAmmoCount()
-            self:RemoveTacticalSiloAmmo(amt or 0)
-            self:StopSiloBuild()
+        elseif enh =='EXClusterMisslesPackRemove' then
+			self.wcCMissiles01 = false
+			self.wcCMissiles02 = false
+			self.wcCMissiles03 = false
 
-            self.wcCMissiles01 = false
+        elseif enh =='EXClusterMissleSalvoPack' then
+			self.wcCMissiles01 = false
 			self.wcCMissiles02 = false
 			self.wcCMissiles03 = true
-			self.wcTMissiles01 = false
-			self.wcNMissiles01 = true
-			self:ForkThread(self.WeaponRangeReset)
-			self:ForkThread(self.WeaponConfigCheck)    
-			self.RBComTier1 = true
-			self.RBComTier2 = true
-			self.RBComTier3 = true
+            
+            Buff.ApplyBuff(self,'MobilityPenalty')
+
+        elseif enh =='EXClusterMissleSalvoPackRemove' then
+			self.wcCMissiles01 = false
+			self.wcCMissiles02 = false
+			self.wcCMissiles03 = false
+            
+            if Buff.HasBuff( self, 'MobilityPenalty' ) then
+                Buff.RemoveBuff( self, 'MobilityPenalty' )
+            end
+
+        elseif enh =='EXAntiMatterCannon' then
+			self.wcAMC01 = true
+			self.wcAMC02 = false
+			self.wcAMC03 = false
+
+        elseif enh =='EXAntiMatterCannonRemove' then
+			self.wcAMC01 = false
+			self.wcAMC02 = false
+			self.wcAMC03 = false
+
+        elseif enh =='EXImprovedContainmentBottle' then
+			self.wcAMC01 = false
+			self.wcAMC02 = true
+			self.wcAMC03 = false
+			
+        elseif enh =='EXImprovedContainmentBottleRemove' then    
+			self.wcAMC01 = false
+			self.wcAMC02 = false
+			self.wcAMC03 = false
+
+        elseif enh =='EXPowerBooster' then
+            self.wcAMC01 = false
+			self.wcAMC02 = false
+			self.wcAMC03 = true
+            
+            Buff.ApplyBuff(self,'MobilityPenalty')
+
+        elseif enh =='EXPowerBoosterRemove' then    
+			self.wcAMC01 = false
+			self.wcAMC02 = false
+			self.wcAMC03 = false
+            
+            if Buff.HasBuff( self, 'MobilityPenalty' ) then
+                Buff.RemoveBuff( self, 'MobilityPenalty' )
+            end
+
+        elseif enh =='EXGattlingEnergyCannon' then
+			self.wcGatling01 = true
+			self.wcGatling02 = false
+			self.wcGatling03 = false
+
+        elseif enh =='EXGattlingEnergyCannonRemove' then
+			self.wcGatling01 = false
+			self.wcGatling02 = false
+			self.wcGatling03 = false
+
+        elseif enh =='EXImprovedCoolingSystem' then
+            self.wcGatling01 = false
+			self.wcGatling02 = true
+			self.wcGatling03 = false
+
+			self.wcFlamer01 = true
+			self.wcFlamer02 = false
+			
+        elseif enh =='EXImprovedCoolingSystemRemove' then
+			self.wcGatling01 = false
+			self.wcGatling02 = false
+			self.wcGatling03 = false
+
+			self.wcFlamer01 = false
+			self.wcFlamer02 = false
+
+        elseif enh =='EXEnergyShellHardener' then
+            self.wcGatling01 = false
+			self.wcGatling02 = false
+			self.wcGatling03 = true
+            
+            Buff.ApplyBuff(self,'MobilityPenalty')
+
+			self.wcFlamer01 = false
+			self.wcFlamer02 = true
+
+        elseif enh =='EXEnergyShellHardenerRemove' then
+			self.wcGatling01 = false
+			self.wcGatling02 = false
+			self.wcGatling03 = false
+            
+            if Buff.HasBuff( self, 'MobilityPenalty' ) then
+                Buff.RemoveBuff( self, 'MobilityPenalty' )
+            end
+
+			self.wcFlamer01 = false
+			self.wcFlamer02 = false
+
+        elseif enh == 'EXShieldBubble' then
+
+            self.EnergyConsumption['Total'] = self.EnergyConsumption['Total'] - self.EnergyConsumption[bp.Slot]
+            
+            self.EnergyConsumption[bp.Slot] = bp.ConsumptionPerSecondEnergy
+            
+			self.Shield = true
+            self.ShieldOn = false
+
+            self:AddToggleCap('RULEUTC_ShieldToggle')
+
+            self:CreateShield(bp)
+
+			self.Rotator1:SetTargetSpeed(45)
+			self.Rotator2:SetTargetSpeed(-90)
+
+		elseif enh == 'EXShieldBubbleRemove' then
+
+            if self.ShieldOn then
+                self.EnergyConsumption['Total'] = self.EnergyConsumption['Total'] - self.EnergyConsumption[bp.Slot]
+                self.ShieldOn = false
+            end
+
+			if self.ShieldEffectsBag2 then
+				for k, v in self.ShieldEffectsBag2 do
+					v:Destroy()
+				end
+				self.ShieldEffectsBag2 = false
+			end
+            
+			self.Rotator1:SetTargetSpeed(0)
+			self.Rotator2:SetTargetSpeed(0)
+
+            self:DisableShield()    -- disable existing shield
+            self:DestroyShield()    -- remove existing shield           
+
+            self.EnergyConsumption[bp.Slot] = 0
+            
+			self.Shield = false
+            
+            self:RemoveToggleCap('RULEUTC_ShieldToggle')
+
+            RemoveUnitEnhancement(self, 'EXShieldBubbleRemove')
+
+        elseif enh == 'EXActiveSkinShield' then
+
+            if self.ShieldOn then
+                self.EnergyConsumption['Total'] = self.EnergyConsumption['Total'] - self.EnergyConsumption[bp.Slot]
+                self.ShieldOn = false
+            end
+
+            self:DisableShield()    -- disable existing shield
+            self:DestroyShield()    -- remove existing shield           
+
+            self.EnergyConsumption[bp.Slot] = bp.ConsumptionPerSecondEnergy
+            
+			self.Shield = true
+
+            self:CreatePersonalShield(bp)
+
+        elseif enh == 'EXActiveSkinShieldRemove' then
+
+            if self.ShieldOn then
+                self.EnergyConsumption['Total'] = self.EnergyConsumption['Total'] - self.EnergyConsumption[bp.Slot]
+                self.ShieldOn = false
+            end
+            
+			if self.ShieldEffectsBag2 then
+				for k, v in self.ShieldEffectsBag2 do
+					v:Destroy()
+				end
+				self.ShieldEffectsBag2 = false
+			end
+            
+			self.Rotator1:SetTargetSpeed(0)
+			self.Rotator2:SetTargetSpeed(0)
+
+            self:DisableShield()    -- disable existing shield
+            self:DestroyShield()    -- remove existing shield           
+
+            self.EnergyConsumption[bp.Slot] = 0
+            
+			self.Shield = false
+            
+            RemoveUnitEnhancement(self, 'EXActiveSkinShieldRemove')
+            
+            self:RemoveToggleCap('RULEUTC_ShieldToggle')
+
+        elseif enh == 'EXAdvancedSkinShield' then
+
+            if self.ShieldOn then
+                self.EnergyConsumption['Total'] = self.EnergyConsumption['Total'] - self.EnergyConsumption[bp.Slot]
+                self.ShieldOn = false
+            end
+
+            self:DisableShield()    -- disable existing shield
+            self:DestroyShield()    -- remove existing shield           
+            
+            self.EnergyConsumption[bp.Slot] = bp.ConsumptionPerSecondEnergy
+
+			self.Shield = true
+
+            self:CreatePersonalShield(bp)
+
+        elseif enh == 'EXAdvancedSkinShieldRemove' then
+
+            if self.ShieldOn then
+                self.EnergyConsumption['Total'] = self.EnergyConsumption['Total'] - self.EnergyConsumption[bp.Slot]
+                self.ShieldOn = false
+            end
+            
+			if self.ShieldEffectsBag2 then
+				for k, v in self.ShieldEffectsBag2 do
+					v:Destroy()
+				end
+				self.ShieldEffectsBag2 = false
+			end
+            
+			self.Rotator1:SetTargetSpeed(0)
+			self.Rotator2:SetTargetSpeed(0)
+
+            self:DisableShield()    -- disable existing shield
+            self:DestroyShield()    -- remove existing shield           
+
+            self.EnergyConsumption[bp.Slot] = 0
+            
+			self.Shield = false
+            
+            RemoveUnitEnhancement(self, 'EXAdvancedSkinShieldRemove')
+            
+            self:RemoveToggleCap('RULEUTC_ShieldToggle')
+
+        elseif enh == 'EXTyphoonBubble' then
+
+            if self.ShieldOn then
+                self.EnergyConsumption['Total'] = self.EnergyConsumption['Total'] - self.EnergyConsumption[bp.Slot]
+                self.ShieldOn = false
+            end
+
+            self:DisableShield()    -- disable existing shield
+            self:DestroyShield()    -- remove existing shield           
+            
+            self.EnergyConsumption[bp.Slot] = bp.ConsumptionPerSecondEnergy
+
+			self.Shield = true
+
+            self:CreateShield(bp)
+
+        elseif enh == 'EXTyphoonBubbleRemove' then
+
+            if self.ShieldOn then
+                self.EnergyConsumption['Total'] = self.EnergyConsumption['Total'] - self.EnergyConsumption[bp.Slot]
+                self.ShieldOn = false
+            end
+            
+			if self.ShieldEffectsBag2 then
+				for k, v in self.ShieldEffectsBag2 do
+					v:Destroy()
+				end
+				self.ShieldEffectsBag2 = false
+			end
+            
+			self.Rotator1:SetTargetSpeed(0)
+			self.Rotator2:SetTargetSpeed(0)
+
+            self:DisableShield()    -- disable existing shield
+            self:DestroyShield()    -- remove existing shield           
+
+            self.EnergyConsumption[bp.Slot] = 0
+            
+			self.Shield = false
+            
+            self:RemoveToggleCap('RULEUTC_ShieldToggle')
+
+        elseif enh == 'EXIntelEnhancementT2' then
+
+			self.IntelPackage = true
+            self.IntelPackageOn = true  -- the existing intel will already be On
+
+            self:AddToggleCap('RULEUTC_IntelToggle')    -- add the toggle
+
+            self:SetScriptBit('RULEUTC_IntelToggle', true )   -- turn off the basic intel
+            
+            self.EnergyConsumption[bp.Slot] = bp.ConsumptionPerSecondEnergy
+			
+            Buff.ApplyBuff(self, 'ACU_T2_Intel_Package')    -- add the buff 
+            
+            self:SetScriptBit('RULEUTC_IntelToggle', false )   -- turn intel back on
+
+        elseif enh == 'EXIntelEnhancementT2Remove' then
+
+            if self.IntelPackageOn then
+                self:SetScriptBit('RULEUTC_IntelToggle', true )   -- turn off the intel
+            end
+		
+            if Buff.HasBuff( self, 'ACU_T2_Intel_Package' ) then
+                Buff.RemoveBuff( self, 'ACU_T2_Intel_Package' )
+            end
+            
+            self.EnergyConsumption[bp.Slot] = 0
+
+            self.IntelPackageOn = false
+            
+            self:SetScriptBit('RULEUTC_IntelToggle', false )   -- turn on the basic intel
+            
+            self:RemoveToggleCap('RULEUTC_IntelToggle')
+
+			self.IntelPackage = false
+			
+        elseif enh == 'EXIntelEnhancementT3' then
+
+            self:SetScriptBit('RULEUTC_IntelToggle', true )   -- turn off existing intel
+
+            self.EnergyConsumption[bp.Slot] = bp.ConsumptionPerSecondEnergy
+			
+            Buff.ApplyBuff(self, 'ACU_T3_Intel_Package')    -- add the buff 
+            
+            self:SetScriptBit('RULEUTC_IntelToggle', false )   -- turn intel back on
+
+        elseif enh == 'EXIntelEnhancementT3Remove' then
+
+            if self.IntelPackageOn then
+                self:SetScriptBit('RULEUTC_IntelToggle', true )   -- turn off existing intel
+            end
+		
+            if Buff.HasBuff( self, 'ACU_T3_Intel_Package' ) then
+                Buff.RemoveBuff( self, 'ACU_T3_Intel_Package' )
+            end
+            
+            self.EnergyConsumption[bp.Slot] = 0
+
+            self.IntelPackageOn = false
+            
+            self:SetScriptBit('RULEUTC_IntelToggle', false )   -- turn on intel
+            
+            self:RemoveToggleCap('RULEUTC_IntelToggle')
+
+			self.IntelPackage = false
+
+        elseif enh == 'EXSatelliteSystem' then
+
+            self:SetScriptBit('RULEUTC_IntelToggle', true )   -- turn off existing intel
+
+            self.EnergyConsumption[bp.Slot] = bp.ConsumptionPerSecondEnergy
+		
+			self.SpysatEnabled = true
+			self.Satellite = false
+
+            if self.IntelEffectsBag then
+                EffectUtil.CleanupEffectBag(self,'IntelEffectsBag')
+                self.IntelEffectsBag = nil
+            end
+
+            self.StealthEnh = true      -- this should allow a visual effect
+            
+            self:SetScriptBit('RULEUTC_IntelToggle', false )   -- turn intel back on
+
+        elseif enh == 'EXSatelliteSystemRemove' then
+			
+			self.StealthEnh = false
+
+            if self.IntelPackageOn then
+                self:SetScriptBit('RULEUTC_IntelToggle', true )   -- turn off existing intel
+            end
+
+			self.SpysatEnabled = false
+			
+			if self.Satellite and not self.Satellite:IsDead() and not self.Satellite.IsDying then
+				self.Satellite:Kill()
+			end
+			
+			self.Satellite = nil
+			
+            if self.IntelEffectsBag then
+                EffectUtil.CleanupEffectBag(self,'IntelEffectsBag')
+                self.IntelEffectsBag = nil
+            end
+
+
+        elseif enh == 'EXPersonalTeleporter' then
+
+            self:AddCommandCap('RULEUCC_Teleport')
+			
+        elseif enh == 'EXPersonalTeleporterRemove' then
+
+            self:RemoveCommandCap('RULEUCC_Teleport')
+
+
+        elseif enh =='EXTacticalMisslePack' then
+
+            self:AddCommandCap('RULEUCC_Tactical')
+            self:AddCommandCap('RULEUCC_SiloBuildTactical')
+            
+            Buff.ApplyBuff(self,'MobilityPenalty')
+
+			self.wcTMissiles01 = true
+			self.wcNMissiles01 = false
 
         elseif enh == 'EXTacticalMisslePackRemove' then
+
             self:RemoveCommandCap('RULEUCC_Nuke')
             self:RemoveCommandCap('RULEUCC_SiloBuildNuke')
+
             self:RemoveCommandCap('RULEUCC_Tactical')
             self:RemoveCommandCap('RULEUCC_SiloBuildTactical')
+            
+            if Buff.HasBuff( self, 'MobilityPenalty' ) then
+                Buff.RemoveBuff( self, 'MobilityPenalty' )
+            end
+
             local amt = self:GetTacticalSiloAmmoCount()
+
             self:RemoveTacticalSiloAmmo(amt or 0)
+
             local amt = self:GetNukeSiloAmmoCount()
+
             self:RemoveNukeSiloAmmo(amt or 0)
             self:StopSiloBuild()
 
-            self.wcCMissiles01 = false
-			self.wcCMissiles02 = false
-			self.wcCMissiles03 = false
 			self.wcTMissiles01 = false
 			self.wcNMissiles01 = false
-			self:ForkThread(self.WeaponRangeReset)
-			self:ForkThread(self.WeaponConfigCheck)
-			self.RBComTier1 = false
-			self.RBComTier2 = false
-			self.RBComTier3 = false
+
+        elseif enh =='EXTacticalNukeSubstitution' then
+
+            self:RemoveCommandCap('RULEUCC_Tactical')
+            self:RemoveCommandCap('RULEUCC_SiloBuildTactical')
+
+            self:AddCommandCap('RULEUCC_Nuke')
+            self:AddCommandCap('RULEUCC_SiloBuildNuke')
+            
+            Buff.ApplyBuff(self,'MobilityPenalty')
+
+            local amt = self:GetTacticalSiloAmmoCount()
+
+            self:RemoveTacticalSiloAmmo(amt or 0)
+            self:StopSiloBuild()
+
+			self.wcTMissiles01 = false
+			self.wcNMissiles01 = true
 
         elseif enh == 'EXTacticalNukeSubstitutionRemove' then
+
             self:RemoveCommandCap('RULEUCC_Nuke')
             self:RemoveCommandCap('RULEUCC_SiloBuildNuke')
+
             self:RemoveCommandCap('RULEUCC_Tactical')
             self:RemoveCommandCap('RULEUCC_SiloBuildTactical')
+            
+            if Buff.HasBuff( self, 'MobilityPenalty' ) then
+                Buff.RemoveBuff( self, 'MobilityPenalty' )
+            end
+
             local amt = self:GetTacticalSiloAmmoCount()
+
             self:RemoveTacticalSiloAmmo(amt or 0)
+
             local amt = self:GetNukeSiloAmmoCount()
+
             self:RemoveNukeSiloAmmo(amt or 0)
             self:StopSiloBuild()
 
-            self.wcCMissiles01 = false
-			self.wcCMissiles02 = false
-			self.wcCMissiles03 = false
 			self.wcTMissiles01 = false
 			self.wcNMissiles01 = false
-			self:ForkThread(self.WeaponRangeReset)
-			self:ForkThread(self.WeaponConfigCheck)
-			self.RBComTier1 = false
-			self.RBComTier2 = false
-			self.RBComTier3 = false
 
-        elseif enh == 'LeftPod' or enh == 'RightPod' then
+        end
+
+		self:ForkThread(self.WeaponRangeReset)
+		self:ForkThread(self.WeaponConfigCheck)
         
-            TWalkingLandUnit.CreateEnhancement(self, enh) -- moved from top to here so this happens only once for each enhancement
-            
-            -- making sure we have up to date information (dont delete! needed for bug fix below)
-            if not self.LeftPod or self.LeftPod:IsDead() then
-                self.HasLeftPod = false
-            end
-            
-            if not self.RightPod or self.RightPod:IsDead() then
-                self.HasRightPod = false
-            end
-            
-            -- fix for a bug that occurs when pod 1 is destroyed while upgrading to get pod 2
-            if enh == 'RightPod' and (not self.HasLeftPod or not self.HasRightPod) then
-                TWalkingLandUnit.CreateEnhancement(self, 'RightPodRemove')
-                TWalkingLandUnit.CreateEnhancement(self, 'LeftPod')
-            end
-            
-            -- add new pod to left or right
-            if not self.HasLeftPod then
-            
-                local location = self:GetPosition('AttachSpecial02')
-                local pod = CreateUnitHPR('UEA0001', self:GetArmy(), location[1], location[2], location[3], 0, 0, 0)
-                
-                pod:SetCreator(self)
-                pod:SetParent(self, 'LeftPod')
-                
-                TrashAdd( self.Trash, pod )
-                
-                self.LeftPod = pod
-                self.HasLeftPod = true
-            else
-                local location = self:GetPosition('AttachSpecial01')
-                local pod = CreateUnitHPR('UEA0001', self:GetArmy(), location[1], location[2], location[3], 0, 0, 0)
-                pod:SetCreator(self)
-                pod:SetParent(self, 'RightPod')
-                
-                TrashAdd( self.Trash, pod )
-                
-                self.RightPod = pod
-                self.HasRightPod = true
-            end
-            -- highlight correct icons: right if we have 2 pods, left if we have 1 pod (no other possibilities)
-            if self.HasLeftPod and self.HasRightPod then
-                TWalkingLandUnit.CreateEnhancement(self, 'RightPod')
-            else
-                TWalkingLandUnit.CreateEnhancement(self, 'LeftPod')
-            end
-            
-        -- for removing the pod upgrades
-        elseif enh == 'RightPodRemove' then
-        
-            TWalkingLandUnit.CreateEnhancement(self, enh) # moved from top to here so this happens only once for each enhancement
-            if self.RightPod and not self.RightPod:IsDead() then
-                self.RightPod:Kill()
-                self.HasRightPod = false
-            end
-            if self.LeftPod and not self.LeftPod:IsDead() then
-                self.LeftPod:Kill()
-                self.HasLeftPod = false
-            end
-            
-        elseif enh == 'LeftPodRemove' then
-            TWalkingLandUnit.CreateEnhancement(self, enh) # moved from top to here so this happens only once for each enhancement
-            if self.LeftPod and not self.LeftPod:IsDead() then
-                self.LeftPod:Kill()
-                self.HasLeftPod = false
-            end
-		end
     end,
 
     IntelEffects = {
@@ -1732,41 +1810,28 @@ EEL0001 = Class(TWalkingLandUnit) {
         },	
     },
 	
-    OnIntelEnabled = function(self)
+    OnIntelEnabled = function(self,intel)
     
-        TWalkingLandUnit.OnIntelEnabled(self)
-        
-        if self.CloakEnh and self:IsIntelEnabled('Cloak') then 
-            self:SetEnergyMaintenanceConsumptionOverride(__blueprints[self.BlueprintID].Enhancements['EXCloakingSubsystems'].MaintenanceConsumptionPerSecondEnergy or 1)
-            self:SetMaintenanceConsumptionActive()
-            if not self.IntelEffectsBag then
-			    self.IntelEffectsBag = {}
-			    self.CreateTerrainTypeEffects( self, self.IntelEffects.Cloak, 'FXIdle',  self:GetCurrentLayer(), nil, self.IntelEffectsBag )
-			end            
-        elseif self.StealthEnh and self:IsIntelEnabled('RadarStealth') and self:IsIntelEnabled('SonarStealth') then
-            self:SetEnergyMaintenanceConsumptionOverride(__blueprints[self.BlueprintID].Enhancements['EXElectronicCountermeasures'].MaintenanceConsumptionPerSecondEnergy or 1)
-            self:SetMaintenanceConsumptionActive()  
+        TWalkingLandUnit.OnIntelEnabled(self,intel)
+ 
+        -- visual effect when satellite is installed --
+        if self.StealthEnh then
+
             if not self.IntelEffectsBag then 
 	            self.IntelEffectsBag = {}
 		        self.CreateTerrainTypeEffects( self, self.IntelEffects.Field, 'FXIdle',  self:GetCurrentLayer(), nil, self.IntelEffectsBag )
-				--self.CreateTerrainTypeEffects( self, self.IntelEffects.Jammer, 'FXIdle',  self:GetCurrentLayer(), nil, self.IntelEffectsBag )
 		    end                  
         end		
     end,
 
-    OnIntelDisabled = function(self)
+    OnIntelDisabled = function(self,intel)
     
-        TWalkingLandUnit.OnIntelDisabled(self)
+        TWalkingLandUnit.OnIntelDisabled(self,intel)
         
         if self.IntelEffectsBag then
             EffectUtil.CleanupEffectBag(self,'IntelEffectsBag')
             self.IntelEffectsBag = nil
         end
-        if self.CloakEnh and not self:IsIntelEnabled('Cloak') then
-            self:SetMaintenanceConsumptionInactive()
-        elseif self.StealthEnh and not self:IsIntelEnabled('RadarStealth') and not self:IsIntelEnabled('SonarStealth') then
-            self:SetMaintenanceConsumptionInactive()
-        end         
 
     end,
 
@@ -1803,10 +1868,6 @@ EEL0001 = Class(TWalkingLandUnit) {
         end
         TWalkingLandUnit.OnUnpaused(self)
     end,      
-
-    ShieldEffects2 = {'/mods/BlackopsACUs/effects/emitters/ex_uef_shieldgen_01_emit.bp'},
-
-    FlamerEffects = {'/mods/BlackopsACUs/effects/emitters/ex_flamer_torch_01.bp'},
 
 }
 

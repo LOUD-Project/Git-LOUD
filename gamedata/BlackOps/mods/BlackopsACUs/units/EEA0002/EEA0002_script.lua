@@ -1,7 +1,5 @@
 local TAirUnit = import('/lua/defaultunits.lua').AirUnit
 
-local VizMarker = import('/lua/sim/VizMarker.lua').VizMarker
-
 local explosion = import('/lua/defaultexplosions.lua')
 local CreateDeathExplosion = explosion.CreateDefaultHitExplosionAtBone
 local EffectTemplate = import('/lua/EffectTemplates.lua')
@@ -17,7 +15,6 @@ EEA0002 = Class(TAirUnit) {
 
     SetParent = function(self, parent, podName)
         self.Parent = parent
-        self.Pod = podName
     end,
 
 	OnStopBeingBuilt = function(self,builder,layer)
@@ -31,13 +28,9 @@ EEA0002 = Class(TAirUnit) {
         if self.IsDying then 
             return 
         end
-		
-		local army = self:GetArmy()
 
         self.IsDying = true
-		
-        self.Parent:NotifyOfPodDeath(self.Pod)
-		
+
         self.Parent = nil
 		
 		self:ForkThread(self.DeathEffectsThread)
@@ -47,7 +40,7 @@ EEA0002 = Class(TAirUnit) {
 
     Open = function(self)
 	
-		WaitTicks(10)
+		WaitTicks(15)
 	
         ChangeState( self, self.OpenState )
     end,
@@ -68,9 +61,6 @@ EEA0002 = Class(TAirUnit) {
             end
             
             self.OpenAnim:PlayAnim( '/mods/BlackopsACUs/units/EEA0002/eea0002_aopen02.sca' )
-			
-			LOG("*AI DEBUG Sat Launch complete")
-
         end,
 
     },
@@ -89,7 +79,7 @@ EEA0002 = Class(TAirUnit) {
 
 	DeathEffectsThread = function(self)
 		local army = self:GetArmy()
-        # Create Initial explosion effects
+
         explosion.CreateFlash( self, 'XEA0002', 1.5, army )
         CreateAttachedEmitter(self,'Turret_Barrel_Muzzle', army, '/effects/emitters/explosion_fire_sparks_02_emit.bp'):OffsetEmitter( 0, 0, 0 ) --Sparks
         CreateAttachedEmitter(self,'Turret_Barrel_Muzzle', army, '/effects/emitters/distortion_ring_01_emit.bp'):ScaleEmitter(0.3)

@@ -8,9 +8,9 @@ UnitBlueprint {
 		
         KTurn = 0,
 		
-        LiftFactor = 4,
+        LiftFactor = 4.5,
 		
-        MaxAirspeed = 4.5,
+        MaxAirspeed = 3.8,
 		
         StartTurnDistance = 50,
     },
@@ -43,37 +43,29 @@ UnitBlueprint {
     CollisionOffsetY = -0.65,
 	
     Defense = {
-
-        ArmorType = 'Normal',
-        Health = 1000,
-        MaxHealth = 1000,
+        ArmorType = 'Light',
+        Health = 100,
+        MaxHealth = 100,
     },
 	
-    Description = '<LOC eea0002_desc>Spy Satellite',
+    Description = '<LOC eea0002_desc>Recon Satellite',
 	
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 500,
-                    ShaderName = 'AeonCZAR',
-                },
-                {
-                    LODCutoff = 1500,
-                    ShaderName = 'Aeon',
-                },
+                { LODCutoff = 500, ShaderName = 'AeonCZAR' },
+                { LODCutoff = 1500, ShaderName = 'Aeon' },
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.0125,
     },
 	
     Economy = {
-        BuildCostEnergy = 8000,
-        BuildCostMass = 800,
-        BuildTime = 400,
+        BuildCostEnergy = 1200,
+        BuildCostMass = 150,
+        BuildTime = 120,
     },
 	
     Footprint = {
@@ -84,8 +76,7 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 2,
-        Category = 'Utility',
-        Classification = 'RULEUC_MilitaryAircraft',
+
         CommandCaps = {
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
@@ -94,16 +85,10 @@ UnitBlueprint {
         },
         FactionName = 'UEF',
         Icon = 'air',
-        TechLevel = 'RULEUTL_Secret',
-        UnitWeight = 1,
     },
 	
     Intel = {
-        VisionRadius = 45,
-    },
-	
-    Interface = {
-        HelpText = 'Spy Satellite',
+        VisionRadius = 42,
     },
 	
     LifeBarHeight = 0.025,
@@ -112,12 +97,10 @@ UnitBlueprint {
 	
     Physics = {
         BankingSlope = 0,
-        BuildOnLayerCaps = {
-            LAYER_Air = true,
-        },
+        BuildOnLayerCaps = { LAYER_Air = true },
         Elevation = 70,
         MaxAcceleration = 0.25,
-        MaxSpeed = 4.5,
+        MaxSpeed = 3.85,
         MotionType = 'RULEUMT_Air',
     },
 	
@@ -131,5 +114,4 @@ UnitBlueprint {
 	
     StrategicIconName = 'icon_satellite_intel',
     StrategicIconSortPriority = 55,
-
 }

@@ -1,18 +1,12 @@
 UnitBlueprint {
 
     Abilities = {
-        TargetLocation = {
-            bitmapId = 'skry-target',
-            helpText = 'Scry_target',
-        },
+        TargetLocation = {bitmapId = 'skry-target', helpText = 'Scry_target', preferredSlot = 11, script = 'TargetLocation'},
     },
 	
     AI = {
         GuardRadius = 10,
-        
         TargetBones = {'Head','Right_Arm_B01','Left_Arm_B01','Torso','Left_Leg_B01','Right_Leg_B01'},
-
-		--StagingPlatformScanRadius = 500, --Teleport Range
     },
 	
     Audio = {
@@ -60,11 +54,25 @@ UnitBlueprint {
 	
     Buffs = {
         Regen = {
-            Level1 = 15,        -- +50% per level
-            Level2 = 30,
-            Level3 = 45,
-            Level4 = 60,
-            Level5 = 75,
+            Level1 = 4,
+            Level2 = 8,
+            Level3 = 11,
+            Level4 = 14,
+            Level5 = 17,
+        },
+        VisionRadius = {
+            Level1 = 2,
+            Level2 = 2,
+            Level3 = 2,
+            Level4 = 2,
+            Level5 = 2,        
+        },
+        WaterVisionRadius = {
+            Level1 = 2,
+            Level2 = 2,
+            Level3 = 2,
+            Level4 = 2,
+            Level5 = 2,        
         },
     },
 	
@@ -88,29 +96,30 @@ UnitBlueprint {
         'VISIBLETORECON',
         'PATROLHELPER',
         'SHOWQUEUE',
-        'OVERLAYINDIRECTFIRE',
+        'OVERLAYCOUNTERINTEL',
         'OVERLAYOMNI',
         'OVERLAYRADAR',
         'OVERLAYSONAR',
-        'ANTITELEPORT',
-        'OVERLAYCOUNTERINTEL',
-        'OVERLAYANTINAVY',
         'OVERLAYMISC',
+        'ANTITELEPORT',
     },
 	
     Defense = {
+
+        MissileTorpDestroy = { AttachBone = 'Head', Radius = 5, RedirectRateOfFire = 8, ProjectileCategories = {'TACTICAL MISSILE','TORPEDO'} },
+
         ArmorType = 'Commander',
 		
         EconomyThreatLevel = 620,
 		
-        Health = 27000,         -- +245 %
+        Health = 27000,
         MaxHealth = 27000,
-        RegenRate = 15,         -- +50%
+        RegenRate = 16,
         
         SurfaceThreatLevel = 45,
 		
 		NoTeleDistance = 55,
-		MaxTeleRange = 500,
+		MaxTeleRange = 350,
     },
 	
     Description = '<LOC eal0001_desc>Armored Command Unit',
@@ -121,11 +130,53 @@ UnitBlueprint {
             '<LOC ability_customizable>Customizable',
             '<LOC ability_notcap>Not Capturable',
             '<LOC ability_omni>Omni Sensor',
+            'Radar & Sonar Stealth',
+            'Tactical & Torpedo Defense',
             '<LOC ability_deathaoe>Volatile',
         },
 		
         AnimationWalk = '/mods/BlackopsACUs/units/eal0001/eal0001_awalk.sca',
         AnimationWalkRate = 2.1,
+		
+        DamageEffects = {
+            {
+                Bone = 0,
+                OffsetX = 0.25,
+                OffsetY = 0.75,
+                OffsetZ = 0,
+            },
+            {
+                Bone = 0,
+                OffsetX = -0.25,
+                OffsetY = 0.75,
+                OffsetZ = 0,
+            },
+            {
+                Bone = 0,
+                OffsetX = -0.35,
+                OffsetY = 0.1,
+                OffsetZ = 0,
+            },
+        },
+
+        IdleEffects = {
+
+            Seabed = {
+
+                Effects = {
+                    {
+                        Bones = {
+                            'Left_Arm_B02',
+                            'Right_Arm_B02',
+                            'Left_Turret_Muzzle',
+                            'Right_Turret_Muzzle',
+                        },
+                        Scale = 7,
+                        Type = 'UnderWater01',
+                    },
+                },
+            },
+        },
 
         Mesh = {
             IconFadeInZoom = 130,
@@ -135,7 +186,54 @@ UnitBlueprint {
         },
 		
         MovementEffects = {
+
             Land = {
+
+                Footfall = {
+                    Bones = {
+                        {
+                            FootBone = 'Left_Exhaust',
+                            HipBone = 'Left_Leg_B01',
+                            KneeBone = 'Left_Leg_B02',
+                            Tread = {
+                                TreadMarks = 'CommanderPrint_albedo',
+                                TreadMarksSizeX = 0.5,
+                                TreadMarksSizeZ = 0.5,
+                                TreadOffset = { 0.15, 0, 0.5 },
+                            },
+                            Type = 'FootFall02',
+                        },
+                        {
+                            FootBone = 'Right_Exhaust',
+                            HipBone = 'Right_Leg_B01',
+                            KneeBone = 'Right_Leg_B02',
+                            Tread = {
+                                TreadMarks = 'CommanderPrint_albedo',
+                                TreadMarksSizeX = 0.5,
+                                TreadMarksSizeZ = 0.5,
+                                TreadOffset = { -0.15, 0, 0.5 },
+                            },
+                            Type = 'FootFall02',
+                        },
+                    },
+                },
+            },
+
+            Seabed = {
+
+                Effects = {
+                    {
+                        Bones = {
+                            'Left_Arm_B02',
+                            'Right_Arm_B02',
+                            'Left_Turret_Muzzle',
+                            'Right_Turret_Muzzle',
+                        },
+                        Scale = 4,
+                        Type = 'UnderWater01',
+                    },
+                },
+
                 Footfall = {
                     Bones = {
                         {
@@ -166,8 +264,6 @@ UnitBlueprint {
                 },
             },
         },
-
-        SpawnRandomRotation = true,
 		
         TransportAnimation = {
             { Animation = '/mods/BlackopsACUs/units/eal0001/eal0001_afold.sca', Weight = 100 },
@@ -177,15 +273,15 @@ UnitBlueprint {
             { Animation = '/mods/BlackopsACUs/units/eal0001/eal0001_aunfold.sca', Weight = 100 },
         },
 		
-        UniformScale = 0.018,
+        UniformScale = 0.022,
     },
 	
     Economy = {
-        BuildCostEnergy = 100000,
-        BuildCostMass = 10000,
+        BuildCostEnergy = 95000,
+        BuildCostMass = 9500,
         BuildRate = 10,
 		
-        BuildTime = 60000,
+        BuildTime = 9500,
 		
         BuildableCategory = {
             'BUILTBYCOMMANDER AEON',
@@ -193,29 +289,24 @@ UnitBlueprint {
             'BUILTBYTIER3COMMANDER AEON',
             'BUILTBYTIER4COMMANDER AEON',
         },
-		
-        MaintenanceConsumptionPerSecondEnergy = 1,
         
-        MaxBuildDistance = 14,              -- +40%
+        MaxBuildDistance = 14,
 		
         NaturalProducer = true,
 		
         NeedToFaceTargetToBuild = false,
         
         ProductionPerSecondEnergy = 20,
-        ProductionPerSecondMass = 2,        -- +100%
+        ProductionPerSecondMass = 2,
 		
-        StorageEnergy = 5000,               -- +25%
+        StorageEnergy = 5000,
         StorageMass = 650,
 
-        -- for teleporter
-		TeleportBurstEnergyCost = 10000,
+        -- for teleporter 'precharge' equals storage of the unit
+		TeleportBurstEnergyCost = 5000,
 
-        -- for Eye of Rhianne enhancement
-        InitialRemoteViewingEnergyDrain = 10000,
-        
-        -- for T3 Intel Package & Rhianne Optics when installed
-        MaintenanceConsumptionPerSecondEnergy = 2000,
+        -- for Eye of Rhianne enhancement also tied to storage
+        InitialRemoteViewingEnergyDrain = 5000,
     },
 	
     Enhancements = {
@@ -224,6 +315,11 @@ UnitBlueprint {
             Back = {
                 name = '<LOC _Back>',
                 x = -2,
+                y = -5,
+            },
+            Command = {
+                name = 'Command',
+                x = 98,
                 y = -5,
             },
             LCH = {
@@ -242,13 +338,13 @@ UnitBlueprint {
 		
             BuildCostEnergy = 38000,
             BuildCostMass = 3500,
-            BuildTime = 1950,
+            BuildTime = 3800,
 			
             BuildableCategoryAdds = 'BUILTBYTIER2COMMANDER AEON',
 
             Icon = 'exles1',
 			
-            Name = 'Tech 2 Improved Engineering (T1)',
+            Name = 'Improved Engineering (T2)',
 			
             ShowBones = { 'Engineering' },
 
@@ -279,15 +375,15 @@ UnitBlueprint {
 		
         EXAdvancedEngineering = {
 		
-            BuildCostEnergy = 125000,
-            BuildCostMass = 12500,
-            BuildTime = 7900,
+            BuildCostEnergy = 152000,
+            BuildCostMass = 10500,
+            BuildTime = 15200,
 
             BuildableCategoryAdds = 'BUILTBYTIER3COMMANDER AEON',
 
             Icon = 'exles2',
 			
-            Name = 'Tech 3 Advanced Engineering (T2)',
+            Name = 'Advanced Engineering (T3)',
 			
             Prerequisite = 'EXImprovedEngineering',
 
@@ -297,8 +393,6 @@ UnitBlueprint {
 
             UpgradeEffectBones = {'Left_Turret','Left_Turret_Muzzle'},
             UpgradeUnitAmbientBones = { 'UAL0001' },
-
-			NewRegenRate = 12,
         },
 		
         EXAdvancedEngineeringRemove = {
@@ -322,15 +416,15 @@ UnitBlueprint {
 		
         EXExperimentalEngineering = {
 		
-            BuildCostEnergy = 500000,
-            BuildCostMass = 30000,
-            BuildTime = 37500,
+            BuildCostEnergy = 720000,
+            BuildCostMass = 29500,
+            BuildTime = 72000,
 			
             BuildableCategoryAdds = 'BUILTBYTIER4COMMANDER AEON',
 
             Icon = 'exles3',
 			
-            Name = 'Tech 4 Experimental Engineering (T3)',
+            Name = 'Experimental Engineering (T4)',
 			
             Prerequisite = 'EXAdvancedEngineering',
 
@@ -340,8 +434,6 @@ UnitBlueprint {
 
             UpgradeEffectBones = {'Left_Turret','Left_Turret_Muzzle'},
             UpgradeUnitAmbientBones = { 'UAL0001' },
-            
-			NewRegenRate = 35,
         },
 		
         EXExperimentalEngineeringRemove = {
@@ -366,13 +458,13 @@ UnitBlueprint {
         EXCombatEngineering = {
 		
             BuildCostEnergy = 38000,
-            BuildCostMass = 3500,
-            BuildTime = 1950,
+            BuildCostMass = 3750,
+            BuildTime = 3800,
 
             BuildableCategoryAdds = 'BUILTBYTIER2COMMANDER AEON',
             Icon = 'exlce1',
 			
-            Name = 'Tech 2 Combat Engineering (T1)',
+            Name = 'Combat Engineering (T2)',
 			
             ShowBones = { 'Combat_Engineering' },
             HideBones = { 'Left_Turret_Plates' },
@@ -381,8 +473,6 @@ UnitBlueprint {
 
             UpgradeEffectBones = {'Left_Turret','Left_Turret_Muzzle'},
             UpgradeUnitAmbientBones = { 'UAL0001' },
-            
-			NewRegenRate = 12,            
         },
 		
         EXCombatEngineeringRemove = {
@@ -407,15 +497,15 @@ UnitBlueprint {
 		
         EXAssaultEngineering = {
 		
-            BuildCostEnergy = 125000,
-            BuildCostMass = 12500,
-            BuildTime = 7900,
+            BuildCostEnergy = 116500,
+            BuildCostMass = 15000,
+            BuildTime = 11650,
 
             BuildableCategoryAdds = 'BUILTBYTIER3COMMANDER AEON',
 
             Icon = 'exlce2',
 			
-            Name = 'Tech 3 Assault Engineering (T2)',
+            Name = 'Assault Engineering (T3)',
 			
 			Prerequisite = 'EXCombatEngineering',
 
@@ -426,8 +516,6 @@ UnitBlueprint {
 
             UpgradeEffectBones = {'Left_Turret','Left_Turret_Muzzle'},
             UpgradeUnitAmbientBones = { 'UAL0001' },
-
-			NewRegenRate = 35,            
         },
 		
         EXAssaultEngineeringRemove = {
@@ -452,14 +540,14 @@ UnitBlueprint {
 		
         EXApocalypticEngineering = {
 		
-            BuildCostEnergy = 575000,
-            BuildCostMass = 35000,
+            BuildCostEnergy = 375000,
+            BuildCostMass = 49000,
             BuildTime = 37500,
 			
             BuildableCategoryAdds = 'BUILTBYTIER4COMMANDER AEON',
             Icon = 'exlce3',
 			
-            Name = 'Tech 4 Apocalyptic Engineering (T3)',
+            Name = 'Apocalyptic Engineering (T4)',
 			
 			Prerequisite = 'EXAssaultEngineering',
 
@@ -470,8 +558,6 @@ UnitBlueprint {
 
             UpgradeEffectBones = {'Left_Turret','Left_Turret_Muzzle'},
             UpgradeUnitAmbientBones = { 'UAL0001' },
-            
-			NewRegenRate = 60,            
         },
 		
         EXApocalypticEngineeringRemove = {
@@ -490,17 +576,19 @@ UnitBlueprint {
             Prerequisite = 'EXApocalypticEngineering',
 
             RemoveEnhancements = {'EXApocalypticEngineering','EXApocalypticEngineeringRemove'},
+
             Slot = 'LCH',
         },
 		
         EXDisruptorrBooster = {
+
             BuildCostEnergy = 7500,
             BuildCostMass = 750,
-            BuildTime = 600,
+            BuildTime = 750,
             
             Icon = 'exrzb1',
             
-            Name = 'Jury Rigged Disruptor (T3)',
+            Name = 'Jury Rigged Disruptor',
             
             Slot = 'RCH',
             
@@ -509,6 +597,7 @@ UnitBlueprint {
         },
 		
         EXDisruptorrBoosterRemove = {
+
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
@@ -525,9 +614,11 @@ UnitBlueprint {
         },
 		
         EXTorpedoLauncher = {
+
             BuildCostEnergy = 35000,
             BuildCostMass = 1050,
             BuildTime = 3500,
+
             Icon = 'exrtorp1',
             
             Name = 'Torpedo Launcher (T2)',
@@ -541,6 +632,7 @@ UnitBlueprint {
         },
 		
         EXTorpedoLauncherRemove = {
+
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
@@ -559,9 +651,10 @@ UnitBlueprint {
         },
 		
         EXTorpedoRapidLoader = {
-            BuildCostEnergy = 90000,
-            BuildCostMass = 3000,
-            BuildTime = 7500,
+
+            BuildCostEnergy = 70000,
+            BuildCostMass = 3150,
+            BuildTime = 7000,
             
             Icon = 'exrtorp2',
             
@@ -578,6 +671,7 @@ UnitBlueprint {
         },
 		
         EXTorpedoRapidLoaderRemove = {
+
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
@@ -596,9 +690,10 @@ UnitBlueprint {
         },
 		
         EXTorpedoClusterLauncher = {
-            BuildCostEnergy = 180000,
-            BuildCostMass = 7500,
-            BuildTime = 16600,
+
+            BuildCostEnergy = 140000,
+            BuildCostMass = 9450,
+            BuildTime = 14000,
 
             Icon = 'exrtorp3',
             
@@ -615,25 +710,29 @@ UnitBlueprint {
         },
 		
         EXTorpedoClusterLauncherRemove = {
+
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
+
             HideBones = {'Torpedo_Launcher'},
+
             Icon = 'exrtorp3',
             
             Name = 'Remove Cluster Launcher',
             
             Prerequisite = 'EXTorpedoClusterLauncher',
-			ZephyrDamageMod = 100,
-			ZephyrRangeMod = 35,
+
             RemoveEnhancements = {'EXTorpedoLauncher','EXTorpedoRapidLoader','EXTorpedoClusterLauncher','EXTorpedoClusterLauncherRemove'},
+
             Slot = 'RCH',
         },
 		
         EXArtilleryMiasma = {
-            BuildCostEnergy = 35000,
-            BuildCostMass = 1050,
-            BuildTime = 3500,
+
+            BuildCostEnergy = 18000,
+            BuildCostMass = 1800,
+            BuildTime = 1800,
 
             Icon = 'exramc1',
             
@@ -646,6 +745,7 @@ UnitBlueprint {
         },
 		
         EXArtilleryMiasmaRemove = {
+
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
@@ -661,9 +761,10 @@ UnitBlueprint {
         },
 		
         EXAdvancedShells = {
-            BuildCostEnergy = 100000,
-            BuildCostMass = 3750,
-            BuildTime = 11000,
+
+            BuildCostEnergy = 72000,
+            BuildCostMass = 5400,
+            BuildTime = 7200,
 
             Icon = 'exramc2',
             
@@ -678,9 +779,11 @@ UnitBlueprint {
         },
 		
         EXAdvancedShellsRemove = {
+
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
+
             Icon = 'exramc2',
             
             Name = 'Remove Advanced Warhead Compression',
@@ -693,9 +796,10 @@ UnitBlueprint {
         },
 		
         EXImprovedReloader = {
-            BuildCostEnergy = 275000,
-            BuildCostMass = 9800,
-            BuildTime = 30000,
+
+            BuildCostEnergy = 180000,
+            BuildCostMass = 13500,
+            BuildTime = 18000,
 
             Icon = 'exramc3',
             
@@ -710,6 +814,7 @@ UnitBlueprint {
         },
 		
         EXImprovedReloaderRemove = {
+
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
@@ -726,13 +831,14 @@ UnitBlueprint {
         },
 		
         EXBeamPhason = {
+
             BuildCostEnergy = 17500,
             BuildCostMass = 900,
-            BuildTime = 900,
+            BuildTime = 1750,
 
             Icon = 'exrgec1',
 
-            Name = 'Phason Beam Cannon (T3)',
+            Name = 'Phason Beam (T3)',
 
             ShowBones = {'Laser_Cannon'},
 
@@ -746,6 +852,7 @@ UnitBlueprint {
         },
 		
         EXBeamPhasonRemove = {
+
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
@@ -755,7 +862,7 @@ UnitBlueprint {
 
             Icon = 'exrgec1',
 
-            Name = 'Remove Phason Beam Cannon',
+            Name = 'Remove Phason Beam',
 
             Prerequisite = 'EXBeamPhason',
 
@@ -765,9 +872,10 @@ UnitBlueprint {
         },
 		
         EXImprovedCoolingSystem = {
+
             BuildCostEnergy = 45000,
             BuildCostMass = 1800,
-            BuildTime = 2400,
+            BuildTime = 4500,
 
             Icon = 'exrgec2',
 
@@ -786,6 +894,7 @@ UnitBlueprint {
         },
 		
         EXImprovedCoolingSystemRemove = {
+
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
@@ -806,9 +915,10 @@ UnitBlueprint {
         },
 		
         EXPowerBooster = {
+
             BuildCostEnergy = 135000,
             BuildCostMass = 5400,
-            BuildTime = 7200,
+            BuildTime = 1350,
 
             Icon = 'exrgec3',
 
@@ -826,6 +936,7 @@ UnitBlueprint {
         },
 		
         EXPowerBoosterRemove = {
+
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
@@ -844,10 +955,284 @@ UnitBlueprint {
             Slot = 'RCH',
         },
 		
-        EXShieldBattery = {
+        EXIntelEnhancementT2 = {
+
+            BuildCostEnergy = 3600,
+            BuildCostMass = 180,
+            BuildTime = 360,
+
+            Icon = 'excint1',
+            
+            ConsumptionPerSecondEnergy = 187.5,
+
+            Name = 'Intel Enhancment (T2)',
+
+            ShowBones = {'IntelPack_Head'},
+
+            Slot = 'Command',
+
+            UpgradeEffectBones = {'IntelPack_Head'},
+            UpgradeUnitAmbientBones = {'UAL0001'},
+        },
+		
+        EXIntelEnhancementT2Remove = {
+
+            BuildCostEnergy = 1,
+            BuildCostMass = 1,
+            BuildTime = 0.1,
+
+            HideBones = {'IntelPack_Head'},
+
+            Icon = 'excint1',
+
+            Name = 'Remove Intel Enhancment',
+
+            Prerequisite = 'EXIntelEnhancement',
+
+            RemoveEnhancements = {'EXIntelEnhancementT2','EXIntelEnhancementT2Remove'},
+
+            Slot = 'Command',
+        },
+
+        EXIntelEnhancementT3 = {
+
+            BuildCostEnergy = 27000,
+            BuildCostMass = 2200,
+            BuildTime = 2700,
+
+            Icon = 'excint2',
+            
+            ConsumptionPerSecondEnergy = 2000,
+
+            Name = 'Intel Enhancment (T3)',
+
+			Prerequisite = 'EXIntelEnhancementT2',
+
+            ShowBones = {'IntelPack_Head','IntelPack_LShoulder'},
+
+            Slot = 'Command',
+
+            UpgradeEffectBones = {'IntelPack_Head'},
+            UpgradeUnitAmbientBones = {'UAL0001'},
+        },
+		
+        EXIntelEnhancementT3Remove = {
+
+            BuildCostEnergy = 1,
+            BuildCostMass = 1,
+            BuildTime = 0.1,
+
+            HideBones = {'IntelPack_Head','IntelPack_LShoulder'},
+
+            Icon = 'excint2',
+
+            Name = 'Remove Intel Enhancment',
+
+            Prerequisite = 'EXIntelEnhancementT3',
+
+            RemoveEnhancements = {'EXIntelEnhancementT3','EXIntelEnhancementT3Remove'},
+
+            Slot = 'Command',
+        },
+		
+        EXIntelRhianneDevice = {
+
+            BuildCostEnergy = 39000,
+            BuildCostMass = 2100,
+            BuildTime = 3900,
+
+            Icon = 'excint3',
+
+            Name = 'Rhianne Optics (T3)',
+
+			Prerequisite = 'EXIntelEnhancementT3',
+
+            ShowBones = {'IntelPack_Torso','IntelPack_RShoulder'},
+
+            Slot = 'Command',
+
+            UpgradeEffectBones = {'IntelPack_Torso','IntelPack_LShoulder','IntelPack_RShoulder'},
+            UpgradeUnitAmbientBones = {'UAL0001'},
+        },
+		
+        EXIntelRhianneDeviceRemove = {
+
+            BuildCostEnergy = 1,
+            BuildCostMass = 1,
+            BuildTime = 0.1,
+
+            HideBones = {'IntelPack_Torso','IntelPack_RShoulder'},
+
+            Icon = 'excint3',
+
+            Name = 'Remove Rhianne Optics',
+
+            Prerequisite = 'EXIntelRhianneDevice',
+
+            RemoveEnhancements = {'EXIntelRhianneDevice','EXIntelRhianneDeviceRemove','EXIntelEnhancementT3','EXIntelEnhancementT2'},
+
+            Slot = 'Command',
+        },
+        
+        -- the Maelstrom is a BuffField - and gets its range set there
+		
+        EXMaelstromQuantum = {
+
+            BuildCostEnergy = 35000,
+            BuildCostMass = 3500,
+            BuildTime = 3500,
+
+            Icon = 'exbbat1',
+
+            Name = 'Maelstrom Generator',
+
+            ConsumptionPerSecondEnergy = 450,
+
+            ShowBones = {'DamagePack_RLeg_B01','DamagePack_RLeg_B02'},
+
+            Slot = 'Back',
+
+            UpgradeEffectBones = {'DamagePack_RLeg_B01','DamagePack_LLeg_B01'},
+            UpgradeUnitAmbientBones = {'UAL0001'},
+        },
+		
+        EXMaelstromQuantumRemove = {
+
+            BuildCostEnergy = 1,
+            BuildCostMass = 1,
+            BuildTime = 0.1,
+
+            HideBones = {'DamagePack_RLeg_B01','DamagePack_RLeg_B02'},
+
+            Icon = 'exbbat1',
+
+            Name = 'Remove Maelstrom Generator',
+
+            Prerequisite = 'EXMaelstromQuantum',
+
+            RemoveEnhancements = {'EXMaelstromQuantum','EXMaelstromQuantumRemove'},
+
+            Slot = 'Back',
+        },
+		
+        EXMaelstromFieldExpander = {
+
+            BuildCostEnergy = 70000,
+            BuildCostMass = 7000,
+            BuildTime = 7000,
+
+            Icon = 'exbbat2',
+
+            Name = 'Maelstrom Amplifier',
+
+            ConsumptionPerSecondEnergy = 675,
+
+			Prerequisite = 'EXMaelstromQuantum',
+            
+            ShowBones = {'DamagePack_Torso','DamagePack_RLeg_B01','DamagePack_RLeg_B02','DamagePack_LLeg_B01','DamagePack_LLeg_B02'},
+
+            Slot = 'Back',
+
+            UpgradeEffectBones = {'DamagePack_Torso','DamagePack_RLeg_B02','DamagePack_LLeg_B02'},
+            UpgradeUnitAmbientBones = {'UAL0001'},
+        },
+		
+        EXMaelstromFieldExpanderRemove = {
+
+            BuildCostEnergy = 1,
+            BuildCostMass = 1,
+            BuildTime = 0.1,
+
+            HideBones = {'DamagePack_Torso','DamagePack_RLeg_B01','DamagePack_RLeg_B02','DamagePack_LLeg_B01','DamagePack_LLeg_B02'},
+
+            Icon = 'exbbat2',
+
+            Name = 'Remove Maelstrom Amplifier',
+
+            Prerequisite = 'EXMaelstromFieldExpander',
+
+            RemoveEnhancements = {'EXMaelstromQuantum','EXMaelstromFieldExpander','EXMaelstromFieldExpanderRemove'},
+
+            Slot = 'Back',
+        },
+		
+        EXMaelstromQuantumInstability = {
+
+            BuildCostEnergy = 125000,
+            BuildCostMass = 11000,
+            BuildTime = 12500,
+
+            Icon = 'exbbat3',
+
+            Name = 'Maelstrom Focusing',
+
+            ConsumptionPerSecondEnergy = 1080,
+
+			Prerequisite = 'EXMaelstromFieldExpander',
+
+            Slot = 'Back',
+
+            UpgradeEffectBones = {'DamagePack_LArm','DamagePack_RArm'},
+            UpgradeUnitAmbientBones = {'UAL0001'},
+        },
+		
+        EXMaelstromQuantumInstabilityRemove = {
+
+            BuildCostEnergy = 1,
+            BuildCostMass = 1,
+            BuildTime = 0.1,
+
+            HideBones = {'DamagePack_LArm','DamagePack_RArm','DamagePack_Torso','DamagePack_RLeg_B01','DamagePack_RLeg_B02','DamagePack_LLeg_B01','DamagePack_LLeg_B02'},
+
+            Icon = 'exbbat3',
+
+            Name = 'Remove Maelstrom Focusing',
+
+            Prerequisite = 'EXMaelstromQuantumInstability',
+
+            RemoveEnhancements = {'EXMaelstromQuantum','EXMaelstromFieldExpander','EXMaelstromQuantumInstability','EXMaelstromQuantumInstabilityRemove'},
+
+            Slot = 'Back',
+        },
+	
+        EXPersonalTeleporter = {
+
+            BuildCostEnergy = 95000,
+            BuildCostMass = 4800,
+            BuildTime = 9500,
+
+            Icon = 'exbtele',
+
+            Name = 'Personal Teleporter (T4)',
+
+            Slot = 'Back',
+
+            UpgradeEffectBones = {'IntelPack_Torso'},
+            UpgradeUnitAmbientBones = {'UAL0001'},
+        },
+		
+        EXPersonalTeleporterRemove = {
+
+            BuildCostEnergy = 1,
+            BuildCostMass = 1,
+            BuildTime = 0.1,
+
+            Icon = 'exbtele',
+
+            Name = 'Remove Personal Teleporter',
+
+            Prerequisite = 'EXPersonalTeleporter',
+
+            RemoveEnhancements = {'EXPersonalTeleporter','EXPersonalTeleporterRemove'},
+
+            Slot = 'Back',
+        },
+		
+        EXShieldBubble = {
+
             BuildCostEnergy = 7500,
             BuildCostMass = 500,
-            BuildTime = 2500,
+            BuildTime = 750,
 			
             Icon = 'exbsh1',
 			
@@ -856,9 +1241,9 @@ UnitBlueprint {
             Mesh = '/effects/entities/AeonShield01/AeonShield01_mesh',
             MeshZ = '/effects/entities/Shield01/Shield01z_mesh',
 			
-            MaintenanceConsumptionPerSecondEnergy = 200,
+            ConsumptionPerSecondEnergy = 200,
 			
-            Name = 'Shield Generator (T2)',
+            Name = 'Shield Bubble (T2)',
 			
             RegenAssistMult = 60,            
 			
@@ -876,34 +1261,36 @@ UnitBlueprint {
             UpgradeUnitAmbientBones = {'UAL0001'},
         },
 		
-        EXShieldBatteryRemove = {
+        EXShieldBubbleRemove = {
+
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
 
             Icon = 'exbsh1',
 
-            Name = 'Remove Shield Battery',
+            Name = 'Remove Shield Bubble',
 
-            Prerequisite = 'EXShieldBattery',
+            Prerequisite = 'EXShieldBubble',
 
-            RemoveEnhancements = {'EXShieldBattery','EXShieldBatteryRemove'},
+            RemoveEnhancements = {'EXShieldBubble','EXShieldBubbleRemove'},
 
             Slot = 'Back',
 		},
 		
-        EXActiveShielding = {
+        EXActiveSkinShield = {
+
             BuildCostEnergy = 22000,
             BuildCostMass = 2240,
-            BuildTime = 1800,
+            BuildTime = 2240,
 
             Icon = 'exbsh2',
 
             ImpactEffects = 'UEFShieldHit01',
 
-            Name = 'Skin Shielding (T3)',
+            Name = 'Skin Shield (T3)',
 
-			Prerequisite = 'EXShieldBattery',
+			Prerequisite = 'EXShieldBubble',
 
             OwnerShieldMesh = '/mods/BlackopsACUs/units/EAL0001/EAL0001_PhaseShield_mesh',
 
@@ -911,7 +1298,7 @@ UnitBlueprint {
 
             RegenAssistMult = 60,
 
-            MaintenanceConsumptionPerSecondEnergy = 550,
+            ConsumptionPerSecondEnergy = 550,
 
             ShieldEnergyDrainRechargeTime = 5,
             ShieldMaxHealth = 18000,
@@ -920,29 +1307,32 @@ UnitBlueprint {
             ShieldRegenStartTime = 1,
             ShieldSize = 3,
             ShieldVerticalOffset = 0,
+
             Slot = 'Back',
 
             UpgradeEffectBones = {'ShieldPack_Normal'},
             UpgradeUnitAmbientBones = {'UAL0001'},
         },
 		
-        EXActiveShieldingRemove = {
+        EXActiveSkinShieldRemove = {
+
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
 
             Icon = 'exbsh2',
 
-            Name = 'Remove Improved Shield Battery',
+            Name = 'Remove Skin Shield',
 
-            Prerequisite = 'EXActiveShielding',
+            Prerequisite = 'EXActiveSkinShield',
 
-            RemoveEnhancements = {'EXShieldBattery','EXActiveShielding','EXActiveShieldingRemove'},
+            RemoveEnhancements = {'EXShieldBubble','EXActiveSkinShield','EXActiveSkinShieldRemove'},
 
             Slot = 'Back',
         },
 		
-        EXImprovedShieldBattery = {
+        EXAdvancedSkinShield = {
+
             BuildCostEnergy = 24000,
             BuildCostMass = 3505,
             BuildTime = 2400,
@@ -951,9 +1341,9 @@ UnitBlueprint {
 
             ImpactEffects = 'UEFShieldHit01',
 
-            Name = 'Advanced Skin Shield Battery (T4)',
+            Name = 'Advanced Skin Shield (T4)',
 
-			Prerequisite = 'EXActiveShielding',
+			Prerequisite = 'EXActiveSkinShield',
 
             OwnerShieldMesh = '/mods/BlackopsACUs/units/EAL0001/EAL0001_PhaseShield_mesh',
 
@@ -961,7 +1351,7 @@ UnitBlueprint {
 
             RegenAssistMult = 60,
 
-            MaintenanceConsumptionPerSecondEnergy = 750,
+            ConsumptionPerSecondEnergy = 750,
 
             ShieldEnergyDrainRechargeTime = 5,
             ShieldMaxHealth = 28800,
@@ -977,323 +1367,22 @@ UnitBlueprint {
             UpgradeUnitAmbientBones = {'UAL0001'},
         },
 		
-        EXImprovedShieldBatteryRemove = {
+        EXAdvancedSkinShieldRemove = {
+
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
 
             Icon = 'exbsh3',
 
-            Name = 'Remove Advanced Shield Battery',
+            Name = 'Remove Advanced Skin Shield',
 
-            Prerequisite = 'EXImprovedShieldBattery',
+            Prerequisite = 'EXAdvancedSkinShield',
 
-            RemoveEnhancements = {'EXShieldBattery','EXActiveShielding','EXImprovedShieldBattery','EXImprovedShieldBatteryRemove'},
-
-            Slot = 'Back',
-        },
-		
-        EXElectronicsEnhancment = {
-            BuildCostEnergy = 30000,
-            BuildCostMass = 2400,
-            BuildTime = 1800,
-
-            Icon = 'exbint1',
-
-            Name = 'Intel Enhancment (T3)',
-
-			NewVisionRadius = 52,
-            NewRadarRadius = 200,
-			NewOmniRadius = 90,
-
-            ShowBones = {'IntelPack_Torso','IntelPack_Head','IntelPack_LShoulder','IntelPack_RShoulder'},
-
-            Slot = 'Back',
-
-            UpgradeEffectBones = {'IntelPack_Torso','IntelPack_Head','IntelPack_LShoulder','IntelPack_RShoulder'},
-            UpgradeUnitAmbientBones = {'UAL0001'},
-        },
-		
-        EXElectronicsEnhancmentRemove = {
-            BuildCostEnergy = 1,
-            BuildCostMass = 1,
-            BuildTime = 0.1,
-
-            HideBones = {'IntelPack_Torso','IntelPack_Head','IntelPack_LShoulder','IntelPack_RShoulder'},
-
-            Icon = 'exbint1',
-
-            Name = 'Remove Intel Enhancment',
-
-            Prerequisite = 'EXElectronicsEnhancment',
-
-            RemoveEnhancements = {'EXElectronicsEnhancment','EXElectronicsEnhancmentRemove'},
+            RemoveEnhancements = {'EXShieldBubble','EXActiveSkinShield','EXAdvancedSkinShield','EXAdvancedSkinShieldRemove'},
 
             Slot = 'Back',
         },
-		
-        EXElectronicCountermeasures = {
-            BuildCostEnergy = 51000,
-            BuildCostMass = 3000,
-            BuildTime = 5100,
-
-            Icon = 'exbint2',
-
-            Name = 'Rhianne Optics (T3)',
-
-			Prerequisite = 'EXElectronicsEnhancment',
-
-			MaintenanceConsumptionPerSecondEnergy = 1,
-
-            ShowBones = {'IntelPack_Torso','IntelPack_Head','IntelPack_LShoulder','IntelPack_RShoulder'},
-
-            Slot = 'Back',
-
-            UpgradeEffectBones = {'IntelPack_Torso','IntelPack_Head','IntelPack_LShoulder','IntelPack_RShoulder'},
-            UpgradeUnitAmbientBones = {'UAL0001'},
-        },
-		
-        EXElectronicCountermeasuresRemove = {
-            BuildCostEnergy = 1,
-            BuildCostMass = 1,
-            BuildTime = 0.1,
-
-            HideBones = {'IntelPack_Torso','IntelPack_Head','IntelPack_LShoulder','IntelPack_RShoulder'},
-
-            Icon = 'exbint2',
-
-            Name = 'Remove Rhianne Optics',
-
-            Prerequisite = 'EXElectronicCountermeasures',
-
-            RemoveEnhancements = {'EXElectronicsEnhancment','EXElectronicCountermeasures','EXElectronicCountermeasuresRemove'},
-
-            Slot = 'Back',
-        },
-		
-        EXCloakingSubsystems = {
-            BuildCostEnergy = 110000,
-            BuildCostMass = 10000,
-            BuildTime = 11500,
-
-            Icon = 'exbint3',
-
-            Name = 'Personal Teleporter (T4)',
-
-			Prerequisite = 'EXElectronicCountermeasures',
-
-			MaintenanceConsumptionPerSecondEnergy = 1,
-
-            ShowBones = {'IntelPack_Torso','IntelPack_Head','IntelPack_LShoulder','IntelPack_RShoulder',},
-
-            Slot = 'Back',
-
-            UpgradeEffectBones = {'IntelPack_Torso','IntelPack_Head','IntelPack_LShoulder',},
-            UpgradeUnitAmbientBones = {'UAL0001'},
-        },
-		
-        EXCloakingSubsystemsRemove = {
-            BuildCostEnergy = 1,
-            BuildCostMass = 1,
-            BuildTime = 0.1,
-
-            HideBones = {'IntelPack_Torso','IntelPack_Head','IntelPack_LShoulder','IntelPack_RShoulder'},
-
-            Icon = 'exbint3',
-
-            Name = 'Remove Personal Teleporter',
-
-            Prerequisite = 'EXCloakingSubsystems',
-
-            RemoveEnhancements = {'EXElectronicsEnhancment','EXElectronicCountermeasures','EXCloakingSubsystems','EXCloakingSubsystemsRemove'},
-
-            Slot = 'Back',
-        },
-		
-        EXMaelstromQuantum = {
-            BuildCostEnergy = 35000,
-            BuildCostMass = 3500,
-            BuildTime = 3000,
-
-            Icon = 'exbbat1',
-
-            Name = 'Maelstrom Generator',
-
-            ShowBones = {
-                'DamagePack_LArm',
-                'DamagePack_RArm',
-                'DamagePack_Torso',
-                'DamagePack_RLeg_B01',
-                'DamagePack_RLeg_B02',
-                'DamagePack_LLeg_B01',
-                'DamagePack_LLeg_B02',
-            },
-
-            Slot = 'Back',
-
-            UpgradeEffectBones = {
-                'DamagePack_LArm',
-                'DamagePack_RArm',
-                'DamagePack_Torso',
-                'DamagePack_RLeg_B01',
-                'DamagePack_RLeg_B02',
-                'DamagePack_LLeg_B01',
-                'DamagePack_LLeg_B02',
-            },
-
-            UpgradeUnitAmbientBones = {'UAL0001'},
-        },
-		
-        EXMaelstromQuantumRemove = {
-            BuildCostEnergy = 1,
-            BuildCostMass = 1,
-            BuildTime = 0.1,
-
-            HideBones = {
-                'DamagePack_LArm',
-                'DamagePack_RArm',
-                'DamagePack_Torso',
-                'DamagePack_RLeg_B01',
-                'DamagePack_RLeg_B02',
-                'DamagePack_LLeg_B01',
-                'DamagePack_LLeg_B02',
-            },
-
-            Icon = 'exbbat1',
-
-            Name = 'Remove Maelstrom Generator',
-
-            Prerequisite = 'EXMaelstromQuantum',
-
-            RemoveEnhancements = {'EXMaelstromQuantum','EXMaelstromQuantumRemove'},
-
-            Slot = 'Back',
-        },
-		
-        EXFieldExpander = {
-            BuildCostEnergy = 70000,
-            BuildCostMass = 7000,
-            BuildTime = 6000,
-
-            Icon = 'exbbat2',
-
-            Name = 'Maelstrom Amplifier',
-
-			Prerequisite = 'EXMaelstromQuantum',
-
-            ShowBones = {
-                'DamagePack_LArm',
-                'DamagePack_RArm',
-                'DamagePack_Torso',
-                'DamagePack_RLeg_B01',
-                'DamagePack_RLeg_B02',
-                'DamagePack_LLeg_B01',
-                'DamagePack_LLeg_B02',
-            },
-
-            Slot = 'Back',
-
-            UpgradeEffectBones = {
-                'DamagePack_LArm',
-                'DamagePack_RArm',
-                'DamagePack_Torso',
-                'DamagePack_RLeg_B01',
-                'DamagePack_RLeg_B02',
-                'DamagePack_LLeg_B01',
-                'DamagePack_LLeg_B02',
-            },
-
-            UpgradeUnitAmbientBones = {'UAL0001'},
-        },
-		
-        EXFieldExpanderRemove = {
-            BuildCostEnergy = 1,
-            BuildCostMass = 1,
-            BuildTime = 0.1,
-
-            HideBones = {
-                'DamagePack_LArm',
-                'DamagePack_RArm',
-                'DamagePack_Torso',
-                'DamagePack_RLeg_B01',
-                'DamagePack_RLeg_B02',
-                'DamagePack_LLeg_B01',
-                'DamagePack_LLeg_B02',
-            },
-
-            Icon = 'exbbat2',
-
-            Name = 'Remove Maelstrom Amplifier',
-
-            Prerequisite = 'EXFieldExpander',
-
-            RemoveEnhancements = {'EXMaelstromQuantum','EXFieldExpander','EXFieldExpanderRemove'},
-
-            Slot = 'Back',
-        },
-		
-        EXQuantumInstability = {
-            BuildCostEnergy = 140000,
-            BuildCostMass = 14000,
-            BuildTime = 12000,
-
-            Icon = 'exbbat3',
-
-            Name = 'Maelstrom Focusing',
-
-			Prerequisite = 'EXFieldExpander',
-
-            ShowBones = {
-                'DamagePack_LArm',
-                'DamagePack_RArm',
-                'DamagePack_Torso',
-                'DamagePack_RLeg_B01',
-                'DamagePack_RLeg_B02',
-                'DamagePack_LLeg_B01',
-                'DamagePack_LLeg_B02',
-            },
-
-            Slot = 'Back',
-
-            UpgradeEffectBones = {
-                'DamagePack_LArm',
-                'DamagePack_RArm',
-                'DamagePack_Torso',
-                'DamagePack_RLeg_B01',
-                'DamagePack_RLeg_B02',
-                'DamagePack_LLeg_B01',
-                'DamagePack_LLeg_B02',
-            },
-
-            UpgradeUnitAmbientBones = {'UAL0001'},
-        },
-		
-        EXQuantumInstabilityRemove = {
-            BuildCostEnergy = 1,
-            BuildCostMass = 1,
-            BuildTime = 0.1,
-
-            HideBones = {
-                'DamagePack_LArm',
-                'DamagePack_RArm',
-                'DamagePack_Torso',
-                'DamagePack_RLeg_B01',
-                'DamagePack_RLeg_B02',
-                'DamagePack_LLeg_B01',
-                'DamagePack_LLeg_B02',
-            },
-
-            Icon = 'exbbat3',
-
-            Name = 'Remove Maelstrom Focusing',
-
-            Prerequisite = 'EXQuantumInstability',
-
-            RemoveEnhancements = {'EXMaelstromQuantum','EXFieldExpander','EXQuantumInstability','EXQuantumInstabilityRemove'},
-
-            Slot = 'Back',
-        },
-		
     },
 	
     General = {
@@ -1303,10 +1392,6 @@ UnitBlueprint {
             PitchBone = 'Left_Turret',
             YawBone = 'Torso',
         },
-		
-        Category = 'Command',
-		
-        Classification = 'RULEUC_Commander',
 		
         CommandCaps = {
             RULEUCC_Attack = true,
@@ -1327,66 +1412,73 @@ UnitBlueprint {
         Icon = 'amph',
         
         OrderOverrides = {
-            -- this is for the T3 Intel Package
-            RULEUTC_StealthToggle = { bitmapId = 'intel', helpText = 'toggle_intel' },
-            -- this is for the Rhianne Optics Package
-            RULEUTC_IntelToggle = { bitmapId = 'skry-toggle', helpText = 'toggle_scrying' },
+
+            RULEUTC_IntelToggle = { bitmapId = 'omni', helpText = 'Radar, Sonar & OMNI' },
+            RULEUTC_SpecialToggle = { helpText = 'Miasma Field' },
         },
         
         QuickSelectPriority = 1,
         SelectionPriority = 3,
-        TechLevel = 'RULEUTL_Experimental',
-        UnitWeight = 1,
+
+        ToggleCaps = {
+            RULEUTC_IntelToggle = true,
+            RULEUTC_ShieldToggle = true,
+            RULEUTC_SpecialToggle = true,
+        },
     },
 	
     Intel = {
 
-		RadarStealthFieldRadius = 1,	-- this is for the Maelstrom field        
-
         FreeIntel = false,
 
-		RadarStealth = true,
-		SonarStealth = true,
+        RadarStealth = true,
+        RadarStealthField = true,
+        RadarStealthFieldRadius = 1,        -- used and altered by Maelstrom Field
+
+        SonarStealth = true,
+        SonarStealthField = true,
+        SonarStealthFieldRadius = 1,        -- as above
         
         OmniRadius = 26,
         RadarRadius = 50,
-        SonarRadius = 50,
-        VisionRadius = 26,
+        SonarRadius = 46,
+        VisionRadius = 28,
         WaterVisionRadius = 20,
 
         -- these are here for the Rhianne Optics enhancement
-		Cooldown = 1,					---- time before scry button reappears once scrying begins (in this case they come back on just before the scrying is finished)
-		Viewtime = 30,					---- time that scrying area remains visible	(the scrying buttons disappear once the viewtime begins)
-        ReactivateTime = 10,			---- time between the end of a scry and the start of a new one (a chance to pick a new target before the old one restarts)
-        RemoteViewingRadius = 30,		---- this would normally be the start size of the remote viewing radius
-		RemoteViewingRadiusFinal = 65,	---- and the final radius of the scry (controls the grow/shrink rate)         
-
+		Cooldown = 19,					---- time before scry button reappears once scrying begins (in this case they come back on just before the scrying is finished)
+		Viewtime = 20,					---- time that scrying area remains visible	(the scrying buttons disappear once the viewtime begins)
+        ReactivateTime = 15,			---- time between the end of a scry and the start of a new one (a chance to pick a new target before the old one restarts)
+        RemoteViewingRadius = 48,		---- this would normally be the start size of the remote viewing radius
+		RemoteViewingRadiusFinal = 48,	---- and the final radius of the scry (controls the grow/shrink rate)         
     },
-	
-    Interface = { HelpText = 'Armored Command Unit'},
 	
     LifeBarHeight = 0.15,
     LifeBarOffset = 0.5,
     LifeBarSize = 1.25,
 	
     Physics = {
+        BackUpDistance = 15,
         BankingSlope = 0,
-        BuildOnLayerCaps = { LAYER_Land = true },
+
         DragCoefficient = 0.2,
+
         LayerChangeOffsetHeight = -0.9,
         
-        MaxAcceleration = 0.45,
-        MaxSpeed = 1.45,
-        
-        MaxSpeedReverse = 0,
-        MaxSteerForce = 12,
+        MaxAcceleration = 0.55,
+
+        MaxBrake = 1.4,
+        MaxSpeed = 1.4,
+        MaxSpeedReverse = 1.4,
+
+        MaxSteerForce = 20,
         MinSpeedPercent = 0,
         
         MotionType = 'RULEUMT_Amphibious',
         
         StandUpright = true,
         TurnRadius = 10,
-        TurnRate = 75,
+        TurnRate = 60,
     },
 	
     SelectionCenterOffsetX = 0,
@@ -1397,31 +1489,29 @@ UnitBlueprint {
     SelectionYOffset = 0,
 	
     SizeX = 1,
-    SizeY = 2,
+    SizeY = 2.3,
     SizeZ = 0.7,
 	
     StrategicIconName = 'icon_commander_generic',
     StrategicIconSortPriority = 0,
 	
     Transport = {
-        CanFireFromTransport = false,
         ClassSAttachSize = 0,
         TransportClass = 3,
     },
 	
     Veteran = {
-        Level1 = 35,
-        Level2 = 70,
-        Level3 = 105,
-        Level4 = 140,
-        Level5 = 175,
+        Level1 = 36,
+        Level2 = 72,
+        Level3 = 108,
+        Level4 = 144,
+        Level5 = 180,
     },
 	
     Weapon = {
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
-            Audio = {},
             BallisticArc = 'RULEUBA_None',
 			
             BeamCollisionDelay = 0.1,
@@ -1440,7 +1530,7 @@ UnitBlueprint {
                 Seabed = 'Air|Land|Water|Seabed',
                 Water = 'Air|Land|Water|Seabed',
             },
-            FiringTolerance = 5,
+            FiringTolerance = 1,
 			
             HeadingArcCenter = 0,
             HeadingArcRange = 180,
@@ -1448,26 +1538,18 @@ UnitBlueprint {
             Label = 'EXTargetPainter',
 			
             MaxRadius = 25, --script must change this to match weapon upgrade range
-			
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
+
             MuzzleSalvoSize = 1,
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Right_Turret_Muzzle'},
                     RackBone = 'Right_Turret',
                 },
             },
-            RackFireTogether = true,
-            RackRecoilDistance = 0,
+
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
-            RackSlavedToTurret = true,
 
             RateOfFire = 2,
 			
@@ -1477,7 +1559,6 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'STRUCTURE DEFENSE',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
@@ -1485,15 +1566,14 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Right_Turret_Muzzle',
             TurretBonePitch = 'Right_Turret',
             TurretBoneYaw = 'Torso',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 90,
-            TurretPitchSpeed = 90,
+            TurretPitchSpeed = 85,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 90,
+            TurretYawSpeed = 125,
 			
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
@@ -1512,7 +1592,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 35,
+            Damage = 70,
 			DamageRadius = 0,
             DamageType = 'Normal',
 			
@@ -1531,11 +1611,9 @@ UnitBlueprint {
 
             Label = 'RightDisruptor',
 			
-            MaxRadius = 25,
+            MaxRadius = 28,
             MinRadius = 1,
-			
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
+
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 40,
 
@@ -1544,33 +1622,25 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Right_Turret_Muzzle'},
                     RackBone = 'Right_Turret',
                 },
             },
-			
-            RackFireTogether = false,
-            RackRecoilDistance = 0,
+
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 4,
+            RateOfFire = 2,
 			
             TargetCheckInterval = 0.5,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
-                'STRUCTURE DEFENSE',
-                'SPECIALLOWPRI',
-                'ALLUNITS',
+                'DEFENSE',
+                'ALLUNITS -WALL',
             },
 			
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
@@ -1578,37 +1648,33 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Right_Turret_Muzzle',
             TurretBonePitch = 'Right_Turret',
             TurretBoneYaw = 'Torso',
-
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
-            TurretPitchRange = 4,
-            TurretPitchSpeed = 90,
+            TurretPitchRange = 10,
+            TurretPitchSpeed = 85,
 			
             TurretYaw = 0,
-            TurretYawRange = 4,
-            TurretYawSpeed = 90,
+            TurretYawRange = 10,
+            TurretYawSpeed = 125,
 			
             Turreted = true,
-			
             UseFiringSolutionInsteadOfAimBone = true,
         },
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+
             Audio = {
-                Fire = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0001_Quantum_Beam',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound {Bank = 'UALWeapon',Cue = 'UAL0001_Quantum_Beam',LodCutoff = 'Weapon_LodCutoff'},
             },
+
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
             Damage = 100000,
             DamageFriendly = true,
             DamageRadius = 2,
+
             DamageType = 'Overcharge',
 			
             DisplayName = 'Overcharge Cannon',
@@ -1631,8 +1697,7 @@ UnitBlueprint {
             ManualFire = true,
 			
             MaxRadius = 30,
-			
-            MuzzleSalvoDelay = 0,
+
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 25,
             
@@ -1641,46 +1706,37 @@ UnitBlueprint {
             OverChargeWeapon = true,
 			
             ProjectileId = '/projectiles/ADFOverCharge01/ADFOverCharge01_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 1
-			,
+            ProjectileLifetimeUsesMultiplier = 2,
+
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Right_Turret_Muzzle'},
                     RackBone = 'Right_Turret_Barrel',
                 },
             },
-			
-            RackFireTogether = false,
+
             RackRecoilDistance = -0.5,
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
+
+            RangeCategory = 'UWRC_Countermeasure',
 			
-            RangeCategory = 'UWRC_DirectFire',
+            RateOfFire = 1,         -- relies upon the charge cycle
 			
-            RateOfFire = 1,         -- rely totally upon the charge cycle now
-			
-            TargetCheckInterval = 0.2,
-			
+            TargetCheckInterval = 0.5,
             TargetRestrictDisallow = 'UNTARGETABLE',
 			
             TurretBoneMuzzle = 'Right_Turret_Muzzle',
             TurretBonePitch = 'Right_Turret',
             TurretBoneYaw = 'Right_Arm_B02',
-
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
-            TurretPitchRange = 90,
-            TurretPitchSpeed = 90,
+            TurretPitchRange = 60,
+            TurretPitchSpeed = 30,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 90,
+            TurretYawSpeed = 125,
 			
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
@@ -1703,8 +1759,7 @@ UnitBlueprint {
             Label = 'DeathWeapon',
 			
             MaxRadius = 1,
-			
-            MuzzleSalvoDelay = 0,
+
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 0,
 			
@@ -1719,21 +1774,20 @@ UnitBlueprint {
             NukeOuterRingTotalTime = 4,
 			
             ProjectileId = '/projectiles/AIFQuantumWarhead02/AIFQuantumWarhead02_proj.bp',
+
             RackBones = {
                 {
-                    MuzzleBones = {
-                        0,
-                    },
+                    MuzzleBones = {0},
                     RackBone = 0,
                 },
             },
             RackRecoilDistance = 0,
+
             RateOfFire = 1,
+
             TargetCheckInterval = 9999999,
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-			
-            Turreted = false,
-			
+
             WeaponCategory = 'Death',
         },
 		
@@ -1744,9 +1798,7 @@ UnitBlueprint {
 			
             Buffs = {
                 {
-                    Add = {
-                        OnFire = true,
-                    },
+                    Add = { OnFire = true },
                     BuffType = 'STUN',
                     Duration = 2,
                     Radius = 22,
@@ -1781,53 +1833,34 @@ UnitBlueprint {
             Label = 'EXChronoDampener01',
 			
             MaxRadius = 22,
-			
-            MuzzleSalvoDelay = 0,
+
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 30,
             
             NotExclusive = true,
-			
-            ProjectileLifetimeUsesMultiplier = 1.15,
-			
+
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Head',
-                    },
+                    MuzzleBones = {'Head'},
                     RackBone = 'Head',
                 },
             },
-            RackFireTogether = false,
-            RackRecoilDistance = 0,
+
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_DirectFire',
-			
-            RateOfFire = 0.2,
+
+            RateOfFire = 1,     -- controlled by charge cycle
             TargetCheckInterval = 5,
 			
-            TargetPriorities = {
-                'ALLUNITS',
-            },
+            TargetPriorities = { 'MOBILE -AIR' },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-			
-            Turreted = false,
         },
         {
-            AboveWaterFireOnly = true,
-            AboveWaterTargetsOnly = true,
             BallisticArc = 'RULEUBA_None',
 			
             Buffs = {
                 {
-                    Add = {
-                        OnFire = true,
-                    },
+                    Add = { OnFire = true },
                     BuffType = 'STUN',
                     Duration = 2.5,
                     Radius = 30,
@@ -1867,47 +1900,29 @@ UnitBlueprint {
             MuzzleVelocity = 30,
             
             NotExclusive = true,
-			
-            ProjectileLifetimeUsesMultiplier = 1.15,
-			
+
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Head',
-                    },
+                    MuzzleBones = {'Head'},
                     RackBone = 'Head',
                 },
             },
-            RackFireTogether = false,
-            RackRecoilDistance = 0,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_DirectFire',
-			
-            RateOfFire = 0.25,
-            TargetCheckInterval = 5,
-            TargetPriorities = {
-                'ALLUNITS',
-            },
-            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
 
-            Turreted = false,
+            RackReloadTimeout = 10,
+            RackSalvoSize = 1,
+			
+            RateOfFire = 1,     -- controlled by charge cycle
+            TargetCheckInterval = 5,
+
+            TargetPriorities = { 'MOBILE -AIR' },
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
         },
 
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'UASWeapon',
-                    Cue = 'UAS0203_Torpedo',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound {Bank = 'UASWeapon',Cue = 'UAS0203_Torpedo',LodCutoff = 'Weapon_LodCutoff'},
             },
             BallisticArc = 'RULEUBA_None',
-			
             CollideFriendly = false,
 			
             Damage = 190,
@@ -1926,26 +1941,20 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 4,
-            MuzzleVelocity = 5,
+            MuzzleVelocity = 6,
 			
             ProjectileId = '/projectiles/AANTorpedo01/AANTorpedo01_proj.bp',
+            ProjectileLifetime = 8,
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Torpedo_Muzzle_01',
-                        'Torpedo_Muzzle_03',
-                    },
+                    MuzzleBones = { 'Torpedo_Muzzle_01', 'Torpedo_Muzzle_03' },
                     RackBone = 'Torpedo_Launcher',
                 },
             },
-            RackFireTogether = false,
-            RackRecoilDistance = 0,
+
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 			
             RangeCategory = 'UWRC_AntiNavy',
 			
@@ -1955,22 +1964,16 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
+                'NAVAL',
                 'MOBILE',
-                'STRUCTURE DEFENSE',
-                'SPECIALLOWPRI',
+                'DEFENSE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
-			
-            TrackingRadius = 1.15,
         },
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'UASWeapon',
-                    Cue = 'UAS0203_Torpedo',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound {Bank = 'UASWeapon',Cue = 'UAS0203_Torpedo',LodCutoff = 'Weapon_LodCutoff'},
             },
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
@@ -1994,23 +1997,17 @@ UnitBlueprint {
             MuzzleVelocity = 6,
 			
             ProjectileId = '/projectiles/AANTorpedo01/AANTorpedo01_proj.bp',
+            ProjectileLifetime = 10,
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Torpedo_Muzzle_01',
-                        'Torpedo_Muzzle_03',
-                    },
+                    MuzzleBones = { 'Torpedo_Muzzle_01', 'Torpedo_Muzzle_03' },
                     RackBone = 'Torpedo_Launcher',
                 },
             },
-            RackFireTogether = false,
-            RackRecoilDistance = 0,
+
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 			
             RangeCategory = 'UWRC_AntiNavy',
 			
@@ -2020,21 +2017,16 @@ UnitBlueprint {
             
             TargetPriorities = {
                 'SPECIALHIGHPRI',
+                'NAVAL',
                 'MOBILE',
-                'STRUCTURE DEFENSE',
-                'SPECIALLOWPRI',
+                'DEFENSE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
-            TrackingRadius = 1.15,
         },
         {
             Audio = {
-                Fire = Sound {
-                    Bank = 'UASWeapon',
-                    Cue = 'UAS0203_Torpedo',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound {Bank = 'UASWeapon',Cue = 'UAS0203_Torpedo',LodCutoff = 'Weapon_LodCutoff'},
             },
             BallisticArc = 'RULEUBA_None',
 			
@@ -2059,23 +2051,17 @@ UnitBlueprint {
             MuzzleVelocity = 8,
 			
             ProjectileId = '/projectiles/AANTorpedo01/AANTorpedo01_proj.bp',
+            ProjectileLifetime = 9,
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Torpedo_Muzzle_01',
-                        'Torpedo_Muzzle_03',
-                    },
+                    MuzzleBones = { 'Torpedo_Muzzle_01', 'Torpedo_Muzzle_03' },
                     RackBone = 'Torpedo_Launcher',
                 },
             },
-            RackFireTogether = false,
-            RackRecoilDistance = 0,
+
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 
             RangeCategory = 'UWRC_AntiNavy',
 
@@ -2086,12 +2072,11 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
-                'STRUCTURE DEFENSE',
-                'SPECIALLOWPRI',
+                'NAVAL',
+                'DEFENSE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE, HOVER',
-            TrackingRadius = 1.15,
         },
 		
         {
@@ -2100,29 +2085,26 @@ UnitBlueprint {
             ArtilleryShieldBlocks = true,
 			
             Audio = {
-                Fire = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAB2303_Cannon',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound {Bank = 'UALWeapon',Cue = 'UAB2303_Cannon',LodCutoff = 'Weapon_LodCutoff'},
             },
             BallisticArc = 'RULEUBA_HighArc',
 			
             CollideFriendly = false,
 			
-            Damage = 100,
+            Damage = 130,
             DamageFriendly = true,
-            DamageRadius = 2.2,
+            DamageRadius = 2,
             DamageType = 'Normal',
 			
             DisplayName = 'Miasma Artillery',
 			
-            DoTPulses = 5,          -- 500 damage every 8 seconds = 62.5 DPS
-            DoTTime = 2,
-			
-            EnergyChargeForFirstShot = false,			
-			EnergyDrainPerSecond = 50,
-			EnergyRequired = 400,
+            DoTPulses = 5,          -- 5 x 130 damage every 9 seconds
+            DoTTime = 3,
+            
+            EnergyChargeForFirstShot = false,
+
+            EnergyDrainPerSecond = 180,	-- 9 second charge --
+            EnergyRequired = 1620,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -2130,53 +2112,40 @@ UnitBlueprint {
                 Water = 'Land|Water|Seabed',
             },
 			
-            FiringRandomness = 0.9,
+            FiringRandomness = 1,
             FiringTolerance = 1,
 			
             Label = 'EXMiasmaArtillery01',
 			
             MaxRadius = 100,
-            MinRadius = 28,
+            MinRadius = 10,
 			
-            MuzzleChargeDelay = 0.3,
-            MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 23,
+            MuzzleVelocity = 28,
 			MuzzleVelocityReduceDistance = 75,
             
             NotExclusive = true,
 			
             ProjectileId = '/projectiles/AIFMiasmaShell01/AIFMiasmaShell01_proj.bp',
-			ProjectileLifetime = 6,
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Artillery_Muzzle_Right',
-                    },
+                    MuzzleBones = {'Artillery_Muzzle_Right'},
                     RackBone = 'Artillery_Barrel_Right',
                 },
                 {
-                    MuzzleBones = {
-                        'Artillery_Muzzle_Left',
-                    },
+                    MuzzleBones = {'Artillery_Muzzle_Left'},
                     RackBone = 'Artillery_Barrel_Left',
                 },
             },
             RackFireTogether = true,
 			
             RackRecoilDistance = -2,
-            RackReloadTimeout = 5,
-            RackSalvoChargeTime = 0,
-            RackSalvoFiresAfterCharge = true,
-			RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
-			
-            RackSlavedToTurret = false,
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,	-- controlled by energy -- every 8 seconds
+            RateOfFire = 1,	-- controlled by energy -- every 9 seconds -- 144 DPS
 			
             TargetCheckInterval = 2,
             
@@ -2184,7 +2153,6 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'STRUCTURE DEFENSE',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
@@ -2214,80 +2182,65 @@ UnitBlueprint {
             ArtilleryShieldBlocks = true,
 			
             Audio = {
-                Fire = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAB2303_Cannon',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound {Bank = 'UALWeapon',Cue = 'UAB2303_Cannon',LodCutoff = 'Weapon_LodCutoff'},
             },
             BallisticArc = 'RULEUBA_HighArc',
             CollideFriendly = false,
 			
-            Damage = 400,
+            Damage = 200,
             DamageFriendly = true,
-            DamageRadius = 2.6,
+            DamageRadius = 2.5,
             DamageType = 'Normal',
 			
             DisplayName = 'Miasma Artillery',
 			
-            DoTPulses = 5,          -- 2000 damage every 8 seconds = 250 DPS
-            DoTTime = 2,
+            DoTPulses = 5,          -- 2000 damage every 9 seconds = 250 DPS
+            DoTTime = 3,
 			
-            EnergyChargeForFirstShot = false,			
-			EnergyDrainPerSecond = 100,
-			EnergyRequired = 800,
+            EnergyChargeForFirstShot = false,
+
+            EnergyDrainPerSecond = 300,	-- 8 second charge --
+            EnergyRequired = 2400,
 
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
-            FiringRandomness = 1,
-            FiringTolerance = 1,
+            FiringRandomness = 0.95,
+            FiringTolerance = 0.8,
 			
             Label = 'EXMiasmaArtillery02',
 			
-            MaxRadius = 110,
-            MinRadius = 28,
-			
-            MuzzleChargeDelay = 0.3,
-            MuzzleSalvoDelay = 0,
+            MaxRadius = 112,
+            MinRadius = 10,
+
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 23,
-			MuzzleVelocityReduceDistance = 75,
+            MuzzleVelocity = 29,
+			MuzzleVelocityReduceDistance = 85,
             
             NotExclusive = true,
 			
             ProjectileId = '/projectiles/AIFMiasmaShell01/AIFMiasmaShell01_proj.bp',
-			ProjectileLifetime = 6,
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Artillery_Muzzle_Right',
-                    },
+                    MuzzleBones = {'Artillery_Muzzle_Right'},
                     RackBone = 'Artillery_Barrel_Right',
                 },
                 {
-                    MuzzleBones = {
-                        'Artillery_Muzzle_Left',
-                    },
+                    MuzzleBones = {'Artillery_Muzzle_Left'},
                     RackBone = 'Artillery_Barrel_Left',
                 },
             },
             RackFireTogether = true,
-            RackRecoilDistance = -3,
-            RackReloadTimeout = 5,
-            RackSalvoChargeTime = 0,
-            RackSalvoFiresAfterCharge = false,
-            RackSalvoReloadTime = 0,
+
+            RackRecoilDistance = -2,
             RackSalvoSize = 1,
-			
-            RackSlavedToTurret = false,
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,
+            RateOfFire = 1,         -- controlled by charge -- 
             TargetCheckInterval = 1,
 			
             TargetPriorities = {
@@ -2323,76 +2276,61 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
             ArtilleryShieldBlocks = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAB2303_Cannon',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound {Bank = 'UALWeapon',Cue = 'UAB2303_Cannon',LodCutoff = 'Weapon_LodCutoff'},
             },
             BallisticArc = 'RULEUBA_HighArc',
             CollideFriendly = false,
 			
-            Damage = 600,
+            Damage = 260,
             DamageFriendly = true,
             DamageRadius = 2.9,
             DamageType = 'Normal',
 			
             DisplayName = 'Miasma Artillery',
 			
-            DoTPulses = 5,      --- 3000 damage every 7 seconds = 428 DPS
-            DoTTime = 2,
-			
-            EnergyChargeForFirstShot = false,			
-			EnergyDrainPerSecond = 150,
-			EnergyRequired = 1050,
+            DoTPulses = 5,      --- 2600 damage every 7 seconds = 428 DPS
+            DoTTime = 3,
+
+            EnergyChargeForFirstShot = false,
+
+			EnergyDrainPerSecond = 450,
+			EnergyRequired = 3150,
 
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
-            FiringRandomness = 1.3,
-            FiringTolerance = 1,
+            FiringRandomness = 0.85,
+            FiringTolerance = 0.7,
 			
             Label = 'EXMiasmaArtillery03',
 			
             MaxRadius = 125,
-            MinRadius = 28,
-			
-            MuzzleChargeDelay = 0.3,
-            MuzzleSalvoDelay = 0,
+            MinRadius = 10,
+
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 26,
-			MuzzleVelocityReduceDistance = 75,
+            MuzzleVelocity = 28,
+			MuzzleVelocityReduceDistance = 90,
             
             NotExclusive = true,
 
             ProjectileId = '/projectiles/AIFMiasmaShell01/AIFMiasmaShell01_proj.bp',
-            ProjectileLifetime = 6.5,
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Artillery_Muzzle_Right',
-                    },
+                    MuzzleBones = {'Artillery_Muzzle_Right'},
                     RackBone = 'Artillery_Barrel_Right',
                 },
                 {
-                    MuzzleBones = {
-                        'Artillery_Muzzle_Left',
-                    },
+                    MuzzleBones = {'Artillery_Muzzle_Left'},
                     RackBone = 'Artillery_Barrel_Left',
                 },
             },
             RackFireTogether = true,
-            RackRecoilDistance = -4,
-            RackReloadTimeout = 5,
-            RackSalvoChargeTime = 0,
-            RackSalvoFiresAfterCharge = false,
-            RackSalvoReloadTime = 0,
+
+            RackRecoilDistance = -3,
             RackSalvoSize = 1,
-			
-            RackSlavedToTurret = false,
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -2431,28 +2369,11 @@ UnitBlueprint {
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
-			AlwaysRecheckTarget = true,
+
             Audio = {
-                BeamLoop = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Phason_Laser_Loop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStart = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Phason_Laser_Fire',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStop = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Phason_Laser_Stop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                Unpack = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Phason_Laser_Charge',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BeamLoop = Sound {Bank = 'UALWeapon',Cue = 'UAL0401_Phason_Laser_Loop',LodCutoff = 'Weapon_LodCutoff'},
+                BeamStart = Sound {Bank = 'UALWeapon',Cue = 'UAL0401_Phason_Laser_Fire',LodCutoff = 'Weapon_LodCutoff'},
+                BeamStop = Sound {Bank = 'UALWeapon',Cue = 'UAL0401_Phason_Laser_Stop',LodCutoff = 'Weapon_LodCutoff'},
             },
             BallisticArc = 'RULEUBA_None',
 			
@@ -2462,7 +2383,7 @@ UnitBlueprint {
             CollideFriendly = false,
             ContinuousBeam = true,
 			
-            Damage = 20,	        -- 200 DPS continuous fire
+            Damage = 21,	        -- 210 DPS
             DamageRadius = 0,
             DamageType = 'Normal',
 			
@@ -2475,47 +2396,34 @@ UnitBlueprint {
 				
             },
 			
-            FiringTolerance = 1,
+            FiringTolerance = 0,
 			
             Label = 'EXPhasonBeam01',
-			LeadTarget = false,
 			
-            MaxRadius = 35,
+            MaxRadius = 38,
 
-            MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             
             NotExclusive = true,
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Right_Turret_Muzzle'},
                     RackBone = 'Right_Turret',
                 },
             },
-            RackFireTogether = false,
-			
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,
+            RateOfFire = 2,
 			
             TargetCheckInterval = 0.5,
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'TECH3 MOBILE',
-                'TECH2 MOBILE',
-                'TECH1 MOBILE',
-                'STRUCTURE DEFENSE',
-                'SPECIALLOWPRI',
+                'MOBILE',
+                'DEFENSE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -2523,16 +2431,14 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Right_Turret_Muzzle',
             TurretBonePitch = 'Right_Turret',
             TurretBoneYaw = 'Right_Arm_B02',
-			
-            TurretDualManipulators = false,
-			
+
             TurretPitch = 0,
-            TurretPitchRange = 4,
-            TurretPitchSpeed = 90,
+            TurretPitchRange = 20,
+            TurretPitchSpeed = 85,
 			
             TurretYaw = 0,
-            TurretYawRange = 4,
-            TurretYawSpeed = 90,
+            TurretYawRange = 20,
+            TurretYawSpeed = 125,
 			
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
@@ -2540,40 +2446,24 @@ UnitBlueprint {
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+
             Audio = {
-                BeamLoop = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Phason_Laser_Loop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStart = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Phason_Laser_Fire',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStop = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Phason_Laser_Stop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                Unpack = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Phason_Laser_Charge',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BeamLoop = Sound {Bank = 'UALWeapon',Cue = 'UAL0401_Phason_Laser_Loop',LodCutoff = 'Weapon_LodCutoff'},
+                BeamStart = Sound {Bank = 'UALWeapon',Cue = 'UAL0401_Phason_Laser_Fire',LodCutoff = 'Weapon_LodCutoff'},
+                BeamStop = Sound {Bank = 'UALWeapon',Cue = 'UAL0401_Phason_Laser_Stop',LodCutoff = 'Weapon_LodCutoff'},
             },
             BallisticArc = 'RULEUBA_None',
 			
-            BeamCollisionDelay = 0.1,
+            BeamCollisionDelay = 0,
             BeamLifetime = 0,
 			
             CollideFriendly = false,
-			
             ContinuousBeam = true,
 			
-            Damage = 30,		            -- 300 DPS continuous fire
+            Damage = 40,		            -- 400 DPS continuous fire
             DamageRadius = 0,
             DamageType = 'Normal',
+
             DisplayName = 'Phason Laser',
 
             FireTargetLayerCapsTable = {
@@ -2582,15 +2472,12 @@ UnitBlueprint {
                 Water = 'Land|Water|Seabed',
             },
 			
-			FiringRandomness = 0.1,
-            FiringTolerance = 1,
+            FiringTolerance = 0,
 			
             Label = 'EXPhasonBeam02',
-			LeadTarget = false,
 			
-            MaxRadius = 42,
+            MaxRadius = 45,
 
-            MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             
@@ -2598,19 +2485,13 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Right_Turret_Muzzle'},
                     RackBone = 'Right_Turret',
                 },
             },
-            RackFireTogether = false,
-            RackRecoilDistance = 0,
+
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -2619,11 +2500,8 @@ UnitBlueprint {
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'TECH3 MOBILE',
-                'TECH2 MOBILE',
-                'TECH1 MOBILE',
-                'STRUCTURE DEFENSE',
-                'SPECIALLOWPRI',
+                'MOBILE',
+                'DEFENSE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
@@ -2631,16 +2509,14 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Right_Turret_Muzzle',
             TurretBonePitch = 'Right_Turret',
             TurretBoneYaw = 'Right_Arm_B02',
-			
-            TurretDualManipulators = false,
-			
+
             TurretPitch = 0,
-            TurretPitchRange = 4,
-            TurretPitchSpeed = 90,
+            TurretPitchRange = 20,
+            TurretPitchSpeed = 85,
 			
             TurretYaw = 0,
-            TurretYawRange = 4,
-            TurretYawSpeed = 90,
+            TurretYawRange = 20,
+            TurretYawSpeed = 125,
 			
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
@@ -2648,39 +2524,22 @@ UnitBlueprint {
         {
             AboveWaterFireOnly = true,
             AboveWaterTargetsOnly = true,
+
             Audio = {
-                BeamLoop = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Phason_Laser_Loop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStart = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Phason_Laser_Fire',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                BeamStop = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Phason_Laser_Stop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                Unpack = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAL0401_Phason_Laser_Charge',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                BeamLoop = Sound {Bank = 'UALWeapon',Cue = 'UAL0401_Phason_Laser_Loop',LodCutoff = 'Weapon_LodCutoff'},
+                BeamStart = Sound {Bank = 'UALWeapon',Cue = 'UAL0401_Phason_Laser_Fire',LodCutoff = 'Weapon_LodCutoff'},
+                BeamStop = Sound {Bank = 'UALWeapon',Cue = 'UAL0401_Phason_Laser_Stop',LodCutoff = 'Weapon_LodCutoff'},
             },
             BallisticArc = 'RULEUBA_None',
 			
-            BeamCollisionDelay = 0.1,
+            BeamCollisionDelay = 0,
             BeamLifetime = 0,
 			
             CollideFriendly = false,
-			
             ContinuousBeam = true,
 			
-            Damage = 45,            	-- 450 DPS continuous fire
-            DamageRadius = 2.2,	        -- with damage radius
+            Damage = 60,            	-- 600 DPS continuous fire
+            DamageRadius = 2.5,	        -- with damage radius
             DamageType = 'Normal',
 			
             DisplayName = 'Phason Laser',
@@ -2693,31 +2552,22 @@ UnitBlueprint {
             FiringTolerance = 1,
 			
             Label = 'EXPhasonBeam03',
-			LeadTarget = false,
 			
-            MaxRadius = 48,
-			
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
+            MaxRadius = 54,
+
             MuzzleSalvoSize = 1,
             
             NotExclusive = true,
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Right_Turret_Muzzle'},
                     RackBone = 'Right_Turret',
                 },
             },
-            RackFireTogether = false,
-            RackRecoilDistance = 0,
+
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -2727,11 +2577,8 @@ UnitBlueprint {
 			
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'TECH3 MOBILE',
-                'TECH2 MOBILE',
-                'TECH1 MOBILE',
-                'STRUCTURE DEFENSE',
-                'SPECIALLOWPRI',
+                'MOBILE',
+                'DEFENSE',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
@@ -2740,149 +2587,16 @@ UnitBlueprint {
             TurretBonePitch = 'Right_Turret',
             TurretBoneYaw = 'Right_Arm_B02',
 
-            TurretDualManipulators = false,
-			
             TurretPitch = 0,
-            TurretPitchRange = 4,
-            TurretPitchSpeed = 90,
+            TurretPitchRange = 20,
+            TurretPitchSpeed = 85,
 			
             TurretYaw = 0,
-            TurretYawRange = 4,
-            TurretYawSpeed = 90,
+            TurretYawRange = 20,
+            TurretYawSpeed = 125,
 			
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
-        },
-
-        {
-            BallisticArc = 'RULEUBA_None',
-            CollideFriendly = false,
-			
-            Damage = 2,
-            DamageType = 'Normal',
-			
-            DisplayName = 'Anti Torpedo',
-			
-            FireTargetLayerCapsTable = {
-                Water = 'Sub|Water|Seabed',
-            },
-            FiringTolerance = 180,
-			
-            Label = 'EXAntiTorpedo',
-			
-            MaxRadius = 45,
-            MinRadius = 15,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 2,
-            MuzzleVelocity = 32,
-            
-            NotExclusive = true,
-			
-            ProjectileId = '/projectiles/AIMAntiTorpedo01/AIMAntiTorpedo01_proj.bp',
-            ProjectileLifetime = 3.5,
-			
-            RackBones = {
-                {
-                    MuzzleBones = {
-                        'Torpedo_Muzzle_02',
-                    },
-                    RackBone = 'Torpedo_Muzzle_02',
-                },
-            },
-            RackFireTogether = false,
-            RackRecoilDistance = 0,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
-            RangeCategory = 'UWRC_Countermeasure',
-			
-            RateOfFire = 0.5,
-            TargetCheckInterval = 0.5,
-			
-            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TargetRestrictOnlyAllow = 'TORPEDO',
-            TargetType = 'RULEWTT_Projectile',
-            TrackingRadius = 1.5,
-			
-            Turreted = false,
-        },
-
-        {
-            Audio = {
-                Fire = Sound {
-                    Bank = 'UALWeapon',
-                    Cue = 'UAB4201_Anti_Missile',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-            },
-            BallisticArc = 'RULEUBA_None',
-            CollideFriendly = false,
-			
-            Damage = 30,
-            DamageType = 'Normal',
-			
-            DisplayName = 'Will O Wisp Anti Missile',
-			
-            FireTargetLayerCapsTable = {
-                Land = 'Air',
-                Water = 'Air',
-            },
-			
-			FiringRandomness = 20,				
-            FiringTolerance = 360,
-			
-            Flare = {
-                Category = 'MISSILE',
-                Radius = 22,
-            },
-			
-            Label = 'EXAntiMissile',
-            
-            MaxRadius = 22,
-			
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-            MuzzleVelocity = 15,
-            
-            NotExclusive = true,
-			
-            ProjectileId = '/projectiles/AIMAntiMissile01/AIMAntiMissile01_proj.bp',
-            ProjectileLifetime = 4,
-			
-            RackBones = {
-                {
-                    MuzzleBones = {
-                        'TMD_Muzzle',
-                    },
-                    RackBone = 'TMD_Muzzle',
-                },
-            },
-            RackFireTogether = false,
-            RackRecoilDistance = 0,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-			
-            RangeCategory = 'UWRC_Countermeasure',
-			
-            RateOfFire = 0.6,
-			
-            TargetCheckInterval = 0.5,
-			
-            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
-            TargetRestrictOnlyAllow = 'TACTICAL MISSILE',
-            TargetType = 'RULEWTT_Projectile',
-            TrackingRadius = 1.5,
-
-            WeaponRepackTimeout = 1,
-            WeaponUnpackAnimation = '/units/uab4201/uab4201_Aopen.sca',
-            WeaponUnpackAnimationRate = 10,
-            WeaponUnpacks = true,
         },
     },
 }
