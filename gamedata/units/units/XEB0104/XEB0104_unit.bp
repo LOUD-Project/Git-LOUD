@@ -3,7 +3,6 @@ UnitBlueprint {
         GuardScanRadius = 15,
         InitialAutoMode = true,
         ShowAssistRangeOnSelect = true,
-        StagingPlatformScanRadius = 15,
     },
 	
     Audio = {
@@ -42,6 +41,7 @@ UnitBlueprint {
         'SHOWQUEUE',
         'ENGINEERSTATION',
         'SORTCONSTRUCTION',
+        'OVERLAYMISC',        
     },
 	
     Defense = {
@@ -82,7 +82,7 @@ UnitBlueprint {
 		
         BuildableCategory = {'xeb0204'},
 
-		MaxBuildDistance = 13.5,	-- build distance seems to originate at the edge of the unit 
+		MaxBuildDistance = 12.5,	-- build distance seems to originate at the edge of the unit 
 		
         RebuildBonusIds = {'xeb0104'},
     },

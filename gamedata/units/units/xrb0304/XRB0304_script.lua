@@ -3,8 +3,11 @@ local CConstructionStructureUnit = import('/lua/cybranunits.lua').CConstructionS
 XRB0304 = Class(CConstructionStructureUnit) {
 
     OnStartBeingBuilt = function(self, builder, layer)
+
         CConstructionStructureUnit.OnStartBeingBuilt(self, builder, layer)
+
         self:HideBone('xrb0304', true)
+
         self:ShowBone('TurretT3', true)
         self:ShowBone('Door3_B03', true)
         self:ShowBone('B03', true)
@@ -44,4 +47,5 @@ XRB0304 = Class(CConstructionStructureUnit) {
         self.AnimationManipulator:SetRate(-1)
     end,
 }
+
 TypeClass = XRB0304

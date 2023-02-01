@@ -69,6 +69,7 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
         'DRAGBUILD',
+        'OVERLAYCOUNTERINTEL',
 		'OVERLAYRADAR',
         'OVERLAYOMNI',
     },
@@ -89,7 +90,7 @@ UnitBlueprint {
             'Wave Cannons (Shield Draining)',
 			'Missile Barrage',
 			'Anti Air',
-			'Emits Miasma field (50 DPS - Range 36)',
+			'Emits Miasma field',
 			'Omni Radar',
 		},	
         AnimationDeath = {
@@ -199,8 +200,7 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 7,
-        Category = 'Direct Fire',
-        Classification = 'RULEUC_MilitaryVehicle',
+
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_Guard = true,
@@ -209,20 +209,18 @@ UnitBlueprint {
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
         },
+
         FactionName = 'Aeon',
         Icon = 'amph',
 		
 		OrderOverrides = {
-            RULEUTC_ShieldToggle = {
-                bitmapId = 'shield-dome',
-                helpText = 'Toggle Maelstrom Field',
-            },
+            RULEUTC_SpecialToggle = { helpText = 'Miasma Field' },        
         },
 		
         TechLevel = 'RULEUTL_Secret',
 		
         ToggleCaps = {
-            RULEUTC_ShieldToggle = true,
+            RULEUTC_SpecialToggle = true,
         },
 
         UnitName = '<LOC wel0405_name>King Kraptor',
@@ -231,7 +229,15 @@ UnitBlueprint {
 	
     Intel = {
 		FreeIntel = true,
-		CloakFieldRadius = 40,	-- this is for the Maelstrom field - not cloaking
+
+        RadarStealth = true,
+        RadarStealthField = true,
+        RadarStealthFieldRadius = 1,        -- used and altered by Maelstrom Field
+
+        SonarStealth = true,
+        SonarStealthField = true,
+        SonarStealthFieldRadius = 1,        -- as above
+
 		OmniRadius = 44,
 		RadarRadius = 110,
         VisionRadius = 44,
@@ -325,6 +331,8 @@ UnitBlueprint {
             DamageType = 'ShieldMult1.2',
 			
             DisplayName = 'Wave Cannon',
+
+            EnergyChargeForFirstShot = false,
             
             EnergyDrainPerSecond = 2286,    
             EnergyRequired = 3200,          -- 1.4 second energy drain
@@ -422,6 +430,8 @@ UnitBlueprint {
             DamageType = 'ShieldMult1.2',
 			
             DisplayName = 'Wave Cannon',
+
+            EnergyChargeForFirstShot = false,
             
             EnergyDrainPerSecond = 2286,    
             EnergyRequired = 3200,          -- 1.4 second energy drain

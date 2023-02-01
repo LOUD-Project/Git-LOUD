@@ -26,24 +26,12 @@ UnitList = {
     },
     
     T4LandExperimental1 = {
-        UEF = {},
-        Aeon = {},
-        Cybran = {},
-        Seraphim = {},    
     },
     
     T4LandExperimental2 = {
-        UEF = {},
-        Aeon = {},
-        Cybran = {},
-        Seraphim = {},    
     },
     
     T4LandExperimental3 = {
-        UEF = {},
-        Aeon = {},
-        Cybran = {},
-        Seraphim = {},    
     },
     
     T4LandExperimental4 = {
@@ -53,31 +41,16 @@ UnitList = {
     },
     
     T4AirExperimental1 = {
-        UEF = {},
-        Aeon = {},
-        Cybran = {},
-        Seraphim = {},    
     },
     
     T4AirExperimental2 = {
-        UEF = {},
-        Aeon = {},
-        Cybran = {},
-        Seraphim = {},    
     },
     
     T4SeaExperimental1 = {
-        UEF = {},
-        Aeon = {},
-        Cybran = {},
         Seraphim = {'xss0403', 60},    
     },
     
     T4SeaExperimental2 = {
-        UEF = {},
-        Aeon = {},
-        Cybran = {},
-        Seraphim = {},    
     },
     
     

@@ -3,8 +3,8 @@ UnitBlueprint {
         GuardScanRadius = 25,
         InitialAutoMode = true,
         ShowAssistRangeOnSelect = true,
-        StagingPlatformScanRadius = 25,
     },
+
     Audio = {
         Close = Sound {
             Bank = 'XRB',
@@ -32,7 +32,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     BuildIconSortPriority = 200,
+
     Categories = {
         'SELECTABLE',
         'CYBRAN',
@@ -48,22 +50,32 @@ UnitBlueprint {
         'CAPTURE',
         'PATROLHELPER',
         'ENGINEERSTATION',
-        'OVERLAYMISC',
+        'OVERLAYMISC',        
     },
+
     CollisionOffsetY = -0.25,
+
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 90,
+
+        EconomyThreatLevel = 219,
+
         Health = 1950,
         MaxHealth = 1950,
+
         RegenRate = 3,
     },
+
     Description = '<LOC xrb0304_desc>Advanced Engineering Station',
+
     Display = {
+
         Abilities = {
             'Further range and slight increase to assistance level of Engineering Suite',
         },
+
         AnimationOpen = '/units/XRB0304/XRB0304_Aopen.sca',
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -80,35 +92,31 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.05,
     },
+
     Economy = {
         BuildCostEnergy = 2500,
         BuildCostMass = 400,
         BuildRate = 20,
-        BuildTime = 1200,
-        MaxBuildDistance = 25,
-        RebuildBonusIds = {
-            'xrb0304',
-        },
+
+        BuildTime = 166,
+
+        MaxBuildDistance = 17.5,
+
+        RebuildBonusIds = {'xrb0104'},
     },
+
     Footprint = {
         SizeX = 1,
         SizeZ = 1,
     },
+
     General = {
-        BuildBones = {
-            AimBone = 0,
-            BuildEffectBones = {
-                'Attachpoint01',
-                'Attachpoint02',
-                'Attachpoint03',
-            },
-        },
+        BuildBones = { AimBone = 0, BuildEffectBones = {'Attachpoint01','Attachpoint02','Attachpoint03'} },
+
 		CapCost = 3,
-        Category = 'Construction',
-        Classification = 'RULEUC_Engineer',
+
         CommandCaps = {
             RULEUCC_Capture = true,
             RULEUCC_Guard = true,
@@ -117,29 +125,30 @@ UnitBlueprint {
             RULEUCC_Repair = true,
             RULEUCC_Stop = true,
         },
+
         FactionName = 'Cybran',
+
         Icon = 'land',
-        OrderOverrides = {
-            RULEUTC_ProductionToggle = {
-                bitmapId = 'area-assist',
-                helpText = 'toggle_area_assist',
-            },
-        },
+
+        OrderOverrides = {RULEUTC_ProductionToggle = {bitmapId = 'area-assist',helpText = 'toggle_area_assist'} },
+
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
-        ToggleCaps = {
-            RULEUTC_ProductionToggle = true,
-        },
+
+        ToggleCaps = { RULEUTC_ProductionToggle = true },
+
         UnitName = '<LOC xrb0304_name>Hive Mk. III',
-        UnitWeight = 1,
+
         UpgradesFrom = 'xrb0204',
     },
+
     Intel = {
         VisionRadius = 15,
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.1,
     LifeBarSize = 1.25,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -159,26 +168,27 @@ UnitBlueprint {
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+
     SelectionSizeX = 1,
     SelectionSizeZ = 1,
     SelectionThickness = 0.4,
+
     SizeX = 1.2,
     SizeY = 2.6,
     SizeZ = 1.3,
+
     StrategicIconName = 'icon_structure2_engineer',
     StrategicIconSortPriority = 225,
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
-        HealthMult = 0.9,
-        MassMult = 0.9,
+        HealthMult = 0.5,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

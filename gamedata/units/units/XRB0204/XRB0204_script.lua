@@ -1,17 +1,19 @@
-
 local CConstructionStructureUnit = import('/lua/cybranunits.lua').CConstructionStructureUnit
 
-XRB0204 = Class(CConstructionStructureUnit) 
-{
+XRB0204 = Class(CConstructionStructureUnit) {
+
     OnStartBeingBuilt = function(self, builder, layer)
+
         CConstructionStructureUnit.OnStartBeingBuilt(self, builder, layer)
+
         self:HideBone('xrb0304', true)
+
         self:ShowBone('TurretT2', true)
         self:ShowBone('Door2_B02', true)
         self:ShowBone('B02', true)
         self:ShowBone('Attachpoint02', true)
     end,   
-     
+
     OnStartBuild = function(self, unitBeingBuilt, order)
     
         local myArmy = self:GetAIBrain().ArmyIndex
@@ -35,13 +37,16 @@ XRB0204 = Class(CConstructionStructureUnit)
     end,
     
     OnStopBuild = function(self, unitBeingBuilt)
+
         CConstructionStructureUnit.OnStopBuild(self, unitBeingBuilt)
         
         if not self.AnimationManipulator then
             self.AnimationManipulator = CreateAnimator(self)
             self.Trash:Add(self.AnimationManipulator)
         end
+
         self.AnimationManipulator:SetRate(-4)
     end,
 }
+
 TypeClass = XRB0204

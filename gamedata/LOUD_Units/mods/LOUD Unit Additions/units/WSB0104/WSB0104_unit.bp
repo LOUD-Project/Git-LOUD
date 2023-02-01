@@ -3,25 +3,12 @@ UnitBlueprint {
         GuardScanRadius = 20,
         InitialAutoMode = true,
         ShowAssistRangeOnSelect = true,
-        StagingPlatformScanRadius = 20,
     },
 	
     Audio = {
-        Destroyed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'XSB',
-            Cue = 'XSB4201_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed = Sound {Bank = 'XSL_Destroy',Cue = 'XSB_Destroy_Huge',LodCutoff = 'UnitMove_LodCutoff'},
+        DoneBeingBuilt = Sound {Bank = 'XSB',Cue = 'XSB4201_Activate',LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound {Bank = 'SeraphimSelect',Cue = 'Seraphim_Select_gun',LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 200,
@@ -82,8 +69,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
-		
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar6x_seraphim_01_albedo',
@@ -101,6 +86,7 @@ UnitBlueprint {
                 Width = 6,
             },
         },
+
         UniformScale = 0.07,
     },
 	
@@ -112,7 +98,7 @@ UnitBlueprint {
 		
         BuildTime = 1500,
 		
-        MaxBuildDistance = 23,
+        MaxBuildDistance = 17.5,
 		
         RebuildBonusIds = {'wsb0104'},
     },
@@ -124,14 +110,9 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 3,
-        BuildBones = {
-            AimBone = 0,
-            BuildEffectBones = {
-                'Turret_Muzzle',
-            },
-        },
-        Category = 'Construction',
-        Classification = 'RULEUC_Engineer',
+
+        BuildBones = {AimBone = 0,BuildEffectBones = {'Turret_Muzzle'} },
+
         CommandCaps = {
             RULEUCC_Capture = true,
             RULEUCC_Guard = true,
@@ -140,29 +121,27 @@ UnitBlueprint {
             RULEUCC_Repair = true,
             RULEUCC_Stop = true,
         },
+
         FactionName = 'Seraphim',
         Icon = 'land',
+
         OrderOverrides = {
-            RULEUTC_ProductionToggle = {
-                bitmapId = 'area-assist',
-                helpText = 'toggle_area_assist',
-            },
+            RULEUTC_ProductionToggle = {bitmapId = 'area-assist',helpText = 'toggle_area_assist'},
         },
+
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
+
         UnitName = '<LOC wsb0104_name>Dehgarwof',
+
         ToggleCaps = {
             RULEUTC_ProductionToggle = true,
         },
+
         UnitWeight = 1,
     },
 	
     Intel = {
         VisionRadius = 20,
-    },
-	
-    Interface = {
-        HelpText = 'Engineering Station',
     },
 	
     LifeBarHeight = 0.075,

@@ -3,8 +3,8 @@ UnitBlueprint {
         GuardScanRadius = 15,
         InitialAutoMode = true,
         ShowAssistRangeOnSelect = true,
-        StagingPlatformScanRadius = 15,
     },
+
     Audio = {
         Close = Sound {
             Bank = 'XRB',
@@ -32,7 +32,9 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     BuildIconSortPriority = 200,
+
     Categories = {
         'SELECTABLE',
         'BUILTBYCOMMANDER',
@@ -55,24 +57,33 @@ UnitBlueprint {
         'PATROLHELPER',
         'ENGINEERSTATION',
         'SHOWQUEUE',
-        'OVERLAYMISC',
         'SORTCONSTRUCTION',
+        'OVERLAYMISC',        
     },
+
     CollisionOffsetY = -0.25,
+
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 35,
-        Health = 1100,
-        MaxHealth = 1100,
-        RegenRate = 1,
+
+        EconomyThreatLevel = 112,
+
+        Health = 1150,
+        MaxHealth = 1150,
+
+        RegenRate = 2,
     },
+
     Description = '<LOC xrb0104_desc>Engineering Station',
+
     Display = {
         Abilities = {
             'Engineering Suite - provides T2 level Engineering Assist',
             'Upgradeable',
         },
+
         AnimationOpen = '/units/XRB0104/XRB0104_Aopen.sca',
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -89,20 +100,20 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
-
         UniformScale = 0.05,
     },
 	
     Economy = {
-        BuildCostEnergy = 2500,
-        BuildCostMass = 500,
+        BuildCostEnergy = 4000,
+        BuildCostMass = 810,
+
         BuildRate = 10,
-        BuildTime = 500,
+
+        BuildTime = 400,
 		
         BuildableCategory = {'xrb0204'},
 		
-        MaxBuildDistance = 15,
+        MaxBuildDistance = 12.5,
 		
         RebuildBonusIds = {
             'xrb0104',
@@ -115,16 +126,12 @@ UnitBlueprint {
         SizeX = 1,
         SizeZ = 1,
     },
+
     General = {
-        BuildBones = {
-            AimBone = 0,
-            BuildEffectBones = {
-                'Attachpoint01',
-            },
-        },
+        BuildBones = { AimBone = 0, BuildEffectBones = { 'Attachpoint01' } },
+
 		CapCost = 2,
-        Category = 'Construction',
-        Classification = 'RULEUC_Engineer',
+
         CommandCaps = {
             RULEUCC_Capture = true,
             RULEUCC_Guard = true,
@@ -133,32 +140,30 @@ UnitBlueprint {
             RULEUCC_Repair = true,
             RULEUCC_Stop = true,
         },
+
         FactionName = 'Cybran',
+
         Icon = 'land',
-        OrderOverrides = {
-            RULEUTC_ProductionToggle = {
-                bitmapId = 'area-assist',
-                helpText = 'toggle_area_assist',
-            },
-        },
+
+        OrderOverrides = { RULEUTC_ProductionToggle = { bitmapId = 'area-assist', helpText = 'toggle_area_assist' } },
+
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
-        ToggleCaps = {
-            RULEUTC_ProductionToggle = true,
-        },
+
+        ToggleCaps = { RULEUTC_ProductionToggle = true },
+
         UnitName = '<LOC xrb0104_name>The Hive',
-        UnitWeight = 1,
+
         UpgradesTo = 'xrb0204',
     },
+
     Intel = {
         VisionRadius = 15,
     },
-    Interface = {
-        HelpText = 'Engineering Station',
-    },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.1,
     LifeBarSize = 1.25,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -167,37 +172,43 @@ UnitBlueprint {
         DragCoefficient = 0.2,
         FlattenSkirt = true,
         MaxSteerForce = 0,
+
         MeshExtentsX = 2,
         MeshExtentsY = 4,
         MeshExtentsZ = 2,
+
         MinSpeedPercent = 0,
+
         MotionType = 'RULEUMT_None',
+
         SkirtOffsetX = -0.5,
         SkirtOffsetZ = -0.5,
+
         SkirtSizeX = 2,
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+
     SelectionSizeX = 1,
     SelectionSizeZ = 1,
     SelectionThickness = 0.4,
+
     SizeX = 1.2,
     SizeY = 1.6,
     SizeZ = 1.2,
+
     StrategicIconName = 'icon_structure2_engineer',
     StrategicIconSortPriority = 225,
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
-        HealthMult = 0.9,
-        MassMult = 0.9,
+        HealthMult = 0.5,
+        MassMult = 0.5,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
-            Air = false,
             Land = true,
             Seabed = false,
-            Sub = false,
-            Water = false,
         },
     },
 }

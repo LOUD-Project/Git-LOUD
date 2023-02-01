@@ -3,7 +3,6 @@ UnitBlueprint {
         GuardScanRadius = 20,
         InitialAutoMode = true,
         ShowAssistRangeOnSelect = true,
-        StagingPlatformScanRadius = 20,
     },
 	
     Audio = {
@@ -35,6 +34,7 @@ UnitBlueprint {
         'PATROLHELPER',
         'RECLAIMABLE',
         'ENGINEERSTATION',
+        'OVERLAYMISC',        
     },
 	
     CollisionOffsetY = -0.25,
@@ -72,9 +72,9 @@ UnitBlueprint {
         BuildRate = 20,
         BuildTime = 575,
 
-		MaxBuildDistance = 18.5,	-- seems to originate at the edge of the unit
+		MaxBuildDistance = 17.5,	-- seems to originate at the edge of the unit
 		
-        RebuildBonusIds = {'xeb0204'},
+        RebuildBonusIds = {'xeb0104'},
     },
 	
     Footprint = {

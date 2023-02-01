@@ -3,30 +3,13 @@ UnitBlueprint {
         GuardScanRadius = 20,
         InitialAutoMode = true,
         ShowAssistRangeOnSelect = true,
-        StagingPlatformScanRadius = 20,
     },
 	
     Audio = {
-        Construct = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0208_Construct_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'UALDestroy',
-            Cue = 'UAB_Destroy_Huge',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'UAB',
-            Cue = 'UAB0302_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'Interface',
-            Cue = 'Aeon_Select_Vehicle',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Construct = Sound {Bank = 'UAL',Cue = 'UAL0208_Construct_Start',LodCutoff = 'UnitMove_LodCutoff'},
+        Destroyed = Sound {Bank = 'UALDestroy',Cue = 'UAB_Destroy_Huge',LodCutoff = 'UnitMove_LodCutoff'},
+        DoneBeingBuilt = Sound {Bank = 'UAB',Cue = 'UAB0302_Activate',LodCutoff = 'UnitMove_LodCutoff'},
+        UISelection = Sound {Bank = 'Interface',Cue = 'Aeon_Select_Vehicle',LodCutoff = 'UnitMove_LodCutoff'},
     },
 	
     BuildIconSortPriority = 200,
@@ -84,7 +67,7 @@ UnitBlueprint {
                 },
             },
         },
-        SpawnRandomRotation = true,
+
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_aeon_01_albedo',
@@ -113,10 +96,9 @@ UnitBlueprint {
 		
         BuildTime = 3100,
 		
-        MaxBuildDistance = 18.5,
+        MaxBuildDistance = 17.5,
 		
         RebuildBonusIds = {'wab0201'},
-		
     },
 	
     Footprint = {
@@ -126,14 +108,9 @@ UnitBlueprint {
 	
     General = {
 		CapCost = 3,
-        BuildBones = {
-            AimBone = 0,
-            BuildEffectBones = {
-                'BuildMuzzle01',
-            },
-        },
-        Category = 'Construction',
-        Classification = 'RULEUC_Engineer',
+
+        BuildBones = {AimBone = 0,BuildEffectBones = {'BuildMuzzle01'} },
+
         CommandCaps = {
             RULEUCC_Capture = true,
             RULEUCC_Guard = true,
@@ -142,29 +119,24 @@ UnitBlueprint {
             RULEUCC_Repair = true,
             RULEUCC_Stop = true,
         },
+
         FactionName = 'Aeon',
         Icon = 'land',
+
         OrderOverrides = {
-            RULEUTC_ProductionToggle = {
-                bitmapId = 'area-assist',
-                helpText = 'toggle_area_assist',
-            },
+            RULEUTC_ProductionToggle = {bitmapId = 'area-assist',helpText = 'toggle_area_assist'},
         },
+
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
-        ToggleCaps = {
-            RULEUTC_ProductionToggle = true,
-        },
+
+        ToggleCaps = { RULEUTC_ProductionToggle = true },
+
         UnitName = '<LOC wab0201_name>Saviour',
         UnitWeight = 1,
     },
 	
     Intel = {
         VisionRadius = 20,
-    },
-	
-    Interface = {
-        HelpText = 'Engineering Station',
     },
 	
     LifeBarHeight = 0.075,

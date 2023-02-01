@@ -8,27 +8,6 @@ local AAAZealotMissileWeapon = import('/lua/aeonweapons.lua').AAAZealotMissileWe
 local Buff = import('/lua/sim/Buff.lua')
 local AeonBuffField = import('/lua/aeonweapons.lua').AeonBuffField
 
---local TurretWeapon = import('/lua/sim/weapon.lua').Weapon
-
---[[
-local function PassData(self, proj)
-    local data = {
-        Radius = self:GetBlueprint().CameraVisionRadius or 5,
-        Lifetime = self:GetBlueprint().CameraLifetime or 5,
-        Army = self.unit:GetArmy(),
-    }
-    if proj and not proj:BeenDestroyed() then
-        proj:PassData(data)
-    end
-end
-
-local MainGun = Class(DefaultProjectileWeapon) {
-    CreateProjectileAtMuzzle = function(self, muzzle)
-		PassData( self, DefaultProjectileWeapon.CreateProjectileAtMuzzle(self, muzzle) )
-    end,
-}
---]]
-
 WEL0405 = Class(ExperimentalMobileUnit) {
 
 	BuffFields = {
@@ -42,8 +21,6 @@ WEL0405 = Class(ExperimentalMobileUnit) {
 	},
     
     Weapons = {
-	
-        --BodyYaw = Class(TurretWeapon) {},
 		
         RightMainWeapon = Class(DefaultProjectileWeapon) {
 		
@@ -129,8 +106,9 @@ WEL0405 = Class(ExperimentalMobileUnit) {
     },
 
     OnCreate = function(self, createArgs)
-	
-		ExperimentalMobileUnit.OnCreate(self, createArgs)
+
+        self.MaelstromFieldName = 'AeonMaelstromBuffField2'
+        self.MaelstromFieldRadius = 32
 		
 		self.Spinner = CreateRotator(self, 'UUX0111_Crown', 'y', nil, 0, 60, 360):SetTargetSpeed(-30)
 		
@@ -141,52 +119,58 @@ WEL0405 = Class(ExperimentalMobileUnit) {
         self.TopRightDoor = CreateRotator(self, 'UUX0111_RightMissileTop', 'x', 0, 90, 360)
         self.BottomLeftDoor = CreateRotator(self, 'UUX0111_LeftMissileBottom', 'x', 0, 90, 360)
         self.BottomRightDoor = CreateRotator(self, 'UUX0111_RightMissileBottom', 'x', 0, 90, 360)
-		
+	
+		ExperimentalMobileUnit.OnCreate(self, createArgs)
 	end,
 	
 	OnStopBeingBuilt = function(self,builder,layer)
-
-		self.MaelstromEffects01 = {}
-		
-		if self.MaelstromEffects01 then
-		
-			for k, v in self.MaelstromEffects01 do
-				v:Destroy()
-			end
-			
-			self.MaelstromEffects01 = {}
-			
-		end
-        
-        local army = self:GetArmy()
-		
-		local LOUDINSERT = table.insert
-		local LOUDATTACHEMITTER = CreateAttachedEmitter
-
-		LOUDINSERT( self.MaelstromEffects01, LOUDATTACHEMITTER( self, 'UUX0111_Pelvis', army, '/mods/BlackopsUnleashed/effects/emitters/genmaelstrom_aura_02_emit.bp' ):ScaleEmitter(1):OffsetEmitter(0, -2.75, 0) )
 		
 		ExperimentalMobileUnit.OnStopBeingBuilt(self,builder,layer)
 		
-		-- we're not really cloaking so turn this off
-		-- we just use the CloakField radius to show the area of effect
-		self:DisableUnitIntel('CloakField')
-		
 		-- turn on Maelstrom field --
-		self:SetScriptBit('RULEUTC_ShieldToggle',true)
+		self:SetScriptBit('RULEUTC_SpecialToggle',true)
 	end,	
 	
 	OnScriptBitSet = function(self, bit)
-	
-		if bit == 0 then
-			self:GetBuffFieldByName('AeonMaelstromBuffField2'):Enable()
+
+        if bit == 7 then
+
+            if self.MaelstromFieldName then
+            
+                self:SetIntelRadius( 'RadarStealth', self.MaelstromFieldRadius )
+                self:SetIntelRadius( 'RadarStealthField', self.MaelstromFieldRadius )
+                self:SetIntelRadius( 'SonarStealth', self.MaelstromFieldRadius )
+                self:SetIntelRadius( 'SonarStealthField', self.MaelstromFieldRadius )
+
+                self:EnableUnitIntel('RadarStealthField')
+                self:EnableUnitIntel('SonarStealthField')
+
+                self:GetBuffFieldByName( self.MaelstromFieldName ):Enable()
+
+                self.MaelstromFieldOn = true
+            end
 		end
 	
 	end,
 	
 	OnScriptBitClear = function(self, bit)
-	
-		if bit == 0 then
-			self:GetBuffFieldByName('AeonMaelstromBuffField2'):Disable()
+
+        if bit == 7 then    -- Maelstrom Field
+
+            if self.MaelstromFieldName then
+            
+                self:SetIntelRadius( 'RadarStealth', 1 )
+                self:SetIntelRadius( 'RadarStealthField', 1 )
+                self:SetIntelRadius( 'SonarStealth', 1 )
+                self:SetIntelRadius( 'SonarStealthField', 1 )
+
+                self:DisableUnitIntel('RadarStealthField')
+                self:DisableUnitIntel('SonarStealthField')
+
+                self:GetBuffFieldByName( self.MaelstromFieldName ):Disable()
+
+                self.MaelstromFieldOn = false
+            end
 		end
 	
 	end,
