@@ -16,22 +16,20 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+
     Categories = {
         'UEF',
         'PROJECTILE',
         'INDIRECTFIRE',
         'STRATEGIC',
     },
+
     Display = {
         ImpactEffects = {
-            Scale = 1.25,
+            Scale = 1.1,
         },
         Mesh = {
-            LODs = {
-                {
-                    ShaderName = 'TMeshGlow',
-                },
-            },
+            LODs = {{ ShaderName = 'TMeshGlow' }},
         },
         StrategicIconSize = 2,
         UniformScale = 0.025,
@@ -47,9 +45,7 @@ ProjectileBlueprint {
         Faction = 'UEF',
         Weapon = 'Small Yield Nuclear Bomb',
     },
-    Interface = {
-        HelpText = 0,
-    },
+
     Physics = {
         DestroyOnWater = true,
         RealisticOrdinance = true,

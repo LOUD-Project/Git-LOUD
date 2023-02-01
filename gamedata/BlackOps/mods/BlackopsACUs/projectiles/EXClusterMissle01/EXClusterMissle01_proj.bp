@@ -16,6 +16,7 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+    
     Categories = {
         'UEF',
         'PROJECTILE',
@@ -24,10 +25,12 @@ ProjectileBlueprint {
         'NOSPLASHDAMAGE',
         'TACTICAL',
     },
+    
     Defense = {
         Health = 2,
         MaxHealth = 2,
     },
+    
     Display = {
         CameraFollowTimeout = 2,
         CameraFollowsProjectile = true,
@@ -41,25 +44,25 @@ ProjectileBlueprint {
             },
         },
         StrategicIconSize = 2,
-        UniformScale = 0.075,
+        UniformScale = 0.05,
     },
+    
     Economy = {
         BuildCostEnergy = 3600,
         BuildCostMass = 180,
         BuildTime = 300,
     },
+    
     General = {
         Category = 'Missile',
         Faction = 'UEF',
     },
-    Interface = {
-        HelpText = 0,
-    },
+
     Physics = {
-        Acceleration = 3,
+        Acceleration = 1.5,
         DestroyOnWater = false,
         InitialSpeed = 3,
-        MaxSpeed = 20,
+        MaxSpeed = 16,
         RotationalVelocity = 0,
         RotationalVelocityRange = 0,
         TrackTarget = true,

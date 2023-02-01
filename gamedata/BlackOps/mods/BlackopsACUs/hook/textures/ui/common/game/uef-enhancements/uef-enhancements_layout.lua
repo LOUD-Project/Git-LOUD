@@ -107,4 +107,12 @@ layout = {
 	['exbbat3_btn_down'] = {left = 2, top = 2, width = 60, height = 60, },
 	['exbbat3_btn_over'] = {left = 2, top = 2, width = 60, height = 60, },
 	['exbbat3_btn_up'] = {left = 1, top = 0, width = 63, height = 64, },
+	['exbtac1_btn_sel'] = {left = 1, top = 0, width = 63, height = 64, },
+	['exbtac1_btn_down'] = {left = 2, top = 2, width = 60, height = 60, },
+	['exbtac1_btn_over'] = {left = 2, top = 2, width = 60, height = 60, },
+	['exbtac1_btn_up'] = {left = 1, top = 0, width = 63, height = 64, },
+	['exbtac2_btn_sel'] = {left = 1, top = 0, width = 63, height = 64, },
+	['exbtac2_btn_down'] = {left = 2, top = 2, width = 60, height = 60, },
+	['exbtac2_btn_over'] = {left = 2, top = 2, width = 60, height = 60, },
+	['exbtac2_btn_up'] = {left = 1, top = 0, width = 63, height = 64, },    
 }

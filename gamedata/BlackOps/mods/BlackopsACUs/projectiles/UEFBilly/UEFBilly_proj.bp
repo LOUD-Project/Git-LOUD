@@ -1,4 +1,5 @@
 ProjectileBlueprint {
+
     Audio = {
         ImpactTerrain = Sound {
             Bank = 'Explosions',
@@ -16,6 +17,7 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+
     Categories = {
         'UEF',
         'PROJECTILE',
@@ -24,10 +26,12 @@ ProjectileBlueprint {
         'MISSILE',
         'NOSPLASHDAMAGE',
     },
+
     Defense = {
         Health = 3,
         MaxHealth = 3,
     },
+
     Display = {
         CameraFollowTimeout = 2,
         CameraFollowsProjectile = true,
@@ -43,18 +47,17 @@ ProjectileBlueprint {
         StrategicIconSize = 3,
         UniformScale = 0.15,
     },
+
     Economy = {
         BuildCostEnergy = 450000,
         BuildCostMass = 3600,
-        BuildTime = 7200,
+        BuildTime = 45000,
     },
+
     General = {
-        Category = 'Missile',
         Faction = 'UEF',
     },
-    Interface = {
-        HelpText = 0,
-    },
+
     Physics = {
         Acceleration = 3,
         DestroyOnWater = false,

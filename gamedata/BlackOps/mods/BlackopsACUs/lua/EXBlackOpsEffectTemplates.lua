@@ -1,13 +1,5 @@
---****************************************************************************
---**
---**  File     :  /data/lua/EffectTemplates.lua
---**  Author(s):  Gordon Duclos, Greg Kohne, Matt Vainio, Aaron Lundquist
---**
---**  Summary  :  Generic templates for commonly used effects
---**
---**  Copyright � 2006 Gas Powered Games, Inc.  All rights reserved.
---****************************************************************************
 TableCat = import('/lua/utilities.lua').TableCat
+
 EmtBpPath = '/effects/emitters/'
 EmitterTempEmtBpPath = '/effects/emitters/temp/'
 EXBlackopsBpPath = '/mods/BlackopsACUs/effects/emitters/'

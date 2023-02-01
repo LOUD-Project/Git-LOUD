@@ -40,31 +40,7 @@ UEFBilly = Class(TIFMissileNuke) {
         end
     end,
 
---    MovementThread = function(self)
---        local army = self:GetArmy()
---        local target = self:GetTrackingTarget()
---        local launcher = self:GetLauncher()
---        self:TrackTarget(false)
---        self.CreateEffects( self, self.InitialEffects, army, 1 )        
---        WaitSeconds(3)
---        self.CreateEffects( self, self.LaunchEffects, army, 1 )
---        self.CreateEffects( self, self.ThrustEffects, army, 1 )   
---        self:SetCollision(true)
---        WaitSeconds(3)
---        self:SetTurnRate(5)
---        WaitSeconds(6)
---        self:TrackTarget(true)
---        self:SetDestroyOnWater(true)
---        self:SetTurnRate(25)
---        WaitSeconds(3.5)
---        self:SetBallisticAcceleration(10)
---        while not self:BeenDestroyed() do
---            self:SetTurnRateByDist()
---            WaitSeconds(0.5)
---        end
---    end,
-
-     MovementThread = function(self)   
+    MovementThread = function(self)   
         local army = self:GetArmy()
         local target = self:GetTrackingTarget()
         local launcher = self:GetLauncher()            

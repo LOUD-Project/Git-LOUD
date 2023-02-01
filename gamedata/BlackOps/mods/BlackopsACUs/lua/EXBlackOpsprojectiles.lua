@@ -8,10 +8,11 @@ local SinglePolyTrailProjectile = DefaultProjectileFile.SinglePolyTrailProjectil
 local MultiPolyTrailProjectile = DefaultProjectileFile.MultiPolyTrailProjectile
 local SingleCompositeEmitterProjectile = DefaultProjectileFile.SingleCompositeEmitterProjectile
 local MultiCompositeEmitterProjectile = DefaultProjectileFile.MultiCompositeEmitterProjectile
-local Explosion = import('/lua/defaultexplosions.lua')
-local EffectTemplate = import('/lua/EffectTemplates.lua')
-local DepthCharge = import('/lua/defaultantiprojectile.lua').DepthCharge
 
+--local DepthCharge = import('/lua/defaultantiprojectile.lua').DepthCharge
+--local Explosion = import('/lua/defaultexplosions.lua')
+
+local EffectTemplate = import('/lua/EffectTemplates.lua')
 local EXEffectTemplate = import('/mods/BlackopsACUs/lua/EXBlackOpsEffectTemplates.lua')
 
 local GetPosition = moho.entity_methods.GetPosition
@@ -25,7 +26,7 @@ local function GetRandomFloat( Min, Max )
     return Min + (Random() * (Max-Min) )
 end
 
-EXNullShell = Class(Projectile) {}
+--EXNullShell = Class(Projectile) {}
 
 
 EXEmitterProjectile = Class(Projectile) {
@@ -41,7 +42,7 @@ EXEmitterProjectile = Class(Projectile) {
     end,
 }
 
-
+--[[
 EXSingleBeamProjectile = Class(EXEmitterProjectile) {
 
     BeamName = '/effects/emitters/default_beam_01_emit.bp',
@@ -66,7 +67,7 @@ EXMultiBeamProjectile = Class(EXEmitterProjectile) {
         end
     end,
 }
-
+--]]
 
 EXSinglePolyTrailProjectile = Class(EXEmitterProjectile) {
 
@@ -82,6 +83,20 @@ EXSinglePolyTrailProjectile = Class(EXEmitterProjectile) {
         
     end,
 }
+
+--[[
+EXSingleCompositeEmitterProjectile = Class(EXSinglePolyTrailProjectile) {
+
+    BeamName = '/effects/emitters/default_beam_01_emit.bp',
+
+    OnCreate = function(self)
+        SinglePolyTrailProjectile.OnCreate(self)
+        if self.BeamName != '' then
+            CreateBeamEmitterOnEntity( self, -1, self.Army, self.BeamName )
+        end
+    end,
+}
+--]]
 
 EXMultiPolyTrailProjectile = Class(EXEmitterProjectile) {
 
@@ -118,18 +133,6 @@ EXMultiPolyTrailProjectile = Class(EXEmitterProjectile) {
     end,
 }
 
-EXSingleCompositeEmitterProjectile = Class(EXSinglePolyTrailProjectile) {
-
-    BeamName = '/effects/emitters/default_beam_01_emit.bp',
-
-    OnCreate = function(self)
-        SinglePolyTrailProjectile.OnCreate(self)
-        if self.BeamName != '' then
-            CreateBeamEmitterOnEntity( self, -1, self.Army, self.BeamName )
-        end
-    end,
-}
-
 EXMultiCompositeEmitterProjectile = Class(EXMultiPolyTrailProjectile) {
 
     Beams = {'/effects/emitters/default_beam_01_emit.bp',},
@@ -162,7 +165,6 @@ FlameThrowerProjectile01 = Class(EmitterProjectile) {
     FxWaterHitScale = 0.7,
 	FxShieldHitScale = 0.7,
 }
-
 
 UEFACUAntiMatterProjectile01 = Class(EXMultiCompositeEmitterProjectile ) {
 
@@ -367,7 +369,6 @@ SeraRapidCannon01Projectile = Class(MultiPolyTrailProjectile) {
 	FxShieldHitScale = 0.7,
 }
 
-
 SeraRapidCannon01Projectile02 = Class(MultiPolyTrailProjectile) {
     FxImpactNone = EffectTemplate.SDFAireauWeaponHit01,
     FxImpactUnit = EffectTemplate.SDFAireauWeaponHitUnit,
@@ -386,7 +387,6 @@ SeraRapidCannon01Projectile02 = Class(MultiPolyTrailProjectile) {
 	FxShieldHitScale = 0.7,
 }
 
-
 SeraRapidCannon01Projectile03 = Class(MultiPolyTrailProjectile) {
     FxImpactNone = EffectTemplate.SDFAireauWeaponHit01,
     FxImpactUnit = EffectTemplate.SDFAireauWeaponHitUnit,
@@ -404,6 +404,7 @@ SeraRapidCannon01Projectile03 = Class(MultiPolyTrailProjectile) {
     FxWaterHitScale = 0.7,
 	FxShieldHitScale = 0.7,
 }
+
 
 EXInvisoProectilechild01 = Class(EXMultiCompositeEmitterProjectile ) {
     
@@ -566,6 +567,7 @@ EXInvisoProectile03 = Class(EXInvisoProectilechild03) {
 
 }
 
+
 SOmegaCannonOverCharge = Class(MultiPolyTrailProjectile) {
 
 	FxImpactLand = EXEffectTemplate.OmegaOverChargeLandHit,
@@ -582,17 +584,6 @@ SOmegaCannonOverCharge = Class(MultiPolyTrailProjectile) {
     PolyTrails = EXEffectTemplate.OmegaOverChargeProjectileTrails,
 }
 
-UEFHeavyPlasmaGatlingCannon03 = Class(SinglePolyTrailProjectile) {
-
-    FxImpactUnit = EffectTemplate.THeavyPlasmaGatlingCannonHit,
-    FxImpactProp = EffectTemplate.THeavyPlasmaGatlingCannonHit,
-    FxImpactWater = EffectTemplate.THeavyPlasmaGatlingCannonHit,
-    FxImpactLand = EffectTemplate.THeavyPlasmaGatlingCannonHit,
-	FxImpactShield = EffectTemplate.THeavyPlasmaGatlingCannonHit,
-
-    FxTrails = EffectTemplate.THeavyPlasmaGatlingCannonFxTrails,
-    PolyTrail = EXEffectTemplate.UEFHeavyPlasmaGatlingCannon03PolyTrail,
-}
 
 UEFHeavyPlasmaGatlingCannon01 = Class(SinglePolyTrailProjectile) {
 
@@ -616,4 +607,16 @@ UEFHeavyPlasmaGatlingCannon02 = Class(SinglePolyTrailProjectile) {
 
     FxTrails = EffectTemplate.THeavyPlasmaGatlingCannonFxTrails,
     PolyTrail = EXEffectTemplate.UEFHeavyPlasmaGatlingCannon02PolyTrail,
+}
+
+UEFHeavyPlasmaGatlingCannon03 = Class(SinglePolyTrailProjectile) {
+
+    FxImpactUnit = EffectTemplate.THeavyPlasmaGatlingCannonHit,
+    FxImpactProp = EffectTemplate.THeavyPlasmaGatlingCannonHit,
+    FxImpactWater = EffectTemplate.THeavyPlasmaGatlingCannonHit,
+    FxImpactLand = EffectTemplate.THeavyPlasmaGatlingCannonHit,
+	FxImpactShield = EffectTemplate.THeavyPlasmaGatlingCannonHit,
+
+    FxTrails = EffectTemplate.THeavyPlasmaGatlingCannonFxTrails,
+    PolyTrail = EXEffectTemplate.UEFHeavyPlasmaGatlingCannon03PolyTrail,
 }
