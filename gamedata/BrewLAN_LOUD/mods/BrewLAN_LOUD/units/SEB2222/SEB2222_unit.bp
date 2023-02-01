@@ -2,7 +2,7 @@ UnitBlueprint {
     AI = {
         --Nuke falloff range for build preview.
         GuardScanRadius = 40,
-        StagingPlatformScanRadius = 40,
+        StagingPlatformScanRadius = 25,
     },
 
     Audio = {
@@ -25,10 +25,10 @@ UnitBlueprint {
         'BUILTBYTIER3FIELD',
         'BUILTBYTIER3TEAD',
         'OVERLAYRADAR',
+        'OVERLAYOMNI',
         'UEF',
         'STRUCTURE',
         'TECH3',
-        'NUKE',
         'MINE',
         'DRAGBUILD',
         'VISIBLETORECON',
@@ -37,14 +37,14 @@ UnitBlueprint {
 
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 500,
+        EconomyThreatLevel = 120,
         Health = 250,
         MaxHealth = 250,
         RegenRate = 0.1,
-        SurfaceThreatLevel = 1000,
+        SurfaceThreatLevel = 120,
     },
 
-    Description = '<LOC sbui2222>Nuclear Mine',
+    Description = '<LOC sbui2222>Demolition Mine',
 
     Display = {
 
@@ -78,18 +78,17 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.02,
     },
 
-    DoNotCollideList = {
-        'ALLUNITS',
-    },
+    DoNotCollideList = {'ALLUNITS'},
 
     Economy = {
-        BuildCostEnergy = 135000*3,
-        BuildCostMass = 1200*1.5,
+        BuildCostEnergy = 580867,   --135000*3,
+        BuildCostMass = 1000,       --1200*1.5,
         BuildTime = 600*2,
+
+        MaintenanceConsumptionPerSecondEnergy = 150,
     },
 
     Footprint = {
@@ -98,34 +97,48 @@ UnitBlueprint {
     },
 
     General = {
-        CapCost = 2.5,
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
+        CapCost = 3,
+
         FactionName = 'UEF',
         Icon = 'amph',
+
         InstantDeathOnSelfDestruct = true,
+
         OrderOverrides = {
             RULEUTC_WeaponToggle = {
                 bitmapId = 'Nuke',
                 helpText = 'detonate',
             },
         },
+
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
+
         ToggleCaps = {
             RULEUTC_WeaponToggle = true,
         },
+
         UnitName = '<LOC seb2222_name>AM-36 Trinity',
         UnitWeight = 1,
     },
 
     Intel = {
+
         Cloak = true,
+
+        FreeIntel = true,
+
         RadarStealth = true,
+        RadarStealthField = true,
+        RadarStealthFieldRadius = 1,
+
         SonarStealth = true,
+        SonarStealthField = true,
+        SonarStealthFieldRadius = 1,
+
         VisionRadius = 0,
-        RadarRadius = 29,
-        SonarRadius = 29,
+        OmniRadius = 5,
+        RadarRadius = 20,
+        SonarRadius = 20,
     },
 
     Interface = {
@@ -180,7 +193,6 @@ UnitBlueprint {
             DisplayName = 'Suicide',
 
             FireTargetLayerCapsTable = {
-                Air = 'Land|Water|Seabed|Sub',
                 Land = 'Land|Water|Seabed|Sub',
                 Water = 'Land|Water|Seabed|Sub',
                 Sub = 'Land|Water|Seabed|Sub',
@@ -194,15 +206,15 @@ UnitBlueprint {
 
             MaxRadius = 30,
 
-            NukeInnerRingDamage = 50000,
-            NukeInnerRingRadius = 25,
-            NukeInnerRingTicks = 24,
-            NukeInnerRingTotalTime = 0,
+            NukeInnerRingDamage = 35000,
+            NukeInnerRingRadius = 20,
+            NukeInnerRingTicks = 20,
+            NukeInnerRingTotalTime = 5,
 
             NukeOuterRingDamage = 500,
-            NukeOuterRingRadius = 40,
+            NukeOuterRingRadius = 36,
             NukeOuterRingTicks = 20,
-            NukeOuterRingTotalTime = 0,
+            NukeOuterRingTotalTime = 10,
 
             ProjectileId = '/effects/Entities/UEFNukeEffectController01/UEFNukeEffectController01_proj.bp',
             RackBones = {

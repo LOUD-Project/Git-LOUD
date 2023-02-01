@@ -28,6 +28,7 @@ UnitBlueprint {
         'DRAGBUILD',
         'VISIBLETORECON',
         'RECLAIMABLE',
+        'OVERLAYOMNI',
     },
 
     Defense = {
@@ -35,7 +36,7 @@ UnitBlueprint {
         Health = 80,
         MaxHealth = 80,
         RegenRate = 0.1,
-        SurfaceThreatLevel = 150,
+        SurfaceThreatLevel = 30,
     },
 
     Description = '<LOC sbui2221>Proximity Mine',
@@ -54,29 +55,21 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {
-                    LODCutoff = 50,
-                    ShaderName = 'Unit',
-                },
-                {
-                    LODCutoff = 130,
-                    ShaderName = 'Unit',
-                },
+                { LODCutoff = 130, ShaderName = 'Unit' },
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.03,
     },
 
-    DoNotCollideList = {
-        'ALLUNITS',
-    },
+    DoNotCollideList = {'ALLUNITS'},
 
     Economy = {
-        BuildCostEnergy = 6000,
-        BuildCostMass = 300,
+        BuildCostEnergy = 8079,
+        BuildCostMass = 100,
         BuildTime = 50,
+
+        MaintenanceConsumptionPerSecondEnergy = 15,
     },
 
     Footprint = {
@@ -85,37 +78,48 @@ UnitBlueprint {
     },
 
     General = {
-        CapCost = 0.25,
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
+        CapCost = 0.3,
+
         CommandCaps = {
             RULEUCC_RetaliateToggle = true,
         },
+
         FactionName = 'UEF',
         Icon = 'amph',
+
         InstantDeathOnSelfDestruct = true,
+
         OrderOverrides = {
-            RULEUTC_WeaponToggle = {
-                bitmapId = 'Nuke',
-                helpText = 'detonate',
-            },
+            RULEUTC_WeaponToggle = {bitmapId = 'Nuke',helpText = 'detonate'},
         },
+
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
+
         ToggleCaps = {
+            RULEUTC_CloakToggle = true,
             RULEUTC_WeaponToggle = true,
         },
+
         UnitName = '<LOC seb2221_name>AM-24 Anti-Armor',
         UnitWeight = 1,
     },
 
     Intel = {
+
         Cloak = true,
+
+        FreeIntel = true,
+
         RadarStealth = true,
+        RadarStealthField = true,
+        RadarStealthFieldRadius = 1,
+
         SonarStealth = true,
+        SonarStealthField = true,
+        SonarStealthFieldRadius = 1,
+        
         VisionRadius = 0,
-        RadarRadius = 4,
-        SonarRadius = 4,
+        OmniRadius = 5,
     },
 
     Interface = {
@@ -135,15 +139,19 @@ UnitBlueprint {
         DragCoefficient = 0.2,
         MaxGroundVariation = 50,
         MaxSteerForce = 0,
+
         MeshExtentsX = 0.5,
         MeshExtentsY = 0.25,
         MeshExtentsZ = 0.5,
+
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_None',
+
         SkirtOffsetX = 0,
         SkirtOffsetZ = 0,
         SkirtSizeX = 1,
         SkirtSizeZ = 1,
+
         SlopeToTerrain = true,
         TurnRate = 0,
     },
@@ -162,29 +170,34 @@ UnitBlueprint {
     Weapon = {
         {
             CollideFriendly = false,
-            Damage = 4500,
+
+            Damage = 3000,
             DamageFriendly = true,
-            DamageRadius = 5,
+            DamageRadius = 3.5,
             DamageType = 'Normal',
+
             DisplayName = 'Suicide',
+
             FireTargetLayerCapsTable = {
-                Air = 'Land|Water|Seabed|Sub',
                 Land = 'Land|Water|Seabed|Sub',
                 Water = 'Land|Water|Seabed|Sub',
                 Sub = 'Land|Water|Seabed|Sub',
             },
+
             FiringTolerance = 360,
+
             FireOnSelfDestruct = true,
+
             Label = 'Suicide',
-            MaxRadius = 5,
+
+            MaxRadius = 3.5,
+
             RangeCategory = 'UWRC_DirectFire',
-            TargetCheckInterval = 0.5,
-            TargetPriorities = {
-                'ALLUNITS',
-            },
+
+            TargetCheckInterval = .3,
+            TargetPriorities = {'ALLUNITS'},
             TargetRestrictDisallow = 'UNTARGETABLE',
             Turreted = false,
-            WeaponCategory = 'Kamikaze',
         },
     },
 }

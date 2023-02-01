@@ -35,6 +35,7 @@ UnitBlueprint {
         'DRAGBUILD',
         'VISIBLETORECON',
         'RECLAIMABLE',
+        'OVERLAYOMNI',
     },
 
     Defense = {
@@ -42,7 +43,7 @@ UnitBlueprint {
         Health = 20,
         MaxHealth = 20,
         RegenRate = 0.1,
-        SurfaceThreatLevel = 30,
+        SurfaceThreatLevel = 10,
     },
 
     Description = '<LOC sbui2220>Pressure Mine',
@@ -60,25 +61,21 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-                {LODCutoff = 50, ShaderName = 'Aeon'},
-                {LODCutoff = 100, ShaderName = 'Aeon'},
-                {LODCutoff = 200, ShaderName = 'Aeon'},
-                {LODCutoff = 400, ShaderName = 'Aeon'},
+                {LODCutoff = 130, ShaderName = 'Aeon'},
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.02,
     },
 
-    DoNotCollideList = {
-        'ALLUNITS',
-    },
+    DoNotCollideList = {'ALLUNITS'},
 
     Economy = {
-        BuildCostEnergy = 2500,
-        BuildCostMass = 150,
+        BuildCostEnergy = 690,
+        BuildCostMass = 25,
         BuildTime = 10,
+        
+        MaintenanceConsumptionPerSecondEnergy = 2,
     },
 
     Footprint = {
@@ -88,23 +85,27 @@ UnitBlueprint {
 
     General = {
         CapCost = 0.2,
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
+
         CommandCaps = {
             RULEUCC_RetaliateToggle = true,
         },
+
         FactionName = 'UEF',
         Icon = 'amph',
+
         InstantDeathOnSelfDestruct = true,
+
         OrderOverrides = {
             RULEUTC_WeaponToggle = {
                 bitmapId = 'Nuke',
                 helpText = 'detonate',
             },
         },
+
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
+
         ToggleCaps = {
+            RULEUTC_CloakToggle = true,        
             RULEUTC_WeaponToggle = true,
         },
         UnitName = '<LOC seb2220_name>AP-12 Trapper',
@@ -112,15 +113,21 @@ UnitBlueprint {
     },
 
     Intel = {
-        Cloak = true,
-        RadarStealth = true,
-        SonarStealth = true,
-        VisionRadius = 0,
-        OmniRadius = 1,
-    },
 
-    Interface = {
-        HelpText = '<LOC sbui2220>Pressure Mine',
+        Cloak = true,
+
+        FreeIntel = true,
+
+        RadarStealth = true,
+        RadarStealthField = true,
+        RadarStealthFieldRadius = 1,
+
+        SonarStealth = true,
+        SonarStealthField = true,
+        SonarStealthFieldRadius = 1,
+
+        VisionRadius = 0,
+        OmniRadius = 4.0,
     },
 
     LifeBarHeight = 0.075,
@@ -135,15 +142,19 @@ UnitBlueprint {
         },
         DragCoefficient = 0.2,
         MaxGroundVariation = 50,
+
         MeshExtentsX = 0.5*.666,
         MeshExtentsY = 0.25*.666,
         MeshExtentsZ = 0.5*.666,
+
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_None',
+
         SkirtOffsetX = 0,
         SkirtOffsetZ = 0,
         SkirtSizeX = 1,
         SkirtSizeZ = 1,
+
         SlopeToTerrain = true,
         TurnRate = 0,
     },
@@ -163,32 +174,28 @@ UnitBlueprint {
         {
             CollideFriendly = false,
 
-            Damage = 900,
+            Damage = 1000,
             DamageFriendly = true,
-            DamageRadius = 1,
+            DamageRadius = 1.5,
             DamageType = 'Normal',
 
             DisplayName = 'Suicide',
 
             FireTargetLayerCapsTable = {
-                Air = 'Land|Water|Seabed|Sub',
                 Land = 'Land|Water|Seabed|Sub',
-                Water = 'Land|Water|Seabed|Sub',
-                Sub = 'Land|Water|Seabed|Sub',
+                Seabed = 'Land|Water|Seabed|Sub',
             },
             FiringTolerance = 360,
             FireOnSelfDestruct = true,
 
             Label = 'Suicide',
 
-            MaxRadius = 1,
+            MaxRadius = 1.5,
 
             RangeCategory = 'UWRC_DirectFire',
 
-            TargetCheckInterval = 0.5,
-            TargetPriorities = {
-                'ALLUNITS',
-            },
+            TargetCheckInterval = 0.25,
+            TargetPriorities = {'ALLUNITS'},
             TargetRestrictDisallow = 'UNTARGETABLE',
             Turreted = false,
         },

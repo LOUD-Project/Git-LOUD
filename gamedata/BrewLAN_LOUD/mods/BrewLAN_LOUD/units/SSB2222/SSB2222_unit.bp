@@ -2,20 +2,12 @@ UnitBlueprint {
     AI = {
         --Nuke falloff range for build preview.
         GuardScanRadius = 40,
-        StagingPlatformScanRadius = 40,
+        StagingPlatformScanRadius = 25,
     },
 
     Audio = {
-        Killed = Sound {
-            Bank = 'XSL_Destroy',
-            Cue = 'XSB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'SeraphimSelect',
-            Cue = 'Seraphim_Select_Structure',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Killed = Sound { Bank = 'XSL_Destroy', Cue = 'XSB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Structure', LodCutoff = 'UnitMove_LodCutoff' },
     },
 
     BuildIconSortPriority = 150,
@@ -24,10 +16,11 @@ UnitBlueprint {
         'SELECTABLE',
         'BUILTBYTIER3FIELD',
         'BUILTBYTIER3TEAD',
+        'OVERLAYRADAR',
+        'OVERLAYOMNI',
         'SERAPHIM',
         'STRUCTURE',
         'TECH3',
-        'NUKE',
         'MINE',
         'DRAGBUILD',
         'VISIBLETORECON',
@@ -36,14 +29,14 @@ UnitBlueprint {
 
     Defense = {
         ArmorType = 'Structure',
-        EconomyThreatLevel = 500,
+        EconomyThreatLevel = 120,
         Health = 250,
         MaxHealth = 250,
         RegenRate = 0.1,
-        SurfaceThreatLevel = 1000,
+        SurfaceThreatLevel = 120,
     },
 
-    Description = '<LOC sbui2222>Nuclear Mine',
+    Description = '<LOC sbui2222>Demolition Mine',
 
     Display = {
 
@@ -81,18 +74,17 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.05,
     },
 
-    DoNotCollideList = {
-        'ALLUNITS',
-    },
+    DoNotCollideList = {'ALLUNITS'},
 
     Economy = {
-        BuildCostEnergy = 135000*3,
-        BuildCostMass = 1200*1.5,
+        BuildCostEnergy = 580867,   --135000*3,
+        BuildCostMass = 100,        --1200*1.5,
         BuildTime = 600*2,
+
+        MaintenanceConsumptionPerSecondEnergy = 150,
     },
 
     Footprint = {
@@ -101,38 +93,45 @@ UnitBlueprint {
     },
 
     General = {
-        CapCost = 2.5,
-        Category = 'Defense',
-        Classification = 'RULEUC_Weapon',
+        CapCost = 3,
+
         FactionName = 'Seraphim',
         Icon = 'amph',
+
         InstantDeathOnSelfDestruct = true,
+
         OrderOverrides = {
-            RULEUTC_WeaponToggle = {
-                bitmapId = 'Nuke',
-                helpText = 'detonate',
-            },
+            RULEUTC_WeaponToggle = {bitmapId = 'Nuke',helpText = 'detonate'},
         },
+
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Basic',
+
         ToggleCaps = {
             RULEUTC_WeaponToggle = true,
         },
+
         UnitName = '<LOC ssb2222_name>Inaino',
         UnitWeight = 1,
     },
 
     Intel = {
-        Cloak = true,
-        RadarStealth = true,
-        SonarStealth = true,
-        VisionRadius = 0,
-        RadarRadius = 29,
-        SonarRadius = 29,
-    },
 
-    Interface = {
-        HelpText = '<LOC sbui2222>Nuke Mine',
+        Cloak = true,
+
+        FreeIntel = true,
+
+        RadarStealth = true,
+        RadarStealthField = true,
+        RadarStealthFieldRadius = 1,
+
+        SonarStealth = true,
+        SonarStealthField = true,
+        SonarStealthFieldRadius = 1,
+
+        VisionRadius = 0,
+        OmniRadius = 5,
+        RadarRadius = 20,
+        SonarRadius = 20,
     },
 
     LifeBarHeight = 0.075,
@@ -148,15 +147,19 @@ UnitBlueprint {
         DragCoefficient = 0.2,
         MaxGroundVariation = 50,
         MaxSteerForce = 0,
+
         MeshExtentsX = 0.5,
         MeshExtentsY = 0.25,
         MeshExtentsZ = 0.5,
+
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_None',
+
         SkirtOffsetX = 0,
         SkirtOffsetZ = 0,
         SkirtSizeX = 1,
         SkirtSizeZ = 1,
+
         SlopeToTerrain = true,
         TurnRate = 0,
     },
@@ -175,31 +178,37 @@ UnitBlueprint {
     Weapon = {
         {
             CollideFriendly = false,
+
             Damage = 0,
             DamageFriendly = true,
             DamageType = 'Normal',
+
             DisplayName = 'Suicide',
+
             FireTargetLayerCapsTable = {
-                Air = 'Land|Water|Seabed|Sub',
                 Land = 'Land|Water|Seabed|Sub',
                 Water = 'Land|Water|Seabed|Sub',
                 Sub = 'Land|Water|Seabed|Sub',
             },
             FiringTolerance = 360,
-            FireOnSelfDestruct = true,
-            Label = 'Suicide',
-            ManualFire = 1,
-            MaxRadius = 30,
 
-            NukeInnerRingDamage = 50000,
-            NukeInnerRingRadius = 25,
-            NukeInnerRingTicks = 24,
-            NukeInnerRingTotalTime = 0,
+            FireOnSelfDestruct = true,
+
+            Label = 'Suicide',
+
+            ManualFire = 1,
+
+            MaxRadius = 26,
+
+            NukeInnerRingDamage = 35000,
+            NukeInnerRingRadius = 20,
+            NukeInnerRingTicks = 20,
+            NukeInnerRingTotalTime = 5,
 
             NukeOuterRingDamage = 500,
-            NukeOuterRingRadius = 40,
+            NukeOuterRingRadius = 36,
             NukeOuterRingTicks = 20,
-            NukeOuterRingTotalTime = 0,
+            NukeOuterRingTotalTime = 10,
 
             ProjectileId = '/mods/BrewLAN_LOUD/effects/entities/InainoWarheadEffectController/InainoWarheadEffectController_proj.bp',
             RackBones = {
