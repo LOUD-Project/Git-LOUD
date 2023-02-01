@@ -56,6 +56,7 @@ UnitBlueprint {
         'OVERLAYRADAR',
         'OVERLAYCOUNTERINTEL',
         'OVERLAYDIRECTFIRE',
+        'OVERLAYMISC',
     },
 	
     CollisionOffsetY = -0.0,
@@ -150,7 +151,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 6600,
         BuildCostMass = 950,
-        BuildRate = 16,
+        BuildRate = 17,
         BuildTime = 4500,
 		
         BuildableCategory = {
@@ -161,9 +162,9 @@ UnitBlueprint {
         },
 		
         MaintenanceConsumptionPerSecondEnergy = 15,
-		MaxBuildDistance = 5,
+		MaxBuildDistance = 5.5,
 		
-        StorageEnergy = 200,
+        StorageEnergy = 300,
         StorageMass = 20,
     },
 	
@@ -177,8 +178,7 @@ UnitBlueprint {
             PitchBone = 'Buildpoint_Left',
             YawBone = 'Buildpoint_Left',
         },
-        Category = 'Construction',
-        Classification = 'RULEUC_Engineer',
+
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -192,36 +192,35 @@ UnitBlueprint {
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
         },
+
         ConstructionBar = true,
         FactionName = 'Cybran',
         Icon = 'amph',
+
         OrderOverrides = {
-            RULEUTC_StealthToggle = {
-                bitmapId = 'stealth-personal',
-                helpText = 'toggle_stealth_personal',
-            },
+            RULEUTC_StealthToggle = { bitmapId = 'stealth-personal', helpText = 'toggle_stealth_personal' },
         },
+
         SelectionPriority = 3,
-        TechLevel = 'RULEUTL_Advanced',
+
         ToggleCaps = {
             RULEUTC_StealthToggle = true,
         },
+
         UnitName = '<LOC srl0319_name>House',
         UnitWeight = 1,
     },
 	
     Intel = {
 		FreeIntel = true,
+
         RadarStealth = true,
         SonarStealth = true,
-		OmniRadius = 5,
-        RadarRadius = 30,
-        VisionRadius = 20,
-		WaterVisionRadius = 20,
-    },
-	
-    Interface = {
-        HelpText = '<LOC uel0209_help>Field Engineer',
+
+		OmniRadius = 6,
+        RadarRadius = 48,
+        VisionRadius = 26,
+		WaterVisionRadius = 26,
     },
 	
     LifeBarHeight = 0.075,

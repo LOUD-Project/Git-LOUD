@@ -44,9 +44,10 @@ UnitBlueprint {
         'RECLAIMABLE',
         'PATROLHELPER',
         'SHOWQUEUE',
-        'OVERLAYRADAR',
         'OVERLAYCOUNTERINTEL',
-        'OVERLAYDIRECTFIRE',
+        'OVERLAYRADAR',
+        'OVERLAYOMNI',
+        'OVERLAYMISC',
     },
 	
     CollisionOffsetY = -0.0,
@@ -149,14 +150,13 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = false,
         UniformScale = 0.05*1.25,
     },
 	
     Economy = {
         BuildCostEnergy = 6600,
         BuildCostMass = 950,
-        BuildRate = 16,
+        BuildRate = 17,
         BuildTime = 4500,
 		
         BuildableCategory = {
@@ -167,9 +167,9 @@ UnitBlueprint {
         },
 		
         MaintenanceConsumptionPerSecondEnergy = 15,
-		MaxBuildDistance = 5,
+		MaxBuildDistance = 5.5,
 		
-        StorageEnergy = 200,
+        StorageEnergy = 300,
         StorageMass = 20,
     },
 	
@@ -184,8 +184,7 @@ UnitBlueprint {
             PitchBone = 'Arm02',
             YawBone = 'XEL0209',
         },
-        Category = 'Construction',
-        Classification = 'RULEUC_Engineer',
+
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -199,20 +198,21 @@ UnitBlueprint {
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
         },
+
         ConstructionBar = true,
         FactionName = 'UEF',
         Icon = 'amph',
+
         OrderOverrides = {
-            RULEUTC_JammingToggle = {
-                bitmapId = 'jamming',
-                helpText = 'toggle_jamming',
-            },
+            RULEUTC_JammingToggle = {bitmapId = 'jamming',helpText = 'toggle_jamming'},
         },
+
         SelectionPriority = 3,
-        TechLevel = 'RULEUTL_Advanced',
+
         ToggleCaps = {
             RULEUTC_JammingToggle = true,
         },
+
         UnitName = '<LOC sel0319_name>Custodian',
         UnitWeight = 1,
     },
@@ -223,10 +223,11 @@ UnitBlueprint {
             Min = 12,
         },
         JammerBlips = 5,
-		OmniRadius = 5,
-        RadarRadius = 30,
-        VisionRadius = 20,
-		WaterVisionRadius = 20,
+
+		OmniRadius = 6,
+        RadarRadius = 48,
+        VisionRadius = 26,
+		WaterVisionRadius = 26,
     },
 	
     Interface = {

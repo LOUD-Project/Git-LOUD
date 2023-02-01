@@ -99,12 +99,15 @@ UnitBlueprint {
         'RECLAIMABLE',
         'PATROLHELPER',
         'SHOWQUEUE',
-        'OVERLAYRADAR',
         'OVERLAYCOUNTERINTEL',
-        'OVERLAYDIRECTFIRE',
+        'OVERLAYRADAR',
+        'OVERLAYOMNI',
+        'OVERLAYMISC',
     },
+
     CollisionOffsetY = -0.0,
     CollisionOffsetZ = -0.05,
+
     Defense = {
         AirThreatLevel = 0,
         ArmorType = 'Normal',
@@ -201,27 +204,28 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0000',
-        SpawnRandomRotation = false,
+
         UniformScale = 0.05*.8,
     },
+
     Economy = {
         BuildCostEnergy = 265,
         BuildCostMass = 60,
         BuildRate = 6,
         BuildTime = 265,
+
         BuildableCategory = {
             'BUILTBYTIER1ENGINEER DEFENSE UEF',
             'BUILTBYTIER1ENGINEER INDIRECTFIRE UEF',
             'BUILTBYTIER1FIELD UEF',
         },
+
         MaintenanceConsumptionPerSecondEnergy = 5,
-        StorageEnergy = 100,
+
+        StorageEnergy = 150,
         StorageMass = 10,
-        TeleportEnergyMod = 0.15,
-        TeleportMassMod = 1,
-        TeleportTimeMod = 0.01,
     },
+
     General = {
         BuildBones = {
             AimBone = 0,
@@ -231,8 +235,7 @@ UnitBlueprint {
             PitchBone = 'Arm02',
             YawBone = 'XEL0209',
         },
-        Category = 'Construction',
-        Classification = 'RULEUC_Engineer',
+
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -270,8 +273,9 @@ UnitBlueprint {
         },
         JammerBlips = 5,
 		OmniRadius = 5,
-        RadarRadius = 30,
-        VisionRadius = 20,
+        RadarRadius = 48,
+        VisionRadius = 22,
+		WaterVisionRadius = 22,
     },
     Interface = {
         HelpText = '<LOC uel0209_help>Field Engineer',

@@ -42,6 +42,8 @@ UnitBlueprint {
         'RECLAIMABLE',
         'PATROLHELPER',
         'SHOWQUEUE',
+        'OVERLAYOMNI',
+        'OVERLAYMISC',
     },
 	
     CollisionOffsetY = -0.25,
@@ -78,6 +80,7 @@ UnitBlueprint {
             '<LOC ability_engineeringsuite>Engineering Suite',
             '<LOC ability_hover>Hover',
             '<LOC ability_personalshield>Personal Shield',
+            '<LOC ability_personalstealth>Personal Stealth',
             '<LOC ability_radar>Radar',
             '<LOC ability_sacrifice>Sacrifice',
         },
@@ -155,15 +158,14 @@ UnitBlueprint {
                 },
             },
         },
-		
-        SpawnRandomRotation = false,
+
         UniformScale = 0.063,
     },
 	
     Economy = {
         BuildCostEnergy = 7260,
         BuildCostMass = 950,
-        BuildRate = 16,
+        BuildRate = 17,
         BuildTime = 4500,
 		
         BuildableCategory = {
@@ -176,16 +178,15 @@ UnitBlueprint {
         SacrificeEnergyMult = 0.9,
         SacrificeMassMult = 0.9,
 		
-        MaintenanceConsumptionPerSecondEnergy = 10,
-		MaxBuildDistance = 5,
+        MaintenanceConsumptionPerSecondEnergy = 24,
+		MaxBuildDistance = 5.5,
 		
-        StorageEnergy = 200,
+        StorageEnergy = 300,
         StorageMass = 20,
     },
 	
     General = {
-        Category = 'Construction',
-        Classification = 'RULEUC_Engineer',
+
         CommandCaps = {
             RULEUCC_CallTransport = true,
             RULEUCC_Capture = true,
@@ -198,22 +199,30 @@ UnitBlueprint {
             RULEUCC_Sacrifice = true,
             RULEUCC_Stop = true,
         },
+
         ConstructionBar = true,
         FactionName = 'Aeon',
         Icon = 'amph',
+
         SelectionPriority = 3,
-        TechLevel = 'RULEUTL_Secret',
+
         ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
+
         UnitName = '<LOC sal0319_name>Bilmon',
         UnitWeight = 1,
     },
 	
     Intel = {
 		FreeIntel = true,
-        VisionRadius = 28,
-		OmniRadius = 5,
+        
+        RadarStealth = true,
+
+        OmniRadius = 6,
+        RadarRadius = 48,
+        VisionRadius = 26,
+        WaterVisionRadius = 20,
     },
 	
     Interface = {
@@ -237,19 +246,21 @@ UnitBlueprint {
         MaxSpeed = 2.6,
         MaxSpeedReverse = 0,
         MaxSteerForce = 1000,
+
         MeshExtentsX = 1.1,
         MeshExtentsY = 0.65,
         MeshExtentsZ = 1.1,
+
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Hover',
+
         RotateBodyWhileMoving = true,
         RotateOnSpot = true,
         RotateOnSpotThreshold = 0.1,
-        TurnFacingRate = 120,
+
+        TurnFacingRate = 100,
         TurnRadius = 0,
-        TurnRate = 120,
-        WobbleFactor = 0.015,
-        WobbleSpeed = 0.005,
+        TurnRate = 50,
     },
 	
     SelectionCenterOffsetY = -0.5,
@@ -271,8 +282,8 @@ UnitBlueprint {
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
-        HealthMult = 0.9,
-        MassMult = 0.9,
+        HealthMult = 0.3,
+        MassMult = 0.3,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,

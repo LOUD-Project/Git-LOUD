@@ -90,6 +90,8 @@ UnitBlueprint {
         'PATROLHELPER',
         'SHOWQUEUE',
         'OVERLAYRADAR',
+        'OVERLAYOMNI',
+        'OVERLAYMISC',
     },
 	
     CollisionOffsetY = -0.2,
@@ -128,6 +130,7 @@ UnitBlueprint {
             '<LOC ability_engineeringsuite>Engineering Suite',
             '<LOC ability_hover>Hover',
             '<LOC ability_personalshield>Personal Shield',
+            '<LOC ability_personalstealth>Personal Stealth',
             '<LOC ability_radar>Radar',
             '<LOC ability_sacrifice>Sacrifice',
         },
@@ -213,36 +216,36 @@ UnitBlueprint {
                 },
             },
         },
-		
-        SpawnRandomRotation = false,
+
         UniformScale = 0.063,
     },
 	
     Economy = {
+
         BuildCostEnergy = 2450,
         BuildCostMass = 360,
         BuildRate = 11,
         BuildTime = 1000,
+
         BuildableCategory = {
             'BUILTBYTIER2ENGINEER DEFENSE AEON',
             'BUILTBYTIER2ENGINEER INDIRECTFIRE AEON',
             'BUILTBYTIER2FIELD AEON',
         },
 		
-        MaintenanceConsumptionPerSecondEnergy = 5,
+        MaintenanceConsumptionPerSecondEnergy = 10,
 		
-		MaxBuildDistance = 4.1,
+		MaxBuildDistance = 4.5,
 		
         SacrificeEnergyMult = 0.85,
         SacrificeMassMult = 0.85,
 		
-        StorageEnergy = 100,
+        StorageEnergy = 150,
         StorageMass = 15,
     },
 	
     General = {
-        Category = 'Construction',
-        Classification = 'RULEUC_Engineer',
+
         CommandCaps = {
             RULEUCC_CallTransport = true,
             RULEUCC_Capture = true,
@@ -255,26 +258,30 @@ UnitBlueprint {
             RULEUCC_Sacrifice = true,
             RULEUCC_Stop = true,
         },
+
         ConstructionBar = true,
         FactionName = 'Aeon',
         Icon = 'amph',
+
         SelectionPriority = 3,
-        TechLevel = 'RULEUTL_Advanced',
+
         ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
+
         UnitName = '<LOC sal0209_name>Butler',
         UnitWeight = 1,
     },
 	
     Intel = {
 		FreeIntel = true,
-        VisionRadius = 20,
+        
+        RadarStealth = true,
+
         OmniRadius = 5,
-    },
-	
-    Interface = {
-        HelpText = '<LOC sal0209_desc>Defence Engineer',
+        RadarRadius = 48,
+        VisionRadius = 22,
+		WaterVisionRadius = 22,        
     },
 	
     LifeBarHeight = 0.075,
@@ -296,17 +303,21 @@ UnitBlueprint {
         MaxSpeed = 2.1,
         MaxSpeedReverse = 0,
         MaxSteerForce = 1000,
+
         MeshExtentsX = 1.25,
         MeshExtentsY = 0.75,
         MeshExtentsZ = 0.75,
+
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Hover',
+
         RotateBodyWhileMoving = true,
         RotateOnSpot = true,
         RotateOnSpotThreshold = 0.1,
+
         TurnFacingRate = 100,
         TurnRadius = 0,
-        TurnRate = 100,
+        TurnRate = 50,
     },
 	
     SelectionCenterOffsetY = -0.5,
