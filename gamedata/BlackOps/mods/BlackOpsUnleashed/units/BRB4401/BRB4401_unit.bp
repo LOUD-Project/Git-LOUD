@@ -82,6 +82,7 @@ UnitBlueprint {
         Classification = 'RULEUC_CounterMeasure',
         FactionName = 'Cybran',
         Icon = 'land',
+
         OrderOverrides = {
             RULEUTC_IntelToggle = {
                 bitmapId = 'stealth-personal',

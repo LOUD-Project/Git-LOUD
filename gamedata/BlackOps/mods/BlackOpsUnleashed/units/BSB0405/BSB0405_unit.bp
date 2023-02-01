@@ -33,18 +33,18 @@ UnitBlueprint {
 	
     Buffs = {
         Regen = {
-            Level1 = 10,
-            Level2 = 20,
-            Level3 = 30,
-            Level4 = 40,
-            Level5 = 50,
+            Level1 = 5,
+            Level2 = 10,
+            Level3 = 15,
+            Level4 = 20,
+            Level5 = 25,
         },
 		VisionRadius = {
-            Level1 = 2,
+            Level1 = 3,
             Level2 = 3,
-            Level3 = 3,
-            Level4 = 4,
-            Level5 = 5,
+            Level3 = 4,
+            Level4 = 5,
+            Level5 = 6,
 		},		
     },
 	
@@ -63,28 +63,40 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SORTDEFENSE',
     },
-	
-	-- unit script will create BSB0001 emitter for Lambda defense --
-	
+
     Defense = {
+		
+        LambdaRedirect01 = {AttachBone = 'Light04', Radius = 25, RedirectRateOfFire = 8 },
+        LambdaRedirect02 = {AttachBone = 'Light05', Radius = 19, RedirectRateOfFire = 6 },
+		LambdaRedirect03 = {AttachBone = 'Light06', Radius = 15, RedirectRateOfFire = 5 },
+		
+        LambdaDestroy01 = { AttachBone = 'TargetBone03', Radius = 12, RedirectRateOfFire = 7 },
+        LambdaDestroy02 = { AttachBone = 'TargetBone02', Radius = 8, RedirectRateOfFire = 6 },
+
         ArmorType = 'Structure',
+
         EconomyThreatLevel = 750,
+
         Health = 16500,
         MaxHealth = 16500,
+
         RegenRate = 15,
+
         SurfaceThreatLevel = 317.3,
     },
 	
     Description = '<LOC bsb0405_desc>Lambda Generator Advanced Point Defense',
 	
     Display = {
+
         Abilities = {
-			'Projectile Reflector Fields',
-            'Projectile Nullifier Fields',
+			'3 x Lambda Deflection Fields',
+            '2 x Lambda Destruction Fields',
 			'Consumes Lots of Energy',
 			'Fires Unstable Phasons',
             'Volatile',
         },
+
         AnimationDeath = {
             {
                 Animation = '/mods/BlackOpsUnleashed/units/BSB0405/BSB0405_ADeath.sca',
@@ -93,6 +105,7 @@ UnitBlueprint {
                 Weight = 100,
             },
         },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -103,46 +116,44 @@ UnitBlueprint {
                 },
             },
         },
-        SpawnRandomRotation = true,
+
         UniformScale = 0.05,
     },
 	
     Economy = {
-        BuildCostEnergy = 552500,
-        BuildCostMass = 42500,
-        BuildTime = 38000,
+        BuildCostEnergy = 375000,
+        BuildCostMass = 27600,
+        BuildTime = 6250,
 		
         MaintenanceConsumptionPerSecondEnergy = 2500,
     },
 	
     General = {
 		CapCost = 8,
-        Category = 'Strategic',
-        Classification = 'RULEUC_Weapon',
+
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
         },
+
         FactionName = 'Seraphim',
+
         Icon = 'land',
 		
-        ToggleCaps = { RULEUTC_ShieldToggle = true },
+        ToggleCaps = { RULEUTC_SpecialToggle = true },
 		
         OrderOverrides = {
-            RULEUTC_ShieldToggle = {
-                bitmapId = 'shield-personal',
-                helpText = 'lambda_field',
-            },
+            RULEUTC_SpecialToggle = { bitmapId = 'shield-personal', helpText = 'Toggle Lambda Fields' },
         },
+
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
+
         UnitName = '<LOC bsb0405_name>Uttaus-Athellu',
-        UnitWeight = 1,
     },
 	
     Intel = {
-        VisionRadius = 40,
+        VisionRadius = 44,
     },
 	
     Interface = {
@@ -193,25 +204,15 @@ UnitBlueprint {
             AimsStraightOnDisable = true,
 			
             Audio = {
-                Fire = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0401_Exp_Phason_Fire',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                MuzzleChargeStart = Sound {
-                    Bank = 'XSL_Weapon',
-                    Cue = 'XSL0401_Exp_Phason_Charge',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'XSL_Weapon',Cue = 'XSL0401_Exp_Phason_Fire',LodCutoff = 'Weapon_LodCutoff'},
+                MuzzleChargeStart = Sound { Bank = 'XSL_Weapon',Cue = 'XSL0401_Exp_Phason_Charge',LodCutoff = 'Weapon_LodCutoff'},
             },
 
-            BallisticArc = 'RULEUBA_None',
+            BallisticArc = 'RULEUBA_HighArc',
 			
             Buffs = {
                 {
-                    Add = {
-                        OnImpact = true,
-                    },
+                    Add = { OnImpact = true },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
                     Duration = 1.5,
@@ -223,18 +224,18 @@ UnitBlueprint {
 			
             CollideFriendly = false,
 			
-            Damage = 1200,
+            Damage = 1350,
             DoTTime = 5,
             DoTPulses = 5,
 			
-			DamageFriendly = true,
-            DamageRadius = 4.5,
+			DamageFriendly = false,
+            DamageRadius = 4.2,
             DamageType = 'Normal',
 			
             EnergyDrainPerSecond = 8375,
             EnergyRequired = 33500,
 			
-            DisplayName = 'Phason Beam',
+            DisplayName = 'Phason Ball',
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -245,12 +246,11 @@ UnitBlueprint {
             Label = 'Eye',
 			
             MaxRadius = 90,
-            MinRadius = 18,
+            MinRadius = 12,
 			
             MuzzleChargeDelay = 1,
-            MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 16,
+            MuzzleVelocity = 18,
 			
             NotExclusive = true,
 			
@@ -259,28 +259,19 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Eye01',
-                    },
+                    MuzzleBones = {'Eye01'},
                     RackBone = 'Eye01',
                 },
-                {
-                    MuzzleBones = {
-                        'Eye02',
-                    },
-                    RackBone = 'Eye02',
-                },				
             },
 
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+            RackReloadTimeout = 5,
 
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,	-- RoF by energy required -- 6000K every 5 seconds = 1200 DPS
+            RateOfFire = 1,	-- RoF by energy required -- 6750K every 5 seconds = 1350 DPS
 			
             TargetCheckInterval = 2,
+
             TargetPriorities = {
                 'EXPERIMENTAL',
                 'SPECIALHIGHPRI',
@@ -288,12 +279,11 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TrackingRadius = 1.15,
-            TargetRestrictDisallow = 'UNTARGETABLE, TECH1, TECH2',
+            TargetRestrictDisallow = 'UNTARGETABLE, TECH1',
 			
             TurretBoneMuzzle = 'Eye01',
             TurretBonePitch = 'Eye01',
             TurretBoneYaw = 'Eye01',
-            TurretDualManipulators = false,
 			
             TurretPitch = 0,
             TurretPitchRange = 50,
@@ -301,7 +291,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 20,
+            TurretYawSpeed = 24,
 			
             Turreted = true,
         },

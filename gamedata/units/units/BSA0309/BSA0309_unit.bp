@@ -94,23 +94,25 @@ UnitBlueprint {
 
         AirThreatLevel = 30,
 
-        SeraLambdaFieldRedirector01 = {
+        LambdaRedirect01 = {
             AttachBone = 'XSA0309',
             Radius = 12,
-            RedirectRateOfFire = 2,	-- note: This is NOT the redirections rate of fire but rather ticks between operation
+            RedirectRateOfFire = 4,
         },
 
-        SeraLambdaFieldDestroyer01 = {
+        LambdaDestroy01 = {
             AttachBone = 'XSA0309',
-            Radius = 6,
-            RedirectRateOfFire = 3,
+            Radius = 8,
+            RedirectRateOfFire = 4,
         },
 
         ArmorType = 'Light',
 
         Health = 5900,
         MaxHealth = 5900,
+
         RegenRate = 15,
+
         SurfaceThreatLevel = 7,
     },
 
@@ -120,8 +122,8 @@ UnitBlueprint {
         Abilities = {
             '<LOC ability_aa>Anti-Air',
 			'Ground Attack',
-            'Projectile Nullifier Field',
-            'Projectile Reflector Field',
+            'Lambda Destruction Field',
+            'Lambda Deflection Field',
         },
 
         ForcedBuildSpin = 90,
@@ -158,8 +160,7 @@ UnitBlueprint {
 
     General = {
 		CapCost = 2,
-        Category = 'Transport',
-        Classification = 'RULEUC_MilitaryAircraft',
+
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -174,7 +175,13 @@ UnitBlueprint {
         FactionName = 'Seraphim',
         Icon = 'air',
         SelectionPriority = 2,
-        TechLevel = 'RULEUTL_Advanced',
+		
+        ToggleCaps = { RULEUTC_SpecialToggle = true },
+		
+        OrderOverrides = {
+            RULEUTC_SpecialToggle = { bitmapId = 'shield-personal', helpText = 'Toggle Lambda Fields' },
+        },
+
         UnitName = '<LOC bsa0309_name>Vishathal-Atah',
         UnitWeight = 1,
     },

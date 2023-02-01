@@ -45,7 +45,7 @@ UnitBlueprint {
 	
     Defense = {
 
-        SeraLambdaFieldDestroyer01 = { AttachBone = 'L_Arm_Muzzle', Radius = 4.3, RedirectRateOfFire = 3 },
+        LambdaDestroy01 = {AttachBone = 'L_Arm_Muzzle', Radius = 4.8, RedirectRateOfFire = 4 },
     
         ArmorType = 'Normal',
 
@@ -233,7 +233,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 2,		---- 448 DPS
+            RateOfFire = 2,		---- 450 DPS
 			
             TargetCheckInterval = 1,
 			

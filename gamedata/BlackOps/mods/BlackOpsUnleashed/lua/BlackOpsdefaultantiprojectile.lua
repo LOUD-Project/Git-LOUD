@@ -266,7 +266,6 @@ TorpRedirectField = Class(Entity) {
         self.RedirectRateOfFire = spec.RedirectRateOfFire or 1
         
         SetCollisionShape( self, 'Sphere', 0, 0, 0, self.Radius)
-
         SetDrawScale( self, self.Radius )
         
         self.AttachBone = spec.AttachBone
@@ -275,7 +274,6 @@ TorpRedirectField = Class(Entity) {
         LOUDSTATE(self, self.WaitingState)
 		
 		self.LambdaEffectsBag = {}
-		
     end,
 
     OnDestroy = function(self)

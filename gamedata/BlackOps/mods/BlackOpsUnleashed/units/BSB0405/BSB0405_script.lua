@@ -3,23 +3,19 @@ local SShieldStructureUnit = import('/lua/defaultunits.lua').StructureUnit
 local WeaponsFile = import ('/mods/BlackOpsUnleashed/lua/BlackOpsweapons.lua')
 
 local LambdaWeapon = WeaponsFile.LambdaWeapon
+
 local SSeraphimSubCommanderGateway01 = import('/lua/EffectTemplates.lua').SeraphimSubCommanderGateway01
 local SSeraphimSubCommanderGateway02 = import('/lua/EffectTemplates.lua').SeraphimSubCommanderGateway02
 local SSeraphimSubCommanderGateway03 = import('/lua/EffectTemplates.lua').SeraphimSubCommanderGateway03
 
 local explosion = import('/lua/defaultexplosions.lua')
 
+local SeraLambdaFieldRedirector = import('/lua/defaultantiprojectile.lua').SeraLambdaFieldRedirector
+local SeraLambdaFieldDestroyer = import('/lua/defaultantiprojectile.lua').SeraLambdaFieldDestroyer
+
 local CreateAttachedEmitter = CreateAttachedEmitter
-local LOUDINSERT = table.insert
 
 BSB0405 = Class(SShieldStructureUnit) {
-
-	SpawnEffects = {
-		'/effects/emitters/seraphim_othuy_spawn_01_emit.bp',
-		'/effects/emitters/seraphim_othuy_spawn_02_emit.bp',
-		'/effects/emitters/seraphim_othuy_spawn_03_emit.bp',
-		'/effects/emitters/seraphim_othuy_spawn_04_emit.bp',
-	},
 	
     LambdaEffects = {
         '/effects/emitters/seraphim_t3power_ambient_01_emit.bp',
@@ -36,9 +32,9 @@ BSB0405 = Class(SShieldStructureUnit) {
         local army = self.Army
         
         for k, v in SSeraphimSubCommanderGateway01 do
-            CreateAttachedEmitter(self, 'Light04', army, v):ScaleEmitter(0.5)
-			CreateAttachedEmitter(self, 'Light05', army, v):ScaleEmitter(0.5)
-			CreateAttachedEmitter(self, 'Light06', army, v):ScaleEmitter(0.5)
+            CreateAttachedEmitter(self, 'Light04', army, v):ScaleEmitter(0.4)
+			CreateAttachedEmitter(self, 'Light05', army, v):ScaleEmitter(0.4)
+			CreateAttachedEmitter(self, 'Light06', army, v):ScaleEmitter(0.4)
         end
 		
         for k, v in SSeraphimSubCommanderGateway02 do
@@ -53,105 +49,188 @@ BSB0405 = Class(SShieldStructureUnit) {
 		
         SShieldStructureUnit.OnStopBeingBuilt(self, builder, layer)
 		
-        self.Rotator1 = CreateRotator(self, 'Spinner', 'y', nil, 10, 5, 0)
+        self.Rotator1 = CreateRotator(self, 'Spinner', 'y', nil, 5, 20, 5)
 		
         self.Trash:Add(self.Rotator1)
+
+        local bpd = self:GetBlueprint().Defense
+        
+    	local bp = bpd.LambdaRedirect01
+        local bp2 = bpd.LambdaRedirect02
+        local bp3 = bpd.LambdaRedirect03
+        local bp4 = bpd.LambdaDestroy01
+        local bp5 = bpd.LambdaDestroy02
+        
+        self.Lambda1 = SeraLambdaFieldRedirector {
+            Owner = self,
+            Radius = bp.Radius,
+            AttachBone = bp.AttachBone,
+            RedirectRateOfFire = bp.RedirectRateOfFire
+        }
 		
-        self.lambdaEmitterTable = {}
-        self.LambdaEffectsBag = {}
+        self.Lambda2 = SeraLambdaFieldRedirector {
+            Owner = self,
+            Radius = bp2.Radius,
+            AttachBone = bp2.AttachBone,
+            RedirectRateOfFire = bp2.RedirectRateOfFire
+        }
 		
-		-- turn on Lambda emitter --
-        self:SetScriptBit('RULEUTC_ShieldToggle', true)
+        self.Lambda3 = SeraLambdaFieldRedirector {
+            Owner = self,
+            Radius = bp3.Radius,
+            AttachBone = bp3.AttachBone,
+            RedirectRateOfFire = bp3.RedirectRateOfFire
+        }
 		
-        self:ForkThread(self.ResourceThread)
+        self.Lambda4 = SeraLambdaFieldDestroyer {
+            Owner = self,
+            Radius = bp4.Radius,
+            AttachBone = bp4.AttachBone,
+            RedirectRateOfFire = bp4.RedirectRateOfFire
+        }
+		
+        self.Lambda5 = SeraLambdaFieldDestroyer {
+            Owner = self,
+            Radius = bp5.Radius,
+            AttachBone = bp5.AttachBone,
+            RedirectRateOfFire = bp5.RedirectRateOfFire
+        }
+		
+        self.Trash:Add(self.Lambda1)
+        self.Trash:Add(self.Lambda2)
+        self.Trash:Add(self.Lambda3)
+        self.Trash:Add(self.Lambda4)
+        self.Trash:Add(self.Lambda5)		
+
+		-- turn on Lambda emitters --
+        self:SetScriptBit('RULEUTC_SpecialToggle', true)
     end,
     
     OnScriptBitSet = function(self, bit)
 	
         SShieldStructureUnit.OnScriptBitSet(self, bit)
-        
-        local army =  self.Army
-        
-        if bit == 0 then 
-            self:SetMaintenanceConsumptionActive()
-            self:ForkThread(self.LambdaEmitter)
-    	end
 		
-    	if self.Rotator1 then
-            self.Rotator1:SetTargetSpeed(40)
-        end
-		
-        if self.LambdaEffectsBag then
-            for k, v in self.LambdaEffectsBag do
-                v:Destroy()
+        if bit == 7 then 
+            self.Lambda1:Enable()
+            self.Lambda2:Enable()
+            self.Lambda3:Enable()
+            self.Lambda4:Enable()
+            self.Lambda5:Enable()
+
+			self:SetMaintenanceConsumptionActive()
+            
+            if not self.ConsumptionThread then
+                self.ConsumptionThread = self:ForkThread( self.WatchConsumption )
             end
-		    self.LambdaEffectsBag = {}
-		end
-		
-        for k, v in self.LambdaEffects do
-            LOUDINSERT( self.LambdaEffectsBag, CreateAttachedEmitter( self, 0, army, v ):ScaleEmitter(0.8) )
-        end
+
+            self.Rotator1:SetTargetSpeed(60)
+
+    	end
+
     end,
     
     OnScriptBitClear = function(self, bit)
 	
         SShieldStructureUnit.OnScriptBitClear(self, bit)
 		
-        if bit == 0 then 
-            self.Rotator1:SetTargetSpeed(0)
-            self:ForkThread(self.KillLambdaEmitter)
-            self:SetMaintenanceConsumptionInactive()
-    	end
-		
-		if self.LambdaEffectsBag then
-            for k, v in self.LambdaEffectsBag do
-                v:Destroy()
-            end
-		    self.LambdaEffectsBag = {}
-		end
+        if bit == 7 then 
+            self.Lambda1:Disable()
+            self.Lambda2:Disable()
+            self.Lambda3:Disable()
+            self.Lambda4:Disable()
+            self.Lambda5:Disable()
+
+			self:SetMaintenanceConsumptionInactive()
+        
+            KillThread(self.ConsumptionThread)
+            self.ConsumptionThread = nil
+
+            self.Rotator1:SetTargetSpeed(0)            
+
+        end
     end,
+
+    -- this thread is launched when the lambda is turned on
+    -- and will disable it, and remove the toggle, if the power drops out
+    -- and will restore it once the power returns
+    WatchConsumption = function(self)
+	
+        local GetEconomyStored = moho.aibrain_methods.GetEconomyStored
+		local GetResourceConsumed = moho.unit_methods.GetResourceConsumed
+        local WaitTicks = coroutine.yield
+
+        local MaintenanceConsumption = __blueprints[self.BlueprintID].MaintenanceConsumptionPerSecondEnergy
     
-	LambdaEmitter = function(self)
+        local on = true
+        local count = 0
 
-		if not self.Dead then
-		
-			WaitTicks(5)
-			
-			if not self.Dead then
+        local aiBrain = self:GetAIBrain()
+        local army =  self.Army
 
-				local platOrient = self:GetOrientation()
+        self.Effects = {}    
+
+        while true do
+
+            WaitTicks(16)
             
-				local location = self:GetPosition('Spinner')
+            if GetResourceConsumed(self) != 1 and GetEconomyStored(aiBrain,'Energy') < 1 then
+            
+                self.Lambda1:Disable()
+                self.Lambda2:Disable()
+                self.Lambda3:Disable()
+                self.Lambda4:Disable()
+                self.Lambda5:Disable()
 
-				-- Creates lambdaEmitter over the platform with a ranomly generated Orientation
-				local lambdaEmitter = CreateUnit('bsb0001', self:GetArmy(), location[1], location[2], location[3], platOrient[1], platOrient[2], platOrient[3], platOrient[4], 'Land') 
+                self:SetMaintenanceConsumptionInactive()
 
-				-- Adds the created lambdaEmitter to the parent platforms lambdaEmitter table
-				LOUDINSERT(self.lambdaEmitterTable, lambdaEmitter)
+                self.Rotator1:SetTargetSpeed(0)            
 
-				-- Sets the platform as the lambdaEmitter parent
-				lambdaEmitter:SetParent(self, 'bsb0405')
-				lambdaEmitter:SetCreator(self)
-				
-				-- lambdaEmitter clean up scripts
-				self.Trash:Add(lambdaEmitter)
-			end
-		end 
-	end,
-	
-	KillLambdaEmitter = function(self, instigator, type, overkillRatio)
-	
-		-- Small bit of table manipulation to sort thru all of the avalible rebulder bots and remove them after the platform is dead
-		if table.getn({self.lambdaEmitterTable}) > 0 then
-		
-			for k, v in self.lambdaEmitterTable do 
-				IssueClearCommands({self.lambdaEmitterTable[k]}) 
-				IssueKillSelf({self.lambdaEmitterTable[k]})
-			end
-			
-		end
-	end,
-    
+                -- turn off the consumption effects
+                for _,v in self.Effects do
+                    v:Destroy()
+                end
+                
+                count = 0
+
+                self:RemoveToggleCap('RULEUTC_SpecialToggle')
+
+                on = false
+            end
+
+            while not on do
+
+                WaitTicks(16)
+
+                if GetEconomyStored(aiBrain,'Energy') > MaintenanceConsumption then
+
+                    self.Lambda1:Enable()
+                    self.Lambda2:Enable()
+                    self.Lambda3:Enable()
+                    self.Lambda4:Enable()
+                    self.Lambda5:Enable()
+
+                    self:SetMaintenanceConsumptionActive()
+
+                    self.Rotator1:SetTargetSpeed(60)
+
+                    self:AddToggleCap('RULEUTC_SpecialToggle')
+
+                    on = true
+                end
+            end
+
+            -- turn on the consumption effects --
+            if count == 0 then
+                for _,v in self.LambdaEffects do
+                    count = count + 1
+                    self.Effects[count] = CreateEmitterOnEntity( self, army, v ):ScaleEmitter(0.7)
+                end
+            end
+            
+        end
+        
+    end,    
+
     DeathThread = function( self, overkillRatio , instigator)
 	
 		if self.Rotator1 then
@@ -219,63 +298,6 @@ BSB0405 = Class(SShieldStructureUnit) {
     	SShieldStructureUnit.OnDamage(self, instigator, amount, vector, damagetype) 
 	end,
 
-	-- standard maintenance energy
-	ResourceThread = function(self) 
-		
-    	if not self.Dead then
-		
-        	local energy = self:GetAIBrain():GetEconomyStored('Energy')
-
-        	-- Check to see if the player has enough mass / energy
-        	if  energy <= 10 then 
-				#-- turn off the unit and launch thread to see if enough to restart it
-				#-- since startup power different from maintenance power
-            	self:SetScriptBit('RULEUTC_ShieldToggle', false)
-            	self:ForkThread(self.ResourceThread2)
-
-        	else
-            	-- If the above conditions are not met check again
-            	self:ForkThread(self.EconomyWaitUnit)
-        	end
-    	end    
-	end,
-
-	EconomyWaitUnit = function(self)
-	
-		WaitTicks(30)
-		
-		if not self.Dead then
-			self:ForkThread(self.ResourceThread)
-		end
-	end,
-	
-	#-- runs when energy has run out - startup energy is higher than maintenance energy
-	ResourceThread2 = function(self) 
-
-    	if not self.Dead then
-        	local energy = self:GetAIBrain():GetEconomyStored('Energy')
-
-        	-- Check to see if the player has enough energy
-        	if  energy > 3000 then 
-            	-- Loops back to standard resource thread
-            	self:SetScriptBit('RULEUTC_ShieldToggle', true)
-            	self:ForkThread(self.ResourceThread)
-
-        	else
-            	#-- wait to try again
-            	self:ForkThread(self.EconomyWaitUnit2)
-        	end
-    	end    
-	end,
-
-	EconomyWaitUnit2 = function(self)
-		
-		WaitTicks(30)
-
-       	if not self.Dead then
-           	self:ForkThread(self.ResourceThread2)
-       	end
-	end,
 }
 
 TypeClass = BSB0405

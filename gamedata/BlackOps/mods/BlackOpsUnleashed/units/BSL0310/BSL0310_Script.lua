@@ -18,7 +18,7 @@ BSL0310 = Class(SWalkingLandUnit) {
 
         SWalkingLandUnit.OnStopBeingBuilt(self,builder,layer)
 
-        local bp = self:GetBlueprint().Defense.SeraLambdaFieldDestroyer01
+        local bp = self:GetBlueprint().Defense.LambdaDestroy01
 
         self.Lambda1 = SeraLambdaFieldDestroyer {
             Owner = self,
