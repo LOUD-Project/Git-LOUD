@@ -2843,7 +2843,7 @@ function AirForceAILOUD( self, aiBrain )
             
                     self:MoveToLocation( loiterposition, false )                    
 
-                    break   --return self:SetAIPlan('ReturnToBaseAI',aiBrain)
+                    break
                 end
             end
 
@@ -7413,7 +7413,9 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
         if upgradeID and not unitbeingbuilt.Dead then
         
             if unitbeingbuilt.UpgradeThread then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unitbeingbuilt.Sync.id.." already has a thread")
+                if ScenarioInfo.StructureUpgradeDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unitbeingbuilt.Sync.id.." already has a thread")
+                end
                 KillThread(unitbeingbuilt.UpgradeThread)
             end
 

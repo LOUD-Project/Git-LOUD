@@ -567,7 +567,8 @@ PhxLib.PhxWeapDPS = function(weapon)
 end
 
 PhxLib.calcUnitDPS = function(curShortID,curBP)
-    local debug = true
+
+    local debug = false
 
     local unitDPS = {}
     unitDPS.Threat = {}
@@ -647,7 +648,9 @@ PhxLib.calcUnitDPS = function(curShortID,curBP)
         print(" unitDPS.Threat.Speed = " ..  unitDPS.Threat.Speed)
 
     else
-        LOG(curShortID .. "/" .. (curBP.Description or "None") .. " has NO weapons or weapon has NO RateOfFire value")
+        if debug then
+            LOG(curShortID .. "/" .. (curBP.Description or "None") .. " has NO weapons or weapon has NO RateOfFire value")
+        end
     end --End if(weapon)
 
     -- Overrides for oddball units

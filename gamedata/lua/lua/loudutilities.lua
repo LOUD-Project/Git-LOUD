@@ -5102,7 +5102,7 @@ function PickEnemy( self )
         AIPickEnemyLogic( self, true)
         WaitTicks(4800)	-- every 8 minutes
         
-        LOG("*AI DEBUG "..self.Nickname.." reports memory used is "..(gcinfo()*1024) .. " bytes")
+        LOG("*AI DEBUG "..self.Nickname.." reports memory used is "..(gcinfo()*1024) .. " bytes at time "..repr(GetGameTimeSeconds()))
         
     end
 end
