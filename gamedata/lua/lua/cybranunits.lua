@@ -8,30 +8,6 @@ local DirectionalWalkingLandUnit = DefaultUnitsFile.DirectionalWalkingLandUnit
 local FactoryUnit = DefaultUnitsFile.FactoryUnit
 local ConstructionUnit = DefaultUnitsFile.ConstructionUnit
 
----------------------------------------
--- these locals should be deprecated --
----------------------------------------
-
-local AirStagingPlatformUnit = DefaultUnitsFile.AirStagingPlatformUnit
-local AirUnit = DefaultUnitsFile.AirUnit
-local ConcreteStructureUnit = DefaultUnitsFile.ConcreteStructureUnit
-local WallStructureUnit = import('defaultunits.lua').WallStructureUnit
-
-local MobileUnit = DefaultUnitsFile.MobileUnit
-local SeaUnit = DefaultUnitsFile.SeaUnit
-local SubUnit = DefaultUnitsFile.SubUnit
-local WalkingLandUnit = DefaultUnitsFile.WalkingLandUnit
-
-local ShieldStructureUnit = DefaultUnitsFile.StructureUnit
-
-local QuantumGateUnit = DefaultUnitsFile.QuantumGateUnit
-
-local RadarJammerUnit = DefaultUnitsFile.RadarJammerUnit
-
-local EffectTemplate = import('/lua/EffectTemplates.lua')
---]]
-----------------------------------------------------------
-
 local CreateCybranBuildBeams = import('EffectUtilities.lua').CreateCybranBuildBeams
 local CreateCybranEngineerBuildEffects = import('EffectUtilities.lua').CreateCybranEngineerBuildEffects
 local CreateCybranFactoryBuildEffects = import('EffectUtilities.lua').CreateCybranFactoryBuildEffects
@@ -53,8 +29,6 @@ local LOUDGETN = table.getn
 local LOUDWARP = Warp
 
 local ScaleEmitter = moho.IEffect.ScaleEmitter
-
--------------------------
 
 
 CDirectionalWalkingLandUnit = Class(DirectionalWalkingLandUnit) {}
@@ -583,51 +557,3 @@ CConstructionEggUnit = Class(StructureUnit) {
 	end,
 }
 
-----------------------------------------
--- all of these should be deprecated ---
-----------------------------------------
-
-
-CAirUnit = Class(AirUnit) {}
-
-CLandUnit = Class(MobileUnit) {}
-
-CSeaUnit = Class(SeaUnit) {}
-
-CShieldLandUnit = Class(MobileUnit) {}
-
-CSubUnit = Class(SubUnit) {}
-
-CWalkingLandUnit = Class(WalkingLandUnit) {}
-
-CAirStagingPlatformUnit = Class(AirStagingPlatformUnit) {}
-
-CConcreteStructureUnit = Class(ConcreteStructureUnit) {}
-
-CEnergyCreationUnit = Class(DefaultUnitsFile.EnergyCreationUnit) {}
-
-CEnergyStorageUnit = Class(StructureUnit) {}
-
-CMassCollectionUnit = Class(DefaultUnitsFile.MassCollectionUnit) {}
-
-CMassFabricationUnit = Class(DefaultUnitsFile.MassFabricationUnit) {}
-
-CMassStorageUnit = Class(StructureUnit) {}
-
-CRadarUnit = Class(DefaultUnitsFile.RadarUnit) {}
-
-CSonarUnit = Class(DefaultUnitsFile.SonarUnit) {}
-
-CShieldStructureUnit = Class(ShieldStructureUnit) {}
-
-CTransportBeaconUnit = Class(DefaultUnitsFile.TransportBeaconUnit) {}
-
-CWallStructureUnit = Class(WallStructureUnit) {}
-
-CCivilianStructureUnit = Class(StructureUnit) {}
-
-CQuantumGateUnit = Class(QuantumGateUnit) {}
-
-CRadarJammerUnit = Class(RadarJammerUnit) {}
-
---]]

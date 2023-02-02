@@ -683,17 +683,3 @@ SEnergyBallUnit = Class(MobileUnit) {
         end,
     },
 }
-
-----------------------
-
-SAirUnit = Class(AirUnit) { ContrailEffects = {'/effects/emitters/contrail_ser_polytrail_01_emit.bp'} }
-
-SAirStagingPlatformUnit = Class(AirStagingPlatformUnit) {}
-
-SConcreteStructureUnit = Class(ConcreteStructureUnit) {}
-
-SEnergyStorageUnit = Class(StructureUnit) {}
-
-SHoverLandUnit = Class(MobileUnit) {}
-
-SLandUnit = Class(MobileUnit) {}
