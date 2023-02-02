@@ -3111,12 +3111,8 @@ Unit = Class(moho.unit_methods) {
     end,
 
     DisableUnitIntel = function(self, intel)
-	
-		local intDisabled = false
-
 		
         if self.Dead or not self.IntelDisables then return end
-		
 
 		local DisableIntel = moho.entity_methods.DisableIntel
 		
@@ -3127,50 +3123,40 @@ Unit = Class(moho.unit_methods) {
         if intel then
 
             if self.IntelDisables[intel] == 0 then
-			
+
 				self.IntelDisables[intel] = 1
-				
+
 				self:DisableIntel(intel)
-				
-				intDisabled = true
-				
+
+                self:OnIntelDisabled(intel)
 			end
 			
         else
 		
             for k, v in self.IntelDisables do
-			
+
                 self.IntelDisables[k] =  1
-				
+
                 if self.IntelDisables[k] == 0 then
-				
+
 					self.IntelDisables[k] = 1
 
                     self:DisableIntel(k)
-					
-                    intDisabled = true
-					
+
+                    self:OnIntelDisabled(k)
                 end
 				
             end
 			
         end
 		
-        if intDisabled then
-		
-			self:OnIntelDisabled()
-			
-		end
-		
     end,
 
     EnableUnitIntel = function(self, intel)
-	
+
 		if not self.Dead then
 		
 			local EnableIntel = moho.entity_methods.EnableIntel
-
-			local intEnabled = false
 			
 			if self.CacheLayer == 'Seabed' or self.CacheLayer == 'Sub' or self.CacheLayer == 'Water' then
 			
@@ -3194,11 +3180,10 @@ Unit = Class(moho.unit_methods) {
 					if self.IntelDisables[intel] == 1 then
 
 						EnableIntel(self,intel)
-						
-						intEnabled = true
-						
+
 						self.IntelDisables[intel] = 0						
-						
+
+                        self:OnIntelEnabled(intel)
 					end
 
 				else
@@ -3212,10 +3197,9 @@ Unit = Class(moho.unit_methods) {
 
 							if self:IsIntelEnabled(k) then
 
-								intEnabled = true
-								
 								self.IntelDisables[k] = 0
-								
+                                
+                                self:OnIntelEnabled(k)
 							end
 							
 						end
@@ -3233,7 +3217,6 @@ Unit = Class(moho.unit_methods) {
 					KillThread(self.IntelThread)
 					
 					self.IntelThread = nil
-					
 				end
 				
 				if not self.IntelThread then
@@ -3243,34 +3226,24 @@ Unit = Class(moho.unit_methods) {
 				end
 				
 			end  
-      
-			if intEnabled then
-			
-				self:OnIntelEnabled()
-				
-			end
 			
 		end
 		
     end,
 
 	-- modified for BO:U cloaking credit to Black Ops team
-    OnIntelEnabled = function(self)
+    OnIntelEnabled = function(self,intel)
 	
-		if not self.Dead then
-		
+		if not self.Dead and intel == 'Cloak' then
 			self:UpdateCloakEffect()
-			
 		end
 		
     end,
 
-    OnIntelDisabled = function(self)
+    OnIntelDisabled = function(self,intel)
 	
-		if not self.Dead then
-		
+		if not self.Dead and intel == 'Cloak' then
 			self:UpdateCloakEffect()
-			
 		end
 		
     end,
@@ -3287,48 +3260,46 @@ Unit = Class(moho.unit_methods) {
 		local TestToggleCaps = moho.unit_methods.TestToggleCaps
         
 		local WaitTicks = WaitTicks
+        
+        WaitTicks(2)
 		
 		local bpVal = self:GetConsumptionPerSecondEnergy()
+        
 		local intelTypeTbl = {'Radar','Sonar','Omni','RadarStealthField','SonarStealthField','CloakField','Jammer','Cloak','Spoof','RadarStealth','SonarStealth'}
 
 		-- incorporated this function for speed
-		local function ShouldWatchIntel(self,bpVal)
+		local function ShouldWatchIntel(self, consumption)
 		
 			if not self.Dead then
 			
 				-- do we actually have any intel features turned on
-				if bpVal > 0 then
+				if consumption > 0 then
 
 					for k,v in intelTypeTbl do
 					
 						if IsIntelEnabled(self,v) then
-						
+
 							return true
-							
 						end
-						
 					end
-					
 				end
-				
 			end
 			
 			return false
-			
 		end
 
-        local recharge = bp.Intel.ReactivateTime or 10
+        local recharge = bp.Intel.ReactivateTime or 20
 		
 		recharge = 1 + (recharge * 10)	-- convert to ticks from seconds
 
         while ShouldWatchIntel(self, bpVal) and not self.Dead do
 		
-            WaitTicks(20)
+            WaitTicks(21)
 			
             if GetEconomyStored( aiBrain, 'ENERGY' ) < bpVal and not self.Dead then
 				
 				local a,b,c
-				
+
 				if TestToggleCaps(self,'RULEUTC_StealthToggle') then
 				
 					if not GetScriptBit(self,'RULEUTC_StealthToggle') then
@@ -3336,9 +3307,7 @@ Unit = Class(moho.unit_methods) {
 						a = true
 						
 						self:SetScriptBit('RULEUTC_StealthToggle', true)
-						
 					end
-					
 				end
 				
 				if TestToggleCaps(self,'RULEUTC_CloakToggle') then
@@ -3349,58 +3318,48 @@ Unit = Class(moho.unit_methods) {
 						b = true
 						
 						self:SetScriptBit('RULEUTC_CloakToggle', true)
-						
 					end
-					
 				end
 				
 				if TestToggleCaps(self,'RULEUTC_IntelToggle') then
-				
+
 					if not GetScriptBit(self,'RULEUTC_IntelToggle') then
 					
 						c = true
 						
 						self:SetScriptBit('RULEUTC_IntelToggle', true)
-						
-					end
-					
+                    end
 				end
 
 				-- we wait here until there is enough power to turn back on
 				-- checking every recharge period
 				while GetEconomyStored( aiBrain, 'ENERGY' ) < bpVal and not self.Dead do
-				
+
 					WaitTicks(recharge)
-					
 				end
 				
 				-- if stealth was On - turn it back on
 				if a then
 				
 					self:SetScriptBit('RULEUTC_StealthToggle', false)
-					
 				end
 				
 				-- if cloak was On - turn it back on
 				if b then
 				
 					self:SetScriptBit('RULEUTC_CloakToggle', false)
-					
 				end
 				
 				-- if intel (Everything) was on - turn it back on
 				if c then
 				
 					self:SetScriptBit('RULEUTC_IntelToggle', false)
-					
 				end
 				
             end 
-			
+
+			bpVal = self:GetConsumptionPerSecondEnergy()
         end
-		
-		self.IntelThread = nil
-		
     end,
 
     InheritWork = function(self, target)
@@ -3673,35 +3632,28 @@ Unit = Class(moho.unit_methods) {
             else
 			
                 effects = self.GetTerrainTypeEffects( FxBlockType, FxBlockKey, self:GetPosition(), vTypeGroup.Type, TypeSuffix )
-				
             end
-			
+
 			if not table.empty(effects) then
 			
 				for kb, vBone in vTypeGroup.Bones do
 				
 					for ke, vEffect in effects do
 
-						local emit = LOUDATTACHEMITTER( self, vBone, self.Sync.army, vEffect ):ScaleEmitter(vTypeGroup.Scale or 1)
+						local emit = LOUDATTACHEMITTER( self, vBone, self.Sync.army, vEffect ):ScaleEmitter(vTypeGroup.Scale or 3)
 
 						if vTypeGroup.Offset then
 						
 							emit:OffsetEmitter(vTypeGroup.Offset[1] or 0, vTypeGroup.Offset[2] or 0,vTypeGroup.Offset[3] or 0)
-							
 						end
 						
 						if EffectBag then
 						
 							LOUDINSERT( EffectBag, emit )
-							
 						end
-						
 					end
-					
 				end
-				
 			end
-			
         end
 		
     end,
@@ -3719,15 +3671,11 @@ Unit = Class(moho.unit_methods) {
 			if bpTable[self.CacheLayer].Effects then
 			
 				if not self.IdleEffectsBag then
-				
 					self.IdleEffectsBag = {}
-					
 				end
 			
 				self:CreateTerrainTypeEffects( bpTable[self.CacheLayer].Effects, 'FXIdle', self.CacheLayer, nil, self.IdleEffectsBag )
-				
 			end
-			
 		end
 		
     end,
@@ -4253,9 +4201,7 @@ Unit = Class(moho.unit_methods) {
             self.WorkItemBuildTime = nil
             
             self:PlayUnitSound('EnhanceEnd')
-			
-            --self:StopUnitAmbientSound('EnhanceLoop')
-			
+
             self:EnableDefaultToggleCaps()
 			
 			self:OnCmdrUpgradeFinished()
@@ -4862,18 +4808,12 @@ Unit = Class(moho.unit_methods) {
 
     OnShieldEnabled = function(self)
 	
-        --self:PlayUnitSound('ShieldOn')
-		
-        -- drain energy
         self:SetMaintenanceConsumptionActive()
 		
     end,
 
     OnShieldDisabled = function(self)
-	
-        --self:PlayUnitSound('ShieldOff')
-		
-        -- Turn off energy drain
+
         self:SetMaintenanceConsumptionInactive()
 		
     end,
@@ -4905,8 +4845,7 @@ Unit = Class(moho.unit_methods) {
     DestroyShield = function(self)
 	
         if self.MyShield then
-		
-            --self:ClearFocusEntity()
+
             self.MyShield:Destroy()
             self.MyShield = nil
 			self.MyShieldType = nil
@@ -5148,7 +5087,7 @@ Unit = Class(moho.unit_methods) {
 		-- Range Check to location
         -- in this respect maxrange is the optimal range - you can go twice that distance
         -- but as you will see, the costs explode if you do.
-		local teleRange = bp.Defense.MaxTeleRange or 450
+		local teleRange = bp.Defense.MaxTeleRange or 375
         
 		local myposition = self:GetPosition()
         
@@ -5389,7 +5328,6 @@ Unit = Class(moho.unit_methods) {
         self:SetImmobile(true)
         
         self:PlayUnitSound('TeleportStart')
-        --self:PlayUnitAmbientSound('TeleportLoop')
 
         local teleportenergy, teleporttime
 		
@@ -5407,28 +5345,26 @@ Unit = Class(moho.unit_methods) {
 
             if teledistance <= teleRange then
                 teleportenergy = teleportenergy * ( math.max( .25, teledistance/teleRange ) * math.max( .25, teledistance/teleRange ) )
-                LOG("*AI DEBUG Teleport distance is "..teledistance.." -- optimal range is "..teleRange.." -- Distance modifier is "..repr( ( math.max( .25, teledistance/teleRange )) * ( math.max( .25, teledistance/teleRange ))) )
+                LOG("*AI DEBUG Teleport dist "..teledistance.." -- optimal range "..teleRange.." -- Distance mod "..repr( ( math.max( .25, teledistance/teleRange )) * ( math.max( .25, teledistance/teleRange ))) )
             else
                 teleportenergy = teleportenergy * teledistance/teleRange
-                LOG("*AI DEBUG Teleport distance is "..teledistance.." -- optimal range is "..teleRange.." -- Distance modifier is "..repr(teledistance/teleRange ) )
+                LOG("*AI DEBUG Teleport dist "..teledistance.." -- optimal range "..teleRange.." -- Distance mod "..repr(teledistance/teleRange ) )
             end
             
             teleportenergy = teleportenergy * ((2 * (math.cos( (3.14*teledistance)/400) )) + 3)
             
-            LOG("*AI DEBUG Teleport range modifier is ".. (2 * (math.cos( (3.14*teledistance)/400) )) + 3 )
+            LOG("*AI DEBUG Teleport dist "..teledistance.." range mod is ".. (2 * (math.cos( (3.14*teledistance)/400) )) + 3 )
             
             local buildrate = teleporter:GetBuildRate()
-            
-            --LOG("*AI DEBUG  the teleporter has "..repr(teleporter:GetBuildRate() ))
-            
-            --teleporttime = 12
+
             -- time is now based on how much energy this unit can channel per second
             -- channeled flow = buildrate * 10
             -- this tapers nicely with the investment in mass of the unit, since although
             -- lessers builders can flow as much energy - the energy required of smaller units is much less.
             -- powerful builders (SACU) can teleport very quickly when they have enhanced build power
+            -- minimum teleport time of 12 
 
-            teleporttime = ( teleportenergy / (buildrate * 10) )
+            teleporttime = math.max( 12, ( teleportenergy / (buildrate * 10) ))
 
 			LOG('*AI DEBUG Teleporting value '..repr(teleportenergy)..'  time = '..repr(teleporttime).."  will be using "..repr(teleportenergy/teleporttime).."E per second" )
 			
@@ -5447,6 +5383,8 @@ Unit = Class(moho.unit_methods) {
 			
             self.TeleportDrain = nil
         end
+        
+		FloatingEntityText(self.Sync.id,'Starting Cooldown..')
 
         EffectUtilities.PlayTeleportOutEffects(self)
 
@@ -5460,9 +5398,10 @@ Unit = Class(moho.unit_methods) {
 		
         EffectUtilities.PlayTeleportInEffects(self)
 
-        WaitTicks(5) 	-- Perform cooldown Teleportation FX here
-        
-        --self:StopUnitAmbientSound('TeleportLoop')
+        WaitTicks(24) 	-- Perform cooldown Teleportation FX here
+
+		FloatingEntityText(self.Sync.id,'Cooldown complete..')        
+
         self:PlayUnitSound('TeleportEnd')
         
         self:SetImmobile(false)
@@ -5476,11 +5415,8 @@ Unit = Class(moho.unit_methods) {
         self.teleported = true
         
         self.TeleportCostPaid = nil
-        
-        LOG("*AI DEBUG Teleport cooldown complete "..repr(self.BlueprintID))
-		
+
         self:OnTeleported(location)
-		
     end,
 	
     OnTeleportCharging = function(self, location)
@@ -5730,6 +5666,8 @@ Unit = Class(moho.unit_methods) {
 		-- local a bunch of repetitive functions
 		local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
 		local IsIntelEnabled = moho.entity_methods.IsIntelEnabled
+        
+        WaitTicks(61)
 	
 		if not self.Dead then
 		
@@ -5798,7 +5736,7 @@ Unit = Class(moho.unit_methods) {
 					end
 					
 					WaitTicks(79)
-					
+
 				end
 				
 			end
@@ -5829,7 +5767,7 @@ Unit = Class(moho.unit_methods) {
 
 	-- This is the core of the entire mod. The effect is actually applied here.
 	UpdateCloakEffect = function(self, bp)
-	
+
 		if not self.Dead then
 		
 			local bp = bp or ALLBPS[self.BlueprintID]
@@ -5838,7 +5776,7 @@ Unit = Class(moho.unit_methods) {
 			if not bp.Intel.CustomCloak then
 			
 				local cloaked = self.InCloakField or self:IsIntelEnabled('Cloak')
-				
+
 				if (not cloaked and self.CloakEffectEnabled) or self:GetHealth() <= 0 then
 				
 					SetMesh( self, bpDisplay.MeshBlueprint, true)
@@ -5848,13 +5786,10 @@ Unit = Class(moho.unit_methods) {
 				
 					SetMesh( self, bpDisplay.CloakMeshBlueprint , true)
 					self.CloakEffectEnabled = true
-					
 				end
-				
 			end
-			
 		end
-		
+
 	end,
 
 	-- Overrode this so that there will be no doubt if the cloak effect is active or not
