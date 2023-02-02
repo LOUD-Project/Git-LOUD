@@ -78,6 +78,7 @@ UnitBlueprint {
         'SHOWQUEUE',
 		'OVERLAYRADAR',
         'OVERLAYSONAR',
+        'OVERLAYMISC',
         'SUPREMACY',
     },
     
@@ -193,7 +194,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.055,
     },
 	

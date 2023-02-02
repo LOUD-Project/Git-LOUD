@@ -18,7 +18,7 @@ URL0101 = Class(CWalkingLandUnit) {
         self.RadarEnt:AttachBoneTo(-1, self, 0)
 		
         --antena spinner
-        #CreateRotator(self, 'Spinner', 'y', nil, 90, 5, 90)
+        CreateRotator(self, 'Spinner', 'y', nil, 90, 5, 90)
 		
         -- disable the cloak at first
         self:SetMaintenanceConsumptionInactive()

@@ -29,9 +29,9 @@ URL0307 = Class(CLandUnit) {
 			Bones = { 'AttachPoint'	}, Offset = { 0, 0.25, 0 },	Scale = 0.05, Type = 'Jammer01' },
     },
     
-    OnIntelEnabled = function(self)
+    OnIntelEnabled = function(self,intel)
 	
-        CLandUnit.OnIntelEnabled(self)
+        CLandUnit.OnIntelEnabled(self,intel)
 		
         if self.IntelEffects and not self.IntelFxOn then 
 		
@@ -45,9 +45,9 @@ URL0307 = Class(CLandUnit) {
 		self:GetBuffFieldByName('CybranOpticalDisruptionBuffField'):Enable()
     end,
 
-    OnIntelDisabled = function(self)
+    OnIntelDisabled = function(self,intel)
 	
-        CLandUnit.OnIntelDisabled(self)
+        CLandUnit.OnIntelDisabled(self,intel)
 		
         EffectUtil.CleanupEffectBag(self,'IntelEffectsBag')
 		
