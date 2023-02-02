@@ -1,12 +1,4 @@
---****************************************************************************
---**
---**  File     :  /lua/armordefinition.lua
---**  Author(s):
---**
---**  Summary  :
---**
---**  Copyright � 2005 Gas Powered Games, Inc.  All rights reserved.
---****************************************************************************
+
 --
 -- Armor Type Definitions
 --
@@ -39,8 +31,8 @@ armordefinition = {
 
         # Armor Definition
         'Normal 1.0',
-        'Overcharge 0.033333',
-        'Deathnuke 0.05',
+        'Overcharge 0.2',
+        'Deathnuke 0.1',
         'CrushingJaw 0.2',
     },
     
@@ -49,8 +41,8 @@ armordefinition = {
 
         # Armor Definition
         'Normal 1.0',
-        'Overcharge 0.066666',
-        'Deathnuke 0.01',
+        'Overcharge 0.2',
+        'Deathnuke 0.1',
     },
     
     {
@@ -59,5 +51,7 @@ armordefinition = {
         
         # Armor Definition
         'ExperimentalFootfall 0.0',        
+        'Overcharge 0.2',
+        'Deathnuke 0.2',        
     },
 }
