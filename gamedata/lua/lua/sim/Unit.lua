@@ -886,20 +886,17 @@ Unit = Class(moho.unit_methods) {
 
         if bit == 0 then			-- shield toggle
 		
-            --self:PlayUnitAmbientSound( 'ActiveLoop' )
 		    self:EnableShield()
 			
         elseif bit == 1 then 		-- weapon toggle
 
         elseif bit == 2 then 		-- jamming toggle
 		
-            --self:StopUnitAmbientSound( 'ActiveLoop' )
             self:SetMaintenanceConsumptionInactive()
             self:DisableUnitIntel('Jammer')
 			
         elseif bit == 3 then 		-- intel toggle
 		
-            --self:StopUnitAmbientSound( 'ActiveLoop' )
             self:SetMaintenanceConsumptionInactive()
             self:DisableUnitIntel('RadarStealth')
             self:DisableUnitIntel('RadarStealthField')
@@ -919,7 +916,6 @@ Unit = Class(moho.unit_methods) {
 			
         elseif bit == 5 then 		-- stealth toggle
 		
-            --self:StopUnitAmbientSound( 'ActiveLoop' )
             self:SetMaintenanceConsumptionInactive()
             self:DisableUnitIntel('RadarStealth')
             self:DisableUnitIntel('RadarStealthField')
@@ -936,11 +932,11 @@ Unit = Class(moho.unit_methods) {
 			
         elseif bit == 8 then 		-- cloak toggle
 
-            --self:StopUnitAmbientSound( 'ActiveLoop' )
             self:SetMaintenanceConsumptionInactive()
             self:DisableUnitIntel('Cloak')
 			self:DisableUnitIntel('CloakField')
 
+            self.CloakEffectEnabled = false
         end
     end,
 
@@ -948,20 +944,17 @@ Unit = Class(moho.unit_methods) {
 
         if bit == 0 then
 		
-            --self:StopUnitAmbientSound( 'ActiveLoop' )
             self:DisableShield()
 			
         elseif bit == 1 then
 
         elseif bit == 2 then
-		
-            --self:PlayUnitAmbientSound( 'ActiveLoop' )
+
             self:SetMaintenanceConsumptionActive()
             self:EnableUnitIntel('Jammer')
 			
         elseif bit == 3 then
-		
-            --self:PlayUnitAmbientSound( 'ActiveLoop' )
+
             self:SetMaintenanceConsumptionActive()
             self:EnableUnitIntel('Radar')
             self:EnableUnitIntel('RadarStealth')
@@ -980,8 +973,7 @@ Unit = Class(moho.unit_methods) {
             self:OnProductionUnpaused()
 			
         elseif bit == 5 then
-		
-            --self:PlayUnitAmbientSound( 'ActiveLoop' )
+
             self:SetMaintenanceConsumptionActive()
             self:EnableUnitIntel('RadarStealth')
             self:EnableUnitIntel('RadarStealthField')
@@ -997,12 +989,12 @@ Unit = Class(moho.unit_methods) {
             self:DisableSpecialToggle()
 			
         elseif bit == 8 then
-		
-            --self:PlayUnitAmbientSound( 'ActiveLoop' )
+
             self:SetMaintenanceConsumptionActive()
             self:EnableUnitIntel('Cloak')
 			self:EnableUnitIntel('CloakField')
-
+            
+            self.CloakEffectEnabled = true
         end
 		
     end,
@@ -1390,7 +1382,7 @@ Unit = Class(moho.unit_methods) {
 
 			-- LOUD -- add in the maintenance costs -- for unit features (ie. - Shields, effects)
 			if self.MaintenanceConsumption then
-			
+                
 				-- apply bonuses
 				energy_rate = energy_rate + ((self.EnergyMaintenanceConsumptionOverride or myBlueprint.MaintenanceConsumptionPerSecondEnergy) or 0) * (100 + (self.EnergyModifier or 0)) * (self.EnergyMaintAdjMod or 1) * 0.01
 				mass_rate = mass_rate + (myBlueprint.MaintenanceConsumptionPerSecondMass or 0) * (100 + (self.MassModifier or 0)) * (self.MassMaintAdjMod or 1) * 0.01
@@ -1409,7 +1401,7 @@ Unit = Class(moho.unit_methods) {
         if (energy_rate > 0) or (mass_rate > 0) then
 		
             SetConsumptionActive( self, true)
-			
+		
         else
 		
             SetConsumptionActive( self, false)
@@ -2494,11 +2486,16 @@ Unit = Class(moho.unit_methods) {
         for i = 1, self.WeaponCount do
 		
             local wep = GetWeapon(self,i)
-			
+            
+            if enable then
+                --wep:OnEnableWeapon()
+            else
+                --wep:OnDisableWeapon()
+            end
+            
             wep:SetWeaponEnabled(enable)
-			
+
             wep:AimManipulatorSetEnabled(enable)
-			
         end
 		
     end,
@@ -2510,20 +2507,15 @@ Unit = Class(moho.unit_methods) {
         if not wep then return end
 		
         if not enable then
-		
+            --wep:OnDisableWeapon()
             wep:OnLostTarget()
-		
-			--LOG("*AI DEBUG Weapon "..repr(label).." disabled")
-
-        else
-		
-			--LOG("*AI DEBUG Weapon "..repr(label).." enabled")
-			
-		end
+		else
+            --wep:OnEnableWeapon()
+        end
 
         wep:SetWeaponEnabled(enable)
+        
         wep:AimManipulatorSetEnabled(enable)
-		
     end,
 
     GetWeaponManipulatorByLabel = function(self, label)
@@ -2745,13 +2737,7 @@ Unit = Class(moho.unit_methods) {
 		local aiBrain = GetAIBrain(self)
 		
 		local bp = ALLBPS[self.BlueprintID]
---[[		
-		if builder then
-			LOG("*AI DEBUG "..aiBrain.Nickname.." OnStopBeingBuilt event for "..repr(bp.Description).." built by "..repr(builder:GetBlueprint().Description) )
-		else
-			LOG("*AI DEBUG "..aiBrain.Nickname.." OnStopBeingBuilt event for "..repr(bp.Description).." built by NIL ")
-		end
---]]		
+
 		self:SetupIntel(bp)
 	
 		-- This is here to catch those units EXCEPT Factories and SubCommanders that might have enhancements
@@ -2790,24 +2776,20 @@ Unit = Class(moho.unit_methods) {
 			-- upgrades are NOT new units
 			if self.DisallowCollisions then
 			
-				SetHealth( self, self, builder:GetHealthPercent() * bp.Defense.MaxHealth )
+				SetHealth( self, self, (builder:GetHealthPercent() or 1) * bp.Defense.MaxHealth )
                 
 				self.DisallowCollisions = false
-				
 			end
-			
 		end
 		
 		if bp.Defense.LifeTime then
 		
 			self:ForkThread( self.LifeTimeThread, bp.Defense.Lifetime )
-			
 		end
 		
         if bp.SizeSphere then
 		
             self:SetCollisionShape('Sphere', bp.CollisionSphereOffsetX or 0, bp.CollisionSphereOffsetY or 0, bp.CollisionSphereOffsetZ or 0, bp.SizeSphere )
-			
         end
 		
 		self:PlayUnitSound('DoneBeingBuilt')
@@ -2817,12 +2799,6 @@ Unit = Class(moho.unit_methods) {
 		self:HideLandBones()
 		
 		self:DoUnitCallbacks('OnStopBeingBuilt')
-
-		-- if self.IdleEffectsBag then
-			-- if (LOUDGETN(self.IdleEffectsBag) == 0) then
-				-- self:CreateIdleEffects()
-			-- end
-		-- end
 
 		if bp.Defense.Shield.ShieldSize > 0 then
 
@@ -2857,8 +2833,8 @@ Unit = Class(moho.unit_methods) {
 		
 			local bpTable = bp.Display.MovementEffects
         
-			if bpTable.Land or bpTable.Air or bpTable.Water or bpTable.Sub or bpTable.BeamExhaust then
-		
+			if bpTable.Land or bpTable.Seabed or bpTable.Air or bpTable.Water or bpTable.Sub or bpTable.BeamExhaust then
+
 				self.MovementEffectsExist = true
 			
 				if bpTable.BeamExhaust and (bpTable.BeamExhaust.Idle != false) then
@@ -2894,11 +2870,10 @@ Unit = Class(moho.unit_methods) {
 		if BuildMeshBp then
 		
 			SetMesh( self, BuildMeshBp, true)
-			
 		end
-		
     end,
 
+    -- this caught me by surprise as it is delayed 18 ticks for Aeon units
     StopBeingBuiltEffects = function(self, builder, layer)
 	
         local bp = ALLBPS[self.BlueprintID].Display
@@ -2917,32 +2892,27 @@ Unit = Class(moho.unit_methods) {
 				
                     SetMesh( self, bpTM[terrainType.Style], true)
                     useTerrainType = true
-					
                 end
-				
             end
 			
             if not useTerrainType then
 			
                 SetMesh( self, bp.MeshBlueprint, true)
-				
+                self.CloakEffectEnabled = nil
             end
 			
-			-- added so that cloak effects are applied if unit was already cloaked
-			if self.InCloakField then
+			-- added so that cloak effects are re-applied if unit was already cloaked
+			if self.InCloakField or self:IsIntelEnabled('Cloak') then
 			
 				self.CloakEffectEnabled = nil
 				self:UpdateCloakEffect(bp)
-				
 			end
-			
         end
 		
 		if self.OnBeingBuiltEffectsBag then
 		
 			TrashDestroy(self.OnBeingBuiltEffectsBag)
 			self.OnBeingBuiltEffectsBag = nil
-			
 		end
 		
     end,
@@ -3039,8 +3009,6 @@ Unit = Class(moho.unit_methods) {
         if bp.Audio['Construct'] then
             self:PlayUnitSound('Construct')
         end
-        
-        --self:PlayUnitAmbientSound('ConstructLoop')
 		
         if order == 'Upgrade' and unitBeingBuilt.BlueprintID == bp.General.UpgradesTo then
 
@@ -3050,8 +3018,6 @@ Unit = Class(moho.unit_methods) {
         if ALLBPS[unitBeingBuilt.BlueprintID].Physics.FlattenSkirt and not unitBeingBuilt.TarmacBag then
           
             if order != 'Repair' then
-            
-                --LOG("*AI DEBUG Unit being built is "..repr(unitBeingBuilt.BlueprintID).." order is "..repr(order) )
                 
                 unitBeingBuilt:CreateTarmac(true, true, true, false, false)
             end
@@ -3088,9 +3054,7 @@ Unit = Class(moho.unit_methods) {
 
         self:DoOnFailedToBuildCallbacks()
         self:SetActiveConsumptionInactive()
-        
-        --self:StopUnitAmbientSound('ConstructLoop')
-		
+ 		
     end,
 
     OnPrepareArmToBuild = function(self)

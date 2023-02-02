@@ -248,8 +248,6 @@ DefaultProjectileWeapon = Class(Weapon) {
                 if time < 0.1 then
                     time = 0.1
                 end
-                
-                --LOG("*AI DEBUG Eco Event for "..nrgReq )
 
                 self.EconDrain = CreateEconomyEvent( self.unit, nrgReq, 0, time, ChargeProgress )
                 self.FirstShot = true
@@ -590,16 +588,33 @@ DefaultProjectileWeapon = Class(Weapon) {
     end,
 
     OnWeaponFired = function(self)
-
+     
         if ScenarioInfo.WeaponStateDialog then
             LOG("*AI DEBUG DefaultWeapon OnWeaponFired "..repr(self.bp.Label) )
         end
         
 		Weapon.OnWeaponFired(self)
-		
     end,
 
+    OnDisableWeapon = function(self)
+
+        if ScenarioInfo.WeaponStateDialog then
+            LOG("*AI DEBUG DefaultWeapon OnDisableWeapon "..repr(self.bp.Label) )
+        end
+        
+        if self.EconDrain then 
+            RemoveEconomyEvent( self, self.EconDrain)
+        end
+
+        Weapon.OnDisableWeapon(self)
+    end, 
+    
     OnEnableWeapon = function(self)
+
+        if ScenarioInfo.WeaponStateDialog then
+            LOG("*AI DEBUG DefaultWeapon OnEnableWeapon "..repr(self.bp.Label) )
+        end
+
     end,
 
 
@@ -1534,7 +1549,7 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
     ContinuousBeamFlagThread = function(self)
     
         WaitTicks(1)
-        self.ContBeamOn = false
+        self.ContBeamOn = nil
     end,
 
     BeamLifetimeThread = function(self, beam, lifeTime)

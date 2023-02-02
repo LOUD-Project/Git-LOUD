@@ -276,9 +276,7 @@ Weapon = Class(moho.weapon_methods) {
 		self:SetDamageTable(bp)
 
 		if ScenarioInfo.WeaponDialog then
-		
 			LOG("*AI DEBUG Weapon OnCreate for "..repr(__blueprints[self.unit.BlueprintID].Description).." "..self.unit.Sync.id.." -- "..repr(self.bp.Label) )
-
 		end
 
     end,
@@ -355,8 +353,17 @@ Weapon = Class(moho.weapon_methods) {
 	
 	OnWeaponFired = function(self, target)
 	end,
-
+    
+    OnDisableWeapon = function(self)
+        if ScenarioInfo.WeaponDialog then
+            LOG("*AI DEBUG Weapon OnDisableWeapon "..repr(self.bp.Label) )
+        end
+    end,
+    
     OnEnableWeapon = function(self)
+        if ScenarioInfo.WeaponDialog then
+            LOG("*AI DEBUG Weapon OnEnableWeapon "..repr(self.bp.Label) )
+        end
     end,
 
     OnGotTarget = function(self)
@@ -364,7 +371,6 @@ Weapon = Class(moho.weapon_methods) {
         if self.DisabledFiringBones and self.unit.Animator then
 		
             for _, value in self.DisabledFiringBones do
-			
                 SetBoneEnabled( self.unit.Animator, value, false )
             end
         end
@@ -376,7 +382,6 @@ Weapon = Class(moho.weapon_methods) {
         if self.DisabledFiringBones and self.unit.Animator then
 		
             for _, value in self.DisabledFiringBones do
-			
                 SetBoneEnabled( self.unit.Animator, value, true )
             end
         end
@@ -719,24 +724,11 @@ Weapon = Class(moho.weapon_methods) {
         end
 		
         self:SetEnabled(enable)
-    end,
+    end,    
+
 }
 
 --[[
-
-    AmmoThread = function(self, nuke, amount)
-	
-		if not BeenDestroyed(self.unit) then
-			
-			WaitTicks(2)
-		
-			if nuke then
-				self.unit:GiveNukeSiloAmmo(amount)
-			else
-				self.unit:GiveTacticalSiloAmmo(amount)
-			end
-		end
-    end,
 
     OnVeteranLevel = function(self, old, new)
 	
@@ -762,37 +754,3 @@ Weapon = Class(moho.weapon_methods) {
         self.unit:AddWeaponBuff(buffTbl, self)
     end,
 --]]
-    -- PlayWeaponAmbientSound = function(self, sound)
-        -- local bp = GetBlueprint(self)
-        -- if not bp.Audio[sound] then return end
-		
-        -- if not self.AmbientSounds then
-            -- self.AmbientSounds = {}
-        -- end
-		
-        -- if not self.AmbientSounds[sound] then
-            -- local sndEnt = Entity {}
-            -- self.AmbientSounds[sound] = sndEnt
-            -- self.unit.Trash:Add(sndEnt)
-            -- sndEnt:AttachTo(self.unit,-1)
-        -- end
-		
-        -- self.AmbientSounds[sound]:SetAmbientSound( bp.Audio[sound], nil )
-    -- end,
-    
-    -- StopWeaponAmbientSound = function(self, sound)
-        -- if not self.AmbientSounds then return end
-        -- if not self.AmbientSounds[sound] then return end
-		
-        -- local bp = GetBlueprint(self)
-		
-        -- if not bp.Audio[sound] then return end
-        -- self.AmbientSounds[sound]:Destroy()
-        -- self.AmbientSounds[sound] = nil
-    -- end,
-
-    -- OnEnableWeapon = function(self)
-    -- end,
-
-    -- OnMotionHorzEventChange = function(self, new, old)
-    -- end,
