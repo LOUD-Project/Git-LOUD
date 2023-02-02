@@ -1716,6 +1716,7 @@ function SetAvailableOrders(availableOrders, availableToggles, newSelection)
     --     RULEUTC_IntelToggle = {
     --         bitmapId = 'custom',
     --         helpText = 'toggle_custom',
+    --         prefferedslot = slotnumber
     --     },
     --  },
     -- 
@@ -1756,6 +1757,10 @@ function SetAvailableOrders(availableOrders, availableToggles, newSelection)
 
                 if override.helpText then
                     standardOrdersTable[orderKey].helpText = override.helpText
+                end
+                
+                if override.preferredSlot then
+                    standardOrdersTable[orderKey].preferredSlot = override.preferredSlot
                 end
             end
         end
@@ -1893,6 +1898,10 @@ function SetAvailableOrdersMod(availableOrders, availableToggles, newSelection)
 
                 if override.helpText then
                     standardOrdersTable[orderKey].helpText = override.helpText
+                end
+                
+                if override.preferredSlot then
+                    standardOrdersTable[orderKey].preferredSlot = override.preferredSlot
                 end
             end
         end
