@@ -87,12 +87,81 @@ BuffBlueprint { Name = 'MobilityPenalty',
 	Stacks = 'ALWAYS',
 	Duration = -1,
 	Affects = {
-		MoveMult = {
+		SpeedMult = {
 			Add = 0,
 			Mult = 0.96,
 		},
+		AccelMult = {
+			Add = 0,
+			Mult = 0.96,
+		},
+        TurnMult = {
+            Add = 0,
+            Mult = 0.96,
+        },
 	},
 }
+
+-- this is a 33% agility buff (turn and accelerate only)
+BuffBlueprint { Name = 'AgilityBuff',
+	BuffType = 'AGILITY',
+	Stacks = 'ALWAYS',
+	Duration = -1,
+	Affects = {
+		AccelMult = {
+			Add = 0,
+			Mult = 1.33,
+		},
+        TurnMult = {
+            Add = 0,
+            Mult = 1.33,
+        },
+	},
+}
+
+-- this is a 10 point regen buff --
+BuffBlueprint { Name = 'RegenPackage10',
+    BuffType = 'REGEN',
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    Affects = {
+        Regen = {
+            Add = 10,
+            Mult = 1.0,
+        },
+    },
+}
+
+-- this is a 7k MaxHP buff (not HP)
+BuffBlueprint { Name = 'ArmorPackage7',
+    BuffType = 'ARMOR',
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    Affects = {
+        MaxHealth = {
+            Add = 7000,
+            Mult = 1.0,
+        },
+    },
+}
+
+-- this is a 25 range addition to vision & water vision
+BuffBlueprint { Name = 'PerimeterOpticsPackage',
+    BuffType = 'INTEL',
+    Stacks = 'ALWAYS',
+    Duration = -1,
+    Affects = {
+        VisionRadius = {
+            Add = 25,
+            Mult = 1.0,
+        },
+        WaterVisionRadius = {
+            Add = 25,
+            Mult = 1.0,
+        },
+    },
+}
+
 BuffBlueprint { Name = 'AIRSTAGING',
 	BuffType = 'AIRSTAGING',
 	Stacks = 'IGNORE',
@@ -124,6 +193,11 @@ BuffBlueprint { Name = 'CybranOpticalDisruptionField',
 			Add = 0,
 			Mult = 0.7,
 		},
+        SonarRadius = {
+            BuffCheckFunction = AdjBuffFuncs.SonarRadiusBuffCheck,
+            Add = 0,
+            Mult = 0.7,
+        },
 		OmniRadius = {
 		    BuffCheckFunction = AdjBuffFuncs.OmniRadiusBuffCheck,
 			Add = 0,
@@ -134,7 +208,7 @@ BuffBlueprint { Name = 'CybranOpticalDisruptionField',
 		'/effects/emitters/jammer_ambient_01_emit.bp',
 		'/effects/emitters/jammer_ambient_02_emit.bp',
 	},
-	EffectsScale = 0.25,
+	EffectsScale = 0.55,
 }
 
 BuffBlueprint { Name = 'DarknessOmniNerf',
@@ -575,6 +649,67 @@ BuffBlueprint { Name = 'VeterancyVisionRadius5',
     },
 }
 
+--- Water VISION RADIUS DEFAULT BUFFS ---
+
+BuffBlueprint { Name = 'VeterancyWaterVisionRadius1',
+    BuffType = 'VET_WATER_VISION',
+    Stacks = 'REPLACE',
+    Duration = -1,
+    Affects = {
+        WaterVisionRadius = {
+            Add = 1,
+            Mult = 1.0,
+        }
+    },
+}
+
+BuffBlueprint { Name = 'VeterancyWaterVisionRadius2',
+    BuffType = 'VET_WATER_VISION',
+    Stacks = 'REPLACE',
+    Duration = -1,
+    Affects = {
+		WaterVisionRadius = {
+            Add = 1.5,
+            Mult = 1.0,
+        }
+    },
+}
+
+BuffBlueprint { Name = 'VeterancyWaterVisionRadius3',
+    BuffType = 'VET_WATER_VISION',
+    Stacks = 'REPLACE',
+    Duration = -1,
+    Affects = {
+		WaterVisionRadius = {
+            Add = 2.5,
+            Mult = 1.0,
+        }
+    },
+}
+
+BuffBlueprint { Name = 'VeterancyWaterVisionRadius4',
+    BuffType = 'VET_WATER_VISION',
+    Stacks = 'REPLACE',
+    Duration = -1,
+    Affects = {
+		WaterVisionRadius = {
+            Add = 4,
+            Mult = 1.0,
+        }
+    },
+}
+
+BuffBlueprint { Name = 'VeterancyWaterVisionRadius5',
+    BuffType = 'VET_WATER_VISION',
+    Stacks = 'REPLACE',
+    Duration = -1,
+    Affects = {
+		WaterVisionRadius = {
+            Add = 6,
+            Mult = 1.0,
+        }
+    },
+}
 
 -- Cheat Buffs for the AI
 
@@ -741,10 +876,18 @@ BuffBlueprint { Name = 'CheatENG',
     Stacks = 'ALWAYS',
     Duration = -1,
     Affects = {
-		MoveMult = {
+		SpeedMult = {
 			Add = 0,
 			Mult = 1.2,
 		},
+        AccelMult = {
+            Add = 0,
+            Mult = 1.2,
+        },
+        TurnMult = {
+            Add = 0,
+            Mutl = 1.2,
+        },
         VisionRadius = {
             Add = 15,
             Mult = 1,
@@ -766,10 +909,18 @@ BuffBlueprint { Name = 'CheatMOBILE',
     Stacks = 'ALWAYS',
     Duration = -1,
     Affects = {
-		MoveMult = {
+		SpeedMult = {
 			Add = 0,
 			Mult = 1,
 		},
+        AccelMult = {
+            Add = 0,
+            Mult = 1,
+        },
+        TurnMult = {
+            Add = 0,
+            Mult = 1,
+        }
 	},
 }
 
@@ -857,9 +1008,9 @@ BuffBlueprint { Name = 'ACU_T4_Engineering',
             Add = 0,
             Mult = 2.0,
         },
-		MoveMult = {
+		SpeedMult = {
 			Add = 0,
-			Mult = 1.1,
+			Mult = 1.12,
 		},
         Regen = {
             Add = 0,
@@ -883,7 +1034,7 @@ BuffBlueprint { Name = 'ACU_T2_Imp_Eng',
 			Add = 0,
 			Mult = 2,       -- from 2 to 4
 		},
-		MoveMult = {
+		SpeedMult = {
 			Add = 0,
 			Mult = 1.06,
 		},        
@@ -912,13 +1063,21 @@ BuffBlueprint { Name = 'ACU_T3_Adv_Eng',
 			Add = 0,
 			Mult = 5,       -- from 2 to 10
 		},
-		MoveMult = {
+		SpeedMult = {
 			Add = 0,
 			Mult = 1.12,
-		},        
+		},
+        AccelMult = {
+            Add = 0,
+            Mult = 1.08,
+        },
+        TurnMult = {
+            Add = 0,
+            Mult = 1.08,
+        },
         Regen = {
             Add = 0,
-            Mult = 2,     -- from 20 to 40
+            Mult = 1.6,     -- from 16 to 25
         },        
     },
 }
@@ -941,13 +1100,21 @@ BuffBlueprint { Name = 'ACU_T4_Exp_Eng',
 			Add = 0,
 			Mult = 12,      -- from 2 to 24
 		},
-		MoveMult = {
+		SpeedMult = {
 			Add = 0,
 			Mult = 1.18,
 		},
+        AccelMult = {
+            Add = 0,
+            Mult = 1.15,
+        },
+        TurnMult = {
+            Add = 0,
+            Mult = 1.15,
+        },
         Regen = {
             Add = 0,
-            Mult = 3.5,       -- from 20 to 70
+            Mult = 3,       -- from 20 to 60
         },
     },
 }
@@ -966,13 +1133,13 @@ BuffBlueprint { Name = 'ACU_T2_Combat_Eng',
             Add = 0,
             Mult = 1.3, 
         },
-		MoveMult = {
+		SpeedMult = {
 			Add = 0,
 			Mult = 0.96,
 		},        
         Regen = {
             Add = 0,
-            Mult = 2,       -- from 20 to 40
+            Mult = 1.6,       -- from 16 to 25
         },
     },
 }
@@ -991,13 +1158,21 @@ BuffBlueprint { Name = 'ACU_T3_Combat_Eng',
             Add = 0,
             Mult = 1.75,
         },
-		MoveMult = {
+		SpeedMult = {
 			Add = 0,
 			Mult = 0.91,
-		},        
+		},
+        AccelMult = {
+            Add = 0,
+            Mult = 0.96,
+        },
+        TurnMult = {
+            Add = 0,
+            Mult = 0.96,
+        },
         Regen = {
             Add = 0,
-            Mult = 3.5,       -- from 20 to 70
+            Mult = 3.0,       -- from 20 to 60
         },
 		MassProduction = {
 			Add = 0,
@@ -1026,12 +1201,20 @@ BuffBlueprint { Name = 'ACU_T4_Combat_Eng',
         },
         Regen = {
             Add = 0,
-            Mult = 5,       -- from 20 to 100
+            Mult = 4.5,       -- from 20 to 90
         },
-		MoveMult = {
+		SpeedMult = {
 			Add = 0,
 			Mult = 0.875,
 		},
+        AccelMult = {
+            Add = 0,
+            Mult = 0.9,
+        },
+        TurnMult = {
+            Add = 0,
+            Mult = 0.9,
+        },
 		MassProduction = {
 			Add = 0,
 			Mult = 5,       -- from 2 to 10
@@ -1043,30 +1226,54 @@ BuffBlueprint { Name = 'ACU_T4_Combat_Eng',
     },
 }
 
-BuffBlueprint { Name = 'ACU_T3_Intel_Package',
+BuffBlueprint { Name = 'ACU_T2_Intel_Package',
     BuffType = 'ACUINTELLIGENCE',
-    Stacks = 'ALWAYS',
+    Stacks = 'REPLACE',
     Duration = -1,
     Affects = {
 		RadarRadius = {
-			Add = 125,
-			Mult = 1.0,
+			Add = 0,
+			Mult = 2.5,
 		},
         SonarRadius = {
-            Add = 100,
-            Mult = 1.0,
+            Add = 0,
+            Mult = 2.0,
         },
-		OmniRadius = {
-			Add = 50,
-			Mult = 1.0,
-		},
         VisionRadius = {
-            Add = 26,
-            Mult = 1.0,
+            Add = 0,
+            Mult = 1.25,
         },
         WaterVisionRadius = {
-            Add = 26,
-            Mult = 1.0,
+            Add = 0,
+            Mult = 1.25,
+        },
+    },
+}
+
+BuffBlueprint { Name = 'ACU_T3_Intel_Package',
+    BuffType = 'ACUINTELLIGENCE',
+    Stacks = 'REPLACE',
+    Duration = -1,
+    Affects = {
+		RadarRadius = {
+			Add = 0,
+			Mult = 5.0,
+		},
+        SonarRadius = {
+            Add = 0,
+            Mult = 4.0,
+        },
+		OmniRadius = {
+			Add = 0,
+			Mult = 4.0,
+		},
+        VisionRadius = {
+            Add = 0,
+            Mult = 1.75,
+        },
+        WaterVisionRadius = {
+            Add = 0,
+            Mult = 1.75,
         },
     },
 }
