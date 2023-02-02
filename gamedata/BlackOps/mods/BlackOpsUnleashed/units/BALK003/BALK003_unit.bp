@@ -51,7 +51,7 @@ UnitBlueprint {
     },
 
     Defense = {
-        AirThreatLevel = 21,
+        AirThreatLevel = 27,
         ArmorType = 'Normal',
         Health = 1800,
         MaxHealth = 1800,
@@ -91,7 +91,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         TransportAnimation = {
             {
                 Animation = '/mods/BlackOpsUnleashed/units/BALK003/BALK003_fold.sca',
@@ -114,8 +113,7 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Anti Air',
-        Classification = 'RULEUC_MilitaryVehicle',
+
         CommandCaps = {
             RULEUCC_Attack = true,
             RULEUCC_CallTransport = true,
@@ -127,7 +125,7 @@ UnitBlueprint {
         },
         FactionName = 'Aeon',
         Icon = 'land',
-        TechLevel = 'RULEUTL_Secret',
+
         UnitName = '<LOC balk003_name>Redeemer',
         UnitWeight = 1,
     },
@@ -135,20 +133,18 @@ UnitBlueprint {
     Intel = {
         VisionRadius = 32,
     },
-	
-    Interface = {
-        HelpText = 'Redeemer',
-    },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.35,
     LifeBarSize = 1,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Land = true,
         },
         DragCoefficient = 0.2,
-        MaxAcceleration = 3.5,
+        MaxAcceleration = 1.75,
         MaxBrake = 3.5,
         MaxSpeed = 3.5,
         MaxSpeedReverse = 3,
@@ -160,7 +156,7 @@ UnitBlueprint {
         MotionType = 'RULEUMT_Land',
         StandUpright = true,
         TurnRadius = 5,
-        TurnRate = 120,
+        TurnRate = 75,
     },
     SelectionSizeX = 0.65,
     SelectionSizeZ = 0.85,
@@ -219,12 +215,12 @@ UnitBlueprint {
             MaxRadius = 44,
 			
             MuzzleChargeDelay = 0.1,
-			MuzzleSalvoDelay = 0,
+			MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 3,
-            MuzzleVelocity = 35,
+            MuzzleVelocity = 30,
 			
-            ProjectileId = '/mods/BlackOpsUnleashed/projectiles/AASerpentine/AASerpentine_proj.bp',
-            ProjectileLifetime = 3,
+            ProjectileId = '/projectiles/AAAZealotMissile02/AAAZealotMissile02_proj.bp',
+            ProjectileLifetime = 3.2,
 
             RackBones = {
                 {

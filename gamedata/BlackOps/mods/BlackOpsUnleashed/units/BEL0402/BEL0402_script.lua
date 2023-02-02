@@ -35,7 +35,9 @@ BEL0402 = Class(TWalkingLandUnit) {
 		Laser = Class(TDFGoliathShoulderBeam) {},
 	
 		Flamer = Class(HawkGaussCannonWeapon) {},
-		
+	
+		Flamer2 = Class(HawkGaussCannonWeapon) {},		
+
 		TMDTurret = Class(GoliathTMDGun) {},
 		
 		HeadWeapon = Class(TSAMLauncher){},
@@ -73,7 +75,6 @@ BEL0402 = Class(TWalkingLandUnit) {
 				self.AnimationManipulator:Destroy()
 			end)
 		end 
-		
 		
 		self.FlamerEffectsBag = {}
 		

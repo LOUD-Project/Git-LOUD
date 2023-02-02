@@ -305,11 +305,12 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 3,
+            MuzzleVelocityRandom = 0.2,
 			
 			NotExclusive = true,
 			
 			ProjectileId = '/projectiles/TIFMissileCruise05/TIFMissileCruise05_proj.bp',
-            ProjectileLifetime = 20,
+            ProjectileLifetime = 25,
 			
             RackBones = {
                 {
@@ -334,10 +335,7 @@ UnitBlueprint {
                     RackBone = 'Torso',
                },
             },
-			RackFireTogether = true,
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 1,
+            RackSalvoChargeTime = 2,
             RackSalvoReloadTime = 1,
 
             RangeCategory = 'UWRC_IndirectFire',
@@ -347,7 +345,7 @@ UnitBlueprint {
 			-- and the rack salvo charge time - 1 seconds
 			-- so true firing cycle is 10 seconds or 9600/10
 
-            RateOfFire = 0.1,	---- 16 times 600 = 9600 Damage every 10 seconds = 960 DPS
+            RateOfFire = 1.2,	---- 16 times 600 = 9600 Damage every 10 seconds = 960 DPS
 			
             TargetCheckInterval = 1,
             TargetPriorities = {
@@ -364,7 +362,7 @@ UnitBlueprint {
 			
 			WeaponRepackTimeout = 2,
             WeaponUnpackAnimation = '/mods/BlackOpsUnleashed/units/BEL0402/BEL0402_Missile_Unpack.sca',
-            WeaponUnpackAnimationRate = 1,
+            WeaponUnpackAnimationRate = 0.5,
             WeaponUnpacks = true,
         },
 
@@ -403,7 +401,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
 			
             BeamCollisionDelay = 0,
-            BeamLifetime = 0.8,
+            BeamLifetime = 0.4,
 			
 			ContinuousBeam = false,
 			
@@ -426,12 +424,12 @@ UnitBlueprint {
             FiringTolerance = 0.5,
 			
             Label = 'Laser',
-			LeadTarget = false,
+            LeadTarget = false,
 			
             MaxRadius = 58,
 			MinRadius = 11,
 			
-            MuzzleChargeDelay = 0.8,
+            MuzzleChargeDelay = 0.4,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
 			
@@ -448,14 +446,15 @@ UnitBlueprint {
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
+            RackSlavedToTurret = true,
 
             RangeCategory = 'UWRC_DirectFire',
             
 			ReTargetOnMiss = true,
 
-            RateOfFire = 1,	---- 375 * 8 = 3000 DPS 
+            RateOfFire = 2,	---- 375 * 4 * 2 = 3000 DPS 
 
-            TargetCheckInterval = 0.5,
+            TargetCheckInterval = 1,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
@@ -467,18 +466,15 @@ UnitBlueprint {
 
             TurretBoneMuzzle = 'Beam_Muzzle',
             TurretBonePitch = 'Beam_Pitch',
-	
-            TurretBoneYaw = 'Torso',
-			
-            TurretDualManipulators = false,
-			
+            TurretBoneYaw = 'Beam_Turret',
+
             TurretPitch = 0,
             TurretPitchRange = 50,
-            TurretPitchSpeed = 180,
+            TurretPitchSpeed = 60,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 32,
+            TurretYawSpeed = 42,
 			
             Turreted = true,
 			
@@ -523,7 +519,96 @@ UnitBlueprint {
             FiringTolerance = 1,
             FiringRandomness = 1.5,
 			
+           -- HeadingArcCenter = -90,
+           -- HeadingArcRange = 110,
+			
             Label = 'Flamer',
+			
+            MaxRadius = 38,
+			MinRadius = 4,
+			
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 20,
+			
+			NotExclusive = true,
+            NoPause = true,
+			
+            ProjectileId = '/mods/BlackOpsUnleashed/projectiles/NapalmProjectile01/Napalm01_proj.bp',
+            ProjectileLifetime = 2,
+
+            RackBones = {
+                {
+                    MuzzleBones = { 'Right_Arm_Muzzle' },
+                    RackBone = 'Right_Arm_Pitch',
+                },
+            },
+
+            RackSalvoSize = 1,
+            RackSlavedToTurret = true,
+
+            RateOfFire = 3,		---- 900 DPS
+			
+            TargetCheckInterval = 0.3,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'MOBILE',
+                'STRUCTURE',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+
+            TurretBoneMuzzle = 'Right_Arm_Muzzle',
+            TurretBonePitch = 'Right_Arm_Pitch',
+            TurretBoneYaw = 'Right_Arm_Yaw',
+			
+            --TurretDualManipulators = true,
+			
+            TurretPitch = 0,
+            TurretPitchRange = 90,
+            TurretPitchSpeed = 30,
+			
+            TurretYaw = -90,
+            TurretYawRange = 110,
+            TurretYawSpeed = 32,
+			
+            Turreted = true,
+        },
+		
+        {
+			AboveWaterFireOnly = true,
+            AboveWaterTargetsOnly = true,
+			
+            Audio = {
+                Fire = Sound {
+                    Bank = 'UESWeapon',
+                    Cue = 'UES0201_Cannon_Dbl',
+                    LodCutoff = 'Weapon_LodCutoff',
+                },
+            },
+            BallisticArc = 'RULEUBA_None',
+            CollideFriendly = false,
+			
+            Damage = 60,
+            DamageRadius = 2.5,
+            DoTPulses = 5,	-- 300 Damage per shell ( 5 * 60 )
+            DoTTime = 2.5,
+            DamageType = 'Normal',
+			
+            DisplayName = 'Flamers',
+			
+            FireTargetLayerCapsTable = {
+                Land = 'Land|Water|Seabed',
+                Seabed = 'Land|Water|Seabed',
+                Water = 'Land|Water|Seabed',
+            },
+			
+            FiringTolerance = 1,
+            FiringRandomness = 1.5,
+			
+            --HeadingArcCenter = 90,
+            --HeadingArcRange = 110,
+			
+            Label = 'Flamer2',
 			
             MaxRadius = 38,
 			MinRadius = 4,
@@ -543,16 +628,9 @@ UnitBlueprint {
                     MuzzleBones = { 'Left_Arm_Muzzle' },
                     RackBone = 'Left_Arm_Pitch',
                 },
-                {
-                    MuzzleBones = {'Right_Arm_Muzzle' },
-                    RackBone = 'Right_Arm_Pitch',
-                },				
+
             },
-            RackFireTogether = true,
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 
@@ -566,24 +644,20 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.1,
 			
-            TurretBoneDualMuzzle = 'Left_Arm_Muzzle',
-            TurretBoneDualPitch = 'Left_Arm_Pitch',			
-            TurretBoneMuzzle = 'Right_Arm_Muzzle',
-            TurretBonePitch = 'Right_Arm_Pitch',
+            TurretBoneMuzzle = 'Left_Arm_Muzzle',
+            TurretBonePitch = 'Left_Arm_Pitch',			
+            TurretBoneYaw = 'Left_Arm_Yaw',
 			
-            TurretBoneYaw = 'Torso',
-			
-            TurretDualManipulators = true,
+            --TurretDualManipulators = true,
 			
             TurretPitch = 0,
             TurretPitchRange = 90,
             TurretPitchSpeed = 30,
 			
-            TurretYaw = 0,
+            TurretYaw = 90,
             TurretYawRange = 110,
-            TurretYawSpeed = 35,
+            TurretYawSpeed = 32,
 			
             Turreted = true,
         },

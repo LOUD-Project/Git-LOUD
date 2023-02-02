@@ -15,7 +15,7 @@ Description['bab4309'] = "Creates and amplifies the effects of Quantum Wakes, pr
 Description['bab1106'] = "Advanced Storage building, provides bonus for both Mass and Energy producing structures as well as storing Mass and Energy. Enhances energy weapon recharge rates."
 Description['bab2303'] = "Medium yield energy mortar, fires quick bursts at enemies in range."
 Description['bal0402'] = "The Genesis is essentially a mobile tactical missile platform with a direct fire Oblivion cannon for close-in work, designed to provide long range fire support and tactical missile defense; it also features the unique Maelstrom field which continuously damages all enemy units which get too close."
-Description['balk003'] = "Advanced mobile anti-air unit. The Redeemer carries safely inside its covers a modified anti-air variant of the powerful Serpentine missile."
+Description['balk003'] = "Advanced mobile anti-air unit. The Redeemer fires a modified version of the powerful Zealot AA missile."
 
 --UEF
 
@@ -54,7 +54,7 @@ Description['brlk005'] = "Advanced mobile anti-air unit. Utilizing a crude but e
 --Seraphim
 
 Description['bsb2402'] = "The Rift can stabilize a connection to the Quantum realm. Once this is done, a Seraphim Commander can summon an endless amount of reinforcements. Each unit summoned draws Energy to sustain itself in this realm. If there is not enough Energy available, summoned units will perish."
-Description['bsb0405'] = "The Lambda Field Generator generates a field to repel or destroy enemy projectiles (not beams). This structure also mounts two Quantum Storm Cannons."
+Description['bsb0405'] = "The Lambda Field Generator generates a field to repel or destroy enemy projectiles (not beams). This structure also mounts a Quantum Storm Cannon."
 Description['bsl0106'] = "The Ilhaas sends out signals which force enemy units to think it is a dangerous target. This makes the unit draw enemy fire while its allies fire back."
 Description['bsl0206'] = "The Ula Ilhaas sends out signals which force enemy units to think it is a dangerous target. This makes the unit draw enemy fire while its allies fire back."
 Description['bsl0306'] = "Ultha Ilhaas sends out signals which force enemy units to think it is a dangerous target. This makes the unit draw enemy fire while its allies fire back."
