@@ -146,10 +146,6 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
             local fxBeam = CreateBeamEmitter(self.FxBeam[Random(1, LOUDGETN(self.FxBeam))], army)
             
             AttachBeamToEntity(fxBeam, self, 0, army)
-            
-            -- collide on start if it's a continuous beam
-            --local weaponBlueprint = self.Weapon:GetBlueprint()
-            --local bCollideOnStart = self.Weapon:GetBlueprint().BeamLifetime <= 0
 			
             self:SetBeamFx(fxBeam, self.Weapon.bp.BeamLifetime <= 0 )
             

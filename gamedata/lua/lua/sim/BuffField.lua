@@ -28,36 +28,47 @@ function BuffFieldBlueprint( bpData )
     else
         -- Adding new blueprint if it doesn't exist yet
         BuffFieldBlueprints[bpData.Name] = bpData
+        
+        --LOG("*AI DEBUG Registering BuffField BP "..repr(bpData.Name).." using Buff "..repr(bpData.Buffs) )
     end
 end
 
 BuffField = Class(Entity) {
 
     -- change these in an inheriting class if you want
-    FieldVisualEmitter = '',   -- the FX on the unit that carries the buff field
+    AmbientEffects = '',        -- an effect on the unit
+    FieldVisualEmitter = '',    -- the FX on the unit that carries the buff field
     
-    -- this can now be passed in by the field blueprint
+    -- this can now be passed in from the field blueprint
+    AttachBone = 0,
+    -- this can now be passed in from the field blueprint
 	VisualScale = 1.5,
 	
     __init = function(self, spec)
-    
+
         Entity.__init(self, spec)
         
         self.Name = spec.Name or 'NoName'
-
-        self.DisabledForTransporting = false
-        self.Enabled = false
         self.Owner = spec.Owner.Sync.id
-        self.Radius = 0
-        self.ThreadHandle = false
-        self.VisualScale = 1.5
     end,
 
-    OnCreate = function(self)
+    OnCreate = function(self, spec)
 
         local Owner = self:GetOwner()
         
         local bp = self:GetBlueprint()
+
+        if bp.AmbientEffects then
+            self.AmbientEffects = bp.AmbientEffects
+        end
+        
+        if bp.AttachBone then
+            self.AttachBone = bp.AttachBone
+        end
+        
+        if bp.FieldVisualEmitter then
+            self.FieldVisualEmitter = bp.FieldVisualEmitter
+        end
         
         if bp.VisualScale then
             self.VisualScale = bp.VisualScale
@@ -79,11 +90,10 @@ BuffField = Class(Entity) {
         end
 		
         if not bp.Radius or bp.Radius <= 0 then
-            WARN('BuffField: [..repr(bp.Name)..] Invalid radius or radius not set!')
-            return
+            WARN('BuffField: [..repr(bp.Name)..] Invalid radius or radius not set! default to zero')
         end
         
-        self.Radius = bp.Radius
+        self.Radius = bp.Radius or 0
 
         -- event stuff
         Entity.OnCreate(self)
@@ -96,7 +106,7 @@ BuffField = Class(Entity) {
             Owner:AddUnitCallback(self.EnableOutTransport, 'OnDetachedToTransport')
         end
 		
-        self:OnCreated(bp)
+        self:OnCreated( bp )
     end,
 
     OnCreated = function(self,bp)
@@ -124,6 +134,10 @@ BuffField = Class(Entity) {
     end,
 
     Enable = function(self)
+
+        if ScenarioInfo.BuffDialog then        
+            LOG("*AI DEBUG enabling BuffField "..repr(self))
+		end
 		
         if not self.Enabled then
 			
@@ -144,6 +158,10 @@ BuffField = Class(Entity) {
 
             self.Enabled = true
             self:OnEnabled(bp)
+
+            if ScenarioInfo.BuffDialog then        
+                LOG("*AI DEBUG BuffField ENABLED "..repr(self))
+            end
         end
     end,
 
@@ -153,15 +171,13 @@ BuffField = Class(Entity) {
 		local Owner = self:GetOwner()
 		local Army = Owner.Sync.army
         
-        --LOG("*AI DEBUG Bufffield is "..repr(self))
-		
         if self.FieldVisualEmitter and type(self.FieldVisualEmitter) == 'string' and self.FieldVisualEmitter != '' then
 
             if not Owner.BuffFieldEffectsBag then
                 Owner.BuffFieldEffectsBag = {}
             end
 
-            LOUDINSERT( Owner.BuffFieldEffectsBag, CreateAttachedEmitter(Owner, 0, Army, self.FieldVisualEmitter):ScaleEmitter(bp.VisualScale or self.VisualScale) )
+            LOUDINSERT( Owner.BuffFieldEffectsBag, CreateAttachedEmitter(Owner, bp.AttachBone, Army, self.FieldVisualEmitter):ScaleEmitter(bp.VisualScale or self.VisualScale) )
         end
 		
 		if self.AmbientEffects and type(self.AmbientEffects) == 'string' and self.AmbientEffects != '' then
@@ -173,7 +189,8 @@ BuffField = Class(Entity) {
             LOUDINSERT( Owner.BuffFieldEffectsBag, CreateAttachedEmitter(Owner, 0, Army, self.AmbientEffects):ScaleEmitter(bp.VisualScale or self.VisualScale) )
 		end
     end,
-	
+
+    -- okay - this was originally tripping the shield toggle - which is not where bufffields should be
 	WatchPowerThread = function( Owner, self )
 	
         local GetEconomyStored = moho.aibrain_methods.GetEconomyStored
@@ -192,15 +209,15 @@ BuffField = Class(Entity) {
 
             if on and ( GetResourceConsumed(Owner) != 1 and GetEconomyStored(aiBrain,'ENERGY') < 1 ) then
 				
-				Owner:SetScriptBit('RULEUTC_ShieldToggle',false)
-				Owner:RemoveToggleCap('RULEUTC_ShieldToggle')
+				Owner:SetScriptBit('RULEUTC_SpecialToggle',false)
+				Owner:RemoveToggleCap('RULEUTC_SpecialToggle')
 				on = false
 			end
 			
 			if not on and (GetEconomyStored(aiBrain, 'ENERGY') > MaintenanceConsumption ) then
 				
-				Owner:AddToggleCap('RULEUTC_ShieldToggle')
-				Owner:SetScriptBit('RULEUTC_ShieldToggle',true)
+				Owner:AddToggleCap('RULEUTC_SpecialToggle')
+				Owner:SetScriptBit('RULEUTC_SpecialToggle',true)
 				on = true
 			end
         end	
@@ -223,6 +240,11 @@ BuffField = Class(Entity) {
             self.Enabled = false
 			
             self:OnDisabled(Owner)
+
+            if ScenarioInfo.BuffDialog then        
+                LOG("*AI DEBUG BuffField DISABLE "..repr(self))
+            end
+
         end
     end,
 
