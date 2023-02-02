@@ -6,6 +6,10 @@
 -- You can merge a blueprint with an existing one by putting "Merge = true" in the blueprint.
 -- It will then take the old blueprint and apply the changes.
 
+-- One feature sadly lacking here is definition of which 'toggle' will control the field. This should be
+-- the SPECIAL toggle but it often is not.  Instead, the toggle is often coded manually leading to some
+-- issues with the function of other toggles.
+
 local BuffFieldBlueprint = import('/lua/sim/BuffField.lua').BuffFieldBlueprint
 
 
@@ -90,42 +94,53 @@ BuffFieldBlueprint { Name = 'CybranOpticalDisruptionBuffField',
     Buffs = {'CybranOpticalDisruptionField'},
 }
 
-BuffFieldBlueprint { Name = 'SeraphimACURegenBuffField',
-    AffectsUnitCategories = categories.SERAPHIM,
+BuffFieldBlueprint { Name = 'CybranACUOpticalDisruptionBuffField',
+    AffectsUnitCategories = categories.ALLUNITS - categories.COMMAND - categories.SUBCOMMANDER - categories.TECH1 - categories.WALL,
     AffectsAllies = false,
-    AffectsVisibleEnemies = false,
-    AffectsOwnUnits = true,
+    AffectsVisibleEnemies = true,
+    AffectsOwnUnits = false,
     AffectsSelf = false,
     DisableInTransport = true,
     InitiallyEnabled = false,
-    MaintenanceConsumptionPerSecondEnergy = 0,
+    MaintenanceConsumptionPerSecondEnergy = 0,  -- defined in the enhancement 
+
+    Radius = 80,
+
+    Buffs = {'CybranOpticalDisruptionField'},
+}
+
+BuffFieldBlueprint { Name = 'SeraphimACURegenBuffField',
+
+    AffectsUnitCategories = categories.SERAPHIM,
+    AffectsOwnUnits = true,
+    --AttachBone = 'Torso',
+    DisableInTransport = true,
+    FieldVisualEmitter = '/effects/emitters/seraphim_regenerative_aura_01_emit.bp',
     Radius = 18,
+    VisualScale = 0.8,
 
     Buffs = {'SeraphimACURegenAura'},
 }
 
 BuffFieldBlueprint { Name = 'SeraphimAdvancedACURegenBuffField',
+
     AffectsUnitCategories = categories.SERAPHIM,
-    AffectsAllies = false,
-    AffectsVisibleEnemies = false,
     AffectsOwnUnits = true,
-    AffectsSelf = false,
+    --AttachBone = 'Torso',
     DisableInTransport = true,
-    InitiallyEnabled = false,
-    MaintenanceConsumptionPerSecondEnergy = 300,
+    FieldVisualEmitter = '/effects/emitters/seraphim_regenerative_aura_01_emit.bp',
     Radius = 24,
+    VisualScale = 1.2,
 
     Buffs = {'SeraphimAdvancedACURegenAura'},
 }
 
 BuffFieldBlueprint { Name = 'SeraphimRegenBuffField',
+
     AffectsUnitCategories = categories.SERAPHIM,
-    AffectsAllies = false,
-    AffectsVisibleEnemies = false,
     AffectsOwnUnits = true,
-    AffectsSelf = false,
     DisableInTransport = true,
-    InitiallyEnabled = false,
+    FieldVisualEmitter = '/effects/emitters/seraphim_regenerative_aura_01_emit.bp',
     MaintenanceConsumptionPerSecondEnergy = 900,
     Radius = 26,
 

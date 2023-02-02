@@ -14,14 +14,7 @@ local TractorClawCollisionBeam = CollisionBeamFile.TractorClawCollisionBeam
 
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 
-local DefaultBuffField = import('/lua/defaultbufffield.lua').DefaultBuffField
-
 local CreateAttachedEmitter = CreateAttachedEmitter
-
-SeraphimBuffField = Class(DefaultBuffField) {
-	AmbientEffects = '/effects/emitters/seraphim_t2_power_ambient_01_emit.bp',
-    FieldVisualEmitter = '/effects/emitters/seraphim_regenerative_aura_01_emit.bp',
-}
 
 SANAnaitTorpedo = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = EffectTemplate.SAnaitTorpedoMuzzleFlash,
@@ -877,7 +870,7 @@ SMeleeBladeBeamWeapon = Class(Weapon) {
 
     ContinuousBeamFlagThread = function(self)
         coroutine.yield(1)
-        self.ContBeamOn = false
+        self.ContBeamOn = nil   --false
     end,
 
     WatchForHoldFire = function(self, beam)
