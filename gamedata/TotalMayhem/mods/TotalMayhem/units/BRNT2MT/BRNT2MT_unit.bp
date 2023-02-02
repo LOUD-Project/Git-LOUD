@@ -256,13 +256,9 @@ UnitBlueprint {
 		{
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB2304_Missile_Flayer',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound {Bank = 'UELWeapon',Cue = 'UEB2304_Missile_Flayer',LodCutoff = 'Weapon_LodCutoff' },
             },
-            BallisticArc = 'RULEUBA_LowArc',
+            BallisticArc = 'RULEUBA_HighArc',
             CollideFriendly = false,
 			
             Damage = 30,
@@ -277,7 +273,7 @@ UnitBlueprint {
             },
 			
             FiringTolerance = 1,
-            FiringRandomness = 0.6,
+            FiringRandomness = 0.4,
 			
             Label = 'rocket',
 			
@@ -286,7 +282,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 6,
-            MuzzleVelocity = 18,
+            MuzzleVelocity = 12,
 			
 			PrefersPrimaryWeaponTarget = true,
 			
@@ -295,22 +291,11 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'rl01',
-                        'rl02',
-                        'rl03',
-                        'rl04',
-                        'rl05',
-                        'rl06',
-                    },
+                    MuzzleBones = {'rl01'},
                     RackBone = 'rocketlauncher',
                 },
             },
-            RackFireTogether = true,
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 			
@@ -329,12 +314,9 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.2,
 			
-            TurretBoneDualMuzzle = 'rl01',
-            TurretBoneDualPitch = 'rl01',
-            TurretBoneMuzzle = 'rl04',
-            TurretBonePitch = 'rl04',
-            TurretBoneYaw = 'Turret',
-            TurretDualManipulators = true,
+            TurretBoneMuzzle = 'rl01',
+            TurretBonePitch = 'rl01',
+            TurretBoneYaw = 'rocketlauncher',
 			
             TurretPitch = 0,
             TurretPitchRange = 90,
