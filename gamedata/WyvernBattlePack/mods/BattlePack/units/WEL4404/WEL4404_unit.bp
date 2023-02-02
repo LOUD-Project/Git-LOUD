@@ -163,25 +163,34 @@ UnitBlueprint{
             },
             BallisticArc = "RULEUBA_LowArc",
             CollideFriendly = false,
+
             Damage = 1000,
             DamageRadius = 3,
             DamageType = "Normal",
+
             DisplayName = "Plasma PPC",
+
             FireTargetLayerCapsTable = {
                 Land = "Land|Water|Seabed",
                 Water = "Land|Water|Seabed",
             },
+
             FiringRandomness = 0.8,
             FiringTolerance = 2,
+
             Label = "PlasmaPPC",
+
             MaxRadius = 65,
+
             MuzzleChargeDelay = 1.5,
-            MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 35,
+
             NotExclusive = true,
+
             ProjectileId = "/Mods/BattlePack/projectiles/PlasmaPPC/PlasmaPPC_proj.bp",
             ProjectileLifetime = 2,
+
             RackBones = {
                 {
                     MuzzleBones = { "muzzle08" },
@@ -193,12 +202,11 @@ UnitBlueprint{
                 },
             },
             RackRecoilDistance = -1,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
+
             RangeCategory = "UWRC_IndirectFire",
+
             RateOfFire = 0.3,
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -215,9 +223,11 @@ UnitBlueprint{
             TurretBonePitch = "topgun01",
             TurretBoneYaw = "Turret",
             TurretDualManipulators = true,
+
             TurretPitch = 0,
             TurretPitchRange = 45,
             TurretPitchSpeed = 35,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 32,
@@ -233,24 +243,32 @@ UnitBlueprint{
             BeamCollisionDelay = 0.1,
             BeamLifetime = 0.5,
             CollideFriendly = false,
-            ContinuousBeam = false,
+
             Damage = 350,
-            DamageRadius = 0,
             DamageType = "Normal",
+
             DisplayName = "Beam Cannons",
+
             FireTargetLayerCapsTable = {
                 Land = "Land|Water|Seabed",
                 Water = "Land|Water|Seabed",
             },
-            FiringRandomnessWhileMoving = 0.4,
-            FiringTolerance = 0.4,
+
+            FiringRandomnessWhileMoving = 0.3,
+            FiringTolerance = 0.2,
+
             Label = "BeamCannon",
+
             MaxRadius = 48,
+
             MuzzleSalvoDelay = 0.3,
             MuzzleSalvoSize = 1,
+
             NotExclusive = true,
+
             PrefersPrimaryWeaponTarget = true,
             ProjectileLifetimeUsesMultiplier = 5,
+
             RackBones = {
                 {
                     MuzzleBones = { "muzzle01" },
@@ -271,12 +289,14 @@ UnitBlueprint{
             },
             RackFireTogether = true,
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
+
             RangeCategory = "UWRC_DirectFire",
+
             RateOfFire = 0.25,
+
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 "SPECIALHIGHPRI",
@@ -286,18 +306,21 @@ UnitBlueprint{
             },
             TargetRestrictDisallow = "UNTARGETABLE",
             TrackingRadius = 1.1,
+
             TurretBoneDualMuzzle = "muzzle01",
             TurretBoneDualPitch = "gun02",
             TurretBoneMuzzle = "muzzle03",
             TurretBonePitch = "gun01",
             TurretBoneYaw = "Turret",
             TurretDualManipulators = true,
+
             TurretPitch = 0,
             TurretPitchRange = 55,
             TurretPitchSpeed = 35,
+
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 1,
+            TurretYawSpeed = 35,
             Turreted = true,
         },
         {
