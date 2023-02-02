@@ -595,7 +595,12 @@ function ModBlueprints(all_blueprints)
             for ik, wep in bp.Weapon do
 				
 				if wep.RateOfFire then
-					wep.RateOfFire = wep.RateOfFire * ROFadjust
+                
+                    if wep.RateOfFire < 5 then
+                        wep.RateOfFire = wep.RateOfFire * ROFadjust
+                    else
+                        --LOG("*AI DEBUG "..id.." "..repr(bp.Description).." "..repr(wep.Label).." has an RoF of "..wep.RateOfFire)
+                    end
 					
 					if wep.MuzzleSalvoDelay == nil then
 						wep.MuzzleSalvoDelay = 0
@@ -1219,8 +1224,6 @@ function LoadBlueprints()
 			end
 		
             BlueprintLoaderUpdateProgress()
-			
-            --LOG("loading mod blueprint "..file)
 			
             safecall("loading mod blueprint "..file, doscript, file)
 			
