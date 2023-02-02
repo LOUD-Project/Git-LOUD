@@ -1623,22 +1623,24 @@ Tooltips = {
         title = "Enhancements",
         description = "No enhancements available for the selected units",
     },
-    construction_tab_enhancment_left = {
-        title = "Enhancements [Left Arm]",
-        description = "Enhancements",
-    },
+
     construction_tab_enhancment_back = {
         title = "Enhancements [Back]",
+        description = "Enhancements",
+    },
+    construction_tab_enhancment_command = {
+        title = "Enhancements [Command]",
+        description = "Enhancements",
+    },
+    construction_tab_enhancment_left = {
+        title = "Enhancements [Left Arm]",
         description = "Enhancements",
     },
     construction_tab_enhancment_right = {
         title = "Enhancements [Right Arm]",
         description = "Enhancements",
     },
-    construction_tab_enhancment_command = {
-        title = "Enhancements [Other]",
-        description = "Enhancements",
-    },
+
     construction_tab_attached = {
         title = "Selection and Storage",
         description = "Displays selected and stored or attached units",

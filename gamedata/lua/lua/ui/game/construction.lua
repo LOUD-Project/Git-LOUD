@@ -372,7 +372,7 @@ function CreateTabs(type)
         local selection = sortedOptions.selection
         local enhancements = selection[1]:GetBlueprint().Enhancements
         local enhCommon = import('/lua/enhancementcommon.lua')
-        local enhancementPrefixes = {Back = 'b-', LCH = 'la-', RCH = 'ra-', Command = 'huk-',}
+        local enhancementPrefixes = {Back = 'b-', Command = 'c-', LCH = 'la-', RCH = 'ra-'}
         local newTabs = {}
 
         if enhancements.Slots then
@@ -529,36 +529,30 @@ function GetEnhancementPrefix(unitID, iconID)
 
 		-- Check manually assigned overwrite table
 		prefix = BlackopsIcons.EXUpgradeIconTableOverwrites(EXunitID)..iconID
-		--return prefix
 
 	elseif BlackopsIcons.EXUpgradeIconTableScan(iconID..'A') and string.sub(unitID, 2, 2) == 'a' then
 
 		local EXunitID = iconID..'A'
 		prefix = BlackopsIcons.EXUpgradeIconTableScan(EXunitID)..iconID
-		--return prefix
 
 	elseif BlackopsIcons.EXUpgradeIconTableScan(iconID..'U') and string.sub(unitID, 2, 2) == 'e' then
 
 		local EXunitID = iconID..'U'
 		prefix = BlackopsIcons.EXUpgradeIconTableScan(EXunitID)..iconID
-		--return prefix
 
 	elseif BlackopsIcons.EXUpgradeIconTableScan(iconID..'C') and string.sub(unitID, 2, 2) == 'r' then
 
 		local EXunitID = iconID..'C'
 		prefix = BlackopsIcons.EXUpgradeIconTableScan(EXunitID)..iconID
-		--return prefix
 
 	elseif BlackopsIcons.EXUpgradeIconTableScan(iconID..'S') and string.sub(unitID, 2, 2) == 's' then
 
 		local EXunitID = iconID..'S'
 		prefix = BlackopsIcons.EXUpgradeIconTableScan(EXunitID)..iconID
-		--return prefix
 
 	elseif DiskGetFileInfo('/textures/ui/common'..prefix..'_btn_up.dds') then
 
 		prefix = '/textures/ui/common'..prefix
-		--return prefix
 
 	else
 

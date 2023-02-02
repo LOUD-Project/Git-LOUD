@@ -4164,6 +4164,7 @@ function RefreshOptionDisplayData(scenarioInfo)
     end
 
     local totalUnitCap = CalcTotalUnitCap()
+
     table.insert(formattedOptions, {
         text = "Total Unit Cap",
         tooltip = {
