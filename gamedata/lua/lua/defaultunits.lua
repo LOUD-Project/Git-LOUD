@@ -1688,6 +1688,11 @@ MobileUnit = Class(Unit) {
             self.Footfalls = self:CreateFootFallManipulators( bp.MovementEffects[new].Footfall )
         end
 
+        if self.MovementEffectsExist then
+            self:DestroyMovementEffects()
+            self:CreateMovementEffects( self.MovementEffectsBag, nil )
+        end
+
 		if bp.LayerChangeEffects then
 			self:CreateLayerChangeEffects( new, old, bp.LayerChangeEffects )
 		end

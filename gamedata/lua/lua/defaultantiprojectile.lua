@@ -212,17 +212,9 @@ MissileDetector = Class(Entity) {
 				
             else
 				
-                local vectordam = {}
-                vectordam.x = 0
-                vectordam.y = 1
-                vectordam.z = 0
-				
-				--LOG("*AI DEBUG Missile Destroy")
-				
-                self.EnemyProj:Destroy()	--DoTakeDamage(self.Owner, 30, vectordam,'Fire')
+                self.EnemyProj:Destroy()
 
                 WaitTicks( self.RateOfFire )
-
             end
 			
             for _, v in beams do
@@ -240,6 +232,7 @@ MissileDetector = Class(Entity) {
 	
 }
 
+-- used by Loyalists
 MissileRedirect = Class(Entity) {
 
     RedirectBeams = {'/effects/emitters/particle_cannon_beam_02_emit.bp'},
@@ -255,7 +248,6 @@ MissileRedirect = Class(Entity) {
         self.RedirectRateOfFire = spec.RedirectRateOfFire or 1
         
         SetCollisionShape( self,'Sphere', 0, 0, 0, self.Radius)
-        
         SetDrawScale( self, self.Radius)
         
         self.AttachBone = spec.AttachBone
@@ -281,13 +273,10 @@ MissileRedirect = Class(Entity) {
 			
                 count = count + 1
                 ParsedProjectileCategories[count] = category
-				
             end
-			
         end
 
         self.ProjectileCategories = ParsedProjectileCategories
-		
     end,
 	
     GetBlueprint = function(self)
@@ -405,10 +394,172 @@ MissileRedirect = Class(Entity) {
 
 }
 
+-- used to destroy TML and Torpedoes
+MissileTorpDestroy = Class(Entity) {
+
+    RedirectBeams = {'/effects/emitters/particle_cannon_beam_02_emit.bp'},
+    EndPointEffects = {'/effects/emitters/particle_cannon_end_02_emit.bp',},
+
+    OnCreate = function(self, spec)
+	
+        Entity.OnCreate(self, spec)
+		
+        self.Army = spec.Owner.Sync.army
+        self.Owner = spec.Owner
+        self.Radius = spec.Radius
+        self.RedirectRateOfFire = spec.RedirectRateOfFire or 10
+        
+        SetCollisionShape( self,'Sphere', 0, 0, 0, self.Radius)
+        SetDrawScale( self, self.Radius)
+        
+        self.AttachBone = spec.AttachBone
+        self:AttachTo(spec.Owner, spec.AttachBone)
+		
+        LOUDSTATE(self, self.WaitingState)
+		
+        local bp = __blueprints[self.Owner.BlueprintID].Defense.MissileTorpDestroy
+
+        local ProjectileCategories = bp.ProjectileCategories or { 'MISSILE -STRATEGIC','TORPEDO' }
+        
+        local ParsedProjectileCategories = {}
+        local count = 0
+
+        for k, category in ProjectileCategories do
+		
+            if type(category) == 'string' then
+			
+                count = count + 1
+                ParsedProjectileCategories[count] = LOUDPARSE(category)
+            else
+                count = count + 1
+                ParsedProjectileCategories[count] = category
+            end
+        end
+
+        self.ProjectileCategories = ParsedProjectileCategories
+    end,
+	
+    OnDestroy = function(self)
+        Entity.OnDestroy(self)
+        LOUDSTATE(self, self.DeadState)
+    end,
+    
+    Disable = function(self)
+        LOUDSTATE(self, self.IdleState)
+    end,
+    
+    Enable = function(self)
+        LOUDSTATE(self, self.WaitingState)
+    end,
+
+    DeadState = State {
+        Main = function(self)
+        end,
+    },
+
+    IdleState = State {
+    
+        Main = function(self)
+            SetCollisionShape( self, 'Sphere', 0, 0, 0, 0.1)
+            SetDrawScale( self, 0.1 )
+        end,
+
+        OnCollisionCheck = function(self, other)
+            return false
+        end,
+    },
+
+    WaitingState = State{
+
+        Main = function(self)
+            SetCollisionShape( self, 'Sphere', 0, 0, 0, self.Radius)
+            SetDrawScale( self, self.Radius )
+        end,
+	
+	    -- Return true to process this collision, false to ignore it.
+		OnCollisionCheck = function(self, other)
+
+            if other != self.EnemyProj and IsEnemy( self.Army, GetArmy(other) ) then
+
+                -- check if we can touch the projectile  [161]
+                local match = false
+				
+                for k, cat in self.ProjectileCategories do
+				
+                    if LOUDENTITY(cat, other) then
+                        match = true
+                        break
+                    end
+					
+                end
+				
+                if not match then
+                    return false
+                end
+                
+                self.EnemyProj = other
+				
+                LOUDSTATE( self, self.RedirectingState)
+            end
+			
+            return false
+        end,
+    },
+
+    RedirectingState = State{
+
+        Main = function(self)
+		
+            if not self or BeenDestroyed(self) 
+            or not self.EnemyProj or BeenDestroyed(self.EnemyProj) 
+            or not self.Owner or self.Owner.Dead then
+                return
+            end
+
+            SetCollisionShape( self, 'Sphere', 0, 0, 0, 0.1)
+            SetDrawScale( self, 0.1 )
+            
+            local beams = {}
+            local count = 0
+
+            for _, v in self.RedirectBeams do
+                count = count + 1
+                beams[count] = AttachBeamEntityToEntity(self.EnemyProj, -1, self.Owner, self.AttachBone, self.Army, v):ScaleEmitter(1.3)
+            end
+
+            for _, v in self.EndPointEffects do
+                count = count + 1
+                beams[count] = LOUDEMITONENTITY( self.EnemyProj, self.Army, v ):ScaleEmitter(1.3)
+            end
+
+            WaitTicks( 1 )
+
+            if not BeenDestroyed( self.EnemyProj) then
+                self.EnemyProj:Destroy()
+            end
+			
+            for _, v in beams do
+                v:Destroy()
+            end
+            
+            self.EnemyProj = false
+
+            WaitTicks( self.RedirectRateOfFire - 1 )
+
+            LOUDSTATE(self, self.WaitingState)				
+        end,
+
+        OnCollisionCheck = function(self, other)
+            return false
+        end,
+    },
+
+}
+
 SeraLambdaFieldRedirector = Class(Entity) {
 
     RedirectBeams = {'/effects/emitters/particle_cannon_beam_02_emit.bp'},
-    LambdaEffects = {},
+    LambdaEffects = {'/effects/emitters/seraphim_rift_in_small_01_emit.bp','/effects/emitters/seraphim_rift_in_small_02_emit.bp'},
 
     OnCreate = function(self, spec)
         Entity.OnCreate(self, spec)
@@ -426,13 +577,19 @@ SeraLambdaFieldRedirector = Class(Entity) {
         self:AttachTo(spec.Owner, spec.AttachBone)
         
         LOUDSTATE( self, self.WaitingState)
-        
-		--self.LambdaEffectsBag = {}
     end,
 
     OnDestroy = function(self)
         Entity.OnDestroy(self)
         LOUDSTATE(self, self.DeadState)
+    end,
+    
+    Disable = function(self)
+        LOUDSTATE(self, self.IdleState)
+    end,
+    
+    Enable = function(self)
+        LOUDSTATE(self, self.WaitingState)
     end,
 
     DeadState = State {
@@ -440,8 +597,25 @@ SeraLambdaFieldRedirector = Class(Entity) {
         end,
     },
 
+    IdleState = State {
+    
+        Main = function(self)
+            SetCollisionShape( self, 'Sphere', 0, 0, 0, 0.1)
+            SetDrawScale( self, 0.1 )
+        end,
+
+        OnCollisionCheck = function(self, other)
+            return false
+        end,
+    },
+
     -- Return true to process this collision, false to ignore it.
     WaitingState = State{
+
+        Main = function(self)
+            SetCollisionShape( self, 'Sphere', 0, 0, 0, self.Radius)
+            SetDrawScale( self, self.Radius )
+        end,
     
         OnCollisionCheck = function(self, other)
             
@@ -463,23 +637,12 @@ SeraLambdaFieldRedirector = Class(Entity) {
                 
                 if self.Enemy then --and (not other.lastRedirector or other.lastRedirector != selfarmy) then
 
-                    --LOG("*AI DEBUG Redirection to launcher")
-                    
-                    other:SetNewTarget(self.Enemy)
-                    other:TrackTarget(true)
-                    other:SetTurnRate(720)
-                    
-					local targetspeed = other:GetCurrentSpeed()
-                    
-					other:SetVelocity( targetspeed * 2)
-
 					self.EXFiring = true
                 end
                 
 				if self.EXFiring then
 					LOUDSTATE(self, self.RedirectingState)
 				end
-                
             end
             
             return false
@@ -495,15 +658,10 @@ SeraLambdaFieldRedirector = Class(Entity) {
             or not self.Owner or self.Owner.Dead then
                 return
             end
-            
-            local beams = {}
-            local count = 0
-            
-            for _, v in self.RedirectBeams do
-                count = count + 1
-                beams[count] = AttachBeamEntityToEntity(self.EnemyProj, -1, self.Owner, self.AttachBone, self.Army, v)
-            end
-            
+
+            SetCollisionShape( self, 'Sphere', 0, 0, 0, 0.1)
+            SetDrawScale( self, 0.1 )            
+
             if self.Enemy then
                 -- Set collision to friends active so that when the missile reaches its source it can deal damage. 
 			    self.EnemyProj.DamageData.CollideFriendly = true         
@@ -511,28 +669,63 @@ SeraLambdaFieldRedirector = Class(Entity) {
 			    self.EnemyProj.DamageData.DamageSelf = true 
 			end
             
+            local beams = {}
+            local count = 0
+
+			local targetspeed =	self.EnemyProj:GetCurrentSpeed()
+
+            local EnemyProj = self.EnemyProj
+            
+            if EnemyProj.MoveThread then
+                KillThread(EnemyProj.MoveThread)
+                EnemyProj.MoveThread = nil
+            end
+
             if self.Enemy and not BeenDestroyed(self.Enemy) then
---[[			
-			    for _, v in self.LambdaEffects do
-                    LOUDINSERT( self.LambdaEffectsBag, LOUDEMITONENTITY( self.EnemyProj, self.Army, v ):ScaleEmitter(0.5) )
-				end
---]]                
-				WaitTicks(self.RedirectRateOfFire)
-                
-                if not BeenDestroyed( self.EnemyProj ) then
-                    self.EnemyProj:TrackTarget(false)
+
+				EnemyProj:SetVelocity( 2.5 )
+            
+                for _, v in self.RedirectBeams do
+                    count = count + 1
+                    beams[count] = AttachBeamEntityToEntity(self.EnemyProj, -1, self.Owner, self.AttachBone, self.Army, v)
                 end
+
+                for _, v in self.LambdaEffects do
+                    count = count + 1
+                    beams[count] = CreateEmitterAtEntity( EnemyProj, self.Army, v ):ScaleEmitter(1.1)
+                end
+
+                WaitTicks( 1 )
+
+                EnemyProj:TrackTarget(true)
+
+                EnemyProj:SetNewTarget(self.Enemy)
+
+                EnemyProj:SetTurnRate( 720/math.random(1,6) )
                 
+				EnemyProj:SetVelocity( 3.5 )
+                
+                EnemyProj:SetLifetime( 80 )
+
             else	-- just destroy the projectile
-				self.EnemyProj:Destroy()
+				EnemyProj:Destroy()
+                return
             end
 			
             for _, v in beams do
                 v:Destroy()
             end
+
+            WaitTicks( self.RedirectRateOfFire - 1 )
+
+            if not BeenDestroyed( self.EnemyProj ) then
+
+                --LOG("*AI DEBUG Setting Velocity of "..repr(EnemyProj).." to "..(targetspeed * 2).." Enemy is "..repr(self.Enemy.BlueprintID).." "..repr(self.Enemy:GetPosition()) )
+
+                self.EnemyProj:ForkThread( function()  EnemyProj:SetVelocity( targetspeed * 2 ) WaitTicks(15) EnemyProj:TrackTarget(false) end )
+            end
 			
             LOUDSTATE(self, self.WaitingState)
-            
         end,
 
         OnCollisionCheck = function(self, other)
@@ -545,7 +738,7 @@ SeraLambdaFieldRedirector = Class(Entity) {
 SeraLambdaFieldDestroyer = Class(Entity) {
 
     RedirectBeams = {'/effects/emitters/particle_cannon_beam_02_emit.bp'},
-    LambdaEffects = {},
+    LambdaEffects = {'/effects/emitters/seraphim_rift_in_small_01_emit.bp','/effects/emitters/seraphim_rift_in_small_02_emit.bp'},
     
     OnCreate = function(self, spec)
         Entity.OnCreate(self, spec)
@@ -556,20 +749,25 @@ SeraLambdaFieldDestroyer = Class(Entity) {
         self.Radius = spec.Radius
         self.RedirectRateOfFire = spec.RedirectRateOfFire or 1
 
-        SetCollisionShape( self, 'Sphere', 0, 0, 0, self.Radius)
-        SetDrawScale( self, self.Radius )
-        
         self.AttachBone = spec.AttachBone
         self:AttachTo(spec.Owner, spec.AttachBone)
 		
         LOUDSTATE(self, self.WaitingState)
         
-		--self.LambdaEffectsBag = {}
+		self.LambdaEffectsBag = {}
     end,
 
     OnDestroy = function(self)
         Entity.OnDestroy(self)
         LOUDSTATE(self, self.DeadState)
+    end,
+    
+    Disable = function(self)
+        LOUDSTATE(self, self.IdleState)
+    end,
+    
+    Enable = function(self)
+        LOUDSTATE(self, self.WaitingState)
     end,
 
     DeadState = State {
@@ -577,9 +775,26 @@ SeraLambdaFieldDestroyer = Class(Entity) {
         end,
     },
 
+    IdleState = State {
+    
+        Main = function(self)
+            SetCollisionShape( self, 'Sphere', 0, 0, 0, 0.1)
+            SetDrawScale( self, 0.1 )
+        end,
+
+        OnCollisionCheck = function(self, other)
+            return false
+        end,
+    },
+
     -- Return true to process this collision, false to ignore it.
     WaitingState = State{
-	
+
+        Main = function(self)
+            SetCollisionShape( self, 'Sphere', 0, 0, 0, self.Radius)
+            SetDrawScale( self, self.Radius )
+        end,
+
         OnCollisionCheck = function(self, other)
 
             if other.lastRedirector and other.lastRedirector == self.Army then
@@ -599,11 +814,7 @@ SeraLambdaFieldDestroyer = Class(Entity) {
                 
                     other.lastRedirector = self.Army
 
-					other:SetVelocity( 2 )
-                    
-                    other:SetNewTarget(self.Enemy)
-                    other:TrackTarget(true)
-                    other:SetTurnRate(720)
+					other:SetVelocity( 0 )
 
                     -- go and destroy projectile
 					LOUDSTATE(self, self.RedirectingState)
@@ -625,6 +836,9 @@ SeraLambdaFieldDestroyer = Class(Entity) {
                 return
             end
 
+            SetCollisionShape( self, 'Sphere', 0, 0, 0, 0.1)
+            SetDrawScale( self, 0.1 )
+
             local beams = {}
             local count = 0
 
@@ -632,12 +846,13 @@ SeraLambdaFieldDestroyer = Class(Entity) {
                 count = count + 1
                 beams[count] = AttachBeamEntityToEntity(self.EnemyProj, -1, self.Owner, self.AttachBone, self.Army, v)
             end
---[[
+
 		    for _, v in self.LambdaEffects do
-				LOUDINSERT( self.LambdaEffectsBag, CreateEmitterAtEntity( self.EnemyProj, self.Army, v ):ScaleEmitter(0.8) )
+                count = count + 1
+				beams[count] = CreateEmitterAtEntity( self.EnemyProj, self.Army, v ):ScaleEmitter(1.3)
 			end
---]]            
-            WaitTicks(self.RedirectRateOfFire)
+
+            WaitTicks( 1 )
 
             if not BeenDestroyed( self.EnemyProj) then
                 self.EnemyProj:Destroy()
@@ -646,6 +861,8 @@ SeraLambdaFieldDestroyer = Class(Entity) {
             for _, v in beams do
                 v:Destroy()
             end
+
+            WaitTicks( self.RedirectRateOfFire - 1 )
 
             LOUDSTATE(self, self.WaitingState)
         end,
