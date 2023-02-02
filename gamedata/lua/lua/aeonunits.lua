@@ -153,9 +153,9 @@ ARadarJammerUnit = Class(RadarJammerUnit) {
         end
     end,
     
-    OnIntelEnabled = function(self)
+    OnIntelEnabled = function(self,intel)
 	
-        RadarJammerUnit.OnIntelEnabled(self)
+        RadarJammerUnit.OnIntelEnabled(self,intel)
 		
         if self.OpenAnim then
             self.OpenAnim:SetRate(1)
@@ -170,9 +170,9 @@ ARadarJammerUnit = Class(RadarJammerUnit) {
         self.Rotator:SetTargetSpeed(self.RotateSpeed)
     end,
 
-    OnIntelDisabled = function(self)
+    OnIntelDisabled = function(self,intel)
 	
-        RadarJammerUnit.OnIntelDisabled(self)
+        RadarJammerUnit.OnIntelDisabled(self,intel)
 		
         if self.OpenAnim then
             self.OpenAnim:SetRate(-1)

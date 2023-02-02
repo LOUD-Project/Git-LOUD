@@ -29,12 +29,10 @@ Flare = Class(Entity) {
         self.Radius = spec.Radius or 5
         
         SetCollisionShape( self, 'Sphere', 0, 0, 0, self.Radius)
-        
         SetDrawScale( self, spec.Radius)
         
         self:AttachTo(spec.Owner, -1)
         self.RedirectCat = spec.Category or 'MISSILE'
-		
     end,
 
     -- We only divert projectiles. The flare-projectile itself will be responsible for
@@ -46,7 +44,6 @@ Flare = Class(Entity) {
         end
 		
         return false
-		
     end,
 }
 
@@ -59,11 +56,9 @@ AAFlare = Class(Entity) {
         self.Army = spec.Owner.Sync.army		
 
         SetCollisionShape( self, 'Sphere', 0, 0, 0, self.Radius)
-        
         SetDrawScale( self, spec.Radius)
 		
 		self.RedirectCat = categories.MISSILE * categories.ANTIAIR
-
 	end,
 	
 	OnCollisionCheck = function(self,other)
@@ -82,7 +77,6 @@ AAFlare = Class(Entity) {
         end
 
 		return false
-	
 	end,
 }
 
@@ -95,11 +89,9 @@ DepthCharge = Class(Entity) {
         self.Radius = spec.Radius
         
         SetCollisionShape( self, 'Sphere', 0, 0, 0, self.Radius)
-        
         SetDrawScale( self, spec.Radius)
         
         self:AttachTo(spec.Owner, -1)
-		
     end,
 
     -- We only divert projectiles. The Owner will be responsible for
@@ -137,13 +129,11 @@ MissileDetector = Class(Entity) {
 		self.RateOfFire = 1	-- ticks
 		
         SetCollisionShape( self, 'Sphere', 0, 0, 0, spec.Radius)
-        
         SetDrawScale( self, spec.Radius)
 		
         self:AttachTo(spec.Owner, spec.AttachBone)
 		
 		LOUDSTATE(self, self.WaitingState)
-
     end,
 
     OnDestroy = function(self)
@@ -200,12 +190,9 @@ MissileDetector = Class(Entity) {
             local beams = {}
             local count = 0
 
-            
             for _, v in self.RedirectBeams do
-            
                 count = count + 1
                 beams[count] = AttachBeamEntityToEntity(self.EnemyProj, -1, self.Owner, self.AttachBone, self.Army, v)
-                
             end
             
             if self.Enemy then

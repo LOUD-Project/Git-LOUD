@@ -265,17 +265,17 @@ TShieldStructureUnit = Class(ShieldStructureUnit) {
 
 TRadarJammerUnit = Class(RadarJammerUnit) {
 
-    OnIntelEnabled = function(self)
+    OnIntelEnabled = function(self,intel)
         if not self.MySpinner then
             self.MySpinner = CreateRotator(self, 'Spinner', 'y', nil, 0, 45, 180)
             TrashAdd( self.Trash, self.MySpinner )
         end
-        RadarJammerUnit.OnIntelEnabled(self)
+        RadarJammerUnit.OnIntelEnabled(self,intel)
         self.MySpinner:SetTargetSpeed(180)
     end,
     
-    OnIntelDisabled = function(self)
-        RadarJammerUnit.OnIntelDisabled(self)
+    OnIntelDisabled = function(self,intel)
+        RadarJammerUnit.OnIntelDisabled(self,intel)
         self.MySpinner:SetTargetSpeed(0)
     end,
 }

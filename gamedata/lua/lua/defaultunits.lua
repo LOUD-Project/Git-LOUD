@@ -237,21 +237,16 @@ StructureUnit = Class(Unit) {
 			local bp = __blueprints[self.BlueprintID]
 
 			if bp.Physics.FlattenSkirt then
-
 				self:FlattenSkirt(bp)
-
 			end
-
         end
 
     end,
 
 	-- since Structures dont move we'll override the GetPosition function and use
-	-- the cacheposition we stored above -- great savings
+	-- the cacheposition we stored above
 	GetPosition = function(self)
-
 		return self.CachePosition
-
 	end,
 	
 	GetCachePosition = function(self)
@@ -1675,7 +1670,6 @@ MobileUnit = Class(Unit) {
 			self:EnableIntel('WaterVision')
 			
 			self:DisableIntel('Vision')
-			
 
 			self:DisableUnitIntel('Radar')
 
@@ -3075,19 +3069,17 @@ RadarUnit = Class(StructureUnit) {
         self:SetMaintenanceConsumptionActive()
     end,
 
-    OnIntelDisabled = function(self)
+    OnIntelDisabled = function(self,intel)
 
-        StructureUnit.OnIntelDisabled(self)
+        StructureUnit.OnIntelDisabled(self,intel)
+
         self:DestroyIdleEffects()
-        --self:DestroyBlinkingLights()
-        --self:CreateBlinkingLights('Red')
     end,
 
-    OnIntelEnabled = function(self)
+    OnIntelEnabled = function(self,intel)
 
-        StructureUnit.OnIntelEnabled(self)
-        --self:DestroyBlinkingLights()
-        --self:CreateBlinkingLights('Green')
+        StructureUnit.OnIntelEnabled(self,intel)
+
         self:CreateIdleEffects()
     end,
 }
@@ -3134,9 +3126,9 @@ RadarJammerUnit = Class(StructureUnit) {
 
     end,
 
-    OnIntelEnabled = function(self)
+    OnIntelEnabled = function(self,intel)
 
-        StructureUnit.OnIntelEnabled(self)
+        StructureUnit.OnIntelEnabled(self,intel)
 
         if self.IntelEffects and not self.IntelFxOn then
 
@@ -3148,9 +3140,9 @@ RadarJammerUnit = Class(StructureUnit) {
 		end
     end,
 
-    OnIntelDisabled = function(self)
+    OnIntelDisabled = function(self,intel)
 
-        StructureUnit.OnIntelDisabled(self)
+        StructureUnit.OnIntelDisabled(self,intel)
 
         CleanupEffectBag(self,'IntelEffectsBag')
 
@@ -3172,7 +3164,7 @@ SonarUnit = Class(StructureUnit) {
     CreateIdleEffects = function(self)
 
         StructureUnit.CreateIdleEffects(self)
-        --self.TimedSonarEffectsThread = self:ForkThread( self.TimedIdleSonarEffects )
+
     end,
 
     DestroyIdleEffects = function(self)
@@ -3181,18 +3173,14 @@ SonarUnit = Class(StructureUnit) {
         StructureUnit.DestroyIdleEffects(self)
     end,
 
-    OnIntelDisabled = function(self)
+    OnIntelDisabled = function(self,intel)
 
-        StructureUnit.OnIntelDisabled(self)
-        --self:DestroyBlinkingLights()
-        --self:CreateBlinkingLights('Red')
+        StructureUnit.OnIntelDisabled(self,intel)
     end,
 
-    OnIntelEnabled = function(self)
+    OnIntelEnabled = function(self,intel)
 
-        StructureUnit.OnIntelEnabled(self)
-        --self:DestroyBlinkingLights()
-        --self:CreateBlinkingLights('Green')
+        StructureUnit.OnIntelEnabled(self,intel)
     end,
 }
 
