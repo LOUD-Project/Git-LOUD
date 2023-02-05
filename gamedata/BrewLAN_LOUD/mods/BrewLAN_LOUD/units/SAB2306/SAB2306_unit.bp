@@ -118,7 +118,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.1,
     },
 	
@@ -247,7 +246,7 @@ UnitBlueprint {
                 Water = 'Air|Land|Water|Seabed',
             },
 			
-            FiringTolerance = 1,	---- look at script - Head bone has some randomness to it causing some targeting issues intentionally
+            FiringTolerance = 0.7,	---- look at script - Head bone has some randomness to it causing some targeting issues intentionally
 			
             Label = 'EyeWeapon',
 			
@@ -296,11 +295,11 @@ UnitBlueprint {
 			
             TurretPitch = 0,
             TurretPitchRange = 180,
-            TurretPitchSpeed = 180,
+            TurretPitchSpeed = 75,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 90,
+            TurretYawSpeed = 75,
 			
             Turreted = true,
         },

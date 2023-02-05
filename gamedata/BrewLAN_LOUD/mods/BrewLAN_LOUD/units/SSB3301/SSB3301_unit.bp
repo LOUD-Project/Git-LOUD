@@ -125,7 +125,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar8x_seraphim_01_albedo',
@@ -147,13 +146,13 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 55000,
+        BuildCostEnergy = 59500,
         BuildCostMass = 3000,
         BuildTime = 3900,
 		
-        InitialRemoteViewingEnergyDrain = 10000,
+        InitialRemoteViewingEnergyDrain = 5000,
 		
-        MaintenanceConsumptionPerSecondEnergy = 5000,
+        MaintenanceConsumptionPerSecondEnergy = 3600,
 		
         RebuildBonusIds = {'ssb3301'},
     },
@@ -164,33 +163,34 @@ UnitBlueprint {
     },
 	
     General = {
-        Category = 'Intelligence',
-        Classification = 'RULEUC_Sensor',
+
         FactionName = 'Seraphim',
+
         Icon = 'land',
+
         OrderOverrides = {
-            RULEUTC_IntelToggle = {
-                bitmapId = 'skry-toggle',
-                helpText = 'toggle_scrying',
-            },
+            RULEUTC_IntelToggle = { bitmapId = 'skry-toggle', helpText = 'toggle_scrying', preferredSlot = 9 },
         },
+
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
+
         ToggleCaps = {
             RULEUTC_IntelToggle = true,
         },
+
         UnitName = '<LOC ssb3301_name>Aezselen',
         UnitWeight = 1,
     },
 	
     Intel = {
-        ReactivateTime = 10,
-        RemoteViewingRadius = 30,
+
+        Cooldown = 20,
+        ReactivateTime = 20,
+
+        RemoteViewingRadius = 28,
+        RemoteViewingLifetime = 96,
+
         VisionRadius = 10,
-    },
-	
-    Interface = {
-        HelpText = '<LOC ssb3301_desc>Optics Tracking Facility',
     },
 	
     LifeBarHeight = 0.075,

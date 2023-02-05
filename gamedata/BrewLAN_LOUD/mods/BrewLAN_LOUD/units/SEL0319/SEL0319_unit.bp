@@ -312,7 +312,7 @@ UnitBlueprint {
 			
             Label = 'Riotgun01',
 			
-            MaxRadius = 22,
+            MaxRadius = 24,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
