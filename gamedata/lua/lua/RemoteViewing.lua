@@ -16,7 +16,7 @@ function RemoteViewing(SuperClass)
             SuperClass.OnCreate(self)
 			
             self.RemoteViewingData = {}
-            self.RemoteViewingData.RemoteViewingFunctions = {}
+            --self.RemoteViewingData.RemoteViewingFunctions = {}
             self.RemoteViewingData.DisableCounter = 0
             self.RemoteViewingData.IntelButton = true
 			
@@ -125,6 +125,7 @@ function RemoteViewing(SuperClass)
 						return
 					end
 				end
+
 			end			
             
             if self.RemoteViewingData.VisibleLocation and self.RemoteViewingData.DisableCounter == 0 and self.RemoteViewingData.IntelButton then
@@ -137,8 +138,8 @@ function RemoteViewing(SuperClass)
                     local spec = {
                         X = self.RemoteViewingData.VisibleLocation[1],
                         Z = self.RemoteViewingData.VisibleLocation[3],
-                        Radius = bp.Intel.RemoteViewingRadius,
-                        LifeTime = -1,
+                        Radius = bp.Intel.RemoteViewingRadius or 26,
+                        LifeTime = bp.Intel.RemoteViewingLifetime or -1,
                         Omni = false,
                         Radar = false,
                         Vision = true,
@@ -236,12 +237,19 @@ function RemoteViewing(SuperClass)
         end,
 
         DisableResourceMonitor = function(self)
+
+            -- fascinating - this delay is required since the consumption doesn't appear right away
             WaitTicks( 5 )
+
             local fraction = self:GetResourceConsumed()
+
             while fraction == 1 do
+
                 WaitTicks( 5 )
+
                 fraction = self:GetResourceConsumed()
             end
+
             if self.RemoteViewingData.IntelButton then
                 self.RemoteViewingData.DisableCounter = self.RemoteViewingData.DisableCounter + 1
                 self.RemoteViewingData.ResourceThread = self:ForkThread(self.EnableResourceMonitor)
