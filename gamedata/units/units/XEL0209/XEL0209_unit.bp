@@ -44,6 +44,7 @@ UnitBlueprint {
         'SHOWQUEUE',
         'OVERLAYRADAR',
         'OVERLAYSONAR',
+        'OVERLAYMISC',
     },
 
     CollisionOffsetY = -0.25,
@@ -140,11 +141,12 @@ UnitBlueprint {
 			'BUILTBYTIER2ENGINEER WALL UEF',
         },
 
-        MaintenanceConsumptionPerSecondEnergy = 50,
-		MaxBuildDistance = 3.6,
+        MaintenanceConsumptionPerSecondEnergy = 32,
 
-		StorageEnergy = 200,
-		StorageMass = 20,
+		MaxBuildDistance = 4.5,
+
+		StorageEnergy = 150,
+		StorageMass = 15,
     },
 
     General = {
@@ -156,8 +158,6 @@ UnitBlueprint {
             YawBone = 'XEL0209',
         },
 
-        Category = 'Construction',
-        Classification = 'RULEUC_Engineer',
         CommandCaps = {
             RULEUCC_CallTransport = true,
             RULEUCC_Capture = true,
@@ -173,32 +173,29 @@ UnitBlueprint {
         ConstructionBar = true,
         FactionName = 'UEF',
         Icon = 'amph',
+
 		OrderOverrides = {
-            RULEUTC_ShieldToggle = {
-                bitmapId = 'shield-dome',
-                helpText = 'toggle_shield_dome',
-            },
+            RULEUTC_ShieldToggle = {bitmapId = 'shield-dome',helpText = 'toggle_shield_dome'},
 		},
+
         SelectionPriority = 3,
-        TechLevel = 'RULEUTL_Advanced',
+
 		ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
+
         UnitName = '<LOC xel0209_name>Sparky',
         UnitWeight = 1,
     },
 
     Intel = {
 		FreeIntel = true,
-        OmniRadius = 10,
-		RadarRadius = 60,
-		SonarRadius = 33,
-        VisionRadius = 20,
-		WaterVisionRadius = 20,
-    },
 
-    Interface = {
-        HelpText = 'Field Engineer',
+        OmniRadius = 5,
+		RadarRadius = 48,
+		SonarRadius = 33,
+        VisionRadius = 22,
+		WaterVisionRadius = 22,
     },
 
     LifeBarHeight = 0.075,
