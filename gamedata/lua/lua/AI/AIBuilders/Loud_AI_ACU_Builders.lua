@@ -995,7 +995,7 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD',
 
 			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
 
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.015, 1.025 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.012, 1.02 }},
         },
 		
         Priority = 850,
@@ -1004,124 +1004,9 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD',
 		
         BuilderData = {
 			ClearTaskOnComplete = true,
-            Enhancement = { 'EXImprovedEngineering','EXAdvancedEngineering' },
+            Enhancement = { 'EXImprovedEngineering','EXIntelEnhancementT2'},
         },
     },
-	
-	-- =============
-	-- UEF Commander
-	-- =============
-	
-    Builder {BuilderName = 'CDR UEF Upgrade BOPACU - Stage 1',
-	
-        PlatoonTemplate = 'CommanderEnhance',
-        
-		PlatoonAddFunctions = { { BHVR, 'CDREnhance'}, },
-		
-		FactionIndex = 1,
-		
-        BuilderConditions = {
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
-
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.015, 1.025 }},
-        },
-		
-        Priority = 10,
-		
-		-- this function turns on the builder 
-		PriorityFunction = function(self, aiBrain, unit)
-			if self.Priority == 10 then
-				if unit:HasEnhancement('EXAdvancedEngineering') then
-					return 850, false
-				end
-			end
-			return self.Priority,true
-		end,
-		
-        BuilderType = { 'Commander' },
-		
-        BuilderData = {
-			ClearTaskOnComplete = true,
-            Enhancement = { 'EXAntiMatterCannon','EXImprovedContainmentBottle' },
-        },
-		
-    },	
-	
-    Builder {BuilderName = 'CDR UEF Upgrade BOPACU - Stage 2',
-	
-        PlatoonTemplate = 'CommanderEnhance',
-        
-		PlatoonAddFunctions = { { BHVR, 'CDREnhance'}, },
-
-		FactionIndex = 1,
-		
-        BuilderConditions = {
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
-            
-			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }},
-        },
-		
-        Priority = 10,
-		
-		-- this function turns on the builder 
-		PriorityFunction = function(self, aiBrain, unit)
-			if self.Priority == 10 then
-				if unit:HasEnhancement('EXImprovedContainmentBottle') then
-					return 850, false
-				end
-			end
-			return self.Priority,true
-		end,
-		
-        BuilderType = { 'Commander' },
-		
-        BuilderData = {
-			ClearTaskOnComplete = true,
-            Enhancement = { 'EXShieldBattery','EXActiveShielding' },
-        },
-		
-    },	
-	
-    Builder {BuilderName = 'CDR UEF Upgrade BOPACU - Final Stage',
-	
-        PlatoonTemplate = 'CommanderEnhance',
-        
-		PlatoonAddFunctions = { { BHVR, 'CDREnhance'}, },
-
-		FactionIndex = 1,
-		
-        BuilderConditions = {
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
-            
-			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }},
-        },
-		
-        Priority = 10,
-	
-		-- this function turns on the builder 
-		PriorityFunction = function(self, aiBrain, unit)
-			if self.Priority == 10 then
-				if unit:HasEnhancement('EXActiveShielding') then
-					return 850, false
-				end
-			end
-			return self.Priority,true
-		end,
-		
-        BuilderType = { 'Commander' },
-		
-        BuilderData = {
-			ClearTaskOnComplete = true,
-            Enhancement = { 'EXExperimentalEngineering','EXPowerBooster','EXImprovedShieldBattery' },
-        },
-		
-    },	
 
 	-- ==============
 	-- Aeon Commander
@@ -1140,7 +1025,7 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD',
             
 			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
 
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.015, 1.025 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 60, 1.012, 1.02 }},
         },
 		
         Priority = 10,
@@ -1148,7 +1033,7 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD',
 		-- this function turns on the builder 
 		PriorityFunction = function(self, aiBrain, unit)
 			if self.Priority == 10 then
-				if unit:HasEnhancement('EXAdvancedEngineering') then
+				if unit:HasEnhancement('EXIntelEnhancementT2') then
 					return 850, false
 				end
 			end
@@ -1159,7 +1044,7 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD',
 		
         BuilderData = {
 			ClearTaskOnComplete = true,
-            Enhancement = { 'EXBeamPhason','EXImprovedCoolingSystem' },
+            Enhancement = { 'EXBeamPhason','EXMaelstromQuantum','EXAdvancedEngineering','EXIntelEnhancementT3','EXImprovedCoolingSystem' },
         },
 		
     },	
@@ -1196,7 +1081,7 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD',
 		
         BuilderData = {
 			ClearTaskOnComplete = true,
-            Enhancement = { 'EXShieldBattery','EXActiveShielding' },
+            Enhancement = { 'EXMaelstromFieldExpander','EXPowerBooster', },
         },
 		
     },	
@@ -1222,7 +1107,7 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD',
 		-- this function turns on the builder 
 		PriorityFunction = function(self, aiBrain, unit)
 			if self.Priority == 10 then
-				if unit:HasEnhancement('EXActiveShielding') then
+				if unit:HasEnhancement('EXPowerBooster') then
 					return 850, false
 				end
 			end
@@ -1233,29 +1118,29 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD',
 		
         BuilderData = {
 			ClearTaskOnComplete = true,
-            Enhancement = { 'EXExperimentalEngineering','EXPowerBooster','EXImprovedShieldBattery' },
+            Enhancement = { 'EXExperimentalEngineering','EXMaelstromQuantumInstability' },
         },
 		
     },
-
-	-- ================
-	-- Cybran Commander
-	-- ================
 	
-    Builder {BuilderName = 'CDR Cybran Upgrade BOPACU - Stage 1',
+	-- =============
+	-- UEF Commander
+	-- =============
+	
+    Builder {BuilderName = 'CDR UEF Upgrade BOPACU - Stage 1',
 	
         PlatoonTemplate = 'CommanderEnhance',
         
 		PlatoonAddFunctions = { { BHVR, 'CDREnhance'}, },
-
-		FactionIndex = 3,
+		
+		FactionIndex = 1,
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-
+            
 			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
 
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.015, 1.025 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.0125, 1.025 }},
         },
 		
         Priority = 10,
@@ -1263,7 +1148,7 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD',
 		-- this function turns on the builder 
 		PriorityFunction = function(self, aiBrain, unit)
 			if self.Priority == 10 then
-				if unit:HasEnhancement('EXAdvancedEngineering') then
+				if unit:HasEnhancement('EXIntelEnhancementT2') then
 					return 850, false
 				end
 			end
@@ -1274,133 +1159,18 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD',
 		
         BuilderData = {
 			ClearTaskOnComplete = true,
-            Enhancement = { 'EXMasor','EXImprovedCoolingSystem' },
+            Enhancement = { 'EXAntiMatterCannon','EXClusterMissilePack','EXAdvancedEngineering','ImprovedContainmentBottle' },
         },
 		
     },	
 	
-    Builder {BuilderName = 'CDR Cybran Upgrade BOPACU - Stage 2',
+    Builder {BuilderName = 'CDR UEF Upgrade BOPACU - Stage 2',
 	
         PlatoonTemplate = 'CommanderEnhance',
         
 		PlatoonAddFunctions = { { BHVR, 'CDREnhance'}, },
 
-		FactionIndex = 3,
-		
-        BuilderConditions = {
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
-            
-			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }},
-        },
-		
-        Priority = 10,
-		
-		-- this function turns on the builder 
-		PriorityFunction = function(self, aiBrain, unit)
-			if self.Priority == 10 then
-				if unit:HasEnhancement('EXImprovedCoolingSystem') then
-					return 850, false
-				end
-			end
-			return self.Priority,true
-		end,
-		
-        BuilderType = { 'Commander' },
-		
-        BuilderData = {
-			ClearTaskOnComplete = true,
-            Enhancement = { 'EXArmorPlating','EXStructuralIntegrity' },
-        },
-		
-    },	
-	
-    Builder {BuilderName = 'CDR Cybran Upgrade BOPACU - Final Stage',
-	
-        PlatoonTemplate = 'CommanderEnhance',
-        
-		PlatoonAddFunctions = { { BHVR, 'CDREnhance'}, },
-
-		FactionIndex = 3,
-		
-        BuilderConditions = {
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-            
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
-            
-			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }},
-        },
-		
-        Priority = 10,
-		
-		-- this function turns on the builder 
-		PriorityFunction = function(self, aiBrain, unit)
-			if self.Priority == 10 then
-				if unit:HasEnhancement('EXStructuralIntegrity') then
-					return 850, false
-				end
-			end
-			return self.Priority,true
-		end,
-		
-        BuilderType = { 'Commander' },
-		
-        BuilderData = {
-			ClearTaskOnComplete = true,
-            Enhancement = { 'EXExperimentalEngineering','EXAdvancedEmitterArray','EXCompositeMaterials' },
-        },
-		
-    },
-
-	-- ==============
-	-- Sera Commander
-	-- ==============
-	
-    Builder {BuilderName = 'CDR Sera Upgrade BOPACU - Stage 1',
-	
-        PlatoonTemplate = 'CommanderEnhance',
-        
-		PlatoonAddFunctions = { { BHVR, 'CDREnhance'}, },
-
-		FactionIndex = 4,
-		
-        BuilderConditions = {
-			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
-
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
-
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.015, 1.025 }},
-        },
-		
-        Priority = 10,
-		
-		-- this function turns on the builder 
-		PriorityFunction = function(self, aiBrain, unit)
-			if self.Priority == 10 then
-				if unit:HasEnhancement('EXAdvancedEngineering') then
-					return 850, false
-				end
-			end
-			return self.Priority,true
-		end,
-		
-        BuilderType = { 'Commander' },
-		
-        BuilderData = {
-			ClearTaskOnComplete = true,
-            Enhancement = { 'EXCannonBigBall','EXImprovedContainmentBottle' },
-        },
-		
-    },	
-	
-    Builder {BuilderName = 'CDR Sera Upgrade BOPACU - Stage 2',
-	
-        PlatoonTemplate = 'CommanderEnhance',
-        
-		PlatoonAddFunctions = { { BHVR, 'CDREnhance'}, },
-
-		FactionIndex = 4,
+		FactionIndex = 1,
 		
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
@@ -1426,7 +1196,237 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD',
 		
         BuilderData = {
 			ClearTaskOnComplete = true,
-            Enhancement = { 'EXL1Lambda','EXL2Lambda' },
+            Enhancement = { 'EXIntelEnhancementT3' },
+        },
+		
+    },	
+	
+    Builder {BuilderName = 'CDR UEF Upgrade BOPACU - Final Stage',
+	
+        PlatoonTemplate = 'CommanderEnhance',
+        
+		PlatoonAddFunctions = { { BHVR, 'CDREnhance'}, },
+
+		FactionIndex = 1,
+		
+        BuilderConditions = {
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+            
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
+            
+			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }},
+        },
+		
+        Priority = 10,
+	
+		-- this function turns on the builder 
+		PriorityFunction = function(self, aiBrain, unit)
+			if self.Priority == 10 then
+				if unit:HasEnhancement('EXIntelEnhancementT3') then
+					return 850, false
+				end
+			end
+			return self.Priority,true
+		end,
+		
+        BuilderType = { 'Commander' },
+		
+        BuilderData = {
+			ClearTaskOnComplete = true,
+            Enhancement = { 'EXExperimentalEngineering','EXPowerBooster','EXClusterMissilesPack' },
+        },
+		
+    },	
+
+	-- ================
+	-- Cybran Commander
+	-- ================
+	
+    Builder {BuilderName = 'CDR Cybran Upgrade BOPACU - Stage 1',
+	
+        PlatoonTemplate = 'CommanderEnhance',
+        
+		PlatoonAddFunctions = { { BHVR, 'CDREnhance'}, },
+
+		FactionIndex = 3,
+		
+        BuilderConditions = {
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
+
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.0125, 1.025 }},
+        },
+		
+        Priority = 10,
+		
+		-- this function turns on the builder 
+		PriorityFunction = function(self, aiBrain, unit)
+			if self.Priority == 10 then
+				if unit:HasEnhancement('EXIntelEnhancementT2') then
+					return 850, false
+				end
+			end
+			return self.Priority,true
+		end,
+		
+        BuilderType = { 'Commander' },
+		
+        BuilderData = {
+			ClearTaskOnComplete = true,
+            Enhancement = { 'EXEMPArray','EXAdvancedEngineering','EXImprovedCapacitors' },
+        },
+		
+    },	
+	
+    Builder {BuilderName = 'CDR Cybran Upgrade BOPACU - Stage 2',
+	
+        PlatoonTemplate = 'CommanderEnhance',
+        
+		PlatoonAddFunctions = { { BHVR, 'CDREnhance'}, },
+
+		FactionIndex = 3,
+		
+        BuilderConditions = {
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+            
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
+            
+			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }},
+        },
+		
+        Priority = 10,
+		
+		-- this function turns on the builder 
+		PriorityFunction = function(self, aiBrain, unit)
+			if self.Priority == 10 then
+				if unit:HasEnhancement('EXImprovedCapacitors') then
+					return 850, false
+				end
+			end
+			return self.Priority,true
+		end,
+		
+        BuilderType = { 'Commander' },
+		
+        BuilderData = {
+			ClearTaskOnComplete = true,
+            Enhancement = { 'EXIntelEnhancementT3','EXStealthField','EXCloakingSubsystems' },
+        },
+		
+    },	
+	
+    Builder {BuilderName = 'CDR Cybran Upgrade BOPACU - Final Stage',
+	
+        PlatoonTemplate = 'CommanderEnhance',
+        
+		PlatoonAddFunctions = { { BHVR, 'CDREnhance'}, },
+
+		FactionIndex = 3,
+		
+        BuilderConditions = {
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+            
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
+            
+			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }},
+        },
+		
+        Priority = 10,
+		
+		-- this function turns on the builder 
+		PriorityFunction = function(self, aiBrain, unit)
+			if self.Priority == 10 then
+				if unit:HasEnhancement('EXCloakingSubsystems') then
+					return 850, false
+				end
+			end
+			return self.Priority,true
+		end,
+		
+        BuilderType = { 'Commander' },
+		
+        BuilderData = {
+			ClearTaskOnComplete = true,
+            Enhancement = { 'EXExperimentalEngineering','EXDeviatorField','EXPowerBooster','EXPerimeterOptics' },
+        },
+		
+    },
+
+	-- ==============
+	-- Sera Commander
+	-- ==============
+	
+    Builder {BuilderName = 'CDR Sera Upgrade BOPACU - Stage 1',
+	
+        PlatoonTemplate = 'CommanderEnhance',
+        
+		PlatoonAddFunctions = { { BHVR, 'CDREnhance'}, },
+
+		FactionIndex = 4,
+		
+        BuilderConditions = {
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
+
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.0125, 1.025 }},
+        },
+		
+        Priority = 10,
+		
+		-- this function turns on the builder 
+		PriorityFunction = function(self, aiBrain, unit)
+			if self.Priority == 10 then
+				if unit:HasEnhancement('EXIntelEnhancementT2') then
+					return 850, false
+				end
+			end
+			return self.Priority,true
+		end,
+		
+        BuilderType = { 'Commander' },
+		
+        BuilderData = {
+			ClearTaskOnComplete = true,
+            Enhancement = { 'EXStormCannon','EXAdvancedEngineering','EXStormCannonII','EXL1Lambda' },
+        },
+		
+    },	
+	
+    Builder {BuilderName = 'CDR Sera Upgrade BOPACU - Stage 2',
+	
+        PlatoonTemplate = 'CommanderEnhance',
+        
+		PlatoonAddFunctions = { { BHVR, 'CDREnhance'}, },
+
+		FactionIndex = 4,
+		
+        BuilderConditions = {
+			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
+            
+			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
+            
+			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }},
+        },
+		
+        Priority = 10,
+		
+		-- this function turns on the builder 
+		PriorityFunction = function(self, aiBrain, unit)
+			if self.Priority == 10 then
+				if unit:HasEnhancement('EXL1Lambda') then
+					return 850, false
+				end
+			end
+			return self.Priority,true
+		end,
+		
+        BuilderType = { 'Commander' },
+		
+        BuilderData = {
+			ClearTaskOnComplete = true,
+            Enhancement = { 'EXIntelEnhancementT3' },
         },
 		
     },	
@@ -1451,7 +1451,7 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD',
 		
 		PriorityFunction = function(self, aiBrain, unit)
 			if self.Priority == 10 then
-				if unit:HasEnhancement('EXL2Lambda') then
+				if unit:HasEnhancement('EXIntelEnhancementT3') then
 					return 850, false
 				end
 			end
@@ -1462,7 +1462,7 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD',
 		
         BuilderData = {
 			ClearTaskOnComplete = true,
-            Enhancement = { 'EXExperimentalEngineering','EXPowerBooster' },
+            Enhancement = { 'EXExperimentalEngineering','EXStormCannonIII','EXL2Lambda' },
         },
 		
     },	
