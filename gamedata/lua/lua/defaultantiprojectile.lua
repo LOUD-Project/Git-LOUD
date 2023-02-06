@@ -696,16 +696,20 @@ SeraLambdaFieldRedirector = Class(Entity) {
                 end
 
                 WaitTicks( 1 )
-
-                EnemyProj:TrackTarget(true)
-
-                EnemyProj:SetNewTarget(self.Enemy)
-
-                EnemyProj:SetTurnRate( 720/math.random(1,6) )
                 
-				EnemyProj:SetVelocity( 3.5 )
+                if not EnemyProj:BeenDestroyed() then
+
+                    EnemyProj:TrackTarget(true)
+
+                    EnemyProj:SetNewTarget(self.Enemy)
+
+                    EnemyProj:SetTurnRate( 720/math.random(1,6) )
                 
-                EnemyProj:SetLifetime( 80 )
+                    EnemyProj:SetVelocity( 3.5 )
+                
+                    EnemyProj:SetLifetime( 80 )
+                    
+                end
 
             else	-- just destroy the projectile
 				EnemyProj:Destroy()

@@ -640,7 +640,7 @@ function CollectCurrentScores()
                 
                 if not badflag[index] then
 
-                    LOG("*AI DEBUG Fixing mass_total "..mass_total.." with "..lastmasstotal[index] )
+                    --LOG("*AI DEBUG Fixing mass_total "..mass_total.." with "..lastmasstotal[index] )
 
                     badflag[index] = true
                 end
