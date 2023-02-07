@@ -114,7 +114,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 100,
     },
 	
-    Description = '<LOC ssl0403_desc>Experimental Resurrection Engineer',
+    Description = '<LOC ssl0403_desc>Experimental Resurrection Engineer (Technology Reclaimer)',
 	
     Display = {
         Abilities = {

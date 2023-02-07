@@ -81,7 +81,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 960,
     },
 	
-    Description = '<LOC brl0401_desc>Regenerative Ultra Heavy Siege Mech',
+    Description = '<LOC brl0401_desc>Regenerative Ultra Heavy Siege Mech (Brawler/Siege)',
 	
     Display = {
 		Abilities = {

@@ -243,6 +243,7 @@ ssa0305_name="Vulthuum."
 Unit_Description_BrewLAN_T3A001="Gunship pesante. Armato con pistole auto-Phasiche e potenti ma a breve raggio d'azione AA."
 
 sair0306="Trasporto aereo pesante"
+saa0306_desc="Trasporto Aereo Sperimentale (Trasporto)"
 saa0306_name="Solaris."
 sra0306_name="Skimmer notturno"
 ssa0306_name="Vishuum."
@@ -488,12 +489,12 @@ Unit_Description_BrewLAN_T3L023="Piattaforma mobile per rifornimento di carburan
 -- Sperimentaglio
 --------------------------------------------------------------------------------
 
-ssl0403_desc="Ingegnere sperimentale di ricostruzione"
+ssl0403_desc="Ingegnere sperimentale di ricostruzione (Recuperatore Tecnologia)"
 ssl0403_name="Iyadesu."
 Unit_Description_BrewLAN_T4L001="Unità di riparazione, acquisizione e bonifica sperimentale anfibio. Guadagna i progetti di unità e demolizione reclamandoli. Può memorizzare solo 8 progetti alla volta."
 ssa00001_desc="Drone"
 
-sea0401_desc="Sperimentale AA Gunship."
+sea0401_desc="Sperimentale AA Gunship (Navepistola)"
 sea0401_name="AC-500 Centurion"
 Unit_Description_BrewLAN_T4A001="Gunship sperimentale con ampie capacità anti-aria. Più efficace contro altre pistole di pistola."
 
@@ -510,7 +511,7 @@ srs0401="Battleship sperimentale."
 srs0401_name="Persecutore abisso"
 Unit_Description_BrewLAN_T4S001="Battleship anfibio sperimentale."
 
-srs0402_desc="Trasporto sperimentale"
+srs0402_desc="Trasporto sperimentale (Trasporto)"
 srs0402_name="Abisso Crawler."
 Unit_Description_BrewLAN_T4L003="Trasporto anfibio sperimentale. Viaggia più veloce sott'acqua. Dotato di armi generali a potenza moderata. Può trasportare fino a 216 gancio piccoli, 108 gancio medi o 54 unità di gancio grande."
 
@@ -518,7 +519,7 @@ seb0401="Fabbrica sperimentale"
 seb0401_name="Gantry."
 Unit_Description_BrewLAN_T4B004="Fabbrica multifunzione sperimentale. Cambia dinamicamente unità incorporabili in base all'ambiente. Può essere attivato per costruire aerei in qualsiasi ambiente."
 
-sal0401="Serbatoio sperimentale di assedio"
+sal0401="Serbatoio sperimentale di assedio (Artiglieria)"
 sal0401_name="Assoluzione"
 Unit_Description_BrewLAN_T4L002="Serbatoio d'assalto per assedio in bilico sperimentale. Dotato di un potente cannone oblio e difese missilistiche tattiche."
 
@@ -585,10 +586,10 @@ seb2401_desc="Difesa Punto sperimentale"
 seb2401_name="Excalibur"
 Unit_Description_BrewLAN_T4B012="Edificio difensivo sperimentale. Consuma grandi quantità di potere con ogni colpo."
 
-ssl0404_desc="Sniper Sperimentale Bot."
+ssl0404_desc="Cecchino Sperimentale Bot (Cecchino)"
 ssl0404_name="Sisha-ah."
 Unit_Description_BrewLAN_T4L004="Bot di cecchino mobile sperimentale. Visibile solo a Omni mentre statico e non sparando."
 
-ssl0405_desc="Robot di artropodo pesante sperimentale"
+ssl0405_desc="Robot di artropodo pesante sperimentale (Mischia)"
 ssl0405_name="Suedath-zmara."
 Unit_Description_BrewLAN_T4L005="Massive bot sperimentali. Dotato di cannoni anteriori cefalici THAU, Sinn Superior Dorsal Sinn Uning Cannoni, Armi Ventral Uoll Cavitation Torpedo, e Carapace montato Olaris Anti-Air Cannons. Caratteristiche La capacità di estendere verticalmente per un aumento della gamma di armi e per nuotare per coinvolgere la superficie navale della superficie, con il potere di terminare quasi qualsiasi bersaglio."

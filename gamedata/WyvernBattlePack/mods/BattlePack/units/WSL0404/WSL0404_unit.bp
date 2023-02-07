@@ -1,5 +1,5 @@
 UnitBlueprint{
-    Description = "Experimental Light Mobile Artillery",
+    Description = "<LOC wsl0404_desc>Experimental Light Mobile Artillery (Artillery)",
     AI = {
         TargetBones = {
             "PowerOrb",
@@ -99,7 +99,7 @@ UnitBlueprint{
         },
         FactionName = "Seraphim",
         Icon = "amph",
-        UnitName = "Yath-Yen",
+        UnitName = "<LOC wsl0404_name>Yath-Yen",
     },
     Intel = {
         VisionRadius = 37,

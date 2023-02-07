@@ -243,6 +243,7 @@ ssa0305_name="Vulthuum"
 Unit_Description_BrewLAN_T3A001="Těžký Bitevník. Vyzbrojen fázovými autokanony a silnými protileteckými krátkorážními zbraněmi."
 
 sair0306="Těžký Letecký Transport"
+saa0306_desc="Experimentální Letecká Doprava (Doprava)"
 saa0306_name="Solaris"
 sra0306_name="Noční Šídlo"
 ssa0306_name="Vishuum"
@@ -488,12 +489,12 @@ Unit_Description_BrewLAN_T3L023="Mobilní platforma pro doplňování a opravy l
 --Experimentalní jednotky
 --------------------------------------------------------------------------------
 
-ssl0403_desc="Experminentální Rekonstrukční Technik"
+ssl0403_desc="Experminentální Rekonstrukční Technik (Technika Reclaimer)"
 ssl0403_name="Iyadesu"
 Unit_Description_BrewLAN_T4L001="Experimentální obojživelné opravovací, zajímací,reklamační a rekonstrukční jednotka. Získává schémata jednotek a vraků jejich reklamací. Může mít pouze 8 schémat najednou."
 ssa00001_desc="Dron"
 
-sea0401_desc="Experimentální Protiletecká Helikoptéra"
+sea0401_desc="Experimentální Protiletecká Helikoptéra (Dělováloď)"
 sea0401_name="AC-500 Centurion"
 Unit_Description_BrewLAN_T4A001="Experimentální helikoptéra se značnými protileteckými schopnostmi. Nejúčiňnejší proti jiným helikoptérám."
 
@@ -510,7 +511,7 @@ srs0401="Expermimentální Bitevník"
 srs0401_name="Hlubinný Pronásledovatel"
 Unit_Description_BrewLAN_T4S001="Experimentální obojživelný bitevník."
 
-srs0402_desc="Experimentální Transportér"
+srs0402_desc="Experimentální Transportér (Transportér)"
 srs0402_name="Lezoun Propasti"
 Unit_Description_BrewLAN_T4L003="Experimentální obojživelný transport. Cestuje rychleji pod vodou. Vybaven středně výkonnými univerzálními zbraněnmi. Může přeprava až 216 malých háčků, 108 středních háčků nebo 54 velkých hákových jednotek."
 
@@ -518,7 +519,7 @@ seb0401="Experimentální Továrna"
 seb0401_name="Gantry"
 Unit_Description_BrewLAN_T4B004="Experimentální víceúčelová továrna. Dynamicky mění stavitelné jednotky podle dané situace. Může být přepnuta na stavbu letectva v jakékoliv situaci."
 
-sal0401="Experimentální Obléhací Tank"
+sal0401="Experimentální Obléhací Tank (Dělostřelectvo)"
 sal0401_name="Rozhřešení"
 Unit_Description_BrewLAN_T4L002="Experminentální obléhací tankové vznášedlo. Vybaven mocným dělem typu oblivion a taktickou protiraketovou obranou."
 
@@ -585,10 +586,10 @@ seb2401_desc="Experimentální obrana"
 seb2401_name="Excalibur"
 Unit_Description_BrewLAN_T4B012="Experimentální obranná budova. Vyžaduje vysoké dávky energie při každém výstřelu."
 
-ssl0404_desc="Experimentální Sniper Bot."
+ssl0404_desc="Experimentální Odstřelovač Bot (Odstřelovač)"
 ssl0404_name="Sisha-Ah."
 Unit_Description_BrewLAN_T4L004="Experimentální mobilní sniper bot. Viditelné pouze pro omni, zatímco statické a ne palby."
 
-ssl0405_desc="Experimentální těžký robot Artropod"
+ssl0405_desc="Experimentální těžký robot Artropod (Melee)"
 ssl0405_name="Suedath-Zmara."
 Unit_Description_BrewLAN_T4L005="Masivní experimentální bot. Vybaven předními cefalickými thau děla, nadřízenými hřbetními Sinn Unthe Cannons, ventrální Uall Cavitační torpédo zbraně a carapace namontované olaris Anti-Air Cannons. Uvádí možnost rozšířit vertikálně pro zvýšení rozsahu zbraně a plavat, aby se zapojila povrchové námořní plavidlo, s výkonem ukončit téměř jakýkoliv cíl."

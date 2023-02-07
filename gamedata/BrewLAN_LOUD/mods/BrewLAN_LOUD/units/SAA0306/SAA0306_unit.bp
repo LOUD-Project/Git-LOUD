@@ -143,7 +143,7 @@ UnitBlueprint {
         RegenRate = 24,
     },
 	
-    Description = '<LOC xea0306_desc>Experimental Air Transport',
+    Description = '<LOC saa0306_desc>Experimental Air Transport (Transport)',
 	
     Display = {
         Abilities = {

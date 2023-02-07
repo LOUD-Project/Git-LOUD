@@ -79,7 +79,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 383.3,
     },
 	
-    Description = '<LOC sal0401>Experimental Mobile Artillery Hover',
+    Description = '<LOC sal0401>Experimental Mobile Artillery Hover (Artillery)',
 	
     Display = {
 	

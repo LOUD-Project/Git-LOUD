@@ -68,7 +68,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 55,
     },
 	
-    Description = '<LOC xss0403_desc>Experimental Medium AA Cruiser',
+    Description = '<LOC xss0403_desc>Experimental Medium AA Cruiser (Cruiser/Support)',
 	
     Display = {
 	

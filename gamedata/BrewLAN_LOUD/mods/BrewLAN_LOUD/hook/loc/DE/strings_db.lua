@@ -243,6 +243,7 @@ ssa0305_name="Vulthuum"
 Unit_Description_BrewLAN_T3A001="Schweres Kanonenboot. Mit starken Phasenautokannonen und Kurzstreckenluftabwehr ausgerüstet."
 
 sair0306="Schwerer Lufttransporter"
+saa0306_desc="Experimentelle Luft Transportieren (Transportieren)"
 saa0306_name="Solaris"
 sra0306_name="Night Skimmer"
 ssa0306_name="Vishuum"
@@ -488,12 +489,12 @@ Unit_Description_BrewLAN_T3L023="Mobile Plattform für die Betankung und Reparat
 -- Experimentals
 --------------------------------------------------------------------------------
 
-ssl0403_desc="Experimenteller Rekonstruktionstechniker "
+ssl0403_desc="Experimenteller Rekonstruktionstechniker (Technologie Reclaimer)"
 ssl0403_name="Iyadesu"
 Unit_Description_BrewLAN_T4L001="Experimentelle amphibische Bau- , Reparatur- , Übernahme- , Zurückgewinnungs- , und Minnenleger-Einheit. Ausgestattet mit mittlerer Bewaffnung und Verteidigung. Kann Spezialsusrüstung bauen."
 ssa00001_desc="Drohne"
 
-sea0401_desc="Experimentelles Luftabwehr Kanonenboot"
+sea0401_desc="Experimentelles Luftabwehr Kanonenboot (Kanonenschiff)"
 sea0401_name="AC-500 Centurion"
 Unit_Description_BrewLAN_T4A001="Experimentelles Kanonenboot mit beträchtlicher Luftabwehr-Bewaffnung. Am effektivsten gegen feindliche Kanonenboote."
 
@@ -510,7 +511,7 @@ srs0401="Experimentelles Schlachtschiff"
 srs0401_name="Abyssal Prosecutor"
 Unit_Description_BrewLAN_T4S001="Experimentelles, amphibisches Schlachtschiff."
 
-srs0402_desc="Experimenteller Transporter"
+srs0402_desc="Experimenteller Transporter (Transporter)"
 srs0402_name="Abyss Crawler"
 Unit_Description_BrewLAN_T4L003="Experimenteller, amphibischer Transport. Bewegt sich schneller unter Wasser. Ausgestattet mit leichten Allzweckwaffen. Transportieren kann bis zu 216 Kleiner Haken, 108 Mittlerer Haken oder 54 Große Haken Einheiten."
 
@@ -518,7 +519,7 @@ seb0401="Experimentelle Fabrik"
 seb0401_name="Gantry"
 Unit_Description_BrewLAN_T4B004="Experimentelle, Multifunktions-Fabrik. Ändert abhängig von der Umgebung dynamisch die produzierbaren Einheiten. Kann Lufteinheiten in jeder Umgebung bauen."
 
-sal0401="Experimenteller Belagerungspanzer"
+sal0401="Experimenteller Belagerungspanzer (Artillerie)"
 sal0401_name="Absolution"
 Unit_Description_BrewLAN_T4L002="Experimenteller schwebender Belagerungspanzer. Bewaffnet mit einer leistungsfähigen Oblivion-Kanone und taktischer Raketenabwehr."
 
@@ -585,11 +586,11 @@ seb2401_desc="Experimentelle Punktverteidigung"
 seb2401_name="Excalibur"
 Unit_Description_BrewLAN_T4B012="Experimentelles Verteidigungs Gebäude. Verbraucht große Mengen an Energie mit jedem Schuss."
 
-ssl0404_desc="Experimenteller Scharfschützenbot"
+ssl0404_desc="Experimenteller Scharfschützenbot (Heckenschütze)"
 ssl0404_name="Sisha-Ah"
 Unit_Description_BrewLAN_T4L004="Experimenteller Scharfschützen-Bot. Im Stillstand nur für Omni sichtbar, wenn er nicht feuert."
 
-ssl0405_desc="Experimenteller schwerer Gliederfüssler"
+ssl0405_desc="Experimenteller schwerer Gliederfüssler (Nahkampf)"
 ssl0405_name="Suedath-Zmara"
 Unit_Description_BrewLAN_T4L005="Massiver experimenteller Bot.
 Ausgestattet mit frontal angebrachten Thau Kanonen, am Rücken angebrachten Sinn-Uall Kavitationstorpedos und am Panzer montierten Olaris Flugabwehrgeschützen. 

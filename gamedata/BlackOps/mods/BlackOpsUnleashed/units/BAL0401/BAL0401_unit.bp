@@ -85,7 +85,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 552.1,
     },
 	
-    Description = '<LOC bal0401_desc>Experimental Heavy Siege Bot',
+    Description = '<LOC bal0401_desc>Experimental Heavy Siege Bot (Siege)',
 	
     Display = {
         Abilities = {

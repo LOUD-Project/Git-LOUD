@@ -1,5 +1,5 @@
 UnitBlueprint{
-    Description = "Experimental Heavy Assault Bot",
+    Description = "<LOC wal0401_desc>Experimental Heavy Assault Bot (Brawler)",
     AI = {
         TargetBones = {
             "NewHead",
@@ -140,7 +140,7 @@ UnitBlueprint{
         },
         FactionName = "Aeon",
         Icon = "amph",
-        UnitName = "Universal Colossus",
+        UnitName = "<LOC wal0401_name>Universal Colossus",
     },
     Intel = {
         FreeIntel = true,
