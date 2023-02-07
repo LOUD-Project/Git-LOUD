@@ -129,7 +129,7 @@ UnitBlueprint {
 
     },
 	
-    Description = '<LOC uel0401_desc>Experimental Heavy Mobile Artillery Platform',
+    Description = '<LOC uel0401_desc>Experimental Heavy Mobile Artillery Platform (Support)',
 	
     Display = {
         Abilities = {

@@ -107,7 +107,7 @@ UnitBlueprint {
         SubThreatLevel = 52,
     },
 	
-    Description = '<LOC ues0401_desc>Experimental Aircraft Carrier',
+    Description = '<LOC ues0401_desc>Experimental Aircraft Carrier (Support)',
 	
     Display = {
         AINames = {
