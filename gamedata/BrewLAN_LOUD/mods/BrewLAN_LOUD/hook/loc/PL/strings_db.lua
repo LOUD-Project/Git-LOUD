@@ -243,6 +243,7 @@ ssa0305_name="Vulthuum."
 Unit_Description_BrewLAN_T3A001="Ciężki strzał. Uzbrojony w fazowe automatyczne pistolety i potężny, ale krótki zakres broni AA."
 
 sair0306="Ciężki transporter lotniczy"
+saa0306_desc="Eksperymentalny Transport Lotniczy (Transport)"
 saa0306_name="Solaris."
 sra0306_name="Nocny skimer."
 ssa0306_name="Vishuum."
@@ -488,12 +489,12 @@ Unit_Description_BrewLAN_T3L023="Mobilna platforma do tankowania i naprawy samol
 -- Eksperymentalne
 ----------------------------------------------------------------------------------
 
-ssl0403_desc="Eksperymentalny inżynier rekonstrukcji"
+ssl0403_desc="Eksperymentalny inżynier rekonstrukcji (Odzyskiwacz Technologia)"
 ssl0403_name="Iyadeu."
 Unit_Description_BrewLAN_T4L001="Eksperymentalna naprawa, wychwytywanie i rekultywacja. Zyskuje plany jednostek i wraków, odzyskając je. Może przechowywać tylko 8 plantów na raz."
 ssa00001_desc="Warkot"
 
-sea0401_desc="Eksperymentalny Gunship."
+sea0401_desc="Eksperymentalny Gunship (Pistoletstatek)"
 sea0401_name="AC-500 Centurion"
 Unit_Description_BrewLAN_T4A001="Eksperymentalny strój z rozbudowanymi możliwościami przeciwpowszechniania. Najskuteczniejsze w stosunku do innych strzałów."
 
@@ -510,7 +511,7 @@ srs0401="Pancernik eksperymentalny"
 srs0401_name="OBSSALNY Przesuser."
 Unit_Description_BrewLAN_T4S001="Eksperymentalny pancernik amfibii."
 
-srs0402_desc="Transport eksperymentalny"
+srs0402_desc="Transport eksperymentalny (Transport)"
 srs0402_name="Atyss Crawler."
 Unit_Description_BrewLAN_T4L003="Eksperymentalny transport amfibii. Podróże szybsze pod wodą. Wyposażony w umiarkowane bronie ogólnego przeznaczenia. Może transportować do 216 małych hak, 108 średnich hak lub 54 dużych jednostek hak."
 
@@ -518,7 +519,7 @@ seb0401="Eksperymentalna fabryka"
 seb0401_name="Suwnica"
 Unit_Description_BrewLAN_T4B004="Eksperymentalna fabryka wielofunkcyjnych. Dynamicznie zmienia jednostki budowlane oparte na środowisku. Może być przełączony, aby zbudować samolot w każdym środowisku."
 
-sal0401="Eksperymentalny zbiornik oblężenia"
+sal0401="Eksperymentalny zbiornik oblężenia (Artyleria)"
 sal0401_name="Rozgrzeszenie"
 Unit_Description_BrewLAN_T4L002="Eksperymentalny unoszący się zbiornik szturmowy. Wyposażony w potężne armaty zapomnienia i taktyczne obrony rakietowe."
 
@@ -585,10 +586,10 @@ seb2401_desc="Obrona eksperymentalna"
 seb2401_name="Excalibur."
 Unit_Description_BrewLAN_T4B012="Eksperymentalny budynek obronny. Zużywa duże ilości mocy z każdym strzałem."
 
-ssl0404_desc="Eksperymentalny bot snajperski"
+ssl0404_desc="Eksperymentalny bot snajperski (Snajper)"
 ssl0404_name="Sisha-ah."
 Unit_Description_BrewLAN_T4L004="Eksperymentalny mobilny bot snajperski. Widoczne dla Omni podczas statycznego i nie strzelające."
 
-ssl0405_desc="Eksperymentalny ciężki robot stawonogi"
+ssl0405_desc="Eksperymentalny ciężki robot stawonogi (Walka w zwarciu)"
 ssl0405_name="Suedath-Zmara."
 Unit_Description_BrewLAN_T4L005="Masywny bot eksperymentalny. Wyposażony w przedni Cepaliczne armaty Thau, Superior Dorsal Sinn Unhe Cannons, Ventral Uall Cavitation Torpedo broń i Carapace Monted Olaris Anti-Air Busany. Posiada zdolność rozszerzenia pionowo dla zwiększenia zakresu broni i pływać, aby zaangażować jednostkę morską powierzchniową, z mocą, aby zakończyć niemal każdy cel."

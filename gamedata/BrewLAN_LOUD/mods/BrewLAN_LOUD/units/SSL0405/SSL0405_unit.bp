@@ -64,7 +64,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 368,
     },
     
-    Description = '<LOC ssl0405_desc>Experimental Ultra Heavy Arthrobot',
+    Description = '<LOC ssl0405_desc>Experimental Ultra Heavy Arthrobot (Melee)',
     
     Display = {
         Abilities = {

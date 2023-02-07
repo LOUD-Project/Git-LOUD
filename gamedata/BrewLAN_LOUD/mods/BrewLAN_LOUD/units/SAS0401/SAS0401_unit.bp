@@ -90,7 +90,7 @@ UnitBlueprint {
         },
     },
     
-    Description = '<LOC sas0401_desc>Experimental Light Battlecruiser',
+    Description = '<LOC sas0401_desc>Experimental Light Battlecruiser (Bombardment)',
     
     Display = {
         Abilities = {

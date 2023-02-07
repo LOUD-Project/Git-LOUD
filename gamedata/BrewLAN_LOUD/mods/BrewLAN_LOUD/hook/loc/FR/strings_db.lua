@@ -243,6 +243,7 @@ ssa0305_name="Vulthum"
 Unit_Description_BrewLAN_T3A001="Vaisseau de combat lourd. Armé de canons phasiques automatiques et d'un armement anti-aérien puissant mais de courte portée."
 
 sair0306="Transport aérien lourd"
+saa0306_desc="Transport Aérien Expérimental (Transport)"
 saa0306_name="Solaris"
 sra0306_name="Écumeur"
 ssa0306_name="Vishuum"
@@ -488,12 +489,12 @@ Unit_Description_BrewLAN_T3L023="Plate-forme mobile pour le ravitaillement et la
 -- Experimentals
 --------------------------------------------------------------------------------
 
-ssl0403_desc="Ingénieur expérimental"
+ssl0403_desc="Ingénieur expérimental (Récupérateur Technologie)"
 ssl0403_name="Iyadesu"
 Unit_Description_BrewLAN_T4L001="Unité amphibie expérimentale, reconstruit, répare et capture. Possède des capacités d'attaque et de défenses moyennes."
 ssa00001_desc="Drone"
 
-sea0401_desc="Vaisseau de combat anti-aérien expérimental"
+sea0401_desc="Vaisseau de combat anti-aérien expérimental (pistoletnavire)"
 sea0401_name="AC-500 Centurion"
 Unit_Description_BrewLAN_T4A001="Vaisseau de combat anti-aérien expérimental possédant une très bonne capacité anti-aérienne. Efficace contre les autres vaisseaux de combat."
 
@@ -510,7 +511,7 @@ srs0401="Navire de combat expérimental"
 srs0401_name="Persécuteur abyssal"
 Unit_Description_BrewLAN_T4S001="Navire de combat expérimental amphibie."
 
-srs0402_desc="Transport expérimental"
+srs0402_desc="Transport expérimental (Transport)"
 srs0402_name="Rampeur des Abysses"
 Unit_Description_BrewLAN_T4L003="Transport amphibie expérimental. Voyage sous l'eau plus rapidement. Équipé d'armes à puissance modéré. Peut transporter jusqu'à 216 Petit crochet, 108 Crochet moyen ou 54 Grand crochet unités."
 
@@ -518,7 +519,7 @@ seb0401="Usine Expérimentale"
 seb0401_name="Portique"
 Unit_Description_BrewLAN_T4B004="Usine Expérimentale. Peut construire toutes les unités."
 
-sal0401="Char de combat expérimental"
+sal0401="Char de combat expérimental (Artillerie)"
 sal0401_name="Absolution"
 Unit_Description_BrewLAN_T4L002="Char de combat expérimental de type hovercraft. Équipé d'un puissant canon oblivion et de défenses anti-missiles tactiques."
 
@@ -585,10 +586,10 @@ seb2401_desc="Tourelle de défense expérimentale"
 seb2401_name="Excalibur"
 Unit_Description_BrewLAN_T4B012="Bâtiment défensif expérimental. Consomme de grandes quantités de puissance à chaque tir."
 
-ssl0404_desc="Robot Sniper expérimental"
+ssl0404_desc="Robot Tireur d'élite expérimental (Tireur d'élite)"
 ssl0404_name="Sisha-Ah"
 Unit_Description_BrewLAN_T4L004="Robot Sniper mobile expérimental. Uniquement visible de l'OMNI en position statique et non mise à feu."
 
-ssl0405_desc="Robot Arthropode Experimental"
+ssl0405_desc="Robot Arthropode Experimental (Mêlée)"
 ssl0405_name="Suedath-Zmara"
 Unit_Description_BrewLAN_T4L005="Robot experimental titanesque. Equipé avec des canons Thau antérieurs, des canons Sinn Unthe dorsaux, des torpilles ventrales Uall à cavitation, et des canons AA de type Olaris montés sur la carapace. A la capacité de se surélever pour obtenir une meilleure portée, et de nager pour engager les navires ennemis, avec une puissance de feu venant à bout de n'importe quelle cible."

@@ -243,6 +243,7 @@ ssa0305_name="uventhuum"
 Unit_Description_BrewLAN_T3A001="重大武装直升机。武装镜头自动枪和强大但短程AA武器。"
 
 sair0306="重型空中運輸機"
+saa0306_desc="实验航空运输（运输)"
 saa0306_name="索拉里斯"
 sra0306_name="夜间撇渣器"
 ssa0306_name="vishuum."
@@ -488,12 +489,12 @@ Unit_Description_BrewLAN_T3L023="加油和修理飞机的移动平台。空中�
 -- 实验
 ----------------------------------------------------------------------------
 
-ssl0403_desc="实验重建工程师"
+ssl0403_desc="实验重建工程师 (技术 取料机)"
 ssl0403_name="Iyadeu."
 Unit_Description_BrewLAN_T4L001="实验两栖修复，捕获和填海单位。通过回收它们来获得单位和残骸的蓝图。只能一次存储8个蓝图。"
 ssa00001_desc="无人机"
 
-sea0401_desc="实验AA武装船"
+sea0401_desc="实验AA武装船 (武装直升机)"
 sea0401_name="AC-500 Centurion"
 Unit_Description_BrewLAN_T4A001="具有广泛防空能力的实验武装。对其他武装线最有效。"
 
@@ -510,7 +511,7 @@ srs0401="实验战舰"
 srs0401_name="深渊迫害者"
 Unit_Description_BrewLAN_T4S001="实验两栖战舰。"
 
-srs0402_desc="实验运输"
+srs0402_desc="实验运输 (运输)"
 srs0402_name="深渊爬行者"
 Unit_Description_BrewLAN_T4L003="实验两栖运输。在水下更快地旅行。配备中功率的通用武器。最多可运输 216 个小吊钩、108 个中型吊钩或 54 个大吊钩单元。"
 
@@ -518,7 +519,7 @@ seb0401="实验工厂"
 seb0401_name="龙门"
 Unit_Description_BrewLAN_T4B004="实验多用途工厂。动态改变基于环境的可扩展单位。可以在任何环境中切换到建造飞机。"
 
-sal0401="实验围攻坦克"
+sal0401="实验围攻坦克 (炮兵)"
 sal0401_name="散发"
 Unit_Description_BrewLAN_T4L002="实验悬停围攻突击箱。配备强大的遗忘炮和战术导弹防御。"
 
@@ -585,10 +586,10 @@ seb2401_desc="实验点防御"
 seb2401_name="Excalibur."
 Unit_Description_BrewLAN_T4B012="实验防御建筑。每次镜头消耗大量的功率。"
 
-ssl0404_desc="实验狙击机Bot."
+ssl0404_desc="实验狙击机Bot (狙击手)"
 ssl0404_name="Sisha-啊"
 Unit_Description_BrewLAN_T4L004="实验移动狙击机Bot。只有Omni在静态而非射击时才可见。"
 
-ssl0405_desc="实验性重症节肢动物机器人"
+ssl0405_desc="实验性重症节肢动物机器人 (混战)"
 ssl0405_name="Suedath-Zmara."
 Unit_Description_BrewLAN_T4L005="巨大的实验机器人。配备前尖头丘大炮，高级背侧南·南方大炮，腹侧孔空化鱼雷武器，甲壳戴上奥尔丽莎防空炮。具有垂直延伸的能力，以增加武器范围，并游泳以接合地面海军工艺，电源几乎可以终止任何目标。"

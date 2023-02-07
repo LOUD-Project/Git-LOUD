@@ -243,6 +243,7 @@ ssa0305_name="Vultorio"
 Unit_Description_BrewLAN_T3A001="Guadismo pesado. Armado con armas de auto fásicas y armas de AA potentes pero cortas."
 
 sair0306="Transporte aéreo pesado"
+saa0306_desc="Transporte Aéreo Experimental (Transporte)"
 saa0306_name="Solaris"
 sra0306_name="Night Skimmer"
 ssa0306_name="Vishuum"
@@ -488,12 +489,12 @@ Unit_Description_BrewLAN_T3L023="Plataforma móvil para repostar y reparar avion
 -- Experimentales
 ----------------------------------------------------------------------------------
 
-ssl0403_desc="Ingeniero de Reconstrucción Experimental"
+ssl0403_desc="Ingeniero de Reconstrucción Experimental (Recuperador Tecnología)"
 ssl0403_name="Iyadesu"
 Unit_Description_BrewLAN_T4L001="Reparación, captura y reclamación anfibios experimentales. Gana los planos de unidades y restos al reclamarlos. Solo puede almacenar 8 planos a la vez."
 ssa00001_desc="Zumbido"
 
-sea0401_desc="AUSHIPE AUENTIMENTAL AA"
+sea0401_desc="AUSHIPE AUENTIMENTAL AA (pistolabarco)"
 sea0401_name="Centurión AC-500"
 Unit_Description_BrewLAN_T4A001="Guaship experimental con extensas capacidades antirreares. Más efectivo contra otros brazos."
 
@@ -510,7 +511,7 @@ srs0401="Acorazado experimental"
 srs0401_name="Perseguidor abisal"
 Unit_Description_BrewLAN_T4S001="Acorazado anfibio experimental."
 
-srs0402_desc="Transporte experimental"
+srs0402_desc="Transporte experimental (Transporte)"
 srs0402_name="ABYS CRAWLER"
 Unit_Description_BrewLAN_T4L003="Transporte anfibio experimental. Viaja más rápido bajo el agua. Equipado con armas de uso general de potencia moderada. Puede transportar hasta 216 Gancho pequeño, 108 Anzuelo mediano o 54 gancho grande unidades."
 
@@ -518,7 +519,7 @@ seb0401="Fábrica experimental"
 seb0401_name="Portal"
 Unit_Description_BrewLAN_T4B004="Fábrica experimental multiusos. Cambia dinámicamente unidades edificables basadas en el entorno. Se puede alternar para construir aviones en cualquier entorno."
 
-sal0401="Tanque de asedio experimental"
+sal0401="Tanque de asedio experimental (Artillería)"
 sal0401_name="Absolución"
 Unit_Description_BrewLAN_T4L002="Tanque experimental de asalto de asedio. Equipado con un poderoso olvido de los cañones y las defensas de misiles tácticos."
 
@@ -585,10 +586,10 @@ seb2401_desc="Punto de defensa experimental"
 seb2401_name="Excefurio"
 Unit_Description_BrewLAN_T4B012="Edificio de defensa experimental. Consume grandes cantidades de poder con cada disparo."
 
-ssl0404_desc="Experimental Sniper Bot"
+ssl0404_desc="Bot Francotirador Experimental (Francotirador)"
 ssl0404_name="Sisha-ah"
 Unit_Description_BrewLAN_T4L004="Experimental Mobile Sniper Bot. Solo visible para Omni mientras estático y no disparando."
 
-ssl0405_desc="Robot de artrópodos experimentales pesados"
+ssl0405_desc="Robot de artrópodos experimentales pesados (Pelea confusa)"
 ssl0405_name="Suedath-zmara"
 Unit_Description_BrewLAN_T4L005="Bot experimental masivo. Equipado con cañones de Thau Cephálicos anteriores, SINN DE DORSAL SUPERIOR UNBLOS CANNONES, ARMAS DE TORPEDO DE CAVICIÓN DE LA CAVITACIÓN OLARRAL Y CABALLO DE LA CAVAJE DE LA CAVACIÓN VENTAL Y EL CAPÍTULO MONTAJE DE LA CAPÍA DE CANNONES ANTI-AIER. Cuenta con la capacidad de extenderse verticalmente para aumentar el rango de armas, y nadar para enganchar la nave naval de la superficie, con el poder de terminar casi cualquier objetivo."

@@ -243,6 +243,7 @@ ssa0305_name="Vulthuum"
 Unit_Description_BrewLAN_T3A001="Heavy gunship. Armed with Phasic auto-guns and powerful but short range AA weapons."
 
 sair0306="Heavy Air Transport"
+saa0306_desc="Experimental Air Transport (Transport)"
 saa0306_name="Solaris"
 sra0306_name="Night Skimmer"
 ssa0306_name="Vishuum"
@@ -488,12 +489,12 @@ Unit_Description_BrewLAN_T3L023="Mobile platform for refueling and repairing air
 -- Experimentals
 --------------------------------------------------------------------------------
 
-ssl0403_desc="Experimental Reconstruction Engineer"
+ssl0403_desc="Experimental Reconstruction Engineer (Technology Reclaimer)"
 ssl0403_name="Iyadesu"
 Unit_Description_BrewLAN_T4L001="Experimental amphibious repair, capture, and reclamation unit. Gains the blueprints of units and wreckages by reclaiming them. Can only store 8 blueprints at a time."
 ssa00001_desc="Drone"
 
-sea0401_desc="Experimental AA Gunship"
+sea0401_desc="Experimental AA Gunship (Gunship)"
 sea0401_name="AC-500 Centurion"
 Unit_Description_BrewLAN_T4A001="Experimental gunship with extensive anti-air capabilities. Most effective against other gunships."
 
@@ -510,7 +511,7 @@ srs0401="Experimental Battleship"
 srs0401_name="Abyssal Persecutor"
 Unit_Description_BrewLAN_T4S001="Experimental amphibious battleship."
 
-srs0402_desc="Experimental Transport"
+srs0402_desc="Experimental Transport (Transport)"
 srs0402_name="Abyss Crawler"
 Unit_Description_BrewLAN_T4L003="Experimental amphibious transport. Travels faster underwater. Equipped with moderate-power general-purpose weapons. Can transport up to 216 Small hook, 108 Medium hook or 54 Large hook units."
 
@@ -518,7 +519,7 @@ seb0401="Experimental Factory"
 seb0401_name="Gantry"
 Unit_Description_BrewLAN_T4B004="Experimental multi-purpose factory. Dynamically changes buildable units based on environment. Can be toggled to build aircraft in any environment."
 
-sal0401="Experimental Siege Tank"
+sal0401="Experimental Siege Tank (Artillery)"
 sal0401_name="Absolution"
 Unit_Description_BrewLAN_T4L002="Experimental hovering siege assault tank. Equipped with a powerful oblivion cannon and tactical missile defenses."
 
@@ -585,10 +586,10 @@ seb2401_desc="Experimental Point Defence"
 seb2401_name="Excalibur"
 Unit_Description_BrewLAN_T4B012="Experimental defensive building. Consumes large amounts of power with each shot."
 
-ssl0404_desc="Experimental Sniper Bot"
+ssl0404_desc="Experimental Sniper Bot (Sniper)"
 ssl0404_name="Sisha-Ah"
 Unit_Description_BrewLAN_T4L004="Experimental mobile sniper bot. Only visible to omni while static and not firing."
 
-ssl0405_desc="Experimental Heavy Arthrobot"
+ssl0405_desc="Experimental Heavy Arthrobot (Melee)"
 ssl0405_name="Suedath-Zmara"
 Unit_Description_BrewLAN_T4L005="Massive experimental bot. Equipped with anterior cephalic Thau cannons, superior dorsal Sinn Unthe cannons, ventral Uall Cavitation torpedo weapons, and carapace mounted Olaris anti-air cannons. Features the ability to extend vertically for increased weapon range, and to swim to engage surface naval craft, with the power to terminate almost any target."

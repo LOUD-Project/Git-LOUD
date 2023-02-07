@@ -139,7 +139,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 30,
     },
 
-    Description = '<LOC sea0401>Experimental Medium AA Gunship',
+    Description = '<LOC sea0401>Experimental Medium AA Gunship (Gunship)',
 
     Display = {
         Abilities = {
