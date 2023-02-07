@@ -143,7 +143,7 @@ UnitBlueprint {
 		
     },
 	
-    Description = '<LOC xsa0402_desc>Experimental Heavy Bomber',
+    Description = '<LOC xsa0402_desc>Experimental Heavy Bomber (Bomber)',
 	
     Display = {
 	

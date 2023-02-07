@@ -76,7 +76,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 43,
     },
 	
-    Description = '<LOC srs0402_desc>Experimental Transport',
+    Description = '<LOC srs0402_desc>Experimental Transport (Transport)',
 	
     Display = {
 	

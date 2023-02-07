@@ -121,7 +121,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 149,
     },
 	
-    Description = '<LOC ura0401_desc>Experimental Heavy Gunship',
+    Description = '<LOC ura0401_desc>Experimental Heavy Gunship (Raider)',
 	
     Display = {
         Abilities = {

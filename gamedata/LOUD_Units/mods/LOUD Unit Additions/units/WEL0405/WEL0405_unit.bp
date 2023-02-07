@@ -83,7 +83,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 1604.4,
     },
 	
-    Description = '<LOC wel0405_desc>Experimental Ultra Heavy Assault Bot',
+    Description = '<LOC wel0405_desc>Experimental Ultra Heavy Assault Bot (Brawler)',
 	
     Display = {
         Abilities = {

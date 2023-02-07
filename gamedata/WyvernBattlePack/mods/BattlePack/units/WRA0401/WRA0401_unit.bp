@@ -1,5 +1,5 @@
 UnitBlueprint{
-    Description = "Experimental Siege-Assault Gunship",
+    Description = "<LOC wra0401_desc>Experimental Siege-Assault Gunship (Gunship)",
     AI = {
         TargetBones = {
             "WRA0401",
@@ -141,7 +141,7 @@ UnitBlueprint{
         },
         FactionName = "Cybran",
         Icon = "air",
-        UnitName = "Soul Ripper II",
+        UnitName = "<LOC wra0401_name>Soul Ripper II",
     },
     Intel = {
         FreeIntel = true,

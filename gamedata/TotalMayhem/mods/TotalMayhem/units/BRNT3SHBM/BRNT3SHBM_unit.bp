@@ -75,7 +75,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 1265.8,
     },
 	
-    Description = '<LOC brnt3shbm_desc>Experimental Heavy Battle Mech',
+    Description = '<LOC brnt3shbm_desc>Experimental Heavy Battle Mech (Brawler)',
 	
     Display = {
 	
@@ -659,7 +659,7 @@ UnitBlueprint {
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
 			
-            RangeCategory = 'UWRC_Countermeasure',
+            RangeCategory = 'UWRC_IndirectFire',
             
             RateOfFire = 0.2,	-- 400 damage every 5 seconds = 80 dps
 			

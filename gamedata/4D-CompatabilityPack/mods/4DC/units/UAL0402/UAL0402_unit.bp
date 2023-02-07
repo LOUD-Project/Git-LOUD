@@ -1,5 +1,5 @@
 UnitBlueprint{
-    Description = "<LOC ual0402_desc>Experimental Medium Assault Bot",
+    Description = "<LOC ual0402_desc>Experimental Medium Assault Bot (Assault)",
     AI = {
         TargetBones = {
             "Right_Foot",

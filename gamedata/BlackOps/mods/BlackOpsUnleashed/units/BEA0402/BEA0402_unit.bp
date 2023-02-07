@@ -107,7 +107,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 90,
     },
 	
-    Description = '<LOC bea0402_desc>Citadel II Aerial Fortress',
+    Description = '<LOC bea0402_desc>Citadel II Aerial Fortress (Defense)',
 	
     Display = {
         Abilities = {

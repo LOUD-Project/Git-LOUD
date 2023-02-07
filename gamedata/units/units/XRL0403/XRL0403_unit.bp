@@ -95,7 +95,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 776.2,
     },
     
-    Description = '<LOC xrl0403_desc>Experimental Heavy Assault Megabot',
+    Description = '<LOC xrl0403_desc>Experimental Heavy Assault Megabot (Assault)',
     
     Display = {
         Abilities = {

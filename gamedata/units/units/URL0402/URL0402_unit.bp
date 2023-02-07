@@ -97,7 +97,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 657.7,
     },
 	
-    Description = '<LOC url0402_desc>Experimental Medium Spiderbot',
+    Description = '<LOC url0402_desc>Experimental Medium Spiderbot (Raider)',
 	
     Display = {
         Abilities = {

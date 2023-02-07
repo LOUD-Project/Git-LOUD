@@ -97,7 +97,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 1393.5,
     },
 	
-    Description = '<LOC brpexshbm_desc>Experimental Ultra Heavy Artillery Support Bot',
+    Description = '<LOC brpexshbm_desc>Experimental Ultra Heavy Artillery Support Bot (Artillery)',
 	
     Display = {
 	

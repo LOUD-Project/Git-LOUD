@@ -75,7 +75,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 509,
     },
 	
-    Description = '<LOC bsl0401_desc>Experimental Heavy Hover Tank',
+    Description = '<LOC bsl0401_desc>Experimental Heavy Hover Tank (Assault)',
 	
     Display = {
         Abilities = {

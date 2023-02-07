@@ -72,7 +72,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 172.3,
     },
 	
-    Description = '<LOC brpexbtbot_desc>Experimental Light AA Support Mech',
+    Description = '<LOC brpexbtbot_desc>Experimental Light AA Support Mech (Assault/Support)',
 	
     Display = {
 	

@@ -78,7 +78,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 550.8,
     },
 	
-    Description = '<LOC brpexhvbot_desc>Experimental Medium Assault-Support Bot',
+    Description = '<LOC brpexhvbot_desc>Experimental Medium Assault-Support Bot (Assault/Support)',
 	
     Display = {
 	

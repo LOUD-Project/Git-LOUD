@@ -103,7 +103,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 180,
     },
     
-    Description = '<LOC ssl0404_desc>Experimental Light Sniper Bot',
+    Description = '<LOC ssl0404_desc>Experimental Light Sniper Bot (Sniper)',
     
     Display = {
         Abilities = {
