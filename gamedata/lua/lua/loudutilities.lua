@@ -6,8 +6,6 @@
 local AIGetMarkersAroundLocation = import('/lua/ai/aiutilities.lua').AIGetMarkersAroundLocation
 local AIPickEnemyLogic = import('/lua/ai/aiutilities.lua').AIPickEnemyLogic
 
---local PlatoonGenerateSafePathToLOUD = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD
-
 local RandomLocation = import('/lua/ai/aiutilities.lua').RandomLocation
 local SetArmyPoolBuff = import('ai/aiutilities.lua').SetArmyPoolBuff
 
@@ -160,15 +158,11 @@ function BaseInPlayableArea( aiBrain, managerposition )
         local PlayableArea = ScenarioInfo.Playablearea
 
         if managerposition[1] < PlayableArea[1] or managerposition[1] > PlayableArea[3] then
- 
             return false
-            
         end
         
         if managerposition[3] < PlayableArea[2] or managerposition[3] > PlayableArea[4] then
-
             return false
-            
         end
         
     end
@@ -254,7 +248,6 @@ function GetBaseWithGreatestThreatAtDistance( aiBrain, threattype, threatcutoff,
             for _,v in threatTable do
             
                 if v[3] > threatcutoff then
-                
                     threatamount = threatamount + v[3]
                 end
            
@@ -1346,7 +1339,7 @@ function SetPrimaryLandAttackBase( aiBrain )
             -- make this base the Primary
             Primary = Bases[1].BaseName
             
-            LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(Primary).." is now the Primary Land Attack Base - mode LAND is "..repr(currentlandbasemode))
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(Primary).." is now the Primary Land Attack Base - mode LAND is "..repr(currentlandbasemode))
             
             -- set the distance trigger
             currentgoaldistance = Bases[1].Distance
@@ -1399,7 +1392,7 @@ function SetPrimaryLandAttackBase( aiBrain )
                 -- his primary base is connected, by land, to the current goal
                 -- and revert to amphibious building otherwise
                 if aiBrain.BuilderManagers[v.BaseName].LandMode != currentlandbasemode then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(v.BaseName).." switching Land mode to "..repr(currentlandbasemode) )
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(v.BaseName).." switching Land mode to "..repr(currentlandbasemode) )
                 end
                 
                 aiBrain.BuilderManagers[v.BaseName].LandMode = currentlandbasemode
@@ -1410,7 +1403,7 @@ function SetPrimaryLandAttackBase( aiBrain )
             if aiBrain.PrimaryLandAttackBase then
             
                 if aiBrain.BuilderManagers[aiBrain.PrimaryLandAttackBase].LandMode != currentlandbasemode then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(aiBrain.PrimaryLandAttackBase).." PRIMARY - switching Land mode to "..repr(currentlandbasemode) )
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(aiBrain.PrimaryLandAttackBase).." PRIMARY - switching Land mode to "..repr(currentlandbasemode) )
                 end
             
                 aiBrain.BuilderManagers[aiBrain.PrimaryLandAttackBase].LandMode = currentlandbasemode
@@ -4893,9 +4886,9 @@ end
 -- added dynamic ratio between Hi and Low scouting based upon number of points
 function BuildScoutLocations( self )
 
-	LOG("*AI DEBUG "..self.Nickname.." now BuildingScoutLocations ")
+	--LOG("*AI DEBUG "..self.Nickname.." now BuildingScoutLocations ")
 
-    LOG("*AI DEBUG playable map area is "..repr(ScenarioInfo.Playablearea))
+    --LOG("*AI DEBUG playable map area is "..repr(ScenarioInfo.Playablearea))
 	
 	local GetMarker = import('/lua/sim/scenarioutilities.lua').GetMarker
 	local AIGetMarkerLocations = import('/lua/ai/aiutilities.lua').AIGetMarkerLocations
@@ -5082,8 +5075,7 @@ function BuildScoutLocations( self )
     -- low priority missions must be taken before another hi priority
     -- this value can range from 1 to 8
     self.AILowHiScoutRatio =  math.max( 1, math.min( math.floor(LOUDGETN(self.IL.LowPri) / LOUDGETN(self.IL.HiPri)), 8) )
-    
-    --LOG("*AI DEBUG "..self.Nickname.." Low to Hi scout ratio set to "..self.AILowHiScoutRatio)
+
 end
 
 -- This one complements the previous function to remove visible markers from the map 
@@ -5100,7 +5092,8 @@ function PickEnemy( self )
 
     while true do
         AIPickEnemyLogic( self, true)
-        WaitTicks(4800)	-- every 8 minutes
+
+        WaitTicks(4801)	-- every 8 minutes
         
         LOG("*AI DEBUG "..self.Nickname.." reports memory used is "..(gcinfo()*1024) .. " bytes at time "..repr(GetGameTimeSeconds()))
         
@@ -5661,8 +5654,6 @@ function DrawPlanNodes(self)
 end
 
 function AttackPlanMonitor(self)
-
-    --LOG("*AI DEBUG "..self.Nickname.." starting AttackPlanMonitor to "..repr(self.AttackPlan.Goal))
     
     local GetThreatsAroundPosition = GetThreatsAroundPosition
     local CurrentEnemyIndex = self:GetCurrentEnemy():GetArmyIndex()

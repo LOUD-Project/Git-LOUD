@@ -833,22 +833,26 @@ function CDREnhance( self, aiBrain )
 			
 				if not unit:HasEnhancement(v) then
 				
+                    if ScenarioInfo.ACUEnhanceDialog then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." CDREnhance waiting to start "..repr(v) )
+                    end
+				
 					repeat
-					
-						WaitTicks(10)
-						
+						WaitTicks(11)
 					until IsIdleState(unit) or unit.Dead
 					
 					if not unit.Dead then
+
 						IssueScript( {unit}, {TaskName = "EnhanceTask", Enhancement = v} )
+
+                        unit.CurrentBuildOrder = 'Enhance'
+                        unit.DesiresAssist = true
+                        unit.IssuedBuildCommand = true
+                        unit.NumAssistees = 3
 					end
 				end
 				
 				local stallcount = 0
-				
-				if ScenarioInfo.ACUEnhanceDialog then
-					LOG("*AI DEBUG "..aiBrain.Nickname.." CDREnhance waiting to start "..repr(v) )
-				end
 				
 				repeat
 				
@@ -859,17 +863,33 @@ function CDREnhance( self, aiBrain )
 				until unit.Dead or IsUnitState(unit,'Enhancing') or stallcount > 10
 
 				if IsUnitState(unit,'Enhancing') then
-				
+                
+                    -- flag will be used to indicate enhancement as well as upgrading
+                    unit.Upgrading = true
+                    
+                    -- yes - we are building ourselves --
+                    unit.UnitBeingBuilt = unit
+
+                    WaitTicks(11)				
+
 					if ScenarioInfo.ACUEnhanceDialog then
-						LOG("*AI DEBUG "..aiBrain.Nickname.." CDREnhance enhancing for "..repr(v) )
+						LOG("*AI DEBUG "..aiBrain.Nickname.." CDREnhance enhancing for "..repr(v).." -- unit "..repr(unit) )
 					end
-				
+
 					repeat
 				
-						WaitTicks(75)
+						WaitTicks(61)
 					
 					until not IsUnitState(unit,'Enhancing') or unit.Dead 
 				end
+                
+                unit.CurrentBuildOrder = false
+                unit.DesiresAssist = false
+                unit.IssuedBuildCommand = false
+                unit.NumAssistees = 1    
+
+                unit.Upgrading = false
+                unit.UnitBeingBuilt = false
 				
 				break
 			else

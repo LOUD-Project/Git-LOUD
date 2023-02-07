@@ -3402,21 +3402,24 @@ Unit = Class(moho.unit_methods) {
             return false	-- as above, to OnWorkFail ?
 			
         end
-		
+
+        -- we seem to do this and then not use most of it ?
+        -- ah - it seems to support the UI and progress bar
         self.WorkItem = tempEnhanceBp
         self.WorkItemBuildCostEnergy = tempEnhanceBp.BuildCostEnergy
-        self.WorkItemBuildCostMass = tempEnhanceBp.BuildCostEnergy
+        self.WorkItemBuildCostMass = tempEnhanceBp.BuildCostMass
         self.WorkItemBuildTime = tempEnhanceBp.BuildTime
         self.WorkProgress = 0
 		
         self:SetActiveConsumptionActive()
-        self:PlayUnitSound('EnhanceStart')
-		
-        self:PlayUnitAmbientSound('EnhanceLoop')
 		
         self:UpdateConsumptionValues()
 		
         self:CreateEnhancementEffects(work)
+
+        self:PlayUnitSound('EnhanceStart')
+		
+        self:PlayUnitAmbientSound('EnhanceLoop')
 		
         LOUDSTATE(self,self.WorkingState)
 		
