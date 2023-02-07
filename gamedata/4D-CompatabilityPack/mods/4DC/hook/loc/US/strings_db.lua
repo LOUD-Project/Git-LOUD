@@ -1,0 +1,6 @@
+ual0402_desc="Experimental Medium Assault Bot (Assault)"
+ual0402_help="Experimental Medium Assault Bot (Assault)"
+ual0402_name="Overlord"
+uel0402_desc="Experimental Light Assault Mech (Assault)"
+uel0402_help="Experimental Light Assault Mech (Assault)"
+uel0402_name="Rampage"
