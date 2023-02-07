@@ -76,7 +76,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 360,
     },
 	
-    Description = '<LOC bes0402_desc>Experimental Battleship',
+    Description = '<LOC bes0402_desc>Experimental Battleship (Battleship)',
 	
     Display = {
         Abilities = {

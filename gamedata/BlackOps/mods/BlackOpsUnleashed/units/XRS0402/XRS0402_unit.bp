@@ -72,7 +72,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 287,
     },
 	
-    Description = '<LOC xrs0402_desc>Experimental Heavy Bombardment Ship',
+    Description = '<LOC xrs0402_desc>Experimental Heavy Bombardment Ship (Bombardment)',
 	
     Display = {
         Abilities = {
