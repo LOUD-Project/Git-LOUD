@@ -66,7 +66,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 478,
     },
 	
-    Description = '<LOC brmt3mcm2_desc>Experimental Heavy Assault Mech',
+    Description = '<LOC brmt3mcm2_desc>Experimental Heavy Assault Mech (Assault)',
 	
     Display = {
         Abilities = {

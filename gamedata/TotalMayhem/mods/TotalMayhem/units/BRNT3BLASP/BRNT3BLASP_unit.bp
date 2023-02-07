@@ -82,7 +82,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 530.2,
     },
 	
-    Description = '<LOC brnt3blasp_desc>Experimental Medium Assault Mech',
+    Description = '<LOC brnt3blasp_desc>Experimental Medium Assault Mech (Assault)',
 	
     Display = {
         Abilities = {
@@ -714,7 +714,7 @@ UnitBlueprint {
 			
             RackSalvoSize = 1,
 			
-            RangeCategory = 'UWRC_Countermeasure',
+            RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 8,		-- 240dps
 	
