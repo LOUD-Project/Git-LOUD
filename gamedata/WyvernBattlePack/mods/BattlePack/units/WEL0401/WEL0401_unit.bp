@@ -1,5 +1,5 @@
 UnitBlueprint{
-    Description = "Experimental Assault Artillery Platform",
+    Description = "<LOC wel0401_desc>Experimental Assault Artillery Platform (Artillery)",
     AI = {
         AttackAngle = 30,
         GuardScanRadius = 50,
@@ -183,7 +183,7 @@ UnitBlueprint{
             },
         },
         ToggleCaps = { RULEUTC_ShieldToggle = true },
-        UnitName = "Wyvern",
+        UnitName = "<LOC wel0401_name>Wyvern",
     },
     Intel = {
         VisionRadius = 35,

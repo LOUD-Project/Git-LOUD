@@ -1,5 +1,5 @@
 UnitBlueprint{
-    Description = "Experimental Regenerative Ultra Heavy Assault Mech",
+    Description = "<LOC wel0416_desc>Experimental Regenerative Ultra Heavy Assault Mech (Brawler)",
     AI = {
         TargetBones = {
             "Head",
@@ -179,7 +179,7 @@ UnitBlueprint{
             },
         },
         ToggleCaps = { RULEUTC_ShieldToggle = true },
-        UnitName = "Dragonite",
+        UnitName = "<LOC wel0416_name>Dragonite",
     },
     Intel = {
         VisionRadius = 42,

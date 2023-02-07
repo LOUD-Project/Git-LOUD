@@ -1,5 +1,5 @@
 UnitBlueprint{
-    Description = "Experimental Heavy Assault Roachbot",
+    Description = "<LOC wrl1466_desc>Experimental Heavy Assault Roachbot (Raider)",
     AI = {
         TargetBones = {
             "RocketPods",
@@ -178,7 +178,7 @@ UnitBlueprint{
         },
         FactionName = "Cybran",
         Icon = "amph",
-        UnitName = "Storm Strider",
+        UnitName = "<LOC wrl1466_name>Storm Strider",
     },
     Intel = {
         FreeIntel = true,

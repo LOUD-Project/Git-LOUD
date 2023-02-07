@@ -1,5 +1,5 @@
 UnitBlueprint{
-    Description = "Experimental Light Assault Bot",
+    Description = "<LOC wal4404_desc>Experimental Light Assault Bot (Assault)",
     AI = {
         GuardScanRadius = 70,
         TargetBones = {
@@ -119,7 +119,7 @@ UnitBlueprint{
         },
         FactionName = "Aeon",
         Icon = "amph",
-        UnitName = "Maruda",
+        UnitName = "<LOC wal4404_name>Maruda",
     },
     Intel = {
         VisionRadius = 35,
