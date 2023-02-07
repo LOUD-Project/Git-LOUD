@@ -104,7 +104,7 @@ Projectile = Class(moho.projectile_methods, Entity) {
         SetHealth( self, self, GetMaxHealth(self))
 	
 		if ScenarioInfo.ProjectileDialog then
-			LOG("*AI DEBUG Projectile OnCreate blueprint is "..repr(bp.BlueprintId))
+			LOG("*AI DEBUG Projectile OnCreate blueprint is "..repr(self.BlueprintId))
 		end
 	
         if bp.Audio.ExistLoop then
@@ -248,19 +248,21 @@ Projectile = Class(moho.projectile_methods, Entity) {
                 return false
             end
         end
-	
-		if bp.DoNotCollideList then
-			for _,v in bp.DoNotCollideList do
+        
+        bp = bp.DoNotCollideList
+    
+		if bp then
+			for _,v in bp do
 				if LOUDENTITY(LOUDPARSE(v), self) then
 					return false
 				end
 			end
 		end
 		
-		bp = ALLBPS[self.BlueprintID]
+		bp = ALLBPS[self.BlueprintID].DoNotCollideList
         
-		if bp.DoNotCollideList then
-			for _,v in bp.DoNotCollideList do
+		if bp then
+			for _,v in bp do
 				if LOUDENTITY(LOUDPARSE(v), other) then
 					return false
 				end
@@ -295,10 +297,12 @@ Projectile = Class(moho.projectile_methods, Entity) {
 		if ScenarioInfo.ProjectileDialog then
 			LOG("*AI DEBUG Projectile OnDestroy for "..repr(self) ) --..' -- '..repr(proj) )
 		end
-	
-		if self.DamageData and not LOUDEMPTY(self.DamageData) then
+
+        local DD = self.DamageData	
+		
+        if DD and not LOUDEMPTY(DD) then
         
-            if self.DamageData.advancedTracking then
+            if DD.advancedTracking then
 		
                 -- from adv missile track and retarget
                 local target = GetTrackingTarget(self)
@@ -306,7 +310,7 @@ Projectile = Class(moho.projectile_methods, Entity) {
                 if target and not target.Dead and self.advancedTrackinglock and target.IncommingDamage then
 		
                     -- reduce the amount of damage incoming to this target
-                    target.IncommingDamage = target.IncommingDamage - self.DamageData.DamageAmount
+                    target.IncommingDamage = target.IncommingDamage - DD.DamageAmount
 			
                     if target.IncommingDamage <= 0 then
                         target.IncommingDamage = nil
@@ -503,20 +507,22 @@ Projectile = Class(moho.projectile_methods, Entity) {
     --  'ProjectileUnderWater'
     OnImpact = function(self, targetType, targetEntity)
     
-        if self.DamageData.DamageAmount then
+        local DD = self.DamageData
+    
+        if DD.DamageAmount then
 
             if targetType == 'Shield' then
 
                 -- LOUD 'marshmallow shield effect' all AOE to 0 on shields
-                if self.DamageData.DamageRadius > 0 then
+                if DD.DamageRadius > 0 then
                     self.DamageData.DamageRadius = nil
                 end
 
                 -- LOUD ShieldMult effect
-                if STRINGSUB(self.DamageData.DamageType, 1, 10) == 'ShieldMult' then
+                if STRINGSUB(DD.DamageType, 1, 10) == 'ShieldMult' then
 
-                    local mult = TONUMBER( STRINGSUB(self.DamageData.DamageType, 11) ) or 1
-                    self.DamageData.DamageAmount = self.DamageData.DamageAmount * mult
+                    local mult = TONUMBER( STRINGSUB(DD.DamageType, 11) ) or 1
+                    self.DamageData.DamageAmount = DD.DamageAmount * mult
 
                 end
             end
@@ -524,18 +530,18 @@ Projectile = Class(moho.projectile_methods, Entity) {
             if ScenarioInfo.ProjectileDialog then
 		
                 LOG("*AI DEBUG Projectile OnImpact targetType is "..repr(targetType))
-                LOG("*AI DEGUG Projectile OnImpact data is "..repr(self.DamageData))
+                LOG("*AI DEGUG Projectile OnImpact data is "..repr(DD))
 			
                 if targetEntity then
                     LOG("*AI DEBUG Projectile Target entity is "..repr(targetEntity.BlueprintID))
                 end
             end
 
-            if self.DamageData.Buffs then
+            if DD.Buffs then
                 self:DoUnitImpactBuffs( GetPosition(self), targetEntity )
             end		
 
-			self:DoDamage( GetLauncher(self) or self, self.DamageData, targetEntity)
+			self:DoDamage( GetLauncher(self) or self, DD, targetEntity)
 		end
 
         local bp = ALLBPS[self.BlueprintID]
@@ -646,9 +652,9 @@ Projectile = Class(moho.projectile_methods, Entity) {
         end
 
         -- Railgun damage drops by 20% per target it collides with
-		if self.DamageData.DamageType == 'Railgun' then
+		if DD.DamageType == 'Railgun' then
 
-			self.DamageData.DamageAmount = self.DamageData.DamageAmount * 0.8
+			DD.DamageAmount = DD.DamageAmount * 0.8
 			
 			bp.Physics.ImpactTimeout = 0.1
 		end
@@ -659,7 +665,7 @@ Projectile = Class(moho.projectile_methods, Entity) {
 			
         else
 
-			if self.DamageData.DamageType != 'Railgun' then
+			if DD.DamageType != 'Railgun' then
 				self:OnImpactDestroy( targetType, targetEntity)
 			end 
         end
@@ -710,12 +716,10 @@ Projectile = Class(moho.projectile_methods, Entity) {
     end,
 
     PassData = function(self, data)
-        --LOG("*AI DEBUG Passing extra data for "..repr(self.BlueprintID).." -- "..repr(data))
         self.Data = data
     end,
 
-	-- modified to carry only active data so any fields which are
-	-- empty won't be created
+	-- modified to carry only active data so any fields which are empty won't be created
     PassDamageData = function(self, damageData)
 
         self.DamageData = { DamageAmount = false, DamageType = 'Normal' }
