@@ -276,8 +276,8 @@ EngineerManager = Class(BuilderManager) {
 					unit.PlatoonHandle = false
 					unit.failedbuilds = unit.failedbuilds + 1
 					
-					if unit.failedbuilds > 20 then
-						unit.failedbuilds = 20
+					if unit.failedbuilds > 14 then
+						unit.failedbuilds = 14
 					end
 					
 					return self:DelayAssignEngineerTask( unit, aiBrain )
@@ -453,7 +453,8 @@ EngineerManager = Class(BuilderManager) {
 
         for _,v in engs do
 		
-            if not v.Dead  and IsUnitState( v, 'Building') then
+            -- the inclusion of Upgrading allows this to pickup units which are enhancing
+            if not v.Dead and IsUnitState( v, 'Building') or v.Upgrading then
             
 				beingBuiltUnit = v.UnitBeingBuilt
 			

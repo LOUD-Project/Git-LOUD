@@ -378,6 +378,40 @@ BuilderGroup {BuilderGroupName = 'Engineer Tasks',
         },
     },    
 
+    -- Assist ACU and SACU Enhancements
+    Builder {BuilderName = 'Assist ACU SACU',
+	
+        PlatoonTemplate = 'EngineerGeneral',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+		PlatoonAIPlan = 'EngineerAssistAI',
+		
+        Priority = 745,
+		
+		InstanceCount = 4,
+		
+		BuilderType = { 'T1','T2','T3','SubCommander' },
+		
+        BuilderConditions = {
+            
+			{ EBC, 'GreaterThanEconStorageCurrent', { 300, 5000 }},
+            
+            { UCBC, 'LocationEngineerNeedsBuildingAssistanceInRange', { 'LocationType', categories.ENGINEER, categories.ENGINEER, 100 }},
+
+        },
+		
+        BuilderData = {
+            Assist = {
+				AssistRange = 120,
+				AssisteeType = 'Engineer',
+				AssisteeCategory = categories.ENGINEER,
+				BeingBuiltCategories = {categories.ENGINEER},
+                Time = 90,
+            },
+        },
+    },
+
     -- when there is nothing else to do assist AIR factories
     Builder {BuilderName = 'Assist Factory AIR',
 	

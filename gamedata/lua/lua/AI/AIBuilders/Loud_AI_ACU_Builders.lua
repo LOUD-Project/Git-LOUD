@@ -993,9 +993,9 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD',
 
 			{ MIBC, 'GreaterThanGameTime', { 210 } }, 
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 2400 }},
 
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.012, 1.02 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 0.9, 25, 1.012, 1.02 }},
         },
 		
         Priority = 850,
@@ -1023,9 +1023,9 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 2400 }},
 
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 60, 1.012, 1.02 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.012, 1.015 }},
         },
 		
         Priority = 10,
@@ -1062,7 +1062,7 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD',
             
 			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
             
-			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }},
+			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.017 }},
         },
 		
         Priority = 10,
@@ -1099,7 +1099,7 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD',
             
 			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
             
-			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }},
+			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
         },
 		
         Priority = 10,
@@ -1118,7 +1118,7 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD',
 		
         BuilderData = {
 			ClearTaskOnComplete = true,
-            Enhancement = { 'EXExperimentalEngineering','EXMaelstromQuantumInstability' },
+            Enhancement = { 'EXMaelstromQuantumInstability','EXExperimentalEngineering' },
         },
 		
     },
@@ -1138,9 +1138,9 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 2400 }},
 
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.0125, 1.025 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.012, 1.015 }},
         },
 		
         Priority = 10,
@@ -1159,7 +1159,7 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD',
 		
         BuilderData = {
 			ClearTaskOnComplete = true,
-            Enhancement = { 'EXAntiMatterCannon','EXClusterMissilePack','EXAdvancedEngineering','ImprovedContainmentBottle' },
+            Enhancement = { 'EXAntiMatterCannon','EXClusterMisslePack','EXAdvancedEngineering','EXImprovedContainmentBottle' },
         },
 		
     },	
@@ -1177,7 +1177,7 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD',
             
 			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
             
-			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }},
+			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.017 }},
         },
 		
         Priority = 10,
@@ -1196,7 +1196,7 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD',
 		
         BuilderData = {
 			ClearTaskOnComplete = true,
-            Enhancement = { 'EXIntelEnhancementT3' },
+            Enhancement = { 'EXPowerBooster','EXClusterMisslesPack','EXIntelEnhancementT3' },
         },
 		
     },	
@@ -1214,7 +1214,7 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD',
             
 			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
             
-			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }},
+			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
         },
 		
         Priority = 10,
@@ -1233,7 +1233,7 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD',
 		
         BuilderData = {
 			ClearTaskOnComplete = true,
-            Enhancement = { 'EXExperimentalEngineering','EXPowerBooster','EXClusterMissilesPack' },
+            Enhancement = { 'EXExperimentalEngineering','EXClusterMissleSalvoPack', },
         },
 		
     },	
@@ -1253,9 +1253,9 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 2400 }},
 
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.0125, 1.025 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.012, 1.015 }},
         },
 		
         Priority = 10,
@@ -1292,7 +1292,7 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD',
             
 			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
             
-			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }},
+			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.017 }},
         },
 		
         Priority = 10,
@@ -1329,7 +1329,7 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD',
             
 			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
             
-			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }},
+			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
         },
 		
         Priority = 10,
@@ -1348,7 +1348,7 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD',
 		
         BuilderData = {
 			ClearTaskOnComplete = true,
-            Enhancement = { 'EXExperimentalEngineering','EXDeviatorField','EXPowerBooster','EXPerimeterOptics' },
+            Enhancement = { 'EXPowerBooster','EXDeviatorField','EXPerimeterOptics','EXExperimentalEngineering' },
         },
 		
     },
@@ -1368,9 +1368,9 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD',
         BuilderConditions = {
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
 
-			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
+			{ EBC, 'GreaterThanEconStorageCurrent', { 150, 2400 }},
 
-			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 2, 75, 1.0125, 1.025 }},
+			{ EBC, 'GreaterThanEconTrendEfficiencyOverTime', { 1.5, 50, 1.012, 1.015 }},
         },
 		
         Priority = 10,
@@ -1389,7 +1389,7 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD',
 		
         BuilderData = {
 			ClearTaskOnComplete = true,
-            Enhancement = { 'EXStormCannon','EXAdvancedEngineering','EXStormCannonII','EXL1Lambda' },
+            Enhancement = { 'EXStormCannon','EXL1Lambda','EXAdvancedEngineering','EXStormCannonII' },
         },
 		
     },	
@@ -1407,7 +1407,7 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD',
             
 			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
             
-			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }},
+			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.017 }},
         },
 		
         Priority = 10,
@@ -1415,7 +1415,7 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD',
 		-- this function turns on the builder 
 		PriorityFunction = function(self, aiBrain, unit)
 			if self.Priority == 10 then
-				if unit:HasEnhancement('EXL1Lambda') then
+				if unit:HasEnhancement('EXStormCannonII') then
 					return 850, false
 				end
 			end
@@ -1444,7 +1444,7 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD',
             
 			{ EBC, 'GreaterThanEconStorageCurrent', { 200, 3000 }},
             
-			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.025 }},
+			{ EBC, 'GreaterThanEconEfficiencyOverTime', { 1.01, 1.02 }},
         },
 		
         Priority = 10,
@@ -1462,7 +1462,7 @@ BuilderGroup {BuilderGroupName = 'BOACU Upgrades LOUD',
 		
         BuilderData = {
 			ClearTaskOnComplete = true,
-            Enhancement = { 'EXExperimentalEngineering','EXStormCannonIII','EXL2Lambda' },
+            Enhancement = { 'EXStormCannonIII','EXL2Lambda','EXExperimentalEngineering' },
         },
 		
     },	
