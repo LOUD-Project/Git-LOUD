@@ -794,9 +794,9 @@ function DisplayResources(bp, time, energy, mass)
 
 	-- Upkeep Group
 	local plusEnergyRate = bp.Economy.ProductionPerSecondEnergy or bp.ProductionPerSecondEnergy
-	local negEnergyRate = bp.Economy.MaintenanceConsumptionPerSecondEnergy or bp.MaintenanceConsumptionPerSecondEnergy
+	local negEnergyRate = bp.Economy.MaintenanceConsumptionPerSecondEnergy or bp.MaintenanceConsumptionPerSecondEnergy or bp.ConsumptionPerSecondEnergy
 	local plusMassRate = bp.Economy.ProductionPerSecondMass or bp.ProductionPerSecondMass
-	local negMassRate = bp.Economy.MaintenanceConsumptionPerSecondMass or bp.MaintenanceConsumptionPerSecondMass
+	local negMassRate = bp.Economy.MaintenanceConsumptionPerSecondMass or bp.MaintenanceConsumptionPerSecondMass or bp.ConsumptionPerSecondMass
 	local upkeepEnergy = GetYield(negEnergyRate, plusEnergyRate)
 	local upkeepMass = GetYield(negMassRate, plusMassRate)
 	local showUpkeep = false
