@@ -174,10 +174,7 @@ Description['esl0001-exbtele'] = "Personal Teleporter \n Installs a back-mounted
 
 Description['esl0001-exbsh1'] = "Lambda Destruction Fields \n Born from a mastery of quantum mechanics, the Lambda system creates 'micro-tears' in the fabric of space around enemy projectiles of any size and funnels them into another plane. \n \n Installs 2 Lambda Destruction Emitters"
 Description['esl0001-exbsh2'] = "Lambda Deflection Fields \n Fine control of the Lambda Field allows enemy projectiles to be redirected, often back towards the source. \n \n Installs 2 Lambda Destruction emitters"
-Description['esl0001-exbsh3'] = ""
-Description['esl0001-exbsh4'] = ""
 
-Description['esl0001-exbint3'] = "Phasic Cloaking Subsystem\nThis is an advanced version of the phasic cloaking systems used by light scouts to monitor enemies. As long as the commander is motionless and not making use of high energy systems such as the personal teleporter or weapon overcharge, the commander should be concealed from both enemy eyes and sensors.\n\nInstalls Phasic Cloaking Subsystems"
-
-Description['esl0001-exbbat1'] = "Improved Combat Armor\nThis general enhancement adds armor and increases the range of the command unit's overcharged cannon shots.\n\n+10000 Health\nOvercharge Range 45\nInstalls Basic Lambda Field Emitter"
-Description['esl0001-exbbat3'] = "Ultimate Combat Systems\nThis upgrade grants additional armor and extends the range of the overcharge cannon significantly.\n\n+20000 Health\nOvercharge Range 60"
+Description['esl0001-exbarmor'] = "Armor Package \n Simply adds framework for upto 7k of additional armor which must then be regenerated to obtain the full value. Mobility is impaired. \n \n +7000 Health \n -4% mobility"
+Description['esl0001-exbstealth'] = "Stealth Field \n Good intel can win the battle; however, so can depriving the enemy of intel. Augments the basic stealth capability of the ACU by mounting a typical radar/sonar stealth field generator. \n \n Installs T3 Radar/Sonar Stealth Field"
+Description['esl0001-exbcloak'] = "Phasic Cloaking Subsystem\nThis is an advanced version of the phasic cloaking systems used by light scouts to monitor enemies. As long as the commander is motionless and not making use of high energy systems such as the personal teleporter or weapon overcharge, the commander should be concealed from both enemy eyes and sensors.\n\nInstalls Phasic Cloaking Subsystems"

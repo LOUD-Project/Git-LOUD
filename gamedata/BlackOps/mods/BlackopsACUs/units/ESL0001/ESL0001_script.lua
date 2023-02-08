@@ -808,7 +808,7 @@ ESL0001 = Class( SWalkingLandUnit ) {
 
     OnScriptBitClear = function(self, bit)
     
-        LOG("*AI DEBUG Script Bit clear "..repr(bit))
+        --LOG("*AI DEBUG Script Bit clear "..repr(bit))
 
         if bit == 3 and self.IntelPackage and not self.IntelPackageOn then    -- Radar
 
@@ -866,7 +866,7 @@ ESL0001 = Class( SWalkingLandUnit ) {
 
         end
         
-        LOG("*AI DEBUG Consumption Table after bit "..bit.." clear is "..repr(self.EnergyConsumption) )
+        --LOG("*AI DEBUG Consumption Table after bit "..bit.." clear is "..repr(self.EnergyConsumption) )
 
         self:SetEnergyMaintenanceConsumptionOverride( self.EnergyConsumption['Total'] )
         
@@ -880,7 +880,7 @@ ESL0001 = Class( SWalkingLandUnit ) {
 
     OnScriptBitSet = function(self, bit)
     
-        LOG("*AI DEBUG Script Bit Set "..repr(bit))
+        --LOG("*AI DEBUG Script Bit Set "..repr(bit))
 
         if bit == 3 and self.IntelPackage and self.IntelPackageOn then
 
@@ -942,7 +942,7 @@ ESL0001 = Class( SWalkingLandUnit ) {
 
         end
         
-        LOG("*AI DEBUG Consumption Table when bit "..bit.." set is "..repr(self.EnergyConsumption) )
+        --LOG("*AI DEBUG Consumption Table when bit "..bit.." set is "..repr(self.EnergyConsumption) )
 
         self:SetEnergyMaintenanceConsumptionOverride( self.EnergyConsumption['Total'] )
         
