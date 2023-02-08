@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "eel0001", --#UEF ACU
+    BlueprintId = "eel0001", --UEF BO ACU
 
     Defense = {
 
@@ -94,9 +94,10 @@ UnitBlueprint {
     },
     
     Weapon = {
-    
+        --Target Designator
+        {},
+        --Zephyr
         {
-			
             Damage = 200,
             DamageRadius = 1,
             DamageType = 'Normal',
@@ -105,15 +106,13 @@ UnitBlueprint {
             MinRadius = 1,
 
             MuzzleVelocity = 45,
-
         },
-        
+        --Overcharge Cannon
         {},
-        
+        --Death Nuke
         {},
-        
+        --Flame Cannon 1
         {
-
             MaxRadius = 25,
             MinRadius = 1,
 
@@ -121,9 +120,8 @@ UnitBlueprint {
 
             RateOfFire = 4,
         },
-        
+        --Flame Cannon 2
         {
-
             Damage = 5,
             DamageRadius = 2,
 
@@ -134,25 +132,20 @@ UnitBlueprint {
 
             RateOfFire = 4,
         },
-        
+        --Torpedo 1
         {
-
             Damage = 500,
 
             MuzzleVelocity = 10,
-
         },
-        
+        --Torpedo 2
         {
-
             Damage = 750,
 
             MuzzleVelocity = 10,
-
         },
-        
+        --Torpedo 3
         {
-
             Damage = 1000,
 
             MaxRadius = 70,
@@ -163,137 +156,113 @@ UnitBlueprint {
             ProjectileLifetime = 8,
 
             RateOfFire = 0.6,
-
         },
-        
+        --Anti-Matter Cannon 1
         {
-
             Damage = 1000,
 
             MaxRadius = 45,
             MinRadius = 1,
-            
+
             RateOfFire = 0.3,
-
         },
-        
+        --Anti-Matter Cannon 2
         {
-
             Damage = 4000,
-            
+
             MaxRadius = 45,
             MinRadius = 1,
 
             RateOfFire = 0.3,
-
         },
-        
+        --Anti-Matter Cannon 3
         {
-
             Damage = 12500,
-            
+
             MaxRadius = 50,
             MinRadius = 1,
 
             RateOfFire = 0.4,
-            
         },
-        
+        --Gatling Cannon 1
         {
-
             Damage = 100,
-            
+
             MaxRadius = 40,
             MinRadius = 1,
-            
-
         },
-        
+        --Gatling Cannon 2
         {
-
             Damage = 550,
-            
+
             MaxRadius = 45,
             MinRadius = 1,
-            
+
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 10,
-
         },
-        
+        --Gatling Cannon 3
         {
-
             Damage = 1200,
-            
+
             MaxRadius = 50,
             MinRadius = 1,
-            
+
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 10,
 
             ProjectileLifetimeUsesMultiplier = 1.5,
-
         },
-        
+        --Tactical Warhead
         {},
-        
+        --Billy Nuke
+        {},
+        --Energy Lance 1
         {
-
             Damage = 80,
 
             MaxRadius = 28,
-            
+
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 3,
-
         },
-        
+        --Energy Lance 2
         {
-
             Damage = 80,
 
             MaxRadius = 28,
-            
+
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 3,
-
         },
-        
+        --Cluster Missiles 1
         {
-
             Damage = 150,
-
         },
-        
+        --Cluster Missiles 2
         {
-
             Damage = 300,
             DamageRadius = 3,
 
             MaxRadius = 100,
             MinRadius = 30,
-            
+
             MuzzleSalvoDelay = 0.4,
 
             RateOfFire = 0.2,
-
         },
-        
+        --Cluster Missiles 3
         {
-
             Damage = 500,
 
             MaxRadius = 100,
             MinRadius = 30,
-            
+
             MuzzleSalvoDelay = 0.3,
 
             RateOfFire = 0.3,
-            
-            TargetCheckInterval = 0.5,
 
+            TargetCheckInterval = 0.5,
         },
-        
-        {},
 	},
 }

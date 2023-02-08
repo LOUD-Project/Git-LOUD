@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "eal0001", --#Aeon ACU
+    BlueprintId = "eal0001", --Aeon BO ACU
 
     Defense = {
 
@@ -96,43 +96,40 @@ UnitBlueprint {
     },
     
     Weapon = {
-    
+        --Target Designator
         {},
-        
+        --Quantum Disruptor
         {
-
             Damage = 100,
             DamageRadius = 1,
             DamageType = 'Normal',
 
             MaxRadius = 35,
             MinRadius = 1,
-            
+
             MuzzleVelocity = 45,
         },
-        
+        --Overcharge Cannon
         {},
-        
+        --Death Nuke
         {},
-        
+        --Chrono Dampener 1
         {
-
             EnergyDrainPerSecond = 200,
             EnergyRequired = 1000,
 
             MaxRadius = 25,
-            
+
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 30,
 
             RateOfFire = 0.5,
+
             TargetCheckInterval = 2,
-
         },
-        
+        --Chrono Dampener 2
         {
-
             EnergyDrainPerSecond = 350,
             EnergyRequired = 1050,
 
@@ -141,64 +138,44 @@ UnitBlueprint {
             MuzzleVelocity = 30,
 
             RateOfFire = 0.5,
+
             TargetCheckInterval = 2,
-
         },
-        
+        --Torpedo 1
         {
-
             Damage = 500,
-
         },
-        
+        --Torpedo 2
         {
-
             Damage = 900,
-
         },
-        
+        --Torpedo 3
         {
-
             Damage = 2000,
-
         },
-        
+        --Miasma Artillery 1
         {
-
             Damage = 200,
-
         },
-        
+        --Miasma Artillery 2
         {
-
             Damage = 500,
-
         },
-        
+        --Miasma Artillery 3
         {
-
             Damage = 750,
-
         },
-        
+        --Phason Laser 1
         {
-
             Damage = 40,
-
         },
-        
+        --Phason Laser 2
         {
-
             Damage = 80,
         },
-        
+        --Phason Laser 3
         {
-
             Damage = 120,
         },
-
-        {},
-
-        {},
     },
 }
