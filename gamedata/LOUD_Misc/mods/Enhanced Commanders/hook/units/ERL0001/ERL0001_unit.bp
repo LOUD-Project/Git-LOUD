@@ -1,8 +1,6 @@
 UnitBlueprint {
-
     Merge = true,
-    
-    BlueprintId = "erl0001", --#Cybran ACU
+    BlueprintId = "erl0001", --Cybran BO ACU
 
     Defense = {
 
@@ -96,18 +94,20 @@ UnitBlueprint {
     },
     
     Weapon = {
-    
+        --Target Designator
+        {},
+        --Molecular Ripper Cannon
         {
             Damage = 100,
             DamageRadius = 1,
-            
+
             MaxRadius = 35,
         },
-		
+		--Overcharge Cannon
         {},
-		
+		--Death Nuke
         {},
-        
+        --Rocket Pack 1
         {
             Damage = 10,
 
@@ -116,7 +116,7 @@ UnitBlueprint {
 
             RateOfFire = 0.3,
         },
-        
+        --Rocket Pack 2
         {
             Damage = 25,
 
@@ -125,13 +125,13 @@ UnitBlueprint {
 
             RateOfFire = 0.2,
         },
-        
+        --Torpedo 1
         {
             Damage = 500,
 
             ProjectileLifetime = 10,
         },
-        
+        --Torpedo 2
         {
             Damage = 900,
 
@@ -139,67 +139,74 @@ UnitBlueprint {
 
             RateOfFire = 0.6,
         },
-        
+        --Torpedo 3
         {
             Damage = 1250,
 
             MaxRadius = 70,
 
             MuzzleVelocity = 8,
+
             ProjectileLifetime = 10,
 
             RateOfFire = 0.7,
         },
-        
+        --EMP Array 1
         {},
-        
+        --EMP Array 2
         {},
-        
+        --EMP Array 3
         {},
-        
+        --EMP Array 4
         {},
-        
+        --These next 3 are the actual damage weapon of the EMP Array
+        --EMP Shot 1
         {
             Damage = 400,
         },
-        
+        --EMP Shot 2
         {
             Damage = 1600,
+
             MaxRadius = 45,
         },
-        
+        --EMP Shot 3
         {
             Damage = 4500,
+
             MaxRadius = 55,
         },
-        
+        --Laser 1 aka Microwave
         {
             Damage = 100,
+
             MaxRadius = 35,
         },
-        
+        --Laser 2 aka Beholder
         {
             Damage = 200,
+
             MaxRadius = 45,
         },
-        
+        --Laser 3 aka Heavy Microwave
         {
             Damage = 500,
+
             MaxRadius = 50,
         },
-        
+        --AA Microwave Laser 1
         {
             Damage = 50,
         },
-        
+        --AA Microwave Laser 2
         {
             Damage = 50,
         },
-        
+        --AA Microwave Laser 3
         {
             Damage = 50,
         },
-        
+        --AA Microwave Laser 4
         {
             Damage = 50,
         },

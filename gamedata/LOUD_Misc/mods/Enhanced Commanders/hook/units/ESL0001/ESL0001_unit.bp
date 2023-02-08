@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "esl0001", --#Seraphim ACU
+    BlueprintId = "esl0001", --Seraphim BO ACU
 
     Defense = {
 
@@ -96,70 +96,87 @@ UnitBlueprint {
     },
     
     Weapon = {
-    
+        --Target Designator
+        {},
+        --Chronotron Cannon
         {
             Damage = 100,
+
             RateOfFire = 4,
         },
-		
+		--Overcharge Cannon
         {},
-        
+        --Death Nuke
         {},
-        
+        --Torpedo 1
         {
             Damage = 500,
+
             RateOfFire = 0.3,
         },
-        
+        --Torpedo 2
         {
             Damage = 800,
+
             MuzzleVelocity = 8,
+
             RateOfFire = 0.4,
         },
-        
+        --Torpedo 3
         {
             Damage = 1000,
+
             MuzzleVelocity = 8,
+
             RateOfFire = 0.5,
         },
-        
+        --Storm Cannon 1
         {
             Damage = 60,
+
             MaxRadius = 40,
         },
-        
+        --Storm Cannon 2
         {
             Damage = 180,
+
             MaxRadius = 50,
+
             RateOfFire = 0.3,
         },
-        
+        --Storm Cannon 3
         {
             Damage = 500,
+
             MaxRadius = 65,
+
             RateOfFire = 0.4,
         },
-        
+        --Gatling Plasma Cannon 1
         {
             Damage = 150,
+
             MaxRadius = 45,
         },
-        
+        --Gatling Plasma Cannon 2
         {
             Damage = 600,
+
             MaxRadius = 55,
         },
-        
+        --Gatling Plasma Cannon 3
         {
             Damage = 1800,
+
             MaxRadius = 65,
+
             RateOfFire = 2,
         },
-        
+        --Olaris AA Artillery Cannon 1
         {
             Damage = 65,
         },
-        
+        --Olaris AA Artillery Cannon 2
         {
             Damage = 65,
         },
