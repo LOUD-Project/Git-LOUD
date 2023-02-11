@@ -130,11 +130,14 @@ UnitBlueprint {
         Abilities = {
             '<LOC ability_amphibious>Amphibious',
             '<LOC ability_customizable>Customizable',
+            '<LOC ability_deathaoe>Volatile',
             '<LOC ability_notcap>Not Capturable',
             '<LOC ability_omni>Omni Sensor',
-            'Radar & Sonar Stealth',
-            'Tactical & Torpedo Defense',
-            '<LOC ability_deathaoe>Volatile',
+            '<LOC ability_personalstealth>Personal Stealth',
+            '<LOC ability_radar>Radar',
+            '<LOC ability_sonar>Sonar',
+            '<LOC ability_tacmissiledef>Tactical Missile Defense',
+            '<LOC ability_torpedodef>Torpedo Defense',
         },
 
         AnimationWalk = '/mods/BlackopsACUs/units/eel0001/eel0001_a001.sca',
@@ -1018,7 +1021,7 @@ UnitBlueprint {
             
             ConsumptionPerSecondEnergy = 2000,
 
-            Name = 'Intel Enhancment (T3)',
+            Name = 'Intel Enhancement (T3)',
 
 			Prerequisite = 'EXIntelEnhancementT2',
 
@@ -1040,7 +1043,7 @@ UnitBlueprint {
 
             Icon = 'excint2',
 
-            Name = 'Remove Intel Enhancment',
+            Name = 'Remove Intel Enhancement',
 
             Prerequisite = 'EXIntelEnhancementT3',
 
@@ -2375,7 +2378,7 @@ UnitBlueprint {
             
             RangeCategory = 'UWRC_DirectFire',
             
-            RateOfFire = 0.3,       -- 390 DPS
+            RateOfFire = 0.3,       -- 390 DPS (should this be 1600 * 0.3 = 480?)
             
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -2465,7 +2468,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_DirectFire',
  
-            RateOfFire = 0.33,       -- 800 DPS
+            RateOfFire = 0.33,       -- 800 DPS (should this be 2500 * 0.33 = 825?)
 
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -3266,7 +3269,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 0.2,       -- 6 x 130 = 780 * .2 = 156 DPS x 3 = 468 DPS
+            RateOfFire = 0.2,       -- 6 x 130 = 780 * .2 = 156 DPS x 3 = 468 DPS (Where does the 3 come from?)
 			
             TargetCheckInterval = 0.1,
 

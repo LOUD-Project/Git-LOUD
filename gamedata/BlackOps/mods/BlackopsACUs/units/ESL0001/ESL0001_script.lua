@@ -1176,7 +1176,7 @@ ESL0001 = Class( SWalkingLandUnit ) {
 			self:ForkThread(self.WeaponRangeReset)
 			self:ForkThread(self.WeaponConfigCheck)
 			
-		elseif enh =='EXChronotonBooster' then
+		elseif enh =='EXChronotronBooster' then
 
             wep = self:GetWeaponByLabel('ChronotronCannon')
             
@@ -1196,7 +1196,7 @@ ESL0001 = Class( SWalkingLandUnit ) {
 
 			self:ShowBone('Basic_Gun_Up', true)
 			
-        elseif enh =='EXChronotonBoosterRemove' then
+        elseif enh =='EXChronotronBoosterRemove' then
 
 			wep = self:GetWeaponByLabel('ChronotronCannon')
             

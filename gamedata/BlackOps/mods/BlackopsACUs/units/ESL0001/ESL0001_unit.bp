@@ -98,10 +98,14 @@ UnitBlueprint {
         Abilities = {
             '<LOC ability_amphibious>Amphibious',
             '<LOC ability_customizable>Customizable',
+            '<LOC ability_deathaoe>Volatile',
             '<LOC ability_notcap>Not Capturable',
             '<LOC ability_omni>Omni Sensor',
-            'Radar & Sonar Stealth',
-            '<LOC ability_deathaoe>Volatile',
+            '<LOC ability_personalstealth>Personal Stealth',
+            '<LOC ability_radar>Radar',
+            '<LOC ability_sonar>Sonar',
+            '<LOC ability_tacmissiledef>Tactical Missile Defense',
+            '<LOC ability_torpedodef>Torpedo Defense',
         },
 
         AnimationWalk = '/mods/BlackopsACUs/units/esl0001/esl0001_awalk.sca',
@@ -564,7 +568,7 @@ UnitBlueprint {
             Slot = 'LCH',
         },
 
-        EXChronotonBooster = {
+        EXChronotronBooster = {
 
             BuildCostEnergy = 7500,
             BuildCostMass = 750,
@@ -572,7 +576,7 @@ UnitBlueprint {
 
             Icon = 'exrzb1',
 
-            Name = 'Jury Rigged Chronoton (T1)',
+            Name = 'Jury Rigged Chronotron (T1)',
 
             Slot = 'RCH',
 
@@ -580,7 +584,7 @@ UnitBlueprint {
             UpgradeUnitAmbientBones = {'Body'},
         },
         
-        EXChronotonBoosterRemove = {
+        EXChronotronBoosterRemove = {
 
             BuildCostEnergy = 1,
             BuildCostMass = 1,
@@ -588,11 +592,11 @@ UnitBlueprint {
 
             Icon = 'exrzb1',
 
-            Name = 'Remove Jury Rigged Chronoton',
+            Name = 'Remove Jury Rigged Chronotron',
 
-            Prerequisite = 'EXChronotonBooster',
+            Prerequisite = 'EXChronotronBooster',
 
-            RemoveEnhancements = {'EXChronotonBooster','EXChronotonBoosterRemove'},
+            RemoveEnhancements = {'EXChronotronBooster','EXChronotronBoosterRemove'},
 
             Slot = 'RCH',
         },
@@ -990,7 +994,7 @@ UnitBlueprint {
             
             ConsumptionPerSecondEnergy = 2000,
 
-            Name = 'Intel Enhancment (T3)',
+            Name = 'Intel Enhancement (T3)',
 
 			Prerequisite = 'EXIntelEnhancementT2',
 
@@ -1012,7 +1016,7 @@ UnitBlueprint {
 
             Icon = 'excint2',
 
-            Name = 'Remove Intel Enhancment',
+            Name = 'Remove Intel Enhancement',
 
             Prerequisite = 'EXIntelEnhancementT3',
 
@@ -1066,7 +1070,7 @@ UnitBlueprint {
 
             Icon = 'exbsh1',
 
-            Name = 'Lambda Destuction Field Emitters (T2+)',
+            Name = 'Lambda Destruction Field Emitters (T2+)',
 
             Slot = 'Back',
 

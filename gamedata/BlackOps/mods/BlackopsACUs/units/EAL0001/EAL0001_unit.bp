@@ -128,11 +128,14 @@ UnitBlueprint {
         Abilities = {
             '<LOC ability_amphibious>Amphibious',
             '<LOC ability_customizable>Customizable',
+            '<LOC ability_deathaoe>Volatile',
             '<LOC ability_notcap>Not Capturable',
             '<LOC ability_omni>Omni Sensor',
-            'Radar & Sonar Stealth',
-            'Tactical & Torpedo Defense',
-            '<LOC ability_deathaoe>Volatile',
+            '<LOC ability_personalstealth>Personal Stealth',
+            '<LOC ability_radar>Radar',
+            '<LOC ability_sonar>Sonar',
+            '<LOC ability_tacmissiledef>Tactical Missile Defense',
+            '<LOC ability_torpedodef>Torpedo Defense',
         },
 		
         AnimationWalk = '/mods/BlackopsACUs/units/eal0001/eal0001_awalk.sca',
@@ -965,7 +968,7 @@ UnitBlueprint {
             
             ConsumptionPerSecondEnergy = 187.5,
 
-            Name = 'Intel Enhancment (T2)',
+            Name = 'Intel Enhancement (T2)',
 
             ShowBones = {'IntelPack_Head'},
 
@@ -985,7 +988,7 @@ UnitBlueprint {
 
             Icon = 'excint1',
 
-            Name = 'Remove Intel Enhancment',
+            Name = 'Remove Intel Enhancement',
 
             Prerequisite = 'EXIntelEnhancement',
 
@@ -1004,7 +1007,7 @@ UnitBlueprint {
             
             ConsumptionPerSecondEnergy = 2000,
 
-            Name = 'Intel Enhancment (T3)',
+            Name = 'Intel Enhancement (T3)',
 
 			Prerequisite = 'EXIntelEnhancementT2',
 
@@ -1026,7 +1029,7 @@ UnitBlueprint {
 
             Icon = 'excint2',
 
-            Name = 'Remove Intel Enhancment',
+            Name = 'Remove Intel Enhancement',
 
             Prerequisite = 'EXIntelEnhancementT3',
 

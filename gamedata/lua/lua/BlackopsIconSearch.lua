@@ -136,7 +136,7 @@ function EXBuildIconReferenceTables()
 			
 			if v.Display.AlternateUpgradeIconPath then
 			
-				-- Tables enhancment icons selected for manual overwrite so the game knows where to check for them
+				-- Tables enhancement icons selected for manual overwrite so the game knows where to check for them
 				EXAltUpgrade = v.BlueprintId
 				EXAltUpgrade = string.upper(EXAltUpgrade)
 				EXUpgradeIconOverwrites[EXAltUpgrade] = v.Display.AlternateUpgradeIconPath

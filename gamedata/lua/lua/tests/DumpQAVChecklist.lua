@@ -113,9 +113,9 @@ function dump(bp, file)
     end
  
     if bp.Enhancements then
----------file:write("  Enhancments:\n")
+---------file:write("  Enhancements:\n")
         for k,v in sortedpairs(bp.Enhancements) do
-            file:write("    ",k,'                                         Enhancement behavior.                                             Selected unit can enable\disable\use enhancment in game.        \n')
+            file:write("    ",k,'                                         Enhancement behavior.                                             Selected unit can enable\disable\use enhancement in game.        \n')
         end  
     end
     if bp.Physics then
