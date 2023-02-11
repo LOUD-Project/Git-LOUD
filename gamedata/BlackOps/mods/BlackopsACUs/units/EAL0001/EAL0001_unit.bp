@@ -128,11 +128,14 @@ UnitBlueprint {
         Abilities = {
             '<LOC ability_amphibious>Amphibious',
             '<LOC ability_customizable>Customizable',
+            '<LOC ability_deathaoe>Volatile',
             '<LOC ability_notcap>Not Capturable',
             '<LOC ability_omni>Omni Sensor',
-            'Radar & Sonar Stealth',
-            'Tactical & Torpedo Defense',
-            '<LOC ability_deathaoe>Volatile',
+            '<LOC ability_personalstealth>Personal Stealth',
+            '<LOC ability_radar>Radar',
+            '<LOC ability_sonar>Sonar',
+            '<LOC ability_tacmissiledef>Tactical Missile Defense',
+            '<LOC ability_torpedodef>Torpedo Defense',
         },
 		
         AnimationWalk = '/mods/BlackopsACUs/units/eal0001/eal0001_awalk.sca',
@@ -965,7 +968,7 @@ UnitBlueprint {
             
             ConsumptionPerSecondEnergy = 187.5,
 
-            Name = 'Intel Enhancment (T2)',
+            Name = 'Intel Enhancement (T2)',
 
             ShowBones = {'IntelPack_Head'},
 
@@ -985,7 +988,7 @@ UnitBlueprint {
 
             Icon = 'excint1',
 
-            Name = 'Remove Intel Enhancment',
+            Name = 'Remove Intel Enhancement',
 
             Prerequisite = 'EXIntelEnhancement',
 
@@ -1004,7 +1007,7 @@ UnitBlueprint {
             
             ConsumptionPerSecondEnergy = 2000,
 
-            Name = 'Intel Enhancment (T3)',
+            Name = 'Intel Enhancement (T3)',
 
 			Prerequisite = 'EXIntelEnhancementT2',
 
@@ -1026,7 +1029,7 @@ UnitBlueprint {
 
             Icon = 'excint2',
 
-            Name = 'Remove Intel Enhancment',
+            Name = 'Remove Intel Enhancement',
 
             Prerequisite = 'EXIntelEnhancementT3',
 
@@ -1803,7 +1806,7 @@ UnitBlueprint {
                     Duration = 2,
                     Radius = 22,
                     TargetAllow = 'MOBILE -AIR',
-                    TargetDisallow = 'EXPERIMENTAL,COMMAND,AIR',
+                    TargetDisallow = 'TECH3,EXPERIMENTAL,COMMAND,AIR',
                 },
             },
 			
@@ -1925,7 +1928,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 190,
+            Damage = 380,
             DamageType = 'Normal',
 			
             DisplayName = 'Chrono Torpedo',
@@ -1939,8 +1942,8 @@ UnitBlueprint {
 			
             MaxRadius = 60,
 			
-            MuzzleSalvoDelay = 0.3,
-            MuzzleSalvoSize = 4,
+            MuzzleSalvoDelay = 0.4,
+            MuzzleSalvoSize = 2,
             MuzzleVelocity = 6,
 			
             ProjectileId = '/projectiles/AANTorpedo01/AANTorpedo01_proj.bp',
@@ -1958,7 +1961,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_AntiNavy',
 			
-            RateOfFire = 0.3,           -- 190 x 4 * .3 = 228 DPS
+            RateOfFire = 0.3,           -- 380 x 2 * .3 = 228 DPS
             
             TargetCheckInterval = 1,
 			
@@ -2187,14 +2190,14 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_HighArc',
             CollideFriendly = false,
 			
-            Damage = 200,
+            Damage = 195,
             DamageFriendly = true,
             DamageRadius = 2.5,
             DamageType = 'Normal',
 			
             DisplayName = 'Miasma Artillery',
 			
-            DoTPulses = 5,          -- 2000 damage every 9 seconds = 250 DPS
+            DoTPulses = 5,          -- 1950 damage every 9 seconds = 250 DPS
             DoTTime = 3,
 			
             EnergyChargeForFirstShot = false,
@@ -2301,12 +2304,12 @@ UnitBlueprint {
                 Seabed = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
-            FiringRandomness = 0.85,
+            FiringRandomness = 0.82,
             FiringTolerance = 0.7,
 			
             Label = 'EXMiasmaArtillery03',
 			
-            MaxRadius = 125,
+            MaxRadius = 124,
             MinRadius = 10,
 
             MuzzleSalvoSize = 1,
@@ -2460,7 +2463,7 @@ UnitBlueprint {
             CollideFriendly = false,
             ContinuousBeam = true,
 			
-            Damage = 40,		            -- 400 DPS continuous fire
+            Damage = 42,		            -- 420 DPS continuous fire
             DamageRadius = 0,
             DamageType = 'Normal',
 
@@ -2476,7 +2479,7 @@ UnitBlueprint {
 			
             Label = 'EXPhasonBeam02',
 			
-            MaxRadius = 45,
+            MaxRadius = 46,
 
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -2538,7 +2541,7 @@ UnitBlueprint {
             CollideFriendly = false,
             ContinuousBeam = true,
 			
-            Damage = 60,            	-- 600 DPS continuous fire
+            Damage = 63,            	-- 630 DPS continuous fire
             DamageRadius = 2.5,	        -- with damage radius
             DamageType = 'Normal',
 			
@@ -2553,7 +2556,7 @@ UnitBlueprint {
 			
             Label = 'EXPhasonBeam03',
 			
-            MaxRadius = 54,
+            MaxRadius = 55,
 
             MuzzleSalvoSize = 1,
             

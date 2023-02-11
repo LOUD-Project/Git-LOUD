@@ -124,11 +124,14 @@ UnitBlueprint {
         Abilities = {
             '<LOC ability_amphibious>Amphibious',
             '<LOC ability_customizable>Customizable',
+            '<LOC ability_deathaoe>Volatile',
             '<LOC ability_notcap>Not Capturable',
             '<LOC ability_omni>Omni Sensor',
-            'Radar & Sonar Stealth',
-            'Tactical & Torpedo Defense',
-            '<LOC ability_deathaoe>Volatile',
+            '<LOC ability_personalstealth>Personal Stealth',
+            '<LOC ability_radar>Radar',
+            '<LOC ability_sonar>Sonar',
+            '<LOC ability_tacmissiledef>Tactical Missile Defense',
+            '<LOC ability_torpedodef>Torpedo Defense',
         },
         
         AnimationWalk = '/mods/BlackopsACUs/units/erl0001/ERL0001_AWalk03.sca',
@@ -1017,7 +1020,7 @@ UnitBlueprint {
             
             ConsumptionPerSecondEnergy = 2000,
 
-            Name = 'Intel Enhancment (T3)',
+            Name = 'Intel Enhancement (T3)',
 
 			Prerequisite = 'EXIntelEnhancementT2',
 
@@ -1035,7 +1038,7 @@ UnitBlueprint {
 
             Icon = 'excint2',
 
-            Name = 'Remove Intel Enhancment',
+            Name = 'Remove Intel Enhancement',
 
             Prerequisite = 'EXIntelEnhancementT3',
 
@@ -1933,7 +1936,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 
-            Damage = 225,
+            Damage = 380,
             DamageType = 'Normal',
 
             DisplayName = 'Nanite Torpedo',
@@ -1947,7 +1950,7 @@ UnitBlueprint {
 
             MaxRadius = 60,
 
-            MuzzleSalvoDelay = 0.3,
+            MuzzleSalvoDelay = 0.4,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 6,
 
@@ -1966,7 +1969,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_AntiNavy',
 
-            RateOfFire = 0.5,       -- 225 x 2 * .5 = 225 DPS
+            RateOfFire = 0.3,       -- 380 x 2 * .3 = 228 DPS
 
             TargetCheckInterval = 1,
             TargetPriorities = {
