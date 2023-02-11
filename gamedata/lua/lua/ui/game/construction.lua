@@ -109,10 +109,10 @@ local nestedTabKey = {
 }
 
 local enhancementTooltips = {
-    Back = 'construction_tab_enhancment_back',
-	Command = 'construction_tab_enhancment_command',
-    LCH = 'construction_tab_enhancment_left',
-    RCH = 'construction_tab_enhancment_right',
+    Back = 'construction_tab_enhancement_back',
+	Command = 'construction_tab_enhancement_command',
+    LCH = 'construction_tab_enhancement_left',
+    RCH = 'construction_tab_enhancement_right',
 }
 
 --local whatIfBuilder = nil
