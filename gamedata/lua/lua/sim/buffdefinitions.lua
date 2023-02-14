@@ -1019,7 +1019,9 @@ BuffBlueprint { Name = 'ACU_T4_Engineering',
     },
 }
 
--- BO ACU Buffs
+-------------------------
+-- Black Ops ACU Buffs --
+-------------------------
 BuffBlueprint { Name = 'ACU_T2_Imp_Eng',
     BuffType = 'ACUBUILDRATE',
 	ParsedEntityCategory = categories.COMMAND,
@@ -1036,7 +1038,7 @@ BuffBlueprint { Name = 'ACU_T2_Imp_Eng',
 		},
 		SpeedMult = {
 			Add = 0,
-			Mult = 1.06,
+			Mult = 1.07,
 		},        
 		EnergyProduction = {
 			Add = 0,
@@ -1065,15 +1067,15 @@ BuffBlueprint { Name = 'ACU_T3_Adv_Eng',
 		},
 		SpeedMult = {
 			Add = 0,
-			Mult = 1.12,
+			Mult = 1.14,
 		},
         AccelMult = {
             Add = 0,
-            Mult = 1.08,
+            Mult = 1.1,
         },
         TurnMult = {
             Add = 0,
-            Mult = 1.08,
+            Mult = 1.1,
         },
         Regen = {
             Add = 0,
@@ -1102,15 +1104,15 @@ BuffBlueprint { Name = 'ACU_T4_Exp_Eng',
 		},
 		SpeedMult = {
 			Add = 0,
-			Mult = 1.18,
+			Mult = 1.2,
 		},
         AccelMult = {
             Add = 0,
-            Mult = 1.15,
+            Mult = 1.16,
         },
         TurnMult = {
             Add = 0,
-            Mult = 1.15,
+            Mult = 1.16,
         },
         Regen = {
             Add = 0,
