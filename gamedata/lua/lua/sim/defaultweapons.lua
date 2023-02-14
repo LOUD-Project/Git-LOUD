@@ -279,12 +279,13 @@ DefaultProjectileWeapon = Class(Weapon) {
     -- Played when a muzzle is fired.  Mostly used for muzzle flashes
     PlayFxMuzzleSequence = function(self, muzzle)
 	
-        local army = self.unit.Sync.army
-        
+        local unit = self.unit
+        local army = unit.Army
+
         local emit
 		
         for _, v in self.FxMuzzleFlash do
-            emit = LOUDATTACHEMITTER(self.unit, muzzle, army, v)
+            emit = LOUDATTACHEMITTER( unit, muzzle, army, v)
             
             if self.FxMuzzleFlashScale != 1 then
                 ScaleEmitter( emit, self.FxMuzzleFlashScale )
@@ -295,13 +296,14 @@ DefaultProjectileWeapon = Class(Weapon) {
     -- Played during the beginning of the MuzzleChargeDelay time when a muzzle in a rack is fired.
     PlayFxMuzzleChargeSequence = function(self, muzzle)
 	
-        local army = self.unit.Sync.army
-		
+        local unit = self.unit
+        local army = unit.Army
+
         local emit
         
         for _, v in self.FxChargeMuzzleFlash do
         
-            emit = LOUDATTACHEMITTER(self.unit, muzzle, army, v)
+            emit = LOUDATTACHEMITTER( unit, muzzle, army, v)
             
             if self.FxChargeMuzzleFlashScale != 1 then
                 ScaleEmitter( emit, self.FxChargeMuzzleFlashScale )
@@ -314,7 +316,8 @@ DefaultProjectileWeapon = Class(Weapon) {
     PlayFxRackSalvoChargeSequence = function(self, blueprint)
 	
         local bp = self.bp
-        local army = self.unit.Sync.army
+        local unit = self.unit
+        local army = unit.Army
         
         local emit
 		
@@ -322,7 +325,7 @@ DefaultProjectileWeapon = Class(Weapon) {
 		
             for _, ev in bp.RackBones[self.CurrentRackSalvoNumber].MuzzleBones do
 			
-                emit = LOUDATTACHEMITTER(self.unit, ev, army, v)
+                emit = LOUDATTACHEMITTER( unit, ev, army, v)
                 
                 if self.FxRackChargeMuzzleFlashScale != 1 then
                     ScaleEmitter( emit, self.FxRackChargeMuzzleFlashScale)
@@ -337,7 +340,7 @@ DefaultProjectileWeapon = Class(Weapon) {
 		
         if bp.AnimationCharge and not self.Animator then
 		
-            self.Animator = CreateAnimator(self.unit)
+            self.Animator = CreateAnimator(unit)
             
             PlayAnim( self.Animator, bp.AnimationCharge ):SetRate( bp.AnimationChargeRate or 1 )
         end
@@ -447,31 +450,34 @@ DefaultProjectileWeapon = Class(Weapon) {
         local SetGoal = moho.SlideManipulator.SetGoal
         local SetSpeed = moho.SlideManipulator.SetSpeed
         
+        local unit = self.unit
+        local RackRecoilDistance = self.bp.RackRecoilDistance
+        
         local tmpSldr
         
         for _, v in rackList do
 		
-            tmpSldr = CreateSlider(self.unit, v.RackBone)
+            tmpSldr = CreateSlider( unit, v.RackBone)
 			
             LOUDINSERT( self.RecoilManipulators, tmpSldr)
 			
             SetPrecedence( tmpSldr, 11 )
-            SetGoal( tmpSldr, 0, 0, self.bp.RackRecoilDistance )
+            SetGoal( tmpSldr, 0, 0, RackRecoilDistance )
             SetSpeed( tmpSldr, -1 )
 			
-            TrashAdd( self.unit.Trash, tmpSldr )
+            TrashAdd( unit.Trash, tmpSldr )
 			
             if v.TelescopeBone then
             
-                tmpSldr = CreateSlider(self.unit, v.TelescopeBone)
+                tmpSldr = CreateSlider( unit, v.TelescopeBone)
                 
                 LOUDINSERT( self.RecoilManipulators, tmpSldr)
                 
                 SetPrecedence( tmpSldr, 11 )
-                SetGoal( tmpSldr, 0, 0, v.TelescopeRecoilDistance or self.bp.RackRecoilDistance)
+                SetGoal( tmpSldr, 0, 0, v.TelescopeRecoilDistance or RackRecoilDistance)
                 SetSpeed( tmpSldr, -1)
                 
-                TrashAdd( self.unit.Trash, tmpSldr )
+                TrashAdd( unit.Trash, tmpSldr )
             end
         end
         
@@ -629,14 +635,16 @@ DefaultProjectileWeapon = Class(Weapon) {
         WeaponAimWantEnabled = true,
 
         Main = function(self)
+        
+            local unit = self.unit
 
-            if self.unit.Dead then return end
+            if unit.Dead then return end
             
             if ScenarioInfo.WeaponStateDialog then
                 LOG("*AI DEBUG Weapon IdleState "..repr(self.bp.Label).." - SetBusy to false" )
             end
             
-            SetBusy( self.unit, false )
+            SetBusy( unit, false )
             
             self:WaitForAndDestroyManips()
             
@@ -647,15 +655,13 @@ DefaultProjectileWeapon = Class(Weapon) {
                 if v.HideMuzzle == true then
 				
                     for _, mv in v.MuzzleBones do
-                        self.unit:ShowBone(mv, true)
+                        unit:ShowBone( mv, true )
                     end
                 end
             end
 
 			if bp.EnergyRequired and bp.EnergyDrainPerSecond then
-                
                 self:ForkThread( self.StartEconomyDrain )
-				--self:StartEconomyDrain()
 			end
             
 			-- if the weapon has fired prior to coming back to Idle, execute the reload timeout
@@ -758,13 +764,15 @@ DefaultProjectileWeapon = Class(Weapon) {
                 LOG("*AI DEBUG Weapon Unpacking State "..repr(self.bp.Label).." - SetBusy to true" )
             end
             
-            SetBusy( self.unit, true )
+            local unit = self.unit
+            
+            SetBusy( unit, true )
 
             local bp = self.bp
             
             if bp.WeaponUnpackLocksMotion then
 			
-                self.unit:SetImmobile(true)
+                unit:SetImmobile(true)
 				
             end
             
@@ -802,7 +810,9 @@ DefaultProjectileWeapon = Class(Weapon) {
                 LOG("*AI DEBUG Weapon RackSalvo Charge State "..repr(self.bp.Label).." - SetBusy to true" )
 			end
             
-            SetBusy( self.unit, true )
+            local unit = self.unit
+            
+            SetBusy( unit, true )
 			
             local bp = self.bp
 			
@@ -814,7 +824,7 @@ DefaultProjectileWeapon = Class(Weapon) {
                     LOG("*AI DEBUG Weapon RackSalvo Charge for "..repr(self.bp.Label).." - SetBusy to false" )
                 end
 
-                SetBusy( self.unit, false )
+                SetBusy( unit, false )
             end
             
             WaitSeconds(bp.RackSalvoChargeTime)
@@ -825,7 +835,7 @@ DefaultProjectileWeapon = Class(Weapon) {
                     LOG("*AI DEBUG Weapon RackSalvo Charge for "..repr(self.bp.Label).." - SetBusy to true" )
                 end
                 
-                SetBusy( self.unit, true )
+                SetBusy( unit, true )
             end
             
             if bp.RackSalvoFiresAfterCharge == true then
@@ -860,12 +870,14 @@ DefaultProjectileWeapon = Class(Weapon) {
                 LOG("*AI DEBUG Weapon RackSalvo FireReady State "..repr(self.bp.Label) )
             end
             
+            local unit = self.unit
+            
             if (self.bp.CountedProjectile == true and self.bp.WeaponUnpacks == true) then
 			
-                SetBusy( self.unit, true )
+                SetBusy( unit, true )
             else
 			
-                SetBusy( self.unit, false)
+                SetBusy( unit, false)
             end
 			
             self.WeaponCanFire = false
@@ -874,7 +886,7 @@ DefaultProjectileWeapon = Class(Weapon) {
 
                 WaitFor(self.EconDrain)
 				
-                RemoveEconomyEvent(self.unit, self.EconDrain)
+                RemoveEconomyEvent( unit, self.EconDrain )
 				
                 self.EconDrain = nil
             end
@@ -917,12 +929,13 @@ DefaultProjectileWeapon = Class(Weapon) {
 			end
             
             local bp = self.bp
+            local unit = self.unit
             
             local NotExclusive = bp.NotExclusive
 			
             -- ok -- with multiple weaponed units - this is the command that halts other weapons from firing
             -- when Exclusive, all other weapons will 'pause' until this function completes
-            SetBusy( self.unit, (not NotExclusive or false) )
+            SetBusy( unit, (not NotExclusive or false) )
             
             if ScenarioInfo.WeaponStateDialog then
                 LOG("*AI DEBUG Weapon RackSalvo Firing for "..repr(self.bp.Label).." - SetBusy is "..repr(not NotExclusive or false) )
@@ -944,7 +957,7 @@ DefaultProjectileWeapon = Class(Weapon) {
             -- this used to be placed AFTER the firing events 
             if bp.RenderFireClock and bp.RateOfFire > 0 then
 			
-	            if not self.unit.Dead then
+	            if not unit.Dead then
 				
                     local rof = 1 / bp.RateOfFire                
                     self:ForkThread(self.RenderClockThread, rof)                
@@ -988,7 +1001,7 @@ DefaultProjectileWeapon = Class(Weapon) {
                     muzzle = rackInfo.MuzzleBones[muzzleIndex]
 					
                     if rackInfo.HideMuzzle == true then
-                        ShowBone( self.unit, muzzle, true)
+                        ShowBone( unit, muzzle, true)
                     end
 					
 					-- muzzle charge delay -- 
@@ -1006,26 +1019,17 @@ DefaultProjectileWeapon = Class(Weapon) {
                                 LOG("*AI DEBUG Weapon RackSalvo Firing (MuzzleChargeDelay) for "..repr(self.bp.Label).." - SetBusy to false" )
                             end
 
-                            SetBusy( self.unit, false )
+                            SetBusy( unit, false )
                         end
 						
                         WaitSeconds(bp.MuzzleChargeDelay)
---[[						
-                        if NotExclusive then
 
-                            if ScenarioInfo.WeaponStateDialog then
-                                LOG("*AI DEBUG Weapon RackSalvo Firing (MuzzleChargeDelay)  for "..repr(self.bp.Label).." - SetBusy to true" )
-                            end
-                        
-                            SetBusy( self.unit, true )
-                        end
---]]
                     end
 					
                     self:PlayFxMuzzleSequence(muzzle)                    
 					
                     if rackInfo.HideMuzzle == true then
-                        HideBone( self.unit, muzzle, true)
+                        HideBone( unit, muzzle, true)
                     end
 					
                     if self.HaltFireOrdered then
@@ -1043,10 +1047,10 @@ DefaultProjectileWeapon = Class(Weapon) {
 					
                         if bp.NukeWeapon == true then
 						
-                            self.unit:NukeCreatedAtUnit()
-                            self.unit:RemoveNukeSiloAmmo(1)
+                            unit:NukeCreatedAtUnit()
+                            unit:RemoveNukeSiloAmmo(1)
                         else
-                            self.unit:RemoveTacticalSiloAmmo(1)
+                            unit:RemoveTacticalSiloAmmo(1)
                         end
                     end
 					
@@ -1066,7 +1070,7 @@ DefaultProjectileWeapon = Class(Weapon) {
                                 LOG("*AI DEBUG Weapon RackSalvo Firing (MuzzleSalvoDelay) for "..repr(self.bp.Label).." - SetBusy to false" )
                             end
 
-                            SetBusy( self.unit, false )
+                            SetBusy( unit, false )
                         end
 						
                         WaitSeconds(bp.MuzzleSalvoDelay)
@@ -1077,7 +1081,7 @@ DefaultProjectileWeapon = Class(Weapon) {
                                 LOG("*AI DEBUG Weapon RackSalvo Firing (MuzzleSalvoDelay) for "..repr(self.bp.Label).." - SetBusy to true" )
                             end
                         
-                            SetBusy( self.unit, true )
+                            SetBusy( unit, true )
                         end
                     end
                 end
@@ -1185,13 +1189,14 @@ DefaultProjectileWeapon = Class(Weapon) {
         RenderClockThread = function(self, rof)
 		
             local clockTime = rof
+            local unit = self.unit
 			local WaitTicks = WaitTicks
 			
-            while clockTime > 0.0 and not self:BeenDestroyed() and not self.unit.Dead do
+            while clockTime > 0.0 and not self:BeenDestroyed() and not unit.Dead do
                 
                 clockTime = clockTime - 0.1
                 
-                self.unit:SetWorkProgress( 1 - clockTime / rof )
+                unit:SetWorkProgress( 1 - clockTime / rof )
                 
                 WaitTicks(1)
             end
@@ -1205,38 +1210,42 @@ DefaultProjectileWeapon = Class(Weapon) {
 
         Main = function(self)
 
-            if ScenarioInfo.WeaponStateDialog then
+            local WeaponStateDialog = ScenarioInfo.WeaponStateDialog
+
+            if WeaponStateDialog then
                 LOG("*AI DEBUG Weapon RackSalvo Reload State "..repr(self.bp.Label).." - SetBusy to true" )		
             end
-            
-            SetBusy( self.unit, true)
 			
             local bp = self.bp
+            local NotExclusive = bp.NotExclusive
+            local unit = self.unit
+            
+            SetBusy( unit, true)
             
             if bp.AnimationReload and not self.Animator then
                 self:PlayFxRackSalvoReloadSequence(bp)
             end
 			
-            if bp.NotExclusive then
+            if NotExclusive then
 
-                if ScenarioInfo.WeaponStateDialog then
+                if WeaponStateDialog then
                     LOG("*AI DEBUG Weapon RackSalvo Reload "..repr(self.bp.Label).." - SetBusy to false" )
                 end
 
-                SetBusy( self.unit, false )
+                SetBusy( unit, false )
             end
             
             WaitSeconds( bp.RackSalvoReloadTime )
 			
             self:WaitForAndDestroyManips()
             
-            if bp.NotExclusive then
+            if NotExclusive then
             
-                if ScenarioInfo.WeaponStateDialog then
+                if WeaponStateDialog then
                     LOG("*AI DEBUG Weapon RackSalvo Reload for "..repr(self.bp.Label).." - SetBusy to true" )
                 end
 
-                SetBusy( self.unit, true )
+                SetBusy( unit, true )
             end
 
             if WeaponHasTarget( self ) and bp.RackSalvoChargeTime > 0 and self:CanWeaponFire() then
@@ -1387,6 +1396,7 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
         self.Beams = {}
         
         local counter = 1
+        local unit = self.unit
 		
         -- we use the standard GetBlueprint since this is performed BEFORE OnCreate - why ?
         local bp = GetBlueprint(self)
@@ -1407,7 +1417,7 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
                 self.Beams[counter] = { Beam = beam, Muzzle = mv }
                 counter = counter + 1
 				
-                TrashAdd( self.unit.Trash, beam)
+                TrashAdd( unit.Trash, beam)
                 
                 beam:SetParentWeapon(self)
                 beam:Disable()
@@ -1447,6 +1457,7 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
     PlayFxBeamStart = function(self, muzzle)
 	
         local bp = self.bp
+        local unit = self.unit
 
         local beam
         local beamTable
@@ -1462,7 +1473,7 @@ DefaultBeamWeapon = Class(DefaultProjectileWeapon) {
 		
         beam:Enable()
 		
-        TrashAdd( self.unit.Trash, beam )
+        TrashAdd( unit.Trash, beam )
 		
         if bp.BeamLifetime > 0 then
             self:ForkThread( self.BeamLifetimeThread, beam, bp.BeamLifetime or 1)

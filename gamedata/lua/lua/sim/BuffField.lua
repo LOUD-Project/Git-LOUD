@@ -49,7 +49,7 @@ BuffField = Class(Entity) {
         Entity.__init(self, spec)
         
         self.Name = spec.Name or 'NoName'
-        self.Owner = spec.Owner.Sync.id
+        self.Owner = spec.Owner.EntityID
     end,
 
     OnCreate = function(self, spec)
@@ -169,7 +169,7 @@ BuffField = Class(Entity) {
     OnEnabled = function(self, bp)
         
 		local Owner = self:GetOwner()
-		local Army = Owner.Sync.army
+		local Army = Owner.Army
         
         if self.FieldVisualEmitter and type(self.FieldVisualEmitter) == 'string' and self.FieldVisualEmitter != '' then
 
@@ -309,6 +309,14 @@ BuffField = Class(Entity) {
         local pos
 		local count = 0
 		local mastercount = 0
+        
+        local AffectsAllies = bp.AffectsAllies
+        local AffectsOwnUnits = bp.AffectsOwnUnits
+        local AffectsUnitCategories = bp.AffectsUnitCategories
+        local AffectsVisibleEnemies = bp.AffectsVisibleEnemies
+        local Name = bp.Name
+        local Radius = bp.Radius
+        local RadiusOffsetY = bp.RadiusOffsetY
 
 		local function GetNearbyAffectableUnits()
 		
@@ -318,20 +326,20 @@ BuffField = Class(Entity) {
 
 			if pos then
             
-                if bp.RadiusOffsetY then
-                    pos[2] = pos[2] + bp.RadiusOffsetY
+                if RadiusOffsetY then
+                    pos[2] = pos[2] + RadiusOffsetY
                 end
 			
-				if bp.AffectsOwnUnits and not bp.AffectsAllies then
-					units = GetOwnUnitsAroundPoint( aiBrain, bp.AffectsUnitCategories, pos, bp.Radius)
+				if AffectsOwnUnits and not AffectsAllies then
+					units = GetOwnUnitsAroundPoint( aiBrain, AffectsUnitCategories, pos, Radius)
 				end
 			
-				if bp.AffectsAllies then
-					units = GetAlliedUnitsAroundPoint( aiBrain, bp.AffectsUnitCategories, pos, bp.Radius)
+				if AffectsAllies then
+					units = GetAlliedUnitsAroundPoint( aiBrain, AffectsUnitCategories, pos, Radius)
 				end
 			
-				if bp.AffectsVisibleEnemies then
-					units = aiBrain:GetUnitsAroundPoint( bp.AffectsUnitCategories, pos, bp.Radius, 'Enemy' )
+				if AffectsVisibleEnemies then
+					units = aiBrain:GetUnitsAroundPoint( AffectsUnitCategories, pos, Radius, 'Enemy' )
 				end
 				
 			end
@@ -356,7 +364,7 @@ BuffField = Class(Entity) {
 						unit.BuffFieldThreadHandle = {}
 					end
 					
-					if not unit.HasBuffFieldThreadHandle[bp.Name] then
+					if not unit.HasBuffFieldThreadHandle[Name] then
 						
 						-- all bufffields (atm) don't affect themselves
 						if Owner and IsUnit(unit) and Field and bp and unit != Owner then
@@ -365,7 +373,7 @@ BuffField = Class(Entity) {
 							-- no longer appears to be a valid unit ?
 							if unit.ForkThread then
 
-								unit.BuffFieldThreadHandle[bp.Name] = unit:ForkThread( Field.UnitBuffFieldThread, Owner, Field, bp )
+								unit.BuffFieldThreadHandle[Name] = unit:ForkThread( Field.UnitBuffFieldThread, Owner, Field, bp )
 							
 								count = count + 1
 							
@@ -374,7 +382,6 @@ BuffField = Class(Entity) {
 									WaitTicks(1)
 									count = 0
 									mastercount = mastercount + 1
-								
 								end
 							end
 						end
@@ -389,9 +396,16 @@ BuffField = Class(Entity) {
 	-- this will be run on the units affected by the field
 	UnitBuffFieldThread = function( unit, Owner, Field, bp )
 
-		if bp.Buffs != nil then
+        local Buffs = bp.Buffs
 
-			unit.HasBuffFieldThreadHandle[bp.Name] = true
+		if Buffs != nil then
+
+            local FieldPosition
+            local Name = bp.Name
+            local Radius = bp.Radius
+            local RadiusOffsetY = bp.RadiusOffsetY
+
+			unit.HasBuffFieldThreadHandle[Name] = true
 
 			local GetPosition = moho.entity_methods.GetPosition
             local VDist3 = VDist3
@@ -399,19 +413,17 @@ BuffField = Class(Entity) {
 
 			while (not unit.Dead) and (not Owner.Dead) and Field.Enabled do
             
-                local FieldPosition = GetPosition(Owner)
+                FieldPosition = GetPosition(Owner)
                 
-                if bp.RadiusOffsetY then
-                    FieldPosition[2] = FieldPosition[2] + bp.RadiusOffsetY
+                if RadiusOffsetY then
+                    FieldPosition[2] = FieldPosition[2] + RadiusOffsetY
                 end
 
-                -- still need to account for the bp.RadiusOffsetY --
-				if VDist3( GetPosition(unit), FieldPosition ) > bp.Radius then
-
+				if VDist3( GetPosition(unit), FieldPosition ) > Radius then
 					break -- ideally we should check for another nearby buff field emitting unit but it doesn't really matter (no more than 5 sec anyway)
 				end
 
-				for _, buff in bp.Buffs do
+				for _, buff in Buffs do
 					
 					-- if the buff is no longer applied - reapply --
 					if not unit.Buffs.BuffTable[Buffs[buff].BuffType][buff] then					
@@ -423,17 +435,17 @@ BuffField = Class(Entity) {
 				WaitTicks(38)
 			end
 
-			if not unit.Dead and bp.Buffs then
+			if not unit.Dead and Buffs then
 				
-				for _, buff in bp.Buffs do
+				for _, buff in Buffs do
 				
 					if unit.Buffs.BuffTable[Buffs[buff].BuffType][buff] then
 						RemoveBuff( unit, buff )
 					end
 				end
 
-				unit.BuffFieldThreadHandle[bp.Name] = nil
-				unit.HasBuffFieldThreadHandle[bp.Name] = nil
+				unit.BuffFieldThreadHandle[Name] = nil
+				unit.HasBuffFieldThreadHandle[Name] = nil
 			end
 		end
 		

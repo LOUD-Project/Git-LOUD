@@ -93,7 +93,7 @@ TDFHiroPlasmaCannon = Class(DefaultBeamWeapon) {
     
         if not self.ContBeamOn then
         
-            local army = self.unit.Sync.army
+            local army = self.unit.Army
             local bp = self.bp
             
 			local CreateAttachedEmitter = CreateAttachedEmitter
@@ -295,7 +295,7 @@ TAMPhalanxWeapon = Class(DefaultProjectileWeapon) {
 
     PlayFxMuzzleSequence = function(self, muzzle)
     
-        local army = self.unit.Sync.army
+        local army = self.unit.Army
         local bp = self.bp
         
 		local CreateAttachedEmitter = CreateAttachedEmitter
@@ -317,7 +317,7 @@ TOrbitalDeathLaserBeamWeapon = Class(DefaultBeamWeapon) {
 
     PlayFxWeaponUnpackSequence = function( self )
     
-        local army = self.unit.Sync.army
+        local army = self.unit.Army
         local bp = self.bp
         
         local CreateAttachedEmitter = CreateAttachedEmitter

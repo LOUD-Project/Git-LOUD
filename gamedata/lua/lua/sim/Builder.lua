@@ -290,21 +290,25 @@ PlatoonBuilder = Class(Builder) {
 				
 				platoon.BuilderName = builder.BuilderName
 				platoon.BuilderType = BuilderType
-				platoon.BuilderLocation = manager.LocationType      --builder.Base
+				platoon.BuilderLocation = manager.LocationType
 				platoon.BuilderManager = manager.ManagerType
 				platoon.BuilderInstance = k
 				
                 local destroyedCallback = function( brain, platoon )
 					
 					local aiBrain = brain or platoon:GetBrain()
-					
+
+                    local BuilderInstance = platoon.BuilderInstance
+					local BuilderManager = platoon.BuilderManager
+                    local BuilderName = platoon.BuilderName
+
 					local manager = 'PlatoonFormManager'
 					
-					if platoon.BuilderManager == 'EM' then
+					if BuilderManager == 'EM' then
 						manager = 'EngineerManager'
 					end
 					
-					if platoon.BuilderManager == 'FBM' then
+					if BuilderManager == 'FBM' then
 						manager = 'FactoryManager'
 					end
 					
@@ -314,13 +318,13 @@ PlatoonBuilder = Class(Builder) {
 					
 						for a,b in buildertable['Builders'] do
 						
-							if b.BuilderName == platoon.BuilderName then
+							if b.BuilderName == BuilderName then
 							
 								b.InstanceAvailable = b.InstanceAvailable + 1
-								b.InstanceCount[platoon.BuilderInstance] = false
+								b.InstanceCount[BuilderInstance] = false
 								
 								if ScenarioInfo.InstanceDialog then
-									LOG("*AI DEBUG "..aiBrain.Nickname.." resetting "..platoon.BuilderName.." instances to "..b.InstanceAvailable)
+									LOG("*AI DEBUG "..aiBrain.Nickname.." resetting "..BuilderName.." instances to "..b.InstanceAvailable)
 								end
 								
 								break
@@ -451,11 +455,10 @@ function CreateEngineerBuilder( manager, brain, data, locationType)
 		end
 		
 		if not fulltemplate[1] then
-		
-			--LOG("*AI DEBUG "..brain.Nickname.." Builder "..repr(data.BuilderName).." is empty")
+
 			return false
             
-		else
+		--else
 			--LOG("*AI DEBUG IDs for "..repr(data.BuilderName).." are "..repr(fulltemplate) )
 			--LOG("*AI DEBUG Data template will be "..repr(datatemplate))
 		end	

@@ -99,7 +99,7 @@ SDFThauCannon = Class(DefaultProjectileWeapon) {
         local effectTable = TerrainType.FXOther[self.unit:GetCurrentLayer()][self.FxMuzzleTerrainTypeName] 
         
         if effectTable != nil then
-            local army = self.unit.Sync.army
+            local army = self.unit.Army
 			local CreateAttachedEmitter = CreateAttachedEmitter
 			
 			for k, v in effectTable do
@@ -203,7 +203,7 @@ SDFExperimentalPhasonLaser = Class(DefaultBeamWeapon) {
     
         if not self.ContBeamOn then
         
-            local army = self.unit.Sync.army
+            local army = self.unit.Army
             
             local bp = self.bp
             
@@ -240,7 +240,7 @@ SDFUltraChromaticBeamGenerator = Class(DefaultBeamWeapon) {
     
         if not self.ContBeamOn then
         
-            local army = self.unit.Sync.army
+            local army = self.unit.Army
             
             local bp = self.bp
             
@@ -820,7 +820,7 @@ SMeleeBladeBeamWeapon = Class(Weapon) {
 
     PlayFxBeamStart = function(self, muzzle)
 
-        local army = self.unit.Sync.army
+        local army = self.unit.Army
         local bp = self.bp
         
         local beam

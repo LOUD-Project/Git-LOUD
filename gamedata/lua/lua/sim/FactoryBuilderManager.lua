@@ -19,6 +19,7 @@ local GetAIBrain = moho.unit_methods.GetAIBrain
 
 local LOUDGETN  = table.getn
 local LOUDINSERT = table.insert
+local LOUDMAX = math.max
 local LOUDREMOVE = table.remove
 
 local LOUDENTITY = EntityCategoryContains
@@ -121,7 +122,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 
         while (not factory.Dead) and factory:GetFractionComplete() < 1 do
         
-            LOG("*AI DEBUG Adding Factory 2 "..factory.Sync.id.." at "..factory:GetFractionComplete().." Dead is "..repr(factory.Dead).." to "..self.ManagerType.." "..self.LocationType)
+            LOG("*AI DEBUG Adding Factory 2 "..factory.EntityID.." at "..factory:GetFractionComplete().." Dead is "..repr(factory.Dead).." to "..self.ManagerType.." "..self.LocationType)
             
             WaitTicks(100)
         end
@@ -226,7 +227,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 		
 			for k,v in self.FactoryList do
 			
-				if (not v.Sync.id) or v.Dead then
+				if (not v.EntityID) or v.Dead then
 				
 					LOUDREMOVE(self.FactoryList, k)
 
@@ -244,17 +245,22 @@ FactoryBuilderManager = Class(BuilderManager) {
 	-- as a result only one plan or behavior gets executed
     AssignBuildOrder = function( self, factory, aiBrain )
 	
-		if factory.Sync.id and not factory.Upgrading then
+		if factory.EntityID and not factory.Upgrading then
 
 			local builder = self:GetHighestBuilder( factory, aiBrain )
+            local DisplayFactoryBuilds = ScenarioInfo.DisplayFactoryBuilds
+            local PriorityDialog = ScenarioInfo.PriorityDialog
 		
 			if builder then
             
-                if ScenarioInfo.DisplayFactoryBuilds then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." "..self.ManagerType.." Factory "..factory.Sync.id.." building "..repr(builder.BuilderName))
+                local BuilderName = builder.BuilderName
+                local BuildersData = Builders[BuilderName]
+            
+                if DisplayFactoryBuilds then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." "..self.ManagerType.." Factory "..factory.EntityID.." building "..repr(builder.BuilderName))
                 end
 			
-				local buildplatoon = self:GetFactoryTemplate( Builders[builder.BuilderName].PlatoonTemplate, factory, aiBrain.FactionName )
+				local buildplatoon = self:GetFactoryTemplate( BuildersData.PlatoonTemplate, factory, aiBrain.FactionName )
 			
 				if aiBrain:CanBuildPlatoon( buildplatoon, {factory} ) then
 
@@ -274,36 +280,36 @@ FactoryBuilderManager = Class(BuilderManager) {
                     -- factory plans and behaviors are stored on the factory here
                     -- note how only ONE of each is supported at the moment
                     -- and they are only executed upon COMPLETION of the build
-					if Builders[builder.BuilderName].PlatoonAddPlans then
+					if BuildersData.PlatoonAddPlans then
 				
-						for _, papv in Builders[builder.BuilderName].PlatoonAddPlans do
+						for _, papv in BuildersData.PlatoonAddPlans do
 					
 							factory.addplan = papv
 						end
 					end
 
-					if Builders[builder.BuilderName].PlatoonAddBehaviors then
+					if BuildersData.PlatoonAddBehaviors then
 				
-						for _, papv in Builders[builder.BuilderName].PlatoonAddBehaviors do
+						for _, papv in BuilderDatas.PlatoonAddBehaviors do
 					
 							factory.addbehavior = papv
 						end
 					end
 				
-					if ScenarioInfo.DisplayFactoryBuilds then
+					if DisplayFactoryBuilds then
 				
-						factory:SetCustomName(repr(builder.BuilderName))
+						factory:SetCustomName(repr(BuilderName))
 					
-						FloatingEntityText( factory.Sync.id, "Building "..repr(builder.BuilderName) )
+						FloatingEntityText( factory.EntityID, "Building "..repr(BuilderName) )
 					end
 
 					aiBrain:BuildPlatoon( buildplatoon, {factory}, buildplatoonsqty )
 
                     -- unlike the Plans & Behaviors, we can execute multiple functions against the factory
                     -- also unlike the above, functions begin executing immediately
-					if Builders[builder.BuilderName].PlatoonAddFunctions then
+					if BuildersData.PlatoonAddFunctions then
 				
-						for _, pafv in Builders[builder.BuilderName].PlatoonAddFunctions do
+						for _, pafv in BuildersData.PlatoonAddFunctions do
 
 							ForkThread( import( pafv[1])[ pafv[2] ], aiBrain, factory, builder )
 						end
@@ -314,22 +320,22 @@ FactoryBuilderManager = Class(BuilderManager) {
 					-- as I found from watching the log the for other reasons I cannot fathom - normal jobs just
 					-- sometimes fail the CanBuildPlatoon function - so we'll set the priority to 10 and the 
 					-- priority will return to normal on the next priority sort
-					if ScenarioInfo.PriorityDialog or ScenarioInfo.DisplayFactoryBuilds then
-						LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." "..self.ManagerType.." Factory "..repr(factory.Sync.id).." unable to build "..repr(builder.BuilderName))
+					if PriorityDialog or DisplayFactoryBuilds then
+						LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." "..self.ManagerType.." Factory "..repr(factory.EntityID).." unable to build "..repr(BuilderName))
 					end
 
                     -- if there was a build platoon but we failed anyway - assign a timeout
                     -- otherwise set the job priority to zero so it doesn't come up again
                     if buildplatoon then
                     
-                        self:ForkThread( self.AssignTimeout, builder.BuilderName, 450 )
+                        self:ForkThread( self.AssignTimeout, BuilderName, 450 )
                     else
                     
                         builder:SetPriority( 0, false)
                     end
 			
-                    if ScenarioInfo.DisplayFactoryBuilds then
-                        ForkThread(FloatingEntityText, factory.Sync.id, "Failed Job for "..factory.BuilderType )
+                    if DisplayFactoryBuilds then
+                        ForkThread(FloatingEntityText, factory.EntityID, "Failed Job for "..factory.BuilderType )
                     end
 
 					self.BuilderData[factory.BuilderType].NeedSort = true
@@ -339,9 +345,9 @@ FactoryBuilderManager = Class(BuilderManager) {
 				
 			else
 			
-				if ScenarioInfo.DisplayFactoryBuilds then
-					ForkThread(FloatingEntityText, factory.Sync.id, "No Job for "..factory.BuilderType )
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." "..self.ManagerType.." Factory "..repr(factory.Sync.id).." finds no job ")
+				if DisplayFactoryBuilds then
+					ForkThread(FloatingEntityText, factory.EntityID, "No Job for "..factory.BuilderType )
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." "..self.ManagerType.." Factory "..repr(factory.EntityID).." finds no job ")
 				end
 				
 				factory.failedbuilds = factory.failedbuilds + 1
@@ -368,15 +374,19 @@ FactoryBuilderManager = Class(BuilderManager) {
 		
 		local aiBrain = GetAIBrain(factory)
 
+        local DisplayFactoryBuilds = ScenarioInfo.DisplayFactoryBuilds
+        
+        local BuildLevel = factory.BuildLevel
+        local Upgrading = factory.Upgrading
+
         -- this is the dynamic delay controlled - minimum delay is ALWAYS 2 --
         -- basically higher tier factories have less delay periods
-        
 		WaitTicks( (8 - (factory.BuildLevel * 2)) + (factory.failedbuilds * 10) )
 
-		if factory.EnhanceThread or factory.Upgrading then
+		if factory.EnhanceThread or Upgrading then
         
-            if ScenarioInfo.DisplayFactoryBuilds then
-                ForkThread(FloatingEntityText, factory.Sync.id, "Enhance/Upgrade Thread ")
+            if DisplayFactoryBuilds then
+                ForkThread(FloatingEntityText, factory.EntityID, "Enhance/Upgrade Thread ")
             end
 		
 			WaitTicks(10)
@@ -384,25 +394,27 @@ FactoryBuilderManager = Class(BuilderManager) {
         
         -- the cheatvalue directly impacts the triggers --
         -- cheats above 1 lower the threshold making building more aggressive
-        local masstrig = 200 * (1/ math.max(1, aiBrain.CheatValue))
-        local enertrig = 2500 * (1/ math.max(1, aiBrain.CheatValue))
+        local masstrig = 200 * (1/ LOUDMAX(1, aiBrain.CheatValue))
+        local enertrig = 2500 * (1/ LOUDMAX(1, aiBrain.CheatValue))
 
-		while (not factory.Dead) and (not factory.Upgrading) and (( GetEconomyStored( aiBrain, 'MASS') < (masstrig - ( (3 - factory.BuildLevel) * 25)) or GetEconomyStored( aiBrain, 'ENERGY') < (enertrig - ( (3 - factory.BuildLevel) * 250))) or (IsUnitState(factory,'Upgrading') or IsUnitState(factory,'Enhancing')))  do
+		while (not factory.Dead) and (not Upgrading) and (( GetEconomyStored( aiBrain, 'MASS') < (masstrig - ((3 - BuildLevel) * 25))
+            or GetEconomyStored( aiBrain, 'ENERGY') < (enertrig - ((3 - BuildLevel) * 250)))
+            or (IsUnitState(factory,'Upgrading') or IsUnitState(factory,'Enhancing'))) do
         
-            if ScenarioInfo.DisplayFactoryBuilds then
-                ForkThread(FloatingEntityText, factory.Sync.id, "Insufficient Resource")
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." "..self.ManagerType.." Factory "..repr(factory.Sync.id).." Insufficient resources -- delaying "..(23 - (factory.BuildLevel * 3)).." ticks")
+            if DisplayFactoryBuilds then
+                ForkThread(FloatingEntityText, factory.EntityID, "Insufficient Resource")
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." "..self.ManagerType.." Factory "..repr(factory.EntityID).." Insufficient resources -- delaying "..(23 - (factory.BuildLevel * 3)).." ticks")
             end
 	
             -- higher tier factories check more frequently
-			WaitTicks(23 - (factory.BuildLevel * 3))
+			WaitTicks(23 - (BuildLevel * 3))
 		end
 		
 		if (not factory.Dead) and not (IsUnitState(factory,'Upgrading') or IsUnitState(factory,'Enhancing')) then
 		
 			while (not factory.Dead) and (not IsIdleState(factory)) do
 			
-				if not IsUnitState(factory,'Upgrading') and not factory.Upgrading then
+				if not IsUnitState(factory,'Upgrading') and not Upgrading then
 				
 					WaitTicks(10)
 					
@@ -412,7 +424,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 				end
 			end
 		
-			if not factory.Dead and (not IsUnitState(factory,'Upgrading')) and (not factory.Upgrading) then
+			if not factory.Dead and (not IsUnitState(factory,'Upgrading')) and (not Upgrading) then
 			
 				ForkThread( self.AssignBuildOrder, self, factory, aiBrain )
 			end
@@ -420,7 +432,7 @@ FactoryBuilderManager = Class(BuilderManager) {
     end,
     
 	-- I learned something interesting here - when a factory gets upgraded, it is NOT removed from 
-	-- the factory list by default - it simply has its Sync.id removed
+	-- the factory list by default - it simply has its EntityID removed
 	-- this made the original function give incorrect results - I rebuild the factory list
 	-- in this function - and I added it to the AddUnit function
 	GetNumFactories = function(self)
@@ -430,7 +442,7 @@ FactoryBuilderManager = Class(BuilderManager) {
         
 		for k,v in self.FactoryList do
 		
-			if v.Sync.id then
+			if v.EntityID then
 			
                counter = counter + 1
 			else
@@ -448,47 +460,6 @@ FactoryBuilderManager = Class(BuilderManager) {
 
 		return counter
 	end,
-    
---[[    
-	GetNumCategoryFactories = function(self, category)
-	
-		return EntityCategoryCount( category, self.FactoryList ) or 0
-	end,
-    
-	GetNumCategoryBeingBuilt = function(self, category, facCategory )
-
-		local counter = 0
-	
-		for _,v in EntityCategoryFilterDown( facCategory, self.FactoryList ) do
-		
-			if v.Dead then
-			
-				continue
-			end
-            
-			if not v:IsUnitState('Upgrading') and not v:IsUnitState('Building') then
-			
-				continue
-			end
-            
-			local beingBuiltUnit = v.UnitBeingBuilt	
-			
-			if not beingBuiltUnit or beingBuiltUnit.Dead then
-			
-				continue
-			end
-            
-			if not LOUDENTITY( category, beingBuiltUnit ) then
-			
-				continue
-			end
-            
-			counter = counter + 1
-		end
-		
-		return counter
-	end,
---]]   
  
 	GetFactoriesBuildingCategory = function(self, category, facCategory )
 	
@@ -580,6 +551,9 @@ FactoryBuilderManager = Class(BuilderManager) {
 		if factory.addbehavior then
 			finishedUnit:ForkThread( import('/lua/ai/aibehaviors.lua')[factory.addbehavior], aiBrain )
 		end
+        
+        local Enhancements = __blueprints[finishedUnit.BlueprintID].Enhancements.Sequence or false
+        local FactionIndex = aiBrain.FactionIndex
 		
         -- note how we check for BuildLevel to insure that factory has not already been added
         -- this event was somehow misfiring - sometimes causing the factory to go thru being
@@ -593,9 +567,9 @@ FactoryBuilderManager = Class(BuilderManager) {
                 
                 finishedUnit:LaunchUpgradeThread( aiBrain )
 
-				if not finishedUnit.EnhanceThread and __blueprints[finishedUnit.BlueprintID].Enhancements.Sequence then
+				if not finishedUnit.EnhanceThread and Enhancements then
 				
-					finishedUnit.EnhanceThread = finishedUnit:ForkThread( FactorySelfEnhanceThread, aiBrain.FactionIndex, aiBrain, self)
+					finishedUnit.EnhanceThread = finishedUnit:ForkThread( FactorySelfEnhanceThread, FactionIndex, aiBrain, self)
 				end				
 
 				factory.Dead = true
@@ -625,9 +599,9 @@ FactoryBuilderManager = Class(BuilderManager) {
 				
 				if not factory.EnhancementsComplete then
 				
-					if not factory.EnhanceThread and __blueprints[factory.BlueprintID].Enhancements.Sequence then
+					if not factory.EnhanceThread and Enhancements then
 					
-						factory.EnhanceThread = factory:ForkThread( FactorySelfEnhanceThread, aiBrain.FactionIndex, aiBrain, self)
+						factory.EnhanceThread = factory:ForkThread( FactorySelfEnhanceThread, FactionIndex, aiBrain, self)
 					end
 				end
 			end
@@ -646,6 +620,9 @@ FactoryBuilderManager = Class(BuilderManager) {
 		local Random = Random
 		
 		local LOUDINSERT = table.insert
+        
+        local PlatoonTemplate = PlatoonTemplates[templateName]
+        local FactionSquads = PlatoonTemplate.FactionSquads
 		
 		-- Get Custom Replacement - allows the factory to select 3rd party units from mods
 		-- the original stock unit is one of the possible items to 
@@ -679,7 +656,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 			
 		end
 		
-		if faction and PlatoonTemplates[templateName].FactionSquads[faction] then
+		if faction and FactionSquads[faction] then
 		
 			-- this is here to insure that IF there are replacments we only replace
 			-- the FIRST unit in those cases where a template may have multiple units specified (ie.- a platoon of units)
@@ -688,9 +665,9 @@ FactoryBuilderManager = Class(BuilderManager) {
             -- sometimes the stock unit template is empty
             --local tablesize = LOUDGETN(PlatoonTemplates[templateName].FactionSquads[faction])
             
-            if PlatoonTemplates[templateName].FactionSquads[faction][1] then
+            if FactionSquads[faction][1] then
 		
-                for _,v in PlatoonTemplates[templateName].FactionSquads[faction] do
+                for _,v in FactionSquads[faction] do
 			
                     if customData and (not replacementdone) then
 
@@ -700,7 +677,7 @@ FactoryBuilderManager = Class(BuilderManager) {
                         if replacement then
 					
                             if not template then
-                                template = { PlatoonTemplates[templateName].Name, '', }
+                                template = { PlatoonTemplate.Name, '', }
                             end
                         
                             LOUDINSERT( template, replacement )
@@ -709,7 +686,7 @@ FactoryBuilderManager = Class(BuilderManager) {
                         else
                     
                             if not template then
-                                template = { PlatoonTemplates[templateName].Name, '', }
+                                template = { PlatoonTemplate.Name, '', }
                             end 
                         
                             LOUDINSERT( template, v )
@@ -719,7 +696,7 @@ FactoryBuilderManager = Class(BuilderManager) {
                     else
                 
                         if not template then
-                            template = { PlatoonTemplates[templateName].Name, '', }
+                            template = { PlatoonTemplate.Name, '', }
                         end
 				
                         LOUDINSERT( template, v )
@@ -736,7 +713,7 @@ FactoryBuilderManager = Class(BuilderManager) {
                     if replacement then
 					
                         if not template then
-                            template = { PlatoonTemplates[templateName].Name, '', }
+                            template = { PlatoonTemplate.Name, '', }
                         end
                         
                         LOUDINSERT( template, replacement )
@@ -749,7 +726,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 			
 		elseif faction and customData then
 
-			local replacement = GetCustomReplacement( PlatoonTemplates[templateName].FactionSquads[1] )
+			local replacement = GetCustomReplacement( FactionSquads[1] )
 			
 			if replacement then
 			
@@ -759,7 +736,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 		
         if not template then
         
-            WARN("*AI DEBUG Template "..repr(templateName).." for "..repr(faction).." is empty "..repr(PlatoonTemplates[templateName].FactionSquads[faction]))
+            WARN("*AI DEBUG Template "..repr(templateName).." for "..repr(faction).." is empty "..repr(FactionSquads[faction]))
         end
         
 		return template
@@ -851,6 +828,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 		end
 
 		local aiBrain = GetAIBrain(factory)
+        local ArmyPool = aiBrain.ArmyPool
         
         local unitlist, units
 		
@@ -866,7 +844,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 				
 				for _,unit in units do
 				
-					if (unit.PlatoonHandle == aiBrain.ArmyPool) and IsIdleState(unit) then
+					if (unit.PlatoonHandle == ArmyPool) and IsIdleState(unit) then
 
 						LOUDINSERT( unitlist, unit )
 					end

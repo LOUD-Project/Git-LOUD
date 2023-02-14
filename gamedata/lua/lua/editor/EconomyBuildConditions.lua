@@ -25,6 +25,7 @@ local EntityCategoryFilterDown = EntityCategoryFilterDown
 
 local IsUnitState = moho.unit_methods.IsUnitState
 
+local LOUDMAX = math.max
 local LOUDSORT = table.sort
 
 local T1FACTORIES = categories.STRUCTURE * categories.TECH1 * categories.FACTORY
@@ -160,9 +161,9 @@ function CanBuildOnMassAtRange(aiBrain, locationType, mindistance, maxdistance, 
 		
 		if counter > 0 then
 
-			local markerTable = AISortMarkersFromLastPosWithThreatCheck(aiBrain, mlist, maxNum, tMin, tMax, tRings, tType, position)
+			markerlist = AISortMarkersFromLastPosWithThreatCheck(aiBrain, mlist, maxNum, tMin, tMax, tRings, tType, position)
 
-			if markerTable then
+			if markerlist then
 				return true
 			end
 		end		
@@ -193,9 +194,10 @@ function CanBuildOnHydroLessThanDistance(aiBrain, locationType, distance, tMin, 
 		if counter > 0 then
         
 			local position = aiBrain.BuilderManagers[locationType].Position
-			local markerTable = AISortMarkersFromLastPosWithThreatCheck(aiBrain, mlist, maxNum, tMin, tMax, tRings, tType, position)
+
+			markerlist = AISortMarkersFromLastPosWithThreatCheck(aiBrain, mlist, maxNum, tMin, tMax, tRings, tType, position)
 	    
-			if markerTable and VDist2Sq( markerTable[1][1],markerTable[1][3], position[1],position[3] ) < (distance*distance) then
+			if markerlist and VDist2Sq( markerlist[1][1],markerlist[1][3], position[1],position[3] ) < (distance*distance) then
 				return true
 			end
 		end		
@@ -218,7 +220,7 @@ end
 
 -- modified to be altered by AI Cheat --
 function LessThanEconEnergyStorageCurrent(aiBrain, eStorage)
-	return GetEconomyStored( aiBrain, 'ENERGY') < (eStorage * (1/math.max( 1, aiBrain.CheatValue)))
+	return GetEconomyStored( aiBrain, 'ENERGY') < (eStorage * (1/LOUDMAX( 1, aiBrain.CheatValue)))
 end
 
 function LessThanEconEnergyStorageRatio(aiBrain, eStorageRatio)
@@ -226,7 +228,7 @@ function LessThanEconEnergyStorageRatio(aiBrain, eStorageRatio)
 end
 
 function GreaterThanEconEnergyStorageCurrent(aiBrain, eStorage)
-    return GetEconomyStored( aiBrain, 'ENERGY') >= (eStorage * (1/math.max( 1, aiBrain.CheatValue)))
+    return GetEconomyStored( aiBrain, 'ENERGY') >= (eStorage * (1/LOUDMAX( 1, aiBrain.CheatValue)))
 end
 
 function GreaterThanEconEnergyStorageRatio(aiBrain, eStorageRatio)
@@ -260,7 +262,7 @@ end
 
 -- modified to be altered by AI Cheat --
 function LessThanEconMassStorageCurrent(aiBrain, mStorage)
-	return GetEconomyStored( aiBrain, 'MASS') < (mStorage * (1/math.max( 1, aiBrain.CheatValue)))
+	return GetEconomyStored( aiBrain, 'MASS') < (mStorage * (1/LOUDMAX( 1, aiBrain.CheatValue)))
 end
 
 function LessThanEconMassStorageRatio(aiBrain, mStorageRatio)
@@ -327,12 +329,13 @@ end
 -- allows us to remove other eco checks in the builder conditions
 function MassToFactoryRatioBaseCheck( aiBrain, locationType, massefficiency, energyefficiency )
 
-	local MassIncome = aiBrain.EcoData['OverTime'].MassIncome
-	local EnergyIncome = aiBrain.EcoData['OverTime'].EnergyIncome
+    local EcoData = aiBrain.EcoData['OverTime']
+	local MassIncome = EcoData.MassIncome
+	local EnergyIncome = EcoData.EnergyIncome
     
     local CheatAdjust = aiBrain.CheatValue or 1
 
-	if (aiBrain.EcoData['OverTime'].MassRequested > MassIncome) and (aiBrain.EcoData['OverTime'].EnergyRequested > EnergyIncome) then
+	if ( EcoData.MassRequested > MassIncome) and ( EcoData.EnergyRequested > EnergyIncome) then
 		if not GreaterThanEconEfficiencyOverTime(aiBrain, massefficiency or 1, energyefficiency or 1) then
 			return false
 		end
@@ -378,8 +381,6 @@ function MassToFactoryRatioBaseCheck( aiBrain, locationType, massefficiency, ene
     if (massTotal + t1Drain) >  MassIncome then
         return false
     end
-    
-    --LOG("*AI DEBUG "..aiBrain.Nickname.." massTotal is "..massTotal + t1Drain.."  Income is "..MassIncome)
     
     return true    
 end

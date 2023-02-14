@@ -56,6 +56,7 @@ local SUBCOMMANDER = categories.SUBCOMMANDER
 
 local LANDUNITS = categories.LAND * categories.MOBILE
 local AIRUNITS = categories.AIR * categories.MOBILE
+local FIGHTERS = categories.AIR * categories.ANTIAIR
 local SEAUNITS = categories.MOBILE - categories.AIR
 
 local LANDRESPONSE = (categories.LAND * categories.MOBILE) - categories.ANTIAIR - categories.COUNTERINTELLIGENCE - categories.ENGINEER - categories.COMMAND
@@ -130,7 +131,7 @@ EngineerManager = Class(BuilderManager) {
         LOUDINSERT( self.EngineerList, unit )
         
         if ScenarioInfo.EngineerDialog then
-            LOG("*AI DEBUG "..GetAIBrain(unit).Nickname.." Eng "..unit.Sync.id.." "..__blueprints[unit.BlueprintID].Description.." added to "..self.ManagerType.." "..self.LocationType)
+            LOG("*AI DEBUG "..GetAIBrain(unit).Nickname.." Eng "..unit.EntityID.." "..__blueprints[unit.BlueprintID].Description.." added to "..self.ManagerType.." "..self.LocationType)
             --LOG("*AI DEBUG "..GetAIBrain(unit).Nickname.." Engineer Count is "..self.EngineerList.Count + 1)
         end
 		
@@ -215,6 +216,9 @@ EngineerManager = Class(BuilderManager) {
 
 	-- This is the primary function that assigns jobs to an engineer
     AssignEngineerTask = function( self, unit, aiBrain )
+    
+        local EngineerDialog = ScenarioInfo.EngineerDialog
+        local PlatoonDialog = ScenarioInfo.PlatoonDialog
 
 		if unit.Dead or unit.AssigningTask or BeenDestroyed(unit) then
 			return
@@ -226,29 +230,28 @@ EngineerManager = Class(BuilderManager) {
 			return
 		end
 
-        if ScenarioInfo.EngineerDialog then
-            LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..unit.Sync.id.." starts AssignEngineerTask at at "..self.LocationType )
+        if EngineerDialog then
+            LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..unit.EntityID.." starts AssignEngineerTask at at "..self.LocationType )
         end
 
 		unit.AssigningTask = true
-        
-        local PlatoonDialog = ScenarioInfo.PlatoonDialog or false
 
+        local BuilderName = builder.BuilderName
         local Builder = Builders[builder.BuilderName]
 
         if builder and (not unit.Dead) and (not unit.Fighting) then
 
 			if PlatoonDialog then
-				LOG("*AI DEBUG "..aiBrain.Nickname.." EM "..self.LocationType.." forms "..repr(builder.BuilderName) )
+				LOG("*AI DEBUG "..aiBrain.Nickname.." EM "..self.LocationType.." forms "..repr(BuilderName) )
 			end
 
-            if ScenarioInfo.EngineerDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..unit.Sync.id.." "..repr(builder.BuilderName).." forms at "..self.LocationType )
+            if EngineerDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..unit.EntityID.." "..repr(BuilderName).." forms at "..self.LocationType )
             end
 			
-            local hndl = MakePlatoon( aiBrain, builder.BuilderName, PlatoonTemplates[Builder.PlatoonTemplate].Plan or 'none' )
+            local hndl = MakePlatoon( aiBrain, BuilderName, PlatoonTemplates[Builder.PlatoonTemplate].Plan or 'none' )
 
-			hndl.BuilderName = builder.BuilderName
+			hndl.BuilderName = BuilderName
             hndl.LocationType = self.LocationType
 			hndl.MovementLayer = 'Amphibious'
             
@@ -264,7 +267,7 @@ EngineerManager = Class(BuilderManager) {
 			
 			if not builder:StoreHandle( hndl, self, unit.BuilderType ) then
 			
-				WARN("*AI DEBUG "..aiBrain.Nickname.." no available instance for "..builder.BuilderName.." Eng "..unit.Sync.id.." Creation Time "..hndl.CreationTime.." told that "..builder.InstanceAvailable.." were available")
+				WARN("*AI DEBUG "..aiBrain.Nickname.." no available instance for "..BuilderName.." Eng "..unit.EntityID.." Creation Time "..hndl.CreationTime.." told that "..builder.InstanceAvailable.." were available")
 				
 				builder.InstanceAvailable = 0
 				aiBrain:DisbandPlatoon(hndl)
@@ -287,7 +290,7 @@ EngineerManager = Class(BuilderManager) {
 			end
 
 			unit.PlatoonHandle = hndl
-            unit.BuilderName = hndl.BuilderName
+            unit.BuilderName = BuilderName
 
 			unit.failedbuilds = 0
 			unit.failedmoves = 0
@@ -304,7 +307,7 @@ EngineerManager = Class(BuilderManager) {
                     ForkThread( import(pafv[1])[pafv[2]], hndl, aiBrain)
 
 					if PlatoonDialog then
-						LOG("*AI DEBUG "..aiBrain.Nickname.." "..builder.BuilderName.." adds function "..repr(pafv[2]))
+						LOG("*AI DEBUG "..aiBrain.Nickname.." "..BuilderName.." adds function "..repr(pafv[2]))
 					end
                 end
             end
@@ -322,7 +325,7 @@ EngineerManager = Class(BuilderManager) {
                 for papk, papv in Builder.PlatoonAddPlans do
 
 					if PlatoonDialog then
-						LOG("*AI DEBUG "..aiBrain.Nickname.." "..builder.BuilderName.." adds plan "..repr(papv))
+						LOG("*AI DEBUG "..aiBrain.Nickname.." "..BuilderName.." adds plan "..repr(papv))
 					end
 
                     hndl:ForkThread( hndl[papv], aiBrain )
@@ -335,7 +338,7 @@ EngineerManager = Class(BuilderManager) {
                 for pafk, pafv in Builder.PlatoonAddBehaviors do
 
 					if PlatoonDialog then
-						LOG("*AI DEBUG "..aiBrain.Nickname.." "..builder.BuilderName.." adds behavior "..repr(pafv))
+						LOG("*AI DEBUG "..aiBrain.Nickname.." "..BuilderName.." adds behavior "..repr(pafv))
 					end
 
                     hndl:ForkThread( import('/lua/ai/aibehaviors.lua')[pafv], aiBrain )
@@ -353,7 +356,7 @@ EngineerManager = Class(BuilderManager) {
             else
             
                 if PlatoonDialog or ScenarioInfo.EngineerDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..unit.Sync.id.." finds NO TASK at EM "..self.LocationType)
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..unit.EntityID.." finds NO TASK at EM "..self.LocationType)
                 end
                 
             end
@@ -374,7 +377,7 @@ EngineerManager = Class(BuilderManager) {
     DelayAssignEngineerTask = function( self, unit, aiBrain )
 
         if ScenarioInfo.EngineerDialog then
-            LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..unit.Sync.id.." waiting "..(14 + (unit.failedbuilds * 5)).." ticks")
+            LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..unit.EntityID.." waiting "..(14 + (unit.failedbuilds * 5)).." ticks")
         end    
 
 		WaitTicks(14 + (unit.failedbuilds * 5))
@@ -397,39 +400,6 @@ EngineerManager = Class(BuilderManager) {
 			end
         end
     end,
-    
---[[	
-    GetNumCategoryUnits = function( self, category )
-	
-        return EntityCategoryCount( category, self.EngineerList ) or 0
-    end,
-
-    
-    GetNumCategoryBeingBuilt = function( self, category, engCategory )
-	
-		local engs = EntityCategoryFilterDown( engCategory, self.EngineerList ) or {}
-		
-		local counter = 0
-        local beingBuiltUnit
-
-        for _,v in engs do
-		
-            if not v.Dead  and IsUnitState( v, 'Building' ) then
-            
-				beingBuiltUnit = v.UnitBeingBuilt
-			
-				if beingBuiltUnit and not beingBuiltUnit.Dead then
-            
-					if LOUDENTITY( category, beingBuiltUnit ) then
-						counter = counter + 1
-					end
-				end
-			end
-        end
-
-        return counter
-    end,
---]]
 	
     -- ok - this routine should find engineers which are building an item of a given category
 	-- problem is - actively - it doesn't account for them having that item in
@@ -548,7 +518,7 @@ EngineerManager = Class(BuilderManager) {
                 
                     local brain = GetAIBrain(unit)
                     
-                    LOG("*AI DEBUG "..brain.Nickname.." Removing Engineer "..unit.Sync.id.." "..__blueprints[unit.BlueprintID].Description.." from "..self.ManagerType.." "..self.LocationType)
+                    LOG("*AI DEBUG "..brain.Nickname.." Removing Engineer "..unit.EntityID.." "..__blueprints[unit.BlueprintID].Description.." from "..self.ManagerType.." "..self.LocationType)
                     LOG("*AI DEBUG "..brain.Nickname.." Engineer Count is "..self.EngineerList.Count - 1)
                 end
 
@@ -750,7 +720,7 @@ EngineerManager = Class(BuilderManager) {
 		
 			AlertsTable = {},							-- stores the data for each threat (position, amount of threat, type of threat)
             
-            DistressRepeats = 0,                        -- how many times have we tried (and failed) to generate a response to an alert
+            --DistressRepeats = 0,                        -- how many times have we tried (and failed) to generate a response to an alert
         
 			LastAlertTime = LOUDFLOOR(GetGameTimeSeconds()),	-- how long since last alert
             
@@ -787,17 +757,22 @@ EngineerManager = Class(BuilderManager) {
 		
         local VDist2Sq = VDist2Sq
 		local WaitTicks = WaitTicks
+        
+        local Location = self.Location
+        local LocationType = self.LocationType
+        
+        local Position,Type,Threat
 
 		-- this function will draw a visible radius around the base
 		-- equal to the alert radius of the base each time the base
 		-- looks for threats
 		local function DrawBaseMonitorRadius( range )
 
-			local position = aiBrain.BuilderManagers[self.LocationType].Position
+			Position = aiBrain.BuilderManagers[self.LocationType].Position
 		
 			local color = 'ff0000'      -- red --
 		
-			if aiBrain.BuilderManagers[self.LocationType].PrimaryLandAttackBase or aiBrain.BuilderManagers[self.LocationType].PrimarySeaAttackBase then
+			if aiBrain.BuilderManagers[LocationType].PrimaryLandAttackBase or aiBrain.BuilderManagers[LocationType].PrimarySeaAttackBase then
             
 				color = '00ff00'        -- green --
 			end
@@ -819,11 +794,11 @@ EngineerManager = Class(BuilderManager) {
 		local function SetBaseMarker()
 		
 			if BaseMonitorDialog then
-				LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." adding Marker")
+				LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." adding Marker")
 			end
 	
-			if aiBrain.BuilderManagers[self.LocationType] then
-				aiBrain.BuilderManagers[self.LocationType].MarkerID = import('/lua/ai/altaiutilities.lua').AISendPing( self.Location, 'marker', aiBrain.ArmyIndex, aiBrain.Nickname.." "..self.LocationType )
+			if aiBrain.BuilderManagers[LocationType] then
+				aiBrain.BuilderManagers[LocationType].MarkerID = import('/lua/ai/altaiutilities.lua').AISendPing( Location, 'marker', aiBrain.ArmyIndex, aiBrain.Nickname.." "..LocationType )
 			end
 		end
 		
@@ -845,17 +820,17 @@ EngineerManager = Class(BuilderManager) {
 				local AlertRadius = self.BaseMonitor.AlertRange
 		
                 -- primary land base has a larger radius
-				if aiBrain.BuilderManagers[self.LocationType].PrimaryLandAttackBase then
+				if aiBrain.BuilderManagers[LocationType].PrimaryLandAttackBase then
 					AlertRadius = self.BaseMonitor.AlertRange + 25
 				end
 
 				local threatTable = LOUDCOPY(aiBrain.IL.HiPri)
 
 				-- if there is a threat table and we have a position
-				if threatTable[1] and self.Location then
+				if threatTable[1] and Location then
 
 					-- sort the threat table by distance from this base --
-					LOUDSORT(threatTable, function (a,b) return VDist2Sq(a.Position[1],a.Position[3], self.Location[1],self.Location[3]) < VDist2Sq(b.Position[1],b.Position[3], self.Location[1],self.Location[3]) end)
+					LOUDSORT(threatTable, function (a,b) return VDist2Sq(a.Position[1],a.Position[3], Location[1],Location[3]) < VDist2Sq(b.Position[1],b.Position[3], Location[1],Location[3]) end)
 
 					local highThreat, highThreatPos, highThreatType
                     local alertraised, alertrangemod
@@ -863,7 +838,7 @@ EngineerManager = Class(BuilderManager) {
 					for _,LoopType in { 'Experimental', 'Land', 'Air', 'Naval' } do
 					
 						if BaseMonitorDialog then
-							LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASEMONITOR checks "..repr(LoopType))
+							LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR checks "..repr(LoopType))
 						end
 					
 						alertraised = false
@@ -914,25 +889,29 @@ EngineerManager = Class(BuilderManager) {
 					
 							-- loop thru the threat list
 							for _,threat in threatTable do
+                            
+                                Position = threat.Position
+                                Threat = threat.Threat
+                                Type = threat.Type
 						
 								-- filter by distance from the base and break out if threats are farther away (we presorted by distance)
-								if VDist2Sq(threat.Position[1],threat.Position[3], self.Location[1],self.Location[3]) <= ((AlertRadius + alertrangemod)*(AlertRadius + alertrangemod)) then
+								if VDist2Sq(Position[1],Position[3], Location[1],Location[3]) <= ((AlertRadius + alertrangemod)*(AlertRadius + alertrangemod)) then
 							
 									-- match for threat type we are currently checking
-									if threat.Type == LoopType then
+									if Type == LoopType then
 						
 										-- filter out any threat less than the current highthreat value
-										if threat.Threat > highThreat then
+										if Threat > highThreat then
 
 											-- signal that an alert has been raised 
 											alertraised = true
 
                                             -- record the threat and it's position --
-											highThreat = threat.Threat
-											highThreatPos = {threat.Position[1], threat.Position[2], threat.Position[3]}
+											highThreat = Threat
+											highThreatPos = {Position[1], Position[2], Position[3]}
 							
                                             -- determine the Type of threat it is
-											if threat.Type == 'Experimental' then
+											if Type == 'Experimental' then
 									
 												experimentalsair = GetUnitsAroundPoint( aiBrain, categories.EXPERIMENTAL * categories.AIR, highThreatPos, 120, 'Enemy')
 												experimentalssea = GetUnitsAroundPoint( aiBrain, categories.EXPERIMENTAL * categories.NAVAL, highThreatPos, 120, 'Enemy')
@@ -982,11 +961,11 @@ EngineerManager = Class(BuilderManager) {
 							aiBrain.BaseAlertSounded = true
 							
 							if BaseMonitorDialog then
-								LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASEMONITOR raises "..highThreatType.." alert of "..math.floor(highThreat).." at position "..repr(highThreatPos))
+								LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR raises "..highThreatType.." alert of "..math.floor(highThreat).." at position "..repr(highThreatPos))
 							end
 							
 							-- accurately check the threat, launch the response thread, and monitor the threat until its gone
-							self:ForkThread( self.BaseMonitorAlertTimeoutLOUD, aiBrain, highThreatPos, self.Location, highThreatType, ((AlertRadius + alertrangemod)*(AlertRadius + alertrangemod)) )
+							self:ForkThread( self.BaseMonitorAlertTimeoutLOUD, aiBrain, highThreatPos, Location, highThreatType, ((AlertRadius + alertrangemod)*(AlertRadius + alertrangemod)) )
 						end
                     end
 				end
@@ -994,7 +973,7 @@ EngineerManager = Class(BuilderManager) {
 		end
 
 		if BaseMonitorDialog then
-			LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASEMONITOR starts")
+			LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR starts")
 		end
 	
 		local delay = self.BaseMonitor.BaseMonitorInterval or 4
@@ -1011,7 +990,7 @@ EngineerManager = Class(BuilderManager) {
             
 			if BaseMonitorDialog then
                 if lastdelay != delay then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.LocationType.." BASEMONITOR delay is "..repr(self.BaseMonitor.BaseMonitorInterval + delay))
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR delay is "..repr(self.BaseMonitor.BaseMonitorInterval + delay))
                     
                     lastdelay = delay
                 end
@@ -1023,14 +1002,14 @@ EngineerManager = Class(BuilderManager) {
 		
 				if ScenarioInfo.DisplayBaseNames or aiBrain.DisplayBaseNames then
                 
-					if not aiBrain.BuilderManagers[self.LocationType].MarkerID then
+					if not aiBrain.BuilderManagers[LocationType].MarkerID then
 						ForkThread( SetBaseMarker )
 					end
                     
 				else
                 
-                    if aiBrain.BuilderManagers[self.LocationType].MarkerID then
-   						ForkThread( import('/lua/loudutilities.lua').RemoveBaseMarker, aiBrain, self.LocationType, aiBrain.BuilderManagers[self.LocationType].MarkerID)
+                    if aiBrain.BuilderManagers[LocationType].MarkerID then
+   						ForkThread( import('/lua/loudutilities.lua').RemoveBaseMarker, aiBrain, LocationType, aiBrain.BuilderManagers[LocationType].MarkerID)
                     end
                     
                 end
@@ -1256,14 +1235,16 @@ EngineerManager = Class(BuilderManager) {
 		local WaitTicks = WaitTicks
         
         local GetThreatAtPosition = GetThreatAtPosition
+        local Defense
 
 		local GetThreatOfGroup = function( group, distressType )
 	
 			local totalThreat = 0
-	
+
 			if distressType == 'Land' then
 		
 				for _,u in group do
+
 					if not u.Dead then
 						totalThreat = totalThreat + (__blueprints[u.BlueprintID].Defense.SurfaceThreatLevel or 0)
 					end
@@ -1275,8 +1256,12 @@ EngineerManager = Class(BuilderManager) {
 			if distressType == 'Naval' then
 		
 				for _,u in group do
+                
 					if not u.Dead then
-						totalThreat = totalThreat + (__blueprints[u.BlueprintID].Defense.SurfaceThreatLevel or 0) + (__blueprints[u.BlueprintID].Defense.SubThreatLevel or 0)
+                    
+                        Defense = __blueprints[u.BlueprintID].Defense
+                        
+						totalThreat = totalThreat + (Defense.SurfaceThreatLevel or 0) + (Defense.SubThreatLevel or 0)
 					end
 				end
 			
@@ -1311,13 +1296,15 @@ EngineerManager = Class(BuilderManager) {
 		local distress_ftr = false
 		local distress_land = false
 		local distress_naval = false
-	
+
+        local DistressRepeats = 0
 		local DistressTypes = { 'Air', 'Land', 'Naval' }
 		
 		local distressLocation, distressType, threatamount
 	
 		local grouplnd, groupair, groupsea, groupftr
 		local grouplndcount, groupaircount, groupseacount, groupfrtcount
+        local steps, xstep, ystep, lastpos, nextpos, lastposheight, nextposheight
 
         local RallyPoints = aiBrain.BuiderManagers[LocationType].RallyPoints
 		
@@ -1327,13 +1314,12 @@ EngineerManager = Class(BuilderManager) {
 		local function CheckBlockingTerrain( pos, targetPos )
 	
 			-- This gives us the number of approx. 6 ogrid steps in the distance
-			local steps = LOUDFLOOR( VDist2(pos[1], pos[3], targetPos[1], targetPos[3]) / 6 )
+			steps = LOUDFLOOR( VDist2(pos[1], pos[3], targetPos[1], targetPos[3]) / 6 )
 	
-			local xstep = (pos[1] - targetPos[1]) / steps -- how much the X value will change from step to step
-			local ystep = (pos[3] - targetPos[3]) / steps -- how much the Y value will change from step to step
+			xstep = (pos[1] - targetPos[1]) / steps -- how much the X value will change from step to step
+			ystep = (pos[3] - targetPos[3]) / steps -- how much the Y value will change from step to step
 			
-			local lastpos = {pos[1], 0, pos[3]}
-            local nextpos, lastposHeight, nextposHeight
+			lastpos = {pos[1], 0, pos[3]}
             
             local GetTerrainHeight = GetTerrainHeight
 	
@@ -1371,8 +1357,9 @@ EngineerManager = Class(BuilderManager) {
 		end
         
         local BaseMonitor = self.BaseMonitor
+        local AlertResponseTime = BaseMonitor.AlertResponseTime
+
         local GetDistressDistance
-        
         local counter, totalthreatsent, threatlimit
 
 		-- this loop runs as long as there is distress underway and the base exists and has active alerts
@@ -1504,7 +1491,9 @@ EngineerManager = Class(BuilderManager) {
                                     if not u.Dead then
                                         IssueAggressiveMove( {u}, RandomLocation(distressLocation[1],distressLocation[3], 10))
                                         counter = counter + 1
-                                        totalthreatsent = totalthreatsent + (__blueprints[u.BlueprintID].Defense.SurfaceThreatLevel or 0) + (__blueprints[u.BlueprintID].Defense.SubThreatLevel or 0)
+
+                                        Defense = __blueprints[u.BlueprintID].Defense
+                                        totalthreatsent = totalthreatsent + (Defense.SurfaceThreatLevel or 0) + (Defense.SubThreatLevel or 0)
                                     end
 
                                     if totalthreatsent > threatlimit then
@@ -1608,7 +1597,7 @@ EngineerManager = Class(BuilderManager) {
 						else
 
 							-- locate all anti-air air units not already in platoons
-							groupftr, groupftrcount = GetFreeUnitsAroundPoint( aiBrain, (categories.AIR * categories.ANTIAIR), baseposition, radius, true )
+							groupftr, groupftrcount = GetFreeUnitsAroundPoint( aiBrain, FIGHTERS, baseposition, radius, true )
 
 							-- if there are more than 4 anti-air units
 							if groupftrcount > 4 then 
@@ -1660,15 +1649,15 @@ EngineerManager = Class(BuilderManager) {
 				-- as a base responds to a continued alert I want to gradually slow the response loop
 				-- this allows a base more time to gather additional units before sending them out 
 				-- this will reduce the effect of 'kiting' the AI out of his base by triggering an alert
-				BaseMonitor.DistressRepeats = LOUDMIN(BaseMonitor.DistressRepeats + 1, 8)
+				DistressRepeats = LOUDMIN(DistressRepeats + 1, 8)
                 
 			else
-                BaseMonitor.DistressRepeats = 0
+                DistressRepeats = 0
             end
             
             -- if we have not been able to respond to distress
             -- then close this distress repsonse
-            if BaseMonitor.DistressRepeats > 5 then
+            if DistressRepeats > 8 then
                 distressunderway = false
             end
 
@@ -1676,11 +1665,11 @@ EngineerManager = Class(BuilderManager) {
             if distressunderway then
             
                 if BaseDistressResponseDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASE DISTRESS RESPONSE waiting "..(BaseMonitor.AlertResponseTime + (BaseMonitor.DistressRepeats*4)).." seconds until next response cycle")
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASE DISTRESS RESPONSE waiting "..(AlertResponseTime + (DistressRepeats*4)).." seconds until next response cycle")
                 end
                 
                 -- each DistressRepeat adds 4 seconds to each response period --
-                WaitTicks( (BaseMonitor.AlertResponseTime + (BaseMonitor.DistressRepeats*4)) * 10)
+                WaitTicks( (AlertResponseTime + (DistressRepeats*4)) * 10)
             end
 		end
 
@@ -1693,7 +1682,7 @@ EngineerManager = Class(BuilderManager) {
 		if response then
 
             -- reset the Distress Repeats --
-			BaseMonitor.DistressRepeats = 0
+			DistressRepeats = 0
 			
 			if distress_land then 
 		
@@ -1803,9 +1792,11 @@ EngineerManager = Class(BuilderManager) {
 			end
 		end
 	
+        local AlertsTable = self.BaseMonitor.AlertsTable[threattype]
+
 		-- Base Alerts are second --
-		if self.BaseMonitor.AlertsTable[threattype] then
-			return self.BaseMonitor.AlertsTable[threattype].Position, threattype, self.BaseMonitor.AlertsTable[threattype].Threat
+		if AlertsTable then
+			return AlertsTable.Position, threattype, AlertsTable.Threat
 		end
 
 		-- Platoon Distress calls -- 

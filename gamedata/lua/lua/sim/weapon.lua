@@ -276,7 +276,7 @@ Weapon = Class(moho.weapon_methods) {
 		self:SetDamageTable(bp)
 
 		if ScenarioInfo.WeaponDialog then
-			LOG("*AI DEBUG Weapon OnCreate for "..repr(__blueprints[self.unit.BlueprintID].Description).." "..self.unit.Sync.id.." -- "..repr(self.bp.Label) )
+			LOG("*AI DEBUG Weapon OnCreate for "..repr(__blueprints[self.unit.BlueprintID].Description).." "..self.unit.EntityID.." -- "..repr(self.bp.Label) )
 		end
 
     end,

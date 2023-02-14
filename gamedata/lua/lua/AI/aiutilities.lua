@@ -675,7 +675,7 @@ function GetOwnUnitsAroundPoint( aiBrain, category, location, radius )
 	
 		for k,v in units do
 	
-			if (not v.Dead) and GetFractionComplete(v) == 1 and v.Sync.army == ArmyIndex then
+			if (not v.Dead) and GetFractionComplete(v) == 1 and v.Army == ArmyIndex then
 
 				counter = counter + 1            
 				mlist[counter] = v
@@ -722,10 +722,11 @@ function GetOwnUnitsAroundPointWithThreatCheck( aiBrain, category, location, rad
     local mlist = {}
 	local counter = 0
     local threat
+    local ArmyIndex = aiBrain.ArmyIndex
 
     for k,v in GetUnitsAroundPoint( aiBrain, category, location, radius, 'Ally' ) do
 	
-        if (not v.Dead) and GetFractionComplete(v) == 1 and v.Sync.army == aiBrain.ArmyIndex then
+        if (not v.Dead) and GetFractionComplete(v) == 1 and v.Army == ArmyIndex then
 
 			if tmin and tmax then
 			
@@ -753,6 +754,7 @@ function GetNumberOfOwnUnitsAroundPoint( aiBrain, category, location, radius )
 	
 	local GetUnitsAroundPoint = GetUnitsAroundPoint
 	local GetFractionComplete = GetFractionComplete
+    local ArmyIndex = aiBrain.ArmyIndex
 	
 	local counter = 0
 	
@@ -760,7 +762,7 @@ function GetNumberOfOwnUnitsAroundPoint( aiBrain, category, location, radius )
 	
         if not v.Dead then
 		
-			if GetFractionComplete(v) == 1 and v.Sync.army == aiBrain.ArmyIndex then
+			if GetFractionComplete(v) == 1 and v.Army == ArmyIndex then
 				counter = counter + 1
 			end
         end

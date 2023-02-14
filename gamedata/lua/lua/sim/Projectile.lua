@@ -237,7 +237,7 @@ Projectile = Class(moho.projectile_methods, Entity) {
         if (LOUDENTITY(TORPEDO, self) and ( LOUDENTITY(TORPEDO, other) or LOUDENTITY(DIRECTFIRE, other))) or 
            (LOUDENTITY(MISSILE, self) and ( LOUDENTITY(MISSILE, other) or LOUDENTITY(DIRECTFIRE, other))) or 
            (LOUDENTITY(DIRECTFIRE, self) and LOUDENTITY(MISSILE, other)) or 
-           (self.Army) == (other.Sync.army) then
+           (self.Army) == (other.Army) then
             return false
         end
 

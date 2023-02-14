@@ -761,7 +761,7 @@ function Nuke(aiBrain)
 				#Send a message to allies letting them know we are letting nukes fly
 				
 				--Also ping the map where we are targeting
-				aitarget = target.Sync.army
+				aitarget = target.Army
 				AISendChat('allies', ArmyBrains[aiBrain.ArmyIndex].Nickname, 'nukechat', ArmyBrains[aitarget].Nickname)
 				AltAIUtils.AISendPing(tarPosition, 'attack', aiBrain.ArmyIndex)
 				

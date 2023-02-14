@@ -11,15 +11,14 @@ UnitDoTThread = function(instigator, unit, pulses, pulseTime, damage, damType, f
 	local LOUDDAMAGE = Damage
 	
 	local unitpos = unit:GetPosition()
-    
-    --LOG("*AI DEBUG Doing UnitDOT for "..pulses.." pulses of "..damage.." damage every "..pulsetime*10.." ticks")
 	
     for i = 1, pulses do
+
         if unit and not BeenDestroyed(unit) then
         
-            --LOG("*AI DEBUG Pulse "..i.." for "..damage.." damage")
             LOUDDAMAGE(instigator, unitpos, unit, damage, damType )
         else
+
             break
         end
         
@@ -37,7 +36,6 @@ AreaDoTThread = function(instigator, position, pulses, pulseTime, radius, damage
         LOUDDAMAGEAREA(instigator, position, radius, damage, damType, friendly)
 		
         WaitTicks(pulseTime * 10)
-		
     end
 end
 
@@ -70,7 +68,6 @@ function ScalableRadiusAreaDoT(entity)
 			
             radius = radius - reductionScalar
             WaitTicks(freq * 10)
-			
         end
 		
     end

@@ -63,7 +63,7 @@ SAirFactoryUnit = Class(FactoryUnit) {
 
     CreateRollOffEffects = function(self)
 	
-        local army = self.Sync.army
+        local army = self.Army
         local unitB = self.UnitBeingBuilt
 		
         if not self.ReleaseEffectsBag then self.ReleaseEffectsBag = {} end
@@ -513,7 +513,7 @@ SEnergyCreationUnit = Class(EnergyCreationUnit) {
     OnStopBeingBuilt = function(self,builder,layer)
         EnergyCreationUnit.OnStopBeingBuilt(self, builder, layer)
 		
-        local army = self.Sync.army
+        local army = self.Army
 		
         if self.AmbientEffects then
             for k, v in EffectTemplate[self.AmbientEffects] do

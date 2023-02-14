@@ -102,8 +102,6 @@ function CommanderThread( platoon, aiBrain )
     ForkThread ( LifeThread, aiBrain, cdr )
 	
 	local moveWait = 0
-    
-    --LOG("*AI DEBUG Commander at start of thread is "..repr(cdr))
 
 	-- So - this loop runs on top of everything the commander might otherwise be doing
 	-- ie. - this is usually building, or trying to build something
@@ -112,7 +110,7 @@ function CommanderThread( platoon, aiBrain )
 		
 		Mult = 1
 		
-        WaitTicks(45)
+        WaitTicks(46)
 	
         -- See if Bob needs to fight
         if not cdr.Dead then
@@ -237,9 +235,10 @@ function CDROverCharge( aiBrain, cdr )
 	
 	-- get status of Bobs Shield (if he has one)
 	if cdr:ShieldIsOn() then
+
 		totalPercent = ((cdr:GetHealth() + cdr.MyShield:GetHealth()) / (cdr:GetMaxHealth() + cdr.MyShield:GetMaxHealth()))
-		else
-		totalPercent = cdr:GetHealthPercent();
+	else
+		totalPercent = cdr:GetHealthPercent()
 	end
 	
 	-- if Bob is in condition to fight and isn't in distress -- see if there is an alert
@@ -338,8 +337,6 @@ function CDROverCharge( aiBrain, cdr )
 			-- set the overcharge delay to RateOfFire / 1 ( ie.  1/0.2 = 5 seconds)
 			local overchargedelay = math.ceil(1/weapon.RateOfFire)
 			
-			--LOG("*AI DEBUG Commander Overcharge delay is "..overchargedelay)
-			
 			-- set the recharge counter to maximum (indicates ready to fire)
 			local counter = overchargedelay
 			
@@ -419,8 +416,6 @@ function CDROverCharge( aiBrain, cdr )
 					
 						enemyThreat = GetThreatAtPosition( aiBrain, targetPos, 0, true, 'AntiSurface')
 						friendlyThreat = GetThreatAtPosition( GetAIBrain(target), targetPos, 0, true, 'AntiSurface')
-						
-						--LOG("*AI DEBUG Commander "..aiBrain.Nickname.." - threat numbers - enemy "..enemyThreat.." - friendly "..friendlyThreat + cdrThreat)
 		
 						if target and (aiBrain:GetEconomyStored('ENERGY') >= weapon.EnergyRequired) and (not target.Dead) and (LOUDV3(GetPosition(cdr), GetPosition(target)) <= weapRange) then
 						
@@ -430,16 +425,16 @@ function CDROverCharge( aiBrain, cdr )
 							IssueClearCommands({cdr})
 
 							IssueOverCharge( {cdr}, target )
+
 							LOG("*AI DEBUG "..aiBrain.Nickname.." Overcharge fired!")
 							counter = 0
 						
 						elseif target and not target.Dead then
-					
-							--LOG("*AI DEBUG " .. aiBrain.Nickname .. " Commander target out of overcharge range - moving to attack")
+
 							local tarPos = GetPosition(target)
+
 							IssueClearCommands( {cdr} )
 							IssueAttack( {cdr}, target )
-							
 						end
 					
 						if enemyThreat > (friendlyThreat * 1.25) + cdrThreat then
@@ -450,7 +445,6 @@ function CDROverCharge( aiBrain, cdr )
 							
 							target = false
 							continueFighting = false
-							
 						end
 						
 					-- can't find a target in range yet keep moving towards distress --
@@ -469,17 +463,13 @@ function CDROverCharge( aiBrain, cdr )
 							
 							IssueClearCommands( {cdr} )
 							IssueMove( {cdr}, distressLoc )
-							
 						end
                         
                         if enemyThreat < 10 then
                         
                             continueFighting = false
-                            
                         end
-						
 					end
-					
 				end
 
 				-- increment the overcharge available counter
@@ -487,7 +477,6 @@ function CDROverCharge( aiBrain, cdr )
 				
 					WaitTicks(10)
 					counter = counter + 1
-					
 				end
 		
 				if EM.BaseMonitor.ActiveAlerts > 0 then
@@ -513,9 +502,7 @@ function CDROverCharge( aiBrain, cdr )
 				if not distressLoc or ( LOUDV3( distressLoc, cdr.CDRHome ) > distressRange ) or (totalPercent < .75) then
 				
 					continueFighting = false
-					
 				end
-				
 			end
 			
 			IssueClearCommands( {cdr} )
@@ -524,14 +511,10 @@ function CDROverCharge( aiBrain, cdr )
 			if PlatoonExists( aiBrain, plat) then
 			
 				ForkThread(cdr.PlatoonHandle.PlatoonDisband, cdr.PlatoonHandle, aiBrain )
-				
 			end
-
-			--LOG("*AI DEBUG "..aiBrain.Nickname.." Commander ends fighting")
 			
 			cdr.Fighting = false
 		end
-		
 	end
 	
 end
@@ -580,13 +563,9 @@ function CDRRunAway( aiBrain, cdr )
 			
 					if PlatoonExists( aiBrain, cdr.PlatoonHandle ) then
 				
-						--LOG("*AI DEBUG "..aiBrain.Nickname.." CDR disbands "..cdr.PlatoonHandle.BuilderName)
 						cdr.PlatoonHandle:PlatoonDisband( aiBrain )
-
 					end
-
 				end
-		
 			end		
 			
 			-- determine category of what he should run to (default is ground defense)
@@ -606,7 +585,6 @@ function CDRRunAway( aiBrain, cdr )
             elseif nmeAir > 5 then
 			
                 category = categories.ANTIAIR
-				
             end
 			
             local runSpot, prevSpot
@@ -615,14 +593,12 @@ function CDRRunAway( aiBrain, cdr )
             while ( (not cdr.Dead) and (totalPercent < .77) ) and ( nmeAir > 5 or nmeLand > 0 or nmeHardcore > 0 ) do
 
 				FloatingEntityText( cdr:GetEntityId(),'Running for cover...')
-				--LOG("*AI DEBUG "..aiBrain.Nickname.." running for cover")
 				
                 runSpot = import('/lua/ai/altaiutilities.lua').AIFindDefensiveAreaSorian( aiBrain, cdr, category, 80, runShield )
 				
 				if not runSpot or (prevSpot and runSpot[1] == prevSpot[1] and runSpot[3] == prevSpot[3]) then
 
 					runSpot = RandomLocation( aiBrain.StartPosX, aiBrain.StartPosZ )
-					
 				end
 				
                 if not prevSpot or runSpot[1] ~= prevSpot[1] or runSpot[3] ~= prevSpot[3] then
@@ -633,9 +609,7 @@ function CDRRunAway( aiBrain, cdr )
 					
 						IssueMove( {cdr}, runSpot )
 						prevSpot = LOUDCOPY(runSpot)
-						
                     end
-					
                 end
 
                 WaitTicks(200)
@@ -656,9 +630,7 @@ function CDRRunAway( aiBrain, cdr )
 					else 
 						totalPercent = cdr:GetHealthPercent()
 					end
-					
                 end
-				
             end
 			
 			aiBrain.CDRDistress = nil
@@ -666,13 +638,11 @@ function CDRRunAway( aiBrain, cdr )
 			LOG("*AI DEBUG "..aiBrain.Nickname.." Commander Distress DEACTIVATED")
 			
 			IssueClearCommands( {cdr} )
-			
         end
 	
 		-- since the CDR should be floating around in DelayAssignEngineerTask at this point
 		-- setting this to false should allow him to get a new engineer job
 		cdr.Fighting = false
-		
     end
 	
 end
@@ -697,14 +667,12 @@ function CDRReturnHome( aiBrain, cdr, Mult )
 		plat:SetAIPlan('ReturnToBaseAI',aiBrain)
 		
 		return true
-
 	end
 	
 	if cdr.Dead then
 	
 		aiBrain.CDRDistress = nil
 		return true
-
 	end
 	
 	return false
@@ -716,8 +684,6 @@ function CDRFinishUnit( aiBrain, cdr )
     if cdr.UnitBeingBuiltBehavior then
 
 		if not cdr.UnitBeingBuiltBehavior:BeenDestroyed() then
-
-			--LOG("*AI DEBUG "..aiBrain.Nickname.." Finishing unit")
 		
 			IssueClearCommands( {cdr} )
 			
@@ -795,8 +761,14 @@ end
 function CDREnhance( self, aiBrain )
 
     local units = GetPlatoonUnits(self)
+    
+    local PlatoonData = self.PlatoonData
 	
-	local finalenhancement = self.PlatoonData.Enhancement[LOUDGETN(self.PlatoonData.Enhancement)]
+    local ClearTaskOnComplete = PlatoonData.ClearTaskOnComplete
+    
+	local finalenhancement = PlatoonData.Enhancement[LOUDGETN(PlatoonData.Enhancement)]
+    
+    local ACUEnhanceDialog = ScenarioInfo.ACUEnhanceDialog
 	
 	local unit
 
@@ -827,13 +799,13 @@ function CDREnhance( self, aiBrain )
 		local IsIdleState = IsIdleState
 		local IsUnitState = IsUnitState
 		
-		for _,v in self.PlatoonData.Enhancement do
+		for _,v in PlatoonData.Enhancement do
 		
 			if not unit.Dead and not unit:HasEnhancement(v) then
 			
 				if not unit:HasEnhancement(v) then
 				
-                    if ScenarioInfo.ACUEnhanceDialog then
+                    if ACUEnhanceDialog then
                         LOG("*AI DEBUG "..aiBrain.Nickname.." CDREnhance waiting to start "..repr(v) )
                     end
 				
@@ -872,8 +844,8 @@ function CDREnhance( self, aiBrain )
 
                     WaitTicks(11)				
 
-					if ScenarioInfo.ACUEnhanceDialog then
-						LOG("*AI DEBUG "..aiBrain.Nickname.." CDREnhance enhancing for "..repr(v).." -- unit "..repr(unit) )
+					if ACUEnhanceDialog then
+						LOG("*AI DEBUG "..aiBrain.Nickname.." CDREnhance enhancing for "..repr(v) )
 					end
 
 					repeat
@@ -899,7 +871,7 @@ function CDREnhance( self, aiBrain )
 		end
 	end
 	
-	if unit and unit:HasEnhancement(finalenhancement) and self.PlatoonData.ClearTaskOnComplete then
+	if unit and unit:HasEnhancement(finalenhancement) and ClearTaskOnComplete then
 	
 		local manager = 'PlatoonFormManager'
 		
@@ -954,6 +926,20 @@ function AirScoutingAI( self, aiBrain )
     
     self.UsingTransport = true      -- airscouting is never considered for merge operations
 
+    local CreationTime = self.CreationTime
+    local MapSize = ScenarioInfo.size
+
+    local dest, dir, length, norm, orthogonal, threatbasis, threatlevel, vec
+    local path, reason
+    local visradius
+
+    local IL
+	local scout = false
+	local noscoutcount = 0
+	
+	local targetArea, mustScoutArea, mustScoutIndex
+    
+
 	local function AIGetMustScoutArea()
 	
 		for k,v in MustScoutList do
@@ -993,34 +979,32 @@ function AirScoutingAI( self, aiBrain )
 		
 		if scoutposition then
 		
-			local vec = {targetposition[1] - scoutposition[1], 0, targetposition[3] - scoutposition[3]}
+			vec = {targetposition[1] - scoutposition[1], 0, targetposition[3] - scoutposition[3]}
             
-			local length = VDist3( targetposition, scoutposition )
-			local norm = {vec[1]/length, 0, vec[3]/length}
-			local dir = LOUDPOW(-1, Random(1,2))
-			
-			local visRad = __blueprints[scout.BlueprintID].Intel.VisionRadius or 42
+			length = VDist3( targetposition, scoutposition )
+			norm = {vec[1]/length, 0, vec[3]/length}
+			dir = LOUDPOW(-1, Random(1,2))
 
-			local orthogonal = { norm[3] * visRad * dir, 0, -norm[1] * visRad * dir }
+			orthogonal = { norm[3] * visradius * dir, 0, -norm[1] * visradius * dir }
 
-			local dest = {targetposition[1] + orthogonal[1], 0, targetposition[3] + orthogonal[3]}
+			dest = {targetposition[1] + orthogonal[1], 0, targetposition[3] + orthogonal[3]}
 		
 			if dest[1] < 5 then
 				dest[1] = 5 
-			elseif dest[1] > ScenarioInfo.size[1]-5 then
-				dest[1] = ScenarioInfo.size[1]-5
+			elseif dest[1] > MapSize[1]-5 then
+				dest[1] = MapSize[1]-5
 			end
 		
 			if dest[3] < 5 then
 				dest[3] = 5 
-			elseif dest[3] > ScenarioInfo.size[2]-5 then
-				dest[3] = ScenarioInfo.size[2]-5
+			elseif dest[3] > MapSize[2]-5 then
+				dest[3] = MapSize[2]-5
 			end
 		
 			-- use an elevated threat level in order to find paths for the air scouts --
-			local threatlevel = 24 + ( LOUDGETN(GetPlatoonUnits(self) )) * LOUDGETN( GetPlatoonUnits(self))
+			threatlevel = threatbasis + ( LOUDGETN(GetPlatoonUnits(self) )) * LOUDGETN( GetPlatoonUnits(self))
 		
-			local path, reason = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, 'Air', scoutposition, dest, threatlevel, 256)
+			path, reason = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, 'Air', scoutposition, dest, threatlevel, 256)
 		
 			if path then
 		
@@ -1043,13 +1027,8 @@ function AirScoutingAI( self, aiBrain )
 		return false
 	end		
 
-	local scout = false
-	local noscoutcount = 0
-	
-	local targetArea, vec, mustScoutArea, mustScoutIndex
-
 	-- this basically limits all air scout platoons to about 20 minutes of work -- rather should use MISSIONTIMER from platoondata
-    while PlatoonExists(aiBrain, self) and (LOUDTIME() - self.CreationTime <= 1200) do
+    while PlatoonExists(aiBrain, self) and (LOUDTIME() - CreationTime <= 1200) do
 
 		for _,v in GetPlatoonUnits(self) do
 			if not v.Dead then
@@ -1065,8 +1044,20 @@ function AirScoutingAI( self, aiBrain )
         targetArea = false
 		vec = false
 
+        visradius = __blueprints[scout.BlueprintID].Intel.VisionRadius or 42
+        
+        -- used for T1 and T2 air scouts
+        threatbasis = 12
+        
+        -- used for T3 air scouts --
+        if LOUDENTITY( categories.TECH3, scout ) then
+            threatbasis = 24
+        end
+
+        IL = aiBrain.IL
+        
 		-- see if we already have a MUSTSCOUT mission underway
-		if not aiBrain.IL.LastAirScoutMust then
+		if not IL.LastAirScoutMust then
 			
 			local unknownThreats = GetThreatsAroundPosition( aiBrain, GetPosition(scout), 2, true, 'Unknown')
 			
@@ -1084,23 +1075,24 @@ function AirScoutingAI( self, aiBrain )
 			
 			mustScoutArea, mustScoutIndex = AIGetMustScoutArea()
             
-            if mustScoutArea and not LOUDEQUAL( aiBrain.IL.LastMustScoutPosition or {0,0,0}, mustScoutArea.Position) then
+            if mustScoutArea and not LOUDEQUAL( IL.LastMustScoutPosition or {0,0,0}, mustScoutArea.Position) then
 
                 -- if there is a mustscoutarea then scout it
-                if mustScoutArea and (not aiBrain.IL.LastAirScoutMust) then
+                if mustScoutArea and (not IL.LastAirScoutMust) then
 
                     vec = DoAirScoutVecs( scout, mustScoutArea.Position )
 
                     -- if there is a path to target --
                     if vec then
 				
-                        if aiBrain.IL.MustScout[mustScoutIndex] then
+                        if IL.MustScout[mustScoutIndex] then
                             aiBrain.IL.MustScout[mustScoutIndex].TaggedBy = scout
                         end
 					
                         targetArea = LOUDCOPY(vec)
 					
                         aiBrain.IL.LastAirScoutMust = true	-- flag that we have a MUSTSCOUT mission in progress
+
                         -- remember where this was so we don't repeat it again too soon
                         aiBrain.IL.LastMustScoutPosition = LOUDCOPY(mustScoutArea.Position)
                     end
@@ -1109,15 +1101,15 @@ function AirScoutingAI( self, aiBrain )
 		end
 
         -- 2) Scout a high priority location
-        if (not targetArea) and (not aiBrain.IL.LastAirScoutHi) then
+        if (not targetArea) and (not IL.LastAirScoutHi) then
 		
-			local prioritylist = aiBrain.IL.HiPri
+			local prioritylist = IL.HiPri
 			
 			for k,v in prioritylist do
 
                 if IsCurrentlyScouted( v.Position) then
 				
-					if aiBrain.IL.HiPri[k] then
+					if IL.HiPri[k] then
 						aiBrain.IL.HiPri[k].LastScouted = LOUDTIME()
                         aiBrain.IL.HiPri[k].LastUpdated = LOUDTIME()
 					end
@@ -1132,8 +1124,7 @@ function AirScoutingAI( self, aiBrain )
 				
 					aiBrain.IL.LastAirScoutHi = true
 					
-					if aiBrain.IL.HiPri[k] then
-                        --LOG("*AI DEBUG "..aiBrain.Nickname.." takes HiPri Airscout")
+					if IL.HiPri[k] then
 						aiBrain.IL.HiPri[k].LastScouted = LOUDTIME()
 					end
 					
@@ -1150,14 +1141,14 @@ function AirScoutingAI( self, aiBrain )
 			
 			aiBrain.IL.LastAirScoutMust = false -- last scout mission was NOT a MUST
 
-			aiBrain.IL.LastAirScoutHiCount = aiBrain.IL.LastAirScoutHiCount + 1
+			aiBrain.IL.LastAirScoutHiCount = IL.LastAirScoutHiCount + 1
 
-			if aiBrain.IL.LastAirScoutHiCount > aiBrain.AILowHiScoutRatio then
+			if IL.LastAirScoutHiCount > aiBrain.AILowHiScoutRatio then
 				aiBrain.IL.LastAirScoutHi = false
 				aiBrain.IL.LastAirScoutHiCount = 0
 			end
 
-			for k,v in aiBrain.IL.LowPri do
+			for k,v in IL.LowPri do
 
                 if IsCurrentlyScouted( v.Position ) then
                     aiBrain.IL.LowPri[k].LastScouted = LOUDTIME()
@@ -1169,7 +1160,7 @@ function AirScoutingAI( self, aiBrain )
 
                 -- if there is a path to target --
 				if vec then
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." takes LowPri Airscout")
+
 					aiBrain.IL.LowPri[k].LastScouted = LOUDTIME()
 
 					targetArea = LOUDCOPY(vec)
@@ -1298,12 +1289,15 @@ function LandScoutingAI( self, aiBrain )
     local VDist3 = VDist3
     
     local LOUDCOPY = LOUDCOPY
+    local UNITCHECK = categories.ALLUNITS - categories.WALL
+    local OMNICHECK = categories.STRUCTURE * categories.INTELLIGENCE * categories.OMNI
 
 	local curPos = nil
 	local usedTransports = false
 	
 	local scout = false
 
+    local MovementLayer = self.MovementLayer
 	local PlatoonPatrols = self.PlatoonData.Patrol or false
 	
     local units = GetPlatoonUnits(self)
@@ -1318,12 +1312,10 @@ function LandScoutingAI( self, aiBrain )
 
 	local function IsCurrentlyScouted (location)
 
-        if GetNumUnitsAroundPoint( aiBrain, categories.ALLUNITS - categories.WALL, location, 40, 'Ally') > 0 or
-			-- or an OMNI radar within 150
-			GetNumUnitsAroundPoint( aiBrain, categories.STRUCTURE * categories.INTELLIGENCE * categories.OMNI, location, 150, 'Ally') > 0 then
+        if GetNumUnitsAroundPoint( aiBrain, UNITCHECK, location, 40, 'Ally') > 0 or
+			GetNumUnitsAroundPoint( aiBrain, OMNICHECK, location, 150, 'Ally') > 0 then
 
 			return true
-			
 		end
 		
 		return false
@@ -1331,7 +1323,8 @@ function LandScoutingAI( self, aiBrain )
 
 	local targetArea, reconcomplete
 	local terrain, surface
-	local distance, path, reason, lastpos		
+	local cyclecount, datalist, distance, loopcount, path, reason, lastpos
+    local IL
 
     while PlatoonExists(aiBrain, self) do
 
@@ -1353,12 +1346,14 @@ function LandScoutingAI( self, aiBrain )
 		
         targetArea = false
 		reconcomplete = false
+        
+        IL = aiBrain.IL
 
-        if not aiBrain.IL.LastScoutHi and aiBrain.IL.HiPri then
+        if not IL.LastScoutHi and IL.HiPri then
 		
-			local prioritylist = aiBrain.IL.HiPri
+			datalist = IL.HiPri
 
-			for k,v in prioritylist do
+			for k,v in datalist do
 
                 -- if we (or an Ally) have a unit near the position mark it as scouted and bypass it
                 if IsCurrentlyScouted(v.Position) then
@@ -1372,7 +1367,7 @@ function LandScoutingAI( self, aiBrain )
 				surface = GetSurfaceHeight(v.Position[1], v.Position[3])
 				
 				-- validate positions for being on the water
-				if terrain < surface - 2 and self.MovementLayer != 'Amphibious' then 
+				if terrain < surface - 2 and MovementLayer != 'Amphibious' then 
 				
 					targetArea = false
 				else
@@ -1389,7 +1384,7 @@ function LandScoutingAI( self, aiBrain )
 
 		if not targetArea then
 		
-			aiBrain.IL.LastScoutHiCount = aiBrain.IL.LastScoutHiCount + 1
+			aiBrain.IL.LastScoutHiCount = IL.LastScoutHiCount + 1
 			
 			if aiBrain.IL.LastScoutHiCount > aiBrain.AILowHiScoutRatio then
 			
@@ -1397,9 +1392,9 @@ function LandScoutingAI( self, aiBrain )
 				aiBrain.IL.LastScoutHiCount = 0
 			end
 			
-			local prioritylist = aiBrain.IL.LowPri
+			datalist = IL.LowPri
 
-			for k,v in prioritylist do
+			for k,v in datalist do
 
                 -- if we (or an Ally) have a unit within 40 of the position mark it as scouted and bypass it
                 if IsCurrentlyScouted(v.Position) then
@@ -1412,7 +1407,7 @@ function LandScoutingAI( self, aiBrain )
 				surface = GetSurfaceHeight(v.Position[1], v.Position[3])
 
 				-- validate positions for being on water
-				if terrain < surface - 1 and self.MovementLayer != 'Amphibious' then
+				if terrain < surface - 1 and MovementLayer != 'Amphibious' then
 					targetArea = false
 				else
 					targetArea = LOUDCOPY(v.Position)
@@ -1433,7 +1428,7 @@ function LandScoutingAI( self, aiBrain )
 			usedTransports = false
 
 			-- with Land Scouting we use an artificial high self-threat (75) so they'll continue scouting later into the game
-			path, reason = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, self.MovementLayer, GetPlatoonPosition(self), targetArea, 75, 160 )
+			path, reason = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, MovementLayer, GetPlatoonPosition(self), targetArea, 75, 160 )
 
 			if not path and PlatoonExists(aiBrain,self) then
 
@@ -1486,7 +1481,7 @@ function LandScoutingAI( self, aiBrain )
             
             -- use this to monitor time used by
             -- other priority location checking
-            local cyclecount = 0
+            cyclecount = 0
 			
             while PlatoonExists(aiBrain,self) and targetArea and not reconcomplete do
 			
@@ -1495,9 +1490,9 @@ function LandScoutingAI( self, aiBrain )
 				if curPos then
                 
                     cyclecount = 0
+                    loopcount = 0
 
 					if VDist2Sq(targetArea[1],targetArea[3],curPos[1],curPos[3] ) < 400 then
-                        --LOG("*AI DEBUG "..aiBrain.Nickname.." LandScoutingAI distance to "..repr(targetArea).." is "..repr(VDist2Sq(targetArea[1],targetArea[3],curPos[1],curPos[3] )) )
 						reconcomplete = true
 					end
                     
@@ -1506,8 +1501,6 @@ function LandScoutingAI( self, aiBrain )
 					end
 					
 					lastpos = curPos
-                    
-                    local loopcount = 0
 
                     -- if we're near another HiPri position - mark it --
                     -- this probably needs to be throttled or interleaved
@@ -1563,13 +1556,13 @@ function LandScoutingAI( self, aiBrain )
                     
                         if not scout.Dead then
 					
-                            local loclist = GetBasePerimeterPoints( aiBrain, targetArea, baseradius, false, false, 'Land', true )
+                            datalist = GetBasePerimeterPoints( aiBrain, targetArea, baseradius, false, false, 'Land', true )
 					
-                            for k,v in loclist do
+                            for k,v in datalist do
 
                                 if (not scout.Dead) and scout:CanPathTo( v ) then
 								
-                                    if not self.MovementLayer == 'Amphibious' then
+                                    if not MovementLayer == 'Amphibious' then
 							
                                         v[2] = GetSurfaceHeight(v[1], v[3])
 									
@@ -1661,11 +1654,14 @@ function NavalScoutingAI( self, aiBrain )
 	end	
 
 	local targetArea, reconcomplete
-	local count, terrain, surface
-	local distance, path, reason, lastpos
+	local cyclecount, loopcount, terrain, surface
+	local datalist, distance, IL, path, reason, lastpos
+
+    local CreationTime = self.CreationTime
+    local MovementLayer = self.MovementLayer
 
 	-- naval scouting is limited to about 20 minutes --
-    while PlatoonExists(aiBrain, self) and (LOUDTIME() - self.CreationTime <= 1200) do
+    while PlatoonExists(aiBrain, self) and (LOUDTIME() - CreationTime <= 1200) do
 		
 		for _,v in units do
 		
@@ -1677,17 +1673,16 @@ function NavalScoutingAI( self, aiBrain )
 		end
 		
         targetArea = false
-
 		reconcomplete = false
+        
+        IL = aiBrain.IL
 		
 		-- if the last scout mission was NOT a HiPri then look for one
-        if not aiBrain.IL.LastScoutHi then
+        if not IL.LastScoutHi then
 		
-			local prioritylist = aiBrain.IL.HiPri
-            
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." priority list is "..repr(prioritylist))
+			datalist = IL.HiPri
 
-			for k,v in prioritylist do
+			for k,v in datalist do
 
                 -- if we (or an Ally) have a unit within 30 of the position mark it as scouted and bypass it
                 if IsCurrentlyScouted(v.Position) then
@@ -1702,7 +1697,7 @@ function NavalScoutingAI( self, aiBrain )
 				surface = GetSurfaceHeight(targetArea[1], targetArea[3])
 
 				-- validate positions for being out of the water
-				if terrain >= surface - 2 and self.MovementLayer != 'Amphibious' then
+				if terrain >= surface - 2 and MovementLayer != 'Amphibious' then
 				
 					targetArea = false
 				else
@@ -1718,7 +1713,7 @@ function NavalScoutingAI( self, aiBrain )
 		-- if we dont have a HiPri scout, try LowPri
 		if not targetArea then
 			
-			aiBrain.IL.LastScoutHiCount = aiBrain.IL.LastScoutHiCount + 1
+			aiBrain.IL.LastScoutHiCount = IL.LastScoutHiCount + 1
 
 			if aiBrain.IL.LastScoutHiCount > aiBrain.AILowHiScoutRatio then
 			
@@ -1726,9 +1721,9 @@ function NavalScoutingAI( self, aiBrain )
 				aiBrain.IL.LastScoutHiCount = 0
 			end
 			
-			local prioritylist = aiBrain.IL.LowPri
+			datalist = IL.LowPri
 
-			for k,v in prioritylist do
+			for k,v in datalist do
 
                 if IsCurrentlyScouted(v.Position) then
 				
@@ -1742,7 +1737,7 @@ function NavalScoutingAI( self, aiBrain )
 				surface = GetSurfaceHeight(targetArea[1], targetArea[3])
 
 				-- validate positions for being out of the water
-				if terrain >= surface - 2 and self.MovementLayer != 'Amphibious' then
+				if terrain >= surface - 2 and MovementLayer != 'Amphibious' then
 				
 					targetArea = false
 				else
@@ -1762,7 +1757,7 @@ function NavalScoutingAI( self, aiBrain )
 			distance = VDist3(GetPlatoonPosition(self), targetArea)
 
 			-- like Land Scouting we use an artificially higher threat of 100 to insure path finding
-			path, reason = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, self.MovementLayer, GetPlatoonPosition(self), targetArea, 100, 250 )
+			path, reason = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, MovementLayer, GetPlatoonPosition(self), targetArea, 100, 250 )
 			
 			if PlatoonExists( aiBrain, self ) then
 
@@ -1790,12 +1785,11 @@ function NavalScoutingAI( self, aiBrain )
                 WaitTicks(51)
             end
 
-            -- Travel to the targetArea --
 			lastpos = false
             
             -- this takes into account the time we spent
             -- processing nearby scout positions --
-            local cyclecount = 0
+            cyclecount = 0
 
             while PlatoonExists(aiBrain,self) and targetArea and not reconcomplete do
 				
@@ -1803,8 +1797,8 @@ function NavalScoutingAI( self, aiBrain )
 				
 				if curPos then
                 
-                    -- reset the cyclecount --
                     cyclecount = 0
+                    loopcount = 0
 
 					if VDist2( targetArea[1],targetArea[3], curPos[1],curPos[3] ) < 35 then
 						
@@ -1813,15 +1807,12 @@ function NavalScoutingAI( self, aiBrain )
 					else
                     
 						if lastpos and VDist2(curPos[1],curPos[3], lastpos[1],lastpos[3]) < 0.1 then
-                        
-                            --LOG("*AI DEBUG "..aiBrain.Nickname.." Naval Scouting AI says we havent moved - recon complete at "..repr(curPos).." lastpos is "..repr(lastpos))
+
 							reconcomplete = true
 						end
 
 						lastpos = curPos
 					end
-                    
-                    local loopcount = 0
 
                     -- if we're near another HiPri position - mark it --
                     -- this probably needs to be throttled or interleaved
@@ -1880,16 +1871,16 @@ function NavalScoutingAI( self, aiBrain )
                 end
 
                 -- get the perimeter points around this position - range 42
-				local loclist = GetBasePerimeterPoints(aiBrain, targetArea, 42, false, false,'Water')
+				datalist = GetBasePerimeterPoints(aiBrain, targetArea, 42, false, false, 'Water')
 				
 				-- set up a patrol around the position
-				for k,v in loclist do
+				for k,v in datalist do
 
 					if not scout.Dead then
 						
 						if scout:CanPathTo( v ) then
 						
-							if self.MovementLayer == 'Water' then
+							if MovementLayer == 'Water' then
 						
 								v[2] = GetSurfaceHeight(v[1], v[3])
 
@@ -1936,7 +1927,7 @@ end
 -- and RTB it (after checking for a merge) when it falls too low
 function RetreatAI( self, aiBrain )
 
-    WaitTicks(50)  -- Wait 5 seconds before beginning
+    WaitTicks(51)  -- Wait 5 seconds before beginning
     
     local GetPlatoonUnits = GetPlatoonUnits    
 	local PlatoonExists = PlatoonExists	
@@ -1946,9 +1937,10 @@ function RetreatAI( self, aiBrain )
     end
     
     local CalculatePlatoonThreat = CalculatePlatoonThreat
+    local UNITCHECK = categories.ALLUNITS - categories.WALL
     local WaitTicks = WaitTicks
 
-    local OriginalStrength = CalculatePlatoonThreat( self, 'Overall', categories.ALLUNITS)
+    local OriginalStrength = CalculatePlatoonThreat( self, 'Overall', UNITCHECK)
     
     local OriginalSize = 0
     local CurrentSize = 0
@@ -1975,7 +1967,7 @@ function RetreatAI( self, aiBrain )
     
         if self.UnderAttack then
     
-            if (OriginalStrength * .4) >= CalculatePlatoonThreat( self, 'Overall', categories.ALLUNITS) or (OriginalSize * .4) >= CountPlatoonUnits() then
+            if (OriginalStrength * .4) >= CalculatePlatoonThreat( self, 'Overall', UNITCHECK) or (OriginalSize * .4) >= CountPlatoonUnits() then
 
                 if PlatoonExists( aiBrain, self) then
 
@@ -2500,7 +2492,7 @@ function AirForceAILOUD( self, aiBrain )
 	-- force the plan name
 	self.PlanName = 'AirForceAILOUD'
 
-	self.anchorposition = LOUDCOPY( GetPlatoonPosition(self) )
+	local anchorposition = LOUDCOPY( GetPlatoonPosition(self) )
 
     local MissionStartTime = LOUDTIME()
     local threatcheckradius = 128
@@ -2513,6 +2505,8 @@ function AirForceAILOUD( self, aiBrain )
 
 	local loiter = false
 	local loiterposition = false
+    
+    local MovementLayer = self.MovementLayer
     
     local mythreat, atthreat
     
@@ -2532,6 +2526,11 @@ function AirForceAILOUD( self, aiBrain )
     local newpath, pathsize, destiny
     
     local strikerange = LOUDMAX( 128, ScenarioInfo.IMAPSize )
+    
+    local UNITCHECK = categories.ALLUNITS - categories.WALL
+    local BOMBER = categories.BOMBER
+    local GROUNDATTACK = categories.GROUNDATTACK
+    local HIGHALTAIR = categories.HIGHALTAIR
 
     while PlatoonExists(aiBrain, self) and (LOUDTIME() - MissionStartTime) <= missiontime do
 
@@ -2553,8 +2552,8 @@ function AirForceAILOUD( self, aiBrain )
 
         if (not target or target.Dead) and PlatoonExists(aiBrain, self) then
 
-            mythreat = CalculatePlatoonThreat( self, 'Surface', categories.ALLUNITS)
-            mythreat = mythreat + CalculatePlatoonThreat( self, 'Air', categories.ALLUNITS)
+            mythreat = CalculatePlatoonThreat( self, 'Surface', UNITCHECK)
+            mythreat = mythreat + CalculatePlatoonThreat( self, 'Air', UNITCHECK)
 
             if mythreat < 5 then
                 mythreat = 5
@@ -2573,7 +2572,7 @@ function AirForceAILOUD( self, aiBrain )
 			
 				if not loiter then
                 
-                    loiterposition = SetLoiterPosition( self, aiBrain, self.anchorposition, searchradius, 3, mythreat, 'AIR', 'ANTIAIR' )
+                    loiterposition = SetLoiterPosition( self, aiBrain, anchorposition, searchradius, 3, mythreat, 'AIR', 'ANTIAIR' )
                     
                     loiter = true
 				end
@@ -2627,11 +2626,11 @@ function AirForceAILOUD( self, aiBrain )
                 TertiaryCount = 0
 
                 -- enemy fighters 
-                SecondaryAATargets = GetUnitsAroundPoint( aiBrain, categories.HIGHALTAIR, targetposition, threatcheckradius, 'Enemy')
+                SecondaryAATargets = GetUnitsAroundPoint( aiBrain, HIGHALTAIR, targetposition, threatcheckradius, 'Enemy')
                 -- enemy gunships
-                SecondaryShieldTargets = GetUnitsAroundPoint( aiBrain, categories.GROUNDATTACK, targetposition, threatcheckradius, 'Enemy')
+                SecondaryShieldTargets = GetUnitsAroundPoint( aiBrain, GROUNDATTACK, targetposition, threatcheckradius, 'Enemy')
                 -- enemy bombers
-                TertiaryTargets = GetUnitsAroundPoint( aiBrain, categories.BOMBER, targetposition, threatcheckradius, 'Enemy')
+                TertiaryTargets = GetUnitsAroundPoint( aiBrain, BOMBER, targetposition, threatcheckradius, 'Enemy')
                 
                 --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." with "..LOUDGETN(GetSquadUnits( self,'Attack')).." units has target at "..repr(targetposition))
                 --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." finds "..LOUDMAX(aiBrain:GetThreatAtPosition( targetposition, 0, true, threatavoid )).." threat at that position - mythreat is "..usethreat)
@@ -2653,9 +2652,9 @@ function AirForceAILOUD( self, aiBrain )
                 -- use strikerange to determine point from which to switch into attack mode
 				prevposition = LOUDCOPY(GetPlatoonPosition(self))
 
-				paththreat = (oldNumberOfUnitsInPlatoon * 1) + CalculatePlatoonThreat( self, 'Air', categories.ALLUNITS)
+				paththreat = (oldNumberOfUnitsInPlatoon * 1) + CalculatePlatoonThreat( self, 'Air', UNITCHECK )
 
-                path, reason = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, self.MovementLayer, prevposition, targetposition, paththreat, strikerange )
+                path, reason = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, MovementLayer, prevposition, targetposition, paththreat, strikerange )
 
                 if path then
 
@@ -2808,9 +2807,7 @@ function AirForceAILOUD( self, aiBrain )
                                     if not TertiaryTargets[tertiary].Dead then
                                 
                                         IssueAttack( {u}, TertiaryTargets[tertiary] )
-                                    
-                                        --LOG("*AI DEBUG Issued attack "..key.." on Tertiary "..repr(tertiary).." "..repr(TertiaryTargets[tertiary]:GetBlueprint().Description) )
-                                    
+
                                         attackissued = true
                                         attackissuedcount = attackissuedcount + 1
                                     end
@@ -2844,7 +2841,7 @@ function AirForceAILOUD( self, aiBrain )
 		-- Attack until target is dead, beyond maxrange, or retreat
 		while (target and not target.Dead) and PlatoonExists(aiBrain, self) do
          
-            mythreat = CalculatePlatoonThreat( self, 'Air', categories.ALLUNITS)
+            mythreat = CalculatePlatoonThreat( self, 'Air', UNITCHECK)
             atthreat = 0
             
             for _, v in GetThreatsAroundPosition( aiBrain, GetPlatoonPosition(self), LOUDFLOOR(IMAPblocks/2), true, threatavoid ) do
@@ -5962,7 +5959,7 @@ function CarrierThread ( carrier, aiBrain )
 			
 			parent.SctPlatoon = nil
 			
-			LOG("*AI DEBUG "..aiBrain.Nickname.." Carrier "..repr(parent.Sync.id).." clears Scout Platoon")
+			LOG("*AI DEBUG "..aiBrain.Nickname.." Carrier "..repr(parent.EntityID).." clears Scout Platoon")
 			
 		elseif platoon.BuilderName == 'CarrierFighters' then
 		
@@ -5970,7 +5967,7 @@ function CarrierThread ( carrier, aiBrain )
 			
 			parent.FtrPlatoon = nil
 			
-			LOG("*AI DEBUG "..aiBrain.Nickname.." Carrier "..repr(parent.Sync.id).." clears Fighter Platoon")			
+			LOG("*AI DEBUG "..aiBrain.Nickname.." Carrier "..repr(parent.EntityID).." clears Fighter Platoon")			
 			
 		elseif platoon.BuilderName == 'CarrierTorpedoBombers' then
 		
@@ -5978,7 +5975,7 @@ function CarrierThread ( carrier, aiBrain )
 			
 			parent.TrpPlatoon = nil
 			
-			LOG("*AI DEBUG "..aiBrain.Nickname.." Carrier "..repr(parent.Sync.id).." clears Torpedo Platoon")
+			LOG("*AI DEBUG "..aiBrain.Nickname.." Carrier "..repr(parent.EntityID).." clears Torpedo Platoon")
 			
 		end
 
@@ -6136,13 +6133,13 @@ function CarrierThread ( carrier, aiBrain )
 				
 			else
 			
-				FloatingEntityText( carrier.Sync.id, " No build needed " )
+				FloatingEntityText( carrier.EntityID, " No build needed " )
 				
 			end
 			
 		else
 		
-			FloatingEntityText( carrier.Sync.id, " Cannot build " )
+			FloatingEntityText( carrier.EntityID, " Cannot build " )
 		
 		end
 		
@@ -6523,8 +6520,6 @@ end
 
 -- this controls the AI TMLs and adjusts to lead targets
 function TMLThread( unit, aiBrain )
-
-    --LOG("*AI DEBUG "..aiBrain.Nickname.." TMLThread")
     
     local maxRadius = unit:GetBlueprint().Weapon[1].MaxRadius
 	local position = LOUDCOPY(GetPosition(unit))
@@ -6639,7 +6634,7 @@ function BroadcastPlatoonPlan ( platoon, aiBrain )
 			
 				if not v.Dead then
 
-					ForkThread( FloatingEntityText, v.Sync.id, v.PlatoonHandle.BuilderName)
+					ForkThread( FloatingEntityText, v.EntityID, v.PlatoonHandle.BuilderName)
 				
 					if not originalplan then
 					
@@ -6655,8 +6650,7 @@ function BroadcastPlatoonPlan ( platoon, aiBrain )
 			
 		end
 		
-        WaitTicks(150)
-		
+        WaitTicks(151)
     end
 	
 end
@@ -6676,13 +6670,13 @@ function PlatoonWatchPrimarySeaAttackBase ( platoon, aiBrain )
     -- which should send the platoon to the new primary
     while PlatoonExists( aiBrain, platoon ) do
     
-        WaitTicks(80)
+        WaitTicks(81)
         
         local Primary = GetPrimarySeaAttackBase(aiBrain)
         
         if Primary != Base then
         
-            LOG("*AI DEBUG "..aiBrain.Nickname.." Primary Sea Base has changed to "..repr(Primary))
+            LOG("*AI DEBUG "..aiBrain.Nickname.." Platoon "..platoon.BuilderName.." Detected that Primary Sea Base has changed to "..repr(Primary))
             
             platoon.RTBLocation = Primary
             
@@ -6693,7 +6687,7 @@ function PlatoonWatchPrimarySeaAttackBase ( platoon, aiBrain )
             platoon:SetAIPlan( 'ReturnToBaseAI', aiBrain )
             
             -- make the target base the primary
-            Base = Primary
+            Base = GetPrimarySeaAttackBase(aiBrain)
         end
     end
 
@@ -6725,14 +6719,14 @@ function SCUSelfEnhanceThread ( unit, faction, aiBrain )
     local EBP = __blueprints[unit.BlueprintID].Enhancements
 	
 	local GetBuildRate = GetBuildRate
-
 	local IsIdleState = IsIdleState
 	local IsUnitState = IsUnitState
     
-	local CurrentEnhancement
-	local BuildCostE, BuildCostM, BuildCostT
-	local EFFTime, RateNeededE, RateNeededM
-	local count
+	local BuildCostE, BuildCostM, BuildCostT, count, CurrentEnhancement, EFFTime, RateNeededE, RateNeededM
+
+    local ArmyPool = aiBrain.ArmyPool
+    local NameEngineers = ScenarioInfo.NameEngineers
+    local SCUEnhanceDialog = ScenarioInfo.SCUEnhanceDialog
     
     while not unit.Dead and not unit.EnhancementsComplete do
 
@@ -6741,11 +6735,10 @@ function SCUSelfEnhanceThread ( unit, faction, aiBrain )
 		if HasEnhancement( unit, CurrentEnhancement) then
 
 			LOUDREMOVE(EnhanceList, 1)
-
 		end
 
         -- if unit is idle and not currently in a platoon
-        if IsIdleState(unit) and ( (not unit.PlatoonHandle) or unit.PlatoonHandle == aiBrain.ArmyPool) and not HasEnhancement( unit, CurrentEnhancement ) then
+        if IsIdleState(unit) and ( (not unit.PlatoonHandle) or unit.PlatoonHandle == ArmyPool) and not HasEnhancement( unit, CurrentEnhancement ) then
         
             unit.AssigningTask = true
 		
@@ -6770,57 +6763,71 @@ function SCUSelfEnhanceThread ( unit, faction, aiBrain )
                         if not v.Dead and v.PlatoonHandle then
 				
                             v.PlatoonHandle:ReturnToBaseAI(aiBrain)
-					
                         end
-				
                     end
 
 					IssueStop({unit})
 					IssueClearCommands({unit})
 			
-					if ScenarioInfo.NameEngineers then
-						unit:SetCustomName("SCU "..unit.Sync.id.." "..CurrentEnhancement)
+					if NameEngineers then
+						unit:SetCustomName("SCU "..unit.EntityID.." "..CurrentEnhancement)
 					end
 				
 					IssueScript( {unit}, {TaskName = "EnhanceTask", Enhancement = CurrentEnhancement} )
+                    
+                    unit.CurrentBuildOrder = 'Enhance'
+                    unit.DesiresAssist = true
+                    unit.IssuedBuildCommand = true
+                    unit.NumAssistees = 3
 				
 					count = 0
 					
-					if ScenarioInfo.SCUEnhanceDialog then
-						LOG("*AI DEBUG "..aiBrain.Nickname.." SCUEnhance "..unit.Sync.id.." waiting to start "..repr(CurrentEnhancement))
+					if SCUEnhanceDialog then
+						LOG("*AI DEBUG "..aiBrain.Nickname.." SCUEnhance "..unit.EntityID.." waiting to start "..repr(CurrentEnhancement))
 					end
 
 					-- sometimes SCU has a problem getting started so count was necessary
 					repeat
-				
-						WaitTicks(15)
+						WaitTicks(10)
 						count = count + 1
-					
 					until unit.Dead or IsUnitState(unit,'Enhancing') or count > 10
 
+
 					if IsUnitState(unit,'Enhancing') then
+                    
+                        unit.Upgrading = true
+                        
+                        unit.UnitBeingBuilt = unit
 					
 						-- prevent any other orders while enhancing
 						SetBlockCommandQueue( unit, true)
 						
-						if ScenarioInfo.SCUEnhanceDialog then
-							LOG("*AI DEBUG "..aiBrain.Nickname.." SCUEnhance "..unit.Sync.id.." starting "..repr(CurrentEnhancement))
+                        WaitTicks(11)
+                        
+						if SCUEnhanceDialog then
+							LOG("*AI DEBUG "..aiBrain.Nickname.." SCUEnhance "..unit.EntityID.." starting "..repr(CurrentEnhancement))
 						end
 				
-						while not unit.Dead and IsUnitState(unit,'Enhancing') do
-				
-							WaitTicks(80)
-					
-						end
-						
+						repeat
+							WaitTicks(61)
+						until not IsUnitState(unit,'Enhancing') or unit.Dead
+
 					end
                 
+                    unit.CurrentBuildOrder = false
+                    unit.DesiresAssist = false
+                    unit.IssuedBuildCommand = false
+                    unit.NumAssistees = 1
+                    
+                    unit.Upgrading = false
+                    unit.UnitBeingBuilt = false
+                    
 					if HasEnhancement( unit, CurrentEnhancement) then
 				
 						LOUDREMOVE(EnhanceList, 1)
 						
-						if ScenarioInfo.SCUEnhanceDialog then
-							LOG("*AI DEBUG "..aiBrain.Nickname.." SCUEnhance "..unit.Sync.id.." completed "..repr(CurrentEnhancement))
+						if SCUEnhanceDialog then
+							LOG("*AI DEBUG "..aiBrain.Nickname.." SCUEnhance "..unit.EntityID.." completed "..repr(CurrentEnhancement))
 						end
                         
                         if CurrentEnhancement == 'Teleporter' then
@@ -6828,7 +6835,7 @@ function SCUSelfEnhanceThread ( unit, faction, aiBrain )
                         end
 					
 					else
-						LOG("*AI DEBUG "..aiBrain.Nickname.." SCU "..unit.Sync.id.." Failed Enhancement "..repr(CurrentEnhancement))
+						LOG("*AI DEBUG "..aiBrain.Nickname.." SCU "..unit.EntityID.." Failed Enhancement "..repr(CurrentEnhancement))
 					end
 				
 					-- allow other orders when no longer enhancing
@@ -6845,33 +6852,27 @@ function SCUSelfEnhanceThread ( unit, faction, aiBrain )
 					else
 				
 						manager:ForkThread( manager.ReassignEngineer, unit, aiBrain)
-					
 					end
-					
 				end
-				
             end
 
             unit.AssigningTask = false			
             
             WaitTicks(36)
-			
         end
 		
         WaitTicks(12)
         
         if HasEnhancement( unit, final) then
 		
-			if ScenarioInfo.SCUEnhanceDialog then
-				LOG("*AI DEBUG "..aiBrain.Nickname.." SCUEnhance "..unit.Sync.id.." all enhancements completed")
+			if SCUEnhanceDialog then
+				LOG("*AI DEBUG "..aiBrain.Nickname.." SCUEnhance "..unit.EntityID.." all enhancements completed")
 			end		
 		
 			unit.EnhancementsComplete = true
 			
             break
-			
         end
-		
     end
 	
 	KillThread(unit.EnhanceThread)
@@ -6895,7 +6896,7 @@ function FactorySelfEnhanceThread ( unit, faction, aiBrain, manager )
     local SetBlockCommandQueue = unit.SetBlockCommandQueue
 	
 	while not unit.Dead and unit:GetFractionComplete() < 1 do
-		WaitTicks(200)
+		WaitTicks(101)
 	end
 
 	-- this gets the sequence of enhancements
@@ -6919,10 +6920,13 @@ function FactorySelfEnhanceThread ( unit, faction, aiBrain, manager )
 	local CurrentEnhancement
 	local BuildCostE, BuildCostM, BuildCostT
 	local EFFTime, RateNeededE, RateNeededM
+    
+    local DisplayFactoryBuilds = ScenarioInfo.DisplayFactoryBuilds
+    local FactoryEnhanceDialog = ScenarioInfo.FactoryEnhanceDialog
   
     while EBP and not unit.Dead and not unit.EnhancementsComplete do
 	
-		WaitTicks(200) -- before start of any enhancement --
+		WaitTicks(201)
 
         CurrentEnhancement = EnhanceList[1]
 
@@ -6952,42 +6956,41 @@ function FactorySelfEnhanceThread ( unit, faction, aiBrain, manager )
 				
 						unit.Upgrading = true
 						
-						if ScenarioInfo.FactoryEnhanceDialog then
-							LOG("*AI DEBUG "..aiBrain.Nickname.." FACTORYEnhance "..unit.Sync.id.." waiting to start "..repr(CurrentEnhancement))
+						if FactoryEnhanceDialog then
+							LOG("*AI DEBUG "..aiBrain.Nickname.." FACTORYEnhance "..unit.EntityID.." waiting to start "..repr(CurrentEnhancement))
 						end
 				
 						IssueScript( {unit}, {TaskName = "EnhanceTask", Enhancement = CurrentEnhancement} )
 						
-						if ScenarioInfo.DisplayFactoryBuilds then
+						if DisplayFactoryBuilds then
 							unit:SetCustomName(repr(CurrentEnhancement))
 						end						
 
 						repeat
-							WaitTicks(15)
+							WaitTicks(11)
 						until unit.Dead or IsUnitState(unit,'Enhancing')
 						
 						if IsUnitState(unit,'Enhancing') and not unit.Dead then
 
 							SetBlockCommandQueue( unit, true)
 							
-							if ScenarioInfo.FactoryEnhanceDialog then
-								LOG("*AI DEBUG "..aiBrain.Nickname.." FACTORYEnhance "..unit.Sync.id.." starting "..repr(CurrentEnhancement))
+							if FactoryEnhanceDialog then
+								LOG("*AI DEBUG "..aiBrain.Nickname.." FACTORYEnhance "..unit.EntityID.." starting "..repr(CurrentEnhancement))
 							end							
 				
 							while not unit.Dead and IsUnitState(unit,'Enhancing') do
-								WaitTicks(100)
+								WaitTicks(81)
 							end  
 				
 							if not unit.Dead then
 								SetBlockCommandQueue( unit, false)
 							end
-							
 						end
               
 						if HasEnhancement( unit, CurrentEnhancement) and not unit.Dead then
 							
-							if ScenarioInfo.FactoryEnhanceDialog then
-								LOG("*AI DEBUG "..aiBrain.Nickname.." FACTORYEnhance "..unit.Sync.id.." completed "..repr(CurrentEnhancement))
+							if FactoryEnhanceDialog then
+								LOG("*AI DEBUG "..aiBrain.Nickname.." FACTORYEnhance "..unit.EntityID.." completed "..repr(CurrentEnhancement))
 							end							
 							
 							LOUDREMOVE(EnhanceList, 1)
@@ -6999,7 +7002,7 @@ function FactorySelfEnhanceThread ( unit, faction, aiBrain, manager )
 				
 							unit.failedbuilds = 0
 						
-							if ScenarioInfo.DisplayFactoryBuilds then
+							if DisplayFactoryBuilds then
 								unit:SetCustomName("")
 							end						
 				
@@ -7010,22 +7013,22 @@ function FactorySelfEnhanceThread ( unit, faction, aiBrain, manager )
 						end
 
 					else
-						WaitTicks(40)
+						WaitTicks(41)
 					end
 					
 				else
-					WaitTicks(40)
+					WaitTicks(41)
 				end
 				
 			end
 			
-	        WaitTicks(25)		
+	        WaitTicks(26)		
         end
         
         if HasEnhancement( unit, final) then
 		
-			if ScenarioInfo.FactoryEnhanceDialog then
-				LOG("*AI DEBUG "..aiBrain.Nickname.." FACTORYEnhance "..unit.Sync.id.." all enhancements complete")
+			if FactoryEnhanceDialog then
+				LOG("*AI DEBUG "..aiBrain.Nickname.." FACTORYEnhance "..unit.EntityID.." all enhancements complete")
 			end							
 			
 			unit.Upgrading = nil
@@ -7152,10 +7155,12 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
     -- store the normal checkrate
     local workrate = checkrate
 	
-	if ScenarioInfo.StructureUpgradeDialog then
-   		LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." "..unit:GetBlueprint().Description.." starts thread to upgrade to "..repr(upgradeID).." initial delay is "..initialdelay)
-        --LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." "..unit:GetBlueprint().Description.." needs "..MassNeeded.." mass -- "..buildtime.." ticks -- rate "..buildrate.." minus production "..massmade)
-		--LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." "..unit:GetBlueprint().Description.." needs "..(MassTrendNeeded*10).." mass trend -- current "..(aiBrain.EcoData.OverTime.MassTrend*10))
+	local upgradeable = true
+	local upgradeIssued = false
+    local StructureUpgradeDialog = ScenarioInfo.StructureUpgradeDialog
+	
+	if StructureUpgradeDialog then
+   		LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.EntityID.." "..unit:GetBlueprint().Description.." starts thread to upgrade to "..repr(upgradeID).." initial delay is "..initialdelay)
 	end
 
 	-- wait the initial delay before upgrading - accounts for unit not finished being built and basic storage requirements
@@ -7176,22 +7181,19 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 		
 		WaitTicks(101)
 	end
-	
-	local upgradeable = true
-	local upgradeIssued = false    
+
 
     local econ = aiBrain.EcoData.OverTime
-	
 	local EnergyStorage, MassStorage
 	
-	while ((not unit.Dead) or unit.Sync.id) and upgradeable and (not upgradeIssued) do
+	while ((not unit.Dead) or unit.EntityID) and upgradeable and (not upgradeIssued) do
 	
 		WaitTicks(checkrate * 10)
 		
         if aiBrain.UpgradeIssued < aiBrain.UpgradeIssuedLimit and (not unit.BeingReclaimed) then
         
-            if ScenarioInfo.StructureUpgradeDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." "..unit:GetBlueprint().Description.." cycles upgrade check - game second "..GetGameTimeSeconds())
+            if StructureUpgradeDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.EntityID.." "..unit:GetBlueprint().Description.." cycles upgrade check - game second "..GetGameTimeSeconds())
             end
 
 			EnergyStorage = GetEconomyStored( aiBrain, 'ENERGY')
@@ -7207,28 +7209,24 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
             if (econ.MassEfficiency >= masslowtrigger and econ.EnergyEfficiency >= energylowtrigger)
 
 				or MassStorage > MassNeeded and EnergyStorage > EnergyNeeded then
-        
-                --if ScenarioInfo.StructureUpgradeDialog then
-                  --  LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." "..unit:GetBlueprint().Description.." passes low efficiency check")
-                --end
-				
+
 				--low_trigger_good = true
                 
 			else
             
-                if ScenarioInfo.StructureUpgradeDialog then
+                if StructureUpgradeDialog then
                 
                     if (econ.MassEfficiency < masslowtrigger or econ.EnergyEfficiency < energylowtrigger) then
                     
                         if econ.MassEfficiency < masslowtrigger then
-                            --LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." "..unit:GetBlueprint().Description.." fails MIN M efficiency "..masslowtrigger.." current "..econ.MassEfficiency)
+                            --LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.EntityID.." "..unit:GetBlueprint().Description.." fails MIN M efficiency "..masslowtrigger.." current "..econ.MassEfficiency)
                         else
-                            --LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." "..unit:GetBlueprint().Description.." fails MIN E efficiency "..energylowtrigger.." current "..econ.EnergyEfficiency)
+                            --LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.EntityID.." "..unit:GetBlueprint().Description.." fails MIN E efficiency "..energylowtrigger.." current "..econ.EnergyEfficiency)
                         end
                         
                     elseif MassStorage <= MassNeeded or EnergyStorage <= EnergyNeeded then
                     
-                        --LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." "..unit:GetBlueprint().Description.." fails MIN stored resource needed")
+                        --LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.EntityID.." "..unit:GetBlueprint().Description.." fails MIN stored resource needed")
                         
                     end
 
@@ -7238,18 +7236,11 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 			
             -- then we check the high efficiency limits
 			if (econ.MassEfficiency <= masshightrigger and econ.EnergyEfficiency <= energyhightrigger) then
-        
-                --if ScenarioInfo.StructureUpgradeDialog then
-                  --  LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." "..unit:GetBlueprint().Description.." passes MAX efficiency check")
-                --end
 				
 				--hi_trigger_good = true
                 
 			else
             
-                if ScenarioInfo.StructureUpgradeDialog then
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." "..unit:GetBlueprint().Description.." fails MAX efficiency check")
-                end            
 				continue
 			end
 
@@ -7270,10 +7261,6 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
             if ( econ.MassTrend >= MassTrendNeeded and econ.EnergyTrend >= EnergyTrendNeeded and econ.EnergyTrend >= EnergyMaintenance )
             
 				or ( MassStorage >= MassNeeded and EnergyStorage > EnergyNeeded )  then
-        
-                --if ScenarioInfo.StructureUpgradeDialog then
-                  --  LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." "..unit:GetBlueprint().Description.." passes trend or storage check")
-                --end
 
                 -- we may have passed the first check based upon trends - this next check insures having at least 25% resources
 				-- anything that has bypassecon always passes this check - basically if we have the efficiency and trends - storage doesn't matter
@@ -7286,25 +7273,23 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 
 						if not unit.Dead then
                         
-                            if ScenarioInfo.StructureUpgradeDialog then
+                            if StructureUpgradeDialog then
                             
                                 if bypassecon then
-                                    --LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." "..unit:GetBlueprint().Description.." CAN BYPASS ECO NEEDED")
+                                    --LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.EntityID.." "..unit:GetBlueprint().Description.." CAN BYPASS ECO NEEDED")
                                 end
                                 
                                 if ( econ.MassTrend >= MassTrendNeeded and econ.EnergyTrend >= EnergyTrendNeeded and econ.EnergyTrend >= EnergyMaintenance ) then
-                                    LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." "..unit:GetBlueprint().Description.." UPGRADING - M Trend "..(econ.MassTrend * 10).." needed "..(MassTrendNeeded * 10))
-                                    LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." "..unit:GetBlueprint().Description.." UPGRADING - E Trend "..(econ.EnergyTrend * 10).." needed "..(EnergyTrendNeeded * 10))
+                                    LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.EntityID.." "..unit:GetBlueprint().Description.." UPGRADING - M Trend "..(econ.MassTrend * 10).." needed "..(MassTrendNeeded * 10))
+                                    LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.EntityID.." "..unit:GetBlueprint().Description.." UPGRADING - E Trend "..(econ.EnergyTrend * 10).." needed "..(EnergyTrendNeeded * 10))
                                 else
-                                    LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." "..unit:GetBlueprint().Description.." UPGRADING on storage M "..MassStorage.." needed "..MassNeeded)
-                                    LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." "..unit:GetBlueprint().Description.." UPGRADING on storage E "..EnergyStorage.." needed "..EnergyNeeded)
+                                    LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.EntityID.." "..unit:GetBlueprint().Description.." UPGRADING on storage M "..MassStorage.." needed "..MassNeeded)
+                                    LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.EntityID.." "..unit:GetBlueprint().Description.." UPGRADING on storage E "..EnergyStorage.." needed "..EnergyNeeded)
                                 end
                             end
 					
 							-- if an upgrade was issued and resources were not completely full then delay based upon the condition of storage
                             -- moved the premise of the delay period from a fixed amount - to a period based on the buildtime of the upgrade
-
-                            --LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." "..unit:GetBlueprint().Description.." UPGRADING buildtime is "..buildtime.." ticks - cheat is "..aiBrain.MajorCheatModifier)
 
                             -- if either storage is below the mass or energy limit --
 							if GetEconomyStoredRatio(aiBrain, 'MASS') < masslimit or GetEconomyStoredRatio(aiBrain, 'ENERGY') < energylimit then
@@ -7330,77 +7315,63 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 							IssueUpgrade({unit}, upgradeID)
                             
                             unit:AddOnUnitBuiltCallback( unit.OnUpgradeComplete, categories.ALLUNITS )
-                            
-                            --LOG("*AI DEBUG Upgrade Issued "..repr(unit))
 
-							if ScenarioInfo.StructureUpgradeDialog then
-								LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." "..unit:GetBlueprint().Description.." UPGRADING TO "..repr(upgradeID).." "..repr(__blueprints[upgradeID].Description).." at game second "..GetGameTimeSeconds())
+							if StructureUpgradeDialog then
+								LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.EntityID.." "..unit:GetBlueprint().Description.." UPGRADING TO "..repr(upgradeID).." "..repr(__blueprints[upgradeID].Description).." at game second "..GetGameTimeSeconds())
 							end
 						
 							repeat
 								WaitTicks(2)
 							until unit.Dead or (unit.UnitBeingBuilt.BlueprintID == upgradeID)
-                            
 						end
 
                         if unit.Dead then
-                            LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." "..unit:GetBlueprint().Description.." to "..upgradeID.." failed.  Dead is "..repr(unit.Dead))
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.EntityID.." "..unit:GetBlueprint().Description.." to "..upgradeID.." failed.  Dead is "..repr(unit.Dead))
                             upgradeIssued = false
                         end
 
                         if upgradeIssued then
                             continue
                         end
-
                     end
                     
                 else
-                    if ScenarioInfo.StructureUpgradeDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." "..unit:GetBlueprint().Description.." can upgrade BUT fails base resources required check")
+                    if StructureUpgradeDialog then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.EntityID.." "..unit:GetBlueprint().Description.." can upgrade BUT fails base resources required check")
                     end
                 end
                 
             else
             
-                if ScenarioInfo.StructureUpgradeDialog then
+                if StructureUpgradeDialog then
                 
                     if econ.MassTrend < MassTrendNeeded then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." "..unit:GetBlueprint().Description.." FAILS MASS Trend trigger "..(econ.MassTrend*10).." needed "..(MassTrendNeeded*10))
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.EntityID.." "..unit:GetBlueprint().Description.." FAILS MASS Trend trigger "..(econ.MassTrend*10).." needed "..(MassTrendNeeded*10))
                         continue
                     end
                     
                     if econ.EnergyTrend < EnergyTrendNeeded then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." "..unit:GetBlueprint().Description.." FAILS ENER Trend trigger "..(econ.EnergyTrend*10).." needed "..(EnergyTrendNeeded*10))
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.EntityID.." "..unit:GetBlueprint().Description.." FAILS ENER Trend trigger "..(econ.EnergyTrend*10).." needed "..(EnergyTrendNeeded*10))
                         continue
                     end
                     
                     if econ.EnergyTrend < EnergyMaintenance then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." "..unit:GetBlueprint().Description.." FAILS Maintenance trigger "..econ.EnergyTrend.." needs "..EnergyMaintenance)  
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.EntityID.." "..unit:GetBlueprint().Description.." FAILS Maintenance trigger "..econ.EnergyTrend.." needs "..EnergyMaintenance)  
                         continue
                     end
                     
                     if MassStorage < MassNeeded then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." "..unit:GetBlueprint().Description.." FAILS MASS storage trigger "..MassStorage.." needed "..MassNeeded)
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.EntityID.." "..unit:GetBlueprint().Description.." FAILS MASS storage trigger "..MassStorage.." needed "..MassNeeded)
                         continue
                     end
                     
                     if EnergyStorage < EnergyNeeded then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." "..unit:GetBlueprint().Description.." FAILS ENER storage trigger "..EnergyStorage.." needed "..EnergyNeeded)
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.EntityID.." "..unit:GetBlueprint().Description.." FAILS ENER storage trigger "..EnergyStorage.." needed "..EnergyNeeded)
                         continue
                     end
-                    
                 end
-                
 			end
-            
-        else
-
-            --if ScenarioInfo.StructureUpgradeDialog then
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unit.Sync.id.." "..unit:GetBlueprint().Description.." Upgrade Counter already at max")
-            --end
-            
         end
-        
     end
     
 	if upgradeIssued then
@@ -7412,7 +7383,7 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
             WaitTicks(1)
         until unit.UnitBeingBuilt.Sync
         
-		local unitbeingbuilt = GetEntityById(unit.UnitBeingBuilt.Sync.id)
+		local unitbeingbuilt = GetEntityById(unit.UnitBeingBuilt.EntityID)
         
         unitbeingbuilt:AddUnitCallback( unitbeingbuilt.OnUpgradeComplete, 'OnStopBeingBuilt' )
         
@@ -7423,8 +7394,8 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
             WaitTicks(2)
         until unitbeingbuilt.Dead or unitbeingbuilt:GetFractionComplete() == 1
         
-        if ScenarioInfo.StructureUpgradeDialog and unitbeingbuilt:GetFractionComplete() == 1 then
-            LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unitbeingbuilt.Sync.id.." "..unitbeingbuilt:GetBlueprint().Description.." UPGRADE COMPLETE at game second "..GetGameTimeSeconds())
+        if StructureUpgradeDialog and unitbeingbuilt:GetFractionComplete() == 1 then
+            LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unitbeingbuilt.EntityID.." "..unitbeingbuilt:GetBlueprint().Description.." UPGRADE COMPLETE at game second "..GetGameTimeSeconds())
         end
 
         upgradeID = __blueprints[unitbeingbuilt.BlueprintID].General.UpgradesTo or false
@@ -7433,9 +7404,11 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
         if upgradeID and not unitbeingbuilt.Dead then
         
             if unitbeingbuilt.UpgradeThread then
-                if ScenarioInfo.StructureUpgradeDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unitbeingbuilt.Sync.id.." already has a thread")
+
+                if StructureUpgradeDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unitbeingbuilt.EntityID.." already has a thread")
                 end
+
                 KillThread(unitbeingbuilt.UpgradeThread)
             end
 
@@ -7465,9 +7438,9 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
         
             local PlatoonCallForHelpAI = import('/lua/platoon.lua').Platoon.PlatoonCallForHelpAI
 	
-			local Mexplatoon = MakePlatoon( aiBrain,'MEXPlatoon'..tostring(unitbeingbuilt.Sync.id), 'none')
+			local Mexplatoon = MakePlatoon( aiBrain,'MEXPlatoon'..tostring(unitbeingbuilt.EntityID), 'none')
 			
-			Mexplatoon.BuilderName = 'MEXPlatoon'..tostring(unitbeingbuilt.Sync.id)
+			Mexplatoon.BuilderName = 'MEXPlatoon'..tostring(unitbeingbuilt.EntityID)
 			Mexplatoon.MovementLayer = 'Land'
             Mexplatoon.UsingTransport = true        -- never review this platoon during a merge
 			
@@ -7481,9 +7454,9 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
         
             local PlatoonCallForHelpAI = import('/lua/platoon.lua').Platoon.PlatoonCallForHelpAI
 	
-			local Mexplatoon = MakePlatoon( aiBrain,'FABPlatoon'..tostring(unitbeingbuilt.Sync.id), 'none')
+			local Mexplatoon = MakePlatoon( aiBrain,'FABPlatoon'..tostring(unitbeingbuilt.EntityID), 'none')
 			
-			Mexplatoon.BuilderName = 'FABPlatoon'..tostring(unitbeingbuilt.Sync.id)
+			Mexplatoon.BuilderName = 'FABPlatoon'..tostring(unitbeingbuilt.EntityID)
 			Mexplatoon.MovementLayer = 'Land'
             Mexplatoon.UsingTransport = true        -- never review this platoon during a merge
 			
@@ -7495,9 +7468,9 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
         
             local PlatoonCallForHelpAI = import('/lua/platoon.lua').Platoon.PlatoonCallForHelpAI
 	
-			local Mexplatoon = MakePlatoon( aiBrain,'HYDROPlatoon'..tostring(unitbeingbuilt.Sync.id), 'none')
+			local Mexplatoon = MakePlatoon( aiBrain,'HYDROPlatoon'..tostring(unitbeingbuilt.EntityID), 'none')
 			
-			Mexplatoon.BuilderName = 'HYDROPlatoon'..tostring(unitbeingbuilt.Sync.id)
+			Mexplatoon.BuilderName = 'HYDROPlatoon'..tostring(unitbeingbuilt.EntityID)
 			Mexplatoon.MovementLayer = 'Land'
             Mexplatoon.UsingTransport = true        -- never review this platoon during a merge
 			

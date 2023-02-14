@@ -737,7 +737,7 @@ AntiArtilleryShield = Class(Shield){
 		
         if not bp.CollideFriendly then
 		
-            if self.Sync.army == firingWeapon.unit.Sync.army then
+            if self.Army == firingWeapon.unit.Army then
 			
                 return false
 				

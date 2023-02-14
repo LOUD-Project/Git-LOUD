@@ -43,6 +43,9 @@ local ApplyBuff = import('/lua/sim/buff.lua').ApplyBuff
 local HasBuff = import('/lua/sim/buff.lua').HasBuff
 local RemoveBuff = import('/lua/sim/buff.lua').RemoveBuff
 
+local AssignTransportToPool = import('/lua/ai/altaiutilities.lua').AssignTransportToPool
+local ProcessAirUnits = import('/lua/loudutilities.lua').ProcessAirUnits
+
 local LOUDCEIL = math.ceil
 local EntityCategoryContains = EntityCategoryContains
 local LOUDFLOOR = math.floor
@@ -107,6 +110,7 @@ local ENERGYPRODUCTION = categories.ENERGYPRODUCTION - categories.HYDROCARBON - 
 local MASSPRODUCTION = categories.MASSPRODUCTION - categories.EXPERIMENTAL
 local INTEL = categories.INTELLIGENCE - categories.OPTICS
 local SERAPHIMAIR = categories.SERAPHIM * categories.AIR
+local TRANSPORTS = categories.TRANSPORTFOCUS - categories.uea0203
 
 local function GetRandomFloat( Min, Max )
     return Min + (Random() * (Max-Min) )
@@ -474,7 +478,7 @@ StructureUnit = Class(Unit) {
 		local LOUDINSERT = LOUDINSERT
 		local CreateDecal = CreateDecal
 
-        local army = self.Sync.army
+        local army = self.Army
         local w = tarmac.Width
         local l = tarmac.Length
         local fadeout = tarmac.FadeOut or 360
@@ -653,6 +657,7 @@ StructureUnit = Class(Unit) {
 	-- this aids in keeping the army pool smaller and slightly quicker to query
 	LaunchUpgradeThread = function( finishedUnit, aiBrain )
 
+        local FactionIndex = aiBrain.FactionIndex
 		local SelfUpgradeThread = import('/lua/ai/aibehaviors.lua').SelfUpgradeThread
         local PlatoonCallForHelpAI = import('/lua/platoon.lua').Platoon.PlatoonCallForHelpAI
 
@@ -671,7 +676,7 @@ StructureUnit = Class(Unit) {
             end
 
 			if not finishedUnit.UpgradeThread then
-				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, 1.005, 1.008, 9999, 9999, checkrate, initialdelay, false )
+				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 1.005, 1.008, 9999, 9999, checkrate, initialdelay, false )
 			end
 		end
 
@@ -682,11 +687,11 @@ StructureUnit = Class(Unit) {
             
                 if EntityCategoryContains( categories.TECH2, finishedUnit ) then
 
-                    finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, 1.001, 0.80, 9999, 1.6, 16, 120, false )
+                    finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 1.001, 0.80, 9999, 1.6, 16, 120, false )
                     
                 else
                 
-                    finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, 0.74, 0.74, 9999, 1.8, 14, 120, true )
+                    finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 0.74, 0.74, 9999, 1.8, 14, 120, true )
                 
                 end
 
@@ -697,9 +702,9 @@ StructureUnit = Class(Unit) {
 		if EntityCategoryContains( categories.HYDROCARBON, finishedUnit ) then
 
 			-- each hydro gets it's own platoon so we can enable PlatoonDistress calls for them
-			local Mexplatoon = MakePlatoon( aiBrain, 'HYDROPlatoon'..tostring(finishedUnit.Sync.id), 'none')
+			local Mexplatoon = MakePlatoon( aiBrain, 'HYDROPlatoon'..tostring(finishedUnit.EntityID), 'none')
 
-			Mexplatoon.BuilderName = 'HYDROPlatoon'..tostring(finishedUnit.Sync.id)
+			Mexplatoon.BuilderName = 'HYDROPlatoon'..tostring(finishedUnit.EntityID)
 			Mexplatoon.MovementLayer = 'Land'
             Mexplatoon.UsingTransport = true        -- never review this platoon during a merge
 
@@ -710,7 +715,7 @@ StructureUnit = Class(Unit) {
 
 			if not finishedUnit.UpgradeThread then
 
-				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, 1.005, 0.80, 9999, 1.6, 18, 90, true )
+				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 1.005, 0.80, 9999, 1.6, 18, 90, true )
 
 			end
 		end
@@ -719,9 +724,9 @@ StructureUnit = Class(Unit) {
         if EntityCategoryContains( categories.MASSEXTRACTION, finishedUnit ) then
 
 			-- each mex gets it's own platoon so we can enable PlatoonDistress calls for them
-			local Mexplatoon = MakePlatoon( aiBrain, 'MEXPlatoon'..tostring(finishedUnit.Sync.id), 'none')
+			local Mexplatoon = MakePlatoon( aiBrain, 'MEXPlatoon'..tostring(finishedUnit.EntityID), 'none')
 
-			Mexplatoon.BuilderName = 'MEXPlatoon'..tostring(finishedUnit.Sync.id)
+			Mexplatoon.BuilderName = 'MEXPlatoon'..tostring(finishedUnit.EntityID)
 			Mexplatoon.MovementLayer = 'Land'
             Mexplatoon.UsingTransport = true        -- never review this platoon during a merge
 
@@ -731,7 +736,7 @@ StructureUnit = Class(Unit) {
 
 			if not finishedUnit.UpgradeThread then
 
-				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, .74, 1.0045, 1.8, 9999, 15, 90, true )
+				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, .74, 1.0045, 1.8, 9999, 15, 90, true )
 
 			end
         end
@@ -740,9 +745,9 @@ StructureUnit = Class(Unit) {
         if EntityCategoryContains( categories.MASSFABRICATION, finishedUnit ) then
 
 			-- each mex gets it's own platoon so we can enable PlatoonDistress calls for them
-			local Mexplatoon = MakePlatoon( aiBrain, 'FABPlatoon'..tostring(finishedUnit.Sync.id), 'none')
+			local Mexplatoon = MakePlatoon( aiBrain, 'FABPlatoon'..tostring(finishedUnit.EntityID), 'none')
 
-			Mexplatoon.BuilderName = 'FABPlatoon'..tostring(finishedUnit.Sync.id)
+			Mexplatoon.BuilderName = 'FABPlatoon'..tostring(finishedUnit.EntityID)
 			Mexplatoon.MovementLayer = 'Land'
             Mexplatoon.UsingTransport = true        -- never review this platoon during a merge
 
@@ -752,7 +757,7 @@ StructureUnit = Class(Unit) {
 
 			if not finishedUnit.UpgradeThread then
 
-				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, .74, 1.002, 9999, 9999, 16, 90, true )
+				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, .74, 1.002, 9999, 9999, 16, 90, true )
 
 			end
         end
@@ -762,7 +767,7 @@ StructureUnit = Class(Unit) {
 
 			if not finishedUnit.UpgradeThread then
 
-				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, 1.008, 1.0125, 9999, 9999, 24, 180, false )
+				finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 1.008, 1.0125, 9999, 9999, 24, 180, false )
 
 			end
         end
@@ -772,7 +777,7 @@ StructureUnit = Class(Unit) {
 
 			if not finishedUnit.UpgradeThread then
 
-			    finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, 1.009, 1.02, 9999, 9999, 24, 180, false )
+			    finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 1.009, 1.02, 9999, 9999, 24, 180, false )
 
 			end
         end
@@ -780,7 +785,7 @@ StructureUnit = Class(Unit) {
 		-- pick up any structure that has an upgrade not covered by above
 		if __blueprints[finishedUnit.BlueprintID].General.UpgradesTo != '' and not finishedUnit.UpgradeThread then
 
-			finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, aiBrain.FactionIndex, aiBrain, 1.012, 1.03, 9999, 9999, 36, 360, false )
+			finishedUnit.UpgradeThread = finishedUnit:ForkThread( SelfUpgradeThread, FactionIndex, aiBrain, 1.012, 1.03, 9999, 9999, 36, 360, false )
 		end
 
 		-- add thread to the units trash
@@ -917,7 +922,7 @@ StructureUnit = Class(Unit) {
 			-- see if we already have an adjacency effect to this unit
 			for k,v in self.AdjacencyBeamsBag do
 
-				if v.Unit == adjacentUnit.Sync.id then
+				if v.Unit == adjacentUnit.EntityID then
 					return
 				end
                 
@@ -956,7 +961,7 @@ StructureUnit = Class(Unit) {
     end,
     
     OnUpgradeComplete = function( self, unitbeingbuilt )
-        --LOG("*AI DEBUG Upgrade Complete to "..unitbeingbuilt.Sync.id.." "..unitbeingbuilt:GetBlueprint().Description.." UPGRADE COMPLETE at game second "..GetGameTimeSeconds() )
+        --LOG("*AI DEBUG Upgrade Complete to "..unitbeingbuilt.EntityID.." "..unitbeingbuilt:GetBlueprint().Description.." UPGRADE COMPLETE at game second "..GetGameTimeSeconds() )
     end,
 }
 
@@ -1099,14 +1104,10 @@ MobileUnit = Class(Unit) {
 			target:SetRegenRate(0)
 		end
 
-        --LOG("*AI DEBUG OnStartReclaim from "..repr(self.BlueprintID).." "..self.Sync.id.." on target "..repr(target.CachePosition).."  Mass "..repr(target.MassReclaim).."  Energy "..repr(target.EnergyReclaim) )
-
     end,
 
 	-- when you stop reclaiming
     OnStopReclaim = function(self, target)
-    
-        --LOG("*AI DEBUG OnStopReclaim from "..repr(self.BlueprintID).." "..self.Sync.id )
 
         self.Reclaiming = nil
         
@@ -1271,7 +1272,7 @@ MobileUnit = Class(Unit) {
         local treadTexture = treads.TreadMarks
         local duration = treads.TreadLifeTime or 10
 		
-        local army = self.Sync.army
+        local army = self.Army
 
         local CSPLATON = CreateSplatOnBone
 		local WaitTicks = coroutine.yield
@@ -1310,7 +1311,7 @@ MobileUnit = Class(Unit) {
 		if Sync.SimData.SimSpeed < 0 then return end
 
         local effectBones = tableData.Bones
-        local army = self.Sync.army
+        local army = self.Army
         local ZOffset = tableData.ZOffset or 0.0
 
         for ke, ve in self.ContrailEffects do
@@ -1333,10 +1334,11 @@ MobileUnit = Class(Unit) {
 		if Sync.SimData.SimSpeed < 0 then return end
 
         local bpTable = __blueprints[self.BlueprintID].Display.MovementEffects
+        local CacheLayer = self.CacheLayer
 
-		if bpTable[self.CacheLayer] then
+		if bpTable[CacheLayer] then
 
-			bpTable = bpTable[self.CacheLayer]
+			bpTable = bpTable[CacheLayer]
 
 			if bpTable.CameraShake then
 				self.CamShakeT1 = self:ForkThread(self.MovementCameraShakeThread, bpTable.CameraShake )
@@ -1349,15 +1351,10 @@ MobileUnit = Class(Unit) {
 			end
 
 			if not bpTable.Effects[1] then
-
-				--if not self.Footfalls and bpTable.Footfall then
-					--LOG('*WARNING: No movement effect groups defined for unit ',repr(self.BlueprintID),', Effect groups with bone lists must be defined to play movement effects. Add these to the Display.MovementEffects', self.CacheLayer, '.Effects table in unit blueprint. ' )
-				--end
-                
 				return false
 			end
 
-			self:CreateTerrainTypeEffects( bpTable.Effects, 'FXMovement', self.CacheLayer, TypeSuffix, EffectsBag, TerrainType )
+			self:CreateTerrainTypeEffects( bpTable.Effects, 'FXMovement', CacheLayer, TypeSuffix, EffectsBag, TerrainType )
 
 		end
 
@@ -1370,7 +1367,6 @@ MobileUnit = Class(Unit) {
             self:DestroyMovementEffects()
 
             self:CreateMovementEffects( self.MovementEffectsBag, nil, new )
-
         end
 
     end,
@@ -1382,9 +1378,11 @@ MobileUnit = Class(Unit) {
 
 		-- if it even has Movement Effects -- many dont --
         if __blueprints[self.BlueprintID].Display.MovementEffects[self.CacheLayer] then
+        
+            local CacheLayer = self.CacheLayer
 
 			-- then see if it has footfall entries for this layer
-            local bpTable = __blueprints[self.BlueprintID].Display.MovementEffects[self.CacheLayer].Footfall
+            local bpTable = __blueprints[self.BlueprintID].Display.MovementEffects[CacheLayer].Footfall
 
             if bpTable then
 
@@ -1403,37 +1401,47 @@ MobileUnit = Class(Unit) {
                     local effects = {}
                     local scale = 1
                     local offset = nil
-                    local army = self.Sync.army
+                    local army = self.Army
                     local boneTable = nil
 
                     for k, v in bpTable.Bones do
+
                         if bone == v.FootBone then
+
                             boneTable = v
                             bone = v.FootBone
                             scale = boneTable.Scale or 1
                             offset = bone.Offset
+
                             if v.Type then
-                                effects = self.GetTerrainTypeEffects( 'FXMovement', self.CacheLayer, self:GetPosition(v.FootBone), v.Type )
+                                effects = self.GetTerrainTypeEffects( 'FXMovement', CacheLayer, self:GetPosition(v.FootBone), v.Type )
                             end
+
                             break
                         end
                     end
+                    
+                    local Tread = boneTable.Tread
 
-                    if boneTable.Tread and self:GetTTTreadType(self:GetPosition(bone)) != 'None' then
+                    if Tread and self:GetTTTreadType(self:GetPosition(bone)) != 'None' then
+                    
+                        local Tread = boneTable.Tread
 
-                        CreateSplatOnBone(self, boneTable.Tread.TreadOffset, 0, boneTable.Tread.TreadMarks, boneTable.Tread.TreadMarksSizeX, boneTable.Tread.TreadMarksSizeZ, 100, boneTable.Tread.TreadLifeTime or 10, army )
+                        CreateSplatOnBone(self, Tread.TreadOffset, 0, Tread.TreadMarks, Tread.TreadMarksSizeX, Tread.TreadMarksSizeZ, 100, Tread.TreadLifeTime or 10, army )
 
-                        local treadOffsetX = boneTable.Tread.TreadOffset[1]
+                        local treadOffsetX = Tread.TreadOffset[1]
 
                         if x and x > 0 then
-                            if self.CacheLayer != 'Seabed' then
+
+                            if CacheLayer != 'Seabed' then
                                 self:PlayUnitSound('FootFallLeft')
                             else
                                 self:PlayUnitSound('FootFallLeftSeabed')
                             end
 
                         elseif x and x < 0 then
-                            if self.CacheLayer != 'Seabed' then
+
+                            if CacheLayer != 'Seabed' then
                                 self:PlayUnitSound('FootFallRight')
                             else
                                 self:PlayUnitSound('FootFallRightSeabed')
@@ -1445,7 +1453,7 @@ MobileUnit = Class(Unit) {
                         CreateEmitterAtBone(self, bone, army, v):ScaleEmitter(scale):OffsetEmitter(offset.x or 0,offset.y or 0,offset.z or 0)
                     end
 
-                    if self.CacheLayer != 'Seabed' then
+                    if CacheLayer != 'Seabed' then
                         self:PlayUnitSound('FootFallGeneric')
                     else
                         self:PlayUnitSound('FootFallGenericSeabed')
@@ -1531,14 +1539,14 @@ MobileUnit = Class(Unit) {
         self:DestroyMovementEffects()
 
 		if not self.TransportBeamEffectsBag then
-
 			self.TransportBeamEffectsBag = {}
-
 		end
+        
+        local army = self.Army
 
-        LOUDINSERT( self.TransportBeamEffectsBag, LOUDATTACHBEAMENTITY( self, -1, transport, bone, self.Sync.army, EffectTemplate.TTransportBeam01))
-        LOUDINSERT( self.TransportBeamEffectsBag, LOUDATTACHBEAMENTITY( transport, bone, self, -1, self.Sync.army, EffectTemplate.TTransportBeam02))
-        LOUDINSERT( self.TransportBeamEffectsBag, CreateEmitterAtBone( transport, bone, self.Sync.army, EffectTemplate.TTransportGlow01) )
+        LOUDINSERT( self.TransportBeamEffectsBag, LOUDATTACHBEAMENTITY( self, -1, transport, bone, army, EffectTemplate.TTransportBeam01))
+        LOUDINSERT( self.TransportBeamEffectsBag, LOUDATTACHBEAMENTITY( transport, bone, self, -1, army, EffectTemplate.TTransportBeam02))
+        LOUDINSERT( self.TransportBeamEffectsBag, CreateEmitterAtBone( transport, bone, army, EffectTemplate.TTransportGlow01) )
 
         self:TransportAnimation()
     end,
@@ -1566,9 +1574,10 @@ MobileUnit = Class(Unit) {
 
 			WaitTicks(1)
 
-            local animBlock = self:ChooseAnimBlock( __blueprints[self.BlueprintID].Display.TransportAnimation )
+            local animBlock = (self:ChooseAnimBlock( __blueprints[self.BlueprintID].Display.TransportAnimation )).Animation
 
-            if animBlock.Animation then
+
+            if animBlock then
 			
                 if not self.TransAnimation then
                 
@@ -1577,13 +1586,12 @@ MobileUnit = Class(Unit) {
                     TrashAdd( self.Trash, self.TransAnimation )
                 end
 
-                PlayAnim( self.TransAnimation, animBlock.Animation )
+                PlayAnim( self.TransAnimation, animBlock )
                 
                 rate = rate or 1
                 self.TransAnimation:SetRate(rate)
 
                 WaitFor(self.TransAnimation)
-
             end
         end
     end,
@@ -1626,9 +1634,9 @@ MobileUnit = Class(Unit) {
 
 		Unit.OnLayerChange( self, new, old) 
 
-		self.WeaponCount = GetWeaponCount(self)
+		--self.WeaponCount = GetWeaponCount(self)
 
-        for i = 1, self.WeaponCount do
+        for i = 1, GetWeaponCount(self) do
             GetWeapon(self,i):SetValidTargetsForCurrentLayer(new)
         end
 
@@ -1805,13 +1813,10 @@ MobileUnit = Class(Unit) {
     AddOnHorizontalStartMoveCallback = function(self, fn)
 
 		if not self.EventCallbacks.OnHorizontalStartMove then
-
 			self.EventCallbacks.OnHorizontalStartMove = {}
-
 		end
 
         LOUDINSERT(self.EventCallbacks.OnHorizontalStartMove, fn)
-
     end,
 
     DoOnHorizontalStartMoveCallbacks = function(self)
@@ -1823,13 +1828,9 @@ MobileUnit = Class(Unit) {
 				if cb then
 
 					cb(self)
-
 				end
-
 			end
-
 		end
-
     end,
 
     StartBeingBuiltEffects = function(self, builder, layer)
@@ -2372,7 +2373,6 @@ QuantumGateUnit = Class(FactoryUnit) {
 
 	-- This is the "main" function called when the teleport button is clicked
 	WarpNearbyUnits	= function(self, radius)
-		LOG('~Attempting to teleport')
 
 		if not self.TeleportReady then
 			import('/lua/CommonTools.lua').PrintError("Gateway not ready!", self.Army)
@@ -2450,7 +2450,7 @@ QuantumGateUnit = Class(FactoryUnit) {
         
 			for k, e in v.Emitters do
             
-				fx = CreateEmitterAtEntity(self, self.Sync.army, e):OffsetEmitter(v.Offset.x, v.Offset.y, v.Offset.z):ScaleEmitter(v.Scale)
+				fx = CreateEmitterAtEntity(self, self.Army, e):OffsetEmitter(v.Offset.x, v.Offset.y, v.Offset.z):ScaleEmitter(v.Scale)
                 
                 count = count + 1
 				fxBag[count] = fx
@@ -2470,7 +2470,7 @@ QuantumGateUnit = Class(FactoryUnit) {
 
 		-- upwards funnel
 		for k, v in EffectTemplate.SIFInainoHit02 do
-			CreateEmitterAtEntity(self, self.Sync.army, v):ScaleEmitter(0.7)
+			CreateEmitterAtEntity(self, self.Army, v):ScaleEmitter(0.7)
 			CreateEmitterAtEntity(self.DestinationGateway, self.DestinationGateway:GetArmy(), v):ScaleEmitter(0.7)
 		end
 
@@ -2481,7 +2481,7 @@ QuantumGateUnit = Class(FactoryUnit) {
 
 		-- flash!
 		for k, v in EffectTemplate.SIFInainoHit01 do
-			CreateEmitterAtEntity(self, self.Sync.army, v):ScaleEmitter(1.15)
+			CreateEmitterAtEntity(self, self.Army, v):ScaleEmitter(1.15)
 			CreateEmitterAtEntity(self.DestinationGateway, self.DestinationGateway:GetArmy(), v):ScaleEmitter(1)
 		end
 
@@ -2491,7 +2491,7 @@ QuantumGateUnit = Class(FactoryUnit) {
 	-- Initiates the "teleport charging" effect on gateways involved
 	StartGateChargeEffect = function(self)
 	
-		local army = self.Sync.army
+		local army = self.Army
 
 		self.TeleportChargeBag = {}
         local count = 0
@@ -2743,7 +2743,7 @@ AirStagingPlatformUnit = Class(StructureUnit) {
         -- force an unload 20 seconds after an attach
         self.ForcedUnload = self:ForkThread( function(self) WaitTicks(200) IssueTransportUnload( {self},self:GetPosition() )  end )
         
-		self.UnitStored[unit.Sync.id] = true
+		self.UnitStored[unit.EntityID] = true
 
 		StructureUnit.OnTransportAttach(self, attachBone, unit)	
 		
@@ -2752,7 +2752,7 @@ AirStagingPlatformUnit = Class(StructureUnit) {
 	-- issued by the platform as units detach
     OnTransportDetach = function(self, attachBone, unit)
 
-		self.UnitStored[unit.Sync.id] = nil
+		self.UnitStored[unit.EntityID] = nil
 	
 		StructureUnit.OnTransportDetach(self, attachBone, unit)
 		
@@ -2837,7 +2837,7 @@ EnergyCreationUnit = Class(StructureUnit) {
 
         if self.AmbientEffects then
 
-			local army = self.Sync.army
+			local army = self.Army
 
             for k, v in EffectTemplate[self.AmbientEffects] do
                 CreateAttachedEmitter(self, 0, army, v)
@@ -2925,15 +2925,11 @@ MassCollectionUnit = Class(StructureUnit) {
                 -- if we dont get 100% of what we need --
                 if GetResourceConsumed(self) != 1 then
                 
-                    --LOG("*AI DEBUG WE are short of resources")
-                
                     -- flag a reset to normal when conditions normalize
                     resettonormal = true
 
                     -- if we are 100% out of energy
                     if GetEconomyStored(aiBrain, 'ENERGY') <= 1 then
-                    
-                        --LOG("*AI DEBUG We are out of ENERGY")
                     
                         -- turn off both production and consumption
                         SetProductionPerSecondMass( self, 0 )    --massProduction)
@@ -2943,49 +2939,32 @@ MassCollectionUnit = Class(StructureUnit) {
                     -- we must be out of mass then --
                     
                         local massprod = math.min(1, GetEconomyStored(aiBrain,'ENERGY')/ self:GetConsumptionPerSecondEnergy())
-
-                        --LOG("*AI DEBUG ResourceConsumed is "..repr(GetResourceConsumed(self)))
                     
                         -- if we had at least 1% we must have some of the mass 
                         if GetResourceConsumed(self) > .01 then
                         
-                            --LOG("*AI DEBUG we have SOME mass")
-                        
                             -- consumption will be set to normal --
                             SetConsumptionPerSecondMass( self, massConsumption)
                             
-                            --LOG("*AI DEBUG Production set to "..(massProduction * massprod) )
-                            
                             -- BUT production will be set to % of energy required
-                            --LOG("*AI DEBUG mass set to "..massProduction * massprod)
                             SetProductionPerSecondMass( self, (massProduction * massprod ) )
                             
                         else
-                            
-                            --LOG("*AI DEBUG we have no Mass - no consumption")
                             --  turn it off
                             SetConsumptionPerSecondMass( self, 0)
                         end
                     end
                 else
-                
                     if resettonormal then
-                    
-                        --LOG("*AI DEBUG Returning to normal upgrade")
-                        
+
                         -- resume normal production and consumption
                         SetConsumptionPerSecondMass( self, massConsumption)
                         SetProductionPerSecondMass( self, massProduction)
                         
                         resettonormal = false
                     end
-                    
                 end
-
             else
-            
-                --LOG("*AI DEBUG Pausing during an upgrade")
-                
                 -- pausing just seems to leave things alone while upgrading?
                 SetProductionPerSecondMass( self, massProduction )
             end
@@ -3193,12 +3172,10 @@ ShieldStructureUnit = Class(StructureUnit) {
 
 	UpgradingState = State(StructureUnit.UpgradingState) {
         Main = function(self)
-			--self.MyShield:TurnOff()
             StructureUnit.UpgradingState.Main(self)
         end,
 
         OnFailedToBuild = function(self)
-			--self.MyShield:TurnOn()
             StructureUnit.UpgradingState.OnFailedToBuild(self)
         end,
     }
@@ -3219,7 +3196,6 @@ TransportBeaconUnit = Class(StructureUnit) {
         self:SetReclaimable(false)
     end,
 }
-
 
 
 WalkingLandUnit = Class(MobileUnit) {
@@ -3282,13 +3258,9 @@ WalkingLandUnit = Class(MobileUnit) {
 					end
 
 					self.Animator = nil
-
 				end
-
 			end
-
 		end
-
     end,
 
 	-- so that ACU and SCU get engy callbacks
@@ -3304,7 +3276,9 @@ WalkingLandUnit = Class(MobileUnit) {
 DirectionalWalkingLandUnit = Class(WalkingLandUnit) {
 
     OnMotionHorzEventChange = function( self, new, old )
+
         WalkingLandUnit.OnMotionHorzEventChange(self, new, old)
+
         if ( old == 'Stopped' ) and self.Animator then
             self.Animator:SetDirectionalAnim(true)
         end
@@ -3347,7 +3321,7 @@ SubUnit = Class(MobileUnit) {
 	
         local bp = __blueprints[self.BlueprintID]
 		
-        local army = self.Sync.army
+        local army = self.Army
         local pos = GetPosition(self)
         local seafloor = GetTerrainHeight(pos[1], pos[3])
 
@@ -3377,8 +3351,8 @@ SubUnit = Class(MobileUnit) {
             self:ForkThread(function()
 
                 local numBones = GetBoneCount(self)-1
-                local sx, sy, sz = self:GetUnitSizes()
-                local vol = sx * sy * sz
+                local sx, y, z = self:GetUnitSizes()
+                local vol = sx * y * z
 
                 local i = 0
 
@@ -3444,7 +3418,7 @@ SubUnit = Class(MobileUnit) {
             rs = scalemax
         end
 
-        local army = self.Sync.Army
+        local army = self.Army
 
         CreateEmitterAtEntity(self,army,'/effects/emitters/destruction_underwater_explosion_flash_01_emit.bp'):ScaleEmitter(rs)
         CreateEmitterAtEntity(self,army,'/effects/emitters/destruction_underwater_explosion_splash_02_emit.bp'):ScaleEmitter(rs)
@@ -3470,27 +3444,30 @@ SubUnit = Class(MobileUnit) {
         local rx, ry, rz = self:GetUnitSizes()
         local vol = rx * ry * rz
 
-        local army = self.Sync.Army
+        local army = self.Army
+        
+        local LeftFrontWakeBone = self.LeftFrontWakeBone
+        local RightFrontWakeBone = self.RightFrontWakeBone
 
         while true and i > 0 do
 
             local rx, ry, rz = GetRandomOffset( self, 1)
             local rs = Random( vol * 0.5, vol * 2 ) / ( vol * 2)
 
-            CreateAttachedEmitter(self,-1,army,'/effects/emitters/destruction_water_sinking_ripples_01_emit.bp'):OffsetEmitter(rx, 0, rz):ScaleEmitter(rs)
+            CreateAttachedEmitter(self, -1, army,'/effects/emitters/destruction_water_sinking_ripples_01_emit.bp'):OffsetEmitter(rx, 0, rz):ScaleEmitter(rs)
 
             local rx, ry, rz = GetRandomOffset( self, 1)
 
-            CreateAttachedEmitter(self,self.LeftFrontWakeBone,army, '/effects/emitters/destruction_water_sinking_wash_01_emit.bp'):OffsetEmitter(rx, 0, rz):ScaleEmitter(rs)
+            CreateAttachedEmitter(self, LeftFrontWakeBone, army, '/effects/emitters/destruction_water_sinking_wash_01_emit.bp'):OffsetEmitter(rx, 0, rz):ScaleEmitter(rs)
 
             local rx, ry, rz = GetRandomOffset( self, 1)
 
-            CreateAttachedEmitter(self,self.RightFrontWakeBone,army, '/effects/emitters/destruction_water_sinking_wash_01_emit.bp'):OffsetEmitter(rx, 0, rz):ScaleEmitter(rs)
+            CreateAttachedEmitter(self, RightFrontWakeBone, army, '/effects/emitters/destruction_water_sinking_wash_01_emit.bp'):OffsetEmitter(rx, 0, rz):ScaleEmitter(rs)
 
             local rx, ry, rz = GetRandomOffset( self, 1)
             local rs = Random( vol * 0.5, vol * 2 ) / ( vol * 2)
 
-            CreateAttachedEmitter(self,-1,army,'/effects/emitters/destruction_underwater_sinking_wash_01_emit.bp'):OffsetEmitter(rx, 0, rz):ScaleEmitter(rs)
+            CreateAttachedEmitter(self, -1, army, '/effects/emitters/destruction_underwater_sinking_wash_01_emit.bp'):OffsetEmitter(rx, 0, rz):ScaleEmitter(rs)
 
             i = i - 1
 
@@ -3502,7 +3479,6 @@ SubUnit = Class(MobileUnit) {
 SeaUnit = Class(MobileUnit) {
 
     DeathThreadDestructionWaitTime = 7,	-- 7 seconds
-    --ShowUnitDestructionDebris = false,
 
     OnStopBeingBuilt = function(self,builder,layer)
 
@@ -3531,10 +3507,10 @@ SeaUnit = Class(MobileUnit) {
     DeathThread = function(self, overkillRatio, instigator)
 
         local bp = __blueprints[self.BlueprintID]
-        local army = self.Sync.army
+        local army = self.Army
         local pos = GetPosition(self)
 
-        local seafloor = GetTerrainHeight(pos[1], pos[3]) --+ GetTerrainTypeOffset(pos[1], pos[3])
+        local seafloor = GetTerrainHeight(pos[1], pos[3])
 
         self:DestroyAllDamageEffects()
 
@@ -3551,7 +3527,7 @@ SeaUnit = Class(MobileUnit) {
 
             local sinkcount = 0
 
-            while self.DeathAnimManip and sinkcount < 20 do   -- wait 20 seconds
+            while self.DeathAnimManip and sinkcount < 20 do
                 WaitTicks(10)
                 sinkcount = sinkcount + 1
             end
@@ -3613,7 +3589,7 @@ SeaUnit = Class(MobileUnit) {
         local d = 0 							-- delay offset after surface explosions cease
         local sx, sy, sz = self:GetUnitSizes()
         local vol = sx * sy * sz
-        local army = self.Sync.army
+        local army = self.Army
         
         local numBones = GetBoneCount(self) - 1
 
@@ -3656,10 +3632,13 @@ SeaUnit = Class(MobileUnit) {
         local i = 8
         local sx, sy, sz = self:GetUnitSizes()
         local vol = sx * sy * sz
-        local army = self.Sync.army
+        local army = self.Army
 
 		local CreateAttachedEmitter = CreateAttachedEmitter
 		local Random = Random
+        
+        local LeftFrontWakeBone = self.LeftFrontWakeBone
+        local RightFrontWakeBone = self.RightFrontWakeBone
 
         while i > 0 do
 
@@ -3672,11 +3651,11 @@ SeaUnit = Class(MobileUnit) {
 
                 local rx, ry, rz = GetRandomOffset( self, 1)
 
-                CreateAttachedEmitter(self,self.LeftFrontWakeBone,army, '/effects/emitters/destruction_water_sinking_wash_01_emit.bp'):OffsetEmitter(rx, 0, rz):ScaleEmitter(rs)
+                CreateAttachedEmitter(self, LeftFrontWakeBone, army, '/effects/emitters/destruction_water_sinking_wash_01_emit.bp'):OffsetEmitter(rx, 0, rz):ScaleEmitter(rs)
 
                 local rx, ry, rz = GetRandomOffset( self, 1)
 
-                CreateAttachedEmitter(self,self.RightFrontWakeBone,army, '/effects/emitters/destruction_water_sinking_wash_01_emit.bp'):OffsetEmitter(rx, 0, rz):ScaleEmitter(rs)
+                CreateAttachedEmitter(self, RightFrontWakeBone,army, '/effects/emitters/destruction_water_sinking_wash_01_emit.bp'):OffsetEmitter(rx, 0, rz):ScaleEmitter(rs)
             end
 
             local rx, ry, rz = GetRandomOffset( self, 1)
@@ -3692,8 +3671,6 @@ SeaUnit = Class(MobileUnit) {
 
 AirUnit = Class(MobileUnit) {
 
-    --ShowUnitDestructionDebris = false,
-
     OnCreate = function(self)
 
         Unit.OnCreate(self)
@@ -3704,58 +3681,54 @@ AirUnit = Class(MobileUnit) {
 		self.EventCallbacks.OnRunOutOfFuel = {}
 		self.EventCallbacks.OnGotFuel = {}
 		self.HasFuel = true
-            
-            local aiBrain = GetAIBrain(self)
 
-            if aiBrain.BrainType == 'AI' then
-            
-                local LOUDENTITY = EntityCategoryContains
+        local aiBrain = GetAIBrain(self)
 
-                if LOUDENTITY( AIRUNITS, self) then
+        if aiBrain.BrainType == 'AI' then
+            
+            local LOUDENTITY = EntityCategoryContains
+
+            if LOUDENTITY( AIRUNITS, self) then
 		
-                    -- all AIR units (except true Transports) will get these callbacks to assist with Airpad functions
-                    if not LOUDENTITY((categories.TRANSPORTFOCUS - categories.uea0203), self) then
+                -- all AIR units (except true Transports) will get these callbacks to assist with Airpad functions
+                if not LOUDENTITY( TRANSPORTS, self) then
 
-                        local ProcessDamagedAirUnit = function( self, newHP, oldHP )
+                    local ProcessDamagedAirUnit = function( self, newHP, oldHP )
                         
-                            if not self.InRefit then
+                        if not self.InRefit then
 	
-                                -- added check for RTP callback (which is intended for transports but UEF gunships sometimes get it)
-                                -- to bypass this if the unit is in the transport pool --
-                                if (newHP < oldHP and newHP < 0.5) and not self.ReturnToPoolCallbackSet then
+                            -- added check for RTP callback (which is intended for transports but UEF gunships sometimes get it)
+                            -- to bypass this if the unit is in the transport pool --
+                            if (newHP < oldHP and newHP < 0.5) and not self.ReturnToPoolCallbackSet then
 
-                                    local ProcessAirUnits = import('/lua/loudutilities.lua').ProcessAirUnits
-
-                                    ProcessAirUnits( self, GetAIBrain(self) )
-                                end
+                                ProcessAirUnits( self, GetAIBrain(self) )
                             end
                         end
-
-                        self:AddUnitCallback( ProcessDamagedAirUnit, 'OnHealthChanged')
-				
-                        local ProcessFuelOutAirUnit = function( self )
-				
-                            if not self.InRefit then
-                            
-                                -- this flag only gets turned on after this executes
-                                -- and is turned back on only when the unit gets fuel - so we avoid multiple executions
-                                -- and we don't process this if it's a transport pool unit --
-                                if not self.ReturnToPoolCallbackSet then
-
-                                    local ProcessAirUnits = import('/lua/loudutilities.lua').ProcessAirUnits
-
-                                    ProcessAirUnits( self, GetAIBrain(self) )
-                                end
-                            end
-                        end
-                        
-                        self:AddUnitCallback( ProcessFuelOutAirUnit, 'OnRunOutOfFuel')
-                    else
-
-                        self:ForkThread( import('/lua/ai/altaiutilities.lua').AssignTransportToPool, aiBrain )
                     end
+
+                    self:AddUnitCallback( ProcessDamagedAirUnit, 'OnHealthChanged')
+				
+                    local ProcessFuelOutAirUnit = function( self )
+				
+                        if not self.InRefit then
+                            
+                            -- this flag only gets turned on after this executes
+                            -- and is turned back on only when the unit gets fuel - so we avoid multiple executions
+                            -- and we don't process this if it's a transport pool unit --
+                            if not self.ReturnToPoolCallbackSet then
+
+                                ProcessAirUnits( self, GetAIBrain(self) )
+                            end
+                        end
+                    end
+                        
+                    self:AddUnitCallback( ProcessFuelOutAirUnit, 'OnRunOutOfFuel')
+                else
+
+                    self:ForkThread( AssignTransportToPool, aiBrain )
                 end
-            end        
+            end
+        end        
     end,
 
     ActiveState = State {
@@ -3906,8 +3879,6 @@ AirUnit = Class(MobileUnit) {
 
 	-- this fires when the unit fuel falls below the trigger threshold
     OnRunOutOfFuel = function(self)
-    
-		--ForkThread(FloatingEntityText, self.Sync.id, 'On Run Out of Fuel - Has Fuel '..repr(self.HasFuel)..' callback is '..repr(self.ReturnToPoolCallbackSet) )
 
         self:DoUnitCallbacks('OnRunOutOfFuel')
 
@@ -3920,7 +3891,6 @@ AirUnit = Class(MobileUnit) {
 		end
 
         self.HasFuel = false
-
     end,
 
 	-- this fires when the unit fuel is above the trigger threshold
@@ -3935,7 +3905,6 @@ AirUnit = Class(MobileUnit) {
 		end
 		
 		self.HasFuel = true
-
     end,
 
 	-- this fires only when the unit attaches to an airpad
@@ -3944,7 +3913,6 @@ AirUnit = Class(MobileUnit) {
         self:PlayUnitSound('Refueling')
 		
         self:DoUnitCallbacks('OnStartRefueling')
-		
     end,
 
     OnHealthChanged = function(self, new, old)
@@ -3962,7 +3930,6 @@ AirUnit = Class(MobileUnit) {
 						self:SetSpeedMult(0.82)
 						self:SetAccMult(0.82)
 						self:SetTurnMult(0.8)
-						
 					end
 
 				-- and below 25% it drops even more
@@ -3973,7 +3940,6 @@ AirUnit = Class(MobileUnit) {
 						self:SetSpeedMult(0.6)
 						self:SetAccMult(0.6)
 						self:SetTurnMult(0.4)
-					
 					end
 					
 				end
@@ -3988,7 +3954,6 @@ AirUnit = Class(MobileUnit) {
 						self:SetSpeedMult(0.82)
 						self:SetAccMult(0.82)
 						self:SetTurnMult(0.8)
-						
 					end
 					
 				-- at 50% restore full performance
@@ -3999,23 +3964,17 @@ AirUnit = Class(MobileUnit) {
 						self:SetSpeedMult(1)
 						self:SetAccMult(1)
 						self:SetTurnMult(1)					
-					
 					end
-
 				end
-				
 			end
-			
 		end
 		
 		Unit.OnHealthChanged(self, new, old)
-		
     end,	
 	
     OnImpact = function(self, with, other)
-	
-		--LOG("*AI DEBUG AirUnit OnImpact for "..self:GetBlueprint().Description.." "..self.Sync.id.." with "..repr(with) )
 
+        local army = self.Army
         local bp = __blueprints[self.BlueprintID]
 
         local i = 1
@@ -4034,9 +3993,9 @@ AirUnit = Class(MobileUnit) {
 
             self:PlayUnitSound('AirUnitWaterImpact')
 
-            CreateEffects( self, self.Sync.army, EffectTemplate.DefaultProjectileWaterImpact )
+            CreateEffects( self, army, EffectTemplate.DefaultProjectileWaterImpact )
 
-			self:ForkThread(self.SinkIntoWaterAfterDeath, self.OverKillRatio)
+			self:ForkThread( self.SinkIntoWaterAfterDeath, self.OverKillRatio)
 
         else
             if not self.DeathBounce then
@@ -4053,12 +4012,10 @@ AirUnit = Class(MobileUnit) {
     end,
 
 	SinkIntoWaterAfterDeath = function(self, overkillRatio)
-	
-		--LOG("*AI DEBUG AirUnit SinkIntoWaterAfterDeath")
 
 		local sx, sy, sz = self:GetUnitSizes()
 		local vol = sx * sy * sz
-		local army = self.Sync.army
+		local army = self.Army
 		local pos = GetPosition(self)
 
 		local seafloor = GetTerrainHeight(pos[1], pos[3])
@@ -4095,8 +4052,6 @@ AirUnit = Class(MobileUnit) {
 
 		self:SetOrientation(SinkOrient,true)
 
-		--LOG("*AI DEBUG creating air unit sink slider")
-
 		local slider = CreateSlider(self, 0, 0, seafloor-pos[2], 0, 3)
 
 		self.Trash:Add(slider)
@@ -4105,12 +4060,9 @@ AirUnit = Class(MobileUnit) {
 
 		slider:Destroy()
 
-		--LOG("*AI DEBUG "..GetAIBrain(self).Nickname.." air sink Thread complete for "..GetBlueprint(self).Description)
-
 		self:CreateWreckage(overkillRatio)
         
 		self:Destroy()
-
 	end,
 
     CreateUnitAirDestructionEffects = function( self, scale )
@@ -4162,8 +4114,6 @@ AirUnit = Class(MobileUnit) {
 
             self.DeathBounce = 1
 			
-			--LOG("*AI DEBUG AirUnit OnKilled Disintegrates")
-			
 			self.PlayDeathAnimation = false
 			self.DeathWeaponEnabled = false
 			
@@ -4200,7 +4150,6 @@ ConstructionUnit = Class(MobileUnit) {
 							if LOUDFIND(unit.PlatoonHandle.PlanName, 'EngineerBuild') then
 								unit.PlatoonHandle:ProcessBuildCommand( unit, true)
 							end
-
 						end
 					end
 				end
@@ -4270,7 +4219,6 @@ ConstructionUnit = Class(MobileUnit) {
 			eng:AddUnitCallback( EngineerFailedCapture, 'OnFailedCapture')
 			eng:AddUnitCallback( EngineerFailedToBuild, 'OnFailedToBuild')
 			eng:AddUnitCallback( EngineerStartBeingCaptured, 'OnStartBeingCaptured' )
-
         end
 
     end,
@@ -4303,11 +4251,9 @@ ConstructionUnit = Class(MobileUnit) {
                 self.BuildArmManipulator:Disable()
 
             end
-
         end
 
         self.BuildingUnit = false
-
     end,
 
     OnPaused = function(self)
@@ -4318,7 +4264,6 @@ ConstructionUnit = Class(MobileUnit) {
         if self.BuildingUnit then
             Unit.StopBuildingEffects(self, self.UnitBeingBuilt )
         end
-
     end,
 
     OnUnpaused = function(self)
@@ -4332,12 +4277,9 @@ ConstructionUnit = Class(MobileUnit) {
         end
 
         Unit.OnUnpaused(self)
-
     end,
 
     OnStartBuild = function(self, unitBeingBuilt, order )
-    
-        --LOG("*AI DEBUG Default OnStartBuild for "..self.Sync.id.." order is "..repr(order))
 
         Unit.OnStartBuild(self,unitBeingBuilt, order)
 
@@ -4351,16 +4293,11 @@ ConstructionUnit = Class(MobileUnit) {
 
 				self.Upgrading = true
 				self.BuildingUnit = false
-
 			end
-
         end
-
     end,
 
     OnStopBuild = function(self, unitBeingBuilt)
-    
-        --LOG("*AI DEBUG Default OnStopBuild for "..self.Sync.id.." current order is "..repr(self.CurrentBuildOrder) )
 
         Unit.OnStopBuild(self,unitBeingBuilt)
 
@@ -4371,17 +4308,13 @@ ConstructionUnit = Class(MobileUnit) {
                 if unitBeingBuilt and not BeenDestroyed(unitBeingBuilt) then
 
                     unitBeingBuilt:Destroy()
-
                 end
-
             else
 
                 self.OnStopBuildWasRun = true
 
                 self:ForkThread( function(self) WaitTicks(2) self.OnStopBuildWasRun = nil end )
-
             end
-
         end
 
         if self.Upgrading then
@@ -4389,7 +4322,6 @@ ConstructionUnit = Class(MobileUnit) {
             NotifyUpgrade(self,unitBeingBuilt)
 
             self:Destroy()
-
         end
 
         self.UnitBeingBuilt = nil
@@ -4402,11 +4334,9 @@ ConstructionUnit = Class(MobileUnit) {
         elseif self.BuildingOpenAnimManip then
 
             self.BuildingOpenAnimManip:SetRate(-1)
-
         end
 
         self.BuildingUnit = false
-
     end,
 
     WaitForBuildAnimation = function(self, enable)
@@ -4418,16 +4348,11 @@ ConstructionUnit = Class(MobileUnit) {
             if (enable) then
 
                 self.BuildArmManipulator:Enable()
-
             end
-
         end
-
     end,
 
     OnPrepareArmToBuild = function(self)
-
-        --Unit.OnPrepareArmToBuild(self)
 
         if self.BuildingOpenAnimManip then
 
@@ -4438,11 +4363,8 @@ ConstructionUnit = Class(MobileUnit) {
                 self.StoppedBuilding = false
 
                 self:ForkThread( self.WaitForBuildAnimation, true )
-
             end
-
         end
-
     end,
 
     OnStopBuilderTracking = function(self)
@@ -4454,9 +4376,7 @@ ConstructionUnit = Class(MobileUnit) {
             self.BuildArmManipulator:Disable()
 
             self.BuildingOpenAnimManip:SetRate(-(__blueprints[self.BlueprintID].Display.AnimationBuildRate or 1))
-
         end
-
     end,
 }
 

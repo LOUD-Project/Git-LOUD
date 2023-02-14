@@ -61,7 +61,7 @@ CDFHeavyMicrowaveLaserGeneratorCom = Class(DefaultBeamWeapon) {
     
         if not self:EconomySupportsBeam() then return end
         
-        local army = self.unit.Sync.army
+        local army = self.unit.Army
         local bp = self.bp
         
 		local CreateAttachedEmitter = CreateAttachedEmitter
@@ -123,7 +123,7 @@ CDFHeavyMicrowaveLaserGenerator = Class(DefaultBeamWeapon) {
     
         if not self.ContBeamOn then
         
-            local army = self.unit.Sync.army
+            local army = self.unit.Army
             local bp = self.bp
             
 			local CreateAttachedEmitter = CreateAttachedEmitter
@@ -468,7 +468,7 @@ CAMZapperWeapon = Class(DefaultBeamWeapon) {
         self.SphereEffectEntity:SetVizToNeutrals('Intel')
         self.SphereEffectEntity:SetVizToEnemies('Intel')
         
-        local emit = CreateAttachedEmitter( self.unit, self.bp.RackBones[1].MuzzleBones[1], self.unit.Sync.army, self.SphereEffectBp )
+        local emit = CreateAttachedEmitter( self.unit, self.bp.RackBones[1].MuzzleBones[1], self.unit.Army, self.SphereEffectBp )
 
         TrashAdd( self.unit.Trash, self.SphereEffectEntity )
         TrashAdd( self.unit.Trash, emit )
@@ -518,7 +518,7 @@ CMobileKamikazeBombWeapon = Class(KamikazeWeapon){
 
     OnFire = function(self)
     
-		local army = self.unit.Sync.army
+		local army = self.unit.Army
         
         for k, v in self.FxDeath do
             CreateEmitterAtBone(self.unit,-2,army,v)
@@ -543,7 +543,7 @@ CMobileKamikazeBombDeathWeapon = Class(BareBonesWeapon) {
     
     Fire = function(self)
     
-		local army = self.unit.Sync.army
+		local army = self.unit.Army
         
         for k, v in self.FxDeath do
             CreateEmitterAtBone(self.unit,-2,army,v)

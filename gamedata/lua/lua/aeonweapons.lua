@@ -339,7 +339,7 @@ AANDepthChargeBombWeapon = Class(DefaultProjectileWeapon) {
         if blueprint.DoTDamage then
         
             data = {
-                Army = self.unit.Sync.army,
+                Army = self.unit.Army,
                 StartRadius = blueprint.DOTStartRadius,
                 EndRadius = blueprint.DOTEndRadius,
                 DOTtype = blueprint.DOTtype,
@@ -377,7 +377,7 @@ AANTorpedoCluster = Class(DefaultProjectileWeapon) {
         if blueprint.DoTDamage then
         
             data = {
-                Army = self.unit.Sync.army,
+                Army = self.unit.Army,
                 StartRadius = blueprint.DOTStartRadius,
                 EndRadius = blueprint.DOTEndRadius,
                 DOTtype = blueprint.DOTtype,
@@ -520,7 +520,7 @@ AAATemporalFizzWeapon = Class(DefaultProjectileWeapon) {
     
         DefaultProjectileWeapon.PlayFxRackSalvoChargeSequence(self)
 		
-        local army = self.unit.Sync.army
+        local army = self.unit.Army
         
 		local CreateAttachedEmitter = CreateAttachedEmitter
 		
@@ -568,7 +568,7 @@ AQuantumBeamGenerator = Class(DefaultBeamWeapon) {
 
     PlayFxWeaponUnpackSequence = function( self )
     
-        local army = self.unit.Sync.army
+        local army = self.unit.Army
         
         local bp = self.bp
         
@@ -604,7 +604,7 @@ ADFPhasonLaser = Class(DefaultBeamWeapon) {
     
         if not self.ContBeamOn then
         
-            local army = self.unit.Sync.army
+            local army = self.unit.Army
             
             local bp = self.bp
             

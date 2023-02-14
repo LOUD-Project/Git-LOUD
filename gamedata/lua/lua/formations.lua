@@ -715,44 +715,44 @@ end
 --==============================================#
 function AttackFormation( formationUnits )
 
-    --LOG("*AI DEBUG Attack Formation")
-
     local FormationPos = {}
 
     local landUnitsList = CategorizeLandUnits( formationUnits )
 	local seaUnitsList = CategorizeSeaUnits( formationUnits )
 	local airUnitsList = CategorizeAirUnits( formationUnits )
 	local TransportUnitsList = CategorizeTransportUnits( formationUnits )
-	
-	if landUnitsList.UnitTotal > 0 then
+
+    local UnitTotal = landUnitsList.UnitTotal or 0
+
+	if UnitTotal > 0 then
 	
 		local landBlock
         local defaultspacing = 1.2
     
-		if landUnitsList.UnitTotal <= 16 then       -- 8 wide
+		if UnitTotal <= 16 then       -- 8 wide
 			landBlock = TwoRowAttackFormationBlock
             
-		elseif landUnitsList.UnitTotal <= 30 then   -- 10 wide
+		elseif UnitTotal <= 30 then   -- 10 wide
 			landBlock = ThreeRowAttackFormationBlock
             defaultspacing = 1.1            
             
-		elseif landUnitsList.UnitTotal <= 48 then   -- 12 wide
+		elseif UnitTotal <= 48 then   -- 12 wide
 			landBlock = FourRowAttackFormationBlock
             defaultspacing = 1.02
             
-		elseif landUnitsList.UnitTotal <= 70 then   -- 14 wide
+		elseif UnitTotal <= 70 then   -- 14 wide
 			landBlock = FiveRowAttackFormationBlock
             defaultspacing = 0.96
             
-		elseif landUnitsList.UnitTotal <= 96 then   -- 16 wide
+		elseif UnitTotal <= 96 then   -- 16 wide
 			landBlock = SixRowAttackFormationBlock
             defaultspacing = 0.92
             
-		elseif landUnitsList.UnitTotal <= 126 then  -- 18 wide
+		elseif UnitTotal <= 126 then  -- 18 wide
 			landBlock = SevenRowAttackFormationBlock
             defaultspacing = 0.90            
             
-		elseif landUnitsList.UnitTotal <= 160 then  -- 20 wide
+		elseif UnitTotal <= 160 then  -- 20 wide
 			landBlock = EightRowAttackFormationBlock
             defaultspacing = 0.84            
 		else
@@ -764,8 +764,10 @@ function AttackFormation( formationUnits )
 	
 	end
 
+    UnitTotal = seaUnitsList.UnitTotal or 0
+
 	-- if there are sea units --
-	if seaUnitsList.UnitTotal > 0 then
+	if UnitTotal > 0 then
 	
 		local seaBlock
 		local subBlock
@@ -797,16 +799,16 @@ function AttackFormation( formationUnits )
 		end
 
 		-- remove the submarine count from the total count -- 
-	    seaUnitsList.UnitTotal = seaUnitsList.UnitTotal - seaUnitsList.SubCount
+	    UnitTotal = UnitTotal - seaUnitsList.SubCount
 		
 		-- do surface unit formations --
-		if seaUnitsList.UnitTotal > 0 then
+		if UnitTotal > 0 then
 		
-			if seaUnitsList.UnitTotal <= 12 then
+			if UnitTotal <= 12 then
 		
 				seaBlock = FiveWideNavalAttackFormation
 			
-			elseif seaUnitsList.UnitTotal <= 28 then
+			elseif UnitTotal <= 28 then
 		
 				seaBlock = SevenWideNavalAttackFormation
 			
@@ -825,22 +827,24 @@ function AttackFormation( formationUnits )
 	if airUnitsList.UnitTotal > 0 then
 		BlockBuilderAir(airUnitsList, StaggeredChevronBlock, FormationPos)
 	end
+
+    UnitTotal = TransportUnitsList.UnitTotal or 0
+
+	if UnitTotal > 0 then
 	
-	if TransportUnitsList.UnitTotal > 0 then
-	
-		if TransportUnitsList.UnitTotal <= 4 then
+		if UnitTotal <= 4 then
 		
 			BlockBuilderLand(TransportUnitsList, TwoWideTransportGrowthFormation, AirTransportCategories, FormationPos)
 			
-		elseif TransportUnitsList.UnitTotal <= 9 then
+		elseif UnitTotal <= 9 then
 		
 			BlockBuilderLand(TransportUnitsList, ThreeWideTransportGrowthFormation, AirTransportCategories, FormationPos)
 			
-		elseif TransportUnitsList.UnitTotal <= 16 then
+		elseif UnitTotal <= 16 then
 		
 			BlockBuilderLand(TransportUnitsList, FourWideTransportGrowthFormation, AirTransportCategories, FormationPos)			
 			
-		elseif TransportUnitsList.UnitTotal <= 25 then
+		elseif UnitTotal <= 25 then
 		
 			BlockBuilderLand(TransportUnitsList, FiveWideTransportGrowthFormation, AirTransportCategories, FormationPos)
 		end
@@ -851,40 +855,40 @@ end
 
 function GrowthFormation( formationUnits )
 
-    --LOG("*AI DEBUG Growth Formation")
-
     local FormationPos = {}
 
     local landUnitsList = CategorizeLandUnits( formationUnits )
 	local seaUnitsList = CategorizeSeaUnits( formationUnits )
     local airUnitsList = CategorizeAirUnits( formationUnits )
 	local TransportUnitsList = CategorizeTransportUnits( formationUnits )
-	
-	if landUnitsList.UnitTotal > 0 then
+
+    local UnitTotal = landUnitsList.UnitTotal or 0
+
+	if UnitTotal > 0 then
 	
 	    local landBlock
 	
-		if landUnitsList.UnitTotal <= 6 then
+		if UnitTotal <= 6 then
 		
 			landBlock = ThreeWideGrowthFormationBlock
 			
-		elseif landUnitsList.UnitTotal <= 16 then
+		elseif UnitTotal <= 16 then
 		
 			landBlock = FourWideGrowthFormationBlock
 			
-		elseif landUnitsList.UnitTotal <= 25 then
+		elseif UnitTotal <= 25 then
 		
 			landBlock = FiveWideGrowthFormationBlock
 			
-		elseif landUnitsList.UnitTotal <= 36 then
+		elseif UnitTotal <= 36 then
 		
 			landBlock = SixWideGrowthFormationBlock
 			
-		elseif landUnitsList.UnitTotal <= 42 then
+		elseif UnitTotal <= 42 then
 		
 			landBlock = SevenWideGrowthFormationBlock
 			
-		elseif landUnitsList.UnitTotal <= 56 then
+		elseif UnitTotal <= 56 then
 		
 			landBlock = EightWideGrowthFormationBlock
 			
@@ -898,8 +902,10 @@ function GrowthFormation( formationUnits )
 		
 	end
     
+    UnitTotal = seaUnitsList.UnitTotal or 0
+    
 	-- if there are sea units --
-	if seaUnitsList.UnitTotal > 0 then
+	if UnitTotal > 0 then
 	
 		local seaBlock
 		local subBlock
@@ -936,15 +942,17 @@ function GrowthFormation( formationUnits )
 
 		-- remove the submarine count from the total count -- 
 	    seaUnitsList.UnitTotal = seaUnitsList.UnitTotal - seaUnitsList.SubCount
+        
+        UnitTotal = seaUnitsList.UnitTotal or 0
 		
 		-- do surface unit formations --
-		if seaUnitsList.UnitTotal > 0 then
+		if UnitTotal > 0 then
 		
-			if seaUnitsList.UnitTotal <= 12 then
+			if UnitTotal <= 12 then
 		
 				seaBlock = ThreeNavalGrowthFormation
 			
-			elseif seaUnitsList.UnitTotal <= 24 then
+			elseif UnitTotal <= 24 then
 		
 				seaBlock = FiveNavalGrowthFormation
 			
@@ -965,22 +973,24 @@ function GrowthFormation( formationUnits )
 		BlockBuilderAir(airUnitsList, StaggeredChevronBlock, FormationPos)
 		
 	end
+    
+    UnitTotal = TransportUnitsList.UnitTotal or 0
 	
-	if TransportUnitsList.UnitTotal > 0 then
+	if UnitTotal > 0 then
 	
-		if TransportUnitsList.UnitTotal <= 4 then
+		if UnitTotal <= 4 then
 		
 			BlockBuilderLand(TransportUnitsList, TwoWideTransportGrowthFormation, AirTransportCategories, FormationPos)
 			
-		elseif TransportUnitsList.UnitTotal <= 9 then
+		elseif UnitTotal <= 9 then
 		
 			BlockBuilderLand(TransportUnitsList, ThreeWideTransportGrowthFormation, AirTransportCategories, FormationPos)
 			
-		elseif TransportUnitsList.UnitTotal <= 16 then
+		elseif UnitTotal <= 16 then
 		
 			BlockBuilderLand(TransportUnitsList, FourWideTransportGrowthFormation, AirTransportCategories, FormationPos)			
 			
-		elseif TransportUnitsList.UnitTotal <= 25 then
+		elseif UnitTotal <= 25 then
 		
 			BlockBuilderLand(TransportUnitsList, FiveWideTransportGrowthFormation, AirTransportCategories, FormationPos)
 			
@@ -1845,7 +1855,7 @@ function NavalBlocks( unitsList, navyType )
             unitsList.RemainingCategory = unitsList.RemainingCategory - 1
         end
 
-        # Figure out the next viable location for the naval unit
+        -- Figure out the next viable location for the naval unit
         numLeft = numLeft - 1
         sideIndex = sideIndex + 1
         if sideIndex == 4 then

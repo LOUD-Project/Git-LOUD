@@ -26,23 +26,25 @@ function AddGlobalBaseTemplate(aiBrain, locationType, baseBuilderName)
 
 		if BuilderGroups[builderGroupName] then
 
+            local BuilderGroup = BuilderGroups[builderGroupName]
+            local BuildersType = BuilderGroups[builderGroupName].BuildersType
 			local tableType 
 
-			if BuilderGroups[builderGroupName].BuildersType == 'PlatoonFormBuilder' then
+			if BuildersType == 'PlatoonFormBuilder' then
 		
 				tableType = 'PlatoonFormManager'
 		
-			elseif BuilderGroups[builderGroupName].BuildersType == 'EngineerBuilder' then
+			elseif BuildersType == 'EngineerBuilder' then
 	
 				tableType = 'EngineerManager'
 		
-			elseif BuilderGroups[builderGroupName].BuildersType == 'FactoryBuilder' then
+			elseif BuildersType == 'FactoryBuilder' then
 	
 				tableType = 'FactoryManager'
 		
 			end
 
-			for k,v in BuilderGroups[builderGroupName] do
+			for k,v in BuilderGroup do
 	
 				-- filter out the Group Headers 
 				if k != 'BuildersType' and k != 'BuilderGroupName' then
@@ -50,13 +52,9 @@ function AddGlobalBaseTemplate(aiBrain, locationType, baseBuilderName)
 					aiBrain.BuilderManagers[locationType][tableType]:AddBuilder( aiBrain, Builders[v], locationType)
                     
                     buildercount = buildercount + 1
-			
 				end
-		
 			end	
-
-		end
-	
+        end
 	end
     
     -- flag for true Naval maps

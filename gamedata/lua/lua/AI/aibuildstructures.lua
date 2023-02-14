@@ -41,7 +41,7 @@ function AIExecuteBuildStructure( aiBrain, engineer, buildingType, closeToBuilde
     
         if not engineer.Dead then
 	
-            LOG("*AI DEBUG AIExecuteBuildStructure "..aiBrain.Nickname.." failed DecideWhatToBuild - "..repr(buildingType).."  template "..repr(buildingTemplate).."  platoon ".. repr(engineer.BuilderName) .." - ".. engineer.Sync.id)
+            LOG("*AI DEBUG AIExecuteBuildStructure "..aiBrain.Nickname.." failed DecideWhatToBuild - "..repr(buildingType).."  template "..repr(buildingTemplate).."  platoon ".. repr(engineer.BuilderName) .." - ".. engineer.EntityID)
             
         end
 		
@@ -206,7 +206,7 @@ function AIBuildBaseTemplate( aiBrain, builder, buildingType , closeToBuilder, r
 		
     else
 	
-		LOG("*AI DEBUG "..aiBrain.Nickname.." failed DecideWhatToBuild - "..repr(buildingType).."  template "..repr(buildingTemplate).."  platoon ".. repr(builder.BuilderName) .." - ".. builder.Sync.id)
+		LOG("*AI DEBUG "..aiBrain.Nickname.." failed DecideWhatToBuild - "..repr(buildingType).."  template "..repr(buildingTemplate).."  platoon ".. repr(builder.BuilderName) .." - ".. builder.EntityID)
 	end
 	
     return false
@@ -283,7 +283,7 @@ function AIBuildBaseTemplateOrdered( aiBrain, eng, buildingType, closeToBuilder,
 		
     else
 	
-		WARN("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.Sync.id.." failed DecideWhatToBuild - "..repr(buildingType).."  platoon ".. repr(eng.BuilderName)	.." template is "..repr(buildingTemplate))
+		WARN("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.EntityID.." failed DecideWhatToBuild - "..repr(buildingType).."  platoon ".. repr(eng.BuilderName)	.." template is "..repr(buildingTemplate))
 	end
 
     return false
@@ -388,7 +388,7 @@ function AIBuildAdjacency( aiBrain, builder, buildingType, closeToBuilder, relat
         end
 		
         -- Build in a regular spot if adjacency not found - commented out by LOUD so that build fails when adjacency fails
-		LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..builder.Sync.id.." Unable to build "..repr(buildingType).." adjacent to "..repr(reference).." near base at "..repr(baseLocation))
+		LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..builder.EntityID.." Unable to build "..repr(buildingType).." adjacent to "..repr(reference).." near base at "..repr(baseLocation))
     end
 
     return false, false

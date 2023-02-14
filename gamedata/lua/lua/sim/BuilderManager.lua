@@ -334,7 +334,7 @@ BuilderManager = Class {
                             possibleBuilders[counter] = k
 
                         end
-                    else
+                    --else
                         --if PriorityDialog then
                             --LOG("*AI DEBUG "..aiBrain.Nickname.." "..ManagerType.." "..BuilderType.." "..self.LocationType.." "..repr(task.BuilderName).." fails")
                         --end
@@ -446,10 +446,12 @@ BuilderManager = Class {
         local ENGINEERS = categories.ALLUNITS - categories.ENGINEER
 
 		local GetBuilderStatus = function( BuilderConditions, ResultTable )
+        
+            local conditioncount = LOUDGETN(BuilderConditions)
 
 			for _,v in BuilderConditions do
             
-                conditioncounttotal = conditioncounttotal + LOUDGETN(BuilderConditions)
+                conditioncounttotal = conditioncounttotal + conditioncount
 			
 				if not ResultTable[v].Instant then
 				
@@ -477,6 +479,8 @@ BuilderManager = Class {
         local BuilderManager = brain.BuilderManagers[LocationType]
         
         local PriorityDialog = ScenarioInfo.PriorityDialog
+
+        local ThreadWaitDuration
         
         while self.Active do
      
@@ -502,6 +506,8 @@ BuilderManager = Class {
                 -- record the position of the the goal --
                 self.LastGoalCheck = LOUDCOPY(brain.AttackPlan.Goal)
             end
+            
+            ThreadWaitDuration = brain.ConditionsMonitor.ThreadWaitDuration
 
 
 			-- The PFM is the only manager truly affected by this since factories and engineers seek their own jobs
@@ -509,12 +515,11 @@ BuilderManager = Class {
             -- other bases run at one/half the speed
 			if LocationType == 'MAIN' or BuilderManager.PrimaryLandAttackBase or BuilderManager.PrimarySeaAttackBase then
 			
-				self.BuilderCheckInterval = brain.ConditionsMonitor.ThreadWaitDuration * .5
+				self.BuilderCheckInterval = ThreadWaitDuration * .5
                 
 			else
 			
-				self.BuilderCheckInterval = brain.ConditionsMonitor.ThreadWaitDuration * 2
-                
+				self.BuilderCheckInterval = ThreadWaitDuration * 2
 			end
 
             -- as we move the AI Mult up, we check the Builders more frequently
@@ -527,7 +532,6 @@ BuilderManager = Class {
 				duration = self.BuilderCheckInterval
 				tasks = self.NumBuilders
 				ticksize = LOUDFLOOR( duration / tasks )
-                
 			end
 
             numTicks = 1
@@ -568,7 +572,6 @@ BuilderManager = Class {
 						
 								WaitTicks(ticksize+1)
 								numTicks = numTicks + ticksize
-                                
                             end
 						end
 					end
@@ -578,16 +581,14 @@ BuilderManager = Class {
                   --  LOG("*AI DEBUG "..brain.Nickname.." "..self.ManagerType.." "..LocationType.." processed "..numTested.." Builders - used "..numTicks.." ticks of "..duration.." - Formed "..numPassed ) 
                   --  LOG("*AI DEBUG "..brain.Nickname.." "..self.ManagerType.." "..LocationType.." checked "..conditionscheckedcount.." of "..conditioncounttotal.." conditions this pass")
                 --end
-                
 			else
                 
                 -- delay the next cycle by the length of the BCM cycle - with NO cheat multipliers
-                duration = brain.ConditionsMonitor.ThreadWaitDuration
+                duration = ThreadWaitDuration
 
                 if PriorityDialog then
                     LOG("*AI DEBUG "..brain.Nickname.." "..self.ManagerType.." "..LocationType.." NO POOL UNITS or NO RUSH TIMER IN EFFECT - delaying "..duration ) 
                 end
-
             end
 
 			if numTicks < duration then
@@ -597,7 +598,6 @@ BuilderManager = Class {
                 --end
             
 				WaitTicks( duration - numTicks )
-
 			end
 
             -- reset the tasks with Priority Functions at this PFM

@@ -25,17 +25,20 @@ EmitterProjectile = Class(Projectile) {
         
         if self.FxTrails then
         
+            local Army = self.Army
+            local FxTrails = self.FxTrails
+        
             LOUDEMITONENTITY = LOUDEMITONENTITY
 		
-            for i in self.FxTrails do
+            for i in FxTrails do
             
                 if self.FxTrailOffset then
-                    LOUDEMITONENTITY(self, self.Army, self.FxTrails[i]):ScaleEmitter(self.FxTrailScale):OffsetEmitter(0, 0, self.FxTrailOffset)
+                    LOUDEMITONENTITY(self, Army, FxTrails[i]):ScaleEmitter(self.FxTrailScale):OffsetEmitter(0, 0, self.FxTrailOffset)
                 else
                     if self.FxTrailScale != 1 then
-                        LOUDEMITONENTITY(self, self.Army, self.FxTrails[i]):ScaleEmitter(self.FxTrailScale)
+                        LOUDEMITONENTITY(self, Army, FxTrails[i]):ScaleEmitter(self.FxTrailScale)
                     else
-                        LOUDEMITONENTITY(self, self.Army, self.FxTrails[i])
+                        LOUDEMITONENTITY(self, Army, FxTrails[i])
                     end
                 end
             end
@@ -104,9 +107,9 @@ MultiPolyTrailProjectile = Class(EmitterProjectile) {
 		
         if self.PolyTrails then
 		
-            local NumPolyTrails = LOUDGETN( self.PolyTrails )
-            
 			local army = self.Army
+            local PolyTrails = self.PolyTrails
+            local NumPolyTrails = LOUDGETN( PolyTrails )
 			
             if self.RandomPolyTrails != 0 then
 				
@@ -117,9 +120,9 @@ MultiPolyTrailProjectile = Class(EmitterProjectile) {
                     index = LOUDFLOOR( Random( 1, NumPolyTrails))
                     
                     if self.PolyTrailOffset[index] then
-                        LOUDTRAIL(self, -1, army, self.PolyTrails[index] ):OffsetEmitter(0, 0, self.PolyTrailOffset[index])
+                        LOUDTRAIL(self, -1, army, PolyTrails[index] ):OffsetEmitter(0, 0, self.PolyTrailOffset[index])
                     else
-                        LOUDTRAIL(self, -1, army, self.PolyTrails[index] )
+                        LOUDTRAIL(self, -1, army, PolyTrails[index] )
                     end
                 end
                 
@@ -128,9 +131,9 @@ MultiPolyTrailProjectile = Class(EmitterProjectile) {
                 for i = 1, NumPolyTrails do
                 
                     if self.PolyTrailOffset[i]  then
-                        LOUDTRAIL(self, -1, army, self.PolyTrails[i] ):OffsetEmitter(0, 0, self.PolyTrailOffset[i])
+                        LOUDTRAIL(self, -1, army, PolyTrails[i] ):OffsetEmitter(0, 0, self.PolyTrailOffset[i])
                     else
-                        LOUDTRAIL(self, -1, army, self.PolyTrails[i] )
+                        LOUDTRAIL(self, -1, army, PolyTrails[i] )
                     end
                 end
             end
@@ -183,22 +186,26 @@ OnWaterEntryEmitterProjectile = Class(Projectile) {
     OnCreate = function(self, inWater)
 	
         Projectile.OnCreate(self, inWater)
+        
+        local Army = self.Army
 		
         if inWater then
 		
             if self.FxTrails then
             
+                local FxTrails = self.FxTrails
+                
                 LOUDEMITONENTITY = LOUDEMITONENTITY
             
-                for i in self.FxTrails do
+                for i in FxTrails do
                 
                     if self.FxTrailOffset then
-                        LOUDEMITONENTITY(self, self.Army, self.FxTrails[i]):ScaleEmitter(self.FxTrailScale):OffsetEmitter(0, 0, self.FxTrailOffset)
+                        LOUDEMITONENTITY(self, Army, FxTrails[i]):ScaleEmitter(self.FxTrailScale):OffsetEmitter(0, 0, self.FxTrailOffset)
                     else
                         if self.FxTrailScale != 1 then
-                            LOUDEMITONENTITY(self, self.Army, self.FxTrails[i]):ScaleEmitter(self.FxTrailScale)
+                            LOUDEMITONENTITY(self, Army, FxTrails[i]):ScaleEmitter(self.FxTrailScale)
                         else
-                            LOUDEMITONENTITY(self, self.Army, self.FxTrails[i])
+                            LOUDEMITONENTITY(self, Army, FxTrails[i])
                         end
                     end
                 end
@@ -207,9 +214,9 @@ OnWaterEntryEmitterProjectile = Class(Projectile) {
 			if self.PolyTrail then
             
                 if self.PolyTrailOffset then
-                    LOUDTRAIL(self, -1, self.Army, self.PolyTrail):OffsetEmitter(0, 0, self.PolyTrailOffset)
+                    LOUDTRAIL(self, -1, Army, self.PolyTrail):OffsetEmitter(0, 0, self.PolyTrailOffset)
                 else
-                    LOUDTRAIL(self, -1, self.Army, self.PolyTrail)
+                    LOUDTRAIL(self, -1, Army, self.PolyTrail)
                 end
 			end
 			
@@ -220,6 +227,8 @@ OnWaterEntryEmitterProjectile = Class(Projectile) {
 	
         WaitTicks(self.TrailDelay)
 
+        local Army = self.Army
+        
         if self.FxTrails then
         
             LOUDEMITONENTITY = LOUDEMITONENTITY
@@ -227,9 +236,9 @@ OnWaterEntryEmitterProjectile = Class(Projectile) {
             for i in self.FxTrails do
             
                 if self.FxTrailOffset then
-                    LOUDEMITONENTITY(self, self.Army, self.FxTrails[i]):ScaleEmitter(self.FxTrailScale):OffsetEmitter(0, 0, self.FxTrailOffset)
+                    LOUDEMITONENTITY(self, Army, self.FxTrails[i]):ScaleEmitter(self.FxTrailScale):OffsetEmitter(0, 0, self.FxTrailOffset)
                 else
-                    LOUDEMITONENTITY(self, self.Army, self.FxTrails[i]):ScaleEmitter(self.FxTrailScale)
+                    LOUDEMITONENTITY(self, Army, self.FxTrails[i]):ScaleEmitter(self.FxTrailScale)
                 end
             end
         end
@@ -237,9 +246,9 @@ OnWaterEntryEmitterProjectile = Class(Projectile) {
         if self.PolyTrail then
         
             if self.PolyTrailOffset != 0 then
-                LOUDTRAIL(self, -1, self.Army, self.PolyTrail):OffsetEmitter(0, 0, self.PolyTrailOffset)
+                LOUDTRAIL(self, -1, Army, self.PolyTrail):OffsetEmitter(0, 0, self.PolyTrailOffset)
             else
-                LOUDTRAIL(self, -1, self.Army, self.PolyTrail)
+                LOUDTRAIL(self, -1, Army, self.PolyTrail)
             end
         end
 		

@@ -131,7 +131,7 @@ function ApplyBuff(unit, buffName, instigator)
     local uaffects = unit.Buffs.Affects
 	
 	if BuffDialog then
-		LOG("*AI DEBUG Applying "..buffName.." to "..repr(unit:GetBlueprint().Description).." "..unit.Sync.id )
+		LOG("*AI DEBUG Applying "..buffName.." to "..repr(unit:GetBlueprint().Description).." "..unit.EntityID )
 	end
 
     if def.Affects then
@@ -209,7 +209,7 @@ function ApplyBuff(unit, buffName, instigator)
 
 		for k, fx in Buffs[buffName].Effects do
 
-			bufffx = CreateAttachedEmitter(unit, 0, unit.Sync.army, fx)
+			bufffx = CreateAttachedEmitter(unit, 0, unit.Army, fx)
 
 			if Buffs[buffName].EffectsScale then
 				bufffx:ScaleEmitter(Buffs[buffName].EffectsScale)
@@ -435,8 +435,8 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
             local val = BuffCalculate(unit, buffName, 'MoveMult', 1)
 
             -- display new movement mult if it's not normal speed --
-            if unit.Sync.id and val != 1 then
-                ForkThread(FloatingEntityText, unit.Sync.id, 'Move Mult now '..math.floor((.001+val)*100).."%")
+            if unit.EntityID and val != 1 then
+                ForkThread(FloatingEntityText, unit.EntityID, 'Move Mult now '..math.floor((.001+val)*100).."%")
 			end
 
             SetSpeedMult( unit, val )
@@ -448,8 +448,8 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
             local val = BuffCalculate(unit, buffName, 'SpeedMult', 1)
 
             -- display new movement mult if it's not normal speed --
-            if unit.Sync.id and val != 1 then
-                ForkThread(FloatingEntityText, unit.Sync.id, 'Speed Mult now '..math.floor((.001+val)*100).."%")
+            if unit.EntityID and val != 1 then
+                ForkThread(FloatingEntityText, unit.EntityID, 'Speed Mult now '..math.floor((.001+val)*100).."%")
 			end
 
             SetSpeedMult( unit, val )
@@ -459,8 +459,8 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
             local val = BuffCalculate(unit, buffName, 'AccelMult', 1)
 
             -- display new movement mult if it's not normal speed --
-            if unit.Sync.id and val != 1 then
-                ForkThread(FloatingEntityText, unit.Sync.id, 'Accel Mult now '..math.floor((.001+val)*100).."%")
+            if unit.EntityID and val != 1 then
+                ForkThread(FloatingEntityText, unit.EntityID, 'Accel Mult now '..math.floor((.001+val)*100).."%")
 			end
 
             SetAccMult( unit, val )
@@ -470,8 +470,8 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
             local val = BuffCalculate(unit, buffName, 'TurnMult', 1)
 
             -- display new movement mult if it's not normal speed --
-            if unit.Sync.id and val != 1 then
-                ForkThread(FloatingEntityText, unit.Sync.id, 'Turn Mult now '..math.floor((.001+val)*100).."%")
+            if unit.EntityID and val != 1 then
+                ForkThread(FloatingEntityText, unit.EntityID, 'Turn Mult now '..math.floor((.001+val)*100).."%")
 			end
 
             SetTurnMult( unit, val )
@@ -499,7 +499,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 
 			if val > 0 then
 				if not unit:IsIntelEnabled('Radar') then
-					unit:InitIntel(unit.Sync.army,'Radar', val)
+					unit:InitIntel(unit.Army,'Radar', val)
 					EnableIntel( unit, 'Radar')
 				else
 					SetIntelRadius( unit, 'Radar', val)
@@ -516,7 +516,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 
 			if val > 0 then
 				if not unit:IsIntelEnabled('Sonar') then
-					unit:InitIntel(unit.Sync.army,'Sonar', val)
+					unit:InitIntel(unit.Army,'Sonar', val)
 					EnableIntel( unit, 'Sonar')
 				else
 					SetIntelRadius( unit, 'Sonar', val)
@@ -533,7 +533,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 
 			if val > 0 then
 				if not unit:IsIntelEnabled('Omni') then
-					unit:InitIntel(unit.Sync.army,'Omni', val)
+					unit:InitIntel(unit.Army,'Omni', val)
 					EnableIntel( unit, 'Omni')
 				else
 					SetIntelRadius( unit, 'Omni', val )
@@ -662,8 +662,8 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
                 
                 if wep:WeaponUsesEnergy() then
 
-                    if unit.Sync.id then
-                        ForkThread(FloatingEntityText, unit.Sync.id, 'Energy Req now '..math.floor(val*100).."%")
+                    if unit.EntityID then
+                        ForkThread(FloatingEntityText, unit.EntityID, 'Energy Req now '..math.floor(val*100).."%")
                     end
                     
                     if val != 1 then
@@ -749,8 +749,8 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 
 				SetShieldRatio( shield.Owner, shield:GetHealth() / shield:GetMaxHealth() )
 
-				if unit.Sync.id then
-                    ForkThread(FloatingEntityText, unit.Sync.id, 'Max Health now '..math.floor( GetMaxHealth(shield) or 0 ).." Size is "..math.floor(shield.Size or 0).."  Regen is "..math.floor(shield.RegenRate or 0))
+				if unit.EntityID then
+                    ForkThread(FloatingEntityText, unit.EntityID, 'Max Health now '..math.floor( GetMaxHealth(shield) or 0 ).." Size is "..math.floor(shield.Size or 0).."  Regen is "..math.floor(shield.RegenRate or 0))
 				end
 
 				if shield.RegenThread then
@@ -1048,7 +1048,7 @@ function PlayBuffEffect(unit, buffName, data)
 
     for k, fx in Buffs[buffName].Effects do
 
-        bufffx = CreateAttachedEmitter(unit, 0, unit.Sync.army, fx)
+        bufffx = CreateAttachedEmitter(unit, 0, unit.Aanc.army, fx)
 
         if Buffs[buffName].EffectsScale then
             bufffx:ScaleEmitter(Buffs[buffName].EffectsScale)

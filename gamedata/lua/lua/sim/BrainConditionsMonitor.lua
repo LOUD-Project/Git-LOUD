@@ -31,7 +31,6 @@ BrainConditionsMonitor = Class {
 		self.Trash = TrashBag()
         
         self.ThreadWaitDuration = 40	-- starting value for first pass
-		
     end,
 
     Create = function(self, brain)
@@ -42,13 +41,11 @@ BrainConditionsMonitor = Class {
 
 		-- start the Condition Monitor Thread
 		TrashAdd( self.Trash, ForkThread( self.ConditionMonitorThread, self, brain ) )
-		
     end,
 	
 	Destroy = function(self)
 	
 		TrashDestroy( self.Trash )
-		
     end,
 
     -- Find the key for a condition, add it to the table and check the condition
@@ -95,7 +92,6 @@ BrainConditionsMonitor = Class {
 		LOUDINSERT( self.ConditionData[cFilename][cFunctionName], self.ResultTableCounter )
 		
         return self.ResultTableCounter
-		
     end,
 	
     -- Thread that will monitor conditions the brain asks every ThreadWaitDuration period
@@ -112,7 +108,7 @@ BrainConditionsMonitor = Class {
 		-- record current game time
 		aiBrain.CycleTime = GetGameTimeSeconds()
 	
-		WaitTicks(11)	-- wait one second before starting up --
+		WaitTicks(11)
 		
 		-- if time-limited game record victory time on the brain
 		if ScenarioInfo.VictoryTime then
@@ -151,16 +147,16 @@ BrainConditionsMonitor = Class {
         -- adjustment for high player count comes into play when we can no longer maintain the minimum cycle time
         local playerfactor = LOUDGETN(ArmyBrains) * 5
         
-        local minimumcycletime = 120     -- in ticks
+        local minimumcycletime = 120
 
         -- BCM logging --
         local BCMDialog = false
+        
+        local Instant
 
         while true do
         
 			aiBrain.CycleTime = GetGameTimeSeconds()
-            
-            --local start = GetSystemTimeSecondsOnlyForProfileUse()
 
 			-- the thread duration, in ticks, is always the number of checked conditions times 2
             -- plus a little extra slack based upon the number of brains + number of bases
@@ -179,10 +175,12 @@ BrainConditionsMonitor = Class {
 				numChecks = numChecks + 1
 				
 				if ResultTable[k].Active then
+                
+                    Instant = v.Instant
 
 					if TestLocation(v) then
 						
-						if not v.Instant then
+						if not Instant then
 						
 							numResults = numResults + 1
 
@@ -194,16 +192,9 @@ BrainConditionsMonitor = Class {
 					else
 
 						ResultTable[k].Active = false
-
 					end
-                    
 				end
-                
             end
-            
-            --local final = GetSystemTimeSecondsOnlyForProfileUse()
-            
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." BCM cycle time is "..final - start)
 
 			if ( self.ThreadWaitDuration - (numResults * 2) ) > 0 then
             
@@ -212,13 +203,10 @@ BrainConditionsMonitor = Class {
                 end
             
 				WaitTicks( self.ThreadWaitDuration - (numResults * 2) + 1  )
-                
 			end
 
             checkrate = LOUDFLOOR( (self.ThreadWaitDuration) / numResults ) + 1     -- we add the 1 tick lost to checkrate
-            
         end
-        
     end,
 	
 }

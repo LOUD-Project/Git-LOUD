@@ -136,11 +136,8 @@ function GetMostRestrictiveLayer(platoon)
             if not v.Dead then
 			
                 return
-				
             end
-			
         end
-		
     end
     
     platoon.MovementLayer = 'Air' 	-- default value for all to start
@@ -172,9 +169,7 @@ function GetMostRestrictiveLayer(platoon)
                 break   --Nothing more restrictive than land, since there should be no mixed land/water platoons
                 
             end
-            
         end
-        
     end
 	
     return
@@ -300,7 +295,6 @@ function GetPathGraphs()
 						
 							WARN("*AI DEBUG adjacent marker "..repr(gk).." "..repr(adj).." reports no position in data for "..repr(mn))
 							mdata.adjacent[k] = nil	-- the adjacent node does not exist -- remove it from the RawPaths data --
-                            
 						end
 					end
 
@@ -561,8 +555,6 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 					positions[k]=nil
 					counter = counter - 1
                     
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." FindPoint removes position in water")
-                    
 					continue
 				end
 			end
@@ -573,8 +565,6 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 
 					positions[k] = nil
 					counter = counter - 1
-                    
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." FindPoint removes position not in water")
                     
 					continue
 				end
@@ -590,8 +580,6 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
                     -- remove this position from list
 					positions[k]=nil
 					counter = counter - 1
-                    
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." FindPoint removes position "..repr({v[1],v[3]}).." due to threat "..threatatpoint.." max allowed "..threatmax)
 					
 					-- track the position thas was just checked
 					previous = v 	-- to prevent duplicates
@@ -607,8 +595,6 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 			if StrCategory then
 			
 				if self:GuardPointStructureCheck(  aiBrain, v, StrCategory, StrRadius, PointFaction, StrMin, StrMax) then
-                
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." FindPoint removes position "..repr({v[1],v[3]}).." for structure count at "..repr(StrRadius).." - max is "..StrMax )
   
 					positions[k] = nil
 					counter = counter - 1
@@ -627,9 +613,7 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 					counter = counter - 1
 					continue
 				end
-                
 			end	
-            
 		end
 
     else
@@ -658,7 +642,6 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
         
             -- sort by safest + closest
             LOUDSORT(positions, function(a,b)   return (a[6]+ (a[4]+a[5])) <  (b[6]+ (b[4]+b[5]))  end)
-            
         end
 		
 		return {positions[1]}
@@ -676,6 +659,9 @@ function FindTargetInRange( self, aiBrain, squad, maxRange, attackcategories, no
 	
 	-- check if platoon exists --
     local position = GetPlatoonPosition(self) or false
+    local MovementLayer = self.MovementLayer
+    local steps, xstep, ystep, lastpos, lastposHeight, nextpos, nextposHeight
+    local LOUDABS = math.abs
     
 	if not position or not maxRange then
 		return false,false
@@ -695,23 +681,18 @@ function FindTargetInRange( self, aiBrain, squad, maxRange, attackcategories, no
         -- a rapid elevation change over a very short distance
 		local function CheckBlockingTerrain( targetPos )  
         
-            if self.MovementLayer == 'Air' then
+            if MovementLayer == 'Air' then
                 return false
             end
 	
 			-- This gives us the number of approx. 6 ogrid steps in the distance
-			local steps = LOUDFLOOR( VDist2(position[1], position[3], targetPos[1], targetPos[3]) / 6 )
+			steps = LOUDFLOOR( VDist2(position[1], position[3], targetPos[1], targetPos[3]) / 6 )
 	
-			local xstep = (position[1] - targetPos[1]) / steps -- how much the X value will change from step to step
-			local ystep = (position[3] - targetPos[3]) / steps -- how much the Y value will change from step to step
+			xstep = (position[1] - targetPos[1]) / steps -- how much the X value will change from step to step
+			ystep = (position[3] - targetPos[3]) / steps -- how much the Y value will change from step to step
 			
-			local lastpos = { position[1], 0, position[3] }
-            local lastposHeight = GetTerrainHeight( lastpos[1], lastpos[3] )
-            
-            local nextpos
-            local nextposHeight
-        
-            local LOUDABS = math.abs
+			lastpos = { position[1], 0, position[3] }
+            lastposHeight = GetTerrainHeight( lastpos[1], lastpos[3] )
 	
 			-- Iterate thru the number of steps - starting at the pos and adding xstep and ystep to each point
 			for i = 0, steps do
@@ -749,10 +730,10 @@ function FindTargetInRange( self, aiBrain, squad, maxRange, attackcategories, no
         local function CanGraphTo( destinationposition )
 
             -- if there is a layer node within range of start position
-            if GetClosestPathNodeInRadiusByLayer( position, self.MovementLayer or 'Land') then
+            if GetClosestPathNodeInRadiusByLayer( position, MovementLayer or 'Land') then
 	
                 -- see if there is a layer node within range of the destination
-                return GetClosestPathNodeInRadiusByLayer( destinationposition, self.MovementLayer or 'Land')
+                return GetClosestPathNodeInRadiusByLayer( destinationposition, MovementLayer or 'Land')
             end
 	
             return false, nil

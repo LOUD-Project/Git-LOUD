@@ -196,7 +196,7 @@ function CreateAeonBuildBaseThread( unitBeingBuilt, builder, EffectsBag )
     local BeenDestroyed = BeenDestroyed
     local WaitTicks = WaitTicks
 
-	local army = builder.Sync.army
+	local army = builder.Army
     local bp = ALLBPS[unitBeingBuilt.BlueprintID]
 
     WaitTicks(1)
@@ -265,7 +265,7 @@ end
 
 function CreateAeonConstructionUnitBuildingEffects( builder, unitBeingBuilt, BuildEffectsBag )
 
-    local army = builder.Sync.army
+    local army = builder.Army
     local projectile
     
     local LOUDINSERT = LOUDINSERT
@@ -321,7 +321,7 @@ end
 
 function CreateAeonCommanderBuildingEffects( builder, unitBeingBuilt, BuildBones, BuildEffectsBag )
 
-    local army = builder.Sync.army
+    local army = builder.Army
     local projectile
     
     local LOUDINSERT = LOUDINSERT
@@ -380,7 +380,7 @@ end
 
 function CreateAeonFactoryBuildingEffects( builder, unitBeingBuilt, BuildEffectBones, BuildBone, BuildEffectsBag )
 
-    local army = builder.Sync.army
+    local army = builder.Army
     
     local LOUDATTACHBEAMENTITY = LOUDATTACHBEAMENTITY
     local LOUDATTACHEMITTER = LOUDATTACHEMITTER
@@ -538,7 +538,7 @@ end
 
 function CreateUEFUnitBeingBuiltEffects( builder, unitBeingBuilt, BuildEffectsBag )
 
-    TrashAdd( BuildEffectsBag, LOUDATTACHEMITTER( builder, ALLBPS[builder.BlueprintID].Display.BuildAttachBone, builder.Sync.army, '/effects/emitters/uef_mobile_unit_build_01_emit.bp' ) )
+    TrashAdd( BuildEffectsBag, LOUDATTACHEMITTER( builder, ALLBPS[builder.BlueprintID].Display.BuildAttachBone, builder.Army, '/effects/emitters/uef_mobile_unit_build_01_emit.bp' ) )
 end
 
 function CreateUEFBuildSliceBeams( builder, unitBeingBuilt, BuildEffectBones, BuildEffectsBag )
@@ -550,7 +550,7 @@ function CreateUEFBuildSliceBeams( builder, unitBeingBuilt, BuildEffectBones, Bu
     local WaitTicks = WaitTicks
 
 
-    local army = builder.Sync.army
+    local army = builder.Army
     local buildbp = ALLBPS[unitBeingBuilt.BlueprintID]
     
 	local pos = GetPosition(unitBeingBuilt)
@@ -659,7 +659,7 @@ function CreateUEFCommanderBuildSliceBeams( builder, unitBeingBuilt, BuildEffect
     local VDist3Sq = VDist3Sq
     local WaitTicks = WaitTicks
 
-    local army = builder.Sync.army
+    local army = builder.Army
 
     local buildbp = ALLBPS[unitBeingBuilt.BlueprintID]
 
@@ -794,7 +794,7 @@ function CreateDefaultBuildBeams( builder, unitBeingBuilt, BuildEffectBones, Bui
     local RandomOffset = builder.GetRandomOffset
     local ScaleEmitter = ScaleEmitter
 
-    local army = builder.Sync.army
+    local army = builder.Army
     
     local function Ungowa(projectile, pos)
     
@@ -890,7 +890,7 @@ function CreateCybranBuildBeams( builder, unitBeingBuilt, BuildEffectBones, Buil
     local RandomOffset = unitBeingBuilt.GetRandomOffset
     local ScaleEmitter = ScaleEmitter
 
-    local army = builder.Sync.army
+    local army = builder.Army
     
     local function Ungowa(projectile)
     
@@ -990,7 +990,7 @@ function SpawnBuildBots( builder, unitBeingBuilt, numBots, BuildEffectsBag )
 
     if not builder.BuildBots then
 
-        local army = builder.Sync.army
+        local army = builder.Army
 	
         local pos = GetPosition(builder)
     
@@ -1050,7 +1050,7 @@ function CreateCybranEngineerBuildEffects( builder, unitBeingBuilt, BuildBones, 
         -- create permanent blinkers and control beams
         if not builder.BuildEmitter then
 
-            local army = builder.Sync.army
+            local army = builder.Army
         
             builder.BuildEmitter = {}
 		
@@ -1096,7 +1096,7 @@ function CreateCybranFactoryBuildEffects( builder, unitBeingBuilt, BuildBones, B
     local Random = Random
     local RandomOffset = unitBeingBuilt.GetRandomOffset
 	
-    local army = builder.Sync.army
+    local army = builder.Army
 
     -- this process will create the permanent emitters on the factory
     -- attach sparks and flashes emitters to each BuildBone in the BuildEffectBones list
@@ -1159,7 +1159,7 @@ end
 
 function CreateSeraphimUnitEngineerBuildingEffects( builder, unitBeingBuilt, BuildEffectBones, BuildEffectsBag )
 
-	local army = builder.Sync.army
+	local army = builder.Army
     
     if not builder.BuildEmitters then
     
@@ -1199,7 +1199,7 @@ function CreateSeraphimFactoryBuildingEffects( builder, unitBeingBuilt, BuildEff
     local WaitTicks = WaitTicks
 
     local bp = ALLBPS[unitBeingBuilt.BlueprintID]
-    local army = builder.Sync.army
+    local army = builder.Army
     
 	local pos = builder:GetPosition(BuildBone)
     
@@ -1289,7 +1289,7 @@ function CreateSeraphimBuildBaseThread( unitBeingBuilt, builder, EffectsBag )
 
     WaitTicks(1)
     
-    local army = builder.Sync.army
+    local army = builder.Army
     
     local bp = ALLBPS[unitBeingBuilt.BlueprintID]
 
@@ -1363,7 +1363,7 @@ function CreateSeraphimBuildBaseThread( unitBeingBuilt, builder, EffectsBag )
         end        
     end
 	
-    local unitsArmy = unitBeingBuilt.Sync.army
+    local unitsArmy = unitBeingBuilt.Army
 	local footprintsize = unitBeingBuilt:GetFootPrintSize()
     local focusArmy = GetFocusArmy()
 
@@ -1430,7 +1430,7 @@ function CreateSeraphimExperimentalBuildBaseThread( unitBeingBuilt, builder, Eff
 	
     for _, vEffect in BuildEffectsEmitters do
     
-        effect = LOUDATTACHEMITTER( unitBeingBuilt, -1, builder.Sync.army, vEffect ):ScaleEmitter(2)
+        effect = LOUDATTACHEMITTER( unitBeingBuilt, -1, builder.Army, vEffect ):ScaleEmitter(2)
         
         AdjustedEmitters[counter] = effect
 		counter = counter + 1
@@ -1453,7 +1453,7 @@ function CreateSeraphimExperimentalBuildBaseThread( unitBeingBuilt, builder, Eff
         end        
     end
 
-    local unitsArmy = unitBeingBuilt.Sync.army
+    local unitsArmy = unitBeingBuilt.Army
     
 	local footprintsize = unitBeingBuilt:GetFootPrintSize()
     local focusArmy = GetFocusArmy()
@@ -1488,9 +1488,9 @@ function CreateAdjacencyBeams( unit, adjacentUnit )
 	local LOUDINSERT = LOUDINSERT
 	local LOUDATTACHEMITTER = CreateAttachedEmitter
 
-	local info = { Unit = adjacentUnit.Sync.id, Trash = TrashBag(), }
+	local info = { Unit = adjacentUnit.EntityID, Trash = TrashBag(), }
     
-    local army = unit.Sync.army
+    local army = unit.Army
     local faction = __blueprints[unit.BlueprintID].General.FactionName
 
     -- Determine which effects we will be using	-- default to Cybran
@@ -1526,13 +1526,13 @@ function PlaySacrificingEffects( unit, target_unit )
 
 	if faction == 'Aeon' then
 		for _, v in EffectTemplate.ASacrificeOfTheAeon01 do
-			TrashAdd( unit.Trash, LOUDEMITONENTITY( unit, unit.Sync.army, v) )
+			TrashAdd( unit.Trash, LOUDEMITONENTITY( unit, unit.Army, v) )
 		end
 	end
 end
 
 function PlaySacrificeEffects( unit, target_unit )
-	local army = unit.Sync.army
+	local army = unit.Army
 	local bp = ALLBPS[unit.BlueprintID]
 	local faction = bp.General.FactionName
 
@@ -1560,14 +1560,14 @@ function PlayReclaimEffects( reclaimer, reclaimed, BuildEffectBones, EffectsBag 
     
 		for _, vEmit in ReclaimBeams do
         
-			beamEffect = LOUDATTACHBEAMENTITY(reclaimer, vBone, beamEnd, -1, reclaimer.Sync.army, vEmit )
+			beamEffect = LOUDATTACHBEAMENTITY(reclaimer, vBone, beamEnd, -1, reclaimer.Army, vEmit )
             
 			TrashAdd( EffectsBag, beamEffect )
 		end
 	end
 	
 	for _, v in ReclaimObjectAOE do
-	    TrashAdd( EffectsBag, LOUDEMITONENTITY( reclaimed, reclaimer.Sync.army, v ) )
+	    TrashAdd( EffectsBag, LOUDEMITONENTITY( reclaimed, reclaimer.Army, v ) )
 	end
 end
 
@@ -1576,7 +1576,7 @@ function PlayReclaimEndEffects( reclaimer, reclaimed )
     local army = -1
 	
     if reclaimer then
-        army = reclaimer.Sync.army
+        army = reclaimer.Army
     end
     
 	for _, v in ReclaimObjectEnd do
@@ -1589,7 +1589,7 @@ end
 
 function PlayCaptureEffects( capturer, captive, BuildEffectBones, EffectsBag )
 
-	local army = capturer.Sync.army
+	local army = capturer.Army
 
     for _, vBone in BuildEffectBones do
     
@@ -1629,7 +1629,7 @@ function CreateCybranQuantumGateEffect( unit, bone1, bone2, EffectsBag, startwai
     LOUDWARP( BeamEndEntity, pos2)    
 
     -- Create beam effect
-    TrashAdd( EffectsBag, LOUDATTACHBEAMENTITY(BeamStartEntity, -1, BeamEndEntity, -1, unit.Sync.army, '/effects/emitters/cybran_gate_beam_01_emit.bp' ))
+    TrashAdd( EffectsBag, LOUDATTACHBEAMENTITY(BeamStartEntity, -1, BeamEndEntity, -1, unit.Army, '/effects/emitters/cybran_gate_beam_01_emit.bp' ))
 
     -- Determine a the velocity of our projectile, used for the scaning effect
     local velY = 1
@@ -1662,7 +1662,7 @@ function CreateEnhancementEffectAtBone( unit, bone, EffectsBag )
 
     for _, vEffect in EffectTemplate.UpgradeBoneAmbient do
 	
-        TrashAdd( EffectsBag, LOUDATTACHEMITTER( unit, bone, unit.Sync.army, vEffect ))
+        TrashAdd( EffectsBag, LOUDATTACHEMITTER( unit, bone, unit.Army, vEffect ))
 		
     end
 	
@@ -1672,7 +1672,7 @@ function CreateEnhancementUnitAmbient( unit, bone, EffectsBag )
 
     for _, vEffect in EffectTemplate.UpgradeUnitAmbient do
 	
-        TrashAdd( EffectsBag, LOUDATTACHEMITTER( unit, bone, unit.Sync.army, vEffect ))
+        TrashAdd( EffectsBag, LOUDATTACHEMITTER( unit, bone, unit.Army, vEffect ))
 		
     end
 	
@@ -1697,17 +1697,17 @@ function SeraphimRiftIn( unit )
 	HideBone( unit, 0, true)
 	
 	for _, v in EffectTemplate.SerRiftIn_Small do
-		LOUDATTACHEMITTER ( unit, -1, unit.Sync.army, v )
+		LOUDATTACHEMITTER ( unit, -1, unit.Army, v )
 	end
 	
 	WaitTicks (20)	
-	CreateLightParticle( unit, -1, unit.Sync.army, 4, 15, 'glow_05', 'ramp_jammer_01' )	
+	CreateLightParticle( unit, -1, unit.Army, 4, 15, 'glow_05', 'ramp_jammer_01' )	
 	WaitTicks(1)	
 	unit:ShowBone(0, true)	
 	WaitTicks(2)
 	
 	for _, v in EffectTemplate.SerRiftIn_SmallFlash do
-		LOUDATTACHEMITTER ( unit, -1, unit.Sync.army, v )
+		LOUDATTACHEMITTER ( unit, -1, unit.Army, v )
 	end	
 end
 
@@ -1716,41 +1716,41 @@ function SeraphimRiftInLarge( unit )
 	HideBone( unit, 0, true)
 	
 	for _, v in EffectTemplate.SerRiftIn_Large do
-		LOUDATTACHEMITTER ( unit, -1, unit.Sync.army, v )
+		LOUDATTACHEMITTER ( unit, -1, unit.Army, v )
 	end
 	
 	WaitTicks(20)	
-	CreateLightParticle( unit, -1, unit.Sync.army, 25, 15, 'glow_05', 'ramp_jammer_01' )	
+	CreateLightParticle( unit, -1, unit.Army, 25, 15, 'glow_05', 'ramp_jammer_01' )	
 	WaitTicks(1)	
 	unit:ShowBone(0, true)	
 	WaitTicks(2)
 	
 	for _, v in EffectTemplate.SerRiftIn_LargeFlash do
-		LOUDATTACHEMITTER ( unit, -1, unit.Sync.army, v )
+		LOUDATTACHEMITTER ( unit, -1, unit.Army, v )
 	end	
 end
 
 function CybranBuildingInfection( unit )
 	for k, v in EffectTemplate.CCivilianBuildingInfectionAmbient do
-		LOUDATTACHEMITTER ( unit, -1, unit.Sync.army, v )
+		LOUDATTACHEMITTER ( unit, -1, unit.Army, v )
 	end	
 end
 
 function CybranQaiShutdown( unit )
 	for k, v in EffectTemplate.CQaiShutdown do
-		LOUDATTACHEMITTER ( unit, -1, unit.Sync.army, v )
+		LOUDATTACHEMITTER ( unit, -1, unit.Army, v )
 	end	
 end
 
 function AeonHackACU( unit )
 	for k, v in EffectTemplate.AeonOpHackACU do
-		LOUDATTACHEMITTER ( unit, -1, unit.Sync.army, v )
+		LOUDATTACHEMITTER ( unit, -1, unit.Army, v )
 	end		
 end
 
 function PlayTeleportChargeEffects(self)
 
-    local army = self.Sync.army
+    local army = self.Army
     local bp = ALLBPS[self.BlueprintID]
 
     self.TeleportChargeBag = {}
@@ -1774,7 +1774,7 @@ end
 
 function PlayTeleportInEffects(self)
 
-    local army = self.Sync.army
+    local army = self.Army
     local bp = ALLBPS[self.BlueprintID]
 
     for k, v in EffectTemplate.GenericTeleportIn01 do
@@ -1788,7 +1788,7 @@ end
 
 function PlayTeleportOutEffects(self)
 
-    local army = self.Sync.army
+    local army = self.Army
 	
     for k, v in EffectTemplate.GenericTeleportOut01 do
         LOUDEMITATENTITY(self,army,v)

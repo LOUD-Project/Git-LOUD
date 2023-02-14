@@ -126,7 +126,7 @@ function CreateScalableUnitExplosion( unit, overKillRatio )
 	if not BeenDestroyed(unit) then
 	
 		if IsUnit(unit) then 
-			ForkThread( _CreateScalableUnitExplosion, CreateUnitExplosionEntity( unit, overKillRatio, unit.Sync.army, GetPosition(unit) ))
+			ForkThread( _CreateScalableUnitExplosion, CreateUnitExplosionEntity( unit, overKillRatio, unit.Army, GetPosition(unit) ))
 		end
 		
     end
@@ -136,7 +136,7 @@ function CreateDefaultHitExplosion( obj, scale )
 
     if obj and not BeenDestroyed(obj) then
 	
-		local army = obj.Sync.army
+		local army = obj.Army
 	
 		LOUDPARTICLE( obj, -1, army, 3 + (Random() * (2) ), 8.5 + (Random() * (4) ), 'glow_03', 'ramp_flare_02' )
 		
@@ -148,7 +148,7 @@ end
 function CreateDefaultHitExplosionOffset( obj, scale, xOffset, yOffset, zOffset )
 
     if not BeenDestroyed(obj) then 
-		CreateBoneEffectsOffset( obj, -1, obj.Sync.army, EffectTemplate.DefaultHitExplosion01, xOffset, yOffset, zOffset )
+		CreateBoneEffectsOffset( obj, -1, obj.Army, EffectTemplate.DefaultHitExplosion01, xOffset, yOffset, zOffset )
 	end
 end
 
@@ -156,7 +156,7 @@ function CreateDefaultHitExplosionAtBone( obj, boneName, scale )
 
 	if not BeenDestroyed(obj) then
 	
-		local army = obj.Sync.army
+		local army = obj.Army
 		
 		LOUDPARTICLE( obj, boneName, army, 3 + (Random() * (2) ), 8.5 + (Random() * (4) ), 'glow_03', 'ramp_flare_02' )
 

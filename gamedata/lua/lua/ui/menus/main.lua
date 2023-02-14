@@ -21,9 +21,9 @@ local Mods = import('/lua/mods.lua')
 local mapErrorDialog = false
 
 local TOOLTIP_DELAY = 1
-local menuFontColor = 'feff77' --'FFbadbdb' (default grey-blue) #feff77 (light yellow) #edd570 (gold)
+local menuFontColor = 'feff77' 
 local menuFontColorTitle = 'EEEEEE'
-local menuFontColorAlt = 'feff77' --currently the same as menuFontColor
+local menuFontColorAlt = 'feff77'
 
 local initial = true
 local animation_active = false

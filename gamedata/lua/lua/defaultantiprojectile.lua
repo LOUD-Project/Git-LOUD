@@ -24,7 +24,7 @@ Flare = Class(Entity) {
 
     OnCreate = function(self, spec)
 
-        self.Army = spec.Owner.Sync.army
+        self.Army = spec.Owner.Army
         self.Owner = spec.Owner
         self.Radius = spec.Radius or 5
         
@@ -53,7 +53,7 @@ AAFlare = Class(Entity) {
 
         self.Owner = spec.Owner
         self.Radius = spec.Radius or 3
-        self.Army = spec.Owner.Sync.army		
+        self.Army = spec.Owner.Army		
 
         SetCollisionShape( self, 'Sphere', 0, 0, 0, self.Radius)
         SetDrawScale( self, spec.Radius)
@@ -84,7 +84,7 @@ DepthCharge = Class(Entity) {
 
     OnCreate = function(self, spec)
 	
-        self.Army = spec.Owner.Sync.army		    
+        self.Army = spec.Owner.Army		    
         self.Owner = spec.Owner
         self.Radius = spec.Radius
         
@@ -121,7 +121,7 @@ MissileDetector = Class(Entity) {
 
 		Entity.OnCreate(self, spec)
 
-        self.Army = spec.Owner.Sync.army
+        self.Army = spec.Owner.Army
 		self.AttachBone = spec.AttachBone
         self.Owner = spec.Owner
 		self.Radius = spec.Radius
@@ -179,10 +179,12 @@ MissileDetector = Class(Entity) {
     RedirectingState = State{
 
         Main = function(self)
+        
+            local EnemyProj = self.EnemyProj
+            local Owner = self.Owner
 
-            if not self or BeenDestroyed(self) 
-				or not self.EnemyProj or BeenDestroyed(self.EnemyProj) 
-				or not self.Owner or self.Owner.Dead then
+            if not self or BeenDestroyed(self) or not EnemyProj or BeenDestroyed(EnemyProj) 
+				or not Owner or Owner.Dead then
 				
                 return
             end
@@ -192,7 +194,7 @@ MissileDetector = Class(Entity) {
 
             for _, v in self.RedirectBeams do
                 count = count + 1
-                beams[count] = AttachBeamEntityToEntity(self.EnemyProj, -1, self.Owner, self.AttachBone, self.Army, v)
+                beams[count] = AttachBeamEntityToEntity(EnemyProj, -1, Owner, self.AttachBone, self.Army, v)
             end
             
             if self.Enemy then
@@ -206,7 +208,7 @@ MissileDetector = Class(Entity) {
 
                 WaitTicks( self.RateOfFire )
 				
-                if not BeenDestroyed(self.EnemyProj) then
+                if not BeenDestroyed(EnemyProj) then
                     self.EnemyProj:TrackTarget(false)
                 end
 				
@@ -242,7 +244,7 @@ MissileRedirect = Class(Entity) {
 	
         Entity.OnCreate(self, spec)
 		
-        self.Army = spec.Owner.Sync.army
+        self.Army = spec.Owner.Army
         self.Owner = spec.Owner
         self.Radius = spec.Radius
         self.RedirectRateOfFire = spec.RedirectRateOfFire or 1
@@ -338,10 +340,12 @@ MissileRedirect = Class(Entity) {
     RedirectingState = State{
 
         Main = function(self)
-		
-            if not self or BeenDestroyed(self) 
-            or not self.EnemyProj or BeenDestroyed(self.EnemyProj) 
-            or not self.Owner or self.Owner.Dead then
+
+            local EnemyProj = self.EnemyProj
+            local Owner = self.Owner
+            
+            if not self or BeenDestroyed(self) or not EnemyProj or BeenDestroyed(EnemyProj) 
+            or not Owner or Owner.Dead then
                 return
             end
             
@@ -350,7 +354,7 @@ MissileRedirect = Class(Entity) {
 
             for _, v in self.RedirectBeams do
                 count = count + 1
-                beams[count] = AttachBeamEntityToEntity(self.EnemyProj, -1, self.Owner, self.AttachBone, self.Army, v)
+                beams[count] = AttachBeamEntityToEntity(EnemyProj, -1, Owner, self.AttachBone, self.Army, v)
             end
             
             if self.Enemy then
@@ -364,7 +368,7 @@ MissileRedirect = Class(Entity) {
 			
                 WaitTicks( (1/self.RedirectRateOfFire) * 10)
 				
-                if not BeenDestroyed(self.EnemyProj) then
+                if not BeenDestroyed(EnemyProj) then
                     self.EnemyProj:TrackTarget(false)
                 end
 				
@@ -404,7 +408,7 @@ MissileTorpDestroy = Class(Entity) {
 	
         Entity.OnCreate(self, spec)
 		
-        self.Army = spec.Owner.Sync.army
+        self.Army = spec.Owner.Army
         self.Owner = spec.Owner
         self.Radius = spec.Radius
         self.RedirectRateOfFire = spec.RedirectRateOfFire or 10
@@ -509,10 +513,12 @@ MissileTorpDestroy = Class(Entity) {
     RedirectingState = State{
 
         Main = function(self)
+        
+            local EnemyProj = self.EnemyProj
+            local Owner = self.Owner
 		
-            if not self or BeenDestroyed(self) 
-            or not self.EnemyProj or BeenDestroyed(self.EnemyProj) 
-            or not self.Owner or self.Owner.Dead then
+            if not self or BeenDestroyed(self) or not EnemyProj or BeenDestroyed(EnemyProj) 
+            or not Owner or Owner.Dead then
                 return
             end
 
@@ -524,17 +530,17 @@ MissileTorpDestroy = Class(Entity) {
 
             for _, v in self.RedirectBeams do
                 count = count + 1
-                beams[count] = AttachBeamEntityToEntity(self.EnemyProj, -1, self.Owner, self.AttachBone, self.Army, v):ScaleEmitter(1.3)
+                beams[count] = AttachBeamEntityToEntity(EnemyProj, -1, Owner, self.AttachBone, self.Army, v):ScaleEmitter(1.3)
             end
 
             for _, v in self.EndPointEffects do
                 count = count + 1
-                beams[count] = LOUDEMITONENTITY( self.EnemyProj, self.Army, v ):ScaleEmitter(1.3)
+                beams[count] = LOUDEMITONENTITY( EnemyProj, self.Army, v ):ScaleEmitter(1.3)
             end
 
             WaitTicks( 1 )
 
-            if not BeenDestroyed( self.EnemyProj) then
+            if not BeenDestroyed( EnemyProj) then
                 self.EnemyProj:Destroy()
             end
 			
@@ -564,7 +570,7 @@ SeraLambdaFieldRedirector = Class(Entity) {
     OnCreate = function(self, spec)
         Entity.OnCreate(self, spec)
         
-        self.Army = spec.Owner.Sync.army
+        self.Army = spec.Owner.Army
         self.Owner = spec.Owner
 
         self.Radius = spec.Radius
@@ -652,10 +658,12 @@ SeraLambdaFieldRedirector = Class(Entity) {
     RedirectingState = State{
 
         Main = function(self)
-		
-            if not self or self:BeenDestroyed()
-            or not self.EnemyProj or BeenDestroyed( self.EnemyProj )
-            or not self.Owner or self.Owner.Dead then
+        
+            local EnemyProj = self.EnemyProj
+            local Owner = self.Owner
+            
+            if not self or self:BeenDestroyed() or not EnemyProj or BeenDestroyed( EnemyProj )
+            or not Owner or Owner.Dead then
                 return
             end
 
@@ -672,9 +680,7 @@ SeraLambdaFieldRedirector = Class(Entity) {
             local beams = {}
             local count = 0
 
-			local targetspeed =	self.EnemyProj:GetCurrentSpeed()
-
-            local EnemyProj = self.EnemyProj
+			local targetspeed =	EnemyProj:GetCurrentSpeed()
             
             if EnemyProj.MoveThread then
                 KillThread(EnemyProj.MoveThread)
@@ -687,7 +693,7 @@ SeraLambdaFieldRedirector = Class(Entity) {
             
                 for _, v in self.RedirectBeams do
                     count = count + 1
-                    beams[count] = AttachBeamEntityToEntity(self.EnemyProj, -1, self.Owner, self.AttachBone, self.Army, v)
+                    beams[count] = AttachBeamEntityToEntity( EnemyProj, -1, Owner, self.AttachBone, self.Army, v)
                 end
 
                 for _, v in self.LambdaEffects do
@@ -722,7 +728,7 @@ SeraLambdaFieldRedirector = Class(Entity) {
 
             WaitTicks( self.RedirectRateOfFire - 1 )
 
-            if not BeenDestroyed( self.EnemyProj ) then
+            if not BeenDestroyed( EnemyProj ) then
 
                 --LOG("*AI DEBUG Setting Velocity of "..repr(EnemyProj).." to "..(targetspeed * 2).." Enemy is "..repr(self.Enemy.BlueprintID).." "..repr(self.Enemy:GetPosition()) )
 
@@ -834,9 +840,11 @@ SeraLambdaFieldDestroyer = Class(Entity) {
 
         Main = function(self)
 		
-            if not self or self:BeenDestroyed()
-            or not self.EnemyProj or BeenDestroyed( self.EnemyProj )
-            or not self.Owner or self.Owner.Dead then
+            local EnemyProj = self.EnemyProj
+            local Owner = self.Owner
+            
+            if not self or self:BeenDestroyed() or not EnemyProj or BeenDestroyed( EnemyProj )
+            or not Owner or Owner.Dead then
                 return
             end
 
@@ -848,17 +856,17 @@ SeraLambdaFieldDestroyer = Class(Entity) {
 
             for _, v in self.RedirectBeams do
                 count = count + 1
-                beams[count] = AttachBeamEntityToEntity(self.EnemyProj, -1, self.Owner, self.AttachBone, self.Army, v)
+                beams[count] = AttachBeamEntityToEntity( EnemyProj, -1, Owner, self.AttachBone, self.Army, v)
             end
 
 		    for _, v in self.LambdaEffects do
                 count = count + 1
-				beams[count] = CreateEmitterAtEntity( self.EnemyProj, self.Army, v ):ScaleEmitter(1.3)
+				beams[count] = CreateEmitterAtEntity( EnemyProj, self.Army, v ):ScaleEmitter(1.3)
 			end
 
             WaitTicks( 1 )
 
-            if not BeenDestroyed( self.EnemyProj) then
+            if not BeenDestroyed( EnemyProj ) then
                 self.EnemyProj:Destroy()
             end
 			

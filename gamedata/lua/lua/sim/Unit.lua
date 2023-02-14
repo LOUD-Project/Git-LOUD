@@ -199,14 +199,13 @@ Unit = Class(moho.unit_methods) {
         self.Sync = { army = GetArmy(self), id = GetEntityId(self) }
 
         setmetatable( self.Sync, SyncMeta )
-
-        self.Army = self.Sync.army
 		
 		local bp = GetBlueprint(self)
 
+        self.Army = self.Sync.army
 		self.BlueprintID = bp.BlueprintId
-        
-        self.Dead = false				
+        self.Dead = false
+        self.EntityID = self.Sync.id
         
         self.EventCallbacks = {
 		
@@ -289,8 +288,7 @@ Unit = Class(moho.unit_methods) {
         if not self.Trash then
             self.Trash = TrashBag()
         end
-        
-		self.WeaponCount = nil
+
     end,
 
     OnCreate = function(self)
@@ -360,8 +358,6 @@ Unit = Class(moho.unit_methods) {
 			self.PlayDeathAnimation = true
         end
 
-		self.WeaponCount = GetWeaponCount(self)
-
         -- all AI (except Civilian) are technically cheaters --
         if aiBrain.CheatingAI then
             self:ForkThread(ApplyCheatBuffs)
@@ -372,7 +368,6 @@ Unit = Class(moho.unit_methods) {
 		
         SetProductionPerSecondEnergy( self, bp.Economy.ProductionPerSecondEnergy or 0 )
 
-        --LOG("*AI DEBUG Setting mass "..bp.Economy.ProductionPerSecondMass)
         SetProductionPerSecondMass( self, bp.Economy.ProductionPerSecondMass or 0 )
 
         SetProductionActive( self, true )
@@ -491,7 +486,7 @@ Unit = Class(moho.unit_methods) {
         local noNukes = Game.NukesRestricted()
         local noTacMsl = Game.TacticalMissilesRestricted()
 		
-        for i = 1, self.WeaponCount do
+        for i = 1, GetWeaponCount(self) do
 		
             local wep = self:GetWeapon(i)
             local bp = wep.bp
@@ -696,7 +691,7 @@ Unit = Class(moho.unit_methods) {
 
     SetTargetPriorities = function(self, priTable)
 
-        for i = 1, self.WeaponCount do
+        for i = 1, GetWeaponCount(self) do
 		
             local wep = GetWeapon(self,i)
 			
@@ -708,7 +703,7 @@ Unit = Class(moho.unit_methods) {
     
     SetLandTargetPriorities = function(self, priTable)
 
-        for i = 1, self.WeaponCount do
+        for i = 1, GetWeaponCount(self) do
 		
             local wep = GetWeapon(self,i)
             
@@ -1116,7 +1111,7 @@ Unit = Class(moho.unit_methods) {
 			
             local entId = GetEntityId(self)
             local unitEnh = SimUnitEnhancements[entId]
-            local captorArmyIndex = captor.Sync.army
+            local captorArmyIndex = captor.Army
             local captorBrain = false
            
             -- bugfix when capturing an enemy it should retain its data
@@ -1614,7 +1609,7 @@ Unit = Class(moho.unit_methods) {
 			return
 		end
 		
-        local army = self.Sync.army
+        local army = self.Army
 		
 		local Random = Random
 
@@ -1964,7 +1959,7 @@ Unit = Class(moho.unit_methods) {
 		if other.LastImpact then
 		
 			-- if hit same unit twice
-			if other.LastImpact == self.Sync.id then
+			if other.LastImpact == self.EntityID then
 
 				return false
 				
@@ -2033,7 +2028,7 @@ Unit = Class(moho.unit_methods) {
 		-- for rail guns from 4DC credit Resin_Smoker
 		if other.LastImpact then
 			-- if hit same unit twice
-			if other.LastImpact == self.Sync.id then
+			if other.LastImpact == self.EntityID then
 				return false
 			end
 		end
@@ -2061,7 +2056,7 @@ Unit = Class(moho.unit_methods) {
 		-- the projectile just carries thru to hit additional targets
 		if other.DamageData.DamageType == 'Railgun' then
 		
-			other.LastImpact = self.Sync.id
+			other.LastImpact = self.EntityID
 
 		end
 
@@ -2086,7 +2081,7 @@ Unit = Class(moho.unit_methods) {
 		
 			local GetArmy = GetArmy
 		
-			local army1 = self.Sync.army
+			local army1 = self.Army
 			local army2 = GetArmy(firingWeapon.unit)
 			
 			if army1 == army2 or IsAllied(army1,army2) then
@@ -2262,11 +2257,11 @@ Unit = Class(moho.unit_methods) {
 	
 		self.PlatoonHandle = nil
 
-		--LOG("*AI DEBUG OnDestroy for unit "..self.Sync.id.." "..repr(ALLBPS[self.BlueprintID].Description))
+		--LOG("*AI DEBUG OnDestroy for unit "..self.EntityID.." "..repr(ALLBPS[self.BlueprintID].Description))
 		
 		--local ID = GetEntityId(self)
 
-		Sync.ReleaseIds[self.Sync.id] = true
+		Sync.ReleaseIds[self.EntityID] = true
 
 		-- Don't allow anyone to stuff anything else in the table
 		self.Sync = false
@@ -2483,7 +2478,7 @@ Unit = Class(moho.unit_methods) {
 
     SetAllWeaponsEnabled = function(self, enable)
 	
-        for i = 1, self.WeaponCount do
+        for i = 1, GetWeaponCount(self) do
 		
             local wep = GetWeapon(self,i)
             
@@ -3382,7 +3377,7 @@ Unit = Class(moho.unit_methods) {
 
     OnWorkBegin = function(self, work)
 	
-        local unitEnhancements = import('/lua/enhancementcommon.lua').GetEnhancements(self.Sync.id) --GetEntityId(self))
+        local unitEnhancements = import('/lua/enhancementcommon.lua').GetEnhancements(self.EntityID) --GetEntityId(self))
         local tempEnhanceBp = ALLBPS[self.BlueprintID].Enhancements[work]
 
         if tempEnhanceBp.Prerequisite then
@@ -3565,7 +3560,7 @@ Unit = Class(moho.unit_methods) {
 
     HasEnhancement = function(self, enh)
 	
-        local unitEnh = SimUnitEnhancements[self.Sync.id]
+        local unitEnh = SimUnitEnhancements[self.EntityID]
 		
         if unitEnh then
 		
@@ -3643,7 +3638,7 @@ Unit = Class(moho.unit_methods) {
 				
 					for ke, vEffect in effects do
 
-						local emit = LOUDATTACHEMITTER( self, vBone, self.Sync.army, vEffect ):ScaleEmitter(vTypeGroup.Scale or 3)
+						local emit = LOUDATTACHEMITTER( self, vBone, self.Army, vEffect ):ScaleEmitter(vTypeGroup.Scale or 3)
 
 						if vTypeGroup.Offset then
 						
@@ -3744,7 +3739,7 @@ Unit = Class(moho.unit_methods) {
 	
         local effectBones = bpTable.Bones
 
-        local army = self.Sync.army
+        local army = self.Army
 		
         for kb, vb in effectBones do
 		
@@ -4547,7 +4542,7 @@ Unit = Class(moho.unit_methods) {
 
     PlayVeteranFx = function(self, newLvl)
 	
-        LOUDATTACHEMITTER(self, 0, self.Sync.army, 'destruction_explosion_concussion_ring_03_emit.bp'):ScaleEmitter(1)
+        LOUDATTACHEMITTER(self, 0, self.Army, 'destruction_explosion_concussion_ring_03_emit.bp'):ScaleEmitter(1)
 		
     end,
 
@@ -5100,7 +5095,7 @@ Unit = Class(moho.unit_methods) {
         
             LOG("*AI DEBUG OnTeleportUnit "..repr(self.BlueprintID).." to location "..repr(location).." at "..repr(destRange).." - failed - beyond "..(teleRange*4).." range. " )
 		
-			FloatingEntityText(self.Sync.id,'Destination Out Of Range')
+			FloatingEntityText(self.EntityID,'Destination Out Of Range')
             
             self.teleporting = nil
 			
@@ -5132,7 +5127,7 @@ Unit = Class(moho.unit_methods) {
                     -- if the teleblocker is within range of the destination
                     if noTeleDistance > targetdest then
 				
-                        FloatingEntityText(self.Sync.id,'Teleport Destination Scrambled')
+                        FloatingEntityText(self.EntityID,'Teleport Destination Scrambled')
                     
                         LOG("*AI DEBUG OnTeleportUnit "..repr(self.BlueprintID).." to location "..repr(location).." - failed - destination blocked ")
                     
@@ -5143,7 +5138,7 @@ Unit = Class(moho.unit_methods) {
                     -- if the teleblocker is within range of the unit trying to teleport
                     elseif noTeleDistance and noTeleDistance >= sourcecheck then
 				
-                        FloatingEntityText(self.Sync.id,'Teleport Source Scrambled')
+                        FloatingEntityText(self.EntityID,'Teleport Source Scrambled')
                     
                         LOG("*AI DEBUG OnTeleportUnit "..repr(self.BlueprintID).." to location "..repr(location).." - failed - source area blocked ")
                     
@@ -5173,7 +5168,7 @@ Unit = Class(moho.unit_methods) {
 				
 			else
 			
-				FloatingEntityText(self.Sync.id,'Insufficient Energy Storage ('..telecost..')' )
+				FloatingEntityText(self.EntityID,'Insufficient Energy Storage ('..telecost..')' )
 
                 LOG("*AI DEBUG OnTeleportUnit "..repr(self.BlueprintID).." to location "..repr(location).." - failed - Insufficient energy - "..repr(telecost).." required to initialize a teleport - storage "..repr(storedenergy) )
                 
@@ -5213,7 +5208,7 @@ Unit = Class(moho.unit_methods) {
 	-- After calling this, you should still call CleanupTeleportChargeEffects
 	PlayScaledTeleportChargeEffects = function(self)
 	
-		local army = self.Sync.army
+		local army = self.Army
 		local bp = ALLBPS[self.BlueprintID]
 
 		local scaleFactor = self:GetFootPrintSize() * 1.1 or 1
@@ -5235,7 +5230,7 @@ Unit = Class(moho.unit_methods) {
 	-- Like PlayTeleportOutEffects, but scaled based on the size of the unit 
 	PlayScaledTeleportOutEffects = function(self)
 	
-		local army = self.Sync.army
+		local army = self.Army
 		local scaleFactor = self:GetFootPrintSize() * 1.1 or 1
 		
 		for k, v in EffectTemplate.GenericTeleportOut01 do
@@ -5248,7 +5243,7 @@ Unit = Class(moho.unit_methods) {
 	-- Like PlayTeleportInEffects, but scaled based on the size of the unit
 	PlayScaledTeleportInEffects = function(self)
 	
-		local army = self.Sync.army
+		local army = self.Army
 		local bp = ALLBPS[self.BlueprintID]
 		local scaleFactor = self:GetFootPrintSize() * 1.1 or 1
 		
@@ -5387,7 +5382,7 @@ Unit = Class(moho.unit_methods) {
             self.TeleportDrain = nil
         end
         
-		FloatingEntityText(self.Sync.id,'Starting Cooldown..')
+		FloatingEntityText(self.EntityID,'Starting Cooldown..')
 
         EffectUtilities.PlayTeleportOutEffects(self)
 
@@ -5403,7 +5398,7 @@ Unit = Class(moho.unit_methods) {
 
         WaitTicks(24) 	-- Perform cooldown Teleportation FX here
 
-		FloatingEntityText(self.Sync.id,'Cooldown complete..')        
+		FloatingEntityText(self.EntityID,'Cooldown complete..')        
 
         self:PlayUnitSound('TeleportEnd')
         
@@ -5648,7 +5643,7 @@ Unit = Class(moho.unit_methods) {
             -- Activate the personal shield
             self:SetFocusEntity(self.MyShield)
 			
-			ForkTo( FloatingEntityText, self.Sync.id, "Initiating Personal Shield - "..sldHealth.." strength")
+			ForkTo( FloatingEntityText, self.EntityID, "Initiating Personal Shield - "..sldHealth.." strength")
 			
             self:EnableShield()
             TrashAdd( self.Trash,self.MyShield)                               
