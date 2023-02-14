@@ -426,13 +426,13 @@ EAL0001 = Class(AWalkingLandUnit) {
             local drain = bp.Economy.InitialRemoteViewingEnergyDrain
 
 			if not ( aiBrain:GetEconomyStored('ENERGY') > drain ) then
-				FloatingEntityText( self.Sync.id, "Insufficient Energy Storage")
+				FloatingEntityText( self.EntityID, "Insufficient Energy Storage")
 				return
 			end
 
             -- distance check - limited by blueprint
             if VDist3(location, self:GetPosition() ) > (bp.Defense.MaxTeleRange or 350) then
-                FloatingEntityText( self.Sync.id, "Beyond Rhianne range")
+                FloatingEntityText( self.EntityID, "Beyond Rhianne range")
                 return
             end
             
@@ -463,7 +463,7 @@ EAL0001 = Class(AWalkingLandUnit) {
 			for i, unit in unitList do
 
 				--	if it's an ally, then we skip.
-				if not IsEnemy(self.Sync.army, unit.Sync.army) then 
+				if not IsEnemy(self.Army, unit.Army) then 
 					continue
 				end
 				
@@ -475,12 +475,12 @@ EAL0001 = Class(AWalkingLandUnit) {
 				-- if the antiteleport range covers the targetlocation
 				if noTeleDistance and noTeleDistance > targetdestdistance then
 
-					FloatingEntityText(self.Sync.id,'Remote Viewing Destination Scrambled')
+					FloatingEntityText(self.EntityID,'Remote Viewing Destination Scrambled')
 
 					self.RemoteViewingData.VisibleLocation = false
 
 					-- play audio warning
-					if GetFocusArmy() == self.Sync.army then
+					if GetFocusArmy() == self.Army then
 						local Voice = Sound {Bank = 'XGG', Cue = 'XGG_Computer_CV01_04765',}
 						local Brain = self:GetAIBrain()
 

@@ -1892,7 +1892,7 @@ UnitBlueprint {
             CollideFriendly = false,
 
             Damage = 100,
-			DamageRadius = 2.4,
+			DamageRadius = 2.6,
             DamageType = 'Normal',
 
 			DoTTime = 4,

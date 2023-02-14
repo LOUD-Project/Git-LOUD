@@ -2566,7 +2566,7 @@ UnitBlueprint {
                     Add = { OnImpact = true },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
-                    Duration = 3,
+                    Duration = 2,
                     Radius = 6,
                     TargetAllow = 'TECH1,TECH2,TECH3,EXPERIMENTAL',
                     TargetDisallow = 'COMMAND,AIR',
