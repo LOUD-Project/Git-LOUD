@@ -1,6 +1,6 @@
 name = "4th Dimension Units for LOUD"
 uid = "454af309-5afb-458b-bf5b-a00000000007"
-version = 4.0
+version = 6.3
 copyright = "Copyright © 2010, Resin_Smoker, Optimus_Prime, Ebola_Soup, Vissroid"
 description = "Selected 4th Dimension units for The LOUD Project"
 author = "Resin_Smoker"
