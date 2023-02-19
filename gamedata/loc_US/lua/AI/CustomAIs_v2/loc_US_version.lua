@@ -1,4 +1,4 @@
 AI = {
-	Name = "loc_US.scd",
-	Version = "LOUD 1.0.2",
+	Name = "LOC_US",
+	Version = "6.3 LOUD",
 }
