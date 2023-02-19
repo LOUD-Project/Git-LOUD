@@ -1,6 +1,6 @@
 name = "Total Mayhem for LOUD"
 uid = "62e2j64a-53a2-y6sg-32h5-146as555a18u3"
-version = 6.0
+version = 6.3
 description = "Adds many TM units adapted for use with the LOUD Project.  All are LOUD balanced and fully AI usable.  Prepare for mayhem!"
 author = "Burnie"
 icon = "/mods/TotalMayhem/icons/modicon.dds"
