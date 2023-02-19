@@ -1,6 +1,6 @@
 name = "BlackOps Unleashed Units for LOUD"
 uid = "9e8ea941-c306-4751-b367-a11000000502"
-version = 6.0
+version = 6.3
 copyright = "Lt_hawkeye"
 description = "BlackOps Unleashed Unitpack for LOUD"
 author = "Lt_hawkeye"
