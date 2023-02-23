@@ -1,20 +1,14 @@
 local SStructureUnit = import('/lua/defaultunits.lua').StructureUnit
 
 local Buff = import('/lua/sim/Buff.lua')
-
-local SeraphimBuffField = import('/lua/seraphimweapons.lua').SeraphimBuffField
+local BuffField = import('/lua/sim/BuffField.lua').BuffField
 
 
 BSB4205 = Class(SStructureUnit) {
 	
 	BuffFields = {
 	
-		RegenField = Class(SeraphimBuffField){
-		
-			OnCreate = function(self)
-				SeraphimBuffField.OnCreate(self)
-			end,
-		},
+		RegenField = Class(BuffField){},
 	},
 
     OnStopBeingBuilt = function(self)

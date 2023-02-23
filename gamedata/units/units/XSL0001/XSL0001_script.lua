@@ -1,6 +1,7 @@
 local SWalkingLandUnit = import('/lua/seraphimunits.lua').SWalkingLandUnit
 
 local Buff = import('/lua/sim/Buff.lua')
+local BuffField = import('/lua/sim/BuffField.lua').BuffField
 
 local SWeapons = import('/lua/seraphimweapons.lua')
 local SDFChronotronCannonWeapon = SWeapons.SDFChronotronCannonWeapon
@@ -11,7 +12,6 @@ local SIFLaanseTacticalMissileLauncher = SWeapons.SIFLaanseTacticalMissileLaunch
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 local EffectUtil = import('/lua/EffectUtilities.lua')
 
-
 local AIUtils = import('/lua/ai/aiutilities.lua')
 
 -- Setup as RemoteViewing child unit rather than SWalkingLandUnit
@@ -19,11 +19,36 @@ local RemoteViewing = import('/lua/RemoteViewing.lua').RemoteViewing
 
 SWalkingLandUnit = RemoteViewing( SWalkingLandUnit ) 
 
-local SeraphimBuffField = SWeapons.SeraphimBuffField
-
 XSL0001 = Class( SWalkingLandUnit ) {
     DeathThreadDestructionWaitTime = 2,
+	
+	BuffFields = {
 
+		RegenField = Class(BuffField){},
+		AdvancedRegenField = Class(BuffField){
+
+            OnPreUnitEntersField = function(self, unit)
+                SeraphimBuffField.OnPreUnitEntersField(self, unit)
+                return (unit:GetHealth() / unit:GetMaxHealth())
+            end,
+
+            OnUnitEntersField = function(self, unit, OnPreUnitEntersFieldData)
+                SeraphimBuffField.OnUnitEntersField(self, unit, OnPreUnitEntersFieldData)
+                unit:SetHealth(unit, (OnPreUnitEntersFieldData * unit:GetMaxHealth()))
+            end,
+
+            OnPreUnitLeavesField = function(self, unit, OnPreUnitEntersFieldData, OnUnitEntersFieldData)
+                SeraphimBuffField.OnPreUnitLeavesField(self, unit, OnPreUnitEntersFieldData, OnUnitEntersFieldData)
+                return (unit:GetHealth() / unit:GetMaxHealth())
+            end,
+
+            OnUnitLeavesField = function(self, unit, OnPreUnitEntersFieldData, OnUnitEntersFieldData, OnPreUnitLeavesField)
+                SeraphimBuffField.OnUnitLeavesField(self, unit, OnPreUnitEntersFieldData, OnUnitEntersFieldData, OnPreUnitLeavesField)
+                unit:SetHealth(unit, (OnPreUnitLeavesField * unit:GetMaxHealth()))
+            end,        
+        },
+	},
+	
     Weapons = {
         DeathWeapon = Class(SIFCommanderDeathWeapon) {},
         
@@ -320,94 +345,6 @@ XSL0001 = Class( SWalkingLandUnit ) {
         end
     end,
 
-    BuffFields = {
-
-        #-- this section is specific to the buff field functions in the CBFP.
-
-        RegenField = Class(SeraphimBuffField) {
-
-            OnCreate = function(self)
-                # adding the buff we'll use in this buff field
-                if not Buffs['SeraphimACURegenAura'] then
-				
-                    local Owner = self:GetOwner()
-                    local bp = Owner:GetBlueprint().Enhancements['RegenAura']
-					
-                    BuffBlueprint {
-                        Name = 'SeraphimACURegenAura',
-                        DisplayName = 'SeraphimACURegenAura',
-                        BuffType = 'COMMANDERAURA',
-                        Stacks = 'REPLACE',
-                        Duration = -1,
-                        Affects = {
-                            RegenPercent = {
-                                Add = 0,
-                                Mult = bp.RegenPerSecond or 0.1,
-                                Ceil = bp.RegenCeiling,
-                                Floor = bp.RegenFloor,
-                            },
-                        },
-                    }
-					
-                end
-				
-                SeraphimBuffField.OnCreate(self)
-            end,
-        },
-
-        AdvancedRegenField = Class(SeraphimBuffField) {
-
-            OnCreate = function(self)
-                # adding the buff we'll use in this buff field
-                if not Buffs['SeraphimAdvancedACURegenAura'] then
-                    local Owner = self:GetOwner()
-                    local bp = Owner:GetBlueprint().Enhancements['AdvancedRegenAura']
-                    BuffBlueprint {
-                        Name = 'SeraphimAdvancedACURegenAura',
-                        DisplayName = 'SeraphimAdvancedACURegenAura',
-                        BuffType = 'COMMANDERAURA',
-                        Stacks = 'REPLACE',
-                        Duration = -1,
-                        Affects = {
-                            RegenPercent = {
-                                Add = 0,
-                                Mult = bp.RegenPerSecond or 0.1,
-                                Ceil = bp.RegenCeiling,
-                                Floor = bp.RegenFloor,
-                            },
-                            MaxHealth = {
-                                Add = 0,
-                                Mult = bp.MaxHealthFactor or 1.0,
-                                DoNoFill = true,
-                            },                        
-                        },
-                    }
-                end
-                SeraphimBuffField.OnCreate(self)
-            end,
-
-            OnPreUnitEntersField = function(self, unit)
-                SeraphimBuffField.OnPreUnitEntersField(self, unit)
-                return (unit:GetHealth() / unit:GetMaxHealth())
-            end,
-
-            OnUnitEntersField = function(self, unit, OnPreUnitEntersFieldData)
-                SeraphimBuffField.OnUnitEntersField(self, unit, OnPreUnitEntersFieldData)
-                unit:SetHealth(unit, (OnPreUnitEntersFieldData * unit:GetMaxHealth()))
-            end,
-
-            OnPreUnitLeavesField = function(self, unit, OnPreUnitEntersFieldData, OnUnitEntersFieldData)
-                SeraphimBuffField.OnPreUnitLeavesField(self, unit, OnPreUnitEntersFieldData, OnUnitEntersFieldData)
-                return (unit:GetHealth() / unit:GetMaxHealth())
-            end,
-
-            OnUnitLeavesField = function(self, unit, OnPreUnitEntersFieldData, OnUnitEntersFieldData, OnPreUnitLeavesField)
-                SeraphimBuffField.OnUnitLeavesField(self, unit, OnPreUnitEntersFieldData, OnUnitEntersFieldData, OnPreUnitLeavesField)
-                unit:SetHealth(unit, (OnPreUnitLeavesField * unit:GetMaxHealth()))
-            end,
-        },
-    },
-	
 	
     CreateEnhancement = function(self, enh)
 		
@@ -437,7 +374,6 @@ XSL0001 = Class( SWalkingLandUnit ) {
             wep:AddDamageMod(-self:GetBlueprint().Enhancements['BlastAttack'].AdditionalDamage)
         end        
 
-        #Resource Allocation
         if enh == 'ResourceAllocation' then
 			SWalkingLandUnit.CreateEnhancement(self, enh)
             local bp = self:GetBlueprint().Enhancements[enh]
@@ -533,8 +469,7 @@ XSL0001 = Class( SWalkingLandUnit ) {
             if Buff.HasBuff( self, 'SeraphimACUDamageStabilization' ) then
                 Buff.RemoveBuff( self, 'SeraphimACUDamageStabilization' )
             end
-            
-        #Teleporter
+
         elseif enh == 'Teleporter' then
 			SWalkingLandUnit.CreateEnhancement(self, enh)
             self:AddCommandCap('RULEUCC_Teleport')
@@ -542,8 +477,7 @@ XSL0001 = Class( SWalkingLandUnit ) {
         elseif enh == 'TeleporterRemove' then
 			SWalkingLandUnit.CreateEnhancement(self, enh)
             self:RemoveCommandCap('RULEUCC_Teleport')
-            
-        # Tactical Missile
+
         elseif enh == 'Missile' then
 			SWalkingLandUnit.CreateEnhancement(self, enh)
             self:AddCommandCap('RULEUCC_Tactical')
@@ -555,8 +489,7 @@ XSL0001 = Class( SWalkingLandUnit ) {
             self:RemoveCommandCap('RULEUCC_Tactical')
             self:RemoveCommandCap('RULEUCC_SiloBuildTactical')        
             self:SetWeaponEnabledByLabel('Missile', false)
-			
-        -- T2 Engineering
+
         elseif enh =='AdvancedEngineering' then
 		
 			SWalkingLandUnit.CreateEnhancement(self, enh)
@@ -586,8 +519,7 @@ XSL0001 = Class( SWalkingLandUnit ) {
             if Buff.HasBuff( self, 'ACU_T2_Engineering' ) then
                 Buff.RemoveBuff( self, 'ACU_T2_Engineering' )
             end
-			
-        -- T3 Engineering
+
         elseif enh =='T3Engineering' then
 		
 			SWalkingLandUnit.CreateEnhancement(self, enh)
@@ -618,7 +550,6 @@ XSL0001 = Class( SWalkingLandUnit ) {
 			
             self:AddBuildRestriction( categories.SERAPHIM * ( categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER + categories.BUILTBYTIER4COMMANDER) )
 			
-        -- T4 Engineering
         elseif enh =='T4Engineering' then
 		
 			SWalkingLandUnit.CreateEnhancement(self, enh)
@@ -649,7 +580,6 @@ XSL0001 = Class( SWalkingLandUnit ) {
 			
             self:AddBuildRestriction( categories.SERAPHIM * ( categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER + categories.BUILTBYTIER4COMMANDER) )
 
-        #Blast Attack
         elseif enh == 'BlastAttack' then
 			SWalkingLandUnit.CreateEnhancement(self, enh)
             local wep = self:GetWeaponByLabel('ChronotronCannon')
