@@ -185,7 +185,6 @@ local modSchema = {
         '9a9C61C0-1787-10DF-A0AD-BATTLEPACK002', -- Wyvern Battle Pack
     },
     ["User Interface"] = {
-        '9e0e482a-ebbd-40ed-95e0-9619ccdc4d13', -- Build Range Preview
         'Machd6c5-cd5c-4e34-b6cc-11503ed5e2da', -- Disperse Move
         '175542E4-D4F5-11DC-B450-11D755D89593', -- HotStats
         'EF3ADDB4-9D34-437F-B1C8-440DAF896802', -- Mass Fab Manager
@@ -211,6 +210,7 @@ local modSchema = {
         'ffffffff-9d4e-11dc-8314-0800200c0702', -- Enhanced T4 Artillery
         '0a970b58-533d-11dc-8314-0800200c9a66', -- Enhanced Nukes
         '74A9EAB2-E851-11DB-A1F1-F2C755D89593', -- Enhanced Resources
+        'b8d941e131multiplier',                 -- Enhanced Static HP Multiplier
         'TANKSYS-EXPERIMENTS-1-COMBAT',         -- Tanksy's Experiments: Combat Changes
         -- BrewLAN
         'f31a09b5-2b2f-4bb4-aeac-47ab777a7cde', -- Antimass
@@ -233,7 +233,7 @@ local modSchema = {
         '25D57D85-9JA7-D842-GKG4-ORIGIN0000001', -- BrewLAN Baristas
         '25D57D85-9JA7-D842-GKG4-DAMAGENO00000', -- BrewLAN Damage Numbers
         '2529ea71-93ef-41a6-b552-LOGS0000000009', -- BrewLAN Debug Tools
-        'zcbf6277-24e3-437a-b968-Common-v1', -- Common Mod Tools
+        'zcbf6277-24e3-437a-b968-Common-v1',     -- Common Mod Tools
         'eabdfda4-24b5-40dc-8995-LOUD000DEBUG', -- LOUD Debug Tools
         '7be1d5f4-c544-11ea-87d0-noalerts0001', -- No VO Alerts
         'stonksc5-f109-4145-b83f-a0b589087460', -- Stonks

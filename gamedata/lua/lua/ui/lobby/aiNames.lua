@@ -26,16 +26,14 @@ ainames = {
         "Vidhee",
         "Xavier",
         "Kami-Sutra",
-
         "Budac",
-        "Dewster",
-        "Frostberry",
+
+        "Handsome Dewey",
         "Gecko Mucousface",
         "Jesus Chrysler",
-        "Kohne",
         "Maxon",
         "RD",
-        "Scolar",
+        "Stealth Panda",
     },
     aeon = {
         "Albarel",
@@ -62,13 +60,11 @@ ainames = {
         "Ironhand",
         "Svend Ziderzee",
         "Tanksy",
-        "The Balthazar",
         "Xavier 4 Eyes",
     },
     cybran = {
         "5Iron",
         "Avatar",
-        "BatGecko",
         "Blacklisted",
         "C@tch22",
         "CR07-A",
@@ -92,11 +88,9 @@ ainames = {
         "Winter Knight",
         "Xahvres",
         "XShadowStormX",
-        "Yo-Yo",
-        
         "LOUDNESS",
         "Loudolo",
-        "Red Collective",
+        "Doc Tater",
         "Sprouto",
     },
     seraphim = { 
