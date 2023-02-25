@@ -1,7 +1,7 @@
-name = "Enhanced Black Ops Commanders"
+name = "Enhanced Black Ops Commanders for LOUD"
 author = "Henry Katzmarek"
-version = 1.11
-description = "Enhances Black Ops ACUs initial stats & upgrades. Substantially."
+version = 6.3
+description = "Enhances Black Ops ACUs. HP +20%. Engineer Upgrades -10%. Damage increased 10%."
 exclusive = false
 ui_only = false
 selectable = true

@@ -4,93 +4,53 @@ UnitBlueprint {
 
     Defense = {
 
-        Health = 33000,
-        MaxHealth = 33000,
-
-        SurfaceThreatLevel = 90,
-
+        Health = 32400,
+        MaxHealth = 32400,
     },
     
-    Economy = {
-
-        MaintenanceConsumptionPerSecondEnergy = 1,
-        MaxBuildDistance = 15,
-
-        ProductionPerSecondMass = 2,
-        
-        StorageEnergy = 5000,
-        StorageMass = 750,
-
-    },
-    
-    Enhancements = {
+    Enhancements = {        -- all are discounted by 10%
     
         EXImprovedEngineering = {
         
             BuildCostEnergy = 34200,
             BuildCostMass = 3150,
-            BuildTime = 1755,
+            BuildTime = 3420,
         },
         
         EXAdvancedEngineering = {
         
-            BuildCostEnergy = 112500,
-            BuildCostMass = 11250,
-            BuildTime = 11250,
-
+            BuildCostEnergy = 136800,
+            BuildCostMass = 9450,
+            BuildTime = 13680,
         },
         
         EXExperimentalEngineering = {
         
-            BuildCostEnergy = 675000,
-            BuildCostMass = 22500,
-            BuildTime = 33750,
-
+            BuildCostEnergy = 648000,
+            BuildCostMass = 26550,
+            BuildTime = 64800,
         },
         
         EXCombatEngineering = {
         
-            BuildCostEnergy = 19800,
-            BuildCostMass = 1890,
-            BuildTime = 1620,
-
+            BuildCostEnergy = 34200,
+            BuildCostMass = 3375,
+            BuildTime = 3420,
         },
         
         EXAssaultEngineering = {
         
-            BuildCostEnergy = 64800,
-            BuildCostMass = 6480,
-            BuildTime = 6480,
-
+            BuildCostEnergy = 104850,
+            BuildCostMass = 13500,
+            BuildTime = 10485,
         },
         
         EXApocalypticEngineering = {
         
-            BuildCostEnergy = 145800,
-            BuildCostMass = 14580,
-            BuildTime = 14580,
-
+            BuildCostEnergy = 337500,
+            BuildCostMass = 44100,
+            BuildTime = 33750,
         },
-        
-    },        
-
-    Intel = {
-
-        OmniRadius = 30,
-
-        RadarStealth = true,
-        SonarStealth = true,
-        
-        VisionRadius = 30,
-        WaterVisionRadius = 30,
-    },
-    
-    Veteran = {
-        Level1 = 30,
-        Level2 = 60,
-        Level3 = 90,
-        Level4 = 120,
-        Level5 = 150,
     },
     
     Weapon = {
@@ -98,10 +58,7 @@ UnitBlueprint {
         {},
         --Molecular Ripper Cannon
         {
-            Damage = 100,
-            DamageRadius = 1,
-
-            MaxRadius = 35,
+            Damage = 77,
         },
 		--Overcharge Cannon
         {},
@@ -109,47 +66,25 @@ UnitBlueprint {
         {},
         --Rocket Pack 1
         {
-            Damage = 10,
-
-            MaxRadius = 25,
-            MinRadius = 1,
-
-            RateOfFire = 0.3,
+            Damage = 8.8,
+            MaxRadius = 24,
         },
         --Rocket Pack 2
         {
-            Damage = 25,
-
-            MaxRadius = 35,
-            MinRadius = 1,
-
-            RateOfFire = 0.2,
+            Damage = 17.6,
+            MaxRadius = 33,
         },
         --Torpedo 1
         {
-            Damage = 500,
-
-            ProjectileLifetime = 10,
+            Damage = 418,
         },
         --Torpedo 2
         {
-            Damage = 900,
-
-            ProjectileLifetime = 10,
-
-            RateOfFire = 0.6,
+            Damage = 275,
         },
         --Torpedo 3
         {
-            Damage = 1250,
-
-            MaxRadius = 70,
-
-            MuzzleVelocity = 8,
-
-            ProjectileLifetime = 10,
-
-            RateOfFire = 0.7,
+            Damage = 330,
         },
         --EMP Array 1
         {},
@@ -162,53 +97,43 @@ UnitBlueprint {
         --These next 3 are the actual damage weapon of the EMP Array
         --EMP Shot 1
         {
-            Damage = 400,
+            Damage = 330,
         },
         --EMP Shot 2
         {
-            Damage = 1600,
-
-            MaxRadius = 45,
+            Damage = 550,
         },
         --EMP Shot 3
         {
-            Damage = 4500,
-
-            MaxRadius = 55,
+            Damage = 880,
         },
         --Laser 1 aka Microwave
         {
-            Damage = 100,
-
-            MaxRadius = 35,
+            Damage = 53,
         },
         --Laser 2 aka Beholder
         {
-            Damage = 200,
-
-            MaxRadius = 45,
+            Damage = 66,
         },
         --Laser 3 aka Heavy Microwave
         {
-            Damage = 500,
-
-            MaxRadius = 50,
+            Damage = 83,
         },
         --AA Microwave Laser 1
         {
-            Damage = 50,
+            Damage = 33,
         },
         --AA Microwave Laser 2
         {
-            Damage = 50,
+            Damage = 33,
         },
         --AA Microwave Laser 3
         {
-            Damage = 50,
+            Damage = 33,
         },
         --AA Microwave Laser 4
         {
-            Damage = 50,
+            Damage = 33,
         },
     },
 }

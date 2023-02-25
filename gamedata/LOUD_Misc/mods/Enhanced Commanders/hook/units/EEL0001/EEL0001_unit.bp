@@ -4,108 +4,69 @@ UnitBlueprint {
 
     Defense = {
 
-        Health = 36550,
-        MaxHealth = 36550,
-
-        SurfaceThreatLevel = 90,
+        Health = 35400,
+        MaxHealth = 35400,
 
     },
     
-    Economy = {
-
-        MaintenanceConsumptionPerSecondEnergy = 1,
-        MaxBuildDistance = 15,
-
-        ProductionPerSecondMass = 2,
-        
-        StorageEnergy = 5000,
-        StorageMass = 750,
-    },
-    
-    Enhancements = {
+    Enhancements = {        -- all are discounted by 10%
     
         EXImprovedEngineering = {
         
             BuildCostEnergy = 34200,
             BuildCostMass = 3150,
-            BuildTime = 1755,
+            BuildTime = 3420,
 
         },
         
         EXAdvancedEngineering = {
         
-            BuildCostEnergy = 112500,
-            BuildCostMass = 11250,
-            BuildTime = 11250,
+            BuildCostEnergy = 136800,
+            BuildCostMass = 9450,
+            BuildTime = 13680,
+
         },
         
         EXExperimentalEngineering = {
         
-            BuildCostEnergy = 675000,
-            BuildCostMass = 22500,
-            BuildTime = 33750,
+            BuildCostEnergy = 648000,
+            BuildCostMass = 26550,
+            BuildTime = 64800,
 
         },
         
         EXCombatEngineering = {
         
-            BuildCostEnergy = 19800,
-            BuildCostMass = 1890,
-            BuildTime = 1620,
+            BuildCostEnergy = 34200,
+            BuildCostMass = 3375,
+            BuildTime = 3420,
 
         },
         
         EXAssaultEngineering = {
         
-            BuildCostEnergy = 64800,
-            BuildCostMass = 6480,
-            BuildTime = 6480,
+            BuildCostEnergy = 104850,
+            BuildCostMass = 13500,
+            BuildTime = 10485,
 
         },
         
         EXApocalypticEngineering = {
         
-            BuildCostEnergy = 145800,
-            BuildCostMass = 14580,
-            BuildTime = 14580,
+            BuildCostEnergy = 337500,
+            BuildCostMass = 44100,
+            BuildTime = 33750,
 
         },
 
     },
     
-    Intel = {
-
-        OmniRadius = 30,
-
-        RadarStealth = true,
-        SonarStealth = true,
-        
-        VisionRadius = 30,
-        WaterVisionRadius = 30,
-    },
-    
-    Veteran = {
-        Level1 = 30,
-        Level2 = 60,
-        Level3 = 90,
-        Level4 = 120,
-        Level5 = 150,
-
-    },
-    
-    Weapon = {
+    Weapon = {          -- all damage increased 10%
         --Target Designator
         {},
         --Zephyr
         {
-            Damage = 200,
-            DamageRadius = 1,
-            DamageType = 'Normal',
-
-            MaxRadius = 35,
-            MinRadius = 1,
-
-            MuzzleVelocity = 45,
+            Damage = 77,
         },
         --Overcharge Cannon
         {},
@@ -113,105 +74,49 @@ UnitBlueprint {
         {},
         --Flame Cannon 1
         {
-            MaxRadius = 25,
-            MinRadius = 1,
-
-            MuzzleVelocity = 20,
-
-            RateOfFire = 4,
+            Damage = 4.4,
+            MaxRadius = 24,
         },
         --Flame Cannon 2
         {
-            Damage = 5,
-            DamageRadius = 2,
-
-            MaxRadius = 35,
-            MinRadius = 1,
-
-            MuzzleVelocity = 20,
-
-            RateOfFire = 4,
+            Damage = 6.6,
+            MaxRadius = 33,
         },
         --Torpedo 1
         {
-            Damage = 500,
-
-            MuzzleVelocity = 10,
+            Damage = 418,
         },
         --Torpedo 2
         {
-            Damage = 750,
-
-            MuzzleVelocity = 10,
+            Damage = 275,
         },
         --Torpedo 3
         {
-            Damage = 1000,
-
-            MaxRadius = 70,
-            MinRadius = 1,
-
-            MuzzleVelocity = 10,
-
-            ProjectileLifetime = 8,
-
-            RateOfFire = 0.6,
+            Damage = 330,
         },
         --Anti-Matter Cannon 1
         {
-            Damage = 1000,
-
-            MaxRadius = 45,
-            MinRadius = 1,
-
-            RateOfFire = 0.3,
+            Damage = 990,
         },
         --Anti-Matter Cannon 2
         {
-            Damage = 4000,
-
-            MaxRadius = 45,
-            MinRadius = 1,
-
-            RateOfFire = 0.3,
+            Damage = 1760,
         },
         --Anti-Matter Cannon 3
         {
-            Damage = 12500,
-
-            MaxRadius = 50,
-            MinRadius = 1,
-
-            RateOfFire = 0.4,
+            Damage = 2750,
         },
         --Gatling Cannon 1
         {
-            Damage = 100,
-
-            MaxRadius = 40,
-            MinRadius = 1,
+            Damage = 22,
         },
         --Gatling Cannon 2
         {
-            Damage = 550,
-
-            MaxRadius = 45,
-            MinRadius = 1,
-
-            MuzzleSalvoDelay = 0.2,
-            MuzzleSalvoSize = 10,
+            Damage = 99,
         },
         --Gatling Cannon 3
         {
-            Damage = 1200,
-
-            MaxRadius = 50,
-            MinRadius = 1,
-
-            MuzzleSalvoDelay = 0.2,
-            MuzzleSalvoSize = 10,
-
-            ProjectileLifetimeUsesMultiplier = 1.5,
+            Damage = 242,
         },
         --Tactical Warhead
         {},
@@ -219,21 +124,11 @@ UnitBlueprint {
         {},
         --Energy Lance 1
         {
-            Damage = 80,
-
-            MaxRadius = 28,
-
-            MuzzleSalvoDelay = 0.2,
-            MuzzleSalvoSize = 3,
+            Damage = 44,
         },
         --Energy Lance 2
         {
-            Damage = 80,
-
-            MaxRadius = 28,
-
-            MuzzleSalvoDelay = 0.2,
-            MuzzleSalvoSize = 3,
+            Damage = 44,
         },
         --Cluster Missiles 1
         {
@@ -241,28 +136,11 @@ UnitBlueprint {
         },
         --Cluster Missiles 2
         {
-            Damage = 300,
-            DamageRadius = 3,
-
-            MaxRadius = 100,
-            MinRadius = 30,
-
-            MuzzleSalvoDelay = 0.4,
-
-            RateOfFire = 0.2,
+            Damage = 330,
         },
         --Cluster Missiles 3
         {
-            Damage = 500,
-
-            MaxRadius = 100,
-            MinRadius = 30,
-
-            MuzzleSalvoDelay = 0.3,
-
-            RateOfFire = 0.3,
-
-            TargetCheckInterval = 0.5,
+            Damage = 146,
         },
 	},
 }

@@ -4,105 +4,61 @@ UnitBlueprint {
 
     Defense = {
 
-        Health = 34650,
-        MaxHealth = 34650,
-
-        SurfaceThreatLevel = 90,
+        Health = 33000,     -- +20%
+        MaxHealth = 33000,
     },
     
-    Economy = {
-
-        MaintenanceConsumptionPerSecondEnergy = 1,
-        MaxBuildDistance = 15,
-
-        ProductionPerSecondMass = 2,
-        
-        StorageEnergy = 5000,
-        StorageMass = 750,
-
-    },
-    
-    Enhancements = {
+    Enhancements = {        -- all are discounted by 10%
     
         EXImprovedEngineering = {
         
             BuildCostEnergy = 34200,
             BuildCostMass = 3150,
-            BuildTime = 1755,
-
+            BuildTime = 3420,
         },
         
         EXAdvancedEngineering = {
         
-            BuildCostEnergy = 112500,
-            BuildCostMass = 11250,
-            BuildTime = 11250,
-
+            BuildCostEnergy = 136800,
+            BuildCostMass = 9450,
+            BuildTime = 13680,
         },
         
         EXExperimentalEngineering = {
         
-            BuildCostEnergy = 675000,
-            BuildCostMass = 22500,
-            BuildTime = 33750,
-
+            BuildCostEnergy = 648000,
+            BuildCostMass = 26550,
+            BuildTime = 64800,
         },
         
         EXCombatEngineering = {
         
-            BuildCostEnergy = 19800,
-            BuildCostMass = 1890,
-            BuildTime = 1620,
-
+            BuildCostEnergy = 34200,
+            BuildCostMass = 3375,
+            BuildTime = 3420,
         },
         
         EXAssaultEngineering = {
         
-            BuildCostEnergy = 64800,
-            BuildCostMass = 6480,
-            BuildTime = 6480,
-
+            BuildCostEnergy = 104850,
+            BuildCostMass = 13500,
+            BuildTime = 10485,
         },
         
         EXApocalypticEngineering = {
         
-            BuildCostEnergy = 145800,
-            BuildCostMass = 14580,
-            BuildTime = 14580,
-
+            BuildCostEnergy = 337500,
+            BuildCostMass = 44100,
+            BuildTime = 33750,
         },
-
     },
     
-    Intel = {
-
-        OmniRadius = 30,
-
-		RadarStealth = true,
-		SonarStealth = true,
-        
-        VisionRadius = 30,
-        WaterVisionRadius = 30,
-    },
-    
-    Veteran = {
-    
-        Level1 = 27,
-        Level2 = 54,
-        Level3 = 81,
-        Level4 = 108,
-        Level5 = 135,
-
-    },
-    
-    Weapon = {
+    Weapon = {            -- all damage increased 10%
         --Target Designator
         {},
         --Chronotron Cannon
         {
-            Damage = 100,
-
-            RateOfFire = 4,
+            Damage = 77,
         },
 		--Overcharge Cannon
         {},
@@ -110,75 +66,47 @@ UnitBlueprint {
         {},
         --Torpedo 1
         {
-            Damage = 500,
-
-            RateOfFire = 0.3,
+            Damage = 418,
         },
         --Torpedo 2
         {
-            Damage = 800,
-
-            MuzzleVelocity = 8,
-
-            RateOfFire = 0.4,
+            Damage = 275,
         },
         --Torpedo 3
         {
-            Damage = 1000,
-
-            MuzzleVelocity = 8,
-
-            RateOfFire = 0.5,
+            Damage = 330,
         },
         --Storm Cannon 1
         {
-            Damage = 60,
-
-            MaxRadius = 40,
+            Damage = 55,
         },
         --Storm Cannon 2
         {
-            Damage = 180,
-
-            MaxRadius = 50,
-
-            RateOfFire = 0.3,
+            Damage = 110,
         },
         --Storm Cannon 3
         {
-            Damage = 500,
-
-            MaxRadius = 65,
-
-            RateOfFire = 0.4,
+            Damage = 198,
         },
         --Gatling Plasma Cannon 1
         {
-            Damage = 150,
-
-            MaxRadius = 45,
+            Damage = 83,
         },
         --Gatling Plasma Cannon 2
         {
-            Damage = 600,
-
-            MaxRadius = 55,
+            Damage = 154,
         },
         --Gatling Plasma Cannon 3
         {
-            Damage = 1800,
-
-            MaxRadius = 65,
-
-            RateOfFire = 2,
+            Damage = 303,
         },
         --Olaris AA Artillery Cannon 1
         {
-            Damage = 65,
+            Damage = 55,
         },
         --Olaris AA Artillery Cannon 2
         {
-            Damage = 65,
+            Damage = 55,
         },
     },
 }

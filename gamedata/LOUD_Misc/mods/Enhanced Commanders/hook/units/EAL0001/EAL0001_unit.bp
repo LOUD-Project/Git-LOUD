@@ -4,110 +4,68 @@ UnitBlueprint {
 
     Defense = {
 
-        Health = 33550,
-        MaxHealth = 33550,
-
-        SurfaceThreatLevel = 90,
+        Health = 32400,     -- +20%
+        MaxHealth = 32400,
     },
     
-    Economy = {
-
-        MaintenanceConsumptionPerSecondEnergy = 1,
-        MaxBuildDistance = 15,
-
-        ProductionPerSecondMass = 2,
-        
-        StorageEnergy = 5000,
-        StorageMass = 750,
-    },
-    
-    Enhancements = {
+    Enhancements = {        -- all are discounted by 10%
     
         EXImprovedEngineering = {
         
             BuildCostEnergy = 34200,
             BuildCostMass = 3150,
-            BuildTime = 1755,
+            BuildTime = 3420,
 
         },
         
         EXAdvancedEngineering = {
         
-            BuildCostEnergy = 112500,
-            BuildCostMass = 11250,
-            BuildTime = 11250,
+            BuildCostEnergy = 136800,
+            BuildCostMass = 9450,
+            BuildTime = 13680,
 
         },
         
         EXExperimentalEngineering = {
         
-            BuildCostEnergy = 675000,
-            BuildCostMass = 22500,
-            BuildTime = 33750,
+            BuildCostEnergy = 648000,
+            BuildCostMass = 26550,
+            BuildTime = 64800,
 
         },
         
         EXCombatEngineering = {
         
-            BuildCostEnergy = 19800,
-            BuildCostMass = 1890,
-            BuildTime = 1620,
+            BuildCostEnergy = 34200,
+            BuildCostMass = 3375,
+            BuildTime = 3420,
 
         },
         
         EXAssaultEngineering = {
         
-            BuildCostEnergy = 64800,
-            BuildCostMass = 6480,
-            BuildTime = 6480,
+            BuildCostEnergy = 104850,
+            BuildCostMass = 13500,
+            BuildTime = 10485,
 
         },
         
         EXApocalypticEngineering = {
         
-            BuildCostEnergy = 145800,
-            BuildCostMass = 14580,
-            BuildTime = 14580,
+            BuildCostEnergy = 337500,
+            BuildCostMass = 44100,
+            BuildTime = 33750,
 
         },
 
     },
     
-    Intel = {
-
-        OmniRadius = 30,
-
-        RadarStealth = true,
-        SonarStealth = true,
-        
-        VisionRadius = 30,
-        WaterVisionRadius = 30,
-
-    },
-    
-    Veteran = {
-    
-        Level1 = 30,
-        Level2 = 60,
-        Level3 = 90,
-        Level4 = 120,
-        Level5 = 150,
-
-    },
-    
-    Weapon = {
+    Weapon = {              --- all damage increased by 10%
         --Target Designator
         {},
         --Quantum Disruptor
         {
-            Damage = 100,
-            DamageRadius = 1,
-            DamageType = 'Normal',
-
-            MaxRadius = 35,
-            MinRadius = 1,
-
-            MuzzleVelocity = 45,
+            Damage = 77,
         },
         --Overcharge Cannon
         {},
@@ -115,67 +73,51 @@ UnitBlueprint {
         {},
         --Chrono Dampener 1
         {
-            EnergyDrainPerSecond = 200,
-            EnergyRequired = 1000,
-
-            MaxRadius = 25,
-
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
-            MuzzleVelocity = 30,
-
-            RateOfFire = 0.5,
-
-            TargetCheckInterval = 2,
+            EnergyDrainPerSecond = 165,
+            EnergyRequired = 825,
+            MaxRadius = 24,
         },
         --Chrono Dampener 2
         {
-            EnergyDrainPerSecond = 350,
-            EnergyRequired = 1050,
-
-            MaxRadius = 35,
-
-            MuzzleVelocity = 30,
-
-            RateOfFire = 0.5,
-
-            TargetCheckInterval = 2,
+            EnergyDrainPerSecond = 440,
+            EnergyRequired = 1760,
+            MaxRadius = 33,
         },
         --Torpedo 1
         {
-            Damage = 500,
+            Damage = 418,
         },
         --Torpedo 2
         {
-            Damage = 900,
+            Damage = 275,
         },
         --Torpedo 3
         {
-            Damage = 2000,
+            Damage = 330,
         },
         --Miasma Artillery 1
         {
-            Damage = 200,
+            Damage = 143,
         },
         --Miasma Artillery 2
         {
-            Damage = 500,
+            Damage = 204,
         },
         --Miasma Artillery 3
         {
-            Damage = 750,
+            Damage = 286,
         },
         --Phason Laser 1
         {
-            Damage = 40,
+            Damage = 23,
         },
         --Phason Laser 2
         {
-            Damage = 80,
+            Damage = 47,
         },
         --Phason Laser 3
         {
-            Damage = 120,
+            Damage = 70,
         },
     },
 }
