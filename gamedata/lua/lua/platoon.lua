@@ -829,7 +829,7 @@ Platoon = Class(moho.platoon_methods) {
 				end
 				
 				-- sort the markers by closest distance to final destination
-				LOUDSORT( markerlist, function(a,b) return VDist2Sq( a.Position[1],a.Position[3], destination[1],destination[3] ) < VDist2Sq( b.Position[1],b.Position[3], destination[1],destination[3] )  end )
+				LOUDSORT( markerlist, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq( a.Position[1],a.Position[3], destination[1],destination[3] ) < VDist2Sq( b.Position[1],b.Position[3], destination[1],destination[3] )  end )
 
 				-- loop thru each marker -- see if you can form a safe path on the surface 
 				-- and a safe path for the transports -- use the first one that satisfies both
@@ -1277,19 +1277,23 @@ Platoon = Class(moho.platoon_methods) {
 				local counter = 0
 			
 				local VDist3Sq = VDist3Sq
-                local testdistance, obstructed, thisthreat
+                local Node, obstructed, Position, testdistance, thisthreat
+
                 local maxthreat = (threatallowed * threatmodifier)
                 
                 local nomarkers = true
 				
 				-- sort the table by closest to the given location
-				LOUDSORT(markerlist, function(a,b) return VDist3Sq( a.position, location ) < VDist3Sq( b.position, location ) end)
+				LOUDSORT(markerlist, function(a,b) local VDist3Sq = VDist3Sq return VDist3Sq( a.position, location ) < VDist3Sq( b.position, location ) end)
 	
 				-- traverse the list and make a new list of those with allowable threat and within range
 				-- since the source table is already sorted by range, the output table will be created in a sorted order
-				for nodename,v in markerlist do
+				for _,v in markerlist do
+                
+                    Node = v.node
+                    Position = v.position
                     
-                    testdistance = VDist3Sq( v.position, location )
+                    testdistance = VDist3Sq( Position, location )
 
 					-- process only those entries within the radius
 					if testdistance <= radiuscheck then
@@ -1343,7 +1347,7 @@ Platoon = Class(moho.platoon_methods) {
 				-- resort positions to be closest to goalseek position
 				-- just a note here -- the goalseek position is often sent WITHOUT a vertical indication so I had to use VDIST2 rather than VDIST 3 to be sure
 				if goalseek then
-					LOUDSORT(positions, function(a,b) return VDist2Sq( a[3][1],a[3][3], goalseek[1],goalseek[3] ) < VDist2Sq( b[3][1],b[3][3], goalseek[1],goalseek[3] ) end)
+					LOUDSORT(positions, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq( a[3][1],a[3][3], goalseek[1],goalseek[3] ) < VDist2Sq( b[3][1],b[3][3], goalseek[1],goalseek[3] ) end)
 				end
 
 				local bestThreat = maxthreat
@@ -1782,18 +1786,13 @@ Platoon = Class(moho.platoon_methods) {
 			if not engineer then
 			
 				-- use the base generated rally points
-				local rallypoints = LOUDCOPY(bestBase.RallyPoints)
-				
-				-- sort the rallypoints for closest to the platoon --
-				LOUDSORT( rallypoints, function(a,b) return VDist2Sq( a[1],a[3], platPos[1],platPos[3] ) < VDist2Sq( b[1],b[3], platPos[1],platPos[3] ) end )
+				LOUDSORT( bestBase.RallyPoints, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq( a[1],a[3], platPos[1],platPos[3] ) < VDist2Sq( b[1],b[3], platPos[1],platPos[3] ) end )
 
-				transportLocation = LOUDCOPY(rallypoints[1])
+				transportLocation = LOUDCOPY( bestBase.RallyPoints[1] )
 				
 				-- if cannot find rally marker - use base centre
 				if not transportLocation then
-				
 					transportLocation = LOUDCOPY(bestBase.Position)
-					
 				end
 				
 			end
@@ -2720,7 +2719,7 @@ Platoon = Class(moho.platoon_methods) {
 		local killedunit = false
 		
 		-- sort units so that units furthest from desiredlocation are first - those are usually the hung units
-		LOUDSORT(platoonunits, function(a,b) return VDist3( GetPosition(a), desiredlocation) > VDist3( GetPosition(b), desiredlocation) end )
+		LOUDSORT(platoonunits, function(a,b) local GetPosition = GetPosition local VDist3Sq = VDist3Sq return VDist3Sq( GetPosition(a), desiredlocation) > VDist3Sq( GetPosition(b), desiredlocation) end )
 		
 		local unitskilled = 0
         local unitpos, distance
@@ -2765,19 +2764,23 @@ Platoon = Class(moho.platoon_methods) {
 	-- It's always a larger value than the IMAPRadius that was used to find targets originally and allows this
 	-- routine to return TRUE on moving HiPri targets
 	RecheckHiPriTarget = function( aiBrain, targetlocation, targetclass, pos)
-    
-   		local VDist2Sq = VDist2Sq
+
+        local VDist3Sq = VDist3Sq 
+        
+		local intelresolution = ScenarioInfo.IntelResolution * ScenarioInfo.IntelResolution
 
 		local targetlist = GetHiPriTargetList( aiBrain, pos )
-		
-		local intelresolution = ScenarioInfo.IntelResolution * ScenarioInfo.IntelResolution
-	
+        
+        local TPosition
+
 		-- sort this list by distance from targetlocation so I can break early
-		LOUDSORT(targetlist, function (a,b) return VDist2Sq(a.Position[1],a.Position[3],targetlocation[1],targetlocation[3]) < VDist2Sq(b.Position[1],b.Position[3],targetlocation[1],targetlocation[3]) end)
+		LOUDSORT(targetlist, function (a,b) local VDist3Sq = VDist3Sq return VDist3Sq( a.Position,targetlocation ) < VDist3Sq( b.Position,targetlocation ) end)
         
 		for _,Target in targetlist do
+        
+            TPosition = Target.Position
 		
-			if VDist2Sq(targetlocation[1],targetlocation[3], Target.Position[1],Target.Position[3]) > intelresolution then
+			if VDist3Sq( targetlocation, TPosition ) > intelresolution then
 				break
 			end
 		
@@ -7490,7 +7493,7 @@ Platoon = Class(moho.platoon_methods) {
             -- sort mexes by distance from the engineer --            
             position = GetPlatoonPosition(self)
 			
-            LOUDSORT( Mexs, function(a,b) return VDist2Sq( GetPosition(a)[1], GetPosition(a)[3], position[1],position[3]) < VDist2Sq( GetPosition(b)[1], GetPosition(b)[3], position[1],position[3]) end )
+            LOUDSORT( Mexs, function(a,b) local GetPosition = GetPosition local VDist2Sq = VDist2Sq return VDist2Sq( GetPosition(a)[1], GetPosition(a)[3], position[1],position[3]) < VDist2Sq( GetPosition(b)[1], GetPosition(b)[3], position[1],position[3]) end )
             
             reference = {}            
             referencefound = false
@@ -7665,7 +7668,7 @@ Platoon = Class(moho.platoon_methods) {
             -- sort mexes by distance from the engineer --            
             local position = GetPlatoonPosition(self)
 			
-            LOUDSORT( Mexs, function(a,b) return VDist3( GetPosition(a), position) < VDist3( GetPosition(b), position) end )
+            LOUDSORT( Mexs, function(a,b) local GetPosition = GetPosition local VDist3 = VDist3 return VDist3( GetPosition(a), position) < VDist3( GetPosition(b), position) end )
             
             for _,v in Mexs do
             
@@ -7993,22 +7996,25 @@ Platoon = Class(moho.platoon_methods) {
 				if (not eng.Dead) and (not eng.IssuedReclaimCommand) then
 				
 					-- check reclaimables - note - unlike units we issue reclaims to all and then return to PBC to continue with the build order
-					local reclaims = AIGetReclaimablesAroundLocation( aiBrain, eng.LocationType, 2, buildlocation ) or false
+					reclaims = AIGetReclaimablesAroundLocation( aiBrain, LocationType, 2, buildPosition ) or {}
 					
 					if reclaims[1] then
+                    
+                        engPos = eng:GetPosition()
 
 						-- sort for closest to engineer -- 
-						LOUDSORT(reclaims, function(a,b) return VDist3( eng:GetPosition(), a:GetPosition() ) < VDist3( eng:GetPosition(), b:GetPosition() ) end )
+						LOUDSORT(reclaims, function(a,b) local GetPosition = GetPosition local VDist3 = VDist3 return VDist3( engPos, a:GetPosition() ) < VDist3( engPos, b:GetPosition() ) end )
 
-						for k,v in reclaims do
+						for _,v in reclaims do
+                        
+                            MassReclaim = v.MassReclaim or 0
+                            EnergyReclaim = v.EnergyReclaim or 0
 
 							-- just a note - the v.MassReclaim and v.EnergyReclaim insure we dont reclaim valid structures (which wont have those values)
-							if ((v.MassReclaim and v.MassReclaim > 0) or (v.EnergyReclaim and v.EnergyReclaim > 0)) and (not aiBrain.BadReclaimables[v]) then
+							if (MassReclaim > 0 or EnergyReclaim > 0) and (not BadReclaimables[v]) then
 						
 								if not eng.Dead then
-								
 									if not test then
-
 										IssueReclaim( {eng}, v )
 									end
 								
@@ -9525,24 +9531,22 @@ Platoon = Class(moho.platoon_methods) {
 
 		local platPos = LOUDCOPY(GetPlatoonPosition(self))
 
-        self.UsingTransport = true
-
 		-- get a list of all the platoons for this brain
 		local GetPlatoonsList = moho.aibrain_methods.GetPlatoonsList
-        
         local AlliedPlatoons = LOUDCOPY(GetPlatoonsList(aiBrain))
 		
-		LOUDSORT(AlliedPlatoons, function(a,b) return VDist2Sq(GetPlatoonPosition(a)[1],GetPlatoonPosition(a)[3], platPos[1],platPos[3]) < VDist2Sq(GetPlatoonPosition(b)[1],GetPlatoonPosition(b)[3], platPos[1],platPos[3]) end)
-		
-		local mergedunits = false
-		local aPlatUnits, allyPlatoonSize, validUnits, counter = 0
-		
-        --if PlatoonMergeDialog then
-          --  LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." checking MERGE WITH for "..repr(LOUDGETN(AlliedPlatoons)).." platoons")
-        --end
-		
-		local count = 0
+		LOUDSORT(AlliedPlatoons, function(a,b) local GetPlatoonPosition = GetPlatoonPosition local VDist3Sq = VDist3Sq return VDist3Sq( GetPlatoonPosition(a), platPos ) < VDist3Sq( GetPlatoonPosition(b), platPos ) end)
+
+        self.UsingTransport = true
+        
+        local BuilderName = self.BuilderName
+        local MovementLayer = self.MovementLayer
+
+		local mergedunits = false        
         local Squads = { 'Attack','Artillery','Guard','Support','Scout' }
+		local aPlatUnits, allyPlatoonSize, validUnits
+        local count = 0
+        local counter = 0
 		
 		-- loop thru all the platoons in the list
         for _,aPlat in AlliedPlatoons do
@@ -9712,7 +9716,7 @@ Platoon = Class(moho.platoon_methods) {
         local SQUADUNITS
 
 		
-		LOUDSORT(AlliedPlatoons, function(a,b) return VDist2Sq(GetPlatoonPosition(a)[1],GetPlatoonPosition(a)[3], platPos[1],platPos[3]) < VDist2Sq(GetPlatoonPosition(b)[1],GetPlatoonPosition(b)[3], platPos[1],platPos[3]) end)
+		LOUDSORT(AlliedPlatoons, function(a,b) local GetPlatoonPosition = GetPlatoonPosition local VDist2Sq = VDist2Sq return VDist2Sq(GetPlatoonPosition(a)[1],GetPlatoonPosition(a)[3], platPos[1],platPos[3]) < VDist2Sq(GetPlatoonPosition(b)[1],GetPlatoonPosition(b)[3], platPos[1],platPos[3]) end)
 
         for _,aPlat in AlliedPlatoons do
 
@@ -10091,7 +10095,7 @@ Platoon = Class(moho.platoon_methods) {
 		if count > 0 and aiBrain.AttackPlan.Goal != nil then
 
 			-- sort the bases by distance to the attack plan goal
-			LOUDSORT( selections, function(a,b) return VDist3Sq( aiBrain.BuilderManagers[a].Position, aiBrain.AttackPlan.Goal ) < VDist3Sq( aiBrain.BuilderManagers[b].Position, aiBrain.AttackPlan.Goal ) end )
+			LOUDSORT( selections, function(a,b) local VDist3Sq = VDist3Sq return VDist3Sq( aiBrain.BuilderManagers[a].Position, aiBrain.AttackPlan.Goal ) < VDist3Sq( aiBrain.BuilderManagers[b].Position, aiBrain.AttackPlan.Goal ) end )
 			
 			local AttackBase = selections[1]
 

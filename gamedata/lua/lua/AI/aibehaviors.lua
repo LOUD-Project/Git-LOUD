@@ -2750,13 +2750,13 @@ function AirForceAILOUD( self, aiBrain )
                         local midpointy = (squad[2]+targetposition[2])/2
                         local midpointz = (squad[3]+targetposition[3])/2
                     
-                        local Direction = import('/lua/utilities.lua').GetDirectionInDegrees( squad, targetposition )
+                        local Direction = GetDirectionInDegrees( squad, targetposition )
 
                         -- this gets them moving to a point halfway to the targetposition - hopefully
                         IssueFormMove( GetPlatoonUnits(self), { midpointx, midpointy, midpointz }, 'AttackFormation', Direction )
 
                         -- sort the fighters by farthest from target -- we'll send them just ahead of the others to get tighter wave integrity
-                        LOUDSORT( attackers, function (a,b) return VDist3(GetPosition(a),targetposition) > VDist3(GetPosition(b),targetposition) end )
+                        LOUDSORT( attackers, function (a,b) local GetPosition = GetPosition local VDist3Sq = VDist3Sq return VDist3Sq(GetPosition(a),targetposition) > VDist3Sq(GetPosition(b),targetposition) end )
                    
                         local attackissued = false
                         local attackissuedcount = 0
@@ -3254,7 +3254,7 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
                         IssueFormMove( GetPlatoonUnits(self), { midpointx, midpointy, midpointz }, 'AttackFormation', Direction )
 
                         -- sort the bombers by farthest from target -- we'll send them just ahead of the others to get tighter wave integrity
-                        LOUDSORT( attackers, function (a,b) return VDist3(a:GetPosition(),targetposition) > VDist3(b:GetPosition(),targetposition) end )
+                        LOUDSORT( attackers, function (a,b) local VDist3Sq = VDist3Sq return VDist3Sq(a:GetPosition(),targetposition) > VDist3Sq(b:GetPosition(),targetposition) end )
                    
                         local attackissued = false
                         local attackissuedcount = 0
@@ -3752,7 +3752,7 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
                         IssueFormMove( GetPlatoonUnits(self), { midpointx, midpointy, midpointz }, 'AttackFormation', Direction )
 
                         -- sort the bombers by farthest from target -- we'll send them just ahead of the others to get tighter wave integrity
-                        LOUDSORT( attackers, function (a,b) return VDist3(GetPosition(a),targetposition) > VDist3(GetPosition(b),targetposition) end )
+                        LOUDSORT( attackers, function (a,b) local GetPosition = GetPosition local VDist3Sq = VDist3Sq return VDist3Sq(GetPosition(a),targetposition) > VDist3Sq(GetPosition(b),targetposition) end )
                    
                         local attackissued = false
                         local attackissuedcount = 0
@@ -4258,7 +4258,7 @@ function AirForceAI_Torpedo_LOUD( self, aiBrain )
                         IssueFormMove( GetPlatoonUnits(self), { midpointx, midpointy, midpointz }, 'AttackFormation', Direction )
 
                         -- sort the bombers by farthest from target -- we'll send them just ahead of the others to get tighter wave integrity
-                        LOUDSORT( attackers, function (a,b) return VDist3(GetPosition(a),targetposition) > VDist3(GetPosition(b),targetposition) end )
+                        LOUDSORT( attackers, function (a,b) local GetPosition = GetPosition local VDist3Sq = VDist3Sq return VDist3Sq(GetPosition(a),targetposition) > VDist3Sq(GetPosition(b),targetposition) end )
                    
                         local attackissued = false
                         local attackissuedcount = 0
@@ -5278,7 +5278,7 @@ function NavalBombardAILOUD( self, aiBrain )
 					end
 
 					-- sort the bombardment markers to see if any are within range of the Target.Position
-					LOUDSORT( navalAreas, function(a,b) return VDist3(a.Position, Target.Position) < VDist3(b.Position, Target.Position) end )
+					LOUDSORT( navalAreas, function(a,b) local VDist3 = VDist3 return VDist3(a.Position, Target.Position) < VDist3(b.Position, Target.Position) end )
 					
 					if VDist3( navalAreas[1].Position, Target.Position ) > maxRange then
 				

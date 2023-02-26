@@ -120,10 +120,10 @@ function AIPickEnemyLogic( self, brainbool )
             
                 for _,threattype in threattypes do
 			
-                    threats = GetThreatsAroundPosition( self, self.BuilderManagers.MAIN.Position, 32, true, threattype, armyindex)
+                    threats = GetThreatsAroundPosition( self, testposition, 32, true, threattype, armyindex)
                 
                     -- sort the threats for closest
-                    LOUDSORT( threats, function(a,b) return VDist2Sq(a[1],a[2],testposition[1],testposition[3]) < VDist2Sq(b[1],b[2],testposition[1],testposition[3]) end )
+                    LOUDSORT( threats, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq(a[1],a[2],testposition[1],testposition[3]) < VDist2Sq(b[1],b[2],testposition[1],testposition[3]) end )
 
                     for _,data in threats do
 
@@ -328,6 +328,7 @@ function AISortMarkersFromLastPosWithThreatCheck(aiBrain, markerlist, maxNumber,
 	end
 
     local function SortVDist2Sq( a, b )
+        local VDist2Sq = VDist2Sq
         return VDist2Sq(a.Position[1],a.Position[3], startPosX,startPosZ) < VDist2Sq(b.Position[1],b.Position[3], startPosX,startPosZ)
     end
     
@@ -480,33 +481,32 @@ function AIGetMarkersAroundLocation( aiBrain, markerType, pos, radius, threatMin
     local GetThreatAtPosition = GetThreatAtPosition
     
 	local checkdistance = radius * radius
-    local threat
+    local position, threat
 	
-	LOUDSORT(tempMarkers, function(a,b) return VDist2Sq( pos[1],pos[3], a.Position[1],a.Position[3] ) < VDist2Sq( pos[1],pos[3], b.Position[1],b.Position[3] ) end)
+	LOUDSORT(tempMarkers, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq( pos[1],pos[3], a.Position[1],a.Position[3] ) < VDist2Sq( pos[1],pos[3], b.Position[1],b.Position[3] ) end)
 
     for _,v in tempMarkers do
 	
-        if VDist2Sq( pos[1], pos[3], v.Position[1], v.Position[3] ) <= checkdistance then
+        position = v.Position
+        
+        if VDist2Sq( pos[1], pos[3], position[1], position[3] ) <= checkdistance then
 		
             if not threatMin then
             
 				counter = counter + 1			
                 markerlist[counter] = v
-
             else
 			
-                threat = GetThreatAtPosition( aiBrain, v.Position, threatRings, true, threatType or 'Overall' )
+                threat = GetThreatAtPosition( aiBrain, position, threatRings, true, threatType or 'Overall' )
 				
                 if threat >= threatMin and threat <= threatMax then
                 
                     counter = counter + 1                
                     markerlist[counter] = v
-
 				end
             end
 			
         else
-        
 			break
 		end
     end
@@ -542,9 +542,8 @@ end
 function AIFindMarkerNeedsEngineer( aiBrain, pos, positions )
 
     local filterpositions = AIFilterAlliedBases( aiBrain, positions )
-    local VDist2Sq = VDist2Sq
 	
-	LOUDSORT(filterpositions, function(a,b) return VDist2Sq(a.Position[1],a.Position[3], pos[1],pos[3]) < VDist2Sq(b.Position[1],b.Position[3], pos[1],pos[3]) end)
+	LOUDSORT(filterpositions, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq(a.Position[1],a.Position[3], pos[1],pos[3]) < VDist2Sq(b.Position[1],b.Position[3], pos[1],pos[3]) end)
 	
     for k,v in filterpositions do
 	
@@ -574,20 +573,19 @@ function AIFindDefensivePointNeedsStructureFromPoint( aiBrain, point, radius, ca
     local positions = AIGetMarkersAroundLocation( aiBrain, 'Defensive Point', point, radius, tMin, tMax, tRings, tType)
     
 	positions = TABLECAT(positions, AIGetMarkersAroundLocation( aiBrain, 'Expansion Area', point, radius, tMin, tMax, tRings, tType))
-    
-    local VDist2Sq = VDist2Sq
 
-    LOUDSORT(positions, function(a,b) return VDist2Sq(a.Position[1],a.Position[3], point[1],point[3]) < VDist2Sq(b.Position[1],b.Position[3], point[1],point[3]) end)
+    LOUDSORT(positions, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq(a.Position[1],a.Position[3], point[1],point[3]) < VDist2Sq(b.Position[1],b.Position[3], point[1],point[3]) end)
     
     local searchcats = LOUDPARSE(category)
-    local numunits
+    local numunits, position
 
     for _,v in positions do
-	
-        numUnits = GetNumberOfOwnUnitsAroundPoint( aiBrain, searchcats, v.Position, markerRadius )
+
+        position = v.Position
+        numUnits = GetNumberOfOwnUnitsAroundPoint( aiBrain, searchcats, position, markerRadius )
 
         if numUnits <= unitMax then
-			return v.Position, v.Name
+			return position, v.Name
         end
         
     end
@@ -611,7 +609,7 @@ function AIGetClosestMarkerLocation(aiBrain, markerType, startX, startZ, extraTy
 	
 	if markerlist[1] then
     
-		LOUDSORT(markerlist, function(a,b) return VDist2Sq(a.Position[1],a.Position[3],startX,startZ) < VDist2Sq(b.Position[1],b.Position[3],startX,startZ) end)
+		LOUDSORT(markerlist, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq(a.Position[1],a.Position[3],startX,startZ) < VDist2Sq(b.Position[1],b.Position[3],startX,startZ) end)
 
 		return markerlist[1].Position, markerlist[1].Name
 	end
@@ -625,16 +623,17 @@ function AIGetClosestThreatMarkerLoc(aiBrain, markerType, startX, startZ, threat
 
     local GetThreatAtPosition = GetThreatAtPosition
     
-    LOUDSORT(markerlist, function(a,b) return VDist2Sq(a.Position[1],a.Position[3],startX,startZ) < VDist2Sq(b.Position[1],b.Position[3],startX,startZ) end)
+    LOUDSORT(markerlist, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq(a.Position[1],a.Position[3],startX,startZ) < VDist2Sq(b.Position[1],b.Position[3],startX,startZ) end)
     
-    local threat
+    local position, threat
 
     for k, v in markerlist do
 	
-        threat = GetThreatAtPosition( aiBrain, v.Position, rings, true, threatType or 'Overall')
+        position = v.Position
+        threat = GetThreatAtPosition( aiBrain, position, rings, true, threatType or 'Overall')
         
         if threat >= threatMin and threat <= threatMax then
-			return v.Position, v.Name
+			return position, v.Name
         end
         
     end

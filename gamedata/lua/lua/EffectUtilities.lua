@@ -546,9 +546,7 @@ function CreateUEFBuildSliceBeams( builder, unitBeingBuilt, BuildEffectBones, Bu
     local GetFractionComplete = GetFractionComplete
     local LOUDWARP = LOUDWARP
     local SetVelocity = SetVelocity
-    local VDist3Sq = VDist3Sq
     local WaitTicks = WaitTicks
-
 
     local army = builder.Army
     local buildbp = ALLBPS[unitBeingBuilt.BlueprintID]
@@ -590,7 +588,7 @@ function CreateUEFBuildSliceBeams( builder, unitBeingBuilt, BuildEffectBones, Bu
     VectorExtentsList[3] = {x - ox, y + oy, z + oz}
     VectorExtentsList[4] = {x - ox, y + oy, z - oz}
 
-    LOUDSORT( VectorExtentsList, function(a,b) local builderPos = GetPosition(builder) return VDist3Sq( a, builderPos) < VDist3Sq( b, builderPos ) end )
+    LOUDSORT( VectorExtentsList, function(a,b) local LOUDV3SqUEF = VDist3Sq local builderPos = GetPosition(builder) return LOUDV3SqUEF( a, builderPos) < LOUDV3SqUEF( b, builderPos ) end )
     
     local cx1 = VectorExtentsList[1][1]
 	local cy1 = VectorExtentsList[1][2]
@@ -656,7 +654,7 @@ function CreateUEFCommanderBuildSliceBeams( builder, unitBeingBuilt, BuildEffect
     local LOUDATTACHBEAMENTITY = LOUDATTACHBEAMENTITY
     local LOUDWARP = LOUDWARP
     local SetVelocity = SetVelocity
-    local VDist3Sq = VDist3Sq
+    
     local WaitTicks = WaitTicks
 
     local army = builder.Army
@@ -707,7 +705,7 @@ function CreateUEFCommanderBuildSliceBeams( builder, unitBeingBuilt, BuildEffect
     VectorExtentsList[3] = {x - ox, y + oy, z + oz}
     VectorExtentsList[4] = {x - ox, y + oy, z - oz}
 
-    LOUDSORT( VectorExtentsList, function(a,b) local builderPos = GetPosition(builder) return VDist3Sq( a, builderPos) < VDist3Sq( b, builderPos ) end )
+    LOUDSORT( VectorExtentsList, function(a,b) local LOUDV3SqUEF = VDist3Sq local builderPos = GetPosition(builder) return LOUDV3SqUEF( a, builderPos) < LOUDV3SqUEF( b, builderPos ) end )
     
     local cx1 = VectorExtentsList[1][1]
 	local cy1 = VectorExtentsList[1][2]

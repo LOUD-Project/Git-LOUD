@@ -112,16 +112,19 @@ function AIExecuteBuildStructure( aiBrain, engineer, buildingType, closeToBuilde
             local maxlist = constructionData.MaxChoices or 1
             
             local VDist3 = VDist3
+            local position
         
-            LOUDSORT( markerlist, function (a,b) return VDist3( a.Position, SourcePosition ) < VDist3( b.Position, SourcePosition ) end )
+            LOUDSORT( markerlist, function (a,b) local VDist3 = VDist3 return VDist3( a.Position, SourcePosition ) < VDist3( b.Position, SourcePosition ) end )
 
             for _,v in markerlist do
             
-                if VDist3( v.Position, SourcePosition ) >= mindistance then
+                position = v.Position
+            
+                if VDist3( position, SourcePosition ) >= mindistance then
                 
-                    if VDist3( v.Position, SourcePosition ) <= maxdistance then
+                    if VDist3( position, SourcePosition ) <= maxdistance then
                 
-                        if CanBuildStructureAt( aiBrain, testunit, v.Position ) then
+                        if CanBuildStructureAt( aiBrain, testunit, position ) then
 
                             counter = counter + 1
                             mlist[counter] = v

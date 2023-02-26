@@ -106,13 +106,9 @@ function AssistBody(self, eng, aiBrain)
         if assistList[1] then
 
 			-- we'll use the base position rather than the engineer --
-			platoonPos = aiBrain.BuilderManagers[locationType].Position or false
-        
-            local function DOSORT(a,b)
-                return VDist3Sq( GetPosition(a), platoonPos) < VDist3Sq( GetPosition(b), platoonPos)
-            end
+			platoonPos = BuilderManager.Position or false
  			
-            LOUDSORT( assistList, DOSORT )
+            LOUDSORT( assistList, function(a,b) local GetPosition = GetPosition local LOUDV3Sq = LOUDV3Sq return LOUDV3Sq( GetPosition(a), platoonPos) < LOUDV3Sq( GetPosition(b), platoonPos) end )
 
             for _,v in assistList do
 			
@@ -253,16 +249,16 @@ function AIFindBaseAreaForExpansion( aiBrain, locationType, radius, tMin, tMax, 
 	
 	if Position then
     
-        local VDist2Sq = VDist2Sq
         local VDist3 = VDist3
 
+        local position
 		local positions = {}
 
 		positions = LOUDCONCAT(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Blank Marker', Position, radius, tMin, tMax, tRings, tType))
 	
 		positions = LOUDCONCAT(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Large Expansion Area', Position, radius, tMin, tMax, tRings, tType))
 	
-		LOUDSORT(positions, function(a,b) return VDist2Sq(a.Position[1],a.Position[3], aiBrain.BuilderManagers[locationType].Position[1],aiBrain.BuilderManagers[locationType].Position[3]) < VDist2Sq(b.Position[1],b.Position[3], aiBrain.BuilderManagers[locationType].Position[1],aiBrain.BuilderManagers[locationType].Position[3] ) end )
+		LOUDSORT(positions, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq(a.Position[1],a.Position[3], BuilderManager.Position[1],BuilderManager.Position[3]) < VDist2Sq(b.Position[1],b.Position[3], BuilderManager.Position[1],BuilderManager.Position[3] ) end )
 	
 		-- I put a check in here to eliminate not only the current position but any position within a range of the current position
 		-- I expanded this concept further to base the exclusion radius upon map size
@@ -333,16 +329,16 @@ function AIFindBaseAreaForDP( aiBrain, locationType, radius, tMin, tMax, tRings,
 	
 	if Position then
 
-        local VDist2Sq = VDist2Sq
         local VDist3 = VDist3
-        
+
+        local position
 		local positions = {}
 	
 		positions = LOUDCONCAT(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Blank Marker', Position, radius, tMin, tMax, tRings, tType))	
 	
 		positions = LOUDCONCAT(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Large Expansion Area', Position, radius, tMin, tMax, tRings, tType))
 
-		LOUDSORT(positions, function(a,b) return VDist2Sq(a.Position[1],a.Position[3], Position[1],Position[3]) < VDist2Sq(b.Position[1],b.Position[3], Position[1],Position[3] ) end )
+		LOUDSORT(positions, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq(a.Position[1],a.Position[3], Position[1],Position[3]) < VDist2Sq(b.Position[1],b.Position[3], Position[1],Position[3] ) end )
 
 		local minimum_baserange = 200
     
@@ -416,7 +412,7 @@ function AIFindDefensivePointForDP( aiBrain, locationType, radius, tMin, tMax, t
 		positions = LOUDCONCAT( positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Expansion Area', test_position, radius, tMin, tMax, tRings, tType))
 
 		-- sort the positions by distance from Position --
-		LOUDSORT(positions, function(a,b) return VDist2Sq(a.Position[1],a.Position[3], test_position[1],test_position[3]) < VDist2Sq(b.Position[1],b.Position[3], test_position[1],test_position[3] ) end )
+		LOUDSORT(positions, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq(a.Position[1],a.Position[3], test_position[1],test_position[3]) < VDist2Sq(b.Position[1],b.Position[3], test_position[1],test_position[3] ) end )
 
 		local Brains = ArmyBrains
 
@@ -479,7 +475,6 @@ function AIFindNavalDefensivePointForDP( aiBrain, locationType, radius, tMin, tM
 	
     if Position then
 
-        local VDist2Sq = VDist2Sq
         local VDist3 = VDist3
         
 		-- this is the range that the current primary base is from the goal - new bases must be closer than this
@@ -487,12 +482,13 @@ function AIFindNavalDefensivePointForDP( aiBrain, locationType, radius, tMin, tM
         local test_position = aiBrain.BuilderManagers[aiBrain.PrimarySeaAttackBase].Position or Position
 		local test_range = VDist3( test_position, aiBrain.AttackPlan.Goal )	
 
+        local position
 		local positions = {}
 	
 		local positions = LOUDCONCAT(positions,AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Naval Defensive Point', test_position, radius, tMin, tMax, tRings, tType))
 
 		-- sort the possible positions by distance from the test_position -- 
-		LOUDSORT(positions, function(a,b) return VDist2Sq(a.Position[1],a.Position[3], test_position[1],test_position[3]) < VDist2Sq(b.Position[1],b.Position[3], test_position[1],test_position[3] ) end )
+		LOUDSORT(positions, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq(a.Position[1],a.Position[3], test_position[1],test_position[3]) < VDist2Sq(b.Position[1],b.Position[3], test_position[1],test_position[3] ) end )
 	
 		local Brains = ArmyBrains
 	
@@ -561,15 +557,15 @@ function AIFindNavalAreaForExpansion( aiBrain, locationType, radius, tMin, tMax,
 	
     if Position then 
     
-        local VDist2Sq = VDist2Sq
         local VDist3 = VDist3
-		
+
+        local position
 		local positions = {}
 	
 		local positions = LOUDCONCAT(positions,AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Naval Area', Position, radius, tMin, tMax, tRings, tType))
 
 		-- sort the possible positions by distance -- 
-		LOUDSORT(positions, function(a,b) return VDist2Sq(a.Position[1],a.Position[3], Position[1],Position[3]) < VDist2Sq(b.Position[1],b.Position[3], Position[1],Position[3] ) end )
+		LOUDSORT(positions, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq(a.Position[1],a.Position[3], Position[1],Position[3]) < VDist2Sq(b.Position[1],b.Position[3], Position[1],Position[3] ) end )
 	
 		local Brains = ArmyBrains
 	
@@ -640,14 +636,16 @@ function AIFindBasePointNeedsStructure( aiBrain, locationType, radius, category,
 		positions = LOUDCONCAT(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Large Expansion Area', Position, radius, tMin, tMax, tRings, tType))	
 
 		-- sort by distance from Position
-		LOUDSORT(positions, function(a,b) return VDist2Sq(a.Position[1],a.Position[3], Position[1], Position[3]) < VDist2Sq(b.Position[1],b.Position[3], Position[1], Position[3] ) end )
+		LOUDSORT(positions, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq(a.Position[1],a.Position[3], Position[1], Position[3]) < VDist2Sq(b.Position[1],b.Position[3], Position[1], Position[3] ) end )
     
 		-- loop and check unit counts - exit on first good --
 		for _,v in positions do
+        
+            position = v.Position
 		
-			if GetNumUnitsAroundPoint( aiBrain, LOUDPARSE(category), v.Position, markerRadius, 'Ally') <= unitMax then
+			if GetNumUnitsAroundPoint( aiBrain, catcheck, position, markerRadius, 'Ally') <= unitMax then
 			
-				return v.Position, v.Name
+				return position, v.Name
 			end
 		end
 	end
@@ -671,12 +669,15 @@ function AIFindDefensivePointNeedsStructure( aiBrain, locationType, radius, cate
 		
 		positions = LOUDCONCAT( positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Expansion Area', Position, radius, tMin, tMax, tRings, tType))
     
-		LOUDSORT( positions, function(a,b) return VDist2Sq( a.Position[1],a.Position[3], Position[1],Position[3] ) < VDist2Sq(b.Position[1],b.Position[3], Position[1],Position[3]) end )
+		LOUDSORT( positions, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq( a.Position[1],a.Position[3], Position[1],Position[3] ) < VDist2Sq(b.Position[1],b.Position[3], Position[1],Position[3]) end )
 
-		for k,v in positions do
+		for _,v in positions do
+        
+            position = v.Position
 		
-			if GetNumUnitsAroundPoint( aiBrain, LOUDPARSE(category), v.Position, markerRadius, 'Ally' ) <= unitMax then
-				return v.Position, v.Name
+			if GetNumUnitsAroundPoint( aiBrain, catcheck, position, markerRadius, 'Ally' ) <= unitMax then
+
+				return position, v.Name
 			end	
 		end
 	end
@@ -690,21 +691,23 @@ function AIFindExpansionPointNeedsStructure( aiBrain, locationType, radius, cate
     local Position = aiBrain.BuilderManagers[locationType].Position or false
 
     if Position then
-    
-        local VDist2Sq = VDist2Sq
-	
+
+        local catcheck = LOUDPARSE(category)
+        
+        local position
 		local positions = {}
 	
 		positions = LOUDCONCAT(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Large Expansion Area', Position, radius, tMin, tMax, tRings, tType))
 
-		LOUDSORT(positions, function(a,b) return VDist2Sq(a.Position[1],a.Position[3], Position[1],Position[3]) < VDist2Sq(b.Position[1],b.Position[3], Position[1],Position[3] ) end )	
-	
-		local LOUDPARSE = ParseEntityCategory
+		LOUDSORT( positions, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq(a.Position[1],a.Position[3], Position[1],Position[3]) < VDist2Sq(b.Position[1],b.Position[3], Position[1],Position[3] ) end )	
 		
 		for k,v in positions do
+        
+            position = v.Position
 		
-			if AIUtils.GetNumberOfOwnUnitsAroundPoint( aiBrain, LOUDPARSE(category), v.Position, markerRadius ) <= unitMax then
-				return v.Position, v.Name
+			if AIUtils.GetNumberOfOwnUnitsAroundPoint( aiBrain, catcheck, position, markerRadius ) <= unitMax then
+
+				return position, v.Name
 			end
 		end
 	end
@@ -743,27 +746,36 @@ function AIFindNavalDefensivePointNeedsStructure( aiBrain, locationType, radius,
 		-- minimum range that a DP can be from an existing naval position
 		local minimum_baserange = 200
 		
+        local catcheck = LOUDPARSE(category)
+        
+        local PlatoonGenerateSafePathToLOUD = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD
+        local PrimarySeaAttackBasePosition = aiBrain.BuilderManagers[aiBrain.PrimarySeaAttackBase].Position 
+        
+        local position
 		local positions = {}
+
         local path, reason, reject
 
 		positions = LOUDCONCAT(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Naval Defensive Point', test_position or Position, radius, tMin, tMax, tRings, tType))
     
-		LOUDSORT( positions, function(a,b) return VDist2Sq( a.Position[1],a.Position[3], test_position[1],test_position[3] ) < VDist2Sq(b.Position[1],b.Position[3], test_position[1],test_position[3]) end )
+		LOUDSORT( positions, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq( a.Position[1],a.Position[3], test_position[1],test_position[3] ) < VDist2Sq(b.Position[1],b.Position[3], test_position[1],test_position[3]) end )
     
 		-- loop thru positions and do the structure/unit count check
 		-- originally intended to insure that there are no allied units of same category within radius of this position
 		for k,v in positions do
-		
+
+            position = v.Position
+            
 			-- must be able to path from current Sea Primary to new position
             -- this prevents the AI from trying to locate naval DPs on another body of water
-			path, reason = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD( aiBrain, 'AttackPlanner', 'Water', aiBrain.BuilderManagers[aiBrain.PrimarySeaAttackBase].Position, v.Position, 9999, 250 )
+			path, reason = PlatoonGenerateSafePathToLOUD( aiBrain, 'AttackPlanner', 'Water', PrimarySeaAttackBasePosition, position, 9999, 250 )
 
 			if not path then
 				continue
 			end		
 
 			-- check if there are existing structures at the point
-			if GetNumUnitsAroundPoint( aiBrain, LOUDPARSE(category), v.Position, markerRadius, 'Ally' ) <= unitMax then
+			if GetNumUnitsAroundPoint( aiBrain, catcheck, position, markerRadius, 'Ally' ) <= unitMax then
 			
 				reject = false
 		
@@ -798,18 +810,21 @@ function AIFindStartPointNeedsStructure( aiBrain, locationType, radius, category
     local Position = aiBrain.BuilderManagers[locationType].Position or false
 
     if Position then
-    
-        local VDist2Sq = VDist2Sq
-	
+
+        local catcheck = LOUDPARSE(category)
+        
+        local position
 		local positions = {}
 	
 		positions = LOUDCONCAT(positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Blank Marker', Position, radius, tMin, tMax, tRings, tType))
     
-		LOUDSORT( positions, function(a,b) return VDist2Sq( a.Position[1],a.Position[3], Position[1],Position[3] ) < VDist2Sq(b.Position[1],b.Position[3], Position[1],Position[3]) end )
+		LOUDSORT( positions, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq( a.Position[1],a.Position[3], Position[1],Position[3] ) < VDist2Sq(b.Position[1],b.Position[3], Position[1],Position[3]) end )
 	
 		for k,v in positions do
+        
+            position = v.Position
 		
-			if v.Position[1] == Position[1] and v.Position[3] == Position[3] then
+			if position[1] == Position[1] and position[3] == Position[3] then
 			
 				LOUDREMOVE( positions, k )
 				break

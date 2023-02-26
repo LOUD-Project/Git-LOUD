@@ -830,7 +830,7 @@ EngineerManager = Class(BuilderManager) {
 				if threatTable[1] and Location then
 
 					-- sort the threat table by distance from this base --
-					LOUDSORT(threatTable, function (a,b) return VDist2Sq(a.Position[1],a.Position[3], Location[1],Location[3]) < VDist2Sq(b.Position[1],b.Position[3], Location[1],Location[3]) end)
+					LOUDSORT(threatTable, function (a,b) local VDist2Sq = VDist2Sq return VDist2Sq(a.Position[1],a.Position[3], Location[1],Location[3]) < VDist2Sq(b.Position[1],b.Position[3], Location[1],Location[3]) end)
 
 					local highThreat, highThreatPos, highThreatType
                     local alertraised, alertrangemod
@@ -1412,7 +1412,7 @@ EngineerManager = Class(BuilderManager) {
                                     -- put those into new list and then sort for furthest
                                     
                                     -- sort all the response units so that the farthest will be first in the list
-                                    LOUDSORT( grouplnd, function(a,b) return VDist2Sq(GetPosition(a)[1],GetPosition(a)[3], distressLocation[1],distressLocation[3]) > VDist2Sq(GetPosition(b)[1],GetPosition(b)[3], distressLocation[1],distressLocation[3]) end)
+                                    LOUDSORT( grouplnd, function(a,b) local GetPosition = GetPosition local VDist2Sq = VDist2Sq return VDist2Sq(GetPosition(a)[1],GetPosition(a)[3], distressLocation[1],distressLocation[3]) > VDist2Sq(GetPosition(b)[1],GetPosition(b)[3], distressLocation[1],distressLocation[3]) end)
 
                                     counter = 0
                                     totalthreatsent = 0
@@ -1478,7 +1478,7 @@ EngineerManager = Class(BuilderManager) {
 								IssueClearCommands( groupsea )
 
                                 -- sort all the response units so that the farthest will be first in the list
-                                LOUDSORT( groupsea, function(a,b) return VDist2Sq(GetPosition(a)[1],GetPosition(a)[3], distressLocation[1],distressLocation[3]) > VDist2Sq(GetPosition(b)[1],GetPosition(b)[3], distressLocation[1],distressLocation[3]) end)
+                                LOUDSORT( groupsea, function(a,b) local GetPosition = GetPosition local VDist2Sq = VDist2Sq return VDist2Sq(GetPosition(a)[1],GetPosition(a)[3], distressLocation[1],distressLocation[3]) > VDist2Sq(GetPosition(b)[1],GetPosition(b)[3], distressLocation[1],distressLocation[3]) end)
 
                                 counter = 0
                                 totalthreatsent = 0

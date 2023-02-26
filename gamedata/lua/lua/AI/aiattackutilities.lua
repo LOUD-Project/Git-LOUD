@@ -51,7 +51,7 @@ function GetClosestPathNodeInRadiusByLayer(location, layer)
 		local radius = LayerLimits[layer]
 
 		-- sort the markers for this layer by closest to location
-		LOUDSORT( nodes, function(a,b) return VDist2Sq(a.position[1],a.position[3], location[1],location[3]) < VDist2Sq(b.position[1],b.position[3], location[1],location[3]) end )
+		LOUDSORT( nodes, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq(a.position[1],a.position[3], location[1],location[3]) < VDist2Sq(b.position[1],b.position[3], location[1],location[3]) end )
 
 		-- if the first result is within radius then respond
 		if VDist2Sq( nodes[1].position[1],nodes[1].position[3], location[1],location[3]) <= (radius*radius) then
@@ -494,7 +494,7 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 			if pointlist[1] and PointSource then
 
 				-- sort the list by distance from source 
-				LOUDSORT( pointlist, function(a,b) return LOUDV2(PointSource[1],PointSource[3],a.Position[1],a.Position[3]) < LOUDV2( PointSource[1],PointSource[3],b.Position[1],b.Position[3] ) end)
+				LOUDSORT( pointlist, function(a,b) local LOUDV2 = LOUDV2 return LOUDV2(PointSource[1],PointSource[3],a.Position[1],a.Position[3]) < LOUDV2( PointSource[1],PointSource[3],b.Position[1],b.Position[3] ) end)
 				
 				for k,v in pointlist do
                
@@ -739,14 +739,11 @@ function FindTargetInRange( self, aiBrain, squad, maxRange, attackcategories, no
             return false, nil
         end
 	
-        local GetPosition = GetPosition
         local CanAttackTarget = CanAttackTarget
-
         local EntityCategoryFilterDown = EntityCategoryFilterDown
-        local VDist3Sq = VDist3Sq
-        
-		-- sort them by distance
-		LOUDSORT(enemyunits, function(a,b) return VDist3Sq( GetPosition(a), position ) < VDist3Sq( GetPosition(b), position ) end)
+        local GetPosition = GetPosition        
+
+		LOUDSORT(enemyunits, function(a,b) local GetPosition = GetPosition local VDist3Sq = VDist3Sq return VDist3Sq( GetPosition(a), position ) < VDist3Sq( GetPosition(b), position ) end)
         
         local u_position = false
 
@@ -905,32 +902,29 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
                             if enemythreat <= threatself then						
 
                                 -- check and adjust threat for shields
-                                if shieldcount > 0 then
+                                if shieldcount > 0 and enemythreat > 0 then
 					
                                     enemyshields = GetUnitsAroundPoint( aiBrain, SHIELDS, unitposition, 100, 'Enemy')
 								
-                                    LOUDSORT(enemyshields, function(a,b) return VDist2Sq(GetPosition(a)[1],GetPosition(a)[3], unitposition[1],unitposition[3]) < VDist2Sq(GetPosition(b)[1],GetPosition(b)[3], unitposition[1],unitposition[3]) end)
-							
-                                    totalshieldvalueattarget = 0
-							
+                                    LOUDSORT(enemyshields, function(a,b) local GetPosition = GetPosition local VDist3Sq = VDist3Sq return VDist3Sq( GetPosition(a),unitposition ) < VDist3Sq( GetPosition(b),unitposition ) end)
+
                                     for _,s in enemyshields do
                                 
                                         -- if the shield is On and it covers the target
-                                        if s:ShieldIsOn() and VDist2(GetPosition(s)[1],GetPosition(s)[3],unitposition[1],unitposition[3]) < s.MyShield.Size then
+                                        if s:ShieldIsOn() and VDist3( GetPosition(s), unitposition ) < s.MyShield.Size then
                                             enemythreat = enemythreat + (s.MyShield:GetHealth() * .0225)	-- threat plus 2.25% of shield strength
                                         end
                                     end
                                 end
 					
                                 -- cap low end of threat so we dont chase low value targets
-                                if enemythreat < ( threatself * .20) then
+                                if enemythreat > 0  and enemythreat < ( threatself * .20) then
                                     enemythreat = ( threatself * .20)
                                 end
 						
-                                if (not retUnit) or enemythreat < bestthreat then
+                                if (not retUnit) then
 
                                     retUnit = u
-                                    retPosition = LOUDCOPY(unitposition)
                                     bestthreat = enemythreat
                                     unitchecks = 0
                                     break
