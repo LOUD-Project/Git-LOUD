@@ -13,6 +13,11 @@ T2Bomber = {
 	Seraphim = {'ssa0211', 100},
 },
 
+T2Fighter = {
+    UEF = {'sea0212', 100},
+    Cybran = {'sra0212', 100},
+},
+
 T2SeaSub = {
     UEF = {'ses0204', 100},
 },
