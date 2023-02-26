@@ -103,6 +103,8 @@ local TrashDestroy = TrashBag.Destroy
 
 local unpack = unpack
 
+local setmetatable = setmetatable
+
 local WaitFor = WaitFor
 local WaitTicks = coroutine.yield
 	
@@ -296,6 +298,9 @@ Unit = Class(moho.unit_methods) {
         Entity.OnCreate(self)
         
         local aiBrain = GetAIBrain(self)
+        
+        self.ArmyIndex = aiBrain.ArmyIndex
+
 		local bp = ALLBPS[self.BlueprintID]
 
         self.Buffs = { BuffTable = {}, Affects = {}, }

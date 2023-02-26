@@ -286,7 +286,7 @@ function AIPickEnemyLogic( self, brainbool )
                     -- if we have an enemy and we dont have an attack goal or the goal is quite different from the one we already have
                     if self.CurrentEnemyIndex and ( (not self.AttackPlanGoal) or VDist3(self.AttackPlan.Goal, enemyPosition) > 100 ) then
                     
-                        --LOG("*AI DEBUG "..self.Nickname.." Choosing enemy - " ..enemy.Nickname.." position is "..repr(enemyPosition).." at distance "..repr(enemydistance).." Strength is "..repr(enemyStrength) )
+                        --LOG("*AI DEBUG "..self.Nickname.." Choosing enemy - " ..enemy.Nickname.." at "..repr(enemyPosition).." distance "..repr(VDist3( testposition, enemyPosition )).." Strength is "..repr(enemyStrength) )
 					
                         -- create a new attack plan
                         self:ForkThread( import('/lua/loudutilities.lua').AttackPlanner, enemyPosition)
@@ -337,7 +337,7 @@ function AISortMarkersFromLastPosWithThreatCheck(aiBrain, markerlist, maxNumber,
 
     local mlist = {}
 	local counter = 0
-	local threat, point
+    local point, threat
 
     while markerlist[1] do
     
@@ -425,10 +425,6 @@ function AIGetMarkerLocations(markerType)
         end
         
     end
-    
-    --LOG("*AI DEBUG Setting Master "..repr(markerType).." Marker List")
-
-    --LOG("*AI DEBUG Point List is "..repr(markerlist))
 
 	ScenarioInfo[markerType] = markerlist
 

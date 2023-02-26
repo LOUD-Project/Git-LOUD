@@ -483,11 +483,13 @@ BuilderManager = Class {
         local ThreadWaitDuration
         
         while self.Active do
+        
+            local AttackPlan = brain.AttackPlan
      
             -- if this is not a naval base - see if mode should change from Amphibious to Land
-            if brain.AttackPlan.Goal and ( not self.LastGoalCheck or not LOUDEQUAL(self.LastGoalCheck, brain.AttackPlan.Goal) ) and BuilderManager.BaseType != 'Sea' then
+            if AttackPlan.Goal and ( not self.LastGoalCheck or not LOUDEQUAL(self.LastGoalCheck, AttackPlan.Goal) ) and BuilderManager.BaseType != 'Sea' then
         
-                local path, reason, landpathlength, pathcost = PlatoonGenerateSafePathToLOUD( brain, 'AttackPlanner', 'Land', BuilderManager.Position, brain.AttackPlan.Goal, 999999, 160 )
+                local path, reason, landpathlength, pathcost = PlatoonGenerateSafePathToLOUD( brain, 'AttackPlanner', 'Land', BuilderManager.Position, AttackPlan.Goal, 999999, 160 )
                 
                 -- IDEALLY - we should evaluate both Land and Amphib paths and choose which is best - 
                 -- but for now - we'll settle for land production if any kind of land connection exists --
@@ -521,10 +523,6 @@ BuilderManager = Class {
 			
 				self.BuilderCheckInterval = ThreadWaitDuration * 2
 			end
-
-            -- as we move the AI Mult up, we check the Builders more frequently
-            -- this can simulate a greater degree of responsiveness
-            -- self.BuilderCheckInterval = math.floor( self.BuilderCheckInterval / brain.VeterancyMult )
 
             -- and we set the delay between task checks accordingly
 			if tasks != self.NumBuilders or ( self.BuilderCheckInterval != duration ) then

@@ -39,7 +39,6 @@ local LOUDGETN = table.getn
 local LOUDINSERT = table.insert
 local LOUDMAX = math.max
 local LOUDMOD = math.mod
-local LOUDPI = math.pi
 local LOUDSIN = math.sin
 
 local RemainingCategory = { 'RemainingCategory', }
@@ -111,105 +110,105 @@ local UtilFirst = { Util, AA, DF, Art, Shield, Com, Util, RemainingCategory }
 
 --=== 3 Wide Growth Block / 6 Units ===#
 local ThreeWideGrowthFormationBlock = {
-    ## first row
+    -- first row
     { DFFirst, DFFirst, DFFirst, },
-	## second row
+	-- second row
     { DFFirst, DFFirst, DFFirst, },
 }
 
 --=== 4 Wide Growth Block / 16 Units ===#
 local FourWideGrowthFormationBlock = {
-    ## first row
+    -- first row
     { DFFirst, DFFirst, DFFirst, DFFirst, },
-    ## second row
+    -- second row
     { UtilFirst, ShieldFirst, ShieldFirst, UtilFirst, },
-	## third row
+	-- third row
     { UtilFirst, ShieldFirst, ShieldFirst, UtilFirst, },
-    ## fourth Row
+    -- fourth Row
     { AAFirst, ArtFirst, ArtFirst, AAFirst,  },
 }
 
 --=== 5 Wide Growth Block/ 25 Units ===#
 local FiveWideGrowthFormationBlock = {
-    ## first row
+    -- first row
     { DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, },
-    ## second row
+    -- second row
     { DFFirst, ShieldFirst, UtilFirst, ShieldFirst, DFFirst, },
-    ## third row
+    -- third row
     { UtilFirst, ShieldFirst, DFFirst, ShieldFirst,  UtilFirst, },
-	## fourth row
+	-- fourth row
     { DFFirst, ShieldFirst, UtilFirst, ShieldFirst, DFFirst, },
-    ## fifth row
+    -- fifth row
     { AAFirst, ArtFirst, DFFirst, ArtFirst, AAFirst, },
 }
 
 --=== 6 Wide Growth Block/ 36 Units ===#
 local SixWideGrowthFormationBlock = {
-    ## first row
+    -- first row
     { DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, },
-    ## second row
+    -- second row
     { DFFirst, ShieldFirst, UtilFirst, DFFirst, ShieldFirst, DFFirst, },
-    ## third row
+    -- third row
     { UtilFirst, AAFirst, DFFirst, DFFirst, AAFirst,  UtilFirst, },
-    ## fourth row
+    -- fourth row
     { AAFirst, ShieldFirst, ArtFirst, ArtFirst, ShieldFirst, AAFirst, },
-	## fifth row
+	-- fifth row
     { DFFirst, ShieldFirst, UtilFirst, DFFirst, ShieldFirst, DFFirst, },
-    ## sixth row
+    -- sixth row
     { DFFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, DFFirst, },
 }
 
 --=== 7 Wide Growth Block/ 42 Units ===#
 local SevenWideGrowthFormationBlock = {
-    ## first row
+    -- first row
     { DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, },
-    ## second Row
+    -- second Row
     { DFFirst, ShieldFirst, DFFirst, DFFirst, DFFirst, ShieldFirst, DFFirst, },
-    ## third row
+    -- third row
     { UtilFirst, AAFirst, DFFirst, DFFirst, AAFirst, DFFirst, UtilFirst, },
-    ## fourth row
+    -- fourth row
     { AAFirst, ShieldFirst, AAFirst, ArtFirst, ShieldFirst, AAFirst, DFFirst, },
-    ## fifth row
+    -- fifth row
     { DFFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, DFFirst, },
-    ## sixth row
+    -- sixth row
     { UtilFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, UtilFirst, },
 }
 
 --=== 8 Wide Growth Block/ 56 Units ===#
 local EightWideGrowthFormationBlock = {
-    ## first row
+    -- first row
     { DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, },
-    ## second Row
+    -- second Row
     { DFFirst, DFFirst, ShieldFirst, DFFirst, DFFirst, ShieldFirst, DFFirst, DFFirst, },
-    ## third row
+    -- third row
     { DFFirst, UtilFirst, AAFirst, DFFirst, DFFirst, AAFirst, UtilFirst, DFFirst, },
-    ## fourth row
+    -- fourth row
     { DFFirst, AAFirst, ShieldFirst, DFFirst, DFFirst, ShieldFirst, AAFirst, DFFirst, },
-    ## fifth row
+    -- fifth row
     { DFFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, DFFirst, },
-    ## sixth row
+    -- sixth row
     { UtilFirst, AAFirst, ShieldFirst, ArtFirst, ArtFirst, ShieldFirst, AAFirst, UtilFirst, },
-    ## seventh row
+    -- seventh row
     { DFFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, DFFirst, },
 }
 
 --=== 9 Wide Growth Block/ 72 Units ===#
 local NineWideGrowthFormationBlock = {
-    ## first row
+    -- first row
     { DFFirst, DFFirst, DFFirst, DFFirst, UtilFirst, DFFirst, DFFirst, DFFirst, DFFirst, },
-    ## second Row
+    -- second Row
     { DFFirst, DFFirst, ShieldFirst, DFFirst, AAFirst, DFFirst, ShieldFirst, DFFirst, DFFirst, },
-    ## third row
+    -- third row
     { DFFirst, UtilFirst, AAFirst, DFFirst, ShieldFirst, DFFirst, AAFirst, UtilFirst, DFFirst, },
-    ## fourth row
+    -- fourth row
     { DFFirst, AAFirst, ShieldFirst, DFFirst, UtilFirst, DFFirst, ShieldFirst, AAFirst, DFFirst, },
-    ## fifth row
+    -- fifth row
     { DFFirst, ArtFirst, AAFirst, ArtFirst, ShieldFirst, ArtFirst, AAFirst, ArtFirst, DFFirst, },
-    ## sixth row
+    -- sixth row
     { UtilFirst, AAFirst, ShieldFirst, ArtFirst, UtilFirst, ArtFirst, ShieldFirst, AAFirst, UtilFirst, },
-    ## seventh row
+    -- seventh row
     { DFFirst, ArtFirst, AAFirst, ArtFirst, ShieldFirst, ArtFirst, AAFirst, ArtFirst, DFFirst, },
-    ## eighth row
+    -- eighth row
     { DFFirst, ArtFirst, AAFirst, ArtFirst, ShieldFirst, ArtFirst, AAFirst, ArtFirst, DFFirst, },
 }
 
@@ -229,119 +228,119 @@ local TravelFormationBlock = {
 
 --=== 2 Row Attack Block - 8 units wide ===#
 local TwoRowAttackFormationBlock = {
-    ## first row
+    -- first row
     { DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst },
-    ## second row
+    -- second row
     { UtilFirst, AAFirst, ShieldFirst, ArtFirst, ArtFirst, ShieldFirst, AAFirst, UtilFirst },
 }
 
 --=== 3 Row Attack Block - 10 units wide ===#
 local ThreeRowAttackFormationBlock = {
-    ## first row
+    -- first row
     { DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst },
-    ## second row
+    -- second row
     { DFFirst, ShieldFirst, UtilFirst, DFFirst, ShieldFirst, AAFirst, DFFirst, UtilFirst, ShieldFirst, DFFirst },
-    ## third row
+    -- third row
     { DFFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, ArtFirst, AAFirst, DFFirst },  
 }
 
 --=== 4 Row Attack Block - 12 units wide ===#
 local FourRowAttackFormationBlock = {
-    ## first row
+    -- first row
     { DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst },
-    ## second row
+    -- second row
     { DFFirst, ShieldFirst, UtilFirst, DFFirst, ShieldFirst, DFFirst, DFFirst, ShieldFirst, DFFirst, UtilFirst, ShieldFirst, DFFirst },
-    ## third row
+    -- third row
     { DFFirst, AAFirst, DFFirst, DFFirst, AAFirst, UtilFirst, DFFirst, AAFirst, DFFirst, DFFirst, AAFirst, DFFirst },
-    ## fourth row
+    -- fourth row
     { AAFirst, ShieldFirst, AAFirst, ArtFirst, ShieldFirst, ArtFirst, UtilFirst, ShieldFirst, ArtFirst, AAFirst, ShieldFirst, AAFirst },   
 }
 
 --=== 5 Row Attack Block - 14 units wide ===#
 local FiveRowAttackFormationBlock = {
-    ## first row
+    -- first row
     { DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst },
-    ## second row
+    -- second row
     { DFFirst, ShieldFirst, DFFirst, UtilFirst, ShieldFirst, DFFirst, ShieldFirst, DFFirst, DFFirst, ShieldFirst, UtilFirst, DFFirst, ShieldFirst, DFFirst },
-    ## third row
+    -- third row
     { DFFirst, AAFirst, DFFirst, AAFirst, DFFirst, UtilFirst, DFFirst, DFFirst, DFFirst, DFFirst, AAFirst, DFFirst, AAFirst, DFFirst },
-    ## fourth row
+    -- fourth row
     { AAFirst, DFFirst, ShieldFirst, DFFirst, UtilFirst, DFFirst, ShieldFirst, DFFirst, DFFirst, UtilFirst, DFFirst, AAFirst, ShieldFirst, AAFirst },  
-  	## five row
+  	-- five row
     { ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst },  
 }
 
 --=== 6 Row Attack Block - 16 units wide ===#
 local SixRowAttackFormationBlock = {
-    ## first row
+    -- first row
     { DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst },
-    ## second row
+    -- second row
     { DFFirst, ShieldFirst, DFFirst, UtilFirst, ShieldFirst, DFFirst, ShieldFirst, DFFirst, DFFirst, ShieldFirst, UtilFirst, DFFirst, ShieldFirst, DFFirst },
-    ## third row
+    -- third row
     { DFFirst, AAFirst, DFFirst, DFFirst, AAFirst, DFFirst, DFFirst, DFFirst, AAFirst, DFFirst, DFFirst, AAFirst, DFFirst, DFFirst, AAFirst, DFFirst },
-    ## fourth row
+    -- fourth row
     { DFFirst, ShieldFirst, UtilFirst, AAFirst, ShieldFirst, AAFirst, ShieldFirst, DFFirst, ShieldFirst, AAFirst, DFFirst, ShieldFirst, AAFirst, UtilFirst, ShieldFirst, DFFirst },
-  	## fifth row
+  	-- fifth row
     { DFFirst, AAFirst, DFFirst, DFFirst, UtilFirst, DFFirst, DFFirst, DFFirst, AAFirst, DFFirst, DFFirst, UtilFirst, DFFirst, DFFirst, AAFirst, DFFirst },  
-  	## sixth row
+  	-- sixth row
     { AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst },  
 }
 
 --=== 7 Row Attack Block - 18 units wide ===#
 local SevenRowAttackFormationBlock = {
-    ## first row
+    -- first row
     { DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst },
-    ## second row
+    -- second row
     { UtilFirst, ShieldFirst, DFFirst, DFFirst, ShieldFirst, DFFirst, DFFirst, ShieldFirst, DFFirst, DFFirst, ShieldFirst, DFFirst, DFFirst, ShieldFirst, DFFirst, DFFirst, ShieldFirst, UtilFirst },
-    ## third row
+    -- third row
     { DFFirst, AAFirst, DFFirst, DFFirst, AAFirst, DFFirst, DFFirst, AAFirst, DFFirst, DFFirst, AAFirst, DFFirst, DFFirst, AAFirst, DFFirst, DFFirst, AAFirst, DFFirst },
-    ## fourth row
+    -- fourth row
     { AAFirst, ShieldFirst, DFFirst, AAFirst, ShieldFirst, DFFirst, AAFirst, ShieldFirst, DFFirst, AAFirst, ShieldFirst, DFFirst, AAFirst, ShieldFirst, DFFirst, AAFirst, ShieldFirst, DFFirst },
-  	## fifth row
+  	-- fifth row
     { UtilFirst, AAFirst, DFFirst, DFFirst, AAFirst, DFFirst, DFFirst, AAFirst, DFFirst, DFFirst, AAFirst, DFFirst, DFFirst, AAFirst, DFFirst, DFFirst, AAFirst, UtilFirst },  
-  	## sixth row
+  	-- sixth row
     { AAFirst, ShieldFirst, DFFirst, AAFirst, ShieldFirst, DFFirst, AAFirst, ShieldFirst, DFFirst, AAFirst, ShieldFirst, DFFirst, AAFirst, ShieldFirst, DFFirst, AAFirst, ShieldFirst, DFFirst },  
-  	## seventh row
+  	-- seventh row
     { ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst },  
 }
 
 --=== 8 Row Attack Block - 18 units wide ===#
 local EightRowAttackFormationBlock = {
-    ## first row
+    -- first row
     { DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst },
-    ## second row
+    -- second row
     { UtilFirst, ShieldFirst, DFFirst, DFFirst, ShieldFirst, DFFirst, DFFirst, ShieldFirst, DFFirst, ShieldFirst, DFFirst, DFFirst, ShieldFirst, DFFirst, DFFirst, ShieldFirst, DFFirst, DFFirst, ShieldFirst, UtilFirst },
-    ## third row
+    -- third row
     { DFFirst, AAFirst, DFFirst, DFFirst, AAFirst, DFFirst, DFFirst, AAFirst, DFFirst, DFFirst, AAFirst, DFFirst, DFFirst, AAFirst, DFFirst, DFFirst, AAFirst, DFFirst, DFFirst, AAFirst },
-    ## fourth row
+    -- fourth row
     { AAFirst, ShieldFirst, DFFirst, AAFirst, ShieldFirst, DFFirst, AAFirst, ShieldFirst, DFFirst, ShieldFirst, AAFirst, DFFirst, ShieldFirst, AAFirst, DFFirst, ShieldFirst, AAFirst, DFFirst, ShieldFirst, AAFirst },
-  	## fifth row
+  	-- fifth row
     { UtilFirst, AAFirst, DFFirst, DFFirst, AAFirst, DFFirst, DFFirst, AAFirst, DFFirst, DFFirst, AAFirst, DFFirst, DFFirst, AAFirst, DFFirst, DFFirst, AAFirst, DFFirst, AAFirst, UtilFirst },  
-  	## sixth row
+  	-- sixth row
     { AAFirst, ShieldFirst, DFFirst, AAFirst, ShieldFirst, DFFirst, AAFirst, ShieldFirst, DFFirst, ShieldFirst, AAFirst, DFFirst, ShieldFirst, AAFirst, DFFirst, ShieldFirst, AAFirst, DFFirst, ShieldFirst, AAFirst },  
-  	## seventh row
+  	-- seventh row
     { DFFirst, AAFirst, DFFirst, DFFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, DFFirst, DFFirst, DFFirst },  
-  	## eight row
+  	-- eight row
     { AAFirst, ShieldFirst, ArtFirst, AAFirst, ShieldFirst, ArtFirst, AAFirst, ShieldFirst, ArtFirst, ShieldFirst, AAFirst, ArtFirst, ShieldFirst, AAFirst, ArtFirst, ShieldFirst, AAFirst, ArtFirst, ShieldFirst, AAFirst },  
 }
 
 --=== 9 Row Attack Block - 18+ units wide ===#
 local NineRowAttackFormationBlock = {
-    ## first row
+    -- first row
     { DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst, DFFirst },
-    ## second row
+    -- second row
     { UtilFirst, ShieldFirst, DFFirst, DFFirst, ShieldFirst, DFFirst, DFFirst, ShieldFirst, DFFirst, ShieldFirst, DFFirst, DFFirst, ShieldFirst, DFFirst, DFFirst, ShieldFirst, DFFirst, DFFirst, ShieldFirst, UtilFirst },
-    ## third row
+    -- third row
     { DFFirst, AAFirst, DFFirst, DFFirst, AAFirst, DFFirst, DFFirst, AAFirst, DFFirst, DFFirst, AAFirst, DFFirst, DFFirst, AAFirst, DFFirst, DFFirst, AAFirst, DFFirst, DFFirst, AAFirst },
-    ## fourth row
+    -- fourth row
     { AAFirst, ShieldFirst, DFFirst, AAFirst, ShieldFirst, DFFirst, AAFirst, ShieldFirst, DFFirst, ShieldFirst, AAFirst, DFFirst, ShieldFirst, AAFirst, DFFirst, ShieldFirst, AAFirst, DFFirst, ShieldFirst, AAFirst },
-  	## fifth row
+  	-- fifth row
     { UtilFirst, AAFirst, DFFirst, DFFirst, AAFirst, DFFirst, DFFirst, AAFirst, DFFirst, DFFirst, AAFirst, DFFirst, DFFirst, AAFirst, DFFirst, DFFirst, AAFirst, DFFirst, AAFirst, UtilFirst },  
-  	## sixth row
+  	-- sixth row
     { AAFirst, ShieldFirst, DFFirst, AAFirst, ShieldFirst, DFFirst, AAFirst, ShieldFirst, DFFirst, ShieldFirst, AAFirst, DFFirst, ShieldFirst, AAFirst, DFFirst, ShieldFirst, AAFirst, DFFirst, ShieldFirst, AAFirst },  
-  	## seventh row
+  	-- seventh row
     { DFFirst, AAFirst, DFFirst, DFFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, ArtFirst, ArtFirst, AAFirst, DFFirst, DFFirst, DFFirst },  
-  	## eight row
+  	-- eight row
     { AAFirst, ShieldFirst, ArtFirst, AAFirst, ShieldFirst, ArtFirst, AAFirst, ShieldFirst, ArtFirst, ShieldFirst, AAFirst, ArtFirst, ShieldFirst, AAFirst, ArtFirst, ShieldFirst, AAFirst, ArtFirst, ShieldFirst, AAFirst },  
 }
 
@@ -1004,32 +1003,28 @@ end
 
 function BlockFormation( formationUnits )
 
-	--LOG("*AI DEBUG Creating Block Formation")
-
-    local LOUDCEIL = LOUDCEIL
     local LOUDFLOOR = LOUDFLOOR
     local LOUDMOD = LOUDMOD
-	
-    local rotate = true
+
     local smallUnitsList = {}
     local largeUnitsList = {}
     local smallUnits = 0
     local largeUnits = 0
+    
+    local footPrintSize
 
     for i,u in formationUnits do
 	
-        local footPrintSize = u:GetFootPrintSize()
+        footPrintSize = u:GetFootPrintSize()
 
         if footPrintSize > 2.75 then
 		
             largeUnitsList[largeUnits] = { u }
             largeUnits = largeUnits + 1
-			
         else
 		
             smallUnitsList[smallUnits] = { u }
             smallUnits = smallUnits + 1
-			
         end
 		
     end
@@ -1037,35 +1032,36 @@ function BlockFormation( formationUnits )
     local FormationPos = {}
 	local counter = 0
 	
-    local n = smallUnits + largeUnits
-    local width = LOUDCEIL(math.sqrt(n))
-    local length = n / width
+    local rotate = true
+    local ALLUNITS = categories.ALLUNITS
+    local width = LOUDCEIL( math.sqrt(smallUnits+largeUnits) )
+    local length = (smallUnits+largeUnits) / width
+    
+    local adjIndex, offsetX, offsetY, Y
 
     -- Put small units (Size 1 through 3) in front of the formation
     for i in smallUnitsList do
 	
-		local Y = LOUDFLOOR(i/width)
+		Y = LOUDFLOOR(i/width)
 	
-        local offsetX = (( LOUDMOD(i,width)  - LOUDFLOOR(width* 0.5) ) * 1.5) + 1
-        local offsetY = ( Y - LOUDFLOOR(length* 0.5) ) * 1.5
+        offsetX = (( LOUDMOD(i,width)  - LOUDFLOOR(width* 0.5) ) * 1.5) + 1
+        offsetY = ( Y - LOUDFLOOR(length* 0.5) ) * 1.5
 
 		counter = counter + 1
-        FormationPos[counter] = { offsetX, -offsetY, categories.ALLUNITS, Y, rotate }
-		
+        FormationPos[counter] = { offsetX, -offsetY, ALLUNITS, Y, rotate }
     end
 
     -- Put large units (Size >= 2.75) in the back of the formation
     for i in largeUnitsList do
 	
-        local adjIndex = smallUnits + i
-		local Y = LOUDFLOOR(adjIndex/width)
+        adjIndex = smallUnits + i
+		Y = LOUDFLOOR(adjIndex/width)
 		
-        local offsetX = (( LOUDMOD(adjIndex,width)  - LOUDFLOOR(width* 0.5) ) * 1.5) + 1
-        local offsetY = ( Y - LOUDFLOOR(length* 0.5) ) * 1.5
+        offsetX = (( LOUDMOD(adjIndex,width)  - LOUDFLOOR(width* 0.5) ) * 1.5) + 1
+        offsetY = ( Y - LOUDFLOOR(length* 0.5) ) * 1.5
 
 		counter = counter + 1
-        FormationPos[counter] = { offsetX, -offsetY, categories.ALLUNITS, Y, rotate }		
-		
+        FormationPos[counter] = { offsetX, -offsetY, ALLUNITS, Y, rotate }		
     end
 
     return FormationPos
@@ -1081,28 +1077,25 @@ function CircleFormation( formationUnits )
 
     local LOUDCOS = LOUDCOS
     local LOUDMAX = LOUDMAX
-    local LOUDPI = LOUDPI
     local LOUDSIN = LOUDSIN
-    
-	--LOG("*AI DEBUG Creating Circle Formation")
 
     local rotate = false
 	
     local FormationPos = {}
 	local counter = 0
-	
+
+    local ALLUNITS = categories.ALLUNITS
     local numUnits = LOUDGETN(formationUnits)
     local sizeMult = 2.0 + LOUDMAX(1.0, numUnits * 0.33)
 
     -- make circle around center point
     for i in formationUnits do
 	
-        offsetX = sizeMult * LOUDSIN( lerp( i/numUnits, 0.0, LOUDPI * 2.0 ) )
-        offsetY = sizeMult * LOUDCOS( lerp( i/numUnits, 0.0, LOUDPI * 2.0 ) )
+        offsetX = sizeMult * LOUDSIN( lerp( i/numUnits, 0.0, 6.28 ) )
+        offsetY = sizeMult * LOUDCOS( lerp( i/numUnits, 0.0, 6.28 ) )
 		
 		counter = counter + 1
-        FormationPos[counter] = { offsetX, offsetY, categories.ALLUNITS, 0, rotate }
-		
+        FormationPos[counter] = { offsetX, offsetY, ALLUNITS, 0, rotate }
     end
 
     return FormationPos
@@ -1110,26 +1103,19 @@ end
 
 function GuardFormation( formationUnits )
 
-    local LOUDENTITY = LOUDENTITY
     local LOUDCOS = LOUDCOS
-    local LOUDPI = LOUDPI
     local LOUDSIN = LOUDSIN
-    
-	--LOG("*AI DEBUG Creating Guard Formation")
-	
-    local rotate = false
 	
     local FormationPos = {}
-	local counter = 0
 	
-    local numUnits = LOUDGETN(formationUnits)
+    local NAVALTEST = categories.NAVAL * categories.MOBILE
 
     local naval = false
     local sizeMult = 3
     
     for k,v in formationUnits do
     
-        if not v.Dead and LOUDENTITY( categories.NAVAL * categories.MOBILE, v ) then
+        if not v.Dead and LOUDENTITY( NAVALTEST, v ) then
         
             naval = true
             sizeMult = 8
@@ -1138,7 +1124,10 @@ function GuardFormation( formationUnits )
         
     end
 
+    local ALLUNITS = categories.ALLUNITS
+	local counter = 0
     local ringChange = 5
+    local rotate = false
     local unitCount = 1
 
     -- make circle around center point
@@ -1162,11 +1151,11 @@ function GuardFormation( formationUnits )
 			
         end
 		
-        offsetX = sizeMult * LOUDSIN( lerp( unitCount/ringChange, 0.0, LOUDPI * 2.0 ))
-        offsetY = sizeMult * LOUDCOS( lerp( unitCount/ringChange, 0.0, LOUDPI * 2.0 ))
+        offsetX = sizeMult * LOUDSIN( lerp( unitCount/ringChange, 0.0, 6.28 ))
+        offsetY = sizeMult * LOUDCOS( lerp( unitCount/ringChange, 0.0, 6.28 ))
 
 		counter = counter + 1
-		FormationPos[counter] = { offsetX - 10, offsetY, categories.ALLUNITS, 0, rotate }
+		FormationPos[counter] = { offsetX - 10, offsetY, ALLUNITS, 0, rotate }
 		
         unitCount = unitCount + 1
 		
@@ -1180,14 +1169,13 @@ function DMSCircleFormation( formationUnits )
     local LOUDCOS = LOUDCOS
     local LOUDMAX = LOUDMAX
     local LOUDSIN = LOUDSIN
-    
-	--LOG("*AI DEBUG Creating DMSCircle Formation")
 
     local rotate = false
 	
     local FormationPos = {}
 	local counter = 0
-	
+
+    local ALLUNITS = categories.ALLUNITS
     local numUnits = LOUDGETN(formationUnits)
 
 	local sizeMult = LOUDMAX(1.0, numUnits * 0.2)
@@ -1199,16 +1187,13 @@ function DMSCircleFormation( formationUnits )
         offsetY = sizeMult * LOUDCOS( lerp( i/numUnits, 0.0, 6.28 ) )
 		
 		counter = counter + 1
-        FormationPos[counter] = { offsetX, offsetY, categories.ALLUNITS, 0, rotate }
-		
+        FormationPos[counter] = { offsetX, offsetY, ALLUNITS, 0, rotate }
     end
 
     return FormationPos
 end
 
 function LOUDClusterFormation( formationUnits )
-
-	--LOG("*AI DEBUG Creating LOUDCluster Formation")
 
 	local LOUDCOS = LOUDCOS
 	local LOUDSIN = LOUDSIN
@@ -1219,15 +1204,17 @@ function LOUDClusterFormation( formationUnits )
 	
     local FormationPos = {}
 	local counter = 0
-	
+
+    local ALLUNITS = categories.ALLUNITS
     local numUnits = LOUDGETN(formationUnits)
     
+    local offsetX, offsetY
     local ring = 0
     local ringChange = 1
     local unitCount = 0
     local sizeMult = 0
     
-    #-- make rings around center point
+    -- make rings around center point
     for i in formationUnits do
        
 		
@@ -1235,7 +1222,7 @@ function LOUDClusterFormation( formationUnits )
         offsetY = sizeMult * LOUDCOS( lerp( unitCount/ringChange, 0.0, 6.28 ) )
 		
 		counter = counter + 1
-        FormationPos[counter] = { offsetX, offsetY, categories.ALLUNITS, 0, rotate }
+        FormationPos[counter] = { offsetX, offsetY, ALLUNITS, 0, rotate }
 		
         unitCount = unitCount + 1
 		
@@ -1262,21 +1249,19 @@ function ScatterFormation( formationUnits )
     local LOUDCOS = LOUDCOS
     local LOUDSIN = LOUDSIN
 
-	--LOG("*AI DEBUG Creating Scatter Formation")
-
     local rotate = false
 	
     local FormationPos = {}
     local count = 0
 	
-    local numUnits = LOUDGETN(formationUnits)
+    local NAVALTEST = categories.NAVAL * categories.MOBILE
 
     local naval = false
     local sizeMult = 3
 	
     for k,v in formationUnits do
 	
-        if not v.Dead and LOUDENTITY( categories.NAVAL * categories.MOBILE, v ) then
+        if not v.Dead and LOUDENTITY( NAVALTEST, v ) then
             naval = true
             sizeMult = 8
             break
@@ -1287,6 +1272,8 @@ function ScatterFormation( formationUnits )
 
     end
 
+    local ALLUNITS = categories.ALLUNITS
+    local offsetX, offsetY
     local ringChange = 5
     local unitCount = 1
 
@@ -1308,11 +1295,9 @@ function ScatterFormation( formationUnits )
 		
         offsetX = sizeMult * LOUDSIN( lerp( unitCount/ringChange, 0.0, 6.28 ))
         offsetY = sizeMult * LOUDCOS( lerp( unitCount/ringChange, 0.0, 6.28 ))
-		
-        --LOG('*FORMATION DEBUG: X=' .. offsetX .. ', Y=' .. offsetY )
-		
+
         count = count + 1
-        FormationPos[count] = { offsetX, offsetY, categories.ALLUNITS, 0, rotate }
+        FormationPos[count] = { offsetX, offsetY, ALLUNITS, 0, rotate }
         
         unitCount = unitCount + 1
 		
@@ -1327,33 +1312,15 @@ end
 --=========== LAND BLOCK BUILDING =================#
 function BlockBuilderLand( unitsList, formationBlock, categoryTable, FormationPos, spacing, linespacing)
 
-	local LOUDFLOOR = LOUDFLOOR
     local LOUDGETN = LOUDGETN
 	local LOUDCEIL = LOUDCEIL
 	local LOUDINSERT = LOUDINSERT
 	local LOUDMOD = LOUDMOD
 	
-    -- between units --
-    local spacing = spacing or .8
-    
-    -- between lines of units --
-    -- this feature not yet implemented --
-    -- LineBreak should still work if it's part of the data
-    local linespacing = spacing or .8
-	
-    local numRows = LOUDGETN(formationBlock)
-	
-    local i = 1
-    local whichRow = 1
-    local whichCol = 1
-	
-    local currRowLen = LOUDGETN(formationBlock[whichRow])
-	
-    local rowType = false
-    local formationLength = 0
-    local inserted = false
-	
 	local function GetColSpot(rowLen, col)
+
+        local LOUDFLOOR = LOUDFLOOR
+        local LOUDMOD = LOUDMOD
 
 		local normalized_row_width = rowLen
 
@@ -1361,7 +1328,6 @@ function BlockBuilderLand( unitsList, formationBlock, categoryTable, FormationPo
 		if LOUDMOD(rowLen,2) == 1 then
 	
 			normalized_row_width = rowLen + 1
-		
 		end
 		
 		-- default to left unless current fill number is even then it's right
@@ -1370,10 +1336,7 @@ function BlockBuilderLand( unitsList, formationBlock, categoryTable, FormationPo
 		if LOUDMOD(col, 2) == 0 then
 	
 			colType = 'right'
-		
 		end
-		
-		--LOG("*AI DEBUG colType is "..repr(colType).."  normalized_row_width is "..repr(normalized_row_width))
 		
 		-- which fill number we'on divided in half
 		local colSpot = LOUDFLOOR(col * 0.5)
@@ -1385,18 +1348,34 @@ function BlockBuilderLand( unitsList, formationBlock, categoryTable, FormationPo
 		if colType == 'left' then
 	
 			return halfway_column_spot - colSpot
-		
 		else
 	
 			return halfway_column_spot + colSpot
-			
 		end
 	
 	end
 
-
-    --LOG("*AI DEBUG unitsList is "..repr(unitsList))
+    -- between units --
+    local spacing = spacing or .8
     
+    -- between lines of units --
+    -- this feature not yet implemented --
+    -- LineBreak should still work if it's part of the data
+    local linespacing = spacing or .8
+	
+    local numRows = LOUDGETN(formationBlock)
+	
+    local i = 1
+
+    local whichRow = 1
+    local whichCol = 1
+	
+    local currRowLen = LOUDGETN(formationBlock[whichRow])
+    local inserted = false
+    local formationLength = 0    
+    local rowType = false
+
+
 	-- loop thru all the units until all are done
     while unitsList.UnitTotal >= i do
 	
@@ -1454,11 +1433,11 @@ function BlockBuilderLand( unitsList, formationBlock, categoryTable, FormationPo
 		
         for _, type in currSlot do
         
-            --LOG("*AI DEBUG Formation slot is "..repr(currSlot).." while Type is "..repr(type))
+            local HomogenousRows = formationBlock.HomogenousRows
 
             for _, group in type do
 			
-                if not formationBlock.HomogenousRows or (rowType == false or rowType == type) then
+                if not HomogenousRows or (rowType == false or rowType == type) then
 				
                     if unitsList[group] > 0 then
 					
@@ -1471,15 +1450,12 @@ function BlockBuilderLand( unitsList, formationBlock, categoryTable, FormationPo
                             if not (LOUDMOD(whichCol, 2) == 0) then
 							
                                 xPos = xPos * -1
-								
                             end
-							
                         else
 						
                             if whichCol == 1 then
 							
                                 xPos = 0
-								
                             else
 							
                                 xPos = LOUDCEIL( ( (whichCol-1) * 0.5 ) )
@@ -1487,56 +1463,42 @@ function BlockBuilderLand( unitsList, formationBlock, categoryTable, FormationPo
                                 if not (LOUDMOD(whichCol, 2) == 0) then
 								
                                     xPos = xPos * -1
-									
                                 end
-								
                             end
-							
                         end
 						
-                        if formationBlock.HomogenousRows and not rowType then
+                        if HomogenousRows and not rowType then
 						
                             rowType = type
-							
                         end
-						
 						
 						-- notice the use of whichRow to determine the movement delay between rows --
                         -- each successive row will start moving 1 tick later than the one ahead of it --
                         LOUDINSERT( FormationPos, { xPos * spacing, -formationLength, categoryTable[group], (whichRow-1), true} )
-                        
-                        --LOG("*AI DEBUG Fomation is "..repr({ xPos * spacing, -formationLength, categoryTable[group], (whichRow-1), true}))
-						
+
                         inserted = true
 						
                         unitsList[group] = unitsList[group] - 1
 						
                         break
-						
                     end
-					
                 end
-				
             end
 		
 			if inserted then
 		
 				i = i + 1
-			
 				inserted = false
 				
 				break
-
 			end			
 			
         end
 		
         whichCol = whichCol + 1
-		
     end
 
     return FormationPos
-	
 end
 
 --============ AIR BLOCK BUILDING =============#
@@ -1576,9 +1538,6 @@ function BlockBuilderAir(unitsList, airBlock, FormationPos)
     local inserted = false
     local xPos, yPos
     
-    --LOG("*AI DEBUG unitsList is "..repr(unitsList))
-    --LOG("*AI DEBUG airBlock is "..repr(airBlock))
-    
     -- loop thru the unittypes found in UnitsList
     for _, cat in AirUnits do
     
@@ -1597,8 +1556,6 @@ function BlockBuilderAir(unitsList, airBlock, FormationPos)
         
         -- check if there are any in the unit count
         if unitsList[cat] > 0 then
-        
-            --LOG("*AI DEBUG There are "..unitsList[cat].." "..repr(cat).." units")
             
             -- now we can execute the original code -- driven by the number of units in the category
             -- recylcing the formation each time
@@ -1644,9 +1601,7 @@ function BlockBuilderAir(unitsList, airBlock, FormationPos)
             end
         end
     end
-    
-    --LOG("*AI DEBUG Formation is "..repr(FormationPos))
-    
+
     return FormationPos
 end
 

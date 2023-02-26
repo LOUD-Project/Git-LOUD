@@ -279,12 +279,12 @@ PlatoonBuilder = Class(Builder) {
 	
 	-- The destroyedCallback is very important to this function - since it releases the instances used by platoons when they are formed
 	StoreHandle = function( builder, platoon, manager, BuilderType )
+
+        local LOUDINSERT = table.insert
 	
         for k,v in builder.InstanceCount do
 		
             if not v then
-            
-                local LOUDINSERT = table.insert
 				
                 builder.InstanceCount[k] = true
 				
@@ -382,27 +382,31 @@ EngineerBuilder = Class(PlatoonBuilder) {
 function CreateEngineerBuilder( manager, brain, data, locationType)
 
     local builder = EngineerBuilder()
-	
+
 	if not builder then
 		return false
 	end
 	
 	local GetTemplateReplacement = import('/lua/ai/altaiutilities.lua').GetTemplateReplacement
 	local Game = import('/lua/game.lua')
-	
-	if data.BuilderData.Construction.BuildStructures then
+
+    local BuildStructures = data.BuilderData.Construction.BuildStructures		
+
+	if BuildStructures then
     
         local LOUDCOPY = table.copy
         local LOUDINSERT = table.insert
-        
-        local BuildStructures = data.BuilderData.Construction.BuildStructures
+
+        local FactionIndex = brain.FactionIndex
+        local FactionName = brain.FactionName
 		
 		local fulltemplate = {}
 		local datatemplate = {}
 
-		for k,v in BuildStructures do
+        local buildingTmpl = import('/lua/buildingtemplates.lua').BuildingTemplates[FactionIndex]
+        local CustomUnits = ScenarioInfo.CustomUnits
 
-	        local buildingTmpl = import('/lua/buildingtemplates.lua').BuildingTemplates[brain.FactionIndex]
+		for k,v in BuildStructures do
 			
 			local template = {}
             local count = 0
@@ -426,9 +430,9 @@ function CreateEngineerBuilder( manager, brain, data, locationType)
 			
 			local replacement = false
 			
-			if ScenarioInfo.CustomUnits[v][brain.FactionName] then
+			if CustomUnits[v][FactionName] then
 			
-				replacement = GetTemplateReplacement( v, brain.FactionName, ScenarioInfo.CustomUnits[v][brain.FactionName] )
+				replacement = GetTemplateReplacement( v, FactionName, CustomUnits[v][FactionName] )
 				
 				if replacement then
 				

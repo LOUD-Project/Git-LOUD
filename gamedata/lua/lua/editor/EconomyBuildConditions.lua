@@ -36,6 +36,7 @@ local function GetNumCategoryBeingBuiltByEngineers( EM, category, engCategory )
 
 	local counter = 0
     local beingBuiltUnit
+    local IsUnitState = IsUnitState
 
     for _,v in EntityCategoryFilterDown( engCategory, EM.EngineerList ) do
 		
@@ -59,7 +60,8 @@ local function GetNumCategoryBeingBuiltByFactories( FBM, category, facCategory )
 
 	local counter = 0
     local beingBuiltUnit
-	
+    local IsUnitState = IsUnitState	
+
 	for _,v in EntityCategoryFilterDown( facCategory, FBM.FactoryList ) do
 		
 		if v.Dead then
@@ -131,14 +133,17 @@ function CanBuildOnMassAtRange(aiBrain, locationType, mindistance, maxdistance, 
 
 		local mlist = {}
 		local counter = 0
-        local position = aiBrain.BuilderManagers[locationType].Position
+        local position
+        
+        local baseposition = aiBrain.BuilderManagers[locationType].Position
         
         local VDist3 = VDist3
 
         local a,b
         
         local function DOSORT(a,b)
-            return VDist3( a.Position, position) < VDist3( b.Position, position)
+            local VDist3Sq = VDist3Sq
+            return VDist3Sq( a.Position, baseposition) < VDist3Sq( b.Position, baseposition)
         end
         
         LOUDSORT( markerlist, DOSORT )
@@ -147,11 +152,13 @@ function CanBuildOnMassAtRange(aiBrain, locationType, mindistance, maxdistance, 
     
 		for _,v in markerlist do
             
-            if VDist3( v.Position, position ) >= mindistance then
+            position = v.Position
             
-                if VDist3( v.Position, position ) <= maxdistance then
+            if VDist3( position, baseposition ) >= mindistance then
+            
+                if VDist3( position, baseposition ) <= maxdistance then
                 
-                    if CanBuildStructureAt( aiBrain, 'ueb1103', v.Position ) then
+                    if CanBuildStructureAt( aiBrain, 'ueb1103', position ) then
                         counter = counter + 1
                         mlist[counter] = v
                     end
@@ -161,7 +168,7 @@ function CanBuildOnMassAtRange(aiBrain, locationType, mindistance, maxdistance, 
 		
 		if counter > 0 then
 
-			markerlist = AISortMarkersFromLastPosWithThreatCheck(aiBrain, mlist, maxNum, tMin, tMax, tRings, tType, position)
+			markerlist = AISortMarkersFromLastPosWithThreatCheck(aiBrain, mlist, maxNum, tMin, tMax, tRings, tType, baseposition)
 
 			if markerlist then
 				return true

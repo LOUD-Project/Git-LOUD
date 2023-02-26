@@ -38,8 +38,9 @@ controls = {
     movieTextGroupBGBottom = false,
 }
 
-local preNISMovieGroupSettings = {}
+local currentMovie = false
 local isNISMode = false
+local preNISMovieGroupSettings = {}
 
 function SetLayout()
     import(UIUtil.GetLayoutFilename('missiontext')).SetLayout()
@@ -51,8 +52,284 @@ function OnGamePause(paused)
     end
 end
 
-local currentMovie = false
+function IsHeadPlaying()
+    if controls.movieBrackets then
+        return true
+    else
+        return false
+    end
+end
+
+function PauseTransmission()
+    if currentMovie then
+        currentMovie:Stop()
+    end
+end
+
+function ResumeTransmission()
+    if currentMovie then
+        currentMovie:Play()
+    end
+end
+
+function CreateSubtitles(parent, text)
+    local bg = Bitmap(parent, UIUtil.UIFile('/game/filter-ping-list-panel/panel_brd_m.dds'))
+    
+    bg.text = {}
+    bg.text[1] = UIUtil.CreateText(bg, '', 12, UIUtil.bodyFont)
+    
+    bg.tl = Bitmap(bg, UIUtil.SkinnableFile('/game/filter-ping-list-panel/panel_brd_ul.dds'))
+    bg.tm = Bitmap(bg, UIUtil.SkinnableFile('/game/filter-ping-list-panel/panel_brd_horz_um.dds'))
+    bg.tr = Bitmap(bg, UIUtil.SkinnableFile('/game/filter-ping-list-panel/panel_brd_ur.dds'))
+    bg.ml = Bitmap(bg, UIUtil.SkinnableFile('/game/filter-ping-list-panel/panel_brd_vert_l.dds'))
+    bg.mr = Bitmap(bg, UIUtil.SkinnableFile('/game/filter-ping-list-panel/panel_brd_vert_r.dds'))
+    bg.bl = Bitmap(bg, UIUtil.SkinnableFile('/game/filter-ping-list-panel/panel_brd_ll.dds'))
+    bg.bm = Bitmap(bg, UIUtil.SkinnableFile('/game/filter-ping-list-panel/panel_brd_lm.dds'))
+    bg.br = Bitmap(bg, UIUtil.SkinnableFile('/game/filter-ping-list-panel/panel_brd_lr.dds'))
+    
+    bg.tl.Bottom:Set(bg.Top)
+    bg.tl.Right:Set(bg.Left)
+    bg.tr.Bottom:Set(bg.Top)
+    bg.tr.Left:Set(bg.Right)
+    bg.bl.Top:Set(bg.Bottom)
+    bg.bl.Right:Set(bg.Left)
+    bg.br.Top:Set(bg.Bottom)
+    bg.br.Left:Set(bg.Right)
+    bg.tm.Bottom:Set(bg.Top)
+    bg.tm.Left:Set(bg.Left)
+    bg.tm.Right:Set(bg.Right)
+    bg.bm.Top:Set(bg.Bottom)
+    bg.bm.Left:Set(bg.Left)
+    bg.bm.Right:Set(bg.Right)
+    bg.ml.Right:Set(bg.Left)
+    bg.ml.Top:Set(bg.Top)
+    bg.ml.Bottom:Set(bg.Bottom)
+    bg.mr.Left:Set(bg.Right)
+    bg.mr.Top:Set(bg.Top)
+    bg.mr.Bottom:Set(bg.Bottom)
+    
+    local wrapped = import('/lua/maui/text.lua').WrapText(LOC(text), 300, 
+        function(curText) return bg.text[1]:GetStringAdvance(curText) end)
+        
+    for index, line in wrapped do
+        local i = index
+        if not bg.text[i] then
+            bg.text[i] = UIUtil.CreateText(bg.text[1], '', 12, UIUtil.bodyFont)
+            LayoutHelpers.Below(bg.text[i], bg.text[i-1])
+        end
+        bg.text[i]:SetText(line)
+    end
+    
+    bg.Top:Set(bg.text[1].Top)
+    bg.Left:Set(bg.text[1].Left)
+    bg.Width:Set(1)
+    bg.Height:Set(function() return table.getsize(bg.text) * bg.text[1].Height() end)
+    
+    bg:SetAlpha(0, true)
+    
+    bg.Expand = function(control)
+        control:SetAlpha(1, true)
+        bg.text[1]:SetAlpha(0, true)
+        control:SetNeedsFrameUpdate(true)
+        control.OnFrame = function(self, delta)
+            if parent._paused then
+                return
+            end
+            local newWidth = self.Width() + (delta * 800)
+            local finishedWidth = false
+            if newWidth > 300 then
+                newWidth = 300
+                finishedWidth = true
+            end
+            if finishedWidth then
+                bg.text[1]:SetNeedsFrameUpdate(true)
+                self:SetNeedsFrameUpdate(false)
+            end
+            self.Width:Set(newWidth)
+        end
+        control.text[1].OnFrame = function(self, delta)
+            if parent._paused then
+                return
+            end
+            local newAlpha = self:GetAlpha() + (delta * 2)
+            if newAlpha > 1 then
+                newAlpha = 1
+                self:SetNeedsFrameUpdate(false)
+            end
+            self:SetAlpha(newAlpha, true)
+        end
+    end
+    
+    bg.Contract = function(control)
+        control.text[1]:SetNeedsFrameUpdate(true)
+        control.OnFrame = function(self, delta)
+            if parent._paused then
+                return
+            end
+            local newWidth = self.Width() - (delta * 800)
+            local finishedWidth = false
+            if newWidth < 1 then
+                newWidth = 1
+                finishedWidth = true
+            end
+            if finishedWidth then
+                self:SetAlpha(0, true)
+                self:SetNeedsFrameUpdate(false)
+            end
+            self.Width:Set(newWidth)
+        end
+        control.text[1].OnFrame = function(self, delta)
+            if parent._paused then
+                return
+            end
+            local newAlpha = self:GetAlpha() - (delta * 2)
+            if newAlpha < 0 then
+                newAlpha = 0
+                self:SetNeedsFrameUpdate(false)
+                bg:SetNeedsFrameUpdate(true)
+            end
+            self:SetAlpha(newAlpha, true)
+        end
+    end
+    
+    return bg
+end
+
+function UpdateQueue()
+    if table.getsize(videoQueue) > 0 then
+        PlayMFDMovie({videoQueue[1][1], videoQueue[1][2], videoQueue[1][3], videoQueue[1][4]}, videoQueue[1][5])
+        table.remove(videoQueue, 1)
+    end
+end
+
+function DisplaySubtitles(textControl,captions)
+    subtitleThread = ForkThread(
+        function()
+            # Display subtitles
+            local lastOff = 0
+            for k,v in captions do
+                WaitSeconds(v.offset - lastOff)
+                textControl:DeleteAllItems()
+                locText = LOC(v.text)
+                #LOG("Wrap: ",locText)
+                local lines = WrapText(locText, textControl.Width(), function(text) return textControl:GetStringAdvance(text) end)
+                for i,line in lines do
+                    textControl:AddItem(line)
+                end
+                textControl:ScrollToBottom()
+                lastOff = v.offset
+            end
+            subtitleThread = false
+        end
+    )
+end
+
+local FMVData = {
+    uef = {name = 'UEF', voicecue = 'SCX_UEF_Credits_VO', soundcue = 'X_FMV_UEF_Credits'},
+    cybran = {name = 'Cybran', voicecue = 'SCX_Cybran_Credits_VO', soundcue = 'X_FMV_Cybran_Credits'},
+    aeon = {name = 'Aeon', voicecue = 'SCX_Aeon_Credits_VO', soundcue = 'X_FMV_Aeon_Credits'},
+}
+
+function EndGameFMV(faction)
+    local setResume = SessionIsPaused()
+    SessionRequestPause()
+    ConExecute("ren_Oblivion true")
+    local parent = GetFrame(0)
+    local nisBG = Bitmap(parent)
+    nisBG:SetSolidColor('FF000000')
+    LayoutHelpers.FillParent(nisBG, parent)
+    nisBG.Depth:Set(99998)
+    local nis = Movie(parent, "/movies/FMV_SCX_Outro.sfd")
+    nis.Depth:Set(99999)
+    nis.faction = faction
+    nis.stage = 1
+    LayoutHelpers.FillParentPreserveAspectRatio(nis, parent)
+    nis.voicecue = 'SCX_Outro_VO'
+    nis.soundcue = 'X_FMV_Outro'
+
+    GameMain.gameUIHidden = true
+
+    local textArea = ItemList(parent)
+    textArea:SetFont(UIUtil.bodyFont, 13)
+
+    local height = 6 * textArea:GetRowHeight()
+    textArea.Height:Set( height )
+    textArea.Top:Set( function() return nis.Bottom() end )
+    textArea.Width:Set( function() return nis.Width() / 2 end )
+    LayoutHelpers.AtHorizontalCenterIn(textArea,parent)
+
+    textArea:SetColors(UIUtil.fontColor, "00000000", UIUtil.fontColor,  UIUtil.highlightColor)
+    textArea.Depth:Set(100000)
+
+    --local strings = import('/tutorials/' .. subtitleKey .. '/' .. subtitleKey .. '.lua')[subtitleKey]
+    AddInputCapture(nis)
+
+    local loading = true
+
+    local function SetMovie(filename, soundcue, voicecue)
+        nis:Set(filename,
+                Sound({Cue = soundcue, Bank = 'FMV_BG'}),
+                Sound({Cue = voicecue, Bank = 'X_FMV'}))
+    end
+
+    nis.OnLoaded = function(self)
+        GetCursor():Hide()
+        nis:Play()
+        --DisplaySubtitles(textArea, strings.captions)
+        loading = false
+    end
+    
+    function DoExit(onFMVFinished)
+        nis:Stop()
+        loading = true
+        if nis.stage == 1 then
+            SetMovie("/movies/Credits_"..FMVData[nis.faction].name..".sfd",
+                     FMVData[nis.faction].soundcue,
+                     FMVData[nis.faction].voicecue)
+        elseif nis.stage == 2 and onFMVFinished then
+            SetMovie("/movies/FMV_SCX_Post_Outro.sfd",
+                     'X_FMV_Post_Outro',
+                     'SCX_Post_Outro_VO')
+        else
+            GameMain.gameUIHidden = false
+            GetCursor():Show()
+            if not setResume then
+                SessionResume()
+            end
+            ConExecute("ren_Oblivion")
+            if subtitleThread then
+                KillThread(subtitleThread)
+                subtitleThread = false
+            end
+            nisBG:Destroy()
+            RemoveInputCapture(nis)
+            nis:Destroy()
+            if textArea then
+                textArea:Destroy()
+            end
+            SimCallback({Func = "OnEndGameFMVFinished"})
+        end
+        nis.stage = nis.stage + 1
+    end
+    
+    nis.OnFinished = function(self)
+        DoExit(true)
+    end
+    
+    nis.HandleEvent = function(self, event)
+        if loading then
+            return false
+        end
+        -- cancel movie playback on mouse click or key hit
+        if event.Type == "ButtonPress" or event.Type == "KeyDown" then
+            DoExit()
+            return true
+        end
+    end
+end
+
 function PlayMFDMovie(movie, text)
+
     if not controls.movieBrackets then
         local prefix = {Cybran = {texture = '/icons/comm_cybran.dds', cue = 'UI_Comm_CYB'},
             Aeon = {texture = '/icons/comm_aeon.dds', cue = 'UI_Comm_AEON'},
@@ -188,278 +465,3 @@ function PlayMFDMovie(movie, text)
     end
 end
 
-function IsHeadPlaying()
-    if controls.movieBrackets then
-        return true
-    else
-        return false
-    end
-end
-
-function CreateSubtitles(parent, text)
-    local bg = Bitmap(parent, UIUtil.UIFile('/game/filter-ping-list-panel/panel_brd_m.dds'))
-    
-    bg.text = {}
-    bg.text[1] = UIUtil.CreateText(bg, '', 12, UIUtil.bodyFont)
-    
-    bg.tl = Bitmap(bg, UIUtil.SkinnableFile('/game/filter-ping-list-panel/panel_brd_ul.dds'))
-    bg.tm = Bitmap(bg, UIUtil.SkinnableFile('/game/filter-ping-list-panel/panel_brd_horz_um.dds'))
-    bg.tr = Bitmap(bg, UIUtil.SkinnableFile('/game/filter-ping-list-panel/panel_brd_ur.dds'))
-    bg.ml = Bitmap(bg, UIUtil.SkinnableFile('/game/filter-ping-list-panel/panel_brd_vert_l.dds'))
-    bg.mr = Bitmap(bg, UIUtil.SkinnableFile('/game/filter-ping-list-panel/panel_brd_vert_r.dds'))
-    bg.bl = Bitmap(bg, UIUtil.SkinnableFile('/game/filter-ping-list-panel/panel_brd_ll.dds'))
-    bg.bm = Bitmap(bg, UIUtil.SkinnableFile('/game/filter-ping-list-panel/panel_brd_lm.dds'))
-    bg.br = Bitmap(bg, UIUtil.SkinnableFile('/game/filter-ping-list-panel/panel_brd_lr.dds'))
-    
-    bg.tl.Bottom:Set(bg.Top)
-    bg.tl.Right:Set(bg.Left)
-    bg.tr.Bottom:Set(bg.Top)
-    bg.tr.Left:Set(bg.Right)
-    bg.bl.Top:Set(bg.Bottom)
-    bg.bl.Right:Set(bg.Left)
-    bg.br.Top:Set(bg.Bottom)
-    bg.br.Left:Set(bg.Right)
-    bg.tm.Bottom:Set(bg.Top)
-    bg.tm.Left:Set(bg.Left)
-    bg.tm.Right:Set(bg.Right)
-    bg.bm.Top:Set(bg.Bottom)
-    bg.bm.Left:Set(bg.Left)
-    bg.bm.Right:Set(bg.Right)
-    bg.ml.Right:Set(bg.Left)
-    bg.ml.Top:Set(bg.Top)
-    bg.ml.Bottom:Set(bg.Bottom)
-    bg.mr.Left:Set(bg.Right)
-    bg.mr.Top:Set(bg.Top)
-    bg.mr.Bottom:Set(bg.Bottom)
-    
-    local wrapped = import('/lua/maui/text.lua').WrapText(LOC(text), 300, 
-        function(curText) return bg.text[1]:GetStringAdvance(curText) end)
-        
-    for index, line in wrapped do
-        local i = index
-        if not bg.text[i] then
-            bg.text[i] = UIUtil.CreateText(bg.text[1], '', 12, UIUtil.bodyFont)
-            LayoutHelpers.Below(bg.text[i], bg.text[i-1])
-        end
-        bg.text[i]:SetText(line)
-    end
-    
-    bg.Top:Set(bg.text[1].Top)
-    bg.Left:Set(bg.text[1].Left)
-    bg.Width:Set(1)
-    bg.Height:Set(function() return table.getsize(bg.text) * bg.text[1].Height() end)
-    
-    bg:SetAlpha(0, true)
-    
-    bg.Expand = function(control)
-        control:SetAlpha(1, true)
-        bg.text[1]:SetAlpha(0, true)
-        control:SetNeedsFrameUpdate(true)
-        control.OnFrame = function(self, delta)
-            if parent._paused then
-                return
-            end
-            local newWidth = self.Width() + (delta * 800)
-            local finishedWidth = false
-            if newWidth > 300 then
-                newWidth = 300
-                finishedWidth = true
-            end
-            if finishedWidth then
-                bg.text[1]:SetNeedsFrameUpdate(true)
-                self:SetNeedsFrameUpdate(false)
-            end
-            self.Width:Set(newWidth)
-        end
-        control.text[1].OnFrame = function(self, delta)
-            if parent._paused then
-                return
-            end
-            local newAlpha = self:GetAlpha() + (delta * 2)
-            if newAlpha > 1 then
-                newAlpha = 1
-                self:SetNeedsFrameUpdate(false)
-            end
-            self:SetAlpha(newAlpha, true)
-        end
-    end
-    
-    bg.Contract = function(control)
-        control.text[1]:SetNeedsFrameUpdate(true)
-        control.OnFrame = function(self, delta)
-            if parent._paused then
-                return
-            end
-            local newWidth = self.Width() - (delta * 800)
-            local finishedWidth = false
-            if newWidth < 1 then
-                newWidth = 1
-                finishedWidth = true
-            end
-            if finishedWidth then
-                self:SetAlpha(0, true)
-                self:SetNeedsFrameUpdate(false)
-            end
-            self.Width:Set(newWidth)
-        end
-        control.text[1].OnFrame = function(self, delta)
-            if parent._paused then
-                return
-            end
-            local newAlpha = self:GetAlpha() - (delta * 2)
-            if newAlpha < 0 then
-                newAlpha = 0
-                self:SetNeedsFrameUpdate(false)
-                bg:SetNeedsFrameUpdate(true)
-            end
-            self:SetAlpha(newAlpha, true)
-        end
-    end
-    
-    return bg
-end
-
-function PauseTransmission()
-    if currentMovie then
-        currentMovie:Stop()
-    end
-end
-
-function ResumeTransmission()
-    if currentMovie then
-        currentMovie:Play()
-    end
-end
-
-function UpdateQueue()
-    if table.getsize(videoQueue) > 0 then
-        PlayMFDMovie({videoQueue[1][1], videoQueue[1][2], videoQueue[1][3], videoQueue[1][4]}, videoQueue[1][5])
-        table.remove(videoQueue, 1)
-    end
-end
-
-function DisplaySubtitles(textControl,captions)
-    subtitleThread = ForkThread(
-        function()
-            # Display subtitles
-            local lastOff = 0
-            for k,v in captions do
-                WaitSeconds(v.offset - lastOff)
-                textControl:DeleteAllItems()
-                locText = LOC(v.text)
-                #LOG("Wrap: ",locText)
-                local lines = WrapText(locText, textControl.Width(), function(text) return textControl:GetStringAdvance(text) end)
-                for i,line in lines do
-                    textControl:AddItem(line)
-                end
-                textControl:ScrollToBottom()
-                lastOff = v.offset
-            end
-            subtitleThread = false
-        end
-    )
-end
-
-local FMVData = {
-    uef = {name = 'UEF', voicecue = 'SCX_UEF_Credits_VO', soundcue = 'X_FMV_UEF_Credits'},
-    cybran = {name = 'Cybran', voicecue = 'SCX_Cybran_Credits_VO', soundcue = 'X_FMV_Cybran_Credits'},
-    aeon = {name = 'Aeon', voicecue = 'SCX_Aeon_Credits_VO', soundcue = 'X_FMV_Aeon_Credits'},
-}
-
-function EndGameFMV(faction)
-    local setResume = SessionIsPaused()
-    SessionRequestPause()
-    ConExecute("ren_Oblivion true")
-    local parent = GetFrame(0)
-    local nisBG = Bitmap(parent)
-    nisBG:SetSolidColor('FF000000')
-    LayoutHelpers.FillParent(nisBG, parent)
-    nisBG.Depth:Set(99998)
-    local nis = Movie(parent, "/movies/FMV_SCX_Outro.sfd")
-    nis.Depth:Set(99999)
-    nis.faction = faction
-    nis.stage = 1
-    LayoutHelpers.FillParentPreserveAspectRatio(nis, parent)
-    nis.voicecue = 'SCX_Outro_VO'
-    nis.soundcue = 'X_FMV_Outro'
-
-    GameMain.gameUIHidden = true
-
-    local textArea = ItemList(parent)
-    textArea:SetFont(UIUtil.bodyFont, 13)
-
-    local height = 6 * textArea:GetRowHeight()
-    textArea.Height:Set( height )
-    textArea.Top:Set( function() return nis.Bottom() end )
-    textArea.Width:Set( function() return nis.Width() / 2 end )
-    LayoutHelpers.AtHorizontalCenterIn(textArea,parent)
-
-    textArea:SetColors(UIUtil.fontColor, "00000000", UIUtil.fontColor,  UIUtil.highlightColor)
-    textArea.Depth:Set(100000)
-
-    --local strings = import('/tutorials/' .. subtitleKey .. '/' .. subtitleKey .. '.lua')[subtitleKey]
-    AddInputCapture(nis)
-
-    local loading = true
-
-    local function SetMovie(filename, soundcue, voicecue)
-        nis:Set(filename,
-                Sound({Cue = soundcue, Bank = 'FMV_BG'}),
-                Sound({Cue = voicecue, Bank = 'X_FMV'}))
-    end
-
-    nis.OnLoaded = function(self)
-        GetCursor():Hide()
-        nis:Play()
-        --DisplaySubtitles(textArea, strings.captions)
-        loading = false
-    end
-    
-    function DoExit(onFMVFinished)
-        nis:Stop()
-        loading = true
-        if nis.stage == 1 then
-            SetMovie("/movies/Credits_"..FMVData[nis.faction].name..".sfd",
-                     FMVData[nis.faction].soundcue,
-                     FMVData[nis.faction].voicecue)
-        elseif nis.stage == 2 and onFMVFinished then
-            SetMovie("/movies/FMV_SCX_Post_Outro.sfd",
-                     'X_FMV_Post_Outro',
-                     'SCX_Post_Outro_VO')
-        else
-            GameMain.gameUIHidden = false
-            GetCursor():Show()
-            if not setResume then
-                SessionResume()
-            end
-            ConExecute("ren_Oblivion")
-            if subtitleThread then
-                KillThread(subtitleThread)
-                subtitleThread = false
-            end
-            nisBG:Destroy()
-            RemoveInputCapture(nis)
-            nis:Destroy()
-            if textArea then
-                textArea:Destroy()
-            end
-            SimCallback({Func = "OnEndGameFMVFinished"})
-        end
-        nis.stage = nis.stage + 1
-    end
-    
-    nis.OnFinished = function(self)
-        DoExit(true)
-    end
-    
-    nis.HandleEvent = function(self, event)
-        if loading then
-            return false
-        end
-        -- cancel movie playback on mouse click or key hit
-        if event.Type == "ButtonPress" or event.Type == "KeyDown" then
-            DoExit()
-            return true
-        end
-    end
-end

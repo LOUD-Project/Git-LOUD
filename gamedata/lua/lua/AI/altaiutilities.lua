@@ -21,7 +21,7 @@ local ForkTo = ForkThread
 local VDist2 = VDist2
 local VDist2Sq = VDist2Sq
 local VDist3 = VDist3
-local VDist3Sq = VDist3Sq
+--local VDist3Sq = VDist3Sq
 
 local WaitTicks = coroutine.yield
 
@@ -53,6 +53,7 @@ function AssistBody(self, eng, aiBrain)
 	
 	local assisteeType = assistData.AssisteeType
 	local locationType = eng.LocationType
+    local BuilderManager = aiBrain.BuilderManagers[locationType]
 	
     local assistee = false
 	local assistRange = assistData.AssistRange or 80
@@ -66,30 +67,30 @@ function AssistBody(self, eng, aiBrain)
     local GetPosition = GetPosition
     
     local VDist3 = VDist3
-    local VDist3Sq = VDist3Sq
+    local LOUDV3Sq = VDist3Sq
 	
 	-- this function will locate units needing assistance of the specific type --
 	local function GetAssistees( beingbuiltcategory )
 
 		if assisteeType == 'Factory' then
 	
-			return aiBrain.BuilderManagers[locationType].FactoryManager:GetFactoriesWantingAssistance( beingbuiltcategory, assisteeCat )
+			return BuilderManager.FactoryManager:GetFactoriesWantingAssistance( beingbuiltcategory, assisteeCat )
 		
 		elseif assisteeType == 'Engineer' then
 	
-			return aiBrain.BuilderManagers[locationType].EngineerManager:GetEngineersWantingAssistanceWithBuilding( beingbuiltcategory, assisteeCat )
+			return BuilderManager.EngineerManager:GetEngineersWantingAssistanceWithBuilding( beingbuiltcategory, assisteeCat )
 		
 		elseif assisteeType == 'Structure' then
 	
-			return aiBrain.BuilderManagers[locationType].PlatoonFormManager:GetUnitsBeingBuilt( aiBrain, beingbuiltcategory, assisteeCat )
+			return BuilderManager.PlatoonFormManager:GetUnitsBeingBuilt( aiBrain, beingbuiltcategory, assisteeCat )
     
 		elseif assisteeType == 'Any' then
 		
 			local list = {}
 	
-			list = LOUDCONCAT( list, aiBrain.BuilderManagers[locationType].PlatoonFormManager:GetUnitsBeingBuilt( aiBrain, beingbuiltcategory, assisteeCat ))
+			list = LOUDCONCAT( list, BuilderManager.PlatoonFormManager:GetUnitsBeingBuilt( aiBrain, beingbuiltcategory, assisteeCat ))
 		
-			list = LOUDCONCAT( list, aiBrain.BuilderManagers[locationType].EngineerManager:GetEngineersWantingAssistanceWithBuilding( beingbuiltcategory, assisteeCat ))
+			list = LOUDCONCAT( list, BuilderManager.EngineerManager:GetEngineersWantingAssistanceWithBuilding( beingbuiltcategory, assisteeCat ))
 
 			return list
 		end
@@ -146,8 +147,6 @@ function AssistBody(self, eng, aiBrain)
 			IssueGuard( {eng}, assistee )
 		end
     else
-		--LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.EntityID.." "..repr(self.BuilderName).." unable to find anything to assist")
-	
         eng.AssistPlatoon = nil
     end
 	
@@ -239,7 +238,8 @@ end
 -- position is NOT driven by the Attack Plan but by the source base of the engineer doing this job
 function AIFindBaseAreaForExpansion( aiBrain, locationType, radius, tMin, tMax, tRings, tType, eng)
 
-    local Position = aiBrain.BuilderManagers[locationType].Position or false
+    local BuilderManager = aiBrain.BuilderManagers[locationType]
+    local Position = BuilderManager.Position or false
 	
     -- this option (unused at the moment) allows us to base the checks on the engineers position
     -- you might use that on an engineer out in the field for example
@@ -274,7 +274,7 @@ function AIFindBaseAreaForExpansion( aiBrain, locationType, radius, tMin, tMax, 
 		-- loop thru all the positions
 		for m,marker in positions do
         
-            --LOG("*AI DEBUG Processing position "..repr(marker))
+            position = marker.Position
 	
 			removed = false
 		
@@ -282,7 +282,7 @@ function AIFindBaseAreaForExpansion( aiBrain, locationType, radius, tMin, tMax, 
 			for index,brain in Brains do
 			
 				-- if someone else owns it or the co-ordinates are the same as this brains 'MAIN' position -- 
-				if brain.BuilderManagers[marker.Name] or ( marker.Position[1] == brain.BuilderManagers['MAIN'].Position[1] and marker.Position[3] == brain.BuilderManagers['MAIN'].Position[3] ) then
+				if brain.BuilderManagers[marker.Name] or ( position[1] == brain.BuilderManagers['MAIN'].Position[1] and position[3] == brain.BuilderManagers['MAIN'].Position[3] ) then
 					
 					removed = true
 					break
@@ -295,7 +295,7 @@ function AIFindBaseAreaForExpansion( aiBrain, locationType, radius, tMin, tMax, 
 				for basename,base in aiBrain.BuilderManagers do
 				
 					-- ignore position if too close to existing counted bases (non-Sea)
-					if (base.CountedBase and base.BaseType != 'Sea') and VDist3( base.Position, marker.Position ) < minimum_baserange then
+					if (base.CountedBase and base.BaseType != 'Sea') and VDist3( base.Position, position ) < minimum_baserange then
 					
 						removed = true
 						break
@@ -304,12 +304,11 @@ function AIFindBaseAreaForExpansion( aiBrain, locationType, radius, tMin, tMax, 
 			
 				if not removed then
 				
-					return marker.Position, marker.Name
+					return position, marker.Name
 				end
 			end
 		end
-	
-		--LOG("*AI DEBUG "..aiBrain.Nickname.." AIFIND BASE for EXPANSION finds no positions within "..radius.." range of "..repr(Position))	--.." - table is "..repr(positions))
+
 	end
 
 	return false, false
@@ -348,12 +347,13 @@ function AIFindBaseAreaForDP( aiBrain, locationType, radius, tMin, tMax, tRings,
 
 		for m,marker in positions do
 	
+            position = marker.Position
 			removed = false
 
 			for index,brain in Brains do
         
 				-- if someone else owns it or the co-ordinates are the same as this brains 'MAIN' position -- 
-				if brain.BuilderManagers[marker.Name] or ( marker.Position[1] == brain.BuilderManagers['MAIN'].Position[1] and marker.Position[3] == brain.BuilderManagers['MAIN'].Position[3] ) then
+				if brain.BuilderManagers[marker.Name] or ( position[1] == brain.BuilderManagers['MAIN'].Position[1] and position[3] == brain.BuilderManagers['MAIN'].Position[3] ) then
 			
 					removed = true
 				
@@ -365,7 +365,7 @@ function AIFindBaseAreaForDP( aiBrain, locationType, radius, tMin, tMax, tRings,
 			
 				for basename, base in aiBrain.BuilderManagers do
 			
-					if (base.CountedBase and base.BaseType != 'Sea') and VDist3( base.Position, marker.Position ) < minimum_baserange then
+					if (base.CountedBase and base.BaseType != 'Sea') and VDist3( base.Position, position ) < minimum_baserange then
 				
 						removed = true
 						
@@ -374,12 +374,11 @@ function AIFindBaseAreaForDP( aiBrain, locationType, radius, tMin, tMax, tRings,
 				end
 			
 				if not removed then
-					return marker.Position, marker.Name
+					return position, marker.Name
 				end
 			end
 		end
-	
-		--LOG("*AI DEBUG "..aiBrain.Nickname.." AIFIND BASE FOR DP finds no positions within range of "..repr(Position))	--.." - table is "..repr(positions))
+
 	end
 
 	return false, false
@@ -396,8 +395,7 @@ function AIFindDefensivePointForDP( aiBrain, locationType, radius, tMin, tMax, t
 	end
 	
     if Position and aiBrain.PrimaryLandAttackBase and aiBrain.AttackPlan.Goal then
-    
-        local VDist2Sq = VDist2Sq
+
         local VDist3 = VDist3
 	
 		-- this is the range that the current primary base is from the goal - new bases must be closer than this
@@ -405,6 +403,7 @@ function AIFindDefensivePointForDP( aiBrain, locationType, radius, tMin, tMax, t
         local test_position = aiBrain.BuilderManagers[aiBrain.PrimaryLandAttackBase].Position or Position
 		local test_range = VDist3( test_position, aiBrain.AttackPlan.Goal )	
 
+        local position
 		local positions = {}
 	
 		positions = LOUDCONCAT( positions, AIUtils.AIGetMarkersAroundLocation( aiBrain, 'Defensive Point', test_position, radius, tMin, tMax, tRings, tType))
@@ -424,13 +423,12 @@ function AIFindDefensivePointForDP( aiBrain, locationType, radius, tMin, tMax, t
 		-- so we now have a list of ALL the DP positions on the map	-- loop thru the list and eliminate any that are already in use 
 		for m,marker in positions do
 	
+            position = marker.Position
 			removed = false
 
 			for index,brain in Brains do
 
 				if brain.BuilderManagers[marker.Name] then
-			
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..marker.Name.." already taken")
                     
 					removed = true
 					break
@@ -442,9 +440,7 @@ function AIFindDefensivePointForDP( aiBrain, locationType, radius, tMin, tMax, t
 
 				for basename, base in aiBrain.BuilderManagers do
 		
-					if VDist3( base.Position, marker.Position ) < minimum_baserange or VDist3( aiBrain.AttackPlan.Goal, marker.Position ) > test_range then
-                    
-                        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..marker.Name.." too close to "..repr(base.Position).." or too far from attack plan goal "..repr(aiBrain.AttackPlan.Goal).." "..VDist3( aiBrain.AttackPlan.Goal, marker.Position ))
+					if VDist3( base.Position, position ) < minimum_baserange or VDist3( aiBrain.AttackPlan.Goal, position ) > test_range then
 
 						removed = true
 						break
@@ -452,10 +448,8 @@ function AIFindDefensivePointForDP( aiBrain, locationType, radius, tMin, tMax, t
 				end
 
 				if not removed then
-                
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." replying with "..marker.Name)
 
-					return marker.Position, marker.Name
+					return position, marker.Name
 				end	
 			end
 		end
@@ -503,6 +497,7 @@ function AIFindNavalDefensivePointForDP( aiBrain, locationType, radius, tMin, tM
 		-- note how I have to exclude my own brain as an ally to avoid sharing existing bases with myself
 		for m,marker in positions do
 	
+            position = marker.Position
 			removed = false
 
 			for _,brain in Brains do
@@ -528,7 +523,7 @@ function AIFindNavalDefensivePointForDP( aiBrain, locationType, radius, tMin, tM
 				for basename, base in aiBrain.BuilderManagers do
 			
 					-- if too close to ANY of our other existing bases
-					if VDist3( base.Position, marker.Position ) < minimum_baserange then
+					if VDist3( base.Position, position ) < minimum_baserange then
 
 						removed = true
 						break
@@ -537,7 +532,7 @@ function AIFindNavalDefensivePointForDP( aiBrain, locationType, radius, tMin, tM
 		
 				if not removed then
 		
-					return marker.Position, marker.Name
+					return position, marker.Name
 				end	
 			end
 		end
@@ -580,6 +575,7 @@ function AIFindNavalAreaForExpansion( aiBrain, locationType, radius, tMin, tMax,
 		-- note how I have to exclude my own brain as an ally to avoid sharing existing bases with myself
 		for m,marker in positions do
 	
+            position = marker.Position
 			removed = false
 
 			for _,brain in Brains do
@@ -598,7 +594,7 @@ function AIFindNavalAreaForExpansion( aiBrain, locationType, radius, tMin, tMax,
 				for basename, base in aiBrain.BuilderManagers do
 			
 					-- if too close to one of our other existing 'Sea' bases
-					if base.BaseType == 'Sea' and VDist3( base.Position, marker.Position ) < minimum_baserange then
+					if base.BaseType == 'Sea' and VDist3( base.Position, position ) < minimum_baserange then
 
 						removed = true
 						break
@@ -607,7 +603,7 @@ function AIFindNavalAreaForExpansion( aiBrain, locationType, radius, tMin, tMax,
 
 				if not removed then
                 
-					return marker.Position, marker.Name
+					return position, marker.Name
 				end						
             end
 		end
@@ -625,9 +621,10 @@ function AIFindBasePointNeedsStructure( aiBrain, locationType, radius, category,
     local Position = aiBrain.BuilderManagers[locationType].Position or false
 	
     if Position then
-    
-        local VDist2Sq = VDist2Sq
-	
+
+        local catcheck = LOUDPARSE(category)
+
+        local position
 		local positions = {}
 	
 		-- both Start and Large Expansion Areas --
@@ -659,9 +656,10 @@ function AIFindDefensivePointNeedsStructure( aiBrain, locationType, radius, cate
     local Position = aiBrain.BuilderManagers[locationType].Position or false
 
     if Position then
-    
-        local VDist2Sq = VDist2Sq
-	
+
+        local catcheck = LOUDPARSE(category)
+        
+        local position
 		local positions = {}
 	
 		-- both DPs and 'small' Expansion Areas --
@@ -724,7 +722,6 @@ function AIFindNavalDefensivePointNeedsStructure( aiBrain, locationType, radius,
     if Position and  ( aiBrain.PrimarySeaAttackBase or aiBrain.PrimaryLandAttackBase ) and aiBrain.AttackPlan.Goal and ( aiBrain.BuilderManagers[aiBrain.PrimarySeaAttackBase].Position or aiBrain.BuilderManagers[aiBrain.PrimaryLandAttackBase].Position) then
 		
         local VDist2 = VDist2
-        local VDist2Sq = VDist2Sq
         local VDist3 = VDist3
         
 		local test_range = false
@@ -785,7 +782,7 @@ function AIFindNavalDefensivePointNeedsStructure( aiBrain, locationType, radius,
 					if base.EngineerManager.Active then
 
 						-- if too close to ANY of our other existing bases or further than our current primary sea attack base --
-						if VDist2( base.Position[1],base.Position[3], v.Position[1],v.Position[3] ) < minimum_baserange or VDist2( Goal[1],Goal[3], v.Position[1],v.Position[3] ) > test_range then
+						if VDist2( base.Position[1],base.Position[3], position[1],position[3] ) < minimum_baserange or VDist2( Goal[1],Goal[3], position[1],position[3] ) > test_range then
 						
 							reject = true
 							break
@@ -794,7 +791,7 @@ function AIFindNavalDefensivePointNeedsStructure( aiBrain, locationType, radius,
 				end
 				
 				if not reject then
-					return v.Position, v.Name
+					return position, v.Name
 				end
 			end	
 		end
@@ -833,8 +830,9 @@ function AIFindStartPointNeedsStructure( aiBrain, locationType, radius, category
     
 		for _,v in positions do
 		
-			if GetNumUnitsAroundPoint( aiBrain, LOUDPARSE(category), v.Position, markerRadius, 'Ally' ) <= unitMax then
-				return v.Position, v.Name
+			if GetNumUnitsAroundPoint( aiBrain, catcheck, position, markerRadius, 'Ally' ) <= unitMax then
+
+				return position, v.Name
 			end
 		end
 	end
@@ -966,7 +964,6 @@ end
 function GetTransports( platoon, aiBrain)
 
     if platoon.UsingTransport then
-        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." already using transports")
         return false, false
     end
 
@@ -1329,6 +1326,8 @@ function GetTransports( platoon, aiBrain)
     
     local counter = 0
     local unitPos, range, id
+    
+    local IsUnitState = IsUnitState
 
 	-- now we filter out those that dont pass muster
 	for k,transport in AvailableTransports do
@@ -3157,7 +3156,6 @@ function GetHiPriTargetList(aiBrain, location)
         return {}
     end
 
-	local VDist2 = VDist2Sq
 	local LOUDCOPY = LOUDCOPY
 	local LOUDEQUAL = LOUDEQUAL
 	local WaitTicks = WaitTicks
@@ -3170,40 +3168,27 @@ function GetHiPriTargetList(aiBrain, location)
 	-- it varies with the map size and is set in the PARSEINTEL thread
 	local IMAPRadius = ScenarioInfo.IMAPRadius
 	
-	local targetlist = {}
-	local counter = 0
-	local checkspertick = 3
-	local checks = 0
-	
-	local prev_position = {}
-	
 	local ALLBPS = __blueprints
+    local checks = 0
+	local counter = 0
+	local prev_position = {}
+	local targetlist = {}	
 
-	local targets
+	local allthreat, airthreat, bp, ecothreat, newPos, subthreat, surthreat, targets, unitcount, unitPos, x1, x2, x3
+    local TPosition
 
-	local allthreat, airthreat, ecothreat, subthreat, surthreat
-	local unitPos, x1, x2, x3
-	local unitcount = 0
-	local newPos = false
-
-	LOUDSORT( threatlist, function(a,b) return VDist2(a.Position[1],a.Position[3],location[1],location[3]) < VDist2(b.Position[1],b.Position[3],location[1],location[3]) end )
+	LOUDSORT( threatlist, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq(a.Position[1],a.Position[3],location[1],location[3]) < VDist2Sq(b.Position[1],b.Position[3],location[1],location[3]) end )
 
     for _,threat in threatlist do
+        
+        TPosition = threat.Position
 	
-		if LOUDEQUAL( threat.Position, prev_position ) then
+		if LOUDEQUAL( TPosition, prev_position ) then
 			continue
 		end
-
-		if checks > 2 then
-			WaitTicks(1)
-			checks = 1
-		else
-			checks = checks + 1
-		end
 		
-		targets = GetEnemyUnitsInRect( aiBrain, threat.Position[1]-IMAPRadius, threat.Position[3]-IMAPRadius, threat.Position[1]+IMAPRadius, threat.Position[3]+IMAPRadius)
+		targets = GetEnemyUnitsInRect( aiBrain, TPosition[1]-IMAPRadius, TPosition[3]-IMAPRadius, TPosition[1]+IMAPRadius, TPosition[3]+IMAPRadius)
 		
-		allthreat = 0.0
 		airthreat = 0.0
 		ecothreat = 0.0
 		subthreat = 0.0
@@ -3217,27 +3202,30 @@ function GetHiPriTargetList(aiBrain, location)
 		newPos = false
 		
 		if targets then
-		
+
+			checks = checks + 1		
+
 			for _, target in targets do
 			
 				if not target.Dead then
 				
-					unitcount = unitcount + 1
-				
 					unitPos = target:GetCachePosition()
 					
 					if unitPos then
+                    
+                        unitcount = unitcount + 1
+                        
 						x1 = x1 + unitPos[1]
 						x2 = x2 + unitPos[2]
 						x3 = x3 + unitPos[3]
-					end
 					
-					local bp = ALLBPS[target.BlueprintID].Defense
+                        bp = ALLBPS[target.BlueprintID].Defense
 					
-					airthreat = airthreat + bp.AirThreatLevel
-					ecothreat = ecothreat + bp.EconomyThreatLevel
-					subthreat = subthreat + bp.SubThreatLevel
-					surthreat = surthreat + bp.SurfaceThreatLevel
+                        airthreat = airthreat + bp.AirThreatLevel
+                        ecothreat = ecothreat + bp.EconomyThreatLevel
+                        subthreat = subthreat + bp.SubThreatLevel
+                        surthreat = surthreat + bp.SurfaceThreatLevel
+                    end
 				end
 			end
 			
@@ -3248,10 +3236,16 @@ function GetHiPriTargetList(aiBrain, location)
 		if newPos and allthreat > 0 then
 			
 			counter = counter + 1		
-			targetlist[counter] = { Position = newPos, Type = threat.Type, LastScouted = threat.LastScouted,  Distance = VDist2(location[1],location[3], threat.Position[1],threat.Position[3]), Threats = { Air = airthreat, Eco = ecothreat, Sub = subthreat, Sur = surthreat, All = allthreat} }
+			targetlist[counter] = { Position = newPos, Type = threat.Type, LastScouted = threat.LastScouted,  Distance = VDist2(location[1],location[3], TPosition[1],TPosition[3]), Threats = { Air = airthreat, Eco = ecothreat, Sub = subthreat, Sur = surthreat, All = allthreat} }
 
-			prev_position = LOUDCOPY(threat.Position)
+			prev_position = LOUDCOPY(TPosition)
 		end
+
+		if checks > 2 then
+			WaitTicks(1)
+			checks = 0
+		end
+
     end
 	
 	return targetlist

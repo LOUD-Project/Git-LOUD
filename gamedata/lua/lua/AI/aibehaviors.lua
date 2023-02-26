@@ -1292,20 +1292,16 @@ function LandScoutingAI( self, aiBrain )
     local UNITCHECK = categories.ALLUNITS - categories.WALL
     local OMNICHECK = categories.STRUCTURE * categories.INTELLIGENCE * categories.OMNI
 
-	local curPos = nil
-	local usedTransports = false
-	
-	local scout = false
+    local PlatoonGenerateSafePathToLOUD = self.PlatoonGenerateSafePathToLOUD
+    local SendPlatoonWithTransportsLOUD = self.SendPlatoonWithTransportsLOUD
 
     local MovementLayer = self.MovementLayer
 	local PlatoonPatrols = self.PlatoonData.Patrol or false
 	
-    local units = GetPlatoonUnits(self)
+    local dataList = GetPlatoonUnits(self)
 	
-	for _,v in units do
-	
+	for _,v in dataList do
 		if not v.Dead and v:TestToggleCaps('RULEUTC_CloakToggle') then
-		
 			v:SetScriptBit('RULEUTC_CloakToggle', false)
 		end
     end
@@ -1321,22 +1317,31 @@ function LandScoutingAI( self, aiBrain )
 		return false
 	end
 
-	local targetArea, reconcomplete
-	local terrain, surface
-	local cyclecount, datalist, distance, loopcount, path, reason, lastpos
-    local IL
+	local baseradius, curPos, cyclecount, defaultthreat, distance, IL, lastpos, loopcount, path, Position, platooncount, reason, reconcomplete, scout, scoutpriority, targetArea, usedTransports
 
+    defaultthreat = 15
+    
+    -- Cybran Scouts
+    if aiBrain.FactionIndex == 3 then
+        defaultthreat = 100
+    end
+    
     while PlatoonExists(aiBrain, self) do
 
+        platooncount = 0
 		scout = false
 		
-		units = GetPlatoonUnits(self)
+		dataList = GetPlatoonUnits(self)
 		
-		for _,v in units do
+		for _,v in dataList do
 		
-			if not v.Dead then
-				scout = v
-				break
+            if not v.Dead then
+            
+                if not scout then
+                    scout = v
+                end
+                
+                platooncount = platooncount + 1
 			end
 		end
 		
@@ -1344,145 +1349,155 @@ function LandScoutingAI( self, aiBrain )
 			break
 		end
 		
-        targetArea = false
 		reconcomplete = false
-        
+        scoutpriority = false
+        targetArea = false
+
         IL = aiBrain.IL
 
+        curPos = GetPlatoonPosition(self)
+        
+        -- try and get a Hi Priority target
         if not IL.LastScoutHi and IL.HiPri then
 		
 			datalist = IL.HiPri
+            
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." LandScoutAI "..self.BuilderName.." "..self.BuilderInstance.." seeks Hi Pri position")
 
 			for k,v in datalist do
+            
+                Position = v.Position
 
                 -- if we (or an Ally) have a unit near the position mark it as scouted and bypass it
-                if IsCurrentlyScouted(v.Position) then
+                if IsCurrentlyScouted( Position ) then
 				
                     aiBrain.IL.HiPri[k].LastScouted = LOUDTIME()
                     aiBrain.IL.HiPri[k].LastUpdated = LOUDTIME()
                     continue
                 end
-
-				terrain = GetTerrainHeight(v.Position[1], v.Position[3])
-				surface = GetSurfaceHeight(v.Position[1], v.Position[3])
 				
 				-- validate positions for being on the water
-				if terrain < surface - 2 and MovementLayer != 'Amphibious' then 
+				if MovementLayer != 'Amphibious' and GetTerrainHeight( Position[1], Position[3] ) < (GetSurfaceHeight( Position[1], Position[3] ) - 2)  then 
 				
 					targetArea = false
-				else
-					aiBrain.IL.HiPri[k].LastScouted = LOUDTIME()
-                 
-					aiBrain.IL.LastScoutHi = true
-					
-					ForkThread( AISortScoutingAreas, aiBrain, aiBrain.IL.HiPri )
-   					targetArea = LOUDCOPY(v.Position)
-					break
-				end
-			end
-		end
 
+				else
+
+                    aiBrain.IL.HiPri[k].LastScouted = LOUDTIME()
+                    aiBrain.IL.LastScoutHi = true
+
+                    ForkThread( AISortScoutingAreas, aiBrain, aiBrain.IL.HiPri )
+
+                    scoutpriority = 'Hi'
+                    targetArea = LOUDCOPY( Position )
+                    break
+
+                end
+
+			end
+
+		end
+        
+        -- try and get a Low priority target
 		if not targetArea then
 		
 			aiBrain.IL.LastScoutHiCount = IL.LastScoutHiCount + 1
 			
 			if aiBrain.IL.LastScoutHiCount > aiBrain.AILowHiScoutRatio then
-			
 				aiBrain.IL.LastScoutHi = false
 				aiBrain.IL.LastScoutHiCount = 0
 			end
 			
 			datalist = IL.LowPri
+            
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." LandScoutAI "..self.BuilderName.." "..self.BuilderInstance.." seeks Low Pri position")
 
 			for k,v in datalist do
+            
+                Position = v.Position
 
                 -- if we (or an Ally) have a unit within 40 of the position mark it as scouted and bypass it
-                if IsCurrentlyScouted(v.Position) then
-				
+                if IsCurrentlyScouted( Position ) then
                     aiBrain.IL.LowPri[k].LastScouted = LOUDTIME()
                     continue
                 end
 
-				terrain = GetTerrainHeight(v.Position[1], v.Position[3])
-				surface = GetSurfaceHeight(v.Position[1], v.Position[3])
-
 				-- validate positions for being on water
-				if terrain < surface - 1 and MovementLayer != 'Amphibious' then
+				if MovementLayer != 'Amphibious' and GetTerrainHeight( Position[1], Position[3] ) < (GetSurfaceHeight( Position[1], Position[3] ) - 2)  then
+
 					targetArea = false
 				else
-					targetArea = LOUDCOPY(v.Position)
-
-					aiBrain.IL.LowPri[k].LastScouted = LOUDTIME()
+                
+                    aiBrain.IL.LowPri[k].LastScouted = LOUDTIME()
                     aiBrain.IL.LowPri[k].LastUpdated = LOUDTIME()
-					
-					ForkThread( AISortScoutingAreas, aiBrain, aiBrain.IL.LowPri )					
-					break
+
+                    ForkThread( AISortScoutingAreas, aiBrain, aiBrain.IL.LowPri )					
+
+                    scoutpriority = 'Low'
+                    targetArea = LOUDCOPY( Position )
+                    break
+
 				end
+
 			end
+
         end
 
-		-- Generate a path and use transport if required
-		-- If no transport available - run local patrol  for 2 minutes - then retry
+		-- use transport if required
         if PlatoonExists(aiBrain,self) and targetArea then
             
 			usedTransports = false
 
-			-- with Land Scouting we use an artificial high self-threat (75) so they'll continue scouting later into the game
-			path, reason = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, MovementLayer, GetPlatoonPosition(self), targetArea, 75, 160 )
+            distance = VDist3( curPos, targetArea )
 
-			if not path and PlatoonExists(aiBrain,self) then
+            if MovementLayer == 'Amphibious' then
+                markerseek = 200
+            else
+                markerseek = 160
+            end
 
-				distance = VDist3( GetPlatoonPosition(self), targetArea )
+            -- with Land Scouting we use an artificial high self-threat so they'll continue scouting later into the game
+            path, reason = PlatoonGenerateSafePathToLOUD( aiBrain, self, MovementLayer, curPos, Position, platooncount * defaultthreat, markerseek )
+
+			if not path then
 
 				-- try 6 transport calls -- 
-				usedTransports = self:SendPlatoonWithTransportsLOUD( aiBrain, targetArea, 6, false )
-				
-				-- if no path & no transport turn reconcomplete on so that squad will just patrol
-				-- where they are for two minutes before trying for another scouting location
-				
-				-- unfortunately, for now, I have to say that the recon was complete or otherwise
-				-- we'll soon have a bunch of land scouts all doing the same thing at the same place
-				if distance > 300 and not usedTransports and PlatoonExists(aiBrain, self) then
-				
-					reconcomplete = true
-					targetArea = false
-				end
+				usedTransports = SendPlatoonWithTransportsLOUD( self, aiBrain, targetArea, 6, false )
+
+				if not usedTransports and PlatoonExists(aiBrain, self) then
+
+                    return self:SetAIPlan('ReturnToBaseAI',aiBrain)
+                end
 			end
 			
-			if path and targetArea and PlatoonExists(aiBrain,self) then
-
-				distance = VDist3( GetPlatoonPosition(self), targetArea )
+			if path then
 
 				-- if the distance is great try to get transports
 				if distance > 1024 then
-				
-					-- try 2 transport calls --
-					usedTransports = self:SendPlatoonWithTransportsLOUD( aiBrain, targetArea, 2, false )
+
+					usedTransports = SendPlatoonWithTransportsLOUD( self, aiBrain, targetArea, 2, false )
 				end
 
 				-- otherwise start walking -- 
 				if path and (distance <= 1024 or (distance > 1024 and not usedTransports) ) and PlatoonExists(aiBrain,self) then
 					
-					local pathLength = LOUDGETN(path)
+					cyclecount = LOUDGETN(path)
 					
-					if pathLength > 1 then
-
-						for v = 1, pathLength-1 do
+					if cyclecount > 1 then
+						for v = 1, cyclecount-1 do
 							self:MoveToLocation( path[v], false )
 						end
 					end
 
-					self:MoveToLocation(targetArea,false) 
+					self:MoveToLocation( targetArea, false ) 
 				end
 			end
 
-			-- loop here while we travel to the target
 			lastpos = false
-            
-            -- use this to monitor time used by
-            -- other priority location checking
+
             cyclecount = 0
-			
+
+			-- loop here while we travel to the target			
             while PlatoonExists(aiBrain,self) and targetArea and not reconcomplete do
 			
 				curPos = GetPlatoonPosition(self) or false
@@ -1491,50 +1506,61 @@ function LandScoutingAI( self, aiBrain )
                 
                     cyclecount = 0
                     loopcount = 0
+                    
+                    distance = VDist3( curPos, targetArea )
 
-					if VDist2Sq(targetArea[1],targetArea[3],curPos[1],curPos[3] ) < 400 then
+					if distance < 20 then
 						reconcomplete = true
+                        break
 					end
                     
-					if not reconcomplete and lastpos and VDist3(curPos,lastpos) < 1 then
+					if not reconcomplete and lastpos and VDist3( curPos,lastpos ) < 1 then
 						reconcomplete = true
+                        targetArea = false
+                        continue
 					end
 					
 					lastpos = curPos
 
                     -- if we're near another HiPri position - mark it --
-                    -- this probably needs to be throttled or interleaved
-                    -- so as not to stress on a single tick
                     for k,v in aiBrain.IL.HiPri do
                     
-                        if VDist2Sq( curPos[1],curPos[3], v.Position[1],v.Position[3] ) < (20*20) then
-                        
+                        Position = v.Position
+                    
+                        if VDist3( curPos, Position ) < 20 then
                             aiBrain.IL.HiPri[k].LastScouted = LOUDTIME()
                             aiBrain.IL.HiPri[k].LastUpdated = LOUDTIME()
                         end
+
                     end
                     
                     for k,v in aiBrain.IL.LowPri do
-                    
-                        if loopcount > 10 then
-                            WaitTicks(1)
-                            loopcount = 1
-                            cyclecount = cyclecount + 1
-                        else
-                            loopcount = loopcount + 1
-                        end
-                    
-                        if VDist2Sq( curPos[1],curPos[3], v.Position[1],v.Position[3] ) < (20*20) then
                         
+                        Position = v.Position
+                    
+                        if VDist3( curPos, Position ) < 20 then
                             aiBrain.IL.LowPri[k].LastScouted = LOUDTIME()
                             aiBrain.IL.LowPri[k].LastUpdated = LOUDTIME()
                         end
+                    
+                        if loopcount > 10 then
+                            WaitTicks(1)
+                            loopcount = 0
+                        else
+                            loopcount = loopcount + 1
+                        end
+
                     end                    
-				end
-                
-                if not reconcomplete and cyclecount < 24 then
-                    WaitTicks(24 - cyclecount)
+
+				else
+                    break
                 end
+                
+                if not reconcomplete and cyclecount < 60 then
+                    WaitTicks( 24 - (cyclecount/3) )
+                    cyclecount = cyclecount + 1
+                end
+
             end	
 
 			-- setup the patrol and abandon the platoon
@@ -1544,21 +1570,24 @@ function LandScoutingAI( self, aiBrain )
 					targetArea = GetPlatoonPosition(self)
 				end
 
-				for _,v in GetPlatoonUnits(self) do
-					IssueClearCommands( {v} )
-				end
-
 				if PlatoonPatrols then
                 
-                    local baseradius = 28
+                    dataList = GetPlatoonUnits(self)
                 
-                    for _,scout in GetPlatoonUnits(self) do
+                    baseradius = 22
+                
+                    for _,scout in dataList do
+                    
+                        -- assign upto 2 scouts to this patrol
+                        if baseradius > 35 then
+                            break
+                        end
                     
                         if not scout.Dead then
 					
-                            datalist = GetBasePerimeterPoints( aiBrain, targetArea, baseradius, false, false, 'Land', true )
+                            path = GetBasePerimeterPoints( aiBrain, targetArea, baseradius, false, false, 'Land', true )
 					
-                            for k,v in datalist do
+                            for k,v in path do
 
                                 if (not scout.Dead) and scout:CanPathTo( v ) then
 								

@@ -569,6 +569,7 @@ function PlatoonToPositionDistanceTriggerThread( cb, platoon, marker, distance, 
 	local GetPlatoonPosition = GetPlatoonPosition
 	local GetPlatoonUnits = GetPlatoonUnits
 	local GetPosition = GetPosition
+    local IsUnitState = moho.unit_methods.IsUnitState
 	local PlatoonExists = PlatoonExists
     
 	local VDist2Sq = VDist2Sq
@@ -637,7 +638,7 @@ function PlatoonToPositionDistanceTriggerThread( cb, platoon, marker, distance, 
                         
                         --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName).." at "..repr(unitpos))
 					
-						if not u:IsUnitState('Moving') then
+						if not IsUnitState( u, 'Moving') then
                         
                             --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName).." count > 20 - at "..repr(unitpos).." force move to "..repr(marker).." at distance ".. VDist2Sq( unitpos[1], unitpos[3], marker[1], marker[3] ))
 			

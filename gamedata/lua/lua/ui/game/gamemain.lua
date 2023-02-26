@@ -38,7 +38,11 @@ OriginalFocusArmy = -1
 local GetOption = import('/lua/user/prefs.lua').GetOption
 local Ping = import("/lua/ui/game/ping.lua").DoPingOnPosition
 local VOStrings = import('/lua/ui/game/vo_computer.lua')
+
+local Economy = import('/lua/ui/game/economy.lua')
 local MissionText = import('/lua/ui/game/missiontext.lua')
+local UnitViewDetail = import('/lua/ui/game/unitviewdetail.lua')
+
 local LastAlertPos
 local OriginalPos
 
@@ -70,7 +74,9 @@ function KillWaitingDialog()
 end
 
 function SetLayout(layout)
-    import('/lua/ui/game/unitviewdetail.lua').Hide()
+
+    UnitViewDetail.Hide()
+
     import('/lua/ui/game/construction.lua').SetLayout(layout)
     import('/lua/ui/game/borders.lua').SetLayout(layout)
     import('/lua/ui/game/multifunction.lua').SetLayout(layout)
@@ -81,13 +87,16 @@ function SetLayout(layout)
 
     import('/lua/ui/game/unitview.lua').SetLayout(layout)
     import('/lua/ui/game/objectives2.lua').SetLayout(layout)
-    import('/lua/ui/game/unitviewdetail.lua').SetLayout(layout, mapGroup)
-    import('/lua/ui/game/economy.lua').SetLayout(layout)
-    import('/lua/ui/game/missiontext.lua').SetLayout()
+
+    UnitViewDetail.SetLayout(layout, mapGroup)
+    Economy.SetLayout(layout)
+    MissionText.SetLayout()
+
     import('/lua/ui/game/helptext.lua').SetLayout()
-    import('/lua/ui/game/score.lua').SetLayout()
     import('/lua/ui/game/avatars.lua').SetLayout()
-    import('/lua/ui/game/economy.lua').SetLayout()
+
+    Economy.SetLayout()
+
     import('/lua/ui/game/score.lua').SetLayout()
     import('/lua/ui/game/tabs.lua').SetLayout()
     import('/lua/ui/game/controlgroups.lua').SetLayout()
@@ -228,7 +237,7 @@ function CreateUI(isReplay)
     import('/lua/ui/game/worldview.lua').CreateMainWorldView(gameParent, mapGroup)
     import('/lua/ui/game/worldview.lua').LockInput()
 
-    local massGroup, energyGroup = import('/lua/ui/game/economy.lua').CreateEconomyBar(statusClusterGroup)
+    local massGroup, energyGroup = Economy.CreateEconomyBar(statusClusterGroup)
 	
     import('/lua/ui/game/tabs.lua').Create(mapGroup)
 
@@ -240,7 +249,7 @@ function CreateUI(isReplay)
 	
     import('/lua/ui/game/construction.lua').SetupConstructionControl(controlClusterGroup, mfdControl, ordersControl)
     import('/lua/ui/game/unitview.lua').SetupUnitViewLayout(mapGroup, ordersControl)
-    import('/lua/ui/game/unitviewdetail.lua').SetupUnitViewLayout(mapGroup, mapGroup)
+    UnitViewDetail.SetupUnitViewLayout(mapGroup, mapGroup)
     import('/lua/ui/game/avatars.lua').CreateAvatarUI(mapGroup)
     import('/lua/ui/game/controlgroups.lua').CreateUI(mapGroup)
     import('/lua/ui/game/transmissionlog.lua').CreateTransmissionLog()
@@ -488,7 +497,7 @@ function CreateWldUIProvider()
 			
             WaitSeconds(.15)
 			
-            import('/lua/ui/game/economy.lua').InitialAnimation()
+            Economy.InitialAnimation()
             import('/lua/ui/game/score.lua').InitialAnimation()
 			
             WaitSeconds(.15)
@@ -732,7 +741,7 @@ function OnPause(pausedBy, timeoutsRemaining)
     PauseVoice("VO",true)
 	
     import('/lua/ui/game/tabs.lua').OnPause(true, pausedBy, timeoutsRemaining, isOwner)
-    import('/lua/ui/game/missiontext.lua').OnGamePause(true)
+    MissionText.OnGamePause(true)
 	
 end
 
@@ -743,7 +752,7 @@ function OnResume()
     PauseVoice("VO",false)
 	
     import('/lua/ui/game/tabs.lua').OnPause(false)
-    import('/lua/ui/game/missiontext.lua').OnGamePause(false)
+    MissionText.OnGamePause(false)
 	
 end
 
@@ -763,9 +772,9 @@ function OnUserPause(pause)
         end
 
         if pause then
-            import('/lua/ui/game/missiontext.lua').PauseTransmission()
+            MissionText.PauseTransmission()
         else
-            import('/lua/ui/game/missiontext.lua').ResumeTransmission()
+            MissionText.ResumeTransmission()
         end
 		
     end
@@ -836,10 +845,10 @@ function HideGameUI(state)
 			import('/lua/ui/game/worldview.lua').Contract()
 			import('/lua/ui/game/borders.lua').HideBorder(false)
 			-- Set by Tanksy to fix the issue of the rollover stats showing with no data at the start of a game.
-			-- import('/lua/ui/game/unitviewdetail.lua').Expand()
+			-- UnitViewDetail.Expand()
 			import('/lua/ui/game/unitview.lua').Expand()
 			import('/lua/ui/game/avatars.lua').Expand()
-			import('/lua/ui/game/economy.lua').Expand()
+			Economy.Expand()
 			import('/lua/ui/game/score.lua').Expand()
 			import('/lua/ui/game/objectives2.lua').Expand()
 			import('/lua/ui/game/multifunction.lua').Expand()
@@ -863,9 +872,9 @@ function HideGameUI(state)
 			import('/lua/ui/game/worldview.lua').Expand()
 			import('/lua/ui/game/borders.lua').HideBorder(true)
 			import('/lua/ui/game/unitview.lua').Contract()
-			import('/lua/ui/game/unitviewdetail.lua').Contract()
+			UnitViewDetail.Contract()
 			import('/lua/ui/game/avatars.lua').Contract()
-			import('/lua/ui/game/economy.lua').Contract()
+			Economy.Contract()
 			import('/lua/ui/game/score.lua').Contract()
 			import('/lua/ui/game/objectives2.lua').Contract()
 			import('/lua/ui/game/multifunction.lua').Contract()
@@ -913,7 +922,7 @@ function NISMode(state)
         import('/lua/ui/game/multifunction.lua').PreNIS()
         import('/lua/ui/game/tooltip.lua').DestroyMouseoverDisplay()
         import('/lua/ui/game/chat.lua').OnNISBegin()
-        import('/lua/ui/game/unitviewdetail.lua').OnNIS()
+        UnitViewDetail.OnNIS()
 		
         HideGameUI(state)
 		
@@ -985,7 +994,7 @@ function NISMode(state)
         import('/lua/ui/game/consoleecho.lua').ToggleOutput(true)
     end
 	
-    import('/lua/ui/game/missiontext.lua').SetLayout()
+    MissionText.SetLayout()
 end
 
 function ShowNISBars()

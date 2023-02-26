@@ -382,6 +382,8 @@ EngineerManager = Class(BuilderManager) {
 
 		WaitTicks(14 + (unit.failedbuilds * 5))
         
+        local IsUnitState = IsUnitState
+        
         while unit and not unit.Dead and not unit.AssigningTask do
 
 			if not ( unit.Fighting or unit.AssigningTask) and not unit.Dead then
@@ -569,7 +571,7 @@ EngineerManager = Class(BuilderManager) {
         local faction = aiBrain.FactionIndex
 		local StructurePool = aiBrain.StructurePool
 
-		if LOUDENTITY( FACTORY, finishedUnit ) and GetAIBrain(finishedUnit).ArmyIndex == aiBrain.ArmyIndex then
+		if LOUDENTITY( FACTORY, finishedUnit ) and finishedUnit.ArmyIndex == aiBrain.ArmyIndex then
 
 			-- this was a tricky problem for engineers starting new bases since it was getting
 			-- the LocationType from the platoon (which came from the original base not the new base)
@@ -758,6 +760,7 @@ EngineerManager = Class(BuilderManager) {
         local VDist2Sq = VDist2Sq
 		local WaitTicks = WaitTicks
         
+        local ArmyIndex = aiBrain.ArmyIndex
         local Location = self.Location
         local LocationType = self.LocationType
         
@@ -777,13 +780,13 @@ EngineerManager = Class(BuilderManager) {
 				color = '00ff00'        -- green --
 			end
 
-			if GetFocusArmy() == -1 or (aiBrain.ArmyIndex == GetFocusArmy()) or IsAlly(GetFocusArmy(), aiBrain.ArmyIndex) then
+			if GetFocusArmy() == -1 or (ArmyIndex == GetFocusArmy()) or IsAlly(GetFocusArmy(), ArmyIndex) then
 
 				for j = 1, 3 do
 			
 					for i = 1,10 do
 				
-						DrawC( position, range - i, color)
+						DrawC( Position, range - i, color)
 						WaitTicks(1)
 					end
 				end
@@ -798,7 +801,7 @@ EngineerManager = Class(BuilderManager) {
 			end
 	
 			if aiBrain.BuilderManagers[LocationType] then
-				aiBrain.BuilderManagers[LocationType].MarkerID = import('/lua/ai/altaiutilities.lua').AISendPing( Location, 'marker', aiBrain.ArmyIndex, aiBrain.Nickname.." "..LocationType )
+				aiBrain.BuilderManagers[LocationType].MarkerID = import('/lua/ai/altaiutilities.lua').AISendPing( Location, 'marker', ArmyIndex, aiBrain.Nickname.." "..LocationType )
 			end
 		end
 		
@@ -976,7 +979,8 @@ EngineerManager = Class(BuilderManager) {
 			LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR starts")
 		end
 	
-		local delay = self.BaseMonitor.BaseMonitorInterval or 4
+        local Interval = self.BaseMonitor.BaseMonitorInterval
+		local delay = Interval or 4
         
         -- using this flag to control appearance of delays so they only appear when they change
         local lastdelay = 0
@@ -996,7 +1000,7 @@ EngineerManager = Class(BuilderManager) {
                 end
 			end
 			
-			WaitTicks(( self.BaseMonitor.BaseMonitorInterval + delay ) * 10 )        
+			WaitTicks(( Interval + delay ) * 10 )        
 		
 			if self.Active then
 		
@@ -1423,7 +1427,7 @@ EngineerManager = Class(BuilderManager) {
                                     for _,u in grouplnd do
                                     
                                         if not u.Dead then
-                                            IssueAggressiveMove( {u}, RandomLocation(distressLocation[1],distressLocation[3], 10))
+                                            IssueAggressiveMove( {u}, RandomLocation(distressLocation[1],distressLocation[3], 15))
                                             counter = counter + 1
                                             totalthreatsent = totalthreatsent + (__blueprints[u.BlueprintID].Defense.SurfaceThreatLevel or 0)
                                         end
@@ -1513,7 +1517,7 @@ EngineerManager = Class(BuilderManager) {
 								distress_naval = true
 							else
 								if BaseDistressResponseDialog then
-									LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASE DISTRESS RESPONSE unable to respond to "..distressType.." only have "..GetThreatOfGroup(groupsea,'AntiSurface'))
+									LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASE DISTRESS RESPONSE unable to respond to "..repr(distressType).." only have "..repr(GetThreatOfGroup( groupsea,'NavalAntiSurface') ) )
 								end
                                 
                                 -- move the units to the 3 rallypoints closest to the distressLocation

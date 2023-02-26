@@ -671,7 +671,7 @@ DefaultProjectileWeapon = Class(Weapon) {
 			-- NOTE: This is setup so that it only works if there is more than 1 rack
             if LOUDGETN(bp.RackBones) > 1 and self.CurrentRackSalvoNumber > 1 then
 
-                WaitSeconds(bp.RackReloadTimeout)
+                WaitTicks( (bp.RackReloadTimeout or .1) * 10)
                 
                 if bp.AnimationReload and not self.Animator then
                     self:PlayFxRackSalvoReloadSequence(bp)
