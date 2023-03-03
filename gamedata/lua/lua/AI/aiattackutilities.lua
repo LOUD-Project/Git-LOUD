@@ -656,37 +656,39 @@ end
 -- this function locates a target for a squad within a given range and list of priority target types
 -- returning an actual unit and its position -- modified to include the nolayercheck option
 function FindTargetInRange( self, aiBrain, squad, maxRange, attackcategories, nolayercheck )
-	
-	-- check if platoon exists --
-    local position = GetPlatoonPosition(self) or false
-    local MovementLayer = self.MovementLayer
-    local steps, xstep, ystep, lastpos, lastposHeight, nextpos, nextposHeight
+
     local LOUDABS = math.abs
+
+    local position = GetPlatoonPosition(self) or false
     
 	if not position or not maxRange then
 		return false,false
 	end
 
+    local MovementLayer = self.MovementLayer
+
+    local enemyunits, lastpos, lastposHeight, nextpos, nextposHeight, steps, unitPos, xstep, ystep
+
     if PlatoonExists( aiBrain, self) then
 	
-		local enemyunits = GetUnitsAroundPoint( aiBrain, ALLBUTWALLS, position, maxRange, 'Enemy')
+		enemyunits = GetUnitsAroundPoint( aiBrain, ALLBUTWALLS, position, maxRange, 'Enemy')
 
         -- are there any enemy units ?
         if not enemyunits[1] then
             return false, false
         end
 
-		-- the intent of this function is to make sure that we don't try and respond over mountains
-		-- and rivers and other serious terrain blockages -- these are generally identified by
-        -- a rapid elevation change over a very short distance
 		local function CheckBlockingTerrain( targetPos )  
         
             if MovementLayer == 'Air' then
                 return false
             end
-	
+
+            local GetSurfaceHeight = GetSurfaceHeight            
+            local GetTerrainHeight = GetTerrainHeight
+
 			-- This gives us the number of approx. 6 ogrid steps in the distance
-			steps = LOUDFLOOR( VDist2(position[1], position[3], targetPos[1], targetPos[3]) / 6 )
+			steps = LOUDFLOOR( VDist3( position, targetPos ) / 6 )
 	
 			xstep = (position[1] - targetPos[1]) / steps -- how much the X value will change from step to step
 			ystep = (position[3] - targetPos[3]) / steps -- how much the Y value will change from step to step
@@ -695,33 +697,30 @@ function FindTargetInRange( self, aiBrain, squad, maxRange, attackcategories, no
             lastposHeight = GetTerrainHeight( lastpos[1], lastpos[3] )
 	
 			-- Iterate thru the number of steps - starting at the pos and adding xstep and ystep to each point
-			for i = 0, steps do
-	
-				if i > 0 then
-                
-                    -- In Water is obstructed --
-                    if lastposHeight < (GetSurfaceHeight( lastpos[1], lastpos[3] ) - 1) then
-                        return true
-                    end
-		
-					nextpos =  VectorCached
-                    nextpos[1] = position[1] - (xstep * i)
-                    nextpos[3] = position[3] - (ystep * i)
-                    
-					nextposHeight = GetTerrainHeight( nextpos[1], nextpos[3] )
-					
-					-- if more than 3.6 ogrids change in height over 6 ogrids distance
-					if LOUDABS(lastposHeight - nextposHeight) > 3.6 then
-						-- we are obstructed
-						return true
-					end
-			
-                    -- store the most recently checked point
-					lastpos[1] = nextpos[1]
-                    lastpos[3] = nextpos[3]
+			for i = 1, steps do
 
-					lastposHeight = nextposHeight
+                -- In Water is obstructed --
+                if lastposHeight < (GetSurfaceHeight( lastpos[1], lastpos[3] ) - 1) then
+                    return true
                 end
+		
+                nextpos =  VectorCached
+                nextpos[1] = position[1] - (xstep * i)
+                nextpos[3] = position[3] - (ystep * i)
+                    
+				nextposHeight = GetTerrainHeight( nextpos[1], nextpos[3] )
+					
+				-- if more than 3.6 ogrids change in height over 6 ogrids distance
+				if LOUDABS(lastposHeight - nextposHeight) > 3.6 then
+
+					return true
+				end
+			
+				lastpos[1] = nextpos[1]
+                lastpos[3] = nextpos[3]
+
+				lastposHeight = nextposHeight
+
 			end
 	
 			return false
@@ -729,10 +728,7 @@ function FindTargetInRange( self, aiBrain, squad, maxRange, attackcategories, no
 
         local function CanGraphTo( destinationposition )
 
-            -- if there is a layer node within range of start position
             if GetClosestPathNodeInRadiusByLayer( position, MovementLayer or 'Land') then
-	
-                -- see if there is a layer node within range of the destination
                 return GetClosestPathNodeInRadiusByLayer( destinationposition, MovementLayer or 'Land')
             end
 	
@@ -745,26 +741,26 @@ function FindTargetInRange( self, aiBrain, squad, maxRange, attackcategories, no
 
 		LOUDSORT(enemyunits, function(a,b) local GetPosition = GetPosition local VDist3Sq = VDist3Sq return VDist3Sq( GetPosition(a), position ) < VDist3Sq( GetPosition(b), position ) end)
         
-        local u_position = false
+        unitPos = false
 
-		for _,v in attackcategories do
+		for _,category in attackcategories do
 
 			-- filter for the desired category
-			for _, u in EntityCategoryFilterDown( v, enemyunits) do
+			for _,unit in EntityCategoryFilterDown( category, enemyunits) do
 
-				if not u.Dead then
+				if not unit.Dead then
 				
 					-- if can attack this kind of target and get somewhere close to it ? (I don't like this function)
-					if CanAttackTarget( self, squad, u ) then
+					if CanAttackTarget( self, squad, unit ) then
                     
-                        u_position = GetPosition(u)
+                        unitPos = GetPosition(unit)
 
 						if nolayercheck then 
-							return u, u_position
+							return unit, unitPos
                         end
 
-						if CanGraphTo( u_position ) and not CheckBlockingTerrain( u_position ) then
-							return u, u_position
+						if CanGraphTo( unitPos ) and not CheckBlockingTerrain( unitPos ) then
+							return unit, unitPos
                         end
                     end
 				end
@@ -779,8 +775,12 @@ end
 -- targets are threat filtered and range filtered (both MAX and MIN) allowing 'banded' searches
 -- any shields within a targets vicinity increase it's threat --
 -- This function can use a great deal of CPU so be careful
+-- added the threatringrange calculation
 function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position, platoon, squad, minRange, maxRange, attackcategories, threatself, threattype, threatradius, threatavoid)
 
+    local IMAPblocks = LOUDFLOOR((threatradius or 96)/ScenarioInfo.IMAPSize)   -- translates threatradius into number of IMAPblocks
+    local threatringrange = LOUDFLOOR(IMAPblocks/2)     -- since it's a radius
+    
 	-- if position not supplied use platoon position or exit
     if not position then
 	
@@ -795,36 +795,103 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
 	if GetNumUnitsAroundPoint( aiBrain, ALLBUTWALLS, position, maxRange, 'Enemy' ) < 1 then
 		return false, false
 	end
+	
+	local AIGetThreatLevelsAroundPoint = function(unitposition)
+
+        local GetEnemyUnitsInRect = import('/lua/loudutilities.lua').GetEnemyUnitsInRect
+      	local GetThreatAtPosition = GetThreatAtPosition
+        
+        local adjust = ScenarioInfo.IMAPRadius + ( threatringrange*ScenarioInfo.IMAPSize) 
+
+        local units,counter = GetEnemyUnitsInRect( aiBrain, unitposition[1]-adjust, unitposition[3]-adjust, unitposition[1]+adjust, unitposition[3]+adjust )
+
+        if units then
+        
+            local bp, threat
+            
+            threat = 0
+            counter = 0
+        
+            if threattype == 'Air' or threattype == 'AntiAir' then
+            
+                for _,v in units do
+                
+                    bp = __blueprints[v.BlueprintID].Defense.AirThreatLevel or 0
+                    
+                    if bp then
+                        
+                        threat = threat + bp
+                        counter = counter + 1
+                    end
+                end
+            
+            elseif threattype == 'AntiSurface' then
+            
+                for _,v in units do
+                
+                    bp = __blueprints[v.BlueprintID].Defense.SurfaceThreatLevel or 0
+                    
+                    if bp then
+                        
+                        threat = threat + bp
+                        counter = counter + 1
+                    end
+                end
+            
+            elseif threattype == 'AntiSub' then
+            
+                for _,v in units do
+                
+                    bp = __blueprints[v.BlueprintID].Defense.SubThreatLevel or 0
+                    
+                    if bp then
+                        
+                        threat = threat + bp
+                        counter = counter + 1
+                    end
+                end
+
+            elseif threattype == 'Economy' then
+            
+                for _,v in units do
+                
+                    bp = __blueprints[v.BlueprintID].Defense.EconomyThreatLevel or 0
+                    
+                    if bp then
+                        
+                        threat = threat + bp
+                        counter = counter + 1
+                    end
+                end
+        
+            else
+            
+                for _,v in units do
+                
+                    bp = __blueprints[v.BlueprintID].Defense
+                    
+                    bp = bp.AirThreatLevel + bp.SurfaceThreatLevel + bp.SubThreatLevel + bp.EconomyThreatLevel
+                    
+                    if bp > 0 then
+                        
+                        threat = threat + bp
+                        counter = counter + 1
+                    end
+                end
+                
+            end
+
+            if counter > 0 then
+                return threat
+            end
+        end
+        
+        return 0
+    end
 
 	local minimumrange = (minRange * minRange)
 	
     local GetUnitsAroundPoint = GetUnitsAroundPoint
-	local GetThreatAtPosition = GetThreatAtPosition
-    local LOUDMAX = LOUDMAX
-	
-	local AIGetThreatLevelsAroundPoint = function(unitposition)
-
-		if threattype == 'AntiAir' or threattype == 'Air' then
-		
-			return LOUDMAX( 1, GetThreatAtPosition( aiBrain, unitposition, 0, true, 'AntiAir'))	--airthreat
-			
-		elseif threattype == 'AntiSurface' then
-		
-			return LOUDMAX( 1, GetThreatAtPosition( aiBrain, unitposition, 0, true, 'AntiSurface'))	--surthreat
-			
-		elseif threattype == 'AntiSub' then
-		
-			return LOUDMAX( 1, GetThreatAtPosition( aiBrain, unitposition, 0, true, 'AntiSub'))	--subthreat
-			
-		elseif threattype == 'Economy' then
-		
-			return LOUDMAX( 1, GetThreatAtPosition( aiBrain, unitposition, 0, true, 'Economy'))	--ecothreat
-			
-		else
-		
-			return GetThreatAtPosition( aiBrain, unitposition, 0, true, 'Overall')	--airthreat + ecothreat + surthreat + subthreat
-		end
-	end
 	
 	-- get all the enemy units around this point (except walls)
 	local enemyunits = GetUnitsAroundPoint( aiBrain, ALLBUTWALLS, position, maxRange, 'Enemy' )
@@ -875,7 +942,7 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
 				unitposition = GetPosition(u)
 			
 				-- if target is not dead and it's outside the minimum range
-				if (not u.Dead) and VDist2Sq(unitposition[1],unitposition[3], position[1],position[3]) >= minimumrange then
+				if (not u.Dead) and VDist3Sq( unitposition, position ) >= minimumrange then
 
                     -- only count it as a unit being checked if we actually have to process it
                     unitchecks = unitchecks + 1
@@ -930,7 +997,7 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
                         
                         else    -- otherwise select the first target
                         
-                            return u, LOUDCOPY(unitposition)
+                            return u, u:GetPosition()
 
                         end
 					end

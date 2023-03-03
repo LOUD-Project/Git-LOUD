@@ -2338,79 +2338,95 @@ end
 
 function SetLoiterPosition( self, aiBrain, startposition, searchradius, minthreat, mythreat, threatseek, threatavoid )
 
-    local GetPlatoonUnits = GetPlatoonUnits
     local GetSquadUnits = GetSquadUnits
     local GetThreatsAroundPosition = GetThreatsAroundPosition
     local GetThreatAtPosition = GetThreatAtPosition
     
     local LOUDCOPY = LOUDCOPY
     local LOUDFLOOR = LOUDFLOOR
-    local LOUDINSERT = LOUDINSERT
+
     local LOUDMAX = LOUDMAX
     local LOUDMIN = LOUDMIN
     local LOUDSORT = LOUDSORT
+    local LOUDLERP = MATH_Lerp
 
-    local VDist3 = VDist3
+    local LOUDV3 = VDist3
 
-    local loiterposition = LOUDCOPY(startposition)
+    local AirRatiofactor = aiBrain.AirRatio/3
+    local IMAPBlocksize = ScenarioInfo.IMAPSize
+    local loiterposition = startposition
+    local ringrange = searchradius * 12
+    local threatrings = LOUDFLOOR( 64 / IMAPBlocksize )
 
-    -- first step - get all the threatseek threats within 8 times the searchradius - why 8 times ?
+    -- first - get all the threatseek threats within 12 times the searchradius (ringrange) - why 12 times ?
     -- because that will let us react to air threats within reasonable range of the startposition
-    -- without necessarily pulling us all the way across the map - therefore ScenarioInfo.IMAPSize comes in handy
-    -- here as it tells us how big each block will be so we can adjust the blocks value according to that radius
+    -- without pulling us across the map - if we have a current enemy, we'll add their start, with 5 threat, to insure we have a result
+    -- the AirRatio will keep us closer to home if it's not above 3
+    -- ScenarioInfo.IMAPSize comes in handy as it tells us how big each block will be so we can adjust the blocks value to line up with the searchradius
 
-    local threats = GetThreatsAroundPosition( aiBrain, startposition, LOUDFLOOR( (searchradius * 8)/ScenarioInfo.IMAPSize), true, threatseek )
+    local currentthreat, result, lerpresult, positionthreat
+    
+    local threats = GetThreatsAroundPosition( aiBrain, startposition, LOUDFLOOR( ringrange/IMAPBlocksize ), true, threatseek )
+
+    if aiBrain.CurrentEnemyIndex then
+    
+        local x, z = aiBrain:GetCurrentEnemy():GetArmyStartPos()
+
+        table.insert( threats, { x, z, 5 } )
+    end
 
     -- filter them down to those above min threat and capture the threatavoid threat at that position
     if threats[1] then
 
-        local results = {}
-        local count = 0
+        currentthreat = 0
+        result = false
+ 
+        -- sort table highest to lowest threat
+        --LOUDSORT( threats, function(a,b) return a[3] > b[3] end )
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..self.BuilderInstance.." gets "..threatseek.." threats "..repr(threats) )
+        
+        for _,v in threats do
 
-        for k,v in threats do
+            --if v[3] < minthreat then
+              --  break
+            -- end
+            
+            -- get the avoid threat at that position
+            positionthreat = LOUDMAX( 0, GetThreatAtPosition( aiBrain, {v[1],0,v[2]}, threatrings, true, threatavoid ))
 
-            if v[3] > minthreat then
-
-                LOUDINSERT(results, { v[1],v[2],v[3],aiBrain:GetThreatAtPosition( {v[1],0,v[2]}, LOUDFLOOR(128/ScenarioInfo.IMAPSize), true, threatavoid ) } )
-                count = count + 1
+            if positionthreat <= mythreat and positionthreat > currentthreat then
+                result = { v[1], 0, v[2] }
+                currentthreat = positionthreat
             end
+
         end
 
         -- take the highest threat position
-        if count > 0 then
-
-            LOUDSORT(results, function (a,b) return (a[3]-a[4] > b[3]-b[4]) end )
-
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." used searchradius "..repr(searchradius).." with ratio of "..aiBrain.AirRatio)
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." summary "..threatseek.." threats from "..repr(startposition).." for "..LOUDFLOOR(searchradius*8/ScenarioInfo.IMAPSize).." blocks")
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." threats are "..repr(results) )
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." lerp factor is "..(searchradius*8).." to distance "..VDist3(self.anchorposition, {results[1][1], 0, results[1][2]}) )
-
-            local lerpresult = LOUDMIN(1, LOUDMIN(1,(searchradius * 8) / VDist3( startposition, {results[1][1], 0, results[1][2]})))
-
-            -- factor in threatavoidance to reduce the tether --
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." threat reduction is "..repr(LOUDMIN( 1, mythreat/LOUDMAX( 1,results[1][4]))))
-
-            -- the tether is reduced by comparing mythreat against the avoided threat and factoring in the AirRatio
-            -- this will reduce the lerp and keep us further away from those threats when the ratio is low while still allowing 
+        if result then
+        
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..self.BuilderInstance.." uses result "..repr(result) )
             
+            lerpresult = LOUDMIN( 1, LOUDMIN( 1, ( ringrange / LOUDV3(startposition, result) ) ) )
+
             -- some forward deployment
-            lerpresult = lerpresult * LOUDMIN( 0.5, LOUDMIN( mythreat, mythreat * LOUDMAX( 0.28, aiBrain.AirRatio/3 ) ) / LOUDMAX(1, results[1][4]) )
+            lerpresult = lerpresult * LOUDMIN( 0.5, LOUDMIN( mythreat, mythreat*LOUDMAX(0.28, AirRatiofactor) ) / LOUDMAX(1, currentthreat) )
 
-            loiterposition = { LOUDFLOOR(MATH_Lerp(lerpresult, startposition[1], results[1][1] )), 0, LOUDFLOOR(MATH_Lerp( lerpresult, startposition[3], results[1][2])) } 
+            -- build the loiterposition using the threatPos and LERP it against the startposition 
+            loiterposition = { LOUDFLOOR( LOUDLERP( lerpresult, startposition[1], result[1] )), 0, LOUDFLOOR( LOUDLERP( lerpresult, startposition[3], result[3]) ) } 
 
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." Lerp value is "..repr(lerpresult))
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." selects loiterposition "..repr(loiterposition).." distance is "..repr(LOUDFLOOR(VDist3(loiterposition, startposition))))
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." sets loiter at "..repr(loiterposition))
         end
 
+    else
+        LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." Set Loiter reports no threats within ringrange "..LOUDFLOOR(ringrange/IMAPBlocksize) )
     end
 
-	IssueClearCommands( GetPlatoonUnits(self) )
+    IssueClearCommands(self)
+    
+    self:MoveToLocation( loiterposition, false)
 
-	self:MoveToLocation( loiterposition, false)
-
-	IssueGuard( GetSquadUnits( self,'Attack'), loiterposition)
+    IssueGuard( GetSquadUnits( self,'Attack'), loiterposition)
+    
+    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..self.BuilderInstance.." Set Loiter position to "..repr(loiterposition) )
 
     return loiterposition
 end

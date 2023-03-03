@@ -2842,16 +2842,27 @@ function SetBaseRallyPoints( aiBrain, basename, basetype, rallypointradius, orie
 	-- and rivers and other serious terrain blockages -- these are generally identified by
     -- a rapid elevation change over a very short distance
 	local function CheckBlockingTerrain( pos, targetPos )
+    
+        local deviation
+    
+        if basetype == "Sea" then
+            deviation = 0.5
+        else
+            deviation = 2.5
+        end
+        
 	
-		-- This gives us the number of approx. 6 ogrid steps in the distance
-		local steps = math.floor( VDist2(pos[1], pos[3], targetPos[1], targetPos[3]) / 6 )
+		-- This gives us the number of approx. 8 ogrid steps in the distance
+		local steps = math.floor( VDist2(pos[1], pos[3], targetPos[1], targetPos[3]) / 8 )
 	
-		local xstep = (pos[1] - targetPos[1]) / steps -- how much the X value will change from step to step
-		local ystep = (pos[3] - targetPos[3]) / steps -- how much the Y value will change from step to step
+		local xstep = (pos[1] - targetPos[1]) / steps
+		local ystep = (pos[3] - targetPos[3]) / steps
 
 		local lastpos = {pos[1], 0, pos[3]}
         
         local nextpos, lastposHeight, nextposHeight
+        
+        local GetSurfaceHeight = GetSurfaceHeight
         local LOUDABS = math.abs
 	
 		-- Iterate thru the number of steps - starting at the pos and adding xstep and ystep to each point
@@ -2862,11 +2873,11 @@ function SetBaseRallyPoints( aiBrain, basename, basetype, rallypointradius, orie
 				nextpos = { pos[1] - (xstep * i), 0, pos[3] - (ystep * i)}
 			
 				-- Get height for both points
-				lastposHeight = GetTerrainHeight( lastpos[1], lastpos[3] )
-				nextposHeight = GetTerrainHeight( nextpos[1], nextpos[3] )
+				lastposHeight = GetSurfaceHeight( lastpos[1], lastpos[3] )
+				nextposHeight = GetSurfaceHeight( nextpos[1], nextpos[3] )
 
-				-- if more than 3.6 ogrids change in height over 6 ogrids distance
-				if LOUDABS(lastposHeight - nextposHeight) > 3.6 then
+				-- if more than deviation ogrids change in height over 6 ogrids distance
+				if LOUDABS(lastposHeight - nextposHeight) > deviation then
 
 					-- we are obstructed
 					return true

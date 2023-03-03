@@ -72,16 +72,6 @@ end
 -- Originally based only on structure values
 -- Now based upon ALL threat values
 function AIPickEnemyLogic( self, brainbool )
-
-	local allyEnemy = false
-    local armyStrengthTable = {}
-    
-    local IsAlly = IsAlly
-	local IsEnemy = IsEnemy
-    
-    local selfIndex = self.ArmyIndex
-	
-	local threattypes = {'StructuresNotMex','Land','Naval'} --'OverallNotAssigned'
     
 	-- Just a note here - the position used when finding an enemy should likely
     -- be based on his CURRENT PRIMARY position - and not always the starting position
@@ -90,22 +80,27 @@ function AIPickEnemyLogic( self, brainbool )
     
     --local testposition = self.BuilderManagers[self.PrimaryLandBase].Position or self:GetStartVector3f()
     local testposition = self.BuilderManagers['MAIN'].Position or self:GetStartVector3f()
-    
-    local Brains = ArmyBrains
-    
+
+    local GetEnemyUnitsInRect = import('/lua/loudutilities.lua').GetEnemyUnitsInRect    
+
   	local GetThreatsAroundPosition = GetThreatsAroundPosition
     local GetPosition = GetPosition	
+    local IsAlly = IsAlly
+	local IsEnemy = IsEnemy
    
     local LOUDSORT = LOUDSORT
-    
     local MATHEXP = math.exp
     local MATHMAX = LOUDMAX
-    
-    local VDist2Sq = VDist2Sq
     local VDist3 = VDist3
+
+	local allyEnemy = false
+    local armyStrengthTable = {}
+    local Brains = ArmyBrains
+    local findEnemy = false
+    local selfIndex = self.ArmyIndex
+	local threattypes = {'StructuresNotMex','Land','Naval'}
     
-    local armyindex, insertTable, threats
-    local distance, threatWeight
+    local armyindex, counter, distance, insertTable, threats, threatWeight, unitPos, units, x1, x2, x3
     
     for k,v in Brains do
 	
@@ -175,8 +170,7 @@ function AIPickEnemyLogic( self, brainbool )
 		self.CurrentEnemyIndex = self:GetCurrentEnemy().ArmyIndex
 		
     else
-	
-        local findEnemy = false
+
         local currenemy = self:GetCurrentEnemy()
 		
         -- if there is no current enemy - or the current enemy is not generating any threat - and we are not target overridden --
@@ -203,7 +197,6 @@ function AIPickEnemyLogic( self, brainbool )
 
         if findEnemy then
 		
-            local enemydistance = 0
             local enemyPosition = false
             local enemyStrength = 0
             local enemy = false
@@ -218,8 +211,6 @@ function AIPickEnemyLogic( self, brainbool )
                 -- store the highest value so far -- we'll pick this as the
                 -- enemy once we've checked all the enemies
                 if not enemy or v.Strength > enemyStrength then
-				
-                    enemydistance = VDist3( testposition, v.Position )
                     
                     enemyPosition = v.Position
 					enemyStrength = v.Strength
@@ -230,36 +221,32 @@ function AIPickEnemyLogic( self, brainbool )
 
             -- if we've picked an enemy and have a position for them
             if enemy and enemyPosition then
-            
-               	local GetEnemyUnitsInRect = import('/lua/loudutilities.lua').GetEnemyUnitsInRect
                 
                 -- collect all the enemy units within that IMAP grid
 				-- just NOTE - this will report all units - even those you don't see
-				local units = GetEnemyUnitsInRect( self, enemyPosition[1]-ScenarioInfo.IMAPRadius, enemyPosition[3]-ScenarioInfo.IMAPRadius, enemyPosition[1]+ScenarioInfo.IMAPRadius, enemyPosition[3]+ScenarioInfo.IMAPRadius)
+				units, counter = GetEnemyUnitsInRect( self, enemyPosition[1]-ScenarioInfo.IMAPRadius, enemyPosition[3]-ScenarioInfo.IMAPRadius, enemyPosition[1]+ScenarioInfo.IMAPRadius, enemyPosition[3]+ScenarioInfo.IMAPRadius)
 
-				local counter = 0
+                if units then
 
-				-- these accumulate the position values
-                local x1 = 0
-                local x2 = 0
-                local x3 = 0
+                    -- these accumulate the position values
+                    x1 = 0
+                    x2 = 0
+                    x3 = 0
 
-				-- loop thru only those that match the category filter
-				for _,v in units do
+                    for _,v in units do
 
-					counter = counter + 1
+                        if not v.Dead then
 
-					local unitPos = GetPosition(v)
+                            unitPos = GetPosition(v) or false
                     
-					if unitPos and not v.Dead then
-						x1 = x1 + unitPos[1]
-						x2 = x2 + unitPos[2]
-						x3 = x3 + unitPos[3]
-					end
-				end
-                
-                if counter > 0 then
-                
+                            if unitPos then
+                                x1 = x1 + unitPos[1]
+                                x2 = x2 + unitPos[2]
+                                x3 = x3 + unitPos[3]
+                            end
+                        end
+                    end
+
                     x1 = x1/counter
                     x2 = x2/counter
                     x3 = x3/counter
