@@ -37,13 +37,15 @@ end
 
 BuilderGroup {BuilderGroupName = 'Sea Scout Formations',
 	BuildersType = 'PlatoonFormBuilder',
-	
+
     Builder {BuilderName = 'Water Scout Formation',
 	
         PlatoonTemplate = 'T1WaterScoutForm',
 
-		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, },
-		
+		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'}  },
+
+		PlatoonAddPlans = { 'DistressResponseAI', 'PlatoonCallForHelpAI' },		
+
 		PlatoonAIPlan = 'ScoutingAI',
 
         Priority = 740,
@@ -63,17 +65,20 @@ BuilderGroup {BuilderGroupName = 'Sea Scout Formations',
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},			
 		},
     },
+
 }
 
 BuilderGroup {BuilderGroupName = 'Sea Scout Formations - Small',
 	BuildersType = 'PlatoonFormBuilder',
-	
+
     Builder {BuilderName = 'Water Scout Formation - Small',
 	
         PlatoonTemplate = 'T1WaterScoutForm',
 
-		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, },
-		
+		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
+
+		PlatoonAddPlans = { 'DistressResponseAI', 'PlatoonCallForHelpAI' },		
+
 		PlatoonAIPlan = 'ScoutingAI',
 
         Priority = 740,
@@ -93,12 +98,13 @@ BuilderGroup {BuilderGroupName = 'Sea Scout Formations - Small',
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},			
 		},
     },
+
 }
 
 
 BuilderGroup {BuilderGroupName = 'Naval Formations',
     BuildersType = 'PlatoonFormBuilder',
-	
+
 	-- we always hunt water MEX
     Builder {BuilderName = 'Sub Sea Attack MEX',
 	
@@ -106,9 +112,9 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
 		PlatoonAIPlan = 'GuardPointNaval',
 		
-		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, },
+		PlatoonAddFunctions = { {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 		
-		PlatoonAddPlans = { 'DistressResponseAI' },
+		PlatoonAddPlans = { 'DistressResponseAI', 'PlatoonCallForHelpAI' },
 		
         Priority = 750,
 		
@@ -128,7 +134,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
         },
 		
         BuilderData = {
-			DistressRange = 200,
+			DistressRange = 160,
             DistressReactionTime = 32,
 			DistressTypes = 'Naval',
 			DistressThreshold = 8,
@@ -183,7 +189,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 	
         PlatoonTemplate = 'SeaAttack Small',
 
-		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'} },
+		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 
 		PlatoonAIPlan = 'AttackForceAI',
 
@@ -204,17 +210,14 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
         BuilderConditions = {
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
 
-            --{ LUTL, 'PoolGreater', { 6, categories.SUBMARINE + categories.xes0102 }},
-            
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.DESTROYER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, categories.CRUISER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.FRIGATE }},			
-			--{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.DEFENSIVEBOAT }},
         },
 		
         BuilderData = {
-			DistressRange = 225,
+			DistressRange = 160,
             DistressReactionTime = 32,            
 			DistressTypes = 'Naval',
 			DistressThreshold = 6,
@@ -232,7 +235,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 	
         PlatoonTemplate = 'SeaAttack Small',
 
-		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'} },
+		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 
 		PlatoonAIPlan = 'AttackForceAI',
 
@@ -258,12 +261,11 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, categories.DESTROYER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, categories.CRUISER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.FRIGATE }},
-			--{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, categories.DEFENSIVEBOAT }},
         },
 		
         BuilderData = {
-			DistressRange = 225,
+			DistressRange = 160,
             DistressReactionTime = 32,            
 			DistressTypes = 'Naval',
 			DistressThreshold = 8,
@@ -281,7 +283,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 	
         PlatoonTemplate = 'SeaAttack Small',
 
-		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'} },
+		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 
 		PlatoonAIPlan = 'AttackForceAI',
 
@@ -303,16 +305,14 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 			{ LUTL, 'NavalStrengthRatioGreaterThan', { .1 } },
             
             { LUTL, 'PoolGreater', { 6, categories.SUBMARINE + categories.xes0102 }},
-            
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.DESTROYER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, categories.CRUISER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.FRIGATE }},
-			--{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},			
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.DEFENSIVEBOAT }},
         },
 		
         BuilderData = {
-			DistressRange = 225,
+			DistressRange = 160,
             DistressReactionTime = 32,            
 			DistressTypes = 'Naval',
 			DistressThreshold = 8,
@@ -330,7 +330,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 	
         PlatoonTemplate = 'SeaAttack Small',
 
-		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'} },
+		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 
 		PlatoonAIPlan = 'AttackForceAI',
 
@@ -356,11 +356,10 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.DESTROYER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 1, categories.CRUISER }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 4, categories.FRIGATE }},
-			--{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 6, categories.SUBMARINE + categories.xes0102 }},
         },
 		
         BuilderData = {
-			DistressRange = 225,
+			DistressRange = 160,
             DistressReactionTime = 32,            
 			DistressTypes = 'Naval',
 			DistressThreshold = 8,
@@ -374,7 +373,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
         },
     },
 
-	
+
     Builder {BuilderName = 'T2 Sea Attack - UEF',
 	
         PlatoonTemplate = 'SeaAttack Medium',
@@ -411,7 +410,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
         },
 		
         BuilderData = {
-			DistressRange = 225,
+			DistressRange = 185,
             DistressReactionTime = 32,            
 			DistressTypes = 'Naval',
 			DistressThreshold = 12,
@@ -462,7 +461,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 		
         BuilderData = {
 		
-			DistressRange = 225,
+			DistressRange = 185,
             DistressReactionTime = 32,            
 			DistressTypes = 'Naval',
 			DistressThreshold = 12,
@@ -513,7 +512,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
         },
 		
         BuilderData = {
-			DistressRange = 225,
+			DistressRange = 185,
             DistressReactionTime = 32,            
 			DistressTypes = 'Naval',
 			DistressThreshold = 12,
@@ -563,7 +562,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
         },
 		
         BuilderData = {
-			DistressRange = 225,
+			DistressRange = 185,
             DistressReactionTime = 32,            
 			DistressTypes = 'Naval',
 			DistressThreshold = 12,
@@ -577,7 +576,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
         },
     },
 
-	
+--[[
     Builder {BuilderName = 'T3 Sea Attack - UEF',
 	
         PlatoonTemplate = 'SeaAttack Large',
@@ -823,7 +822,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
 			PrioritizedCategories = { 'ECONOMIC', 'FACTORY','EXPERIMENTAL NAVAL','EXPERIMENTAL STRUCTURE','EXPERIMENTAL LAND', },
         },
     },
-
+--]]
     -- NAVAL BASE Patrols only appear if there is a NAVAL threat
     -- within 8km of the naval base - therefore these can still 
     -- form even if intel says no enemy naval activity.

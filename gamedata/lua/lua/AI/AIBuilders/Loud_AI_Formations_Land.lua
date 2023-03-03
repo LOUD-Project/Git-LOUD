@@ -194,7 +194,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
 
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 69, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 60, categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT }},
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE }},
         },
 		
@@ -907,7 +907,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 		
         BuilderData = {
 			PointType = 'Unit',
-			PointCategory = 'MASSEXTRACTION',
+			PointCategory = 'ECONOMIC',
 			PointSourceSelf = true,
 			PointFaction = 'Enemy',
 			PointRadius = 1250,
@@ -977,7 +977,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Water Map',
 			DistressThreshold = 4,
 
 			PointType = 'Unit',
-			PointCategory = 'MASSPRODUCTION',
+			PointCategory = 'ECONOMIC',
 			PointSourceSelf = true,
 			PointFaction = 'Enemy',
 			PointRadius = 1250,
@@ -1320,16 +1320,16 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
         BuilderType = 'Any',
 		
 		BuilderConditions = {
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 59, (categories.LAND * categories.AMPHIBIOUS) * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 50, (categories.LAND * categories.AMPHIBIOUS) * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT }},
         },
 		
         BuilderData = {
         
-            PrioritizedCategories = { 'LAND MOBILE','ENGINEER','SHIELD','STRUCTURE -WALL'},		# controls target selection
+            PrioritizedCategories = { 'LAND MOBILE','ENGINEER','SHIELD','STRUCTURE -WALL'},		-- controls target selection
 			
 			MaxAttackRange = 3000,			-- only process hi-priority targets within 60km
 			
-			MergeLimit = 120,				-- controls trigger level at which merging is allowed - nil = original platoon size
+			MergeLimit = 100,				-- controls trigger level at which merging is allowed - nil = original platoon size
 			
 			AggressiveMove = false,
 			
@@ -1368,7 +1368,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 			
 			MaxAttackRange = 1500,			-- only process hi-priority targets within 30km
 			
-			MergeLimit = 100,				# controls trigger level at which merging is allowed - nil = original platoon size
+			MergeLimit = 80,				# controls trigger level at which merging is allowed - nil = original platoon size
 			
 			AggressiveMove = true,
 			
@@ -1448,13 +1448,13 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 			DistressThreshold = 5,
 			
 			PointType = 'Unit',
-			PointCategory = 'MASSEXTRACTION',
+			PointCategory = 'ECONOMIC',
 			PointSourceSelf = true,
 			PointFaction = 'Enemy',
-			PointRadius = 800,
+			PointRadius = 1000,
 			PointSort = 'Closest',
 			PointMin = 100,
-			PointMax = 800,
+			PointMax = 1000,
 			
 			StrCategory = categories.STRUCTURE * categories.DEFENSE * categories.DIRECTFIRE - categories.TECH1,
 			StrRadius = 50,
@@ -1493,7 +1493,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 		
 		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
         
-        PlatoonAIPlan = 'GuardPoint',
+        PlatoonAIPlan = 'GuardPointAmphibious',
         
         Priority = 802,
 		
@@ -2050,7 +2050,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         
 		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 		
-		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI', },
+		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
 
         PlatoonAIPlan = 'GuardPoint',
 		
@@ -2133,7 +2133,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         
 		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 		
-		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
+		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
 
         PlatoonAIPlan = 'GuardPoint',
 		
@@ -2216,7 +2216,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Point Guards',
         
 		PlatoonAddFunctions = { {BHVR, 'AirLandToggle'}, {BHVR, 'BroadcastPlatoonPlan'}, {BHVR, 'RetreatAI'} },
 		
-		PlatoonAddPlans = { 'PlatoonCallForHelpAI','DistressResponseAI' },
+		PlatoonAddPlans = { 'PlatoonCallForHelpAI' },
 
         PlatoonAIPlan = 'GuardPoint',
 		

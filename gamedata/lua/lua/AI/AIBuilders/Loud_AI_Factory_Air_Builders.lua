@@ -138,7 +138,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.AIR * categories.SCOUT, categories.AIR }},
         },
 
-        BuilderType =  {'AirT1','AirT2'},
+        BuilderType =  {'AirT1'},
     },
 	
     Builder {BuilderName = 'Air Scout T2',
@@ -159,7 +159,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.AIR * categories.SCOUT, categories.AIR }},
         },
 
-        BuilderType =  {'AirT2','AirT3'},
+        BuilderType =  {'AirT2'},
     },
 
     Builder {BuilderName = 'Air Scout T3',
@@ -211,7 +211,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
 		PriorityFunction = HaveLessThanThreeT2AirFactory,
 		
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioLessThan', { 5 } },
+            { LUTL, 'AirStrengthRatioLessThan', { 4.5 } },
             
 			-- stop making them if enemy has T2 AA of any kind
 			{ UCBC, 'HaveLessThanUnitsWithCategoryAndAlliance', { 1, categories.ANTIAIR - categories.TECH1, 'Enemy' }},
@@ -244,7 +244,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Air',
 		PriorityFunction = HaveLessThanThreeT3AirFactory,
 		
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioLessThan', { 5 } },
+            { LUTL, 'AirStrengthRatioLessThan', { 4.5 } },
         },
 		
         BuilderType =  {'AirT2','AirT3'},

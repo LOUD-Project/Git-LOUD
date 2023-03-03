@@ -318,7 +318,7 @@ PlatoonTemplate { Name = 'T3LandAttackNW',
 PlatoonTemplate { Name = 'LandAttackHugeNW',
     Plan = 'LandForceAILOUD',
     GlobalSquads = {
-        { LANDDIRECTFIRE, 70, 100, 'Attack', 'none' },
+        { LANDDIRECTFIRE, 60, 72, 'Attack', 'none' },
 		{ LANDARTILLERY, 12, 24, 'Artillery', 'none' },
         { LANDANTIAIR, 0, 18, 'Guard', 'none' },
 		{ LANDSHIELD, 0, 10, 'Support', 'none'},
@@ -373,7 +373,7 @@ PlatoonTemplate { Name = 'T3AmphibAttack',
 PlatoonTemplate { Name = 'AmphibAttackHuge',
     Plan = 'AmphibForceAILOUD',
     GlobalSquads = {
-        { LANDAMPHIB * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT, 60, 90, 'Attack', 'none' },
+        { LANDAMPHIB * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT, 50, 72, 'Attack', 'none' },
 		{ LANDAMPHIB * categories.ANTIAIR, 0, 18, 'Guard', 'none' },
 		{ LANDAMPHIB * categories.SHIELD, 0, 10, 'Guard', 'none' },
         { LANDAMPHIB * categories.COUNTERINTELLIGENCE, 0, 3, 'Guard', 'none'},        
@@ -542,7 +542,7 @@ PlatoonTemplate { Name = 'T1WaterScoutForm',
 PlatoonTemplate { Name = 'MassAttackNaval',
 
     GlobalSquads = {
-        { categories.SUBMARINE, 7, 15, 'Artillery', 'none' },			# Submarines		
+        { categories.SUBMARINE, 7, 15, 'Artillery', 'none' },			--Submarines		
     },
 	
 }

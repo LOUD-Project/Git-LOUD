@@ -1196,7 +1196,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         },
 		
         BuilderData = {
-			DistressRange = 225,
+			DistressRange = 210,
             DistressReactionTime = 10,
 			DistressTypes = 'Land',
 			DistressThreshold = 12,
@@ -1209,7 +1209,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
             
             PrioritizedCategories = {categories.MOBILE * categories.SHIELD, categories.LAND * categories.MOBILE * categories.ANTIAIR, categories.ANTIAIR, categories.SHIELD, categories.ENGINEER, categories.MOBILE - categories.AIR, categories.STRUCTURE},
             
-			SearchRadius = 100,
+			SearchRadius = 85,
             
             UseFormation = 'AttackFormation',
         },
@@ -1692,7 +1692,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 			
             MissionTime = 120,
 			
-            PrioritizedCategories = { categories.CRUISER, categories.SUBMARINE, categories.MOBILE * categories.NAVAL, categories.MOBILE, categories.STRUCTURE},
+            PrioritizedCategories = { categories.CRUISER, categories.SUBMARINE, categories.MOBILE * categories.NAVAL, categories.SUBMERSIBLE },
 			
 			SearchRadius = 60,
 			
@@ -1734,9 +1734,9 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 			
             MissionTime = 260,
 			
-            PrioritizedCategories = { categories.CRUISER, categories.SUBMARINE, categories.MOBILE * categories.NAVAL * categories.EXPERIMENTAL, categories.MOBILE * categories.ANTIAIR, categories.MOBILE, categories.STRUCTURE},
+            PrioritizedCategories = { categories.CRUISER, categories.SUBMARINE, categories.MOBILE * categories.NAVAL, categories.SUBMERSIBLE },
 			
-			SearchRadius = 120,
+			SearchRadius = 100,
 			
             UseFormation = 'AttackFormation',
         },
@@ -1776,7 +1776,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
             
             MissionTime = 150,
             
-            PrioritizedCategories = { categories.SONAR, categories.MOBILE },
+            PrioritizedCategories = { categories.SONAR * categories.STRUCTURE },
             
 			SearchRadius = 250,
             
@@ -1926,7 +1926,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
         },
 		
         BuilderData = {
-            AvoidBases = true,      -- don't seek points with a base managers radius --
+            AvoidBases = true,      -- don't seek points within a base managers radius --
 
 			DistressRange = 240,
             DistressReactionTime = 6,            

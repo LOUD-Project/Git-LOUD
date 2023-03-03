@@ -102,7 +102,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Land',
 
         Priority = 550,
 
-		PriorityFunction = First45Minutes,
+		PriorityFunction = First30Minutes,
 
         BuilderConditions = {
             -- must have some Directfire in the Pool at this Location
@@ -499,7 +499,9 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
 
 			{ LUTL, 'FactoriesGreaterThan', { 1, categories.LAND - categories.TECH1 }},
 
-			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.INDIRECTFIRE * categories.MOBILE * categories.TECH2, categories.LAND * categories.TECH2, categories.LAND }},
+			{ LUTL, 'PoolLess', { 30, categories.LAND * categories.MOBILE * categories.INDIRECTFIRE }},
+
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.INDIRECTFIRE * categories.MOBILE, categories.LAND }},
         },
 
         BuilderType = {'LandT2'},
