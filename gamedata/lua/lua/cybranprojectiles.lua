@@ -31,18 +31,6 @@ local LOUDCOS = math.cos
 
 local WaitTicks = coroutine.yield
 
-CDFBrackmanHackPegProjectile01 = Class(MultiPolyTrailProjectile) {
-
-    PolyTrails = EffectTemplate.CBrackmanCrabPegPodTrails,
-}
-
-CDFBrackmanHackPegProjectile02 = Class(MultiPolyTrailProjectile) {
-
-    PolyTrails = EffectTemplate.CBrackmanCrabPegTrails,
-
-    FxImpactLand = EffectTemplate.CBrackmanCrabPegHit01,
-}
-
 CIFProtonBombProjectile = Class(NullShell) {
 
     FxImpactUnit = EffectTemplate.CProtonBombHit01,
@@ -721,3 +709,17 @@ CHeavyDisintegratorPulseLaser = Class(MultiPolyTrailProjectile) {
 }
 
 CKrilTorpedo = Class(OnWaterEntryEmitterProjectile) {}
+
+--[[
+CDFBrackmanHackPegProjectile01 = Class(MultiPolyTrailProjectile) {
+
+    PolyTrails = EffectTemplate.CBrackmanCrabPegPodTrails,
+}
+
+CDFBrackmanHackPegProjectile02 = Class(MultiPolyTrailProjectile) {
+
+    PolyTrails = EffectTemplate.CBrackmanCrabPegTrails,
+
+    FxImpactLand = EffectTemplate.CBrackmanCrabPegHit01,
+}
+--]]

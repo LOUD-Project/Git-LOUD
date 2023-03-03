@@ -52,6 +52,12 @@ local VectorCached = { 0, 0, 0 }
 local DEFENSESTRUCTURES = categories.STRUCTURE * categories.DEFENSE
 local EXTRACTORS = categories.MASSEXTRACTION - categories.TECH1
 local SHIELDSTRUCTURES = categories.STRUCTURE * categories.SHIELD - categories.TECH2
+
+local factory = categories.FACTORY * categories.STRUCTURE
+local landfactory = categories.LAND * factory
+local airfactory = categories.AIR * factory
+local seafactory = categories.NAVAL * factory
+local allunits = categories.ALLUNITS
     
 local function GetNumCategoryBeingBuiltByEngineers( EM, category, engCategory )
 
@@ -59,8 +65,10 @@ local function GetNumCategoryBeingBuiltByEngineers( EM, category, engCategory )
     local beingBuiltUnit
     local IsUnitState = IsUnitState
     local LOUDENTITY = LOUDENTITY
+    
+    local EngineerList = EM.EngineerList
 
-    for _,v in EntityCategoryFilterDown( engCategory, EM.EngineerList ) do
+    for _,v in EntityCategoryFilterDown( engCategory, EngineerList ) do
 		
         if not v.Dead and IsUnitState( v, 'Building' ) then
             
@@ -84,8 +92,10 @@ local function GetNumCategoryBeingBuiltByFactories( FBM, category, facCategory )
     local beingBuiltUnit
     local IsUnitState = IsUnitState
     local LOUDENTITY = LOUDENTITY
+    
+    local FactoryList = FBM.FactoryList
 	
-	for _,v in EntityCategoryFilterDown( facCategory, FBM.FactoryList ) do
+	for _,v in EntityCategoryFilterDown( facCategory, FactoryList ) do
 		
 		if v.Dead then
 			continue
@@ -148,10 +158,12 @@ end
 function ExistingBasesHaveGreaterThanFactory( aiBrain, basetype, numReq, category )
 
 	for k,v in aiBrain.BuilderManagers do
+    
+        local FactoryList = v.FactoryManager.FactoryList
 	
-		if (basetype == 'All' or basetype == v.BaseType) and v.FactoryManager.FactoryList and v.CountedBase then
+		if (basetype == 'All' or basetype == v.BaseType) and FactoryList and v.CountedBase then
 
-			if numReq > EntityCategoryCount( category, v.FactoryManager.FactoryList ) then
+			if numReq > EntityCategoryCount( category, FactoryList ) then
 				return false
 			end	
 		end
@@ -169,10 +181,12 @@ function HaveLessThanUnitsInCategoryBeingBuilt(aiBrain, numunits, category)
 	local numBuilding = 0
 	
     for _,unit in unitlist do
+    
+        local UnitBeingBuilt = unit.UnitBeingBuilt
 	
         if not unit.Dead and IsUnitState( unit, 'Building') then
 		
-            if unit.UnitBeingBuilt and not unit.UnitBeingBuilt.Dead and LOUDENTITY( category, unit.UnitBeingBuilt ) then
+            if UnitBeingBuilt and not UnitBeingBuilt.Dead and LOUDENTITY( category, UnitBeingBuilt ) then
 				numBuilding = numBuilding + 1	
             end
         end
@@ -182,7 +196,7 @@ function HaveLessThanUnitsInCategoryBeingBuilt(aiBrain, numunits, category)
 		
 		if not unit.Dead and not IsUnitState( unit,'Building') then
 
-            if unit.UnitBeingBuilt and not unit.UnitBeingBuilt.Dead and LOUDENTITY( category, unit.UnitBeingBuilt ) then
+            if UnitBeingBuilt and not UnitBeingBuilt.Dead and LOUDENTITY( category, UnitBeingBuilt ) then
 				numBuilding = numBuilding + 1	
             end
 		end
@@ -397,7 +411,7 @@ function PoolLessAtLocation( aiBrain, locationType, unitCount, testCat)
 	if numUnits > 0 then
 	
 		numUnits = numUnits - GetNumCategoryBeingBuiltByEngineers( BM.EngineerManager, testCat, categories.ENGINEER)
-		numUnits = numUnits - GetNumCategoryBeingBuiltByFactories( BM.FactoryManager, testCat, categories.FACTORY)
+		numUnits = numUnits - GetNumCategoryBeingBuiltByFactories( BM.FactoryManager, testCat, factory)
 
 		return numUnits < unitCount
 	end
@@ -414,7 +428,7 @@ function PoolGreaterAtLocation( aiBrain, locationType, unitCount, testCat)
 		local numUnits = PlatoonCategoryCountAroundPosition( aiBrain.ArmyPool, testCat, BM.Position, BM.Radius)
 	
 		numUnits = numUnits - GetNumCategoryBeingBuiltByEngineers( BM.EngineerManager, testCat, categories.ENGINEER)
-		numUnits = numUnits - GetNumCategoryBeingBuiltByFactories( BM.FactoryManager, testCat, categories.FACTORY)
+		numUnits = numUnits - GetNumCategoryBeingBuiltByFactories( BM.FactoryManager, testCat, factory)
 
 		return numUnits > unitCount
 	end
@@ -533,23 +547,23 @@ end
 
 
 function BuildingLessAtLocation( aiBrain, locationType, unitCount, testCat, builderCat)
-    return GetNumberOfUnitsBeingBuilt( aiBrain, locationType, testCat, builderCat or categories.ALLUNITS) < unitCount
+    return GetNumberOfUnitsBeingBuilt( aiBrain, locationType, testCat, builderCat or allunits) < unitCount
 end
 
 function BuildingGreaterAtLocation( aiBrain, locationType, unitCount, testCat, builderCat)
-    return GetNumberOfUnitsBeingBuilt( aiBrain, locationType, testCat, builderCat or categories.ALLUNITS) > unitCount
+    return GetNumberOfUnitsBeingBuilt( aiBrain, locationType, testCat, builderCat or allunits) > unitCount
 end
 
 function BuildingGreaterAtLocationAtRange( aiBrain, locationType, unitCount, testCat, builderCat, range)
-    return GetNumberOfUnitsBeingBuilt( aiBrain, locationType, testCat, builderCat or categories.ALLUNITS, range) > unitCount
+    return GetNumberOfUnitsBeingBuilt( aiBrain, locationType, testCat, builderCat or allunits) > unitCount
 end
 
 function LocationFactoriesBuildingLess( aiBrain, locationType, unitCount, testCat, facCat)
-    return GetNumCategoryBeingBuiltByFactories( aiBrain.BuilderManagers[locationType].FactoryManager, testCat, facCat or categories.FACTORY) < unitCount
+    return GetNumCategoryBeingBuiltByFactories( aiBrain.BuilderManagers[locationType].FactoryManager, testCat, facCat or factory) < unitCount
 end
 
 function LocationFactoriesBuildingGreater( aiBrain, locationType, unitCount, testCat, facCat)
-    return GetNumCategoryBeingBuiltByFactories( aiBrain.BuilderManagers[locationType].FactoryManager, testCat, facCat or categories.FACTORY) > unitCount
+    return GetNumCategoryBeingBuiltByFactories( aiBrain.BuilderManagers[locationType].FactoryManager, testCat, facCat or factory) > unitCount
 end
 
 -- is there an engineer, at this base, building unitCategory, needing assistance, within unitRange of the base
@@ -586,10 +600,6 @@ function LocationEngineerNeedsBuildingAssistanceInRange( aiBrain, locationType, 
 end
 
 
-local landfactory = categories.LAND * categories.FACTORY * categories.STRUCTURE
-local airfactory = categories.AIR * categories.FACTORY * categories.STRUCTURE
-local seafactory = categories.NAVAL * categories.FACTORY * categories.STRUCTURE
-
 function FactoryCapCheck(aiBrain, locationType, factoryType)
 
     local catCheck = false
@@ -617,7 +627,7 @@ function FactoryCapCheck(aiBrain, locationType, factoryType)
 
 		local engineerManager = BM.EngineerManager
 
-		numUnits = numUnits + GetNumCategoryBeingBuiltByEngineers( engineerManager, catCheck, categories.ALLUNITS )
+		numUnits = numUnits + GetNumCategoryBeingBuiltByEngineers( engineerManager, catCheck, allunits )
 	end
 
     if numUnits < BM.BaseSettings.FactoryCount[factoryType] then

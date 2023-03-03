@@ -1,6 +1,7 @@
 local LOUDINSERT = table.insert
 local LOUDREMOVE = table.remove
 local LOUDSORT = table.sort
+local next = next
 local type = type
 
 

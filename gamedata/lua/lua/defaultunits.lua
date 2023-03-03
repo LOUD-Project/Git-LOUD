@@ -1380,6 +1380,7 @@ MobileUnit = Class(Unit) {
         if __blueprints[self.BlueprintID].Display.MovementEffects[self.CacheLayer] then
         
             local CacheLayer = self.CacheLayer
+            local GetTerrainTypeEffects = self.GetTerrainTypeEffects
 
 			-- then see if it has footfall entries for this layer
             local bpTable = __blueprints[self.BlueprintID].Display.MovementEffects[CacheLayer].Footfall
@@ -1398,11 +1399,13 @@ MobileUnit = Class(Unit) {
 
                 if bpTable.Bones then
 
-                    local effects = {}
-                    local scale = 1
-                    local offset = nil
                     local army = self.Army
-                    local boneTable = nil
+
+                    local effects = false
+
+                    local scale = 1
+
+                    local boneTable, offset
 
                     for k, v in bpTable.Bones do
 
@@ -1414,7 +1417,7 @@ MobileUnit = Class(Unit) {
                             offset = bone.Offset
 
                             if v.Type then
-                                effects = self.GetTerrainTypeEffects( 'FXMovement', CacheLayer, self:GetPosition(v.FootBone), v.Type )
+                                effects = GetTerrainTypeEffects( 'FXMovement', CacheLayer, self:GetPosition(v.FootBone), v.Type )
                             end
 
                             break
@@ -1427,7 +1430,7 @@ MobileUnit = Class(Unit) {
                     
                         local Tread = boneTable.Tread
 
-                        CreateSplatOnBone(self, Tread.TreadOffset, 0, Tread.TreadMarks, Tread.TreadMarksSizeX, Tread.TreadMarksSizeZ, 100, Tread.TreadLifeTime or 10, army )
+                        CreateSplatOnBone(self, Tread.TreadOffset, 0, Tread.TreadMarks, Tread.TreadMarksSizeX, Tread.TreadMarksSizeZ, 100, Tread.TreadLifeTime or 8, army )
 
                         local treadOffsetX = Tread.TreadOffset[1]
 
@@ -1449,8 +1452,11 @@ MobileUnit = Class(Unit) {
                         end
                     end
 
-                    for k, v in effects do
-                        CreateEmitterAtBone(self, bone, army, v):ScaleEmitter(scale):OffsetEmitter(offset.x or 0,offset.y or 0,offset.z or 0)
+                    if effects then
+                        
+                        for k, v in effects do
+                            CreateEmitterAtBone(self, bone, army, v):ScaleEmitter(scale):OffsetEmitter(offset.x or 0,offset.y or 0,offset.z or 0)
+                        end
                     end
 
                     if CacheLayer != 'Seabed' then
@@ -1483,8 +1489,6 @@ MobileUnit = Class(Unit) {
         local bpTable = __blueprints[self.BlueprintID].Display.MovementEffects
 
         CleanupEffectBag(self,'MovementEffectsBag')
-
-		self.MovementEffectsBag = {}
 
         if self.CamShakeT1 then
 

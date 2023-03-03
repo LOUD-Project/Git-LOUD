@@ -1,8 +1,9 @@
 -- File: score.lua 
-local scoreData = {} 
+local scoreData = {}
+local LOUDDEEPCOPY = table.deepcopy 
 
 function UpdateScoreData(newData) 
-  scoreData = table.deepcopy(newData) 
+  scoreData = LOUDDEEPCOPY(newData) 
 end 
 
 function GetScoreData() 

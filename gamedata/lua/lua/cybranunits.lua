@@ -223,8 +223,6 @@ CSeaFactoryUnit = Class(FactoryUnit) {
 CConstructionUnit = Class(ConstructionUnit){
     
     CreateBuildEffects = function( self, unitBeingBuilt, order )
-    
-        --LOG("*AI DEBUG CConstructionUnit CreateBuildEffects")
         
         local BuildBones = __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones
 	

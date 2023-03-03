@@ -35,6 +35,8 @@ end
 -- Be AWARE - it does not appear to do ANY threat evaluation that I can understand or see working --
 function AIExecuteBuildStructure( aiBrain, engineer, buildingType, closeToBuilder, relative, buildingTemplate, baseTemplate, reference, constructionData)
 
+    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(engineer.BuilderName).." DECIDEWHAT for "..repr(buildingType))
+
     local whatToBuild = DecideWhatToBuild( aiBrain, engineer, buildingType, buildingTemplate)
 
     if not whatToBuild or engineer.Dead then
@@ -66,8 +68,6 @@ function AIExecuteBuildStructure( aiBrain, engineer, buildingType, closeToBuilde
 		-- The biggest result - ENGINEERS GO WANDERING INTO HARMS WAY FREQUENTLY -- I'm going to try various values
 		-- I am now passing along the engineers ThreatMax from his platoon (if it's there)
         -- at this point in time is appears to have NO impact at all 
-        
-        --location = aiBrain:FindPlaceToBuild( buildingType, whatToBuild, baseTemplate, relative, engineer, 'Enemy', SourcePosition[1], SourcePosition[3], constructionData.ThreatMax or 7.5)	
 
         local CanBuildStructureAt = CanBuildStructureAt
 
@@ -170,7 +170,9 @@ function AIExecuteBuildStructure( aiBrain, engineer, buildingType, closeToBuilde
 		end
         
     else
-	
+    
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(engineer.BuilderName).." FINDPLACE for "..repr(buildingType).." at "..repr(SourcePosition).." with template "..repr(baseTemplate) )	
+
         location = FindPlaceToBuild( aiBrain, buildingType, whatToBuild, baseTemplate, relative, engineer, nil, SourcePosition[1], SourcePosition[3])
 		
     end
@@ -184,6 +186,8 @@ function AIExecuteBuildStructure( aiBrain, engineer, buildingType, closeToBuilde
             relativeLoc = {relativeLoc[1] + SourcePosition[1], relativeLoc[2] + SourcePosition[2], relativeLoc[3] + SourcePosition[3]}
 			
         end
+
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(engineer.BuilderName).." -- PLACED -- "..repr(buildingType).." at "..repr(relativeLoc) )	
 
         LOUDINSERT(engineer.EngineerBuildQueue, { whatToBuild, {relativeLoc[1], relativeLoc[3], 0 } } )
 		

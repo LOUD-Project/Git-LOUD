@@ -308,6 +308,8 @@ Unit = Class(moho.unit_methods) {
         if self.BuffFields and bp.BuffFields then
             self:InitBuffFields( bp )
         end
+        
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." creates "..self.BlueprintID.." "..bp.Description.." at "..repr(self:GetPosition()) )
   
 		self.CacheLayer = GetCurrentLayer(self)
 
@@ -3382,7 +3384,7 @@ Unit = Class(moho.unit_methods) {
 
     OnWorkBegin = function(self, work)
 	
-        local unitEnhancements = import('/lua/enhancementcommon.lua').GetEnhancements(self.EntityID) --GetEntityId(self))
+        local unitEnhancements = import('/lua/enhancementcommon.lua').GetEnhancements(self.EntityID)
         local tempEnhanceBp = ALLBPS[self.BlueprintID].Enhancements[work]
 
         if tempEnhanceBp.Prerequisite then
@@ -3403,8 +3405,8 @@ Unit = Class(moho.unit_methods) {
 			
         end
 
-        -- we seem to do this and then not use most of it ?
-        -- ah - it seems to support the UI and progress bar
+
+        -- seems to support the UI and progress bar
         self.WorkItem = tempEnhanceBp
         self.WorkItemBuildCostEnergy = tempEnhanceBp.BuildCostEnergy
         self.WorkItemBuildCostMass = tempEnhanceBp.BuildCostMass
@@ -3615,7 +3617,7 @@ Unit = Class(moho.unit_methods) {
 			
 		end
 		
-        return TerrainType[FxType][layer][type] or {}
+        return TerrainType[FxType][layer][type] or false
 		
     end,
 
@@ -3624,26 +3626,31 @@ Unit = Class(moho.unit_methods) {
 		-- if simspeed drops too low suspend terrain effects --
 		if Sync.SimData.SimSpeed < 0 then return end
 
+        local GetTerrainTypeEffects = self.GetTerrainTypeEffects
+        
+        local Army = self.Army
+        local Position = self:GetPosition()
+
         for _, vTypeGroup in effectTypeGroups do
 		
 	        local effects = {}
 		
             if TerrainType then
 			
-                effects = TerrainType[FxBlockType][FxBlockKey][vTypeGroup.Type] or {}
+                effects = TerrainType[FxBlockType][FxBlockKey][vTypeGroup.Type] or false
 				
             else
 			
-                effects = self.GetTerrainTypeEffects( FxBlockType, FxBlockKey, self:GetPosition(), vTypeGroup.Type, TypeSuffix )
+                effects = GetTerrainTypeEffects( FxBlockType, FxBlockKey, Position, vTypeGroup.Type, TypeSuffix )
             end
 
-			if not table.empty(effects) then
+			if effects then
 			
 				for kb, vBone in vTypeGroup.Bones do
 				
 					for ke, vEffect in effects do
 
-						local emit = LOUDATTACHEMITTER( self, vBone, self.Army, vEffect ):ScaleEmitter(vTypeGroup.Scale or 3)
+						local emit = LOUDATTACHEMITTER( self, vBone, Army, vEffect ):ScaleEmitter(vTypeGroup.Scale or 1.5)
 
 						if vTypeGroup.Offset then
 						

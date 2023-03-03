@@ -608,6 +608,8 @@ function AIFindNavalAreaForExpansion( aiBrain, locationType, radius, tMin, tMax,
             end
 		end
 	end
+    
+    LOG("*AI DEBUG "..aiBrain.Nickname.." finds no NAVALAREA ")
 
 	return false, false
 end

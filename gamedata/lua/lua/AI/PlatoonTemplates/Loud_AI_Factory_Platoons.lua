@@ -234,7 +234,7 @@ PlatoonTemplate { Name = 'T2Fighter',
             { 'dea0202', 1, 2, 'Attack', 'none' },	-- Ftr
         },
         Aeon = {
-            { 'xaa0202', 1, 2, 'Attack', 'none' },
+            { 'xaa0202', 1, 2, 'Attack', 'none' },  -- Ftr
         },
         Cybran = {
             { 'dra0202', 1, 2, 'Attack', 'none' },	-- Ftr/Bmbr

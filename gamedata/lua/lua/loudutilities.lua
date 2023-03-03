@@ -2830,8 +2830,7 @@ end
 -- may not even get used in the course of a game
 function SetBaseRallyPoints( aiBrain, basename, basetype, rallypointradius, orientation )
 
-	--LOG("*AI DEBUG "..aiBrain.Nickname.." sets Base Rally points for "..basename)
-	
+
 	local markertype = "Rally Point"
 	local orientation = orientation or 'ALL'
 	
@@ -2897,7 +2896,9 @@ function SetBaseRallyPoints( aiBrain, basename, basetype, rallypointradius, orie
         end
         
 	end
-	
+
+	--LOG("*AI DEBUG "..aiBrain.Nickname.." sets Base Rally points for "..basename.." "..repr(rallypointtable))	
+
 	return rallypointtable
 end
 

@@ -9,6 +9,7 @@ local LOUDFLOOR = math.floor
 local LOUDMAX = math.max
 local LOUDPARSE = ParseEntityCategory
 local LOUDSORT = table.sort
+local type = type
 
 local VDist2 = VDist2
 local VDist2Sq = VDist2Sq
@@ -44,18 +45,17 @@ local VectorCached = { 0, 0, 0 }
 function GetClosestPathNodeInRadiusByLayer(location, layer)
 
 	local nodes = ScenarioInfo.PathGraphs['RawPaths'][layer] or false
-    local VDist2Sq = VDist2Sq
+    local VDist3 = VDist3
 	
 	if nodes then
 		
-		local radius = LayerLimits[layer]
-
-		-- sort the markers for this layer by closest to location
-		LOUDSORT( nodes, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq(a.position[1],a.position[3], location[1],location[3]) < VDist2Sq(b.position[1],b.position[3], location[1],location[3]) end )
+		LOUDSORT( nodes, function(a,b) local VDist3 = VDist3 return VDist3( a.position, location ) < VDist3( b.position, location ) end )
+        
+        local position = nodes[1].position
 
 		-- if the first result is within radius then respond
-		if VDist2Sq( nodes[1].position[1],nodes[1].position[3], location[1],location[3]) <= (radius*radius) then
-			return true, nodes[1].position
+		if VDist3( position, location ) <= LayerLimits[layer] then
+			return true, position
         end
 	end
 
@@ -838,33 +838,30 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
     local GetPosition = GetPosition
 
 	local LOUDSORT = LOUDSORT
-	local VDist2Sq = VDist2Sq
-	local VDist2 = VDist2
-    local VDist3Sq = VDist3Sq
+	local VDist3Sq = VDist3Sq
+	local VDist3 = VDist3
     
     local WaitTicks = WaitTicks
 	
     -- get a count of all shields within the list
 	local shieldcount = EntityCategoryCount( SHIELDS, enemyunits )
     
-	local retUnit, rePosition, bestthreat, targetUnits
+	local retUnit, bestthreat, targetUnits
 
 	-- loop thru each of our attack categories
 	for _,category in attackcategories do
 	
 		retUnit = false
-		retPosition = false
 
 		-- filter the enemy units down to a specific category
 		targetUnits = EntityCategoryFilterDown( category, enemyunits )
 		
-		if targetUnits[1] then	
+		if targetUnits[1] then
         
 			-- sort them by distance -- 
-			LOUDSORT( targetUnits, function(a,b) return VDist3Sq(GetPosition(a), position) < VDist3Sq(GetPosition(b), position) end)
+			LOUDSORT( targetUnits, function(a,b) local GetPosition = GetPosition local VDist3Sq = VDist3Sq return VDist3Sq(GetPosition(a), position) < VDist3Sq(GetPosition(b), position) end)
 		
-			local unitchecks, checkspertick, unitposition
-			local enemythreat, enemyshields, totalshieldvalueattarget
+			local checkspertick, enemyshields, enemythreat, unitchecks, unitposition
             
             local lastget = 0    -- debug value to monitor threat checks --
             local gets = 0       -- how many times the threatcheck was the same
@@ -947,7 +944,13 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
 			end
 
 			if retUnit and not retUnit.Dead then
-				return retUnit,retPosition
+
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." "..platoon.BuilderInstance.." gets "..repr(retUnit:GetBlueprint().Description).." at "..repr(retUnit:GetPosition()).." enemy "..threattype.." threat at "..threatringrange.." IMAP blocks is "..bestthreat.." mine is "..threatself.." avoid is "..threatavoid)
+                
+                --LOG("*AI DEBUG "..threattype.." Threats around selected position "..repr(aiBrain:GetThreatsAroundPosition( retUnit:GetPosition(), threatringrange, true, threattype )) )
+                --LOG("*AI DEBUG "..threatavoid.." Threats around selected position "..repr(aiBrain:GetThreatsAroundPosition( retUnit:GetPosition(), threatringrange, true, threatavoid )) )
+
+				return retUnit, retUnit:GetPosition()
 			else
 				retUnit = false
 			end

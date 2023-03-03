@@ -1943,7 +1943,7 @@ Platoon = Class(moho.platoon_methods) {
 						
 								if not v.WasWarped then
 								
-									WARN("*AI DEBUG "..aiBrain.Nickname.." RTB "..self.BuilderName.." Unit warped in RTB to "..repr(platPos))
+									--WARN("*AI DEBUG "..aiBrain.Nickname.." RTB "..self.BuilderName.." Unit warped in RTB to "..repr(platPos))
 									
 									Warp( v, platPos )
 									IssueMove( {v}, RTBLocation)
@@ -2097,9 +2097,10 @@ Platoon = Class(moho.platoon_methods) {
 						
 							-- dont use naval bases for land --
 							returnpool.BuilderLocation = FindClosestBaseName( aiBrain, GetPlatoonPosition(returnpool), false )
+
 						else
 						
-							if MovementLayer == "Air" or PlatoonLayer == "Amphibious" then
+							if MovementLayer == "Air" or MovementLayer == "Amphibious" then
 							
 								-- use any kind of base --
 								returnpool.BuilderLocation = FindClosestBaseName( aiBrain, GetPlatoonPosition(returnpool), true, false )
@@ -6200,6 +6201,11 @@ Platoon = Class(moho.platoon_methods) {
 			end		-- next brain --
 	
 			if alertposition then
+
+                if DistressResponseDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." PCAI DR "..self.BuilderName.." "..self.BuilderInstance.." selects alert at "..repr(alertposition).." from "..( repr(alertplatoon.BuilderName) or repr(alertplatoon) ).." distance "..alertrange.." - time "..repr(GetGameTimeSeconds()))
+                end
+
 				return alertposition, distresstype, alertplatoon
 			else
 				return false, false, false
@@ -6354,8 +6360,6 @@ Platoon = Class(moho.platoon_methods) {
 
 								self:MoveToLocation( distressLocation, false )
 							end
-						
-							--platoonPos = GetPlatoonPosition(self) or false
                             
 							prevpos = false
 
@@ -6949,6 +6953,8 @@ Platoon = Class(moho.platoon_methods) {
     -- what needs to be built and then issue the build commands to the engineer
     EngineerBuildAI = function( self, aiBrain )
     
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." enters EBAI")
+    
         local GetPlatoonPosition = GetPlatoonPosition
         local GetPlatoonUnits = GetPlatoonUnits
         local PlatoonExists = PlatoonExists
@@ -6982,6 +6988,7 @@ Platoon = Class(moho.platoon_methods) {
 			end
 			
 			if not BuildStructures then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." exits EBAI - no structures")
 				return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 			end
         end
@@ -7010,6 +7017,7 @@ Platoon = Class(moho.platoon_methods) {
 		local baselineref = false
 
         local BasePerimeterOrientation = cons.BasePerimeterOrientation or 'FRONT'
+        local addrotations = cons.AddRotations or 0
 		local buildpoint = cons.BasePerimeterSelection or false	-- true, false, or a specific number (0-12) depending upon Orientation (FRONT,REAR,ALL)
 		local iterations = cons.Iterations or false
 
@@ -7026,22 +7034,22 @@ Platoon = Class(moho.platoon_methods) {
 			if orient then
 			
 				-- standard orientation is always South
-				rotation = 0 + (cons.AddRotations or 0)
+				rotation = 0 + addrotations
 				baselineref = reference[1][1] -- store the vertical position line
 			
 				if orient == 'W' then
 				
-					rotation = 1 + (cons.AddRotations or 0)
+					rotation = 1 + addrotations
 					baselineref = reference[1][3] -- store the horizontal position line
 					
 				elseif orient == "N" then
 				
-					rotation = 2 + (cons.AddRotations or 0)
+					rotation = 2 + addrotations
 					baselineref = reference[1][1] -- store the vertical line
 					
 				elseif orient == "E" then
 				
-					rotation = 3 + (cons.AddRotations or 0)
+					rotation = 3 + addrotations
 					baselineref = reference[1][3]	-- store the horizontal line
 					
 				end
@@ -7163,10 +7171,10 @@ Platoon = Class(moho.platoon_methods) {
 				LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." No location found for new base!")
 				
                 return self:SetAIPlan('ReturnToBaseAI',aiBrain)
-			end
+            end
 			
 			for _,v in eng:GetGuards() do
-			
+
 				if not v.Dead and v.PlatoonHandle then
 					v.PlatoonHandle:ReturnToBaseAI(aiBrain)
 				end
@@ -7214,22 +7222,22 @@ Platoon = Class(moho.platoon_methods) {
 			if orient then
 			
 				-- assume that standard orientation is always S
-				rotation = 0 + (cons.AddRotations or 0)
+				rotation = 0 + addrotations
 				baselineref = reference[1][1] -- store the vertical position line
 			
 				if orient == 'W' then
 				
-					rotation = 1 + (cons.AddRotations or 0)
+					rotation = 1 + addrotations
 					baselineref = reference[1][3] -- store the horizontal position line
 					
 				elseif orient == "N" then
 				
-					rotation = 2 + (cons.AddRotations or 0)
+					rotation = 2 + addrotations
 					baselineref = reference[1][1] -- store the vertical line
 					
 				elseif orient == "E" then
 				
-					rotation = 3 + (cons.AddRotations or 0)
+					rotation = 3 + addrotations
 					baselineref = reference[1][3]	-- store the horizontal line
 					
 				end
@@ -9409,31 +9417,26 @@ Platoon = Class(moho.platoon_methods) {
 		
 			-- otherwise it must a least have the same plan
             if aPlat.PlanName != planName then
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." using "..repr(planName).." different plan "..aPlat.BuilderName.." Using "..repr(aPlat.PlanName) )
                 continue
             end
 		
 			-- not only the plan must match but the buildername as well
 			if planmatchrequired and aPlat.BuilderName != BuilderName then
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." Buildername match required with "..aPlat.BuilderName)			
 				continue
 			end
 		
 			-- and be on the same movement layer
             if aPlat.MovementLayer != MovementLayer then
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." on "..repr(self.MovementLayer).." on different layer "..repr(aPlat.MovementLayer))			
                 continue
             end
 		
 			-- if allied platoon is busy (not necessarily transports - this is really a general 'busy' flag --
             if aPlat.UsingTransport then
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." Platoon "..aPlat.BuilderName.." is UsingTransport "..repr(aPlat) )
                 continue
             end
             
 			-- check distance of allied platoon -- as soon as we hit one farther away then we're done
 			if VDist3Sq( platPos, GetPlatoonPosition(aPlat) ) > radiusSq then
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." at "..repr(platPos).." outside radius of "..radius.." APlat "..aPlat.BuilderName.." at "..repr(GetPlatoonPosition(aPlat)) )
 				break
 			end
 
@@ -9476,7 +9479,6 @@ Platoon = Class(moho.platoon_methods) {
 
                 -- if no valid units or we are smaller than the allied platoon then dont allow
                 if counter < 1 or platooncount < allyPlatoonSize or allyPlatoonSize == 0 then
-                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." of "..platooncount.." FAILS merge with "..aPlat.BuilderName.." which has "..allyPlatoonSize)
                     continue
                 end
 

@@ -11,6 +11,8 @@ local GetBasePerimeterPoints = import('/lua/loudutilities.lua').GetBasePerimeter
 
 local CreateUnitDestroyedTrigger = import('/lua/scenarioframework.lua').CreateUnitDestroyedTrigger
 
+local GetDirectionInDegrees = import('/lua/utilities.lua').GetDirectionInDegrees
+
 local AIFindTargetInRangeInCategoryWithThreatFromPosition = import('/lua/ai/aiattackutilities.lua').AIFindTargetInRangeInCategoryWithThreatFromPosition
 
 local LOUDCOPY = table.copy
@@ -1601,42 +1603,49 @@ function LandScoutingAI( self, aiBrain )
                                     end
 					
                                     if k == 1 then
-                                    
                                         IssueMove( {scout}, v )
                                     else
-
                                         IssuePatrol( {scout}, v )
                                     end
                                 end
 
-                                WaitTicks(2)
+                                WaitTicks(1)
                             end
+				
+                            -- if this is a high or low priority, abandon 1 or 2 scouts here and move the rest on
+                            -- Low priority scouts will leave only 1 scout whereas Hi will leave 2
+                            if scoutpriority and not scout.Dead then
 
-                            baseradius = baseradius + 8
+                                AssignUnitsToPlatoon( aiBrain, aiBrain.StructurePool, {scout}, 'Guard', 'none' )
+
+                                if scoutpriority == 'Low' then
+                                    break
+                                else
+                                    baseradius = baseradius + 12
+                                end
+
+                            end
+                            
                         end
+
                     end
+                    
+                    if not scoutpriority then
+
+                        --LOG("*AI DEBUG "..aiBrain.Nickname.." LandScoutAI "..self.BuilderName.." has no targetArea - will patrol in place for 15 seconds ")
+                        
+                        WaitTicks(151)
+                        
+                   		self:SetAIPlan('ReturnToBaseAI',aiBrain)
+                    end
+
 				end
-				
-				-- here is where you could use a variable time or alternatively
-				-- just abandon the scout platoon and leave him patrolling until
-				-- death -- which is what I will now do - land scouts are dirt cheap
-				
-				-- assign them to the structure pool so they dont interfere with normal unit pools
-				if PlatoonExists(aiBrain,self) then
-				
-					for _,v in GetPlatoonUnits(self) do
-				
-						if not v.Dead then
-							AssignUnitsToPlatoon( aiBrain, aiBrain.StructurePool, v, 'Guard', 'none' )
-						end
-					end
-				end
-				
-				return self:PlatoonDisband(aiBrain)
+
 			end
+            
         end
 		
-		WaitTicks(30)
+		WaitTicks(21)
     end
     
 end
@@ -2416,9 +2425,7 @@ function AirForceAILOUD( self, aiBrain )
     local GetPlatoonPosition = GetPlatoonPosition
     local GetPlatoonUnits = GetPlatoonUnits    
     local GetSquadUnits = GetSquadUnits    
-    local GetThreatsAroundPosition = GetThreatsAroundPosition
 	local PlatoonExists = PlatoonExists	
-
     
     local LOUDCOPY = LOUDCOPY
     local LOUDFLOOR = LOUDFLOOR
@@ -3069,7 +3076,10 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
 
 			if self:MergeWithNearbyPlatoons( aiBrain, 'AirForceAI_Bomber_LOUD', 80, false, mergelimit) then
 
-				self:SetPlatoonFormationOverride(PlatoonFormation)
+                if PlatoonFormation != 'None' then
+                    self:SetPlatoonFormationOverride(PlatoonFormation)
+                end
+                
 				oldNumberOfUnitsInPlatoon = LOUDGETN(GetPlatoonUnits(self))
                 
                 if ScenarioInfo.PlatoonMergeDialog then
@@ -3563,7 +3573,10 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
 
 			if self:MergeWithNearbyPlatoons( aiBrain, 'AirForceAI_Gunship_LOUD', 80, false, mergelimit) then
 
-				self:SetPlatoonFormationOverride(PlatoonFormation)
+                if PlatoonFormation != 'None' then
+                    self:SetPlatoonFormationOverride(PlatoonFormation)
+                end
+                
 				oldNumberOfUnitsInPlatoon = LOUDGETN(GetPlatoonUnits(self))
                 
                 if ScenarioInfo.PlatoonMergeDialog then
@@ -4068,7 +4081,10 @@ function AirForceAI_Torpedo_LOUD( self, aiBrain )
 
 			if self:MergeWithNearbyPlatoons( aiBrain, 'AirForceAI_Torpedo_LOUD', 100, false, mergelimit) then
 
-				self:SetPlatoonFormationOverride(PlatoonFormation)
+                if PlatoonFormation != 'None' then
+                    self:SetPlatoonFormationOverride(PlatoonFormation)
+                end
+                
 				oldNumberOfUnitsInPlatoon = LOUDGETN(GetPlatoonUnits(self))
                 
                 if ScenarioInfo.PlatoonMergeDialog then

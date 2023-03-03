@@ -12,7 +12,6 @@ local LOUDPARSE = ParseEntityCategory
 local LOUDREMOVE = table.remove
 local LOUDSORT = table.sort
 
-local VDist2 = VDist2
 local VDist2Sq = VDist2Sq
 
 local GetAIBrain = moho.unit_methods.GetAIBrain
@@ -163,8 +162,6 @@ function AIPickEnemyLogic( self, brainbool )
         end
     end
 	
-	--LOG("*AI DEBUG "..self.Nickname.." Str table is "..repr(armyStrengthTable))
-	
     -- if targetoveride is true then allow target switching
     -- the only place I see that happening is with the Sorian
     -- AI Chat functions - otherwise default is false and 
@@ -304,8 +301,6 @@ function AISortMarkersFromLastPosWithThreatCheck(aiBrain, markerlist, maxNumber,
 
 	local LOUDREMOVE = LOUDREMOVE
     local LOUDSORT = LOUDSORT
-    
-    local VDist2Sq = VDist2Sq
     
     local threatCheck = false
     local threatMax = 999999
@@ -826,7 +821,7 @@ function AIFindBrainTargetAroundPoint( aiBrain, position, maxRange, category )
     end
     
     local GetPosition = GetPosition	
-    local VDist2 = VDist2
+    local VDist2Sq = VDist2Sq
     
     local testCat = category
 	
@@ -846,7 +841,7 @@ function AIFindBrainTargetAroundPoint( aiBrain, position, maxRange, category )
         if not unit.Dead then
 		
             unitPos = GetPosition(unit)
-			newdist = VDist2( position[1],position[3], unitPos[1],unitPos[3] )
+			newdist = VDist2Sq( position[1],position[3], unitPos[1],unitPos[3] )
 			
             if not retUnit or newdist < distance then
                 retUnit = unit
@@ -1023,7 +1018,7 @@ end
 -- This function just returns the distance to the closest IMAP threat position that exceeds the threatCutoff
 function GetThreatDistance(aiBrain, position, threatCutoff )
 
-    local VDist2 = VDist2
+    local VDist2Sq = VDist2Sq
     
     local threatTable = GetThreatsAroundPosition( aiBrain, position, 4, true, 'StructuresNotMex')
     
@@ -1034,7 +1029,7 @@ function GetThreatDistance(aiBrain, position, threatCutoff )
 
         if v[3] > threatCutoff then
 		
-            dist = VDist2( v[1], v[2], position[1], position[3] )
+            dist = VDist2Sq( v[1], v[2], position[1], position[3] )
 			
             if not closestHighThreat or dist < closestHighThreat then
 			
@@ -1328,15 +1323,16 @@ function ApplyCheatBuffs(unit)
 	if not LOUDENTITY( categories.INSIGNIFICANTUNIT, unit) and not LOUDENTITY((categories.NUKE + categories.ANTIMISSILE) * categories.SILO, unit ) then
     
         local aiBrain = GetAIBrain(unit)
+        local ArmyIndex = aiBrain.ArmyIndex
 
 		local ApplyBuff = import('/lua/sim/buff.lua').ApplyBuff
         local RemoveBuff = import('/lua/sim/buff.lua').RemoveBuff
 
-		ApplyBuff(unit, 'CheatBuildRate'..aiBrain.ArmyIndex)		
-		ApplyBuff(unit, 'CheatIncome'..aiBrain.ArmyIndex)
-		ApplyBuff(unit, 'CheatIntel'..aiBrain.ArmyIndex)
+		ApplyBuff(unit, 'CheatBuildRate'..ArmyIndex)		
+		ApplyBuff(unit, 'CheatIncome'..ArmyIndex)
+		ApplyBuff(unit, 'CheatIntel'..ArmyIndex)
 
-		ApplyBuff(unit, 'CheatALL'..aiBrain.ArmyIndex)
+		ApplyBuff(unit, 'CheatALL'..ArmyIndex)
         
         -- Engineers have additional buffs --
 		if LOUDENTITY( categories.ENGINEER, unit) then
@@ -1350,7 +1346,7 @@ function ApplyCheatBuffs(unit)
 
                     local outnumberratio = aiBrain.OutnumberedRatio
 
-                    local buffDef = Buffs['CheatCDREnergyStorage'..aiBrain.ArmyIndex]
+                    local buffDef = Buffs['CheatCDREnergyStorage'..ArmyIndex]
                     local buffAffects = buffDef.Affects
                     
                     -- this will add the difference of the outnumbered ratio to the MULT of of the cheat value
@@ -1358,26 +1354,26 @@ function ApplyCheatBuffs(unit)
                     -- result in a bonus equal to the starting value (ie. - 5000) plus another 10% (total 5500)
                     buffAffects.EnergyStorage.Mult = LOUDMAX( aiBrain.CheatValue - 1, 0) + (outnumberratio - 1)
                     
-                    buffDef = Buffs['CheatCDRMassStorage'..aiBrain.ArmyIndex]
+                    buffDef = Buffs['CheatCDRMassStorage'..ArmyIndex]
                     buffAffects = buffDef.Affects
                     buffAffects.MassStorage.Mult = LOUDMAX( aiBrain.CheatValue - 1, 0) + (outnumberratio - 1)
 
-                    ApplyBuff(unit, 'CheatIncome'..aiBrain.ArmyIndex)  -- 2nd instance of resource cheat for ACU
+                    ApplyBuff(unit, 'CheatIncome'..ArmyIndex)  -- 2nd instance of resource cheat for ACU
 
-                    ApplyBuff(unit, 'CheatCDREnergyStorage'..aiBrain.ArmyIndex)
+                    ApplyBuff(unit, 'CheatCDREnergyStorage'..ArmyIndex)
                 
                 end
 
-				ApplyBuff(unit, 'CheatCDROmni'..aiBrain.ArmyIndex)
+				ApplyBuff(unit, 'CheatCDROmni'..ArmyIndex)
                 
                 if aiBrain.OutnumberedRatio > 1 then
 
                     -- because the 2nd Storage buff will remove the first we'll wait 45 seconds
                     WaitTicks(450)
                 
-                    RemoveBuff( unit, 'CheatCDREnergyStorage'..aiBrain.ArmyIndex )
+                    RemoveBuff( unit, 'CheatCDREnergyStorage'..ArmyIndex )
                 
-                    ApplyBuff(unit, 'CheatCDRMassStorage'..aiBrain.ArmyIndex)
+                    ApplyBuff(unit, 'CheatCDRMassStorage'..ArmyIndex)
                 end
 			end
         end
@@ -1458,6 +1454,7 @@ function SetArmyPoolBuff(aiBrain, AIMult)
     -- loop thru all the units for this AI --
     if aiBrain.BrainType == 'AI' then
 
+        local ArmyIndex = aiBrain.ArmyIndex
         local allUnits = aiBrain:GetListOfUnits(categories.ALLUNITS, false, false)
     
         --LOG("*AI DEBUG "..aiBrain.Nickname.." Setting Army Pool Buff to "..repr(AIMult).." at time "..GetGameTimeSeconds() )
@@ -1467,20 +1464,20 @@ function SetArmyPoolBuff(aiBrain, AIMult)
             -- Remove old build rate and income buffs
             -- the logic here is simple - if you don't have the buff to remove
             -- then you don't get a buff to add
-            if RemoveBuff(unit, 'CheatIncome'..aiBrain.ArmyIndex, true) then -- true = removeAllCounts then
-                ApplyBuff(unit, 'CheatIncome'..aiBrain.ArmyIndex)
+            if RemoveBuff(unit, 'CheatIncome'..ArmyIndex, true) then -- true = removeAllCounts then
+                ApplyBuff(unit, 'CheatIncome'..ArmyIndex)
             end
             
-            if RemoveBuff(unit, 'CheatBuildRate'..aiBrain.ArmyIndex, true) then -- true = removeAllCounts
-                ApplyBuff(unit, 'CheatBuildRate'..aiBrain.ArmyIndex)
+            if RemoveBuff(unit, 'CheatBuildRate'..ArmyIndex, true) then -- true = removeAllCounts
+                ApplyBuff(unit, 'CheatBuildRate'..ArmyIndex)
             end
             
-            if RemoveBuff(unit, 'CheatIntel'..aiBrain.ArmyIndex, true) then
-                ApplyBuff(unit, 'CheatIntel'..aiBrain.ArmyIndex)
+            if RemoveBuff(unit, 'CheatIntel'..ArmyIndex, true) then
+                ApplyBuff(unit, 'CheatIntel'..ArmyIndex)
             end
             
-            if RemoveBuff(unit, 'CheatALL'..aiBrain.ArmyIndex, true) then
-                ApplyBuff(unit, 'CheatALL'..aiBrain.ArmyIndex)
+            if RemoveBuff(unit, 'CheatALL'..ArmyIndex, true) then
+                ApplyBuff(unit, 'CheatALL'..ArmyIndex)
             end
         end
     end
