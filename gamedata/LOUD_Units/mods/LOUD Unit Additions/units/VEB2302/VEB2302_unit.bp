@@ -74,7 +74,7 @@ UnitBlueprint {
         Abilities = {
             'Anti-Air',
 			'Low Rate of Fire',
-			'Engages only T3 and Experimentals',
+			'Engages only T2 and up',
 		},
 		
         Mesh = {
@@ -213,7 +213,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 8000,
-            DamageRadius = 1.5,
+            DamageRadius = 1.8,
             DamageType = 'Normal',
 			
             DisplayName = 'SAM',
@@ -264,10 +264,12 @@ UnitBlueprint {
             TargetPriorities = {
 				'AIR MOBILE EXPERIMENTAL',
                 'SPECIALHIGHPRI',
+                'GUNSHIP',
+                'BOMBER',
                 'AIR MOBILE',
             },
 			
-            TargetRestrictDisallow = 'UNTARGETABLE, TECH1, TECH2, SATELLITE',
+            TargetRestrictDisallow = 'UNTARGETABLE, TECH1, SATELLITE',
             TrackingRadius = 1.25,
 			
             TurretBoneMuzzle = 'Turret_Muzzle',
