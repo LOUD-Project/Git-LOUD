@@ -16,80 +16,80 @@ DefaultBuffAffect = function(buff, unit, instigator)
 
 end
 
-WaterVisionBuffCheck = function( buff, unit )
+WaterVisionBuffCheck = function( buff, unit, bp, instigator )
 
-	return __blueprints[unit.BlueprintID].Intel.WaterVisionRadius >= 1
-
-end
-
-RadarRadiusBuffCheck = function( buff, unit )
-
-	return __blueprints[unit.BlueprintID].Intel.RadarRadius >= 1
+	return bp.Intel.WaterVisionRadius >= 1
 
 end
 
-SonarRadiusBuffCheck = function( buff, unit )
+RadarRadiusBuffCheck = function( buff, unit, bp, instigator )
 
-	return __blueprints[unit.BlueprintID].Intel.SonarRadius >= 1
-
-end
-
-OmniRadiusBuffCheck = function( buff, unit )
-
-	return __blueprints[unit.BlueprintID].Intel.OmniRadius >= 1
+	return bp.Intel.RadarRadius >= 1
 
 end
 
-BuildRateBuffCheck = function( buff, unit )
+SonarRadiusBuffCheck = function( buff, unit, bp, instigator )
+
+	return bp.Intel.SonarRadius >= 1
+
+end
+
+OmniRadiusBuffCheck = function( buff, unit, bp, instigator )
+
+	return bp.Intel.OmniRadius >= 1
+
+end
+
+BuildRateBuffCheck = function( buff, unit, bp, instigator )
 
 	-- while not technically true - the engine gives ALL units a buildrate of 1, even if not specified
-	return __blueprints[unit.BlueprintID].Economy.BuildRate > 1
+	return bp.Economy.BuildRate > 1
 
 end
 
 -- for factories - reduces mass and energy consumption when active
-BuildBuffCheck = function(buff, unit)
+BuildBuffCheck = function( buff, unit, bp, instigator )
 
 	-- we have to test this since the engine gives ALL units an empty BuildableCategory table
     -- and this mechanism does not pickup structures with enhancements --
-    -- return not LOUDEMPTY(__blueprints[unit.BlueprintID].Economy.BuildableCategory)
+    -- return not LOUDEMPTY(bp.Economy.BuildableCategory)
     
     -- so lets make the check simple - do you have build power ?
-    return BuildRateBuffCheck( buff,unit)
+    return BuildRateBuffCheck( buff, unit, bp, instigator )
 
 end
 
 --------------------------------------------------------------------------------
 -- Legacy functions
 --------------------------------------------------------------------------------
-EnergyBuildBuffCheck = function(buff, unit)
-    return BuildBuffCheck(buff, unit)
+EnergyBuildBuffCheck = function( buff, unit, bp, instigator )
+    return BuildBuffCheck(buff, unit, bp, instigator)
 end
 
-EnergyBuildBuffRemove = function(buff, unit, instigator)
-    return DefaultBuffRemove(buff, unit, instigator)
+EnergyBuildBuffRemove = function(buff, unit, bp, instigator)
+    return DefaultBuffRemove(buff, unit, bp, instigator)
 end
 
-EnergyBuildBuffAffect = function(buff, unit, instigator)
-    return DefaultBuffAffect(buff, unit, instigator)
+EnergyBuildBuffAffect = function(buff, unit, bp, instigator)
+    return DefaultBuffAffect(buff, unit, bp, instigator)
 end
 
-MassBuildBuffCheck = function(buff, unit)
-    return BuildBuffCheck(buff, unit)
+MassBuildBuffCheck = function( buff, unit, bp, instigator )
+    return BuildBuffCheck(buff, unit, bp, instigator)
 end
 
-MassBuildBuffRemove = function(buff, unit, instigator)
-    return DefaultBuffRemove(buff, unit, instigator)
+MassBuildBuffRemove = function(buff, unit, bp, instigator)
+    return DefaultBuffRemove(buff, unit, bp, instigator)
 end
 
-MassBuildBuffAffect = function(buff, unit, instigator)
-    return DefaultBuffAffect(buff, unit, instigator)
+MassBuildBuffAffect = function(buff, unit, bp, instigator)
+    return DefaultBuffAffect(buff, unit, bp, instigator)
 end
 --------------------------------------------------------------------------------
 
-EnergyMaintenanceBuffCheck = function(buff, unit)
+EnergyMaintenanceBuffCheck = function( buff, unit, bp, instigator )
 
-    if __blueprints[unit.BlueprintID].Economy.MaintenanceConsumptionPerSecondEnergy or unit.EnergyMaintenanceConsumptionOverride then
+    if bp.Economy.MaintenanceConsumptionPerSecondEnergy or unit.EnergyMaintenanceConsumptionOverride then
 
         return true
 
@@ -99,9 +99,9 @@ EnergyMaintenanceBuffCheck = function(buff, unit)
 
 end
 
-EnergyStorageBuffCheck = function(buff, unit)
+EnergyStorageBuffCheck = function( buff, unit, bp, instigator )
 
-    if __blueprints[unit.BlueprintID].Economy.StorageEnergy > 0 then
+    if bp.Economy.StorageEnergy > 0 then
 
         return true
 
@@ -114,7 +114,7 @@ end
 -- Energy Weapon Bonus
 -- intended for energy consuming weapons
 -- weapon must have EnergyRequired parameter
-EnergyWeaponBuffCheck = function(buff, unit)
+EnergyWeaponBuffCheck = function( buff, unit, bp, instigator )
 
     for i = 1, GetWeaponCount(unit) do
 
@@ -134,49 +134,49 @@ end
 -- this is difficult since many energy using weapons have their
 -- RoF controlled by the charge cycle - and not by RoF
 -- so changing RoF has, in most cases, no impact
-RateOfFireBuffCheck = function(buff, unit)
+RateOfFireBuffCheck = function( buff, unit, bp, instigator )
 
-    return EnergyWeaponBuffCheck( buff,unit)
+    return EnergyWeaponBuffCheck( buff, unit, bp, instigator )
 
 end
 
 -- Shield Regeneration -- this is new with LOUDAI
-ShieldRegenBuffCheck = function(buff, unit)
+ShieldRegenBuffCheck = function( buff, unit, bp, instigator )
 
-	return __blueprints[unit.BlueprintID].Defense.Shield.ShieldRegenRate > 0
+	return bp.Defense.Shield.ShieldRegenRate > 0
 
 end
 
 -- Shield Size -- also new with LOUDAI
-ShieldSizeBuffCheck = function(buff, unit)
+ShieldSizeBuffCheck = function( buff, unit, bp, instigator )
 
-	return __blueprints[unit.BlueprintID].Defense.Shield.ShieldSize > 0
+	return bp.Defense.Shield.ShieldSize > 0
 
 end
 
 -- Shield Health -- also new with LOUDAI
-ShieldHealthBuffCheck = function(buff, unit)
+ShieldHealthBuffCheck = function( buff, unit, bp, instigator )
 
-	return __blueprints[unit.BlueprintID].Defense.Shield.ShieldMaxHealth > 0
+	return bp.Defense.Shield.ShieldMaxHealth > 0
 end
 
 -- Energy Production -- for any energy producing structure
-EnergyProductionBuffCheck = function(buff, unit)
+EnergyProductionBuffCheck = function( buff, unit, bp, instigator )
 
-	return __blueprints[unit.BlueprintID].Economy.ProductionPerSecondEnergy > 0
+	return bp.Economy.ProductionPerSecondEnergy > 0
 
 end
 
 -- Mass Production - any mass producing structure
-MassProductionBuffCheck = function(buff, unit)
+MassProductionBuffCheck = function( buff, unit, bp, instigator )
 
-	return __blueprints[unit.BlueprintID].Economy.ProductionPerSecondMass > 0
+	return bp.Economy.ProductionPerSecondMass > 0
 
 end
 
-MassStorageBuffCheck = function(buff, unit)
+MassStorageBuffCheck = function( buff, unit, bp, instigator )
 
-    if __blueprints[unit.BlueprintID].Economy.StorageMass > 0 then
+    if bp.Economy.StorageMass > 0 then
 
         return true
 

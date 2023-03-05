@@ -69,6 +69,7 @@ function ApplyBuff(unit, buffName, instigator)
         return
     end
 
+    local bp = __blueprints[unit.BlueprintID]
     local def = Buffs[buffName]
 
     if not def then
@@ -92,17 +93,19 @@ function ApplyBuff(unit, buffName, instigator)
 	-- and at the individual affects level
     if def.BuffCheckFunction then
 
-        if not def:BuffCheckFunction(unit) then
+        if not def:BuffCheckFunction(unit, bp, nil) then
             return
         end
 
     end
+    
+    local BuffType = def.BuffType
 
     local ubt = unit.Buffs.BuffTable
 
-    if def.Stacks == 'REPLACE' and ubt[def.BuffType] then
+    if def.Stacks == 'REPLACE' and ubt[BuffType] then
 
-        for key, bufftbl in unit.Buffs.BuffTable[def.BuffType] do
+        for key, bufftbl in ubt[BuffType] do
 
             RemoveBuff(unit, key, true)
 
@@ -110,13 +113,13 @@ function ApplyBuff(unit, buffName, instigator)
     end
 
 	-- if the unit already has this bufftype then ignore it
-    if def.Stacks == 'IGNORE' and ubt[def.BuffType] and not LOUDEMPTY(ubt[def.BuffType]) then
+    if def.Stacks == 'IGNORE' and ubt[BuffType] and not LOUDEMPTY(ubt[BuffType]) then
         return
     end
 	
 	local newbuff = false
 
-    local data = ubt[def.BuffType][buffName]
+    local data = ubt[BuffType][buffName]
 
 
     if not data then
@@ -131,7 +134,7 @@ function ApplyBuff(unit, buffName, instigator)
     local uaffects = unit.Buffs.Affects
 	
 	if BuffDialog then
-		LOG("*AI DEBUG Applying "..buffName.." to "..repr(unit:GetBlueprint().Description).." "..unit.EntityID )
+		LOG("*AI DEBUG Applying "..buffName.." to "..repr(bp.Description).." "..unit.EntityID )
 	end
 
     if def.Affects then
@@ -150,12 +153,10 @@ function ApplyBuff(unit, buffName, instigator)
 			-- removal stage
 			if v.BuffCheckFunction then
 
-				if not v:BuffCheckFunction(unit) then
+				if not v:BuffCheckFunction(unit, bp, nil) then
 
 					buffcheck = false
-
 					continue
-
 				end
 
 			end
@@ -241,11 +242,11 @@ function ApplyBuff(unit, buffName, instigator)
 			if data.Count > 0 then
 
 				-- create the unit BuffTable entry
-				if not ubt[def.BuffType] then
-					ubt[def.BuffType] = {}
+				if not ubt[BuffType] then
+					ubt[BuffType] = {}
 				end
 
-				ubt[def.BuffType][buffName] = data
+				ubt[BuffType][buffName] = data
 
 				if def.OnApplyBuff then
 					def:OnApplyBuff(unit, instigator)
@@ -260,11 +261,11 @@ function ApplyBuff(unit, buffName, instigator)
 		if data.Count > 0 then
 
 			-- create the unit BuffTable entry
-			if not ubt[def.BuffType] then
-				ubt[def.BuffType] = {}
+			if not ubt[BuffType] then
+				ubt[BuffType] = {}
 			end
 
-			ubt[def.BuffType][buffName] = data
+			ubt[BuffType][buffName] = data
 
 			if def.OnApplyBuff then
 				def:OnApplyBuff(unit, instigator)
@@ -291,14 +292,15 @@ function BuffWorkThread(unit, buffName, instigator)
 	local BeenDestroyed = moho.entity_methods.BeenDestroyed
 
 	local pulse = 0
+    local Duration = buffTable.Duration
 
-	while not BeenDestroyed(unit) and pulse < buffTable.Duration do
+	while not BeenDestroyed(unit) and pulse < Duration do
 
 		BuffAffectUnit( unit, buffName, instigator, false )
 
 		pulse = pulse + 1
 
-		if pulse < buffTable.Duration then
+		if pulse < Duration then
 
 			WaitTicks(11)
 
