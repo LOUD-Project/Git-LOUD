@@ -125,12 +125,6 @@ UnitBlueprint {
         },
         MovementEffects = {
             Air = {
-                Contrails = {
-                    Bones = {
-                        'Contrail_L',
-                        'Contrail_R',
-                    },
-                },
                 Effects = {
                     {
                         Bones = { 'Engine_001' },

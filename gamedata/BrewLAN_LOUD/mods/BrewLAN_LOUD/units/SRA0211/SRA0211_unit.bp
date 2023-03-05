@@ -139,13 +139,6 @@ UnitBlueprint {
         },
         MovementEffects = {
             Air = {
-                Contrails = {
-                    Bones = {
-                        'Exhaust_Left',
-                        'Exhaust_Middle',
-                        'Exhaust_Right',
-                    },
-                },
                 Effects = {
                     {
                         Bones = {
