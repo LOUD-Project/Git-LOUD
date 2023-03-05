@@ -467,7 +467,7 @@ Platoon = Class(moho.platoon_methods) {
 		-- seek a target around the point --
 		local target, targetposition, position
 
-		target,targetposition = FindTargetInRange( self, aiBrain, squad, range, attackcategories )
+		target,targetposition = FindTargetInRange( self, aiBrain, squad, range, attackcategories, false, scanposition )
 
 		if target and PlatoonExists( aiBrain,self) then
         
@@ -1079,7 +1079,6 @@ Platoon = Class(moho.platoon_methods) {
 	PlatoonGenerateSafePathToLOUD = function( aiBrain, platoon, platoonLayer, start, destination, threatallowed, MaxMarkerDist)
 
 		local GetUnitsAroundPoint = GetUnitsAroundPoint
-		local GetThreatBetweenPositions = GetThreatBetweenPositions
         local PathFindingDialog = ScenarioInfo.PathFindingDialog
         
         local LOUDFLOOR = LOUDFLOOR
@@ -1169,9 +1168,9 @@ Platoon = Class(moho.platoon_methods) {
 		-- MaxMarkerDist controls the range we look for markers AND the range we use when making threat checks
 		local MaxMarkerDist = MaxMarkerDist or 160
 		local radiuscheck = MaxMarkerDist * MaxMarkerDist
-		
+
+        local VectorCached = { 0, 0, 0 }		
 		local stepcheck = stepsize * stepsize
-        local steps, xstep, ystep
 		
 		-- get all the layer markers -- table format has 5 values (posX,posY,posZ, nodeName, graph)
 		local markerlist = ScenarioInfo.PathGraphs['RawPaths'][platoonLayer] or false
@@ -1281,16 +1280,18 @@ Platoon = Class(moho.platoon_methods) {
 		local GetClosestSafePathNodeInRadiusByLayerLOUD = function( location, seeksafest, goalseek, threatmodifier )
 	
 			if markerlist then
-			
-				local positions = {}
+
+                local GetThreatBetweenPositions = GetThreatBetweenPositions
+                local LOUDSORT = LOUDSORT
+				local VDist3Sq = VDist3Sq			
+
 				local counter = 0
-			
-				local VDist3Sq = VDist3Sq
-                local Node, obstructed, Position, testdistance, thisthreat
+				local positions = {}			
 
                 local maxthreat = (threatallowed * threatmodifier)
-                
                 local nomarkers = true
+
+                local Node, Position, testdistance, thisthreat
 				
 				-- sort the table by closest to the given location
 				LOUDSORT(markerlist, function(a,b) local VDist3Sq = VDist3Sq return VDist3Sq( a.position, location ) < VDist3Sq( b.position, location ) end)
@@ -8681,7 +8682,7 @@ Platoon = Class(moho.platoon_methods) {
 			
 			--LOG("*AI DEBUG "..aiBrain.Nickname.." LandForceAI "..self.BuilderName.." seeks local target from "..repr(platPos))
 
-			target, targetLocation = FindTargetInRange( self, aiBrain, 'Attack', 90, TARGETSTUFF )
+			target, targetLocation = FindTargetInRange( self, aiBrain, 'Attack', 90, TARGETSTUFF, false )
 			
 			if target and not target.Dead and PlatoonExists( aiBrain, self) then
 			
@@ -9068,7 +9069,7 @@ Platoon = Class(moho.platoon_methods) {
 			
 			--LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." AmphibForceAI seeking local target from "..repr(GetPlatoonPosition(self)))
 			
-			target, targetLocation = FindTargetInRange( self, aiBrain, 'Attack', 100, TARGETSTUFF )
+			target, targetLocation = FindTargetInRange( self, aiBrain, 'Attack', 100, TARGETSTUFF, false )
 			
 			if target and not target.Dead and PlatoonExists( aiBrain, self) then
 			
