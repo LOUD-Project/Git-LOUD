@@ -74,7 +74,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.08,
     },
 	
@@ -176,7 +175,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 6,
+            Damage = 12,
             DamageType = 'Normal',
 			
             DisplayName = 'MG',

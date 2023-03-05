@@ -94,42 +94,7 @@ UnitBlueprint {
             'Torpedoes',
         },
 		
-        IdleEffects = {
-            Sub = {
-                Effects = {
-                    {
-                        Bones = {
-                            'Projectile_Front_Right',
-                            'Projectile_Front_Left',
-                            'URS0304',
-                            'Exhaust_Right',
-                            'Exhaust_Left',
-                        },
-                        Type = 'UnderWater01',
-                    },
-                },
-            },
-            Water = {
-                Effects = {
-                    {
-                        Bones = {
-                            'Exhaust_Right',
-                            'Exhaust_Left',
-                            'Projectile_Front_Left',
-                            'Projectile_Front_Right',
-                        },
-                        Offset = {
-                            0,
-                            0,
-                            -0.8,
-                        },
-                        Scale = 0.5,
-                        Type = 'SeaIdle01',
-                    },
-                },
-            },
-        },
-		
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {

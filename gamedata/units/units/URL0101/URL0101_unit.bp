@@ -70,7 +70,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.027,
     },
 	
@@ -107,7 +106,7 @@ UnitBlueprint {
         Cloak = true,
 		RadarStealth = true,
         RadarRadius = 50,
-        VisionRadius = 28,
+        VisionRadius = 29,
     },
 	
     Interface = {

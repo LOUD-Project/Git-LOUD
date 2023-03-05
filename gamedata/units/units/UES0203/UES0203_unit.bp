@@ -79,11 +79,7 @@ UnitBlueprint {
             Sub = {
                 Effects = {
                     {
-                        Bones = {
-                            'Front_Right_Exhaust',
-                            'Front_Left_Exhaust',
-                            'Center_wake',
-                        },
+                        Bones = { 'Center_wake' },
                         Type = 'UnderWater01',
                     },
                 },
@@ -91,9 +87,7 @@ UnitBlueprint {
             Water = {
                 Effects = {
                     {
-                        Bones = {
-                            'UES0203',
-                        },
+                        Bones = { 'UES0203' },
                         Scale = 0.4,
                         Type = 'SeaIdle01',
                     },
@@ -141,10 +135,8 @@ UnitBlueprint {
             Sub = {
                 Effects = {
                     {
-                        Bones = {
-                            'Back_Wake',
-                        },
-                        Scale = 1.5,
+                        Bones = { 'Back_Wake' },
+                        Scale = 1.2,
                         Type = 'BackWake',
                     },
                 },
@@ -152,28 +144,8 @@ UnitBlueprint {
             Water = {
                 Effects = {
                     {
-                        Bones = {
-                            'Front_Wake01',
-                        },
-                        Scale = 0.4,
-                        Type = 'LeftFrontWake',
-                    },
-                    {
-                        Bones = {
-                            'Front_Wake02',
-                        },
-                        Scale = 0.4,
-                        Type = 'RightFrontWake',
-                    },
-                    {
-                        Bones = {
-                            'Back_Wake',
-                        },
-                        Offset = {
-                            0,
-                            0,
-                            -0.5,
-                        },
+                        Bones = {'Back_Wake'},
+                        Offset = { 0, 0, -0.5 },
                         Scale = 0.3,
                         Type = 'BackWake',
                     },
@@ -181,7 +153,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = false,
         UniformScale = 0.05,
     },
 	

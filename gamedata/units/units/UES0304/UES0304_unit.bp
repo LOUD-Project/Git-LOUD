@@ -89,33 +89,7 @@ UnitBlueprint {
             'Sonar',
 			
         },
-        IdleEffects = {
-            Sub = {
-                Effects = {
-                    {
-                        Bones = {
-                            'Front_Right_Exhaust01',
-                            'Front_Left_Exhaust01',
-                            'UES0304',
-                            'Back_Left_Exhaust',
-                            'Back_Left_Exhaust',
-                        },
-                        Type = 'UnderWater01',
-                    },
-                },
-            },
-            Water = {
-                Effects = {
-                    {
-                        Bones = {
-                            'UES0304',
-                        },
-                        Scale = 0.6,
-                        Type = 'SeaIdle01',
-                    },
-                },
-            },
-        },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -192,7 +166,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = false,
         UniformScale = 0.045,
     },
 	

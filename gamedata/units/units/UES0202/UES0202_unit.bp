@@ -82,24 +82,7 @@ UnitBlueprint {
                 Weight = 100,
             },
         },
-        IdleEffects = {
-            Water = {
-                Effects = {
-                    {
-                        Bones = {
-                            'UES0202',
-                        },
-                        Offset = {
-                            0,
-                            0,
-                            -0.25,
-                        },
-                        Scale = 1.75,
-                        Type = 'SeaIdle01',
-                    },
-                },
-            },
-        },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -115,6 +98,7 @@ UnitBlueprint {
                 },
             },
         },
+
         MovementEffects = {
             Water = {
                 Effects = {
@@ -122,28 +106,27 @@ UnitBlueprint {
                         Bones = {
                             'Front_Left_Wake',
                         },
-                        Scale = 1.25,
+                        Scale = 0.8,
                         Type = 'LeftFrontWake',
                     },
                     {
                         Bones = {
                             'Front_Right_Wake',
                         },
-                        Scale = 1.25,
+                        Scale = 0.8,
                         Type = 'RightFrontWake',
                     },
                     {
                         Bones = {
                             'Back_Wake',
                         },
-                        Scale = 1.25,
+                        Scale = 0.8,
                         Type = 'BackWake',
                     },
                 },
             },
         },
 
-        SpawnRandomRotation = false,
         UniformScale = 0.05,
     },
 	

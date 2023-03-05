@@ -108,19 +108,7 @@ UnitBlueprint {
         AnimationTransform = '/units/urs0201/urs0201_Atransform02.sca',
         AnimationWalk = '/units/urs0201/urs0201_Awalk.sca',
         AnimationWalkRate = 3.2,
-        IdleEffects = {
-            Water = {
-                Effects = {
-                    {
-                        Bones = {
-                            'URS0201',
-                        },
-                        Scale = 1.1,
-                        Type = 'SeaIdle01',
-                    },
-                },
-            },
-        },
+
         LandAnimationDeath = {
             {
                 Animation = '/units/urs0201/urs0201_adeath.sca',
@@ -180,7 +168,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.37,
 		
         WaterAnimationDeath = {

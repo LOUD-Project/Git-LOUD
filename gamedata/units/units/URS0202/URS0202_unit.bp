@@ -103,19 +103,7 @@ UnitBlueprint {
                 Weight = 100,
             },
         },
-        IdleEffects = {
-            Water = {
-                Effects = {
-                    {
-                        Bones = {
-                            'URS0202',
-                        },
-                        Scale = 1.55,
-                        Type = 'SeaIdle01',
-                    },
-                },
-            },
-        },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {

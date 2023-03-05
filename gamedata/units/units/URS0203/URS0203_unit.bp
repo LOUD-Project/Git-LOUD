@@ -73,31 +73,7 @@ UnitBlueprint {
             'Torpedoes',
 			'Deck Gun',
         },
-        IdleEffects = {
-            Sub = {
-                Effects = {
-                    {
-                        Bones = {
-                            'Right_Projectile',
-                            'Turret',
-                            'URS0203',
-                        },
-                        Type = 'UnderWater01',
-                    },
-                },
-            },
-            Water = {
-                Effects = {
-                    {
-                        Bones = {
-                            'URS0203',
-                        },
-                        Scale = 0.4,
-                        Type = 'SeaIdle01',
-                    },
-                },
-            },
-        },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {

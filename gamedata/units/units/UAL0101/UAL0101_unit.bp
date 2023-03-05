@@ -138,7 +138,7 @@ UnitBlueprint {
         MotionType = 'RULEUMT_Hover',
         RotateBodyWhileMoving = true,
         
-        TurnFacingRate = 75,
+        TurnFacingRate = 60,
         TurnRadius = 5,
         TurnRate = 60,
     },
@@ -177,7 +177,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 4,
+            Damage = 12,
 			DamageRadius = 0,
             DamageType = 'Normal',
 			
@@ -224,7 +224,6 @@ UnitBlueprint {
 				'ENGINEER',
                 'MOBILE',
                 'DEFENSE',
-                
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
