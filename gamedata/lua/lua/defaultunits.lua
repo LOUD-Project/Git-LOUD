@@ -1310,19 +1310,21 @@ MobileUnit = Class(Unit) {
 		-- If SimSpeed drops too low -- curtail movement effects
 		if Sync.SimData.SimSpeed < 0 then return end
 
-        local effectBones = tableData.Bones
         local army = self.Army
+        local CreateTrail = CreateTrail
+        local EffectBones = tableData.Bones
+        local LOUDINSERT = LOUDINSERT
+
         local ZOffset = tableData.ZOffset or 0.0
 
-        for ke, ve in self.ContrailEffects do
+        for _, ve in self.ContrailEffects do
+
+            if not self.TopSpeedEffectsBag then
+				self.TopSpeedEffectsBag = {}
+			end
 		
-            for kb, vb in effectBones do
-			
-				if not self.TopSpeedEffectsBag then
-					self.TopSpeedEffectsBag = {}
-				end
-				
-                LOUDINSERT(self.TopSpeedEffectsBag, CreateTrail(self,vb,army,ve):SetEmitterParam('POSITION_Z', ZOffset))
+            for _, vb in EffectBones do
+                LOUDINSERT( self.TopSpeedEffectsBag, CreateTrail( self, vb, army, ve ):SetEmitterParam( 'POSITION_Z', ZOffset ) )
             end
         end
 		

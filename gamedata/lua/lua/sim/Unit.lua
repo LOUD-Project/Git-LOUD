@@ -1453,21 +1453,21 @@ Unit = Class(moho.unit_methods) {
     
         local platoon = self.PlatoonHandle
 
-        --LOG("*AI DEBUG "..GetAIBrain(self).Nickname.." "..repr(ALLBPS[self.BlueprintID].Description).." taking damage - platoon is "..repr(self.PlatoonHandle) )
-
         -- if the unit is in a platoon that exists and that platoon has a CallForHelpAI
-		-- I should probably do this thru a callback but it's much easier to find and work
-		-- with it here until I have it right
+		-- I should probably do this thru a callback but it's much easier to find and work with it here until I have it right
 		if platoon.CallForHelpAI then
-        
-			local aiBrain = GetAIBrain(self)
             
             --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(ALLBPS[self.BlueprintID].Description).." Calling for Help - platoon is "..repr(aiBrain:PlatoonExists(self.PlatoonHandle)) )
 			
-			if (not platoon.DistressCall) and (not platoon.UnderAttack) and PlatoonExists( aiBrain, self.PlatoonHandle ) then
+			if (not platoon.DistressCall) and (not platoon.UnderAttack) then
+
+                local aiBrain = GetAIBrain(self)
+
+                if PlatoonExists( aiBrain, platoon ) then
 			
-				-- turn on the UnderAttack flag and process it
-				self.PlatoonHandle:ForkThread( platoon.PlatoonUnderAttack, aiBrain)
+                    -- turn on the UnderAttack flag and process it
+                    platoon:ForkThread( platoon.PlatoonUnderAttack, aiBrain)
+                end
 				
 			end
         end
@@ -1476,11 +1476,9 @@ Unit = Class(moho.unit_methods) {
 		
             self:DoOnDamagedCallbacks(instigator)
 			
-			-- from BrewLAN --
+			-- from BrewLAN -- reduces bomb damage against bombers in the air
 			if EntityCategoryContains(categories.BOMBER, self) and self:GetCurrentLayer() == 'Air' and damageType == 'NormalBomb' then
-
 				amount = amount * 0.05
-				
 			end
 			
             self:DoTakeDamage(instigator, amount, vector, damageType)
@@ -3627,6 +3625,7 @@ Unit = Class(moho.unit_methods) {
 		if Sync.SimData.SimSpeed < 0 then return end
 
         local GetTerrainTypeEffects = self.GetTerrainTypeEffects
+        local LOUDINSERT = LOUDINSERT
         
         local Army = self.Army
         local Position = self:GetPosition()
@@ -3645,20 +3644,20 @@ Unit = Class(moho.unit_methods) {
             end
 
 			if effects then
+            
+                local emit
 			
-				for kb, vBone in vTypeGroup.Bones do
+				for _, vBone in vTypeGroup.Bones do
 				
-					for ke, vEffect in effects do
+					for _, vEffect in effects do
 
-						local emit = LOUDATTACHEMITTER( self, vBone, Army, vEffect ):ScaleEmitter(vTypeGroup.Scale or 1.5)
+						emit = LOUDATTACHEMITTER( self, vBone, Army, vEffect ):ScaleEmitter(vTypeGroup.Scale or 1)
 
 						if vTypeGroup.Offset then
-						
 							emit:OffsetEmitter(vTypeGroup.Offset[1] or 0, vTypeGroup.Offset[2] or 0,vTypeGroup.Offset[3] or 0)
 						end
 						
 						if EffectBag then
-						
 							LOUDINSERT( EffectBag, emit )
 						end
 					end
@@ -3691,9 +3690,7 @@ Unit = Class(moho.unit_methods) {
     end,
 
     DestroyIdleEffects = function( self )
-	
 		CleanupEffectBag(self,'IdleEffectsBag')
-		
     end,
 
     UpdateBeamExhaust = function( self, motionState )
@@ -3749,27 +3746,22 @@ Unit = Class(moho.unit_methods) {
 
     CreateBeamExhaust = function( self, bpTable, beamBP )
 	
-        local effectBones = bpTable.Bones
-
         local army = self.Army
+        local EffectBones = bpTable.Bones
+        local LOUDINSERT = LOUDINSERT
+
+		if not self.BeamExhaustEffectsBag then
+			self.BeamExhaustEffectsBag = {}
+		end
 		
-        for kb, vb in effectBones do
-		
-			if not self.BeamExhaustEffectsBag then
-			
-				self.BeamExhaustEffectsBag = {}
-				
-			end
-		
+        for _, vb in EffectBones do
             LOUDINSERT( self.BeamExhaustEffectsBag, CreateBeamEmitterOnEntity(self, vb, army, beamBP ))
         end
 		
     end,
 
     DestroyBeamExhaust = function( self )
-	
         CleanupEffectBag(self,'BeamExhaustEffectsBag')
-		
     end,
 
     MovementCameraShakeThread = function( self, camShake )

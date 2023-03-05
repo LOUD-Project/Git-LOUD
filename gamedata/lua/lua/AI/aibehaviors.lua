@@ -1963,6 +1963,7 @@ end
 
 -- this behavior will watch the platoon's overall health and size
 -- and RTB it (after checking for a merge) when it falls too low
+-- it will end DistressResponseAI on that platoon if it's running
 function RetreatAI( self, aiBrain )
 
     WaitTicks(51)  -- Wait 5 seconds before beginning
@@ -2008,6 +2009,12 @@ function RetreatAI( self, aiBrain )
             if (OriginalStrength * .4) >= CalculatePlatoonThreat( self, 'Overall', UNITCHECK) or (OriginalSize * .4) >= CountPlatoonUnits() then
 
                 if PlatoonExists( aiBrain, self) then
+                
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." triggers RETREAT AI")
+                    
+                    if self.DistressResponseAIRunning then
+                        self.DistressResponseAIRunning = nil    -- kill Distress Response AI
+                    end
 
                     self:Stop()
                 
@@ -2015,11 +2022,9 @@ function RetreatAI( self, aiBrain )
                 
                     if PlatoonExists( aiBrain, self) then
 
-                        -- RTB any leftovers
                         return self:SetAIPlan('ReturnToBaseAI',aiBrain)
                     end
-                else
-                    break
+
                 end
             end
             
@@ -2302,7 +2307,7 @@ function NukeAI( self, aiBrain )
 
 					if firednukes > 0 then
 					
-						local aitarget = GetAIBrain(targetunit).ArmyIndex
+						local aitarget = targetunit.ArmyIndex
 					
 						AISendChat('allies', ArmyBrains[aiBrain.ArmyIndex].Nickname, 'nukechat', ArmyBrains[aitarget].Nickname)
 
@@ -2351,6 +2356,8 @@ function SetLoiterPosition( self, aiBrain, startposition, searchradius, minthrea
     local LOUDLERP = MATH_Lerp
 
     local LOUDV3 = VDist3
+    
+    local VectorCached = { 0, 0, 0 }
 
     local AirRatiofactor = aiBrain.AirRatio/3
     local IMAPBlocksize = ScenarioInfo.IMAPSize
@@ -2364,7 +2371,7 @@ function SetLoiterPosition( self, aiBrain, startposition, searchradius, minthrea
     -- the AirRatio will keep us closer to home if it's not above 3
     -- ScenarioInfo.IMAPSize comes in handy as it tells us how big each block will be so we can adjust the blocks value to line up with the searchradius
 
-    local currentthreat, result, lerpresult, positionthreat
+    local currentthreat, lerpresult, positionthreat, result, test
     
     local threats = GetThreatsAroundPosition( aiBrain, startposition, LOUDFLOOR( ringrange/IMAPBlocksize ), true, threatseek )
 
@@ -2380,22 +2387,20 @@ function SetLoiterPosition( self, aiBrain, startposition, searchradius, minthrea
 
         currentthreat = 0
         result = false
- 
-        -- sort table highest to lowest threat
-        --LOUDSORT( threats, function(a,b) return a[3] > b[3] end )
+
         --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..self.BuilderInstance.." gets "..threatseek.." threats "..repr(threats) )
         
         for _,v in threats do
-
-            --if v[3] < minthreat then
-              --  break
-            -- end
+            
+            test = VectorCached
+            test[1] = v[1]
+            test[3] = v[2]
             
             -- get the avoid threat at that position
-            positionthreat = LOUDMAX( 0, GetThreatAtPosition( aiBrain, {v[1],0,v[2]}, threatrings, true, threatavoid ))
+            positionthreat = LOUDMAX( 0, GetThreatAtPosition( aiBrain, test, threatrings, true, threatavoid ))
 
             if positionthreat <= mythreat and positionthreat > currentthreat then
-                result = { v[1], 0, v[2] }
+                result = LOUDCOPY(test)
                 currentthreat = positionthreat
             end
 
@@ -2426,7 +2431,7 @@ function SetLoiterPosition( self, aiBrain, startposition, searchradius, minthrea
 
     IssueGuard( GetSquadUnits( self,'Attack'), loiterposition)
     
-    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..self.BuilderInstance.." Set Loiter position to "..repr(loiterposition) )
+    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..self.BuilderInstance.." Set Loiter position to "..repr(loiterposition).." using lerpresult "..repr(lerpresult) )
 
     return loiterposition
 end
@@ -2501,37 +2506,21 @@ function AirForceAILOUD( self, aiBrain )
         guardplatoon = aiBrain:MakePlatoon('GuardPlatoon'..tostring(ident),'none')
         AssignUnitsToPlatoon( aiBrain, guardplatoon, guardunits, 'Attack', 'none')
 
-		guardplatoon.GuardedPlatoon = self  #-- store the handle of the platoon to be guarded to the guardplatoon
+		guardplatoon.GuardedPlatoon = self      -- store the handle of the platoon to be guarded to the guardplatoon
         guardplatoon:SetPrioritizedTargetList( 'Attack', categories.HIGHALTAIR * categories.ANTIAIR )
 
 		guardplatoon:SetAIPlan( 'GuardPlatoonAI', aiBrain)
     end
+    
+    guardplatoon = nil
+    guardunits = nil
 
-	-- local function --
-	local DestinationBetweenPoints = function( destination, start, finish, stepsize )
-
-		local steps = LOUDFLOOR( VDist2(start[1], start[3], finish[1], finish[3]) / stepsize ) + 1
-	
-		local xstep = (start[1] - finish[1]) / steps
-		local ystep = (start[3] - finish[3]) / steps
-
-		for i = 0, steps - 1  do
-			
-			if VDist2Sq(start[1] - (xstep * i), start[3] - (ystep * i), destination[1], destination[3]) < (stepsize * stepsize) then
-
-				return { start[1] - (xstep * i), destination[2], start[3] - (ystep * i) }
-                
-			end
-		end	
-		
-		return false
-	end
 
 	-- TETHERING --
 	-- Select a target using the target priority list and by looping thru range and difficulty multipliers until a target is found
 	-- occurs to me we could pass the multipliers and difficulties from the platoondata if we wished
     
-    -- this technique I'll call 'tethering' or leashing' - and it will grow and contract with other conditions (air ratio, outnumberedratio)
+    -- this technique I'll call 'tethering' or leashing - and it will grow and contract with other conditions (air ratio, outnumberedratio)
     -- we loop thru each multiplier - which is used on the basic Searchradius - giving us expanding 'rings'
     -- the maximum size of a ring will fluctuate with the air ratio - more restrictive if losing, larger if winning
     -- the maximum size of a ring will fluctuate with the outnumbered ratio - restrictive if outnumbered, neutral otherwise
@@ -3152,7 +3141,7 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
 
 					if target then
                     
-                        self.UsingTransport = true  -- general 'busy' flag - prevents merging with other platoons
+                        self.UsingTransport = true  -- general 'busy' flag - prevents Distress Response and merging
                         
                         Threatmult = threatmult
 						break
@@ -3649,7 +3638,7 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
 
 					if target then
                     
-                        self.UsingTransport = true  -- general 'busy' flag - prevents merging with other platoons
+                        self.UsingTransport = true
                         
                         Threatmult = threatmult
 						break
@@ -4158,7 +4147,7 @@ function AirForceAI_Torpedo_LOUD( self, aiBrain )
 
 					if target then
                     
-                        self.UsingTransport = true  -- general 'busy' flag - prevents merging with other platoons
+                        self.UsingTransport = true
                         
                         Threatmult = threatmult
 						break

@@ -655,19 +655,22 @@ end
 
 -- this function locates a target for a squad within a given range and list of priority target types
 -- returning an actual unit and its position -- modified to include the nolayercheck option
-function FindTargetInRange( self, aiBrain, squad, maxRange, attackcategories, nolayercheck )
-
-    local LOUDABS = math.abs
+function FindTargetInRange( self, aiBrain, squad, maxRange, attackcategories, nolayercheck, testposition )
 
     local position = GetPlatoonPosition(self) or false
+    
+    if testposition then
+        position = testposition
+    end
     
 	if not position or not maxRange then
 		return false,false
 	end
-
+    
+    local LOUDABS = math.abs
     local MovementLayer = self.MovementLayer
 
-    local enemyunits, lastpos, lastposHeight, nextpos, nextposHeight, steps, unitPos, xstep, ystep
+    local enemyunits, unitPos
 
     if PlatoonExists( aiBrain, self) then
 	
@@ -683,9 +686,18 @@ function FindTargetInRange( self, aiBrain, squad, maxRange, attackcategories, no
             if MovementLayer == 'Air' then
                 return false
             end
-
-            local GetSurfaceHeight = GetSurfaceHeight            
-            local GetTerrainHeight = GetTerrainHeight
+            
+            local LOUDABS = LOUDABS
+            local deviation, InWater, lastpos, lastposHeight, steps, terrainfunction, xstep, ystep
+  
+            -- alter the function according to layer
+            terrainfunction = GetTerrainHeight
+            deviation = 2.5
+            
+            if MovementLayer == 'Water' then
+                terrainfunction = GetSurfaceHeight
+                deviation = 0.5
+            end
 
 			-- This gives us the number of approx. 6 ogrid steps in the distance
 			steps = LOUDFLOOR( VDist3( position, targetPos ) / 6 )
@@ -694,31 +706,26 @@ function FindTargetInRange( self, aiBrain, squad, maxRange, attackcategories, no
 			ystep = (position[3] - targetPos[3]) / steps -- how much the Y value will change from step to step
 			
 			lastpos = { position[1], 0, position[3] }
-            lastposHeight = GetTerrainHeight( lastpos[1], lastpos[3] )
+            lastposHeight = terrainfunction( lastpos[1], lastpos[3] )
 	
 			-- Iterate thru the number of steps - starting at the pos and adding xstep and ystep to each point
 			for i = 1, steps do
 
-                -- In Water is obstructed --
-                if lastposHeight < (GetSurfaceHeight( lastpos[1], lastpos[3] ) - 1) then
-                    return true
-                end
+                InWater = lastposHeight < (GetSurfaceHeight( lastpos[1], lastpos[3] ) - 1)
 		
                 nextpos =  VectorCached
                 nextpos[1] = position[1] - (xstep * i)
                 nextpos[3] = position[3] - (ystep * i)
-                    
-				nextposHeight = GetTerrainHeight( nextpos[1], nextpos[3] )
-					
-				-- if more than 3.6 ogrids change in height over 6 ogrids distance
-				if LOUDABS(lastposHeight - nextposHeight) > 3.6 then
 
+				nextposHeight = terrainfunction( nextpos[1], nextpos[3] )
+
+				-- if more than deviation change in height and it's not amphibious water movement
+				if LOUDABS(lastposHeight - nextposHeight) > deviation or (InWater and not MovementLayer == 'Amphibious') then
 					return true
 				end
 			
 				lastpos[1] = nextpos[1]
                 lastpos[3] = nextpos[3]
-
 				lastposHeight = nextposHeight
 
 			end
@@ -799,7 +806,6 @@ function AIFindTargetInRangeInCategoryWithThreatFromPosition( aiBrain, position,
 	local AIGetThreatLevelsAroundPoint = function(unitposition)
 
         local GetEnemyUnitsInRect = import('/lua/loudutilities.lua').GetEnemyUnitsInRect
-      	local GetThreatAtPosition = GetThreatAtPosition
         
         local adjust = ScenarioInfo.IMAPRadius + ( threatringrange*ScenarioInfo.IMAPSize) 
 

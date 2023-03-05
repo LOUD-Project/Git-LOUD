@@ -1303,6 +1303,7 @@ EngineerManager = Class(BuilderManager) {
 
         local DistressRepeats = 0
 		local DistressTypes = { 'Air', 'Land', 'Naval' }
+        local VectorCached = { 0, 0, 0 }
 		
 		local distressLocation, distressType, threatamount
 	
@@ -1310,13 +1311,16 @@ EngineerManager = Class(BuilderManager) {
 		local grouplndcount, groupaircount, groupseacount, groupfrtcount
         local steps, xstep, ystep, lastpos, nextpos, lastposheight, nextposheight
 
+        local BaseMonitorGetDistressLocation = self.BaseMonitorGetDistressLocation
         local RallyPoints = aiBrain.BuiderManagers[LocationType].RallyPoints
 		
 		-- the intent of this function is to make sure that we don't try and respond over mountains
 		-- and rivers and other serious terrain blockages -- these are generally identified by
         -- a rapid elevation change over a very short distance
 		local function CheckBlockingTerrain( pos, targetPos )
-	
+
+            local GetTerrainHeight = GetTerrainHeight	
+
 			-- This gives us the number of approx. 6 ogrid steps in the distance
 			steps = LOUDFLOOR( VDist2(pos[1], pos[3], targetPos[1], targetPos[3]) / 6 )
 	
@@ -1324,33 +1328,31 @@ EngineerManager = Class(BuilderManager) {
 			ystep = (pos[3] - targetPos[3]) / steps -- how much the Y value will change from step to step
 			
 			lastpos = {pos[1], 0, pos[3]}
-            
-            local GetTerrainHeight = GetTerrainHeight
+            lastposHeight = GetTerrainHeight( lastpos[1], lastpos[3] )
 	
 			-- Iterate thru the number of steps - starting at the pos and adding xstep and ystep to each point
-			for i = 0, steps do
-	
-				if i > 0 then
+			for i = 1, steps do
 		
-					nextpos = { pos[1] - (xstep * i), 0, pos[3] - (ystep * i)}
+				nextpos = VectorCached
+                nextpos[1] = pos[1] - (xstep * i)
+                nextpos[3] = pos[3] - (ystep * i)
 			
-					-- Get height for both points
-					lastposHeight = GetTerrainHeight( lastpos[1], lastpos[3] )
-					nextposHeight = GetTerrainHeight( nextpos[1], nextpos[3] )
-					
-					-- if more than 3.6 ogrids change in height over 6 ogrids distance
-					if LOUDABS(lastposHeight - nextposHeight) > 3.6 then
-						
-						-- we are obstructed
-                        if BaseMonitorDialog then
-                            LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." DISTRESS RESPONSE OBSTRUCTED to "..repr(targetPos))
-                        end
-                        
-						return true
-					end
-					
-					lastpos = nextpos
-                end
+				nextposHeight = GetTerrainHeight( nextpos[1], nextpos[3] )
+
+				-- if more than 3.6 ogrids change in height over 6 ogrids distance
+				if LOUDABS(lastposHeight - nextposHeight) > 3.6 then
+
+                    if BaseMonitorDialog then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." DISTRESS RESPONSE OBSTRUCTED to "..repr(targetPos))
+                    end
+
+                    return true
+				end
+
+                lastpos[1] = nextpos[1]
+                lastpos[3] = nextpos[3]
+                lastposHeight = nextposHeight
+
 			end
 	
 			return false
@@ -1381,7 +1383,7 @@ EngineerManager = Class(BuilderManager) {
 					GetDistressDistance = GetDistressDistance + 65
 				end
 
-				distressLocation, distressType, threatamount = self:BaseMonitorGetDistressLocation( aiBrain, baseposition, GetDistressDistance, BaseMonitor.AlertLevel, distresskind )
+				distressLocation, distressType, threatamount = BaseMonitorGetDistressLocation( self, aiBrain, baseposition, GetDistressDistance, BaseMonitor.AlertLevel, distresskind )
 
 				if distressLocation then
 				
@@ -1459,7 +1461,9 @@ EngineerManager = Class(BuilderManager) {
                                 -- move the units to the 3 rallypoints closest to the distressLocation
                                 DisperseUnitsToRallyPoints( aiBrain, grouplnd, baseposition, RallyPoints, distressLocation, 3 )
 							end
+
 						end
+
 					end
 				
 					-- respond with naval units

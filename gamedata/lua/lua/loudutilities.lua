@@ -1444,6 +1444,8 @@ end
 -- attack planner goal and sets the flag on that base
 function SetPrimarySeaAttackBase( aiBrain )
 
+    --LOG("*AI DEBUG "..aiBrain.Nickname.." attempting to set PrimarySeaAttackBase")
+
     -- clear existing base reference if it's no longer active
     if not aiBrain.BuilderManagers[aiBrain.PrimarySeaAttackBase].EngineerManager.Active then
         aiBrain.PrimarySeaAttackBase = false
@@ -1565,6 +1567,27 @@ function SetPrimarySeaAttackBase( aiBrain )
         else
             --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(aiBrain.PrimarySeaAttackBase).." remains the Primary Sea Attack Base")            
         end
+
+    else
+        -- no attack plan - pick the first Sea base you find
+        for k,v in aiBrain.BuilderManagers do
+		
+			if v.EngineerManager.Active and v.BaseType == "Sea" then
+
+                aiBrain.BuilderManagers[v.BaseName].PrimarySeaAttackBase = true
+
+                aiBrain.LastPrimarySeaAttackBase = aiBrain.PrimarySeaAttackBase or false
+
+                aiBrain.PrimarySeaAttackBase = v.BaseName
+                aiBrain.PrimarySeaAttackBaseDistance = 99999
+            
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(v.BaseName).." is now the Primary Sea Attack Base")
+                
+                break
+
+			end
+        end
+        
     end
     
 end
@@ -1585,6 +1608,8 @@ function GetPrimarySeaAttackBase( aiBrain )
 		end
     
 		WARN("*AI DEBUG "..aiBrain.Nickname.." has no Primary Sea Attack Base")
+        
+        SetPrimarySeaAttackBase( aiBrain )
 	end
 	
     return false, nil
@@ -2830,7 +2855,6 @@ end
 -- may not even get used in the course of a game
 function SetBaseRallyPoints( aiBrain, basename, basetype, rallypointradius, orientation )
 
-
 	local markertype = "Rally Point"
 	local orientation = orientation or 'ALL'
 	
@@ -2842,49 +2866,46 @@ function SetBaseRallyPoints( aiBrain, basename, basetype, rallypointradius, orie
 	-- and rivers and other serious terrain blockages -- these are generally identified by
     -- a rapid elevation change over a very short distance
 	local function CheckBlockingTerrain( pos, targetPos )
-    
-        local deviation
-    
+
+        local GetSurfaceHeight = GetSurfaceHeight 
+        local LOUDABS = math.abs
+
+        local deviation, steps, xstep, ystep
+        local nextpos, lastposHeight, nextposHeight    
+
         if basetype == "Sea" then
-            deviation = 0.5
+            deviation = 0.2
         else
             deviation = 2.5
         end
-        
 	
 		-- This gives us the number of approx. 8 ogrid steps in the distance
-		local steps = math.floor( VDist2(pos[1], pos[3], targetPos[1], targetPos[3]) / 8 )
+		steps = math.floor( VDist2(pos[1], pos[3], targetPos[1], targetPos[3]) / 8 )
 	
-		local xstep = (pos[1] - targetPos[1]) / steps
-		local ystep = (pos[3] - targetPos[3]) / steps
+		xstep = (pos[1] - targetPos[1]) / steps
+		ystep = (pos[3] - targetPos[3]) / steps
 
 		local lastpos = {pos[1], 0, pos[3]}
-        
-        local nextpos, lastposHeight, nextposHeight
-        
-        local GetSurfaceHeight = GetSurfaceHeight
-        local LOUDABS = math.abs
-	
+        local lastposHeight = GetSurfaceHeight( lastpos[1], lastpos[3] )
+
 		-- Iterate thru the number of steps - starting at the pos and adding xstep and ystep to each point
-		for i = 0, steps do
-	
-			if i > 0 then
+		for i = 1, steps do
 		
-				nextpos = { pos[1] - (xstep * i), 0, pos[3] - (ystep * i)}
-			
-				-- Get height for both points
-				lastposHeight = GetSurfaceHeight( lastpos[1], lastpos[3] )
-				nextposHeight = GetSurfaceHeight( nextpos[1], nextpos[3] )
+			nextpos = VectorCached
+            nextpos[1] = pos[1] - (xstep * i)
+            nextpos[3] = pos[3] - (ystep * i)
 
-				-- if more than deviation ogrids change in height over 6 ogrids distance
-				if LOUDABS(lastposHeight - nextposHeight) > deviation then
+			nextposHeight = GetSurfaceHeight( nextpos[1], nextpos[3] )
 
-					-- we are obstructed
-					return true
-				end
-				
-				lastpos = nextpos
-            end
+			-- if more than deviation ogrids change in height over 8 ogrids distance
+			if LOUDABS(lastposHeight - nextposHeight) > deviation then
+				return true
+			end
+
+			lastpos[1] = nextpos[1]
+            lastpos[3] = nextpos[3]
+            lastposHeight = nextposHeight
+
 		end
 	
 		return false
@@ -3183,19 +3204,17 @@ function PathGeneratorAir( aiBrain )
 	local queue = {}
 	local closed = {}
     
-    local destination, fork, platoon, shortcut, stepcostadjust, stepsize, threat, ThreatLayer
+    local checkrange, destination, fork, platoon, shortcut, stepcostadjust, steps, stepsize, threat, ThreatLayer, xstep, ystep
     local EndPosition, EndThreat, pathcost, pathlength, pathlist, StartLength, StartNode, StartPosition, ThreatWeight  
 
 	local function DestinationBetweenPoints(position,testposition)
 
-		local steps = LOUDFLOOR( VDist3(position, testposition) / stepsize )
+		steps = LOUDFLOOR( VDist3(position, testposition) / stepsize )
 	
 		if steps > 0 then
+        
+            local VDist2Sq = VDist2Sq
 
-            local checkrange, xstep, ystep
-
-            checkrange = (stepsize * stepsize)
-            
 			xstep = ( position[1] - testposition[1]) / steps
 			ystep = ( position[3] - testposition[3]) / steps
 	
@@ -3212,7 +3231,14 @@ function PathGeneratorAir( aiBrain )
 
 	local function AStarLoopBody()
 
+        local GetThreatBetweenPositions = moho.aibrain_methods.GetThreatBetweenPositions
+        local GetThreatAtPosition = GetThreatAtPosition
+        local LOUDCOPY = LOUDCOPY
         local LOUDEQUAL = LOUDEQUAL
+        local LOUDINSERT = LOUDINSERT
+        local LOUDLOG10 = LOUDLOG10
+        local LOUDSORT = LOUDSORT
+        local MATHMAX = MATHMAX
         local VDist3 = VDist3
 
         local Cost, newnode, Node, Pathcount, position, queueitem, testposition, Threat		
@@ -3232,12 +3258,6 @@ function PathGeneratorAir( aiBrain )
 		if LOUDEQUAL(position, EndPosition) or VDist3( destination, position) <= stepsize then
 			return queueitem.path, queueitem.length, false, Cost
 		end
-
-        local LOUDCOPY = LOUDCOPY
-        local LOUDLOG10 = LOUDLOG10
-        local MATHMAX = MATHMAX
-
-        local GetThreatAtPosition = GetThreatAtPosition
 	
 		closed[Node[1]] = true
 
@@ -3338,6 +3358,8 @@ function PathGeneratorAir( aiBrain )
             StartNode = data.StartNode
             StartPosition = StartNode.position
             stepsize = data.Stepsize
+            
+            checkrange = stepsize*stepsize
 
             ThreatLayer = data.ThreatLayer
             ThreatWeight = data.ThreatWeight
@@ -3409,24 +3431,22 @@ function PathGeneratorAmphibious(aiBrain)
 	local queue = {}
 	local closed = {}
     
-    local destination, fork, stepcostadjust, stepsize, Testpath, threat, ThreatLayer, ThreatLayerCheck
+    local destination, fork, stepcostadjust, steps, stepsize, Testpath, threat, ThreatLayer, ThreatLayerCheck, xstep, ystep
     local EndPosition, EndThreat,  pathcost, pathlength, pathlist, platoon,shortcut, StartLength, StartNode, StartPosition, ThreatWeight 
 
 
 	local function DestinationBetweenPoints( position, testposition )
 
-        local dist, steps, xstep, ystep
+        local VDist2 = VDist2
         
-		steps = LOUDFLOOR( VDist3( position, testposition ) / stepsize ) + 1
+		steps = LOUDFLOOR( VDist2( position[1],position[3], testposition[1],testposition[3] ) / stepsize ) + 1
 
         xstep = ( position[1] - testposition[1]) / steps
 		ystep = ( position[3] - testposition[3]) / steps
 
 		for i = 0, steps - 1 do
-        
-            dist = VDist2( position[1] - (xstep * i), position[3] - (ystep * i), destination[1], destination[3])
 
-            if dist <= stepsize then
+            if VDist2( position[1] - (xstep * i), position[3] - (ystep * i), destination[1], destination[3]) <= stepsize then
                 return true
             end
 		end	
@@ -3436,7 +3456,15 @@ function PathGeneratorAmphibious(aiBrain)
     
 	local function AStarLoopBody()
 
+        local GetThreatBetweenPositions = moho.aibrain_methods.GetThreatBetweenPositions
+        local GetThreatAtPosition = GetThreatAtPosition
+        local LOUDCOPY = LOUDCOPY
         local LOUDEQUAL = LOUDEQUAL
+        local LOUDINSERT = LOUDINSERT
+        local LOUDLOG10 = LOUDLOG10
+        local LOUDSORT = LOUDSORT
+        local MATHMAX = MATHMAX
+        local VDist3 = VDist3
 
         local Cost, newnode, Node, Pathcount, position, queueitem, testposition, Threat	
 
@@ -3456,13 +3484,6 @@ function PathGeneratorAmphibious(aiBrain)
 			return queueitem.path, queueitem.length, false, Cost
 		end
 
-        local LOUDCOPY = LOUDCOPY
-        local LOUDLOG10 = LOUDLOG10
-        local MATHMAX = MATHMAX
-        local VDist3 = VDist3
-
-        local GetThreatAtPosition = GetThreatAtPosition
-		
 		closed[Node[1]] = true
         
 		-- loop thru all the nodes which are adjacent to this one and create a fork entry for each adjacent node
@@ -3599,9 +3620,9 @@ end
 
 function PathGeneratorLand(aiBrain)
 
-	local GetThreatBetweenPositions = moho.aibrain_methods.GetThreatBetweenPositions
     local PlatoonExists = PlatoonExists
 
+    local GetThreatBetweenPositions = moho.aibrain_methods.GetThreatBetweenPositions
 	local LOUDCOPY = LOUDCOPY
     local LOUDEQUAL = table.equal
 	local LOUDFLOOR = math.floor
@@ -3627,20 +3648,16 @@ function PathGeneratorLand(aiBrain)
     
     local maxthreat, minthreat
     
-    local destination, fork, platoon, stepcostadjust, stepsize,  TestPath, testposition, threat, ThreatLayer
-
+    local checkrange, destination, fork, platoon, stepcostadjust, steps, stepsize,  TestPath, testposition, threat, ThreatLayer, xstep, ystep
     local EndPosition, EndThreat, pathcost, pathlength, pathlist, shortcut, StartNode, StartPosition, ThreatWeight
 
 	local function DestinationBetweenPoints( position, testposition )
 
-		local steps = LOUDFLOOR( VDist2( position[1], position[3], testposition[1], testposition[3]) / stepsize )
+		steps = LOUDFLOOR( VDist2( position[1], position[3], testposition[1], testposition[3]) / stepsize )
 	
 		if steps > 0 then
         
             local VDist2Sq = VDist2Sq
-            local checkrange, xstep, ystep
-        
-            checkrange = (stepsize * stepsize)
             
 			xstep = ( position[1] - testposition[1]) / steps
 			ystep = ( position[3] - testposition[3]) / steps
@@ -3658,8 +3675,13 @@ function PathGeneratorLand(aiBrain)
     
 	local function AStarLoopBody()
 
-        local VDist3 = VDist3
+        local GetThreatBetweenPositions = GetThreatBetweenPositions
+        local LOUDCOPY = LOUDCOPY
         local LOUDEQUAL = LOUDEQUAL
+        local LOUDINSERT = LOUDINSERT
+        local LOUDSORT = LOUDSORT
+        local MATHMAX = MATHMAX
+        local VDist3 = VDist3
 
         local Cost, newnode, Node, Pathcount, position, queueitem, testposition, Threat	
 
@@ -3679,9 +3701,6 @@ function PathGeneratorLand(aiBrain)
 			return queueitem.path, queueitem.length, false, queueitem.cost
 		end
 
-        local LOUDCOPY = LOUDCOPY
-        local MATHMAX = MATHMAX
-        local VDist3 = VDist3
 
         local GetThreatAtPosition = GetThreatAtPosition
 	
@@ -3760,6 +3779,8 @@ function PathGeneratorLand(aiBrain)
             Testpath = data.Testpath
             ThreatLayer = data.ThreatLayer
             ThreatWeight = data.ThreatWeight
+            
+            checkrange = stepsize*stepsize
 
 			closed = {}
             
@@ -3807,7 +3828,6 @@ end
 function PathGeneratorWater(aiBrain)
 
     local GetThreatAtPosition = GetThreatAtPosition	
-	local GetThreatBetweenPositions = moho.aibrain_methods.GetThreatBetweenPositions
     local PlatoonExists = moho.aibrain_methods.PlatoonExists
 
 	local LOUDCOPY = LOUDCOPY
@@ -3832,9 +3852,8 @@ function PathGeneratorWater(aiBrain)
 	local queue = {}
 	local closed = {}
 
-    local queueitem, Node, position, destination, stepsize, adjacentnodes, TestPath, testposition, threat, ThreatLayer, fork
-    local steps, checkrange, xstep, ystep
-
+    local adjacentnodes, destination, fork, Node, position, queueitem, stepsize, TestPath, testposition, threat, ThreatLayer
+    local checkrange, steps, xstep, ystep
 
 	local function DestinationBetweenPoints()
 
@@ -3862,6 +3881,11 @@ function PathGeneratorWater(aiBrain)
     
 	local AStarLoopBody = function()
 
+        local GetThreatBetweenPositions = moho.aibrain_methods.GetThreatBetweenPositions
+        local LOUDCOPY = LOUDCOPY
+        local LOUDEQUAL = LOUDEQUAL
+        local LOUDINSERT = LOUDINSERT
+        local LOUDSORT = LOUDSORT
         local VDist2 = VDist2
         local VDist3 = VDist3
 

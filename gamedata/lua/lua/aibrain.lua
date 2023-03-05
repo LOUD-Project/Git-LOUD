@@ -124,7 +124,7 @@
 	LOG("*AI DEBUG      Report Distress Response Dialogs to Log is "..repr(ScenarioInfo.DistressResponseDialog))
 
     -- AI platoons that MERGE_INTO or MERGE_WITH will dialog their data and decisions to the LOG
-	ScenarioInfo.PlatoonMergeDialog =  false
+	ScenarioInfo.PlatoonMergeDialog = false
 	LOG("*AI DEBUG      Report Platoon Merge actions to log is "..repr(ScenarioInfo.PlatoonMergeDialog))
 
     -- TRANSPORT dialogs - report all transport activity to log file (this can be very busy)
@@ -145,10 +145,14 @@
 	ScenarioInfo.PriorityDialog = false
 	LOG("*AI DEBUG      Report Priority Changes to Log is "..repr(ScenarioInfo.PriorityDialog))
 
-    -- follows the decision process of the GUARDPOINT behavior (for LAND only at this time)
+    -- follows the decision process of the GUARDPOINT behavior (for LAND & AMPHIB only at this time)
     ScenarioInfo.GuardPointDialog = false
     LOG("*AI DEBUG      GuardPoint Behavior Dialog is "..repr(ScenarioInfo.GuardPointDialog))
-    
+
+    -- follows the decision process of NAVALFORCEAI behavior
+    ScenarioInfo.NavalForceDialog = false
+    LOG("*AI DEBUG      GuardPoint Behavior Dialog is "..repr(ScenarioInfo.NavalForceDialog))    
+
     -- INSTANCE COUNT dialogs - Instanced Builder count increase/decrease is dialoged to the LOG (very busy)
     -- this allows you to watch your instance count allocations - and see those that get filled up - or are barely used
     ScenarioInfo.InstanceDialog = false
