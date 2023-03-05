@@ -844,7 +844,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 		
         BuilderData = {
 			DistressRange = 120,
-            DistressReactionTime = 6,            
+            DistressReactionTime = 3,            
 			DistressTypes = 'Air',
 			DistressThreshold = 3,
 			
@@ -970,8 +970,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         },
 		
         BuilderData = {
-			DistressRange = 150,
-            DistressReactionTime = 6,
+			DistressRange = 140,
+            DistressReactionTime = 3,
 			DistressTypes = 'Air',
 			DistressThreshold = 3,
 			
@@ -1014,8 +1014,8 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         },
 		
         BuilderData = {
-			DistressRange = 200,
-            DistressReactionTime = 6,
+			DistressRange = 165,
+            DistressReactionTime = 3,
 			DistressTypes = 'Air',
 			DistressThreshold = 3,
             
