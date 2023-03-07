@@ -737,10 +737,10 @@ Platoon = Class(moho.platoon_methods) {
 			-- prohibit LAND platoons from traveling to water locations
 			if MovementLayer == 'Land' then
 			
-				if GetTerrainHeight(destination[1], destination[3]) < GetSurfaceHeight(destination[1], destination[3]) - 2 then 
+				if GetTerrainHeight(destination[1], destination[3]) < GetSurfaceHeight(destination[1], destination[3]) - 1 then 
 
                     if TransportDialog then	
-                        LOG("*AI DEBUG SendPlatWTrans says Water for "..repr(destination).." for builder "..repr(self.BuilderName) )
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." SendPlatWTrans "..self.BuilderName.." "..self.BuilderInstance.." trying to go to WATER destination "..repr(destination) )
                     end
                     
 					return false
@@ -1211,6 +1211,10 @@ Platoon = Class(moho.platoon_methods) {
 				
 				-- if we're within the stepcheck ogrids of the destination then we found it
 				if VDist2Sq(start[1] - (xstep * i), start[3] - (ystep * i), destination[1], destination[3]) < stepcheck then
+            
+                    if PathFindingDialog then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." finds destination "..repr(destination).." at "..i.." x "..stepsize.." of "..repr(start) )
+                    end
 
 					return { start[1] - (xstep * i), destination[2], start[3] - (ystep * i) }
 				end
@@ -1239,6 +1243,10 @@ Platoon = Class(moho.platoon_methods) {
                 terrainfunction = GetSurfaceHeight
                 deviation = 0.5
             end
+
+            if PathFindingDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." checks "..platoonLayer.." blocking from "..repr(pos).." to "..repr(targetPos).." deviation is "..repr(deviation) )
+            end            
             
 			-- This gives us the number of approx. 6 ogrid steps in the distance
 			steps = LOUDFLOOR( VDist2(pos[1], pos[3], targetPos[1], targetPos[3]) / 6 )
@@ -1262,8 +1270,18 @@ Platoon = Class(moho.platoon_methods) {
 
                 nextposHeight = terrainfunction( nextpos[1], nextpos[3] )
 
+                if PathFindingDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." blocking checks "..repr(lastpos).." against "..repr(nextpos) )
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." InWater is "..repr(InWater) )
+                end            
+
                 -- if more than deviation ogrids change in height over 6 ogrids distance
-				if LOUDABS(lastposHeight - nextposHeight) > deviation or (InWater and not platoonLayer == 'Amphibious') then
+				if LOUDABS(lastposHeight - nextposHeight) > deviation or (InWater and platoonLayer != 'Amphibious') then
+
+                    if PathFindingDialog then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." "..platoonLayer.." obstructued between "..repr(pos).." and "..repr(targetPos) )
+                    end                
+
 					return true
 				end
 
@@ -1283,7 +1301,7 @@ Platoon = Class(moho.platoon_methods) {
 
                 local GetThreatBetweenPositions = GetThreatBetweenPositions
                 local LOUDSORT = LOUDSORT
-				local VDist3Sq = VDist3Sq			
+				local VDist2 = VDist2		
 
 				local counter = 0
 				local positions = {}			
@@ -1301,16 +1319,20 @@ Platoon = Class(moho.platoon_methods) {
 				for _,v in markerlist do
                 
                     Node = v.node
-                    Position = v.position
+                    Position = LOUDCOPY(v.position)
                     
-                    testdistance = VDist3Sq( Position, location )
+                    testdistance = VDist2( Position[1],Position[3], location[1],location[3] )
 
 					-- process only those entries within the radius
-					if testdistance <= radiuscheck then
+					if testdistance <= MaxMarkerDist then
                     
                         nomarkers = false
+            
+                        if PathFindingDialog then
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." checks "..repr(location).." to "..Node.." at "..repr(Position).." distance is "..testdistance )
+                        end
 
-                        if not CheckBlockingTerrain( Position, location ) then
+                        if not CheckBlockingTerrain( location, Position ) then
 
                             -- add only those with acceptable threat to the new list
                             -- if seeksafest or goalseek flag is set we'll build a table of points with allowable threats
@@ -1339,7 +1361,7 @@ Platoon = Class(moho.platoon_methods) {
 				-- resort positions to be closest to goalseek position
 				-- just a note here -- the goalseek position is often sent WITHOUT a vertical indication so I had to use VDIST2 rather than VDIST 3 to be sure
 				if goalseek then
-					LOUDSORT(positions, function(a,b) local VDist2Sq = VDist2Sq return VDist2Sq( a[3][1],a[3][3], goalseek[1],goalseek[3] ) < VDist2Sq( b[3][1],b[3][3], goalseek[1],goalseek[3] ) end)
+					LOUDSORT(positions, function(a,b) local VDist2 = VDist2 return VDist2( a[3][1],a[3][3], goalseek[1],goalseek[3] ) < VDist2( b[3][1],b[3][3], goalseek[1],goalseek[3] ) end)
 				end
 
 				local bestThreat = maxthreat
@@ -1408,12 +1430,16 @@ Platoon = Class(moho.platoon_methods) {
 
 		if not startNode and platoonLayer == 'Amphibious' then
 		
-			LOG("*AI DEBUG "..aiBrain.Nickname.." GenerateSafePath "..repr(platoon.BuilderName or platoon).." "..threatallowed.." fails no safe "..platoonLayer.." startnode within "..MaxMarkerDist.." of "..repr(start).." - trying Land")
+			LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." no safe "..platoonLayer.." startnode - using "..threatallowed.." threat - within "..MaxMarkerDist.." of "..repr(start).." - trying Land")
             
 			platoonLayer = 'Land'
 			startNode, startNodeName = GetClosestSafePathNodeInRadiusByLayerLOUD( start, false, destination, 2 )
 			
-		end
+		else
+            if PathFindingDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." gets startnode "..repr(startNode).." Distance is "..VDist3(start, startNode.position) )
+            end
+        end
 	
 		if not startNode then
             
@@ -1423,7 +1449,11 @@ Platoon = Class(moho.platoon_methods) {
 		end
 		
 		if DestinationBetweenPoints( destination, start, startNode.position ) then
-            
+
+            if PathFindingDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." goes DIRECT from "..repr(startNode) )
+            end            
+
 			return {destination}, 'Direct', VDist2( start[1],start[3], destination[1],destination[3] ), 0
 			
 		end			
@@ -1436,9 +1466,17 @@ Platoon = Class(moho.platoon_methods) {
 			WaitTicks(1)
 			return false, 'NoPath', 0, 0
 			
-		end
+		else
+            if PathFindingDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." gets endnode "..repr(endNode).." Distance to destination is "..VDist3(endNode.position, destination) )
+            end        
+        end
 		
 		if startNodeName == endNodeName then
+
+            if PathFindingDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." goes DIRECT from "..repr(startNode) )
+            end            
 
 			return {destination}, 'Direct', VDist2( start[1],start[3], destination[1],destination[3] ), 0
 			
@@ -1453,6 +1491,10 @@ Platoon = Class(moho.platoon_methods) {
 		-- if the nodes are not in the bad path cache generate a path for them
 		-- Generate the safest path between the start and destination nodes
 		if not BadPath[startNodeName][endNodeName] then
+
+            if PathFindingDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." requests "..platoonLayer.." path from "..repr(startNode).." to "..repr(endNode) )
+            end            
 
 			-- add the platoons request for a path to the respective path generator for that layer
 			LOUDINSERT(aiBrain.PathRequests[platoonLayer], {
@@ -1507,6 +1549,10 @@ Platoon = Class(moho.platoon_methods) {
 			if path == 'NoPath' and not BadPath[startNodeName][endNodeName] then
 				ForkTo(AddBadPath, platoonLayer, startNodeName, endNodeName )
 			end
+
+            if PathFindingDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." gets NO PATH response " )
+            end            
 	
 			return false, 'NoPath', 0, 0
 		end
@@ -1515,6 +1561,10 @@ Platoon = Class(moho.platoon_methods) {
         pathlength = pathlength + VDist3( path[LOUDGETN(path)], destination )
         
         path[LOUDGETN(path)+1] = destination
+
+        if PathFindingDialog then
+            LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." gets path response "..repr(path) )
+        end            
 	
 		return path, 'Pathing', pathlength, pathcost
 	end,	
@@ -3052,7 +3102,7 @@ Platoon = Class(moho.platoon_methods) {
 
 				if path then
                     if GuardpointDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." gets path to marker "..repr(marker).." pathlength is "..pathlength.." reason is "..repr(reason) )
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." gets "..MovementLayer.." path to marker "..repr(marker).." pathlength is "..pathlength.." reason is "..repr(reason).." Path is "..repr(path) )
                     end
 
                     self.MoveThread = self:ForkThread( self.MovePlatoon, path, PlatoonFormation, bAggroMove)
@@ -6017,8 +6067,8 @@ Platoon = Class(moho.platoon_methods) {
                 deviation = 0.5
             end
 	
-			-- This gives us the number of approx. 6 ogrid steps in the distance
-			steps = LOUDFLOOR( VDist2(pos[1], pos[3], targetPos[1], targetPos[3]) / 6 )
+			-- This gives us the number of approx. 8 ogrid steps in the distance
+			steps = LOUDFLOOR( VDist2(pos[1], pos[3], targetPos[1], targetPos[3]) / 8 )
 	
 			xstep = (pos[1] - targetPos[1]) / steps -- how much the X value will change from step to step
 			ystep = (pos[3] - targetPos[3]) / steps -- how much the Y value will change from step to step
@@ -6037,8 +6087,8 @@ Platoon = Class(moho.platoon_methods) {
 
 				nextposHeight = terrainfunction( nextpos[1], nextpos[3] )
 
-				-- if more than 3.6 ogrids change in height over 6 ogrids distance
-				if LOUDABS(lastposHeight - nextposHeight) > deviation or (InWater and not MovementLayer == 'Amphibious') then
+				-- if more than deviation ogrids change over 8 ogrids distance
+				if LOUDABS(lastposHeight - nextposHeight) > deviation or (InWater and MovementLayer != 'Amphibious') then
 					return true
 				end
 

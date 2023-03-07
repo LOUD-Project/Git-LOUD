@@ -699,8 +699,8 @@ function FindTargetInRange( self, aiBrain, squad, maxRange, attackcategories, no
                 deviation = 0.5
             end
 
-			-- This gives us the number of approx. 6 ogrid steps in the distance
-			steps = LOUDFLOOR( VDist3( position, targetPos ) / 6 )
+			-- This gives us the number of approx. 8 ogrid steps in the distance
+			steps = LOUDFLOOR( VDist3( position, targetPos ) / 8 )
 	
 			xstep = (position[1] - targetPos[1]) / steps -- how much the X value will change from step to step
 			ystep = (position[3] - targetPos[3]) / steps -- how much the Y value will change from step to step
@@ -720,7 +720,7 @@ function FindTargetInRange( self, aiBrain, squad, maxRange, attackcategories, no
 				nextposHeight = terrainfunction( nextpos[1], nextpos[3] )
 
 				-- if more than deviation change in height and it's not amphibious water movement
-				if LOUDABS(lastposHeight - nextposHeight) > deviation or (InWater and not MovementLayer == 'Amphibious') then
+				if LOUDABS(lastposHeight - nextposHeight) > deviation or (InWater and MovementLayer != 'Amphibious') then
 					return true
 				end
 			

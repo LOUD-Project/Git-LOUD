@@ -1321,8 +1321,8 @@ EngineerManager = Class(BuilderManager) {
 
             local GetTerrainHeight = GetTerrainHeight	
 
-			-- This gives us the number of approx. 6 ogrid steps in the distance
-			steps = LOUDFLOOR( VDist2(pos[1], pos[3], targetPos[1], targetPos[3]) / 6 )
+			-- This gives us the approx number of 8 ogrid steps in the distance
+			steps = LOUDFLOOR( VDist2(pos[1], pos[3], targetPos[1], targetPos[3]) / 8 )
 	
 			xstep = (pos[1] - targetPos[1]) / steps -- how much the X value will change from step to step
 			ystep = (pos[3] - targetPos[3]) / steps -- how much the Y value will change from step to step
@@ -1339,7 +1339,7 @@ EngineerManager = Class(BuilderManager) {
 			
 				nextposHeight = GetTerrainHeight( nextpos[1], nextpos[3] )
 
-				-- if more than 3.6 ogrids change in height over 6 ogrids distance
+				-- if more than 3.6 ogrids change in height over 8 ogrids distance
 				if LOUDABS(lastposHeight - nextposHeight) > 3.6 then
 
                     if BaseMonitorDialog then
