@@ -908,39 +908,33 @@ function AirScoutingAI( self, aiBrain )
 	local GetSquadUnits = GetSquadUnits
 	local GetThreatsAroundPosition = GetThreatsAroundPosition
 	local GetUnitsAroundPoint = GetUnitsAroundPoint    
-    
+ 	local PlatoonExists = PlatoonExists	
+    local Random = Random    
+
     local LOUDCOPY = LOUDCOPY
     local LOUDEQUAL = LOUDEQUAL
     local LOUDPOW = LOUDPOW
     local LOUDREMOVE = LOUDREMOVE
-    
-    local Random = Random
-    
- 	local PlatoonExists = PlatoonExists	
-
     local VDist2Sq = VDist2Sq
 	local VDist3 = VDist3
+    local VDist3Sq = VDist3Sq
     
     local UNITCHECK = categories.ALLUNITS - categories.WALL
     local OMNICHECK = categories.STRUCTURE * categories.INTELLIGENCE * categories.OMNI
-    
-    local MustScoutList = aiBrain.IL.MustScout
-    
-    self.UsingTransport = true      -- airscouting is never considered for merge operations
 
     local CreationTime = self.CreationTime
     local MapSize = ScenarioInfo.size
+    local PlatoonGenerateSafePathToLOUD = self.PlatoonGenerateSafePathToLOUD
 
-    local dest, dir, length, norm, orthogonal, threatbasis, threatlevel, vec
-    local path, reason
-    local visradius
+    local MustScoutList = aiBrain.IL.MustScout
 
-    local IL
 	local scout = false
 	local noscoutcount = 0
-	
-	local targetArea, mustScoutArea, mustScoutIndex
-    
+    local VectorCached = { 0, 0, 0 }    
+
+    self.UsingTransport = true      -- airscouting is never considered for merge operations
+
+    local datalist, dest, dir, IL, length, mustScoutArea, mustScoutIndex, norm, orthogonal, path, reason, targetArea, threatbasis, threatlevel, vec, visradius
 
 	local function AIGetMustScoutArea()
 	
@@ -977,7 +971,7 @@ function AirScoutingAI( self, aiBrain )
 	-- should that not work scouts will report false and pass on trying to scout this area
 	local function DoAirScoutVecs( scout, targetposition )
 	
-		local scoutposition = LOUDCOPY(GetPosition(scout))
+		local scoutposition = GetPosition(scout) or false
 		
 		if scoutposition then
 		
@@ -1006,19 +1000,21 @@ function AirScoutingAI( self, aiBrain )
 			-- use an elevated threat level in order to find paths for the air scouts --
 			threatlevel = threatbasis + ( LOUDGETN(GetPlatoonUnits(self) )) * LOUDGETN( GetPlatoonUnits(self))
 		
-			path, reason = self.PlatoonGenerateSafePathToLOUD(aiBrain, self, 'Air', scoutposition, dest, threatlevel, 256)
+			path, reason = PlatoonGenerateSafePathToLOUD( aiBrain, self, 'Air', scoutposition, dest, threatlevel, 256)
 		
 			if path then
 		
-				local units = GetSquadUnits( self,'scout')
+				datalist = GetSquadUnits( self,'scout')
 		
 				-- plot the movements of the platoon --
-				if PlatoonExists(aiBrain, self) and units[1] then
+				if PlatoonExists(aiBrain, self) and datalist[1] then
+                
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." AirScoutAI "..self.BuilderName.." "..self.BuilderInstance.." gets path "..repr(path))
 		
 					self:Stop()
 
 					for widx,waypointPath in path do
-                        IssueMove( units, waypointPath )
+                        IssueMove( datalist, waypointPath )
 					end
 
 					return dest
@@ -1029,48 +1025,57 @@ function AirScoutingAI( self, aiBrain )
 		return false
 	end		
 
+    --LOG("*AI DEBUG "..aiBrain.Nickname.." AirScoutAI "..self.BuilderName.." "..self.BuilderInstance.." begins " )
+
 	-- this basically limits all air scout platoons to about 20 minutes of work -- rather should use MISSIONTIMER from platoondata
     while PlatoonExists(aiBrain, self) and (LOUDTIME() - CreationTime <= 1200) do
 
-		for _,v in GetPlatoonUnits(self) do
-			if not v.Dead then
-				scout = v
-				break
-			end
-		end
+        if not scout or scout.Dead then
+		
+            for _,v in GetPlatoonUnits(self) do
+            
+                if not v.Dead then
+                    scout = v
+                    break
+                end
+            end
 
-        if not scout then
-            return
+            if not scout then
+                return
+            end
+
+            visradius = __blueprints[scout.BlueprintID].Intel.VisionRadius or 42            
+
+            -- used for T1 and T2 air scouts
+            threatbasis = 12
+        
+            -- used for T3 air scouts --
+            if LOUDENTITY( categories.TECH3, scout ) then
+                threatbasis = 24
+            end
+
         end
 
         targetArea = false
 		vec = false
 
-        visradius = __blueprints[scout.BlueprintID].Intel.VisionRadius or 42
-        
-        -- used for T1 and T2 air scouts
-        threatbasis = 12
-        
-        -- used for T3 air scouts --
-        if LOUDENTITY( categories.TECH3, scout ) then
-            threatbasis = 24
-        end
-
         IL = aiBrain.IL
         
 		-- see if we already have a MUSTSCOUT mission underway
 		if not IL.LastAirScoutMust then
+        
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." AirScoutAI "..self.BuilderName.." "..self.BuilderInstance.." seeks MUSTSCOUT " )
 			
-			local unknownThreats = GetThreatsAroundPosition( aiBrain, GetPosition(scout), 2, true, 'Unknown')
+			datalist = GetThreatsAroundPosition( aiBrain, GetPosition(scout), 2, true, 'Unknown')
 			
 			-- add all unknown threats over 25 to the MUSTSCOUT list
-			if unknownThreats[1] then
+			if datalist[1] then
 				
-				for k,v in unknownThreats do
+				for k,v in datalist do
 				
-					if unknownThreats[k][3] > 25 then
+					if datalist[k][3] > 25 then
 					
-						ForkThread( AIAddMustScoutArea, aiBrain, {unknownThreats[k][1], 0, unknownThreats[k][2]} )
+						ForkThread( AIAddMustScoutArea, aiBrain, {datalist[k][1], 0, datalist[k][2]} )
 					end
 				end
 			end
@@ -1098,6 +1103,7 @@ function AirScoutingAI( self, aiBrain )
                         -- remember where this was so we don't repeat it again too soon
                         aiBrain.IL.LastMustScoutPosition = LOUDCOPY(mustScoutArea.Position)
                     end
+
 				end
 			end
 		end
@@ -1105,9 +1111,11 @@ function AirScoutingAI( self, aiBrain )
         -- 2) Scout a high priority location
         if (not targetArea) and (not IL.LastAirScoutHi) then
 		
-			local prioritylist = IL.HiPri
+			datalist = IL.HiPri
+            
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." AirScoutAI "..self.BuilderName.." "..self.BuilderInstance.." seeks HIPRI " )
 			
-			for k,v in prioritylist do
+			for k,v in datalist do
 
                 if IsCurrentlyScouted( v.Position) then
 				
@@ -1149,6 +1157,10 @@ function AirScoutingAI( self, aiBrain )
 				aiBrain.IL.LastAirScoutHi = false
 				aiBrain.IL.LastAirScoutHiCount = 0
 			end
+            
+            IL = aiBrain.IL
+            
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." AirScoutAI "..self.BuilderName.." "..self.BuilderInstance.." seeks LOPRI " )
 
 			for k,v in IL.LowPri do
 
@@ -1177,29 +1189,36 @@ function AirScoutingAI( self, aiBrain )
         -- as we move along we'll try and tag any other HiPri positions
         -- that we might pass along the way.
         if targetArea then
+        
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." AirScoutAI "..self.BuilderName.." "..self.BuilderInstance.." has targetArea "..repr(targetArea) )
 
 			local reconcomplete = false
 			local lastpos = false
 			local curPos = false
+            
+            local cyclecount, distance, loopcount
 
             while PlatoonExists(aiBrain,self) and not reconcomplete do
 
 				curPos = GetPlatoonPosition(self) or false
 
 				if curPos then
+                
+                    distance = VDist2Sq( targetArea[1],targetArea[3], curPos[1],curPos[3] )
 				
 					-- if within 40 of the recon position 
-					if VDist2Sq( targetArea[1],targetArea[3], curPos[1],curPos[3] ) < (40*40) then
+					if distance < (40*40) then
 						reconcomplete = true
 					end
 
 					-- or not moving
-					if not reconcomplete and lastpos and VDist2Sq( curPos[1],curPos[3], lastpos[1],lastpos[3] ) < 2 then
+					if (not reconcomplete) and lastpos and VDist3Sq( curPos, lastpos ) < .05 then
+
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." AirScoutAI "..self.BuilderName.." "..self.BuilderInstance.." appears stalled at "..distance.." to targetArea "..VDist3Sq( curPos, lastpos ) )
+
 						reconcomplete = true
 					end
 
-                    -- store current position
-					lastpos = LOUDCOPY(curPos)
 
                     -- if we're near another HiPri position - mark it --
                     -- this probably needs to be throttled or interleaved
@@ -1208,13 +1227,15 @@ function AirScoutingAI( self, aiBrain )
                     
                         if VDist2Sq( curPos[1],curPos[3], v.Position[1],v.Position[3] ) < (40*40) then
                         
+                            --LOG("*AI DEBUG "..aiBrain.Nickname.." AirScoutAI "..self.BuilderName.." "..self.BuilderInstance.." updates HIPRI intel position " )
+                        
                             aiBrain.IL.HiPri[k].LastScouted = LOUDTIME()
                             aiBrain.IL.HiPri[k].LastUpdated = LOUDTIME()
                         end
                     end
                     
-                    local loopcount = 0
-                    local cyclecount = 0
+                    loopcount = 0
+                    cyclecount = 0
                     
                     for k,v in aiBrain.IL.LowPri do
                     
@@ -1228,31 +1249,56 @@ function AirScoutingAI( self, aiBrain )
                     
                         if VDist2Sq( curPos[1],curPos[3], v.Position[1],v.Position[3] ) < (40*40) then
                         
+                            --LOG("*AI DEBUG "..aiBrain.Nickname.." AirScoutAI "..self.BuilderName.." "..self.BuilderInstance.." updates LOPRI intel position " )
+
                             aiBrain.IL.LowPri[k].LastScouted = LOUDTIME()
                             aiBrain.IL.LowPri[k].LastUpdated = LOUDTIME()
                         end
                     end
                     
-                    if not reconcomplete then
+                    if PlatoonExists(aiBrain,self) and not reconcomplete then
                     
+                        --LOG("*AI DEBUG "..aiBrain.Nickname.." AirScoutAI "..self.BuilderName.." "..self.BuilderInstance.." at "..distance.." to targetArea" )
+
+                        -- store current position
+                        if not lastpos then
+                            lastpos = VectorCached
+                        end
+                        
+                        lastpos[1] = curPos[1]
+                        lastpos[2] = curPos[2]
+                        lastpos[3] = curPos[3]
+
                         if cyclecount < 12 then
-                            WaitTicks(12 - cyclecount)
+                            WaitTicks(15 - cyclecount)
                         end
                     end
-				end                    
+
+				else
+                    reconcomplete = true
+                    mustScoutArea = false
+                    
+                end
+
             end
 
 			-- if it was a MUSTSCOUT mission, take it off the list
             if mustScoutArea then
 
 				if aiBrain.IL.MustScout[mustScoutIndex] == mustScoutArea then
+                
+                    --LOG("*AI DEBUG "..aiBrain.Nickname.." AirScoutAI "..self.BuilderName.." "..self.BuilderInstance.." completed MUSTSCOUT position " )
 
 					LOUDREMOVE( aiBrain.IL.MustScout, mustScoutIndex )
+
 				else
+
 					for idx,loc in aiBrain.IL.MustScout do
 					
 						if loc == mustScoutArea then
-						
+
+                            --LOG("*AI DEBUG "..aiBrain.Nickname.." AirScoutAI "..self.BuilderName.." "..self.BuilderInstance.." completed MUSTSCOUT position (scan) " )
+
 							LOUDREMOVE( aiBrain.IL.MustScout, idx )
 							break
 						end
@@ -1265,13 +1311,16 @@ function AirScoutingAI( self, aiBrain )
 			noscoutcount = noscoutcount + 1
 
 			if noscoutcount > 2 then
-				LOG("*AI DEBUG NoScoutCount break")
+				LOG("*AI DEBUG "..aiBrain.Nickname.." AirScoutAI "..self.BuilderName.." "..self.BuilderInstance.." NoScoutCount break")
 				break
 			end
 
 			WaitTicks(3)			
 		end
+
     end
+
+    --LOG("*AI DEBUG "..aiBrain.Nickname.." AirScoutAI "..self.BuilderName.." "..self.BuilderInstance.." mission expires" )
 
 	return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 end
@@ -2346,10 +2395,10 @@ function SetLoiterPosition( self, aiBrain, startposition, searchradius, minthrea
     local GetSquadUnits = GetSquadUnits
     local GetThreatsAroundPosition = GetThreatsAroundPosition
     local GetThreatAtPosition = GetThreatAtPosition
-    
+	local PlatoonExists = PlatoonExists	    
+
     local LOUDCOPY = LOUDCOPY
     local LOUDFLOOR = LOUDFLOOR
-
     local LOUDMAX = LOUDMAX
     local LOUDMIN = LOUDMIN
     local LOUDSORT = LOUDSORT
@@ -2388,7 +2437,7 @@ function SetLoiterPosition( self, aiBrain, startposition, searchradius, minthrea
         currentthreat = 0
         result = false
 
-        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..self.BuilderInstance.." gets "..threatseek.." threats "..repr(threats) )
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..self.BuilderInstance.." gets "..threatseek.." threats from "..repr(startposition) )
         
         for _,v in threats do
             
@@ -2417,6 +2466,7 @@ function SetLoiterPosition( self, aiBrain, startposition, searchradius, minthrea
             -- build the loiterposition using the threatPos and LERP it against the startposition
             loiterposition = { 0, 0, 0 }
             loiterposition[1] = LOUDFLOOR( LOUDLERP( lerpresult, startposition[1], result[1] ))
+            loiterposition[2] = startposition[2]
             loiterposition[3] = LOUDFLOOR( LOUDLERP( lerpresult, startposition[3], result[3] )) 
         end
 
@@ -2425,8 +2475,6 @@ function SetLoiterPosition( self, aiBrain, startposition, searchradius, minthrea
     end
 
     IssueClearCommands(self)
-    
-    self:MoveToLocation( loiterposition, false)
 
     IssueGuard( GetSquadUnits( self,'Attack'), loiterposition)
     

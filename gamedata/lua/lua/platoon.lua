@@ -5661,40 +5661,34 @@ Platoon = Class(moho.platoon_methods) {
         local PlatoonExists = PlatoonExists
         local WaitTicks = WaitTicks
 
-        self:Stop()
-
         local location = self.BuilderLocation or self.LocationType or GetPlatoonPosition(self)
-		
-        local radius = self.PlatoonData.Radius or 90
+		local orientation = self.PlatoonData.BasePerimeterOrientation or 'FRONT'
 		local patroltime = self.PlatoonData.PatrolTime or nil
 		local patroltype = self.PlatoonData.PatrolType or false
 		local PlatoonFormation = self.PlatoonData.UseFormation or 'AttackFormation'
-		
-		local orientation = self.PlatoonData.BasePerimeterOrientation or 'FRONT'
-		
-        local landunit = false
-		local layer = 'Air'
-
-        local CreationTime = self.CreationTime
-        
-        local TESTUNITS = categories.MOBILE * categories.LAND - EXPERIMENTALS
+        local radius = self.PlatoonData.Radius or 90		
 		
         self:SetPlatoonFormationOverride(PlatoonFormation)
 
-        local units = GetPlatoonUnits(self)       
-        local numberOfUnitsInPlatoon = LOUDGETN(units)
-        local oldNumberOfUnitsInPlatoon = numberOfUnitsInPlatoon
+        self:Stop()
+
+        local CreationTime = self.CreationTime
+
+        local units = GetPlatoonUnits(self)		
+
+        local landunit = false
+		local layer = 'Air'
 
 		for _,v in units do
 		
-			if not v.Dead and LOUDENTITY( TESTUNITS, v ) then
+			if not v.Dead and LOUDENTITY( categories.LAND, v ) then
 			
 				landunit = v
 				layer = 'Land'
 				break
 			end
 			
-			if not v.Dead and not LOUDENTITY( TESTUNITS, v ) then
+			if not v.Dead and LOUDENTITY( categories.NAVAL, v ) then
 			
 				landunit = v
 				layer = 'Water'
@@ -5702,14 +5696,18 @@ Platoon = Class(moho.platoon_methods) {
 			end
 			
 		end
+
+        local numberOfUnitsInPlatoon = LOUDGETN(units)
+        local oldNumberOfUnitsInPlatoon = numberOfUnitsInPlatoon
         
-        -- Air Scouts are never considered for merges
-        if layer == 'Air' then
-            self.UsingTransport = true
-        end
+        -- Scouts are never considered for merges
+        self.UsingTransport = true
 		
         local platPos = GetPlatoonPosition(self)
+
 		local loclist = GetBasePerimeterPoints(aiBrain, location, radius, orientation, false, layer, patroltype)
+        
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." PatrolPointAI "..self.BuilderName.." "..self.BuilderInstance.." gets "..layer.." perimeter points - radius "..radius.." - "..repr(loclist) )
 
         -- set up the patrol
 		for k,v in loclist do
@@ -5732,8 +5730,6 @@ Platoon = Class(moho.platoon_methods) {
         -- having lost 50% of it's numerical size in order to 
         -- begin RTB
 		while PlatoonExists(aiBrain, self) do
-
-			WaitTicks(100)
 			
 			if patroltime and ( (LOUDTIME() - CreationTime) > patroltime ) then
 			
@@ -5753,6 +5749,8 @@ Platoon = Class(moho.platoon_methods) {
 			if numberOfUnitsInPlatoon < (oldNumberOfUnitsInPlatoon * .5) then
 				return self:SetAIPlan('ReturnToBaseAI',aiBrain)
 			end
+
+			WaitTicks(100)
 			
         end
 		
