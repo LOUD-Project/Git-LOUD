@@ -204,7 +204,9 @@ Platoon = Class(moho.platoon_methods) {
         
         local DisplayPlatoonMembership = ScenarioInfo.DisplayPlatoonMembership
         
-        local BuilderName = self.BuilderName
+        local BuilderName = tostring(self.BuilderName)
+        local BuilderInstance = self.BuilderInstance or false
+        
         local PlanName = self.PlanName
 		
         for _,v in units do
@@ -218,7 +220,13 @@ Platoon = Class(moho.platoon_methods) {
 					v.PlatoonHandle.BuilderName = BuilderName
 				
 					if DisplayPlatoonMembership then
-						v:SetCustomName(repr(BuilderName))
+
+                        if BuilderInstance then
+                            v:SetCustomName( BuilderName.." "..BuilderInstance )
+                        else
+                            v:SetCustomName( BuilderName )
+                        end
+
 					end
                     
 				end
