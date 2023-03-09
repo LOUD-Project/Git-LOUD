@@ -909,7 +909,7 @@ function InitializeArmies()
         local transportplatoon = self:MakePlatoon('TransportPool','none')
 		
         transportplatoon:UniquelyNamePlatoon('TransportPool') 
-		transportplatoon.BuilderName = 'Transport Pool'
+		transportplatoon.BuilderName = 'Transport'
         transportplatoon.UsingTransport = true      -- never review this platoon during a merge
 
 		self.TransportPool = transportplatoon
@@ -918,7 +918,7 @@ function InitializeArmies()
         local structurepool = self:MakePlatoon('StructurePool','none')
 		
         structurepool:UniquelyNamePlatoon('StructurePool')
-		structurepool.BuilderName = 'Structure Pool'
+		structurepool.BuilderName = 'Struc'
         structurepool.UsingTransport = true     -- insures that it never gets reviewed in a merge operation
 		
 		self.StructurePool = structurepool
@@ -927,7 +927,7 @@ function InitializeArmies()
         local refuelpool = self:MakePlatoon('RefuelPool','none')
 		
         refuelpool:UniquelyNamePlatoon('RefuelPool')
-		refuelpool.BuilderName = 'Refuel Pool'
+		refuelpool.BuilderName = 'Refuel'
         refuelpool.UsingTransport = true        -- never gets reviewed in a merge --
 		
 		self.RefuelPool = refuelpool
@@ -936,7 +936,7 @@ function InitializeArmies()
 		local armypool = self:GetPlatoonUniquelyNamed('ArmyPool')
 		
 		armypool:UniquelyNamePlatoon('ArmyPool')
-		armypool.BuilderName = 'ArmyPool'
+		armypool.BuilderName = 'Army'
 		
 		self.ArmyPool = armypool
 		

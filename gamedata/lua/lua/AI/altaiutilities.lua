@@ -3022,7 +3022,9 @@ end
 -- and a perfunctory cleanup on the path requests reply table for dead platoons
 function CheckTransportPool( aiBrain )
 
+    local ArmyPool = aiBrain.ArmyPool
     local RefuelPool = aiBrain.RefuelPool
+    local StructurePool = aiBrain.StructurePool
 	local TransportPool = aiBrain.TransportPool
     
     local TransportDialog = ScenarioInfo.TransportDialog
@@ -3082,7 +3084,7 @@ function CheckTransportPool( aiBrain )
 			
 			if platoon and PlatoonExists(aiBrain,platoon) then
 			
-				if platoon != aiBrain.ArmyPool and platoon != aiBrain.RefuelPool and platoon != aiBrain.StructurePool then
+				if platoon != ArmyPool and platoon != RefuelPool and platoon != StructurePool then
 				
 					aiBrain:DisbandPlatoon(platoon)
 				end

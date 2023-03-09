@@ -461,9 +461,9 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
             local val = BuffCalculate(unit, buffName, 'AccelMult', 1)
 
             -- display new movement mult if it's not normal speed --
-            if unit.EntityID and val != 1 then
-                ForkThread(FloatingEntityText, unit.EntityID, 'Accel Mult now '..math.floor((.001+val)*100).."%")
-			end
+            --if unit.EntityID and val != 1 then
+              --  ForkThread(FloatingEntityText, unit.EntityID, 'Accel Mult now '..math.floor((.001+val)*100).."%")
+			--end
 
             SetAccMult( unit, val )
 
@@ -472,9 +472,9 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
             local val = BuffCalculate(unit, buffName, 'TurnMult', 1)
 
             -- display new movement mult if it's not normal speed --
-            if unit.EntityID and val != 1 then
-                ForkThread(FloatingEntityText, unit.EntityID, 'Turn Mult now '..math.floor((.001+val)*100).."%")
-			end
+            --if unit.EntityID and val != 1 then
+              --  ForkThread(FloatingEntityText, unit.EntityID, 'Turn Mult now '..math.floor((.001+val)*100).."%")
+			--end
 
             SetTurnMult( unit, val )
 
