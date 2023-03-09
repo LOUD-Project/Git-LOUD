@@ -3055,7 +3055,7 @@ Platoon = Class(moho.platoon_methods) {
 						marker = {dataList[choice][1], dataList[choice][2], dataList[choice][3]}
         
                         if GuardpointDialog then
-                            LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." selects "..repr(choice).." from list "..repr(dataList) )
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." selects "..repr(choice).." from list "..repr(dataList) )
                         end
 						
 						-- and remove the marker from the list so it cant be picked again
@@ -3065,7 +3065,7 @@ Platoon = Class(moho.platoon_methods) {
 						if lastmarker and LOUDEQUAL( marker, lastmarker ) then
         
                             if GuardpointDialog then
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." trying to select same point "..repr(marker))
+                                LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." trying to select same point "..repr(marker))
                             end
 						
 							marker = false
@@ -3085,7 +3085,7 @@ Platoon = Class(moho.platoon_methods) {
                 if position then
         
                     if GuardpointDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." could not pick a "..repr(PCat).." marker from position "..repr(position).." using radius "..repr(PRadius).." - RTB")
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." could not pick a "..repr(PCat).." marker from position "..repr(position).." using radius "..repr(PRadius).." - RTB")
                     end
                     
                     return self:SetAIPlan('ReturnToBaseAI',aiBrain)
@@ -3101,16 +3101,16 @@ Platoon = Class(moho.platoon_methods) {
 			if marker and PlatoonExists(aiBrain, self) then
         
                 if GuardpointDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." Picked "..repr(PCat).." marker at "..repr(marker))
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." Picked "..repr(PCat).." marker at "..repr(marker))
                 end
 
                 path, reason, pathlength = PlatoonGenerateSafePathToLOUD(aiBrain, self, MovementLayer, position, marker, OriginalThreat * ThreatMaxRatio, 160)
 
-                IssueClearCommands(self)
+                self:Stop()
 
 				if path then
                     if GuardpointDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." gets "..MovementLayer.." path to marker "..repr(marker).." pathlength is "..pathlength.." reason is "..repr(reason).." Path is "..repr(path) )
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." gets "..MovementLayer.." path to marker "..repr(marker).." pathlength is "..pathlength.." reason is "..repr(reason).." Path is "..repr(path) )
                     end
 
                     self.MoveThread = self:ForkThread( self.MovePlatoon, path, PlatoonFormation, bAggroMove)
@@ -3137,7 +3137,7 @@ Platoon = Class(moho.platoon_methods) {
 			counter = 0
            
             if marker and GuardpointDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." moving to "..repr(PCat).." marker "..repr(marker).." distance "..VDist3( position, marker).." proximity trigger is "..UntRadius )
+                LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." moving to "..repr(PCat).." marker "..repr(marker).." distance "..VDist3( position, marker).." proximity trigger is "..UntRadius )
             end
 
 			while PlatoonExists(aiBrain,self) and marker and guardtime < guardTimer do
@@ -3154,7 +3154,7 @@ Platoon = Class(moho.platoon_methods) {
                 if distance <= LOUDMAX(UntRadius,StrRadius) then
 
                     if GuardpointDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." in range "..repr(LOUDMAX(UntRadius,StrRadius)).." of "..repr(PCat).." marker "..repr(marker).." - end movement")
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." in range "..repr(LOUDMAX(UntRadius,StrRadius)).." of "..repr(PCat).." marker "..repr(marker).." - end movement")
                     end
 
                     break
@@ -3167,7 +3167,7 @@ Platoon = Class(moho.platoon_methods) {
 						if GuardPointStructureCheck( self, aiBrain, marker, StrCat, StrRadius, PFaction, StrMin, StrMax) then
         
                             if GuardpointDialog then
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." STRUCTURE Trigger > "..repr(StrMax).." at distance "..repr(StrRadius).." during travel to "..repr(marker).." - seeking new point")
+                                LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." STRUCTURE Trigger > "..repr(StrMax).." at distance "..repr(StrRadius).." during travel to "..repr(marker).." - seeking new point")
                             end
 
                             lastmarker = LOUDCOPY(marker)
@@ -3182,7 +3182,7 @@ Platoon = Class(moho.platoon_methods) {
 						if GuardPointUnitCheck( self, aiBrain, marker, UntCat, UntRadius, PFaction, UntMin, UntMax) then
         
                             if GuardpointDialog then
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." UNIT Trigger "..repr(UntMax).." at distance "..repr(UntRadius).." during travel to "..repr(marker).." - seeking new point")
+                                LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." UNIT Trigger "..repr(UntMax).." at distance "..repr(UntRadius).." during travel to "..repr(marker).." - seeking new point")
                             end
 
                             lastmarker = LOUDCOPY(marker)
@@ -3205,7 +3205,7 @@ Platoon = Class(moho.platoon_methods) {
 							else
         
                                 if GuardpointDialog then
-                                    LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." STUCK during travel "..counter.." - seeking new point")
+                                    LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." STUCK during travel "..counter.." - seeking new point")
                                 end
 
                                 lastmarker = LOUDCOPY(marker)
@@ -3233,7 +3233,7 @@ Platoon = Class(moho.platoon_methods) {
                         if GetThreatBetweenPositions( aiBrain, position, path[1], false, 'AntiSurface' ) > OriginalThreat then
         
                             if GuardpointDialog then
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." sees more than my "..OriginalThreat.." between here and current waypoint")
+                                LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." sees more than my "..OriginalThreat.." between here and current waypoint")
                             end
 
                             lastmarker = LOUDCOPY(marker)
@@ -3305,10 +3305,10 @@ Platoon = Class(moho.platoon_methods) {
 			guardtime = 0
             
             if marker and GuardpointDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." GP starts guarding cycle - guardRadius is "..repr(guardRadius))
+                LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." GP starts guard cycle - Radius is "..repr(guardRadius))
             end
             
-            local ATTACKS, ARTILLERY, GUARDS, SUPPORTS, SCOUTS
+            local ATTACKS, ARTILLERY, GUARDS, SUPPORTS, SCOUTS, scoutradius
 
 			while marker and guardtime < guardTimer and PlatoonExists(aiBrain, self) do
                 
@@ -3351,7 +3351,7 @@ Platoon = Class(moho.platoon_methods) {
 				if (not guarding) and PlatoonExists(aiBrain, self) then
         
                     if GuardpointDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." setting up guard at "..repr(PCat).." marker "..repr(marker))
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." setting up guard at "..repr(PCat).." marker "..repr(marker))
                     end
 
 					if NumberOfUnitsInPlatoon > 0 then
@@ -3475,7 +3475,7 @@ Platoon = Class(moho.platoon_methods) {
 					if GuardPointStructureCheck( self, aiBrain, marker, StrCat, StrRadius, PFaction, StrMin, StrMax) then
         
                         if GuardpointDialog then
-                            LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." structure trigger during guard")
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." structure trigger during guard")
                         end
 
                         lastmarker = LOUDCOPY(marker)
@@ -3488,7 +3488,7 @@ Platoon = Class(moho.platoon_methods) {
 					if GuardPointUnitCheck( self, aiBrain, marker, UntCat, UntRadius, PFaction, UntMin, UntMax) then
         
                         if GuardpointDialog then
-                            LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." unit trigger during guard")
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." unit trigger during guard")
                         end
 
                         lastmarker = LOUDCOPY(marker)
@@ -3504,7 +3504,7 @@ Platoon = Class(moho.platoon_methods) {
                 
                 if choice and distance < PMin then
                     if GuardpointDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." finds base "..repr(choice).." at "..distance)
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." finds base "..repr(choice).." at "..distance)
                     end
 
                     lastmarker = LOUDCOPY(marker)
@@ -3534,7 +3534,7 @@ Platoon = Class(moho.platoon_methods) {
 							end
         
                             if GuardpointDialog then
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." merge with occurred - old "..OldNumberOfUnitsInPlatoon.." new is "..NumberOfUnitsInPlatoon)
+                                LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." merge with occurred - old "..OldNumberOfUnitsInPlatoon.." new is "..NumberOfUnitsInPlatoon)
                             end
 
                             OldNumberOfUnitsInPlatoon = NumberOfUnitsInPlatoon
@@ -3555,7 +3555,7 @@ Platoon = Class(moho.platoon_methods) {
 				if MissionTimer == 'Abort' then
         
                     if GuardpointDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." ABORT (Disband) in the field")
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." ABORT (Disband) in the field")
                     end
 
 					-- assign them to the structure pool so they dont interfere with normal unit pools
@@ -3574,11 +3574,9 @@ Platoon = Class(moho.platoon_methods) {
 			end
         
             if GuardpointDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI "..self.BuilderName.." guard complete - seeking new point")
+                LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Land "..self.BuilderName.." "..self.BuilderInstance.." guard complete - seeking new point")
             end
-
-			WaitTicks(26)
-            
+ 
 		end
 
         if PlatoonExists(aiBrain, self) then
@@ -3830,7 +3828,7 @@ Platoon = Class(moho.platoon_methods) {
 				
                 if not marker then
 				
-					LOG("*AI DEBUG "..aiBrain.Nickname.." GUARDPOINTAIR "..self.BuilderName.." finds no UNIT to guard")
+					LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Air "..self.BuilderName.." finds no UNIT to guard")
 					
 					WaitTicks(10)
 
@@ -4390,7 +4388,7 @@ Platoon = Class(moho.platoon_methods) {
 						marker = {dataList[choice][1], dataList[choice][2], dataList[choice][3]}
         
                         if GuardpointDialog then
-                            LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI AMPHIB "..self.BuilderName.." selects "..repr(choice).." from list "..repr(dataList) )
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Amphib "..self.BuilderName.." "..self.BuilderInstance.." selects "..repr(choice).." from list "..repr(dataList) )
                         end
 						
 						-- and remove the marker from the list so it cant be picked again
@@ -4400,7 +4398,7 @@ Platoon = Class(moho.platoon_methods) {
 						if lastmarker and LOUDEQUAL( marker, lastmarker ) then
         
                             if GuardpointDialog then
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI AMPHIB "..self.BuilderName.." trying to select same point "..repr(marker))
+                                LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Amphib "..self.BuilderName.." "..self.BuilderInstance.." trying to select same point "..repr(marker))
                             end
 						
 							marker = false
@@ -4420,7 +4418,7 @@ Platoon = Class(moho.platoon_methods) {
                 if position then
         
                     if GuardpointDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI AMPHIB "..self.BuilderName.." could not pick a "..repr(PCat).." marker from position "..repr(position).." using radius "..repr(PRadius).." - RTB")
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Amphib "..self.BuilderName.." "..self.BuilderInstance.." could not pick a "..repr(PCat).." marker from position "..repr(position).." using radius "..repr(PRadius).." - RTB")
                     end
                     
                     return self:SetAIPlan('ReturnToBaseAI',aiBrain)
@@ -4436,7 +4434,7 @@ Platoon = Class(moho.platoon_methods) {
 			if marker and PlatoonExists(aiBrain, self) then
         
                 if GuardpointDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI AMPHIB "..self.BuilderName.." Picked "..repr(PCat).." marker at "..repr(marker))
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Amphib "..self.BuilderName.." "..self.BuilderInstance.." Picked "..repr(PCat).." marker at "..repr(marker))
                 end
 
                 path, reason, pathlength = PlatoonGenerateSafePathToLOUD(aiBrain, self, MovementLayer, position, marker, OriginalThreat * ThreatMaxRatio, 250)
@@ -4445,7 +4443,7 @@ Platoon = Class(moho.platoon_methods) {
 
 				if path then
                     if GuardpointDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI AMPHIB "..self.BuilderName.." gets path to marker "..repr(marker).." pathlength is "..pathlength.." reason is "..repr(reason) )
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Amphib "..self.BuilderName.." "..self.BuilderInstance.." gets path to marker "..repr(marker).." pathlength is "..pathlength.." reason is "..repr(reason) )
                     end
 
                     self.MoveThread = self:ForkThread( self.MovePlatoon, path, PlatoonFormation, bAggroMove)
@@ -4472,7 +4470,7 @@ Platoon = Class(moho.platoon_methods) {
 			counter = 0
            
             if marker and GuardpointDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI AMPHIB "..self.BuilderName.." moving to "..repr(PCat).." marker "..repr(marker).." distance "..VDist3( position, marker).." proximity trigger is "..UntRadius )
+                LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Amphib "..self.BuilderName.." "..self.BuilderInstance.." moving to "..repr(PCat).." marker "..repr(marker).." distance "..VDist3( position, marker).." proximity trigger is "..UntRadius )
             end
 
 			while PlatoonExists(aiBrain,self) and marker and guardtime < guardTimer do
@@ -4489,7 +4487,7 @@ Platoon = Class(moho.platoon_methods) {
                 if distance <= LOUDMAX(UntRadius,StrRadius) then
 
                     if GuardpointDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI AMPHIB "..self.BuilderName.." in range "..repr(LOUDMAX(UntRadius,StrRadius)).." of "..repr(PCat).." marker "..repr(marker).." - end movement")
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Amphib "..self.BuilderName.." "..self.BuilderInstance.." in range "..repr(LOUDMAX(UntRadius,StrRadius)).." of "..repr(PCat).." marker "..repr(marker).." - end movement")
                     end
 
                     break
@@ -4502,7 +4500,7 @@ Platoon = Class(moho.platoon_methods) {
 						if GuardPointStructureCheck( self, aiBrain, marker, StrCat, StrRadius, PFaction, StrMin, StrMax) then
         
                             if GuardpointDialog then
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI AMPHIB "..self.BuilderName.." STRUCTURE Trigger > "..repr(StrMax).." at distance "..repr(StrRadius).." during travel to "..repr(marker).." - seeking new point")
+                                LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Amphib "..self.BuilderName.." "..self.BuilderInstance.." STRUCTURE Trigger > "..repr(StrMax).." at distance "..repr(StrRadius).." during travel to "..repr(marker).." - seeking new point")
                             end
 
                             lastmarker = LOUDCOPY(marker)
@@ -4517,7 +4515,7 @@ Platoon = Class(moho.platoon_methods) {
 						if GuardPointUnitCheck( self, aiBrain, marker, UntCat, UntRadius, PFaction, UntMin, UntMax) then
         
                             if GuardpointDialog then
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI AMPHIB "..self.BuilderName.." UNIT Trigger "..repr(UntMax).." at distance "..repr(UntRadius).." during travel to "..repr(marker).." - seeking new point")
+                                LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Amphib "..self.BuilderName.." "..self.BuilderInstance.." UNIT Trigger "..repr(UntMax).." at distance "..repr(UntRadius).." during travel to "..repr(marker).." - seeking new point")
                             end
 
                             lastmarker = LOUDCOPY(marker)
@@ -4540,7 +4538,7 @@ Platoon = Class(moho.platoon_methods) {
 							else
         
                                 if GuardpointDialog then
-                                    LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI AMPHIB "..self.BuilderName.." STUCK during travel "..counter.." - seeking new point")
+                                    LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Amphib "..self.BuilderName.." "..self.BuilderInstance.." STUCK during travel "..counter.." - seeking new point")
                                 end
 
                                 lastmarker = LOUDCOPY(marker)
@@ -4568,7 +4566,7 @@ Platoon = Class(moho.platoon_methods) {
                         if GetThreatBetweenPositions( aiBrain, position, path[1], false, 'AntiSurface' ) > OriginalThreat then
         
                             if GuardpointDialog then
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI AMPHIB "..self.BuilderName.." sees more than my "..OriginalThreat.." between here and current waypoint")
+                                LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Amphib "..self.BuilderName.." "..self.BuilderInstance.." sees more than my "..OriginalThreat.." between here and current waypoint")
                             end
 
                             lastmarker = LOUDCOPY(marker)
@@ -4640,10 +4638,10 @@ Platoon = Class(moho.platoon_methods) {
 			guardtime = 0
             
             if marker and GuardpointDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI AMPHIB "..self.BuilderName.." starts guarding cycle - guardRadius is "..repr(guardRadius))
+                LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Amphib "..self.BuilderName.." "..self.BuilderInstance.." starts guard cycle - Radius is "..repr(guardRadius))
             end
             
-            local ATTACKS, ARTILLERY, GUARDS, SUPPORTS, SCOUTS
+            local ATTACKS, ARTILLERY, GUARDS, SUPPORTS, SCOUTS, scoutradius
 
 			while marker and guardtime < guardTimer and PlatoonExists(aiBrain, self) do
                 
@@ -4686,7 +4684,7 @@ Platoon = Class(moho.platoon_methods) {
 				if (not guarding) and PlatoonExists(aiBrain, self) then
         
                     if GuardpointDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI AMPHIB "..self.BuilderName.." setting up guard at "..repr(PCat).." marker "..repr(marker))
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Amphib "..self.BuilderName.." "..self.BuilderInstance.." setting up guard at "..repr(PCat).." marker "..repr(marker))
                     end
 
 					if NumberOfUnitsInPlatoon > 0 then
@@ -4810,7 +4808,7 @@ Platoon = Class(moho.platoon_methods) {
 					if GuardPointStructureCheck( self, aiBrain, marker, StrCat, StrRadius, PFaction, StrMin, StrMax) then
         
                         if GuardpointDialog then
-                            LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI AMPHIB "..self.BuilderName.." structure trigger during guard")
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Amphib "..self.BuilderName.." "..self.BuilderInstance.." structure trigger during guard")
                         end
 
                         lastmarker = LOUDCOPY(marker)
@@ -4823,7 +4821,7 @@ Platoon = Class(moho.platoon_methods) {
 					if GuardPointUnitCheck( self, aiBrain, marker, UntCat, UntRadius, PFaction, UntMin, UntMax) then
         
                         if GuardpointDialog then
-                            LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI AMPHIB "..self.BuilderName.." unit trigger during guard")
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Amphib "..self.BuilderName.." "..self.BuilderInstance.." unit trigger during guard")
                         end
 
                         lastmarker = LOUDCOPY(marker)
@@ -4839,7 +4837,7 @@ Platoon = Class(moho.platoon_methods) {
                 
                 if choice and distance < PMin then
                     if GuardpointDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI AMPHIB "..self.BuilderName.." finds base "..repr(choice).." at "..distance)
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Amphib "..self.BuilderName.." "..self.BuilderInstance.." finds base "..repr(choice).." at "..distance)
                     end
 
                     lastmarker = LOUDCOPY(marker)
@@ -4869,7 +4867,7 @@ Platoon = Class(moho.platoon_methods) {
 							end
         
                             if GuardpointDialog then
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI AMPHIB "..self.BuilderName.." merge with occurred - old "..OldNumberOfUnitsInPlatoon.." new is "..NumberOfUnitsInPlatoon)
+                                LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Amphib "..self.BuilderName.." "..self.BuilderInstance.." merge with occurred - old "..OldNumberOfUnitsInPlatoon.." new is "..NumberOfUnitsInPlatoon)
                             end
 
                             OldNumberOfUnitsInPlatoon = NumberOfUnitsInPlatoon
@@ -4890,7 +4888,7 @@ Platoon = Class(moho.platoon_methods) {
 				if MissionTimer == 'Abort' then
         
                     if GuardpointDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI AMPHIB "..self.BuilderName.." ABORT (Disband) in the field")
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Amphib "..self.BuilderName.." "..self.BuilderInstance.." ABORT (Disband) in the field")
                     end
 
 					-- assign them to the structure pool so they dont interfere with normal unit pools
@@ -4907,13 +4905,15 @@ Platoon = Class(moho.platoon_methods) {
                 end
 
 			end
-        
+
             if GuardpointDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI AMPHIB "..self.BuilderName.." guard complete - seeking new point")
+                LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Amphib "..self.BuilderName.." "..self.BuilderInstance.." guard complete - seeking new point")
             end
 
-			WaitTicks(26)
-            
+            IssueClearCommands( self )
+
+			WaitTicks(21)
+
 		end
 
         if PlatoonExists(aiBrain, self) then
@@ -4929,7 +4929,7 @@ Platoon = Class(moho.platoon_methods) {
 	-- GuardPoint for naval platoons
     GuardPointNaval = function( self, aiBrain )
     
-        local GuardpointDialog = ScenarioInfo.GuardPointDialog
+        local GuardpointDialog = ScenarioInfo.GuardPointNavalDialog
 
         local CalculatePlatoonThreat = CalculatePlatoonThreat
         local GetPlatoonPosition = GetPlatoonPosition
@@ -4957,7 +4957,7 @@ Platoon = Class(moho.platoon_methods) {
         end
         
         if GuardpointDialog then
-            LOG("*AI DEBUG "..aiBrain.Nickname.." GPN AI "..self.BuilderName.." begins")
+            LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Naval "..self.BuilderName.." "..self.BuilderInstance.." begins")
         end
 		
 		local units = GetPlatoonUnits(self)
@@ -5098,7 +5098,7 @@ Platoon = Class(moho.platoon_methods) {
 			OriginalThreat = CalculatePlatoonThreat( self, 'Overall', ALLUNITS)
         
             if GuardpointDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." GPN AI "..self.BuilderName.." top - OriginalThreat is "..repr(OriginalThreat) )
+                LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Naval "..self.BuilderName.." "..self.BuilderInstance.." top - OriginalThreat is "..repr(OriginalThreat) )
             end
 		
 			if MissionTimer != 'Abort' and (LOUDTIME() - self.CreationTime ) > MissionTimer then
@@ -5151,7 +5151,7 @@ Platoon = Class(moho.platoon_methods) {
 			if not position or not marker then
         
                 if GuardpointDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." GPN AI "..self.BuilderName.." RTB - fails to find position is "..repr(position))
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Naval "..self.BuilderName.." "..self.BuilderInstance.." RTB - fails to find position is "..repr(position))
                 end
 				
 				return self:SetAIPlan('ReturnToBaseAI',aiBrain)
@@ -5162,7 +5162,7 @@ Platoon = Class(moho.platoon_methods) {
 			distance = VDist3( position, marker )
         
             if GuardpointDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." getting path to "..repr(marker).." from "..repr(position) )
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..self.BuilderInstance.." getting path to "..repr(marker).." from "..repr(position) )
             end
             
             path = false
@@ -5268,7 +5268,7 @@ Platoon = Class(moho.platoon_methods) {
 			end
         
             if GuardpointDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." GPN AI "..self.BuilderName.." in range of marker - marker is "..repr(marker) )
+                LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Naval "..self.BuilderName.." in range of marker - marker is "..repr(marker) )
             end
             
 			-- if we still have a marker - stop any move thread -- otherwise find a new point
@@ -5293,7 +5293,7 @@ Platoon = Class(moho.platoon_methods) {
 				target = false
         
                 if GuardpointDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." GPN AI "..self.BuilderName.." seeking target using range of "..guardRadius )
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Naval "..self.BuilderName.." "..self.BuilderInstance.." seeking target using range of "..guardRadius )
                 end
 			
 				target, targetposition = FindTargetInRange( self, aiBrain, 'Attack', guardRadius, categoryList, false)
@@ -5303,7 +5303,7 @@ Platoon = Class(moho.platoon_methods) {
 				if target then
         
                     if GuardpointDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." has target "..repr(target:GetBlueprint().Description) )
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." "..self.BuilderInstance.." has target "..repr(target:GetBlueprint().Description) )
                     end
 
 					-- issue attack orders on target --
@@ -5363,7 +5363,7 @@ Platoon = Class(moho.platoon_methods) {
 					while target and (not target.Dead) and PlatoonExists(aiBrain, self) do 
         
                         if GuardpointDialog then
-                            LOG("*AI DEBUG "..aiBrain.Nickname.." GPN AI "..self.BuilderName.." attacking target "..repr(target:GetBlueprint().Description))
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Naval "..self.BuilderName.." "..self.BuilderInstance.." attacking target "..repr(target:GetBlueprint().Description))
                         end
 
 						WaitTicks(90)
@@ -5404,7 +5404,7 @@ Platoon = Class(moho.platoon_methods) {
 				if (not target) and (not guarding) and PlatoonExists(aiBrain, self) then
         
                     if GuardpointDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." GPN AI "..self.BuilderName.." starting guard")
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Naval "..self.BuilderName.." starting guard")
                     end
 
 					self:Stop()
@@ -5551,7 +5551,7 @@ Platoon = Class(moho.platoon_methods) {
 				if MissionTimer == 'Abort' then
         
                     if GuardpointDialog then
-                        LOG("*AI DEBUG "..aiBrain.Nickname.." GPN AI "..repr(self.BuilderName).." Abort Platoon")
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." GPAI Naval "..repr(self.BuilderName).." "..self.BuilderInstance.." Abort Platoon")
                     end
 					
 					-- assign them to the structure pool so they dont interfere with normal unit pools

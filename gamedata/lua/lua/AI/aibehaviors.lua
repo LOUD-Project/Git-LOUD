@@ -2812,6 +2812,8 @@ function AirForceAILOUD( self, aiBrain )
                 SecondaryShieldTargets = false
                 TertiaryCount = 0
                 TertiaryTargets = false
+                
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..self.BuilderName.." "..self.BuilderInstance.." seeking secondaries within "..threatcheckradius.." of "..repr(targetposition))
 
                 -- enemy fighters 
                 SecondaryAATargets = GetUnitsAroundPoint( aiBrain, HIGHALTAIR, targetposition, threatcheckradius, 'Enemy')
@@ -2831,10 +2833,12 @@ function AirForceAILOUD( self, aiBrain )
                 if TertiaryTargets[1] then
                     TertiaryCount = LOUDGETN(TertiaryTargets)
                 end
+                
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..self.BuilderName.." "..self.BuilderInstance.." gets target "..repr(target:GetBlueprint().Description).." at "..repr(targetposition) )
 
                 -- Have a target - plot path to target - Use airthreat vs. mythreat for path
                 -- use strikerange to determine point from which to switch into attack mode
-				prevposition = LOUDCOPY(GetPlatoonPosition(self))
+				prevposition = LOUDCOPY( platPos )
 
 				usethreat = (oldNumberOfUnitsInPlatoon * 1) + CalculatePlatoonThreat( self, 'Air', UNITCHECK )
 
@@ -2876,10 +2880,16 @@ function AirForceAILOUD( self, aiBrain )
                     end
 
                     if newpath[1] then
+                    
+                        if self.MoveThread then
+                            self:KillMoveThread()
+                        end
 
                         -- move the platoon to within 100 in formation
                         self.MoveThread = self:ForkThread( MovePlatoon, newpath, 'AttackFormation', false, 100)
                         
+                        --LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..self.BuilderName.." "..self.BuilderInstance.." issues move using path "..repr(newpath) )
+
                         loiter = false
 
                         -- wait for the movement orders to execute --
@@ -2901,6 +2911,7 @@ function AirForceAILOUD( self, aiBrain )
                     if self.MoveThread then
                         self:KillMoveThread()
                     end
+
                 else
 					target = false
                     
@@ -2930,6 +2941,8 @@ function AirForceAILOUD( self, aiBrain )
                         local midpointz = (squad[3]+targetposition[3])/2
                     
                         local Direction = GetDirectionInDegrees( squad, targetposition )
+                        
+                        --LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..self.BuilderName.." "..self.BuilderInstance.." issues form move to "..repr({midpointx, midpointy, midpointz}) )
 
                         -- this gets them moving to a point halfway to the targetposition - hopefully
                         IssueFormMove( GetPlatoonUnits(self), { midpointx, midpointy, midpointz }, 'AttackFormation', Direction )
@@ -3021,13 +3034,15 @@ function AirForceAILOUD( self, aiBrain )
         end
 
 		-- Attack until target is dead, beyond maxrange, or retreat
-		while (target and not target.Dead) and PlatoonExists(aiBrain, self) do
+		while (target and (not target.Dead)) and PlatoonExists(aiBrain, self) do
          
             mythreat = CalculatePlatoonThreat( self, 'Air', UNITCHECK)
 
             platPos = GetPlatoonPosition(self) or false
 
             if platPos then
+            
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." AFAI "..self.BuilderName.." "..self.BuilderInstance.." still attacking target "..repr(target:GetBlueprint().Description) )
             
                 if VDist3( platPos, loiterposition ) > searchrange then
                     loiter = false
