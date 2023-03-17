@@ -201,6 +201,7 @@ local CreatePlatoonFormManager = import('/lua/sim/PlatoonFormManager.lua').Creat
 --local SUtils = import('/lua/ai/sorianutilities.lua')
 --local StratManager = import('/lua/sim/StrategyManager.lua')
 
+local LOUDGETN = table.getn
 local LOUDINSERT = table.insert
 local LOUDSTRING = string.find
 
@@ -390,6 +391,7 @@ function SetAIDebug(data)
             'PathFindingDialog',
             'PriorityDialog',
             'GuardPointDialog',
+            'NavalForceDialog',
             'InstanceDialog',
             'BuffDialog',
             'ProjectileDialog',
@@ -505,7 +507,7 @@ function CollectCurrentScores()
 	local Brains = ArmyBrains
 	
 	local LOUDFLOOR = math.floor
-	local LOUDGETN = table.getn
+	local LOUDGETN = LOUDGETN
     
 	local ScoreInterval = 51	-- time, in ticks, between score updates
 
@@ -783,8 +785,10 @@ end
 -- the update interval is passed from the calling function CollectCurrentScores
 function SyncCurrentScores( Brains, ArmyScore, ScoreInterval )
 
-	local braincount = table.getn(Brains)
+	local braincount = LOUDGETN(Brains)
+
     local LOUDDEEPCOPY = table.deepcopy
+    local WaitTicks = WaitTicks
     
     local A,lastA
 

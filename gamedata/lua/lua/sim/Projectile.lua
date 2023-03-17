@@ -35,7 +35,7 @@ local Destroy = moho.entity_methods.Destroy
 local GetArmy = moho.entity_methods.GetArmy
 
 local GetBlueprint = moho.entity_methods.GetBlueprint
-
+local GetCurrentTargetPosition = moho.projectile_methods.GetCurrentTargetPosition
 local GetHealth = moho.entity_methods.GetHealth
 local GetMaxHealth = moho.entity_methods.GetMaxHealth
 
@@ -98,13 +98,17 @@ Projectile = Class(moho.projectile_methods, Entity) {
 		local bp = GetBlueprint(self)
         
         self.Army = GetArmy(self)        
-        self.BlueprintID = bp.BlueprintId
+        self.BlueprintID = bp.BlueprintId or false
 		
         SetMaxHealth( self, bp.Defense.MaxHealth or 1)
         SetHealth( self, self, GetMaxHealth(self))
 	
 		if ScenarioInfo.ProjectileDialog then
-			LOG("*AI DEBUG Projectile OnCreate blueprint is "..repr(self.BlueprintId))
+            if self.BlueprintID then
+                LOG("*AI DEBUG Projectile OnCreate BlueprintID is "..repr(self.BlueprintID))
+            else
+                LOG("*AI DEBUG Projectile OnCreate BlueprintID is FALSE "..repr(bp) )
+            end
 		end
 	
         if bp.Audio.ExistLoop then
@@ -113,7 +117,7 @@ Projectile = Class(moho.projectile_methods, Entity) {
         
         if bp.Physics.TrackTargetGround and bp.Physics.TrackTargetGround == true then
 		
-            local pos = self:GetCurrentTargetPosition()
+            local pos = GetCurrentTargetPosition(self)
 			
             pos[2] = GetSurfaceHeight( pos[1], pos[3] )
             self:SetNewTargetGround(pos)
@@ -142,6 +146,10 @@ Projectile = Class(moho.projectile_methods, Entity) {
         
 
         local function Retarget()
+        
+            local GetHealth = GetHealth
+            local GetUnitsAroundPoint = GetUnitsAroundPoint
+            local SetNewTarget = SetNewTarget
 
             local position = GetPosition(self)
         
@@ -225,6 +233,9 @@ Projectile = Class(moho.projectile_methods, Entity) {
     OnCollisionCheck = function(self,other)
     
         local ProjectileDialog = ScenarioInfo.ProjectileDialog
+        
+        local LOUDENTITY = LOUDENTITY
+        local LOUDPARSE = LOUDPARSE
 	
 		if ProjectileDialog then
 			LOG("*AI DEBUG Projectile OnCollisionCheck ")
@@ -411,6 +422,9 @@ Projectile = Class(moho.projectile_methods, Entity) {
     
         if not EffectTable then return end
 
+        local LOUDEMITATBONE = LOUDEMITATBONE
+        local LOUDEMITATENTITY = LOUDEMITATENTITY
+        
         for _,v in EffectTable do
 
 			if ScenarioInfo.ProjectileDialog then
@@ -432,6 +446,9 @@ Projectile = Class(moho.projectile_methods, Entity) {
     end,
     
     CreateTerrainEffects = function( self, army, EffectTable, EffectScale )
+    
+        local BeenDestroyed = BeenDestroyed
+        local LOUDEMITATBONE = LOUDEMITATBONE
 
         for k, v in EffectTable do
 		
@@ -481,8 +498,8 @@ Projectile = Class(moho.projectile_methods, Entity) {
 
 		if DNC then
 		
-			local LOUDENTITY = EntityCategoryContains
-			local LOUDPARSE = ParseEntityCategory
+			local LOUDENTITY = LOUDENTITY
+			local LOUDPARSE = LOUDPARSE
 			
 			for _,v in DNC do
 				if LOUDENTITY( LOUDPARSE(v), self) then
@@ -508,6 +525,9 @@ Projectile = Class(moho.projectile_methods, Entity) {
     OnImpact = function(self, targetType, targetEntity)
     
         local DD = self.DamageData
+        
+        local STRINGSUB = STRINGSUB
+        local TONUMBER = TONUMBER
     
         if DD.DamageAmount then
 

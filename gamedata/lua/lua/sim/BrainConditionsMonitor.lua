@@ -99,12 +99,12 @@ BrainConditionsMonitor = Class {
 	-- and we add in some additional duration based upon number of players
     ConditionMonitorThread = function(self, aiBrain)
 
-        local WaitTicks = coroutine.yield
 		local LOUDCEIL = math.ceil
         local LOUDFLOOR = math.floor
         local LOUDMAX = math.max
         local type = type
-	
+        local WaitTicks = coroutine.yield	
+
 		-- record current game time
 		aiBrain.CycleTime = GetGameTimeSeconds()
 	
@@ -120,6 +120,8 @@ BrainConditionsMonitor = Class {
 		-- LocationType entries MUST ALWAYS be the first element so if it isnt we just
 		-- return true since it must be a global condition		
 		local function TestLocation( v )
+        
+            local type = type
 		
 			-- all location based conditions will always have more than 1 data element
 			if v.FunctionDataElements > 1 then

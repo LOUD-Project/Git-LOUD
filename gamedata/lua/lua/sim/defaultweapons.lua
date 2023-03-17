@@ -546,6 +546,7 @@ DefaultProjectileWeapon = Class(Weapon) {
 
     OnDestroy = function(self)
         LOUDSTATE(self, self.DeadState)
+        Weapon.OnDestroy(self)
     end,
 
     OnEnterState = function(self)

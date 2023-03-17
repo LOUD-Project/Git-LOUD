@@ -5,33 +5,26 @@
 
 local import = import
 
-local FactorySelfEnhanceThread = import('/lua/ai/aibehaviors.lua').FactorySelfEnhanceThread
-
-local BuilderManager = import('/lua/sim/BuilderManager.lua').BuilderManager
-
 local AIGetClosestMarkerLocation = import('/lua/ai/aiutilities.lua').AIGetClosestMarkerLocation
+local BuilderManager = import('/lua/sim/BuilderManager.lua').BuilderManager
+local CreateFactoryBuilder = import('/lua/sim/Builder.lua').CreateFactoryBuilder
+local FactorySelfEnhanceThread = import('/lua/ai/aibehaviors.lua').FactorySelfEnhanceThread
 local RandomLocation = import('/lua/ai/aiutilities.lua').RandomLocation
 
-local CreateFactoryBuilder = import('/lua/sim/Builder.lua').CreateFactoryBuilder
-
 local BuildPlatoon = moho.aibrain_methods.BuildPlatoon
+local EntityCategoryCount = EntityCategoryCount
+local EntityCategoryFilterDown = EntityCategoryFilterDown
 local GetAIBrain = moho.unit_methods.GetAIBrain
+local GetEconomyStored = moho.aibrain_methods.GetEconomyStored
+local GetFractionComplete = moho.entity_methods.GetFractionComplete
+local IsIdleState = moho.unit_methods.IsIdleState
+local IsUnitState = moho.unit_methods.IsUnitState
 
+local LOUDENTITY = EntityCategoryContains
 local LOUDGETN  = table.getn
 local LOUDINSERT = table.insert
 local LOUDMAX = math.max
 local LOUDREMOVE = table.remove
-
-local LOUDENTITY = EntityCategoryContains
-
-local EntityCategoryCount = EntityCategoryCount
-local EntityCategoryFilterDown = EntityCategoryFilterDown
-	
-local IsIdleState = moho.unit_methods.IsIdleState
-local IsUnitState = moho.unit_methods.IsUnitState
-
-local GetEconomyStored = moho.aibrain_methods.GetEconomyStored
-	
 local WaitTicks = coroutine.yield
 
 local PlatoonTemplates = PlatoonTemplates
@@ -120,9 +113,9 @@ FactoryBuilderManager = Class(BuilderManager) {
 
 	AddFactory = function( self, factory )
 
-        while (not factory.Dead) and factory:GetFractionComplete() < 1 do
+        while (not factory.Dead) and GetFractionComplete(factory) < 1 do
         
-            LOG("*AI DEBUG Adding Factory 2 "..factory.EntityID.." at "..factory:GetFractionComplete().." Dead is "..repr(factory.Dead).." to "..self.ManagerType.." "..self.LocationType)
+            LOG("*AI DEBUG Adding Factory 2 "..factory.EntityID.." at "..GetFractionComplete(factory).." Dead is "..repr(factory.Dead).." to "..self.ManagerType.." "..self.LocationType)
             
             WaitTicks(100)
         end
@@ -199,7 +192,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 			if not LOUDENTITY( categories.MOBILE, factory) then
 			
 				factory.DesiresAssist = true		-- default factory to desire assist
-				factory.NumAssistees = 3			-- default factory to 4 assistees			
+				factory.NumAssistees = 3			-- default factory to 3 assistees			
 			
 				-- handles removal of the factory from the factory manager on death
 				local factoryDestroyed = function( factory )
@@ -365,15 +358,13 @@ FactoryBuilderManager = Class(BuilderManager) {
 		if factory.Dead then
 			return
 		end
-	
-		local WaitTicks = WaitTicks
 
 		local GetEconomyStored = GetEconomyStored
 		local IsIdleState = IsIdleState
 		local IsUnitState = IsUnitState
+        local WaitTicks = WaitTicks
 		
 		local aiBrain = GetAIBrain(factory)
-
         local DisplayFactoryBuilds = ScenarioInfo.DisplayFactoryBuilds
         
         local BuildLevel = factory.BuildLevel
@@ -463,6 +454,9 @@ FactoryBuilderManager = Class(BuilderManager) {
  
 	GetFactoriesBuildingCategory = function(self, category, facCategory )
 	
+        local EntityCategoryFilterDown = EntityCategoryFilterDown
+        local LOUDENTITY = LOUDENTITY
+        
 		local units = {}
 		local counter = 0
 	
@@ -530,7 +524,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 
 		local aiBrain = GetAIBrain(factory)
 		
-		local LOUDENTITY = EntityCategoryContains
+		local LOUDENTITY = LOUDENTITY
 		
 		if ScenarioInfo.DisplayFactoryBuilds then
 		
@@ -561,7 +555,7 @@ FactoryBuilderManager = Class(BuilderManager) {
         -- cause the factory to go looking for 2 jobs whenever something was built
         if LOUDENTITY( FACTORY, finishedUnit ) and not finishedUnit.BuildLevel then
 
-			if finishedUnit:GetFractionComplete() == 1 then
+			if GetFractionComplete(finishedUnit) == 1 then
 
 				ForkThread( self.AddFactory, self, finishedUnit )
                 
@@ -612,15 +606,13 @@ FactoryBuilderManager = Class(BuilderManager) {
 	-- and the other parameters (min qty, max qty, squad and formation) required to fill out the template
 	-- this is also where custom units come into play
 	GetFactoryTemplate = function( self, templateName, factory, faction)
+		
+		local LOUDINSERT = LOUDINSERT
+		local Random = Random        
 
 		local customData = ScenarioInfo.CustomUnits[templateName][faction] or false
-
         local template = false
-		
-		local Random = Random
-		
-		local LOUDINSERT = table.insert
-        
+
         local PlatoonTemplate = PlatoonTemplates[templateName]
         local FactionSquads = PlatoonTemplate.FactionSquads
 		
@@ -834,11 +826,11 @@ FactoryBuilderManager = Class(BuilderManager) {
 		
 		while true do
 
-			WaitTicks(900)
+			WaitTicks(480)
 			
 			units = GetOwnUnitsAroundPoint( aiBrain, category, rallypoint, 16)
 			
-			if LOUDGETN(units) > 10 then
+			if LOUDGETN(units) > 8 then
 			
 				unitlist = {}
 				
@@ -850,7 +842,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 					end
 				end
 				
-				if LOUDGETN(unitlist) > 10 then
+				if LOUDGETN(unitlist) > 8 then
 
 					IssueClearCommands( unitlist )
 

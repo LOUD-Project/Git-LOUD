@@ -234,6 +234,8 @@ CConstructionUnit = Class(ConstructionUnit){
     end,
  
     OnStopBuild = function(self, unitBeingBuilt)
+    
+        local TrashDestroy = TrashDestroy
 
         if self.BuildBots then
 
@@ -408,6 +410,8 @@ CConstructionStructureUnit = Class(StructureUnit) {
     -- This will only be called if not in StructureUnit's upgrade state
     OnStopBuild = function(self, unitBeingBuilt)
     
+        local TrashDestroy = TrashDestroy
+    
         if self.BuildBots then
 
             for _, bot in self.BuildBots do
@@ -432,8 +436,11 @@ CConstructionStructureUnit = Class(StructureUnit) {
                 TrashDestroy( bot.BuildEffectsBag )
                 
                 IssueClearCommands( {bot} )
-                
-                bot:AttachTo( self, 0 )
+
+                if bot.Detached then
+                    bot:AttachTo( self, 0 )
+                end
+
                 bot.Detached = false
 
             end
@@ -541,17 +548,15 @@ CConstructionEggUnit = Class(StructureUnit) {
     },
     
     OnStopBuild = function(self, unitBeingBuilt, order)
-		--LOG("*AI DEBUG Egg OnStopBuild")
-        --if unitBeingBuilt:GetFractionComplete() == 1 then
+
             ForkThread(function()
                 WaitTicks(1)
                 self:Destroy()
             end)
-        --end
+
     end,
 	
 	OnFailedToBuild = function(self)
-		--LOG("*AI DEBUG Egg OnFailedToBuild")
 	end,
 }
 

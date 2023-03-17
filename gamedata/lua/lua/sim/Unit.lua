@@ -66,6 +66,7 @@ local GetBuildRate = moho.unit_methods.GetBuildRate
 local GetCurrentLayer = moho.unit_methods.GetCurrentLayer
 local GetEntityId = moho.entity_methods.GetEntityId
 local GetFocusUnit = moho.unit_methods.GetFocusUnit
+local GetFractionComplete = moho.entity_methods.GetFractionComplete
 local GetHeading = moho.unit_methods.GetHeading
 local GetHealth = moho.entity_methods.GetHealth
 local GetMaxHealth = moho.entity_methods.GetMaxHealth
@@ -1674,12 +1675,14 @@ Unit = Class(moho.unit_methods) {
 
     -- On killed: this function plays when the unit takes a mortal hit.  It plays all the default death effect
     OnKilled = function(self, instigator, deathtype, overkillRatio)
+
+        --LOG("*AI DEBUG Unit OnKilled "..self.BlueprintID)
         
 		self:PlayUnitSound('Killed')
 
         if LOUDENTITY(FACTORY, self) then
 		
-            if self.UnitBeingBuilt and not self.UnitBeingBuilt.Dead and self.UnitBeingBuilt:GetFractionComplete() < 1 then
+            if self.UnitBeingBuilt and not self.UnitBeingBuilt.Dead and GetFractionComplete(self.UnitBeingBuilt) < 1 then
 			
                 Kill( self.UnitBeingBuilt)
             end
@@ -1757,6 +1760,8 @@ Unit = Class(moho.unit_methods) {
 		
         if bp.Display[anim] then
         
+            --LOG("*AI DEBUG Playing Animation "..repr(anim).." for "..repr(bp.Description) )
+        
             local animBlock = self:ChooseAnimBlock( bp.Display[anim] )
 			
             if animBlock.Mesh then
@@ -1784,12 +1789,16 @@ Unit = Class(moho.unit_methods) {
                 WaitFor(self.DeathAnimManip)
 				
 				self.DeathAnimManip = nil
+                
+                --LOG("*AI DEBUG Animation for "..repr(anim).." for "..repr(bp.Description).." ends")
             end
         end
 		
     end,
 
     DeathThread = function( self, overkillRatio, instigator)
+    
+        --LOG("*AI DEBUG Unit DeathThread "..self.BlueprintID)
 
         if self.DeathAnimManip then
 			WaitFor(self.DeathAnimManip)
@@ -1829,6 +1838,8 @@ Unit = Class(moho.unit_methods) {
         WaitTicks((self.DeathThreadDestructionWaitTime or 0.1) * 10)
 
         self:Destroy()
+
+        --LOG("*AI DEBUG Unit DeathThread ends "..self.BlueprintID)        
     end,
 
     CreateWreckage = function( self, overkillRatio )
@@ -1869,8 +1880,8 @@ Unit = Class(moho.unit_methods) {
 			
 			prop:SetMaxReclaimValues(time, time, mass, energy)
 			
-			mass = (mass - (mass * (overkillRatio or 1))) * self:GetFractionComplete()
-			energy = (energy - (energy * (overkillRatio or 1))) * self:GetFractionComplete()
+			mass = (mass - (mass * (overkillRatio or 1))) * GetFractionComplete(self)
+			energy = (energy - (energy * (overkillRatio or 1))) * GetFractionComplete(self)
 			time = time - (time * (overkillRatio or 1))
 			
 			prop:SetReclaimValues(time, time, mass, energy)
@@ -1972,8 +1983,8 @@ Unit = Class(moho.unit_methods) {
 			
 		end
 		
-		local LOUDENTITY = EntityCategoryContains
-		local LOUDPARSE = ParseEntityCategory
+		local LOUDENTITY = LOUDENTITY
+		local LOUDPARSE = LOUDPARSE
 
 		local GetArmy = GetArmy
 		
@@ -2262,7 +2273,7 @@ Unit = Class(moho.unit_methods) {
 	
 		self.PlatoonHandle = nil
 
-		--LOG("*AI DEBUG OnDestroy for unit "..self.EntityID.." "..repr(ALLBPS[self.BlueprintID].Description))
+		--LOG("*AI DEBUG Unit OnDestroy for "..self.EntityID.." "..repr(ALLBPS[self.BlueprintID].Description))
 		
 		--local ID = GetEntityId(self)
 
@@ -2274,7 +2285,7 @@ Unit = Class(moho.unit_methods) {
 		-- If factory, destroy what I'm building if I die
 		if LOUDENTITY(FACTORY, self) then
 		
-			if self.UnitBeingBuilt and not self.UnitBeingBuilt.Dead and self.UnitBeingBuilt:GetFractionComplete() < 1 then
+			if self.UnitBeingBuilt and not self.UnitBeingBuilt.Dead and GetFractionComplete(self.UnitBeingBuilt) < 1 then
 			
 				self.UnitBeingBuilt:Destroy()
 				
@@ -2624,7 +2635,7 @@ Unit = Class(moho.unit_methods) {
         -- rebuild bonus check 1 [159]
         -- This code checks if the unit is allowed to be accelerate-built. If not the unit is destroyed (for lack 
         -- of a SetFractionComplete() function). Added by brute51
-        local fraction = unitBeingBuilt:GetFractionComplete()
+        local fraction = GetFractionComplete(unitBeingBuilt)
 		
         if fraction > (self.InitialFractionComplete or 0) then
 		
@@ -2641,7 +2652,7 @@ Unit = Class(moho.unit_methods) {
         -- this section is rebuild bonus check 2 [159]
         -- This code checks if the unit is allowed to be accelerate-built. If not the unit is destroyed (for lack 
         -- of a SetFractionComplete() function). Added by brute51
-        if self:GetFractionComplete() > 0 then
+        if GetFractionComplete(self) > 0 then
 		
             local cb = function(bpUnitId)
 			
@@ -2688,7 +2699,7 @@ Unit = Class(moho.unit_methods) {
         -- added by brute51 - to make sure stuff that shouldn't be available (unit restriction) can't be built [157]
         -- in this statement GetFractionComplete() is used to filter nukes building a missile or ACU upgrading (and
         -- probably more). Those situations bug out otherwise.
-        if Game.UnitRestricted(self) and IsUnit(self) and self:GetFractionComplete() != 1 then
+        if Game.UnitRestricted(self) and IsUnit(self) and GetFractionComplete(self) != 1 then
 		
                 -- I need a way to cancel a build command. Ordering the unit to stop works but it's a mickey mouse 
                 -- workaround, not a real fix. Fortunately only AI players and cheating players (those using an UI 
@@ -2707,8 +2718,9 @@ Unit = Class(moho.unit_methods) {
     UnitBuiltPercentageCallbackThread = function(self, percent, callback)
 	
 		local WaitTicks = WaitTicks
+        local GetHealthPercent = self.GetHealthPercent
 
-        while not self.Dead and self:GetHealthPercent() < percent do
+        while not self.Dead and GetHealthPercent(self) < percent do
 		
             WaitTicks(12)
 			
@@ -2737,6 +2749,8 @@ Unit = Class(moho.unit_methods) {
 		local aiBrain = GetAIBrain(self)
 		
 		local bp = ALLBPS[self.BlueprintID]
+        
+        local GetHealthPercent = builder.GetHealthPercent
 
 		self:SetupIntel(bp)
 	
@@ -2776,7 +2790,7 @@ Unit = Class(moho.unit_methods) {
 			-- upgrades are NOT new units
 			if self.DisallowCollisions then
 			
-				SetHealth( self, self, (builder:GetHealthPercent() or 1) * bp.Defense.MaxHealth )
+				SetHealth( self, self, (GetHealthPercent(builder) or 1) * bp.Defense.MaxHealth )
                 
 				self.DisallowCollisions = false
 			end
@@ -3015,7 +3029,7 @@ Unit = Class(moho.unit_methods) {
             unitBeingBuilt.DisallowCollisions = true
         end
         
-        if ALLBPS[unitBeingBuilt.BlueprintID].Physics.FlattenSkirt and not unitBeingBuilt.TarmacBag then
+        if ALLBPS[unitBeingBuilt.BlueprintID].Physics.FlattenSkirt and unitBeingBuilt.CreateTarmac and not unitBeingBuilt.TarmacBag then
           
             if order != 'Repair' then
                 
@@ -4221,6 +4235,8 @@ Unit = Class(moho.unit_methods) {
 	-- the allow and disallow parsing has turned out to be problematic as well needing to be seperated by commas
 	-- and not seeming to recognize the '-' (minus) operator
     AddBuff = function(self, buffTable, PosEntity)
+    
+        local GetHealth = GetHealth
 	
         local bt = buffTable.BuffType
 
@@ -5779,7 +5795,7 @@ Unit = Class(moho.unit_methods) {
 			
 				local cloaked = self.InCloakField or self:IsIntelEnabled('Cloak')
 
-				if (not cloaked and self.CloakEffectEnabled) or self:GetHealth() <= 0 then
+				if (not cloaked and self.CloakEffectEnabled) or GetHealth(self) <= 0 then
 				
 					SetMesh( self, bpDisplay.MeshBlueprint, true)
 					self.CloakEffectEnabled = nil

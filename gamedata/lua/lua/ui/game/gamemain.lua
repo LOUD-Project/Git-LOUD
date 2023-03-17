@@ -299,17 +299,26 @@ function CreateUI(isReplay)
 	ForkThread(UnitEventAlerts)
 
 	UnitEventAlerts = function()
-	
+    
+        local PlayVoice = PlayVoice
+        local WaitTicks = WaitTicks
+
+        local FogOfWar = SessionGetScenarioInfo().Options.FogOfWar
+
+        local last_vo, Text	
+
 		while true do
 		
 			if UnitData.VOs then
 			
-				local last_vo = false			
+				last_vo = false			
 				
 				for _,vo in pairs(UnitData.VOs) do
+                
+                    Text = vo.Text or false
 			
 					-- we always show the visual ping if it's turned on and fog of war is turned on -- 
-					if vo.Text != "EnemyUnitDetected" or (vo.Text == "EnemyUnitDetected" and SessionGetScenarioInfo().Options.FogOfWar != 'none') then
+					if Text != "EnemyUnitDetected" or (Text == "EnemyUnitDetected" and FogOfWar != 'none') then
 						
 						if vo.Marker and GetOption('vo_VisualAlertsMode') != 0 then
 							Ping(vo.Marker.type, vo.Marker.position)
@@ -317,7 +326,7 @@ function CreateUI(isReplay)
 						end
 						
 						-- if this is a new audio cue --
-						if GetOption('vo_'..vo.Text) != false and last_vo != vo.Cue then
+						if GetOption('vo_'..Text) != false and last_vo != vo.Cue then
 						
 							PlayVoice(Sound{Bank = vo.Bank, Cue = vo.Cue}, true)
 
@@ -806,7 +815,9 @@ end
 
 -- this function is called whenever the sim beats
 function OnBeat()
-	
+
+    --LOG("*AI DEBUG OnBeat")
+
     for i,v in _beatFunctions do
         if v then v() end
     end
@@ -1123,20 +1134,28 @@ end
 
 UnitEventAlerts = function()
 
+    local PlayVoice = PlayVoice
+    local WaitTicks = WaitTicks
+    
+    local FogOfWar = SessionGetScenarioInfo().Options.FogOfWar
+    local Text
+
     while true do
     
         if UnitData.VOs[1] then
             
             for _,vo in pairs(UnitData.VOs) do
+            
+                Text = vo.Text or false
                 
-                if vo.Text != "EnemyUnitDetected" or (vo.Text == "EnemyUnitDetected" and SessionGetScenarioInfo().Options.FogOfWar != 'none') then
+                if Text != "EnemyUnitDetected" or (Text == "EnemyUnitDetected" and FogOfWar != 'none') then
                     
                     if vo.Marker and GetOption('vo_VisualAlertsMode') != 0 then
                         Ping(vo.Marker.type, vo.Marker.position)
                         LastAlertPos = vo.Marker.position
                     end
 
-                    if GetOption('vo_'..vo.Text) != false then
+                    if Text and GetOption('vo_'..Text) != false then
                         PlayVoice(Sound{Bank = vo.Bank, Cue = vo.Cue}, true)
                     end
 

@@ -465,6 +465,8 @@ end
 --* return a button set up with a text overlay and a click sound
 function CreateButton(parent, up, down, over, disabled, label, pointSize, textOffsetVert, textOffsetHorz, clickCue, rolloverCue)
 
+    local type = type
+
     textOffsetVert = textOffsetVert or 0
     textOffsetHorz = textOffsetHorz or 0
 	

@@ -423,8 +423,8 @@ BuilderManager = Class {
 
         local LOUDEQUAL = table.equal
 		local LOUDFLOOR = math.floor
-        local LOUDGETN = table.getn
-        local LOUDSORT = table.sort
+        local LOUDGETN = LOUDGETN
+        local LOUDSORT = LOUDSORT
         local WaitTicks = WaitTicks
        
         local ManagerLoopBody = self.ManagerLoopBody

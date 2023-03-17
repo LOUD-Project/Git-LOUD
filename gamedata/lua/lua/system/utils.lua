@@ -2,7 +2,9 @@ local LOUDINSERT = table.insert
 local LOUDREMOVE = table.remove
 local LOUDSORT = table.sort
 local next = next
+local tostring = tostring
 local type = type
+local unpack = unpack
 
 
 -- RandomIter(table) returns a function that when called, returns a pseudo-random element of the supplied table. 
@@ -298,6 +300,6 @@ end
 function StringSplit(str, sep)
     local sep, fields = sep or ":", {}
     local pattern = string.format("([^%s]+)", sep)
-    str:gsub(pattern, function(c) fields[table.getn(fields)+1] = c end)
+    str:gsub(pattern, function(c) fields[LOUDGETN(fields)+1] = c end)
     return fields
 end

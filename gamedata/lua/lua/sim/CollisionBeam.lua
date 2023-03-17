@@ -114,8 +114,8 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
         local army = self.Army
 		
 		local LOUDATTACHEMITTER = CreateAttachedEmitter
-		local LOUDGETN = table.getn
-		local LOUDINSERT = table.insert
+		local LOUDGETN = LOUDGETN
+		local LOUDINSERT = LOUDINSERT
         
         local fx
         
