@@ -199,17 +199,19 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
         },
 		
         BuilderData = {
-			DistressRange = 100,
+			DistressRange = 80,
 			DistressTypes = 'Land',
 			DistressThreshold = 10,
 
-			MergeLimit = 160,	-- controls merging with others - nil = original platoon size
-			
-            PrioritizedCategories = { 'LAND MOBILE','ENGINEER','SHIELD','STRUCTURE -WALL'},		# controls target selection
-			
+            PrioritizedCategories = { 'LAND MOBILE','ENGINEER','SHIELD','STRUCTURE -WALL'},		-- controls target selection
+
+			MergeLimit = 100,	-- controls merging with others - nil = original platoon size
+
+            AggressiveMove = true,            
+
 			UseFormation = 'AttackFormation',
-			
-            AggressiveMove = true,
+
+            WaypointSlackDistance = 36,     -- controls the slack distance when using pathed movement - large platoons require more 		
         },
     },
 
@@ -292,6 +294,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 			AllowInWater = false,
 			
 			UseFormation = 'AttackFormation',
+
+            WaypointSlackDistance = 32,     -- controls the slack distance when using pathed movement - large platoons require more
         },
     },
 
@@ -365,6 +369,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 			AllowInWater = false,
 			
 			UseFormation = 'AttackFormation',
+            
+            WaypointSlackDistance = 28,     -- controls the slack distance when using pathed movement - large platoons require more            
         },
 	},
 	   
@@ -402,13 +408,15 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 		
         BuilderData = {
 		
-			MergeLimit = 120,
+			MergeLimit = 100,
 			
             PrioritizedCategories = { 'FACTORY','DEFENSE STRUCTURE','ECONOMIC','DEFENSE'},		# controls target selection
 			
 			UseFormation = 'AttackFormation',
 			
             AggressiveMove = true,
+
+            WaypointSlackDistance = 32,     -- controls the slack distance when using pathed movement - large platoons require more                        
         },
 	},
 	
@@ -448,14 +456,19 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
         },
 		
         BuilderData = {
+			DistressRange = 100,
+			DistressTypes = 'Land',
+			DistressThreshold = 5,
 		
-			MergeLimit = 95,
+			MergeLimit = 80,
 			
             PrioritizedCategories = { 'FACTORY','DEFENSE STRUCTURE','ECONOMIC','DEFENSE'},		# controls target selection 
 			
 			UseFormation = 'AttackFormation',
 			
             AggressiveMove = true,
+
+            WaypointSlackDistance = 28,     -- controls the slack distance when using pathed movement - large platoons require more                        
         },
 	},
 	
@@ -491,7 +504,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
         BuilderData = {
 			DistressRange = 100,
 			DistressTypes = 'Land',
-			DistressThreshold = 6,
+			DistressThreshold = 5,
 			
 			PointType = 'Unit',
 			PointCategory = categories.MASSPRODUCTION,
@@ -528,7 +541,8 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Land Only Map',
 			AllowInWater = false,
 			
 			UseFormation = 'AttackFormation',
-			
+
+            WaypointSlackDistance = 28,
         },
     },
 	
