@@ -1,10 +1,9 @@
-local SStructureUnit = import('/lua/defaultunits.lua').StructureUnit
+local StructureUnit = import('/lua/defaultunits.lua').StructureUnit
 
 local Buff = import('/lua/sim/Buff.lua')
 local BuffField = import('/lua/sim/BuffField.lua').BuffField
 
-
-BSB4205 = Class(SStructureUnit) {
+BSB4205 = Class(StructureUnit) {
 	
 	BuffFields = {
 	
@@ -13,7 +12,7 @@ BSB4205 = Class(SStructureUnit) {
 
     OnStopBeingBuilt = function(self)
  
-        SStructureUnit.OnStopBeingBuilt(self)
+        StructureUnit.OnStopBeingBuilt(self)
 
 		-- we're not really cloaking so turn this off
 		-- we just use the CloakField radius to show the area of effect

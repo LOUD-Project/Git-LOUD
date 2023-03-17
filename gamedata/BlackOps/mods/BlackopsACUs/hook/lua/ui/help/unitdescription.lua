@@ -138,8 +138,8 @@ Description['erl0001-exbdeviate'] = "Deviator Field\n Deviator Fields create EMP
 Description['esl0001'] = "Houses Commander in an superior upgradeable suit with radar/sonar stealth and anti-teleport field. Contains blueprints necessary to build a basic army."
 
 -- LEFT ARM tab --
-Description['esl0001-exles1'] = "Improved Engineering unlocks T2 construction, improves build power, resources & mobility.      \n \n x3 Base Build Power  \n x2 Base Mass Production  \n x5 Base Energy Production                            \n +7% Movement  \n Installs Basic Regen Aura"
-Description['esl0001-exles2'] = "Advanced engineering unlocks T3 construction, more build power, resource, mobility & regen.    \n \n x9 Base Build Power  \n x5 Base Mass Production  \n x25 Base Energy Production \n x1.6 Base Regeneration \n +14% Movement \n Installs Improved Regen Aura "
+Description['esl0001-exles1'] = "Improved Engineering unlocks T2 construction, improves build power, resources & mobility.      \n \n x3 Base Build Power  \n x2 Base Mass Production  \n x5 Base Energy Production                            \n +7% Movement  \n Installs Basic Regen Aura \n +30% Regen"
+Description['esl0001-exles2'] = "Advanced engineering unlocks T3 construction, more build power, resource, mobility & regen.    \n \n x9 Base Build Power  \n x5 Base Mass Production  \n x25 Base Energy Production \n x1.6 Base Regeneration \n +14% Movement \n Installs Improved Regen Aura \n +60% Regn \n +15 Shield Regen \n +10% Vision  "
 Description['esl0001-exles3'] = "Superior engineering unlocks T4 construction, maximum build power, resource, mobility & regen. \n \n x16 Base Build Power \n x12 Base Mass Production \n x75 Base Energy Production \n x3.0 Base Regeneration \n +20% movement \n Installs OC Boost +10 Range  "
 
 Description['esl0001-exlce1'] = "Combat Engineering unlocks T2 construction, with a focus on armor & regenerative capability. Mobility is slightly impaired.  \n \n x2.5 Base Build Power \n x1.30 Base HP \n x1.6 Base Regeneration                                                          \n -4% Movement       \n\n Installs AA blister"

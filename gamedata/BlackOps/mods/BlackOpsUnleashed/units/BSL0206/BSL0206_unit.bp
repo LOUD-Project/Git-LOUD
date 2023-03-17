@@ -54,8 +54,8 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Normal',
-        Health = 1500,
-        MaxHealth = 1500,
+        Health = 1600,
+        MaxHealth = 1600,
         RegenRate = 3,
         SurfaceThreatLevel = 9.3,
     },
@@ -66,8 +66,6 @@ UnitBlueprint {
         Abilities = {
             'Amphibious',
             'Attracts enemy fire',
-			'Tough',
-            'Low firepower',
         },
         AnimationDeath = {
             {
@@ -95,13 +93,12 @@ UnitBlueprint {
                 },
             },
         },
-        SpawnRandomRotation = true,
         UniformScale = 0.06,
     },
 	
     Economy = {
         BuildCostEnergy = 2100,
-        BuildCostMass = 335,
+        BuildCostMass = 315,
         BuildTime = 250,
     },
 	
@@ -144,10 +141,10 @@ UnitBlueprint {
             LAYER_Seabed = true,
         },
         DragCoefficient = 0.2,
-        MaxAcceleration = 2.9,
-        MaxBrake = 2.9,
-        MaxSpeed = 2.9,
-        MaxSpeedReverse = 2,
+        MaxAcceleration = 3.1,
+        MaxBrake = 3.1,
+        MaxSpeed = 3.1,
+        MaxSpeedReverse = 3,
         MaxSteerForce = 10,
         MeshExtentsX = 0.7,
         MeshExtentsY = 0.5,
@@ -259,7 +256,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 50,
+            TurretYawSpeed = 48,
 			
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,

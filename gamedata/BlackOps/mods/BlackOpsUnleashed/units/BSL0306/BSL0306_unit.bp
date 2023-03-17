@@ -63,8 +63,6 @@ UnitBlueprint {
         Abilities = {
             'Radar',
             'Attracts enemy fire',
-			'Tough',
-            'Low firepower',
         },
         AnimationDeath = {
             {
@@ -93,13 +91,12 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.08,
     },
 	
     Economy = {
         BuildCostEnergy = 7750,
-        BuildCostMass = 750,
+        BuildCostMass = 685,
         BuildTime = 3000,
     },
 	
@@ -143,10 +140,10 @@ UnitBlueprint {
             LAYER_Land = true,
         },
         DragCoefficient = 0.2,
-        MaxAcceleration = 2.9,
-        MaxBrake = 2.9,
-        MaxSpeed = 2.9,
-        MaxSpeedReverse = 2.9,
+        MaxAcceleration = 3.0,
+        MaxBrake = 3.0,
+        MaxSpeed = 3.0,
+        MaxSpeedReverse = 3.0,
         MaxSteerForce = 10,
         MeshExtentsX = 0.8,
         MeshExtentsY = 0.55,
@@ -233,7 +230,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,	-- 165 DPS
+            RateOfFire = 1,	-- 180 DPS
 			
             TargetCheckInterval = 0.5,
 			
@@ -259,7 +256,8 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 60,
+            TurretYawSpeed = 48,
+
             Turreted = true,
 			
             UseFiringSolutionInsteadOfAimBone = true,

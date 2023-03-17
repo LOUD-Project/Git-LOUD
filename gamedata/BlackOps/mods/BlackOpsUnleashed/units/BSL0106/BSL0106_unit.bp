@@ -45,8 +45,8 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Normal',
-        Health = 300,
-        MaxHealth = 300,
+        Health = 330,
+        MaxHealth = 330,
         RegenRate = 2,
         SurfaceThreatLevel = 2.6,
     },
@@ -184,7 +184,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 14,
+            Damage = 28,
             DamageType = 'Normal',
 			
             DisplayName = 'Phasic Autogun',
@@ -199,7 +199,7 @@ UnitBlueprint {
 			
             Label = 'LaserTurret',
 			
-            MaxRadius = 18,
+            MaxRadius = 19,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -226,7 +226,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 2,     -- 28 DPS
+            RateOfFire = 1,     -- 28 DPS
 			
             TargetCheckInterval = 0.3,
             TargetPriorities = {

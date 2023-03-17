@@ -61,9 +61,9 @@ UnitBlueprint {
     Display = {
         Abilities = {
 			'Affects only your Seraphim units',
-			'Increases Regen Rate of units by 50% (Max.200)',
-			'Increases Regen Rate of shields by 20% ',
-			'Increases Vision Radius of all units by 10%',
+			'Increases Regen Rate of units by 75% (Max.125)',
+			'Increases Regen Rate of shields by 17.5% ',
+			'Increases Vision Radius of all units by 12.5%',
 			'Effects do NOT stack',
             'Volatile',
         },

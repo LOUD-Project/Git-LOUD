@@ -1,24 +1,16 @@
 local SWalkingLandUnit = import('/lua/defaultunits.lua').WalkingLandUnit
 
-local SeraphimBuffField = import('/lua/seraphimweapons.lua').SeraphimBuffField
-
 local Buff = import('/lua/sim/Buff.lua')
+local BuffField = import('/lua/sim/BuffField.lua').BuffField
 
 local SAAShleoCannonWeapon = import('/lua/seraphimweapons.lua').SAAShleoCannonWeapon
 
 BSL0406 = Class(SWalkingLandUnit) {
-
+	
 	BuffFields = {
-	
-		RegenField1 = Class(SeraphimBuffField){
-		
-			OnCreate = function(self)
-				SeraphimBuffField.OnCreate(self)
-			end,
-		},
-
+		RegenField = Class(BuffField){},
 	},
-	
+
     Weapons = {
         LaserTurret = Class(SAAShleoCannonWeapon) {},
     },
