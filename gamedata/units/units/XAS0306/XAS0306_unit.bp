@@ -90,24 +90,7 @@ UnitBlueprint {
                 Weight = 100,
             },
         },
-        IdleEffects = {
-            Water = {
-                Effects = {
-                    {
-                        Bones = {
-                            'XAS0306',
-                        },
-                        Offset = {
-                            0,
-                            0,
-                            0.5,
-                        },
-                        Scale = 3.2,
-                        Type = 'SeaIdle01',
-                    },
-                },
-            },
-        },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -123,6 +106,7 @@ UnitBlueprint {
                 },
             },
         },
+
         MovementEffects = {
             Water = {
                 Effects = {
@@ -137,7 +121,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.025,
     },
 	
