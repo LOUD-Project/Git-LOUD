@@ -6,12 +6,12 @@ local AdjBuffFuncs = import('/lua/sim/adjacencybufffunctions.lua')
 BuffBlueprint { Name = 'SeraphimACURegenAura',
     DisplayName = 'SeraphimACURegenAura',
     BuffType = 'REGENAURA',
-    Stacks = 'REPLACE',
+    Stacks = 'IGNORE',
     Duration = -1,
     Affects = {
         RegenPercent = {
             Add = 0,
-            Mult = 1.25,
+            Mult = 1.3,
             Ceil = 75,
 			Floor = 1,
 		},
@@ -19,25 +19,25 @@ BuffBlueprint { Name = 'SeraphimACURegenAura',
 	Effects = {
 		'/effects/emitters/seraphim_regenerative_aura_01_emit.bp',
 	},
-	EffectsScale = 0.5,
+	EffectsScale = 0.4,
 }
 
 BuffBlueprint { Name = 'SeraphimAdvancedACURegenAura',
     DisplayName = 'SeraphimAdvancedACURegenAura',
     BuffType = 'REGENAURA',
-    Stacks = 'REPLACE',
+    Stacks = 'IGNORE',
     Duration = -1,
     Affects = {
         RegenPercent = {
             Add = 0,
-            Mult = 1.5,
-            Ceil = 150,
+            Mult = 1.6,
+            Ceil = 125,
             Floor = 3,
 		},
 		ShieldRegeneration = {
 		    BuffCheckFunction = AdjBuffFuncs.ShieldRegenBuffCheck,
 			Add = 0,
-			Mult = 1.125,
+			Mult = 1.15,
 		},
 		VisionRadius = {
 			Add = 0,
@@ -54,19 +54,19 @@ BuffBlueprint { Name = 'SeraphimAdvancedACURegenAura',
 BuffBlueprint { Name = 'SeraphimRegenFieldMoo',
     DisplayName = 'SeraphimRegenFieldMoo',
     BuffType = 'REGENAURA',
-    Stacks = 'REPLACE',
+    Stacks = 'IGNORE',
     Duration = -1,
     Affects = {
         RegenPercent = {
             Add = 0,
-            Mult = 1.5,
-            Ceil = 150,
+            Mult = 1.75,
+            Ceil = 125,
             Floor = 3,
         },
 		ShieldRegeneration = {
 		    BuffCheckFunction = AdjBuffFuncs.ShieldRegenBuffCheck,
 			Add = 0,
-			Mult = 1.125,
+			Mult = 1.175,
 		},
 		VisionRadius = {
 			Add = 0,
@@ -76,7 +76,7 @@ BuffBlueprint { Name = 'SeraphimRegenFieldMoo',
 	Effects = {
 		'/effects/emitters/seraphim_regenerative_aura_01_emit.bp',
 	},
-	EffectsScale = 0.5,
+	EffectsScale = 0.6,
 }
 
 -- These are LOUD specific buffs
@@ -165,7 +165,7 @@ BuffBlueprint { Name = 'PerimeterOpticsPackage',
 BuffBlueprint { Name = 'AIRSTAGING',
 	BuffType = 'AIRSTAGING',
 	Stacks = 'IGNORE',
-	Duration = 3,
+	Duration = -1,
 	Affects = {
 		Health = {
 			Add = 0,
@@ -416,7 +416,7 @@ BuffBlueprint { Name = 'AeonMaelstromField',
     DisplayName = 'AeonMaelstromField',
     BuffType = 'DAMAGEAURA',
     Stacks = 'IGNORE',
-    Duration = 3,	-- this is unique in that it has a duration -- all this does is tell the buff system to keep applying the buff every second while in the field
+    Duration = 3.6,	-- this is unique in that it has a duration -- all this does is tell the buff system to keep applying the buff every second while in the field
     Affects = {
         Health = {
 			-- damage enemy units every second
@@ -430,7 +430,7 @@ BuffBlueprint { Name = 'AeonMaelstromField2',
     DisplayName = 'AeonMaelstromField2',
     BuffType = 'DAMAGEAURA',
     Stacks = 'IGNORE',
-    Duration = 3,	-- this is unique in that it has a duration -- the buff will be applied every second while in the field
+    Duration = 3.6,	-- this is unique in that it has a duration -- the buff will be applied every second while in the field
     Affects = {
         Health = {
 			-- damage enemy units every second
@@ -444,7 +444,7 @@ BuffBlueprint { Name = 'AeonMaelstromField3',
     DisplayName = 'AeonMaelstromField3',
     BuffType = 'DAMAGEAURA',
     Stacks = 'IGNORE',
-    Duration = 3,	-- this is unique in that it has a duration -- all this does is tell the buff system to keep applying the buff every second while in the field
+    Duration = 3.6,	-- this is unique in that it has a duration -- all this does is tell the buff system to keep applying the buff every second while in the field
     Affects = {
         Health = {
 			-- damage enemy units every second

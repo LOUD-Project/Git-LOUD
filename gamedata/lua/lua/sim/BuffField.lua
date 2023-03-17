@@ -8,6 +8,7 @@ local RemoveBuff = import('/lua/sim/buff.lua').RemoveBuff
 local Entity = import('/lua/sim/Entity.lua').Entity
 
 local LOUDINSERT = table.insert
+local type = type
 
 BuffFieldBlueprints = {}
 
@@ -294,11 +295,11 @@ BuffField = Class(Entity) {
     -- Owner is the unit that carries the field. This is a bit weird to have it like this but its the result of
     -- of the forkthread in the enable function.
     FieldThread = function( Owner, Field, bp )
-	
-		local GetOwnUnitsAroundPoint = import('/lua/ai/aiutilities.lua').GetOwnUnitsAroundPoint
+
 		local GetAlliedUnitsAroundPoint = import('/lua/ai/aiutilities.lua').GetAlliedUnitsAroundPoint
-		local ForkThread = ForkThread
-        
+		local GetOwnUnitsAroundPoint = import('/lua/ai/aiutilities.lua').GetOwnUnitsAroundPoint
+        local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint    -- only picks up units actually detected
+       
         local LOUDCOPY = table.copy
 		local LOUDMERGE = table.merged
         local WaitTicks = coroutine.yield
@@ -319,6 +320,10 @@ BuffField = Class(Entity) {
         local RadiusOffsetY = bp.RadiusOffsetY
 
 		local function GetNearbyAffectableUnits()
+        
+            local GetAlliedUnitsAroundPoint = GetAlliedUnitsAroundPoint
+            local GetOwnUnitsAroundPoint = GetOwnUnitsAroundPoint
+            local GetUnitsAroundPoint = GetUnitsAroundPoint
 		
 			units = {}
 
@@ -339,7 +344,7 @@ BuffField = Class(Entity) {
 				end
 			
 				if AffectsVisibleEnemies then
-					units = aiBrain:GetUnitsAroundPoint( AffectsUnitCategories, pos, Radius, 'Enemy' )
+					units = GetUnitsAroundPoint( aiBrain, AffectsUnitCategories, pos, Radius, 'Enemy' )
 				end
 				
 			end
@@ -359,12 +364,12 @@ BuffField = Class(Entity) {
 
 				if (not unit.Dead) then
 				
-					if not unit.HasBuffFieldThreadHandle then
-						unit.HasBuffFieldThreadHandle = {}
+					if not unit.BuffFieldThreadHandle then
 						unit.BuffFieldThreadHandle = {}
 					end
-					
-					if not unit.HasBuffFieldThreadHandle[Name] then
+                    
+                    -- apply the BuffField if it isn't already active --
+					if not unit.BuffFieldThreadHandle[Name] then
 						
 						-- all bufffields (atm) don't affect themselves
 						if Owner and IsUnit(unit) and Field and bp and unit != Owner then
@@ -373,7 +378,7 @@ BuffField = Class(Entity) {
 							-- no longer appears to be a valid unit ?
 							if unit.ForkThread then
 
-								unit.BuffFieldThreadHandle[Name] = unit:ForkThread( Field.UnitBuffFieldThread, Owner, Field, bp )
+								unit.BuffFieldThreadHandle[Name] = unit.ForkThread( unit, Field.UnitBuffFieldThread, Owner, Field, bp )
 							
 								count = count + 1
 							
@@ -405,8 +410,6 @@ BuffField = Class(Entity) {
             local Radius = bp.Radius
             local RadiusOffsetY = bp.RadiusOffsetY
 
-			unit.HasBuffFieldThreadHandle[Name] = true
-
 			local GetPosition = moho.entity_methods.GetPosition
             local VDist3 = VDist3
             local WaitTicks = coroutine.yield
@@ -415,9 +418,13 @@ BuffField = Class(Entity) {
             
                 FieldPosition = GetPosition(Owner)
                 
+                --LOG("*AI DEBUG Field is at "..repr(FieldPosition))
+                
                 if RadiusOffsetY then
                     FieldPosition[2] = FieldPosition[2] + RadiusOffsetY
                 end
+
+                --LOG("*AI DEBUG Field distance is "..repr(VDist3( GetPosition(unit), FieldPosition )).. " Radius is "..Radius )
 
 				if VDist3( GetPosition(unit), FieldPosition ) > Radius then
 					break -- ideally we should check for another nearby buff field emitting unit but it doesn't really matter (no more than 5 sec anyway)
@@ -436,16 +443,25 @@ BuffField = Class(Entity) {
 			end
 
 			if not unit.Dead and Buffs then
-				
-				for _, buff in Buffs do
-				
-					if unit.Buffs.BuffTable[Buffs[buff].BuffType][buff] then
-						RemoveBuff( unit, buff )
-					end
+            
+                --LOG("*AI DEBUG Attempting to remove buffs "..repr(Buffs).." Unit is "..repr(unit) )
+
+				for _, buffname in Buffs do
+
+                    --LOG("*AI DEBUG Removing bufffield "..repr(buffname))
+
+                    local switch
+
+                    switch = unit.BuffFieldThreadHandle[Name]
+
+                    unit.BuffFieldThreadHandle[Name] = nil
+
+					RemoveBuff( unit, buffname )
+
+                    KillThread( switch )
+
 				end
 
-				unit.BuffFieldThreadHandle[Name] = nil
-				unit.HasBuffFieldThreadHandle[Name] = nil
 			end
 		end
 		

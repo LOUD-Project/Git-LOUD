@@ -37,6 +37,7 @@ local RequestRefreshUI = moho.entity_methods.RequestRefreshUI
 
 local TrashBag = TrashBag
 local TrashAdd = TrashBag.Add
+local TrashDestroy = TrashBag.Destroy
 
 -- The Unit's BuffTable for applied buffs looks like this:
 --
@@ -62,12 +63,21 @@ local TrashAdd = TrashBag.Add
 -- Function to apply a buff to a unit.
 -- This function is a fire-and-forget.  Apply this and it'll be applied over time if there is a duration.
 function ApplyBuff(unit, buffName, instigator)
-
-    local BuffDialog = ScenarioInfo.BuffDialog
-
+    
     if not unit or unit.Dead or not unit.Buffs.BuffTable or not buffName then
         return
     end
+
+    local BuffDialog = ScenarioInfo.BuffDialog
+
+    local BuffAffectUnit = BuffAffectUnit
+    local ForkThread = unit.ForkThread
+
+    local LOUDEMPTY = LOUDEMPTY
+    local LOUDENTITY = LOUDENTITY
+    local LOUDPARSE = LOUDPARSE
+    local RemoveBuff = RemoveBuff
+    local TrashAdd = TrashAdd
 
     local bp = __blueprints[unit.BlueprintID]
     local def = Buffs[buffName]
@@ -237,7 +247,7 @@ function ApplyBuff(unit, buffName, instigator)
 	
 		if unit then
 
-			unit:ForkThread( BuffWorkThread, buffName, instigator )
+			ForkThread( unit, BuffWorkThread, buffName, instigator )
 
 			if data.Count > 0 then
 
@@ -278,7 +288,7 @@ function ApplyBuff(unit, buffName, instigator)
 	end
 
 	if BuffDialog then
-		LOG("*AI DEBUG Unit "..unit:GetBlueprint().Description.." after applying buffs is "..repr(unit.Buffs))
+		LOG("*AI DEBUG BUFF Unit "..unit:GetBlueprint().Description.." after applying buffs is "..repr(unit.Buffs))
 	end
 
 end
@@ -289,25 +299,22 @@ function BuffWorkThread(unit, buffName, instigator)
 
 	local buffTable = Buffs[buffName]
 
+    local BuffAffectUnit = BuffAffectUnit
 	local BeenDestroyed = moho.entity_methods.BeenDestroyed
+    local WaitTicks = WaitTicks
 
 	local pulse = 0
-    local Duration = buffTable.Duration
+    local Duration = (buffTable.Duration * 10) + 1
 
-	while not BeenDestroyed(unit) and pulse < Duration do
+	if not BeenDestroyed(unit) then
 
 		BuffAffectUnit( unit, buffName, instigator, false )
 
-		pulse = pulse + 1
+		WaitTicks(Duration)
 
-		if pulse < Duration then
-
-			WaitTicks(11)
-
-		end
 	end
 
-	if unit.Buffs.BuffTable[Buffs[buffName].BuffType][buffName] then
+	if not BeenDestroyed(unit) and unit.Buffs.BuffTable[Buffs[buffName].BuffType][buffName] then
 		RemoveBuff(unit, buffName)
 	end
 
@@ -326,6 +333,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
     local buffDef = Buffs[buffName]
 
     local buffAffects = buffDef.Affects
+    local BuffCalculate = BuffCalculate
 
     if buffDef.OnBuffAffect and not afterRemove then
         buffDef:OnBuffAffect(unit, instigator)
@@ -336,8 +344,10 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 	end
 	
 	if BuffDialog then
-		LOG("*AI DEBUG Affecting unit "..repr(unit:GetBlueprint().Description).." with Buff "..buffName.." from "..repr(instigator:GetBlueprint().Description) )
+		LOG("*AI DEBUG BUFF Affecting unit "..repr(unit:GetBlueprint().Description).." with Buff "..buffName.." from "..repr(instigator:GetBlueprint().Description).." Duration "..repr(buffDef.Duration) )
 	end
+    
+    local GetHealth = GetHealth
 
     for atype, vals in buffAffects do
 
@@ -350,7 +360,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
             local healthadj = val - health
 
             if healthadj < 0 then
-                unit:DoTakeDamage( instigator, -1 * healthadj, false, 'Normal')	--VDiff(instigator:GetPosition(), unit:GetPosition())
+                unit:DoTakeDamage( instigator, -1 * healthadj, false, 'Normal')
             else
                 AdjustHealth( unit, instigator, healthadj )
             end
@@ -449,7 +459,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 
             local val = BuffCalculate(unit, buffName, 'SpeedMult', 1)
 
-            -- display new movement mult if it's not normal speed --
+            -- display new speed mult if it's not normal speed --
             if unit.EntityID and val != 1 then
                 ForkThread(FloatingEntityText, unit.EntityID, 'Speed Mult now '..math.floor((.001+val)*100).."%")
 			end
@@ -891,7 +901,7 @@ function BuffCalculate(unit, buffName, affectType, initialVal, initialBool)
 		for k, v in unit.Buffs.Affects[affectType] do
 		
 			if BuffDialog then	
-				LOG("*AI DEBUG Affecting "..repr(v))
+				LOG("*AI DEBUG BUFF Affecting "..repr(v))
 			end
 
 			if v.Add and v.Add != 0 then
@@ -935,8 +945,8 @@ function BuffCalculate(unit, buffName, affectType, initialVal, initialBool)
 		returnVal = highestCeil
 	end
 	
-	if BuffDialog then
-		LOG("*AI DEBUG Returnval is "..repr(returnVal).." bool is "..repr(bool))
+	if BuffDialog and bool then
+		LOG("*AI DEBUG BUFF Returnval is "..repr(returnVal).." bool is "..repr(bool))
 	end
 
     return returnVal, bool
@@ -947,6 +957,10 @@ function RemoveBuff(unit, buffName, removeAllCounts, instigator)
 
     local BuffDialog = ScenarioInfo.BuffDialog
     
+    local LOUDEMPTY = LOUDEMPTY
+    
+    local BuffAffectUnit = BuffAffectUnit
+    
     local def = Buffs[buffName]
 
     local unitBuff = unit.Buffs.BuffTable[def.BuffType][buffName]
@@ -954,8 +968,8 @@ function RemoveBuff(unit, buffName, removeAllCounts, instigator)
 	if unitBuff then
 
         if BuffDialog then
-            LOG("*AI DEBUG Removing Buff "..buffName.." from "..repr(unit:GetBlueprint().Description))
-			LOG("*AI DEBUG before Removing "..buffName.." unit data is "..repr(unit.Buffs) )	
+            LOG("*AI DEBUG BUFF Removing Buff "..buffName.." from "..repr(unit:GetBlueprint().Description))
+			LOG("*AI DEBUG BUFF before Removing "..buffName.." unit data is "..repr(unit.Buffs) )	
 		end
 
 		for atype,_ in def.Affects do
@@ -990,10 +1004,8 @@ function RemoveBuff(unit, buffName, removeAllCounts, instigator)
 		end
 
 		if removeAllCounts or unitBuff.Count < 1 or not unit.Buffs.Affects then
-			
-			-- unit:PlayEffect('RemoveBuff', buffName)
 
-			unitBuff.Trash:Destroy()
+			TrashDestroy(unitBuff.Trash)
 
 			unit.Buffs.BuffTable[def.BuffType][buffName] = nil
 
@@ -1023,7 +1035,7 @@ function RemoveBuff(unit, buffName, removeAllCounts, instigator)
     end
 	
 	if BuffDialog then
-		LOG("*AI DEBUG AFTER Removing "..buffName.." unit data is "..repr(unit.Buffs) )
+		LOG("*AI DEBUG BUFF after Removing "..buffName.." unit data is "..repr(unit) )
 	end
     
     return true
@@ -1044,13 +1056,16 @@ function PlayBuffEffect(unit, buffName, data)
         return
     end
     
+    local CreateAttachedEmitter = CreateAttachedEmitter
+    local TrashAdd = TrashAdd
+    
     local bufffx
     
     local CreateAttachedEmitter= CreateAttachedEmitter
 
     for k, fx in Buffs[buffName].Effects do
 
-        bufffx = CreateAttachedEmitter(unit, 0, unit.Aanc.army, fx)
+        bufffx = CreateAttachedEmitter(unit, 0, unit.Army, fx)
 
         if Buffs[buffName].EffectsScale then
             bufffx:ScaleEmitter(Buffs[buffName].EffectsScale)
