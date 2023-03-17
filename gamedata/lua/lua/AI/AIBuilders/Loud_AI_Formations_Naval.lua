@@ -373,7 +373,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
         },
     },
 
-
+--[[
     Builder {BuilderName = 'T2 Sea Attack - UEF',
 	
         PlatoonTemplate = 'SeaAttack Medium',
@@ -576,7 +576,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
         },
     },
 
---[[
+
     Builder {BuilderName = 'T3 Sea Attack - UEF',
 	
         PlatoonTemplate = 'SeaAttack Large',

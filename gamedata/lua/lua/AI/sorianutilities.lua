@@ -18,6 +18,7 @@ local LOUDINSERT = table.insert
 
 local ForkThread = ForkThread
 local GetTerrainHeight = GetTerrainHeight
+local type = type
 local VDist2 = VDist2
 local VDist2Sq = VDist2Sq
 local VDist3 = VDist3

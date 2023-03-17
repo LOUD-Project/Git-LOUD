@@ -270,7 +270,7 @@ function AIPickEnemyLogic( self, brainbool )
                     -- if we have an enemy and we dont have an attack goal or the goal is quite different from the one we already have
                     if self.CurrentEnemyIndex and ( (not self.AttackPlanGoal) or VDist3(self.AttackPlan.Goal, enemyPosition) > 100 ) then
                     
-                        --LOG("*AI DEBUG "..self.Nickname.." Choosing enemy - " ..enemy.Nickname.." at "..repr(enemyPosition).." distance "..repr(VDist3( testposition, enemyPosition )).." Strength is "..repr(enemyStrength) )
+                        LOG("*AI DEBUG "..self.Nickname.." Choosing enemy - " ..enemy.Nickname.." at "..repr(enemyPosition).." distance "..repr(VDist3( testposition, enemyPosition )).." Strength is "..repr(enemyStrength) )
 					
                         -- create a new attack plan
                         self:ForkThread( import('/lua/loudutilities.lua').AttackPlanner, enemyPosition)
@@ -808,6 +808,8 @@ function AIFindBrainTargetAroundPoint( aiBrain, position, maxRange, category )
     end
     
     local GetPosition = GetPosition	
+    local LOUDPARSE = LOUDPARSE
+    local type = type
     local VDist2Sq = VDist2Sq
     
     local testCat = category
@@ -841,7 +843,10 @@ function AIFindBrainTargetAroundPoint( aiBrain, position, maxRange, category )
 end
 
 function RandomLocation(x,z, value)
-	
+
+    local GetSurfaceHeight = GetSurfaceHeight
+    local GetTerrainHeight = GetTerrainHeight
+    
 	local Random = Random
 	local r_value = value or 20
 

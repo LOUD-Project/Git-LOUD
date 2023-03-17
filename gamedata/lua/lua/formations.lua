@@ -1105,6 +1105,7 @@ function GuardFormation( formationUnits )
 
     local LOUDCOS = LOUDCOS
     local LOUDSIN = LOUDSIN
+    local LOUDENTITY = LOUDENTITY
 	
     local FormationPos = {}
 	

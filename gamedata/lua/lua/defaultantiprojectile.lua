@@ -18,6 +18,7 @@ local GetLauncher = moho.projectile_methods.GetLauncher
 local SetCollisionShape = moho.entity_methods.SetCollisionShape
 local SetDrawScale = moho.entity_methods.SetDrawScale
 
+local type = type
 local WaitTicks = coroutine.yield
 
 Flare = Class(Entity) {

@@ -37,6 +37,7 @@ local CreateEmitterAtBone = CreateEmitterAtBone
 local AttachBeamEntityToEntity = AttachBeamEntityToEntity
 local EntityCategoryContains = EntityCategoryContains
 
+local LOUDGETN = table.getn
 local LOUDINSERT = table.insert
 
 local VectorCached = { 0, 0, 0 }
@@ -634,7 +635,7 @@ SEnergyBallUnit = Class(MobileUnit) {
                     end
                 end
 				
-                local target = filteredUnits[Random(1, table.getn(filteredUnits))]
+                local target = filteredUnits[Random(1, LOUDGETN(filteredUnits))]
 				
                 if target then
                     weapon:SetTargetEntity(target)

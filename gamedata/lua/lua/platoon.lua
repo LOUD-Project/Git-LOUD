@@ -95,6 +95,7 @@ local LOUDCOPY = table.copy
 local LOUDDEEPCOPY = table.deepcopy
 local LOUDENTITY = EntityCategoryContains
 local LOUDEQUAL = table.equal
+local LOUDFIND = string.find
 local LOUDFLOOR = math.floor
 local LOUDGETN = table.getn
 local LOUDINSERT = table.insert

@@ -269,8 +269,9 @@ function AISortScoutingAreas( aiBrain, list )
 
     local StartPosX = aiBrain.StartPosX
     local StartPosZ = aiBrain.StartPosZ
+    local VDist2Sq = VDist2Sq
     
-    LOUDSORT( list, function(a,b)	
+    LOUDSORT( list, function(a,b)
 	
 		if a.LastScouted and b.LastScouted then
 		
@@ -1126,7 +1127,7 @@ function PlatoonDistressMonitor( aiBrain )
     aiBrain.PlatoonDistress = { ['AlertSounded'] = false, ['Platoons'] = {} }
 
     local PlatoonExists = PlatoonExists
-	local LOUDGETN = table.getn
+	local LOUDGETN = LOUDGETN
     local RebuildTable = aiBrain.RebuildTable
 
     local change = false
@@ -1941,7 +1942,7 @@ function AirUnitRefitThread( unit, aiBrain )
         local GetCurrentUnits = GetCurrentUnits
         
         local LOUDCOPY = table.copy
-        local LOUDSORT = table.sort
+        local LOUDSORT = LOUDSORT
         
         local VDist3Sq = VDist3Sq
         local WaitTicks = WaitTicks
@@ -2058,6 +2059,12 @@ end
 function AirStagingThread( unit, airstage, aiBrain )
 
 	local loadstatus = 0
+
+    local EntityCategoryContains = EntityCategoryContains
+    local GetFuelRatio = GetFuelRatio
+    local GetHealthPercent = unit.GetHealthPercent
+    local IsUnitState = moho.unit_methods.IsUnitState
+    local WaitTicks = WaitTicks
 	
 	if not airstage.Dead then
 		
@@ -2108,7 +2115,7 @@ function AirStagingThread( unit, airstage, aiBrain )
 	-- loop until unit attached, idle, dead or it's fixed itself
 	while (not unit.Dead) and (not airstage.Dead) do
 		
-		if (( GetFuelRatio(unit) < .75 and GetFuelRatio(unit) != -1) or unit:GetHealthPercent() < .80) and (not airstage.Dead) then
+		if (( GetFuelRatio(unit) < .75 and GetFuelRatio(unit) != -1) or GetHealthPercent(unit) < .80) and (not airstage.Dead) then
 		
 			WaitTicks(11)
             waitcount = waitcount + 1
@@ -2124,7 +2131,7 @@ function AirStagingThread( unit, airstage, aiBrain )
 	end
 
 	-- get it off the airpad
-	if (not airstage.Dead) and (not unit.Dead) and unit:IsUnitState('Attached') then
+	if (not airstage.Dead) and (not unit.Dead) and IsUnitState( unit,'Attached') then
 	
 		WaitTicks(11)
 		
@@ -2133,7 +2140,7 @@ function AirStagingThread( unit, airstage, aiBrain )
 		-- it will lift off and exit by itself BUT
 		-- sometimes we have to force it off -- when we do so we have
 		-- to manually restore it's normal conditions (ie. - can take damage)
-		if (not unit.Dead) and (not airstage.Dead) and unit:IsUnitState('Attached') then
+		if (not unit.Dead) and (not airstage.Dead) and IsUnitState( unit,'Attached') then
 		
 			local ready = false
 			
@@ -2141,7 +2148,7 @@ function AirStagingThread( unit, airstage, aiBrain )
             
                 local fuel = GetFuelRatio(unit)
 			
-				if (not unit.Dead) and ( fuel > -1 and fuel > .85 and unit:GetHealthPercent() > .85)  then
+				if (not unit.Dead) and ( fuel > -1 and fuel > .85 and GetHealthPercent(unit) > .85)  then
 					ready = true
 					break
 				end
@@ -2149,7 +2156,7 @@ function AirStagingThread( unit, airstage, aiBrain )
 				WaitTicks(16)
 			end
 			
-			if ready and unit:IsUnitState('Attached') and (not unit.Dead) and (not airstage.Dead) then
+			if ready and IsUnitState(unit,'Attached') and (not unit.Dead) and (not airstage.Dead) then
 			
 				if airstage.UnitStored[unit.EntityID] then
 					airstage.UnitStored[unit.EntityID] = nil
@@ -2551,6 +2558,7 @@ function GetBasePerimeterPoints( aiBrain, location, radius, orientation, positio
 
 	local LOUDCEIL = math.ceil
 	local GetDirectionInDegrees = import('/lua/utilities.lua').GetDirectionInDegrees
+    local VDist2Sq = VDist2Sq
     
 	local newloc = false
 	local Orient = false
@@ -3187,8 +3195,9 @@ function PathGeneratorAir( aiBrain )
 
 	local LOUDINSERT = table.insert
 	local LOUDREMOVE = table.remove
-	local LOUDSORT = table.sort
+	local LOUDSORT = LOUDSORT
 	local ForkThread = ForkThread
+    local type = type
 
     local VDist2 = VDist2
 	local VDist2Sq = VDist2Sq
@@ -3414,11 +3423,11 @@ function PathGeneratorAmphibious(aiBrain)
 
 	local LOUDINSERT = table.insert
 	local LOUDREMOVE = table.remove
-	local LOUDSORT = table.sort
+	local LOUDSORT = LOUDSORT
 	local ForkThread = ForkThread
+    local type = type
 
     local VDist2 = VDist2
-	local VDist2Sq = VDist2Sq
     local VDist3 = VDist3
     
 	local WaitTicks = WaitTicks
@@ -3630,11 +3639,11 @@ function PathGeneratorLand(aiBrain)
 
 	local LOUDINSERT = table.insert
 	local LOUDREMOVE = table.remove
-	local LOUDSORT = table.sort
+	local LOUDSORT = LOUDSORT
 	local ForkThread = ForkThread
+    local type = type
 
     local VDist2 = VDist2
-	local VDist2Sq = VDist2Sq
 	local WaitTicks = WaitTicks
 	
 	local dist_comp = aiBrain.dist_comp

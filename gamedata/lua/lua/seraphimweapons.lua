@@ -741,6 +741,8 @@ SMeleeBladeBeamWeapon = Class(Weapon) {
     end,
 
     OnFire = function(self)
+    
+        local LOUDGETN = table.getn
 
         --Set up
         if not self.Blades then
@@ -753,7 +755,7 @@ SMeleeBladeBeamWeapon = Class(Weapon) {
         end
         
         --Pick which limb or set of limbs we're doing
-        local bn = math.random(1, table.getn(self.Blades))
+        local bn = math.random(1, LOUDGETN(self.Blades))
         
         --If that limb is busy, try again later.
         local bncheck = 'Is'..bn..'Swinging'
@@ -777,7 +779,7 @@ SMeleeBladeBeamWeapon = Class(Weapon) {
         --Start swinging
         self[bncheck] = true
         self.NoAttackChance = 3
-        self[bnanim]:PlayAnim(blade.Animations[math.random(1, table.getn(blade.Animations))]):SetRate(0.65 + math.random()/5)
+        self[bnanim]:PlayAnim(blade.Animations[math.random(1, LOUDGETN(blade.Animations))]):SetRate(0.65 + math.random()/5)
         
         --Disable walk and idle anims on the main limb(s)
         local SetOtherAnimatorsActive = function(self, blade, active)

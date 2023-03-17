@@ -194,6 +194,9 @@ end
 function CreateAeonBuildBaseThread( unitBeingBuilt, builder, EffectsBag )
 
     local BeenDestroyed = BeenDestroyed
+    local GetFractionComplete = GetFractionComplete
+    local LOUDEMITONENTITY = LOUDEMITONENTITY
+    local TrashAdd = TrashAdd
     local WaitTicks = WaitTicks
 
 	local army = builder.Army
@@ -267,10 +270,12 @@ function CreateAeonConstructionUnitBuildingEffects( builder, unitBeingBuilt, Bui
 
     local army = builder.Army
     local projectile
-    
+
+    local LOUDATTACHBEAMENTITY = LOUDATTACHBEAMENTITY        
     local LOUDINSERT = LOUDINSERT
     local LOUDWARP = LOUDWARP
     local ScaleEmitter = ScaleEmitter
+    local TrashAdd = TrashAdd
 
     -- create perm projectile 
     if not builder.BuildProjectile then
@@ -323,10 +328,12 @@ function CreateAeonCommanderBuildingEffects( builder, unitBeingBuilt, BuildBones
 
     local army = builder.Army
     local projectile
-    
+
+    local LOUDATTACHBEAMENTITY = LOUDATTACHBEAMENTITY    
     local LOUDINSERT = LOUDINSERT
     local LOUDWARP = LOUDWARP
     local ScaleEmitter = ScaleEmitter
+    local TrashAdd = TrashAdd
     
     if not builder.BuildProjectile then
     
@@ -381,10 +388,13 @@ end
 function CreateAeonFactoryBuildingEffects( builder, unitBeingBuilt, BuildEffectBones, BuildBone, BuildEffectsBag )
 
     local army = builder.Army
-    
+
+    local GetFractionComplete = GetFractionComplete    
     local LOUDATTACHBEAMENTITY = LOUDATTACHBEAMENTITY
     local LOUDATTACHEMITTER = LOUDATTACHEMITTER
     local ScaleEmitter = ScaleEmitter
+    local TrashAdd = TrashAdd
+    local WaitTicks = WaitTicks
 
     -- create the permanent emitter on each BuildEffectBone (build arm)
     if BuildEffectBones[1] and builder.GetCachePosition and not builder.BuildEmitters then
@@ -417,8 +427,6 @@ function CreateAeonFactoryBuildingEffects( builder, unitBeingBuilt, BuildEffectB
         end
     end
     
-    GetFractionComplete = GetFractionComplete
-    WaitTicks = WaitTicks
     
     -- wait for the build to complete --
     repeat
@@ -440,6 +448,7 @@ function CreateBuildCubeThread( unitBeingBuilt, builder, OnBeingBuiltEffectsBag 
 
 	local LOUDABS = math.abs
     local LOUDWARP = LOUDWARP
+    local TrashAdd = TrashAdd
     local WaitTicks = WaitTicks
 	
     local bp = ALLBPS[unitBeingBuilt.BlueprintID]
@@ -544,8 +553,11 @@ end
 function CreateUEFBuildSliceBeams( builder, unitBeingBuilt, BuildEffectBones, BuildEffectsBag )
 
     local GetFractionComplete = GetFractionComplete
+    local LOUDATTACHBEAMENTITY = LOUDATTACHBEAMENTITY
+    local LOUDATTACHEMITTER = LOUDATTACHEMITTER
     local LOUDWARP = LOUDWARP
     local SetVelocity = SetVelocity
+    local TrashAdd = TrashAdd
     local WaitTicks = WaitTicks
 
     local army = builder.Army
@@ -652,9 +664,10 @@ function CreateUEFCommanderBuildSliceBeams( builder, unitBeingBuilt, BuildEffect
 
     local GetFractionComplete = GetFractionComplete
     local LOUDATTACHBEAMENTITY = LOUDATTACHBEAMENTITY
+    local LOUDATTACHEMITTER = LOUDATTACHEMITTER
     local LOUDWARP = LOUDWARP
     local SetVelocity = SetVelocity
-    
+    local TrashAdd = TrashAdd
     local WaitTicks = WaitTicks
 
     local army = builder.Army
@@ -787,10 +800,12 @@ end
 function CreateDefaultBuildBeams( builder, unitBeingBuilt, BuildEffectBones, BuildEffectsBag )
 
     local ForkThread = ForkThread
-
+    local LOUDEMITONENTITY = LOUDEMITONENTITY
+    local LOUDWARP = LOUDWARP
     local Random = Random
     local RandomOffset = builder.GetRandomOffset
     local ScaleEmitter = ScaleEmitter
+    local TrashAdd = TrashAdd
 
     local army = builder.Army
     
@@ -883,10 +898,11 @@ end
 function CreateCybranBuildBeams( builder, unitBeingBuilt, BuildEffectBones, BuildEffectsBag )
 
     local ForkThread = ForkThread
-
+    local LOUDEMITONENTITY = LOUDEMITONENTITY
     local Random = Random
     local RandomOffset = unitBeingBuilt.GetRandomOffset
     local ScaleEmitter = ScaleEmitter
+    local TrashAdd = TrashAdd
 
     local army = builder.Army
     
@@ -1013,6 +1029,8 @@ function SpawnBuildBots( builder, unitBeingBuilt, numBots, BuildEffectsBag )
     
         local LOUDCOS = math.cos
         local LOUDSIN = math.sin
+        local LOUDINSERT = LOUDINSERT
+        local TrashAdd = TrashAdd
     
         local angle = 6.28 / numBots
 
@@ -1041,6 +1059,10 @@ end
 function CreateCybranEngineerBuildEffects( builder, unitBeingBuilt, BuildBones, BuildBots, BuildEffectsBag )
 
     if builder.Dead then return end
+    
+    local LOUDATTACHEMITTER = LOUDATTACHEMITTER
+    local ScaleEmitter = ScaleEmitter
+    local TrashAdd = TrashAdd
 
     -- Create constant build effect for each build bone defined
     if BuildBones then
@@ -1091,9 +1113,15 @@ end
 
 function CreateCybranFactoryBuildEffects( builder, unitBeingBuilt, BuildBones, BuildEffectsBag )
 
+    local GetFractionComplete = GetFractionComplete
+    local LOUDATTACHEMITTER = LOUDATTACHEMITTER
+    local LOUDEMITONENTITY = LOUDEMITONENTITY
     local Random = Random
     local RandomOffset = unitBeingBuilt.GetRandomOffset
-	
+    local ScaleEmitter = ScaleEmitter
+    local TrashAdd = TrashAdd
+	local WaitTicks = WaitTicks	
+
     local army = builder.Army
 
     -- this process will create the permanent emitters on the factory
@@ -1128,10 +1156,6 @@ function CreateCybranFactoryBuildEffects( builder, unitBeingBuilt, BuildBones, B
     end
     
     ScaleEmitter( builder.BuildProjectile.AttachBone, 1.2 )
-
-  
-    local GetFractionComplete = GetFractionComplete
-	local WaitTicks = WaitTicks
     
     -- Add sparks to the collision box of the unit being built
     local sx, sy, sz = 0
@@ -1157,6 +1181,11 @@ end
 
 function CreateSeraphimUnitEngineerBuildingEffects( builder, unitBeingBuilt, BuildEffectBones, BuildEffectsBag )
 
+    local LOUDATTACHBEAMENTITY = LOUDATTACHBEAMENTITY
+    local LOUDATTACHEMITTER = LOUDATTACHEMITTER
+    local LOUDINSERT = LOUDINSERT
+    local TrashAdd = TrashAdd
+    
 	local army = builder.Army
     
     if not builder.BuildEmitters then
@@ -1194,6 +1223,9 @@ end
 function CreateSeraphimFactoryBuildingEffects( builder, unitBeingBuilt, BuildEffectBones, BuildBone, EffectsBag )
 
     local BeenDestroyed = BeenDestroyed
+    local LOUDATTACHEMITTER = LOUDATTACHEMITTER
+    local LOUDATTACHBEAMENTITY = LOUDATTACHBEAMENTITY
+    local TrashAdd = TrashAdd
     local WaitTicks = WaitTicks
 
     local bp = ALLBPS[unitBeingBuilt.BlueprintID]
@@ -1283,6 +1315,11 @@ end
 
 function CreateSeraphimBuildBaseThread( unitBeingBuilt, builder, EffectsBag )
 
+    local GetFractionComplete = GetFractionComplete
+    local LOUDATTACHEMITTER = LOUDATTACHEMITTER
+    local LOUDWARP = LOUDWARP
+    local ScaleEmitter = ScaleEmitter
+    local TrashAdd = TrashAdd
     local WaitTicks = WaitTicks
 
     WaitTicks(1)
@@ -1484,7 +1521,9 @@ end
 function CreateAdjacencyBeams( unit, adjacentUnit )
 
 	local LOUDINSERT = LOUDINSERT
+    local LOUDATTACHBEAMENTITY = LOUDATTACHBEAMENTITY
 	local LOUDATTACHEMITTER = CreateAttachedEmitter
+    local TrashAdd = TrashAdd
 
 	local info = { Unit = adjacentUnit.EntityID, Trash = TrashBag(), }
     
@@ -1544,6 +1583,9 @@ end
 
 function PlayReclaimEffects( reclaimer, reclaimed, BuildEffectBones, EffectsBag )
 
+    local LOUDATTACHBEAMENTITY = LOUDATTACHBEAMENTITY
+    local TrashAdd = TrashAdd
+
     local pos = GetPosition(reclaimed)
 
     local beamEnd = Entity()
@@ -1571,6 +1613,8 @@ end
 
 function PlayReclaimEndEffects( reclaimer, reclaimed )
 
+    local LOUDEMITATENTITY = LOUDEMITATENTITY
+
     local army = -1
 	
     if reclaimer then
@@ -1581,7 +1625,7 @@ function PlayReclaimEndEffects( reclaimer, reclaimed )
 	    LOUDEMITATENTITY( reclaimed, army, v )
 	end
 	
-	CreateLightParticleIntel( reclaimed, -1, army, 4, 6, 'glow_02', 'ramp_flare_02' )
+	CreateLightParticle( reclaimed, -1, army, 4, 6, 'glow_02', 'ramp_flare_02' )
 end
 
 
@@ -1602,12 +1646,12 @@ end
 function CreateCybranQuantumGateEffect( unit, bone1, bone2, EffectsBag, startwaitSeed )
 
     local BeenDestroyed = BeenDestroyed
+    local LOUDWARP = LOUDWARP
+    local TrashAdd = TrashAdd
+    local WaitTicks = WaitTicks
 
     -- Adding a quick wait here so that unit bone positions are correct
     WaitTicks( startwaitSeed * 10 )
-
-    local BeenDestroyed = BeenDestroyed
-    local WaitTicks = WaitTicks
 
     local pos1 = unit:GetPosition(bone1)
     local pos2 = unit:GetPosition(bone2)
@@ -1658,6 +1702,9 @@ end
 
 function CreateEnhancementEffectAtBone( unit, bone, EffectsBag )
 
+    local LOUDATTACHEMITTER = LOUDATTACHEMITTER
+    local TrashAdd = TrashAdd
+    
     for _, vEffect in EffectTemplate.UpgradeBoneAmbient do
 	
         TrashAdd( EffectsBag, LOUDATTACHEMITTER( unit, bone, unit.Army, vEffect ))
@@ -1667,6 +1714,9 @@ function CreateEnhancementEffectAtBone( unit, bone, EffectsBag )
 end
 
 function CreateEnhancementUnitAmbient( unit, bone, EffectsBag )
+
+    local LOUDATTACHEMITTER = LOUDATTACHEMITTER
+    local TrashAdd = TrashAdd
 
     for _, vEffect in EffectTemplate.UpgradeUnitAmbient do
 	

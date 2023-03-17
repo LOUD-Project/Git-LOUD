@@ -16,6 +16,8 @@ scoreData = { ['current'] = {} }
 local tmerge = table.merged
 local tempty = table.empty
 local dcopy = table.deepcopy
+local ipairs = ipairs
+local type = type
 
 --local IsHeadPlaying = import('/lua/ui/game/missiontext.lua').IsHeadPlaying
 

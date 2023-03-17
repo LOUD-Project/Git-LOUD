@@ -12,7 +12,6 @@ local LOUDSORT = table.sort
 local type = type
 
 local VDist2 = VDist2
-local VDist2Sq = VDist2Sq
 local VDist3Sq = VDist3Sq
 
 local WaitTicks = coroutine.yield
@@ -334,7 +333,22 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
 	if not platpos then
 		return false
 	end
+	
+	local AIGetMarkerLocations = import('/lua/ai/aiutilities.lua').AIGetMarkerLocations
+	local GetOwnUnitsAroundPoint = import('/lua/ai/aiutilities.lua').GetOwnUnitsAroundPoint
+    
+    local GetPosition = GetPosition	
+	local GetThreatAtPosition = GetThreatAtPosition
+	local GetUnitsAroundPoint = GetUnitsAroundPoint
 
+	local LOUDV2 = VDist2
+	local LOUDV3 = VDist3
+    local LOUDSORT = LOUDSORT
+    local LOUDCAT = table.cat
+    local type = type
+	
+    local ArmyIndex = aiBrain.ArmyIndex
+    
     local ThreatMaxIMAPAdjustment = 1
     
     -- number of rings to use in GetThreatAtPosition calls
@@ -358,43 +372,32 @@ function FindPointMeetsConditions( self, aiBrain, PointType, PointCategory, Poin
     
     -- adjust allowed threat by size of IMAP blocks
     local threatmax = threatmax * ThreatMaxIMAPAdjustment
-	
-	local AIGetMarkerLocations = import('/lua/ai/aiutilities.lua').AIGetMarkerLocations
-	local GetOwnUnitsAroundPoint = import('/lua/ai/aiutilities.lua').GetOwnUnitsAroundPoint
-    
-    local GetPosition = GetPosition	
-    
-	local GetThreatAtPosition = GetThreatAtPosition
-	local GetUnitsAroundPoint = GetUnitsAroundPoint
 
-	local LOUDV2 = VDist2
-    local VDist2Sq = VDist2Sq
-	local LOUDV3 = VDist3
-    local LOUDSORT = LOUDSORT
-    local LOUDCAT = table.cat
-    local type = type
-	
 	-- Checks radius around base to see if marker is sufficiently far away
 	-- this function is used to filter out positions that
 	-- might be within an Allied partners base (or his own)
-	local function AvoidsBases( markerPos, shouldcheckAvoidBases, baseRadius )
+	local function AvoidsBases( markerPos, shouldcheckAvoidBases )
 	
 		-- if AvoidBases flag is true then do the check 
-        if shouldcheckAvoidBases == true then 
+        if shouldcheckAvoidBases then 
         
+            local LOUDV3 = LOUDV3
+
             local Brains = ArmyBrains
 		
 			-- loop thru all brains
 			for _, brain in Brains do
+            
+               local otherIndex = brain.ArmyIndex
 			
 				-- if not defeated and it's ourselves or an Ally
-				if not ArmyIsOutOfGame(brain.ArmyIndex) and ( aiBrain.ArmyIndex == brain.ArmyIndex or IsAlly(aiBrain.ArmyIndex, brain.ArmyIndex)) then
-				
+				if not ArmyIsOutOfGame(brain.ArmyIndex) and ( ArmyIndex == otherIndex or IsAlly( ArmyIndex, otherIndex ) ) then
+
 					-- loop thru his bases
 					for _,base in brain.BuilderManagers do
-					
-						-- if position is within the radius then return false (avoid this position)
-						if VDist2Sq(base.Position[1], base.Position[3], markerPos[1], markerPos[3]) < (baseRadius * baseRadius) then
+
+						-- if position is within the minimum distance radius then return false (avoid this position)
+						if LOUDV3(base.Position, markerPos) < DistMin then
 						
 							return false
 						end
@@ -700,20 +703,21 @@ function FindTargetInRange( self, aiBrain, squad, maxRange, attackcategories, no
             end
 
 			-- This gives us the number of approx. 8 ogrid steps in the distance
-			steps = LOUDFLOOR( VDist3( position, targetPos ) / 8 )
+			steps = LOUDFLOOR( VDist3( position, targetPos ) / 8 ) + 1
 	
 			xstep = (position[1] - targetPos[1]) / steps -- how much the X value will change from step to step
 			ystep = (position[3] - targetPos[3]) / steps -- how much the Y value will change from step to step
 			
 			lastpos = { position[1], 0, position[3] }
             lastposHeight = terrainfunction( lastpos[1], lastpos[3] )
+            
+            nextpos = { 0, 0, 0 }
 	
 			-- Iterate thru the number of steps - starting at the pos and adding xstep and ystep to each point
 			for i = 1, steps do
 
                 InWater = lastposHeight < (GetSurfaceHeight( lastpos[1], lastpos[3] ) - 1)
-		
-                nextpos =  VectorCached
+
                 nextpos[1] = position[1] - (xstep * i)
                 nextpos[3] = position[3] - (ystep * i)
 

@@ -2445,14 +2445,18 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
         if TransportDialog then
             LOG("*AI DEBUG "..aiBrain.Nickname.." "..UnitPlatoon.BuilderName.." "..transports.BuilderName.." loadwatch begins" )
         end    
-			
+
 		if UnitPlatoon.WaypointCallback then
 
 			KillThread( UnitPlatoon.WaypointCallback )
 			
 			UnitPlatoon.WaypointCallback = nil
-			
-			UnitPlatoon.MovingToWaypoint = nil
+            
+            if UnitPlatoon.MovingToWaypoint then
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(UnitPlatoon.BuilderName).." "..repr(UnitPlatoon.BuilderInstance).." MOVINGTOWAYPOINT cleared by transport ")
+                UnitPlatoon.MovingToWaypoint = nil
+            end
+
 		end
 	
 		local loadwatch = true	

@@ -2859,7 +2859,7 @@ EnergyStorageUnit = Class(StructureUnit) {}
 FootprintDummyUnit = Class(StructureUnit) {
     OnAdjacentTo = function(self, AdjUnit, TriggerUnit)
         if not self.AdjacentData then self.AdjacentData = {} end
-        table.insert(self.AdjacentData, AdjUnit)
+        LOUDINSERT(self.AdjacentData, AdjUnit)
         StructureUnit.OnAdjacentTo(self, AdjUnit, TriggerUnit)
     end,
 
@@ -3324,7 +3324,9 @@ SubUnit = Class(MobileUnit) {
     end,
 
     DeathThread = function(self, overkillRatio, instigator)
-	
+
+        --LOG("*AI DEBUG SUB Unit DeathThread "..self.BlueprintID)	
+
         local bp = __blueprints[self.BlueprintID]
 		
         local army = self.Army
@@ -3355,6 +3357,9 @@ SubUnit = Class(MobileUnit) {
 		else
 
             self:ForkThread(function()
+
+                local CreateEmitterAtBone = CreateEmitterAtBone
+                local LOUDFLOOR = LOUDFLOOR
 
                 local numBones = GetBoneCount(self)-1
                 local sx, y, z = self:GetUnitSizes()
@@ -3396,9 +3401,9 @@ SubUnit = Class(MobileUnit) {
 			self.DeathAnimManip = nil
 		end
 
-
 		self:CreateWreckageProp( overkillRatio )
         self:Destroy()
+        --LOG("*AI DEBUG SUB Unit DeathThread ends "..self.BlueprintID)	
     end,
 
     ExplosionThread = function(self)
@@ -3512,6 +3517,8 @@ SeaUnit = Class(MobileUnit) {
 
     DeathThread = function(self, overkillRatio, instigator)
 
+        --LOG("*AI DEBUG SEA Unit DeathThread "..self.BlueprintID)
+
         local bp = __blueprints[self.BlueprintID]
         local army = self.Army
         local pos = GetPosition(self)
@@ -3542,6 +3549,9 @@ SeaUnit = Class(MobileUnit) {
 
             self:ForkThread(function()
 
+                local CreateEmitterAtBone = CreateEmitterAtBone
+                local LOUDFLOOR = LOUDFLOOR
+                
                 local i = 0
 
                 local numBones = GetBoneCount(self) - 1
@@ -3587,6 +3597,8 @@ SeaUnit = Class(MobileUnit) {
         self:CreateWreckageProp( overkillRatio )
 
         self:Destroy()
+
+        --LOG("*AI DEBUG SEA Unit DeathThread ends "..self.BlueprintID)        
     end,
 
     ExplosionThread = function(self)
@@ -3776,6 +3788,7 @@ AirUnit = Class(MobileUnit) {
 
 		MobileUnit.OnLayerChange( self, new, old )
 
+        local VDist2Sq = VDist2Sq
 		local vis = __blueprints[self.BlueprintID].Intel.VisionRadius or 2
 
 		if new == 'Land' then

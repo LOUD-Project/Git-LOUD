@@ -37,6 +37,7 @@ local function GetNumCategoryBeingBuiltByEngineers( EM, category, engCategory )
 	local counter = 0
     local beingBuiltUnit
     local IsUnitState = IsUnitState
+    local LOUDENTITY = LOUDENTITY
 
     for _,v in EntityCategoryFilterDown( engCategory, EM.EngineerList ) do
 		
@@ -60,7 +61,8 @@ local function GetNumCategoryBeingBuiltByFactories( FBM, category, facCategory )
 
 	local counter = 0
     local beingBuiltUnit
-    local IsUnitState = IsUnitState	
+    local IsUnitState = IsUnitState
+    local LOUDENTITY = LOUDENTITY
 
 	for _,v in EntityCategoryFilterDown( facCategory, FBM.FactoryList ) do
 		
@@ -133,7 +135,7 @@ function CanBuildOnMassAtRange(aiBrain, locationType, mindistance, maxdistance, 
 
 		local mlist = {}
 		local counter = 0
-        local position
+        local distance, position
         
         local baseposition = aiBrain.BuilderManagers[locationType].Position
         
@@ -142,8 +144,8 @@ function CanBuildOnMassAtRange(aiBrain, locationType, mindistance, maxdistance, 
         local a,b
         
         local function DOSORT(a,b)
-            local VDist3Sq = VDist3Sq
-            return VDist3Sq( a.Position, baseposition) < VDist3Sq( b.Position, baseposition)
+            local VDist3 = VDist3
+            return VDist3( a.Position, baseposition) < VDist3( b.Position, baseposition)
         end
         
         LOUDSORT( markerlist, DOSORT )
@@ -153,10 +155,11 @@ function CanBuildOnMassAtRange(aiBrain, locationType, mindistance, maxdistance, 
 		for _,v in markerlist do
             
             position = v.Position
+            distance = VDist3( position, baseposition )
             
-            if VDist3( position, baseposition ) >= mindistance then
+            if distance >= mindistance then
             
-                if VDist3( position, baseposition ) <= maxdistance then
+                if distance <= maxdistance then
                 
                     if CanBuildStructureAt( aiBrain, 'ueb1103', position ) then
                         counter = counter + 1
@@ -239,7 +242,7 @@ function GreaterThanEconEnergyStorageCurrent(aiBrain, eStorage)
 end
 
 function GreaterThanEconEnergyStorageRatio(aiBrain, eStorageRatio)
-	return (GetEconomyStoredRatio(aiBrain,'ENERGY') *100) >= eStorageRatio
+	return (GetEconomyStoredRatio( aiBrain, 'ENERGY') *100) >= eStorageRatio
 end
 
 
@@ -269,15 +272,15 @@ end
 
 -- modified to be altered by AI Cheat --
 function LessThanEconMassStorageCurrent(aiBrain, mStorage)
-	return GetEconomyStored( aiBrain, 'MASS') < (mStorage * (1/LOUDMAX( 1, aiBrain.CheatValue)))
+	return GetEconomyStored( aiBrain, 'MASS' ) < (mStorage * (1/LOUDMAX( 1, aiBrain.CheatValue)))
 end
 
 function LessThanEconMassStorageRatio(aiBrain, mStorageRatio)
-	return (GetEconomyStoredRatio(aiBrain,'MASS') *100) < mStorageRatio
+	return (GetEconomyStoredRatio( aiBrain, 'MASS' ) *100) < mStorageRatio
 end
 
 function GreaterThanEconMassStorageRatio(aiBrain, mStorageRatio)
-	return (GetEconomyStoredRatio(aiBrain,'MASS') *100) >= mStorageRatio
+	return (GetEconomyStoredRatio( aiBrain, 'MASS' ) *100) >= mStorageRatio
 end
 
 function LessThanMassTrend(aiBrain, mTrend)
@@ -293,7 +296,7 @@ function GreaterThanMassTrend(aiBrain, mTrend)
 end
 
 function GreaterThanMassIncome(aiBrain, mIncome)
-	return (GetEconomyIncome( aiBrain, 'MASS') *10) >= mIncome
+	return (GetEconomyIncome( aiBrain, 'MASS' ) *10) >= mIncome
 end
 
 

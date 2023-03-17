@@ -29,6 +29,7 @@ end
 function AreaTriggerThread(callbackFunction, rectangleTable, category, onceOnly, invert, aiBrain, number, requireBuilt, name)
 
     local recTable = {}
+    local type = type
 	
     for k,v in rectangleTable do
 	
