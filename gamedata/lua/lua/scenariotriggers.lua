@@ -563,7 +563,7 @@ function UnitToPositionDistanceTriggerThread( cb, unit, marker, distance, name )
 	
 end
 
-function PlatoonToPositionDistanceTriggerThread( cb, platoon, marker, distance, name )
+function PlatoonToPositionDistanceTriggerThread( cb, platoon, marker, triggerdistance, name )
 
 	local aiBrain = platoon:GetBrain()
     
@@ -572,48 +572,63 @@ function PlatoonToPositionDistanceTriggerThread( cb, platoon, marker, distance, 
 	local GetPosition = GetPosition
     local IsUnitState = moho.unit_methods.IsUnitState
 	local PlatoonExists = PlatoonExists
+
+    local RandomLocation = import('/lua/ai/aiutilities.lua').RandomLocation
     
-	local VDist2Sq = VDist2Sq
+    local LOUDFLOOR = math.floor
+    local MATHMAX = math.max
+
+	local VDist3 = VDist3
 
     if type(marker) == 'string' then
 	
         marker = MarkerToPosition(marker)
 		
     end
-	
-	local count = 0
-	local distancecheck = distance * distance
-
+    
+    triggerdistance = MATHMAX( 10, triggerdistance )
+    
     -- hmm..ok - this initial wait really impairs resolving the end of platoon moves
     -- most notably engineers starting another base
     -- mostly related to Naval Areas that are VERY close to the start base especially --
+
+    local delay = 10
     
-    --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName).." begins TriggerThread")
+	WaitTicks( delay )
 
-	WaitTicks(10)
+    --if platoon.MovingToWaypoint then
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." MTWayPt "..repr(platoon.BuilderName).." "..repr(platoon.BuilderInstance).." begins watching - thread flag is "..repr(platoon.MovingToWaypoint).." for "..repr(marker) )
+    --else
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." MTWayPt "..repr(platoon.BuilderName).." "..repr(platoon.BuilderInstance).." FAILS - NO MovingToWaypoint THREAD " )
+    --end
 
-	
+	local count = 1
+    
+    local distance, position, unitpos
+    
     while PlatoonExists( aiBrain, platoon) do
     
-        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName).." cycles "..repr(count).." PlatoonToPositionTriggerThread - MovingToWaypoint is "..repr(platoon.MovingToWaypoint).." Marker is "..repr(marker) )
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." MTWayPt "..repr(platoon.BuilderName).." "..repr(platoon.BuilderInstance).." thread cycle "..repr(count).." - thread flag is "..repr(platoon.MovingToWaypoint) )
 	
         if not marker or not platoon.MovingToWaypoint then
+        
+            --LOG("*AI DEBUG "..aiBrain.Nickname.." MTWayPt "..repr(platoon.BuilderName).." "..repr(platoon.BuilderInstance).." thread exits - flag is "..repr(platoon.MovingToWaypoint) )
 		
             return
 			
         else
 		
-            local position = GetPlatoonPosition(platoon) or false
+            position = GetPlatoonPosition(platoon) or false
 			
 			if not position then
-			
 				return
-				
-			end
-            
-            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." at "..repr(position).." Distance to marker "..VDist2( position[1], position[3], marker[1], marker[3] ).." distancecheck "..distance)
+			else
+                distance = VDist3( position, marker )
+            end
 
-            if VDist2Sq( position[1], position[3], marker[1], marker[3] ) <= distancecheck then
+            if distance <= triggerdistance or count > 80 then
+            
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." MTWayPt "..repr(platoon.BuilderName).." "..repr(platoon.BuilderInstance).." at trigger "..distance )
 
                 if name then
 				
@@ -628,54 +643,42 @@ function PlatoonToPositionDistanceTriggerThread( cb, platoon, marker, distance, 
                 end
 				
             end
-			
-			if count > 20 then
+        
+            -- delay of 3 seconds for each multiple of the trigger distance
+            delay = MATHMAX( 8, (LOUDFLOOR(( (distance-triggerdistance) / triggerdistance )* 31) ) )
+
+			if count > 20 and (distance/triggerdistance) < 2.25 then
+            
+                platoon:Stop()
 			
 				for _,u in GetPlatoonUnits(platoon) do
 				
 					if not u.Dead then
 					
-						local unitpos = GetPosition(u)
-                        
-                        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName).." at "..repr(unitpos))
-					
-						if not IsUnitState( u, 'Moving') then
-                        
-                            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName).." count > 20 - at "..repr(unitpos).." force move to "..repr(marker).." at distance ".. VDist2Sq( unitpos[1], unitpos[3], marker[1], marker[3] ))
+						position = GetPosition(u) or false
+
+						if position then
 			
-							if VDist2Sq( unitpos[1], unitpos[3], marker[1], marker[3] ) > distancecheck  then
-							
-								count = 0
-								IssueMove( {u}, marker )
-								
-							end
-							
-						else
-						
-							if VDist2Sq( unitpos[1], unitpos[3], marker[1], marker[3] ) <= distancecheck  then
+							IssueMove( {u}, RandomLocation( marker[1], marker[3], 12 ) )
                             
-                                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(platoon.BuilderName).." Issued Stop - within distance")
-							
-								IssueStop( {u} )
-								
-							end
-							
-						end
-						
+                            delay = delay + 10 -- increase the delay temporarily to avoid overtriggering this
+
+                        end
 					end
 					
 				end
-				
-				count = 0
-				
-			else
-            
-                count = count + 1
+
             end
-            
+
+            if count > 24 then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." MTWayPt "..repr(platoon.BuilderName).." "..repr(platoon.BuilderInstance).."  cycle "..count.."  Distance "..distance.."  trigger "..triggerdistance.."  delay "..delay.." ticks" )
+                triggerdistance = triggerdistance + 1
+            end
         end
+        
+        count = count + 1
 		
-        WaitTicks(14)
+        WaitTicks(delay)
 		
     end
 end
