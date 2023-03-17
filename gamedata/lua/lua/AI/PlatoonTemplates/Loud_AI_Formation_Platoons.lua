@@ -385,8 +385,9 @@ PlatoonTemplate { Name = 'AmphibAttackHuge',
 PlatoonTemplate { Name = 'BaseGuardMedium',
 
     GlobalSquads = {
-        { LANDDIRECTFIRE - categories.EXPERIMENTAL, 13, 24, 'Attack', 'AttackFormation' },
-		{ LANDSHIELD, 0, 3, 'Attack', 'none' },
+        { LANDDIRECTFIRE - categories.EXPERIMENTAL,  5, 18, 'Attack', 'AttackFormation' },
+   		{ LANDARTILLERY - categories.EXPERIMENTAL, 0, 4, 'Artillery', 'none'},
+		{ LANDSHIELD, 0, 3, 'Guard', 'none' },
 		{ LANDCOUNTERINTEL, 0, 1, 'Guard', 'none' },
     },
 }
