@@ -37,7 +37,11 @@ URL0107 = Class(CWalkingLandUnit) {
                 ScaleEmitter( v.Emitter, .1)
                 ScaleEmitter( v.Sparker, .1)
 
-                v:AttachTo( self, v.Name )
+                if v.Detached then
+                    v:AttachTo( self, v.Name )
+                end
+                
+                v.Detached = false
             end
         end
         

@@ -46,8 +46,8 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Normal',
-        Health = 35,
-        MaxHealth = 35,
+        Health = 32,
+        MaxHealth = 32,
         RegenRate = 0,
         SurfaceThreatLevel = 0.8,
     },
@@ -99,7 +99,7 @@ UnitBlueprint {
 	
     Economy = {
         BuildCostEnergy = 80,
-        BuildCostMass = 11,
+        BuildCostMass = 10,
         BuildTime = 55,
     },
 	
@@ -147,10 +147,10 @@ UnitBlueprint {
             LAYER_Land = true,
         },
         DragCoefficient = 0.2,
-        MaxAcceleration = 3.8,
-        MaxBrake = 3.8,
-        MaxSpeed = 3.8,
-        MaxSpeedReverse = 2,
+        MaxAcceleration = 2,
+        MaxBrake = 2,
+        MaxSpeed = 4,
+        MaxSpeedReverse = 4,
         MaxSteerForce = 7,
         MeshExtentsX = 0.45,
         MeshExtentsY = 0.55,
@@ -198,7 +198,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 8,
+            Damage = 16,
             DamageType = 'Normal',
 			
             DisplayName = 'Phasic Autogun',
@@ -239,7 +239,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,		-- 8 DPS
+            RateOfFire = 0.5,		-- 8 DPS
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 25,

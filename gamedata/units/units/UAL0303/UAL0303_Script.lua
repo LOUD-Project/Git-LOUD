@@ -17,9 +17,12 @@ UAL0303 = Class(AWalkingLandUnit) {
     OnStopBuild = function(self, unitBeingBuilt)
     
         if self.BuildProjectile then
+        
             if self.BuildProjectile.Detached then
                 self.BuildProjectile:AttachTo( self, self.BuildPoint )
             end
+            
+            self.BuildProjectile.Detached = false
         end
 
     end,    

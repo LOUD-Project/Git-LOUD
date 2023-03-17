@@ -47,8 +47,8 @@ UnitBlueprint {
     CollisionOffsetZ = 0.05,
     Defense = {
         ArmorType = 'Normal',
-        Health = 20,
-        MaxHealth = 20,
+        Health = 22,
+        MaxHealth = 22,
         RegenRate = 0,
         SurfaceThreatLevel = 0.2,
     },
@@ -77,7 +77,7 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 44,
+        BuildCostEnergy = 48,
         BuildCostMass = 8,
         BuildTime = 40,
     },
@@ -127,7 +127,7 @@ UnitBlueprint {
         
         MaxAcceleration = 2,
         MaxBrake = 2,
-        MaxSpeed = 5,
+        MaxSpeed = 4.5,
         MaxSpeedReverse = 3,
         
         MaxSteerForce = 1000,
