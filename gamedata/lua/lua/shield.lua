@@ -336,17 +336,18 @@ Shield = Class(moho.shield_methods,Entity) {
 			Warp( ImpactMesh, self:GetPosition())		
 		
 			if self.ImpactMeshBp then
-			
-				ImpactMesh:SetMesh(self.ImpactMeshBp)
-				
-				ImpactMesh:SetDrawScale(self.Size)
                 
                 local vec = VectorCached
                 vec[1] = -vector.x
                 vec[2] = -vector.y
                 vec[3] = -vector.z
                 
-				ImpactMesh:SetOrientation( OrientFromDir( vec ), true)
+				ImpactMesh:SetOrientation( OrientFromDir( vec ), true)			
+
+				ImpactMesh:SetMesh(self.ImpactMeshBp)
+				
+				ImpactMesh:SetDrawScale(self.Size)
+
 			end
 
 			if self.ImpactEffects and not self.Dead then
@@ -441,40 +442,42 @@ Shield = Class(moho.shield_methods,Entity) {
 			self.MeshZ = nil
 		end
 
-        self.Owner:OnShieldIsDown() # added by brute51
+        self.Owner:OnShieldIsDown()
 		
     end,
 
     CreateShieldMesh = function(self)
-	
-		self:SetCollisionShape( 'Sphere', 0, 0, 0, self.Size/2)
-
-		self:SetMesh(self.MeshBp)
         
         local vec = VectorCached
         vec[1] = 0
         vec[2] = self.ShieldVerticalOffset
         vec[3] = 0
 		
-		self:SetParentOffset( vec )
+		self:SetParentOffset( vec )	
+
+		self:SetCollisionShape( 'Sphere', 0, 0, 0, self.Size/2)
+
+		self:SetMesh(self.MeshBp)
+
 		self:SetDrawScale(self.Size)
 
 		if self.MeshZ == nil then
 		
 			self.MeshZ = Entity { }
-			
-			self.MeshZ:SetMesh(self.MeshZBp)
-			
-            Warp( self.MeshZ, self.Owner:GetPosition() )
-			
-			self.MeshZ:SetDrawScale(self.Size)
+
+            Warp( self.MeshZ, self.Owner:GetPosition() )			
+
 			self.MeshZ:AttachBoneTo(-1,self.Owner,-1)
-            
+
             vec[1] = 0
             vec[2] = self.ShieldVerticalOffset
             vec[3] = 0
             
 			self.MeshZ:SetParentOffset( vec )
+
+			self.MeshZ:SetMesh(self.MeshZBp)
+
+			self.MeshZ:SetDrawScale(self.Size)
 
 			self.MeshZ:SetVizToFocusPlayer('Always')
 			self.MeshZ:SetVizToEnemies('Intel')
@@ -482,7 +485,7 @@ Shield = Class(moho.shield_methods,Entity) {
 			self.MeshZ:SetVizToNeutrals('Intel')
 		end
 		
-        self.Owner:OnShieldIsUp() # added by brute51
+        self.Owner:OnShieldIsUp()
     end,
 
     -- Basically run a timer, but with a visual bar
@@ -920,15 +923,6 @@ ProjectedShield = Class(Shield){
             local OffsetLength = LOUDSQRT( LOUDPOW( vector[1], 2 ) + LOUDPOW( vector[2], 2 ) + LOUDPOW(vector[3], 2 ) )
             
             local ImpactMesh = Entity( self.ImpactEntitySpecs )
-            
-            local beams = {}
-	
-            for i, Pillar in self.Owner.Projectors do
-
-                if self:IsValidBone(0) and Pillar:IsValidBone('Gem') then
-                    beams[i] = AttachBeamEntityToEntity(self, 0, Pillar, 'Gem', army, Pillar:GetBlueprint().Defense.Shield.ShieldTargetBeam)
-                end
-            end
 		
             Warp( ImpactMesh, self:GetPosition())
 		
@@ -943,6 +937,15 @@ ProjectedShield = Class(Shield){
                 vec[3] = -vector.z
                 
                 ImpactMesh:SetOrientation(OrientFromDir( vec ),true)
+            end
+            
+            local beams = {}
+	
+            for i, Pillar in self.Owner.Projectors do
+
+                if self:IsValidBone(0) and Pillar:IsValidBone('Gem') then
+                    beams[i] = AttachBeamEntityToEntity(self, 0, Pillar, 'Gem', army, Pillar:GetBlueprint().Defense.Shield.ShieldTargetBeam)
+                end
             end
             
             if self.ImpactEffects and not self.Dead then
