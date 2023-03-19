@@ -270,7 +270,7 @@ function AIPickEnemyLogic( self, brainbool )
                     -- if we have an enemy and we dont have an attack goal or the goal is quite different from the one we already have
                     if self.CurrentEnemyIndex and ( (not self.AttackPlanGoal) or VDist3(self.AttackPlan.Goal, enemyPosition) > 100 ) then
                     
-                        LOG("*AI DEBUG "..self.Nickname.." Choosing enemy - " ..enemy.Nickname.." at "..repr(enemyPosition).." distance "..repr(VDist3( testposition, enemyPosition )).." Strength is "..repr(enemyStrength) )
+                        --LOG("*AI DEBUG "..self.Nickname.." Choosing enemy - " ..enemy.Nickname.." at "..repr(enemyPosition).." distance "..repr(VDist3( testposition, enemyPosition )).." Strength is "..repr(enemyStrength) )
 					
                         -- create a new attack plan
                         self:ForkThread( import('/lua/loudutilities.lua').AttackPlanner, enemyPosition)
@@ -856,7 +856,6 @@ function RandomLocation(x,z, value)
     while finalX <= 0 or finalX >= ScenarioInfo.size[1] do
 	
         finalX = x + Random(-r_value, r_value)
-		
     end
 	
     local finalZ = z + Random(-r_value, r_value)
@@ -864,7 +863,6 @@ function RandomLocation(x,z, value)
     while finalZ <= 0 or finalZ >= ScenarioInfo.size[2] do
 	
         finalZ = z + Random(-r_value, r_value)
-		
     end
 	
     local height = GetTerrainHeight( finalX, finalZ )

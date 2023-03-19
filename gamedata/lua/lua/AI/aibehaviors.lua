@@ -184,6 +184,7 @@ function LifeThread( aiBrain, cdr )
     
     local GetEconomyIncome = moho.aibrain_methods.GetEconomyIncome
     local GetEconomyRequested = moho.aibrain_methods.GetEconomyRequested
+    local GetEconomyStoredRatio = GetEconomyStoredRatio
     local GiveResource = moho.aibrain_methods.GiveResource
     local WaitTicks = WaitTicks
     
@@ -419,7 +420,7 @@ function CDROverCharge( aiBrain, cdr )
 						enemyThreat = GetThreatAtPosition( aiBrain, targetPos, 0, true, 'AntiSurface')
 						friendlyThreat = GetThreatAtPosition( GetAIBrain(target), targetPos, 0, true, 'AntiSurface')
 		
-						if target and (aiBrain:GetEconomyStored('ENERGY') >= weapon.EnergyRequired) and (not target.Dead) and (LOUDV3(GetPosition(cdr), GetPosition(target)) <= weapRange) then
+						if target and (GetEconomyStored(aiBrain,'ENERGY') >= weapon.EnergyRequired) and (not target.Dead) and (LOUDV3(GetPosition(cdr), GetPosition(target)) <= weapRange) then
 						
 							FloatingEntityText(id,'Eat some of this...')
 							
@@ -1641,7 +1642,7 @@ function LandScoutingAI( self, aiBrain )
                         
                             IssueStop( {scout} )
 					
-                            path = GetBasePerimeterPoints( aiBrain, targetArea, baseradius, false, false, 'Land', true )
+                            path = GetBasePerimeterPoints( aiBrain, targetArea, baseradius, false, false, MovementLayer, true )
 					
                             for k,v in path do
 
@@ -1798,6 +1799,7 @@ function NavalScoutingAI( self, aiBrain )
 					aiBrain.IL.HiPri[k].LastScouted = LOUDTIME()
 
                     targetArea = LOUDCOPY(position)
+                    targetArea[2] = surface
 					
 					ForkThread( AISortScoutingAreas, aiBrain, aiBrain.IL.HiPri )
 					break
@@ -1837,6 +1839,7 @@ function NavalScoutingAI( self, aiBrain )
 					aiBrain.IL.LowPri[k].LastScouted = LOUDTIME()
 
                     targetArea = LOUDCOPY(position)
+                    targetArea[2] = surface
 
 					ForkThread( AISortScoutingAreas, aiBrain, aiBrain.IL.LowPri )
 					break
@@ -2045,6 +2048,8 @@ function RetreatAI( self, aiBrain )
     
     local function CountPlatoonUnits()
     
+        local GetPlatoonUnits = GetPlatoonUnits
+    
         CurrentSize = 0
     
         for _, u in GetPlatoonUnits(self) do
@@ -2105,21 +2110,21 @@ function NukeAI( self, aiBrain )
 	local AIFindNumberOfUnitsBetweenPoints = import('/lua/ai/aiattackutilities.lua').AIFindNumberOfUnitsBetweenPoints
 	local AISendChat = import('/lua/ai/sorianutilities.lua').AISendChat
 	local GetHiPriTargetList = import('/lua/ai/altaiutilities.lua').GetHiPriTargetList
-	local GetUnitsAroundPoint = GetUnitsAroundPoint
 	local UnitLeadTarget = import('/lua/ai/sorianutilities.lua').UnitLeadTarget
 	
     local aiBrain = GetBrain(self)
     
+    local GetPlatoonUnits = GetPlatoonUnits    
+	local GetUnitsAroundPoint = GetUnitsAroundPoint
+	local PlatoonExists = PlatoonExists	
+    
     local LOUDEQUAL = table.equal
 	local LOUDGETN = LOUDGETN
-    
-    local GetPlatoonUnits = GetPlatoonUnits    
-	local PlatoonExists = PlatoonExists	
     
 	local AvailableLaunches = {}
 	local nukesavailable = 0
     local count = 0
-	
+
 	while PlatoonExists( aiBrain, self ) do
 	
 		AvailableLaunches = {}
@@ -2438,7 +2443,7 @@ function SetLoiterPosition( self, aiBrain, startposition, searchradius, minthrea
     
         local x, z = aiBrain:GetCurrentEnemy():GetArmyStartPos()
 
-        table.insert( threats, { x, z, 5 } )
+        LOUDINSERT( threats, { x, z, 5 } )
     end
 
     -- filter them down to those above min threat and capture the threatavoid threat at that position
@@ -2713,14 +2718,16 @@ function AirForceAILOUD( self, aiBrain )
 
 	local DestinationBetweenPoints = function( destination, start, finish, stepsize )
 
-		local steps = LOUDFLOOR( VDist2(start[1], start[3], finish[1], finish[3]) / stepsize ) + 1
-	
+        local VDist2 = VDist2
+        
+		local steps = LOUDFLOOR( VDist2( start[1],start[3], finish[1],finish[3] ) / stepsize ) + 1
+
 		local xstep = (start[1] - finish[1]) / steps
 		local ystep = (start[3] - finish[3]) / steps
 
-		for i = 0, steps - 1  do
-			
-			if VDist2Sq(start[1] - (xstep * i), start[3] - (ystep * i), destination[1], destination[3]) < (stepsize * stepsize) then
+		for i = 1, steps do
+
+            if VDist2( start[1] - (xstep * i),start[3] - (ystep * i), destination[1],destination[3]) <= stepsize then
 				return { start[1] - (xstep * i), destination[2], start[3] - (ystep * i) }
 			end
 		end	
@@ -3683,17 +3690,18 @@ function AirForceAI_Gunship_LOUD( self, aiBrain )
 
 	local DestinationBetweenPoints = function( destination, start, finish, stepsize )
 
+        local VDist2Sq = VDist2Sq
+
 		local steps = LOUDFLOOR( VDist2(start[1], start[3], finish[1], finish[3]) / stepsize ) + 1
 	
 		local xstep = (start[1] - finish[1]) / steps
 		local ystep = (start[3] - finish[3]) / steps
 
-		for i = 0, steps - 1  do
+		for i = 1, steps do
 			
 			if VDist2Sq(start[1] - (xstep * i), start[3] - (ystep * i), destination[1], destination[3]) < (stepsize * stepsize) then
             
 				return { start[1] - (xstep * i), destination[2], start[3] - (ystep * i) }
-                
 			end
 		end	
 		
@@ -4191,12 +4199,14 @@ function AirForceAI_Torpedo_LOUD( self, aiBrain )
 
 	local DestinationBetweenPoints = function( destination, start, finish, stepsize )
 
+        local VDist2Sq = VDist2Sq
+
 		local steps = LOUDFLOOR( VDist2(start[1], start[3], finish[1], finish[3]) / stepsize ) + 1
 	
 		local xstep = (start[1] - finish[1]) / steps
 		local ystep = (start[3] - finish[3]) / steps
 
-		for i = 0, steps - 1  do
+		for i = 1, steps do
 			
 			if VDist2Sq(start[1] - (xstep * i), start[3] - (ystep * i), destination[1], destination[3]) < (stepsize * stepsize) then
             
@@ -7154,13 +7164,14 @@ function FactorySelfEnhanceThread ( unit, faction, aiBrain, manager )
 	if not EBP or unit.EnhancementsComplete then
 		return
 	end
-	
+
+    local GetFractionComplete = moho.entity_methods.GetFractionComplete
 	local WaitTicks = WaitTicks
     
     local HasEnhancement = unit.HasEnhancement
     local SetBlockCommandQueue = unit.SetBlockCommandQueue
 	
-	while not unit.Dead and unit:GetFractionComplete() < 1 do
+	while not unit.Dead and GetFractionComplete(unit) < 1 do
 		WaitTicks(101)
 	end
 
@@ -7350,6 +7361,8 @@ end
 
 function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtrigger, masshightrigger, energyhightrigger, checkrate, initialdelay, bypassecon)
 
+    local GetFractionComplete = moho.entity_methods.GetFractionComplete
+    
 	-- confirm that unit is upgradeable
 	local upgradeID = __blueprints[unit.BlueprintID].General.UpgradesTo or false
 	
@@ -7433,7 +7446,7 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
 	while init_delay < initialdelay do
 		
 		-- uses the same values as factories do for units
-		if GetEconomyStored( aiBrain, 'MASS') >= 200 and GetEconomyStored( aiBrain, 'ENERGY') >= 2500 and unit:GetFractionComplete() == 1 then
+		if GetEconomyStored( aiBrain, 'MASS') >= 200 and GetEconomyStored( aiBrain, 'ENERGY') >= 2500 and GetFractionComplete(unit) == 1 then
 			init_delay = init_delay + 10
 		else
             -- units which are permitted to bypass the more stringent eco tests can advance
@@ -7664,9 +7677,9 @@ function SelfUpgradeThread ( unit, faction, aiBrain, masslowtrigger, energylowtr
         -- so now we'll wait for it to be completed or die
         repeat
             WaitTicks(2)
-        until unitbeingbuilt.Dead or unitbeingbuilt:GetFractionComplete() == 1
+        until unitbeingbuilt.Dead or GetFractionComplete(unitbeingbuilt) == 1
         
-        if StructureUpgradeDialog and (not unitbeingbuilt.Dead) and unitbeingbuilt:GetFractionComplete() == 1 then
+        if StructureUpgradeDialog and (not unitbeingbuilt.Dead) and GetFractionComplete(unitbeingbuilt) == 1 then
             LOG("*AI DEBUG "..aiBrain.Nickname.." STRUCTUREUpgrade "..unitbeingbuilt.EntityID.." "..unitbeingbuilt:GetBlueprint().Description.." UPGRADE COMPLETE at game second "..GetGameTimeSeconds())
         end
 

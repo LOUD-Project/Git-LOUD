@@ -22,6 +22,7 @@ local AssignUnitsToPlatoon = moho.aibrain_methods.AssignUnitsToPlatoon
 local BeenDestroyed = moho.entity_methods.BeenDestroyed
 local DecideWhatToBuild = moho.aibrain_methods.DecideWhatToBuild
 local GetAIBrain = moho.unit_methods.GetAIBrain
+local GetFractionComplete = moho.entity_methods.GetFractionComplete
 local GetGuards = moho.unit_methods.GetGuards
 local GetPosition = moho.entity_methods.GetPosition
 local GetThreatAtPosition = moho.aibrain_methods.GetThreatAtPosition
@@ -817,6 +818,9 @@ EngineerManager = Class(BuilderManager) {
 		-- This is then passed off to the BaseMonitorAlertTimeoutLOUD which will follow that threat,
 		-- keeping it updated and active, or expiring it when it is no longer valid
 		local function BaseMonitorThreatCheck()
+ 
+            local GetUnitsAroundPoint = GetUnitsAroundPoint
+            local VDist2Sq = VDist2Sq
 
 			if aiBrain.IL.HiPri[1] then
 	
@@ -1303,13 +1307,11 @@ EngineerManager = Class(BuilderManager) {
 
         local DistressRepeats = 0
 		local DistressTypes = { 'Air', 'Land', 'Naval' }
-        local VectorCached = { 0, 0, 0 }
 		
 		local distressLocation, distressType, threatamount
 	
 		local grouplnd, groupair, groupsea, groupftr
-		local grouplndcount, groupaircount, groupseacount, groupfrtcount
-        local steps, xstep, ystep, lastpos, nextpos, lastposheight, nextposheight
+		local grouplndcount, groupaircount, groupseacount, groupfrtcount, nextposheight
 
         local BaseMonitorGetDistressLocation = self.BaseMonitorGetDistressLocation
         local RallyPoints = aiBrain.BuiderManagers[LocationType].RallyPoints
@@ -1322,18 +1324,19 @@ EngineerManager = Class(BuilderManager) {
             local GetTerrainHeight = GetTerrainHeight	
 
 			-- This gives us the approx number of 8 ogrid steps in the distance
-			steps = LOUDFLOOR( VDist2(pos[1], pos[3], targetPos[1], targetPos[3]) / 8 )
+			local steps = LOUDFLOOR( VDist2(pos[1], pos[3], targetPos[1], targetPos[3]) / 8 ) + 1
 	
-			xstep = (pos[1] - targetPos[1]) / steps -- how much the X value will change from step to step
-			ystep = (pos[3] - targetPos[3]) / steps -- how much the Y value will change from step to step
+			local xstep = (pos[1] - targetPos[1]) / steps -- how much the X value will change from step to step
+			local ystep = (pos[3] - targetPos[3]) / steps -- how much the Y value will change from step to step
 			
-			lastpos = {pos[1], 0, pos[3]}
-            lastposHeight = GetTerrainHeight( lastpos[1], lastpos[3] )
+			local lastpos = {pos[1], 0, pos[3]}
+            local lastposHeight = GetTerrainHeight( lastpos[1], lastpos[3] )
+            
+            local nextpos = { 0, 0, 0 }
 	
 			-- Iterate thru the number of steps - starting at the pos and adding xstep and ystep to each point
 			for i = 1, steps do
 		
-				nextpos = VectorCached
                 nextpos[1] = pos[1] - (xstep * i)
                 nextpos[3] = pos[3] - (ystep * i)
 			
@@ -1790,7 +1793,7 @@ EngineerManager = Class(BuilderManager) {
 	BaseMonitorGetDistressLocation = function( self, aiBrain, baseposition, radius, threshold, threattype )
     
         local LOUDCOPY = LOUDCOPY
-        local VDist2Sq = VDist2Sq
+        local PlatoonExists = PlatoonExists
         local VDist3 = VDist3
 	
 		-- Commander Distress is 1st priority --
@@ -1809,13 +1812,10 @@ EngineerManager = Class(BuilderManager) {
 
 		-- Platoon Distress calls -- 
 		if aiBrain.PlatoonDistress.AlertSounded then
-	
-			local PlatoonExists = PlatoonExists
-	
-			local returnPos = false
+
+			local returnPos = { 0, 0, 0 }
 			local returnThreat = 0
-			local distance = (radius * radius)	-- maximum search radius
-			local distressdist
+			local distressdist, distressposition
 		
 			for _,v in aiBrain.PlatoonDistress.Platoons do
 		

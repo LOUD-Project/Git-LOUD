@@ -913,12 +913,14 @@ ProjectedShield = Class(Shield){
     end,
 
     CreateImpactEffect = function(self, vector)
-    
+
+        local AttachBeamEntityToEntity = AttachBeamEntityToEntity
+        local CreateEmitterAtBone = CreateEmitterAtBone
         local WaitTicks = coroutine.yield
 
         if not self.Dead then
         
-            local army = GetArmy(self)
+            local army = self.Army
             
             local OffsetLength = LOUDSQRT( LOUDPOW( vector[1], 2 ) + LOUDPOW( vector[2], 2 ) + LOUDPOW(vector[3], 2 ) )
             
@@ -927,16 +929,18 @@ ProjectedShield = Class(Shield){
             Warp( ImpactMesh, self:GetPosition())
 		
             if self.ImpactMeshBp then
-            
-                ImpactMesh:SetMesh(self.ImpactMeshBp)
-                ImpactMesh:SetDrawScale(self.Size)
                 
                 local vec = VectorCached
+
                 vec[1] = -vector.x
                 vec[2] = -vector.y
                 vec[3] = -vector.z
                 
-                ImpactMesh:SetOrientation(OrientFromDir( vec ),true)
+                ImpactMesh:SetOrientation(OrientFromDir( vec ),true)            
+
+                ImpactMesh:SetMesh(self.ImpactMeshBp)
+                ImpactMesh:SetDrawScale(self.Size)
+
             end
             
             local beams = {}

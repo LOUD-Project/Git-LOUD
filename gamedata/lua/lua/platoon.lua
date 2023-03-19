@@ -144,6 +144,8 @@ Platoon = Class(moho.platoon_methods) {
         
 			local aiBrain = GetBrain(self)
             
+            --LOG("*AI DEBUG "..repr(aiBrain.Nickname).." creates platoon "..repr(self))
+            
             self:ForkThread( function(self) WaitTicks(1) LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." platoon created ") end)
 		end
         
@@ -595,10 +597,11 @@ Platoon = Class(moho.platoon_methods) {
 	
 		if PlatoonExists(aiBrain,self) then
     
-            local LOUDENTITY = EntityCategoryContains
+            local LOUDENTITY = LOUDENTITY
+            local LOUDFIND = LOUDFIND
 
 			if ScenarioInfo.PlatoonDialog then
-				LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." Platoon Disbanded")
+				LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." Platoon beginning Disband")
 			end
 
 			if self.MoveThread then
@@ -624,7 +627,7 @@ Platoon = Class(moho.platoon_methods) {
 						
 						if self.CreationTime == CurrentTime then
 					
-							if BuilderName and not string.find( BuilderName, 'Eng RTB') and self.BuilderLocation then
+							if BuilderName and not LOUDFIND( BuilderName, 'Eng RTB') and self.BuilderLocation then
                                 
 								v.failedbuilds = (v.failedbuilds + 1) or 1
                         
@@ -706,43 +709,37 @@ Platoon = Class(moho.platoon_methods) {
 		if MovementLayer == 'Land' or MovementLayer == 'Amphibious' then
 		
 			local AIGetMarkersAroundLocation = AIGetMarkersAroundLocation
-
             local CalculatePlatoonThreat = CalculatePlatoonThreat
-			local GetThreatAtPosition = GetThreatAtPosition
-			local GetUnitsAroundPoint = GetUnitsAroundPoint			
-			
-			local PlatoonGenerateSafePathToLOUD = self.PlatoonGenerateSafePathToLOUD
-    
             local GetPlatoonPosition = GetPlatoonPosition
             local GetPlatoonUnits = GetPlatoonUnits
-            
             local GetSurfaceHeight = GetSurfaceHeight
             local GetTerrainHeight = GetTerrainHeight
-            
+			local GetThreatAtPosition = GetThreatAtPosition
+			local GetUnitsAroundPoint = GetUnitsAroundPoint			
             local PlatoonExists = PlatoonExists
 
             local LOUDCOPY = LOUDCOPY
             local LOUDFLOOR = LOUDFLOOR
             local LOUDLOG10 = LOUDLOG10
-            
             local VDist2Sq = VDist2Sq
             local VDist3 = VDist3
             local WaitTicks = WaitTicks
    		
-			local Defense, mythreat
+
             local surthreat = 0
             local airthreat = 0
 			local counter = 0
 			local bUsedTransports = false
 			local transportplatoon = false
-            
+
+			local PlatoonGenerateSafePathToLOUD = self.PlatoonGenerateSafePathToLOUD            
+
 			local IsEngineer = PlatoonCategoryCount( self, ENGINEERS ) > 0
             
             local TESTUNITS = ALLUNITS - categories.FACTORY - categories.ECONOMIC - categories.SHIELD - categories.WALL
-            
-            local path, reason, pathlength
 
-    
+			local Defense, mythreat, path, reason, pathlength
+
 			-- prohibit LAND platoons from traveling to water locations
 			if MovementLayer == 'Land' then
 			
@@ -1087,21 +1084,19 @@ Platoon = Class(moho.platoon_methods) {
     -- May 2020 - added the pathcost to the return value for Land and Amphib paths
 	PlatoonGenerateSafePathToLOUD = function( aiBrain, platoon, platoonLayer, start, destination, threatallowed, MaxMarkerDist)
 
-		local GetUnitsAroundPoint = GetUnitsAroundPoint
         local PathFindingDialog = ScenarioInfo.PathFindingDialog
-        
+
+        local GetPlatoonUnits = GetPlatoonUnits
+		local GetUnitsAroundPoint = GetUnitsAroundPoint
+        local PlatoonExists = PlatoonExists
+
         local LOUDFLOOR = LOUDFLOOR
         local LOUDMAX = LOUDMAX
         local LOUDMIN = LOUDMIN
         local LOUDSORT = LOUDSORT
-
-        local GetPlatoonUnits = GetPlatoonUnits
-        local PlatoonExists = PlatoonExists
-
 		local VDist2Sq = VDist2Sq
 		local VDist2 = VDist2
         local VDist3Sq = VDist3Sq
-        
         local WaitTicks = WaitTicks
 
 		local threattype = ThreatTable[platoonLayer]
@@ -1178,7 +1173,6 @@ Platoon = Class(moho.platoon_methods) {
 		local MaxMarkerDist = MaxMarkerDist or 160
 		local radiuscheck = MaxMarkerDist * MaxMarkerDist
 
-        local VectorCached = { 0, 0, 0 }		
 		local stepcheck = stepsize * stepsize
 		
 		-- get all the layer markers -- table format has 5 values (posX,posY,posZ, nodeName, graph)
@@ -1206,17 +1200,16 @@ Platoon = Class(moho.platoon_methods) {
 		-- checks if destination is somewhere between two points
         -- if it is, return the point at which we located the destination
 		local DestinationBetweenPoints = function( destination, start, finish )
+        
+            local VDist2Sq = VDist2Sq
 
-			-- using the distance between two nodes
-			-- calc how many steps there will be in the line
-			steps = LOUDFLOOR( VDist2(start[1], start[3], finish[1], finish[3]) / stepsize ) + 1
+			local steps = LOUDFLOOR( VDist2(start[1], start[3], finish[1], finish[3]) / stepsize ) + 1
 
-			-- and the size of each step
-			xstep = (start[1] - finish[1]) / steps
-			ystep = (start[3] - finish[3]) / steps
+			local xstep = (start[1] - finish[1]) / steps
+			local ystep = (start[3] - finish[3]) / steps
 	
 			-- check the steps from start to one less than then destination
-			for i = 0, steps - 1 do
+			for i = 1, steps do
 				
 				-- if we're within the stepcheck ogrids of the destination then we found it
 				if VDist2Sq(start[1] - (xstep * i), start[3] - (ystep * i), destination[1], destination[3]) < stepcheck then
@@ -1241,6 +1234,7 @@ Platoon = Class(moho.platoon_methods) {
                 return false
             end
             
+            local GetSurfaceHeight = GetSurfaceHeight
             local LOUDABS = LOUDABS
             local InWater, steps, xstep, ystep
   
@@ -1254,11 +1248,11 @@ Platoon = Class(moho.platoon_methods) {
             end
 
             if PathFindingDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." checks "..platoonLayer.." blocking from "..repr(pos).." to "..repr(targetPos).." deviation is "..repr(deviation) )
+                LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." "..platoonLayer.." checks blocking from "..repr(pos).." to "..repr(targetPos).." deviation is "..repr(deviation) )
             end            
             
 			-- This gives us the number of approx. 6 ogrid steps in the distance
-			steps = LOUDFLOOR( VDist2(pos[1], pos[3], targetPos[1], targetPos[3]) / 6 )
+			steps = LOUDFLOOR( VDist2(pos[1], pos[3], targetPos[1], targetPos[3]) / 6 ) + 1
 	
 			xstep = (pos[1] - targetPos[1]) / steps -- how much the X value will change from step to step
 			ystep = (pos[3] - targetPos[3]) / steps -- how much the Y value will change from step to step
@@ -1266,23 +1260,18 @@ Platoon = Class(moho.platoon_methods) {
 			local lastpos = {pos[1], 0, pos[3]}
             local lastposHeight = terrainfunction( lastpos[1], lastpos[3] )
             
-            local nextpos, nextposHeight
+            local nextpos = { 0, 0, 0 }
+            
+            local nextposHeight
 
 			-- Iterate thru the number of steps - starting at the pos and adding xstep and ystep to each point
 			for i = 1, steps do
 
                 InWater = lastposHeight < (GetSurfaceHeight( lastpos[1], lastpos[3] ) -1 )
 
-				nextpos = VectorCached
                 nextpos[1] = pos[1] - (xstep * i)
                 nextpos[3] = pos[3] - (ystep * i)
-
                 nextposHeight = terrainfunction( nextpos[1], nextpos[3] )
-
-                if PathFindingDialog then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." blocking checks "..repr(lastpos).." against "..repr(nextpos) )
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." PathFind "..repr(platoon.BuilderName or platoon).." "..repr(platoon.BuilderInstance).." InWater is "..repr(InWater) )
-                end            
 
                 -- if more than deviation ogrids change in height over 6 ogrids distance
 				if LOUDABS(lastposHeight - nextposHeight) > deviation or (InWater and platoonLayer != 'Amphibious') then
@@ -1308,9 +1297,12 @@ Platoon = Class(moho.platoon_methods) {
 	
 			if markerlist then
 
+                local CheckBlockingTerrain = CheckBlockingTerrain
                 local GetThreatBetweenPositions = GetThreatBetweenPositions
+                local LOUDCOPY = LOUDCOPY
                 local LOUDSORT = LOUDSORT
-				local VDist2 = VDist2		
+				local VDist2 = VDist2
+                local VDist3 = VDist3
 
 				local counter = 0
 				local positions = {}			
@@ -1589,19 +1581,22 @@ Platoon = Class(moho.platoon_methods) {
         local CalculatePlatoonThreat = CalculatePlatoonThreat
 		local GetPosition = GetPosition
 		local GetCommandQueue = moho.unit_methods.GetCommandQueue
-        
+        local GetPlatoonPosition = GetPlatoonPosition
+        local GetPlatoonUnits = GetPlatoonUnits
+        local PlatoonExists = PlatoonExists        
+
         local LOUDCOPY = LOUDCOPY
         local LOUDENTITY = LOUDENTITY
+        local LOUDMOD = math.mod
         local LOUDSORT = LOUDSORT
-		
 		local VDist3 = VDist3
 		local VDist2 = VDist2
   		local VDist2Sq = VDist2Sq
-    
-        local GetPlatoonPosition = GetPlatoonPosition
-        local GetPlatoonUnits = GetPlatoonUnits
-        local PlatoonExists = PlatoonExists
+        local VDist3Sq = VDist3Sq
         local WaitTicks = WaitTicks
+
+        local MergeIntoNearbyPlatoons = self.MergeIntoNearbyPlatoons
+        local PlatoonGenerateSafePathToLOUD = self.PlatoonGenerateSafePathToLOUD
 
 		if not aiBrain then
 			aiBrain = GetBrain(self)
@@ -1637,6 +1632,9 @@ Platoon = Class(moho.platoon_methods) {
 		
 		-- assume no engineer in platoon
 		local engineer = false
+        
+        local platPos = GetPlatoonPosition(self)
+
         local BuilderName, LocationType
 
 		-- process the units to identify engineers and the CDR
@@ -1697,17 +1695,17 @@ Platoon = Class(moho.platoon_methods) {
 						-- find the closest manager 
 						if MovementLayer == "Land" then
 
-							RTBLocation = FindClosestBaseName( aiBrain, GetPlatoonPosition(self), false, false )
+							RTBLocation = FindClosestBaseName( aiBrain, platPos, false, false )
 						else
 							
 							if MovementLayer == "Air" or MovementLayer == "Amphibious" then
 								
 								-- use any kind of base --
-								RTBLocation = FindClosestBaseName( aiBrain, GetPlatoonPosition(self), true, false )
+								RTBLocation = FindClosestBaseName( aiBrain, platPos, true, false )
 							else
 								
 								-- use only naval bases for 'Sea' platoons
-								RTBLocation = FindClosestBaseName( aiBrain, GetPlatoonPosition(self), true, true )
+								RTBLocation = FindClosestBaseName( aiBrain, platPos, true, true )
 							end
 						end
 					end
@@ -1737,17 +1735,20 @@ Platoon = Class(moho.platoon_methods) {
 			LOG("*AI DEBUG Platoon "..aiBrain.Nickname.." "..repr(self.BuilderName).." begins RTB to "..repr(RTBLocation) )
 		end
 
-       	IssueClearCommands( self )
-        
-        local platPos = LOUDCOPY(GetPlatoonPosition(self))
-		local lastpos = LOUDCOPY(GetPlatoonPosition(self))
+       	self:Stop()
+
+		local lastpos = { 0, 0, 0 }
+
+        lastpos[1] = platPos[1]
+        lastpos[2] = platPos[2]
+        lastpos[3] = platPos[3]
         
 		local transportLocation = false	
-        local baseName, base
         local bestBase = false
         local bestBaseName = ""
         local bestDistance = 99999999
-		local distance = 0
+
+        local baseName, base, calltransport, count, cyclecount, distance, markerradius, merged, mythreat, path, platooncount, reason, rtbdistance, slackdistance, StuckCount, unitpos, units, usedTransports, UseFormation
 		
 		local bases = aiBrain.BuilderManagers
 		

@@ -236,12 +236,13 @@ function AIBuildBaseTemplateOrdered( aiBrain, eng, buildingType, closeToBuilder,
         else
         
       		local CanBuildStructureAt = CanBuildStructureAt
-           	local GetFractionComplete = GetFractionComplete
-            local GetUnitsAroundPoint = GetUnitsAroundPoint
             local LOUDINSERT = LOUDINSERT
             local LOUDREMOVE = LOUDREMOVE
 		
 			local function EngineerTryRepair( buildlocation )
+            
+                local GetFractionComplete = GetFractionComplete
+                local GetUnitsAroundPoint = GetUnitsAroundPoint
 
 				for _,v in GetUnitsAroundPoint( aiBrain, categories.STRUCTURE, buildlocation, 1, 'Ally' ) do
 			
@@ -299,6 +300,8 @@ end
 function AIBuildBaseTemplateFromLocation( baseTemplate, location )
 
 	local LOUDFLOOR = LOUDFLOOR
+    local type = type
+
     local baseT = {}
 	
     if location and baseTemplate then

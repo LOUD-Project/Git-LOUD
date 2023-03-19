@@ -54,6 +54,7 @@ local GetUnitsInRect = GetUnitsInRect
 
 local AssignUnitsToPlatoon = moho.aibrain_methods.AssignUnitsToPlatoon
 local MakePlatoon = moho.aibrain_methods.MakePlatoon
+local tostring = tostring
 
 local PlatoonCategoryCount = moho.platoon_methods.PlatoonCategoryCount
 local PlatoonExists = moho.aibrain_methods.PlatoonExists
@@ -1172,6 +1173,8 @@ end
 -- to 'stage' units nearer to threat for better response
 function DisperseUnitsToRallyPoints( aiBrain, units, position, rallypointtable, checkposition, checkcount )
 
+    local RandomLocation = RandomLocation
+
 	if not rallypointtable then
 
 		local rallypoints = AIGetMarkersAroundLocation(aiBrain, 'Rally Point', position, 65)
@@ -1197,6 +1200,8 @@ function DisperseUnitsToRallyPoints( aiBrain, units, position, rallypointtable, 
 	if rallypointtable[1] then
 	
 		local rallycount = LOUDGETN(rallypointtable)
+        
+        local rp
 
         -- if provided use only that number of points
         -- since the table should be sorted, we end up moving only to those
@@ -1620,6 +1625,7 @@ function ClearOutBase( manager, aiBrain )
 
 	local basename = manager.LocationType
 	local Position = aiBrain.BuilderManagers[basename].Position
+    local tostring = tostring
     
     -- the base cannot have any active alerts --
     if aiBrain.BuilderManagers[basename].EngineerManager.BaseMonitor.ActiveAlerts == 0 then
@@ -2887,8 +2893,7 @@ function SetBaseRallyPoints( aiBrain, basename, basetype, rallypointradius, orie
         local GetSurfaceHeight = GetSurfaceHeight 
         local LOUDABS = math.abs
 
-        local deviation, steps, xstep, ystep
-        local nextpos, lastposHeight, nextposHeight    
+        local deviation, nextpos, nextposHeight    
 
         if basetype == "Sea" then
             deviation = 0.2
@@ -2897,18 +2902,19 @@ function SetBaseRallyPoints( aiBrain, basename, basetype, rallypointradius, orie
         end
 	
 		-- This gives us the number of approx. 8 ogrid steps in the distance
-		steps = math.floor( VDist2(pos[1], pos[3], targetPos[1], targetPos[3]) / 8 )
+		local steps = math.floor( VDist2(pos[1], pos[3], targetPos[1], targetPos[3]) / 8 ) + 1
 	
-		xstep = (pos[1] - targetPos[1]) / steps
-		ystep = (pos[3] - targetPos[3]) / steps
+		local xstep = (pos[1] - targetPos[1]) / steps
+		local ystep = (pos[3] - targetPos[3]) / steps
 
 		local lastpos = {pos[1], 0, pos[3]}
         local lastposHeight = GetSurfaceHeight( lastpos[1], lastpos[3] )
+        
+        nextpos = { 0, 0, 0 }
 
 		-- Iterate thru the number of steps - starting at the pos and adding xstep and ystep to each point
 		for i = 1, steps do
 		
-			nextpos = VectorCached
             nextpos[1] = pos[1] - (xstep * i)
             nextpos[3] = pos[3] - (ystep * i)
 
@@ -3222,27 +3228,25 @@ function PathGeneratorAir( aiBrain )
 	local queue = {}
 	local closed = {}
     
-    local checkrange, destination, fork, platoon, shortcut, stepcostadjust, steps, stepsize, threat, ThreatLayer, xstep, ystep
+    local checkrange, destination, fork, platoon, shortcut, stepcostadjust, stepsize, threat, ThreatLayer
     local EndPosition, EndThreat, pathcost, pathlength, pathlist, StartLength, StartNode, StartPosition, ThreatWeight  
 
 	local function DestinationBetweenPoints(position,testposition)
 
-		steps = LOUDFLOOR( VDist3(position, testposition) / stepsize )
-	
-		if steps > 0 then
-        
-            local VDist2Sq = VDist2Sq
+        local VDist2Sq = VDist2Sq
 
-			xstep = ( position[1] - testposition[1]) / steps
-			ystep = ( position[3] - testposition[3]) / steps
-	
-			for i = 1, steps do
+		local steps = LOUDFLOOR( VDist3(position, testposition) / stepsize ) + 1
 
-				if VDist2Sq( position[1] - (xstep * i), position[3] - (ystep * i), destination[1], destination[3]) <= checkrange then
-					return true
-				end
-			end	
-		end
+        local xstep = ( position[1] - testposition[1]) / steps
+		local ystep = ( position[3] - testposition[3]) / steps
+	
+		for i = 1, steps do
+
+			if VDist2Sq( position[1] - (xstep * i), position[3] - (ystep * i), destination[1], destination[3]) <= checkrange then
+				return true
+			end
+		end	
+
 	
 		return false
 	end
@@ -3449,7 +3453,7 @@ function PathGeneratorAmphibious(aiBrain)
 	local queue = {}
 	local closed = {}
     
-    local destination, fork, stepcostadjust, steps, stepsize, Testpath, threat, ThreatLayer, ThreatLayerCheck, xstep, ystep
+    local destination, fork, stepcostadjust, stepsize, Testpath, threat, ThreatLayer, ThreatLayerCheck
     local EndPosition, EndThreat,  pathcost, pathlength, pathlist, platoon,shortcut, StartLength, StartNode, StartPosition, ThreatWeight 
 
 
@@ -3457,12 +3461,12 @@ function PathGeneratorAmphibious(aiBrain)
 
         local VDist2 = VDist2
         
-		steps = LOUDFLOOR( VDist2( position[1],position[3], testposition[1],testposition[3] ) / stepsize ) + 1
+		local steps = LOUDFLOOR( VDist2( position[1],position[3], testposition[1],testposition[3] ) / stepsize ) + 1
 
-        xstep = ( position[1] - testposition[1]) / steps
-		ystep = ( position[3] - testposition[3]) / steps
+        local xstep = ( position[1] - testposition[1]) / steps
+		local ystep = ( position[3] - testposition[3]) / steps
 
-		for i = 0, steps - 1 do
+		for i = 1, steps do
 
             if VDist2( position[1] - (xstep * i), position[3] - (ystep * i), destination[1], destination[3]) <= stepsize then
                 return true
@@ -3666,27 +3670,24 @@ function PathGeneratorLand(aiBrain)
     
     local maxthreat, minthreat
     
-    local checkrange, destination, fork, platoon, stepcostadjust, steps, stepsize,  TestPath, testposition, threat, ThreatLayer, xstep, ystep
+    local checkrange, destination, fork, platoon, stepcostadjust, stepsize,  TestPath, testposition, threat, ThreatLayer
     local EndPosition, EndThreat, pathcost, pathlength, pathlist, shortcut, StartNode, StartPosition, ThreatWeight
 
 	local function DestinationBetweenPoints( position, testposition )
 
-		steps = LOUDFLOOR( VDist2( position[1], position[3], testposition[1], testposition[3]) / stepsize )
-	
-		if steps > 0 then
-        
-            local VDist2Sq = VDist2Sq
-            
-			xstep = ( position[1] - testposition[1]) / steps
-			ystep = ( position[3] - testposition[3]) / steps
-	
-			for i = 1, steps do
+        local VDist2Sq = VDist2Sq
 
-				if VDist2Sq( position[1] - (xstep * i), position[3] - (ystep * i), destination[1], destination[3]) <= checkrange then
-					return true
-				end
-			end	
-		end
+        local steps = LOUDFLOOR( VDist2( position[1], position[3], testposition[1], testposition[3]) / stepsize ) + 1
+            
+        local xstep = ( position[1] - testposition[1]) / steps
+		local ystep = ( position[3] - testposition[3]) / steps
+	
+		for i = 1, steps do
+
+			if VDist2Sq( position[1] - (xstep * i), position[3] - (ystep * i), destination[1], destination[3]) <= checkrange then
+				return true
+			end
+		end	
 	
 		return false
 	end
@@ -3854,11 +3855,9 @@ function PathGeneratorWater(aiBrain)
 
 	local LOUDINSERT = table.insert
 	local LOUDREMOVE = table.remove
-	local LOUDSORT = table.sort
+	local LOUDSORT = LOUDSORT
 	local ForkThread = ForkThread
 
-	local VDist2Sq = VDist2Sq
-	local VDist2 = VDist2
 	local WaitTicks = coroutine.yield
 
 	local dist_comp = aiBrain.dist_comp
@@ -3871,28 +3870,24 @@ function PathGeneratorWater(aiBrain)
 	local closed = {}
 
     local adjacentnodes, destination, fork, Node, position, queueitem, stepsize, TestPath, testposition, threat, ThreatLayer
-    local checkrange, steps, xstep, ystep
 
 	local function DestinationBetweenPoints()
 
-		steps = LOUDFLOOR( VDist2( position[1], position[3], testposition[1], testposition[3]) / stepsize )
-	
-		if steps > 0 then
-        
-            local VDist2Sq = VDist2Sq
-        
-            checkrange = (stepsize * stepsize)
-            
-			xstep = ( position[1] - testposition[1]) / steps
-			ystep = ( position[3] - testposition[3]) / steps
-	
-			for i = 1, steps do
+        local VDist2Sq = VDist2Sq
 
-				if VDist2Sq( position[1] - (xstep * i), position[3] - (ystep * i), destination[1], destination[3]) <= checkrange then
-					return true
-				end
-			end	
-		end
+        local checkrange = (stepsize * stepsize)
+
+		local steps = LOUDFLOOR( VDist2( position[1], position[3], testposition[1], testposition[3]) / stepsize ) + 1
+
+		local xstep = ( position[1] - testposition[1]) / steps
+		local ystep = ( position[3] - testposition[3]) / steps
+	
+		for i = 1, steps do
+
+			if VDist2Sq( position[1] - (xstep * i), position[3] - (ystep * i), destination[1], destination[3]) <= checkrange then
+				return true
+			end
+		end	
 	
 		return false
 	end
@@ -5237,27 +5232,23 @@ function CreateAttackPlan( self, enemyPosition )
 
 	-- checks if destination is somewhere between two points
 	local DestinationBetweenPoints = function( Goal, start, finish )
-	
-		-- using the distance between two nodes -- using stepsize of 100
-		-- calc how many steps there will be in the line
-		local steps = LOUDFLOOR( VDist2(start[1], start[3], finish[1], finish[3]) / 100 )
+    
+        local VDist2Sq = VDist2Sq
+
+		local steps = LOUDFLOOR( VDist2(start[1], start[3], finish[1], finish[3]) / 100 ) + 1
 		
-		if steps > 0 then
-		
-			-- and the size of each step
-			local xstep = (start[1] - finish[1]) / steps
-			local ystep = (start[3] - finish[3]) / steps
+		-- and the size of each step
+		local xstep = (start[1] - finish[1]) / steps
+		local ystep = (start[3] - finish[3]) / steps
 			
-			-- check the steps from start to one less than then destination
-			for i = 1, steps - 1 do
+		-- check the steps from start to one less than then destination
+		for i = 1, steps do
 			
-				-- if we're within the stepcheck ogrids of the destination then we found it
-				if VDist2Sq(start[1] - (xstep * i), start[3] - (ystep * i), Goal[1], Goal[3]) < 10000 then
-				
-					return true
-				end
-			end	
-		end
+			-- if we're within the stepcheck ogrids of the destination then we found it
+			if VDist2Sq(start[1] - (xstep * i), start[3] - (ystep * i), Goal[1], Goal[3]) < 10000 then
+				return true
+			end
+		end	
 		
 		return false
 	end	
@@ -5816,6 +5807,8 @@ function DrawIntel( aiBrain, parseinterval)
 	
 	-- this will draw resolved intel data (specific points)
 	local function DrawIntelPoint(position, color, threatamount)
+    
+        local DrawC = DrawC
     
         local distmax = math.log10( math.sqrt( threatamount ))
         local surface = GetSurfaceHeight(position[1],position[3])

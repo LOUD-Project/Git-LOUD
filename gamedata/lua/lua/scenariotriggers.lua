@@ -671,7 +671,7 @@ function PlatoonToPositionDistanceTriggerThread( cb, platoon, marker, triggerdis
             end
 
             if count > 24 then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." MTWayPt "..repr(platoon.BuilderName).." "..repr(platoon.BuilderInstance).."  cycle "..count.."  Distance "..distance.."  trigger "..triggerdistance.."  delay "..delay.." ticks" )
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." MTWayPt "..repr(platoon.BuilderName).." "..repr(platoon.BuilderInstance).."  cycle "..count.."  Distance "..distance.."  trigger "..triggerdistance.."  delay "..delay.." ticks" )
                 triggerdistance = triggerdistance + 1
             end
         end

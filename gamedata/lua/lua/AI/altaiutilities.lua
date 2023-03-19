@@ -21,7 +21,6 @@ local ForkTo = ForkThread
 local VDist2 = VDist2
 local VDist2Sq = VDist2Sq
 local VDist3 = VDist3
---local VDist3Sq = VDist3Sq
 
 local WaitTicks = coroutine.yield
 
