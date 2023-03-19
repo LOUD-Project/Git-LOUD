@@ -3430,28 +3430,21 @@ Platoon = Class(moho.platoon_methods) {
                         
                         if SCOUTS[1] then
 
-                            local scoutradius = ((self.PlatoonData.GuardRadius or 75)/2) - 4
-                            
+                            scoutradius = ((PlatoonData.GuardRadius or 75)/2) - 4
+
                             for _,u in SCOUTS do
                             
                                 scoutradius = scoutradius + 8
 						
-                                local loclist = GetBasePerimeterPoints( aiBrain, marker, scoutradius, 'ALL', false, 'Land', true )
-							
-                                for k,v in loclist do
-								
-                                    if (not u.Dead) and u:CanPathTo( v ) then
-                                        
-                                        v[2] = GetSurfaceHeight(v[1], v[3])
+                                local loclist = GetBasePerimeterPoints( aiBrain, marker, scoutradius, 'ALL', false, MovementLayer, true )
 
-                                        if GetTerrainHeight(v[1],v[3]) < (v[2] - 1) then
-                                            continue
-                                        end
-							
+                                IssueStop( {u} )							
+
+                                for k,v in loclist do
+
+                                    if not u.Dead then 
                                         if k == 1 then
-                                    
-                                            IssueClearCommands( {u} )
-								
+
                                             IssueMove( {u}, v )
 
                                         elseif k != 4 and k !=7 and k != 10 then
@@ -4762,28 +4755,26 @@ Platoon = Class(moho.platoon_methods) {
                         SCOUTS = GetSquadUnits( self, 'Scout' )
                         
                         if SCOUTS[1] then
+                        
+                            IssueClearCommands( SCOUTS )
 
-                            local scoutradius = ((self.PlatoonData.GuardRadius or 75)/2) - 4
+                            scoutradius = ((PlatoonData.GuardRadius or 75)/2) - 4
                             
                             for _,u in SCOUTS do
                             
                                 scoutradius = scoutradius + 8
 						
-                                local loclist = GetBasePerimeterPoints( aiBrain, marker, scoutradius, 'ALL', false, 'Land', true )
+                                local loclist = GetBasePerimeterPoints( aiBrain, marker, scoutradius, 'ALL', false, MovementLayer, true )
 							
                                 for k,v in loclist do
 								
-                                    if (not u.Dead) and u:CanPathTo( v ) then
+                                    if not u.Dead then
                                         
                                         v[2] = GetSurfaceHeight(v[1], v[3])
-
-                                        --if GetTerrainHeight(v[1],v[3]) < (v[2] - 1) then
-                                          --  continue
-                                        --end
 							
                                         if k == 1 then
                                     
-                                            IssueClearCommands( {u} )
+                                            IssueStop( {u} )
 								
                                             IssueMove( {u}, v )
 

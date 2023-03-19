@@ -2728,10 +2728,19 @@ function GetBasePerimeterPoints( aiBrain, location, radius, orientation, positio
 		for y = lowlimit, highlimit, steplimit do
 			
 			-- this code lops off the corners of the box and the interior points leaving us with 3 points to a side
-			-- basically it forms a '+' shape
 			if not (x == 0 and y == 0)	and	(x == lowlimit or y == lowlimit or x == highlimit or y == highlimit)
 			and not ((x == lowlimit and y == lowlimit) or (x == lowlimit and y == highlimit)
 			or ( x == highlimit and y == highlimit) or ( x == highlimit and y == lowlimit)) then
+            
+                if layer == "Water" and ( GetTerrainHeight(location[1] + x, location[3] + y) + 1 ) > GetSurfaceHeight(location[1] + x, location[3] + y) then
+
+                    continue
+                    
+                elseif layer == "Land" and ( GetTerrainHeight(location[1] + x, location[3] + y) + 1 ) < GetSurfaceHeight(location[1] + x, location[3] + y) then
+
+                    continue
+
+                end
 			
 				locList[counter+1] = { LOUDCEIL(location[1] + x), GetSurfaceHeight(location[1] + x, location[3] + y), LOUDCEIL(location[3] + y) }
 				counter = counter + 1
