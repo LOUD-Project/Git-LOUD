@@ -44,7 +44,7 @@ UnitBlueprint {
         Health = 1025,
         MaxHealth = 1025,
         RegenRate = 2,
-		NoTeleDistance = 55,
+		NoTeleDistance = 36,
     },
 	
     Description = '<LOC uab4304_desc>Adv Stealth Field Generator',
@@ -107,7 +107,7 @@ UnitBlueprint {
         BuildCostMass = 800,
         BuildTime = 750,
 		
-        MaintenanceConsumptionPerSecondEnergy = 350,
+        MaintenanceConsumptionPerSecondEnergy = 375,
 		
         RebuildBonusIds = { 'uab4304' },
 		
@@ -207,7 +207,7 @@ UnitBlueprint {
 			
             Label = 'DummyWeapon',
 			
-            MaxRadius = 55,
+            MaxRadius = 36,
 			
             RateOfFire = 0.1,
             RangeCategory = 'UWRC_Countermeasure',

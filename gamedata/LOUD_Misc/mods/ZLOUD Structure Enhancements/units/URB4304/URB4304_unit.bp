@@ -38,7 +38,7 @@ UnitBlueprint {
         Health = 1000,
         MaxHealth = 1000,
         RegenRate = 3,
-		NoTeleDistance = 55,
+		NoTeleDistance = 36,
     },
 	
     Description = '<LOC urb4304_desc>Adv Radar & Sonar Stealth Field Generator',
@@ -194,7 +194,7 @@ UnitBlueprint {
 			
             Label = 'DummyWeapon',
 			
-            MaxRadius = 55,
+            MaxRadius = 36,
 			
             RateOfFire = 0.1,
             RangeCategory = 'UWRC_Countermeasure',

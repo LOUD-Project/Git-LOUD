@@ -38,7 +38,7 @@ UnitBlueprint {
         Health = 1125,
         MaxHealth = 1125,
 		RegenRate = 1,
-		NoTeleDistance = 55,
+		NoTeleDistance = 36,
     },
 	
     Description = '<LOC ueb4304_desc>Adv Stealth Field Generator',
@@ -194,7 +194,7 @@ UnitBlueprint {
 			
             Label = 'DummyWeapon',
 			
-            MaxRadius = 55,
+            MaxRadius = 36,
 			
             RateOfFire = 0.1,
             RangeCategory = 'UWRC_Countermeasure',
