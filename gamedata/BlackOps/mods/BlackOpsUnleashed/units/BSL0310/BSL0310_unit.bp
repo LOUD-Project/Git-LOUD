@@ -102,6 +102,7 @@ UnitBlueprint {
     },
 	
     General = {
+        CapCost = 1.0,
 
         CommandCaps = {
             RULEUCC_Attack = true,

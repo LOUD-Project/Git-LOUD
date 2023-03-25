@@ -1,8 +1,6 @@
 UnitBlueprint {
 	AI = {
-        TargetBones = {
-            'Pelvis',
-        },
+        TargetBones = { 'Pelvis' },
     },
     Audio = {
         Destroyed = Sound { Bank = 'XSL_Destroy', Cue = 'XSL_Destroy_Land_Med', LodCutoff = 'UnitMove_LodCutoff' },
@@ -115,8 +113,8 @@ UnitBlueprint {
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
         },
-        FactionName = 'Seraphim',
 
+        FactionName = 'Seraphim',
         Icon = 'land',
 		
         ToggleCaps = {
