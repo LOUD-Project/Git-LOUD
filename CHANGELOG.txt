@@ -1,3 +1,154 @@
+LUA 6.3
+Projectiles 6.3
+Textures 6.3
+UNITS 6.3
+
+4D for LOUD 6.3
+Black Ops Unleashed for LOUD 6.3
+Black Ops Advanced ACU for LOUD 6.3
+BrewLAN for LOUD
+LOUD_MISC 6.3
+LOUD_UNITS 6.3
+Total Mayhem for LOUD 6.3
+Wyvern BattlePack for LOUD 6.3
+
+LUA
+
+- all units can now display build range rings via use of the 'OVERLAYMISC' category to reflect Max Build Range
+- expansion of BUFF options to create discrete buffs for speed, acceleration and turn rate
+- New buffs to support the above changes, and BO ACU changes
+- Many buffs have been converted over to a % basis, rather than fixed values, so they scale with the unit blueprint
+- this allows the elimination of 'hidden' blueprint values, often used in enhancments, that didn't sync with the UI
+- expansion of BUFFFIELD options to allow finer control of visuals from the buff field blueprint
+- UI now accurately reflects the impact of buffs (ie. - temporary regen effects and vet bonuses)
+- Rewrote buff field handling to improve performance, and reduce data use
+- OnIntel functions now carry the actual intel type if available
+- redundant class structures removed from factional class structure
+- numerous minor data reductions and table localizations
+- additional logging functions for weapons, buffs, pathfinding, platoon movement, and specific behaviors
+- support for 'Command' - a 4th enhancement tab
+- added timestamp to memory size reporting in the log
+- increased Overcharge and Deathnuke damage modifers to Commander, Structure and Experimental armor
+- added new anti-projectile field ( MissileTorpDestroy ) used by BO ACU's for basic protection
+- revised anti-projectile fields to take data from unit bp for functionality
+- enhancements now properly signal their state, in it's data - allowing assist tasks to pick up on it and service it
+- added new AI assist builder for assisting ACU and SACU during enhancement
+- revised teleportation mechanics, all jumps now incur a default 'cooldown' delay, regardless of range
+- UI will now, in addition, collect ConsumptionPerSecondEnergy values from enhancements for the rollover display
+- AI now uses a scaling factor for his air scouting, making his earlier air scouts more sensitive to threat
+- Substantial rewrites of AirForceAILOUD and NavalForceAILOUD - handling fighter squadrons and naval combat flotillas
+- FindTarget functions now have a feature to base the targeting on a fixed position - rather than just the current platoon position
+- Check Blocking Terrain functions have been standardized & optimized and use a less aggressive step size ( 6 >> 8 ogrids )
+- Fighter squadrons have enhanced distress response behaviors
+- AI Platoons can now pass along the WaypointSlackDistance value, useful in pathed movement, recognizing 'arrival' at waypoints
+- minor size reductions to some of the largest land platoons to alleviate pathed movement issues
+- MOVEPLATOON now uses a scaling delay while 'watching' platoons, with improved stall detection and response to stalls
+- revised MERGEINTO functions to narrow the scope of when this type of merge can happen
+- fixed a bug in BaseMonitorGetDistressLocation that would report a location of { 0,0,0 }
+- previously, the Platoon Form manager would only check priority functions when bases changed status (Primary or Not Primary)
+- The PFM will now check priority functions, and resort the available platoons, with each cycle of the PFM
+- Intel routine was not recording the LastUpdate value in the HiPri table - causing platoons to abort HiPri targets
+- revised how platoons utilize the HiPri target list for more consistent target acquistition.
+
+
+Textures, Projectiles
+
+- various icon and projectiles updates to support BO ACU and others
+
+Black Ops Advanced ACU 
+
+- this is a major overhaul and rebalancing change affecting every aspect of the mod and it's relation to LOUD
+- In general, enhancements (except top end ones) are less costly & relate directly to weapons/features, already found in the game
+- The Left Arm, Engineering line, has more crossover between the Combat, and Engineering  line in terms of secondary weapons and stats
+- The Engineering line significantly enhances the ACU mobility as you progress (upto 18% faster)
+- The Combat Engineering line significantly slows the ACU as you pack on more armor (upto 12% slower)
+- All ACU are now Radar and Sonar Stealth by default - some can expand that into a full sized 'field' with certain enahancements
+- All ACU now have a basic tac missile/torpedo defense ability by default - no longer requires a discrete weapon in the blueprint
+- ALL ACU now have direct access to the Teleporter enhancement on their 'Back' slot - but it replaces any other Back enhancement
+- ALL ACU now have a 4th enhancement tab - 'Command' - used for Intel enhancements (T2/T3/Advanced Intel)
+- Most of the final enhancements, in any line, add mobility impairment (4%) - this is shown in the detail rollover
+
+
+Black Ops Unleashed Units
+
+- T4 Lambda PD revised with new emitters, visuals, toggle and firing sequence
+- T3 Lambda bot revised with new emitters, visual, toggle and minor stat changes
+- T3 Lambda-equipped transport revised with new emitters, visuals, and toggle
+- SERA Protector bots - minor buffs to all 4 tiers
+- SERA Restoration Field effect (+60% Regen >> +75% Regen)
+- UEF T4 Goliath, revised missile profile, beam turret problems
+- AEON T3 Redeemer AA - was only firing 1 missile - and not the intended 3.  Fixed.
+
+BrewLAN Units
+
+- UEF AntiArmor PD - balance pass was required - (HP 8250 > 7750), E cost (45k > 60k), M (4100 > 4250)
+    - Vet table, E consumption now correctly accounts for all 3 barrels, range (85 > 79), treated as artillery
+- T1 Artillery can now be bulit by the ACU
+- All Air units have had their build values reset to those found in the original mod
+- Added T2 UEF and Cybran Interceptor (SEA0212, SRA0212) - AI will now use them as T2 Fighter build
+- All Landmines have been harmonized with the E formula used by artillery (for AOE radius & damage, no range component)
+    -- the calculator is available on the Artillery page of the Unit Spreadsheet (DOC folder)
+    -- this required changes across all 3 mine types, so review, we can adjust them reliably, in that context
+- T3 Field Engineers - BuildPower increased (16 >> 17)
+- T2/T3 Field Engineers - 10% increase to Build Range, +50% increase to E storage
+- All Field Engineers now show build range like other engineers
+
+
+LOUD_MISC
+
+- Enhanced Static HP Multiplier is now added to the ModManager - modifies HP of all static units & Shields
+- Enhanced BO Commanders aligns with BO ACU for LOUD - +20% HP, -10% Engineering upgrades, +10% damage All weapons
+- T3 Stealth towers had larger ANTITELEPORT ranges than intended - (50 > 36) 
+
+LOUD_UNITS
+
+- Aeon Engineer Station fix for continuous beam
+- Megaroach rebalanced closely with Heavy T4 class rather than Abomination (vet/HP/regen/cost/intel/turret speed)
+- Applied the changes re: Engineering Stations, as noted above to AEON & SERA T3 stations
+- T4AA will now target T2 gunships and bombers
+- T4AA AOE Radius (1.5 >> 1.8)
+
+TOTAL MAYHEM Units
+
+- Cybran Proton - minor cost increase, reduced accel & turn, increased vet requirement, tiny DPS reduction (54 > 51)
+- UEF Banshee - increased AOE damage radius (1 > 1.5)
+- UEF T1 Statue - rocket pod aiming issues
+
+UNITS
+
+- All engineer-type units now display build range rings (using the Misc. range indicator)
+- All engineering stations have univeral range (T2 >> 12.5, T3 >> 17.5) - for some this is a buff, a de-buff for others
+- T3 Mobile Artillery muzzle velocity increase - to fix not firing at extreme range
+- Cybran T1 MAA missile lifetime reduced (3.2secs > 2.7secs) (was basing original value on slowest velocity)
+- Aeon Quantum Optics E consumption reduced (5k > 2k), viewing radius decreased (70 > 65)
+- All T1/T2 true submarines subject to a minor E cost increase
+- All T2 Gunships reduced FuelUseTime by 10%
+- UEF T2 Gunship minor E cost increase (7%) to account for higher speed and FuelUseTime
+- AEON T3 Transport mild acceleration increase, weapon tolerances reduced for better accuracy
+- UEF and AEON T1 Land Scouts with weapons (DPS 4 >> 6), CYBRAN increased vision (28 >> 29)
+- All T1 Walls reduced HP (4k > 3k)
+- All T2 Walls reduced HP (6k > 4.5k)
+- T1 and T2 Wall costs aligned with other wall concepts in terms of mass density, time to build, etc.
+- All SACU have realigned hitbones and hitboxes to improve targetability
+- All SACU have increased E storage (to accomodate Teleport pre-charge mechanic)
+- All SACU have acceleration curves like the ACU (2 seconds to full speed)
+- All SACU that have teleporter upgrades reduced in cost
+- All SACU have reduced HP (-10%) & Regen, additional & revised vet bonuses (Regen,Vision & WaterVision)
+- All SACU have the standard minor factional bonuses applied
+- All SACU main weapon range increased ( 30 >> 33 ) - the weapon should feel like a T2 level weapon now
+- All SACU now leave seabed wrecks & reclaim time is reduced (about 20%)
+- updates to transports abilities to detail carrying capacity in the information rollover
+- fix UEF T2 Engineer station 'disappearing' if stopped while upgrading
+- fix UEF Engineer Stations for continuous beam
+- removed/reduced 'idle' wake animations for many naval units
+
+WYVERN BATTLEPACK
+
+- Aeon Mobile Defense unit, repair to weapon repacking timeout causing 'stalled' unit
+
+
+
+
 ### Release 18-11-2022
 
 LUA 6.2.17
