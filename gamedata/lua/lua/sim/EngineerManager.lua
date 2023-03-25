@@ -261,8 +261,7 @@ EngineerManager = Class(BuilderManager) {
             hndl.PlatoonData = builder:GetBuilderData(self.LocationType)
 			hndl.RTBLocation = builder.RTBLocation or self.LocationType
 
-			IssueClearCommands( {unit} )
-			IssueStop ( {unit} )
+			IssueStop( {unit} )
 			
             AssignUnitsToPlatoon( aiBrain, hndl, {unit}, 'Support', 'none' )
 			
@@ -1459,7 +1458,9 @@ EngineerManager = Class(BuilderManager) {
 							else
 								if BaseDistressResponseDialog then
 									LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASE DISTRESS RESPONSE unable to respond to "..distressType.." only have "..GetThreatOfGroup(grouplnd,'Land'))
-								end							
+								end	
+
+                                IssueClearCommands( grouplnd )
 							
                                 -- move the units to the 3 rallypoints closest to the distressLocation
                                 DisperseUnitsToRallyPoints( aiBrain, grouplnd, baseposition, RallyPoints, distressLocation, 3 )
@@ -1526,7 +1527,9 @@ EngineerManager = Class(BuilderManager) {
 								if BaseDistressResponseDialog then
 									LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASE DISTRESS RESPONSE unable to respond to "..repr(distressType).." only have "..repr(GetThreatOfGroup( groupsea,'NavalAntiSurface') ) )
 								end
-                                
+
+                                IssueClearCommands( groupsea )                                
+
                                 -- move the units to the 3 rallypoints closest to the distressLocation
                                 DisperseUnitsToRallyPoints( aiBrain, groupsea, baseposition, RallyPoints, distressLocation, 3 )
 							end
@@ -1596,7 +1599,9 @@ EngineerManager = Class(BuilderManager) {
                                         if BaseDistressResponseDialog then
                                             LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASE DISTRESS RESPONSE torpedo/gunship unable to respond to "..distressType.." only have "..groupaircount)
                                         end
-                                
+
+                                        IssueClearCommands( groupair )                                
+
                                         -- move the units to the 3 rallypoints closest to the distressLocation
                                         DisperseUnitsToRallyPoints( aiBrain, groupair, baseposition, RallyPoints, distressLocation, 3 )						
                                     end
@@ -1642,6 +1647,8 @@ EngineerManager = Class(BuilderManager) {
 									LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASE DISTRESS RESPONSE fighters unable to respond to "..distressType.." only have "..groupftrcount)
 								end
                                 
+                                IssueClearCommands( groupftr )
+
                                 -- move the units to the 3 rallypoints closest to the distressLocation
                                 DisperseUnitsToRallyPoints( aiBrain, groupftr, baseposition, RallyPoints, distressLocation, 3 )
 							end
@@ -1682,6 +1689,7 @@ EngineerManager = Class(BuilderManager) {
                 -- each DistressRepeat adds 4 seconds to each response period --
                 WaitTicks( (AlertResponseTime + (DistressRepeats*4)) * 10)
             end
+
 		end
 
         if BaseDistressResponseDialog then
@@ -1823,20 +1831,25 @@ EngineerManager = Class(BuilderManager) {
 			
 					if PlatoonExists( aiBrain, v.Platoon ) then
 				
-						distressdist = VDist2Sq(baseposition[1],baseposition[3], v.Position[1],v.Position[3])
+                        distressposition = v.Position
+						distressdist = VDist3(baseposition, distressposition)
 
 						-- if closest one - store it
-						if distressdist <= distance then
+						if distressdist <= radius then
 
-							returnPos = LOUDCOPY(v.Position)
+							returnPos[1] = distressposition[1]
+                            returnPos[2] = distressposition[2]
+                            returnPos[3] = distressposition[3]
 							returnThreat = v.Threat
 							distance = distressdist
 						end
 					end
 				end
 			end
-		
-			return returnPos,threattype,returnThreat
+
+            if returnThreat > 0 then
+                return returnPos, threattype, returnThreat
+            end
 		end
 
 		return false, false, 0

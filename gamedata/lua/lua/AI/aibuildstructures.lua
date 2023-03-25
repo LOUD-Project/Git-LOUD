@@ -55,6 +55,11 @@ function AIExecuteBuildStructure( aiBrain, engineer, buildingType, closeToBuilde
     if closeToBuilder then
         SourcePosition = LOUDCOPY(GetPosition(engineer))
     end
+    
+    if not SourcePosition then
+        LOG("*AI DEBUG No SourcePosition")
+        return false
+    end
 	
     local location = false
     local relativeLoc = false
@@ -171,7 +176,7 @@ function AIExecuteBuildStructure( aiBrain, engineer, buildingType, closeToBuilde
         
     else
     
-        --LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(engineer.BuilderName).." FINDPLACE for "..repr(buildingType).." at "..repr(SourcePosition).." with template "..repr(baseTemplate) )	
+        LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(engineer.BuilderName).." FINDPLACE for "..repr(buildingType).." at "..repr(SourcePosition).." with template "..repr(baseTemplate) )	
 
         location = FindPlaceToBuild( aiBrain, buildingType, whatToBuild, baseTemplate, relative, engineer, nil, SourcePosition[1], SourcePosition[3])
 		
@@ -193,6 +198,8 @@ function AIExecuteBuildStructure( aiBrain, engineer, buildingType, closeToBuilde
 		
 		return true
     end
+    
+    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(engineer.BuilderName).." fails to execute build "..repr(whatToBuild).." "..repr(buildingType) )
 	
 	return false
 end
