@@ -16,6 +16,7 @@ local LOUDEMPTY = table.empty
 local LOUDENTITY = EntityCategoryContains
 local LOUDEMITATENTITY = CreateEmitterAtEntity
 local LOUDEMITATBONE = CreateEmitterAtBone
+local LOUDGETN = table.getn
 local LOUDPARSE = ParseEntityCategory
 
 local ForkThread = ForkThread
@@ -105,7 +106,7 @@ Projectile = Class(moho.projectile_methods, Entity) {
 	
 		if ScenarioInfo.ProjectileDialog then
             if self.BlueprintID then
-                LOG("*AI DEBUG Projectile OnCreate BlueprintID is "..repr(self.BlueprintID))
+                ForkThread( function() LOG("*AI DEBUG Projectile OnCreate BlueprintID is "..repr(self.BlueprintID)) end )
             else
                 LOG("*AI DEBUG Projectile OnCreate BlueprintID is FALSE "..repr(bp) )
             end
@@ -237,17 +238,19 @@ Projectile = Class(moho.projectile_methods, Entity) {
         local LOUDENTITY = LOUDENTITY
         local LOUDPARSE = LOUDPARSE
 	
-		if ProjectileDialog then
-			LOG("*AI DEBUG Projectile OnCollisionCheck ")
-		end
+		--if ProjectileDialog then
+			--LOG("*AI DEBUG Projectile OnCollisionCheck ")
+		--end
         
         local TORPEDO = categories.TORPEDO
         local DIRECTFIRE = categories.DIRECTFIRE
         local MISSILE = categories.MISSILE
+        local ANTIMISSILE = categories.ANTIMISSILE
 
         if (LOUDENTITY(TORPEDO, self) and ( LOUDENTITY(TORPEDO, other) or LOUDENTITY(DIRECTFIRE, other))) or 
            (LOUDENTITY(MISSILE, self) and ( LOUDENTITY(MISSILE, other) or LOUDENTITY(DIRECTFIRE, other))) or 
-           (LOUDENTITY(DIRECTFIRE, self) and LOUDENTITY(MISSILE, other)) or 
+           (LOUDENTITY(DIRECTFIRE, self) and LOUDENTITY(MISSILE, other)) or
+           (LOUDENTITY(ANTIMISSILE, self) and not LOUDENTITY(MISSILE, other)) or
            (self.Army) == (other.Army) then
             return false
         end
@@ -281,7 +284,7 @@ Projectile = Class(moho.projectile_methods, Entity) {
 		end
 		
 		if ProjectileDialog then
-			LOG("*AI DEBUG Projectile OnCollisionCheck true with "..repr(other))
+			ForkThread( function() LOG("*AI DEBUG Projectile "..self.BlueprintID.." OnCollisionCheck true with "..repr(other.BlueprintID)) end )
 		end
 
         return true
@@ -306,7 +309,7 @@ Projectile = Class(moho.projectile_methods, Entity) {
     OnDestroy = function(self)
 	
 		if ScenarioInfo.ProjectileDialog then
-			LOG("*AI DEBUG Projectile OnDestroy for "..repr(self) ) --..' -- '..repr(proj) )
+			ForkThread( function() LOG("*AI DEBUG Projectile OnDestroy "..repr(self.BlueprintID) ) end )
 		end
 
         local DD = self.DamageData	
@@ -386,7 +389,7 @@ Projectile = Class(moho.projectile_methods, Entity) {
         if damage > 0 then
 		
 			if ScenarioInfo.ProjectileDialog then
-				LOG("*AI DEBUG Projectile OnDamage for "..damage)
+				ForkThread( function() LOG("*AI DEBUG Projectile OnDamage to "..repr(targetEntity.BlueprintID).." for "..damage.." - damageData is "..repr(damageData) ) end )
 			end
 		
             local radius = damageData.DamageRadius or false
@@ -424,13 +427,14 @@ Projectile = Class(moho.projectile_methods, Entity) {
 
         local LOUDEMITATBONE = LOUDEMITATBONE
         local LOUDEMITATENTITY = LOUDEMITATENTITY
-        
+
+		if ScenarioInfo.ProjectileDialog then
+			LOG("*AI DEBUG Projectile CreateImpactEffects for "..LOUDGETN(EffectTable) )
+		end	
+
         for _,v in EffectTable do
 
-			if ScenarioInfo.ProjectileDialog then
-				LOG("*AI DEBUG Projectile CreateImpactEffects for "..repr(v).." Scale "..repr(EffectScale or 1) )
-			end	
-			
+		
 			if self.FxImpactTrajectoryAligned then
 			
 				LOUDEMITATBONE( self, -2, army, v ):ScaleEmitter(EffectScale or 1)
@@ -450,13 +454,13 @@ Projectile = Class(moho.projectile_methods, Entity) {
         local BeenDestroyed = BeenDestroyed
         local LOUDEMITATBONE = LOUDEMITATBONE
 
+		if ScenarioInfo.ProjectileDialog then
+			LOG("*AI DEBUG Projectile CreateTerrainEffects for "..LOUDGETN(EffectTable) )
+		end
+
         for k, v in EffectTable do
 		
 			if not BeenDestroyed(self) then
-				
-				if ScenarioInfo.ProjectileDialog then
-					LOG("*AI DEBUG Projectile CreateTerrainEffects for impact on "..repr(targetType).." terrain "..repr(v) )
-				end
 		
 				LOUDEMITATBONE( self, -2, army, v ):ScaleEmitter(EffectScale or 1)
 
@@ -550,10 +554,10 @@ Projectile = Class(moho.projectile_methods, Entity) {
             if ScenarioInfo.ProjectileDialog then
 		
                 LOG("*AI DEBUG Projectile OnImpact targetType is "..repr(targetType))
-                LOG("*AI DEGUG Projectile OnImpact data is "..repr(DD))
+                --LOG("*AI DEGUG Projectile OnImpact data is "..repr(DD))
 			
                 if targetEntity then
-                    LOG("*AI DEBUG Projectile Target entity is "..repr(targetEntity.BlueprintID))
+                    LOG("*AI DEBUG Projectile OnImpact Target entity is "..repr(targetEntity.BlueprintID))
                 end
             end
 
@@ -579,6 +583,10 @@ Projectile = Class(moho.projectile_methods, Entity) {
 			local ImpactEffectScale = 1     -- default scaling
 	
 			local army = self.Army
+
+            --if ScenarioInfo.ProjectileDialog then
+              --  LOG("*AI DEBUG Projectile OnImpact with "..repr(targetType))
+            --end
 	
 			--ImpactEffects
 			if targetType == 'Shield' then
@@ -643,10 +651,6 @@ Projectile = Class(moho.projectile_methods, Entity) {
 			if ImpactEffects then
             
                 if targetType != 'Shield' then
-
-                    if ScenarioInfo.ProjectileDialog then
-                        LOG("*AI DEBUG Projectile CreateImpactEffects for "..repr(targetType))
-                    end
 
                     self:CreateImpactEffects( army, ImpactEffects, ImpactEffectScale )
                 end
@@ -784,9 +788,9 @@ Projectile = Class(moho.projectile_methods, Entity) {
 			ForkTo( self.Tracking, self )
 		end
 		
-		if ScenarioInfo.ProjectileDialog then
-			LOG("*AI DEBUG Projectile PassDamageData is "..repr(self))
-		end
+		--if ScenarioInfo.ProjectileDialog then
+			--LOG("*AI DEBUG Projectile PassDamageData is "..repr(self))
+		--end
 		
     end,
     

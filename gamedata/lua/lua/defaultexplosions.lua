@@ -461,15 +461,13 @@ function CreateCompositeExplosionMeshes( object )
     explosionMeshProjectiles[3] = CreateExplosionMesh( object, '/effects/Explosion/Explosion01_c_proj.bp', -0.2, 0.4, -0.4, GF( 0.1, 0.2 ), scalingmin + (Random() * (scalingmax - scalingmin)), lifetime, -0.04, 0.1, -0.1, -90, -1,0,0 )
     explosionMeshProjectiles[4] = CreateExplosionMesh( object, '/effects/Explosion/Explosion01_d_proj.bp', 0.0, 0.7, 0.4, 0.1 + (Random() * (.04) ), scalingmin + (Random() * (scalingmax - scalingmin)), lifetime, 0, 0.1, 0, 90, 1,0,0 )
 
-    #-- Slow down scaling of secondary meshes
     WaitTicks( 3 )
 
 end
 
 function CreateSmoke( object, scale )
 
-    local SmokeEffects = {'/effects/emitters/destruction_explosion_smoke_03_emit.bp',
-                          '/effects/emitters/destruction_explosion_smoke_07_emit.bp'}
+    local SmokeEffects = {'/effects/emitters/destruction_explosion_smoke_03_emit.bp','/effects/emitters/destruction_explosion_smoke_07_emit.bp'}
 
     for k, v in SmokeEffects do
         CreateEmitterAtEntity( object, GetArmy(object), v ):ScaleEmitter(scale)
