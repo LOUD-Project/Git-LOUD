@@ -16,26 +16,18 @@ local CreateUnitExplosionEntity = import('defaultexplosions.lua').CreateUnitExpl
 local GetAverageBoundingXZRadius = import('defaultexplosions.lua').GetAverageBoundingXZRadius
 local GetAverageBoundingXYZRadius = import('defaultexplosions.lua').GetAverageBoundingXYZRadius
 
-local GetRandomOffset = Unit.GetRandomOffset
-
+local EffectTemplate = import('/lua/EffectTemplates.lua')
 local EffectUtilities = import('/lua/EffectUtilities.lua')
 
-local CleanupEffectBag = import('effectutilities.lua').CleanupEffectBag
-local CreateAdjacencyBeams = import('effectutilities.lua').CreateAdjacencyBeams
-local CreateAeonBuildBaseThread = import('effectutilities.lua').CreateAeonBuildBaseThread
-local CreateBuildCubeThread = import('effectutilities.lua').CreateBuildCubeThread
-
-local CreateEffects = import('effectutilities.lua').CreateEffects
-
-local PlayAnim = moho.AnimationManipulator.PlayAnim
-
-local PlayReclaimEffects = import('effectutilities.lua').PlayReclaimEffects
-local PlayReclaimEndEffects = import('effectutilities.lua').PlayReclaimEndEffects
-
-local CreateSeraphimBuildBaseThread = import('effectutilities.lua').CreateSeraphimBuildBaseThread
-local CreateUEFUnitBeingBuiltEffects = import('effectutilities.lua').CreateUEFUnitBeingBuiltEffects
-
-local EffectTemplate = import('/lua/EffectTemplates.lua')
+local CleanupEffectBag = EffectUtilities.CleanupEffectBag
+local CreateAdjacencyBeams = EffectUtilities.CreateAdjacencyBeams
+local CreateAeonBuildBaseThread = EffectUtilities.CreateAeonBuildBaseThread
+local CreateBuildCubeThread = EffectUtilities.CreateBuildCubeThread
+local CreateEffects = EffectUtilities.CreateEffects
+local CreateSeraphimBuildBaseThread = EffectUtilities.CreateSeraphimBuildBaseThread
+local CreateUEFUnitBeingBuiltEffects = EffectUtilities.CreateUEFUnitBeingBuiltEffects
+local PlayReclaimEffects = EffectUtilities.PlayReclaimEffects
+local PlayReclaimEndEffects = EffectUtilities.PlayReclaimEndEffects
 
 local GetMarkers = import('/lua/sim/scenarioutilities.lua').GetMarkers
 
@@ -46,63 +38,54 @@ local RemoveBuff = import('/lua/sim/buff.lua').RemoveBuff
 local AssignTransportToPool = import('/lua/ai/altaiutilities.lua').AssignTransportToPool
 local ProcessAirUnits = import('/lua/loudutilities.lua').ProcessAirUnits
 
-local LOUDCEIL = math.ceil
-local EntityCategoryContains = EntityCategoryContains
-local LOUDFLOOR = math.floor
 local LOUDCOPY = table.copy
+local LOUDCEIL = math.ceil
+local LOUDFIND = string.find
+local LOUDFLOOR = math.floor
 local LOUDGETN = table.getn
 local LOUDINSERT = table.insert
-
-local LOUDFIND = string.find
 local LOUDSUB = string.sub
 
 local ChangeState = ChangeState
-
-local ForkThread = ForkThread
-local ForkTo = ForkThread
-local KillThread = KillThread
-
 local CreateDecal = CreateDecal
 local CreateAnimator = CreateAnimator
 local CreateAttachedEmitter = CreateAttachedEmitter
 local CreateEmitterAtEntity = CreateEmitterAtEntity
 local CreateEmitterAtBone = CreateEmitterAtBone
+local EntityCategoryContains = EntityCategoryContains
+local ForkThread = ForkThread
+local ForkTo = ForkThread
+local KillThread = KillThread
 local LOUDATTACHBEAMENTITY = AttachBeamEntityToEntity
-
-local VectorCached = { 0, 0, 0 }
-
-local WaitTicks = coroutine.yield
+local Random = Random
+local TrashBag = TrashBag
+local TrashAdd = TrashBag.Add
+local TrashDestroy = TrashBag.Destroy
 local VDist2 = VDist2
 local VDist2Sq = VDist2Sq
 local VDist3 = VDist3
+local WaitTicks = coroutine.yield
 
 local AssignUnitsToPlatoon = moho.aibrain_methods.AssignUnitsToPlatoon
 local BeenDestroyed = moho.entity_methods.BeenDestroyed
 local DisableIntel = moho.entity_methods.DisableIntel
 local EnableIntel = moho.entity_methods.EnableIntel
-
 local GetAIBrain = moho.unit_methods.GetAIBrain
 local GetBoneCount = moho.entity_methods.GetBoneCount
 local GetFractionComplete = moho.entity_methods.GetFractionComplete
 local GetPosition = moho.entity_methods.GetPosition
+local GetRandomOffset = Unit.GetRandomOffset
 local GetWeapon = moho.unit_methods.GetWeapon
 local GetWeaponCount = moho.unit_methods.GetWeaponCount
-
 local HideBone = moho.unit_methods.HideBone
 local IsBeingBuilt = moho.unit_methods.IsBeingBuilt
-
 local MakePlatoon = moho.aibrain_methods.MakePlatoon
-
+local PlayAnim = moho.AnimationManipulator.PlayAnim
 local SetConsumptionPerSecondMass = moho.unit_methods.SetConsumptionPerSecondMass
-
 local SetProductionActive = moho.unit_methods.SetProductionActive
 local SetProductionPerSecondMass = moho.unit_methods.SetProductionPerSecondMass
 
-local Random = Random
-
-local TrashBag = TrashBag
-local TrashAdd = TrashBag.Add
-local TrashDestroy = TrashBag.Destroy
+local VectorCached = { 0, 0, 0 }
 
 local AIRUNITS = (categories.AIR * categories.MOBILE) - categories.INSIGNIFICANTUNIT
 local FACTORIES = categories.FACTORY - categories.EXPERIMENTAL
@@ -458,9 +441,6 @@ StructureUnit = Class(Unit) {
         local tarmac
         local bp = __blueprints[self.BlueprintID].Display.Tarmacs
 
-		local LOUDGETN = LOUDGETN
-		local Random = Random
-
         if not specTarmac then
 		
             if bp[1] then
@@ -470,13 +450,15 @@ StructureUnit = Class(Unit) {
             else
                 return false
             end
-			
         else
             tarmac = specTarmac
         end
-		
-		local LOUDINSERT = LOUDINSERT
+
 		local CreateDecal = CreateDecal
+		local LOUDGETN = LOUDGETN		
+		local LOUDINSERT = LOUDINSERT
+		local Random = Random
+        local TrashAdd = TrashAdd
 
         local army = self.Army
         local w = tarmac.Width
@@ -980,7 +962,8 @@ MobileUnit = Class(Unit) {
         local bp = __blueprints[self.BlueprintID].Defense
         
         if bp.AirThreatLevel > 0 or bp.SurfaceThreatLevel > 0 or bp.SubThreatLevel > 0 then
-        
+
+            local ArmyIndex = GetAIBrain(self).ArmyIndex
             local BRAINS = ArmyBrains
             local position = self:GetPosition()
         
@@ -1006,7 +989,7 @@ MobileUnit = Class(Unit) {
                     end
                 end
                 
-                if IsEnemy( GetAIBrain(self).ArmyIndex, brain.ArmyIndex ) then
+                if IsEnemy( ArmyIndex, brain.ArmyIndex ) then
                 
                     if bp.AirThreatLevel > 0 then
                         ForkTo ( delaythreat, brain, position, bp.AirThreatLevel, 'AntiAir' )
@@ -2804,7 +2787,7 @@ WallStructureUnit = Class(StructureUnit) {
 
         if GetAIBrain(self).CheatingAI then
 
-			import('/lua/sim/buff.lua').ApplyBuff( self, 'CheatALL')
+			ApplyBuff( self, 'CheatALL')
 
         end
 
@@ -3325,6 +3308,10 @@ SubUnit = Class(MobileUnit) {
 
     DeathThread = function(self, overkillRatio, instigator)
 
+        if self.DeathAnimManip then
+			WaitFor(self.DeathAnimManip)
+		end
+
         --LOG("*AI DEBUG SUB Unit DeathThread "..self.BlueprintID)	
 
         local bp = __blueprints[self.BlueprintID]
@@ -3349,7 +3336,6 @@ SubUnit = Class(MobileUnit) {
             local sinkcount = 0
 
             while self.DeathAnimManip and sinkcount < 20 do   #-- wait 20 seconds
-				--LOG("*AI DEBUG watching sub sinking")
                 WaitTicks(10)
                 sinkcount = sinkcount + 1
             end
@@ -3403,7 +3389,6 @@ SubUnit = Class(MobileUnit) {
 
 		self:CreateWreckageProp( overkillRatio )
         self:Destroy()
-        --LOG("*AI DEBUG SUB Unit DeathThread ends "..self.BlueprintID)	
     end,
 
     ExplosionThread = function(self)
@@ -3451,7 +3436,7 @@ SubUnit = Class(MobileUnit) {
 
     SinkingThread = function(self)
 
-        local i = 8 # initializing the above surface counter
+        local i = 8     -- initializing the above surface counter
         local rx, ry, rz = self:GetUnitSizes()
         local vol = rx * ry * rz
 
@@ -3500,16 +3485,18 @@ SeaUnit = Class(MobileUnit) {
 
     -- by default, just destroy us when we are killed.
     OnKilled = function(self, instigator, type, overkillRatio)
+    
+        --LOG("*AI DEBUG SEA UNIT "..self.EntityID.." OnKilled for "..self.BlueprintID)
 
         self:DestroyIdleEffects()
 
         if (self.CacheLayer == 'Water' or self.CacheLayer == 'Seabed' or self.CacheLayer == 'Sub') then
 
             self.SinkExplosionThread = self:ForkThread(self.ExplosionThread)
-			self.Trash:Add(self.SinkExplosionThread)
-            self.SinkThread = self:ForkThread(self.SinkingThread)
-			self.Trash:Add(self.SinkThread)
+			TrashAdd( self.Trash, self.SinkExplosionThread )
 
+            self.SinkThread = self:ForkThread(self.SinkingThread)
+			TrashAdd( self.Trash, self.SinkThread )
         end
 
         MobileUnit.OnKilled(self, instigator, type, overkillRatio)
@@ -3517,7 +3504,11 @@ SeaUnit = Class(MobileUnit) {
 
     DeathThread = function(self, overkillRatio, instigator)
 
-        --LOG("*AI DEBUG SEA Unit DeathThread "..self.BlueprintID)
+        if self.DeathAnimManip then
+			WaitFor(self.DeathAnimManip)
+		end
+
+        --LOG("*AI DEBUG SEA UNIT "..self.EntityID.." begins DeathThread ")
 
         local bp = __blueprints[self.BlueprintID]
         local army = self.Army
@@ -3539,10 +3530,14 @@ SeaUnit = Class(MobileUnit) {
         if bp.Display.AnimationDeath then
 
             local sinkcount = 0
+            
+            --LOG("*AI DEBUG SEA UNIT "..self.EntityID.." DeathThread Animation ")
 
             while self.DeathAnimManip and sinkcount < 20 do
                 WaitTicks(10)
                 sinkcount = sinkcount + 1
+                
+                --LOG("*AI DEBUG SEA Unit DeathThread Animation sinkcount "..sinkcount.." for "..self.BlueprintID.." "..self.EntityID)
             end
 
         else  -- if no death animation use slider
@@ -3572,6 +3567,8 @@ SeaUnit = Class(MobileUnit) {
                     CreateEmitterAtBone( self, 0, army, '/effects/emitters/destruction_underwater_sinking_wash_01_emit.bp'):ScaleEmitter(sx* 0.5):OffsetEmitter(rx, ry, rz)
 
                     WaitSeconds( 0.4 + i + (Random() * (0.6 + i) ) )
+                    
+                    --LOG("*AI DEBUG SEA UNIT "..self.EntityID.." DeathThread "..i)
 
                     i = i + 0.3
                 end
@@ -3580,9 +3577,13 @@ SeaUnit = Class(MobileUnit) {
 
             local slider = CreateSlider(self, 0, 0, seafloor-pos[2], 0, 4)
 
-			self.Trash:Add(slider)
+			TrashAdd( self.Trash, slider )
+            
+            --LOG("*AI DEBUG SEA UNIT "..self.EntityID.." DeathThread Waitfor starts ")
 
             WaitFor(slider)
+
+            --LOG("*AI DEBUG SEA UNIT "..self.EntityID.." DeathThread Waitfor ends " )
 
             slider:Destroy()
 
@@ -3598,7 +3599,7 @@ SeaUnit = Class(MobileUnit) {
 
         self:Destroy()
 
-        --LOG("*AI DEBUG SEA Unit DeathThread ends "..self.BlueprintID)        
+        --LOG("*AI DEBUG SEA UNIT "..self.EntityID.." DeathThread ends "..self.BlueprintID)        
     end,
 
     ExplosionThread = function(self)
@@ -3616,6 +3617,8 @@ SeaUnit = Class(MobileUnit) {
 		local WaitTicks = coroutine.yield
 
         while i > 0 do
+
+            --LOG("*AI DEBUG SEA UNIT "..self.EntityID.." Explosion thread "..i)
 
             if i > 0 then
 
@@ -3643,6 +3646,8 @@ SeaUnit = Class(MobileUnit) {
 
             WaitTicks( 4 + (Random() * (6) ))
         end
+        
+        --LOG("*AI DEBUG SEA UNIT "..self.EntityID.." Explosion thread ends for "..self.BlueprintID)
     end,
 
     SinkingThread = function(self)
@@ -3660,6 +3665,8 @@ SeaUnit = Class(MobileUnit) {
 
         while i > 0 do
 
+            --LOG("*AI DEBUG SEA UNIT "..self.EntityID.." Sinking thread "..i)
+            
             if i > 0 then
 
                 local rx, ry, rz = GetRandomOffset( self, 1)
@@ -3682,8 +3689,11 @@ SeaUnit = Class(MobileUnit) {
             CreateAttachedEmitter(self,-1,army,'/effects/emitters/destruction_underwater_sinking_wash_01_emit.bp'):OffsetEmitter(rx, 0, rz):ScaleEmitter(rs)
 
             i = i - 1
+
             WaitTicks(10)
         end
+        
+        --LOG("*AI DEBUG SEA UNIT "..self.EntityID.." Sinking thread ends for "..self.BlueprintID)
     end,
 }
 
@@ -3739,7 +3749,7 @@ AirUnit = Class(MobileUnit) {
                             end
                         end
                     end
-                        
+
                     self:AddUnitCallback( ProcessFuelOutAirUnit, 'OnRunOutOfFuel')
                 else
 
@@ -3831,10 +3841,6 @@ AirUnit = Class(MobileUnit) {
 					end
 				
 					if beyondbase then
-						--LOG("*AI DEBUG AI Air unit "..self:GetBlueprint().Description.." lands outside base radius")
-                        
-                        --LOG("*AI DEBUG "..brain.Nickname.." RTP 9")
-                        
 						ForkThread( ReturnTransportsToPool, brain, {self}, true )
 					end
 
@@ -3995,6 +4001,8 @@ AirUnit = Class(MobileUnit) {
 
         local army = self.Army
         local bp = __blueprints[self.BlueprintID]
+        
+        --LOG("*AI DEBUG AIR UNIT "..self.EntityID.." OnImpact with "..repr(with))
 
         local i = 1
 
@@ -4048,6 +4056,8 @@ AirUnit = Class(MobileUnit) {
 			local i = 0
 
 			while true do
+            
+                --LOG("*AI DEBUG AIR UNIT SinkIntoWater")
 
 				local rx, ry, rz = GetRandomOffset( self, 1 )
 				local rs = Random(vol, vol*2) / (vol)
@@ -4085,6 +4095,9 @@ AirUnit = Class(MobileUnit) {
 	end,
 
     CreateUnitAirDestructionEffects = function( self, scale )
+    
+        --LOG("*AI DEBUG AIR UNIT Create DestructionEffects for "..self.BlueprintID)
+        
         CreateDefaultHitExplosion( self, GetAverageBoundingXZRadius(self))
         CreateDebrisProjectiles(self, GetAverageBoundingXYZRadius(self), {self:GetUnitSizes()})
     end,
@@ -4093,6 +4106,8 @@ AirUnit = Class(MobileUnit) {
     -- IT ALSO SPAWNS THE WRECKAGE BASED UPON HOW MUCH IT WAS OVERKILLED. UNIT WILL SPIN OUT OF CONTROL TOWARDS GROUND
 	-- The OnImpact event will handle the final destruction
     OnKilled = function(self, instigator, deathtype, overkillRatio)
+    
+        --LOG("*AI DEBUG AIR UNIT "..self.EntityID.." OnKilled for "..self.BlueprintID)
 
 		-- 65% of the time aircraft will just disintegrate, experimentals ALWAYS crash to ground
 		-- this is the normal (air crash to ground) path
