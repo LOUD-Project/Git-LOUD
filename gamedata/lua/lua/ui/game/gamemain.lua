@@ -816,8 +816,6 @@ end
 -- this function is called whenever the sim beats
 function OnBeat()
 
-    --LOG("*AI DEBUG OnBeat")
-
     for i,v in _beatFunctions do
         if v then v() end
     end

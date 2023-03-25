@@ -24,7 +24,6 @@ local AIFindNavalDefensivePointNeedsStructure = import('/lua/ai/altaiutilities.l
 local AIFindStartPointNeedsStructure = import('/lua/ai/altaiutilities.lua').AIFindStartPointNeedsStructure
 local AISendPing = import('/lua/ai/altaiutilities.lua').AISendPing
 local AssistBody = import('/lua/ai/altaiutilities.lua').AssistBody
-local GetHiPriTargetList = import('/lua/ai/altaiutilities.lua').GetHiPriTargetList
 local GetTemplateReplacement = import('/lua/ai/altaiutilities.lua').GetTemplateReplacement
 local GetTransports = import('/lua/ai/altaiutilities.lua').GetTransports
 local ReturnTransportsToPool = import('/lua/ai/altaiutilities.lua').ReturnTransportsToPool
@@ -58,9 +57,11 @@ local DisperseUnitsToRallyPoints = import('/lua/loudutilities.lua').DisperseUnit
 local FindClosestBaseName = import('loudutilities.lua').FindClosestBaseName
 local GetBasePerimeterPoints = import('/lua/loudutilities.lua').GetBasePerimeterPoints
 local GetBaseWithGreatestThreatAtDistance = import('/lua/loudutilities.lua').GetBaseWithGreatestThreatAtDistance
+local GetHiPriTargetList = import('loudutilities.lua').GetHiPriTargetList
 local GetPrimaryLandAttackBase = import('/lua/loudutilities.lua').GetPrimaryLandAttackBase
 local GetPrimarySeaAttackBase = import('/lua/loudutilities.lua').GetPrimarySeaAttackBase
 local ProcessAirUnits = import('/lua/loudutilities.lua').ProcessAirUnits
+local RecheckHiPriTarget = import('/lua/loudutilities.lua').RecheckHiPriTarget
 
 local UnitCapCheckGreater = import('/lua/editor/UnitCountBuildConditions.lua').UnitCapCheckGreater
 
@@ -143,8 +144,6 @@ Platoon = Class(moho.platoon_methods) {
 		if ScenarioInfo.PlatoonDialog then
         
 			local aiBrain = GetBrain(self)
-            
-            --LOG("*AI DEBUG "..repr(aiBrain.Nickname).." creates platoon "..repr(self))
             
             self:ForkThread( function(self) WaitTicks(1) LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." platoon created ") end)
 		end
@@ -264,7 +263,7 @@ Platoon = Class(moho.platoon_methods) {
         for k, cb in self.EventCallbacks.OnDestroyed do
 		
 	        if cb then
-			
+
                 cb( GetBrain(self), self )
             end
         end		

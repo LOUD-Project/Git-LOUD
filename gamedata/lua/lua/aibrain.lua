@@ -777,6 +777,7 @@ function CollectCurrentScores()
 		   
             WaitTicks(braindelay)
         end
+
     end
 	
 end

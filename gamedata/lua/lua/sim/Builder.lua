@@ -31,6 +31,8 @@ Builder = Class {
     Create = function(self, brain, data, locationType, builderType)
         
         self.Priority = data.Priority
+        
+        self.PriorityFunction = data.PriorityFunction or nil
 
         self.BuilderName = data.BuilderName
 		self.BuilderType = builderType

@@ -443,7 +443,7 @@ BuilderManager = Class {
         local PlatoonGenerateSafePathToLOUD = import('/lua/platoon.lua').Platoon.PlatoonGenerateSafePathToLOUD
         local ResetPFMTasks = import('/lua/loudutilities.lua').ResetPFMTasks
         
-        local ENGINEERS = categories.ALLUNITS - categories.ENGINEER
+        local FREEUNITS = categories.ALLUNITS - categories.ENGINEER
 
 		local GetBuilderStatus = function( BuilderConditions, ResultTable )
         
@@ -477,19 +477,18 @@ BuilderManager = Class {
 
         local LocationType = self.LocationType
         local BuilderManager = brain.BuilderManagers[LocationType]
-        
         local PriorityDialog = ScenarioInfo.PriorityDialog
 
-        local ThreadWaitDuration
+        local AttackPlan, landpathlength, path, pathcost, reason, ThreadWaitDuration
         
         while self.Active do
         
-            local AttackPlan = brain.AttackPlan
+            AttackPlan = brain.AttackPlan
      
             -- if this is not a naval base - see if mode should change from Amphibious to Land
             if AttackPlan.Goal and ( not self.LastGoalCheck or not LOUDEQUAL(self.LastGoalCheck, AttackPlan.Goal) ) and BuilderManager.BaseType != 'Sea' then
         
-                local path, reason, landpathlength, pathcost = PlatoonGenerateSafePathToLOUD( brain, 'AttackPlanner', 'Land', BuilderManager.Position, AttackPlan.Goal, 999999, 160 )
+                path, reason, landpathlength, pathcost = PlatoonGenerateSafePathToLOUD( brain, 'AttackPlanner', 'Land', BuilderManager.Position, AttackPlan.Goal, 999999, 160 )
                 
                 -- IDEALLY - we should evaluate both Land and Amphib paths and choose which is best - 
                 -- but for now - we'll settle for land production if any kind of land connection exists --
@@ -539,26 +538,34 @@ BuilderManager = Class {
             conditionscheckedcount = 0
             conditioncounttotal = 0
     
-            --if PriorityDialog then
-              --  LOG("*AI DEBUG "..brain.Nickname.." "..self.ManagerType.." "..LocationType.." with "..self.NumBuilders.." tasks. Begins cycle at "..GetGameTimeSeconds().." seconds. Cycle will be "..(duration/10).." - BCM cycle is "..(brain.ConditionsMonitor.ThreadWaitDuration/10) )
-            --end
+            if PriorityDialog then
+                LOG("*AI DEBUG "..brain.Nickname.." "..self.ManagerType.." "..LocationType.." with "..self.NumBuilders.." tasks. Begins cycle at "..GetGameTimeSeconds().." seconds. Cycle will be "..(duration/10).." - BCM cycle is "..(brain.ConditionsMonitor.ThreadWaitDuration/10) )
+            end
 			
             -- there must be units in the Pool or there will be nothing to form
-			if PoolGreaterAtLocation( brain, LocationType, 0, ENGINEERS ) and brain:GetNoRushTicks() < 300 then
+			if PoolGreaterAtLocation( brain, LocationType, 0, FREEUNITS ) and brain:GetNoRushTicks() < 300 then
 		
                 if self.BuilderData['Any'].NeedSort then
 
+                    if PriorityDialog then
+                        LOG("*AI DEBUG "..brain.Nickname.." "..self.ManagerType.." "..LocationType.." sorts PFM tasks")
+                    end
+
                     LOUDSORT( self.BuilderData['Any'].Builders, function(a,b) return a.Priority > b.Priority end )
-                
+
                     self.BuilderData['Any'].NeedSort = false
                 end
 			
                 -- loop thru all the platoon builders
 				for bType,bTypeData in self.BuilderData do
-			
-					for _,bData in bTypeData.Builders do
+
+					for key,bData in bTypeData.Builders do
 
 						if bData.Priority >= 100 and bData.InstanceAvailable > 0 then
+                    
+                            if PriorityDialog then
+                                LOG("*AI DEBUG "..brain.Nickname.." "..self.ManagerType.." "..LocationType.." examines "..repr(key).." "..repr(bData.Priority).." "..repr(bData.BuilderName) )
+                            end
 
 							numTested = numTested + 1
 						
@@ -591,9 +598,9 @@ BuilderManager = Class {
 
 			if numTicks < duration then
 
-                --if PriorityDialog then
-                  --  LOG("*AI DEBUG "..brain.Nickname.." "..self.ManagerType.." "..LocationType.." - delaying "..repr(((duration) - numTicks)/10).." seconds" ) 
-                --end
+                if PriorityDialog then
+                    LOG("*AI DEBUG "..brain.Nickname.." "..self.ManagerType.." "..LocationType.." - delaying "..repr(((duration) - numTicks)/10).." seconds" ) 
+                end
             
 				WaitTicks( duration - numTicks )
 			end

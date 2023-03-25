@@ -1623,6 +1623,8 @@ end
 
 function ClearOutBase( manager, aiBrain )
 
+    local PlatoonDialog = ScenarioInfo.PlatoonDialog
+
 	local basename = manager.LocationType
 	local Position = aiBrain.BuilderManagers[basename].Position
     local tostring = tostring
@@ -1636,6 +1638,10 @@ function ClearOutBase( manager, aiBrain )
         if grouplndcount > 0 then
 
             local ident = Random(1,999999)
+            
+            if PlatoonDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..basename.." Creates ClearOutLand"..tostring(ident) )
+            end
 
             local plat = MakePlatoon( aiBrain,'ClearOutLand'..tostring(ident),'none')
 
@@ -1666,6 +1672,10 @@ function ClearOutBase( manager, aiBrain )
         if groupamphibcount > 0 then
 
             local ident = Random(1,999999)
+            
+            if PlatoonDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..basename.." Creates ClearOutAmphib"..tostring(ident) )
+            end
 
             local plat = MakePlatoon( aiBrain,'ClearOutAmphib'..tostring(ident),'none')
 
@@ -1696,6 +1706,10 @@ function ClearOutBase( manager, aiBrain )
         if groupseacount > 0 then
 
             local ident = Random(1,999999)
+            
+            if PlatoonDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..basename.." Creates ClearOutSea"..tostring(ident) )
+            end
 
             local plat = MakePlatoon( aiBrain,'ClearOutSea'..tostring(ident),'none')
 
@@ -1726,6 +1740,10 @@ function ClearOutBase( manager, aiBrain )
         if groupaircount > 0 then
 
             local ident = Random(1,999999)
+            
+            if PlatoonDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..basename.." Creates ClearOutFighters"..tostring(ident) )
+            end
 
             local plat = MakePlatoon( aiBrain,'ClearOutFighters'..tostring(ident),'none')
 
@@ -1751,6 +1769,10 @@ function ClearOutBase( manager, aiBrain )
         if groupaircount > 0 then
 
             local ident = Random(1,999999)
+            
+            if PlatoonDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..basename.." Creates ClearOutGunships"..tostring(ident) )
+            end
 
             local plat = MakePlatoon( aiBrain,'ClearOutGunships'..tostring(ident),'none')
 
@@ -1775,6 +1797,10 @@ function ClearOutBase( manager, aiBrain )
         if groupaircount > 0 then
 
             local ident = Random(1,999999)
+            
+            if PlatoonDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..basename.." Creates ClearOutBombers"..tostring(ident) )
+            end
 
             local plat = MakePlatoon( aiBrain,'ClearOutBombers'..tostring(ident),'none')
 
@@ -1799,6 +1825,10 @@ function ClearOutBase( manager, aiBrain )
         if groupaircount > 0 then
 
             local ident = Random(1,999999)
+            
+            if PlatoonDialog then
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..basename.." Creates ClearOutTorpedoBombers"..tostring(ident) )
+            end
 
             local plat = MakePlatoon( aiBrain,'ClearOutTorpedoBombers'..tostring(ident),'none')
 
@@ -1826,57 +1856,45 @@ function ClearOutBase( manager, aiBrain )
 	
 end
 
-function ResetPFMTasks (manager, aiBrain)
+function ResetPFMTasks (PFM, aiBrain)
 	
 	-- Review ALL the PFM Builders for PriorityFunction task changes
-	local tasksaltered = 0
-
-    local newpri, temporary
+    local NewPriority, temporary
 	local newtasks = 0
     
-    --if ScenarioInfo.PriorityDialog then
-      --  LOG("*AI DEBUG "..aiBrain.Nickname.." "..manager.ManagerType.." "..manager.LocationType.." Resets Any PFM Tasks")
-    --end
+    if ScenarioInfo.PriorityDialog then
+        LOG("*AI DEBUG "..aiBrain.Nickname.." "..PFM.ManagerType.." "..PFM.LocationType.." Resets Any PFM Tasks")
+    end
 
-	for _,b in manager.BuilderData['Any'].Builders do
+	for _,BuilderTask in PFM.BuilderData['Any'].Builders do
 
-		for c,d in b do
+        if BuilderTask.PriorityFunction then
 
-			if c == 'BuilderName' then
+            NewPriority, temporary = BuilderTask:PriorityFunction( aiBrain, PFM )
 
-				newPri = false
+            if NewPriority and NewPriority != BuilderTask.Priority then
 
-				if Builders[d].PriorityFunction then
+                if ScenarioInfo.PriorityDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..PFM.ManagerType.." "..PFM.LocationType.." "..BuilderTask.BuilderName.." is set to "..repr(NewPriority).." Temporary is "..repr(temporary))
+                end
 
-					temporary = true
+                PFM:SetBuilderPriority(BuilderTask.BuilderName, NewPriority, temporary)
 
-					newPri, temporary = Builders[d]:PriorityFunction( aiBrain, manager)
+                -- signal a resort of the PFM Builders
+                PFM.BuilderData['Any'].NeedSort = true
 
-					if newPri and newPri != b.Priority then
+            end
 
-						tasksaltered = tasksaltered + 1
-                        
-                        if ScenarioInfo.PriorityDialog then
-                            LOG("*AI DEBUG "..aiBrain.Nickname.." "..manager.ManagerType.." at "..manager.LocationType.." "..b.BuilderName.." is set to "..repr(newPri).." Temporary is "..repr(temporary))
-                        end
+        end
 
-						manager:SetBuilderPriority(b.BuilderName, newPri, temporary)
-                        
-                        manager.BuilderData['Any'].NeedSort = true
-                        
-					end
-                    
-				end
+		if (not NewPriority and BuilderTask.Priority > 99) or (NewPriority and NewPriority > 99) then
 
-				if (not newPri and b.Priority > 99) or (newPri and newPri > 99) then
-
-					newtasks = newtasks + 1
-				end
-			end
+			newtasks = newtasks + 1
 		end
+
 	end
 
-	manager.NumBuilders = newtasks	
+	PFM.NumBuilders = newtasks	
 end
 
 -- whenever the AI cannot find enough transports to move a platoon
@@ -1918,12 +1936,19 @@ function AirUnitRefitThread( unit, aiBrain )
         return
     end
 
+    local PlatoonDialog = ScenarioInfo.PlatoonDialog
+
 	-- if not dead 
 	if (not unit.Dead) then
     
         unit.InRefit = true
 
         local ident = Random(100000,999999)
+
+        if PlatoonDialog then
+            LOG("*AI DEBUG "..aiBrain.Nickname.." Creates AirRefit"..tostring(ident) )
+        end
+
         local returnpool = MakePlatoon( aiBrain,'AirRefit'..tostring(ident), 'none')
         
         returnpool.BuilderName = 'AirRefit'..tostring(ident)

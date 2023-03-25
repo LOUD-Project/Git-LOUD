@@ -310,7 +310,7 @@ Unit = Class(moho.unit_methods) {
             self:InitBuffFields( bp )
         end
         
-        --LOG("*AI DEBUG "..aiBrain.Nickname.." creates "..self.BlueprintID.." "..bp.Description.." at "..repr(self:GetPosition()) )
+        --LOG("*AI DEBUG "..aiBrain.Nickname.." UNIT "..self.EntityID.." created "..self.BlueprintID.." "..bp.Description )
   
 		self.CacheLayer = GetCurrentLayer(self)
 
@@ -585,6 +585,8 @@ Unit = Class(moho.unit_methods) {
     end,
 
     SetDead = function(self)
+    
+        --LOG("*AI DEBUG UNIT "..self.EntityID.." SET DEAD for "..self.BlueprintID)
 
 		self.Dead = true
 
@@ -1676,7 +1678,7 @@ Unit = Class(moho.unit_methods) {
     -- On killed: this function plays when the unit takes a mortal hit.  It plays all the default death effect
     OnKilled = function(self, instigator, deathtype, overkillRatio)
 
-        --LOG("*AI DEBUG Unit OnKilled "..self.BlueprintID)
+        --LOG("*AI DEBUG UNIT "..self.EntityID.." OnKilled "..self.BlueprintID)
         
 		self:PlayUnitSound('Killed')
 
@@ -1760,7 +1762,7 @@ Unit = Class(moho.unit_methods) {
 		
         if bp.Display[anim] then
         
-            --LOG("*AI DEBUG Playing Animation "..repr(anim).." for "..repr(bp.Description) )
+            --LOG("*AI DEBUG UNIT "..self.EntityID.." Play Animation "..repr(anim).." for "..repr(self.BlueprintID) )
         
             local animBlock = self:ChooseAnimBlock( bp.Display[anim] )
 			
@@ -1786,11 +1788,13 @@ Unit = Class(moho.unit_methods) {
 
                 TrashAdd( self.Trash,self.DeathAnimManip)
 				
+                --LOG("*AI DEBUG UNIT "..self.EntityID.." Play Animation Waitfor for "..self.BlueprintID)
+
                 WaitFor(self.DeathAnimManip)
 				
 				self.DeathAnimManip = nil
                 
-                --LOG("*AI DEBUG Animation for "..repr(anim).." for "..repr(bp.Description).." ends")
+                --LOG("*AI DEBUG UNIT "..self.EntityID.." Play Animation Waitfor ends "..self.BlueprintID)
             end
         end
 		
@@ -1798,7 +1802,7 @@ Unit = Class(moho.unit_methods) {
 
     DeathThread = function( self, overkillRatio, instigator)
     
-        --LOG("*AI DEBUG Unit DeathThread "..self.BlueprintID)
+        --LOG("*AI DEBUG UNIT "..self.EntityID.." DeathThread begins "..self.BlueprintID)
 
         if self.DeathAnimManip then
 			WaitFor(self.DeathAnimManip)
@@ -1834,12 +1838,14 @@ Unit = Class(moho.unit_methods) {
 		if overkillRatio <= 0.10 then
 			self:CreateWreckage( overkillRatio )
 		end
+        
+        --LOG("*AI DEBUG UNIT "..self.EntityID.." Waiting for DeathThread Destruction time "..repr(self.DeathThreadDestructionWaitTime).." for "..self.BlueprintID )
 
         WaitTicks((self.DeathThreadDestructionWaitTime or 0.1) * 10)
 
         self:Destroy()
 
-        --LOG("*AI DEBUG Unit DeathThread ends "..self.BlueprintID)        
+        --LOG("*AI DEBUG UNIT "..self.EntityID.." DeathThread Destruction time ends "..self.BlueprintID)        
     end,
 
     CreateWreckage = function( self, overkillRatio )
@@ -1854,6 +1860,8 @@ Unit = Class(moho.unit_methods) {
 
 		local bp = ALLBPS[self.BlueprintID]
 		local wreck = bp.Wreckage.Blueprint
+        
+        --LOG("*AI DEBUG UNIT "..self.EntityID.." CreateWreckageProp for "..self.BlueprintID)
 
 		if wreck then
 		
@@ -2273,7 +2281,7 @@ Unit = Class(moho.unit_methods) {
 	
 		self.PlatoonHandle = nil
 
-		--LOG("*AI DEBUG Unit OnDestroy for "..self.EntityID.." "..repr(ALLBPS[self.BlueprintID].Description))
+		--LOG("*AI DEBUG UNIT "..self.EntityID.." OnDestroy for "..repr(ALLBPS[self.BlueprintID].Description))
 		
 		--local ID = GetEntityId(self)
 
@@ -3349,7 +3357,7 @@ Unit = Class(moho.unit_methods) {
 				-- checking every recharge period
 				while GetEconomyStored( aiBrain, 'ENERGY' ) < bpVal and not self.Dead do
 
-					WaitTicks(recharge)
+					WaitTicks(recharge + 1)
 				end
 				
 				-- if stealth was On - turn it back on
@@ -4388,6 +4396,7 @@ Unit = Class(moho.unit_methods) {
             
             nextLvl = (self.VeteranLevel or 0) + 1
             nextKills = vet[('Level' .. nextLvl)]
+
         end 
 		
     end,

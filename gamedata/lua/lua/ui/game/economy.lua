@@ -343,20 +343,20 @@ function _BeatFunction()
         econData.reclaimed.MASS = 0
         econData.reclaimed.ENERGY = 0
     end
-    
-    local simFrequency = GetSimTicksPerSecond()
-	
-	local LOUDMIN = math.min
+
 	local LOUDMAX = math.max
 	local LOUDCEIL = math.ceil
-	local LOUDFORMAT = string.format
     
     -- fetch & format reclaim values
     local reclaimedTotalsMass = LOUDMAX( 0, LOUDCEIL(econData.reclaimed.MASS))
     local reclaimedTotalsEnergy = LOUDMAX( 0, LOUDCEIL(econData.reclaimed.ENERGY))
     
     local function DisplayEconData(controls, tableID, viewPref)
-	
+
+        local LOUDFORMAT = string.format
+        local LOUDMIN = math.min
+        local simFrequency = GetSimTicksPerSecond()	
+
         local function FormatRateString(RateVal, StoredVal, IncomeAvg, ActualAvg, RequestedAvg)
 		
             local retRateStr = LOUDFORMAT('%+d', LOUDMIN( LOUDMAX(RateVal, -999999), 99999999) )

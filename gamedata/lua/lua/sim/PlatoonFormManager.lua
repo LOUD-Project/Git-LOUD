@@ -182,10 +182,6 @@ PlatoonFormManager = Class(BuilderManager) {
 		
 			if template and CanFormPlatoon( aiBrain.ArmyPool, template, 1, Location, Radius) then
 
-				if PlatoonDialog then
-					LOG("*AI DEBUG "..aiBrain.Nickname.." PFM "..LocationType.." forms "..repr(BuilderName).." using "..repr(template[1]))
-				end
-
 				local hndl = FormPlatoon( aiBrain.ArmyPool, template, 1, Location, Radius)
 				
 				if not builder:StoreHandle( hndl, self, 'Any' ) then
@@ -195,6 +191,10 @@ PlatoonFormManager = Class(BuilderManager) {
 					end
 					
 					return aiBrain:DisbandPlatoon(hndl)
+				end
+
+				if PlatoonDialog then
+					LOG("*AI DEBUG "..aiBrain.Nickname.." PFM "..LocationType.." forms "..repr(BuilderName).." "..repr(hndl.BuilderInstance).." using "..repr(template[1]))
 				end
 
 				hndl.LocationType = LocationType
@@ -218,7 +218,7 @@ PlatoonFormManager = Class(BuilderManager) {
 					for _, papv in Builder.PlatoonAddPlans do
 
 						if PlatoonDialog then
-							LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(BuilderName).." adds plan "..repr(papv))
+							LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(BuilderName).." "..repr(hndl.BuilderInstance).." adds plan "..repr(papv))
 						end
 
 						hndl:ForkThread( hndl[papv], aiBrain )
@@ -238,7 +238,7 @@ PlatoonFormManager = Class(BuilderManager) {
                         -- so Czar Attack could turn OFF Czar Attack and turn ON Czar Attack 2 - which could, in turn, reverse that
                         
 						if PlatoonDialog then
-							LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(BuilderName).." adds function "..repr(papv[2]))
+							LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(BuilderName).." "..repr(hndl.BuilderInstance).." adds function "..repr(papv[2]))
 						end
 						
 						ForkThread( import(papv[1])[papv[2]], hndl, aiBrain )
@@ -250,7 +250,7 @@ PlatoonFormManager = Class(BuilderManager) {
 					for _, papv in Builder.PlatoonAddBehaviors do
 
 						if PlatoonDialog then
-							LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(BuilderName).." adds behavior "..repr(papv))
+							LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(BuilderName).." "..repr(hndl.BuilderInstance).." adds behavior "..repr(papv))
 						end
 					
 						hndl:ForkThread( Behaviors[papv], aiBrain )
