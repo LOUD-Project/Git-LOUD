@@ -794,6 +794,9 @@ function AttackFormation( formationUnits )
 			end	
 		
 			BlockBuilderLand( subUnitsList, subBlock, SubmarineCategories, FormationPos, 0.7 )
+            
+            seaUnitsList.UnitTotal = seaUnitsList.UnitTotal - subUnitsList.UnitTotal
+            seaUnitsList.SubCount = 0
 			
 		end
 
@@ -936,6 +939,9 @@ function GrowthFormation( formationUnits )
 			end
 		
 			BlockBuilderLand( subUnitsList, subBlock, SubmarineCategories, FormationPos, 0.7 )
+            
+            seaUnitsList.UnitTotal = seaUnitsList.UnitTotal - subUnitsList.UnitTotal
+            seaUnitsList.SubCount = 0
 			
 		end
 
@@ -1317,13 +1323,15 @@ function BlockBuilderLand( unitsList, formationBlock, categoryTable, FormationPo
 	local LOUDCEIL = LOUDCEIL
 	local LOUDINSERT = LOUDINSERT
 	local LOUDMOD = LOUDMOD
+    
+    local normalized_row_width, colSpot, colType, halfway_column_spot
 	
 	local function GetColSpot(rowLen, col)
 
         local LOUDFLOOR = LOUDFLOOR
         local LOUDMOD = LOUDMOD
 
-		local normalized_row_width = rowLen
+		normalized_row_width = rowLen
 
 		-- row width is normalized to the next even value
 		if LOUDMOD(rowLen,2) == 1 then
@@ -1332,7 +1340,7 @@ function BlockBuilderLand( unitsList, formationBlock, categoryTable, FormationPo
 		end
 		
 		-- default to left unless current fill number is even then it's right
-		local colType = 'left'
+		colType = 'left'
 	
 		if LOUDMOD(col, 2) == 0 then
 	
@@ -1340,10 +1348,10 @@ function BlockBuilderLand( unitsList, formationBlock, categoryTable, FormationPo
 		end
 		
 		-- which fill number we'on divided in half
-		local colSpot = LOUDFLOOR(col * 0.5)
+		colSpot = LOUDFLOOR(col * 0.5)
 	
 		-- the spot number which is the centre spot
-		local halfway_column_spot = normalized_row_width * 0.5
+		halfway_column_spot = normalized_row_width * 0.5
 		
 		-- we're either left or right of the centre position by a certain amount
 		if colType == 'left' then
@@ -1367,7 +1375,6 @@ function BlockBuilderLand( unitsList, formationBlock, categoryTable, FormationPo
     local numRows = LOUDGETN(formationBlock)
 	
     local i = 1
-
     local whichRow = 1
     local whichCol = 1
 	
@@ -1375,7 +1382,10 @@ function BlockBuilderLand( unitsList, formationBlock, categoryTable, FormationPo
     local inserted = false
     local formationLength = 0    
     local rowType = false
-
+    
+    local currColSpot, currSlot, HomogenousRows
+    
+    --LOG("*AI DEBUG BlockBuilderLand for "..unitsList.UnitTotal.." units using "..repr(unitsList) )
 
 	-- loop thru all the units until all are done
     while unitsList.UnitTotal >= i do
@@ -1427,18 +1437,22 @@ function BlockBuilderLand( unitsList, formationBlock, categoryTable, FormationPo
 		
 		-- using the number of spots in a row, and which fill value we're on in this iteration - which spot we will use
 		-- this routine fills the middle of the row and then right and then left and then right again and left again
-        local currColSpot = GetColSpot(currRowLen, whichCol)
+        currColSpot = GetColSpot(currRowLen, whichCol)
 		
 		-- which categories will go into this spot in this row
-        local currSlot = formationBlock[whichRow][currColSpot]
+        currSlot = formationBlock[whichRow][currColSpot]
 		
-        for _, type in currSlot do
+        for _, unittype in currSlot do
         
-            local HomogenousRows = formationBlock.HomogenousRows
+            HomogenousRows = formationBlock.HomogenousRows
+            
+            local grp = false
 
-            for _, group in type do
+            for _, group in unittype do
+            
+                grp = group
 			
-                if not HomogenousRows or (rowType == false or rowType == type) then
+                if not HomogenousRows or (rowType == false or rowType == unittype) then
 				
                     if unitsList[group] > 0 then
 					
@@ -1470,7 +1484,7 @@ function BlockBuilderLand( unitsList, formationBlock, categoryTable, FormationPo
 						
                         if HomogenousRows and not rowType then
 						
-                            rowType = type
+                            rowType = unittype
                         end
 						
 						-- notice the use of whichRow to determine the movement delay between rows --
@@ -1492,7 +1506,8 @@ function BlockBuilderLand( unitsList, formationBlock, categoryTable, FormationPo
 				inserted = false
 				
 				break
-			end			
+
+            end
 			
         end
 		
