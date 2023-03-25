@@ -1073,7 +1073,7 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Experimentals',
 
             PrioritizedCategories = { 'LAND MOBILE','SHIELD','STRUCTURE -WALL','ENGINEER'},		-- controls target selection
 			
-			MaxAttackRange = 1500,			-- all targets upto 30k
+			MaxAttackRange = 1500,
 			
 			MergeLimit = 120,
 			
@@ -1120,9 +1120,9 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Experimentals',
 
             PrioritizedCategories = { 'ECONOMIC','SHIELD','STRUCTURE -WALL','LAND MOBILE','ENGINEER'},		-- controls target selection
 			
-			MaxAttackRange = 2500,			-- all targets
+			MaxAttackRange = 2500,
 			
-			MergeLimit = 120,				# controls trigger level at which merging is allowed - nil = original platoon size
+			MergeLimit = 120,
 			
 			AggressiveMove = true,
 			
@@ -1173,9 +1173,9 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Experimentals',
 			
             PrioritizedCategories = { 'SHIELD','STRUCTURE -WALL','LAND MOBILE','ENGINEER'},		-- controls target selection
 			
-			MaxAttackRange = 1500,			-- only process hi-priority targets within 30km
+			MaxAttackRange = 1500,
 			
-			MergeLimit = 120,				# controls trigger level at which merging is allowed - nil = original platoon size
+			MergeLimit = 120,
 			
 			AggressiveMove = true,
 			
@@ -1229,9 +1229,9 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Experimentals',
 			
             PrioritizedCategories = { 'SHIELD','STRUCTURE -WALL','LAND MOBILE','ENGINEER'},		-- controls target selection
 			
-			MaxAttackRange = 1500,			-- only process hi-priority targets within 30km
+			MaxAttackRange = 1500,
 			
-			MergeLimit = 120,				# controls trigger level at which merging is allowed - nil = original platoon size
+			MergeLimit = 120,
 			
 			AggressiveMove = true,
 			
@@ -1334,16 +1334,16 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
         BuilderType = 'Any',
 		
 		BuilderConditions = {
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 50, (categories.LAND * categories.AMPHIBIOUS) * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 47, (categories.LAND * categories.AMPHIBIOUS) * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT }},
         },
 		
         BuilderData = {
         
-            PrioritizedCategories = { 'LAND MOBILE','ENGINEER','SHIELD','STRUCTURE -WALL'},		-- controls target selection
+            PrioritizedCategories = { 'ECONOMY','LAND MOBILE','ENGINEER','SHIELD','STRUCTURE -WALL'},		-- controls target selection
 			
-			MaxAttackRange = 3000,			-- only process hi-priority targets within 60km
+			MaxAttackRange = 3000,
 			
-			MergeLimit = 100,				-- controls trigger level at which merging is allowed - nil = original platoon size
+			MergeLimit = 100,
 			
 			AggressiveMove = false,
 			
@@ -1373,16 +1373,16 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.7 } },
             
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 39, (categories.LAND * categories.AMPHIBIOUS) * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 35, (categories.LAND * categories.AMPHIBIOUS) * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT }},
         },
 		
         BuilderData = {
 		
             PrioritizedCategories = { 'FACTORY','STRUCTURE -WALL','ECONOMIC','DEFENSE','SHIELD','ENGINEER'},		# controls target selection
 			
-			MaxAttackRange = 1500,			-- only process hi-priority targets within 30km
+			MaxAttackRange = 1500,
 			
-			MergeLimit = 80,				# controls trigger level at which merging is allowed - nil = original platoon size
+			MergeLimit = 80,
 			
 			AggressiveMove = true,
 			
@@ -1412,16 +1412,16 @@ BuilderGroup {BuilderGroupName = 'Land Formations - Amphibious',
 
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 0.8 } },
             
-			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 27, (categories.LAND * categories.AMPHIBIOUS) * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT }},
+			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 23, (categories.LAND * categories.AMPHIBIOUS) * (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.SCOUT }},
 		},
 		
         BuilderData = {
 		
             PrioritizedCategories = { 'FACTORY','STRUCTURE -WALL','ECONOMIC','DEFENSE','SHIELD','ENGINEER'},		# controls target selection
 			
-			MaxAttackRange = 1000,			-- only process hi-priority targets within 20km
+			MaxAttackRange = 1000,
 			
-			MergeLimit = 65,				# controls trigger level at which merging is allowed - nil = original platoon size
+			MergeLimit = 65,
 			
 			AggressiveMove = false,
 			

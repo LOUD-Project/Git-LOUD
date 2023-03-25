@@ -162,6 +162,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
 		PriorityFunction = function(self, aiBrain)
 		
 			if self.Priority != 0 then
+
 				if aiBrain.CycleTime > 2700 then
 					return 0, false
 				end
@@ -170,7 +171,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
 			return self.Priority,true
 		end,
 		
-        InstanceCount = 8,
+        InstanceCount = 10,
 		
         BuilderType = 'Any',
 		
@@ -181,16 +182,17 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
 		BuilderData = {},
     },
     
-	-- double plane formation for 75 minutes - 10 instances
+	-- double plane formation
     Builder {BuilderName = 'Air Scout Pair',
     
         PlatoonTemplate = 'Air Scout Group',
         
 		PlatoonAIPlan = 'ScoutingAI',
         
-        Priority = 810,
+        Priority = 10,
 		
-		-- this function removes it at 70 minutes 
+		-- this function starts it at 12
+        -- and removes it at 75 minutes 
 		PriorityFunction = function(self, aiBrain)
 			
 			if self.Priority != 0 then
@@ -198,12 +200,17 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
 				if aiBrain.CycleTime > 4500 then
 					return 0, false
 				end
+                
+                if aiBrain.CycleTime > 720 then
+                    return 810, true
+                end
+
 			end
 			
 			return self.Priority,true
 		end,
 
-        InstanceCount = 5,
+        InstanceCount = 6,
 		
         BuilderType = 'Any',
 		
@@ -214,14 +221,28 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Scouts',
 		BuilderData = {},
     },
 
-	-- wing (5) formations at 60 minutes - 8 instances
+	-- wing (5) formations at 60 minutes
     Builder {BuilderName = 'Air Scout Wing',
     
         PlatoonTemplate = 'Air Scout Group Large',
         
 		PlatoonAIPlan = 'ScoutingAI',
         
-        Priority = 810,
+        Priority = 10,
+		
+		-- this function starts it at 25
+		PriorityFunction = function(self, aiBrain)
+			
+			if self.Priority != 0 then
+            
+                if aiBrain.CycleTime > 1500 then
+                    return 810, false
+                end
+
+			end
+			
+			return self.Priority,true
+		end,
 		
         InstanceCount = 6,
 		

@@ -32,7 +32,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
             
             { EBC, 'LessThanEconMassStorageRatio', { 60 }},
 
-            { EBC, 'GreaterThanEconStorageCurrent', { 75, 1750 }},
+            { EBC, 'GreaterThanEconStorageCurrent', { 75, 500 }},
 
             { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 250, -9999, 50, 0, 'AntiSurface', 1 }},
         },
@@ -84,7 +84,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
             
             { EBC, 'LessThanEconMassStorageRatio', { 60 }},
 
-            { EBC, 'GreaterThanEconStorageCurrent', { 75, 2500 }},
+            { EBC, 'GreaterThanEconStorageCurrent', { 100, 2500 }},
             
             { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 200, 750, -9999, 30, 0, 'AntiSurface', 1 }},
         },
@@ -180,7 +180,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
             
             { EBC, 'LessThanEconMassStorageRatio', { 50 }},
 
-            { EBC, 'GreaterThanEconStorageCurrent', { 100, 3000 }},
+            { EBC, 'GreaterThanEconStorageCurrent', { 100, 2500 }},
             
             { EBC, 'GreaterThanEnergyTrendOverTime', { 14 }},
             
@@ -234,9 +234,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
             
             { EBC, 'LessThanEconMassStorageRatio', { 50 }},
             
-            { EBC, 'GreaterThanEconStorageCurrent', { 100, 3000 }},
+            { EBC, 'GreaterThanEconStorageCurrent', { 100, 2500 }},
             
-            { EBC, 'GreaterThanEnergyTrendOverTime', { 16 }},
+            { EBC, 'GreaterThanEnergyTrendOverTime', { 20 }},
             
             { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 300, 1500, -9999, 15, 1, 'AntiSurface', 1 }},
         },
@@ -283,7 +283,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders',
             
             { EBC, 'LessThanEconMassStorageRatio', { 50 }},
 
-            { EBC, 'GreaterThanEconStorageCurrent', { 100, 3000 }},
+            { EBC, 'GreaterThanEconStorageCurrent', { 100, 2500 }},
             
             { EBC, 'GreaterThanEnergyTrendOverTime', { 20 }},
             
@@ -424,9 +424,9 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Defensive Point',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .85 } },
 
-            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 2500 }},
+            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 1000 }},
             
-            { EBC, 'GreaterThanEnergyTrendOverTime', { 20 }},
+            { EBC, 'GreaterThanEnergyTrendOverTime', { 14 }},
 
             { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 200, -9999, 35, 0, 'AntiSurface', 1 }},
         },
@@ -471,7 +471,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Expansions',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},
             { LUTL, 'UnitCapCheckLess', { .85 } },	
             
-            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 2500 }},
+            { EBC, 'GreaterThanEconEnergyStorageCurrent', { 500 }},
             
             { EBC, 'GreaterThanEnergyTrendOverTime', { 5 }},
 
@@ -562,11 +562,11 @@ BuilderGroup {BuilderGroupName = 'Engineer Mass Builders - Naval',
 			{ LUTL, 'NoBaseAlert', { 'LocationType' }},		
             { LUTL, 'UnitCapCheckLess', { .85 } },
             
-            { EBC, 'LessThanEconMassStorageRatio', { 50 }},
+            { EBC, 'LessThanEconMassStorageRatio', { 60 }},
             
-            { EBC, 'GreaterThanEconStorageCurrent', { 100, 3000 }},
+            { EBC, 'GreaterThanEconStorageCurrent', { 75, 500 }},
             
-            { EBC, 'GreaterThanEnergyTrendOverTime', { 20 }},
+            { EBC, 'GreaterThanEnergyTrendOverTime', { 5 }},
 
             { EBC, 'CanBuildOnMassAtRange', { 'LocationType', 0, 750, -9999, 30, 0, 'AntiSurface', 1 }},
         },

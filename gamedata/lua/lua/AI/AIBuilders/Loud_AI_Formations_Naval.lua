@@ -182,6 +182,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
         },
     },	
 
+
     -- ALL the SEA ATTACK formations only appear when there is
     -- enemy Naval Activity and we are not yet totally dominant
     -- on the water (Naval Ratio < 8)
@@ -373,7 +374,7 @@ BuilderGroup {BuilderGroupName = 'Naval Formations',
         },
     },
 
---[[
+
     Builder {BuilderName = 'T2 Sea Attack - UEF',
 	
         PlatoonTemplate = 'SeaAttack Medium',

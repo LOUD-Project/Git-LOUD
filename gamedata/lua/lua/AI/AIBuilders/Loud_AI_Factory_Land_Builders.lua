@@ -27,7 +27,7 @@ end
 
 local Map10korLess = function(self,aiBrain)
 
-    if ScenarioInfo.IMAPSize < 64 then
+    if ScenarioInfo.IMAPSize <= 64 then
         return 550, true
     end
 
