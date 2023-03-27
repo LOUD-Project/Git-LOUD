@@ -1325,7 +1325,7 @@ function LandScoutingAI( self, aiBrain )
     local OMNICHECK = categories.STRUCTURE * categories.INTELLIGENCE * categories.OMNI
 
     local PlatoonGenerateSafePathToLOUD = self.PlatoonGenerateSafePathToLOUD
-    local SendPlatoonWithTransportsLOUD = self.SendPlatoonWithTransportsLOUD
+    local SendPlatoonWithTransportsLOUD = import('/lua/ai/transportutilities.lua').SendPlatoonWithTransportsLOUD
 
     local MovementLayer = self.MovementLayer
 	local PlatoonPatrols = self.PlatoonData.Patrol or false

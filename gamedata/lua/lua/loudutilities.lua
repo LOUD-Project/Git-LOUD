@@ -3,16 +3,14 @@
 
 -- You will find lots of useful notes in here 
 
-local AssignTransportToPool = import('/lua/ai/altaiutilities.lua').AssignTransportToPool
+local AssignTransportToPool = import('/lua/ai/transportutilities.lua').AssignTransportToPool
 local AIGetMarkersAroundLocation = import('/lua/ai/aiutilities.lua').AIGetMarkersAroundLocation
 local AIPickEnemyLogic = import('/lua/ai/aiutilities.lua').AIPickEnemyLogic
 local AISendChat = import('/lua/ai/sorianutilities.lua').AISendChat
 local AISendPing = import('/lua/ai/altaiutilities.lua').AISendPing
 local Game = import('game.lua')
-
---local GetHiPriTargetList = import('/lua/ai/altaiutilities.lua').GetHiPriTargetList
-
 local RandomLocation = import('/lua/ai/aiutilities.lua').RandomLocation
+local ReturnTransportsToPool = import('/lua/ai/transportutilities.lua').ReturnTransportsToPool
 local SetArmyPoolBuff = import('ai/aiutilities.lua').SetArmyPoolBuff
 
 local EntityCategoryCount = EntityCategoryCount
@@ -2076,7 +2074,7 @@ function AirUnitRefitThread( unit, aiBrain )
                 LOG("*AI DEBUG "..aiBrain.Nickname.." transport "..unit.EntityID.." leaving Refit thread")
             end
             
-			ForkThread( import('/lua/ai/altaiutilities.lua').ReturnTransportsToPool, aiBrain, {unit}, true )
+			ForkThread( ReturnTransportsToPool, aiBrain, {unit}, true )
             
 		end
 	end

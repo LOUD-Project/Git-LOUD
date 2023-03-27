@@ -35,8 +35,9 @@ local ApplyBuff = import('/lua/sim/buff.lua').ApplyBuff
 local HasBuff = import('/lua/sim/buff.lua').HasBuff
 local RemoveBuff = import('/lua/sim/buff.lua').RemoveBuff
 
-local AssignTransportToPool = import('/lua/ai/altaiutilities.lua').AssignTransportToPool
+local AssignTransportToPool = import('/lua/ai/transportutilities.lua').AssignTransportToPool
 local ProcessAirUnits = import('/lua/loudutilities.lua').ProcessAirUnits
+local ReturnTransportsToPool = import('/lua/ai/transportutilities.lua').ReturnTransportsToPool
 
 local LOUDCOPY = table.copy
 local LOUDCEIL = math.ceil
@@ -3824,7 +3825,6 @@ AirUnit = Class(MobileUnit) {
 				if brain.BrainType == 'AI' then
 			
 					local beyondbase = true
-					local ReturnTransportsToPool = import('/lua/ai/altaiutilities.lua').ReturnTransportsToPool
 	
 					-- loop thru his bases
 					for _,base in brain.BuilderManagers do
