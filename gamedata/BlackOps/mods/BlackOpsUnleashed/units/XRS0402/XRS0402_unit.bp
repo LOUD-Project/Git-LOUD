@@ -596,7 +596,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 280,
-            DamageRadius = 4,       -- massive AOE again - huge power drain --
+            DamageRadius = 4,
             DamageType = 'ShieldMult0.8',
 			
             DisplayName = 'SeaDragon Bombardment Cannon',
@@ -622,7 +622,7 @@ UnitBlueprint {
             MuzzleVelocity = 30,
 			MuzzleVelocityReduceDistance = 90,
 
-            ProjectileId = '/mods/BlackOpsUnleashed/projectiles/SeaDragonShell01/SeaDragonShell01_proj.bp',
+            ProjectileId = '/mods/BlackOpsUnleashed/projectiles/XCannon01/XCannon01_proj.bp', -- '/mods/BlackOpsUnleashed/projectiles/SeaDragonShell01/SeaDragonShell01_proj.bp',
 			ProjectileLifetime = 24,
 			
             RackBones = {

@@ -195,7 +195,7 @@ UnitBlueprint {
             CollideFriendly = false,
             CountedProjectile = true,
 			
-            Damage = 2000,  -- but there will be 6 of these
+            Damage = 2000,            -- but there will be 6 of these
             DamageFriendly = true,
             DamageRadius = 4,
             DamageType = 'Normal',

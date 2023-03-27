@@ -67,7 +67,7 @@ ProjectileBlueprint {
     	Acceleration = 4,
         InitialSpeed = 0,
         Lifetime = 600,
-        MaxSpeed = 40,
+        MaxSpeed = 36,
         RotationalVelocity = 100,
         RotationalVelocityRange = 0,
         TrackTarget = true,

@@ -52,8 +52,8 @@ AIFMissileSerpentine01 = Class(AMissileSerpentineProjectile) {
         local angleInitial = RandomFloat( 0, angle )
         
         -- Randomization of the spread
-        local angleVariation = angle * 0.3 # Adjusts angle variance spread
-        local spreadMul = 1 # Adjusts the width of the dispersal        
+        local angleVariation = angle * 0.33 -- Adjusts angle variance spread
+        local spreadMul = 1                 -- Adjusts the width of the dispersal        
         
         local xVec = 0 
         local yVec = vy
@@ -70,13 +70,11 @@ AIFMissileSerpentine01 = Class(AMissileSerpentineProjectile) {
             proj:SetVelocity(xVec,yVec,zVec)
             proj:SetVelocity(velocity)
             
-            LOG("*AI DEBUG Damage data at this time is "..repr(self.DamageData))
-            
             proj:PassDamageData(self.DamageData)                        
         end
         
         self:Destroy()
-        AMissileSerpentineProjectile.OnImpact(self, TargetType, TargetEntity) 
+
     end,
 
     MovementThread = function(self)
@@ -85,17 +83,18 @@ AIFMissileSerpentine01 = Class(AMissileSerpentineProjectile) {
 		
         self:TrackTarget(false)
 		
-        WaitSeconds(1.2)		# Height
+        WaitSeconds(1.3)
 		
         self:SetCollision(true)
 		
         WaitSeconds(2)
 		
-        self:TrackTarget(true) # Turn ~90 degrees towards target
+        self:TrackTarget(true)      -- Turn towards target
         self:SetDestroyOnWater(true)        
+
         self:SetTurnRate(47.36)
 		
-        WaitSeconds(2) 					# Now set turn rate to zero so nuke flies straight
+        WaitSeconds(2)
 		
         self:SetTurnRate(0)
         self:SetAcceleration(0.001)

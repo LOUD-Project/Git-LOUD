@@ -489,7 +489,9 @@ BSL0401 = Class(SHoverLandUnit) {
 					self:SetWorkProgress(totalprogress)
                     
 					if totalprogress >= 1 and not repairingDrone:IsDead() then
-						self.DroneData[self.BuildingDrone].Damaged = false
+                        if self.DroneData[self.BuildingDrone] then
+                            self.DroneData[self.BuildingDrone].Damaged = false
+                        end
 					end
 				end
 			end

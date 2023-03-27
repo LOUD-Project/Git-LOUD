@@ -60,12 +60,9 @@ ProjectileBlueprint {
         DestroyOnWater = true,
         InitialSpeed = 40,
         MaxSpeed = 40,
-        #DetonateBelowHeight = 20,
-        #MaxZigZag = 5,
         TrackTarget = false,
         TrackTargetGround = false,
         TurnRate = 0,
         VelocityAlign = true,
-        #ZigZagFrequency = 0.5,
     },
 }
