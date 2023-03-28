@@ -8,6 +8,10 @@ local BrewLANLOUDPath = import( '/lua/game.lua' ).BrewLANLOUDPath()
 local AssistThread = import(BrewLANLOUDPath .. '/lua/fieldengineers.lua').AssistThread
 local EffectUtil = import('/lua/EffectUtilities.lua')
 
+local TrashBag = TrashBag
+local TrashAdd = TrashBag.Add
+local TrashDestroy = TrashBag.Destroy
+
 SRS0219 = Class(CSeaUnit) {
     DestructionTicks = 200,
 
@@ -16,10 +20,13 @@ SRS0219 = Class(CSeaUnit) {
     },
 
     OnStopBeingBuilt = function(self,builder,layer)
+
         CSeaUnit.OnStopBeingBuilt(self,builder,layer)
-        self.Trash:Add(CreateRotator(self, 'Cybran_Radar', 'y', nil, 90, 0, 0))
-        self.Trash:Add(CreateRotator(self, 'Back_Radar', 'y', nil, -360, 0, 0))
-        self.Trash:Add(CreateRotator(self, 'Front_Radar', 'y', nil, -180, 0, 0))
+
+        TrashAdd( self.Trash, CreateRotator(self, 'Cybran_Radar', 'y', nil, 90, 0, 0) )
+        TrashAdd( self.Trash, CreateRotator(self, 'Back_Radar', 'y', nil, -360, 0, 0) )
+        TrashAdd( self.Trash, CreateRotator(self, 'Front_Radar', 'y', nil, -180, 0, 0) )
+
         self:ForkThread(AssistThread)
     end,
 
@@ -34,7 +41,7 @@ SRS0219 = Class(CSeaUnit) {
         -- reattach the permanent projectile
         for _, v in self.BuildProjectile do 
         
-            TrashDestroy ( v.BuildEffectsBag )
+            TrashDestroy( v.BuildEffectsBag )
         
             if v.Detached then
                 v:AttachTo( self, v.Name )

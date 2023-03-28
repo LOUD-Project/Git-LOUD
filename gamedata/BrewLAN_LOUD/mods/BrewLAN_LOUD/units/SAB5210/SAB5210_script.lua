@@ -1,4 +1,4 @@
-local AWallStructureUnit = import('/lua/aeonunits.lua').AWallStructureUnit
+local AWallStructureUnit = import('/lua/defaultunits.lua').WallStructureUnit
 
 local CardinalWallUnit = import(import( '/lua/game.lua' ).BrewLANLOUDPath() .. '/lua/walls.lua').CardinalWallUnit
 

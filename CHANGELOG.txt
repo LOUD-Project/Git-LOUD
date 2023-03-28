@@ -1,3 +1,17 @@
+### Release 26-03-2023
+
+Black Ops Unleashed for LOUD 6.3.01
+BrewLAN for LOUD 0.8.8.9.64
+
+- Cybran T4 Bombardment ship had missing projectile for the bombardment weapon
+- AEON T3 Purifier - Adv. TML - parent missile was destroying child missiles on splitting
+- SERA Yenzotha drones not being monitored correctly
+- fixed some minor class issues with BL units (fixes Cybran Wall gates)
+
+
+
+### Release 25-03-2023
+
 LUA 6.3
 Projectiles 6.3
 Textures 6.3
