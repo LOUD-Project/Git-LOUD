@@ -1,3 +1,15 @@
+### Release 30-03-2023
+
+LUA 6.3.01
+UNITS 6.3.01
+
+- minor unit fix for Cybran Hives not upgrading to T3
+- removed AI debug that was left on
+- some logging for AI Debug data, in preparation for making it usable in a replay
+- When outnumbered, the AI will receive a 10% reduction in resource usage/maintenance
+- deprecated some unused transport functions
+
+
 ### Release 26-03-2023
 
 Black Ops Unleashed for LOUD 6.3.01
