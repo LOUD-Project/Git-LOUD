@@ -178,13 +178,16 @@ BuilderManager = Class {
     end,
 	
 
-	-- loop thru all possible tasks for this type of builder (Engineer, Platoon or Factory) in priority sequence (high to low) at this location (self)
-	-- The tasks are sorted from highest priority to lowest (except those which are set to zero at some point)
-	-- ignore any job with a priority of 0
-	-- the priority trigger is set by the first job that passes all checks and only jobs of the same priority will be considered after that
-	-- jobs that pass all checks are added to the temporary table of possible jobs 
-	-- stop looping once you encounter a job with a lower priority than that trigger (but not zero - those are ignored)
-	-- and randomly return one of the possible jobs
+	-- loop thru all possible tasks for this type of builder (Engineer, Factory or Platoon) in priority sequence (high to low) at this location (self)
+	-- completely ignore any task with a priority of 0 (they'll be removed) - process any task with a priority > 100 
+    -- any task with a priority between 0 and 100 is basically 'parked' or idle  
+
+	-- the priority trigger is set by the first task that passes all its checks and only tasks of the same priority will be considered after that
+	-- tasks that pass all checks are added to the temporary table of possible tasks
+
+	-- the loops ends once you encounter a task with a lower priority than that trigger (but not zero - those are ignored)
+	-- and then one of the tasks in the possible tasks is randomly selected
+
     GetHighestBuilder = function( self, unit, aiBrain )
 		
 		-- use the BuilderParamCheck function specific to the Manager that called this function (ie. Engineer or Factory)
@@ -194,7 +197,6 @@ BuilderManager = Class {
         local possibleBuilders = {}
 		local counter = 0
         local conditionschecked = 0
-		
 
         local ResultTable = aiBrain.ConditionsMonitor.ResultTable
 
@@ -291,6 +293,7 @@ BuilderManager = Class {
             Priority = task.Priority
 			
             -- first step, process any PriorityFunction for this task
+
             -- if there is a new priority and it's not 0 then act on this task with it's new priority
             -- if the new priority is 0 - process it normally but this task will be removed on the next cycle
 			if Builders[task.BuilderName].PriorityFunction  and Priority > 0 then
@@ -334,10 +337,7 @@ BuilderManager = Class {
                             possibleBuilders[counter] = k
 
                         end
-                    --else
-                        --if PriorityDialog then
-                            --LOG("*AI DEBUG "..aiBrain.Nickname.." "..ManagerType.." "..BuilderType.." "..self.LocationType.." "..repr(task.BuilderName).." fails")
-                        --end
+
                     end
                     
                 elseif found and Priority < found then
@@ -345,7 +345,7 @@ BuilderManager = Class {
                 end
                 
             else
-
+                -- this task has been marked for removal (Priority == 0)
 				if Priority == 0 and not task.OldPriority then
 
 					if PriorityDialog then
@@ -358,10 +358,6 @@ BuilderManager = Class {
                     self.BuilderData[BuilderType].displayed = false
 				end
 			end
-            
-            --if PriorityDialog then
-              --  LOG("*AI DEBUG "..aiBrain.Nickname.." "..ManagerType.." "..BuilderType.." "..self.LocationType.." Examined task "..k.." "..repr(task.BuilderName) )
-            --end
 
         end
 
@@ -406,7 +402,7 @@ BuilderManager = Class {
         end
     end,
   
-	-- originally this thread ran for each manager - but now just the PFM
+	-- originally this thread ran for each manager - but now just the PFM runs it
 	-- checks if the PFM builderlist needs to be resorted due to a priority change
 	
 	-- This thread is the core of the PFM -- cycles thru all the platoons as long as the manager is Active
@@ -448,6 +444,7 @@ BuilderManager = Class {
 		local GetBuilderStatus = function( BuilderConditions, ResultTable )
         
             local conditioncount = LOUDGETN(BuilderConditions)
+            local WaitTicks = WaitTicks
 
 			for _,v in BuilderConditions do
             

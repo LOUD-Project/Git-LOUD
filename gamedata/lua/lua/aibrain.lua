@@ -349,6 +349,9 @@ function upvalues()
 end 
 --]]
 
+
+-- this function will bring debug switch settings into the SIM from the UI
+-- but not during a replay
 function SetAIDebug(data)
 
     if type(data.Active) ~= 'boolean' then

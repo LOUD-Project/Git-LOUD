@@ -721,11 +721,8 @@ EngineerManager = Class(BuilderManager) {
 			AlertResponseTime = 11,						-- time it allows to pass before sending more responses to an active alert in seconds
 		
 			AlertsTable = {},							-- stores the data for each threat (position, amount of threat, type of threat)
-            
-            --DistressRepeats = 0,                        -- how many times have we tried (and failed) to generate a response to an alert
-        
+
 			LastAlertTime = LOUDFLOOR(GetGameTimeSeconds()),	-- how long since last alert
-            
 		}
 	
 		if ScenarioInfo.BaseMonitorDialog then
@@ -810,8 +807,7 @@ EngineerManager = Class(BuilderManager) {
 		-- A base can have one of each kind of threat (Air, Land and Naval)
 		-- We loop thru the threat data for each of these 3 and for experimentals
 		-- looking at any threat within the AlertRadius and greater than the AlertLevel
-		-- If an experimental is found, it is examined to determine which kind of
-		-- threat it is (again - Air, Land or Naval)
+		-- If an experimental is found, it is examined to determine which kind of threat it is (Air, Land or Naval)
 		-- If the base does not currently have an alert of that kind, an entry will be inserted into the AlertTable
 		-- noting Position, Threat level and the kind of threat (Air, Land or Naval)
 		-- This is then passed off to the BaseMonitorAlertTimeoutLOUD which will follow that threat,
@@ -821,6 +817,7 @@ EngineerManager = Class(BuilderManager) {
             local GetUnitsAroundPoint = GetUnitsAroundPoint
             local VDist2Sq = VDist2Sq
 
+            -- if there is a HiPri Intel List
 			if aiBrain.IL.HiPri[1] then
 	
 				local AlertRadius = self.BaseMonitor.AlertRange

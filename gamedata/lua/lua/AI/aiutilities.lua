@@ -11,22 +11,18 @@ local LOUDMIN = math.min
 local LOUDPARSE = ParseEntityCategory
 local LOUDREMOVE = table.remove
 local LOUDSORT = table.sort
-
 local VDist2Sq = VDist2Sq
 
 local GetAIBrain = moho.unit_methods.GetAIBrain
-
 local GetFractionComplete = moho.entity_methods.GetFractionComplete
 local GetNumUnitsAroundPoint = moho.aibrain_methods.GetNumUnitsAroundPoint
-
 local GetPosition = moho.entity_methods.GetPosition	
-    
+local GetSurfaceHeight = GetSurfaceHeight 
+local GetTerrainHeight = GetTerrainHeight
 local GetThreatsAroundPosition = moho.aibrain_methods.GetThreatsAroundPosition
 local GetThreatAtPosition = moho.aibrain_methods.GetThreatAtPosition
 local GetUnitsAroundPoint = moho.aibrain_methods.GetUnitsAroundPoint
- 
-local GetTerrainHeight = GetTerrainHeight
-local GetSurfaceHeight = GetSurfaceHeight
+
 
 local SEARCHCATS = categories.ALLUNITS - categories.MASSEXTRACTION - categories.MASSSTORAGE - categories.MOBILE - categories.WALL
 
@@ -492,8 +488,6 @@ function AIGetMarkersAroundLocation( aiBrain, markerType, pos, radius, threatMin
 	return markerlist
 end
 
-
-
 -- this function simply filters a list of positions down to those
 -- that have NO allied structures within 42 ogrids (excluding extractors and storage)
 function AIFilterAlliedBases( aiBrain, positions )
@@ -540,8 +534,6 @@ function AIFindMarkerNeedsEngineer( aiBrain, pos, positions )
 	
     return false, nil
 end
-
-
 
 -- since this function sorts by distance it will return the closest point that meets that unitMax condition
 -- This is a variation on the one in AltAIUtils -- it uses a given point rather than a baseposition
@@ -634,7 +626,6 @@ function AIGetReclaimablesAroundLocation( aiBrain, locationType, range, location
 	
 	return false
 end
-
 
 -- this will return a list of only your units within radius --
 function GetOwnUnitsAroundPoint( aiBrain, category, location, radius )
@@ -876,135 +867,6 @@ function RandomLocation(x,z, value)
     return { finalX, height, finalZ }
 end
 
--- Returns the number of slots the transport has available
--- Originally, this function just counted the number of attachpoint bones of each size on the model
--- however, this does not seem to work correctly - ie. UEF T3 Transport
--- says it has 12 Large Attachpoints but will only carry 6 large units
--- so I replaced that with some hardcoded values to improve performance, as each new transport
--- unit comes into play, I'll cache those values on the brain so I never have to look them up again
-	-- setup global table to contain Transport values- in this way we always have a reference to them
-	-- without having to reread the bones or do all the EntityCategory checks from below
-function GetNumTransportSlots(unit, aiBrain)
-	
-	if not aiBrain.TransportSlotTable then
-	
-		aiBrain.TransportSlotTable = {}
-		
-	end
-	
-	local id = unit.BlueprintID
-	
-	if aiBrain.TransportSlotTable[id] then
-	
-		return aiBrain.TransportSlotTable[id]
-		
-	else
-	
-		local EntityCategoryContains = EntityCategoryContains
-	
-		local bones = { Large = 0, Medium = 0, Small = 0,}
-	
-		if EntityCategoryContains( categories.xea0306, unit) then
-			bones.Large = 6
-			bones.Medium = 10
-			bones.Small = 24
-
-		elseif EntityCategoryContains( categories.uea0203, unit) then
-			bones.Large = 0
-			bones.Medium = 1
-			bones.Small = 1
-			
-		elseif EntityCategoryContains( categories.uea0104, unit) then
-			bones.Large = 3
-			bones.Medium = 6
-			bones.Small = 14
-			
-		elseif EntityCategoryContains( categories.uea0107, unit) then
-			bones.Large = 1
-			bones.Medium = 2
-			bones.Small = 6
-			
-			
-		elseif EntityCategoryContains( categories.uaa0107, unit) then
-			bones.Large = 1
-			bones.Medium = 3
-			bones.Small = 6
-
-		elseif EntityCategoryContains( categories.uaa0104, unit) then
-			bones.Large = 3
-			bones.Medium = 6
-			bones.Small = 12
-
-			
-		elseif EntityCategoryContains( categories.ura0107, unit) then
-			bones.Large = 1
-			bones.Medium = 2
-			bones.Small = 6
-
-		elseif EntityCategoryContains( categories.ura0104, unit) then
-			bones.Large = 2
-			bones.Medium = 4
-			bones.Small = 10
-			
-			
-		elseif EntityCategoryContains( categories.xsa0107, unit) then
-			bones.Large = 1
-			bones.Medium = 4
-			bones.Small = 8
-
-		elseif EntityCategoryContains( categories.xsa0104, unit) then
-			bones.Large = 4
-			bones.Medium = 8
-			bones.Small = 16
-		
-		-- BO Aeon transport
-		elseif bones.Small == 0 and (categories.baa0309 and EntityCategoryContains( categories.baa0309, unit)) then
-			bones.Large = 6
-			bones.Medium = 10
-			bones.Small = 16
-		
-		-- BO Cybran transport
-		elseif bones.Small == 0 and (categories.bra0309 and EntityCategoryContains( categories.bra0309, unit)) then
-			bones.Large = 3
-			bones.Medium = 12
-			bones.Small = 14
-			
-		-- BrewLan Cybran transport
-		elseif bones.Small == 0 and (categories.sra0306 and EntityCategoryContains( categories.sra0306, unit)) then
-			bones.Large = 4
-			bones.Medium = 8
-			bones.Small = 16
-		
-		-- Gargantua
-		elseif bones.Small == 0 and (categories.bra0409 and EntityCategoryContains( categories.bra0409, unit)) then
-			bones.Large = 20
-			bones.Medium = 4
-			bones.Small = 4
-		
-		-- BO Sera transport
-		elseif bones.Small == 0 and (categories.bsa0309 and EntityCategoryContains( categories.bsa0309, unit)) then
-			bones.Large = 8
-			bones.Medium = 12
-			bones.Small = 28
-
-		-- BrewLAN Seraphim transport
-		elseif bones.Small == 0 and (categories.ssa0306 and EntityCategoryContains( categories.ssa0306, unit)) then
-			bones.Large = 7
-			bones.Medium = 15
-			bones.Small = 32
-			
-			
-			
-		end
-		
-		aiBrain.TransportSlotTable[id] = bones
-		
-		--LOG ("*AI DEBUG Global Transport Slot table is now "..repr(aiBrain.TransportSlotTable) )
-		return bones
-	end
-
-end
-
 -- This function just returns the distance to the closest IMAP threat position that exceeds the threatCutoff
 function GetThreatDistance(aiBrain, position, threatCutoff )
 
@@ -1072,7 +934,6 @@ function SetupAICheatUnitCap(aiBrain, biggestTeamSize)
     
 end
 
-
 -- This function creates the cheats used by the AI
 -- now creates buffs for EACH AI -- allowing us to have independant mutlipliers and supporting the
 -- more recent adaptive cheat multipliers which require this to work properly
@@ -1103,7 +964,10 @@ function SetupAICheat(aiBrain)
     -- the Outnumbered condition increases a cheating AI's build rate (but nothing else and never less than original )
     
     if aiBrain.CheatValue >= 1.0 then
+
         newbuff.Affects.BuildRate.Mult = aiBrain.CheatValue * math.min( aiBrain.OutnumberedRatio, aiBrain.CheatValue )
+
+        LOG("*AI DEBUG "..aiBrain.Nickname.." BuildRate mult is "..newbuff.Affects.BuildRate.Mult)
     end
 	
 	-- reduce mass/energy used when building and maintaining
@@ -1111,10 +975,17 @@ function SetupAICheat(aiBrain)
     -- and only when multiplier > 1
     -- so this value will always be 0 or negative
     -- put a floor of -0.60 on this -- since we're reaching near zero consumption
-    modifier = LOUDMIN(0, 1 - aiBrain.CheatValue)
-    modifier = 0.67 * modifier
-    modifier = LOUDMAX( -0.60, modifier )
+    
+    modifier = LOUDMIN(0, 1 - aiBrain.CheatValue )      -- this will generate a negative value
+    
+    if aiBrain.OutnumberedRatio > 1 then
+        modifier = modifier - 0.1     -- 10% resource reduction is outnumbered
+    end
+    
+    modifier = LOUDMAX( -0.50, modifier )               -- this will cap the reduction at 50%
 
+    LOG("*AI DEBUG "..aiBrain.Nickname.." Resource Maint modifier is "..modifier)
+    
 	newbuff.Affects.EnergyMaintenance.Add = modifier
 	newbuff.Affects.EnergyActive.Add = modifier
 	newbuff.Affects.MassActive.Add = modifier
@@ -1302,7 +1173,6 @@ function SetupAICheat(aiBrain)
     LOG("*AI DEBUG "..aiBrain.Nickname.." Modified Upgrade Issue Delay Period is "..aiBrain.UpgradeIssuedPeriod)
     
 end
-
 
 -- and this function will apply them to units as they are created
 function ApplyCheatBuffs(unit)
@@ -1610,3 +1480,134 @@ function AIFindBrainNukeTargetInRangeSorian( aiBrain, launcher, maxRange, atkPri
     return false
 end
 
+
+--[[
+-- Returns the number of slots the transport has available
+-- Originally, this function just counted the number of attachpoint bones of each size on the model
+-- however, this does not seem to work correctly - ie. UEF T3 Transport
+-- says it has 12 Large Attachpoints but will only carry 6 large units
+-- so I replaced that with some hardcoded values to improve performance, as each new transport
+-- unit comes into play, I'll cache those values on the brain so I never have to look them up again
+	-- setup global table to contain Transport values- in this way we always have a reference to them
+	-- without having to reread the bones or do all the EntityCategory checks from below
+function GetNumTransportSlots(unit, aiBrain)
+	
+	if not aiBrain.TransportSlotTable then
+	
+		aiBrain.TransportSlotTable = {}
+		
+	end
+	
+	local id = unit.BlueprintID
+	
+	if aiBrain.TransportSlotTable[id] then
+	
+		return aiBrain.TransportSlotTable[id]
+		
+	else
+	
+		local EntityCategoryContains = EntityCategoryContains
+	
+		local bones = { Large = 0, Medium = 0, Small = 0,}
+	
+		if EntityCategoryContains( categories.xea0306, unit) then
+			bones.Large = 6
+			bones.Medium = 10
+			bones.Small = 24
+
+		elseif EntityCategoryContains( categories.uea0203, unit) then
+			bones.Large = 0
+			bones.Medium = 1
+			bones.Small = 1
+			
+		elseif EntityCategoryContains( categories.uea0104, unit) then
+			bones.Large = 3
+			bones.Medium = 6
+			bones.Small = 14
+			
+		elseif EntityCategoryContains( categories.uea0107, unit) then
+			bones.Large = 1
+			bones.Medium = 2
+			bones.Small = 6
+			
+			
+		elseif EntityCategoryContains( categories.uaa0107, unit) then
+			bones.Large = 1
+			bones.Medium = 3
+			bones.Small = 6
+
+		elseif EntityCategoryContains( categories.uaa0104, unit) then
+			bones.Large = 3
+			bones.Medium = 6
+			bones.Small = 12
+
+			
+		elseif EntityCategoryContains( categories.ura0107, unit) then
+			bones.Large = 1
+			bones.Medium = 2
+			bones.Small = 6
+
+		elseif EntityCategoryContains( categories.ura0104, unit) then
+			bones.Large = 2
+			bones.Medium = 4
+			bones.Small = 10
+			
+			
+		elseif EntityCategoryContains( categories.xsa0107, unit) then
+			bones.Large = 1
+			bones.Medium = 4
+			bones.Small = 8
+
+		elseif EntityCategoryContains( categories.xsa0104, unit) then
+			bones.Large = 4
+			bones.Medium = 8
+			bones.Small = 16
+		
+		-- BO Aeon transport
+		elseif bones.Small == 0 and (categories.baa0309 and EntityCategoryContains( categories.baa0309, unit)) then
+			bones.Large = 6
+			bones.Medium = 10
+			bones.Small = 16
+		
+		-- BO Cybran transport
+		elseif bones.Small == 0 and (categories.bra0309 and EntityCategoryContains( categories.bra0309, unit)) then
+			bones.Large = 3
+			bones.Medium = 12
+			bones.Small = 14
+			
+		-- BrewLan Cybran transport
+		elseif bones.Small == 0 and (categories.sra0306 and EntityCategoryContains( categories.sra0306, unit)) then
+			bones.Large = 4
+			bones.Medium = 8
+			bones.Small = 16
+		
+		-- Gargantua
+		elseif bones.Small == 0 and (categories.bra0409 and EntityCategoryContains( categories.bra0409, unit)) then
+			bones.Large = 20
+			bones.Medium = 4
+			bones.Small = 4
+		
+		-- BO Sera transport
+		elseif bones.Small == 0 and (categories.bsa0309 and EntityCategoryContains( categories.bsa0309, unit)) then
+			bones.Large = 8
+			bones.Medium = 12
+			bones.Small = 28
+
+		-- BrewLAN Seraphim transport
+		elseif bones.Small == 0 and (categories.ssa0306 and EntityCategoryContains( categories.ssa0306, unit)) then
+			bones.Large = 7
+			bones.Medium = 15
+			bones.Small = 32
+			
+			
+			
+		end
+		
+		aiBrain.TransportSlotTable[id] = bones
+		
+		--LOG ("*AI DEBUG Global Transport Slot table is now "..repr(aiBrain.TransportSlotTable) )
+		return bones
+	end
+
+end
+--]]
