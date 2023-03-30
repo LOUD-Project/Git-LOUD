@@ -107,14 +107,9 @@ UnitBlueprint {
 
         BuildTime = 250,
 
-        BuildableCategory = {'xrb0104'},
+        BuildableCategory = {'xrb0304'},
 
         MaxBuildDistance = 14.5,
-
-        RebuildBonusIds = {
-			'xrb0204',
-			'xrb0304',
-        },
     },
 
     Footprint = {

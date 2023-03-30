@@ -103,8 +103,6 @@ UnitBlueprint {
         BuildTime = 166,
 
         MaxBuildDistance = 17.5,
-
-        RebuildBonusIds = {'xrb0104'},
     },
 
     Footprint = {
