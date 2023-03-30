@@ -11,6 +11,8 @@ do
 	local DebugPrefs = __debugprefs  
     
 	if not DebugPrefs.intel then DebugPrefs.intel = {} end
+    
+    LOG("*AI DEBUG DebugPrefs are "..repr(DebugPrefs))
 
 	local OrigCreateUI = CreateUI
 
@@ -174,20 +176,14 @@ do
 			LayoutHelpers.AtVerticalCenterIn(check, grp)
 
 			check.OnCheck = function(self, checked)
-				SimCallback({
-					Func = 'SetAIDebug',
-					Args = { Switch = SWITCHES[index], Active = checked }
-				})
+				SimCallback( { Func = 'SetAIDebug', Args = { Switch = SWITCHES[index], Active = checked } } )
 				
 				DebugPrefs[SWITCHES[index]] = checked
                 
 				Prefs.SetToCurrentProfile('loud_ai_debug', DebugPrefs)
 			end
 
-			SimCallback({
-				Func = 'SetAIDebug',
-				Args = { Switch = SWITCHES[index], Active = DebugPrefs[SWITCHES[index]] or false }
-			})
+			SimCallback( { Func = 'SetAIDebug',	Args = { Switch = SWITCHES[index], Active = DebugPrefs[SWITCHES[index]] or false } } )
 
 			return grp
 		end
@@ -270,13 +266,7 @@ do
                 
 				-- self:GetParent().color:SetHidden(not checked)
                 
-				SimCallback({
-					Func = 'SetAIDebug',
-					Args = { 
-						ThreatType = self:GetParent().key, 
-						Active = checked
-					}
-				})
+				SimCallback( { Func = 'SetAIDebug', Args = { ThreatType = self:GetParent().key, Active = checked } } )
 				
 				DebugPrefs.intel[self:GetParent().key] = checked
                 
