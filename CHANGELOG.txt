@@ -1,3 +1,14 @@
+### Release 01-04-2023
+
+LUA 6.3.02
+Black Ops Advanced ACU for LOUD 6.3.02
+
+- UEF ACU had an issue where he could no long pivot on torso after building operations
+- Improved AI handling of transport needs, and more verbose logging of 'no transport' conditions
+- Clarified the AI Outnumbered condition, using the reduced (65%) cheat - on the base cheat
+- this value also cleans up the maintenance value, making it the same
+
+
 ### Release 30-03-2023
 
 LUA 6.3.01
