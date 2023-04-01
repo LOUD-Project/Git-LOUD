@@ -248,6 +248,13 @@ function GetTransports( platoon, aiBrain)
     
     -- if there are no transports available at all - we're done
     if (armypooltransports and LOUDGETN(armypooltransports) < 1) and (TransportPoolTransports and LOUDGETN(TransportPoolTransports) < 1) then
+    
+        if TransportDialog then
+            LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." there are no transports at all")
+        end
+    
+        aiBrain.NeedTransports = true   -- turn on need flag
+
         return false, false
     end
 
@@ -294,7 +301,7 @@ function GetTransports( platoon, aiBrain)
     if not CanUseTransports then
     
         if TransportDialog then
-            LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." cannot use transports in GetTransports")
+            LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." no units in platoon can use transports")
         end
         
         return false, false
@@ -432,8 +439,10 @@ function GetTransports( platoon, aiBrain)
 		if transportcount < 1 then
         
             if TransportDialog then
-                LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." no transport available")
+                LOG("*AI DEBUG "..aiBrain.Nickname.." "..platoon.BuilderName.." no transports available")
             end
+            
+            aiBrain.NeedTransports = true
         end
 
 		platoon.UsingTransport = false
@@ -673,12 +682,10 @@ function GetTransports( platoon, aiBrain)
 	if not CanUseTransports then
 	
 		if not out_of_range then
-		
-			if not IsEngineer then
-			
-				-- let the brain know we couldn't fill a transport request by a ground platoon
-				aiBrain.NeedTransports = true
-			end
+
+			-- let the brain know we couldn't fill a transport request by a ground platoon
+			aiBrain.NeedTransports = true
+
 		end
         
         if TransportDialog then
@@ -902,7 +909,7 @@ function ReturnTransportsToPool( aiBrain, units, move )
             continue
         end
 
-        if TransportDialog then
+        if not v.Dead and TransportDialog then
             LOG("*AI DEBUG "..aiBrain.Nickname.." transport "..v.EntityID.." "..v:GetBlueprint().Description.." Returning to Pool  InUse is "..repr(v.InUse) )
         end
     
