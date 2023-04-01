@@ -766,7 +766,6 @@ ERL0001 = Class(CWalkingLandUnit) {
 		
 			self:SetWeaponEnabledByLabel('EXTargetPainter', true)
 			self:SetWeaponEnabledByLabel('RightRipper', true)
-
 			self:SetWeaponEnabledByLabel('OverCharge', false)
 
 			self:SetWeaponEnabledByLabel('EXEMPArray02', false)

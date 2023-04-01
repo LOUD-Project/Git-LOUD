@@ -290,64 +290,6 @@ EEL0001 = Class(TWalkingLandUnit) {
         self:AddBuildRestriction( categories.UEF * (categories.BUILTBYTIER4COMMANDER) )
     end,
 
-    OnPrepareArmToBuild = function(self)
-
-        if self.Dead then return end
-        
-        self:BuildManipulatorSetEnabled(true)
-
-        self.BuildArmManipulator:SetPrecedence(20)
-
-        self.wcBuildMode = true
-
-		self:ForkThread(self.WeaponConfigCheck)
-
-        self.BuildArmManipulator:SetHeadingPitch( self:GetWeaponManipulatorByLabel('RightZephyr'):GetHeadingPitch() )
-    end,
-
-    OnStopCapture = function(self, target)
-    
-        TWalkingLandUnit.OnStopCapture(self, target)
-        
-        if self.Dead then return end
-        
-        self:BuildManipulatorSetEnabled(false)
-        self.BuildArmManipulator:SetPrecedence(0)
-        self.wcBuildMode = false
-		self:ForkThread(self.WeaponConfigCheck)
-        self:GetWeaponManipulatorByLabel('RightZephyr'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
-    end,
-
-    OnFailedCapture = function(self, target)
-    
-        TWalkingLandUnit.OnFailedCapture(self, target)
-        
-        self:BuildManipulatorSetEnabled(false)
-        self.BuildArmManipulator:SetPrecedence(0)
-        self.wcBuildMode = false
-		self:ForkThread(self.WeaponConfigCheck)
-        self:GetWeaponManipulatorByLabel('RightZephyr'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
-    end,
-
-    OnStopReclaim = function(self, target)
-    
-        TWalkingLandUnit.OnStopReclaim(self, target)
-        
-        if self.Dead then return end
-        
-        self:BuildManipulatorSetEnabled(false)
-        self.BuildArmManipulator:SetPrecedence(0)
-        self.wcBuildMode = false
-		self:ForkThread(self.WeaponConfigCheck)
-        self:GetWeaponManipulatorByLabel('RightZephyr'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
-    end,
-
-    GiveInitialResources = function(self)
-        WaitTicks(5)
-        self:GetAIBrain():GiveResource('Energy', __blueprints[self.BlueprintID].Economy.StorageEnergy)
-        self:GetAIBrain():GiveResource('Mass', __blueprints[self.BlueprintID].Economy.StorageMass)
-    end,
-
     OnStopBeingBuilt = function(self,builder,layer)
     
         TWalkingLandUnit.OnStopBeingBuilt(self,builder,layer)
@@ -447,6 +389,127 @@ EEL0001 = Class(TWalkingLandUnit) {
         TrashAdd( self.Trash, antiMissile)
     end,
 
+    OnPrepareArmToBuild = function(self)
+
+        if self.Dead then return end
+        
+        self:BuildManipulatorSetEnabled(true)
+        self.BuildArmManipulator:SetPrecedence(20)
+
+        self.BuildArmManipulator:SetHeadingPitch( self:GetWeaponManipulatorByLabel('EXTargetPainter'):GetHeadingPitch() )
+
+        self.wcBuildMode = true
+
+		self:ForkThread(self.WeaponConfigCheck)
+    end,
+
+    CreateBuildEffects = function( self, unitBeingBuilt, order )
+
+        EffectUtil.CreateUEFCommanderBuildSliceBeams( self, unitBeingBuilt, __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones, self.BuildEffectsBag )        
+
+    end,
+
+    OnStartBuild = function(self, unitBeingBuilt, order)
+    
+        TWalkingLandUnit.OnStartBuild(self, unitBeingBuilt, order)
+        
+        if self.Animator then
+            self.Animator:SetRate(0)
+        end
+        
+        self.UnitBeingBuilt = unitBeingBuilt
+        self.UnitBuildOrder = order
+        self.BuildingUnit = true        
+    end,
+
+    OnStopBuild = function(self, unitBeingBuilt)
+	
+        TWalkingLandUnit.OnStopBuild(self, unitBeingBuilt)
+		
+        if self.Dead then return end
+		
+        if self.IdleAnim then
+            self.Animator:PlayAnim(self.IdleAnim, true)
+        end
+		
+        self:BuildManipulatorSetEnabled(false)
+        self.BuildArmManipulator:SetPrecedence(0)
+		
+        self.wcBuildMode = false
+		
+		self:ForkThread(self.WeaponConfigCheck)
+		
+        self:GetWeaponManipulatorByLabel('EXTargetPainter'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
+		
+        self.UnitBeingBuilt = nil
+        self.UnitBuildOrder = nil
+        self.BuildingUnit = false          
+    end,
+
+    OnFailedToBuild = function(self)
+    
+        TWalkingLandUnit.OnFailedToBuild(self)
+        
+        if self.Dead then return end
+        
+        self:BuildManipulatorSetEnabled(false)
+        self.BuildArmManipulator:SetPrecedence(0)
+
+        self.wcBuildMode = false
+		self:ForkThread(self.WeaponConfigCheck)
+
+        self:GetWeaponManipulatorByLabel('EXTargetPainter'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
+    end,
+
+    OnStopCapture = function(self, target)
+    
+        TWalkingLandUnit.OnStopCapture(self, target)
+        
+        if self.Dead then return end
+        
+        self:BuildManipulatorSetEnabled(false)
+        self.BuildArmManipulator:SetPrecedence(0)
+
+        self:GetWeaponManipulatorByLabel('EXTargetPainter'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
+
+        self.wcBuildMode = false
+		self:ForkThread(self.WeaponConfigCheck)
+    end,
+
+    OnFailedCapture = function(self, target)
+    
+        TWalkingLandUnit.OnFailedCapture(self, target)
+        
+        self:BuildManipulatorSetEnabled(false)
+        self.BuildArmManipulator:SetPrecedence(0)
+
+        self:GetWeaponManipulatorByLabel('EXTargetPainter'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
+
+        self.wcBuildMode = false
+		self:ForkThread(self.WeaponConfigCheck)
+    end,
+
+    OnStopReclaim = function(self, target)
+    
+        TWalkingLandUnit.OnStopReclaim(self, target)
+        
+        if self.Dead then return end
+        
+        self:BuildManipulatorSetEnabled(false)
+        self.BuildArmManipulator:SetPrecedence(0)
+
+        self:GetWeaponManipulatorByLabel('EXTargetPainter'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
+
+        self.wcBuildMode = false
+		self:ForkThread(self.WeaponConfigCheck)
+    end,
+
+    GiveInitialResources = function(self)
+        WaitTicks(5)
+        self:GetAIBrain():GiveResource('Energy', __blueprints[self.BlueprintID].Economy.StorageEnergy)
+        self:GetAIBrain():GiveResource('Mass', __blueprints[self.BlueprintID].Economy.StorageMass)
+    end,
+
     PlayCommanderWarpInEffect = function(self)
         self:HideBone(0, true)
         self:SetUnSelectable(true)
@@ -494,62 +557,6 @@ EEL0001 = Class(TWalkingLandUnit) {
         WaitTicks(61)
         
         self:SetMesh(__blueprints[self.BlueprintID].Display.MeshBlueprint, true)
-    end,
-
-    OnStartBuild = function(self, unitBeingBuilt, order)
-    
-        TWalkingLandUnit.OnStartBuild(self, unitBeingBuilt, order)
-        
-        if self.Animator then
-            self.Animator:SetRate(0)
-        end
-        
-        self.UnitBeingBuilt = unitBeingBuilt
-        self.UnitBuildOrder = order
-        self.BuildingUnit = true        
-    end,
-
-    OnFailedToBuild = function(self)
-    
-        TWalkingLandUnit.OnFailedToBuild(self)
-        
-        if self.Dead then return end
-        
-        self:BuildManipulatorSetEnabled(false)
-        self.BuildArmManipulator:SetPrecedence(0)
-        self.wcBuildMode = false
-		self:ForkThread(self.WeaponConfigCheck)
-        self:GetWeaponManipulatorByLabel('RightZephyr'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
-    end,
-
-    CreateBuildEffects = function( self, unitBeingBuilt, order )
-
-        EffectUtil.CreateUEFCommanderBuildSliceBeams( self, unitBeingBuilt, __blueprints[self.BlueprintID].General.BuildBones.BuildEffectBones, self.BuildEffectsBag )        
-
-    end,
-
-    OnStopBuild = function(self, unitBeingBuilt)
-	
-        TWalkingLandUnit.OnStopBuild(self, unitBeingBuilt)
-		
-        if self.Dead then return end
-		
-        if self.IdleAnim then
-            self.Animator:PlayAnim(self.IdleAnim, true)
-        end
-		
-        self:BuildManipulatorSetEnabled(false)
-        self.BuildArmManipulator:SetPrecedence(0)
-		
-        self.wcBuildMode = false
-		
-		self:ForkThread(self.WeaponConfigCheck)
-		
-        self:GetWeaponManipulatorByLabel('RightZephyr'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
-		
-        self.UnitBeingBuilt = nil
-        self.UnitBuildOrder = nil
-        self.BuildingUnit = false          
     end,
 
     EXSatSpawn = function(self)
@@ -681,9 +688,6 @@ EEL0001 = Class(TWalkingLandUnit) {
 			self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon02', false)
 			self:SetWeaponEnabledByLabel('EXGattlingEnergyCannon03', false)
 
-			--self:SetWeaponEnabledByLabel('EXEnergyLance01', false)
-			--self:SetWeaponEnabledByLabel('EXEnergyLance02', false)
-
 			self:SetWeaponEnabledByLabel('EXClusterMissles01', false)
 			self:SetWeaponEnabledByLabel('EXClusterMissles02', false)
 			self:SetWeaponEnabledByLabel('EXClusterMissles03', false)
@@ -718,6 +722,7 @@ EEL0001 = Class(TWalkingLandUnit) {
 
 		if not self.wcBuildMode and not self.wcOCMode then
 		
+			self:SetWeaponEnabledByLabel('EXTargetPainter', true)        
 			self:SetWeaponEnabledByLabel('RightZephyr', true)
 			self:SetWeaponEnabledByLabel('OverCharge', false)
 			
