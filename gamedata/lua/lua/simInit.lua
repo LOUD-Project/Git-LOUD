@@ -33,7 +33,7 @@
 InitialRegistration = true
 
 
---# Do global init and set up common global functions
+-- global init and set up common functions
 doscript '/lua/globalInit.lua'
 
 WaitTicks = coroutine.yield
@@ -77,20 +77,20 @@ function WaitSeconds(n)
     WaitTicks(math.max(1, n * 10))
 end
 
---# Set up the sync table and some globals for use by scenario functions
+-- Set up the sync table and globals
 doscript '/lua/SimSync.lua'
 
 
---# SetupSession will be called by the engine after ScenarioInfo is set
---# but before any armies are created.
+-- SetupSession will be called by the engine after ScenarioInfo is set
+-- but before any armies are created.
 function SetupSession()
    
     ArmyBrains = {}
 
-	--# ScenarioInfo.Env is the environment that the save file and scenario script file are loaded into.
+	-- ScenarioInfo.Env is the environment that the save file and scenario script file are loaded into.
     ScenarioInfo.Env = import('/lua/scenarioenvironment.lua')
 	
-	-- some default functions
+	-- default functions
     doscript('/lua/dataInit.lua')
 	
     -- Load the scenario save (map markers) and script files
@@ -107,15 +107,13 @@ function SetupSession()
 
 end
 
---# OnCreateArmyBrain() is called by the engine as the brains are created, and we
---# use it to store off various useful bits of info.
+-- OnCreateArmyBrain() is called by the engine as the brains are created
+
 function OnCreateArmyBrain(index, brain, name, nickname)
 
     import('/lua/sim/scenarioutilities.lua').InitializeStartLocation(name)
     import('/lua/sim/scenarioutilities.lua').SetPlans(name)
-	
-    --LOG(string.format("OnCreateArmyBrain %d %s %s",index,name,nickname))
-	
+
     ArmyBrains[index] = brain
     ArmyBrains[index].Name = name
     ArmyBrains[index].Nickname = nickname
@@ -127,23 +125,18 @@ function InitializePrebuiltUnits(name)
     ArmyInitializePrebuiltUnits(name)
 end
 
---# BeginSession will be called by the engine after the armies are created (but without
---# any units yet) and we're ready to start the game. It's responsible for setting up
---# the initial units and any other gameplay state we need.
+-- BeginSession will be called by the engine after the armies are created (but without
+-- any units yet) and we're ready to start the game. It's responsible for setting up
+-- the initial units and any other gameplay state we need.
 function BeginSession()
 
     LOG("*AI DEBUG BeginSession Starts")
-
-    --ForkThread(function() WaitTicks(15) ScenarioInfo.loaded = true LOG("*AI DEBUG BeginSession wait ends") end)
 
     -- Pass ScenarioInfo into OnPopulate() and OnStart() for backwards compatibility
     ScenarioInfo.Env.OnPopulate(ScenarioInfo)
     ScenarioInfo.Env.OnStart(ScenarioInfo)
     
-    -- JIP: make sure the hook happens before scripts start working
     import("/lua/sim/MarkerUtilities.lua")
-
-    -- brains can have adjusted this value by now, ready to sync
 
     local focusarmy = GetFocusArmy()
 	
@@ -169,7 +162,6 @@ function BeginSession()
         Sync.LockTeams = true
     end
 
-    -- if build restrictions chosen, set them up
     local buildRestrictions = nil
 	
     if ScenarioInfo.Options.RestrictedCategories then
@@ -179,7 +171,6 @@ function BeginSession()
         for index, restriction in ScenarioInfo.Options.RestrictedCategories do
 		
             local restrictedCategories = nil
-            
 			
 			LOG("*AI DEBUG Here is the restricted data "..repr(restrictedUnits[restriction].categories))
 			
@@ -190,13 +181,9 @@ function BeginSession()
 			
 					if restrictedCategories == nil then
 					
-						--LOG("*AI DEBUG Adding restriction "..repr(cat))
-					
 						restrictedCategories = categories[cat]
 						
 					else
-					
-						--LOG("*AI DEBUG Adding restriction "..repr(cat))
 					
 						restrictedCategories = restrictedCategories + categories[cat]
 						
@@ -219,8 +206,6 @@ function BeginSession()
         end
 		
     end
-	
-	--LOG("*AI DEBUG FINAL RESTRICTIONS ARE "..repr(buildRestrictions))
 
     if buildRestrictions then
 	
@@ -276,16 +261,13 @@ function BeginSession()
 				end
             end
         end
-		
-		if counter > 0 then
-			LOG("*AI DEBUG Created "..repr(counter).." EFFECT entities")
-		end
+
     end
 
-    -- start the runtime scorekeeping loop
+    -- scorekeeping loop
     ForkThread(import('/lua/aibrain.lua').CollectCurrentScores)
 
-    -- start watching for victory conditions
+    -- victory conditions
     ForkThread(import('/lua/victory.lua').CheckVictory, ScenarioInfo)	
 end
 
@@ -308,19 +290,8 @@ end
 Prefetcher = CreatePrefetchSet()
 
 function DefaultPrefetchSet()
+
     local set = { models = {}, anims = {}, d3d_textures = {} }
-
---    for k,file in DiskFindFiles('/units/*.scm') do
---        table.insert(set.models,file)
---    end
-
---    for k,file in DiskFindFiles('/units/*.sca') do
---        table.insert(set.anims,file)
---    end
-
---    for k,file in DiskFindFiles('/units/*.dds') do
---        table.insert(set.d3d_textures,file)
---    end
 
     return set
 end

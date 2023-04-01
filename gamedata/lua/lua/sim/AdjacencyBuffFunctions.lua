@@ -59,9 +59,9 @@ BuildBuffCheck = function( buff, unit, bp, instigator )
 
 end
 
---------------------------------------------------------------------------------
--- Legacy functions
---------------------------------------------------------------------------------
+
+-- Legacy functions --
+
 EnergyBuildBuffCheck = function( buff, unit, bp, instigator )
     return BuildBuffCheck(buff, unit, bp, instigator)
 end
@@ -85,7 +85,7 @@ end
 MassBuildBuffAffect = function(buff, unit, bp, instigator)
     return DefaultBuffAffect(buff, unit, bp, instigator)
 end
---------------------------------------------------------------------------------
+
 
 EnergyMaintenanceBuffCheck = function( buff, unit, bp, instigator )
 
@@ -111,8 +111,7 @@ EnergyStorageBuffCheck = function( buff, unit, bp, instigator )
 
 end
 
--- Energy Weapon Bonus
--- intended for energy consuming weapons
+-- Energy Weapon Bonus -- intended for energy consuming weapons
 -- weapon must have EnergyRequired parameter
 EnergyWeaponBuffCheck = function( buff, unit, bp, instigator )
 
@@ -131,43 +130,37 @@ EnergyWeaponBuffCheck = function( buff, unit, bp, instigator )
 end
 
 -- Weapon Rate of Fire -- for energy using weapons
--- this is difficult since many energy using weapons have their
--- RoF controlled by the charge cycle - and not by RoF
--- so changing RoF has, in most cases, no impact
+-- this is difficult since many energy using weapons have their RoF controlled by the charge cycle
+-- and not by RoF -changing RoF has, in most cases, no impact
 RateOfFireBuffCheck = function( buff, unit, bp, instigator )
 
     return EnergyWeaponBuffCheck( buff, unit, bp, instigator )
 
 end
 
--- Shield Regeneration -- this is new with LOUDAI
 ShieldRegenBuffCheck = function( buff, unit, bp, instigator )
 
 	return bp.Defense.Shield.ShieldRegenRate > 0
 
 end
 
--- Shield Size -- also new with LOUDAI
 ShieldSizeBuffCheck = function( buff, unit, bp, instigator )
 
 	return bp.Defense.Shield.ShieldSize > 0
 
 end
 
--- Shield Health -- also new with LOUDAI
 ShieldHealthBuffCheck = function( buff, unit, bp, instigator )
 
 	return bp.Defense.Shield.ShieldMaxHealth > 0
 end
 
--- Energy Production -- for any energy producing structure
 EnergyProductionBuffCheck = function( buff, unit, bp, instigator )
 
 	return bp.Economy.ProductionPerSecondEnergy > 0
 
 end
 
--- Mass Production - any mass producing structure
 MassProductionBuffCheck = function( buff, unit, bp, instigator )
 
 	return bp.Economy.ProductionPerSecondMass > 0
