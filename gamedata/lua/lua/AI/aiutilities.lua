@@ -961,30 +961,21 @@ function SetupAICheat(aiBrain)
     
     newbuff.Name = 'CheatBuildRate'..aiBrain.ArmyIndex
 
-    -- the Outnumbered condition increases a cheating AI's build rate (but nothing else and never less than original )
+    -- the Outnumbered condition increases a cheating AI's build rate
     
     if aiBrain.CheatValue >= 1.0 then
 
-        newbuff.Affects.BuildRate.Mult = aiBrain.CheatValue * math.min( aiBrain.OutnumberedRatio, aiBrain.CheatValue )
+        newbuff.Affects.BuildRate.Mult = aiBrain.CheatValue * math.min( aiBrain.OutnumberedRatio, aiBrain.MajorCheatModifier )
 
         LOG("*AI DEBUG "..aiBrain.Nickname.." BuildRate mult is "..newbuff.Affects.BuildRate.Mult)
     end
 	
-	-- reduce mass/energy used when building and maintaining
-	-- but at 67% of the multiplier (ie. at 1.1 this would be a 6.7% reduction
-    -- and only when multiplier > 1
-    -- so this value will always be 0 or negative
-    -- put a floor of -0.60 on this -- since we're reaching near zero consumption
-    
-    modifier = LOUDMIN(0, 1 - aiBrain.CheatValue )      -- this will generate a negative value
-    
-    if aiBrain.OutnumberedRatio > 1 then
-        modifier = modifier - 0.1     -- 10% resource reduction is outnumbered
-    end
+	-- reduce mass/energy used when building and maintaining at same rate as build rate
+    modifier = 1.0 - newbuff.Affects.BuildRate.Mult
     
     modifier = LOUDMAX( -0.50, modifier )               -- this will cap the reduction at 50%
 
-    LOG("*AI DEBUG "..aiBrain.Nickname.." Resource Maint modifier is "..modifier)
+    LOG("*AI DEBUG "..aiBrain.Nickname.." Maintenance mult is "..modifier)
     
 	newbuff.Affects.EnergyMaintenance.Add = modifier
 	newbuff.Affects.EnergyActive.Add = modifier
