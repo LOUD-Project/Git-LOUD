@@ -882,10 +882,6 @@ function InitializeArmies()
 		
 		local RallyPointRadius = 49	-- create automatic rally points at 49 from centre
 		
-		-- Set the NeedTransports flag -- used when the AI tries to air transport units and cannot find enough transport
-		-- this brings factory platoons online to build more (more than standard)
-		self.NeedTransports = true      -- set to true to stimulate first transport
-		
 		-- Set the flag that notes if an expansion base is being setup -- when an engineer takes on an expansion task, he'll set this flag to true
 		-- when he dies or starts building the new base, he'll set it back to false
 		-- we use this to keep the AI from doing more than one expansion at a time

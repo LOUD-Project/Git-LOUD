@@ -4,6 +4,7 @@
 local UCBC = '/lua/editor/UnitCountBuildConditions.lua'
 local LUTL = '/lua/loudutilities.lua'
 local TBC = '/lua/editor/ThreatBuildConditions.lua'
+local TUTL = '/lua/ai/transportutilities.lua'
 
 local LOUDGETN = table.getn
 local GetListOfUnits = moho.aibrain_methods.GetListOfUnits
@@ -425,11 +426,12 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
 	-- I recently expanded the transports that engineers can use to include T2
 	-- This makes the use of T1 transports redundant once we can build T2
 	-- so T1 transports are only made when there are less than 2 T2/T3 air factories
+--[[
     Builder {BuilderName = 'Air Transport T1 - Initial',
 	
         PlatoonTemplate = 'T1AirTransport',
 
-        PlatoonAddFunctions = { { LUTL, 'UseBuilderOnce' }, {LUTL, 'ResetBrainNeedsTransport'}, },
+        PlatoonAddFunctions = { { LUTL, 'UseBuilderOnce' }, {TUTL, 'ResetBrainNeedsTransport'}, },
 
         Priority = 610, 
 
@@ -447,12 +449,12 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
 
         BuilderType =  {'AirT1'},
     },
-
+--]]
     Builder {BuilderName = 'Air Transport T1 - Standard',
 	
         PlatoonTemplate = 'T1AirTransport',
 		
-        PlatoonAddFunctions = { {LUTL, 'ResetBrainNeedsTransport'}, },		
+        PlatoonAddFunctions = { {TUTL, 'ResetBrainNeedsTransport'}, },		
 	
         Priority = 600, 
 		
@@ -506,7 +508,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
 	
         PlatoonTemplate = 'T2AirTransport',
 		
-        PlatoonAddFunctions = { {LUTL, 'ResetBrainNeedsTransport'}, },
+        PlatoonAddFunctions = { {TUTL, 'ResetBrainNeedsTransport'}, },
 		
         Priority = 610,
 		
@@ -553,7 +555,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
 	
         PlatoonTemplate = 'T3AirTransport',
 		
-        PlatoonAddFunctions = { {LUTL, 'ResetBrainNeedsTransport'}, },
+        PlatoonAddFunctions = { {TUTL, 'ResetBrainNeedsTransport'}, },
 
         Priority = 600,
 		
@@ -580,7 +582,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
 	
         PlatoonTemplate = 'T3AirTransport',
 
-        PlatoonAddFunctions = { {LUTL, 'ResetBrainNeedsTransport'}, },
+        PlatoonAddFunctions = { {TUTL, 'ResetBrainNeedsTransport'}, },
 
         Priority = 610,
 

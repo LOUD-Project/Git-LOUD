@@ -204,7 +204,8 @@ function CheckTransportPool( aiBrain )
 end
 
 -- This function attempts to locate the required number of transports to move the platoon.
--- Modified to restrict the use of out/low fuel transports and to keep transports moving back to a base when not in use
+-- if insufficient transport available, the brain is marked with needing to build more transport
+-- restricts the use of out/low fuel transports and to keep transports moving back to a base when not in use
 -- Will now also limit transport selection to those within 16 km
 function GetTransports( platoon, aiBrain)
 
@@ -572,9 +573,8 @@ function GetTransports( platoon, aiBrain)
 	local IsBeingBuilt = IsBeingBuilt
     local IsUnitState = IsUnitState	
 
-	-- we assume we cannot use tranports to start with
-    -- this flag also terminates the assignment phase when
-    -- we have enough transports to do the job
+    -- this flag signifies the end of the assignment phase when we have enough transports to do the job
+    -- if we cannot fulfill a request for transports then the brain is marked as needing to build transport
 	CanUseTransports = false
 
 	local Collected = { Large = 0, Medium = 0, Small = 0 }
@@ -872,6 +872,13 @@ function GetTransports( platoon, aiBrain)
 	
 end
 
+-- whenever the AI cannot find enough transports to move a platoon
+-- it sets a value on the brain to produce more -- this function
+-- is run whenever a factory responds to that need and starts building them
+function ResetBrainNeedsTransport( aiBrain )
+    aiBrain.NeedTransports = nil
+end
+
 --  This routine should get transports on the way back to an existing base 
 --  BEFORE marking them as not 'InUse' and adding them to the Transport Pool
 function ReturnTransportsToPool( aiBrain, units, move )
@@ -1064,7 +1071,6 @@ function ReturnTransportsToPool( aiBrain, units, move )
 	end
 end
 
-
 -- This gets called whenever a unit failed to unload properly - rare
 -- Forces the unload & RTB the unit
 function ReturnUnloadedUnitToPool( aiBrain, unit )
@@ -1098,14 +1104,11 @@ function ReturnUnloadedUnitToPool( aiBrain, unit )
 	return
 end
 
-
 -- Find enough transports and move the platoon to its destination 
-    
     -- destination - the destination location
     -- attempts - how many tries will be made to get transport
     -- bSkipLastMove - make drop at closest safe marker rather than at destination
     -- platoonpath - source platoon can optionally feed it's current travel path in order to provide additional alternate drop points if the destination is not good
-
 function SendPlatoonWithTransportsLOUD( self, aiBrain, destination, attempts, bSkipLastMove, platoonpath )
 
     -- destination must be in playable areas --
@@ -1469,7 +1472,6 @@ function SendPlatoonWithTransportsLOUD( self, aiBrain, destination, attempts, bS
 	return PlatoonExists( aiBrain, self )
     
 end
-
 
 -- This function actually loads and moves units on transports using a safe path to the location desired
 -- Just a personal note - this whole transport thing is a BITCH
@@ -2100,9 +2102,7 @@ function UseTransports( aiBrain, transports, location, UnitPlatoon, IsEngineer )
 	return true
 end
 
-
 -- Ok -- this routine allowed me to get some control over the reliability of loading units onto transport
-
 -- I have to say, the lack of a GETUNITSTATE function really made this tedious but here is the jist of what I've found
 -- Some transports will randomly report false to TransportHasSpaceFor even when completely empty -- causing them to fail to load units
 -- just to note, the same also seems to apply to AIRSTAGINGPLATFORMS

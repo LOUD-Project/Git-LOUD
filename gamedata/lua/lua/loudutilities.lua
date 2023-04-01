@@ -1891,13 +1891,6 @@ function ResetPFMTasks (PFM, aiBrain)
 	PFM.NumBuilders = newtasks	
 end
 
--- whenever the AI cannot find enough transports to move a platoon
--- it sets a value on the brain to produce more -- this function
--- is run whenever a factory responds to that need and starts building them
-function ResetBrainNeedsTransport( aiBrain )
-    aiBrain.NeedTransports = nil
-end
-
 -- this function will direct all air units into the refit/refuel process if needed
 -- this is fired off by the OnRunOutOfFuel event which triggers it as a callback -- only used by the AI --
 -- or during the ReturnToBaseAI function 
