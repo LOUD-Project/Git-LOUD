@@ -900,16 +900,11 @@ function InitializeArmies()
         -- Create the Strategy Manager (disabled) from the Sorian AI
         --self.BuilderManagers.MAIN.StrategyManager = StratManager.CreateStrategyManager(self, 'MAIN', self:GetStartVector3f(), 100)
 		
-        -- create Persistent Pool platoons -- and store the handle on the brain
-        -- for isolating transports
-        local transportplatoon = self:MakePlatoon('TransportPool','none')
-		
-        transportplatoon:UniquelyNamePlatoon('TransportPool') 
-		transportplatoon.BuilderName = 'Transport'
-        transportplatoon.UsingTransport = true      -- never review this platoon during a merge
+        -- create Persistent Pool platoons
 
-		self.TransportPool = transportplatoon
-        
+        -- for transports
+        import('/lua/ai/transportutilities.lua').CreateTransportPool( self )
+
         -- for isolating structures (used by LOUD AI)
         local structurepool = self:MakePlatoon('StructurePool','none')
 		

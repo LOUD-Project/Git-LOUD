@@ -6,7 +6,6 @@ local LOUDFLOOR = math.floor
 local LOUDGETN = table.getn
 local LOUDINSERT = table.insert
 local LOUDSORT = table.sort
-
 local ForkTo = ForkThread
 local tostring = tostring
 local type = type
@@ -15,15 +14,15 @@ local VDist3 = VDist3
 local WaitTicks = coroutine.yield
 
 local AssignUnitsToPlatoon = moho.aibrain_methods.AssignUnitsToPlatoon
-local IsBeingBuilt = moho.unit_methods.IsBeingBuilt
-local IsUnitState = moho.unit_methods.IsUnitState
 local GetFuelRatio = moho.unit_methods.GetFuelRatio
 local GetFractionComplete = moho.entity_methods.GetFractionComplete
 local GetListOfUnits = moho.aibrain_methods.GetListOfUnits
 local GetPosition = moho.entity_methods.GetPosition
 local GetPlatoonPosition = moho.platoon_methods.GetPlatoonPosition
 local GetPlatoonUnits = moho.platoon_methods.GetPlatoonUnits
+local IsBeingBuilt = moho.unit_methods.IsBeingBuilt
 local IsIdleState = moho.unit_methods.IsIdleState
+local IsUnitState = moho.unit_methods.IsUnitState
 local PlatoonExists = moho.aibrain_methods.PlatoonExists
 
 local AIRTRANSPORTS = categories.AIR * categories.TRANSPORTFOCUS
@@ -201,6 +200,19 @@ function CheckTransportPool( aiBrain )
         end
     end
     
+end
+
+-- this function will create the TransportPool platoon and put the reference to it in the brain
+function CreateTransportPool( aiBrain )
+
+    local transportplatoon = aiBrain:MakePlatoon( 'TransportPool', 'none' )
+
+    transportplatoon:UniquelyNamePlatoon('TransportPool') 
+    transportplatoon.BuilderName = 'TPool'
+    transportplatoon.UsingTransport = true      -- never review this platoon during a merge
+
+	aiBrain.TransportPool = transportplatoon
+
 end
 
 -- This function attempts to locate the required number of transports to move the platoon.
