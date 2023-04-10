@@ -218,7 +218,7 @@ UnitBlueprint {
             Damage = 4250,
             DamageFriendly = true,
             DamageRadius = 5.2,
-            DamageType = 'Normal',
+            DamageType = 'ShieldMult1.1',
 			
             DisplayName = 'Proton Artillery',
 			
@@ -240,7 +240,7 @@ UnitBlueprint {
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 67.5,
+            MuzzleVelocity = 68.5,
             MuzzleVelocityReduceDistance = 850,
 			
             ProjectileId = '/projectiles/CIFArtilleryProton01/CIFArtilleryProton01_proj.bp',
@@ -281,7 +281,7 @@ UnitBlueprint {
             TurretDualManipulators = false,
 			
             TurretPitch = 30,
-            TurretPitchRange = 30,
+            TurretPitchRange = 50,
             TurretPitchSpeed = 7,
 			
             TurretYaw = 0,

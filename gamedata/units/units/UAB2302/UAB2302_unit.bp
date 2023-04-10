@@ -224,10 +224,8 @@ UnitBlueprint {
 			
             Damage = 3000,
             DamageFriendly = true,
-			
             DamageRadius = 4.5,
-			
-            DamageType = 'Normal',
+            DamageType = 'ShieldMult1.2',
 			
             DisplayName = 'Sonance Artillery',
 			
@@ -242,7 +240,7 @@ UnitBlueprint {
                 Water = 'Land|Water|Seabed',
             },
 			
-            FiringRandomness = 0.125,	----0.375,
+            FiringRandomness = 0.125,
             FiringTolerance = 1.5,
 			
             Label = 'MainGun',
@@ -253,7 +251,7 @@ UnitBlueprint {
             MuzzleChargeDelay = 0.5,        -- .5 second delay
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 71,
+            MuzzleVelocity = 72,
             MuzzleVelocityReduceDistance = 850,
 			
             ProjectileId = '/projectiles/AIFSonanceShell02/AIFSonanceShell02_proj.bp',
@@ -283,7 +281,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,	---- 6K damage every 10 seconds = 600 DPS - controlled by energy drain
+            RateOfFire = 1,	---- 3K times 2 pulses - damage every 10 seconds = 600 DPS - controlled by energy drain
 			
             TargetCheckInterval = 15,
             TargetPriorities = {
