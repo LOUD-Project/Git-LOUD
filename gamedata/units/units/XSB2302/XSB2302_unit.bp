@@ -260,8 +260,8 @@ UnitBlueprint {
             MuzzleChargeDelay = 0.5,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 67.5,
-            MuzzleVelocityReduceDistance = 850,
+            MuzzleVelocity = 71,
+            MuzzleVelocityReduceDistance = 825,
 
             ProjectileId = '/projectiles/SIFSuthanusArtilleryShell02/SIFSuthanusArtilleryShell02_proj.bp',
             ProjectileLifetime = 120,
@@ -302,7 +302,7 @@ UnitBlueprint {
             TurretDualManipulators = false,
 
             TurretPitch = 30,
-            TurretPitchRange = 35,
+            TurretPitchRange = 55,
             TurretPitchSpeed = 6,
 
             TurretYaw = 0,

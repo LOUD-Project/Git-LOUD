@@ -214,7 +214,7 @@ UnitBlueprint {
             Damage = 4500,
             DamageFriendly = true,
             DamageRadius = 5,
-            DamageType = 'Normal',
+            DamageType = 'ShieldMult1.1',
 			
             DisplayName = 'Anti Matter Artillery',
 			
@@ -236,8 +236,8 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
 			
-            MuzzleVelocity = 66,
-            MuzzleVelocityReduceDistance = 850,
+            MuzzleVelocity = 71,
+            MuzzleVelocityReduceDistance = 825,
 			
             ProjectileId = '/projectiles/TIFAntiMatterShells01/TIFAntiMatterShells01_proj.bp',
             ProjectileLifetime = 120,
@@ -280,7 +280,7 @@ UnitBlueprint {
             TurretDualManipulators = false,
 			
             TurretPitch = 30,
-            TurretPitchRange = 30,
+            TurretPitchRange = 55,
             TurretPitchSpeed = 7,
 			
             TurretYaw = 0,
