@@ -1,3 +1,16 @@
+### Release 10-04-2023
+
+BrewLAN for LOUD 0.8.8.9.65
+LOUD_UNITS 6.2.02
+Total Mayhem for LOUD 6.3.01
+UNITS 6.3.02
+
+- fixed deprecated classes for Cybran Darkness and UEF Wall
+- fixed some firing issues with T3 Rocket Artillery
+- fixed Projectile timeout on Barrage Artillery
+- fixed range and firing issues with T3 Static Artillery
+
+
 ### Release 01-04-2023
 
 LUA 6.3.02
