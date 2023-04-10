@@ -1,4 +1,4 @@
-local CRadarJammerUnit = import('/lua/cybranunits.lua').CRadarJammerUnit
+local CRadarJammerUnit = import('/lua/defaultunits.lua').RadarJammerUnit
 
 local BareBonesWeapon = import('/lua/sim/defaultweapons.lua').BareBonesWeapon
 local Utilities = import('/lua/utilities.lua')
