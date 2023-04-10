@@ -75,7 +75,7 @@ UnitBlueprint {
     },
     
     Economy = {
-        BuildCostEnergy = 38000,
+        BuildCostEnergy = 42500,
         BuildCostMass = 3100,
         BuildTime = 2700,
         
@@ -186,14 +186,14 @@ UnitBlueprint {
 			
             Damage = 670,
             DamageFriendly = true,
-            DamageRadius = 2.5,
+            DamageRadius = 2.6,
             
             DamageType = 'Normal',
 			
             DisplayName = 'Rockets',
             
-            EnergyRequired = 7250,
-            EnergyDrainPerSecond = 725,     -- 10 seconds to charge
+            EnergyRequired = 7850,
+            EnergyDrainPerSecond = 785,     -- 10 seconds to charge
 
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -209,7 +209,7 @@ UnitBlueprint {
             MinRadius = 24,
 			
             MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0.4,     -- firing cycle 2.4 seconds
+            MuzzleSalvoDelay = 0.5,
             MuzzleSalvoSize = 3,
             MuzzleVelocity = 23,
             MuzzleVelocityRandom = 2.2,
@@ -240,7 +240,7 @@ UnitBlueprint {
             
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+            RackSalvoReloadTime = 1.5,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 			

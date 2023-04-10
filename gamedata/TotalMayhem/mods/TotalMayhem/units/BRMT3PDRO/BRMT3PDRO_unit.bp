@@ -79,7 +79,7 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 40000,
+        BuildCostEnergy = 48000,
         BuildCostMass = 3250,
         BuildTime = 2700,
 		
@@ -194,11 +194,29 @@ UnitBlueprint {
                     Add = { OnImpact = true },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
+                    Duration = 1.4,
+                    Radius = 2.5,
+                    TargetAllow = 'TECH1',
+                    TargetDisallow = 'COMMAND,AIR,MISSILE,WALL',
+                },            
+                {
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
                     Duration = 1.1,
                     Radius = 2,
-                    TargetAllow = 'ALLUNITS',
-                    TargetDisallow = 'EXPERIMENTAL,COMMAND,SUBCOMMANDER,AIR,MISSILE,WALL',
+                    TargetAllow = 'TECH2',
+                    TargetDisallow = 'COMMAND,AIR,MISSILE,WALL',
                 },
+                {
+                    Add = { OnImpact = true },
+                    AppliedToTarget = true,
+                    BuffType = 'STUN',
+                    Duration = 0.7,
+                    Radius = 1.5,
+                    TargetAllow = 'TECH3',
+                    TargetDisallow = 'EXPERIMENTAL,COMMAND,AIR,MISSILE,WALL',
+                },                
             },
 			
             CollideFriendly = false,
@@ -209,7 +227,7 @@ UnitBlueprint {
             
             DamageType = 'Normal',
             
-            EnergyRequired = 13800,
+            EnergyRequired = 14000,
             EnergyDrainPerSecond = 1453,     -- 9.5 seconds to charge
 
             FireTargetLayerCapsTable = {
@@ -218,14 +236,14 @@ UnitBlueprint {
             },
 			
             FiringTolerance = 1,
-            FiringRandomness = .55,
+            FiringRandomness = .75,
 			
             Label = 'MainGun',
             MaxRadius = 105,
             MinRadius = 20,
 			
             MuzzleChargeDelay = 0.1,        -- .1 second muzzle delay
-            MuzzleSalvoDelay = 0.4,         -- 2.4 second firing cycle
+            MuzzleSalvoDelay = 0.5,         -- 2.4 second firing cycle
 			
             MuzzleSalvoSize = 6,
             MuzzleVelocity = 26.5,
@@ -252,7 +270,7 @@ UnitBlueprint {
             
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+            RackSalvoReloadTime = 2,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 			
