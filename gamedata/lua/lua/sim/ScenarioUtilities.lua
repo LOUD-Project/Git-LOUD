@@ -675,9 +675,9 @@ function CreateResources()
 
     LOG("*AI DEBUG Number of Players is "..ScenarioInfo.Options.PlayerCount)
     
-    -- mass point share is how many mass points should be considered necessary before offensive actions can commence - max is 10 + number of players
+    -- mass point share is how many mass points should be considered necessary before offensive actions can commence - max is 12 + number of players
     -- this is useful in driving offensive action on mass heavy maps where the mex count might be stupidly large or low player counts on large maps
-    ScenarioInfo.MassPointShare = math.min( 8 + ScenarioInfo.Options.PlayerCount, math.floor(ScenarioInfo.NumMassPoints/ScenarioInfo.Options.PlayerCount) - 1)
+    ScenarioInfo.MassPointShare = math.min( 12 + ScenarioInfo.Options.PlayerCount, math.floor(ScenarioInfo.NumMassPoints/ScenarioInfo.Options.PlayerCount) - 1)
     
     LOG("*AI DEBUG Player Mass Point Share is "..ScenarioInfo.MassPointShare)
   	
@@ -1094,44 +1094,63 @@ function InitializeArmies()
                 LOG("*AI DEBUG Creating Starting Mass Point List for Team "..aiBrain.Team)
                 
                 ScenarioInfo.TeamMassPointList[aiBrain.Team] = {}
-                
+
+                -- each team is intially allocated the entire mass point list
                 if ScenarioInfo.StartingMassPointList[1] then
-                
                     ScenarioInfo.TeamMassPointList[aiBrain.Team] = table.copy(ScenarioInfo.StartingMassPointList)
-                    
                 end
 
             end
             
             aiBrain.StartingMassPointList = {}  -- initialize starting mass point list for this brain
-            
-            aiBrain.MassPointShare = math.min( 8 + ScenarioInfo.Options.PlayerCount, math.floor(ScenarioInfo.NumMassPoints/ScenarioInfo.Options.PlayerCount) - 1)
 
+            -- each brain can store a different amount of points, based upon team size, player count and OutnumberedRatio
+            aiBrain.MassPointShare = math.min( 12 + ScenarioInfo.Options.PlayerCount, math.floor(ScenarioInfo.NumMassPoints/ScenarioInfo.Options.PlayerCount) - 1)
+
+            if aiBrain.OutnumberedRatio >= aiBrain.CheatValue then
+                aiBrain.MassPointShare = math.floor(aiBrain.MassPointShare * (aiBrain.OutnumberedRatio/aiBrain.CheatValue))
+            end
 		end
         
     end
     
     for k, v in ScenarioInfo.TeamMassPointList do
     
-        LOG("*AI DEBUG Processing "..ScenarioInfo.MassPointShare.." TeamMassPoints for team "..repr(k))
+        LOG("*AI DEBUG Processing TeamMassPoints for team "..repr(k))
         
         local count = 0
+        local apply = true
         
-        while count < ScenarioInfo.MassPointShare do
-        
+        while apply do
+
+            apply = false
+            
             for a, brain in ArmyBrains do
-        
-                
-                if brain.BrainType == 'AI' and brain.Team == k then
-                
-                    local Position = { brain.StartPosX, 0, brain.StartPosZ }
+            
+                if count < brain.MassPointShare then
 
-                    -- sort the list for closest
-                    table.sort(ScenarioInfo.TeamMassPointList[brain.Team], function(a,b) return VDist3( a.Position, Position ) < VDist3( b.Position, Position) end )
+                    if brain.BrainType == 'AI' and brain.Team == k then
+            
+                        if count == 0 then
+                            LOG("*AI DEBUG "..brain.Nickname.." storing "..brain.MassPointShare.." Mass Points")
+                        end
+                
+                        local Position = { brain.StartPosX, 0, brain.StartPosZ }
+
+                        -- sort the list for closest
+                        table.sort(ScenarioInfo.TeamMassPointList[brain.Team], function(a,b) return VDist3( a.Position, Position ) < VDist3( b.Position, Position) end )
                     
-                    -- take the closest one and remove it from master list
-                    table.insert( brain.StartingMassPointList, table.remove( ScenarioInfo.TeamMassPointList[brain.Team], 1 ))
+                        -- take the closest one and remove it from master list
+                        table.insert( brain.StartingMassPointList, table.remove( ScenarioInfo.TeamMassPointList[brain.Team], 1 ))
+                        
+                        apply = true    
 
+                    end
+                
+                else
+                    --if brain.BrainType == 'AI' and brain.Team == k and count == brain.MassPointShare + 1 then
+                      --  LOG("*AI DEBUG "..brain.Nickname.." Starting Mass Point list is "..repr(brain.StartingMassPointList))
+                    --end
                 end
             
             end
@@ -1139,20 +1158,12 @@ function InitializeArmies()
             count = count + 1
         
         end
---[[
-        for a, brain in ArmyBrains do
-        
-            if brain.BrainType == 'AI' and brain.Team == k then
-                LOG("*AI DEBUG "..brain.Nickname.." StartingMassPointList is "..repr(brain.StartingMassPointList))
-            end
-            
-        end
---]]        
+
     end
 
     loudUtils.StartAdaptiveCheatThreads()
     
-    loudUtils.StartSpeedProfile()
+    --loudUtils.StartSpeedProfile()     -- this was a crude benchmarking tool
    
     ScenarioInfo.StartingMassPointList = nil
     ScenarioInfo.TeamMassPointList = nil
