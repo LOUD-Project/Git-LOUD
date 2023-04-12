@@ -903,7 +903,7 @@ function InitializeArmies()
         -- create Persistent Pool platoons
 
         -- for transports
-        import('/lua/ai/transportutilities.lua').CreateTransportPool( self )
+        --import('/lua/ai/transportutilities.lua').CreateTransportPool( self )
 
         -- for isolating structures (used by LOUD AI)
         local structurepool = self:MakePlatoon('StructurePool','none')

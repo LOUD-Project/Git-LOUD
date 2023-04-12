@@ -3728,7 +3728,7 @@ AirUnit = Class(MobileUnit) {
 	
                             -- added check for RTP callback (which is intended for transports but UEF gunships sometimes get it)
                             -- to bypass this if the unit is in the transport pool --
-                            if (newHP < oldHP and newHP < 0.5) and not self.ReturnToPoolCallbackSet then
+                            if (newHP < oldHP and newHP < 0.5) and not self.EventCallbacks['OnTransportDetach'] then
 
                                 ProcessAirUnits( self, GetAIBrain(self) )
                             end
@@ -3744,7 +3744,7 @@ AirUnit = Class(MobileUnit) {
                             -- this flag only gets turned on after this executes
                             -- and is turned back on only when the unit gets fuel - so we avoid multiple executions
                             -- and we don't process this if it's a transport pool unit --
-                            if not self.ReturnToPoolCallbackSet then
+                            if not self.EventCallbacks['OnTransportDetach'] then
 
                                 ProcessAirUnits( self, GetAIBrain(self) )
                             end

@@ -1507,7 +1507,7 @@ function LandScoutingAI( self, aiBrain )
 				-- if the distance is great try to get transports
 				if distance > 1024 then
 
-					usedTransports = SendPlatoonWithTransportsLOUD( self, aiBrain, targetArea, 2, false )
+					usedTransports = SendPlatoonWithTransportsLOUD( self, aiBrain, targetArea, 2, false, path )
 				end
 
 				-- otherwise start walking -- 
