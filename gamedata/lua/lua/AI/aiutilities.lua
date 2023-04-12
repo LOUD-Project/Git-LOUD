@@ -947,11 +947,9 @@ function SetupAICheat(aiBrain)
     
     -- store the minor cheat value
     aiBrain.MinorCheatModifier = (LOUDMAX( 0, aiBrain.CheatValue - 1.0 ) * 0.34) + 1.0
-    
+ 
     -- store the major cheat value
     aiBrain.MajorCheatModifier = (LOUDMAX( -0.2, aiBrain.CheatValue - 1.0 ) * 0.65) + 1.0
-
-    LOG("*AI DEBUG "..aiBrain.Nickname.." MinorCheatModifier is "..aiBrain.MinorCheatModifier.."  Major is "..aiBrain.MajorCheatModifier)
 
 	-- CREATE THE BUFFS THAT WILL BE USED BY THE AI
     local modifier = 1
@@ -960,15 +958,24 @@ function SetupAICheat(aiBrain)
     local newbuff = LOUDDEEPCOPY(Buffs['CheatBuildRate'])
     
     newbuff.Name = 'CheatBuildRate'..aiBrain.ArmyIndex
-
-    -- the Outnumbered condition increases a cheating AI's build rate
     
-    if aiBrain.CheatValue >= 1.0 then
+    newbuff.Affects.BuildRate.Mult = math.max( 1.0, aiBrain.CheatValue )
+
+    -- the Outnumbered condition increases a cheating AI's build rate and affects the sub modifiers
+    if aiBrain.OutnumberedRatio >= aiBrain.CheatValue then
 
         newbuff.Affects.BuildRate.Mult = aiBrain.CheatValue * math.min( aiBrain.OutnumberedRatio, aiBrain.MajorCheatModifier )
-
-        LOG("*AI DEBUG "..aiBrain.Nickname.." BuildRate mult is "..newbuff.Affects.BuildRate.Mult)
+        
+        LOG("*AI DEBUG "..aiBrain.Nickname.." Cheats modified due to Outnumbered condition greater than Cheat")
+        
+        aiBrain.MajorCheatModifier = (aiBrain.MajorCheatModifier * aiBrain.MinorCheatModifier)
+        
+        aiBrain.MinorCheatModifier = (aiBrain.MinorCheatModifier * aiBrain.MinorCheatModifier)
     end
+
+    LOG("*AI DEBUG "..aiBrain.Nickname.." MinorCheatModifier is "..aiBrain.MinorCheatModifier.."  Major is "..aiBrain.MajorCheatModifier)
+
+    LOG("*AI DEBUG "..aiBrain.Nickname.." BuildRate mult is "..newbuff.Affects.BuildRate.Mult)
 	
 	-- reduce mass/energy used when building and maintaining at same rate as build rate
     modifier = 1.0 - newbuff.Affects.BuildRate.Mult
@@ -997,6 +1004,8 @@ function SetupAICheat(aiBrain)
     newbuff = LOUDDEEPCOPY(Buffs['CheatIncome'])
     
     newbuff.Name = 'CheatIncome'..aiBrain.ArmyIndex
+    
+    LOG("*AI DEBUG "..aiBrain.Nickname.." Resource mult is "..aiBrain.CheatValue)
     
 	newbuff.Affects.EnergyProduction.Mult = aiBrain.CheatValue
 	newbuff.Affects.MassProduction.Mult = aiBrain.CheatValue
@@ -1113,7 +1122,9 @@ function SetupAICheat(aiBrain)
     newbuff.Name = 'CheatIntel'..aiBrain.ArmyIndex
 	
 	modifier = aiBrain.MinorCheatModifier
-    
+
+    LOG("*AI DEBUG "..aiBrain.Nickname.." Intel mult is "..modifier)    
+
 	newbuff.Affects.VisionRadius.Mult = modifier
     newbuff.Affects.WaterVisionRadius.Mult = modifier
 	newbuff.Affects.RadarRadius.Mult = modifier
@@ -1138,6 +1149,8 @@ function SetupAICheat(aiBrain)
     newbuff.Name = 'CheatALL'..aiBrain.ArmyIndex
 	
 	modifier = aiBrain.MinorCheatModifier
+
+    LOG("*AI DEBUG "..aiBrain.Nickname.." HP/Regen mult is "..modifier)    
    
 	newbuff.Affects.MaxHealth.Mult = modifier
     newbuff.Affects.MaxHealth.DoNoFill = true   -- prevents health from being added upon creation

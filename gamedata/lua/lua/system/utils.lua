@@ -1,3 +1,4 @@
+local LOUDGETN = table.getn
 local LOUDINSERT = table.insert
 local LOUDREMOVE = table.remove
 local LOUDSORT = table.sort
