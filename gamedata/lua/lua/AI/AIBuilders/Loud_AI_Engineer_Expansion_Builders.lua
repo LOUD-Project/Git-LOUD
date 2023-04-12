@@ -79,7 +79,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Land Expansion Construction',
     BuildersType = 'EngineerBuilder',
     
     -- Builds land expansion bases at both Start and Expansion points
-	-- but only when THIS location has at least 7 upgraded factories
+	-- but only when THIS location has at least 4 upgraded factories
 	-- and ALL other (counted) expansion bases have at least 4 upgraded factories
     Builder {BuilderName = 'Land Expansion Base',
 	
@@ -122,7 +122,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Land Expansion Construction',
                 
 				-- this controls the radius at which this base will draw 'pool' units
 				-- and it forms the basis for the Base Alert radius as well
-                ExpansionRadius = 110,
+                ExpansionRadius = 115,
                 
 				-- this controls the radius for creation of auto-rally points 
 				RallyPointRadius = 40,
@@ -147,8 +147,12 @@ BuilderGroup {BuilderGroupName = 'Engineer Land Expansion Construction',
 					'T2AirStagingPlatform',
                     'T1LandFactory',
 					'T1Radar',
+					'T1GroundDefense',
+					'T1GroundDefense',
+					'T1GroundDefense',
+					'T1GroundDefense',
 					'T2GroundDefense',
-					'T2GroundDefense',                    
+					'T2GroundDefense',
                 }               
             },
         }
@@ -195,7 +199,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Land Expansion Construction',
                 
 				-- this controls the radius at which this base will draw 'pool' units
 				-- and it forms the basis for the Base Alert radius as well
-                ExpansionRadius = 110,
+                ExpansionRadius = 115,
                 
 				-- this controls the radius for creation of auto-rally points 
 				RallyPointRadius = 40,
@@ -273,7 +277,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Land Expansion Construction',
                 
 				-- this controls the radius at which this base will draw 'pool' units
 				-- and it forms the basis for the Base Alert radius as well
-                ExpansionRadius = 110,
+                ExpansionRadius = 115,
                 
 				-- this controls the radius for creation of auto-rally points 
 				RallyPointRadius = 40,
@@ -296,6 +300,10 @@ BuilderGroup {BuilderGroupName = 'Engineer Land Expansion Construction',
 				-- what we'll build
                 BuildStructures = {  
 					'T1LandFactory',
+					'T1GroundDefense',
+					'T1GroundDefense',
+					'T1GroundDefense',
+					'T1GroundDefense',
                 }               
             },
         }
@@ -360,14 +368,14 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction STD',
                     'Wall',
                     'Wall',
                     'T2Wall',
-                    'T2Wall',
-                    'Wall',
-                    'Wall',
-                    'T2Wall',
-                    'Wall',
-                    'Wall',
-                    'T2Wall',
                     'T2GroundDefense',
+                    'T2Wall',
+                    'Wall',
+                    'Wall',
+                    'T2Wall',
+                    'Wall',
+                    'Wall',
+                    'T2Wall',
 				}
 			}
 		}
@@ -764,7 +772,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction',
 				CountedBase = true,
                 
                 ExpansionBase = true,
-                ExpansionRadius = 110,
+                ExpansionRadius = 125,
                 
 				RallyPointRadius = 46,
 				
@@ -827,7 +835,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction',
 				CountedBase = true,
                 
                 ExpansionBase = true,
-                ExpansionRadius = 110,
+                ExpansionRadius = 125,
                 
 				RallyPointRadius = 46,
 				
@@ -880,7 +888,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction',
 				CountedBase = true,
                 
                 ExpansionBase = true,
-                ExpansionRadius = 110,
+                ExpansionRadius = 125,
                 
 				RallyPointRadius = 46,
 				
@@ -944,7 +952,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Naval Expansion Construction - Expans
             Construction = {
 				CountedBase = true,
                 ExpansionBase = true,
-                ExpansionRadius = 110,
+                ExpansionRadius = 125,
 				RallyPointRadius = 46,
 				
                 NearMarkerType = 'Naval Area',
@@ -998,7 +1006,7 @@ BuilderGroup {BuilderGroupName = 'Engineer Defensive Point Construction - Naval'
             Construction = {
 				CountedBase = false,
 				ExpansionBase = true,
-                ExpansionRadius = 110,
+                ExpansionRadius = 115,
 				RallyPointRadius = 25,
 
                 NearMarkerType = 'Naval Defensive Point',

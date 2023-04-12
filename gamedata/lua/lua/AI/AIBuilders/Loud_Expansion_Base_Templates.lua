@@ -1787,7 +1787,7 @@ ExpansionLayout_II = {
 			{-29,-15 },
 			{-29, 15 },
 		},
-		{{'T4GroundDefense'},
+		{{'T1GroundDefense','T4GroundDefense'},
 			{ 15,-30 },
 			{ 15, 30 },
 			{-15,-30 },
