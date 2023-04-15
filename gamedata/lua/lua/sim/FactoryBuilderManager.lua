@@ -489,7 +489,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 
 		end
 
-		return units
+		return units, counter
 	end,
     
 	GetFactoriesWantingAssistance = function(self, category, facCatgory )
@@ -514,7 +514,7 @@ FactoryBuilderManager = Class(BuilderManager) {
 
 		end
         
-       return units
+       return units, counter
     end,
 	
 	-- this is fired when a factory completes a build order

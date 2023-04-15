@@ -580,8 +580,7 @@ function LocationEngineerNeedsBuildingAssistanceInRange( aiBrain, locationType, 
 	
 	if engineerManager.Active then
 		-- find all the engineers in this base, of this engCat, building something in unitCategory
-    	engUnits = engineerManager:GetEngineersWantingAssistanceWithBuilding( unitCategory, engCat )
-		numUnits = LOUDGETN(engUnits)
+    	engUnits, numUnits = engineerManager:GetEngineersWantingAssistanceWithBuilding( unitCategory, engCat )
 	end
 	
 	-- if there are units lets range check

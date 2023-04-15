@@ -505,7 +505,7 @@ EngineerManager = Class(BuilderManager) {
 			end
         end
 
-        return retUnits
+        return retUnits, counter
     end,
 
 	-- this removes an engineer from this base manager - destroys all existing engy callbacks
@@ -834,19 +834,18 @@ EngineerManager = Class(BuilderManager) {
 
 					-- sort the threat table by distance from this base --
 					LOUDSORT(threatTable, function (a,b) local VDist2Sq = VDist2Sq return VDist2Sq(a.Position[1],a.Position[3], Location[1],Location[3]) < VDist2Sq(b.Position[1],b.Position[3], Location[1],Location[3]) end)
+                
+                    if BaseMonitorDialog then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR using threatTable "..repr(threatTable) )
+                    end
 
 					local highThreat, highThreatPos, highThreatType
                     local alertraised, alertrangemod
 		
 					for _,LoopType in { 'Experimental', 'Land', 'Air', 'Naval' } do
 					
-						if BaseMonitorDialog then
-							LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR checks "..repr(LoopType))
-						end
-					
 						alertraised = false
 						alertrangemod = 0
-
 
                         -- highthreat can now be modified by a ratio or the AIMult --
 						highThreat = self.BaseMonitor.AlertLevel	-- this sets the basic threat required to trigger an alert
@@ -890,21 +889,29 @@ EngineerManager = Class(BuilderManager) {
 	
 						if not self.BaseMonitor.AlertsTable[LoopType] then		-- this means we always check experimentals but bypass any already active alert types
 					
+                            if BaseMonitorDialog then
+                                LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR checks "..repr(LoopType).." with alert trigger "..highThreat.." at radius "..AlertRadius + alertrangemod )
+                            end
+					
 							-- loop thru the threat list
 							for _,threat in threatTable do
                             
                                 Position = threat.Position
                                 Threat = threat.Threat
-                                Type = threat.Type
-						
+                                Type = threat.Type or false
+
 								-- filter by distance from the base and break out if threats are farther away (we presorted by distance)
-								if VDist2Sq(Position[1],Position[3], Location[1],Location[3]) <= ((AlertRadius + alertrangemod)*(AlertRadius + alertrangemod)) then
+								if Type == LoopType and Threat >= highThreat and VDist3(Position, Location) <= (AlertRadius + alertrangemod) then
+
+                                    if BaseMonitorDialog then
+                                        LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR examines "..repr(Position).." - "..repr(Threat).." distance is "..repr(VDist3(Position,Location)) )
+                                    end
 							
 									-- match for threat type we are currently checking
-									if Type == LoopType then
+									--if Type == LoopType then
 						
 										-- filter out any threat less than the current highthreat value
-										if Threat > highThreat then
+										--if Threat >= highThreat then
 
 											-- signal that an alert has been raised 
 											alertraised = true
@@ -938,13 +945,23 @@ EngineerManager = Class(BuilderManager) {
 											end
 											
 											break	-- we raised an alert - we dont check any more of this looptype
-										end
-									end
-								else
-									break	-- no alert within radius - we dont check any more of this looptype
+										--end
+
+									--end
+
+								--else
+									--break	-- no alert within radius - we dont check any more of this looptype
 								end
+
 							end
-						end
+
+						else
+					
+                            if BaseMonitorDialog then
+                                LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR has "..repr(self.BaseMonitor.AlertsTable[LoopType]).." ALERT underway" )
+                            end
+                       
+                        end
 
 						-- if we raised a threat -- and don't already have one of this type --
 						-- AlertsTables can now log multiple threats of the same type --
@@ -970,9 +987,13 @@ EngineerManager = Class(BuilderManager) {
 							-- accurately check the threat, launch the response thread, and monitor the threat until its gone
 							self:ForkThread( self.BaseMonitorAlertTimeoutLOUD, aiBrain, highThreatPos, Location, highThreatType, ((AlertRadius + alertrangemod)*(AlertRadius + alertrangemod)) )
 						end
+
                     end
+
 				end
+
 			end
+
 		end
 
 		if BaseMonitorDialog then
@@ -980,7 +1001,7 @@ EngineerManager = Class(BuilderManager) {
 		end
 	
         local Interval = self.BaseMonitor.BaseMonitorInterval
-		local delay = Interval or 4
+		local delay = Interval or 2
         
         -- using this flag to control appearance of delays so they only appear when they change
         local lastdelay = 0
@@ -989,15 +1010,19 @@ EngineerManager = Class(BuilderManager) {
         
             BaseMonitorDialog = ScenarioInfo.BaseMonitorDialog or false
         
-			-- at present, this starts at about 8 seconds per cycle since
+			-- at present, this starts at about 6 seconds per cycle since
 			-- we add the normal interval to itself to begin
             
 			if BaseMonitorDialog then
+
                 if lastdelay != delay then
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR delay is "..repr(self.BaseMonitor.BaseMonitorInterval + delay))
+
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR delay is "..repr( Interval + delay ).." seconds")
                     
                     lastdelay = delay
+
                 end
+
 			end
 			
 			WaitTicks(( Interval + delay ) * 10 )        
@@ -1147,7 +1172,7 @@ EngineerManager = Class(BuilderManager) {
 			if count > 0 and threat >= BaseMonitor.AlertLevel then
 
 				if BaseMonitorDialog then
-					LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR "..threattype.." - "..count.." units found with threat of "..threat.." - ALERT !")
+					LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITORALERT "..threattype.." - "..count.." units found with threat of "..threat.." - ALERT !")
 				end
 
 				-- do the average position calculation -- 
@@ -1172,7 +1197,7 @@ EngineerManager = Class(BuilderManager) {
 
 					if ScenarioInfo.DisplayPingAlerts or aiBrain.DeliverStatus then
 					
-						LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR "..threattype.." ALERT ")
+						LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITORALERT "..threattype.." ALERT ")
 					
 						-- send the visible ping to the interface --
 						import('/lua/ai/altaiutilities.lua').AISendPing(newpos, 'attack', aiBrain.ArmyIndex)
@@ -1180,14 +1205,14 @@ EngineerManager = Class(BuilderManager) {
 				end
 			
 				if BaseMonitorDialog then
-					LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR "..threattype.." threat is "..math.floor(threat).." distance is "..math.floor(VDist2(pos[1],pos[3], baseposition[1],baseposition[3])) )
+					LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITORALERT "..threattype.." threat is "..math.floor(threat).." distance is "..math.floor(VDist2(pos[1],pos[3], baseposition[1],baseposition[3])) )
 				end
 
 				WaitTicks( BaseMonitor.AlertTimeout * 10 ) -- before checking this threat again --
 			else
 			
 				if BaseMonitorDialog then
-					LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR "..threattype.." - "..count.." units found with threat of "..threat.." - NO ALERT raised")
+					LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITORALERT "..threattype.." - "..count.." units found with threat of "..threat.." - NO ALERT raised")
 				end
 			end
 
@@ -1197,7 +1222,7 @@ EngineerManager = Class(BuilderManager) {
 		BaseMonitor.ActiveAlerts = BaseMonitor.ActiveAlerts - 1
 		
 		if BaseMonitorDialog then
-			LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR deactivates "..threattype.." alert")
+			LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITORALERT deactivates "..threattype.." alert")
 		end
 
 		-- if no more alerts reset the alert table
@@ -1208,7 +1233,7 @@ EngineerManager = Class(BuilderManager) {
 			aiBrain.BaseAlertSounded = false
 			
 			if BaseMonitorDialog then
-				LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR has no active alerts")
+				LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITORALERT has no active alerts")
 			end
 		else
             aiBrain.BaseAlertSounded = true

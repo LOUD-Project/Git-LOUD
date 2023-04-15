@@ -5,6 +5,7 @@ local import = import
 local BaseTemplates = import('/lua/basetemplates.lua').BaseTemplates
 local BuildingTemplates = import('/lua/buildingtemplates.lua').BuildingTemplates
 
+local AISendPing = import('/lua/ai/altaiutilities.lua').AISendPing
 local AISortMarkersFromLastPosWithThreatCheck = import('/lua/ai/aiutilities.lua').AISortMarkersFromLastPosWithThreatCheck
 
 local CanBuildStructureAt = moho.aibrain_methods.CanBuildStructureAt
@@ -156,7 +157,7 @@ function AIExecuteBuildStructure( aiBrain, engineer, buildingType, closeToBuilde
         
 			engineer.PlatoonHandle:SetAIPlan('ReturnToBaseAI', aiBrain)
             
-            location = false
+            return false
 		end
 
         if location then
@@ -199,7 +200,9 @@ function AIExecuteBuildStructure( aiBrain, engineer, buildingType, closeToBuilde
 		return true
     end
     
-    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(engineer.BuilderName).." fails to execute build "..repr(whatToBuild).." "..repr(buildingType) )
+    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(engineer.BuilderName).." fails to execute build "..repr(whatToBuild).." "..repr(buildingType).." at "..repr(location) )
+    
+	AISendPing( LOUDCOPY(location), 'alert', aiBrain.ArmyIndex )
 	
 	return false
 end
