@@ -33,6 +33,7 @@ local PlatoonExists = moho.aibrain_methods.PlatoonExists
 local LOUDABS = math.abs
 local LOUDCOPY = table.copy
 local LOUDENTITY = EntityCategoryContains
+local LOUDFIND = table.find
 local LOUDFLOOR = math.floor
 local LOUDGETN = table.getn
 local LOUDINSERT = table.insert
@@ -744,6 +745,7 @@ EngineerManager = Class(BuilderManager) {
 		local DrawC = DrawCircle
 
         local LOUDCOPY = LOUDCOPY
+        local LOUDFIND = LOUDFIND
         local LOUDFLOOR = LOUDFLOOR
         local LOUDLOG10 = math.log10
         local LOUDMAX = LOUDMAX
@@ -762,6 +764,11 @@ EngineerManager = Class(BuilderManager) {
         local LocationType = self.LocationType
         
         local Position,Type,Threat
+
+        local ThreatTypes = { 'Experimental', 'Land', 'Air', 'Naval', 'AntiSub' }
+
+        local ThreatTypesUsed = {}
+        local threatTable = {}
 
 		-- this function will draw a visible radius around the base
 		-- equal to the alert radius of the base each time the base
@@ -827,7 +834,28 @@ EngineerManager = Class(BuilderManager) {
 					AlertRadius = self.BaseMonitor.AlertRange + 25
 				end
 
-				local threatTable = LOUDCOPY(aiBrain.IL.HiPri)
+                -- rather than taking a full copy of HiPri - we could iterate over HiPri and just take what we need 
+                -- with a smaller footprint since we don't care about things like lastscouted, lastupdate and Permanent
+                -- or threat types we don't process or those beyond AlertRadius
+                threatTable = {}        -- table of threat items to process
+                ThreatTypesUsed = {}    -- table of threat types we processed
+                
+                for _,v in aiBrain.IL.HiPri do
+
+                    if v.Type and v.Threat > 0 and VDist3( v.Position, Location ) <= (AlertRadius + 50) then
+
+                        if LOUDFIND( ThreatTypes, v.Type ) then
+
+                            LOUDINSERT( threatTable, { Position = v.Position, Threat = v.Threat, Type = v.Type } )
+                            
+                            if not LOUDFIND( ThreatTypesUsed, v.Type ) then
+                                LOUDINSERT( ThreatTypesUsed, v.Type )
+                            end
+
+                        end
+                    end
+
+                end
 
 				-- if there is a threat table and we have a position
 				if threatTable[1] and Location then
@@ -842,7 +870,7 @@ EngineerManager = Class(BuilderManager) {
 					local highThreat, highThreatPos, highThreatType
                     local alertraised, alertrangemod
 		
-					for _,LoopType in { 'Experimental', 'Land', 'Air', 'Naval' } do
+					for _,LoopType in ThreatTypesUsed do
 					
 						alertraised = false
 						alertrangemod = 0
@@ -861,7 +889,7 @@ EngineerManager = Class(BuilderManager) {
                         
                         if LoopType == 'Air' then
                         
-                            alertrangemod = 60                  -- AIR threats checked at greater range
+                            alertrangemod = 50                  -- AIR threats checked at greater range
                         
                             highThreat = highThreat * 3         -- AIR threats MUST be thrice the normal size to trigger --
                         
@@ -872,7 +900,7 @@ EngineerManager = Class(BuilderManager) {
                             
                         end
                         
-                        if LoopType == 'Naval' then
+                        if LoopType == 'Naval' or LoopType == 'AntiSub' then
                         
                             highThreat = highThreat * LOUDMAX( 0.8, aiBrain.NavalRatio or 1)
                             
@@ -901,56 +929,45 @@ EngineerManager = Class(BuilderManager) {
                                 Type = threat.Type or false
 
 								-- filter by distance from the base and break out if threats are farther away (we presorted by distance)
-								if Type == LoopType and Threat >= highThreat and VDist3(Position, Location) <= (AlertRadius + alertrangemod) then
+								if Type == LoopType and Threat >= highThreat then
 
                                     if BaseMonitorDialog then
                                         LOG("*AI DEBUG "..aiBrain.Nickname.." "..LocationType.." BASEMONITOR examines "..repr(Position).." - "..repr(Threat).." distance is "..repr(VDist3(Position,Location)) )
                                     end
-							
-									-- match for threat type we are currently checking
-									--if Type == LoopType then
-						
-										-- filter out any threat less than the current highthreat value
-										--if Threat >= highThreat then
 
-											-- signal that an alert has been raised 
-											alertraised = true
+									-- signal that an alert has been raised 
+									alertraised = true
 
-                                            -- record the threat and it's position --
-											highThreat = Threat
-											highThreatPos = {Position[1], Position[2], Position[3]}
+                                    -- record the threat and it's position --
+									highThreat = Threat
+									highThreatPos = {Position[1], Position[2], Position[3]}
 							
-                                            -- determine the Type of threat it is
-											if Type == 'Experimental' then
-									
-												experimentalsair = GetUnitsAroundPoint( aiBrain, categories.EXPERIMENTAL * categories.AIR, highThreatPos, 120, 'Enemy')
-												experimentalssea = GetUnitsAroundPoint( aiBrain, categories.EXPERIMENTAL * categories.NAVAL, highThreatPos, 120, 'Enemy')
+                                    -- determine the Type of threat it is
+									if Type == 'Experimental' then
+							
+										experimentalsair = GetUnitsAroundPoint( aiBrain, categories.EXPERIMENTAL * categories.AIR, highThreatPos, 120, 'Enemy')
+										experimentalssea = GetUnitsAroundPoint( aiBrain, categories.EXPERIMENTAL * categories.NAVAL, highThreatPos, 120, 'Enemy')
 										
-												if experimentalsair[1] then
-                                                
-													highThreatType = 'Air'
-                                                    
-												elseif experimentalssea[1] then
-                                                
-													highThreatType = 'Naval'
-                                                    
-												else
-                                                
-													highThreatType = 'Land'
-                                                    
-												end
-                                                
-											else
-												highThreatType = threat.Type
-											end
-											
-											break	-- we raised an alert - we dont check any more of this looptype
-										--end
+										if experimentalsair[1] then
 
-									--end
+											highThreatType = 'Air'
 
-								--else
-									--break	-- no alert within radius - we dont check any more of this looptype
+										elseif experimentalssea[1] then
+
+											highThreatType = 'Naval'
+
+										else
+
+											highThreatType = 'Land'
+
+										end
+
+									else
+										highThreatType = threat.Type
+									end
+
+									break	-- we raised an alert - we dont check any more of this looptype
+
 								end
 
 							end
@@ -1048,8 +1065,8 @@ EngineerManager = Class(BuilderManager) {
 		
 			delay = (GetGameTimeSeconds()) - self.BaseMonitor.LastAlertTime
 		
-			delay = LOUDFLOOR(delay/120)	-- delay is increased by 1 second for every 2 minutes since last alert - might consider 2.5 minutes
-			delay = LOUDMIN(delay, 18)	-- delay is capped at 18 additional seconds -- might consider capping this at 12 if land or air ratio is bad --
+			delay = LOUDFLOOR(delay/150)	-- delay is increased by 1 second for every 2.5 minutes since last alert
+			delay = LOUDMIN(delay, 15)	-- delay is capped at 15 additional seconds
 
 		end
 	
@@ -1113,7 +1130,7 @@ EngineerManager = Class(BuilderManager) {
             
 				targetUnits = GetUnitsAroundPoint( aiBrain, AIRUNITS, pos, 120, 'Enemy')
 			
-			elseif threattype == 'Naval' then
+			elseif threattype == 'Naval' or threattype == 'AntiSub' then
             
 				targetUnits = GetUnitsAroundPoint( aiBrain, categories.MOBILE - categories.AIR, pos, 120, 'Enemy')
 
@@ -1133,7 +1150,7 @@ EngineerManager = Class(BuilderManager) {
 		
 					unitpos = GetPosition(nearunit)
                     
-                    if threattype == 'Naval' then
+                    if threattype == 'Naval' or threattype == 'AntiSub' then
 
                         -- confirm target positions are on the water
                         if not LocationInWaterCheck(unitpos) then
@@ -1161,9 +1178,16 @@ EngineerManager = Class(BuilderManager) {
 						elseif threattype == 'Naval' then
 							threat = threat + bp.SurfaceThreatLevel
 							threat = threat + bp.SubThreatLevel
+                            
+                        elseif threattype == 'AntiSub' then
+                            threat = threat + bp.SubThreatLevel
+
 						end
+
 					end
+
 				end
+
 			end
 		
 			-- if there are units and the threat is above the threshold
@@ -1291,6 +1315,21 @@ EngineerManager = Class(BuilderManager) {
                         Defense = __blueprints[u.BlueprintID].Defense
                         
 						totalThreat = totalThreat + (Defense.SurfaceThreatLevel or 0) + (Defense.SubThreatLevel or 0)
+					end
+				end
+			
+				return totalThreat	
+			end
+
+			if distressType == 'AntiSub' then
+		
+				for _,u in group do
+                
+					if not u.Dead then
+                    
+                        Defense = __blueprints[u.BlueprintID].Defense
+                        
+						totalThreat = totalThreat + (Defense.SubThreatLevel or 0)
 					end
 				end
 			
@@ -1493,7 +1532,7 @@ EngineerManager = Class(BuilderManager) {
 					end
 				
 					-- respond with naval units
-					if distressType == 'Naval' then
+					if distressType == 'Naval' or distressType == 'AntiSub' then
 				
 						groupsea, groupseacount = GetFreeUnitsAroundPoint( aiBrain, SEARESPONSE, baseposition, radius )
 					
