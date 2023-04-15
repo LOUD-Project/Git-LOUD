@@ -1,3 +1,23 @@
+### Release 15-04-2023
+
+Black Ops Unleashed for LOUD 6.3.03
+UNITS 6.3.03
+LUA 6.3.03
+
+- fixed AEON Genesis T4 - bad graphic for hover effect
+- fixed Rhino T2 Cybran laser weapon, firing cycle was causing double effective damage, replaced visuals
+- AI will no longer build T2/T3 transports until air ratio is better than 1.2 - was 1.0
+- small AI bomber/gunship/fighter formations now have shorter mission timers and search ranges, to improve cycling over into larger formations
+- improved logging of the BaseMonitor process which is responsible for creating 'ALERT' conditions at a base
+- improved the cycling of threat checks for the BaseMonitor process to make the AI more reactive to local threats
+- added some guards around the teleport functions for 'dead' units - hoping to narrow down the related crash
+- AI will better recheck HiPri targets while enroute to insure they are still valid - and exit appropriately if not
+- found a significant error in PARSEINTEL that explains a lot of intel gaffes.  The HiPri list is built from the intel data - and I was making a rookie error with the data.
+- Rebuilt the BaseAlert loops so that we work on subset of the HiPri table, filtered for threat types and with minimal data
+- As we build that filtered table of threats, we also note the threat types so that we only process those in the alert testing loop
+- If there are no threats, or only one type, we process nothing or only that type, nothing else
+
+
 ### Release 10-04-2023
 
 BrewLAN for LOUD 0.8.8.9.65

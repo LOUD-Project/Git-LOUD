@@ -89,7 +89,9 @@ function OnSync()
     
     if Sync.AIDebug then
     
-        LOG("*AI DEBUG Sync AIDEBUG data ")
+        LOG("*AI DEBUG Sync AIDEBUG data "..repr(Sync.AIDebug) )
+        
+        UpdateAIDebugData(Sync.AIDebug)
         
         Sync.AIDebug = nil
     end
@@ -335,6 +337,21 @@ function OnSync()
 --]]
     
 end
+
+function UpdateAIDebugData(data)
+
+    local AIDebugData = Prefs.GetFromCurrentProfile('loud_ai_debug') or false
+
+    LOG("*AI DEBUG Current AIDebugData is "..repr(AIDebugData))    
+
+    for k,v in data do
+        AIDebugData[k] = v
+    end
+    
+    Prefs.SetToCurrentProfile('loud_ai_debug', AIDebugData )
+    
+end
+
 
 function UpdateSimSpeed(data)
 
