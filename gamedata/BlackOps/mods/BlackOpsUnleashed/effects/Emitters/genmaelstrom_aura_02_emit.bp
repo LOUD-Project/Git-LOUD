@@ -23,8 +23,8 @@ EmitterBlueprint {
 	LowFidelity = true,
 	MedFidelity = true,
 	HighFidelity = true,
-	Texture = [[/mods/BlackopsUnleashed/textures/ser_plasma03.dds]],
-	RampTexture = [[/mods/BlackopsUnleashed/textures/ramp_blue_22.dds]],
+	Texture = [[/mods/BlackopsUnleashed/textures/particles/blue_smoke_alpha_13.dds]],
+	RampTexture = [[/mods/BlackopsUnleashed/textures/particles/ramp_blue_fire_13.dds]],
 	XDirectionCurve = {
 		XRange = 50.00,
 		Keys = {

@@ -68,7 +68,7 @@ BAL0402 = Class(AHoverLandUnit) {
 		local LOUDINSERT = table.insert
 		local LOUDATTACHEMITTER = CreateAttachedEmitter
         
-		LOUDINSERT( self.MaelstromEffects01, LOUDATTACHEMITTER( self, 'Maelstrom', army, '/mods/BlackopsUnleashed/effects/emitters/genmaelstrom_aura_02_emit.bp' ):ScaleEmitter(1):OffsetEmitter(0, -2.75, 0) )
+		LOUDINSERT( self.MaelstromEffects01, LOUDATTACHEMITTER( self, 'Maelstrom', army, '/mods/BlackopsUnleashed/effects/emitters/genmaelstrom_aura_02_emit.bp' ):ScaleEmitter(0.75):OffsetEmitter(0, -1.5, 0) )
 		
 		AHoverLandUnit.OnStopBeingBuilt(self,builder,layer)
 		
