@@ -29,15 +29,20 @@ Prop = Class(moho.prop_methods, Entity) {
         Entity.OnCreate(self)
 
 		local bp = GetBlueprint(self).Economy
-		
-        self.MassReclaim = bp.ReclaimMassMax or 0
+
+        self.CachePosition = LOUDCOPY(moho.entity_methods.GetPosition(self))
+        self.CanBeKilled = true		
+        self.CanTakeDamage = false
         self.EnergyReclaim = bp.ReclaimEnergyMax or 0
+        self.MassReclaim = bp.ReclaimMassMax or 0
+        self.MaxEnergyReclaim = bp.ReclaimEnergyMax or 0
+        self.MaxMassReclaim = bp.ReclaimMassMax or 0
         self.ReclaimTimeMassMult = bp.ReclaimMassTimeMultiplier or 1
         self.ReclaimTimeEnergyMult = bp.ReclaimEnergyTimeMultiplier or 1
-        self.MaxMassReclaim = bp.ReclaimMassMax or 0
-        self.MaxEnergyReclaim = bp.ReclaimEnergyMax or 0
 		
-        self.CachePosition = LOUDCOPY(moho.entity_methods.GetPosition(self))
+        if not EntityCategoryContains(categories.INVULNERABLE, self) then
+            self.CanTakeDamage = true
+        end
 
         local bp = GetBlueprint(self).Defense
 		
@@ -49,14 +54,7 @@ Prop = Class(moho.prop_methods, Entity) {
 		
         self:SetMaxHealth(maxHealth)
         self:SetHealth(self,maxHealth)
-		
-        if not EntityCategoryContains(categories.INVULNERABLE, self) then
-            self.CanTakeDamage = true
-        else
-            self.CanTakeDamage = false
-        end
-        
-        self.CanBeKilled = true
+
     end,
 	
     ForkThread = function(self, fn, ...)
