@@ -465,7 +465,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
 
             { LUTL, 'UnitCapCheckLess', { .75 } },
             
-            { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 1.2 } },
 			
             { UCBC, 'ArmyNeedsTransports', { true } },
 
@@ -514,7 +514,7 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Transports',
 
             { LUTL, 'UnitCapCheckLess', { .80 } },
 
-            { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 1.2 } },
 
             { UCBC, 'ArmyNeedsTransports', { true } },
 
