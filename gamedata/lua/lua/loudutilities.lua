@@ -4215,9 +4215,9 @@ function ParseIntelThread( aiBrain )
         StructuresNotMex,		-- any building except MEX - ALL threat values
         Structures,				-- ALL buildings - ALL threat values
 		
-        Naval,					-- reports ALL threat values but only of actual NAVAL units
+        Naval,					-- reports ALL threat values but only of actual NAVAL units and AMPHIB units in the water
         Air,					-- reports ALL threat values but only of actual AIR units			
-        Land,					-- reports ALL threat values but only of actual LAND units
+        Land,					-- reports ALL threat values but only of actual LAND units and AMPHIB units on the land
 		
         Experimental,
         Commander,
@@ -4238,7 +4238,7 @@ function ParseIntelThread( aiBrain )
         
 		Air 			    = { 15 * ThresholdMult, 4.5, categories.AIR - categories.SATELLITE - categories.SCOUT - categories.TRANSPORTFOCUS, 1,'ff76bdff', true},
 		Land 			    = { 8 * ThresholdMult, 13.5, categories.MOBILE - categories.AIR - categories.ANTIAIR - categories.SCOUT, 3,'9000ff00', true },
-		Naval 		    	= { 8 * ThresholdMult, 18, categories.MOBILE - categories.AIR - categories.ANTIAIR - categories.SCOUT, 4,'ff0060ff', true },
+		Naval 		    	= { 8 * ThresholdMult, 9, categories.MOBILE - categories.AIR - categories.ANTIAIR - categories.SCOUT, 2,'ff0060ff', true },
         AntiAir             = { 20 * ThresholdMult, 22.5, categories.ANTIAIR - categories.AIR, 5, 'e0ff0000', true},
 
 		Economy	    		= { 50, 33.8, categories.ECONOMIC + categories.FACTORY, 7,'90ff7000', true },
@@ -4247,7 +4247,7 @@ function ParseIntelThread( aiBrain )
         
 		--Experimental  	= { 50, 26, (categories.EXPERIMENTAL * categories.MOBILE), 4,'ff00fec3', false },        
         --AntiSurface       = { 20 * ThresholdMult, 26, categories.STRUCTURE - categories.WALL, 4, 'ffaf00ff', true},
-        --AntiSub           = { 15 * ThresholdMult, 52, categories.ALLUNITS - categories.WALL, 5, 'ff0000ff', false },
+        AntiSub           = { 8 * ThresholdMult, 26, categories.ALLUNITS - categories.WALL, 3, 'ffff00ff', true },
 		--Artillery 	    = { 60, 52, (categories.ARTILLERY * categories.STRUCTURE - categories.TECH1) + (categories.EXPERIMENTAL * categories.ARTILLERY), 5,'60ffff00', false },
 	}
 
@@ -4403,17 +4403,17 @@ function ParseIntelThread( aiBrain )
                     -- add up the threat from each IMAP position - we'll use this as history even if it doesn't result in a InterestList entry
                     totalThreat = totalThreat + threatreport
 
+                    -- draw IMAP block if there is any threat --
+                    if DisplayIntelPoints and threatreport > 2 then
+						aiBrain:ForkThread(DrawRectangle,threat,vx[5])
+					end                                        
+
                     -- only check threats above minimumcheck otherwise break as rest will be below that
                     if threatreport > threatamounttrigger then
 					
 						if IntelDialog then
 							LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL "..ThreatTypeName.." processing threat of "..repr(threatreport).." at "..repr( {threat[1],0,threat[2]} ))
 						end
-
-                        -- draw IMAP block if sufficient threat worth checking --
-                        if DisplayIntelPoints then
-							aiBrain:ForkThread(DrawRectangle,threat,vx[5])
-						end                                        
 	
                         -- count the number of checks we've done and insert a wait to keep this routine from hogging the CPU 
                         numchecks = numchecks + 1
@@ -4597,7 +4597,9 @@ function ParseIntelThread( aiBrain )
 												loc.LastUpdate = newtime
 											end
 										
-											loc.Position = newPos
+											loc.Position[1] = newPos[1]
+                                            loc.Position[2] = newPos[2]
+                                            loc.Position[3] = newPos[3]
 										end
                                     
                                     end
@@ -4625,7 +4627,7 @@ function ParseIntelThread( aiBrain )
 									LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL "..ThreatTypeName.." Inserting new threat of "..newthreat.." at "..repr(newPos))
 								end
 
-                                LOUDINSERT(aiBrain.IL.HiPri, { Position = newPos, Type = ThreatTypeName, Threat = newthreat, LastUpdate = newtime, LastScouted = newtime } )
+                                LOUDINSERT(aiBrain.IL.HiPri, { Position = { newPos[1],newPos[2],newPos[3] }, Type = ThreatTypeName, Threat = newthreat, LastUpdate = newtime, LastScouted = newtime } )
 							end
                             
 						else
