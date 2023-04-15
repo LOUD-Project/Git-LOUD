@@ -7,7 +7,6 @@ local AssignTransportToPool = import('/lua/ai/transportutilities.lua').AssignTra
 local AIGetMarkersAroundLocation = import('/lua/ai/aiutilities.lua').AIGetMarkersAroundLocation
 local AIPickEnemyLogic = import('/lua/ai/aiutilities.lua').AIPickEnemyLogic
 local AISendChat = import('/lua/ai/sorianutilities.lua').AISendChat
-local AISendPing = import('/lua/ai/altaiutilities.lua').AISendPing
 local Game = import('game.lua')
 local RandomLocation = import('/lua/ai/aiutilities.lua').RandomLocation
 local ReturnTransportsToPool = import('/lua/ai/transportutilities.lua').ReturnTransportsToPool
@@ -1069,7 +1068,7 @@ function SimulateFactoryBuilt (finishedUnit)
 	
                     -- added check for RTP callback (which is intended for transports but UEF gunships sometimes get it)
                     -- to bypass this is the unit is in the transport pool --
-                    if (newHP < oldHP and newHP < 0.5) and not finishedUnit.ReturnToPoolCallbackSet then
+                    if (newHP < oldHP and newHP < 0.5) and not finishedUnit.EventCallbacks['OnTransportDetach'] then
 					
                         --LOG("*AI DEBUG Callback OnHealthChanged running on "..finishedUnit:GetBlueprint().Description.." with New "..repr(newHP).." and Old "..repr(oldHP))
 
@@ -1089,7 +1088,7 @@ function SimulateFactoryBuilt (finishedUnit)
                     -- this flag only gets turned on after this executes
                     -- and is turned back on only when the unit gets fuel - so we avoid multiple executions
                     -- and we don't process this if it's a transport pool unit --
-                    if finishedUnit.HasFuel and not finishedUnit.ReturnToPoolCallbackSet then
+                    if finishedUnit.HasFuel and not finishedUnit.EventCallbacks['OnTransportDetach'] then
 				
                         --LOG("*AI DEBUG Callback OutOfFuel running on "..finishedUnit:GetBlueprint().Description )
 				
@@ -5985,7 +5984,7 @@ function RecheckHiPriTarget( aiBrain, targetlocation, targetclass, pos)
         -- as soon as we hit one that is beyond the intelresolution we're done
 		if VDist3Sq( targetlocation, TPosition ) > intelresolution then
 
-            LOG("*AI DEBUG "..aiBrain.Nickname.." Recheck HiPri but "..repr(targetlocation).." was beyond "..intelresolution.." of HiPri list")
+            LOG("*AI DEBUG "..aiBrain.Nickname.." Recheck HiPri but "..repr(targetlocation).." was beyond "..ScenarioInfo.IntelResolution.." of HiPri list")
 
 			break
 		end

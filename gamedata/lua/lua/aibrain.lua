@@ -181,6 +181,8 @@
     
     ScenarioInfo.NukeDialog = false
     LOG("*AI DEBUG      Report  Nuke Dialog to Log is "..repr(ScenarioInfo.NukeDialog))
+    
+    --Sync.AIDebug = table.copy(ScenarioInfo)     -- this is to try and feed these switches up to the UI
 
 
 
@@ -797,6 +799,10 @@ function SyncCurrentScores( Brains, ArmyScore, ScoreInterval )
     local A,lastA
 
     while true do
+
+        --Sync.AIDebug = {}
+
+        --Sync.AIDebug['NameEngineers'] = ScenarioInfo.NameEngineers
 	
 	    WaitTicks(ScoreInterval)  	
 		

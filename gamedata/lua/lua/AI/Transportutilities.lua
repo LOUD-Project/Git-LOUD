@@ -1349,7 +1349,7 @@ function SendPlatoonWithTransportsLOUD( self, aiBrain, destination, attempts, bS
                                 end
                                 
                                 if platoonpath then
-                                    LOG("*AI DEBUG "..aBrain.Nickname.." "..repr(self.BuilderName).." has a path of it's own "..repr(platoonpath))
+                                    LOG("*AI DEBUG "..aiBrain.Nickname.." "..repr(self.BuilderName).." has a path of it's own "..repr(platoonpath))
                                 end
                             end
 						end

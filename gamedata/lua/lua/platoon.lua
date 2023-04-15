@@ -1546,7 +1546,7 @@ Platoon = Class(moho.platoon_methods) {
 
                     WaitTicks(3)
 
-                    while engineer.teleporting do
+                    while not engineer.Dead and engineer.teleporting do
                         WaitTicks(3)
                     end
 
@@ -1707,7 +1707,7 @@ Platoon = Class(moho.platoon_methods) {
 				
 					if ( distance > 300 or StuckCount > 5 ) and PlatoonExists(aiBrain, self) then
 
-						usedTransports = SendPlatoonWithTransportsLOUD( self, aiBrain, transportLocation, 1, false )
+						usedTransports = SendPlatoonWithTransportsLOUD( self, aiBrain, transportLocation, 1, false, path )
 
 						-- if we used tranports we need to update position and distance
 						if usedTransports then
@@ -2952,7 +2952,7 @@ Platoon = Class(moho.platoon_methods) {
                             
                             if position then
 
-                                choice = SendPlatoonWithTransportsLOUD( self, aiBrain, marker, 1, false )
+                                choice = SendPlatoonWithTransportsLOUD( self, aiBrain, marker, 1, false, path )
 
                                 if choice then
 
@@ -4280,7 +4280,7 @@ Platoon = Class(moho.platoon_methods) {
                             if position then
 
                                 -- call transports if still far (every 30 seconds)
-                                choice = SendPlatoonWithTransportsLOUD( self, aiBrain, marker, 1, false )
+                                choice = SendPlatoonWithTransportsLOUD( self, aiBrain, marker, 1, false, path )
 
                                 if choice then
 
@@ -7926,7 +7926,7 @@ Platoon = Class(moho.platoon_methods) {
 					
                         WaitTicks(2)
                     
-                        while eng.teleporting do
+                        while not eng.Dead and eng.teleporting do
                             WaitTicks(3)
                         end
                     
@@ -8651,7 +8651,9 @@ Platoon = Class(moho.platoon_methods) {
                         end
                     end
 					
-					WaitTicks(2)
+                    if not path then
+                        WaitTicks(2)
+                    end
 				end
                 
 			end
@@ -8754,7 +8756,7 @@ Platoon = Class(moho.platoon_methods) {
 
                 oldplatpos = LOUDCOPY(platPos)
 
-				WaitTicks(90)
+				WaitTicks(81)
 				
 				platPos = GetPlatoonPosition(self) or false
 
@@ -8783,35 +8785,43 @@ Platoon = Class(moho.platoon_methods) {
                         stuckcount = 0
                     end
 
-                    -- confirm target is still valid
+                    -- confirm HiPri target is still valid
                     if targettype == 'HiPri' then
                 
                         reason, targetthreat, newposition = RecheckHiPriTarget( aiBrain, targetLocation, targetclass, platPos )
 				
-                        if not reason then
+                        if reason then      -- target is still on HiPri list
+                        
+                            mythreat = CalculatePlatoonThreat( self, 'Surface', ALLUNITS )					
+
+                            if targetthreat.Sur <= mythreat then        -- we have sufficient force
+
+                                targetLocation = LOUDCOPY(newposition)
+                            
+                                if LandForceAIDialog then
+                                    LOG("*AI DEBUG "..aiBrain.Nickname.." LandForceAI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." validates HiPri target at "..repr(targetLocation))
+                                end
+
+                            else
+
+                                if LandForceAIDialog then
+                                    LOG("*AI DEBUG "..aiBrain.Nickname.." LandForceAI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." HiPri recheck - target threat too high at "..repr(targetLocation).." threat is "..repr(targetthreat.Sur).." - mine is "..mystrength)
+                                end
+                                
+                                targetLocation = false
+                            
+                                break
+                            end
+                        
+                        else
                         
                             if LandForceAIDialog then
                                 LOG("*AI DEBUG "..aiBrain.Nickname.." LandForceAI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." HiPri recheck reports "..targetclass.." target at "..repr(targetLocation).." is no longer valid")
                             end
                             
-                            break
-                        end
-                        
-                        mythreat = CalculatePlatoonThreat( self, 'Surface', ALLUNITS )					
-
-                        if targetthreat.Sur > (mythreat * 1.3) then
-                        
-                            if LandForceAIDialog then
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." LandForceAI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." HiPri recheck reports target threat too high at "..repr(targetLocation).." threat is "..repr(targetthreat.Sur).." - mine is "..mystrength)
-                            end
+                            targetLocation = false
                             
-                            break
-                        else
-                            targetLocation = LOUDCOPY(newposition)
-                            
-                            if LandForceAIDialog then
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." LandForceAI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." validates HiPri target at "..repr(targetLocation))
-                            end
+                            break                        
                         end
 					
                     end
@@ -8819,7 +8829,7 @@ Platoon = Class(moho.platoon_methods) {
                 end
 
                 -- seek transport every 3rd iteration
-				if (not experimentalunit) and platPos then
+				if (not experimentalunit) and targetLocation and platPos then
                 
                     calltransport = calltransport + 1
                     
@@ -8833,14 +8843,14 @@ Platoon = Class(moho.platoon_methods) {
                                 LOG("*AI DEBUG "..aiBrain.Nickname.." LandForceAI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." calls for transport 1")
                             end
 
-                            SendPlatoonWithTransportsLOUD( self, aiBrain, targetLocation, 1, false )
+                            SendPlatoonWithTransportsLOUD( self, aiBrain, targetLocation, 1, false, path )
                         end
                     end
 				end
 
 			end
 			
-			WaitTicks(50)
+			WaitTicks(41)
 		end
 	end,
 
@@ -9256,36 +9266,45 @@ Platoon = Class(moho.platoon_methods) {
 				
                         reason, targetthreat, newposition = RecheckHiPriTarget( aiBrain, targetLocation, targetclass, platPos )
 				
-                        if not reason then
+                        if reason then
+    
+                            mystrength = CalculatePlatoonThreat( self, 'Surface', ALLUNITS )
+					
+                            if targetthreat.Sur <= mystrength then
+
+                                targetLocation = LOUDCOPY(newposition)
+                            
+                                if AmphibForceAIDialog then
+                                    LOG("*AI DEBUG "..aiBrain.Nickname.." AmphibForceAI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." validates HiPri target at "..repr(targetLocation))
+                                end
+                            
+                            else
+                            
+                                if AmphibForceAIDialog then
+                                    LOG("*AI DEBUG "..aiBrain.Nickname.." AmphibForceAI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." HiPri recheck reports target threat too high at "..repr(targetLocation).." threat is "..repr(targetthreat.Sur).." - mine is "..mystrength)
+                                end
+                                
+                                targetLocation = false
+                            
+                                break
+                            end
+
+                        else
                         
                             if AmphibForceAIDialog then
                                 LOG("*AI DEBUG "..aiBrain.Nickname.." AmphibForceAI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." HiPri recheck reports "..targetclass.." target at "..repr(targetLocation).." is no longer valid")
                             end
                             
-                            break
-                        end
-		
-                        mystrength = CalculatePlatoonThreat( self, 'Surface', ALLUNITS )
-					
-                        if targetthreat.Sur > (mystrength * 1.3) then
-                            
-                            if AmphibForceAIDialog then
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." AmphibForceAI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." HiPri recheck reports target threat too high at "..repr(targetLocation).." threat is "..repr(targetthreat.Sur).." - mine is "..mystrength)
-                            end
+                            targetLocation = false
                             
                             break
-                        else
-                            targetLocation = LOUDCOPY(newposition)
-                            
-                            if AmphibForceAIDialog then
-                                LOG("*AI DEBUG "..aiBrain.Nickname.." AmphibForceAI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." validates HiPri target at "..repr(targetLocation))
-                            end
                         end
+
                     end
                 
                 end
 
-                if (not experimentalunit) and platPos then
+                if (not experimentalunit) and targetLocation and platPos then
                 
                     calltransport = calltransport + 1
 
@@ -9299,7 +9318,7 @@ Platoon = Class(moho.platoon_methods) {
                                 LOG("*AI DEBUG "..aiBrain.Nickname.." AmphibForceAI "..repr(self.BuilderName).." "..repr(self.BuilderInstance).." calls for transport 1")
                             end
 
-                            SendPlatoonWithTransportsLOUD( self, aiBrain, targetLocation, 1, true )
+                            SendPlatoonWithTransportsLOUD( self, aiBrain, targetLocation, 1, true, path )
                         end
 
                     end

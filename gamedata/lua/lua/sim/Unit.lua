@@ -5294,7 +5294,7 @@ Unit = Class(moho.unit_methods) {
 
         LOG("*AI DEBUG OnFailedTeleport "..repr(self.BlueprintID))
         
-        if self.TeleportDrain then
+        if not self.Dead and self.TeleportDrain then
 		
             RemoveEconomyEvent( self, self.TeleportDrain)
 			
