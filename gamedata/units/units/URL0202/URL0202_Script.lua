@@ -1,6 +1,6 @@
 
 local CLandUnit = import('/lua/defaultunits.lua').MobileUnit
-local CDFParticleCannonWeapon = import('/lua/cybranweapons.lua').CDFParticleCannonWeapon
+local CDFParticleCannonWeapon = import('/lua/terranweapons.lua').TDFHiroPlasmaCannon
 
 URL0202 = Class(CLandUnit) {
     Weapons = {

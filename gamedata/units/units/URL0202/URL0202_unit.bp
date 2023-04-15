@@ -155,10 +155,10 @@ UnitBlueprint {
             },
             BallisticArc = 'RULEUBA_None',
 			
-            BeamCollisionDelay = 0,
-            BeamLifetime = 0.2,
-			
+            BeamCollisionDelay = 0.1,
+            BeamLifetime = 0.1,
             CollideFriendly = false,
+            ContinuousBeam = true,
 			
             Damage = 18,
 			DamageRadius = 0,
@@ -188,8 +188,8 @@ UnitBlueprint {
                     RackBone = 'Barrel',
                 },
             },
-            RackFireTogether = true,
-            RackRecoilDistance = -1,
+            RackFireTogether = false,
+            RackRecoilDistance = -0.6,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
@@ -198,7 +198,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 2.0,	---- two beams twice per second = 72 DPS
+            RateOfFire = 2.0,	---- two beams per on fire and twice per second = 72 DPS
             ReTargetOnMiss = true,
 			
             TargetCheckInterval = 0.5,
