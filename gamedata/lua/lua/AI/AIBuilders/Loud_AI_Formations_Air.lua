@@ -337,7 +337,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         BuilderType = 'Any',
     },
     
-    -- specifically hunts engineers at long range
+    -- specifically hunts engineers
     Builder {BuilderName = 'Hunt Bombers Economic Small',
 	
         PlatoonTemplate = 'BomberAttack Small',
@@ -352,7 +352,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         InstanceCount = 2,
 		
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioGreaterThan', { 3 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 2.5 } },
             
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, AIRBOMBER }},
         },
@@ -367,11 +367,11 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			
             MergeLimit = false,     -- no merging for this platoon
 			
-            MissionTime = 125,
+            MissionTime = 90,
 			
             PrioritizedCategories = { categories.ECONOMIC, categories.ENGINEER },
 			
-			SearchRadius = 100,	
+			SearchRadius = 65,	
 			
             UseFormation = 'GrowthFormation',
         },
@@ -436,17 +436,13 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 
         Priority = 710,
 		
-		--PriorityFunction = IsPrimaryBase,
-		
         InstanceCount = 3,
 
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioGreaterThan', { 3 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 2.5 } },
             
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 11, AIRBOMBER }},
 
-			-- enemy targets within 8km
-			--{ LUTL, 'GreaterThanEnemyUnitsAroundBase', { 'LocationType', 0, categories.ECONOMIC + categories.ENGINEER, 400 }},            
         },
 		
         BuilderData = {
@@ -459,11 +455,11 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			
             MergeLimit = 25,
 			
-            MissionTime = 150,
+            MissionTime = 125,
 			
             PrioritizedCategories = { categories.ECONOMIC, categories.ENGINEER, categories.MASSPRODUCTION },
 			
-			SearchRadius = 120,
+			SearchRadius = 100,
 			
             UseFormation = 'AttackFormation',
         },
@@ -490,7 +486,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         InstanceCount = 2,
 
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioGreaterThan', { 3 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 2.5 } },
             
             { LUTL, 'PoolGreater', { 24, AIRBOMBER }},
 			
@@ -516,7 +512,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
             
             MergeLimit = 64,
             
-            MissionTime = 180,
+            MissionTime = 150,
             
             PrioritizedCategories = {categories.COMMAND, categories.ENGINEER, categories.SHIELD, categories.MOBILE - categories.AIR, categories.ECONOMIC - categories.TECH1},
             
@@ -875,9 +871,9 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			
             MissionTime = 80,
 			
-            PrioritizedCategories = { categories.AIR - categories.INTELLIGENCE - categories.TRANSPORTFOCUS, categories.INTELLIGENCE, categories.TRANSPORTFOCUS },
+            PrioritizedCategories = { categories.AIR - categories.INTELLIGENCE - categories.TRANSPORTFOCUS, categories.AIR * categories.INTELLIGENCE, categories.TRANSPORTFOCUS },
 			
-			SearchRadius = 45,	
+			SearchRadius = 60,	
 			
             UseFormation = 'GrowthFormation',
         },
@@ -885,7 +881,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         BuilderType = 'Any',
     },
 
-    -- upto 16 ASF for hunting air scouts
+    -- upto 16 ASF for hunting air scouts - short duration
     Builder {BuilderName = 'Hunt Fighters Defensive - Intel First',
 	
         PlatoonTemplate = 'FighterAttack Small',
@@ -898,10 +894,10 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 		
         Priority = 710,
         
-        InstanceCount = 2,
+        InstanceCount = 1,
 		
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioGreaterThan', { 3 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 2.5 } },
             
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, AIRFIGHTER }},
             
@@ -912,13 +908,13 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 
 			LocationType = 'LocationType',
 			
-            MergeLimit = 16,
+            MergeLimit = false,
 			
-            MissionTime = 150,
+            MissionTime = 80,
 			
             PrioritizedCategories = { categories.AIR * categories.INTELLIGENCE, categories.TRANSPORTFOCUS },
 			
-			SearchRadius = 75,	
+			SearchRadius = 60,	
 			
             UseFormation = 'AttackFormation',
         },
@@ -926,7 +922,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         BuilderType = 'Any',
     },
 
-    -- upto 16 ASF for hunting Transports
+    -- upto 16 ASF for hunting Transports - short duration
     Builder {BuilderName = 'Hunt Fighters Defensive - Transport First',
 	
         PlatoonTemplate = 'FighterAttack Small',
@@ -939,10 +935,10 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 		
         Priority = 720,
         
-        InstanceCount = 2,
+        InstanceCount = 1,
 		
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioGreaterThan', { 3 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 2.5 } },
             
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, AIRFIGHTER }},
             
@@ -953,13 +949,13 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			
 			LocationType = 'LocationType',
 			
-            MergeLimit = 16,
+            MergeLimit = false,
 			
-            MissionTime = 150,
+            MissionTime = 80,
 			
             PrioritizedCategories = { categories.TRANSPORTFOCUS, categories.AIR * categories.INTELLIGENCE },
 			
-			SearchRadius = 75,	
+			SearchRadius = 60,	
 			
             UseFormation = 'AttackFormation',
         },
@@ -1120,7 +1116,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         InstanceCount = 3,
 
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 1.2 } },
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 15, AIRGUNSHIP }},
         },
 		
@@ -1167,7 +1163,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
         InstanceCount = 4,
 
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioGreaterThan', { 1 } },
+            { LUTL, 'AirStrengthRatioGreaterThan', { 1.2 } },
 			{ UCBC, 'PoolGreaterAtLocation', { 'LocationType', 5, AIRGUNSHIP }},
         },
 		
