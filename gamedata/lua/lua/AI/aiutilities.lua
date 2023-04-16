@@ -977,8 +977,8 @@ function SetupAICheat(aiBrain)
 
     LOG("*AI DEBUG "..aiBrain.Nickname.." BuildRate mult is "..newbuff.Affects.BuildRate.Mult)
 	
-	-- reduce mass/energy used when building and maintaining at same rate as build rate
-    modifier = 1.0 - newbuff.Affects.BuildRate.Mult
+	-- reduce mass/energy used when building and maintaining
+    modifier = 1.0 - aiBrain.MajorCheatModifier
     
     modifier = LOUDMAX( -0.50, modifier )               -- this will cap the reduction at 50%
 
