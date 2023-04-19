@@ -59,7 +59,7 @@ GPGrestrictedUnits = {
     },
 
     AIRFIGHTERS = {
-		categories = {"brpat2figbo", "dea0202", "dra0202", "lea0401","saa0313", "sea0313", "sra0313", "ssa0313", "uaa0102", "uaa0303", "uea0102", "uea0303", "ura0102", "ura0303", "xaa0202", "xsa0102", "xsa0202", "xsa0303"},
+		categories = {"brpat2figbo", "dea0202", "dra0202", "lea0401","saa0313", "sea0313", "sra0313", "ssa0313", "uaa0102", "uaa0303", "uea0102", "uea0303", "ura0102", "ura0303", "xaa0202", "xsa0102", "xsa0202", "xsa0303", "sea0212", "sra0212",},
 		name = "<LOC restricted_units_data_0021>No Air Fighters",
 		tooltip = "restricted_units_air_fighters",
     },
