@@ -1345,9 +1345,15 @@ AIBrain = Class(moho.aibrain_methods) {
                 self.PlatoonDistress = nil
                 self.PlatoonTemplates = nil
 				
-				self:DisbandPlatoon(self.RefuelPool)
+                if self.RefuelPool then
+                    self:DisbandPlatoon(self.RefuelPool)
+                end
+                
 				self:DisbandPlatoon(self.StructurePool)
-				self:DisbandPlatoon(self.TransportPool)
+                
+                if self.TransportPool then
+                    self:DisbandPlatoon(self.TransportPool)
+                end
 				
 				if self.ArmyPool.AIThread then
 				

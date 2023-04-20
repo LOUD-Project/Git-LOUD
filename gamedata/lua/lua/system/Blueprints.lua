@@ -826,6 +826,18 @@ function ModBlueprints(all_blueprints)
 									bp.Intel.WaterVisionRadius = 0
 								end
 							end
+                            
+                            if bp.Weapon then
+                            
+                                for w, weap in bp.Weapon do
+                            
+                                    if weap.AutoInitiateAttackCommand and weap.RangeCategory == 'UWRC_AntiAir'then
+                                        LOG("*AI DEBUG Air Unit "..id.." "..bp.Description.." Weapon "..w.." - AA weapon has AutoInitiateAttack ")
+                                        bp.Weapon[w].AutoInitiateAttackCommand = false
+                                    end
+                                end
+                            end
+
 						end
 					end
 				end

@@ -489,7 +489,7 @@ function GetFreeUnitsAroundPoint( aiBrain, category, location, radius, useRefuel
 
     local ArmyIndex = aiBrain.ArmyIndex
     local ArmyPool = aiBrain.ArmyPool
-    local RefuelPool = aiBrain.RefuelPool
+    local RefuelPool = aiBrain.RefuelPool or false
     
     local units = aiBrain:GetUnitsAroundPoint( category, location, radius, 'Ally' )
     
@@ -600,10 +600,6 @@ function SpawnWaveThread( aiBrain )
 			
 			LOUDINSERT(initialUnits, false)
 		end
-	end
-	
-	if initialUnits then
-		--LOG("*AI DEBUG "..aiBrain.Nickname.." Spawnwave initialized")
 	end
 	
 	local initialdelay = true

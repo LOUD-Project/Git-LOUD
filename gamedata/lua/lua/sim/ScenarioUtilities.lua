@@ -779,7 +779,7 @@ function InitializeArmies()
             return
         end
 
-		self.OutnumberedRatio = math.max( 1,(self.NumOpponents or 1)/(self.Players - self.NumOpponents) )
+		self.OutnumberedRatio = math.max( 1, ScenarioInfo.biggestTeamSize/self.TeamSize )
     
         if self.OutnumberedRatio > 1 then 
             LOG("*AI DEBUG "..self.Nickname.." OutnumberedRatio is "..self.OutnumberedRatio)
