@@ -1,3 +1,17 @@
+### Release 20-04-2023
+
+UNITS 6.3.04
+UNITS_CIV 6.3
+LUA 6.3.04
+BrewLAN for LOUD 0.8.8.9.66
+Total Mayhem for LOUD 6.3.02
+
+- all civilian units have been moved out of UNITS and into a new file, UNITS_CIV
+- fixed an oversight in outnumbered calculations that affected FFA situations
+- some recently added fighter units were not being picked up by unit restrictions
+- some air units still had 'autoinitiateattackcommand' set to true
+
+
 ### Release 15-04-2023
 
 Black Ops Unleashed for LOUD 6.3.03
