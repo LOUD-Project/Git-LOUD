@@ -105,7 +105,7 @@ UnitBlueprint {
         RegenRate = 6,
     },
     
-    Description = '<LOC sa0313_desc>Penetration Fighter',
+    Description = '<LOC ssa0313_desc>Penetration Fighter',
     
     Display = {
         Abilities = {
@@ -269,13 +269,13 @@ UnitBlueprint {
             AlwaysRecheckTarget = true,
             Audio = {Fire = Sound {Bank = 'XSA_Weapon', Cue = 'XSA0303_AA_AutoCanLosaare', LodCutoff = 'Weapon_LodCutoff'}},
             
-            AutoInitiateAttackCommand = true,
+            AutoInitiateAttackCommand = false,
             BallisticArc = 'RULEUBA_None',
             
             CannotAttackGround = true,
             CollideFriendly = false,
             
-            Damage = 150,
+            Damage = 90,
             DamageFriendly = false,
             DamageType = 'Normal',
             
@@ -292,11 +292,11 @@ UnitBlueprint {
             MaxRadius = 40,
             
             MuzzleSalvoDelay = 0.1,
-            MuzzleSalvoSize = 3,
-            MuzzleVelocity = 120,
+            MuzzleSalvoSize = 4,
+            MuzzleVelocity = 100,
             
             ProjectileId = '/projectiles/SAALosaareAutoCannon01/SAALosaareAutoCannon01_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 0.8,
+            ProjectileLifetimeUsesMultiplier = 0.6,
 
             RackBones = {
                 {
@@ -311,10 +311,10 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_AntiAir',
             
-            RateOfFire = 1.5,   -- about 450 DPS
+            RateOfFire = 2,   -- about 720 DPS
             
             SlavedToBody = true,
-            SlavedToBodyArcRange = 50,
+            SlavedToBodyArcRange = 55,
             
             TargetCheckInterval = 0.3,
             TargetPriorities = {
@@ -325,7 +325,7 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TargetRestrictOnlyAllow = 'AIR',
-            TrackingRadius = 1.15,
+            TrackingRadius = 1.1,
             
             TurretBoneMuzzle = 'Med_Ring',
             TurretBonePitch = 'Med_Ring',
@@ -348,11 +348,9 @@ UnitBlueprint {
             
             BallisticArc = 'RULEUBA_None',
             
-            BeamCollisionDelay = 0.0,
+            BeamCollisionDelay = 0.1,
             BeamLifetime = 0.2,
-            
             CollideFriendly = false,
-            
             ContinuousBeam = false,
             
             Damage = 500,
@@ -366,7 +364,7 @@ UnitBlueprint {
             
             Label = 'PhasonBeam',
             
-            MaxRadius = 32,
+            MaxRadius = 34,
             MinRadius = 5,
             
             MuzzleChargeDelay = 0,

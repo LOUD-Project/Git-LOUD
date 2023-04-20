@@ -96,7 +96,7 @@ UnitBlueprint {
         RegenRate = 7,
     },
     
-    Description = '<LOC sa0313_desc>Penetration Fighter',
+    Description = '<LOC ssa0313_desc>Penetration Fighter',
     
     Display = {
         Abilities = {
@@ -236,7 +236,7 @@ UnitBlueprint {
                 BeamStop = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Stop', LodCutoff = 'Weapon_LodCutoff' },
                   Unpack = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Charge', LodCutoff = 'Weapon_LodCutoff' },
             },
-            AutoInitiateAttackCommand = true,
+            AutoInitiateAttackCommand = false,
             
             BallisticArc = 'RULEUBA_None',
             

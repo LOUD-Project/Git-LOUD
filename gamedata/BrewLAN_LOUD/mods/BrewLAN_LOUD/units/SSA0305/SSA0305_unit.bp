@@ -92,7 +92,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 32,
     },
 	
-    Description = '<LOC uea0305_desc>Heavy Gunship',
+    Description = '<LOC ssa0305_desc>Heavy Gunship',
 	
     Display = {
 	
@@ -261,7 +261,7 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
-            AutoInitiateAttackCommand = true,
+            AutoInitiateAttackCommand = false,
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
