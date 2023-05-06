@@ -1,3 +1,14 @@
+### Release 06-05-2023
+
+LUA 6.3.05
+BrewLAN for LOUD 0.8.8.9.67
+UNITS 6.3.05
+
+- Added support for custom lobby options from mods
+- fixed class references for some units I had missed (UEF T3 Wall, AEON Sniper bot)
+- update two maps, Lagoon & Lost Temple
+
+
 ### Release 20-04-2023
 
 UNITS 6.3.04

@@ -408,7 +408,7 @@ function AIBuildAdjacency( aiBrain, builder, buildingType, closeToBuilder, relat
         end
 		
         -- Build in a regular spot if adjacency not found - commented out by LOUD so that build fails when adjacency fails
-		LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..builder.EntityID.." Unable to build "..repr(buildingType).." adjacent to "..repr(reference).." near base at "..repr(baseLocation))
+		--LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..builder.EntityID.." Unable to build "..repr(buildingType).." adjacent to "..repr(reference).." near base at "..repr(baseLocation))
     end
 
     return false, false
