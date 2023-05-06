@@ -76,7 +76,7 @@ function GetLobbyOptions()
 	local OptionFiles = DiskFindFiles('/lua/CustomOptions', '*.lua')
 	
 	for i, v in OptionFiles do
-	
+
         local tempfile = import(v).LobbyGlobalOptions
 		
 		for s, t in tempfile do
@@ -92,11 +92,13 @@ function GetLobbyOptions()
 		local OptionFiles = DiskFindFiles(mod.location..'/lua/CustomOptions', '*.lua')
 		
 		for i, v in OptionFiles do
-		
+
 			local tempfile = import(v).LobbyGlobalOptions
 			
 			for s, t in tempfile do
 			
+                LOG("*AI DEBUG Custom Lobby Option from mod "..repr(mod.name).." "..repr(t.label))
+
 				table.insert(options, t)
 				
 			end

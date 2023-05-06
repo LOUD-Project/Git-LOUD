@@ -88,7 +88,12 @@ local teamNumbers = {
 local lobbyOptMap = {}
 local lobbyOptOrder = {}
 
-for _, v in import('/lua/ui/lobby/lobbyoptions.lua').globalOpts do
+local globalOpts = import('/lua/ui/lobby/lobbyoptions.lua').globalOpts
+
+for _, v in import('/lua/EnhancedLobby.lua').GetLobbyOptions() do
+    table.insert(globalOpts, v)
+end
+for _, v in globalOpts do
     table.insert(lobbyOptOrder, v.key)
     lobbyOptMap[v.key] = v
 end
