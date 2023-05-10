@@ -47,10 +47,10 @@ UnitBlueprint {
         Health = 1050,
         MaxHealth = 1050,
         RegenRate = 1.5,
-        SurfaceThreatLevel = 7.7,
+        SurfaceThreatLevel = 8.0,
     },
 	
-    Description = '<LOC url0202_desc>Heavy Tank',
+    Description = '<LOC url0202_desc>Laser Tank',
 	
     Display = {
         Mesh = {
@@ -70,7 +70,7 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 1325,
+        BuildCostEnergy = 1500,
         BuildCostMass = 265,
         BuildTime = 1325,
     },
@@ -156,11 +156,11 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
 			
             BeamCollisionDelay = 0.1,
-            BeamLifetime = 0.1,
+            BeamLifetime = 0.2,
+
             CollideFriendly = false,
-            ContinuousBeam = true,
 			
-            Damage = 18,
+            Damage = 10,
 			DamageRadius = 0,
             DamageType = 'Normal',
 			
@@ -175,9 +175,9 @@ UnitBlueprint {
 			
             LeadTarget = false,
 			
-            MaxRadius = 25,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+            MaxRadius = 27,
+            MuzzleSalvoDelay = 0.1,
+            MuzzleSalvoSize = 2,
 
             RackBones = {
                 {
@@ -188,8 +188,7 @@ UnitBlueprint {
                     RackBone = 'Barrel',
                 },
             },
-            RackFireTogether = false,
-            RackRecoilDistance = -0.6,
+
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
@@ -198,14 +197,13 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 2.0,	---- two beams per on fire and twice per second = 72 DPS
+            RateOfFire = 2.0,	---- 2 muzzles causing 20 damage when fired and twice per second = 80 DPS
             ReTargetOnMiss = true,
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
-                'DEFENSE',
                 'ALLUNITS,-WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -218,7 +216,7 @@ UnitBlueprint {
 			
             TurretPitch = 0,
             TurretPitchRange = 30,
-            TurretPitchSpeed = 90,
+            TurretPitchSpeed = 60,
 			
             TurretYaw = 0,
             TurretYawRange = 180,
