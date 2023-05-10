@@ -50,12 +50,15 @@ UnitBlueprint {
         Health = 22,
         MaxHealth = 22,
         RegenRate = 0,
-        SurfaceThreatLevel = 0.2,
+        SurfaceThreatLevel = 1.0,
     },
 	
     Description = '<LOC ual0101_desc>Hover Scout',
 	
     Display = {
+        Abilities = {
+            'Radar',
+        },
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -72,12 +75,11 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.07,
     },
 	
     Economy = {
-        BuildCostEnergy = 48,
+        BuildCostEnergy = 56,
         BuildCostMass = 8,
         BuildTime = 40,
     },

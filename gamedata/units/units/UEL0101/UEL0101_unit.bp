@@ -45,10 +45,10 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Normal',
-        Health = 35,
-        MaxHealth = 35,
+        Health = 30,
+        MaxHealth = 30,
         RegenRate = 0,
-        SurfaceThreatLevel = 0.2,
+        SurfaceThreatLevel = 1.0,
     },
 	
     Description = '<LOC uel0101_desc>Land Scout',
@@ -78,8 +78,8 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 44,
-        BuildCostMass = 8,
+        BuildCostEnergy = 45,
+        BuildCostMass = 11,
         BuildTime = 40,
     },
 	
@@ -124,10 +124,10 @@ UnitBlueprint {
             LAYER_Land = true,
         },
         DragCoefficient = 0.2,
-        MaxAcceleration = 4.5,
-        MaxBrake = 4.5,
-        MaxSpeed = 4.5,
-        MaxSpeedReverse = 4.5,
+        MaxAcceleration = 4,
+        MaxBrake = 4,
+        MaxSpeed = 4,
+        MaxSpeedReverse = 4,
         MaxSteerForce = 1000,
         MeshExtentsX = 0.4,
         MeshExtentsY = 0.3,

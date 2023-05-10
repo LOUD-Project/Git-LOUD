@@ -46,10 +46,10 @@ UnitBlueprint {
 	
     Defense = {
         ArmorType = 'Normal',
-        Health = 32,
-        MaxHealth = 32,
+        Health = 30,
+        MaxHealth = 30,
         RegenRate = 0,
-        SurfaceThreatLevel = 0.8,
+        SurfaceThreatLevel = 1.0,
     },
 	
     Description = '<LOC xsl0101_desc>Combat Scout',
@@ -81,7 +81,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         TransportAnimation = {
             {
                 Animation = '/units/XSL0101/XSL0101_afold.sca',
@@ -98,8 +97,8 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 80,
-        BuildCostMass = 10,
+        BuildCostEnergy = 85,
+        BuildCostMass = 11,
         BuildTime = 55,
     },
 	

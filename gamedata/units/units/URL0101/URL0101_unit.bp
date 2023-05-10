@@ -42,7 +42,7 @@ UnitBlueprint {
         Health = 20,
         MaxHealth = 20,
         RegenRate = 1,
-        SurfaceThreatLevel = 0.05,
+        SurfaceThreatLevel = 0.2,
     },
 	
     Description = '<LOC url0101_desc>Land Scout',
@@ -52,8 +52,10 @@ UnitBlueprint {
             'Cloaking',
             'Radar',
         },
+
         AnimationWalk = '/units/URL0101/URL0101_awalk.sca',
         AnimationWalkRate = 10,
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -74,11 +76,11 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 80,
-        BuildCostMass = 10,
+        BuildCostEnergy = 75,
+        BuildCostMass = 7,
         BuildTime = 50,
 		
-        MaintenanceConsumptionPerSecondEnergy = 5,
+        MaintenanceConsumptionPerSecondEnergy = 7,
     },
 	
     General = {
