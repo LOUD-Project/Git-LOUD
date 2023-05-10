@@ -1,4 +1,4 @@
-local AEnergyCreationUnit = import('/lua/aeonunits.lua').AEnergyCreationUnit
+local AEnergyCreationUnit = import('/lua/defaultunits.lua').EnergyCreationUnit
 local AT2PowerAmbient = import('/lua/EffectTemplates.lua').AT2PowerAmbient
 SAB1201 = Class(AEnergyCreationUnit) {
 

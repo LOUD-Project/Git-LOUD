@@ -1,4 +1,4 @@
-local TRadarUnit = import('/lua/terranunits.lua').TRadarUnit
+local TRadarUnit = import('/lua/defaultunits.lua').RadarUnit
 local AnimationThread = import('/lua/effectutilities.lua').IntelDishAnimationThread
 
 SEB3301 = Class(TRadarUnit) {

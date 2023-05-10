@@ -1,4 +1,4 @@
-local SRadarUnit = import('/lua/seraphimunits.lua').SRadarUnit
+local SRadarUnit = import('/lua/defaultunits.lua').RadarUnit
 local AnimationThread = import('/lua/effectutilities.lua').IntelDishAnimationThread
 
 SSB3302 = Class(SRadarUnit) {

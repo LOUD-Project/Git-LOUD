@@ -1,4 +1,4 @@
-local CEnergyCreationUnit = import('/lua/cybranunits.lua').CEnergyCreationUnit
+local CEnergyCreationUnit = import('/lua/defaultunits.lua').EnergyCreationUnit
 
 SRB1201 = Class(CEnergyCreationUnit) {
 

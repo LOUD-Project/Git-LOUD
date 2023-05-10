@@ -1,4 +1,4 @@
-local TLandUnit = import('/lua/terranunits.lua').TLandUnit
+local TLandUnit = import('/lua/defaultunits.lua').LandUnit
 local VizMarker = import('/lua/sim/VizMarker.lua').VizMarker
 local CleanupEffectBag = import('/lua/EffectUtilities.lua').CleanupEffectBag
 

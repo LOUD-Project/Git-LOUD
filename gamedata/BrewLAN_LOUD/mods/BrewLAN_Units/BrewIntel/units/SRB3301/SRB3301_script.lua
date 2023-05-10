@@ -1,4 +1,4 @@
-local CRadarUnit = import('/lua/cybranunits.lua').CRadarUnit
+local CRadarUnit = import('/lua/defaultunits.lua').RadarUnit
 local AnimationThread = import('/lua/effectutilities.lua').IntelDishAnimationThread
 
 SRB3301 = Class(CRadarUnit) {

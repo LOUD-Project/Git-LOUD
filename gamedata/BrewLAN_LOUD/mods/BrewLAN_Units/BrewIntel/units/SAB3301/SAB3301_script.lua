@@ -1,4 +1,4 @@
-local ARadarUnit = import('/lua/aeonunits.lua').ARadarUnit
+local ARadarUnit = import('/lua/defaultunits.lua').RadarUnit
 local AnimationThread = import('/lua/effectutilities.lua').IntelDishAnimationThread
 
 SAB3301 = Class(ARadarUnit) {
