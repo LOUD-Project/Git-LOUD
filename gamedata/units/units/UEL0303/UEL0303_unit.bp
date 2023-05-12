@@ -113,7 +113,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = false,
         TransportAnimation = {
             {
                 Animation = '/units/UEL0303/UEL0303_afold.sca',
@@ -124,7 +123,7 @@ UnitBlueprint {
     },
 	
     Economy = {
-        BuildCostEnergy = 8000,
+        BuildCostEnergy = 5500,
         BuildCostMass = 475,
         BuildTime = 2375,
 		
