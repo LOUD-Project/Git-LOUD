@@ -1,3 +1,11 @@
+BrewLAN for LOUD 0.8.8.9.69
+UNITS 6.3.06
+
+- fixed deprecated classes in BL submods
+- reverted change to Cybran Rhino T2 beam weapon
+- a minor balance pass on T1 scouts, reviewing mobility, HP and associated costs in relation to other T1 class units
+
+
 ### Release 06-05-2023
 
 LUA 6.3.05
