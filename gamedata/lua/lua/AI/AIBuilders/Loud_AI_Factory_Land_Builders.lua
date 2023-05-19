@@ -602,7 +602,7 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
             
  			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.LAND * categories.MOBILE * categories.ARTILLERY * categories.TECH3, categories.LAND * categories.TECH3 }},
 
-            { UCBC, 'PoolLessAtLocation', { 'LocationType', 14, categories.LAND * categories.INDIRECTFIRE * categories.MOBILE * categories.TECH3 }},
+            { UCBC, 'PoolLessAtLocation', { 'LocationType', 30, categories.LAND * categories.INDIRECTFIRE * categories.MOBILE * categories.TECH3 }},
         },
 		
         BuilderType = {'LandT3'},
