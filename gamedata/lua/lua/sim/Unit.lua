@@ -5825,18 +5825,32 @@ Unit = Class(moho.unit_methods) {
 		SetMesh( self, meshBp, keepActor )
 		
 	end,
-}
 
---[[	
 
     OnDetectedBy = function(self, index)
+
+        local GetBlip = moho.unit_methods.GetBlip
+        local IsSeenNow = moho.blip_methods.IsSeenNow
+
+        local blip = GetBlip(self,index)    
+
+        local function TestAgain(self, index, blip)
+            WaitTicks(31)
+            LOG("*AI DEBUG "..ArmyBrains[index].Nickname.." After 3 seconds detected "..GetAIBrain(self).Nickname.." "..repr(ALLBPS[self.BlueprintID].Description).." Seen Now is "..repr( IsSeenNow( blip,index) ) )
+        end
+        
+		--LOG("*AI DEBUG "..ArmyBrains[index].Nickname.." detected "..GetAIBrain(self).Nickname.." "..repr(ALLBPS[self.BlueprintID].Description) )
 	
-		LOG("*AI DEBUG OnDetectedBy "..repr(ALLBPS[self.BlueprintID].Description).." by "..ArmyBrains[index].Nickname )
+		--LOG("*AI DEBUG "..ArmyBrains[index].Nickname.." detected "..GetAIBrain(self).Nickname.."  Seen Ever is "..repr( moho.blip_methods.IsSeenEver( blip, index)))
 		
-		LOG("*AI DEBUG SeenEver is "..repr( moho.blip_methods.IsSeenEver( moho.unit_methods.GetBlip(self,index), index)))
+		--LOG("*AI DEBUG "..ArmyBrains[index].Nickname.." detected "..GetAIBrain(self).Nickname.."  Seen Now is "..repr( IsSeenNow( blip,index)))
+        
+        --self:ForkThread( TestAgain, index, blip )
+        
+        
+
 		
-		LOG("*AI DEBUG SeenNow  is "..repr( moho.blip_methods.IsSeenNow( moho.unit_methods.GetBlip(self,index),index)))
-	
+--[[
         if self.DetectedByHooks then
             for k,v in self.DetectedByHooks do
                 v(self,index)
@@ -5872,9 +5886,38 @@ Unit = Class(moho.unit_methods) {
                 end
             end
         end
-
+--]]
     end,
+
+    -- this allows you to execute a function when the unit (self) has been detected 
+    AddDetectedByHook = function(self,hook)
 	
+        if not self.DetectedByHooks then
+            self.DetectedByHooks = {}
+        end
+		
+		LOG("*AI DEBUG "..GetAIBrain(self).Nickname.." Adding DetectedByHook for "..repr(ALLBPS[self.BlueprintID].Description).." on "..repr(hook))
+		
+        LOUDINSERT(self.DetectedByHooks,hook)
+    end,
+
+    RemoveDetectedByHook = function(self,hook)
+	
+        if self.DetectedByHooks then
+		
+            for k,v in self.DetectedByHooks do
+                if v == hook then
+                    table.remove(self.DetectedByHooks,k)
+                    return
+                end
+            end
+        end
+    end,
+
+}
+
+--[[	
+
 	-- this function tests to see if the intel features of the unit need power to operate
 	-- will return false if no energy required
 	-- or true and the amount required
@@ -5976,32 +6019,6 @@ Unit = Class(moho.unit_methods) {
     end,
 
     OnBuildProgress = function(self, unit, oldProg, newProg)
-    end,
-
-	-- this appears interesting - looks like you put in a function that would be
-	-- executed whenever the index detects the unit
-    AddDetectedByHook = function(self,hook)
-	
-        if not self.DetectedByHooks then
-            self.DetectedByHooks = {}
-        end
-		
-		LOG("*AI DEBUG Adding DetectedByHook for "..repr(ALLBPS[self.BlueprintID].Description).." on "..repr(hook)))
-		
-        LOUDINSERT(self.DetectedByHooks,hook)
-    end,
-
-    RemoveDetectedByHook = function(self,hook)
-	
-        if self.DetectedByHooks then
-		
-            for k,v in self.DetectedByHooks do
-                if v == hook then
-                    table.remove(self.DetectedByHooks,k)
-                    return
-                end
-            end
-        end
     end,
 
 --]]

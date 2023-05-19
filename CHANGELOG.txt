@@ -1,3 +1,22 @@
+### Release 19-05-2023
+
+LUA 6.3.06
+Black Ops Unleased for LOUD 6.3.04
+BrewLAN for LOUD 0.8.8.9.70
+LOUD_UNITS 6.2.03
+UNITS 6.3.08
+
+- fixed deprecated class in BL submod Cityscapes
+- substantial review of T4 Naval units covering energy usage, weapon range, acceleration - see GitHub for specifics
+- fixed an edge issue with engineer movement and building on super-deep maps causing stalls
+- removed an artificial limitation on mobile artillery building for AI
+- AEON T4 Deluge now appears in Unit Restrictions for Strategic and Experimental Artillery
+- All nuke capable naval units now appear in the NUKE restriction
+- updated unit spreadsheet data to reflect above changes
+
+
+### Release 12-05-2023
+
 BrewLAN for LOUD 0.8.8.9.69
 UNITS 6.3.07
 
