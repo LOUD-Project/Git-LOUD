@@ -1,4 +1,4 @@
-local CStructureUnit = import('/lua/cybranunits.lua').CStructureUnit
+local CStructureUnit = import('/lua/defaultunits.lua').StructureUnit
 
 ZZCITYBLOCK = Class(CStructureUnit) {}
 
