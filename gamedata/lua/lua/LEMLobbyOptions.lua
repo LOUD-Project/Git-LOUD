@@ -107,19 +107,19 @@ GPGrestrictedUnits = {
 	},
 
     STRATEGICARTILLERY = {
-        categories = {"uab2302", "ueb2302", "urb2302", "xsb2302"},
+        categories = {"uab2302", "ueb2302", "urb2302", "xsb2302", "sas0401"},
         name = "<LOC restricted_units_data_0029>No T3 Strategic Artillery",
         tooltip = "restricted_units_T3_strategic_artillery",
     },
 	
 	EXPERIMENTALARTILLERY = {
-		categories = {"seb2404", "ssb2404", "ueb2401", "url0401", "xab2307"},
+		categories = {"seb2404", "ssb2404", "ueb2401", "url0401", "xab2307", "sas0401"},
 		name = "<LOC restricted_units_data_0030>No Experimental/T4 Artillery",
 		tooltip = "restricted_units_exp_artillery",
 	},
 
     NUKE = {
-        categories = {"sal0321", "sel0321", "srl0321", "ssl0321", "uab2305", "uab4302", "ueb2305", "ueb4302", "urb2305", "urb4302", "xsb2305", "xsb2401", "xsb4302", "uas0304", "urs0304"},
+        categories = {"sal0321", "sel0321", "srl0321", "ssl0321", "uab2305", "uab4302", "ueb2305", "ueb4302", "urb2305", "urb4302", "xsb2305", "xsb2401", "xsb4302", "uas0304", "ues0304", "urs0304", "xss0302"},
         name = "<LOC restricted_units_data_0011>No Nukes",
         tooltip = "restricted_units_nukes",
     },
