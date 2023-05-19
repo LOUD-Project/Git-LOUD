@@ -7658,6 +7658,7 @@ Platoon = Class(moho.platoon_methods) {
             local GetPosition = GetPosition
             local PlatoonExists = PlatoonExists
 			local WaitTicks = WaitTicks
+            local VDist2 = VDist2
             local VDist3 = VDist3
 
             -- engineer is using aggressive move order
@@ -7775,6 +7776,10 @@ Platoon = Class(moho.platoon_methods) {
 			end		
 
 			local function EngineerTryReclaimCaptureArea( test )
+                
+                if EngineerDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.EntityID.." trys reclaiming - test is "..repr(test).." for buildPosition "..repr(buildPosition) )
+                end
 
 				buildPosition[2] = GetTerrainHeight(buildLocation[1],buildLocation[2])
 	
@@ -7799,7 +7804,11 @@ Platoon = Class(moho.platoon_methods) {
 								end
 								
 								eng.IssuedReclaimCommand = true
-								
+                
+                                if EngineerDialog and not test then
+                                    LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.EntityID.." orders reclaim of units "..repr(buildPosition) )
+                                end
+
 								break
 							end
 						end
@@ -7832,6 +7841,11 @@ Platoon = Class(moho.platoon_methods) {
 									end
 								
 									eng.IssuedReclaimCommand = true
+                
+                                    if EngineerDialog and not test then
+                                        LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.EntityID.." orders reclaim of props "..repr(buildPosition) )
+                                    end
+
 								end
 							end
 						end
@@ -7913,12 +7927,12 @@ Platoon = Class(moho.platoon_methods) {
 			local function EngineerMoveWithSafePath()
             
                 local GetPosition = GetPosition
+                
+                engPos = GetPosition(eng)
 
 				if eng:HasEnhancement( 'Teleporter' ) then
-                
-                    engPos = GetPosition(eng)
-                    
-                    if VDist3( engPos, buildPosition ) > 50 then
+
+                    if VDist2( engPos[1],engPos[3], buildPosition[1],buildPosition[3] ) > 50 then
 				
                         local RandomLocation = import('/lua/ai/aiutilities.lua').RandomLocation
 
@@ -7934,12 +7948,15 @@ Platoon = Class(moho.platoon_methods) {
                             return not eng.Dead
                         end
                     end
-				else
-                    engPos = GetPosition(eng)
+
                 end
 
-				distance = VDist3( engPos, buildPosition )
-
+				distance = VDist2( engPos[1],engPos[3], buildPosition[1],buildPosition[3] )
+                
+                if EngineerDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.EntityID.." distance from "..repr(engPos).." to "..repr(buildPosition).." is "..distance )
+                end
+                
 				if distance < viewrange then
 					return not eng.Dead
 				end
@@ -7955,6 +7972,10 @@ Platoon = Class(moho.platoon_methods) {
 					path, reason = self.PlatoonGenerateSafePathToLOUD( aiBrain, self, 'Amphibious', engPos, buildPosition, mythreat, 200 )
 
 					if PlatoonExists(aiBrain,self) and (path and distance < 2000) and not eng.Dead then
+                
+                        if EngineerDialog then
+                            LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.EntityID.." forks to MoveEngineer with path "..repr(path) )
+                        end
 
 						self:ForkThread( MoveEngineer, path )
 						
@@ -7972,6 +7993,10 @@ Platoon = Class(moho.platoon_methods) {
 			end
 
 			local function EngineerBuildValid ()
+                
+                if EngineerDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.EntityID.." checks if build valid" )
+                end
 			
 				if CanBuildStructureAt( aiBrain, buildItem, buildPosition ) then
 					return true
@@ -7980,6 +8005,10 @@ Platoon = Class(moho.platoon_methods) {
 				if EngineerTryReclaimCaptureArea( true ) then
 					return true
 				end
+                
+                if EngineerDialog then
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.EntityID.." build is NOT valid at "..repr(buildPosition) )
+                end
 				
 				return false
 			end
@@ -7990,7 +8019,7 @@ Platoon = Class(moho.platoon_methods) {
  
                 local LOUDENTITY = LOUDENTITY
                 local LOUDMOD = LOUDMOD
-                local VDist3 = VDist3
+                local VDist2 = VDist2
                 local WaitTicks = WaitTicks
                 
                 local GetPosition = GetPosition
@@ -8065,7 +8094,7 @@ Platoon = Class(moho.platoon_methods) {
 						
 							if count == 12 or eng.failedmoves > 2 then
 						
-								distance = VDist3( engPos, buildPosition )
+								distance = VDist2( engPos[1],engPos[3], buildPosition[1],buildPosition[3] )
 							
 								if (distance > 160 or eng.failedmoves > 0) and not LOUDENTITY( categories.COMMAND, eng ) then
 
@@ -8098,6 +8127,10 @@ Platoon = Class(moho.platoon_methods) {
 						end
                         
                         if engPos then
+                
+                            if EngineerDialog then
+                                LOG("*AI DEBUG "..aiBrain.Nickname.." Eng "..eng.EntityID.." watching while moving "..repr(count) )
+                            end
 					
                             WaitTicks(6)
 					

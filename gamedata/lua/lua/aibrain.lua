@@ -181,9 +181,6 @@
     
     ScenarioInfo.NukeDialog = false
     LOG("*AI DEBUG      Report  Nuke Dialog to Log is "..repr(ScenarioInfo.NukeDialog))
-    
-    --Sync.AIDebug = table.copy(ScenarioInfo)     -- this is to try and feed these switches up to the UI
-
 
 
 local import = import
@@ -352,7 +349,7 @@ end
 --]]
 
 
--- this function will bring debug switch settings into the SIM from the UI
+-- this function will bring a debug switch settings into the SIM from the UI
 -- but not during a replay
 function SetAIDebug(data)
 
@@ -1798,7 +1795,7 @@ AIBrain = Class(moho.aibrain_methods) {
 
 	OnIntelChange = function(self, blip, reconType, val)
 	
-		--LOG("*AI DEBUG "..self.Nickname.." OnIntelChange for "..repr(reconType).." blip is "..repr(blip).." val is "..repr(val))
+		--LOG("*AI DEBUG "..self.Nickname.." OnIntelChange for "..repr(reconType).." blip is "..repr(GetBlueprint(blip).Description).." val is "..repr(val))
 		
     end,
 
