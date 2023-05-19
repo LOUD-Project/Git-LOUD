@@ -66,10 +66,10 @@ UnitBlueprint {
     CollisionOffsetY = -1,
 	
     Defense = {
-        AirThreatLevel = 60,
+        AirThreatLevel = 48,
         ArmorType = 'Normal',
-        Health = 72500,
-        MaxHealth = 72500,
+        Health = 70000,
+        MaxHealth = 70000,
         RegenRate = 30,
         SurfaceThreatLevel = 275,
     },
@@ -173,7 +173,7 @@ UnitBlueprint {
     },	
 	
     General = {
-		CapCost = 8,
+		CapCost = 12,
         Category = 'Ship',
         Classification = 'RULEUC_MilitaryShip',
         CommandCaps = {
@@ -216,7 +216,7 @@ UnitBlueprint {
         },
         CatchUpAcc = 8,
         DragCoefficient = 0.2,
-        MaxAcceleration = 0.8,
+        MaxAcceleration = 0.7,
         MaxBrake = 2.2,
         MaxSpeed = 3.6,
         MaxSpeedReverse = 3,
@@ -287,8 +287,8 @@ UnitBlueprint {
 			
             DisplayName = 'Heavy Quarnon Cannon',
 
-            EnergyRequired = 2400,
-            EnergyDrainPerSecond = 960,
+            EnergyRequired = 3000,
+            EnergyDrainPerSecond = 1200,    -- 2.5 second charge
             
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
@@ -302,10 +302,10 @@ UnitBlueprint {
 			
             Label = 'FrontMainTurret',
 			
-            MaxRadius = 155,
+            MaxRadius = 145,
             MinRadius = 24,
 			
-            MuzzleChargeDelay = 1.5,
+            MuzzleChargeDelay = 1,      -- 1 second delay
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 30,
@@ -327,14 +327,13 @@ UnitBlueprint {
 
             RackRecoilDistance = -4,
             RackRecoilReturnSpeed = 2,
-            RackReloadTimeout = 0,
             RackSalvoChargeTime = 1,
             RackSalvoFiresAfterCharge = false,
-            RackSalvoReloadTime = 1,
+            RackSalvoReloadTime = 1,        -- 1 second delay
 
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,	-- 600 DPS -- every 2.5 seconds controlled by charge
+            RateOfFire = 1,	-- 333 DPS -- every 4.5 seconds controlled by charge and delay
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 155,
@@ -397,8 +396,8 @@ UnitBlueprint {
 			
             DisplayName = 'Heavy Quarnon Cannon',
 
-            EnergyRequired = 2400,
-            EnergyDrainPerSecond = 960,
+            EnergyRequired = 3000,
+            EnergyDrainPerSecond = 1200,
   			
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
@@ -412,10 +411,10 @@ UnitBlueprint {
 			
             Label = 'BackMainTurret',
 			
-            MaxRadius = 155,
+            MaxRadius = 145,
             MinRadius = 24,
 			
-            MuzzleChargeDelay = 1.5,
+            MuzzleChargeDelay = 1,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 30,
@@ -437,12 +436,11 @@ UnitBlueprint {
 
             RackRecoilDistance = -4,
             RackRecoilReturnSpeed = 2,
-            RackReloadTimeout = 0,
             RackSalvoChargeTime = 1,
             RackSalvoFiresAfterCharge = false,
             RackSalvoReloadTime = 1,
 
-            RateOfFire = 1,	-- 600 DPS since BSL0404 does 1500 damage over it's lifetime - controlled by charge
+            RateOfFire = 1,	-- 333 DPS
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 155,
@@ -497,7 +495,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 700,
-            DamageRadius = 0,
+            DamageRadius = 1.5,
             DamageType = 'Normal',
 			
             DisplayName = 'Heavy Quarnon Cannon',
@@ -514,7 +512,7 @@ UnitBlueprint {
 			
             Label = 'SecondaryTurret',
 			
-            MaxRadius = 100,
+            MaxRadius = 95,
 			
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0,
@@ -598,7 +596,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 700,
-            DamageRadius = 0,
+            DamageRadius = 1.5,
             DamageType = 'Normal',
 			
             DisplayName = 'Heavy Quarnon Cannon',
@@ -614,7 +612,7 @@ UnitBlueprint {
 			
             Label = 'SecondaryTurret',
 			
-            MaxRadius = 100,
+            MaxRadius = 95,
 			
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0,
@@ -694,7 +692,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 700,
-            DamageRadius = 0,
+            DamageRadius = 1.5,
             DamageType = 'Normal',
 			
             DisplayName = 'Heavy Quarnon Cannon',
@@ -711,7 +709,7 @@ UnitBlueprint {
 			
             Label = 'SecondaryTurret',
 
-            MaxRadius = 100,
+            MaxRadius = 95,
 			
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0,
@@ -769,7 +767,7 @@ UnitBlueprint {
             Turreted = true,
         },
 		
-		-- WEIRD BEAM THINGS * 4 -- total about 188 DPS
+		-- WEIRD BEAM THINGS * 4 -- total about 500 DPS
 		
         {
             AboveWaterTargetsOnly = true,
@@ -791,10 +789,10 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
-            AutoInitiateAttackCommand = false,
+
             BallisticArc = 'RULEUBA_None',
 			
-            BeamCollisionDelay = 0,
+            BeamCollisionDelay = 0.1,
             BeamLifetime = 1,
             CollideFriendly = false,
 			
@@ -818,7 +816,7 @@ UnitBlueprint {
 			
             Label = 'DeckGun',
 			
-            MaxRadius = 80,
+            MaxRadius = 78,
 			
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0,
@@ -887,12 +885,16 @@ UnitBlueprint {
             },
             AutoInitiateAttackCommand = false,
             BallisticArc = 'RULEUBA_None',
-            BeamCollisionDelay = 0,
+
+            BeamCollisionDelay = 0.1,
             BeamLifetime = 1,
+
             CollideFriendly = false,
+
             Damage = 50,
             DamageRadius = 1,
             DamageType = 'Normal',
+
             DisplayName = 'Ultrachromatic Beam Generator',
 			
             DoNotCollideList = {'MISSILE'},
@@ -907,7 +909,7 @@ UnitBlueprint {
 			
             Label = 'DeckGun',
 			
-            MaxRadius = 80,
+            MaxRadius = 78,
 			
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0,
@@ -923,10 +925,6 @@ UnitBlueprint {
                     RackBone = 'Right_Deck_Turret01_Barrel',
                 },
             },
-
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 0.25,		-- 125 DPS
 			
@@ -977,10 +975,10 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
-            AutoInitiateAttackCommand = false,
+
             BallisticArc = 'RULEUBA_None',
 			
-            BeamCollisionDelay = 0,
+            BeamCollisionDelay = 0.1,
             BeamLifetime = 1,
             CollideFriendly = false,
 			
@@ -999,7 +997,7 @@ UnitBlueprint {
 			
             Label = 'DeckGun',
 			
-            MaxRadius = 80,
+            MaxRadius = 78,
 			
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0,
@@ -1015,10 +1013,6 @@ UnitBlueprint {
                     RackBone = 'Left_Deck_Turret02_Barrel',
                 },
             },
-
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 0.25,		-- 125 DPS
 			
@@ -1092,7 +1086,7 @@ UnitBlueprint {
 			
             Label = 'DeckGun',
 			
-            MaxRadius = 80,
+            MaxRadius = 78,
 			
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0,
@@ -1108,10 +1102,6 @@ UnitBlueprint {
                     RackBone = 'Right_Deck_Turret02_Barrel',
                 },
             },
-
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 0.25,	-- 125 DPS
 			
@@ -1238,9 +1228,9 @@ UnitBlueprint {
             CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 50,
+            Damage = 40,
             DamageFriendly = false,
-            DamageRadius = 2.2,
+            DamageRadius = 2,
             DamageType = 'Normal',
 			
             DetonatesAtTargetHeight = true,
@@ -1281,7 +1271,6 @@ UnitBlueprint {
                 },				
             },
 
-            RackReloadTimeout = 0,
             RackSalvoChargeTime = 0.1,
 			RackFiresAfterCharge = true,
             RackSalvoReloadTime = 0,
@@ -1290,7 +1279,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 3,	-- 150 DPS Air
+            RateOfFire = 3,	-- 120 DPS Air
             
             TargetCheckInterval = 0.3,
 			
@@ -1332,9 +1321,9 @@ UnitBlueprint {
             CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 50,
+            Damage = 40,
             DamageFriendly = false,
-            DamageRadius = 2.2,
+            DamageRadius = 2,
             DamageType = 'Normal',
 			
             DetonatesAtTargetHeight = true,
@@ -1375,14 +1364,13 @@ UnitBlueprint {
                 },				
             },
 
-            RackReloadTimeout = 0,
             RackSalvoChargeTime = 0.1,
 			RackSalveFiresAfterCharge = true,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 
-            RateOfFire = 3,		-- 150 DPS Air
+            RateOfFire = 3,		-- 120 DPS Air
             
             TargetCheckInterval = 0.3,
 			
@@ -1424,9 +1412,9 @@ UnitBlueprint {
             CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 50,
+            Damage = 40,
             DamageFriendly = false,
-            DamageRadius = 2.2,
+            DamageRadius = 2,
             DamageType = 'Normal',
 			
             DetonatesAtTargetHeight = true,
@@ -1467,14 +1455,13 @@ UnitBlueprint {
                 },				
             },
 
-            RackReloadTimeout = 0,
             RackSalvoChargeTime = 0.1,
 			RackSalvoFiresAfterCharge = true,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 
-            RateOfFire = 3,		-- 150 DPS Air
+            RateOfFire = 3,		-- 120 DPS Air
             
             TargetCheckInterval = 0.3,
 			
@@ -1516,9 +1503,9 @@ UnitBlueprint {
             CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 50,
+            Damage = 40,
             DamageFriendly = false,
-            DamageRadius = 2.2,
+            DamageRadius = 2,
             DamageType = 'Normal',
 			
             DetonatesAtTargetHeight = true,
@@ -1559,14 +1546,13 @@ UnitBlueprint {
                 },				
             },
 
-            RackReloadTimeout = 0,
             RackSalvoChargeTime = 0.1,
 			RackSalvoFiresAfterCharge = true,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 
-            RateOfFire = 3,		-- 150 DPS Air
+            RateOfFire = 3,		-- 120 DPS Air
             
             TargetCheckInterval = 0.3,
 			

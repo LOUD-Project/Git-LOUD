@@ -62,8 +62,8 @@ UnitBlueprint {
     Defense = {
         AirThreatLevel = 176,
         ArmorType = 'Experimental',
-        Health = 59000,
-        MaxHealth = 59000,
+        Health = 41500,
+        MaxHealth = 41500,
         RegenRate = 20,
         SurfaceThreatLevel = 55,
     },
@@ -134,13 +134,13 @@ UnitBlueprint {
                 },
             },
         },
-        SpawnRandomRotation = true,
+
         UniformScale = 0.06,
     },
 	
     Economy = {
-        BuildCostEnergy = 435000,
-        BuildCostMass = 28250,
+        BuildCostEnergy = 395000,
+        BuildCostMass = 24000,
         BuildTime = 43500,
 		
         MaintenanceConsumptionPerSecondEnergy = 750,
@@ -181,7 +181,7 @@ UnitBlueprint {
     },
 	
     Interface = {
-        HelpText = 'Medium AA Cruiser',
+        HelpText = 'Experimental AA Cruiser',
     },
 	
     LifeBarHeight = 0.22,
@@ -196,8 +196,8 @@ UnitBlueprint {
         },
         CatchUpAcc = 10,
         DragCoefficient = 0.2,
-        MaxAcceleration = 1.6,
-        MaxBrake = 3.2,
+        MaxAcceleration = 0.9,
+        MaxBrake = 1.5,
         MaxSpeed = 3.8,
         MaxSpeedReverse = 3,
         MaxSteerForce = 4,
@@ -213,8 +213,8 @@ UnitBlueprint {
         SkirtSizeZ = 9,
 
         
-        TurnRadius = 22,
-        TurnRate = 33,
+        TurnRadius = 26,
+        TurnRate = 31,
     },
 	
     SelectionSizeX = 2.7,
@@ -264,7 +264,7 @@ UnitBlueprint {
 			
             Label = 'GroundGun',
 			
-            MaxRadius = 110,
+            MaxRadius = 95,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -283,9 +283,6 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -0.2,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
 			
             RangeCategory = 'UWRC_DirectFire',
@@ -373,10 +370,6 @@ UnitBlueprint {
                 },
             },
             RackFireTogether = true,
-            RackRecoilDistance = 0,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 			
@@ -465,10 +458,6 @@ UnitBlueprint {
                 },
             },
             RackFireTogether = true,
-            RackRecoilDistance = 0,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 

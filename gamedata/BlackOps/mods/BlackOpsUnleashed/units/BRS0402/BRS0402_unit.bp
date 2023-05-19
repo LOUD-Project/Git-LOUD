@@ -74,13 +74,13 @@ UnitBlueprint {
     CollisionOffsetY = -0.8,
 	
     Defense = {
-        AirThreatLevel = 120,
+        AirThreatLevel = 96,
         ArmorType = 'Normal',
-        Health = 70000,
-        MaxHealth = 70000,
+        Health = 68000,
+        MaxHealth = 68000,
         RegenRate = 30,
         SubThreatLevel = 14.5,
-        SurfaceThreatLevel = 303,
+        SurfaceThreatLevel = 221,
     },
 	
     Description = '<LOC brs0402_desc>Experimental Battleship (Battleship/Bombardment)',
@@ -174,27 +174,23 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.09,
     },
 	
     Economy = {
-        BuildCostEnergy = 650000,
+        BuildCostEnergy = 665000,
         BuildCostMass = 46150,
-        BuildTime = 31600,
+        BuildTime = 31000,
     },
 	
     Footprint = {
         MinWaterDepth = 3,
-    },	
-	
-    Footprint = {
         SizeX = 5,
         SizeZ = 9,
     },
 
     General = {
-		CapCost = 6,
+		CapCost = 15,
         Category = 'Ship',
         Classification = 'RULEUC_MilitaryShip',
         CommandCaps = {
@@ -242,8 +238,8 @@ UnitBlueprint {
         },
         CatchUpAcc = 7,
         DragCoefficient = 0.2,
-        MaxAcceleration = 0.7,
-        MaxBrake = 2.5,
+        MaxAcceleration = 0.6,
+        MaxBrake = 1.8,
         MaxSpeed = 3.6,
         MaxSpeedReverse = 3.7,
         MaxSteerForce = 5,
@@ -317,8 +313,8 @@ UnitBlueprint {
 			
             DisplayName = 'Loa Tactical Missile',
 
-            EnergyRequired = 1800,
-            EnergyDrainPerSecond = 180,
+            EnergyRequired = 3600,
+            EnergyDrainPerSecond = 360,
             
             FireTargetLayerCapsTable = {
                 Sub = 'Land|Water|Seabed',
@@ -329,7 +325,7 @@ UnitBlueprint {
 			
             Label = 'CruiseMissile',
 			
-            MaxRadius = 190,
+            MaxRadius = 180,
             MinRadius = 48,
 			
             MuzzleSalvoDelay = 0.7,
@@ -359,8 +355,6 @@ UnitBlueprint {
             },
 
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -471,8 +465,8 @@ UnitBlueprint {
 			
             DisplayName = 'Y Cannon',
 
-            EnergyRequired = 2250,
-            EnergyDrainPerSecond = 1125,
+            EnergyRequired = 2850,
+            EnergyDrainPerSecond = 1425,
   			
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
@@ -510,15 +504,14 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -2,
+            RackRecoilReturnSpeed = 1,
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,		-- 700 DPS Surface - controlled by charge
+            RateOfFire = 1,		-- 400 DPS Surface - controlled by charge and delay
 			
             TargetCheckInterval = 1.5,
             TargetPriorities = {
@@ -628,8 +621,8 @@ UnitBlueprint {
 			
             DisplayName = 'Y Cannon',
 
-            EnergyRequired = 2250,
-            EnergyDrainPerSecond = 1125,
+            EnergyRequired = 2850,
+            EnergyDrainPerSecond = 1425,
   			
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
@@ -667,13 +660,12 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -2,
+            RackRecoilReturnSpeed = 1,
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 
-            RateOfFire = 1,		-- 700 DPS Surface controlled by charge
+            RateOfFire = 1,		-- 400 DPS Surface controlled by charge and delay
 			
             TargetCheckInterval = 1.5,
             TargetPriorities = {
@@ -732,7 +724,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 45,
+            Damage = 40,
             DamageRadius = 0,
             DamageType = 'Normal',
 			
@@ -746,7 +738,7 @@ UnitBlueprint {
 			
             Label = 'SecondaryCannon',
 			
-            MaxRadius = 95,
+            MaxRadius = 85,
 			
             HeadingArcCenter = 0,
             HeadingArcRange = 145,
@@ -770,10 +762,8 @@ UnitBlueprint {
             RackFireTogether = true,
             RackRecoilDistance = -0.5,
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
-            RateOfFire = 2,		-- 180 DPS Surface
+            RateOfFire = 2,		-- 160 DPS Surface
 			
             TargetCheckInterval = 0.5,
 			
@@ -828,7 +818,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 45,
+            Damage = 40,
             DamageRadius = 0,
             DamageType = 'Normal',
 			
@@ -845,7 +835,7 @@ UnitBlueprint {
 			
             Label = 'SecondaryCannon',			
 			
-            MaxRadius = 95,
+            MaxRadius = 85,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -866,10 +856,8 @@ UnitBlueprint {
             RackFireTogether = true,
             RackRecoilDistance = -0.5,
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
-            RateOfFire = 2,		-- 180 DPS Surface
+            RateOfFire = 2,		-- 160 DPS Surface
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -925,7 +913,7 @@ UnitBlueprint {
 			
             CollideFriendly = false,
 			
-            Damage = 45,
+            Damage = 40,
             DamageRadius = 0,
             DamageType = 'Normal',
 			
@@ -943,7 +931,7 @@ UnitBlueprint {
             HeadingArcCenter = 100,
             HeadingArcRange = 140,
 			
-            MaxRadius = 95,
+            MaxRadius = 85,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -964,10 +952,8 @@ UnitBlueprint {
             RackFireTogether = true,
             RackRecoilDistance = -0.5,
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
-            RateOfFire = 2,		-- 180 DPS Surface
+            RateOfFire = 2,		-- 160 DPS Surface
 			
             TargetCheckInterval = 0.5,
 			
@@ -1023,8 +1009,8 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 45,
-            DamageRadius = 1,
+            Damage = 40,
+            DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'Proton Cannon',
@@ -1041,7 +1027,7 @@ UnitBlueprint {
             HeadingArcCenter = -100,
             HeadingArcRange = 140,
 			
-            MaxRadius = 95,
+            MaxRadius = 85,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -1062,8 +1048,6 @@ UnitBlueprint {
             RackFireTogether = true,
             RackRecoilDistance = -0.5,
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 2,		-- 180 DPS Surface
 			
@@ -1119,7 +1103,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 45,
+            Damage = 40,
             DamageRadius = 0,
             DamageType = 'Normal',
 			
@@ -1137,7 +1121,7 @@ UnitBlueprint {
 			
             Label = 'SecondaryCannon',
 			
-            MaxRadius = 95,
+            MaxRadius = 85,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -1158,10 +1142,8 @@ UnitBlueprint {
             RackFireTogether = true,
             RackRecoilDistance = -0.5,
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
-            RateOfFire = 2,		-- 180 DPS Surface
+            RateOfFire = 2,		-- 160 DPS Surface
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -1215,7 +1197,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
 			
-            Damage = 45,
+            Damage = 40,
             DamageRadius = 0,
             DamageType = 'Normal',
 			
@@ -1229,7 +1211,7 @@ UnitBlueprint {
 			
             Label = 'SecondaryCannon',
 			
-            MaxRadius = 95,
+            MaxRadius = 85,
 			
             HeadingArcCenter = 180,
             HeadingArcRange = 160,
@@ -1253,10 +1235,8 @@ UnitBlueprint {
             RackFireTogether = true,
             RackRecoilDistance = -0.5,
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
-            RateOfFire = 2,		-- 180 DPS Surface
+            RateOfFire = 2,		-- 160 DPS Surface
 			
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -1463,7 +1443,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
 			
             BeamCollisionDelay = 0,
-            BeamLifetime = 0.5,
+            BeamLifetime = 0.4,
 			
             CollideFriendly = false,
 
@@ -1484,7 +1464,7 @@ UnitBlueprint {
             Label = 'AALaser',
 			LeadTarget = false,
 			
-            MaxRadius = 52,
+            MaxRadius = 50,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -1506,7 +1486,7 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 1,		-- 200 DPS Air
+            RateOfFire = 1,		-- 160 DPS Air
             
 			ReTargetOnMiss = true,
 			
@@ -1552,7 +1532,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
 			
             BeamCollisionDelay = 0,
-            BeamLifetime = 0.5,
+            BeamLifetime = 0.4,
 			
             CollideFriendly = false,
 			
@@ -1573,7 +1553,7 @@ UnitBlueprint {
             Label = 'AALaser',
 			LeadTarget = false,
 			
-            MaxRadius = 52,
+            MaxRadius = 50,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -1593,7 +1573,7 @@ UnitBlueprint {
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
 
-            RateOfFire = 1,		-- 200 DPS Air
+            RateOfFire = 1,		-- 160 DPS Air
             
 			ReTargetOnMiss = true,
 			
@@ -1641,7 +1621,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
 			
             BeamCollisionDelay = 0,
-            BeamLifetime = 0.5,
+            BeamLifetime = 0.4,
 			
             CollideFriendly = false,
 			
@@ -1659,7 +1639,7 @@ UnitBlueprint {
             Label = 'AALaser',
 			LeadTarget = false,
 			
-            MaxRadius = 52,
+            MaxRadius = 50,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -1725,7 +1705,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
 			
             BeamCollisionDelay = 0,
-            BeamLifetime = 0.5,
+            BeamLifetime = 0.4,
 			
             CollideFriendly = false,
 			
@@ -1743,7 +1723,7 @@ UnitBlueprint {
             Label = 'AALaser',
 			LeadTarget = false,
 			
-            MaxRadius = 52,
+            MaxRadius = 50,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -1809,7 +1789,7 @@ UnitBlueprint {
             },
             BallisticArc = 'RULEUBA_None',
             BeamCollisionDelay = 0,
-            BeamLifetime = 0.5,
+            BeamLifetime = 0.4,
 			
             CollideFriendly = false,
 			
@@ -1830,7 +1810,7 @@ UnitBlueprint {
             Label = 'AALaser',
 			LeadTarget = false,
 			
-            MaxRadius = 52,
+            MaxRadius = 50,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -1895,7 +1875,7 @@ UnitBlueprint {
             },
             BallisticArc = 'RULEUBA_None',
             BeamCollisionDelay = 0,
-            BeamLifetime = 0.5,
+            BeamLifetime = 0.4,
 			
             CollideFriendly = false,
 			
@@ -1917,7 +1897,7 @@ UnitBlueprint {
             Label = 'AALaser',
 			LeadTarget = false,
 			
-            MaxRadius = 52,
+            MaxRadius = 5,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -1937,7 +1917,7 @@ UnitBlueprint {
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
 
-            RateOfFire = 1,		-- 200 DPS Air
+            RateOfFire = 1,		-- 160 DPS Air
             
 			ReTargetOnMiss = true,
 			

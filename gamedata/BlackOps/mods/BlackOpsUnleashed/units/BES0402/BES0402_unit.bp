@@ -1,7 +1,7 @@
 UnitBlueprint {
 
     AI = {
-        AttackAngle = 60,
+        AttackAngle = 48,
         GuardReturnRadius = 75,
 		
         TargetBones = {
@@ -68,12 +68,12 @@ UnitBlueprint {
     CollisionOffsetZ = 0.6,
 	
     Defense = {
-        AirThreatLevel = 120,
+        AirThreatLevel = 96,
         ArmorType = 'Normal',
         Health = 82500,
         MaxHealth = 82500,
         RegenRate = 45,
-        SurfaceThreatLevel = 360,
+        SurfaceThreatLevel = 220,
     },
 	
     Description = '<LOC bes0402_desc>Experimental Battleship (Battleship)',
@@ -152,8 +152,7 @@ UnitBlueprint {
                 },
             },
         },
-		
-        SpawnRandomRotation = false,
+
         UniformScale = 0.075,
     },
 	
@@ -170,7 +169,7 @@ UnitBlueprint {
     },
 	
     General = {
-		CapCost = 6,
+		CapCost = 15,
         Category = 'Ship',
         Classification = 'RULEUC_MilitaryShip',
         CommandCaps = {
@@ -212,7 +211,7 @@ UnitBlueprint {
         CatchUpAcc = 8,
         DragCoefficient = 0.2,
         MaxAcceleration = 0.65,
-        MaxBrake = 1.6,
+        MaxBrake = 1.4,
         MaxSpeed = 3.3,
         MaxSpeedReverse = 2.5,
         MaxSteerForce = 7,
@@ -291,18 +290,18 @@ UnitBlueprint {
                 Water = 'Land|Water|Seabed',
             },
             
-            EnergyRequired = 5000,
-            EnergyDrainPerSecond = 1000,
+            EnergyRequired = 6100,
+            EnergyDrainPerSecond = 1220,
 			
             FiringRandomness = 1,
             FiringTolerance = 0.2,
 			
             Label = 'FrontAMCCannon01',
 			
-            MaxRadius = 155,
+            MaxRadius = 145,
             MinRadius = 25,
 			
-            MuzzleChargeDelay = 0.3,
+            MuzzleChargeDelay = 1.5,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 29,
@@ -315,23 +314,20 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Front_AMC_Muzzle01',
-                    },
+                    MuzzleBones = {'Front_AMC_Muzzle01'},
                     RackBone = 'Front_AMC_Barrel01',
                     TelescopeBone = 'Front_AMC_Recoil01',
-                    TelescopeRecoilDistance = -7,
+                    TelescopeRecoilDistance = -3,
                 },
             },
 
-            RackRecoilDistance = -0.25,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 5,
+            RackRecoilDistance = -0.1,
+            RackRecoilReturnSpeed = 0.4,
+            RackSalvoReloadTime = 2.5,
 
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,		---- 600 DPS - controlled by charge
+            RateOfFire = 0.5,		---- 333 DPS - controlled by charge and delay
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 135,
@@ -408,18 +404,18 @@ UnitBlueprint {
                 Water = 'Land|Water|Seabed',
             },
             
-            EnergyRequired = 5000,
-            EnergyDrainPerSecond = 1000,
+            EnergyRequired = 6100,
+            EnergyDrainPerSecond = 1220,
 
             FiringRandomness = 1,
             FiringTolerance = 0.2,
 			
             Label = 'FrontAMCCannon02',
 			
-            MaxRadius = 155,
+            MaxRadius = 145,
             MinRadius = 25,
 			
-            MuzzleChargeDelay = 0.3,
+            MuzzleChargeDelay = 1.5,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 29,
@@ -434,21 +430,18 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Front_AMC_Muzzle02',
-                    },
+                    MuzzleBones = {'Front_AMC_Muzzle02'},
                     RackBone = 'Front_AMC_Barrel02',
                     TelescopeBone = 'Front_AMC_Recoil02',
-                    TelescopeRecoilDistance = -7,
+                    TelescopeRecoilDistance = -3,
                 },
             },
 
-            RackRecoilDistance = -0.25,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 5,
+            RackRecoilDistance = -0.1,
+            RackRecoilReturnSpeed = 0.4,
+            RackSalvoReloadTime = 2.5,    -- 2.5 second reload delay after charge
 
-            RateOfFire = 1,		---- 600 dps - controlled by charge
+            RateOfFire = 0.5,		---- 333 dps - controlled by charge and delay
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 180,
@@ -521,8 +514,8 @@ UnitBlueprint {
 			
             DisplayName = 'ZCannon',
             
-            EnergyRequired = 5000,
-            EnergyDrainPerSecond = 1000,
+            EnergyRequired = 6100,
+            EnergyDrainPerSecond = 1220,
 
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
@@ -533,10 +526,10 @@ UnitBlueprint {
 			
             Label = 'BackAMCCannon',
 			
-            MaxRadius = 155,
+            MaxRadius = 145,
             MinRadius = 25,
 			
-            MuzzleChargeDelay = 0.3,
+            MuzzleChargeDelay = 1.5,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 29,
@@ -547,25 +540,22 @@ UnitBlueprint {
             PrefersPrimaryWeaponTarget = true,
 			
             ProjectileId = '/mods/BlackOpsUnleashed/projectiles/ZCannon01/ZCannon01_proj.bp',
-            ProjectileLifetime = 10,
+            ProjectileLifetime = 4.5,
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Back_AMC_Muzzle',
-                    },
+                    MuzzleBones = {'Back_AMC_Muzzle'},
                     RackBone = 'Back_AMC_Barrel',
                     TelescopeBone = 'Back_AMC_Recoil',
-                    TelescopeRecoilDistance = -7,
+                    TelescopeRecoilDistance = -3,
                 },
             },
 
-            RackRecoilDistance = -0.25,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 5,
+            RackRecoilDistance = -0.2,
+            RackRecoilReturnSpeed = 0.4,
+            RackSalvoReloadTime = 2.5,
 
-            RateOfFire = 1,		---- another 600 DPS - controlled by charge
+            RateOfFire = 0.5,		---- another 333 DPS - controlled by charge and delay
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 180,
@@ -642,7 +632,7 @@ UnitBlueprint {
 			
             Label = 'Deckgun',
 			
-            MaxRadius = 95,
+            MaxRadius = 90,
 			
             HeadingArcCenter = 0,
             HeadingArcRange = 240,
@@ -660,30 +650,23 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Front_Deckgun_Muzzle01',
-                    },
+                    MuzzleBones = {'Front_Deckgun_Muzzle01'},
                     RackBone = 'Front_Deckgun_Barrel01',
                     TelescopeBone = 'Front_Deckgun_Muzzle01',
-                    TelescopeRecoilDistance = -6,
+                    TelescopeRecoilDistance = -2,
                 },
                 {
-                    MuzzleBones = {
-                        'Front_Deckgun_Muzzle02',
-                    },
+                    MuzzleBones = {'Front_Deckgun_Muzzle02'},
                     RackBone = 'Front_Deckgun_Barrel02',
                     TelescopeBone = 'Front_Deckgun_Muzzle02',
-                    TelescopeRecoilDistance = -6,
+                    TelescopeRecoilDistance = -2,
                 },
             },
 
-            RackRecoilDistance = -0.25,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+            RackRecoilDistance = -0.1,
             RackSalvoSize = 1,
-            RackSlavedToTurret = true,
-			
+            RackSlavedToTurret = true,			
+
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 0.5,	-- 300/2 = 150 DPS
@@ -758,7 +741,7 @@ UnitBlueprint {
 			
             Label = 'Deckgun',
 			
-            MaxRadius = 95,
+            MaxRadius = 90,
 			
             HeadingArcCenter = 90,
             HeadingArcRange = 120,
@@ -776,27 +759,20 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Left_Deckgun_Muzzle01',
-                    },
+                    MuzzleBones = {'Left_Deckgun_Muzzle01'},
                     RackBone = 'Left_Deckgun_Barrel01',
                     TelescopeBone = 'Left_Deckgun_Muzzle01',
-                    TelescopeRecoilDistance = -6,
+                    TelescopeRecoilDistance = -2,
                 },
                 {
-                    MuzzleBones = {
-                        'Left_Deckgun_Muzzle02',
-                    },
+                    MuzzleBones = {'Left_Deckgun_Muzzle02'},
                     RackBone = 'Left_Deckgun_Barrel02',
                     TelescopeBone = 'Left_Deckgun_Muzzle02',
-                    TelescopeRecoilDistance = -6,
+                    TelescopeRecoilDistance = -2,
                 },
             },
 
-            RackRecoilDistance = -0.25,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+            RackRecoilDistance = -0.1,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 			
@@ -873,7 +849,7 @@ UnitBlueprint {
 			
             Label = 'Deckgun',
 			
-            MaxRadius = 95,
+            MaxRadius = 90,
 			
             HeadingArcCenter = 90,
             HeadingArcRange = 120,
@@ -891,27 +867,20 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Left_Deckgun_Muzzle03',
-                    },
+                    MuzzleBones = {'Left_Deckgun_Muzzle03'},
                     RackBone = 'Left_Deckgun_Barrel03',
                     TelescopeBone = 'Left_Deckgun_Muzzle03',
-                    TelescopeRecoilDistance = -6,
+                    TelescopeRecoilDistance = -2,
                 },
                 {
-                    MuzzleBones = {
-                        'Left_Deckgun_Muzzle04',
-                    },
+                    MuzzleBones = {'Left_Deckgun_Muzzle04'},
                     RackBone = 'Left_Deckgun_Barrel04',
                     TelescopeBone = 'Left_Deckgun_Muzzle04',
-                    TelescopeRecoilDistance = -6,
+                    TelescopeRecoilDistance = -2,
                 },
             },
 
-            RackRecoilDistance = -0.25,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+            RackRecoilDistance = -0.1,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 
@@ -988,7 +957,7 @@ UnitBlueprint {
 			
             Label = 'Deckgun',
 			
-            MaxRadius = 95,
+            MaxRadius = 90,
 			
             HeadingArcCenter = 90,
             HeadingArcRange = 120,
@@ -1006,27 +975,20 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Left_Deckgun_Muzzle05',
-                    },
+                    MuzzleBones = {'Left_Deckgun_Muzzle05'},
                     RackBone = 'Left_Deckgun_Barrel05',
                     TelescopeBone = 'Left_Deckgun_Muzzle05',
-                    TelescopeRecoilDistance = -6,
+                    TelescopeRecoilDistance = -2,
                 },
                 {
-                    MuzzleBones = {
-                        'Left_Deckgun_Muzzle06',
-                    },
+                    MuzzleBones = {'Left_Deckgun_Muzzle06'},
                     RackBone = 'Left_Deckgun_Barrel06',
                     TelescopeBone = 'Left_Deckgun_Muzzle06',
-                    TelescopeRecoilDistance = -6,
+                    TelescopeRecoilDistance = -2,
                 },
             },
 
-            RackRecoilDistance = -0.25,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+            RackRecoilDistance = -0.1,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 
@@ -1103,7 +1065,7 @@ UnitBlueprint {
 			
             Label = 'Deckgun',
 			
-            MaxRadius = 95,
+            MaxRadius = 90,
 			
             HeadingArcCenter = 180,
             HeadingArcRange = 145,
@@ -1121,27 +1083,20 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Back_Deckgun_Muzzle01',
-                    },
+                    MuzzleBones = {'Back_Deckgun_Muzzle01'},
                     RackBone = 'Back_Deckgun_Barrel01',
                     TelescopeBone = 'Back_Deckgun_Muzzle01',
-                    TelescopeRecoilDistance = -6,
+                    TelescopeRecoilDistance = -2,
                 },
                 {
-                    MuzzleBones = {
-                        'Back_Deckgun_Muzzle02',
-                    },
+                    MuzzleBones = {'Back_Deckgun_Muzzle02'},
                     RackBone = 'Back_Deckgun_Barrel02',
                     TelescopeBone = 'Back_Deckgun_Muzzle02',
-                    TelescopeRecoilDistance = -6,
+                    TelescopeRecoilDistance = -2,
                 },
             },
 
-            RackRecoilDistance = -0.25,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+            RackRecoilDistance = -0.1,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 			
@@ -1218,7 +1173,7 @@ UnitBlueprint {
 			
             Label = 'Deckgun',
 			
-            MaxRadius = 95,
+            MaxRadius = 90,
 			
             HeadingArcCenter = -90,
             HeadingArcRange = 120,
@@ -1236,27 +1191,20 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_Deckgun_Muzzle01',
-                    },
+                    MuzzleBones = {'Right_Deckgun_Muzzle01'},
                     RackBone = 'Right_Deckgun_Barrel01',
                     TelescopeBone = 'Right_Deckgun_Muzzle01',
-                    TelescopeRecoilDistance = -6,
+                    TelescopeRecoilDistance = -2,
                 },
                 {
-                    MuzzleBones = {
-                        'Right_Deckgun_Muzzle02',
-                    },
+                    MuzzleBones = {'Right_Deckgun_Muzzle02'},
                     RackBone = 'Right_Deckgun_Barrel02',
                     TelescopeBone = 'Right_Deckgun_Muzzle02',
-                    TelescopeRecoilDistance = -6,
+                    TelescopeRecoilDistance = -2,
                 },
             },
 
-            RackRecoilDistance = -0.25,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+            RackRecoilDistance = -0.1,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 
@@ -1333,7 +1281,7 @@ UnitBlueprint {
 			
             Label = 'Deckgun',
 			
-            MaxRadius = 95,
+            MaxRadius = 90,
 			
             HeadingArcCenter = -90,
             HeadingArcRange = 120,
@@ -1351,27 +1299,20 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_Deckgun_Muzzle03',
-                    },
+                    MuzzleBones = {'Right_Deckgun_Muzzle03'},
                     RackBone = 'Right_Deckgun_Barrel03',
                     TelescopeBone = 'Right_Deckgun_Muzzle03',
-                    TelescopeRecoilDistance = -6,
+                    TelescopeRecoilDistance = -2,
                 },
                 {
-                    MuzzleBones = {
-                        'Right_Deckgun_Muzzle04',
-                    },
+                    MuzzleBones = {'Right_Deckgun_Muzzle04'},
                     RackBone = 'Right_Deckgun_Barrel04',
                     TelescopeBone = 'Right_Deckgun_Muzzle04',
-                    TelescopeRecoilDistance = -6,
+                    TelescopeRecoilDistance = -2,
                 },
             },
 
-            RackRecoilDistance = -0.25,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+            RackRecoilDistance = -0.1,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 
@@ -1448,7 +1389,7 @@ UnitBlueprint {
 			
             Label = 'Deckgun',
 			
-            MaxRadius = 95,
+            MaxRadius = 90,
 			
             HeadingArcCenter = -90,
             HeadingArcRange = 120,
@@ -1466,27 +1407,20 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_Deckgun_Muzzle05',
-                    },
+                    MuzzleBones = {'Right_Deckgun_Muzzle05'},
                     RackBone = 'Right_Deckgun_Barrel05',
                     TelescopeBone = 'Right_Deckgun_Muzzle05',
-                    TelescopeRecoilDistance = -6,
+                    TelescopeRecoilDistance = -2,
                 },
                 {
-                    MuzzleBones = {
-                        'Right_Deckgun_Muzzle06',
-                    },
+                    MuzzleBones = {'Right_Deckgun_Muzzle06'},
                     RackBone = 'Right_Deckgun_Barrel06',
                     TelescopeBone = 'Right_Deckgun_Muzzle06',
-                    TelescopeRecoilDistance = -6,
+                    TelescopeRecoilDistance = -2,
                 },
             },
 
-            RackRecoilDistance = -0.25,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+            RackRecoilDistance = -0.1,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 			
@@ -1537,9 +1471,9 @@ UnitBlueprint {
             CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 50,
+            Damage = 40,
 			DamageFriendly = false,
-			DamageRadius = 2.2,
+			DamageRadius = 2,
             DamageType = 'ShieldMult1.2',
 			
 			DetonatesAtTargetHeight = true,
@@ -1580,15 +1514,12 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -0.25,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 1.5,		-- 150 DPS Air
+            RateOfFire = 1.5,		-- 120 DPS Air
             TargetCheckInterval = 0.3,
 			
             TargetPriorities = {
@@ -1629,9 +1560,9 @@ UnitBlueprint {
             CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 50,
+            Damage = 40,
 			DamageFriendly = false,
-			DamageRadius = 2.2,
+			DamageRadius = 2,
             DamageType = 'ShieldMult1.2',
 			
 			DetonatesAtTargetHeight = true,
@@ -1672,13 +1603,10 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -0.25,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 
-            RateOfFire = 1.5,		-- 150 DPS Air
+            RateOfFire = 1.5,		-- 120 DPS Air
             
             TargetCheckInterval = 0.3,
             TargetPriorities = {
@@ -1719,9 +1647,9 @@ UnitBlueprint {
             CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 50,
+            Damage = 40,
 			DamageFriendly = false,
-			DamageRadius = 2.2,
+			DamageRadius = 2,
             DamageType = 'ShieldMult1.2',
 			
 			DetonatesAtTargetHeight = true,
@@ -1762,13 +1690,10 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -0.25,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 			
-            RateOfFire = 1.5,		-- 150 DPS Air
+            RateOfFire = 1.5,		-- 120 DPS Air
             TargetCheckInterval = 0.3,
 			
             TargetPriorities = {
@@ -1809,9 +1734,9 @@ UnitBlueprint {
             CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 50,
+            Damage = 40,
 			DamageFriendly = false,
-			DamageRadius = 2.2,
+			DamageRadius = 2,
             DamageType = 'ShieldMult1.2',
 			
 			DetoantesAtTargetHeight = true,
@@ -1852,9 +1777,6 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -0.25,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 
@@ -1898,9 +1820,9 @@ UnitBlueprint {
             CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 50,
+            Damage = 40,
 			DamageFriendly = false,
-			DamageRadius = 2.2,
+			DamageRadius = 2,
             DamageType = 'ShieldMult1.2',
 			
 			DetonatesAtTargetHeight = true,
@@ -1939,9 +1861,6 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -0.25,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 			
@@ -1986,9 +1905,9 @@ UnitBlueprint {
             CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 50,
+            Damage = 40,
 			DamageFriendly = false,
-			DamageRadius = 2.2,
+			DamageRadius = 2,
             DamageType = 'ShieldMult1.2',
 			
 			DetonatesAtTargetHeight = true,
@@ -2027,9 +1946,6 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -0.25,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 			
@@ -2074,9 +1990,9 @@ UnitBlueprint {
             CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 50,
+            Damage = 40,
 			DamageFriendly = false,
-			DamageRadius = 2.2,
+			DamageRadius = 2,
             DamageType = 'ShieldMult1.2',
 			
 			DetonatesAtTargetHeight = true,
@@ -2114,9 +2030,6 @@ UnitBlueprint {
                 },
             },
             RackRecoilDistance = -0.25,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 			
@@ -2159,9 +2072,9 @@ UnitBlueprint {
             CannotAttackGround = true,
             CollideFriendly = false,
 			
-            Damage = 50,
+            Damage = 40,
 			DamageFriendly = false,
-			DamageRadius = 2.2,
+			DamageRadius = 2,
             DamageType = 'ShieldMult1.2',
 			
 			DetonatesAtTargetHeight = true,
@@ -2200,9 +2113,6 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -0.25,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 			

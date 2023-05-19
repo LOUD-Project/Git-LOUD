@@ -63,13 +63,13 @@ UnitBlueprint {
     CollisionOffsetY = -0.375,
 	
     Defense = {
-        AirThreatLevel = 64,
+        AirThreatLevel = 48,
         ArmorType = 'Normal',
-        Health = 68500,
-        MaxHealth = 68500,
+        Health = 66500,
+        MaxHealth = 66500,
         RegenRate = 36,
 		SubThreatLevel = 24,
-        SurfaceThreatLevel = 287,
+        SurfaceThreatLevel = 224,
     },
 	
     Description = '<LOC xrs0402_desc>Experimental Heavy Bombardment Ship (Bombardment)',
@@ -168,7 +168,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 665000,
         BuildCostMass = 45300,
-        BuildTime = 27600,
+        BuildTime = 31500,
     },
 	
     Footprint = {
@@ -178,7 +178,7 @@ UnitBlueprint {
     },	
 	
     General = {
-		CapCost = 6,
+		CapCost = 12,
         Category = 'Ship',
         Classification = 'RULEUC_MilitaryShip',
         CommandCaps = {
@@ -219,8 +219,8 @@ UnitBlueprint {
         CatchUpAcc = 8,
         DragCoefficient = 0.2,
         MaxAcceleration = 0.7,
-        MaxBrake = 2.4,
-        MaxSpeed = 3.6,
+        MaxBrake = 1.4,
+        MaxSpeed = 3.3,
         MaxSpeedReverse = 3,
         MaxSteerForce = 5,
         SkirtOffsetX = -0.5,
@@ -329,8 +329,8 @@ UnitBlueprint {
 			
             DisplayName = 'Proton Cannon',
             
-            EnergyRequired = 5800,
-            EnergyDrainPerSecond = 2900,
+            EnergyRequired = 7200,
+            EnergyDrainPerSecond = 3600,
 			
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
@@ -345,9 +345,9 @@ UnitBlueprint {
 			
             LeadTarget = true,
 			
-            MaxRadius = 155,
+            MaxRadius = 140,
 			
-            MuzzleChargeDelay = 1.5,
+            MuzzleChargeDelay = 1,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 40,
@@ -365,17 +365,16 @@ UnitBlueprint {
                     RackBone = 'Front_Main_Turret_Barrel',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -2,
+            RackRecoilReturnSpeed = 1,
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 1,		-- 700 DPS - controlled by charge every 2 seconds
+            RateOfFire = 1,		-- 466 DPS - controlled by charge/delay every 3 seconds
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 140,
@@ -486,8 +485,8 @@ UnitBlueprint {
             DamageType = 'Normal',
             DisplayName = 'Proton Cannon',
             
-            EnergyRequired = 5800,
-            EnergyDrainPerSecond = 2900,
+            EnergyRequired = 7200,
+            EnergyDrainPerSecond = 3600,
 
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
@@ -501,10 +500,10 @@ UnitBlueprint {
 			
             LeadTarget = true,
 			
-            MaxRadius = 155,
+            MaxRadius = 140,
 			
             MuzzleSalvoDelay = 0,
-            MuzzleChargeDelay = 1.5,
+            MuzzleChargeDelay = 1,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 40,
 			
@@ -525,13 +524,12 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -2,
+            RackRecoilReturnSpeed = 1,
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 
-            RateOfFire = 1,		-- another 700 DPS - every 2 seconds controlled by charge
+            RateOfFire = 1,		-- another 466 DPS - every 3 seconds controlled by charge
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 130,
@@ -595,14 +593,14 @@ UnitBlueprint {
 			
             CollideFriendly = false,
 			
-            Damage = 280,
+            Damage = 250,
             DamageRadius = 4,
             DamageType = 'ShieldMult0.8',
 			
             DisplayName = 'SeaDragon Bombardment Cannon',
             
-            EnergyRequired = 3600,
-            EnergyDrainPerSecond = 3600,
+            EnergyRequired = 4150,
+            EnergyDrainPerSecond = 4150,
 
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
@@ -615,7 +613,7 @@ UnitBlueprint {
 			
             Label = 'BackCannon',
 			
-            MaxRadius = 165,
+            MaxRadius = 160,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 3,
@@ -646,16 +644,14 @@ UnitBlueprint {
                 },
             },
             RackFireTogether = true,
-            RackRecoilDistance = -2,
+            RackRecoilDistance = -1,
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
-            RateOfFire = 1,		-- 840 DPS
+            RateOfFire = 1,		-- 750 DPS controlled by charge
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 140,
@@ -688,7 +684,7 @@ UnitBlueprint {
 			
             TurretYaw = 0,
             TurretYawRange = 135,
-            TurretYawSpeed = 28,
+            TurretYawSpeed = 23,
 			
             Turreted = true,
         },
@@ -733,7 +729,7 @@ UnitBlueprint {
 			
             Label = 'SecondaryCannon',
 			
-            MaxRadius = 95,
+            MaxRadius = 90,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -759,10 +755,8 @@ UnitBlueprint {
 
             RackRecoilDistance = -0.5,
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
-            RateOfFire = 1.6,		-- 160 DPS
+            RateOfFire = 1.4,		-- 140 DPS
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 130,
@@ -837,7 +831,7 @@ UnitBlueprint {
 			
             Label = 'SecondaryCannon',
 			
-            MaxRadius = 95,
+            MaxRadius = 90,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -866,7 +860,7 @@ UnitBlueprint {
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
 
-            RateOfFire = 1.6,
+            RateOfFire = 1.4,
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 130,
@@ -925,7 +919,7 @@ UnitBlueprint {
 			
             CollideFriendly = false,
 			
-            Damage = 105,
+            Damage = 100,
             DamageRadius = 1,
             DamageType = 'Normal',
 			
@@ -940,7 +934,7 @@ UnitBlueprint {
 			
             Label = 'SecondaryCannon',
 			
-            MaxRadius = 95,
+            MaxRadius = 90,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -969,7 +963,7 @@ UnitBlueprint {
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
 
-            RateOfFire = 1.6,
+            RateOfFire = 1.4,
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 130,
@@ -1044,7 +1038,7 @@ UnitBlueprint {
 			
             Label = 'SecondaryCannon',
 			
-            MaxRadius = 95,
+            MaxRadius = 90,
 			
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -1073,7 +1067,7 @@ UnitBlueprint {
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
 
-            RateOfFire = 1.6,
+            RateOfFire = 1.4,
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 130,
@@ -1127,7 +1121,7 @@ UnitBlueprint {
 			
             Damage = 40,
 			DamageFriendly = false,
-			DamageRadius = 2.2,
+			DamageRadius = 2,
             DamageType = 'Normal',
 			
 			DetonatesAtTargetHeight = true,
@@ -1173,7 +1167,7 @@ UnitBlueprint {
 			
             RangeCategory = 'UWRC_AntiAir',
 			
-            RateOfFire = 2,					-- 320 DPS Air
+            RateOfFire = 1.5,					-- 240 DPS Air
 			
             TargetCheckInterval = 0.3,
             TargetPriorities = {
@@ -1216,7 +1210,7 @@ UnitBlueprint {
 			
             Damage = 40,
 			DamageFriendly = false,
-			DamageRadius = 2.2,
+			DamageRadius = 2,
             DamageType = 'Normal',
 			
 			DetonatesAtTargetHeight = true,
@@ -1260,7 +1254,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 
-            RateOfFire = 2,			-- another 320 DPS Air
+            RateOfFire = 1.5,			-- another 240 DPS Air
             TargetCheckInterval = 0.3,
 			
             TargetPriorities = {

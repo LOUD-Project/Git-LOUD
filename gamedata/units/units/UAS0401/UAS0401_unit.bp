@@ -300,7 +300,7 @@ UnitBlueprint {
     },	
 	
     General = {
-		CapCost = 8,
+		CapCost = 14,
         Category = 'Experimental',
         Classification = 'RULEUC_MilitarySub',
         CommandCaps = {
@@ -361,7 +361,7 @@ UnitBlueprint {
         DragCoefficient = 0.2,
         Elevation = -4.8,
 		
-        MaxAcceleration = 1.5,
+        MaxAcceleration = 0.9,
         MaxBrake = 1.5,
         MaxSpeed = 3.6,
         MaxSpeedReverse = 3,
@@ -437,6 +437,9 @@ UnitBlueprint {
             DamageType = 'Normal',
 			
             DisplayName = 'Oblivion Cannon',
+
+            EnergyRequired = 6200,
+            EnergyDrainPerSecond = 1860,
 			
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
@@ -450,9 +453,9 @@ UnitBlueprint {
 			
 			LeadTarget = true,
 			
-            MaxRadius = 175,
+            MaxRadius = 160,
 			
-            MuzzleChargeDelay = 1.2,
+            MuzzleChargeDelay = 1,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
 			
@@ -481,18 +484,16 @@ UnitBlueprint {
 
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.3,		-- 1800 DPS
+            RateOfFire = 1,		-- 1800 DPS controlled by charge
 			
             SlavedToBody = false,
             
             TargetCheckInterval = 5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'NAVAL MOBILE',
                 'TECH3 MOBILE',
                 'TECH2 MOBILE',
                 'TECH1 MOBILE',
-                
                 'ALLUNITS -WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',

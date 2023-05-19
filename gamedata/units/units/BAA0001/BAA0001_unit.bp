@@ -72,6 +72,7 @@ UnitBlueprint {
     Display = {
 		AnimationLand = '/mods/BlackOpsUnleashed/units/BAA0001/BAA0001_AClose01.sca',
 		AnimationTakeOff = '/mods/BlackOpsUnleashed/units/BAA0001/BAA0001_AOpen.sca',
+
         Mesh = {
             IconFadeInZoom = 175,
             LODs = {
@@ -81,15 +82,15 @@ UnitBlueprint {
                 },
             },
         },
-        PlaceholderMeshName = 'UXA0010',
+
         SpawnRandomRotation = false,
         UniformScale = 0.06,
     },
 	
     Economy = {
-        BuildCostEnergy = 1800,
-        BuildCostMass = 180,
-        BuildTime = 1440,
+        BuildCostEnergy = 5400,
+        BuildCostMass = 270,
+        BuildTime = 2150,
     },
 
     General = {

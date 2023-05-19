@@ -312,7 +312,7 @@ UAS0401 = Class(ASubUnit) {
 		self.AirMonitorRange = self:GetBlueprint().AI.AirMonitorRange or (self.AssistRange / 2)	--Air target search distance
 		self.HeartBeatInterval = self:GetBlueprint().AI.AssistHeartbeatInterval or 1 # Heartbeat wait time, in seconds
 
-		--Load DroneData table from Goliath BP (name, attachpoint, unitid)
+		--Load DroneData table from BP (name, attachpoint, unitid)
 		--Only drones with entries in this table (including unique key names and the other two required values) will be spawned!
 		self.DroneData = table.deepcopy(self:GetBlueprint().DroneData)
 		
