@@ -240,13 +240,13 @@ UnitBlueprint {
             },
             BallisticArc = 'RULEUBA_None',
 			
-			BeamCollisionDelay = 0.3,
+			BeamCollisionDelay = 0,
             BeamLifetime = 0.6,
 			
             CollideFriendly = false,
             ContinuousBeam = false,
 			
-            Damage = 60,
+            Damage = 20,
             DamageRadius = 0,
             DamageFriendly = false,
             DamageType = 'Normal',

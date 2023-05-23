@@ -553,7 +553,7 @@ UnitBlueprint {
             },
             BallisticArc = 'RULEUBA_None',
 			
-            BeamCollisionDelay = 0.1,
+            BeamCollisionDelay = 0,
             BeamLifetime = 1,	-- do dmg 10x per on fire = 10000dmg
 			
             CollideFriendly = false,

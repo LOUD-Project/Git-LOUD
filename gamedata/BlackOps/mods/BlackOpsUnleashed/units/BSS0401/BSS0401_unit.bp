@@ -792,7 +792,7 @@ UnitBlueprint {
 
             BallisticArc = 'RULEUBA_None',
 			
-            BeamCollisionDelay = 0.1,
+            BeamCollisionDelay = 0,
             BeamLifetime = 1,
             CollideFriendly = false,
 			
@@ -886,7 +886,7 @@ UnitBlueprint {
             AutoInitiateAttackCommand = false,
             BallisticArc = 'RULEUBA_None',
 
-            BeamCollisionDelay = 0.1,
+            BeamCollisionDelay = 0,
             BeamLifetime = 1,
 
             CollideFriendly = false,
@@ -978,7 +978,7 @@ UnitBlueprint {
 
             BallisticArc = 'RULEUBA_None',
 			
-            BeamCollisionDelay = 0.1,
+            BeamCollisionDelay = 0,
             BeamLifetime = 1,
             CollideFriendly = false,
 			

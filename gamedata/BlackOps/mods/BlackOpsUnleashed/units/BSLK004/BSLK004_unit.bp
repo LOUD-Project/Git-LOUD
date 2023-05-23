@@ -368,7 +368,7 @@ UnitBlueprint {
 		{
             AboveWaterTargetsOnly = true,
             BallisticArc = 'RULEUBA_None',
-            BeamCollisionDelay = 0.05,
+            BeamCollisionDelay = 0.1,
             BeamLifetime = 0.2,
             CollideFriendly = false,
             ContinuousBeam = false,
