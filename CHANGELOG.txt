@@ -1,3 +1,19 @@
+### Release 26-05-2023
+
+LUA 6.3.07
+4DC for LOUD 6.3.01
+Black Ops Unleashed for LOUD 6.3.05
+Total Mayhem for LOUD 6.3.03
+UNITS 6.3.09
+
+- addressed a crash issue with the no-rush timer and very tight maps
+- addressed a broad issue with Beam Collision Delay and how it impacts DPS on about 8 units across multiple mods
+- reverted addition of SERA Nuke Battleship to unit restrictions
+- removed all NUKE subs from this restriction as well, since code will disable the weapon
+- just a note:  These units suffer badly from this, since the nuke weapon is a sizable portion of their cost, but players couldn't stomach them being restricted even though
+
+
+
 ### Release 19-05-2023
 
 LUA 6.3.06
