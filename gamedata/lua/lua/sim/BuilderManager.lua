@@ -540,7 +540,7 @@ BuilderManager = Class {
             end
 			
             -- there must be units in the Pool or there will be nothing to form
-			if PoolGreaterAtLocation( brain, LocationType, 0, FREEUNITS ) and brain:GetNoRushTicks() < 300 then
+			if PoolGreaterAtLocation( brain, LocationType, 0, FREEUNITS ) and brain:GetNoRushTicks() < 75 then
 		
                 if self.BuilderData['Any'].NeedSort then
 
