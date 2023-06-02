@@ -2,7 +2,7 @@
 -- Brief: Creates the LOUD AI Debug Menu.
 
 do
-
+    
 	local Group = import('/lua/maui/group.lua').Group
 	local Prefs = import('/lua/user/prefs.lua')
     
@@ -11,8 +11,6 @@ do
 	local DebugPrefs = __debugprefs  
     
 	if not DebugPrefs.intel then DebugPrefs.intel = {} end
-    
-    LOG("*AI DEBUG DebugPrefs are "..repr(DebugPrefs))
 
 	local OrigCreateUI = CreateUI
 
@@ -129,6 +127,10 @@ do
 	function CreateUI(isReplay)
 
 		OrigCreateUI(isReplay)
+        
+        --LOG("*AI DEBUG Creating AI Debug Panel")
+        
+        --LOG("*AI DEBUG data is "..repr(DebugPrefs))
 
 		local bg = Bitmap(GetFrame(0))
 		bg.Depth:Set(GetFrame(0):GetTopmostDepth() + 1)
@@ -151,6 +153,7 @@ do
 		local listIntel = {}
 		
 		-- Only for SWITCHES, not for intel colours
+        -- this function creates the switch - and the function which fires when the switch is changed
 		local function CreateSwitchToggleGroup(index, SWITCHES)
         
 			local grp = Group(container)
@@ -187,6 +190,7 @@ do
 
 			return grp
 		end
+
 		
 		listSwitches[1] = CreateSwitchToggleGroup(1, SWITCHES_LEFT)
 		LayoutHelpers.AtLeftTopIn(listSwitches[1], container, 4, 4)
@@ -291,11 +295,15 @@ do
 		LayoutHelpers.AtRightTopIn(closeBtn, bg)
         
 		closeBtn.OnClick = function(self, modifiers)
+        
 			bg:Hide()
 		end
 		
         -- Hide dialog, create button left of main menu to toggle it
-		
+        --LOG("*AI DEBUG AI Debug Menu Hiding")
+
+        --LOG("*AI DEBUG listSwitches are "..repr(listSwitches) )        
+        
 		bg:Hide()
 
 		local globalToggle = UIUtil.CreateButtonStd( GetFrame(0), '/widgets/toggle', "AI Debug Menu", 12, 2, 0, "UI_Menu_MouseDown", "UI_Menu_Rollover")
@@ -305,11 +313,17 @@ do
 		globalToggle.Depth:Set(GetFrame(0):GetTopmostDepth() + 1)
 
 		globalToggle.OnClick = function(self, modifiers)
+        
 			if bg:IsHidden() then
+                
 				bg:Show()
+
 			else
+                
 				bg:Hide()
+
 			end
+            
 		end
 		
 	end -- function

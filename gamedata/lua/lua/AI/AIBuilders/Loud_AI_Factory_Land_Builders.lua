@@ -423,7 +423,7 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
         BuilderConditions = {
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
 
-            { LUTL, 'UnitCapCheckLess', { .95 } },
+            { LUTL, 'UnitCapCheckLess', { .85 } },
 
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.1 } },
  
@@ -432,9 +432,33 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
             -- must have some Directfire in the Pool at this Location
             { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.LAND * categories.MOBILE * categories.DIRECTFIRE }},
 
-			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 10, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
+			{ UCBC, 'PoolLess', { 32, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
 
 			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.ANTIAIR - categories.TECH1, categories.LAND }},
+        },
+		
+        BuilderType = {'LandT2'},
+    },	
+
+    Builder {BuilderName = 'T2 Mobile Flak - High Need',
+	
+        PlatoonTemplate = 'T2LandAA',
+
+        Priority = 550,
+		
+        BuilderConditions = {
+            { LUTL, 'BaseInLandMode', { 'LocationType' }},
+
+            { LUTL, 'UnitCapCheckLess', { .85 } },
+ 
+            { LUTL, 'AirStrengthRatioLessThan', { 2 } }, 
+
+            -- must have some Directfire in the Pool at this Location
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.LAND * categories.MOBILE * categories.DIRECTFIRE }},
+
+			{ UCBC, 'PoolLessAtLocation', { 'LocationType', 15, categories.LAND * categories.MOBILE * categories.ANTIAIR }},
+
+			{ UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.LAND * categories.MOBILE * categories.ANTIAIR - categories.TECH1, categories.LAND }},
         },
 		
         BuilderType = {'LandT2'},
@@ -539,11 +563,11 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
         BuilderConditions = {
             { LUTL, 'BaseInLandMode', { 'LocationType' }},
 
-            { LUTL, 'UnitCapCheckLess', { .95 } },
+            { LUTL, 'UnitCapCheckLess', { .85 } },
 
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.1 } },
  
-			{ LUTL, 'AirStrengthRatioLessThan', { 3 } }, 
+			{ LUTL, 'AirStrengthRatioLessThan', { 4.5 } }, 
 
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.LAND * categories.TECH3 }},
 
@@ -551,6 +575,32 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Land Only Map',
             { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.LAND * categories.MOBILE * categories.DIRECTFIRE }},
 
             { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 1, categories.LAND * categories.MOBILE * categories.ANTIAIR, categories.LAND * categories.TECH3 }},
+
+			{ LUTL, 'PoolLess', { 32, categories.LAND * categories.MOBILE * categories.ANTIAIR - categories.TECH1 }},
+        },
+		
+        BuilderType = {'LandT3','Gate'},
+    },
+
+    Builder {BuilderName = 'T3 Mobile AA - High Need',
+	
+        PlatoonTemplate = 'T3LandAA',
+
+        Priority = 600, 
+
+        BuilderConditions = {
+            { LUTL, 'BaseInLandMode', { 'LocationType' }},
+
+            { LUTL, 'UnitCapCheckLess', { .85 } },
+ 
+			{ LUTL, 'AirStrengthRatioLessThan', { 2 } }, 
+
+			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 2, categories.LAND * categories.TECH3 }},
+
+            -- must have some Directfire in the Pool at this Location
+            { UCBC, 'PoolGreaterAtLocation', { 'LocationType', 0, categories.LAND * categories.MOBILE * categories.DIRECTFIRE }},
+
+            { UCBC, 'LocationFactoriesBuildingLess', { 'LocationType', 2, categories.LAND * categories.MOBILE * categories.ANTIAIR, categories.LAND * categories.TECH3 }},
 
 			{ LUTL, 'PoolLess', { 32, categories.LAND * categories.MOBILE * categories.ANTIAIR - categories.TECH1 }},
         },
@@ -697,11 +747,9 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Water Map',
         BuilderConditions = {
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},
 
-            { LUTL, 'UnitCapCheckLess', { .95 } },
+            { LUTL, 'UnitCapCheckLess', { .85 } },
 
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.1 } },
- 
-            { LUTL, 'AirStrengthRatioLessThan', { 4.5 } }, 
 
 			{ LUTL, 'PoolLess', { 20, categories.LAND * categories.MOBILE * categories.ANTIAIR - categories.TECH1 }},
 
@@ -818,11 +866,9 @@ BuilderGroup {BuilderGroupName = 'Factory Producion - Land - Water Map',
         BuilderConditions = {
             { LUTL, 'BaseInAmphibiousMode', { 'LocationType' }},		
 
-            { LUTL, 'UnitCapCheckLess', { .95 } },
+            { LUTL, 'UnitCapCheckLess', { .85 } },
 
 			{ LUTL, 'LandStrengthRatioGreaterThan', { 1.1 } },
- 
-            { LUTL, 'AirStrengthRatioLessThan', { 4.5 } }, 
 
 			{ LUTL, 'FactoriesGreaterThan', { 2, categories.LAND * categories.TECH3 }},
 
