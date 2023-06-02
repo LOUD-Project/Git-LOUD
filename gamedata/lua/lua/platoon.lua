@@ -2483,7 +2483,7 @@ Platoon = Class(moho.platoon_methods) {
 					
                     Warp( v, RandomLocation( platpos[1],platpos[3], 12 ) )
                     
-                    IssueMove( {v}, desiredLocation )
+                    IssueMove( {v}, desiredlocation )
 					
 					unitskilled = unitskilled + 1
                     
