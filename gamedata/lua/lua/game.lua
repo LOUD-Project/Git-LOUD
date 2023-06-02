@@ -213,7 +213,10 @@ function CacheRestrictedUnitLists()
         end
 
         -- create a list of restricted special weapons (nukes, tactical missiles)
-        if restrictedUnits[restriction].specialweapons then   
+        if restrictedUnits[restriction].specialweapons then
+        
+            LOG("*AI DEBUG CacheRestrictedWeapons ")
+        
             for l, cat in restrictedUnits[restriction].specialweapons do
 
                 -- strategic missiles

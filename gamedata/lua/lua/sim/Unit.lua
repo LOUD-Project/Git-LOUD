@@ -492,6 +492,7 @@ Unit = Class(moho.unit_methods) {
     DisableRestrictedWeapons = function(self)
 	
         local noNukes = Game.NukesRestricted()
+        
         local noTacMsl = Game.TacticalMissilesRestricted()
 		
         for i = 1, GetWeaponCount(self) do
