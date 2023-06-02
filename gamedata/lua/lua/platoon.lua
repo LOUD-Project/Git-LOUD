@@ -134,7 +134,7 @@ Platoon = Class(moho.platoon_methods) {
     OnCreate = function( self, plan)
 	
         self.CreationTime = LOUDTIME()	
-        self.EventCallbacks = { OnDestroyed = {},}
+        self.EventCallbacks = { }
         self.Trash = TrashBag()
 
         if plan and plan != 'none' then
@@ -256,18 +256,22 @@ Platoon = Class(moho.platoon_methods) {
 
     OnDestroy = function( self)
 
+        local aiBrain = GetBrain(self)
+
 		if ScenarioInfo.PlatoonDialog then
-			local aiBrain = GetBrain(self)
-            LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." platoon destroyed")
+            LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." platoon destroyed "..repr(self) )
 		end
 
-        for k, cb in self.EventCallbacks.OnDestroyed do
-		
-	        if cb then
+        if self.EventCallbacks.OnDestroyed then
 
-                cb( GetBrain(self), self )
-            end
-        end		
+            for k, cb in self.EventCallbacks.OnDestroyed do
+	
+                if cb then
+
+                    cb( aiBrain, self )
+                end
+            end		
+        end
 
         TrashDestroy(self.Trash)
     end,

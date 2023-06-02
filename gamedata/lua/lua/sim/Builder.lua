@@ -334,6 +334,10 @@ PlatoonBuilder = Class(Builder) {
 						end
 					end
                 end
+                
+                if not platoon.EventCallbacks.OnDestroyed then
+                    platoon.EventCallbacks.OnDestroyed = {}
+                end
 				
 				LOUDINSERT(platoon.EventCallbacks.OnDestroyed, destroyedCallback)
 
