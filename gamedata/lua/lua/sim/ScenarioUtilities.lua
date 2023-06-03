@@ -355,12 +355,12 @@ function CreateResources()
 					
 						-- Give me a log when a mass point is too close to a start position and needs to be moved
 						-- only 4 points are permitted at a range of 35 - all others will be 55 or greater
-						-- those closer than 37.6 will be put at 36 from the start - those greater than 37 will be pushed out to 55
-						if doit and VDist2(armyposition[1],armyposition[3], tblData.position[1], tblData.position[3]) > 37.6 then
+						-- those closer than 38.5 will be put at 36 from the start - those greater will be pushed out to 55
+						if doit and VDist2(armyposition[1],armyposition[3], tblData.position[1], tblData.position[3]) > 38.5 then
+                        
+                            local origdistance = VDist2(armyposition[1],armyposition[3], tblData.position[1], tblData.position[3])
                         
                             if ScenarioInfo.Options.RelocateResources == 'on' or AI then
-					
-                                --LOG("*AI DEBUG Mass Point at distance "..VDist2(armyposition[1],armyposition[3], tblData.position[1], tblData.position[3]).." - Position "..repr(tblData.position).." too close (55) to Start position")
 						
                                 if tblData.position[1] < armyposition[1] then
 							
@@ -384,7 +384,7 @@ function CreateResources()
 						
                                 tblData.position[2] = GetTerrainHeight( tblData.position[1], tblData.position[3] )
 						
-                                LOG("*AI DEBUG Mass Point "..repr(i).." moved to 55 "..repr(tblData.position))
+                                LOG("*AI DEBUG Mass Point "..repr(i).." moved to 55 "..repr(tblData.position).." from "..repr(origdistance) )
 							
                                 tblData.hint = true
                             
@@ -392,9 +392,9 @@ function CreateResources()
 
 						elseif doit then
                         
+                            local origdistance = VDist2(armyposition[1],armyposition[3], tblData.position[1], tblData.position[3])
+                        
                             if ScenarioInfo.Options.RelocateResources == 'on' or AI then
-					
-                                --LOG("*AI DEBUG Mass Point at distance "..VDist2(armyposition[1],armyposition[3], tblData.position[1], tblData.position[3]).." - Position "..repr(tblData.position).." too near to Start position")
 						
                                 -- fix the X co-ordinate 
                                 if tblData.position[1] < armyposition[1] then
@@ -420,7 +420,7 @@ function CreateResources()
 						
                                 tblData.position[2] = GetTerrainHeight( tblData.position[1], tblData.position[3] )
 						
-                                LOG("*AI DEBUG Mass Point "..repr(i).." moved to 35 "..repr(tblData.position))
+                                LOG("*AI DEBUG Mass Point "..repr(i).." moved to 35 "..repr(tblData.position).." from "..repr(origdistance) )
 							
                                 tblData.hint = true
                                 
