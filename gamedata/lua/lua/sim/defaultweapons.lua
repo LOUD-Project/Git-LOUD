@@ -105,7 +105,8 @@ DefaultProjectileWeapon = Class(Weapon) {
         end
 		
         NumMuzzles = NumMuzzles / LOUDGETN(bp.RackBones)
-		
+
+--[[		
 		if bp.MuzzleSalvoDelay != nil then
 		
 			local totalMuzzleFiringTime = ((NumMuzzles - 1) * bp.MuzzleSalvoDelay)
@@ -117,9 +118,11 @@ DefaultProjectileWeapon = Class(Weapon) {
 				return false
 				
 			end
+
 		else
 			--LOG("*AI DEBUG value is "..repr(bp.MuzzleSalvoDelay).." for "..repr(bp).." on unit "..self.BlueprintID)
 		end
+--]]
 		
         if bp.EnergyChargeForFirstShot == false then
             self.FirstShot = true
@@ -828,6 +831,10 @@ DefaultProjectileWeapon = Class(Weapon) {
                 SetBusy( unit, false )
             end
             
+            if ScenarioInfo.WeaponStateDialog then
+                LOG("*AI DEBUG Weapon RackSalvo Charge waiting "..repr(bp.RackSalvoChargeTime).." seconds" )
+            end
+            
             WaitSeconds(bp.RackSalvoChargeTime)
             
             if bp.NotExclusive then
@@ -1022,6 +1029,10 @@ DefaultProjectileWeapon = Class(Weapon) {
 
                             SetBusy( unit, false )
                         end
+            
+                        if ScenarioInfo.WeaponStateDialog then
+                            LOG("*AI DEBUG Weapon Muzzle Charge Delay waiting "..repr(bp.MuzzleChargeDelay).." seconds" )
+                        end
 						
                         WaitSeconds(bp.MuzzleChargeDelay)
 
@@ -1072,6 +1083,10 @@ DefaultProjectileWeapon = Class(Weapon) {
                             end
 
                             SetBusy( unit, false )
+                        end
+            
+                        if ScenarioInfo.WeaponStateDialog then
+                            LOG("*AI DEBUG Weapon Muzzle Salvo Delay waiting "..repr(bp.MuzzleSalvoDelay).." seconds" )
                         end
 						
                         WaitSeconds(bp.MuzzleSalvoDelay)
@@ -1234,6 +1249,10 @@ DefaultProjectileWeapon = Class(Weapon) {
                 end
 
                 SetBusy( unit, false )
+            end
+            
+            if ScenarioInfo.WeaponStateDialog then
+                LOG("*AI DEBUG Weapon RackSalvo Reload waits for "..repr(bp.RackSalvoReloadTime).." seconds" )
             end
             
             WaitSeconds( bp.RackSalvoReloadTime )
