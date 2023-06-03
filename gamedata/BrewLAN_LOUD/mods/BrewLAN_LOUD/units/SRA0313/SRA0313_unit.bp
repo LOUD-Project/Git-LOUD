@@ -405,7 +405,7 @@ UnitBlueprint {
         },
         {
             Audio = {Fire = Sound {Bank = 'URLWeapon', Cue = 'URB2301_Cannon_Sgl', LodCutoff = 'Weapon_LodCutoff'}},
-            AutoInitiateAttackCommand = true,
+            AutoInitiateAttackCommand = false,
             BallisticArc = 'RULEUBA_None',
 			
             BeamCollisionDelay = 0,
