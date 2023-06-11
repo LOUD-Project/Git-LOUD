@@ -1,4 +1,5 @@
 ProjectileBlueprint {
+
      Audio = {
 		 Impact = Sound {
 			Bank = 'SC2Units',
@@ -15,29 +16,20 @@ ProjectileBlueprint {
 			Cue = 'snd_Cybran_AntiAir_Impact_Water',
 			LodCutoff = 'Weapon_LodCutoff',
 		},
-     },
-    Categories = {
-        'CYBRAN',
-        'PROJECTILE',
-        'ANTIAIR',
     },
+
+    Categories = {
+        'PROJECTILE',
+    },
+
     Display = {
         StrategicIconSize = 1,
     },
-    General = {
-        Category = 'Anti Air',
-        EntityCategory = {
-            'CYBRAN',
-            'PROJECTILE',
-            'ANTIAIR',
-        },
-        Faction = 'Cybran',
-        TechLevel = 1,
-        Weapon = 'Electron Autocannon',
-    },
+
     Interface = {
         HelpText = 0,
     },
+
     Physics = {
         InitialSpeed = 35,
         Lifetime = 1.5,

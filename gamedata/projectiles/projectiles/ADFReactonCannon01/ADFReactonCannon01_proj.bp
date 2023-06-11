@@ -1,4 +1,5 @@
 ProjectileBlueprint {
+
     Audio = {
         Impact = Sound {
             Bank = 'Impacts',
@@ -16,29 +17,20 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+
     Categories = {
-        'AEON',
         'PROJECTILE',
-        'DIRECTFIRE',
     },
+
     Display = {
-        ImpactEffects = {
-            Type = 'Medium02',
-        },
+        ImpactEffects = { Type = 'Medium02' },
         StrategicIconSize = 2,
     },
-    General = {
-        Category = 'Direct Fire',
-        EntityCategory = {
-            'AEON',
-            'PROJECTILE',
-            'DIRECTFIRE',
-        },
-        Faction = 'Aeon',
-    },
+
     Interface = {
         HelpText = 0,
     },
+
     Physics = {
         DestroyOnWater = true,
 

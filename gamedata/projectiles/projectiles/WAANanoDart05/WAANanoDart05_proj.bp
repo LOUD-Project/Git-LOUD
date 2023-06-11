@@ -1,4 +1,5 @@
 ProjectileBlueprint {
+
     Audio = {
         Impact = Sound {
             Bank = 'Impacts',
@@ -16,11 +17,11 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+
     Categories = {
-        'UEF',
         'PROJECTILE',
-        'DIRECTFIRE',
     },
+
     Display = {
         Mesh = {
             LODs = {
@@ -35,20 +36,15 @@ ProjectileBlueprint {
         StrategicIconSize = 1,
         UniformScale = 0.35,
     },
-    General = {
-        Category = 'Direct Fire',
-        Faction = 'UEF',
-        TechLevel = 1,
-        Weapon = 'Nanodart Launcher',
-    },
+
     Interface = {
         HelpText = 0,
     },
+
     Physics = {
         Acceleration = 0.5,
         DestroyOnWater = true,
         InitialSpeed = 20,
-        LeadTarget = false,
         Lifetime = 4,
         MaxSpeed = 20,
         MaxZigZag = 2,

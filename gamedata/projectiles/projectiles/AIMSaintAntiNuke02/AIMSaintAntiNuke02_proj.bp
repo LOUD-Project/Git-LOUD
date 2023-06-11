@@ -1,4 +1,5 @@
 ProjectileBlueprint {
+
     Audio = {
         Impact = Sound {
             Bank = 'Explosions',
@@ -6,12 +7,14 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+
     Categories = {
         'PROJECTILE',
         'ANTIMISSILE',
-        'AEON',
     },
+
     Description = 'AEON Anti Nuclear Missile',
+
     Display = {
         Mesh = {
             LODs = {
@@ -24,14 +27,11 @@ ProjectileBlueprint {
         StrategicIconSize = 1,
         UniformScale = 0.05,
     },
-    General = {
-        Category = 'Defense',
-        Faction = 'Aeon',
-        Weapon = 'EMP Anti Nuke',
-    },
+
     Interface = {
         HelpText = 'AEON Anti Nuclear Missile',
     },
+
     Physics = {
         Acceleration = 30,
         DestroyOnWater = false,

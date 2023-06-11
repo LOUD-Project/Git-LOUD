@@ -1,4 +1,5 @@
 ProjectileBlueprint {
+
     Audio = {
         Impact = Sound {
             Bank = 'Impacts',
@@ -16,21 +17,22 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+
     Categories = {
         'PROJECTILE',
-        'INDIRECTFIRE',
         'TACTICAL',
         'MISSILE',
     },
+
     Defense = {
         Health = 1,
         MaxHealth = 1,
     },
+	
+    DesiredShooterCap = 1,
+
     Display = {
-        ImpactEffects = {
-            Scale = 1,
-            Type = 'Medium03',
-        },
+        ImpactEffects = { Scale = 1, Type = 'Medium03' },
         Mesh = {
             LODs = {
                 {
@@ -44,20 +46,11 @@ ProjectileBlueprint {
         StrategicIconSize = 1,
         UniformScale = 0.3,
     },
-    General = {
-        Category = 'Missile',
-        EntityCategory = {
-            'PROJECTILE',
-            'INDIRECTFIRE',
-            'TACTICAL',
-            'MISSILE',
-        },
-        Faction = 'Cybran',
-        Weapon = 'Iridium Rocket Barrage',
-    },
+
     Interface = {
         HelpText = 0,
     },
+
     Physics = {
         Acceleration = 0,
         DestroyOnWater = true,

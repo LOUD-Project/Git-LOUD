@@ -19,17 +19,14 @@ ProjectileBlueprint {
     },
 	
     Categories = {
-        'CYBRAN',
         'PROJECTILE',
-        'ANTINAVY',
         'TORPEDO',
-		'NOSPLASHDAMAGE',
     },
+    
+    DesiredShooterCap = 1,
 	
     Display = {
-        ImpactEffects = {
-            Type = 'Small01',
-        },
+        ImpactEffects = { Type = 'Small01' },
         Mesh = {
             LODs = {
                 {
@@ -42,13 +39,6 @@ ProjectileBlueprint {
         },
         StrategicIconSize = 1,
         UniformScale = 0.15,
-    },
-	
-    General = {
-        Category = 'Anti Navy',
-        Faction = 'Cybran',
-        TechLevel = 1,
-        Weapon = 'Kril Torpedo',
     },
 	
     Interface = {

@@ -1,4 +1,5 @@
 ProjectileBlueprint {
+
     Audio = {
         Impact = Sound {
             Bank = 'Impacts',
@@ -16,22 +17,23 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+
     Categories = {
         'PROJECTILE',
-        'DIRECTFIRE',
         'TACTICAL',
         'MISSILE',
-        'NOSPLASHDAMAGE',
     },
+
     Defense = {
         Health = 1,
         MaxHealth = 1,
+       
     },
+
+    DesiredShooterCap = 1,
+
     Display = {
-        ImpactEffects = {
-            Scale = 1,
-            Type = 'Large01',
-        },
+        ImpactEffects = { Scale = 1, Type = 'Large01' },
         Mesh = {
             LODs = {
                 {
@@ -45,21 +47,11 @@ ProjectileBlueprint {
         StrategicIconSize = 1,
         UniformScale = 0.05,
     },
-    General = {
-        Category = 'Missile',
-        EntityCategory = {
-            'PROJECTILE',
-            'DIRECTFIRE',
-            'TACTICAL',
-            'MISSILE',
-            'NOSPLASHDAMAGE',
-        },
-        Faction = 'Cybran',
-        Weapon = 'Iridium Tyrant Air-Surface-Missile',
-    },
+
     Interface = {
         HelpText = 0,
     },
+
     Physics = {
         Acceleration = 3,
         DestroyOnWater = true,

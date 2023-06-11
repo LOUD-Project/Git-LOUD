@@ -1,4 +1,5 @@
 ProjectileBlueprint {
+
     Audio = {
         Impact = Sound {
             Bank = 'Impacts',
@@ -16,33 +17,25 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+
     Categories = {
-        'CYBRAN',
         'PROJECTILE',
-        'DIRECTFIRE',
     },
+
     Display = {
-        ImpactEffects = {
-            Scale = 0.3,
-            Type = 'Medium01',
-        },
+        ImpactEffects = { Scale = 0.3, Type = 'Medium01' },
         StrategicIconSize = 2,
     },
-    General = {
-        Category = 'Direct Fire',
-        Faction = 'Cybran',
-        TechLevel = 1,
-        Weapon = 'Heavy Disintegrator Pulse Laser',
-    },
+
     Interface = {
         HelpText = 0,
     },
+
     Physics = {
         DestroyOnWater = true,
         InitialSpeed = 14.6,
         InitialSpeedRange = 3,
         InitialSpeedReduceDistance = 30,
-        LeadTarget = false,
         TurnRate = 360,
         VelocityAlign = true,
     },

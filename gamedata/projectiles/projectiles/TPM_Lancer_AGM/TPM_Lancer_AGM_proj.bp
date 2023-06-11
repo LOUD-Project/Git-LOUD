@@ -1,4 +1,5 @@
 ProjectileBlueprint {
+
     Audio = {
         Impact = Sound {
             Bank = 'Impacts',
@@ -16,21 +17,22 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+
     Categories = {
         'PROJECTILE',
-        'INDIRECTFIRE',
         'TACTICAL',
         'MISSILE',
-        'NOSPLASHDAMAGE',
     },
+
     Defense = {
         Health = 1,
         MaxHealth = 1,
     },
+
+    DesiredShooterCap = 1,
+
     Display = {
-        ImpactEffects = {
-            Type = 'Medium01',
-        },
+        ImpactEffects = { Type = 'Medium01' },
         Mesh = {
             LODs = {
                 {
@@ -42,21 +44,11 @@ ProjectileBlueprint {
         StrategicIconSize = 3,
         UniformScale = 0.15,
     },
-    General = {
-        Category = 'Missile',
-        EntityCategory = {
-            'PROJECTILE',
-            'DIRECTFIRE',
-            'TACTICAL',
-            'MISSILE',
-            'NOSPLASHDAMAGE',
-        },
-        Faction = 'UEF',
-        Weapon = 'Lancer Air-Surface-Missile',
-    },
+
     Interface = {
         HelpText = 0,
     },
+
     Physics = {
         Acceleration = 3,
         DestroyOnWater = true,

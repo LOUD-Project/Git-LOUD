@@ -1,4 +1,5 @@
 ProjectileBlueprint {
+
     Audio = {
         Impact = Sound {
             Bank = 'Impacts',
@@ -16,28 +17,23 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+
     Categories = {
-        'SERAPHIM',
         'PROJECTILE',
-        'ANTINAVY',
         'TORPEDO',
-		'NOSPLASHDAMAGE',
     },
+
+    DesiredShooterCap = 1,
+
     Display = {
-        ImpactEffects = {
-            Type = 'Small01',
-        },
+        ImpactEffects = { Type = 'Small01' },
         StrategicIconSize = 1,
     },
-    General = {
-        Category = 'Anti Navy',
-        Faction = 'Seraphim',
-        TechLevel = 1,
-        Weapon = 'Uall Cavitation Torpedo',
-    },
+
     Interface = {
         HelpText = 0,
     },
+
     Physics = {
         Acceleration = 5,
         DestroyOnWater = false,

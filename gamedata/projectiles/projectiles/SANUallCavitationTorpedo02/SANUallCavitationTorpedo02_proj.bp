@@ -19,22 +19,14 @@ ProjectileBlueprint {
     },
 	
     Categories = {
-        'SERAPHIM',
         'PROJECTILE',
-        'ANTINAVY',
         'TORPEDO',
-		'NOSPLASHDAMAGE',
     },
+    
+    DesiredShooterCap = 1,
 	
     Display = {
         StrategicIconSize = 1,
-    },
-	
-    General = {
-        Category = 'Anti Navy',
-        Faction = 'Seraphim',
-        TechLevel = 1,
-        Weapon = 'Uall Cavitation Torpedo',
     },
 	
     Interface = {

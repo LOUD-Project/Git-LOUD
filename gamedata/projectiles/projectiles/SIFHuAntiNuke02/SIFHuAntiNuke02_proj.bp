@@ -1,4 +1,5 @@
 ProjectileBlueprint {
+
     Audio = {
         Impact = Sound {
             Bank = 'Impacts',
@@ -6,25 +7,23 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+
     Categories = {
         'PROJECTILE',
         'ANTIMISSILE',
-        'SERAPHIM',
     },
+
     Description = 'Seraphim Anti Nuclear Missile',
+
     Display = {
         StrategicIconSize = 1,
         UniformScale = 0.05,
     },
 
-    General = {
-        Category = 'Defense',
-        Faction = 'Seraphim',
-        Weapon = 'Anti Nuke',
-    },
     Interface = {
         HelpText = 'Seraphim Anti Nuclear Missile',
     },
+
     Physics = {
         Acceleration = 30,
         DestroyOnWater = false,

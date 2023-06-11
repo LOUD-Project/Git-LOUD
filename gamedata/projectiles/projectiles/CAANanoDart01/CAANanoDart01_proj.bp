@@ -22,9 +22,7 @@ ProjectileBlueprint {
     },
 	
     Categories = {
-        'CYBRAN',
         'PROJECTILE',
-        'ANTIAIR',
     },
 	
     Display = {
@@ -47,21 +45,6 @@ ProjectileBlueprint {
         UniformScale = 0.16,
     },
 	
-    General = {
-	
-        Category = 'Anti Air',
-		
-        EntityCategory = {
-            'CYBRAN',
-            'PROJECTILE',
-            'ANTIAIR',
-        },
-		
-        Faction = 'Cybran',
-        TechLevel = 1,
-        Weapon = 'Nanodart Launcher',
-    },
-	
     Interface = {
         HelpText = 0,
     },
@@ -70,7 +53,6 @@ ProjectileBlueprint {
         Acceleration = 4,
         DestroyOnWater = true,
         InitialSpeed = 18,
-        LeadTarget = false,
         Lifetime = 3.2,
         MaxSpeed = 40,
         MaxZigZag = 2,

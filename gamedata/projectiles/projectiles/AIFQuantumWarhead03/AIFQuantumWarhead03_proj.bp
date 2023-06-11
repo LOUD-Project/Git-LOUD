@@ -1,4 +1,5 @@
 ProjectileBlueprint {
+
     Audio = {
         ExistLoop = Sound {
             Bank = 'UELWeapon',
@@ -21,47 +22,41 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+
     Categories = {
-        'AEON',
         'PROJECTILE',
-        'INDIRECTFIRE',
         'STRATEGIC',
         'MISSILE',
-        'NOSPLASHDAMAGE',
     },
+
     Defense = {
         Health = 25,
         MaxHealth = 25,
     },
+
     Description = 'AEON Nuclear Missile',
+
     DesiredShooterCap = 1,
+
     Display = {
         CameraFollowTimeout = 5,
         CameraFollowsProjectile = true,
         MeshBlueprint = '/projectiles/AIFQuantumWarhead01/AIFQuantumWarhead01_mesh.bp',
         UniformScale = 0.05,
     },
+
 	DoNotCollideList = { 'SATELLITE', },
+
     Economy = {
         BuildCostEnergy = 1920000,
         BuildCostMass = 19200,
         BuildTime = 518400,
     },
-    General = {
-        Category = 'Missile',
-        EntityCategory = {
-            'AEON',
-            'PROJECTILE',
-            'INDIRECTFIRE',
-            'STRATEGIC',
-            'MISSILE',
-            'NOSPLASHDAMAGE',
-        },
-        Faction = 'Aeon',
-    },
+
     Interface = {
         HelpText = 'AEON Nuclear Missile',
     },
+
     Physics = {
         Acceleration = 3,
         CollideEntity = false,

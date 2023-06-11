@@ -1,4 +1,5 @@
 ProjectileBlueprint {
+
     Audio = {
         ImpactTerrain = Sound {
             Bank = 'Explosions',
@@ -16,47 +17,41 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+
     Categories = {
-        'CYBRAN',
         'PROJECTILE',
-        'INDIRECTFIRE',
         'STRATEGIC',
         'MISSILE',
-        'NOSPLASHDAMAGE',
     },
+
     Defense = {
         Health = 25,
         MaxHealth = 25,
     },
+
     Description = 'CYBRAN Nuclear Missile',
+
     DesiredShooterCap = 1,
+
     Display = {
         CameraFollowTimeout = 5,
         CameraFollowsProjectile = true,
         MeshBlueprint = '/projectiles/CIFEMPFluxWarhead01/CIFEMPFluxWarhead01_mesh.bp',
         UniformScale = 0.35,
     },
+
 	DoNotCollideList = { 'SATELLITE', },
+
     Economy = {
         BuildCostEnergy = 1920000,
         BuildCostMass = 19200,
         BuildTime = 518400,
     },
-    General = {
-        Category = 'Missile',
-        EntityCategory = {
-            'CYBRAN',
-            'PROJECTILE',
-            'INDIRECTFIRE',
-            'STRATEGIC',
-            'MISSILE',
-            'NOSPLASHDAMAGE',
-        },
-        Faction = 'Cybran',
-    },
+
     Interface = {
         HelpText = 'CYBRAN Nuclear Missile',
     },
+
     Physics = {
         Acceleration = 3,
         CollideEntity = false,

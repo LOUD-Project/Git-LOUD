@@ -1,4 +1,5 @@
 ProjectileBlueprint {
+
     Audio = {
         Impact = Sound {
             Bank = 'Impacts',
@@ -16,22 +17,20 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+
     Categories = {
-        'UEF',
         'PROJECTILE',
-        'DIRECTFIRE',
     },
+
     Display = {
         StrategicIconSize = 3,
         UniformScale = 0.75,
     },
-    General = {
-        Category = 'Direct Fire',
-        Weapon = 'Heavy Gauss Cannon',
-    },
+
     Interface = {
         HelpText = 0,
     },
+
     Physics = {
         Acceleration = 0,
         InitialSpeed = 12,

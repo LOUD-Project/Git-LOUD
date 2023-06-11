@@ -1,4 +1,5 @@
 ProjectileBlueprint {
+
     Audio = {
         Impact = Sound {
             Bank = 'Explosions',
@@ -16,19 +17,15 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+
     Categories = {
-        'CYBRAN',
         'PROJECTILE',
-        'INDIRECTFIRE',
-		'STRATEGIC',
     },
+
     Display = {
         CameraFollowTimeout = 2,
         CameraFollowsProjectile = true,
-        ImpactEffects = {
-            Scale = 1.25,
-            Type = 'Large01',
-        },
+        ImpactEffects = { Scale = 1.25, Type = 'Large01' },
         Mesh = {
             LODs = {
                 {
@@ -39,20 +36,11 @@ ProjectileBlueprint {
         StrategicIconSize = 2,
         UniformScale = 0.25,
     },
-    General = {
-        Category = 'Bomb',
-        EntityCategory = {
-            'CYBRAN',
-            'PROJECTILE',
-            'INDIRECTFIRE',
-			'STRATEGIC',
-        },
-        Faction = 'Cybran',
-        Weapon = 'Proton Bomb',
-    },
+
     Interface = {
         HelpText = 0,
     },
+
     Physics = {
 		Acceleration = 14,
         DestroyOnWater = true,

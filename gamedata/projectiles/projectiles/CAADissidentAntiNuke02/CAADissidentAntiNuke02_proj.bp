@@ -1,4 +1,5 @@
 ProjectileBlueprint {
+
     Audio = {
         Impact = Sound {
             Bank = 'Explosions',
@@ -6,13 +7,14 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+
     Categories = {
         'PROJECTILE',
         'ANTIMISSILE',
-        'CYBRAN',
-        'DEFENSE',
     },
+
     Description = 'CYBRAN Anti Nuclear Missile',
+
     Display = {
         Mesh = {
             LODs = {
@@ -25,14 +27,11 @@ ProjectileBlueprint {
         StrategicIconSize = 1,
         UniformScale = 1,
     },
-    General = {
-        Category = 'Defense',
-        Faction = 'Cybran',
-        Weapon = 'EMP Anti Nuke',
-    },
+
     Interface = {
         HelpText = 'CYBRAN Anti Nuclear Missile',
     },
+
     Physics = {
         Acceleration = 30,
         DestroyOnWater = false,

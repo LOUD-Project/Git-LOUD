@@ -1,4 +1,5 @@
 ProjectileBlueprint {
+
     Audio = {
         EnterWater = Sound {
             Bank = 'URAWeapon',
@@ -16,13 +17,14 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+
     Categories = {
-        'UEF',
         'PROJECTILE',
-        'ANTINAVY',
         'TORPEDO',
-        'NOSPLASHDAMAGE',
     },
+
+    DesiredShooterCap = 1,
+
     Display = {
         CameraFollowTimeout = 2,
         CameraFollowsProjectile = true,
@@ -36,14 +38,11 @@ ProjectileBlueprint {
         StrategicIconSize = 1,
         UniformScale = 0.15,
     },
-    General = {
-        Category = 'Anti Navy',
-        Faction = 'UEF',
-        Weapon = 'Angler Torpedo',
-    },
+
     Interface = {
         HelpText = 0,
     },
+
     Physics = {
         Acceleration = 5,
         DestroyOnWater = false,

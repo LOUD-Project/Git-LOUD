@@ -1,4 +1,5 @@
 ProjectileBlueprint {
+
     Audio = {
         Impact = Sound {
             Bank = 'Impacts',
@@ -16,32 +17,31 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+
     Categories = {
         'PROJECTILE',
-        'INDIRECTFIRE',
         'TACTICAL',
         'MISSILE',
-        'NOSPLASHDAMAGE',
     },
+
     Defense = {
         Health = 1,
         MaxHealth = 1,
     },
+
+    DesiredShooterCap = 1,
+
     Display = {
-        ImpactEffects = {
-            Type = 'Medium01',
-        },
+        ImpactEffects = { Type = 'Medium01' },
         MeshBlueprint = '/projectiles/SIFLaanseTacticalMissile01/SIFLaanseTacticalMissile01_mesh.bp',
         StrategicIconSize = 3,
         UniformScale = 0.05,
     },
-    General = {
-        Category = 'Missile',
-        Faction = 'Seraphim',
-    },
+
     Interface = {
         HelpText = 0,
     },
+
     Physics = {
         Acceleration = 3,
         DestroyOnWater = true,

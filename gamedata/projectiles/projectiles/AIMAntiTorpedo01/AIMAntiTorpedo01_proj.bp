@@ -17,7 +17,6 @@ ProjectileBlueprint {
     },
 	
     Categories = {
-        'AEON',
         'PROJECTILE',
         'ANTITORPEDO',
     },
@@ -26,10 +25,6 @@ ProjectileBlueprint {
         MeshBlueprint = '/meshes/projectiles/torpedo_default_mesh.bp',
         StrategicIconSize = 1,
         UniformScale = 0.1,
-    },
-	
-    General = {
-        Category = 'Defense',
     },
 	
     Interface = {

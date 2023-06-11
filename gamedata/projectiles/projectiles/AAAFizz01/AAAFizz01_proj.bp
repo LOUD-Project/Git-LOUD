@@ -1,4 +1,5 @@
 ProjectileBlueprint {
+
     Audio = {
         Impact = Sound {
             Bank = 'Impacts',
@@ -6,30 +7,26 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+
     Categories = {
-        'AEON',
         'PROJECTILE',
-        'ANTIAIR',
     },
+
     Display = {
         StrategicIconSize = 1,
     },
-    General = {
-        Category = 'Anti Air',
-        Faction = 'Aeon',
-        TechLevel = 2,
-        Weapon = 'Fizz Launcher',
-    },
+
     Interface = {
         HelpText = 0,
     },
+
     Physics = {
         CollideEntity = true,
         CollideSurface = true,
         DestroyOnWater = true,
         DetonateAboveHeight = 8,
         InitialSpeed = 20,
-        LeadTarget = false,
+
         RotationalVelocity = 0,
         StayUpright = true,
         UseGravity = false,

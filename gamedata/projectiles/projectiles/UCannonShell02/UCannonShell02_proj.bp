@@ -1,4 +1,5 @@
 ProjectileBlueprint {
+
 	 Audio = {
         Impact = Sound {
             Bank = 'Impacts',
@@ -16,29 +17,21 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+
     Categories = {
-        'UEF',
         'PROJECTILE',
-        'DIRECTFIRE',
     },
+
     Display = {
 		MeshBlueprint = '/projectiles/TDFGauss01/TDFGauss01_mesh.bp',
         StrategicIconSize = 3,
         UniformScale = 0.6,
     },
-    General = {
-        Category = 'Direct Fire',
-        EntityCategory = {
-            'UEF',
-            'PROJECTILE',
-            'DIRECTFIRE',
-        },
-        Faction = 'UEF',
-        Weapon = 'Gauss Cannon',
-    },
+
     Interface = {
         HelpText = 0,
     },
+
     Physics = {
         Acceleration = 0,
         InitialSpeed = 28,

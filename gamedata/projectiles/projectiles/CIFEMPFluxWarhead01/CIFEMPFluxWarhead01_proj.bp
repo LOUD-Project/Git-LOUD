@@ -1,4 +1,5 @@
 ProjectileBlueprint {
+
     Audio = {
         ExistLoop = Sound {
             Bank = 'UELWeapon',
@@ -21,20 +22,22 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+
     Categories = {
-        'CYBRAN',
         'PROJECTILE',
-        'INDIRECTFIRE',
         'STRATEGIC',
         'MISSILE',
-        'NOSPLASHDAMAGE',
     },
+
     Defense = {
         Health = 25,
         MaxHealth = 25,
     },
+
     Description = 'CYBRAN Nuclear Missile',
+
     DesiredShooterCap = 1,
+
     Display = {
         CameraFollowTimeout = 5,
         CameraFollowsProjectile = true,
@@ -48,27 +51,19 @@ ProjectileBlueprint {
         },
         UniformScale = 1,
     },
+
 	DoNotCollideList = { 'SATELLITE', },
+
     Economy = {
         BuildCostEnergy = 1350000,
         BuildCostMass = 16000,
         BuildTime = 324000,
     },
-    General = {
-        Category = 'Missile',
-        EntityCategory = {
-            'CYBRAN',
-            'PROJECTILE',
-            'INDIRECTFIRE',
-            'STRATEGIC',
-            'MISSILE',
-            'NOSPLASHDAMAGE',
-        },
-        Faction = 'Cybran',
-    },
+
     Interface = {
         HelpText = 'CYBRAN Nuclear Missile',
     },
+
     Physics = {
         Acceleration = 3,
         CollideEntity = false,

@@ -1,4 +1,5 @@
 ProjectileBlueprint {
+
     Audio = {
         Impact = Sound {
             Bank = 'Explosions',
@@ -16,11 +17,11 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+
     Categories = {
-        'UEF',
         'PROJECTILE',
-        'INDIRECTFIRE',
     },
+
     Display = {
         CameraFollowTimeout = 2,
         CameraFollowsProjectile = true,
@@ -34,19 +35,11 @@ ProjectileBlueprint {
         StrategicIconSize = 1,
         UniformScale = 0.05,
     },
-    General = {
-        Category = 'Bomb',
-        EntityCategory = {
-            'UEF',
-            'PROJECTILE',
-            'INDIRECTFIRE',
-        },
-        Faction = 'UEF',
-        Weapon = 'Napalm Carpet Bomb',
-    },
+
     Interface = {
         HelpText = 0,
     },
+
     Physics = {
         DestroyOnWater = true,
         MaxSpeed = 20,

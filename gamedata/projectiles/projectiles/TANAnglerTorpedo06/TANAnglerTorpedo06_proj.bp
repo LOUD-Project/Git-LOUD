@@ -20,23 +20,16 @@ ProjectileBlueprint {
     },
 	
     Categories = {
-        'UEF',
         'PROJECTILE',
-        'ANTINAVY',
         'TORPEDO',
-        'NOSPLASHDAMAGE',
     },
+
+    DesiredShooterCap = 1,
 	
     Display = {
         MeshBlueprint = '/projectiles/TANAnglerTorpedo01/TANAnglerTorpedo01_mesh.bp',
         StrategicIconSize = 1,
         UniformScale = 0.15,
-    },
-	
-    General = {
-        Category = 'Anti Navy',
-        Faction = 'UEF',
-        Weapon = 'Angler Torpedo',
     },
 	
     Interface = {

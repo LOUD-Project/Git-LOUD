@@ -23,15 +23,10 @@ ProjectileBlueprint {
     },
 	
     Categories = {
-        'SERAPHIM',
         'PROJECTILE',
-        'ANTINAVY',
-        #'TORPEDO', 
-		'NOSPLASHDAMAGE',
     },
 	
     Display = {
-	
         ImpactEffects = { Type = 'Small01' },
         StrategicIconSize = 1,
     },
@@ -40,13 +35,6 @@ ProjectileBlueprint {
 		'TORPEDO',
 		'PROJECTILE',
 	},
-	
-    General = {
-        Category = 'Anti Navy',
-        Faction = 'Seraphim',
-        TechLevel = 1,
-        Weapon = 'Heavy Cavitation Torpedo',
-    },
 	
     Interface = {
         HelpText = 0,

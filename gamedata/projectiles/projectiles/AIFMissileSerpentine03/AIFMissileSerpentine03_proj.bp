@@ -19,7 +19,6 @@ ProjectileBlueprint {
 	
     Categories = {
         'PROJECTILE',
-        'INDIRECTFIRE',
         'TACTICAL',
         'MISSILE',
     },
@@ -28,6 +27,8 @@ ProjectileBlueprint {
         Health = 2,
         MaxHealth = 2,
     },
+    
+    DesiredShooterCap = 1,
 	
     Display = {
 
@@ -39,11 +40,6 @@ ProjectileBlueprint {
 		
         StrategicIconSize = 2,
         UniformScale = 0.04,
-    },
-	
-    General = {
-        Category = 'Missile',
-        Faction = 'AEON',
     },
 	
     Physics = {

@@ -1,4 +1,5 @@
 ProjectileBlueprint {
+
     Audio = {
         Impact = Sound {
             Bank = 'Impacts',
@@ -19,7 +20,6 @@ ProjectileBlueprint {
 	
     Categories = {
         'PROJECTILE',
-        'INDIRECTFIRE',
         'TACTICAL',
         'MISSILE',
     },
@@ -28,22 +28,17 @@ ProjectileBlueprint {
         Health = 2,
         MaxHealth = 2,
     },
+    
+    DesiredShooterCap = 1,
 	
     Display = {
 	
-        ImpactEffects = {
-            Type = 'Medium01',
-        },
+        ImpactEffects = { Type = 'Medium01' },
 		
         MeshBlueprint = '/projectiles/AIFMissileSerpentine01/AIFMissileSerpentine01_mesh.bp',
 		
         StrategicIconSize = 2,
         UniformScale = 0.04,
-    },
-	
-    General = {
-        Category = 'Missile',
-        Faction = 'AEON',
     },
 	
     Physics = {

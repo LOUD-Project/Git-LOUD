@@ -1,4 +1,5 @@
 ProjectileBlueprint {
+
     Audio = {
         Impact = Sound {
             Bank = 'Explosions',
@@ -6,12 +7,14 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+
     Categories = {
-        'UEF',
         'PROJECTILE',
         'ANTIMISSILE',
     },
+
     Description = 'UEF Anti Nuclear Missile',
+
     Display = {
         Mesh = {
             LODs = {
@@ -24,13 +27,11 @@ ProjectileBlueprint {
         StrategicIconSize = 1,
         UniformScale = 1.2,
     },
-    General = {
-        Category = 'Defense',
-        Faction = 'UEF',
-    },
+
     Interface = {
         HelpText = 'UEF Anti Nuclear Missile',
     },
+
     Physics = {
         Acceleration = 30,
         DestroyOnWater = false,

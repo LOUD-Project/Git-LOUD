@@ -19,21 +19,12 @@ ProjectileBlueprint {
     },
 	
     Categories = {
-        'SERAPHIM',
         'PROJECTILE',
-        'ANTIAIR',
     },
 	
     Display = {
         ImpactEffects = { Type = 'Small01' },
         StrategicIconSize = 1,
-    },
-	
-    General = {
-        Category = 'Anti Air',
-        Faction = 'Seraphim',
-        TechLevel = 1,
-        Weapon = 'Seraphim Shleo Gatling Gun',
     },
 	
     Interface = {
@@ -45,7 +36,6 @@ ProjectileBlueprint {
         InitialSpeed = 48,
         InitialSpeedRange = 3,
         InitialSpeedReduceDistance = 30,
-        LeadTarget = false,
 		Lifetime = 1,
         TurnRate = 360,
         UseGravity = false,

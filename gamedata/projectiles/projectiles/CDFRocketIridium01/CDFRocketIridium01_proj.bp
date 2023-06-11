@@ -1,4 +1,5 @@
 ProjectileBlueprint {
+
     Audio = {
         Impact = Sound {
             Bank = 'Impacts',
@@ -16,16 +17,13 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+
     Categories = {
-        'CYBRAN',
         'PROJECTILE',
-        'DIRECTFIRE',
     },
+
     Display = {
-        ImpactEffects = {
-            Scale = 0.4,
-            Type = 'Medium03',
-        },
+        ImpactEffects = { Scale = 0.4, Type = 'Medium03' },
         Mesh = {
             LODs = {
                 {
@@ -39,19 +37,11 @@ ProjectileBlueprint {
         StrategicIconSize = 1,
         UniformScale = 0.3,
     },
-    General = {
-        Category = 'Direct Fire',
-        EntityCategory = {
-            'CYBRAN',
-            'PROJECTILE',
-            'DIRECTFIRE',
-        },
-        Faction = 'Cybran',
-        Weapon = 'Iridium Rocket Pack',
-    },
+
     Interface = {
         HelpText = 0,
     },
+
     Physics = {
         Acceleration = 0,
         DestroyOnWater = true,

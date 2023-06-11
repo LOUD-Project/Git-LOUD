@@ -15,16 +15,15 @@ ProjectileBlueprint {
     },
 	
     Categories = {
-        'AEON',
         'PROJECTILE',
-        'ANTINAVY',
         'TORPEDO',
-        'NOSPLASHDAMAGE',
     },
 	
     Defense = {
         Health = 1,
     },
+	
+    DesiredShooterCap = 1,
 	
     Display = {
         Mesh = {
@@ -38,19 +37,6 @@ ProjectileBlueprint {
         },
         StrategicIconSize = 1,
         UniformScale = 0.05,
-    },
-	
-    General = {
-        Category = 'Anti Navy',
-        EntityCategory = {
-            'AEON',
-            'PROJECTILE',
-            'ANTINAVY',
-            'TORPEDO',
-            'NOSPLASHDAMAGE',
-        },		
-        Faction = 'Aeon',
-        Weapon = 'Chrono Torpedo',
     },
 	
     Interface = {

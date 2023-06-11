@@ -1,4 +1,5 @@
 ProjectileBlueprint {
+
     Audio = {
         Impact = Sound {
             Bank = 'Impacts',
@@ -6,32 +7,25 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+
     Categories = {
-        'SERAPHIM',
         'PROJECTILE',
-        'ANTIAIR',
     },
+
     Display = {
-        ImpactEffects = {
-            Type = 'Small01',
-        },
+        ImpactEffects = { Type = 'Small01' },
         StrategicIconSize = 2,
     },
-    General = {
-        Category = 'Anti Air',
-        Faction = 'Seraphim',
-        TechLevel = 1,
-        Weapon = 'Losaare AA Autocannon',
-    },
+
     Interface = {
         HelpText = 0,
     },
+
     Physics = {
         CollideEntity = true,
         CollideSurface = true,
         DestroyOnWater = true,
         InitialSpeed = 20,
-        LeadTarget = false,
         RotationalVelocity = 0,
         StayUpright = true,
         UseGravity = false,

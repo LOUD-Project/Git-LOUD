@@ -28,23 +28,12 @@ ProjectileBlueprint {
 	-- torpedo defenses while it's still in the air --
 	
     Categories = {
-        'SERAPHIM',
         'PROJECTILE',
-        'ANTINAVY',
-		-- 'TORPEDO',
-		'NOSPLASHDAMAGE',
     },
 	
     Display = {
         ImpactEffects = { Type = 'Small01' },
         StrategicIconSize = 1,
-    },
-	
-    General = {
-        Category = 'Anti Navy',
-        Faction = 'Seraphim',
-        TechLevel = 1,
-        Weapon = 'Heavy Cavitation Torpedo',
     },
 	
     Interface = {

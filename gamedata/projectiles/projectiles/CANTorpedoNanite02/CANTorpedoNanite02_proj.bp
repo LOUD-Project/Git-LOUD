@@ -1,4 +1,5 @@
 ProjectileBlueprint {
+
     Audio = {
         EnterWater = Sound {
             Bank = 'URAWeapon',
@@ -16,16 +17,18 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+    
     Categories = {
-        'CYBRAN',
         'PROJECTILE',
-        'ANTINAVY',
         'TORPEDO',
-        'NOSPLASHDAMAGE',
     },
+    
     Defense = {
         Health = 1,
     },
+    
+    DesiredShooterCap = 1,
+    
     Display = {
         CameraFollowTimeout = 2,
         CameraFollowsProjectile = true,
@@ -40,21 +43,11 @@ ProjectileBlueprint {
         StrategicIconSize = 1,
         UniformScale = 0.3,
     },
-    General = {
-        Category = 'Anti Navy',
-        EntityCategory = {
-            'CYBRAN',
-            'PROJECTILE',
-            'ANTINAVY',
-            'TORPEDO',
-            'NOSPLASHDAMAGE',
-        },
-        Faction = 'Cybran',
-        Weapon = 'Nanite Torpedo',
-    },
+    
     Interface = {
         HelpText = 0,
     },
+    
     Physics = {
         Acceleration = 5,
         DestroyOnWater = false,

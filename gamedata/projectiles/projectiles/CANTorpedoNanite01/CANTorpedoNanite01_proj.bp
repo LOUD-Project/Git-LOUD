@@ -1,4 +1,5 @@
 ProjectileBlueprint {
+
     Audio = {
         Impact = Sound {
             Bank = 'Impacts',
@@ -13,16 +14,15 @@ ProjectileBlueprint {
     },
 	
     Categories = {
-        'CYBRAN',
         'PROJECTILE',
-        'ANTINAVY',
         'TORPEDO',
-        'NOSPLASHDAMAGE',
     },
 	
     Defense = {
         Health = 1,
     },
+    
+    DesiredShooterCap = 1,
 	
     Display = {
         Mesh = {
@@ -37,12 +37,6 @@ ProjectileBlueprint {
         },
         StrategicIconSize = 1,
         UniformScale = 0.25,
-    },
-	
-    General = {
-        Category = 'Anti Navy',
-        Faction = 'Cybran',
-        Weapon = 'Nanite Torpedo',
     },
 	
     Interface = {

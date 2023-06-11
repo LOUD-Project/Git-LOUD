@@ -1,4 +1,5 @@
 ProjectileBlueprint {
+
     Audio = {
         ExistLoop = Sound {
             Bank = 'UELWeapon',
@@ -21,20 +22,22 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+
     Categories = {
-        'SERAPHIM',
         'PROJECTILE',
-        'INDIRECTFIRE',
         'STRATEGIC',
         'MISSILE',
-        'NOSPLASHDAMAGE',
     },
+
     Defense = {
         Health = 25,
         MaxHealth = 25,
     },
+
     Description = 'Seraphim Inferno Strategic Missile',
+
     DesiredShooterCap = 1,
+
     Display = {
         CameraFollowTimeout = 5,
         CameraFollowsProjectile = true,
@@ -50,27 +53,19 @@ ProjectileBlueprint {
         },
         UniformScale = 0.015,
     },
+
 	DoNotCollideList = { 'SATELLITE', },
+
     Economy = {
         BuildCostEnergy = 2160000,
         BuildCostMass = 21600,
         BuildTime = 583200,
     },
-    General = {
-        Category = 'Missile',
-        EntityCategory = {
-            'SERAPHIM',
-            'PROJECTILE',
-            'INDIRECTFIRE',
-            'STRATEGIC',
-            'MISSILE',
-            'NOSPLASHDAMAGE',
-        },
-        Faction = 'Seraphim',
-    },
+
     Interface = {
         HelpText = 'Seraphim Inferno Strategic Missile',
     },
+
     Physics = {
         Acceleration = 3,
         CollideEntity = false,

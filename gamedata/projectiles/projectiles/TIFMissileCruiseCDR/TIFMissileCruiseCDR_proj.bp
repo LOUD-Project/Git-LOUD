@@ -18,18 +18,17 @@ ProjectileBlueprint {
     },
 
     Categories = {
-        'UEF',
         'PROJECTILE',
-        'INDIRECTFIRE',
         'TACTICAL',
         'MISSILE',
-        'NOSPLASHDAMAGE',
     },
 
     Defense = {
         Health = 3,
         MaxHealth = 3,
     },
+    
+    DesiredShooterCap = 1,
 
     Display = {
         CameraFollowTimeout = 2,
@@ -51,10 +50,6 @@ ProjectileBlueprint {
         BuildCostEnergy = 4300,
         BuildCostMass = 180,
         BuildTime = 430,
-    },
-
-    General = {
-        Faction = 'UEF',
     },
 
     Physics = {

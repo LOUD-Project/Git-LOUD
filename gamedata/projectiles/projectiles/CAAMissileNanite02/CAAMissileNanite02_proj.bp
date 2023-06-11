@@ -1,4 +1,5 @@
 ProjectileBlueprint {
+
     Audio = {
         Impact = Sound {
             Bank = 'Impacts',
@@ -16,37 +17,28 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+
     Categories = {
-        'CYBRAN',
         'PROJECTILE',
-        'ANTIAIR',
         'MISSILE',
     },
+
+    DesiredShooterCap = 1,
+
     Display = {
         MeshBlueprint = '/projectiles/CAAMissileNanite01/CAAMissileNanite01_mesh.bp',
         StrategicIconSize = 2,
         UniformScale = 0.25,
     },
-    General = {
-        Category = 'Anti Air',
-        EntityCategory = {
-            'CYBRAN',
-            'PROJECTILE',
-            'ANTIAIR',
-            'MISSILE',
-        },
-        Faction = 'Cybran',
-        TechLevel = 3,
-        Weapon = 'Nanite Missile System',
-    },
+
     Interface = {
         HelpText = 0,
     },
+
     Physics = {
         Acceleration = 30,
         DestroyOnWater = true,
         InitialSpeed = 40,
-        LeadTarget = false,
         Lifetime = 3,
         MaxSpeed = 100,
         MaxZigZag = 5,

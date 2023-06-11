@@ -16,17 +16,12 @@ ProjectileBlueprint {
     },
 	
     Categories = {
-        'SERAPHIM',
         'PROJECTILE',
         'ANTITORPEDO',
     },
 	
     Display = {
         StrategicIconSize = 1,
-    },
-	
-    General = {
-        Category = 'Defense',
     },
 	
     Interface = {

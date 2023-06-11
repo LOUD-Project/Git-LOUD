@@ -19,16 +19,15 @@ ProjectileBlueprint {
     },
 	
     Categories = {
-        'AEON',
         'PROJECTILE',
-        'ANTINAVY',
 		'TORPEDO',
-        'NOSPLASHDAMAGE',
     },
 	
     Defense = {
         Health = 1,
     },
+	
+    DesiredShooterCap = 1,
 	
     Display = {
         CameraFollowTimeout = 2,
@@ -44,12 +43,6 @@ ProjectileBlueprint {
         },
         StrategicIconSize = 1,
         UniformScale = 0.05,
-    },
-	
-    General = {
-        Category = 'Anti Navy',
-        Faction = 'Aeon',
-        Weapon = 'Torpedo Cluster',
     },
 	
     Interface = {

@@ -1,4 +1,5 @@
 ProjectileBlueprint {
+
     Audio = {
         Impact = Sound {
             Bank = 'Impacts',
@@ -16,34 +17,27 @@ ProjectileBlueprint {
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
+
     Categories = {
-        'SERAPHIM',
         'PROJECTILE',
-        'DIRECTFIRE',
     },
+
     Display = {
-        ImpactEffects = {
-            Type = 'Medium01',
-        },
+        ImpactEffects = { Type = 'Medium01' },
         StrategicIconSize = 1,
     },
-    General = {
-        Category = 'Direct Fire',
-        Faction = 'Seraphim',
-        TechLevel = 1,
-        Weapon = 'Chronatron Cannon',
-    },
+
     Interface = {
         HelpText = 0,
     },
+
     Physics = {
         DestroyOnWater = true,
         InitialSpeed = 14.6,
         InitialSpeedRange = 3,
         InitialSpeedReduceDistance = 30,
-        LeadTarget = false,
         RotationalVelocity = 9000,
-	TrackTarget = true,
+        TrackTarget = true,
         TurnRate = 60,
         VelocityAlign = true,
     },

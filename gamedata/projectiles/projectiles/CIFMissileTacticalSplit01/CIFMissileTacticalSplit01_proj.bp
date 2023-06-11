@@ -1,18 +1,17 @@
 ProjectileBlueprint {
 
     Categories = {
-        'CYBRAN',
         'PROJECTILE',
-        'INDIRECTFIRE',
         'TACTICAL',
         'MISSILE',
-        'NOSPLASHDAMAGE',
     },
 	
     Defense = {
         Health = 1,
         MaxHealth = 1,
     },
+    
+    DesiredShooterCap = 1,
 	
     Display = {
         CameraFollowTimeout = 2,
@@ -30,19 +29,6 @@ ProjectileBlueprint {
         },
         StrategicIconSize = 2,
         UniformScale = 0.1,
-    },
-	
-    General = {
-        Category = 'Missile',
-        EntityCategory = {
-            'CYBRAN',
-            'PROJECTILE',
-            'INDIRECTFIRE',
-            'TACTICAL',
-            'MISSILE',
-            'NOSPLASHDAMAGE',
-        },
-        Faction = 'Cybran',
     },
 	
     Interface = {

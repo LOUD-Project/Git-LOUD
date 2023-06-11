@@ -14,15 +14,15 @@ ProjectileBlueprint {
     },
 	
     Categories = {
-        'AEON',
         'PROJECTILE',
 		'TORPEDO',
-        'ANTINAVY',
     },
 	
     Defense = {
         Health = 1,
     },
+	
+    DesiredShooterCap = 1,
 	
     Display = {
         Mesh = {
@@ -41,12 +41,6 @@ ProjectileBlueprint {
 	
     DoNotCollideList = {
         'TORPEDO',
-    },
-	
-    General = {
-        Category = 'Anti Navy',
-        Faction = 'Aeon',
-        Weapon = 'Harmonic Depth Charge',
     },
 	
     Interface = {
