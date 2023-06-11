@@ -5381,7 +5381,7 @@ Unit = Class(moho.unit_methods) {
             
             teleportenergy = teleportenergy * ((2 * (math.cos( (3.14*teledistance)/400) )) + 3)
             
-            LOG("*AI DEBUG Teleport dist "..teledistance.." range mod is ".. (2 * (math.cos( (3.14*teledistance)/400) )) + 3 )
+            LOG("*AI DEBUG Teleport dist "..teledistance.." range mod is ".. ((2 * (math.cos( (3.14*teledistance)/400) )) + 3).." E required is "..teleportenergy )
             
             local buildrate = teleporter:GetBuildRate()
 
@@ -5397,6 +5397,8 @@ Unit = Class(moho.unit_methods) {
 			LOG('*AI DEBUG Teleporting value '..repr(teleportenergy)..'  time = '..repr(teleporttime).."  will be using "..repr(teleportenergy/teleporttime).."E per second" )
 			
         end
+        
+        self:SetMaintenanceConsumptionInactive()
 
         self.TeleportDrain = CreateEconomyEvent(self, teleportenergy or 10000, 0, teleporttime or 15, self.UpdateTeleportProgress)
 
@@ -5405,13 +5407,15 @@ Unit = Class(moho.unit_methods) {
 
         WaitFor( self.TeleportDrain  ) 		-- Perform fancy Teleportation FX here
 
+        self:SetMaintenanceConsumptionActive()        
+        
         if self.TeleportDrain then
 		
             RemoveEconomyEvent(self, self.TeleportDrain )
 			
             self.TeleportDrain = nil
         end
-        
+
 		FloatingEntityText(self.EntityID,'Starting Cooldown..')
 
         EffectUtilities.PlayTeleportOutEffects(self)
