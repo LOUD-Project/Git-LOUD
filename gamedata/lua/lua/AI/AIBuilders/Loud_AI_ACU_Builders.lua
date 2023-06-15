@@ -53,6 +53,17 @@ end
 -- this is kind of costly - best if any of those enhancements just flagged the brain
 -- since this is intended to be used just on an ACU - but I think best would be
 -- if the unit itself was flagged - ie. unit.BuildsT3
+local CDRbuildsT2 = function( self, aiBrain, unit )		
+
+    if self.Priority == 10 then
+        if unit:HasEnhancement('T2Engineering') or unit:HasEnhancement('T3Engineering') or unit:HasEnhancement('AdvancedEngineering') or unit:HasEnhancement('EXAdvancedEngineering') or unit:HasEnhancement('EXExperimentalEngineering') then
+            return 760, false
+        end
+    end
+
+	return self.Priority, false
+end
+
 local CDRbuildsT3 = function( self, aiBrain, unit )		
 
     if self.Priority == 10 then
@@ -67,7 +78,7 @@ end
 -- This is mostly for the players that rush him but this should also effect how prepared his bases are.
 local IsEnemyCrushingLand = function( builder, aiBrain, unit )
 
-    if aiBrain.LandRatio <= 1.0 and aiBrain.CycleTime > 300 then
+    if aiBrain.LandRatio <= 1.5 and aiBrain.CycleTime > 300 then
 
 		return builder.Priority + 100, true	
 
@@ -674,6 +685,8 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
         PlatoonTemplate = 'CommanderBuilder',
         
 		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+        
+        InstanceCount = 1,
 		
 		PlatoonAIPlan = 'EngineerBuildAI',
 		
@@ -797,6 +810,89 @@ BuilderGroup {BuilderGroupName = 'ACU Tasks',
         }
     },	
 
+    Builder {BuilderName = 'CDR T2 Base Defense - PD',
+	
+        PlatoonTemplate = 'EngineerBuilder',
+        
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+		
+		InstanceCount = 1,
+		
+        Priority = 10,      -- becomes 760 when ACU is enhanced
+
+        PriorityFunction = CDRbuildsT2,
+		
+        BuilderConditions = {
+
+            { LUTL, 'UnitCapCheckLess', { .65 } },
+
+            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},            
+
+            { LUTL, 'LandStrengthRatioLessThan', { 3 } }, 
+
+			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 20, categories.STRUCTURE * categories.DIRECTFIRE * categories.TECH2, 15, 42 }},
+        },
+		
+        BuilderType = {'Commander'},
+		
+        BuilderData = {
+            
+            Construction = {
+				NearBasePerimeterPoints = true,
+				ThreatMax = 100,
+				
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
+				BaseTemplate = 'BaseDefenseLayout',
+				
+                BuildStructures = {'T2GroundDefense'},
+            }
+        }
+    },
+
+    Builder {BuilderName = 'CDR T3 Base Defense - PD',
+	
+        PlatoonTemplate = 'EngineerBuilder',
+
+		PlatoonAddFunctions = { { LUTL, 'NameEngineerUnits'}, },
+        
+        InstanceCount = 1,
+		
+        Priority = 10,      -- becomes 780 when ACU is T3
+
+        PriorityFunction = CDRbuildsT3,
+		
+        BuilderConditions = {
+
+            { LUTL, 'UnitCapCheckLess', { .80 } },
+            
+            { MIBC, 'BaseInPlayableArea', { 'LocationType' }},
+            
+			{ LUTL, 'GreaterThanEnergyIncome', { 12600 }},
+            
+            { LUTL, 'LandStrengthRatioLessThan', { 3 } }, 
+
+			{ EBC, 'GreaterThanEconStorageCurrent', { 400, 5000 }},
+
+            { UCBC, 'UnitsLessAtLocationInRange', { 'LocationType', 18, categories.STRUCTURE * categories.DIRECTFIRE * categories.TECH3, 15, 42 }},
+        },
+		
+        BuilderType = { 'Commander'},
+		
+        BuilderData = {
+			
+            Construction = {
+				NearBasePerimeterPoints = true,
+				ThreatMax = 100,
+				
+				BaseTemplateFile = '/lua/ai/aibuilders/Loud_MAIN_Base_templates.lua',
+				BaseTemplate = 'BaseDefenseLayout',
+				
+                BuildStructures = {'T3GroundDefense'},
+            }
+        }
+    },
 
 }
 
