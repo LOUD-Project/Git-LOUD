@@ -133,7 +133,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.4,
     },
 
@@ -289,11 +288,13 @@ UnitBlueprint {
                 },
             },
             RackFireTogether = true,
+
             RackRecoilDistance = -1,
+
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
@@ -384,11 +385,13 @@ UnitBlueprint {
                 },
             },
             RackFireTogether = true,
+
             RackRecoilDistance = -1,
+
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 
             RateOfFire = 1,							-- 360 DPS Surface
@@ -477,11 +480,13 @@ UnitBlueprint {
                 },
             },
             RackFireTogether = true,
+
             RackRecoilDistance = -1,
+
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 
             RateOfFire = 1,							-- 360 DPS
@@ -571,11 +576,13 @@ UnitBlueprint {
                 },
             },
             RackFireTogether = true,
+
             RackRecoilDistance = -1,
+
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 
             RateOfFire = 1,							-- 360 DPS
@@ -661,9 +668,6 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -0.5,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_AntiAir',
 
@@ -745,9 +749,6 @@ UnitBlueprint {
             },
             
             RackRecoilDistance = -0.5,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 2,		-- 66 DPS Air
 
@@ -828,9 +829,6 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -0.5,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 2,		-- 66 DPS Air
 
@@ -910,9 +908,6 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -0.5,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 1,		-- 66 DPS Air
 
@@ -988,11 +983,6 @@ UnitBlueprint {
                     RackBone = 'Front_Left_AAC_Rotator',
                 },
             },
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoFiresAfterCharge = false,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 1,		-- 162 DPS Air
 
@@ -1069,10 +1059,10 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
+
+
             RackSalvoFiresAfterCharge = false,
-            RackSalvoReloadTime = 0,
+             
 
             RateOfFire = 1,
 
@@ -1148,10 +1138,10 @@ UnitBlueprint {
                 },
             },
             
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
+
+
             RackSalvoFiresAfterCharge = false,
-            RackSalvoReloadTime = 0,
+             
 
             RateOfFire = 1,
             
@@ -1228,10 +1218,10 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
+
+
             RackSalvoFiresAfterCharge = false,
-            RackSalvoReloadTime = 0,
+             
 
             RateOfFire = 1,
             

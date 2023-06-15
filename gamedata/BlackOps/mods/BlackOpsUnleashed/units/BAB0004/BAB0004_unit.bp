@@ -8,7 +8,6 @@ UnitBlueprint {
 	
     Categories = {
 		'UNTARGETABLE',
-        'AEON',
         'INSIGNIFICANTUNIT',
         'ANTITELEPORT',
     },
@@ -52,8 +51,6 @@ UnitBlueprint {
         Icon = 'land',
         UnitWeight = 1,
     },
-	
-    LifeBarRender = false,
 	
     Physics = {
         BankingSlope = 0,

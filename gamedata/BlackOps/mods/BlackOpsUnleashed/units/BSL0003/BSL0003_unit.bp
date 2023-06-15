@@ -1,9 +1,7 @@
 UnitBlueprint {
 
     AI = {
-		TargetBones = {
-            'Body',
-		},
+		TargetBones = {'Body'},
     },
 	
     Audio = {
@@ -76,7 +74,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         TransportAnimation = {
             {
                 Animation = '/units/XSL0202/XSL0202_afold.sca',
@@ -218,24 +215,19 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_Muzzle',
-                    },
+                    MuzzleBones = {'Right_Muzzle'},
                     RackBone = 'Right_Arm',
                 },
                 {
-                    MuzzleBones = {
-                        'Left_Muzzle',
-                    },
+                    MuzzleBones = {'Left_Muzzle'},
                     RackBone = 'Left_Arm',
                 },
             },
-            RackFireTogether = false,
             
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',

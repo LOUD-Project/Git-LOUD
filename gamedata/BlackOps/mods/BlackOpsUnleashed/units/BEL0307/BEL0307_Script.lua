@@ -53,7 +53,7 @@ BEL0307 = Class(TLandUnit) {
                     self.SpinManip = CreateRotator(self.unit, 'Left_Gat_Rotator', 'z', nil, 270, 180, 60)
                     self.unit.Trash:Add(self.SpinManip)
                 end
-                
+   
                 if self.SpinManip then
                     self.SpinManip:SetTargetSpeed(500)
                 end
@@ -62,7 +62,7 @@ BEL0307 = Class(TLandUnit) {
                     self.SpinManip2 = CreateRotator(self.unit, 'Right_Gat_Rotator', 'z', nil, -270, 180, -60)
                     self.unit.Trash:Add(self.SpinManip2)
                 end
-                
+   
                 if self.SpinManip2 then
                     self.SpinManip2:SetTargetSpeed(-500)
                 end

@@ -8,6 +8,7 @@ UnitBlueprint {
 			'Back_Turret01',
 		},
     },
+
     Audio = {
         Killed = Sound {
             Bank = 'XSS_Destroy',
@@ -121,7 +122,7 @@ UnitBlueprint {
                 },
             },
         },
-        SpawnRandomRotation = true,
+
         UniformScale = 0.03,
     },
 	
@@ -254,20 +255,13 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Front_Turret01_Muzzle',
-                    },
+                    MuzzleBones = {'Front_Turret01_Muzzle'},
                     RackBone = 'Front_Turret01_Barrel',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -1,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 1,		-- 1 Shot every 2.5 seconds = 196 DPS - controlled by charge
@@ -350,14 +344,13 @@ UnitBlueprint {
                     RackBone = 'Front_Turret02_Barrel',
                 },
             },
-            RackFireTogether = false,
+             
             RackRecoilDistance = -1,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
+
             RateOfFire = 0.4,		-- fires every 2.5 seconds by charge -- 196 DPS
 			
             TargetCheckInterval = 4.0,
@@ -433,9 +426,8 @@ UnitBlueprint {
             },
             RackFireTogether = true,
             RackRecoilDistance = -0.5,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 			

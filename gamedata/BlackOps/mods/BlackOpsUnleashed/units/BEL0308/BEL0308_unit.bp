@@ -81,8 +81,6 @@ UnitBlueprint {
                 },
             },
         },
-
-        SpawnRandomRotation = true,
 		
         TransportAnimation = {
             {
@@ -243,9 +241,8 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -2,
+
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -332,9 +329,6 @@ UnitBlueprint {
             },
 			
             RackRecoilDistance = -0.2,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_DirectFire',
 			

@@ -43,8 +43,8 @@ BEA0402 = Class(TAirUnit) {
                     self.SpinManip = CreateRotator(self.unit, 'Gat_Rotator_2', 'z', nil, 270, 180, 60)
                     self.unit.Trash:Add(self.SpinManip)
                 end
-                
-                if self.SpinManip then
+   
+   if self.SpinManip then
                     self.SpinManip:SetTargetSpeed(500)
                 end
                 CitadelPlasmaGatlingCannonWeapon.PlayFxWeaponUnpackSequence(self)
@@ -80,8 +80,8 @@ BEA0402 = Class(TAirUnit) {
                     self.SpinManip = CreateRotator(self.unit, 'Gat_Rotator_1', 'z', nil, 270, 180, 60)
                     self.unit.Trash:Add(self.SpinManip)
                 end
-                
-                if self.SpinManip then
+   
+   if self.SpinManip then
                     self.SpinManip:SetTargetSpeed(500)
                 end
                 CitadelPlasmaGatlingCannonWeapon.PlayFxWeaponUnpackSequence(self)

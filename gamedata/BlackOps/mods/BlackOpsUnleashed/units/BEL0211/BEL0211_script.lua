@@ -6,8 +6,6 @@ BEL0211 = Class(TLandUnit) {
     Weapons = {
         Flamer = Class(TDFMachineGunWeapon) {},
     },
-    
-
 }
 
 TypeClass = BEL0211

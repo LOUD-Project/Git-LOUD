@@ -87,7 +87,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.11,
     },
 	
@@ -233,14 +232,6 @@ UnitBlueprint {
                     RackBone = 'Right_Turret_Muzzle',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-			
-            RackSlavedToTurret = false,
 
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -327,13 +318,6 @@ UnitBlueprint {
                     RackBone = 'Left_Turret_Muzzle',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 
             RateOfFire = 3,		-- 54 dps
 			

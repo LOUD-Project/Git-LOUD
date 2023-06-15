@@ -25,11 +25,11 @@ BSL0004 = Class(SLandUnit) {
                 while not self.unit:IsDead() and self.unit:IsUnitState('Busy') do
                     WaitTicks(12)
                 end
-                
+   
                 if self.unit:IsDead() then
                     return
                 end
-                
+   
                 local bp = __blueprints[self.BlueprintID]
 
                 if bp.WeaponUnpacks then

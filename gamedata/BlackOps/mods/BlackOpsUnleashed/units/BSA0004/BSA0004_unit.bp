@@ -97,7 +97,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = false,
         UniformScale = 0.45,
     },
 	
@@ -220,20 +219,11 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Beam_Muzzle01',
-                    },
+                    MuzzleBones = {'Beam_Muzzle01'},
                     RackBone = 'Beam_Muzzle01',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 0.5,		-- 50 DPS Air

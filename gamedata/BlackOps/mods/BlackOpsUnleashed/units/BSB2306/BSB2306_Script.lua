@@ -6,8 +6,7 @@ local SDFHeavyQuarnonCannon = SeraphimWeapons.SDFHeavyQuarnonCannon
 
 BSB2306 = Class(SStructureUnit) {
     Weapons = {
-        Turret = Class(SDFHeavyQuarnonCannon) {
-       },
+        Turret = Class(SDFHeavyQuarnonCannon) {},
     },
 }
 

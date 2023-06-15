@@ -153,7 +153,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.055,
     },
 	
@@ -279,6 +278,7 @@ UnitBlueprint {
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
+            
             Damage = 110,
             DamageRadius = 1,
             DamageType = 'Normal',
@@ -311,14 +311,9 @@ UnitBlueprint {
                     RackBone = 'front_middle_barrel01',
                 },
             },
-            RackFireTogether = false,
+             
             RackRecoilDistance = -1.5,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 0.5,		-- 110DPS Surface
@@ -410,19 +405,21 @@ UnitBlueprint {
                     RackBone = 'front_barrel',
                 },
             },
-            RackFireTogether = false,
+             
             RackRecoilDistance = -1,
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
+            
+
             RangeCategory = 'UWRC_DirectFire',
 			
 			RateOfFire = 1,		-- 110 DPS Surface
 			
             SlavedToBody = true,
             SlavedToBodyArcRange = 120,
+
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -445,12 +442,15 @@ UnitBlueprint {
             TurretBonePitch = 'front_barrel',
             TurretBoneYaw = 'front_turret01',
             TurretDualManipulators = false,
+
             TurretPitch = 0,
             TurretPitchRange = 45,
             TurretPitchSpeed = 45,
+
             TurretYaw = 0,
             TurretYawRange = 135,
             TurretYawSpeed = 50,
+
             Turreted = true,
         },
         {
@@ -516,14 +516,7 @@ UnitBlueprint {
                     RackBone = 'right_barrel',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 0.5,	-- 200 DPS Surface
@@ -629,14 +622,7 @@ UnitBlueprint {
                     RackBone = 'left_barrel',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 0.5,		-- 200 DPS Surface
@@ -715,14 +701,7 @@ UnitBlueprint {
                     RackBone = 'launcher_barrel',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 0.8,		-- 480 DPS Air
@@ -748,9 +727,11 @@ UnitBlueprint {
             TurretPitch = 35,
             TurretPitchRange = 80,
             TurretPitchSpeed = 180,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 50,
+
             Turreted = true,
         },
         {
@@ -791,20 +772,11 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Zapper_Muzzle',
-                    },
+                    MuzzleBones = {'Zapper_Muzzle'},
                     RackBone = 'zapper',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_Countermeasure',
 			
             RateOfFire = 0.65,
@@ -881,14 +853,7 @@ UnitBlueprint {
                     RackBone = 'launcher_barrel',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 0.5,		-- 180DPS Surface
@@ -913,13 +878,16 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE',
             ToggleWeapon = 'AAGun',
             TrackingRadius = 1.2,
+
             TurretBoneMuzzle = 'Right_Launcher_Muzzle01',
             TurretBonePitch = 'launcher_barrel',
             TurretBoneYaw = 'launcher_turret',
             TurretDualManipulators = false,
+
             TurretPitch = 35,
             TurretPitchRange = 40,
             TurretPitchSpeed = 180,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 180,
@@ -970,13 +938,6 @@ UnitBlueprint {
                     RackBone = 'Torp01',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
             
             RangeCategory = 'UWRC_AntiNavy',
 			
@@ -1040,14 +1001,7 @@ UnitBlueprint {
                     RackBone = 'Decoy01',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_Countermeasure',
 			
             RateOfFire = 0.2,

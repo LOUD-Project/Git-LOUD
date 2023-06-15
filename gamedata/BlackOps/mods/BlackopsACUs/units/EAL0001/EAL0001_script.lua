@@ -1620,23 +1620,23 @@ EAL0001 = Class(AWalkingLandUnit) {
                 if self.RemoteViewingData.Satellite then
                     self.RemoteViewingData.Satellite:Destroy()
                 end
-                
-                if self.CooldownThread then
+   
+   if self.CooldownThread then
                     KillThread(self.CooldownThread)
                     self.CooldownThread = nil
                 end
-                
-                if self.ViewtimeThread then
+   
+   if self.ViewtimeThread then
                     KillThread(self.ViewtimeThread)
                     self.ViewtimeThread = nil
                 end
-                
-                if self.ViewingRadiusThread then
+   
+   if self.ViewingRadiusThread then
                     KillThread(self.ViewingRadiusThread)
                     self.ViewRadiusThread = nil
                 end
-                
-                self.RemoteViewingData = nil
+   
+   self.RemoteViewingData = nil
             end
 
             self.Sync.Abilities = self:GetBlueprint().Abilities

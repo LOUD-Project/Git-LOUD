@@ -155,7 +155,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.15,
     },
 	
@@ -335,7 +334,9 @@ UnitBlueprint {
                     RackBone = 'Torso',
                },
             },
+
             RackSalvoChargeTime = 2,
+
             RackSalvoReloadTime = 1,
 
             RangeCategory = 'UWRC_IndirectFire',
@@ -443,9 +444,6 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
             RackSlavedToTurret = true,
 
             RangeCategory = 'UWRC_DirectFire',
@@ -543,7 +541,6 @@ UnitBlueprint {
                 },
             },
 
-            RackSalvoSize = 1,
             RackSlavedToTurret = true,
 
             RateOfFire = 3,		---- 900 DPS
@@ -560,8 +557,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Right_Arm_Muzzle',
             TurretBonePitch = 'Right_Arm_Pitch',
             TurretBoneYaw = 'Right_Arm_Yaw',
-			
-            --TurretDualManipulators = true,
 			
             TurretPitch = 0,
             TurretPitchRange = 90,
@@ -605,9 +600,6 @@ UnitBlueprint {
             FiringTolerance = 1,
             FiringRandomness = 1.5,
 			
-            --HeadingArcCenter = 90,
-            --HeadingArcRange = 110,
-			
             Label = 'Flamer2',
 			
             MaxRadius = 38,
@@ -628,10 +620,8 @@ UnitBlueprint {
                     MuzzleBones = { 'Left_Arm_Muzzle' },
                     RackBone = 'Left_Arm_Pitch',
                 },
-
             },
 
-            RackSalvoSize = 1,
             RackSlavedToTurret = true,
 
             RateOfFire = 3,		---- 900 DPS
@@ -648,8 +638,6 @@ UnitBlueprint {
             TurretBoneMuzzle = 'Left_Arm_Muzzle',
             TurretBonePitch = 'Left_Arm_Pitch',			
             TurretBoneYaw = 'Left_Arm_Yaw',
-			
-            --TurretDualManipulators = true,
 			
             TurretPitch = 0,
             TurretPitchRange = 90,
@@ -710,10 +698,6 @@ UnitBlueprint {
                     RackBone = 'TMD_Barrel',
                 },
             },
-
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_Countermeasure',
 			
@@ -792,10 +776,6 @@ UnitBlueprint {
                     RackBone = 'Head',
                 },
             },
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_AntiAir',
 			

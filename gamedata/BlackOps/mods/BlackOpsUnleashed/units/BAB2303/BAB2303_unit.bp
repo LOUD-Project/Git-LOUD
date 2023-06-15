@@ -78,7 +78,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.08,
     },
 	
@@ -219,15 +218,11 @@ UnitBlueprint {
                     RackBone = 'Muzzle',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
+
             RackSalvoFiresAfterCharge = true,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 1,	---- fires every 4 by energy = 600/4 = 150DPS

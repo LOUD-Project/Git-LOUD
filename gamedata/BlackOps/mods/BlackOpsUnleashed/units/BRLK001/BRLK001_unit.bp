@@ -89,7 +89,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         TransportAnimation = {
             {
                 Animation = '/mods/BlackOpsUnleashed/units/BRLK001/BRLK001_fold.sca',
@@ -247,16 +246,9 @@ UnitBlueprint {
                     RackBone = 'Turret_Barrel01',
                 },
             },
-			
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 1,
-			
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 0.6,	-- 360 DPS Air
@@ -293,44 +285,48 @@ UnitBlueprint {
         },
 		{
             AlwaysRecheckTarget = true,
+
             BallisticArc = 'RULEUBA_None',
+
 			CannotAttackGround = true,
 			ContinuousBeam = true,
             BeamCollisionDelay = 0.2,
             BeamLifetime = 0,
             CollideFriendly = false,
+
             Damage = 0.1,
             DamageFriendly = false,
             DamageType = 'Normal',
+
             DisplayName = 'Targeting Laser',
+
             FireTargetLayerCapsTable = {
                 Land = 'Air',
             },
             FiringRandomness = 0,
             FiringTolerance = 2,
+
             Label = 'Lazor',
+
             MaxRadius = 50,
+
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
+
 			PreferPrimaryWeaponTarget = true,
             ProjectileLifetimeUsesMultiplier = 1.1,
+
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Lazor',
-                    },
+                    MuzzleBones = { 'Lazor' },
                     RackBone = 'Lazor',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
+
             RateOfFire = 2,
+
             ReTargetOnMiss = true,
+
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -403,15 +399,7 @@ UnitBlueprint {
                     RackBone = 'Turret_Barrel01',
                 },
             },
-            RackFireTogether = false,
-			
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-			
-            RackSlavedToTurret = false,
+
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 0.2,	-- 120 DPS Surface

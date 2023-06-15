@@ -66,13 +66,13 @@ EEL0001 = Class(TWalkingLandUnit) {
             OnCreate = function(self)
             
                 UEFACUHeavyPlasmaGatlingCannonWeapon.OnCreate(self)
-                
-                if not self.unit.SpinManip then 
+   
+   if not self.unit.SpinManip then 
                     self.unit.SpinManip = CreateRotator(self.unit, 'Gatling_Cannon_Barrel', 'z', nil, 270, 300, 60)
                     TrashAdd( self.unit.Trash, self.unit.SpinManip )
                 end
-                
-                if self.unit.SpinManip then
+   
+   if self.unit.SpinManip then
                     self.unit.SpinManip:SetTargetSpeed(0)
                 end
             end,
@@ -97,13 +97,13 @@ EEL0001 = Class(TWalkingLandUnit) {
             OnCreate = function(self)
             
                 UEFACUHeavyPlasmaGatlingCannonWeapon.OnCreate(self)
-                
-                if not self.unit.SpinManip then 
+   
+   if not self.unit.SpinManip then 
                     self.unit.SpinManip = CreateRotator(self.unit, 'Gatling_Cannon_Barrel', 'z', nil, 270, 300, 60)
                     TrashAdd( self.unit.Trash, self.unit.SpinManip )
                 end
-                
-                if self.unit.SpinManip then
+   
+   if self.unit.SpinManip then
                     self.unit.SpinManip:SetTargetSpeed(0)
                 end
             end,
@@ -128,13 +128,13 @@ EEL0001 = Class(TWalkingLandUnit) {
             OnCreate = function(self)
             
                 UEFACUHeavyPlasmaGatlingCannonWeapon.OnCreate(self)
-                
-                if not self.unit.SpinManip then 
+   
+   if not self.unit.SpinManip then 
                     self.unit.SpinManip = CreateRotator(self.unit, 'Gatling_Cannon_Barrel', 'z', nil, 270, 300, 60)
                     TrashAdd( self.unit.Trash, self.unit.SpinManip )
                 end
-                
-                if self.unit.SpinManip then
+   
+   if self.unit.SpinManip then
                     self.unit.SpinManip:SetTargetSpeed(0)
                 end
             end,
@@ -176,8 +176,8 @@ EEL0001 = Class(TWalkingLandUnit) {
             OnEnableWeapon = function(self)
             
                 if self:BeenDestroyed() then return end
-                
-                self:SetWeaponEnabled(true)
+   
+   self:SetWeaponEnabled(true)
                 self.unit:SetWeaponEnabledByLabel('RightZephyr', false)
                 self.unit:ResetWeaponByLabel('RightZephyr')
                 self.unit:BuildManipulatorSetEnabled(false)
@@ -197,8 +197,8 @@ EEL0001 = Class(TWalkingLandUnit) {
             OnDisableWeapon = function(self)
             
                 if self.unit:BeenDestroyed() then return end
-                
-                self:SetWeaponEnabled(false)
+   
+   self:SetWeaponEnabled(false)
                 self.unit:SetWeaponEnabledByLabel('RightZephyr', true)
                 self.unit:BuildManipulatorSetEnabled(false)
                 self.AimControl:SetEnabled(false)
@@ -804,9 +804,8 @@ EEL0001 = Class(TWalkingLandUnit) {
 			if self.wcAMC02 then
 
 				self:SetWeaponEnabledByLabel('EXAntiMatterCannon02', true)
-       			self:SetWeaponEnabledByLabel('RightZephyr', false)                
-
-				wep = self:GetWeaponByLabel('EXAntiMatterCannon02')
+       			self:SetWeaponEnabledByLabel('RightZephyr', false)    
+	wep = self:GetWeaponByLabel('EXAntiMatterCannon02')
 				wep:ChangeMaxRadius(self:GetBlueprint().Weapon[11].MaxRadius)
 
 				wpTarget:ChangeMaxRadius(self:GetBlueprint().Weapon[11].MaxRadius)

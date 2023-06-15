@@ -84,7 +84,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.10,
     },
 	
@@ -211,6 +210,7 @@ UnitBlueprint {
             Label = 'MainGun',
 			
             MaxRadius = 49,
+
             LeadTarget = true,
 			
             MuzzleChargeDelay = 0.2,
@@ -230,13 +230,12 @@ UnitBlueprint {
                     RackBone = 'Main_Turret_Barrel',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -1,
+
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -316,14 +315,14 @@ UnitBlueprint {
                     RackBone = 'Right_Gun_Barrel',
                 },
             },
-            RackFireTogether = false,
+             
             RackRecoilDistance = -0.5,
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
+
             SlavedToBody = true,
             SlavedToBodyArcRange = 10,
 			

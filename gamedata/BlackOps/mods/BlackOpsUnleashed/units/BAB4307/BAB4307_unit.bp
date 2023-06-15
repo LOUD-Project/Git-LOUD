@@ -85,7 +85,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.25,
     },
 	
@@ -93,9 +92,7 @@ UnitBlueprint {
         BuildCostEnergy = 27000,
         BuildCostMass = 1800,
         BuildTime = 1800,
-        RebuildBonusIds = {
-            'bab4307',
-        },
+        RebuildBonusIds = { 'bab4307' },
     },
 	
     Footprint = {
@@ -191,11 +188,14 @@ UnitBlueprint {
             },
             FiringTolerance = 1,
             Label = 'AntiMissile',
+
             MaxRadius = 50,
+
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 120,
+
             ProjectileId = '/mods/BlackOpsUnleashed/projectiles/ATMDDisk01/ATMDDisk01_proj.bp',
             ProjectileLifetime = 2,
 
@@ -207,32 +207,38 @@ UnitBlueprint {
                     RackBone = 'Turret_Barrel',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -0.5,
+
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 1,
+
             RangeCategory = 'UWRC_Countermeasure',
+
             RateOfFire = 1.0,
+
             TargetCheckInterval = 0.5,
             TargetRestrictDisallow = 'UNTARGETABLE',
             TargetRestrictOnlyAllow = 'TACTICAL MISSILE',
             TargetType = 'RULEWTT_Projectile',
             TrackingRadius = 1.3,
+
             TurretBoneMuzzle = 'Muzzle01',
             TurretBonePitch = 'Turret_Barrel',
             TurretBoneYaw = 'XAB4307',
+
             TurretDualManipulators = false,
+
             TurretPitch = 0,
             TurretPitchRange = 120,
             TurretPitchSpeed = 90,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 120,
+
             Turreted = true,
-            WeaponCategory = 'Defense',
-            WeaponUnpacks = false,
         },
     },
 	

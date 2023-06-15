@@ -62,20 +62,20 @@ ESL0001 = Class( SWalkingLandUnit ) {
                 if not self.ClawTopRotator then 
                     self.ClawTopRotator = CreateRotator(self.unit, 'Pincer_Upper', 'x')
                     self.ClawBottomRotator = CreateRotator(self.unit, 'Pincer_Lower', 'x')
-                    
-                    self.unit.Trash:Add(self.ClawTopRotator)
+       
+       self.unit.Trash:Add(self.ClawTopRotator)
                     self.unit.Trash:Add(self.ClawBottomRotator)
                 end
-                
-                self.ClawTopRotator:SetGoal(-15):SetSpeed(10)
+   
+   self.ClawTopRotator:SetGoal(-15):SetSpeed(10)
                 self.ClawBottomRotator:SetGoal(15):SetSpeed(10)
-                
-                SDFSinnuntheWeapon.PlayFxMuzzleChargeSequence(self, muzzle)
-                
-                self:ForkThread(function()
+   
+   SDFSinnuntheWeapon.PlayFxMuzzleChargeSequence(self, muzzle)
+   
+   self:ForkThread(function()
                     WaitSeconds(self.unit:GetBlueprint().Weapon[8].MuzzleChargeDelay)
-                    
-                    self.ClawTopRotator:SetGoal(0):SetSpeed(50)
+       
+       self.ClawTopRotator:SetGoal(0):SetSpeed(50)
                     self.ClawBottomRotator:SetGoal(0):SetSpeed(50)
                 end)
             end,
@@ -89,20 +89,20 @@ ESL0001 = Class( SWalkingLandUnit ) {
                 if not self.ClawTopRotator then 
                     self.ClawTopRotator = CreateRotator(self.unit, 'Pincer_Upper', 'x')
                     self.ClawBottomRotator = CreateRotator(self.unit, 'Pincer_Lower', 'x')
-                    
-                    self.unit.Trash:Add(self.ClawTopRotator)
+       
+       self.unit.Trash:Add(self.ClawTopRotator)
                     self.unit.Trash:Add(self.ClawBottomRotator)
                 end
-                
-                self.ClawTopRotator:SetGoal(-15):SetSpeed(10)
+   
+   self.ClawTopRotator:SetGoal(-15):SetSpeed(10)
                 self.ClawBottomRotator:SetGoal(15):SetSpeed(10)
-                
-                SDFSinnuntheWeapon.PlayFxMuzzleChargeSequence(self, muzzle)
-                
-                self:ForkThread(function()
+   
+   SDFSinnuntheWeapon.PlayFxMuzzleChargeSequence(self, muzzle)
+   
+   self:ForkThread(function()
                     WaitSeconds(self.unit:GetBlueprint().Weapon[9].MuzzleChargeDelay)
-                    
-                    self.ClawTopRotator:SetGoal(0):SetSpeed(50)
+       
+       self.ClawTopRotator:SetGoal(0):SetSpeed(50)
                     self.ClawBottomRotator:SetGoal(0):SetSpeed(50)
                 end)
             end,
@@ -116,20 +116,20 @@ ESL0001 = Class( SWalkingLandUnit ) {
                 if not self.ClawTopRotator then 
                     self.ClawTopRotator = CreateRotator(self.unit, 'Pincer_Upper', 'x')
                     self.ClawBottomRotator = CreateRotator(self.unit, 'Pincer_Lower', 'x')
-                    
-                    self.unit.Trash:Add(self.ClawTopRotator)
+       
+       self.unit.Trash:Add(self.ClawTopRotator)
                     self.unit.Trash:Add(self.ClawBottomRotator)
                 end
-                
-                self.ClawTopRotator:SetGoal(-15):SetSpeed(10)
+   
+   self.ClawTopRotator:SetGoal(-15):SetSpeed(10)
                 self.ClawBottomRotator:SetGoal(15):SetSpeed(10)
-                
-                SDFSinnuntheWeapon.PlayFxMuzzleChargeSequence(self, muzzle)
-                
-                self:ForkThread(function()
+   
+   SDFSinnuntheWeapon.PlayFxMuzzleChargeSequence(self, muzzle)
+   
+   self:ForkThread(function()
                     WaitSeconds(self.unit:GetBlueprint().Weapon[10].MuzzleChargeDelay)
-                    
-                    self.ClawTopRotator:SetGoal(0):SetSpeed(50)
+       
+       self.ClawTopRotator:SetGoal(0):SetSpeed(50)
                     self.ClawBottomRotator:SetGoal(0):SetSpeed(50)
                 end)
             end,

@@ -81,7 +81,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.048,
     },
 	
@@ -231,15 +230,13 @@ UnitBlueprint {
                     RackBone = 'Fake_Muzzle',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -1.5,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
+
             RackSalvoFiresAfterCharge = true,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 2,			-- controlled by charge cycle -- 120 DPS

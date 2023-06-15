@@ -132,7 +132,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.032,
     },
 	
@@ -280,15 +279,7 @@ UnitBlueprint {
                     RackBone = 'Turret01_Barrel',
                 },
             },
-			
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 0.9,		-- 135 DPS
@@ -377,14 +368,7 @@ UnitBlueprint {
                     RackBone = 'Turret02_Barrel',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RateOfFire = 0.9,		-- 135 DPS
 			
             SlavedToBody = true,
@@ -472,13 +456,6 @@ UnitBlueprint {
                     RackBone = 'Turret03_Barrel',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 
             RateOfFire = 0.9,		-- 135 DPS
 			
@@ -567,19 +544,12 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Lasor_Turret01_Muzzle',
-                    },
+                    MuzzleBones = {'Lasor_Turret01_Muzzle'},
                     RackBone = 'Lasor_Turret01_Barrel',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 
             RateOfFire = 0.25,	-- 500/4 = 125 DPS
 			
@@ -667,19 +637,10 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Lasor_Turret02_Muzzle',
-                    },
+                    MuzzleBones = {'Lasor_Turret02_Muzzle'},
                     RackBone = 'Lasor_Turret02_Barrel',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 
             RateOfFire = 0.25,	-- 125 DPS Surface
 			
@@ -759,15 +720,7 @@ UnitBlueprint {
                     RackBone = 'Front_AA_Turret_Barrel',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-			
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 1,		---- 200 DPS Air
@@ -847,13 +800,6 @@ UnitBlueprint {
                     RackBone = 'Back_AA_Turret_Barrel',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 
             RateOfFire = 1,		---- 150 DPS Air
 			
@@ -930,20 +876,13 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Bombard_Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Bombard_Turret_Muzzle'},
                     RackBone = 'Bombard_Turret_Barrel',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -1,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 1, -- controlled by charge every 5 seconds
@@ -1022,14 +961,13 @@ UnitBlueprint {
                     RackBone = 'Orb_Muzzle01',
                 },
             },
-            RackFireTogether = false,
+             
             
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
+
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 0.5,		-- 112 DPS Air
@@ -1111,13 +1049,13 @@ UnitBlueprint {
                     RackBone = 'Orb_Muzzle02',
                 },
             },
-            RackFireTogether = false,
+             
             
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
+            
+
 
             RateOfFire = 1,		-- 150 DPS Surface
 

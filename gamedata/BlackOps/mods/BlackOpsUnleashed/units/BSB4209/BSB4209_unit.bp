@@ -70,7 +70,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.065,
     },
 	
@@ -192,7 +191,6 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            WeaponCategory = 'Direct Fire',
 		},
     },
 }

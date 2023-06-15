@@ -35,7 +35,7 @@ BEB2303 = Class(TStructureUnit) {
                 local recoilTbl = {} 
 
                 -- Select the barrel to recoil 
-                recoilTbl.MuzzleBones = muzzleBones[self.CurrentBarrel]                
+                recoilTbl.MuzzleBones = muzzleBones[self.CurrentBarrel]   
                 recoilTbl.RackBone = recoilgroup1[self.CurrentBarrel] 
 
                 table.insert( rackList, recoilTbl ) 
@@ -51,7 +51,7 @@ BEB2303 = Class(TStructureUnit) {
                     -- Spin to the next barrel 
                     self.SpinManip:SetGoal(self.CurrentGoal) 
                     self.SpinManip:SetAccel(100) 
-                    self.SpinManip:SetTargetSpeed(100)                 
+                    self.SpinManip:SetTargetSpeed(100)    
                 end              
 
                 -- Increment to the next barrel and goal 

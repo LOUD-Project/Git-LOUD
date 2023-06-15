@@ -25,8 +25,8 @@ BELK002 = Class(TLandUnit) {
 				
                 self.ExhaustEffects = CreateBoneEffects( self.unit, 'Left_Muzzle', self.unit.Army, Effects.WeaponSteam01 )
                 self.ExhaustEffects = CreateBoneEffects( self.unit, 'Right_Muzzle', self.unit.Army, Effects.WeaponSteam01 )
-                
-                TAAPhalanxWeapon.PlayFxWeaponPackSequence(self)
+   
+   TAAPhalanxWeapon.PlayFxWeaponPackSequence(self)
             end,
         
             PlayFxRackSalvoChargeSequence = function(self)
@@ -35,12 +35,12 @@ BELK002 = Class(TLandUnit) {
                     self.SpinManip1 = CreateRotator(self.unit, 'Right_Barrel', 'z', nil, 360, 180, 60)
                     self.unit.Trash:Add(self.SpinManip1)
                 end
-                
+   
                 if not self.SpinManip2 then 
                     self.SpinManip2 = CreateRotator(self.unit, 'Left_Barrel', 'z', nil, 360, 180, 60)
                     self.unit.Trash:Add(self.SpinManip2)
                 end
-                
+   
                 self.SpinManip1:SetTargetSpeed(500)
 
                 self.SpinManip2:SetTargetSpeed(500)
@@ -53,11 +53,11 @@ BELK002 = Class(TLandUnit) {
                 if self.SpinManip1 then
                     self.SpinManip1:SetTargetSpeed(200)
                 end
-                
+   
                 if self.SpinManip2 then
                     self.SpinManip2:SetTargetSpeed(200)
                 end
-                
+   
                 self.ExhaustEffects = CreateBoneEffects( self.unit, 'Left_Muzzle', self.unit.Army, Effects.WeaponSteam01 )
                 self.ExhaustEffects = CreateBoneEffects( self.unit, 'Right_Muzzle', self.unit.Army, Effects.WeaponSteam01 )
                 

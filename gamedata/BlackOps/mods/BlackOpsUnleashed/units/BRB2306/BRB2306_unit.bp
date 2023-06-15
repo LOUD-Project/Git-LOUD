@@ -82,7 +82,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.15,
     },
 	
@@ -231,11 +230,7 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
             RackSalvoFiresAfterCharge = false, 
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -336,10 +331,6 @@ UnitBlueprint {
                     RackBone = 'Muzzle02',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 1,		---- This weapon is controlled by the script and is only turned on when the main weapon fires - then turned off again after it fires once
 			

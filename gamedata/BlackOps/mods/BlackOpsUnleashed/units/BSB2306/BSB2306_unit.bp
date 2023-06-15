@@ -1,9 +1,7 @@
 UnitBlueprint {
 
     AI = {
-		TargetBones = {
-            'Turret_Barrel',
-		},
+		TargetBones = {'Turret_Barrel'},
     },
 	
     Audio = {
@@ -84,7 +82,7 @@ UnitBlueprint {
             },
         },
 		
-        SpawnRandomRotation = true,
+
         UniformScale = 0.055,
     },
 	
@@ -224,19 +222,14 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Turret_Muzzle'},
                     RackBone = 'Turret_Barrel',
                 },
             },
 
             RackRecoilDistance = -1,
 
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
             RackSalvoFiresAfterCharge = true,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_DirectFire',
 			

@@ -1,9 +1,7 @@
 UnitBlueprint {
 
     AI = {
-		TargetBones = {
-            'XSA0310',
-		},
+		TargetBones = {'XSA0310'},
     },
 	
     Air = {
@@ -147,7 +145,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.07,
     },
 	
@@ -301,16 +298,13 @@ UnitBlueprint {
                     RackBone = 'Main_launcher',
                 },
             },
-			
-            RackFireTogether = false,
             
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
+
             RackSalvoReloadTime = 2.5,	-- 2.5 seconds to reload rack salvo
+
             RackSalvoSize = 1,
-			
-            RackSlavedToTurret = false,
-			
+
             SlavedToBody = true,
             SlavedToBodyArcRange = 30,
 			
@@ -368,21 +362,11 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Left_Muzzle01',
-                    },
+                    MuzzleBones = {'Left_Muzzle01'},
                     RackBone = 'Left_Turret',
                 },
             },
-			
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 0.5,	-- 32 DPS Ground but 45 damage to shields
@@ -451,20 +435,11 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_Muzzle01',
-                    },
+                    MuzzleBones = {'Right_Muzzle01'},
                     RackBone = 'Right_Turret',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RateOfFire = 0.5,	-- 32 DPS Ground but 45 damage to shields
 
             TargetCheckInterval = 1.0,
@@ -533,19 +508,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Center_Muzzle01',
-                    },
+                    MuzzleBones = {'Center_Muzzle01'},
                     RackBone = 'Center_Turret_Barrel',
                 },
             },
-            RackFireTogether = true,
-            
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 
             RangeCategory = 'UWRC_AntiAir',
 			

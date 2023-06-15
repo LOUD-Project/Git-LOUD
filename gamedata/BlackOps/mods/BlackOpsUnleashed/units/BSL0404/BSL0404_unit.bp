@@ -92,7 +92,7 @@ UnitBlueprint {
                 },
             },
         },
-        SpawnRandomRotation = true,
+
         UniformScale = 0.25,
     },
 	
@@ -214,19 +214,10 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Muzzle',
-                    },
+                    MuzzleBones = {'Muzzle'},
                     RackBone = 'Muzzle',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 
             RateOfFire = 1.5,	-- So the ball will last 4 seconds and do 1500 damage during that time
 			

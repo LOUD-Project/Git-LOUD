@@ -137,7 +137,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.11,
     },
 	
@@ -311,8 +310,6 @@ UnitBlueprint {
             },
             
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -393,12 +390,12 @@ UnitBlueprint {
                     RackBone = 'Wraith_Left_Recoil_01',
                 },
             },
+
             RackFireTogether = true,
 			
             RackRecoilDistance = -1.5,
+
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             SlavedToBody = true,
             SlavedToBodyArcRange = 90,
@@ -476,6 +473,7 @@ UnitBlueprint {
 			
 			NotExclusive = true,
             ProjectileId = '/projectiles/ADFOblivionCannon01/ADFOblivionCannon01_proj.bp',
+
             RackBones = {
                 {
                     MuzzleBones = {
@@ -484,13 +482,12 @@ UnitBlueprint {
                     RackBone = 'Left_Muzzle_Recoil',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -1,
+
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 
             RateOfFire = 0.5,	-- 300 dps
 			
@@ -574,9 +571,8 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -1,
+
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 0.5,	-- 300 dps
 			
@@ -655,10 +651,7 @@ UnitBlueprint {
                     RackBone = 'TMD_Muzzle',
                 },
             },
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 1,
 			
             RangeCategory = 'UWRC_Countermeasure',

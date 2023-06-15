@@ -11,7 +11,7 @@ BRB2303 = Class(CStructureUnit) {
     Weapons = {
         MainGun = Class(HailfireLauncherWeapon) {
 		
-		OnCreate = function(self) 
+            OnCreate = function(self) 
                 HailfireLauncherWeapon.OnCreate(self) 
                 -- Sets the first barrel in the firing sequence 
                 self.CurrentBarrel = 1 
@@ -24,14 +24,14 @@ BRB2303 = Class(CStructureUnit) {
                 local recoilTbl = {} 
 
                 -- Select the barrel to recoil 
-                recoilTbl.MuzzleBones = muzzleBones[self.CurrentBarrel]                
+                recoilTbl.MuzzleBones = muzzleBones[self.CurrentBarrel]   
                 recoilTbl.RackBone = recoilgroup1[self.CurrentBarrel] 
-                --recoilTbl.TelescopeBone = recoilgroup2[self.CurrentBarrel]              
+                --recoilTbl.TelescopeBone = recoilgroup2[self.CurrentBarrel] 
                 table.insert( rackList, recoilTbl ) 
-                                
+                   
                 HailfireLauncherWeapon.PlayRackRecoil(self, rackList)
                 -- Perform recoil shake
-               -- self.unit:ShakeCamera(4, 0.5, 0.5, 0.1)
+                -- self.unit:ShakeCamera(4, 0.5, 0.5, 0.1)
                 -- Perform the recoil effects 
                 if not self.SpinManip then 
                     -- Create the cannon rotator
@@ -41,12 +41,13 @@ BRB2303 = Class(CStructureUnit) {
                     -- Spin to the next barrel 
                     self.SpinManip:SetGoal(self.CurrentGoal) 
                     self.SpinManip:SetAccel(200) 
-                    self.SpinManip:SetTargetSpeed(200)                 
+                    self.SpinManip:SetTargetSpeed(200)    
                 end              
 
                 -- Increment to the next barrel and goal 
                 self.CurrentBarrel = self.CurrentBarrel + 1
                 self.CurrentGoal = self.CurrentGoal + 60 
+
                 if self.CurrentBarrel > 6 then 
                     self.CurrentBarrel = 1
                     self.CurrentGoal = 60  
@@ -57,11 +58,10 @@ BRB2303 = Class(CStructureUnit) {
                 if self.SpinManip then 
                     self.SpinManip:SetTargetSpeed(0)
                 end 
+
                 HailfireLauncherWeapon.PlayFxWeaponPackSequence(self) 
             end, 
-		
-		
-		
+
         }
     },
 }

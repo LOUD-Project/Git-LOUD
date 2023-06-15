@@ -200,7 +200,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.08,
     },
 	
@@ -344,10 +343,6 @@ UnitBlueprint {
                     RackBone = 'Right_Projectile',
                 },
             },
-            
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_AntiNavy',
 			
@@ -425,10 +420,6 @@ UnitBlueprint {
                     RackBone = 'Torpedo01',
                 },
             },
-            
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_AntiNavy',
 			
@@ -497,10 +488,6 @@ UnitBlueprint {
                     RackBone = 'Turret01_Barrel01',
                 },
             },
-            
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -581,10 +568,6 @@ UnitBlueprint {
                     RackBone = 'Turret02_Barrel01',
                 },
             },
-            
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 1,	---- 35 DPS 
 			

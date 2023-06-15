@@ -300,9 +300,6 @@ UnitBlueprint {
                     RackBone = 'L_Arm_Muzzle',
                 },
             },
-            
-            RackReloadTimeout = 10,
-            RackSalvoSize = 1,
 			
             RangeCategory = 'UWRC_Countermeasure',
 			

@@ -75,8 +75,8 @@ XEL0307 = Class(TLandUnit) {
                     self.SpinManip2 = LOUDROT(self.unit, 'Left_Gat_Spinner02', 'z', nil, 270, 180, 60)
                     self.unit.Trash:Add(self.SpinManip2)
                 end
-                
-                if self.SpinManip then
+   
+   if self.SpinManip then
                     self.SpinManip:SetTargetSpeed(120)
                 end
                 if self.SpinManip2 then

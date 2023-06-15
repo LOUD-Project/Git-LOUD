@@ -274,13 +274,12 @@ UnitBlueprint {
                     RackBone = 'Main_Turret_Barrel',
                 },
             },
-            RackFireTogether = false,
+             
             
             RackRecoilDistance = -1,
             
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 			
@@ -374,11 +373,11 @@ UnitBlueprint {
             RackFireTogether = true,
             
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
+
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 5,						---- 60 dps
@@ -472,11 +471,11 @@ UnitBlueprint {
             RackFireTogether = true,
             
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
+
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 6,			---- 60 dps
@@ -562,11 +561,10 @@ UnitBlueprint {
                     RackBone = 'Right_Turret_Barrel',
                 },
             },
-            RackFireTogether = false,
+             
             RackRecoilDistance = -3,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 			
@@ -651,11 +649,10 @@ UnitBlueprint {
                     RackBone = 'Left_Turret_Barrel',
                 },
             },
-            RackFireTogether = false,
+             
             RackRecoilDistance = -3,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 			
@@ -741,14 +738,13 @@ UnitBlueprint {
                     RackBone = 'Right_Missile_01',
                 },				
             },
-            RackFireTogether = false,
+             
             
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
+
             RangeCategory = 'UWRC_Countermeasure',
 			
             RateOfFire = 0.7,
@@ -813,14 +809,13 @@ UnitBlueprint {
                     RackBone = 'Left_Missile_03',
                 },
             },
-            RackFireTogether = false,
+             
             
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
+
             RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 0.1,	---- 4 * 55 every 10 seconds = 22 dps
@@ -889,14 +884,13 @@ UnitBlueprint {
                     RackBone = 'Right_Missile_03',
                 },
             },
-            RackFireTogether = false,
+             
             
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
+
             RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 0.1,			---- 22 dps
@@ -970,14 +964,14 @@ UnitBlueprint {
                     RackBone = 'Flamer_Barrel',
                 },
             },
-            RackFireTogether = false,
+             
             
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
+
             RateOfFire = 1,			-- 10 * 5 Pulses * 2 Muzzles  =  100dps
 			
             TargetCheckInterval = 0.2,

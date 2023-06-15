@@ -129,7 +129,7 @@ UnitBlueprint {
                         Scale = 3,
                         Type = 'SeaIdle01',
                     },
-                    
+       
                 },
             },
         },
@@ -161,7 +161,6 @@ UnitBlueprint {
                         Scale = 1.5,
                         Type = 'RightFrontWake',
                     },
-                    
                     {
                         Bones = {
                             'Back_Left_Wake',
@@ -354,11 +353,10 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 10,
-
             RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 1,		-- 9 missiles * 500 = 4500 dmg / 10 = 450 DPS Surface - controlled by charge
+
             TargetCheckInterval = 2,
 			
             TargetPriorities = {
@@ -419,9 +417,7 @@ UnitBlueprint {
 			-- outer ring affects least number of units
             Buffs = {
                 {
-                    Add = {
-                        OnImpact = true,
-                    },
+                    Add = {OnImpact = true},
                     AppliedToTarget = true,
                     BuffType = 'STUN',
                     Duration = 0.8,
@@ -432,9 +428,7 @@ UnitBlueprint {
 				
 			-- middle ring lasts longer and affects T3
                 {
-                    Add = {
-                        OnImpact = true,
-                    },
+                    Add = {OnImpact = true},
                     AppliedToTarget = true,
                     BuffType = 'STUN',
                     Duration = 1,
@@ -444,9 +438,7 @@ UnitBlueprint {
                 },
 			-- inner ring affects EXPERIMENTALS too
                 {
-                    Add = {
-                        OnImpact = true,
-                    },
+                    Add = {OnImpact = true},
                     AppliedToTarget = true,
                     BuffType = 'STUN',
                     Duration = 1.3,
@@ -496,17 +488,15 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Left_Railgun_Muzzle',
-                    },
+                    MuzzleBones = {'Left_Railgun_Muzzle'},
                     RackBone = 'Left_Railgun',
                 },
             },
 
             RackRecoilDistance = -2,
+
             RackRecoilReturnSpeed = 1,
-            RackReloadTimeout = 10,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
@@ -652,17 +642,15 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_Railgun_Muzzle',
-                    },
+                    MuzzleBones = {'Right_Railgun_Muzzle'},
                     RackBone = 'Right_Railgun',
                 },
             },
 
             RackRecoilDistance = -2,
+
             RackRecoilReturnSpeed = 1,
-            RackReloadTimeout = 10,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 
             RateOfFire = 1,		-- 400 DPS Surface controlled by charge and delay
@@ -759,9 +747,8 @@ UnitBlueprint {
                     RackBone = 'Front_Right_Barrel',
                 },
             },
-            RackFireTogether = true,
+
             RackRecoilDistance = -0.5,
-            RackReloadTimeout = 10,
 
             RateOfFire = 2,		-- 160 DPS Surface
 			
@@ -853,9 +840,8 @@ UnitBlueprint {
                     RackBone = 'Front_Left_Barrel',
                 },
             },
-            RackFireTogether = true,
+
             RackRecoilDistance = -0.5,
-            RackReloadTimeout = 10,
 
             RateOfFire = 2,		-- 160 DPS Surface
 			
@@ -949,9 +935,8 @@ UnitBlueprint {
                     RackBone = 'Middle_Left_Barrel',
                 },
             },
-            RackFireTogether = true,
+
             RackRecoilDistance = -0.5,
-            RackReloadTimeout = 10,
 
             RateOfFire = 2,		-- 160 DPS Surface
 			
@@ -1045,9 +1030,8 @@ UnitBlueprint {
                     RackBone = 'Middle_Right_Barrel',
                 },
             },
-            RackFireTogether = true,
+
             RackRecoilDistance = -0.5,
-            RackReloadTimeout = 10,
 
             RateOfFire = 2,		-- 180 DPS Surface
 			
@@ -1139,9 +1123,8 @@ UnitBlueprint {
                     RackBone = 'Back_Left_Barrel',
                 },
             },
-            RackFireTogether = true,
+
             RackRecoilDistance = -0.5,
-            RackReloadTimeout = 10,
 
             RateOfFire = 2,		-- 160 DPS Surface
 			
@@ -1232,9 +1215,8 @@ UnitBlueprint {
                     RackBone = 'Back_Right_Barrel',
                 },
             },
-            RackFireTogether = true,
+
             RackRecoilDistance = -0.5,
-            RackReloadTimeout = 10,
 
             RateOfFire = 2,		-- 160 DPS Surface
 			
@@ -1325,10 +1307,6 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-
             RangeCategory = 'UWRC_AntiNavy',
 			
             RateOfFire = 0.1,		-- 144 DPS Sub/Surface
@@ -1389,18 +1367,11 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Zapper_Muzzle',
-                    },
+                    MuzzleBones = {'Zapper_Muzzle'},
                     RackBone = 'Zapper_Muzzle',
                 },
             },
 
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-			
             RangeCategory = 'UWRC_Countermeasure',
 			
             RateOfFire = 1.0,
@@ -1473,16 +1444,10 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Front_AALaser',
-                    },
+                    MuzzleBones = {'Front_AALaser'},
                     RackBone = 'Front_AALaser',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_AntiAir',
 			
@@ -1562,16 +1527,10 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Back_Center_AALaser',
-                    },
+                    MuzzleBones = {'Back_Center_AALaser'},
                     RackBone = 'Back_Center_AALaser',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 1,		-- 160 DPS Air
             
@@ -1648,16 +1607,10 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Back_Left_AALaser',
-                    },
+                    MuzzleBones = {'Back_Left_AALaser'},
                     RackBone = 'Back_Left_AALaser',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 1,
             
@@ -1672,7 +1625,7 @@ UnitBlueprint {
                 'GROUNDATTACK',
                 'AIR MOBILE',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
             TurretBoneMuzzle = 'Back_Left_AALaser',
             TurretBonePitch = 'Back_Left_AALaser',
             TurretBoneYaw = 'Back_Left_AALaser',
@@ -1732,16 +1685,10 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Back_Right_AALaser',
-                    },
+                    MuzzleBones = {'Back_Right_AALaser'},
                     RackBone = 'Back_Right_AALaser',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
 			RateOfFire = 1,		-- 200 DPS Air
 			ReTargetOnMiss = true,
@@ -1756,7 +1703,7 @@ UnitBlueprint {
                 'AIR MOBILE',
             },
 			
-            TargetRestrictDisallow = 'UNTARGETABLE',
+            TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
 			
             TurretBoneMuzzle = 'Back_Right_AALaser',
             TurretBonePitch = 'Back_Right_AALaser',
@@ -1819,16 +1766,10 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Middle_Right_AALaser',
-                    },
+                    MuzzleBones = {'Middle_Right_AALaser'},
                     RackBone = 'Middle_Right_AALaser',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 1,		-- 300 DPS Air
             
@@ -1906,16 +1847,10 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Middle_Left_AALaser',
-                    },
+                    MuzzleBones = {'Middle_Left_AALaser'},
                     RackBone = 'Middle_Left_AALaser',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 1,		-- 160 DPS Air
             

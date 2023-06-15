@@ -2,9 +2,7 @@ UnitBlueprint {
     AI = {
 		GuardReturnRadius = 35,
         GuardScanRadius = 30,
-		TargetBones = {
-            'Barrel',
-		},
+		TargetBones = {'Barrel'},
     },
     Audio = {
         Destroyed = Sound {
@@ -87,7 +85,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.068,
     },
 	
@@ -229,20 +226,13 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Muzzle',
-                    },
+                    MuzzleBones = {'Muzzle'},
                     RackBone = 'Barrel',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -0.1,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 0.2,		-- 140 DPS
@@ -309,20 +299,13 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Muzzle',
-                    },
+                    MuzzleBones = {'Muzzle'},
                     RackBone = 'Barrel',
                 },
             },
-            RackFireTogether = false,
+
             RackRecoilDistance = -0.1,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 0.05,		---- 140 Dps

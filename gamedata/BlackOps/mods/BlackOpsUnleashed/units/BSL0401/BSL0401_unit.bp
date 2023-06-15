@@ -116,7 +116,7 @@ UnitBlueprint {
                 },
             },
         },
-        SpawnRandomRotation = true,
+
         UniformScale = 0.5,
     },
 	
@@ -331,16 +331,10 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Beam_Muzzle01',
-                    },
+                    MuzzleBones = {'Beam_Muzzle01'},
                     RackBone = 'Beam_Muzzle01',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -441,16 +435,10 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Beam_Muzzle02',
-                    },
+                    MuzzleBones = {'Beam_Muzzle02'},
                     RackBone = 'Beam_Muzzle02',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 3,			-- 750dps
 			
@@ -551,16 +539,10 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Beam_Muzzle03',
-                    },
+                    MuzzleBones = {'Beam_Muzzle03'},
                     RackBone = 'Beam_Muzzle03',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 3,			-- 1250dps
 			
@@ -644,16 +626,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Left_AA_Muzzle',
-                    },
+                    MuzzleBones = {'Left_AA_Muzzle'},
                     RackBone = 'Left_AA_Barrel',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_AntiAir',
 			
@@ -735,16 +711,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_AA_Muzzle',
-                    },
+                    MuzzleBones = {'Right_AA_Muzzle'},
                     RackBone = 'Right_AA_Barrel',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 2,		---- 200 DPS
 			

@@ -63,7 +63,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.45,
     },
 	
@@ -88,7 +87,6 @@ UnitBlueprint {
 	
     General = {
         CapCost = 6,
-		CapCost = 1,
         Category = 'Economy',
         Classification = 'RULEUC_Resource',
         CommandCaps = {

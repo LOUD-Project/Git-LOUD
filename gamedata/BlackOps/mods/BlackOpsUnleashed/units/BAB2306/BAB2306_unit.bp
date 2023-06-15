@@ -18,6 +18,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     Buffs = {
         Regen = {
             Level1 = 2,
@@ -76,7 +77,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.095,
     },
 	
@@ -146,6 +146,7 @@ UnitBlueprint {
 	
     StrategicIconName = 'icon_structure3_directfire',
     StrategicIconSortPriority = 180,
+
     Veteran = {
         Level1 = 16,
         Level2 = 32,
@@ -153,6 +154,7 @@ UnitBlueprint {
         Level4 = 64,
         Level5 = 80,
     },
+
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -225,10 +227,6 @@ UnitBlueprint {
                     RackBone = 'Turret_Pitch',
                 },
             },
-
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_DirectFire',
 			

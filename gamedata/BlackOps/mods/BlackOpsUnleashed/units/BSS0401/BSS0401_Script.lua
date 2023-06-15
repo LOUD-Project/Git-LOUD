@@ -46,7 +46,7 @@ BSS0401 = Class(SSeaUnit) {
                     self.SpinManip = CreateRotator(self.unit, 'Main_Front_Turret_Spinner', 'z', nil, 270, 180, 60)
                     self.unit.Trash:Add(self.SpinManip)
                 end
-                
+   
                 if self.SpinManip then
                     self.SpinManip:SetTargetSpeed(900)
                 end
@@ -84,7 +84,7 @@ BSS0401 = Class(SSeaUnit) {
                     self.SpinManip = CreateRotator(self.unit, 'Main_Back_Turret_Spinner', 'z', nil, 270, 180, 60)
                     self.unit.Trash:Add(self.SpinManip)
                 end
-                
+   
                 if self.SpinManip then
                     self.SpinManip:SetTargetSpeed(900)
                 end
@@ -140,8 +140,8 @@ BSS0401 = Class(SSeaUnit) {
                     end
 					
                     nukeFiredOnGotTarget = false
-                    
-                    self:ForkThread(function()
+       
+       self:ForkThread(function()
 					
                         self.unit:SetBusy(true)
 						

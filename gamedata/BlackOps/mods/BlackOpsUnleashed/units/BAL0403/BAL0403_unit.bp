@@ -168,7 +168,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.225,
     },
 	
@@ -351,9 +350,11 @@ UnitBlueprint {
                     RackBone = 'Barrel01',
                 },
             },
+
             RackFireTogether = true, 
 
             RackSalvoChargeTime = 4,	-- so sequence is deploy, racksalvocharge (2 seconds), fire (3 seconds), reload (8 seconds) 
+
             RackSalvoFiresAfterCharge = false,
 			
             RackSalvoReloadTime = 10,
@@ -447,9 +448,9 @@ UnitBlueprint {
             },
 
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 1,
+
 			RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',

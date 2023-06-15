@@ -53,7 +53,7 @@ BRB2306 = Class(CRadarUnit) {
             		end
 		    		self.unit.ChargeEffects01Bag = {}
 				end
-                
+   
                 local army = self.unit.Army
                 
         		for k, v in self.unit.ChargeEffects01 do

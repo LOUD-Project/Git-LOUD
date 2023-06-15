@@ -1,9 +1,8 @@
 UnitBlueprint {
     AI = {
+        AttackAngle = 20,   -- this will force unit to turn if turret can traverse
         GuardScanRadius = 30,
-        TargetBones = {
-            'Turret',
-        },
+        TargetBones = { 'Turret' },
     },
 	
     Audio = {
@@ -54,8 +53,8 @@ UnitBlueprint {
         ArmorType = 'Normal',
         Health = 2500,
         MaxHealth = 2500,
-        RegenRate = 3,
-        SurfaceThreatLevel = 36.5,
+        RegenRate = 2,
+        SurfaceThreatLevel = 16.5,
     },
 	
     Description = '<LOC brl0307_desc>Hailfire Rocket Assault Bot',
@@ -155,18 +154,17 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.05,
     },
 	
     Economy = {
-        BuildCostEnergy = 8500,
+        BuildCostEnergy = 8400,
         BuildCostMass = 765,
         BuildTime = 3060,
     },
 	
     General = {
-		CapCost = 1,
+		CapCost = 1.5,
         Category = 'Direct Fire',
         Classification = 'RULEUC_MilitaryVehicle',
         CommandCaps = {
@@ -198,21 +196,21 @@ UnitBlueprint {
     LifeBarSize = 1,
 	
     Physics = {
-        BackUpDistance = 4,
+        BackUpDistance = 16,
         BankingSlope = 0,
         BuildOnLayerCaps = {
             LAYER_Land = true,
         },
         DragCoefficient = 0.2,
-        MaxAcceleration = 1.5,
-        MaxBrake = 3,
-        MaxSpeed = 3,
-        MaxSpeedReverse = 2.5,
+        MaxAcceleration = 1.7,
+        MaxBrake = 3.4,
+        MaxSpeed = 3.4,
+        MaxSpeedReverse = 3,
         MaxSteerForce = 5,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Land',
         TurnRadius = 20,
-        TurnRate = 90,
+        TurnRate = 60,
     },
 	
     SelectionSizeX = 1.1,
@@ -242,20 +240,14 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
-			
+            
             Audio = {
-                Fire = Sound {
-                    Bank = 'URSWeapon',
-                    Cue = 'URS0202_Nano_Dart',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Missile_Nanite', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             Buffs = {
                 {
-                    Add = {
-                        OnImpact = true,
-                    },
+                    Add = { OnImpact = true },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
                     Duration = 0.9,
@@ -268,7 +260,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
 			
-            Damage = 80,
+            Damage = 90,
             DamageRadius = 1.8,
 			DamageFriendly = true,
             DamageType = 'Normal',
@@ -280,6 +272,8 @@ UnitBlueprint {
             },
 			
             FiringRandomness = 0.5,
+            FiringRandomnessWhileMoving = 0.7,
+            
             FiringTolerance = 2,
 			
             Label = 'MissileRack',
@@ -292,11 +286,12 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0.4,
             MuzzleSalvoSize = 9,
             MuzzleVelocity = 18,
-            MuzzleVelocityRandom = 0.4,
+            MuzzleVelocityRandom = 0.45,
 
-            ProjectileId = '/projectiles/CDFRocketIridium03/CDFRocketIridium03_proj.bp',			
+            ProjectileId = '/projectiles/CDFRocketIridium02/CDFRocketIridium02_proj.bp',
+            --ProjectileId = '/projectiles/CDFRocketIridium03/CDFRocketIridium03_proj.bp',			
 
-            ProjectileLifetimeUsesMultiplier = 4.5,
+            ProjectileLifetime = 4.5,
 
             RackBones = {
                 {
@@ -314,15 +309,15 @@ UnitBlueprint {
                     RackBone = 'Turret_Pitch',
                 },
             },
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
+
+            RackSalvoReloadTime = 1.4,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
-            RateOfFire = 0.25,	-- 180 dps
-            RenderFireClock = true,
+            RateOfFire = 1,	    -- controlled by delay = 5 seconds = 162 dps
 			
             TargetCheckInterval = 2.5,
+
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'DEFENSE',
@@ -342,8 +337,8 @@ UnitBlueprint {
             TurretPitchSpeed = 60,
 			
             TurretYaw = 0,
-            TurretYawRange = 180,
-            TurretYawSpeed = 42,
+            TurretYawRange = 150,
+            TurretYawSpeed = 30,
 			
             Turreted = true,
         },
@@ -352,9 +347,9 @@ UnitBlueprint {
 	
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0.5,
+        EnergyMult = 0.2,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.7,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,

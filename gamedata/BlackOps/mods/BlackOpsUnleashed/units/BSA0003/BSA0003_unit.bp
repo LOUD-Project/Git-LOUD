@@ -4,10 +4,9 @@ UnitBlueprint {
 		GuardRadius = 100,
         GuardReturnRadius = 125,
         GuardScanRadius = 150,
-		TargetBones = {
-            'XSA0203',
-		},
+		TargetBones = {'XSA0203'},
     },
+
     Air = {
 	
         AutoLandTime = 1.6,
@@ -110,7 +109,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.04,
     },
 	
@@ -258,14 +256,11 @@ UnitBlueprint {
                     RackBone = 'Left_Turret_Barrel',
                 },
             },
-            RackFireTogether = false,
-            
+
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 1,		---- 50 DPS
@@ -339,13 +334,6 @@ UnitBlueprint {
                     RackBone = 'Right_Turret_Barrel',
                 },
             },
-            RackFireTogether = false,
-            
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
 
             RateOfFire = 1,		---- another 50 DPS
 			

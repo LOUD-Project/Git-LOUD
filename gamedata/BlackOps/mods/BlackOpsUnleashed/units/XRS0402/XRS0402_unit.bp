@@ -161,7 +161,7 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
+
         UniformScale = 0.09,
     },
 	
@@ -857,8 +857,8 @@ UnitBlueprint {
 
             RackRecoilDistance = -0.5,
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
 
             RateOfFire = 1.4,
 			
@@ -960,8 +960,8 @@ UnitBlueprint {
 
             RackRecoilDistance = -0.5,
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
 
             RateOfFire = 1.4,
 			
@@ -1064,8 +1064,8 @@ UnitBlueprint {
 
             RackRecoilDistance = -0.5,
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
 
             RateOfFire = 1.4,
 			
@@ -1160,8 +1160,8 @@ UnitBlueprint {
 
             RackRecoilDistance = -0.3,
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 			
@@ -1249,8 +1249,8 @@ UnitBlueprint {
 
             RackRecoilDistance = -0.3,
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 
@@ -1342,8 +1342,8 @@ UnitBlueprint {
             },
 
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
 
             RangeCategory = 'UWRC_AntiNavy',
 			
@@ -1409,9 +1409,8 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
 
             RangeCategory = 'UWRC_Countermeasure',
 			
@@ -1485,9 +1484,8 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
 
             RateOfFire = 0.6,
             

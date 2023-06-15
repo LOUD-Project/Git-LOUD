@@ -117,7 +117,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.22,
     },
 	
@@ -273,16 +272,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Turret_Muzzle'},
                     RackBone = 'Turret_Muzzle',
                 },
             },
-            
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_DirectFire',
 			

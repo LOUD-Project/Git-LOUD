@@ -62,7 +62,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.12,
     },
 	
@@ -204,12 +203,13 @@ UnitBlueprint {
                     RackBone = 'R_Turret',
                 },
             },
+
             RackFireTogether = true,
             
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_Directfire',

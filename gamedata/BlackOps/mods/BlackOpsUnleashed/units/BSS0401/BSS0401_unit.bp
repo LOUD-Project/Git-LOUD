@@ -153,7 +153,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.038,
     },
 	
@@ -318,9 +317,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Main_Front_Turret_Muzzle01',
-                    },
+                    MuzzleBones = {'Main_Front_Turret_Muzzle01'},
                     RackBone = 'Main_Front_Turret_Barrel',
                 },
             },
@@ -427,9 +424,7 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Main_Back_Turret_Muzzle01',
-                    },
+                    MuzzleBones = {'Main_Back_Turret_Muzzle01'},
                     RackBone = 'Main_Back_Turret_Barrel',
                 },
             },
@@ -527,18 +522,13 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Front_Turret_Muzzle01',
-                    },
+                    MuzzleBones = {'Front_Turret_Muzzle01'},
                     RackBone = 'Front_Turret_Barrel01',
                 },
             },
 
             RackRecoilDistance = -4,
             RackRecoilReturnSpeed = 2,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -627,18 +617,13 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Front_Turret_Muzzle02',
-                    },
+                    MuzzleBones = {'Front_Turret_Muzzle02'},
                     RackBone = 'Front_Turret_Barrel02',
                 },
             },
 
             RackRecoilDistance = -4,
             RackRecoilReturnSpeed = 2,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 0.5,		-- 350 DPS
 			
@@ -724,18 +709,13 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Front_Turret_Muzzle03',
-                    },
+                    MuzzleBones = {'Front_Turret_Muzzle03'},
                     RackBone = 'Front_Turret_Barrel03',
                 },
             },
 
             RackRecoilDistance = -4,
             RackRecoilReturnSpeed = 2,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 0.5,		-- 350 DPS
 			
@@ -821,19 +801,15 @@ UnitBlueprint {
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
+
             NeedPrep = true,
+
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Left_Deck_Turret01_Muzzle',
-                    },
+                    MuzzleBones = {'Left_Deck_Turret01_Muzzle'},
                     RackBone = 'Left_Deck_Turret01_Barrel',
                 },
             },
-
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 0.25,		-- 125 DPS
 			
@@ -919,9 +895,7 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_Deck_Turret01_Muzzle',
-                    },
+                    MuzzleBones = {'Right_Deck_Turret01_Muzzle'},
                     RackBone = 'Right_Deck_Turret01_Barrel',
                 },
             },
@@ -1007,9 +981,7 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Left_Deck_Turret02_Muzzle',
-                    },
+                    MuzzleBones = {'Left_Deck_Turret02_Muzzle'},
                     RackBone = 'Left_Deck_Turret02_Barrel',
                 },
             },
@@ -1096,9 +1068,7 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_Deck_Turret02_Muzzle',
-                    },
+                    MuzzleBones = {'Right_Deck_Turret02_Muzzle'},
                     RackBone = 'Right_Deck_Turret02_Barrel',
                 },
             },
@@ -1175,18 +1145,11 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'TMD_Turret_Muzzle',
-                    },
+                    MuzzleBones = {'TMD_Turret_Muzzle'},
                     RackBone = 'TMD_Turret_Barrel',
                 },
             },
 
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-			
             RangeCategory = 'UWRC_Countermeasure',
 			
             RateOfFire = 1,
@@ -1258,23 +1221,21 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Left_AA_Turret01_Muzzle01',
-                    },
+                    MuzzleBones = {'Left_AA_Turret01_Muzzle01'},
                     RackBone = 'Left_AA_Turret01_Barrel01',
                 },
                 {
-                    MuzzleBones = {
-                        'Left_AA_Turret01_Muzzle02',
-                    },
+                    MuzzleBones = {'Left_AA_Turret01_Muzzle02'},
                     RackBone = 'Left_AA_Turret01_Barrel01',
                 },				
             },
 
             RackSalvoChargeTime = 0.1,
+
 			RackFiresAfterCharge = true,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_AntiAir',
@@ -1351,23 +1312,21 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Left_AA_Turret02_Muzzle01',
-                    },
+                    MuzzleBones = {'Left_AA_Turret02_Muzzle01'},
                     RackBone = 'Left_AA_Turret02_Barrel01',
                 },
                 {
-                    MuzzleBones = {
-                        'Left_AA_Turret02_Muzzle02',
-                    },
+                    MuzzleBones = {'Left_AA_Turret02_Muzzle02'},
                     RackBone = 'Left_AA_Turret02_Barrel01',
                 },				
             },
 
             RackSalvoChargeTime = 0.1,
+
 			RackSalveFiresAfterCharge = true,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 
             RateOfFire = 3,		-- 120 DPS Air
@@ -1442,23 +1401,21 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_AA_Turret01_Muzzle01',
-                    },
+                    MuzzleBones = {'Right_AA_Turret01_Muzzle01'},
                     RackBone = 'Right_AA_Turret01_Barrel01',
                 },
                 {
-                    MuzzleBones = {
-                        'Right_AA_Turret01_Muzzle02',
-                    },
+                    MuzzleBones = {'Right_AA_Turret01_Muzzle02'},
                     RackBone = 'Right_AA_Turret01_Barrel01',
                 },				
             },
 
             RackSalvoChargeTime = 0.1,
+
 			RackSalvoFiresAfterCharge = true,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 
             RateOfFire = 3,		-- 120 DPS Air
@@ -1533,23 +1490,21 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Right_AA_Turret02_Muzzle01',
-                    },
+                    MuzzleBones = {'Right_AA_Turret02_Muzzle01'},
                     RackBone = 'Right_AA_Turret02_Barrel01',
                 },
                 {
-                    MuzzleBones = {
-                        'Right_AA_Turret02_Muzzle02',
-                    },
+                    MuzzleBones = {'Right_AA_Turret02_Muzzle02'},
                     RackBone = 'Right_AA_Turret02_Barrel01',
                 },				
             },
 
             RackSalvoChargeTime = 0.1,
+
 			RackSalvoFiresAfterCharge = true,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 
             RateOfFire = 3,		-- 120 DPS Air
@@ -1633,16 +1588,10 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Projectile01',
-                    },
+                    MuzzleBones = {'Projectile01'},
                     RackBone = 'Projectile01',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_Countermeasure',
 			

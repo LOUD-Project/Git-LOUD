@@ -58,7 +58,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.25,
     },
 	
@@ -162,11 +161,8 @@ UnitBlueprint {
             RangeCategory = 'UWRC_Countermeasure',
 			
             TargetCheckInterval = 6,
-            TargetPriorities = {
-                'ALLUNITS',
-            },
+            TargetPriorities = { 'ALLUNITS' },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            WeaponCategory = 'Direct Fire',
 		},
         
         {

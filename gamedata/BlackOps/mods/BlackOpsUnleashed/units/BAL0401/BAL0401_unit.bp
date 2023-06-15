@@ -179,7 +179,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.8,
     },
 	
@@ -338,10 +337,7 @@ UnitBlueprint {
                     RackBone = 'Bombard',
                 },
             },
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 1,
 			
             RangeCategory = 'UWRC_IndirectFire',
@@ -443,11 +439,8 @@ UnitBlueprint {
                     RackBone = 'Muzzle01',
                 },
             },
-            RackFireTogether = true, 
 
-            RackReloadTimeout = 0, 
-            RackSalvoChargeTime = 0, 
-            RackSalvoReloadTime = 0, 
+            RackFireTogether = true, 
 
             RangeCategory = 'UWRC_DirectFire',
 			

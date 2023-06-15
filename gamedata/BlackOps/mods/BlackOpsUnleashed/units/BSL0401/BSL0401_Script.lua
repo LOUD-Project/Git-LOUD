@@ -51,8 +51,8 @@ BSL0401 = Class(SHoverLandUnit) {
 					end
 					self.unit.BeamChargeEffects1 = {}
 				end
-                
-                local army = self.unit.Sync.army
+   
+   local army = self.unit.Sync.army
 
 				LOUDINSERT( self.unit.BeamChargeEffects1, AttachBeamEntityToEntity(self.unit, 'Focus_Beam01_Emitter01', self.unit, 'Focus_Beam01_Emitter02', army, '/mods/BlackOpsUnleashed/effects/emitters/seraphim_expirimental_laser_charge_beam_emit.bp') )
 				
@@ -112,8 +112,8 @@ BSL0401 = Class(SHoverLandUnit) {
 					end
 					self.unit.BeamChargeEffects2 = {}
 				end
-                
-                local army = self.unit.Sync.army
+   
+   local army = self.unit.Sync.army
 
 				LOUDINSERT( self.unit.BeamChargeEffects2, AttachBeamEntityToEntity(self.unit, 'Focus_Beam02_Emitter01', self.unit, 'Focus_Beam02_Emitter02', army, '/mods/BlackOpsUnleashed/effects/emitters/seraphim_expirimental_laser_charge_beam_emit.bp') )
 				
@@ -175,8 +175,8 @@ BSL0401 = Class(SHoverLandUnit) {
 					end
 					self.unit.BeamChargeEffects3 = {}
 				end
-                
-                local army = self.unit.Sync.army
+   
+   local army = self.unit.Sync.army
 
 				LOUDINSERT( self.unit.BeamChargeEffects3, AttachBeamEntityToEntity(self.unit, 'Focus_Beam03_Emitter01', self.unit, 'Focus_Beam03_Emitter02', army, '/mods/BlackOpsUnleashed/effects/emitters/seraphim_expirimental_laser_charge_beam_emit.bp') )
 				

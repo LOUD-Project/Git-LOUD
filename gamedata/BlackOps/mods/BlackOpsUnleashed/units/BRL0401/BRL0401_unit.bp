@@ -161,7 +161,7 @@ UnitBlueprint {
                 },
             },
         },
-        SpawnRandomRotation = true,
+
         UniformScale = 0.15,
     },
 	
@@ -322,8 +322,7 @@ UnitBlueprint {
             },
 
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoFiresAfterCharge = false,
+
             RackSalvoReloadTime = 1,
 
             RateOfFire = 0.065,
@@ -410,7 +409,7 @@ UnitBlueprint {
             },
             
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
+             
             RackSalvoFiresAfterCharge = false,
             RackSalvoReloadTime = 1,
 
@@ -529,10 +528,10 @@ UnitBlueprint {
             RackFireTogether = true,
 			
             RackRecoilDistance = -2,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
+
+
             RackSalvoFiresAfterCharge = false,
-            RackSalvoReloadTime = 0,
+             
 
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -630,8 +629,8 @@ UnitBlueprint {
             RackFireTogether = true,
             
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
 
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -742,8 +741,8 @@ UnitBlueprint {
             },
             
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -845,9 +844,8 @@ UnitBlueprint {
                 },
             },
             
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
 
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -943,9 +941,8 @@ UnitBlueprint {
                 },
             },
             
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
 
             RateOfFire = 2.5,	--	187.5dps
 			
@@ -1055,8 +1052,8 @@ UnitBlueprint {
             },
             
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
 
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -1156,8 +1153,8 @@ UnitBlueprint {
             },
             
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
 
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -1236,14 +1233,14 @@ UnitBlueprint {
                     RackBone = 'AA_Missile_1',
                 },
             },
-            RackFireTogether = false,
+             
             
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
+
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 0.6,

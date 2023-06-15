@@ -166,7 +166,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = false,
         UniformScale = 0.243,
     },
 	
@@ -175,7 +174,6 @@ UnitBlueprint {
         BuildCostEnergy = 605000,
         BuildCostMass = 28500,
         BuildTime = 9750,
-		
     },
 	
     Footprint = {
@@ -346,10 +344,6 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 0.5,		-- 300 DPS
@@ -455,10 +449,6 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-
             RateOfFire = 0.5,	-- about 300DPS
 			
             TargetCheckInterval = 0.5,
@@ -560,10 +550,6 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-
             RateOfFire = 0.5,
 			
             TargetCheckInterval = 0.5,
@@ -662,10 +648,6 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-
             RateOfFire = 0.5,
 			
             TargetCheckInterval = 0.5,
@@ -752,10 +734,6 @@ UnitBlueprint {
                     RackBone = 'R_F_AA_Muzzle_01',
                 },
             },
-
-            RackReloadTimeout = 1,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_AntiAir',
 			
@@ -848,10 +826,6 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 1,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-
             RateOfFire = 1,		-- 200 DPS Air
             
 			ReTargetOnMiss = true,
@@ -940,10 +914,6 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 1,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-
             RateOfFire = 1,		-- 200 DPS Air
             
 			ReTargetOnMiss = true,
@@ -1031,10 +1001,6 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 1,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-
             RateOfFire = 1,		-- 200 DPS Air
             
 			ReTargetOnMiss = true,
@@ -1121,10 +1087,6 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 1,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-
 			RateOfFire = 1,		-- 200 DPS Air
 			ReTargetOnMiss = true,
 			
@@ -1209,10 +1171,6 @@ UnitBlueprint {
                     RackBone = 'R_B_AA_Muzzle_01',
                 },
             },
-
-            RackReloadTimeout = 1,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 1,		-- 200 DPS Air
             
@@ -1367,9 +1325,8 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 4,
+
             RackSalvoSize = 1,
 			
             RangeCategory = 'UWRC_InDirectFire',
