@@ -84,7 +84,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.021,
     },
 	
@@ -94,7 +93,6 @@ UnitBlueprint {
         BuildTime = 500,
 		
         RebuildBonusIds = {'BRMT1PD'},
-		
     },
 	
     General = {
@@ -208,10 +206,7 @@ UnitBlueprint {
             },
             
             RackRecoilDistance = -2,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',

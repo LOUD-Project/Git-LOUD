@@ -82,8 +82,6 @@ UnitBlueprint {
                 },
             },
         },
-
-        SpawnRandomRotation = true,
 		
         Tarmacs = {
             {
@@ -223,24 +221,23 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Muzzle',
-                    },
+                    MuzzleBones = { 'Muzzle' },
                     RackBone = 'Turret_Recoil',
                 },
                 {
-                    MuzzleBones = {
-                        'Muzzle01',
-                    },
+                    MuzzleBones = { 'Muzzle01' },
                     RackBone = 'Turret_Recoil01',
                 },
             },
+
             RackFireTogether = true,
+
             RackRecoilDistance = -3,
+
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',

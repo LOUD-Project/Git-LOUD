@@ -1,9 +1,7 @@
 UnitBlueprint {
 
     AI = { 
-		TargetBones = {
-            'Turret',
-        },		
+		TargetBones = {'Turret'},		
     }, 
 	
     Audio = {
@@ -88,8 +86,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
-		
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar12x_aeon_01_albedo',
@@ -349,24 +345,21 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Turret_Muzzle'},
                     RackBone = 'Turret_Barrel',
                 },
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle2',
-                    },
+                    MuzzleBones = {'Turret_Muzzle2'},
                     RackBone = 'Turret_Barrel2',
                 },
             },
+
             RackFireTogether = true,
 			
             RackRecoilDistance = -3,
+
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 1,
 			
             RackSlavedToTurret = true,
@@ -454,10 +447,6 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
             RackSlavedToTurret = true,
             
             RangeCategory = 'UWRC_AntiAir',
@@ -472,7 +461,6 @@ UnitBlueprint {
                 'BOMBER',
                 'GROUNDATTACK',
                 'MOBILE',
-
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',

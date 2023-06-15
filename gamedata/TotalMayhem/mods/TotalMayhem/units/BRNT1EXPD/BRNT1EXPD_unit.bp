@@ -54,6 +54,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 17.5,
     },
     Description = '<LOC brnt1expd_desc>Gatling Defense System',
+
     Display = {
         Abilities = {
             'Dual Role PD/Anti-Air',
@@ -69,20 +70,21 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
+
         UniformScale = 0.09,
     },
+
     Economy = {
         BuildCostEnergy = 6600,
         BuildCostMass = 600,
         BuildTime = 600,
-        RebuildBonusIds = {
-            'BRNT1EXPD',
-        },
+        RebuildBonusIds = {'BRNT1EXPD'},
     },
+
     Footprint = {
         MinWaterDepth = 1,
     },
+
     General = {
         Category = 'Defense',
         Classification = 'RULEUC_Weapon',
@@ -98,15 +100,19 @@ UnitBlueprint {
         UnitName = '<LOC brnt1expd_name>Mayor',
         UnitWeight = 1,
     },
+
     Intel = {
         VisionRadius = 26,
     },
+
     Interface = {
         HelpText = 'Gatling Defense System',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.5,
     LifeBarSize = 1.0,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -127,6 +133,7 @@ UnitBlueprint {
         SkirtSizeZ = 1,
         TurnRate = 0,
     },
+
     SelectionSizeX = 0.5,
     SelectionSizeZ = 0.5,
     SelectionThickness = 1,
@@ -182,18 +189,16 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle_Right02',
-                    },
+                    MuzzleBones = { 'Turret_Muzzle_Right02' },
                     RackBone = 'minigun02',
                 },
             },
-            
             
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 1,
             RackSalvoReloadTime = 2,
             RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',

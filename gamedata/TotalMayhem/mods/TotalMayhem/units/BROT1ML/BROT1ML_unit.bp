@@ -1,10 +1,9 @@
 UnitBlueprint {
     AI = { 
         GuardScanRadius = 15, 
-		TargetBones = {
-            'Turret',
-        },		
+		TargetBones = {'Turret'},		
     }, 
+
     Audio = {
         Destroyed = Sound {
             Bank = 'TM_EXPLOSIONS',
@@ -26,6 +25,7 @@ UnitBlueprint {
     Buffs = {},
 	
     BuildIconSortPriority = 61,
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1FACTORY',
@@ -50,7 +50,9 @@ UnitBlueprint {
         RegenRate = 0,
         SurfaceThreatLevel = 6,
     },
+
     Description = '<LOC brot1ml_desc>Light Rocket Artillery',
+
     Display = {
         Mesh = {
             IconFadeInZoom = 140,
@@ -63,14 +65,15 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = false,
         UniformScale = 0.09,
     },
+
     Economy = {
         BuildCostEnergy = 1300,
         BuildCostMass = 100,
         BuildTime = 500,
     },
+
     General = {
         Category = 'Direct Fire',
         Classification = 'RULEUC_MilitaryVehicle',
@@ -89,15 +92,19 @@ UnitBlueprint {
         UnitName = '<LOC brot1ml_name>Wavecrest',
         UnitWeight = 1,
     },
+
     Intel = {
         VisionRadius = 18,
     },
+
     Interface = {
         HelpText = 'Light Rocket Artillery',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.6,
     LifeBarSize = 0.95,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -123,14 +130,18 @@ UnitBlueprint {
         TurnRadius = 0,
         TurnRate = 64,
     },
+
     SelectionSizeX = 0.60,
     SelectionSizeZ = 0.75,
     SelectionThickness = 0.5,
+
     SizeX = 0.65,
     SizeY = 0.45,
     SizeZ = 0.8,
+
     StrategicIconName = 'icon_land1_artillery',
     StrategicIconSortPriority = 125,
+
     Veteran = {
         Level1 = 3,
         Level2 = 6,
@@ -138,9 +149,11 @@ UnitBlueprint {
         Level4 = 12,
         Level5 = 15,
     },
+
     Transport = {
         TransportClass = 1,
     },
+
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -222,13 +235,9 @@ UnitBlueprint {
                     RackBone = 'Turret_Barrel',
                 },
             },
-            RackFireTogether = true,
-            
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
+
             RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 0.08,	-- 57 dps
@@ -256,9 +265,11 @@ UnitBlueprint {
             TurretPitch = 10,
             TurretPitchRange = 80,
             TurretPitchSpeed = 45,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 25,
+
             Turreted = true,
 		},
     },

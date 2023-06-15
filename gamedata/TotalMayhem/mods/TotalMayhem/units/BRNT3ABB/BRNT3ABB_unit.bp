@@ -1,9 +1,7 @@
 UnitBlueprint {
     AI = { 
         GuardScanRadius = 60,		
-		TargetBones = {
-			'Turret',
-        },
+		TargetBones = {'Turret'},
     },
 	
     Audio = {
@@ -77,6 +75,7 @@ UnitBlueprint {
             'Amphibious',
             'Radar',
         },
+
         AnimationDeath = {
             {
                 Animation = '/mods/TotalMayhem/units/BRNT3ABB/BRNT3ABB_Death.sca',
@@ -93,6 +92,7 @@ UnitBlueprint {
         },
         AnimationWalk = '/mods/TotalMayhem/units/BRNT3ABB/BRNT3ABB_Walk.sca',
         AnimationWalkRate = 3.5,
+
         Mesh = {
             IconFadeInZoom = 170,
             LODs = {
@@ -102,19 +102,7 @@ UnitBlueprint {
                 },
             },
         },
-            Land = {
-                Effects = {
-                    {
-                        Bones = {
-                            'Exhaust_Left',
-                            'Exhaust_Right',
-                        },
-                        Type = 'GroundKickup01',
-                    },
-                },
-            },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.047,
     },
 	
@@ -144,18 +132,22 @@ UnitBlueprint {
         UnitName = '<LOC brnt3abb_name>IronFist',
         UnitWeight = 2,
     },
+
     Intel = {
 		FreeIntel = true,
 		RadarRadius = 75,
 		VisionRadius = 34,
 		WaterVisionRadius = 24,
     },
+
     Interface = {
         HelpText = 'Armored Battle Bot',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.35,
     LifeBarSize = 1.0,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -176,14 +168,18 @@ UnitBlueprint {
         TurnRate = 12,
 		WaterSpeedMultiplier = 1.2,
     },
+
     SelectionSizeX = 0.6,
     SelectionSizeZ = 0.5,
     SelectionThickness = 0.5,
+
     SizeX = 0.8,
     SizeY = 1.6,
     SizeZ = 0.8,
+
     StrategicIconName = 'icon_seabed3_directfire2',
     StrategicIconSortPriority = 115,
+
     Veteran = {
         Level1 = 10,
         Level2 = 20,
@@ -191,10 +187,12 @@ UnitBlueprint {
         Level4 = 40,
         Level5 = 50,
     },
+
     Transport = {
         CanFireFromTransport = false,
         TransportClass = 3,
     },
+
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -254,23 +252,18 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'topgun01muzzle',
-                    },
+                    MuzzleBones = {'topgun01muzzle'},
                     RackBone = 'shouldergun01',
                 },
                 {
-                    MuzzleBones = {
-                        'topgun02muzzle',
-                    },
+                    MuzzleBones = {'topgun02muzzle'},
                     RackBone = 'shouldergun02',
                 },
             },
 
             RackRecoilDistance = -2,
+
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -341,23 +334,18 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'gunmuzzle02',
-                    },
+                    MuzzleBones = {'gunmuzzle02'},
                     RackBone = 'gunbarrel01',
                 },
                 {
-                    MuzzleBones = {
-                        'gunmuzzle01',
-                    },
+                    MuzzleBones = {'gunmuzzle01'},
                     RackBone = 'gunbarrel02',
                 },
             },
             
             RackRecoilDistance = -3,
+
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 			
             RangeCategory = 'UWRC_DirectFire',
 			

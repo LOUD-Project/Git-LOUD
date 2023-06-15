@@ -1,9 +1,7 @@
 UnitBlueprint {
 
     AI = { 
-		TargetBones = {
-            'Turret',
-        },
+		TargetBones = { 'Turret' },
 	},
 		
     Audio = {
@@ -74,7 +72,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.4,
     },
 	
@@ -265,13 +262,11 @@ UnitBlueprint {
                     RackBone = 'Turret_Barrel',
                 },
             },
-			
-            RackFireTogether = true,
-            
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
+             
             RackSalvoReloadTime = 2,
+
             RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_IndirectFire',

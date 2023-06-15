@@ -145,7 +145,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.072,
     },
 	
@@ -296,10 +295,9 @@ UnitBlueprint {
             },
             
             RackRecoilDistance = -2,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
@@ -380,30 +378,23 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Back_Muzzle01',
-                    },
+                    MuzzleBones = { 'Back_Muzzle01' },
                     RackBone = 'Back_Turret_Barrel01',
                 },
                 {
-                    MuzzleBones = {
-                        'Back_Muzzle02',
-                    },
+                    MuzzleBones = { 'Back_Muzzle02' },
                     RackBone = 'Back_Turret_Barrel02',
                 },
                 {
-                    MuzzleBones = {
-                        'Back_Muzzle03',
-                    },
+                    MuzzleBones = { 'Back_Muzzle03' },
                     RackBone = 'Back_Turret_Barrel03',
                 },
             },
             
             RackRecoilDistance = -2,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
@@ -501,11 +492,13 @@ UnitBlueprint {
                 },
             },
             RackFireTogether = true,
+
             RackRecoilDistance = -2,
+
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_IndirectFire',
@@ -583,13 +576,9 @@ UnitBlueprint {
                     RackBone = 'Front_Barrel_AA',
                 },
             },
-            
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
+
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 2,		-- 120 DPS Air
@@ -667,16 +656,13 @@ UnitBlueprint {
                     RackBone = 'Back_Barrel_AA',
                 },
             },
-            
-            
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
+
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 2,		-- 120 DPS Air
+
             TargetCheckInterval = 0.3,
 			
             TargetPriorities = {
@@ -756,13 +742,7 @@ UnitBlueprint {
                 },				
             },
             RackFireTogether = true,
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_AntiNavy',
 			
             RateOfFire = 0.5,		-- 160 DPS Sub
@@ -830,12 +810,11 @@ UnitBlueprint {
             },
             
             
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
+
             RangeCategory = 'UWRC_Countermeasure',
 			
             RateOfFire = 0.5,
@@ -910,11 +889,11 @@ UnitBlueprint {
             },
             
             
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
+            
+
             RangeCategory = 'UWRC_Countermeasure',
             RateOfFire = 0.5,
             TargetCheckInterval = 0.5,

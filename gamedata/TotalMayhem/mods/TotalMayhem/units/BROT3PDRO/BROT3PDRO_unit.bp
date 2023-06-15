@@ -70,7 +70,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.074,
     },
     
@@ -239,9 +238,11 @@ UnitBlueprint {
             RackFireTogether = true,
             
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
+
             RackSalvoReloadTime = 1.5,
+
             RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',

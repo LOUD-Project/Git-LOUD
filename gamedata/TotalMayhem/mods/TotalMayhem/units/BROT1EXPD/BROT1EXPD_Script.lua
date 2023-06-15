@@ -6,8 +6,7 @@ local TMAmizurabluelaserweapon = TMWeaponsFile.TMAmizurabluelaserweapon
 
 BROT1EXPD = Class(TStructureUnit) {
     Weapons = {
-        laserblue = Class(TMAmizurabluelaserweapon) {
-		},
+        laserblue = Class(TMAmizurabluelaserweapon) {},
     },
 }
 

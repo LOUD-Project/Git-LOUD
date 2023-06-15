@@ -141,7 +141,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.08,
     },
 	
@@ -278,10 +277,6 @@ UnitBlueprint {
                     RackBone = 'Center_Projectile',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 0.5,	-- 240 DPS
 			

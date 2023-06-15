@@ -1,9 +1,7 @@
 UnitBlueprint {
 
     AI = { 
-		TargetBones = {
-            'eff02',
-        },		
+		TargetBones = {'eff02'},		
     }, 
 
     Audio = {
@@ -111,7 +109,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar8x_aeon_01_albedo',
@@ -136,9 +133,8 @@ UnitBlueprint {
         BuildCostEnergy = 16500,
         BuildCostMass = 1700,
         BuildTime = 1800,
-        RebuildBonusIds = {
-            'BROT2EPD',
-        },
+
+        RebuildBonusIds = {'BROT2EPD'},
     },
 
     General = {
@@ -267,30 +263,25 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Turret_Muzzle'},
                     RackBone = 'Turret_Barrel',
                 },
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle2',
-                    },
+                    MuzzleBones = {'Turret_Muzzle2'},
                     RackBone = 'Turret_Barrel2',
                 },
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle3',
-                    },
+                    MuzzleBones = {'Turret_Muzzle3'},
                     RackBone = 'Turret_Barrel3',
                 },
             },
             
             RackRecoilDistance = -1,
+
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
@@ -376,11 +367,8 @@ UnitBlueprint {
                 },
             },
             
-            
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_AntiAir',

@@ -110,7 +110,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.02,
     },
 	
@@ -255,26 +254,21 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'muzzle01',
-                    },
+                    MuzzleBones = {'muzzle01'},
                     RackBone = 'Object11',
                 },
                 {
-                    MuzzleBones = {
-                        'muzzle02',
-                    },
+                    MuzzleBones = {'muzzle02'},
                     RackBone = 'Object06',
                 },
             },
 
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 3,
+
             TargetCheckInterval = 0.5,
 			
             TargetPriorities = {
@@ -357,10 +351,10 @@ UnitBlueprint {
                 },
             },
             
-            RackReloadTimeout = 0,
+             
             RackSalvoChargeTime = 0.1,
             RackSalvoFiresAfterCharge = true,
-            RackSalvoReloadTime = 0,
+             
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 			

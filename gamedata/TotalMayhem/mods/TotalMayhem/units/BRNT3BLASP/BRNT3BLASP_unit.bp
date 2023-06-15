@@ -147,7 +147,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.040,
     },
 	
@@ -301,9 +300,6 @@ UnitBlueprint {
             },
 			
             RackRecoilDistance = -2,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -395,9 +391,6 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -2,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 0.5,		-- 500dps
 			
@@ -425,7 +418,7 @@ UnitBlueprint {
 			
             Turreted = true,
 		},
---]]
+
 		-- Left Arm Beam Weapon --
 	
         {
@@ -495,10 +488,6 @@ UnitBlueprint {
                     RackBone = 'gun01',
                 },
             },
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 			
             RackSalvoSize = 1,
 			
@@ -609,13 +598,6 @@ UnitBlueprint {
                     RackBone = 'gun02',
                 },
             },
-            RackFireTogether = true,
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-			
-            RackSalvoSize = 1,
 			
             RackSlavedToTurret = true,
 
@@ -706,14 +688,6 @@ UnitBlueprint {
                 },
             },
 			
-            RackFireTogether = true,
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-			
-            RackSalvoSize = 1,
-			
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 8,		-- 240dps
@@ -799,14 +773,6 @@ UnitBlueprint {
                     RackBone = 'minigun02',
                 },
             },
-			
-            RackFireTogether = true,
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-			
-            RackSalvoSize = 1,
 
             RateOfFire = 8,		-- 240dps
 	
@@ -896,13 +862,7 @@ UnitBlueprint {
                     RackBone = 'head',
                 },
             },
-			
-            
-            
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_IndirectFire',

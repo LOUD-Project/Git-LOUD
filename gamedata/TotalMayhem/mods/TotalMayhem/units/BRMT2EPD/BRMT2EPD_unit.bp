@@ -1,9 +1,7 @@
 UnitBlueprint {
    
    AI = { 
-       	TargetBones = {
-            'Turret',
-        },
+       	TargetBones = { 'Turret' },
     },
 	
     Audio = {
@@ -106,7 +104,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar8x_cybran_01_albedo',
@@ -229,7 +226,7 @@ UnitBlueprint {
                     AppliedToTarget = true,
                     BuffType = 'STUN',
                     Duration = 0.7,
-                    Radius = 1,
+                    Radius = 0.5,
                     TargetAllow = 'LAND,NAVAL,TECH1,TECH2',
                     TargetDisallow = 'WALL,COMMAND,AIR,TECH3,EXPERIMENTAL',
                 },
@@ -238,7 +235,7 @@ UnitBlueprint {
             CollideFriendly = false,
 			
             Damage = 160,
-            DamageRadius = 1,
+            DamageRadius = 0,
             DamageType = 'Normal',
 			
             DisplayName = 'Ionized Plasma Cannon',
@@ -266,24 +263,19 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle01',
-                    },
+                    MuzzleBones = { 'Turret_Muzzle01' },
                     RackBone = 'Barrel01',
                 },
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle02',
-                    },
+                    MuzzleBones = { 'Turret_Muzzle02' },
                     RackBone = 'Barrel02',
                 },
             },
             
             RackRecoilDistance = -0.5,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',

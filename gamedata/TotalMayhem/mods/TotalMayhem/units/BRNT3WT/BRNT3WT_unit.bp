@@ -79,7 +79,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = false,
         UniformScale = 0.040,
     },
 	
@@ -228,12 +227,7 @@ UnitBlueprint {
                     RackBone = 'rocketlauncher',
                 },
             },
-            RackFireTogether = true,
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_IndirectFire',
@@ -322,9 +316,8 @@ UnitBlueprint {
             },
             
             RackRecoilDistance = -3,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
             RackSalvoSize = 1,
 			
             RackSlavedToTurret = true,

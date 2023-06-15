@@ -6,9 +6,7 @@ local TDFGaussCannonWeapon = WeaponsFile.TDFLandGaussCannonWeapon
 BROT3PDRO = Class(TStructureUnit) {
 
     Weapons = {
-        MainGun = Class(TDFGaussCannonWeapon) {
-            FxMuzzleFlashScale = 1.5,
-		},
+        MainGun = Class(TDFGaussCannonWeapon) { FxMuzzleFlashScale = 1.5 },
     },
 }
 

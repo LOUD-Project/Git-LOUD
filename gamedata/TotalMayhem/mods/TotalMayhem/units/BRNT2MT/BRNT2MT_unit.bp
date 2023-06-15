@@ -71,7 +71,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = false,
         UniformScale = 0.053,
     },
 	
@@ -111,6 +110,7 @@ UnitBlueprint {
     LifeBarHeight = 0.07,
     LifeBarOffset = 0.6,
     LifeBarSize = 0.9,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -155,6 +155,7 @@ UnitBlueprint {
 	
     StrategicIconName = 'icon_land2_directfire',
     StrategicIconSortPriority = 125,
+
     Veteran = {
         Level1 = 5,
         Level2 = 10,
@@ -162,9 +163,11 @@ UnitBlueprint {
         Level4 = 20,
         Level5 = 25,
     },
+
     Transport = {
         TransportClass = 2,
     },
+
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -205,24 +208,21 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Turret_Muzzle'},
                     RackBone = 'Turret_Barrel',
                 },
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle2',
-                    },
+                    MuzzleBones = {'Turret_Muzzle2'},
                     RackBone = 'Turret_Barrel2',
                 },
             },
             
             RackRecoilDistance = -3,
+
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
@@ -296,7 +296,6 @@ UnitBlueprint {
                 },
             },
 
-            RackSalvoSize = 1,
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_IndirectFire',

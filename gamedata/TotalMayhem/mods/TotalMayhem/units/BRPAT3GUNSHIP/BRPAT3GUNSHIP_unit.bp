@@ -3,9 +3,7 @@ UnitBlueprint {
     AI = {
         GuardReturnRadius = 75,
         GuardScanRadius = 50,
-		TargetBones = {
-            'BRPAT1EXGUNSHIP',
-        },		
+		TargetBones = {'BRPAT1EXGUNSHIP'},		
     }, 
 
     Air = {
@@ -133,6 +131,7 @@ UnitBlueprint {
     },
 	
     Description = '<LOC brpat3gunship_desc>Heavy Gunship',
+
     Display = {
 	
         Abilities = {
@@ -154,7 +153,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.06,
     },
 	
@@ -286,16 +284,10 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Muzzle',
-                    },
+                    MuzzleBones = {'Muzzle'},
                     RackBone = 'Muzzle',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -381,8 +373,8 @@ UnitBlueprint {
             },
 
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
 
             RangeCategory = 'UWRC_AntiAir',
 			
@@ -463,8 +455,8 @@ UnitBlueprint {
             },
 
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
 
             RateOfFire = 2,		-- 72 DPS Air
 

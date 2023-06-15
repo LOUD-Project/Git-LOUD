@@ -88,7 +88,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.040,
     },
 	
@@ -98,7 +97,6 @@ UnitBlueprint {
         BuildTime = 900,
 		
         RebuildBonusIds = {'BRMT1EXPDT2'},
-		
     },
 	
     General = {
@@ -229,18 +227,15 @@ UnitBlueprint {
                     RackBone = 'Turret_Barrel',
                 },
             },
-            RackFireTogether = true,
-            
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
+
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 1,	-- 200 DPS - once every 2 seconds controlled by charge
 			
             ReTargetOnMiss = true,
+
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',

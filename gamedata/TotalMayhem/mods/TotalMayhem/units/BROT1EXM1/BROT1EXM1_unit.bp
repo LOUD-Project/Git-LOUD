@@ -90,7 +90,7 @@ UnitBlueprint {
                 },
             },
         },
-        SpawnRandomRotation = true,
+
         UniformScale = 0.24,
     },
 	
@@ -204,6 +204,7 @@ UnitBlueprint {
             },
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
+
             Damage = 30,
             DamageRadius = 0,
             DamageType = 'Normal',
@@ -236,13 +237,7 @@ UnitBlueprint {
                     RackBone = 'Turret_Recoil01',
                 },
             },
-			
-            
-            
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
@@ -314,27 +309,25 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'minigunmuzzle01',
-                    },
+                    MuzzleBones = {'minigunmuzzle01'},
                     RackBone = 'minigun_Barrel',
                 },
                 {
-                    MuzzleBones = {
-                        'minigunmuzzle02',
-                    },
+                    MuzzleBones = {'minigunmuzzle02'},
                     RackBone = 'minigun_Barrel01',
                 },
             },
+
             RackFireTogether = true,
             
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
-            RangeCategory = 'UWRC_DirectFire',
+
             RateOfFire = 2,	-- 20dps
+
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -343,15 +336,18 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.1,
+
             TurretBoneDualMuzzle = 'minigunmuzzle01',
             TurretBoneDualPitch = 'minigun',
             TurretBoneMuzzle = 'minigunmuzzle02',
             TurretBonePitch = 'minigun01',
             TurretBoneYaw = 'Turret',
             TurretDualManipulators = true,
+
             TurretPitch = 0,
             TurretPitchRange = 60,
             TurretPitchSpeed = 15,
+
             TurretYaw = 0,
             TurretYawRange = 45,
             TurretYawSpeed = 15,
@@ -411,16 +407,8 @@ UnitBlueprint {
                     RackBone = 'arm',
                 },
             },
-			
-            
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
-			
-            RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 0.1,	-- 15dps
 			RenderFireClock = true,

@@ -9,12 +9,8 @@ local EffectTemplate = import('/lua/EffectTemplates.lua')
 
 BRPEXBOT = Class( SWalkingLandUnit ) {
 	Weapons = {
-		MainGun = Class(SIFSuthanusArtilleryCannon) {
-			FxMuzzleFlashScale = 3.6, 
-		},
-		SecondaryGun = Class(SDFOhCannon) {
-			FxMuzzleFlashScale = 1.8, 
-		},
+		MainGun = Class(SIFSuthanusArtilleryCannon) {FxMuzzleFlashScale = 3.6},
+		SecondaryGun = Class(SDFOhCannon) {FxMuzzleFlashScale = 1.8},
 	},
 
 	OnStopBeingBuilt = function(self,builder,layer)

@@ -1,9 +1,7 @@
 UnitBlueprint {
 
     AI = {
-		TargetBones = {
-            'Turret',
-        },	
+		TargetBones = {'Turret'},	
     },
 	
     Audio = {
@@ -90,8 +88,6 @@ UnitBlueprint {
                 },
             },
         },
-		
-        SpawnRandomRotation = true,
 		
         Tarmacs = {
             {
@@ -246,17 +242,12 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Muzzle01',
-                    },
+                    MuzzleBones = {'Muzzle01'},
                     RackBone = 'Barrel_Right',
                 },
             },
 
             RackRecoilDistance = -2,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -270,7 +261,6 @@ UnitBlueprint {
                 'TECH2 MOBILE',
                 'TECH1 MOBILE',
                 'DEFENSE',
-
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',

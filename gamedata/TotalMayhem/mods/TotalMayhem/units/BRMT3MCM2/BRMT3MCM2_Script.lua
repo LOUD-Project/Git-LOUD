@@ -16,49 +16,44 @@ local CIFGrenadeWeapon = RobotTalkFile.CIFGrenadeWeapon
 BRMT3MCM2 = Class(CWalkingLandUnit) {
 
     Weapons = {
-        robottalk = Class(CIFGrenadeWeapon) {
-            FxMuzzleFlashScale = 0,
-	},
-        mgweapon = Class(TDFRiotWeapon) {
-            FxMuzzleFlash = EffectTemplate.TRiotGunMuzzleFxTank,
-			            FxMuzzleFlashScale = 0.75, 
-        },
+        robottalk = Class(CIFGrenadeWeapon) { FxMuzzleFlashScale = 0 },
+
+        mgweapon = Class(TDFRiotWeapon) { FxMuzzleFlash = EffectTemplate.TRiotGunMuzzleFxTank, FxMuzzleFlashScale = 0.75 },
+
         lefthandweapon = Class(CCannonMolecularWeapon) {
             FxMuzzleFlash = EffectTemplate.CHvyProtonCannonMuzzleflash,
             FxMuzzleFlashScale = 1.6,
-	},
+        },
+        
         righthandweapon = Class(CCannonMolecularWeapon) {
             FxMuzzleFlash = EffectTemplate.CHvyProtonCannonMuzzleflash,
             FxMuzzleFlashScale = 1.6,
-	},
-        rocket1 = Class(TDFGaussCannonWeapon) {
-            FxMuzzleFlashScale = 0.7,
-	},
-        rocket2 = Class(TDFGaussCannonWeapon) {
-            FxMuzzleFlashScale = 0.7,
-	},
-        rocket3 = Class(TDFGaussCannonWeapon) {
-            FxMuzzleFlashScale = 0.7,
-	},
-        rocket4 = Class(TDFGaussCannonWeapon) {
-            FxMuzzleFlashScale = 0.7,
-	},
-        laserfire = Class(CDFHeavyMicrowaveLaserGeneratorCom) {
-	},
-        HeavyBolter = Class(CCannonMolecularWeapon) {
-            FxMuzzleFlashScale = 2.15,
-	},
-        DeathWeapon = Class(TIFCommanderDeathWeapon) {
-	},
+        },
+        
+        rocket1 = Class(TDFGaussCannonWeapon) { FxMuzzleFlashScale = 0.7 },
+        
+        rocket2 = Class(TDFGaussCannonWeapon) { FxMuzzleFlashScale = 0.7 },
+        
+        rocket3 = Class(TDFGaussCannonWeapon) { FxMuzzleFlashScale = 0.7 },
+        
+        rocket4 = Class(TDFGaussCannonWeapon) { FxMuzzleFlashScale = 0.7 },
+        
+        laserfire = Class(CDFHeavyMicrowaveLaserGeneratorCom) {},
+        
+        HeavyBolter = Class(CCannonMolecularWeapon) { FxMuzzleFlashScale = 2.15 },
+        
+        DeathWeapon = Class(TIFCommanderDeathWeapon) {},
     },
-OnStopBeingBuilt = function(self,builder,layer)
+    
+    OnStopBeingBuilt = function(self,builder,layer)
+
         CWalkingLandUnit.OnStopBeingBuilt(self,builder,layer)
       
-      if self:GetAIBrain().BrainType == 'Human' and IsUnit(self) then
-         self:SetWeaponEnabledByLabel('robottalk', false)
-      else
-         self:SetWeaponEnabledByLabel('robottalk', true)
-      end      
+        if self:GetAIBrain().BrainType == 'Human' and IsUnit(self) then
+            self:SetWeaponEnabledByLabel('robottalk', false)
+        else
+            self:SetWeaponEnabledByLabel('robottalk', true)
+        end      
     end,
 }
 

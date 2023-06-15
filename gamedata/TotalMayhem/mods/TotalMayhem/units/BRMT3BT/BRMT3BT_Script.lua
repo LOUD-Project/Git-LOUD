@@ -47,9 +47,7 @@ BRMT3BT = Class(TLandUnit) {
             end,                   
         },
         
-        rocket = Class(TDFGaussCannonWeapon) {
-            FxMuzzleFlashScale = 0.5,                 
-        },
+        rocket = Class(TDFGaussCannonWeapon) { FxMuzzleFlashScale = 0.5 },
     },
 }
 

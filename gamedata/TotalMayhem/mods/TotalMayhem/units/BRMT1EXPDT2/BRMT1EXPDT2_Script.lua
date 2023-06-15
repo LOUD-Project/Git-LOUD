@@ -7,8 +7,7 @@ local CDFHeavyMicrowaveLaserGeneratorCom = CybranWeaponsFile.CDFHeavyMicrowaveLa
 BRMT1EXPDT2 = Class(TStructureUnit) {
 
     Weapons = {
-        MainGun = Class(CDFHeavyMicrowaveLaserGeneratorCom) {
-		},
+        MainGun = Class(CDFHeavyMicrowaveLaserGeneratorCom) {},
     },
 }
 

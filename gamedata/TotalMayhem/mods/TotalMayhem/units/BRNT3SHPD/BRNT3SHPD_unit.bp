@@ -1,9 +1,7 @@
 UnitBlueprint {
 
 	AI = { 
-		TargetBones = {
-            'Turret',
-        },
+		TargetBones = {'Turret'},
 	},
 
     Audio = {
@@ -85,8 +83,6 @@ UnitBlueprint {
                 },
             },
         },
-		
-        SpawnRandomRotation = true,
 		
         Tarmacs = {
             {
@@ -252,6 +248,7 @@ UnitBlueprint {
     LifeBarHeight = 0.1,
     LifeBarOffset = 1,
     LifeBarSize = 2,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -355,27 +352,19 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle01',
-                    },
+                    MuzzleBones = {'Turret_Muzzle01'},
                     RackBone = 'Turret_Barrel01a',
                 },
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle02',
-                    },
+                    MuzzleBones = {'Turret_Muzzle02'},
                     RackBone = 'Turret_Barrel01',
                 },
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle03',
-                    },
+                    MuzzleBones = {'Turret_Muzzle03'},
                     RackBone = 'Turret_Barrel02',
                 },
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle04',
-                    },
+                    MuzzleBones = {'Turret_Muzzle04'},
                     RackBone = 'Turret_Barrel03',
                 },
             },
@@ -383,11 +372,7 @@ UnitBlueprint {
             RackFireTogether = true,
 			
             RackRecoilDistance = -17,
-			
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_IndirectFire',
@@ -464,22 +449,17 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'SmallTurretMuzzle01',
-                    },
+                    MuzzleBones = {'SmallTurretMuzzle01'},
                     RackBone = 'SmallTurret_Barrel01',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 1,		-- 250 DPS
 			
             ReTargetOnMiss = true,
+
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'ALLUNITS -HIGHALTAIR',
@@ -554,8 +534,8 @@ UnitBlueprint {
             },
 
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
 
             RateOfFire = 1,		-- another 250 DPS
 			
@@ -634,8 +614,8 @@ UnitBlueprint {
             },
 
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
 
             RateOfFire = 1,
 			
@@ -713,8 +693,8 @@ UnitBlueprint {
             },
 
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
 
             RateOfFire = 1,
             ReTargetOnMiss = true,
@@ -793,8 +773,8 @@ UnitBlueprint {
             },
 
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
 
             RateOfFire = 1,
             ReTargetOnMiss = true,
@@ -872,8 +852,8 @@ UnitBlueprint {
             },
 
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
 
             RateOfFire = 1,
             ReTargetOnMiss = true,
@@ -952,8 +932,8 @@ UnitBlueprint {
             },
 
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
 
             RateOfFire = 1,
             ReTargetOnMiss = true,
@@ -1031,8 +1011,8 @@ UnitBlueprint {
             },
 
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
 
             RateOfFire = 1,
             ReTargetOnMiss = true,
@@ -1106,9 +1086,8 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
 
             RangeCategory = 'UWRC_AntiAir',
 			

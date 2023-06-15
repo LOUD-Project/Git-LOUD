@@ -1,9 +1,7 @@
 UnitBlueprint {
 
     AI = {  
-		TargetBones = {
-            'Turret_Barrel',
-        },
+		TargetBones = {'Turret_Barrel'},
     }, 
 
     Audio = {
@@ -23,6 +21,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     Buffs = {
         Regen = {
             Level1 = 1,
@@ -32,7 +31,9 @@ UnitBlueprint {
             Level5 = 5,
         },
     },
+
     BuildIconSortPriority = 111,
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1ENGINEER',
@@ -50,6 +51,7 @@ UnitBlueprint {
         'OVERLAYDIRECTFIRE',
         'SORTDEFENSE',
     },
+
     Defense = {
         ArmorType = 'Structure',
         Health = 1800,
@@ -57,7 +59,9 @@ UnitBlueprint {
         RegenRate = 1,
         SurfaceThreatLevel = 17.1,
     },
+
     Description = '<LOC brot1hpd_desc>Enhanced Point Defense',
+
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -69,17 +73,17 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.22,
     },
+
     Economy = {
         BuildCostEnergy = 4300,
         BuildCostMass = 450,
         BuildTime = 500,
-        RebuildBonusIds = {
-            'BROT1HPD',
-        },
+
+        RebuildBonusIds = {'BROT1HPD'},
     },
+
     General = {
         Category = 'Defense',
         Classification = 'RULEUC_Weapon',
@@ -95,15 +99,19 @@ UnitBlueprint {
         UnitName = '<LOC brot1hpd_name>Zpyker',
         UnitWeight = 1,
     },
+
     Intel = {
         VisionRadius = 24,
     },
+
     Interface = {
         HelpText = 'Enhanced Point Defense',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.25,
     LifeBarSize = 0.75,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -133,6 +141,7 @@ UnitBlueprint {
 	
     StrategicIconName = 'icon_structure1_directfire',
     StrategicIconSortPriority = 200,
+
     Veteran = {
         Level1 = 6,
         Level2 = 12,
@@ -140,6 +149,7 @@ UnitBlueprint {
         Level4 = 24,
         Level5 = 30,
     },
+
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -195,24 +205,21 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle01',
-                    },
+                    MuzzleBones = {'Turret_Muzzle01'},
                     RackBone = 'Turret_Recoil',
                 },
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle02',
-                    },
+                    MuzzleBones = {'Turret_Muzzle02'},
                     RackBone = 'Turret_Recoil01',
                 },
             },
             
             RackRecoilDistance = -1,
+
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
@@ -240,9 +247,11 @@ UnitBlueprint {
             TurretPitch = 0,
             TurretPitchRange = 45,
             TurretPitchSpeed = 42,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 35,
+
             Turreted = true,
  	   },
     },

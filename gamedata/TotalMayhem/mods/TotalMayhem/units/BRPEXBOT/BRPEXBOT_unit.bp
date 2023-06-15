@@ -163,7 +163,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.2,
     },
 	
@@ -312,23 +311,19 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'RightCannonBarrel01_Muzzle',
-                    },
+                    MuzzleBones = {'RightCannonBarrel01_Muzzle'},
                     RackBone = 'RightCannonBarrel_01',
                 },
                 {
-                    MuzzleBones = {
-                        'RightCannonBarrel02_Muzzle',
-                    },
+                    MuzzleBones = {'RightCannonBarrel02_Muzzle'},
                     RackBone = 'RightCannonBarrel_02',
                 },
             },
             
             RackRecoilDistance = -1.4,
+
             RackRecoilReturnSpeed = 4,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
+
             RackSalvoReloadTime = 1,
 
             RangeCategory = 'UWRC_IndirectFire',
@@ -402,16 +397,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Left_Barrel_Muzzle',
-                    },
+                    MuzzleBones = {'Left_Barrel_Muzzle'},
                     RackBone = 'Left_Barrel',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_DirectFire',
 			

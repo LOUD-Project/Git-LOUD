@@ -254,14 +254,14 @@ UnitBlueprint {
                             Type = 'FootFall01',
                         },
                     },
-                    
+       
                     CameraShake = {
                         Interval = 0.2,
                         MaxShakeEpicenter = 0.3,
                         MinShakeAtRadius = 0,
                         Radius = 22,
                     },
-                    
+       
                     Damage = {
                         Amount = 4200,
                         DamageFriendly = false,
@@ -272,7 +272,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.17,
     },
 	
@@ -459,14 +458,9 @@ UnitBlueprint {
                     RackBone = 'Front_Turret_Barrel02',
                 },
             },
-            RackFireTogether = true,
             
             RackRecoilDistance = -0.5,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            
-            RackSalvoSize = 3,
+
             RackSlavedToTurret = true,
             
             RangeCategory = 'UWRC_DirectFire',
@@ -561,12 +555,9 @@ UnitBlueprint {
                     RackBone = 'Front_Turret_Barrel04',
                 },
             },
-            RackFireTogether = true,
             
             RackRecoilDistance = -0.5,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 3,
 
             RackSlavedToTurret = true,
@@ -629,8 +620,6 @@ UnitBlueprint {
 			
             Label = 'laser1w',
 			
-            LeadTarget = false,
-			
             MaxRadius = 55,
 			
             MuzzleSalvoDelay = 0,
@@ -640,16 +629,10 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'lasergunmuzzle01',
-                    },
+                    MuzzleBones = { 'lasergunmuzzle01' },
                     RackBone = 'lasergun01',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 			
             RateOfFire = 2,			-- 400dps
 			
@@ -721,10 +704,6 @@ UnitBlueprint {
                     RackBone = 'lasergun02',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 2,			-- 400dps
             
@@ -801,10 +780,6 @@ UnitBlueprint {
                     RackBone = 'head',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 3,					-- 360dps
 			
@@ -893,8 +868,6 @@ UnitBlueprint {
             RackFireTogether = true,
             
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -989,11 +962,10 @@ UnitBlueprint {
                     RackBone = 'rl04',
                 },
             },
+
             RackFireTogether = true,
             
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 1,	-- 600dps
 

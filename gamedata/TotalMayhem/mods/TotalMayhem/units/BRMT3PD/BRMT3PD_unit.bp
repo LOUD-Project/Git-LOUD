@@ -84,7 +84,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.13,
     },
 	
@@ -223,35 +222,24 @@ UnitBlueprint {
             MuzzleVelocity = 33,
 
             ProjectileId = '/projectiles/CDFBolter02/CDFBolter02_proj.bp',
-            --ProjectileId = '/projectiles/CDFProtonCannon05/CDFProtonCannon05_proj.bp',			
-            --ProjectileId = '/mods/TotalMayhem/projectiles/BRMT3PDproj/BRMT3PDproj_proj.bp',
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
+                    MuzzleBones = { 'Turret_Muzzle' },
                     RackBone = 'Turret_barrel',
                 },
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle2',
-                    },
+                    MuzzleBones = { 'Turret_Muzzle2' },
                     RackBone = 'Turret_barrel2',
                 },
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle3',
-                    },
+                    MuzzleBones = { 'Turret_Muzzle3' },
                     RackBone = 'Turret_barrel3',
                 },
             },
             
             RackRecoilDistance = -1,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',

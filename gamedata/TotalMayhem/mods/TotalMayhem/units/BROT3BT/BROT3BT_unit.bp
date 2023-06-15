@@ -1,9 +1,7 @@
 UnitBlueprint {
     AI = { 
         GuardScanRadius = 60, 
-		TargetBones = {
-            'B13',
-        },		
+		TargetBones = {'B13'},		
     },
 	
     Audio = {
@@ -100,7 +98,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = false,
         UniformScale = 0.105,
     },
 	
@@ -262,24 +259,21 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Turret_Muzzle'},
                     RackBone = 'Turret_Barrel',
                 },
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle2',
-                    },
+                    MuzzleBones = {'Turret_Muzzle2'},
                     RackBone = 'Turret_Barrel2',
                 },
             },
             
             RackRecoilDistance = -2,
+
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
@@ -357,11 +351,6 @@ UnitBlueprint {
                     RackBone = 'mgmuzzle',
                 },
             },
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -435,12 +424,7 @@ UnitBlueprint {
                     RackBone = 'rl01',
                 },
             },
-            
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_IndirectFire',

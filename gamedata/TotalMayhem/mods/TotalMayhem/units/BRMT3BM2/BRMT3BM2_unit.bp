@@ -1,9 +1,7 @@
 UnitBlueprint {
     AI = { 
         GuardScanRadius = 60, 
-        TargetBones = {
-            'Turret',
-        },
+        TargetBones = { 'Turret' },
     },
 	
     Audio = {
@@ -60,6 +58,7 @@ UnitBlueprint {
             RedirectRateOfFire = 1,
             ProjectileCategories = { 'TACTICAL MISSILE',},
         },
+        
         ArmorType = 'Normal',
 
         Health = 8250,
@@ -96,7 +95,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.04,
     },
 	
@@ -272,14 +270,7 @@ UnitBlueprint {
                     RackBone = 'rocketlauncher01',
                 },
             },
-			
-            RackFireTogether = true,
-			
-            
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_IndirectFire',
@@ -364,10 +355,9 @@ UnitBlueprint {
             RackFireTogether = true,
 			
             RackRecoilDistance = -2,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
@@ -468,14 +458,7 @@ UnitBlueprint {
             },
 			
             RackFireTogether = true,
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-			
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 1,	-- 200dps
@@ -561,10 +544,7 @@ UnitBlueprint {
             },
             
             RackRecoilDistance = -2,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_AntiNavy',

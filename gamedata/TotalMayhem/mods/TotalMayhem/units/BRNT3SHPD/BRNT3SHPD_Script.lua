@@ -15,25 +15,16 @@ BRNT3SHPD = Class(TStructureUnit) {
             FxMuzzleFlashScale = 1.2, 
         },     
 
-        MissileRack01 = Class(TSAMLauncher) {
-		},
+        MissileRack01 = Class(TSAMLauncher) {},
 		
-        SmallTurretGun01 = Class(TDFLightPlasmaCannonWeapon) {
-        },
-        SmallTurretGun02 = Class(TDFLightPlasmaCannonWeapon) {
-        },
-        SmallTurretGun03 = Class(TDFLightPlasmaCannonWeapon) {
-        },
-        SmallTurretGun04 = Class(TDFLightPlasmaCannonWeapon) {
-        },
-        SmallTurretGun05 = Class(TDFLightPlasmaCannonWeapon) {
-        },
-        SmallTurretGun06 = Class(TDFLightPlasmaCannonWeapon) {
-        },
-        SmallTurretGun07 = Class(TDFLightPlasmaCannonWeapon) {
-        },
-        SmallTurretGun08 = Class(TDFLightPlasmaCannonWeapon) {
-        },
+        SmallTurretGun01 = Class(TDFLightPlasmaCannonWeapon) {},
+        SmallTurretGun02 = Class(TDFLightPlasmaCannonWeapon) {},
+        SmallTurretGun03 = Class(TDFLightPlasmaCannonWeapon) {},
+        SmallTurretGun04 = Class(TDFLightPlasmaCannonWeapon) {},
+        SmallTurretGun05 = Class(TDFLightPlasmaCannonWeapon) {},
+        SmallTurretGun06 = Class(TDFLightPlasmaCannonWeapon) {},
+        SmallTurretGun07 = Class(TDFLightPlasmaCannonWeapon) {},
+        SmallTurretGun08 = Class(TDFLightPlasmaCannonWeapon) {},
     },
 }
 

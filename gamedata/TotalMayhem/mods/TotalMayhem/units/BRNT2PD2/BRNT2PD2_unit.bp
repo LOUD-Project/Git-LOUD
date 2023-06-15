@@ -1,9 +1,7 @@
 UnitBlueprint {    
 
 	AI = { 
-		TargetBones = {
-            'Turret',
-        },
+		TargetBones = {'Turret'},
 	},
 	
     Audio = {
@@ -70,7 +68,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar6x_01_albedo',
@@ -157,6 +154,7 @@ UnitBlueprint {
 	
     StrategicIconName = 'icon_structure2_directfire',
     StrategicIconSortPriority = 200,
+
     Veteran = {
         Level1 = 10,
         Level2 = 20,
@@ -164,6 +162,7 @@ UnitBlueprint {
         Level4 = 40,
         Level5 = 50,
     },
+
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -230,13 +229,9 @@ UnitBlueprint {
                     RackBone = 'Turret_Barrel',
                 },
             },
-            
 			
             RackRecoilDistance = -1,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',

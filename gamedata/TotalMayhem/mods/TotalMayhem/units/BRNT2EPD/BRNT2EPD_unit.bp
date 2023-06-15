@@ -1,11 +1,9 @@
 UnitBlueprint {
     
 	AI = { 
-		TargetBones = {
-            'Turret',
-        },
+		TargetBones = {'Turret' },
 	},
-		
+
     Audio = {
         Destroyed = Sound {
             Bank = 'UELDestroy',
@@ -83,7 +81,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar6x_01_albedo',
@@ -196,9 +193,7 @@ UnitBlueprint {
 			
             Buffs = {
             	{
-                    Add = {
-                        OnImpact = true,
-                    },
+                    Add = { OnImpact = true },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
                     Duration = 1.0,
@@ -240,18 +235,13 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Turret_Muzzle'},
                     RackBone = 'Turret_Barrel',
                 },
             },
-            RackFireTogether = true,
+
             RackRecoilDistance = -0.4,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',

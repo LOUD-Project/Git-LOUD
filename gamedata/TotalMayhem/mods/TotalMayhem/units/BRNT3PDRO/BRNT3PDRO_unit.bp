@@ -69,7 +69,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         Tarmacs = {
             {
                 Albedo = 'Tarmacs/Tar6x_01_albedo',
@@ -242,12 +241,11 @@ UnitBlueprint {
                     RackBone = 'barrel01',
                 },
             },
-            RackFireTogether = true,
-            
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
+
             RackSalvoReloadTime = 2,
+
             RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
@@ -265,16 +263,20 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.10,
+
             TurretBoneMuzzle = 'muzzle03',
             TurretBonePitch = 'barrel01',
             TurretBoneYaw = 'Turret',
             TurretDualManipulators = false,
+
             TurretPitch = 0,
             TurretPitchRange = 45,
             TurretPitchSpeed = 15,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 26,
+
             Turreted = true,
 
             WeaponRepackTimeout = 1,

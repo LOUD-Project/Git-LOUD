@@ -9,6 +9,7 @@ UnitBlueprint {
 			'Left_Leg_B09',
         },	
     },
+
     Audio = {
         FootFallGeneric = Sound {
             Bank = 'TM_AEONWEAPONS',
@@ -180,7 +181,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.08,
     },
 	
@@ -333,16 +333,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'muzzle',
-                    },
+                    MuzzleBones = {'muzzle'},
                     RackBone = 'Left_Arm03',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -428,16 +422,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'muzzle01',
-                    },
+                    MuzzleBones = {'muzzle01'},
                     RackBone = 'Right_Arm01',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 0.25,	-- another 1000 DPS
 			
@@ -517,16 +505,10 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'muzzle03',
-                    },
+                    MuzzleBones = {'muzzle03'},
                     RackBone = 'Left_Upgrade_Weapon01_01',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_IndirectFire',
 			
@@ -600,16 +582,10 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'muzzle02',
-                    },
+                    MuzzleBones = {'muzzle02'},
                     RackBone = 'Right_Upgrade_Weapon01_01',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 1,		-- 200 DPS Ground
 			
@@ -685,17 +661,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'aa04',
-                    },
+                    MuzzleBones = {'aa04'},
                     RackBone = 'AA_LeftBarrel01',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
 
             RangeCategory = 'UWRC_AntiAir',
 			
@@ -770,16 +739,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'aa03',
-                    },
+                    MuzzleBones = {'aa03'},
                     RackBone = 'AA_LeftBarrel02',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 3,		-- 180 DPS Surface/Air
 			
@@ -851,16 +814,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'aa01',
-                    },
+                    MuzzleBones = {'aa01'},
                     RackBone = 'AA_LeftBarrel03',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 3,		-- 180 DPS Surface/Air
 			
@@ -932,16 +889,10 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'aa02',
-                    },
+                    MuzzleBones = {'aa02'},
                     RackBone = 'AA_LeftBarrel04',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 3,		-- 180 DPS Surface/Air
 			
@@ -950,7 +901,6 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE AIR',
                 'MOBILE',
-
                 'ALLUNITS,-WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',

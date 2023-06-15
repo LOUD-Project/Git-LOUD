@@ -8,6 +8,7 @@ UnitBlueprint {
 			'Object13',
         },
     }, 
+
     Audio = {
         Killed = Sound {
             Bank = 'URLWeapon',
@@ -148,7 +149,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.144,
     },
 	
@@ -336,17 +336,17 @@ UnitBlueprint {
                     RackBone = 'Object08',
                 },
             },
+
             RackFireTogether = true,
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 0.05,	-- 600 DPS - takes 20 seconds to launch and reload rockets
+
 			RenderFireClock = true,
 			
             TargetCheckInterval = 0.5,
@@ -428,10 +428,6 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -1.5,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
 			
             RackSlavedToTurret = true,
 			
@@ -511,13 +507,9 @@ UnitBlueprint {
                     RackBone = 'leftgun',
                 },
             },
-            RackFireTogether = true,
+
             RackRecoilDistance = -1.5,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-			
+
             RackSlavedToTurret = true,
 
             RateOfFire = 0.5,	-- 450 dps
@@ -587,24 +579,16 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'mgmuzzle',
-                    },
+                    MuzzleBones = { 'mgmuzzle' },
                     RackBone = 'machinegun',
                 },
                 {
-                    MuzzleBones = {
-                        'mgmuzzle01',
-                    },
+                    MuzzleBones = { 'mgmuzzle01' },
                     RackBone = 'machinegun01',
                 },
             },
-            RackFireTogether = true,
 
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
+            RackFireTogether = true,
 			
             RackSlavedToTurret = true,
 
@@ -699,23 +683,15 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'mgmuzzle03',
-                    },
+                    MuzzleBones = { 'mgmuzzle03' },
                     RackBone = 'machinegun03',
                 },
                 {
-                    MuzzleBones = {
-                        'mgmuzzle02',
-                    },
+                    MuzzleBones = { 'mgmuzzle02' },
                     RackBone = 'machinegun02',
                 },
             },
 
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
             RackSlavedToTurret = true,
 
             RateOfFire = 3,	-- 450 dps

@@ -131,7 +131,7 @@ UnitBlueprint {
                 },
             },
         },
-        SpawnRandomRotation = true,
+
         UniformScale = 0.087,
     },
 	
@@ -287,18 +287,13 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'rightarm_muzzle01',
-                    },
+                    MuzzleBones = {'rightarm_muzzle01'},
                     RackBone = 'gun01',
                 },
             },
 
             RackRecoilDistance = -1,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
@@ -311,7 +306,6 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -388,18 +382,13 @@ UnitBlueprint {
             
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'rightarm_muzzle02',
-                    },
+                    MuzzleBones = {'rightarm_muzzle02'},
                     RackBone = 'gun01',
                 },
             },
             
             RackRecoilDistance = -1,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 
             RateOfFire = 2.5,	-- 375 dps
@@ -487,23 +476,19 @@ UnitBlueprint {
             
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'rightarm_muzzle03',
-                    },
+                    MuzzleBones = {'rightarm_muzzle03'},
                     RackBone = 'gun01',
                 },
             },
 
             RackRecoilDistance = -1,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 
             RateOfFire = 2.7,	-- 378 dps
 			
             ReTargetOnMiss = true,
+
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -511,7 +496,6 @@ UnitBlueprint {
                 'TECH2 MOBILE',
                 'TECH1 MOBILE',
                 'DEFENSE',
-
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -522,12 +506,15 @@ UnitBlueprint {
             TurretBonePitch = 'gun01',
             TurretBoneYaw = 'Turret',
             TurretDualManipulators = true,
+
             TurretPitch = 0,
             TurretPitchRange = 80,
             TurretPitchSpeed = 35,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 35,
+
             Turreted = true,
         },
 		
@@ -592,10 +579,7 @@ UnitBlueprint {
             },
 
             RackRecoilDistance = -1,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 
             RateOfFire = 0.2,	-- fire every 5 seconds = 2000dps
@@ -609,7 +593,6 @@ UnitBlueprint {
                 'TECH2 MOBILE',
                 'TECH1 MOBILE',
                 'DEFENSE',
-
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -627,9 +610,11 @@ UnitBlueprint {
             TurretPitch = 0,
             TurretPitchRange = 80,
             TurretPitchSpeed = 35,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 35,
+
             Turreted = true,
         },
         {
@@ -677,24 +662,21 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'aa01',
-                    },
+                    MuzzleBones = {'aa01'},
                     RackBone = 'aa01',
                 },
                 {
-                    MuzzleBones = {
-                        'aa02',
-                    },
+                    MuzzleBones = {'aa02'},
                     RackBone = 'aa02',
                 },
             },
+
             RackFireTogether = true,
             
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
             
             RangeCategory = 'UWRC_AntiAir',
@@ -767,21 +749,16 @@ UnitBlueprint {
             ProjectileId = '/mods/TotalMayhem/projectiles/NULLWEAPON/NULLWEAPON_proj.bp',
 			
             ProjectileLifetimeUsesMultiplier = 1,
-            ProjectilesPerOnFire = 1,
+
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'AttachPoint',
-                    },
+                    MuzzleBones = {'AttachPoint'},
                     RackBone = 'AttachPoint',
                 },
             },
 
             RackRecoilDistance = -2,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 
             RateOfFire = 0.05,
@@ -791,7 +768,6 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',

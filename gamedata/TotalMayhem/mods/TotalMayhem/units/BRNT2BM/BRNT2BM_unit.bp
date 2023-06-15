@@ -5,6 +5,7 @@ UnitBlueprint {
 			'Turret',
         },
     }, 
+
     Audio = {
         Killed = Sound {
             Bank = 'UELDestroy',
@@ -27,6 +28,7 @@ UnitBlueprint {
 			LodCutoff = 'UnitMove_LodCutoff',
 		},
     },
+
     Buffs = {
         Regen = {
             Level1 = 2,
@@ -36,7 +38,9 @@ UnitBlueprint {
             Level5 = 10,
         },
     },
+
     BuildIconSortPriority = 29,
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2FACTORY',
@@ -54,6 +58,7 @@ UnitBlueprint {
 		'OVERLAYINDIRECTFIRE',
         'OVERLAYRADAR',
     },
+
     Defense = {
         ArmorType = 'Normal',
         Health = 2000,
@@ -61,7 +66,9 @@ UnitBlueprint {
         RegenRate = 1,
         SurfaceThreatLevel = 13.1,
     },
+
     Description = '<LOC brnt2bm_desc>Amphibious Gatling Mech',
+
     Display = {
         Abilities = {
             'Radar',
@@ -86,7 +93,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.03,
     },
 	
@@ -115,18 +121,22 @@ UnitBlueprint {
         UnitName = '<LOC brnt2bm_name>Banshee',
         UnitWeight = 1,
     },
+
     Intel = {
 		FreeIntel = true,
         RadarRadius = 50,
         VisionRadius = 26,
 		WaterVisionRadius = 20,
     },
+
     Interface = {
         HelpText = 'Amphibious Gat Mech',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 1,
     LifeBarSize = 1.2,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -149,6 +159,7 @@ UnitBlueprint {
         TurnRate = 50,
 		WaterSpeedMultiplier = 1.20,
     },
+
     SelectionCenterOffsetX = 0,
     SelectionCenterOffsetZ = 0.0,
     SelectionSizeX = 1.0,
@@ -161,6 +172,7 @@ UnitBlueprint {
 	
     StrategicIconName = 'icon_seabed2_directfire2',
     StrategicIconSortPriority = 115,
+
     Veteran = {
         Level1 = 5,
         Level2 = 10,
@@ -168,9 +180,11 @@ UnitBlueprint {
         Level4 = 20,
         Level5 = 25,
 	},
+
     Transport = {
         TransportClass = 2,
     },
+
     Weapon = {
 		{
             AboveWaterTargetsOnly = true,
@@ -227,12 +241,11 @@ UnitBlueprint {
                     RackBone = 'rocketlauncher01',
                 },
             },
+
             RackFireTogether = true,
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_IndirectFire',
@@ -337,9 +350,8 @@ UnitBlueprint {
             },
             RackFireTogether = true,
             
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 			

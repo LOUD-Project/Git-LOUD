@@ -1,9 +1,7 @@
 UnitBlueprint {  
   
 	AI = {  
-		TargetBones = {
-            'Turret',
-        },		
+		TargetBones = {'Turret'},		
     }, 
 	
     Audio = {
@@ -26,6 +24,7 @@ UnitBlueprint {
     Buffs = {},
 	
     BuildIconSortPriority = 41,
+
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1FACTORY',
@@ -41,6 +40,7 @@ UnitBlueprint {
         'TANK',
         'OVERLAYDIRECTFIRE',
     },
+
     Defense = {
         ArmorType = 'Normal',
         Health = 215,
@@ -48,7 +48,9 @@ UnitBlueprint {
         RegenRate = 0,
         SurfaceThreatLevel = 2.3,
     },
+
     Description = '<LOC brot1mt_desc>Light Tank',
+
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -61,14 +63,15 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = false,
         UniformScale = 0.042,
     },
+
     Economy = {
         BuildCostEnergy = 425,
         BuildCostMass = 62,
         BuildTime = 78,
     },
+
     General = {
         Category = 'Direct Fire',
         Classification = 'RULEUC_MilitaryVehicle',
@@ -87,15 +90,19 @@ UnitBlueprint {
         UnitName = '<LOC brot1mt_name>Bonfire',
         UnitWeight = 1,
     },
+
     Intel = {
         VisionRadius = 18,
     },
+
     Interface = {
         HelpText = 'Medium Tank',
     },
+
     LifeBarHeight = 0.07,
     LifeBarOffset = 0.5,
     LifeBarSize = 0.6,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -127,6 +134,7 @@ UnitBlueprint {
 	
     StrategicIconName = 'icon_land1_directfire',
     StrategicIconSortPriority = 135,
+
     Veteran = {
         Level1 = 3,
         Level2 = 6,
@@ -134,9 +142,11 @@ UnitBlueprint {
         Level4 = 12,
         Level5 = 15,
     },
+
     Transport = {
         TransportClass = 1,
     },
+
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -176,24 +186,21 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
+                    MuzzleBones = {'Turret_Muzzle'},
                     RackBone = 'Turret_Barrel',
                 },
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle2',
-                    },
+                    MuzzleBones = {'Turret_Muzzle2'},
                     RackBone = 'Turret_Barrel2',
                 },
             },
             
             RackRecoilDistance = -2,
+
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
@@ -207,7 +214,6 @@ UnitBlueprint {
                 'TECH2 MOBILE',
                 'TECH3 MOBILE',
                 'DEFENSE',
-
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',

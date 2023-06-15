@@ -289,7 +289,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.09,
     },
 	
@@ -482,24 +481,21 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'muzzle02',
-                    },
+                    MuzzleBones = {'muzzle02'},
                     RackBone = 'Weapon03',
                 },
                 {
-                    MuzzleBones = {
-                        'muzzle01',
-                    },
+                    MuzzleBones = {'muzzle01'},
                     RackBone = 'Weapon04',
                 },
             },
 
             RackRecoilDistance = -4,
+
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 4,
+
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_IndirectFire',
@@ -591,10 +587,6 @@ UnitBlueprint {
                     RackBone = 'Body03',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 			
             RangeCategory = 'UWRC_DirectFire',
 			
@@ -608,7 +600,6 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
-
                 'ALLUNITS,-WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -678,24 +669,19 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'muzzle03',
-                    },
+                    MuzzleBones = {'muzzle03'},
                     RackBone = 'Left_Upgrade02',
                 },
                 {
-                    MuzzleBones = {
-                        'muzzle04',
-                    },
+                    MuzzleBones = {'muzzle04'},
                     RackBone = 'Left_Upgrade01',
                 },
             },
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
+
             RackSalvoFiresAfterCharge = false,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 
             RateOfFire = 2,		-- 400 DPS Surface
@@ -704,7 +690,6 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
-
                 'ALLUNITS,-WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
@@ -770,16 +755,10 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'aa01',
-                    },
+                    MuzzleBones = {'aa01'},
                     RackBone = 'aa01',
                 },
             },
-            
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 			
             RangeCategory = 'UWRC_AntiAir',
 			
@@ -794,7 +773,6 @@ UnitBlueprint {
                 'BOMBER',
                 'GROUNDATTACK',
                 'AIR',
-
                 'ALLUNITS,-WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',
@@ -860,16 +838,10 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'aa02',
-                    },
+                    MuzzleBones = {'aa02'},
                     RackBone = 'aa02',
                 },
             },
-            
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 			
 			RateOfFire = 5,		-- 300 DPS Air
 			
@@ -882,7 +854,6 @@ UnitBlueprint {
                 'BOMBER',
                 'GROUNDATTACK',
                 'AIR',
-
                 'ALLUNITS,-WALL',
             },
             TargetRestrictDisallow = 'UNTARGETABLE,SATELLITE',

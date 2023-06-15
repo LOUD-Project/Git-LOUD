@@ -144,7 +144,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.075,
     },
 	
@@ -299,17 +298,15 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'rl09',
-                    },
+                    MuzzleBones = {'rl09'},
                     RackBone = 'shoulder01',
 				},
             },
-			RackFireTogether = true,
-            
-            RackReloadTimeout = 0,
+
             RackSalvoChargeTime = 1,
+
             RackSalvoReloadTime = 1,
+
             RackSalvoSize = 1,
 			
             RangeCategory = 'UWRC_IndirectFire',
@@ -391,17 +388,15 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'rl10',
-                    },
+                    MuzzleBones = {'rl10'},
                     RackBone = 'shoulder',
 				},
             },
-			RackFireTogether = true,
-            
-            RackReloadTimeout = 0,
+
             RackSalvoChargeTime = 1,
+
             RackSalvoReloadTime = 1,
+
             RackSalvoSize = 1,
 
             RangeCategory = 'UWRC_IndirectFire',
@@ -500,62 +495,47 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'gun_muzzle01',
-                    },
+                    MuzzleBones = {'gun_muzzle01'},
                     RackBone = 'gunbarrels',
                 },
                 {
-                    MuzzleBones = {
-                        'gun_muzzle02',
-                    },
+                    MuzzleBones = {'gun_muzzle02'},
                     RackBone = 'gunbarrels',
                 },
                 {
-                    MuzzleBones = {
-                        'gun_muzzle03',
-                    },
+                    MuzzleBones = {'gun_muzzle03'},
                     RackBone = 'gunbarrels',
                 },
                 {
-                    MuzzleBones = {
-                        'gun_muzzle04',
-                    },
+                    MuzzleBones = {'gun_muzzle04'},
                     RackBone = 'gunbarrels',
                 },
                 {
-                    MuzzleBones = {
-                        'gun_muzzle05',
-                    },
+                    MuzzleBones = {'gun_muzzle05'},
                     RackBone = 'gunbarrels01',
                 },
                 {
-                    MuzzleBones = {
-                        'gun_muzzle06',
-                    },
+                    MuzzleBones = {'gun_muzzle06'},
                     RackBone = 'gunbarrels01',
                 },
                 {
-                    MuzzleBones = {
-                        'gun_muzzle07',
-                    },
+                    MuzzleBones = {'gun_muzzle07'},
                     RackBone = 'gunbarrels01',
                 },
                 {
-                    MuzzleBones = {
-                        'gun_muzzle08',
-                    },
+                    MuzzleBones = {'gun_muzzle08'},
                     RackBone = 'gunbarrels01',
                 },				
             },
+
             RackFireTogether = true,
+
             RackRecoilDistance = -1,
+
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 0.50,	-- 1600 dps
@@ -653,11 +633,8 @@ UnitBlueprint {
                     RackBone = 'rl01',
                 },
             },
-            RackFireTogether = true,
             
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 			
             RangeCategory = 'UWRC_IndirectFire',
             
@@ -748,11 +725,8 @@ UnitBlueprint {
                     RackBone = 'rl05',
                 },				
             },
-            RackFireTogether = true,
             
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RateOfFire = 0.2,	-- 400 damage every 5 seconds = 80 dps
 			
@@ -837,10 +811,6 @@ UnitBlueprint {
                 }, 
             },
 
-            RackReloadTimeout = 0, 
-            RackSalvoChargeTime = 0, 
-            RackSalvoReloadTime = 0, 
-
             RangeCategory = 'UWRC_AntiAir',
 			
             RateOfFire = 2,			----- 880 DPS Air
@@ -858,7 +828,6 @@ UnitBlueprint {
             TrackingRadius = 1.4,
 			
             Turreted = false,
-
         },
 		
 		-- torpedoes --
@@ -915,10 +884,6 @@ UnitBlueprint {
                     RackBone = 'rl01',
                 },
             },
-
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
 
             RangeCategory = 'UWRC_AntiNavy',
 			
@@ -979,18 +944,13 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'AttachPoint',
-                    },
+                    MuzzleBones = {'AttachPoint'},
                     RackBone = 'AttachPoint',
                 },
             },
 
             RackRecoilDistance = -2,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RateOfFire = 0.05,
@@ -1040,11 +1000,10 @@ UnitBlueprint {
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 0,
             ProjectileId = '/effects/Entities/SCUDeath01/SCUDeath01_proj.bp',
+
             RackBones = {
                 {
-                    MuzzleBones = {
-                        0,
-                    },
+                    MuzzleBones = {0},
                     RackBone = 0,
                 },
             },

@@ -82,7 +82,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = false,
         UniformScale = 0.04,
     },
 	
@@ -224,30 +223,21 @@ UnitBlueprint {
             NoPause = true,
 			
             ProjectileId = '/projectiles/CDFLaserDisintegrator02/CDFLaserDisintegrator02_proj.bp',
-						ProjectileLifetime = 0.8,
+			ProjectileLifetime = 0.8,
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle',
-                    },
+                    MuzzleBones = { 'Turret_Muzzle' },
                     RackBone = 'Turret_Barrel',
                 },
                 {
-                    MuzzleBones = {
-                        'Turret_Muzzle01',
-                    },
+                    MuzzleBones = { 'Turret_Muzzle01' },
                     RackBone = 'Turret_Barrel01',
                 },
             },
 			
-            
-			
             RackRecoilDistance = -0.8,
-			
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 2,
 			
             RackSlavedToTurret = true,

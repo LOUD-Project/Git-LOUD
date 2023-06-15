@@ -132,7 +132,7 @@ UnitBlueprint {
                 },
             },
         },
-        SpawnRandomRotation = true,
+
         UniformScale = 0.18,
     },
 	
@@ -289,9 +289,9 @@ UnitBlueprint {
             RackFireTogether = true,
             
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
@@ -378,15 +378,11 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'mgmuzzle01',
-                    },
+                    MuzzleBones = {'mgmuzzle01'},
                     RackBone = 'headmg01',
                 },
                 {
-                    MuzzleBones = {
-                        'mgmuzzle02',
-                    },
+                    MuzzleBones = {'mgmuzzle02'},
                     RackBone = 'headmg',
                 },
             },
@@ -394,9 +390,9 @@ UnitBlueprint {
             RackFireTogether = true,
             
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 
             RateOfFire = 1,	-- 1200dps
@@ -445,9 +441,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             Buffs = {
             	{
-                    Add = {
-                        OnImpact = true,
-                    },
+                    Add = { OnImpact = true },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
                     Duration = 2,
@@ -489,20 +483,11 @@ UnitBlueprint {
 			
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'empmuzzle',
-                    },
+                    MuzzleBones = {'empmuzzle'},
                     RackBone = 'empmuzzle',
                 },
             },
-            
-            
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 0.05,	-- 20dps
@@ -549,33 +534,35 @@ UnitBlueprint {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
+
             AutoInitiateAttackCommand = true,
+
             FiringTolerance = 1,
             FiringRandomness = 0.5,
+
             Label = 'robottalk',
+
             MaxRadius = 65,
             MinRadius = 0,
+
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 40,
+
 			PrefersPrimaryWeaponTarget = true,
+
             ProjectileId = '/mods/TotalMayhem/projectiles/NULLWEAPON/NULLWEAPON_proj.bp',
             ProjectileLifetimeUsesMultiplier = 1,
-            ProjectilesPerOnFire = 1,
+
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'AttachPoint',
-                    },
+                    MuzzleBones = {'AttachPoint'},
                     RackBone = 'AttachPoint',
                 },
             },
             
             RackRecoilDistance = -2,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
             RangeCategory = 'UWRC_IndirectFire',
             RateOfFire = 0.05,
@@ -584,21 +571,24 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'MOBILE',
                 'DEFENSE',
-
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.05,
+
             TurretBoneMuzzle = 'AttachPoint',
             TurretBonePitch = 'AttachPoint',
             TurretBoneYaw = 'AttachPoint',
             TurretDualManipulators = false,
+
             TurretPitch = 0,
             TurretPitchRange = 90,
             TurretPitchSpeed = 100,
+
             TurretYaw = 0,
             TurretYawRange = 45,
             TurretYawSpeed = 100,
+
             Turreted = true,
         },
     },

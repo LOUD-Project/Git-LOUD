@@ -150,7 +150,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = true,
         UniformScale = 0.12,
     },
 	
@@ -311,10 +310,6 @@ UnitBlueprint {
                 },
             },
 
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_IndirectFire',
@@ -399,8 +394,8 @@ UnitBlueprint {
 
             RackRecoilDistance = -1.5,
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
             RackSalvoSize = 1,
 			
             RackSlavedToTurret = true,
@@ -489,8 +484,8 @@ UnitBlueprint {
 
             RackRecoilDistance = -1.5,
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 
@@ -579,8 +574,8 @@ UnitBlueprint {
             },
 
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
+
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
 

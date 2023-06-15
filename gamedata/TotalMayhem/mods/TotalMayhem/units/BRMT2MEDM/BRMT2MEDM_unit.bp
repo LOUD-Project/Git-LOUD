@@ -7,7 +7,7 @@ UnitBlueprint {
     },
 	
     Audio = {
-				Destroyed = Sound {
+		Destroyed = Sound {
             Bank = 'URLDestroy',
             Cue = 'URL_Destroy_Land',
             LodCutoff = 'UnitMove_LodCutoff',
@@ -86,8 +86,6 @@ UnitBlueprint {
                 },
             },
         },
-
-        SpawnRandomRotation = true,
 		
         UniformScale = 0.055,
     },
@@ -190,11 +188,7 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound { 
-									Bank = 'URLWeapon', 
-									Cue = 'URL0402_Missile_Nanite', 
-									LodCutoff = 'Weapon_LodCutoff' 
-								},
+                Fire = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Missile_Nanite', LodCutoff = 'Weapon_LodCutoff' },
             },
 			
             BallisticArc = 'RULEUBA_LowArc',
@@ -252,15 +246,13 @@ UnitBlueprint {
                 },
 
             },
+            
             RackFireTogether = true,
 			
             RackReloadTimeout = 10,
-			
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_IndirectFire',
 			
             RateOfFire = 0.1,	-- 12 of 33dmg every 10 seconds = 40dps
@@ -346,14 +338,13 @@ UnitBlueprint {
             },
 			
             RackFireTogether = true,
+
             RackRecoilDistance = -0.1,
 			
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-			
+
             RangeCategory = 'UWRC_DirectFire',
 			
             RateOfFire = 1,		-- 90 dps

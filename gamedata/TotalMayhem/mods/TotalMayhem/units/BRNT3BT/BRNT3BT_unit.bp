@@ -78,7 +78,6 @@ UnitBlueprint {
             },
         },
 
-        SpawnRandomRotation = false,
         UniformScale = 0.05,
     },
 	
@@ -247,12 +246,9 @@ UnitBlueprint {
                     RackBone = 'rocketlaunch02',
                 },				
             },
+
             RackFireTogether = true,
-			
-            
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 1,
 			
             RackSlavedToTurret = true,
@@ -340,12 +336,8 @@ UnitBlueprint {
                     RackBone = 'Turret_Barrel',
                 },
             },
-            RackFireTogether = true,
+
             RackRecoilDistance = -3,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
 			
             RackSlavedToTurret = true,
 			

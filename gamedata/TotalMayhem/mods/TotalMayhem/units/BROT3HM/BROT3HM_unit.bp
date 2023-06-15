@@ -2,9 +2,7 @@ UnitBlueprint {
 
     AI = { 
         GuardScanRadius = 60, 
-		TargetBones = {
-            'Turret',
-        },		
+		TargetBones = {'Turret'},		
     }, 
 	
     Audio = {
@@ -24,6 +22,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
+
     Buffs = {
         Regen = {
             Level1 = 4,
@@ -33,6 +32,7 @@ UnitBlueprint {
             Level5 = 20,
         },
     },
+
     BuildIconSortPriority = 31,
 	
     Categories = {
@@ -50,6 +50,7 @@ UnitBlueprint {
         'OVERLAYDIRECTFIRE',
 		'OVERLAYRADAR',
     },
+
     Defense = {
         ArmorType = 'Normal',
         Health = 8250,
@@ -112,7 +113,7 @@ UnitBlueprint {
                 },
             },
         },
-        SpawnRandomRotation = true,
+
         UniformScale = 0.07,
     },
 	
@@ -141,18 +142,22 @@ UnitBlueprint {
         UnitName = '<LOC brot3hm_name>Mogul',
         UnitWeight = 2,
     },
+
     Intel = {
 		FreeIntel = true,
         RadarRadius = 75,
         VisionRadius = 34,
 		WaterVisionRadius = 21,
     },
+
     Interface = {
         HelpText = 'Siege Mech',
     },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.50,
     LifeBarSize = 1,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -175,16 +180,20 @@ UnitBlueprint {
         TurnRate = 30,
 		WaterSpeedMultiplier = 1.2,
     },
+
     SelectionCenterOffsetX = 0,
     SelectionCenterOffsetZ = -0.0,
     SelectionSizeX = 0.8,
     SelectionSizeZ = 0.8,
     SelectionThickness = 0.5,
+
     SizeX = 1.1,
     SizeY = 1.7,
     SizeZ = 1.1,
+
     StrategicIconName = 'icon_seabed3_directfire2',
     StrategicIconSortPriority = 115,
+
     Veteran = {
         Level1 = 10,
         Level2 = 20,
@@ -192,9 +201,11 @@ UnitBlueprint {
         Level4 = 40,
         Level5 = 50,
 	},
+
     Transport = {
         TransportClass = 3,
     },
+
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -248,48 +259,37 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'rightarm_03',
-                    },
+                    MuzzleBones = {'rightarm_03'},
                     RackBone = 'gun03',
                 },
                 {
-                    MuzzleBones = {
-                        'rightarm_0',
-                    },
+                    MuzzleBones = {'rightarm_0'},
                     RackBone = 'gun01',
                 },
                 {
-                    MuzzleBones = {
-                        'rightarm_02',
-                    },
+                    MuzzleBones = {'rightarm_02'},
                     RackBone = 'gun03',
                 },
                 {
-                    MuzzleBones = {
-                        'rightarm_1',
-                    },
+                    MuzzleBones = {'rightarm_1'},
                     RackBone = 'gun01',
                 },
                 {
-                    MuzzleBones = {
-                        'rightarm_m01',
-                    },
+                    MuzzleBones = {'rightarm_m01'},
                     RackBone = 'gun03',
                 },
                 {
-                    MuzzleBones = {
-                        'rightarm_m',
-                    },
+                    MuzzleBones = {'rightarm_m'},
                     RackBone = 'gun01',
                 },
             },
             
             RackRecoilDistance = -2,
+
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',
@@ -358,24 +358,21 @@ UnitBlueprint {
 
             RackBones = {
                 {
-                    MuzzleBones = {
-                        'leftarm_mu',
-                    },
+                    MuzzleBones = {'leftarm_mu'},
                     RackBone = 'gun01barre',
                 },
                 {
-                    MuzzleBones = {
-                        'leftarm_mu01',
-                    },
+                    MuzzleBones = {'leftarm_mu01'},
                     RackBone = 'gun01barre01',
                 },
             },
             
             RackRecoilDistance = -2,
+
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
 			
             RangeCategory = 'UWRC_DirectFire',

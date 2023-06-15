@@ -77,28 +77,7 @@ BRMT3BM2 = Class(CWalkingLandUnit) {
             end,                   
         },
 		
---        gatling1 = Class(TDFGaussCannonWeapon) {
-        gatling1 = Class(CDFParticleCannonWeapon) {		
-            FxMuzzleFlashScale = 0.1,
---[[			
-            FxMuzzleFlash = { 
-            	'/effects/emitters/proton_artillery_muzzle_01_emit.bp',
-            	'/effects/emitters/proton_artillery_muzzle_03_emit.bp',
-            }, 
-
-	        FxMuzzleEffect = EffectTemplate.CElectronBolterMuzzleFlash01,
---]]
---[[
-	        PlayFxMuzzleSequence = function(self, muzzle)
-		        local army = self.unit:GetArmy()
-		        
-  	            for k, v in self.FxMuzzleEffect do
-                    CreateAttachedEmitter(self.unit, 'gunstikkflamme', army, v):ScaleEmitter(0.4)
-                end
-            end,                   
---]]
-        },
-
+        gatling1 = Class(CDFParticleCannonWeapon) { FxMuzzleFlashScale = 0.1 },
     },
 	
     AmbientExhaustBones = {
@@ -129,11 +108,15 @@ BRMT3BM2 = Class(CWalkingLandUnit) {
         self.AmbientExhaustEffectsBag = {} 
 		
 	    if layer == 'Land' then
+
 	        self.AmbientEffectThread = self:ForkThread(self.UnitLandAmbientEffectThread)
 			
 	    elseif layer == 'Seabed' then
+
 	        local army = self:GetArmy()
+
 			for kE, vE in self.AmbientSeabedExhaustEffects do
+
 				for kB, vB in self.AmbientExhaustBones do
 					table.insert( self.AmbientExhaustEffectsBag, CreateAttachedEmitter(self, vB, army, vE ))
 				end
@@ -143,6 +126,7 @@ BRMT3BM2 = Class(CWalkingLandUnit) {
 	
 	UnitLandAmbientEffectThread = function(self)
 		while not self:IsDead() do
+
             local army = self:GetArmy()			
 			
 			for kE, vE in self.AmbientLandExhaustEffects do
