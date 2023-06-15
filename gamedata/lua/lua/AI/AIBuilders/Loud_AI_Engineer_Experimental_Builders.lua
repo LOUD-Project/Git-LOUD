@@ -78,7 +78,8 @@ BuilderGroup {BuilderGroupName = 'Engineer T4 Land Construction',
 		
         BuilderData = {
 			DesiresAssist = true,
-			NumAssistees = 2,
+			NumAssistees = 1,
+
             Construction = {
 				Radius = 50,
                 NearBasePerimeterPoints = true,
