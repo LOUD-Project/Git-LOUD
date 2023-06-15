@@ -1159,7 +1159,7 @@ end
 function SendPlatoonWithTransportsLOUD( self, aiBrain, destination, attempts, bSkipLastMove, platoonpath )
 
     -- destination must be in playable areas --
-    if not import('/lua/loudutilities.lua').BaseInPlayableArea(aiBrain, destination) then
+    if not import('/lua/loudutilities.lua').BaseInPlayableArea(aiBrain, destination) or aiBrain:GetNoRushTicks() > 100 then
         return false
     end
 
