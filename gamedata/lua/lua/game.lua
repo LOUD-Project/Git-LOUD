@@ -199,6 +199,8 @@ function CacheRestrictedUnitLists()
         -- create a list of all unit category restrictions. TO be clear, this results in a table of categories
         -- So, for example:   { categories.TECH1, categories.TECH2, categories.MASSFAB }
         if restrictedUnits[restriction].categories then
+        
+            LOG("*AI DEBUG CacheRestrictedUnits - "..repr(restrictedUnits[restriction].categories) )
 		
             for l, cat in restrictedUnits[restriction].categories do
 			

@@ -501,7 +501,7 @@ Weapon = Class(moho.weapon_methods) {
     CreateProjectileForWeapon = function(self, bone)
 	
 		if ScenarioInfo.WeaponDialog then
-			LOG("*AI DEBUG Weapon CreateProjectileForWeapon "..repr(self.bp.Label).." for "..repr(__blueprints[self.unit.BlueprintID].Description))
+			LOG("*AI DEBUG Weapon CreateProjectileForWeapon "..repr(self.bp.Label).." for "..repr(__blueprints[self.unit.BlueprintID].Description).." using "..repr(self.bp.ProjectileId) )
 		end
 
         local proj = LOUDCREATEPROJECTILE( self, bone )
