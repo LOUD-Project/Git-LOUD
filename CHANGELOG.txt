@@ -1,3 +1,25 @@
+### Release 02-06-2023
+
+LUA 6.3.08
+SupComDataPath
+PROJECTILES 6.3.01
+Black Ops for LOUD 6.3.06
+Total Mayhem for LOUD 6.3.04
+
+- added a 'mount' directory for Civ Units for use with unpacked installations
+- fixed a typo with Stuck Platoon movement that was throwing an error
+- trigger distance at which mass points are relocated has been increased ever so slightly - fixes an issue on Coastal Conflict map
+- AI will no longer attempt to load transports during the no-rush period
+- AI ACU will now take part in building T2 and T3 defenses
+- AI now only permits 1 assister on early T4 unit production, allowing other projects to form
+- Revised T2 and T3 mobile AA production to be more sensitive to low AirStrength condition
+- Increased mobile AA complement limit, in most combat platoons, to utilize this extra production 
+- Platoons, by default, were creating an empty OnDestroyed callback table - now we create only when used
+- Weapon Restrictions have been properly enabled for all nuke and Tactical Missiles, provided the units have the correct data (ie. - NUKESUBs do)
+- fixes for anti-sat weapons not functioning from SMD - caused by legacy BOU projectile hook
+- Numerous data reductions across PROJECTILES, BO and TOTAL MAYHEM
+
+
 ### Release 26-05-2023
 
 LUA 6.3.07
@@ -9,7 +31,7 @@ UNITS 6.3.09
 - addressed a crash issue with the no-rush timer and very tight maps
 - addressed a broad issue with Beam Collision Delay and how it impacts DPS on about 8 units across multiple mods
 - reverted addition of SERA Nuke Battleship to unit restrictions
-- removed all NUKE subs from this restriction as well, since code will disable the weapon
+- removed all NUKE subs from this restriction as well, since code should disable the weapon (it is not)
 - just a note:  These units suffer badly from this, since the nuke weapon is a sizable portion of their cost, but players couldn't stomach them being restricted even though
 
 
