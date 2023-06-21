@@ -95,7 +95,7 @@ function RemoteViewing(SuperClass)
 
 			for num, brain in ArmyBrains do
 		
-				local unitList = brain:GetListOfUnits(categories.ANTITELEPORT, false)
+				local unitList = brain:GetListOfUnits(categories.ANTITELEPORT, false, true)
 				local location = self.RemoteViewingData.VisibleLocation
 			
 				for i, unit in unitList do

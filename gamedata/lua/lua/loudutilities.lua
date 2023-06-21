@@ -282,7 +282,7 @@ end
 -- if the AI has its share of mass points
 function HasMassPointShare( aiBrain, multiple )
 
-    local units = GetListOfUnits( aiBrain, categories.ECONOMIC, false)
+    local units = GetListOfUnits( aiBrain, categories.ECONOMIC, false, true)
     
     local extractorCount = 0
     
@@ -306,7 +306,7 @@ end
 -- a variant of the above
 function NeedMassPointShare( aiBrain, multiple )
 
-    local units = GetListOfUnits( aiBrain, categories.ECONOMIC, false)
+    local units = GetListOfUnits( aiBrain, categories.ECONOMIC, false, true)
     
     local extractorCount = 0
 	
@@ -611,7 +611,7 @@ function SpawnWaveThread( aiBrain )
 	
 		WaitSeconds(60)
 	
-		local T3AirFacs = GetListOfUnits( aiBrain, T3AIRFACS, false )
+		local T3AirFacs = GetListOfUnits( aiBrain, T3AIRFACS, false, true )
 		
 		if T3AirFacs[1] then
 		
@@ -631,7 +631,7 @@ function SpawnWaveThread( aiBrain )
 
 	while initialUnits do
     
-		local T3AirFacs = GetListOfUnits( aiBrain, T3AIRFACS, false )
+		local T3AirFacs = GetListOfUnits( aiBrain, T3AIRFACS, false, true )
 	
         -- the spawnwave cannot happen unless a T3 Air Factory is present
 		if LOUDGETN(T3AirFacs) == 0 then
@@ -2206,7 +2206,7 @@ function TeleportLocationBlocked( self, location )
 	
 		if not IsAlly( aiBrain.ArmyIndex, brain.ArmyIndex ) and aiBrain.Armyindex != brain.ArmyIndex then
 		
-			local unitList = GetListOfUnits( brain, categories.ANTITELEPORT, false)
+			local unitList = GetListOfUnits( brain, categories.ANTITELEPORT, false, true)
 			
 			for i, unit in unitList do
 			
@@ -4276,6 +4276,10 @@ function ParseIntelThread( aiBrain )
 	-- this moves all the local creation up front so NO locals need to be declared in the primary loop
 	local bp, counter, dupe, gametime, newthreat, newtime, oldthreat, threatamounttrigger, threatcategories, threatreport, threats, totalThreat
 	local DisplayIntelPoints, IntelDialog, LastUpdate, numchecks, Permanent, Position, rebuild, ReportRatios, Threat, Type, units, usedticks, x1,x2,x3
+    local aircount, airidle, landcount, landidle
+    
+    local airtot = 0
+    local landtot = 0
    
 	local ALLBPS = __blueprints
     local BRAINS = ArmyBrains
@@ -4758,7 +4762,6 @@ function ParseIntelThread( aiBrain )
 		if IntelDialog then
 			LOG("*AI DEBUG "..aiBrain.Nickname.." PARSEINTEL resorts HiPri list is "..repr(aiBrain.IL.HiPri))	
 		end
-	        
 
 		if parseinterval - usedticks >= 10 then
 		
@@ -4798,18 +4801,24 @@ function ParseIntelThread( aiBrain )
             -----------------
             totalThreat = 0
             oldthreat = 0
+            
+            LOG("*AI DEBUG Airtot is "..airtot)
 
-            if EnemyData['Air']['Total'] > 0 then
+            if EnemyData['Air']['Total'] > 0 or airtot > 0 then
             
                 for v, brain in BRAINS do
             
                     if IsEnemy( aiBrain.ArmyIndex, v ) then
-                
-                        units = GetListOfUnits( brain, AIRUNITS, false, false)
-                    
+
+                        units = GetListOfUnits( brain, AIRUNITS, false, true)
+
+                        LOG("*AI DEBUG Enemy "..brain.Nickname.." has "..table.getn(units).." air units")
+                        
                         for _,v in units do
                     
                             bp = ALLBPS[v.BlueprintID].Defense
+                            
+                            LOG("*AI DEBUG Enemy "..v.BlueprintID.." Threats are "..repr(bp))
 
                             oldthreat = oldthreat + bp.AirThreatLevel + bp.SurfaceThreatLevel
 
@@ -4817,8 +4826,10 @@ function ParseIntelThread( aiBrain )
                         
                     else
                     
-                        units = GetListOfUnits( brain, AIRUNITS, false, false)
-                    
+                        units = GetListOfUnits( brain, AIRUNITS, false, true)
+
+                        LOG("*AI DEBUG Ally "..brain.Nickname.." has "..table.getn(units).." air units")
+
                         for _,v in units do
                     
                             bp = ALLBPS[v.BlueprintID].Defense
@@ -4828,6 +4839,8 @@ function ParseIntelThread( aiBrain )
                         end                    
                     end
                 end
+                
+                LOG("*AI DEBUG "..aiBrain.Nickname.." Enemy Threat is "..oldthreat )
 
                 if oldthreat > 0 then
                 
@@ -4867,7 +4880,7 @@ function ParseIntelThread( aiBrain )
             
                     if IsEnemy( aiBrain.ArmyIndex, v ) then
                 
-                        units = GetListOfUnits( brain, LANDUNITS, false, false)
+                        units = GetListOfUnits( brain, LANDUNITS, false, true)
                     
                         for _,v in units do
                     
@@ -4879,7 +4892,7 @@ function ParseIntelThread( aiBrain )
                         
                     else
                 
-                        units = GetListOfUnits( brain, LANDUNITS, false, false)
+                        units = GetListOfUnits( brain, LANDUNITS, false, true)
                     
                         for _,v in units do
                     
@@ -4931,7 +4944,7 @@ function ParseIntelThread( aiBrain )
             
                     if IsEnemy( aiBrain.ArmyIndex, v ) then
                 
-                        units = GetListOfUnits( brain, NAVALUNITS, false, false)
+                        units = GetListOfUnits( brain, NAVALUNITS, false, true)
                     
                         for _,v in units do
                     
@@ -4943,7 +4956,7 @@ function ParseIntelThread( aiBrain )
                         
                     else
 
-                        units = GetListOfUnits( brain, NAVALUNITS, false, false)
+                        units = GetListOfUnits( brain, NAVALUNITS, false, true)
                     
                         for _,v in units do
                     
@@ -4983,6 +4996,71 @@ function ParseIntelThread( aiBrain )
 
                 end            
 
+            end
+            
+            for v, brain in BRAINS do
+            
+                if IsEnemy( aiBrain.ArmyIndex, v ) and not ArmyIsCivilian( v ) then
+                
+                    units = GetListOfUnits( brain, categories.FACTORY, false, true)
+                    
+                    landcount = 0
+                    landidle = 0
+                    landtot = 0
+                    
+                    for _,u in EntityCategoryFilterDown( categories.LAND, units) do
+                    
+                        landcount = landcount + 1
+                        
+                        if u:GetFractionComplete() == 1 then
+
+                            if not u:IsUnitState('Building') then 
+                                landidle = landidle + 1
+                                landtot = landtot + .3
+                            else
+                                if EntityCategoryContains( categories.TECH1, u) then
+                                    landtot = landtot + 1
+                                elseif EntityCategoryContains( categories.TECH2, u) then
+                                    landtot = landtot + 4
+                                elseif EntityCategoryContains( categories.TECH3, u) then
+                                    landtot = landtot + 10
+                                end
+                            end
+                        end
+
+                    end
+                    
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." Enemy "..brain.Nickname.." LAND Fac Count "..landcount.."  IDLE "..landidle.." Value "..landtot)
+                    
+                    aircount = 0
+                    airidle = 0
+                    airtot = 0
+                    
+                    for _,u in EntityCategoryFilterDown( categories.AIR, units) do
+                    
+                        aircount = aircount + 1
+                    
+                        if u:GetFractionComplete() == 1 then
+
+                            if not u:IsUnitState('Building') then 
+                                airidle = airidle + 1
+                                airtot = airtot + .3
+                            else
+                                if EntityCategoryContains( categories.TECH1, u) then
+                                    airtot = airtot + 1
+                                elseif EntityCategoryContains( categories.TECH2, u) then
+                                    airtot = airtot + 4
+                                elseif EntityCategoryContains( categories.TECH3, u) then
+                                    airtot = airtot + 10
+                                end
+                            end
+                        end
+
+                    end
+
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." Enemy "..brain.Nickname.." AIR  Fac Count "..aircount.."  IDLE "..airidle.." Value "..airtot)
+
+                end
             end
 
             if ReportRatios then
