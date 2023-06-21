@@ -548,47 +548,48 @@ function ModBlueprints(all_blueprints)
 	--LOG("*AI DEBUG ScenarioInfo data is "..repr( _G ) )
 
 	local ROFadjust = 0.9
+    
+    local units_threatchange = 0
 
     for id, bp in all_blueprints.Unit do
 
-	do
 		local tpc = bp.Transport and bp.Transport.TransportClass or 1
 		local sizes = {'Small', 'Medium', 'Large', [5]='Drone'}
 
 		if bp.General.CommandCaps.RULEUCC_CallTransport
-		and sizes[tpc]
-		and bp.Categories
-		and not table.find(bp.Categories, 'TECH'..tpc)
+            and sizes[tpc]
+            and bp.Categories
+            and not table.find(bp.Categories, 'TECH'..tpc)
 		then
 			if not bp.Display           then bp.Display = {}           end
 			if not bp.Display.Abilities then bp.Display.Abilities = {} end
 			table.insert(bp.Display.Abilities, 'Transport hook size: '..sizes[tpc])
 		end
-	end
-		
 		
         if bp.Weapon then
 
 			-- Begin Threat Update: overwrite threat with updated values
+
 			-- details available in:
 			-- https://docs.google.com/document/d/1oMpHiHDKjTID0szO1mvNSH_dAJfg0-DuZkZAYVdr-Ms/edit
+
 			-- TODO: Update this to handle non-weapon bearing units
 			-- TODO: Currently only supports surface threat, update to handle air,sub,surf threats
 			local unitDPS = PhxLib.calcUnitDPS(id,bp)
 			
-			if bp.Defense and
-			   bp.Defense.SurfaceThreatLevel
-			then
-                --[[
-				LOG("Threat Overriden: "..id..", "
-				 .. PhxLib.cleanUnitName(bp)..", "
-				 .. "PrevThreat = " .. bp.Defense.SurfaceThreatLevel..","
-				 .. "NewThreat = " .. unitDPS.Threat.srfTotal
-				)
-                --]]
-				bp.Defense.SurfaceThreatLevel = unitDPS.Threat.srfTotal
-				--bp.Defense.AirThreatLevel = unitDPS.Threat.airTotal
-				--bp.Defense.SubThreatLevel = unitDPS.Threat.subTotal
+			if bp.Defense and bp.Defense.SurfaceThreatLevel and unitDPS.Threat.srfTotal	then
+
+				LOG("Threat Overriden: "..id..", "..PhxLib.cleanUnitName(bp)..", ".."PrevThreat = "..bp.Defense.SurfaceThreatLevel..",".."NewThreat = "..unitDPS.Threat.srfTotal )
+
+                if bp.Defense.SurfaceThreatLevel != unitDPS.Threat.srfTotal then
+
+                    bp.Defense.SurfaceThreatLevel = unitDPS.Threat.srfTotal
+                    --bp.Defense.AirThreatLevel = unitDPS.Threat.airTotal
+                    --bp.Defense.SubThreatLevel = unitDPS.Threat.subTotal
+                    
+                    units_threatchange = units_threatchange + 1
+                end
+
 			end
 			-- End Threat Update
 
@@ -643,6 +644,8 @@ function ModBlueprints(all_blueprints)
             end
         end
     end 
+    
+    LOG("*AI DEBUG "..units_threatchange.." units had threat revised")
 
 	local capreturnradius = 80
 	

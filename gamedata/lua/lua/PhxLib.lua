@@ -11,6 +11,7 @@ PhxLib ={
 }
 
 PhxLib.canTargetHighAir = function(weapon)
+
     local completeTargetLayerList = ''
 --    for curLayerID,curLayerList in ipairs(weapon.FireTargetLayerCapsTable) do
 --        completeTargetLayerList = completeTargetLayerList .. curLayerList
@@ -35,6 +36,11 @@ PhxLib.canTargetHighAir = function(weapon)
 end
 
 PhxLib.canTargetLand = function(weapon)
+
+    if weapon.TargetRestrictOnlyAllow == 'AIR' then
+        return false
+    end
+    
     local completeTargetLayerList = ''
 --    for curLayerID,curLayerList in ipairs(weapon.FireTargetLayerCapsTable) do
 --        completeTargetLayerList = completeTargetLayerList .. curLayerList
@@ -348,23 +354,27 @@ PhxLib.PhxWeapDPS = function(weapon)
     
     DPS.Range = weapon.MaxRadius or 0
     
-    DPS.WeaponName = (weapon.Label or "None") .. "/" .. (weapon.DisplayName or "None")
+    DPS.WeaponName = (weapon.Label or "None") .."/"..(weapon.DisplayName or "None")
 
     local Warn = ''
 
     local debug = false
-
+    
     local numRackBones = 0
     local numMuzzleBones = 0
 
     if weapon.RackBones then
+
         numRackBones = table.getn(weapon.RackBones) or 0
 
         if(weapon.RackBones[1].MuzzleBones) then
             numMuzzleBones = table.getn(weapon.RackBones[1].MuzzleBones)
         end
         
-        if(debug) then print("Racks: " .. numRackBones .. ", Rack 1 Muzzles: " .. numMuzzleBones) end
+        if debug then
+            LOG("Racks: " .. numRackBones .. ", Rack 1 Muzzles: " .. numMuzzleBones)
+        end
+
     end
 
 
@@ -390,7 +400,11 @@ PhxLib.PhxWeapDPS = function(weapon)
     --   NOTE: This will throw out lots of logic as beam turns on only
     --         once and then do damage continuously. That's ok for now.
     elseif (weapon.ContinuousBeam and BeamLifetime==0) then
-        if(debug) then print("Continuous Beam") end
+
+        if debug then
+            LOG("Continuous Beam")
+        end
+
         local timeToTriggerDam = math.max(weapon.BeamCollisionDelay,0.1)
 
         Ttime = math.ceil(timeToTriggerDam*10)/10
@@ -399,16 +413,18 @@ PhxLib.PhxWeapDPS = function(weapon)
     elseif (numRackBones > 0) then
         -- TODO: Need a better methodology to identify single-shot and
         --       multi-muzzle/rack weapons
-        if(debug) then print("Multiple Rack/Muzzles") end
+        if debug then
+            LOG("Multiple Rack/Muzzles")
+        end
 
         -- This is extrapolated from coversations with people, not actual code
+
         --  It is supposed to be time between onFire() events
         local onFireTime = math.max(0.1,math.floor(10/weapon.RateOfFire+0.5)/10)
 
         -- Each Muzzle Cycle Time
         local MuzzleSalvoDelay = (weapon.MuzzleSalvoDelay or 0)
-        local muzzleTime =  MuzzleSalvoDelay +
-                            (weapon.MuzzleChargeDelay or 0)
+        local muzzleTime =  MuzzleSalvoDelay + (weapon.MuzzleChargeDelay or 0)
 
         if not(MuzzleSalvoDelay == 0) then  
             -- These are the standard calculations
@@ -433,8 +449,10 @@ PhxLib.PhxWeapDPS = function(weapon)
         -- If RackFireTogether is set, then each rack also fires all muzzles
         --  all in RackSalvoFiringState without exiting to another state
         if(weapon.RackFireTogether) then 
+
             Tdamage = Tdamage * numRackBones
             muzzleTime = muzzleTime * numRackBones
+
         elseif (numRackBones > 1) then
             --  However, racks go back to RackSalvoFireReadyState and wait
             --   for OnFire() event
@@ -444,7 +462,10 @@ PhxLib.PhxWeapDPS = function(weapon)
 
         -- Check for Beams that trigger multiple times
         if(BeamLifetime > 0) then
-            if(debug) then print("Pulse Beam") end
+
+            if debug then 
+                LOG("Pulse Beam")
+            end
             
             -- Beam damage events can only trigger on ticks, therefore round
             --  both BeamLifetime and BeamTriggerTime
@@ -458,45 +479,40 @@ PhxLib.PhxWeapDPS = function(weapon)
 
         local rechargeTime = 0
         local energyRequired = (weapon.EnergyRequired or 0)
-        if energyRequired > 0 -- and 
-           --not weapon.RackSalvoFiresAfterCharge 
-           then
-            rechargeTime = energyRequired / 
-                           weapon.EnergyDrainPerSecond
+
+        if energyRequired > 0 then -- and not weapon.RackSalvoFiresAfterCharge    then
+
+            rechargeTime = energyRequired / weapon.EnergyDrainPerSecond
             rechargeTime = math.ceil(rechargeTime*10)/10
             rechargeTime = math.max(0.1,rechargeTime)
         end
 
-        local RackTime = (weapon.RackSalvoReloadTime or 0) + 
-                         (weapon.RackSalvoChargeTime or 0)
+        local RackTime = (weapon.RackSalvoReloadTime or 0) + (weapon.RackSalvoChargeTime or 0)
 
         -- RackTime is in parallel with energy-based recharge time
         local rackNchargeTime = math.max(RackTime,rechargeTime)
+
         rackNchargeTime = math.ceil(rackNchargeTime*10)/10
         
         -- RateofFire is always in parallel
         -- MuzzleTime is added to rackTime and energy-based recharge time
         --print("Quick Debug: ",muzzleTime,',',rackNchargeTime,',',math.ceil(10/weapon.RateOfFire)/10)
-        Ttime = math.max(   
-                                muzzleTime + rackNchargeTime, 
-                                onFireTime
-                            )
+
+        Ttime = math.max( muzzleTime + rackNchargeTime, onFireTime )
 
         --   This is correct method for DoT, which happen DoTPulses 
         --   times and stack infinately
-        if(weapon.DoTPulses) then 
+        if weapon.DoTPulses then 
             Tdamage = Tdamage * weapon.DoTPulses
         end
 
         -- This is a rare weapon catch that skips OnFire() and
         --   EconDrain entirely, its kinda scary.
-        if(weapon.RackSalvoFiresAfterCharge and 
-           weapon.RackSalvoReloadTime>0 and
-           weapon.RackSalvoChargeTime>0
-          ) then
+        if (weapon.RackSalvoFiresAfterCharge and weapon.RackSalvoReloadTime>0 and weapon.RackSalvoChargeTime>0 ) then
             Ttime = muzzleTime + RackTime
             Warn = Warn .. "RackSalvoFiresAfterCharge_ComboWarn,"
         end
+
         -- Units Affected: 
         -- UAB2204 (T2 Aeon? Flak), 
         -- XSB3304 (T3 Sera Flak), 
@@ -514,10 +530,13 @@ PhxLib.PhxWeapDPS = function(weapon)
         --   RackSalvoChargeTime>0 and not WeaponUnpacks then Econ 
         --   drain doesn't get checked.  Otherwise behaves normally(?).
         -- Only three units /w : BRPAT2BOMBER, DEA0202, XSA0202
-
     else
-        if(debug) then print("Unknown") end
-        if(debug) then print("ERROR: Weapon Type Undetermined") end
+
+        if debug then
+            LOG("Unknown")
+            LOG("ERROR: Weapon Type Undetermined")
+        end
+
         Warn = Warn .. 'Unknown Type,'
         Tdamage = 0
         Ttime = 1
@@ -538,30 +557,49 @@ PhxLib.PhxWeapDPS = function(weapon)
     --Weapons that can target air also are allowed to be counted as 
     --  surf/sub damge
     if(PhxLib.canTargetHighAir(weapon)) then
-        DPS.airDPS = Tdamage/Ttime
-        if(debug) then print("air") end
-    end
 
+        DPS.airDPS = Tdamage/Ttime
+
+        if debug then
+            LOG("air capable weapon")
+        end
+
+    end
+    
     --Since "Surface" and "Sub" both include water sub damage must 
     --  override surface damage.
     if(PhxLib.canTargetSubs(weapon)) then
+
         DPS.subDPS = Tdamage/Ttime
-        if(debug) then print("sub") end
+
+        if debug then
+            LOG("sub capable weapon")
+        end
+
     elseif (PhxLib.canTargetLand(weapon)) then
+
         DPS.srfDPS = Tdamage/Ttime
-        if(debug) then print("surface") end
+
+        if debug then
+            LOG("surface capable weapon")
+        end
+
     end
 
     -- Calculate Threat Values for this Weapon
-    DPS.threatRange = (DPS.Range - PhxLib.RangeT2_KNIFE)
-                      / PhxLib.SpeedT2_KNIFE 
-                      * DPS.srfDPS/PhxLib.tEnd / 10
+
+    DPS.threatRange = (DPS.Range - PhxLib.RangeT2_KNIFE) / PhxLib.SpeedT2_KNIFE * DPS.srfDPS/PhxLib.tEnd / 10
     DPS.threatRange = math.max(0,DPS.threatRange)
+
     DPS.threatSurf = DPS.srfDPS/20
     DPS.threatAir = DPS.airDPS/20
     DPS.threatSub = DPS.subDPS/20
 
     DPS.Warn = Warn
+    
+    if debug then
+        LOG("Weapon DPS is "..repr(DPS))
+    end
 
     return DPS
 end
@@ -599,7 +637,8 @@ PhxLib.calcUnitDPS = function(curShortID,curBP)
         local NumWeapons = table.getn(curBP.Weapon)
         
         if debug then
-            --LOG("**" .. curShortID .. "/" .. PhxLib.cleanUnitName(curBP) .. " has " .. NumWeapons .. " weapons" )  --.. " and is stored in " .. (allFullDirs[curBPid] or "None")
+            LOG(" ")
+            LOG("**"..curShortID.." / "..PhxLib.cleanUnitName(curBP).." has "..NumWeapons.." weapons" )
         end
         
         for curWepID,curWep in ipairs(curBP.Weapon) do
@@ -609,18 +648,22 @@ PhxLib.calcUnitDPS = function(curShortID,curBP)
             if curWep.RateOfFire then
                 weapDPS = PhxLib.PhxWeapDPS(curWep)
             else
+                -- this line short circuits any unit
                 if curWep.Label != "DeathWeapon" and curWep.Label != "DeathImpact" and curWep.Label != "CollossusDeath" and curWep.Label != "Suicide" then
-                    --LOG("**" .. curShortID .. "/" .. PhxLib.cleanUnitName(curBP) .. repr(curWep) .. " has NO RateOfFire" )
+                    LOG("**"..curShortID.."/"..PhxLib.cleanUnitName(curBP)..repr(curWep).." has NO RateOfFire" )
                 end
-                return 0
+            
+                if debug then
+                    LOG("**"..curShortID.." weapon "..repr(curWep.Label).." skipped")
+                end
+                
+                continue -- skip this weapon  -- return 0 was aborting this unit
             end
             
-            if debug then print(curShortID ..
-                "/" .. weapDPS.WeaponName ..
-                ': has Damage: ' .. weapDPS.Damage ..
-                ' - Time: ' .. weapDPS.Ttime ..
-                ' - new DPS: ' .. (weapDPS.Damage/weapDPS.Ttime)
-            ) end
+            if debug then
+                LOG("**"..curShortID.." weapon "..repr(curWep.Label))
+                LOG( curShortID.."/"..weapDPS.WeaponName..': has Damage: '..weapDPS.Damage..' - Time: '..weapDPS.Ttime..' - new DPS: '..(weapDPS.Damage/weapDPS.Ttime))
+            end
 
             if unitDPS.maxRange < weapDPS.Range then
                 unitDPS.maxRange = weapDPS.Range
@@ -638,19 +681,23 @@ PhxLib.calcUnitDPS = function(curShortID,curBP)
             unitDPS.Threat.srfDam = unitDPS.Threat.srfDam + weapDPS.threatSurf
             unitDPS.Threat.subDam = unitDPS.Threat.subDam + weapDPS.subDPS/20
             unitDPS.Threat.airDam = unitDPS.Threat.airDam + weapDPS.airDPS/20
-            if debug then print(" ") end -- End of Weapon Reporting
+            if debug then LOG(" ") end -- End of Weapon Reporting
 
         end --Weapon For Loop
 
-        unitDPS.Threat.Speed = (PhxLib.RangeAvgEngage/PhxLib.SpeedT2_KNIFE - PhxLib.RangeAvgEngage/unitDPS.Speed)
-                    * unitDPS.srfDPS/PhxLib.tEnd / 10
+        unitDPS.Threat.Speed = (PhxLib.RangeAvgEngage/PhxLib.SpeedT2_KNIFE - PhxLib.RangeAvgEngage/unitDPS.Speed) * unitDPS.srfDPS/PhxLib.tEnd / 10
         unitDPS.Threat.Speed = math.max(0,unitDPS.Threat.Speed)
-        print(" unitDPS.Threat.Speed = " ..  unitDPS.Threat.Speed)
+
+        --if debug then
+          --  LOG(" unitDPS.Threat.Speed = " ..  unitDPS.Threat.Speed)
+        --end
 
     else
+
         if debug then
-            LOG(curShortID .. "/" .. (curBP.Description or "None") .. " has NO weapons or weapon has NO RateOfFire value")
+            LOG(curShortID.." / "..(curBP.Description or "None").." has NO weapons or weapon has NO RateOfFire value")
         end
+
     end --End if(weapon)
 
     -- Overrides for oddball units
@@ -683,11 +730,22 @@ PhxLib.calcUnitDPS = function(curShortID,curBP)
         --unitDPS.Warn = '' -- Leave warnings alone
     end -- oddball catch
     
-    unitDPS.Threat.srfTotal = unitDPS.Threat.srfDam + unitDPS.Threat.HP
-                            + unitDPS.Threat.Speed  + unitDPS.Threat.Range
-    unitDPS.Threat.subTotal = unitDPS.Threat.subDam + unitDPS.Threat.HP
-    unitDPS.Threat.airTotal = unitDPS.Threat.airDam + unitDPS.Threat.HP
-
+    if unitDPS.Threat.srfDam > 0 then
+        unitDPS.Threat.srfTotal = unitDPS.Threat.srfDam + unitDPS.Threat.HP + unitDPS.Threat.Speed + unitDPS.Threat.Range
+    end
+    
+    if unitDPS.Threat.subDam > 0 then
+        unitDPS.Threat.subTotal =  unitDPS.Threat.subDam + unitDPS.Threat.HP
+    end
+    
+    if unitDPS.Threat.airDam > 0 then
+        unitDPS.Threat.airTotal = unitDPS.Threat.airDam + unitDPS.Threat.HP
+    end
+    
+    if debug then
+        LOG("UnitDPS is "..repr(unitDPS))
+    end
+    
     return unitDPS
 end
 
