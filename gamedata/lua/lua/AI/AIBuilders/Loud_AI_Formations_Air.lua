@@ -327,7 +327,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			
             MissionTime = 90,
 			
-            PrioritizedCategories = {categories.ENGINEER, categories.MOBILE - categories.AIR},
+            PrioritizedCategories = {categories.ENGINEER, categories.ANTIAIR, categories.MOBILE - categories.AIR},
 			
 			SearchRadius = 45,	
 			
@@ -369,7 +369,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			
             MissionTime = 90,
 			
-            PrioritizedCategories = { categories.ECONOMIC, categories.ENGINEER },
+            PrioritizedCategories = { categories.ECONOMIC, categories.ANTIAIR, categories.ENGINEER },
 			
 			SearchRadius = 65,	
 			
@@ -1086,7 +1086,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			
             MissionTime = 120,
 			
-            PrioritizedCategories = { categories.MOBILE * categories.ANTIAIR, categories.MOBILE - categories.AIR, categories.INTELLIGENCE - categories.AIR},
+            PrioritizedCategories = {categories.ANTIAIR, categories.ENGINEER, categories.MOBILE - categories.AIR},
 			
 			SearchRadius = 35,
 			
