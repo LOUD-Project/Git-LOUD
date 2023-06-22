@@ -667,7 +667,7 @@ PhxLib.calcUnitDPS = function(curShortID,curBP)
             else
                 -- this line short circuits any unit
                 if (curWep.Label ~= "DeathWeapon" and curWep.Label ~= "DeathImpact" and curWep.Label ~= "CollossusDeath" and curWep.Label ~= "Suicide") then
-                    LOG("**"..curShortID.."/"..PhxLib.cleanUnitName(curBP)..repr(curWep).." has NO RateOfFire" )
+                    --LOG("**"..curShortID.."/"..PhxLib.cleanUnitName(curBP)..repr(curWep).." has NO RateOfFire" )
                 end
             
                 if debug then

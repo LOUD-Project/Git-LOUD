@@ -579,7 +579,7 @@ function ModBlueprints(all_blueprints)
 			
 			if bp.Defense and bp.Defense.SurfaceThreatLevel and unitDPS.Threat.srfTotal	then
 
-				LOG("Threat Overriden: "..id..", "..PhxLib.cleanUnitName(bp)..", ".."PrevThreat = "..bp.Defense.SurfaceThreatLevel..",".."NewThreat = "..unitDPS.Threat.srfTotal )
+				--LOG("Threat Overriden: "..id..", "..PhxLib.cleanUnitName(bp)..", ".."PrevThreat = "..bp.Defense.SurfaceThreatLevel..",".."NewThreat = "..unitDPS.Threat.srfTotal )
 
                 if bp.Defense.SurfaceThreatLevel != unitDPS.Threat.srfTotal then
 
