@@ -508,9 +508,11 @@ PhxLib.PhxWeapDPS = function(weapon)
 
         -- This is a rare weapon catch that skips OnFire() and
         --   EconDrain entirely, its kinda scary.
-        if (weapon.RackSalvoFiresAfterCharge and weapon.RackSalvoReloadTime>0 and weapon.RackSalvoChargeTime>0 ) then
-            Ttime = muzzleTime + RackTime
-            Warn = Warn .. "RackSalvoFiresAfterCharge_ComboWarn,"
+        if (weapon.RackSalvoFiresAfterCharge and weapon.RackSalvoReloadTime and weapon.RackSalvoChargeTime ) then
+            if (weapon.RackSalvoFiresAfterCharge and weapon.RackSalvoReloadTime>0 and weapon.RackSalvoChargeTime>0 ) then
+                Ttime = muzzleTime + RackTime
+                Warn = Warn .. "RackSalvoFiresAfterCharge_ComboWarn,"
+            end
         end
 
         -- Units Affected: 
@@ -643,13 +645,28 @@ PhxLib.calcUnitDPS = function(curShortID,curBP)
         
         for curWepID,curWep in ipairs(curBP.Weapon) do
         
-            local weapDPS
-            
+            local weapDPS = {}
+            weapDPS.Range = 0
+            weapDPS.WeaponName = 'none'
+            weapDPS.Damage = 0 
+            weapDPS.Ttime = 1
+            weapDPS.srfDPS = 0
+            weapDPS.subDPS = 0
+            weapDPS.airDPS = 0
+            weapDPS.DPS = 0
+            weapDPS.Warn = ''
+            weapDPS.threatRange = 1
+            weapDPS.threatSurf = 1
+            unitDPS.Threat.srfTotal = 0
+            unitDPS.Threat.subTotal = 0
+            unitDPS.Threat.airTotal = 0
+    
+
             if curWep.RateOfFire then
                 weapDPS = PhxLib.PhxWeapDPS(curWep)
             else
                 -- this line short circuits any unit
-                if curWep.Label != "DeathWeapon" and curWep.Label != "DeathImpact" and curWep.Label != "CollossusDeath" and curWep.Label != "Suicide" then
+                if (curWep.Label ~= "DeathWeapon" and curWep.Label ~= "DeathImpact" and curWep.Label ~= "CollossusDeath" and curWep.Label ~= "Suicide") then
                     LOG("**"..curShortID.."/"..PhxLib.cleanUnitName(curBP)..repr(curWep).." has NO RateOfFire" )
                 end
             
@@ -657,7 +674,10 @@ PhxLib.calcUnitDPS = function(curShortID,curBP)
                     LOG("**"..curShortID.." weapon "..repr(curWep.Label).." skipped")
                 end
                 
-                continue -- skip this weapon  -- return 0 was aborting this unit
+                --continue -- skip this weapon  -- return 0 was aborting this unit 
+                -- DJO: I removed this for command-line lua compatibilty, moved "nul" weapon definition to local weapDPS = {} statements above.
+                --      This should allow for valid skipping of weapons without the use of continue or return.
+
             end
             
             if debug then
@@ -727,18 +747,19 @@ PhxLib.calcUnitDPS = function(curShortID,curBP)
         unitDPS.airDPS = 166
         unitDPS.totDPS = 166
         unitDPS.maxRange = 25
+
         --unitDPS.Warn = '' -- Leave warnings alone
     end -- oddball catch
     
-    if unitDPS.Threat.srfDam > 0 then
+    if unitDPS.Threat.srfDam >= 0 then
         unitDPS.Threat.srfTotal = unitDPS.Threat.srfDam + unitDPS.Threat.HP + unitDPS.Threat.Speed + unitDPS.Threat.Range
     end
     
-    if unitDPS.Threat.subDam > 0 then
+    if unitDPS.Threat.subDam >= 0 then
         unitDPS.Threat.subTotal =  unitDPS.Threat.subDam + unitDPS.Threat.HP
     end
     
-    if unitDPS.Threat.airDam > 0 then
+    if unitDPS.Threat.airDam >= 0 then
         unitDPS.Threat.airTotal = unitDPS.Threat.airDam + unitDPS.Threat.HP
     end
     
