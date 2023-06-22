@@ -1,8 +1,11 @@
 UnitBlueprint{
+
     Description = "<LOC ual0108_desc>Light Assault Walker",
+
     AI = {
         TargetBones = { "bodyBase" },
     },
+
     Audio = {
         Destroyed   = Sound { Bank = 'UALDestroy', Cue = 'UAL_Destroy_Land',   LodCutoff = 'UnitMove_LodCutoff' },
         ShieldOff   = Sound { Bank = 'UAL',        Cue = 'UAL0202_Shield_Off', LodCutoff = 'UnitMove_LodCutoff' },
@@ -11,6 +14,7 @@ UnitBlueprint{
         StopMove    = Sound { Bank = 'UAL',        Cue = 'UAL0106_Move_Stop',  LodCutoff = 'UnitMove_LodCutoff' },
         UISelection = Sound { Bank = 'Interface',  Cue = 'Aeon_Select_Bot',    LodCutoff = 'UnitMove_LodCutoff' },
     },
+
     Buffs = {
         Regen = {
             Level1 = 1,
@@ -20,7 +24,9 @@ UnitBlueprint{
             Level5 = 5,
         },
     },
+
     BuildIconSortPriority = 30,
+
     Categories = {
         "AEON",
         "BOT",
@@ -35,12 +41,14 @@ UnitBlueprint{
         "TECH1",
         "VISIBLETORECON",
     },
+
     Defense = {
         ArmorType = "Normal",
         Health = 210,
         MaxHealth = 210,
         SurfaceThreatLevel = 3.2,
     },
+
     Display = {
         Abilities = { "<LOC ability_customizable>Customizable", },
         AnimationDeath = {
@@ -69,8 +77,10 @@ UnitBlueprint{
                 Weight = 10,
             },
         },
+
         AnimationWalk = "/mods/4DC/units/ual0108/ual0108_awalk01.sca",
         AnimationWalkRate = 1.6,
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -81,14 +91,17 @@ UnitBlueprint{
                 },
             },
         },
+
         UniformScale = 0.05,
     },
+
     Economy = {
         BuildCostEnergy = 550,
         BuildCostMass = 75,
         BuildRate = 5,
         BuildTime = 94,
     },
+
     Enhancements = {
         PersonalShield = {
             BuildCostEnergy = 475,
@@ -133,6 +146,7 @@ UnitBlueprint{
             RCH = {},
         },
     },
+
     General = {
         CommandCaps = {
             RULEUCC_Attack = true,
@@ -147,10 +161,13 @@ UnitBlueprint{
         Icon = "land",
         UnitName = "<LOC ual0108_name>Artos",
     },
+
     Intel = { VisionRadius = 20 },
+
     LifeBarHeight = 0.07,
     LifeBarOffset = 0.7,
     LifeBarSize = 0.45,
+
     Physics = {
         BankingSlope = 0,
         DragCoefficient = 0.2,
@@ -168,20 +185,25 @@ UnitBlueprint{
         TurnRadius = 1,
         TurnRate = 60,
     },
+
     SelectionCenterOffsetX = 0,
     SelectionCenterOffsetZ = 0.1,
     SelectionSizeX = 0.55,
     SelectionSizeZ = 0.55,
     SelectionThickness = 0.5,
+
     SizeX = 0.3,
     SizeY = 1.04,
     SizeZ = 0.44,
+
     StrategicIconName = "icon_land1_directfire",
     StrategicIconSortPriority = 135,
+
     Transport = {
         CanFireFromTransport = false,
         TransportClass = 1,
     },
+
     Veteran = {
         Level1 = 3,
         Level2 = 6,
@@ -189,44 +211,52 @@ UnitBlueprint{
         Level4 = 12,
         Level5 = 15,
     },
+
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
                 Fire = Sound { Bank = 'UAAWeapon', Cue = 'UAA0203_Laser_Lgt', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = "RULEUBA_None",
+
             CollideFriendly = false,
+
             Damage = 20,
             DamageRadius = 0,
             DamageType = "Normal",
+
             DisplayName = "Pulse Laser",
+
             FireTargetLayerCapsTable = { Land = "Land|Water" },
+
             FiringRandomness = 0.5,
             FiringRandomnessWhileMoving = 1.0,
             FiringTolerance = 2,
+
             Label = "MainGun",
+
             MaxRadius = 18,
+
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 4,
             MuzzleVelocity = 30,
+
             ProjectileId = "/projectiles/ADFLaserLight01/ADFLaserLight01_proj.bp",
             ProjectileLifetime = 0.8,
+
             RackBones = {
                 {
                     MuzzleBones = { "turretMuzzle" },
                     RackBone = "turretBarrel",
                 },
             },
-            RackFireTogether = false,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
+
             RangeCategory = "UWRC_DirectFire",
+
             RateOfFire = 0.4,
-            SlavedToBody = false,
+
             TargetCheckInterval = 0.6,
             TargetPriorities = {
                 "SPECIALHIGHPRI",
@@ -235,17 +265,22 @@ UnitBlueprint{
                 "ALLUNITS -WALL",
             },
             TargetRestrictDisallow = "UNTARGETABLE",
+
             TrackingRadius = 1.1,
+
             TurretBoneMuzzle = "turretMuzzle",
             TurretBonePitch = "bodyTop",
             TurretBoneYaw = "bodyTop",
             TurretDualManipulators = false,
+
             TurretPitch = 0,
             TurretPitchRange = 15,
             TurretPitchSpeed = 30,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 60,
+
             Turreted = true,
         },
         {
@@ -254,22 +289,32 @@ UnitBlueprint{
                 Fire = Sound { Bank = 'UALWeapon', Cue = 'UAB2304_SAM',      LodCutoff = 'Weapon_LodCutoff' },
                 Open = Sound { Bank = 'UAB',       Cue = 'UAB2304_Activate', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = "RULEUBA_None",
+
             CollideFriendly = false,
+
             Damage = 30,
             DamageRadius = 1,
             DamageType = "Normal",
+
             DisplayName = "Missile",
+
             FireTargetLayerCapsTable = { Land = "Land|Water" },
             FiringTolerance = 10,
+
             Label = "RocketBackpack",
+
             MaxRadius = 32,
             MinRadius = 5,
+
             MuzzleSalvoDelay = 0.5,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 5,
+
             ProjectileId = "/projectiles/AAAZealotMissile01/AAAZealotMissile01_proj.bp",
             ProjectileLifetime = 3,
+
             RackBones = {
                 {
                     MuzzleBones = { "missileMuzzleLeft" },
@@ -280,14 +325,13 @@ UnitBlueprint{
                     RackBone = "bodyTop",
                 },
             },
-            RackFireTogether = false,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
+
             RackSlavedToTurret = true,
+
             RangeCategory = "UWRC_IndirectFire",
+
             RateOfFire = 0.2,
+
             TargetCheckInterval = 0.3,
             TargetPriorities = {
                 "SPECIALHIGHPRI",

@@ -19,8 +19,8 @@ UAB2306 = Class(AStructureUnit) {
                 BFGShellWeapon.PlayFxMuzzleChargeSequence(self, muzzle)
             end,                
 
-            PlayFxRackReloadSequence = function(self)                       
-                self.unit:RemoveBeamFX() 
+            PlayFxRackReloadSequence = function(self)          
+   self.unit:RemoveBeamFX() 
                 BFGShellWeapon.PlayFxRackReloadSequence(self)             
             end,
 

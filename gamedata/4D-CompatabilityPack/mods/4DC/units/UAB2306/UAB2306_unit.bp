@@ -1,13 +1,17 @@
 UnitBlueprint{
+
     Description = "<LOC uab2306_desc>Heavy Point Defense",
+
     AI = {
         TargetBones = { "mid_joint" },
     },
+
     Audio = {
         DeathExplosion = Sound { Bank = 'UALDestroy', Cue = 'UAB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff' },
         DoneBeingBuilt = Sound { Bank = 'UAB',        Cue = 'UAB2301_Activate',           LodCutoff = 'UnitMove_LodCutoff' },
         UISelection    = Sound { Bank = 'Interface',  Cue = 'Aeon_Select_Gun',            LodCutoff = 'UnitMove_LodCutoff' },
     },
+
     Buffs = {
         Regen = {
             Level1 = 2,
@@ -17,7 +21,9 @@ UnitBlueprint{
             Level5 = 10,
         },
     },
+
     BuildIconSortPriority = 110,
+
     Categories = {
         "AEON",
         "BUILTBYTIER3COMMANDER",
@@ -33,6 +39,7 @@ UnitBlueprint{
         "TECH3",
         "VISIBLETORECON",
     },
+
     Defense = {
         ArmorType = "Structure",
         Health = 6250,
@@ -40,6 +47,7 @@ UnitBlueprint{
         RegenRate = 2,
         SurfaceThreatLevel = 73,
     },
+
     Display = {
         Abilities = {
             "<LOC ability_aquatic>Aquatic",
@@ -61,16 +69,20 @@ UnitBlueprint{
         },
         UniformScale = 0.0018,
     },
+
     Economy = {
         BuildCostEnergy = 22000,
         BuildCostMass = 2080,
         BuildTime = 1890,
+
         RebuildBonusIds = { "uab2306" },
     },
+
     Footprint = {
         SizeX = 1,
         SizeZ = 1,
     },
+
     General = {
         CommandCaps = {
             RULEUCC_Attack = true,
@@ -82,10 +94,13 @@ UnitBlueprint{
         SelectionPriority = 5,
         UnitName = "<LOC uab2306_name>Anachronon",
     },
+
     Intel = { VisionRadius = 36 },
+
     LifeBarHeight = 0.1,
     LifeBarOffset = 1.35,
     LifeBarSize = 1,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -106,15 +121,20 @@ UnitBlueprint{
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+
     SelectionSizeX = 1.05,
     SelectionSizeZ = 1.05,
     SelectionThickness = 0.45,
+
     CollisionOffsetY = -0.25,
+
     SizeX = 1.5,
     SizeY = 1.5,
     SizeZ = 1.5,
+
     StrategicIconName = "icon_structure3_directfire",
     StrategicIconSortPriority = 200,
+
     Veteran = {
         Level1 = 16,
         Level2 = 32,
@@ -122,52 +142,64 @@ UnitBlueprint{
         Level4 = 64,
         Level5 = 80,
     },
+
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+
             Audio = {
                 BarrelLoop        = Sound { Bank = 'UAB',       Cue = 'UAB2302_Turret_Loop',          LodCutoff = 'WeaponBig_LodCutoff' },
                 BarrelStart       = Sound { Bank = 'UAB',       Cue = 'UAB2302_Turret_Start',         LodCutoff = 'WeaponBig_LodCutoff' },
                 Fire              = Sound { Bank = 'UALWeapon', Cue = 'UAB2302_Artillery_Sonance',    LodCutoff = 'Weapon_LodCutoff' },
                 MuzzleChargeStart = Sound { Bank = 'UALWeapon', Cue = 'UAB2302_Artillery_Son_Charge', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = "RULEUBA_LowArc",
+
             CollideFriendly = false,
+
             Damage = 1800,
             DamageFriendly = false,
             DamageRadius = 2.0,
             DamageType = "Normal",
+
             EnergyDrainPerSecond = 400,
             EnergyRequired = 2200,
+
             FireTargetLayerCapsTable = {
                 Land = "Land|Water",
                 Water = "Land|Water",
             },
             FiringTolerance = 0.2,
+
             Label = "BFG",
+
             LeadTarget = true,
+
             MaxRadius = 65,
             MinRadius = 10,
+
             MuzzleChargeDelay = 0.5,
             MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 16,
-            NeedPrep = true,
+
             ProjectileId = "/mods/4DC/projectiles/BFG_Shell/BFG_Shell_proj.bp",
             ProjectileLifetime = 6,
+
             RackBones = {
                 {
                     MuzzleBones = { "Turret_Muzzle" },
                     RackBone = "Turret_Barrel",
                 },
             },
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoFiresAfterCharge = false,
-            RackSalvoReloadTime = 0,
+
             RangeCategory = "UWRC_DirectFire",
+
             RateOfFire = 10,
+
             TargetCheckInterval = 3,
+
             TargetPriorities = {
                 "MOBILE SHIELD",
                 "EXPERIMENTAL",
@@ -176,17 +208,22 @@ UnitBlueprint{
                 "ALLUNITS",
             },
             TargetRestrictDisallow = "UNTARGETABLE",
+
             TrackingRadius = 1.2,
+
             TurretBoneMuzzle = "Turret_Muzzle",
             TurretBonePitch = "mid_joint",
             TurretBoneYaw = "lower_joint",
             TurretDualManipulators = false,
+
             TurretPitch = 10,
             TurretPitchRange = 45,
             TurretPitchSpeed = 20,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 25,
+
             Turreted = true,
         },
         {

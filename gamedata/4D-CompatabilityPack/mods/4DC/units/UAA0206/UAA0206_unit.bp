@@ -1,9 +1,12 @@
 UnitBlueprint{
+
     Description = "<LOC uaa0206_desc>Beam Gunship",
+
     AI = {
         GuardReturnRadius = 75,
         GuardScanRadius = 60,
     },
+
     Air = {
         AutoLandTime = 1.6,
         BankFactor = 0.1,
@@ -27,6 +30,7 @@ UnitBlueprint{
         StartTurnDistance = 6,
         Winged = false,
     },
+
     Audio = {
         Destroyed   = Sound { Bank = 'UAADestroy', Cue = 'UAA_Destroy_Air',       LodCutoff = 'UnitMove_LodCutoff' },
         StartMove   = Sound { Bank = 'XAA',        Cue = 'XAA0305_Move_Start',    LodCutoff = 'UnitMove_LodCutoff' },
@@ -34,8 +38,11 @@ UnitBlueprint{
         Thruster    = Sound { Bank = 'XAA',        Cue = 'XAA0305_Move_Thruster', LodCutoff = 'UnitMove_LodCutoff' },
         UISelection = Sound { Bank = 'Interface',  Cue = 'Aeon_Select_Air',       LodCutoff = 'UnitMove_LodCutoff' },
     },
+
     Buffs = {},
+
     BuildIconSortPriority = 25,
+
     Categories = {
         "AEON",
         "AIR",
@@ -48,6 +55,7 @@ UnitBlueprint{
         "TECH2",
         "VISIBLETORECON",
     },
+
     Defense = {
         ArmorType = "Light",
         Health = 1250,
@@ -55,6 +63,7 @@ UnitBlueprint{
         RegenRate = 4,
         SurfaceThreatLevel = 7.5,
     },
+
     Display = {
         Abilities = {
             "Ion Beam",
@@ -79,16 +88,19 @@ UnitBlueprint{
         },
         UniformScale = 0.003,
     },
+
     Economy = {
         BuildCostEnergy = 17250,
         BuildCostMass = 370,
         BuildTime = 600,
     },
+
     Footprint = {
         MaxSlope = 0.25,
         SizeX = 1,
         SizeZ = 1,
     },
+
     General = {
         CommandCaps = {
             RULEUCC_Attack = true,
@@ -104,10 +116,13 @@ UnitBlueprint{
         Icon = "air",
         UnitName = "<LOC uaa0206_name>Abolisher",
     },
+
     Intel = { VisionRadius = 26 },
+
     LifeBarHeight = 0.07,
     LifeBarOffset = 1.0,
     LifeBarSize = 0.6,
+
     Physics = {
         Elevation = 10,
         FuelRechargeRate = 6,
@@ -123,19 +138,25 @@ UnitBlueprint{
         TurnRadius = 5,
         TurnRate = 60,
     },
+
     SelectionSizeX = 0.7,
     SelectionSizeZ = 1.3,
     SelectionThickness = 0.4,
+
     SizeSphere = 1.1,
+
     SizeX = 1,
     SizeY = 0.3,
     SizeZ = 1,
+
     StrategicIconName = "icon_gunship2_directfire",
     StrategicIconSortPriority = 66,
+
     Transport = {
         AirClass = true,
         TransportClass = 2,
     },
+
     Veteran = {
         Level1 = 5,
         Level2 = 10,
@@ -143,50 +164,64 @@ UnitBlueprint{
         Level4 = 20,
         Level5 = 25,
     },
+
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
+
             AimsStraightOnDisable = true,
+
             Audio = {
                 BeamLoop  = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Loop',   LodCutoff = 'Weapon_LodCutoff' },
                 BeamStart = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Fire',   LodCutoff = 'Weapon_LodCutoff' },
                 BeamStop  = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Stop',   LodCutoff = 'Weapon_LodCutoff' },
                 Unpack    = Sound { Bank = 'UALWeapon', Cue = 'UAL0401_Phason_Laser_Charge', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             AutoInitiateAttackCommand = true,
+
             BallisticArc = "RULEUBA_None",
+
             BeamCollisionDelay = 0,
             BeamLifetime = 0.5,
+
             CollideFriendly = false,
+
             ContinuousBeam = false,
+
             Damage = 15,
             DamageRadius = 0,
             DamageType = "Normal",
+
             DisplayName = "Ion Beam",
+
             FireTargetLayerCapsTable = {
                 Air = "Air|Land|Water",
                 Land = "Air|Land|Water",
             },
             FiringTolerance = 1,
+
             Label = "Ion_Beam",
+
             MaxRadius = 28,
             MinRadius = 6,
-            MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0,
+
             MuzzleSalvoSize = 1,
+
             RackBones = {
                 {
                     MuzzleBones = { "muzzle_beam" },
                     RackBone = "muzzle_beam",
                 },
             },
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RangeCategory = "UWRC_DirectFire",
+
             RateOfFire = 1,
+
             SlavedToBody = true,
             SlavedToBodyArcRange = 25,
+
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 "EXPERIMENTAL",
@@ -195,18 +230,24 @@ UnitBlueprint{
                 "ECONOMIC",
                 "ALLUNITS -WALL",
             },
+
             TargetRestrictDisallow = "UNTARGETABLE,HIGHALTAIR,SATELLITE",
+
             TrackingRadius = 1.2,
+
             TurretBoneMuzzle = "muzzle_beam",
             TurretBonePitch = "uaa0306",
             TurretBoneYaw = "muzzle_beam",
             TurretDualManipulators = false,
+
             TurretPitch = -5,
             TurretPitchRange = 80,
             TurretPitchSpeed = 45,
+
             TurretYaw = 0,
             TurretYawRange = 25,
             TurretYawSpeed = 60,
+
             Turreted = true,
         },
         {

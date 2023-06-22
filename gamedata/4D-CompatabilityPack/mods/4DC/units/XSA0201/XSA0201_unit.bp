@@ -1,5 +1,6 @@
 UnitBlueprint{
     Description = "<LOC xsa0201_desc>Shield Drone",
+
     Air = {
         AutoLandTime = 0,
         BankFactor = 0.1,
@@ -23,6 +24,7 @@ UnitBlueprint{
         StartTurnDistance = 5,
         Winged = false,
     },
+
     Audio = {
         AirUnitWaterImpact = Sound { Bank = 'Explosions',     Cue = 'Expl_Water_Lrg_01',      LodCutoff = 'UnitMove_LodCutoff' },
         Destroyed          = Sound { Bank = 'XSA_Destroy',    Cue = 'XSA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff' },
@@ -33,7 +35,9 @@ UnitBlueprint{
         UISelection        = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Air',    LodCutoff = 'UnitMove_LodCutoff' },
         Warp               = Sound { Bank = 'SeraphimSelect', Cue = 'Seraphim_Select_Air',    LodCutoff = 'UnitMove_LodCutoff' },
     },
+
     BuildIconSortPriority = 50,
+
     Categories = {
         "AIR",
         "BUILTBYTIER2FACTORY",
@@ -47,6 +51,7 @@ UnitBlueprint{
         "TECH2",
         "VISIBLETORECON",
     },
+
     Defense = {
         ArmorType = "Light",
         Health = 10,
@@ -54,6 +59,7 @@ UnitBlueprint{
         RegenRate = 0,
         SurfaceThreatLevel = 0,
     },
+
     Display = {
         Abilities = {
             "One-Shot Projected Shield Generator",
@@ -100,23 +106,21 @@ UnitBlueprint{
         },
         UniformScale = 0.06,
     },
+
     Economy = {
         BuildCostEnergy = 4800,
         BuildCostMass = 450,
         BuildTime = 450,
     },
+
     Footprint = {
         MaxSlope = 0.25,
         SizeX = 1,
         SizeZ = 4,
     },
+
     General = {
-        BuildBones = {
-            AimBone = "xsa0201",
-            BuildEffectBones = { "xsa0201" },
-            PitchBone = "xsa0201",
-            YawBone = "xsa0201",
-        },
+        BuildBones = { AimBone = "xsa0201", BuildEffectBones = { "xsa0201" }, PitchBone = "xsa0201", YawBone = "xsa0201" },
         CommandCaps = {
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
@@ -127,11 +131,14 @@ UnitBlueprint{
         SelectionPriority = 2,
         UnitName = "<LOC xsa0201_name>Shyeld",
     },
+
     Intel = { VisionRadius = 10 },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.45,
     LifeBarRender = false,
     LifeBarSize = 0.5,
+
     Physics = {
         Elevation = 6,
         MaxSpeed = 0.7,
@@ -144,14 +151,19 @@ UnitBlueprint{
         TurnRadius = 360,
         TurnRate = 180,
     },
+
     SelectionSizeX = 0.5,
     SelectionSizeZ = 0.5,
     SelectionThickness = 0.22,
+
     CollisionOffsetY = -0.7,
+
     SizeSphere = 0.6,
+
     SizeX = 0.5,
     SizeY = 1.0,
     SizeZ = 0.5,
+
     StrategicIconName = "icon_land2_shield",
     StrategicIconSortPriority = 65,
 }

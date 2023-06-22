@@ -1,13 +1,16 @@
 UnitBlueprint{
     Description = "<LOC ueb2306_desc>Heavy Point Defense",
+
     AI = {
         TargetBones = { "Turret" },
     },
+
     Audio = {
         Destroyed      = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Med_Land', LodCutoff = 'UnitMove_LodCutoff' },
         DoneBeingBuilt = Sound { Bank = 'UEB',        Cue = 'UEB2301_Activate',     LodCutoff = 'UnitMove_LodCutoff' },
         UISelection    = Sound { Bank = 'Interface',  Cue = 'UEF_Select_Gun',       LodCutoff = 'UnitMove_LodCutoff' },
     },
+
     Buffs = {
         Regen = {
             Level1 = 3,
@@ -17,7 +20,9 @@ UnitBlueprint{
             Level5 = 15,
         },
     },
+
     BuildIconSortPriority = 110,
+
     Categories = {
         "BUILTBYTIER3COMMANDER",
         "BUILTBYTIER3ENGINEER",
@@ -33,6 +38,9 @@ UnitBlueprint{
         "UEF",
         "VISIBLETORECON",
     },
+
+    CollisionOffsetY = -0.4,
+
     Defense = {
         ArmorType = "Structure",
         Health = 7500,
@@ -40,6 +48,7 @@ UnitBlueprint{
         RegenRate = 3,
         SurfaceThreatLevel = 82.7,
     },
+
     Display = {
         Abilities = {
             "<LOC ability_aquatic>Aquatic",
@@ -73,16 +82,19 @@ UnitBlueprint{
         },
         UniformScale = 0.022,
     },
+
     Economy = {
         BuildCostEnergy = 22000,
         BuildCostMass = 2400,
         BuildTime = 2000,
         RebuildBonusIds = { "ueb2306" },
     },
+
     Footprint = {
         SizeX = 1,
         SizeZ = 1,
     },
+
     General = {
         CapCost = 2,
         CommandCaps = {
@@ -95,10 +107,13 @@ UnitBlueprint{
         SelectionPriority = 5,
         UnitName = "<LOC ueb2306_name>Brimstone",
     },
+
     Intel = { VisionRadius = 38 },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.0,
     LifeBarSize = 1.25,
+
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -119,18 +134,21 @@ UnitBlueprint{
         SkirtSizeZ = 2,
         TurnRate = 0,
     },
+
     SelectionCenterOffsetZ = -0.25,
     SelectionCenterOffsetx = 0,
     SelectionCenterOffsety = 0,
     SelectionSizeX = 1.1,
     SelectionSizeZ = 1.1,
     SelectionThickness = 0.45,
-    CollisionOffsetY = -0.4,
+
     SizeX = 1.2,
     SizeY = 1.65,
     SizeZ = 1.2,
+
     StrategicIconName = "icon_structure3_directfire",
     StrategicIconSortPriority = 200,
+
     Veteran = {
         Level1 = 16,
         Level2 = 32,
@@ -138,35 +156,46 @@ UnitBlueprint{
         Level4 = 64,
         Level5 = 80,
     },
+
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
                 Fire = Sound { Bank = 'XEL_Weapons', Cue = 'XEL0305_Plasma_Cannon', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = "RULEUBA_LowArc",
+
             CollideFriendly = false,
+
             Damage = 720,
             DamageFriendly = false,
             DamageRadius = 3,
             DamageType = "Normal",
+
             DisplayName = "Dread Cannon",
+
             EnergyDrainPerSecond = 300,
             EnergyRequired = 600,
+
             FireTargetLayerCapsTable = {
                 Land = "Land|Water|Seabed",
                 Water = "Land|Water|Seabed",
             },
             FiringRandomness = 0.1,
             FiringTolerance = 1,
+
             Label = "Gauss01",
+
             LeadTarget = true,
+
             MaxRadius = 65,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+ 
             MuzzleVelocity = 40,
+
             ProjectileId = "/projectiles/TDFIonizedPlasmaGatlingCannon01/TDFIonizedPlasmaGatlingCannon01_proj.bp",
             ProjectileLifetimeUsesMultiplier = 1.7,
+
             RackBones = {
                 {
                     MuzzleBones = { "Muzzle1" },
@@ -179,10 +208,11 @@ UnitBlueprint{
             },
             RackRecoilDistance = -8,
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RangeCategory = "UWRC_DirectFire",
+
             RateOfFire = 10,
+
             TargetCheckInterval = 2,
             TargetPriorities = {
                 "SPECIALHIGHPRI",
@@ -193,16 +223,20 @@ UnitBlueprint{
             },
             TargetRestrictDisallow = "UNTARGETABLE",
             TrackingRadius = 1.2,
+
             TurretBoneMuzzle = "Muzzle",
             TurretBonePitch = "Sleeve",
             TurretBoneYaw = "Turret",
             TurretDualManipulators = false,
+
             TurretPitch = 0,
             TurretPitchRange = 40,
             TurretPitchSpeed = 26,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 26,
+
             Turreted = true,
         },
         {

@@ -1,16 +1,21 @@
 UnitBlueprint{
     Description = "<LOC uel0108_desc>Assault Tank",
+
     AI = {
         TargetBones = { "Turret" },
     },
+
     Audio = {
         Destroyed   = Sound { Bank = 'UELDestroy', Cue = 'UEL_Destroy_Med_Land', LodCutoff = 'UnitMove_LodCutoff' },
         StartMove   = Sound { Bank = 'UEL',        Cue = 'UEL0201_Move_Start',   LodCutoff = 'UnitMove_LodCutoff' },
         StopMove    = Sound { Bank = 'UEL',        Cue = 'UEL0201_Move_Stop',    LodCutoff = 'UnitMove_LodCutoff' },
         UISelection = Sound { Bank = 'Interface',  Cue = 'UEF_Select_Tank',      LodCutoff = 'UnitMove_LodCutoff' },
     },
+
     Buffs = {},
+
     BuildIconSortPriority = 40,
+
     Categories = {
         "BUILTBYTIER1FACTORY",
         "BUILTBYTIER2FACTORY",
@@ -24,6 +29,7 @@ UnitBlueprint{
         "UEF",
         "VISIBLETORECON",
     },
+
     Defense = {
         ArmorType = "Normal",
         Health = 450,
@@ -31,6 +37,7 @@ UnitBlueprint{
         RegenRate = 0.2,
         SurfaceThreatLevel = 3.9,
     },
+
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -77,11 +84,13 @@ UnitBlueprint{
         },
         UniformScale = 0.016,
     },
+
     Economy = {
         BuildCostEnergy = 600,
         BuildCostMass = 130,
         BuildTime = 94,
     },
+
     General = {
         CommandCaps = {
             RULEUCC_Attack = true,
@@ -95,10 +104,13 @@ UnitBlueprint{
         FactionName = "UEF",
         UnitName = "<LOC uel0108_name>Crusher",
     },
+
     Intel = { VisionRadius = 23 },
+
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.35,
     LifeBarSize = 0.65,
+
     Physics = {
         BankingSlope = 0,
         DragCoefficient = 0.2,
@@ -117,19 +129,24 @@ UnitBlueprint{
         TurnRadius = 0,
         TurnRate = 40,
     },
+
     SelectionCenterOffsetZ = -0.0,
     SelectionSizeX = 0.35,
     SelectionSizeZ = 0.55,
     SelectionThickness = 0.5,
+
     SizeX = 0.45,
     SizeY = 0.3,
     SizeZ = 0.64,
+
     StrategicIconName = "icon_land1_directfire2",
     StrategicIconSortPriority = 135,
+
     Transport = {
         CanFireFromTransport = false,
         TransportClass = 1,
     },
+
     Veteran = {
         Level1 = 3,
         Level2 = 6,
@@ -137,28 +154,37 @@ UnitBlueprint{
         Level4 = 12,
         Level5 = 15,
     },
+
     Weapon = {
         {
             Audio = {
                 Fire = Sound { Bank = 'UELWeapon', Cue = 'UEL0202_Cannon_Dbl', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = "RULEUBA_LowArc",
+
             CollideFriendly = false,
+
             Damage = 88,
             DamageFriendly = false,
             DamageRadius = 1.0,
             DamageType = "Normal",
+
             DisplayName = "Gauss Cannon",
+
             FireTargetLayerCapsTable = { Land = "Land|Water" },
             FiringRandomness = 0.1,
             FiringRandomnessWhileMoving = 0.6,
             FiringTolerance = 2,
+
             Label = "MainGun",
+
             MaxRadius = 23,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 25,
+
             ProjectileId = "/projectiles/TDFGauss01/TDFGauss01_proj.bp",
+
             RackBones = {
                 {
                     MuzzleBones = { "Muzzle" },
@@ -166,11 +192,11 @@ UnitBlueprint{
                 },
             },
             RackRecoilDistance = -8,
-            RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RangeCategory = "UWRC_DirectFire",
+
             RateOfFire = 0.5,
+
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 "SPECIALHIGHPRI",
@@ -181,16 +207,20 @@ UnitBlueprint{
             },
             TargetRestrictDisallow = "UNTARGETABLE",
             TrackingRadius = 1.2,
+
             TurretBoneMuzzle = "Muzzle",
             TurretBonePitch = "Sleeve",
             TurretBoneYaw = "Turret",
             TurretDualManipulators = false,
+
             TurretPitch = 0,
             TurretPitchRange = 45,
             TurretPitchSpeed = 40,
+
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 48,
+
             Turreted = true,
         },
     },

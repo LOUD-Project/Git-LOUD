@@ -23,9 +23,9 @@ UAL0204 = Class(AWalkingLandUnit) {
                 for k, v in weaponBones do 
                     CreateBoneEffects( self.unit, v, self.unit.Army, EffectTemplate.WeaponSteam01 ) 
                 end
-                
+   
                 CreateBoneEffects( self.unit, 'ual0204', self.unit.Army, Custom_4D_EffectTemplate.ConcussionRing )
-                
+   
                 SniperWeapon.PlayFxMuzzleSequence(self)
             end,
         },                
@@ -53,8 +53,9 @@ UAL0204 = Class(AWalkingLandUnit) {
             for i = 1, self:GetWeaponCount() do
             
                 local wep = self:GetWeapon(i)
-                
+   
                 wep:ChangeMaxRadius(wep:GetBlueprint().MaxRadius * 1.25)
+
                 wep:AddDamageMod(wep:GetBlueprint().Damage * 0.25)       
             end 
             
@@ -63,8 +64,9 @@ UAL0204 = Class(AWalkingLandUnit) {
             for i = 1, self:GetWeaponCount() do
             
                 local wep = self:GetWeapon(i)
-                
+   
                 wep:ChangeMaxRadius(wep:GetBlueprint().MaxRadius )
+                
                 wep:AddDamageMod(wep:GetBlueprint().Damage * -0.25)                   
             end 
             

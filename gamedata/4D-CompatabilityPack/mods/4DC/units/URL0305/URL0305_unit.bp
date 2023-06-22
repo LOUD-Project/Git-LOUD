@@ -1,11 +1,13 @@
 UnitBlueprint{
     Description = "<LOC url0305_desc>Amphibious Attack Bot",
+
     Audio = {
         Destroyed   = Sound { Bank = 'URLDestroy', Cue = 'URL_Destroy_Land',   LodCutoff = 'UnitMove_LodCutoff' },
         StartMove   = Sound { Bank = 'URL',        Cue = 'URL0107_Move_Start', LodCutoff = 'UnitMove_LodCutoff' },
         StopMove    = Sound { Bank = 'URL',        Cue = 'URL0107_Move_Stop',  LodCutoff = 'UnitMove_LodCutoff' },
         UISelection = Sound { Bank = 'Interface',  Cue = 'Cybran_Select_Bot',  LodCutoff = 'UnitMove_LodCutoff' },
     },
+
     Buffs = {
         Regen = {
             Level1 = 3,
@@ -15,7 +17,9 @@ UnitBlueprint{
             Level5 = 15,
         },
     },
+
     BuildIconSortPriority = 19,
+
     Categories = {
         "AMPHIBIOUS",
         "BUILTBYTIER3FACTORY",
@@ -29,6 +33,9 @@ UnitBlueprint{
         "TECH3",
         "VISIBLETORECON",
     },
+
+    CollisionOffsetZ = -0.075,
+
     Defense = {
         ArmorType = "Normal",
         Health = 2250,
@@ -36,6 +43,7 @@ UnitBlueprint{
         RegenRate = 2,
         SurfaceThreatLevel = 18.4,
     },
+
     Display = {
         Abilities = { "<LOC ability_amphibious>Amphibious", },
         AnimationDeath = {
@@ -72,11 +80,13 @@ UnitBlueprint{
         },
         UniformScale = 0.01,
     },
+
     Economy = {
         BuildCostEnergy = 7250,
         BuildCostMass = 725,
         BuildTime = 362,
     },
+
     General = {
         CommandCaps = {
             RULEUCC_Attack = true,
@@ -91,13 +101,16 @@ UnitBlueprint{
         Icon = "amph",
         UnitName = "<LOC url0305_name>Crawfish",
     },
+
     Intel = {
         VisionRadius = 28,
         WaterVisionRadius = 23,
     },
+
     LifeBarHeight = 0.09,
     LifeBarOffset = 0.3,
     LifeBarSize = 1,
+
     Physics = {
         BankingSlope = 0,
         DragCoefficient = 0.2,
@@ -112,21 +125,25 @@ UnitBlueprint{
         TurnRate = 70,
         WaterSpeedMultiplier = 1.1,
     },
+
     SelectionCenterOffsetX = 0,
     SelectionCenterOffsetZ = -0.075,
     SelectionSizeX = 0.75,
     SelectionSizeZ = 0.95,
     SelectionThickness = 0.6,
-    CollisionOffsetZ = -0.075,
+
     SizeX = 1.0,
     SizeY = 1.0,
     SizeZ = 1.0,
+
     StrategicIconName = "icon_seabed3_directfire",
     StrategicIconSortPriority = 125,
+
     Transport = {
         CanFireFromTransport = false,
         TransportClass = 3,
     },
+
     Veteran = {
         Level1 = 10,
         Level2 = 20,
@@ -134,31 +151,41 @@ UnitBlueprint{
         Level4 = 40,
         Level5 = 50,
     },
+
     Weapon = {
         {
             Audio = {
                 Fire = Sound { Bank = 'URLWeapon', Cue = 'URB2101_Laser_Auto', LodCutoff = 'Weapon_LodCutoff' },
             },
+
             BallisticArc = "RULEUBA_LowArc",
+
             CollideFriendly = false,
+
             Damage = 90,
             DamageType = "Normal",
+
             DisplayName = "Laser",
+
             FireTargetLayerCapsTable = {
                 Land = "Land|Water",
                 Water = "Land|Water",
             },
             FiringRandomness = 0.1,
             FiringTolerance = 2,
+
             HeadingArcCenter = 0,
             HeadingArcRange = 120,
+
             Label = "MainGun",
+
             MaxRadius = 28,
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+
             MuzzleVelocity = 40,
+
             ProjectileId = "/projectiles/CDFLaserDisintegrator04/CDFLaserDisintegrator04_proj.bp",
             ProjectileLifetime = 1,
+
             RackBones = {
                 {
                     MuzzleBones = { "MuzzleRight" },
@@ -175,10 +202,11 @@ UnitBlueprint{
             },
             RackRecoilDistance = -12,
             RackReloadTimeout = 10,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
+
             RangeCategory = "UWRC_DirectFire",
+
             RateOfFire = 2,
+
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 "SPECIALHIGHPRI",
@@ -189,16 +217,20 @@ UnitBlueprint{
             },
             TargetRestrictDisallow = "UNTARGETABLE",
             TrackingRadius = 1.1,
+
             TurretBoneMuzzle = "Muzzle",
             TurretBonePitch = "sleeve",
             TurretBoneYaw = "turret",
             TurretDualManipulators = false,
+
             TurretPitch = 10,
             TurretPitchRange = 55,
             TurretPitchSpeed = 80,
+
             TurretYaw = 0,
             TurretYawRange = 120,
             TurretYawSpeed = 90,
+
             Turreted = true,
         },
     },
