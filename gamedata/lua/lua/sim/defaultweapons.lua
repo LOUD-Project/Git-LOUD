@@ -989,7 +989,7 @@ DefaultProjectileWeapon = Class(Weapon) {
                 rackInfo = bp.RackBones[self.CurrentRackSalvoNumber]
 
 				MuzzlesToBeFired = LOUDGETN(bp.RackBones[self.CurrentRackSalvoNumber].MuzzleBones)
-                numMuzzlesFiring = bp.MuzzleSalvoSize
+                numMuzzlesFiring = bp.MuzzleSalvoSize or 1
 
                 -- this is a highly questionable statement since it always overrides the MuzzleSalvoSize
                 -- IF the number of muzzles is different and the MuzzleSalvoDelay is zero
