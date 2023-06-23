@@ -1,3 +1,14 @@
+### Release 23-06-2023
+
+LUA 6.3.09
+4DC for LOUD 6.3.02
+
+- a major bug fix for threat calculations, over 150 units were reporting ZERO threat
+- introduction of new AI metric, PRODUCTION FOCUS, which monitors the production focus of the enemy
+- some target changes for early bomber/gunship groups
+- data reductions for 4DC
+
+
 ### Release 02-06-2023
 
 LUA 6.3.08
