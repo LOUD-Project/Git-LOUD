@@ -4276,10 +4276,11 @@ function ParseIntelThread( aiBrain )
 	-- this moves all the local creation up front so NO locals need to be declared in the primary loop
 	local bp, counter, dupe, gametime, newthreat, newtime, oldthreat, threatamounttrigger, threatcategories, threatreport, threats, totalThreat
 	local DisplayIntelPoints, IntelDialog, LastUpdate, numchecks, Permanent, Position, rebuild, ReportRatios, Threat, Type, units, usedticks, x1,x2,x3
-    local aircount, airidle, landcount, landidle
+    local aircount, airidle, landcount, landidle, navcount, navidle
     
     local airtot = 0
     local landtot = 0
+    local navaltot = 0
    
 	local ALLBPS = __blueprints
     local BRAINS = ArmyBrains
@@ -4801,8 +4802,6 @@ function ParseIntelThread( aiBrain )
             -----------------
             totalThreat = 0
             oldthreat = 0
-            
-            LOG("*AI DEBUG Airtot is "..airtot)
 
             if EnemyData['Air']['Total'] > 0 or airtot > 0 then
             
@@ -4812,13 +4811,15 @@ function ParseIntelThread( aiBrain )
 
                         units = GetListOfUnits( brain, AIRUNITS, false, true)
 
-                        LOG("*AI DEBUG Enemy "..brain.Nickname.." has "..table.getn(units).." air units")
+                        if table.getn(units) > 0 then
+                            LOG("*AI DEBUG Enemy "..brain.Nickname.." has "..table.getn(units).." air units")
+                        end
                         
                         for _,v in units do
                     
                             bp = ALLBPS[v.BlueprintID].Defense
                             
-                            LOG("*AI DEBUG Enemy "..v.BlueprintID.." Threats are "..repr(bp))
+                            --LOG("*AI DEBUG Enemy "..v.BlueprintID.." Threats are "..repr(bp))
 
                             oldthreat = oldthreat + bp.AirThreatLevel + bp.SurfaceThreatLevel
 
@@ -4828,7 +4829,9 @@ function ParseIntelThread( aiBrain )
                     
                         units = GetListOfUnits( brain, AIRUNITS, false, true)
 
-                        LOG("*AI DEBUG Ally "..brain.Nickname.." has "..table.getn(units).." air units")
+                        if table.getn(units) > 0 then
+                            LOG("*AI DEBUG Ally "..brain.Nickname.." has "..table.getn(units).." air units")
+                        end
 
                         for _,v in units do
                     
@@ -4839,11 +4842,13 @@ function ParseIntelThread( aiBrain )
                         end                    
                     end
                 end
-                
-                LOG("*AI DEBUG "..aiBrain.Nickname.." Enemy Threat is "..oldthreat )
+
+
 
                 if oldthreat > 0 then
-                
+
+                    LOG("*AI DEBUG "..aiBrain.Nickname.." Enemy Air Threat is "..oldthreat )                
+
                     aiBrain.AirRatio = LOUDMAX( LOUDMIN( (totalThreat / oldthreat), 10 ), 0.011)
                     
                 else
@@ -5004,34 +5009,6 @@ function ParseIntelThread( aiBrain )
                 
                     units = GetListOfUnits( brain, categories.FACTORY, false, true)
                     
-                    landcount = 0
-                    landidle = 0
-                    landtot = 0
-                    
-                    for _,u in EntityCategoryFilterDown( categories.LAND, units) do
-                    
-                        landcount = landcount + 1
-                        
-                        if u:GetFractionComplete() == 1 then
-
-                            if not u:IsUnitState('Building') then 
-                                landidle = landidle + 1
-                                landtot = landtot + .3
-                            else
-                                if EntityCategoryContains( categories.TECH1, u) then
-                                    landtot = landtot + 1
-                                elseif EntityCategoryContains( categories.TECH2, u) then
-                                    landtot = landtot + 4
-                                elseif EntityCategoryContains( categories.TECH3, u) then
-                                    landtot = landtot + 10
-                                end
-                            end
-                        end
-
-                    end
-                    
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." Enemy "..brain.Nickname.." LAND Fac Count "..landcount.."  IDLE "..landidle.." Value "..landtot)
-                    
                     aircount = 0
                     airidle = 0
                     airtot = 0
@@ -5058,9 +5035,72 @@ function ParseIntelThread( aiBrain )
 
                     end
 
-                    LOG("*AI DEBUG "..aiBrain.Nickname.." Enemy "..brain.Nickname.." AIR  Fac Count "..aircount.."  IDLE "..airidle.." Value "..airtot)
+                    if airtot > 0 then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." Enemy "..brain.Nickname.." AIR  Fac Count "..aircount.."  IDLE "..airidle.." Value "..airtot)
+                    end
+
+                    landcount = 0
+                    landidle = 0
+                    landtot = 0
+                    
+                    for _,u in EntityCategoryFilterDown( categories.LAND, units) do
+                    
+                        landcount = landcount + 1
+                        
+                        if u:GetFractionComplete() == 1 then
+
+                            if not u:IsUnitState('Building') then 
+                                landidle = landidle + 1
+                                landtot = landtot + .3
+                            else
+                                if EntityCategoryContains( categories.TECH1, u) then
+                                    landtot = landtot + 1
+                                elseif EntityCategoryContains( categories.TECH2, u) then
+                                    landtot = landtot + 4
+                                elseif EntityCategoryContains( categories.TECH3, u) then
+                                    landtot = landtot + 10
+                                end
+                            end
+                        end
+
+                    end
+                    
+                    if landtot > 0 then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." Enemy "..brain.Nickname.." LAND Fac Count "..landcount.."  IDLE "..landidle.." Value "..landtot)
+                    end
+            
+                    navcount = 0
+                    navidle = 0
+                    navaltot = 0
+                    
+                    for _,u in EntityCategoryFilterDown( categories.NAVAL, units) do
+                    
+                        navcount = navcount + 1
+                        
+                        if u:GetFractionComplete() == 1 then
+
+                            if not u:IsUnitState('Building') then 
+                                navidle = navidle + 1
+                                navaltot = navaltot + .3
+                            else
+                                if EntityCategoryContains( categories.TECH1, u) then
+                                    navaltot = navaltot + 1
+                                elseif EntityCategoryContains( categories.TECH2, u) then
+                                    navaltot = navaltot + 4
+                                elseif EntityCategoryContains( categories.TECH3, u) then
+                                    navaltot = navaltot + 10
+                                end
+                            end
+                        end
+
+                    end
+                    
+                    if navaltot > 0 then
+                        LOG("*AI DEBUG "..aiBrain.Nickname.." Enemy "..brain.Nickname.." NAVAL Fac Count "..navcount.."  IDLE "..navidle.." Value "..navaltot)
+                    end
 
                 end
+
             end
 
             if ReportRatios then
