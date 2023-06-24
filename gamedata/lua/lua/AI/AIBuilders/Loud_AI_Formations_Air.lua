@@ -329,7 +329,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			
             PrioritizedCategories = {categories.ENGINEER, categories.ANTIAIR, categories.MOBILE - categories.AIR},
 			
-			SearchRadius = 45,	
+			SearchRadius = 65,	
 			
             UseFormation = 'AttackFormation',
         },
@@ -1088,7 +1088,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			
             PrioritizedCategories = {categories.ANTIAIR, categories.ENGINEER, categories.MOBILE - categories.AIR},
 			
-			SearchRadius = 35,
+			SearchRadius = 55,
 			
             UseFormation = 'AttackFormation',
         },
@@ -1134,7 +1134,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			
             PrioritizedCategories = {categories.GROUNDATTACK, categories.LAND * categories.ANTIAIR, categories.EXPERIMENTAL - categories.AIR, categories.MOBILE - categories.AIR, categories.ECONOMIC, categories.ENGINEER, categories.NUKE, categories.DEFENSE - categories.WALL},
 			
-			SearchRadius = 45,
+			SearchRadius = 60,
 			
             UseFormation = 'AttackFormation',
         },
@@ -1669,7 +1669,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 			
             PrioritizedCategories = {categories.SUBMARINE, categories.MOBILE * categories.NAVAL, categories.SUBMERSIBLE},
 			
-			SearchRadius = 35,	
+			SearchRadius = 60,	
 			
             UseFormation = 'AttackFormation',
         },
@@ -1711,7 +1711,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Water Map',
 			
             PrioritizedCategories = { categories.CRUISER, categories.SUBMARINE, categories.MOBILE * categories.NAVAL, categories.SUBMERSIBLE },
 			
-			SearchRadius = 60,
+			SearchRadius = 70,
 			
             UseFormation = 'AttackFormation',
         },
