@@ -3343,7 +3343,7 @@ function AirForceAI_Bomber_LOUD( self, aiBrain )
                 
                 --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." with "..LOUDGETN(GetSquadUnits( self,'Attack')).." bombers has target at "..repr(targetposition))
                 --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." target is "..repr(target:GetBlueprint().Description))
-                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." used RangeMult of "..Rangemult.." and Difficulty of "..Threatmult)
+                --LOG("*AI DEBUG "..aiBrain.Nickname.." "..self.BuilderName.." used searchradius "..searchradius.." of base "..Searchradius.." - RangeMult of "..Rangemult.." and Difficulty of "..Threatmult)
                 
                 if SecondaryAATargets[1] then
                     AACount = LOUDGETN(SecondaryAATargets)

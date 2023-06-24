@@ -329,7 +329,7 @@ BuilderGroup {BuilderGroupName = 'Air Formations - Hunt',
 			
             PrioritizedCategories = {categories.ENGINEER, categories.ANTIAIR, categories.MOBILE - categories.AIR},
 			
-			SearchRadius = 65,	
+			SearchRadius = 60,	
 			
             UseFormation = 'AttackFormation',
         },

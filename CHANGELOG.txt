@@ -1,3 +1,11 @@
+### Release 24-06-2023
+
+LUA 6.3.10
+
+- revised logging of PROUDCTION FOCUS and added Naval calculation
+- revised searchradius of small bomber/gunship/torpedo formations -- 45 >> 60
+
+
 ### Release 23-06-2023
 
 LUA 6.3.09
