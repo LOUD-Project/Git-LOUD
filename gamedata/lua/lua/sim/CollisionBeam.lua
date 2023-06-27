@@ -346,7 +346,8 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
         
         self.DamageData = { DamageAmount = false, DamageType = 'Normal' }
 		
-        self.DamageData.DamageAmount = damageData.Damage or 0.1
+		-- Prefer damage from Parent Weapon's damageTable rather than blueprint
+        self.DamageData.DamageAmount = self.Weapon.damageTable.DamageAmount or damageData.Damage or 0.1
         self.DamageData.DamageType = damageData.DamageType
 
 		if damageData.DamageRadius > 0 then
