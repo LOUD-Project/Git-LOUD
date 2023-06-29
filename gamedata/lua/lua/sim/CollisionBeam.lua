@@ -249,57 +249,42 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
     -- thing it is touching changes. Expect Impacts with non-physical things like
     -- 'Air' (hitting nothing) and 'Underwater' (hitting nothing underwater).
     OnImpact = function(self, impactType, targetEntity)
-	
-        --LOG('*AI DEBUG: COLLISION BEAM ONIMPACT ', repr(self))
-        --LOG('*AI DEBUG: COLLISION BEAM ONIMPACT, WEAPON =  ', repr(self.Weapon), 'Type = ', impactType)
-        --LOG('CollisionBeam impacted with: ' .. impactType )
-        --# Possible 'type' values are:
-        --#  'Unit'
-        --#  'Terrain'
-        --#  'Water'
-        --#  'Air'
-        --#  'UnitAir'
-        --#  'Underwater'
-        --#  'UnitUnderwater'
-        --#  'Projectile'
-        --#  'Prop'
-        --#  'Shield'
-
-        -- set the damage parameters from the blueprint
-        self:SetDamageTable()
         
-        if self.DamageData.DamageAmount then
+        local damageTable = self.Weapon.damageTable
+        
+        if damageTable.DamageAmount then
 
             if impactType == 'Shield' then
 
                 -- LOUD 'marshmallow shield effect' all AOE to 0 on shields
-                if self.DamageData.DamageRadius > 0 then
-                    self.DamageData.DamageRadius = nil
+                if damageTable.DamageRadius > 0 then
+
+                    damageTable.DamageRadius = nil
                 end
 
                 -- LOUD ShieldMult effect
-                if STRINGSUB(self.DamageData.DamageType, 1, 10) == 'ShieldMult' then
+                if STRINGSUB(damageTable.DamageType, 1, 10) == 'ShieldMult' then
 
-                    local mult = TONUMBER( STRINGSUB(self.DamageData.DamageType, 11) ) or 1
-                    self.DamageData.DamageAmount = self.DamageData.DamageAmount * mult
+                    local mult = TONUMBER( STRINGSUB(damageTable.DamageType, 11) ) or 1
+
+                    damageTable.DamageAmount = damageTable.DamageAmount * mult
                 end
             end
 
             if ScenarioInfo.ProjectileDialog then
 		
-                LOG("*AI DEBUG Beam OnImpact targetType is "..repr(impactType))
-                LOG("*AI DEGUG Beam OnImpact data is "..repr(self.DamageData))
+                LOG("*AI DEBUG Beam OnImpact targetType is "..repr(impactType).." data is "..repr(damageTable) )
 			
                 if targetEntity then
                     LOG("*AI DEBUG Beam Target entity is "..repr(targetEntity.BlueprintID))
                 end
             end
 
-            if self.DamageData.Buffs then
-                self:DoUnitImpactBuffs( targetEntity )
+            if damageTable.Buffs then
+                self:DoUnitImpactBuffs( targetEntity, damageTable )
             end		
 
-			self:DoDamage( self:GetLauncher() or self, self.DamageData, targetEntity)
+			self:DoDamage( self:GetLauncher() or self, damageTable, targetEntity)
 		end
 
         local ImpactEffects = false
@@ -347,7 +332,7 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
     end,
 
     GetCollideFriendly = function(self)
-        return self.DamageData.CollideFriendly
+        return self.damageTable.CollideFriendly
     end,
 
     SetDamageTable = function(self)
@@ -398,15 +383,13 @@ CollisionBeam = Class(moho.CollisionBeamEntity) {
     end,
 
     --When this beam impacts with the target, do any buffs that have been passed to it.
-    DoUnitImpactBuffs = function(self, target)
-        local data = self.DamageData
-        if data.Buffs then
-            for k, v in data.Buffs do
-                if v.Add.OnImpact == true and not LOUDENTITY((LOUDPARSE(v.TargetDisallow) or ''), target) 
-                    and LOUDENTITY((LOUDPARSE(v.TargetAllow) or categories.ALLUNITS), target) then
+    DoUnitImpactBuffs = function(self, target, data)
+
+        for k, v in data.Buffs do
+
+            if v.Add.OnImpact == true and not LOUDENTITY((LOUDPARSE(v.TargetDisallow) or ''), target) and LOUDENTITY((LOUDPARSE(v.TargetAllow) or categories.ALLUNITS), target) then
                     
-                    target:AddBuff(v)
-                end
+                target:AddBuff(v)
             end
         end
     end,
