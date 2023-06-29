@@ -95,7 +95,7 @@ end
 
 local IsEnemyCrushingAir = function( builder, aiBrain, unit )
 
-    if aiBrain.AirRatio <= 1.0 and aiBrain.CycleTime > 300 then
+    if aiBrain.AirRatio <= 1.2 and aiBrain.CycleTime > 300 then
 	
 		return builder.Priority + 100, true	
 
