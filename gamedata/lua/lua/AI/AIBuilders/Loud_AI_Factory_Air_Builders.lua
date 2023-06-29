@@ -27,9 +27,9 @@ end
 -- this function will turn a builder off if the enemy is not active in the water
 local IsEnemyNavalActive = function( self, aiBrain, manager )
 
-	if aiBrain.NavalRatio and (aiBrain.NavalRatio > .01 and aiBrain.NavalRatio < 10) then
+	if aiBrain.NavalRatio and (aiBrain.NavalRatio > .011 and aiBrain.NavalRatio < 10) then
         --LOG("*AI DEBUG "..aiBrain.Nickname.." enemy naval is active at "..repr(aiBrain.NavalRatio))
-		return self.Priority, true
+		return 600, true
 
 	end
 
@@ -40,7 +40,7 @@ end
 -- this function will turn a builder off if the enemy is not active in the air
 local IsEnemyAirActive = function(self,aiBrain,manager)
 
-	if aiBrain.AirRatio and (aiBrain.AirRatio > .01 and aiBrain.AirRatio < 10) then
+	if aiBrain.AirRatio and (aiBrain.AirRatio > .011 and aiBrain.AirRatio < 10) then
 	
 		return self.Priority, true
 
@@ -90,7 +90,7 @@ end
 -- T2 is produced as long as there are T2 factories
 -- T2 is produced while there are less than 3 T3 Air Factories
 
--- ALL AIR BUILDERS SIT AT 600 PRIORITY except for highneed transports
+-- ALL AIR BUILDERS SIT AT 600 PRIORITY except for highneed transports and torp bombers
 -- usually controlled by air ratio and number of factories producing that unit
 
 -- T1 - T2 Bombers were not controlled by the Air Ratio. 

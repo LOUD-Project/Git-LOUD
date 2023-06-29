@@ -24,7 +24,7 @@ local GetPosition = moho.entity_methods.GetPosition
 -- this differs as we use 5 as the upper limit, rather than 10
 local IsEnemyNavalActive = function(self,aiBrain,manager)
 
-	if aiBrain.NavalRatio and (aiBrain.NavalRatio > .01 and aiBrain.NavalRatio <= 5) then
+	if aiBrain.NavalRatio and (aiBrain.NavalRatio > .011 and aiBrain.NavalRatio <= 5) then
 	
 		return self.Priority, false	-- standard naval priority -- 
 
@@ -94,12 +94,16 @@ end
 
 local IsEnemyCrushingNaval = function( builder, aiBrain, unit )
 
-    if aiBrain.NavalRatio <= 1.0 and aiBrain.CycleTime > 300 then
-	
-		return builder.Priority + 100, true	
+	if aiBrain.NavalRatio and ( aiBrain.NavalRatio > .011 and aiBrain.NavalRatio <= 1.2 ) then
 
-    end
+        if aiBrain.CycleTime > 300 then
+	
+            return builder.Priority + 100, true	
+
+        end
     
+    end
+
     return builder.Priority, false
 end
 
