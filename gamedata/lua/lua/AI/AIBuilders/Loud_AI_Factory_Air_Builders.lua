@@ -336,7 +336,9 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Torpedo Bombers',
 		PriorityFunction = IsEnemyNavalActive,
 		
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
+            { LUTL, 'NavalStrengthRatioLessThan', { 1.2 } },        
+
+            { LUTL, 'AirStrengthRatioGreaterThan', { 1.2 } },
             
 			-- dont start production until you have at least 2+ T2/T3 factories at location
 			{ LUTL, 'FactoryGreaterAtLocation', { 'LocationType', 1, categories.FACTORY * categories.AIR - categories.TECH1 }},
@@ -357,7 +359,9 @@ BuilderGroup {BuilderGroupName = 'Factory Production - Torpedo Bombers',
 		PriorityFunction = IsEnemyNavalActive,
 		
         BuilderConditions = {
-            { LUTL, 'AirStrengthRatioGreaterThan', { 2 } },
+            { LUTL, 'NavalStrengthRatioLessThan', { 1.2 } },
+            
+            { LUTL, 'AirStrengthRatioGreaterThan', { 1.2 } },
 
 			-- dont produce unless you have 3+ T3 Air factories overall
 			{ LUTL, 'HaveGreaterThanUnitsWithCategory', { 2, categories.FACTORY * categories.AIR * categories.TECH3 }},
