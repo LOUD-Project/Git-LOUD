@@ -785,63 +785,97 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
                 end
             end
 
+        -- WEAPON ORIENTED BUFFS --
+        -- The problem with these buffs is that they try to apply to ALL weapons on the unit
+        -- There is no current mechanic to specify precisely which weapon is affected
+
+        -- I have (commented out atm) a method to have the buff specify which weapon # to affect
+        -- but this is rather limited, since it implies knowledge of a specific weapon in the blueprint
+        -- and that weapon # may or may not even be there, let alone, be a valid weapon (targeting lasers)
+
         elseif atype == 'WeaponsEnable' then
 
             for i = 1, unit:GetWeaponCount() do
-                local wep = unit:GetWeapon(i)
-                local val, bool = BuffCalculate(unit, buffName, 'WeaponsEnable', 0, true)
 
-                wep:SetWeaponEnabled(bool)
+                --if vals.Weapon == i then
+
+                    local wep = unit:GetWeapon(i)
+
+                    local val, bool = BuffCalculate(unit, buffName, 'WeaponsEnable', 0, true)
+
+                    wep:SetWeaponEnabled(bool)
+                --end
             end
 
         elseif atype == 'Damage' then
-
+--[[        
+            if not vals.Weapon then
+            
+                LOG("*AI DEBUG You must specify a weapon number to buff Damage")
+                
+                continue
+            end
+--]]
             for i = 1, unit:GetWeaponCount() do
+            
+                --if vals.Weapon == i then
 
-                local wep = unit:GetWeapon(i)
-                if wep.Label != 'DeathWeapon' and wep.Label != 'DeathImpact' then
-                    local wepbp = wep.bp
-                    local wepdam = wepbp.Damage
-                    local val = BuffCalculate(unit, buffName, 'Damage', wepdam)
+                    local wep = unit:GetWeapon(i)
 
-                    if val >= ( math.abs(val) + 0.5 ) then
-                        val = math.ceil(val)
-                    else
-                        val = math.floor(val)
+                    if wep.bp.Label != 'DeathWeapon' and wep.bp.Label != 'DeathImpact' then
+
+                        local wepbp = wep.bp
+                        local wepdam = wepbp.Damage
+
+                        local val = BuffCalculate(unit, buffName, 'Damage', wepdam)
+
+                        if val >= ( math.abs(val) + 0.5 ) then
+                            val = math.ceil(val)
+                        else
+                            val = math.floor(val)
+                        end
+                    
+                        LOG("*AI DEBUG BUFF Weapon "..i.." "..wep.bp.Label.." Damage is "..repr(val))
+
+                        wep:ChangeDamage(val)
                     end
                     
-                    LOG("*AI DEBUG BUFF Weapon Damage is "..repr(val))
-
-                    wep:ChangeDamage(val)
-                    -- wep.damageTable.DamageAmount = val
-                end
+                --end
+                
             end
 
         elseif atype == 'DamageRadius' then
 
             for i = 1, unit:GetWeaponCount() do
 
-                local wep = unit:GetWeapon(i)
-                local wepbp = wep.bp
-                local weprad = wepbp.DamageRadius
-                local val = BuffCalculate(unit, buffName, 'DamageRadius', weprad)
+                --if vals.Weapon == i then
 
-                wep:SetDamageRadius(val)
+                    local wep = unit:GetWeapon(i)
+                    local wepbp = wep.bp
+                    local weprad = wepbp.DamageRadius
+
+                    local val = BuffCalculate(unit, buffName, 'DamageRadius', weprad)
+
+                    wep:SetDamageRadius(val)
+                --end
             end
             
         elseif atype == 'FiringRandomness' then
         
             for i = 1, unit:GetWeaponCount() do
             
-                local wep = unit:GetWeapon(i)
-                local wepbp = wep.bp
-                local wepfr = wepbp.FiringRandomness
+                --if vals.Weapon == i then
 
-                local val = BuffCalculate(unit, buffName, 'FiringRandomness', 1)
+                    local wep = unit:GetWeapon(i)
+                    local wepbp = wep.bp
+                    local wepfr = wepbp.FiringRandomness
 
-                --LOG("*AI DEBUG Weapon Randomness is "..repr(wepfr * val))
+                    local val = BuffCalculate(unit, buffName, 'FiringRandomness', 1)
+
+                    --LOG("*AI DEBUG Weapon Randomness is "..repr(wepfr * val))
                 
-                wep:SetFiringRandomness( wepfr * val )
+                    wep:SetFiringRandomness( wepfr * val )
+                --end
 
             end
 
@@ -849,12 +883,16 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 
             for i = 1, unit:GetWeaponCount() do
 
-                local wep = unit:GetWeapon(i)
-                local wepbp = wep.bp
-                local weprad = wepbp.MaxRadius
-                local val = BuffCalculate(unit, buffName, 'MaxRadius', weprad)
+                --if vals.Weapon == i then
 
-                wep:ChangeMaxRadius(val)
+                    local wep = unit:GetWeapon(i)
+                    local wepbp = wep.bp
+                    local weprad = wepbp.MaxRadius
+                    local val = BuffCalculate(unit, buffName, 'MaxRadius', weprad)
+
+                    wep:ChangeMaxRadius(val)
+                --end
+
             end
 
 ----   CLOAKING is a can of worms.  Revisit later.
